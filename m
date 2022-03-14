@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A4D74D8DF5
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Mar 2022 21:11:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1C904D8DF6
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Mar 2022 21:12:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 14B3218D1;
-	Mon, 14 Mar 2022 21:11:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14B3218D1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3D84217E6;
+	Mon, 14 Mar 2022 21:11:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D84217E6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647288717;
-	bh=eQ0F73q5x+cYEqTjfiXAvssGk9YEa8QeRTdoWQa1dpc=;
+	s=default; t=1647288734;
+	bh=o9mAhem1fMAhHakxRbYGaHAwvOG4JLgvwqq9NzfK0zE=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=H9Nh5R5EQJrWEAeu9TZajeSxRjnEmuZR75ohZssvtaG/Lj90YWelLgziTvLtq4gWq
-	 0kT6hNNaWf4lqYJ5HhR5mPEH31qeiyKTztgcv7kGs3iFSKmLNuO6xGX05WM8ZLBLNv
-	 20hhWU6o0NwjeApMtW3s/kbdfcpdB8e5zdJqRMI4=
+	b=e2loMKjwSvXwrVikIYYnjwsToHzF2DUTwVfYwm3aTB0laAgycfyr5RAnCKry4XOLs
+	 nd+jXXgYTdIf+YoULwfoxWQ4LLAbq5umMDo0IImSZe24PeneiqfEPj6U+g2WHzOAy1
+	 Cnvp8TBwe5mjxd8CsTRyV4YvcyhEWLgU5+wCTzEY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 730CFF805B4;
+	by alsa1.perex.cz (Postfix) with ESMTP id F1ED5F805BF;
 	Mon, 14 Mar 2022 21:06:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 38BCAF80566; Mon, 14 Mar 2022 21:06:06 +0100 (CET)
+ id 07437F8056F; Mon, 14 Mar 2022 21:06:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 32ECDF80525
- for <alsa-devel@alsa-project.org>; Mon, 14 Mar 2022 21:05:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32ECDF80525
+ by alsa1.perex.cz (Postfix) with ESMTPS id E4F19F80529
+ for <alsa-devel@alsa-project.org>; Mon, 14 Mar 2022 21:05:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4F19F80529
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="GvtV/CP3"
+ header.b="PYEjsOzm"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647288351; x=1678824351;
+ t=1647288352; x=1678824352;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=eQ0F73q5x+cYEqTjfiXAvssGk9YEa8QeRTdoWQa1dpc=;
- b=GvtV/CP3BIiCkMBwi/ErUjoak2dDLyVjZCDihzW/6yiMqxIDpZEXDnAt
- nNOC/8oKvai+0L34xAUDikPF1TxoxYk6LGdvZOPMGLKQFO+8e3HUCDPhg
- WnanOc72/Ve0rqCU40FSYPqaWxTnCA1AF44c053j3r84IiBFtZoG2Ps9F
- V+vYNJggzr5zKyO6Exrg4a5dxAiSLZD+Rk7cjNTbd1k70D9Io68n1+HXh
- dg9PUgMAX9gHi90CclVbxBrfBN5HZPJ+APymRZefJI+DC1eWrR6rK5ppN
- zzo7CjpZrqY6ByEwJ3803QCiO3y4THdNor8AJu1d6UcglJnVRxtymN34O g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10286"; a="342563487"
-X-IronPort-AV: E=Sophos;i="5.90,181,1643702400"; d="scan'208";a="342563487"
+ bh=o9mAhem1fMAhHakxRbYGaHAwvOG4JLgvwqq9NzfK0zE=;
+ b=PYEjsOzmz5+KXRfz5HjxGJFOMmStVUQiUeh9pEb7DvOl6wg/Z2Cp4Tf5
+ uAhwF4ne7hPTp+Ouzr+IC1h/TqhUbL1EBnHNuQoMuGWjsbdJjYDhaipbh
+ lbqj4RLm+QxxxBzt5jhpDVl0yTYUy1BSRo8TmfEJV06IRlOW3Uz3KyH/P
+ Nee3cns3aH8flzHrKRY1OvLTwL/Mu3lSTP1JbmdSj3j+ivQIVXzMxji2/
+ x6TWIAsLH1YL72T0KaBatH2gyvEJsTQmGE2SlA8LraDuZHu450BezomK8
+ RBlYDIGWDmE4nNagNAIcVmLTt119HXhKZu0YOAAmftrcURzFwxVU5kPvl Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10286"; a="342563488"
+X-IronPort-AV: E=Sophos;i="5.90,181,1643702400"; d="scan'208";a="342563488"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  14 Mar 2022 13:05:34 -0700
-X-IronPort-AV: E=Sophos;i="5.90,181,1643702400"; d="scan'208";a="634339912"
+X-IronPort-AV: E=Sophos;i="5.90,181,1643702400"; d="scan'208";a="634339913"
 Received: from pmishr1-mobl1.amr.corp.intel.com (HELO
  rsridh2-mobl1.localdomain) ([10.254.25.117])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  14 Mar 2022 13:05:34 -0700
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 16/18] ASoC: SOF: topology: Make control parsing IPC agnostic
-Date: Mon, 14 Mar 2022 13:05:18 -0700
-Message-Id: <20220314200520.1233427-18-ranjani.sridharan@linux.intel.com>
+Subject: [PATCH 17/18] ASoC: SOF: topology: Make widget binding IPC agnostic
+Date: Mon, 14 Mar 2022 13:05:19 -0700
+Message-Id: <20220314200520.1233427-19-ranjani.sridharan@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220314200520.1233427-1-ranjani.sridharan@linux.intel.com>
 References: <20220314200520.1233427-1-ranjani.sridharan@linux.intel.com>
@@ -93,726 +93,485 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Make the control parser in topology IPC agnostic by introducing 2 new
-topology IPC ops, control_setup and control_free. These ops handle
-setting up/freeing the control data in the IPC format based on the IPC
-version.
-
-Along with this, modify the struct snd_sof_control to remove the
-IPC-specific field, control_data and replace it with the void pointer to
-ipc_control_data. Also, add a few new fields to store all the
-information parsed from topology.
-
-Finally, define and set the control setup/free ops for IPC3.
+Make widget binding in the topology parser IPC agnostic by introducing a
+new op, bind_event, in struct ipc_tplg_widget_ops. Also set the op
+for all widget types in the IPC3 topology ops.
 
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/control.c       |  26 ++---
- sound/soc/sof/ipc.c           |   2 +-
- sound/soc/sof/ipc3-topology.c | 151 ++++++++++++++++++++++++++++-
- sound/soc/sof/sof-audio.h     |  20 +++-
- sound/soc/sof/topology.c      | 177 ++++++++++------------------------
- 5 files changed, 235 insertions(+), 141 deletions(-)
+ sound/soc/sof/ipc3-topology.c | 192 +++++++++++++++++++++++++++++-
+ sound/soc/sof/topology.c      | 217 ++--------------------------------
+ 2 files changed, 202 insertions(+), 207 deletions(-)
 
-diff --git a/sound/soc/sof/control.c b/sound/soc/sof/control.c
-index ef61936dad59..21ee0545945d 100644
---- a/sound/soc/sof/control.c
-+++ b/sound/soc/sof/control.c
-@@ -67,7 +67,7 @@ static inline u32 ipc_to_mixer(u32 value, u32 *volume_map, int size)
- 
- static void snd_sof_refresh_control(struct snd_sof_control *scontrol)
- {
--	struct sof_ipc_ctrl_data *cdata = scontrol->control_data;
-+	struct sof_ipc_ctrl_data *cdata = scontrol->ipc_control_data;
- 	struct snd_soc_component *scomp = scontrol->scomp;
- 	int ret;
- 
-@@ -97,7 +97,7 @@ int snd_sof_volume_get(struct snd_kcontrol *kcontrol,
- 	struct soc_mixer_control *sm =
- 		(struct soc_mixer_control *)kcontrol->private_value;
- 	struct snd_sof_control *scontrol = sm->dobj.private;
--	struct sof_ipc_ctrl_data *cdata = scontrol->control_data;
-+	struct sof_ipc_ctrl_data *cdata = scontrol->ipc_control_data;
- 	unsigned int i, channels = scontrol->num_channels;
- 
- 	snd_sof_refresh_control(scontrol);
-@@ -118,7 +118,7 @@ int snd_sof_volume_put(struct snd_kcontrol *kcontrol,
- 		(struct soc_mixer_control *)kcontrol->private_value;
- 	struct snd_sof_control *scontrol = sm->dobj.private;
- 	struct snd_soc_component *scomp = scontrol->scomp;
--	struct sof_ipc_ctrl_data *cdata = scontrol->control_data;
-+	struct sof_ipc_ctrl_data *cdata = scontrol->ipc_control_data;
- 	unsigned int i, channels = scontrol->num_channels;
- 	bool change = false;
- 	u32 value;
-@@ -166,7 +166,7 @@ int snd_sof_switch_get(struct snd_kcontrol *kcontrol,
- 	struct soc_mixer_control *sm =
- 		(struct soc_mixer_control *)kcontrol->private_value;
- 	struct snd_sof_control *scontrol = sm->dobj.private;
--	struct sof_ipc_ctrl_data *cdata = scontrol->control_data;
-+	struct sof_ipc_ctrl_data *cdata = scontrol->ipc_control_data;
- 	unsigned int i, channels = scontrol->num_channels;
- 
- 	snd_sof_refresh_control(scontrol);
-@@ -185,7 +185,7 @@ int snd_sof_switch_put(struct snd_kcontrol *kcontrol,
- 		(struct soc_mixer_control *)kcontrol->private_value;
- 	struct snd_sof_control *scontrol = sm->dobj.private;
- 	struct snd_soc_component *scomp = scontrol->scomp;
--	struct sof_ipc_ctrl_data *cdata = scontrol->control_data;
-+	struct sof_ipc_ctrl_data *cdata = scontrol->ipc_control_data;
- 	unsigned int i, channels = scontrol->num_channels;
- 	bool change = false;
- 	u32 value;
-@@ -214,7 +214,7 @@ int snd_sof_enum_get(struct snd_kcontrol *kcontrol,
- 	struct soc_enum *se =
- 		(struct soc_enum *)kcontrol->private_value;
- 	struct snd_sof_control *scontrol = se->dobj.private;
--	struct sof_ipc_ctrl_data *cdata = scontrol->control_data;
-+	struct sof_ipc_ctrl_data *cdata = scontrol->ipc_control_data;
- 	unsigned int i, channels = scontrol->num_channels;
- 
- 	snd_sof_refresh_control(scontrol);
-@@ -233,7 +233,7 @@ int snd_sof_enum_put(struct snd_kcontrol *kcontrol,
- 		(struct soc_enum *)kcontrol->private_value;
- 	struct snd_sof_control *scontrol = se->dobj.private;
- 	struct snd_soc_component *scomp = scontrol->scomp;
--	struct sof_ipc_ctrl_data *cdata = scontrol->control_data;
-+	struct sof_ipc_ctrl_data *cdata = scontrol->ipc_control_data;
- 	unsigned int i, channels = scontrol->num_channels;
- 	bool change = false;
- 	u32 value;
-@@ -260,7 +260,7 @@ int snd_sof_bytes_get(struct snd_kcontrol *kcontrol,
- 		(struct soc_bytes_ext *)kcontrol->private_value;
- 	struct snd_sof_control *scontrol = be->dobj.private;
- 	struct snd_soc_component *scomp = scontrol->scomp;
--	struct sof_ipc_ctrl_data *cdata = scontrol->control_data;
-+	struct sof_ipc_ctrl_data *cdata = scontrol->ipc_control_data;
- 	struct sof_abi_hdr *data = cdata->data;
- 	size_t size;
- 
-@@ -296,7 +296,7 @@ int snd_sof_bytes_put(struct snd_kcontrol *kcontrol,
- 		(struct soc_bytes_ext *)kcontrol->private_value;
- 	struct snd_sof_control *scontrol = be->dobj.private;
- 	struct snd_soc_component *scomp = scontrol->scomp;
--	struct sof_ipc_ctrl_data *cdata = scontrol->control_data;
-+	struct sof_ipc_ctrl_data *cdata = scontrol->ipc_control_data;
- 	struct sof_abi_hdr *data = cdata->data;
- 	size_t size;
- 
-@@ -335,7 +335,7 @@ int snd_sof_bytes_ext_put(struct snd_kcontrol *kcontrol,
- 		(struct soc_bytes_ext *)kcontrol->private_value;
- 	struct snd_sof_control *scontrol = be->dobj.private;
- 	struct snd_soc_component *scomp = scontrol->scomp;
--	struct sof_ipc_ctrl_data *cdata = scontrol->control_data;
-+	struct sof_ipc_ctrl_data *cdata = scontrol->ipc_control_data;
- 	struct snd_ctl_tlv header;
- 	const struct snd_ctl_tlv __user *tlvd =
- 		(const struct snd_ctl_tlv __user *)binary_data;
-@@ -409,7 +409,7 @@ int snd_sof_bytes_ext_volatile_get(struct snd_kcontrol *kcontrol, unsigned int _
- 	struct soc_bytes_ext *be = (struct soc_bytes_ext *)kcontrol->private_value;
- 	struct snd_sof_control *scontrol = be->dobj.private;
- 	struct snd_soc_component *scomp = scontrol->scomp;
--	struct sof_ipc_ctrl_data *cdata = scontrol->control_data;
-+	struct sof_ipc_ctrl_data *cdata = scontrol->ipc_control_data;
- 	struct snd_ctl_tlv header;
- 	struct snd_ctl_tlv __user *tlvd = (struct snd_ctl_tlv __user *)binary_data;
- 	size_t data_size;
-@@ -482,7 +482,7 @@ int snd_sof_bytes_ext_get(struct snd_kcontrol *kcontrol,
- 		(struct soc_bytes_ext *)kcontrol->private_value;
- 	struct snd_sof_control *scontrol = be->dobj.private;
- 	struct snd_soc_component *scomp = scontrol->scomp;
--	struct sof_ipc_ctrl_data *cdata = scontrol->control_data;
-+	struct sof_ipc_ctrl_data *cdata = scontrol->ipc_control_data;
- 	struct snd_ctl_tlv header;
- 	struct snd_ctl_tlv __user *tlvd =
- 		(struct snd_ctl_tlv __user *)binary_data;
-@@ -534,7 +534,7 @@ static void snd_sof_update_control(struct snd_sof_control *scontrol,
- 	struct sof_ipc_ctrl_data *local_cdata;
- 	int i;
- 
--	local_cdata = scontrol->control_data;
-+	local_cdata = scontrol->ipc_control_data;
- 
- 	if (cdata->cmd == SOF_CTRL_CMD_BINARY) {
- 		if (cdata->num_elems != local_cdata->data->size) {
-diff --git a/sound/soc/sof/ipc.c b/sound/soc/sof/ipc.c
-index cf892859355a..19a294cbbb8d 100644
---- a/sound/soc/sof/ipc.c
-+++ b/sound/soc/sof/ipc.c
-@@ -812,7 +812,7 @@ static int sof_set_get_large_ctrl_data(struct snd_sof_dev *sdev,
- int snd_sof_ipc_set_get_comp_data(struct snd_sof_control *scontrol, bool set)
- {
- 	struct snd_soc_component *scomp = scontrol->scomp;
--	struct sof_ipc_ctrl_data *cdata = scontrol->control_data;
-+	struct sof_ipc_ctrl_data *cdata = scontrol->ipc_control_data;
- 	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
- 	struct sof_ipc_fw_ready *ready = &sdev->fw_ready;
- 	struct sof_ipc_fw_version *v = &ready->version;
 diff --git a/sound/soc/sof/ipc3-topology.c b/sound/soc/sof/ipc3-topology.c
-index e6aa78d492ea..96553d103c85 100644
+index 96553d103c85..ea1311192877 100644
 --- a/sound/soc/sof/ipc3-topology.c
 +++ b/sound/soc/sof/ipc3-topology.c
-@@ -12,6 +12,9 @@
+@@ -8,6 +8,7 @@
+ //
+ 
+ #include <uapi/sound/sof/tokens.h>
++#include <sound/pcm_params.h>
+ #include "sof-priv.h"
  #include "sof-audio.h"
  #include "ops.h"
- 
-+/* Full volume for default values */
-+#define VOL_ZERO_DB	BIT(VOLUME_FWL)
-+
- struct sof_widget_data {
- 	int ctrl_type;
- 	int ipc_cmd;
-@@ -743,6 +746,7 @@ static int sof_get_control_data(struct snd_soc_component *scomp,
- 				struct sof_widget_data *wdata, size_t *size)
- {
- 	const struct snd_kcontrol_new *kc;
-+	struct sof_ipc_ctrl_data *cdata;
- 	struct soc_mixer_control *sm;
- 	struct soc_bytes_ext *sbe;
- 	struct soc_enum *se;
-@@ -777,7 +781,8 @@ static int sof_get_control_data(struct snd_soc_component *scomp,
- 			return -EINVAL;
- 		}
- 
--		wdata[i].pdata = wdata[i].control->control_data->data;
-+		cdata = wdata[i].control->ipc_control_data;
-+		wdata[i].pdata = cdata->data;
- 		if (!wdata[i].pdata)
- 			return -EINVAL;
- 
-@@ -789,7 +794,7 @@ static int sof_get_control_data(struct snd_soc_component *scomp,
- 		*size += wdata[i].pdata->size;
- 
- 		/* get data type */
--		switch (wdata[i].control->control_data->cmd) {
-+		switch (cdata->cmd) {
- 		case SOF_CTRL_CMD_VOLUME:
- 		case SOF_CTRL_CMD_ENUM:
- 		case SOF_CTRL_CMD_SWITCH:
-@@ -1553,6 +1558,146 @@ static int sof_ipc3_route_setup(struct snd_sof_dev *sdev, struct snd_sof_route *
- 	return ret;
+@@ -1698,6 +1699,194 @@ static int sof_ipc3_control_free(struct snd_sof_dev *sdev, struct snd_sof_contro
+ 	return sof_ipc_tx_message(sdev->ipc, fcomp.hdr.cmd, &fcomp, sizeof(fcomp), NULL, 0);
  }
  
-+static int sof_ipc3_control_load_bytes(struct snd_sof_dev *sdev, struct snd_sof_control *scontrol)
++/* send pcm params ipc */
++static int sof_ipc3_keyword_detect_pcm_params(struct snd_sof_widget *swidget, int dir)
 +{
-+	struct sof_ipc_ctrl_data *cdata;
++	struct snd_soc_component *scomp = swidget->scomp;
++	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
++	struct sof_ipc_pcm_params_reply ipc_params_reply;
++	struct snd_pcm_hw_params *params;
++	struct sof_ipc_pcm_params pcm;
++	struct snd_sof_pcm *spcm;
 +	int ret;
 +
-+	scontrol->ipc_control_data = kzalloc(scontrol->max_size, GFP_KERNEL);
-+	if (!scontrol->ipc_control_data)
-+		return -ENOMEM;
-+
-+	if (scontrol->max_size < sizeof(*cdata) ||
-+	    scontrol->max_size < sizeof(struct sof_abi_hdr)) {
-+		ret = -EINVAL;
-+		goto err;
++	/* get runtime PCM params using widget's stream name */
++	spcm = snd_sof_find_spcm_name(scomp, swidget->widget->sname);
++	if (!spcm) {
++		dev_err(scomp->dev, "Cannot find PCM for %s\n", swidget->widget->name);
++		return -EINVAL;
 +	}
 +
-+	/* init the get/put bytes data */
-+	if (scontrol->priv_size > scontrol->max_size - sizeof(*cdata)) {
-+		dev_err(sdev->dev, "err: bytes data size %zu exceeds max %zu.\n",
-+			scontrol->priv_size, scontrol->max_size - sizeof(*cdata));
-+		ret = -EINVAL;
-+		goto err;
++	params = &spcm->params[dir];
++
++	/* set IPC PCM params */
++	memset(&pcm, 0, sizeof(pcm));
++	pcm.hdr.size = sizeof(pcm);
++	pcm.hdr.cmd = SOF_IPC_GLB_STREAM_MSG | SOF_IPC_STREAM_PCM_PARAMS;
++	pcm.comp_id = swidget->comp_id;
++	pcm.params.hdr.size = sizeof(pcm.params);
++	pcm.params.direction = dir;
++	pcm.params.sample_valid_bytes = params_width(params) >> 3;
++	pcm.params.buffer_fmt = SOF_IPC_BUFFER_INTERLEAVED;
++	pcm.params.rate = params_rate(params);
++	pcm.params.channels = params_channels(params);
++	pcm.params.host_period_bytes = params_period_bytes(params);
++
++	/* set format */
++	switch (params_format(params)) {
++	case SNDRV_PCM_FORMAT_S16:
++		pcm.params.frame_fmt = SOF_IPC_FRAME_S16_LE;
++		break;
++	case SNDRV_PCM_FORMAT_S24:
++		pcm.params.frame_fmt = SOF_IPC_FRAME_S24_4LE;
++		break;
++	case SNDRV_PCM_FORMAT_S32:
++		pcm.params.frame_fmt = SOF_IPC_FRAME_S32_LE;
++		break;
++	default:
++		return -EINVAL;
 +	}
 +
-+	scontrol->size = sizeof(struct sof_ipc_ctrl_data) + scontrol->priv_size;
++	/* send IPC to the DSP */
++	ret = sof_ipc_tx_message(sdev->ipc, pcm.hdr.cmd, &pcm, sizeof(pcm),
++				 &ipc_params_reply, sizeof(ipc_params_reply));
++	if (ret < 0)
++		dev_err(scomp->dev, "%s: PCM params failed for %s\n", __func__,
++			swidget->widget->name);
 +
-+	cdata = scontrol->ipc_control_data;
-+	cdata->cmd = SOF_CTRL_CMD_BINARY;
-+	cdata->index = scontrol->index;
-+
-+	if (scontrol->priv_size > 0) {
-+		memcpy(cdata->data, scontrol->priv, scontrol->priv_size);
-+		kfree(scontrol->priv);
-+
-+		if (cdata->data->magic != SOF_ABI_MAGIC) {
-+			dev_err(sdev->dev, "Wrong ABI magic 0x%08x.\n", cdata->data->magic);
-+			ret = -EINVAL;
-+			goto err;
-+		}
-+
-+		if (SOF_ABI_VERSION_INCOMPATIBLE(SOF_ABI_VERSION, cdata->data->abi)) {
-+			dev_err(sdev->dev, "Incompatible ABI version 0x%08x.\n",
-+				cdata->data->abi);
-+			ret = -EINVAL;
-+			goto err;
-+		}
-+
-+		if (cdata->data->size + sizeof(struct sof_abi_hdr) != scontrol->priv_size) {
-+			dev_err(sdev->dev, "Conflict in bytes vs. priv size.\n");
-+			ret = -EINVAL;
-+			goto err;
-+		}
-+	}
-+
-+	return 0;
-+err:
-+	kfree(scontrol->ipc_control_data);
 +	return ret;
 +}
 +
-+static int sof_ipc3_control_load_volume(struct snd_sof_dev *sdev, struct snd_sof_control *scontrol)
++ /* send stream trigger ipc */
++static int sof_ipc3_keyword_detect_trigger(struct snd_sof_widget *swidget, int cmd)
 +{
-+	struct sof_ipc_ctrl_data *cdata;
-+	int i;
++	struct snd_soc_component *scomp = swidget->scomp;
++	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
++	struct sof_ipc_stream stream;
++	struct sof_ipc_reply reply;
++	int ret;
 +
-+	/* init the volume get/put data */
-+	scontrol->size = struct_size(cdata, chanv, scontrol->num_channels);
++	/* set IPC stream params */
++	stream.hdr.size = sizeof(stream);
++	stream.hdr.cmd = SOF_IPC_GLB_STREAM_MSG | cmd;
++	stream.comp_id = swidget->comp_id;
 +
-+	scontrol->ipc_control_data = kzalloc(scontrol->size, GFP_KERNEL);
-+	if (!scontrol->ipc_control_data)
-+		return -ENOMEM;
++	/* send IPC to the DSP */
++	ret = sof_ipc_tx_message(sdev->ipc, stream.hdr.cmd, &stream,
++				 sizeof(stream), &reply, sizeof(reply));
++	if (ret < 0)
++		dev_err(scomp->dev, "%s: Failed to trigger %s\n", __func__, swidget->widget->name);
 +
-+	cdata = scontrol->ipc_control_data;
-+	cdata->index = scontrol->index;
++	return ret;
++}
 +
-+	/* set cmd for mixer control */
-+	if (scontrol->max == 1) {
-+		cdata->cmd = SOF_CTRL_CMD_SWITCH;
++static int sof_ipc3_keyword_dapm_event(struct snd_soc_dapm_widget *w,
++				       struct snd_kcontrol *k, int event)
++{
++	struct snd_sof_widget *swidget = w->dobj.private;
++	struct snd_soc_component *scomp;
++	int stream = SNDRV_PCM_STREAM_CAPTURE;
++	struct snd_sof_pcm *spcm;
++	int ret = 0;
++
++	if (!swidget)
 +		return 0;
++
++	scomp = swidget->scomp;
++
++	dev_dbg(scomp->dev, "received event %d for widget %s\n",
++		event, w->name);
++
++	/* get runtime PCM params using widget's stream name */
++	spcm = snd_sof_find_spcm_name(scomp, swidget->widget->sname);
++	if (!spcm) {
++		dev_err(scomp->dev, "%s: Cannot find PCM for %s\n", __func__,
++			swidget->widget->name);
++		return -EINVAL;
 +	}
 +
-+	cdata->cmd = SOF_CTRL_CMD_VOLUME;
++	/* process events */
++	switch (event) {
++	case SND_SOC_DAPM_PRE_PMU:
++		if (spcm->stream[stream].suspend_ignored) {
++			dev_dbg(scomp->dev, "PRE_PMU event ignored, KWD pipeline is already RUNNING\n");
++			return 0;
++		}
 +
-+	/* set default volume values to 0dB in control */
-+	for (i = 0; i < scontrol->num_channels; i++) {
-+		cdata->chanv[i].channel = i;
-+		cdata->chanv[i].value = VOL_ZERO_DB;
-+	}
++		/* set pcm params */
++		ret = sof_ipc3_keyword_detect_pcm_params(swidget, stream);
++		if (ret < 0) {
++			dev_err(scomp->dev, "%s: Failed to set pcm params for widget %s\n",
++				__func__, swidget->widget->name);
++			break;
++		}
 +
-+	return 0;
-+}
++		/* start trigger */
++		ret = sof_ipc3_keyword_detect_trigger(swidget, SOF_IPC_STREAM_TRIG_START);
++		if (ret < 0)
++			dev_err(scomp->dev, "%s: Failed to trigger widget %s\n", __func__,
++				swidget->widget->name);
++		break;
++	case SND_SOC_DAPM_POST_PMD:
++		if (spcm->stream[stream].suspend_ignored) {
++			dev_dbg(scomp->dev,
++				"POST_PMD event ignored, KWD pipeline will remain RUNNING\n");
++			return 0;
++		}
 +
-+static int sof_ipc3_control_load_enum(struct snd_sof_dev *sdev, struct snd_sof_control *scontrol)
-+{
-+	struct sof_ipc_ctrl_data *cdata;
++		/* stop trigger */
++		ret = sof_ipc3_keyword_detect_trigger(swidget, SOF_IPC_STREAM_TRIG_STOP);
++		if (ret < 0)
++			dev_err(scomp->dev, "%s: Failed to trigger widget %s\n", __func__,
++				swidget->widget->name);
 +
-+	/* init the enum get/put data */
-+	scontrol->size = struct_size(cdata, chanv, scontrol->num_channels);
-+
-+	scontrol->ipc_control_data = kzalloc(scontrol->size, GFP_KERNEL);
-+	if (!scontrol->ipc_control_data)
-+		return -ENOMEM;
-+
-+	cdata = scontrol->ipc_control_data;
-+	cdata->index = scontrol->index;
-+	cdata->cmd = SOF_CTRL_CMD_ENUM;
-+
-+	return 0;
-+}
-+
-+static int sof_ipc3_control_setup(struct snd_sof_dev *sdev, struct snd_sof_control *scontrol)
-+{
-+	switch (scontrol->info_type) {
-+	case SND_SOC_TPLG_CTL_VOLSW:
-+	case SND_SOC_TPLG_CTL_VOLSW_SX:
-+	case SND_SOC_TPLG_CTL_VOLSW_XR_SX:
-+		return sof_ipc3_control_load_volume(sdev, scontrol);
-+	case SND_SOC_TPLG_CTL_BYTES:
-+		return sof_ipc3_control_load_bytes(sdev, scontrol);
-+	case SND_SOC_TPLG_CTL_ENUM:
-+	case SND_SOC_TPLG_CTL_ENUM_VALUE:
-+		return sof_ipc3_control_load_enum(sdev, scontrol);
++		/* pcm free */
++		ret = sof_ipc3_keyword_detect_trigger(swidget, SOF_IPC_STREAM_PCM_FREE);
++		if (ret < 0)
++			dev_err(scomp->dev, "%s: Failed to free PCM for widget %s\n", __func__,
++				swidget->widget->name);
++		break;
 +	default:
 +		break;
 +	}
 +
-+	return 0;
++	return ret;
 +}
 +
-+static int sof_ipc3_control_free(struct snd_sof_dev *sdev, struct snd_sof_control *scontrol)
++/* event handlers for keyword detect component */
++static const struct snd_soc_tplg_widget_events sof_kwd_events[] = {
++	{SOF_KEYWORD_DETECT_DAPM_EVENT, sof_ipc3_keyword_dapm_event},
++};
++
++static int sof_ipc3_widget_bind_event(struct snd_soc_component *scomp,
++				      struct snd_sof_widget *swidget, u16 event_type)
 +{
-+	struct sof_ipc_free fcomp;
++	struct sof_ipc_comp *ipc_comp;
 +
-+	fcomp.hdr.cmd = SOF_IPC_GLB_TPLG_MSG | SOF_IPC_TPLG_COMP_FREE;
-+	fcomp.hdr.size = sizeof(fcomp);
-+	fcomp.id = scontrol->comp_id;
++	/* validate widget event type */
++	switch (event_type) {
++	case SOF_KEYWORD_DETECT_DAPM_EVENT:
++		/* only KEYWORD_DETECT comps should handle this */
++		if (swidget->id != snd_soc_dapm_effect)
++			break;
 +
-+	/* send IPC to the DSP */
-+	return sof_ipc_tx_message(sdev->ipc, fcomp.hdr.cmd, &fcomp, sizeof(fcomp), NULL, 0);
++		ipc_comp = swidget->private;
++		if (ipc_comp && ipc_comp->type != SOF_COMP_KEYWORD_DETECT)
++			break;
++
++		/* bind event to keyword detect comp */
++		return snd_soc_tplg_widget_bind_event(swidget->widget, sof_kwd_events,
++						      ARRAY_SIZE(sof_kwd_events), event_type);
++	default:
++		break;
++	}
++
++	dev_err(scomp->dev, "Invalid event type %d for widget %s\n", event_type,
++		swidget->widget->name);
++
++	return -EINVAL;
 +}
 +
  /* token list for each topology object */
  static enum sof_tokens host_token_list[] = {
  	SOF_CORE_TOKENS,
-@@ -1651,6 +1796,8 @@ static const struct sof_ipc_tplg_widget_ops tplg_ipc3_widget_ops[SND_SOC_DAPM_TY
+@@ -1790,7 +1979,8 @@ static const struct sof_ipc_tplg_widget_ops tplg_ipc3_widget_ops[SND_SOC_DAPM_TY
+ 				 comp_generic_token_list, ARRAY_SIZE(comp_generic_token_list),
+ 				 NULL},
+ 	[snd_soc_dapm_effect] = {sof_widget_update_ipc_comp_process, sof_ipc3_widget_free_comp,
+-				 process_token_list, ARRAY_SIZE(process_token_list), NULL},
++				 process_token_list, ARRAY_SIZE(process_token_list),
++				 sof_ipc3_widget_bind_event},
+ };
+ 
  static const struct sof_ipc_tplg_ops ipc3_tplg_ops = {
- 	.widget = tplg_ipc3_widget_ops,
- 	.route_setup = sof_ipc3_route_setup,
-+	.control_setup = sof_ipc3_control_setup,
-+	.control_free = sof_ipc3_control_free,
- 	.token_list = ipc3_token_list,
- };
- 
-diff --git a/sound/soc/sof/sof-audio.h b/sound/soc/sof/sof-audio.h
-index bde86e078e08..a14b872ea261 100644
---- a/sound/soc/sof/sof-audio.h
-+++ b/sound/soc/sof/sof-audio.h
-@@ -30,8 +30,15 @@
- 
- #define WIDGET_IS_DAI(id) ((id) == snd_soc_dapm_dai_in || (id) == snd_soc_dapm_dai_out)
- 
-+/*
-+ * Volume fractional word length define to 16 sets
-+ * the volume linear gain value to use Qx.16 format
-+ */
-+#define VOLUME_FWL	16
-+
- struct snd_sof_widget;
- struct snd_sof_route;
-+struct snd_sof_control;
- 
- /**
-  * struct sof_ipc_tplg_widget_ops - IPC-specific ops for topology widgets
-@@ -59,11 +66,15 @@ struct sof_ipc_tplg_widget_ops {
-  * @token_list: List of all tokens supported by the IPC version. The size of the token_list
-  *		array should be SOF_TOKEN_COUNT. The unused elements in the array will be
-  *		initialized to 0.
-+ * @control_setup: Function pointer for setting up kcontrol IPC-specific data
-+ * @control_free: Function pointer for freeing kcontrol IPC-specific data
-  */
- struct sof_ipc_tplg_ops {
- 	const struct sof_ipc_tplg_widget_ops *widget;
- 	int (*route_setup)(struct snd_sof_dev *sdev, struct snd_sof_route *sroute);
- 	const struct sof_token_info *token_list;
-+	int (*control_setup)(struct snd_sof_dev *sdev, struct snd_sof_control *scontrol);
-+	int (*control_free)(struct snd_sof_dev *sdev, struct snd_sof_control *scontrol);
- };
- 
- /** struct snd_sof_tuple - Tuple info
-@@ -165,13 +176,20 @@ struct snd_sof_led_control {
- /* ALSA SOF Kcontrol device */
- struct snd_sof_control {
- 	struct snd_soc_component *scomp;
-+	const char *name;
- 	int comp_id;
- 	int min_volume_step; /* min volume step for volume_table */
- 	int max_volume_step; /* max volume step for volume_table */
- 	int num_channels;
- 	unsigned int access;
- 	u32 readback_offset; /* offset to mmapped data if used */
--	struct sof_ipc_ctrl_data *control_data;
-+	int info_type;
-+	int index; /* pipeline ID */
-+	void *priv; /* private data copied from topology */
-+	size_t priv_size; /* size of private data */
-+	size_t max_size;
-+	void *ipc_control_data;
-+	int max; /* applicable to volume controls */
- 	u32 size;	/* cdata size */
- 	u32 *volume_table; /* volume table computed from tlv data*/
- 
 diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index c9c72e94f696..f7adf058a768 100644
+index f7adf058a768..70677a36c304 100644
 --- a/sound/soc/sof/topology.c
 +++ b/sound/soc/sof/topology.c
-@@ -28,15 +28,9 @@
- #define VOL_TWENTIETH_ROOT_OF_TEN	73533
- /* 40th root of 10 in Q1.16 fixed-point notation*/
- #define VOL_FORTIETH_ROOT_OF_TEN	69419
--/*
-- * Volume fractional word length define to 16 sets
-- * the volume linear gain value to use Qx.16 format
-- */
--#define VOLUME_FWL	16
-+
- /* 0.5 dB step value in topology TLV */
- #define VOL_HALF_DB_STEP	50
--/* Full volume for default values */
--#define VOL_ZERO_DB	BIT(VOLUME_FWL)
- 
- /* TLV data items */
- #define TLV_ITEMS	3
-@@ -944,16 +938,12 @@ static int sof_control_load_volume(struct snd_soc_component *scomp,
- 	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
- 	struct snd_soc_tplg_mixer_control *mc =
- 		container_of(hdr, struct snd_soc_tplg_mixer_control, hdr);
--	struct sof_ipc_ctrl_data *cdata;
- 	int tlv[TLV_ITEMS];
--	unsigned int i;
- 	int ret;
- 
- 	/* validate topology data */
--	if (le32_to_cpu(mc->num_channels) > SND_SOC_TPLG_MAX_CHAN) {
--		ret = -EINVAL;
--		goto out;
--	}
-+	if (le32_to_cpu(mc->num_channels) > SND_SOC_TPLG_MAX_CHAN)
-+		return -EINVAL;
- 
- 	/*
- 	 * If control has more than 2 channels we need to override the info. This is because even if
-@@ -964,48 +954,26 @@ static int sof_control_load_volume(struct snd_soc_component *scomp,
- 	if (le32_to_cpu(mc->num_channels) > 2)
- 		kc->info = snd_sof_volume_info;
- 
--	/* init the volume get/put data */
--	scontrol->size = struct_size(scontrol->control_data, chanv,
--				     le32_to_cpu(mc->num_channels));
--	scontrol->control_data = kzalloc(scontrol->size, GFP_KERNEL);
--	if (!scontrol->control_data) {
--		ret = -ENOMEM;
--		goto out;
--	}
--
- 	scontrol->comp_id = sdev->next_comp_id;
- 	scontrol->min_volume_step = le32_to_cpu(mc->min);
- 	scontrol->max_volume_step = le32_to_cpu(mc->max);
- 	scontrol->num_channels = le32_to_cpu(mc->num_channels);
--	scontrol->control_data->index = kc->index;
- 
--	/* set cmd for mixer control */
--	if (le32_to_cpu(mc->max) == 1) {
--		scontrol->control_data->cmd = SOF_CTRL_CMD_SWITCH;
-+	scontrol->max = le32_to_cpu(mc->max);
-+	if (le32_to_cpu(mc->max) == 1)
- 		goto skip;
--	}
--
--	scontrol->control_data->cmd = SOF_CTRL_CMD_VOLUME;
- 
- 	/* extract tlv data */
- 	if (!kc->tlv.p || get_tlv_data(kc->tlv.p, tlv) < 0) {
- 		dev_err(scomp->dev, "error: invalid TLV data\n");
--		ret = -EINVAL;
--		goto out_free;
-+		return -EINVAL;
- 	}
- 
- 	/* set up volume table */
- 	ret = set_up_volume_table(scontrol, tlv, le32_to_cpu(mc->max) + 1);
- 	if (ret < 0) {
- 		dev_err(scomp->dev, "error: setting up volume table\n");
--		goto out_free;
--	}
--
--	/* set default volume values to 0dB in control */
--	cdata = scontrol->control_data;
--	for (i = 0; i < scontrol->num_channels; i++) {
--		cdata->chanv[i].channel = i;
--		cdata->chanv[i].value = VOL_ZERO_DB;
-+		return ret;
- 	}
- 
- skip:
-@@ -1016,7 +984,7 @@ static int sof_control_load_volume(struct snd_soc_component *scomp,
- 	if (ret != 0) {
- 		dev_err(scomp->dev, "error: parse led tokens failed %d\n",
- 			le32_to_cpu(mc->priv.size));
--		goto out_free_table;
-+		goto err;
- 	}
- 
- 	dev_dbg(scomp->dev, "tplg: load kcontrol index %d chans %d\n",
-@@ -1024,12 +992,10 @@ static int sof_control_load_volume(struct snd_soc_component *scomp,
- 
+@@ -14,7 +14,6 @@
+ #include <linux/firmware.h>
+ #include <linux/workqueue.h>
+ #include <sound/tlv.h>
+-#include <sound/pcm_params.h>
+ #include <uapi/sound/sof/tokens.h>
+ #include "sof-priv.h"
+ #include "sof-audio.h"
+@@ -135,171 +134,6 @@ int sof_update_ipc_object(struct snd_soc_component *scomp, void *object, enum so
  	return 0;
+ }
  
--out_free_table:
-+err:
- 	if (le32_to_cpu(mc->max) > 1)
- 		kfree(scontrol->volume_table);
--out_free:
--	kfree(scontrol->control_data);
--out:
-+
+-/* send pcm params ipc */
+-static int ipc_pcm_params(struct snd_sof_widget *swidget, int dir)
+-{
+-	struct sof_ipc_pcm_params_reply ipc_params_reply;
+-	struct snd_soc_component *scomp = swidget->scomp;
+-	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
+-	struct sof_ipc_pcm_params pcm;
+-	struct snd_pcm_hw_params *params;
+-	struct snd_sof_pcm *spcm;
+-	int ret;
+-
+-	memset(&pcm, 0, sizeof(pcm));
+-
+-	/* get runtime PCM params using widget's stream name */
+-	spcm = snd_sof_find_spcm_name(scomp, swidget->widget->sname);
+-	if (!spcm) {
+-		dev_err(scomp->dev, "error: cannot find PCM for %s\n",
+-			swidget->widget->name);
+-		return -EINVAL;
+-	}
+-
+-	params = &spcm->params[dir];
+-
+-	/* set IPC PCM params */
+-	pcm.hdr.size = sizeof(pcm);
+-	pcm.hdr.cmd = SOF_IPC_GLB_STREAM_MSG | SOF_IPC_STREAM_PCM_PARAMS;
+-	pcm.comp_id = swidget->comp_id;
+-	pcm.params.hdr.size = sizeof(pcm.params);
+-	pcm.params.direction = dir;
+-	pcm.params.sample_valid_bytes = params_width(params) >> 3;
+-	pcm.params.buffer_fmt = SOF_IPC_BUFFER_INTERLEAVED;
+-	pcm.params.rate = params_rate(params);
+-	pcm.params.channels = params_channels(params);
+-	pcm.params.host_period_bytes = params_period_bytes(params);
+-
+-	/* set format */
+-	switch (params_format(params)) {
+-	case SNDRV_PCM_FORMAT_S16:
+-		pcm.params.frame_fmt = SOF_IPC_FRAME_S16_LE;
+-		break;
+-	case SNDRV_PCM_FORMAT_S24:
+-		pcm.params.frame_fmt = SOF_IPC_FRAME_S24_4LE;
+-		break;
+-	case SNDRV_PCM_FORMAT_S32:
+-		pcm.params.frame_fmt = SOF_IPC_FRAME_S32_LE;
+-		break;
+-	default:
+-		return -EINVAL;
+-	}
+-
+-	/* send IPC to the DSP */
+-	ret = sof_ipc_tx_message(sdev->ipc, pcm.hdr.cmd, &pcm, sizeof(pcm),
+-				 &ipc_params_reply, sizeof(ipc_params_reply));
+-	if (ret < 0)
+-		dev_err(scomp->dev, "error: pcm params failed for %s\n",
+-			swidget->widget->name);
+-
+-	return ret;
+-}
+-
+- /* send stream trigger ipc */
+-static int ipc_trigger(struct snd_sof_widget *swidget, int cmd)
+-{
+-	struct snd_soc_component *scomp = swidget->scomp;
+-	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
+-	struct sof_ipc_stream stream;
+-	struct sof_ipc_reply reply;
+-	int ret;
+-
+-	/* set IPC stream params */
+-	stream.hdr.size = sizeof(stream);
+-	stream.hdr.cmd = SOF_IPC_GLB_STREAM_MSG | cmd;
+-	stream.comp_id = swidget->comp_id;
+-
+-	/* send IPC to the DSP */
+-	ret = sof_ipc_tx_message(sdev->ipc, stream.hdr.cmd, &stream,
+-				 sizeof(stream), &reply, sizeof(reply));
+-	if (ret < 0)
+-		dev_err(scomp->dev, "error: failed to trigger %s\n",
+-			swidget->widget->name);
+-
+-	return ret;
+-}
+-
+-static int sof_keyword_dapm_event(struct snd_soc_dapm_widget *w,
+-				  struct snd_kcontrol *k, int event)
+-{
+-	struct snd_sof_widget *swidget = w->dobj.private;
+-	struct snd_soc_component *scomp;
+-	int stream = SNDRV_PCM_STREAM_CAPTURE;
+-	struct snd_sof_pcm *spcm;
+-	int ret = 0;
+-
+-	if (!swidget)
+-		return 0;
+-
+-	scomp = swidget->scomp;
+-
+-	dev_dbg(scomp->dev, "received event %d for widget %s\n",
+-		event, w->name);
+-
+-	/* get runtime PCM params using widget's stream name */
+-	spcm = snd_sof_find_spcm_name(scomp, swidget->widget->sname);
+-	if (!spcm) {
+-		dev_err(scomp->dev, "error: cannot find PCM for %s\n",
+-			swidget->widget->name);
+-		return -EINVAL;
+-	}
+-
+-	/* process events */
+-	switch (event) {
+-	case SND_SOC_DAPM_PRE_PMU:
+-		if (spcm->stream[stream].suspend_ignored) {
+-			dev_dbg(scomp->dev, "PRE_PMU event ignored, KWD pipeline is already RUNNING\n");
+-			return 0;
+-		}
+-
+-		/* set pcm params */
+-		ret = ipc_pcm_params(swidget, stream);
+-		if (ret < 0) {
+-			dev_err(scomp->dev,
+-				"error: failed to set pcm params for widget %s\n",
+-				swidget->widget->name);
+-			break;
+-		}
+-
+-		/* start trigger */
+-		ret = ipc_trigger(swidget, SOF_IPC_STREAM_TRIG_START);
+-		if (ret < 0)
+-			dev_err(scomp->dev,
+-				"error: failed to trigger widget %s\n",
+-				swidget->widget->name);
+-		break;
+-	case SND_SOC_DAPM_POST_PMD:
+-		if (spcm->stream[stream].suspend_ignored) {
+-			dev_dbg(scomp->dev, "POST_PMD even ignored, KWD pipeline will remain RUNNING\n");
+-			return 0;
+-		}
+-
+-		/* stop trigger */
+-		ret = ipc_trigger(swidget, SOF_IPC_STREAM_TRIG_STOP);
+-		if (ret < 0)
+-			dev_err(scomp->dev,
+-				"error: failed to trigger widget %s\n",
+-				swidget->widget->name);
+-
+-		/* pcm free */
+-		ret = ipc_trigger(swidget, SOF_IPC_STREAM_PCM_FREE);
+-		if (ret < 0)
+-			dev_err(scomp->dev,
+-				"error: failed to trigger widget %s\n",
+-				swidget->widget->name);
+-		break;
+-	default:
+-		break;
+-	}
+-
+-	return ret;
+-}
+-
+-/* event handlers for keyword detect component */
+-static const struct snd_soc_tplg_widget_events sof_kwd_events[] = {
+-	{SOF_KEYWORD_DETECT_DAPM_EVENT, sof_keyword_dapm_event},
+-};
+-
+ static inline int get_tlv_data(const int *p, int tlv[TLV_ITEMS])
+ {
+ 	/* we only support dB scale TLV type at the moment */
+@@ -1323,38 +1157,6 @@ static int sof_widget_parse_tokens(struct snd_soc_component *scomp, struct snd_s
  	return ret;
  }
  
-@@ -1046,17 +1012,8 @@ static int sof_control_load_enum(struct snd_soc_component *scomp,
- 	if (le32_to_cpu(ec->num_channels) > SND_SOC_TPLG_MAX_CHAN)
- 		return -EINVAL;
- 
--	/* init the enum get/put data */
--	scontrol->size = struct_size(scontrol->control_data, chanv,
--				     le32_to_cpu(ec->num_channels));
--	scontrol->control_data = kzalloc(scontrol->size, GFP_KERNEL);
--	if (!scontrol->control_data)
--		return -ENOMEM;
+-static int sof_widget_bind_event(struct snd_soc_component *scomp,
+-				 struct snd_sof_widget *swidget,
+-				 u16 event_type)
+-{
+-	struct sof_ipc_comp *ipc_comp;
 -
- 	scontrol->comp_id = sdev->next_comp_id;
- 	scontrol->num_channels = le32_to_cpu(ec->num_channels);
--	scontrol->control_data->index = kc->index;
--	scontrol->control_data->cmd = SOF_CTRL_CMD_ENUM;
- 
- 	dev_dbg(scomp->dev, "tplg: load kcontrol index %d chans %d comp_id %d\n",
- 		scontrol->comp_id, scontrol->num_channels, scontrol->comp_id);
-@@ -1070,77 +1027,27 @@ static int sof_control_load_bytes(struct snd_soc_component *scomp,
- 				  struct snd_soc_tplg_ctl_hdr *hdr)
+-	/* validate widget event type */
+-	switch (event_type) {
+-	case SOF_KEYWORD_DETECT_DAPM_EVENT:
+-		/* only KEYWORD_DETECT comps should handle this */
+-		if (swidget->id != snd_soc_dapm_effect)
+-			break;
+-
+-		ipc_comp = swidget->private;
+-		if (ipc_comp && ipc_comp->type != SOF_COMP_KEYWORD_DETECT)
+-			break;
+-
+-		/* bind event to keyword detect comp */
+-		return snd_soc_tplg_widget_bind_event(swidget->widget,
+-						      sof_kwd_events,
+-						      ARRAY_SIZE(sof_kwd_events),
+-						      event_type);
+-	default:
+-		break;
+-	}
+-
+-	dev_err(scomp->dev,
+-		"error: invalid event type %d for widget %s\n",
+-		event_type, swidget->widget->name);
+-	return -EINVAL;
+-}
+-
+ static int sof_get_token_value(u32 token_id, struct snd_sof_tuple *tuples, int num_tuples)
  {
- 	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
--	struct sof_ipc_ctrl_data *cdata;
- 	struct snd_soc_tplg_bytes_control *control =
- 		container_of(hdr, struct snd_soc_tplg_bytes_control, hdr);
- 	struct soc_bytes_ext *sbe = (struct soc_bytes_ext *)kc->private_value;
--	size_t max_size = sbe->max;
- 	size_t priv_size = le32_to_cpu(control->priv.size);
--	int ret;
--
--	if (max_size < sizeof(struct sof_ipc_ctrl_data) ||
--	    max_size < sizeof(struct sof_abi_hdr)) {
--		ret = -EINVAL;
--		goto out;
--	}
--
--	/* init the get/put bytes data */
--	if (priv_size > max_size - sizeof(struct sof_ipc_ctrl_data)) {
--		dev_err(scomp->dev, "err: bytes data size %zu exceeds max %zu.\n",
--			priv_size, max_size - sizeof(struct sof_ipc_ctrl_data));
--		ret = -EINVAL;
--		goto out;
--	}
--
--	scontrol->size = sizeof(struct sof_ipc_ctrl_data) + priv_size;
--
--	scontrol->control_data = kzalloc(max_size, GFP_KERNEL);
--	cdata = scontrol->control_data;
--	if (!scontrol->control_data) {
--		ret = -ENOMEM;
--		goto out;
--	}
+ 	int i;
+@@ -1486,14 +1288,17 @@ static int sof_widget_ready(struct snd_soc_component *scomp, int index,
  
-+	scontrol->max_size = sbe->max;
- 	scontrol->comp_id = sdev->next_comp_id;
--	scontrol->control_data->cmd = SOF_CTRL_CMD_BINARY;
--	scontrol->control_data->index = kc->index;
- 
--	dev_dbg(scomp->dev, "tplg: load kcontrol index %d chans %d\n",
--		scontrol->comp_id, scontrol->num_channels);
-+	dev_dbg(scomp->dev, "tplg: load kcontrol index %d\n", scontrol->comp_id);
- 
--	if (le32_to_cpu(control->priv.size) > 0) {
--		memcpy(cdata->data, control->priv.data,
--		       le32_to_cpu(control->priv.size));
-+	/* copy the private data */
-+	if (priv_size > 0) {
-+		scontrol->priv = kzalloc(priv_size, GFP_KERNEL);
-+		if (!scontrol->priv)
-+			return -ENOMEM;
- 
--		if (cdata->data->magic != SOF_ABI_MAGIC) {
--			dev_err(scomp->dev, "error: Wrong ABI magic 0x%08x.\n",
--				cdata->data->magic);
--			ret = -EINVAL;
--			goto out_free;
--		}
--		if (SOF_ABI_VERSION_INCOMPATIBLE(SOF_ABI_VERSION,
--						 cdata->data->abi)) {
--			dev_err(scomp->dev,
--				"error: Incompatible ABI version 0x%08x.\n",
--				cdata->data->abi);
--			ret = -EINVAL;
--			goto out_free;
--		}
--		if (cdata->data->size + sizeof(struct sof_abi_hdr) !=
--		    le32_to_cpu(control->priv.size)) {
--			dev_err(scomp->dev,
--				"error: Conflict in bytes vs. priv size.\n");
--			ret = -EINVAL;
--			goto out_free;
--		}
-+		memcpy(scontrol->priv, control->priv.data, priv_size);
-+		scontrol->priv_size = priv_size;
- 	}
- 
- 	return 0;
--
--out_free:
--	kfree(scontrol->control_data);
--out:
--	return ret;
- }
- 
- /* external kcontrol init - used for any driver specific init */
-@@ -1163,8 +1070,14 @@ static int sof_control_load(struct snd_soc_component *scomp, int index,
- 	if (!scontrol)
- 		return -ENOMEM;
- 
-+	scontrol->name = kstrdup(hdr->name, GFP_KERNEL);
-+	if (!scontrol->name)
-+		return -ENOMEM;
-+
- 	scontrol->scomp = scomp;
- 	scontrol->access = kc->access;
-+	scontrol->info_type = le32_to_cpu(hdr->ops.info);
-+	scontrol->index = kc->index;
- 
- 	switch (le32_to_cpu(hdr->ops.info)) {
- 	case SND_SOC_TPLG_CTL_VOLSW:
-@@ -1215,22 +1128,26 @@ static int sof_control_unload(struct snd_soc_component *scomp,
- 			      struct snd_soc_dobj *dobj)
- {
- 	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
--	struct sof_ipc_free fcomp;
-+	const struct sof_ipc_tplg_ops *ipc_tplg_ops = sdev->ipc->ops->tplg;
- 	struct snd_sof_control *scontrol = dobj->private;
-+	int ret = 0;
- 
--	dev_dbg(scomp->dev, "tplg: unload control name : %s\n", scomp->name);
-+	dev_dbg(scomp->dev, "tplg: unload control name : %s\n", scontrol->name);
- 
--	fcomp.hdr.cmd = SOF_IPC_GLB_TPLG_MSG | SOF_IPC_TPLG_COMP_FREE;
--	fcomp.hdr.size = sizeof(fcomp);
--	fcomp.id = scontrol->comp_id;
-+	if (ipc_tplg_ops->control_free) {
-+		ret = ipc_tplg_ops->control_free(sdev, scontrol);
-+		if (ret < 0)
-+			dev_err(scomp->dev, "failed to free control: %s\n", scontrol->name);
-+	}
- 
--	kfree(scontrol->control_data);
-+	/* free all data before returning in case of error too */
-+	kfree(scontrol->ipc_control_data);
-+	kfree(scontrol->priv);
-+	kfree(scontrol->name);
- 	list_del(&scontrol->list);
- 	kfree(scontrol);
--	/* send IPC to the DSP */
--	return sof_ipc_tx_message(sdev->ipc,
--				  fcomp.hdr.cmd, &fcomp, sizeof(fcomp),
--				  NULL, 0);
-+
-+	return ret;
- }
- 
- /*
-@@ -1657,7 +1574,7 @@ static int sof_widget_unload(struct snd_soc_component *scomp,
- 			dev_warn(scomp->dev, "unsupported kcontrol_type\n");
- 			goto out;
- 		}
--		kfree(scontrol->control_data);
-+		kfree(scontrol->ipc_control_data);
- 		list_del(&scontrol->list);
- 		kfree(scontrol);
- 	}
-@@ -2167,10 +2084,22 @@ static int sof_complete(struct snd_soc_component *scomp)
- 	struct snd_sof_widget *swidget, *comp_swidget;
- 	const struct sof_ipc_tplg_ops *ipc_tplg_ops = sdev->ipc->ops->tplg;
- 	const struct sof_ipc_tplg_widget_ops *widget_ops = ipc_tplg_ops->widget;
-+	struct snd_sof_control *scontrol;
- 	int ret;
- 
-+	/* first update all control IPC structures based on the IPC version */
-+	if (ipc_tplg_ops->control_setup)
-+		list_for_each_entry(scontrol, &sdev->kcontrol_list, list) {
-+			ret = ipc_tplg_ops->control_setup(sdev, scontrol);
-+			if (ret < 0) {
-+				dev_err(sdev->dev, "failed updating IPC struct for control %s\n",
-+					scontrol->name);
+ 	/* bind widget to external event */
+ 	if (tw->event_type) {
+-		ret = sof_widget_bind_event(scomp, swidget,
+-					    le16_to_cpu(tw->event_type));
+-		if (ret) {
+-			dev_err(scomp->dev, "error: widget event binding failed\n");
+-			kfree(swidget->private);
+-			kfree(swidget->tuples);
+-			kfree(swidget);
+-			return ret;
++		if (widget_ops[w->id].bind_event) {
++			ret = widget_ops[w->id].bind_event(scomp, swidget,
++							   le16_to_cpu(tw->event_type));
++			if (ret) {
++				dev_err(scomp->dev, "widget event binding failed for %s\n",
++					swidget->widget->name);
++				kfree(swidget->private);
++				kfree(swidget->tuples);
++				kfree(swidget);
 +				return ret;
 +			}
-+		}
-+
- 	/*
--	 * now update all widget IPC structures. If any of the ipc_setup callbacks fail, the
-+	 * then update all widget IPC structures. If any of the ipc_setup callbacks fail, the
- 	 * topology will be removed and all widgets will be unloaded resulting in freeing all
- 	 * associated memories.
- 	 */
+ 		}
+ 	}
+ 
 -- 
 2.25.1
 

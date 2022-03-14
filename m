@@ -2,78 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3709D4D8D64
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Mar 2022 20:52:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A10A84D8DCE
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Mar 2022 21:06:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AB07B174A;
-	Mon, 14 Mar 2022 20:51:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB07B174A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2F0F6175C;
+	Mon, 14 Mar 2022 21:06:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F0F6175C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647287526;
-	bh=pyw+uUsWl3RVdP8v6qowJOWyQJdm2VaPP/Bj2TK1ByM=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Vkp9B7zMwn/Oa47ywSFwhepev9k33LRIxP1ilslj+twxtiylzRy0+sBqi/un8LkuH
-	 Si6JTpV7OYdTw1n6PWMWJNipVeRKPm5qdDXhRtkoXx4v/iAj7onLHQ/8HwR2G33pXj
-	 OSPHNGRSFFLkBaEVX9bJYAZYTuiTaFpz27InWHB4=
+	s=default; t=1647288410;
+	bh=Q6AglH7efeHSEAVSI2KpOERMrfMyyvfF1249GtdgnQc=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=EZ/OBBxAYhfzjnmMe50dnVGzXbBgw05gEgU+ZOU/roz7R+EXTQv7s1C+sAXWRDMjX
+	 +/+7o4MphTtbr8vWA7aFqlQiSKowi0TbiQt60cM4doEDsusXenlVlpIW8r8tPC8hb+
+	 CkVDDmIczR0Lcsl9HSRQ8Sksm0fbgpJeQxOcnAWA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 97F78F80095;
-	Mon, 14 Mar 2022 20:50:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 69C41F804E4;
+	Mon, 14 Mar 2022 21:05:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 17854F804E4; Mon, 14 Mar 2022 20:50:26 +0100 (CET)
+ id C5206F80475; Mon, 14 Mar 2022 21:05:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E60D0F8012C
- for <alsa-devel@alsa-project.org>; Mon, 14 Mar 2022 20:50:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E60D0F8012C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="V35xPzC0"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5105C6116D;
- Mon, 14 Mar 2022 19:50:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AF52C340EE;
- Mon, 14 Mar 2022 19:50:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1647287421;
- bh=pyw+uUsWl3RVdP8v6qowJOWyQJdm2VaPP/Bj2TK1ByM=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=V35xPzC0SANL4OOpntptnxwfH3nLIYI5VEaA9BrwfwAu8bvPOHyAqVUw21vYwVrAk
- BE5/t7c15HReRasVusQQv81fElEBG3vFWSvir6e8NJI0FHrAmInGhKkxkr64Ge2tSt
- 3Y5mzD6EWbBR2HGUd2PvFkmH64XSZ6Ije2djTBcdzpvhRp/Y+bGCgBRz4Q0WVx9TqW
- O4H6xttVahB95D7TRtPhoEdwKcjVctFHjWNYaQazpf9nZQlppkShxTpdFuo2PA2xNb
- FmQWRJtWbFVp4Pz8M8/ZiWhPityGzRb61SWCJO6KTXLpHDReAXGSpmLEadGt/jWb01
- VkyTxadUGALpQ==
-From: Nathan Chancellor <nathan@kernel.org>
-To: Peter Zijlstra <peterz@infradead.org>,
-	x86@kernel.org
-Subject: [PATCH 2/2] x86/Kconfig: Do not allow CONFIG_X86_X32_ABI=y with
- llvm-objcopy
-Date: Mon, 14 Mar 2022 12:48:42 -0700
-Message-Id: <20220314194842.3452-3-nathan@kernel.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220314194842.3452-1-nathan@kernel.org>
-References: <20220314194842.3452-1-nathan@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8357DF80095
+ for <alsa-devel@alsa-project.org>; Mon, 14 Mar 2022 21:05:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8357DF80095
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="HlXIfJap"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1647288339; x=1678824339;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=Q6AglH7efeHSEAVSI2KpOERMrfMyyvfF1249GtdgnQc=;
+ b=HlXIfJapJyvYkeFT2HHtU8aX8JONAiAofpQahYRNur4aquRqbX0YXOvw
+ KjB6EDlUJlkyAdNIWRgtIG3ZSYOed5xJO8rT/+gpwLww9n4rxW7Fq4deB
+ jo9+mt0/Ccqw6iwFsjrs8UKB6OsRB9AKPHuj+gENDQ2bj0yktlECpEpPL
+ Z0ql9e1+qLsvrP+x4fvgOiro9dVVo+FprkRfRXGM8kPnZuhgPEo8xyzGq
+ OC801DO309ydhWCrtH7ih73908fWH+3wR+DpcXolMc1yEkoigmwKdzqau
+ QVFH9uCW4Al6MFsGouH4BFT4urIHQJ0m+jCYqVaYgbrOby+Buq2xUcumO Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10286"; a="342563465"
+X-IronPort-AV: E=Sophos;i="5.90,181,1643702400"; d="scan'208";a="342563465"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Mar 2022 13:05:32 -0700
+X-IronPort-AV: E=Sophos;i="5.90,181,1643702400"; d="scan'208";a="634339882"
+Received: from pmishr1-mobl1.amr.corp.intel.com (HELO
+ rsridh2-mobl1.localdomain) ([10.254.25.117])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Mar 2022 13:05:31 -0700
+From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH 00/18] Introduce IPC abstraction for SOF topology parsing
+Date: Mon, 14 Mar 2022 13:05:01 -0700
+Message-Id: <20220314200520.1233427-1-ranjani.sridharan@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: Nathan Chancellor <nathan@kernel.org>, alsa-devel@alsa-project.org,
- Masahiro Yamada <masahiroy@kernel.org>, llvm@lists.linux.dev,
- Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org,
- linux-xfs@vger.kernel.org, Andy Lutomirski <luto@kernel.org>,
- "H. Peter Anvin" <hpa@zytor.com>, linux-fsdevel@vger.kernel.org
+Cc: =tiwai@suse.com, broonie@kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,52 +86,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There are two outstanding issues with CONFIG_X86_X32_ABI and
-llvm-objcopy, with similar root causes:
+This patchset makes the topology parsing layer in the SOF driver
+IPC-agnostic in preparation for supporting the new IPC version
+introduced in the SOF firmware. These patches purely contain abstraction
+changes for the current IPC version (IPC3) supported and do not introduce
+any functional changes.
 
-1. llvm-objcopy does not properly convert .note.gnu.property when going
-   from x86_64 to x86_x32, resulting in a corrupted section when
-   linking:
+Ranjani Sridharan (18):
+  ASoC: SOF: Introduce struct snd_sof_dai_link
+  ASoC: SOF: IPC: Introduce IPC ops
+  ASoC: SOF: topology: Add helper function for processing tuple arrays
+  ASoC: SOF: Introduce IPC3 ops
+  ASoC: SOF: topology: Make scheduler widget parsing IPC agnostic
+  ASoC: SOF: topology: Make buffer widget parsing IPC agnostic
+  ASoC: SOF: topology: Make pga widget parsing IPC agnostic
+  ASoC: SOF: topology: Make mixer widget parsing IPC agnostic
+  ASoC: SOF: topology: Make mux/demux widget parsing IPC agnostic
+  ASoC: SOF: topology: Make src widget parsing IPC agnostic
+  ASoC: SOF: topology: Make asrc widget parsing IPC agnostic
+  ASoC: SOF: topology: Make siggen widget parsing IPC agnostic
+  ASoC: SOF: topology: Make effect widget parsing IPC agnostic
+  ASoC: SOF: topology: Make route setup IPC agnostic
+  ASoC: SOF: topology: Make DAI widget parsing IPC agnostic
+  ASoC: SOF: topology: Make control parsing IPC agnostic
+  ASoC: SOF: topology: Make widget binding IPC agnostic
+  ASoC: SOF: topology: remove snd_sof_complete_pipeline()
 
-   https://github.com/ClangBuiltLinux/linux/issues/1141
+ sound/soc/sof/Makefile        |    3 +-
+ sound/soc/sof/control.c       |   26 +-
+ sound/soc/sof/core.c          |    1 +
+ sound/soc/sof/ipc.c           |   14 +-
+ sound/soc/sof/ipc3-topology.c | 2019 ++++++++++++++++++++++
+ sound/soc/sof/sof-audio.c     |   66 +-
+ sound/soc/sof/sof-audio.h     |  135 +-
+ sound/soc/sof/sof-priv.h      |   16 +
+ sound/soc/sof/topology.c      | 3060 ++++++++-------------------------
+ 9 files changed, 2941 insertions(+), 2399 deletions(-)
+ create mode 100644 sound/soc/sof/ipc3-topology.c
 
-2. llvm-objcopy produces corrupted compressed debug sections when going
-   from x86_64 to x86_x32, also resulting in an error when linking:
-
-   https://github.com/ClangBuiltLinux/linux/issues/514
-
-After commit 41c5ef31ad71 ("x86/ibt: Base IBT bits"), the
-.note.gnu.property section is always generated when
-CONFIG_X86_KERNEL_IBT is enabled, which causes the first issue to become
-visible with an allmodconfig build:
-
-  ld.lld: error: arch/x86/entry/vdso/vclock_gettime-x32.o:(.note.gnu.property+0x1c): program property is too short
-
-To avoid this error, do not allow CONFIG_X86_X32_ABI to be selected when
-using llvm-objcopy. If the two issues ever get fixed in llvm-objcopy,
-this can be turned into a feature check.
-
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
----
- arch/x86/Kconfig | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
-index b903bfcd713c..0f0672d2c816 100644
---- a/arch/x86/Kconfig
-+++ b/arch/x86/Kconfig
-@@ -2864,6 +2864,11 @@ config IA32_AOUT
- config X86_X32_ABI
- 	bool "x32 ABI for 64-bit mode"
- 	depends on X86_64
-+	# llvm-objcopy does not convert x86_64 .note.gnu.property or
-+	# compressed debug sections to x86_x32 properly:
-+	# https://github.com/ClangBuiltLinux/linux/issues/514
-+	# https://github.com/ClangBuiltLinux/linux/issues/1141
-+	depends on $(success,$(OBJCOPY) --version | head -n1 | grep -qv llvm)
- 	help
- 	  Include code to run binaries for the x32 native 32-bit ABI
- 	  for 64-bit processors.  An x32 process gets access to the
 -- 
-2.35.1
+2.25.1
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1C904D8DF6
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Mar 2022 21:12:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FE484D8DF2
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Mar 2022 21:11:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3D84217E6;
-	Mon, 14 Mar 2022 21:11:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D84217E6
+	by alsa0.perex.cz (Postfix) with ESMTPS id DF6D618BE;
+	Mon, 14 Mar 2022 21:10:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF6D618BE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647288734;
-	bh=o9mAhem1fMAhHakxRbYGaHAwvOG4JLgvwqq9NzfK0zE=;
+	s=default; t=1647288703;
+	bh=D4oK3/Yt88ByafrlpUL4x3bzy7SU57aD3JwElD4+SuQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=e2loMKjwSvXwrVikIYYnjwsToHzF2DUTwVfYwm3aTB0laAgycfyr5RAnCKry4XOLs
-	 nd+jXXgYTdIf+YoULwfoxWQ4LLAbq5umMDo0IImSZe24PeneiqfEPj6U+g2WHzOAy1
-	 Cnvp8TBwe5mjxd8CsTRyV4YvcyhEWLgU5+wCTzEY=
+	b=cISVQZX4GK/IhkoMI/LGLf2DcSDARMNcBX4ntFOKePKkXLSMR8CEQIx63p/2a7mfH
+	 f0uI4AmzMn4JyBcseNZskBxAqqwOiMsXtUNxwpe2AMCZfyEdSYiVJgCo1qNp8wBWGe
+	 8XJuzRvsVBvjjSp+cCm+Tki28uAZenXm5z6hirE4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F1ED5F805BF;
-	Mon, 14 Mar 2022 21:06:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F2EF7F805B3;
+	Mon, 14 Mar 2022 21:06:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 07437F8056F; Mon, 14 Mar 2022 21:06:07 +0100 (CET)
+ id 24AD7F8055C; Mon, 14 Mar 2022 21:06:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E4F19F80529
- for <alsa-devel@alsa-project.org>; Mon, 14 Mar 2022 21:05:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4F19F80529
+ by alsa1.perex.cz (Postfix) with ESMTPS id 49068F8052F
+ for <alsa-devel@alsa-project.org>; Mon, 14 Mar 2022 21:05:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49068F8052F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="PYEjsOzm"
+ header.b="DyW5xWt+"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647288352; x=1678824352;
+ t=1647288353; x=1678824353;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=o9mAhem1fMAhHakxRbYGaHAwvOG4JLgvwqq9NzfK0zE=;
- b=PYEjsOzmz5+KXRfz5HjxGJFOMmStVUQiUeh9pEb7DvOl6wg/Z2Cp4Tf5
- uAhwF4ne7hPTp+Ouzr+IC1h/TqhUbL1EBnHNuQoMuGWjsbdJjYDhaipbh
- lbqj4RLm+QxxxBzt5jhpDVl0yTYUy1BSRo8TmfEJV06IRlOW3Uz3KyH/P
- Nee3cns3aH8flzHrKRY1OvLTwL/Mu3lSTP1JbmdSj3j+ivQIVXzMxji2/
- x6TWIAsLH1YL72T0KaBatH2gyvEJsTQmGE2SlA8LraDuZHu450BezomK8
- RBlYDIGWDmE4nNagNAIcVmLTt119HXhKZu0YOAAmftrcURzFwxVU5kPvl Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10286"; a="342563488"
-X-IronPort-AV: E=Sophos;i="5.90,181,1643702400"; d="scan'208";a="342563488"
+ bh=D4oK3/Yt88ByafrlpUL4x3bzy7SU57aD3JwElD4+SuQ=;
+ b=DyW5xWt+xV6SuyLBJKfzd2Ti8/us+9ul+mpr0t8vCgJB3UZpKWjDxOZ0
+ hNWrMAksHX6157rKMnoU/o2NJdoAMUWndWjGkerOjuuHmhSoeSYeIlVfZ
+ yz6sfevzX6K4Mkg8vucf9fE9/KCNHRNHwbYajwZLO5O8H6tQEuNdMbAog
+ gVmJhmljf7oVMK9n9jtCMyekjr6iw83SjjgD5tptc2n74UhleAmLazWho
+ LCh6I7xMsLKdVRKDJKifGk/vqW0yz94e5K4M3AVBkVD2VtQpAsf3j0Jaj
+ /cExwthx2juLZll5bih4YF+Fu2rUNmtBypO6cecYY6tHEiqyAqnzzs6fm Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10286"; a="342563489"
+X-IronPort-AV: E=Sophos;i="5.90,181,1643702400"; d="scan'208";a="342563489"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  14 Mar 2022 13:05:34 -0700
-X-IronPort-AV: E=Sophos;i="5.90,181,1643702400"; d="scan'208";a="634339913"
+X-IronPort-AV: E=Sophos;i="5.90,181,1643702400"; d="scan'208";a="634339917"
 Received: from pmishr1-mobl1.amr.corp.intel.com (HELO
  rsridh2-mobl1.localdomain) ([10.254.25.117])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  14 Mar 2022 13:05:34 -0700
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 17/18] ASoC: SOF: topology: Make widget binding IPC agnostic
-Date: Mon, 14 Mar 2022 13:05:19 -0700
-Message-Id: <20220314200520.1233427-19-ranjani.sridharan@linux.intel.com>
+Subject: [PATCH 18/18] ASoC: SOF: topology: remove snd_sof_complete_pipeline()
+Date: Mon, 14 Mar 2022 13:05:20 -0700
+Message-Id: <20220314200520.1233427-20-ranjani.sridharan@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220314200520.1233427-1-ranjani.sridharan@linux.intel.com>
 References: <20220314200520.1233427-1-ranjani.sridharan@linux.intel.com>
@@ -93,485 +93,169 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Make widget binding in the topology parser IPC agnostic by introducing a
-new op, bind_event, in struct ipc_tplg_widget_ops. Also set the op
-for all widget types in the IPC3 topology ops.
+Add a new topology IPC op, pipeline_complete in struct ipc_tplg_ops
+and set the op for IPC3. Replace the calls to
+snd_sof_complete_pipeline() with the calls to the topology IPC
+pipeline_complete op.
 
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/ipc3-topology.c | 192 +++++++++++++++++++++++++++++-
- sound/soc/sof/topology.c      | 217 ++--------------------------------
- 2 files changed, 202 insertions(+), 207 deletions(-)
+ sound/soc/sof/ipc3-topology.c | 23 +++++++++++++++++++++++
+ sound/soc/sof/sof-audio.c     | 18 ++++++++++++------
+ sound/soc/sof/sof-audio.h     |  4 ++--
+ sound/soc/sof/topology.c      | 23 -----------------------
+ 4 files changed, 37 insertions(+), 31 deletions(-)
 
 diff --git a/sound/soc/sof/ipc3-topology.c b/sound/soc/sof/ipc3-topology.c
-index 96553d103c85..ea1311192877 100644
+index ea1311192877..fe1d5a56080a 100644
 --- a/sound/soc/sof/ipc3-topology.c
 +++ b/sound/soc/sof/ipc3-topology.c
-@@ -8,6 +8,7 @@
- //
- 
- #include <uapi/sound/sof/tokens.h>
-+#include <sound/pcm_params.h>
- #include "sof-priv.h"
- #include "sof-audio.h"
- #include "ops.h"
-@@ -1698,6 +1699,194 @@ static int sof_ipc3_control_free(struct snd_sof_dev *sdev, struct snd_sof_contro
- 	return sof_ipc_tx_message(sdev->ipc, fcomp.hdr.cmd, &fcomp, sizeof(fcomp), NULL, 0);
+@@ -1887,6 +1887,28 @@ static int sof_ipc3_widget_bind_event(struct snd_soc_component *scomp,
+ 	return -EINVAL;
  }
  
-+/* send pcm params ipc */
-+static int sof_ipc3_keyword_detect_pcm_params(struct snd_sof_widget *swidget, int dir)
++static int sof_ipc3_complete_pipeline(struct snd_sof_dev *sdev, struct snd_sof_widget *swidget)
 +{
-+	struct snd_soc_component *scomp = swidget->scomp;
-+	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
-+	struct sof_ipc_pcm_params_reply ipc_params_reply;
-+	struct snd_pcm_hw_params *params;
-+	struct sof_ipc_pcm_params pcm;
-+	struct snd_sof_pcm *spcm;
-+	int ret;
-+
-+	/* get runtime PCM params using widget's stream name */
-+	spcm = snd_sof_find_spcm_name(scomp, swidget->widget->sname);
-+	if (!spcm) {
-+		dev_err(scomp->dev, "Cannot find PCM for %s\n", swidget->widget->name);
-+		return -EINVAL;
-+	}
-+
-+	params = &spcm->params[dir];
-+
-+	/* set IPC PCM params */
-+	memset(&pcm, 0, sizeof(pcm));
-+	pcm.hdr.size = sizeof(pcm);
-+	pcm.hdr.cmd = SOF_IPC_GLB_STREAM_MSG | SOF_IPC_STREAM_PCM_PARAMS;
-+	pcm.comp_id = swidget->comp_id;
-+	pcm.params.hdr.size = sizeof(pcm.params);
-+	pcm.params.direction = dir;
-+	pcm.params.sample_valid_bytes = params_width(params) >> 3;
-+	pcm.params.buffer_fmt = SOF_IPC_BUFFER_INTERLEAVED;
-+	pcm.params.rate = params_rate(params);
-+	pcm.params.channels = params_channels(params);
-+	pcm.params.host_period_bytes = params_period_bytes(params);
-+
-+	/* set format */
-+	switch (params_format(params)) {
-+	case SNDRV_PCM_FORMAT_S16:
-+		pcm.params.frame_fmt = SOF_IPC_FRAME_S16_LE;
-+		break;
-+	case SNDRV_PCM_FORMAT_S24:
-+		pcm.params.frame_fmt = SOF_IPC_FRAME_S24_4LE;
-+		break;
-+	case SNDRV_PCM_FORMAT_S32:
-+		pcm.params.frame_fmt = SOF_IPC_FRAME_S32_LE;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	/* send IPC to the DSP */
-+	ret = sof_ipc_tx_message(sdev->ipc, pcm.hdr.cmd, &pcm, sizeof(pcm),
-+				 &ipc_params_reply, sizeof(ipc_params_reply));
-+	if (ret < 0)
-+		dev_err(scomp->dev, "%s: PCM params failed for %s\n", __func__,
-+			swidget->widget->name);
-+
-+	return ret;
-+}
-+
-+ /* send stream trigger ipc */
-+static int sof_ipc3_keyword_detect_trigger(struct snd_sof_widget *swidget, int cmd)
-+{
-+	struct snd_soc_component *scomp = swidget->scomp;
-+	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
-+	struct sof_ipc_stream stream;
++	struct sof_ipc_pipe_ready ready;
 +	struct sof_ipc_reply reply;
 +	int ret;
 +
-+	/* set IPC stream params */
-+	stream.hdr.size = sizeof(stream);
-+	stream.hdr.cmd = SOF_IPC_GLB_STREAM_MSG | cmd;
-+	stream.comp_id = swidget->comp_id;
++	dev_dbg(sdev->dev, "tplg: complete pipeline %s id %d\n",
++		swidget->widget->name, swidget->comp_id);
 +
-+	/* send IPC to the DSP */
-+	ret = sof_ipc_tx_message(sdev->ipc, stream.hdr.cmd, &stream,
-+				 sizeof(stream), &reply, sizeof(reply));
++	memset(&ready, 0, sizeof(ready));
++	ready.hdr.size = sizeof(ready);
++	ready.hdr.cmd = SOF_IPC_GLB_TPLG_MSG | SOF_IPC_TPLG_PIPE_COMPLETE;
++	ready.comp_id = swidget->comp_id;
++
++	ret = sof_ipc_tx_message(sdev->ipc, ready.hdr.cmd, &ready, sizeof(ready), &reply,
++				 sizeof(reply));
 +	if (ret < 0)
-+		dev_err(scomp->dev, "%s: Failed to trigger %s\n", __func__, swidget->widget->name);
++		return ret;
 +
-+	return ret;
-+}
-+
-+static int sof_ipc3_keyword_dapm_event(struct snd_soc_dapm_widget *w,
-+				       struct snd_kcontrol *k, int event)
-+{
-+	struct snd_sof_widget *swidget = w->dobj.private;
-+	struct snd_soc_component *scomp;
-+	int stream = SNDRV_PCM_STREAM_CAPTURE;
-+	struct snd_sof_pcm *spcm;
-+	int ret = 0;
-+
-+	if (!swidget)
-+		return 0;
-+
-+	scomp = swidget->scomp;
-+
-+	dev_dbg(scomp->dev, "received event %d for widget %s\n",
-+		event, w->name);
-+
-+	/* get runtime PCM params using widget's stream name */
-+	spcm = snd_sof_find_spcm_name(scomp, swidget->widget->sname);
-+	if (!spcm) {
-+		dev_err(scomp->dev, "%s: Cannot find PCM for %s\n", __func__,
-+			swidget->widget->name);
-+		return -EINVAL;
-+	}
-+
-+	/* process events */
-+	switch (event) {
-+	case SND_SOC_DAPM_PRE_PMU:
-+		if (spcm->stream[stream].suspend_ignored) {
-+			dev_dbg(scomp->dev, "PRE_PMU event ignored, KWD pipeline is already RUNNING\n");
-+			return 0;
-+		}
-+
-+		/* set pcm params */
-+		ret = sof_ipc3_keyword_detect_pcm_params(swidget, stream);
-+		if (ret < 0) {
-+			dev_err(scomp->dev, "%s: Failed to set pcm params for widget %s\n",
-+				__func__, swidget->widget->name);
-+			break;
-+		}
-+
-+		/* start trigger */
-+		ret = sof_ipc3_keyword_detect_trigger(swidget, SOF_IPC_STREAM_TRIG_START);
-+		if (ret < 0)
-+			dev_err(scomp->dev, "%s: Failed to trigger widget %s\n", __func__,
-+				swidget->widget->name);
-+		break;
-+	case SND_SOC_DAPM_POST_PMD:
-+		if (spcm->stream[stream].suspend_ignored) {
-+			dev_dbg(scomp->dev,
-+				"POST_PMD event ignored, KWD pipeline will remain RUNNING\n");
-+			return 0;
-+		}
-+
-+		/* stop trigger */
-+		ret = sof_ipc3_keyword_detect_trigger(swidget, SOF_IPC_STREAM_TRIG_STOP);
-+		if (ret < 0)
-+			dev_err(scomp->dev, "%s: Failed to trigger widget %s\n", __func__,
-+				swidget->widget->name);
-+
-+		/* pcm free */
-+		ret = sof_ipc3_keyword_detect_trigger(swidget, SOF_IPC_STREAM_PCM_FREE);
-+		if (ret < 0)
-+			dev_err(scomp->dev, "%s: Failed to free PCM for widget %s\n", __func__,
-+				swidget->widget->name);
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	return ret;
-+}
-+
-+/* event handlers for keyword detect component */
-+static const struct snd_soc_tplg_widget_events sof_kwd_events[] = {
-+	{SOF_KEYWORD_DETECT_DAPM_EVENT, sof_ipc3_keyword_dapm_event},
-+};
-+
-+static int sof_ipc3_widget_bind_event(struct snd_soc_component *scomp,
-+				      struct snd_sof_widget *swidget, u16 event_type)
-+{
-+	struct sof_ipc_comp *ipc_comp;
-+
-+	/* validate widget event type */
-+	switch (event_type) {
-+	case SOF_KEYWORD_DETECT_DAPM_EVENT:
-+		/* only KEYWORD_DETECT comps should handle this */
-+		if (swidget->id != snd_soc_dapm_effect)
-+			break;
-+
-+		ipc_comp = swidget->private;
-+		if (ipc_comp && ipc_comp->type != SOF_COMP_KEYWORD_DETECT)
-+			break;
-+
-+		/* bind event to keyword detect comp */
-+		return snd_soc_tplg_widget_bind_event(swidget->widget, sof_kwd_events,
-+						      ARRAY_SIZE(sof_kwd_events), event_type);
-+	default:
-+		break;
-+	}
-+
-+	dev_err(scomp->dev, "Invalid event type %d for widget %s\n", event_type,
-+		swidget->widget->name);
-+
-+	return -EINVAL;
++	return 1;
 +}
 +
  /* token list for each topology object */
  static enum sof_tokens host_token_list[] = {
  	SOF_CORE_TOKENS,
-@@ -1790,7 +1979,8 @@ static const struct sof_ipc_tplg_widget_ops tplg_ipc3_widget_ops[SND_SOC_DAPM_TY
- 				 comp_generic_token_list, ARRAY_SIZE(comp_generic_token_list),
- 				 NULL},
- 	[snd_soc_dapm_effect] = {sof_widget_update_ipc_comp_process, sof_ipc3_widget_free_comp,
--				 process_token_list, ARRAY_SIZE(process_token_list), NULL},
-+				 process_token_list, ARRAY_SIZE(process_token_list),
-+				 sof_ipc3_widget_bind_event},
+@@ -1988,6 +2010,7 @@ static const struct sof_ipc_tplg_ops ipc3_tplg_ops = {
+ 	.route_setup = sof_ipc3_route_setup,
+ 	.control_setup = sof_ipc3_control_setup,
+ 	.control_free = sof_ipc3_control_free,
++	.pipeline_complete = sof_ipc3_complete_pipeline,
+ 	.token_list = ipc3_token_list,
  };
  
- static const struct sof_ipc_tplg_ops ipc3_tplg_ops = {
-diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index f7adf058a768..70677a36c304 100644
---- a/sound/soc/sof/topology.c
-+++ b/sound/soc/sof/topology.c
-@@ -14,7 +14,6 @@
- #include <linux/firmware.h>
- #include <linux/workqueue.h>
- #include <sound/tlv.h>
--#include <sound/pcm_params.h>
- #include <uapi/sound/sof/tokens.h>
- #include "sof-priv.h"
- #include "sof-audio.h"
-@@ -135,171 +134,6 @@ int sof_update_ipc_object(struct snd_soc_component *scomp, void *object, enum so
- 	return 0;
- }
+diff --git a/sound/soc/sof/sof-audio.c b/sound/soc/sof/sof-audio.c
+index c02dcad03b23..683c290bb69a 100644
+--- a/sound/soc/sof/sof-audio.c
++++ b/sound/soc/sof/sof-audio.c
+@@ -362,6 +362,7 @@ static int sof_setup_pipeline_connections(struct snd_sof_dev *sdev,
  
--/* send pcm params ipc */
--static int ipc_pcm_params(struct snd_sof_widget *swidget, int dir)
--{
--	struct sof_ipc_pcm_params_reply ipc_params_reply;
--	struct snd_soc_component *scomp = swidget->scomp;
--	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
--	struct sof_ipc_pcm_params pcm;
--	struct snd_pcm_hw_params *params;
--	struct snd_sof_pcm *spcm;
--	int ret;
--
--	memset(&pcm, 0, sizeof(pcm));
--
--	/* get runtime PCM params using widget's stream name */
--	spcm = snd_sof_find_spcm_name(scomp, swidget->widget->sname);
--	if (!spcm) {
--		dev_err(scomp->dev, "error: cannot find PCM for %s\n",
--			swidget->widget->name);
--		return -EINVAL;
--	}
--
--	params = &spcm->params[dir];
--
--	/* set IPC PCM params */
--	pcm.hdr.size = sizeof(pcm);
--	pcm.hdr.cmd = SOF_IPC_GLB_STREAM_MSG | SOF_IPC_STREAM_PCM_PARAMS;
--	pcm.comp_id = swidget->comp_id;
--	pcm.params.hdr.size = sizeof(pcm.params);
--	pcm.params.direction = dir;
--	pcm.params.sample_valid_bytes = params_width(params) >> 3;
--	pcm.params.buffer_fmt = SOF_IPC_BUFFER_INTERLEAVED;
--	pcm.params.rate = params_rate(params);
--	pcm.params.channels = params_channels(params);
--	pcm.params.host_period_bytes = params_period_bytes(params);
--
--	/* set format */
--	switch (params_format(params)) {
--	case SNDRV_PCM_FORMAT_S16:
--		pcm.params.frame_fmt = SOF_IPC_FRAME_S16_LE;
--		break;
--	case SNDRV_PCM_FORMAT_S24:
--		pcm.params.frame_fmt = SOF_IPC_FRAME_S24_4LE;
--		break;
--	case SNDRV_PCM_FORMAT_S32:
--		pcm.params.frame_fmt = SOF_IPC_FRAME_S32_LE;
--		break;
--	default:
--		return -EINVAL;
--	}
--
--	/* send IPC to the DSP */
--	ret = sof_ipc_tx_message(sdev->ipc, pcm.hdr.cmd, &pcm, sizeof(pcm),
--				 &ipc_params_reply, sizeof(ipc_params_reply));
--	if (ret < 0)
--		dev_err(scomp->dev, "error: pcm params failed for %s\n",
--			swidget->widget->name);
--
--	return ret;
--}
--
-- /* send stream trigger ipc */
--static int ipc_trigger(struct snd_sof_widget *swidget, int cmd)
--{
--	struct snd_soc_component *scomp = swidget->scomp;
--	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
--	struct sof_ipc_stream stream;
--	struct sof_ipc_reply reply;
--	int ret;
--
--	/* set IPC stream params */
--	stream.hdr.size = sizeof(stream);
--	stream.hdr.cmd = SOF_IPC_GLB_STREAM_MSG | cmd;
--	stream.comp_id = swidget->comp_id;
--
--	/* send IPC to the DSP */
--	ret = sof_ipc_tx_message(sdev->ipc, stream.hdr.cmd, &stream,
--				 sizeof(stream), &reply, sizeof(reply));
--	if (ret < 0)
--		dev_err(scomp->dev, "error: failed to trigger %s\n",
--			swidget->widget->name);
--
--	return ret;
--}
--
--static int sof_keyword_dapm_event(struct snd_soc_dapm_widget *w,
--				  struct snd_kcontrol *k, int event)
--{
--	struct snd_sof_widget *swidget = w->dobj.private;
--	struct snd_soc_component *scomp;
--	int stream = SNDRV_PCM_STREAM_CAPTURE;
--	struct snd_sof_pcm *spcm;
--	int ret = 0;
--
--	if (!swidget)
--		return 0;
--
--	scomp = swidget->scomp;
--
--	dev_dbg(scomp->dev, "received event %d for widget %s\n",
--		event, w->name);
--
--	/* get runtime PCM params using widget's stream name */
--	spcm = snd_sof_find_spcm_name(scomp, swidget->widget->sname);
--	if (!spcm) {
--		dev_err(scomp->dev, "error: cannot find PCM for %s\n",
--			swidget->widget->name);
--		return -EINVAL;
--	}
--
--	/* process events */
--	switch (event) {
--	case SND_SOC_DAPM_PRE_PMU:
--		if (spcm->stream[stream].suspend_ignored) {
--			dev_dbg(scomp->dev, "PRE_PMU event ignored, KWD pipeline is already RUNNING\n");
--			return 0;
--		}
--
--		/* set pcm params */
--		ret = ipc_pcm_params(swidget, stream);
--		if (ret < 0) {
--			dev_err(scomp->dev,
--				"error: failed to set pcm params for widget %s\n",
--				swidget->widget->name);
--			break;
--		}
--
--		/* start trigger */
--		ret = ipc_trigger(swidget, SOF_IPC_STREAM_TRIG_START);
--		if (ret < 0)
--			dev_err(scomp->dev,
--				"error: failed to trigger widget %s\n",
--				swidget->widget->name);
--		break;
--	case SND_SOC_DAPM_POST_PMD:
--		if (spcm->stream[stream].suspend_ignored) {
--			dev_dbg(scomp->dev, "POST_PMD even ignored, KWD pipeline will remain RUNNING\n");
--			return 0;
--		}
--
--		/* stop trigger */
--		ret = ipc_trigger(swidget, SOF_IPC_STREAM_TRIG_STOP);
--		if (ret < 0)
--			dev_err(scomp->dev,
--				"error: failed to trigger widget %s\n",
--				swidget->widget->name);
--
--		/* pcm free */
--		ret = ipc_trigger(swidget, SOF_IPC_STREAM_PCM_FREE);
--		if (ret < 0)
--			dev_err(scomp->dev,
--				"error: failed to trigger widget %s\n",
--				swidget->widget->name);
--		break;
--	default:
--		break;
--	}
--
--	return ret;
--}
--
--/* event handlers for keyword detect component */
--static const struct snd_soc_tplg_widget_events sof_kwd_events[] = {
--	{SOF_KEYWORD_DETECT_DAPM_EVENT, sof_keyword_dapm_event},
--};
--
- static inline int get_tlv_data(const int *p, int tlv[TLV_ITEMS])
+ int sof_widget_list_setup(struct snd_sof_dev *sdev, struct snd_sof_pcm *spcm, int dir)
  {
- 	/* we only support dB scale TLV type at the moment */
-@@ -1323,38 +1157,6 @@ static int sof_widget_parse_tokens(struct snd_soc_component *scomp, struct snd_s
- 	return ret;
- }
++	const struct sof_ipc_tplg_ops *ipc_tplg_ops = sdev->ipc->ops->tplg;
+ 	struct snd_soc_dapm_widget_list *list = spcm->stream[dir].list;
+ 	struct snd_soc_dapm_widget *widget;
+ 	int i, ret, num_widgets;
+@@ -432,10 +433,12 @@ int sof_widget_list_setup(struct snd_sof_dev *sdev, struct snd_sof_pcm *spcm, in
+ 		if (pipe_widget->complete)
+ 			continue;
  
--static int sof_widget_bind_event(struct snd_soc_component *scomp,
--				 struct snd_sof_widget *swidget,
--				 u16 event_type)
--{
--	struct sof_ipc_comp *ipc_comp;
--
--	/* validate widget event type */
--	switch (event_type) {
--	case SOF_KEYWORD_DETECT_DAPM_EVENT:
--		/* only KEYWORD_DETECT comps should handle this */
--		if (swidget->id != snd_soc_dapm_effect)
--			break;
--
--		ipc_comp = swidget->private;
--		if (ipc_comp && ipc_comp->type != SOF_COMP_KEYWORD_DETECT)
--			break;
--
--		/* bind event to keyword detect comp */
--		return snd_soc_tplg_widget_bind_event(swidget->widget,
--						      sof_kwd_events,
--						      ARRAY_SIZE(sof_kwd_events),
--						      event_type);
--	default:
--		break;
--	}
--
--	dev_err(scomp->dev,
--		"error: invalid event type %d for widget %s\n",
--		event_type, swidget->widget->name);
--	return -EINVAL;
--}
--
- static int sof_get_token_value(u32 token_id, struct snd_sof_tuple *tuples, int num_tuples)
- {
- 	int i;
-@@ -1486,14 +1288,17 @@ static int sof_widget_ready(struct snd_soc_component *scomp, int index,
- 
- 	/* bind widget to external event */
- 	if (tw->event_type) {
--		ret = sof_widget_bind_event(scomp, swidget,
--					    le16_to_cpu(tw->event_type));
--		if (ret) {
--			dev_err(scomp->dev, "error: widget event binding failed\n");
--			kfree(swidget->private);
--			kfree(swidget->tuples);
--			kfree(swidget);
--			return ret;
-+		if (widget_ops[w->id].bind_event) {
-+			ret = widget_ops[w->id].bind_event(scomp, swidget,
-+							   le16_to_cpu(tw->event_type));
-+			if (ret) {
-+				dev_err(scomp->dev, "widget event binding failed for %s\n",
-+					swidget->widget->name);
-+				kfree(swidget->private);
-+				kfree(swidget->tuples);
-+				kfree(swidget);
-+				return ret;
+-		pipe_widget->complete = snd_sof_complete_pipeline(sdev, pipe_widget);
+-		if (pipe_widget->complete < 0) {
+-			ret = pipe_widget->complete;
+-			goto widget_free;
++		if (ipc_tplg_ops->pipeline_complete) {
++			pipe_widget->complete = ipc_tplg_ops->pipeline_complete(sdev, pipe_widget);
++			if (pipe_widget->complete < 0) {
++				ret = pipe_widget->complete;
++				goto widget_free;
 +			}
  		}
  	}
  
+@@ -657,8 +660,11 @@ int sof_set_up_pipelines(struct snd_sof_dev *sdev, bool verify)
+ 					return ret;
+ 			}
+ 
+-			swidget->complete =
+-				snd_sof_complete_pipeline(sdev, swidget);
++			if (ipc_tplg_ops->pipeline_complete) {
++				swidget->complete = ipc_tplg_ops->pipeline_complete(sdev, swidget);
++				if (swidget->complete < 0)
++					return swidget->complete;
++			}
+ 			break;
+ 		default:
+ 			break;
+diff --git a/sound/soc/sof/sof-audio.h b/sound/soc/sof/sof-audio.h
+index a14b872ea261..622d43707b27 100644
+--- a/sound/soc/sof/sof-audio.h
++++ b/sound/soc/sof/sof-audio.h
+@@ -68,6 +68,7 @@ struct sof_ipc_tplg_widget_ops {
+  *		initialized to 0.
+  * @control_setup: Function pointer for setting up kcontrol IPC-specific data
+  * @control_free: Function pointer for freeing kcontrol IPC-specific data
++ * @pipeline_complete: Function pointer for pipeline complete IPC
+  */
+ struct sof_ipc_tplg_ops {
+ 	const struct sof_ipc_tplg_widget_ops *widget;
+@@ -75,6 +76,7 @@ struct sof_ipc_tplg_ops {
+ 	const struct sof_token_info *token_list;
+ 	int (*control_setup)(struct snd_sof_dev *sdev, struct snd_sof_control *scontrol);
+ 	int (*control_free)(struct snd_sof_dev *sdev, struct snd_sof_control *scontrol);
++	int (*pipeline_complete)(struct snd_sof_dev *sdev, struct snd_sof_widget *swidget);
+ };
+ 
+ /** struct snd_sof_tuple - Tuple info
+@@ -318,8 +320,6 @@ void snd_sof_control_notify(struct snd_sof_dev *sdev,
+  * be freed by snd_soc_unregister_component,
+  */
+ int snd_sof_load_topology(struct snd_soc_component *scomp, const char *file);
+-int snd_sof_complete_pipeline(struct snd_sof_dev *sdev,
+-			      struct snd_sof_widget *swidget);
+ 
+ /*
+  * Stream IPC
+diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
+index 70677a36c304..367fbe2d5b31 100644
+--- a/sound/soc/sof/topology.c
++++ b/sound/soc/sof/topology.c
+@@ -1825,29 +1825,6 @@ static int sof_route_load(struct snd_soc_component *scomp, int index,
+ 	return ret;
+ }
+ 
+-int snd_sof_complete_pipeline(struct snd_sof_dev *sdev,
+-			      struct snd_sof_widget *swidget)
+-{
+-	struct sof_ipc_pipe_ready ready;
+-	struct sof_ipc_reply reply;
+-	int ret;
+-
+-	dev_dbg(sdev->dev, "tplg: complete pipeline %s id %d\n",
+-		swidget->widget->name, swidget->comp_id);
+-
+-	memset(&ready, 0, sizeof(ready));
+-	ready.hdr.size = sizeof(ready);
+-	ready.hdr.cmd = SOF_IPC_GLB_TPLG_MSG | SOF_IPC_TPLG_PIPE_COMPLETE;
+-	ready.comp_id = swidget->comp_id;
+-
+-	ret = sof_ipc_tx_message(sdev->ipc,
+-				 ready.hdr.cmd, &ready, sizeof(ready), &reply,
+-				 sizeof(reply));
+-	if (ret < 0)
+-		return ret;
+-	return 1;
+-}
+-
+ /**
+  * sof_set_pipe_widget - Set pipe_widget for a component
+  * @sdev: pointer to struct snd_sof_dev
 -- 
 2.25.1
 

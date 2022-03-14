@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 969E84D8DDB
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Mar 2022 21:08:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00AB24D8DDC
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Mar 2022 21:08:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2C70017E8;
-	Mon, 14 Mar 2022 21:07:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C70017E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 786E3181C;
+	Mon, 14 Mar 2022 21:07:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 786E3181C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647288486;
-	bh=u3bwTvbNX9x0xvyI0+4ZlXRcVsxh2WQH7lYr92L3+U4=;
+	s=default; t=1647288498;
+	bh=0+UbyEz6sOba64pK9D/b4PlCXAPs658/a5uoSbGe63Q=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PMDheRBdMSI7yvettAeDi5qYhk9MxZD/IEadivZAZkPzRxD7soIKOyvq6PDLLqkd/
-	 YytMyHFrxqiW7KlTsZ55qtv31MebqhvNLYPheCdNEH0oFAabUV8duYqip1h9JGukAR
-	 4x/oTuN+qT+Ykvz2wSWmuruPNWmGQqe3MZkinoFQ=
+	b=Z9lR7+Nnwm/LmSkpNR4osivkyJxi//YTHgGNwAgdnuasG+DqRTEGdqLvWYuKWy4DQ
+	 LKnV+KAYrImczwN+LgWNyaWb4dxZIcoI6a7AWYtC/CxqrbUIK/YS65ULAuhKQeyRmV
+	 Bkc3r/hKGt+IYOVZp2O7uktQgl6XnJonGxZL/WHc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B7C98F80533;
-	Mon, 14 Mar 2022 21:05:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09EE6F80536;
+	Mon, 14 Mar 2022 21:05:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 83C67F8052D; Mon, 14 Mar 2022 21:05:49 +0100 (CET)
+ id C9B8BF8052E; Mon, 14 Mar 2022 21:05:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,39 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1D709F80475
+ by alsa1.perex.cz (Postfix) with ESMTPS id DCB55F80139
  for <alsa-devel@alsa-project.org>; Mon, 14 Mar 2022 21:05:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D709F80475
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DCB55F80139
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="Dz0+ujyu"
+ header.b="L1f35ijq"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1647288343; x=1678824343;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=u3bwTvbNX9x0xvyI0+4ZlXRcVsxh2WQH7lYr92L3+U4=;
- b=Dz0+ujyuEl741WLkFDGqeQKfMkgEiLk4BoXCpufBnPqFFkqHMhfl5rGZ
- lwJI80AckV24gwjBpk322S/B4cGB0DWWlTEsC3RA7vO/dFzmeUQp/b5Bs
- HLr0dAI9RxT/lsHyedECFBAX+lB9J4yw37iOQ99oclOmHSJM25eGVQ0bI
- MWN0gw6D10doQCSJCc9rs0wQBbp8dABzamsLkOjewZdp1RsBAx+LPa//b
- PQk6kFfM1M9/KTCy3WeLRyWlnCLo52SqBY2gYw9gCO7giUnFSyv8E/8kq
- hStaO0LgDLap6Pbfek2cLHTzwXjq/XxlkbMs8+ItTLNzuc+tSwyoK9DJy w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10286"; a="342563470"
-X-IronPort-AV: E=Sophos;i="5.90,181,1643702400"; d="scan'208";a="342563470"
+ bh=0+UbyEz6sOba64pK9D/b4PlCXAPs658/a5uoSbGe63Q=;
+ b=L1f35ijq3gWkKLJjCs6IbfziucLFAgUmE+oSyH8A6oH4W7cB0fU9UA69
+ txZ3ixXOimPOkHuD42kK7//p7GNwZjQOuH9YKRM6f6Nij174WcYwDZ1Ow
+ mhuMYZFW4V0Sib1bbvfMczTguTa4X0MCZdwo07kV2OboBx5VgMe7hcozw
+ 43AfsBNWoGIifaJr+VxWTygsLK4CZKDZMtOPZCqsv2/LhZ16niB7GRtks
+ YI5UFF6eDs4wak/IyYMdE/j2AYX+O5TmXaZ6jjwd1Q0fhYO3TqOQV7hM8
+ Qs7VFtBFdx2BALYhfH/bQ9GM+FAaVrzNyj2XCei6bazHpFBdBbVORLvLm A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10286"; a="342563471"
+X-IronPort-AV: E=Sophos;i="5.90,181,1643702400"; d="scan'208";a="342563471"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  14 Mar 2022 13:05:32 -0700
-X-IronPort-AV: E=Sophos;i="5.90,181,1643702400"; d="scan'208";a="634339888"
+X-IronPort-AV: E=Sophos;i="5.90,181,1643702400"; d="scan'208";a="634339889"
 Received: from pmishr1-mobl1.amr.corp.intel.com (HELO
  rsridh2-mobl1.localdomain) ([10.254.25.117])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  14 Mar 2022 13:05:32 -0700
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 03/18] ASoC: SOF: topology: Add helper function for processing
- tuple arrays
-Date: Mon, 14 Mar 2022 13:05:05 -0700
-Message-Id: <20220314200520.1233427-5-ranjani.sridharan@linux.intel.com>
+Subject: [PATCH 04/18] ASoC: SOF: Introduce IPC3 ops
+Date: Mon, 14 Mar 2022 13:05:06 -0700
+Message-Id: <20220314200520.1233427-6-ranjani.sridharan@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220314200520.1233427-1-ranjani.sridharan@linux.intel.com>
 References: <20220314200520.1233427-1-ranjani.sridharan@linux.intel.com>
@@ -94,217 +93,612 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add a helper function for processing tuple arrays and populating the
-IPC structure objects based on the token ID passed.
+Add the IPC ops including the topology-related IPC ops for the current
+version (IPC3, named after the current SOF firmware ABI major version 3.0)
+of IPC supported by the SOF firmware and set it as default. The topology
+IPC ops and the widget ops within the topology IPC ops are both
+mandatory.
 
-Introduce a new enum representing token ID for the tokens
-currently used in the topology parse and a new struct sof_token_info
-to store the information about a token set. Finally, expose the struct
-snd_sof_topology token as it will be used by IPC-specific code.
+With the introduction of IPC3 ops, we define the list of tokens pertaining
+to the AIF_IN/AIF_OUT widgets. Then these tokens are parsed during
+topology parsing and saved as part of the swidget tuples array. Once
+topology parsing is complete, these tokens will be applied to create the
+IPC structure for the host component based on the topology widget_setup
+op in ipc3_tplg_ops.
 
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/sof-audio.h |  54 +++++++++++++++++++
- sound/soc/sof/topology.c  | 106 +++++++++++++++++++++++++++++++++-----
- 2 files changed, 148 insertions(+), 12 deletions(-)
+ sound/soc/sof/Makefile        |   3 +-
+ sound/soc/sof/ipc.c           |  12 ++
+ sound/soc/sof/ipc3-topology.c | 173 +++++++++++++++++++++++
+ sound/soc/sof/sof-priv.h      |   2 +
+ sound/soc/sof/topology.c      | 258 +++++++++++++++++++++++++++-------
+ 5 files changed, 397 insertions(+), 51 deletions(-)
+ create mode 100644 sound/soc/sof/ipc3-topology.c
 
-diff --git a/sound/soc/sof/sof-audio.h b/sound/soc/sof/sof-audio.h
-index 79041622987f..bde86e078e08 100644
---- a/sound/soc/sof/sof-audio.h
-+++ b/sound/soc/sof/sof-audio.h
-@@ -78,6 +78,57 @@ struct snd_sof_tuple {
- 	} value;
- };
+diff --git a/sound/soc/sof/Makefile b/sound/soc/sof/Makefile
+index a0459f06c68a..e13dab59764c 100644
+--- a/sound/soc/sof/Makefile
++++ b/sound/soc/sof/Makefile
+@@ -1,7 +1,8 @@
+ # SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
  
-+/*
-+ * List of SOF token ID's. The order of ID's does not matter as token arrays are looked up based on
-+ * the ID.
+ snd-sof-objs := core.o ops.o loader.o ipc.o pcm.o pm.o debug.o topology.o\
+-		control.o trace.o iomem-utils.o sof-audio.o stream-ipc.o
++		control.o trace.o iomem-utils.o sof-audio.o stream-ipc.o\
++		ipc3-topology.o
+ ifneq ($(CONFIG_SND_SOC_SOF_CLIENT),)
+ snd-sof-objs += sof-client.o
+ endif
+diff --git a/sound/soc/sof/ipc.c b/sound/soc/sof/ipc.c
+index 34084e0008f1..cf892859355a 100644
+--- a/sound/soc/sof/ipc.c
++++ b/sound/soc/sof/ipc.c
+@@ -1023,6 +1023,18 @@ struct snd_sof_ipc *snd_sof_ipc_init(struct snd_sof_dev *sdev)
+ 
+ 	init_waitqueue_head(&msg->waitq);
+ 
++	/*
++	 * Use IPC3 ops as it is the only available version now. With the addition of new IPC
++	 * versions, this will need to be modified to use the selected version at runtime.
++	 */
++	ipc->ops = &ipc3_ops;
++
++	/* check for mandatory ops */
++	if (!ipc->ops->tplg || !ipc->ops->tplg->widget) {
++		dev_err(sdev->dev, "Invalid topology IPC ops\n");
++		return NULL;
++	}
++
+ 	return ipc;
+ }
+ EXPORT_SYMBOL(snd_sof_ipc_init);
+diff --git a/sound/soc/sof/ipc3-topology.c b/sound/soc/sof/ipc3-topology.c
+new file mode 100644
+index 000000000000..33d07b0df640
+--- /dev/null
++++ b/sound/soc/sof/ipc3-topology.c
+@@ -0,0 +1,173 @@
++// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
++//
++// This file is provided under a dual BSD/GPLv2 license.  When using or
++// redistributing this file, you may do so under either license.
++//
++// Copyright(c) 2021 Intel Corporation. All rights reserved.
++//
++//
++
++#include <uapi/sound/sof/tokens.h>
++#include <sound/pcm_params.h>
++#include "sof-priv.h"
++#include "sof-audio.h"
++#include "ops.h"
++
++/* PCM */
++static const struct sof_topology_token pcm_tokens[] = {
++	{SOF_TKN_PCM_DMAC_CONFIG, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
++		offsetof(struct sof_ipc_comp_host, dmac_config)},
++};
++
++/* Generic components */
++static const struct sof_topology_token comp_tokens[] = {
++	{SOF_TKN_COMP_PERIOD_SINK_COUNT, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
++		offsetof(struct sof_ipc_comp_config, periods_sink)},
++	{SOF_TKN_COMP_PERIOD_SOURCE_COUNT, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
++		offsetof(struct sof_ipc_comp_config, periods_source)},
++	{SOF_TKN_COMP_FORMAT,
++		SND_SOC_TPLG_TUPLE_TYPE_STRING, get_token_comp_format,
++		offsetof(struct sof_ipc_comp_config, frame_fmt)},
++};
++
++/* Core tokens */
++static const struct sof_topology_token core_tokens[] = {
++	{SOF_TKN_COMP_CORE_ID, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
++		offsetof(struct sof_ipc_comp, core)},
++};
++
++/* Component extended tokens */
++static const struct sof_topology_token comp_ext_tokens[] = {
++	{SOF_TKN_COMP_UUID, SND_SOC_TPLG_TUPLE_TYPE_UUID, get_token_uuid,
++		offsetof(struct snd_sof_widget, uuid)},
++};
++
++static const struct sof_token_info ipc3_token_list[SOF_TOKEN_COUNT] = {
++	[SOF_PCM_TOKENS] = {"PCM tokens", pcm_tokens, ARRAY_SIZE(pcm_tokens)},
++	[SOF_COMP_TOKENS] = {"Comp tokens", comp_tokens, ARRAY_SIZE(comp_tokens)},
++	[SOF_CORE_TOKENS] = {"Core tokens", core_tokens, ARRAY_SIZE(core_tokens)},
++	[SOF_COMP_EXT_TOKENS] = {"AFE tokens", comp_ext_tokens, ARRAY_SIZE(comp_ext_tokens)},
++};
++
++/**
++ * sof_comp_alloc - allocate and initialize buffer for a new component
++ * @swidget: pointer to struct snd_sof_widget containing extended data
++ * @ipc_size: IPC payload size that will be updated depending on valid
++ *  extended data.
++ * @index: ID of the pipeline the component belongs to
++ *
++ * Return: The pointer to the new allocated component, NULL if failed.
 + */
-+enum sof_tokens {
-+	SOF_PCM_TOKENS,
-+	SOF_PIPELINE_TOKENS,
-+	SOF_SCHED_TOKENS,
-+	SOF_ASRC_TOKENS,
-+	SOF_SRC_TOKENS,
-+	SOF_COMP_TOKENS,
-+	SOF_BUFFER_TOKENS,
-+	SOF_VOLUME_TOKENS,
-+	SOF_PROCESS_TOKENS,
-+	SOF_DAI_TOKENS,
-+	SOF_DAI_LINK_TOKENS,
-+	SOF_HDA_TOKENS,
-+	SOF_SSP_TOKENS,
-+	SOF_ALH_TOKENS,
-+	SOF_DMIC_TOKENS,
-+	SOF_DMIC_PDM_TOKENS,
-+	SOF_ESAI_TOKENS,
-+	SOF_SAI_TOKENS,
-+	SOF_AFE_TOKENS,
++static void *sof_comp_alloc(struct snd_sof_widget *swidget, size_t *ipc_size,
++			    int index)
++{
++	struct sof_ipc_comp *comp;
++	size_t total_size = *ipc_size;
++	size_t ext_size = sizeof(swidget->uuid);
++
++	/* only non-zero UUID is valid */
++	if (!guid_is_null(&swidget->uuid))
++		total_size += ext_size;
++
++	comp = kzalloc(total_size, GFP_KERNEL);
++	if (!comp)
++		return NULL;
++
++	/* configure comp new IPC message */
++	comp->hdr.size = total_size;
++	comp->hdr.cmd = SOF_IPC_GLB_TPLG_MSG | SOF_IPC_TPLG_COMP_NEW;
++	comp->id = swidget->comp_id;
++	comp->pipeline_id = index;
++	comp->core = swidget->core;
++
++	/* handle the extended data if needed */
++	if (total_size > *ipc_size) {
++		/* append extended data to the end of the component */
++		memcpy((u8 *)comp + *ipc_size, &swidget->uuid, ext_size);
++		comp->ext_data_length = ext_size;
++	}
++
++	/* update ipc_size and return */
++	*ipc_size = total_size;
++	return comp;
++}
++
++static void sof_dbg_comp_config(struct snd_soc_component *scomp, struct sof_ipc_comp_config *config)
++{
++	dev_dbg(scomp->dev, " config: periods snk %d src %d fmt %d\n",
++		config->periods_sink, config->periods_source,
++		config->frame_fmt);
++}
++
++static int sof_ipc3_widget_setup_comp_host(struct snd_sof_widget *swidget)
++{
++	struct snd_soc_component *scomp = swidget->scomp;
++	struct sof_ipc_comp_host *host;
++	size_t ipc_size = sizeof(*host);
++	int ret;
++
++	host = sof_comp_alloc(swidget, &ipc_size, swidget->pipeline_id);
++	if (!host)
++		return -ENOMEM;
++	swidget->private = host;
++
++	/* configure host comp IPC message */
++	host->comp.type = SOF_COMP_HOST;
++	host->config.hdr.size = sizeof(host->config);
++
++	if (swidget->id == snd_soc_dapm_aif_out)
++		host->direction = SOF_IPC_STREAM_CAPTURE;
++	else
++		host->direction = SOF_IPC_STREAM_PLAYBACK;
++
++	/* parse one set of pcm_tokens */
++	ret = sof_update_ipc_object(scomp, host, SOF_PCM_TOKENS, swidget->tuples,
++				    swidget->num_tuples, sizeof(*host), 1);
++	if (ret < 0)
++		goto err;
++
++	/* parse one set of comp_tokens */
++	ret = sof_update_ipc_object(scomp, &host->config, SOF_COMP_TOKENS, swidget->tuples,
++				    swidget->num_tuples, sizeof(host->config), 1);
++	if (ret < 0)
++		goto err;
++
++	dev_dbg(scomp->dev, "loaded host %s\n", swidget->widget->name);
++	sof_dbg_comp_config(scomp, &host->config);
++
++	return 0;
++err:
++	kfree(swidget->private);
++	swidget->private = NULL;
++
++	return ret;
++}
++
++static void sof_ipc3_widget_free_comp(struct snd_sof_widget *swidget)
++{
++	kfree(swidget->private);
++}
++
++/* token list for each topology object */
++static enum sof_tokens host_token_list[] = {
 +	SOF_CORE_TOKENS,
 +	SOF_COMP_EXT_TOKENS,
-+
-+	/* this should be the last */
-+	SOF_TOKEN_COUNT,
++	SOF_PCM_TOKENS,
++	SOF_COMP_TOKENS,
 +};
 +
-+/**
-+ * struct sof_topology_token - SOF topology token definition
-+ * @token:		Token number
-+ * @type:		Token type
-+ * @get_token:		Function pointer to parse the token value and save it in a object
-+ * @offset:		Offset within an object to save the token value into
-+ */
-+struct sof_topology_token {
-+	u32 token;
-+	u32 type;
-+	int (*get_token)(void *elem, void *object, u32 offset);
-+	u32 offset;
++static const struct sof_ipc_tplg_widget_ops tplg_ipc3_widget_ops[SND_SOC_DAPM_TYPE_COUNT] = {
++	[snd_soc_dapm_aif_in] =  {sof_ipc3_widget_setup_comp_host, sof_ipc3_widget_free_comp,
++				  host_token_list, ARRAY_SIZE(host_token_list), NULL},
++	[snd_soc_dapm_aif_out] = {sof_ipc3_widget_setup_comp_host, sof_ipc3_widget_free_comp,
++				  host_token_list, ARRAY_SIZE(host_token_list), NULL},
 +};
 +
-+struct sof_token_info {
-+	const char *name;
-+	const struct sof_topology_token *tokens;
-+	int count;
++static const struct sof_ipc_tplg_ops ipc3_tplg_ops = {
++	.widget = tplg_ipc3_widget_ops,
++	.token_list = ipc3_token_list,
 +};
 +
- /* PCM stream, mapped to FW component  */
- struct snd_sof_pcm_stream {
- 	u32 comp_id;
-@@ -333,4 +384,7 @@ int get_token_u16(void *elem, void *object, u32 offset);
- int get_token_comp_format(void *elem, void *object, u32 offset);
- int get_token_dai_type(void *elem, void *object, u32 offset);
- int get_token_uuid(void *elem, void *object, u32 offset);
-+int sof_update_ipc_object(struct snd_soc_component *scomp, void *object, enum sof_tokens token_id,
-+			  struct snd_sof_tuple *tuples, int num_tuples,
-+			  size_t object_size, int token_instance_num);
- #endif
++const struct sof_ipc_ops ipc3_ops = {
++	.tplg = &ipc3_tplg_ops,
++};
+diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
+index 0dab5b70406e..0b89c3e6ef21 100644
+--- a/sound/soc/sof/sof-priv.h
++++ b/sound/soc/sof/sof-priv.h
+@@ -370,6 +370,8 @@ struct sof_ipc_ops {
+ 	const struct sof_ipc_tplg_ops *tplg;
+ };
+ 
++extern const struct sof_ipc_ops ipc3_ops;
++
+ /* SOF generic IPC data */
+ struct snd_sof_ipc {
+ 	struct snd_sof_dev *sdev;
 diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index afd9eda67631..a127d3d2eab7 100644
+index a127d3d2eab7..2258317d7f57 100644
 --- a/sound/soc/sof/topology.c
 +++ b/sound/soc/sof/topology.c
-@@ -47,6 +47,100 @@
- /* size of tplg abi in byte */
- #define SOF_TPLG_ABI_SIZE 3
+@@ -701,12 +701,6 @@ static const struct sof_topology_token process_tokens[] = {
+ 		offsetof(struct sof_ipc_comp_process, type)},
+ };
+ 
+-/* PCM */
+-static const struct sof_topology_token pcm_tokens[] = {
+-	{SOF_TKN_PCM_DMAC_CONFIG, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
+-		offsetof(struct sof_ipc_comp_host, dmac_config)},
+-};
+-
+ /* PCM */
+ static const struct sof_topology_token stream_tokens[] = {
+ 	{SOF_TKN_STREAM_PLAYBACK_COMPATIBLE_D0I3,
+@@ -934,6 +928,123 @@ static int sof_parse_uuid_tokens(struct snd_soc_component *scomp,
+ 	return found;
+ }
  
 +/**
-+ * sof_update_ipc_object - Parse multiple sets of tokens within the token array associated with the
-+ *			    token ID.
-+ * @scomp: pointer to SOC component
-+ * @object: target IPC struct to save the parsed values
-+ * @token_id: token ID for the token array to be searched
-+ * @tuples: pointer to the tuples array
-+ * @num_tuples: number of tuples in the tuples array
-+ * @object_size: size of the object
++ * sof_copy_tuples - Parse tokens and copy them to the @tuples array
++ * @sdev: pointer to struct snd_sof_dev
++ * @array: source pointer to consecutive vendor arrays in topology
++ * @array_size: size of @array
++ * @token_id: Token ID associated with a token array
 + * @token_instance_num: number of times the same @token_id needs to be parsed i.e. the function
 + *			looks for @token_instance_num of each token in the token array associated
 + *			with the @token_id
++ * @tuples: tuples array to copy the matched tuples to
++ * @tuples_size: size of @tuples
++ * @num_copied_tuples: pointer to the number of copied tuples in the tuples array
++ *
 + */
-+int sof_update_ipc_object(struct snd_soc_component *scomp, void *object, enum sof_tokens token_id,
-+			  struct snd_sof_tuple *tuples, int num_tuples,
-+			  size_t object_size, int token_instance_num)
++static int sof_copy_tuples(struct snd_sof_dev *sdev, struct snd_soc_tplg_vendor_array *array,
++			   int array_size, u32 token_id, int token_instance_num,
++			   struct snd_sof_tuple *tuples, int tuples_size, int *num_copied_tuples)
 +{
-+	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
 +	const struct sof_ipc_tplg_ops *ipc_tplg_ops = sdev->ipc->ops->tplg;
 +	const struct sof_token_info *token_list = ipc_tplg_ops->token_list;
 +	const struct sof_topology_token *tokens;
++	int found = 0;
++	int num_tokens, asize;
 +	int i, j;
 +
-+	if (token_list[token_id].count < 0) {
-+		dev_err(scomp->dev, "Invalid token count for token ID: %d\n", token_id);
-+		return -EINVAL;
-+	}
-+
-+	/* No tokens to match */
-+	if (!token_list[token_id].count)
++	/* nothing to do if token_list is NULL */
++	if (!token_list)
 +		return 0;
 +
-+	tokens = token_list[token_id].tokens;
-+	if (!tokens) {
-+		dev_err(scomp->dev, "Invalid tokens for token id: %d\n", token_id);
++	if (!tuples || !num_copied_tuples) {
++		dev_err(sdev->dev, "Invalid tuples array\n");
 +		return -EINVAL;
 +	}
 +
-+	for (i = 0; i < token_list[token_id].count; i++) {
-+		int offset = 0;
-+		int num_tokens_matched = 0;
++	tokens = token_list[token_id].tokens;
++	num_tokens = token_list[token_id].count;
 +
-+		for (j = 0; j < num_tuples; j++) {
-+			if (tokens[i].token == tuples[j].token) {
-+				switch (tokens[i].type) {
-+				case SND_SOC_TPLG_TUPLE_TYPE_WORD:
-+				{
-+					u32 *val = (u32 *)((u8 *)object + tokens[i].offset +
-+							   offset);
++	if (!tokens) {
++		dev_err(sdev->dev, "No token array defined for token ID: %d\n", token_id);
++		return -EINVAL;
++	}
 +
-+					*val = tuples[j].value.v;
-+					break;
++	/* check if there's space in the tuples array for new tokens */
++	if (*num_copied_tuples >= tuples_size) {
++		dev_err(sdev->dev, "No space in tuples array for new tokens from %s",
++			token_list[token_id].name);
++		return -EINVAL;
++	}
++
++	while (array_size > 0 && found < num_tokens * token_instance_num) {
++		asize = le32_to_cpu(array->size);
++
++		/* validate asize */
++		if (asize < 0) {
++			dev_err(sdev->dev, "Invalid array size 0x%x\n", asize);
++			return -EINVAL;
++		}
++
++		/* make sure there is enough data before parsing */
++		array_size -= asize;
++		if (array_size < 0) {
++			dev_err(sdev->dev, "Invalid array size 0x%x\n", asize);
++			return -EINVAL;
++		}
++
++		/* parse element by element */
++		for (i = 0; i < le32_to_cpu(array->num_elems); i++) {
++			/* search for token */
++			for (j = 0; j < num_tokens; j++) {
++				/* match token type */
++				if (!(tokens[j].type == SND_SOC_TPLG_TUPLE_TYPE_WORD ||
++				      tokens[j].type == SND_SOC_TPLG_TUPLE_TYPE_SHORT ||
++				      tokens[j].type == SND_SOC_TPLG_TUPLE_TYPE_BYTE ||
++				      tokens[j].type == SND_SOC_TPLG_TUPLE_TYPE_BOOL ||
++				      tokens[j].type == SND_SOC_TPLG_TUPLE_TYPE_STRING))
++					continue;
++
++				if (tokens[j].type == SND_SOC_TPLG_TUPLE_TYPE_STRING) {
++					struct snd_soc_tplg_vendor_string_elem *elem;
++
++					elem = &array->string[i];
++
++					/* match token id */
++					if (tokens[j].token != le32_to_cpu(elem->token))
++						continue;
++
++					tuples[*num_copied_tuples].token = tokens[j].token;
++					tuples[*num_copied_tuples].value.s = elem->string;
++				} else {
++					struct snd_soc_tplg_vendor_value_elem *elem;
++
++					elem = &array->value[i];
++
++					/* match token id */
++					if (tokens[j].token != le32_to_cpu(elem->token))
++						continue;
++
++					tuples[*num_copied_tuples].token = tokens[j].token;
++					tuples[*num_copied_tuples].value.v =
++						le32_to_cpu(elem->value);
 +				}
-+				case SND_SOC_TPLG_TUPLE_TYPE_SHORT:
-+				case SND_SOC_TPLG_TUPLE_TYPE_BOOL:
-+				{
-+					u16 *val = (u16 *)((u8 *)object + tokens[i].offset +
-+							    offset);
++				found++;
++				(*num_copied_tuples)++;
 +
-+					*val = (u16)tuples[j].value.v;
-+					break;
-+				}
-+				case SND_SOC_TPLG_TUPLE_TYPE_STRING:
-+				{
-+					if (!tokens[i].get_token) {
-+						dev_err(scomp->dev,
-+							"get_token not defined for token %d in %s\n",
-+							tokens[i].token, token_list[token_id].name);
-+						return -EINVAL;
-+					}
-+
-+					tokens[i].get_token((void *)tuples[j].value.s, object,
-+							    tokens[i].offset + offset);
-+					break;
-+				}
-+				default:
-+					break;
-+				}
-+
-+				num_tokens_matched++;
-+
-+				/* found all required sets of current token. Move to the next one */
-+				if (!(num_tokens_matched % token_instance_num))
-+					break;
-+
-+				/* move to the next object */
-+				offset += object_size;
++				/* stop if there's no space for any more new tuples */
++				if (*num_copied_tuples == tuples_size)
++					return 0;
 +			}
 +		}
++
++		/* next array */
++		array = (struct snd_soc_tplg_vendor_array *)((u8 *)array + asize);
 +	}
 +
 +	return 0;
 +}
 +
- struct sof_widget_data {
- 	int ctrl_type;
- 	int ipc_cmd;
-@@ -465,18 +559,6 @@ static enum sof_comp_type find_process_comp_type(enum sof_ipc_process_type type)
- 	return SOF_COMP_NONE;
+ /**
+  * sof_parse_string_tokens - Parse multiple sets of tokens
+  * @scomp: pointer to soc component
+@@ -1693,56 +1804,72 @@ static int spcm_bind(struct snd_soc_component *scomp, struct snd_sof_pcm *spcm,
+ 	return 0;
  }
  
 -/*
-- * Topology Token Parsing.
-- * New tokens should be added to headers and parsing tables below.
+- * PCM Topology
 - */
 -
--struct sof_topology_token {
--	u32 token;
--	u32 type;
--	int (*get_token)(void *elem, void *object, u32 offset);
--	u32 offset;
--};
--
- int get_token_u32(void *elem, void *object, u32 offset)
+-static int sof_widget_load_pcm(struct snd_soc_component *scomp, int index,
+-			       struct snd_sof_widget *swidget,
+-			       enum sof_ipc_stream_direction dir,
+-			       struct snd_soc_tplg_dapm_widget *tw)
++static int sof_widget_parse_tokens(struct snd_soc_component *scomp, struct snd_sof_widget *swidget,
++				   struct snd_soc_tplg_dapm_widget *tw,
++				   enum sof_tokens *object_token_list, int count)
  {
- 	struct snd_soc_tplg_vendor_value_elem *velem = elem;
++	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
++	const struct sof_ipc_tplg_ops *ipc_tplg_ops = sdev->ipc->ops->tplg;
++	const struct sof_token_info *token_list = ipc_tplg_ops->token_list;
+ 	struct snd_soc_tplg_private *private = &tw->priv;
+-	struct sof_ipc_comp_host *host;
+-	size_t ipc_size = sizeof(*host);
+-	int ret;
++	int num_tuples = 0;
++	size_t size;
++	int ret, i;
+ 
+-	host = (struct sof_ipc_comp_host *)
+-	       sof_comp_alloc(swidget, &ipc_size, index);
+-	if (!host)
+-		return -ENOMEM;
++	if (count > 0 && !object_token_list) {
++		dev_err(scomp->dev, "No token list for widget %s\n", swidget->widget->name);
++		return -EINVAL;
++	}
+ 
+-	/* configure host comp IPC message */
+-	host->comp.type = SOF_COMP_HOST;
+-	host->direction = dir;
+-	host->config.hdr.size = sizeof(host->config);
++	/* calculate max size of tuples array */
++	for (i = 0; i < count; i++)
++		num_tuples += token_list[object_token_list[i]].count;
+ 
+-	ret = sof_parse_tokens(scomp, host, pcm_tokens,
+-			       ARRAY_SIZE(pcm_tokens), private->array,
+-			       le32_to_cpu(private->size));
+-	if (ret != 0) {
+-		dev_err(scomp->dev, "error: parse host tokens failed %d\n",
+-			private->size);
+-		goto err;
+-	}
++	/* allocate memory for tuples array */
++	size = sizeof(struct snd_sof_tuple) * num_tuples;
++	swidget->tuples = kzalloc(size, GFP_KERNEL);
++	if (!swidget->tuples)
++		return -ENOMEM;
+ 
+-	ret = sof_parse_tokens(scomp, &host->config, comp_tokens,
+-			       ARRAY_SIZE(comp_tokens), private->array,
+-			       le32_to_cpu(private->size));
+-	if (ret != 0) {
+-		dev_err(scomp->dev, "error: parse host.cfg tokens failed %d\n",
+-			le32_to_cpu(private->size));
+-		goto err;
+-	}
++	/* parse token list for widget */
++	for (i = 0; i < count; i++) {
++		if (object_token_list[i] >= SOF_TOKEN_COUNT) {
++			dev_err(scomp->dev, "Invalid token id %d for widget %s\n",
++				object_token_list[i], swidget->widget->name);
++			ret = -EINVAL;
++			goto err;
++		}
+ 
+-	dev_dbg(scomp->dev, "loaded host %s\n", swidget->widget->name);
+-	sof_dbg_comp_config(scomp, &host->config);
++		/* parse and save UUID in swidget */
++		if (object_token_list[i] == SOF_COMP_EXT_TOKENS) {
++			ret = sof_parse_tokens(scomp, swidget,
++					       token_list[object_token_list[i]].tokens,
++					       token_list[object_token_list[i]].count,
++					       private->array, le32_to_cpu(private->size));
++			if (ret < 0) {
++				dev_err(scomp->dev, "Failed parsing %s for widget %s\n",
++					token_list[object_token_list[i]].name,
++					swidget->widget->name);
++				goto err;
++			}
+ 
+-	swidget->private = host;
++			continue;
++		}
++
++		/* copy one set of tuples per token ID into swidget->tuples */
++		ret = sof_copy_tuples(sdev, private->array, le32_to_cpu(private->size),
++				      object_token_list[i], 1, swidget->tuples,
++				      num_tuples, &swidget->num_tuples);
++		if (ret < 0) {
++			dev_err(scomp->dev, "Failed parsing %s for widget %s err: %d\n",
++				token_list[object_token_list[i]].name, swidget->widget->name, ret);
++			goto err;
++		}
++	}
+ 
+ 	return 0;
+ err:
+-	kfree(host);
++	kfree(swidget->tuples);
+ 	return ret;
+ }
+ 
+@@ -2367,8 +2494,12 @@ static int sof_widget_ready(struct snd_soc_component *scomp, int index,
+ 			    struct snd_soc_tplg_dapm_widget *tw)
+ {
+ 	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
++	const struct sof_ipc_tplg_ops *ipc_tplg_ops = sdev->ipc->ops->tplg;
++	const struct sof_ipc_tplg_widget_ops *widget_ops = ipc_tplg_ops->widget;
+ 	struct snd_sof_widget *swidget;
+ 	struct snd_sof_dai *dai;
++	enum sof_tokens *token_list;
++	int token_list_size;
+ 	struct sof_ipc_comp comp = {
+ 		.core = SOF_DSP_PRIMARY_CORE,
+ 	};
+@@ -2391,6 +2522,9 @@ static int sof_widget_ready(struct snd_soc_component *scomp, int index,
+ 		strnlen(tw->sname, SNDRV_CTL_ELEM_ID_NAME_MAXLEN) > 0
+ 			? tw->sname : "none");
+ 
++	token_list = widget_ops[w->id].token_list;
++	token_list_size = widget_ops[w->id].token_list_size;
++
+ 	ret = sof_parse_tokens(scomp, &comp, core_tokens,
+ 			       ARRAY_SIZE(core_tokens), tw->priv.array,
+ 			       le32_to_cpu(tw->priv.size));
+@@ -2448,12 +2582,8 @@ static int sof_widget_ready(struct snd_soc_component *scomp, int index,
+ 		ret = sof_widget_load_pipeline(scomp, index, swidget, tw);
+ 		break;
+ 	case snd_soc_dapm_aif_out:
+-		ret = sof_widget_load_pcm(scomp, index, swidget,
+-					  SOF_IPC_STREAM_CAPTURE, tw);
+-		break;
+ 	case snd_soc_dapm_aif_in:
+-		ret = sof_widget_load_pcm(scomp, index, swidget,
+-					  SOF_IPC_STREAM_PLAYBACK, tw);
++		ret = sof_widget_parse_tokens(scomp, swidget, tw,  token_list, token_list_size);
+ 		break;
+ 	case snd_soc_dapm_src:
+ 		ret = sof_widget_load_src(scomp, index, swidget, tw);
+@@ -2497,6 +2627,7 @@ static int sof_widget_ready(struct snd_soc_component *scomp, int index,
+ 		if (ret) {
+ 			dev_err(scomp->dev, "error: widget event binding failed\n");
+ 			kfree(swidget->private);
++			kfree(swidget->tuples);
+ 			kfree(swidget);
+ 			return ret;
+ 		}
+@@ -2527,6 +2658,9 @@ static int sof_route_unload(struct snd_soc_component *scomp,
+ static int sof_widget_unload(struct snd_soc_component *scomp,
+ 			     struct snd_soc_dobj *dobj)
+ {
++	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
++	const struct sof_ipc_tplg_ops *ipc_tplg_ops = sdev->ipc->ops->tplg;
++	const struct sof_ipc_tplg_widget_ops *widget_ops = ipc_tplg_ops->widget;
+ 	const struct snd_kcontrol_new *kc;
+ 	struct snd_soc_dapm_widget *widget;
+ 	struct snd_sof_control *scontrol;
+@@ -2588,9 +2722,15 @@ static int sof_widget_unload(struct snd_soc_component *scomp,
+ 	}
+ 
+ out:
++	/* free IPC related data */
++	if (widget_ops[swidget->id].ipc_free)
++		widget_ops[swidget->id].ipc_free(swidget);
++
+ 	/* free private value */
+ 	kfree(swidget->private);
+ 
++	kfree(swidget->tuples);
++
+ 	/* remove and free swidget object */
+ 	list_del(&swidget->list);
+ 	kfree(swidget);
+@@ -3597,8 +3737,26 @@ static int sof_complete(struct snd_soc_component *scomp)
+ {
+ 	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
+ 	struct snd_sof_widget *swidget, *comp_swidget;
++	const struct sof_ipc_tplg_ops *ipc_tplg_ops = sdev->ipc->ops->tplg;
++	const struct sof_ipc_tplg_widget_ops *widget_ops = ipc_tplg_ops->widget;
+ 	int ret;
+ 
++	/*
++	 * now update all widget IPC structures. If any of the ipc_setup callbacks fail, the
++	 * topology will be removed and all widgets will be unloaded resulting in freeing all
++	 * associated memories.
++	 */
++	list_for_each_entry(swidget, &sdev->widget_list, list) {
++		if (widget_ops[swidget->id].ipc_setup) {
++			ret = widget_ops[swidget->id].ipc_setup(swidget);
++			if (ret < 0) {
++				dev_err(sdev->dev, "failed updating IPC struct for %s\n",
++					swidget->widget->name);
++				return ret;
++			}
++		}
++	}
++
+ 	/* set the pipe_widget and apply the dynamic_pipeline_widget_flag */
+ 	list_for_each_entry(swidget, &sdev->widget_list, list) {
+ 		switch (swidget->id) {
 -- 
 2.25.1
 

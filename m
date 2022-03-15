@@ -2,91 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9824B4DA062
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Mar 2022 17:47:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11CF34DA0A1
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Mar 2022 17:58:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1AC8417CF;
-	Tue, 15 Mar 2022 17:46:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1AC8417CF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8527518A9;
+	Tue, 15 Mar 2022 17:57:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8527518A9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647362820;
-	bh=ZuItdRuId4sDVbAxhooJyGQJlRVcN62vn3VTySCu1Xc=;
+	s=default; t=1647363520;
+	bh=Lxi8cNn+2WUItgtM6AYLH34Da9joHm50+7EfTbHyMtQ=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KkNEeVDV1fJ4hHnZJh6rmdKwmbQutKoSZcTd+VQ1ouQLMZpfwU6vVJwp8VUcj5iOu
-	 u0O61GiKA2wQRysJgmKdLias1Kt+kTnNGGG+dxExLlbXQVOvcBTSMx1C4+bn117Lrs
-	 xSnrhSgmWic+RdXM6hRt+cBHIbd94oaXckLLciDY=
+	b=mUKXXkbPrV/Ki9tzwJMGCspdhhD3KFHl780XmGaYuRCmqn/IgZYVyh+zP+xdsKdka
+	 RkmadtxKIjosVHU+foLJ6kVxt2XlSwZ5/vFZ1RCuWHd6btuau59tlPT1pdmoeJ52C3
+	 9suAzY5A5Q2GdCJLwm2cFLRA/xxK0U1TCBm+S6Fs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7AF42F80095;
-	Tue, 15 Mar 2022 17:45:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E8BF1F801F7;
+	Tue, 15 Mar 2022 17:57:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2157EF80162; Tue, 15 Mar 2022 17:45:52 +0100 (CET)
+ id 31F0AF80095; Tue, 15 Mar 2022 17:57:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
- [IPv6:2607:f8b0:4864:20::233])
+Received: from mail-oo1-xc2d.google.com (mail-oo1-xc2d.google.com
+ [IPv6:2607:f8b0:4864:20::c2d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F2976F80128
- for <alsa-devel@alsa-project.org>; Tue, 15 Mar 2022 17:45:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2976F80128
+ by alsa1.perex.cz (Postfix) with ESMTPS id CF44DF80095
+ for <alsa-devel@alsa-project.org>; Tue, 15 Mar 2022 17:57:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF44DF80095
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="LHFfVwsI"
-Received: by mail-oi1-x233.google.com with SMTP id ay7so21416557oib.8
- for <alsa-devel@alsa-project.org>; Tue, 15 Mar 2022 09:45:43 -0700 (PDT)
+ header.b="EtQQA78G"
+Received: by mail-oo1-xc2d.google.com with SMTP id
+ u30-20020a4a6c5e000000b00320d8dc2438so25056157oof.12
+ for <alsa-devel@alsa-project.org>; Tue, 15 Mar 2022 09:57:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to;
- bh=KQIAXIBKJGllIMCaZmEb5MSqiteLH/1vDjvjgfPyE7Y=;
- b=LHFfVwsIV/IhMZcSXpR8nohi5II8O0LP3d8CI51s9z5py6K8EPXrDESVtjI6VLYOGV
- xSeORoNrkjO0kQxK8MvRkYjU7836piy5sro5qamS+C987w466xYblwin0kC5yqSYyfXi
- 7KIRll6xU8OWxBMACwRPJyVq9I0p3vj49YBSpu1SRij0WfZVHA9ja9qseZj1ucFYNEAa
- QrP6yxV3DYKNNyJeO9TlukKLKHaSEAXkM9/oBXje4Ux6FbPc55Sj2FPeNejGyredtKJp
- ENfrw3lRfX0rYhR1Z5go5UxZepEQnXWB2ispJwXlxSiNJQG4kktNzo53Oby+pnoDhjzo
- w8lQ==
+ bh=iwyi6l6mAU8+nYjyk/K7oCC0ixMS0VKyBpljmAjIxm0=;
+ b=EtQQA78G9e7DaQ2Bpd2WTtbGypI1MZf7hjLWoX4nrzjd6fi5v2IY5SGEBlkou+L24u
+ dKygIqkA9WrpD6R+7NPqxvFwCcj4UdOE7TTyRzItaiP0y6oT1apVV2M4KJp8KQpdetk3
+ hLBaaAXh5cOaCm/33y2DLPrD/fjJ/192e1fLW94ZLEKRXgjmLUqPpCLFdFZK4aVd0avP
+ YapIkT6wweXDRnGP3BijGy31W8uqrfbtJZYbqDhKU9pm4uArET+9mEJ9TBRC/4XbqyHo
+ LUIO9AhepMFLbJx3Aqwe3dWbIm88glVW0mi97CRZ6nudgs9fJtmkJPljBeA+j4HBncJ5
+ +FNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=KQIAXIBKJGllIMCaZmEb5MSqiteLH/1vDjvjgfPyE7Y=;
- b=p7EY9E9qZCZV3+Pu9tss+QD/rlAHndFmI+XOtxvZKpbQoRcB8WAnNpvSvO0YA4Csqu
- /yUO6ChjyhKLDK4zZj07Qibqmi1Y+CMwP3BF6X39xtOOESYKwaGRWj0fgymgrdIFSjlB
- YUhgLRU0ssz5rT0ryYs4GbGPVl7tosUjOIne3iqUjS8USn2YNB89NqpYvnxznaKhO822
- yqFP5K24H5pDt9QEiijQGQI3eD6MwwXv8ZsS8ZtwmHe2EsKwFlVzWTgdju3P3PLaJ8bO
- 6HipyRxdFi9L6TTwgKaTR5pcrACnDEONokbIiYlDcydLaouczgugrWa2V8GGj44rVt+x
- mPIg==
-X-Gm-Message-State: AOAM530MRIPfM2p74mhmx8AGgKTW67SZekejVCvlVOHUY2Gv3UqQBxYu
- A1eI8vkmdYa5c0nXz7ne8O+PVw==
-X-Google-Smtp-Source: ABdhPJxDFOws/D5M1bRE9WDhFOgitgbkA0Spbv3U2HFKvV5hSLOCh5Hz6nyS1g6lsfCziNM4IY4JTw==
-X-Received: by 2002:a05:6808:2382:b0:2da:3ab5:6f3a with SMTP id
- bp2-20020a056808238200b002da3ab56f3amr2111496oib.33.1647362741588; 
- Tue, 15 Mar 2022 09:45:41 -0700 (PDT)
+ bh=iwyi6l6mAU8+nYjyk/K7oCC0ixMS0VKyBpljmAjIxm0=;
+ b=0kpv6YwJftr0cX/zLPdywCUy84OrGaPNyqK/9mRkqFiB6Btx7ATZJuBCTliSq7ax31
+ v3t9gPcVRZUEbntWMojwsqaSlOM1x7PW5NtAYluRQ+krzU8stTnMxL0j70hHdzUiUphl
+ 9CIXAWHBsvyOn5wSXx2KbWL//hDrsz/JhV4WRX5VazeuASDOEHjEFCABxrtWRSsG3EMB
+ ziHlnyi84w17TUmbvF0q0MAOxYukkhDZpVQowO+nDM5iY/Y7RZMXZgC+bzMSlwAtqKSa
+ Ijk5XkqIjk8M4U9DHeyr0HeUoLdqZlYEdSyJ3Y+XiVRctX4MMuWyhq9kLQ0/u2o0/b4M
+ ZshA==
+X-Gm-Message-State: AOAM532QL+W8T9k1ByXvtssu1F5trblWbPDQ/Tv54SGS0F00Ninbz18n
+ 5UNW24SurQLO8fwKYAeoKX47Fg==
+X-Google-Smtp-Source: ABdhPJzzqNiHdVXVH0CXBoLP1udVE9MYmYPmQcCKBtA1PAprIUkgp+/UWSfjGSEtXdadUx3fdyEGxA==
+X-Received: by 2002:a05:6871:60e:b0:da:b3f:2b85 with SMTP id
+ w14-20020a056871060e00b000da0b3f2b85mr2048202oan.292.1647363443260; 
+ Tue, 15 Mar 2022 09:57:23 -0700 (PDT)
 Received: from builder.lan ([2600:1700:a0:3dc8:3697:f6ff:fe85:aac9])
  by smtp.gmail.com with ESMTPSA id
- j1-20020a4aea41000000b002e140d2d96esm9323311ooe.13.2022.03.15.09.45.40
+ l12-20020a056808020c00b002da28c240dfsm9665261oie.16.2022.03.15.09.57.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Mar 2022 09:45:41 -0700 (PDT)
-Date: Tue, 15 Mar 2022 11:45:39 -0500
+ Tue, 15 Mar 2022 09:57:22 -0700 (PDT)
+Date: Tue, 15 Mar 2022 11:57:20 -0500
 From: Bjorn Andersson <bjorn.andersson@linaro.org>
 To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Subject: Re: [PATCH v11 4/7] pinctrl: qcom: Update lpi pin group custiom
- functions with framework generic functions
-Message-ID: <YjDCs9AEJTJNIawj@builder.lan>
+Subject: Re: [PATCH v11 7/7] pinctrl: qcom: Update clock voting as optional
+Message-ID: <YjDFcJOA8An58iTe@builder.lan>
 References: <1647359413-31662-1-git-send-email-quic_srivasam@quicinc.com>
- <1647359413-31662-5-git-send-email-quic_srivasam@quicinc.com>
+ <1647359413-31662-8-git-send-email-quic_srivasam@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1647359413-31662-5-git-send-email-quic_srivasam@quicinc.com>
+In-Reply-To: <1647359413-31662-8-git-send-email-quic_srivasam@quicinc.com>
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  bgoswami@codeaurora.org, Venkata Prasad Potturu <quic_potturu@quicinc.com>,
  linux-arm-msm@vger.kernel.org, swboyd@chromium.org, tiwai@suse.com,
@@ -111,193 +111,97 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 On Tue 15 Mar 10:50 CDT 2022, Srinivasa Rao Mandadapu wrote:
 
-> Update custom pin group structure members with framework generic group_desc structure
-> and replace the driver's custom pinctrl_ops with framework provided generic pin control
-> group functions to avoid redundant code written in lpass lpi driver.
+> Update bulk clock voting to optional voting as ADSP bypass platform doesn't
+> need macro and decodec clocks, as these macro and dcodec GDSC switches are
+> maintained as power domains and operated from lpass clock drivers.
 > 
+
+Sorry for missing your reply on my question on the previous version, I
+think this sounds reasonable.
+
 > Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 > Co-developed-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
 > Signed-off-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
 > ---
->  drivers/pinctrl/qcom/Kconfig             |  1 +
->  drivers/pinctrl/qcom/pinctrl-lpass-lpi.c | 98 +++++++++++++++-----------------
->  2 files changed, 48 insertions(+), 51 deletions(-)
+>  drivers/pinctrl/qcom/pinctrl-lpass-lpi.c        | 12 +++++++++---
+>  drivers/pinctrl/qcom/pinctrl-lpass-lpi.h        |  1 +
+>  drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c |  1 +
+>  3 files changed, 11 insertions(+), 3 deletions(-)
 > 
-> diff --git a/drivers/pinctrl/qcom/Kconfig b/drivers/pinctrl/qcom/Kconfig
-> index ca6f68a..31c4aa6 100644
-> --- a/drivers/pinctrl/qcom/Kconfig
-> +++ b/drivers/pinctrl/qcom/Kconfig
-> @@ -351,6 +351,7 @@ config PINCTRL_LPASS_LPI
->  	select PINMUX
->  	select PINCONF
->  	select GENERIC_PINCONF
-> +	select GENERIC_PINCTRL_GROUPS
->  	depends on GPIOLIB
->  	help
->  	  This is the pinctrl, pinmux, pinconf and gpiolib driver for the
 > diff --git a/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c b/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c
-> index 3c15f80..5e27a38 100644
+> index 0216ca1..3fc473a 100644
 > --- a/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c
 > +++ b/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c
-> @@ -51,11 +51,11 @@
+> @@ -401,9 +401,15 @@ int lpi_pinctrl_probe(struct platform_device *pdev)
+>  		return dev_err_probe(dev, PTR_ERR(pctrl->slew_base),
+>  				     "Slew resource not provided\n");
 >  
->  #define LPI_PINGROUP(id, soff, f1, f2, f3, f4)		\
->  	{						\
-> -		.name = "gpio" #id,			\
-> -		.pins = gpio##id##_pins,		\
-> +		.group.name = "gpio" #id,			\
-> +		.group.pins = gpio##id##_pins,		\
->  		.pin = id,				\
->  		.slew_offset = soff,			\
-> -		.npins = ARRAY_SIZE(gpio##id##_pins),	\
-> +		.group.num_pins = ARRAY_SIZE(gpio##id##_pins),	\
->  		.funcs = (int[]){			\
->  			LPI_MUX_gpio,			\
->  			LPI_MUX_##f1,			\
-> @@ -67,9 +67,7 @@
->  	}
->  
->  struct lpi_pingroup {
-> -	const char *name;
-> -	const unsigned int *pins;
-> -	unsigned int npins;
-> +	struct group_desc group;
->  	unsigned int pin;
->  	/* Bit offset in slew register for SoundWire pins only */
->  	int slew_offset;
-> @@ -150,20 +148,20 @@ enum sm8250_lpi_functions {
->  	LPI_MUX__,
->  };
->  
-> -static const unsigned int gpio0_pins[] = { 0 };
-> -static const unsigned int gpio1_pins[] = { 1 };
-> -static const unsigned int gpio2_pins[] = { 2 };
-> -static const unsigned int gpio3_pins[] = { 3 };
-> -static const unsigned int gpio4_pins[] = { 4 };
-> -static const unsigned int gpio5_pins[] = { 5 };
-> -static const unsigned int gpio6_pins[] = { 6 };
-> -static const unsigned int gpio7_pins[] = { 7 };
-> -static const unsigned int gpio8_pins[] = { 8 };
-> -static const unsigned int gpio9_pins[] = { 9 };
-> -static const unsigned int gpio10_pins[] = { 10 };
-> -static const unsigned int gpio11_pins[] = { 11 };
-> -static const unsigned int gpio12_pins[] = { 12 };
-> -static const unsigned int gpio13_pins[] = { 13 };
-> +static int gpio0_pins[] = { 0 };
-> +static int gpio1_pins[] = { 1 };
-> +static int gpio2_pins[] = { 2 };
-> +static int gpio3_pins[] = { 3 };
-> +static int gpio4_pins[] = { 4 };
-> +static int gpio5_pins[] = { 5 };
-> +static int gpio6_pins[] = { 6 };
-> +static int gpio7_pins[] = { 7 };
-> +static int gpio8_pins[] = { 8 };
-> +static int gpio9_pins[] = { 9 };
-> +static int gpio10_pins[] = { 10 };
-> +static int gpio11_pins[] = { 11 };
-> +static int gpio12_pins[] = { 12 };
-> +static int gpio13_pins[] = { 13 };
->  static const char * const swr_tx_clk_groups[] = { "gpio0" };
->  static const char * const swr_tx_data_groups[] = { "gpio1", "gpio2", "gpio5" };
->  static const char * const swr_rx_clk_groups[] = { "gpio3" };
-> @@ -250,38 +248,10 @@ static int lpi_gpio_write(struct lpi_pinctrl *state, unsigned int pin,
->  	return 0;
->  }
->  
-> -static int lpi_gpio_get_groups_count(struct pinctrl_dev *pctldev)
-> -{
-> -	struct lpi_pinctrl *pctrl = pinctrl_dev_get_drvdata(pctldev);
-> -
-> -	return pctrl->data->ngroups;
-> -}
-> -
-> -static const char *lpi_gpio_get_group_name(struct pinctrl_dev *pctldev,
-> -					   unsigned int group)
-> -{
-> -	struct lpi_pinctrl *pctrl = pinctrl_dev_get_drvdata(pctldev);
-> -
-> -	return pctrl->data->groups[group].name;
-> -}
-> -
-> -static int lpi_gpio_get_group_pins(struct pinctrl_dev *pctldev,
-> -				   unsigned int group,
-> -				   const unsigned int **pins,
-> -				   unsigned int *num_pins)
-> -{
-> -	struct lpi_pinctrl *pctrl = pinctrl_dev_get_drvdata(pctldev);
-> -
-> -	*pins = pctrl->data->groups[group].pins;
-> -	*num_pins = pctrl->data->groups[group].npins;
-> -
-> -	return 0;
-> -}
-> -
->  static const struct pinctrl_ops lpi_gpio_pinctrl_ops = {
-> -	.get_groups_count	= lpi_gpio_get_groups_count,
-> -	.get_group_name		= lpi_gpio_get_group_name,
-> -	.get_group_pins		= lpi_gpio_get_group_pins,
-> +	.get_groups_count	= pinctrl_generic_get_group_count,
-> +	.get_group_name		= pinctrl_generic_get_group_name,
-> +	.get_group_pins		= pinctrl_generic_get_group_pins,
->  	.dt_node_to_map		= pinconf_generic_dt_node_to_map_group,
->  	.dt_free_map		= pinctrl_utils_free_map,
->  };
-> @@ -582,6 +552,28 @@ static const struct gpio_chip lpi_gpio_template = {
->  	.dbg_show		= lpi_gpio_dbg_show,
->  };
->  
-> +static int lpi_build_pin_desc_groups(struct lpi_pinctrl *pctrl)
-> +{
-> +	struct group_desc *lpi_groups;
-> +	int i;
-> +
-> +	lpi_groups = devm_kcalloc(pctrl->dev, pctrl->data->npins,
-> +					 sizeof(*lpi_groups), GFP_KERNEL);
-> +	if (!lpi_groups)
-> +		return -ENOMEM;
-> +
-> +	for (i = 0; i < pctrl->data->npins; i++) {
-> +		const struct pinctrl_pin_desc *pin_info = pctrl->desc.pins + i;
-> +		struct group_desc *group = lpi_groups + i;
-> +
-> +		group->name = pin_info->name;
-> +		group->pins = (int *)&pin_info->number;
-> +		pinctrl_generic_add_group(pctrl->ctrl, group->name, group->pins, 1, NULL);
+> -	ret = devm_clk_bulk_get(dev, MAX_LPI_NUM_CLKS, pctrl->clks);
+> -	if (ret)
+> -		return dev_err_probe(dev, ret, "Can't get clocks\n");
+> +	if (data->is_clk_optional) {
+> +		ret = devm_clk_bulk_get_optional(dev, MAX_LPI_NUM_CLKS, pctrl->clks);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret, "Can't get clocks\n");
 
-I've not used this generic interface before, but I believe you need to
-pair your add with pinctrl_generic_remove_group(), both in error paths
-and driver remove.
+Dug into the clk_bulk_get() functions, and __clk_bulk_get() will print
+an error telling you which clock it failed to get. So I don't think your
+more generic error here doesn't add any value.
 
-Makes me wonder about the usefulness of this, as you will end up with
-a bit more code than you remove and you have the additional heap
-allocation. Feels like I'm missing something...
+Just return ret;
 
+> +	} else {
+> +		ret = devm_clk_bulk_get(dev, MAX_LPI_NUM_CLKS, pctrl->clks);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret, "Can't get clocks\n");
 > +	}
-> +
-> +	return 0;
-> +}
-> +
->  static int lpi_pinctrl_probe(struct platform_device *pdev)
->  {
->  	const struct lpi_pinctrl_variant_data *data;
-> @@ -647,6 +639,10 @@ static int lpi_pinctrl_probe(struct platform_device *pdev)
->  		goto err_pinctrl;
->  	}
->  
-> +	ret = lpi_build_pin_desc_groups(pctrl);
-> +	if (ret)
-> +		return ret;
 
-A few lines up the code does error handling by goto err_pinctrl, you
-should do the same.
+Depending on your taste, you could do:
+
+	if (data->is_clk_optional)
+		ret = devm_clk_bulk_get_optional();
+	else
+		ret = devm_clk_bulk_get();
+
+	if (ret)
+		return ret;
+
+>  
+>  	ret = clk_bulk_prepare_enable(MAX_LPI_NUM_CLKS, pctrl->clks);
+>  	if (ret)
+> diff --git a/drivers/pinctrl/qcom/pinctrl-lpass-lpi.h b/drivers/pinctrl/qcom/pinctrl-lpass-lpi.h
+> index afbac2a..3bcede6 100644
+> --- a/drivers/pinctrl/qcom/pinctrl-lpass-lpi.h
+> +++ b/drivers/pinctrl/qcom/pinctrl-lpass-lpi.h
+> @@ -77,6 +77,7 @@ struct lpi_pinctrl_variant_data {
+>  	int ngroups;
+>  	const struct lpi_function *functions;
+>  	int nfunctions;
+> +	int is_clk_optional;
+
+bool here please.
+
+>  };
+>  
+>  int lpi_pinctrl_probe(struct platform_device *pdev);
+> diff --git a/drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c b/drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c
+> index d67ff25..304d8a2 100644
+> --- a/drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c
+> +++ b/drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c
+> @@ -142,6 +142,7 @@ static const struct lpi_pinctrl_variant_data sc7280_lpi_data = {
+>  	.ngroups = ARRAY_SIZE(sc7280_groups),
+>  	.functions = sc7280_functions,
+>  	.nfunctions = ARRAY_SIZE(sc7280_functions),
+> +	.is_clk_optional = 1,
+
+true
 
 Regards,
 Bjorn
 
-> +
->  	ret = devm_gpiochip_add_data(dev, &pctrl->chip, pctrl);
->  	if (ret) {
->  		dev_err(pctrl->dev, "can't add gpio chip\n");
+>  };
+>  
+>  static const struct of_device_id lpi_pinctrl_of_match[] = {
 > -- 
 > 2.7.4
 > 

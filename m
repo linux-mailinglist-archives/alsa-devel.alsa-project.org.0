@@ -2,86 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D76CD4D9DC0
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Mar 2022 15:35:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92E5B4D9E0A
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Mar 2022 15:47:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6B038172C;
-	Tue, 15 Mar 2022 15:35:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B038172C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2580E1898;
+	Tue, 15 Mar 2022 15:46:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2580E1898
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647354959;
-	bh=Tcn7IYKfL8D00Qt+jppR13ghyXzRwjXqT3jQRMQNmGA=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=nsODbAsi5zrEwQoBduW0C47g1fbhIlU8Tc3kMi1k0KWqtSWiQkHO1OeVhDCuvFvR5
-	 1Of+mMpJtfI8kEq6dfX77YnKiQSWx4RHUmYwn15kV8r/Kx4UL75ty7j/PPk4rkTIgs
-	 gbWQk5pUJiKkYZzw0Tmi/p9kGeh2cfjgXAlVus/o=
+	s=default; t=1647355638;
+	bh=37/TTzgaQWjB111wQVxnJr0STpnP2zvBJtzMu+qR5BE=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=iCJS6NHbk6XN+5HJFjIcWmReQCaz2vAmDlV2MHpWu21TMpBevMX2FjcY3WAqH5NNR
+	 0o1p6H3FIPHSRdmVxwIABUenPUryjYrGvlVlTV/o7ivtIsZ0RdA+SNgeb7bs1DiZr9
+	 VQNB4/YtlMjkCQltcwlfpF5wA5k6vSM6dBy7m9/g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CDDE4F80128;
-	Tue, 15 Mar 2022 15:34:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 85370F801F7;
+	Tue, 15 Mar 2022 15:46:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 709E1F80162; Tue, 15 Mar 2022 15:34:50 +0100 (CET)
+ id C99E5F80162; Tue, 15 Mar 2022 15:46:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 60938F80095
- for <alsa-devel@alsa-project.org>; Tue, 15 Mar 2022 15:34:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60938F80095
+ by alsa1.perex.cz (Postfix) with ESMTPS id C8045F80128
+ for <alsa-devel@alsa-project.org>; Tue, 15 Mar 2022 15:46:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8045F80128
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="ZxVkZM0m"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="oX0UDiut"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 6E34E210EC;
- Tue, 15 Mar 2022 14:34:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1647354881; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=6Lzcj/afrhcKyM8V22XGA9WjIG/zmiMFuC2sCGOCyNQ=;
- b=ZxVkZM0mhEHJO24Z6UuJSix96fYscV7iw1qEJZE9JspJ+LuBBBvp8t0gCFreiOvUcMOsb1
- EkXjanautZrSq1uWCe0wAp+oTUIwlY9boE3xMP3FZSxM5BxS3JCFhO6jiyvk+F2mvH57Sq
- AXs8zpuRZSqxk3J/XFIld4e0fU9kCJo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1647354881;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=6Lzcj/afrhcKyM8V22XGA9WjIG/zmiMFuC2sCGOCyNQ=;
- b=oX0UDiutKdYU7ubmxYbL4awI/73YmK33gOsd9kx67SXBHjFRb7PdcksQRwfw7s6xz6KLDx
- 9oF/dKfbumPcEnDw==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id CDB9DA3B9C;
- Tue, 15 Mar 2022 14:34:40 +0000 (UTC)
-Date: Tue, 15 Mar 2022 15:34:40 +0100
-Message-ID: <s5hee338etb.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Arnaud POULIQUEN <arnaud.pouliquen@st.com>
-Subject: Re: [PATCH] ASoC: sti: sti_uniperif: Remove driver
-In-Reply-To: <PAXPR10MB47185B76D5F38482FB1125A5F1109@PAXPR10MB4718.EURPRD10.PROD.OUTLOOK.COM>
-References: <20220315091319.3351522-1-daniel@0x0f.com>
- <s5h8rtba4to.wl-tiwai@suse.de>
- <PAXPR10MB47185B76D5F38482FB1125A5F1109@PAXPR10MB4718.EURPRD10.PROD.OUTLOOK.COM>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: "broonie@kernel.org" <broonie@kernel.org>, Daniel Palmer <daniel@0x0f.com>,
- "tiwai@suse.com" <tiwai@suse.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+ dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
+ header.b="R+IehLNW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1647355565; x=1678891565;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=79o5gBeuclgkLLR0bESNlJlpxKJpRWFQRiAB8i6yArY=;
+ b=R+IehLNWqFqQFlMYyHypcjV0qfCwACTXd655QgS7B6zccbnSNsFYkF4M
+ RRDbrFk3pJDXFr/FxvOlkzwdMMdTZzKsjOoxPKjEFEHL1DvPRyhxT2yu5
+ JwvOpTVH32KdPO2YAANXqR2xW4l66V6NZwqrhN0sZgekQ/dw7zNUgAPMr A=;
+Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
+ by alexa-out.qualcomm.com with ESMTP; 15 Mar 2022 07:46:01 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg08-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Mar 2022 07:46:00 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.15; Tue, 15 Mar 2022 07:45:53 -0700
+Received: from hu-srivasam-hyd.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Tue, 15 Mar 2022 07:45:47 -0700
+From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+To: <agross@kernel.org>, <bjorn.andersson@linaro.org>, <lgirdwood@gmail.com>, 
+ <broonie@kernel.org>, <robh+dt@kernel.org>, <quic_plai@quicinc.com>,
+ <bgoswami@codeaurora.org>, <perex@perex.cz>, <tiwai@suse.com>,
+ <srinivas.kandagatla@linaro.org>, <rohitkr@codeaurora.org>,
+ <linux-arm-msm@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <swboyd@chromium.org>, <judyhsiao@chromium.org>
+Subject: [PATCH] ASoC: codecs: Fix misplaced lpass_macro_pds_exit call
+Date: Tue, 15 Mar 2022 20:15:31 +0530
+Message-ID: <1647355531-4150-1-git-send-email-quic_srivasam@quicinc.com>
+X-Mailer: git-send-email 2.7.4
+MIME-Version: 1.0
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Cc: Venkata Prasad Potturu <quic_potturu@quicinc.com>,
+ Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,81 +95,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 15 Mar 2022 14:15:20 +0100,
-Arnaud POULIQUEN wrote:
-> 
-> Hello,
-> 
-> 
-> ST Restricted
-> 
-> > -----Original Message-----
-> > From: Takashi Iwai <tiwai@suse.de>
-> > Sent: mardi 15 mars 2022 11:28
-> > To: Daniel Palmer <daniel@0x0f.com>
-> > Cc: broonie@kernel.org; tiwai@suse.com; Arnaud POULIQUEN
-> > <arnaud.pouliquen@st.com>; alsa-devel@alsa-project.org; linux-
-> > kernel@vger.kernel.org
-> > Subject: Re: [PATCH] ASoC: sti: sti_uniperif: Remove driver
-> > 
-> > On Tue, 15 Mar 2022 10:13:19 +0100,
-> > Daniel Palmer wrote:
-> > >
-> > > This driver seems to be in the "only good for attracting bot generated
-> > > patches" phase of it's life.
-> > >
-> > > It doesn't seem like anyone actually tested the patches that have
-> > > been applied in the last few years as uni_reader_irq_handler()
-> > > had a dead lock added to it (it locks the stream, then calls
-> > > snd_pcm_stop_xrun() which will also lock the stream).
-> > 
-> > Mea culpa, that was an obvious deadlock I overlooked in the patch
-> > series.
-> > 
-> > > Seems best just to remove it.
-> > >
-> > > Signed-off-by: Daniel Palmer <daniel@0x0f.com>
-> > > ---
-> > >  I've never used this driver, don't have the hardware etc.
-> > >  I just noticed that this looks broken when debugging my
-> > >  own driver that uses snd_pcm_stop_xrun() and was looking
-> > >  at other users to see if I was using it wrong and noticed
-> > >  this was the only place that locked the stream before
-> > >  calling snd_pcm_stop_xrun().
-> > >
-> > >  There are probably some other bits of the driver that
-> > >  should be removed but I didn't look that hard.
-> > >
-> > >  TL;DR; This driver seems broken, seems like nobody uses
-> > >  it. Maybe it should be deleted?
-> > 
-> > Yeah, that looks dead.
-> > 
-> 
-> The platform is still used for instance:
-> https://lore.kernel.org/all/1d95209f-9cb4-47a3-2696-7a93df7cdc05@foss.st.com/
-> 
-> So please do not remove the driver
+Update power domains exit function calling from runtime resume
+to remove function which was wrongly placed and causing crash in
+device suspend and resume.
 
-Ah, it's always good to see a vital sign!
+Fixes: 9e3d83c52844 ("ASoC: codecs: Add power domains support in digital macro codecs")
+Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+Co-developed-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
+Signed-off-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
+---
+ sound/soc/codecs/lpass-tx-macro.c | 4 ++--
+ sound/soc/codecs/lpass-va-macro.c | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-> The issue has not been detected because it is related to an error that 
-> occurs only when we reach the limit of the platform, with application
-> that stop the stream at same time.
-> So almost no chance to occur.
-> 
-> > OTOH, if anyone really wants to keep the stuff, please revert the
-> > commit dc865fb9e7c2251c9585ff6a7bf185d499db13e4.
->  
-> Yes reverting the commit is one solution.
-> The other is to clean-up the snd_pcm_stream_lock/ snd_pcm_stream_unlock in the
-> Handler.
+diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpass-tx-macro.c
+index b492d598..714a411 100644
+--- a/sound/soc/codecs/lpass-tx-macro.c
++++ b/sound/soc/codecs/lpass-tx-macro.c
+@@ -1920,6 +1920,8 @@ static int tx_macro_remove(struct platform_device *pdev)
+ 	clk_disable_unprepare(tx->npl);
+ 	clk_disable_unprepare(tx->fsgen);
+ 
++	lpass_macro_pds_exit(tx->pds);
++
+ 	return 0;
+ }
+ 
+@@ -1964,8 +1966,6 @@ static int __maybe_unused tx_macro_runtime_resume(struct device *dev)
+ 	regcache_sync(tx->regmap);
+ 	tx->reset_swr = true;
+ 
+-	lpass_macro_pds_exit(tx->pds);
+-
+ 	return 0;
+ err_fsgen:
+ 	clk_disable_unprepare(tx->npl);
+diff --git a/sound/soc/codecs/lpass-va-macro.c b/sound/soc/codecs/lpass-va-macro.c
+index 300f4f6..f3cb596 100644
+--- a/sound/soc/codecs/lpass-va-macro.c
++++ b/sound/soc/codecs/lpass-va-macro.c
+@@ -1503,6 +1503,8 @@ static int va_macro_remove(struct platform_device *pdev)
+ 	clk_disable_unprepare(va->dcodec);
+ 	clk_disable_unprepare(va->macro);
+ 
++	lpass_macro_pds_exit(va->pds);
++
+ 	return 0;
+ }
+ 
+@@ -1532,8 +1534,6 @@ static int __maybe_unused va_macro_runtime_resume(struct device *dev)
+ 	regcache_cache_only(va->regmap, false);
+ 	regcache_sync(va->regmap);
+ 
+-	lpass_macro_pds_exit(va->pds);
+-
+ 	return 0;
+ }
+ 
+-- 
+2.7.4
 
-That would work, but maybe it's safer to keep that lock, as the state
-change isn't protected by irq_lock but only implicitly by stream lock
-in start/stop callbacks.
-
-
-thanks,
-
-Takashi

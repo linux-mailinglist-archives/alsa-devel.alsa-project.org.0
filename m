@@ -2,87 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E5B44D9C98
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Mar 2022 14:48:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 498A64D9CBB
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Mar 2022 14:58:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A6A201755;
-	Tue, 15 Mar 2022 14:47:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6A201755
+	by alsa0.perex.cz (Postfix) with ESMTPS id DEA271863;
+	Tue, 15 Mar 2022 14:57:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DEA271863
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647352126;
-	bh=fRJlJ2rTlGbHVaOXA3a7TjCvA+HS99/1cpEvFviB4uA=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1647352698;
+	bh=I8Gt8y0vsmRDtxHhIYuOjDGSdsVYVup+8tVe/S4t024=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nscRr9Jvo5oUABctPEYCmlyXR//gjdLXu3zmKaxLU4Gl4sLZn0vvZ8lwRF61JIXJb
-	 pNW4BnS4WjfbDxipspD0aYGdWZgRN1jGXLE+DUyU6Cx2RTSMt8+slb4q5goWmEsTPn
-	 mAhatGRE09ZD1PsSAcvq0ssjdmsuTCv2IujJ4tO0=
+	b=pH45oHLwbgym8yQ2F1NB0+H2YXM7TQXDdolLDiQBYHPKOdAUV7T9N6r620xxfmoU3
+	 29rtimvYnAoGdVpHHCq5eYYshA/eWjEzmjx2RKGJvc1h5DbBzE68VIbrew5yLJFAba
+	 4ngTph2SOcuFi2i0D7ti8E1Cw9CW3vNCjqKP4crU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0140BF801F7;
-	Tue, 15 Mar 2022 14:47:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4E0C8F801F7;
+	Tue, 15 Mar 2022 14:57:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8345CF80162; Tue, 15 Mar 2022 14:47:38 +0100 (CET)
+ id 519BDF80095; Tue, 15 Mar 2022 14:57:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_14,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 277C6F80095
- for <alsa-devel@alsa-project.org>; Tue, 15 Mar 2022 14:47:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 277C6F80095
-Received: by mail-wm1-f46.google.com with SMTP id
- r190-20020a1c2bc7000000b0038a1013241dso1541571wmr.1
- for <alsa-devel@alsa-project.org>; Tue, 15 Mar 2022 06:47:36 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=cUb7Ym7YiBit1oW7mIGdDtc855Srmaz5LFm1bk92JDs=;
- b=KBGrT2IhqL94/lS+d7VtgcJ9dfofDUizB6vjRLspvmWLz3NF9BI6EE44RvHYVKENpZ
- q6iKMrHymJ5zOjNloGnj8tuogzBdwOWDQY43WuRIyiCFguD/UIeqpxEi/ndWMkpFCXVu
- Wz04nrKJ1Kk7jgM+dDbMMaRFlv8Dsp+usJoPNdgJBHFRK4BxSIujSgnzj6LG4hdMivmp
- DIN/CJX49eToucO2w2qwwj3yQ2XIDjvpgGpEi7dBpXC6qDDNRjyEUabMXzFH2BXENUR3
- n2mLCuhh4ZYELAVzA007oQxmGOXfNcbm3SJCra9cfeC2eckelxVfHw2lt0QWfyuDl4VG
- 6f/w==
-X-Gm-Message-State: AOAM530JXvJmmaxQZrO/1rzc8pC2Ay0SXes7TEh+cbCMPI0mJjhbnNaB
- bgOuUQfnUM8PrRs5f8ZBDlg=
-X-Google-Smtp-Source: ABdhPJytT3AnIUgNmrWcCS6eglCCV+Fc0mjQURGc3W7lyrFTalBhR8Aju7XTZqMSC2tY0lfe/6nBxA==
-X-Received: by 2002:a05:600c:4f47:b0:381:6c3e:19dc with SMTP id
- m7-20020a05600c4f4700b003816c3e19dcmr3423857wmq.155.1647352055447; 
- Tue, 15 Mar 2022 06:47:35 -0700 (PDT)
-Received: from [192.168.64.180] (bzq-219-42-90.isdn.bezeqint.net.
- [62.219.42.90]) by smtp.gmail.com with ESMTPSA id
- e2-20020adfe7c2000000b001f04d622e7fsm15562748wrn.39.2022.03.15.06.47.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 15 Mar 2022 06:47:35 -0700 (PDT)
-Message-ID: <90024a31-ea50-74fa-1ad2-db6c1db99fef@grimberg.me>
-Date: Tue, 15 Mar 2022 15:47:33 +0200
+ by alsa1.perex.cz (Postfix) with ESMTPS id 09ABCF80095
+ for <alsa-devel@alsa-project.org>; Tue, 15 Mar 2022 14:57:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09ABCF80095
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="cQ5CTiHy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1647352625; x=1678888625;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=I8Gt8y0vsmRDtxHhIYuOjDGSdsVYVup+8tVe/S4t024=;
+ b=cQ5CTiHywyvAKwOKv+Jz1P/Ua9nLm4jp0TNQVDik6mqRm86rayUjImcY
+ s/TqVQ0zC0GWs3CWnSBheA0yw32POA1zr8AjmiB/nWNfwRCG4icrshycI
+ aeCOFZHEKOjNS2Vc98GL5pEiggg+TWJKJuPBVHnfzuU7F1ZrUJevRZQHk
+ 1Zts//UA5J1Ej0dMdMrTNii506CfymjUXWJrZ+BYtzefVtnlC3gvoqGnr
+ BdzswhuBgf0n5HEHr3JLbvRQkE6H6m8P6rG2f453PtNTNiXncYoa6Oulm
+ hVnfWiXw2ylO36mRSHiJI0f0dO5j7sTaPSFhvdNofZ/twjHWR2IWdNITM Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10286"; a="256258203"
+X-IronPort-AV: E=Sophos;i="5.90,183,1643702400"; d="scan'208";a="256258203"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Mar 2022 06:56:58 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.90,183,1643702400"; d="scan'208";a="498021669"
+Received: from lkp-server02.sh.intel.com (HELO 89b41b6ae01c) ([10.239.97.151])
+ by orsmga003.jf.intel.com with ESMTP; 15 Mar 2022 06:56:56 -0700
+Received: from kbuild by 89b41b6ae01c with local (Exim 4.92)
+ (envelope-from <lkp@intel.com>)
+ id 1nU7fT-000B4B-Eq; Tue, 15 Mar 2022 13:56:55 +0000
+Date: Tue, 15 Mar 2022 21:56:14 +0800
+From: kernel test robot <lkp@intel.com>
+To: Daniel Palmer <daniel@0x0f.com>, broonie@kernel.org, tiwai@suse.com,
+ arnaud.pouliquen@st.com
+Subject: Re: [PATCH] ASoC: sti: sti_uniperif: Remove driver
+Message-ID: <202203152111.fltopk2x-lkp@intel.com>
+References: <20220315091319.3351522-1-daniel@0x0f.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH] [v2] nvme-pci: disable write zeros support on specific
- SSDs
-Content-Language: en-US
-To: Christoph Hellwig <hch@lst.de>,
- Mark Hsieh <mark_hsieh@wistron.corp-partner.google.com>
-References: <20220315132059.12747-1-mark_hsieh@wistron.corp-partner.google.com>
- <20220315132202.GA12452@lst.de>
-From: Sagi Grimberg <sagi@grimberg.me>
-In-Reply-To: <20220315132202.GA12452@lst.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, Mark_Hsieh@wistron.com,
- linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org, axboe@fb.com,
- kbusch@kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220315091319.3351522-1-daniel@0x0f.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, Daniel Palmer <daniel@0x0f.com>,
+ kbuild-all@lists.01.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,14 +93,68 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Daniel,
 
->> Like commit 5611ec2b9814 ("nvme-pci: prevent SK hynix PC400 from using
->> Write Zeroes command"), Micron has the same issue:
->> [ 6305.633887] blk_update_request: operation not supported error, dev
->> nvme0n1, sector 340812032 op 0x9:(WRITE_ZEROES) flags 0x0 phys_seg 0 prio class 0
->>
->> So also disable Write Zeroes command on Micron.
-> 
-> This still ignores all the questions I've asked.
+I love your patch! Yet something to improve:
 
-For some reason I cannot find the original patch(es)
+[auto build test ERROR on linus/master]
+[also build test ERROR on v5.17-rc8 next-20220310]
+[cannot apply to broonie-sound/for-next tiwai-sound/for-next]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch]
+
+url:    https://github.com/0day-ci/linux/commits/Daniel-Palmer/ASoC-sti-sti_uniperif-Remove-driver/20220315-171525
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 09688c0166e76ce2fb85e86b9d99be8b0084cdf9
+config: x86_64-rhel-8.3-kselftests
+compiler: gcc-9 (Ubuntu 9.4.0-1ubuntu1~20.04) 9.4.0
+reproduce (this is a W=1 build):
+        # https://github.com/0day-ci/linux/commit/7970e4bb3de4ff810c1dafb8ac38d222d90ca071
+        git remote add linux-review https://github.com/0day-ci/linux
+        git fetch --no-tags linux-review Daniel-Palmer/ASoC-sti-sti_uniperif-Remove-driver/20220315-171525
+        git checkout 7970e4bb3de4ff810c1dafb8ac38d222d90ca071
+        # save the config file to linux build tree
+        mkdir build_dir
+        make W=1 O=build_dir ARCH=x86_64 distclean
+
+If you fix the issue, kindly add following tag as appropriate
+Reported-by: kernel test robot <lkp@intel.com>
+
+All errors (new ones prefixed by >>):
+
+>> scripts/Makefile.clean:15: sound/soc/sti/Makefile: No such file or directory
+>> make[4]: *** No rule to make target 'sound/soc/sti/Makefile'.
+   make[4]: Failed to remake makefile 'sound/soc/sti/Makefile'.
+   make[3]: *** [scripts/Makefile.clean:68: sound/soc/sti] Error 2
+   make[3]: Target '__clean' not remade because of errors.
+   make[2]: *** [scripts/Makefile.clean:68: sound/soc] Error 2
+   make[2]: Target '__clean' not remade because of errors.
+   make[1]: *** [Makefile:1838: _clean_sound] Error 2
+   make[1]: Target 'distclean' not remade because of errors.
+   make: *** [Makefile:219: __sub-make] Error 2
+   make: Target 'distclean' not remade because of errors.
+--
+>> sound/soc/Kconfig:86: can't open file "sound/soc/sti/Kconfig"
+   make[2]: *** [scripts/kconfig/Makefile:77: oldconfig] Error 1
+   make[1]: *** [Makefile:619: oldconfig] Error 2
+   make: *** [Makefile:219: __sub-make] Error 2
+   make: Target 'oldconfig' not remade because of errors.
+--
+>> sound/soc/Kconfig:86: can't open file "sound/soc/sti/Kconfig"
+   make[2]: *** [scripts/kconfig/Makefile:77: olddefconfig] Error 1
+   make[1]: *** [Makefile:619: olddefconfig] Error 2
+   make: *** [Makefile:219: __sub-make] Error 2
+   make: Target 'olddefconfig' not remade because of errors.
+
+
+vim +15 scripts/Makefile.clean
+
+2315c6e42278152 Sam Ravnborg   2005-07-25  12  
+2a691470345a002 Sam Ravnborg   2005-07-25  13  # The filename Kbuild has precedence over Makefile
+db8c1a7b2ca25f3 Sam Ravnborg   2005-07-27  14  kbuild-dir := $(if $(filter /%,$(src)),$(src),$(srctree)/$(src))
+db8c1a7b2ca25f3 Sam Ravnborg   2005-07-27 @15  include $(if $(wildcard $(kbuild-dir)/Kbuild), $(kbuild-dir)/Kbuild, $(kbuild-dir)/Makefile)
+^1da177e4c3f415 Linus Torvalds 2005-04-16  16  
+
+---
+0-DAY CI Kernel Test Service
+https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org

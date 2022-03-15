@@ -2,91 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBD894D903F
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Mar 2022 00:18:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 475044D92A7
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Mar 2022 03:33:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 50803171D;
-	Tue, 15 Mar 2022 00:18:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50803171D
+	by alsa0.perex.cz (Postfix) with ESMTPS id BD98F1674;
+	Tue, 15 Mar 2022 03:32:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD98F1674
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647299937;
-	bh=b5qaYr4jus9PAvQVHEz8DFj0wyevvnS7UCzasxOWAcA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=lzSBnHm85X23OFaCQf+Yqde6p6MUWuulGaBlg8Xa5eqQLhdvgnNfwTZ9SRZ8OtH2h
-	 xpJ/sCjFnlh2yn0fugdUI4Pv9A/X36RG0tf3nBk4+WMtQ/SqM4iUApxiDnt0d0sU29
-	 Wkivfj9htiD4+XbsnlBIVgfMhFDoik5rUobvWUb4=
+	s=default; t=1647311629;
+	bh=aJOgWWRKRdGSiRaesIVdtKAzy9xp+9fF3CNlBCi3so0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=KQQlgxInVz18eUgPBGaE0ZLBrezyGWPV4Yw2Cmao89RjCAgDsEpBwutV2pCSC0Kcr
+	 EDf7zJvZdr1ikdxlvMQlSVqqI4FlepaN9r33Y/7d5TSb6kRp1qwk0dHxIcHV3Z2NVb
+	 hNRCp1KeFZu5VF1Ce7uFKde8GIBrLlmZQotS7m1w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BB1E9F801EC;
-	Tue, 15 Mar 2022 00:17:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F3F7F801F7;
+	Tue, 15 Mar 2022 03:32:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3B1D5F80139; Tue, 15 Mar 2022 00:17:47 +0100 (CET)
+ id ECEC0F800FF; Tue, 15 Mar 2022 03:32:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-yb1-xb31.google.com (mail-yb1-xb31.google.com
- [IPv6:2607:f8b0:4864:20::b31])
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pj1-x1032.google.com (mail-pj1-x1032.google.com
+ [IPv6:2607:f8b0:4864:20::1032])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C3A67F80100
- for <alsa-devel@alsa-project.org>; Tue, 15 Mar 2022 00:17:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3A67F80100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 97236F800FF
+ for <alsa-devel@alsa-project.org>; Tue, 15 Mar 2022 03:32:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97236F800FF
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="njGtCAef"
-Received: by mail-yb1-xb31.google.com with SMTP id u61so33903968ybi.11
- for <alsa-devel@alsa-project.org>; Mon, 14 Mar 2022 16:17:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=+qhpZ4/gQn44J41+/TZnqVxppcvQMQk2SpTOJ9SJma4=;
- b=njGtCAef1QBlBntVQw5+KnC5czMQCkltUAYIkUxfpTnSLBtrsetXxuhKATLSUjoxbi
- PjxqIGFnvbvof7+hKZrBMR+zMGIa/1CfUWQqHY3EIfi/HRvPcP1FnzWqnsed8XV2uwe3
- e8P26Rf0BRTA3hIXTVa1ijVWkWX60/OcBoWxxk6JtlgsMfhCvBscS2bHr5PpAzkgPv6b
- 3tugqcBbi0Of36og68swWqwOpxjeGn3hhi8Ylr8qcvvulKkZjE2akzXDCzOZ++3z7c02
- 1SfNSlf/lHyFExW7gler46i1qXHyGjC0OimYa6eMB/x4lYo0VLSGPSVGzcpOi8qW+lWS
- qOeg==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="GTEc8J50"
+Received: by mail-pj1-x1032.google.com with SMTP id
+ kx6-20020a17090b228600b001bf859159bfso1069597pjb.1
+ for <alsa-devel@alsa-project.org>; Mon, 14 Mar 2022 19:32:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=UisOO7Q5sWcTyT6YGXIaBwA+2hXKA5zA0oioUT8I7D0=;
+ b=GTEc8J50ZYn6y/baRDpqB9hxBgnQuXZskdpa3JoDVSVvdYYM7wfVnFY6S8hnEPVohx
+ joDYJjS8jnXWq6nqY6ttRVmX2LHgIYLaT0HVT6ZyLyovJgWdinXFX9gfM43cLZwU4vl+
+ ePUXEltdKnI5iR8jDAR8LU32uFlP5/BDB/O+jyHrv/iFythb3WNV1aFD2r4YbSgeDsYi
+ VdioSeQvK9Vw22hcNhyJGyNTzHRMsvgeAfgHRW2/xW+YGq9/j0F7ZGZ/74wGMX6y+7Te
+ Equf0m6AuMHCLgK1Xtoutq4yc3JtaOLGRFvo1y69+8pST22viSiCmVy9nUzZUzmXomh6
+ eI4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=+qhpZ4/gQn44J41+/TZnqVxppcvQMQk2SpTOJ9SJma4=;
- b=WcX8k2++MI1C5Dt43WZAVpV2JuTRs9I9JJtIsfdj39lIAmdZQnRRsVCNiMXwK8xuDA
- zrkXqg9n+5Ugp7iBK39QDUYN7/zfdxOkg/8A3dObFWRc0bnQCd88DPfP8TuMBwJ6/zfb
- iqHCIrbkYf8oR4IBD/8TDPb2qcq7MgKDS3kFnm7I5wLG7bBEeE0xD60a/JvdGgPWQ8r3
- 1IS0Q1LZIDR6CMSRvLfSpwl4GsImdrWMIzEKxvZ2ayyHsNOsQBIOffdGqm+37LzmjCG2
- BUz8QumPeFIgFbu5DvcxXDYoYX5ZeaGqCIKbZdHYfuth45ShTspvrhMOvGz/WFwbEOqk
- 1K+Q==
-X-Gm-Message-State: AOAM532GAmCMDnk8dkY4bs+0k+9CL9/ogNNLCApN1IOrptlOMKRnTVlK
- WnarqfZQtEXuRtszu6jOIL3Oj22ahi7aUZJAZpo52Q==
-X-Google-Smtp-Source: ABdhPJzn2AGcMQQ0Ue+lFE8XgGj75yeqVsqxktcqS4/nhxUbDwqbTmo1pLNFRbd6YCUHGHSkf/tGLjs9SDMj6tj9FKM=
-X-Received: by 2002:a25:4e82:0:b0:633:68d7:b864 with SMTP id
- c124-20020a254e82000000b0063368d7b864mr2996309ybb.514.1647299854049; Mon, 14
- Mar 2022 16:17:34 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=UisOO7Q5sWcTyT6YGXIaBwA+2hXKA5zA0oioUT8I7D0=;
+ b=Gdw5vuqh/NAwSHK2s5o+HqDijEYcddcrddrn2nI3GBVEHfEDYk2D/aTVJ6Uop67WSX
+ dAFFztA+IFZwLn6nrqqezFgToIy0+2vZgKUEXYOIWa2HTfJmbuFHpX17NWZHbTXIMtl1
+ 0Uxq09DhCS1FchgpBMKT2Y2aslfZyinAp07ehL+sG5slnL+LcW6hfDvnvvGlbNyem2zl
+ ar5zWaLSz1tNXfbgthfOFeltQ50DZP3AqY3fCNAnIjMf+VAXa0yTVv+p5Sj93qcOiLSC
+ SI9yblZwxdWXmk242NAD851jK/KNuJS9Ena45rLPLUzZfgTa48ibRYbG3x0lZ0C4RaCv
+ UiLA==
+X-Gm-Message-State: AOAM533xvfs6UrQbnU5kpUagpjl/abRcAMAKNvu/YuJo87hMJcWmfUFn
+ WlswGJ2H6wDoNmk2RgjzobXF3e3v5ik=
+X-Google-Smtp-Source: ABdhPJzUWiTgcfMjzsN+iQA9b8xgnqGDJdPduixz6F8CAvVouD8nSKSZmWCti0JMDhaZ5GQA5KNzvQ==
+X-Received: by 2002:a17:90a:8595:b0:1bf:4592:a819 with SMTP id
+ m21-20020a17090a859500b001bf4592a819mr2084621pjn.183.1647311550493; 
+ Mon, 14 Mar 2022 19:32:30 -0700 (PDT)
+Received: from localhost.localdomain ([193.203.214.57])
+ by smtp.gmail.com with ESMTPSA id
+ l188-20020a6225c5000000b004f715e38283sm21291197pfl.63.2022.03.14.19.32.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 14 Mar 2022 19:32:30 -0700 (PDT)
+From: cgel.zte@gmail.com
+X-Google-Original-From: chi.minghao@zte.com.cn
+To: broonie@kernel.org
+Subject: [PATCH] ASoC: ak4642: Use of_device_get_match_data()
+Date: Tue, 15 Mar 2022 02:32:26 +0000
+Message-Id: <20220315023226.2118354-1-chi.minghao@zte.com.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20220303232350.2591143-1-robh@kernel.org>
-In-Reply-To: <20220303232350.2591143-1-robh@kernel.org>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Tue, 15 Mar 2022 00:17:22 +0100
-Message-ID: <CACRpkdaSiVhg1dZ_uhZEsxT_QYrwEtdodUAhx4nwMd9S=-g_HQ@mail.gmail.com>
-Subject: Re: [PATCH v3] dt-bindings: mfd: Fix pinctrl node name warnings
-To: Rob Herring <robh@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- - <patches@opensource.cirrus.com>, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, Richard Fitzgerald <rf@opensource.cirrus.com>,
- =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
- Lee Jones <lee.jones@linaro.org>
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Zeal Robot <zealci@zte.com.cn>,
+ lgirdwood@gmail.com, Minghao Chi <chi.minghao@zte.com.cn>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,34 +102,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Mar 4, 2022 at 12:24 AM Rob Herring <robh@kernel.org> wrote:
+From: Minghao Chi <chi.minghao@zte.com.cn>
 
-> The recent addition pinctrl.yaml in commit c09acbc499e8 ("dt-bindings:
-> pinctrl: use pinctrl.yaml") resulted in some node name warnings:
->
-> Documentation/devicetree/bindings/mfd/cirrus,lochnagar.example.dt.yaml: \
->  lochnagar-pinctrl: $nodename:0: 'lochnagar-pinctrl' does not match '^(pi=
-nctrl|pinmux)(@[0-9a-f]+)?$'
-> Documentation/devicetree/bindings/mfd/cirrus,madera.example.dt.yaml: \
->  codec@1a: $nodename:0: 'codec@1a' does not match '^(pinctrl|pinmux)(@[0-=
-9a-f]+)?$'
-> Documentation/devicetree/bindings/mfd/brcm,cru.example.dt.yaml: \
->  pin-controller@1c0: $nodename:0: 'pin-controller@1c0' does not match '^(=
-pinctrl|pinmux)(@[0-9a-f]+)?$'
->
-> Fix the node names to the preferred 'pinctrl'. For cirrus,madera,
-> nothing from pinctrl.yaml schema is used, so just drop the reference.
->
-> Fixes: c09acbc499e8 ("dt-bindings: pinctrl: use pinctrl.yaml")
-> Cc: Rafa=C5=82 Mi=C5=82ecki <rafal@milecki.pl>
-> Signed-off-by: Rob Herring <robh@kernel.org>
-> ---
-> v2:
->  - Fix lochnagar-pinctrl nodename in example
-> v3:
->  - And fix lochnagar-pinctrl nodename in 'required'. Sigh...
+Use of_device_get_match_data() to simplify the code.
 
-Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
+Reported-by: Zeal Robot <zealci@zte.com.cn>
+Signed-off-by: Minghao Chi <chi.minghao@zte.com.cn>
+---
+ sound/soc/codecs/ak4613.c | 11 +++--------
+ 1 file changed, 3 insertions(+), 8 deletions(-)
 
-Yours,
-Linus Walleij
+diff --git a/sound/soc/codecs/ak4613.c b/sound/soc/codecs/ak4613.c
+index 4d2e78101f28..e4c643724dd9 100644
+--- a/sound/soc/codecs/ak4613.c
++++ b/sound/soc/codecs/ak4613.c
+@@ -653,15 +653,10 @@ static int ak4613_i2c_probe(struct i2c_client *i2c,
+ 	struct ak4613_priv *priv;
+ 
+ 	regmap_cfg = NULL;
+-	if (np) {
+-		const struct of_device_id *of_id;
+-
+-		of_id = of_match_device(ak4613_of_match, dev);
+-		if (of_id)
+-			regmap_cfg = of_id->data;
+-	} else {
++	if (np)
++		regmap_cfg = of_device_get_match_data(dev);
++	else
+ 		regmap_cfg = (const struct regmap_config *)id->driver_data;
+-	}
+ 
+ 	if (!regmap_cfg)
+ 		return -EINVAL;
+-- 
+2.25.1
+

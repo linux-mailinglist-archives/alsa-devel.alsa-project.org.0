@@ -2,88 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A415E4D9ED2
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Mar 2022 16:35:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A28DB4D9F52
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Mar 2022 16:52:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1594218DC;
-	Tue, 15 Mar 2022 16:35:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1594218DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1916318CF;
+	Tue, 15 Mar 2022 16:51:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1916318CF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647358559;
-	bh=r8xcEmQcq+F77MnicIVm5Kuc1v3sMDgsd3wEin/w7dE=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=dBkquz+utVaIJ0Q1nnkLHcnbRFhCYCZQnFaKxEnxSVez1lsKL0kTmY38Uw2k1qKuQ
-	 L7Rt1CyucAW0lUbEep1KQaKrMLImZuf9mGyhKuCGS+EDvyDJbxWyxLxSb1wKrqVr/4
-	 xsHdlz4b6ljSBf4yAkUYJJU9YQtJ34rbxdEdK3mY=
+	s=default; t=1647359529;
+	bh=g1q67E7cayMbaQiSvPe63RhfYUDpFcZfCorJ4vRra3s=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=qyAaH93p/aVHJZgerW+0bvrUlJUa26Ujdm5b37NeTtqHdqCzRqNeG5B9TSOF5ZOWH
+	 GPP0LPK/om1z1MRTZyupp/tmQ9H5as/vQpFO3GLyUbrTHmKHVM6u5LKZISOSbH2bYX
+	 s1uI9X+9gJClkHUoZ9I83ShojYi1Z9lmZEt0G3Mg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 877F6F801F7;
-	Tue, 15 Mar 2022 16:34:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8EBD4F801F7;
+	Tue, 15 Mar 2022 16:51:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 565B0F800FF; Tue, 15 Mar 2022 16:34:50 +0100 (CET)
+ id 907C2F80212; Tue, 15 Mar 2022 16:51:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C9E3FF800FF
- for <alsa-devel@alsa-project.org>; Tue, 15 Mar 2022 16:34:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9E3FF800FF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 24878F800FF
+ for <alsa-devel@alsa-project.org>; Tue, 15 Mar 2022 16:50:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24878F800FF
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="bMCllI0O"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="IYqjuc4K"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 531F41F391;
- Tue, 15 Mar 2022 15:34:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1647358484; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=5ha63cA1iMjHX8s87c7n2kolHfqFbmLzNe1WLNjs1WE=;
- b=bMCllI0OEAhpTR/xo/nQZpGembmiqDKLvCjpZsLaRwk38/hIQOlo2N0vLq7HJPuH9lzS6C
- Uq1Uc2Ce5qyLN0s4/EHpmvktOGsUCXnAcSspEMS4bvDPOhARI/cHcN9Jt2JPrtKBDAY4Cz
- Jtb/OpIJ0w5dzanOsSGBN6/ilO/CG10=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1647358484;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=5ha63cA1iMjHX8s87c7n2kolHfqFbmLzNe1WLNjs1WE=;
- b=IYqjuc4KM10+WvhWGIkJ3JehgCkXUN0ALfdgcnbvvFSNq9VIgyt/PUFiRFAJLN0bTkDd4x
- /X7ED/9OJsRhglDw==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id F14DBA3B81;
- Tue, 15 Mar 2022 15:34:43 +0000 (UTC)
-Date: Tue, 15 Mar 2022 16:34:43 +0100
-Message-ID: <s5h5yof8c18.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Arnaud POULIQUEN <arnaud.pouliquen@st.com>
-Subject: Re: [PATCH] ASoC: sti: sti_uniperif: Remove driver
-In-Reply-To: <PAXPR10MB4718531B374721399E9C5D08F1109@PAXPR10MB4718.EURPRD10.PROD.OUTLOOK.COM>
-References: <20220315091319.3351522-1-daniel@0x0f.com>
- <s5h8rtba4to.wl-tiwai@suse.de>
- <PAXPR10MB47185B76D5F38482FB1125A5F1109@PAXPR10MB4718.EURPRD10.PROD.OUTLOOK.COM>
- <s5hee338etb.wl-tiwai@suse.de>
- <PAXPR10MB4718531B374721399E9C5D08F1109@PAXPR10MB4718.EURPRD10.PROD.OUTLOOK.COM>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: "broonie@kernel.org" <broonie@kernel.org>, Daniel Palmer <daniel@0x0f.com>,
- "tiwai@suse.com" <tiwai@suse.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+ dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
+ header.b="V23Sp7rJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1647359455; x=1678895455;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=PtubDY9l+FgV9r9sh9AgXfRAdFUX29rrBNfVsa/aX5M=;
+ b=V23Sp7rJTtLroLBBXPG+yyctBhFf38UB6WLiQtsi7DnNPvv4rSDtUOat
+ 0lPS8sGlX/27bbCfbdnDF+C4aWDb3zongIHyiB64P8xknMgljYJsV7HKw
+ c30iLFbLAtWHV24IRG0119/0P5oUivG3B/jExZIgoL8uzwY/F24GCoDLC w=;
+Received: from unknown (HELO ironmsg03-sd.qualcomm.com) ([10.53.140.143])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 15 Mar 2022 08:50:51 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg03-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Mar 2022 08:50:51 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.15; Tue, 15 Mar 2022 08:50:31 -0700
+Received: from hu-srivasam-hyd.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Tue, 15 Mar 2022 08:50:25 -0700
+From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+To: <agross@kernel.org>, <bjorn.andersson@linaro.org>, <lgirdwood@gmail.com>, 
+ <broonie@kernel.org>, <robh+dt@kernel.org>, <quic_plai@quicinc.com>,
+ <bgoswami@codeaurora.org>, <perex@perex.cz>, <tiwai@suse.com>,
+ <srinivas.kandagatla@linaro.org>, <rohitkr@codeaurora.org>,
+ <linux-arm-msm@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <swboyd@chromium.org>, <judyhsiao@chromium.org>, Linus Walleij
+ <linus.walleij@linaro.org>, <linux-gpio@vger.kernel.org>
+Subject: [PATCH v11 0/7] Add pin control support for lpass sc7280
+Date: Tue, 15 Mar 2022 21:20:06 +0530
+Message-ID: <1647359413-31662-1-git-send-email-quic_srivasam@quicinc.com>
+X-Mailer: git-send-email 2.7.4
+MIME-Version: 1.0
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Cc: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,104 +96,86 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 15 Mar 2022 16:27:40 +0100,
-Arnaud POULIQUEN wrote:
-> 
-> 
-> 
-> 
-> ST Restricted
-> 
-> > -----Original Message-----
-> > From: Takashi Iwai <tiwai@suse.de>
-> > Sent: mardi 15 mars 2022 15:35
-> > To: Arnaud POULIQUEN <arnaud.pouliquen@st.com>
-> > Cc: Daniel Palmer <daniel@0x0f.com>; broonie@kernel.org; tiwai@suse.com;
-> > alsa-devel@alsa-project.org; linux-kernel@vger.kernel.org
-> > Subject: Re: [PATCH] ASoC: sti: sti_uniperif: Remove driver
-> > 
-> > On Tue, 15 Mar 2022 14:15:20 +0100,
-> > Arnaud POULIQUEN wrote:
-> > >
-> > > Hello,
-> > >
-> > >
-> > > ST Restricted
-> > >
-> > > > -----Original Message-----
-> > > > From: Takashi Iwai <tiwai@suse.de>
-> > > > Sent: mardi 15 mars 2022 11:28
-> > > > To: Daniel Palmer <daniel@0x0f.com>
-> > > > Cc: broonie@kernel.org; tiwai@suse.com; Arnaud POULIQUEN
-> > > > <arnaud.pouliquen@st.com>; alsa-devel@alsa-project.org; linux-
-> > > > kernel@vger.kernel.org
-> > > > Subject: Re: [PATCH] ASoC: sti: sti_uniperif: Remove driver
-> > > >
-> > > > On Tue, 15 Mar 2022 10:13:19 +0100,
-> > > > Daniel Palmer wrote:
-> > > > >
-> > > > > This driver seems to be in the "only good for attracting bot
-> > > > > generated patches" phase of it's life.
-> > > > >
-> > > > > It doesn't seem like anyone actually tested the patches that have
-> > > > > been applied in the last few years as uni_reader_irq_handler() had
-> > > > > a dead lock added to it (it locks the stream, then calls
-> > > > > snd_pcm_stop_xrun() which will also lock the stream).
-> > > >
-> > > > Mea culpa, that was an obvious deadlock I overlooked in the patch
-> > > > series.
-> > > >
-> > > > > Seems best just to remove it.
-> > > > >
-> > > > > Signed-off-by: Daniel Palmer <daniel@0x0f.com>
-> > > > > ---
-> > > > >  I've never used this driver, don't have the hardware etc.
-> > > > >  I just noticed that this looks broken when debugging my  own
-> > > > > driver that uses snd_pcm_stop_xrun() and was looking  at other
-> > > > > users to see if I was using it wrong and noticed  this was the
-> > > > > only place that locked the stream before  calling
-> > > > > snd_pcm_stop_xrun().
-> > > > >
-> > > > >  There are probably some other bits of the driver that  should be
-> > > > > removed but I didn't look that hard.
-> > > > >
-> > > > >  TL;DR; This driver seems broken, seems like nobody uses  it.
-> > > > > Maybe it should be deleted?
-> > > >
-> > > > Yeah, that looks dead.
-> > > >
-> > >
-> > > The platform is still used for instance:
-> > > https://lore.kernel.org/all/1d95209f-9cb4-47a3-2696-7a93df7cdc05@foss.
-> > > st.com/
-> > >
-> > > So please do not remove the driver
-> > 
-> > Ah, it's always good to see a vital sign!
-> > 
-> > > The issue has not been detected because it is related to an error that
-> > > occurs only when we reach the limit of the platform, with application
-> > > that stop the stream at same time.
-> > > So almost no chance to occur.
-> > >
-> > > > OTOH, if anyone really wants to keep the stuff, please revert the
-> > > > commit dc865fb9e7c2251c9585ff6a7bf185d499db13e4.
-> > >
-> > > Yes reverting the commit is one solution.
-> > > The other is to clean-up the snd_pcm_stream_lock/
-> > > snd_pcm_stream_unlock in the Handler.
-> > 
-> > That would work, but maybe it's safer to keep that lock, as the state change
-> > isn't protected by irq_lock but only implicitly by stream lock in start/stop
-> > callbacks.
->  
-> You are right, trying to use the snd_pcm_stop_xrun needs deeper update
-> that could introduce regression. 
-> It seems wiser to revert your commit  dc865fb9e7c2 as you propose.
+This patch series is to split lpass variant common pin control
+functions and SoC specific functions and to add lpass sc7280 pincontrol support.
+It also Adds dt-bindings for lpass sc7280 lpass lpi pincontrol.
 
-OK, I'm going to submit the revert.
+Changes Since V10:
+    -- Modify driver's custom functions with pin control framework generic functions.
+    -- Update sm8250 and sc7280 pin control depedency list in Kconfig.
+    -- Update commit description of few patches.
+Changes Since V9:
+    -- Add pinctrl groups macro to Kconfig.
+Changes Since V8:
+    -- Remove redundant headers included in v8.
+Changes Since V7:
+    -- Update optional clock voting with conditional check.
+    -- Add const to lpi_pinctrl_variant_data structure.
+    -- Update required headers and remove redundant.
+    -- Change EXPORT_SYMBOL to EXPORT_SYMBOL_GPL
+    -- Fix typo errors.
+Changes Since V6:
+    -- Update conditional clock voting to optional clock voting.
+    -- Update Kconfig depends on field with select.
+    -- Fix typo errors. 
+Changes Since V5:
+    -- Create new patch by updating macro name to lpi specific.
+    -- Create new patch by updating lpi pin group structure with core group_desc structure.
+    -- Fix typo errors.
+    -- Sort macros in the make file and configuration file.
+Changes Since V4:
+    -- Update commit message and description of the chip specific extraction patch.
+    -- Sort macros in kconfig and makefile.
+    -- Update optional clock voting to conditional clock voting.
+    -- Fix typo errors.
+    -- Move to quicinc domain email id's.
+Changes Since V3:
+    -- Update separate Kconfig fields for sm8250 and sc7280.
+    -- Update module license and description.
+    -- Move static variables to corresponding .c files from header file.
 
+Changes Since V2:
+    -- Add new dt-bindings for sc7280 lpi driver.
+    -- Make clock voting change as separate patch.
+    -- Split existing pincontrol driver and make common functions 
+       as part of separate file.
+    -- Rename lpass pincontrol lpi dt-bindings to sm8250 specific dt-bindings
+		
+Changes Since V1:
+    -- Make lpi pinctrl variant data structure as constant
+    -- Add appropriate commit message
+    -- Change signedoff by sequence.
 
-thanks,
+Srinivasa Rao Mandadapu (7):
+  dt-bindings: pinctrl: qcom: Update lpass lpi file name to SoC specific
+  dt-bindings: pinctrl: qcom: Add sc7280 lpass lpi pinctrl bindings
+  pinctrl: qcom: Update macro name to LPI specific
+  pinctrl: qcom: Update lpi pin group custiom functions with framework
+    generic functions
+  pinctrl: qcom: Extract chip specific LPASS LPI code
+  pinctrl: qcom: Add SC7280 lpass pin configuration
+  pinctrl: qcom: Update clock voting as optional
 
-Takashi
+Tested this on SM8250 MTP with WSA and WCD codecs.
+Tested-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+
+ .../bindings/pinctrl/qcom,lpass-lpi-pinctrl.yaml   | 133 ---------
+ .../pinctrl/qcom,sc7280-lpass-lpi-pinctrl.yaml     | 115 ++++++++
+ .../pinctrl/qcom,sm8250-lpass-lpi-pinctrl.yaml     | 133 +++++++++
+ drivers/pinctrl/qcom/Kconfig                       |  19 ++
+ drivers/pinctrl/qcom/Makefile                      |   2 +
+ drivers/pinctrl/qcom/pinctrl-lpass-lpi.c           | 309 +++------------------
+ drivers/pinctrl/qcom/pinctrl-lpass-lpi.h           |  86 ++++++
+ drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c    | 168 +++++++++++
+ drivers/pinctrl/qcom/pinctrl-sm8250-lpass-lpi.c    | 164 +++++++++++
+ 9 files changed, 731 insertions(+), 398 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/pinctrl/qcom,lpass-lpi-pinctrl.yaml
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/qcom,sc7280-lpass-lpi-pinctrl.yaml
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/qcom,sm8250-lpass-lpi-pinctrl.yaml
+ create mode 100644 drivers/pinctrl/qcom/pinctrl-lpass-lpi.h
+ create mode 100644 drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c
+ create mode 100644 drivers/pinctrl/qcom/pinctrl-sm8250-lpass-lpi.c
+
+-- 
+2.7.4
+

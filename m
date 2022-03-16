@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE7864DBFE7
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Mar 2022 08:03:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E95324DBFEE
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Mar 2022 08:03:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6B70D18ED;
-	Thu, 17 Mar 2022 08:02:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B70D18ED
+	by alsa0.perex.cz (Postfix) with ESMTPS id 897541900;
+	Thu, 17 Mar 2022 08:02:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 897541900
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647500589;
-	bh=QGBVmDhCU/zc1APf6ONvWWXrIA6lWoLe+K02lZL6a68=;
+	s=default; t=1647500621;
+	bh=jGSl4su3CbPjpZ3gqW95SXOCGzGVv0qE+QTWgyH3LlE=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=C73/2QJbYvc0YtRraWdpScrHKNCIrKK2PYLIeyH3f/wduX0nRtqZCYA0WXGgxvz3I
-	 cp4MPIDcvaz7l7PKfUI/N1x1uuzJYeAU9vnHDjjsHlbPnFpo8fAQ8GBQbfiuRxYXb4
-	 nMeZmfA5Jf19A0DfnUg11R8yZqrNs3NfZNjsSF+U=
+	b=TbGx3OOrzyvO1pXr3ghaySMdgmlkgVEGr8KD/kmxpLXYlq3wR7VpjgxIweXlHbt/j
+	 059o60GAcrJy6OXLllvp4cvkxZKhQ7MffYL3nDHzfYbUc4o55f3SOeAYDMEXS4osLX
+	 9jIQadFLfoqKaipZBhdYeXtAV1O/+facgS8cIhmE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E5A13F805DF;
-	Thu, 17 Mar 2022 07:55:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2F1FFF805E4;
+	Thu, 17 Mar 2022 07:55:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CA745F80311; Wed, 16 Mar 2022 16:09:11 +0100 (CET)
+ id 5D20DF8019D; Wed, 16 Mar 2022 16:09:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,66 +35,66 @@ Received: from smtp-relay-internal-1.canonical.com
  (smtp-relay-internal-1.canonical.com [185.125.188.123])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 85122F8019D
- for <alsa-devel@alsa-project.org>; Wed, 16 Mar 2022 16:09:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85122F8019D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 478FEF80095
+ for <alsa-devel@alsa-project.org>; Wed, 16 Mar 2022 16:09:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 478FEF80095
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
- header.b="i2Xb9Mhz"
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72])
+ header.b="p72fYGXG"
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 308F03F5F4
- for <alsa-devel@alsa-project.org>; Wed, 16 Mar 2022 15:09:04 +0000 (UTC)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 95B073F366
+ for <alsa-devel@alsa-project.org>; Wed, 16 Mar 2022 15:09:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1647443344;
- bh=T7JLnH9mqiYxWSJ2Xi+hqpmFTONALX95DZP9Prs/CTQ=;
+ s=20210705; t=1647443348;
+ bh=pKuO1Pnb8DTWNu323Li1Km8nI1auNgT3IB1hncz5HlI=;
  h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
  MIME-Version;
- b=i2Xb9MhzTdE+lE9OaTOdm5lssR7LIHkhHZcQk+GxGLVjMfzP4q1EpOl3OmDLCn2Hs
- xU9kPLuL9sHGb7idnp2OtNcmSuB4xVMRzL3HzTHZdNW1ymEgq4viYGLlH0hz/iM2kF
- OUHlYcrpm53zPfWgiyUoaW6Zazou2yZE2B49ntkQLPLldE016K5wwGugtm6h2iFTWP
- IuRj79EG5Tb2kM6rxrh0JB9pk8XmeNKc7VUJQpofWCNT6Q3E+wN7lypAPutcjtoM2C
- vPsjUybK5SbgBJvpheJtVoNPys+5w99huk6JJGlK7Q5kLoDEsM/xD372DKnYJDkptG
- cyKm6ONJJSLhw==
-Received: by mail-wr1-f72.google.com with SMTP id
- p18-20020adfba92000000b001e8f7697cc7so655094wrg.20
- for <alsa-devel@alsa-project.org>; Wed, 16 Mar 2022 08:09:04 -0700 (PDT)
+ b=p72fYGXGER+bSUwgR/xmNgPEGfFXE8avM62ZXb0E7syzySxOwslp3dzKtglyqC9iK
+ w9joGLA2AkoN3Q0rB1H6+ONS1d8+UzQTwN+SZlwmf17+n260ATm42lOoR+tSBm6F7G
+ tNCn7b8hKnMyHGuzXGpQnVPLuTxjO9h0lbbNOnhtZD0CAAJntj76dEPjonNFfX03hn
+ oPQiO6e/N4iQikPlVv8J1zHp7iyvfG94TxKj0dqOmZlFImH3S6MJXyGN6HIhmVDxUU
+ NFTGYIv2nFcS/r7bY9/+EdhAaWVqxywzGdCAgTfPuloh1E+TmPXjsUDdvY2qJjxm2v
+ N6+zLE8iDBRHQ==
+Received: by mail-wm1-f71.google.com with SMTP id
+ a26-20020a7bc1da000000b003857205ec7cso1155349wmj.2
+ for <alsa-devel@alsa-project.org>; Wed, 16 Mar 2022 08:09:08 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=T7JLnH9mqiYxWSJ2Xi+hqpmFTONALX95DZP9Prs/CTQ=;
- b=0277KsuhnSqcIDoAp38mByiXCSvc/yg+bmMtwcrvhY25YslX9kbz6K33LBMWr6ANcH
- mYApporDEYHfjOqicKB1tGPhfdGD2Fh5QqJYJGN+C+CNEbW3F51L7zIpdmd8pvwSEh9I
- UNEf4wBFPutDxrMNI4bBSza/cKtP16g7hJbMIrRCqF1hnH5D9u7LNqEmoQxdtQDxUGI7
- T1doGTaA/fFmv4xceAf93YwOPdxVgwRYg4eVGXn1KRURwHESy76oNmnmQaWags6sf76y
- ky+lU2YksbZprjicAh0YtIb9QxqphCXx0vlVvZPruNwvFo6R4huPuItsZVBKbKKNvngl
- NZaw==
-X-Gm-Message-State: AOAM533mfz/ymB2n6Xwyl+5xyYqMTOJ6CQ6XXqMtqb5D52sEkJpHE0YB
- 9ergPi9OmgAbx3qnKcgRjcseszA1+Bfl0BsqLkS4O//wiKl9s6vXzascff49ESWCbXpfrSxHz/j
- TWdvWYzEC+aUwoGDcd546eC0dw+LMqZ6DNzStLP0b
-X-Received: by 2002:adf:816b:0:b0:203:7fae:a245 with SMTP id
- 98-20020adf816b000000b002037faea245mr273633wrm.619.1647443343719; 
- Wed, 16 Mar 2022 08:09:03 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyiZS5X9++Ir6ARAdY07waJfT3FXmo4jW7vzpJuptfIiZFzTOsJAweK7fuoToT0HCAq1Xxe+Q==
-X-Received: by 2002:adf:816b:0:b0:203:7fae:a245 with SMTP id
- 98-20020adf816b000000b002037faea245mr273589wrm.619.1647443343503; 
- Wed, 16 Mar 2022 08:09:03 -0700 (PDT)
+ bh=pKuO1Pnb8DTWNu323Li1Km8nI1auNgT3IB1hncz5HlI=;
+ b=F9ptdBpcj7MDv1TX59jladqBrozjtq0be1F3rlglf/3v06g/CPBEFOteYe9FyFWHt4
+ ygF/PidRpYkn2loctnun1O0BOS1i83CbSgCItIXPcUFrNxKsfSYjeqUjcf2ogy1iKVDy
+ AsFXSBnGQW/81OGplKLBQ52C5E3G/Ns3eEy9rAgWPstJHLuS1MkBtnVMVUT1H27xREh0
+ ChElyg5iiUjfwU8xj+DB6EXqE8DCEmfUy9h2SD7MFDGtxepWIfGC0rKXwuSkrXksLOIX
+ Hn47Y3R3sCFIgO0kyoId+W6C2uGx2sIgjFCCTofHQ2aQz8JSX/1EA79FhIF/+GuhzmqZ
+ GQMg==
+X-Gm-Message-State: AOAM532vx/pl5044xi8Gx3HO9Co1N1FSa85SVTxKwUuFo7OuYLHTwVZg
+ NlCuJEgV54wNAUV8hEzIXoUMtWujE/UZ2vFvC1wQ37EuAhUJCrHmzR5fMS3PAhPPSrHByHDxhNO
+ u8/5PpXxNcjznOHFVEHDGCZnhyLWoRdUlK0LrfYEp
+X-Received: by 2002:a05:600c:3508:b0:38b:cc1f:a99b with SMTP id
+ h8-20020a05600c350800b0038bcc1fa99bmr6311366wmq.197.1647443348138; 
+ Wed, 16 Mar 2022 08:09:08 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwvsOYZ+nBmu9loCTPKjgh/9mwESfnIbe8Inxn1yryPkv1+wBIJxw3Cp/IL2PJnd3eHgVih9w==
+X-Received: by 2002:a05:600c:3508:b0:38b:cc1f:a99b with SMTP id
+ h8-20020a05600c350800b0038bcc1fa99bmr6311319wmq.197.1647443347937; 
+ Wed, 16 Mar 2022 08:09:07 -0700 (PDT)
 Received: from localhost.localdomain (78-11-189-27.static.ip.netia.com.pl.
  [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
- u18-20020adfdd52000000b001f04e9f215fsm1895105wrm.53.2022.03.16.08.09.00
+ u18-20020adfdd52000000b001f04e9f215fsm1895105wrm.53.2022.03.16.08.09.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 16 Mar 2022 08:09:01 -0700 (PDT)
+ Wed, 16 Mar 2022 08:09:05 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  "Rafael J. Wysocki" <rafael@kernel.org>
-Subject: [PATCH v5 10/11] slimbus: qcom-ngd: Fix kfree() of static memory on
- setting driver_override
-Date: Wed, 16 Mar 2022 16:08:02 +0100
-Message-Id: <20220316150803.421897-4-krzysztof.kozlowski@canonical.com>
+Subject: [PATCH v5 11/11] rpmsg: Fix kfree() of static memory on setting
+ driver_override
+Date: Wed, 16 Mar 2022 16:08:03 +0100
+Message-Id: <20220316150803.421897-5-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20220316150533.421349-1-krzysztof.kozlowski@canonical.com>
 References: <20220316150533.421349-1-krzysztof.kozlowski@canonical.com>
@@ -104,7 +104,6 @@ X-Mailman-Approved-At: Thu, 17 Mar 2022 07:55:05 +0100
 Cc: linux-hyperv@vger.kernel.org, Stuart Yoder <stuyoder@gmail.com>,
  linux-pci@vger.kernel.org, linux-remoteproc@vger.kernel.org,
  alsa-devel@alsa-project.org, Peter Oberparleiter <oberpar@linux.ibm.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  Vineeth Vijayan <vneethv@linux.ibm.com>,
  Alexander Gordeev <agordeev@linux.ibm.com>,
  "K. Y. Srinivasan" <kys@microsoft.com>, linux-clk@vger.kernel.org,
@@ -146,45 +145,108 @@ for example when driver_override is set via sysfs.
 
 Use dedicated helper to set driver_override properly.
 
-Fixes: 917809e2280b ("slimbus: ngd: Add qcom SLIMBus NGD driver")
+Fixes: 950a7388f02b ("rpmsg: Turn name service into a stand alone driver")
+Fixes: c0cdc19f84a4 ("rpmsg: Driver for user space endpoint interface")
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 ---
- drivers/slimbus/qcom-ngd-ctrl.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+ drivers/rpmsg/rpmsg_core.c     |  3 ++-
+ drivers/rpmsg/rpmsg_internal.h | 11 +++++++++--
+ drivers/rpmsg/rpmsg_ns.c       | 14 ++++++++++++--
+ include/linux/rpmsg.h          |  6 ++++--
+ 4 files changed, 27 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
-index 0f29a08b4c09..0aa8408464ad 100644
---- a/drivers/slimbus/qcom-ngd-ctrl.c
-+++ b/drivers/slimbus/qcom-ngd-ctrl.c
-@@ -1434,6 +1434,7 @@ static int of_qcom_slim_ngd_register(struct device *parent,
- 	const struct of_device_id *match;
- 	struct device_node *node;
- 	u32 id;
-+	int ret;
+diff --git a/drivers/rpmsg/rpmsg_core.c b/drivers/rpmsg/rpmsg_core.c
+index 79368a957d89..95fc283f6af7 100644
+--- a/drivers/rpmsg/rpmsg_core.c
++++ b/drivers/rpmsg/rpmsg_core.c
+@@ -400,7 +400,8 @@ field##_store(struct device *dev, struct device_attribute *attr,	\
+ 	      const char *buf, size_t sz)				\
+ {									\
+ 	struct rpmsg_device *rpdev = to_rpmsg_device(dev);		\
+-	char *new, *old;						\
++	const char *old;						\
++	char *new;							\
+ 									\
+ 	new = kstrndup(buf, sz, GFP_KERNEL);				\
+ 	if (!new)							\
+diff --git a/drivers/rpmsg/rpmsg_internal.h b/drivers/rpmsg/rpmsg_internal.h
+index d4b23fd019a8..dd1f4ed616b6 100644
+--- a/drivers/rpmsg/rpmsg_internal.h
++++ b/drivers/rpmsg/rpmsg_internal.h
+@@ -95,9 +95,16 @@ int rpmsg_release_channel(struct rpmsg_device *rpdev,
+ static inline int rpmsg_ctrldev_register_device(struct rpmsg_device *rpdev)
+ {
+ 	strcpy(rpdev->id.name, "rpmsg_ctrl");
+-	rpdev->driver_override = "rpmsg_ctrl";
++	ret = driver_set_override(&rpdev->dev, &rpdev->driver_override,
++				  "rpmsg_ctrl", strlen("rpmsg_ctrl"));
++	if (ret)
++		return ret;
  
- 	match = of_match_node(qcom_slim_ngd_dt_match, parent->of_node);
- 	data = match->data;
-@@ -1455,7 +1456,17 @@ static int of_qcom_slim_ngd_register(struct device *parent,
- 		}
- 		ngd->id = id;
- 		ngd->pdev->dev.parent = parent;
--		ngd->pdev->driver_override = QCOM_SLIM_NGD_DRV_NAME;
+-	return rpmsg_register_device(rpdev);
++	ret = rpmsg_register_device(rpdev);
++	if (ret)
++		kfree(rpdev->driver_override);
 +
-+		ret = driver_set_override(&ngd->pdev->dev,
-+					  &ngd->pdev->driver_override,
-+					  QCOM_SLIM_NGD_DRV_NAME,
-+					  strlen(QCOM_SLIM_NGD_DRV_NAME));
-+		if (ret) {
-+			platform_device_put(ngd->pdev);
-+			kfree(ngd);
-+			of_node_put(node);
-+			return ret;
-+		}
- 		ngd->pdev->dev.of_node = node;
- 		ctrl->ngd = ngd;
++	return ret;
+ }
  
+ #endif
+diff --git a/drivers/rpmsg/rpmsg_ns.c b/drivers/rpmsg/rpmsg_ns.c
+index 762ff1ae279f..95a51543f5ad 100644
+--- a/drivers/rpmsg/rpmsg_ns.c
++++ b/drivers/rpmsg/rpmsg_ns.c
+@@ -20,12 +20,22 @@
+  */
+ int rpmsg_ns_register_device(struct rpmsg_device *rpdev)
+ {
++	int ret;
++
+ 	strcpy(rpdev->id.name, "rpmsg_ns");
+-	rpdev->driver_override = "rpmsg_ns";
++	ret = driver_set_override(&rpdev->dev, &rpdev->driver_override,
++				  "rpmsg_ns", strlen("rpmsg_ns"));
++	if (ret)
++		return ret;
++
+ 	rpdev->src = RPMSG_NS_ADDR;
+ 	rpdev->dst = RPMSG_NS_ADDR;
+ 
+-	return rpmsg_register_device(rpdev);
++	ret = rpmsg_register_device(rpdev);
++	if (ret)
++		kfree(rpdev->driver_override);
++
++	return ret;
+ }
+ EXPORT_SYMBOL(rpmsg_ns_register_device);
+ 
+diff --git a/include/linux/rpmsg.h b/include/linux/rpmsg.h
+index 02fa9116cd60..20c8cd1cde21 100644
+--- a/include/linux/rpmsg.h
++++ b/include/linux/rpmsg.h
+@@ -41,7 +41,9 @@ struct rpmsg_channel_info {
+  * rpmsg_device - device that belong to the rpmsg bus
+  * @dev: the device struct
+  * @id: device id (used to match between rpmsg drivers and devices)
+- * @driver_override: driver name to force a match
++ * @driver_override: driver name to force a match; do not set directly,
++ *                   because core frees it; use driver_set_override() to
++ *                   set or clear it.
+  * @src: local address
+  * @dst: destination address
+  * @ept: the rpmsg endpoint of this channel
+@@ -51,7 +53,7 @@ struct rpmsg_channel_info {
+ struct rpmsg_device {
+ 	struct device dev;
+ 	struct rpmsg_device_id id;
+-	char *driver_override;
++	const char *driver_override;
+ 	u32 src;
+ 	u32 dst;
+ 	struct rpmsg_endpoint *ept;
 -- 
 2.32.0
 

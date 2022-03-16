@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C06A84DB984
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Mar 2022 21:37:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33A674DB985
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Mar 2022 21:38:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6D0E617EA;
-	Wed, 16 Mar 2022 21:37:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D0E617EA
+	by alsa0.perex.cz (Postfix) with ESMTPS id B9A00179B;
+	Wed, 16 Mar 2022 21:37:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9A00179B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647463075;
-	bh=m0QW2LwB4/jzfafv1NWtzigJMVUMm53j99mgvQq99yo=;
+	s=default; t=1647463092;
+	bh=tXKQPeY8zGH086upulVCq8kvmhNYSUEo8dfrTojYtdU=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RAH5qdqho86xBYT4BxjcAB4yrEsRPleJTJQyeqJsvNdV7HzRBtXKrhO1olgETDDNJ
-	 BhzsBVDDnp6DiRj8RNE203YmBy856xUeLU+/VG23pjoaif8IkNIFKdvYWeIWWMdMDw
-	 Xryf88qj03HDW/oeyLhp2/T32vtPM8ZUQrE0DBuw=
+	b=i7LdYka9NiATNKMpR/mCPW/1vxbFFKIc0YEYTe4Q3/u2WoCibNm4PHBK/IyGtRXeP
+	 yfOpVWMcZM51ZC6ojHYDCWVOfTYHB2PKw+FTUdMVZi3XJfkerz3jPaG3FPf8CLumbI
+	 3Q1QHnJzRqXzOKJ31Ed507cosc2sjNS4wcjStDxs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 23A80F8051B;
-	Wed, 16 Mar 2022 21:36:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09EBBF8051F;
+	Wed, 16 Mar 2022 21:36:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1E098F804E6; Wed, 16 Mar 2022 21:35:57 +0100 (CET)
+ id 30FD9F80311; Wed, 16 Mar 2022 21:35:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,41 +35,43 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ED5EFF80311
- for <alsa-devel@alsa-project.org>; Wed, 16 Mar 2022 21:35:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED5EFF80311
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1097FF804D9
+ for <alsa-devel@alsa-project.org>; Wed, 16 Mar 2022 21:35:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1097FF804D9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="qnhZtqSv"
+ header.b="H4x0a0ia"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 4F7886134A;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id ABB03613F9;
+ Wed, 16 Mar 2022 20:35:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E25DC340EC;
  Wed, 16 Mar 2022 20:35:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D50E1C340E9;
- Wed, 16 Mar 2022 20:35:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1647462948;
- bh=m0QW2LwB4/jzfafv1NWtzigJMVUMm53j99mgvQq99yo=;
+ s=k20201202; t=1647462951;
+ bh=tXKQPeY8zGH086upulVCq8kvmhNYSUEo8dfrTojYtdU=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=qnhZtqSv/HlPwOxVKrtILSEEUPx4+Gdg7NhaFV/fE6mFi+XmkJ8qgaA0tpqTT4fVK
- 5l8BHtamd3WcXUPUbDtwBWqv3fGewQKRPoQHmTjRgsxePTKSPD/eSttH3ENW9nDQzb
- R4xPSm76Sv+9WZF5d11qHyqHC/OlZxz+bowyBOMIuGlIPUNZyaJBnbrr64/BXbma1X
- Yxn6sJ9uXOklTFES08HFsFdRCiYUHSwve+dPARRWKoMaRPItZ3YmemzNNrZ23k2G/9
- z9IwwAGP5QPh33knGCfkV0DSo7A+OvCz6Y6z6g/nlrlyLsdcRpt6iILi0g8tLHe+Ye
- 2i2a7qYr/SZLw==
+ b=H4x0a0iaDkGpX6y3/Ss2M5CeT3Uh4WRBoZlZ7u/NkjU5vEUaq2yw0FkyDV/JfIIHf
+ hDRlXiQVuZT7msJs8ZiHvXphh6AS0I5ahfrZFcO46X2i8F6dq2lhr1+/sJTrujbscE
+ xwx3SX1frbyKNKsbVHjBerViTQzcxeEJXKlAtw1K+o0qNZ7ygKwc9aNc8WpQB9hdVZ
+ PB2Au6/80c8iC7MFLjnmyye+DP9tjRWYpGhkVtREumlZVnNQrRxZ+55Jlg+EMz0O+5
+ hkVBpjktK7kBiP5NX0LHZzJC/sGEyghYjRPePVV76xVcwgBRJbKw4QNVPu0hRNDzJN
+ CNQAiS94J6WHg==
 From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-In-Reply-To: <20220315164158.19804-1-tiwai@suse.de>
-References: <20220315164158.19804-1-tiwai@suse.de>
-Subject: Re: [PATCH] ASoC: sti: Fix deadlock via snd_pcm_stop_xrun() call
-Message-Id: <164746294759.1220201.11282114116056577010.b4-ty@kernel.org>
-Date: Wed, 16 Mar 2022 20:35:47 +0000
+To: Colin Ian King <colin.i.king@gmail.com>, alsa-devel@alsa-project.org,
+ Peter Ujfalusi <peter.ujfalusi@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jarkko Nikula <jarkko.nikula@bitmer.com>,
+ Takashi Iwai <tiwai@suse.com>, linux-omap@vger.kernel.org
+In-Reply-To: <20220315230816.2964577-1-colin.i.king@gmail.com>
+References: <20220315230816.2964577-1-colin.i.king@gmail.com>
+Subject: Re: [PATCH] ASoC: ti: Fix spelling mistake "cant" -> "can't"
+Message-Id: <164746294890.1220201.4043765909932401819.b4-ty@kernel.org>
+Date: Wed, 16 Mar 2022 20:35:48 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Daniel Palmer <daniel@0x0f.com>,
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,18 +87,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 15 Mar 2022 17:41:58 +0100, Takashi Iwai wrote:
-> This is essentially a revert of the commit dc865fb9e7c2 ("ASoC: sti:
-> Use snd_pcm_stop_xrun() helper"), which converted the manual
-> snd_pcm_stop() calls with snd_pcm_stop_xrun().
+On Tue, 15 Mar 2022 23:08:16 +0000, Colin Ian King wrote:
+> There is a spelling mistake in a dev_err message. Fix it.
 > 
-> The commit above introduced a deadlock as snd_pcm_stop_xrun() itself
-> takes the PCM stream lock while the caller already holds it.  Since
-> the conversion was done only for consistency reason and the open-call
-> with snd_pcm_stop() to the XRUN state is a correct usage, let's revert
-> the commit back as the fix.
 > 
-> [...]
 
 Applied to
 
@@ -104,8 +98,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: sti: Fix deadlock via snd_pcm_stop_xrun() call
-      commit: 455c5653f50e10b4f460ef24e99f0044fbe3401c
+[1/1] ASoC: ti: Fix spelling mistake "cant" -> "can't"
+      commit: e8ca4cee43fa9d841d25c2b98c9c3a3390593094
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

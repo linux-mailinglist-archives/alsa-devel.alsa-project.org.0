@@ -2,126 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E95324DBFEE
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Mar 2022 08:03:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E17BE4DBFF0
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Mar 2022 08:04:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 897541900;
-	Thu, 17 Mar 2022 08:02:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 897541900
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7DD56190B;
+	Thu, 17 Mar 2022 08:03:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7DD56190B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647500621;
-	bh=jGSl4su3CbPjpZ3gqW95SXOCGzGVv0qE+QTWgyH3LlE=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1647500654;
+	bh=TSNR/AVXv0z8By2JiHvGWs2VPTR7+C1JzIsgvTWWeaQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TbGx3OOrzyvO1pXr3ghaySMdgmlkgVEGr8KD/kmxpLXYlq3wR7VpjgxIweXlHbt/j
-	 059o60GAcrJy6OXLllvp4cvkxZKhQ7MffYL3nDHzfYbUc4o55f3SOeAYDMEXS4osLX
-	 9jIQadFLfoqKaipZBhdYeXtAV1O/+facgS8cIhmE=
+	b=Yc+sd4MpMVTDtAkakQR1HDYwPQ6/Wya5+JUQYdcj34TGmMeJcBlfvD9yR5P34eYAG
+	 LSxgMo9P0nZTSCe2slcBYnkd8NjSaQ0qOoAwb2sWWFphv8MrtAXY0sMgFTv+lmI/XS
+	 KoNGBuCcoOpJKGM6dImzAoEkuOyOvtAG7FeWdMqs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2F1FFF805E4;
-	Thu, 17 Mar 2022 07:55:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6AC4BF805EF;
+	Thu, 17 Mar 2022 07:55:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5D20DF8019D; Wed, 16 Mar 2022 16:09:13 +0100 (CET)
+ id 0D8B8F80084; Wed, 16 Mar 2022 16:55:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-relay-internal-1.canonical.com
- (smtp-relay-internal-1.canonical.com [185.125.188.123])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [IPv6:2a00:1450:4864:20::631])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 478FEF80095
- for <alsa-devel@alsa-project.org>; Wed, 16 Mar 2022 16:09:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 478FEF80095
+ by alsa1.perex.cz (Postfix) with ESMTPS id BE19AF80087
+ for <alsa-devel@alsa-project.org>; Wed, 16 Mar 2022 16:55:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE19AF80087
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
- header.b="p72fYGXG"
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 95B073F366
- for <alsa-devel@alsa-project.org>; Wed, 16 Mar 2022 15:09:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1647443348;
- bh=pKuO1Pnb8DTWNu323Li1Km8nI1auNgT3IB1hncz5HlI=;
- h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
- MIME-Version;
- b=p72fYGXGER+bSUwgR/xmNgPEGfFXE8avM62ZXb0E7syzySxOwslp3dzKtglyqC9iK
- w9joGLA2AkoN3Q0rB1H6+ONS1d8+UzQTwN+SZlwmf17+n260ATm42lOoR+tSBm6F7G
- tNCn7b8hKnMyHGuzXGpQnVPLuTxjO9h0lbbNOnhtZD0CAAJntj76dEPjonNFfX03hn
- oPQiO6e/N4iQikPlVv8J1zHp7iyvfG94TxKj0dqOmZlFImH3S6MJXyGN6HIhmVDxUU
- NFTGYIv2nFcS/r7bY9/+EdhAaWVqxywzGdCAgTfPuloh1E+TmPXjsUDdvY2qJjxm2v
- N6+zLE8iDBRHQ==
-Received: by mail-wm1-f71.google.com with SMTP id
- a26-20020a7bc1da000000b003857205ec7cso1155349wmj.2
- for <alsa-devel@alsa-project.org>; Wed, 16 Mar 2022 08:09:08 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="ThLCeQCL"
+Received: by mail-ej1-x631.google.com with SMTP id bg10so5149159ejb.4
+ for <alsa-devel@alsa-project.org>; Wed, 16 Mar 2022 08:55:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Xrv4PFSyhAtwnCAL/pjWyzmn6e9Q3pw3qGeeMjVLkWc=;
+ b=ThLCeQCLe60XloIENcKZTLtoa92AsszbMGtlE1VP85Nj8ONYeGAtPtd3THFkwuE1R4
+ Rb+p8levz1Kkk/esESpsWOOce4y/GAs3zE/h/Iq8JTZadMNMhSzoXuCsi65zQcSj9uj9
+ roUu7BL6G2KSrbQdMUcXxa1eBfn7GLPhFdgtrRtKQ1B6XjhvDCk1M6WlSKyn57HnuVDa
+ 81Zd+YwZwjEFy9IgsZIWqi9+OJ0hcLCs/C3anzU5mAn4GgUA+5ei9x+U8aPDc4PlCURW
+ 8DQSGQ08z9c9bhp4uK79m+ecf2bqZ6sdte5Pd0FZyKDC2WwgAQ/cfFk5gcysCgAmWYjH
+ wmBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=pKuO1Pnb8DTWNu323Li1Km8nI1auNgT3IB1hncz5HlI=;
- b=F9ptdBpcj7MDv1TX59jladqBrozjtq0be1F3rlglf/3v06g/CPBEFOteYe9FyFWHt4
- ygF/PidRpYkn2loctnun1O0BOS1i83CbSgCItIXPcUFrNxKsfSYjeqUjcf2ogy1iKVDy
- AsFXSBnGQW/81OGplKLBQ52C5E3G/Ns3eEy9rAgWPstJHLuS1MkBtnVMVUT1H27xREh0
- ChElyg5iiUjfwU8xj+DB6EXqE8DCEmfUy9h2SD7MFDGtxepWIfGC0rKXwuSkrXksLOIX
- Hn47Y3R3sCFIgO0kyoId+W6C2uGx2sIgjFCCTofHQ2aQz8JSX/1EA79FhIF/+GuhzmqZ
- GQMg==
-X-Gm-Message-State: AOAM532vx/pl5044xi8Gx3HO9Co1N1FSa85SVTxKwUuFo7OuYLHTwVZg
- NlCuJEgV54wNAUV8hEzIXoUMtWujE/UZ2vFvC1wQ37EuAhUJCrHmzR5fMS3PAhPPSrHByHDxhNO
- u8/5PpXxNcjznOHFVEHDGCZnhyLWoRdUlK0LrfYEp
-X-Received: by 2002:a05:600c:3508:b0:38b:cc1f:a99b with SMTP id
- h8-20020a05600c350800b0038bcc1fa99bmr6311366wmq.197.1647443348138; 
- Wed, 16 Mar 2022 08:09:08 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJwvsOYZ+nBmu9loCTPKjgh/9mwESfnIbe8Inxn1yryPkv1+wBIJxw3Cp/IL2PJnd3eHgVih9w==
-X-Received: by 2002:a05:600c:3508:b0:38b:cc1f:a99b with SMTP id
- h8-20020a05600c350800b0038bcc1fa99bmr6311319wmq.197.1647443347937; 
- Wed, 16 Mar 2022 08:09:07 -0700 (PDT)
-Received: from localhost.localdomain (78-11-189-27.static.ip.netia.com.pl.
- [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
- u18-20020adfdd52000000b001f04e9f215fsm1895105wrm.53.2022.03.16.08.09.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 16 Mar 2022 08:09:05 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>
-Subject: [PATCH v5 11/11] rpmsg: Fix kfree() of static memory on setting
- driver_override
-Date: Wed, 16 Mar 2022 16:08:03 +0100
-Message-Id: <20220316150803.421897-5-krzysztof.kozlowski@canonical.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20220316150533.421349-1-krzysztof.kozlowski@canonical.com>
-References: <20220316150533.421349-1-krzysztof.kozlowski@canonical.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Xrv4PFSyhAtwnCAL/pjWyzmn6e9Q3pw3qGeeMjVLkWc=;
+ b=VqJouvyKP4mC3Y9fPmhKM/XyUfIruey4OZDD1gRfUoEtoeWly3VkVI6YZoo9oVka02
+ lhNo3A4yC6wEdYHSdpR7Yvs0PFWnYQqeu9MGTTD6/1vAZ+a4wgaWyKSTk9r8yP+/XmWY
+ r8mA/o2iBObl9b645WnSm3q3bdOJScJD2w4VfA63mqNvmeuboq8a2LEalzStjgjgdAEW
+ gwLTgvc1rOys7tNnJC/bruafKJLcFFz+kosqbO4eO9OvLxLr3vOVdSHg1EzesnJrIpru
+ rA6kl18al0VU9qnMBh2dqYIoVUUSl/pzrmKF5p7xlDynYUkTP30t9TMi4dNOKZuA0Fi2
+ 04Eg==
+X-Gm-Message-State: AOAM533ey6IseI9pIQf/hQMqzBGP30s/B/LyRGy2kKPGUiAwD0TAMDs9
+ 9DAQq38/P/IRy0FJvndPhTsq33prwHiiLw0mUbVmAS6gD+19/w==
+X-Google-Smtp-Source: ABdhPJx7tfhflG1OGwg4hJv+lc6fCCCsMyBIcaeP4g7aVOZtvesN3U3Aevmj9sLhxYjH7UWlro+fkCpgMa2F3+GK74E=
+X-Received: by 2002:a17:907:6e01:b0:6d0:562c:e389 with SMTP id
+ sd1-20020a1709076e0100b006d0562ce389mr499870ejc.497.1647446118072; Wed, 16
+ Mar 2022 08:55:18 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20220316150533.421349-1-krzysztof.kozlowski@canonical.com>
+ <20220316150533.421349-2-krzysztof.kozlowski@canonical.com>
+In-Reply-To: <20220316150533.421349-2-krzysztof.kozlowski@canonical.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Wed, 16 Mar 2022 17:54:04 +0200
+Message-ID: <CAHp75VeaQdzUKJSKzH9FjbmON5asqH799AS8OzHGoDiRnJifNw@mail.gmail.com>
+Subject: Re: [PATCH v5 01/11] driver: platform: Add helper for safer setting
+ of driver_override
+To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Thu, 17 Mar 2022 07:55:05 +0100
-Cc: linux-hyperv@vger.kernel.org, Stuart Yoder <stuyoder@gmail.com>,
- linux-pci@vger.kernel.org, linux-remoteproc@vger.kernel.org,
- alsa-devel@alsa-project.org, Peter Oberparleiter <oberpar@linux.ibm.com>,
+Cc: Linux on Hyper-V List <linux-hyperv@vger.kernel.org>,
+ Stuart Yoder <stuyoder@gmail.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ linux-pci <linux-pci@vger.kernel.org>, linux-remoteproc@vger.kernel.org,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
  Vineeth Vijayan <vneethv@linux.ibm.com>,
  Alexander Gordeev <agordeev@linux.ibm.com>,
- "K. Y. Srinivasan" <kys@microsoft.com>, linux-clk@vger.kernel.org,
+ "K. Y. Srinivasan" <kys@microsoft.com>, linux-clk <linux-clk@vger.kernel.org>,
  linux-s390@vger.kernel.org, Wei Liu <wei.liu@kernel.org>,
- Stephen Hemminger <sthemmin@microsoft.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- Dexuan Cui <decui@microsoft.com>, Andy Shevchenko <andy.shevchenko@gmail.com>,
+ Stephen Hemminger <sthemmin@microsoft.com>, Dexuan Cui <decui@microsoft.com>,
  Andy Gross <agross@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
  Christian Borntraeger <borntraeger@linux.ibm.com>,
- virtualization@lists.linux-foundation.org, Heiko Carstens <hca@linux.ibm.com>,
- Vasily Gorbik <gor@linux.ibm.com>, linux-arm-msm@vger.kernel.org,
- Haiyang Zhang <haiyangz@microsoft.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ linux-arm-msm@vger.kernel.org, Haiyang Zhang <haiyangz@microsoft.com>,
+ linux-spi <linux-spi@vger.kernel.org>,
  Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- linux-arm-kernel@lists.infradead.org,
- Mathieu Poirier <mathieu.poirier@linaro.org>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, linux-spi@vger.kernel.org,
+ Bjorn Helgaas <bhelgaas@google.com>, virtualization@lists.linux-foundation.org,
+ linux-arm Mailing List <linux-arm-kernel@lists.infradead.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Peter Oberparleiter <oberpar@linux.ibm.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  Sven Schnelle <svens@linux.ibm.com>,
  Linus Torvalds <torvalds@linux-foundation.org>
 X-BeenThere: alsa-devel@alsa-project.org
@@ -139,114 +120,72 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The driver_override field from platform driver should not be initialized
-from static memory (string literal) because the core later kfree() it,
-for example when driver_override is set via sysfs.
+On Wed, Mar 16, 2022 at 5:06 PM Krzysztof Kozlowski
+<krzysztof.kozlowski@canonical.com> wrote:
 
-Use dedicated helper to set driver_override properly.
+...
 
-Fixes: 950a7388f02b ("rpmsg: Turn name service into a stand alone driver")
-Fixes: c0cdc19f84a4 ("rpmsg: Driver for user space endpoint interface")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
----
- drivers/rpmsg/rpmsg_core.c     |  3 ++-
- drivers/rpmsg/rpmsg_internal.h | 11 +++++++++--
- drivers/rpmsg/rpmsg_ns.c       | 14 ++++++++++++--
- include/linux/rpmsg.h          |  6 ++++--
- 4 files changed, 27 insertions(+), 7 deletions(-)
+> +int driver_set_override(struct device *dev, const char **override,
+> +                       const char *s, size_t len)
+> +{
+> +       const char *new, *old;
+> +       char *cp;
 
-diff --git a/drivers/rpmsg/rpmsg_core.c b/drivers/rpmsg/rpmsg_core.c
-index 79368a957d89..95fc283f6af7 100644
---- a/drivers/rpmsg/rpmsg_core.c
-+++ b/drivers/rpmsg/rpmsg_core.c
-@@ -400,7 +400,8 @@ field##_store(struct device *dev, struct device_attribute *attr,	\
- 	      const char *buf, size_t sz)				\
- {									\
- 	struct rpmsg_device *rpdev = to_rpmsg_device(dev);		\
--	char *new, *old;						\
-+	const char *old;						\
-+	char *new;							\
- 									\
- 	new = kstrndup(buf, sz, GFP_KERNEL);				\
- 	if (!new)							\
-diff --git a/drivers/rpmsg/rpmsg_internal.h b/drivers/rpmsg/rpmsg_internal.h
-index d4b23fd019a8..dd1f4ed616b6 100644
---- a/drivers/rpmsg/rpmsg_internal.h
-+++ b/drivers/rpmsg/rpmsg_internal.h
-@@ -95,9 +95,16 @@ int rpmsg_release_channel(struct rpmsg_device *rpdev,
- static inline int rpmsg_ctrldev_register_device(struct rpmsg_device *rpdev)
- {
- 	strcpy(rpdev->id.name, "rpmsg_ctrl");
--	rpdev->driver_override = "rpmsg_ctrl";
-+	ret = driver_set_override(&rpdev->dev, &rpdev->driver_override,
-+				  "rpmsg_ctrl", strlen("rpmsg_ctrl"));
-+	if (ret)
-+		return ret;
- 
--	return rpmsg_register_device(rpdev);
-+	ret = rpmsg_register_device(rpdev);
-+	if (ret)
-+		kfree(rpdev->driver_override);
-+
-+	return ret;
- }
- 
- #endif
-diff --git a/drivers/rpmsg/rpmsg_ns.c b/drivers/rpmsg/rpmsg_ns.c
-index 762ff1ae279f..95a51543f5ad 100644
---- a/drivers/rpmsg/rpmsg_ns.c
-+++ b/drivers/rpmsg/rpmsg_ns.c
-@@ -20,12 +20,22 @@
-  */
- int rpmsg_ns_register_device(struct rpmsg_device *rpdev)
- {
-+	int ret;
-+
- 	strcpy(rpdev->id.name, "rpmsg_ns");
--	rpdev->driver_override = "rpmsg_ns";
-+	ret = driver_set_override(&rpdev->dev, &rpdev->driver_override,
-+				  "rpmsg_ns", strlen("rpmsg_ns"));
-+	if (ret)
-+		return ret;
-+
- 	rpdev->src = RPMSG_NS_ADDR;
- 	rpdev->dst = RPMSG_NS_ADDR;
- 
--	return rpmsg_register_device(rpdev);
-+	ret = rpmsg_register_device(rpdev);
-+	if (ret)
-+		kfree(rpdev->driver_override);
-+
-+	return ret;
- }
- EXPORT_SYMBOL(rpmsg_ns_register_device);
- 
-diff --git a/include/linux/rpmsg.h b/include/linux/rpmsg.h
-index 02fa9116cd60..20c8cd1cde21 100644
---- a/include/linux/rpmsg.h
-+++ b/include/linux/rpmsg.h
-@@ -41,7 +41,9 @@ struct rpmsg_channel_info {
-  * rpmsg_device - device that belong to the rpmsg bus
-  * @dev: the device struct
-  * @id: device id (used to match between rpmsg drivers and devices)
-- * @driver_override: driver name to force a match
-+ * @driver_override: driver name to force a match; do not set directly,
-+ *                   because core frees it; use driver_set_override() to
-+ *                   set or clear it.
-  * @src: local address
-  * @dst: destination address
-  * @ept: the rpmsg endpoint of this channel
-@@ -51,7 +53,7 @@ struct rpmsg_channel_info {
- struct rpmsg_device {
- 	struct device dev;
- 	struct rpmsg_device_id id;
--	char *driver_override;
-+	const char *driver_override;
- 	u32 src;
- 	u32 dst;
- 	struct rpmsg_endpoint *ept;
+> +       if (!dev || !override || !s)
+> +               return -EINVAL;
+
+Sorry, I didn't pay much attention on this. First of all, I would drop
+dev checks and simply require that dev should be valid. Do you expect
+this can be called when dev is invalid? I would like to hear if it's
+anything but theoretical. Second one, is the !s requirement. Do I
+understand correctly that the string must be always present? But then
+how we NULify the override? Is it possible? Third one is absence of
+len check. See below.
+
+> +       /*
+> +        * The stored value will be used in sysfs show callback (sysfs_emit()),
+> +        * which has a length limit of PAGE_SIZE and adds a trailing newline.
+> +        * Thus we can store one character less to avoid truncation during sysfs
+> +        * show.
+> +        */
+> +       if (len >= (PAGE_SIZE - 1))
+> +               return -EINVAL;
+
+I would relax this to make sure we can use it if \n is within this limit.
+
+> +       cp = strnchr(s, len, '\n');
+> +       if (cp)
+> +               len = cp - s;
+> +
+> +       new = kstrndup(s, len, GFP_KERNEL);
+
+Here is a word about the len check.
+
+> +       if (!new)
+
+If len == 0, this won't trigger and you have something very
+interesting as a result.
+
+One way is to use ZERO_PTR_OR_NULL() another is explicitly check for 0
+and issue a (different?) error code.
+
+> +               return -ENOMEM;
+> +
+> +       device_lock(dev);
+> +       old = *override;
+> +       if (cp != s) {
+> +               *override = new;
+> +       } else {
+> +               kfree(new);
+> +               *override = NULL;
+> +       }
+> +       device_unlock(dev);
+> +
+> +       kfree(old);
+> +
+> +       return 0;
+> +}
+
 -- 
-2.32.0
-
+With Best Regards,
+Andy Shevchenko

@@ -2,90 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E40BA4DAC94
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Mar 2022 09:37:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F34324DACCB
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Mar 2022 09:47:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 74DB0172C;
-	Wed, 16 Mar 2022 09:37:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74DB0172C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9F9A4172C;
+	Wed, 16 Mar 2022 09:46:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F9A4172C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647419872;
-	bh=FBtUtJs+hjUhmnYKyznGlSL5ghpMvd3de6pX3TrFFfg=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1647420467;
+	bh=oWZmzz921yMEuQ7hj52reClr6cZytreQG/qZtGDPd7E=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=SBiujHlJdH5dB3FyvriYZU4kNntarsAZjGX9MXHgpKs9xBRkL1ogPNCOjF88+yfla
-	 olkWUSanVljoShvH7cY753A7Ld+RIlSOpVtuw/rGXxunEIl2ijxcOypJwXgMs/dT4z
-	 eK1LRHidP888RrAkMudqz5A+PEOEZe2Ud2vo2irk=
+	b=S39lUKCdYwi/yCZqXhuogb21SnYm8IGwabJbiYcagJKz3jx49iKm4FpDDsiySz7xE
+	 PlYVb86yNcA8lbayqk+wPdIq2apeHgVjvPkh5ck7CDOnIMSY98kOuW0z9lG1Ftv14J
+	 Uzbr+L/fRHZ3McyB3NgxMXITT9BkBhLFm4rvGfsA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E05F7F80095;
-	Wed, 16 Mar 2022 09:36:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 01F13F80087;
+	Wed, 16 Mar 2022 09:46:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4E659F80095; Wed, 16 Mar 2022 09:36:43 +0100 (CET)
+ id 3D74CF8019D; Wed, 16 Mar 2022 09:46:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
  SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com
- [IPv6:2607:f8b0:4864:20::1030])
+Received: from mail-pf1-x42b.google.com (mail-pf1-x42b.google.com
+ [IPv6:2607:f8b0:4864:20::42b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B3A31F80095
- for <alsa-devel@alsa-project.org>; Wed, 16 Mar 2022 09:36:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3A31F80095
+ by alsa1.perex.cz (Postfix) with ESMTPS id AF806F80095
+ for <alsa-devel@alsa-project.org>; Wed, 16 Mar 2022 09:46:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF806F80095
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="CNDnNE9K"
-Received: by mail-pj1-x1030.google.com with SMTP id
- fs4-20020a17090af28400b001bf5624c0aaso1784584pjb.0
- for <alsa-devel@alsa-project.org>; Wed, 16 Mar 2022 01:36:38 -0700 (PDT)
+ header.b="GNDL68UB"
+Received: by mail-pf1-x42b.google.com with SMTP id f8so3102810pfj.5
+ for <alsa-devel@alsa-project.org>; Wed, 16 Mar 2022 01:46:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id;
- bh=fY/zaLzCuGHO00tXLKrc5cYu1RxjEzrTCpzH+5kdjtU=;
- b=CNDnNE9KZy+3df6cRpaus30OZLx3PmJ7daQwTY/ZAkNcugLK6uvHFdQ/jm1WRkssdr
- 0VemyHlCitsLQ2xxJh9pl0/f3oDCS+l9Z+n3999w628BOOGjsmFsKAyNdt/EPCmMUnlW
- Icb9BPtmYub98o4KGgk66Uqace8bAZ6JbXFHKFWe3O8MM6qrZSUUUwPBCmMxbNY/toWC
- znRCXSqyySHAQzqPI5R2f1IgqsoOzd/3/mv3jbPRB9qfPmHPKw6sqUXHUzahYy+eIZuk
- tDbewJILUS/mmKiBhRfrpCupE4/LPYDgP914mB74jaiAdTpsnRdhnaDIM21DZ5BCXvmp
- y5Xg==
+ h=from:to:subject:date:message-id;
+ bh=o2a1XLIA6SCc0OXj4X5fM3NulfHLBIGjv/KhHaIx6PQ=;
+ b=GNDL68UBBmY9vm3mPI6hh9CD2lRNaMjHpLpzwJYp4vN18zMrNfL27bTXmeAheLjH7Z
+ ecZl5cZJ34sM/UeT0NIJxgjzQOAw/qlejEiRiv1+pBxV9tsO461LciCvRpMAE2cgajjU
+ z830dTGPQ+ZAvvyzvy1Pc6UbLiLN4rDNupCRklX8g1Y4zE/SKTxak6T8hbT/v4ZMp5+G
+ 7C56/ec+oJnQXcXHzmPbWmj0/RrwPCU9g+oQa37G6Uc0V7OIwplZH4PiV5Amn5HO9P+F
+ qKbi3nrAxG9LnsTuVdfE069vEEzlbTr+1ysYmMF0qoA+svztQ6fDMkHJcE4m6sXMmDEc
+ fueg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=fY/zaLzCuGHO00tXLKrc5cYu1RxjEzrTCpzH+5kdjtU=;
- b=xOr2WRjKRoQ79EX8rSUJSOILWMVqtzsvvP9eFZQG4Og929ijfe3lvVGRbSMhQNcvRM
- K59o4rSzbF/s9q6mR7ELtWkQhiEvowmG/QAGRSnAtfbx820hrTqAr3w1pVIZmmfz/60w
- 3be2BIqUk4B6Uz9md+fmaiLdk6f0Avt6C04/O2sVq65rXw54G9ub7vjbg9BXPIYnMpRX
- +VDEyLeFNxgCz1JNmo98eVPujkQzG8OmT8uMEnj3ibNjoX1msCszQAbZchVhfc423XJD
- rJUo5kdDEFpjCj+HzNuy8FNkYDikDMoUbN0MDeQesaRQUbbbAOxhmJFIU5511gaL/hpy
- fJoA==
-X-Gm-Message-State: AOAM532y3dJVO0JzOw+/MiYREfj4zdYsbG57uNh3xoxLmp3G07dCWULP
- wzUeVDiK9JjWwtRE8kNS2to=
-X-Google-Smtp-Source: ABdhPJyzDQP71kpiZTM8gd8+SZoVddtqgb+feTmdopJLJpiVBmMmFLxFBmLZMo2rnfxTGipeqUpXrw==
-X-Received: by 2002:a17:903:244c:b0:151:bb4d:d8d8 with SMTP id
- l12-20020a170903244c00b00151bb4dd8d8mr32181559pls.121.1647419796782; 
- Wed, 16 Mar 2022 01:36:36 -0700 (PDT)
+ h=x-gm-message-state:from:to:subject:date:message-id;
+ bh=o2a1XLIA6SCc0OXj4X5fM3NulfHLBIGjv/KhHaIx6PQ=;
+ b=mDZO1LnVKQRDiMuW8ay0ckia43C8wMLlqMQhaItAFTNN0bZa7BquZTHtOBmumoRBSx
+ DBLV1qtFAoucv/ICy5Iii6ZgVGai0pzn39OW+cSWLHH57u9jgMMX/bQFFb2Suha9RXAd
+ 0xOBeBKkdwqGc3YDGnaXPBqmQcmKeLWronbfi3Bxz7oO6QQz+zkw6YftaVUo0Ydzhuuw
+ FQx/R/Cq6Re615jRdIcI5X08jCFrGeRIVvHWCpjoMusAOX2zLk4E4eVjavb9DW2nj/9v
+ 5EtZgnTvLqHroSD/wyRYws2BZ6Zab8phxTaVMLr1oE82JdJVrppPpS5v3nynmWQWgM8i
+ C4gQ==
+X-Gm-Message-State: AOAM533DaQgiU7+HmvBAmrItBeO55kqwJKEArO1Q/7mni/pvKmykuwQT
+ deP05UuQoQlRS5+IUx/lexNeYQKbnaR06rtykjgxEA==
+X-Google-Smtp-Source: ABdhPJwcB/cDd4LmceuZ9xTWzG6XnUJNJeFpS8VorH67V1q4Tm8M7vPqz5CjVnvFBNjLjZwice/4BA==
+X-Received: by 2002:a63:5751:0:b0:381:4050:143a with SMTP id
+ h17-20020a635751000000b003814050143amr10698013pgm.410.1647420391500; 
+ Wed, 16 Mar 2022 01:46:31 -0700 (PDT)
 Received: from localhost.localdomain ([159.226.95.43])
  by smtp.googlemail.com with ESMTPSA id
- t7-20020a056a0021c700b004f7916d44bcsm2060381pfj.220.2022.03.16.01.36.34
+ l10-20020a056a00140a00b004c55d0dcbd1sm2055283pfu.120.2022.03.16.01.46.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 16 Mar 2022 01:36:36 -0700 (PDT)
+ Wed, 16 Mar 2022 01:46:31 -0700 (PDT)
 From: Miaoqian Lin <linmq006@gmail.com>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@codeaurora.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: codecs: wcd934x: Add missing of_node_put() in
- wcd934x_codec_parse_data
-Date: Wed, 16 Mar 2022 08:36:31 +0000
-Message-Id: <20220316083631.14103-1-linmq006@gmail.com>
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Trevor Wu <trevor.wu@mediatek.com>, Tzung-Bi Shih <tzungbi@google.com>,
+ YC Hung <yc.hung@mediatek.com>,
+ Rikard Falkeborn <rikard.falkeborn@gmail.com>,
+ Miaoqian Lin <linmq006@gmail.com>, Bixuan Cui <cuibixuan@huawei.com>,
+ alsa-devel@alsa-project.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: mediatek: mt8195: Fix error handling in
+ mt8195_mt6359_rt1019_rt5682_dev_probe
+Date: Wed, 16 Mar 2022 08:46:15 +0000
+Message-Id: <20220316084623.24238-1-linmq006@gmail.com>
 X-Mailer: git-send-email 2.17.1
-Cc: linmq006@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,27 +104,38 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The device_node pointer is returned by of_parse_phandle()  with refcount
 incremented. We should use of_node_put() on it when done.
-This is similar to commit 64b92de9603f
-("ASoC: wcd9335: fix a leaked reference by adding missing of_node_put")
 
-Fixes: a61f3b4f476e ("ASoC: wcd934x: add support to wcd9340/wcd9341 codec")
+This function only calls of_node_put() in the regular path.
+And it will cause refcount leak in error path.
+
+Fixes: 082482a50227 ("ASoC: mediatek: mt8195: release device_node after snd_soc_register_card")
 Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
 ---
- sound/soc/codecs/wcd934x.c | 1 +
- 1 file changed, 1 insertion(+)
+ sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/wcd934x.c b/sound/soc/codecs/wcd934x.c
-index 6c468527fec6..acd344c4a37a 100644
---- a/sound/soc/codecs/wcd934x.c
-+++ b/sound/soc/codecs/wcd934x.c
-@@ -5883,6 +5883,7 @@ static int wcd934x_codec_parse_data(struct wcd934x_codec *wcd)
- 	}
+diff --git a/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c b/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c
+index 29c2d3407cc7..e3146311722f 100644
+--- a/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c
++++ b/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c
+@@ -1342,7 +1342,8 @@ static int mt8195_mt6359_rt1019_rt5682_dev_probe(struct platform_device *pdev)
+ 					      "mediatek,dai-link");
+ 		if (ret) {
+ 			dev_dbg(&pdev->dev, "Parse dai-link fail\n");
+-			return -EINVAL;
++			ret = -EINVAL;
++			goto put_node;
+ 		}
+ 	} else {
+ 		if (!sof_on)
+@@ -1398,6 +1399,7 @@ static int mt8195_mt6359_rt1019_rt5682_dev_probe(struct platform_device *pdev)
  
- 	wcd->sidev = of_slim_get_device(wcd->sdev->ctrl, ifc_dev_np);
-+	of_node_put(ifc_dev_np);
- 	if (!wcd->sidev) {
- 		dev_err(dev, "Unable to get SLIM Interface device\n");
- 		return -EINVAL;
+ 	ret = devm_snd_soc_register_card(&pdev->dev, card);
+ 
++put_node:
+ 	of_node_put(platform_node);
+ 	of_node_put(adsp_node);
+ 	of_node_put(dp_node);
 -- 
 2.17.1
 

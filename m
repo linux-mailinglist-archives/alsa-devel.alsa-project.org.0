@@ -2,49 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFB164DABCF
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Mar 2022 08:27:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E40BA4DAC94
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Mar 2022 09:37:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6BDF81743;
-	Wed, 16 Mar 2022 08:26:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6BDF81743
+	by alsa0.perex.cz (Postfix) with ESMTPS id 74DB0172C;
+	Wed, 16 Mar 2022 09:37:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74DB0172C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647415649;
-	bh=oGuKi8Ne9yMyAWhV9d9KKyb6DB0590Vu+6/ed0Bm7vE=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=tS3gx5B5/Dd2q3LRmV5iYohnZzYak7RlogdwXWkBDvFZlkIfYVyahgXSZ9GoxhZfj
-	 MlrgF0BzyuzqsB9H9o3tVtHHj9+Dvz1t0mqVLp4gYGtlZkpExe1lrw5QvqyFjgLdf9
-	 z2R8kU4GkMsd2djBJWFfku2ZZhWqeUDVrralr0m8=
+	s=default; t=1647419872;
+	bh=FBtUtJs+hjUhmnYKyznGlSL5ghpMvd3de6pX3TrFFfg=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=SBiujHlJdH5dB3FyvriYZU4kNntarsAZjGX9MXHgpKs9xBRkL1ogPNCOjF88+yfla
+	 olkWUSanVljoShvH7cY753A7Ld+RIlSOpVtuw/rGXxunEIl2ijxcOypJwXgMs/dT4z
+	 eK1LRHidP888RrAkMudqz5A+PEOEZe2Ud2vo2irk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BA65FF801F5;
-	Wed, 16 Mar 2022 08:26:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E05F7F80095;
+	Wed, 16 Mar 2022 09:36:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F262AF8019D; Wed, 16 Mar 2022 08:26:19 +0100 (CET)
+ id 4E659F80095; Wed, 16 Mar 2022 09:36:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 759F8F80087
- for <alsa-devel@alsa-project.org>; Wed, 16 Mar 2022 08:26:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 759F8F80087
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1647415572388787985-webhooks-bot@alsa-project.org>
-References: <1647415572388787985-webhooks-bot@alsa-project.org>
-Subject: [PATCH 00/19] migrate to gi docgen
-Message-Id: <20220316072619.F262AF8019D@alsa1.perex.cz>
-Date: Wed, 16 Mar 2022 08:26:19 +0100 (CET)
+X-Spam-Level: 
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com
+ [IPv6:2607:f8b0:4864:20::1030])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id B3A31F80095
+ for <alsa-devel@alsa-project.org>; Wed, 16 Mar 2022 09:36:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3A31F80095
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="CNDnNE9K"
+Received: by mail-pj1-x1030.google.com with SMTP id
+ fs4-20020a17090af28400b001bf5624c0aaso1784584pjb.0
+ for <alsa-devel@alsa-project.org>; Wed, 16 Mar 2022 01:36:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id;
+ bh=fY/zaLzCuGHO00tXLKrc5cYu1RxjEzrTCpzH+5kdjtU=;
+ b=CNDnNE9KZy+3df6cRpaus30OZLx3PmJ7daQwTY/ZAkNcugLK6uvHFdQ/jm1WRkssdr
+ 0VemyHlCitsLQ2xxJh9pl0/f3oDCS+l9Z+n3999w628BOOGjsmFsKAyNdt/EPCmMUnlW
+ Icb9BPtmYub98o4KGgk66Uqace8bAZ6JbXFHKFWe3O8MM6qrZSUUUwPBCmMxbNY/toWC
+ znRCXSqyySHAQzqPI5R2f1IgqsoOzd/3/mv3jbPRB9qfPmHPKw6sqUXHUzahYy+eIZuk
+ tDbewJILUS/mmKiBhRfrpCupE4/LPYDgP914mB74jaiAdTpsnRdhnaDIM21DZ5BCXvmp
+ y5Xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=fY/zaLzCuGHO00tXLKrc5cYu1RxjEzrTCpzH+5kdjtU=;
+ b=xOr2WRjKRoQ79EX8rSUJSOILWMVqtzsvvP9eFZQG4Og929ijfe3lvVGRbSMhQNcvRM
+ K59o4rSzbF/s9q6mR7ELtWkQhiEvowmG/QAGRSnAtfbx820hrTqAr3w1pVIZmmfz/60w
+ 3be2BIqUk4B6Uz9md+fmaiLdk6f0Avt6C04/O2sVq65rXw54G9ub7vjbg9BXPIYnMpRX
+ +VDEyLeFNxgCz1JNmo98eVPujkQzG8OmT8uMEnj3ibNjoX1msCszQAbZchVhfc423XJD
+ rJUo5kdDEFpjCj+HzNuy8FNkYDikDMoUbN0MDeQesaRQUbbbAOxhmJFIU5511gaL/hpy
+ fJoA==
+X-Gm-Message-State: AOAM532y3dJVO0JzOw+/MiYREfj4zdYsbG57uNh3xoxLmp3G07dCWULP
+ wzUeVDiK9JjWwtRE8kNS2to=
+X-Google-Smtp-Source: ABdhPJyzDQP71kpiZTM8gd8+SZoVddtqgb+feTmdopJLJpiVBmMmFLxFBmLZMo2rnfxTGipeqUpXrw==
+X-Received: by 2002:a17:903:244c:b0:151:bb4d:d8d8 with SMTP id
+ l12-20020a170903244c00b00151bb4dd8d8mr32181559pls.121.1647419796782; 
+ Wed, 16 Mar 2022 01:36:36 -0700 (PDT)
+Received: from localhost.localdomain ([159.226.95.43])
+ by smtp.googlemail.com with ESMTPSA id
+ t7-20020a056a0021c700b004f7916d44bcsm2060381pfj.220.2022.03.16.01.36.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 16 Mar 2022 01:36:36 -0700 (PDT)
+From: Miaoqian Lin <linmq006@gmail.com>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@codeaurora.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: codecs: wcd934x: Add missing of_node_put() in
+ wcd934x_codec_parse_data
+Date: Wed, 16 Mar 2022 08:36:31 +0000
+Message-Id: <20220316083631.14103-1-linmq006@gmail.com>
+X-Mailer: git-send-email 2.17.1
+Cc: linmq006@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,217 +101,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-gobject pull request #64 was opened from takaswie:
+The device_node pointer is returned by of_parse_phandle()  with refcount
+incremented. We should use of_node_put() on it when done.
+This is similar to commit 64b92de9603f
+("ASoC: wcd9335: fix a leaked reference by adding missing of_node_put")
 
-This patcset is to migrate to gi-docgen, which is used by the latest GNOME applications to generate documentation. Additionally, some headers are installed as entry for the other headers in each library.
+Fixes: a61f3b4f476e ("ASoC: wcd934x: add support to wcd9340/wcd9341 codec")
+Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
+---
+ sound/soc/codecs/wcd934x.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-```
-Takashi Sakamoto (19):
-  meson: infer library soname for .pc file
-  meson: obsolete usage of deprecated meson.build_dir()
-  meson: minor code refactoring for include directories
-  meson: code refactoring to remove useless assignments for include headers
-  ctl: add entry header to aggregate header inclusion
-  hwdep: add entry header to aggregate header inclusion
-  rawmidi: add entry header to aggregate header inclusion
-  timer: add entry header to aggregate header inclusion
-  seq: add entry header to aggregate header inclusion
-  ci: remove outdated actions
-  meson: rename gtk_doc option
-  ci: update build environment to use gi-docgen
-  meson: minor code refactoring for option of documentation
-  ctl: migrate to gi-docgen from gtk-doc
-  hwdep: migrate to gi-docgen from gtk-doc
-  rawmidi: migrate to gi-docgen from gtk-doc
-  timer: migrate to gi-docgen from gtk-doc
-  seq: migrate to gi-docgen from gtk-doc
-  doc: install HTML file for index page
-
- .github/workflows/build.yml                | 90 ++--------------------
- README.rst                                 |  8 +-
- doc/ctl/alsactl.toml.in                    | 34 ++++++++
- doc/ctl/meson.build                        | 27 +++++++
- doc/ctl/overview.md                        |  5 ++
- doc/ctl/urlmap.js                          |  4 +
- doc/hwdep/alsahwdep.toml.in                | 34 ++++++++
- doc/hwdep/meson.build                      | 27 +++++++
- doc/hwdep/overview.md                      |  7 ++
- doc/hwdep/urlmap.js                        |  4 +
- doc/index.html.in                          | 19 +++++
- doc/meson.build                            | 28 ++++++-
- doc/rawmidi/alsarawmidi.toml.in            | 34 ++++++++
- doc/rawmidi/meson.build                    | 27 +++++++
- doc/rawmidi/overview.md                    |  6 ++
- doc/rawmidi/urlmap.js                      |  4 +
- doc/reference/ctl/alsactl-docs.xml         | 51 ------------
- doc/reference/ctl/alsactl.types            | 10 ---
- doc/reference/ctl/meson.build              | 10 ---
- doc/reference/hwdep/alsahwdep-docs.xml     | 47 -----------
- doc/reference/hwdep/alsahwdep.types        |  1 -
- doc/reference/hwdep/meson.build            | 10 ---
- doc/reference/meson.build                  | 14 ----
- doc/reference/rawmidi/alsarawmidi-docs.xml | 49 ------------
- doc/reference/rawmidi/alsarawmidi.types    |  6 --
- doc/reference/rawmidi/meson.build          | 10 ---
- doc/reference/seq/alsaseq-docs.xml         | 65 ----------------
- doc/reference/seq/alsaseq.types            | 37 ---------
- doc/reference/seq/meson.build              | 10 ---
- doc/reference/timer/alsatimer-docs.xml     | 56 --------------
- doc/reference/timer/alsatimer.types        | 18 -----
- doc/reference/timer/meson.build            | 10 ---
- doc/reference/version.xml.in               |  1 -
- doc/seq/alsaseq.toml.in                    | 40 ++++++++++
- doc/seq/meson.build                        | 28 +++++++
- doc/seq/overview.md                        |  6 ++
- doc/seq/urlmap.js                          |  5 ++
- doc/timer/alsatimer.toml.in                | 34 ++++++++
- doc/timer/meson.build                      | 27 +++++++
- doc/timer/overview.md                      |  6 ++
- doc/timer/urlmap.js                        |  4 +
- meson.build                                |  6 +-
- meson_options.txt                          |  2 +-
- src/ctl/alsactl-enum-types.h               |  2 -
- src/ctl/alsactl.h                          | 24 ++++++
- src/ctl/card-info.h                        |  3 +-
- src/ctl/card.c                             |  2 -
- src/ctl/card.h                             | 10 +--
- src/ctl/elem-id.h                          |  7 +-
- src/ctl/elem-info.h                        |  7 +-
- src/ctl/elem-value.h                       |  5 +-
- src/ctl/meson.build                        | 45 +++++------
- src/ctl/privates.h                         | 12 +--
- src/ctl/query.c                            |  1 -
- src/ctl/query.h                            |  3 +-
- src/hwdep/alsahwdep-enum-types.h           |  1 -
- src/hwdep/alsahwdep.h                      | 17 ++++
- src/hwdep/device-info.h                    |  5 +-
- src/hwdep/meson.build                      | 55 ++++++-------
- src/hwdep/privates.h                       |  4 +-
- src/hwdep/query.c                          |  1 -
- src/hwdep/query.h                          |  5 +-
- src/meson.build                            |  2 +
- src/rawmidi/alsarawmidi-enum-types.h       |  2 -
- src/rawmidi/alsarawmidi.h                  | 21 +++++
- src/rawmidi/meson.build                    | 44 +++++------
- src/rawmidi/privates.h                     | 11 +--
- src/rawmidi/query.c                        |  1 -
- src/rawmidi/query.h                        |  6 +-
- src/rawmidi/stream-pair.c                  |  2 -
- src/rawmidi/stream-pair.h                  |  8 +-
- src/rawmidi/substream-info.h               |  5 +-
- src/rawmidi/substream-params.h             |  3 +-
- src/rawmidi/substream-status.h             |  3 +-
- src/seq/addr.c                             |  2 +-
- src/seq/addr.h                             |  5 +-
- src/seq/alsaseq-enum-types.h               |  2 -
- src/seq/alsaseq.h                          | 38 +++++++++
- src/seq/client-info.h                      |  5 +-
- src/seq/client-pool.h                      |  3 +-
- src/seq/event-cntr.h                       | 12 +--
- src/seq/event-data-connect.c               |  2 +-
- src/seq/event-data-connect.h               |  7 +-
- src/seq/event-data-ctl.c                   |  2 +-
- src/seq/event-data-ctl.h                   |  7 +-
- src/seq/event-data-note.c                  |  2 +-
- src/seq/event-data-note.h                  |  5 +-
- src/seq/event-data-queue.c                 |  2 +-
- src/seq/event-data-queue.h                 |  7 +-
- src/seq/event-data-result.c                |  2 +-
- src/seq/event-data-result.h                |  7 +-
- src/seq/meson.build                        | 46 +++++------
- src/seq/port-info.h                        |  6 +-
- src/seq/privates.h                         | 18 +----
- src/seq/query.c                            |  1 -
- src/seq/query.h                            | 11 +--
- src/seq/queue-info.h                       |  3 +-
- src/seq/queue-status.h                     |  3 +-
- src/seq/queue-tempo.h                      |  3 +-
- src/seq/queue-timer-data-alsa.c            |  2 +-
- src/seq/queue-timer-data-alsa.h            |  6 +-
- src/seq/queue-timer.c                      |  4 +-
- src/seq/queue-timer.h                      |  6 +-
- src/seq/remove-filter.c                    |  1 -
- src/seq/remove-filter.h                    |  8 +-
- src/seq/subscribe-data.h                   |  6 +-
- src/seq/system-info.h                      |  3 +-
- src/seq/tstamp.c                           |  2 +-
- src/seq/tstamp.h                           |  5 +-
- src/seq/user-client.c                      |  2 -
- src/seq/user-client.h                      | 13 +---
- src/timer/alsatimer-enum-types.h           |  2 -
- src/timer/alsatimer.h                      | 28 +++++++
- src/timer/device-id.c                      |  2 +-
- src/timer/device-id.h                      |  7 +-
- src/timer/device-info.h                    |  5 +-
- src/timer/device-params.h                  |  5 +-
- src/timer/device-status.h                  |  3 +-
- src/timer/event-data-tick.c                |  1 -
- src/timer/event-data-tick.h                |  5 +-
- src/timer/event-data-tstamp.c              |  1 -
- src/timer/event-data-tstamp.h              |  7 +-
- src/timer/event.c                          |  2 +-
- src/timer/event.h                          |  6 +-
- src/timer/instance-info.h                  |  5 +-
- src/timer/instance-params.c                |  3 -
- src/timer/instance-params.h                |  5 +-
- src/timer/instance-status.c                |  4 +-
- src/timer/instance-status.h                |  3 +-
- src/timer/meson.build                      | 38 +++++----
- src/timer/privates.h                       |  9 +--
- src/timer/query.c                          |  2 -
- src/timer/query.h                          | 10 +--
- src/timer/user-instance.c                  |  2 -
- src/timer/user-instance.h                  |  9 +--
- tests/meson.build                          |  4 +-
- 136 files changed, 738 insertions(+), 927 deletions(-)
- create mode 100644 doc/ctl/alsactl.toml.in
- create mode 100644 doc/ctl/meson.build
- create mode 100644 doc/ctl/overview.md
- create mode 100644 doc/ctl/urlmap.js
- create mode 100644 doc/hwdep/alsahwdep.toml.in
- create mode 100644 doc/hwdep/meson.build
- create mode 100644 doc/hwdep/overview.md
- create mode 100644 doc/hwdep/urlmap.js
- create mode 100644 doc/index.html.in
- create mode 100644 doc/rawmidi/alsarawmidi.toml.in
- create mode 100644 doc/rawmidi/meson.build
- create mode 100644 doc/rawmidi/overview.md
- create mode 100644 doc/rawmidi/urlmap.js
- delete mode 100644 doc/reference/ctl/alsactl-docs.xml
- delete mode 100644 doc/reference/ctl/alsactl.types
- delete mode 100644 doc/reference/ctl/meson.build
- delete mode 100644 doc/reference/hwdep/alsahwdep-docs.xml
- delete mode 100644 doc/reference/hwdep/alsahwdep.types
- delete mode 100644 doc/reference/hwdep/meson.build
- delete mode 100644 doc/reference/meson.build
- delete mode 100644 doc/reference/rawmidi/alsarawmidi-docs.xml
- delete mode 100644 doc/reference/rawmidi/alsarawmidi.types
- delete mode 100644 doc/reference/rawmidi/meson.build
- delete mode 100644 doc/reference/seq/alsaseq-docs.xml
- delete mode 100644 doc/reference/seq/alsaseq.types
- delete mode 100644 doc/reference/seq/meson.build
- delete mode 100644 doc/reference/timer/alsatimer-docs.xml
- delete mode 100644 doc/reference/timer/alsatimer.types
- delete mode 100644 doc/reference/timer/meson.build
- delete mode 100644 doc/reference/version.xml.in
- create mode 100644 doc/seq/alsaseq.toml.in
- create mode 100644 doc/seq/meson.build
- create mode 100644 doc/seq/overview.md
- create mode 100644 doc/seq/urlmap.js
- create mode 100644 doc/timer/alsatimer.toml.in
- create mode 100644 doc/timer/meson.build
- create mode 100644 doc/timer/overview.md
- create mode 100644 doc/timer/urlmap.js
- create mode 100644 src/ctl/alsactl.h
- create mode 100644 src/hwdep/alsahwdep.h
- create mode 100644 src/rawmidi/alsarawmidi.h
- create mode 100644 src/seq/alsaseq.h
- create mode 100644 src/timer/alsatimer.h
-
+diff --git a/sound/soc/codecs/wcd934x.c b/sound/soc/codecs/wcd934x.c
+index 6c468527fec6..acd344c4a37a 100644
+--- a/sound/soc/codecs/wcd934x.c
++++ b/sound/soc/codecs/wcd934x.c
+@@ -5883,6 +5883,7 @@ static int wcd934x_codec_parse_data(struct wcd934x_codec *wcd)
+ 	}
+ 
+ 	wcd->sidev = of_slim_get_device(wcd->sdev->ctrl, ifc_dev_np);
++	of_node_put(ifc_dev_np);
+ 	if (!wcd->sidev) {
+ 		dev_err(dev, "Unable to get SLIM Interface device\n");
+ 		return -EINVAL;
 -- 
-2.34.1
-```
+2.17.1
 
-Request URL   : https://github.com/alsa-project/alsa-gobject/pull/64
-Patch URL     : https://github.com/alsa-project/alsa-gobject/pull/64.patch
-Repository URL: https://github.com/alsa-project/alsa-gobject

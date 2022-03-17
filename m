@@ -2,80 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA4464DCD08
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Mar 2022 18:57:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 006A54DCDE2
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Mar 2022 19:49:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 341AD1A9A;
-	Thu, 17 Mar 2022 18:56:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 341AD1A9A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 871F81706;
+	Thu, 17 Mar 2022 19:48:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 871F81706
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647539860;
-	bh=UFO0mKXc1Pe4BdIkYJ4BmO0PrzhaI/opvkJbUhm0dfI=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1647542963;
+	bh=0WzZgN9aj0s8HEM+nPIbGUukn4MTB8wYqvpInAw1fPY=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Zf9rg07PGCyj9OCTkXfk5BTIFLCa+TIa0sXxeT6gtjyG2ijOoo7rQTHtyLhCt5I9W
-	 9q6eyvrXXEmAiDsW+m5CwRDHiIyaso3wJBc7/Ry78SaWWW7jF3ykAQNg7sgNGm1SDo
-	 F3sCt8NZzAQ3pGulbqWgCdKG0PBW/fVlL1C4Q4Rw=
+	b=rziCcZnniu85Lpia729ITFMVRRzNIgJeczChjwly8sHI4sJNpjRze6Q6bl1Nc1PO8
+	 zrxlDOXsaHunvH0bhcyEVoPSRZatIoJWxCdVbJuivp2vPsdtcoXqsqtdjO2ISF/H4m
+	 Rs/YEYaBvVSCffvCl7C6VF5UMRCR/y7OEPfeC4as=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A309F805B2;
-	Thu, 17 Mar 2022 18:52:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E00C1F80087;
+	Thu, 17 Mar 2022 19:48:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 65453F8051D; Thu, 17 Mar 2022 18:52:10 +0100 (CET)
+ id 6C230F8013F; Thu, 17 Mar 2022 19:48:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EDB47F80527
- for <alsa-devel@alsa-project.org>; Thu, 17 Mar 2022 18:51:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EDB47F80527
+ by alsa1.perex.cz (Postfix) with ESMTPS id A3304F80087
+ for <alsa-devel@alsa-project.org>; Thu, 17 Mar 2022 19:48:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3304F80087
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="AZQdrqEt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647539519; x=1679075519;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=UFO0mKXc1Pe4BdIkYJ4BmO0PrzhaI/opvkJbUhm0dfI=;
- b=AZQdrqEtq6KZM8V0ggKoKukvjrOLG+t6cHm2vTEhUi6FmPdlipNH8vCW
- LPzwpNKJ8Rp7UjN1tiZDsXZYG+p/1Nn1J9o5KZ4hY7ukWrdY+/9VRLKWA
- CsM7zVvJXN2I472LSU9VKXh0fXVgzo55NFsFOPs8nANLQ9EAkqH8Q70ND
- IhjKzKI5IcWos75z5qE5NgqMApZRzcUwlAMa4ksK85wj7WqTA04Bq1d3z
- jiAS9xJ+EaUFfzcRRYU2Vn+k7Aoy2G10q7i6Gf8WKfUR9yEOj6ITrrNou
- o0JgXLjug6g+p7WenX9s7j+gmcz3LOFU2azHlzNfvT+acoTb0aupZXvyh g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10289"; a="254492937"
-X-IronPort-AV: E=Sophos;i="5.90,188,1643702400"; d="scan'208";a="254492937"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2022 10:51:24 -0700
-X-IronPort-AV: E=Sophos;i="5.90,188,1643702400"; d="scan'208";a="550431163"
-Received: from jfbonin1-mobl6.amr.corp.intel.com (HELO
- rsridh2-mobl1.localdomain) ([10.255.92.163])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2022 10:51:24 -0700
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 19/19] ASoC: SOF: Add a new dai_get_clk topology IPC op
-Date: Thu, 17 Mar 2022 10:50:44 -0700
-Message-Id: <20220317175044.1752400-20-ranjani.sridharan@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220317175044.1752400-1-ranjani.sridharan@linux.intel.com>
-References: <20220317175044.1752400-1-ranjani.sridharan@linux.intel.com>
+ dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
+ header.b="N7TCbvr7"
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: adalessandro) with ESMTPSA id ABF301F45A25
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1647542886;
+ bh=0WzZgN9aj0s8HEM+nPIbGUukn4MTB8wYqvpInAw1fPY=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=N7TCbvr7Xn1NBsfZdq5HFid3scc3xT6XYCe80AU9aFufOzzv5jFqfCPumrdJedHmb
+ AVdzMfFYrR64U8BRyKzhAICQSO2TYQaFDyR1MbtHBE9RBxaL5C52+Q5yccbYmi/iBS
+ M+0vYNRJonT0VJpJFR9lEp+l1lTLDSIEgovl4QFcuBiQMqu+GmnJhoypmm5ZI/Wr8w
+ IM0GP0iCzWyeFRcAdktirYF7fHhcuzYwOy1+dMUB+bV4jBlrJY2I56o4YZJlgnx3Y4
+ hTQhgxW9U30DTtqNcAlJp+lS+QRjygHO/80E+xJse+1btt2BeUvoqzmqbvFgirMlm7
+ 58oLeFJuq3s6Q==
+Message-ID: <d748d03d-4e9c-50a5-6c9e-089ec44a2540@collabora.com>
+Date: Thu, 17 Mar 2022 15:47:56 -0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, broonie@kernel.org,
- Rander Wang <rander.wang@intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.4.1
+Subject: Re: [PATCH v2 2/2] arm64: dts: imx8mn-bsh-smm-s2pro: Add
+ tlv320aic31xx audio card node
+Content-Language: en-US
+To: Fabio Estevam <festevam@gmail.com>
+References: <20220210134049.32576-1-ariel.dalessandro@collabora.com>
+ <20220210134049.32576-2-ariel.dalessandro@collabora.com>
+ <CAOMZO5DuB4d1243H46d1=heiNiz+pQVkjrGU+zV_r3GFKRTZfQ@mail.gmail.com>
+From: Ariel D'Alessandro <ariel.dalessandro@collabora.com>
+In-Reply-To: <CAOMZO5DuB4d1243H46d1=heiNiz+pQVkjrGU+zV_r3GFKRTZfQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Linux-ALSA <alsa-devel@alsa-project.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ linux-kernel <linux-kernel@vger.kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ NXP Linux Team <linux-imx@nxp.com>, Sascha Hauer <kernel@pengutronix.de>,
+ Michael Trimarchi <michael@amarulasolutions.com>,
+ Shawn Guo <shawnguo@kernel.org>,
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,156 +95,58 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This will help make the code for getting the mclk and bclk IPC specific.
-Add the implementation for IPC3 as well.
+Hi Fabio,
 
-Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
----
- sound/soc/sof/ipc3-topology.c | 29 +++++++++++++++++++++++++++++
- sound/soc/sof/sof-audio.c     | 31 +++++++------------------------
- sound/soc/sof/sof-audio.h     |  6 ++++++
- 3 files changed, 42 insertions(+), 24 deletions(-)
+On 3/10/22 09:29, Fabio Estevam wrote:
+> Hi Ariel,
+> 
+> On Thu, Feb 10, 2022 at 10:41 AM Ariel D'Alessandro
+> <ariel.dalessandro@collabora.com> wrote:
+> 
+>> +&i2c2 {
+>> +       clock-frequency = <400000>;
+>> +       pinctrl-names = "default";
+>> +       pinctrl-0 = <&pinctrl_i2c2>;
+>> +       status = "okay";
+>> +
+>> +       codec: tlv320dac3101@18 {
+>> +               #sound-dai-cells = <0>;
+>> +               compatible = "ti,tlv320dac3101";
+>> +               pinctrl-names = "default";
+>> +               pinctrl-0 = <&pinctrl_dac_rst>;
+>> +               reg = <0x18>;
+>> +
+>> +               ai31xx-micbias-vg = <MICBIAS_AVDDV>;
+>> +
+>> +               HPVDD-supply = <&buck4_reg>;
+>> +               SPRVDD-supply = <&vdd_input>;
+>> +               SPLVDD-supply = <&vdd_input>;
+>> +               AVDD-supply = <&buck4_reg>;
+>> +               IOVDD-supply = <&buck4_reg>;
+>> +               DVDD-supply = <&buck5_reg>;
+>> +               reset-gpios = <&gpio1 6 GPIO_ACTIVE_LOW>;
+>> +
+>> +               clocks = <&clk IMX8MN_CLK_SAI3_ROOT>;
+>> +               clock-names = "mclk";
+> 
+> The clocks and clock-names properties are not documented in the codec bindings.
+> 
+> Also, the driver does not use call clk_get() on this mclk clock.
+> 
+> You should drop the clocks and clock-names properties.
 
-diff --git a/sound/soc/sof/ipc3-topology.c b/sound/soc/sof/ipc3-topology.c
-index 3ac65dacc7b9..2f8450a8c0a1 100644
---- a/sound/soc/sof/ipc3-topology.c
-+++ b/sound/soc/sof/ipc3-topology.c
-@@ -2252,6 +2252,34 @@ static int sof_ipc3_tear_down_all_pipelines(struct snd_sof_dev *sdev, bool verif
- 	return 0;
- }
- 
-+static int sof_ipc3_dai_get_clk(struct snd_sof_dev *sdev, struct snd_sof_dai *dai, int clk_type)
-+{
-+	struct sof_dai_private_data *private = dai->private;
-+
-+	if (!private || !private->dai_config)
-+		return 0;
-+
-+	switch (private->dai_config->type) {
-+	case SOF_DAI_INTEL_SSP:
-+		switch (clk_type) {
-+		case SOF_DAI_CLK_INTEL_SSP_MCLK:
-+			return private->dai_config->ssp.mclk_rate;
-+		case SOF_DAI_CLK_INTEL_SSP_BCLK:
-+			return private->dai_config->ssp.bclk_rate;
-+		default:
-+			break;
-+		}
-+		dev_err(sdev->dev, "fail to get SSP clk %d rate\n", clk_type);
-+		break;
-+	default:
-+		/* not yet implemented for platforms other than the above */
-+		dev_err(sdev->dev, "DAI type %d not supported yet!\n", private->dai_config->type);
-+		break;
-+	}
-+
-+	return -EINVAL;
-+}
-+
- /* token list for each topology object */
- static enum sof_tokens host_token_list[] = {
- 	SOF_CORE_TOKENS,
-@@ -2359,6 +2387,7 @@ const struct sof_ipc_tplg_ops ipc3_tplg_ops = {
- 	.widget_free = sof_ipc3_widget_free,
- 	.widget_setup = sof_ipc3_widget_setup,
- 	.dai_config = sof_ipc3_dai_config,
-+	.dai_get_clk = sof_ipc3_dai_get_clk,
- 	.set_up_all_pipelines = sof_ipc3_set_up_all_pipelines,
- 	.tear_down_all_pipelines = sof_ipc3_tear_down_all_pipelines,
- };
-diff --git a/sound/soc/sof/sof-audio.c b/sound/soc/sof/sof-audio.c
-index b4ee65cf9841..b2f009a0c5b7 100644
---- a/sound/soc/sof/sof-audio.c
-+++ b/sound/soc/sof/sof-audio.c
-@@ -628,40 +628,23 @@ struct snd_sof_dai *snd_sof_find_dai(struct snd_soc_component *scomp,
- 	return NULL;
- }
- 
--#define SOF_DAI_CLK_INTEL_SSP_MCLK	0
--#define SOF_DAI_CLK_INTEL_SSP_BCLK	1
--
- static int sof_dai_get_clk(struct snd_soc_pcm_runtime *rtd, int clk_type)
- {
- 	struct snd_soc_component *component =
- 		snd_soc_rtdcom_lookup(rtd, SOF_AUDIO_PCM_DRV_NAME);
- 	struct snd_sof_dai *dai =
- 		snd_sof_find_dai(component, (char *)rtd->dai_link->name);
--	struct sof_dai_private_data *private = dai->private;
-+	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(component);
-+	const struct sof_ipc_tplg_ops *tplg_ops = sdev->ipc->ops->tplg;
- 
- 	/* use the tplg configured mclk if existed */
--	if (!dai || !private || !private->dai_config)
-+	if (!dai)
- 		return 0;
- 
--	switch (private->dai_config->type) {
--	case SOF_DAI_INTEL_SSP:
--		switch (clk_type) {
--		case SOF_DAI_CLK_INTEL_SSP_MCLK:
--			return private->dai_config->ssp.mclk_rate;
--		case SOF_DAI_CLK_INTEL_SSP_BCLK:
--			return private->dai_config->ssp.bclk_rate;
--		default:
--			dev_err(rtd->dev, "fail to get SSP clk %d rate\n",
--				clk_type);
--			return -EINVAL;
--		}
--		break;
--	default:
--		/* not yet implemented for platforms other than the above */
--		dev_err(rtd->dev, "DAI type %d not supported yet!\n",
--			private->dai_config->type);
--		return -EINVAL;
--	}
-+	if (tplg_ops->dai_get_clk)
-+		return tplg_ops->dai_get_clk(sdev, dai, clk_type);
-+
-+	return 0;
- }
- 
- /*
-diff --git a/sound/soc/sof/sof-audio.h b/sound/soc/sof/sof-audio.h
-index b9a9956b5baa..7f15b3bc8196 100644
---- a/sound/soc/sof/sof-audio.h
-+++ b/sound/soc/sof/sof-audio.h
-@@ -30,6 +30,9 @@
- 
- #define WIDGET_IS_DAI(id) ((id) == snd_soc_dapm_dai_in || (id) == snd_soc_dapm_dai_out)
- 
-+#define SOF_DAI_CLK_INTEL_SSP_MCLK	0
-+#define SOF_DAI_CLK_INTEL_SSP_BCLK	1
-+
- /*
-  * Volume fractional word length define to 16 sets
-  * the volume linear gain value to use Qx.16 format
-@@ -39,6 +42,7 @@
- struct snd_sof_widget;
- struct snd_sof_route;
- struct snd_sof_control;
-+struct snd_sof_dai;
- 
- struct snd_sof_dai_config_data {
- 	int dai_index;
-@@ -117,6 +121,7 @@ struct sof_ipc_tplg_widget_ops {
-  * @widget_setup: Function pointer for setting up setup in the DSP
-  * @widget_free: Function pointer for freeing widget in the DSP
-  * @dai_config: Function pointer for sending DAI config IPC to the DSP
-+ * @dai_get_clk: Function pointer for getting the DAI clock setting
-  * @set_up_all_pipelines: Function pointer for setting up all topology pipelines
-  * @tear_down_all_pipelines: Function pointer for tearing down all topology pipelines
-  */
-@@ -132,6 +137,7 @@ struct sof_ipc_tplg_ops {
- 	int (*widget_free)(struct snd_sof_dev *sdev, struct snd_sof_widget *swidget);
- 	int (*dai_config)(struct snd_sof_dev *sdev, struct snd_sof_widget *swidget,
- 			  unsigned int flags, struct snd_sof_dai_config_data *data);
-+	int (*dai_get_clk)(struct snd_sof_dev *sdev, struct snd_sof_dai *dai, int clk_type);
- 	int (*set_up_all_pipelines)(struct snd_sof_dev *sdev, bool verify);
- 	int (*tear_down_all_pipelines)(struct snd_sof_dev *sdev, bool verify);
- };
--- 
-2.25.1
+The sound card driver is calling clk_get() on the codec's clock. See
+sound/soc/fsl/fsl-asoc-card.c:
 
+    /* Get the MCLK rate only, and leave it controlled by CODEC drivers */
+    if (codec_dev) {
+        struct clk *codec_clk = clk_get(codec_dev, NULL);
+
+        if (!IS_ERR(codec_clk)) {
+            priv->codec_priv.mclk_freq = clk_get_rate(codec_clk);
+            clk_put(codec_clk);
+        }
+    }
+
+Regards,
+Ariel

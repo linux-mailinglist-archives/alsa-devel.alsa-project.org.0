@@ -2,132 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E75734DBFF2
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Mar 2022 08:04:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBB404DC163
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Mar 2022 09:34:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 823BB190D;
-	Thu, 17 Mar 2022 08:03:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 823BB190D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4EED8192F;
+	Thu, 17 Mar 2022 09:33:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4EED8192F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647500686;
-	bh=MgO0bpb5ZIiUeLRkUv23h3XJ5Lr/GWqrOxnl60QHGIU=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=nUuuYOZMPtxLk36FZ+fIrlYDcALIrSXffODv93efWmlZAiZgDa9NS2IGFJstZLZaF
-	 wEYmQ+xSOi2bDdUg2g+oe/PnZdgW4j9BO5ChV6+Dg37uXVy7Fm+TBCrQ/4mk8mK96v
-	 8cQTMGA1qEQT+roIK9RvLBkEmJEJH+yN0Ol+CydI=
+	s=default; t=1647506080;
+	bh=C+uQXi6iL0zyI66Cj+YIfYZFnkgs5iA+geywqRUgZZc=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=P7v3xseZ5l7Qs21grfRPOLh+hpwXpis9cIQOEkB0q1Mz/l1TpLs3UEAYiKtLsPnim
+	 kQRUrT1SXuHZNIgJ2OAKVZEOMSt16JQVrRzYCsiFV0tZBWswY6+M6PpBd2TYIlKIEn
+	 BD6CvvQlZLwpDqkfJNlrjdoF3chjiNYQqx7g8ni0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A75D3F805F7;
-	Thu, 17 Mar 2022 07:55:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 76B82F805AE;
+	Thu, 17 Mar 2022 09:29:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3F126F80095; Wed, 16 Mar 2022 20:38:29 +0100 (CET)
+ id 76DB8F80553; Thu, 17 Mar 2022 09:29:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from smtp-relay-internal-1.canonical.com
- (smtp-relay-internal-1.canonical.com [185.125.188.123])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7E83BF80095
- for <alsa-devel@alsa-project.org>; Wed, 16 Mar 2022 20:38:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E83BF80095
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
- header.b="qsZipiOR"
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 6B05E3F5F3
- for <alsa-devel@alsa-project.org>; Wed, 16 Mar 2022 19:38:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1647459493;
- bh=6+h9BeibtnFt0Fy4V0bEz+bagkoBJTSRfdm71NC24xs=;
- h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
- In-Reply-To:Content-Type;
- b=qsZipiORv/nFk23zk3TB6ijV+rP1RnwVvsblAxN7JTa7UKNvcIIpSQZeStEwJRTNf
- EtYuJqzoGq8sLvWf5DDEd3THm1iEA/ryQaqR1AmmRcpvqyHHNfZLkkvkL41ExUXecG
- Wtz1tcFBdnOxadFd2DCXVuH2TFC7/m7d+vlVCGNpY8PUcycZloZw3U7dSe40gsOuBp
- OWbvjWSYqF99PqGONGin62JK0xf/LyFYf8F3stWMw6/EUSwf7jZcRxKN2Jjj0S/PZx
- lskY7xlovtPVUo3Jkzu++rCS2OfQ25H2UCHTw5cYcyqpLD6GRhvyLGxj8zidm0EA3K
- UDk2pXdpdxunA==
-Received: by mail-wr1-f71.google.com with SMTP id
- o9-20020adfca09000000b001ea79f7edf8so880898wrh.16
- for <alsa-devel@alsa-project.org>; Wed, 16 Mar 2022 12:38:13 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=6+h9BeibtnFt0Fy4V0bEz+bagkoBJTSRfdm71NC24xs=;
- b=znoyihkmpxqZ/OvExVz/LLRPdiaeaPgSHZDXtQjgv3lotNo22w7cQS69m7COSLCc0s
- V3VPPAW8b/U3wqCKE8dn3vRrzdBK1nzuZ0CdQbqc6cDX/RQWwhF7auvKLo4VFnsPdDPI
- RKgd0TwKD0o73fVIapzh3jxHWbabXqVnCIDtyntNSKgZTV+DDNJMCFNnbLdnNXK8ZpUh
- KOaTdgrk5x68Xt13doMUkaKVVwDF9/qjFEph234jlcWM0vzH4OCvlgAIZvbxcDIoJVcU
- o6TWIGIKM3WA86farY3bM7ljNJejS3yXLtvAaJ2HaouA22e8Okno+R34VCRkJ8IeYeEU
- wfxQ==
-X-Gm-Message-State: AOAM531vboao95uwxTy9gvgZzA51KPrmAXEXxsijWz+v18VKfM2QaSHI
- 9DXfiuToq33fhrmczIV+abnZNcXKuB/aqAormL4Lzg4KT49aXC42nsJJGkDs8IhJZz/mmjQTqSB
- l+PF6b1GjPqRMhA1wgGAkDDqzFBb63oZ1RQ4RzvGt
-X-Received: by 2002:a05:600c:4796:b0:386:45aa:667b with SMTP id
- k22-20020a05600c479600b0038645aa667bmr1045831wmo.104.1647459492728; 
- Wed, 16 Mar 2022 12:38:12 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJwz2q+ZfMVNL/xv6DCH0VHKA2cCReGbKqid/bgaItjng219g1bFLER3WRAwMzoyrwOoAn1bTw==
-X-Received: by 2002:a05:600c:4796:b0:386:45aa:667b with SMTP id
- k22-20020a05600c479600b0038645aa667bmr1045789wmo.104.1647459492463; 
- Wed, 16 Mar 2022 12:38:12 -0700 (PDT)
-Received: from [192.168.0.17] (78-11-189-27.static.ip.netia.com.pl.
- [78.11.189.27]) by smtp.googlemail.com with ESMTPSA id
- c7-20020a5d4f07000000b00203db8f13c6sm2300253wru.75.2022.03.16.12.38.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Mar 2022 12:38:11 -0700 (PDT)
-Message-ID: <0cc4e90d-c5e5-e6a3-6cc6-23d3058b9731@canonical.com>
-Date: Wed, 16 Mar 2022 20:38:09 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7A7B5F8023A
+ for <alsa-devel@alsa-project.org>; Thu, 17 Mar 2022 09:28:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A7B5F8023A
+Received: from dude02.hi.pengutronix.de ([2001:67c:670:100:1d::28])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <sha@pengutronix.de>)
+ id 1nUlUo-00068q-7n; Thu, 17 Mar 2022 09:28:34 +0100
+Received: from sha by dude02.hi.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <sha@pengutronix.de>)
+ id 1nUlUm-0027Ta-Na; Thu, 17 Mar 2022 09:28:32 +0100
+From: Sascha Hauer <s.hauer@pengutronix.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH 00/19] ASoC: fsl_micfil: Driver updates
+Date: Thu, 17 Mar 2022 09:27:59 +0100
+Message-Id: <20220317082818.503143-1-s.hauer@pengutronix.de>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH v5 11/11] rpmsg: Fix kfree() of static memory on setting
- driver_override
-Content-Language: en-US
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>
-References: <20220316150533.421349-1-krzysztof.kozlowski@canonical.com>
- <20220316150803.421897-5-krzysztof.kozlowski@canonical.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-In-Reply-To: <20220316150803.421897-5-krzysztof.kozlowski@canonical.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Thu, 17 Mar 2022 07:55:05 +0100
-Cc: linux-hyperv@vger.kernel.org, Stuart Yoder <stuyoder@gmail.com>,
- linux-pci@vger.kernel.org, linux-remoteproc@vger.kernel.org,
- alsa-devel@alsa-project.org, Peter Oberparleiter <oberpar@linux.ibm.com>,
- Vineeth Vijayan <vneethv@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- "K. Y. Srinivasan" <kys@microsoft.com>, linux-clk@vger.kernel.org,
- linux-s390@vger.kernel.org, Wei Liu <wei.liu@kernel.org>,
- Stephen Hemminger <sthemmin@microsoft.com>, Dexuan Cui <decui@microsoft.com>,
- Andy Shevchenko <andy.shevchenko@gmail.com>, Andy Gross <agross@kernel.org>,
- NXP Linux Team <linux-imx@nxp.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- virtualization@lists.linux-foundation.org, Heiko Carstens <hca@linux.ibm.com>,
- Vasily Gorbik <gor@linux.ibm.com>, linux-arm-msm@vger.kernel.org,
- Haiyang Zhang <haiyangz@microsoft.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- linux-arm-kernel@lists.infradead.org,
- Mathieu Poirier <mathieu.poirier@linaro.org>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, linux-spi@vger.kernel.org,
- Sven Schnelle <svens@linux.ibm.com>,
- Linus Torvalds <torvalds@linux-foundation.org>
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::28
+X-SA-Exim-Mail-From: sha@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Cc: Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Vinod Koul <vkoul@kernel.org>,
+ NXP Linux Team <linux-imx@nxp.com>, kernel@pengutronix.de,
+ dmaengine@vger.kernel.org, Shengjiu Wang <shengjiu.wang@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -143,52 +76,49 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 16/03/2022 16:08, Krzysztof Kozlowski wrote:
-> The driver_override field from platform driver should not be initialized
-> from static memory (string literal) because the core later kfree() it,
-> for example when driver_override is set via sysfs.
-> 
-> Use dedicated helper to set driver_override properly.
-> 
-> Fixes: 950a7388f02b ("rpmsg: Turn name service into a stand alone driver")
-> Fixes: c0cdc19f84a4 ("rpmsg: Driver for user space endpoint interface")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-> Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-> ---
->  drivers/rpmsg/rpmsg_core.c     |  3 ++-
->  drivers/rpmsg/rpmsg_internal.h | 11 +++++++++--
->  drivers/rpmsg/rpmsg_ns.c       | 14 ++++++++++++--
->  include/linux/rpmsg.h          |  6 ++++--
->  4 files changed, 27 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/rpmsg/rpmsg_core.c b/drivers/rpmsg/rpmsg_core.c
-> index 79368a957d89..95fc283f6af7 100644
-> --- a/drivers/rpmsg/rpmsg_core.c
-> +++ b/drivers/rpmsg/rpmsg_core.c
-> @@ -400,7 +400,8 @@ field##_store(struct device *dev, struct device_attribute *attr,	\
->  	      const char *buf, size_t sz)				\
->  {									\
->  	struct rpmsg_device *rpdev = to_rpmsg_device(dev);		\
-> -	char *new, *old;						\
-> +	const char *old;						\
-> +	char *new;							\
->  									\
->  	new = kstrndup(buf, sz, GFP_KERNEL);				\
->  	if (!new)							\
-> diff --git a/drivers/rpmsg/rpmsg_internal.h b/drivers/rpmsg/rpmsg_internal.h
-> index d4b23fd019a8..dd1f4ed616b6 100644
-> --- a/drivers/rpmsg/rpmsg_internal.h
-> +++ b/drivers/rpmsg/rpmsg_internal.h
-> @@ -95,9 +95,16 @@ int rpmsg_release_channel(struct rpmsg_device *rpdev,
->  static inline int rpmsg_ctrldev_register_device(struct rpmsg_device *rpdev)
->  {
->  	strcpy(rpdev->id.name, "rpmsg_ctrl");
-> -	rpdev->driver_override = "rpmsg_ctrl";
-> +	ret = driver_set_override(&rpdev->dev, &rpdev->driver_override,
-> +				  "rpmsg_ctrl", strlen("rpmsg_ctrl"));
+This series has a bunch of cleanups for the FSL MICFIL driver. There is
+not much chance for regressions in this series as the driver currently
+can't work at all. The MICFIL needs multififo support in the i.MX SDMA
+engine which is added with this series, see 10/19.
 
-I made here a mistake while rebasing. This will need a v6.
+The multififo support is selected in the dma phandle arguments in the
+device tree, the transfer type must be '25' aka IMX_DMATYPE_MULTI_SAI.
+This is set already to 25 in the upstream i.MX8M[NM] dtsi files, but the
+SDMA driver silently ignores unsupported values instead of throwing an
+error. This is fixed in this series and multififo support is added.
 
-Best regards,
-Krzysztof
+I think the series should go via the ASoC tree, so I'll need an ack from
+the DMA guys for 9/19 and 10/10.
+
+Sascha
+
+Sascha Hauer (19):
+  ASoC: fsl_micfil: Drop unnecessary register read
+  ASoC: fsl_micfil: Drop unused register read
+  ASoC: fsl_micfil: drop fsl_micfil_set_mclk_rate()
+  ASoC: fsl_micfil: do not define SHIFT/MASK for single bits
+  ASoC: fsl_micfil: use GENMASK to define register bit fields
+  ASoC: fsl_micfil: use clear/set bits
+  ASoC: fsl_micfil: drop error messages from failed register accesses
+  ASoC: fsl_micfil: drop unused variables
+  dma: imx-sdma: error out on unsupported transfer types
+  dma: imx-sdma: Add multi fifo support
+  ASoC: fsl_micfil: add multi fifo support
+  ASoC: fsl_micfil: use define for OSR default value
+  ASoC: fsl_micfil: Drop get_pdm_clk()
+  ASoC: fsl_micfil: simplify clock setting
+  ASoC: fsl_micfil: rework quality setting
+  ASoC: fsl_micfil: drop unused include
+  ASoC: fsl_micfil: drop only once used defines
+  ASoC: fsl_micfil: drop support for undocumented property
+  ASoC: fsl_micfil: fold fsl_set_clock_params() into its only user
+
+ drivers/dma/imx-sdma.c                |  71 ++++-
+ include/linux/platform_data/dma-imx.h |   7 +
+ sound/soc/fsl/fsl_micfil.c            | 368 +++++++++-----------------
+ sound/soc/fsl/fsl_micfil.h            | 269 +++++--------------
+ 4 files changed, 265 insertions(+), 450 deletions(-)
+
+-- 
+2.30.2
+

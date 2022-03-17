@@ -2,86 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 120A24DC878
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Mar 2022 15:14:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18BC24DC914
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Mar 2022 15:42:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 936B41838;
-	Thu, 17 Mar 2022 15:13:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 936B41838
+	by alsa0.perex.cz (Postfix) with ESMTPS id A2E9E190E;
+	Thu, 17 Mar 2022 15:41:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2E9E190E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647526470;
-	bh=3vcWHvO52sCv/5C+BVTSzHx6hRnuL83MxkzL/orkQoA=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1647528141;
+	bh=hxdofN2BPr2wGB36uoStlDdxkKMsJNBlXp5qDw4a4/8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Nx65yX6GEe98k6d70g4sd2We3ee55PEErSBFP6GFD6HyFoA5WTQWZ0jBGXxu7WHAf
-	 9x4F0eI8QshiQpo/MKy3hkBE3Rm2Smam1/GNJDE+CIoYn27ZY+c4I4JGFGbyo8F1Md
-	 +TvVw0UrSs3HcmgKcB5yxo5AC/9teD/vvoORAI0I=
+	b=XyafrXWF9pPNBYjWzSx5+Ezm2QVFQ7TJEKJlCAi7VXlV5GL2OM/W22U4d+CXKuCS9
+	 HQgCpoYYGmUAE5Hk29tIW9nQxNwRov5OWxdkjTxstnNRluBkzuYH5nB1pc0QDTaIUE
+	 BmI+v1Hb5WWlcE0UX65RvU75ulXtfgawibDL+HJQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C9124F80124;
-	Thu, 17 Mar 2022 15:13:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0F800F80125;
+	Thu, 17 Mar 2022 15:41:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E27EFF8013F; Thu, 17 Mar 2022 15:13:20 +0100 (CET)
+ id 8FBCFF8013F; Thu, 17 Mar 2022 15:41:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E5C8CF80124
- for <alsa-devel@alsa-project.org>; Thu, 17 Mar 2022 15:13:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5C8CF80124
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="FAMppHJS"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="RlrA0+u4"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id A2EE0210FD;
- Thu, 17 Mar 2022 14:13:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1647526392; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=6edWcSlDuE7GBRxOnbjiZrVj1Ut4eAAnls2UvqT8a+Q=;
- b=FAMppHJSN0V7e808pZpLTejB737rs6wrDw4F+QAUAjQvE39Iq3dR9B7E+X5Xyy7bnED19g
- y830BefgyDDYNcT8A46hHRCu9EcAUF2XZkWqSQYkFn2nmYiFanE+x5vLUF5A8IqUihbk9g
- aVd2D/QtfdZ/WGM7DTAlonNis9L5cs4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1647526392;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=6edWcSlDuE7GBRxOnbjiZrVj1Ut4eAAnls2UvqT8a+Q=;
- b=RlrA0+u4HufMDNPznh8PItdhiWY8jeQoUb1gmKrbv7iScUP6D36pXKGac8cc1iwPmEHv3a
- +/nY1pssqG3sBFBQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 6A704A3BE5;
- Thu, 17 Mar 2022 14:13:12 +0000 (UTC)
-Date: Thu, 17 Mar 2022 15:13:12 +0100
-Message-ID: <s5h5yoc651j.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Subject: Re: [syzbot] WARNING: kmalloc bug in snd_pcm_plugin_alloc (2)
-In-Reply-To: <CAHk-=wjLNbf7viXP74K59jK=sRkg6mUbj0i3qpQvy9_2S4Lbtg@mail.gmail.com>
-References: <00000000000085b1b305da5a66f3@google.com>
- <CAHk-=wjLNbf7viXP74K59jK=sRkg6mUbj0i3qpQvy9_2S4Lbtg@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: syzbot <syzbot+72732c532ac1454eeee9@syzkaller.appspotmail.com>,
- alsa-devel@alsa-project.org, syzkaller-bugs <syzkaller-bugs@googlegroups.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Linux-MM <linux-mm@kvack.org>,
- Andrew Morton <akpm@linux-foundation.org>, Willy Tarreau <w@1wt.eu>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 11643F80125
+ for <alsa-devel@alsa-project.org>; Thu, 17 Mar 2022 15:41:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11643F80125
+Received: from ptx.hi.pengutronix.de ([2001:67c:670:100:1d::c0])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <sha@pengutronix.de>)
+ id 1nUrJI-0002Oy-MK; Thu, 17 Mar 2022 15:41:04 +0100
+Received: from sha by ptx.hi.pengutronix.de with local (Exim 4.92)
+ (envelope-from <sha@pengutronix.de>)
+ id 1nUrJH-0001RD-3X; Thu, 17 Mar 2022 15:41:03 +0100
+Date: Thu, 17 Mar 2022 15:41:03 +0100
+From: Sascha Hauer <s.hauer@pengutronix.de>
+To: Shengjiu Wang <shengjiu.wang@gmail.com>
+Subject: Re: [PATCH 10/19] dma: imx-sdma: Add multi fifo support
+Message-ID: <20220317144103.GV405@pengutronix.de>
+References: <20220317082818.503143-1-s.hauer@pengutronix.de>
+ <20220317082818.503143-11-s.hauer@pengutronix.de>
+ <CAA+D8APw-OHdz4s=oy9bWZOw6kj8mD8nss3OKXsYQty52=tb2Q@mail.gmail.com>
+ <20220317101950.GU405@pengutronix.de>
+ <CAA+D8AMdTzqfEQCH4pcQE3K1P-4oo71ctiGW1DD7XJPQDcVbTg@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-15
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAA+D8AMdTzqfEQCH4pcQE3K1P-4oo71ctiGW1DD7XJPQDcVbTg@mail.gmail.com>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-IRC: #ptxdist @freenode
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
+X-Uptime: 15:38:07 up 96 days, 23:23, 78 users,  load average: 0.12, 0.16, 0.19
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c0
+X-SA-Exim-Mail-From: sha@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Vinod Koul <vkoul@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
+ Sascha Hauer <kernel@pengutronix.de>, dmaengine@vger.kernel.org,
+ Fabio Estevam <festevam@gmail.com>, joy.zou@nxp.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,200 +91,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 16 Mar 2022 20:28:46 +0100,
-Linus Torvalds wrote:
+On Thu, Mar 17, 2022 at 08:20:22PM +0800, Shengjiu Wang wrote:
+>    Hi
+>    On Thu, Mar 17, 2022 at 6:19 PM Sascha Hauer <[1]s.hauer@pengutronix.de>
+>    wrote:
 > 
-> On Wed, Mar 16, 2022 at 11:51 AM syzbot
-> <syzbot+72732c532ac1454eeee9@syzkaller.appspotmail.com> wrote:
-> >
-> > WARNING: CPU: 1 PID: 3761 at mm/util.c:591 kvmalloc_node+0x121/0x130 mm/util.c:591
-> >  snd_pcm_plugin_alloc+0x570/0x770 sound/core/oss/pcm_plugin.c:71
-> >  snd_pcm_plug_alloc+0x20d/0x310 sound/core/oss/pcm_plugin.c:118
-> >  snd_pcm_oss_change_params_locked+0x19db/0x3bf0 sound/core/oss/pcm_oss.c:1041
-> >  snd_pcm_oss_change_params sound/core/oss/pcm_oss.c:1104 [inline]
-> >  snd_pcm_oss_get_active_substream+0x164/0x1c0 sound/core/oss/pcm_oss.c:1121
-> >  snd_pcm_oss_get_rate sound/core/oss/pcm_oss.c:1778 [inline]
-> >  snd_pcm_oss_set_rate sound/core/oss/pcm_oss.c:1770 [inline]
-> >  snd_pcm_oss_ioctl+0x144f/0x3430 sound/core/oss/pcm_oss.c:2632
+>      On Thu, Mar 17, 2022 at 05:08:55PM +0800, Shengjiu Wang wrote:
+>      >    On Thu, Mar 17, 2022 at 4:28 PM Sascha Hauer
+>      <[1][2]s.hauer@pengutronix.de>
+>      >    wrote:
+>      >
+>      >      +struct sdma_peripheral_config {
+>      >      +       int n_fifos_src;
+>      >      +       int n_fifos_dst;
+>      >      +       bool sw_done;
+>      >      +};
+>      >      +
+>      >       #endif
+>      >
+>      >    Hi Sascha
+>      >    This is our internal definition for this sdma_peripheral_config.
+>      >    Could you please adopt this?
 > 
-> Well, that looks like a real bug in the sound subsystem, and the
-> warning is appropriate.
+>      This structure is completely internal to the kernel and can be adjusted
+>      when we need it. I don't see a reason to add unused fields to it just to
+>      be compatible with a downstream kernel.
 > 
-> It looks like
-> 
->         size = frames * format->channels * width;
-> 
-> can overflow 32 bits, and this is presumably user-triggerable with
-> snd_pcm_oss_ioctl().
-> 
-> Maybe there's some range check at an upper layer that is supposed to
-> catch this, but I'm not seeing it.
-> 
-> I think the simple fix is to do
-> 
->         size = array3_size(frames, format->channels, width);
-> 
-> instead, which clamps the values at the maximum size_t.
-> 
-> Then you can trivially check for that overflow value (SIZE_MAX), but
-> you can - and probably should - just check for some sane value.
-> INT_MAX comes to mind, since that's what the allocation routine will
-> warn about.
-> 
-> But you can also say "Ok, I have now used the 'array_size()' function
-> to make sure any overflow will clamp to a very high value, so I know
-> I'll get an allocation failure, and I'd rather just make the allocator
-> do the size checking, so I'll add __GFP_NOWARN at allocation time and
-> just return -ENOMEM when that fails".
-> 
-> But that __GFP_NOWARN is *ONLY* acceptable if you have actually made
-> sure that "yes, all my size calculations have checked for overflow
-> and/or done that SIZE_MAX clamping".
-> 
-> Alternatively, you can just do each multiplication carefully, and use
-> "check_mul_overflow()" by hand, but it's a lot more inconvenient and
-> the end result tends to look horrible. There's a reason we have those
-> "array_size()" and "array3_size()" helpers.
-> 
-> There is also some very odd and suspicious-looking code in
-> snd_pcm_oss_change_params_locked():
-> 
->         oss_period_size *= oss_frame_size;
-> 
->         oss_buffer_size = oss_period_size * runtime->oss.periods;
->         if (oss_buffer_size < 0) {
->                 err = -EINVAL;
->                 goto failure;
->         }
-> 
-> which seems to think that checking the end result for being negative
-> is how you check for overflow. But that's actually after the
-> snd_pcm_plug_alloc() call.
-> 
-> It looks like all of this should use "check_mul_overflow()", but it
-> presumably also wants fixing (and also would like to use the
-> 'array_size()' helpers, but note that those take a 'size_t', so you do
-> want to check for negative values *before* if you allow zeroes
-> anywhere else)
-> 
-> If you don't mind "multiplying by zero will hide a negative
-> intermediate value", you can pass in 'ssize_t' arguments, do the
-> multiplication as unsigned, put the result in a 'ssize_t' value, and
-> just check for a negative result.
-> 
-> That would seem to be acceptable here, and that
-> snd_pcm_oss_change_params_locked() code could also just be
-> 
->         oss_period_size = array_size(oss_period_size, oss_frame_size);
->         oss_buffer_size = array_size(oss_period_size, runtime->oss.periods);
->         if (oss_buffer_size < 0) {
->                 ...
-> 
-> but I would suggest checking for a zero result too, because that can
-> hide the sub-parts having been some invalid crazy values that can also
-> cause problems later.
+>    Yes, it is not used by micfil. But the fifo_offset and words_per_fifo
+>    is part the multi fifo script support scope, if only add fifo_num,  it
+>    looks
+>    like this feature is not complete.
 
-Indeed there seem missing value limit checks.  Currently we rely on
-the fact that the parameters of the underlying PCM device have been
-already configured properly, and it assures that the original values
-are fine.  OTOH, this PCM OSS layer does also conversions and it
-allocates temporary buffers for that.  The problem happens with those
-converted parameters; depending on the sample rate, channels, and
-format, it may increases significantly, and this was the reason of the
-31bit overflow.
+No, it's not. I only added the parts that I am interested in and that I
+can test. I have some multichannel audio stuff in my pipeline, I might add
+more pieces later.
 
-And, we want not only avoiding the overflow but also limiting the
-actual size, too.  Practically seen, more than 1MB temporary buffer is
-unrealistic, and better to bail if more than that is requested.
+>    By the way,  which multi fifo script version are you using? seems it is
+>    not the latest compared with our release, right?
 
-Blow is the fix patch.  It works fine for local testing.
+I am using the latest firmware from linux-firmware.git.
 
+Sascha
 
-thanks,
-
-Takashi
-
--- 8< --
-From: Takashi Iwai <tiwai@suse.de>
-Date: Thu, 17 Mar 2022 11:29:39 +0100
-Subject: [PATCH] ALSA: oss: Fix PCM OSS buffer allocation overflow
-
-We've got syzbot reports hitting INT_MAX overflow at vmalloc()
-allocation that is called from snd_pcm_plug_alloc().  Although we
-apply the restrictions to input parameters, it's based only on the
-hw_params of the underlying PCM device.  Since the PCM OSS layer
-allocates a temporary buffer for the data conversion, the size may
-become unexpectedly large when more channels or higher rates is given;
-in the reported case, it went over INT_MAX, hence it hits WARN_ON().
-
-This patch is an attempt to avoid such an overflow and an allocation
-for too large buffers.  First off, it adds the limit of 1MB as the
-upper bound for period bytes.  This must be large enough for all use
-cases, and we really don't want to handle a larger temporary buffer
-than this size.  The size check is performed at two places, where the
-original period bytes is calculated and where the plugin buffer size
-is calculated.
-
-In addition, the driver uses array_size() and array3_size() for
-multiplications to catch overflows for the converted period size and
-buffer bytes.
-
-Reported-by: syzbot+72732c532ac1454eeee9@syzkaller.appspotmail.com
-Suggested-by: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: <stable@vger.kernel.org>
-Link: https://lore.kernel.org/r/00000000000085b1b305da5a66f3@google.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/core/oss/pcm_oss.c    | 12 ++++++++----
- sound/core/oss/pcm_plugin.c |  5 ++++-
- 2 files changed, 12 insertions(+), 5 deletions(-)
-
-diff --git a/sound/core/oss/pcm_oss.c b/sound/core/oss/pcm_oss.c
-index 3ee9edf85815..f158f0abd25d 100644
---- a/sound/core/oss/pcm_oss.c
-+++ b/sound/core/oss/pcm_oss.c
-@@ -774,6 +774,11 @@ static int snd_pcm_oss_period_size(struct snd_pcm_substream *substream,
- 
- 	if (oss_period_size < 16)
- 		return -EINVAL;
-+
-+	/* don't allocate too large period; 1MB period must be enough */
-+	if (oss_period_size > 1024 * 1024)
-+		return -ENOMEM;
-+
- 	runtime->oss.period_bytes = oss_period_size;
- 	runtime->oss.period_frames = 1;
- 	runtime->oss.periods = oss_periods;
-@@ -1043,10 +1048,9 @@ static int snd_pcm_oss_change_params_locked(struct snd_pcm_substream *substream)
- 			goto failure;
- 	}
- #endif
--	oss_period_size *= oss_frame_size;
--
--	oss_buffer_size = oss_period_size * runtime->oss.periods;
--	if (oss_buffer_size < 0) {
-+	oss_period_size = array_size(oss_period_size, oss_frame_size);
-+	oss_buffer_size = array_size(oss_period_size, runtime->oss.periods);
-+	if (oss_buffer_size <= 0) {
- 		err = -EINVAL;
- 		goto failure;
- 	}
-diff --git a/sound/core/oss/pcm_plugin.c b/sound/core/oss/pcm_plugin.c
-index 061ba06bc926..82e180c776ae 100644
---- a/sound/core/oss/pcm_plugin.c
-+++ b/sound/core/oss/pcm_plugin.c
-@@ -62,7 +62,10 @@ static int snd_pcm_plugin_alloc(struct snd_pcm_plugin *plugin, snd_pcm_uframes_t
- 	width = snd_pcm_format_physical_width(format->format);
- 	if (width < 0)
- 		return width;
--	size = frames * format->channels * width;
-+	size = array3_size(frames, format->channels, width);
-+	/* check for too large period size once again */
-+	if (size > 1024 * 1024)
-+		return -ENOMEM;
- 	if (snd_BUG_ON(size % 8))
- 		return -ENXIO;
- 	size /= 8;
 -- 
-2.34.1
-
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |

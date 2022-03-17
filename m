@@ -2,73 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30FAA4DBDC2
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Mar 2022 05:19:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15B604DBDC3
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Mar 2022 05:19:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A90F116A5;
-	Thu, 17 Mar 2022 05:18:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A90F116A5
+	by alsa0.perex.cz (Postfix) with ESMTPS id AE3F2175A;
+	Thu, 17 Mar 2022 05:18:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE3F2175A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647490739;
-	bh=bPY/gAPr1SHsfXHKJfCSWOOPFLqoi3W9ouKsn6zKTE4=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=vtpEVfAoGDtZ4CyU6cJrYJ/Y3BnG0GXU+zudnRHvVQ3/plXTGFiE2jKURxzrBGWwg
-	 pJvw+3GiLdQGwVbm/wAn5K8qahACju3rSOHtHlmClKbSUi1lCutHbLJS8utWumRWen
-	 89OtemprAAM623PVjpqNGp4x8QN3ndB6Lyk7KZVw=
+	s=default; t=1647490772;
+	bh=2x9Q2nued5ACxdtpwR/h9zRhtDnkDRPHw7YRw0bVGB8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=BKXL058bUSrdd4DTH1EFt6H29dvZQYMf1qDJd2btT3GrS4N21eObSr3QqsZu5apVI
+	 4x7ds3iOt1o3gxwS4OBxTDVcvYQZ+9y2FydtH21rxtZFeHBRN7DOEMNgTVsAl9laDR
+	 sw/YGtvqxwOT1dxsyuozYmRhJRI6DJuhbjtDJHMQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2EABAF8014C;
-	Thu, 17 Mar 2022 05:17:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8E6DBF8023A;
+	Thu, 17 Mar 2022 05:18:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1E796F80087; Thu, 17 Mar 2022 05:17:49 +0100 (CET)
+ id 1AD52F8020D; Thu, 17 Mar 2022 05:18:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY autolearn=disabled
- version=3.4.0
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pf1-x42b.google.com (mail-pf1-x42b.google.com
+ [IPv6:2607:f8b0:4864:20::42b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6E299F80087
- for <alsa-devel@alsa-project.org>; Thu, 17 Mar 2022 05:17:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E299F80087
-X-UUID: a0f16e058f184ebab77a56d51986dac9-20220317
-X-UUID: a0f16e058f184ebab77a56d51986dac9-20220317
-Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw02.mediatek.com
- (envelope-from <trevor.wu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 315387681; Thu, 17 Mar 2022 12:17:31 +0800
-Received: from mtkcas11.mediatek.inc (172.21.101.40) by
- mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.792.3; 
- Thu, 17 Mar 2022 12:17:30 +0800
-Received: from mtksdccf07 (172.21.84.99) by mtkcas11.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Thu, 17 Mar 2022 12:17:30 +0800
-Message-ID: <946a35efc1983c8f941f2350d4f9e0245dcbf95a.camel@mediatek.com>
-Subject: Re: [PATCH v2 1/5] ASoC: mediatek: mt8195: merge machine driver
-From: Trevor Wu <trevor.wu@mediatek.com>
-To: Tzung-Bi Shih <tzungbi@kernel.org>
-Date: Thu, 17 Mar 2022 12:17:30 +0800
-In-Reply-To: <YjKby/RYpMtcxeUm@google.com>
-References: <20220316060139.6211-1-trevor.wu@mediatek.com>
- <20220316060139.6211-2-trevor.wu@mediatek.com>
- <YjKby/RYpMtcxeUm@google.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-MTK: N
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com,
- robh+dt@kernel.org, linux-kernel@vger.kernel.org, broonie@kernel.org,
- linux-mediatek@lists.infradead.org, yc.hung@mediatek.com,
- matthias.bgg@gmail.com, aaronyu@google.com,
- linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id E6B55F80124
+ for <alsa-devel@alsa-project.org>; Thu, 17 Mar 2022 05:18:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E6B55F80124
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="p/DaaFIB"
+Received: by mail-pf1-x42b.google.com with SMTP id u17so5792536pfk.11
+ for <alsa-devel@alsa-project.org>; Wed, 16 Mar 2022 21:18:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id;
+ bh=Gfg0sfM1yOZcobziVscETOqEbK+m4KH2STWY/RhzvKM=;
+ b=p/DaaFIBXMKLYKdMeigqMEbkNzz2UmwkZ1EFHnR+vGLGHiUzJ+oKoWCc75yRbblKlU
+ XY6wS1b4XYolAjRWWIbz2PyAx1bgYIMsc/BNIwUvTkGVTrriASyMjIxrZlTWbEkWFKc+
+ UXp4FsH2NtXkPBUVp8Hjm6oD+oW2I+mh6qhDStIhDHojgZEvqp48XO9zh0KiOf1HRfoK
+ 3rmwCExGHErobvapU73Qay5djJ77vuKl037+x+eIuxYIb6IQBBkHSZEuQQzhEnbiHm4s
+ zHWtECJsTTjb2A09PYM3BfQlKkWw1gwtBiNSPD8mj3xWLFyCUcVjn8ySAgg4nMNupmoQ
+ uTcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=Gfg0sfM1yOZcobziVscETOqEbK+m4KH2STWY/RhzvKM=;
+ b=JLGIeppn36pKT0Se3an03JxOuQ2k7UVR3cr+LDtJMyWINGO53M5Yt1KHif0PQpQUIk
+ m9AY57iuxvyqNUboC+k6FiY2+C4aMRNXudXp+tlQQ9sw95rS+ocREyFOqcYkmh7NvkVT
+ QULU/QBXj6SbBq+ydOp1KQ8nHtBK+grIw51LmVtBa9UzSB3Ypb8t+mnZN1Ie8/0InB+0
+ FpT5ExkjmpjWV45CuKb4Chk3/tkavKVudQ6jYmUYQBUe1CHrqoh11hwJsDM7sC/rtNcw
+ yIaDBWu6GLbfYXY3lMwaw/c7drwA8fFrAWpNv/HFUCr0wagDD0pMr7svsVei8ZwoSiRp
+ c1vQ==
+X-Gm-Message-State: AOAM530XgoPyzuuXH6Q7GISiPhrtOjM/FglT8/BLBTsral1sRDAKJyaH
+ eMh/b+uSVxLp6PCkV25hWbA=
+X-Google-Smtp-Source: ABdhPJzkf6aRGNT4PCjsIj3xSQL7MwoZQSgaVrVC2ZHHBuegkwTvvtn8/goU3JG9vEQ+mi8RqnmORg==
+X-Received: by 2002:a63:1743:0:b0:381:42cf:187 with SMTP id
+ 3-20020a631743000000b0038142cf0187mr2089420pgx.397.1647490701303; 
+ Wed, 16 Mar 2022 21:18:21 -0700 (PDT)
+Received: from Asurada-Nvidia.nvidia.com ([12.154.207.45])
+ by smtp.gmail.com with ESMTPSA id
+ h13-20020a056a00170d00b004f757a795fesm5047654pfc.219.2022.03.16.21.18.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 16 Mar 2022 21:18:20 -0700 (PDT)
+From: Nicolin Chen <nicoleotsuka@gmail.com>
+To: broonie@kernel.org,
+	shengjiu.wang@nxp.com
+Subject: [PATCH] MAINTAINERS: Add Shengjiu to maintainer list of sound/soc/fsl
+Date: Wed, 16 Mar 2022 21:18:06 -0700
+Message-Id: <20220317041806.28230-1-nicoleotsuka@gmail.com>
+X-Mailer: git-send-email 2.17.1
+Cc: alsa-devel@alsa-project.org, Xiubo.Lee@gmail.com, festevam@gmail.com,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org, shengjiu.wang@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,212 +96,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 2022-03-17 at 10:24 +0800, Tzung-Bi Shih wrote:
-> Hi,
-> I didn't review too many details because I found the patch is not
-> easy to
-> review.  Please consider to not reorder symbols if it can.  If it is
-> still
-> hard to generate reasonable chunks or the reorders are necessary, it
-> could
-> put some refactor patches prior to the "merge".
+Shengjiu has been actively working on latest FSL platforms and
+keeping upstream effort as well, while I have been working on
+other subsystem lately and cannot guarantee audio patch review
+in the near term. So replacing with him in the maintainer list.
 
-Hi Tzung-Bi,
+Cc: Shengjiu Wang <shengjiu.wang@gmail.com>
+Signed-off-by: Nicolin Chen <nicoleotsuka@gmail.com>
+---
+ MAINTAINERS | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Thanks for your suggestion.
-Originally, I try to delete the old machine drivers and create a new
-one, so the layout is reordered and some functions are copied from
-mt8195-mt6359-rt1011-rt5682.c. But the git patch becomes a diff with
-mt8195-mt6359-rt1019-rt5682.c.
-
-I can split the one into two patches in v3, one is "merge" and another
-one is "revise".
-I hope it can make the review easier.
-
-> 
-> On Wed, Mar 16, 2022 at 02:01:35PM +0800, Trevor Wu wrote:
-> > diff --git a/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-
-> > rt5682.c b/sound/soc/mediatek/mt8195/mt8195-mt6359.c
-> 
-> [...]
-> >  #include <linux/input.h>
-> >  #include <linux/module.h>
-> > +#include <linux/of_device.h>
-> >  #include <linux/pm_runtime.h>
-> >  #include <sound/jack.h>
-> >  #include <sound/pcm_params.h>
-> >  #include <sound/rt5682.h>
-> > -#include <sound/sof.h>
-> 
-> Why does it remove the header?
-It seems that the header is redundant, because the driver works on my
-platform.
-But I will double confirm it.
-
-> 
-> > +struct mt8195_mt6359_priv {
-> > +	struct snd_soc_jack headset_jack;
-> > +	struct snd_soc_jack dp_jack;
-> > +	struct snd_soc_jack hdmi_jack;
-> > +	struct clk *i2so1_mclk;
-> > +};
-> > +
-> > +struct mt8195_card_data {
-> > +	const char *name;
-> > +	unsigned long quirk;
-> > +};
-> > +
-> > +struct sof_conn_stream {
-> > +	const char *normal_link;
-> > +	const char *sof_link;
-> > +	const char *sof_dma;
-> > +	int stream_dir;
-> > +};
-> 
-> [...]
-> > -struct sof_conn_stream {
-> > -	const char *normal_link;
-> > -	const char *sof_link;
-> > -	const char *sof_dma;
-> > -	int stream_dir;
-> > -};
-> > -
-> > -struct mt8195_mt6359_rt1019_rt5682_priv {
-> > -	struct snd_soc_jack headset_jack;
-> > -	struct snd_soc_jack dp_jack;
-> > -	struct snd_soc_jack hdmi_jack;
-> > -	struct clk *i2so1_mclk;
-> > -};
-> 
-> The effective operation here: rename from
-> mt8195_mt6359_rt1019_rt5682_priv
-> to mt8195_mt6359_priv.  However, it somehow reorders the code.  As a
-> result,
-> the change looks like more complicated than just a "merge" operation.
-> 
-> > -static const struct snd_soc_dapm_route
-> > mt8195_mt6359_rt1019_rt5682_routes[] = {
-> > -	/* speaker */
-> > -	{ "Speakers", NULL, "Speaker" },
-> > +static const struct snd_kcontrol_new mt8195_mt6359_controls[] = {
-> > +	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
-> > +	SOC_DAPM_PIN_SWITCH("Headset Mic"),
-> > +};
-> > +
-> > +static const struct snd_soc_dapm_route mt8195_mt6359_routes[] = {
-> >  	/* headset */
-> >  	{ "Headphone Jack", NULL, "HPOL" },
-> >  	{ "Headphone Jack", NULL, "HPOR" },
-> > @@ -80,55 +94,31 @@ static const struct snd_soc_dapm_route
-> > mt8195_mt6359_rt1019_rt5682_routes[] = {
-> >  	{"I021", NULL, SOF_DMA_DL3},
-> >  };
-> >  
-> > -static const struct snd_kcontrol_new
-> > mt8195_mt6359_rt1019_rt5682_controls[] = {
-> > -	SOC_DAPM_PIN_SWITCH("Speakers"),
-> > -	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
-> > -	SOC_DAPM_PIN_SWITCH("Headset Mic"),
-> > +static const struct snd_soc_dapm_widget
-> > mt8195_dual_speaker_widgets[] = {
-> > +	SND_SOC_DAPM_SPK("Left Speaker", NULL),
-> > +	SND_SOC_DAPM_SPK("Right Speaker", NULL),
-> >  };
-> >  
-> > -static int mt8195_rt5682_etdm_hw_params(struct snd_pcm_substream
-> > *substream,
-> > -					struct snd_pcm_hw_params
-> > *params)
-> > -{
-> 
-> [...]
-> > +static const struct snd_kcontrol_new
-> > mt8195_dual_speaker_controls[] = {
-> > +	SOC_DAPM_PIN_SWITCH("Left Speaker"),
-> > +	SOC_DAPM_PIN_SWITCH("Right Speaker"),
-> > +};
-> 
-> Ditto.  I would expect it only renames and adds something.  However,
-> if you
-> look at the block and the following, it looks like changed a lot.
-> 
-> > @@ -143,20 +133,20 @@ static int
-> > mt8195_mt6359_mtkaif_calibration(struct snd_soc_pcm_runtime *rtd)
-> >  	struct mtk_base_afe *afe =
-> > snd_soc_component_get_drvdata(cmpnt_afe);
-> >  	struct mt8195_afe_private *afe_priv = afe->platform_priv;
-> >  	struct mtkaif_param *param = &afe_priv->mtkaif_params;
-> > -	int phase;
-> > -	unsigned int monitor;
-> > -	int mtkaif_calibration_num_phase;
-> > +	int chosen_phase_1, chosen_phase_2, chosen_phase_3;
-> > +	int prev_cycle_1, prev_cycle_2, prev_cycle_3;
-> >  	int test_done_1, test_done_2, test_done_3;
-> >  	int cycle_1, cycle_2, cycle_3;
-> > -	int prev_cycle_1, prev_cycle_2, prev_cycle_3;
-> > -	int chosen_phase_1, chosen_phase_2, chosen_phase_3;
-> > -	int counter;
-> > -	bool mtkaif_calibration_ok;
-> >  	int mtkaif_chosen_phase[MT8195_MTKAIF_MISO_NUM];
-> >  	int mtkaif_phase_cycle[MT8195_MTKAIF_MISO_NUM];
-> > +	int mtkaif_calibration_num_phase;
-> > +	bool mtkaif_calibration_ok;
-> > +	unsigned int monitor;
-> > +	int counter;
-> > +	int phase;
-> >  	int i;
-> 
-> The reorder of variable declaration is irrelevant to the patch.  Drop
-> them.
-> If it has good reason to do so, send another patch for the purpose.
-
-This function is copied from mt8195-mt6359-rt1011-rt5682.c, because
-this is the latest version of mt8195_mt6359_mtkaif_calibration().
-The reordering is suggested by the reviewer.
-
-
-> 
-> > @@ -513,7 +446,7 @@ static int mt8195_playback_startup(struct
-> > snd_pcm_substream *substream)
-> >  	return 0;
-> >  }
-> >  
-> > -static const struct snd_soc_ops mt8195_playback_ops = {
-> > +const struct snd_soc_ops mt8195_playback_ops = {
-> >  	.startup = mt8195_playback_startup,
-> 
-> Why does it remove the `static`?
-
-Sorry, I will add it in v3.
-
-> 
-> > +static int mt8195_mt6359_dev_probe(struct platform_device *pdev)
-> >  {
-> 
-> [...]
-> > +	match = of_match_device(pdev->dev.driver->of_match_table,
-> > &pdev->dev);
-> > +	if (!match || !match->data)
-> > +		return -EINVAL;
-> > +
-> > +	card_data = (struct mt8195_card_data *)match->data;
-> 
-> Use of_device_get_match_data().
-
-OK.
-
-> 
-> > -static const struct dev_pm_ops mt8195_mt6359_rt1019_rt5682_pm_ops
-> > = {
-> > +const struct dev_pm_ops mt8195_mt6359_pm_ops = {
-> >  	.poweroff = snd_soc_poweroff,
-> >  	.restore = snd_soc_resume,
-> >  };
-> 
-> Why does it remove the `static`?
-
-I will add it in v3.
-
-Thanks,
-Trevor
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 46ffe05eaeb7..bf7a0ae10d06 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -7779,10 +7779,10 @@ F:	drivers/net/ethernet/freescale/fs_enet/
+ F:	include/linux/fs_enet_pd.h
+ 
+ FREESCALE SOC SOUND DRIVERS
+-M:	Nicolin Chen <nicoleotsuka@gmail.com>
++M:	Shengjiu Wang <shengjiu.wang@gmail.com>
+ M:	Xiubo Li <Xiubo.Lee@gmail.com>
+ R:	Fabio Estevam <festevam@gmail.com>
+-R:	Shengjiu Wang <shengjiu.wang@gmail.com>
++R:	Nicolin Chen <nicoleotsuka@gmail.com>
+ L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
+ L:	linuxppc-dev@lists.ozlabs.org
+ S:	Maintained
+-- 
+2.17.1
 

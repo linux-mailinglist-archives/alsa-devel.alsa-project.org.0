@@ -2,69 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D82E4DC15E
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Mar 2022 09:34:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC6DF4DC2D3
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Mar 2022 10:32:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B399A1941;
-	Thu, 17 Mar 2022 09:33:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B399A1941
+	by alsa0.perex.cz (Postfix) with ESMTPS id 599C51867;
+	Thu, 17 Mar 2022 10:32:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 599C51867
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647506060;
-	bh=CViGqoQsQMjRWbVnHOAb0kWQgVqlyUYIMlkB3ZY5r8E=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=d87Lj7sEugGW4aiTuuyJfp7J2FRWgyPJQy9ETLBo0S6BJlGRRP7Ed/BtPPJ3im5oq
-	 m+eOPMQXR5ejGasbGB6SQFydR7e2czWqaFo4x25krohkx5wd5HERmZ5s0kJQMANesk
-	 0skkjrxLXwzg+p0q0Z34jXPnsQM73gP5a5pGTb90=
+	s=default; t=1647509571;
+	bh=kmcCOkKa4zj6u0VJBKGNO0hlU5Zx6kqIem31QHKyfX0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=phy5wE8tbQ4SLLXfaYgd/8EaZgS14vFV7E7E5nnrXj6+bhV/U48zJLIBCQOZ49YTF
+	 f+XUxsWhFrL1ybSpfGtzpriDugl3YIbNp5+RfQ55E++rcWY1+Ig72jrbbAVBmF5RMY
+	 z5VVA/oUPo5DkZ2hnjXAYYUDs2RF+mDrDSEbshEc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CDEBCF80558;
-	Thu, 17 Mar 2022 09:29:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8FDD8F8051E;
+	Thu, 17 Mar 2022 10:31:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BFF2CF80551; Thu, 17 Mar 2022 09:29:06 +0100 (CET)
+ id AB1B5F8051D; Thu, 17 Mar 2022 10:31:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0B741F8020D
- for <alsa-devel@alsa-project.org>; Thu, 17 Mar 2022 09:28:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B741F8020D
-Received: from dude02.hi.pengutronix.de ([2001:67c:670:100:1d::28])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <sha@pengutronix.de>)
- id 1nUlUo-000699-7y; Thu, 17 Mar 2022 09:28:34 +0100
-Received: from sha by dude02.hi.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <sha@pengutronix.de>)
- id 1nUlUn-0027UV-3O; Thu, 17 Mar 2022 09:28:33 +0100
-From: Sascha Hauer <s.hauer@pengutronix.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 19/19] ASoC: fsl_micfil: fold fsl_set_clock_params() into its
- only user
-Date: Thu, 17 Mar 2022 09:28:18 +0100
-Message-Id: <20220317082818.503143-20-s.hauer@pengutronix.de>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20220317082818.503143-1-s.hauer@pengutronix.de>
-References: <20220317082818.503143-1-s.hauer@pengutronix.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id D1EA8F80132
+ for <alsa-devel@alsa-project.org>; Thu, 17 Mar 2022 10:31:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1EA8F80132
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="Zt0Tys2Y"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 22H5Kw4t025823;
+ Thu, 17 Mar 2022 04:31:31 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=+1Spm++uXSWjxqTxhnFXit10wfkaW+dD/q6ScBEsMgI=;
+ b=Zt0Tys2Yx4cotdJNlZ/r3kRO00Ni9H59EKpYQHdn/1Zb9/M4X2AuIPHlSlbgzxc40rf4
+ KVYDAKPy9/UNB0GXZx51gCI5udcV5X+nVJpeozh9XT0flFde+S09Nw1wutaJlxOnoV+b
+ 9DVZF/slXHKnRdnuOef2qaLHhykpV3S2FMopI0JX/R4QhfgWc4QQUHJWhvbdPvSqmOvz
+ w7G2IMHEBO5oApexBcGIFnEgfDeE25znbFG2DcbHbRCWeOAc0GzjdZplsrUZynmDmyE5
+ Yu3cGZfX77TFHDab+IDD+seaFR8pZVs09BnBZrOZZVYAN0YF8mN2GbNkSFfhK3ZC1dy1 wg== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3et5yp475e-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Thu, 17 Mar 2022 04:31:31 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Thu, 17 Mar
+ 2022 09:31:29 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.18 via
+ Frontend Transport; Thu, 17 Mar 2022 09:31:29 +0000
+Received: from aryzen.ad.cirrus.com (unknown [198.61.64.95])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 8DD957C;
+ Thu, 17 Mar 2022 09:31:29 +0000 (UTC)
+From: Lucas Tanure <tanureal@opensource.cirrus.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob
+ Herring <robh+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH v4 00/16] Support external boost at CS35l41 ASoC driver
+Date: Thu, 17 Mar 2022 09:31:04 +0000
+Message-ID: <20220317093120.168534-1-tanureal@opensource.cirrus.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::28
-X-SA-Exim-Mail-From: sha@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Cc: Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Vinod Koul <vkoul@kernel.org>,
- NXP Linux Team <linux-imx@nxp.com>, kernel@pengutronix.de,
- dmaengine@vger.kernel.org, Shengjiu Wang <shengjiu.wang@gmail.com>
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: 2c5yPmNcZ4Zid1lPjl9jqO_edeLTrjGT
+X-Proofpoint-GUID: 2c5yPmNcZ4Zid1lPjl9jqO_edeLTrjGT
+X-Proofpoint-Spam-Reason: safe
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Lucas Tanure <tanureal@opensource.cirrus.com>,
+ devicetree@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,81 +99,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-fsl_set_clock_params() is used only once and easily be folded into its
-caller, do so.
+Move the support for CS35L41 external boost to its shared library
+for ASoC use.
+This move resulted in cs35l41_hda_reg_sequence being removed,
+and its steps were broken down into regmap writes or functions
+from the library. And hardware configuration struct was unified
+for its use in the shared lib.
+While at it, some minor bugs were found and fixed it.
 
-Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
----
- sound/soc/fsl/fsl_micfil.c | 41 ++++++++++++--------------------------
- 1 file changed, 13 insertions(+), 28 deletions(-)
+v4 changelog:
+ - Separated GPIO 1 and 2 function enums
 
-diff --git a/sound/soc/fsl/fsl_micfil.c b/sound/soc/fsl/fsl_micfil.c
-index 99e25761008b1..79f6deb2ba821 100644
---- a/sound/soc/fsl/fsl_micfil.c
-+++ b/sound/soc/fsl/fsl_micfil.c
-@@ -252,29 +252,6 @@ static int fsl_micfil_trigger(struct snd_pcm_substream *substream, int cmd,
- 	return 0;
- }
- 
--static int fsl_set_clock_params(struct device *dev, unsigned int rate)
--{
--	struct fsl_micfil *micfil = dev_get_drvdata(dev);
--	int clk_div = 8;
--	int osr = MICFIL_OSR_DEFAULT;
--	int ret;
--
--	ret = clk_set_rate(micfil->mclk, rate * clk_div * osr * 8);
--	if (ret)
--		return ret;
--
--	ret = micfil_set_quality(micfil);
--	if (ret)
--		return ret;
--
--	ret = regmap_update_bits(micfil->regmap, REG_MICFIL_CTRL2,
--				 MICFIL_CTRL2_CLKDIV | MICFIL_CTRL2_CICOSR,
--				 FIELD_PREP(MICFIL_CTRL2_CLKDIV, clk_div) |
--				 FIELD_PREP(MICFIL_CTRL2_CICOSR, 16 - osr));
--
--	return ret;
--}
--
- static int fsl_micfil_hw_params(struct snd_pcm_substream *substream,
- 				struct snd_pcm_hw_params *params,
- 				struct snd_soc_dai *dai)
-@@ -282,7 +259,8 @@ static int fsl_micfil_hw_params(struct snd_pcm_substream *substream,
- 	struct fsl_micfil *micfil = snd_soc_dai_get_drvdata(dai);
- 	unsigned int channels = params_channels(params);
- 	unsigned int rate = params_rate(params);
--	struct device *dev = &micfil->pdev->dev;
-+	int clk_div = 8;
-+	int osr = MICFIL_OSR_DEFAULT;
- 	int ret;
- 
- 	/* 1. Disable the module */
-@@ -297,11 +275,18 @@ static int fsl_micfil_hw_params(struct snd_pcm_substream *substream,
- 	if (ret)
- 		return ret;
- 
--	ret = fsl_set_clock_params(dev, rate);
--	if (ret < 0) {
--		dev_err(dev, "Failed to set clock parameters [%d]\n", ret);
-+	ret = clk_set_rate(micfil->mclk, rate * clk_div * osr * 8);
-+	if (ret)
- 		return ret;
--	}
-+
-+	ret = micfil_set_quality(micfil);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_update_bits(micfil->regmap, REG_MICFIL_CTRL2,
-+				 MICFIL_CTRL2_CLKDIV | MICFIL_CTRL2_CICOSR,
-+				 FIELD_PREP(MICFIL_CTRL2_CLKDIV, clk_div) |
-+				 FIELD_PREP(MICFIL_CTRL2_CICOSR, 16 - osr));
- 
- 	micfil->dma_params_rx.peripheral_config = &micfil->sdmacfg;
- 	micfil->dma_params_rx.peripheral_size = sizeof(micfil->sdmacfg);
+v3 changelog:
+ - Remove patches already accepted
+ - Improved logic in documentation patch
+ - Documentation patch goes before its code
+ - Fixed missing Signed-off-by
+ - Fixed subject for HDA patches
+
+v2 changelog:
+ - Instead of removing the log, playback actions will log the last regmap access.
+ - Documentation patch with the correct subject line and fixed bug reported by Rob Herring on the
+ provided example.
+
+Previous versions:
+ v1: https://lkml.org/lkml/2022/3/3/759
+ v2: https://lkml.org/lkml/2022/3/4/743
+ v3: https://lkml.org/lkml/2022/3/8/975
+
+David Rhodes (1):
+  ASoC: dt-bindings: cs35l41: Document CS35l41 External Boost
+
+Lucas Tanure (15):
+  sound: cs35l41: Unify hardware configuration
+  sound: cs35l41: Check hw_config before using it
+  sound: cs35l41: Move cs35l41_gpio_config to shared lib
+  ALSA: hda: cs35l41: Fix I2S params comments
+  ALSA: hda: cs35l41: Always configure the DAI
+  ALSA: hda: cs35l41: Add Boost type flag
+  hda: cs35l41: Put the device into safe mode for external boost
+  hda: cs35l41: Mute the device before shutdown
+  sound: cs35l41: Enable Internal Boost in shared lib
+  ALSA: hda: cs35l41: Move boost config to initialization code
+  ALSA: hda: cs35l41: Remove cs35l41_hda_reg_sequence struct
+  ALSA: hda: cs35l41: Reorganize log for playback actions
+  ALSA: hda: cs35l41: Handle all external boost setups the same way
+  ALSA: hda: cs35l41: Move external boost handling to lib for ASoC use
+  ASoC: cs35l41: Support external boost
+
+ .../bindings/sound/cirrus,cs35l41.yaml        |  44 ++-
+ include/sound/cs35l41.h                       |  59 +++-
+ sound/pci/hda/cs35l41_hda.c                   | 295 ++++++------------
+ sound/pci/hda/cs35l41_hda.h                   |  27 +-
+ sound/soc/codecs/cs35l41-i2c.c                |   4 +-
+ sound/soc/codecs/cs35l41-lib.c                | 190 ++++++++++-
+ sound/soc/codecs/cs35l41-spi.c                |   4 +-
+ sound/soc/codecs/cs35l41.c                    | 166 +++++-----
+ sound/soc/codecs/cs35l41.h                    |   5 +-
+ 9 files changed, 443 insertions(+), 351 deletions(-)
+
 -- 
-2.30.2
+2.35.1
 

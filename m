@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFE3B4DCD01
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Mar 2022 18:56:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 867A04DCCFF
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Mar 2022 18:55:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 126CA190B;
-	Thu, 17 Mar 2022 18:55:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 126CA190B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 51048193A;
+	Thu, 17 Mar 2022 18:54:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51048193A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647539777;
-	bh=s54QIOYxLYpwYIrccYCban+d46ntW9dfhPYNkjuOt28=;
+	s=default; t=1647539743;
+	bh=oh448Xd11lB3oMc5RnUnNqrLe+WesJgQE7IDz0X9HDk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bOi0G/6PTae/bPGDOduZcxDnq7gW9EHzq4/cU9xkfbespDppVLfwfo0LI+JIwbpla
-	 uWRqdj/IiM+Mj75n30I+ApV9Xx1nZxcmbfyglVPGQaMdcvCPdjzLUStuCyt8KclZTW
-	 susUUKmDLQA/6vgITcDQZQiGNWU6hppgfdgeVQUk=
+	b=LN7rBzVV8ahZVyTbIS/YMWU68rcfHimqzRblHryLMgybh316cE3y5r1eGa52RA0Wu
+	 JhbmDowMsdMcgW5fwK+WPv2MyDI8js7/iB4Upj7PNGz+7lRJOf+D5QrqzyAI7Z9px2
+	 J7V57h35dz9I17nJOjzrH3Ayj+q5AiIszK0rVSR8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 524FBF80553;
-	Thu, 17 Mar 2022 18:52:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 22685F80542;
+	Thu, 17 Mar 2022 18:52:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2B752F8023A; Thu, 17 Mar 2022 18:52:06 +0100 (CET)
+ id 8E6FEF80537; Thu, 17 Mar 2022 18:52:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DEC97F8023A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 95E88F8051F
  for <alsa-devel@alsa-project.org>; Thu, 17 Mar 2022 18:51:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DEC97F8023A
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95E88F8051F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="hSYyJpIU"
+ header.b="e2OKFquU"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647539515; x=1679075515;
+ t=1647539514; x=1679075514;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=s54QIOYxLYpwYIrccYCban+d46ntW9dfhPYNkjuOt28=;
- b=hSYyJpIUJ/sK2rGxsZkQ9kA/Qopt2MyP41rO3cCJ4tlKz+Ca+yOAUHPq
- G6XxmSwdzk+cBWFLOMMIWlG8kv+rEOH3Nm720fwA8SCpxbQBzA0pbhuWS
- BpKdmggGbsTe/NGB036d/kjB/MeiRDTy8KgrNCyjlEOyO/mIjdY1dyFsS
- g84iToAbcys/OpuS0J2tHyINQSyBOECN2J833/1GuODkcizLVNiLngNJy
- kCshb3RwAwMbEFQgGpKfHk95k7NG7o8W1EV1SFINEm+nQzukqCtdFfOPN
- Rs/U1tf3qzB3sMCN2zXIgVK2mkT3MlCaGif+l9DFGj/gNBDkvlN8mqAYX Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10289"; a="254492918"
-X-IronPort-AV: E=Sophos;i="5.90,188,1643702400"; d="scan'208";a="254492918"
+ bh=oh448Xd11lB3oMc5RnUnNqrLe+WesJgQE7IDz0X9HDk=;
+ b=e2OKFquUAaWTgy/OwGLiHgHfb4biYHEdxeJ4Icw2M4mg2JhyHopU2tv3
+ sAmjIbW5UOusGuLxx9gSTRILQuFtmVV/Slj3thKfGDMAn6SM7LqGBRM8a
+ PlYscSKksdRp9iR0we2t9QZ7q3IwDd9pxfDcRvDOBKwKC66CvnpcXDa7N
+ oerR5UxZsdW60T/qCfDBMOUtlRHJEsjepmMp6AONqBE6aCbJ5/xgEfXAB
+ QW8BmDKaeeZOSq1a0WHDYQTY8avrTIW76fZq1ZYpPVg9MoyR5UzRADEvO
+ KJFyXX5Vy7FbwLp1uaV+YZl7t5rx9UP0CfLNb7yBtxihYSnhmhrWBqUEM w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10289"; a="254492921"
+X-IronPort-AV: E=Sophos;i="5.90,188,1643702400"; d="scan'208";a="254492921"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  17 Mar 2022 10:51:23 -0700
-X-IronPort-AV: E=Sophos;i="5.90,188,1643702400"; d="scan'208";a="550431139"
+X-IronPort-AV: E=Sophos;i="5.90,188,1643702400"; d="scan'208";a="550431142"
 Received: from jfbonin1-mobl6.amr.corp.intel.com (HELO
  rsridh2-mobl1.localdomain) ([10.255.92.163])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2022 10:51:22 -0700
+ 17 Mar 2022 10:51:23 -0700
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 10/19] ASoC: SOF: Add bytes_ext control IPC ops for IPC3
-Date: Thu, 17 Mar 2022 10:50:35 -0700
-Message-Id: <20220317175044.1752400-11-ranjani.sridharan@linux.intel.com>
+Subject: [PATCH 11/19] ASoC: SOF: Introduce IPC-specific PCM ops
+Date: Thu, 17 Mar 2022 10:50:36 -0700
+Message-Id: <20220317175044.1752400-12-ranjani.sridharan@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220317175044.1752400-1-ranjani.sridharan@linux.intel.com>
 References: <20220317175044.1752400-1-ranjani.sridharan@linux.intel.com>
@@ -92,455 +92,68 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Define and set the get/put/volatile_get control IPC ops for byte
-controls for IPC3.
+Introduce the IPC-specific PCM ops that will be used to abstract the
+PCM related IPC's.
 
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/control.c      | 197 +++--------------------------------
- sound/soc/sof/ipc3-control.c | 171 ++++++++++++++++++++++++++++++
- 2 files changed, 188 insertions(+), 180 deletions(-)
+ sound/soc/sof/sof-audio.h | 17 +++++++++++++++++
+ sound/soc/sof/sof-priv.h  |  3 +++
+ 2 files changed, 20 insertions(+)
 
-diff --git a/sound/soc/sof/control.c b/sound/soc/sof/control.c
-index 2a4997e1cd1e..de1778c4002b 100644
---- a/sound/soc/sof/control.c
-+++ b/sound/soc/sof/control.c
-@@ -45,33 +45,6 @@ static void update_mute_led(struct snd_sof_control *scontrol,
- #endif
- }
- 
--static void snd_sof_refresh_control(struct snd_sof_control *scontrol)
--{
--	struct sof_ipc_ctrl_data *cdata = scontrol->ipc_control_data;
--	struct snd_soc_component *scomp = scontrol->scomp;
--	int ret;
--
--	if (!scontrol->comp_data_dirty)
--		return;
--
--	if (!pm_runtime_active(scomp->dev))
--		return;
--
--	/* set the ABI header values */
--	cdata->data->magic = SOF_ABI_MAGIC;
--	cdata->data->abi = SOF_ABI_VERSION;
--
--	/* refresh the component data from DSP */
--	scontrol->comp_data_dirty = false;
--	ret = snd_sof_ipc_set_get_comp_data(scontrol, false);
--	if (ret < 0) {
--		dev_err(scomp->dev, "Failed to get control data: %d\n", ret);
--
--		/* Set the flag to re-try next time to get the data */
--		scontrol->comp_data_dirty = true;
--	}
--}
--
- int snd_sof_volume_get(struct snd_kcontrol *kcontrol,
- 		       struct snd_ctl_elem_value *ucontrol)
- {
-@@ -221,74 +194,18 @@ int snd_sof_bytes_ext_put(struct snd_kcontrol *kcontrol,
- 			  const unsigned int __user *binary_data,
- 			  unsigned int size)
- {
--	struct soc_bytes_ext *be =
--		(struct soc_bytes_ext *)kcontrol->private_value;
-+	struct soc_bytes_ext *be = (struct soc_bytes_ext *)kcontrol->private_value;
- 	struct snd_sof_control *scontrol = be->dobj.private;
- 	struct snd_soc_component *scomp = scontrol->scomp;
--	struct sof_ipc_ctrl_data *cdata = scontrol->ipc_control_data;
--	struct snd_ctl_tlv header;
--	const struct snd_ctl_tlv __user *tlvd =
--		(const struct snd_ctl_tlv __user *)binary_data;
-+	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
-+	const struct sof_ipc_tplg_ops *tplg_ops = sdev->ipc->ops->tplg;
- 
- 	/* make sure we have at least a header */
- 	if (size < sizeof(struct snd_ctl_tlv))
- 		return -EINVAL;
- 
--	/*
--	 * The beginning of bytes data contains a header from where
--	 * the length (as bytes) is needed to know the correct copy
--	 * length of data from tlvd->tlv.
--	 */
--	if (copy_from_user(&header, tlvd, sizeof(struct snd_ctl_tlv)))
--		return -EFAULT;
--
--	/* make sure TLV info is consistent */
--	if (header.length + sizeof(struct snd_ctl_tlv) > size) {
--		dev_err_ratelimited(scomp->dev, "error: inconsistent TLV, data %d + header %zu > %d\n",
--				    header.length, sizeof(struct snd_ctl_tlv), size);
--		return -EINVAL;
--	}
--
--	/* be->max is coming from topology */
--	if (header.length > be->max) {
--		dev_err_ratelimited(scomp->dev, "error: Bytes data size %d exceeds max %d.\n",
--				    header.length, be->max);
--		return -EINVAL;
--	}
--
--	/* Check that header id matches the command */
--	if (header.numid != cdata->cmd) {
--		dev_err_ratelimited(scomp->dev,
--				    "error: incorrect numid %d\n",
--				    header.numid);
--		return -EINVAL;
--	}
--
--	if (copy_from_user(cdata->data, tlvd->tlv, header.length))
--		return -EFAULT;
--
--	if (cdata->data->magic != SOF_ABI_MAGIC) {
--		dev_err_ratelimited(scomp->dev,
--				    "error: Wrong ABI magic 0x%08x.\n",
--				    cdata->data->magic);
--		return -EINVAL;
--	}
--
--	if (SOF_ABI_VERSION_INCOMPATIBLE(SOF_ABI_VERSION, cdata->data->abi)) {
--		dev_err_ratelimited(scomp->dev, "error: Incompatible ABI version 0x%08x.\n",
--				    cdata->data->abi);
--		return -EINVAL;
--	}
--
--	/* be->max has been verified to be >= sizeof(struct sof_abi_hdr) */
--	if (cdata->data->size > be->max - sizeof(struct sof_abi_hdr)) {
--		dev_err_ratelimited(scomp->dev, "error: Mismatch in ABI data size (truncated?).\n");
--		return -EINVAL;
--	}
--
--	/* notify DSP of byte control updates */
--	if (pm_runtime_active(scomp->dev))
--		snd_sof_ipc_set_get_comp_data(scontrol, true);
-+	if (tplg_ops->control->bytes_ext_put)
-+		return tplg_ops->control->bytes_ext_put(scontrol, binary_data, size);
- 
- 	return 0;
- }
-@@ -299,67 +216,24 @@ int snd_sof_bytes_ext_volatile_get(struct snd_kcontrol *kcontrol, unsigned int _
- 	struct soc_bytes_ext *be = (struct soc_bytes_ext *)kcontrol->private_value;
- 	struct snd_sof_control *scontrol = be->dobj.private;
- 	struct snd_soc_component *scomp = scontrol->scomp;
--	struct sof_ipc_ctrl_data *cdata = scontrol->ipc_control_data;
--	struct snd_ctl_tlv header;
--	struct snd_ctl_tlv __user *tlvd = (struct snd_ctl_tlv __user *)binary_data;
--	size_t data_size;
--	int ret;
--	int err;
--
--	/*
--	 * Decrement the limit by ext bytes header size to
--	 * ensure the user space buffer is not exceeded.
--	 */
--	if (size < sizeof(struct snd_ctl_tlv))
--		return -ENOSPC;
--	size -= sizeof(struct snd_ctl_tlv);
-+	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
-+	const struct sof_ipc_tplg_ops *tplg_ops = sdev->ipc->ops->tplg;
-+	int ret, err;
- 
- 	ret = pm_runtime_get_sync(scomp->dev);
- 	if (ret < 0 && ret != -EACCES) {
--		dev_err_ratelimited(scomp->dev, "error: bytes_ext get failed to resume %d\n", ret);
-+		dev_err_ratelimited(scomp->dev, "%s: failed to resume %d\n", __func__, ret);
- 		pm_runtime_put_noidle(scomp->dev);
- 		return ret;
- 	}
- 
--	/* set the ABI header values */
--	cdata->data->magic = SOF_ABI_MAGIC;
--	cdata->data->abi = SOF_ABI_VERSION;
--	/* get all the component data from DSP */
--	ret = snd_sof_ipc_set_get_comp_data(scontrol, false);
--	if (ret < 0)
--		goto out;
--
--	/* check data size doesn't exceed max coming from topology */
--	if (cdata->data->size > be->max - sizeof(struct sof_abi_hdr)) {
--		dev_err_ratelimited(scomp->dev, "error: user data size %d exceeds max size %zu.\n",
--				    cdata->data->size,
--				    be->max - sizeof(struct sof_abi_hdr));
--		ret = -EINVAL;
--		goto out;
--	}
--
--	data_size = cdata->data->size + sizeof(struct sof_abi_hdr);
-+	if (tplg_ops->control->bytes_ext_volatile_get)
-+		ret = tplg_ops->control->bytes_ext_volatile_get(scontrol, binary_data, size);
- 
--	/* make sure we don't exceed size provided by user space for data */
--	if (data_size > size) {
--		ret = -ENOSPC;
--		goto out;
--	}
--
--	header.numid = cdata->cmd;
--	header.length = data_size;
--	if (copy_to_user(tlvd, &header, sizeof(struct snd_ctl_tlv))) {
--		ret = -EFAULT;
--		goto out;
--	}
--
--	if (copy_to_user(tlvd->tlv, cdata->data, data_size))
--		ret = -EFAULT;
--out:
- 	pm_runtime_mark_last_busy(scomp->dev);
- 	err = pm_runtime_put_autosuspend(scomp->dev);
- 	if (err < 0)
--		dev_err_ratelimited(scomp->dev, "error: bytes_ext get failed to idle %d\n", err);
-+		dev_err_ratelimited(scomp->dev, "%s: failed to idle %d\n", __func__, err);
- 
- 	return ret;
- }
-@@ -368,51 +242,14 @@ int snd_sof_bytes_ext_get(struct snd_kcontrol *kcontrol,
- 			  unsigned int __user *binary_data,
- 			  unsigned int size)
- {
--	struct soc_bytes_ext *be =
--		(struct soc_bytes_ext *)kcontrol->private_value;
-+	struct soc_bytes_ext *be = (struct soc_bytes_ext *)kcontrol->private_value;
- 	struct snd_sof_control *scontrol = be->dobj.private;
- 	struct snd_soc_component *scomp = scontrol->scomp;
--	struct sof_ipc_ctrl_data *cdata = scontrol->ipc_control_data;
--	struct snd_ctl_tlv header;
--	struct snd_ctl_tlv __user *tlvd =
--		(struct snd_ctl_tlv __user *)binary_data;
--	size_t data_size;
--
--	snd_sof_refresh_control(scontrol);
--
--	/*
--	 * Decrement the limit by ext bytes header size to
--	 * ensure the user space buffer is not exceeded.
--	 */
--	if (size < sizeof(struct snd_ctl_tlv))
--		return -ENOSPC;
--	size -= sizeof(struct snd_ctl_tlv);
--
--	/* set the ABI header values */
--	cdata->data->magic = SOF_ABI_MAGIC;
--	cdata->data->abi = SOF_ABI_VERSION;
--
--	/* check data size doesn't exceed max coming from topology */
--	if (cdata->data->size > be->max - sizeof(struct sof_abi_hdr)) {
--		dev_err_ratelimited(scomp->dev, "error: user data size %d exceeds max size %zu.\n",
--				    cdata->data->size,
--				    be->max - sizeof(struct sof_abi_hdr));
--		return -EINVAL;
--	}
--
--	data_size = cdata->data->size + sizeof(struct sof_abi_hdr);
--
--	/* make sure we don't exceed size provided by user space for data */
--	if (data_size > size)
--		return -ENOSPC;
--
--	header.numid = cdata->cmd;
--	header.length = data_size;
--	if (copy_to_user(tlvd, &header, sizeof(struct snd_ctl_tlv)))
--		return -EFAULT;
-+	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
-+	const struct sof_ipc_tplg_ops *tplg_ops = sdev->ipc->ops->tplg;
- 
--	if (copy_to_user(tlvd->tlv, cdata->data, data_size))
--		return -EFAULT;
-+	if (tplg_ops->control->bytes_ext_get)
-+		return tplg_ops->control->bytes_ext_get(scontrol, binary_data, size);
- 
- 	return 0;
- }
-diff --git a/sound/soc/sof/ipc3-control.c b/sound/soc/sof/ipc3-control.c
-index df8e4df9663d..cdd5ad860a94 100644
---- a/sound/soc/sof/ipc3-control.c
-+++ b/sound/soc/sof/ipc3-control.c
-@@ -270,6 +270,174 @@ static int sof_ipc3_bytes_put(struct snd_sof_control *scontrol,
- 	return 0;
- }
- 
-+static int sof_ipc3_bytes_ext_get(struct snd_sof_control *scontrol,
-+				  const unsigned int __user *binary_data, unsigned int size)
-+{
-+	struct snd_ctl_tlv __user *tlvd = (struct snd_ctl_tlv __user *)binary_data;
-+	struct sof_ipc_ctrl_data *cdata = scontrol->ipc_control_data;
-+	struct snd_soc_component *scomp = scontrol->scomp;
-+	struct snd_ctl_tlv header;
-+	size_t data_size;
-+
-+	snd_sof_refresh_control(scontrol);
-+
-+	/*
-+	 * Decrement the limit by ext bytes header size to
-+	 * ensure the user space buffer is not exceeded.
-+	 */
-+	if (size < sizeof(struct snd_ctl_tlv))
-+		return -ENOSPC;
-+
-+	size -= sizeof(struct snd_ctl_tlv);
-+
-+	/* set the ABI header values */
-+	cdata->data->magic = SOF_ABI_MAGIC;
-+	cdata->data->abi = SOF_ABI_VERSION;
-+
-+	/* check data size doesn't exceed max coming from topology */
-+	if (cdata->data->size > scontrol->max_size - sizeof(struct sof_abi_hdr)) {
-+		dev_err_ratelimited(scomp->dev, "User data size %d exceeds max size %zu\n",
-+				    cdata->data->size,
-+				    scontrol->max_size - sizeof(struct sof_abi_hdr));
-+		return -EINVAL;
-+	}
-+
-+	data_size = cdata->data->size + sizeof(struct sof_abi_hdr);
-+
-+	/* make sure we don't exceed size provided by user space for data */
-+	if (data_size > size)
-+		return -ENOSPC;
-+
-+	header.numid = cdata->cmd;
-+	header.length = data_size;
-+	if (copy_to_user(tlvd, &header, sizeof(struct snd_ctl_tlv)))
-+		return -EFAULT;
-+
-+	if (copy_to_user(tlvd->tlv, cdata->data, data_size))
-+		return -EFAULT;
-+
-+	return 0;
-+}
-+
-+static int sof_ipc3_bytes_ext_put(struct snd_sof_control *scontrol,
-+				  const unsigned int __user *binary_data,
-+				  unsigned int size)
-+{
-+	const struct snd_ctl_tlv __user *tlvd = (const struct snd_ctl_tlv __user *)binary_data;
-+	struct sof_ipc_ctrl_data *cdata = scontrol->ipc_control_data;
-+	struct snd_soc_component *scomp = scontrol->scomp;
-+	struct snd_ctl_tlv header;
-+
-+	/*
-+	 * The beginning of bytes data contains a header from where
-+	 * the length (as bytes) is needed to know the correct copy
-+	 * length of data from tlvd->tlv.
-+	 */
-+	if (copy_from_user(&header, tlvd, sizeof(struct snd_ctl_tlv)))
-+		return -EFAULT;
-+
-+	/* make sure TLV info is consistent */
-+	if (header.length + sizeof(struct snd_ctl_tlv) > size) {
-+		dev_err_ratelimited(scomp->dev, "Inconsistent TLV, data %d + header %zu > %d\n",
-+				    header.length, sizeof(struct snd_ctl_tlv), size);
-+		return -EINVAL;
-+	}
-+
-+	/* be->max is coming from topology */
-+	if (header.length > scontrol->max_size) {
-+		dev_err_ratelimited(scomp->dev, "Bytes data size %d exceeds max %zu\n",
-+				    header.length, scontrol->max_size);
-+		return -EINVAL;
-+	}
-+
-+	/* Check that header id matches the command */
-+	if (header.numid != cdata->cmd) {
-+		dev_err_ratelimited(scomp->dev, "Incorrect command for bytes put %d\n",
-+				    header.numid);
-+		return -EINVAL;
-+	}
-+
-+	if (copy_from_user(cdata->data, tlvd->tlv, header.length))
-+		return -EFAULT;
-+
-+	if (cdata->data->magic != SOF_ABI_MAGIC) {
-+		dev_err_ratelimited(scomp->dev, "Wrong ABI magic 0x%08x\n", cdata->data->magic);
-+		return -EINVAL;
-+	}
-+
-+	if (SOF_ABI_VERSION_INCOMPATIBLE(SOF_ABI_VERSION, cdata->data->abi)) {
-+		dev_err_ratelimited(scomp->dev, "Incompatible ABI version 0x%08x\n",
-+				    cdata->data->abi);
-+		return -EINVAL;
-+	}
-+
-+	/* be->max has been verified to be >= sizeof(struct sof_abi_hdr) */
-+	if (cdata->data->size > scontrol->max_size - sizeof(struct sof_abi_hdr)) {
-+		dev_err_ratelimited(scomp->dev, "Mismatch in ABI data size (truncated?)\n");
-+		return -EINVAL;
-+	}
-+
-+	/* notify DSP of byte control updates */
-+	if (pm_runtime_active(scomp->dev))
-+		return snd_sof_ipc_set_get_comp_data(scontrol, true);
-+
-+	return 0;
-+}
-+
-+static int sof_ipc3_bytes_ext_volatile_get(struct snd_sof_control *scontrol,
-+					   const unsigned int __user *binary_data,
-+					   unsigned int size)
-+{
-+	struct snd_ctl_tlv __user *tlvd = (struct snd_ctl_tlv __user *)binary_data;
-+	struct sof_ipc_ctrl_data *cdata = scontrol->ipc_control_data;
-+	struct snd_soc_component *scomp = scontrol->scomp;
-+	struct snd_ctl_tlv header;
-+	size_t data_size;
-+	int ret;
-+
-+	/*
-+	 * Decrement the limit by ext bytes header size to
-+	 * ensure the user space buffer is not exceeded.
-+	 */
-+	if (size < sizeof(struct snd_ctl_tlv))
-+		return -ENOSPC;
-+
-+	size -= sizeof(struct snd_ctl_tlv);
-+
-+	/* set the ABI header values */
-+	cdata->data->magic = SOF_ABI_MAGIC;
-+	cdata->data->abi = SOF_ABI_VERSION;
-+
-+	/* get all the component data from DSP */
-+	ret = snd_sof_ipc_set_get_comp_data(scontrol, false);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* check data size doesn't exceed max coming from topology */
-+	if (cdata->data->size > scontrol->max_size - sizeof(struct sof_abi_hdr)) {
-+		dev_err_ratelimited(scomp->dev, "User data size %d exceeds max size %zu\n",
-+				    cdata->data->size,
-+				    scontrol->max_size - sizeof(struct sof_abi_hdr));
-+		return -EINVAL;
-+	}
-+
-+	data_size = cdata->data->size + sizeof(struct sof_abi_hdr);
-+
-+	/* make sure we don't exceed size provided by user space for data */
-+	if (data_size > size)
-+		return -ENOSPC;
-+
-+	header.numid = cdata->cmd;
-+	header.length = data_size;
-+	if (copy_to_user(tlvd, &header, sizeof(struct snd_ctl_tlv)))
-+		return -EFAULT;
-+
-+	if (copy_to_user(tlvd->tlv, cdata->data, data_size))
-+		return -EFAULT;
-+
-+	return ret;
-+}
-+
- static void snd_sof_update_control(struct snd_sof_control *scontrol,
- 				   struct sof_ipc_ctrl_data *cdata)
- {
-@@ -419,5 +587,8 @@ const struct sof_ipc_tplg_control_ops tplg_ipc3_control_ops = {
- 	.enum_get = sof_ipc3_enum_get,
- 	.bytes_put = sof_ipc3_bytes_put,
- 	.bytes_get = sof_ipc3_bytes_get,
-+	.bytes_ext_put = sof_ipc3_bytes_ext_put,
-+	.bytes_ext_get = sof_ipc3_bytes_ext_get,
-+	.bytes_ext_volatile_get = sof_ipc3_bytes_ext_volatile_get,
- 	.update = sof_ipc3_control_update,
+diff --git a/sound/soc/sof/sof-audio.h b/sound/soc/sof/sof-audio.h
+index bcd38c882078..4d25e781e5ae 100644
+--- a/sound/soc/sof/sof-audio.h
++++ b/sound/soc/sof/sof-audio.h
+@@ -45,6 +45,23 @@ struct snd_sof_dai_config_data {
+ 	int dai_data; /* contains DAI-specific information */
  };
+ 
++/**
++ * struct sof_ipc_pcm_ops - IPC-specific PCM ops
++ * @hw_params: Function pointer for hw_params
++ * @hw_free: Function pointer for hw_free
++ * @trigger: Function pointer for trigger
++ * @dai_link_fixup: Function pointer for DAI link fixup
++ */
++struct sof_ipc_pcm_ops {
++	int (*hw_params)(struct snd_soc_component *component, struct snd_pcm_substream *substream,
++			 struct snd_pcm_hw_params *params,
++			 struct snd_sof_platform_stream_params *platform_params);
++	int (*hw_free)(struct snd_soc_component *component, struct snd_pcm_substream *substream);
++	int (*trigger)(struct snd_soc_component *component,  struct snd_pcm_substream *substream,
++		       int cmd);
++	int (*dai_link_fixup)(struct snd_soc_pcm_runtime *rtd, struct snd_pcm_hw_params *params);
++};
++
+ /**
+  * struct sof_ipc_tplg_control_ops - IPC-specific ops for topology kcontrol IO
+  */
+diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
+index 3e883044dd0f..0d9b640ae24c 100644
+--- a/sound/soc/sof/sof-priv.h
++++ b/sound/soc/sof/sof-priv.h
+@@ -371,15 +371,18 @@ struct sof_ipc_pm_ops {
+ };
+ 
+ struct sof_ipc_tplg_ops;
++struct sof_ipc_pcm_ops;
+ 
+ /**
+  * struct sof_ipc_ops - IPC-specific ops
+  * @tplg:	Pointer to IPC-specific topology ops
+  * @pm:		Pointer to PM ops
++ * @pcm:	Pointer to PCM ops
+  */
+ struct sof_ipc_ops {
+ 	const struct sof_ipc_tplg_ops *tplg;
+ 	const struct sof_ipc_pm_ops *pm;
++	const struct sof_ipc_pcm_ops *pcm;
+ };
+ 
+ /* SOF generic IPC data */
 -- 
 2.25.1
 

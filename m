@@ -2,73 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AB154DE321
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Mar 2022 21:59:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 819384DE312
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Mar 2022 21:59:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0F069188B;
-	Fri, 18 Mar 2022 21:58:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F069188B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 055D71768;
+	Fri, 18 Mar 2022 21:58:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 055D71768
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647637178;
-	bh=8H+fSvBCzBGouY+xYIdRW3zBY3G8zCazdYVF6zMIHl0=;
+	s=default; t=1647637145;
+	bh=V4OSHyfOu4o/KO9DW2GDd6OSr61IpFYVtU6AC8qxpzg=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pt3m5UO76AL1g8iZW+OhaVrDBg828wCZ4wYTj5ErNOE6vzbU6ySvWWaJ4ys+CkwH/
-	 dzDPUIKS736/xd1FlK9pARaRugO5uF8b8ISURrNIisxKz4w8Gk59G6SEshY4kx7qNf
-	 VgwMqZLksxrzm3D0LpPIidzHml38RP+ZP/YLu/cE=
+	b=VtFzMChRWq7hzHyNTdQ3XMYm4oq7gBvhETJEIts29Bz9Dg1sS+FtQ9oiCDOEaZvu8
+	 KWcGDM1GvSOgVOAQZMWXtPlVQdVRn8icydTvSN3QKL6KnZdZkZOuIKat/bL3dA4Nd8
+	 HXwaeI44tuHYjyRul7uhsmXOkG2l47XOxmK3I6Q4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 17C57F804CF;
-	Fri, 18 Mar 2022 21:58:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5B666F80271;
+	Fri, 18 Mar 2022 21:57:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 23DA2F8026D; Fri, 18 Mar 2022 21:57:56 +0100 (CET)
+ id 01C04F80271; Fri, 18 Mar 2022 21:57:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E1E37F80121
- for <alsa-devel@alsa-project.org>; Fri, 18 Mar 2022 21:57:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1E37F80121
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6DC07F80118
+ for <alsa-devel@alsa-project.org>; Fri, 18 Mar 2022 21:57:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DC07F80118
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="uenWZO+j"
+ header.b="R8KnqL3l"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9E95C60EA9;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A2C2160EE8;
+ Fri, 18 Mar 2022 20:57:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 831B0C340ED;
  Fri, 18 Mar 2022 20:57:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62419C340E8;
- Fri, 18 Mar 2022 20:57:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1647637068;
- bh=8H+fSvBCzBGouY+xYIdRW3zBY3G8zCazdYVF6zMIHl0=;
+ s=k20201202; t=1647637070;
+ bh=V4OSHyfOu4o/KO9DW2GDd6OSr61IpFYVtU6AC8qxpzg=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=uenWZO+jtHNyZKLuv+vHVKTeT9npEFdlcJwxutBFYQV8NQRdal6alhtyHY+sltZF1
- vePdnLQBYGp5dqt7CgTJKka8s7ZkfnawbMLnCXQe2SGBM8UH7uvLAbSQtdUj55Xmnv
- +EdjtBiVXPBrHKf6OpdBa0LGvJpVivd8H+o0Qg2n00p4X2RrF4CbzdbcRXQInMiT79
- HTp6lpROoyZ/jhgHuCducFalc4LA81V43hxBJoBl6QswCXwrNZmzv+BdsZr+GSHiKV
- 0SukrFaoRDyGc059nmQ5fAZbeayHk6o/HjJUaDhsrf05oTGc3cqI1NNzDqZhYG4NOk
- PwQGoRJXL30qw==
+ b=R8KnqL3lbzAbRqVEnAHgMUVQOda4ULxu+k1FJvxSsXabvOwm66pKUCgUmViWEHRZh
+ oi3K0ZZetJfEW+Ab7gYQLicXP0EaV0i/mJ3FxtvPlKf8xKVDcQN4EpGmwNfLFPQ+7V
+ fzNg/2xtdSy9ImA12olArM85adR2w1/cEtVCUxjT3lh/VUE2S8v+tA23CkfqqGl8pC
+ 4oSCbWMSkplPhM6S8Mer1rE2wLJ04oCZWyG+EbhJe3KFlxXjQ867u3NfCWkXDryUEN
+ 8tEWR5QRtJytUhH75xrl8Nr5MGPQwAcjzTDJr5e1Pb7DZVjb7YWpzK4tc4ilAIS7bA
+ /0TD+qFDyRKGA==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-In-Reply-To: <20220317175044.1752400-1-ranjani.sridharan@linux.intel.com>
-References: <20220317175044.1752400-1-ranjani.sridharan@linux.intel.com>
-Subject: Re: [PATCH 00/19] Make the SOF control, PCM and PM code IPC agnostic
-Message-Id: <164763706711.2336370.14651131972459901498.b4-ty@kernel.org>
-Date: Fri, 18 Mar 2022 20:57:47 +0000
+To: Nicolin Chen <nicoleotsuka@gmail.com>, shengjiu.wang@nxp.com
+In-Reply-To: <20220317041806.28230-1-nicoleotsuka@gmail.com>
+References: <20220317041806.28230-1-nicoleotsuka@gmail.com>
+Subject: Re: [PATCH] MAINTAINERS: Add Shengjiu to maintainer list of
+ sound/soc/fsl
+Message-Id: <164763706824.2336370.5050558733573751779.b4-ty@kernel.org>
+Date: Fri, 18 Mar 2022 20:57:48 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de
+Cc: alsa-devel@alsa-project.org, Xiubo.Lee@gmail.com, festevam@gmail.com,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org, shengjiu.wang@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,36 +86,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 17 Mar 2022 10:50:25 -0700, Ranjani Sridharan wrote:
-> This series is a continuation to the SOF IPC abstraction work to support
-> the new IPC version introduced in the SOF firmware. It makes the top-level
-> control IO, PCM and PM code IPC-agnostic. Other than the first patch,
-> the rest are purely for abstraction and include no changes in
-> functionality.
+On Wed, 16 Mar 2022 21:18:06 -0700, Nicolin Chen wrote:
+> Shengjiu has been actively working on latest FSL platforms and
+> keeping upstream effort as well, while I have been working on
+> other subsystem lately and cannot guarantee audio patch review
+> in the near term. So replacing with him in the maintainer list.
 > 
-> Ranjani Sridharan (19):
->   ASoC: SOF: set up scheduler widget before all other widgets in the
->     pipeline
->   ASoC: SOF: Make sof_widget_setup/free IPC agnostic
->   ASoC: SOF: Make sof_suspend/resume IPC agnostic
->   ASoC: SOF: Introduce IPC ops for kcontrol IO
->   ASoC: SOF: Add IPC3 topology control ops
->   ASoC: SOF: Add volume_get/put IPC3 ops
->   ASoC: SOF: Add switch get/put IPC3 ops
->   ASoC: SOF: Add enum_get/put control ops for IPC3
->   ASoC: SOF: Add bytes_get/put control IPC ops for IPC3
->   ASoC: SOF: Add bytes_ext control IPC ops for IPC3
->   ASoC: SOF: Introduce IPC-specific PCM ops
->   ASoC: SOF: pcm: expose the sof_pcm_setup_connected_widgets() function
->   ASoC: SOF: Introduce IPC3 PCM hw_free op
->   ASoC: SOF: Define hw_params PCM op for IPC3
->   ASoC: SOF: Add trigger PCM op for IPC3
->   ASoC: SOF: Add dai_link_fixup PCM op for IPC3
->   ASoC: SOF: expose sof_route_setup()
->   ASoC: SOF: topology: Add ops for setting up and tearing down pipelines
->   ASoC: SOF: Add a new dai_get_clk topology IPC op
 > 
-> [...]
 
 Applied to
 
@@ -121,44 +100,8 @@ Applied to
 
 Thanks!
 
-[01/19] ASoC: SOF: set up scheduler widget before all other widgets in the pipeline
-        commit: 40c2c63ac40d26bb0b8e17ada32e84541363f1b0
-[02/19] ASoC: SOF: Make sof_widget_setup/free IPC agnostic
-        commit: 051744b1bf0b13f63af5de3c296d04ab0cc6117c
-[03/19] ASoC: SOF: Make sof_suspend/resume IPC agnostic
-        commit: 657774acd00f3d63ebae06e5d15a74e013cee0ed
-[04/19] ASoC: SOF: Introduce IPC ops for kcontrol IO
-        commit: a0149a6bf0b4969a7f732528b2fb6ce32c309dfc
-[05/19] ASoC: SOF: Add IPC3 topology control ops
-        commit: 10f461d79c2d1afb22344986cc1b4631169cf25e
-[06/19] ASoC: SOF: Add volume_get/put IPC3 ops
-        commit: 838d04f3e232c3fb8c421959e8ff09e3a918011e
-[07/19] ASoC: SOF: Add switch get/put IPC3 ops
-        commit: a6668746436824c46b54b3f7fd72523f05f089eb
-[08/19] ASoC: SOF: Add enum_get/put control ops for IPC3
-        commit: 049307aad2a355f7b44736eeb5795d6d4499fd12
-[09/19] ASoC: SOF: Add bytes_get/put control IPC ops for IPC3
-        commit: 544ac8858f249950b4d99c68e538cdc07300528f
-[10/19] ASoC: SOF: Add bytes_ext control IPC ops for IPC3
-        commit: 67ec2a091630c28ea8d05db2bd7178a05b04b7e6
-[11/19] ASoC: SOF: Introduce IPC-specific PCM ops
-        commit: 967885ee45e48b669e0904a38f6aeb1a09b0d9a1
-[12/19] ASoC: SOF: pcm: expose the sof_pcm_setup_connected_widgets() function
-        commit: 442c7128219b1769af5685c5453b13711f6b84e2
-[13/19] ASoC: SOF: Introduce IPC3 PCM hw_free op
-        commit: 4123c24bd13caa8ff633d9e17fa2089d53b1f766
-[14/19] ASoC: SOF: Define hw_params PCM op for IPC3
-        commit: 621fd48c8cc8d77101a3ac69f7f058d3f8afdbcc
-[15/19] ASoC: SOF: Add trigger PCM op for IPC3
-        commit: beac3f4cb66fa05e902768ae75ea691c4a2c0911
-[16/19] ASoC: SOF: Add dai_link_fixup PCM op for IPC3
-        commit: b243b437f4c46b09ec26fc02bea610ace4b45aa2
-[17/19] ASoC: SOF: expose sof_route_setup()
-        commit: 3816bbea644202fd0a8410e54dbc30bd93f3292c
-[18/19] ASoC: SOF: topology: Add ops for setting up and tearing down pipelines
-        commit: 31cd6e469364c42c9c929750991c51e83a95e80b
-[19/19] ASoC: SOF: Add a new dai_get_clk topology IPC op
-        commit: 85f7a8b6e1bea0ad494fb786a5dd7d9715a976d2
+[1/1] MAINTAINERS: Add Shengjiu to maintainer list of sound/soc/fsl
+      commit: d1129bbe141bf08c19d44a701869ac0780754e86
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

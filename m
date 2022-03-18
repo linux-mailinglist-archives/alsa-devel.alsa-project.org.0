@@ -2,73 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D8404DD606
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Mar 2022 09:23:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23EAE4DD713
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Mar 2022 10:28:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BC10118AF;
-	Fri, 18 Mar 2022 09:22:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC10118AF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7AE76170B;
+	Fri, 18 Mar 2022 10:27:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7AE76170B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647591793;
-	bh=RgHzapn3ynFHd5Cl+uvf6dkUplC7kHu/RLd0WpbUPyw=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1647595692;
+	bh=T4z41I87uBSo9ltyIZ0egwxkvn/iVqG79Oo4uvvncYk=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=AFkD5orrGoiyHYCl1cMeWhliDjLBDw+Bmc8GIEfDXf6Jc7jndoqZxCPy8OLVRQoiA
-	 IIJHK2R1+t81bXN9JGMi8OrOVchLUMuHl8QuGsjsaIlU6VlQDTD8iRdSrZKCMTgPOW
-	 VtB24jxvVIS1nGNMrxv1ksTUCm3G6OzMl3vtEFbg=
+	b=B8ODhkNoHNzo2Kcdbk0a8ZSCw1I7tbUhFFab0UYR2+fzahnRfvBchZIrG+s6rCMo9
+	 6uO+HyFf4EKrpNbObEKgeOyGaBCoe7osG4wmJnOLSw1kyO6WknGZnUXs0V1+J6J2Pz
+	 07CyI4ORekcx0BREWMreDEhHcOQnH3O9cjV8MoXE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 38579F8026D;
-	Fri, 18 Mar 2022 09:22:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E7F1CF8026D;
+	Fri, 18 Mar 2022 10:27:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 80184F8026A; Fri, 18 Mar 2022 09:22:04 +0100 (CET)
+ id 8CF76F80121; Fri, 18 Mar 2022 10:27:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
+ [68.232.154.123])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 709A3F80121
- for <alsa-devel@alsa-project.org>; Fri, 18 Mar 2022 09:21:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 709A3F80121
+ by alsa1.perex.cz (Postfix) with ESMTPS id 125B7F80121
+ for <alsa-devel@alsa-project.org>; Fri, 18 Mar 2022 10:26:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 125B7F80121
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="LWpuulMz"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="fnJ/SFOe"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 462E9210EA
- for <alsa-devel@alsa-project.org>; Fri, 18 Mar 2022 08:21:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1647591718; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=uOBd8NZpQqMQv20bvtUsFFAFwue6zpCKUDHui7xNKWY=;
- b=LWpuulMzPsaeHHy9lDSQR6JdpGBinhZscRiAVPnKWv13cw9no7VBTjpTtvCm0zHU4SA1sM
- fiLP4OTaXorfqru01dMxaUXpsL5jqnALlZjvuXfJHxyQ7WjMy1LrM2Y7B4DIong/QQ0fff
- +Y11E6xQJF4KqW4kNtivu837aXimvXM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1647591718;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=uOBd8NZpQqMQv20bvtUsFFAFwue6zpCKUDHui7xNKWY=;
- b=fnJ/SFOeymlQOlfipKHbndZlxxqQILzBEgAMytrB5JiODfGaTUfQvLZxSCf5Y0GBPhm3qi
- QgoSlGXYsUr47GAw==
-Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 302A7A3B83;
- Fri, 18 Mar 2022 08:21:58 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: oss: Release temporary buffers upon errors
-Date: Fri, 18 Mar 2022 09:21:57 +0100
-Message-Id: <20220318082157.29769-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.31.1
+ dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com
+ header.b="bAfgW10P"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+ t=1647595618; x=1679131618;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=T4z41I87uBSo9ltyIZ0egwxkvn/iVqG79Oo4uvvncYk=;
+ b=bAfgW10PExFRL3OrRLhxbeNh9hPZc4oaSxa9QZELTl070mkK04bRBD95
+ MI3S3hSOlisCpENW4kLtFkikYpB3GKlXJUvCybMNBtD9rOjLZZOnQvw9L
+ 9Gk2+SV9pyykkBPCXTGQwubu3Ajr53IZRIgcM5Tgs8OatMW0sDr0P1JrQ
+ DzibvEaZeG2/r2FCC1QlNyxJ5tfPGps6rBN3idrL41MJESVSLoGj9WeTH
+ S3Cd7z0Ymu+eAaOEnE6DgvBsZqSSibWY6sG1rWyLx/ikwtmunRIKbDC26
+ kWzaBlhIstbDSQf7dFBDaB5QWBCkjW6tBXwTibtIN4K1XLOGbmiJJL/nR Q==;
+X-IronPort-AV: E=Sophos;i="5.90,191,1643698800"; d="scan'208";a="89376626"
+Received: from smtpout.microchip.com (HELO email.microchip.com)
+ ([198.175.253.82])
+ by esa6.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 18 Mar 2022 02:26:51 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.17; Fri, 18 Mar 2022 02:26:50 -0700
+Received: from rob-ult-m19940.amer.actel.com (10.10.115.15) by
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
+ 15.1.2375.17 via Frontend Transport; Fri, 18 Mar 2022 02:26:49 -0700
+From: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+To: <alsa-devel@alsa-project.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: [PATCH] ASoC: atmel: mchp-pdmc: print the correct property name
+Date: Fri, 18 Mar 2022 11:26:09 +0200
+Message-ID: <20220318092609.130901-1-codrin.ciubotariu@microchip.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Cc: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,99 +90,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When the parameter changes fails, we don't need to keep the old
-temporary buffers.  Release those (and plugin instances) upon errors
-for reducing dead memory footprint.  Since we always call it at the
-exit of snd_pcm_oss_changes_params_locked(), the explicit calls of
-snd_pcm_oss_plugin_clear() can be dropped, too.
+The correct property is 'microchip,mic-pos', not 'mchp,mic-pos', so
+replace all occurences of 'mchp,mic-pos' with 'microchip,mic-pos'.
+Fix a multi-line comment format while we are at it.
 
-Along with it, unify the buffer-free calls to a single helper and call
-it from the needed places.
-
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Fixes: 50291652af52 ("ASoC: atmel: mchp-pdmc: add PDMC driver")
+Signed-off-by: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
 ---
- sound/core/oss/pcm_oss.c | 28 +++++++++++++++-------------
- 1 file changed, 15 insertions(+), 13 deletions(-)
+ sound/soc/atmel/mchp-pdmc.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/sound/core/oss/pcm_oss.c b/sound/core/oss/pcm_oss.c
-index f158f0abd25d..90c3a367d7de 100644
---- a/sound/core/oss/pcm_oss.c
-+++ b/sound/core/oss/pcm_oss.c
-@@ -842,6 +842,17 @@ static void unlock_params(struct snd_pcm_runtime *runtime)
- 	mutex_unlock(&runtime->oss.params_lock);
- }
+diff --git a/sound/soc/atmel/mchp-pdmc.c b/sound/soc/atmel/mchp-pdmc.c
+index e0aec5fe8a26..1a7802fbf23c 100644
+--- a/sound/soc/atmel/mchp-pdmc.c
++++ b/sound/soc/atmel/mchp-pdmc.c
+@@ -879,13 +879,13 @@ static int mchp_pdmc_dt_init(struct mchp_pdmc *dd)
  
-+static void snd_pcm_oss_release_buffers(struct snd_pcm_substream *substream)
-+{
-+	struct snd_pcm_runtime *runtime = substream->runtime;
-+
-+	kvfree(runtime->oss.buffer);
-+	runtime->oss.buffer = NULL;
-+#ifdef CONFIG_SND_PCM_OSS_PLUGINS
-+	snd_pcm_oss_plugin_clear(substream);
-+#endif
-+}
-+
- /* call with params_lock held */
- static int snd_pcm_oss_change_params_locked(struct snd_pcm_substream *substream)
- {
-@@ -972,12 +983,10 @@ static int snd_pcm_oss_change_params_locked(struct snd_pcm_substream *substream)
- 	snd_pcm_oss_plugin_clear(substream);
- 	if (!direct) {
- 		/* add necessary plugins */
--		snd_pcm_oss_plugin_clear(substream);
- 		err = snd_pcm_plug_format_plugins(substream, params, sparams);
- 		if (err < 0) {
- 			pcm_dbg(substream->pcm,
- 				"snd_pcm_plug_format_plugins failed: %i\n", err);
--			snd_pcm_oss_plugin_clear(substream);
- 			goto failure;
- 		}
- 		if (runtime->oss.plugin_first) {
-@@ -986,7 +995,6 @@ static int snd_pcm_oss_change_params_locked(struct snd_pcm_substream *substream)
- 			if (err < 0) {
- 				pcm_dbg(substream->pcm,
- 					"snd_pcm_plugin_build_io failed: %i\n", err);
--				snd_pcm_oss_plugin_clear(substream);
- 				goto failure;
- 			}
- 			if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
-@@ -994,10 +1002,8 @@ static int snd_pcm_oss_change_params_locked(struct snd_pcm_substream *substream)
- 			} else {
- 				err = snd_pcm_plugin_insert(plugin);
- 			}
--			if (err < 0) {
--				snd_pcm_oss_plugin_clear(substream);
-+			if (err < 0)
- 				goto failure;
--			}
- 		}
+ 	dd->mic_no = of_property_count_u32_elems(np, "microchip,mic-pos");
+ 	if (dd->mic_no < 0) {
+-		dev_err(dd->dev, "failed to get mchp,mic-pos: %d",
++		dev_err(dd->dev, "failed to get microchip,mic-pos: %d",
+ 			dd->mic_no);
+ 		return dd->mic_no;
  	}
- #endif
-@@ -1086,6 +1092,8 @@ static int snd_pcm_oss_change_params_locked(struct snd_pcm_substream *substream)
+ 	if (!dd->mic_no || dd->mic_no % 2 ||
+ 	    dd->mic_no / 2 > MCHP_PDMC_MAX_CHANNELS) {
+-		dev_err(dd->dev, "invalid array length for mchp,mic-pos: %d",
++		dev_err(dd->dev, "invalid array length for microchip,mic-pos: %d",
+ 			dd->mic_no);
+ 		return -EINVAL;
+ 	}
+@@ -894,9 +894,10 @@ static int mchp_pdmc_dt_init(struct mchp_pdmc *dd)
  
- 	err = 0;
- failure:
-+	if (err)
-+		snd_pcm_oss_release_buffers(substream);
- 	kfree(sw_params);
- 	kfree(params);
- 	kfree(sparams);
-@@ -2355,13 +2363,7 @@ static void snd_pcm_oss_look_for_setup(struct snd_pcm *pcm, int stream,
+ 	dev_info(dd->dev, "%d PDM microphones declared\n", dd->mic_no);
  
- static void snd_pcm_oss_release_substream(struct snd_pcm_substream *substream)
- {
--	struct snd_pcm_runtime *runtime;
--	runtime = substream->runtime;
--	kvfree(runtime->oss.buffer);
--	runtime->oss.buffer = NULL;
--#ifdef CONFIG_SND_PCM_OSS_PLUGINS
--	snd_pcm_oss_plugin_clear(substream);
--#endif
-+	snd_pcm_oss_release_buffers(substream);
- 	substream->oss.oss = 0;
- }
- 
+-	/* by default, we consider the order of microphones in mchp,mic-pos to
+-	 * be the same with the channel mapping; 1st microphone channel 0, 2nd
+-	 * microphone channel 1, etc.
++	/*
++	 * by default, we consider the order of microphones in
++	 * microchip,mic-pos to be the same with the channel mapping;
++	 * 1st microphone channel 0, 2nd microphone channel 1, etc.
+ 	 */
+ 	for (i = 0; i < dd->mic_no; i++) {
+ 		int ds;
 -- 
-2.34.1
+2.32.0
 

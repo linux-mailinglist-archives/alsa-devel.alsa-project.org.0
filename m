@@ -2,86 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DE734DDE2D
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Mar 2022 17:16:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34B154DDF13
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Mar 2022 17:31:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E707B1856;
-	Fri, 18 Mar 2022 17:15:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E707B1856
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3866A18C0;
+	Fri, 18 Mar 2022 17:30:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3866A18C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647620199;
-	bh=kk0QEZb6sU6ljmyBf5iZtjDtuEKxL+HDQZU1VPh1Xao=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=cIoZ8YdJfeqTj9wFeYo66cZH69IzJV5O67g2CBPnBtKE36VSFgvNkgqQGzGGdWYbw
-	 9ouGi9gJp8IRoxvrc3CCrT/5imqH/3JM03589RNKVxLVAI6inxMLv5/Mzjk0IDBhQZ
-	 VbMhRLDw5EQg8MBMrjP0r1PW8HiG3tSyKDuyNtjM=
+	s=default; t=1647621101;
+	bh=aY5T2Hh08cA2+xfnM27Edz6tmNEdcWa/K3k6rsc7XGk=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Awl6sDWbIKJoH4GuPgc53StH/sSWNQZPk5HXERyqmIiJvDY8X6Z1tPeJaj7GBinZq
+	 xrOlNuqcSfcAxhw4OJyfRQd2CQf7AgDflf27+mtSCrpJQ9E8NGOT4pSRHRHxf4Fne6
+	 6YeRRoeoRSzf+vfz5DiKDGRFIzGPQuvOmvidRHqE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5B4A6F8026D;
-	Fri, 18 Mar 2022 17:15:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4594BF80124;
+	Fri, 18 Mar 2022 17:30:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CDF02F80124; Fri, 18 Mar 2022 17:15:28 +0100 (CET)
+ id CC444F80279; Fri, 18 Mar 2022 17:29:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C1523F80124;
- Fri, 18 Mar 2022 17:15:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1523F80124
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5ADB3F8026D
+ for <alsa-devel@alsa-project.org>; Fri, 18 Mar 2022 17:29:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5ADB3F8026D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="DIBMC7c1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647620123; x=1679156123;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=kk0QEZb6sU6ljmyBf5iZtjDtuEKxL+HDQZU1VPh1Xao=;
- b=DIBMC7c1FyiS991tDppP5/CMXXdEr+LvktrQheGGDF95hQ3mtNdc6zFQ
- 9p8eZYuKg+GVuwvyRDtUNwde39TpL/x2hySpBF70lG9bkUT2FkOuZ9vEq
- 9DByVKzkqmy96QXhHwlNNXzTZPbuxWq+NS3Xs10VxfYLOyTjFMvSpGkYA
- AWoK+D1mdUnWoOSIdkwonKqtCIe4f9vWQAzN+t4vuBsUClvCfTVp2DO/8
- ToPWE2nfskXcgCR2U76AuVlAo0aiVZQ0wLlzFrRgPOFMqPLTlZbZSsyVc
- a0PutKdQzq8OnSvrEAAxroUg9Wgjnd6DK7rxrAnw3ADhM6aa/qPFX13EN g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10290"; a="257353784"
-X-IronPort-AV: E=Sophos;i="5.90,192,1643702400"; d="scan'208";a="257353784"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Mar 2022 09:14:56 -0700
-X-IronPort-AV: E=Sophos;i="5.90,192,1643702400"; d="scan'208";a="513940889"
-Received: from dcforman-mobl1.amr.corp.intel.com ([10.254.51.56])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Mar 2022 09:14:55 -0700
-Message-ID: <1049c2410500a3a9ed97f83b5e41e89a74102c96.camel@linux.intel.com>
-Subject: Re: [PATCH 1/2] ASoC: SOF: Prevent NULL dereference in
- sof_pcm_dai_link_fixup()
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, Dan
- Carpenter <dan.carpenter@oracle.com>
-Date: Fri, 18 Mar 2022 09:14:55 -0700
-In-Reply-To: <cf4c4a84-335d-8799-7a5b-afe298881342@linux.intel.com>
-References: <20220318071233.GB29472@kili>
- <cf4c4a84-335d-8799-7a5b-afe298881342@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.36.3-0ubuntu1 
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="cxK65f2/"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 22I7cSw0022149;
+ Fri, 18 Mar 2022 11:29:46 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=bZOlEfRg8T9t1B79/9gI2BtOG0E7AxmmrAD8lfrQVfY=;
+ b=cxK65f2/uAOtvEX3R8Rj+f4it+rm1WasLXI5OQ8Nj2ndlwpHKYqHZQ26BJb8/ghDOZ+g
+ rSQuQeTFdH84eYj7FxUDatE3iw8Aj+IZEc/DWhi8iyPCanlmIKyt40qxD54W/PRuxwlm
+ afEOLkDx6J0d++Iar4W+sVSxPTUSLWQ9v9Mb+m0tiVn4KVSblQwIJKsjaQRYqYnhQt/9
+ ofI+Ixpa45WnFRUfGKBX0Nn25xp2jX0i/jp7tjth0rCUS9f1h1geHx2unuOSBpNJm49V
+ xee1/+MrY8Wj9YdWpr4lig4/Zvd+dmPvJ3gPaRAbv954jjoqvEuiPmz6t76PLq9UZARA sA== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3et642efpx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Fri, 18 Mar 2022 11:29:46 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Fri, 18 Mar
+ 2022 16:29:44 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.18 via
+ Frontend Transport; Fri, 18 Mar 2022 16:29:44 +0000
+Received: from debianA11184.ad.cirrus.com (debianA11184.ad.cirrus.com
+ [198.90.251.45])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 450F37C;
+ Fri, 18 Mar 2022 16:29:44 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <broonie@kernel.org>, <robh+dt@kernel.org>
+Subject: [PATCH 0/5] ASoC: Add a driver for the Cirrus Logic CS35L45 Smart
+ Amplifier
+Date: Fri, 18 Mar 2022 16:29:38 +0000
+Message-ID: <20220318162943.1578102-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, kernel-janitors@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>,
- =?ISO-8859-1?Q?P=E9ter?= Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- sound-open-firmware@alsa-project.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-GUID: D_bFfSzULB-QA3qo-yHPCgAOR5Wto9Mw
+X-Proofpoint-ORIG-GUID: D_bFfSzULB-QA3qo-yHPCgAOR5Wto9Mw
+X-Proofpoint-Spam-Reason: safe
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,61 +97,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 2022-03-18 at 09:42 -0500, Pierre-Louis Bossart wrote:
-> 
-> On 3/18/22 02:12, Dan Carpenter wrote:
-> > The "dia" pointer can be NULL, so handle that condition first
-> > before
-> > storing "dia->private".
-> > 
-> > Fixes: 839e484f9e17 ("ASoC: SOF: make struct snd_sof_dai IPC
-> > agnostic")
-> > Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
-> 
-> Thanks for the patch.
-> 
-> This part will be removed in follow-up patches, likely the reason
-> why 
-> this problem was missed.
+This adds basic audio support for the Cirrus Logic CS35L45 amplifier.
 
-Hi Dan/Pierre,
+The first two patches add two generic helpers to ASoC, and patch 3 is
+a kunit test for patch 2.
 
-Both these problems are address in the series I posted yesterday.
-Particularly patches 16 and 18.
+James Schulman (1):
+  ASoC: cs35l45: Add driver for Cirrus Logic CS35L45 Smart Amp
 
-Thanks,
-Ranjani
-> 
-> Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> 
-> > ---
-> >   sound/soc/sof/pcm.c | 3 ++-
-> >   1 file changed, 2 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/sound/soc/sof/pcm.c b/sound/soc/sof/pcm.c
-> > index 1661b0bc6f12..71f5bce0c4c7 100644
-> > --- a/sound/soc/sof/pcm.c
-> > +++ b/sound/soc/sof/pcm.c
-> > @@ -702,7 +702,7 @@ int sof_pcm_dai_link_fixup(struct
-> > snd_soc_pcm_runtime *rtd, struct snd_pcm_hw_pa
-> >   	struct snd_sof_dai *dai =
-> >   		snd_sof_find_dai(component, (char *)rtd->dai_link-
-> > >name);
-> >   	struct snd_sof_dev *sdev =
-> > snd_soc_component_get_drvdata(component);
-> > -	struct sof_dai_private_data *private = dai->private;
-> > +	struct sof_dai_private_data *private;
-> >   	struct snd_soc_dpcm *dpcm;
-> >   
-> >   	/* no topology exists for this BE, try a common configuration
-> > */
-> > @@ -727,6 +727,7 @@ int sof_pcm_dai_link_fixup(struct
-> > snd_soc_pcm_runtime *rtd, struct snd_pcm_hw_pa
-> >   	/* read format from topology */
-> >   	snd_mask_none(fmt);
-> >   
-> > +	private = dai->private;
-> >   	switch (private->comp_dai->config.frame_fmt) {
-> >   	case SOF_IPC_FRAME_S16_LE:
-> >   		snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S16_LE);
+Richard Fitzgerald (4):
+  ASoC: soc.h: Add SOC_SINGLE_S_TLV() macro
+  ASoC: soc-utils: Add helper to calculate BCLK from TDM info
+  ASoC: soc-utils: Add kunit test for snd_soc_tdm_params_to_bclk()
+  ASoC: dt-bindings: cs35l45: Cirrus Logic CS35L45 Smart Amp
+
+ .../bindings/sound/cirrus,cs35l45.yaml        |  75 ++
+ MAINTAINERS                                   |   2 +
+ include/dt-bindings/sound/cs35l45.h           |  20 +
+ include/sound/soc.h                           |   4 +
+ sound/soc/Kconfig                             |   9 +-
+ sound/soc/Makefile                            |   5 +
+ sound/soc/codecs/Kconfig                      |  30 +
+ sound/soc/codecs/Makefile                     |   8 +
+ sound/soc/codecs/cs35l45-i2c.c                |  73 ++
+ sound/soc/codecs/cs35l45-spi.c                |  72 ++
+ sound/soc/codecs/cs35l45-tables.c             | 202 +++++
+ sound/soc/codecs/cs35l45.c                    | 689 ++++++++++++++++++
+ sound/soc/codecs/cs35l45.h                    | 213 ++++++
+ sound/soc/soc-utils-test.c                    | 186 +++++
+ sound/soc/soc-utils.c                         |  45 ++
+ 15 files changed, 1632 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml
+ create mode 100644 include/dt-bindings/sound/cs35l45.h
+ create mode 100644 sound/soc/codecs/cs35l45-i2c.c
+ create mode 100644 sound/soc/codecs/cs35l45-spi.c
+ create mode 100644 sound/soc/codecs/cs35l45-tables.c
+ create mode 100644 sound/soc/codecs/cs35l45.c
+ create mode 100644 sound/soc/codecs/cs35l45.h
+ create mode 100644 sound/soc/soc-utils-test.c
+
+-- 
+2.30.2
 

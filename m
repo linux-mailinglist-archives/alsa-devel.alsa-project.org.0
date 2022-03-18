@@ -2,84 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B03F84E3F6A
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Mar 2022 14:22:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6F1F4E428D
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Mar 2022 16:11:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 263D41689;
-	Tue, 22 Mar 2022 14:22:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 263D41689
+	by alsa0.perex.cz (Postfix) with ESMTPS id 330D7166F;
+	Tue, 22 Mar 2022 16:10:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 330D7166F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647955376;
-	bh=Q9u0NV3CZmgIzzVnlsU7Rr4agPeL+TDjaP+vZ8PLwms=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=bBrZWHCMn1ILaC7LZNM1Bk+dd4r8rJCoY8+47i3U0kupnPQK+jQ6Feh6xui1jSBhl
-	 XDNIVX03m+hyVsSKsG/qLctV01HpiSOeEpG6AvUH0cZUDa6spmN9tn88GVjok9dfQN
-	 oZ/j8T/oKPinqEIHZWucdMogFngn2RgF6MRMQjwE=
+	s=default; t=1647961870;
+	bh=oRTv5m0e8ii6MGOnVm/A7ZMd75hYysl6VUrWXrqbs4U=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=vg/0Kkyt6btCYfPQr15ygllV6JyxpS2sJHJkowIq8abTypDXBEcA9df40lHHcJZEX
+	 KdNN5JsNKNxB9HaognXwvVOAmJSzyNREY5KzG8WyLjYptyu/TI0hzUhSFvCCVqYxXo
+	 zNPtl+W8JTHY4vxDFiiNvh8jsJSUjFy3jIvziWRE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 10C34F8032D;
-	Tue, 22 Mar 2022 14:21:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A2A48F8012A;
+	Tue, 22 Mar 2022 16:10:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4D20BF8016C; Tue, 22 Mar 2022 14:21:47 +0100 (CET)
+ id 4709FF8026D; Fri, 18 Mar 2022 10:49:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 02B6BF80116
- for <alsa-devel@alsa-project.org>; Tue, 22 Mar 2022 14:21:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02B6BF80116
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Lpojd85M"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="2k+VsAoU"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 38155210F2;
- Tue, 22 Mar 2022 13:21:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1647955300; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=/JoKpF3z7MBf7QUqTBD9HK/zpIQn6GZC430lpurSEQE=;
- b=Lpojd85MpAWa8d96zqrpkuUkSMBsVsoOU/3Y9PCZwObRK3y6sXJdQNPvE7XVYoXqMTbsSx
- dL5j6FqY1UuD9sF+l5POI19rbb8wK96DuOXic3qp7GRfdI8PMynvvljcA4kxfDhNTEx+Cy
- yKr/rjmy+g7zr22CiyQ0WvtbnLSUkJk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1647955300;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=/JoKpF3z7MBf7QUqTBD9HK/zpIQn6GZC430lpurSEQE=;
- b=2k+VsAoUglPEf/PakggrFswkcmMUhbN3+FFuUfaFhGtCr6u4VwqQmFz+AHZIzTl5aaI8fJ
- 0/6OUYyFNTH7iFAA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 20086A3B83;
- Tue, 22 Mar 2022 13:21:40 +0000 (UTC)
-Date: Tue, 22 Mar 2022 14:21:40 +0100
-Message-ID: <s5hmthixguz.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Lucas Tanure <tanureal@opensource.cirrus.com>
-Subject: Re: [PATCH v4 00/16] Support external boost at CS35l41 ASoC driver
-In-Reply-To: <20220317093120.168534-1-tanureal@opensource.cirrus.com>
-References: <20220317093120.168534-1-tanureal@opensource.cirrus.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
- Rob Herring <robh+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org
+X-Spam-Level: **
+X-Spam-Status: No, score=2.1 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FROM,FROM_LOCAL_DIGITS,FROM_LOCAL_HEX,SPF_HELO_NONE,SPF_NONE,
+ SPOOFED_FREEMAIL,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from n169-112.mail.139.com (n169-112.mail.139.com [120.232.169.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id ABD47F80121
+ for <alsa-devel@alsa-project.org>; Fri, 18 Mar 2022 10:49:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABD47F80121
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM: 
+X-RM-SPAM-FLAG: 00000000
+Received: from LAPTOP-39QA2GAC.localdomain (unknown[223.73.211.159])
+ by rmsmtp-lg-appmail-25-12028 (RichMail) with SMTP id 2efc623455949a0-42d88;
+ Fri, 18 Mar 2022 17:49:19 +0800 (CST)
+X-RM-TRANSID: 2efc623455949a0-42d88
+From: Raphael-Xu <13691752556@139.com>
+To: broonie@kernel.org
+Subject: [PATCH v2 1/2] support either TAS2764 or TAS2780 from TI-yaml
+Date: Fri, 18 Mar 2022 17:49:02 +0800
+Message-Id: <20220318094903.22026-1-13691752556@139.com>
+X-Mailer: git-send-email 2.35.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 22 Mar 2022 16:10:02 +0100
+Cc: navada@ti.com, alsa-devel@alsa-project.org, shenghao-ding@ti.com,
+ raphael-xu@ti.com, Raphael-Xu <13691752556@139.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,66 +70,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 17 Mar 2022 10:31:04 +0100,
-Lucas Tanure wrote:
-> 
-> Move the support for CS35L41 external boost to its shared library
-> for ASoC use.
-> This move resulted in cs35l41_hda_reg_sequence being removed,
-> and its steps were broken down into regmap writes or functions
-> from the library. And hardware configuration struct was unified
-> for its use in the shared lib.
-> While at it, some minor bugs were found and fixed it.
-> 
-> v4 changelog:
->  - Separated GPIO 1 and 2 function enums
-> 
-> v3 changelog:
->  - Remove patches already accepted
->  - Improved logic in documentation patch
->  - Documentation patch goes before its code
->  - Fixed missing Signed-off-by
->  - Fixed subject for HDA patches
-> 
-> v2 changelog:
->  - Instead of removing the log, playback actions will log the last regmap access.
->  - Documentation patch with the correct subject line and fixed bug reported by Rob Herring on the
->  provided example.
-> 
-> Previous versions:
->  v1: https://lkml.org/lkml/2022/3/3/759
->  v2: https://lkml.org/lkml/2022/3/4/743
->  v3: https://lkml.org/lkml/2022/3/8/975
-> 
-> David Rhodes (1):
->   ASoC: dt-bindings: cs35l41: Document CS35l41 External Boost
-> 
-> Lucas Tanure (15):
->   sound: cs35l41: Unify hardware configuration
->   sound: cs35l41: Check hw_config before using it
->   sound: cs35l41: Move cs35l41_gpio_config to shared lib
->   ALSA: hda: cs35l41: Fix I2S params comments
->   ALSA: hda: cs35l41: Always configure the DAI
->   ALSA: hda: cs35l41: Add Boost type flag
->   hda: cs35l41: Put the device into safe mode for external boost
->   hda: cs35l41: Mute the device before shutdown
->   sound: cs35l41: Enable Internal Boost in shared lib
->   ALSA: hda: cs35l41: Move boost config to initialization code
->   ALSA: hda: cs35l41: Remove cs35l41_hda_reg_sequence struct
->   ALSA: hda: cs35l41: Reorganize log for playback actions
->   ALSA: hda: cs35l41: Handle all external boost setups the same way
->   ALSA: hda: cs35l41: Move external boost handling to lib for ASoC use
->   ASoC: cs35l41: Support external boost
+Signed-off-by: Raphael-Xu <13691752556@139.com>
+---
+ .../sound/{tas2764.yaml => tas27xx.yaml}       | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
+ rename Documentation/devicetree/bindings/sound/{tas2764.yaml => tas27xx.yaml} (72%)
 
-The code changes look OK (but for the issue Rob reported for
-dt-bindings stuff).
-
-But, could you try to use more consistent prefix for the subject
-lines?  We don't use "sound:" prefix in general unless the patch is
-about (native) OSS drivers.  Instead, use "ALSA:" for the general
-ALSA/ASoC patches.  Also, "hda:" should be "ALSA: hda:" instead.
+diff --git a/Documentation/devicetree/bindings/sound/tas2764.yaml b/Documentation/devicetree/bindings/sound/tas27xx.yaml
+similarity index 72%
+rename from Documentation/devicetree/bindings/sound/tas2764.yaml
+rename to Documentation/devicetree/bindings/sound/tas27xx.yaml
+index 5bf8c76ecda1..191f4bceb4ee 100644
+--- a/Documentation/devicetree/bindings/sound/tas2764.yaml
++++ b/Documentation/devicetree/bindings/sound/tas27xx.yaml
+@@ -1,25 +1,27 @@
+ # SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+-# Copyright (C) 2020 Texas Instruments Incorporated
++# Copyright (C) 2020-2022 Texas Instruments Incorporated
+ %YAML 1.2
+ ---
+-$id: "http://devicetree.org/schemas/sound/tas2764.yaml#"
++$id: "http://devicetree.org/schemas/sound/tas27xx.yaml#"
+ $schema: "http://devicetree.org/meta-schemas/core.yaml#"
+ 
+-title: Texas Instruments TAS2764 Smart PA
++title: Texas Instruments TAS2764/TAS2780 Smart PA
+ 
+ maintainers:
+-  - Dan Murphy <dmurphy@ti.com>
++  - Shenghao Ding <shenghao-ding@ti.com>
+ 
+ description: |
+-  The TAS2764 is a mono, digital input Class-D audio amplifier optimized for
+-  efficiently driving high peak power into small loudspeakers.
+-  Integrated speaker voltage and current sense provides for
+-  real time monitoring of loudspeaker behavior.
++  The TAS2764/TAS2780 is a mono, digital input Class-D audio amplifier
++  optimized for efficiently driving high peak power into small
++  loudspeakers. Integrated speaker voltage and current sense provides
++  for real time monitoring of loudspeaker behavior.
+ 
+ properties:
+   compatible:
+     enum:
+       - ti,tas2764
++      or
++      - ti,tas2780
+ 
+   reg:
+     maxItems: 1
+-- 
+2.35.1
 
 
-thanks,
-
-Takashi

@@ -2,88 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13F744E4294
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Mar 2022 16:12:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DD3A4E4295
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Mar 2022 16:12:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 975CE16C6;
-	Tue, 22 Mar 2022 16:11:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 975CE16C6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 50F1716D5;
+	Tue, 22 Mar 2022 16:11:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50F1716D5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647961946;
-	bh=vhc7kUu16ZrQCTC1+cys0nZ9ltSOwDUnSD4PgVoaKJY=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ZXYKj7ua2wJhRUtNHhDVLhp/H2+jRjwgDKrmGTeCyrovPIiB460/wulVka36krIP/
-	 lPcpo5QO1+LTuoPgDTBTYnynB0ujXmKY8zSWQMgpNktQObcbUaeS5lrkZvwKH8DNxj
-	 23I/BVK4hjyQ4h7k6/tLbkd4Gvcdj3ky9mcNpe6g=
+	s=default; t=1647961957;
+	bh=5vZj/bNP8k1FG7q4QIEvMAZwlyiOCZjgU3AhimqBAFw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=TmxvbEU0jgA4IMjTH1NkCcQkoiAKVsXF0ianCGMCm0Mm0KwXoYHXtj8IskA2uih16
+	 pPojQjoFLnK1eix9XP9CIrkGV+jgKDtuZPU3sTxLhTKduP6MZL8gkm79B7dtDeFhZS
+	 /xe4VgAYO9h9NVg4lYeLXypYnvLpeqLolkfjhXMA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2295EF8051F;
+	by alsa1.perex.cz (Postfix) with ESMTP id A7E2AF80526;
 	Tue, 22 Mar 2022 16:10:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AE936F80236; Sat, 19 Mar 2022 06:36:02 +0100 (CET)
+ id CB24DF80253; Sun, 20 Mar 2022 14:02:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from mail-pg1-x535.google.com (mail-pg1-x535.google.com
- [IPv6:2607:f8b0:4864:20::535])
+ DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-qv1-xf2a.google.com (mail-qv1-xf2a.google.com
+ [IPv6:2607:f8b0:4864:20::f2a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 13A34F80118
- for <alsa-devel@alsa-project.org>; Sat, 19 Mar 2022 06:35:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13A34F80118
+ by alsa1.perex.cz (Postfix) with ESMTPS id E5356F80109
+ for <alsa-devel@alsa-project.org>; Sun, 20 Mar 2022 14:02:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5356F80109
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="l3hkbqhu"
-Received: by mail-pg1-x535.google.com with SMTP id o23so6494263pgk.13
- for <alsa-devel@alsa-project.org>; Fri, 18 Mar 2022 22:35:58 -0700 (PDT)
+ header.b="FfWmFrmG"
+Received: by mail-qv1-xf2a.google.com with SMTP id gh15so5151612qvb.8
+ for <alsa-devel@alsa-project.org>; Sun, 20 Mar 2022 06:02:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=gNnxz05ITktCjr1nYOEiyW+BK+GTcat0PUQxbZJOt2I=;
- b=l3hkbqhu00/1TQ7/VnwTvO2aKIAzpckQRCH3U+7Q2ltAMwmJtVQ4xT6V6ZrWN89Py6
- nbdSAeiDHlctj9zVzgwUUS+uMyuaYxjSu1I6UPf+SiPtqu0iaieKA6tbfdgg2HmGM6MF
- kcPFk3owJGu/NIv++zAnih6cCYXPWewWboHyOqOoTt6nQhjo8+DS0M7TD5oRZ8rN7tJ1
- iXXqobTALor8My722QrQOxt15JjA/2lehJP3nUvezcp4i4UsFoSdRWvk8ejpKdAeQIbG
- 1olXLuSSpTqs4pHFoXZq5PZiBUznjbiaLbpB0cb81hIWYSj45QJ3HD+qX1320nVkzneE
- iPew==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=gcqW7UEzOxBVIMD41+JK63ucodStg12ZivivGDJ0W6o=;
+ b=FfWmFrmGHALDvL4MH8F2YLXXFyioPrRSCqFEqBQHOFAe1GzMRkzG1+kC1Vt3P7CdL/
+ f9FVI4HECemmhYuoC3PQsfex8TnvaDby54wpfVE4i/jfbjnjL6h7LPkMA+36gv2Enk0Q
+ OVgKseA+QBk8b5UIWQzcpS2zNfEeZJUO5+OrNGHR277cK57nzRBhhbb1sNa7Gsw11JaT
+ 4h1YYnEgKQ/ChwYoRTxRck98XrF/gPQvNa+Dh89ecjljCl/Tux5bHKhtBjDKxy8CnXuM
+ tDwD90eIHq1YpUUFgdcp1CT7JHlRWYwcGlofNmtxoYiJroCR0eFYZ29ALG4lBoHXnhPK
+ 89xw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=gNnxz05ITktCjr1nYOEiyW+BK+GTcat0PUQxbZJOt2I=;
- b=zrqxjpiPG3b9WBN1lQpt0O2DP8NotxIakl+y5rCyvpS8R9XM0MaWtdpPj3RK7No7Yb
- 5PNna4TCvpgoEOg9ET2TiRff2DYcvWmnuNJIS1ezk97wkuv+pyFIb6wqTm4HcW/FrluX
- RkA2Ot8No3wJyb37XlXY4QWN1XRSU9PxL9bRIg4NGuVrixywEVef9jxofC/f5173qSxu
- fP8e6zpqbkY/Co/l8fMLIX3+8Wm0lQdwZV3oYFrwsnO93tKbOYAx4BUM8A8bGZgv9DWm
- 4j1vP1/zd2PtfCce+HqaareiWHBbCHGtgNDVOv+LTOIiqibWpvJlTog83z3Kd+1/FFD1
- aH4g==
-X-Gm-Message-State: AOAM531GvEM5ZCGMSVH1nDijC82y5LV18car4gr5mXdcmsUA1oVp6mXW
- wUZa9BUl96L1jSZm77plJua297Er00ciOg==
-X-Google-Smtp-Source: ABdhPJyUaPDPr2dFQS5ebn4dg4UbnIc9Gz7XDAuNLmSWgquL2gsHXWRYdyX4bhTaCxCqeTpwXzC1Bw==
-X-Received: by 2002:a05:6a00:1312:b0:4e1:58c4:ddfd with SMTP id
- j18-20020a056a00131200b004e158c4ddfdmr13642450pfu.65.1647668156469; 
- Fri, 18 Mar 2022 22:35:56 -0700 (PDT)
-Received: from linus.localnet (135-180-48-111.fiber.dynamic.sonic.net.
- [135.180.48.111]) by smtp.gmail.com with ESMTPSA id
- a38-20020a056a001d2600b004f70d5e92basm11396352pfx.34.2022.03.18.22.35.56
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 18 Mar 2022 22:35:56 -0700 (PDT)
-From: Matt Kramer <mccleetus@gmail.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: hda/realtek: Add alc256-samsung-headphone fixup
-Date: Fri, 18 Mar 2022 22:35:55 -0700
-Message-ID: <4701574.GXAFRqVoOG@linus>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=gcqW7UEzOxBVIMD41+JK63ucodStg12ZivivGDJ0W6o=;
+ b=kr67KV8IlnwA6Ttlqbl8V269IalNDs7gJvBznyEvAApbxxukeYVY7DzuGCygZtKnkX
+ hed+AFZN9AAqCQLQqFQikdTy5K3ad7jEr8GxNVwISinBjPy5zw/y5AZMgbYsUmjIfcz+
+ LYVoy02g8msDs7QQjcMiCxdevITiQpoX7j+fzzeH0TEcM2JjTPd2lmjHZxmLaTQJOau4
+ ALCZGDgUnzYYW9Im9nSZ/g+ef/KROf4JI05hBKOuQjdJCi5w22s2LXJwworDfQHqQET7
+ MJFIc2jTOe+s8b5dQzqx1niBGgVyd71RWiqe77HwDbqzlhRxEisxhVx0esZ8A3tHJGIU
+ 7iSA==
+X-Gm-Message-State: AOAM533a803Y7DIjUb6hQNs2PdN/6BdPwVSQswHmoGlLDYI1m0xxVSW3
+ 1DKNmy/3EMnbWZsZ0uWV2ZlykM805Yvl4EHXC4U=
+X-Google-Smtp-Source: ABdhPJz9f2B/NfP6ZH1mQTpSC0rxnf2LlpHCnhNEJPE/jjb3sXdjiEJXss/Q+Y+2AwHgvuArm3fA/P++Ur+6HqS0BOA=
+X-Received: by 2002:a05:6214:c67:b0:435:bbb2:5c40 with SMTP id
+ t7-20020a0562140c6700b00435bbb25c40mr12738681qvj.21.1647781323142; Sun, 20
+ Mar 2022 06:02:03 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-X-Mailman-Approved-At: Tue, 22 Mar 2022 16:10:01 +0100
+References: <20220318093536.15385-1-tangmeng@uniontech.com>
+In-Reply-To: <20220318093536.15385-1-tangmeng@uniontech.com>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Sun, 20 Mar 2022 21:01:52 +0800
+Message-ID: <CAA+D8APyyp1j=kSsTxYQFHqqajU6KbdAYmenkFtfxBPaBMO2uA@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: fsl-asoc-card: Fix jack_event() always return 0
+To: Meng Tang <tangmeng@uniontech.com>
+X-Mailman-Approved-At: Tue, 22 Mar 2022 16:10:02 +0100
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: alsa-devel@alsa-project.org, Xiubo Li <Xiubo.Lee@gmail.com>,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Fabio Estevam <festevam@gmail.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,91 +100,88 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This fixes the near-silence of the headphone jack on the ALC256-based Samsung 
-Galaxy Book Flex Alpha (NP730QCJ). The magic verbs were found through trial 
-and error, using known ALC298 hacks as inspiration. The fixup is auto-enabled 
-only when the NP730QCJ is detected. It can be manually enabled using 
-model=alc256-samsung-headphone.
+Hi
 
-Signed-off-by: Matt Kramer <mccleetus at gmail.com>
----
- Documentation/sound/hd-audio/models.rst |  4 ++++
- sound/pci/hda/patch_realtek.c           | 11 +++++++++++
- 2 files changed, 15 insertions(+)
+On Fri, Mar 18, 2022 at 5:35 PM Meng Tang <tangmeng@uniontech.com> wrote:
 
-diff --git a/Documentation/sound/hd-audio/models.rst b/Documentation/sound/hd-
-audio/models.rst
-index d25335993e55..9b52f50a6854 100644
---- a/Documentation/sound/hd-audio/models.rst
-+++ b/Documentation/sound/hd-audio/models.rst
-@@ -261,6 +261,10 @@ alc-sense-combo
- huawei-mbx-stereo
-     Enable initialization verbs for Huawei MBX stereo speakers;
-     might be risky, try this at your own risk
-+alc298-samsung-headphone
-+    Samsung laptops with ALC298
-+alc256-samsung-headphone
-+    Samsung laptops with ALC256
- 
- ALC66x/67x/892
- ==============
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 1d14be4ee31d..f6ee67f41c45 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -6958,6 +6958,7 @@ enum {
- 	ALC236_FIXUP_HP_MUTE_LED,
- 	ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF,
- 	ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET,
-+	ALC256_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET,
- 	ALC295_FIXUP_ASUS_MIC_NO_PRESENCE,
- 	ALC269VC_FIXUP_ACER_VCOPPERBOX_PINS,
- 	ALC269VC_FIXUP_ACER_HEADSET_MIC,
-@@ -8286,6 +8287,14 @@ static const struct hda_fixup alc269_fixups[] = {
- 			{ }
- 		},
- 	},
-+	[ALC256_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET] = {
-+		.type = HDA_FIXUP_VERBS,
-+		.v.verbs = (const struct hda_verb[]) {
-+			{ 0x20, AC_VERB_SET_COEF_INDEX, 0x08},
-+			{ 0x20, AC_VERB_SET_PROC_COEF, 0x2fcf},
-+			{ }
-+		},
-+	},
- 	[ALC295_FIXUP_ASUS_MIC_NO_PRESENCE] = {
- 		.type = HDA_FIXUP_PINS,
- 		.v.pins = (const struct hda_pintbl[]) {
-@@ -9099,6 +9108,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x144d, 0xc740, "Samsung Ativ book 8 (NP870Z5G)", 
-ALC269_FIXUP_ATIV_BOOK_8),
- 	SND_PCI_QUIRK(0x144d, 0xc812, "Samsung Notebook Pen S (NT950SBE-
-X58)", ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET),
- 	SND_PCI_QUIRK(0x144d, 0xc830, "Samsung Galaxy Book Ion (NT950XCJ-
-X716A)", ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET),
-+	SND_PCI_QUIRK(0x144d, 0xc832, "Samsung Galaxy Book Flex Alpha 
-(NP730QCJ)", ALC256_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET),
- 	SND_PCI_QUIRK(0x1458, 0xfa53, "Gigabyte BXBT-2807", 
-ALC283_FIXUP_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1462, 0xb120, "MSI Cubi MS-B120", 
-ALC283_FIXUP_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1462, 0xb171, "Cubi N 8GL (MS-B171)", 
-ALC283_FIXUP_HEADSET_MIC),
-@@ -9445,6 +9455,7 @@ static const struct hda_model_fixup 
-alc269_fixup_models[] = {
- 	{.id = ALC298_FIXUP_HUAWEI_MBX_STEREO, .name = "huawei-mbx-stereo"},
- 	{.id = ALC256_FIXUP_MEDION_HEADSET_NO_PRESENCE, .name = "alc256-
-medion-headset"},
- 	{.id = ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET, .name = "alc298-
-samsung-headphone"},
-+	{.id = ALC256_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET, .name = "alc256-
-samsung-headphone"},
- 	{.id = ALC255_FIXUP_XIAOMI_HEADSET_MIC, .name = "alc255-xiaomi-
-headset"},
- 	{.id = ALC274_FIXUP_HP_MIC, .name = "alc274-hp-mic-detect"},
- 	{.id = ALC245_FIXUP_HP_X360_AMP, .name = "alc245-hp-x360-amp"},
--- 
-2.35.1
+> Today, hp_jack_event and mic_jack_event always return 0. However,
+> snd_soc_dapm_disable_pin and snd_soc_dapm_enable_pin may return a
+> non-zero value, this will cause the user who calling hp_jack_event
+> and mic_jack_event don't know whether the operation was really
+> successfully.
+>
+> This patch corrects the behavior by properly returning 1 when the
+> value gets updated.
+>
+> Signed-off-by: Meng Tang <tangmeng@uniontech.com>
+> ---
+>  sound/soc/fsl/fsl-asoc-card.c | 16 ++++++++++------
+>  1 file changed, 10 insertions(+), 6 deletions(-)
+>
+> diff --git a/sound/soc/fsl/fsl-asoc-card.c b/sound/soc/fsl/fsl-asoc-card.c
+> index 370bc790c6ba..f2641c2cb047 100644
+> --- a/sound/soc/fsl/fsl-asoc-card.c
+> +++ b/sound/soc/fsl/fsl-asoc-card.c
+> @@ -457,16 +457,18 @@ static int fsl_asoc_card_audmux_init(struct
+> device_node *np,
+>  static int hp_jack_event(struct notifier_block *nb, unsigned long event,
+>                          void *data)
+>  {
+> +       int ret;
+> +
+>         struct snd_soc_jack *jack = (struct snd_soc_jack *)data;
+>         struct snd_soc_dapm_context *dapm = &jack->card->dapm;
+
+The "int ret" should be here.
+The variables have order, the short one should be behind the long one.
+
+
+>
 
 
 
+
+>         if (event & SND_JACK_HEADPHONE)
+>                 /* Disable speaker if headphone is plugged in */
+> -               snd_soc_dapm_disable_pin(dapm, "Ext Spk");
+> +               ret = snd_soc_dapm_disable_pin(dapm, "Ext Spk");
+>         else
+> -               snd_soc_dapm_enable_pin(dapm, "Ext Spk");
+> +               ret = snd_soc_dapm_enable_pin(dapm, "Ext Spk");
+>
+> -       return 0;
+> +       return ret;
+>  }
+>
+>  static struct notifier_block hp_jack_nb = {
+> @@ -476,16 +478,18 @@ static struct notifier_block hp_jack_nb = {
+>  static int mic_jack_event(struct notifier_block *nb, unsigned long event,
+>                           void *data)
+>  {
+> +       int ret;
+> +
+>         struct snd_soc_jack *jack = (struct snd_soc_jack *)data;
+>         struct snd_soc_dapm_context *dapm = &jack->card->dapm;
+>
+ditto.
+
+>
+>         if (event & SND_JACK_MICROPHONE)
+>                 /* Disable dmic if microphone is plugged in */
+> -               snd_soc_dapm_disable_pin(dapm, "DMIC");
+> +               ret = snd_soc_dapm_disable_pin(dapm, "DMIC");
+>         else
+> -               snd_soc_dapm_enable_pin(dapm, "DMIC");
+> +               ret = snd_soc_dapm_enable_pin(dapm, "DMIC");
+>
+> -       return 0;
+> +       return ret;
+>  }
+>
+>  static struct notifier_block mic_jack_nb = {
+> --
+> 2.20.1
+>
+>
+>
+>

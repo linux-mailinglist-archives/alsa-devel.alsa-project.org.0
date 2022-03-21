@@ -2,177 +2,177 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 258104E244A
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Mar 2022 11:26:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 818824E246D
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Mar 2022 11:34:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9678E1705;
-	Mon, 21 Mar 2022 11:25:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9678E1705
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1503A1706;
+	Mon, 21 Mar 2022 11:33:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1503A1706
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647858409;
-	bh=csUHFVkoSQId0pgBN6pYE+IJkNZSJ+W/ariSiwnf9CM=;
+	s=default; t=1647858883;
+	bh=PAYxNAiYjLXPCJ3j4ttahmDu0ryFTGcb8kvUyv8GdA0=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ML6g+O/PoQVpuJA0x1auw0X1qcrjSbIIzcU3nxX9ap3Bi9514n7zTVD+83j6z2vmX
-	 YuCbZxux8XCoU/IbnjVF+qjEJXHyko+DVBGmxv9SHvxur9vGCfYGx0kG9kqrXm0ubo
-	 1kz/zURDirw+oH/VJAXHxG4+imrYkFxzXCwMSLe0=
+	b=q/Z1rILmFIWoQY31EByadUaMH2O8eke4jHn5U0H4u2c4++hnAxixo9GzgkfFZ8x/G
+	 +mxdnwoY6IiX3k7CFknhdycp6nid2Jd2hOY6pO1ej5NikX1TF5KzNlu3uTcJOjz0Ub
+	 VyxE5Wx07w3c6HsLdO0Y8eNOuFuCK0sdTdVx48UE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 051B3F80238;
-	Mon, 21 Mar 2022 11:25:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 83024F80238;
+	Mon, 21 Mar 2022 11:33:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9DD8DF80227; Mon, 21 Mar 2022 11:25:40 +0100 (CET)
+ id 6F5ACF80227; Mon, 21 Mar 2022 11:33:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EC982F80116
- for <alsa-devel@alsa-project.org>; Mon, 21 Mar 2022 11:25:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC982F80116
+ by alsa1.perex.cz (Postfix) with ESMTPS id D2DA5F800FD
+ for <alsa-devel@alsa-project.org>; Mon, 21 Mar 2022 11:33:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2DA5F800FD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="HEu8RnK6"
+ header.b="OM6/bbW1"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647858338; x=1679394338;
+ t=1647858811; x=1679394811;
  h=message-id:date:subject:to:cc:references:from:
  in-reply-to:content-transfer-encoding:mime-version;
- bh=csUHFVkoSQId0pgBN6pYE+IJkNZSJ+W/ariSiwnf9CM=;
- b=HEu8RnK6bgt3aWHIEjv8iZj1o8LN3JC0xRg1Dx9AsMJaISfYHdxUUiiL
- tfCHUzthii/Xz0BjyJkY1pmKu+qfw4A8/kj/jRoWG/UVA9a1BIpbUC1ZW
- PjDvqykfeUCvzlDc/DTi45k6qepO9hpvq1X/Uin7633WGNPStfNUVcv1c
- jmknGFFuVDlB6Wn5cuTTrTaxQkSaeKzmkC4/68zene3QORw4MgVFSZFOv
- o578AEBCoXtGQDULd/LYySeeOARVqE4Jfrw70Xx9qi5Daq+0WsYgm7BUK
- oYo4u7mSsXuuJ6VMG09kW9+S9p9LBD7xcBaPQBPxYAul9abuX2sf7dxIR g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10292"; a="239674560"
-X-IronPort-AV: E=Sophos;i="5.90,198,1643702400"; d="scan'208";a="239674560"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Mar 2022 03:25:32 -0700
+ bh=PAYxNAiYjLXPCJ3j4ttahmDu0ryFTGcb8kvUyv8GdA0=;
+ b=OM6/bbW1ibMlJcYXsrws5z9y+JyxaEUJqdBclBYPiACOJaOXsR/brj1V
+ enEH1/lbmyBu4yFyZEmu/Gq8wCGIi193s10hnfO1LpFRiK4gvTyusFrUv
+ 6y8LU2Kmws0vwqecqyjWYkpj/XVws2sb/GLt2wR4IFhTZLBqouN2OJqvs
+ sVemNd7I0ILy72VmHbe3TNR3IVktO6/LDt4lml6NasL0E3smek0b3g2+0
+ H9RaOb7YHCFtoXpX2DmI8BHa04zktkKsVbnrWfbH6BIR7DBLkh1+IGaY3
+ LGtxKO6vpuEOvcWPLOn9pJL9zK3F0MK0AmtaTefuG8kAmU44RCfAOuhrG w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10292"; a="282344990"
+X-IronPort-AV: E=Sophos;i="5.90,198,1643702400"; d="scan'208";a="282344990"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Mar 2022 03:33:26 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,198,1643702400"; d="scan'208";a="615589202"
-Received: from orsmsx606.amr.corp.intel.com ([10.22.229.19])
- by fmsmga004.fm.intel.com with ESMTP; 21 Mar 2022 03:25:31 -0700
-Received: from orsmsx612.amr.corp.intel.com (10.22.229.25) by
- ORSMSX606.amr.corp.intel.com (10.22.229.19) with Microsoft SMTP Server
+X-IronPort-AV: E=Sophos;i="5.90,198,1643702400"; d="scan'208";a="824338395"
+Received: from orsmsx604.amr.corp.intel.com ([10.22.229.17])
+ by fmsmga005.fm.intel.com with ESMTP; 21 Mar 2022 03:33:25 -0700
+Received: from orsmsx608.amr.corp.intel.com (10.22.229.21) by
+ ORSMSX604.amr.corp.intel.com (10.22.229.17) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.21; Mon, 21 Mar 2022 03:25:31 -0700
-Received: from orsmsx609.amr.corp.intel.com (10.22.229.22) by
- ORSMSX612.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ 15.1.2308.21; Mon, 21 Mar 2022 03:33:24 -0700
+Received: from orsmsx603.amr.corp.intel.com (10.22.229.16) by
+ ORSMSX608.amr.corp.intel.com (10.22.229.21) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.21; Mon, 21 Mar 2022 03:25:31 -0700
+ 15.1.2308.21; Mon, 21 Mar 2022 03:33:24 -0700
 Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
- orsmsx609.amr.corp.intel.com (10.22.229.22) with Microsoft SMTP Server
+ orsmsx603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.21 via Frontend Transport; Mon, 21 Mar 2022 03:25:31 -0700
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com (104.47.58.168)
- by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
+ 15.1.2308.27 via Frontend Transport; Mon, 21 Mar 2022 03:33:24 -0700
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com (104.47.56.42) by
+ edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2308.21; Mon, 21 Mar 2022 03:25:30 -0700
+ 15.1.2308.21; Mon, 21 Mar 2022 03:33:23 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=U17D5bFO81TQG0AZIbqzvG5DKRaim31oxSaOW4dN2XasVABZaUS1KiIir5hw2MOCbdvD6lEiqaev2TVIZDZPcuakflf71EhF/B7K4ZuxITTzzZK/lYM1cxKJIzFBs/58whuZOs98+VewMIkk8wTgQFQd0vHrLG4vg/jgISoJ0m7VK7hlHxDXpDH8hBOH2AGXW2Ct/cn37NhMc8zjK6VRr3u23dV2mS0vAsIf1jQ6SrFbFgE2pceKJsnUpp89QzxqAlLRYHBuw2gCkSryqoXnnx0rqOMFoZbX6wm9oTvKiTGxM09aKsB0Whn8AGUv8hfX5zF7M6N6x0OR3d2OE3fXfw==
+ b=CRplK0058yRT9SbDFcF3Dl/gKRsHmW1Xi8GrS6I1J9Qgxgmf0Ji1zSCQfFsfc+3tgzADHI2D9P1+HhXh6FnYqyIPu/ih3pc2rKEGl/aJxAJMi/HRpDBnd9gyXvrrflIVgDKH6U53Fn3LBCJl7Wazcj9VCmUZXjSpoyIVr/xHBKxAvTNkuW0oicZIXbP+kyqkiHjelMWPUlsDKXBhVTBQoH1gPuWYnGETc4ifR6fLeqB9WAL2tvpG/lyZ6QAjPGT7IsdyPIjhw5LyM+78RUBMdnO3nKOgHUcmVDfC0b07SYHE6cgU3d1iCm7yldN4lC0Azu2ICzNHoE0eP44JdIruIQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pwG8mNJisaHbmDf3V2IGbLjl/gf1bb+9A78JR1prMdE=;
- b=NvsNjgE31PJNvsVzL8PiMH2slS55u3ttELY/rv7A31TnPTYixqUPO7yNBWlHpQiQozMurdRb5hTRD9srayVk2Xs88F5s417TuosEo36HR5eEWIM8fXZ+N7Nrm2oVHTwKQAPpdGArwWMsVLoG99Hl3lMRTGyazs/++aab3XPVEgjr08zSbeXmiVT3WEw7hxhqK7Vf08+qEQwvywTs+Pae/VCZk6OM9bLBwpkjgAdG95EOqGpUAXIarPee8U2PFf0kDN+rskTUwWBDqOu3c/h9GoIFpnB3agwgToErs2Gw2DAfG3IHRNXZEkULBDs9eQClTch2cs2CRCpZWEGdyj1tMg==
+ bh=jl5nRL1IGxaR16gAY7Tx4cXJ5ACbBzYS7xm5sxPMt7Y=;
+ b=NJ3F3Di9yV536zBQMDC8hu1yLOdl16kBVMoJ8ycAbcoEj3oQaKzh60Y5wLqk52fLq0TlioUN3TjgZAUixKokJIJL471TT8ZCCiVu8dU5W+eEnixqpomaOnpIqNw9OxXfRKlxxds+eKjIgeKU17J0Xcb3eq0cE/OLA0TobXlVjOGkIsq1lgh74cfAEzJmb9NBqQEE6unslwrxYe+SUjPjtFdEWYD6x+pqBKsGaMqcYOY/4hp5iQ0YjrJ3BU+2bUB82A7xu0lweGxI0d4iwtQZ8sXPmkXPP086XEHYYI3C31zzC7j1Kx2WwIBXSZiYECPVqBYwdJYujyKXRyi/R32NJw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=intel.com;
 Received: from MWHPR1101MB2157.namprd11.prod.outlook.com
- (2603:10b6:301:51::10) by LV2PR11MB6071.namprd11.prod.outlook.com
- (2603:10b6:408:178::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.18; Mon, 21 Mar
- 2022 10:25:28 +0000
+ (2603:10b6:301:51::10) by PH7PR11MB6054.namprd11.prod.outlook.com
+ (2603:10b6:510:1d2::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.22; Mon, 21 Mar
+ 2022 10:33:22 +0000
 Received: from MWHPR1101MB2157.namprd11.prod.outlook.com
  ([fe80::ccac:dd6b:b12e:477c]) by MWHPR1101MB2157.namprd11.prod.outlook.com
  ([fe80::ccac:dd6b:b12e:477c%11]) with mapi id 15.20.5081.022; Mon, 21 Mar
- 2022 10:25:28 +0000
-Message-ID: <cfc57f7a-2810-5324-3de4-d4de1ba1df26@intel.com>
-Date: Mon, 21 Mar 2022 11:25:20 +0100
+ 2022 10:33:22 +0000
+Message-ID: <f8426c4d-692d-c742-cbb1-f5d3a50cb9e6@intel.com>
+Date: Mon, 21 Mar 2022 11:33:13 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Firefox/91.0 Thunderbird/91.7.0
-Subject: Re: [RFC 02/13] ASoC: Intel: avs: Add topology parsing infrastructure
+Subject: Re: [RFC 03/13] ASoC: Intel: avs: Parse module-extension tuples
 Content-Language: en-US
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  <alsa-devel@alsa-project.org>
 References: <20220207132532.3782412-1-cezary.rojewski@intel.com>
- <20220207132532.3782412-3-cezary.rojewski@intel.com>
- <6cdb5477-38d6-8308-2ff8-3bed61fdfb3e@linux.intel.com>
+ <20220207132532.3782412-4-cezary.rojewski@intel.com>
+ <77ce39c4-b41d-88a9-b83e-e1ff3dc23584@linux.intel.com>
 From: Cezary Rojewski <cezary.rojewski@intel.com>
-In-Reply-To: <6cdb5477-38d6-8308-2ff8-3bed61fdfb3e@linux.intel.com>
+In-Reply-To: <77ce39c4-b41d-88a9-b83e-e1ff3dc23584@linux.intel.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO2P123CA0064.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1::28) To MWHPR1101MB2157.namprd11.prod.outlook.com
+X-ClientProxiedBy: LO4P123CA0043.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:152::12) To MWHPR1101MB2157.namprd11.prod.outlook.com
  (2603:10b6:301:51::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f96ed11d-86eb-4ebf-6188-08da0b251eb9
-X-MS-TrafficTypeDiagnostic: LV2PR11MB6071:EE_
-X-Microsoft-Antispam-PRVS: <LV2PR11MB6071B356A68093B4A551A5C1E3169@LV2PR11MB6071.namprd11.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: fe6adda4-925d-4066-a379-08da0b263922
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6054:EE_
+X-Microsoft-Antispam-PRVS: <PH7PR11MB6054956FE01D2C7DF127906BE3169@PH7PR11MB6054.namprd11.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: AekyAaEI770xYrtEkUfO66BjsfzvVX84PyU5AVwFAeTDuXSlOeJJ3o3j25h7HDa6DDuUFohlQ8tWHMkohOqgIW2EE4y8mhpO+36mVYiGfjZfkotQ669MpegotqJB+brTLuVyGZwuqwpjONoSfLCZ76BsE2XJ0xDoR8xqie9qua3c5qo9tVe7Vt/eXGAjDtO+F3WTE6bezXtmAwkfxO/HzF21Q9lu5CMNY40RxLzK+GKlz0KReb3WKjMEXFQEN0vAjOEGZN44s52Wvs6bhKfGHYPrybwyhl0lZn3vpZF8g5lktHXPQYVYNiVWNDqQOxX2FRMZpmplQL5YItyjt+CNweTtaRoUysvkNv09iZ4pb0mwpX0d+HrUhDrBDqmhzled0tD95RcjeEyIC1X7wX91rbMomu1So3qK+/sC4xOeoxD4s4XIprwiw7rBhy/roESWdxAuzzdNmT3o5HoU6bcOLxlzCeS/cvu8UVQkFukV1jRQgYRE+C2ykG3TQLVNhmZlYD5+G3VScIxJTdRkIPkgiB6/6W7XHjocz2w9dCqTYuW3AYJFJb1xMCH1VW4afoR3P2nfxkf+kqM4/tkw21HRRYIF9ql9ieXnJKAiMR5hqBq8LYUPhbHSC+noIhph2L9t2QCOWtwyi1mtvPJJuZ5hOFeYq3rUk6Vb14TcplClMw8WYO2+ds+fqCk/yG1gQ0u2D1CAlzNS/KNn/OxEcbO4MbGgCyw4kvDwWEiPOnIijqVmN9Ky0+lP4nzYssR0zNqGA8b4QW7b1fUFRN1+aLmRFA==
+X-Microsoft-Antispam-Message-Info: +LoZCtFuWGr6zbyW+7iyjjmLYzC3gr9P+YH2h5PU6joqN22eviKi4ZlQreaZ85r7SHQxz+bHsc9nj6vWVzTJ7Axl2nl45qZGYx4BGOZwaNpvXKSHcVW81rwkBaEtKcoNATTY3+zOarkVDB2WJ+jr+FIWlIn1U38sKmaB7T0pGji4DLERdEi9y0xfZasXNgo8ndcVyUbOMQFqEq8rYZoK4s+OazQ4M8/vOsb3R3soiKI1EBnKCTzJI8WW2OjSorwnog1wWyfcjk8MySM3KRgmpK5r4HJe1cdQvMj5NBWY7DQRxIkGf9vNWPwOlndyDYrseOOBgw3dq+yRZTyf5+uqgLgf+/9ItfNwJ5p8M0xZNmVESgtgy6fMrDgKizgGVUy55GNge2W8t8Con81CKSfAoiVi9e5urtsX8dagLSNMvyMmKTQq7Yxgk6SXmyZc6qw6B1J7aibaN7+2PL4naCWr7H/GSgbyD0/pPWRmlc48fuBOH7YhkewSrQFzv65XG0vVYQSPx3RJs8cx2v9lDxN1kwCWOWjV1QNp4OrWG5S9AuJQdgN/mKghoNbka1dhZKtzHq+65CE/0kcYNLpIixq3oFq2BbMMorX4aWjTn1KjJ4KHS99RrpQ0inr9u42Ya2SnKxOBKf+359uB8H+8HE7pEZJt72ilQQRMlFezO8ucZTaY4NWvgbJN9AmDK/Eg/GSA6w1CzgmDMW0s4qaQzzRb+ofnyCNKygnx18uNbv/at6gAanxAtKAVcHOc+gdOaIHo
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MWHPR1101MB2157.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(366004)(66946007)(7416002)(6486002)(66556008)(2906002)(66476007)(82960400001)(508600001)(36756003)(44832011)(8676002)(38100700002)(4326008)(8936002)(5660300002)(30864003)(31686004)(6506007)(53546011)(316002)(31696002)(86362001)(2616005)(6512007)(83380400001)(6666004)(26005)(186003)(21314003)(43740500002)(45980500001);
+ SFS:(13230001)(366004)(316002)(7416002)(82960400001)(86362001)(508600001)(38100700002)(6666004)(31696002)(2616005)(5660300002)(66476007)(66946007)(4326008)(8676002)(6486002)(6506007)(2906002)(36756003)(6512007)(8936002)(31686004)(26005)(66556008)(186003)(53546011)(44832011)(43740500002)(45980500001);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eVZ2QTQ4cW5jTkk0Uk9qU29NNmIwbFBROXRzelhEMnFRcm1hakRZQ09oVW9E?=
- =?utf-8?B?NHZ6VFJPVi9VZmRHWVluQWEzWVN1dnY5Qm8ycHNnYXAzdkNPbmVtN0wvMy80?=
- =?utf-8?B?N0lXZjR6RTFGcmM3dHpiUzVUMkcwYkErZkV2UTU1YThyVnpxZjIxWVZoK1FK?=
- =?utf-8?B?NXJMdWNQYnEwa01oeTlBM2RndDNLN255N2RvbWw3bXZLLzduU09ndjhSbndB?=
- =?utf-8?B?bEVsWjF2bW01Q0J5MzA4Q3h3NDhWVzlaV3BnbldvcGRGaWRhUkFPY01nN0Jh?=
- =?utf-8?B?U3pNOVQ4RmdVZUIzdUMrV0V2UHlGMzh6NkVqM04vQ2UyL3BadThWYWJ1KzIw?=
- =?utf-8?B?d1lIU3k3RmJXT0hGZlh6a0dadW5qd2FkZjdhT1hzRmh0b29CTzdwL01NUzh0?=
- =?utf-8?B?QWczcmJRN0tlTWFkdWF1TWMwbWdzWGJJNnFYdEg2YUNsZzJ3cU83czRJcWd6?=
- =?utf-8?B?VllwU09xNThETm9aTTZDakY2UU9MRnl4NTEzNEo2TGpEb3RLd2tpTkJvYlNN?=
- =?utf-8?B?Vit1ZDF0T1doaSsyVWNqeXdCZnphMnVWdnpvMEw2QzJXWXZRSkgydDNIOUNl?=
- =?utf-8?B?UG43SlFQSHdudzVLSWRpY25kVE9GcmQ5a1dHR3NiQzU2VDVEWFNHdDJ2ZzhR?=
- =?utf-8?B?eXoxRDlqNkNWbW9Qdk9lbzRHc3lKVEs5Umd0a3NKN3ZwYXV2QktSdUM5eCtl?=
- =?utf-8?B?NWR6d0lhbEVUQjJSVTFpdEdJbEZKazFadlJLYTMxR3dkY09maVNxQjJIeFdr?=
- =?utf-8?B?UElHaThFWnY3OUN5L3QxbFFJMitaNTA4TG9TSnFZdDZ1b2hOc1A0c21Wd2t3?=
- =?utf-8?B?L1NwbGo3di9uaGtjeTZsdWJvVW5iRVFJa3c4Um1CMzl2STU0Z01LRHBWQzkx?=
- =?utf-8?B?NnlrbXpKVDVia0ErWm04SEFOK0NuTzhDS3g1Y1ZUM1F4TFhBcXlSWFI2NVVh?=
- =?utf-8?B?OVdadW9SNDFNR3V5VDBXUitlWEY0QWpmOGZ0S3JZanlkN0JsUGJVS29rREZ0?=
- =?utf-8?B?UHVEcXRaaEk1MGd1V21VQ29ZV280M0J3dXgraGwxYjI3UEUvRG5CTnNNVnZp?=
- =?utf-8?B?YXlkRVViNEJhbi9OeGFVM0ZzeG9pWEw1RktZRklhVVRVeWFTeFJ4SFVuYmk4?=
- =?utf-8?B?bnpNNjR4NWJRTVdURTg5N1hWeUZXYS9STEdoY1FKeFd5bE82ZnRQNXNSZWlU?=
- =?utf-8?B?emNBbTIvUkZMZHlqUUUyODg1eVY0UDJjcmM2WGVEeXRoT3ByZHdHYmNnNjll?=
- =?utf-8?B?OG0rblkySUduUktra3VVRGc5QW8rSnk1eUMrZUxjNmo3SlZMbm54MkJtZFAr?=
- =?utf-8?B?MmJPVG85azA2ZUduNHcwZVJ5aVVxVG84cUxha0R4N1NqVWFTakFpd0RTZUFU?=
- =?utf-8?B?by9VZEdEcjlJTmM1cUlKZmdTMFVGNUxweG9mOUxUUXRKZFFpajZkUWQzaEY2?=
- =?utf-8?B?UGlOc0Z1UWczUys0QUdla1YxSFR5dG95RVZ5RXpZZUFLaGFuUmtDUGNIS0VE?=
- =?utf-8?B?S1kwUnVRVW55ZHRSaTVnTURhQ1BBQUtHTURKd0VnSi9mblNSQWkyUFhTaFl6?=
- =?utf-8?B?RjN3TkhRZGdnT2ZNSGJweFExVmR4cUllaWE1ZXdOMzB5bzlLWG1CR0RETHVx?=
- =?utf-8?B?R1VURXM0cDFxcmFNbExzSWdNcXFacERXOGFac25PM1ZwSG14NVFRV2xjRExH?=
- =?utf-8?B?ZS9HUXdkci9ReHpGUEJmWU1DeFJINjkzdlZSYk5JM2NwenQ4YU1XeWdIR2lG?=
- =?utf-8?B?L2JEVCsza01CY1ZYelRtVk1IckZLMTJWdTBISVBPM3o4Uko2eDk3aVlqcFZZ?=
- =?utf-8?B?YUNuSG1lb0U1eVZsZTdubUhFS3h2NENaajM0ZUlYM3ArSW9mRTZYRktqQ2I5?=
- =?utf-8?B?UlJTenpnUjN5d3l3VzBqU1NEWGZaSXJKWngydVZYWGZCNGhuNTZMNjU2eTJI?=
- =?utf-8?B?VEVxNC9OUGw5WmIxQ0sxVlJTV1lFWDlEOWxoUk8yYjAwWi9YckZrdWNJeG83?=
- =?utf-8?B?RVlyaFZRaGJBPT0=?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: f96ed11d-86eb-4ebf-6188-08da0b251eb9
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZmI3N3ZibEhsbTJ4N1l6eGVHR1lZb3EzSlNQODFoTDM5RThMVENDVDBtRnEz?=
+ =?utf-8?B?aUpzS0s5Rk9wci9BQUtDaVF1RjhGVk1rK1ExVlgvdnZ4R1FSaVdPSFhnQkY4?=
+ =?utf-8?B?Z1ZOdHdIaUswSWFMTm9CUVZ1K2tPMXN6RlJyejM0SkRHZE1rT3FtM3VqS1R4?=
+ =?utf-8?B?MWdQUlpJZktmS05URjgwN1lDZGxqaGxET2d4dGVEeThnQ2wwWGl0TTJ3TDZy?=
+ =?utf-8?B?T0JDaXArQXlRTFpoZERBNU0waUNzS2VQU3MrRTRpYmxrdU5ZVGFwY1pWTHBv?=
+ =?utf-8?B?bXdyVVFoeWMyN0QwMWZuQW5RYngxdGtqTUl3aW5VVXh2THpSMTd5aVFhMGhi?=
+ =?utf-8?B?S3MrbnUrVU9IOWVETHpZcTJPdlNHK2NQOTdaVU5wVkFlWVNkS2pScDVWWStO?=
+ =?utf-8?B?V3VSa1JhYlNnam0xcVRnVlFKNVg0a05uMU9wNVlGdkt1Q0tRSzN5N2JLa0dh?=
+ =?utf-8?B?TXQvR25wRmREanlRODM3WjFJZzdkWnhiSnZzK3ZNQWthT1RXY016SHQ0LzhC?=
+ =?utf-8?B?T1ZFMzZvUWdsKzdWMXJ6Y040Zk8vUW9pQjhjUE5mdUJoSFJ3TXY0amp6NVB1?=
+ =?utf-8?B?VXg0dUs2N0RYZ1d0aS9KYmg4cVphbGNwdVV4bjJyOHNyWXY4TjhBMmR5aWxJ?=
+ =?utf-8?B?MUxlY1RCUVRhNEwwTjAxK1lCaGlUY0laemswV3hVUnUvQ3dYMXdXai8wTEZR?=
+ =?utf-8?B?Z1oxNVVSMkVNM2liMzdjUzJWS082Y3FUZUs1MnBIbjZJZElFVDNPdjlRZDBM?=
+ =?utf-8?B?cWtmL1dyRjVLTE9ScHlwMmN6clBoem4vZGhYZHpEMWhLSVdxVkpmY3BNajF2?=
+ =?utf-8?B?RlpMTlhjcmtMQ2JScFUyTndRU1RyQ3RxNmFFL050Ly9Hb0ZndW85K3IybHVB?=
+ =?utf-8?B?YnRWbFRPa21DMUJKYUl6WXhuL0VDN0x5RTRabWg2ckxQZ3BucDhQQzFzMGt4?=
+ =?utf-8?B?V0FudTlFR3I0cE9vR2dQK1krTTdyT1lQZjV2SjNkM1IxS3g1b1lVSHFseEJZ?=
+ =?utf-8?B?MW13bVAyTldVSXRxYzdPVjY1aUVMb2ZXaU1CMmFQZldEZmdQS3VrQWYwKys0?=
+ =?utf-8?B?REJaR3JoKzRXWGs1NlBWZHM0Njc2SDRCZG95SUlJN1FKR1Q3bWlScjZKdVo3?=
+ =?utf-8?B?NVl6K0FaMjRmS0Q0Z0JEOWlpU2kwS3E4akw1endJdHVQOVA0VG1PQ2NkYWpF?=
+ =?utf-8?B?K25rMjBkc01ncWt6YjMyZzI5T0RldVFaenU0L1lsckxzcFNHd1hjT2F3UEhL?=
+ =?utf-8?B?aCtZWUtoOUM4Rllub3BZVzcrbTNib1VQcVZHQ1NIRmtXVHR3YVdLVC9FSnFR?=
+ =?utf-8?B?V2FmdUt3ZEIwYlJvR21DNC9RWithZzgxZ2hsbkg4UThaYndIWnpMd3VnZzRz?=
+ =?utf-8?B?dzZnbXkzVWZGSmx2YkhCa0RHeGtwWC9RWXFuUEtOeXczZUhhUi9DWXp5N0Iz?=
+ =?utf-8?B?MkV3a2dUaG80SWh2bkloZ2xiWjZCRXB1QWdYazNqMzN6SlZXOUMxTzVPbGdF?=
+ =?utf-8?B?Qk96VzVQRkJ6N2dwNFEzMExlUE1XcVJVYjYxeGFRWU5HSVlhNGVLb0NOK21q?=
+ =?utf-8?B?NU1NTEdtQmt3emNuUkpnSHVBUkV2VCtOdzlRdHBHMkFUTWpMZHFhZTNkZjc2?=
+ =?utf-8?B?cHM1Sm1hUUZLelNLVlFZd2dIUWFLczQxTzlueU5KSWxXeFpnYnNKdGJYdkxs?=
+ =?utf-8?B?TVRueWJPR3FSZ2xtUWczSlNTcGJ6S09Ebnc3eldkdDlhQ2pvOWZuYnhLTUxD?=
+ =?utf-8?B?VWc5NVBuY3FTTDduRUdLSUJxVHl5U3E3S2hBdVd5U2tEODN2cFV2NWY0eC9Q?=
+ =?utf-8?B?QUdMTFhvNVZ1THJmdnhrMmRjbEFNalY3ZWdoYjJNRTVsQjBjTnhsY29xV0cr?=
+ =?utf-8?B?MDNTeTEzS0poRXlyUFRXd0V5OVF2ekl2REN3T2greWhzS0cva05uQzExNkdk?=
+ =?utf-8?B?SUZkcFIwY1UwOWpvbmZuaE1xcE1ObEcwN09IcFk4ZkJuUldnSDBrbUZVd0RH?=
+ =?utf-8?B?ZXJ5NHdWWGJBPT0=?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: fe6adda4-925d-4066-a379-08da0b263922
 X-MS-Exchange-CrossTenant-AuthSource: MWHPR1101MB2157.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2022 10:25:28.4445 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2022 10:33:22.3611 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6hkLevrvSU6XaWVBONhwfuGYT7oT2r7tQ5l91J2nODrhE9LugIl8pCeEKvsdoOhAu0Vv/4t8LAI1xLu3aLvkthqdqiLYVGtDBVuoms3lRx0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR11MB6071
+X-MS-Exchange-CrossTenant-UserPrincipalName: +y/etjwtl4HfI/DFxdM0oMSVfjh6/IIIbwMr+TY8H7j64YBzpJP0EnEYzdvR4QduEl6rBog7LN0bi6uptfPFTuMPsdK7NcJc6P8FzuSaxeQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6054
 X-OriginatorOrg: intel.com
 Cc: upstream@semihalf.com, harshapriya.n@intel.com, rad@semihalf.com,
  tiwai@suse.com, hdegoede@redhat.com, broonie@kernel.org,
@@ -193,311 +193,71 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2022-02-25 6:20 PM, Pierre-Louis Bossart wrote:
-> On 2/7/22 07:25, Cezary Rojewski wrote:
->> AVS topology is split into two major parts: dictionaries - found within
->> ASoC topology manifest - and path templates - found within DAPM widget
+On 2022-02-25 6:24 PM, Pierre-Louis Bossart wrote:
 > 
-> what is a "path template"? this is the third time I review your patches
-> and I have yet to find a description of all this.
-> 
-> If you introduce a new concept you really need to explain what problem
-> you are trying to solve, why it's important and what other alternatives
-> could be considered. Consider adding a Documentation file to explain
-> what you are trying to accomplish.
-> 
-> Jumping to optimizations of memory footprint through dictionaries is too
-> early.
-
-
-Hello,
-
-I don't believe it's early for optimization and such. ASoC topology 
-feature has not been invented yesterday and most of the topology files 
-we see used are far from perfect.
-
-I've been trying to explaining "path template" on several occasions, 
-also during our meeting last year. Now, there's no separate 
-Documentation for "path template" as is not a new concept really, it's a 
-different name for already existing thing. Every driver which makes use 
-of ASoC topology needs to have a "path template". skylake-driver has a 
-"path template", sof-driver has one too. Topology information does not 
-match 1:1 to runtime, it never did. You use topology to describe how the 
-stream shall look like in runtime, kernel takes that information and 
-instantiates the runtime.
-
-If you do not believe, please see the skylake-driver topology which is 
-made of:
-- ModuleType, ModuleResource, ModuleInterface (...) dictionaries
-- Path and PathDescription
-
-There two blocks looks very, very similar to:
-- ModuleConfigBase, ModuleConfigExt (...) dictionaries
-- Path and PathTemplate
-
-which are supposedly 'new' in avs-driver. Yes, we provided several 
-optimizations, but the "path template"/"path pattern"/"path description" 
-was already there.
-
->> private data. Dictionaries job is to reduce the total amount of memory
->> occupied by topology elements. Rather than having every pipeline and
->> module carry its own information, each refers to specific entry in
->> specific dictionary by provided (from topology file) indexes. In
->> consequence, most struct avs_tplg_xxx are made out of pointers.
->> To support the above, range of parsing helpers for all value-types known
->> to ALSA: uuid, bool, byte, short, word and string are added. Additional
->> handlers help translate pointer-types and more complex objects such as
->> audio formats and module base configs.
-
-...
-
->> +/*
->> + * Scan provided block of tuples for the specified token. If found,
->> + * @offset is updated with position at which first matching token is
->> + * located.
->> + *
->> + * Returns 0 on success, -ENOENT if not found and error code otherwise.
->> + */
->> +static int
->> +avs_tplg_vendor_array_lookup(struct snd_soc_tplg_vendor_array *tuples,
->> +			     u32 block_size, u32 token, u32 *offset)
->> +{
->> +	u32 pos = 0;
+>> +struct avs_tplg_modcfg_ext {
+>> +	guid_t type;
 >> +
->> +	while (block_size > 0) {
->> +		struct snd_soc_tplg_vendor_value_elem *tuple;
->> +		u32 tuples_size = le32_to_cpu(tuples->size);
->> +
->> +		if (tuples_size > block_size)
->> +			return -EINVAL;
->> +
->> +		tuple = tuples->value;
->> +		if (le32_to_cpu(tuple->token) == token) {
->> +			*offset = pos;
->> +			return 0;
->> +		}
->> +
->> +		block_size -= tuples_size;
->> +		pos += tuples_size;
->> +		tuples = avs_tplg_vendor_array_next(tuples);
->> +	}
->> +
->> +	return -ENOENT;
->> +}
->> +
->> +/*
->> + * See avs_tplg_vendor_array_lookup() for description.
->> + *
->> + * Behaves exactly like its precursor but starts from the next vendor
->> + * array in line. Useful when searching for the finish line of an
->> + * arbitrary entry in a list of entries where each is composed of
->> + * several vendor tuples and a specific token marks the beginning of
->> + * a new entry block.
-> 
-> please try and reword such comments for people who didn't take part in
-> the development.
-> 
-> I really have no idea what this is about.
-
-
-Please provide suggestion - "don't understand" does not help me in 
-rewording the comment.
-
-ASoC topology is not the easiest to digest feature in general. Comments 
-found here assume the layout and organization of sections, such as 
-vendor tokens and vendor tuples with ASoC topology file are known to the 
-reader.
-
->> + */
->> +static int
->> +avs_tplg_vendor_array_lookup_next(struct snd_soc_tplg_vendor_array *tuples,
->> +				  u32 block_size, u32 token, u32 *offset)
->> +{
->> +	u32 tuples_size = le32_to_cpu(tuples->size);
->> +	int ret;
->> +
->> +	if (tuples_size > block_size)
->> +		return -EINVAL;
->> +
->> +	tuples = avs_tplg_vendor_array_next(tuples);
->> +	block_size -= tuples_size;
->> +
->> +	ret = avs_tplg_vendor_array_lookup(tuples, block_size, token, offset);
->> +	if (!ret)
->> +		*offset += tuples_size;
->> +	return ret;
->> +}
->> +
->> +/*
->> + * Scan provided block of tuples for the specified token which marks
->> + * the boarder of an entry block. Behavior is similar to
-> 
-> boarder looks like a typo. Did you mean border? boundary? position?
-> location?
-
-
-Indeed, it is supposed to be "border". Thanks!
-
->> + * avs_tplg_vendor_array_lookup() except 0 is also returned if no
->> + * matching token has been found. In such case, returned @size is
->> + * assigned to @block_size as the entire block belongs to the current
->> + * entry.
->> + *
->> + * Returns 0 on success, error code otherwise.
->> + */
->> +static int
->> +avs_tplg_vendor_entry_size(struct snd_soc_tplg_vendor_array *tuples,
->> +			   u32 block_size, u32 entry_id_token, u32 *size)
->> +{
->> +	int ret;
->> +
->> +	ret = avs_tplg_vendor_array_lookup_next(tuples, block_size, entry_id_token, size);
->> +	if (ret == -ENOENT) {
->> +		*size = block_size;
->> +		ret = 0;
->> +	}
->> +
->> +	return ret;
->> +}
->> +
->> +/*
->> + * Vendor tuple parsing descriptor.
->> + *
->> + * @token: vendor specific token that identifies tuple
->> + * @type: tuple type, one of SND_SOC_TPLG_TUPLE_TYPE_XXX
->> + * @offset: offset of a struct's field to initialize
->> + * @parse: parsing function, extracts and assigns value to object's field
->> + */
->> +struct avs_tplg_token_parser {
->> +	enum avs_tplg_token token;
->> +	u32 type;
->> +	u32 offset;
->> +	int (*parse)(struct snd_soc_component *comp, void *elem, void *object, u32 offset);
+>> +	union {
+>> +		struct {
+>> +			u16 num_input_pins;
+>> +			u16 num_output_pins;
+>> +			struct avs_tplg_pin_format *pin_fmts;
+>> +		} generic;
+>> +		struct {
+>> +			struct avs_audio_format *out_fmt;
+>> +			struct avs_audio_format *blob_fmt; /* optional override */
+>> +			u32 feature_mask;
+>> +			union avs_virtual_index vindex;
+>> +			u32 dma_type;
+>> +			u32 dma_buffer_size;
+>> +			u32 config_length;
+>> +			/* config_data part of priv data */
+>> +		} copier;
+>> +		struct {
+>> +			u32 out_channel_config;
+>> +			u32 coefficients_select;
+>> +			s32 coefficients[AVS_CHANNELS_MAX];
+>> +			u32 channel_map;
+>> +		} updown_mix;
+>> +		struct {
+>> +			u32 out_freq;
+>> +		} src;
+>> +		struct {
+>> +			u32 out_freq;
+>> +			u8 mode;
+>> +			u8 disable_jitter_buffer;
+>> +		} asrc;
+>> +		struct {
+>> +			u32 cpc_lp_mode;
+>> +		} wov;
+>> +		struct {
+>> +			struct avs_audio_format *ref_fmt;
+>> +			struct avs_audio_format *out_fmt;
+>> +			u32 cpc_lp_mode;
+>> +		} aec;
+>> +		struct {
+>> +			struct avs_audio_format *ref_fmt;
+>> +			struct avs_audio_format *out_fmt;
+>> +		} mux;
+>> +		struct {
+>> +			struct avs_audio_format *out_fmt;
+>> +		} micsel;
+>> +	};
 >> +};
-
-
-...
-
->> +static int avs_parse_tokens(struct snd_soc_component *comp, void *object,
->> +			    const struct avs_tplg_token_parser *parsers, size_t count,
->> +			    struct snd_soc_tplg_vendor_array *tuples, int priv_size)
->> +{
->> +	int array_size, ret;
->> +
->> +	while (priv_size > 0) {
->> +		array_size = le32_to_cpu(tuples->size);
->> +
->> +		if (array_size <= 0) {
->> +			dev_err(comp->dev, "invalid array size 0x%x\n", array_size);
->> +			return -EINVAL;
->> +		}
->> +
->> +		/* Make sure there is enough data before parsing. */
->> +		priv_size -= array_size;
->> +		if (priv_size < 0) {
->> +			dev_err(comp->dev, "invalid array size 0x%x\n", array_size);
->> +			return -EINVAL;
->> +		}
->> +
->> +		switch (le32_to_cpu(tuples->type)) {
->> +		case SND_SOC_TPLG_TUPLE_TYPE_UUID:
->> +			ret = avs_parse_uuid_tokens(comp, object, parsers, count, tuples);
->> +			break;
->> +		case SND_SOC_TPLG_TUPLE_TYPE_STRING:
->> +			ret = avs_parse_string_tokens(comp, object, parsers, count, tuples);
->> +			break;
->> +		case SND_SOC_TPLG_TUPLE_TYPE_BOOL:
->> +		case SND_SOC_TPLG_TUPLE_TYPE_BYTE:
->> +		case SND_SOC_TPLG_TUPLE_TYPE_SHORT:
->> +		case SND_SOC_TPLG_TUPLE_TYPE_WORD:
->> +			ret = avs_parse_word_tokens(comp, object, parsers, count, tuples);
 > 
-> avs_parse_bool_token(struct snd_soc_component *comp, void *elem, void
-> *object, u32 offset)
-> avs_parse_byte_token(struct snd_soc_component *comp, void *elem, void
-> *object, u32 offset)
-> avs_parse_short_token(struct snd_soc_component *comp, void *elem, void
-> *object, u32 offset)
+> I am struggling to reconcile the notion of 'extension' with a fixed
+> structure that deals with Intel-specific modules.
 > 
-> why did you introduce such helpers, if you only use word_tokens?
+> How would a 3rd party add their own modules and expose parameters/tokens
+> through the topology?
 
 
-Huh? we do make use of all of these. Perhaps you missed these being used 
-in the follow up patches (in this very series). This patch defines the 
-parsing infrastructure so its declaration is separated from module and 
-pipeline parsing details.
-
->> +			break;
->> +		default:
->> +			dev_err(comp->dev, "unknown token type %d\n", tuples->type);
->> +			ret = -EINVAL;
->> +		}
->> +
->> +		if (ret) {
->> +			dev_err(comp->dev, "parsing %ld tokens of %d type failed: %d\n",
->> +				count, tuples->type, ret);
->> +			return ret;
->> +		}
->> +
->> +		tuples = avs_tplg_vendor_array_next(tuples);
->> +	}
->> +
->> +	return 0;
->> +}
-> 
->> +static int parse_link_formatted_string(struct snd_soc_component *comp, void *elem,
->> +				       void *object, u32 offset)
->> +{
->> +	struct snd_soc_tplg_vendor_string_elem *tuple = elem;
->> +	struct snd_soc_acpi_mach *mach = dev_get_platdata(comp->card->dev);
->> +	char *val = (char *)((u8 *)object + offset);
->> +
->> +	/*
->> +	 * Dynamic naming - string formats, e.g.: ssp%d - supported only for
->> +	 * topologies describing single device e.g.: an I2S codec on SSP0.
->> +	 */
-> 
-> what are you trying to optimize here? the topology will contain the name
-> in all cases?
+All vendor modules go into 'generic' bucket. Vendor cannot define any 
+specific fields i.e. extend the 'generic' header structure. Everything 
+that is specific to them has to go into so called payload that is part 
+of almost every INIT_INSTANCE.
 
 
-I'll probably separate the name%d part so it's not clouding the core 
-part of topology parsing.
-
-These if-statements are here to allow %d to be filled automatically by 
-kernel for SSP boards with ->link_mask found in ACPI board descriptor.
-
-Example for avs_rt298 with snd_soc_acpi_mach::link_mask=BIT(0):
-1) Topology file for avs_rt298 provides widget with name: ssp%d_be
-2) Runtime topology parsing formats that name to: ssp0_be
-
->> +	if (hweight_long(mach->link_mask) != 1)
->> +		return avs_parse_string_token(comp, elem, object, offset);
->> +
->> +	snprintf(val, SNDRV_CTL_ELEM_ID_NAME_MAXLEN, tuple->string,
->> +		 __ffs(mach->link_mask));
->> +
->> +	return 0;
->> +}
-> 
->> +struct avs_tplg {
->> +	char name[SNDRV_CTL_ELEM_ID_NAME_MAXLEN];
->> +	u32 version;
-> 
-> version of what and where does it come from (manifest)?
-> 
-> does this contain an ABI information? if yes, how is it defined?
-
-
-Yes, this one comes from topology manifest. Right now we decided to use 
-single-digit versioning for simplicity, similarly to ASoC topology one.
-
->> +	struct snd_soc_component *comp;
->> +
->> +	struct avs_tplg_library *libs;
->> +	u32 num_libs;
->> +	struct avs_audio_format *fmts;
->> +	u32 num_fmts;
->> +	struct avs_tplg_modcfg_base *modcfgs_base;
->> +	u32 num_modcfgs_base;
->> +};
+Regards,
+Czarek

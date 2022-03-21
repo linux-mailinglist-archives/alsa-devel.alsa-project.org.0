@@ -2,83 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 173F34E3287
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Mar 2022 23:07:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1774C4E3471
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Mar 2022 00:35:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 96BB61702;
-	Mon, 21 Mar 2022 23:06:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 96BB61702
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9D4D11700;
+	Tue, 22 Mar 2022 00:34:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D4D11700
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647900443;
-	bh=mIeaODzSwCKNOzPLJa5XnZI07OoJnccKznJ+R07CqMU=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=uifsqa3uIc/wLyYG76YNVc2kRTQSysHDvIq+12SINSTPDlZWLFzz3nIxW5OOOZsnH
-	 1UHtB71uGFg4aXdBHG8JLTuQWSUpGCepRjQz2g3FyWRwJ9LhHIU+3113aGMGosMDCG
-	 Q/6nBi5tjMt5b34kSI8L46h3t+tweDAFmlSeI/7o=
+	s=default; t=1647905706;
+	bh=PhOnr12pG0xpYNDNjwP6z0oQKQMRvCjIYPjC/M1pmJI=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=BfWkZ9Y5HFLIESeulNgKlJC2IqJAZtb0u204ZVYsYUErsFm7rOqKdm+4T1aadiDYx
+	 +7f5IsV5IL2Z5spkHyrCnKlP/GiWJbgmYEh69fOMGSHymdfoCqbeQNeG9BopB09aHK
+	 SeXhu/g2G9+J59yNMAt6WgDhsZjY+9stQlZXpYlc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0897CF80238;
-	Mon, 21 Mar 2022 23:06:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1B1A5F80238;
+	Tue, 22 Mar 2022 00:33:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1A46BF80109; Mon, 21 Mar 2022 23:06:15 +0100 (CET)
+ id 2B576F80227; Tue, 22 Mar 2022 00:33:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mout.gmx.com (mout.gmx.com [74.208.4.201])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com
+ [209.85.210.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F367AF80109
- for <alsa-devel@alsa-project.org>; Mon, 21 Mar 2022 23:06:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F367AF80109
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mail.com header.i=@mail.com
- header.b="J/FROqi7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mail.com;
- s=dbd5af2cbaf7; t=1647900365;
- bh=mIeaODzSwCKNOzPLJa5XnZI07OoJnccKznJ+R07CqMU=;
- h=X-UI-Sender-Class:From:To:Subject:Date;
- b=J/FROqi7xIAJCkuHXO6G7j5WbuYAVLzqfAe8q+x3kueSJlolO/uQ3eARLl+lgr4es
- T3Xp/ukqrhzVrVm7dtpeZDue4+XFvRAzE5EbkRHv2kvCqtv6RzrqDYzrZYV6om/MPj
- HkeMp5/uhTXlbP3RxexXaHOThsosNPK3X3DjcC0k=
-X-UI-Sender-Class: 214d933f-fd2f-45c7-a636-f5d79ae31a79
-Received: from [216.73.162.172] ([216.73.162.172]) by web-mail.mail.com
- (3c-app-mailcom-lxa05.server.lan [10.76.45.6]) (via HTTP); Mon, 21 Mar 2022
- 23:06:05 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 11B61F800FD
+ for <alsa-devel@alsa-project.org>; Tue, 22 Mar 2022 00:33:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11B61F800FD
+Received: by mail-ot1-f54.google.com with SMTP id
+ o20-20020a9d7194000000b005cb20cf4f1bso11517982otj.7
+ for <alsa-devel@alsa-project.org>; Mon, 21 Mar 2022 16:33:46 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=iqlGJqAp9J3mBYn2W544lt1cPtvAWKBsX1sKB8vjaFQ=;
+ b=KJwrZl+bsSvq7uZEIlJBaduaUN14xFO/bbUbeAllfSJXhfv+Cle/IxScFFdk4opfsb
+ uxGFDleqngGHK4rWWZJY42blFs340Dm2KF8B9oqv78Ot6d0EEGGtkLmdz1X3hkGdEoQ2
+ AwmrMHAj7MXhJQz4+tHQTxvtBdJa78MPTAHoyIdYUMYXHrU5ACi0dJOKOlhCdXJMpl5b
+ pL7Ujub7Eyj2MrmQys+ZC7SeBTQtDTeWKOyRXxdGRalhzXzlyEztxitdbC/8hpnvqtd1
+ jhC3SPZh7iLMAVF/LngSyXBS9xdse7Uninb9OVUqp46+/YYzIyydeAQr3PBPY68vtVNu
+ dtuw==
+X-Gm-Message-State: AOAM5333bUI3Y8VDZI/TYUXSUbO87+1qkVMq4809edHiKKczLnIZAitS
+ PjhU4F9fR1QdSxAUzqnShQ==
+X-Google-Smtp-Source: ABdhPJzxxO+k7l8znxP0vjnY2lEafBroFgaKOlvFVHd8JKFt8pjObiL7SWOFKakst91i39pW6Q1Hgw==
+X-Received: by 2002:a9d:5f16:0:b0:5cb:51de:6761 with SMTP id
+ f22-20020a9d5f16000000b005cb51de6761mr6071903oti.139.1647905625156; 
+ Mon, 21 Mar 2022 16:33:45 -0700 (PDT)
+Received: from robh.at.kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ p14-20020a9d744e000000b005b235f5cf92sm8228647otk.65.2022.03.21.16.33.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 21 Mar 2022 16:33:44 -0700 (PDT)
+Received: (nullmailer pid 751258 invoked by uid 1000);
+ Mon, 21 Mar 2022 23:33:43 -0000
+Date: Mon, 21 Mar 2022 18:33:43 -0500
+From: Rob Herring <robh@kernel.org>
+To: Jiaxin Yu <jiaxin.yu@mediatek.com>
+Subject: Re: [v5 1/4] ASoC: dt-bindings: mt8192-mt6359: add new compatible
+ and new properties
+Message-ID: <YjkLVwvxvOKr30qL@robh.at.kernel.org>
+References: <20220319114111.11496-1-jiaxin.yu@mediatek.com>
+ <20220319114111.11496-2-jiaxin.yu@mediatek.com>
 MIME-Version: 1.0
-Message-ID: <trinity-f386fb16-be7e-453c-ab20-f31fa9945c46-1647900365787@3c-app-mailcom-lxa05>
-From: fenugrec@mail.com
-To: alsa-devel@alsa-project.org
-Subject: realtek ALC1220 : recording samplerate 10x too slow
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 21 Mar 2022 23:06:05 +0100
-Importance: normal
-Sensitivity: Normal
-X-Priority: 3
-X-Provags-ID: V03:K1:gBIqy4NYfMwE1YNixprGSliS1beOdgZlMlqgYwcNWE1fn/4sQVFgPh9FjmPJKxlIpbNlN
- uyLHwWAPOP0OUD5J5F8+66uN8iLPOgVLQThu2c4t9fqAy88VlGthA5TM4DGd97gti1pkTiGF+NPp
- 5v1hQ8xyOiq5WVaDBDC6OTc28H6i3+S+R6+CMLXKsI26+yQZl1Ew7J+Cok995W3qT0BhFGdcp7Vb
- onZImRInTnyqR4CCfncuAggh+0iFxhY4jQghT764Xve+kZkrxy3P8l96WZpR0H1VpElhgPqxWrPO
- WQ=
-X-UI-Out-Filterresults: notjunk:1;V03:K0:D95CJAwV8FM=:Lrj+NgDuCKWMyQD7+HMyq7
- UKSmu3rOIWcryACv1yf6vWeO3gbWcftUlWdAQi6sPXBxKQpVlw0lEiAegP+ERbsqcOa4azO94
- BQ5/DXpd6jtmbqtZhIGOi5HMEJVylM4SEkSPJygNjvdlbfHeJMU6KwCD+MBeGB8tolNmYeZ6R
- 3H5q3O8Xq53BNv6sIuLucpGg6q6RqjzG4gGfzB7UMbioAJ5pkUufX2gysfQ+I8nkh2IUM7IKv
- mSsWknRkJpx2ZtCRurn6fxNx6k95Ay72m/QVQAwX+EHyRdjsdbcEnSMXHuqTBDDFVcDybXIZU
- laBNV+aByBq/nErSEUg+5w7A3UVRoXo+XnKtG0dilWbaa0Of/4NopBueaeiWb6HOUxHbPYZ1R
- FWQHR2fExOG09Pm6palo7M1UYv2aI1k5ae631yKYQxHSEmS0HpTx2Bn+e/npWhd0bqzP9/o3s
- f1+O+0rFRSyxByd1s9716tq6N+UfpRwmrLWMXuDuj96wRNimbfngI/16MvdzYiBUn0OU3qxDn
- u67MthbkaPMPUeEbKv3LoR3s4S5aUYGXc3O28iQvVTBKyPjX0Rtk44pLmtfDDyreFdDOM2xl5
- VvHS2szi+pR4zyfcAohO3RIcG6blo8D8hs0g+TZe/qzFZ0470uDaRKf9iPR/eaYVeqmQV+cgJ
- 5/Lkb2BUS5URq5kZ1mZNb9eBbxASCdslwDbs+uwH73dtq6ASlLxg0jfKG1Ku6Sozc7gwQ6dEi
- OfV92rpbCX9jXEqRS9RtJOi8/Rt7hYktrZ3jpUbdTHD1v7yqfyBKg/7sTIHVE2xAyPAMhO4gV
- TXefGvB
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220319114111.11496-2-jiaxin.yu@mediatek.com>
+Cc: devicetree@vger.kernel.org, linmq006@gmail.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org,
+ Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
+ broonie@kernel.org, linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
+ matthias.bgg@gmail.com, aaronyu@google.com,
+ linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,43 +99,86 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-[resent from the correct email address. Sorry !]
+On Sat, Mar 19, 2022 at 07:41:08PM +0800, Jiaxin Yu wrote:
+> 1. Adds new compatible string "mt8192_mt6359_rt1015p_rt5682s" for machines
+> with rt1015p and rt5682s.
+> 2. Adds new property "mediatek,headset-codec" for getting headset codecs.
+> 3. Adds new property "mediatek,speaker-codec" for getting speaker codecs.
+> 
+> Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
+> ---
+>  .../sound/mt8192-mt6359-rt1015-rt5682.yaml    | 29 +++++++++++++++++++
+>  1 file changed, 29 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/mt8192-mt6359-rt1015-rt5682.yaml b/Documentation/devicetree/bindings/sound/mt8192-mt6359-rt1015-rt5682.yaml
+> index a781e7aaaa38..aa0476eedd38 100644
+> --- a/Documentation/devicetree/bindings/sound/mt8192-mt6359-rt1015-rt5682.yaml
+> +++ b/Documentation/devicetree/bindings/sound/mt8192-mt6359-rt1015-rt5682.yaml
+> @@ -18,6 +18,7 @@ properties:
+>      enum:
+>        - mediatek,mt8192_mt6359_rt1015_rt5682
+>        - mediatek,mt8192_mt6359_rt1015p_rt5682
+> +      - mediatek,mt8192_mt6359_rt1015p_rt5682s
+>  
+>    mediatek,platform:
+>      $ref: "/schemas/types.yaml#/definitions/phandle"
+> @@ -27,6 +28,25 @@ properties:
+>      $ref: "/schemas/types.yaml#/definitions/phandle"
+>      description: The phandle of HDMI codec.
+>  
+> +patternProperties:
+> +  "^mediatek,headset-codec$":
 
-Hi,
-I was redirected here by pulseaudio maintainers for an issue I thought was=
- at that layer :
-https://gitlab.freedesktop.org/pulseaudio/pulseaudio/-/issues/1344
+Fixed string, not a pattern. Move to 'properties'. Drop the vendor 
+prefix too.
 
-After a fresh reboot, arecord / parecord work fine, and the level meters i=
-n pavucontrol react normally.
-If I start audacity, the card gets in a state where the level meters becom=
-e sluggish, and recording either drops 90% of samples, or records approxim=
-ately 10x too fast.
-Playback is always ok, unaffected.
+> +    description: Holds subnode which indicates headset dai.
+> +    type: object
+> +    properties:
+> +      sound-dai:
+> +        $ref: /schemas/types.yaml#/definitions/phandle-array
 
-I cannot fix that state other than by a reboot. The obvious "closing audac=
-ity", restarting the pulseaudio daemon, have no effect.
-Tried kernels 5.15.24 and a recent 5.17; same problem.
+Standard property, don't need a type or description. Just how many and 
+what each one is if more than 1.
 
-I posted some detailed debugging info on that pulseaudio issue tracker, as=
- well as pastebinned alsa-info.sh output here:
-http://alsa-project.org/db/?f=3D7ee784003379252acfef25de5fecbdfd559fe342
+> +        description: List of phandles to the headset codec nodes.
 
-The problematic hardware is Card 1, Audio device [0403]: Advanced Micro De=
-vices, Inc. [AMD] Family 17h (Models 00h-0fh) HD Audio Controller [1022:14=
-57].
+More than 1?
 
-Test command :
-pasuspender -- arecord -D hw:1,0 -f S16_LE -c 2 -r 44100 arec_pasusp.wav
+> +    additionalProperties: false
+> +
+> +  "^mediatek,speaker-codec$":
+> +    description: Holds subnode which indicates speaker dai.
+> +    type: object
+> +    properties:
+> +      sound-dai:
+> +        $ref: /schemas/types.yaml#/definitions/phandle-array
+> +        description: List of phandles to the speaker codec nodes.
 
-Here's an example recording of me saying 'test' :
-https://gitlab.freedesktop.org/pulseaudio/pulseaudio/uploads/5a51081fcd55e=
-cd705df258c1a0fd2b6/arec_44k.wav
+Same here.
 
-I have no ~/.asoundrc or related files.
-
-Anything I can try to narrow down the cause of this ?
-
-
-Thanks!
-Chris
+> +    additionalProperties: false
+> +
+>  additionalProperties: false
+>  
+>  required:
+> @@ -44,6 +64,15 @@ examples:
+>                          "aud_clk_mosi_on";
+>          pinctrl-0 = <&aud_clk_mosi_off>;
+>          pinctrl-1 = <&aud_clk_mosi_on>;
+> +
+> +        mediatek,headset-codec {
+> +            sound-dai = <&rt5682>;
+> +        };
+> +
+> +        mediatek,speaker-codec {
+> +            sound-dai = <&rt1015_l>,
+> +                        <&rt1015_r>;
+> +        };
+>      };
+>  
+>  ...
+> -- 
+> 2.18.0
+> 
+> 

@@ -2,75 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F6EC4E25E7
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Mar 2022 13:01:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AB334E2649
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Mar 2022 13:27:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 05DCB16F7;
-	Mon, 21 Mar 2022 13:01:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05DCB16F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 154FA171E;
+	Mon, 21 Mar 2022 13:26:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 154FA171E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647864116;
-	bh=x7RIt4mLNf8mNberwc71l5fBa0XC8ugDp4MrJBP6Nek=;
+	s=default; t=1647865637;
+	bh=8Qpt35h+wLGAVt96Yq3Nv+Cm4lUtawMA5bqmOoaXN1s=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DohSe4LLdyCiq6gpXizPQK84nfLH3wNuoPdibYEb147n4KfIiPmqlMhRuR1yTGG/p
-	 M1B8e8RikBOifCnb++oqZxNj6y/7JHgM5U8hZQ5YQA5AU6fK5f5VwU0GgHPwZu0r5z
-	 EhamWz5jv96aPbS11UcJE+29ze5VtCy8MdXi2wnk=
+	b=bitUVhEJ0pg5OvHbz4ZQLFRaJTP0Trt3sYxT6IEMNARBfQ43+qoX041U8HQ18N9JE
+	 XwmEe1M9wlMzwk4QD6dVNN7RL9a/d1x5HT9uSEJf1SYQR49/cb0r/aoxzeXGq6R3QG
+	 vbFTYR3POH9r1y8MS8YeE/WOyLBAAV53g0pB333w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 62EEBF80238;
-	Mon, 21 Mar 2022 13:00:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 92854F800FD;
+	Mon, 21 Mar 2022 13:26:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 106FDF80227; Mon, 21 Mar 2022 13:00:47 +0100 (CET)
+ id C6A17F80109; Mon, 21 Mar 2022 13:26:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 82253F80109
- for <alsa-devel@alsa-project.org>; Mon, 21 Mar 2022 13:00:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82253F80109
+ by alsa1.perex.cz (Postfix) with ESMTPS id 351AEF80109
+ for <alsa-devel@alsa-project.org>; Mon, 21 Mar 2022 13:25:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 351AEF80109
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Xa6xRMwo"
+ header.b="PgyixpbD"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id EA44FCE1762;
- Mon, 21 Mar 2022 12:00:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78E71C340E8;
- Mon, 21 Mar 2022 12:00:35 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 19541B812A7;
+ Mon, 21 Mar 2022 12:25:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95428C340E8;
+ Mon, 21 Mar 2022 12:25:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1647864037;
- bh=x7RIt4mLNf8mNberwc71l5fBa0XC8ugDp4MrJBP6Nek=;
+ s=k20201202; t=1647865557;
+ bh=8Qpt35h+wLGAVt96Yq3Nv+Cm4lUtawMA5bqmOoaXN1s=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Xa6xRMwoEmgjWxCWOEJdmmp7L8ZGpxrrK/IlLjLMCpZPbOecdMtKsY4ttW5bkyiQn
- RQdQv+QdS/hH+Aa4AWx213Q864twi8Ro6gvE6BX1ttwwdPhY3CO+n685a17NeHdXJb
- r4n7YMUlYiqSq4O6IGLvRKMpHHAgTmgI5N4PzK+fNfeh4BtsVZWG+/n9ODaVQ5RkdU
- ftCJHj+SPsQQWa/J28XMkReAUUpgUaXPsRdx74w0qkQSPZTcOO7SicAeBXGbGliEZj
- A1elc8hIO0p5rT5DdSpiLF6IBT+FCWBMHYDjMzNVotBhhHO7pcD2qt3VnOEYimFV/p
- DKAYtWS5X3zPw==
+ b=PgyixpbDxbHkWA840WoY8gjMeboqxonqZKHfZfVXTbgBpF71pej2icZJIeu0yDZkj
+ ca6OR7tSH+1L09pdCmdE0iQ6MnrzsQzM0+tiddeMRjIP2VIp39C1t/HO7nbflDQek/
+ WjPZmWW7AHEz32FxmA+z3mNmsQdW6mM1tcHZMbiey82TvLet1KOkqW+3XlJ+BTyvnl
+ RoIvLPpf7LYDJAIN7CCACS7kZVYAoPXHHyWI6lnldm40Ek4Ee/p0k/cYmh6EsyxMbi
+ jxc2MHOI0zIUy3+DbVx1EUy3HiUdme6VzElWH+SlMmMOYt11+JphOJ2eseymeuGsFK
+ LSy0eQbuj0Peg==
 From: Mark Brown <broonie@kernel.org>
-To: Jiaxin Yu <jiaxin.yu@mediatek.com>
-In-Reply-To: <20220319120325.11882-1-jiaxin.yu@mediatek.com>
-References: <20220319120325.11882-1-jiaxin.yu@mediatek.com>
-Subject: Re: [PATCH] ASoC: mediatek: mt6358: add missing EXPORT_SYMBOLs
-Message-Id: <164786403520.879132.12234155577870165792.b4-ty@kernel.org>
-Date: Mon, 21 Mar 2022 12:00:35 +0000
+To: shengjiu.wang@gmail.com, Meng Tang <tangmeng@uniontech.com>,
+ festevam@gmail.com, tiwai@suse.com, nicoleotsuka@gmail.com,
+ Xiubo.Lee@gmail.com, lgirdwood@gmail.com, perex@perex.cz
+In-Reply-To: <20220321065754.18307-1-tangmeng@uniontech.com>
+References: <20220321065754.18307-1-tangmeng@uniontech.com>
+Subject: Re: [PATCH v2] ASoC: fsl-asoc-card: Fix jack_event() always return 0
+Message-Id: <164786555531.1723641.18058789746411582644.b4-ty@kernel.org>
+Date: Mon, 21 Mar 2022 12:25:55 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
- linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
- linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
+Cc: alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,13 +86,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 19 Mar 2022 20:03:25 +0800, Jiaxin Yu wrote:
-> Fixes the following build errors when mt6358 is configured as module:
+On Mon, 21 Mar 2022 14:57:54 +0800, Meng Tang wrote:
+> Today, hp_jack_event and mic_jack_event always return 0. However,
+> snd_soc_dapm_disable_pin and snd_soc_dapm_enable_pin may return a
+> non-zero value, this will cause the user who calling hp_jack_event
+> and mic_jack_event don't know whether the operation was really
+> successfully.
 > 
-> >> ERROR: modpost: "mt6358_set_mtkaif_protocol"
-> >> [sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.ko] undefined!
-> >> ERROR: modpost: "mt6358_set_mtkaif_protocol"
-> >> [sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.ko] undefined!
 > 
 > [...]
 
@@ -102,8 +102,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: mediatek: mt6358: add missing EXPORT_SYMBOLs
-      commit: a7663c89f4193dbf717572e46e5a3251940dbdc8
+[1/1] ASoC: fsl-asoc-card: Fix jack_event() always return 0
+      commit: 5cb90dcb6ad569f4968da6dd841db10b91df5642
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

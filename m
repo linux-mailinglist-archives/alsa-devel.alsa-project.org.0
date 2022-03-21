@@ -2,101 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 229974E218F
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Mar 2022 08:48:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71F764E22B7
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Mar 2022 09:57:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9980516D4;
-	Mon, 21 Mar 2022 08:47:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9980516D4
+	by alsa0.perex.cz (Postfix) with ESMTPS id EC97E16E8;
+	Mon, 21 Mar 2022 09:57:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC97E16E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647848905;
-	bh=hE46fXwO5LIlT2wOIccXFBKWLT6OdjVGt8q3eXVFAlU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=OIFpcFh3w0Q9NuYzMtRZ+JwylQNGbaL6RdQvP0fCxQ74sa/sQboNGyrPbhUFItTkN
-	 CRsLRqdcr4RLNC6mtUd4NPStXgJrA3A82wOAelY9OjML28MALZwUewF7e+B58Pkwdr
-	 TTKUpG9mDThE0FeJma4sqV4UC+4ULOfC5gaJ3hZc=
+	s=default; t=1647853079;
+	bh=UOJT9Lw4OKP2pZsX4wByJo3t6BW2xwAtYgQzOgLi6yk=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=a7ANAPmkt6A7smPov5eGxmfX2kC9HjXaq8M6TCh0lszjzd0bVr9Gx3BsAH2r6buwZ
+	 kg998BARcJMEJjG0QhyX5FeD9n5+rKthAZh73T8iekhX5tM6rbBecpBWYUrRo76hcl
+	 r6g9PVyXQgU9g+vNGwVKcIAYxQRnIC2gcU+YwVUI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0322DF80238;
-	Mon, 21 Mar 2022 08:47:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6DDECF801D8;
+	Mon, 21 Mar 2022 09:56:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C1206F80227; Mon, 21 Mar 2022 08:47:15 +0100 (CET)
+ id 2CA41F80227; Mon, 21 Mar 2022 09:56:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-relay-internal-0.canonical.com
- (smtp-relay-internal-0.canonical.com [185.125.188.122])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BC75FF800FD
- for <alsa-devel@alsa-project.org>; Mon, 21 Mar 2022 08:47:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC75FF800FD
+ by alsa1.perex.cz (Postfix) with ESMTPS id EE446F800FD
+ for <alsa-devel@alsa-project.org>; Mon, 21 Mar 2022 09:56:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE446F800FD
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
- header.b="CAszEkHa"
-Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com
- [209.85.161.69])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id D37A13F1FC
- for <alsa-devel@alsa-project.org>; Mon, 21 Mar 2022 07:47:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1647848820;
- bh=hE46fXwO5LIlT2wOIccXFBKWLT6OdjVGt8q3eXVFAlU=;
- h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
- To:Cc:Content-Type;
- b=CAszEkHa04rSMetYmf5M2x0ieSNBOfkPm55O/+1tA/TIN8bWWCRUZSJl/9lN4+1bJ
- WATkSLhLa0yfu6yAN6u03m62mXdl5vpLlioAM9RynxWRxtk2/T9DjEWyyiZDVAfG/G
- HdnFZsox9RX4gcwOz9zQUpyh+aHYcKuW+1i/AHDKqXctBCq+QIA8a4f56noUjqaVQG
- TCOOS8a/pZ1urQmCe2o7n8gnLHzPaCFGq+O+ELAgadOYai5D/E93b7kcZwwZBs2IN8
- 8lKnq2lJlCjAfjkrGsBCcCVt5mbbdjD0LfDyJPkLwkPcZFLHhXdI16ZGBRQpaSBMLh
- GvhOLZ9mSHoJQ==
-Received: by mail-oo1-f69.google.com with SMTP id
- e202-20020a4a55d3000000b00320d9789237so9204592oob.16
- for <alsa-devel@alsa-project.org>; Mon, 21 Mar 2022 00:47:00 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=hE46fXwO5LIlT2wOIccXFBKWLT6OdjVGt8q3eXVFAlU=;
- b=Y6N6LRBxZOlzEyU5ElJZFS3t04lSHlYxMtIJywyiz2FNHG1/iDX5Us+FeKTv3JSdOu
- kQBv8R/fn7eCQx5G08s8Y1qUNNUBVkZdrKo1OJLejKSoV6f9acfTj5313lQfP64ZAp+c
- VxAuyvgqCIA9R/U2ny1oi4c1gTZl50kKRVtP3XqYzmO62V3XJKRe4q6NHDk653e+//yV
- 8xtfShQO8SXEKQVqfQ6LXCFEOxc3/ruRogSW9WbpVWyYp7xEbX3FvKFIAoWEj44qv8dC
- B71O7d5/jfKVm5KXizcFGnIOqViZN0IaADvYY8rWyXh/psEohyWixH0Sb/b6uEQ1TIYW
- wmPw==
-X-Gm-Message-State: AOAM530TNJWmfkrilC6+kPQ+PNTat9wNasiaIwIYwZnTJAgH8EAPbISl
- vNkjkGb1DHp3xrbq/IfjlPZtEqZVlGL0nzvfnfuDQ6ZLpot0v2hc3Ek3vh6ZBvD340JCZczs3Gl
- GhY6ZkEMtSQhsnO/12frbLFdt0/opeEvn3Qgl5GMyD23sA5IYsNU5Sn97
-X-Received: by 2002:a05:6808:3012:b0:2ef:79c7:1342 with SMTP id
- ay18-20020a056808301200b002ef79c71342mr4132oib.0.1647848819454; 
- Mon, 21 Mar 2022 00:46:59 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxNw2oa86WnfvCAmgfO2ITM7xMIXoAkd6X77Q5Vvz8OywnQP1upsmm4U9u9/5EKa5AxbhNHL9S2RWuJfMrN7t8=
-X-Received: by 2002:a05:6808:3012:b0:2ef:79c7:1342 with SMTP id
- ay18-20020a056808301200b002ef79c71342mr4129oib.0.1647848819115; Mon, 21 Mar
- 2022 00:46:59 -0700 (PDT)
+ dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
+ header.b="LBgg822w"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1647853007; x=1679389007;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=Z7frmisJ/HESWHDo487rDBWlj2TEuAbGN63MQhhGsNg=;
+ b=LBgg822wxXJ6FuN+QJvNmdZIAorA4uXCsLpL0p7sYuvx/6Kv40fBtFgp
+ c2lA2d2s9g2SDi3QEzsU9YFC+3LXHsiulaP5KnIgrY8/jXz+n1QFRJG5W
+ XSXesaXQRGEetXk7yjAaPko01KqWHGaXcOdZ3cXHfUnlwaprq+MXUDwhZ Y=;
+Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 21 Mar 2022 01:56:41 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Mar 2022 01:56:40 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Mon, 21 Mar 2022 01:56:39 -0700
+Received: from hu-srivasam-hyd.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Mon, 21 Mar 2022 01:56:35 -0700
+From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+To: <agross@kernel.org>, <bjorn.andersson@linaro.org>, <robh+dt@kernel.org>,
+ <broonie@kernel.org>, <linux-arm-msm@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <rohitkr@codeaurora.org>, <srinivas.kandagatla@linaro.org>,
+ <dianders@chromium.org>, <swboyd@chromium.org>, <judyhsiao@chromium.org>,
+ <alsa-devel@alsa-project.org>, <krzysztof.kozlowski@canonical.com>
+Subject: [PATCH 0/3] Update dt-bindings for sc7280 platform
+Date: Mon, 21 Mar 2022 14:26:18 +0530
+Message-ID: <1647852981-27895-1-git-send-email-quic_srivasam@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-References: <fbfbdedd-21b5-5b6f-c03c-80027acbe2f5@leemhuis.info>
- <420bd395-10e7-b5de-97da-56d90fb82654@leemhuis.info>
-In-Reply-To: <420bd395-10e7-b5de-97da-56d90fb82654@leemhuis.info>
-From: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Date: Mon, 21 Mar 2022 15:46:47 +0800
-Message-ID: <CAAd53p4qmoRV1TjTG00vEmQmuiYWxQMjN9SER5i=1c_cB41d_A@mail.gmail.com>
-Subject: Re: [regression] Headphone output gets unproperly powered down - Mi
- Notebook Pro 2020 (ALC256) (fwd of b.k.o bug #215484; starting with 5.14.14)
-To: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Type: text/plain; charset="UTF-8"
-Cc: alsa-devel@alsa-project.org, itsbytebites@tutanota.com,
- "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
- Takashi Iwai <tiwai@suse.com>, kailang@realtek.com
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Cc: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,55 +94,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Thorten,
+This patch set is to update required clocks, power domain names for sc7280 platforms,
+and add mic bias supply for wcd938x codec.
 
-On Mon, Mar 21, 2022 at 2:48 PM Thorsten Leemhuis
-<regressions@leemhuis.info> wrote:
->
-> Hi, this is your Linux kernel regression tracker. Top-posting for once,
-> to make this easily accessible to everyone.
->
-> Could anybody please finally look into this bisected regression from
-> 5.14.13 to 5.14.14 (f8d3c17e1c37 ("ALSA: hda/realtek - ALC236 headset
-> MIC recording issue")) that according to a recent bugzilla comment from
-> reporter is still present in recent 5.16 kernels?
+Srinivasa Rao Mandadapu (3):
+  ASoC: qcom: dt-bindings: Update bindings for clocks in lpass digital
+    codes
+  ASoC: dt-bindings: wcd938x: Add mic bias supply property
+  ASoC: dt-bindings: lpass-cpu: Update clocks and power domain names for
+    sc7280 platform
 
-I just asked the affected user to test my patch. Once it's tested I'll
-send it out.
+ .../devicetree/bindings/sound/qcom,lpass-cpu.yaml       | 17 ++++++++++++++---
+ .../devicetree/bindings/sound/qcom,lpass-rx-macro.yaml  | 17 +++++++++++------
+ .../devicetree/bindings/sound/qcom,lpass-tx-macro.yaml  | 17 +++++++++++------
+ .../devicetree/bindings/sound/qcom,lpass-va-macro.yaml  | 11 +++++++----
+ .../devicetree/bindings/sound/qcom,wcd938x.yaml         |  3 +++
+ 5 files changed, 46 insertions(+), 19 deletions(-)
 
-Kai-Heng
+-- 
+2.7.4
 
->
-> Ciao, Thorsten
->
-> On 12.01.22 08:15, Thorsten Leemhuis wrote:
-> >
-> > Hi, this is your Linux kernel regression tracker speaking.
-> >
-> > I'm forwarding a regression reported in bugzilla.kernel.org to the list,
-> > to make sure all parties interested in this are aware of it. The
-> > reporter is CCed. Not CCing the stable list in this case, as 5.14 is EOL
-> > already.
-> >
-> > https://bugzilla.kernel.org/show_bug.cgi?id=215484
-> >
-> >> With headphones (or an auxiliary jack) plugged in, the audio output
-> >> is fine when anything is playing, but when that's stopped a loud pop
-> >> can be heard after some seconds and if the jack is connected to an
-> >> external amplifier it gets really noisy. Everything gets back to
-> >> normal whenever audio playback is resumed, although with another loud
-> >> pop at the start.
-> >>
-> >> This has been happening since kernel 5.14.14, whereas 5.14.13 is
-> >> fine. I suspect it has to do with the ALC256 mute logic implemented
-> >> in that version
-> >> (https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/diff/sound/pci/hda/patch_realtek.c?id=v5.14.14&id2=v5.14.13)
-> >>
-> >> OS: Fedora Linux 35 Kernel: 5.16.0-60 Vanilla Hardware: Xiaomi Mi
-> >> Notebook Pro Enhanced 2020 (i7 10510U, ALC256)
-> >
-> > Ciao, Thorsten
-> >
-> > #regzbot introduced v5.14.13..v5.14.14
-> > #regzbot link: https://bugzilla.kernel.org/show_bug.cgi?id=215484
-> > #regzbot from: Emanuele Melzi <itsbytebites@tutanota.com>

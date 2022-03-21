@@ -2,177 +2,178 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5D674E2F21
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Mar 2022 18:35:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 088E34E2F6A
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Mar 2022 18:54:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 56CB41752;
-	Mon, 21 Mar 2022 18:34:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 56CB41752
+	by alsa0.perex.cz (Postfix) with ESMTPS id 927CE1750;
+	Mon, 21 Mar 2022 18:54:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 927CE1750
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647884112;
-	bh=mLEvfyjAbdIfDqL/ZEt71aQ70nwvW8gesIFeZxaGQl4=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1647885292;
+	bh=tm6GzVaS+vOw/2VZstW5AtkZj9LjTbkCllIOBDIuRdA=;
+	h=Date:Subject:From:To:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jMuqDNrYp7FZ/irj/ic2N7QJzt/E6A0iUcbUZmchTfOArX+VvjIjEOQO8DLqLTJig
-	 pQue6O6Qgov9HeP06ktl0jlVDjQjb7Xaheekhsm9cufMhA4TYRY0ttw+AhsT6k8OAy
-	 n4dIHPKTtWt8ipY8CbXT4LrNac/QEtyC3dCxJOAw=
+	b=L/ryyh+VS04X5yNYM1HOZbB4YQ5zJparR+QK2AsVz+h7QuSbzWSFSwZcr1Iz8orlp
+	 Kp1JPd8VZq5qHtB9k4O/uw2vIfCa9QaOHB5tTXcC/uxN2lwMXy5HJRyAQI6Wvklb1k
+	 Eq/HPuUEJO69mGzTWKy42yXHRikkgIDdQUXwqzWs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D33B9F80227;
-	Mon, 21 Mar 2022 18:34:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 31200F80238;
+	Mon, 21 Mar 2022 18:53:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7E0CEF80227; Mon, 21 Mar 2022 18:34:03 +0100 (CET)
+ id 9F559F80227; Mon, 21 Mar 2022 18:53:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0CC7FF80116
- for <alsa-devel@alsa-project.org>; Mon, 21 Mar 2022 18:33:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0CC7FF80116
+ by alsa1.perex.cz (Postfix) with ESMTPS id 985E6F80116
+ for <alsa-devel@alsa-project.org>; Mon, 21 Mar 2022 18:53:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 985E6F80116
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="mnrpQRm0"
+ header.b="M9knQy8g"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647884037; x=1679420037;
- h=message-id:date:subject:to:cc:references:from:
+ t=1647885221; x=1679421221;
+ h=message-id:date:subject:from:to:cc:references:
  in-reply-to:content-transfer-encoding:mime-version;
- bh=mLEvfyjAbdIfDqL/ZEt71aQ70nwvW8gesIFeZxaGQl4=;
- b=mnrpQRm07mgfdzfE4ndKRyNmsA7yRwjIte1V+l5I5k2vIOhXFZ8P9Obx
- LsvRnHP8BI7hpf0RR9xppIOgZY0LguRNZQyvrwlI2PznJQC2XZJh5IucO
- p9KFvHTOGlYMiawT+9CaOnk+DxpkelrSdrAKLnAv6PwDHyHIoh0lJQXLG
- O/3ddzn3+pA2ZjiGZhV6k/qJ9XWG9I1Qge/yZZh43qznsvf3tUMQPBnKm
- Tkv7EWNE1lDM8/k3wo4V/9gcnnLjZkDE+P/ig8U9tyEBwXBrDjgSErj3Z
- ecwnLXbYYrWlIDz1LXdRRP3PzbBRDAUxwx35yiFxQ+HJsGawV33s1evKS g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10293"; a="257328831"
-X-IronPort-AV: E=Sophos;i="5.90,199,1643702400"; d="scan'208";a="257328831"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Mar 2022 10:31:45 -0700
+ bh=tm6GzVaS+vOw/2VZstW5AtkZj9LjTbkCllIOBDIuRdA=;
+ b=M9knQy8gai2BoxV0aaaZJy3L2EO6YLZLCbk+cYy1plsUmjZLo4Bc9nlc
+ 7vyaJaOldks0BdotdMucokj/6IMBWl4lch82WbtL+hW3jaC8xEWlrYTjS
+ f8uhJLpX892kWFc3BecP77fV0rxn4oUNUazjMstlirpPMJxa5gKTQdPYo
+ dI82ABvYtnGIZ4H1Zr+lDd1Htxx1p4EynENd3vc7Rpt6VjRmSbqnVuq3a
+ bnRkIsKzBA3X5OFpgzsxhx+idtHVrfcudu1e5oAcgPc4hMD9/JQgoNtYd
+ vcQXXEpsAB8L2ktVqfh/8WJT8FJnkQYPypYg94gv6JU2fYduKVshx8RGh g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10293"; a="320818273"
+X-IronPort-AV: E=Sophos;i="5.90,199,1643702400"; d="scan'208";a="320818273"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Mar 2022 10:53:35 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,199,1643702400"; d="scan'208";a="518524709"
-Received: from fmsmsx604.amr.corp.intel.com ([10.18.126.84])
- by orsmga006.jf.intel.com with ESMTP; 21 Mar 2022 10:31:45 -0700
-Received: from fmsmsx608.amr.corp.intel.com (10.18.126.88) by
- fmsmsx604.amr.corp.intel.com (10.18.126.84) with Microsoft SMTP Server
+X-IronPort-AV: E=Sophos;i="5.90,199,1643702400"; d="scan'208";a="648654346"
+Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
+ by orsmga004.jf.intel.com with ESMTP; 21 Mar 2022 10:53:35 -0700
+Received: from fmsmsx612.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.21; Mon, 21 Mar 2022 10:31:45 -0700
-Received: from fmsmsx603.amr.corp.intel.com (10.18.126.83) by
- fmsmsx608.amr.corp.intel.com (10.18.126.88) with Microsoft SMTP Server
+ 15.1.2308.27; Mon, 21 Mar 2022 10:53:34 -0700
+Received: from fmsmsx609.amr.corp.intel.com (10.18.126.89) by
+ fmsmsx612.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.21; Mon, 21 Mar 2022 10:31:44 -0700
-Received: from FMSEDG603.ED.cps.intel.com (10.1.192.133) by
- fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
+ 15.1.2308.21; Mon, 21 Mar 2022 10:53:34 -0700
+Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
+ fmsmsx609.amr.corp.intel.com (10.18.126.89) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27 via Frontend Transport; Mon, 21 Mar 2022 10:31:44 -0700
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com (104.47.57.46) by
- edgegateway.intel.com (192.55.55.68) with Microsoft SMTP Server
+ 15.1.2308.21 via Frontend Transport; Mon, 21 Mar 2022 10:53:34 -0700
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com (104.47.66.45) by
+ edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2308.21; Mon, 21 Mar 2022 10:31:44 -0700
+ 15.1.2308.21; Mon, 21 Mar 2022 10:53:34 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=B1odFidHoB2l9arTUPjVh4RVEGmEktlslUZF1S4P5zZEuCOcu480e0l/lvMVghwrnBKVw9WyRndcmNxjaqV0BdPLYsW7xZjdgoMUlP2kmxtNrbzG/fnSvTpo5w0Opr3xohOKgfrmN6yZieCxR43QDEg7+UJ3qMB6BqG9YDq+J4XD6UGBZtOFtDkm2fRI/vXWD3KGGS8AK5i1puyZxg8UYNwNVWjpAEQB7tFoJun9Ai/2CDPq34AEGeU8tVgxmv4OFtPTx4xETsp5U9JkwVO4eyGnxGawA8Hh9XAxmhJdtGsVWlLlhwJ16f2HXANnK7PO61LhX0HrBkusTGI+aL7hHA==
+ b=bXEBLYBQsPwZWTC1tPrNrKDJQGxgqI7jccAymIYZCdy31axdrwfPDZVKsemoiCq6IPlL/Gu9vbWUwPbBwiih0vk/AMkvQCeJTZ9yaXjxhLO5kbRBvqbo82POS/ooelJFsq/kHauTtHrEEbSG2mbM58Ut5Hew6CK2Xxa+Sop3VztNsy/wJNmFqYWC0wDzKB5wY38Vd5Q6883/+8hsYpKA2qEKDvETHmY78l7OL916Vmt1YzCGo4OJc1H8pQTKfkItWHdhcKnq1PujOZnvKdHU7aST//4PtXaZB0mgLRJtPh/pTfNi1UrMcEyLi0icD2Q0t8nHNxq/X2zYRpoEQViXQQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cHkOScvL/0tH7Fw9/fF6LOAFvAQGLVCXQ8M9SlSF7mo=;
- b=bITmF5+Ss5K3Fb8rMyHr6PId1VmnZ3rWANsFc7VV1CpRfAK2W2GUZg3SxxsKT9Hh0YSEXLYpikuPASwmKop8RGOOQiGClVRLPhRaajd3NprWoHuBFIRskX9sj1FLtSMY6iW6b7rrh9NWq/4XO7QF/pTEKjis+/cFt6539o+El1Wt1wfJ/BiT1J/zcLTeZqPfKx1losrlpMU/PSX9VgigIdkuI/syr9tOGmQ2evMjv5E6dgMVRZ9O/emUjp5Ogyw8jk63cQ1AwFljlFQDAgwGoHcpByU18RP24YFkJpgDuZprXgedCZVNpbLPcZ2HNrOr1xVApQf1Y90m9+5B1NaWcg==
+ bh=e8liRYRuR31xfkSvaKrc/L6D5Kxfgav7XRj9atxQXSw=;
+ b=OeIbtSn5YMm6PB+nOnhwUIuZfWxsUJYBCtfUmeAE+n7KBBetRcad97G8XaCzehL3fgxu5JGbNqzfqFAuYE9wTxv1AkdJ2ZwsNzodrCVJkINcouwXzHAv5C+wWSOB5M8XatLle8RjXnHZlS9B/4Dzk4g1yA4HP4IemOZfm+wH91aC3L5bD3NyzBjGAUNK4wqS8T9lIHTMeYhkgFpu7a9lpP4bBnPwjQrAg47mnNWWcwtdBq65a5UDYTSZtoYE50rcVvdU+YtpnatO7x2MdYxPoqQGyObuBhg/LwgJlaLxZuM2SM300hcT6KKjvdxzd6tDRG6JiVyOYliXTLsSRxjOVg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=intel.com;
 Received: from MWHPR1101MB2157.namprd11.prod.outlook.com
- (2603:10b6:301:51::10) by BYAPR11MB3174.namprd11.prod.outlook.com
- (2603:10b6:a03:76::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.17; Mon, 21 Mar
- 2022 17:31:42 +0000
+ (2603:10b6:301:51::10) by BN7PR11MB2739.namprd11.prod.outlook.com
+ (2603:10b6:406:a9::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.14; Mon, 21 Mar
+ 2022 17:53:32 +0000
 Received: from MWHPR1101MB2157.namprd11.prod.outlook.com
  ([fe80::ccac:dd6b:b12e:477c]) by MWHPR1101MB2157.namprd11.prod.outlook.com
  ([fe80::ccac:dd6b:b12e:477c%11]) with mapi id 15.20.5081.022; Mon, 21 Mar
- 2022 17:31:42 +0000
-Message-ID: <ec07f844-2fb5-9b2e-f627-f809308fd3a3@intel.com>
-Date: Mon, 21 Mar 2022 18:31:33 +0100
+ 2022 17:53:32 +0000
+Message-ID: <a5185c3d-f672-672a-296f-58c6f7d667e2@intel.com>
+Date: Mon, 21 Mar 2022 18:53:23 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Firefox/91.0 Thunderbird/91.7.0
-Subject: Re: [RFC 10/13] ASoC: Intel: avs: Path state management
+Subject: Re: [RFC 09/13] ASoC: Intel: avs: Path creation and freeing
 Content-Language: en-US
+From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  <alsa-devel@alsa-project.org>
 References: <20220207132532.3782412-1-cezary.rojewski@intel.com>
- <20220207132532.3782412-11-cezary.rojewski@intel.com>
- <49fcc185-f954-1811-729f-5969fcb68125@linux.intel.com>
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-In-Reply-To: <49fcc185-f954-1811-729f-5969fcb68125@linux.intel.com>
+ <20220207132532.3782412-10-cezary.rojewski@intel.com>
+ <2b6bc0f7-1e04-77b3-95d2-ff561b006ccb@linux.intel.com>
+ <29745cc1-5824-6eb4-4806-1ae134f14b01@intel.com>
+In-Reply-To: <29745cc1-5824-6eb4-4806-1ae134f14b01@intel.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO2P265CA0030.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:61::18) To MWHPR1101MB2157.namprd11.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FRYP281CA0013.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::23)
+ To MWHPR1101MB2157.namprd11.prod.outlook.com
  (2603:10b6:301:51::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 85b507ce-0399-4045-c4f8-08da0b60aa1c
-X-MS-TrafficTypeDiagnostic: BYAPR11MB3174:EE_
-X-Microsoft-Antispam-PRVS: <BYAPR11MB31748B1246FDEE73FD166B5CE3169@BYAPR11MB3174.namprd11.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 4258b799-c650-4d6b-dbfc-08da0b63b6e8
+X-MS-TrafficTypeDiagnostic: BN7PR11MB2739:EE_
+X-Microsoft-Antispam-PRVS: <BN7PR11MB2739FA999D36FDE324804F9CE3169@BN7PR11MB2739.namprd11.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: sJFhevszLpMIWuE6OCi0JYJndE8XblqZo+UK+hfqylOAQDwducYsRahf/vWAY/voqu3bGDXQ1K04Hz/7KUT4YXuElZcOq3hALRSnth1Zvg5vJcWnYto4rNyCkigw0moIRhuzjM4F6ku/zUu4PAzf4q2wM1rr5gs7aOKJLWBvHSAOMRLg4I444FRT8aXJzVYernYygGiuXHJCFu5pzE7Z09LxRJ8dM8u2LR39NRIui2+hcyEZXszLr5md/GcJgszb4cjTxoaOhRMhOwNyGQ2TfpgVE3xbDL0M/9VC+CG7b0oI6sg8D2zlOW0rU/+aHF4JbDxA/5gOBzUn47H1CS0OuROVJ3btcoUePYhN5lBHV0ouxPMYAsDYY0CQ8AE6ksMioVjRuOu5YVciY1cUKava3Cr09qD5ls/067pQOzoR23T9YRc/BSCr48zohQf7YiAx+4d+zPRM4H1eQ77DsgSJzsxq66anOR9RO9x/lUye7z/r3VeU+WPW4ZIcDnaWPQ0mnFZI6s/9KG2VKvWHmQo6gfU2xYhwmkkBIq1pbLl1hC1lz2VTvV1fNVHx2V4tY1Q023zBsU8NUs3HmubBn3YDb3/+xpSxdseDPaUlxcm6JtpVSicOqKRPFnh4Ndh5bzf460pXYQYAykqwJTExqjdEM1vdrfDvh8VZKupnOwX1Dy9uZGWWlhWupP98gEYjuzJgduz1Le86QHNprwh2dVxbLcTOSqPkXzW8QZyW8HtWB4Jq+FYds8Srki8foN1FEDA5
+X-Microsoft-Antispam-Message-Info: QZQo0sHjnLie3ONB9IcHElV//wK/slBzpROQcK93OfYPJfsWUZODQrJNAz3hgDElD95rI8LloiKTKqZR8qJbCgy7x1MvIp438r6Mkdo/Qzcw/cbIFiAeeauxZW0uw0calgfnDNdoDWJa4hUNM0t82wS0rR/xPNFpsDoahzPXYp2FsdxG0GUyWw89Pd1KPfo5oD8SRcVMFTdneUlL0RdjH12cARg/TkC+UHACKQw09PXmz6hApRg5TAYnvVvu5eSspiJ2j9igqEZrOYVnQZBGHGEy2jpOavxiCKV0YGLyAM7D9yIFW0+NzJH6EPtokKwMfVCGqj48760NOOYAiB3ApYHclXsDdpkhquOliFns4Jv/QVDjUnUSw7FQWSLBmDo4QmyTviLLWLYHopp/dPf+niMdKgZLwlDdNMAi3YB25kJC2jxHGQdGH1x4vEym1CH3mZ4O+WtBgYx6jEx6p0xV6wRIjarBMFtaWFo8dwRKWHLNBMiEKzYdWeVqKVvdxNfVXeySxvHEFNbY4wJvdCzOJ4Pk18P+YDrCP1C6Knm4y/W6ZjJyIMSlr+dOtWKRpV3Oxv+VULo8W1tJ6P5xR0QfEqupoAs1JswfFlwJjqbGPnxWPxOI/gn+rvvXfPta7Ed9CXnmG2X3xpWPRUoR68vH1Dz/nga4J3rpJYMgNXvyYKK4n3DmddYT1klAvfghHKLE8yz2rdMgc+ZoVJhuz0mVqIfoys3JOE7jTi8rTnLkV2PGwdqaGjd8Up2kJrY5yWcb
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MWHPR1101MB2157.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(366004)(38100700002)(31686004)(2906002)(31696002)(44832011)(6486002)(5660300002)(8936002)(82960400001)(7416002)(508600001)(6666004)(316002)(53546011)(6506007)(36756003)(6512007)(26005)(186003)(2616005)(4326008)(8676002)(86362001)(83380400001)(66556008)(66946007)(66476007)(66574015)(43740500002)(45980500001);
+ SFS:(13230001)(366004)(82960400001)(2616005)(26005)(186003)(6512007)(38100700002)(83380400001)(31686004)(7416002)(5660300002)(36756003)(53546011)(44832011)(4744005)(31696002)(86362001)(2906002)(508600001)(6486002)(6666004)(6506007)(4326008)(8676002)(66476007)(66556008)(66946007)(316002)(8936002)(43740500002)(45980500001);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VnlaUVRBQWVETkdOYWQ5NTZtbG1WQUZ3d3RNK2cvUDNRZG5VbVB2di9leFI1?=
- =?utf-8?B?TDFFanBnWmRoK1UraFlldVVGS3NQaFJzS3M2aXQ0UGNTZllFSUVCcXZRSHJT?=
- =?utf-8?B?VTMwZk9QTUJPeGxlSW1KTDFFU1lGMGhrOG9JalJqSmxKQkgzU1VmeTVqVjZy?=
- =?utf-8?B?c0YxZ0ZXdUViK282TzZkMllScWNPclA3Q2dhTVJYSFEvK2xkZWVtaFZrTW5t?=
- =?utf-8?B?Ry9tWEl6ZW9LS1dNb0RCeXJWWmZiWStHbUZxUjlydUJEcGNIRHVES09LaHhp?=
- =?utf-8?B?UVY2UjNuZkdjVHpyRytSVy9lM2V1Y09SKy8wTWpScHc4RmN6ajQ2dVlmamhp?=
- =?utf-8?B?THhYdEdOU3ZWcW41RnZPRUpGbHoxY3gydjlTTXM2ekNCTjRxRm5sNm1NY3pa?=
- =?utf-8?B?aUtscUdQQXgrdExxMUlhQzM5bTdTdCtHOExzb3RFSzdSZWdBZlBPRldPdkov?=
- =?utf-8?B?SFVVSjg4RDFMU3NYZFhkTlZFMXlXUUNpYzU0L0VpWVhmKzQ5c1dIRjJtMGNZ?=
- =?utf-8?B?blZKVWt5UUJtbWZrZldUWUlMQm5vTlZXc1VLcXI2eDBTNTZTS3RsdjN6eE15?=
- =?utf-8?B?QWNScEJ5MHFyNDFxYkMxbER6UmpJandSUG05b1l1Wm9jUHkvSnpISzdscVZ3?=
- =?utf-8?B?dFAxWVJjdUtYUGUrU0ZqT2NuSitMcVAwY0U2bHVEYXBnSG5Ra1B1R1NLUldL?=
- =?utf-8?B?RVQ2N2Z1UElQVDBsYXVJTTNURysxbVEvS0ZCMGtkOFlreXFHUzNRWG9sZU9P?=
- =?utf-8?B?d1ZES0g5RU9La21zb0MrQk9MOHVOTzM1a3ZmVVAzYmx1Tkt1ckpGQnhZclBC?=
- =?utf-8?B?b0VRNWxETnYya2FyekpHTlpIdVBjR1MySVluU2RrcWVRU1MxOCtKbmhPK043?=
- =?utf-8?B?V3JiUUdPQlMvL0N4Q0RUaFFwWm81dGVrWnBWOCtPejQyYWMxdGsvRloxcWhY?=
- =?utf-8?B?amE0S3pITW9UN3F5Vkt0M0xYYzZIanlzVm1IVktkQ2Rxd2FSbmdFbE5Xejh6?=
- =?utf-8?B?dTVDTFJZTlNQTkFoMmxYeVhERDB1bU44RlI0WXFTczRHZys5SHhpWjUwUU0v?=
- =?utf-8?B?UXdHNmV5ZGFOVjRQT2hRSU9GdnU4a0dVcDRydWJUVkp4SXY3YmtWKzZvOGhZ?=
- =?utf-8?B?TWlnRWFKU1lGcUIxMWdCQW04QkNxa2hDWDFmMTBvY2dXSzhPdUp5VjZIeElO?=
- =?utf-8?B?d2pDS1hEaUNqeTFHYWFHYjNoellZRkpkS2czdUNHLzZGdG56QzlUcWI3YTRO?=
- =?utf-8?B?RWlYRDBxNTV5emFPQzR2SWVrMDB6SVV0VFpWQktBaXBoWG5wTGpOZXpNd0dK?=
- =?utf-8?B?WnloUElZejZvUXU1YjlheGdPTDJsSjRmS0RGbHZ0WTNqL1kySjdNVy9SeWln?=
- =?utf-8?B?dWNWbnNyRmgvTEczTFFRc3c5VVJ5Z1c3aEhRY1dOMmxkVFBUR2RJOTZHQnJU?=
- =?utf-8?B?OG0wWDBsQ2JHaDNGaEhwa1hOM29Cam5oS3dNaFdSbW11bGV2QkVtRjlLdkRp?=
- =?utf-8?B?K2c0WHk5L3VZdy9aV2YrWUR5ZFhBeEZLeFVaYmJzRzBqaXVMSnluQzR3RlhI?=
- =?utf-8?B?b2xLeGdEREE3eWlqd3RXeUdBdmJVbzNnbEo3Wk9IWjhGYXRIeXpsZXc0dVFn?=
- =?utf-8?B?TkFRd0Y5MENXdWtLczVDcitUaWFXMzVjZVpzOGd1MnlnOVRXNkNWMUdUSEhv?=
- =?utf-8?B?aC8xZStsdGlhZ0d1VXdVQTFrVnhaOWh6VTg5WGo4Q014djAycTNsRVpsVzYr?=
- =?utf-8?B?ZEZSUDFqWFY1VUdidTJGZVpUSFVSeWVIRVFvcXoxci9FclhsTDY4aERKVncx?=
- =?utf-8?B?dUlsNk9JM1pFVVBWZlh5MjhvTFFDdml0WEo1bkFQdTcxRG1ST3c2dEFPT1V1?=
- =?utf-8?B?RjZiWVlBMzRYUXR1VGF3YmJNWFNrTEQwaE9RWFRSM3hQQ013MDJUUlpIYmdp?=
- =?utf-8?B?TmtYY2ExdTBZUUFZSHBUd09BcExieDQ1Nng3d0d2TkRGbDFvQmhKbGZjNHNN?=
- =?utf-8?B?Z01tb0hjZGlRPT0=?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 85b507ce-0399-4045-c4f8-08da0b60aa1c
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?THd5UDRLRERMemsxd29WNmdkbmJYOHVDR2w3SVAxY01wMlJ6MjZxMTBZU3VN?=
+ =?utf-8?B?MFRZTWQ3Z2FkL2RSYVlxYjFSK1hMaWdveERuelpta0hscGk4dVZxZGtUVXRo?=
+ =?utf-8?B?by9Dd2N0WmdnRGdyNml4bzJLOUxGU1UxMTJyTjFRZTIzNWVhTFZFOXI5d3Q1?=
+ =?utf-8?B?NzZ4VlN2L2ZYdlF3MXNrQWhPWXpVUUJXd0xWQmNTN0lxT2VGdXBUQXJTcEhF?=
+ =?utf-8?B?dncxbm1UdU15TWRFSnJ1T0RZUUtoZFlNMWpYYWJoSTNEcWdhcTlDeDI2QVV6?=
+ =?utf-8?B?VDVUK2ZRbzg1aW9GNi95Z2lINUo1SEhTcVdZd1poSkl5Tld3K1BQWjJ4ODFk?=
+ =?utf-8?B?S2JKdWNxTzBrK0VYcy8zbGVvLzJpTXdJUXZaTDdQNzhCR1Rrc25yNUZqakxF?=
+ =?utf-8?B?a05GSzJlZmR6TUdLRXVvSlVHS3VQNDZ1NmpaSnVSN1dRb3VISHo1U0ZoNkJT?=
+ =?utf-8?B?ZGJPeEtZZ0xoU1Fka3EyQjVhQURMbDRiSWhLUUhHOEo2U1I1VnRhdGpDUGhj?=
+ =?utf-8?B?MFpCT1N3SmlNV1NLNWdkU21xYVJsSmZabzkrY2I2bUVKVG95U0hVMjJyNENj?=
+ =?utf-8?B?Q0FtcjZwY2RsODVRMUYzbW5xMElhL3NoNzY1ajRraFJKR1ByMlFPbS9rTFRu?=
+ =?utf-8?B?Q1VUY0FoT0dXd1UvSDl4cHVQSGFSS2IrM1Jxa2haRlp5VDZnMW45LzBja0ov?=
+ =?utf-8?B?aW4raDgzWVdIcWFvdGlwTDZiTDlMbnJwMWJoTjRwWXdDNWNNWFlnU2I2MEov?=
+ =?utf-8?B?U2tsbmE4WXlkMG1KSEJnNlhDTnE2bmJlUU9RUndaamxaRGIyTCtQSU9ZYXhn?=
+ =?utf-8?B?aGtURkpHQUZWZE1Yck5zRVNibUtXaitKRFgrRFBHYlYxbDVhdEpWNHQ5V1BT?=
+ =?utf-8?B?VjJCZXF0UkZxL2ZuV3dlOFAwWW9IM29RTm9ROUJXZkpUczlwQ1huZFZsKy9y?=
+ =?utf-8?B?VHJVd0s3YnpVMEpqR2R0SW16YklRd0NFRmJENG1sTVF2MnV1MzEvU2VRUDlu?=
+ =?utf-8?B?WStNUnZnb2lMeWRUM1g4Qjlkb3NoeXgrQ2tEbjRDV0Z1M1dyZEhUL3R4WVBP?=
+ =?utf-8?B?ZEhjVmxzSFZtWC9wR2I3bzBpYVlsVFZkYjVHektFRFllSW52aU4rNWVydkJp?=
+ =?utf-8?B?dVltelp0UXV4NWlFNUhxaVhXT1dXa3NqMHpOb2VlSkRNeUV4QzNwaW5qeW1H?=
+ =?utf-8?B?RUVwZlVvb0orVFNMZGhIck84MTBlK0lPcXBocEhRYWFMcnhnd2FDMGw5OGNM?=
+ =?utf-8?B?b0xGU2g1c3JIdjhrVkhZQ2c2S2d6dEZRa1pFRC8zZXN1cXVCUHEvV1Jpb2VT?=
+ =?utf-8?B?Y2RJeU5qMFdUeng3SXVXUGYxVDFWUGZkV0s1eWJIWHIyUTc2Nlh4RXB5VnA5?=
+ =?utf-8?B?ajZCYklOQ2pab2JQY0RqMURWOXh1c0V3clFScEZsRU1EUXA4VWl4cm53TFQ4?=
+ =?utf-8?B?TGlzUWdEb3Z0aEVQcE42SmUybjcydkIrZUU2Z2dxcGIrUzhsY3owRVlJbEpQ?=
+ =?utf-8?B?UThULzRVRy8zRE1ya1RWY0I0c0MwMSs2UEloZDZnakRGRnV0MkVCbVB4Szk2?=
+ =?utf-8?B?RzU5VUZtUW45WlVXVS91ZEVkWGF4NmxUbWRTOG10ZkhvbVFSTEhSZWIzMm1B?=
+ =?utf-8?B?QUdVZTZMRENXYXVmYkZPSExsUGZXZ1JRUTRMMFdrc0xFWnVTdkVYeTRJcWxx?=
+ =?utf-8?B?ZXhIRXdDeXhqdHk0NnN6WlJ4MlFjM09OT25JMDlUQnBiWnU5TDdBUk9wMHM3?=
+ =?utf-8?B?WE02TVFOK3dFMndYYjdvdUZmdHRsUllVdFBlMmM5YkZiQWVtNEVxSGJZaGZa?=
+ =?utf-8?B?OTk0VlgzSFB6c1BCU0VKQ1paMEVGWmNqaXNLdG5wdGRZUkNOU3M2ZStXSm1E?=
+ =?utf-8?B?eldYZFpCcXBJcXkzU3FMb2NCU05RdVFOVjFaRU45ellFcnRiME9vKy9heHdO?=
+ =?utf-8?B?TU1SOTRaeGV6aXcxV2RiaUszNGNZdldac09sNzZjeENDSTB3aGJERUV0SElP?=
+ =?utf-8?B?MDR3VCtFMitRPT0=?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4258b799-c650-4d6b-dbfc-08da0b63b6e8
 X-MS-Exchange-CrossTenant-AuthSource: MWHPR1101MB2157.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2022 17:31:42.7780 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2022 17:53:32.7696 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8dcW4wbSruhDH9/x/hQhKwbcC5uDocQR9VG1hoqop2KZdnV58KXbPKPF4dAhwrJ/fceEmeixcIVpNgol6RiIj2rLcoQgQ9VIRD9JtKcDiSU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR11MB3174
+X-MS-Exchange-CrossTenant-UserPrincipalName: lCwV0/04RJU0P42JfSDqpAMXukDgn7DyiYR8KpKwUtoRQbKtH6bNPlQY/DykhM0ECibcpnhq+slhTitEDzX9B2fvqjOV/ugtVR9hCMZyH1o=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PR11MB2739
 X-OriginatorOrg: intel.com
 Cc: upstream@semihalf.com, harshapriya.n@intel.com, rad@semihalf.com,
  tiwai@suse.com, hdegoede@redhat.com, broonie@kernel.org,
@@ -193,215 +194,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2022-02-25 8:42 PM, Pierre-Louis Bossart wrote:
-> On 2/7/22 07:25, Cezary Rojewski wrote:
->> Add functions to ease with state changing of all objects found in the
->> path. Each represents either a BIND/UNBIND or SET_PIPEPILE_STATE IPC.
-> 
-> SET_PIPELINE?
+On 2022-03-21 6:19 PM, Cezary Rojewski wrote:
+> We need to take into account what's set on the codec side too, can't 
+> just ignore it. Topology is written for concrete configuration, so we 
+> can crease a file that supports all possible configurations exposed by 
+> given codec.
 
-A typo! Thanks for spotting this out!
-
->> DSP pipelines follow simple state machine scheme:
->> CREATE -> RESET -> PAUSE -> RUNNING -> PAUSE -> RESET -> DELETE>
->> There is no STOP, PAUSE serves that purpose instead.
-> 
-> that's not fully correct, the STOP can be handled in two steps due to
-> DMA programming flows.
-
- From DSP perspective, there's no stop. Literally one cannot send 
-SET_PIPELINE_STATE with STOP as a requested state.
-
->> Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
->> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
->> ---
->>   sound/soc/intel/avs/path.c | 130 +++++++++++++++++++++++++++++++++++++
->>   sound/soc/intel/avs/path.h |   5 ++
->>   2 files changed, 135 insertions(+)
->>
->> diff --git a/sound/soc/intel/avs/path.c b/sound/soc/intel/avs/path.c
->> index 272d868bedc9..c6db3f091e66 100644
->> --- a/sound/soc/intel/avs/path.c
->> +++ b/sound/soc/intel/avs/path.c
->> @@ -285,3 +285,133 @@ struct avs_path *avs_path_create(struct avs_dev *adev, u32 dma_id,
->>   
->>   	return path;
->>   }
->> +
->> +int avs_path_bind(struct avs_path *path)
->> +{
->> +	struct avs_path_pipeline *ppl;
->> +	struct avs_dev *adev = path->owner;
->> +	int ret;
->> +
->> +	list_for_each_entry(ppl, &path->ppl_list, node) {
->> +		struct avs_path_binding *binding;
->> +
->> +		list_for_each_entry(binding, &ppl->binding_list, node) {
->> +			struct avs_path_module *source, *sink;
->> +
->> +			source = binding->source;
->> +			sink = binding->sink;
->> +
->> +			ret = avs_ipc_bind(adev, source->module_id,
->> +					   source->instance_id, sink->module_id,
->> +					   sink->instance_id, binding->sink_pin,
->> +					   binding->source_pin);
->> +			if (ret) {
->> +				dev_err(adev->dev, "bind path failed: %d\n", ret);
->> +				return AVS_IPC_RET(ret);
-> 
-> so what happens for all the previously bound path?
-> 
-> Is there an error-unwinding loop somewhere?
-
-This is a good question. It's an unknown ground. Usually if anything 
-wrong happens, all the pipelines that are part of the path would be 
-forcefully deleted. What I can do, is add unwinding and check with 
-validation using some unusual scenarios to see if no regression occurs.
-
-Not promising anything though - see below.
-
->> +			}
->> +		}
->> +	}
->> +
->> +	return 0;
->> +}
->> +
->> +int avs_path_unbind(struct avs_path *path)
->> +{
->> +	struct avs_path_pipeline *ppl;
->> +	struct avs_dev *adev = path->owner;
->> +	int ret;
->> +
->> +	list_for_each_entry(ppl, &path->ppl_list, node) {
->> +		struct avs_path_binding *binding;
->> +
->> +		list_for_each_entry(binding, &ppl->binding_list, node) {
->> +			struct avs_path_module *source, *sink;
->> +
->> +			source = binding->source;
->> +			sink = binding->sink;
->> +
->> +			ret = avs_ipc_unbind(adev, source->module_id,
->> +					     source->instance_id, sink->module_id,
->> +					     sink->instance_id, binding->sink_pin,
->> +					     binding->source_pin);
->> +			if (ret) {
->> +				dev_err(adev->dev, "unbind path failed: %d\n", ret);
->> +				return AVS_IPC_RET(ret);
-> 
-> what happens then? reboot?
-
-Yeah, unfortunately when an IPC fails, it's usually for a very "bad" 
-reason and only DSP recovery can help here.
-
->> +			}
->> +		}
->> +	}
->> +
->> +	return 0;
->> +}
->> +
->> +int avs_path_reset(struct avs_path *path)
->> +{
->> +	struct avs_path_pipeline *ppl;
->> +	struct avs_dev *adev = path->owner;
->> +	int ret;
->> +
->> +	if (path->state == AVS_PPL_STATE_RESET)
->> +		return 0;
->> +
->> +	list_for_each_entry(ppl, &path->ppl_list, node) {
->> +		ret = avs_ipc_set_pipeline_state(adev, ppl->instance_id,
->> +						 AVS_PPL_STATE_RESET);
->> +		if (ret) {
->> +			dev_err(adev->dev, "reset path failed: %d\n", ret);
->> +			path->state = AVS_PPL_STATE_INVALID;
->> +			return AVS_IPC_RET(ret);
->> +		}
->> +	}
->> +
->> +	path->state = AVS_PPL_STATE_RESET;
->> +	return 0;
->> +}
->> +
->> +int avs_path_pause(struct avs_path *path)
->> +{
->> +	struct avs_path_pipeline *ppl;
->> +	struct avs_dev *adev = path->owner;
->> +	int ret;
->> +
->> +	if (path->state == AVS_PPL_STATE_PAUSED)
->> +		return 0;
->> +
->> +	list_for_each_entry_reverse(ppl, &path->ppl_list, node) {
-> 
-> does the order actually matter?
-
-Yes, it does. We do here what's recommended.
-
->> +		ret = avs_ipc_set_pipeline_state(adev, ppl->instance_id,
->> +						 AVS_PPL_STATE_PAUSED);
->> +		if (ret) {
->> +			dev_err(adev->dev, "pause path failed: %d\n", ret);
->> +			path->state = AVS_PPL_STATE_INVALID;
->> +			return AVS_IPC_RET(ret);
->> +		}
->> +	}
->> +
->> +	path->state = AVS_PPL_STATE_PAUSED;
->> +	return 0;
->> +}
-> 
-> it looks like you could use a helper since the flows are identical.
+By "Topology is written for concrete configuration" I meant 
+platform-level configuration e.g.: Skylake with single rt286 codec in 
+I2S mode.
 
 
-I did try doing that in the past but the readability got hurt : (
-avs_path_run() has an additional check when compared to the other two. 
-avs_path_pause() and avs_path_reset() to the things in the opposite 
-order. So, I still believe it's not good to provide a helper for these. 
-If you are seeing something I'm not, please feel free to correct me.
-
->> +
->> +int avs_path_run(struct avs_path *path, int trigger)
->> +{
->> +	struct avs_path_pipeline *ppl;
->> +	struct avs_dev *adev = path->owner;
->> +	int ret;
->> +
->> +	if (path->state == AVS_PPL_STATE_RUNNING && trigger == AVS_TPLG_TRIGGER_AUTO)
->> +		return 0;
->> +
->> +	list_for_each_entry(ppl, &path->ppl_list, node) {
->> +		if (ppl->template->cfg->trigger != trigger)
->> +			continue;
->> +
->> +		ret = avs_ipc_set_pipeline_state(adev, ppl->instance_id,
->> +						 AVS_PPL_STATE_RUNNING);
->> +		if (ret) {
->> +			dev_err(adev->dev, "run path failed: %d\n", ret);
->> +			path->state = AVS_PPL_STATE_INVALID;
->> +			return AVS_IPC_RET(ret);
->> +		}
->> +	}
->> +
->> +	path->state = AVS_PPL_STATE_RUNNING;
->> +	return 0;
->> +}
->> diff --git a/sound/soc/intel/avs/path.h b/sound/soc/intel/avs/path.h
->> index 3843e5a062a1..04a06473f04b 100644
->> --- a/sound/soc/intel/avs/path.h
->> +++ b/sound/soc/intel/avs/path.h
->> @@ -62,5 +62,10 @@ struct avs_path *avs_path_create(struct avs_dev *adev, u32 dma_id,
->>   				 struct avs_tplg_path_template *template,
->>   				 struct snd_pcm_hw_params *fe_params,
->>   				 struct snd_pcm_hw_params *be_params);
->> +int avs_path_bind(struct avs_path *path);
->> +int avs_path_unbind(struct avs_path *path);
->> +int avs_path_reset(struct avs_path *path);
->> +int avs_path_pause(struct avs_path *path);
->> +int avs_path_run(struct avs_path *path, int trigger);
->>   
->>   #endif
+Regards,
+Czarek

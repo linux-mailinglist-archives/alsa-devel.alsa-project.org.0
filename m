@@ -2,66 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C92614E20B3
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Mar 2022 07:50:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 650B64E20D1
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Mar 2022 07:59:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 546BE1699;
-	Mon, 21 Mar 2022 07:49:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 546BE1699
+	by alsa0.perex.cz (Postfix) with ESMTPS id E835D169C;
+	Mon, 21 Mar 2022 07:58:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E835D169C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647845408;
-	bh=kSUK1C/2n1F2//1hkNBK4WX3S4EeiEJ8g3MJmTJT8eE=;
-	h=Date:Subject:From:To:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=FBj/QGziY90z/9+qsheQn8JuK/cMALPfELqsv/jXtvoQhw7XrwJr+1ovcpPtkv8kd
-	 0XTutWI3zhNqiZ5Hbs/l1sX401IBzFwhn3nYBDIMUW5L4JWlL18E4d5Ajr90g2psdN
-	 O8cTZVH3vYW9fsK8qmHYqxU5KlyeREUJAjEKZSy8=
+	s=default; t=1647845978;
+	bh=PjEXYiQq/djtL9gbp8INQnz8P3bpXOGhdXwEnOIQt8k=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=RfitbFfr1hmIE1oOWJ3LKYjA3ZDD+ueZ9rwD2D3VGMiE29kdYVaw7wRICkmknylaV
+	 LZwYDHXW1pGjVZ4t1iJKkG+DQnAXFcO3KZDseDkmWWG5w5FoXSHr3g2PeHdvedRJXt
+	 4afE6YBfwYPa2UuKf+UMPxxNKIh67E15qqDw99BA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CB1A5F801D8;
-	Mon, 21 Mar 2022 07:49:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 36224F800FD;
+	Mon, 21 Mar 2022 07:58:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9B0A3F80227; Mon, 21 Mar 2022 07:48:58 +0100 (CET)
+ id DD1CDF80227; Mon, 21 Mar 2022 07:58:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [IPv6:2a01:488:42:1000:50ed:8234::])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A7C6DF800FD
- for <alsa-devel@alsa-project.org>; Mon, 21 Mar 2022 07:48:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7C6DF800FD
-Received: from ip4d144895.dynamic.kabel-deutschland.de ([77.20.72.149]
- helo=[192.168.66.200]); authenticated
- by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- id 1nWBqR-0005fY-Nd; Mon, 21 Mar 2022 07:48:47 +0100
-Message-ID: <420bd395-10e7-b5de-97da-56d90fb82654@leemhuis.info>
-Date: Mon, 21 Mar 2022 07:48:47 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0E992F80109
+ for <alsa-devel@alsa-project.org>; Mon, 21 Mar 2022 07:58:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E992F80109
+X-QQ-mid: bizesmtp82t1647845884t804rf5r
+Received: from localhost.localdomain ( [58.240.82.166])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Mon, 21 Mar 2022 14:57:57 +0800 (CST)
+X-QQ-SSF: 01400000002000D0I000000A0000000
+X-QQ-FEAT: geCjBjpTnm5MCuhbl7WYFcVXtSlLYe9nC1Ht/79OMySzfSxUeFWMlEVlP+knM
+ OezqIH5y7A/rfELeaajZVCAAx4GrtoyySSDJmz7ddbkXeiUfWifuSxk/Bi9creqz6xIm/Jm
+ Uu2MMJxb28nTNTn8X70dH7T5IYaZk9lBtgzED1Ka/XyEVb6eqQN4t7L914gqT01Yzk7hw6r
+ S42MAr0xF076OqnTq2umNB9bzMI1NIMvSfWdJKMDjmiBsRMEX2aW1VC38gydlWoIJsYmYQF
+ 6CJjxuUTdWSnPaojt+XOZgN7dpg0tmUTH+g0KM/fHg9zn9nAyVwFJkrsz/DshH06pVsMVOZ
+ 8lJ+UsPbx8dPh1DVoEcN2sD3aXON/Z9fhYrV5we
+X-QQ-GoodBg: 1
+From: Meng Tang <tangmeng@uniontech.com>
+To: nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
+ shengjiu.wang@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
+ perex@perex.cz, tiwai@suse.com
+Subject: [PATCH v2] ASoC: fsl-asoc-card: Fix jack_event() always return 0
+Date: Mon, 21 Mar 2022 14:57:54 +0800
+Message-Id: <20220321065754.18307-1-tangmeng@uniontech.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [regression] Headphone output gets unproperly powered down - Mi
- Notebook Pro 2020 (ALC256) (fwd of b.k.o bug #215484; starting with 5.14.14)
-Content-Language: en-US
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-To: "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-References: <fbfbdedd-21b5-5b6f-c03c-80027acbe2f5@leemhuis.info>
-In-Reply-To: <fbfbdedd-21b5-5b6f-c03c-80027acbe2f5@leemhuis.info>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1647845333;
- 442e6ea5; 
-X-HE-SMSGID: 1nWBqR-0005fY-Nd
-Cc: "kai.heng.feng@canonical.com" <kai.heng.feng@canonical.com>,
- alsa-devel@alsa-project.org, itsbytebites@tutanota.com, kailang@realtek.com
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign8
+X-QQ-Bgrelay: 1
+Cc: Meng Tang <tangmeng@uniontech.com>, alsa-devel@alsa-project.org,
+ linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,44 +77,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi, this is your Linux kernel regression tracker. Top-posting for once,
-to make this easily accessible to everyone.
+Today, hp_jack_event and mic_jack_event always return 0. However,
+snd_soc_dapm_disable_pin and snd_soc_dapm_enable_pin may return a
+non-zero value, this will cause the user who calling hp_jack_event
+and mic_jack_event don't know whether the operation was really
+successfully.
 
-Could anybody please finally look into this bisected regression from
-5.14.13 to 5.14.14 (f8d3c17e1c37 ("ALSA: hda/realtek - ALC236 headset
-MIC recording issue")) that according to a recent bugzilla comment from
-reporter is still present in recent 5.16 kernels?
+Signed-off-by: Meng Tang <tangmeng@uniontech.com>
+---
+ sound/soc/fsl/fsl-asoc-card.c | 12 ++++--------
+ 1 file changed, 4 insertions(+), 8 deletions(-)
 
-Ciao, Thorsten
+diff --git a/sound/soc/fsl/fsl-asoc-card.c b/sound/soc/fsl/fsl-asoc-card.c
+index 370bc790c6ba..d9a0d4768c4d 100644
+--- a/sound/soc/fsl/fsl-asoc-card.c
++++ b/sound/soc/fsl/fsl-asoc-card.c
+@@ -462,11 +462,9 @@ static int hp_jack_event(struct notifier_block *nb, unsigned long event,
+ 
+ 	if (event & SND_JACK_HEADPHONE)
+ 		/* Disable speaker if headphone is plugged in */
+-		snd_soc_dapm_disable_pin(dapm, "Ext Spk");
++		return snd_soc_dapm_disable_pin(dapm, "Ext Spk");
+ 	else
+-		snd_soc_dapm_enable_pin(dapm, "Ext Spk");
+-
+-	return 0;
++		return snd_soc_dapm_enable_pin(dapm, "Ext Spk");
+ }
+ 
+ static struct notifier_block hp_jack_nb = {
+@@ -481,11 +479,9 @@ static int mic_jack_event(struct notifier_block *nb, unsigned long event,
+ 
+ 	if (event & SND_JACK_MICROPHONE)
+ 		/* Disable dmic if microphone is plugged in */
+-		snd_soc_dapm_disable_pin(dapm, "DMIC");
++		return snd_soc_dapm_disable_pin(dapm, "DMIC");
+ 	else
+-		snd_soc_dapm_enable_pin(dapm, "DMIC");
+-
+-	return 0;
++		return snd_soc_dapm_enable_pin(dapm, "DMIC");
+ }
+ 
+ static struct notifier_block mic_jack_nb = {
+-- 
+2.20.1
 
-On 12.01.22 08:15, Thorsten Leemhuis wrote:
-> 
-> Hi, this is your Linux kernel regression tracker speaking.
-> 
-> I'm forwarding a regression reported in bugzilla.kernel.org to the list,
-> to make sure all parties interested in this are aware of it. The
-> reporter is CCed. Not CCing the stable list in this case, as 5.14 is EOL
-> already.
-> 
-> https://bugzilla.kernel.org/show_bug.cgi?id=215484
-> 
->> With headphones (or an auxiliary jack) plugged in, the audio output
->> is fine when anything is playing, but when that's stopped a loud pop
->> can be heard after some seconds and if the jack is connected to an
->> external amplifier it gets really noisy. Everything gets back to
->> normal whenever audio playback is resumed, although with another loud
->> pop at the start.
->>
->> This has been happening since kernel 5.14.14, whereas 5.14.13 is
->> fine. I suspect it has to do with the ALC256 mute logic implemented
->> in that version
->> (https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/diff/sound/pci/hda/patch_realtek.c?id=v5.14.14&id2=v5.14.13)
->>
->> OS: Fedora Linux 35 Kernel: 5.16.0-60 Vanilla Hardware: Xiaomi Mi
->> Notebook Pro Enhanced 2020 (i7 10510U, ALC256)
-> 
-> Ciao, Thorsten
-> 
-> #regzbot introduced v5.14.13..v5.14.14
-> #regzbot link: https://bugzilla.kernel.org/show_bug.cgi?id=215484
-> #regzbot from: Emanuele Melzi <itsbytebites@tutanota.com>
+
+

@@ -2,66 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 099AB4E4296
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Mar 2022 16:12:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8B4E4E4297
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Mar 2022 16:13:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 89C3316DE;
-	Tue, 22 Mar 2022 16:12:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 89C3316DE
+	by alsa0.perex.cz (Postfix) with ESMTPS id EFCDF168D;
+	Tue, 22 Mar 2022 16:12:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFCDF168D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647961977;
-	bh=7zUfuuaoL32JJW42PY/h3wZyCFPG2e2ADpQNlReQGSk=;
-	h=Date:To:From:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=PyW2nxcvH/evxhfUyHjFNfNUOe8tNnjP0ew3snCWvCtHy6QVm0TEs6zXDzad3P9Kw
-	 130oVDDd7Bm2mW0lkCHEM1UXkVH0Q/rZkTUL3Wy/mbNLxxyYgsvWFJwopBckMSFHho
-	 Jnn7MVhO9ipt3TyFaEC6yEA0piJtkP3/fd2grPzU=
+	s=default; t=1647961989;
+	bh=kw+oJL8+/opvBM864UPk5C4XJQyDqeuLXUZJjpvCxV0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=iZXnT5husrAxPfUa0I4PLsA5ivq9y8Pb3dmhBtOtoxgpJoy3tFVEXzJPFGt0NFaq/
+	 vuEfG4oLuSmZnuJgT2pyckLrxd4kItxXMEpYrHkYS04KuuXf9s66YMWBkDuVyOQLgj
+	 MPtFNf/fzXNTd+To1WPJaoT32vv08tdo+RVHRxZo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 686E5F8052D;
-	Tue, 22 Mar 2022 16:10:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 43658F80533;
+	Tue, 22 Mar 2022 16:10:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2F2A9F80253; Mon, 21 Mar 2022 02:25:25 +0100 (CET)
+ id 37174F80227; Mon, 21 Mar 2022 09:12:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=PRX_BODY_14,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from www262.sakura.ne.jp (www262.sakura.ne.jp [202.181.97.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-qt1-x835.google.com (mail-qt1-x835.google.com
+ [IPv6:2607:f8b0:4864:20::835])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E83B4F80109
- for <alsa-devel@alsa-project.org>; Mon, 21 Mar 2022 02:25:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E83B4F80109
-Received: from fsav314.sakura.ne.jp (fsav314.sakura.ne.jp [153.120.85.145])
- by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 22L1OQ9W020821;
- Mon, 21 Mar 2022 10:24:26 +0900 (JST)
- (envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Received: from www262.sakura.ne.jp (202.181.97.72)
- by fsav314.sakura.ne.jp (F-Secure/fsigk_smtp/550/fsav314.sakura.ne.jp);
- Mon, 21 Mar 2022 10:24:26 +0900 (JST)
-X-Virus-Status: clean(F-Secure/fsigk_smtp/550/fsav314.sakura.ne.jp)
-Received: from [192.168.1.9] (M106072142033.v4.enabler.ne.jp [106.72.142.33])
- (authenticated bits=0)
- by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 22L1OOpR020816
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NO);
- Mon, 21 Mar 2022 10:24:25 +0900 (JST)
- (envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Message-ID: <49925af7-78a8-a3dd-bce6-cfc02e1a9236@I-love.SAKURA.ne.jp>
-Date: Mon, 21 Mar 2022 10:24:23 +0900
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9D42EF800FD
+ for <alsa-devel@alsa-project.org>; Mon, 21 Mar 2022 09:12:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D42EF800FD
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="BhteqGXg"
+Received: by mail-qt1-x835.google.com with SMTP id j21so11367631qta.0
+ for <alsa-devel@alsa-project.org>; Mon, 21 Mar 2022 01:12:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=w8WxpDi03iWCNVX/uFr39maVmxk/vSYYBrdnUfsRbk0=;
+ b=BhteqGXg+Pn7xpMyGo516M8LYiHW9USQsdfdHYcgg01Az4565sFCdXsXTkpAXDlwrs
+ M4Jpb/zofdtQwxCE3qgmgsTAqF0fYnEz5FeAr4eQZO4H1Y1Rkn44qEdHYX47FpZSK54m
+ nq6IcZIJg9NcRCCcieOKukFmRQUvsw4nq7MwVLtHqrRV/KQY3UfaKVoi2kRYP4eBEq32
+ uObt0MK8gfYT+pxQQbkAIlGE/rtUhbPt57W0z39r6rAZbp2BKxPd5ss7G37yPQKtu6R+
+ HzbxT2vqI4ee3+m7jQ7HbfWA0C3CbPqA8u4fH9QdTWph5mEzP2kKGNZA8kV1q2PSEfai
+ 3dCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=w8WxpDi03iWCNVX/uFr39maVmxk/vSYYBrdnUfsRbk0=;
+ b=vIKpnR+AIVPFB7n/pSfWL5qoQQ4aFUEHepb+naHB3eNghnHIa1phWqDBzeARv/IvGQ
+ oB4l+V8AVNnvPMeJ2khs5DCiEPB2w871oBYPljQ02OR8ZouVOgr07V77gmxYNgMw66Zf
+ E1MCNvRyXXjU7z/M/xh7vlXbqxvbugX6h7PpjTkYzDfS0s4WHfONJcLdP7y4RLfuASLw
+ V9ngI1SAO9oZhu+gizBPsLN+7IrsVvNkPcIqmVuZR5E8uz876kb7BU7xMj1EjFDrjyzM
+ U4x3hOLpmCKy4fyg/EKWEZ/pS/ddo9DYqShQ9O8EGWXl8CPei1RP8zoWLTjHkrtnKcUw
+ KxiQ==
+X-Gm-Message-State: AOAM532MjjfxwALLHGureOsAQTVoapLSyO7XjlYRJf4JInug4Zq+6XTs
+ ytKm5vF9wURI7BuGzg4dWo7g+bxTlUiKYIJJmzc=
+X-Google-Smtp-Source: ABdhPJxZs050Ub4KULZ6aBWxvddTPid/SWEhORqtQwEbpEyPlqgGXMQLeDI11jwN2qQEtF7PT8eZdU9S6bWV0FXm2OI=
+X-Received: by 2002:ac8:5bd6:0:b0:2e1:c841:35f6 with SMTP id
+ b22-20020ac85bd6000000b002e1c84135f6mr15379502qtb.120.1647850363792; Mon, 21
+ Mar 2022 01:12:43 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Content-Language: en-US
-To: LKML <linux-kernel@vger.kernel.org>
-From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-Subject: An announcement for kernel-global workqueue users.
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Tue, 22 Mar 2022 16:10:01 +0100
-Cc: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>
+References: <20220321065754.18307-1-tangmeng@uniontech.com>
+In-Reply-To: <20220321065754.18307-1-tangmeng@uniontech.com>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Mon, 21 Mar 2022 16:12:32 +0800
+Message-ID: <CAA+D8AME8Ojc-Cfr0VEeqSk6_Jb+EB1S9NtNzTM3JpKR2TySzA@mail.gmail.com>
+Subject: Re: [PATCH v2] ASoC: fsl-asoc-card: Fix jack_event() always return 0
+To: Meng Tang <tangmeng@uniontech.com>
+X-Mailman-Approved-At: Tue, 22 Mar 2022 16:10:02 +0100
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: alsa-devel@alsa-project.org, Xiubo Li <Xiubo.Lee@gmail.com>,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Fabio Estevam <festevam@gmail.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,110 +100,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello.
+On Mon, Mar 21, 2022 at 2:58 PM Meng Tang <tangmeng@uniontech.com> wrote:
 
-The Linux kernel provides kernel-global WQs (namely, system_wq, system_highpri_wq,
-system_long_wq, system_unbound_wq, system_freezable_wq, system_power_efficient_wq
-and system_freezable_power_efficient_wq). But since attempt to flush kernel-global
-WQs has possibility of deadlock, Tejun Heo thinks that we should stop calling
-flush_scheduled_work() and flush_workqueue(system_*). Such callers as of Linux 5.17
-are listed below.
+> Today, hp_jack_event and mic_jack_event always return 0. However,
+> snd_soc_dapm_disable_pin and snd_soc_dapm_enable_pin may return a
+> non-zero value, this will cause the user who calling hp_jack_event
+> and mic_jack_event don't know whether the operation was really
+> successfully.
+>
+> Signed-off-by: Meng Tang <tangmeng@uniontech.com>
+>
 
-----------
-$ git grep -nF 'flush_scheduled_work()'
-drivers/acpi/osl.c:1182:         * invoke flush_scheduled_work()/acpi_os_wait_events_complete() to flush
-drivers/acpi/osl.c:1575:        flush_scheduled_work();
-drivers/block/aoe/aoedev.c:324: flush_scheduled_work();
-drivers/block/aoe/aoedev.c:523: flush_scheduled_work();
-drivers/crypto/atmel-ecc.c:401: flush_scheduled_work();
-drivers/crypto/atmel-sha204a.c:162:     flush_scheduled_work();
-drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c:2606:       flush_scheduled_work();
-drivers/gpu/drm/bridge/lontium-lt9611uxc.c:985: flush_scheduled_work();
-drivers/gpu/drm/i915/display/intel_display.c:10790:     flush_scheduled_work();
-drivers/gpu/drm/i915/gt/selftest_execlists.c:87:        flush_scheduled_work();
-drivers/iio/light/tsl2563.c:811:        flush_scheduled_work();
-drivers/infiniband/hw/mlx4/cm.c:511:            flush_scheduled_work();
-drivers/infiniband/hw/mlx4/cm.c:543:            flush_scheduled_work(); /* make sure all timers were flushed */
-drivers/infiniband/ulp/isert/ib_isert.c:2639:   flush_scheduled_work();
-drivers/input/mouse/psmouse-smbus.c:320:        flush_scheduled_work();
-drivers/md/dm.c:229:    flush_scheduled_work();
-drivers/message/fusion/mptscsih.c:1234: flush_scheduled_work();
-drivers/net/phy/phy.c:1060:     /* Cannot call flush_scheduled_work() here as desired because
-drivers/net/usb/lan78xx.c:3240:  * can't flush_scheduled_work() until we drop rtnl (later),
-drivers/net/usb/usbnet.c:853:    * can't flush_scheduled_work() until we drop rtnl (later),
-drivers/net/wireless/ath/ath6kl/usb.c:481:      flush_scheduled_work();
-drivers/net/wwan/wwan_hwsim.c:537:      flush_scheduled_work();         /* Wait deletion works completion */
-drivers/nvme/target/configfs.c:1557:    flush_scheduled_work();
-drivers/nvme/target/rdma.c:1587:                flush_scheduled_work();
-drivers/nvme/target/rdma.c:2056:        flush_scheduled_work();
-drivers/nvme/target/tcp.c:1818:         flush_scheduled_work();
-drivers/nvme/target/tcp.c:1879: flush_scheduled_work();
-drivers/nvme/target/tcp.c:1884: flush_scheduled_work();
-drivers/platform/surface/surface_acpi_notify.c:863:     flush_scheduled_work();
-drivers/power/supply/ab8500_btemp.c:975:        flush_scheduled_work();
-drivers/power/supply/ab8500_chargalg.c:1993:    flush_scheduled_work();
-drivers/power/supply/ab8500_charger.c:3400:     flush_scheduled_work();
-drivers/power/supply/ab8500_fg.c:3021:  flush_scheduled_work();
-drivers/rapidio/devices/tsi721.c:2944:  flush_scheduled_work();
-drivers/rtc/dev.c:99:                   flush_scheduled_work();
-drivers/scsi/mpt3sas/mpt3sas_scsih.c:12409:     flush_scheduled_work();
-drivers/scsi/qla2xxx/qla_target.c:1568:         flush_scheduled_work();
-drivers/staging/olpc_dcon/olpc_dcon.c:386:      flush_scheduled_work();
-sound/soc/intel/atom/sst/sst.c:363:     flush_scheduled_work();
-$ git grep -nF 'flush_workqueue(system_'
-drivers/block/rnbd/rnbd-clt.c:1776:     flush_workqueue(system_long_wq);
-drivers/infiniband/core/device.c:2857:  flush_workqueue(system_unbound_wq);
-include/linux/workqueue.h:592:  flush_workqueue(system_wq);
-----------
+Acked-by: Shengjiu Wang <shengjiu.wang@gmail.com>
 
-I tried to send a patch that emits a warning when flushing kernel-global WQs is attempted
-( https://lkml.kernel.org/r/2efd5461-fccd-f1d9-7138-0a6767cbf5fe@I-love.SAKURA.ne.jp ).
-But Linus does not want such patch
-( https://lkml.kernel.org/r/CAHk-=whWreGjEQ6yasspzBrNnS7EQiL+SknToWt=SzUh4XomyQ@mail.gmail.com ).
+Best regards
+Wang Shengjiu
 
-Steps for converting kernel-global WQs into module's local WQs are shown below.
-But since an oversight in Step 4 results in breakage, I think that this conversion
-should be carefully handled by maintainers/developers of each module who are
-familiar with that module. (This is why I'm sending this mail than sending patches,
-in order to ask for your cooperation.)
-
-----------
-Step 0: Consider if flushing kernel-global WQs is unavoidable.
-
-    For example, commit 081bdc9fe05bb232 ("RDMA/ib_srp: Fix a deadlock")
-    simply removed flush_workqueue(system_long_wq) call.
-
-    For another example, schedule_on_each_cpu() does not need to call
-    flush_scheduled_work() because schedule_on_each_cpu() knows the list
-    of all "struct work_struct" instances which need to be flushed using
-    flush_work() call.
-
-    If flushing kernel-global WQs is still unavoidable, please proceed to
-    the following steps.
-
-Step 1: Declare a variable for your module.
-
-    struct workqueue_struct *my_wq;
-
-Step 2: Create a WQ for your module from __init function. The same flags
-        used by corresponding kernel-global WQ can be used when creating
-        the WQ for your module.
-
-    my_wq = alloc_workqueue("my_wq_name", 0, 0);
-
-Step 3: Destroy the WQ created in Step 2 from __exit function (and the error
-        handling path of __init function if __init function may fail after
-        creating the WQ).
-
-    destroy_workqueue(my_wq);
-
-Step 4: Replace e.g. schedule_work() call with corresponding queue_work() call
-        throughout your module which should be handled by the WQ for your module.
-
-Step 5: Replace flush_scheduled_work() and flush_workqueue(system_*) calls
-        with flush_workqueue() of the WQ for your module.
-
-    flush_workqueue(my_wq);
-----------
-
-Regards.
+> ---
+>  sound/soc/fsl/fsl-asoc-card.c | 12 ++++--------
+>  1 file changed, 4 insertions(+), 8 deletions(-)
+>
+> diff --git a/sound/soc/fsl/fsl-asoc-card.c b/sound/soc/fsl/fsl-asoc-card.c
+> index 370bc790c6ba..d9a0d4768c4d 100644
+> --- a/sound/soc/fsl/fsl-asoc-card.c
+> +++ b/sound/soc/fsl/fsl-asoc-card.c
+> @@ -462,11 +462,9 @@ static int hp_jack_event(struct notifier_block *nb,
+> unsigned long event,
+>
+>         if (event & SND_JACK_HEADPHONE)
+>                 /* Disable speaker if headphone is plugged in */
+> -               snd_soc_dapm_disable_pin(dapm, "Ext Spk");
+> +               return snd_soc_dapm_disable_pin(dapm, "Ext Spk");
+>         else
+> -               snd_soc_dapm_enable_pin(dapm, "Ext Spk");
+> -
+> -       return 0;
+> +               return snd_soc_dapm_enable_pin(dapm, "Ext Spk");
+>  }
+>
+>  static struct notifier_block hp_jack_nb = {
+> @@ -481,11 +479,9 @@ static int mic_jack_event(struct notifier_block *nb,
+> unsigned long event,
+>
+>         if (event & SND_JACK_MICROPHONE)
+>                 /* Disable dmic if microphone is plugged in */
+> -               snd_soc_dapm_disable_pin(dapm, "DMIC");
+> +               return snd_soc_dapm_disable_pin(dapm, "DMIC");
+>         else
+> -               snd_soc_dapm_enable_pin(dapm, "DMIC");
+> -
+> -       return 0;
+> +               return snd_soc_dapm_enable_pin(dapm, "DMIC");
+>  }
+>
+>  static struct notifier_block mic_jack_nb = {
+> --
+> 2.20.1
+>
+>
+>
+>

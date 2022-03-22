@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED0244E44D4
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Mar 2022 18:15:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD8094E451B
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Mar 2022 18:26:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 759A6176B;
-	Tue, 22 Mar 2022 18:15:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 759A6176B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4ABF2174C;
+	Tue, 22 Mar 2022 18:25:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4ABF2174C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647969355;
-	bh=/X+lB8vw3dIY785KoFXkX/okiISqDdLDV78GwzpwNRg=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1647969998;
+	bh=Phg1PAOYHSK72usNjVk6f6jQe9VWkgPG6bHRd8MkuQg=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZopHxkZYskUzXN5+jXcck0ORtnCLZwvMRhuoDZSpN/eFx9wxxlzdHXxWqxKSYLyED
-	 LmpcgIRLhcezyApNiIA4DibcLk2/c1t7BLedaIyoeC7F4a2zoZm22Ht9RMLtDZUmKe
-	 tCo8odZ1RgHtDpSXlCUfkBAtMNzxGwiFL0gpxceU=
+	b=pmYjhDfeuc/JKJdeUYPbbEeL3mzH3b2LJ7R+YQBzfQK/Gu+UHk0rIK8ladg4x/jKm
+	 gcsNjyPzB1tzAloTcIB40NjRojqGBSJBJeJsGA2qiJwdzICXpJ3Id5YyC1Cy5+rzZa
+	 DhRHR65ZU1Cmer0vzGtrtZRftF5WZfverTe5QFv0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 10338F8032D;
-	Tue, 22 Mar 2022 18:14:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B3C37F800FD;
+	Tue, 22 Mar 2022 18:25:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 856FEF8016C; Tue, 22 Mar 2022 18:14:47 +0100 (CET)
+ id 6BF8FF8016C; Tue, 22 Mar 2022 18:25:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,37 +34,37 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6EC1BF80116
- for <alsa-devel@alsa-project.org>; Tue, 22 Mar 2022 18:14:40 +0100 (CET)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 519C3F800FD
+ for <alsa-devel@alsa-project.org>; Tue, 22 Mar 2022 18:25:23 +0100 (CET)
 Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id C43E8A0040;
- Tue, 22 Mar 2022 18:14:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz C43E8A0040
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 49727A003F;
+ Tue, 22 Mar 2022 18:25:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 49727A003F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1647969279; bh=x6V/BlAS8TdHyCaOrjtYpZSQgJjJyla2u7kpgw68GPg=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=h3P0mcEjxGcbZIU1GMNmQNkxEVgFps2mf2eSYi6uO55io445yF0lNRhsrZqpZyORL
- QaWNTV7B/c6d9Pd6MNBXNYO1DsXRPk4bF/XlQ0OqDabqmACTB1v9pkkk9OslKoYreV
- ETnvOJatRROix+2SD7Y3VbXEeDimCvA2T9A8aeQY=
+ t=1647969923; bh=RBpnsYg7T7e6HVa/fAvij0CiEIFhpSnI+m8q4ia0igk=;
+ h=Date:Subject:To:References:From:In-Reply-To:From;
+ b=sXqD2FkHUfGBC7IbFZKan5d4Cw9Fopalhc0l1dUWKRBpHQWxsvTk10/Ub/K/CNx/Q
+ mf8MeywrL2zxNFMQNWWxmIxyUAp/j2Z1LDVVxkCJAK5S6dAxAUyrpMa72XSuYPpx1P
+ zh281dMqlNTQB47ptSWvg87/zHvtV7M65au8XKII=
 Received: from [192.168.100.98] (unknown [192.168.100.98])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: perex)
  by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Tue, 22 Mar 2022 18:14:35 +0100 (CET)
-Message-ID: <53e52d32-dd17-7aa6-2ad0-432a5cf4cf35@perex.cz>
-Date: Tue, 22 Mar 2022 18:14:35 +0100
+ Tue, 22 Mar 2022 18:25:21 +0100 (CET)
+Message-ID: <d8df02af-9260-00e9-a5a5-3aa2db372457@perex.cz>
+Date: Tue, 22 Mar 2022 18:25:21 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.0
-Subject: Re: [PATCH 0/4] ALSA: pcm: Fix ioctl races
+Subject: Re: [PATCH] ALSA: pcm: Add stream lock during PCM reset ioctl
+ operations
 Content-Language: en-US
 To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
-References: <20220322170720.3529-1-tiwai@suse.de>
+References: <20220322171325.4355-1-tiwai@suse.de>
 From: Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <20220322170720.3529-1-tiwai@suse.de>
+In-Reply-To: <20220322171325.4355-1-tiwai@suse.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Cc: Hu Jiahui <kirin.say@gmail.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,24 +80,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 22. 03. 22 18:07, Takashi Iwai wrote:
-> Hi,
+On 22. 03. 22 18:13, Takashi Iwai wrote:
+> snd_pcm_reset() is a non-atomic operation, and it's allowed to run
+> during the PCM stream running.  It implies that the manipulation of
+> hw_ptr and other parameters might be racy.
 > 
-> this is a patch set to address the recently reported bug for the racy
-> PCM ioctls.  In short, the current ALSA PCM core doesn't take enough
-> care of concurrent ioctl calls, and the concurrent calls may result in
-> a use-after-free.  The reported problem was the concurrent hw_free
-> calls, but there can be similar cases with other code paths like
-> hw_params, prepare, etc, too.
-> 
-> The patch set introduces the new runtime->buffer_mutex for protecting
-> those.  The first patch is the fix for the reported issue (the races
-> with hw_free), while the rest three are more hardening for the other
-> similar executions.
-
-Thank you Takashi.
+> This patch adds the PCM stream lock at appropriate places in
+> snd_pcm_*_reset() actions for covering that.
 
 Reviewed-by: Jaroslav Kysela <perex@perex.cz>
+
+				Thanks,
+					Jaroslav
 
 -- 
 Jaroslav Kysela <perex@perex.cz>

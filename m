@@ -2,84 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BC034E4E45
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Mar 2022 09:30:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 669694E4F02
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Mar 2022 10:13:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3D4B5172C;
-	Wed, 23 Mar 2022 09:29:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D4B5172C
+	by alsa0.perex.cz (Postfix) with ESMTPS id EBD1C165D;
+	Wed, 23 Mar 2022 10:12:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EBD1C165D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648024210;
-	bh=1RS7MG4sJrqejbT6wcSzpVIKqn4WujG1lTYtG0ilBN0=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=PAlIzTXGy6A6+Qure6mWu1hbW5Lpt+UWVktcBf1ZSj8Tpk8mLZcawcMXxp/Vvq2l2
-	 otODQUrBy0ZMLaB21xjYKgQczaiu+TVoCcRFpHROXOfhDu6ZyWvNTXYg9+YbDo0mY8
-	 RLvh5qBeas9vTuZUtu2vrQ+FT/BdOlsxFoxg/Jw8=
+	s=default; t=1648026821;
+	bh=QSWGoY6oHBLH39/wKbyKN91qris4qer3Q2c9o3zontA=;
+	h=From:Date:Subject:To:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Xwmn+csn9e4Z5qKl1iiUxCqe5qBQMktumV4i8f8OD/x6UJEcg9TZQvhkbn9mTo7Zp
+	 F87Jf7xwVidFhF7v1IW//k/dIqu4f5ezLNk0F+HLLvW9T+pcXdIuKML1oR2iA2pWmf
+	 8ggZKytFKc0uTQozclwCpWr/S7mHFwtGmUx/ZgBU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 26249F804D0;
-	Wed, 23 Mar 2022 09:29:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 727ECF800AA;
+	Wed, 23 Mar 2022 10:12:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 957FFF800F5; Wed, 23 Mar 2022 09:29:17 +0100 (CET)
+ id C1955F8016C; Tue, 22 Mar 2022 19:57:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [IPv6:2a00:1450:4864:20::22b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F3D39F800F5
- for <alsa-devel@alsa-project.org>; Wed, 23 Mar 2022 09:29:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3D39F800F5
+ by alsa1.perex.cz (Postfix) with ESMTPS id EE065F80116
+ for <alsa-devel@alsa-project.org>; Tue, 22 Mar 2022 19:57:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE065F80116
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="QjPqPeCn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648024152; x=1679560152;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=1RS7MG4sJrqejbT6wcSzpVIKqn4WujG1lTYtG0ilBN0=;
- b=QjPqPeCnM7Lp9QclOLzd5juUXm1fmD23NhXBDVebWw8W2tD/w54m5Zs3
- kUenEwWwMqd+vOOj4MKb0NMoFUxfyXb9NyBlQ884W3E27b3QXPDn6vh2T
- TDh6/VvZtIL1t5aCspPAl4CvEbETUFHS4cIUyeHoPBRInk1KVzu7/I7Dj
- 8/7gpruTUT8EabLKdEXK4vNvU2uCOlyz/cVFmnQEojNnJqiEM2ZgYx4Tf
- 2HRXCr4ydoxXEZCPBc893AUPqhvuKUBv8yp4NyaX3CjAXmuORU6K60mWp
- fkDY29syrm5wL8qMVQZxXqK7yjGg21pwrUx7IQQRwc8RiIIkFXd94RVLt A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10294"; a="245527559"
-X-IronPort-AV: E=Sophos;i="5.90,203,1643702400"; d="scan'208";a="245527559"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2022 01:29:07 -0700
-X-IronPort-AV: E=Sophos;i="5.90,203,1643702400"; d="scan'208";a="560796863"
-Received: from arturlex-mobl1.ger.corp.intel.com (HELO [10.99.249.37])
- ([10.99.249.37])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2022 01:29:05 -0700
-Message-ID: <f96222e2-dd66-45aa-7615-7fed99479da6@linux.intel.com>
-Date: Wed, 23 Mar 2022 09:29:04 +0100
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="eMTM4rh6"
+Received: by mail-lj1-x22b.google.com with SMTP id 17so10305175ljw.8
+ for <alsa-devel@alsa-project.org>; Tue, 22 Mar 2022 11:57:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=c5arXiiJ3Quxh2p9b37Ov74GNTyAuz+uBeCMvna+SX0=;
+ b=eMTM4rh6Kpfj5QSdag9f5gXvQF2BDBUZU+9r8i+vkbHecQbYiZXzcxxOtoogtI+rL6
+ 9lOJ4E3aDw4touXwGMLda879hD9Q/Jk6uNNfkcAcewkxy3rqpYiEmatQVA5REroLLgGQ
+ jGqNV0zqv9tJQAqKjBxYH1hcqmVZBBZL9scMEJVS/B80QUwA3eRB0O5WgZ85Y2YgHfqh
+ nkBOXngu6JinFix1eYOUMRdL3QSS6GOz8aypiCh/BGzIn6FCOSwO5UnvmaoIAITlXkmo
+ F2lJc3oIvIrVnt04kzKPIKMGBXtG4PEJn9xVqTzhlHr1+jvbB+7Rdu71Cx79zCOf8j3N
+ 4zkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=c5arXiiJ3Quxh2p9b37Ov74GNTyAuz+uBeCMvna+SX0=;
+ b=36GXBzFIvx7hG/aoLM9wtKCa0krqjO2NGEDyryTj7Jri0D+8UBsflyBQK7bNqym+4f
+ dZ5vC135akKS/eCwxSEyw3wDqGJD3Zb8ngCX5MUakPhLCzVVri6zB33LaVSplSQAfIHS
+ 6KiTtaa+yiptJ7e7D3y0vBxBM68/Q1A4Oo6Yp9aDN8MU9GBjbXh1mCuJH3OOlRqaH7EG
+ JxgA7JXuns/iYcydqzAV0sT5xVmDIM85pZR/ea56BRWXsLJq+04mnNFDwQ/h5IHPqDYd
+ bUXe/FLmE+TtcWuBpSWxc21r2c/6tilkP5iaBhfEKMPPx0k3SPAlMGEbZsbHfu73pclD
+ OXrA==
+X-Gm-Message-State: AOAM531hO96UAJ6SF9rHijzq5t8H1LIT7ORy0VNwy2xw1tEwmlaHlfcV
+ oQGWSWSvWFwuEjHW9UObpLbQ+VEQUdC16314uZmxwHzItaw=
+X-Google-Smtp-Source: ABdhPJwVO8SyOEht2Z21TQ8VidOk3FjuwOCru3BcM8/m3C4pEICNjQm3+qz6OZDM3KcIMRWj86AXZam1nOV7T/O7GlM=
+X-Received: by 2002:a05:651c:503:b0:249:230d:8ddb with SMTP id
+ o3-20020a05651c050300b00249230d8ddbmr19862353ljp.459.1647975461359; Tue, 22
+ Mar 2022 11:57:41 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH v4 3/3] update tas27xx.h to support either TAS2764 or
- TAS2780
-Content-Language: en-US
-To: Raphael-Xu <13691752556@139.com>, broonie@kernel.org
-References: <20220323042644.635-1-13691752556@139.com>
- <20220323042644.635-3-13691752556@139.com>
-From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <20220323042644.635-3-13691752556@139.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, raphael-xu@ti.com, shenghao-ding@ti.com,
- navada@ti.com
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Tue, 22 Mar 2022 14:57:27 -0400
+Message-ID: <CAKf6xpuRJ84RVfqPRJu3RL4xGF-FLkvO84SHTWEmXJFUWTgBGQ@mail.gmail.com>
+Subject: snd_hda_intel initialization failure with Xen PCI passthrough
+To: alsa-devel@alsa-project.org
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Wed, 23 Mar 2022 10:12:33 +0100
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,67 +90,60 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 3/23/2022 5:26 AM, Raphael-Xu wrote:
-> Signed-off-by: Raphael-Xu <13691752556@139.com>
-> ---
->   sound/soc/codecs/tas27xx.h | 27 +++++++++++++++++++--------
->   1 file changed, 19 insertions(+), 8 deletions(-)
-> 
-> diff --git a/sound/soc/codecs/tas27xx.h b/sound/soc/codecs/tas27xx.h
-> index 67d6fd903c42..02b29c030d37 100644
-> --- a/sound/soc/codecs/tas27xx.h
-> +++ b/sound/soc/codecs/tas27xx.h
-> @@ -1,18 +1,20 @@
->   /* SPDX-License-Identifier: GPL-2.0-only */
->   /*
-> - * tas2764.h - ALSA SoC Texas Instruments TAS2764 Mono Audio Amplifier
-> + * tas27xx.h - ALSA SoC Texas Instruments TAS2764/TAS2780
-> + *		Mono Audio Amplifier
->    *
-> - * Copyright (C) 2020 Texas Instruments Incorporated -  https://www.ti.com
-> + * Copyright (C) 2022 Texas Instruments Incorporated -
-> + *		https://www.ti.com
->    *
-> - * Author: Dan Murphy <dmurphy@ti.com>
-> + * Author:
->    */
->   
-> -#ifndef __TAS2764__
-> -#define __TAS2764__
-> +#ifndef __TAS27XX__H_
-> +#define __TAS27XX__H_
->   
->   /* Book Control Register */
-> -#define TAS2764_BOOKCTL_PAGE	0
-> -#define TAS2764_BOOKCTL_REG	127
-> +#define TAS27XX_BOOKCTL_PAGE	0
-> +#define TAS27XX_BOOKCTL_REG	127
->   #define TAS2764_REG(page, reg)	((page * 128) + reg)
->   
->   /* Page */
-> @@ -77,6 +79,10 @@
->   #define TAS2764_TDM_CFG3_RXS_SHIFT	0x4
->   #define TAS2764_TDM_CFG3_MASK		GENMASK(3, 0)
->   
-> +/* TDM Configuration Reg4 */
-> +#define TAS2764_TDM_CFG4		TAS2764_REG(0X0, 0x0d)
-> +#define TAS2764_TDM_CFG4_TX_OFFSET_MASK	GENMASK(3, 1)
-> +
->   /* TDM Configuration Reg5 */
->   #define TAS2764_TDM_CFG5		TAS2764_REG(0X0, 0x0e)
->   #define TAS2764_TDM_CFG5_VSNS_MASK	BIT(6)
-> @@ -89,4 +95,9 @@
->   #define TAS2764_TDM_CFG6_ISNS_ENABLE	BIT(6)
->   #define TAS2764_TDM_CFG6_50_MASK	GENMASK(5, 0)
->   
-> -#endif /* __TAS2764__ */
-> +/* INT&CLK CFG */
-> +#define TAS27XX_CLK_CFG			TAS2764_REG(0X0, 0x5c)
-> +#define TAS27XX_CLK_CFG_MASK		GENMASK(7, 6)
-> +#define TAS27XX_CLK_CFG_ENABLE		(BIT(7) | BIT(6))
-> +
-> +#endif /* __TAS27XX__H_ */
-> \ No newline at end of file
+Hi,
 
-And this patch should probably go before patch 2, otherwise there will 
-be build failure on patch 2?
+I'm running Xen hypervisor and using PCI passthrough to assign an
+Intel HDA audio device (00:1f.3 Audio device: Intel Corporation Cannon
+Point-LP High Definition Audio Controller (rev 30)) to a Xen HVM
+virtual machine.  I do this for both Linux 5.4.185 and a different
+Windows 10 VM (only one at a time).  The Windows VM seems to work
+every time.  The Linux VM has issues after the first VM boot.  This is
+one boot of the physical hardware and multiple boots of the virtual
+machines.
+
+For Linux, on first boot, the sound card is detected and works
+properly.  After that, things usually don't work.  I just ran a reboot
+loop and it was:
+1st boot - audio detected and working
+2 & 3 - no audio
+4th - audio detected and working
+5 - 20 - no audio
+
+For boots 2, 3, 5-7, dmesg shows:
+[    0.760401] hdaudio hdaudioC0D0: no AFG or MFG node found
+[    0.760415] snd_hda_intel 0000:00:06.0: no codecs initialized
+
+For boots 8+, the errors changed to:
+[    0.783397] hdaudio hdaudioC0D0: cannot read sub nodes for FG 0x10
+[    0.783413] snd_hda_intel 0000:00:06.0: no codecs initialized
+
+At this point, I booted a Windows 10 VM and audio works
+
+Trying to boot Linux again gives a new error message
+[    0.789041] snd_hda_intel 0000:00:06.0: Unknown capability 0
+[    1.811205] snd_hda_intel 0000:00:06.0: No response from codec,
+resetting bus: last cmd=0x0eef0004
+[    1.811246] hdaudio hdaudioC0D0: cannot read sub nodes for FG 0x10ee
+[    1.811263] snd_hda_intel 0000:00:06.0: no codecs initialized
+
+Reboot VM and it's back to:
+[    0.775917] hdaudio hdaudioC0D0: no AFG or MFG node found
+[    0.775932] snd_hda_intel 0000:00:06.0: no codecs initialized
+
+Reboot VM and again:
+[    0.789069] hdaudio hdaudioC0D0: cannot read sub nodes for FG 0x10
+[    0.789084] snd_hda_intel 0000:00:06.0: no codecs initialized
+
+Reboot physical laptop:
+1. boot Windows 10 - audio works
+2. boot Linux - audio works
+3. reboot Linux - no audio
+[    0.773111] hdaudio hdaudioC0D0: no AFG or MFG node found
+[    0.773151] snd_hda_intel 0000:00:06.0: no codecs initialized
+
+This seems to me like Windows does a better job resetting the card to
+get the audio hardware working.  Any suggestions on what to
+investigate?
+
+Thanks,
+Jason

@@ -2,86 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C1244E3E0C
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Mar 2022 13:03:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B03F84E3F6A
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Mar 2022 14:22:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D66311669;
-	Tue, 22 Mar 2022 13:02:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D66311669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 263D41689;
+	Tue, 22 Mar 2022 14:22:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 263D41689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647950629;
-	bh=oXomf+OroFKXPI727l4Y0841A5BkhUXzo5xCfhdMsC0=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1647955376;
+	bh=Q9u0NV3CZmgIzzVnlsU7Rr4agPeL+TDjaP+vZ8PLwms=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aEqENYjxI95At7GwQOmqzlmNcmhm2+9QyPKr+r98S4yMLHlnsusiZ+WQ36p6vM4DY
-	 cAqjinl+dDGUTSkNfp4DWW3OrIkKJ46LXnqOHl3Cmpt0Yvmwb4+FfUmUu2wN1M70mL
-	 lvkTgdbjbuZjgV+5Aw8pyQZEiimJ4HxWlnJVadyM=
+	b=bBrZWHCMn1ILaC7LZNM1Bk+dd4r8rJCoY8+47i3U0kupnPQK+jQ6Feh6xui1jSBhl
+	 XDNIVX03m+hyVsSKsG/qLctV01HpiSOeEpG6AvUH0cZUDa6spmN9tn88GVjok9dfQN
+	 oZ/j8T/oKPinqEIHZWucdMogFngn2RgF6MRMQjwE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3F403F8032D;
-	Tue, 22 Mar 2022 13:02:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 10C34F8032D;
+	Tue, 22 Mar 2022 14:21:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 87FDEF800FD; Tue, 22 Mar 2022 13:02:41 +0100 (CET)
+ id 4D20BF8016C; Tue, 22 Mar 2022 14:21:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0C773F80116
- for <alsa-devel@alsa-project.org>; Tue, 22 Mar 2022 13:02:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C773F80116
+ by alsa1.perex.cz (Postfix) with ESMTPS id 02B6BF80116
+ for <alsa-devel@alsa-project.org>; Tue, 22 Mar 2022 14:21:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02B6BF80116
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="TKE/1FWW"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id B5DFC6137C;
- Tue, 22 Mar 2022 12:02:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 545B5C340EC;
- Tue, 22 Mar 2022 12:02:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1647950556;
- bh=oXomf+OroFKXPI727l4Y0841A5BkhUXzo5xCfhdMsC0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=TKE/1FWW/oIajs0VV3zmrI5NUmCEutISIFYySMXYpw+kvv0dJFWgyqzsVMXykcuoX
- PyW7CTXlKifLMnywE5dTPyddnXvi+eurEpvnVBN1blVkHfFTNnAhPA7OE976g/tlqX
- qbH1SznaPVG4E7H6Fq+qBcpe1PMXBezhJxT6ktcaIQRGDLiQWddT0rcKHLQi6S76bn
- nuH0sA2NVhSCD0GcNMHL/GhCRYNfhBtAtnl4B1E4WmVWpqwLjXfwYlNfiQ+eIw1biZ
- yxcoyoqSE0Vw3q7w4p3fNwK+Njl8UbLlQfh8LnObtcK56M/8fqDoxNl9qtaEAcMHc9
- fzBoxgyDpyTYQ==
-Date: Tue, 22 Mar 2022 12:02:28 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Janusz Krzysztofik <jmkrzyszt@gmail.com>
-Subject: Re: [PATCH v2] ARM: OMAP1: Prepare for conversion of OMAP1 clocks to
- CCF
-Message-ID: <Yjm61MFGuo0Yug/B@sirena.org.uk>
-References: <20220310233307.99220-3-jmkrzyszt@gmail.com>
- <20220321215416.236250-1-jmkrzyszt@gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="j44egohE1ZoQznmQ"
-Content-Disposition: inline
-In-Reply-To: <20220321215416.236250-1-jmkrzyszt@gmail.com>
-X-Cookie: Drop that pickle!
-Cc: alsa-devel@alsa-project.org, Felipe Balbi <balbi@kernel.org>,
- Paul Walmsley <paul@pwsan.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Arnd Bergmann <arnd@arndb.de>, Aaro Koskinen <aaro.koskinen@iki.fi>,
- Tony Lindgren <tony@atomide.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Helge Deller <deller@gmx.de>,
- linux-usb@vger.kernel.org, linux-mmc@vger.kernel.org,
- linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Alan Stern <stern@rowland.harvard.edu>, Ulf Hansson <ulf.hansson@linaro.org>,
- linux-omap@vger.kernel.org, Peter Ujfalusi <peter.ujfalusi@gmail.com>,
- linux-arm-kernel@lists.infradead.org
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="Lpojd85M"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="2k+VsAoU"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 38155210F2;
+ Tue, 22 Mar 2022 13:21:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1647955300; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=/JoKpF3z7MBf7QUqTBD9HK/zpIQn6GZC430lpurSEQE=;
+ b=Lpojd85MpAWa8d96zqrpkuUkSMBsVsoOU/3Y9PCZwObRK3y6sXJdQNPvE7XVYoXqMTbsSx
+ dL5j6FqY1UuD9sF+l5POI19rbb8wK96DuOXic3qp7GRfdI8PMynvvljcA4kxfDhNTEx+Cy
+ yKr/rjmy+g7zr22CiyQ0WvtbnLSUkJk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1647955300;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=/JoKpF3z7MBf7QUqTBD9HK/zpIQn6GZC430lpurSEQE=;
+ b=2k+VsAoUglPEf/PakggrFswkcmMUhbN3+FFuUfaFhGtCr6u4VwqQmFz+AHZIzTl5aaI8fJ
+ 0/6OUYyFNTH7iFAA==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 20086A3B83;
+ Tue, 22 Mar 2022 13:21:40 +0000 (UTC)
+Date: Tue, 22 Mar 2022 14:21:40 +0100
+Message-ID: <s5hmthixguz.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Lucas Tanure <tanureal@opensource.cirrus.com>
+Subject: Re: [PATCH v4 00/16] Support external boost at CS35l41 ASoC driver
+In-Reply-To: <20220317093120.168534-1-tanureal@opensource.cirrus.com>
+References: <20220317093120.168534-1-tanureal@opensource.cirrus.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
+ Rob Herring <robh+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,33 +95,66 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, 17 Mar 2022 10:31:04 +0100,
+Lucas Tanure wrote:
+> 
+> Move the support for CS35L41 external boost to its shared library
+> for ASoC use.
+> This move resulted in cs35l41_hda_reg_sequence being removed,
+> and its steps were broken down into regmap writes or functions
+> from the library. And hardware configuration struct was unified
+> for its use in the shared lib.
+> While at it, some minor bugs were found and fixed it.
+> 
+> v4 changelog:
+>  - Separated GPIO 1 and 2 function enums
+> 
+> v3 changelog:
+>  - Remove patches already accepted
+>  - Improved logic in documentation patch
+>  - Documentation patch goes before its code
+>  - Fixed missing Signed-off-by
+>  - Fixed subject for HDA patches
+> 
+> v2 changelog:
+>  - Instead of removing the log, playback actions will log the last regmap access.
+>  - Documentation patch with the correct subject line and fixed bug reported by Rob Herring on the
+>  provided example.
+> 
+> Previous versions:
+>  v1: https://lkml.org/lkml/2022/3/3/759
+>  v2: https://lkml.org/lkml/2022/3/4/743
+>  v3: https://lkml.org/lkml/2022/3/8/975
+> 
+> David Rhodes (1):
+>   ASoC: dt-bindings: cs35l41: Document CS35l41 External Boost
+> 
+> Lucas Tanure (15):
+>   sound: cs35l41: Unify hardware configuration
+>   sound: cs35l41: Check hw_config before using it
+>   sound: cs35l41: Move cs35l41_gpio_config to shared lib
+>   ALSA: hda: cs35l41: Fix I2S params comments
+>   ALSA: hda: cs35l41: Always configure the DAI
+>   ALSA: hda: cs35l41: Add Boost type flag
+>   hda: cs35l41: Put the device into safe mode for external boost
+>   hda: cs35l41: Mute the device before shutdown
+>   sound: cs35l41: Enable Internal Boost in shared lib
+>   ALSA: hda: cs35l41: Move boost config to initialization code
+>   ALSA: hda: cs35l41: Remove cs35l41_hda_reg_sequence struct
+>   ALSA: hda: cs35l41: Reorganize log for playback actions
+>   ALSA: hda: cs35l41: Handle all external boost setups the same way
+>   ALSA: hda: cs35l41: Move external boost handling to lib for ASoC use
+>   ASoC: cs35l41: Support external boost
 
---j44egohE1ZoQznmQ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+The code changes look OK (but for the issue Rob reported for
+dt-bindings stuff).
 
-On Mon, Mar 21, 2022 at 10:54:16PM +0100, Janusz Krzysztofik wrote:
-> In preparation for conversion of OMAP1 clocks to common clock framework,
-> identify users of those clocks which don't call clk_prepare/unprepare()
-> and update them to call clk_prepare_enable/clk_disable_unprepare() instead
-> of just clk_enable/disable(), as required by CCF implementation of clock
-> API.
+But, could you try to use more consistent prefix for the subject
+lines?  We don't use "sound:" prefix in general unless the patch is
+about (native) OSS drivers.  Instead, use "ALSA:" for the general
+ALSA/ASoC patches.  Also, "hda:" should be "ALSA: hda:" instead.
 
-Acked-by: Mark Brown <broonie@kernel.org>
 
---j44egohE1ZoQznmQ
-Content-Type: application/pgp-signature; name="signature.asc"
+thanks,
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmI5utQACgkQJNaLcl1U
-h9COEQf9ELwbgSwwn1JVU6FAUZODISuwoWMyUuvHTGdNQEvrMH3GFIUbXQVQONw5
-wO62KwasXhYThVzc3rrC74tKTRzwY9/CvA4GNJfZqmHSuXg02O1XqYe6zUmlRbdt
-qxVjr4o/EKcY48qmrI9SV9k4GBDuOeU2fSZJP7EIvFqLC/tfDbQYYuRB+TY9Ig+j
-oTmg/0JXVooTcMULwexILHzRg4S4+mxOAjfsMojVzku0MepzEPzGo0xZDGYmD0RC
-QggKUpiyDnHPKgNk+pEG+1HmSf9sEd2Vb4k2eMfkacZ7Tz81/FON54F8K/213wKl
-hCsEajyZs2COxhX4Xfe+zoGXkLD3bg==
-=HhWj
------END PGP SIGNATURE-----
-
---j44egohE1ZoQznmQ--
+Takashi

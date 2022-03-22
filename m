@@ -2,87 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C0DC4E4667
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Mar 2022 20:01:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 940F14E467D
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Mar 2022 20:09:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C2004826;
-	Tue, 22 Mar 2022 20:00:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2004826
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1712E1767;
+	Tue, 22 Mar 2022 20:08:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1712E1767
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647975695;
-	bh=bxt99hdQ8xsfrDZg/OO4XP4Wdb0Gcd6mxSy1kFf6rVQ=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=e+89JsYJkLt8UiXsa/+OmX0uE3rMW5rJmO0oixvjG/Qr3S9MZ6jjk99eooJ2j+tjE
-	 6LXAsv9x2IvnHfViA+oduauCmq3y1QezDNyevKg/mGOUk8T32f537R0BScc3Khl3K5
-	 juC9IJIICBtpNcj/y89BZk2KBK7cUGSOW5E03+XE=
+	s=default; t=1647976149;
+	bh=9mBJfuS3kal7tF/1GOeEYNDJDxJmr4tXuu5mOfEHIlg=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=YBf/FU7E9r8a1Ppn3PQdVW/pTRRFQSIO6VBN1b5BLO1yMUiy5EwO11Qh+JKNj/RpK
+	 j/PzVFbrTeulhp8W6sJ3tDCQrw6PxrOg3Qaee9Y2zxyUTEXO+tla4DjmXJlsakkohV
+	 4GyDB6bgjPJd/4xq+yRN8fxjRVmVqgLzkXOLBw7U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 30F35F8032D;
-	Tue, 22 Mar 2022 20:00:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 66863F800F5;
+	Tue, 22 Mar 2022 20:08:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 06A50F8016C; Tue, 22 Mar 2022 20:00:27 +0100 (CET)
+ id 6DA05F8016C; Tue, 22 Mar 2022 20:08:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
- [IPv6:2607:f8b0:4864:20::431])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from meesny.iki.fi (meesny.iki.fi [IPv6:2001:67c:2b0:1c1::201])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1C5AEF80116
- for <alsa-devel@alsa-project.org>; Tue, 22 Mar 2022 20:00:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C5AEF80116
+ by alsa1.perex.cz (Postfix) with ESMTPS id D552CF800F5
+ for <alsa-devel@alsa-project.org>; Tue, 22 Mar 2022 20:07:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D552CF800F5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="N327duTu"
-Received: by mail-pf1-x431.google.com with SMTP id d19so18936024pfv.7
- for <alsa-devel@alsa-project.org>; Tue, 22 Mar 2022 12:00:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=YHl+ifj4xbRI5JUHZfiaxwHAjRrVEcxVQSBlzmD8zUw=;
- b=N327duTu9QOZnRG7WnnOMeQWddsv+hhiiN15nXYK8d53pya2ftQjxWgzvTPdCXvdD8
- SSJ7kGCwHj783Styr+bntqkbu9bMjGx97EDomUtBMohusUR9n/gTPBVIsXJ2UyKaCut/
- mlRULs1USzspMTB8svoSDrcYQKRnR/mPwzs9vJc/loi+RVLMM758tLwmcdDc9iBVePe+
- oqol0txP8ShJxlg2zrxHQAlQooNtCQO5VFMjLCZ0zD0y+9/TSgrKg7udlc28pzee3kCw
- TKpeKlnx4kfLen+hbCYca1n52moP/oSlciEBvltvu5KhCQ2FgmAfyjfYyc38fpsqQXcK
- 0QqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=YHl+ifj4xbRI5JUHZfiaxwHAjRrVEcxVQSBlzmD8zUw=;
- b=C+53Y0v+9ENrVtUsQA0/px8B6fhjFUt7WTQmc886XUYamLsrEWqpJSMoCMz7SHL9Up
- pMug42RXTNLQgg7yIPEJtYqtILyGclKdtwXlruF6fkI4+Zk3ZissG62r0Ku/6778ma2b
- XTHr7na3SdrvXQ0ZJsaaAiGME3Mv32RLENou6NYop1qr8D1Zk5XYDpaKETT+kG3/5pUK
- qekMZPaCf/wwMLSZEi53O66vB8zBH+GaVQuMV7UpV6abdGgVbMzDyqRdDUGSvfEw1VPp
- jzyONKY+otXVx+XesUk9iJsgJFH3/HX5DPP6QeyuBnsm9ksXQgAuGKfMBrF5ApV1SlVl
- gAGw==
-X-Gm-Message-State: AOAM532OJBahBLIYAZUVWGPs8bOhoATiVeJetOtnM3B/FVS+LrkenD7U
- 9/fu22aRV6BI8Axl7dsHn+pQW9xUqM34Yw==
-X-Google-Smtp-Source: ABdhPJxgllvMaQ9iOoGnRz0C+CgoKRchCl+3BqZusU/5MrnIicvU6VIjyudtffVbJVF2lM6HRc96zA==
-X-Received: by 2002:a05:6a00:80f:b0:4fa:9bd6:1cd3 with SMTP id
- m15-20020a056a00080f00b004fa9bd61cd3mr12534220pfk.57.1647975621379; 
- Tue, 22 Mar 2022 12:00:21 -0700 (PDT)
-Received: from linus.localnet (135-180-48-111.fiber.dynamic.sonic.net.
- [135.180.48.111]) by smtp.gmail.com with ESMTPSA id
- m11-20020a056a00080b00b004f791d0115esm25695559pfk.171.2022.03.22.12.00.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Mar 2022 12:00:21 -0700 (PDT)
-From: Matt Kramer <mccleetus@gmail.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v2] ALSA: hda/realtek: Add alc256-samsung-headphone fixup
-Date: Tue, 22 Mar 2022 12:00:20 -0700
-Message-ID: <4394215.LvFx2qVVIh@linus>
+ dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b="cX6LmeT3"
+Received: from darkstar.musicnaut.iki.fi (85-76-100-34-nat.elisa-mobile.fi
+ [85.76.100.34])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: aaro.koskinen)
+ by meesny.iki.fi (Postfix) with ESMTPSA id B3C5F20388;
+ Tue, 22 Mar 2022 21:07:54 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=meesny;
+ t=1647976075;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=9zTS3DT6xcfZw/ju05KElVTkQiN1fQ/ztsa9TbNgG2s=;
+ b=cX6LmeT38lN2NaF7Qsx5VX0GwklLy2du9kOpxTh3b4+Qw5wrtoKy5+CaPdFHVPF7PUQJV7
+ JP0eZNy7X0Jfbj3WAB5bQXsUGhmUeS+qIfMHxdWpTOM+QUCxar+jfmcf0+g1AFcQ1pCKkA
+ q4bRX979489LLYULp2d8EW4EbP4qAGY=
+Date: Tue, 22 Mar 2022 21:07:53 +0200
+From: Aaro Koskinen <aaro.koskinen@iki.fi>
+To: Janusz Krzysztofik <jmkrzyszt@gmail.com>
+Subject: Re: [PATCH v2] ARM: OMAP1: Prepare for conversion of OMAP1 clocks to
+ CCF
+Message-ID: <20220322190753.GF297526@darkstar.musicnaut.iki.fi>
+References: <20220310233307.99220-3-jmkrzyszt@gmail.com>
+ <20220321215416.236250-1-jmkrzyszt@gmail.com>
+ <20220322163646.GD297526@darkstar.musicnaut.iki.fi>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-Cc: Takashi Iwai <tiwai@suse.de>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220322163646.GD297526@darkstar.musicnaut.iki.fi>
+ARC-Authentication-Results: i=1; ORIGINATING;
+ auth=pass smtp.auth=aaro.koskinen smtp.mailfrom=aaro.koskinen@iki.fi
+ARC-Seal: i=1; s=meesny; d=iki.fi; t=1647976075; a=rsa-sha256; cv=none;
+ b=X6jYN8e4edIdwhVqd08HooVar4l9k4zaeYIbPBffuNKwdkVOZqop0cLduutP177L6DWw1t
+ z3md1/KyrpNc4Oj2NmcgYKgqs06xOi37+Q82NbgDQR7qRGbl7dmfLBEOUOb/ZvPz8Q9kzG
+ iv9WWWKrxOwoKKPEYH88Tk0Gi1Jit1A=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
+ s=meesny; t=1647976075;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=9zTS3DT6xcfZw/ju05KElVTkQiN1fQ/ztsa9TbNgG2s=;
+ b=uVqGTgouIQJQ2R58scj6U0J2KM/YtrOq4hq0tSnqJjTw6VkH13Shbd3ZumElBWGBl6w/C+
+ SIBA6Ck0VAZhNiAy4cgvRL+DdTJJmixLaEk9B9FpqhWM/Nmc5koLsdctAdg9syFOac++N8
+ L8McGNzCb7F/2+k2v1U0gta89xs02Sw=
+Cc: alsa-devel@alsa-project.org, Felipe Balbi <balbi@kernel.org>,
+ Paul Walmsley <paul@pwsan.com>, Arnd Bergmann <arnd@arndb.de>,
+ Liam Girdwood <lgirdwood@gmail.com>, Tony Lindgren <tony@atomide.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Helge Deller <deller@gmx.de>,
+ linux-usb@vger.kernel.org, linux-mmc@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, Alan Stern <stern@rowland.harvard.edu>,
+ Ulf Hansson <ulf.hansson@linaro.org>, linux-omap@vger.kernel.org,
+ Peter Ujfalusi <peter.ujfalusi@gmail.com>,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,76 +109,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Changes since v1: Formatting (forgot to disable word-wrap, sorry).
+Hi,
 
-This fixes the near-silence of the headphone jack on the ALC256-based Samsung Galaxy Book Flex Alpha (NP730QCJ). The magic verbs were found through trial and error, using known ALC298 hacks as inspiration. The fixup is auto-enabled only when the NP730QCJ is detected. It can be manually enabled using model=alc256-samsung-headphone.
+On Tue, Mar 22, 2022 at 06:36:48PM +0200, Aaro Koskinen wrote:
+> On Mon, Mar 21, 2022 at 10:54:16PM +0100, Janusz Krzysztofik wrote:
+> > In preparation for conversion of OMAP1 clocks to common clock framework,
+> > identify users of those clocks which don't call clk_prepare/unprepare()
+> > and update them to call clk_prepare_enable/clk_disable_unprepare() instead
+> > of just clk_enable/disable(), as required by CCF implementation of clock
+> > API.
+> > 
+> > v2: update still a few more OMAP specific drivers missed in v1,
+> >   - call clk_prepare/unprepare() just after/before clk_get/put() where it
+> >     can make more sense than merging prepare/unprepare with enable/disable.
+> 
+> Something is still broken. When doing kexec (using CCF kernel), the
+> kexec'ed kernel now hangs early (on 770):
+[...]
+> [    0.928863] calling  omap1_init_devices+0x0/0x2c @ 1
 
-Signed-off-by: Matt Kramer <mccleetus@gmail.com>
----
- Documentation/sound/hd-audio/models.rst |  4 ++++
- sound/pci/hda/patch_realtek.c           | 11 +++++++++++
- 2 files changed, 15 insertions(+)
+It hangs in omap_sram_reprogram_clock() (<- omap1_select_table_rate()
+<- omap1_clk_late_init()).
 
-diff --git a/Documentation/sound/hd-audio/models.rst b/Documentation/sound/hd-audio/models.rst
-index d25335993e55..9b52f50a6854 100644
---- a/Documentation/sound/hd-audio/models.rst
-+++ b/Documentation/sound/hd-audio/models.rst
-@@ -261,6 +261,10 @@ alc-sense-combo
- huawei-mbx-stereo
-     Enable initialization verbs for Huawei MBX stereo speakers;
-     might be risky, try this at your own risk
-+alc298-samsung-headphone
-+    Samsung laptops with ALC298
-+alc256-samsung-headphone
-+    Samsung laptops with ALC256
- 
- ALC66x/67x/892
- ==============
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 1d14be4ee31d..f6ee67f41c45 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -6958,6 +6958,7 @@ enum {
-        ALC236_FIXUP_HP_MUTE_LED,
-        ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF,
-        ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET,
-+       ALC256_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET,
-        ALC295_FIXUP_ASUS_MIC_NO_PRESENCE,
-        ALC269VC_FIXUP_ACER_VCOPPERBOX_PINS,
-        ALC269VC_FIXUP_ACER_HEADSET_MIC,
-@@ -8286,6 +8287,14 @@ static const struct hda_fixup alc269_fixups[] = {
-                        { }
-                },
-        },
-+       [ALC256_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET] = {
-+               .type = HDA_FIXUP_VERBS,
-+               .v.verbs = (const struct hda_verb[]) {
-+                       { 0x20, AC_VERB_SET_COEF_INDEX, 0x08},
-+                       { 0x20, AC_VERB_SET_PROC_COEF, 0x2fcf},
-+                       { }
-+               },
-+       },
-        [ALC295_FIXUP_ASUS_MIC_NO_PRESENCE] = {
-                .type = HDA_FIXUP_PINS,
-                .v.pins = (const struct hda_pintbl[]) {
-@@ -9099,6 +9108,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
-        SND_PCI_QUIRK(0x144d, 0xc740, "Samsung Ativ book 8 (NP870Z5G)", ALC269_FIXUP_ATIV_BOOK_8),
-        SND_PCI_QUIRK(0x144d, 0xc812, "Samsung Notebook Pen S (NT950SBE-X58)", ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET),
-        SND_PCI_QUIRK(0x144d, 0xc830, "Samsung Galaxy Book Ion (NT950XCJ-X716A)", ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET),
-+       SND_PCI_QUIRK(0x144d, 0xc832, "Samsung Galaxy Book Flex Alpha (NP730QCJ)", ALC256_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET),
-        SND_PCI_QUIRK(0x1458, 0xfa53, "Gigabyte BXBT-2807", ALC283_FIXUP_HEADSET_MIC),
-        SND_PCI_QUIRK(0x1462, 0xb120, "MSI Cubi MS-B120", ALC283_FIXUP_HEADSET_MIC),
-        SND_PCI_QUIRK(0x1462, 0xb171, "Cubi N 8GL (MS-B171)", ALC283_FIXUP_HEADSET_MIC),
-@@ -9445,6 +9455,7 @@ static const struct hda_model_fixup alc269_fixup_models[] = {
-        {.id = ALC298_FIXUP_HUAWEI_MBX_STEREO, .name = "huawei-mbx-stereo"},
-        {.id = ALC256_FIXUP_MEDION_HEADSET_NO_PRESENCE, .name = "alc256-medion-headset"},
-        {.id = ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET, .name = "alc298-samsung-headphone"},
-+       {.id = ALC256_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET, .name = "alc256-samsung-headphone"},
-        {.id = ALC255_FIXUP_XIAOMI_HEADSET_MIC, .name = "alc255-xiaomi-headset"},
-        {.id = ALC274_FIXUP_HP_MIC, .name = "alc274-hp-mic-detect"},
-        {.id = ALC245_FIXUP_HP_X360_AMP, .name = "alc245-hp-x360-amp"},
--- 
-2.35.1
-
-
-
+A.

@@ -2,82 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3219E4E47D1
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Mar 2022 21:54:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC6794E47D2
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Mar 2022 21:54:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BBF3E173E;
-	Tue, 22 Mar 2022 21:53:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BBF3E173E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4BBA417BC;
+	Tue, 22 Mar 2022 21:53:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BBA417BC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647982446;
-	bh=bMeFmjsyA5WCfYncms1Z+dYAT0xeuVlN+23b2RMJ5nQ=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1647982472;
+	bh=WTIcYRdNeW1tsFiUDaqYMQvB1/mMWIVu54R+mJNv5c4=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oKq96JECcxMmanH7a7APQH8vM9DADzUrAYJWYaaNxk3Mxm7maPjl1s6CryUk4U9rA
-	 0zSQWXzKeGKmKaQIdUYxKv3t5LY8KGgk4xREiBIsdu6takDfUIOGAfua+vpS7vHkXC
-	 yPk8zjMc3BOM90OzYD0Jw7aIzqQVtnwSSigEgiQQ=
+	b=s6pUpUGwwFRogUeTl+eQLyd4Yt8FFkAdmM7RT/XyIihRO7nWXsw2E1qa6UWO0L4PN
+	 FSZiJkV1kB9npq8g4Czy5eiTUaEnXZ821iellICFYVHB0xyzq7trSVlUPkN4x7BRTz
+	 JUUdjU4r/FNU9Box0inZndfqg2ELSzPtWKCJT17s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3EDEAF8032D;
-	Tue, 22 Mar 2022 21:53:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3BC85F80518;
+	Tue, 22 Mar 2022 21:53:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8D832F8016C; Tue, 22 Mar 2022 21:52:58 +0100 (CET)
+ id 54F9AF80517; Tue, 22 Mar 2022 21:53:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5DB04F80116
- for <alsa-devel@alsa-project.org>; Tue, 22 Mar 2022 21:52:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DB04F80116
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="q846J4lw"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="0lrDhbQb"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 40D351F388;
- Tue, 22 Mar 2022 20:52:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1647982374; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=K81d6DjGZiUuSBlricY2E2UJbgQUSeTBoyQVWS3meOE=;
- b=q846J4lwkLhnRzwlDGUBhdEVQO13jican0awcfL/wBubSOnTnur0moJWvC1OHMuWTk7K68
- BmQHphsDGT5aHm2nF18VcO+Vk9FkljRRL+Y+0LsbOUVo3pntT01KUGYLm26VdHeuk9NTdo
- 9hh+45CNNqUMlw3RbTHYYVRHeTW/WvY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1647982374;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=K81d6DjGZiUuSBlricY2E2UJbgQUSeTBoyQVWS3meOE=;
- b=0lrDhbQbjTO3aPrN6XF7+sh02OrF+ISIkGum2GiObD0+xEvQwHxuLwm8mE/ZrI2lUjR1Wm
- fbwpfTbAvtgSDQBQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 3177FA3B87;
- Tue, 22 Mar 2022 20:52:54 +0000 (UTC)
-Date: Tue, 22 Mar 2022 21:52:54 +0100
-Message-ID: <s5hh77pwvyx.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Matt Kramer <mccleetus@gmail.com>
-Subject: Re: [PATCH v2] ALSA: hda/realtek: Add alc256-samsung-headphone fixup
-In-Reply-To: <3168355.aeNJFYEL58@linus>
-References: <4394215.LvFx2qVVIh@linus> <s5hpmmdwyfm.wl-tiwai@suse.de>
- <3168355.aeNJFYEL58@linus>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 2D2EDF80515
+ for <alsa-devel@alsa-project.org>; Tue, 22 Mar 2022 21:53:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D2EDF80515
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1647982401656882048-webhooks-bot@alsa-project.org>
+References: <1647982401656882048-webhooks-bot@alsa-project.org>
+Subject: Line-in is abnormally loud for snd-intel-hda
+Message-Id: <20220322205328.54F9AF80517@alsa1.perex.cz>
+Date: Tue, 22 Mar 2022 21:53:28 +0100 (CET)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,17 +60,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 22 Mar 2022 21:48:17 +0100,
-Matt Kramer wrote:
-> 
-> Sorry! Third time is the charm!
+alsa-project/alsa-lib issue #219 was opened from mpeter50:
 
-Almost, the patch description is missing :)
-But don't worry, I did copy&paste in my side.
+When I'm on Windows, I sometimes use the line-in Jack to connect my phone to it, so I can either listen to it's sounds along with my PCs sounds or use it as a microphone.
 
-> Signed-off-by: Matt Kramer <mccleetus@gmail.com>
+I've tried to set this functionality up on my Linux installation, but it seems something is not right.
+The most basic example is with `arecord`: after setting line-in as the default input device with `alsamixer` I've ran `arecord -vv -fdat foo.wav` so I can check what the ALSA drivers actually "hear" without possible interference of any audio servers. While the command was running, I changed the volume of line-in using he appropriate slider of pavucontrol.
+When playing the recording, it is clear that while line-in is at 100%, the sound is so loud that it is distorted, and the normal volume is around 12-15% of the actual volume.
 
-Now applied to for-linus branch.  Thanks.
+I don't experience this on Windows, so this is probably not a hardware issue.
+If I plug a headphone directly into my phone and listen to it, the volume is normal, so this is probably not an issue on the signal producer side either.
+Checking with `alsamixer`, all capture controls are at 0 volume. But, the controls there might not tell the full truth for multiple reasons:
+- after reducing the Capture control's volume I can still hear the sound coming from line-in
+- the Capture control's volume is not in sync with what I see in pavucontrol and other places like KDE's volume menu
+- the controls Master and PCM in the Playback category does not seem to have any effect. As such, none of the controls control the actual output to my headphone
+- the "default" card has a single slider, it is named Master and this actually controls the master volume, at least for my headphone
 
+Screenshot relevant to the 1st and 2nd points:
 
-Takashi
+![image](https://user-images.githubusercontent.com/83356418/159570560-879f2508-d48c-4718-bf7e-34ee80a4c2e6.png)
+
+Additional information:
+- output of the alsa-info script: [alsa-info.txt](https://github.com/alsa-project/alsa-lib/files/8327703/alsa-info.txt)
+- Content of `/proc/asound/card*/codec#*` files:
+  - [/proc/asound/card0/codec#0](https://github.com/alsa-project/alsa-lib/files/8327730/card0_codec0.txt)
+  - [/proc/asound/card1/codec#0](https://github.com/alsa-project/alsa-lib/files/8327735/card1_codec0.txt) 
+  - note: card0 is the HDMI section of my graphics card. I never use it for audio, only jack and bluetooth, so it can probably be ignored
+- output of `lspci -vvnn`: [lspci.txt](https://github.com/alsa-project/alsa-lib/files/8327777/lspci.txt)
+
+Issue URL     : https://github.com/alsa-project/alsa-lib/issues/219
+Repository URL: https://github.com/alsa-project/alsa-lib

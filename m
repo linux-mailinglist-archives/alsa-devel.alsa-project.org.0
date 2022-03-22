@@ -2,75 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3154C4E42F6
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Mar 2022 16:27:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 440C44E4313
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Mar 2022 16:33:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B5DE217A2;
-	Tue, 22 Mar 2022 16:27:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B5DE217A2
+	by alsa0.perex.cz (Postfix) with ESMTPS id BB14C16FB;
+	Tue, 22 Mar 2022 16:33:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB14C16FB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647962871;
-	bh=rp+wmJt5VNX7+IvMX45105MZXz5Ueum13MS0HHrwk5M=;
+	s=default; t=1647963236;
+	bh=86qLfbYTd9tUFonId+BT9XhcLWKTWj2kau2Iegz7t6w=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sVJ0v/1ymq/sZq8zzd37jmOBDS8HX8A/p7cHxieuDKALzlu+iv824epg05ylthART
-	 zfpFRd382QvK+d6Vcb0j+fSx5wlj3WI0pAGApiuj7qGKKlBCWrW6eWZLcFd8Z1hNGe
-	 hb6qjKdpP/b8GWUn2n19PfFjdrlnQl9Fe6UVFWCA=
+	b=qe55rXy48fVhX0y1Vq7LosvJoG8IjDXKOK/dB41ZKdUwley0U71RFUFLPlKp1Vxzp
+	 Y7e3C+SsFTV4As/FpYobzTPqaeXq+N3vkivOdOftt1Yr3h+DE0sSks49ZaAI5G9VpJ
+	 Jg3/bOytGmvp1WDerVUa46WuaB+bhrFqhJxu2zvw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0F5D5F8032D;
-	Tue, 22 Mar 2022 16:26:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2943AF8032D;
+	Tue, 22 Mar 2022 16:32:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BBB7AF8016C; Tue, 22 Mar 2022 16:26:43 +0100 (CET)
+ id 21B3AF8032D; Tue, 22 Mar 2022 16:32:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E8CF2F80116
- for <alsa-devel@alsa-project.org>; Tue, 22 Mar 2022 16:26:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8CF2F80116
+ by alsa1.perex.cz (Postfix) with ESMTPS id CE252F800F5
+ for <alsa-devel@alsa-project.org>; Tue, 22 Mar 2022 16:32:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE252F800F5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="xQF95QbD"; 
+ header.b="LzT9E/J7"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="hHewk/D4"
+ header.b="Rdz6WzkL"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 5AF2F210E9;
- Tue, 22 Mar 2022 15:26:37 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id D2306210F0;
+ Tue, 22 Mar 2022 15:32:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1647962797; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1647963163; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=GwCEFZ3FqqzuZlI/Pp8qNW5Rqdev6aAF+DzDLi1OKJ8=;
- b=xQF95QbDrDGkRMciB8Jf8W3K3SLXBWbqa8ko2UOD9Gow6jvPl/3wz6NLQr4HLA9zxnwh7c
- 2ks8YarSU7eb+MkyFbA6HuIO/2PjBbXViqIQUvj24X5BMGbvfuuEgTLCmyXWpgIxEiquyD
- GaSzRJyOwGQUR/qE2X5AnWMqUA/kmgI=
+ bh=XRZ8kd0n3s9yBFpudWgRESxyazGGYQMeDy9VHspu6eU=;
+ b=LzT9E/J7EVW+K2aM0iO/0hf0rkZNjQCJ2uiL+XVwutMqDAhNmqxB0ikybMtJvQWUymni66
+ 37u9hKIYbulXLTL3aAUMUhL7n5F0fg2NbVBmdutX436F/L9s5FajcJzehXqACU3aNpvwaX
+ UTv7Wy6QuOYOrTsr627l1d10kA1I1FI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1647962797;
+ s=susede2_ed25519; t=1647963163;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=GwCEFZ3FqqzuZlI/Pp8qNW5Rqdev6aAF+DzDLi1OKJ8=;
- b=hHewk/D4vPEn0fzx1rifKZ7dULZaPxoAL+63QyVvpg4BmHJs1FvBBMtGppR7+sgT9Et6+2
- SRUUElzTKl3eBSBw==
+ bh=XRZ8kd0n3s9yBFpudWgRESxyazGGYQMeDy9VHspu6eU=;
+ b=Rdz6WzkLwYXD4hDivukkD3a6nYmKB65e9YWwfjJlC9oCXV0psUtfErIDamRazFd4qP8g4l
+ odLtx54KK2GqIDDg==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 514B2A3B87;
- Tue, 22 Mar 2022 15:26:37 +0000 (UTC)
-Date: Tue, 22 Mar 2022 16:26:37 +0100
-Message-ID: <s5h8rt2xb2q.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id C1189A3B96;
+ Tue, 22 Mar 2022 15:32:43 +0000 (UTC)
+Date: Tue, 22 Mar 2022 16:32:43 +0100
+Message-ID: <s5h7d8mxask.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: cblondin@mail.com
-Subject: Re: realtek ALC1220 : recording samplerate 10x too slow
-In-Reply-To: <trinity-0bb2f400-d9ef-4368-8ab3-5acb07a11fa3-1647900111584@3c-app-mailcom-lxa05>
-References: <trinity-0bb2f400-d9ef-4368-8ab3-5acb07a11fa3-1647900111584@3c-app-mailcom-lxa05>
+To: Matt Kramer <mccleetus@gmail.com>
+Subject: Re: [PATCH] ALSA: hda/realtek: Add alc256-samsung-headphone fixup
+In-Reply-To: <4701574.GXAFRqVoOG@linus>
+References: <4701574.GXAFRqVoOG@linus>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -92,41 +92,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 21 Mar 2022 23:01:51 +0100,
-cblondin@mail.com wrote:
+On Sat, 19 Mar 2022 06:35:55 +0100,
+Matt Kramer wrote:
 > 
-> Hi,
-> I was redirected here by pulseaudio maintainers for an issue I thought was at that layer :
-> https://gitlab.freedesktop.org/pulseaudio/pulseaudio/-/issues/1344
+> This fixes the near-silence of the headphone jack on the ALC256-based Samsung 
+> Galaxy Book Flex Alpha (NP730QCJ). The magic verbs were found through trial 
+> and error, using known ALC298 hacks as inspiration. The fixup is auto-enabled 
+> only when the NP730QCJ is detected. It can be manually enabled using 
+> model=alc256-samsung-headphone.
 > 
-> After a fresh reboot, arecord / parecord work fine, and the level meters in pavucontrol react normally.
-> If I start audacity, the card gets in a state where the level meters become sluggish, and recording either drops 90% of samples, or records approximately 10x too fast.
-> Playback is always ok, unaffected.
-> 
-> I cannot fix that state other than by a reboot. The obvious "closing audacity", restarting the pulseaudio daemon, have no effect.
-> Tried kernels 5.15.24 and a recent 5.17; same problem.
-> 
-> I posted some detailed debugging info on that pulseaudio issue tracker, as well as pastebinned alsa-info.sh output here:
-> http://alsa-project.org/db/?f=7ee784003379252acfef25de5fecbdfd559fe342
-> 
-> The problematic hardware is Card 1, Audio device [0403]: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) HD Audio Controller [1022:1457].
-> 
-> Test command :
-> pasuspender -- arecord -D hw:1,0 -f S16_LE -c 2 -r 44100 arec_pasusp.wav
-> 
-> Here's an example recording of me saying 'test' :
-> https://gitlab.freedesktop.org/pulseaudio/pulseaudio/uploads/5a51081fcd55ecd705df258c1a0fd2b6/arec_44k.wav
-> 
-> I have no ~/.asoundrc or related files.
-> 
-> Anything I can try to narrow down the cause of this ?
+> Signed-off-by: Matt Kramer <mccleetus at gmail.com>
 
-Is audacity recording via pulseaudio?  And it happens only with
-audacity?  That is, if you keep arecord running (over pulseaudio), and
-start audacity in parallel, does the problem still appear?
+Unfortunately the patch was malformed via your MUA, can't be applied
+cleanly.  Could you try to submit via git-send-email?
+In the worst case, please use attachments.
 
-In anyway, you need to try different ways to trigger the problem,
-without the need of complex sound system setup.
+Also, fill the right address in Signed-off-by line.
+
+Last but not least, please put the maintainers (me) to Cc at the next
+submission.
 
 
 thanks,

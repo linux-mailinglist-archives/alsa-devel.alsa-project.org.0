@@ -2,77 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8473C4E37AF
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Mar 2022 04:46:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE0144E3973
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Mar 2022 08:15:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1C07E1710;
-	Tue, 22 Mar 2022 04:46:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C07E1710
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7085C16F0;
+	Tue, 22 Mar 2022 08:14:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7085C16F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647920812;
-	bh=fmbJKSs9yLohIz/+iPGL6Hu+6GwzwREBzA85drHKKZY=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1647933324;
+	bh=hGjRoxH+6JCWEw0whguZnUCgT3fGMhN7iVI4w6+PvUA=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sDmo/7SoFSuraAep+ulSBUQb6IGOGfqMfCjhh7nRb8VZow5NKc2Xx9WdMNBPdfQpS
-	 8pLWeUy58xl6I4h6cwAsGT5VTsgX/teCnTB6KlAn9I97jOCmt0VkSY1VkbI5p+jhko
-	 Aetw+S4XhSnEP7zqq7GrKz/mzsKigWZoeONNpVJo=
+	b=DgbiyBLcJ0+/1vJML9YJsRnFAC7WNC9khTkGy7TB0SLnvVf3X6JKhGl8pT+lrITed
+	 w0pl1X1CHOHqhLot1iszwRtWskvfU9QBCz2JScwz3WA8yNXtKVINYpm6mSr0dUvPpT
+	 AdU2Mm4JmM/o70YLIjngwsUUS4Wcsy10qGPdCqWs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 81A8DF800F5;
-	Tue, 22 Mar 2022 04:45:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 18A83F80116;
+	Tue, 22 Mar 2022 08:14:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3B102F8016C; Tue, 22 Mar 2022 04:45:43 +0100 (CET)
+ id 16E8BF8016C; Tue, 22 Mar 2022 08:14:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2D66CF800F5
- for <alsa-devel@alsa-project.org>; Tue, 22 Mar 2022 04:45:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D66CF800F5
-X-UUID: e2f1032bd75c4a44aedc03b14251f9a1-20220322
-X-UUID: e2f1032bd75c4a44aedc03b14251f9a1-20220322
-Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by
- mailgw02.mediatek.com (envelope-from <jiaxin.yu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 1473736653; Tue, 22 Mar 2022 11:45:27 +0800
-Received: from mtkexhb01.mediatek.inc (172.21.101.102) by
- mtkmbs07n2.mediatek.inc (172.21.101.141) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Tue, 22 Mar 2022 11:45:26 +0800
-Received: from mtkcas11.mediatek.inc (172.21.101.40) by mtkexhb01.mediatek.inc
- (172.21.101.102) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Tue, 22 Mar 2022 11:45:25 +0800
-Received: from mhfsdcap04 (10.17.3.154) by mtkcas11.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Tue, 22 Mar 2022 11:45:25 +0800
-Message-ID: <0e909de12a52ae88633634d868bd5001eef1b830.camel@mediatek.com>
-Subject: Re: [v5 1/4] ASoC: dt-bindings: mt8192-mt6359: add new compatible
- and new properties
-From: Jiaxin Yu <jiaxin.yu@mediatek.com>
-To: Rob Herring <robh@kernel.org>
-Date: Tue, 22 Mar 2022 11:45:24 +0800
-In-Reply-To: <YjkLVwvxvOKr30qL@robh.at.kernel.org>
-References: <20220319114111.11496-1-jiaxin.yu@mediatek.com>
- <20220319114111.11496-2-jiaxin.yu@mediatek.com>
- <YjkLVwvxvOKr30qL@robh.at.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7A7CEF80116
+ for <alsa-devel@alsa-project.org>; Tue, 22 Mar 2022 08:14:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A7CEF80116
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="dceDH6Mz"
+Received: from fllv0035.itg.ti.com ([10.64.41.0])
+ by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 22M7Cril065893;
+ Tue, 22 Mar 2022 02:12:53 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1647933173;
+ bh=U71nVSO+hSONrauFmnr7QvuSJDXB/wvwXfGLMI0sUhE=;
+ h=From:To:CC:Subject:Date:References:In-Reply-To;
+ b=dceDH6MzQ9aELggaGuRoBCzmXMnB42n9C/dRB5wEy3paU/61jxSU7s2stb3tYwgVz
+ Dwg87fLrMeBqAFp96SWCZEPNIkSphVXH8WPVD4Ep8PMps0Id2sksWOwcgVKXBqpFau
+ XiG86tZQIMpZRcx7lBJynMuAGfz9/5Tq43G7oWjA=
+Received: from DFLE106.ent.ti.com (dfle106.ent.ti.com [10.64.6.27])
+ by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 22M7CrG0113379
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Tue, 22 Mar 2022 02:12:53 -0500
+Received: from DFLE107.ent.ti.com (10.64.6.28) by DFLE106.ent.ti.com
+ (10.64.6.27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2308.14; Tue, 22
+ Mar 2022 02:12:53 -0500
+Received: from DFLE107.ent.ti.com ([fe80::86f:14f0:164b:4dbe]) by
+ DFLE107.ent.ti.com ([fe80::86f:14f0:164b:4dbe%17]) with mapi id
+ 15.01.2308.014; Tue, 22 Mar 2022 02:12:53 -0500
+From: "Xu, Yang" <raphael-xu@ti.com>
+To: Mark Brown <broonie@kernel.org>, Raphael-Xu <13691752556@139.com>
+Subject: RE: [EXTERNAL] Re: [PATCH v2 2/2] support either TAS2764 or TAS2780
+ device from TI
+Thread-Topic: [EXTERNAL] Re: [PATCH v2 2/2] support either TAS2764 or TAS2780
+ device from TI
+Thread-Index: AQHYPSDTolFJ2wG/+kCSGo6twTwBNqzK/bkw
+Date: Tue, 22 Mar 2022 07:12:53 +0000
+Message-ID: <782e9789a3524e30b5617465d8242157@ti.com>
+References: <20220318094903.22026-1-13691752556@139.com>
+ <20220318094903.22026-2-13691752556@139.com> <YjhyLN0hwnatcdjt@sirena.org.uk>
+In-Reply-To: <YjhyLN0hwnatcdjt@sirena.org.uk>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.85.136.126]
+x-exclaimer-md-config: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-MTK: N
-Cc: devicetree@vger.kernel.org, linmq006@gmail.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org,
- Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
- broonie@kernel.org, linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
- matthias.bgg@gmail.com, aaronyu@google.com,
- linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "Navada Kanyana, Mukund" <navada@ti.com>, "Ding, 
+ Shenghao" <shenghao-ding@ti.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,128 +99,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 2022-03-21 at 18:33 -0500, Rob Herring wrote:
-> On Sat, Mar 19, 2022 at 07:41:08PM +0800, Jiaxin Yu wrote:
-> > 1. Adds new compatible string "mt8192_mt6359_rt1015p_rt5682s" for
-> > machines
-> > with rt1015p and rt5682s.
-> > 2. Adds new property "mediatek,headset-codec" for getting headset
-> > codecs.
-> > 3. Adds new property "mediatek,speaker-codec" for getting speaker
-> > codecs.
-> > 
-> > Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
-> > ---
-> >  .../sound/mt8192-mt6359-rt1015-rt5682.yaml    | 29
-> > +++++++++++++++++++
-> >  1 file changed, 29 insertions(+)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/sound/mt8192-mt6359-
-> > rt1015-rt5682.yaml
-> > b/Documentation/devicetree/bindings/sound/mt8192-mt6359-rt1015-
-> > rt5682.yaml
-> > index a781e7aaaa38..aa0476eedd38 100644
-> > --- a/Documentation/devicetree/bindings/sound/mt8192-mt6359-rt1015-
-> > rt5682.yaml
-> > +++ b/Documentation/devicetree/bindings/sound/mt8192-mt6359-rt1015-
-> > rt5682.yaml
-> > @@ -18,6 +18,7 @@ properties:
-> >      enum:
-> >        - mediatek,mt8192_mt6359_rt1015_rt5682
-> >        - mediatek,mt8192_mt6359_rt1015p_rt5682
-> > +      - mediatek,mt8192_mt6359_rt1015p_rt5682s
-> >  
-> >    mediatek,platform:
-> >      $ref: "/schemas/types.yaml#/definitions/phandle"
-> > @@ -27,6 +28,25 @@ properties:
-> >      $ref: "/schemas/types.yaml#/definitions/phandle"
-> >      description: The phandle of HDMI codec.
-> >  
-> > +patternProperties:
-> > +  "^mediatek,headset-codec$":
-> 
-> Fixed string, not a pattern. Move to 'properties'. Drop the vendor 
-> prefix too.
-> 
-Hi Rob,
+Hi Mark,
 
-I originally referred to simple-card.yaml and move "xxx.yyy" to the
-patternProperties.
+Just submit new patch which only rename the files as your suggestion.Please=
+ check the new patchs,thanks.
 
-Such as:
-# use patternProperties to avoid naming "xxx,yyy" issue
-patternProperties:
-  "^simple-audio-card,widgets$":
-    $ref: "#/definitions/widgets"
+Regards
+Raphael
+-----Original Message-----
+From: Mark Brown <broonie@kernel.org>=20
+Sent: Monday, March 21, 2022 8:40 PM
+To: Raphael-Xu <13691752556@139.com>
+Cc: alsa-devel@alsa-project.org; Xu, Yang <raphael-xu@ti.com>; Ding, Shengh=
+ao <shenghao-ding@ti.com>; Navada Kanyana, Mukund <navada@ti.com>
+Subject: [EXTERNAL] Re: [PATCH v2 2/2] support either TAS2764 or TAS2780 de=
+vice from TI
 
-But your comment is more reasonable. I will move them to 'properties'
-and drop the vendor prefix. Thanks for your review.
+On Fri, Mar 18, 2022 at 05:49:03PM +0800, Raphael-Xu wrote:
+> Signed-off-by: Raphael-Xu <13691752556@139.com>
+> ---
+>  sound/soc/codecs/Kconfig                  |  13 +-
+>  sound/soc/codecs/Makefile                 |   4 +-
+>  sound/soc/codecs/tas2764.c                | 688 -----------------
+>  sound/soc/codecs/tas27xx.c                | 861 ++++++++++++++++++++++
+>  sound/soc/codecs/{tas2764.h =3D> tas27xx.h} |  27 +-
+>  5 files changed, 890 insertions(+), 703 deletions(-)
 
-
-> > +    description: Holds subnode which indicates headset dai.
-> > +    type: object
-> > +    properties:
-> > +      sound-dai:
-> > +        $ref: /schemas/types.yaml#/definitions/phandle-array
-> 
-> Standard property, don't need a type or description. Just how many
-> and 
-> what each one is if more than 1.
-
-Should I describe them as below?
-
-properties:
-...
-  speaker-codec:
-    type: object
-    properties:
-      sound-dai:
-         maxItems: 1
-...
-
-> 
-> > +        description: List of phandles to the headset codec nodes.
-> 
-> More than 1?
-> 
-
-Sorry, the description here is incorrect, there is only one phandle.
-
-> > +    additionalProperties: false
-> > +
-> > +  "^mediatek,speaker-codec$":
-> > +    description: Holds subnode which indicates speaker dai.
-> > +    type: object
-> > +    properties:
-> > +      sound-dai:
-> > +        $ref: /schemas/types.yaml#/definitions/phandle-array
-> > +        description: List of phandles to the speaker codec nodes.
-> 
-> Same here.
-> 
-> > +    additionalProperties: false
-> > +
-> >  additionalProperties: false
-> >  
-> >  required:
-> > @@ -44,6 +64,15 @@ examples:
-> >                          "aud_clk_mosi_on";
-> >          pinctrl-0 = <&aud_clk_mosi_off>;
-> >          pinctrl-1 = <&aud_clk_mosi_on>;
-> > +
-> > +        mediatek,headset-codec {
-> > +            sound-dai = <&rt5682>;
-> > +        };
-> > +
-> > +        mediatek,speaker-codec {
-> > +            sound-dai = <&rt1015_l>,
-> > +                        <&rt1015_r>;
-> > +        };
-> >      };
-> >  
-> >  ...
-> > -- 
-> > 2.18.0
-> > 
-> > 
-
+Can you please respin this with a separate patch *just* doing the file rena=
+mes?  git format-patch noticed that the header was a rename but it didn't m=
+anage to figure that out for the main driver file which makes it much harde=
+r to review what's actually changed underneath the rename.

@@ -2,86 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 835E04E4414
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Mar 2022 17:20:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0B624E4451
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Mar 2022 17:38:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1A8A91730;
-	Tue, 22 Mar 2022 17:19:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A8A91730
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7761816BD;
+	Tue, 22 Mar 2022 17:37:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7761816BD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647966045;
-	bh=d/WNYaTyBtEpb8ipjLKsFT9cK7ROzLs0/KzB8oSRYZU=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=QXHcBVwdDi8NeDcNmcJXfkRaSMk8vRMYGvzoF0obfyRH6Nm9+LvW+DLE5wm40dnlD
-	 kdOBgXY+fRh+lO3+pfFVAVY2lGXSgyHr5x8SE2UF9dGViww38V0vy+2x4yEfiRcc3h
-	 Xz8NUX0/cEVoG7bODOiPQMRrfu54+b4FEC0tzcOU=
+	s=default; t=1647967085;
+	bh=IKdd51K1+KI9bvYQppaLLSIKPHIJ+DNMPfB59bzcX+8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=MXSC5YIoRKKKPNonmUj3nvO1TKy2a6ylg7yqT+IDaHlymsmYD31N8YPAQ2mbYjL4I
+	 5Uih5Q5aI0RdA0eckD/uHj47+7pbFg+i6gI9U3ewnPireF9jA+d34wqT5DNK+qEvmA
+	 cD7j7JmGWq48X3xg3JYLY+j0lXAWnl16RJCiswNY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 95C82F800F5;
-	Tue, 22 Mar 2022 17:19:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F2808F800FD;
+	Tue, 22 Mar 2022 17:36:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1F3B3F8016C; Tue, 22 Mar 2022 17:19:37 +0100 (CET)
+ id D3D13F8016C; Tue, 22 Mar 2022 17:36:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [IPv6:2a0b:5c81:1c1::37])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8FB96F800F5
- for <alsa-devel@alsa-project.org>; Tue, 22 Mar 2022 17:19:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8FB96F800F5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5104BF800FD
+ for <alsa-devel@alsa-project.org>; Tue, 22 Mar 2022 17:36:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5104BF800FD
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="Rrrunfgy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1647965973; x=1679501973;
- h=from:to:cc:subject:date:message-id:mime-version;
- bh=U7HtkD8e2y1BOHA9zy3SPJmEKe96PjQ8/7rxSr5oFsI=;
- b=Rrrunfgy5O5xwhh5PPnd7VJqDtBqREvNP08coUpTfRExtIHkZT48eLGR
- zY4rhp4e4nj77PjlHOoDYhWMqpPFiB3ezovlt8VGIlx4bFU+78IT0JBCF
- M0cTEhXPy0/kyDtEOS/P/PUHBhcJKyMjdEcRSlRs2c9yIgTLvogfxCPAN w=;
-Received: from unknown (HELO ironmsg03-sd.qualcomm.com) ([10.53.140.143])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 22 Mar 2022 09:19:25 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg03-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Mar 2022 09:19:24 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Tue, 22 Mar 2022 09:19:24 -0700
-Received: from hu-srivasam-hyd.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Tue, 22 Mar 2022 09:19:18 -0700
-From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-To: <agross@kernel.org>, <bjorn.andersson@linaro.org>, <lgirdwood@gmail.com>, 
- <broonie@kernel.org>, <robh+dt@kernel.org>, <quic_plai@quicinc.com>,
- <bgoswami@codeaurora.org>, <perex@perex.cz>, <tiwai@suse.com>,
- <srinivas.kandagatla@linaro.org>, <rohitkr@codeaurora.org>,
- <linux-arm-msm@vger.kernel.org>, <alsa-devel@alsa-project.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <swboyd@chromium.org>, <judyhsiao@chromium.org>
-Subject: [PATCH] ASoC: codecs: Fix error handling in power domain init and
- exit handlers
-Date: Tue, 22 Mar 2022 21:48:57 +0530
-Message-ID: <1647965937-32203-1-git-send-email-quic_srivasam@quicinc.com>
-X-Mailer: git-send-email 2.7.4
+ dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b="AwQeGd42"
+Received: from darkstar.musicnaut.iki.fi (85-76-100-34-nat.elisa-mobile.fi
+ [85.76.100.34])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: aaro.koskinen)
+ by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 789CC1B002D3;
+ Tue, 22 Mar 2022 18:36:47 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu; 
+ t=1647967008;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=RNrNBemsZsaG7NZqTZ3MCUPdFOPCvyRw2+V4JUFQ0Nk=;
+ b=AwQeGd4204Vkw2568/3IwnUQBQ0Fh1dXtTS6xgcE5LdH4O44DDujrzanA3Ztya+Ibx1nNf
+ JyapZaT+3E4mNaK8XtkSDXDB4EOWkTPjxDydWRqxlICq5KxJc4eqJlxzrXJLF/cRCqUZrf
+ x4V7AZ7+tzZWU7IpoqcaUskfjCf21Cvwh6CbaQYH+dl1lDUZXPkGNKy/1HmHSFgmnTEtOb
+ 4fWa4oUd/Q4vKk4vsxACXhQWFTAyBKri4h7BCo+I5SwR22alCGwKCC9yJ0V8bjJVMa2Lpk
+ fdc0v0hlSPhAK45pi8KQOJBm4PA8QpjZqXf8MUxhJR91vUyxj8Sjq5tyvPaPdg==
+Date: Tue, 22 Mar 2022 18:36:46 +0200
+From: Aaro Koskinen <aaro.koskinen@iki.fi>
+To: Janusz Krzysztofik <jmkrzyszt@gmail.com>
+Subject: Re: [PATCH v2] ARM: OMAP1: Prepare for conversion of OMAP1 clocks to
+ CCF
+Message-ID: <20220322163646.GD297526@darkstar.musicnaut.iki.fi>
+References: <20220310233307.99220-3-jmkrzyszt@gmail.com>
+ <20220321215416.236250-1-jmkrzyszt@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Cc: Venkata Prasad Potturu <quic_potturu@quicinc.com>,
- Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220321215416.236250-1-jmkrzyszt@gmail.com>
+ARC-Authentication-Results: i=1; ORIGINATING;
+ auth=pass smtp.auth=aaro.koskinen smtp.mailfrom=aaro.koskinen@iki.fi
+ARC-Seal: i=1; s=lahtoruutu; d=iki.fi; t=1647967008; a=rsa-sha256; cv=none;
+ b=l2ZnGsGINPS9lZ5lJlSl6lZOgGL7Q607SYPV0J7WR6YGktBvdwhgSHlOmX5wRAHk7ZfcLc
+ zWtjZl9vuQ8iZacCUsrqZ+A1kGWNR+XopLUfhq6z4OojVlDNVy+DO6pAEkD2VsFi4gdBwY
+ gW1AKxorc7PrNyH1dQJmHyt53UaFPwYDrpa/8uLCUJ2vjL9PcWxdevZZwdnAwYmepKjI5R
+ ZnmhP+hd3sLudvP2V9GtzwtgGlUhnU+ZbFcY+J9r/BScbaJCeFfyYojSKrAbgB7XAN0pWq
+ tZWDfB/LL1en0FbHwSw/DMl44aemO9uXJeoIXxxlUkebpSB6zKugvTu7ZJELXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
+ s=lahtoruutu; t=1647967008;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=RNrNBemsZsaG7NZqTZ3MCUPdFOPCvyRw2+V4JUFQ0Nk=;
+ b=oL/5cvCYEppmlz4BJVPwqBpl81I2Z6QgKsr1OROeI8lunAjaoDigGvxhxH32vZ/zvJS32+
+ BDZ6ooMIZE1UsrSiwxmWSUbT6Tcu93Suy4+zbuXo+nXdRIg5GRwRx6SMS/LmjsCoLo6HyT
+ 9u0ITw35hSb4Mznr2j+ojp6dBv1OoviG8VOl390BQiNhGlXtYN9C3FU1pZU2iWPeFSdReh
+ X7PkfpGOPTbfe12YpZz7gagw/3UkqPdBSW+ZvgjsMxxfpG/ZH+1H4Ig2hPZqt2oD/iZml7
+ V6yDtD0vk6EH9/pO08Zsx2Bjsa+ZOpz2OGYNEdzkbYnttQmBh8szxuKjg2mMEw==
+Cc: alsa-devel@alsa-project.org, Felipe Balbi <balbi@kernel.org>,
+ Paul Walmsley <paul@pwsan.com>, Arnd Bergmann <arnd@arndb.de>,
+ Liam Girdwood <lgirdwood@gmail.com>, Tony Lindgren <tony@atomide.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Helge Deller <deller@gmx.de>,
+ linux-usb@vger.kernel.org, linux-mmc@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, Alan Stern <stern@rowland.harvard.edu>,
+ Ulf Hansson <ulf.hansson@linaro.org>, linux-omap@vger.kernel.org,
+ Peter Ujfalusi <peter.ujfalusi@gmail.com>,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,87 +114,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Update error handling in power domain init and exit handlers, as existing handling
-may cause issues in device remove function.
-Use appropriate pm core api for power domain get and sync to avoid redundant code.
+Hi,
 
-Fixes: 9e3d83c52844 ("ASoC: codecs: Add power domains support in digital macro codecs")
+On Mon, Mar 21, 2022 at 10:54:16PM +0100, Janusz Krzysztofik wrote:
+> In preparation for conversion of OMAP1 clocks to common clock framework,
+> identify users of those clocks which don't call clk_prepare/unprepare()
+> and update them to call clk_prepare_enable/clk_disable_unprepare() instead
+> of just clk_enable/disable(), as required by CCF implementation of clock
+> API.
+> 
+> v2: update still a few more OMAP specific drivers missed in v1,
+>   - call clk_prepare/unprepare() just after/before clk_get/put() where it
+>     can make more sense than merging prepare/unprepare with enable/disable.
 
-Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Co-developed-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
-Signed-off-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
-Reported-by: kernel test robot <lkp@intel.com>
-Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
----
- sound/soc/codecs/lpass-macro-common.c | 35 +++++++++++++++++++----------------
- 1 file changed, 19 insertions(+), 16 deletions(-)
+Something is still broken. When doing kexec (using CCF kernel), the
+kexec'ed kernel now hangs early (on 770):
 
-diff --git a/sound/soc/codecs/lpass-macro-common.c b/sound/soc/codecs/lpass-macro-common.c
-index 6cede75..3c661fd 100644
---- a/sound/soc/codecs/lpass-macro-common.c
-+++ b/sound/soc/codecs/lpass-macro-common.c
-@@ -24,42 +24,45 @@ struct lpass_macro *lpass_macro_pds_init(struct device *dev)
- 		return ERR_PTR(-ENOMEM);
- 
- 	l_pds->macro_pd = dev_pm_domain_attach_by_name(dev, "macro");
--	if (IS_ERR_OR_NULL(l_pds->macro_pd))
--		return NULL;
--
--	ret = pm_runtime_get_sync(l_pds->macro_pd);
--	if (ret < 0) {
--		pm_runtime_put_noidle(l_pds->macro_pd);
-+	if (IS_ERR_OR_NULL(l_pds->macro_pd)) {
-+		ret = PTR_ERR(l_pds->macro_pd);
- 		goto macro_err;
- 	}
- 
-+	ret = pm_runtime_resume_and_get(l_pds->macro_pd);
-+	if (ret < 0)
-+		goto macro_sync_err;
-+
- 	l_pds->dcodec_pd = dev_pm_domain_attach_by_name(dev, "dcodec");
--	if (IS_ERR_OR_NULL(l_pds->dcodec_pd))
-+	if (IS_ERR_OR_NULL(l_pds->dcodec_pd)) {
-+		ret = PTR_ERR(l_pds->dcodec_pd);
- 		goto dcodec_err;
-+	}
- 
--	ret = pm_runtime_get_sync(l_pds->dcodec_pd);
--	if (ret < 0) {
--		pm_runtime_put_noidle(l_pds->dcodec_pd);
-+	ret = pm_runtime_resume_and_get(l_pds->dcodec_pd);
-+	if (ret < 0)
- 		goto dcodec_sync_err;
--	}
- 	return l_pds;
- 
- dcodec_sync_err:
- 	dev_pm_domain_detach(l_pds->dcodec_pd, false);
- dcodec_err:
- 	pm_runtime_put(l_pds->macro_pd);
--macro_err:
-+macro_sync_err:
- 	dev_pm_domain_detach(l_pds->macro_pd, false);
-+macro_err:
- 	return ERR_PTR(ret);
- }
- EXPORT_SYMBOL_GPL(lpass_macro_pds_init);
- 
- void lpass_macro_pds_exit(struct lpass_macro *pds)
- {
--	pm_runtime_put(pds->macro_pd);
--	dev_pm_domain_detach(pds->macro_pd, false);
--	pm_runtime_put(pds->dcodec_pd);
--	dev_pm_domain_detach(pds->dcodec_pd, false);
-+	if (pds) {
-+		pm_runtime_put(pds->macro_pd);
-+		dev_pm_domain_detach(pds->macro_pd, false);
-+		pm_runtime_put(pds->dcodec_pd);
-+		dev_pm_domain_detach(pds->dcodec_pd, false);
-+	}
- }
- EXPORT_SYMBOL_GPL(lpass_macro_pds_exit);
- 
--- 
-2.7.4
+[    0.853912] MUX: initialized W4_USB_PUEN
+[    0.858001] MUX: initialized V6_USB0_TXD
+[    0.862060] MUX: initialized W5_USB0_SE0
+[    0.866210] MUX: initialized Y5_USB0_RCV
+[    0.870269] MUX: initialized AA9_USB0_VP
+[    0.874389] MUX: initialized R9_USB0_VM
+[    0.878356] USB: hmc 16, usb0 6 wires (dev), Mini-AB on usb0
+[    0.886230] initcall customize_machine+0x0/0x30 returned 0 after 29296 usecs
+[    0.893707] calling  init_atags_procfs+0x0/0xe8 @ 1
+[    0.898864] initcall init_atags_procfs+0x0/0xe8 returned 0 after 0 usecs
+[    0.905883] calling  exceptions_init+0x0/0x8c @ 1
+[    0.910797] initcall exceptions_init+0x0/0x8c returned 0 after 0 usecs
+[    0.917602] calling  omap_init+0x0/0xc @ 1
+[    0.922393] initcall omap_init+0x0/0xc returned 0 after 9765 usecs
+[    0.928863] calling  omap1_init_devices+0x0/0x2c @ 1
+[    2.568664] random: fast init done
 
+Probably something is now disabled that has been previously always
+enabled by default/bootloader. I'll try adding some printk()s to see
+the exact place where it hangs...
+
+A.

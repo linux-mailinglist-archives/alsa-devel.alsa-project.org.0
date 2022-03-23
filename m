@@ -2,83 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17DCC4E58EB
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Mar 2022 20:07:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FE554E595E
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Mar 2022 20:47:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ADD0916EE;
-	Wed, 23 Mar 2022 20:06:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ADD0916EE
+	by alsa0.perex.cz (Postfix) with ESMTPS id E30D71672;
+	Wed, 23 Mar 2022 20:46:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E30D71672
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648062433;
-	bh=1/4plweIDSQWFIn+3YPbq91twXgY8xdpxbiLxo8HJ7Q=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ltlgnC7+4XD4LCTwhu//P/4bqoCqWQaZucdTzQ4bywmpfH0KHF7Ao95WUDoldzpji
-	 SPC0t/l4VXcyR1MOuPnvXMhg7om4pK8YeoFBtG16ER3bMritMand+t9aZHSqRKxcuz
-	 bbs+tDM7F8zKmFlsa0ncBf/68dv+NdujHZCyzFmY=
+	s=default; t=1648064849;
+	bh=q7XKqK7lYrNstZDl2OUGdDm0xZRoRoMopxSVN8wezhk=;
+	h=Date:From:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ebDhZe4vja5wXOqk7pkEWWkCklmy7N1MgHm0e36I7m/c/Yan35fJpx3hGoXw3UHNI
+	 d/7fq/AKLkirZKVvkXdeOuw9ZuycEQAZ1x7mWRBeQcCwoV4cx0+tZ4Ks65Z3sTNoyz
+	 4Tt3SF8oud1Wg10KH+xNqM3C6kk01VMkDBRGWDBc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3B333F80310;
-	Wed, 23 Mar 2022 20:06:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 513B7F80310;
+	Wed, 23 Mar 2022 20:46:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5010DF802DB; Wed, 23 Mar 2022 20:06:05 +0100 (CET)
+ id D31E5F800F5; Wed, 23 Mar 2022 20:46:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 27C21F800C1
- for <alsa-devel@alsa-project.org>; Wed, 23 Mar 2022 20:05:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27C21F800C1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3EFF4F800F5
+ for <alsa-devel@alsa-project.org>; Wed, 23 Mar 2022 20:46:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3EFF4F800F5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Sy3LVS2P"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="hG2NIR68"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 1E0C7210F8;
- Wed, 23 Mar 2022 19:05:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1648062357; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=bVuhXXAemclRPjBH29/ee1EiYvwc8RkX0IMQfHfC6XI=;
- b=Sy3LVS2PPYcJUKFhzjo41AE8uUOUOc4JTIapQXgJ1EiE8w1zwmLlFxF0CGPQbRkLt7fW3x
- WUPpOcIL8tK1U13a/heI1e1rG9135q/gxYVkBkNIkxf6Zup70ufBhb+/R/AaFv79gJm6Gz
- dDz1CkUaweBgAugPtqM3JvtGLi1brRA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1648062357;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=bVuhXXAemclRPjBH29/ee1EiYvwc8RkX0IMQfHfC6XI=;
- b=hG2NIR687XAu58QaMLdILXv+PilBX9bmRVkc+8kFOdclyoXROm5TT0G8Dtp+sk+RlfVtmy
- u+cZxZ1Co4iFydCQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 0D353A3B87;
- Wed, 23 Mar 2022 19:05:57 +0000 (UTC)
-Date: Wed, 23 Mar 2022 20:05:57 +0100
-Message-ID: <s5hbkxwtroq.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Jason Andryuk <jandryuk@gmail.com>
-Subject: Re: snd_hda_intel initialization failure with Xen PCI passthrough
-In-Reply-To: <CAKf6xpuhT_S_TKjSv6gpL4ezCT6Qg_Tc9V-XXwKKEMZUO6G0-g@mail.gmail.com>
-References: <CAKf6xpuRJ84RVfqPRJu3RL4xGF-FLkvO84SHTWEmXJFUWTgBGQ@mail.gmail.com>
- <s5hh77puhtk.wl-tiwai@suse.de>
- <CAKf6xpuhT_S_TKjSv6gpL4ezCT6Qg_Tc9V-XXwKKEMZUO6G0-g@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="eRCumAPM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1648064779; x=1679600779;
+ h=message-id:date:mime-version:from:subject:to:cc:
+ content-transfer-encoding;
+ bh=q7XKqK7lYrNstZDl2OUGdDm0xZRoRoMopxSVN8wezhk=;
+ b=eRCumAPMPDkJmHhiCCifjY1rgCsJukiA4MNjam7h4jZ62onxas47lotP
+ wxOHslJ93w8ItzS2X2VzV5+LeZEKcRz0ocSwoJ8ryVG/KnAZC9El07GXB
+ NPpfbuuQ257PLe22YZ19+Px1AnIFO1NkDqYNNvCB3WkuNUFdvTeJ4GY02
+ MP1RjqSAkxcruMDVHnxXVZ7qqGup9yyey2lnQsp0AN06CeWdmHXIuQ1jV
+ 48kchKczOvBKjDONX5Ex7SKE6c/gSaLprtCcApXX3dqPCcJy4GTCmZsQW
+ ek8EM67lNPRYo6Z2c43Qc/4MtZUwVeKkc8HibRHYz3mOqiqTcUOZR8Y12 Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10295"; a="283064945"
+X-IronPort-AV: E=Sophos;i="5.90,204,1643702400"; d="scan'208";a="283064945"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Mar 2022 12:46:01 -0700
+X-IronPort-AV: E=Sophos;i="5.90,204,1643702400"; d="scan'208";a="519497343"
+Received: from thientha-mobl1.amr.corp.intel.com (HELO [10.251.10.76])
+ ([10.251.10.76])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Mar 2022 12:46:00 -0700
+Message-ID: <d0559e97-c4a0-b817-428c-d3e305390270@linux.intel.com>
+Date: Wed, 23 Mar 2022 14:45:59 -0500
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.5.0
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Conceptual bug on SoundWire probe/remove?
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Mark Brown <broonie@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,112 +91,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 23 Mar 2022 19:52:21 +0100,
-Jason Andryuk wrote:
-> 
-> On Wed, Mar 23, 2022 at 5:41 AM Takashi Iwai <tiwai@suse.de> wrote:
-> >
-> > On Tue, 22 Mar 2022 19:57:27 +0100,
-> > Jason Andryuk wrote:
-> > >
-> > > Hi,
-> > >
-> > > I'm running Xen hypervisor and using PCI passthrough to assign an
-> > > Intel HDA audio device (00:1f.3 Audio device: Intel Corporation Cannon
-> > > Point-LP High Definition Audio Controller (rev 30)) to a Xen HVM
-> > > virtual machine.  I do this for both Linux 5.4.185 and a different
-> > > Windows 10 VM (only one at a time).  The Windows VM seems to work
-> > > every time.  The Linux VM has issues after the first VM boot.  This is
-> > > one boot of the physical hardware and multiple boots of the virtual
-> > > machines.
-> > >
-> > > For Linux, on first boot, the sound card is detected and works
-> > > properly.  After that, things usually don't work.  I just ran a reboot
-> > > loop and it was:
-> > > 1st boot - audio detected and working
-> > > 2 & 3 - no audio
-> > > 4th - audio detected and working
-> > > 5 - 20 - no audio
-> > >
-> > > For boots 2, 3, 5-7, dmesg shows:
-> > > [    0.760401] hdaudio hdaudioC0D0: no AFG or MFG node found
-> > > [    0.760415] snd_hda_intel 0000:00:06.0: no codecs initialized
-> > >
-> > > For boots 8+, the errors changed to:
-> > > [    0.783397] hdaudio hdaudioC0D0: cannot read sub nodes for FG 0x10
-> > > [    0.783413] snd_hda_intel 0000:00:06.0: no codecs initialized
-> > >
-> > > At this point, I booted a Windows 10 VM and audio works
-> > >
-> > > Trying to boot Linux again gives a new error message
-> > > [    0.789041] snd_hda_intel 0000:00:06.0: Unknown capability 0
-> > > [    1.811205] snd_hda_intel 0000:00:06.0: No response from codec,
-> > > resetting bus: last cmd=0x0eef0004
-> > > [    1.811246] hdaudio hdaudioC0D0: cannot read sub nodes for FG 0x10ee
-> > > [    1.811263] snd_hda_intel 0000:00:06.0: no codecs initialized
-> > >
-> > > Reboot VM and it's back to:
-> > > [    0.775917] hdaudio hdaudioC0D0: no AFG or MFG node found
-> > > [    0.775932] snd_hda_intel 0000:00:06.0: no codecs initialized
-> > >
-> > > Reboot VM and again:
-> > > [    0.789069] hdaudio hdaudioC0D0: cannot read sub nodes for FG 0x10
-> > > [    0.789084] snd_hda_intel 0000:00:06.0: no codecs initialized
-> > >
-> > > Reboot physical laptop:
-> > > 1. boot Windows 10 - audio works
-> > > 2. boot Linux - audio works
-> > > 3. reboot Linux - no audio
-> > > [    0.773111] hdaudio hdaudioC0D0: no AFG or MFG node found
-> > > [    0.773151] snd_hda_intel 0000:00:06.0: no codecs initialized
-> > >
-> > > This seems to me like Windows does a better job resetting the card to
-> > > get the audio hardware working.  Any suggestions on what to
-> > > investigate?
-> 
-> Thanks for taking a look, Takashi.
-> 
-> > First off, 5.4.x is way too old to debug, please confirm the issue
-> > with the latest kernel.
-> >
-> > And, one test I'd try is to unload snd-hda-intel module before
-> > rebooting.  Does the problem persist?
-> 
-> For my 5.4.186 VM, the module is built-in.  I tried `echo 0000:00:03.0
-> > /sys/bus/pci/driver/snd_hda_intel/unbind` before rebooting, but that
-> did not work.
-> 
-> I switched to Fedora 35 in the VM with kernel 5.16.16.  That worked
-> the first time and failed the second.
-> 
-> First working:
-> [    3.094907] snd_hda_intel 0000:00:06.0: DSP detected with PCI
-> class/subclass/prog-if info 0x040380
-> [    3.094912] snd_hda_intel 0000:00:06.0: NHLT table not found
-> [    3.197480] snd_hda_codec_realtek hdaudioC0D0: autoconfig for
-> ALC3204: line_outs=1 (0x14/0x0/0x0/0x0/0x0) type:speaker
-> [    3.197484] snd_hda_codec_realtek hdaudioC0D0:    speaker_outs=0
-> (0x0/0x0/0x0/0x0/0x0)
-> [    3.197485] snd_hda_codec_realtek hdaudioC0D0:    hp_outs=1
-> (0x21/0x0/0x0/0x0/0x0)
-> [    3.197486] snd_hda_codec_realtek hdaudioC0D0:    mono: mono_out=0x0
-> [    3.197487] snd_hda_codec_realtek hdaudioC0D0:    inputs:
-> [    3.197488] snd_hda_codec_realtek hdaudioC0D0:      Headset Mic=0x19
-> [    3.197489] snd_hda_codec_realtek hdaudioC0D0:      Headphone Mic=0x1a
-> [    3.197489] snd_hda_codec_realtek hdaudioC0D0:      Internal Mic=0x12
-> [   66.801958] snd_hda_intel 0000:00:06.0: azx_get_response timeout,
-> switching to polling mode: last cmd=0x00170500
-> 
-> Second boot audio still failed after doing `echo 0000:00:06.0 >
-> /sys/bus/pci/driver/snd_hda_intel/unbind` and rmmod-ing lots of snd_*
-> modules.  I rmmod-ed the snd_*intel ones, but other snd* modules
-> including snd_hrtimer were in use and could not be removed.
+Hi,
+I could use feedback/guidance on a possible conceptual bug in the 
+SoundWire probe and bus handling.
 
-That's weird.  If you logout the desktop and go to VT, you can unload
-snd-hda-intel.  Then the other modules should be unloadable.
+When we probe a driver, the code does this:
 
-And do you see the problem without VM?  That is, the host shows the
-same symptom?
+static int sdw_drv_probe(struct device *dev)
+{
+	struct sdw_slave *slave = dev_to_sdw_dev(dev);
+	struct sdw_driver *drv = drv_to_sdw_driver(dev->driver);
+	const struct sdw_device_id *id;
+	const char *name;
+	int ret;
 
+	/*
+	 * fw description is mandatory to bind
+	 */
+	if (!dev->fwnode)
+		return -ENODEV;
 
-Takashi
+	if (!IS_ENABLED(CONFIG_ACPI) && !dev->of_node)
+		return -ENODEV;
+
+	id = sdw_get_device_id(slave, drv);
+	if (!id)
+		return -ENODEV;
+
+	slave->ops = drv->ops;
+
+The last line is the problematic one. If at some point, the user does an 
+rmmod and unbinds the SoundWire codec driver, the .remove will be called 
+and the 'drv' will no longer be valid, but we will still have a 
+reference to drv->ops and use that pointer in the bus code, e.g.
+
+		/* Update the Slave driver */
+		if (slave_notify && slave->ops &&
+		    slave->ops->interrupt_callback) {
+			slave_intr.sdca_cascade = sdca_cascade;
+			slave_intr.control_port = clear;
+			memcpy(slave_intr.port, &port_status,
+			       sizeof(slave_intr.port));
+
+			slave->ops->interrupt_callback(slave,
+&slave_intr);
+		}
+
+I noodled with a potential fix in
+https://github.com/thesofproject/linux/pull/3534/commits/82d64fb0fd39b532263f060a8ec86e47e9ab305b
+
+where I force-reset this slave->ops pointer, but it is likely to be very 
+racy.
+
+We probably need to avoid such references, or have a clean mechanism to 
+unbind, e.g. with all commands and interrupts stopped while the codec 
+driver .remove routine is handled.
+
+Initial error reports at https://github.com/thesofproject/linux/issues/3531
+
+Suggestions and comments welcome, thanks!
+-Pierre

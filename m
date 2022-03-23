@@ -2,86 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FAD74E4DF2
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Mar 2022 09:16:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CABD64E4DF3
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Mar 2022 09:16:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CA4F1851;
-	Wed, 23 Mar 2022 09:15:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA4F1851
+	by alsa0.perex.cz (Postfix) with ESMTPS id 59E571717;
+	Wed, 23 Mar 2022 09:16:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59E571717
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648023393;
-	bh=QWe8jmBPdqBxhBsjDcaVIluy3OBdjlaYbzclENaZVJ4=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1648023419;
+	bh=zlH/E8AmgMnOewGytys/a1bUvMApbPcbD3WMwmDKmuk=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Nx9xXuiRTayB33zSmBNxoFbP22XnxTQAhjFTlDTTQBhzlUCzKBgLBUtI9Kv8zQ8r/
-	 4JLVVv5wiq5vrcJSBEtHINVSLb6jE+MUxro9NNMlxwLhPye58AjVE7bt9+rl+VnNO1
-	 J7bjm+E+q4PXgjf6i1BfkEhEh/ZWTd8NkYGa9CuE=
+	b=vPgFEi9eNZ2+dcpwvqsnPgJU6YRHHJxKbCttvt+6f58YJt8wlkx8I0BLp00H7RQC8
+	 rW1BTxLHGqYhFKuGcCNyn2fUwFYeUFz72iV9tT6GEZKJKBVYS3lg63IbHwzZ3Obv+p
+	 Kcfd+bEE65irKLzpw/YKXA+s9Caq/7Iemt0ygSic=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2D861F800F5;
-	Wed, 23 Mar 2022 09:15:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E2A49F80518;
+	Wed, 23 Mar 2022 09:15:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A979BF802DB; Wed, 23 Mar 2022 09:15:26 +0100 (CET)
+ id 4C2B1F80517; Wed, 23 Mar 2022 09:15:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8D48CF800AA
- for <alsa-devel@alsa-project.org>; Wed, 23 Mar 2022 09:15:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D48CF800AA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Goihwp7Z"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="sC0InqTC"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 093B41F37F;
- Wed, 23 Mar 2022 08:15:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1648023320; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=g1osbJeXlQpB5//z8F0X+vu5CcbRy6xr+WwjWLHu7ME=;
- b=Goihwp7Zy9WnNOAl84wO3Q/qKMVMCFj/rWC1JoKHO8SvxgV9u3GK9IUpAB687OYCoBGRaL
- 1PDX7tSszzm8Lx7GqvDWTKs0KXlF3NKQ4X5JQ4NJ/YZJhMsfvtn3W+2x3kRby+cTVHWLhF
- bFfrcKHpeDcVDmZDpKU2ayVKXhbHloY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1648023320;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=g1osbJeXlQpB5//z8F0X+vu5CcbRy6xr+WwjWLHu7ME=;
- b=sC0InqTC4Xpudf7v+aBXZzhHaywMhlBzP21ZVPjCq8EC+vBAPxeA8r7+CM8N6TvhLDSX+b
- nykL+KVgp4vomXCg==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id F0A8DA3B81;
- Wed, 23 Mar 2022 08:15:19 +0000 (UTC)
-Date: Wed, 23 Mar 2022 09:15:19 +0100
-Message-ID: <s5hy211ult4.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Amadeusz SX2awiX4ski
- <amadeuszx.slawinski@linux.intel.com>
-Subject: Re: [PATCH 3/4] ALSA: pcm: Fix races among concurrent prepare and
- hw_params/hw_free calls
-In-Reply-To: <db933c9e-bf7b-dec6-8022-75074f9cebf7@linux.intel.com>
-References: <20220322170720.3529-1-tiwai@suse.de>
- <20220322170720.3529-4-tiwai@suse.de>
- <db933c9e-bf7b-dec6-8022-75074f9cebf7@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Hu Jiahui <kirin.say@gmail.com>,
- linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id BEF5BF80515
+ for <alsa-devel@alsa-project.org>; Wed, 23 Mar 2022 09:15:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BEF5BF80515
+X-UUID: 3edca82acd214e58a28fec002b336d42-20220323
+X-UUID: 3edca82acd214e58a28fec002b336d42-20220323
+Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw02.mediatek.com
+ (envelope-from <trevor.wu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 129077964; Wed, 23 Mar 2022 16:15:32 +0800
+Received: from mtkcas11.mediatek.inc (172.21.101.40) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.2.792.15; Wed, 23 Mar 2022 16:15:31 +0800
+Received: from mtksdccf07 (172.21.84.99) by mtkcas11.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Wed, 23 Mar 2022 16:15:31 +0800
+Message-ID: <1d3f9ddc742c8af2e4613e6e1008b4a63b33e244.camel@mediatek.com>
+Subject: Re: [PATCH v3 2/6] ASoC: mediatek: mt8195: merge machine driver
+From: Trevor Wu <trevor.wu@mediatek.com>
+To: Tzung-Bi Shih <tzungbi@kernel.org>
+Date: Wed, 23 Mar 2022 16:15:30 +0800
+In-Reply-To: <YjiVySElUQZnJG9C@google.com>
+References: <20220321072312.14972-1-trevor.wu@mediatek.com>
+ <20220321072312.14972-3-trevor.wu@mediatek.com>
+ <YjiVySElUQZnJG9C@google.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-MTK: N
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com,
+ robh+dt@kernel.org, linux-kernel@vger.kernel.org, broonie@kernel.org,
+ linux-mediatek@lists.infradead.org, yc.hung@mediatek.com,
+ matthias.bgg@gmail.com, aaronyu@google.com,
+ linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,95 +83,123 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 23 Mar 2022 09:08:25 +0100,
-Amadeusz SX2awiX4ski wrote:
+On Mon, 2022-03-21 at 23:12 +0800, Tzung-Bi Shih wrote:
+> On Mon, Mar 21, 2022 at 03:23:08PM +0800, Trevor Wu wrote:
+> > -config SND_SOC_MT8195_MT6359_RT1019_RT5682
+> > -	tristate "ASoC Audio driver for MT8195 with MT6359 RT1019
+> > RT5682 codec"
+> > -	depends on I2C && GPIOLIB
+> > -	depends on SND_SOC_MT8195 && MTK_PMIC_WRAP
+> > -	select SND_SOC_MT6359
+> > -	select SND_SOC_RT1015P
+> > -	select SND_SOC_RT5682_I2C
+> > -	select SND_SOC_RT5682S
+> > -	select SND_SOC_DMIC
+> > -	select SND_SOC_HDMI_CODEC
+> > -	help
+> > -	  This adds ASoC driver for Mediatek MT8195 boards
+> > -	  with the MT6359 RT1019 RT5682 audio codec.
+> > -	  Select Y if you have such device.
+> > -	  If unsure select "N".
+> > -
+> > -config SND_SOC_MT8195_MT6359_RT1011_RT5682
+> > -	tristate "ASoC Audio driver for MT8195 with MT6359 RT1011
+> > RT5682 codec"
+> > +config SND_SOC_MT8195_MT6359
+> > +	tristate "ASoC Audio driver for MT8195 with MT6359 and I2S
+> > codec"
 > 
-> On 3/22/2022 6:07 PM, Takashi Iwai wrote:
-> > Like the previous fixes to hw_params and hw_free ioctl races, we need
-> > to paper over the concurrent prepare ioctl calls against hw_params and
-> > hw_free, too.
-> >
-> > This patch implements the locking with the existing
-> > runtime->buffer_mutex for prepare ioctls.  Unlike the previous case
-> > for snd_pcm_hw_hw_params() and snd_pcm_hw_free(), snd_pcm_prepare() is
-> > performed to the linked streams, hence the lock can't be applied
-> > simply on the top.  For tracking the lock in each linked substream, we
-> > modify snd_pcm_action_group() slightly and apply the buffer_mutex for
-> > the case stream_lock=false (formerly there was no lock applied)
-> > there.
-> >
-> > Cc: <stable@vger.kernel.org>
-> > Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> > ---
-> >   sound/core/pcm_native.c | 32 ++++++++++++++++++--------------
-> >   1 file changed, 18 insertions(+), 14 deletions(-)
-> >
-> > diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-> > index 266895374b83..0e4fbf5fd87b 100644
-> > --- a/sound/core/pcm_native.c
-> > +++ b/sound/core/pcm_native.c
-> > @@ -1190,15 +1190,17 @@ struct action_ops {
-> >   static int snd_pcm_action_group(const struct action_ops *ops,
-> >   				struct snd_pcm_substream *substream,
-> >   				snd_pcm_state_t state,
-> > -				bool do_lock)
-> > +				bool stream_lock)
-> >   {
-> >   	struct snd_pcm_substream *s = NULL;
-> >   	struct snd_pcm_substream *s1;
-> >   	int res = 0, depth = 1;
-> >     	snd_pcm_group_for_each_entry(s, substream) {
-> > -		if (do_lock && s != substream) {
-> > -			if (s->pcm->nonatomic)
-> > +		if (s != substream) {
-> > +			if (!stream_lock)
-> > +				mutex_lock_nested(&s->runtime->buffer_mutex, depth);
-> > +			else if (s->pcm->nonatomic)
-> >   				mutex_lock_nested(&s->self_group.mutex, depth);
-> >   			else
-> >   				spin_lock_nested(&s->self_group.lock, depth);
+> s/codec/codecs/.
+
+OK.
 > 
-> Maybe
-> 	if (!stream_lock)
-> 		mutex_lock_nested(&s->runtime->buffer_mutex, depth);
-> 	else
-> 		snd_pcm_group_lock(&s->self_group, s->pcm->nonatomic);
-> ?
-
-No, it must be nested locks with the given subclass.  That's why it
-has been the open code beforehand, too.
-
-> > @@ -1226,18 +1228,18 @@ static int snd_pcm_action_group(const struct action_ops *ops,
-> >   		ops->post_action(s, state);
-> >   	}
-> >    _unlock:
-> > -	if (do_lock) {
-> > -		/* unlock streams */
-> > -		snd_pcm_group_for_each_entry(s1, substream) {
-> > -			if (s1 != substream) {
-> > -				if (s1->pcm->nonatomic)
-> > -					mutex_unlock(&s1->self_group.mutex);
-> > -				else
-> > -					spin_unlock(&s1->self_group.lock);
-> > -			}
-> > -			if (s1 == s)	/* end */
-> > -				break;
-> > +	/* unlock streams */
-> > +	snd_pcm_group_for_each_entry(s1, substream) {
-> > +		if (s1 != substream) {
-> > +			if (!stream_lock)
-> > +				mutex_unlock(&s1->runtime->buffer_mutex);
-> > +			else if (s1->pcm->nonatomic)
-> > +				mutex_unlock(&s1->self_group.mutex);
-> > +			else
-> > +				spin_unlock(&s1->self_group.lock);
+> >  	help
+> > -	  This adds ASoC driver for Mediatek MT8195 boards
+> > -	  with the MT6359 RT1011 RT5682 audio codec.
+> > +	  This adds support for ASoC machine driver for Mediatek
+> > MT8195 
+> > +	  boards with the MT6359 and other I2S audio codec.
 > 
-> And similarly to above, use snd_pcm_group_unlock() here?
+> s/codec/codecs/.
+OK.
 
-This side would be possible to use that macro but it's still better to
-have the consistent call pattern.
+> 
+> > diff --git a/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-
+> > rt5682.c b/sound/soc/mediatek/mt8195/mt8195-mt6359.c
+> 
+> [...]
+> > +static int mt8195_rt1011_etdm_hw_params(struct snd_pcm_substream
+> > *substream,
+> > +					struct snd_pcm_hw_params
+> > *params)
+> > +{
+> > +	struct snd_soc_pcm_runtime *rtd =
+> > asoc_substream_to_rtd(substream);
+> > +	struct snd_soc_dai *codec_dai;
+> > +	struct snd_soc_card *card = rtd->card;
+> > +	int srate, i, ret = 0;
+> > +
+> > +	srate = params_rate(params);
+> > +
+> > +	for_each_rtd_codec_dais(rtd, i, codec_dai) {
+> > +		ret = snd_soc_dai_set_pll(codec_dai, 0,
+> > RT1011_PLL1_S_BCLK,
+> > +					  64 * srate, 256 * srate);
+> > +		if (ret < 0) {
+> > +			dev_err(card->dev, "codec_dai clock not
+> > set\n");
+> > +			return ret;
+> > +		}
+> > +
+> > +		ret = snd_soc_dai_set_sysclk(codec_dai,
+> > +					     RT1011_FS_SYS_PRE_S_PLL1,
+> > +					     256 * srate,
+> > SND_SOC_CLOCK_IN);
+> > +		if (ret < 0) {
+> > +			dev_err(card->dev, "codec_dai clock not
+> > set\n");
+> > +			return ret;
+> > +		}
+> > +	}
+> > +	return ret;
+> 
+> I guess it may be just copied from mt8195-mt6359-rt1011-
+> rt5682.c.  However, it
+> is good to turn the code into a better shape.  To be clear, just
+> return 0 here
+> so that the initialization can be removed.
+> 
+Yes, I copied it directly.
+I will update this in v4.
 
+> > +static int mt8195_rt1011_init(struct snd_soc_pcm_runtime *rtd)
+> 
+> [...]
+> > +	ret = snd_soc_dapm_add_routes(&card->dapm,
+> > mt8195_rt1011_routes,
+> > +				      ARRAY_SIZE(mt8195_rt1011_routes))
+> > ;
+> > +
+> > +	if (ret)
+> 
+> Remove the extra blank line.
 
-thanks,
+OK. I didn't notice the blank line.
+> 
+> > +static int mt8195_rt1019_init(struct snd_soc_pcm_runtime *rtd)
+> 
+> [...]
+> > +	ret = snd_soc_dapm_add_routes(&card->dapm,
+> > mt8195_rt1019_routes,
+> > +				      ARRAY_SIZE(mt8195_rt1019_routes))
+> > ;
+> > +
+> > +	if (ret)
+> 
+> Remove the extra blank line.
 
-Takashi
+OK.
+
+Thanks,
+Trevor
+

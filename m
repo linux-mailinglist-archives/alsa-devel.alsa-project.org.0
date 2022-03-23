@@ -2,71 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F7404E56D7
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Mar 2022 17:47:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4FC14E56F2
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Mar 2022 17:51:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 10C4C177C;
-	Wed, 23 Mar 2022 17:46:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 10C4C177C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8259B177E;
+	Wed, 23 Mar 2022 17:50:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8259B177E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648054061;
-	bh=NM2K2zkH/q5Mh770xl13hSxuZG2FNMdw3YSK1nNLOhA=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1648054290;
+	bh=xf+XqqrgAYRxBHVe+Le21WDKSwsXPQzHU0dcmKDKNsc=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Hqt5D7/8vhmbuzylbZPLuEM7VpPgOgHAfrR8bl6L4oSyMxtkmXtiU6x6If0DWjopd
-	 o0ypP8pJq/tB09BHxAivm6saoCCeG7NvN9kpI+KljUysNL542umfW5Rr89dJJMQ15u
-	 cKTAFAXRu1fPHsU6QiWmlSYo5rc7HYFNxQVZLMhU=
+	b=tCnk5oT1MSB6Con4/EQL7kDFs8jaMQAyLeJgyDqb+nyu6pWbV065mvfobeoUm1klN
+	 uzUHsva0vvMBfIPxnk1AlTdrzVQw2rWLBAHE7+SXYCxiyS2DsdlIRg72kcemtroVmx
+	 dWjq8gHEn6Q/mKT/43V/iKUJErNqOupulji/f3kY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 82F40F8051F;
-	Wed, 23 Mar 2022 17:45:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E866FF800F5;
+	Wed, 23 Mar 2022 17:50:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D1C12F80515; Wed, 23 Mar 2022 17:45:23 +0100 (CET)
+ id 27429F800F5; Wed, 23 Mar 2022 17:50:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9B239F800F5
+ for <alsa-devel@alsa-project.org>; Wed, 23 Mar 2022 17:50:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B239F800F5
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="TR7jxs85"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 72679F8047C
- for <alsa-devel@alsa-project.org>; Wed, 23 Mar 2022 17:45:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 72679F8047C
-X-UUID: eafe73e201da4ff29899425d27de526d-20220324
-X-UUID: eafe73e201da4ff29899425d27de526d-20220324
-Received: from mtkexhb01.mediatek.inc [(172.21.101.102)] by
- mailgw01.mediatek.com (envelope-from <jiaxin.yu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 2060070821; Thu, 24 Mar 2022 00:45:11 +0800
-Received: from mtkcas10.mediatek.inc (172.21.101.39) by
- mtkmbs07n2.mediatek.inc (172.21.101.141) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Thu, 24 Mar 2022 00:45:05 +0800
-Received: from localhost.localdomain (10.17.3.154) by mtkcas10.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Thu, 24 Mar 2022 00:45:04 +0800
-From: Jiaxin Yu <jiaxin.yu@mediatek.com>
-To: <broonie@kernel.org>, <robh+dt@kernel.org>, <tzungbi@google.com>
-Subject: [v6 4/4] ASoC: mediatek: mt8192: support rt1015p_rt5682s
-Date: Thu, 24 Mar 2022 00:44:42 +0800
-Message-ID: <20220323164442.921-5-jiaxin.yu@mediatek.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220323164442.921-1-jiaxin.yu@mediatek.com>
-References: <20220323164442.921-1-jiaxin.yu@mediatek.com>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 180D3618CE;
+ Wed, 23 Mar 2022 16:50:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2014CC340E8;
+ Wed, 23 Mar 2022 16:50:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1648054214;
+ bh=xf+XqqrgAYRxBHVe+Le21WDKSwsXPQzHU0dcmKDKNsc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=TR7jxs85hrk9F7LYb6Np5yRPjvemuUtvMFeyYrCkftHxIzdVKAC1qsppYpXI2jxM0
+ 7rBycWeY/HzBLp3FRUDyhmleUjt+DgKHIZiVQdUPtzEtmfU4rNmZYyWZVF0v0boZr4
+ MnlA1IBjCBSG5rdhI9UdfGQ7wPre5fRVmOcUPLqxHE6p3gRSwuyYt8C9U+NXermr7r
+ VzBa67pisbnR68up76bGzTkFgTH23ASUYsJZBlfUrSIZp+jRUXdvCz5GpKzCZwajYE
+ l1zepg8QDePAalyFBE7VWrBQObnxdRagTXenlrNcTmuFV2GxWLRjaoTZJAjfeKMn6l
+ lBGLQyYJMti1Q==
+Date: Wed, 23 Mar 2022 16:50:08 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Amadeusz =?utf-8?B?U8WCYXdpxYRza2k=?= <amadeuszx.slawinski@linux.intel.com>
+Subject: Re: [EXTERNAL] Re: [PATCH v4 3/3] update tas27xx.h to support either
+ TAS2764 or TAS2780
+Message-ID: <YjtPwKaH68HPsfDC@sirena.org.uk>
+References: <20220323042644.635-1-13691752556@139.com>
+ <20220323042644.635-3-13691752556@139.com>
+ <f96222e2-dd66-45aa-7615-7fed99479da6@linux.intel.com>
+ <f4ae130bbdde4bf8842b23f3cb3c10b2@ti.com>
+ <eda347eb-f7dd-fe05-d670-5365899b74f5@linux.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MTK: N
-Cc: devicetree@vger.kernel.org, linmq006@gmail.com, alsa-devel@alsa-project.org,
- Jiaxin Yu <jiaxin.yu@mediatek.com>, linux-kernel@vger.kernel.org,
- Project_Global_Chrome_Upstream_Group@mediatek.com,
- linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
- Tzung-Bi Shih <tzungbi@kernel.org>, matthias.bgg@gmail.com, aaronyu@google.com,
- linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="3IubDKez+C+CwgGu"
+Content-Disposition: inline
+In-Reply-To: <eda347eb-f7dd-fe05-d670-5365899b74f5@linux.intel.com>
+X-Cookie: Nice guys get sick.
+Cc: "Navada Kanyana, Mukund" <navada@ti.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, "Ding,
+ Shenghao" <shenghao-ding@ti.com>, Raphael-Xu <13691752556@139.com>, "Xu,
+ Yang" <raphael-xu@ti.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,180 +93,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-To support machine that only choose one of the rt5682s and rt5682 as
-headset codec, adds new compatible string "mt8192_mt6359_rt1015p_rt5682s".
-Meanwhile, using macros to simplifies card name and compatible name.
 
-Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
-Reviewed-by: Tzung-Bi Shih <tzungbi@kernel.org>
----
- sound/soc/mediatek/Kconfig                    |  1 +
- .../mt8192/mt8192-mt6359-rt1015-rt5682.c      | 61 ++++++++++++-------
- 2 files changed, 40 insertions(+), 22 deletions(-)
+--3IubDKez+C+CwgGu
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/sound/soc/mediatek/Kconfig b/sound/soc/mediatek/Kconfig
-index d515613a79da..cacfbab4262d 100644
---- a/sound/soc/mediatek/Kconfig
-+++ b/sound/soc/mediatek/Kconfig
-@@ -176,6 +176,7 @@ config SND_SOC_MT8192_MT6359_RT1015_RT5682
- 	select SND_SOC_RT1015
- 	select SND_SOC_RT1015P
- 	select SND_SOC_RT5682_I2C
-+	select SND_SOC_RT5682S
- 	select SND_SOC_DMIC
- 	help
- 	  This adds ASoC driver for Mediatek MT8192 boards
-diff --git a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
-index 328a71aa413b..61eeb973a405 100644
---- a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
-+++ b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
-@@ -28,6 +28,14 @@
- #define RT1015_DEV0_NAME	"rt1015.1-0028"
- #define RT1015_DEV1_NAME	"rt1015.1-0029"
- 
-+#define RT1015_RT5682_CARD_NAME "mt8192_mt6359_rt1015_rt5682"
-+#define RT1015P_RT5682_CARD_NAME "mt8192_mt6359_rt1015p_rt5682"
-+#define RT1015P_RT5682S_CARD_NAME "mt8192_mt6359_rt1015p_rt5682s"
-+
-+#define RT1015_RT5682_OF_NAME "mediatek,mt8192_mt6359_rt1015_rt5682"
-+#define RT1015P_RT5682_OF_NAME "mediatek,mt8192_mt6359_rt1015p_rt5682"
-+#define RT1015P_RT5682S_OF_NAME "mediatek,mt8192_mt6359_rt1015p_rt5682s"
-+
- struct mt8192_mt6359_priv {
- 	struct snd_soc_jack headset_jack;
- 	struct snd_soc_jack hdmi_jack;
-@@ -68,8 +76,8 @@ static int mt8192_rt1015_i2s_hw_params(struct snd_pcm_substream *substream,
- 	return snd_soc_dai_set_sysclk(cpu_dai, 0, mclk_fs, SND_SOC_CLOCK_OUT);
- }
- 
--static int mt8192_rt5682_i2s_hw_params(struct snd_pcm_substream *substream,
--				       struct snd_pcm_hw_params *params)
-+static int mt8192_rt5682x_i2s_hw_params(struct snd_pcm_substream *substream,
-+					struct snd_pcm_hw_params *params)
- {
- 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_card *card = rtd->card;
-@@ -118,8 +126,8 @@ static const struct snd_soc_ops mt8192_rt1015_i2s_ops = {
- 	.hw_params = mt8192_rt1015_i2s_hw_params,
- };
- 
--static const struct snd_soc_ops mt8192_rt5682_i2s_ops = {
--	.hw_params = mt8192_rt5682_i2s_hw_params,
-+static const struct snd_soc_ops mt8192_rt5682x_i2s_ops = {
-+	.hw_params = mt8192_rt5682x_i2s_hw_params,
- };
- 
- static int mt8192_mt6359_mtkaif_calibration(struct snd_soc_pcm_runtime *rtd)
-@@ -950,7 +958,7 @@ static struct snd_soc_dai_link mt8192_mt6359_dai_links[] = {
- 		.init = mt8192_rt5682_init,
- 		.be_hw_params_fixup = mt8192_i2s_hw_params_fixup,
- 		SND_SOC_DAILINK_REG(i2s8),
--		.ops = &mt8192_rt5682_i2s_ops,
-+		.ops = &mt8192_rt5682x_i2s_ops,
- 	},
- 	{
- 		.name = "I2S9",
-@@ -959,7 +967,7 @@ static struct snd_soc_dai_link mt8192_mt6359_dai_links[] = {
- 		.ignore_suspend = 1,
- 		.be_hw_params_fixup = mt8192_i2s_hw_params_fixup,
- 		SND_SOC_DAILINK_REG(i2s9),
--		.ops = &mt8192_rt5682_i2s_ops,
-+		.ops = &mt8192_rt5682x_i2s_ops,
- 	},
- 	{
- 		.name = "CONNSYS_I2S",
-@@ -1039,7 +1047,7 @@ static struct snd_soc_codec_conf rt1015_amp_conf[] = {
- };
- 
- static struct snd_soc_card mt8192_mt6359_rt1015_rt5682_card = {
--	.name = "mt8192_mt6359_rt1015_rt5682",
-+	.name = RT1015_RT5682_CARD_NAME,
- 	.owner = THIS_MODULE,
- 	.dai_link = mt8192_mt6359_dai_links,
- 	.num_links = ARRAY_SIZE(mt8192_mt6359_dai_links),
-@@ -1053,14 +1061,13 @@ static struct snd_soc_card mt8192_mt6359_rt1015_rt5682_card = {
- 	.num_configs = ARRAY_SIZE(rt1015_amp_conf),
- };
- 
--static const struct snd_soc_dapm_widget
--mt8192_mt6359_rt1015p_rt5682_widgets[] = {
-+static const struct snd_soc_dapm_widget mt8192_mt6359_rt1015p_rt5682x_widgets[] = {
- 	SND_SOC_DAPM_SPK("Speakers", NULL),
- 	SND_SOC_DAPM_HP("Headphone Jack", NULL),
- 	SND_SOC_DAPM_MIC("Headset Mic", NULL),
- };
- 
--static const struct snd_soc_dapm_route mt8192_mt6359_rt1015p_rt5682_routes[] = {
-+static const struct snd_soc_dapm_route mt8192_mt6359_rt1015p_rt5682x_routes[] = {
- 	/* speaker */
- 	{ "Speakers", NULL, "Speaker" },
- 	/* headset */
-@@ -1069,23 +1076,22 @@ static const struct snd_soc_dapm_route mt8192_mt6359_rt1015p_rt5682_routes[] = {
- 	{ "IN1P", NULL, "Headset Mic" },
- };
- 
--static const struct snd_kcontrol_new mt8192_mt6359_rt1015p_rt5682_controls[] = {
-+static const struct snd_kcontrol_new mt8192_mt6359_rt1015p_rt5682x_controls[] = {
- 	SOC_DAPM_PIN_SWITCH("Speakers"),
- 	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
- 	SOC_DAPM_PIN_SWITCH("Headset Mic"),
- };
- 
--static struct snd_soc_card mt8192_mt6359_rt1015p_rt5682_card = {
--	.name = "mt8192_mt6359_rt1015p_rt5682",
-+static struct snd_soc_card mt8192_mt6359_rt1015p_rt5682x_card = {
- 	.owner = THIS_MODULE,
- 	.dai_link = mt8192_mt6359_dai_links,
- 	.num_links = ARRAY_SIZE(mt8192_mt6359_dai_links),
--	.controls = mt8192_mt6359_rt1015p_rt5682_controls,
--	.num_controls = ARRAY_SIZE(mt8192_mt6359_rt1015p_rt5682_controls),
--	.dapm_widgets = mt8192_mt6359_rt1015p_rt5682_widgets,
--	.num_dapm_widgets = ARRAY_SIZE(mt8192_mt6359_rt1015p_rt5682_widgets),
--	.dapm_routes = mt8192_mt6359_rt1015p_rt5682_routes,
--	.num_dapm_routes = ARRAY_SIZE(mt8192_mt6359_rt1015p_rt5682_routes),
-+	.controls = mt8192_mt6359_rt1015p_rt5682x_controls,
-+	.num_controls = ARRAY_SIZE(mt8192_mt6359_rt1015p_rt5682x_controls),
-+	.dapm_widgets = mt8192_mt6359_rt1015p_rt5682x_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(mt8192_mt6359_rt1015p_rt5682x_widgets),
-+	.dapm_routes = mt8192_mt6359_rt1015p_rt5682x_routes,
-+	.num_dapm_routes = ARRAY_SIZE(mt8192_mt6359_rt1015p_rt5682x_routes),
- };
- 
- static int mt8192_mt6359_card_set_be_link(struct snd_soc_card *card,
-@@ -1119,6 +1125,13 @@ static int mt8192_mt6359_dev_probe(struct platform_device *pdev)
- 		return -EINVAL;
- 	card->dev = &pdev->dev;
- 
-+	if (of_device_is_compatible(pdev->dev.of_node, RT1015P_RT5682_OF_NAME))
-+		card->name = RT1015P_RT5682_CARD_NAME;
-+	else if (of_device_is_compatible(pdev->dev.of_node, RT1015P_RT5682S_OF_NAME))
-+		card->name = RT1015P_RT5682S_CARD_NAME;
-+	else
-+		dev_dbg(&pdev->dev, "No need to set card name\n");
-+
- 	platform_node = of_parse_phandle(pdev->dev.of_node, "mediatek,platform", 0);
- 	if (!platform_node) {
- 		ret = -EINVAL;
-@@ -1213,12 +1226,16 @@ static int mt8192_mt6359_dev_probe(struct platform_device *pdev)
- #ifdef CONFIG_OF
- static const struct of_device_id mt8192_mt6359_dt_match[] = {
- 	{
--		.compatible = "mediatek,mt8192_mt6359_rt1015_rt5682",
-+		.compatible = RT1015_RT5682_OF_NAME,
- 		.data = &mt8192_mt6359_rt1015_rt5682_card,
- 	},
- 	{
--		.compatible = "mediatek,mt8192_mt6359_rt1015p_rt5682",
--		.data = &mt8192_mt6359_rt1015p_rt5682_card,
-+		.compatible = RT1015P_RT5682_OF_NAME,
-+		.data = &mt8192_mt6359_rt1015p_rt5682x_card,
-+	},
-+	{
-+		.compatible = RT1015P_RT5682S_OF_NAME,
-+		.data = &mt8192_mt6359_rt1015p_rt5682x_card,
- 	},
- 	{}
- };
--- 
-2.18.0
+On Wed, Mar 23, 2022 at 10:56:04AM +0100, Amadeusz S=C5=82awi=C5=84ski wrot=
+e:
 
+> this would be probably overdoing it, 4 patches should be enough.
+> Patch 1 and 3 seem ok to me, I would just split patch 2, and reorder a bi=
+t,
+> so something like:
+> 1. [PATCH v4 1/3] rename tas2764 to tas27xx-Makefile and Kconfig
+> 2. here patch renaming variables (2764 -> xxxx)
+> 3. [PATCH v4 3/3] update tas27xx.h to support either TAS2764 or TAS2780
+> 4. here patch adding TAS2780 support
+
+That looks like a good plan.
+
+> The reason why patch 3, should go before one adding support is that there=
+ is
+> dependency on information present in header, and you don't want to break
+> build when someone does git bisect with your driver enabled.
+
+Indeed I test for this when applying patches.
+
+--3IubDKez+C+CwgGu
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmI7T8AACgkQJNaLcl1U
+h9DvAAf/TZ4OvXI/oX9r5r5UbO4yVafo3biddplmTaNgSlq3+a0L97NH04H85Edq
+38qh1s3W5zonKxjBCGKHoPahFnhUiIzYDshkLr87klNW3YDEoJ3GS3ealwxk7CXz
+srQV+EejEiwP2OE25eTAS0uax2XBcTepwW9+w0fszL2VhFxhOSJCa7qXXfHToLwJ
+tcjOi+YoBxj82qkMvh0JGhMF6YiAxdujuIvEZxztkHNkY418P5A0Wa7pFLd5iObn
+iDe49M0dpHBW2weZE7esYtIfvBOw+cI/c1//AuUj5auIyNMssOHWpVd6B/2KTvxi
+B7kYttXbLwx6HiamSEFFUYo7EUttZw==
+=4BgJ
+-----END PGP SIGNATURE-----
+
+--3IubDKez+C+CwgGu--

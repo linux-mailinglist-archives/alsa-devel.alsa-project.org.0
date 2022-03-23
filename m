@@ -2,73 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E63C4E4D59
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Mar 2022 08:30:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A7674E4DCF
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Mar 2022 09:10:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3008E16D2;
-	Wed, 23 Mar 2022 08:29:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3008E16D2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8CA4816F7;
+	Wed, 23 Mar 2022 09:09:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CA4816F7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648020636;
-	bh=mf98cGObLm914ZFUbMaxrHvWSfSkSW6WPgbj6DrS280=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1648022999;
+	bh=bKWUYaPmRwZBXbIQvYluCzRLQ9byY907LwzxS8aSO4k=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rcgBZ+SF4j8wKBF1QfXI3jjMRPW/kvT4sU4Z6dVa1MjHtOTAE+lOL5uebqsYcIttU
-	 ofZYTqdX33bA4H6n4QZPmHSsw/04Ssj936cnNmmur0+QGxQ3ADUYdtdN5JKhXza+vD
-	 za44LVj/0FVCgH+x5j7sZYbQe6b7eikOmcMEnED8=
+	b=J3WO8nY+XobyVQH3QVQYNAQ726li8MdNFamC11Y8LNqtGxGsRbPQcbV165hDMBVzn
+	 xEAljjBf06MmYZuZ2mnTMmxUNRtqpkSyIqcekKvdcgfbNMUB28xNrdutTnD9sCpG4M
+	 NdlY4ayecSAKcS6M/7TJNAUYVlUAchqGTZweCH+Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8F587F800C1;
-	Wed, 23 Mar 2022 08:29:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EA9B5F800AA;
+	Wed, 23 Mar 2022 09:08:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5620FF802DB; Wed, 23 Mar 2022 08:29:29 +0100 (CET)
+ id 49550F802DB; Wed, 23 Mar 2022 09:08:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY autolearn=disabled
- version=3.4.0
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C879DF800C1
- for <alsa-devel@alsa-project.org>; Wed, 23 Mar 2022 08:29:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C879DF800C1
-X-UUID: 8906c5f59aaa459abc743dba05c9964d-20220323
-X-UUID: 8906c5f59aaa459abc743dba05c9964d-20220323
-Received: from mtkcas11.mediatek.inc [(172.21.101.40)] by mailgw01.mediatek.com
- (envelope-from <trevor.wu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 2145046796; Wed, 23 Mar 2022 15:29:19 +0800
-Received: from mtkcas10.mediatek.inc (172.21.101.39) by
- mtkmbs07n2.mediatek.inc (172.21.101.141) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Wed, 23 Mar 2022 15:29:17 +0800
-Received: from mtksdccf07 (172.21.84.99) by mtkcas10.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Wed, 23 Mar 2022 15:29:17 +0800
-Message-ID: <08e3059ab5d645de0544e600b1bf85c95478e897.camel@mediatek.com>
-Subject: Re: [PATCH v3 5/6] ASoC: mediatek: mt8195: add machine support for
- max98390 and rt5682
-From: Trevor Wu <trevor.wu@mediatek.com>
-To: Tzung-Bi Shih <tzungbi@kernel.org>
-Date: Wed, 23 Mar 2022 15:29:17 +0800
-In-Reply-To: <YjiV9DfLC7T1uweb@google.com>
-References: <20220321072312.14972-1-trevor.wu@mediatek.com>
- <20220321072312.14972-6-trevor.wu@mediatek.com>
- <YjiV9DfLC7T1uweb@google.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+ by alsa1.perex.cz (Postfix) with ESMTPS id 76B04F800F5
+ for <alsa-devel@alsa-project.org>; Wed, 23 Mar 2022 09:08:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76B04F800F5
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="l5WHtC9/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1648022926; x=1679558926;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=bKWUYaPmRwZBXbIQvYluCzRLQ9byY907LwzxS8aSO4k=;
+ b=l5WHtC9/fasO4ogdsgoXEdGD8OOvTp16gXXqKVojqZGw20sevBEXkqjw
+ OznPWQ3vcOVVb2Aic0ASfw3jmvDJDOJsSmlkstcEByLgLynUv4vWjC6kX
+ 2sVHipWTGa9QPM2ctZ7So0co1O0jXynP4gwFKOzfKWxw20JHZxYEJ8Jhh
+ Bf362EeWBN7QZLgfoG7ABUjnQOELHFg6pXhe8ZL86dz0snz1SNZ2gkR5X
+ YbA4p3S8h8+ueZ9Q8nqyFC7E1BZLk3uqUPUraBZg79HRUbBaXt0AF7R2D
+ cr8cgw21hHTE+VTVHjL5um1SD73Org3lAA2jImNBpulslsZ6/z+qqEjhs g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10294"; a="282894290"
+X-IronPort-AV: E=Sophos;i="5.90,203,1643702400"; d="scan'208";a="282894290"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Mar 2022 01:08:28 -0700
+X-IronPort-AV: E=Sophos;i="5.90,203,1643702400"; d="scan'208";a="560790474"
+Received: from arturlex-mobl1.ger.corp.intel.com (HELO [10.99.249.37])
+ ([10.99.249.37])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Mar 2022 01:08:27 -0700
+Message-ID: <db933c9e-bf7b-dec6-8022-75074f9cebf7@linux.intel.com>
+Date: Wed, 23 Mar 2022 09:08:25 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: [PATCH 3/4] ALSA: pcm: Fix races among concurrent prepare and
+ hw_params/hw_free calls
+Content-Language: en-US
+To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
+References: <20220322170720.3529-1-tiwai@suse.de>
+ <20220322170720.3529-4-tiwai@suse.de>
+From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <20220322170720.3529-4-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-MTK: N
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com,
- robh+dt@kernel.org, linux-kernel@vger.kernel.org, broonie@kernel.org,
- linux-mediatek@lists.infradead.org, yc.hung@mediatek.com,
- matthias.bgg@gmail.com, aaronyu@google.com,
- linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
+Cc: Hu Jiahui <kirin.say@gmail.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,45 +94,103 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 2022-03-21 at 23:12 +0800, Tzung-Bi Shih wrote:
-> On Mon, Mar 21, 2022 at 03:23:11PM +0800, Trevor Wu wrote:
-> > diff --git a/sound/soc/mediatek/mt8195/mt8195-mt6359.c
-> > b/sound/soc/mediatek/mt8195/mt8195-mt6359.c
+On 3/22/2022 6:07 PM, Takashi Iwai wrote:
+> Like the previous fixes to hw_params and hw_free ioctl races, we need
+> to paper over the concurrent prepare ioctl calls against hw_params and
+> hw_free, too.
 > 
-> [...]
-> >  #define RT1011_SPEAKER_AMP_PRESENT		BIT(0)
-> >  #define RT1019_SPEAKER_AMP_PRESENT		BIT(1)
-> > +#define MAX98390_SPEAKER_AMP_PRESENT		BIT(2)
-> > +
-> > +#define MAX98390_CODEC_DAI	"max98390-aif1"
-> > +#define MAX98390_DEV0_NAME	"max98390.2-0038" /* right */
-> > +#define MAX98390_DEV1_NAME	"max98390.2-0039" /* left */
-> >  
-> >  #define RT1011_CODEC_DAI	"rt1011-aif"
-> >  #define RT1011_DEV0_NAME	"rt1011.2-0038"
+> This patch implements the locking with the existing
+> runtime->buffer_mutex for prepare ioctls.  Unlike the previous case
+> for snd_pcm_hw_hw_params() and snd_pcm_hw_free(), snd_pcm_prepare() is
+> performed to the linked streams, hence the lock can't be applied
+> simply on the top.  For tracking the lock in each linked substream, we
+> modify snd_pcm_action_group() slightly and apply the buffer_mutex for
+> the case stream_lock=false (formerly there was no lock applied)
+> there.
 > 
-> The quirk bit order: RT1011, RT1019, and MAX98390.  To be neat, move
-> MAX98390_CODEC_DAI, MAX98390_DEV0_NAME, and MAX98390_DEV1_NAME after
-> RT1019_DEV0_NAME to maintain the order.
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> ---
+>   sound/core/pcm_native.c | 32 ++++++++++++++++++--------------
+>   1 file changed, 18 insertions(+), 14 deletions(-)
+> 
+> diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+> index 266895374b83..0e4fbf5fd87b 100644
+> --- a/sound/core/pcm_native.c
+> +++ b/sound/core/pcm_native.c
+> @@ -1190,15 +1190,17 @@ struct action_ops {
+>   static int snd_pcm_action_group(const struct action_ops *ops,
+>   				struct snd_pcm_substream *substream,
+>   				snd_pcm_state_t state,
+> -				bool do_lock)
+> +				bool stream_lock)
+>   {
+>   	struct snd_pcm_substream *s = NULL;
+>   	struct snd_pcm_substream *s1;
+>   	int res = 0, depth = 1;
+>   
+>   	snd_pcm_group_for_each_entry(s, substream) {
+> -		if (do_lock && s != substream) {
+> -			if (s->pcm->nonatomic)
+> +		if (s != substream) {
+> +			if (!stream_lock)
+> +				mutex_lock_nested(&s->runtime->buffer_mutex, depth);
+> +			else if (s->pcm->nonatomic)
+>   				mutex_lock_nested(&s->self_group.mutex, depth);
+>   			else
+>   				spin_lock_nested(&s->self_group.lock, depth);
 
-OK. I will reorder the sequence in v4.
+Maybe
+	if (!stream_lock)
+		mutex_lock_nested(&s->runtime->buffer_mutex, depth);
+	else
+		snd_pcm_group_lock(&s->self_group, s->pcm->nonatomic);
+?
 
-> 
-> > +static int mt8195_max98390_init(struct snd_soc_pcm_runtime *rtd)
-> 
-> [...]
-> > +
-> > +	ret = snd_soc_dapm_add_routes(&card->dapm,
-> > mt8195_max98390_routes,
-> > +				      ARRAY_SIZE(mt8195_max98390_routes
-> > ));
-> > +
-> > +	if (ret)
-> 
-> Remove the extra blank line.
+> @@ -1226,18 +1228,18 @@ static int snd_pcm_action_group(const struct action_ops *ops,
+>   		ops->post_action(s, state);
+>   	}
+>    _unlock:
+> -	if (do_lock) {
+> -		/* unlock streams */
+> -		snd_pcm_group_for_each_entry(s1, substream) {
+> -			if (s1 != substream) {
+> -				if (s1->pcm->nonatomic)
+> -					mutex_unlock(&s1->self_group.mutex);
+> -				else
+> -					spin_unlock(&s1->self_group.lock);
+> -			}
+> -			if (s1 == s)	/* end */
+> -				break;
+> +	/* unlock streams */
+> +	snd_pcm_group_for_each_entry(s1, substream) {
+> +		if (s1 != substream) {
+> +			if (!stream_lock)
+> +				mutex_unlock(&s1->runtime->buffer_mutex);
+> +			else if (s1->pcm->nonatomic)
+> +				mutex_unlock(&s1->self_group.mutex);
+> +			else
+> +				spin_unlock(&s1->self_group.lock);
 
-OK. I will remove it in v4.
+And similarly to above, use snd_pcm_group_unlock() here?
 
-Thanks,
-Trevor
+>   		}
+> +		if (s1 == s)	/* end */
+> +			break;
+>   	}
+>   	return res;
+>   }
+> @@ -1367,10 +1369,12 @@ static int snd_pcm_action_nonatomic(const struct action_ops *ops,
+>   
+>   	/* Guarantee the group members won't change during non-atomic action */
+>   	down_read(&snd_pcm_link_rwsem);
+> +	mutex_lock(&substream->runtime->buffer_mutex);
+>   	if (snd_pcm_stream_linked(substream))
+>   		res = snd_pcm_action_group(ops, substream, state, false);
+>   	else
+>   		res = snd_pcm_action_single(ops, substream, state);
+> +	mutex_unlock(&substream->runtime->buffer_mutex);
+>   	up_read(&snd_pcm_link_rwsem);
+>   	return res;
+>   }
 

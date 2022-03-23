@@ -2,81 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9239B4E5645
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Mar 2022 17:23:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6BA24E56C6
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Mar 2022 17:46:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0D6F216B8;
-	Wed, 23 Mar 2022 17:22:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D6F216B8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 17837171D;
+	Wed, 23 Mar 2022 17:45:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17837171D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648052598;
-	bh=Uo0i4i4i2xbxwNsCMR2BRGClWi9I6/uRfjIoHuPEja8=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=rIaH5rUHkKgmeuLOvz5f8NLgsJrp/m008c2wA7g/Jp/TYCQ+GwVBZW0bsE+21YHkS
-	 FT34vIXYmTA0V2w1oLpZqtb+1jmLc60sUU09coXv20gsjAQ35F8WmBwXdY4mC8v5+9
-	 W8891E+sP7r7wZ8UI1ARB0JoxDYbm/J9ptvtSbNY=
+	s=default; t=1648053985;
+	bh=ekRrFIfpsLC2er1rZ2JA8+UcU8mBBg4mYXtuUr2EQxg=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=jmUOwWSyowZss7dXLbfXjMLZ+R2wI0c8wwg6lSK9l/ky/x7W6odBh+6lv88/Iw+AU
+	 Wr7S1xmDx32Q/hLoaUHiIe6gNyyJu9dZ8+AUdHpwUzyjZypG6/K/qx+tyhfkJ9iEC7
+	 kGN9TqF71sF37VBEmz2AEQEPexMI5AKGPYUiSfZQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 62DFEF800F5;
-	Wed, 23 Mar 2022 17:22:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 895C5F804D0;
+	Wed, 23 Mar 2022 17:45:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8C31AF802DB; Wed, 23 Mar 2022 17:22:09 +0100 (CET)
+ id 830E8F804D0; Wed, 23 Mar 2022 17:45:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 45DE1F800F5
- for <alsa-devel@alsa-project.org>; Wed, 23 Mar 2022 17:22:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45DE1F800F5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Fdw1Aza3"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 00535B81F12;
- Wed, 23 Mar 2022 16:22:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CE22C340E8;
- Wed, 23 Mar 2022 16:22:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1648052524;
- bh=Uo0i4i4i2xbxwNsCMR2BRGClWi9I6/uRfjIoHuPEja8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Fdw1Aza3MZ/b/LZNSvKRTVCPfyWNT/1XogaOiF3JSFxqfWUKNzQ86b/ZJflc0pwsG
- SNVvhD8U0+6qCGptSAUFvBve3+4sG+LoPj6E0OcF/gBKe1KR593JmJ6uPF1ItdCzVZ
- v4l/XQNmvw07TbRlKumjRaa0fXcPxE8Zk3YbUjjU6NUwpxKpk36/iXf6Yi8vev+QDd
- xvjfaE90DwTDWgB8EbnX9wq+SpKxkOdlVso0q+a7CieYS+RNSFp6zfx9mBth6qn2Mu
- 0rXpflo2KoyML99T4DdivPNfeR/tqoLjqT108H7IS4A7T3pAoKXp9uWRlaj4GccXU/
- zhBsOW/t6//Rw==
-Date: Wed, 23 Mar 2022 16:21:58 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Baisong Zhong <zhongbaisong@huawei.com>
-Subject: Re: [PATCH -next] ASoC: tlv320adc3xxx: Fix build error when GPIOLIB
- is not set
-Message-ID: <YjtJJvHeslMokYEE@sirena.org.uk>
-References: <20220323141737.211198-1-zhongbaisong@huawei.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id B5BC9F800F5
+ for <alsa-devel@alsa-project.org>; Wed, 23 Mar 2022 17:45:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5BC9F800F5
+X-UUID: 823a31c6cb464439b24d2060ea07910c-20220324
+X-UUID: 823a31c6cb464439b24d2060ea07910c-20220324
+Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by
+ mailgw02.mediatek.com (envelope-from <jiaxin.yu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 737013015; Thu, 24 Mar 2022 00:45:02 +0800
+Received: from mtkcas10.mediatek.inc (172.21.101.39) by
+ mtkmbs07n2.mediatek.inc (172.21.101.141) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.2; Thu, 24 Mar 2022 00:45:01 +0800
+Received: from localhost.localdomain (10.17.3.154) by mtkcas10.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Thu, 24 Mar 2022 00:45:00 +0800
+From: Jiaxin Yu <jiaxin.yu@mediatek.com>
+To: <broonie@kernel.org>, <robh+dt@kernel.org>, <tzungbi@google.com>
+Subject: [v6 0/4] ASoC: mediatek: mt8192: support rt1015p_rt5682s
+Date: Thu, 24 Mar 2022 00:44:38 +0800
+Message-ID: <20220323164442.921-1-jiaxin.yu@mediatek.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="/hNKK5MSDdSwIhvh"
-Content-Disposition: inline
-In-Reply-To: <20220323141737.211198-1-zhongbaisong@huawei.com>
-X-Cookie: Nice guys get sick.
-Cc: drhodes@opensource.cirrus.com, pierre-louis.bossart@linux.intel.com,
- alsa-devel@alsa-project.org, ckeepax@opensource.cirrus.com,
- tanureal@opensource.cirrus.com, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com, cy_huang@richtek.com,
- ricardw@axis.com, srinivas.kandagatla@linaro.org, pbrobinson@gmail.com,
- hdegoede@redhat.com, lukas.bulwahn@gmail.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
+Cc: devicetree@vger.kernel.org, linmq006@gmail.com, alsa-devel@alsa-project.org,
+ Jiaxin Yu <jiaxin.yu@mediatek.com>, linux-kernel@vger.kernel.org,
+ Project_Global_Chrome_Upstream_Group@mediatek.com,
+ linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
+ matthias.bgg@gmail.com, aaronyu@google.com,
+ linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,38 +79,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The series reuses mt8192-mt6359-rt10150rt5682.c for supporting machine
+driver with rt1015p speaker amplifier and rt5682s headset codec.
 
---/hNKK5MSDdSwIhvh
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Changes from v5:
+  - "mediatek,headset-codec" and "mediatek,speaker-codec" drop prefix
+    and move to properties from patternProperties.
 
-On Wed, Mar 23, 2022 at 10:17:36PM +0800, Baisong Zhong wrote:
+Changes form v4:
+  - split a large patch into three small patches for easy reviewing
+  - correct coding style
 
->  config SND_SOC_TLV320ADC3XXX
->  	tristate "Texas Instruments TLV320ADC3001/3101 audio ADC"
-> -	depends on I2C
-> +	depends on I2C && GPIOLIB
+Changes from v3:
+  - fix build error: too many arguments for format
+    [-Werror-format-extra-args]
 
-This is bogus, the device clearly doesn't require GPIOs to be useful and
-so there shouldn't be a dependency on gpiolib which normally stubs out.
-In general for APIs with stubs adding a config dependency is not the right
-thing to do.
+Changes from v2:
+  - fix build warnings such as "data argument not used by format string"
 
-I suspect it's just a missing header.
+Changes from v1:
+  - uses the snd_soc_of_get_dai_link_codecs to complete the
+  configuration of dai_link's codecs
+  - uses definitions to simplifies card name and compatible name
 
---/hNKK5MSDdSwIhvh
-Content-Type: application/pgp-signature; name="signature.asc"
+Jiaxin Yu (4):
+  ASoC: dt-bindings: mt8192-mt6359: add new compatible and new
+    properties
+  ASoC: mediatek: mt8192: refactor for I2S3 DAI link of speaker
+  ASoC: mediatek: mt8192: refactor for I2S8/I2S9 DAI links of headset
+  ASoC: mediatek: mt8192: support rt1015p_rt5682s
 
------BEGIN PGP SIGNATURE-----
+ .../sound/mt8192-mt6359-rt1015-rt5682.yaml    |  32 +++
+ sound/soc/mediatek/Kconfig                    |   1 +
+ .../mt8192/mt8192-mt6359-rt1015-rt5682.c      | 201 +++++++++++-------
+ 3 files changed, 156 insertions(+), 78 deletions(-)
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmI7SSUACgkQJNaLcl1U
-h9A/QQf9HthQ+od5c57RtcMoI2FTFI050WaVHrS5j+q94FcxpF04tiiy/T6TAcL4
-Jdhhuj+9uCiradP0kN2Iir+vdEg0C1/UzlGRnVKOCE3xTD0WlYbXjpj5nkkl1Htn
-FwPuRgypVqIQ1ye5ErNQ/78heHPWk4Xb6lKzHlFHQOMusxoaTKyGjhNCPTo7Nkai
-exdjk/u5/bz+JMj6jHSzYzPB6zm8pWYeoiKk8FVN/zIEEdmW2hqPR7Uf3rO5BYOQ
-1WVs8SSn4pa5GDUvZLEHkBWSEal6UCR8JDPb1cqKy7W+u9voq043IDmLkTyZR42C
-mnfZMVSNFHTWMH9/pwStF0BbDM6+5A==
-=qPXX
------END PGP SIGNATURE-----
+-- 
+2.18.0
 
---/hNKK5MSDdSwIhvh--

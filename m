@@ -2,92 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CEEB4E4F2E
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Mar 2022 10:22:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21F1C4E4F04
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Mar 2022 10:14:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C8401712;
-	Wed, 23 Mar 2022 10:21:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C8401712
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5B5641746;
+	Wed, 23 Mar 2022 10:13:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B5641746
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648027321;
-	bh=LXXHbm4oY3iuGLO32t+KeZHEH9yEXIhNaYRuob7Ln5U=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=teUw7ft2hlEH+37gSMqhgi4NzaP/dgQge5cSYcyNichfG4FAS7SE1ipfNDg9TWeTL
-	 heDBceP4QXkQnbCJTDNR1Qe43lPuxK+0BNPf4jvyz8VXb7mSXY1gDfoRkyeasgnebk
-	 +X4KUbcPuIW39EKYroieWyrNkD3ig1N+zt8AB37E=
+	s=default; t=1648026857;
+	bh=i2KOOwGkPefud8uEjfSEW99awEvXTTup/pS8oavJJcE=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=RG3RJQ83fug/ICxLb1W/KU/YLiBAzqD6i6Y/iSzdqTMvKvB3cJJWSFq0nFQ3cRUfD
+	 gzYTyOZsFNBpdDuIv18yJOuQONv/tF3PDW/MD/ee9aqi/OzUuS77Vql8RX+cQoxaQo
+	 KOqhZxjoSjeTUlz6+GNuc0BmaN9Dfqn55xrJXLN8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 76103F800AA;
-	Wed, 23 Mar 2022 10:20:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A306EF800C1;
+	Wed, 23 Mar 2022 10:12:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C4BC3F802DB; Wed, 23 Mar 2022 10:20:53 +0100 (CET)
+ id 34F1FF802DB; Wed, 23 Mar 2022 10:10:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9E334F800AA
- for <alsa-devel@alsa-project.org>; Wed, 23 Mar 2022 10:20:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E334F800AA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="dGJg4evu"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 22N6MgxC007319;
- Wed, 23 Mar 2022 04:20:45 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=dUdn/ajdZpukt6IfviTuwEcR8cl6Pbc9zj4WxhUmKt8=;
- b=dGJg4evumteFBY9L3HnQEPk/QrJyWWGJryeshHcMSyjn+QeWlvdBCEO8rhEcZ3WBFIx5
- TchnIW6s2xbWIdGse8YGxHPfEStWGYZvzvfhosNRUBOeWV5WUdDdQJx1rYHy1yU6I/S2
- Ofzyd8rYeRVBj1Yu146AM0eXgyhX2RBe6N3AQ0FBlJOT9kz1Kjeq1RbjEvO8qH2BRhQx
- 3vB6vRBnNeaYUXHiXIBzGiMwdJOuanLBXW/uabAKwLuGari1mu+tuV7a9TMKKq2sNdG7
- mF4g7MSieKAsXS9zeEebPRaE2G4ecOw1bStoif5DX5sldi4U2c2lQ7l+Q0llwAbpi+ha cw== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3ewbknd5ag-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Wed, 23 Mar 2022 04:20:45 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Wed, 23 Mar
- 2022 09:20:43 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.18 via
- Frontend Transport; Wed, 23 Mar 2022 09:20:43 +0000
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 9023CB1A;
- Wed, 23 Mar 2022 09:20:43 +0000 (UTC)
-Date: Wed, 23 Mar 2022 09:20:43 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Lucas Tanure <tanureal@opensource.cirrus.com>
-Subject: Re: [PATCH v5 15/16] ASoC: cs35l41: Document CS35l41 External Boost
-Message-ID: <20220323092043.GO38351@ediswmail.ad.cirrus.com>
-References: <20220322151819.4299-1-tanureal@opensource.cirrus.com>
- <20220322151819.4299-16-tanureal@opensource.cirrus.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1AC47F800AA;
+ Wed, 23 Mar 2022 10:10:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1AC47F800AA
+Received: from kwepemi500015.china.huawei.com (unknown [172.30.72.54])
+ by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4KNjBj2pW5zBrft;
+ Wed, 23 Mar 2022 17:06:05 +0800 (CST)
+Received: from huawei.com (10.175.127.227) by kwepemi500015.china.huawei.com
+ (7.221.188.92) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.21; Wed, 23 Mar
+ 2022 17:10:00 +0800
+From: Zheng Bin <zhengbin13@huawei.com>
+To: <pierre-louis.bossart@linux.intel.com>, <lgirdwood@gmail.com>,
+ <ranjani.sridharan@linux.intel.com>, <kai.vehmanen@linux.intel.com>,
+ <daniel.baluta@nxp.com>, <broonie@kernel.org>, <perex@perex.cz>,
+ <tiwai@suse.com>, <peter.ujfalusi@linux.intel.com>,
+ <sound-open-firmware@alsa-project.org>, <alsa-devel@alsa-project.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: [PATCH -next] ASoC: SOF: Intel: Fix build error without
+ SND_SOC_SOF_PCI_DEV
+Date: Wed, 23 Mar 2022 17:25:01 +0800
+Message-ID: <20220323092501.145879-1-zhengbin13@huawei.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20220322151819.4299-16-tanureal@opensource.cirrus.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-ORIG-GUID: 1BSKhSHDLuiq-vmXuEjJMl83KV1ODsfL
-X-Proofpoint-GUID: 1BSKhSHDLuiq-vmXuEjJMl83KV1ODsfL
-X-Proofpoint-Spam-Reason: safe
-Cc: David Rhodes <drhodes@opensource.cirrus.com>, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, Rob Herring <robh@kernel.org>,
- patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
- Rob Herring <robh+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.175.127.227]
+X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
+ kwepemi500015.china.huawei.com (7.221.188.92)
+X-CFilter-Loop: Reflected
+X-Mailman-Approved-At: Wed, 23 Mar 2022 10:12:33 +0100
+Cc: tangyizhou@huawei.com, limingming.li@huawei.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,26 +78,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Mar 22, 2022 at 03:18:18PM +0000, Lucas Tanure wrote:
-> From: David Rhodes <drhodes@opensource.cirrus.com>
-> 
-> Document internal and external boost feature for ASoC CS35L41.
-> For internal boost the following properties are required:
-> - cirrus,boost-peak-milliamp
-> - cirrus,boost-ind-nanohenry
-> - cirrus,boost-cap-microfarad
-> 
-> For external boost, the GPIO1 must be configured as output,
-> so the following properties are required:
-> - cirrus,gpio1-src-select = <1>
-> - cirrus,gpio1-output-enable
-> 
-> Signed-off-by: David Rhodes <drhodes@opensource.cirrus.com>
-> Signed-off-by: Lucas Tanure <tanureal@opensource.cirrus.com>
-> Reviewed-by: Rob Herring <robh@kernel.org>
-> ---
+If SND_SOC_SOF_PCI_DEV is n, bulding fails:
 
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+sound/soc/sof/intel/pci-tng.o:(.data+0x1c0): undefined reference to `sof_pci_probe'
+sound/soc/sof/intel/pci-tng.o:(.data+0x1c8): undefined reference to `sof_pci_remove'
+sound/soc/sof/intel/pci-tng.o:(.data+0x1e0): undefined reference to `sof_pci_shutdown'
+sound/soc/sof/intel/pci-tng.o:(.data+0x290): undefined reference to `sof_pci_pm'
 
-Thanks,
-Charles
+Make SND_SOC_SOF_MERRIFIELD select SND_SOC_SOF_PCI_DEV to fix this.
+
+Fixes: 8d4ba1be3d22 ("ASoC: SOF: pci: split PCI into different drivers")
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: Zheng Bin <zhengbin13@huawei.com>
+---
+ sound/soc/sof/intel/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/sound/soc/sof/intel/Kconfig b/sound/soc/sof/intel/Kconfig
+index b53f216d4ecc..172419392b33 100644
+--- a/sound/soc/sof/intel/Kconfig
++++ b/sound/soc/sof/intel/Kconfig
+@@ -84,6 +84,7 @@ if SND_SOC_SOF_PCI
+ config SND_SOC_SOF_MERRIFIELD
+ 	tristate "SOF support for Tangier/Merrifield"
+ 	default SND_SOC_SOF_PCI
++	select SND_SOC_SOF_PCI_DEV
+ 	select SND_SOC_SOF_INTEL_ATOM_HIFI_EP
+ 	help
+ 	  This adds support for Sound Open Firmware for Intel(R) platforms
+--
+2.31.1
+

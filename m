@@ -2,67 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21F1C4E4F04
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Mar 2022 10:14:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A79214E4F88
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Mar 2022 10:36:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5B5641746;
-	Wed, 23 Mar 2022 10:13:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B5641746
+	by alsa0.perex.cz (Postfix) with ESMTPS id 35BF016FE;
+	Wed, 23 Mar 2022 10:35:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 35BF016FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648026857;
-	bh=i2KOOwGkPefud8uEjfSEW99awEvXTTup/pS8oavJJcE=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=RG3RJQ83fug/ICxLb1W/KU/YLiBAzqD6i6Y/iSzdqTMvKvB3cJJWSFq0nFQ3cRUfD
-	 gzYTyOZsFNBpdDuIv18yJOuQONv/tF3PDW/MD/ee9aqi/OzUuS77Vql8RX+cQoxaQo
-	 KOqhZxjoSjeTUlz6+GNuc0BmaN9Dfqn55xrJXLN8=
+	s=default; t=1648028173;
+	bh=R9CYqpaITOHBy9tXcZDpWn/o7cKpzVdyo9UuiquiCuc=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=cc6N+PdtF5iSNGlMeO8/KM3CiZScg1LrD2BNS4OR3/wkOgmpUX3wRsHfNp2ZM++Oh
+	 kMSPiTbxbNuvCyIQWhNs//Lmjm/8YJTI7Su1fr65ayOCpooJSl7R0ynP6d+U/534K/
+	 8rSTEAv7xIldDwBEeUUcE1ZHPhxVYhm03ptEoq3U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A306EF800C1;
-	Wed, 23 Mar 2022 10:12:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9669DF80310;
+	Wed, 23 Mar 2022 10:35:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 34F1FF802DB; Wed, 23 Mar 2022 10:10:13 +0100 (CET)
+ id 5D998F802DB; Wed, 23 Mar 2022 10:35:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1AC47F800AA;
- Wed, 23 Mar 2022 10:10:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1AC47F800AA
-Received: from kwepemi500015.china.huawei.com (unknown [172.30.72.54])
- by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4KNjBj2pW5zBrft;
- Wed, 23 Mar 2022 17:06:05 +0800 (CST)
-Received: from huawei.com (10.175.127.227) by kwepemi500015.china.huawei.com
- (7.221.188.92) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.21; Wed, 23 Mar
- 2022 17:10:00 +0800
-From: Zheng Bin <zhengbin13@huawei.com>
-To: <pierre-louis.bossart@linux.intel.com>, <lgirdwood@gmail.com>,
- <ranjani.sridharan@linux.intel.com>, <kai.vehmanen@linux.intel.com>,
- <daniel.baluta@nxp.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>, <peter.ujfalusi@linux.intel.com>,
- <sound-open-firmware@alsa-project.org>, <alsa-devel@alsa-project.org>,
- <linux-kernel@vger.kernel.org>
-Subject: [PATCH -next] ASoC: SOF: Intel: Fix build error without
- SND_SOC_SOF_PCI_DEV
-Date: Wed, 23 Mar 2022 17:25:01 +0800
-Message-ID: <20220323092501.145879-1-zhengbin13@huawei.com>
-X-Mailer: git-send-email 2.31.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.175.127.227]
-X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
- kwepemi500015.china.huawei.com (7.221.188.92)
-X-CFilter-Loop: Reflected
-X-Mailman-Approved-At: Wed, 23 Mar 2022 10:12:33 +0100
-Cc: tangyizhou@huawei.com, limingming.li@huawei.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8064EF800C1
+ for <alsa-devel@alsa-project.org>; Wed, 23 Mar 2022 10:35:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8064EF800C1
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="Q9RgdDhu"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="yi0rV2WO"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id DC9A41F387;
+ Wed, 23 Mar 2022 09:34:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1648028099; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=OiWCgNgKW23Uj/T+P7cq81XjUlYn/Nkz77ANh2DJrfk=;
+ b=Q9RgdDhugwMyHJW2vgKWT95d6tNTTzHFyhlU1cx850ivT2DNi1KRt2hdCd8/wA/xTjDlzh
+ I9a3wFCRqblEB1dVD0x7/YYqpBGQ+s8Dgsxq3NiJhuy4BQIpLsqweCORywqQbpN296SJcF
+ mdge6zRbM5jrQSs8SoSa/ju1c7XSDt0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1648028099;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=OiWCgNgKW23Uj/T+P7cq81XjUlYn/Nkz77ANh2DJrfk=;
+ b=yi0rV2WO0sXIJtODWoL3OaOP0ItNhLHCTtsDALaRf8IvBbiBh6LmA+UNgJ08QuUHj3PuhG
+ 8dgJoEYlvV9ozDDQ==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id CB7A7A3B83;
+ Wed, 23 Mar 2022 09:34:59 +0000 (UTC)
+Date: Wed, 23 Mar 2022 10:34:59 +0100
+Message-ID: <s5hk0clui4c.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: fenugrec@mail.com
+Subject: Re: realtek ALC1220 : recording samplerate 10x too slow
+In-Reply-To: <trinity-f4c3906d-34c6-47e3-8748-c7ac941b3a0d-1647996574956@3c-app-mailcom-lxa08>
+References: <trinity-0bb2f400-d9ef-4368-8ab3-5acb07a11fa3-1647900111584@3c-app-mailcom-lxa05>
+ <s5h8rt2xb2q.wl-tiwai@suse.de>
+ <trinity-f4c3906d-34c6-47e3-8748-c7ac941b3a0d-1647996574956@3c-app-mailcom-lxa08>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,34 +94,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If SND_SOC_SOF_PCI_DEV is n, bulding fails:
+On Wed, 23 Mar 2022 01:49:34 +0100,
+fenugrec@mail.com wrote:
+> 
+> Thanks for the reply.
+> 
+> > Is audacity recording via pulseaudio?
+> 
+> It's set to "ALSA" for its host interface, and it doesn't seem to offer other options.
+> 
+> Other software like obs-studio works fine. I haven't done a comprehensive survey but I'm happy to try other methods. I doubt this is an audacity bug since even after exiting, it leaves my audio device in a broken state.
 
-sound/soc/sof/intel/pci-tng.o:(.data+0x1c0): undefined reference to `sof_pci_probe'
-sound/soc/sof/intel/pci-tng.o:(.data+0x1c8): undefined reference to `sof_pci_remove'
-sound/soc/sof/intel/pci-tng.o:(.data+0x1e0): undefined reference to `sof_pci_shutdown'
-sound/soc/sof/intel/pci-tng.o:(.data+0x290): undefined reference to `sof_pci_pm'
+Does it communicate with alsa-lib pulse plugin?  Or is it the direct
+ALSA device access?  The exact setups are unclear, so it's difficult
+to guess what's going on.
 
-Make SND_SOC_SOF_MERRIFIELD select SND_SOC_SOF_PCI_DEV to fix this.
+> > That is, if you keep arecord running (over pulseaudio), and
+> > start audacity in parallel
+> 
+> Good idea . I just tried, and the recording becomes garbled at the precise instant where audacity is started !
 
-Fixes: 8d4ba1be3d22 ("ASoC: SOF: pci: split PCI into different drivers")
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: Zheng Bin <zhengbin13@huawei.com>
----
- sound/soc/sof/intel/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+Do you mean that the sound from arecord gets garbled?
+And, did you record with arecord, or with parecord?  And if it's
+arecord, is it over pulseaudio (with alsa-lib pulse plugin)?
 
-diff --git a/sound/soc/sof/intel/Kconfig b/sound/soc/sof/intel/Kconfig
-index b53f216d4ecc..172419392b33 100644
---- a/sound/soc/sof/intel/Kconfig
-+++ b/sound/soc/sof/intel/Kconfig
-@@ -84,6 +84,7 @@ if SND_SOC_SOF_PCI
- config SND_SOC_SOF_MERRIFIELD
- 	tristate "SOF support for Tangier/Merrifield"
- 	default SND_SOC_SOF_PCI
-+	select SND_SOC_SOF_PCI_DEV
- 	select SND_SOC_SOF_INTEL_ATOM_HIFI_EP
- 	help
- 	  This adds support for Sound Open Firmware for Intel(R) platforms
---
-2.31.1
+> > without the need of complex sound system setup.
+> 
+> This is already as simple as I can make it .... reboot,  run arecord / audacity, and the problem is 100% repeatable.
 
+No, I mean the way to trigger without audacity but only with simple
+arecord or other command-line sequences.
+
+
+Takashi

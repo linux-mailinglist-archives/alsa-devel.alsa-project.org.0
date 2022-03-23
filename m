@@ -2,83 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A79214E4F88
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Mar 2022 10:36:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB5E34E4F9B
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Mar 2022 10:42:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 35BF016FE;
-	Wed, 23 Mar 2022 10:35:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 35BF016FE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5FE351712;
+	Wed, 23 Mar 2022 10:41:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5FE351712
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648028173;
-	bh=R9CYqpaITOHBy9tXcZDpWn/o7cKpzVdyo9UuiquiCuc=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1648028541;
+	bh=qBR3SvNcrZcljVM2Y6i1gpDt4x5uLToTdLMrmKaC1mE=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cc6N+PdtF5iSNGlMeO8/KM3CiZScg1LrD2BNS4OR3/wkOgmpUX3wRsHfNp2ZM++Oh
-	 kMSPiTbxbNuvCyIQWhNs//Lmjm/8YJTI7Su1fr65ayOCpooJSl7R0ynP6d+U/534K/
-	 8rSTEAv7xIldDwBEeUUcE1ZHPhxVYhm03ptEoq3U=
+	b=njB2WK74SvI7iAa6YFPf5WqpQCWFk1BK/7DuRcaOS46s5ige4lriXnKB6ZTGdpX2A
+	 HjuZ+zCS9myqQ5BWYKhNSsdS1kWlPO2PhHIA37nfS4L19JdneLSNOFkfLcBZFn7Rya
+	 gUxSR88LIGff7Qso1CXLeFIWX4SHx+wq1Sw5swKU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9669DF80310;
-	Wed, 23 Mar 2022 10:35:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BC8A9F800AA;
+	Wed, 23 Mar 2022 10:41:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5D998F802DB; Wed, 23 Mar 2022 10:35:05 +0100 (CET)
+ id A4D42F802DB; Wed, 23 Mar 2022 10:41:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8064EF800C1
- for <alsa-devel@alsa-project.org>; Wed, 23 Mar 2022 10:35:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8064EF800C1
+ by alsa1.perex.cz (Postfix) with ESMTPS id A3340F800C1
+ for <alsa-devel@alsa-project.org>; Wed, 23 Mar 2022 10:41:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3340F800C1
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Q9RgdDhu"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="yi0rV2WO"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id DC9A41F387;
- Wed, 23 Mar 2022 09:34:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1648028099; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=OiWCgNgKW23Uj/T+P7cq81XjUlYn/Nkz77ANh2DJrfk=;
- b=Q9RgdDhugwMyHJW2vgKWT95d6tNTTzHFyhlU1cx850ivT2DNi1KRt2hdCd8/wA/xTjDlzh
- I9a3wFCRqblEB1dVD0x7/YYqpBGQ+s8Dgsxq3NiJhuy4BQIpLsqweCORywqQbpN296SJcF
- mdge6zRbM5jrQSs8SoSa/ju1c7XSDt0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1648028099;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=OiWCgNgKW23Uj/T+P7cq81XjUlYn/Nkz77ANh2DJrfk=;
- b=yi0rV2WO0sXIJtODWoL3OaOP0ItNhLHCTtsDALaRf8IvBbiBh6LmA+UNgJ08QuUHj3PuhG
- 8dgJoEYlvV9ozDDQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id CB7A7A3B83;
- Wed, 23 Mar 2022 09:34:59 +0000 (UTC)
-Date: Wed, 23 Mar 2022 10:34:59 +0100
-Message-ID: <s5hk0clui4c.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: fenugrec@mail.com
-Subject: Re: realtek ALC1220 : recording samplerate 10x too slow
-In-Reply-To: <trinity-f4c3906d-34c6-47e3-8748-c7ac941b3a0d-1647996574956@3c-app-mailcom-lxa08>
-References: <trinity-0bb2f400-d9ef-4368-8ab3-5acb07a11fa3-1647900111584@3c-app-mailcom-lxa05>
- <s5h8rt2xb2q.wl-tiwai@suse.de>
- <trinity-f4c3906d-34c6-47e3-8748-c7ac941b3a0d-1647996574956@3c-app-mailcom-lxa08>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org
+ dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="TkFjCdL/"
+Received: from fllv0035.itg.ti.com ([10.64.41.0])
+ by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 22N9f1Sn074507;
+ Wed, 23 Mar 2022 04:41:01 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1648028461;
+ bh=qBR3SvNcrZcljVM2Y6i1gpDt4x5uLToTdLMrmKaC1mE=;
+ h=From:To:CC:Subject:Date:References:In-Reply-To;
+ b=TkFjCdL/Q2OA4OqWxt7VRK+7mszQA5AGgq0GP2He2pV0FaS/GRWZjb/PP1Mizuo57
+ 10vzDXGTEuk5hz4REuL+LcIUBwGVn1QsbNiOw0ZC1dlWqldgmEW4Lz3zsQyrzc7ezs
+ xQCtrP2+9eYctBiY5QFca52b/IfEeFzz0z6blylI=
+Received: from DFLE106.ent.ti.com (dfle106.ent.ti.com [10.64.6.27])
+ by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 22N9f1lk050226
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Wed, 23 Mar 2022 04:41:01 -0500
+Received: from DFLE107.ent.ti.com (10.64.6.28) by DFLE106.ent.ti.com
+ (10.64.6.27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2308.14; Wed, 23
+ Mar 2022 04:41:01 -0500
+Received: from DFLE107.ent.ti.com ([fe80::86f:14f0:164b:4dbe]) by
+ DFLE107.ent.ti.com ([fe80::86f:14f0:164b:4dbe%17]) with mapi id
+ 15.01.2308.014; Wed, 23 Mar 2022 04:41:01 -0500
+From: "Xu, Yang" <raphael-xu@ti.com>
+To: =?utf-8?B?QW1hZGV1c3ogU8WCYXdpxYRza2k=?=
+ <amadeuszx.slawinski@linux.intel.com>, Raphael-Xu <13691752556@139.com>,
+ "broonie@kernel.org" <broonie@kernel.org>
+Subject: RE: [EXTERNAL] Re: [PATCH v4 3/3] update tas27xx.h to support either
+ TAS2764 or TAS2780
+Thread-Topic: [EXTERNAL] Re: [PATCH v4 3/3] update tas27xx.h to support either
+ TAS2764 or TAS2780
+Thread-Index: AQHYPpASkoi1PLN6r0WeCLqV8PHzqKzMshTg
+Date: Wed, 23 Mar 2022 09:41:01 +0000
+Message-ID: <f4ae130bbdde4bf8842b23f3cb3c10b2@ti.com>
+References: <20220323042644.635-1-13691752556@139.com>
+ <20220323042644.635-3-13691752556@139.com>
+ <f96222e2-dd66-45aa-7615-7fed99479da6@linux.intel.com>
+In-Reply-To: <f96222e2-dd66-45aa-7615-7fed99479da6@linux.intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.85.136.126]
+x-exclaimer-md-config: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, "Ding,
+ Shenghao" <shenghao-ding@ti.com>, "Navada Kanyana, Mukund" <navada@ti.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,36 +101,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 23 Mar 2022 01:49:34 +0100,
-fenugrec@mail.com wrote:
-> 
-> Thanks for the reply.
-> 
-> > Is audacity recording via pulseaudio?
-> 
-> It's set to "ALSA" for its host interface, and it doesn't seem to offer other options.
-> 
-> Other software like obs-studio works fine. I haven't done a comprehensive survey but I'm happy to try other methods. I doubt this is an audacity bug since even after exiting, it leaves my audio device in a broken state.
-
-Does it communicate with alsa-lib pulse plugin?  Or is it the direct
-ALSA device access?  The exact setups are unclear, so it's difficult
-to guess what's going on.
-
-> > That is, if you keep arecord running (over pulseaudio), and
-> > start audacity in parallel
-> 
-> Good idea . I just tried, and the recording becomes garbled at the precise instant where audacity is started !
-
-Do you mean that the sound from arecord gets garbled?
-And, did you record with arecord, or with parecord?  And if it's
-arecord, is it over pulseaudio (with alsa-lib pulse plugin)?
-
-> > without the need of complex sound system setup.
-> 
-> This is already as simple as I can make it .... reboot,  run arecord / audacity, and the problem is 100% repeatable.
-
-No, I mean the way to trigger without audacity but only with simple
-arecord or other command-line sequences.
-
-
-Takashi
+SGkgU2xhd2luc2tpLA0KDQpUaGFua3MgZm9yIHlvdXIgZmVlZGJhY2suSGVyZSBpcyB0aGUgdGFy
+Z2V0IHdlIHdhbnQgdG8gZG8gd2hlbiBzdWJtaXR0aW5nIGFsbCB0aGUgcGF0Y2hzOg0KMS4gcmVu
+YW1lIHRhczI3NjQuYyB0byB0YXMyN3h4LmMNCjIucmVuYW1lIHRhczI3NjQuaCB0byB0YXMyN3h4
+LmgNCjMudXBkYXRlIE1ha2VmaWxlDQo0LnVwZGF0ZSBLY29uZmlnDQo1LnJlbmFtZSB0YXMyNzY0
+LnlhbWwgdG8gdGFzMjd4eC55YW1sDQo2LnVwZGF0ZSB0YXMyN3h4LmMgdG8gc3VwcG9ydCBlaXRo
+ZXIgVEFTMjc2NCBvciBUQVMyNzgwDQo3LiB1cGRhdGUgdGFzMjd4eC5oIHRvIHN1cHBvcnQgZWl0
+aGVyIFRBUzI3NjQgb3IgVEFTMjc4MA0KQXMganVzdCB0byBtYWtlIGV2ZXJ5dGhpbmcgY2xlYXIs
+d2UgcGxhbiB0byBkbyBpdGVtMSB0byA1IGZpcnN0bHkuQ291bGQgeW91IGxldCB1cyBrbm93IHdo
+YXQncyB5b3VyIHN1Z2dlc3Rpb24/U2hvdWxkIHdlIHN0b3AgdGhpcyBwYXRjaCByb3V0aW5nIGFu
+ZCBzdGFydCBhIG5ldyBwYXRjaCBzdWJtaXQgcHJvY2Vzcz8NClJlZ2FyZGluZyBpdGVtIDYgdG8g
+Nyx3ZSBjYW4gc3VibWl0IHNlcGFyYXRlIHBhdGNoIHByb2Nlc3MgYWZ0ZXIgd2UgZmluaXNoIGl0
+ZW0gMSB0byA1Lg0KDQpSZWdhcmRzDQpSYXBoYWVsDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0t
+LS0tDQpGcm9tOiBBbWFkZXVzeiBTxYJhd2nFhHNraSA8YW1hZGV1c3p4LnNsYXdpbnNraUBsaW51
+eC5pbnRlbC5jb20+IA0KU2VudDogV2VkbmVzZGF5LCBNYXJjaCAyMywgMjAyMiA0OjI5IFBNDQpU
+bzogUmFwaGFlbC1YdSA8MTM2OTE3NTI1NTZAMTM5LmNvbT47IGJyb29uaWVAa2VybmVsLm9yZw0K
+Q2M6IE5hdmFkYSBLYW55YW5hLCBNdWt1bmQgPG5hdmFkYUB0aS5jb20+OyBhbHNhLWRldmVsQGFs
+c2EtcHJvamVjdC5vcmc7IERpbmcsIFNoZW5naGFvIDxzaGVuZ2hhby1kaW5nQHRpLmNvbT47IFh1
+LCBZYW5nIDxyYXBoYWVsLXh1QHRpLmNvbT4NClN1YmplY3Q6IFtFWFRFUk5BTF0gUmU6IFtQQVRD
+SCB2NCAzLzNdIHVwZGF0ZSB0YXMyN3h4LmggdG8gc3VwcG9ydCBlaXRoZXIgVEFTMjc2NCBvciBU
+QVMyNzgwDQoNCk9uIDMvMjMvMjAyMiA1OjI2IEFNLCBSYXBoYWVsLVh1IHdyb3RlOg0KPiBTaWdu
+ZWQtb2ZmLWJ5OiBSYXBoYWVsLVh1IDwxMzY5MTc1MjU1NkAxMzkuY29tPg0KPiAtLS0NCj4gICBz
+b3VuZC9zb2MvY29kZWNzL3RhczI3eHguaCB8IDI3ICsrKysrKysrKysrKysrKysrKystLS0tLS0t
+LQ0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAxOSBpbnNlcnRpb25zKCspLCA4IGRlbGV0aW9ucygtKQ0K
+PiANCj4gZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy9jb2RlY3MvdGFzMjd4eC5oIGIvc291bmQvc29j
+L2NvZGVjcy90YXMyN3h4LmggDQo+IGluZGV4IDY3ZDZmZDkwM2M0Mi4uMDJiMjljMDMwZDM3IDEw
+MDY0NA0KPiAtLS0gYS9zb3VuZC9zb2MvY29kZWNzL3RhczI3eHguaA0KPiArKysgYi9zb3VuZC9z
+b2MvY29kZWNzL3RhczI3eHguaA0KPiBAQCAtMSwxOCArMSwyMCBAQA0KPiAgIC8qIFNQRFgtTGlj
+ZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wLW9ubHkgKi8NCj4gICAvKg0KPiAtICogdGFzMjc2NC5o
+IC0gQUxTQSBTb0MgVGV4YXMgSW5zdHJ1bWVudHMgVEFTMjc2NCBNb25vIEF1ZGlvIA0KPiBBbXBs
+aWZpZXINCj4gKyAqIHRhczI3eHguaCAtIEFMU0EgU29DIFRleGFzIEluc3RydW1lbnRzIFRBUzI3
+NjQvVEFTMjc4MA0KPiArICoJCU1vbm8gQXVkaW8gQW1wbGlmaWVyDQo+ICAgICoNCj4gLSAqIENv
+cHlyaWdodCAoQykgMjAyMCBUZXhhcyBJbnN0cnVtZW50cyBJbmNvcnBvcmF0ZWQgLSAgDQo+IGh0
+dHBzOi8vd3d3LnRpLmNvbQ0KPiArICogQ29weXJpZ2h0IChDKSAyMDIyIFRleGFzIEluc3RydW1l
+bnRzIEluY29ycG9yYXRlZCAtDQo+ICsgKgkJaHR0cHM6Ly93d3cudGkuY29tDQo+ICAgICoNCj4g
+LSAqIEF1dGhvcjogRGFuIE11cnBoeSA8ZG11cnBoeUB0aS5jb20+DQo+ICsgKiBBdXRob3I6DQo+
+ICAgICovDQo+ICAgDQo+IC0jaWZuZGVmIF9fVEFTMjc2NF9fDQo+IC0jZGVmaW5lIF9fVEFTMjc2
+NF9fDQo+ICsjaWZuZGVmIF9fVEFTMjdYWF9fSF8NCj4gKyNkZWZpbmUgX19UQVMyN1hYX19IXw0K
+PiAgIA0KPiAgIC8qIEJvb2sgQ29udHJvbCBSZWdpc3RlciAqLw0KPiAtI2RlZmluZSBUQVMyNzY0
+X0JPT0tDVExfUEFHRQkwDQo+IC0jZGVmaW5lIFRBUzI3NjRfQk9PS0NUTF9SRUcJMTI3DQo+ICsj
+ZGVmaW5lIFRBUzI3WFhfQk9PS0NUTF9QQUdFCTANCj4gKyNkZWZpbmUgVEFTMjdYWF9CT09LQ1RM
+X1JFRwkxMjcNCj4gICAjZGVmaW5lIFRBUzI3NjRfUkVHKHBhZ2UsIHJlZykJKChwYWdlICogMTI4
+KSArIHJlZykNCj4gICANCj4gICAvKiBQYWdlICovDQo+IEBAIC03Nyw2ICs3OSwxMCBAQA0KPiAg
+ICNkZWZpbmUgVEFTMjc2NF9URE1fQ0ZHM19SWFNfU0hJRlQJMHg0DQo+ICAgI2RlZmluZSBUQVMy
+NzY0X1RETV9DRkczX01BU0sJCUdFTk1BU0soMywgMCkNCj4gICANCj4gKy8qIFRETSBDb25maWd1
+cmF0aW9uIFJlZzQgKi8NCj4gKyNkZWZpbmUgVEFTMjc2NF9URE1fQ0ZHNAkJVEFTMjc2NF9SRUco
+MFgwLCAweDBkKQ0KPiArI2RlZmluZSBUQVMyNzY0X1RETV9DRkc0X1RYX09GRlNFVF9NQVNLCUdF
+Tk1BU0soMywgMSkNCj4gKw0KPiAgIC8qIFRETSBDb25maWd1cmF0aW9uIFJlZzUgKi8NCj4gICAj
+ZGVmaW5lIFRBUzI3NjRfVERNX0NGRzUJCVRBUzI3NjRfUkVHKDBYMCwgMHgwZSkNCj4gICAjZGVm
+aW5lIFRBUzI3NjRfVERNX0NGRzVfVlNOU19NQVNLCUJJVCg2KQ0KPiBAQCAtODksNCArOTUsOSBA
+QA0KPiAgICNkZWZpbmUgVEFTMjc2NF9URE1fQ0ZHNl9JU05TX0VOQUJMRQlCSVQoNikNCj4gICAj
+ZGVmaW5lIFRBUzI3NjRfVERNX0NGRzZfNTBfTUFTSwlHRU5NQVNLKDUsIDApDQo+ICAgDQo+IC0j
+ZW5kaWYgLyogX19UQVMyNzY0X18gKi8NCj4gKy8qIElOVCZDTEsgQ0ZHICovDQo+ICsjZGVmaW5l
+IFRBUzI3WFhfQ0xLX0NGRwkJCVRBUzI3NjRfUkVHKDBYMCwgMHg1YykNCj4gKyNkZWZpbmUgVEFT
+MjdYWF9DTEtfQ0ZHX01BU0sJCUdFTk1BU0soNywgNikNCj4gKyNkZWZpbmUgVEFTMjdYWF9DTEtf
+Q0ZHX0VOQUJMRQkJKEJJVCg3KSB8IEJJVCg2KSkNCj4gKw0KPiArI2VuZGlmIC8qIF9fVEFTMjdY
+WF9fSF8gKi8NCj4gXCBObyBuZXdsaW5lIGF0IGVuZCBvZiBmaWxlDQoNCkFuZCB0aGlzIHBhdGNo
+IHNob3VsZCBwcm9iYWJseSBnbyBiZWZvcmUgcGF0Y2ggMiwgb3RoZXJ3aXNlIHRoZXJlIHdpbGwg
+YmUgYnVpbGQgZmFpbHVyZSBvbiBwYXRjaCAyPw0K

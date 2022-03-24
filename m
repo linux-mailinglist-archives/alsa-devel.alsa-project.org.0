@@ -2,79 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC27F4E599E
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Mar 2022 21:13:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BFD34E5C7D
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Mar 2022 01:55:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7F9A915CA;
-	Wed, 23 Mar 2022 21:12:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F9A915CA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9BF2E1660;
+	Thu, 24 Mar 2022 01:54:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9BF2E1660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648066398;
-	bh=7ByDWDyS+LCqRXdsbKp6cLG4X3/H3svbbyMaS6YXycA=;
+	s=default; t=1648083324;
+	bh=YY3u466kTq8l7wermBlxhgdP++tiwPwanwuGyPYg6s8=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=c0kfw+1tF2Ksfk+PpXU6MsTjSUwm7lQjx9JvVpxraGLX+efCLmRc/8kvQh2s/51Mu
-	 507tXvzZdJtAh03cOTCA9IlukYk79/bflbt63P7SidcgMEO+I3oXg6O7BzT5FJ76zC
-	 xdq5Vb5k830yMFmK4hqrS8wQjFzVUapFmwlq0ocE=
+	b=drPX5FutyVT8lcyzhrm5zl/beizJ/aRBhKgY7B149LYax0UiIR+PeNHjKcxpHDbpw
+	 k2KiwhEXO1nlfPQ4XJD3EpOOuHBhFe2s0tXRyt7RjiG/IorbPvAhTuksZjP0NIpIbu
+	 oMLzeOG9x4hZnSymXtvi3PdsF7lMLsJvpSYU1ReY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E9A20F80310;
-	Wed, 23 Mar 2022 21:12:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EF6D7F80310;
+	Thu, 24 Mar 2022 01:54:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0D84DF802DB; Wed, 23 Mar 2022 21:12:10 +0100 (CET)
+ id 023CAF802DB; Thu, 24 Mar 2022 01:54:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8E9EBF800AA
- for <alsa-devel@alsa-project.org>; Wed, 23 Mar 2022 21:12:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E9EBF800AA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7CB46F800C1
+ for <alsa-devel@alsa-project.org>; Thu, 24 Mar 2022 01:54:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CB46F800C1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="r5WvsuU7"
+ header.b="VxnCxduQ"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6DC75615AC;
- Wed, 23 Mar 2022 20:12:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F9D4C340E8;
- Wed, 23 Mar 2022 20:12:02 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 9C168B821DA;
+ Thu, 24 Mar 2022 00:54:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4455C340E8;
+ Thu, 24 Mar 2022 00:54:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1648066323;
- bh=7ByDWDyS+LCqRXdsbKp6cLG4X3/H3svbbyMaS6YXycA=;
+ s=k20201202; t=1648083250;
+ bh=YY3u466kTq8l7wermBlxhgdP++tiwPwanwuGyPYg6s8=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=r5WvsuU7sTh4lZioOOjEfVNNFSdwhe9JVqzBDFKeDO4KtA63jrKx7CNQEJ0aAWqYL
- s4uVgaRlum7d5EycqsElwaYtHA+faCpxHmEM/MZ1/Z6xT4D0DEdL6rXCOOAmLyJFPE
- Gg5tcHZrJdbLUUdqV6LqLFhxnnE9UzADSCgnSAjjFCYlF0nQLSHnaNf6ICIhxPj7bc
- n1nz9Ck0fWbGSJBOT+6WQkF8Xe2abnH9lCAmjgUTK5S1HVHKG+Iyi+0+5ZnA//XYXP
- Q8Y7FVGN8F3ych09XOv2a2ONpLC3aDyil5i8xR07iOKkCssN56dy/VBU+AfMQ1XcBm
- W7TPili0Tw5Aw==
-Date: Wed, 23 Mar 2022 20:11:58 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: Conceptual bug on SoundWire probe/remove?
-Message-ID: <Yjt/DrGegbQHl76U@sirena.org.uk>
-References: <d0559e97-c4a0-b817-428c-d3e305390270@linux.intel.com>
+ b=VxnCxduQPUEtFRtz4pfTOwPtQANiGZ65a2nzfWJGOR2BuGXbi4CH/nLRc4IVFyJdZ
+ pHQtkvn9oUDLzSlxdwpOLzpmQRcX5E0GB9D7TgD3q5u4Gm7Ekv1pHgAMEdjNpI+Cob
+ ybgoGdRXXL9xonOMGn9DdzGykpync49zxln9j1HN5A25pmep2rmcjPzShaJvYQxnMj
+ YCJz+7HbpdtBNtiJRyK63VGSWbllaC7WFF0JeXudbdfzmuMyrSWTLoxMES3vCZw07b
+ vfWIdHGuwxKEgGJBnuF/aQjS4QNloXm37m5cEdJLs40XnY3W99A9Gwjm4PlgSYrWi5
+ 8/KhjEKM0+N+Q==
+Date: Thu, 24 Mar 2022 08:54:05 +0800
+From: Tzung-Bi Shih <tzungbi@kernel.org>
+To: Jiaxin Yu <jiaxin.yu@mediatek.com>
+Subject: Re: [v6 1/4] ASoC: dt-bindings: mt8192-mt6359: add new compatible
+ and new properties
+Message-ID: <YjvBLf/8M1WUS/L+@google.com>
+References: <20220323164442.921-1-jiaxin.yu@mediatek.com>
+ <20220323164442.921-2-jiaxin.yu@mediatek.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="VLUwqOQObN1wGNIg"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <d0559e97-c4a0-b817-428c-d3e305390270@linux.intel.com>
-X-Cookie: Nice guys get sick.
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Takashi Iwai <tiwai@suse.com>,
- Vinod Koul <vkoul@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+In-Reply-To: <20220323164442.921-2-jiaxin.yu@mediatek.com>
+Cc: devicetree@vger.kernel.org, linmq006@gmail.com, alsa-devel@alsa-project.org,
+ robh+dt@kernel.org, linux-kernel@vger.kernel.org,
+ Project_Global_Chrome_Upstream_Group@mediatek.com, broonie@kernel.org,
+ linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
+ matthias.bgg@gmail.com, aaronyu@google.com,
+ linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,44 +90,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, Mar 24, 2022 at 12:44:39AM +0800, Jiaxin Yu wrote:
+> +  speaker-codec:
 
---VLUwqOQObN1wGNIg
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+If it is possible to have 1 or more items, would "speaker-codecs" be a better
+name?
 
-On Wed, Mar 23, 2022 at 02:45:59PM -0500, Pierre-Louis Bossart wrote:
+> +    type: object
+> +    properties:
+> +      sound-dai:
+> +        minItems: 2
 
-> The last line is the problematic one. If at some point, the user does an
-> rmmod and unbinds the SoundWire codec driver, the .remove will be called and
-> the 'drv' will no longer be valid, but we will still have a reference to
-> drv->ops and use that pointer in the bus code, e.g.
-
-...
-
-> where I force-reset this slave->ops pointer, but it is likely to be very
-> racy.
-
-> We probably need to avoid such references, or have a clean mechanism to
-> unbind, e.g. with all commands and interrupts stopped while the codec driver
-> .remove routine is handled.
-
-Your analysis seems pretty much spot on - you'll need locking or other
-measures to make sure there are no live callbacks from the bus while the
-device is being removed.  It's a fairly standard problem unfortunately.
-
---VLUwqOQObN1wGNIg
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmI7fw4ACgkQJNaLcl1U
-h9AyMwf/Q3P6d2dQv4p0W8VwjJWKCPuKfkgL5UfuxOmypjnTKGPiT2DpNLtm2szg
-z+Q1ExYoO6ahRtmXZujWaE2i8Lzin6OIGuQrvOwhZoGiGqmrsQ9YfB3Lc3m75YIe
-JGm1ap41mKaF7hwqg8a0cRJWz0/R7e4tkN+AFcN5i/Hd+Xl0COepxE99imNeIDMG
-/2brFhnV9UMkH/KYzc7h7nfN6fEfFpkhaSUTsJAR89nnmxKbyzu6Jt3INsnppAxk
-MwaQRwf4hn3BJ8IXk+IDQ4dKNtnSUHkZzPYo72Wxl+VVAOXB9xLmtjU/XedTwb0g
-26OP6Us6aS8JNbmpDOP4ci6gsyqw+Q==
-=/t/Y
------END PGP SIGNATURE-----
-
---VLUwqOQObN1wGNIg--
+It should be 1.  Consider of rt1015p case.

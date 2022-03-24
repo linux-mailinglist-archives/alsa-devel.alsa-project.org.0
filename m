@@ -2,73 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2A7F4E5C8A
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Mar 2022 01:58:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 342244E5E2B
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Mar 2022 06:32:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6CE0C16DB;
-	Thu, 24 Mar 2022 01:57:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6CE0C16DB
+	by alsa0.perex.cz (Postfix) with ESMTPS id C5ABB1614;
+	Thu, 24 Mar 2022 06:31:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C5ABB1614
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648083518;
-	bh=BQcVmEPhzCFk4v+8oWiaAxBOeilqbJFo+BuD++HaQxw=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1648099948;
+	bh=4iteKqxsPzZLy0etLDRis5xcpFfzFqpSStuX8ZFgp6M=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GlwlmsVTd1zAXaJYp0Eh1b8swF/4U06cqaAeX+xCduERhtqOuWkjXeg4jiJKkReru
-	 rON2JOnwtF8hikbsNWVto8XayH08qO07avZzIHT0AfQDdSQ+oRPjLsjVqkgcn4VRcS
-	 JjM4wddjE8bjckK70ne6vd4QeZZwep8WmLtgsLrU=
+	b=hBPg9C64dodlRlMOPTxFFZTp69oqBN3v/qWfgA474Ltw2cCkXDsI+BCtwcJC74Fdo
+	 A8Dt4z8OZmE6ex3b07gSVIwB2EavD+Ym68efyoEmqz2Ojfs6EouFqeeawQEMnc0Eic
+	 TaMc1dI5rNE/TQMI7j2hW9bzSL5b9et4LHsgX7pE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 69083F804D0;
-	Thu, 24 Mar 2022 01:57:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3AB50F80139;
+	Thu, 24 Mar 2022 06:31:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 12DA5F804BC; Thu, 24 Mar 2022 01:57:40 +0100 (CET)
+ id 25F47F80165; Thu, 24 Mar 2022 06:31:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0B4E1F80165
- for <alsa-devel@alsa-project.org>; Thu, 24 Mar 2022 01:57:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B4E1F80165
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="HWW/KDkd"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY autolearn=disabled
+ version=3.4.0
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 9E29EB821DA;
- Thu, 24 Mar 2022 00:57:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F423BC340E8;
- Thu, 24 Mar 2022 00:57:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1648083452;
- bh=BQcVmEPhzCFk4v+8oWiaAxBOeilqbJFo+BuD++HaQxw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=HWW/KDkd19s8uyy1l/3SNXQ1tQ1cI+AYB4cdNiBLdE/7SA4jzyOWboKg7UBUp86b1
- CA1e6SQqbRUo8GpQTWCq3VVxmN51Bqe/c9CUoWBSP0SN9gB9HQ8cvqiCIdSgO8Z9Wo
- VR8ZXkSKGXxcRstv15O/2u9kw1MIno26CZw1Gsg2JIlVptGS7TrsupndhJ+4GN1KKd
- RFgRyK6Kn4uy9Nm5q112eq0hi86XTDU7TkCHNBnGxi/EV9ahUAtyY6msoLl0iipVWv
- YhI/ssY7WH2Lx5fGx1Dsc5fyE4QFDuh9yB/5b7vAHpkK/aL5lNA7ghi8bKeFHC2CI7
- yGnQgS7gFff7w==
-Date: Thu, 24 Mar 2022 08:57:27 +0800
-From: Tzung-Bi Shih <tzungbi@kernel.org>
-To: Jiaxin Yu <jiaxin.yu@mediatek.com>
-Subject: Re: [v6 3/4] ASoC: mediatek: mt8192: refactor for I2S8/I2S9 DAI
- links of headset
-Message-ID: <YjvB96lI22tUs3ql@google.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 40AEAF800AA
+ for <alsa-devel@alsa-project.org>; Thu, 24 Mar 2022 06:31:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40AEAF800AA
+X-UUID: 3adf9d07ec0d4988b759eb87e86a33be-20220324
+X-UUID: 3adf9d07ec0d4988b759eb87e86a33be-20220324
+Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by
+ mailgw01.mediatek.com (envelope-from <jiaxin.yu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 162818175; Thu, 24 Mar 2022 13:31:06 +0800
+Received: from mtkcas10.mediatek.inc (172.21.101.39) by
+ mtkmbs07n2.mediatek.inc (172.21.101.141) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.2; Thu, 24 Mar 2022 13:31:05 +0800
+Received: from mhfsdcap04 (10.17.3.154) by mtkcas10.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Thu, 24 Mar 2022 13:31:04 +0800
+Message-ID: <6c331bb8e95aa7c1a88a6161622f51ff2fee3f98.camel@mediatek.com>
+Subject: Re: [v6 1/4] ASoC: dt-bindings: mt8192-mt6359: add new compatible
+ and new properties
+From: Jiaxin Yu <jiaxin.yu@mediatek.com>
+To: Tzung-Bi Shih <tzungbi@kernel.org>
+Date: Thu, 24 Mar 2022 13:31:04 +0800
+In-Reply-To: <YjvBLf/8M1WUS/L+@google.com>
 References: <20220323164442.921-1-jiaxin.yu@mediatek.com>
- <20220323164442.921-4-jiaxin.yu@mediatek.com>
+ <20220323164442.921-2-jiaxin.yu@mediatek.com> <YjvBLf/8M1WUS/L+@google.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220323164442.921-4-jiaxin.yu@mediatek.com>
+Content-Transfer-Encoding: 7bit
+X-MTK: N
 Cc: devicetree@vger.kernel.org, linmq006@gmail.com, alsa-devel@alsa-project.org,
  robh+dt@kernel.org, linux-kernel@vger.kernel.org,
  Project_Global_Chrome_Upstream_Group@mediatek.com, broonie@kernel.org,
@@ -90,10 +84,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Mar 24, 2022 at 12:44:41AM +0800, Jiaxin Yu wrote:
-> MT8192 platform use rt5682 codec, so through the snd_soc_of_get_dai_link_codes()
-> to complete the configuration of I2S8/I2S9 dai_link's codecs.
+On Thu, 2022-03-24 at 08:54 +0800, Tzung-Bi Shih wrote:
+> On Thu, Mar 24, 2022 at 12:44:39AM +0800, Jiaxin Yu wrote:
+> > +  speaker-codec:
 > 
-> Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
+> If it is possible to have 1 or more items, would "speaker-codecs" be
+> a better
+> name?
 
-Reviewed-by: Tzung-Bi Shih <tzungbi@kernel.org>
+Hi Tzung-Bi,
+
+Yes, it is better to use "speaker-codecs", I will change it that in
+driver patch and bindings patch.
+
+Jiaxin.Yu
+Thanks
+> 
+> > +    type: object
+> > +    properties:
+> > +      sound-dai:
+> > +        minItems: 2
+> 
+> It should be 1.  Consider of rt1015p case.
+
+Yes, I will correct it.
+

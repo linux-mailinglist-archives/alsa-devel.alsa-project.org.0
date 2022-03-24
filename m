@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47B4C4E603D
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Mar 2022 09:20:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 836A74E603E
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Mar 2022 09:20:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D8DBC17BF;
-	Thu, 24 Mar 2022 09:19:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D8DBC17BF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 23EA117B7;
+	Thu, 24 Mar 2022 09:19:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 23EA117B7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648110004;
-	bh=bR5Et1UCoK6XQGshnW1K3UVXobUDHPnxS5FZXBoScgU=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Ru44y9ZlEGWI7KGlTX/BifhDHuWgdJCANNqcQkbYMffNb9HvMszhFEvGip/onND1B
-	 cOJNJ+qLz9PFDdeyrT5YQgBRo8IsbISS1JpTkxUzM/Jtefi+qaT1q9YEMFpkXAuOBP
-	 K5+2kudK98jmKVpumJd6c87JyhLCpBmqzcPMAFm0=
+	s=default; t=1648110038;
+	bh=WuS1dqI6IbjT4uRDDUf0Lmlobeyk16PlXybnSMX9W94=;
+	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=hJfWtCrDZW/CEYFZLluanjIMNV7cnv4OP1+EsikF0aV5HUlGRmAm8stFZbYIr6C6Y
+	 DzBgv09XEe1g7962C2RV60/mP5Kuu0hrhjTpR3zGtmx6ipATRu0/Bpo3aj6e55AEFy
+	 PvHmcvnRK0d2rr6+T0PQsJbt0XffDmOjfw4p+NWo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 45822F800AA;
-	Thu, 24 Mar 2022 09:18:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B8C96F804CA;
+	Thu, 24 Mar 2022 09:19:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C792CF801EC; Thu, 24 Mar 2022 09:18:57 +0100 (CET)
+ id 9C96DF804C3; Thu, 24 Mar 2022 09:19:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,36 +35,40 @@ Received: from smtp-relay-canonical-0.canonical.com
  (smtp-relay-canonical-0.canonical.com [185.125.188.120])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A95B3F800AA
- for <alsa-devel@alsa-project.org>; Thu, 24 Mar 2022 09:18:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A95B3F800AA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6C498F80154
+ for <alsa-devel@alsa-project.org>; Thu, 24 Mar 2022 09:18:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C498F80154
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
- header.b="YSrUzCP3"
+ header.b="potzM8oM"
 Received: from localhost.localdomain (unknown [10.101.195.16])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id A4CB63F61C; 
- Thu, 24 Mar 2022 08:18:45 +0000 (UTC)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 6FE1D3F663; 
+ Thu, 24 Mar 2022 08:18:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1648109928;
- bh=uR8Y6Vv3BDpXBjZE/HOWoWRGrzuJ5FIMsaRgymTkKmY=;
- h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=YSrUzCP3rC3EjPcwaSPPvpW5lBS5PNNP0TATBu6aTueSTCf+m52DxDQ1q9TnGbD9Z
- uA7tS+XFz6j9DzO0aTM7J5CzV0Ttpvufy5FjSFztCyQngDJI7y2mdNhG6Fo+HYUbZS
- fuvYn4S5lkyJZnIlA7pbdbP8QbVS4qxGNo545T7mMDpV8MQtbmDbeokxjd7UYT1XFX
- xbNb9GY5iMesnmOim9sxCPghjrbUP0oy1eZMPcnzUlAckq0nJlCcry9SmdtVhak3d8
- w5VtAuT2bbd9ozq10cokR1btM7nGnjIeaooPbSIfYfqsUiaqc3hCXU1W8GE2O/qgUn
- OEc5d9YA0PKaQ==
+ s=20210705; t=1648109932;
+ bh=2fcTaBoBIASIf1cif015U/SCeUaMEYKHNqPlujojgKk=;
+ h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
+ MIME-Version;
+ b=potzM8oMmumIR4duqkhLMk7g4UmJ1/H3C/zEg0UO3TOjwwIPytgY6ZkqPU1RObB0v
+ quMc158F+uhaWK60wmgsrRkskRgbR1laObw4Vo5jnNTceroCtwo+PWYCd8jv6VtD9r
+ TWqQewQwYK+73JS3ZSzAwtQPmvN4117+XJuHy7AcltkRUsi1sfG/WJF5Qi7lMrGuDq
+ /LWDq8GBTJ99DCIKk4JIWVZIOsJd1JLOhXjsSKaCAmorY8CT0Bbo1mzN1Yi+4FpVOo
+ RGFj/pcx4M4LiuLLff/ANjlMKSKXmymzT0izYbdqH3mcnrbtc8kxv/AG9Ajq+S3JzE
+ uYusT44DpYKww==
 From: Hui Wang <hui.wang@canonical.com>
 To: alsa-devel@alsa-project.org, broonie@kernel.org,
  patches@opensource.cirrus.com, ckeepax@opensource.cirrus.com,
  tanureal@opensource.cirrus.com
-Subject: [PATCH 1/2] ASoC: cs35l41: Add one more variable in the debug log
-Date: Thu, 24 Mar 2022 16:18:38 +0800
-Message-Id: <20220324081839.62009-1-hui.wang@canonical.com>
+Subject: [PATCH 2/2] ASoC: cs35l41: Fix a shift-out-of-bounds warning found by
+ UBSAN
+Date: Thu, 24 Mar 2022 16:18:39 +0800
+Message-Id: <20220324081839.62009-2-hui.wang@canonical.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220324081839.62009-1-hui.wang@canonical.com>
+References: <20220324081839.62009-1-hui.wang@canonical.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
@@ -81,30 +86,62 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-otp_map[].size is a key variable to compute the value of otp_val and
-to update the bit_offset, it is helpful to debug if could put it in
-the debug log.
+We enabled UBSAN in the ubuntu kernel, and the cs35l41 driver triggers
+a warning calltrace like below:
+
+cs35l41-hda i2c-CSC3551:00-cs35l41-hda.0: bitoffset= 8, word_offset=23, bit_sum mod 32=0, otp_map[i].size = 24
+cs35l41-hda i2c-CSC3551:00-cs35l41-hda.0: bitoffset= 0, word_offset=24, bit_sum mod 32=24, otp_map[i].size = 0
+================================================================================
+UBSAN: shift-out-of-bounds in linux-kernel-src/sound/soc/codecs/cs35l41-lib.c:836:8
+shift exponent 64 is too large for 64-bit type 'long unsigned int'
+CPU: 10 PID: 595 Comm: systemd-udevd Not tainted 5.15.0-23-generic #23
+Hardware name: LENOVO \x02MFG_IN_GO/\x02MFG_IN_GO, BIOS N3GET19W (1.00 ) 03/11/2022
+Call Trace:
+ <TASK>
+ show_stack+0x52/0x58
+ dump_stack_lvl+0x4a/0x5f
+ dump_stack+0x10/0x12
+ ubsan_epilogue+0x9/0x45
+ __ubsan_handle_shift_out_of_bounds.cold+0x61/0xef
+ ? regmap_unlock_mutex+0xe/0x10
+ cs35l41_otp_unpack.cold+0x1c6/0x2b2 [snd_soc_cs35l41_lib]
+ cs35l41_hda_probe+0x24f/0x33a [snd_hda_scodec_cs35l41]
+ cs35l41_hda_i2c_probe+0x65/0x90 [snd_hda_scodec_cs35l41_i2c]
+
+When both bitoffset and otp_map[i].size are 0, the line 836 will
+result in GENMASK(-1, 0), this triggers the shift-out-of-bounds
+calltrace.
+
+Here add a checking, if both bitoffset and otp_map[i].size are 0,
+do not run GENMASK() and directly set otp_val to 0, this will not
+bring any function change on the driver but could avoid the calltrace.
 
 Signed-off-by: Hui Wang <hui.wang@canonical.com>
 ---
- sound/soc/codecs/cs35l41-lib.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/codecs/cs35l41-lib.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/sound/soc/codecs/cs35l41-lib.c b/sound/soc/codecs/cs35l41-lib.c
-index e5a56bcbb223..d0a480c40231 100644
+index d0a480c40231..aa6823fbd1a4 100644
 --- a/sound/soc/codecs/cs35l41-lib.c
 +++ b/sound/soc/codecs/cs35l41-lib.c
-@@ -822,8 +822,8 @@ int cs35l41_otp_unpack(struct device *dev, struct regmap *regmap)
- 	word_offset = otp_map_match->word_offset;
- 
- 	for (i = 0; i < otp_map_match->num_elements; i++) {
--		dev_dbg(dev, "bitoffset= %d, word_offset=%d, bit_sum mod 32=%d\n",
--			bit_offset, word_offset, bit_sum % 32);
-+		dev_dbg(dev, "bitoffset= %d, word_offset=%d, bit_sum mod 32=%d otp_map[i].size = %d\n",
-+			bit_offset, word_offset, bit_sum % 32, otp_map[i].size);
- 		if (bit_offset + otp_map[i].size - 1 >= 32) {
+@@ -831,12 +831,14 @@ int cs35l41_otp_unpack(struct device *dev, struct regmap *regmap)
+ 					GENMASK(bit_offset + otp_map[i].size - 33, 0)) <<
+ 					(32 - bit_offset);
+ 			bit_offset += otp_map[i].size - 32;
+-		} else {
++		} else if (bit_offset + otp_map[i].size - 1 >= 0) {
  			otp_val = (otp_mem[word_offset] &
- 					GENMASK(31, bit_offset)) >> bit_offset;
+ 				   GENMASK(bit_offset + otp_map[i].size - 1, bit_offset)
+ 				  ) >> bit_offset;
+ 			bit_offset += otp_map[i].size;
+-		}
++		} else /* both bit_offset and otp_map[i].size are 0 */
++			otp_val = 0;
++
+ 		bit_sum += otp_map[i].size;
+ 
+ 		if (bit_offset == 32) {
 -- 
 2.25.1
 

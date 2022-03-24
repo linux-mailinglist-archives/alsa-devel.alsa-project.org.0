@@ -2,53 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBE004E65F0
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Mar 2022 16:23:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B4F24E66AD
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Mar 2022 17:11:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8D242171F;
-	Thu, 24 Mar 2022 16:22:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D242171F
+	by alsa0.perex.cz (Postfix) with ESMTPS id F0B0F1704;
+	Thu, 24 Mar 2022 17:10:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0B0F1704
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648135388;
-	bh=SIeqYRGuYtU1WcW/IFXWBgr+dy+NN4LiBis2pbui6gI=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1648138288;
+	bh=EwHy9mWfSuvvqMimVBgvIfNMqN76TuyvYhpTkRpZ2mY=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eeXsLH2o+rlexBaJQzOAJcnRsgZbAEyoTrScKpgnWPxSbMFoVztYWOcISFN0L8Co+
-	 NXXSYxjfWuefqmJ6mtfHSV2Vq4VLl6NjUhGY3UfaMudKKh2yhkpLJBiodX1b4HAiL3
-	 kU8OZtQMqt+VT5kQf/kFWvRSxOE6Dp3BWFvuiE0I=
+	b=aQknVAcTM/7MFBVBjwPdWSaiAsy2wBvaoGJf/QYCEE6ZY+DlvuX1pcwgvqyr8N15I
+	 JKBzsVYY8AEzdpwXNv9jAOi95+vfJvgtbvbYWjauJWGayUbG2lUswuAIhOrtP3HY+R
+	 zTB2talTLB42R4ABCUUF17lrA2jPEjrmsQpjiguc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E67A1F801EC;
-	Thu, 24 Mar 2022 16:22:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 68D86F80154;
+	Thu, 24 Mar 2022 17:10:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E640CF80165; Thu, 24 Mar 2022 16:22:00 +0100 (CET)
+ id C4447F80165; Thu, 24 Mar 2022 17:10:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from netrider.rowland.org (netrider.rowland.org [192.131.102.5])
- by alsa1.perex.cz (Postfix) with SMTP id CF473F80139
- for <alsa-devel@alsa-project.org>; Thu, 24 Mar 2022 16:21:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF473F80139
-Received: (qmail 210380 invoked by uid 1000); 24 Mar 2022 11:21:54 -0400
-Date: Thu, 24 Mar 2022 11:21:54 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Petr Janecek <janecek@ucw.cz>
-Subject: Re: Apogee ONEv2 keeps resetting
-Message-ID: <YjyMkqk4zZWPJ6T0@rowland.harvard.edu>
-References: <3f4d1bce-7459-9ea4-be73-9b51f569e526@ucw.cz>
- <YjoPVAxeKtY6aV1s@rowland.harvard.edu>
- <63b772ff-ef03-5f0a-c42c-ad9ec9770f16@ucw.cz>
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 81B43F80139
+ for <alsa-devel@alsa-project.org>; Thu, 24 Mar 2022 17:10:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81B43F80139
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
+ header.b="YbwjaZuS"
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: kholk11) with ESMTPSA id 644EC1F4588F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1648138211;
+ bh=EwHy9mWfSuvvqMimVBgvIfNMqN76TuyvYhpTkRpZ2mY=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=YbwjaZuSY3rU3Yk34+j0IN39Nb0q9CbL2386wWKs6DQDuScq7BoiG/R1eZtGHpVPP
+ 1Mg8LvlcNYHAwZ6OvFhRirYcEebf7Q262A+kMh3t3jVqA8WGpa9tsqWAhoTlu0Jwxl
+ ECZvz5TWxtJr/C8UUvGzoOqLdqzUCYEHExLvKrNY4+4UCk9vFIg0rEPprIuHg4i31E
+ fUtdDqlvq9QLgv3bmn3HQuRmi+tDjc77o0vd40iYf9rttMuzRfqfX42AcWxn6crrHD
+ ZCHo3m1TckA+Jn2XXesjXA2CY48xu5kp8EYNQaZOEgbODYkwWO1B50uVqywZ6JfJsj
+ gdX3Dy4O2aWSQ==
+Message-ID: <18525f9a-e5b3-f6c2-e88f-3e0c5b789cad@collabora.com>
+Date: Thu, 24 Mar 2022 17:10:07 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <63b772ff-ef03-5f0a-c42c-ad9ec9770f16@ucw.cz>
-Cc: alsa-devel@alsa-project.org, linux-usb@vger.kernel.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.1
+Subject: Re: [PATCH v4 2/6] ASoC: mediatek: mt8195: merge machine driver
+Content-Language: en-US
+To: Trevor Wu <trevor.wu@mediatek.com>, broonie@kernel.org, tiwai@suse.com,
+ robh+dt@kernel.org, matthias.bgg@gmail.com
+References: <20220324053851.27350-1-trevor.wu@mediatek.com>
+ <20220324053851.27350-3-trevor.wu@mediatek.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20220324053851.27350-3-trevor.wu@mediatek.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, tzungbi@google.com, miles.chen@mediatek.com,
+ linux-mediatek@lists.infradead.org, yc.hung@mediatek.com, aaronyu@google.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,100 +86,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Mar 24, 2022 at 03:44:41AM +0100, Petr Janecek wrote:
-> Hi Alan,
+Il 24/03/22 06:38, Trevor Wu ha scritto:
+> Because most functions can be reused in different codec combinations,
+> mt8195 machine drivers are combined to one common file.
 > 
-> On 3/22/22 19:03, Alan Stern wrote:
-> > On Sun, Mar 20, 2022 at 02:15:40AM +0100, Petr Janecek wrote:
-> > > Hi,
-> > >     I'm trying to use Apogee ONEv2.  From usb dumps under
-> > > macos or windows it seems like a usb Class Audio 2.0
-> > > device, but in linux, it keeps resetting every two seconds
-> > > or so.  It keeps resetting even when the snd-usb-audio
-> > > driver is disabled, so the problem is probably at a lower
-> > > level.
-> > 
-> > Can you post the log output on a system where snd-usb-audio is disabled?
+> The model and compatible string are used to decide which codecs are
+> being used.
 > 
-> [ 3412.279063] usb 3-8: new high-speed USB device number 6 using xhci_hcd
-> [ 3412.470003] usb 3-8: New USB device found, idVendor=0c60, idProduct=0017,
-> bcdDevice= 1.05
-> [ 3412.470017] usb 3-8: New USB device strings: Mfr=1, Product=2,
-> SerialNumber=3
-> [ 3412.470023] usb 3-8: Product: ONEv2
-> [ 3412.470028] usb 3-8: Manufacturer: Apogee
-> [ 3412.470033] usb 3-8: SerialNumber: 0C12FF2020204652334D513A7A2A9B
-> [ 3413.217053] usb 3-8: USB disconnect, device number 6
-> [ 3413.629046] usb 3-8: new high-speed USB device number 7 using xhci_hcd
-> [ 3413.829760] usb 3-8: New USB device found, idVendor=0c60, idProduct=0017,
-> bcdDevice= 1.05
-> [ 3413.829766] usb 3-8: New USB device strings: Mfr=1, Product=2,
-> SerialNumber=3
-> [ 3413.829768] usb 3-8: Product: ONEv2
-> [ 3413.829770] usb 3-8: Manufacturer: Apogee
-> [ 3413.829772] usb 3-8: SerialNumber: 0C12FF2020204652334D513A7A2A9B
-> [ 3414.421964] usb 3-8: USB disconnect, device number 7
-> [ 3414.838981] usb 3-8: new high-speed USB device number 8 using xhci_hcd
-> [ 3415.029947] usb 3-8: New USB device found, idVendor=0c60, idProduct=0017,
-> bcdDevice= 1.05
-> [ 3415.029961] usb 3-8: New USB device strings: Mfr=1, Product=2,
-> SerialNumber=3
-> [ 3415.029968] usb 3-8: Product: ONEv2
-> [ 3415.029973] usb 3-8: Manufacturer: Apogee
-> [ 3415.029978] usb 3-8: SerialNumber: 0C12FF2020204652334D513A7A2A9B
-> [ 3415.627052] usb 3-8: USB disconnect, device number 8
-
-Nothing particularly suspicious there.
-
+> As a result, We can prevent from copy-paste functions when new codec
+> combination is introduced.
 > 
-> > >    The messages below are from v5.16.16, but it behaves
-> > > the same no matter what I plug it into.
-> > > 
-> > > [  253.708616] usb 3-8: new high-speed USB device number 6 using xhci_hcd
-> > > [  253.899363] usb 3-8: New USB device found, idVendor=0c60, idProduct=0017,
-> > > bcdDevice= 1.05
-> > > [  253.899370] usb 3-8: New USB device strings: Mfr=1, Product=2,
-> > > SerialNumber=3
-> > > [  253.899373] usb 3-8: Product: ONEv2
-> > > [  253.899375] usb 3-8: Manufacturer: Apogee
-> > > [  253.899377] usb 3-8: SerialNumber: 0C12FF2020204652334D513A7A2A9B
-> > > [  253.960901] mc: Linux media interface: v0.10
-> > 
-> > Any idea where that line came from?
-> 
->   That's from CONFIG_MEDIA_CONTROLLER, which is selected for usb
-> webcam.  It also selects CONFIG_SND_USB_AUDIO_USE_MEDIA_CONTROLLER.
-> Compiled it out, rebooted.  Now the line is missing, but no other
-> change.
-> 
-> > You should try capturing a usbmon trace showing what happens when the
-> > device is plugged in and then resets.  Preferably on a system where
-> > snd-usb-audio is disabled.
-> 
->   Trace from wireshark is attached.
+> Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
 
-The trace doesn't help much, unfortunately.  It shows normal device 
-initialization, plus a couple of extra string descriptor reads.  About 
-1/2 second afterward, the device disconnects itself electronically from 
-the USB bus and reconnects 20 ms later.
+Thanks for this much appreciated big cleanup!
 
-I get the feeling that the device expects to receive some specific 
-messages from the host within that one-half second, and disconnects if 
-it doesn't see them.  And presumably it doesn't get what it's looking 
-for even when the USB sound drivers are enabled.
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-Although I doubt it will show anything helpful, you might try collecting 
-a usbmon trace with the sound drivers enabled.  Perhaps it will suggest 
-something to the USB audio developers.
-
-> > One other thing you might try: Disable runtime PM for USB ("echo -1
-> > > /sys/module/usbcore/parameters/autosuspend" before plugging in the
-> > device).
-> 
->   Makes no difference -- almost: after few resets it once took much
-> longer (>10x) to reconnect.
-
-Oh well, it was worth a try.  Some devices don't like runtime suspend.  
-But obviously that isn't the problem here.
-
-Alan Stern

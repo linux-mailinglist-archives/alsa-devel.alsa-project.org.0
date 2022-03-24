@@ -2,71 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44BEB4E5E60
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Mar 2022 06:58:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE82B4E5EA7
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Mar 2022 07:24:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C330E163A;
-	Thu, 24 Mar 2022 06:57:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C330E163A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8031C1711;
+	Thu, 24 Mar 2022 07:23:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8031C1711
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648101504;
-	bh=JPEhl+B8N188uJWvtoiCP3d178qHUp/B+L82POWDU5k=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=J16in5bW3x9Yz/PafTgZeuwMz9uARRxps9EIkOUKjhibJhvHMPrItDi0LpK0Q6/rj
-	 7I1PtsN2ejQ96tZ1t2DJAif0o1x8I63jjMUj4uljrqXJ2LWpAnqDKU9S3cHtVXIlkN
-	 QOAQdip+9fBVSVjYmRDyWsxP0NsAJcF3qwyUNVMc=
+	s=default; t=1648103050;
+	bh=5q/bzUSiG9LnXplD4FlPjy7VjBpm09t/a9pPZtkkGlk=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=gXUq5VqangGiV2MhQKbQPZ56yGmEjqZVwztQsVhTtPQcxuJcidfwxLnx+h36Sb8GE
+	 Q5E9wB3FmUO7AREuXcI5aykub4nnZ6Y1eE8tjzqqqB/GXvJKAAcQA8HTEvn8TLIZpN
+	 mFPGZChc5Zzjyg3isi0g3ppGaj+Y21tP1EvFXwrk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3FF30F800AA;
-	Thu, 24 Mar 2022 06:57:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09E5EF801EC;
+	Thu, 24 Mar 2022 07:23:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B5E99F800AA; Thu, 24 Mar 2022 06:57:16 +0100 (CET)
+ id B0B70F80165; Thu, 24 Mar 2022 07:23:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-relay-canonical-1.canonical.com
+ (smtp-relay-canonical-1.canonical.com [185.125.188.121])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 01109F800AA
- for <alsa-devel@alsa-project.org>; Thu, 24 Mar 2022 06:57:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01109F800AA
-X-UUID: eb6e6d1b03e74206b05e4b9be9c1a174-20220324
-X-UUID: eb6e6d1b03e74206b05e4b9be9c1a174-20220324
-Received: from mtkexhb01.mediatek.inc [(172.21.101.102)] by
- mailgw02.mediatek.com (envelope-from <miles.chen@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 2025374543; Thu, 24 Mar 2022 13:57:01 +0800
-Received: from mtkcas10.mediatek.inc (172.21.101.39) by
- mtkmbs07n1.mediatek.inc (172.21.101.16) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Thu, 24 Mar 2022 13:57:00 +0800
-Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas10.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
- Frontend Transport; Thu, 24 Mar 2022 13:57:00 +0800
-From: Miles Chen <miles.chen@mediatek.com>
-To: <trevor.wu@mediatek.com>
-Subject: Re: [PATCH v4 3/6] ASoC: dt-bindings: mediatek: mt8195: merge mt8195
- machine yaml
-Date: Thu, 24 Mar 2022 13:57:00 +0800
-Message-ID: <20220324055700.28736-1-miles.chen@mediatek.com>
-X-Mailer: git-send-email 2.18.0
-In-Reply-To: <20220324053851.27350-4-trevor.wu@mediatek.com>
-References: <20220324053851.27350-4-trevor.wu@mediatek.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id A8107F80115
+ for <alsa-devel@alsa-project.org>; Thu, 24 Mar 2022 07:22:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8107F80115
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
+ header.b="DmIk865P"
+Received: from localhost.localdomain (unknown [10.101.196.174])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 7F8E03F662; 
+ Thu, 24 Mar 2022 06:22:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1648102970;
+ bh=jCvl+Tm0SH7RCkxyhwmKqMLfkFFfLZFvHeFVcHt4Lzs=;
+ h=From:To:Cc:Subject:Date:Message-Id:MIME-Version;
+ b=DmIk865PdCsNmUZd4oP0CgZVoPQGfc4lCSkvPr8LFqzRjA9TUiM9xShD2CNM7GDWP
+ Ja88oLd7h92cXG5RCzAn4v28Gk7veGujrliaXBrKgqJdVNkmzBC91A6BUi7ymWxo8l
+ Z1ds1duSKPOPqkGXLD3ZQ/pIHLo4ubIDUbvfP3ylJ1iYdBisb0f8VlweEIVs0Jl2IC
+ rmkgPcE4H1k9UZRe53q5MPSyw3mpYRAECxC67jU7FtTTPUmfS86v6KUAkatE1hP0rM
+ mqaGAIgkKZhZm+gdB5QdEwL5wYk/SG6CdK0gHI8oOF3zRBWVWhd99Lgg8O77vj5Qmu
+ uGpun5tbPJYXA==
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
+To: tiwai@suse.com
+Subject: [PATCH 1/1] ALSA: hda/realtek: Add mute and micmut LED support for
+ Zbook Fury 17 G9
+Date: Thu, 24 Mar 2022 14:21:58 +0800
+Message-Id: <20220324062159.241313-1-kai.heng.feng@canonical.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain
-X-MTK: N
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, robh+dt@kernel.org, tiwai@suse.com,
- tzungbi@google.com, miles.chen@mediatek.com, broonie@kernel.org,
- linux-mediatek@lists.infradead.org, yc.hung@mediatek.com,
- matthias.bgg@gmail.com, aaronyu@google.com,
- linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Kailang Yang <kailang@realtek.com>,
+ Lucas Tanure <tanureal@opensource.cirrus.com>,
+ Jeremy Szu <jeremy.szu@canonical.com>, linux-kernel@vger.kernel.org,
+ Werner Sembach <wse@tuxedocomputers.com>, Hui Wang <hui.wang@canonical.com>,
+ Kai-Heng Feng <kai.heng.feng@canonical.com>, Sami Loone <sami@loone.fi>,
+ Cameron Berkenpas <cam@neo-zeon.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,57 +86,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-> Because the same binding components can be shared by all codecs
-> combinations, we only reserve one binding file for mt8195 machine driver
-> and rename to a generic name.
-> 
-> We use compatible string to separate different codec combination instead
-> of creating a new binding file for new codec combination.
-> 
-> Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
->---
+Zbook Fury 17 G9 requires the same ALC285_FIXUP_HP_GPIO_LED quirk to
+make its audio LEDs work.
 
-...snip...
+So apply the quirk, and make it the last one since it's an LED quirk.
 
->diff --git a/Documentation/devicetree/bindings/sound/mt8195-mt6359-rt1019-rt5682.yaml b/Documentation/devicetree/bindings/sound/mt8195-mt6359.yaml
->similarity index 87%
->rename from Documentation/devicetree/bindings/sound/mt8195-mt6359-rt1019-rt5682.yaml
->rename to Documentation/devicetree/bindings/sound/mt8195-mt6359.yaml
->index 8f177e02ad35..04953f5b44a4 100644
->--- a/Documentation/devicetree/bindings/sound/mt8195-mt6359-rt1019-rt5682.yaml
->+++ b/Documentation/devicetree/bindings/sound/mt8195-mt6359.yaml
->@@ -1,10 +1,10 @@
-> # SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> %YAML 1.2
-> ---
->-$id: http://devicetree.org/schemas/sound/mt8195-mt6359-rt1019-rt5682.yaml#
->+$id: http://devicetree.org/schemas/sound/mt8195-mt6359.yaml#
-> $schema: http://devicetree.org/meta-schemas/core.yaml#
-> 
->-title: Mediatek MT8195 with MT6359, RT1019 and RT5682 ASoC sound card driver
->+title: MediaTek MT8195 ASoC sound card driver
-> 
+Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+---
+ sound/pci/hda/patch_realtek.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-I also tested:
-'make dt_binding_check DT_CHECKER_FLAGS=-m DT_SCHEMA_FILES=Documentation/devicetree/bindings/sound/mt8195-mt6359.yaml'
-and it wotks fine.
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index f6ee67f41c45a..e88fbef57c40c 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -7011,6 +7011,7 @@ enum {
+ 	ALC287_FIXUP_LEGION_16ACHG6,
+ 	ALC287_FIXUP_CS35L41_I2C_2,
+ 	ALC245_FIXUP_CS35L41_SPI_2,
++	ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED,
+ 	ALC245_FIXUP_CS35L41_SPI_4,
+ 	ALC245_FIXUP_CS35L41_SPI_4_HP_GPIO_LED,
+ 	ALC285_FIXUP_HP_SPEAKERS_MICMUTE_LED,
+@@ -8776,6 +8777,12 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.type = HDA_FIXUP_FUNC,
+ 		.v.func = cs35l41_fixup_spi_two,
+ 	},
++	[ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED] = {
++		.type = HDA_FIXUP_FUNC,
++		.v.func = cs35l41_fixup_spi_two,
++		.chained = true,
++		.chain_id = ALC285_FIXUP_HP_GPIO_LED,
++	},
+ 	[ALC245_FIXUP_CS35L41_SPI_4] = {
+ 		.type = HDA_FIXUP_FUNC,
+ 		.v.func = cs35l41_fixup_spi_four,
+@@ -9031,7 +9038,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x103c, 0x89ac, "HP EliteBook 640 G9", ALC236_FIXUP_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x89ae, "HP EliteBook 650 G9", ALC236_FIXUP_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x89c3, "Zbook Studio G9", ALC245_FIXUP_CS35L41_SPI_4_HP_GPIO_LED),
+-	SND_PCI_QUIRK(0x103c, 0x89c6, "Zbook Fury 17 G9", ALC245_FIXUP_CS35L41_SPI_2),
++	SND_PCI_QUIRK(0x103c, 0x89c6, "Zbook Fury 17 G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x89ca, "HP", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+ 	SND_PCI_QUIRK(0x1043, 0x103e, "ASUS X540SA", ALC256_FIXUP_ASUS_MIC),
+ 	SND_PCI_QUIRK(0x1043, 0x103f, "ASUS TX300", ALC282_FIXUP_ASUS_TX300),
+-- 
+2.34.1
 
-Reviewed-by: Miles Chen <miles.chen@mediatek.com> 
-
-> maintainers:
->   - Trevor Wu <trevor.wu@mediatek.com>
->@@ -14,7 +14,9 @@ description:
-> 
-> properties:
->   compatible:
->-    const: mediatek,mt8195_mt6359_rt1019_rt5682
->+    enum:
->+      - mediatek,mt8195_mt6359_rt1019_rt5682
->+      - mediatek,mt8195_mt6359_rt1011_rt5682
-> 
->   model:
->     $ref: /schemas/types.yaml#/definitions/string
->-- 
->2.18.0
->
->

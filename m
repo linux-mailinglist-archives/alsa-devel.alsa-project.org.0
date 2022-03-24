@@ -2,138 +2,132 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B55084E5FC6
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Mar 2022 08:57:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3001C4E6013
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Mar 2022 09:13:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 52E031748;
-	Thu, 24 Mar 2022 08:56:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 52E031748
+	by alsa0.perex.cz (Postfix) with ESMTPS id B74291755;
+	Thu, 24 Mar 2022 09:12:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B74291755
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648108631;
-	bh=LP8oiWfDwd81/Av1Q/FOUUl5DlT8lGZLXrBZP6SwEf4=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=rsS0MCZqj2MhzyZRa3NBzyruAPF6Xi6vvxaaDI+5d2JeLnR0Ju3mF/8KYsTbA6GTH
-	 vS/tBljjWcN+5CQeACnIE1htGUAoc8PtCBczi3O/87oGwa2kNMMeCDSgwwXnU72bH9
-	 VZ7OEVd9XV4OAooHz5Vczd0XxqSjC0PUxe3Fz/Kg=
+	s=default; t=1648109613;
+	bh=C91IBjivuy7No8XVmw53eaQXOtEDLs6QX/ui3ZfS1xw=;
+	h=From:To:Subject:Date:References:Cc:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=kGC880DvC+7VHzOD+Sjy+cpgmYApB3JcHfE9AYv6RcNvT/mmY2vFo9cdqluUxhLkF
+	 xdapweWtv3Xa+0kIuh1xAY2UfM9mALTvpDQTv0rZrujGqKjjKDmLWP5px7uwK/dT2D
+	 kNjmRzrsZgl8G+ITBgL0d9UTT3zvGtfJBUm05VQE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A59AFF800AA;
-	Thu, 24 Mar 2022 08:56:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 34ACCF80154;
+	Thu, 24 Mar 2022 09:12:28 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 04F0EF80165; Thu, 24 Mar 2022 08:56:03 +0100 (CET)
+ id DE399F80115; Thu, 24 Mar 2022 09:12:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on20600.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7d00::600])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A90EAF80115
- for <alsa-devel@alsa-project.org>; Thu, 24 Mar 2022 08:55:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A90EAF80115
+ by alsa1.perex.cz (Postfix) with ESMTPS id D5EBBF80115
+ for <alsa-devel@alsa-project.org>; Thu, 24 Mar 2022 09:12:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5EBBF80115
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
- header.b="QrH3augA"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=P56xciO/U4LUlvm1+dOF2/mZb3lniMHq0RfYiyJE6INrExBbFR4q4ALCsl+nwQMzSGUwilA5QM9gwV0cmleVTqswZ0BshSroiBlju1v4ke/crqhKCW33RK6Pte9sjXl3vB8dZlk9NbKy65UjYlDcNa4qDj0UAmIO8sRHDq8y8nCkITuKasaTYbvg96uaxL8uNmiKsEvyAtlj78+mZE3T1PiBrg2O2SsMU4LIrHsX8LwjNZeYiK7UzMDDc8eF3hdOQotED8q65KTRgdphV0qmpY+RlEa2ivybD5qRAjB69IzhR5uFj4wFOxSwjaLYEsKnGyvF3c48EC1f4coaBm3aRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DszY1q/GlUTNODn9GC9z0PVdGZpaqymS+ljaccjmFEY=;
- b=ET2jyLz9vYusofjh+C0wDlVl1kkTYLhIcVSZr9gNAnTr7W8IdP4RrIvz93YJVohYPa1oxqIgHC2q9IS/MLD8Uo0DqtzJZsA1Kq1CbJhOLqF8NojzPSdM+AWAfdJT5/zu2DJeBbgZF+tgd1t1FEOyNR6YsStns2O6JA/MmY/epJ/OlTMjWjv88b8yw4OkAXBuPg0gFealq3l8mxokGmS0sHFNvgAf3td+faKqJMzNxFq3gwZvjbDJRkJQboGwcJsZKR9c/aFWnWp96jYzMYLCpsfigPJ0ZebqFTNi5pc8LtB8YkTt2A6QXDW07IZDCAiJNsxqAz9ZPk3Yt+8JTXcvuQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DszY1q/GlUTNODn9GC9z0PVdGZpaqymS+ljaccjmFEY=;
- b=QrH3augALdqawMNumIhiWntjZHZCIyTAJj3bLIE/VghRPVH3r4YtYNimVja4CseKJR3l7j+7sHpBRwVegos+mUAIYXJswC+BjN9eyAET8UqXrq2G1MlQ2b79mgzNPh5sC0VGZHKb5ZXzmJPC5C22culZHoEcnyJvz+pQu2+8qHE=
-Received: from PAXPR04MB9089.eurprd04.prod.outlook.com (2603:10a6:102:225::22)
- by AM9PR04MB8729.eurprd04.prod.outlook.com (2603:10a6:20b:43c::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.17; Thu, 24 Mar
- 2022 07:55:52 +0000
-Received: from PAXPR04MB9089.eurprd04.prod.outlook.com
- ([fe80::bc25:a82e:ab71:84fb]) by PAXPR04MB9089.eurprd04.prod.outlook.com
- ([fe80::bc25:a82e:ab71:84fb%8]) with mapi id 15.20.5081.022; Thu, 24 Mar 2022
- 07:55:52 +0000
-From: "S.J. Wang" <shengjiu.wang@nxp.com>
-To: Sascha Hauer <s.hauer@pengutronix.de>, "alsa-devel@alsa-project.org"
- <alsa-devel@alsa-project.org>
-Subject: RE: [PATCH 00/19] ASoC: fsl_micfil: Driver updates
-Thread-Topic: [PATCH 00/19] ASoC: fsl_micfil: Driver updates
-Thread-Index: Adg/VApVvnoDPiY0TQSjj8d8eixAgw==
-Date: Thu, 24 Mar 2022 07:55:51 +0000
-Message-ID: <PAXPR04MB908966C6F585EFC3580B6BB4E3199@PAXPR04MB9089.eurprd04.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 7c26c79d-fe34-43ec-503d-08da0d6bb7ad
-x-ms-traffictypediagnostic: AM9PR04MB8729:EE_
-x-microsoft-antispam-prvs: <AM9PR04MB8729EBA67D4FA27C6B8B11CFE3199@AM9PR04MB8729.eurprd04.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: CcqQ9uSFvar8UZ/4b5VeqwS55uRdy75252F/GiJ0QHZfYSWkFjj1euOFtg6UfJ1Pz/uhGkxII6nCvmt/lbiABw7fhe50P/Mw+25M3QGfRD2lgmUI5VU8VYdb3Uf7dMClmaLG4327u/cgt/z8ROVioKrlcCTvr3U5fqX+aeNRCe9izuuzO3rTxlrzIWQGnL/nI3ywef6cOLDL5mURVM7iDyuttdduElXYrhAbozj7bUstL9fmFyBsHLj0yBwLX9SaCS+tpP6oi2DqDT55+gbjFT/RoGvPEUdtwfSv5Kn6X8R/U14FpFmqN2ey+yjz+MihBC1QO3KfGaW4+g7hqsIHrSLhyt1GRlcq9PZfQG+RfGFKdp10yPR9tGhD6pjkzjV/dFegGDGeuhXh6Z0/nFpa+jpugkg0leHCKMP1YpGoE4KD4WVsKooUJBWoELj8sTWKb/pR+TtkA0QpfEcqiUHpxb/zvCtHWVJVbVkBqnBRBRnEmpXU3Vfh2KzfURh1bzOoslWPZtD5049t2ds8fxT8fZqRq2xtxchZ6PfAnwTPKD1DM/G1HBxS7xyV8Mcj4snB5DD3f8OJRU68JZ4l69mMlvyADw5aY7pjtci5vSWrPD5IsQv7UbCgbw0pUf/EnIF3glawZmEBbJDtjrdFYn8VLN6XvCY7B61qLrpeTbfzoPzeUyBO5cH/xK9HYW2RHayiupDLcCCns5ob/HQbA56JYw==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PAXPR04MB9089.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(86362001)(122000001)(5660300002)(508600001)(83380400001)(71200400001)(55016003)(52536014)(8936002)(186003)(26005)(7696005)(9686003)(316002)(110136005)(33656002)(54906003)(38100700002)(6506007)(64756008)(66556008)(66946007)(8676002)(66476007)(38070700005)(66446008)(2906002)(15650500001)(4326008)(76116006);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?8KHhnKneMMSi+GDSz59nQzblCAjIWrrConbKe5vHk6/AedPM1F/340rb+q6j?=
- =?us-ascii?Q?PiwE7s3FQ+dkxX9aJcJuTmBADoP6ziQeG3H8BpMo6oGp+UpnxUQTZtjFHmcH?=
- =?us-ascii?Q?C1JFPK0sR0FZSmcAxBtUzJZztgXmNWduWZjvUbsxrClufg2//dTvUFWkqBrJ?=
- =?us-ascii?Q?DRyPLfJ3w10usfFa1soTwQ5R41UE/na9/AqKL+wAHmHg6GA5CEmELxGuQWGU?=
- =?us-ascii?Q?4+CQvoH7VZYbg+9YGTzw1McjVDyUDkLr+hYhGe2Hs0V0WQGGHv2r0bu3ZoX/?=
- =?us-ascii?Q?O92NgKvtsdJkrhSXxqtn3ZI/MQ4ySVKWmjIfTC/GyQ2lQKTU0s62Askl87EL?=
- =?us-ascii?Q?S6K8Bv5jGElyNudtLPB5Vo2p6J+ThIBUU+R8n0h00L/dCWudzqn4qIK7JJJY?=
- =?us-ascii?Q?V4FQpb6vmxCFDRlYhjhLJfEq1oe3lbrOftiWS3nV7MpWUkUcLiyrNf0w2Xsx?=
- =?us-ascii?Q?5dZ/a4WEqApx0z5oBDKHPptjrZWm8xWmSRrLeIpzGw0+4/EXPQZAQJQmz4Np?=
- =?us-ascii?Q?A2ePyVCXmCKYX960dC9AJtpFA6+3yLv5Dh7N+GN5wgjUh12uPgjE66+1J9kW?=
- =?us-ascii?Q?XJCh+3WnxcE2ULEyA5ya388b76WBBT54m2njnmYhzDcIe4r03/badPjc+sqx?=
- =?us-ascii?Q?FvZQlQLpeJNWKy22u1CIJIRQiloJmaiPOJSEvq+LOrha2qIixnlvxK3k7QXF?=
- =?us-ascii?Q?k6u/I36F0QZBx7G73mzuCN6dtjMxUNFh9wQW/aYoehUsUyOd4BEppI7nLWTF?=
- =?us-ascii?Q?5hewukt4IdaMw2ntow6nhrhtXxkJD4M22676gsqov3TwavkspKMgPQfaQI4E?=
- =?us-ascii?Q?ZjYsswdK4gmTH/vOuETS/2gdqdJM0TQjTrF30PYbDXpZr5pFmfnRGjFU+PQO?=
- =?us-ascii?Q?PjrxbMohgEKqRC9Y4wpq2eW4BUYcBK7EhRanHX7BqVt4S3p8xGWgGnfayK/H?=
- =?us-ascii?Q?tl1/g1j//M+PLDSwEaA7h/V8TVoP45Ze9AHRZuEoLhWXhfoAEg9UyayNImfQ?=
- =?us-ascii?Q?ji6yL12krObU9Q4EV8zCFU2lQBEbj5eq+uKTUzh1Zrb4FWIg21/WkmFT18b3?=
- =?us-ascii?Q?vqjXU4Zq7WavrWzVFb28z9Ae57PRPAH+XR3WKTp7h5QnGbku1/9HHunyfEit?=
- =?us-ascii?Q?B5Wvut4We2a9GtWB2g6K4wZHKgSUVFaFrAEmT9gk2qgwceYIzL4/pXHVbrWi?=
- =?us-ascii?Q?f7xyxR/MpGaiPGgua7RCxoxoBzCfhsHIkCGYYYC88GtxtL3Pwi4Myjt0HIqr?=
- =?us-ascii?Q?JaKlUSE9RnZj/r6UeHicPNewzz7NAkp8J91dvt6yUfiCyVM3IRHOkXOAocmJ?=
- =?us-ascii?Q?t38NlHLFJr5PDWir9/sRFDtAnI5zrE6jL42OVZQn4oGLErvAFgz9KldtubJ4?=
- =?us-ascii?Q?7ugZMUR2dcLQ7w7AZtWtWlR8+Jr1132Mtt+VJ8RBwq3PYZ8LyD4CEwsCF+Fr?=
- =?us-ascii?Q?lMHh2NozMCsh21aIyAtzE/oDShkLFx0h?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9089.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7c26c79d-fe34-43ec-503d-08da0d6bb7ad
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Mar 2022 07:55:51.9659 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Vf5MtwyJMcWpxX55GFzPoLloVRuX4dgsXrL6cWcRELNHB8HJ4nUy9eVPkAWianzf2iJGihwpm+KBCSkk5heVYg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8729
-Cc: Xiubo Li <Xiubo.Lee@gmail.com>, Shengjiu Wang <shengjiu.wang@gmail.com>,
- Vinod Koul <vkoul@kernel.org>, dl-linux-imx <linux-imx@nxp.com>,
- "kernel@pengutronix.de" <kernel@pengutronix.de>,
- "dmaengine@vger.kernel.org" <dmaengine@vger.kernel.org>,
- Fabio Estevam <festevam@gmail.com>
+ dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
+ header.b="tUG+jY+M"
+Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
+ by mailout2.samsung.com (KnoxPortal) with ESMTP id
+ 20220324081216epoutp0237450f68e6b038964af4caf2150aa66b~fQuQ835gw2498924989epoutp02A
+ for <alsa-devel@alsa-project.org>; Thu, 24 Mar 2022 08:12:16 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com
+ 20220324081216epoutp0237450f68e6b038964af4caf2150aa66b~fQuQ835gw2498924989epoutp02A
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1648109536;
+ bh=Hn6fDrjgatOdtTuNl4H7FSza4vBIbxEaPAbEDYTUuJA=;
+ h=From:To:Cc:Subject:Date:References:From;
+ b=tUG+jY+MsEpIcgmTuwGjhNlO+MVfczs8gosI2oD1/ZN2NdvN5eYViqRo0+Q8zMCWv
+ ukrb9j7otpb8QTtsYuMm2BZt+dFwllR41sqx/7a9RUdurR/a/bD2jpnUI//A6hg7CC
+ AmkXTKT4dysxfErBD0GQSBnvu0O2JjvCpRfkEOF8=
+Received: from epsnrtp4.localdomain (unknown [182.195.42.165]) by
+ epcas2p2.samsung.com (KnoxPortal) with ESMTP id
+ 20220324081216epcas2p2842b76bb1a3b9d29e5929bea1ea330b3~fQuQawoih1421114211epcas2p2y;
+ Thu, 24 Mar 2022 08:12:16 +0000 (GMT)
+Received: from epsmges2p2.samsung.com (unknown [182.195.36.90]) by
+ epsnrtp4.localdomain (Postfix) with ESMTP id 4KPHy34bN8z4x9QK; Thu, 24 Mar
+ 2022 08:12:11 +0000 (GMT)
+Received: from epcas2p4.samsung.com ( [182.195.41.56]) by
+ epsmges2p2.samsung.com (Symantec Messaging Gateway) with SMTP id
+ 4B.CD.16040.8D72C326; Thu, 24 Mar 2022 17:12:08 +0900 (KST)
+Received: from epsmtrp1.samsung.com (unknown [182.195.40.13]) by
+ epcas2p4.samsung.com (KnoxPortal) with ESMTPA id
+ 20220324081208epcas2p41916730b7e386f24e5548fac53e5bc41~fQuI6e3ip1026310263epcas2p43;
+ Thu, 24 Mar 2022 08:12:08 +0000 (GMT)
+Received: from epsmgms1p1new.samsung.com (unknown [182.195.42.41]) by
+ epsmtrp1.samsung.com (KnoxPortal) with ESMTP id
+ 20220324081208epsmtrp1e1e2af473b60794b1741c5800a787f4b~fQuI5lnJw0320903209epsmtrp1W;
+ Thu, 24 Mar 2022 08:12:08 +0000 (GMT)
+X-AuditID: b6c32a46-bffff70000023ea8-b4-623c27d8d8b9
+Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
+ epsmgms1p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
+ E7.5E.29871.7D72C326; Thu, 24 Mar 2022 17:12:07 +0900 (KST)
+Received: from ubuntu.dsn.sec.samsung.com (unknown [12.36.155.120]) by
+ epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+ 20220324081207epsmtip22e77ca89c0a3b32c7d1f2143d34bca8b~fQuIrxBny1278212782epsmtip2i;
+ Thu, 24 Mar 2022 08:12:07 +0000 (GMT)
+From: Oh Eomji <eomji.oh@samsung.com>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [PATCH v1 0/3] Exynos Usb Audio Offloading Support
+Date: Thu, 24 Mar 2022 17:10:41 +0900
+Message-Id: <1648109444-196321-1-git-send-email-eomji.oh@samsung.com>
+X-Mailer: git-send-email 2.7.4
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrEKsWRmVeSWpSXmKPExsWy7bCmhe4NdZskg84lshZXLh5isji1fCGT
+ RfPi9WwWU34tZba4vGsOm8WBP4vZLDp39bNabPi+ltGBw2PD5yY2j52z7rJ7bFrVyeaxf+4a
+ do99b5exefRtWcXosX7LVRaPz5vkAjiism0yUhNTUosUUvOS81My89JtlbyD453jTc0MDHUN
+ LS3MlRTyEnNTbZVcfAJ03TJzgE5TUihLzCkFCgUkFhcr6dvZFOWXlqQqZOQXl9gqpRak5BSY
+ F+gVJ+YWl+al6+WlllgZGhgYmQIVJmRnLG+/y1gwm6+idcIVtgbGidxdjJwcEgImEnsXLmPu
+ YuTiEBLYwSjxaP1eNgjnE6NE18MVrBDON0aJRedeMsK0nLywlAXEFhLYyyjx7wI/RNEPRolP
+ p84wgSTYBFQlpi/bDtTAwSEiUCaxbLolSA0zyIon75ayg9QIC1hL3N72mA3EZgGqf7C+BWwo
+ r4CrxNKNV9ghlslJ3DzXCXafhMApdoljN5czQSRcJJbcvMACYQtLvDq+BapBSuJlfxuUXSxx
+ cMFzNgi7RuLtwVaouLHErGftYMcxC2hKrN+lD2JKCChLHLkFNpFZgE+i4/Bfdogwr0RHmxBE
+ o5LEpKZOqAMkJFZ8boKyPSQWXlnOCgmSWInjP68yTWCUnYUwfwEj4ypGsdSC4tz01GKjAiN4
+ HCXn525iBCc2LbcdjFPeftA7xMjEwXiIUYKDWUmE9/5l6yQh3pTEyqrUovz4otKc1OJDjKbA
+ 4JrILCWanA9MrXkl8YYmlgYmZmaG5kamBuZK4rxeKRsShQTSE0tSs1NTC1KLYPqYODilGpj8
+ Sue9LHqaocbBNPlLEs9VsTcp90r1JoX9XtBxV51rlbVrVZuzEHve9X/1C/iW/91i0Rvx54Wi
+ 72SBH4tS3X9nCP3oky502H+m6KGiV+lekyNG5i9nTYvM9EhwCIuo51xhGnCyOcTt4VrGJ6yP
+ TkRPnhA4ebZpgNT1ik2Wx9vurp65SGmhaPvWgsvCX3tidTQTEmZYTC/b6DyznFXM88rxxWz/
+ wq9P4d7xUoHp9vbu1GWvo98+WZ9UueVervRG1s+z9z+e7vFhsknw47J5j1cpbSiWWrPGeOds
+ dhezQ3Lv7mt5Vtz0257I+q1WdUt86eepVsFZ1y5uM0nq0s68Vcp0R62L6azMK8UbzM9jeeSV
+ WIozEg21mIuKEwFjSLI/9QMAAA==
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprMLMWRmVeSWpSXmKPExsWy7bCSvO51dZskg79zzC2uXDzEZHFq+UIm
+ i+bF69kspvxaymxxedccNosDfxazWXTu6me12PB9LaMDh8eGz01sHjtn3WX32LSqk81j/9w1
+ 7B773i5j8+jbsorRY/2WqywenzfJBXBEcdmkpOZklqUW6dslcGUsb7/LWDCbr6J1whW2BsaJ
+ 3F2MnBwSAiYSJy8sZQGxhQR2M0qc3ecEEZeQWND1mhnCFpa433KEtYuRC6jmG6PEj4+vwBJs
+ AqoS05dtZwSxRQQqJG593c4MUsQssIdRouloM1iRsIC1xO1tj9lAbBaghgfrW8C28Qq4Sizd
+ eIUdYoOcxM1zncwTGHkWMDKsYpRMLSjOTc8tNiwwzEst1ytOzC0uzUvXS87P3cQIDjctzR2M
+ 21d90DvEyMTBeIhRgoNZSYT3/mXrJCHelMTKqtSi/Pii0pzU4kOM0hwsSuK8F7pOxgsJpCeW
+ pGanphakFsFkmTg4pRqY+jg8/ySe0de1W1DkFXR3+u9V2rIyVqGaB7oeMVn/u2IokM309EHm
+ 06L3CkK/79byiW/8sC906nfvTUycc+4FT/jcIfT2bGjirKjHcj75z+cpaEZMzPFbeFPytG5y
+ ZPfZgCK1xVdyOG1enexcIXIj7I/P+zWCoslHrl4/6pS0LeDDkpWTBQ/bCjt6x1SIGBXIT1Nb
+ vHeK+LkTNUHLjFWzi8UuN9WJ16//Nl21eb2A6JzQk/yuoWKzje/u+5m92lF/ClNpdMItG7fM
+ V/NvmacWbL5iNv2icOr5abyhkYkeG2+6Mx5Oy+5lnjrjy/QNHzM/p8utc7svVTpRwC29S2Gz
+ YemjDc+n5lk9XtK4Y8Y5JZbijERDLeai4kQAFsS4TaYCAAA=
+X-CMS-MailID: 20220324081208epcas2p41916730b7e386f24e5548fac53e5bc41
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+DLP-Filter: Pass
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20220324081208epcas2p41916730b7e386f24e5548fac53e5bc41
+References: <CGME20220324081208epcas2p41916730b7e386f24e5548fac53e5bc41@epcas2p4.samsung.com>
+Cc: Oh Eomji <eomji.oh@samsung.com>, Pavel Skripkin <paskripkin@gmail.com>,
+ alsa-devel@alsa-project.org, open list <linux-kernel@vger.kernel.org>,
+ Leon Romanovsky <leon@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -149,66 +143,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi
+Exynos uses the usb audio offloading functions to save power consumption
+in the usb audio device. The audio control interface is processed in the
+existing usb path, and the audio stream interface is processed in the
+audio path.
 
->=20
-> This series has a bunch of cleanups for the FSL MICFIL driver. There is n=
-ot
-> much chance for regressions in this series as the driver currently can't =
-work
-> at all. The MICFIL needs multififo support in the i.MX SDMA engine which =
-is
-> added with this series, see 10/19.
->=20
-> The multififo support is selected in the dma phandle arguments in the dev=
-ice
-> tree, the transfer type must be '25' aka IMX_DMATYPE_MULTI_SAI.
-> This is set already to 25 in the upstream i.MX8M[NM] dtsi files, but the =
-SDMA
-> driver silently ignores unsupported values instead of throwing an error. =
-This
-> is fixed in this series and multififo support is added.
->=20
-> I think the series should go via the ASoC tree, so I'll need an ack from =
-the
-> DMA guys for 9/19 and 10/10.
+Through communication between AP usb and audio usb f/w, usb audio device
+connection information, xhci memory information, etc. are notified to usb
+audio f/w so that the abox directly controls xhci transmission.
 
-Thanks for this series,  basically I am ok with the fsl_micfil part,
-just a comments for sdma change as we have discussed.
+Vendor's hooking interface is required for this functions. Throught this
+interface, information such as usb audio device connection information,
+pcm interface information, sample rate setting, xhci memory, full descriptor
+of connected device, and setting point can be transmitted to usb audio f/w.
 
-Best regards
-Wang Shengjiu
+the usb audio f/w can set up and interface, transmit audio data, etc. through
+the received information.
 
->=20
-> Sascha
->=20
-> Sascha Hauer (19):
->   ASoC: fsl_micfil: Drop unnecessary register read
->   ASoC: fsl_micfil: Drop unused register read
->   ASoC: fsl_micfil: drop fsl_micfil_set_mclk_rate()
->   ASoC: fsl_micfil: do not define SHIFT/MASK for single bits
->   ASoC: fsl_micfil: use GENMASK to define register bit fields
->   ASoC: fsl_micfil: use clear/set bits
->   ASoC: fsl_micfil: drop error messages from failed register accesses
->   ASoC: fsl_micfil: drop unused variables
->   dma: imx-sdma: error out on unsupported transfer types
->   dma: imx-sdma: Add multi fifo support
->   ASoC: fsl_micfil: add multi fifo support
->   ASoC: fsl_micfil: use define for OSR default value
->   ASoC: fsl_micfil: Drop get_pdm_clk()
->   ASoC: fsl_micfil: simplify clock setting
->   ASoC: fsl_micfil: rework quality setting
->   ASoC: fsl_micfil: drop unused include
->   ASoC: fsl_micfil: drop only once used defines
->   ASoC: fsl_micfil: drop support for undocumented property
->   ASoC: fsl_micfil: fold fsl_set_clock_params() into its only user
->=20
->  drivers/dma/imx-sdma.c                |  71 ++++-
->  include/linux/platform_data/dma-imx.h |   7 +
->  sound/soc/fsl/fsl_micfil.c            | 368 +++++++++-----------------
->  sound/soc/fsl/fsl_micfil.h            | 269 +++++--------------
->  4 files changed, 265 insertions(+), 450 deletions(-)
->=20
-> --
-> 2.30.2
+This patchset includes the following for using usb audio offloading:
+- vendor's hooking interface
+- vendor's hooking interface calling point
+- user using vendor's hooking interface
+
+
+Oh Eomji (3):
+  sound: usb: Add vendor's hooking interface
+  sound: usb: Calling vendor's call-back function within usb audio
+    operation.
+  sound: usb: Exynos usb audio offloading driver
+
+ sound/usb/Kconfig            |   9 +
+ sound/usb/Makefile           |   2 +
+ sound/usb/card.c             | 119 +++++++++
+ sound/usb/card.h             |  20 ++
+ sound/usb/exynos_usb_audio.c | 560 +++++++++++++++++++++++++++++++++++++++++++
+ sound/usb/exynos_usb_audio.h | 150 ++++++++++++
+ sound/usb/pcm.c              |  37 +++
+ sound/usb/stream.c           |   2 +
+ sound/usb/usbaudio.h         |  45 ++++
+ 9 files changed, 944 insertions(+)
+ create mode 100644 sound/usb/exynos_usb_audio.c
+ create mode 100644 sound/usb/exynos_usb_audio.h
+
+-- 
+2.7.4
 

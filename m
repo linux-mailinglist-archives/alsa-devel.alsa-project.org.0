@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A0714E5E46
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Mar 2022 06:40:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C33A84E5E47
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Mar 2022 06:40:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0168716D2;
-	Thu, 24 Mar 2022 06:39:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0168716D2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1FEBC16BD;
+	Thu, 24 Mar 2022 06:40:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1FEBC16BD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648100443;
-	bh=5144B5M35L4pEGRj1nR8MUR9hca+v5cg5QIcG6UZmzM=;
+	s=default; t=1648100453;
+	bh=aWrm1FHckr387wCKCW7IOAFXoR8xv3UJS859a5DV7Qg=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kHP6kjEuH3SWLh0RRaByby24lvL98gDktJi8lm9Mvmc2e8Mq1C7YU5t+Groi9RjAo
-	 sQXZAh/0/y2Sq3xvIHLNFxL/ZyVhCVopI8YrNqF547Xt+uxSRwKMRrO8T/v3DY1K1f
-	 Y8uHDxpkZZ0zH3sV5TiwM/8XXkIdIQgJVQUH1yo8=
+	b=Wj15pI7oGYVARKzSM7xpcKe8oC8swm2I5lJ032kG56vk1/Oo66BFIuAHmAshd9ept
+	 edqqk4ZSoRUoq4UyU1Bm1LgpNYwtSnsEN5Mof7Xlflc8jjrqjR0M2OizArQDSvxyS0
+	 S9U7n5vExERsmwHuKZPmHPg3xLHB7I0YGg5Hi3B8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2C383F8051C;
-	Thu, 24 Mar 2022 06:39:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 178DFF80525;
+	Thu, 24 Mar 2022 06:39:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 511E9F80517; Thu, 24 Mar 2022 06:39:13 +0100 (CET)
+ id 61C49F80518; Thu, 24 Mar 2022 06:39:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
@@ -34,28 +34,28 @@ X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
 Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4E306F80154
- for <alsa-devel@alsa-project.org>; Thu, 24 Mar 2022 06:39:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E306F80154
-X-UUID: a87836fd0094464a9ac1d7be402d3fd0-20220324
-X-UUID: a87836fd0094464a9ac1d7be402d3fd0-20220324
-Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by
- mailgw02.mediatek.com (envelope-from <trevor.wu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 1917786227; Thu, 24 Mar 2022 13:38:57 +0800
+ by alsa1.perex.cz (Postfix) with ESMTPS id 39B16F800AA
+ for <alsa-devel@alsa-project.org>; Thu, 24 Mar 2022 06:39:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39B16F800AA
+X-UUID: 1018f0d6bbb34f5a9c93ac62252c3f02-20220324
+X-UUID: 1018f0d6bbb34f5a9c93ac62252c3f02-20220324
+Received: from mtkcas11.mediatek.inc [(172.21.101.40)] by mailgw02.mediatek.com
+ (envelope-from <trevor.wu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 2136612707; Thu, 24 Mar 2022 13:38:57 +0800
 Received: from mtkcas11.mediatek.inc (172.21.101.40) by
- mtkmbs07n2.mediatek.inc (172.21.101.141) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Thu, 24 Mar 2022 13:38:56 +0800
+ mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.792.3; 
+ Thu, 24 Mar 2022 13:38:56 +0800
 Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas11.mediatek.inc
  (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
  Frontend Transport; Thu, 24 Mar 2022 13:38:56 +0800
 From: Trevor Wu <trevor.wu@mediatek.com>
 To: <broonie@kernel.org>, <tiwai@suse.com>, <robh+dt@kernel.org>,
  <matthias.bgg@gmail.com>
-Subject: [PATCH v4 3/6] ASoC: dt-bindings: mediatek: mt8195: merge mt8195
- machine yaml
-Date: Thu, 24 Mar 2022 13:38:48 +0800
-Message-ID: <20220324053851.27350-4-trevor.wu@mediatek.com>
+Subject: [PATCH v4 4/6] ASoC: mediatek: mt8195: rename card controls
+Date: Thu, 24 Mar 2022 13:38:49 +0800
+Message-ID: <20220324053851.27350-5-trevor.wu@mediatek.com>
 X-Mailer: git-send-email 2.18.0
 In-Reply-To: <20220324053851.27350-1-trevor.wu@mediatek.com>
 References: <20220324053851.27350-1-trevor.wu@mediatek.com>
@@ -82,109 +82,90 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Because the same binding components can be shared by all codecs
-combinations, we only reserve one binding file for mt8195 machine driver
-and rename to a generic name.
+In order to be able to reuse the same configurations in user space,
+rename the controls to generic names.
 
-We use compatible string to separate different codec combination instead
-of creating a new binding file for new codec combination.
+"Headphone Jack" -> "Headphone"
+"Speakers" -> "Ext Spk"
+"Left Speaker" -> "Left Spk"
+"Right Speaker" -> "Right SPk"
 
 Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
+Reviewed-by: Tzung-Bi Shih <tzungbi@kernel.org>
 ---
- .../sound/mt8195-mt6359-rt1011-rt5682.yaml    | 51 -------------------
- ...-rt1019-rt5682.yaml => mt8195-mt6359.yaml} |  8 +--
- 2 files changed, 5 insertions(+), 54 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/mt8195-mt6359-rt1011-rt5682.yaml
- rename Documentation/devicetree/bindings/sound/{mt8195-mt6359-rt1019-rt5682.yaml => mt8195-mt6359.yaml} (87%)
+ sound/soc/mediatek/mt8195/mt8195-mt6359.c | 26 +++++++++++------------
+ 1 file changed, 13 insertions(+), 13 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/mt8195-mt6359-rt1011-rt5682.yaml b/Documentation/devicetree/bindings/sound/mt8195-mt6359-rt1011-rt5682.yaml
-deleted file mode 100644
-index cf6ad7933e23..000000000000
---- a/Documentation/devicetree/bindings/sound/mt8195-mt6359-rt1011-rt5682.yaml
-+++ /dev/null
-@@ -1,51 +0,0 @@
--# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
--%YAML 1.2
-----
--$id: http://devicetree.org/schemas/sound/mt8195-mt6359-rt1011-rt5682.yaml#
--$schema: http://devicetree.org/meta-schemas/core.yaml#
--
--title: Mediatek MT8195 with MT6359, RT1011 and RT5682 ASoC sound card driver
--
--maintainers:
--  - Trevor Wu <trevor.wu@mediatek.com>
--
--description:
--  This binding describes the MT8195 sound card with RT1011 and RT5682.
--
--properties:
--  compatible:
--    const: mediatek,mt8195_mt6359_rt1011_rt5682
--
--  model:
--    $ref: /schemas/types.yaml#/definitions/string
--    description: User specified audio sound card name
--
--  mediatek,platform:
--    $ref: "/schemas/types.yaml#/definitions/phandle"
--    description: The phandle of MT8195 ASoC platform.
--
--  mediatek,dptx-codec:
--    $ref: "/schemas/types.yaml#/definitions/phandle"
--    description: The phandle of MT8195 Display Port Tx codec node.
--
--  mediatek,hdmi-codec:
--    $ref: "/schemas/types.yaml#/definitions/phandle"
--    description: The phandle of MT8195 HDMI codec node.
--
--additionalProperties: false
--
--required:
--  - compatible
--  - mediatek,platform
--
--examples:
--  - |
--
--    sound: mt8195-sound {
--        compatible = "mediatek,mt8195_mt6359_rt1011_rt5682";
--        mediatek,platform = <&afe>;
--        pinctrl-names = "default";
--        pinctrl-0 = <&aud_pins_default>;
--    };
--
--...
-diff --git a/Documentation/devicetree/bindings/sound/mt8195-mt6359-rt1019-rt5682.yaml b/Documentation/devicetree/bindings/sound/mt8195-mt6359.yaml
-similarity index 87%
-rename from Documentation/devicetree/bindings/sound/mt8195-mt6359-rt1019-rt5682.yaml
-rename to Documentation/devicetree/bindings/sound/mt8195-mt6359.yaml
-index 8f177e02ad35..04953f5b44a4 100644
---- a/Documentation/devicetree/bindings/sound/mt8195-mt6359-rt1019-rt5682.yaml
-+++ b/Documentation/devicetree/bindings/sound/mt8195-mt6359.yaml
-@@ -1,10 +1,10 @@
- # SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
- %YAML 1.2
- ---
--$id: http://devicetree.org/schemas/sound/mt8195-mt6359-rt1019-rt5682.yaml#
-+$id: http://devicetree.org/schemas/sound/mt8195-mt6359.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/sound/soc/mediatek/mt8195/mt8195-mt6359.c b/sound/soc/mediatek/mt8195/mt8195-mt6359.c
+index 879e17b0ffae..e45bd5d38cda 100644
+--- a/sound/soc/mediatek/mt8195/mt8195-mt6359.c
++++ b/sound/soc/mediatek/mt8195/mt8195-mt6359.c
+@@ -64,7 +64,7 @@ struct mt8195_mt6359_priv {
+ };
  
--title: Mediatek MT8195 with MT6359, RT1019 and RT5682 ASoC sound card driver
-+title: MediaTek MT8195 ASoC sound card driver
+ static const struct snd_soc_dapm_widget mt8195_mt6359_widgets[] = {
+-	SND_SOC_DAPM_HP("Headphone Jack", NULL),
++	SND_SOC_DAPM_HP("Headphone", NULL),
+ 	SND_SOC_DAPM_MIC("Headset Mic", NULL),
+ 	SND_SOC_DAPM_MIXER(SOF_DMA_DL2, SND_SOC_NOPM, 0, 0, NULL, 0),
+ 	SND_SOC_DAPM_MIXER(SOF_DMA_DL3, SND_SOC_NOPM, 0, 0, NULL, 0),
+@@ -74,8 +74,8 @@ static const struct snd_soc_dapm_widget mt8195_mt6359_widgets[] = {
  
- maintainers:
-   - Trevor Wu <trevor.wu@mediatek.com>
-@@ -14,7 +14,9 @@ description:
+ static const struct snd_soc_dapm_route mt8195_mt6359_routes[] = {
+ 	/* headset */
+-	{ "Headphone Jack", NULL, "HPOL" },
+-	{ "Headphone Jack", NULL, "HPOR" },
++	{ "Headphone", NULL, "HPOL" },
++	{ "Headphone", NULL, "HPOR" },
+ 	{ "IN1P", NULL, "Headset Mic" },
+ 	/* SOF Uplink */
+ 	{SOF_DMA_UL4, NULL, "O034"},
+@@ -90,35 +90,35 @@ static const struct snd_soc_dapm_route mt8195_mt6359_routes[] = {
+ };
  
- properties:
-   compatible:
--    const: mediatek,mt8195_mt6359_rt1019_rt5682
-+    enum:
-+      - mediatek,mt8195_mt6359_rt1019_rt5682
-+      - mediatek,mt8195_mt6359_rt1011_rt5682
+ static const struct snd_kcontrol_new mt8195_mt6359_controls[] = {
+-	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
++	SOC_DAPM_PIN_SWITCH("Headphone"),
+ 	SOC_DAPM_PIN_SWITCH("Headset Mic"),
+ };
  
-   model:
-     $ref: /schemas/types.yaml#/definitions/string
+ static const struct snd_soc_dapm_widget mt8195_dual_speaker_widgets[] = {
+-	SND_SOC_DAPM_SPK("Left Speaker", NULL),
+-	SND_SOC_DAPM_SPK("Right Speaker", NULL),
++	SND_SOC_DAPM_SPK("Left Spk", NULL),
++	SND_SOC_DAPM_SPK("Right Spk", NULL),
+ };
+ 
+ static const struct snd_kcontrol_new mt8195_dual_speaker_controls[] = {
+-	SOC_DAPM_PIN_SWITCH("Left Speaker"),
+-	SOC_DAPM_PIN_SWITCH("Right Speaker"),
++	SOC_DAPM_PIN_SWITCH("Left Spk"),
++	SOC_DAPM_PIN_SWITCH("Right Spk"),
+ };
+ 
+ static const struct snd_soc_dapm_widget mt8195_speaker_widgets[] = {
+-	SND_SOC_DAPM_SPK("Speakers", NULL),
++	SND_SOC_DAPM_SPK("Ext Spk", NULL),
+ };
+ 
+ static const struct snd_kcontrol_new mt8195_speaker_controls[] = {
+-	SOC_DAPM_PIN_SWITCH("Speakers"),
++	SOC_DAPM_PIN_SWITCH("Ext Spk"),
+ };
+ 
+ static const struct snd_soc_dapm_route mt8195_rt1011_routes[] = {
+-	{ "Left Speaker", NULL, "Left SPO" },
+-	{ "Right Speaker", NULL, "Right SPO" },
++	{ "Left Spk", NULL, "Left SPO" },
++	{ "Right Spk", NULL, "Right SPO" },
+ };
+ 
+ static const struct snd_soc_dapm_route mt8195_rt1019_routes[] = {
+-	{ "Speakers", NULL, "Speaker" },
++	{ "Ext Spk", NULL, "Speaker" },
+ };
+ 
+ #define CKSYS_AUD_TOP_CFG 0x032c
 -- 
 2.18.0
 

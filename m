@@ -2,79 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A8214E77BC
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Mar 2022 16:35:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F57F4E77BE
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Mar 2022 16:35:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1DF6C1708;
-	Fri, 25 Mar 2022 16:34:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1DF6C1708
+	by alsa0.perex.cz (Postfix) with ESMTPS id BF69716EF;
+	Fri, 25 Mar 2022 16:34:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF69716EF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648222519;
-	bh=NqxcaBnxEjJ53GoQmFpvgu/LQKHpupq2rGbZFe+Xfhs=;
+	s=default; t=1648222541;
+	bh=YToyrpeXD0X+5VW3zfjTO/Ikw5RTRTAfwe1YXrozb3w=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EuM+Du8V+uTww8f0QYwjG63h84QhsF8NgrxlnVJM6Yz2VsAxNF4Y8sVKYw/85Z54e
-	 2ub5Iv654v7jV1xU9ECPxz2+jkWWTPj4yqtxn3HFNxAQN6mD3lqzZjD7I48462AFFg
-	 Gv9KVj/Vwm+h379xy21tSkVvcIXtwwVe/CD01fM0=
+	b=FzoU7utiPnFbmzywXKYzSBN5xdA6mNKxatC/OH+K4XIivbfJ16DFQvSZDmU64d83H
+	 T8lKrFVruZpEFz3K2GdZ5t1/TaaI9xGyAXZ+4s4L+NtgIdPg2geevLlLEAa901MQJz
+	 psK/NZWahvAfErOQY1fPmGk3AbnYmw+gWItUtil0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BFB31F8051E;
-	Fri, 25 Mar 2022 16:33:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6D3F7F80528;
+	Fri, 25 Mar 2022 16:33:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CEBF2F800AA; Fri, 25 Mar 2022 16:33:13 +0100 (CET)
+ id 62745F8051A; Fri, 25 Mar 2022 16:33:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6CF1DF80115
- for <alsa-devel@alsa-project.org>; Fri, 25 Mar 2022 16:33:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6CF1DF80115
+ by alsa1.perex.cz (Postfix) with ESMTPS id 866DAF8051B
+ for <alsa-devel@alsa-project.org>; Fri, 25 Mar 2022 16:33:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 866DAF8051B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="p/uxxp9v"
+ header.b="p8nTFWt1"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id EB2FF60A76;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1AD93616B2;
+ Fri, 25 Mar 2022 15:33:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14FA7C340E9;
  Fri, 25 Mar 2022 15:33:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2213C340EE;
- Fri, 25 Mar 2022 15:33:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1648222388;
- bh=NqxcaBnxEjJ53GoQmFpvgu/LQKHpupq2rGbZFe+Xfhs=;
+ s=k20201202; t=1648222390;
+ bh=YToyrpeXD0X+5VW3zfjTO/Ikw5RTRTAfwe1YXrozb3w=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=p/uxxp9vcPACyhy+NmG8+0xgytj21LxQJLJhTorvg5YT81H/ThIueBXOwVS/vRbMU
- tIQs45PmrolDgiIGyagZOvqCVYv3juJETLK9ZsB9cpvb7trXM04a0nLPd6tzaUUvGp
- ONRQ+7V+/ZhLFDrFMox+VMo69YrGNeWgMr+HGTY+avFNqe4dA9c0zWhBy5tb6ejEuw
- m8RBc165INMEhAh65vcC5FQ53NlfqKSHaRszJGrfxdF2EIZM2ct3MeN/595k9lkk3q
- /rxm3MjRBxmP3k/x7eZjzReyjM8qL+4dTQzi0CSoillgJVX6Ek1k4Ighej8eOVRNF7
- ZZ8gusDlRaAog==
+ b=p8nTFWt1A1few/CV92DoH7g5kim6CTLK8pjzQYr0BypQURGohGrX40F1X6SOX6DEO
+ bvNmttDUmXYJ0dK/1ySJZOxOOY2QGZGzGgMsFxrCEC25aeLBHMVREwhMAS4gXLWKit
+ 2UvD//SQddu0gvJi6f7EpTBF19P1xIPe252N2XNJtZU0kHeAALPYKgRjUty/yaIU1e
+ FpGxS4WNrO98tuQkCz+G52oS+XTSRCixwk5Ck/Ly/Hve9mUCsdt8MgML5T0IrthBav
+ c2DC6Fx32xGxxXvCtmRmmzKjP3RSusVxx9CJsc5PYGvXJxkw4riGOG8FGBZ9SK4jW9
+ Q0wYTTeDU4V5Q==
 From: Mark Brown <broonie@kernel.org>
 To: Liam Girdwood <lgirdwood@gmail.com>
-Subject: [PATCH v1 3/7] ASoC: wm8731: Move regulator request into wm8731_init()
-Date: Fri, 25 Mar 2022 15:31:17 +0000
-Message-Id: <20220325153121.1598494-4-broonie@kernel.org>
+Subject: [PATCH v1 4/7] ASoC: wm8731: Factor our MCLK and mutex initialisation
+Date: Fri, 25 Mar 2022 15:31:18 +0000
+Message-Id: <20220325153121.1598494-5-broonie@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220325153121.1598494-1-broonie@kernel.org>
 References: <20220325153121.1598494-1-broonie@kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2903; h=from:subject;
- bh=NqxcaBnxEjJ53GoQmFpvgu/LQKHpupq2rGbZFe+Xfhs=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBiPeBF3SU/fe2mm2mwn8h3A1k3PvEbwELJWzyvXrDc
- mZ/ORQKJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCYj3gRQAKCRAk1otyXVSH0JlQB/
- 97neGBUydMC/MHDnO/AQGc0ED46I/a0czkEFK3uhW7J47wREQvTpB+vbY6VybnyPihvChrABBKaSYf
- wQ5aCgmQNUxSwcVNbMP7fqdC1CcAlLWz6dKzSFZeuaYljPQ8u6vhMYfLoAua6+P6DJ7auxhJXIenIP
- Xk0/p+S9H+PPEMyxv4SW4b5Ea2QMmHOPCwFHdcQKJO/IbzQHxHbzD80kK0zIxTTP9FZK9EbD9ggV1b
- J3tkaIw3XewgO7vKfDuYeOnbjYSkluhcGoJeDSwR64G9Ku/vV2QmUTDw+u6ARTeJ/w8g3xElVW7Ujx
- Af/XfB+zjtRYrAi4+JeZeldwk3osFa
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2237; h=from:subject;
+ bh=YToyrpeXD0X+5VW3zfjTO/Ikw5RTRTAfwe1YXrozb3w=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBiPeBG+XjR1VdDxA3ZwbxNzcof2mD/wEhd8n6vaAIF
+ Siy4cdaJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCYj3gRgAKCRAk1otyXVSH0LcDB/
+ 9Iy0vL3Vmf/95jZi7O5DgE/TZRoOlx/KR1weJZ4J60Y6Mk5JKMcR9UZ7Bz2cd4J0eAf6XjmRI/b8cK
+ +M710Pjqo8Fh8CYxW8V+OjtkV+w+qdLJdL4VYOdzcyqhjhQfxtAk1RQPrQryqBIxcSrUvNsEFxtcWO
+ pYiyMkmd0hysLMb4eEI/BrmjozsAo2aYqTXA0UJeKxf37Inz+nBvla5vSTaPyh+OlnQbFIjf0oL62m
+ 51ijzxUBEYAdqkskr0oJ+dgBXL+GrzWD6T0IHUgVJRP4yzPDQEGhJP6IkEmJK3hOatnA1rq1bSAphw
+ TNpu90W/IIW0Gnb7vYr6fgSwg5beMh
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 Content-Transfer-Encoding: 8bit
@@ -95,95 +96,83 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The supplies used by the wm8731 do not depend on the bus and there is no
-need to do anything with the supplies prior to instantiating the regmap so
-move the request into wm8731_init().
+The code for initialising the MCLK and mutex is identical in the I2C and SPI
+probe functions so just move this out into wm8731_init().
 
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/wm8731.c | 48 +++++++++++++--------------------------
- 1 file changed, 16 insertions(+), 32 deletions(-)
+ sound/soc/codecs/wm8731.c | 44 +++++++++++++--------------------------
+ 1 file changed, 14 insertions(+), 30 deletions(-)
 
 diff --git a/sound/soc/codecs/wm8731.c b/sound/soc/codecs/wm8731.c
-index b2ec03b1afed..334332bb5f22 100644
+index 334332bb5f22..43730aba11fe 100644
 --- a/sound/soc/codecs/wm8731.c
 +++ b/sound/soc/codecs/wm8731.c
-@@ -569,8 +569,22 @@ static struct snd_soc_dai_driver wm8731_dai = {
- 	.symmetric_rate = 1,
- };
- 
--static int wm8731_request_supplies(struct device *dev,
--		struct wm8731_priv *wm8731)
-+static const struct snd_soc_component_driver soc_component_dev_wm8731 = {
-+	.set_bias_level		= wm8731_set_bias_level,
-+	.controls		= wm8731_snd_controls,
-+	.num_controls		= ARRAY_SIZE(wm8731_snd_controls),
-+	.dapm_widgets		= wm8731_dapm_widgets,
-+	.num_dapm_widgets	= ARRAY_SIZE(wm8731_dapm_widgets),
-+	.dapm_routes		= wm8731_intercon,
-+	.num_dapm_routes	= ARRAY_SIZE(wm8731_intercon),
-+	.suspend_bias_off	= 1,
-+	.idle_bias_on		= 1,
-+	.use_pmdown_time	= 1,
-+	.endianness		= 1,
-+	.non_legacy_dai_naming	= 1,
-+};
-+
-+static int wm8731_init(struct device *dev, struct wm8731_priv *wm8731)
+@@ -588,6 +588,20 @@ static int wm8731_init(struct device *dev, struct wm8731_priv *wm8731)
  {
  	int ret = 0, i;
  
-@@ -591,28 +605,6 @@ static int wm8731_request_supplies(struct device *dev,
- 		return ret;
- 	}
++	wm8731->mclk = devm_clk_get(dev, "mclk");
++	if (IS_ERR(wm8731->mclk)) {
++		ret = PTR_ERR(wm8731->mclk);
++		if (ret == -ENOENT) {
++			wm8731->mclk = NULL;
++			dev_warn(dev, "Assuming static MCLK\n");
++		} else {
++			dev_err(dev, "Failed to get MCLK: %d\n", ret);
++			return ret;
++		}
++	}
++
++	mutex_init(&wm8731->lock);
++
+ 	for (i = 0; i < ARRAY_SIZE(wm8731->supplies); i++)
+ 		wm8731->supplies[i].supply = wm8731_supply_names[i];
  
--	return 0;
--}
--
--static const struct snd_soc_component_driver soc_component_dev_wm8731 = {
--	.set_bias_level		= wm8731_set_bias_level,
--	.controls		= wm8731_snd_controls,
--	.num_controls		= ARRAY_SIZE(wm8731_snd_controls),
--	.dapm_widgets		= wm8731_dapm_widgets,
--	.num_dapm_widgets	= ARRAY_SIZE(wm8731_dapm_widgets),
--	.dapm_routes		= wm8731_intercon,
--	.num_dapm_routes	= ARRAY_SIZE(wm8731_intercon),
--	.suspend_bias_off	= 1,
--	.idle_bias_on		= 1,
--	.use_pmdown_time	= 1,
--	.endianness		= 1,
--	.non_legacy_dai_naming	= 1,
--};
--
--static int wm8731_init(struct device *dev, struct wm8731_priv *wm8731)
--{
--	int ret = 0;
--
- 	ret = wm8731_reset(wm8731->regmap);
- 	if (ret < 0) {
- 		dev_err(dev, "Failed to issue reset: %d\n", ret);
-@@ -695,10 +687,6 @@ static int wm8731_spi_probe(struct spi_device *spi)
+@@ -670,21 +684,6 @@ static int wm8731_spi_probe(struct spi_device *spi)
+ 	if (wm8731 == NULL)
+ 		return -ENOMEM;
  
+-	wm8731->mclk = devm_clk_get(&spi->dev, "mclk");
+-	if (IS_ERR(wm8731->mclk)) {
+-		ret = PTR_ERR(wm8731->mclk);
+-		if (ret == -ENOENT) {
+-			wm8731->mclk = NULL;
+-			dev_warn(&spi->dev, "Assuming static MCLK\n");
+-		} else {
+-			dev_err(&spi->dev, "Failed to get MCLK: %d\n",
+-				ret);
+-			return ret;
+-		}
+-	}
+-
+-	mutex_init(&wm8731->lock);
+-
  	spi_set_drvdata(spi, wm8731);
  
--	ret = wm8731_request_supplies(&spi->dev, wm8731);
--	if (ret != 0)
--		return ret;
--
  	wm8731->regmap = devm_regmap_init_spi(spi, &wm8731_regmap);
- 	if (IS_ERR(wm8731->regmap)) {
- 		ret = PTR_ERR(wm8731->regmap);
-@@ -748,10 +736,6 @@ static int wm8731_i2c_probe(struct i2c_client *i2c,
+@@ -719,21 +718,6 @@ static int wm8731_i2c_probe(struct i2c_client *i2c,
+ 	if (wm8731 == NULL)
+ 		return -ENOMEM;
  
+-	wm8731->mclk = devm_clk_get(&i2c->dev, "mclk");
+-	if (IS_ERR(wm8731->mclk)) {
+-		ret = PTR_ERR(wm8731->mclk);
+-		if (ret == -ENOENT) {
+-			wm8731->mclk = NULL;
+-			dev_warn(&i2c->dev, "Assuming static MCLK\n");
+-		} else {
+-			dev_err(&i2c->dev, "Failed to get MCLK: %d\n",
+-				ret);
+-			return ret;
+-		}
+-	}
+-
+-	mutex_init(&wm8731->lock);
+-
  	i2c_set_clientdata(i2c, wm8731);
  
--	ret = wm8731_request_supplies(&i2c->dev, wm8731);
--	if (ret != 0)
--		return ret;
--
  	wm8731->regmap = devm_regmap_init_i2c(i2c, &wm8731_regmap);
- 	if (IS_ERR(wm8731->regmap)) {
- 		ret = PTR_ERR(wm8731->regmap);
 -- 
 2.30.2
 

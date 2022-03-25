@@ -2,76 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CD324E6F3B
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Mar 2022 09:02:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7D414E721A
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Mar 2022 12:20:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8E40416FB;
-	Fri, 25 Mar 2022 09:01:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E40416FB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 66F0B16A6;
+	Fri, 25 Mar 2022 12:20:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66F0B16A6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648195345;
-	bh=R4kiqkCwS94wMlyjT2HnXIuKqBJRQSS2xVdsN6wbygk=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1648207253;
+	bh=sKCePReqp4ZJymOSI9J4lq/V8FQUX26+JNamqgOmKYw=;
+	h=Date:Subject:From:To:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=k0nw2zU1Znw4CX2jNmNxNVTvCqtUL+Q5iA9/3f0hjayB88Hrheo7CneF9xN9hg9lw
-	 Nay9oeg545TmbPJc0++3aWHlHOlumgk0FzF7uLiuWiAbTtEU/Hi6QTlkzEr0uI1VNo
-	 PJz2sSfZ/8J6NDhgJbWdTCIUgwsmKVrFaSRfCEA0=
+	b=Dsizr+DS/r99HIr9EGr/UO6EDhecp1F9FzxIRyKYYD3h5j1oe60lCd72fJC3OXIn2
+	 82eDI7jMKPWadXKoxNJFKLeWWtFs7GDUSs5Z6377watGQls3pjABZVhiaoSM+kwuFP
+	 W0D0QVCRjqtTrCb8735ZWYsN3LKL+BETq7oW1HZc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DE437F800AA;
-	Fri, 25 Mar 2022 09:01:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BC322F801F7;
+	Fri, 25 Mar 2022 12:19:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 63DD5F80162; Fri, 25 Mar 2022 09:01:18 +0100 (CET)
+ id E28ADF800AA; Fri, 25 Mar 2022 12:19:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AD8E9F800AA
- for <alsa-devel@alsa-project.org>; Fri, 25 Mar 2022 09:01:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD8E9F800AA
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6FC40F800AA
+ for <alsa-devel@alsa-project.org>; Fri, 25 Mar 2022 12:19:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6FC40F800AA
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="0InZFbog"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
- :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=DwcbPzTVDRib4L1VsoxgMlldaVEStIsqmgFfJT2ZVEs=; b=0InZFbogVnMbo7ICwYkHgA7+6k
- E8aa3tNj3Cg9SHcU3vU7bszlSErTUNqErsQkEtr8YWm6i+ufRv5Z7P4LcmTb0Rii9N8IEcHwpyU4K
- /ptmmp5IzKuBJmlwusocdTz3zsc1tWZN0L0TlfXvoeECIRCqtCDp+co4Qs4zjEibqfusrPq1QwUfh
- l0Mx9eOQK4hNTVw5MrqeEkztc8M7j1fzEtrX0pNb7gCmpzw2bRGYf4phJUrAL+x5lmHAwDNu/0X/E
- At8SmvuppNYi57yNH5cJphnkPT6Eluy3uofIRr/sSi3m9wbFAXb7kUaS1fOAFEww7+qQWGDYzfACv
- KmAKCT3g==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1nXesY-001OG5-Qz; Fri, 25 Mar 2022 08:01:02 +0000
-Date: Fri, 25 Mar 2022 01:01:02 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Oh Eomji <eomji.oh@samsung.com>
-Subject: Re: [PATCH v1 1/3] sound: usb: Add vendor's hooking interface
-Message-ID: <Yj12vorW0FW8S6Sm@infradead.org>
-References: <1648109444-196321-1-git-send-email-eomji.oh@samsung.com>
- <CGME20220324081212epcas2p4d2ed1f3a1bb020606cf65016efec085b@epcas2p4.samsung.com>
- <1648109444-196321-2-git-send-email-eomji.oh@samsung.com>
+ dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
+ header.b="lv5yRVc2"
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: adalessandro) with ESMTPSA id 87AE11F4614E
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1648207177;
+ bh=sKCePReqp4ZJymOSI9J4lq/V8FQUX26+JNamqgOmKYw=;
+ h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+ b=lv5yRVc2k0I/c7KDjggKiXuVEGwwpOMPNMal8CNUvBFOrMrqLbUStd9sfpti2XuWw
+ GxU0GJtnL1xMlub9WQk9bTsjtARZ/Ymf7AwFc6HD9G6C51OuCKYkdA/HJUWVFQFEA/
+ GS+UTABwBtCVTu3JM5neiu02qw5FlfH9Gl3J3xkgw9FwDbqWi3RADA2Qw3ysHkSQQk
+ RWXdpD8UBFHGt3il4TVA6xk/YQzpJhUvzrTows798nBsQZtBK/eN34Vaw6EzZwFThw
+ 787bqLLkZkRgRKoIeUBTL3ypMt+slpfdmWzph9LzMjkRpG6KIuXqoAFG4fGTwhQ5rW
+ YVxjUdgARBZmA==
+Message-ID: <c08cd648-f42c-b8f6-41a5-172fdb47d27e@collabora.com>
+Date: Fri, 25 Mar 2022 08:19:26 -0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1648109444-196321-2-git-send-email-eomji.oh@samsung.com>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
-Cc: alsa-devel@alsa-project.org, JaeHun Jung <jh0801.jung@samsung.com>,
- Leon Romanovsky <leon@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Takashi Iwai <tiwai@suse.com>,
- open list <linux-kernel@vger.kernel.org>,
- Pavel Skripkin <paskripkin@gmail.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.4.1
+Subject: Re: [PATCH v2 2/2] arm64: dts: imx8mn-bsh-smm-s2pro: Add
+ tlv320aic31xx audio card node
+Content-Language: en-US
+From: Ariel D'Alessandro <ariel.dalessandro@collabora.com>
+To: Fabio Estevam <festevam@gmail.com>
+References: <20220210134049.32576-1-ariel.dalessandro@collabora.com>
+ <20220210134049.32576-2-ariel.dalessandro@collabora.com>
+ <CAOMZO5DuB4d1243H46d1=heiNiz+pQVkjrGU+zV_r3GFKRTZfQ@mail.gmail.com>
+ <d748d03d-4e9c-50a5-6c9e-089ec44a2540@collabora.com>
+In-Reply-To: <d748d03d-4e9c-50a5-6c9e-089ec44a2540@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Linux-ALSA <alsa-devel@alsa-project.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ linux-kernel <linux-kernel@vger.kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ NXP Linux Team <linux-imx@nxp.com>, Sascha Hauer <kernel@pengutronix.de>,
+ Michael Trimarchi <michael@amarulasolutions.com>,
+ Shawn Guo <shawnguo@kernel.org>,
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,9 +95,66 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Independ of the actual usefulness of thi: vendor is a reallly bogus
-naming choice for device specific hooks.  No one cares what vendor
-produces a given device, it is all about the interface of it.  One
-vendor might have different interfaces over time, from different
-divisons or thrugh acquisitions, and multiple vendors can agree to
-a single interface through open standards or IP licensing.
+Hi Fabio,
+
+On 3/17/22 15:47, Ariel D'Alessandro wrote:
+> Hi Fabio,
+> 
+> On 3/10/22 09:29, Fabio Estevam wrote:
+>> Hi Ariel,
+>>
+>> On Thu, Feb 10, 2022 at 10:41 AM Ariel D'Alessandro
+>> <ariel.dalessandro@collabora.com> wrote:
+>>
+>>> +&i2c2 {
+>>> +       clock-frequency = <400000>;
+>>> +       pinctrl-names = "default";
+>>> +       pinctrl-0 = <&pinctrl_i2c2>;
+>>> +       status = "okay";
+>>> +
+>>> +       codec: tlv320dac3101@18 {
+>>> +               #sound-dai-cells = <0>;
+>>> +               compatible = "ti,tlv320dac3101";
+>>> +               pinctrl-names = "default";
+>>> +               pinctrl-0 = <&pinctrl_dac_rst>;
+>>> +               reg = <0x18>;
+>>> +
+>>> +               ai31xx-micbias-vg = <MICBIAS_AVDDV>;
+>>> +
+>>> +               HPVDD-supply = <&buck4_reg>;
+>>> +               SPRVDD-supply = <&vdd_input>;
+>>> +               SPLVDD-supply = <&vdd_input>;
+>>> +               AVDD-supply = <&buck4_reg>;
+>>> +               IOVDD-supply = <&buck4_reg>;
+>>> +               DVDD-supply = <&buck5_reg>;
+>>> +               reset-gpios = <&gpio1 6 GPIO_ACTIVE_LOW>;
+>>> +
+>>> +               clocks = <&clk IMX8MN_CLK_SAI3_ROOT>;
+>>> +               clock-names = "mclk";
+>>
+>> The clocks and clock-names properties are not documented in the codec bindings.
+>>
+>> Also, the driver does not use call clk_get() on this mclk clock.
+>>
+>> You should drop the clocks and clock-names properties.
+> 
+> The sound card driver is calling clk_get() on the codec's clock. See
+> sound/soc/fsl/fsl-asoc-card.c:
+> 
+>     /* Get the MCLK rate only, and leave it controlled by CODEC drivers */
+>     if (codec_dev) {
+>         struct clk *codec_clk = clk_get(codec_dev, NULL);
+> 
+>         if (!IS_ERR(codec_clk)) {
+>             priv->codec_priv.mclk_freq = clk_get_rate(codec_clk);
+>             clk_put(codec_clk);
+>         }
+>     }
+
+Do you have any other comments on this one? Otherwise, could you perhaps
+ack this patch? See latest version:
+  [PATCH v4] arm64: dts: imx8mn-bsh-smm-s2pro: Add tlv320aic31xx audio
+card node
+
+Thanks
+Ariel

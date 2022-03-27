@@ -2,49 +2,142 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E46C4E8A80
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Mar 2022 00:29:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED5134E8B10
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Mar 2022 01:32:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0A3BB822;
-	Mon, 28 Mar 2022 00:28:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A3BB822
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7F05E9F6;
+	Mon, 28 Mar 2022 01:31:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F05E9F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648420166;
-	bh=LMGacrObIHkOfB/x5xSFuhvBNVmEH+gCzEkH/9J5GaQ=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1648423961;
+	bh=JY5F3RNqPH3G1qn9vMD0tueqZrI1gwoh8NJADg7GsT0=;
+	h=From:To:Subject:In-Reply-To:References:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RC4HnemOI2AicDIIcURrIvlyN8f2lZKclFDTik+0DMtPDYC0E8l3gJUDGHTR3w7fq
-	 Kzs4xwWGAF4E+Er7CHziJhsm/XnY4UTatlTFTtf/or/capzZAoYy04afeO+2j5Y/hS
-	 7l9dOjiBW9fUlmMbPOz+saUrHA4wBS+W9M8UrTMU=
+	b=kEUCc7257EqcClg21uVLUreNIhRt9jMynzo0eUBh/2zfWSunhNRLkUH31fkHcI6NQ
+	 TAJ3ogVGqODxgw7qEiiBmxT8lcSoxdDcmzcpFNb3Vq5MrQlUlddq39BHjxcC4QsAZk
+	 /SXYFV2kUXf6V+kZVJ79RYWuVskjpUk6y4tu6kFY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7384AF800F8;
-	Mon, 28 Mar 2022 00:28:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EF246F8019B;
+	Mon, 28 Mar 2022 01:31:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 76B24F80161; Mon, 28 Mar 2022 00:28:16 +0200 (CEST)
+ id D3E24F80161; Mon, 28 Mar 2022 01:31:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 87473F800F8
- for <alsa-devel@alsa-project.org>; Mon, 28 Mar 2022 00:28:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87473F800F8
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from JPN01-TYC-obe.outbound.protection.outlook.com
+ (mail-tycjpn01on2071e.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:7010::71e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9FD28F80121
+ for <alsa-devel@alsa-project.org>; Mon, 28 Mar 2022 01:31:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9FD28F80121
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com
+ header.b="cVgg+pbh"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=lPbiHxtEH4/nZxWVBmZa9rNLTOJ+KsX3YzD2daZBx4HozehSlTOC+JSJ+1ruyFWy4JVoIK9Xxrxtuo1opFTQrgnP0NxtNKw4VAjhOef712iOyV043/MFpbLTKHV2xOWwBknWvENpT8ZjPHY5813e6RgqYMqoFdI123cpHDSgYNCpmOyGf12A6miezA96+6ljpgto2FxxS7WncfiEl3X8DPG1r+XUkf4aMPNvikwcxmNnvM3ljk8hhC3KDHHT3vMPeUZF0GSg9B2DEw/eX51yWpgjlGZfTnqECTSbh3McdwUExfHPX0KPbyl/FhwHQuN8s8+TcRCR4JPdqwDcO4CDuQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qpj45STB8F1p8FOOT3uc0gmO7jmhCdW/r9gjbejm0J0=;
+ b=kR/WIUy+8ocULERB3D18nq6mMsKTWce3GRqGc6PA6pCJVck7IQ78Tv8QnV+DwJCQc8VUpLX+9U6+Vt6mzGIom+DBW4QGwTmJJEYj405Mv7gYXXwwzIgcKFWTDxX5zEWrWKKRUgv8DgScR1UKiDgQwMGzZc1cG0iKZIfwlZlLVn1Zzxkedb0lH6y7XiwVVkGrAicqYkQiypjha5ToJypb6O3zLaScCx2PPIO0SWO7cE+hS32Gs2BqNPR/LetcLNm14Bk/i8E1+bOP0evR1bsYFRAnXzlXYOfapoHOkErs5CpGlmCL4paz5LoWGc3I3nooFhcU9b+6FHzObBUoKSS6HA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qpj45STB8F1p8FOOT3uc0gmO7jmhCdW/r9gjbejm0J0=;
+ b=cVgg+pbhDRv2B9PcEHrb0lCUpJ82N3z3HYUurYDHxO/YFXAQe687wDvuYdzceSEj3G1Q6IvKRLtwwStzqsfJH9THhMgARENLFhoTNSHj752k/60LrHo+iRj/Hzu0QxYBtF2xvWJc5ylqBwQAcZJ2/MwPEY/adCuzdf10naFpLvs=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
+ by TYAPR01MB3504.jpnprd01.prod.outlook.com (2603:1096:404:c3::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.17; Sun, 27 Mar
+ 2022 23:31:19 +0000
+Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
+ ([fe80::7c4e:286f:81:97ac]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
+ ([fe80::7c4e:286f:81:97ac%3]) with mapi id 15.20.5102.022; Sun, 27 Mar 2022
+ 23:31:19 +0000
+Message-ID: <87zglbug5a.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Xiaomeng Tong <xiam0nd.tong@gmail.com>
+Subject: Re: [PATCH] soc: soc-core: fix a missing check on list iterator
+In-Reply-To: <20220327082018.13585-1-xiam0nd.tong@gmail.com>
+References: <20220327082018.13585-1-xiam0nd.tong@gmail.com>
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 27 Mar 2022 23:31:19 +0000
+X-ClientProxiedBy: TY2PR06CA0030.apcprd06.prod.outlook.com
+ (2603:1096:404:2e::18) To OS3PR01MB8426.jpnprd01.prod.outlook.com
+ (2603:1096:604:194::10)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1648420089770205975-webhooks-bot@alsa-project.org>
-References: <1648420089770205975-webhooks-bot@alsa-project.org>
-Subject: Audio only working after stopping PulseAudio and setting the UCM -
- kblda7219max on the ChromeOS Kernel, 5.10.70
-Message-Id: <20220327222816.76B24F80161@alsa1.perex.cz>
-Date: Mon, 28 Mar 2022 00:28:16 +0200 (CEST)
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 14bb61a4-bbdf-4a14-afde-08da1049e577
+X-MS-TrafficTypeDiagnostic: TYAPR01MB3504:EE_
+X-Microsoft-Antispam-PRVS: <TYAPR01MB35046513F2AC0F70C6DAD4ABD41C9@TYAPR01MB3504.jpnprd01.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: ETn7Uyg6AUnrY0Gns/Boxzhi5P9jQBrgrxkdC8x+WUCEOEqJhfQvsYoTKVyW70VRDHuKNhMTfmuzO635Nj7TyYA3MsKbW2u7q1H4/DqnE9tCijcFDe8I7ePvTlMjBD2Fe7+ZxmWXw1M4vKAhdrWvFeaf7Q25BCB4zo0z6sn2QnbPhx/9rdHpVJUkILjqvIFFRH2tOagrfbnz+yyB6CEj/yD3S87NmCpM9X+DGCABaJp3CdqLmvzjqMYYaUN0NISZxvCawR/j+Vuu1lHSRJFNAU3eBSaJto6aqkIGG4SyDmbeI2NSdMSElWDkvXoLexr7AMNvCuUMN6LT0qNIAY8FruugAy6oS74Lb6yHBM3+t+YwFm7KTIo43VTjA+NM6B/rF7R0h0AhjgMaFjBaLxyEeQ9pk3tj/TkDNOzrsIMXGZLcoZGANvIZ6VD721Itctz+ceK2uUo6JqLt7APJTNVIp8gMnPGa6C7aIWJl/ZQ3dg9l/1qn+qkX8FxpRvrhz83DNWQlPyaNRD5QnDNPrRFxsxTHRSH0n+Nz17OX1qS31UK9xBCiR8WWE/tlkwhZePl0Vrs24gxsXvb7eHuM3PhEEiIX5epmcS2NmEn9MkNkknIXROFhwN+wW/cxbtI6XQhezArh53sshaMf5kf11zNJ3Xj4su9tCrhgYqnhPw81gEuZU8+y1ABqw7kPpgzmsaJK4yGYQmYUJxopKDtWqoEhkw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:OS3PR01MB8426.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(38350700002)(52116002)(38100700002)(86362001)(36756003)(508600001)(5660300002)(6512007)(66476007)(66556008)(6486002)(66946007)(8936002)(186003)(316002)(6916009)(83380400001)(4326008)(2616005)(8676002)(2906002)(6506007)(26005);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?qbccVzSKF6m+krmvqA28s4ynlRjPHhFXQcCQfgsgVR2hMPsLFlFp567gJ3F6?=
+ =?us-ascii?Q?2kGtTekYu1ovM0wpWSGhZ8q8clJjvp6qmF2HMhqXAfqqrn9pTDhUwxbBYnfT?=
+ =?us-ascii?Q?LMrPtg8anYDwt1QBDZ+7yUG3c/B0U8XKGZCjULAtlHlvp1qIZ/ihA6Stpe3z?=
+ =?us-ascii?Q?zoaxKvRwp8V+oGeICZPgXmh/wSVVZoa4XXfH0vp+hMh053PPM6tpLw9F+DUT?=
+ =?us-ascii?Q?wWc6GyVUmRL/OhUKNwXzdJpdm2vf5iju0X+w/Xe0OScq0JPTO3Nabi9zEd9u?=
+ =?us-ascii?Q?pcBQC14jNJ4ufa4kQH158IMiRMoibUxZ04+f/UtF+g7AkV33H3UaqtT8Y/jq?=
+ =?us-ascii?Q?HWQRg5vegr5gBdckMFPnz2Ka2bNoKv5xqUDrcLL5/d5jEWTGEIKCUwRQ1sZV?=
+ =?us-ascii?Q?IWAALy3xOoXs08FfFg5DywK+HnI7NA07BWuOHWRC7O+Fwem2fyX5MHnQgAwE?=
+ =?us-ascii?Q?hQszDXwj9aiiSgx7khDuG0qqy3z3w0RI2NiMxJgy00++MyIlMoTs3dU40nM+?=
+ =?us-ascii?Q?ul/YSxOQJSFrE+cx1DSPG+8uNOJTFdeJpnWJdL0tUlRBmBSIWpw4f2DRB6Ek?=
+ =?us-ascii?Q?xPqBPuN+bs5ue9xK/Os7IrEWzhPzJu9HJzkLqJQB4CDA25AM2j5pwLVFCB9+?=
+ =?us-ascii?Q?YizPtIFF6n31lCs9/iSao1iQQ04mqbY/C/f9IdGNLO2RRfrHd9/Ck9K8WWuf?=
+ =?us-ascii?Q?mldP7+Eqj+v/3zWq1kzGwAaeLAQX2i8OUyDvwqS0VSUNlAB5oRQKmkfmLuUp?=
+ =?us-ascii?Q?GmOsqWEVRBUss2jRZApQfnimr36O3Q8nNrZH++Tr0U04DWFpxDnipgf8gZUg?=
+ =?us-ascii?Q?z5QU0KmbrMcqrQSLeMpxAcMpTPTjcdEPEfH9icA0ubHo/uMkta7L5reMTy9H?=
+ =?us-ascii?Q?a/xgOxXapvb3daLMonAQE+hfc8cbeOsN2GVy1KlyMrJQTXzwx0HWpxtubRak?=
+ =?us-ascii?Q?MVjpTXAXlx5u9wMpImmZjf220TR8ix/HtgjnaulNF3GwDV8sT7LBa3wnzT4q?=
+ =?us-ascii?Q?ERRtQvT5+3yHcz10ze8ThT2qnfGaeeHM1dO1auNUVxb9OfChPZtyWrxGdwA0?=
+ =?us-ascii?Q?+6eWeZz6/HkMo2bmjtJ7fzwiOMSj+SpttP+VQK1BKWHIPYAm7yAYCcchl3Df?=
+ =?us-ascii?Q?CExUcKdl9Lnl5fB12xSPz+b9RWW5+fCiWz6ZywquWsUaIqYE5ybQr2RAak1G?=
+ =?us-ascii?Q?p0DcPtfP5IVdLEbtYWJhzY76A9Zg8CMd8eYxJn6X0tEcN/9WwzPQyH4UKDwk?=
+ =?us-ascii?Q?6m/AgdL5JANdWYHzm+tTToCNaE2yzVMTzlLgJRPjyfhZaUQRiC/7+cy25wek?=
+ =?us-ascii?Q?mA7tKAYY49DbMU0gKdlO4mXK0RhqiU4RBgwtpWT5FGA4M8VvP3FZL5C2nzJn?=
+ =?us-ascii?Q?Rn8I6SndkASjE8HvRP0PT8N5fQ8sQdGinfQV/JtDbUU/++KhhGWt338Kf0He?=
+ =?us-ascii?Q?APVhO4LXY1NfmxKxdTTrX1H6vidN8xYrJrcrUUNpCiCZ+jNOkE8DoGb44bUu?=
+ =?us-ascii?Q?Zb05iDlwEC0xs7ftvnIA1ffNQjWP9ZDKULpbIQRrncI3G3wGqBBMdnosEsrx?=
+ =?us-ascii?Q?q/Ja2vw+q5fvatuCpmLDojlTq4eJ/jq2QVCghci56eHZGgtdd1CLDf+iggl7?=
+ =?us-ascii?Q?VuftOudLWdxYMf6KBRwYz4NMtGPx3qiq8uzFJG10WzO/TKcb2/ffWREZFYWZ?=
+ =?us-ascii?Q?GkTvePlx9tMjCIdQGqllChCW06qavX2bBoy5tQrO/Qyagmn/y5JTn1Xa6poV?=
+ =?us-ascii?Q?4afvEp7HeNw9bjnhj2z2sw6jpIii5F6Ok00eaHbbBJiTbn3OwbzM?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 14bb61a4-bbdf-4a14-afde-08da1049e577
+X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2022 23:31:19.7328 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8twzMWEIyzbmQSfojb2wGSJkHPap7aK/U8CRylzgAhAzjTFtnoEciaq6xB5UXebVTGpQ7mHeTAOIjJBPg7+uknTFroWE6idkcz6H89UWWrXV4vWhkJnRjZqSDNEt49x8
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYAPR01MB3504
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, tiwai@suse.com,
+ broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,50 +153,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-ucm-conf issue #142 was edited from MilkyDeveloper:
 
-On my `kblda7219max` Chromebook (baseboard: NAMI), internal audio works properly when the following conditions are met:
-* Kernel 5.10.70 (ChromeOS fork) is used (the latest ChromeOS kernel has some kind of topology-related kernel bug)
-* FW is copied from the ChromeOS rootfs to Linux
-* UCM is converted to UCM2
-* Only ALSA is used
+Hi Xiaomeng
 
-However, whenever I start PulseAudio (`pulseaudio -vvvv`), audio is disabled, going to a dummy output.
+Thank you for your patch
 
-PulseAudio passes through probing for the UCM files but errors out in this particular spot:
-```
-I: [pulseaudio] (alsa-lib)pcm_hw.c: SNDRV_PCM_IOCTL_PREPARE failed (-22)
-I: [pulseaudio] alsa-util.c: snd_pcm_hw_params failed: Invalid argument
-D: [pulseaudio] alsa-util.c: Trying hw:kblda7219max,0 without SND_PCM_NO_AUTO_FORMAT ...
-D: [pulseaudio] alsa-util.c: Managed to open hw:kblda7219max,0
-D: [pulseaudio] alsa-util.c: Maximum hw buffer size is 21845 ms
-I: [pulseaudio] (alsa-lib)pcm_hw.c: SNDRV_PCM_IOCTL_PREPARE failed (-22)
-I: [pulseaudio] (alsa-lib)pcm_hw.c: SNDRV_PCM_IOCTL_PREPARE failed (-22)
-I: [pulseaudio] (alsa-lib)pcm_hw.c: SNDRV_PCM_IOCTL_PREPARE failed (-22)
-I: [pulseaudio] (alsa-lib)pcm_hw.c: SNDRV_PCM_IOCTL_PREPARE failed (-22)
-```
-which causes it to say:
-```
-E: [pulseaudio] module-alsa-card.c: Failed to find a working profile.
-E: [pulseaudio] module.c: Failed to load module "module-alsa-card" (argument: "device_id="0" name="platform-kbl_da7219_mx98357a" card_name="alsa_card.platform-kbl_da7219_mx98357a" namereg_fail=false tsched=yes fixed_latency_range=no ignore_dB=no deferred_volume=yes use_ucm=yes avoid_resampling=no card_properties="module-udev-detect.discovered=1""): initialization failed.
-```
+> The bug is here:
+> 	*dai_name =3D dai->driver->name;
+>=20
+> For for_each_component_dais, just like list_for_each_entry,
+> the list iterator 'dai' will point to a bogus position
+> containing HEAD if the list is empty or no element is found.
+> This case must be checked before any use of the iterator,
+> otherwise it will lead to a invalid memory access.
+>=20
+> To fix the bug, use a new variable 'iter' as the list iterator,
+> while use the original variable 'dai' as a dedicated pointer
+> to point to the found element.
+>=20
+> Cc: stable@vger.kernel.org
+> Fixes: 58bf4179000a3 ("ASoC: soc-core: remove dai_drv from snd_soc_compon=
+ent")
+> Signed-off-by: Xiaomeng Tong <xiam0nd.tong@gmail.com>
+> ---
 
-My `dmesg` gets filled with:
-```
-Kbl Audio Port: ASoC: no backend DAIs enabled for Kbl Audio Port
-Kbl Audio Port: ASoC: dpcm_fe_dai_prepare() failed (-22)
-```
+From "code" point of view, indeed current code doesn't care non-find case,
+but from "logic" point of view, it should find target DAI here.
 
-However, once I kill PulseAudio and run `alsaucm -c kblda7219max set _verb HiFi set _enadev Speaker`, audio begins working again (but this is in pure ALSA and PA apps are not compatible) and the `no backend DAIs enabled for Kbl Audio Port` is no longer logged to `dmesg`.
+If it couldn't find the DAI, it means
+"This is the target component, but it doesn't have target DAI",
+and it is very strange for me.
 
-I think this is a UCM issue because the audio is working fine kernel-level and with ALSA, but PulseAudio seems to mess something up with the UCM and the UCM needs to be set again.
+If you got such bug, it is CPU or Codec driver side bug, I think.
+If this is for security reason, indicating such message somewhere
+(for example by /* comment */) is nice idea for me.
 
-Huge thanks for any help!
-[alsa-info.txt](https://github.com/alsa-project/alsa-ucm-conf/files/8355612/alsa-info.txt)
-(My PulseAudio log is slightly different from the time I ran PulseAudio and got the PCM_IOCTL_PREPARE error)
-[pulseaudio-log.txt](https://github.com/alsa-project/alsa-ucm-conf/files/8355613/pulseaudio-log.txt)
-[HiFi.conf.txt](https://github.com/alsa-project/alsa-ucm-conf/files/8355631/HiFi.conf.txt)
-[kblda7219max.conf.txt](https://github.com/alsa-project/alsa-ucm-conf/files/8355632/kblda7219max.conf.txt)
+Thank you for your help !!
 
-Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/142
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf
+Best regards
+---
+Kuninori Morimoto

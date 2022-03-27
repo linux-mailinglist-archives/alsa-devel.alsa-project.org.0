@@ -2,95 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C37054E8757
-	for <lists+alsa-devel@lfdr.de>; Sun, 27 Mar 2022 13:11:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 038C24E87D7
+	for <lists+alsa-devel@lfdr.de>; Sun, 27 Mar 2022 15:09:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5256E201;
-	Sun, 27 Mar 2022 13:10:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5256E201
+	by alsa0.perex.cz (Postfix) with ESMTPS id 71DF91640;
+	Sun, 27 Mar 2022 15:09:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 71DF91640
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648379498;
-	bh=Pn3NBqVJXcMgz3j9FxijJCMs5aDunlwf9Doddep0VIA=;
-	h=References:From:To:Subject:Date:In-reply-to:Cc:List-Id:
+	s=default; t=1648386595;
+	bh=gZn7/W9sfzaFw4O1mB7Du3Dcmrk51mkx1kGdCZiyTV4=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PpY1sI6crt/pfgaZoLhdpxWlr5/MAiHX2RkVjxSoyHQoQDFIKOAFISa4QTV97S2fY
-	 YQTNb8FzaMVD36WHAHsm96s3ZVJgqVk74mGLW5YoDJTfoCyHQ2sfSEFgmwtjWlQrPk
-	 9dLcW+INRZyWLw+ew19fXWNlj/kjx5rI9xBJaJlw=
+	b=F06zb7DCERXeA9keEEBeK7syLWIXNUqWvV8pXMy2c5nhBcc94Zj+AW824BTaPe9ML
+	 qYgghwcCabvR9evq0t9aG2EABwQdEm2E42lpkENVL6+iwQ6V35GWJX063xr7C3oE2U
+	 7HQizhxaBBy9FC8i5fjbyixz23K/bd6AxJJdgMWs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A3A98F80121;
-	Sun, 27 Mar 2022 13:10:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D4F4EF8019B;
+	Sun, 27 Mar 2022 15:08:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 19C52F80161; Sun, 27 Mar 2022 13:10:31 +0200 (CEST)
+ id D4B8AF80121; Sun, 27 Mar 2022 15:08:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [IPv6:2a00:1450:4864:20::32e])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pl1-x643.google.com (mail-pl1-x643.google.com
+ [IPv6:2607:f8b0:4864:20::643])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 441E7F800B6
- for <alsa-devel@alsa-project.org>; Sun, 27 Mar 2022 13:10:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 441E7F800B6
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6256DF80121
+ for <alsa-devel@alsa-project.org>; Sun, 27 Mar 2022 15:08:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6256DF80121
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=baylibre-com.20210112.gappssmtp.com
- header.i=@baylibre-com.20210112.gappssmtp.com header.b="n+TM4caO"
-Received: by mail-wm1-x32e.google.com with SMTP id
- k124-20020a1ca182000000b0038c9cf6e2a6so6916048wme.0
- for <alsa-devel@alsa-project.org>; Sun, 27 Mar 2022 04:10:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20210112.gappssmtp.com; s=20210112;
- h=references:user-agent:from:to:cc:subject:date:in-reply-to
- :message-id:mime-version;
- bh=+BzHZSvsn/H69wlmb/H6rNB8e3j/o17VqP5fAwR3vQU=;
- b=n+TM4caOAp7aEq8To+f6jO0BS7LMe0+DMBVCErD3nIzBkOALI2ZJlInZiWkvYKLyqB
- H+4F7iYjKqYaLj/OPPzW9gq+l/M9Z0u6a8WTTf6LH/6M+0VXHjVNWfLpj5h9WLbTDly9
- PJkw2fhaZ+69LqpOJ+zOCsrcktLX2QSq48Td+AlXqCzNCKa9dO0WK70MfS6fKUQC9Wtk
- +fFh+kf/2aZXUIKt7Qtoq42+r5NKVrbBQryKeKWeDT12xPt7ASgtSsTKwm8D0eA3DWUo
- 8Zs14hKV4x0VtL+2deVPC7sbA3/beiz2cDtnHAf4stM2aEO3tYUFOqpZX9yriEm4A7M+
- Mq6A==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="Ufg/OZ4t"
+Received: by mail-pl1-x643.google.com with SMTP id j8so2361563pll.11
+ for <alsa-devel@alsa-project.org>; Sun, 27 Mar 2022 06:08:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=Ev+jFF4MWyLXe4KFMG0ej9Khdftaw0LvpKgprsKOSno=;
+ b=Ufg/OZ4tD+eXPEBdYrrwtmVFy3ZFS2zmA6LG4zlQnU4T+aLWPJWTyNP+eU9Mkif4il
+ 3kcXtY86W/fklnC9uI+MDlhKhDSSCJRXW8UAkht7kEZuqTzgG2MqU9HtM+WbuAWY+37l
+ L7WaNxT+GdFefNK1qfyTyj3L0t7yOm+zeUy3+GOq5K6t3mMnmLpQK0yIkpr1sK9I1PgM
+ YvRcFnmZDV0+/98BQzyAqVeeeMbvKMGlfF9xh+YMNkuDbcZjVaL411XXZ60EufOXfqaA
+ K3jb4fB11w9UL5qB73hoFsqsROPfeVQYcFFqBjmAQNoOBzKM/HkoGqm4rJ7OvxNp2Jxu
+ pdcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:references:user-agent:from:to:cc:subject:date
- :in-reply-to:message-id:mime-version;
- bh=+BzHZSvsn/H69wlmb/H6rNB8e3j/o17VqP5fAwR3vQU=;
- b=AMIc3l1EfoQ1C+i0K3nln8vDgu5cSVOHGdfqDKMSgyOpuaUrPJ1TodK3YeC7ZXDEbn
- hfNQH9Z2KJnqnlZhmwYltckApnI2hWOWm04AaULVTOpCwSlb8wNDe0nPJrsXgbPNMH6p
- zFVfu8xcRuZI4uyRQq4Hd5C3PUmV/mLb+fPXC/kXs5jkcRwlQ2su3odpwtr0ATTQINxv
- I8Jf62RA6+tjzZv3lL323hkyzd6/ia9eC2Nk3W+/XsRjHn1rcvm/WTW6ika1+FeJBc42
- HNC7K27hM8ZQggpFye7wdu6B75X8s3ddUiE7/WiYgwkI/fSij1zSerQTcj6rap5OaE9D
- GVwg==
-X-Gm-Message-State: AOAM531yzpQY6PfxBYXfp/yh36I2qAkbEr3NBcvQ1BI3c/G/mtjtj5Wm
- E0IQt0OzqxSKqnX7le3cEr6ywA==
-X-Google-Smtp-Source: ABdhPJzw8TxaeNM+RLDCb4Y1lZLHWqMHpKjAx9JRCVm8lX0y2gwyKrD4U6GXSV5yvfD0ii3RXeXiXw==
-X-Received: by 2002:a05:600c:1c8e:b0:38c:a386:26aa with SMTP id
- k14-20020a05600c1c8e00b0038ca38626aamr19308151wms.204.1648379425745; 
- Sun, 27 Mar 2022 04:10:25 -0700 (PDT)
-Received: from localhost (82-65-169-74.subs.proxad.net. [82.65.169.74])
- by smtp.gmail.com with ESMTPSA id
- g6-20020a5d5406000000b001f049726044sm9577806wrv.79.2022.03.27.04.10.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 27 Mar 2022 04:10:24 -0700 (PDT)
-References: <20220327081850.13456-1-xiam0nd.tong@gmail.com>
-User-agent: mu4e 1.6.10; emacs 27.1
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Xiaomeng Tong <xiam0nd.tong@gmail.com>, lgirdwood@gmail.com,
- broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- narmstrong@baylibre.com, khilman@baylibre.com
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references;
+ bh=Ev+jFF4MWyLXe4KFMG0ej9Khdftaw0LvpKgprsKOSno=;
+ b=x3VJpDuA87ykgvaS/4T4VF0/KoObmE0cyrAR8rKXAtMYW+bHfvGHb8m7ppN+megVvJ
+ uyusdpwkZ8Fj+6TCcETaJ1/QjGzO3Cw5gw20t/CMh+zUYGsYf90xImk72n6pMTSNX71u
+ M22KAkgGJoeGr4JKUwMSmfoyad0FVNuDhITMe2Z8gk9rb1QWWmdWkJfanhUk2/YlBCEq
+ XFeOC1ONDVp+Gma/gZz7KdQTxOxHj43l7XW1umZpz4zh4B8yXGlRVbdQG2RHtG6wfn2C
+ EVfZ1yhA+fsjkr6vkxyKV1V9FCpyqVnKY63b3n9KAUFV2RLSNIpj0j0c8x+dTQNXbwDb
+ xpzg==
+X-Gm-Message-State: AOAM531isC0Hs0Qj5tWdGK073Odmowobj1t4OK6/S2GxIKtqN6DMJKou
+ obD1US0TEZC6nXZup/ebvJs=
+X-Google-Smtp-Source: ABdhPJyXtZD88gtYEGL6/ADVEXlDLeumzqSwdYxQT/171flyk3eAaXRePwNbyBz93CC4f454cba7VQ==
+X-Received: by 2002:a17:90b:4c49:b0:1c7:d6c1:bb0f with SMTP id
+ np9-20020a17090b4c4900b001c7d6c1bb0fmr17541719pjb.230.1648386516119; 
+ Sun, 27 Mar 2022 06:08:36 -0700 (PDT)
+Received: from localhost ([115.220.243.108]) by smtp.gmail.com with ESMTPSA id
+ d16-20020a17090ad99000b001bcbc4247a0sm10967761pjv.57.2022.03.27.06.08.34
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Sun, 27 Mar 2022 06:08:35 -0700 (PDT)
+From: Xiaomeng Tong <xiam0nd.tong@gmail.com>
+To: jbrunet@baylibre.com
 Subject: Re: [PATCH] soc: meson: fix a missing check on list iterator
-Date: Sun, 27 Mar 2022 13:03:14 +0200
-In-reply-to: <20220327081850.13456-1-xiam0nd.tong@gmail.com>
-Message-ID: <1jk0cf6480.fsf@starbuckisacylon.baylibre.com>
-MIME-Version: 1.0
-Content-Type: text/plain
-Cc: alsa-devel@alsa-project.org, martin.blumenstingl@googlemail.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+Date: Sun, 27 Mar 2022 21:08:01 +0800
+Message-Id: <20220327130801.15631-1-xiam0nd.tong@gmail.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <1jk0cf6480.fsf@starbuckisacylon.baylibre.com>
+References: <1jk0cf6480.fsf@starbuckisacylon.baylibre.com>
+Cc: alsa-devel@alsa-project.org, narmstrong@baylibre.com,
+ martin.blumenstingl@googlemail.com, khilman@baylibre.com, tiwai@suse.com,
+ lgirdwood@gmail.com, stable@vger.kernel.org, linux-kernel@vger.kernel.org,
+ broonie@kernel.org, xiam0nd.tong@gmail.com, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,55 +101,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Sun, 27 Mar 2022 13:03:14 +0200, Jerome Brunet <jbrunet@baylibre.com> wrote:
+> On Sun 27 Mar 2022 at 16:18, Xiaomeng Tong <xiam0nd.tong@gmail.com> wrote:
+> 
+> > The bug is here:
+> > 	*dai_name = dai->driver->name;
+> >
+> > For for_each_component_dais(), just like list_for_each_entry,
+> > the list iterator 'runtime' will point to a bogus position
+> > containing HEAD if the list is empty or no element is found.
+> > This case must be checked before any use of the iterator,
+> > otherwise it will lead to a invalid memory access.
+> >
+> > To fix the bug, just move the assignment into loop and return
+> > 0 when element is found, otherwise return -EINVAL;
+> 
+> Except we already checked that the id is valid and know an element will
+> be be found once we enter the loop. No bug here and this patch does not
+> seem necessary to me.
 
-On Sun 27 Mar 2022 at 16:18, Xiaomeng Tong <xiam0nd.tong@gmail.com> wrote:
+Yea, you should be right, it is not a bug here. id already be checked before
+enter the loop:
 
-> The bug is here:
-> 	*dai_name = dai->driver->name;
->
-> For for_each_component_dais(), just like list_for_each_entry,
-> the list iterator 'runtime' will point to a bogus position
-> containing HEAD if the list is empty or no element is found.
-> This case must be checked before any use of the iterator,
-> otherwise it will lead to a invalid memory access.
->
-> To fix the bug, just move the assignment into loop and return
-> 0 when element is found, otherwise return -EINVAL;
+if (id < 0 || id >= component->num_dai)
+                return -EINVAL;
 
-Except we already checked that the id is valid and know an element will
-be be found once we enter the loop. No bug here and this patch does not
-seem necessary to me.
+but if component->num_dai is not correct due to miscaculation or others reason
+and the door is reopened, this patch can avoid a invalid memory access. Anyway,
+it is a good choice to use the list iterator only inside the loop, as linus
+suggested[1]. and we are on the way to change all these use-after-iter cases.
 
->
-> Cc: stable@vger.kernel.org
-> Fixes: 6ae9ca9ce986b ("ASoC: meson: aiu: add i2s and spdif support")
-> Signed-off-by: Xiaomeng Tong <xiam0nd.tong@gmail.com>
-> ---
->  sound/soc/meson/aiu.c | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
->
-> diff --git a/sound/soc/meson/aiu.c b/sound/soc/meson/aiu.c
-> index d299a70db7e5..b52915c6f53b 100644
-> --- a/sound/soc/meson/aiu.c
-> +++ b/sound/soc/meson/aiu.c
-> @@ -61,14 +61,14 @@ int aiu_of_xlate_dai_name(struct snd_soc_component *component,
->  		return -EINVAL;
->  
->  	for_each_component_dais(component, dai) {
-> -		if (id == 0)
-> -			break;
-> +		if (id == 0) {
-> +			*dai_name = dai->driver->name;
-> +			return 0;
-> +		}
->  		id--;
->  	}
->  
-> -	*dai_name = dai->driver->name;
-> -
-> -	return 0;
-> +	return -EINVAL;
->  }
->  
->  static int aiu_cpu_of_xlate_dai_name(struct snd_soc_component *component,
+[1]https://lore.kernel.org/lkml/20220217184829.1991035-1-jakobkoschel@gmail.com/
 
+--
+Xiaomeng Tong

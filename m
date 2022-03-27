@@ -2,86 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20FA74E86F8
-	for <lists+alsa-devel@lfdr.de>; Sun, 27 Mar 2022 10:33:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4742F4E86F9
+	for <lists+alsa-devel@lfdr.de>; Sun, 27 Mar 2022 10:34:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A6D5E1699;
-	Sun, 27 Mar 2022 10:32:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6D5E1699
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3D75616BF;
+	Sun, 27 Mar 2022 10:33:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D75616BF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648370016;
-	bh=dKpSGI20EJszLI6zexKbfgw0YCeAD3/hj64EhJjWl/U=;
+	s=default; t=1648370054;
+	bh=6l5v3UBGKvWTBZTN88+nKnOkv3l+G9QMUWnKt7oGO+I=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nAYcwSygOwuyZxJjs/ANH/2J5gbKEYs42nNYbKkoJ5SS9n2kGNRvW4CAgXAh34Wq9
-	 Y8Cu/pSVXoqbafbUPbYqDItzrMCc+rOutmNTcjNfJ3CxKyCBEcVhFcjsnYW1Kf2OiS
-	 1exZy5Jly2R3obpBGzwgLWJH5P7dwISXpekrC1NY=
+	b=e675K2opPEO43CxreGnMcrQoco+Ip/u0P8eYa3OiBe0H8MZD187IUogfcCK4I+ore
+	 QM6wNr72ojHcw/9eENFMzRfwt03Lck9WM4+SFgHo+wVW0OHLFOH+dTzdEJcF/lobQN
+	 mJRdgL/hDoDp6JmyuffmWGJtb7QZHK/wtC80o1j0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1791DF800F8;
-	Sun, 27 Mar 2022 10:32:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CCB63F80128;
+	Sun, 27 Mar 2022 10:33:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EB03BF80161; Sun, 27 Mar 2022 10:32:28 +0200 (CEST)
+ id 2C180F8020C; Sun, 27 Mar 2022 10:33:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A09B9F800F8
- for <alsa-devel@alsa-project.org>; Sun, 27 Mar 2022 10:32:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A09B9F800F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id CD5E1F8019B
+ for <alsa-devel@alsa-project.org>; Sun, 27 Mar 2022 10:33:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD5E1F8019B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="g4XuzCSc"; 
+ header.b="eSvuRHdW"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="6F5n6ka6"
+ header.b="VjjNVsOA"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id C5F84210EC;
- Sun, 27 Mar 2022 08:32:21 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 522D31F37E;
+ Sun, 27 Mar 2022 08:33:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1648369941; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1648369999; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=oHapfAJHJpJp67PiEBS7s8ZNH2+B63LGoOffxUsAIAw=;
- b=g4XuzCScpi5J3QhURRBrYeO6pCflQCAI2X2gR5e+R/9zVL8R/SIz4irKLeBVK8MOrrrveS
- 0mUFsB98NnYXft1+P6m2czTdAwpeGODAl4Gqz6VeJiU6e0p8dR0mIkIW5E0yepsRtNZx56
- 54xYFlA6dx91ICu1ItLwF/UDfNQhMmQ=
+ bh=myygfWV2gji2sVzB/Ye7kUXJNfCLEl+buBuzzVe5i70=;
+ b=eSvuRHdWaMDrLyAnxWuwpHOn7va2zkCT6lNhrwtH8LvtFy/AI6OM9yl4KhWbpN14x0d/cZ
+ v1/0bDGWneep+P7H4Ts9DKNqr+Ktd/6fRmc9mFRFBTW4P9OVzqWNbCNLJrrL4iixCS/fS4
+ KJzCFuMvtQu5hN+o+2O4VrU7Wmz0VDo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1648369941;
+ s=susede2_ed25519; t=1648369999;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=oHapfAJHJpJp67PiEBS7s8ZNH2+B63LGoOffxUsAIAw=;
- b=6F5n6ka61+fj0+M0XpVrcCEnRzwop8Ps3gTv30f3xqOY6FEISrG5pknutevsy6Da6r7jul
- KmUJ+gICfRlzXTAg==
+ bh=myygfWV2gji2sVzB/Ye7kUXJNfCLEl+buBuzzVe5i70=;
+ b=VjjNVsOAbe4JFoT7TbMeolhiaWLgGwQN3Z/FQ/AIPFJp3L1IDGF48fajcnUqqAY4+yfXcA
+ 8eq8bfMmdqdvyYBQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id EE666A3B82;
- Sun, 27 Mar 2022 08:32:20 +0000 (UTC)
-Date: Sun, 27 Mar 2022 10:32:20 +0200
-Message-ID: <s5hy20vlrsb.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 2633DA3B82;
+ Sun, 27 Mar 2022 08:33:19 +0000 (UTC)
+Date: Sun, 27 Mar 2022 10:33:19 +0200
+Message-ID: <s5hwngflrqo.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Subject: Re: [PATCH] ALSA: hda/realtek: Enable headset mic on Lenovo P360
-In-Reply-To: <20220325160501.705221-1-kai.heng.feng@canonical.com>
-References: <20220325160501.705221-1-kai.heng.feng@canonical.com>
+To: Xiaomeng Tong <xiam0nd.tong@gmail.com>
+Subject: Re: [PATCH] cs423x: cs4236: fix an incorrect NULL check on list
+ iterator
+In-Reply-To: <20220327060822.4735-1-xiam0nd.tong@gmail.com>
+References: <20220327060822.4735-1-xiam0nd.tong@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Kailang Yang <kailang@realtek.com>,
- Lucas Tanure <tanureal@opensource.cirrus.com>,
- Jeremy Szu <jeremy.szu@canonical.com>, linux-kernel@vger.kernel.org,
- tiwai@suse.com, Werner Sembach <wse@tuxedocomputers.com>,
- Hui Wang <hui.wang@canonical.com>, Sami Loone <sami@loone.fi>,
- Cameron Berkenpas <cam@neo-zeon.de>
+Cc: krzysztof.h1@wp.pl, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,13 +94,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 25 Mar 2022 17:05:00 +0100,
-Kai-Heng Feng wrote:
+On Sun, 27 Mar 2022 08:08:22 +0200,
+Xiaomeng Tong wrote:
 > 
-> Lenovo P360 is another platform equipped with ALC897, and it needs
-> ALC897_FIXUP_HEADSET_MIC_PIN quirk to make its headset mic work.
+> The bug is here:
+> 	err = snd_card_cs423x_pnp(dev, card->private_data, pdev, cdev);
 > 
-> Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+> The list iterator value 'cdev' will *always* be set and non-NULL
+> by list_for_each_entry(), so it is incorrect to assume that the
+> iterator value will be NULL if the list is empty or no element
+> is found.
+> 
+> To fix the bug, use a new variable 'iter' as the list iterator,
+> while use the original variable 'cdev' as a dedicated pointer
+> to point to the found element. And snd_card_cs423x_pnp() itself
+> has NULL check for cdev.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: c2b73d1458014 ("ALSA: cs4236: cs4232 and cs4236 driver merge to solve PnP BIOS detection")
+> Signed-off-by: Xiaomeng Tong <xiam0nd.tong@gmail.com>
 
 Thanks, applied now.
 

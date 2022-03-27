@@ -2,102 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FF2D4E845A
-	for <lists+alsa-devel@lfdr.de>; Sat, 26 Mar 2022 22:19:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 625DF4E8634
+	for <lists+alsa-devel@lfdr.de>; Sun, 27 Mar 2022 08:09:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 160101651;
-	Sat, 26 Mar 2022 22:18:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 160101651
+	by alsa0.perex.cz (Postfix) with ESMTPS id C36D0163A;
+	Sun, 27 Mar 2022 08:08:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C36D0163A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648329547;
-	bh=TA0cJsJsntvOhwDRimbS8gmkQGvUYMs2q/tFHwmLzFE=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=HA5lVrJRw+uXC7FWKYRMbkdc3XCd/WuH5idbeKHe8f/IKwovuQ4x4+F+JMG8aE1G7
-	 Fxms8h5ojk+viF85n5tbxix0AbE51CkpC6aP7Rd1OIdiPmq7ldgFLZZYwAjrQzNgSY
-	 U8M38FuubBbilABdz+q7xZaCVN4YQL/+Syc7CyzQ=
+	s=default; t=1648361387;
+	bh=pu34WrsgZAMVHRmUEQhMgaBbg5TDjBQWiNoWmoUoe98=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=qmGR53m8i+ruk/IT77R63HqD50sf3B4KV9xXdCmRe4p44ONDKsYqd2cT0szj0G6b1
+	 3FxeWx+wZKwOABYrRjiw5Za8pu9Zj2zPTpChyd7RF1EZz1PrtaSfULcyr6vkblTe3o
+	 AQJz1D8vDDHK61qouj1WGTwDWNhAYgTNZBTGZiYQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 63692F801F5;
-	Sat, 26 Mar 2022 22:18:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2A845F800F8;
+	Sun, 27 Mar 2022 08:08:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 66BE1F8019D; Sat, 26 Mar 2022 22:17:58 +0100 (CET)
+ id 30777F80161; Sun, 27 Mar 2022 08:08:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HK_RANDOM_ENVFROM,HK_RANDOM_FROM,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mail-pj1-x102c.google.com (mail-pj1-x102c.google.com
+ [IPv6:2607:f8b0:4864:20::102c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 90FFDF800AA
- for <alsa-devel@alsa-project.org>; Sat, 26 Mar 2022 22:17:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90FFDF800AA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8CF52F80121
+ for <alsa-devel@alsa-project.org>; Sun, 27 Mar 2022 08:08:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8CF52F80121
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="YRqFWEWA"
-Received: by mail-lf1-x12b.google.com with SMTP id t25so18801646lfg.7
- for <alsa-devel@alsa-project.org>; Sat, 26 Mar 2022 14:17:55 -0700 (PDT)
+ header.b="XxWXZt/C"
+Received: by mail-pj1-x102c.google.com with SMTP id
+ o68-20020a17090a0a4a00b001c686a48263so9675220pjo.1
+ for <alsa-devel@alsa-project.org>; Sat, 26 Mar 2022 23:08:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=dorKyWKnXy7IlU5rrn/oj/4eomYs0ghYVJYTP+RQhwU=;
- b=YRqFWEWAZ28v076CK4im5SsXJvYcIfTGKam4+0bSK2o/aS6vIDYE9Y18URClNg/GqB
- RCIrT5/7wf+CDsHlQvI4o8cs9ZDgVgyG09UsPOCxV7FV/be8bWIFNAdFHLt232AT/u/R
- 9tApWuES+tn6MKrH+Rd0XeuBjp3pfNrH9xiShEbuRChEEcxs22tXOEpjgP9sHh12IhF7
- pyRZ7G5XJCDBc28A619jRNMmcBnapRF4g8eyBhjm8NHdarSvsB1s9EOVtGA7U+e2x7Z+
- SqPOCtfjyDxdl+qszxJZ2uetnejw9VLLWyenYM/+BHW6jmXH/0j8qsRyJ0oRFmob/5Oz
- E37g==
+ h=from:to:cc:subject:date:message-id;
+ bh=WLGme/rACNlsZ/NoBqpCvphC8ae3fvVeZ1qiIRGm49Q=;
+ b=XxWXZt/CIQ5HISAsyoesltjNLHrlcH2NIr1yONMkl0bplVYnpAG5GWej4Clhp3dLO5
+ GvKx1+YJuelabHz0EuPlf/SFVYswpHRzDiUU4hyRv+FoH+Qsoz7K/CmNJ4y2mUyobXMO
+ i+luyiWxak5Ntcr5wR4x0YJ18XnvdMhBbEEvd/gyVEXV5QkbQwmOjOQzGK2PG+SsRlIE
+ 92FSexrViYOC1HdAVoLO4Faox6KBxhSafHvgs8xTV+0PgfR9kFl5fkvyjp+NpG0C3Yic
+ 6O5DsvsST/pHNi2c8POVbXvpSvYd2wvu4fNOd8jWvhGJ0PH61VEUULiCffcvBKkSJoeE
+ +A0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=dorKyWKnXy7IlU5rrn/oj/4eomYs0ghYVJYTP+RQhwU=;
- b=qRcP5pKX8sdCVNCl+/vQ75cADX8mtiFPDOyhjVH6FAnVpZDrbFRLYFlnSW48rVqcYj
- 4FuePS/DNkokIjjFr374VywsZoekGeVw1CEKwjmhXoL4ssebA3I/U4sn7VyreKdEOuc4
- JmILc05oKPjqamMKONhWvzby0jvZKyTRywfcSblZ6fJ5W8g5AVeRDTs9jQtysDcfP/2p
- sOhzu8QNmLUjRB2Qhy0QkMAlMt8KhiCa+a/ML5V3LOF4F2hiwnAql+uMyVv3Mhw7YNIM
- wWNVOqmFNY7slcIB7aL04HRailUFoMah7xOlVzzLfQUsSXb4sFBQ67Y0kKbuUWYN2kMn
- LEUg==
-X-Gm-Message-State: AOAM530bCrGWRmo5nmrHjnQ55djQu9RUxLUYwohKVxi6DmRCoKQ/D46z
- 99uuuSAGeiUJTObYObSlce4=
-X-Google-Smtp-Source: ABdhPJwR/+ymjQZpTMAtiHGRcZti14dQruOjPpTxdcJTz7Y/Kj/+bGyN0Cae9N+tEUxHtv4Zv8OG9Q==
-X-Received: by 2002:ac2:434a:0:b0:443:e48d:50b7 with SMTP id
- o10-20020ac2434a000000b00443e48d50b7mr13484093lfl.45.1648329472824; 
- Sat, 26 Mar 2022 14:17:52 -0700 (PDT)
-Received: from dell.intranet (178235254230.gdansk.vectranet.pl.
- [178.235.254.230]) by smtp.gmail.com with ESMTPSA id
- h8-20020ac25d68000000b00447b5cad2a7sm1174015lft.228.2022.03.26.14.17.50
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=WLGme/rACNlsZ/NoBqpCvphC8ae3fvVeZ1qiIRGm49Q=;
+ b=zQOOO9M2yQOucG7+txdcjseFc7axbD/5uxweMgY6PEWNrH5o/CqoB5MWnT9YuB2HtN
+ EdFlya+AInbI9f7tVOpF2NvRIEY1Nu68wdlfI4j32bXF+YyMyYnS82e5rn+/beEmitPF
+ SAG2eReNkwBTi9Hb9L6e4SJXzEGq+4w5oIfN3ExrN16BetF5pX4pOewqu/QChproAMBm
+ hbZW4MzIymOBPvQ+b4/1rpEsaoboONLxTzg4uh3pBt+che2jGICygGHIZvzkPwDvlJ+0
+ lrVXlnV5F1lpl7s/hGYbflN5/UejlLTTdxPMq+qSU0Y6uOFZIeu07KEgSquMvDPJY/HN
+ mW5Q==
+X-Gm-Message-State: AOAM532htjUxMF0ZOGONstNIilM6qSTG7cvlRhhygIqzh0lnyA+AcpgI
+ fQvYtSVRyPhtyX+IrGY3URQ=
+X-Google-Smtp-Source: ABdhPJzijW7TduNxnjGw5WJJDKE1+upP6F6srZfdjFLh9QanrNnahAQOypcz+SZL3SPFyXcGFOR1GA==
+X-Received: by 2002:a17:90b:4b06:b0:1c9:9751:cf9b with SMTP id
+ lx6-20020a17090b4b0600b001c99751cf9bmr1363741pjb.0.1648361312296; 
+ Sat, 26 Mar 2022 23:08:32 -0700 (PDT)
+Received: from localhost.localdomain ([115.220.243.108])
+ by smtp.googlemail.com with ESMTPSA id
+ m18-20020a056a00081200b004faeae3a291sm11239661pfk.26.2022.03.26.23.08.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 26 Mar 2022 14:17:52 -0700 (PDT)
-From: Janusz Krzysztofik <jmkrzyszt@gmail.com>
-To: Aaro Koskinen <aaro.koskinen@iki.fi>
-Subject: Re: [PATCH v2] ARM: OMAP1: Prepare for conversion of OMAP1 clocks to
- CCF
-Date: Sat, 26 Mar 2022 22:17:49 +0100
-Message-ID: <1810824.tdWV9SEqCh@dell>
-In-Reply-To: <20220322190753.GF297526@darkstar.musicnaut.iki.fi>
-References: <20220310233307.99220-3-jmkrzyszt@gmail.com>
- <20220322163646.GD297526@darkstar.musicnaut.iki.fi>
- <20220322190753.GF297526@darkstar.musicnaut.iki.fi>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-Cc: alsa-devel@alsa-project.org, Felipe Balbi <balbi@kernel.org>,
- Paul Walmsley <paul@pwsan.com>, Arnd Bergmann <arnd@arndb.de>,
- Liam Girdwood <lgirdwood@gmail.com>, Tony Lindgren <tony@atomide.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Helge Deller <deller@gmx.de>,
- linux-usb@vger.kernel.org, linux-mmc@vger.kernel.org,
- linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Alan Stern <stern@rowland.harvard.edu>,
- Ulf Hansson <ulf.hansson@linaro.org>, linux-omap@vger.kernel.org,
- Peter Ujfalusi <peter.ujfalusi@gmail.com>,
- linux-arm-kernel@lists.infradead.org
+ Sat, 26 Mar 2022 23:08:31 -0700 (PDT)
+From: Xiaomeng Tong <xiam0nd.tong@gmail.com>
+To: perex@perex.cz
+Subject: [PATCH] cs423x: cs4236: fix an incorrect NULL check on list iterator
+Date: Sun, 27 Mar 2022 14:08:22 +0800
+Message-Id: <20220327060822.4735-1-xiam0nd.tong@gmail.com>
+X-Mailer: git-send-email 2.17.1
+Cc: krzysztof.h1@wp.pl, alsa-devel@alsa-project.org, tiwai@suse.com,
+ stable@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Xiaomeng Tong <xiam0nd.tong@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,44 +97,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Aaro,
+The bug is here:
+	err = snd_card_cs423x_pnp(dev, card->private_data, pdev, cdev);
 
-Dnia wtorek, 22 marca 2022 20:07:53 CET Aaro Koskinen pisze:
-> Hi,
-> 
-> On Tue, Mar 22, 2022 at 06:36:48PM +0200, Aaro Koskinen wrote:
-> > On Mon, Mar 21, 2022 at 10:54:16PM +0100, Janusz Krzysztofik wrote:
-> > > In preparation for conversion of OMAP1 clocks to common clock framework,
-> > > identify users of those clocks which don't call clk_prepare/unprepare()
-> > > and update them to call clk_prepare_enable/clk_disable_unprepare() instead
-> > > of just clk_enable/disable(), as required by CCF implementation of clock
-> > > API.
-> > > 
-> > > v2: update still a few more OMAP specific drivers missed in v1,
-> > >   - call clk_prepare/unprepare() just after/before clk_get/put() where it
-> > >     can make more sense than merging prepare/unprepare with enable/disable.
-> > 
-> > Something is still broken. When doing kexec (using CCF kernel), the
-> > kexec'ed kernel now hangs early (on 770):
-> [...]
-> > [    0.928863] calling  omap1_init_devices+0x0/0x2c @ 1
-> 
-> It hangs in omap_sram_reprogram_clock() (<- omap1_select_table_rate()
-> <- omap1_clk_late_init()).
+The list iterator value 'cdev' will *always* be set and non-NULL
+by list_for_each_entry(), so it is incorrect to assume that the
+iterator value will be NULL if the list is empty or no element
+is found.
 
-I've reviewed my changes but haven't found anything suspicious.  Could you 
-please provide:
-- dmesg from both cold start and kexec, both non-CCF and CCF version, 
-- contents of /sys/kernel/debug/clock/summary (non-CCF) after boot/kexec,
-- contents of /sys/kernel/debug/clk/clk_summary (CCF) after boot?
+To fix the bug, use a new variable 'iter' as the list iterator,
+while use the original variable 'cdev' as a dedicated pointer
+to point to the found element. And snd_card_cs423x_pnp() itself
+has NULL check for cdev.
 
-Thanks,
-Janusz
+Cc: stable@vger.kernel.org
+Fixes: c2b73d1458014 ("ALSA: cs4236: cs4232 and cs4236 driver merge to solve PnP BIOS detection")
+Signed-off-by: Xiaomeng Tong <xiam0nd.tong@gmail.com>
+---
+ sound/isa/cs423x/cs4236.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-> 
-> A.
-> 
-
-
-
+diff --git a/sound/isa/cs423x/cs4236.c b/sound/isa/cs423x/cs4236.c
+index b6bdebd9ef27..10112e1bb25d 100644
+--- a/sound/isa/cs423x/cs4236.c
++++ b/sound/isa/cs423x/cs4236.c
+@@ -494,7 +494,7 @@ static int snd_cs423x_pnpbios_detect(struct pnp_dev *pdev,
+ 	static int dev;
+ 	int err;
+ 	struct snd_card *card;
+-	struct pnp_dev *cdev;
++	struct pnp_dev *cdev, *iter;
+ 	char cid[PNP_ID_LEN];
+ 
+ 	if (pnp_device_is_isapnp(pdev))
+@@ -510,9 +510,11 @@ static int snd_cs423x_pnpbios_detect(struct pnp_dev *pdev,
+ 	strcpy(cid, pdev->id[0].id);
+ 	cid[5] = '1';
+ 	cdev = NULL;
+-	list_for_each_entry(cdev, &(pdev->protocol->devices), protocol_list) {
+-		if (!strcmp(cdev->id[0].id, cid))
++	list_for_each_entry(iter, &(pdev->protocol->devices), protocol_list) {
++		if (!strcmp(iter->id[0].id, cid)) {
++			cdev = iter;
+ 			break;
++		}
+ 	}
+ 	err = snd_cs423x_card_new(&pdev->dev, dev, &card);
+ 	if (err < 0)
+-- 
+2.17.1
 

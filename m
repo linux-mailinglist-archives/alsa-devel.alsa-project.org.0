@@ -2,81 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28C724E86DB
-	for <lists+alsa-devel@lfdr.de>; Sun, 27 Mar 2022 10:11:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D22B54E86DE
+	for <lists+alsa-devel@lfdr.de>; Sun, 27 Mar 2022 10:14:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A2087857;
-	Sun, 27 Mar 2022 10:10:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2087857
+	by alsa0.perex.cz (Postfix) with ESMTPS id 739A91652;
+	Sun, 27 Mar 2022 10:13:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 739A91652
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648368692;
-	bh=lU2q51eDBsOC91/3mJgnqWWe7jWrCM2t/6XTwl+/GVA=;
+	s=default; t=1648368871;
+	bh=Rc2QgSNVpvj9IgKP0mAefuKju6nBAAHcJQjXhnDPJ2s=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=clrhk16bKkW6lUm0FezGP+QpG8CVT4ZMNIYb/jkweHA50sIEHrMua1Eca3/ntuIZx
-	 HPdV9hCjTHNTVc16iK2jxoSOWXZmJkpo60UquHZiwLES85OJZ0BYthhLWlBZXc3k/Y
-	 xNmfbwUHDMkFP8HCP8VBlbFwZh+BeokzZN8AMuJk=
+	b=QqnXtFblW3EqPbz6mfeUtdHz0gVbApr+zO79HHEw2sm5KyZP80XiBJCKAYuuUCusX
+	 XqvS16wz5IbIc8/3zqYRftMue9nJw9qazG2cxLH2NhgAsEspAkuGu2be3h3FPYrrOZ
+	 UMOlFLe+w08w3w2PSpbazhdXHJEstwqq2IzPxCFE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 15550F8019B;
-	Sun, 27 Mar 2022 10:10:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 075C0F80121;
+	Sun, 27 Mar 2022 10:13:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CB76BF80161; Sun, 27 Mar 2022 10:10:24 +0200 (CEST)
+ id 621C7F80121; Sun, 27 Mar 2022 10:13:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com
- [IPv6:2607:f8b0:4864:20::634])
+Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
+ [IPv6:2607:f8b0:4864:20::633])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C2CDCF800F8
- for <alsa-devel@alsa-project.org>; Sun, 27 Mar 2022 10:10:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2CDCF800F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id AFAF5F80121
+ for <alsa-devel@alsa-project.org>; Sun, 27 Mar 2022 10:13:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AFAF5F80121
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="CorJydGu"
-Received: by mail-pl1-x634.google.com with SMTP id i11so12274617plr.1
- for <alsa-devel@alsa-project.org>; Sun, 27 Mar 2022 01:10:19 -0700 (PDT)
+ header.b="OZsDNWW6"
+Received: by mail-pl1-x633.google.com with SMTP id x2so12246942plm.7
+ for <alsa-devel@alsa-project.org>; Sun, 27 Mar 2022 01:13:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id;
- bh=I209+IAp2J40nkpM0RDSrYtutE4hanVMPBM3jUoLkOo=;
- b=CorJydGuWbpBLptQES0lIYPHSX347xTaMw1Sk2SkCs6fzw4msOZh2MpVN3AGKd6mjF
- UHwkI43v50nxY22D36ezJIGpCpIN0DYliXHFy9f+WO/63qhPqPzVIJe40C/drJgjuzSO
- ZAaofmmyh2oID+sameso90LvpPKGlCqsRGHivbQ7IDtUUP6Xn6qZF4okz9jO3Bdmnyip
- 1roaiT9NX/we0WM8EluW9OELn9Vc25IVPc3h/+XaYSV6rHlqgFh7HXFPuC97ibaylJTz
- xA2pyj4fpXGEyJGmyifqcnH8OgNZeZLIzPtZsy0QazlMfD80Gag2v+8HzdPV+macj6Cl
- ulSQ==
+ bh=59JhUNktdVz2W5QJS5bzmJcf9POr7QzcmSfTOiXjcAE=;
+ b=OZsDNWW6DNUFlcVYdlNaJI92YyM8e/1vdhm693Motn3WyZ7ewgAsXDxbdBNDuI8hff
+ ajoCrHaYyEZxqHcVTVdfqmCiAlgd0sXnfwfy3HsjWeyb24TnljM/iNf1SvULyd3sonld
+ udFONOi7HhP3xVedtAuHx8XnHifA5u4dM9VEFCjcFn/kOUfkAOqXQkJIAGRriZLaV8DV
+ C8xCK72j0QcEf1Ns1y5NnE0u3qGfo2oNQvxJqmdJFiRrUyn+xamdElZdMcv9PZEVqfqB
+ VYcWoqB6UFyBQXda/CLno4HvjFHNnAuiS6oH8SytVgsKNkS/xJtzOIQttmqvlM7Kz/jR
+ Z2vQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=I209+IAp2J40nkpM0RDSrYtutE4hanVMPBM3jUoLkOo=;
- b=RAO2e+x2fRSIppZRUvuY9higr91IsMfv6qweu6LNr/nlkUS2WJ/6lwCg4qJBm/Qzsu
- RCFc9WMG+gbmBrj3Q24Pap0xb/+/LbybOGwU1rwpIwVnDED7SYB0V9CLGEgoRHBew6oE
- 6ZMa8/uqelbvH4uq+iuVGclS36iRMXhhxoUmWY6/btBwWbUgoJgLuSzo9KIZUKK9mw+l
- /JskDVGaftdy4SEdYx69Okcp4JwAQjvCgKwFvSj0nfQ1t/c9CqXXL8ViOg7jOOphHM77
- rkJWRMisXKKLUosIgvQEzugmNJbW3EwpSC6iclG0TNz3hBK8bbzAin+B9ybge6aaSsM0
- fBNw==
-X-Gm-Message-State: AOAM533wsiPwC6aivV4Br7zjfaPgsYMQmlTlREinEF3NnNQ8DnjgZ8Nx
- 2F1xA1TscRXVXK0rQS9OwGs=
-X-Google-Smtp-Source: ABdhPJyeYcEUJKV2iJ85uQKvTTnRsUSASXeeh0pFRxzZpGOxsJZMFZco2VjE0HpPVwf67S0u05yGUA==
-X-Received: by 2002:a17:902:daca:b0:154:aa89:f12f with SMTP id
- q10-20020a170902daca00b00154aa89f12fmr21057923plx.98.1648368617435; 
- Sun, 27 Mar 2022 01:10:17 -0700 (PDT)
+ bh=59JhUNktdVz2W5QJS5bzmJcf9POr7QzcmSfTOiXjcAE=;
+ b=d4bzlfx2z5O51O5Dt1EwpZ12Lg4xGmydF0YiBSV1VKsNEq86TJBUFTrHcpaMok5TU2
+ 3bywN6J3eIbvDHIUlTNh+rmbt57vWQ3Oq4krk8Lj32WRbvPrZdTIzZtNKxb1vbeLxoGJ
+ 3yvzr6IXn2a0xLeDAiEpXBRvDuyFF80qWHaYnp3W7MQ9VwB/qqPM/bOIgymIRdXhKYZ2
+ t7fLCH7Nwfak20WYvfNOtPpLTBJBxy4VqM6QucEU5KuooPlyCVeQzyG3T1KKom4vrYhW
+ i4CnadtvJAV0QmSiOMMfiuc9HjBHl4wUU9RtqT5B/F5n7rj7rwBgGW5xspEPv27Hqef3
+ ipeQ==
+X-Gm-Message-State: AOAM530cgvy7J9qLpzSDnExDJylpiwzDwk6RQuczMcRnrxorpx/XhH1Q
+ IjqJXN7fFfW3MgGzKAxTpyU=
+X-Google-Smtp-Source: ABdhPJy/iTobgY0S2D+gB7aR16mC8LS3RFCSb2hnklRarrOtZksF+A58mZftxtdAe10MwlHGlfn4kQ==
+X-Received: by 2002:a17:903:124a:b0:154:c860:6d52 with SMTP id
+ u10-20020a170903124a00b00154c8606d52mr18220698plh.159.1648368799693; 
+ Sun, 27 Mar 2022 01:13:19 -0700 (PDT)
 Received: from localhost ([115.220.243.108]) by smtp.gmail.com with ESMTPSA id
- g6-20020a056a000b8600b004faa49add69sm11898172pfj.107.2022.03.27.01.10.16
+ h10-20020a056a00230a00b004faa0f67c3esm12594343pfh.23.2022.03.27.01.13.18
  (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Sun, 27 Mar 2022 01:10:16 -0700 (PDT)
+ Sun, 27 Mar 2022 01:13:19 -0700 (PDT)
 From: Xiaomeng Tong <xiam0nd.tong@gmail.com>
 To: oder_chiou@realtek.com, lgirdwood@gmail.com, broonie@kernel.org,
  perex@perex.cz, tiwai@suse.com
-Subject: [PATCH] codecs: rt5682: fix an incorrect NULL check on list iterator
-Date: Sun, 27 Mar 2022 16:10:02 +0800
-Message-Id: <20220327081002.12684-1-xiam0nd.tong@gmail.com>
+Subject: [PATCH] codecs: rt5682s: fix an incorrect NULL check on list iterator
+Date: Sun, 27 Mar 2022 16:13:00 +0800
+Message-Id: <20220327081300.12962-1-xiam0nd.tong@gmail.com>
 X-Mailer: git-send-email 2.17.1
 Cc: Xiaomeng Tong <xiam0nd.tong@gmail.com>, alsa-devel@alsa-project.org,
  derek.fang@realtek.com, linux-kernel@vger.kernel.org, stable@vger.kernel.org
@@ -96,7 +96,7 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The bug is here:
-	if (!dai) {
+            if (!dai) {
 
 The list iterator value 'dai' will *always* be set and non-NULL
 by for_each_component_dais(), so it is incorrect to assume that
@@ -105,41 +105,41 @@ is found (In fact, it will be a bogus pointer to an invalid struct
 object containing the HEAD). Otherwise it will bypass the check
 'if (!dai) {' (never call dev_err() and never return -ENODEV;)
 and lead to invalid memory access lately when calling
-'rt5682_set_bclk1_ratio(dai, factor);'.
+'rt5682s_set_bclk1_ratio(dai, factor);'.
 
-To fix the bug, just return rt5682_set_bclk1_ratio(dai, factor);
+To fix the bug, just return rt5682s_set_bclk1_ratio(dai, factor);
 when found the 'dai', otherwise dev_err() and return -ENODEV;
 
 Cc: stable@vger.kernel.org
-Fixes: ebbfabc16d23d ("ASoC: rt5682: Add CCF usage for providing I2S clks")
+Fixes: bdd229ab26be9 ("ASoC: rt5682s: Add driver for ALC5682I-VS codec")
 Signed-off-by: Xiaomeng Tong <xiam0nd.tong@gmail.com>
 ---
- sound/soc/codecs/rt5682.c | 11 ++++-------
+ sound/soc/codecs/rt5682s.c | 11 ++++-------
  1 file changed, 4 insertions(+), 7 deletions(-)
 
-diff --git a/sound/soc/codecs/rt5682.c b/sound/soc/codecs/rt5682.c
-index be68d573a490..c9ff9c89adf7 100644
---- a/sound/soc/codecs/rt5682.c
-+++ b/sound/soc/codecs/rt5682.c
-@@ -2822,14 +2822,11 @@ static int rt5682_bclk_set_rate(struct clk_hw *hw, unsigned long rate,
+diff --git a/sound/soc/codecs/rt5682s.c b/sound/soc/codecs/rt5682s.c
+index 1e662d1be2b3..c890e51ff953 100644
+--- a/sound/soc/codecs/rt5682s.c
++++ b/sound/soc/codecs/rt5682s.c
+@@ -2686,14 +2686,11 @@ static int rt5682s_bclk_set_rate(struct clk_hw *hw, unsigned long rate,
  
  	for_each_component_dais(component, dai)
- 		if (dai->id == RT5682_AIF1)
+ 		if (dai->id == RT5682S_AIF1)
 -			break;
 -	if (!dai) {
--		dev_err(rt5682->i2c_dev, "dai %d not found in component\n",
--			RT5682_AIF1);
+-		dev_err(component->dev, "dai %d not found in component\n",
+-			RT5682S_AIF1);
 -		return -ENODEV;
 -	}
-+			return rt5682_set_bclk1_ratio(dai, factor);
++			return rt5682s_set_bclk1_ratio(dai, factor);
  
--	return rt5682_set_bclk1_ratio(dai, factor);
-+	dev_err(rt5682->i2c_dev, "dai %d not found in component\n",
-+		RT5682_AIF1);
+-	return rt5682s_set_bclk1_ratio(dai, factor);
++	dev_err(component->dev, "dai %d not found in component\n",
++		RT5682S_AIF1);
 +	return -ENODEV;
  }
  
- static const struct clk_ops rt5682_dai_clk_ops[RT5682_DAI_NUM_CLKS] = {
+ static const struct clk_ops rt5682s_dai_clk_ops[RT5682S_DAI_NUM_CLKS] = {
 -- 
 2.17.1
 

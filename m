@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D057F4E9D56
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Mar 2022 19:21:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C86A4E9D58
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Mar 2022 19:21:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6F85318BE;
-	Mon, 28 Mar 2022 19:20:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F85318BE
+	by alsa0.perex.cz (Postfix) with ESMTPS id DE5711909;
+	Mon, 28 Mar 2022 19:20:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE5711909
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648488062;
-	bh=TSrhbYDfZRJCpT6P7HHPrPnftd02/J393uChv6yBWTQ=;
+	s=default; t=1648488075;
+	bh=nlzNNnho/gpMgqYre8diKS6W27xGxnIDAOVCTaZtxXI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QNxKjfJ0ydQJRWIZXFnYLl3aoFpVEOzZGyeC/O/lewgDssyNgqJrmKuIh9rlrRkON
-	 IN2Scr3IewwaVhFt0XnxeDiD/hFCD8oa/GHMgL5cw6gLjaZiCgsuDJjyMoHv87DRkJ
-	 YMfJwrMq11bm08bi65GU8ldogidpBzp92+hUfmW0=
+	b=faGCVU8tgUFgA9tYtSulhSA8Is0kWVFI6WQBXtVyV/lMquXshpO2LuyvHMG1RyKSF
+	 GHI9+OQfsOoqsS7bZJVQ8GfTuSX95qODNYnSPGQS7ilUhc9hHh0sAoYuNKm7QD0eOE
+	 smBu5qRhtccpbbCqFvE1EZ9sXr1b7LqaAWBM5wu0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7AD6AF80570;
-	Mon, 28 Mar 2022 19:16:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2A1BAF8057A;
+	Mon, 28 Mar 2022 19:16:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 228EBF8052D; Mon, 28 Mar 2022 19:16:36 +0200 (CEST)
+ id 50B24F8053C; Mon, 28 Mar 2022 19:16:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 99935F8051C
+ by alsa1.perex.cz (Postfix) with ESMTPS id F3871F8051D
  for <alsa-devel@alsa-project.org>; Mon, 28 Mar 2022 19:16:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99935F8051C
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3871F8051D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="QQJ+MMMp"
+ header.b="Nr+cx9g5"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648487783; x=1680023783;
+ t=1648487784; x=1680023784;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=TSrhbYDfZRJCpT6P7HHPrPnftd02/J393uChv6yBWTQ=;
- b=QQJ+MMMpp0HqugIXP2KLpTn1Rlz7fcGBoy77y8FjG/wCTSAfQeAV+QzL
- G6rPXmtz9Ew5EiChjeLsxJtlQTtvTPm/QQvqlNA/xwEKCPd6xUmtGbEr5
- FyTJ4ALg2n9OJTAoZcjoQA9KsszxxG2Trp0PUtRZGPQOPfuHFIAVWvl5z
- 7Tymxstw+lRfD1cpPabYnHK53Y2iq8r6FTgTFbIE41wZrtMF15jo375lb
- mAGUHRkIBQ1WrOYYUQjkv9sVKAu4FWJDc89P3hT+l/MrZbbssRFh4Qzl/
- lQ9AU+lcDZzK9hrE95wmdxiYMpP0yRATEn9D+fJhr3nOmXYjvx5+Ozfsz Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10300"; a="345494548"
-X-IronPort-AV: E=Sophos;i="5.90,217,1643702400"; d="scan'208";a="345494548"
+ bh=nlzNNnho/gpMgqYre8diKS6W27xGxnIDAOVCTaZtxXI=;
+ b=Nr+cx9g5cGKI3gkm5v/7+1CxjcuxkKPml8iaSnD0QkqXHH12YawyoLjS
+ B8Hg2zcSZ06xrc1wQ49+gaimhcDacgVaM1RHQyYqtxM71OyZY6xgcQupX
+ hEfAKWNVKoOme25NDBOtRZFozw9juNPdfq+PPbfK9uvPYGmB21sXkkGZo
+ k+Kv/pf1wJ3tqNeZzMW8RqLIL01T1xLWDIVCZyi3keQ1n2hI6yUoTTQl7
+ PQxukheoW1fci4/uFNZu7k5dy1Eu2IjSMmnvTLEbj82XUohcvubDdKn4b
+ UPYaVL93egqGN39MrNXidh8F3ciX0nMvPMb/pVssKpD5Tq9z4aYe5HOps g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10300"; a="345494556"
+X-IronPort-AV: E=Sophos;i="5.90,217,1643702400"; d="scan'208";a="345494556"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Mar 2022 10:14:18 -0700
+ 28 Mar 2022 10:14:21 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,217,1643702400"; d="scan'208";a="649141541"
+X-IronPort-AV: E=Sophos;i="5.90,217,1643702400"; d="scan'208";a="649141547"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by fmsmga002.fm.intel.com with ESMTP; 28 Mar 2022 10:14:16 -0700
+ by fmsmga002.fm.intel.com with ESMTP; 28 Mar 2022 10:14:18 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Subject: [PATCH 11/14] ASoC: Intel: avs: Path state management
-Date: Mon, 28 Mar 2022 19:24:07 +0200
-Message-Id: <20220328172410.761309-12-cezary.rojewski@intel.com>
+Subject: [PATCH 12/14] ASoC: Intel: avs: Arm paths after creating them
+Date: Mon, 28 Mar 2022 19:24:08 +0200
+Message-Id: <20220328172410.761309-13-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220328172410.761309-1-cezary.rojewski@intel.com>
 References: <20220328172410.761309-1-cezary.rojewski@intel.com>
@@ -93,174 +93,237 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add functions to ease with state changing of all objects found in the
-path. Each represents either a BIND/UNBIND or SET_PIPELINE_STATE IPC.
-
-DSP pipelines follow simple state machine scheme:
-CREATE -> RESET -> PAUSE -> RUNNING -> PAUSE -> RESET -> DELETE
-
-There is no STOP, PAUSE serves that purpose instead.
+Creating the pipelines and instantiating the modules alone is
+insufficient to have a fully operational stream. Before it can be run,
+stream components need to be bound. Add arming functions to ensure all
+necessary operations are completed before path is yielded back to the
+avs_path_create() caller.
 
 Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/intel/avs/path.c | 130 +++++++++++++++++++++++++++++++++++++
- sound/soc/intel/avs/path.h |   5 ++
- 2 files changed, 135 insertions(+)
+ sound/soc/intel/avs/path.c | 180 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 180 insertions(+)
 
 diff --git a/sound/soc/intel/avs/path.c b/sound/soc/intel/avs/path.c
-index 272d868bedc9..c6db3f091e66 100644
+index c6db3f091e66..abeb6921fcce 100644
 --- a/sound/soc/intel/avs/path.c
 +++ b/sound/soc/intel/avs/path.c
-@@ -285,3 +285,133 @@ struct avs_path *avs_path_create(struct avs_dev *adev, u32 dma_id,
+@@ -13,6 +13,73 @@
+ #include "path.h"
+ #include "topology.h"
  
- 	return path;
++/* Must be called with adev->comp_list_mutex held. */
++static struct avs_tplg *
++avs_path_find_tplg(struct avs_dev *adev, const char *name)
++{
++	struct avs_soc_component *acomp;
++
++	list_for_each_entry(acomp, &adev->comp_list, node)
++		if (!strcmp(acomp->tplg->name, name))
++			return acomp->tplg;
++	return NULL;
++}
++
++static struct avs_path_module *
++avs_path_find_module(struct avs_path_pipeline *ppl, u32 template_id)
++{
++	struct avs_path_module *mod;
++
++	list_for_each_entry(mod, &ppl->mod_list, node)
++		if (mod->template->id == template_id)
++			return mod;
++	return NULL;
++}
++
++static struct avs_path_pipeline *
++avs_path_find_pipeline(struct avs_path *path, u32 template_id)
++{
++	struct avs_path_pipeline *ppl;
++
++	list_for_each_entry(ppl, &path->ppl_list, node)
++		if (ppl->template->id == template_id)
++			return ppl;
++	return NULL;
++}
++
++static struct avs_path *
++avs_path_find_path(struct avs_dev *adev, const char *name, u32 template_id)
++{
++	struct avs_tplg_path_template *pos, *template = NULL;
++	struct avs_tplg *tplg;
++	struct avs_path *path;
++
++	tplg = avs_path_find_tplg(adev, name);
++	if (!tplg)
++		return NULL;
++
++	list_for_each_entry(pos, &tplg->path_tmpl_list, node) {
++		if (pos->id == template_id) {
++			template = pos;
++			break;
++		}
++	}
++	if (!template)
++		return NULL;
++
++	spin_lock(&adev->path_list_lock);
++	/* Only one variant of given path template may be instantiated at a time. */
++	list_for_each_entry(path, &adev->path_list, node) {
++		if (path->template->owner == template) {
++			spin_unlock(&adev->path_list_lock);
++			return path;
++		}
++	}
++
++	spin_unlock(&adev->path_list_lock);
++	return NULL;
++}
++
+ static bool avs_test_hw_params(struct snd_pcm_hw_params *params,
+ 			       struct avs_audio_format *fmt)
+ {
+@@ -75,6 +142,58 @@ avs_path_module_create(struct avs_dev *adev,
+ 	return mod;
  }
-+
-+int avs_path_bind(struct avs_path *path)
-+{
-+	struct avs_path_pipeline *ppl;
-+	struct avs_dev *adev = path->owner;
-+	int ret;
-+
-+	list_for_each_entry(ppl, &path->ppl_list, node) {
-+		struct avs_path_binding *binding;
-+
-+		list_for_each_entry(binding, &ppl->binding_list, node) {
-+			struct avs_path_module *source, *sink;
-+
-+			source = binding->source;
-+			sink = binding->sink;
-+
-+			ret = avs_ipc_bind(adev, source->module_id,
-+					   source->instance_id, sink->module_id,
-+					   sink->instance_id, binding->sink_pin,
-+					   binding->source_pin);
-+			if (ret) {
-+				dev_err(adev->dev, "bind path failed: %d\n", ret);
-+				return AVS_IPC_RET(ret);
-+			}
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+int avs_path_unbind(struct avs_path *path)
-+{
-+	struct avs_path_pipeline *ppl;
-+	struct avs_dev *adev = path->owner;
-+	int ret;
-+
-+	list_for_each_entry(ppl, &path->ppl_list, node) {
-+		struct avs_path_binding *binding;
-+
-+		list_for_each_entry(binding, &ppl->binding_list, node) {
-+			struct avs_path_module *source, *sink;
-+
-+			source = binding->source;
-+			sink = binding->sink;
-+
-+			ret = avs_ipc_unbind(adev, source->module_id,
-+					     source->instance_id, sink->module_id,
-+					     sink->instance_id, binding->sink_pin,
-+					     binding->source_pin);
-+			if (ret) {
-+				dev_err(adev->dev, "unbind path failed: %d\n", ret);
-+				return AVS_IPC_RET(ret);
-+			}
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+int avs_path_reset(struct avs_path *path)
-+{
-+	struct avs_path_pipeline *ppl;
-+	struct avs_dev *adev = path->owner;
-+	int ret;
-+
-+	if (path->state == AVS_PPL_STATE_RESET)
-+		return 0;
-+
-+	list_for_each_entry(ppl, &path->ppl_list, node) {
-+		ret = avs_ipc_set_pipeline_state(adev, ppl->instance_id,
-+						 AVS_PPL_STATE_RESET);
-+		if (ret) {
-+			dev_err(adev->dev, "reset path failed: %d\n", ret);
-+			path->state = AVS_PPL_STATE_INVALID;
-+			return AVS_IPC_RET(ret);
-+		}
-+	}
-+
-+	path->state = AVS_PPL_STATE_RESET;
-+	return 0;
-+}
-+
-+int avs_path_pause(struct avs_path *path)
-+{
-+	struct avs_path_pipeline *ppl;
-+	struct avs_dev *adev = path->owner;
-+	int ret;
-+
-+	if (path->state == AVS_PPL_STATE_PAUSED)
-+		return 0;
-+
-+	list_for_each_entry_reverse(ppl, &path->ppl_list, node) {
-+		ret = avs_ipc_set_pipeline_state(adev, ppl->instance_id,
-+						 AVS_PPL_STATE_PAUSED);
-+		if (ret) {
-+			dev_err(adev->dev, "pause path failed: %d\n", ret);
-+			path->state = AVS_PPL_STATE_INVALID;
-+			return AVS_IPC_RET(ret);
-+		}
-+	}
-+
-+	path->state = AVS_PPL_STATE_PAUSED;
-+	return 0;
-+}
-+
-+int avs_path_run(struct avs_path *path, int trigger)
-+{
-+	struct avs_path_pipeline *ppl;
-+	struct avs_dev *adev = path->owner;
-+	int ret;
-+
-+	if (path->state == AVS_PPL_STATE_RUNNING && trigger == AVS_TPLG_TRIGGER_AUTO)
-+		return 0;
-+
-+	list_for_each_entry(ppl, &path->ppl_list, node) {
-+		if (ppl->template->cfg->trigger != trigger)
-+			continue;
-+
-+		ret = avs_ipc_set_pipeline_state(adev, ppl->instance_id,
-+						 AVS_PPL_STATE_RUNNING);
-+		if (ret) {
-+			dev_err(adev->dev, "run path failed: %d\n", ret);
-+			path->state = AVS_PPL_STATE_INVALID;
-+			return AVS_IPC_RET(ret);
-+		}
-+	}
-+
-+	path->state = AVS_PPL_STATE_RUNNING;
-+	return 0;
-+}
-diff --git a/sound/soc/intel/avs/path.h b/sound/soc/intel/avs/path.h
-index 3843e5a062a1..04a06473f04b 100644
---- a/sound/soc/intel/avs/path.h
-+++ b/sound/soc/intel/avs/path.h
-@@ -62,5 +62,10 @@ struct avs_path *avs_path_create(struct avs_dev *adev, u32 dma_id,
- 				 struct avs_tplg_path_template *template,
- 				 struct snd_pcm_hw_params *fe_params,
- 				 struct snd_pcm_hw_params *be_params);
-+int avs_path_bind(struct avs_path *path);
-+int avs_path_unbind(struct avs_path *path);
-+int avs_path_reset(struct avs_path *path);
-+int avs_path_pause(struct avs_path *path);
-+int avs_path_run(struct avs_path *path, int trigger);
  
- #endif
++static int avs_path_binding_arm(struct avs_dev *adev, struct avs_path_binding *binding)
++{
++	struct avs_path_module *this_mod, *target_mod;
++	struct avs_path_pipeline *target_ppl;
++	struct avs_path *target_path;
++	struct avs_tplg_binding *t;
++
++	t = binding->template;
++	this_mod = avs_path_find_module(binding->owner,
++					t->mod_id);
++	if (!this_mod) {
++		dev_err(adev->dev, "path mod %d not found\n", t->mod_id);
++		return -EINVAL;
++	}
++
++	/* update with target_tplg_name too */
++	target_path = avs_path_find_path(adev, t->target_tplg_name,
++					 t->target_path_tmpl_id);
++	if (!target_path) {
++		dev_err(adev->dev, "target path %s:%d not found\n",
++			t->target_tplg_name, t->target_path_tmpl_id);
++		return -EINVAL;
++	}
++
++	target_ppl = avs_path_find_pipeline(target_path,
++					    t->target_ppl_id);
++	if (!target_ppl) {
++		dev_err(adev->dev, "target ppl %d not found\n", t->target_ppl_id);
++		return -EINVAL;
++	}
++
++	target_mod = avs_path_find_module(target_ppl, t->target_mod_id);
++	if (!target_mod) {
++		dev_err(adev->dev, "target mod %d not found\n", t->target_mod_id);
++		return -EINVAL;
++	}
++
++	if (t->is_sink) {
++		binding->sink = this_mod;
++		binding->sink_pin = t->mod_pin;
++		binding->source = target_mod;
++		binding->source_pin = t->target_mod_pin;
++	} else {
++		binding->sink = target_mod;
++		binding->sink_pin = t->target_mod_pin;
++		binding->source = this_mod;
++		binding->source_pin = t->mod_pin;
++	}
++
++	return 0;
++}
++
+ static void avs_path_binding_free(struct avs_dev *adev, struct avs_path_binding *binding)
+ {
+ 	kfree(binding);
+@@ -97,6 +216,38 @@ static struct avs_path_binding *avs_path_binding_create(struct avs_dev *adev,
+ 	return binding;
+ }
+ 
++static int avs_path_pipeline_arm(struct avs_dev *adev,
++				 struct avs_path_pipeline *ppl)
++{
++	struct avs_path_module *mod;
++
++	list_for_each_entry(mod, &ppl->mod_list, node) {
++		struct avs_path_module *source, *sink;
++		int ret;
++
++		/*
++		 * Only one module (so it's implicitly last) or it is the last
++		 * one, either way we don't have next module to bind it to.
++		 */
++		if (mod == list_last_entry(&ppl->mod_list,
++					   struct avs_path_module, node))
++			break;
++
++		/* bind current module to next module on list */
++		source = mod;
++		sink = list_next_entry(mod, node);
++		if (!source || !sink)
++			return -EINVAL;
++
++		ret = avs_ipc_bind(adev, source->module_id, source->instance_id,
++				   sink->module_id, sink->instance_id, 0, 0);
++		if (ret)
++			return AVS_IPC_RET(ret);
++	}
++
++	return 0;
++}
++
+ static void avs_path_pipeline_free(struct avs_dev *adev,
+ 				   struct avs_path_pipeline *ppl)
+ {
+@@ -212,6 +363,31 @@ static int avs_path_init(struct avs_dev *adev, struct avs_path *path,
+ 	return 0;
+ }
+ 
++static int avs_path_arm(struct avs_dev *adev, struct avs_path *path)
++{
++	struct avs_path_pipeline *ppl;
++	struct avs_path_binding *binding;
++	int ret;
++
++	list_for_each_entry(ppl, &path->ppl_list, node) {
++		/*
++		 * Arm all ppl bindings before binding internal modules
++		 * as it costs no IPCs which isn't true for the latter.
++		 */
++		list_for_each_entry(binding, &ppl->binding_list, node) {
++			ret = avs_path_binding_arm(adev, binding);
++			if (ret < 0)
++				return ret;
++		}
++
++		ret = avs_path_pipeline_arm(adev, ppl);
++		if (ret < 0)
++			return ret;
++	}
++
++	return 0;
++}
++
+ static void avs_path_free_unlocked(struct avs_path *path)
+ {
+ 	struct avs_path_pipeline *ppl, *save;
+@@ -243,6 +419,10 @@ static struct avs_path *avs_path_create_unlocked(struct avs_dev *adev, u32 dma_i
+ 	if (ret < 0)
+ 		goto err;
+ 
++	ret = avs_path_arm(adev, path);
++	if (ret < 0)
++		goto err;
++
+ 	path->state = AVS_PPL_STATE_INVALID;
+ 	return path;
+ err:
 -- 
 2.25.1
 

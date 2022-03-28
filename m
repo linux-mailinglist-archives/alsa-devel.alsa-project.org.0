@@ -2,90 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAA8D4E919C
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Mar 2022 11:42:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCE764E91A3
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Mar 2022 11:43:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2D5661753;
-	Mon, 28 Mar 2022 11:41:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D5661753
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5A70C1755;
+	Mon, 28 Mar 2022 11:42:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A70C1755
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648460535;
-	bh=1Ryw3lrX5C0drtXcPv5JPWPQ2i2MhI6e7xkDbV4EUhU=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1648460624;
+	bh=lp31rmeuQoRL6uzdXmHzOKN9HZ27PHovyjuvwjxfzTo=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=A/ClFM9OrrwR1JU1wk2yTcMlVol9BxFmwbH3MKujNLX7Lll9aXFCXFlyfpzbbA8Wz
-	 W/vUw0+GGkXpIpOlSI0JoPJkpbnErkpjDnoUUvPyIzbLw36rbCYGcVBxrXEg4zos14
-	 4Y/JamRONachKDzpCNk5OxewuDJ/LLFlcVrhGlEY=
+	b=roOPUrOLzrqXWsGL1374wOnJwb7lWdO/CUs+SXbA78oe4Xpn4Q3X3oVra3sl6Jy30
+	 QVxsagyopKdVnH9B3kHFmUtXHgZAuxi7/MOXJNbgbWZFTNQkF7wy/zf5v0KdjEcfnh
+	 WbdB/egVY6gUCOnvzCWoqyiQ8cqWa5W1xGuf7v+s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1FC7DF800FA;
-	Mon, 28 Mar 2022 11:41:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DB394F8026A;
+	Mon, 28 Mar 2022 11:42:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C1638F804CF; Mon, 28 Mar 2022 11:40:58 +0200 (CEST)
+ id 83A30F8024C; Mon, 28 Mar 2022 11:42:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 911B3F80121
- for <alsa-devel@alsa-project.org>; Mon, 28 Mar 2022 11:40:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 911B3F80121
+ by alsa1.perex.cz (Postfix) with ESMTPS id 68A41F800FA
+ for <alsa-devel@alsa-project.org>; Mon, 28 Mar 2022 11:42:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68A41F800FA
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="Ml9lNJ6Q"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 22S8AHq2030601;
- Mon, 28 Mar 2022 04:40:50 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=k+KvFRV9XtLBVAPXFdNjChxgxfRZJVq8NHSeqtG5GO8=;
- b=Ml9lNJ6QuR/8qhIMdI7MimU8WPV8m7OdMNgLs89aWRMrlneR8SFwPcvqlnecQrdNiC7Q
- uBb8PfBSIJGtkoLlXSqlxdR24ZpVUDGKR9w9/zdqhB9FdjSS7efJD4CAWBpsuYyRnFJ8
- y6HZ0iwpXKCx4fKN3EIINO7FmG1wmbdvov3x+vV4uZPsBZXKDF5hU+LyK18yA4iXGntL
- S68gNNGWLtZeBLZs4yZenshKcz4RotwGa1JDTtNfA+6NoyG0b5hYnchF0BFg+NAxm6yI
- V+WeasmiLBIjWYBG8MdL3N5c0HVL5JtRhCr64/yX3D2k0IObwswVrar6k2cWwWLc1mLR Jg== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3f2081ag2x-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Mon, 28 Mar 2022 04:40:50 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Mon, 28 Mar
- 2022 10:40:47 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.24 via
- Frontend Transport; Mon, 28 Mar 2022 10:40:47 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 809AF46A;
- Mon, 28 Mar 2022 09:40:47 +0000 (UTC)
-Date: Mon, 28 Mar 2022 09:40:47 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH v1 4/7] ASoC: wm8731: Factor our MCLK and mutex
- initialisation
-Message-ID: <20220328094047.GX38351@ediswmail.ad.cirrus.com>
-References: <20220325153121.1598494-1-broonie@kernel.org>
- <20220325153121.1598494-5-broonie@kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20220325153121.1598494-5-broonie@kernel.org>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-ORIG-GUID: HKwspA8PzbaAnYpimNzqbV3k1wWojoOU
-X-Proofpoint-GUID: HKwspA8PzbaAnYpimNzqbV3k1wWojoOU
-X-Proofpoint-Spam-Reason: safe
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="l1x6a8AX"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="YyUoxwGj"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id F0F7C1F37E;
+ Mon, 28 Mar 2022 09:42:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1648460544; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=eyZHCLcDXUocIP7B9068DqUmGsCqxCWgYBfUqpGMV4M=;
+ b=l1x6a8AXvpzECyFAUUkAvo1jgfUEVVkx/d0Cw/z0l4tCcFealKe1F7CEcZTBYuO7g44ug9
+ QWXuxHHT6338JCP6uPZmKFTwo0jjxEo+poZintAyoa1igfRqoG1wtWLByOkzpey4BDGXfI
+ hRcvM522HH1PCg0bBqWZzthdMYN77uk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1648460544;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=eyZHCLcDXUocIP7B9068DqUmGsCqxCWgYBfUqpGMV4M=;
+ b=YyUoxwGjsI/wnUtraHI5WUQZtWLOrFPP4g5LZ3ui+UoBGgye5lw+Oki2no7e27R8pgymt+
+ OIIvo4bB0JLPdpAw==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id D3EDFA3B89;
+ Mon, 28 Mar 2022 09:42:24 +0000 (UTC)
+Date: Mon, 28 Mar 2022 11:42:24 +0200
+Message-ID: <s5hczi6l8fz.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mohan Kumar <mkumard@nvidia.com>
+Subject: Re: [PATCH] ALSA: hda: Avoid unsol event during RPM suspending
+In-Reply-To: <20220328091411.31488-1-mkumard@nvidia.com>
+References: <20220328091411.31488-1-mkumard@nvidia.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: jonathanh@nvidia.com, alsa-devel@alsa-project.org,
+ kai.vehmanen@linux.intel.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ thierry.reding@gmail.com, ville.syrjala@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,14 +94,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Mar 25, 2022 at 03:31:18PM +0000, Mark Brown wrote:
-> The code for initialising the MCLK and mutex is identical in the I2C and SPI
-> probe functions so just move this out into wm8731_init().
+On Mon, 28 Mar 2022 11:14:11 +0200,
+Mohan Kumar wrote:
 > 
-> Signed-off-by: Mark Brown <broonie@kernel.org>
-> ---
+> There is a corner case with unsol event handling during codec runtime
+> suspending state. When the codec runtime suspend call initiated, the
+> codec->in_pm atomic variable would be 0, currently the codec runtime
+> suspend function calls snd_hdac_enter_pm() which will just increments
+> the codec->in_pm atomic variable. Consider unsol event happened just
+> after this step and before snd_hdac_leave_pm() in the codec runtime
+> suspend function. The snd_hdac_power_up_pm() in the unsol event
+> flow in hdmi_present_sense_via_verbs() function would just increment
+> the codec->in_pm atomic variable without calling pm_runtime_get_sync
+> function.
+> 
+> As codec runtime suspend flow is already in progress and in parallel
+> unsol event is also accessing the codec verbs, as soon as codec
+> suspend flow completes and clocks are  switched off before completing
+> the unsol event handling as both functions doesn't wait for each other.
+> This will result in below errors
+> 
+> [  589.428020] tegra-hda 3510000.hda: azx_get_response timeout, switching
+> to polling mode: last cmd=0x505f2f57
+> [  589.428344] tegra-hda 3510000.hda: spurious response 0x80000074:0x5,
+> last cmd=0x505f2f57
+> [  589.428547] tegra-hda 3510000.hda: spurious response 0x80000065:0x5,
+> last cmd=0x505f2f57
+> 
+> To avoid this, the unsol event flow should not perform any codec verb
+> related operations during RPM_SUSPENDING state.
+> 
+> Signed-off-by: Mohan Kumar <mkumard@nvidia.com>
 
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Thanks, that's a hairy problem...
 
-Thanks,
-Charles
+The logic sounds good, but can we check the PM state before calling
+snd_hda_power_up_pm()?
+
+
+Takashi

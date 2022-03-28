@@ -2,87 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C200D4E9C09
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Mar 2022 18:17:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63E424E9C4A
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Mar 2022 18:33:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 63D98187D;
-	Mon, 28 Mar 2022 18:16:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63D98187D
+	by alsa0.perex.cz (Postfix) with ESMTPS id E1341189C;
+	Mon, 28 Mar 2022 18:32:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1341189C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648484229;
-	bh=+GRU5+zjx/jn/l4vBFsBpTQ0g6phxQ6QWi9IaN5Lamo=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1648485191;
+	bh=hK7ZDdgQaPjqOYen8B81+Sjmp3Ahshxy0heHpeX2Ado=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OsKhTVN+6ellE6LrD4paH9Z+hsb+LW5B+YtpHnwl0xddn8taMCiqC/IzPgXV4P+nq
-	 /BHO1YQKcloiRsVJkM4BI6F98rB8HyqktHNPyQcyt+pV0iFVlsNA5jKe1Wiwo/mv0O
-	 aXIDx9rFKhtN8Be73lEAp/fArfHvU/Q/ENhOtCZs=
+	b=sDByf60bofyhV40x6oa59iMeKEqul/4mbeZfUu4g0Ei7TS1mGmILw3d95ZzZb8GAH
+	 OoDuAqSc25yhlQuKwkgU+7KK54SN+vi4SHcIYhzS1ERHcPQrPy1Ar3M5Zzoq6Y+reS
+	 S93dtRsiL2I+Z5VMSA3gpgMN/NE/EvedmAcJs1io=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C924FF80128;
-	Mon, 28 Mar 2022 18:16:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4A130F800FA;
+	Mon, 28 Mar 2022 18:32:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CC1E3F8024C; Mon, 28 Mar 2022 18:16:00 +0200 (CEST)
+ id 63ABFF800FA; Mon, 28 Mar 2022 18:32:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9D70EF800FA
- for <alsa-devel@alsa-project.org>; Mon, 28 Mar 2022 18:15:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D70EF800FA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 025BBF800FA
+ for <alsa-devel@alsa-project.org>; Mon, 28 Mar 2022 18:31:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 025BBF800FA
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="aui3z9lU"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="bskkfPk2"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 43FA4210EE;
- Mon, 28 Mar 2022 16:15:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1648484153; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=q4Xt99w9xbYhH0KUJ1KGjk1nQO3I91qbWeC7RgiTOTM=;
- b=aui3z9lUJWoZzWioOA8gh+7KdVc2GhaSTiJZeV/8K/6sR11p+AbaHSYw/F37iTj2PmKMpH
- OfD7F/F/FV9ox1gfV6AO3I8z5Hq5M8/PCmY4mj251JXBns0TSvyfwdf9atJudq0BD7aWJf
- XTPbQY3ekdaRKj1DhcgYMM3z5mp9ylM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1648484153;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=q4Xt99w9xbYhH0KUJ1KGjk1nQO3I91qbWeC7RgiTOTM=;
- b=bskkfPk2ufk9FbJgwzGfb4xiY/0rkelwLXX7jkO+0rUVN/6D+4WWR0agYzQzWZhNquLwaz
- 7YscciewtgELbSCA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 2DF91A3B82;
- Mon, 28 Mar 2022 16:15:53 +0000 (UTC)
-Date: Mon, 28 Mar 2022 18:15:53 +0200
-Message-ID: <s5hilryjbnq.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mohan Kumar D <mkumard@nvidia.com>
-Subject: Re: [PATCH] ALSA: hda: Avoid unsol event during RPM suspending
-In-Reply-To: <7cbfca20-bd1a-9ca0-f0e2-2ecf5fa74f45@nvidia.com>
-References: <20220328091411.31488-1-mkumard@nvidia.com>
- <s5hczi6l8fz.wl-tiwai@suse.de>
- <7f7934e6-137c-4d8d-049b-0ed5e57cf00b@nvidia.com>
- <s5ha6dal4ys.wl-tiwai@suse.de>
- <7cbfca20-bd1a-9ca0-f0e2-2ecf5fa74f45@nvidia.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: jonathanh@nvidia.com, alsa-devel@alsa-project.org,
- kai.vehmanen@linux.intel.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
- thierry.reding@gmail.com, ville.syrjala@linux.intel.com
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="V64A7qzb"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id DA0AF6147A;
+ Mon, 28 Mar 2022 16:31:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D239C004DD;
+ Mon, 28 Mar 2022 16:31:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1648485117;
+ bh=hK7ZDdgQaPjqOYen8B81+Sjmp3Ahshxy0heHpeX2Ado=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=V64A7qzbboy0p+y9aBTjLc241GMoRliUriJxyNrw6yB/jmVHADwXP4GoWMZOiZVey
+ fSVW6+r6DFMiNbPdvBTPox/Ah4BTa8+qYvJi1ghnduc9HW1EnDo37W4hDT+X9HbAKp
+ nhvU1oQhmiwdiOGgkZXxGOMyoelYavWmr8AI57qTYbwi1lEdXsUAc3kQ/yoWrV+RO8
+ 4YmZ/i4hfuEZcxWmuZ4ZW/bYCinDrRi/oLomJ56HpbbGFyCAJmvSLy0Pr+jSmQR3Yw
+ NazZK5zP/Ga/fRV6B7z7EwI5hc6ahI+UjFP4be+aQapGo+bbSzrRPEt9ckM+CeQrHr
+ 7/1QGw/bgTLhA==
+Date: Mon, 28 Mar 2022 17:31:51 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Xiaomeng Tong <xiam0nd.tong@gmail.com>
+Subject: Re: [PATCH] soc: soc-dapm: fix two incorrect uses of list iterator
+Message-ID: <YkHi98GDDWNie7GP@sirena.org.uk>
+References: <20220327082138.13696-1-xiam0nd.tong@gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="U/jhfLnga9E37WzA"
+Content-Disposition: inline
+In-Reply-To: <20220327082138.13696-1-xiam0nd.tong@gmail.com>
+X-Cookie: What hath Bob wrought?
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,84 +87,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 28 Mar 2022 15:51:17 +0200,
-Mohan Kumar D wrote:
-> 
-> 
-> On 3/28/2022 4:27 PM, Takashi Iwai wrote:
-> > External email: Use caution opening links or attachments
-> >
-> >
-> > On Mon, 28 Mar 2022 12:19:03 +0200,
-> > Mohan Kumar D wrote:
-> >>
-> >> On 3/28/2022 3:12 PM, Takashi Iwai wrote:
-> >>> External email: Use caution opening links or attachments
-> >>>
-> >>>
-> >>> On Mon, 28 Mar 2022 11:14:11 +0200,
-> >>> Mohan Kumar wrote:
-> >>>> There is a corner case with unsol event handling during codec runtime
-> >>>> suspending state. When the codec runtime suspend call initiated, the
-> >>>> codec->in_pm atomic variable would be 0, currently the codec runtime
-> >>>> suspend function calls snd_hdac_enter_pm() which will just increments
-> >>>> the codec->in_pm atomic variable. Consider unsol event happened just
-> >>>> after this step and before snd_hdac_leave_pm() in the codec runtime
-> >>>> suspend function. The snd_hdac_power_up_pm() in the unsol event
-> >>>> flow in hdmi_present_sense_via_verbs() function would just increment
-> >>>> the codec->in_pm atomic variable without calling pm_runtime_get_sync
-> >>>> function.
-> >>>>
-> >>>> As codec runtime suspend flow is already in progress and in parallel
-> >>>> unsol event is also accessing the codec verbs, as soon as codec
-> >>>> suspend flow completes and clocks are  switched off before completing
-> >>>> the unsol event handling as both functions doesn't wait for each other.
-> >>>> This will result in below errors
-> >>>>
-> >>>> [  589.428020] tegra-hda 3510000.hda: azx_get_response timeout, switching
-> >>>> to polling mode: last cmd=0x505f2f57
-> >>>> [  589.428344] tegra-hda 3510000.hda: spurious response 0x80000074:0x5,
-> >>>> last cmd=0x505f2f57
-> >>>> [  589.428547] tegra-hda 3510000.hda: spurious response 0x80000065:0x5,
-> >>>> last cmd=0x505f2f57
-> >>>>
-> >>>> To avoid this, the unsol event flow should not perform any codec verb
-> >>>> related operations during RPM_SUSPENDING state.
-> >>>>
-> >>>> Signed-off-by: Mohan Kumar <mkumard@nvidia.com>
-> >>> Thanks, that's a hairy problem...
-> >>>
-> >>> The logic sounds good, but can we check the PM state before calling
-> >>> snd_hda_power_up_pm()?
-> >> If am not wrong, PM apis exposed either provide RPM_ACTIVE or
-> >> RPM_SUSPENDED status. Don't see anything which provides info on
-> >> RPM_SUSPENDING. We might need to exactly know this state to fix this
-> >> issue.
-> > Well, maybe my question wasn't clear.  What I meant was that your
-> > change below
-> >
-> >>        ret = snd_hda_power_up_pm(codec);
-> >> -     if (ret < 0 && pm_runtime_suspended(hda_codec_dev(codec)))
-> >> +     if ((ret < 0 && pm_runtime_suspended(dev)) ||
-> >> +             (dev->power.runtime_status == RPM_SUSPENDING))
-> >>                goto out;
-> > can be rather like:
-> >
-> >> +     if (dev->power.runtime_status == RPM_SUSPENDING)
-> >> +             return;
-> >>        ret = snd_hda_power_up_pm(codec);
-> >>        if (ret < 0 && pm_runtime_suspended(hda_codec_dev(codec)))
-> > so that it skips unneeded power up/down calls.
-> >
-> > Basically the state is set at drivers/base/power/runtime.c
-> > rpm_suspend() just before calling the device's runtime_suspend
-> > callback.  So the state is supposed to be same before and after
-> > snd_hda_power_up_pm() in that case.
-> Thanks!, Make sense, will push the updated patch after testing with
-> latest suggestion.
 
-Thanks.  Also don't forget to cover a case the test bot complained:
-the reference to power.runtime_status needs #ifdef CONFIG_PM.
+--U/jhfLnga9E37WzA
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
+On Sun, Mar 27, 2022 at 04:21:38PM +0800, Xiaomeng Tong wrote:
 
-Takashi
+>  		case snd_soc_dapm_pre:
+> -			if (!w->event)
+> +			if (!w->event) {
+>  				list_for_each_entry_safe_continue(w, n, list,
+>  								  power_list);
+> +				break;
+> +			}
+
+This doesn't make much sense.  The intent here seems to clearly be to
+continue; the loop but this doesn't do that - instead it appears that
+continue doesn't actually do the equivalent of a continue but rather
+skips over an entry.  This should instead be replaced with a plain
+continue statement.
+
+THe naming of _continue() needs fixing I think - it's just asking to be
+a bug.  Fortunately there's very few users.
+
+--U/jhfLnga9E37WzA
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJB4vYACgkQJNaLcl1U
+h9CKuAf+J7JMfNycivcp5VxSUAzxAbiMWBbMwaM201sPHiXMYm9MwDk+lxEQ6yzi
+jhSvB1tSNDLp4rHftobH7ShFTed4UOx/RhLShGKJPPJo3l1sfpvZYRdYdS1KGbTm
+kjGx8Q4RaC6LyJjsZw8VGEvsf6lC/cJRP8MGMuTo7fN5OW8U5l8YpK9w53xaaIgo
+D9f4ah5tKdO4zwpXNrYvk5U6wKjkPT9qXM6MBarcJrWuoEn16JY36o8kcCvLr2PH
+xZnlW44J91Kgd/AQuUxl0wM2g5Wde5Pbk0QrlVJCrBwfIhnA0ql5RFezuS+sSZ/w
+7JuLdDfkWs7g9P1i+AH1hcRZ/1BNVQ==
+=Y449
+-----END PGP SIGNATURE-----
+
+--U/jhfLnga9E37WzA--

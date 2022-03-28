@@ -2,131 +2,140 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 907394E8E02
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Mar 2022 08:18:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B682F4E8E74
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Mar 2022 08:52:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2440216B0;
-	Mon, 28 Mar 2022 08:18:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2440216B0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4B4DF16CB;
+	Mon, 28 Mar 2022 08:51:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B4DF16CB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648448330;
-	bh=YPU6xZrhS/X9SuvmRQyNuu0/i6sYdgY4IlVb+i1iCe4=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1648450369;
+	bh=YOwuUXxavF5otLpi9N7dkEI9ooqG3KGOQNlF+PD1xB0=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=V/k9WNwdp5kXAz9xb3iV2K1tBzOCMvCNHlmXjrNKfcdIFQva89GAuI2jaGoee/5sm
-	 PbfzEQrh3ofQcNreny1zylx25w/3EHMeDVwh4Mc2onWU7FKG6eYtiozclG28nvQGiz
-	 l//b4LeDreE0nG5Z5kv2rIQrQuv0gbpyPrn3M0Ek=
+	b=lcgUU96ZrUt+51fy9IBc9ep++/+ZgMk06D1zxvYTmnWSX3+/PcYQB1/kcDJLeUbuO
+	 rEwfaCx3zCdN5bumI3rR3iJuYw5gNTcffslOEw/H4tGUrga/cB0J4p3RVaBRkKkkJx
+	 Tobi2fkXMgK8FXRgWHHKB2/D/dFz6+okAdaN1OFQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 998FBF80536;
-	Mon, 28 Mar 2022 08:16:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BEFCCF800CB;
+	Mon, 28 Mar 2022 08:51:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C100EF80539; Mon, 28 Mar 2022 08:16:15 +0200 (CEST)
+ id 2793BF8024C; Mon, 28 Mar 2022 08:51:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on20624.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5a::624])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 16244F80536
- for <alsa-devel@alsa-project.org>; Mon, 28 Mar 2022 08:16:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 16244F80536
+ by alsa1.perex.cz (Postfix) with ESMTPS id 84DB7F800FA
+ for <alsa-devel@alsa-project.org>; Mon, 28 Mar 2022 08:51:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84DB7F800FA
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com
- header.b="dV9wJgdr"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kBL+E3FhpgepBlSjfL8Ve1SJ0cEL5Da59dP0vCCIJxEIAhmsVeGDWRObertidcr+wJOkSE1G5uHZFa3dxLQzN5Xi5XlLl/6SS5HsJkcTax5P8QkSogJdAzW2baxDtQxTK9Dba3GFW39oDVnz9HwggIFtIfyQXwGDn1KZIBn/GKbu3v88sEjj7FNsFEPKf4baneNnCPWCCpEMl5xx06hWgcPeuUxDFC8uMZ7u2mUHP8GR84izEE2Me4gf6fztzukk1LpGqURK1xm48XX/kDU9kas6hjQ4ptjDm+M8DkfgDQ3a0C+ZVgAGsyDbplzYkSCJJrfau2vex954R7P1YpvG8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XVbAgiWj7uQBw+VCLMddmZGQpgzkOz+iiy3XW8lKpUY=;
- b=caM1H1mUhgRzerC2l/HdtDjagnERnzk2AnY0mqbJ6P+kn6dsU38aXLpEOda+oT6xeSrMwBpbsBrLvoGefbgSRgbpEXghkh3C9QcW5D6QQ3Tq6Vlhmfph2ye0tacf1oduPfVZoftPayL7isZcYjqnUrm02xZQd++xXGN6kwANKsFjDHyYSPIe8ZMQZaocGaD4mGK9q8MRCaQ7fNrh1QzQ/3F2wPOgaRwTjly/tGZm2Dtlw3YiQ9lKbpJOMsRuJlTp8EHeTzw/dY7xFJC+BsD6H+7Hj51RahglpYVl68J6eD4sI6/TRO5FkFrwjWptYJpJXrKNg//ELGAAIEFP34w8eQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 12.22.5.234) smtp.rcpttodomain=gmail.com smtp.mailfrom=nvidia.com; dmarc=pass
- (p=reject sp=reject pct=100) action=none header.from=nvidia.com; dkim=none
- (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XVbAgiWj7uQBw+VCLMddmZGQpgzkOz+iiy3XW8lKpUY=;
- b=dV9wJgdr8tfwdZNL6KIYBE5lWTpFnNoyEPC4aQ0qgufd769v5G5P0r8rjDxBXI6w5P8/z64o/yeNixatNXSaRHZpcOrxSXZCXV837X7K/jh34Yq2XdTPEsLEhJYje0HRRWu7lEwJ6p/ao0HIDVhoyJ7w/jsM9M+ANvnTOPZkYAeeZ1JBHlT7Fpxk7zjC+Qfe7RCsE8s58XJa/GhcS9hLFMh64VDMnzsnJOKfmrFFci7lXOv3YEbSgVfrk+YAaLD+gDqRD/66GQI6Jaz5a7hfAKGKdsYrWoEG6x/yl05kgY7avOjpmTj8jlzwNyvmpqSCNWSiE55bXVHoJu305Wazkw==
-Received: from BN9P222CA0006.NAMP222.PROD.OUTLOOK.COM (2603:10b6:408:10c::11)
- by PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.17; Mon, 28 Mar
- 2022 06:16:03 +0000
-Received: from BN8NAM11FT060.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:10c:cafe::f4) by BN9P222CA0006.outlook.office365.com
- (2603:10b6:408:10c::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.17 via Frontend
- Transport; Mon, 28 Mar 2022 06:16:03 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 12.22.5.234)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 12.22.5.234 as permitted sender) receiver=protection.outlook.com;
- client-ip=12.22.5.234; helo=mail.nvidia.com;
-Received: from mail.nvidia.com (12.22.5.234) by
- BN8NAM11FT060.mail.protection.outlook.com (10.13.177.211) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.20.5102.17 via Frontend Transport; Mon, 28 Mar 2022 06:16:03 +0000
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by DRHQMAIL101.nvidia.com
- (10.27.9.10) with Microsoft SMTP Server (TLS) id 15.0.1497.32;
- Mon, 28 Mar 2022 06:16:02 +0000
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail202.nvidia.com
- (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Sun, 27 Mar
- 2022 23:16:01 -0700
-Received: from audio.nvidia.com (10.127.8.10) by mail.nvidia.com (10.129.68.7)
- with Microsoft SMTP Server id 15.2.986.22 via Frontend Transport;
- Sun, 27 Mar 2022 23:15:57 -0700
-From: Sameer Pujar <spujar@nvidia.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <robh+dt@kernel.org>,
- <krzk+dt@kernel.org>, <perex@perex.cz>, <tiwai@suse.com>,
- <peter.ujfalusi@linux.intel.com>, <pierre-louis.bossart@linux.intel.com>
-Subject: [RFC PATCH v2 6/6] ASoC: tegra: Get clock rate in consumer mode
-Date: Mon, 28 Mar 2022 11:44:10 +0530
-Message-ID: <1648448050-15237-7-git-send-email-spujar@nvidia.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1648448050-15237-1-git-send-email-spujar@nvidia.com>
-References: <1648448050-15237-1-git-send-email-spujar@nvidia.com>
+ dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
+ header.b="iURdj/GU"
+Received: from epcas2p3.samsung.com (unknown [182.195.41.55])
+ by mailout3.samsung.com (KnoxPortal) with ESMTP id
+ 20220328065128epoutp034b7298a9b640457f241e7cc5b12e73c9~geM2Xkoxc1455214552epoutp03a
+ for <alsa-devel@alsa-project.org>; Mon, 28 Mar 2022 06:51:28 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com
+ 20220328065128epoutp034b7298a9b640457f241e7cc5b12e73c9~geM2Xkoxc1455214552epoutp03a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1648450288;
+ bh=MEyFL6QFgLu6cPGYgezGjgpoPW1LK9PASALn89BW1LQ=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=iURdj/GUYTqrEJDFH6oWnoRQRKuWwl8Kz3u8vULmdo/kZ6ZWsD6kyWy+EBQ8fcibY
+ g0mr4Iw4neqmsGv9YBKCMRWLlF/BN+MzlVUjoA3zy5V7ZQeOWSVKtSCXCP6jDPUVbY
+ R6muzaDMeaEiYPKPOHvurF6xDiCfE6ahy18ZUvyA=
+Received: from epsnrtp2.localdomain (unknown [182.195.42.163]) by
+ epcas2p2.samsung.com (KnoxPortal) with ESMTP id
+ 20220328065127epcas2p254c6c41002b6dfdfa97c6cecbd27db0c~geM2HDwt61657316573epcas2p2P;
+ Mon, 28 Mar 2022 06:51:27 +0000 (GMT)
+Received: from epsmges2p2.samsung.com (unknown [182.195.36.88]) by
+ epsnrtp2.localdomain (Postfix) with ESMTP id 4KRjyz5m8Cz4x9QT; Mon, 28 Mar
+ 2022 06:51:23 +0000 (GMT)
+Received: from epcas2p4.samsung.com ( [182.195.41.56]) by
+ epsmges2p2.samsung.com (Symantec Messaging Gateway) with SMTP id
+ F1.E0.16040.AEA51426; Mon, 28 Mar 2022 15:51:22 +0900 (KST)
+Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
+ epcas2p3.samsung.com (KnoxPortal) with ESMTPA id
+ 20220328065122epcas2p347901648650d90f67a503731fad04274~geMwxnJsS0290402904epcas2p3k;
+ Mon, 28 Mar 2022 06:51:22 +0000 (GMT)
+Received: from epsmgms1p2.samsung.com (unknown [182.195.42.42]) by
+ epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
+ 20220328065122epsmtrp2344ca167bd06d329c9b4034b57623be5~geMww7J9v0504805048epsmtrp2F;
+ Mon, 28 Mar 2022 06:51:22 +0000 (GMT)
+X-AuditID: b6c32a46-bffff70000023ea8-ef-62415aead703
+Received: from epsmtip1.samsung.com ( [182.195.34.30]) by
+ epsmgms1p2.samsung.com (Symantec Messaging Gateway) with SMTP id
+ 94.8F.03370.9EA51426; Mon, 28 Mar 2022 15:51:21 +0900 (KST)
+Received: from ubuntu (unknown [12.36.155.120]) by epsmtip1.samsung.com
+ (KnoxPortal) with ESMTPA id
+ 20220328065121epsmtip1cfcda574d588766bd940767dc36d18d9~geMwmd9IQ2227622276epsmtip1M;
+ Mon, 28 Mar 2022 06:51:21 +0000 (GMT)
+Date: Mon, 28 Mar 2022 15:49:56 +0900
+From: Oh Eomji <eomji.oh@samsung.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH v1 3/3] sound: usb: Exynos usb audio offloading driver
+Message-ID: <20220328064956.GA147461@ubuntu>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a37d4cff-22ec-4b6c-ba8b-08da10826faf
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_
-X-Microsoft-Antispam-PRVS: <PH7PR12MB5685EA177719B22750D930C4A71D9@PH7PR12MB5685.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: aHdu+izTmoMjRSmgsmwZx8FWJqSeIkSQnp4yMYVx5YI2fNm5SgHf2KYPwL/gD2R6d0hYCjRrddRhVX3MNYyjDpv0Bg33fqCWOBLa6GskRftdKpJYjc2zxrpkecOkT5wfcc3TUUwphZhJd+vh3oMeFNUlA+R15xT39BBj+Rd8nPgaUDQbQnyBwUQsoiWRTVeYnGUrYTKypAvsRQ0SEPQ3pj6OoyV27ZV6NrzUSG4UDJVJZKjME8kPmn+gP5InL3Rz5lywH9JkBzXpBkGoSP4uWaZm81VP2/nRKLQXrxE8AbvsUqKywkWLl9m5eD4qjwGu7WrLjDhF3s4VCwB8UqgeeFvik198uGpl1/7iLfIOE0Vl2yKn5/ZlYNI8NcaDJa/1e/Z7OD7s5XjbWid5qnsqfZgh+fsgw/u4bQbfg3AMcQ6arXTWYFL+0mGtkFhciI8OFycfoyUtuL87Wo338Flia5rXcoOYbyLR+Gb+PWUIl1uMjgkH426Zf0AB5Quv5xzCLifPg+CEdkV8I9IUKjCoUI4JNH+j8yFcSD5ynn5SWeDi2qrvzLOLSAtMadImz79JWfZDlqIc70/RkL8AImSmYityL+ZbGAWsdYRJkmpVvi5EnCLuT5ZVj+j9iq1RXS3oeHQXzi1FRGIVSnbQDbjCX7F9+3YXAqIddn0HVhCW6H37AcdVlnDpigXWPYQK87DuekNbAbC6IFrTm6Bf/PK32w==
-X-Forefront-Antispam-Report: CIP:12.22.5.234; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:mail.nvidia.com; PTR:InfoNoRecords; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(70206006)(7416002)(336012)(26005)(86362001)(40460700003)(316002)(426003)(70586007)(81166007)(356005)(47076005)(6666004)(107886003)(508600001)(8936002)(186003)(82310400004)(7696005)(110136005)(8676002)(2906002)(36860700001)(83380400001)(2616005)(4326008)(5660300002)(54906003)(36756003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Mar 2022 06:16:03.0208 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a37d4cff-22ec-4b6c-ba8b-08da10826faf
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[12.22.5.234];
- Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT060.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5685
-Cc: oder_chiou@realtek.com, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, Sameer Pujar <spujar@nvidia.com>,
- linux-kernel@vger.kernel.org, jonathanh@nvidia.com, thierry.reding@gmail.com,
- linux-tegra@vger.kernel.org
+In-Reply-To: <YjwutlpkvA6xubKy@kroah.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFlrIJsWRmVeSWpSXmKPExsWy7bCmhe6rKMckg94FJhZXLh5ismhevJ7N
+ YsqvpcwWl3fNYbM48Gcxm0Xnrn5Wiw3f1zI6sHts+NzE5rFz1l12j02rOtk89s9dw+6x7+0y
+ No/1W66yeHzeJBfAHpVtk5GamJJapJCal5yfkpmXbqvkHRzvHG9qZmCoa2hpYa6kkJeYm2qr
+ 5OIToOuWmQN0kJJCWWJOKVAoILG4WEnfzqYov7QkVSEjv7jEVim1ICWnwLxArzgxt7g0L10v
+ L7XEytDAwMgUqDAhO6Nv7muWgglnGSse3fNqYHw7n7GLkZNDQsBEouvpK7YuRi4OIYEdjBIf
+ Pr1mgnA+MUo0zX4NlfnMKPFyx0W4lpZFx5ghErsYJa6+egPlPGGUmLj/PVALBweLgKrE9Vkc
+ IA1sQOb0ZdvBmkUEjCX6z85iB6lnFrjBKLHv0zsWkISwgJfEguvbmEFsXgEdicWrdkLZghIn
+ Zz4Bq+EU0JRY/OA0C8h8UQEViVcH60HmSAj0ckjs3tTDBnGdi8T6liusELawxKvjW9ghbCmJ
+ z+/2QtUUSxxc8BzKrpF4e7AVqsZYYtazdrBDmQUyJPZO2MwKsktCQFniyC0WiDCfRMfhv+wQ
+ YV6JjjYhiE4liUlNnUwQtoTEis9NULaHxPS5e8GmCwl8YZT4sohtAqP8LCSPzUKyDMLWkViw
+ +xPbLKANzALSEsv/cUCYmhLrd+kvYGRdxSiWWlCcm55abFRgBI/s5PzcTYzgtKrltoNxytsP
+ eocYmTgYDzFKcDArifDKnrVPEuJNSaysSi3Kjy8qzUktPsRoCoylicxSosn5wMSeVxJvaGJp
+ YGJmZmhuZGpgriTO65WyIVFIID2xJDU7NbUgtQimj4mDU6qBqWbZK68z03zTm5UeRu16Pp/J
+ RK69wim9ZUWE8Mo/Tls4LepmNzErKFU+n9tVsFZXbB/3xQmX59netPyUnbb1hmT/G5bM6g6W
+ lLrQ/TfN9iZW7H+lNn2X//fNdtpd189v605hFeJsqGZ/ueB7nFqi6G/ttfd9w+LCrm7e8Muw
+ fuPenHApgYh1+ikb05/bC4rkLZ/Ft/7Jeb5l6vGfGMTZV0wo3LFEZt7sjR7Kp/gnfDnfwnqS
+ 4fzFUp6dJTF6/+bG3y3ZU7aKcXslk+qkTUEJHHE2bomJOxkfM1R53BPWfLOPseWfuC6/ml/P
+ 5oTYpwkz793XWLf3wIcjBms85ga9+SfKZGR0Zuekjmk9J/SXK7EUZyQaajEXFScCABvZ2Ek0
+ BAAA
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrBLMWRmVeSWpSXmKPExsWy7bCSnO7LKMckg4avFhZXLh5ismhevJ7N
+ YsqvpcwWl3fNYbM48Gcxm0Xnrn5Wiw3f1zI6sHts+NzE5rFz1l12j02rOtk89s9dw+6x7+0y
+ No/1W66yeHzeJBfAHsVlk5Kak1mWWqRvl8CVceHZeraCC6cYK64s2MfWwHhsLmMXIyeHhICJ
+ RMuiY8wgtpDADkaJVXfYIOISEgu6XjND2MIS91uOsHYxcgHVPGKUmNn6E6iZg4NFQFXi+iwO
+ kBo2IHP6su1gM0UEjCX6z85iB6lnFrjFKLG2B2KZsICXxILr28CG8groSCxetZMZYugXRol5
+ 8w+xQyQEJU7OfMICYjMLaEnc+PeSCWQZs4C0xPJ/YMs4BTQlFj84zQISFhVQkXh1sH4Co+As
+ JM2zkDTPQmhewMi8ilEytaA4Nz232LDAKC+1XK84Mbe4NC9dLzk/dxMjODK0tHYw7ln1Qe8Q
+ IxMH4yFGCQ5mJRFe2bP2SUK8KYmVValF+fFFpTmpxYcYpTlYlMR5L3SdjBcSSE8sSc1OTS1I
+ LYLJMnFwSjUwnbjuLSJ5jS0m9CzjzLe7d8/+mXBlsmTELYOAN2wed8+7Po20zbb+ZxmZYfO0
+ 959p4/35JZZXrjsL1+T2+9guviq+9W/2Aq0G/lUeC/4zBn/NZ9jQeKDpq4foZ4N3Z+e9f8P9
+ /WOqY5b30c9/Dz+5ohr9UkQs9pesemIUZ/qdkkfvjrfpzXl54HH31vT9VkdWWW51OPZG5JnI
+ vO7Yj4wcx7L2cVfPmCFzoG5xi52rpWZ5zKce08dZ31eVTHbRMbViaKzdwsYmxX9uyr6bdoLa
+ P7vW/g79wRrwXtJd3HZy1wMhk8+2LPud/3lWx10Smuj8J3Havsjnj994ch1p9JklfiXzwMIY
+ s/8/3eX8o3d5KrEUZyQaajEXFScCAOzjkC77AgAA
+X-CMS-MailID: 20220328065122epcas2p347901648650d90f67a503731fad04274
+X-Msg-Generator: CA
+Content-Type: multipart/mixed;
+ boundary="----FxW1adctUC2Ba58hBscSmKlxeMgdXQkzmfCwtO.kn3Xz82SJ=_1e465_"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+DLP-Filter: Pass
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20220324081350epcas2p227458cb1b530f04a9990bcfc8c3b5703
+References: <1648109444-196321-1-git-send-email-eomji.oh@samsung.com>
+ <CGME20220324081350epcas2p227458cb1b530f04a9990bcfc8c3b5703@epcas2p2.samsung.com>
+ <1648109444-196321-4-git-send-email-eomji.oh@samsung.com>
+ <YjwutlpkvA6xubKy@kroah.com>
+Cc: alsa-devel@alsa-project.org, Leon Romanovsky <leon@kernel.org>,
+ Pavel Skripkin <paskripkin@gmail.com>,
+ open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -142,127 +151,851 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When Tegra I2S is consumer the clock is driven by the external codec.
-In such cases, ideally the bit clock (BCLK) rate needs to be updated by
-provider. Consumer can use standard clock function to get the rate.
+------FxW1adctUC2Ba58hBscSmKlxeMgdXQkzmfCwtO.kn3Xz82SJ=_1e465_
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
 
-On Tegra HW it is possible to use I2S BCLK clock as reference to the
-I/O (other I2S or DMIC or DSPK) interfaces. This input clock is called
-as SYNC input clock and it can act as a parent clock to any of the
-remaining I/O interfaces. Thus it is important to set the clock rate
-in Tegra I2S consumer mode as well.
+On Thu, Mar 24, 2022 at 09:41:26AM +0100, Greg Kroah-Hartman wrote:
+> On Thu, Mar 24, 2022 at 05:10:44PM +0900, Oh Eomji wrote:
+> > This is for usb audio offloading. usb audio offloading processes usb
+> > audio stream data directly from the audio box even if ap usb enters
+> > suspend, there is no problem in stream data transmission. This obtains
+> > power saving effect while using usb audio device.
+> > 
+> > AP usb and audio usb f/w communicate via AUDIO IPC. By performing AUDIO
+> > IPC in the vendor operations, abox can access and control the xhci to
+> > transmit the data directly.
+> > 
+> > The types of commands and data delivered through AUDIO IPC include the
+> > following (AP USB <-> AUDIO USB f/w) :
+> > 1. usb audio connection/disconnection status
+> > 2. xhci memory information
+> > 3. full descriptor for usb audio device
+> > 4. UAC(usb audio class) control command
+> > 
+> > Signed-off-by: Oh Eomji <eomji.oh@samsung.com>
+> > ---
+> >  sound/usb/Kconfig            |   9 +
+> >  sound/usb/Makefile           |   2 +
+> >  sound/usb/exynos_usb_audio.c | 560 +++++++++++++++++++++++++++++++++++++++++++
+> >  sound/usb/exynos_usb_audio.h | 150 ++++++++++++
+> >  4 files changed, 721 insertions(+)
+> >  create mode 100644 sound/usb/exynos_usb_audio.c
+> >  create mode 100644 sound/usb/exynos_usb_audio.h
+> > 
+> > diff --git a/sound/usb/Kconfig b/sound/usb/Kconfig
+> > index 059242f..70252a3 100644
+> > --- a/sound/usb/Kconfig
+> > +++ b/sound/usb/Kconfig
+> > @@ -27,6 +27,15 @@ config SND_USB_AUDIO
+> >  config SND_USB_AUDIO_USE_MEDIA_CONTROLLER
+> >  	bool
+> >  
+> > +config SND_EXYNOS_USB_AUDIO
+> > +	tristate "EXYNOS USB Audio offloading module"
+> > +	depends on SND_USB_AUDIO
+> > +	help
+> > +	 Say Y here to include support for Exynos USB Audio ABOX offloading.
+> > +
+> > +	 To compile this driver as a module, choose M here: the module
+> > +	 will be called exynos-usb-audio-offloading.
+> > +
+> >  config SND_USB_UA101
+> >  	tristate "Edirol UA-101/UA-1000 driver"
+> >  	select SND_PCM
+> > diff --git a/sound/usb/Makefile b/sound/usb/Makefile
+> > index 9ccb21a..bf019c7 100644
+> > --- a/sound/usb/Makefile
+> > +++ b/sound/usb/Makefile
+> > @@ -28,6 +28,8 @@ snd-usbmidi-lib-objs := midi.o
+> >  
+> >  # Toplevel Module Dependency
+> >  obj-$(CONFIG_SND_USB_AUDIO) += snd-usb-audio.o snd-usbmidi-lib.o
+> > +obj-$(CONFIG_SND_EXYNOS_USB_AUDIO) += exynos-usb-audio-offloading.o
+> > +exynos-usb-audio-offloading-y += exynos_usb_audio.o
+> >  
+> >  obj-$(CONFIG_SND_USB_UA101) += snd-usbmidi-lib.o
+> >  obj-$(CONFIG_SND_USB_USX2Y) += snd-usbmidi-lib.o
+> > diff --git a/sound/usb/exynos_usb_audio.c b/sound/usb/exynos_usb_audio.c
+> > new file mode 100644
+> > index 0000000..456cc78
+> > --- /dev/null
+> > +++ b/sound/usb/exynos_usb_audio.c
+> > @@ -0,0 +1,560 @@
+> > +// SPDX-License-Identifier: GPL-2.0-or-later
+> 
+> Are you sure about this license?  I have to ask, sorry.
+> 
+It's my mistake. I will fix it.
 
-With this patch SYNC input clock rate is updated and any I/O interface
-relying on this can derive required rate.
+> > +/*
+> > + *   USB Audio offloading Driver for Exynos
+> > + *
+> > + *   Copyright (c) 2017 by Kyounghye Yun <k-hye.yun@samsung.com>
+> > + *
+> > + */
+> > +
+> > +
+> > +#include <linux/bitops.h>
+> > +#include <linux/init.h>
+> > +#include <linux/kernel.h>
+> > +#include <linux/slab.h>
+> > +#include <linux/string.h>
+> > +#include <linux/ctype.h>
+> > +#include <linux/usb.h>
+> > +#include <linux/usb/audio.h>
+> > +#include <linux/usb/audio-v2.h>
+> > +#include <linux/module.h>
+> > +#include <linux/of.h>
+> > +#include <linux/of_platform.h>
+> > +#include <linux/io.h>
+> > +#include <linux/dma-mapping.h>
+> > +#include <linux/completion.h>
+> > +
+> > +#include <sound/pcm.h>
+> > +#include "../../../sound/usb/exynos_usb_audio.h"
+> 
+> Did this patch just break the build?  It should not need this type of
+> .../../../ mess.
+> 
+Build succedded. But yes it's mess. I will fix it.
 
-Signed-off-by: Sameer Pujar <spujar@nvidia.com>
----
- Following are the DT binding cases I tried on Jetson AGX Xavier platform.
+> > +#include "usbaudio.h"
+> > +#include "helper.h"
+> > +#include "card.h"
+> > +#include "quirks.h"
+> > +
+> > +static struct exynos_usb_audio *usb_audio;
+> > +static struct snd_usb_audio_vendor_ops exynos_usb_audio_ops;
+> > +
+> > +struct hcd_hw_info *g_hwinfo;
+> > +EXPORT_SYMBOL_GPL(g_hwinfo);
+> > +int otg_connection;
+> > +EXPORT_SYMBOL_GPL(otg_connection);
+> > +int usb_audio_connection;
+> > +EXPORT_SYMBOL_GPL(usb_audio_connection);
+> 
+> Why are these exported?  Who uses them?  And why generic names for a
+> driver-specific variable?  And what do they do and how are they
+> accessed?
+> 
+> No one in this patch series needs these exports, so why are they
+> exported?
+> 
+Right. I'll fix it.
 
-   1. Sysclk derived from MCLK : This is currently being used. No DT
-      binding change would be necessary.
+> > +
+> > +static void exynos_usb_audio_set_device(struct usb_device *udev)
+> > +{
+> > +	usb_audio->udev = udev;
+> > +	usb_audio->is_audio = 1;
+> 
+> boolean?
+> 
+> How do you know?  Did you check?
+> 
+> And why a single static variable?
+> 
+1 : connection / 0 : disconnection
+Should I change this type to boolean?
 
-      Clock tree dump snippet in this case with proposed series:
+> > +}
+> > +
+> > +static int exynos_usb_audio_unmap_all(void)
+> > +{
+> > +	/*
+> > +	 * TODO: unmapping pcm buffer, usb descriptor, Device Context,
+> > +	 * Input Context, ERST, URAM.
+> > +	 */
+> 
+> If this is not completed, just don't have the function at all.
+> 
+> Why isn't this done?
+>
+Unmapping is performed using the AUDIO_IPC of the exynos audio module.
+As mentioned in commit msg, AUDIO_IPC is a function for ap usb and audio
+usb f/w communication, which is defined in exynos audio module.
+So the contents performed through AUDIO_IPC were written in TODO.
 
-          ...
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static int exynos_usb_audio_pcmbuf(struct usb_device *udev, int iface)
+> > +{
+> > +	if (!usb_audio->is_audio || !otg_connection)
+> > +		return -1;
+> 
+> Do not make up error values.  Use correct ones.
+> 
+>
+Okay, I will fix it.
 
-          pll_a
-            |
-            |-- plla_out0
-                    |
-                    |-- ahub
-                    |
-                    |-- aud_mclk
-                    |      |
-                    |      |-- rt5659_sysclk
-                    |
-                    |-- i2s1
+> > +
+> > +	/*
+> > +	 * TODO: Transmit the DRAM address that contains the xhci device
+> > +	 * information,and the DMA address required for operation to the abox
+> > +	 * usb f/w.
+> > +	 */
+> 
+> So this function does nothing?
+> 
+> Does this driver even work properly?  Where is the  missing logic?
+> 
+This is also performed using the AUDIO_IPC of the exynos audio module.
+As mentioned above, the contents performed through AUDIO_IPC were
+written in TODO.
 
-          ...
-      
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static int exynos_usb_audio_setrate(int iface, int rate, int alt)
+> > +{
+> > +	if (!usb_audio->is_audio || !otg_connection)
+> > +		return -1;
+> > +
+> > +	/*
+> > +	 * TODO: Notify the abox usb f/w the audio sample rate supported by
+> > +	 * the interface of the connected audio device.
+> > +	 */
+> 
+> Same as above.
+> 
+> Does this driver actually work on real hardware?  Or is this just a
+> "fake" driver that is never intended for anyone to use just to allow the
+> hooks to be added to the kernel tree?
+> 
+> What hardware has this driver worked on?  Can I take the pixel6 device
+> today and replace their out-of-tree driver with this one and will it
+> work properly?  If not, what is missing?
+> 
+This is also performed using the AUDIO_IPC of the exynos audio module.
+As mentioned above, the contents performed through AUDIO_IPC were
+written in TODO.
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static int exynos_usb_audio_setintf(struct usb_device *udev, int iface, int alt, int direction)
+> > +{
+> > +	struct hcd_hw_info *hwinfo = g_hwinfo;
+> > +	u64 in_offset, out_offset;
+> > +
+> > +	if (!usb_audio->pcm_open_done)
+> > +		return -EPERM;
+> 
+> How is that a permission error?
+>
+This means that the operation was not allowed because the pcm open was
+not finished, so would it be better to change it to EBUSY or EIO?
+> > +
+> > +	if (!usb_audio->is_audio || !otg_connection)
+> > +		return -1;
+> 
+> Again, no fake error numbers.
+> 
+Okay, I'll fix it.
 
-   2. Sysclk is derived from codec internal PLL and this PLL uses I2S
-      bit clock (BCLK) as reference.
+> > +	if (direction) {
+> > +		/* IN EP */
+> > +		if (!usb_audio->indeq_map_done ||
+> > +			(hwinfo->in_deq != hwinfo->old_in_deq)) {
+> > +			/* TODO: Transmit pcm interface number, alt setting
+> > +			 * number to abox usb f/w
+> > +			 */
+> 
+> Fix all TODO please before resubmitting.
+> 
+This is also performed using the AUDIO_IPC of the exynos audio module.
+As mentioned above, the contents performed through AUDIO_IPC were
+written in TODO.
+> > +			usb_audio->indeq_map_done = 1;
+> > +			in_offset = hwinfo->in_deq % PAGE_SIZE;
+> 
+> Why does PAGE_SIZE matter?
+> 
+This is for page align. Audio maps memory for usb ipc. From the base
+address, each memory is mapped in 4KB(page size) units.
+When allocated through dma alloc, address is fiteed in page align, but
+when allocated through trb buffer and kmalloc, address may not be fitted
+in page align. So, the offset value (PA % PAGE_SIZE) is transmitted for
+page align.
+> > +		}
+> > +
+> > +		if (hwinfo->fb_out_deq) {
+> > +			if (!usb_audio->fb_outdeq_map_done ||
+> > +					(hwinfo->fb_out_deq != hwinfo->fb_old_out_deq)) {
+> > +				/* TODO: Transmit pcm interface number,
+> > +				 * alt setting number to abox usb f/w
+> > +				 */
+> > +				usb_audio->fb_outdeq_map_done = 1;
+> > +				out_offset = hwinfo->fb_out_deq % PAGE_SIZE;
+> > +			}
+> > +		}
+> > +	} else {
+> > +		/* OUT EP */
+> > +		if (!usb_audio->outdeq_map_done ||
+> > +			(hwinfo->out_deq != hwinfo->old_out_deq)) {
+> > +			/* TODO: Transmit pcm interface number, alt setting
+> > +			 * number to abox usb f/w
+> > +			 */
+> > +			usb_audio->outdeq_map_done = 1;
+> > +			out_offset = hwinfo->out_deq % PAGE_SIZE;
+> > +		}
+> > +
+> > +		if (hwinfo->fb_in_deq) {
+> > +			if (!usb_audio->fb_indeq_map_done ||
+> > +					(hwinfo->fb_in_deq != hwinfo->fb_old_in_deq)) {
+> > +				/* TODO: Transmit pcm interface number,
+> > +				 * alt setting number to abox usb f/w
+> > +				 */
+> > +				usb_audio->fb_indeq_map_done = 1;
+> > +				in_offset = hwinfo->fb_in_deq % PAGE_SIZE;
+> > +			}
+> > +		}
+> > +	}
+> > +
+> > +	/* one more check connection to prevent kernel panic */
+> > +	if (!usb_audio->is_audio || !otg_connection)
+> > +		return -1;
+> > +
+> > +	/* TODO: Notify abox usb f/w a dequeue pointer */
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static int exynos_usb_audio_hcd(struct usb_device *udev)
+> > +{
+> > +	struct hcd_hw_info *hwinfo = g_hwinfo;
+> > +
+> > +	/* back up each address for unmap */
+> > +	usb_audio->dcbaa_dma = hwinfo->dcbaa_dma;
+> > +	usb_audio->save_dma = hwinfo->save_dma;
+> > +	usb_audio->in_ctx = hwinfo->in_ctx;
+> > +	usb_audio->out_ctx = hwinfo->out_ctx;
+> > +	usb_audio->erst_addr = hwinfo->erst_addr;
+> > +	usb_audio->speed = hwinfo->speed;
+> > +	usb_audio->use_uram = hwinfo->use_uram;
+> > +
+> > +	/*
+> > +	 * TODO: DCBAA, Device Context, Input Context, URAM, ERST mapping
+> > +	 * and notify abox usb f/w the address about xhci h/w resource to
+> > +	 * directly control the xhci in abox.
+> > +	 */
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static int exynos_usb_audio_desc(struct usb_device *udev)
+> > +{
+> > +	int configuration, cfgno, i;
+> > +	unsigned char *buffer;
+> > +	u64 desc_addr;
+> > +	u64 offset;
+> > +
+> > +	configuration = usb_choose_configuration(udev);
+> > +
+> > +	cfgno = -1;
+> > +	for (i = 0; i < udev->descriptor.bNumConfigurations; i++) {
+> > +		if (udev->config[i].desc.bConfigurationValue ==
+> > +				configuration) {
+> > +			cfgno = i;
+> > +			break;
+> > +		}
+> > +	}
+> > +
+> > +	if (cfgno == -1)
+> > +		cfgno = 0;
+> > +
+> > +	/* need to memory mapping for usb descriptor */
+> > +	buffer = udev->rawdescriptors[cfgno];
+> > +	desc_addr = virt_to_phys(buffer);
+> > +	offset = desc_addr % PAGE_SIZE;
+> > +
+> > +	/* store address information */
+> > +	usb_audio->desc_addr = desc_addr;
+> > +	usb_audio->offset = offset;
+> > +
+> > +	desc_addr -= offset;
+> > +
+> > +	/*
+> > +	 * TODO: Notify the abox usb f/w that all descriptors have been recived
+> > +	 * from the connected usb audio device, and that copy and memory mapping
+> > +	 * have beed completed so that it can be used in abox usb f/w
+> > +	 */
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static int exynos_usb_audio_conn(struct usb_device *udev, int is_conn)
+> > +{
+> > +
+> > +	/* TODO: Notify abox usb f/w whether usb device is connected or not */
+> > +	if (!is_conn) {
+> > +		if (usb_audio->is_audio) {
+> > +			usb_audio->is_audio = 0;
+> > +			usb_audio->usb_audio_state = USB_AUDIO_REMOVING;
+> > +		}
+> > +	} else {
+> > +		cancel_work_sync(&usb_audio->usb_work);
+> > +		usb_audio->indeq_map_done = 0;
+> > +		usb_audio->outdeq_map_done = 0;
+> > +		usb_audio->fb_indeq_map_done = 0;
+> > +		usb_audio->fb_outdeq_map_done = 0;
+> > +		usb_audio->pcm_open_done = 0;
+> > +		reinit_completion(&usb_audio->discon_done);
+> > +		usb_audio->usb_audio_state = USB_AUDIO_CONNECT;
+> > +		usb_audio_connection = 1;
+> > +	}
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static int exynos_usb_audio_pcm(bool is_open, bool direction)
+> > +{
+> > +	if (!usb_audio->is_audio || !otg_connection)
+> > +		return -1;
+> > +
+> > +	if (is_open)
+> > +		usb_audio->pcm_open_done = 1;
+> > +
+> > +	/* TODO: Notify the abox usb f/w the pcm open/close status */
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static void exynos_usb_audio_work(struct work_struct *w)
+> > +{
+> > +	/* Don't unmap in USB_AUDIO_TIMEOUT_PROBE state */
+> > +	if (usb_audio->usb_audio_state != USB_AUDIO_REMOVING)
+> > +		return;
+> > +
+> > +	exynos_usb_audio_unmap_all();
+> > +	usb_audio->usb_audio_state = USB_AUDIO_DISCONNECT;
+> > +	usb_audio_connection = 0;
+> > +	complete(&usb_audio->discon_done);
+> > +}
+> > +
+> > +static int exynos_usb_scenario_ctl_info(struct snd_kcontrol *kcontrol,
+> > +			      struct snd_ctl_elem_info *uinfo)
+> > +{
+> > +	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
+> > +	uinfo->count = 1;
+> > +	uinfo->value.integer.min = AUDIO_MODE_NORMAL;
+> > +	uinfo->value.integer.max = AUDIO_MODE_CALL_SCREEN;
+> > +	return 0;
+> > +}
+> > +
+> > +static int exynos_usb_scenario_ctl_get(struct snd_kcontrol *kcontrol,
+> > +			 struct snd_ctl_elem_value *ucontrol)
+> > +{
+> > +	struct exynos_usb_audio *usb = snd_kcontrol_chip(kcontrol);
+> > +
+> > +	ucontrol->value.integer.value[0] = usb->user_scenario;
+> > +	return 0;
+> > +}
+> > +
+> > +static int exynos_usb_scenario_ctl_put(struct snd_kcontrol *kcontrol,
+> > +			 struct snd_ctl_elem_value *ucontrol)
+> > +{
+> > +	struct exynos_usb_audio *usb = snd_kcontrol_chip(kcontrol);
+> > +	int changed = 0;
+> > +
+> > +	if (usb->user_scenario !=
+> > +	     ucontrol->value.integer.value[0]) {
+> > +		usb->user_scenario = ucontrol->value.integer.value[0];
+> > +		changed = 1;
+> > +	}
+> > +
+> > +	return changed;
+> > +}
+> > +
+> > +static int exynos_usb_add_ctls(struct snd_usb_audio *chip,
+> > +				unsigned long private_value)
+> > +{
+> > +	struct snd_kcontrol_new knew = {
+> > +		.iface = SNDRV_CTL_ELEM_IFACE_PCM,
+> > +		.access = SNDRV_CTL_ELEM_ACCESS_READWRITE,
+> > +		.name = "USB Audio Mode",
+> > +		.info = exynos_usb_scenario_ctl_info,
+> > +		.get = exynos_usb_scenario_ctl_get,
+> > +		.put = exynos_usb_scenario_ctl_put,
+> > +	};
+> > +
+> > +	int err;
+> > +
+> > +	if (!chip)
+> > +		return -ENODEV;
+> > +
+> > +	knew.private_value = private_value;
+> > +	usb_audio->kctl = snd_ctl_new1(&knew, usb_audio);
+> > +	if (!usb_audio->kctl)
+> > +		return -ENOMEM;
+> > +
+> > +	err = snd_ctl_add(chip->card, usb_audio->kctl);
+> > +	if (err < 0)
+> > +		return err;
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +int exynos_usb_audio_init(struct device *dev, struct platform_device *pdev)
+> > +{
+> > +	struct device_node *np = dev->of_node;
+> > +	struct device_node *np_abox;
+> > +	struct platform_device *pdev_abox;
+> > +	int ret = 0;
+> > +
+> > +	if (!usb_audio) {
+> > +		usb_audio = kmalloc(sizeof(struct exynos_usb_audio), GFP_KERNEL);
+> > +		if (!usb_audio)
+> > +			return -ENOMEM;
+> > +	}
+> > +
+> > +	np_abox = of_parse_phandle(np, "abox", 0);
+> > +	if (!np_abox)
+> > +		return -EPROBE_DEFER;
+> > +
+> > +	pdev_abox = of_find_device_by_node(np_abox);
+> > +	if (!pdev_abox)
+> > +		return -EPROBE_DEFER;
+> > +
+> > +	init_completion(&usb_audio->in_conn_stop);
+> > +	init_completion(&usb_audio->out_conn_stop);
+> > +	init_completion(&usb_audio->discon_done);
+> > +	usb_audio->abox = pdev_abox;
+> > +	usb_audio->hcd_pdev = pdev;
+> > +	usb_audio->udev = NULL;
+> > +	usb_audio->is_audio = 0;
+> > +	usb_audio->is_first_probe = 1;
+> > +	usb_audio->user_scenario = AUDIO_MODE_NORMAL;
+> > +	usb_audio->usb_audio_state = USB_AUDIO_DISCONNECT;
+> > +	usb_audio_connection = 0;
+> > +
+> > +	INIT_WORK(&usb_audio->usb_work, exynos_usb_audio_work);
+> > +
+> > +	/* interface function mapping */
+> > +	ret = snd_vendor_set_ops(&exynos_usb_audio_ops);
+> > +
+> > +	return ret;
+> > +}
+> > +EXPORT_SYMBOL_GPL(exynos_usb_audio_init);
+> 
+> Why are you exporting functions that are never called?
+> 
+>
+This function can be called exynos usb module driver.
+> > +
+> > +/* card */
+> > +static int exynos_usb_audio_connect(struct usb_interface *intf)
+> > +{
+> > +	struct usb_interface_descriptor *altsd;
+> > +	struct usb_host_interface *alts;
+> > +	struct usb_device *udev = interface_to_usbdev(intf);
+> > +	int timeout = 0;
+> > +
+> > +	alts = &intf->altsetting[0];
+> > +	altsd = get_iface_desc(alts);
+> > +
+> > +	if ((altsd->bInterfaceClass == USB_CLASS_AUDIO ||
+> > +		altsd->bInterfaceClass == USB_CLASS_VENDOR_SPEC) &&
+> > +		altsd->bInterfaceSubClass == USB_SUBCLASS_MIDISTREAMING) {
+> > +	} else {
+> > +		if (usb_audio->usb_audio_state == USB_AUDIO_REMOVING) {
+> > +			timeout = wait_for_completion_timeout(
+> > +				&usb_audio->discon_done,
+> > +				msecs_to_jiffies(DISCONNECT_TIMEOUT));
+> > +
+> > +			if ((usb_audio->usb_audio_state == USB_AUDIO_REMOVING)
+> > +					&& !timeout) {
+> > +				usb_audio->usb_audio_state =
+> > +					USB_AUDIO_TIMEOUT_PROBE;
+> > +			}
+> > +		}
+> > +
+> > +		if ((usb_audio->usb_audio_state == USB_AUDIO_DISCONNECT)
+> > +			|| (usb_audio->usb_audio_state == USB_AUDIO_TIMEOUT_PROBE)) {
+> > +			exynos_usb_audio_set_device(udev);
+> > +			exynos_usb_audio_hcd(udev);
+> > +			exynos_usb_audio_conn(udev, 1);
+> > +			exynos_usb_audio_desc(udev);
+> > +		} else {
+> > +			return -EPERM;
+> > +		}
+> > +	}
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static void exynos_usb_audio_disconn(struct usb_interface *intf)
+> > +{
+> > +	struct usb_device *udev = interface_to_usbdev(intf);
+> > +
+> > +	exynos_usb_audio_conn(udev, 0);
+> > +}
+> > +
+> > +/* clock */
+> > +static int exynos_usb_audio_set_interface(struct usb_device *udev,
+> > +		struct usb_host_interface *alts, int iface, int alt)
+> > +{
+> > +	unsigned char ep;
+> > +	unsigned char numEndpoints;
+> > +	int direction;
+> > +	int i;
+> > +	int ret = 0;
+> > +
+> > +	if (alts != NULL) {
+> > +		numEndpoints = get_iface_desc(alts)->bNumEndpoints;
+> > +		if (numEndpoints < 1)
+> > +			return -22;
+> > +		if (numEndpoints == 1)
+> > +			ep = get_endpoint(alts, 0)->bEndpointAddress;
+> > +		else {
+> > +			for (i = 0; i < numEndpoints; i++) {
+> > +				ep = get_endpoint(alts, i)->bmAttributes;
+> > +				if (!(ep & 0x30)) {
+> > +					ep = get_endpoint(alts, i)->bEndpointAddress;
+> > +					break;
+> > +				}
+> > +			}
+> > +		}
+> > +		if (ep & USB_DIR_IN)
+> > +			direction = SNDRV_PCM_STREAM_CAPTURE;
+> > +		else
+> > +			direction = SNDRV_PCM_STREAM_PLAYBACK;
+> > +
+> > +		ret = exynos_usb_audio_setintf(udev, iface, alt, direction);
+> > +	}
+> > +
+> > +	return ret;
+> > +}
+> > +
+> > +/* pcm */
+> > +static int exynos_usb_audio_set_rate(int iface, int rate, int alt)
+> > +{
+> > +	int ret;
+> > +
+> > +	ret = exynos_usb_audio_setrate(iface, rate, alt);
+> > +
+> > +	return ret;
+> > +}
+> > +
+> > +static int exynos_usb_audio_set_pcmbuf(struct usb_device *dev, int iface)
+> > +{
+> > +	int ret;
+> > +
+> > +	ret = exynos_usb_audio_pcmbuf(dev, iface);
+> > +
+> > +	return ret;
+> > +}
+> > +
+> > +static int exynos_usb_audio_set_pcm_intf(struct usb_interface *intf,
+> > +					int iface, int alt, int direction)
+> > +{
+> > +	struct usb_device *udev = interface_to_usbdev(intf);
+> > +	int ret;
+> > +
+> > +	ret = exynos_usb_audio_setintf(udev, iface, alt, direction);
+> > +
+> > +	return ret;
+> > +}
+> > +
+> > +static int exynos_usb_audio_pcm_control(struct usb_device *udev,
+> > +			enum snd_vendor_pcm_open_close onoff, int direction)
+> > +{
+> > +	int ret = 0;
+> > +
+> > +	if (onoff == 1) {
+> > +		ret = exynos_usb_audio_pcm(1, direction);
+> > +	} else if (onoff == 0) {
+> > +		if (direction == SNDRV_PCM_STREAM_PLAYBACK)
+> > +			reinit_completion(&usb_audio->out_conn_stop);
+> > +		else if (direction == SNDRV_PCM_STREAM_CAPTURE)
+> > +			reinit_completion(&usb_audio->in_conn_stop);
+> > +
+> > +		if (!usb_audio->pcm_open_done)
+> > +			return 0;
+> > +
+> > +		ret = exynos_usb_audio_pcm(0, direction);
+> > +	}
+> > +
+> > +	return ret;
+> > +}
+> > +
+> > +static int exynos_usb_audio_add_control(struct snd_usb_audio *chip)
+> > +{
+> > +	int ret;
+> > +
+> > +	if (chip != NULL)
+> > +		ret = exynos_usb_add_ctls(chip, 0);
+> > +	else
+> > +		ret = usb_audio->user_scenario;
+> > +
+> > +	return ret;
+> > +}
+> > +
+> > +static int exynos_usb_audio_set_pcm_binterval(const struct audioformat *fp,
+> > +				 const struct audioformat *found,
+> > +				 int *cur_attr, int *attr)
+> > +{
+> > +	if (usb_audio->user_scenario >= AUDIO_MODE_IN_CALL) {
+> > +		if (fp->datainterval < found->datainterval) {
+> > +			found = fp;
+> > +			cur_attr = attr;
+> > +		}
+> > +	} else {
+> > +		if (fp->datainterval > found->datainterval) {
+> > +			found = fp;
+> > +			cur_attr = attr;
+> > +		}
+> > +	}
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +/* Set interface function */
+> > +static struct snd_usb_audio_vendor_ops exynos_usb_audio_ops = {
+> > +	/* card */
+> > +	.connect = exynos_usb_audio_connect,
+> > +	.disconnect = exynos_usb_audio_disconn,
+> > +	/* clock */
+> > +	.set_interface = exynos_usb_audio_set_interface,
+> > +	/* pcm */
+> > +	.set_rate = exynos_usb_audio_set_rate,
+> > +	.set_pcm_buf = exynos_usb_audio_set_pcmbuf,
+> > +	.set_pcm_intf = exynos_usb_audio_set_pcm_intf,
+> > +	.set_pcm_connection = exynos_usb_audio_pcm_control,
+> > +	.set_pcm_binterval = exynos_usb_audio_set_pcm_binterval,
+> > +	.usb_add_ctls = exynos_usb_audio_add_control,
+> > +};
+> > +
+> > +int exynos_usb_audio_exit(void)
+> > +{
+> > +	/* future use */
+> 
+> What needs to be done here?
+> 
+It needs kfree. I wil ladd it to the next patch.
+> > +	return 0;
+> > +}
+> > +EXPORT_SYMBOL_GPL(exynos_usb_audio_exit);
+> 
+> Why did you export a function that does nothing?
+> 
+I'll fix it.
+> > +
+> > +MODULE_AUTHOR("Jaehun Jung <jh0801.jung@samsung.com>");
+> > +MODULE_LICENSE("GPL v2");
+> > +MODULE_DESCRIPTION("Exynos USB Audio offloading driver");
+> > +
+> > diff --git a/sound/usb/exynos_usb_audio.h b/sound/usb/exynos_usb_audio.h
+> > new file mode 100644
+> > index 0000000..13707744
+> > --- /dev/null
+> > +++ b/sound/usb/exynos_usb_audio.h
+> > @@ -0,0 +1,150 @@
+> > +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> > +/*   USB Audio Driver for Exynos
+> > + *
+> > + *   Copyright (c) 2017 by Kyounghye Yun <k-hye.yun@samsung.com>
+> > + *
+> > + */
+> > +
+> > +#ifndef __LINUX_USB_EXYNOS_AUDIO_H
+> > +#define __LINUX_USB_EXYNOS_AUDIO_H
+> > +
+> > +#include "../../../sound/usb/usbaudio.h"
+> > +
+> > +/* for KM */
+> > +
+> > +#define USB_AUDIO_MEM_BASE	0xC0000000
+> > +
+> > +#define USB_AUDIO_SAVE_RESTORE	(USB_AUDIO_MEM_BASE)
+> > +#define USB_AUDIO_DEV_CTX	(USB_AUDIO_SAVE_RESTORE+PAGE_SIZE)
+> > +#define USB_AUDIO_INPUT_CTX	(USB_AUDIO_DEV_CTX+PAGE_SIZE)
+> > +#define USB_AUDIO_OUT_DEQ	(USB_AUDIO_INPUT_CTX+PAGE_SIZE)
+> > +#define USB_AUDIO_IN_DEQ	(USB_AUDIO_OUT_DEQ+PAGE_SIZE)
+> > +#define USB_AUDIO_FBOUT_DEQ	(USB_AUDIO_IN_DEQ+PAGE_SIZE)
+> > +#define USB_AUDIO_FBIN_DEQ	(USB_AUDIO_FBOUT_DEQ+PAGE_SIZE)
+> > +#define USB_AUDIO_ERST		(USB_AUDIO_FBIN_DEQ+PAGE_SIZE)
+> > +#define USB_AUDIO_DESC		(USB_AUDIO_ERST+PAGE_SIZE)
+> > +#define USB_AUDIO_PCM_OUTBUF	(USB_AUDIO_MEM_BASE+0x100000)
+> > +#define USB_AUDIO_PCM_INBUF	(USB_AUDIO_MEM_BASE+0x800000)
+> > +
+> > +#if defined(CONFIG_SOC_S5E9815)
+> > +#define USB_AUDIO_XHCI_BASE	0x12210000
+> > +#define USB_URAM_BASE		0x122a0000
+> > +#define USB_URAM_SIZE		(SZ_1K * 24)
+> > +#elif defined(CONFIG_SOC_S5E9935)
+> > +#define USB_AUDIO_XHCI_BASE	0x10B00000
+> > +#define USB_URAM_BASE		0x02a00000
+> > +#define USB_URAM_SIZE		(SZ_1K * 24)
+> 
+> Shouldn't this information come from a DT file?
+> 
+>
+Okay, I'll fix it.
+> > +#else
+> > +#error
+> 
+> Error what?
+> 
+I'll fix it
+> > +#endif
+> > +
+> > +#define USB_AUDIO_CONNECT		(1 << 0)
+> > +#define USB_AUDIO_REMOVING		(1 << 1)
+> > +#define USB_AUDIO_DISCONNECT		(1 << 2)
+> > +#define USB_AUDIO_TIMEOUT_PROBE	(1 << 3)
+> 
+> BIT()?
+> 
+Okay, I'll fix it.
+> > +
+> > +#define DISCONNECT_TIMEOUT	(500)
+> > +
+> > +#define AUDIO_MODE_NORMAL		0
+> > +#define AUDIO_MODE_RINGTONE		1
+> > +#define AUDIO_MODE_IN_CALL		2
+> > +#define AUDIO_MODE_IN_COMMUNICATION	3
+> > +#define AUDIO_MODE_CALL_SCREEN		4
+> > +
+> > +#define	CALL_INTERVAL_THRESHOLD		3
+> > +
+> > +#define USB_AUDIO_CONNECT		(1 << 0)
+> > +#define USB_AUDIO_REMOVING		(1 << 1)
+> > +#define USB_AUDIO_DISCONNECT		(1 << 2)
+> > +#define USB_AUDIO_TIMEOUT_PROBE	(1 << 3)
+> > +
+> > +#define DISCONNECT_TIMEOUT	(500)
+> 
+> What units is this in?
+> 
+I'll fix it.
+> > +
+> > +struct host_data {
+> > +	dma_addr_t out_data_dma;
+> > +	dma_addr_t in_data_dma;
+> > +	void *out_data_addr;
+> > +	void *in_data_addr;
+> 
+> Why void pointers?  io pointers?
+> 
+I'll fix it.
+> Again, does this code even work?
+> 
+> confused,
+> 
+> greg k-h
+> 
+This file shows the user functions using the audio vendor hooking interface.
+Each function uses the AUDIO_IPC defined in the exynos audio module.
+Since the exynos audio module is not in the mainline, the contents
+performed in each function are writeen in TODO.
 
-      rt5658: audio-codec@1a {
-         ...
-
-         clocks = <&bpmp TEGRA194_CLK_AUD_MCLK>,
-		  <&bpmp TEGRA194_CLK_I2S1>,
-		  <&bpmp TEGRA194_CLK_I2S1>,
-                  <&rt5658 0>;
-         clock-names = "mclk", "bclk1", "pll_ref", "sysclk";
-
-         #clock-cells = <1>;
-         clock-output-names = "rt5659_pll_out";
-
-         ...
-      };
-
-      Clock tree dump snippet in this case with proposed series:
-
-          ...
-
-          pll_a
-            |
-            |-- plla_out0
-                    |
-                    |-- ahub
-                    |
-                    |-- aud_mclk
-                    |
-                    |-- i2s1
-                         |
-                         |-- rt5659_pll_ref
-                                   |
-                                   |-- rt5659_pll_out
-                                             |
-                                             |-- rt5659_sysclk
-
-          ...
+------FxW1adctUC2Ba58hBscSmKlxeMgdXQkzmfCwtO.kn3Xz82SJ=_1e465_
+Content-Type: text/plain; charset="utf-8"
 
 
- sound/soc/tegra/tegra210_i2s.c | 25 ++++++++++++++++---------
- 1 file changed, 16 insertions(+), 9 deletions(-)
-
-diff --git a/sound/soc/tegra/tegra210_i2s.c b/sound/soc/tegra/tegra210_i2s.c
-index 9552bbb..53e5307 100644
---- a/sound/soc/tegra/tegra210_i2s.c
-+++ b/sound/soc/tegra/tegra210_i2s.c
-@@ -53,17 +53,24 @@ static int tegra210_i2s_set_clock_rate(struct device *dev,
- 
- 	regmap_read(i2s->regmap, TEGRA210_I2S_CTRL, &val);
- 
--	/* No need to set rates if I2S is being operated in slave */
--	if (!(val & I2S_CTRL_MASTER_EN))
--		return 0;
--
--	err = clk_set_rate(i2s->clk_i2s, clock_rate);
--	if (err) {
--		dev_err(dev, "can't set I2S bit clock rate %u, err: %d\n",
--			clock_rate, err);
--		return err;
-+	/*
-+	 * If I2S is consumer, then the clock rate is expected to be
-+	 * set by the respective provider and thus just read the rate
-+	 * in such case. If I2S is provider, then set the clock rate.
-+	 */
-+	if (!(val & I2S_CTRL_MASTER_EN)) {
-+		clock_rate = clk_get_rate(i2s->clk_i2s);
-+	} else {
-+		err = clk_set_rate(i2s->clk_i2s, clock_rate);
-+		if (err) {
-+			dev_err(dev, "can't set I2S bit clock rate %u, err: %d\n",
-+				clock_rate, err);
-+			return err;
-+		}
- 	}
- 
-+	dev_dbg(dev, "bit clock (BCLK) rate is %u\n", clock_rate);
-+
- 	if (!IS_ERR(i2s->clk_sync_input)) {
- 		/*
- 		 * Other I/O modules in AHUB can use i2s bclk as reference
--- 
-2.7.4
-
+------FxW1adctUC2Ba58hBscSmKlxeMgdXQkzmfCwtO.kn3Xz82SJ=_1e465_--

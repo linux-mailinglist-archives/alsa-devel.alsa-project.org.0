@@ -2,93 +2,156 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF5E44E9832
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Mar 2022 15:30:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDCD34E98C1
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Mar 2022 15:52:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7DCC918B6;
-	Mon, 28 Mar 2022 15:29:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7DCC918B6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 766B918A6;
+	Mon, 28 Mar 2022 15:51:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 766B918A6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648474218;
-	bh=zRJzWAxW3r05RxdHeisY95nx7zb5TwBuEEzl4tpDwOY=;
+	s=default; t=1648475567;
+	bh=9e2MGsxvlRNzOTwJ0rs3Ps/u8cDqI2x/30WKxQyG140=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PHdcckECRbMO0wvDUGl2orgidgHbRTomYBeJDAqO64OcwMh2uz8Ig1zl6UYdcFSkh
-	 +kmd/RuG50g5KL7tCT8pHSbJNTsVwtvtlCySFh76uJQI5JPrQGVGl3SHfWJXuT3sNr
-	 Cow2069GJUijnjX4dpSzJPM79EfZpkGHdbpfEmHQ=
+	b=UPkTaScynedaZ0SqTbbYKVM5pLhumUzOjhHVvGBtoiDfzTR8JvsR/YTuuLqmTFKzH
+	 Lxl9AZ0lfv2nM22bA7V+MwKpSI+k+EO2Z1uFrGokhxNeuOX5Nb4/ETLUA6Op6v8HO4
+	 c5jyqA82WEvy42h5PfunCyf5gKFQdKq0rdrfc/8U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1BF45F800CB;
-	Mon, 28 Mar 2022 15:29:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DCF41F800CB;
+	Mon, 28 Mar 2022 15:51:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BE746F8024C; Mon, 28 Mar 2022 15:29:09 +0200 (CEST)
+ id C4CF2F8024C; Mon, 28 Mar 2022 15:51:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2062e.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eae::62e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CC408F800CB
- for <alsa-devel@alsa-project.org>; Mon, 28 Mar 2022 15:29:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC408F800CB
-Received: by mail-wm1-f50.google.com with SMTP id
- bg31-20020a05600c3c9f00b00381590dbb33so8566036wmb.3
- for <alsa-devel@alsa-project.org>; Mon, 28 Mar 2022 06:29:01 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=uLvcnNGD7orwMt3H7FvAzNbV1+jVVtO3wV/gzqZo0EQ=;
- b=TrBwN5yHLsdC3z6APVxzOAmU0tqTc9w6t16qu6fdpqPC7ZMU9HBE3IKnBqjr9I9sk0
- I5xeUrIOqPEVlaZqDAdgbnvxxf057rWkzQsuGXz8wPgLmZxgVzKoxORpb/5M3p9+G1nh
- 4Wcsyw8/9LKPncteV9yn1K2Fv+gKKK3suMtfo3JZbwIP/ArOG5g2ngNqnQNxnHLCEQ4X
- GTLXglG4DU8A/DpOJljo4jlTRaltx/zM/MGQFkarTb0GaafedHcq9zR39VNlKmxChwiT
- XccqsAEX1ftCwhdh0QxpfELectD7gdme7WQsXNXA2QSgUjF0DVDdcpWSwtFcdWNZwKrB
- lFDQ==
-X-Gm-Message-State: AOAM533Aap3uip3bAgk+cshqjCBtDkpHodRs2y1lzhQwjncCL4/HbJs2
- 0zp77VTpdD/Uc0mRJJ3DS00=
-X-Google-Smtp-Source: ABdhPJzvXxx8G3oSboQduPDY5peChv4cOygHj3HSI2yRRkfQTz9OKVkIUO7HO/NYVQC/sQZwMl+zbQ==
-X-Received: by 2002:a05:600c:2e02:b0:38c:8390:d8ca with SMTP id
- o2-20020a05600c2e0200b0038c8390d8camr26669786wmf.15.1648474141242; 
- Mon, 28 Mar 2022 06:29:01 -0700 (PDT)
-Received: from [192.168.0.162] (xdsl-188-155-201-27.adslplus.ch.
- [188.155.201.27]) by smtp.googlemail.com with ESMTPSA id
- l9-20020a5d6d89000000b00203d62072c4sm13608526wrs.43.2022.03.28.06.28.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Mar 2022 06:29:00 -0700 (PDT)
-Message-ID: <a06f24af-ea9a-c787-ed09-438c019c63ca@kernel.org>
-Date: Mon, 28 Mar 2022 15:28:59 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [RFC PATCH v2 3/6] ASoC: dt-bindings: Extend clock bindings of
- rt5659
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3074AF800CB
+ for <alsa-devel@alsa-project.org>; Mon, 28 Mar 2022 15:51:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3074AF800CB
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com
+ header.b="crXZSRVm"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ebex3bJQyi8f0Q5Gszuoz+cumICyniEuKGnjHL18uK5cu4WYfkVvZuHOffcifWnMGBLpilPNhbHf2agkqzzjGXd68v7x2sQeUlUEByKjn0A8PZkdh0GyZBNIi68vGYuO+F3w2KLcdp66zqAxkt13JKj4g5rD14bZf/3WvBQC53JCNR/TDqFFDJNO73Yw0hv1Ro1wdtbl/mP3MfBvDdUVxqnljZGhJ5VZ742Th24UuEjULceJvQh13cnY9oCtLogG7+/4z8JUFul10g+WcBO0oVQDGXTHgRIglRx7X8aIm14q4ypCtl/PYMhOYCI+DP0B14UdWCnJY587cF26Wa2kYA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uiXKlSWqDxO+G6At6s9ozEx0c/mgoMfM7loYq//9JBY=;
+ b=dUP1UD2PFEXdqPANICG3hLYXf2NtFOQzAvjMnUtUOylDS4qoUbSLqRcyVi8BezOK1e7uFiF9gEbmqITta5FdIo+pxrQhX7ZAqZcqfk0dXQx2eqr9uhYEXJ1qGiIhm+vfOMYOInwUSfyYweP+2uRmNwY+auZOMKu7YD0h21lnpAhs3oktXJiuDiinmsdQZ6rqhN1qF4eiqP9veQaZkHQxEdNPehGtL9OnYGIhazkrxquZq6Vki8S2syQjFWB75kBHGl2bC0+ri6HDlpR6V/CNZbAA1FPta/XUJy49DKWoP44HRxChmmz0GiaN37SaJpu8is6Etw2yWHaM0PyP0QQ8Zw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uiXKlSWqDxO+G6At6s9ozEx0c/mgoMfM7loYq//9JBY=;
+ b=crXZSRVmq0ySJiphF3jBpl5wQPa0EvQ7aeutGHMk32FP5bURTilZMLyDB01HlUQJ0te+2jpLlSxN2CpGrAFsarDksb+WZNZWAZRcYtKwhf7yg94IIDjv/qq1qh8h0GzN9W+W3izPTGhip3nUqtKr7PbfY/l3qvZ2KnSFcMiLxrVAJOUH736GLHz3kiCA0gsFKHjkSIMf9S0qbQZ+lBy9qC14yPRSDkM6Fg7UlEi1Q28spNkJ+IU79/+HhKqJidbz6OQzwe3jI9MRpF01FzPZJ35/U/4QhhzwfSV7XY7UfWdA6GJ2mv9w68mTkIKiLgEN6Pl7UXs2duI/fq/3KxIKBw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB4435.namprd12.prod.outlook.com (2603:10b6:5:2a6::23)
+ by BL1PR12MB5126.namprd12.prod.outlook.com (2603:10b6:208:312::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.18; Mon, 28 Mar
+ 2022 13:51:29 +0000
+Received: from DM6PR12MB4435.namprd12.prod.outlook.com
+ ([fe80::83b:60bf:1e58:de83]) by DM6PR12MB4435.namprd12.prod.outlook.com
+ ([fe80::83b:60bf:1e58:de83%9]) with mapi id 15.20.5102.023; Mon, 28 Mar 2022
+ 13:51:28 +0000
+Message-ID: <7cbfca20-bd1a-9ca0-f0e2-2ecf5fa74f45@nvidia.com>
+Date: Mon, 28 Mar 2022 19:21:17 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: [PATCH] ALSA: hda: Avoid unsol event during RPM suspending
 Content-Language: en-US
-To: Sameer Pujar <spujar@nvidia.com>, broonie@kernel.org,
- lgirdwood@gmail.com, robh+dt@kernel.org, krzk+dt@kernel.org, perex@perex.cz,
- tiwai@suse.com, peter.ujfalusi@linux.intel.com,
- pierre-louis.bossart@linux.intel.com
-References: <1648448050-15237-1-git-send-email-spujar@nvidia.com>
- <1648448050-15237-4-git-send-email-spujar@nvidia.com>
- <da414b44-1bec-5918-84f5-9dfff2009f41@kernel.org>
- <53d77f33-27e8-3446-d758-3e545eea2db4@nvidia.com>
- <5e4e11b5-02b8-e03e-2924-c9f2882921be@kernel.org>
- <fbd9cbfe-d653-d6d2-e55c-fb80527bea13@nvidia.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-In-Reply-To: <fbd9cbfe-d653-d6d2-e55c-fb80527bea13@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
+To: Takashi Iwai <tiwai@suse.de>
+References: <20220328091411.31488-1-mkumard@nvidia.com>
+ <s5hczi6l8fz.wl-tiwai@suse.de>
+ <7f7934e6-137c-4d8d-049b-0ed5e57cf00b@nvidia.com>
+ <s5ha6dal4ys.wl-tiwai@suse.de>
+From: Mohan Kumar D <mkumard@nvidia.com>
+In-Reply-To: <s5ha6dal4ys.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Cc: oder_chiou@realtek.com, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- jonathanh@nvidia.com, thierry.reding@gmail.com, linux-tegra@vger.kernel.org
+X-ClientProxiedBy: MAXPR0101CA0027.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a00:d::13) To DM6PR12MB4435.namprd12.prod.outlook.com
+ (2603:10b6:5:2a6::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: bb099607-6c10-4b97-6e1d-08da10c20eac
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5126:EE_
+X-Microsoft-Antispam-PRVS: <BL1PR12MB5126F1A25281424CFF62DC01C11D9@BL1PR12MB5126.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: g3zVgKvUM9jGFHxJlbpyRFdkSpz4ooJbtbHHnV6DamKPfZ1PaSURyHMDW3jBsnKJ2T416U1gzBA6yTY0ffN1Bfox5CfF7eMlFHoNgKfCi1ceLERKD0MHwji972pEKDlzoOvxMQGnmFkAzdN4qowC4vK6cMUTjoyyoaFqSl+xBosJxJUTM/0DFxNLlZKxq8aBW+JA/wXh4ksIB/K3gfrwg9X5803zWlXbyi5W8H8InVd5ucGG5ZiXzTgfKI/UpoKelHSYwNjse8x4soCuhRg5VEedCf3xZW+tmG0pB4UBQDEo2UWlf7pu4p7qnQO6S5Kg3yAw+2b/Z6BUUUEIXWQ6EEd8kjlGuvBW9mhTD5xA5nZ0RuoHleRvuGvKxvlN0q5MtPi+nlcf72xQRjUper+XDztq9MoQ2i/aiJRf9T9oD8MZ/D6R0IqBxy58Xf9rhtpo1UY43qpcMAJtBxqWzpvZIJ2V0C2H+q0Ya9o8vNr7vstxIjWg1U4IJFN0A5PmHDMN/Icy4VA5Nfl6Vtdru5nGoupTj9fkJ80HLnELGhHQrhyZ2YmGRbnct5wOgzqT6995cXQQU7VGWes5xRwuEMJum/69LnHvHABNSODRpnkeEro8Pwo1wjstQRK40Jw8jwAMunCeVCDMZWI64l5Y3CvjVvudNYmG2IWjpRVOEn8awELebBr7ct9UPHdY+75IRVnSVbKet9rnpcgXXsHh8WRJCtGO3apwHK6s2e9aOKsY02Y=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4435.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(4326008)(8676002)(6666004)(66476007)(66556008)(53546011)(55236004)(6486002)(66946007)(38100700002)(6506007)(508600001)(86362001)(31696002)(6916009)(83380400001)(316002)(6512007)(2616005)(15650500001)(2906002)(26005)(107886003)(186003)(36756003)(31686004)(5660300002)(8936002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WUo5dUxWRmtqMm9UWjJlUThweWRvWm1pcGhCbjNDWXNpSnpUWUJwcDM3RE5z?=
+ =?utf-8?B?UVFWcEtMbXY4LzJLQkExT2hDSEZoYkZUZ0h1TVF5Y2t2cnNHdnExbTdnZk04?=
+ =?utf-8?B?ZXFjYnRHOUpwRXBndGtmZFNMKzVWU0RuWld1aUhZUkR2M0tkYTdDdW1xdHVn?=
+ =?utf-8?B?MEpKSWRrYXJXdDBZYUdnWUFQZjB1YXVreW9UM1NTT1JpeENYeDJ0S3VPblph?=
+ =?utf-8?B?SVZ5ZjMrSGppR3Q2R0s1cmZndHFTMFk3a0RkRGFVNzkxazQxKzd1cTFkSXhi?=
+ =?utf-8?B?RHNmcVpzcmJoRGNMNHMxTzRqNndudFNwYXR4a0tqS251eWJ2d0RTdFg4enhh?=
+ =?utf-8?B?amdFcWFSMG9jOFprSVJla2UwN3JlZ0hJZXpyR05KKzJrTDJldjJ1RC9sUW4x?=
+ =?utf-8?B?SksrazhUQUxkYmV4V05LcnlVS0p3UHliU2R6UDFSWGdiWWhlRDF4YTdNM0tN?=
+ =?utf-8?B?QzZCOUE0QzJKQWpxZXBSTDV6QzAweU5MWlp4dC9yS0FSemZTemJTaWFGZ1ds?=
+ =?utf-8?B?cEs4WE5PNXdNeklzQmFFenY2SDEreGtVaE5malJjc3I3NWsza1Z2ZHhuTERT?=
+ =?utf-8?B?YndkdlJ3Q3pCeUZUbGIrTkpvdkY4RzFPd0t1RUJJVjdUYVZwUFZHbkhkbExK?=
+ =?utf-8?B?OFAvRnJHV1hlbTFoSFh5TGpPT0hwKzhMUU5jL3JuSkVSR1czTTM4UW0zRFhR?=
+ =?utf-8?B?ZTQ2b3lUMjV5Rm9wV2lwcXBQOWdjcEdwNVFVVWk3MkMvbGRMUEt4Tkl5V3JM?=
+ =?utf-8?B?Z2VtNjZGMlhEOG04RzFCWXhOdjRabzh6NkFaZVRJVWNwYWFtYTBNV2RxWGRT?=
+ =?utf-8?B?cklEOXJFWWVBamcxWmwxY1pmVEMydUQvSGxWUHdFc2c1NThSa0pieTNqZTFI?=
+ =?utf-8?B?WDJLTlpPOVdoZlFscjNtd2xmRVc5bFNYMzlOdFJTamZUNFpyQS9rTkROYkg4?=
+ =?utf-8?B?T2dscVBBNGZtNXIzeXd5bC8waWR5eUVSZitidVJMeUNVRGFPdFRZc0JELytI?=
+ =?utf-8?B?K2YzWXhRNGFxMENHUkF1RWRHdVVlUlErSk5xMEFyOHdYLzdrZEIzbkpZOE9F?=
+ =?utf-8?B?NU1qa0hQTzBqM2ZsdHB5cGpFT2lRUUZTZlNWWDFIS09Lc2FRN0ZrR2p1dm9B?=
+ =?utf-8?B?NDlTVGpZN3VVSEU3WGdhYVlZeTFqZHNLQU1HbUFWTzAwZForc3hvanVxQXRQ?=
+ =?utf-8?B?UW9vb2YwdzFkZG5PVTJsSGhBNk9NbldoZE5Sb3VlY2hxR3RMZ1dVSFgwbWNG?=
+ =?utf-8?B?RDNnakZwYVgwRmFYekxPY0FhOUlhZzJKUlptdjNiTHVGZGtXNjFzZ0lacWFw?=
+ =?utf-8?B?UVcyOXlVb1RQZ3FEODJZNHFZVHhjMVY0SzdHTERRbXovZlFoQTlXeXplMGVK?=
+ =?utf-8?B?ODdOMFJDQU0xeUFJY1B1OG1GMEF0VDdVazB2NWFzcGc1QmJkM2hJNWZYT1dQ?=
+ =?utf-8?B?L1AzUjZwajk5Umd1NjJ5M1VxUXhabXh5cE90MUxqRWM0cjBIS2pTWEZXRzFH?=
+ =?utf-8?B?MnNCaGpHYUdvZjZ0SXBhUDVkaytEeUNkcExPa29uSkc1MGJJQ3FIdVcxdTlE?=
+ =?utf-8?B?MnpQaGNtaDlIdWZBMjl3Y2s0d0diY2RBT1RnQmhlYTBSSy9tY2ZuVVVhTnhG?=
+ =?utf-8?B?bVFRRFp0TkgxTk0rVkhOanJjQWVWOHNhWHFDRGRqajhHN0NkUk8yNkI0UnZ0?=
+ =?utf-8?B?ajdQVnhreC9ZSXF1VUVNUUphdXNGVVgza2lWNjRqVllEUnZQNVJlR0hCOXg1?=
+ =?utf-8?B?WjR4dzdlbEw4TWpiWTBWZkU0MUZBUGVITG5YdnRxd2VBN00yU1ZWZmxBUndB?=
+ =?utf-8?B?YXplVENIWkREekxMd0JyMjFBaXRlRnIwRTB2b2g5QnhtbVNTbUE0SDBUN293?=
+ =?utf-8?B?SHdMYWVHaExwdTZuNTVnQXNQaGIxaytpSytsQko5ckNwR1hRS0FZeCs1Qk1N?=
+ =?utf-8?B?d2RIUTVrNGNtMTN6bEhYQ3dFYis5dDIzdG5CZmZIOXQyUWgxMWlMa2Evbjhs?=
+ =?utf-8?B?a3FGSk5OdkJ6NUZxN3lIZk1nYTNRcFJ0MWFzSWVnNm0xWXNraDA5ZzBRZmt3?=
+ =?utf-8?B?bVd2REovZXVOeTZ2UDVlbVN1Z1lmcFJXNXFTeENkUWdCUTV2bFl2ZzdidUY2?=
+ =?utf-8?B?b2ttaEZQUFU5QUtxbHhsYytObjBkNEYrcTZKTlVwMDQyZkhHOVZHWEhUN1ZM?=
+ =?utf-8?B?SjRiZk9BWEhGVnNwbld3eG9pbjltRzU4Nmhodm9aVEd3MEYvcXk5YzMyV3R1?=
+ =?utf-8?B?Q0M1M3ZHSlVwSmFQb2YwZDh3aXRYUnF0Z1dwUlhvdThDY3loUEJTRi9zUkFp?=
+ =?utf-8?B?dXN2Q2F3VFdiemJtazFLWjFpMXFFQ3BxYmxxemxRMHVCeUU4SzZZdz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bb099607-6c10-4b97-6e1d-08da10c20eac
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4435.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Mar 2022 13:51:28.8007 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vXBxnG/GQ0TbXhRZ0/cpEFyiE2dymz26JkLA+R8LFNSkkadeGBq+uP4pyrXn2JddAfr6WBTNxHZ1zfbV3DWCpg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5126
+Cc: jonathanh@nvidia.com, alsa-devel@alsa-project.org,
+ kai.vehmanen@linux.intel.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ thierry.reding@gmail.com, ville.syrjala@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,118 +167,79 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 28/03/2022 15:19, Sameer Pujar wrote:
-> 
-> On 28-03-2022 13:37, Krzysztof Kozlowski wrote:
->> On 28/03/2022 09:58, Sameer Pujar wrote:
->>> On 28-03-2022 12:36, Krzysztof Kozlowski wrote:
->>>> External email: Use caution opening links or attachments
->>>>
->>>>
->>>> On 28/03/2022 08:14, Sameer Pujar wrote:
->>>>> The rt5658 or rt5659 CODEC system clock (SYSCLK) can be derived from
->>>>> various clock sources. For example it can be derived either from master
->>>>> clock (MCLK) or by internal PLL. The internal PLL again can take input
->>>>> clock references from bit clocks (BCLKs) and MCLK. To enable a flexible
->>>>> clocking configuration the DT binding is extended here.
->>>>>
->>>>> It makes use of standard clock bindings and sets up the clock relation
->>>>> via DT.
->>>>>
->>>>> Signed-off-by: Sameer Pujar <spujar@nvidia.com>
->>>>> Cc: Oder Chiou <oder_chiou@realtek.com>
->>>>> ---
->>>>>    .../devicetree/bindings/sound/realtek,rt5659.yaml  | 53 ++++++++++++++++++++--
->>>>>    1 file changed, 49 insertions(+), 4 deletions(-)
->>>>>
->>>>> diff --git a/Documentation/devicetree/bindings/sound/realtek,rt5659.yaml b/Documentation/devicetree/bindings/sound/realtek,rt5659.yaml
->>>>> index b0485b8..0c2f3cb 100644
->>>>> --- a/Documentation/devicetree/bindings/sound/realtek,rt5659.yaml
->>>>> +++ b/Documentation/devicetree/bindings/sound/realtek,rt5659.yaml
->>>>> @@ -29,12 +29,28 @@ properties:
->>>>>        maxItems: 1
->>>>>
->>>>>      clocks:
->>>>> -    items:
->>>>> -      - description: Master clock (MCLK) to the CODEC
->>>>> +    description: |
->>>>> +      CODEC can receive multiple clock inputs like Master
->>>>> +      clock (MCLK), I2S bit clocks (BCLK1, BCLK2, BCLK3,
->>>>> +      BCLK4). The CODEC SYSCLK can be generated from MCLK
->>>>> +      or internal PLL. In turn PLL can reference from MCLK
->>>>> +      and BCLKs.
->>>>>
->>>>>      clock-names:
->>>>> -    items:
->>>>> -      - const: mclk
->>>>> +    description: |
->>>>> +      The clock names can be combination of following:
->>>>> +        "mclk"        : Master clock
->>>>> +        "pll_ref"     : Reference to CODEC PLL clock
->>>>> +        "sysclk"      : CODEC SYSCLK
->>>>> +        "^bclk[1-4]$" : Bit clocks to CODEC
->>>> No, that does not look correct. You allow anything as clock input (even
->>>> 20 clocks, different names, any order). That's not how DT schema should
->>>> work and that's not how hardware looks like.
->>>> Usually the clock inputs are always there which also you mentioned in
->>>> description - "multiple clock inputs". All these clocks should be
->>>> expected, unless really the wires (physical wires) can be left disconnected.
->>> The CODEC can receive multiple clocks but all the input clocks need not
->>> be present or connected always. If a specific configuration is needed
->>> and platform supports such an input, then all these inputs can be added.
->>> I don't know how to define this detail in the schema. If I make all of
->>> them expected, then binding check throws errors. If I were to list all
->>> the possible combinations, the list is going to be big (not sure if this
->>> would be OK?).
->> Thanks for explanation. Please differentiate between these two:
->> 1. clock inputs connected, but unused (not needed for driver or for
->> particular use case),
->> 2. clock inputs really not connected.
+
+On 3/28/2022 4:27 PM, Takashi Iwai wrote:
+> External email: Use caution opening links or attachments
+>
+>
+> On Mon, 28 Mar 2022 12:19:03 +0200,
+> Mohan Kumar D wrote:
 >>
->> For the 1. above, such clock inputs should still be listed in the
->> bindings and DTS. For the 2. above, such clocks should actually not be
->> there.
-> 
-> Thank you for the suggestion.
-> 
->> How to achieve this depends on number of your combinations. IOW,
->> how many clocks are physically optional.
-> 
->  From CODEC point of view all these clock inputs are possible and a 
-> platform may choose to connect a subset of it depending on the 
-> application. The binding is expected to support all such cases. To 
-> support all possibilities, the total combinations can be very big (100+).
-> 
->> For some small number of
->> variations this can be:
->> oneOf:
->>   - const: mclk
->>   - items:
->>     - const: mclk
->>     - enum:
->>         - bclk1
->>         - bclk2
->>         - bclk3
->>         - bclk4
->>   - items:
->>     - const: mclk
->>     - const: pll_ref
->>     - enum:
->>         - bclk1
->>         - bclk2
->>         - bclk3
->>         - bclk4
->>
->> For a total flexibility that any clock input can be disconnected, this
->> should be a list of enums I guess (with minItems). However please find
->> the clocks always connected and include them if possible in a fixed way
->> (like this oneOf above).
-> 
-> May be I can list the most commonly required combinations like below and 
-> extend it whenever there is a need for specific combination?
-
-Yes, this would work. Relaxing such constraints is possible.
-
-
-Best regards,
-Krzysztof
+>> On 3/28/2022 3:12 PM, Takashi Iwai wrote:
+>>> External email: Use caution opening links or attachments
+>>>
+>>>
+>>> On Mon, 28 Mar 2022 11:14:11 +0200,
+>>> Mohan Kumar wrote:
+>>>> There is a corner case with unsol event handling during codec runtime
+>>>> suspending state. When the codec runtime suspend call initiated, the
+>>>> codec->in_pm atomic variable would be 0, currently the codec runtime
+>>>> suspend function calls snd_hdac_enter_pm() which will just increments
+>>>> the codec->in_pm atomic variable. Consider unsol event happened just
+>>>> after this step and before snd_hdac_leave_pm() in the codec runtime
+>>>> suspend function. The snd_hdac_power_up_pm() in the unsol event
+>>>> flow in hdmi_present_sense_via_verbs() function would just increment
+>>>> the codec->in_pm atomic variable without calling pm_runtime_get_sync
+>>>> function.
+>>>>
+>>>> As codec runtime suspend flow is already in progress and in parallel
+>>>> unsol event is also accessing the codec verbs, as soon as codec
+>>>> suspend flow completes and clocks are  switched off before completing
+>>>> the unsol event handling as both functions doesn't wait for each other.
+>>>> This will result in below errors
+>>>>
+>>>> [  589.428020] tegra-hda 3510000.hda: azx_get_response timeout, switching
+>>>> to polling mode: last cmd=0x505f2f57
+>>>> [  589.428344] tegra-hda 3510000.hda: spurious response 0x80000074:0x5,
+>>>> last cmd=0x505f2f57
+>>>> [  589.428547] tegra-hda 3510000.hda: spurious response 0x80000065:0x5,
+>>>> last cmd=0x505f2f57
+>>>>
+>>>> To avoid this, the unsol event flow should not perform any codec verb
+>>>> related operations during RPM_SUSPENDING state.
+>>>>
+>>>> Signed-off-by: Mohan Kumar <mkumard@nvidia.com>
+>>> Thanks, that's a hairy problem...
+>>>
+>>> The logic sounds good, but can we check the PM state before calling
+>>> snd_hda_power_up_pm()?
+>> If am not wrong, PM apis exposed either provide RPM_ACTIVE or
+>> RPM_SUSPENDED status. Don't see anything which provides info on
+>> RPM_SUSPENDING. We might need to exactly know this state to fix this
+>> issue.
+> Well, maybe my question wasn't clear.  What I meant was that your
+> change below
+>
+>>        ret = snd_hda_power_up_pm(codec);
+>> -     if (ret < 0 && pm_runtime_suspended(hda_codec_dev(codec)))
+>> +     if ((ret < 0 && pm_runtime_suspended(dev)) ||
+>> +             (dev->power.runtime_status == RPM_SUSPENDING))
+>>                goto out;
+> can be rather like:
+>
+>> +     if (dev->power.runtime_status == RPM_SUSPENDING)
+>> +             return;
+>>        ret = snd_hda_power_up_pm(codec);
+>>        if (ret < 0 && pm_runtime_suspended(hda_codec_dev(codec)))
+> so that it skips unneeded power up/down calls.
+>
+> Basically the state is set at drivers/base/power/runtime.c
+> rpm_suspend() just before calling the device's runtime_suspend
+> callback.  So the state is supposed to be same before and after
+> snd_hda_power_up_pm() in that case.
+Thanks!, Make sense, will push the updated patch after testing with 
+latest suggestion.
+>
+> thanks,
+>
+> Takashi

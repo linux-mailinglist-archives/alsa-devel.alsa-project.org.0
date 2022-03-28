@@ -2,80 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 917FF4E9B4C
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Mar 2022 17:45:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F20D74E9BFF
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Mar 2022 18:12:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2F2C4186C;
-	Mon, 28 Mar 2022 17:45:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F2C4186C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 600431715;
+	Mon, 28 Mar 2022 18:11:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 600431715
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648482353;
-	bh=bVwuxMR1FNIryjiDvIXdi9f+NUSMKrjmUQq6FdKXor8=;
+	s=default; t=1648483943;
+	bh=EyFL9vehGGSWjtUPI8WwMooTYrzEzpqH7Ia4FoQJCYM=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=u68IpqALRSbm2ZjQV/SGcga4uB/BhzNX0h0FA9bXSQccdVZEukc+7taKoKEDdxANG
-	 mfGffE7YaRZwkbNHP+h6CueNAdvFGsRwBXrq+KhcsTtAD0aeFvUkGGuUFgUp8IaBNd
-	 2GAj2F+/9x7U2+n2scDZydSVXA0DgJR99/wEe7To=
+	b=dD1bo24I0feVSqlHaITKh8g+evvCWte7SMCe2Sc1cBpa0AvEac5D7dGztlcyoQZaN
+	 8HSnGvT3V7quPpktoy9B9F6iTI1gi3Brdvw/uEF7k1/zvdA1fIy/myJSeDVx/Gju5v
+	 x477jGt0oC9q7s9Eq2cRr7gEDGGDo/Fwi/3RKTqc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 84B03F8026A;
-	Mon, 28 Mar 2022 17:44:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C8549F800CB;
+	Mon, 28 Mar 2022 18:11:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ED132F800FA; Mon, 28 Mar 2022 17:44:43 +0200 (CEST)
+ id 33E33F8024C; Mon, 28 Mar 2022 18:11:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 74DFDF800FA
- for <alsa-devel@alsa-project.org>; Mon, 28 Mar 2022 17:44:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74DFDF800FA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="I+mXUJEa"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 4CADBB81136;
- Mon, 28 Mar 2022 15:44:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE5B6C004DD;
- Mon, 28 Mar 2022 15:44:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1648482278;
- bh=bVwuxMR1FNIryjiDvIXdi9f+NUSMKrjmUQq6FdKXor8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=I+mXUJEaHR9d0bwysioVzxtU17wrckU+sj8J+vCUMXI3+mZ5IL3NvplD9Tmqliw5b
- VMvY8sWSdaAfTdlY3vPFcCvltz1VT6gS1PDK6Ll1d+24jIse2UPucFPT5IiPARzAmU
- 3/wBfa+2+HG5vJWxzLi5SKxBic9jcGA0pgA8D+WgLTFlFSpS5/vxq1J7ULz+V5UOop
- 0ZFRvg343SeWzE+1t92wLS7rG5gEUod4BZyzNA5mKCfJugZgfGP8fP3AOOB0BR/wxZ
- tPbEkN3Kdm5UlBelQIZ8q+wvYyun0QmQeLGGdHSGPswXp6/G7clumKRTAks8JFqGIb
- XMJkMggW8YULA==
-Date: Mon, 28 Mar 2022 16:44:31 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Sameer Pujar <spujar@nvidia.com>
-Subject: Re: [PATCH 2/6] ASoC: tegra: Add Tegra186 based ASRC driver
-Message-ID: <YkHX3/8BbXo4obWI@sirena.org.uk>
-References: <1648447526-14523-1-git-send-email-spujar@nvidia.com>
- <1648447526-14523-3-git-send-email-spujar@nvidia.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id A25F3F800FA
+ for <alsa-devel@alsa-project.org>; Mon, 28 Mar 2022 18:11:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A25F3F800FA
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="UJ/kPNnX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1648483869; x=1680019869;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=EyFL9vehGGSWjtUPI8WwMooTYrzEzpqH7Ia4FoQJCYM=;
+ b=UJ/kPNnXAQPiixS18VyuDwBojQ2q3wU5HTdJR99b2x3MONwg2UN5SPku
+ w9XTpjDuhNSL5hMNEPzkvJAZOD3dDuxQmo+biZmTyV3DqYC8xxVm2Ts/H
+ E/sxm80MNU0hNKkJS8FuWXvE32yYj3cDxKsLI7f3Yqd2llCIZioGoyuQv
+ GwTrzCZgBV2JH05N2Z1woY/wep60BYhMrHKATehsXHIdyOWY6C4cFDi6l
+ y/HCoi4Ku9nc9+GBybY0wez/WiHhENhMFBbGtaPQc5IZ2l6Kqc8IJMI2I
+ jkw8ScXB+GQf/oLMIb87eFpxiveLxosKfsgNvrK3PdIrwD7C6EwJLRWwW Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10300"; a="246529381"
+X-IronPort-AV: E=Sophos;i="5.90,217,1643702400"; d="scan'208";a="246529381"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Mar 2022 09:10:50 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.90,217,1643702400"; d="scan'208";a="652144977"
+Received: from lkp-server02.sh.intel.com (HELO 89b41b6ae01c) ([10.239.97.151])
+ by orsmga004.jf.intel.com with ESMTP; 28 Mar 2022 09:10:47 -0700
+Received: from kbuild by 89b41b6ae01c with local (Exim 4.92)
+ (envelope-from <lkp@intel.com>)
+ id 1nYrx8-00028y-VM; Mon, 28 Mar 2022 16:10:46 +0000
+Date: Tue, 29 Mar 2022 00:09:50 +0800
+From: kernel test robot <lkp@intel.com>
+To: Mohan Kumar <mkumard@nvidia.com>, tiwai@suse.com,
+ kai.vehmanen@linux.intel.com, perex@perex.cz, ville.syrjala@linux.intel.com
+Subject: Re: [PATCH] ALSA: hda: Avoid unsol event during RPM suspending
+Message-ID: <202203290053.emhsIdTK-lkp@intel.com>
+References: <20220328091411.31488-1-mkumard@nvidia.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="Q6kdKZClj14YwsHl"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1648447526-14523-3-git-send-email-spujar@nvidia.com>
-X-Cookie: What hath Bob wrought?
-Cc: jonathanh@nvidia.com, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, catalin.marinas@arm.com, tiwai@suse.com,
- lgirdwood@gmail.com, robh+dt@kernel.org, thierry.reding@gmail.com,
- linux-arm-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
- krzk+dt@kernel.org, will@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20220328091411.31488-1-mkumard@nvidia.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, kbuild-all@lists.01.org, llvm@lists.linux.dev,
+ linux-kernel@vger.kernel.org, jonathanh@nvidia.com, thierry.reding@gmail.com,
+ Mohan Kumar <mkumard@nvidia.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,84 +94,159 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Mohan,
 
---Q6kdKZClj14YwsHl
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Thank you for the patch! Yet something to improve:
 
-On Mon, Mar 28, 2022 at 11:35:22AM +0530, Sameer Pujar wrote:
+[auto build test ERROR on tiwai-sound/for-next]
+[also build test ERROR on v5.17 next-20220328]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch]
 
-> +	regcache_cache_only(asrc->regmap, false);
-> +	regcache_sync(asrc->regmap);
-> +
-> +	/* Setup global registers */
-> +	regmap_write(asrc->regmap, TEGRA186_ASRC_GLOBAL_SOFT_RESET, 0x1);
-> +	regmap_write(asrc->regmap, TEGRA186_ASRC_GLOBAL_SCRATCH_ADDR,
-> +		     TEGRA186_ASRC_ARAM_START_ADDR);
-> +	regmap_write(asrc->regmap, TEGRA186_ASRC_GLOBAL_INT_MASK, 0x01);
-> +	regmap_write(asrc->regmap, TEGRA186_ASRC_GLOBAL_ENB,
-> +		     TEGRA186_ASRC_GLOBAL_EN);
-> +	regmap_write(asrc->regmap, TEGRA186_ASRC_GLOBAL_INT_CLEAR, 0x01);
+url:    https://github.com/intel-lab-lkp/linux/commits/Mohan-Kumar/ALSA-hda-Avoid-unsol-event-during-RPM-suspending/20220328-171517
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
+config: s390-randconfig-c005-20220327 (https://download.01.org/0day-ci/archive/20220329/202203290053.emhsIdTK-lkp@intel.com/config)
+compiler: clang version 15.0.0 (https://github.com/llvm/llvm-project 0f6d9501cf49ce02937099350d08f20c4af86f3d)
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # install s390 cross compiling tool for clang build
+        # apt-get install binutils-s390x-linux-gnu
+        # https://github.com/intel-lab-lkp/linux/commit/80c4e21f5e97cd4b779806fa5da5bb7392e2874f
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Mohan-Kumar/ALSA-hda-Avoid-unsol-event-during-RPM-suspending/20220328-171517
+        git checkout 80c4e21f5e97cd4b779806fa5da5bb7392e2874f
+        # save the config file to linux build tree
+        mkdir build_dir
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=s390 SHELL=/bin/bash sound/pci/hda/
 
-This seems weird - we resync the cache, then do a soft reset (which
-presumably desyncs the cache) and then explicitly restore a bunch of
-things (hopefully everything that was in the cached state?).  This is
-certainly very much not idiomatic and looks worrying.  Are you sure that
-the device is getting anything out of the register cache?
+If you fix the issue, kindly add following tag as appropriate
+Reported-by: kernel test robot <lkp@intel.com>
 
-> +static int tegra186_asrc_put_ratio_source(struct snd_kcontrol *kcontrol,
-> +					  struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct soc_enum *asrc_private =
-> +		(struct soc_enum  *)kcontrol->private_value;
-> +	struct snd_soc_component *cmpnt = snd_soc_kcontrol_component(kcontrol);
-> +	struct tegra186_asrc *asrc = snd_soc_component_get_drvdata(cmpnt);
-> +	unsigned int id = asrc_private->reg / TEGRA186_ASRC_STREAM_STRIDE;
-> +
-> +	asrc->lane[id].ratio_source = ucontrol->value.enumerated.item[0];
-> +
-> +	regmap_update_bits(asrc->regmap, asrc_private->reg,
-> +			   TEGRA186_ASRC_STREAM_RATIO_TYPE_MASK,
-> +			   asrc->lane[id].ratio_source);
-> +
-> +	return 1;
-> +}
+All errors (new ones prefixed by >>):
 
-This should only return 1 if the value actually changed, you can use
-regmap_update_bits_check() to detect the change.  Current mixer-test
-ought to spot this.
+   In file included from sound/pci/hda/patch_hdmi.c:21:
+   In file included from include/linux/pci.h:39:
+   In file included from include/linux/io.h:13:
+   In file included from arch/s390/include/asm/io.h:75:
+   include/asm-generic/io.h:464:31: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           val = __raw_readb(PCI_IOBASE + addr);
+                             ~~~~~~~~~~ ^
+   include/asm-generic/io.h:477:61: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           val = __le16_to_cpu((__le16 __force)__raw_readw(PCI_IOBASE + addr));
+                                                           ~~~~~~~~~~ ^
+   include/uapi/linux/byteorder/big_endian.h:37:59: note: expanded from macro '__le16_to_cpu'
+   #define __le16_to_cpu(x) __swab16((__force __u16)(__le16)(x))
+                                                             ^
+   include/uapi/linux/swab.h:102:54: note: expanded from macro '__swab16'
+   #define __swab16(x) (__u16)__builtin_bswap16((__u16)(x))
+                                                        ^
+   In file included from sound/pci/hda/patch_hdmi.c:21:
+   In file included from include/linux/pci.h:39:
+   In file included from include/linux/io.h:13:
+   In file included from arch/s390/include/asm/io.h:75:
+   include/asm-generic/io.h:490:61: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           val = __le32_to_cpu((__le32 __force)__raw_readl(PCI_IOBASE + addr));
+                                                           ~~~~~~~~~~ ^
+   include/uapi/linux/byteorder/big_endian.h:35:59: note: expanded from macro '__le32_to_cpu'
+   #define __le32_to_cpu(x) __swab32((__force __u32)(__le32)(x))
+                                                             ^
+   include/uapi/linux/swab.h:115:54: note: expanded from macro '__swab32'
+   #define __swab32(x) (__u32)__builtin_bswap32((__u32)(x))
+                                                        ^
+   In file included from sound/pci/hda/patch_hdmi.c:21:
+   In file included from include/linux/pci.h:39:
+   In file included from include/linux/io.h:13:
+   In file included from arch/s390/include/asm/io.h:75:
+   include/asm-generic/io.h:501:33: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           __raw_writeb(value, PCI_IOBASE + addr);
+                               ~~~~~~~~~~ ^
+   include/asm-generic/io.h:511:59: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           __raw_writew((u16 __force)cpu_to_le16(value), PCI_IOBASE + addr);
+                                                         ~~~~~~~~~~ ^
+   include/asm-generic/io.h:521:59: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           __raw_writel((u32 __force)cpu_to_le32(value), PCI_IOBASE + addr);
+                                                         ~~~~~~~~~~ ^
+   include/asm-generic/io.h:609:20: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           readsb(PCI_IOBASE + addr, buffer, count);
+                  ~~~~~~~~~~ ^
+   include/asm-generic/io.h:617:20: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           readsw(PCI_IOBASE + addr, buffer, count);
+                  ~~~~~~~~~~ ^
+   include/asm-generic/io.h:625:20: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           readsl(PCI_IOBASE + addr, buffer, count);
+                  ~~~~~~~~~~ ^
+   include/asm-generic/io.h:634:21: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           writesb(PCI_IOBASE + addr, buffer, count);
+                   ~~~~~~~~~~ ^
+   include/asm-generic/io.h:643:21: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           writesw(PCI_IOBASE + addr, buffer, count);
+                   ~~~~~~~~~~ ^
+   include/asm-generic/io.h:652:21: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           writesl(PCI_IOBASE + addr, buffer, count);
+                   ~~~~~~~~~~ ^
+>> sound/pci/hda/patch_hdmi.c:1644:15: error: no member named 'runtime_status' in 'struct dev_pm_info'
+                   (dev->power.runtime_status == RPM_SUSPENDING))
+                    ~~~~~~~~~~ ^
+   12 warnings and 1 error generated.
 
-> +static const struct snd_kcontrol_new tegra186_asrc_controls[] = {
-> +	/* Controls for integer part of ratio */
-> +	SOC_SINGLE_EXT("Ratio1 Integer Part",
-> +		       ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_INT_PART, 0),
-> +		       0, TEGRA186_ASRC_STREAM_RATIO_INT_PART_MASK, 0,
-> +		       tegra186_asrc_get_ratio_int,
-> +		       tegra186_asrc_put_ratio_int),
 
-Can't the driver work out the ratios based on...
+vim +1644 sound/pci/hda/patch_hdmi.c
 
-> +	/* Source of ratio provider */
-> +	SOC_ENUM_EXT("Ratio1 Source", src_select1,
-> +		     tegra186_asrc_get_ratio_source,
-> +		     tegra186_asrc_put_ratio_source),
+  1620	
+  1621	/* update ELD and jack state via HD-audio verbs */
+  1622	static void hdmi_present_sense_via_verbs(struct hdmi_spec_per_pin *per_pin,
+  1623						 int repoll)
+  1624	{
+  1625		struct hda_codec *codec = per_pin->codec;
+  1626		struct hdmi_spec *spec = codec->spec;
+  1627		struct hdmi_eld *eld = &spec->temp_eld;
+  1628		struct device *dev = hda_codec_dev(codec);
+  1629		hda_nid_t pin_nid = per_pin->pin_nid;
+  1630		int dev_id = per_pin->dev_id;
+  1631		/*
+  1632		 * Always execute a GetPinSense verb here, even when called from
+  1633		 * hdmi_intrinsic_event; for some NVIDIA HW, the unsolicited
+  1634		 * response's PD bit is not the real PD value, but indicates that
+  1635		 * the real PD value changed. An older version of the HD-audio
+  1636		 * specification worked this way. Hence, we just ignore the data in
+  1637		 * the unsolicited response to avoid custom WARs.
+  1638		 */
+  1639		int present;
+  1640		int ret;
+  1641	
+  1642		ret = snd_hda_power_up_pm(codec);
+  1643		if ((ret < 0 && pm_runtime_suspended(dev)) ||
+> 1644			(dev->power.runtime_status == RPM_SUSPENDING))
+  1645			goto out;
+  1646	
+  1647		present = snd_hda_jack_pin_sense(codec, pin_nid, dev_id);
+  1648	
+  1649		mutex_lock(&per_pin->lock);
+  1650		eld->monitor_present = !!(present & AC_PINSENSE_PRESENCE);
+  1651		if (eld->monitor_present)
+  1652			eld->eld_valid  = !!(present & AC_PINSENSE_ELDV);
+  1653		else
+  1654			eld->eld_valid = false;
+  1655	
+  1656		codec_dbg(codec,
+  1657			"HDMI status: Codec=%d NID=0x%x Presence_Detect=%d ELD_Valid=%d\n",
+  1658			codec->addr, pin_nid, eld->monitor_present, eld->eld_valid);
+  1659	
+  1660		if (eld->eld_valid) {
+  1661			if (spec->ops.pin_get_eld(codec, pin_nid, dev_id,
+  1662						  eld->eld_buffer, &eld->eld_size) < 0)
+  1663				eld->eld_valid = false;
+  1664		}
+  1665	
+  1666		update_eld(codec, per_pin, eld, repoll);
+  1667		mutex_unlock(&per_pin->lock);
+  1668	 out:
+  1669		snd_hda_power_down_pm(codec);
+  1670	}
+  1671	
 
-...the sources?  Or does it need to be configured before either side is
-ready in which case this might be the best we can do for now.
-
---Q6kdKZClj14YwsHl
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJB194ACgkQJNaLcl1U
-h9DJPQf/TvXk6oi+ijY9O9IQ133Gu9xWGWV+7fiQYkIlAtddglEabfYOJxtLVKuV
-xgm5SIaEfWvUPj3kevurFVLxyTvAZhpI8KfamsiUlRKjlK6IkKEsfx6yhYY9tvLn
-6QDMj18+mr1VrQNDyrlFRpuV8anPmnuHmXAJBb3gM4HSxM48Dn0uQyLgxkRwL9Ke
-X/j54DAQE8SAlTMafIfz24xWmojIyEyEY6CHIVrxfYqhJGIv24fQoIgA9P+b1vMW
-NmIlXb4oJ+TveCsUJBwRiwRzV8TIqoErgLkcReVThoeIf5yMz2smnJ7QltwRb+QN
-8BxNA3n76o2Idu8GGTH3RLmDwzHjhA==
-=G6cv
------END PGP SIGNATURE-----
-
---Q6kdKZClj14YwsHl--
+-- 
+0-DAY CI Kernel Test Service
+https://01.org/lkp

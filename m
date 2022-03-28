@@ -2,91 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C26B34E9716
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Mar 2022 14:53:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9CEA4E973B
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Mar 2022 15:01:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BEC7318AC;
-	Mon, 28 Mar 2022 14:52:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BEC7318AC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4AB861836;
+	Mon, 28 Mar 2022 15:00:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4AB861836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648471981;
-	bh=DpFzxoGPxHl3EdHB5r9zh3fBGQ9q32jcPXp9KX2/md0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1648472481;
+	bh=IbmFDwzNl28I9V2wOdmz3kTgsYB394WCzCFQg2IAyGY=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cOELrfTxpz+3Jgs9V8f3+Gg+783erK4ZjResbkh7gKwJ0c80eg/EDUaqw4cXfMAET
-	 EDQjvo0/LadL3XLPjIUXnVw7Gpq/28XJZQqPOkltHhDqpwen9FcHASWa4M2ScPaBIW
-	 teVI8ARNpx8Ockf0mZ1aBS1VVyHLSq3ekM9BYnA0=
-Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9E989F80516;
-	Mon, 28 Mar 2022 14:51:59 +0200 (CEST)
+	b=jnYkKYgG4MMiSFgdE9TIDcXxiU5ZsRADxWOEPR6J4wGbyOXZbxn8qnOuOowml/Od/
+	 jelIxIt6TeWopZfqMqyugJptWUghEAtV3b28zWxhlNo4m9ubYfFlEyeL7wSC0UVQm9
+	 uHq9/90SaLwPZZm+48YGu1S0wOobZmXLlamIqnQc=
+Received: from vmi242170.contaboserver.net (localhost.localdomain [127.0.0.1])
+	by alsa1.perex.cz (Postfix) with ESMTP id C3CB3F800FA;
+	Mon, 28 Mar 2022 15:00:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 77A7DF8050F; Mon, 28 Mar 2022 14:51:58 +0200 (CEST)
+ id 0949EF8024C; Mon, 28 Mar 2022 15:00:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-io1-xd43.google.com (mail-io1-xd43.google.com
- [IPv6:2607:f8b0:4864:20::d43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9C91FF804DA
- for <alsa-devel@alsa-project.org>; Mon, 28 Mar 2022 14:51:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C91FF804DA
+ by alsa1.perex.cz (Postfix) with ESMTPS id F10A8F800CB
+ for <alsa-devel@alsa-project.org>; Mon, 28 Mar 2022 15:00:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F10A8F800CB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="icASZrSd"
-Received: by mail-io1-xd43.google.com with SMTP id q11so16853722iod.6
- for <alsa-devel@alsa-project.org>; Mon, 28 Mar 2022 05:51:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=Hl62ZZF9xXxGgi6ZZphdBA1i//kHz1iBa2y3695NrsA=;
- b=icASZrSdFNGQbdG/IOShlTLaQfwjDp+8NApwJepYPtkO2VaC8ATzL5GB0O7w1lwJnC
- gQK/lMYDEIt2Uhb+6lmuiTqoPwhBpKt6V+zk0WyvV6JqFZkkq3lcEDuX1leU7siSlnLA
- 3KBEzm2uuxPJiizEuJX544AU8uZXfi3+gLQM5j+1wjsTAPiJqc+7miG69zs/cEcN4eli
- yRLAsRf6Kty/Wh5lXqdQATNNQY3BpTJAuEsokXdbyXJTTJ7Fm3sXLqJ4POh4aMKQASxa
- EuinR2GO4dDxqRAJ7/fQj1zOgInecsrGs+2pRx0vv1bAz4R/BzKdXcYv89C6F+C9sHxN
- h2Xg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=Hl62ZZF9xXxGgi6ZZphdBA1i//kHz1iBa2y3695NrsA=;
- b=qk1ZPx/fH2/nRJwD1Gse373IKgnF/LSWru0aqvLZqVfmf8qkC1WsqZQdGaNUU/fp/C
- XBsQsBM1rp89PxFGFsYtkzOUYb83JvDJlUCWU7tM2J6uy5hm8ZvgVBX+WthV14F3V8Gc
- za/JJcme001F8TT+O8Z/355RIND4/B4qDreqwcNLXRthNGWi8WRHA4+wFTvxnYPpQ79M
- Uq3Q/SQuPWycIxR8cVfSi+xWIRYzb6kz6/tdkUbr7btEiKVSlOQurmButa4Q8m5FoyVU
- ugZDGJNyVm4f9jNFk1Tv12rFxtSE+IITDN38dY3koql4jYT3ydjd2FrdFWcGgScnagDm
- 13eQ==
-X-Gm-Message-State: AOAM5321gegSkVMLcuOCB02KmQEvSdkkbg83vd4ZJmw5W4gWXYVDNGw4
- ODg2D1628dzd7rf7gEUk8ii+hVLNd48fLhXuOlA=
-X-Google-Smtp-Source: ABdhPJwjOhlugyhQlt5yYxr+1HihIKi/r9Q2nmaXntqRiDx9IpPxhh1ziluusQ/rSAQ46Z5+SMaNsJ5FYPJaYLRk8b4=
-X-Received: by 2002:a05:6602:1683:b0:649:f7d3:f0cf with SMTP id
- s3-20020a056602168300b00649f7d3f0cfmr6162906iow.197.1648471910425; Mon, 28
- Mar 2022 05:51:50 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="UpfNagt8"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 22S8bmMQ011867;
+ Mon, 28 Mar 2022 07:59:58 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=3sH1PxPR22yc/WJy0GaNJLuPKMMrFQ7JiG95F/CyMD0=;
+ b=UpfNagt8N7Jlk9+dNZylsIEa7dLrOCuforAMcrxMe9yAPKhNsi4BOUuNPjzMYcC825+x
+ cSYGwZ2gKe1KnL3+ovOAjt2CwprBt4GRMnwaTTHY74fYBXfQ/TwXdksGkk3TMMnNUGb4
+ WhwtV5spFjqgmp//xrEUMHC/dczKpQfRjFEeuPsd4Y2+IVBYJ3n2iHyfgknzh5HFs5xY
+ dVXySE+pKXXSbh+zgh22laHaMVJcyaPcprZukWSUNVJcNc3w8FZUCBIzbJy7hi/NjOka
+ 3X5trxHOYWEFPVGiL8npbzLtgS1QbbXUl9sCsZJcbM3A5CwpXfzefiGHFbnyNuJiaOHY aw== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3f2081arrb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Mon, 28 Mar 2022 07:59:58 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Mon, 28 Mar
+ 2022 13:59:56 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.24 via
+ Frontend Transport; Mon, 28 Mar 2022 13:59:56 +0100
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 559F546A;
+ Mon, 28 Mar 2022 12:59:56 +0000 (UTC)
+Date: Mon, 28 Mar 2022 12:59:56 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Hui Wang <hui.wang@canonical.com>
+Subject: Re: [PATCH v3 1/2] ASoC: cs35l41: Add one more variable in the debug
+ log
+Message-ID: <20220328125956.GG38351@ediswmail.ad.cirrus.com>
+References: <20220328123535.50000-1-hui.wang@canonical.com>
 MIME-Version: 1.0
-References: <20220328021139.8700-1-steve.lee.analog@gmail.com>
- <PH0PR03MB6786EB43BFAD3B711096F69B991D9@PH0PR03MB6786.namprd03.prod.outlook.com>
-In-Reply-To: <PH0PR03MB6786EB43BFAD3B711096F69B991D9@PH0PR03MB6786.namprd03.prod.outlook.com>
-From: Lee Steve <steve.lee.analog@gmail.com>
-Date: Mon, 28 Mar 2022 21:51:39 +0900
-Message-ID: <CA+Fz0PaxSFhZG9dOYOWd4MOtHLxwyC3fXmCDZtOTwg4+aQ+jOA@mail.gmail.com>
-Subject: Re: [V3 1/2] ASoC: max98390: Add reset gpio control
-To: "Sa, Nuno" <Nuno.Sa@analog.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "ryans.lee@maximintegrated.com" <ryans.lee@maximintegrated.com>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "krzk@kernel.org" <krzk@kernel.org>, "tiwai@suse.com" <tiwai@suse.com>,
- "broonie@kernel.org" <broonie@kernel.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20220328123535.50000-1-hui.wang@canonical.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-ORIG-GUID: vuNqV1Zq9UKYnV15w2tZfHH7pabYE8K7
+X-Proofpoint-GUID: vuNqV1Zq9UKYnV15w2tZfHH7pabYE8K7
+X-Proofpoint-Spam-Reason: safe
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ broonie@kernel.org, tanureal@opensource.cirrus.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,58 +100,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Mar 28, 2022 at 5:46 PM Sa, Nuno <Nuno.Sa@analog.com> wrote:
->
->
->
-> > -----Original Message-----
-> > From: Steve Lee <steve.lee.analog@gmail.com>
-> > Sent: Monday, March 28, 2022 4:12 AM
-> > To: lgirdwood@gmail.com; broonie@kernel.org; perex@perex.cz;
-> > tiwai@suse.com; ryans.lee@maximintegrated.com; linux-
-> > kernel@vger.kernel.org; alsa-devel@alsa-project.org
-> > Cc: krzk@kernel.org; Sa, Nuno <Nuno.Sa@analog.com>; Steve Lee
-> > <steve.lee.analog@gmail.com>
-> > Subject: [V3 1/2] ASoC: max98390: Add reset gpio control
-> >
-> > [External]
-> >
-> >  Add reset gpio control to support RESET PIN connected to gpio.
-> >
-> > Signed-off-by: Steve Lee <steve.lee.analog@gmail.com>
-> > ---
-> >  sound/soc/codecs/max98390.c | 12 ++++++++++++
-> >  1 file changed, 12 insertions(+)
-> >
-> > diff --git a/sound/soc/codecs/max98390.c
-> > b/sound/soc/codecs/max98390.c
-> > index 40fd6f363f35..05df9b85d9b0 100644
-> > --- a/sound/soc/codecs/max98390.c
-> > +++ b/sound/soc/codecs/max98390.c
-> > @@ -1022,6 +1022,7 @@ static int max98390_i2c_probe(struct
-> > i2c_client *i2c,
-> >
-> >       struct max98390_priv *max98390 =3D NULL;
-> >       struct i2c_adapter *adapter =3D i2c->adapter;
-> > +     struct gpio_desc *reset_gpio;
-> >
-> >       ret =3D i2c_check_functionality(adapter,
-> >               I2C_FUNC_SMBUS_BYTE
-> > @@ -1073,6 +1074,17 @@ static int max98390_i2c_probe(struct
-> > i2c_client *i2c,
-> >               return ret;
-> >       }
-> >
-> > +     reset_gpio =3D devm_gpiod_get_optional(&i2c->dev,
-> > +                                          "reset", GPIOD_OUT_LOW);
->
-> Forgot to mention,
->
-> As you stated in the bindings the gpio is active low, this should also be
-> GPIOD_OUT_HIGH, if we want to have the device in reset after this call.
->
-> - Nuno S=C3=A1
->
+On Mon, Mar 28, 2022 at 08:35:34PM +0800, Hui Wang wrote:
+> otp_map[].size is a key variable to compute the value of otp_val and
+> to update the bit_offset, it is helpful to debug if could put it in
+> the debug log.
+> 
+> Reviewed-by: Lucas Tanure <tanureal@opensource.cirrus.com>
+> Signed-off-by: Hui Wang <hui.wang@canonical.com>
+> ---
 
-This also agree with your comment. I will update next version patch if
-there is other concern.
+Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+
+Thanks,
+Charles

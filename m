@@ -2,83 +2,129 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 147524E8D81
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Mar 2022 07:35:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8AC04E8DC4
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Mar 2022 08:07:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7C312E0F;
-	Mon, 28 Mar 2022 07:34:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C312E0F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2800A167C;
+	Mon, 28 Mar 2022 08:07:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2800A167C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648445712;
-	bh=7lfp1574EtNcMDPVRba0fpCai7fsF29uNUXKx71RsbY=;
+	s=default; t=1648447675;
+	bh=lEYTeL8gHVtRiQ7k+ZYp/xITaM7vbo06JX2aOGJB9qQ=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=nXiF+AWoseaCQPHDYMDASbZCxwDITuLIASOHw6siYo7W6WIwW9U7GugY73RgvP6fG
-	 MGZ9z077G5M4xu4XAeL91ES5LvsjGLTEmZkVosmC+sBOeqivB1o4Pe3DdGwapzm2tF
-	 uclAbBebqzT4+4GCt1OBBKhc/rnmmZYGZu2wZb0k=
+	b=JTcxag20hMlCZ3a2KWEyl6y23PG/eL5dsflzxjeuWakis5OmXJARfZHhb1iLZ72WL
+	 I7g+fPYj3UtD5Y6pRHnLtQyuJ4gebHdDZbCByuKn0DKKLVTlkWNm5fpEg7Y7fRDyfD
+	 7Vf5JhGlU+PZcLeqlV0tLxPTjglM3ykR1u+BqYeA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E6F5BF800CB;
-	Mon, 28 Mar 2022 07:34:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B6E00F8026D;
+	Mon, 28 Mar 2022 08:06:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 81523F800CB; Mon, 28 Mar 2022 07:34:02 +0200 (CEST)
+ id ABABDF8024C; Mon, 28 Mar 2022 08:06:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2060f.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e88::60f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8138BF80121
- for <alsa-devel@alsa-project.org>; Mon, 28 Mar 2022 07:33:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8138BF80121
-Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 22S5XjwJ6013957,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexh36504.realtek.com.tw[172.21.6.27])
- by rtits2.realtek.com.tw (8.15.2/2.71/5.88) with ESMTPS id 22S5XjwJ6013957
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Mon, 28 Mar 2022 13:33:45 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXH36504.realtek.com.tw (172.21.6.27) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27; Mon, 28 Mar 2022 13:33:44 +0800
-Received: from derek-PORTEGE-R930.realtek.com.tw (172.22.102.119) by
- RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27; Mon, 28 Mar 2022 13:33:44 +0800
-From: <derek.fang@realtek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-Subject: [PATCH v2] ASoC: rt5682s: Separate the regulator consumer controls
-Date: Mon, 28 Mar 2022 13:33:38 +0800
-Message-ID: <20220328053338.21441-1-derek.fang@realtek.com>
-X-Mailer: git-send-email 2.17.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id AF934F800FA
+ for <alsa-devel@alsa-project.org>; Mon, 28 Mar 2022 08:06:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF934F800FA
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com
+ header.b="ReJpCIP4"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=nT+msugee54xuit38T1qQKuMSJp52fzxduShXmxyG92F4usjmCTEQ9rX1Pf7sttbo8eYhwaM2QuIvIYeIMSXL8G+qh+5vT91vTusF/fSgIOddyK/meVGlG6iOBfC5t44d2jbaVlf2k7kJlSli5QjTpdRd7PN7Ud5sJWiVBhgGpZKM01lvAm3C/5CuoOr4MH24GJ3JV5R29fgNPWJw6YZvvrQJqZINEFGHxcLIbuE/n9GhuqjIgaCTGalkUFvpj0cSOO3kgRby71m2dJBLRjXKr3tLFHSFI5LHIlYJpKYjycneP1ven7gKVLVphh7/xdJJQNJIiuBXKe5aHXSWOWMxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=P3Qk2dcmIUic+9bI5CbWKCknomCIIayBzyGqF4eG4pU=;
+ b=AI7QftPIUXerBeVwTdXEYmXAgIEfgIj7CTGSuPtsf4ulimzoG9XRBE7NYhxlNlGIBXW7MxBfF/GKsUzF0zzwFiv3M1zG1+kgBTL2je29Ppe3URQKtHAz+qXFpZE6589+4hjED/DblZMo83mhxMYsfeiwSQ033cK6+sK1qL4LC26+dmkh1WFxZdM83OQNvUiWqBanXFKXCCjNMCZyl0Vr/ea/ka143QunAPJL/ZnbIPQC78+Juebnl1PtfYIq7T1+OuZyZ59iO53Kw2+dPMgngIpaJLmEjMidCba8CWEj+pLrqbVEIs34mbv9AJ9BzEfW5FSgl7kjhLe5S20vJfyapw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 12.22.5.236) smtp.rcpttodomain=alsa-project.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=P3Qk2dcmIUic+9bI5CbWKCknomCIIayBzyGqF4eG4pU=;
+ b=ReJpCIP44VvTJ1Kfwd/C/EE94af0D2jWzjrpPuor3SORPXGJYetjryH2LnuLJvGQwgMBGPAWJX95iDMs/AqqmeFyB0FAbK7vMO9J/QOazvC6p7tN6g3OVO/3XIBi1WF6qGqgUZ9zNibcra+5dUlNky0L19X01vsSXhdbbtkiV3ded38AAD7tVGWP1bbebcPP9wYxbGRO7URZA5VJo9jLp/TQcRTk0cXzzSI/60RnpMOnCC6Cc+eFiUGa7GEpi+zn7+BOdSmAjuVeiKnhJ545qxBUcJYL3GZ3rkkvLqgwk3UW6TEhLsYYSD2bniLXrfeDlKDfS8GYZjLqFLquc34PXg==
+Received: from DM6PR03CA0097.namprd03.prod.outlook.com (2603:10b6:5:333::30)
+ by MW3PR12MB4540.namprd12.prod.outlook.com (2603:10b6:303:52::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.18; Mon, 28 Mar
+ 2022 06:06:38 +0000
+Received: from DM6NAM11FT051.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:333:cafe::78) by DM6PR03CA0097.outlook.office365.com
+ (2603:10b6:5:333::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.18 via Frontend
+ Transport; Mon, 28 Mar 2022 06:06:37 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 12.22.5.236)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 12.22.5.236 as permitted sender) receiver=protection.outlook.com;
+ client-ip=12.22.5.236; helo=mail.nvidia.com;
+Received: from mail.nvidia.com (12.22.5.236) by
+ DM6NAM11FT051.mail.protection.outlook.com (10.13.172.243) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.20.5102.17 via Frontend Transport; Mon, 28 Mar 2022 06:06:36 +0000
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by DRHQMAIL109.nvidia.com
+ (10.27.9.19) with Microsoft SMTP Server (TLS) id 15.0.1497.32;
+ Mon, 28 Mar 2022 06:06:33 +0000
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail203.nvidia.com
+ (10.129.68.9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Sun, 27 Mar
+ 2022 23:06:32 -0700
+Received: from audio.nvidia.com (10.127.8.10) by mail.nvidia.com (10.129.68.7)
+ with Microsoft SMTP Server id 15.2.986.22 via Frontend Transport;
+ Sun, 27 Mar 2022 23:06:28 -0700
+From: Sameer Pujar <spujar@nvidia.com>
+To: <broonie@kernel.org>, <robh+dt@kernel.org>, <krzk+dt@kernel.org>,
+ <thierry.reding@gmail.com>, <lgirdwood@gmail.com>, <perex@perex.cz>,
+ <tiwai@suse.com>
+Subject: [PATCH 0/6] ASRC support on Tegra186 and later
+Date: Mon, 28 Mar 2022 11:35:20 +0530
+Message-ID: <1648447526-14523-1-git-send-email-spujar@nvidia.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
 Content-Type: text/plain
-X-Originating-IP: [172.22.102.119]
-X-ClientProxiedBy: RTEXH36504.realtek.com.tw (172.21.6.27) To
- RTEXMBS01.realtek.com.tw (172.21.6.94)
-X-KSE-ServerInfo: RTEXMBS01.realtek.com.tw, 9
-X-KSE-AntiSpam-Interceptor-Info: trusted connection
-X-KSE-Antiphishing-Info: Clean
-X-KSE-Antiphishing-ScanningType: Deterministic
-X-KSE-Antiphishing-Method: None
-X-KSE-Antiphishing-Bases: 03/28/2022 05:21:00
-X-KSE-AttachmentFiltering-Interceptor-Info: no applicable attachment filtering
- rules found
-X-KSE-Antivirus-Interceptor-Info: scan successful
-X-KSE-Antivirus-Info: =?big5?B?Q2xlYW4sIGJhc2VzOiAyMDIyLzMvMjggpFekyCAwMjozOTowMA==?=
-X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
-X-KSE-ServerInfo: RTEXH36504.realtek.com.tw, 9
-X-KSE-Attachment-Filter-Triggered-Rules: Clean
-X-KSE-Attachment-Filter-Triggered-Filters: Clean
-X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
- lars@metafoo.de, albertchen@realtek.com, Derek Fang <derek.fang@realtek.com>,
- shumingf@realtek.com, flove@realtek.com
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 922110df-9993-4f40-8625-08da10811e3b
+X-MS-TrafficTypeDiagnostic: MW3PR12MB4540:EE_
+X-Microsoft-Antispam-PRVS: <MW3PR12MB45400808FFFA53C13D66B9E4A71D9@MW3PR12MB4540.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: wckt9ZGOWSq1s0QIpCAaKB+/gCfoiHEANc7s7VkxL8WXmQmKDq67ayoUVhRD1koFT7silH6jxHTaiZ6ZSAj0vd7trZPqDqykiPjdxNhqAtT63wg75+EfYV9maPY224q84rq5nViBwvmcOgMQ6nZr1KGghIqv9qnd/UKOMJFrGhJfj9o6OKShUZ41t+xOYWd60OYB2K/e2Lavu6Jvq80DKX2XOvPAAIDFHhO8SC3kr5Z7LmWJoRFNhiw7he26LXJBkS7PS77vrdAah+P0Jpq3YeMWO7L2vKA06F52oVUl46NssNMbGgG91gejyDqJeQ+zkgacgjxUDyZ/4snRkqXOukT6Jj0iqKiSUZ1JwdF8mTB2NfROjd1jxs+dOdSO1j8cOdOlckGkfuiHRiDbGS+03G7mGldJvwlzFqRo9ZzGf1zJliuuIgFUg6CrDcJSd00Xo8/Nz//p2uuX0Ir2hywS+Wl2UpcJgF0wil3B330cLkhGn/XHDN0kfcwUh3SWE/2jpDo91eJTIURtdnaJ/e2rZt55MruR9bmFqW95AGPU4qlYKPHjaiDbWSbn//yo199MpwYkarYuDymKt5M5P8DQinoxOegToza6j1PtJaCnkgOHW0f4OqksfnDvmfG/xW/Oj7z8jrfhboYlOQU/LAh4/wLbpEIGmzbYGLsWq4B4Fj2BFA8dO+7sT9goswyBybQe1C9VtQyinbF+8MD30aYm2g==
+X-Forefront-Antispam-Report: CIP:12.22.5.236; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:mail.nvidia.com; PTR:InfoNoRecords; CAT:NONE;
+ SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(2906002)(8936002)(40460700003)(36756003)(36860700001)(7416002)(107886003)(70586007)(70206006)(8676002)(5660300002)(81166007)(356005)(4326008)(82310400004)(110136005)(7696005)(316002)(336012)(6666004)(426003)(47076005)(83380400001)(54906003)(508600001)(86362001)(186003)(26005)(2616005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Mar 2022 06:06:36.9139 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 922110df-9993-4f40-8625-08da10811e3b
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[12.22.5.236];
+ Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT051.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4540
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ catalin.marinas@arm.com, Sameer Pujar <spujar@nvidia.com>,
+ linux-kernel@vger.kernel.org, jonathanh@nvidia.com,
+ linux-tegra@vger.kernel.org, will@kernel.org,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,88 +140,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Derek Fang <derek.fang@realtek.com>
+This series adds support for Asynchronous Sample Rate Converter (ASRC)
+module on Tegra186 and later generations of SoCs. ASRC is a client of
+AHUB. The driver and DT support is added to make it work with Tegra
+audio graph card. The module can be plugged into audio path using ALSA
+mixer controls.
 
-Control the regulators separately instead of using regulator_bulk to
-accord to the timing request in the datasheet.
+ASRC supports two modes of operation, where it gets the ratio info
+from SW and ratio detector module. Presently the support is added for
+SW mode.
 
-Signed-off-by: Derek Fang <derek.fang@realtek.com>
----
- sound/soc/codecs/rt5682s.c | 27 ++++++++++++++++++++++-----
- sound/soc/codecs/rt5682s.h |  6 +++++-
- 2 files changed, 27 insertions(+), 6 deletions(-)
+Sameer Pujar (6):
+  ASoC: tegra: Add binding doc for ASRC module
+  ASoC: tegra: Add Tegra186 based ASRC driver
+  ASoC: tegra: AHUB routes for ASRC module
+  arm64: defconfig: Build Tegra ASRC module
+  arm64: tegra: Add ASRC device on Tegra186 and later
+  arm64: tegra: Enable ASRC on various platforms
 
-diff --git a/sound/soc/codecs/rt5682s.c b/sound/soc/codecs/rt5682s.c
-index 1cba8ec7cedb..7e4ac6560dee 100644
---- a/sound/soc/codecs/rt5682s.c
-+++ b/sound/soc/codecs/rt5682s.c
-@@ -42,8 +42,8 @@ static const struct rt5682s_platform_data i2s_default_platform_data = {
- };
- 
- static const char *rt5682s_supply_names[RT5682S_NUM_SUPPLIES] = {
--	"AVDD",
--	"MICVDD",
-+	[RT5682S_SUPPLY_AVDD] = "AVDD",
-+	[RT5682S_SUPPLY_MICVDD] = "MICVDD",
- };
- 
- static const struct reg_sequence patch_list[] = {
-@@ -3025,8 +3025,18 @@ static struct snd_soc_dai_driver rt5682s_dai[] = {
- static void rt5682s_i2c_disable_regulators(void *data)
- {
- 	struct rt5682s_priv *rt5682s = data;
-+	struct device *dev = regmap_get_device(rt5682s->regmap);
-+	int ret;
-+
-+	ret = regulator_disable(rt5682s->supplies[RT5682S_SUPPLY_AVDD].consumer);
-+	if (ret)
-+		dev_err(dev, "Failed to disable supply AVDD: %d\n", ret);
- 
--	regulator_bulk_disable(ARRAY_SIZE(rt5682s->supplies), rt5682s->supplies);
-+	usleep_range(1000, 1500);
-+
-+	ret = regulator_disable(rt5682s->supplies[RT5682S_SUPPLY_MICVDD].consumer);
-+	if (ret)
-+		dev_err(dev, "Failed to disable supply MICVDD: %d\n", ret);
- }
- 
- static int rt5682s_i2c_probe(struct i2c_client *i2c,
-@@ -3071,9 +3081,16 @@ static int rt5682s_i2c_probe(struct i2c_client *i2c,
- 	if (ret)
- 		return ret;
- 
--	ret = regulator_bulk_enable(ARRAY_SIZE(rt5682s->supplies), rt5682s->supplies);
-+	ret = regulator_enable(rt5682s->supplies[RT5682S_SUPPLY_MICVDD].consumer);
-+	if (ret) {
-+		dev_err(&i2c->dev, "Failed to enable supply MICVDD: %d\n", ret);
-+		return ret;
-+	}
-+	usleep_range(1000, 1500);
-+
-+	ret = regulator_enable(rt5682s->supplies[RT5682S_SUPPLY_AVDD].consumer);
- 	if (ret) {
--		dev_err(&i2c->dev, "Failed to enable supplies: %d\n", ret);
-+		dev_err(&i2c->dev, "Failed to enable supply AVDD: %d\n", ret);
- 		return ret;
- 	}
- 
-diff --git a/sound/soc/codecs/rt5682s.h b/sound/soc/codecs/rt5682s.h
-index 397a2531b6f6..7353831c73dd 100644
---- a/sound/soc/codecs/rt5682s.h
-+++ b/sound/soc/codecs/rt5682s.h
-@@ -1434,7 +1434,11 @@ struct pll_calc_map {
- 	bool sel_ps;
- };
- 
--#define RT5682S_NUM_SUPPLIES 2
-+enum {
-+	RT5682S_SUPPLY_AVDD,
-+	RT5682S_SUPPLY_MICVDD,
-+	RT5682S_NUM_SUPPLIES,
-+};
- 
- struct rt5682s_priv {
- 	struct snd_soc_component *component;
+ .../bindings/sound/nvidia,tegra186-asrc.yaml       |   81 ++
+ .../bindings/sound/nvidia,tegra210-ahub.yaml       |    4 +
+ arch/arm64/boot/dts/nvidia/tegra186-p2771-0000.dts |  223 +++++
+ arch/arm64/boot/dts/nvidia/tegra186.dtsi           |    7 +
+ arch/arm64/boot/dts/nvidia/tegra194-p2972-0000.dts |  223 +++++
+ .../arm64/boot/dts/nvidia/tegra194-p3509-0000.dtsi |  223 +++++
+ arch/arm64/boot/dts/nvidia/tegra194.dtsi           |    8 +
+ .../dts/nvidia/tegra234-p3737-0000+p3701-0000.dts  |  223 +++++
+ arch/arm64/boot/dts/nvidia/tegra234.dtsi           |    8 +
+ arch/arm64/configs/defconfig                       |    1 +
+ sound/soc/tegra/Kconfig                            |   12 +
+ sound/soc/tegra/Makefile                           |    2 +
+ sound/soc/tegra/tegra186_asrc.c                    | 1045 ++++++++++++++++++++
+ sound/soc/tegra/tegra186_asrc.h                    |  113 +++
+ sound/soc/tegra/tegra210_ahub.c                    |   82 +-
+ 15 files changed, 2254 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra186-asrc.yaml
+ create mode 100644 sound/soc/tegra/tegra186_asrc.c
+ create mode 100644 sound/soc/tegra/tegra186_asrc.h
+
 -- 
-2.17.1
+2.7.4
 

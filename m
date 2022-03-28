@@ -2,80 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 253E94E930A
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Mar 2022 13:11:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C20844E94CD
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Mar 2022 13:34:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A34DE174C;
-	Mon, 28 Mar 2022 13:10:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A34DE174C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3CD03188B;
+	Mon, 28 Mar 2022 13:34:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3CD03188B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648465866;
-	bh=dUqAVLvRN0zWckdC8lYFq9LPAv6eD+wzcTa3IBt3umI=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ZpEBZ3Qm/6iHZNidIpYlLKuO3gdfx1Ht/u2LYQps9Yp8T1liFZnsvrOzwf5yzOBXa
-	 VOQKYVD8hhNCU9t4gYgRD14UAXvWRQSh6ZWMiWqf+1FeVNJna4/8e9ej3a1AjpJ7D/
-	 9AQvMPNEDOG5z8kB0VNc+qL/v68ob8sP2i/+OABE=
+	s=default; t=1648467294;
+	bh=xM2vUGZr6ddODoTDwwBRyOGGGQoaBIoZOIYEDj6VUyA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=PmNyZcaM8zb/69H/llWzs9XllJbvX41yIrryCtBCccYGz2tKLnvO+U3YejUbUg5uG
+	 DgA67C1Uym1sjaYzKacVkNg+X7+Ivq84POuP9OzWh4yMNGUmnmBiPx7VI1RBaPWdsj
+	 KxhD1d3ph8jfviLa0DVn8M/cXCiNU1zEq2Y5cw0w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 18E09F800CB;
-	Mon, 28 Mar 2022 13:10:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7C36AF805A0;
+	Mon, 28 Mar 2022 13:28:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C851FF8024C; Mon, 28 Mar 2022 13:09:57 +0200 (CEST)
+ id 63FD4F8053B; Mon, 28 Mar 2022 13:28:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from smtp-relay-canonical-1.canonical.com
- (smtp-relay-canonical-1.canonical.com [185.125.188.121])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9EB91F800CB
- for <alsa-devel@alsa-project.org>; Mon, 28 Mar 2022 13:09:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9EB91F800CB
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
- header.b="gWIbvTNa"
-Received: from [192.168.0.108] (unknown [123.112.67.37])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 7696D3F75F; 
- Mon, 28 Mar 2022 11:09:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1648465788;
- bh=dUqAVLvRN0zWckdC8lYFq9LPAv6eD+wzcTa3IBt3umI=;
- h=Message-ID:Date:MIME-Version:Subject:To:References:From:
- In-Reply-To:Content-Type;
- b=gWIbvTNaGbApwDUqELgDF0mE7zgoefoMN+oNLAT0/KjSzbrLcuM/Ko9KwQbeTGngE
- 46X4grl4poOI1Lj/iutcs0HGtA/pFo5os3i8lyJgWAB0Zk+kKObauuxa/xqF8O+tQ8
- Wfy8pp31PcoPOIEhpfc07w/MkqZAbrmyBww1prbVec6MlFE9ZWHsQcc0gzN/iTtl+H
- 6fg1VZPYsKMzTZn+FLACoMo+RnKJ+RbdfCZmyp35xE0T27o6mdkGfNWmDixY2QziPi
- Cymqfhv+1YgpscrJhg2OsJMbNzw+tGEcYEnNpNxiGr+3+tuA/d+yRN1hKNDCXwbD8e
- mKzATB3Q1ZvUw==
-Message-ID: <5d0b581b-5b82-4367-81e5-31d362351d8a@canonical.com>
-Date: Mon, 28 Mar 2022 19:09:39 +0800
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7CDDAF80128
+ for <alsa-devel@alsa-project.org>; Mon, 28 Mar 2022 13:28:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CDDAF80128
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <sha@pengutronix.de>)
+ id 1nYnXj-0003Tv-Iq; Mon, 28 Mar 2022 13:28:15 +0200
+Received: from [2a0a:edc0:0:1101:1d::28] (helo=dude02.red.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <sha@pengutronix.de>)
+ id 1nYnXf-003Zm8-Ly; Mon, 28 Mar 2022 13:28:14 +0200
+Received: from sha by dude02.red.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <sha@pengutronix.de>)
+ id 1nYnXd-006byF-BE; Mon, 28 Mar 2022 13:28:09 +0200
+From: Sascha Hauer <s.hauer@pengutronix.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v2 00/19] ASoC: fsl_micfil: Driver updates
+Date: Mon, 28 Mar 2022 13:27:25 +0200
+Message-Id: <20220328112744.1575631-1-s.hauer@pengutronix.de>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH v2 2/2] ASoC: cs35l41: Don't hard-code the number of
- otp_elem in the array
-Content-Language: en-US
-To: Lucas tanure <tanureal@opensource.cirrus.com>,
- alsa-devel@alsa-project.org, broonie@kernel.org,
- patches@opensource.cirrus.com, ckeepax@opensource.cirrus.com
-References: <20220328042210.37660-1-hui.wang@canonical.com>
- <20220328042210.37660-2-hui.wang@canonical.com>
- <263781d6-00d5-dd7a-d7a1-dc102448811d@opensource.cirrus.com>
-From: Hui Wang <hui.wang@canonical.com>
-In-Reply-To: <263781d6-00d5-dd7a-d7a1-dc102448811d@opensource.cirrus.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: sha@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Cc: Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Vinod Koul <vkoul@kernel.org>,
+ NXP Linux Team <linux-imx@nxp.com>, kernel@pengutronix.de,
+ dmaengine@vger.kernel.org, Shengjiu Wang <shengjiu.wang@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,30 +80,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+This series has a bunch of cleanups for the FSL MICFIL driver. There is
+not much chance for regressions in this series as the driver currently
+can't work at all. The MICFIL needs multififo support in the i.MX SDMA
+engine which is added with this series, see 10/19.
 
-On 3/28/22 16:56, Lucas tanure wrote:
-> On 3/28/22 05:22, Hui Wang wrote:
->> The CS35L41_NUM_OTP_ELEM is 100, but only 99 entries are defined in
->> the array otp_map_1/2[CS35L41_NUM_OTP_ELEM], this will trigger UBSAN
->> to report a shift-out-of-bounds warning in the cs35l41_otp_unpack()
->> since the last entry in the array will resuilt in GENMASK(-1, 0).
-> result
->>
->> To fix it, removing the definition CS35L41_NUM_OTP_ELEM and use
->> ARRAY_SIZE to calculate the number of elements dynamically.
-> This a plain out-of-bounds access issue, you could just say that.
-> And at the end, you could say that UBSAN reported the issue.
->
-> Also the title should start with Fix, like:
-> "Fix out-of-bounds access in cs35l41_otp_packed_element_t"
->
->>
-> Fixes: 6450ef559056 ("ASoC: cs35l41: CS35L41 Boosted Smart Amplifier")
->> Signed-off-by: Hui Wang <hui.wang@canonical.com>
->
-> You are missing the Fixes tag.
->
-OK, got it, will address all comment.
+The multififo support is selected in the dma phandle arguments in the
+device tree, the transfer type must be '25' aka IMX_DMATYPE_MULTI_SAI.
+This is set already to 25 in the upstream i.MX8M[NM] dtsi files, but the
+SDMA driver silently ignores unsupported values instead of throwing an
+error. This is fixed in this series and multififo support is added.
 
-Thanks.
+I think the series should go via the ASoC tree, so I'll need an ack from
+the DMA guys for 9/19 and 10/10.
+
+Changes since v1:
+- Drop unused variable sw_done_sel
+- Evaluate sdmac->direction directly instead of storing value in n_fifos
+- add missing include linux/bitfield.h
+
+Sascha Hauer (19):
+  ASoC: fsl_micfil: Drop unnecessary register read
+  ASoC: fsl_micfil: Drop unused register read
+  ASoC: fsl_micfil: drop fsl_micfil_set_mclk_rate()
+  ASoC: fsl_micfil: do not define SHIFT/MASK for single bits
+  ASoC: fsl_micfil: use GENMASK to define register bit fields
+  ASoC: fsl_micfil: use clear/set bits
+  ASoC: fsl_micfil: drop error messages from failed register accesses
+  ASoC: fsl_micfil: drop unused variables
+  dma: imx-sdma: error out on unsupported transfer types
+  dma: imx-sdma: Add multi fifo support
+  ASoC: fsl_micfil: add multi fifo support
+  ASoC: fsl_micfil: use define for OSR default value
+  ASoC: fsl_micfil: Drop get_pdm_clk()
+  ASoC: fsl_micfil: simplify clock setting
+  ASoC: fsl_micfil: rework quality setting
+  ASoC: fsl_micfil: drop unused include
+  ASoC: fsl_micfil: drop only once used defines
+  ASoC: fsl_micfil: drop support for undocumented property
+  ASoC: fsl_micfil: fold fsl_set_clock_params() into its only user
+
+ drivers/dma/imx-sdma.c                |  74 +++++-
+ include/linux/platform_data/dma-imx.h |   7 +
+ sound/soc/fsl/fsl_micfil.c            | 369 +++++++++-----------------
+ sound/soc/fsl/fsl_micfil.h            | 269 +++++--------------
+ 4 files changed, 269 insertions(+), 450 deletions(-)
+
+-- 
+2.30.2
 

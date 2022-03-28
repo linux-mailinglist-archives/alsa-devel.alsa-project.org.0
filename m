@@ -2,63 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4078D4E9597
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Mar 2022 13:45:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFE7F4E95F5
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Mar 2022 13:57:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A597717C1;
-	Mon, 28 Mar 2022 13:44:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A597717C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 70AE51849;
+	Mon, 28 Mar 2022 13:56:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70AE51849
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648467921;
-	bh=uSPz32mAwPvQxKlM3Qog4/Sqqg6u+YlivpBP0rKR6fk=;
-	h=Date:From:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1648468650;
+	bh=0lutMOeQx3arWdfvZaaJDGhjdLRLjqRMN2YF/oWViOc=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=ouraInpDKAs9S2iJBz/5aKrcBy072/LR8Q+lbtv9hQCLoBHVvZ+5KNgVoKchXQ54U
-	 EfJt2uX94/S96qiYM7hPS3lvfQHhqQxz5PvUHiMiybqAlrHXzXud5Q9xsiLKmyI6dx
-	 PJXOYagsN3Ft9siNtMfH6XoeX3axuw3hZp4fwx0s=
+	b=VrrWz6FLSkp6Xj4ww8KCIy9KWDZvPi2FxaWX+/c31fYsi19dxqFoDeVUQqJjfInCH
+	 TrXJsWERPHaeh5TtPkfsJU8PKOc1NGtNX9VH78Ei23rEhbdmDvtUIXhc+BJ07wcIlz
+	 q7pH+xYdPzLSlixdGO46q4FYhioYtXJ3Kzv6/cXw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 04A10F800CB;
-	Mon, 28 Mar 2022 13:44:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0F0FDF80516;
+	Mon, 28 Mar 2022 13:56:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B57E1F8024C; Mon, 28 Mar 2022 13:44:12 +0200 (CEST)
+ id 035F5F8026A; Mon, 28 Mar 2022 13:56:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [IPv6:2a01:488:42:1000:50ed:8234::])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0CF65F800FA
- for <alsa-devel@alsa-project.org>; Mon, 28 Mar 2022 13:44:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0CF65F800FA
-Received: from ip4d144895.dynamic.kabel-deutschland.de ([77.20.72.149]
- helo=[192.168.66.200]); authenticated
- by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- id 1nYnn2-0001nr-F8; Mon, 28 Mar 2022 13:44:04 +0200
-Message-ID: <45051cd2-2e28-3065-776b-d5e83c998cb5@leemhuis.info>
-Date: Mon, 28 Mar 2022 13:44:03 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Content-Language: en-US
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Subject: Bug 215711 - snd_hda_intel not binding to codec
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4A24BF800FA
+ for <alsa-devel@alsa-project.org>; Mon, 28 Mar 2022 13:56:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A24BF800FA
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="I3qcisXf"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 22S8AHva030601;
+ Mon, 28 Mar 2022 06:56:17 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=s17bH2wq48xeJSQODDx6n6E0adzoVMT9RDU32m9kPUg=;
+ b=I3qcisXfuv6M760Xi3vyJlUx43PHVplJTKG1PAbmjEcxmirAnXtk8sH206F9xkPT1wh0
+ 4xAB0UDprKSVQx5OrwCNQ8oZR93egwd55ROsSdmPoKeTU4qJeLJaBxtHXtYDSi9xE/vi
+ a05AUEOGRc++J0P5lw9mvWt7UeRuONiU8o4CZFgr1NYHqiucuBqsQ283N/gAdN1uK9WG
+ dolaGNoJzpStz9Ad/bG27fcyDS+bXGW2cubjzZ2tuh3QimuJ6InfQFhtH+s3SjcJCZGf
+ hiOBewlc7y6XhVZ5YdtvpVicBmQvfrpQHlwyiXugS+yszch6xqDBNwL44GMyX578h/px uQ== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3f2081apda-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Mon, 28 Mar 2022 06:56:17 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Mon, 28 Mar
+ 2022 12:56:15 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.24 via
+ Frontend Transport; Mon, 28 Mar 2022 12:56:15 +0100
+Received: from vitaly-Legion-7-16ACHg6.ad.cirrus.com (unknown [198.90.238.244])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id B4B9E46A;
+ Mon, 28 Mar 2022 11:56:14 +0000 (UTC)
+From: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
 To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1648467848;
- fda44afa; 
-X-HE-SMSGID: 1nYnn2-0001nr-F8
-Cc: "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
- alsa-devel@alsa-project.org,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Petr Cerny <bugzilla@black-net.org>
+Subject: [PATCH 0/6] Add new HW variants and fix few minor issues
+Date: Mon, 28 Mar 2022 12:56:08 +0100
+Message-ID: <20220328115614.15761-1-vitalyr@opensource.cirrus.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: 5YFiUiG9ZSd899pGMXi9hRSEPnpMLp1m
+X-Proofpoint-GUID: 5YFiUiG9ZSd899pGMXi9hRSEPnpMLp1m
+X-Proofpoint-Spam-Reason: safe
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,186 +95,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi, this is your Linux kernel regression tracker.
+This series adds new HW variants for Dell's Dolphin and Warlock,
+and also fixies few very minor issues.
 
-I noticed a regression report in bugzilla.kernel.org that afaics nobody
-acted upon since it was reported about a week ago, that's why I decided
-to forward it to the lists and the maintainers. To quote from
-https://bugzilla.kernel.org/show_bug.cgi?id=215711:
+Stefan Binding (5):
+  ALSA: hda/cs8409: Fix Warlock to use mono mic configuration
+  ALSA: hda/cs8409: Re-order quirk table into ascending order
+  ALSA: hda/cs8409: Fix Full Scale Volume setting for all variants
+  ALSA: hda/cs8409: Support new Warlock MLK Variants
+  ALSA: hda/cs8409: Disable HSBIAS_SENSE_EN for Cyborg
 
-> Created attachment 300588 [details]
-> SND_HDA_* excrept from kernel config
-> 
-> On PCI device discovery the Intel HDA codec doesn't bind to appropriate codec (if that is the correct term). The device codec (Conexant) is loaded, but sound doesn't work. Reloading the main module (snd_hda_intel) fixes the issue:
-> 
-> $ echo 1 > /sys/bus/pci/devices/0000:00:1b.0/remove
-> 
-> $ lsmod | sort
-> Module                  Size  Used by
-> configs                45056  0
-> e1000e                225280  0
-> grace                  16384  1 lockd
-> irqbypass              16384  1 kvm
-> iwlwifi               274432  0
-> kvm                   569344  1 kvm_intel
-> kvm_intel             229376  0
-> lockd                  98304  1 nfs
-> mei                    90112  1 mei_me
-> mei_me                 28672  0
-> nfs                   184320  3 nfsv4
-> nfsv4                 380928  2
-> sunrpc                274432  9 nfsv4,lockd,nfs
-> uvcvideo              110592  0
-> videobuf2_common       45056  4 videobuf2_vmalloc,videobuf2_v4l2,uvcvideo,videobuf2_memops
-> videobuf2_memops       16384  1 videobuf2_vmalloc
-> videobuf2_v4l2         24576  1 uvcvideo
-> videobuf2_vmalloc      16384  1 uvcvideo
-> 
-> $ echo 1 > /sys/bus/pci/rescan
-> # dmesg output
-> [ 9218.563134] pci 0000:00:1b.0: [8086:3b56] type 00 class 0x040300
-> [ 9218.563178] pci 0000:00:1b.0: reg 0x10: [mem 0xc0004000-0xc0007fff 64bit]
-> [ 9218.563344] pci 0000:00:1b.0: PME# supported from D0 D3hot D3cold
-> [ 9218.563818] pci 0000:00:1b.0: BAR 0: assigned [mem 0xc0004000-0xc0007fff 64bit]
-> [ 9218.563846] pci 0000:00:1e.0: PCI bridge to [bus 0e]
-> [ 9218.598927] snd_hda_intel 0000:00:1b.0: bound 0000:00:02.0 (ops 0xffffffff824a44e0)
-> [ 9218.609798] snd_hda_intel 0000:00:1b.0: Cannot probe codecs, giving up
-> 
-> $ lsmod | sort
-> Module                  Size  Used by                                                                                                                                                                                                                                            
-> configs                45056  0                                                                                                                                                                                                                                                  
-> e1000e                225280  0                                                                                                                                                                                                                                                  
-> grace                  16384  1 lockd                                                                                                                                                                                                                                            
-> irqbypass              16384  1 kvm                                                                                                                                                                                                                                              
-> iwlwifi               274432  0                                                                                                                                                                                                                                                  
-> kvm                   569344  1 kvm_intel                                                                                               
-> kvm_intel             229376  0                                                                                                         
-> lockd                  98304  1 nfs                                                                                                     
-> mei                    90112  1 mei_me                                                                                                  
-> mei_me                 28672  0                                                                                                         
-> nfs                   184320  3 nfsv4                                                                                                   
-> nfsv4                 380928  2                                                                                                         
-> snd                    77824  7 snd_hda_codec_generic,snd_hda_codec_conexant,snd_hwdep,snd_hda_intel,snd_hda_codec,snd_timer,snd_pcm    
-> snd_hda_codec         118784  3 snd_hda_codec_generic,snd_hda_codec_conexant,snd_hda_intel                                              
-> snd_hda_codec_conexant    20480  0                                                                                                      
-> snd_hda_codec_generic    77824  1 snd_hda_codec_conexant                                                                                
-> snd_hda_core           65536  4 snd_hda_codec_generic,snd_hda_codec_conexant,snd_hda_intel,snd_hda_codec                                
-> snd_hda_intel          36864  0                                                                                                         
-> snd_hwdep              16384  1 snd_hda_codec                                                                                           
-> snd_intel_dspcfg       16384  1 snd_hda_intel                                                                                           
-> snd_pcm               110592  3 snd_hda_intel,snd_hda_codec,snd_hda_core                                                                
-> snd_timer              32768  1 snd_pcm                                                                                                 
-> soundcore              16384  1 snd                                                                                                     
-> sunrpc                274432  9 nfsv4,lockd,nfs                                                                                         
-> uvcvideo              110592  0                                                                                                         
-> videobuf2_common       45056  4 videobuf2_vmalloc,videobuf2_v4l2,uvcvideo,videobuf2_memops
-> videobuf2_memops       16384  1 videobuf2_vmalloc
-> videobuf2_v4l2         24576  1 uvcvideo
-> videobuf2_vmalloc      16384  1 uvcvideo
-> 
-> $ modprobe -rv snd_hda_intel; modprobe -v snd_hda_intel
-> # dmesg output
-> [ 9230.886362] snd_hda_intel 0000:00:1b.0: bound 0000:00:02.0 (ops 0xffffffff824a44e0)
-> [ 9230.895721] snd_hda_codec_conexant hdaudioC0D0: CX20585: BIOS auto-probing.
-> [ 9230.896677] snd_hda_codec_conexant hdaudioC0D0: autoconfig for CX20585: line_outs=1 (0x1f/0x0/0x0/0x0/0x0) type:speaker
-> [ 9230.896691] snd_hda_codec_conexant hdaudioC0D0:    speaker_outs=0 (0x0/0x0/0x0/0x0/0x0)
-> [ 9230.896700] snd_hda_codec_conexant hdaudioC0D0:    hp_outs=2 (0x1c/0x19/0x0/0x0/0x0)
-> [ 9230.896707] snd_hda_codec_conexant hdaudioC0D0:    mono: mono_out=0x0
-> [ 9230.896713] snd_hda_codec_conexant hdaudioC0D0:    inputs:
-> [ 9230.896718] snd_hda_codec_conexant hdaudioC0D0:      Internal Mic=0x23
-> [ 9230.896724] snd_hda_codec_conexant hdaudioC0D0:      Mic=0x1b
-> [ 9230.896729] snd_hda_codec_conexant hdaudioC0D0:      Dock Mic=0x1a
-> [ 9230.908437] snd_hda_codec_generic hdaudioC0D3: autoconfig for Generic: line_outs=0 (0x0/0x0/0x0/0x0/0x0) type:line
-> [ 9230.908454] snd_hda_codec_generic hdaudioC0D3:    speaker_outs=0 (0x0/0x0/0x0/0x0/0x0)
-> [ 9230.908461] snd_hda_codec_generic hdaudioC0D3:    hp_outs=0 (0x0/0x0/0x0/0x0/0x0)
-> [ 9230.908468] snd_hda_codec_generic hdaudioC0D3:    mono: mono_out=0x0
-> [ 9230.908473] snd_hda_codec_generic hdaudioC0D3:    dig-out=0x5/0x0
-> [ 9230.908477] snd_hda_codec_generic hdaudioC0D3:    inputs:
-> [ 9230.916063] input: HDA Intel MID Mic as /devices/pci0000:00/0000:00:1b.0/sound/card0/input52
-> [ 9230.916216] input: HDA Intel MID Dock Mic as /devices/pci0000:00/0000:00:1b.0/sound/card0/input53
-> [ 9230.916353] input: HDA Intel MID Dock Headphone as /devices/pci0000:00/0000:00:1b.0/sound/card0/input54
-> [ 9230.919563] input: HDA Intel MID Headphone as /devices/pci0000:00/0000:00:1b.0/sound/card0/input55
-> [ 9230.919727] input: HDA Intel MID HDMI as /devices/pci0000:00/0000:00:1b.0/sound/card0/input56
-> 
-> $ lsmod | sort
-> Module                  Size  Used by
-> configs                45056  0
-> e1000e                225280  0
-> grace                  16384  1 lockd
-> irqbypass              16384  1 kvm
-> iwlwifi               274432  0
-> kvm                   569344  1 kvm_intel
-> kvm_intel             229376  0
-> lockd                  98304  1 nfs
-> mei                    90112  1 mei_me
-> mei_me                 28672  0
-> nfs                   184320  3 nfsv4
-> nfsv4                 380928  2
-> snd                    77824  7 snd_hda_codec_generic,snd_hda_codec_conexant,snd_hwdep,snd_hda_intel,snd_hda_codec,snd_timer,snd_pcm
-> snd_hda_codec         118784  3 snd_hda_codec_generic,snd_hda_codec_conexant,snd_hda_intel
-> snd_hda_codec_conexant    20480  1
-> snd_hda_codec_generic    77824  2 snd_hda_codec_conexant
-> snd_hda_core           65536  4 snd_hda_codec_generic,snd_hda_codec_conexant,snd_hda_intel,snd_hda_codec
-> snd_hda_intel          36864  0
-> snd_hwdep              16384  1 snd_hda_codec
-> snd_intel_dspcfg       16384  1 snd_hda_intel
-> snd_pcm               110592  3 snd_hda_intel,snd_hda_codec,snd_hda_core
-> snd_timer              32768  1 snd_pcm
-> soundcore              16384  1 snd
-> sunrpc                274432  9 nfsv4,lockd,nfs
-> uvcvideo              110592  0
-> videobuf2_common       45056  4 videobuf2_vmalloc,videobuf2_v4l2,uvcvideo,videobuf2_memops
-> videobuf2_memops       16384  1 videobuf2_vmalloc
-> videobuf2_v4l2         24576  1 uvcvideo
-> videobuf2_vmalloc      16384  1 uvcvideo
-> 
-> 
-> 5.15.29, have observed it already at least on 5.10.27, HW is ThinkPad x201 (x220 as well). I'm marking it as regression, since it used to work in the distant past (5.4-ish at least iirc)
+Vitaly Rodionov (1):
+  ALSA: hda/cs8409: Add new Dolphin HW variants
 
-Could somebody take a look into this? Or was this discussed somewhere
-else already? Or even fixed?
-
-Anyway, to get this tracked:
-
-#regzbot introduced: v5.4..v5.10
-#regzbot from: Petr Cerny <bugzilla@black-net.org>
-#regzbot title: snd: snd_hda_intel not binding to codec
-#regzbot link: https://bugzilla.kernel.org/show_bug.cgi?id=215711
-
-Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
-
-P.S.: As the Linux kernel's regression tracker I'm getting a lot of
-reports on my table. I can only look briefly into most of them and lack
-knowledge about most of the areas they concern. I thus unfortunately
-will sometimes get things wrong or miss something important. I hope
-that's not the case here; if you think it is, don't hesitate to tell me
-in a public reply, it's in everyone's interest to set the public record
-straight.
+ sound/pci/hda/patch_cs8409-tables.c | 68 +++++++++++++++++++++--------
+ sound/pci/hda/patch_cs8409.c        | 47 +++++++++++---------
+ sound/pci/hda/patch_cs8409.h        |  5 +++
+ 3 files changed, 83 insertions(+), 37 deletions(-)
 
 -- 
-Additional information about regzbot:
-
-If you want to know more about regzbot, check out its web-interface, the
-getting start guide, and the references documentation:
-
-https://linux-regtracking.leemhuis.info/regzbot/
-https://gitlab.com/knurd42/regzbot/-/blob/main/docs/getting_started.md
-https://gitlab.com/knurd42/regzbot/-/blob/main/docs/reference.md
-
-The last two documents will explain how you can interact with regzbot
-yourself if your want to.
-
-Hint for reporters: when reporting a regression it's in your interest to
-CC the regression list and tell regzbot about the issue, as that ensures
-the regression makes it onto the radar of the Linux kernel's regression
-tracker -- that's in your interest, as it ensures your report won't fall
-through the cracks unnoticed.
-
-Hint for developers: you normally don't need to care about regzbot once
-it's involved. Fix the issue as you normally would, just remember to
-include 'Link:' tag in the patch descriptions pointing to all reports
-about the issue. This has been expected from developers even before
-regzbot showed up for reasons explained in
-'Documentation/process/submitting-patches.rst' and
-'Documentation/process/5.Posting.rst'.
+2.25.1
 

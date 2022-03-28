@@ -2,91 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADD804E9713
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Mar 2022 14:52:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A864B4E9714
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Mar 2022 14:53:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 30889188A;
-	Mon, 28 Mar 2022 14:51:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 30889188A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 466241896;
+	Mon, 28 Mar 2022 14:52:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 466241896
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648471946;
-	bh=mDUsLGNCkN5yyk67UjTmslWnnMXanXwAW5M2yhQrNsY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1648471980;
+	bh=rhsIQj7nBr93FOQ9bJZloJK9GH/Qk2/DTIZDyoauwxc=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=D58K5nxaFydEQFsF5+e9VXjquOJZIL6sSE9WZZSD9v3RN1okC8wb928529k5KsW18
-	 BURPz139povuHWJrrFm/PQsE4DW+ycIvD3DqAOtt09axhVhNg6fSmovI9EERMf2lbI
-	 foMm3wj/t2/sjwkN7ZvuKIeFFHJZteDRTfvokpQ4=
+	b=aTE6jPLnvQeM8jIqXRsx7/1iJMm699EoLX0T4sYnEMG6o8nu7Qx5PtRrSGtrw7cEL
+	 o0cj8zLGxW6Wg7Nq7MmTM7IBDTS5Z8b8ljNBnKkRe2XXPC5l9hyKL4mB3kfsy6mWpX
+	 Hivjc5mLjcF1k5ZGufqIyn2HiKD8VvjPChWgeNcQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 98ED3F80121;
-	Mon, 28 Mar 2022 14:51:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 19D9FF804CF;
+	Mon, 28 Mar 2022 14:51:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A4DACF80121; Mon, 28 Mar 2022 14:51:18 +0200 (CEST)
+ id 0C96DF804CF; Mon, 28 Mar 2022 14:51:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-il1-x143.google.com (mail-il1-x143.google.com
- [IPv6:2607:f8b0:4864:20::143])
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-oa1-f46.google.com (mail-oa1-f46.google.com
+ [209.85.160.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BC988F80121
- for <alsa-devel@alsa-project.org>; Mon, 28 Mar 2022 14:51:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC988F80121
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="fmnUk8fz"
-Received: by mail-il1-x143.google.com with SMTP id h18so5347353ila.12
- for <alsa-devel@alsa-project.org>; Mon, 28 Mar 2022 05:51:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=NmQMOl74rWGRWzafuyJ5jjCyGGjWrcet8PudU8eNoTM=;
- b=fmnUk8fzFuPNcQLP4BGXA1S9aa97ooEg6VvUkroT0u2nlfdICTx4oy6TaPbWXhvP2p
- ycG9uUulYtBRRjLm9QXjKOnv6AXp/13Jj48+DV1eeBRQcSNHZBR8E/63/XFTjZ4F2U1Z
- /yWrDsUP0Axr8AP3acYeBwfDZz53FpCWg20obz6FBTMIy6DyWhoK3XEuP3vzdYNdNFi8
- +0A4Z/J7Mlr9Z394QGOI1u0UNFDGE7BJASd2oJy7o5ajLXTTwx3PsG+wubUAG6Tzsn1M
- e99RFMzotoXtGAcBMws38D0LjwZFIdFfjgVk2ZTTXM/RkrDzZs84Ula9HelT/mD+AsNs
- pjYQ==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 10635F80128
+ for <alsa-devel@alsa-project.org>; Mon, 28 Mar 2022 14:51:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10635F80128
+Received: by mail-oa1-f46.google.com with SMTP id
+ 586e51a60fabf-df014ca245so2788251fac.3
+ for <alsa-devel@alsa-project.org>; Mon, 28 Mar 2022 05:51:13 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=NmQMOl74rWGRWzafuyJ5jjCyGGjWrcet8PudU8eNoTM=;
- b=fmrJMhTYqr+a9HAaKYxmbLSoQQ4TI7m7kK6JKWnErVqXgJH4R4KIbxvAzipDRRhzJu
- fU21mrACw+AkP2GMdm2dTcYITe61pQx/YBpB+1H/vqnt+92lW3AiYdwdgtyFjJ4ozTpd
- fbGYsY6eP4dUbBX9R2Zbq+ysBDN08v2fL3B5A6cSsd8F1L0OAvs56b7zrb9Bc8tFRJLG
- mCHupwZVhdf5klc6SPf8qxIo2oESbHfA3p1UhuNbavzT/h9loMiRRhRSec2VNU8AxQtN
- s3QBldKv4cblNS7eszMojhcGvXsa3+i5eO63+/vyw+gBmJLmVI1WUNJPRjo0f7OHkCki
- C4IQ==
-X-Gm-Message-State: AOAM531IzNwFZTDzK2XefJo6sprjEuATrMJsAFllW/G+P5tLoZfPWeKR
- ipG6PlWQa2JqpLGqUeAbHq5cexLn2U7qrrs23dc=
-X-Google-Smtp-Source: ABdhPJxh9OmbBwag5bvEGizKUKZLQbnirkyw/QJTsPJZeG6mVqa3cTPMDPAy/NRf7yrVNUIQBEFYGZcMWITxadtTRCQ=
-X-Received: by 2002:a92:cdad:0:b0:2c6:7b76:a086 with SMTP id
- g13-20020a92cdad000000b002c67b76a086mr6014966ild.5.1648471870337; Mon, 28 Mar
- 2022 05:51:10 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220328021139.8700-1-steve.lee.analog@gmail.com>
- <PH0PR03MB678617C7A854827D0EC99010991D9@PH0PR03MB6786.namprd03.prod.outlook.com>
-In-Reply-To: <PH0PR03MB678617C7A854827D0EC99010991D9@PH0PR03MB6786.namprd03.prod.outlook.com>
-From: Lee Steve <steve.lee.analog@gmail.com>
-Date: Mon, 28 Mar 2022 21:50:59 +0900
-Message-ID: <CA+Fz0PZQUcjLL2fmOLcyYxhqfyoY0jVKtz1GgRTur9XJDs_wag@mail.gmail.com>
-Subject: Re: [V3 1/2] ASoC: max98390: Add reset gpio control
-To: "Sa, Nuno" <Nuno.Sa@analog.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "ryans.lee@maximintegrated.com" <ryans.lee@maximintegrated.com>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "krzk@kernel.org" <krzk@kernel.org>, "tiwai@suse.com" <tiwai@suse.com>,
- "broonie@kernel.org" <broonie@kernel.org>
+ h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
+ :message-id;
+ bh=GP1bdWVmsBSkAlGr/Gp2UnisAPKv1M13pEpomMv6UjQ=;
+ b=3Wxm+NqLK1E+LKBGnmmn17zcKEe297iwrF5ZHRApKYMkm1Ugj6nUsIZKT1ag7eLubE
+ 3hwXSxPbofzaVJPHVyksC1u6s8yI0cMnVRU0NqbdRWv1BGNYbE9jhviQRCV56z2BRJOr
+ CeQuLfFYphPzHuVG4j2QfsOZrmTBKzoGPjb6zhFyGlCW7uIzqfJWP6AoDYbGCZJpMJcq
+ nDa0QrjJAQin/CwouOBaEjKa5FNPbW29ogMF9JTbqDtMGIj22xl8e8ytK8/QVraqfKzU
+ mf/9ZIAjoJT9z9QxD9TeRZ/+e7sBIlaV6Orwil71ilquMSDleypxK3jzaCJS6ayOsjC+
+ je2A==
+X-Gm-Message-State: AOAM531/ym0ZrpnpUq9xITNIlqYen5hS9xVFOVXmOsRZoz6rFqYg1i57
+ RKoVGekeqd6zBabXT8mFRA==
+X-Google-Smtp-Source: ABdhPJwT3yYx6LIv4tBCmidDkpcH2xuaILIymk6sDk/mQOiMYgThNK+zceGc8kgIC3YCSqd7omS/7w==
+X-Received: by 2002:a05:6870:65ab:b0:de:37be:30a6 with SMTP id
+ fp43-20020a05687065ab00b000de37be30a6mr14525453oab.70.1648471871476; 
+ Mon, 28 Mar 2022 05:51:11 -0700 (PDT)
+Received: from robh.at.kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ n15-20020aca240f000000b002da2fc73741sm6940329oic.33.2022.03.28.05.51.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 28 Mar 2022 05:51:10 -0700 (PDT)
+Received: (nullmailer pid 2153576 invoked by uid 1000);
+ Mon, 28 Mar 2022 12:51:05 -0000
+From: Rob Herring <robh@kernel.org>
+To: Sameer Pujar <spujar@nvidia.com>
+In-Reply-To: <1648448050-15237-2-git-send-email-spujar@nvidia.com>
+References: <1648448050-15237-1-git-send-email-spujar@nvidia.com>
+ <1648448050-15237-2-git-send-email-spujar@nvidia.com>
+Subject: Re: [RFC PATCH v2 1/6] ASoC: dt-bindings: Convert rt5659 bindings to
+ YAML schema
+Date: Mon, 28 Mar 2022 07:51:05 -0500
+Message-Id: <1648471865.814225.2153575.nullmailer@robh.at.kernel.org>
+Cc: oder_chiou@realtek.com, pierre-louis.bossart@linux.intel.com,
+ alsa-devel@alsa-project.org, lgirdwood@gmail.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, tiwai@suse.com, robh+dt@kernel.org,
+ jonathanh@nvidia.com, broonie@kernel.org, thierry.reding@gmail.com,
+ linux-tegra@vger.kernel.org, krzk+dt@kernel.org,
+ peter.ujfalusi@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,59 +96,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Mar 28, 2022 at 4:42 PM Sa, Nuno <Nuno.Sa@analog.com> wrote:
->
-> > From: Steve Lee <steve.lee.analog@gmail.com>
-> > Sent: Monday, March 28, 2022 4:12 AM
-> > To: lgirdwood@gmail.com; broonie@kernel.org; perex@perex.cz;
-> > tiwai@suse.com; ryans.lee@maximintegrated.com; linux-
-> > kernel@vger.kernel.org; alsa-devel@alsa-project.org
-> > Cc: krzk@kernel.org; Sa, Nuno <Nuno.Sa@analog.com>; Steve Lee
-> > <steve.lee.analog@gmail.com>
-> > Subject: [V3 1/2] ASoC: max98390: Add reset gpio control
-> >
-> > [External]
-> >
-> >  Add reset gpio control to support RESET PIN connected to gpio.
-> >
-> > Signed-off-by: Steve Lee <steve.lee.analog@gmail.com>
-> > ---
-> >  sound/soc/codecs/max98390.c | 12 ++++++++++++
-> >  1 file changed, 12 insertions(+)
-> >
-> > diff --git a/sound/soc/codecs/max98390.c
-> > b/sound/soc/codecs/max98390.c
-> > index 40fd6f363f35..05df9b85d9b0 100644
-> > --- a/sound/soc/codecs/max98390.c
-> > +++ b/sound/soc/codecs/max98390.c
-> > @@ -1022,6 +1022,7 @@ static int max98390_i2c_probe(struct
-> > i2c_client *i2c,
-> >
-> >       struct max98390_priv *max98390 =3D NULL;
-> >       struct i2c_adapter *adapter =3D i2c->adapter;
-> > +     struct gpio_desc *reset_gpio;
-> >
-> >       ret =3D i2c_check_functionality(adapter,
-> >               I2C_FUNC_SMBUS_BYTE
-> > @@ -1073,6 +1074,17 @@ static int max98390_i2c_probe(struct
-> > i2c_client *i2c,
-> >               return ret;
-> >       }
-> >
-> > +     reset_gpio =3D devm_gpiod_get_optional(&i2c->dev,
-> > +                                          "reset", GPIOD_OUT_LOW);
-> > +
-> > +     /* Power on device */
-> > +     if (reset_gpio) {
-> > +             usleep_range(1000, 2000);
-> > +             /* bring out of reset */
-> > +             gpiod_set_value_cansleep(reset_gpio, 1);
->
-> Note this will set the gpio in the asserted state. Being it active low, t=
-his will
-> do the opposite thing that you are trying to accomplish...
->
-> - Nuno S=C3=A1
+On Mon, 28 Mar 2022 11:44:05 +0530, Sameer Pujar wrote:
+> Convert rt5659.txt DT binding to YAML schema. This binding is applicable
+> to rt5658 and rt5659 audio CODECs.
+> 
+> Signed-off-by: Sameer Pujar <spujar@nvidia.com>
+> Cc: Oder Chiou <oder_chiou@realtek.com>
+> ---
+>  .../devicetree/bindings/sound/realtek,rt5659.yaml  | 112 +++++++++++++++++++++
+>  Documentation/devicetree/bindings/sound/rt5659.txt |  89 ----------------
+>  2 files changed, 112 insertions(+), 89 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/sound/realtek,rt5659.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/sound/rt5659.txt
+> 
 
-I agree with your comment. I will update next version patch if there
-is other concern.
+Running 'make dtbs_check' with the schema in this patch gives the
+following warnings. Consider if they are expected or the schema is
+incorrect. These may not be new warnings.
+
+Note that it is not yet a requirement to have 0 warnings for dtbs_check.
+This will change in the future.
+
+Full log is available here: https://patchwork.ozlabs.org/patch/1610026
+
+
+audio-codec@1a: 'port' does not match any of the regexes: 'pinctrl-[0-9]+'
+	arch/arm64/boot/dts/nvidia/tegra194-p2972-0000.dt.yaml
+

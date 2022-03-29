@@ -2,71 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 184294EA540
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Mar 2022 04:35:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FC8A4EA6A8
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Mar 2022 06:41:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A02B81731;
-	Tue, 29 Mar 2022 04:34:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A02B81731
+	by alsa0.perex.cz (Postfix) with ESMTPS id 36BAB175A;
+	Tue, 29 Mar 2022 06:40:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 36BAB175A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648521322;
-	bh=wg3INMyNljTx9XmDkJKD9ECZHDgmQovT1An3PyqCQyk=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1648528879;
+	bh=DZRc+KCsVdGPHeALwU+iymZbYFCxRAtALxQwt4Jpb0A=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AUL558wlVqyaM9NdRh7uh3P7oCpoUdJSY14QMbx7vbrXExfVzqGSnwlAPyWMJ+LNK
-	 W+tL9Up0pwu9oEmAuNX2us3o8Wg9+YO/EzFsIY1us5SdeKJAlPpXBIXr1Z523T4+pC
-	 e5y9RQYVHSy+scTgs14QSYUVb79Gbd63w63wA9g0=
+	b=d7rD/4J2krVFdhpnFJsGCIykBmkt04CU+UInIIRFt6Qqr5C6QsNaFIeC2yiepYCcE
+	 qYRE05IJzPCyH7O55lq/LP8b/dxK2gIHa+5y9wmFib+29FM93zM8wJfqUx8ZZytxNc
+	 3GCU+s39+SslurAonMYTL7IPbjURW4o5aI+wht8o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 13241F804B0;
-	Tue, 29 Mar 2022 04:34:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A8434F804B0;
+	Tue, 29 Mar 2022 06:40:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 122FCF800FA; Tue, 29 Mar 2022 04:34:14 +0200 (CEST)
+ id 66E37F800FA; Tue, 29 Mar 2022 06:40:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=2.0 required=5.0 tests=PRX_BODY_30,RDNS_NONE,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 41CD0F800FA
- for <alsa-devel@alsa-project.org>; Tue, 29 Mar 2022 04:34:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41CD0F800FA
-X-UUID: bf9bfe96da7f47e8a2ae7259817316b0-20220329
-X-UUID: bf9bfe96da7f47e8a2ae7259817316b0-20220329
-Received: from mtkcas11.mediatek.inc [(172.21.101.40)] by mailgw01.mediatek.com
- (envelope-from <trevor.wu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 640139202; Tue, 29 Mar 2022 10:34:00 +0800
-Received: from mtkcas10.mediatek.inc (172.21.101.39) by
- mtkmbs07n1.mediatek.inc (172.21.101.16) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Tue, 29 Mar 2022 10:33:58 +0800
-Received: from mtksdccf07 (172.21.84.99) by mtkcas10.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Tue, 29 Mar 2022 10:33:58 +0800
-Message-ID: <eef98cc24f75f9712acd3fe5e597d49140cbc943.camel@mediatek.com>
-Subject: Re: [PATCH] mediatek: mt8195: fix a missing check on list iterator
-From: Trevor Wu <trevor.wu@mediatek.com>
-To: Xiaomeng Tong <xiam0nd.tong@gmail.com>, <lgirdwood@gmail.com>,
- <broonie@kernel.org>, <perex@perex.cz>, <tiwai@suse.com>,
- <matthias.bgg@gmail.com>
-Date: Tue, 29 Mar 2022 10:33:58 +0800
-In-Reply-To: <20220327081712.13341-1-xiam0nd.tong@gmail.com>
-References: <20220327081712.13341-1-xiam0nd.tong@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+ by alsa1.perex.cz (Postfix) with ESMTPS id AF47AF800FA
+ for <alsa-devel@alsa-project.org>; Tue, 29 Mar 2022 06:40:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF47AF800FA
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="F/X3Wxsq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1648528803; x=1680064803;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=DZRc+KCsVdGPHeALwU+iymZbYFCxRAtALxQwt4Jpb0A=;
+ b=F/X3Wxsqu/rOAcYIv6AV7DO6/inbN9CK3r82Qet4dvoco9X6jwUWfTeL
+ OfICvrBpD5b3k4zY/KJy7z3IOiv1GdDETk4O8ihkXLYdLz1r1oX0F2ZjU
+ vdZXA3Uxy+DtTZATLSrsqQ5xw/6HFIPGkt9bzcK97f3mMs2wWlFQ9WSng
+ Qr2PRUo0H4zV8QzDW+m6PDI1B3GMOEeMQ64ZNNKcVgOa8EP/PpVWQbJ4k
+ qzt1MwuwlH7W0K0AS1cjh8Ei4968jGiKK6dXrnc89gnGE6K86OBYMyaHw
+ gpk7Rz9QwXGWcDcefjfYbzhNPy/sqEUOzFOTpG6RnPvKyvXkmDj9XOjwu w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10300"; a="322345956"
+X-IronPort-AV: E=Sophos;i="5.90,219,1643702400"; d="scan'208";a="322345956"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Mar 2022 21:39:58 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.90,219,1643702400"; d="scan'208";a="604523866"
+Received: from lkp-server02.sh.intel.com (HELO 89b41b6ae01c) ([10.239.97.151])
+ by fmsmga008.fm.intel.com with ESMTP; 28 Mar 2022 21:39:55 -0700
+Received: from kbuild by 89b41b6ae01c with local (Exim 4.92)
+ (envelope-from <lkp@intel.com>)
+ id 1nZ3e6-0002eK-Ge; Tue, 29 Mar 2022 04:39:54 +0000
+Date: Tue, 29 Mar 2022 12:39:06 +0800
+From: kernel test robot <lkp@intel.com>
+To: Kai-Heng Feng <kai.heng.feng@canonical.com>, tiwai@suse.com
+Subject: Re: [PATCH] ALSA: hda/realtek: Fix audio regression on Mi Notebook
+ Pro 2020
+Message-ID: <202203291202.DT2WLVoc-lkp@intel.com>
+References: <20220329001845.776776-1-kai.heng.feng@canonical.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-MTK: N
-Cc: linux-arm-kernel@lists.infradead.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, rikard.falkeborn@gmail.com, tzungbi@google.com,
- linux-mediatek@lists.infradead.org, jiaxin.yu@mediatek.com,
- yc.hung@mediatek.com, stable@vger.kernel.org, dan.carpenter@oracle.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220329001845.776776-1-kai.heng.feng@canonical.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, Kailang Yang <kailang@realtek.com>,
+ kbuild-all@lists.01.org, Lucas Tanure <tanureal@opensource.cirrus.com>,
+ Jeremy Szu <jeremy.szu@canonical.com>, llvm@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Werner Sembach <wse@tuxedocomputers.com>,
+ Hui Wang <hui.wang@canonical.com>, Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ Sami Loone <sami@loone.fi>, Cameron Berkenpas <cam@neo-zeon.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,98 +97,97 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 2022-03-27 at 16:17 +0800, Xiaomeng Tong wrote:
-> The bug is here:
->  mt8195_etdm_hw_params_fixup(runtime, params);
-> 
-> For the for_each_card_rtds(), just like list_for_each_entry(),
-> the list iterator 'runtime' will point to a bogus position
-> containing HEAD if the list is empty or no element is found.
-> This case must be checked before any use of the iterator,
-> otherwise it will lead to a invalid memory access.
-> 
-> To fix the bug, use a new variable 'iter' as the list iterator,
-> while use the original variable 'runtime' as a dedicated poin
-> ter
-> to point to the found element.
+Hi Kai-Heng,
 
-Hi Xiaomeng,
+Thank you for the patch! Perhaps something to improve:
 
-About this bug, I think it won't happen anymore.
+[auto build test WARNING on tiwai-sound/for-next]
+[also build test WARNING on v5.17 next-20220329]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch]
 
-mt8195_dai_link_fixup() is only assigned when the corresponding
-snd_soc_pcm_runtime is found
-in mt8195_mt6359_rt1019_rt5682_late_probe().
+url:    https://github.com/0day-ci/linux/commits/Kai-Heng-Feng/ALSA-hda-realtek-Fix-audio-regression-on-Mi-Notebook-Pro-2020/20220329-082021
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
+config: arm64-randconfig-r036-20220327 (https://download.01.org/0day-ci/archive/20220329/202203291202.DT2WLVoc-lkp@intel.com/config)
+compiler: clang version 15.0.0 (https://github.com/llvm/llvm-project 0f6d9501cf49ce02937099350d08f20c4af86f3d)
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # install arm64 cross compiling tool for clang build
+        # apt-get install binutils-aarch64-linux-gnu
+        # https://github.com/0day-ci/linux/commit/b86b7ea348ec9ba6c3824d7a0066968ec4fa0ce5
+        git remote add linux-review https://github.com/0day-ci/linux
+        git fetch --no-tags linux-review Kai-Heng-Feng/ALSA-hda-realtek-Fix-audio-regression-on-Mi-Notebook-Pro-2020/20220329-082021
+        git checkout b86b7ea348ec9ba6c3824d7a0066968ec4fa0ce5
+        # save the config file to linux build tree
+        mkdir build_dir
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=arm64 SHELL=/bin/bash sound/pci/hda/
 
-On the other hand, runtime is not used in the body of
-mt8195_etdm_hw_params_fixup().
+If you fix the issue, kindly add following tag as appropriate
+Reported-by: kernel test robot <lkp@intel.com>
 
-That's why I think the problem doesn't exist.
-If I misunderstood the problem you pointed out, please correct me.
+All warnings (new ones prefixed by >>):
 
-Thanks,
-Trevor
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 3d00d2c07f04f ("ASoC: mediatek: mt8195: add sof support on
-> mt8195-mt6359-rt1019-rt5682")
-> Signed-off-by: Xiaomeng Tong <xiam0nd.tong@gmail.com>
-> ---
->  .../mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c  | 14 ++++++++--
-> ----
->  1 file changed, 8 insertions(+), 6 deletions(-)
-> 
-> diff --git a/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c
-> b/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c
-> index 29c2d3407cc7..dc91877e4c3c 100644
-> --- a/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c
-> +++ b/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c
-> @@ -814,7 +814,7 @@ static int mt8195_dai_link_fixup(struct
-> snd_soc_pcm_runtime *rtd,
->  {
->  	struct snd_soc_card *card = rtd->card;
->  	struct snd_soc_dai_link *sof_dai_link = NULL;
-> -	struct snd_soc_pcm_runtime *runtime;
-> +	struct snd_soc_pcm_runtime *runtime = NULL, *iter;
->  	struct snd_soc_dai *cpu_dai;
->  	int i, j, ret = 0;
->  
-> @@ -824,16 +824,17 @@ static int mt8195_dai_link_fixup(struct
-> snd_soc_pcm_runtime *rtd,
->  		if (strcmp(rtd->dai_link->name, conn->normal_link))
->  			continue;
->  
-> -		for_each_card_rtds(card, runtime) {
-> -			if (strcmp(runtime->dai_link->name, conn-
-> >sof_link))
-> +		for_each_card_rtds(card, iter) {
-> +			if (strcmp(iter->dai_link->name, conn-
-> >sof_link))
->  				continue;
->  
-> -			for_each_rtd_cpu_dais(runtime, j, cpu_dai) {
-> +			for_each_rtd_cpu_dais(iter, j, cpu_dai) {
->  				if (cpu_dai->stream_active[conn-
-> >stream_dir] > 0) {
-> -					sof_dai_link = runtime-
-> >dai_link;
-> +					sof_dai_link = iter->dai_link;
->  					break;
->  				}
->  			}
-> +			runtime = iter;
->  			break;
->  		}
->  
-> @@ -845,7 +846,8 @@ static int mt8195_dai_link_fixup(struct
-> snd_soc_pcm_runtime *rtd,
->  
->  	if (!strcmp(rtd->dai_link->name, "ETDM2_IN_BE") ||
->  	    !strcmp(rtd->dai_link->name, "ETDM1_OUT_BE")) {
-> -		mt8195_etdm_hw_params_fixup(runtime, params);
-> +		if (runtime)
-> +			mt8195_etdm_hw_params_fixup(runtime, params);
->  	}
->  
->  	return ret;
+>> sound/pci/hda/patch_realtek.c:3620:42: warning: overlapping comparisons always evaluate to true [-Wtautological-overlap-compare]
+           if (codec->core.vendor_id != 0x10ec0236 ||
+               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~
+   1 warning generated.
 
+
+vim +3620 sound/pci/hda/patch_realtek.c
+
+  3594	
+  3595	static void alc256_shutup(struct hda_codec *codec)
+  3596	{
+  3597		struct alc_spec *spec = codec->spec;
+  3598		hda_nid_t hp_pin = alc_get_hp_pin(spec);
+  3599		bool hp_pin_sense;
+  3600	
+  3601		if (!hp_pin)
+  3602			hp_pin = 0x21;
+  3603	
+  3604		hp_pin_sense = snd_hda_jack_detect(codec, hp_pin);
+  3605	
+  3606		if (hp_pin_sense)
+  3607			msleep(2);
+  3608	
+  3609		snd_hda_codec_write(codec, hp_pin, 0,
+  3610				    AC_VERB_SET_AMP_GAIN_MUTE, AMP_OUT_MUTE);
+  3611	
+  3612		if (hp_pin_sense || spec->ultra_low_power)
+  3613			msleep(85);
+  3614	
+  3615		/* 3k pull low control for Headset jack. */
+  3616		/* NOTE: call this before clearing the pin, otherwise codec stalls */
+  3617		/* If disable 3k pulldown control for alc257, the Mic detection will not work correctly
+  3618		 * when booting with headset plugged. So skip setting it for the codec alc257
+  3619		 */
+> 3620		if (codec->core.vendor_id != 0x10ec0236 ||
+  3621		    codec->core.vendor_id != 0x10ec0257)
+  3622			alc_update_coef_idx(codec, 0x46, 0, 3 << 12);
+  3623	
+  3624		if (!spec->no_shutup_pins)
+  3625			snd_hda_codec_write(codec, hp_pin, 0,
+  3626					    AC_VERB_SET_PIN_WIDGET_CONTROL, 0x0);
+  3627	
+  3628		if (hp_pin_sense || spec->ultra_low_power)
+  3629			msleep(100);
+  3630	
+  3631		alc_auto_setup_eapd(codec, false);
+  3632		alc_shutup_pins(codec);
+  3633		if (spec->ultra_low_power) {
+  3634			msleep(50);
+  3635			alc_update_coef_idx(codec, 0x03, 1<<1, 0);
+  3636			alc_update_coef_idx(codec, 0x08, 7<<4, 7<<4);
+  3637			alc_update_coef_idx(codec, 0x08, 3<<2, 0);
+  3638			alc_update_coef_idx(codec, 0x3b, 1<<15, 1<<15);
+  3639			alc_update_coef_idx(codec, 0x0e, 7<<6, 0);
+  3640			msleep(30);
+  3641		}
+  3642	}
+  3643	
+
+-- 
+0-DAY CI Kernel Test Service
+https://01.org/lkp

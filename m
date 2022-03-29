@@ -2,88 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E7D94EA49A
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Mar 2022 03:30:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 184294EA540
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Mar 2022 04:35:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A15F61750;
-	Tue, 29 Mar 2022 03:29:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A15F61750
+	by alsa0.perex.cz (Postfix) with ESMTPS id A02B81731;
+	Tue, 29 Mar 2022 04:34:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A02B81731
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648517417;
-	bh=QSh65hitVh14SSDucE/mStGkBm9yg4aHlu+2aFNestA=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1648521322;
+	bh=wg3INMyNljTx9XmDkJKD9ECZHDgmQovT1An3PyqCQyk=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BhsYeWVMgSwM8UbwodIBRcBpETiof8lyi5EBUejKJCh5j+0/CIMOfQyG4EyQiVaxK
-	 YrUCAsbhx4C6AupfPIKLWhtHLabUv0SmNHYdQyMegw2ZEdZmxnzFaDoLNpO3C/LJR5
-	 hcPoMWNCAGBFAhZivNdRUluaTlwhPcixbyMufbi4=
+	b=AUL558wlVqyaM9NdRh7uh3P7oCpoUdJSY14QMbx7vbrXExfVzqGSnwlAPyWMJ+LNK
+	 W+tL9Up0pwu9oEmAuNX2us3o8Wg9+YO/EzFsIY1us5SdeKJAlPpXBIXr1Z523T4+pC
+	 e5y9RQYVHSy+scTgs14QSYUVb79Gbd63w63wA9g0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1D237F804B0;
-	Tue, 29 Mar 2022 03:29:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 13241F804B0;
+	Tue, 29 Mar 2022 04:34:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9A1E2F80311; Tue, 29 Mar 2022 03:29:05 +0200 (CEST)
+ id 122FCF800FA; Tue, 29 Mar 2022 04:34:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+X-Spam-Level: *
+X-Spam-Status: No, score=2.0 required=5.0 tests=PRX_BODY_30,RDNS_NONE,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY
  autolearn=disabled version=3.4.0
-Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com
- [IPv6:2607:f8b0:4864:20::435])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 840E9F80121
- for <alsa-devel@alsa-project.org>; Tue, 29 Mar 2022 03:29:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 840E9F80121
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="gmqfmXDE"
-Received: by mail-pf1-x435.google.com with SMTP id x31so7895834pfh.9
- for <alsa-devel@alsa-project.org>; Mon, 28 Mar 2022 18:29:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=8RWKOtmx36LC8yLEISKBczl/3PqgfL2wdJ+l1FkdZvo=;
- b=gmqfmXDEr/Jg/JcEXwQ/nAYvX4nu4pGb0MkhP8/V3+vHw2sDt3mmAouBJdogl3FHoN
- KINdxmZcZpu8iHiRrmgD7JkCVFSslmY1fD8C/gOFuvg6aR2YbomWdBaxjeXiAfG9cJaq
- 2l5oL4+NHXleL7U3dNvCGRD+DEtiSq9M4FU463V6E8hxGwb6TSPUYIsxvDFe8EMpozOu
- FCBgyTLLIx7Rqf9ikuDLNAHXSbby7NTrM7OVXleuoNh0/4RwcmGBvETds2XNxSxkQeuv
- YlCCOexSVhM4KK0BQt+45333YxKPCzDi7uhR3YxypzjD/QUbt+o8jf26Xiq0vOKnPwa1
- 752w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=8RWKOtmx36LC8yLEISKBczl/3PqgfL2wdJ+l1FkdZvo=;
- b=sObsCf4gqR3/PUnvRIrZhVJaDk1S31+pVW30sB4FLWmYCZyN1nhOnJ0A3PFwReNC8M
- CyBH6rBdcPfRl/zijlq6T+Y6TgMMdASQwllbBxeW61DrznYXUJLRvrQjXzYS4+W6D474
- M6t+Nzp0elRJJ6kd3Rh/sZ9atng4UygYgCG/658vl54dbOZzs2y1rZsOpMOcbbXW01cy
- ikdS/oXTWAicp1Jb+JgpvxNdIYbDWL8Ed0YOWzT4jha7nOGpWPD09cMiY1UWbCT3Il8k
- vceV6JSWXevUtNXqqHti45r23j+icEZxuelpk/Ve42Rb6PNf8SeL3eo7YsW8UhPn2+U4
- Kncg==
-X-Gm-Message-State: AOAM531of4g/0JzJHp2kGYoh1xv/NBw646Jijh+b66clubmDP0E6uOan
- s4DPOCadRDDXNRrCycKW+og=
-X-Google-Smtp-Source: ABdhPJx3pXQp5CBClxzCKjbibsuK3ueJtHhSUlztbLQ0G6UdL+LbDrcIrkqV57I1BEtcrXg2kbUWbQ==
-X-Received: by 2002:a05:6a00:14c6:b0:4fa:eae3:ffe4 with SMTP id
- w6-20020a056a0014c600b004faeae3ffe4mr24910871pfu.45.1648517337688; 
- Mon, 28 Mar 2022 18:28:57 -0700 (PDT)
-Received: from localhost ([119.3.119.18]) by smtp.gmail.com with ESMTPSA id
- s10-20020a63a30a000000b003987eaef296sm348236pge.44.2022.03.28.18.28.56
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 28 Mar 2022 18:28:57 -0700 (PDT)
-From: Xiaomeng Tong <xiam0nd.tong@gmail.com>
-To: broonie@kernel.org
-Subject: Re: [PATCH] soc: soc-dapm: fix two incorrect uses of list iterator
-Date: Tue, 29 Mar 2022 09:28:48 +0800
-Message-Id: <20220329012848.9564-1-xiam0nd.tong@gmail.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <YkHi98GDDWNie7GP@sirena.org.uk>
-References: <YkHi98GDDWNie7GP@sirena.org.uk>
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com, stable@vger.kernel.org,
- xiam0nd.tong@gmail.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 41CD0F800FA
+ for <alsa-devel@alsa-project.org>; Tue, 29 Mar 2022 04:34:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41CD0F800FA
+X-UUID: bf9bfe96da7f47e8a2ae7259817316b0-20220329
+X-UUID: bf9bfe96da7f47e8a2ae7259817316b0-20220329
+Received: from mtkcas11.mediatek.inc [(172.21.101.40)] by mailgw01.mediatek.com
+ (envelope-from <trevor.wu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 640139202; Tue, 29 Mar 2022 10:34:00 +0800
+Received: from mtkcas10.mediatek.inc (172.21.101.39) by
+ mtkmbs07n1.mediatek.inc (172.21.101.16) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.2; Tue, 29 Mar 2022 10:33:58 +0800
+Received: from mtksdccf07 (172.21.84.99) by mtkcas10.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Tue, 29 Mar 2022 10:33:58 +0800
+Message-ID: <eef98cc24f75f9712acd3fe5e597d49140cbc943.camel@mediatek.com>
+Subject: Re: [PATCH] mediatek: mt8195: fix a missing check on list iterator
+From: Trevor Wu <trevor.wu@mediatek.com>
+To: Xiaomeng Tong <xiam0nd.tong@gmail.com>, <lgirdwood@gmail.com>,
+ <broonie@kernel.org>, <perex@perex.cz>, <tiwai@suse.com>,
+ <matthias.bgg@gmail.com>
+Date: Tue, 29 Mar 2022 10:33:58 +0800
+In-Reply-To: <20220327081712.13341-1-xiam0nd.tong@gmail.com>
+References: <20220327081712.13341-1-xiam0nd.tong@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-MTK: N
+Cc: linux-arm-kernel@lists.infradead.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, rikard.falkeborn@gmail.com, tzungbi@google.com,
+ linux-mediatek@lists.infradead.org, jiaxin.yu@mediatek.com,
+ yc.hung@mediatek.com, stable@vger.kernel.org, dan.carpenter@oracle.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,33 +82,98 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 28 Mar 2022 17:31:51 +0100, Mark Brown wrote:
-> On Sun, Mar 27, 2022 at 04:21:38PM +0800, Xiaomeng Tong wrote:
+On Sun, 2022-03-27 at 16:17 +0800, Xiaomeng Tong wrote:
+> The bug is here:
+>  mt8195_etdm_hw_params_fixup(runtime, params);
 > 
-> >  		case snd_soc_dapm_pre:
-> > -			if (!w->event)
-> > +			if (!w->event) {
-> >  				list_for_each_entry_safe_continue(w, n, list,
-> >  								  power_list);
-> > +				break;
-> > +			}
+> For the for_each_card_rtds(), just like list_for_each_entry(),
+> the list iterator 'runtime' will point to a bogus position
+> containing HEAD if the list is empty or no element is found.
+> This case must be checked before any use of the iterator,
+> otherwise it will lead to a invalid memory access.
 > 
-> This doesn't make much sense.  The intent here seems to clearly be to
-> continue; the loop but this doesn't do that - instead it appears that
-> continue doesn't actually do the equivalent of a continue but rather
-> skips over an entry.  This should instead be replaced with a plain
-> continue statement.
+> To fix the bug, use a new variable 'iter' as the list iterator,
+> while use the original variable 'runtime' as a dedicated poin
+> ter
+> to point to the found element.
+
+Hi Xiaomeng,
+
+About this bug, I think it won't happen anymore.
+
+mt8195_dai_link_fixup() is only assigned when the corresponding
+snd_soc_pcm_runtime is found
+in mt8195_mt6359_rt1019_rt5682_late_probe().
+
+On the other hand, runtime is not used in the body of
+mt8195_etdm_hw_params_fixup().
+
+That's why I think the problem doesn't exist.
+If I misunderstood the problem you pointed out, please correct me.
+
+Thanks,
+Trevor
 > 
+> Cc: stable@vger.kernel.org
+> Fixes: 3d00d2c07f04f ("ASoC: mediatek: mt8195: add sof support on
+> mt8195-mt6359-rt1019-rt5682")
+> Signed-off-by: Xiaomeng Tong <xiam0nd.tong@gmail.com>
+> ---
+>  .../mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c  | 14 ++++++++--
+> ----
+>  1 file changed, 8 insertions(+), 6 deletions(-)
+> 
+> diff --git a/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c
+> b/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c
+> index 29c2d3407cc7..dc91877e4c3c 100644
+> --- a/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c
+> +++ b/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c
+> @@ -814,7 +814,7 @@ static int mt8195_dai_link_fixup(struct
+> snd_soc_pcm_runtime *rtd,
+>  {
+>  	struct snd_soc_card *card = rtd->card;
+>  	struct snd_soc_dai_link *sof_dai_link = NULL;
+> -	struct snd_soc_pcm_runtime *runtime;
+> +	struct snd_soc_pcm_runtime *runtime = NULL, *iter;
+>  	struct snd_soc_dai *cpu_dai;
+>  	int i, j, ret = 0;
+>  
+> @@ -824,16 +824,17 @@ static int mt8195_dai_link_fixup(struct
+> snd_soc_pcm_runtime *rtd,
+>  		if (strcmp(rtd->dai_link->name, conn->normal_link))
+>  			continue;
+>  
+> -		for_each_card_rtds(card, runtime) {
+> -			if (strcmp(runtime->dai_link->name, conn-
+> >sof_link))
+> +		for_each_card_rtds(card, iter) {
+> +			if (strcmp(iter->dai_link->name, conn-
+> >sof_link))
+>  				continue;
+>  
+> -			for_each_rtd_cpu_dais(runtime, j, cpu_dai) {
+> +			for_each_rtd_cpu_dais(iter, j, cpu_dai) {
+>  				if (cpu_dai->stream_active[conn-
+> >stream_dir] > 0) {
+> -					sof_dai_link = runtime-
+> >dai_link;
+> +					sof_dai_link = iter->dai_link;
+>  					break;
+>  				}
+>  			}
+> +			runtime = iter;
+>  			break;
+>  		}
+>  
+> @@ -845,7 +846,8 @@ static int mt8195_dai_link_fixup(struct
+> snd_soc_pcm_runtime *rtd,
+>  
+>  	if (!strcmp(rtd->dai_link->name, "ETDM2_IN_BE") ||
+>  	    !strcmp(rtd->dai_link->name, "ETDM1_OUT_BE")) {
+> -		mt8195_etdm_hw_params_fixup(runtime, params);
+> +		if (runtime)
+> +			mt8195_etdm_hw_params_fixup(runtime, params);
+>  	}
+>  
+>  	return ret;
 
-Yes, you are right. Sorry for a slip of the pen in commit message:
-should be "to *continue* the outer list_for_each_entry_safe() loop"
-not "to break ...".
-
-I have resend a PATCH v2 for the fix as you suggested, and cc you.
-Thank you.
-
-> THe naming of _continue() needs fixing I think - it's just asking to be
-> a bug.  Fortunately there's very few users.
-
---
-Xiaomeng Tong

@@ -2,88 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA80E4EA45F
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Mar 2022 03:01:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9F5F4EA48D
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Mar 2022 03:22:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6C76E1843;
-	Tue, 29 Mar 2022 03:01:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C76E1843
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4C5941843;
+	Tue, 29 Mar 2022 03:22:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C5941843
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648515716;
-	bh=22GH6frhH3nPi1q4vuCGg8eNgMki9EYBfvO8y+3ld8M=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=oj63/xoq/iS9nRKKUljAb/nZw+3Zpr2ij11hG6A7uLCY1vwKxCBa81cHJaicIRvTx
-	 wn7htKiQ+4waiJXNQRVeChWKu7PuCmCko2cMI+ue4DzpRuZXsHEzLdk7QUkxDIAfEf
-	 XPj4OV9RvaLK2kaxU6l6OgpGWtTDoV6DkdpMY4ew=
+	s=default; t=1648516978;
+	bh=5u/Pa+d+k7Lq+l76Pc1ONp5TA9ztK901DfYiN/QclJE=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=stnHgeaInmtRrP/y7+854BzzZ8zZnb+NGFRQkfHmGTyG5yt/Qc8zEIyfoS1+HNxXB
+	 n4WVqLRhnBu9QFwRR1lKwXrpoh6KhVsudKCniTjgpHnmUcg1rBpgb5Z/KsSVz/Ppt9
+	 nyMMbAkst6T6CrWDSa5GHmkWqLr2sXYuZrQsxluk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DE9F4F80121;
-	Tue, 29 Mar 2022 03:00:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A5A2EF8026A;
+	Tue, 29 Mar 2022 03:21:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8EFF7F8024C; Tue, 29 Mar 2022 03:00:46 +0200 (CEST)
+ id 8873BF8024C; Tue, 29 Mar 2022 03:21:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com
- [209.85.161.50])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com
+ [IPv6:2607:f8b0:4864:20::435])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 61E73F800CB
- for <alsa-devel@alsa-project.org>; Tue, 29 Mar 2022 03:00:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61E73F800CB
-Received: by mail-oo1-f50.google.com with SMTP id
- s1-20020a05682003c100b00324b888f165so2781741ooj.3
- for <alsa-devel@alsa-project.org>; Mon, 28 Mar 2022 18:00:40 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id E68C9F80121
+ for <alsa-devel@alsa-project.org>; Tue, 29 Mar 2022 03:21:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E68C9F80121
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="CDT/Buav"
+Received: by mail-pf1-x435.google.com with SMTP id z16so14469880pfh.3
+ for <alsa-devel@alsa-project.org>; Mon, 28 Mar 2022 18:21:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id;
+ bh=nGUt+aj/CNfWrM2Ds8HvT/Dl56Vks6aVB/g96nW8bf8=;
+ b=CDT/BuavpP8mQxwjlPaichjpYYhA3Pw5JcLcuD/nscNa9g9fnbkC3tpHyJqdSexocF
+ zFhQRERUhpt+lkdFizRqiSfEzjvH94C69yp6cRX2WnpK9ax1Z/pulaCRMCJkMmdtu1/m
+ kqKBw8HtGQgdVEFMMuJdfWWoounDtqP92su7IXtOCPxCVpFWJgwZ555vugcwen10Bw+Y
+ 3zFCWzY8DEZAiRXmmsAlMptcmOJ0l3XDPVmDWbCKj5Ez/+UmTuJyDO8oYwBixSrRCL8o
+ AJtCVg3evK6iTcQA0t3sBdngLoQRMxexm4kaWSC404LdoglxH6F8HdK7Hjzuv+zjydj0
+ +ftQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=qsEldasqSmPH+uyKPG9uvo/NU8uKdGNTwdCF9sy/D/E=;
- b=bnO9OQDQ7ZTx0CvPXkB6RnHJE+3dniHX/OSUyEwdGV1wvH0MM6LVkzuShVzYGPBMUB
- LMTeWK1UekxxCCHLfAIXnH+SqEfBJ71IlpaNfC5TN/CyEy+GTDM8u8FcaIAZ3apl8IoJ
- 8HkKmgiWoArbXEZfhGNbY4pT/heaOWmNzoerZvOUza7JvdjaPXCth8cltkaRO1//zBU/
- HQKlDgYzvyJzQ5cQIj91Um67+ENzxkbwbaG6GSMpT8VTnNlpz4WgmD1oW/h+BVBtXSow
- 0u+rbzYeo7ICVHLNwkAbwfJ1DaDEHZ7BtNIbnIQKXsly6m/1ESHb7oMncOJ2R0Om24eC
- 31Qg==
-X-Gm-Message-State: AOAM5306xF6uKY+aBZTqGQmbUAVw9c+Zlpvx59OHfEPApO/dW5/mpabY
- KK2wcwfSKMkLGFaxTr9Ukw==
-X-Google-Smtp-Source: ABdhPJygqRqHhRk4OiSo6iQBjfgsT2QvY6ZZ2r8mczpG9SMPz5GWtegFSl3boIRZpO//0kXJL1k3YA==
-X-Received: by 2002:a4a:1784:0:b0:324:5b06:dd0d with SMTP id
- 126-20020a4a1784000000b003245b06dd0dmr75661ooe.77.1648515638332; 
- Mon, 28 Mar 2022 18:00:38 -0700 (PDT)
-Received: from robh.at.kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- r205-20020acadad6000000b002ef824213c9sm8044301oig.55.2022.03.28.18.00.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 28 Mar 2022 18:00:37 -0700 (PDT)
-Received: (nullmailer pid 3398741 invoked by uid 1000);
- Tue, 29 Mar 2022 01:00:36 -0000
-Date: Mon, 28 Mar 2022 20:00:36 -0500
-From: Rob Herring <robh@kernel.org>
-To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Subject: Re: [PATCH 3/3] ASoC: dt-bindings: lpass-cpu: Update clocks and
- power domain names for sc7280 platform
-Message-ID: <YkJaNJT2yt6UpBZG@robh.at.kernel.org>
-References: <1647852981-27895-1-git-send-email-quic_srivasam@quicinc.com>
- <1647852981-27895-4-git-send-email-quic_srivasam@quicinc.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1647852981-27895-4-git-send-email-quic_srivasam@quicinc.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- dianders@chromium.org, Venkata Prasad Potturu <quic_potturu@quicinc.com>,
- krzysztof.kozlowski@canonical.com, linux-arm-msm@vger.kernel.org,
- swboyd@chromium.org, agross@kernel.org, linux-kernel@vger.kernel.org,
- broonie@kernel.org, rohitkr@codeaurora.org, srinivas.kandagatla@linaro.org,
- bjorn.andersson@linaro.org, judyhsiao@chromium.org
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=nGUt+aj/CNfWrM2Ds8HvT/Dl56Vks6aVB/g96nW8bf8=;
+ b=LNptu0U59+R3YJYNwl8FEL4c3jZ13W7+2K6iRBfnZ0DQvBlhMXAlzrPaybpEQhWb3m
+ GsqQNdN1xvv2UOuW0ZxNrA2rqNQ1DlDsp4xTVv5PvphrnQqvtML9CaUsff2DGPRogJYe
+ OW8LVZ3WkiJtUjy0JJAISY8g+EcOc+hy06tzkLSVMIZ/nBgm14DTsG1kSp/o1ENETRLT
+ 7iaHfQMVTtGFq8NhygLBMqM6o0NeBQI4mW0KPggYMWBLu+VUTpW+iEPdVOofQKXvH/YO
+ enKjkCOaKovjpMCi1P6sgwzzl1lMXwvDOEe+QKa+xXe9wY0gkj7XPSm4CVN9njydbwd/
+ av3Q==
+X-Gm-Message-State: AOAM530PeWzGX89ZxpPziBGk4h4KygWUr6DxUPQ2O7Q8IMYJEUw0Oj7H
+ BqPPeP6SAeqnBXIv2TWfYao=
+X-Google-Smtp-Source: ABdhPJwDvk6CTkxu40Th8VYA7G8Ypnxcz3UfPRvUwaSKEbrhu8GZ/6nnc6yLDNCGDEC1DyUuejQVKQ==
+X-Received: by 2002:a63:5020:0:b0:382:4781:7f4c with SMTP id
+ e32-20020a635020000000b0038247817f4cmr176192pgb.230.1648516904993; 
+ Mon, 28 Mar 2022 18:21:44 -0700 (PDT)
+Received: from localhost ([119.3.119.18]) by smtp.gmail.com with ESMTPSA id
+ i15-20020a63b30f000000b003803aee35a2sm13711447pgf.31.2022.03.28.18.21.43
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Mon, 28 Mar 2022 18:21:44 -0700 (PDT)
+From: Xiaomeng Tong <xiam0nd.tong@gmail.com>
+To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com
+Subject: [PATCH v2] soc: soc-dapm: fix two incorrect uses of list iterator
+Date: Tue, 29 Mar 2022 09:21:34 +0800
+Message-Id: <20220329012134.9375-1-xiam0nd.tong@gmail.com>
+X-Mailer: git-send-email 2.17.1
+Cc: alsa-devel@alsa-project.org, Xiaomeng Tong <xiam0nd.tong@gmail.com>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,79 +94,62 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Mar 21, 2022 at 02:26:21PM +0530, Srinivasa Rao Mandadapu wrote:
-> Update required clock-names used for MI2S primary path, VA macro's
-> codec memory path and HDMI path in sc7280 based platforms.
-> Update power domain names required for sc7280 platforms.
-> 
-> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-> Co-developed-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
-> Signed-off-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
-> ---
->  .../devicetree/bindings/sound/qcom,lpass-cpu.yaml       | 17 ++++++++++++++---
->  1 file changed, 14 insertions(+), 3 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
-> index 2c81efb..e9a5330 100644
-> --- a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
-> +++ b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
-> @@ -38,8 +38,8 @@ properties:
->      maxItems: 7
->  
->    clock-names:
-> -    minItems: 3
-> -    maxItems: 7
-> +    minItems: 1
-> +    maxItems: 10
->  
->    interrupts:
->      minItems: 2
-> @@ -62,6 +62,9 @@ properties:
->    power-domains:
->      maxItems: 1
->  
-> +  power-domain-names:
-> +    maxItems: 1
-> +
->    '#sound-dai-cells':
->      const: 1
->  
-> @@ -192,15 +195,19 @@ allOf:
->            oneOf:
->              - items:   #for I2S
->                  - const: aon_cc_audio_hm_h
-> +                - const: audio_cc_ext_mclk0
->                  - const: core_cc_sysnoc_mport_core
-> +                - const: core_cc_ext_if0_ibit
->                  - const: core_cc_ext_if1_ibit
+These two bug are here:
+	list_for_each_entry_safe_continue(w, n, list,
+					power_list);
+	list_for_each_entry_safe_continue(w, n, list,
+					power_list);
 
-You can't add new clocks in the middle. That breaks the ABI.
+After the list_for_each_entry_safe_continue() exits, the list iterator
+will always be a bogus pointer which point to an invalid struct objdect
+containing HEAD member. The funciton poniter 'w->event' will be a
+invalid value which can lead to a control-flow hijack if the 'w' can be
+controlled.
 
->              - items:   #for Soundwire
->                  - const: aon_cc_audio_hm_h
-> +                - const: audio_cc_codec_mem
->                  - const: audio_cc_codec_mem0
->                  - const: audio_cc_codec_mem1
->                  - const: audio_cc_codec_mem2
-> +                - const: aon_cc_va_mem0
->              - items:   #for HDMI
-> -                - const: aon_cc_audio_hm_h
-> +                - const: core_cc_sysnoc_mport_core
->  
->          reg-names:
->            anyOf:
-> @@ -228,6 +235,10 @@ allOf:
->                  - const: lpass-irq-hdmi
->                  - const: lpass-irq-vaif
->                  - const: lpass-irq-rxtxif
-> +        power-domain-names:
-> +          allOf:
-> +            - items:
-> +                - const: lcx
->  
->        required:
->          - iommus
-> -- 
-> 2.7.4
-> 
-> 
+The original intention was to continue the outer list_for_each_entry_safe()
+loop with the same entry if w->event is NULL, but misunderstanding the
+meaning of list_for_each_entry_safe_continue().
+
+So just add a 'continue;' to fix the bug.
+
+Cc: stable@vger.kernel.org
+Fixes: 163cac061c973 ("ASoC: Factor out DAPM sequence execution")
+Signed-off-by: Xiaomeng Tong <xiam0nd.tong@gmail.com>
+---
+
+changes since v1:
+ - use continue statement instead (Mark Brown)
+
+v1:https://lore.kernel.org/lkml/20220327082138.13696-1-xiam0nd.tong@gmail.com/
+
+---
+ sound/soc/soc-dapm.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
+index b06c5682445c..fb43b331a36e 100644
+--- a/sound/soc/soc-dapm.c
++++ b/sound/soc/soc-dapm.c
+@@ -1687,8 +1687,7 @@ static void dapm_seq_run(struct snd_soc_card *card,
+ 		switch (w->id) {
+ 		case snd_soc_dapm_pre:
+ 			if (!w->event)
+-				list_for_each_entry_safe_continue(w, n, list,
+-								  power_list);
++				continue;
+ 
+ 			if (event == SND_SOC_DAPM_STREAM_START)
+ 				ret = w->event(w,
+@@ -1700,8 +1699,7 @@ static void dapm_seq_run(struct snd_soc_card *card,
+ 
+ 		case snd_soc_dapm_post:
+ 			if (!w->event)
+-				list_for_each_entry_safe_continue(w, n, list,
+-								  power_list);
++				continue;
+ 
+ 			if (event == SND_SOC_DAPM_STREAM_START)
+ 				ret = w->event(w,
+-- 
+2.17.1
+

@@ -2,68 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E2254EC2E0
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Mar 2022 14:01:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3CCA4EC2DE
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Mar 2022 14:00:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3BC671931;
-	Wed, 30 Mar 2022 14:00:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3BC671931
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7995D192F;
+	Wed, 30 Mar 2022 13:59:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7995D192F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648641683;
-	bh=73n2kpjKjVfcEIGK9ACsjcNs/FDx2rkxpRD6WZBYkQM=;
+	s=default; t=1648641647;
+	bh=SokV46gloiKl6ccC8YUv3/mb+82/dUEF9FZvOlimcfs=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uoAxKze5LdGMjNG0QjHIcUMhRHy4p0TZv1tGHXAW8xrveRZeeNjEn7mwjv9qKO9W/
-	 huYG0So/CnDj/4CvO+y+WYj5gXRgTJeF/KnFtYkGEZ/a1vsxFNolStgdCzf9m+Te7g
-	 G2X8DVe+oL5r975p8uEgHgoTuktMrEYIQ/7Y0m5w=
+	b=hWIQnfCJMe1KX2Iioycr35auGbI2D6N7iZK3UXqXaUX9sXbkalsEjbZa9FbAEtnwt
+	 wpbs2rUcTip5NSRHwDhTvTLIB96owDELsuzbeKYRzVcz9qqXZPJtl86oeBtbbFmePx
+	 /lHdoFnOYaw3JrsQ21doAFgLKk/zOKf0lu87J+ok=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E42C7F80623;
-	Wed, 30 Mar 2022 13:50:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BC08EF80538;
+	Wed, 30 Mar 2022 13:50:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A0D1BF80620; Wed, 30 Mar 2022 13:50:25 +0200 (CEST)
+ id 607DEF80425; Wed, 30 Mar 2022 13:50:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9A0D0F8053E
- for <alsa-devel@alsa-project.org>; Wed, 30 Mar 2022 13:50:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A0D0F8053E
+ by alsa1.perex.cz (Postfix) with ESMTPS id D2834F80425
+ for <alsa-devel@alsa-project.org>; Wed, 30 Mar 2022 13:50:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2834F80425
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="XUhqZSnw"
+ header.b="lvPkpA4u"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 89CF36162F;
- Wed, 30 Mar 2022 11:50:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02B4AC340F2;
- Wed, 30 Mar 2022 11:50:15 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A419F616A6;
+ Wed, 30 Mar 2022 11:50:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 260B9C340EE;
+ Wed, 30 Mar 2022 11:50:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1648641017;
- bh=73n2kpjKjVfcEIGK9ACsjcNs/FDx2rkxpRD6WZBYkQM=;
+ s=k20201202; t=1648641020;
+ bh=SokV46gloiKl6ccC8YUv3/mb+82/dUEF9FZvOlimcfs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=XUhqZSnwvEYFw4GlhGq4mO3Srn8HeFbk36kMvuyavIN1eV6GTj9gyM5djx0Hy3fgk
- 7hXQ7kQOYmNulifrVDD/vc6VFv+jiSrUTs4KPEi4Pt70zRTvX3fzPiYqHqLyUCGicl
- 4jesOWpITNbCUsdGTjZeFCnkcFPgeK5qdBuv7zrTSuXDFeYbWKnl78UWlxHHFanhEK
- 0p9GkOMkXzl7/cdHKqeTP8bKRf01RwbQue8nzuZH9GZT+YvLeCgLYaQbZeOmHTMsM2
- 8DiZii7Kp7GIQ9m/rc+E78OpLxlovfhyTc2behJU4YpxZENxYOVy7SVp+3Citf/Sk4
- tNNyT7sNSULng==
+ b=lvPkpA4umlnDC4dPJYM6/6v5Q3ffMfQ8hE2VAE7OqbdvdS4OI2+DotLCSZ9y4s770
+ 2KfoyLkZ2KTe4quam//JAZvFSlXyKtfdX2IHHqVOiKKRWXCfHhC8l2Zsl66plxXNkh
+ XeIzwiT5X/hSxdSi8YvruVmzro0ondy8+NjEEEtEj4pcaJdmhZCzrKLPHvuyG3Yrv0
+ CzBzP4d26zxgvGcHiynNQ4P6ZlZwyaTwW2qjaI83jCVyVYaZ2cV7QUsfO5umgZMx4H
+ n7xAA4L4s3R3b9IToMCNFAKvzqHUoGOqzwAhjUJypKaB/f6cPqi1CVOZzpxJvY+Gxa
+ ew5yp6z1xdN8g==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 07/50] ASoC: SOF: Intel: match sdw version on
- link_slaves_found
-Date: Wed, 30 Mar 2022 07:49:21 -0400
-Message-Id: <20220330115005.1671090-7-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 09/50] ASoC: SOF: Intel: hda: Remove link
+ assignment limitation
+Date: Wed, 30 Mar 2022 07:49:23 -0400
+Message-Id: <20220330115005.1671090-9-sashal@kernel.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220330115005.1671090-1-sashal@kernel.org>
 References: <20220330115005.1671090-1-sashal@kernel.org>
@@ -71,13 +72,13 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, tiwai@suse.com,
+Cc: Sasha Levin <sashal@kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ lgirdwood@gmail.com, tiwai@suse.com,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, Reddy Muralidhar <muralidhar.reddy@intel.com>,
- Rander Wang <rander.wang@intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+ Rander Wang <rander.wang@intel.com>, Mark Brown <broonie@kernel.org>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,83 +94,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
+From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 
-[ Upstream commit f67c0c0d3b9048d86ea6ae52e36a2b78c48f265d ]
+[ Upstream commit 2ce0d008dcc59f9c01f43277b9f9743af7b01dad ]
 
-Codecs with the same part id, manufacturer id and part id, but different
-sdw version should be treated as different codecs. For example, rt711 and
-rt711-sdca are different. So, we should match sdw version as well.
+The limitation to assign a link DMA channel for a BE iff the
+corresponding host DMA channel is assigned to a connected FE is only
+applicable if the PROCEN_FMT_QUIRK is set. So, remove it for platforms
+that do not enable the quirk.
 
-Reported-by: Reddy Muralidhar <muralidhar.reddy@intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Complements: a792bfc1c2bc ("ASoC: SOF: Intel: hda-stream: limit PROCEN workaround")
+Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Rander Wang <rander.wang@intel.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20220120232157.199919-2-pierre-louis.bossart@linux.intel.com
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Reviewed-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Link: https://lore.kernel.org/r/20220128130017.28508-1-peter.ujfalusi@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/sof/intel/hda.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+ sound/soc/sof/intel/hda-dai.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-index ef92cca7ae01..ddf70902e53c 100644
---- a/sound/soc/sof/intel/hda.c
-+++ b/sound/soc/sof/intel/hda.c
-@@ -1072,7 +1072,7 @@ static bool link_slaves_found(struct snd_sof_dev *sdev,
- 	struct hdac_bus *bus = sof_to_bus(sdev);
- 	struct sdw_intel_slave_id *ids = sdw->ids;
- 	int num_slaves = sdw->num_slaves;
--	unsigned int part_id, link_id, unique_id, mfg_id;
-+	unsigned int part_id, link_id, unique_id, mfg_id, version;
- 	int i, j, k;
+diff --git a/sound/soc/sof/intel/hda-dai.c b/sound/soc/sof/intel/hda-dai.c
+index 6704dbcd101c..d15ca2564dbe 100644
+--- a/sound/soc/sof/intel/hda-dai.c
++++ b/sound/soc/sof/intel/hda-dai.c
+@@ -58,6 +58,8 @@ static struct hdac_ext_stream *
+ {
+ 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct sof_intel_hda_stream *hda_stream;
++	const struct sof_intel_dsp_desc *chip;
++	struct snd_sof_dev *sdev;
+ 	struct hdac_ext_stream *res = NULL;
+ 	struct hdac_stream *stream = NULL;
  
- 	for (i = 0; i < link->num_adr; i++) {
-@@ -1082,12 +1082,14 @@ static bool link_slaves_found(struct snd_sof_dev *sdev,
- 		mfg_id = SDW_MFG_ID(adr);
- 		part_id = SDW_PART_ID(adr);
- 		link_id = SDW_DISCO_LINK_ID(adr);
-+		version = SDW_VERSION(adr);
+@@ -76,9 +78,20 @@ static struct hdac_ext_stream *
+ 			continue;
  
- 		for (j = 0; j < num_slaves; j++) {
- 			/* find out how many identical parts were reported on that link */
- 			if (ids[j].link_id == link_id &&
- 			    ids[j].id.part_id == part_id &&
--			    ids[j].id.mfg_id == mfg_id)
-+			    ids[j].id.mfg_id == mfg_id &&
-+			    ids[j].id.sdw_version == version)
- 				reported_part_count++;
- 		}
+ 		hda_stream = hstream_to_sof_hda_stream(hstream);
++		sdev = hda_stream->sdev;
++		chip = get_chip_info(sdev->pdata);
  
-@@ -1096,21 +1098,24 @@ static bool link_slaves_found(struct snd_sof_dev *sdev,
- 
- 			if (ids[j].link_id != link_id ||
- 			    ids[j].id.part_id != part_id ||
--			    ids[j].id.mfg_id != mfg_id)
-+			    ids[j].id.mfg_id != mfg_id ||
-+			    ids[j].id.sdw_version != version)
- 				continue;
- 
- 			/* find out how many identical parts are expected */
- 			for (k = 0; k < link->num_adr; k++) {
- 				u64 adr2 = link->adr_d[k].adr;
--				unsigned int part_id2, link_id2, mfg_id2;
-+				unsigned int part_id2, link_id2, mfg_id2, version2;
- 
- 				mfg_id2 = SDW_MFG_ID(adr2);
- 				part_id2 = SDW_PART_ID(adr2);
- 				link_id2 = SDW_DISCO_LINK_ID(adr2);
-+				version2 = SDW_VERSION(adr2);
- 
- 				if (link_id2 == link_id &&
- 				    part_id2 == part_id &&
--				    mfg_id2 == mfg_id)
-+				    mfg_id2 == mfg_id &&
-+				    version2 == version)
- 					expected_part_count++;
- 			}
- 
+ 		/* check if link is available */
+ 		if (!hstream->link_locked) {
++			/*
++			 * choose the first available link for platforms that do not have the
++			 * PROCEN_FMT_QUIRK set.
++			 */
++			if (!(chip->quirks & SOF_INTEL_PROCEN_FMT_QUIRK)) {
++				res = hstream;
++				break;
++			}
++
+ 			if (stream->opened) {
+ 				/*
+ 				 * check if the stream tag matches the stream
 -- 
 2.34.1
 

@@ -2,84 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2456E4EBCD2
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Mar 2022 10:38:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EA844EBCE5
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Mar 2022 10:46:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AE82316AB;
-	Wed, 30 Mar 2022 10:37:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE82316AB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 032AB176E;
+	Wed, 30 Mar 2022 10:45:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 032AB176E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648629495;
-	bh=zd87HvHiEmc4yd8kOExSM3NDVM8/uS6NpBP4a1ro25s=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=i2D3MgP8O6GHGOmOBieIDrEHutpyUvDHzXdVOlvq+6911z9vIxkKhBz+oesar1jZR
-	 HjaUmL0g6nPH58o3z/dWn/4Jr085d5Yx6dEY4qVWwGu/T4QdAzZjfgSd++DKE+LiWS
-	 61NRmOgVGBqjBVKOHLFANwCYQvdcv1ZEcaDRmQVo=
+	s=default; t=1648630007;
+	bh=iwRU5k68VbY85La/WVN/tiZb7fplmD9DpdTL+L/A5kU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=RwkJZLNF0u646tMu4MpZd0/FIEI5p3ci1cx3oiGCEXsYSxCHanMn2sIGOwkGonGeM
+	 yPIB4OG2gUib712O5pISWsKDK6o4hvOcbDgyN4PENnEwZt1fu+Mt7/9RCcMmBq2nv/
+	 /dIdSIgSthmekSJq8OQfOYAhhl4fB0O2FpMTGiog=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 142A7F8025A;
-	Wed, 30 Mar 2022 10:37:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7AAB9F8025A;
+	Wed, 30 Mar 2022 10:45:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E382EF80254; Wed, 30 Mar 2022 10:37:06 +0200 (CEST)
+ id 20F93F80254; Wed, 30 Mar 2022 10:45:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SORTED_RECIPS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pj1-x102f.google.com (mail-pj1-x102f.google.com
+ [IPv6:2607:f8b0:4864:20::102f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3F791F800B8
- for <alsa-devel@alsa-project.org>; Wed, 30 Mar 2022 10:36:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F791F800B8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9D29BF80253
+ for <alsa-devel@alsa-project.org>; Wed, 30 Mar 2022 10:45:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D29BF80253
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="IsEzx4kN"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="KlMngwJ4"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 5AF1121116;
- Wed, 30 Mar 2022 08:36:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1648629419; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=EmjxpDooPJWOLjxfRBCk+sVbwSr/n0kUf6tTe1Pjk90=;
- b=IsEzx4kNRzDBkXrrhhnNFkUvxRxaipOa4fKzmoL765iygdkdzqcZfGeheAdU+wSEuRWDeJ
- CZjFu0A3VDrFqOLvAfhbSw9LxMhYj5wz9bIUzO7goVUsf192CG0+UxsOsk4O/SnOwpf36K
- F7c73Nw9abkp74e8enqg0iXsWkpWTGA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1648629419;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=EmjxpDooPJWOLjxfRBCk+sVbwSr/n0kUf6tTe1Pjk90=;
- b=KlMngwJ4GNXRu3y8lEJV12VYUGRf3nXfcmTfUKeC6wgUB1l/GJRQ4Zn/Dq1Mb1KAo8rDEM
- bD0vDMOU/w18vwBQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 0D4FBA3B87;
- Wed, 30 Mar 2022 08:36:59 +0000 (UTC)
-Date: Wed, 30 Mar 2022 10:36:59 +0200
-Message-ID: <s5hr16jhm50.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: syzbot <syzbot+6e5c88838328e99c7e1c@syzkaller.appspotmail.com>
-Subject: Re: [syzbot] possible deadlock in __snd_pcm_lib_xfer
-In-Reply-To: <000000000000381a0d05db622a81@google.com>
-References: <000000000000381a0d05db622a81@google.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- zsm@chromium.org, kai.vehmanen@linux.intel.com, tiwai@suse.com,
- syzkaller-bugs@googlegroups.com, linux-kernel@vger.kernel.org,
- broonie@kernel.org, ranjani.sridharan@linux.intel.com
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="fY00q0qu"
+Received: by mail-pj1-x102f.google.com with SMTP id
+ a16-20020a17090a6d9000b001c7d6c1bb13so5490947pjk.4
+ for <alsa-devel@alsa-project.org>; Wed, 30 Mar 2022 01:45:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=8nEt9kLvk4VTW+szrqTqYP2pQkQqLtWUzfDLVe7NjsU=;
+ b=fY00q0quiwwix3NejO4J+O185vp61dO798Qn3gS165bUKYa2HO6Ey7rCOYSMeKv3+v
+ cbGZER9nyD0FJASEwTBo3Q1i4IL+Na7BvPXDCTLot9epBqqI8qphW6PxJzomu2KZ5OvR
+ Crpb4EA02QbqkOVh7Wi36WwWBHPHDnKvqpUiM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=8nEt9kLvk4VTW+szrqTqYP2pQkQqLtWUzfDLVe7NjsU=;
+ b=plnN4mgeVyKwuIKqq66Nu9dXTJHBJ9wfn7Dfiubb6jvmWR9znIa0Ed8OtLqQyVcZgV
+ aDCRRZwhkQjdpUv9XDjox1hQkKjrTfFwYKddc2WgdUFAS8xZuph8GoFq75jf/zqAQM2V
+ D9Pyh0Mo+LcPLzJ3SnUb2mbYQyRCOEE4pcgyFtf2BO5gu4XbXCsNjkRKYPD2YuZMm0GH
+ ZbMZtcu0/6VqxtgUgROxnrtd/kdPvDaiBrIEa5HTzTauKPIHMKY8VfMSMj6MBrBsj2AT
+ 58oEn/ljywFSkirr0NpyllBmMgSkafBLOns1UnKTSE6DScCCkjF4OgTFf21aHsl2GU5R
+ zikA==
+X-Gm-Message-State: AOAM533G3ApY+NeixHMCpdl4Ji2DG3zzaGPcHWUlQD6BMxhBobDnre/K
+ dPG8WsV8RjkN9wraRYH7Cj4Bhg==
+X-Google-Smtp-Source: ABdhPJyOHbG0gknDeuQV6Lj+TTD1JcN9mYBWxTTroMQT3w70I0xU/hmWMJEMXoeksdQzbH1dwzToZg==
+X-Received: by 2002:a17:90b:1652:b0:1c7:305f:3a32 with SMTP id
+ il18-20020a17090b165200b001c7305f3a32mr3803519pjb.108.1648629928781; 
+ Wed, 30 Mar 2022 01:45:28 -0700 (PDT)
+Received: from judyhsiao-p920.tpe.corp.google.com
+ ([2401:fa00:1:17:c148:f3b9:2827:67de])
+ by smtp.gmail.com with ESMTPSA id
+ f16-20020a056a00229000b004fabe756ba6sm24655240pfe.54.2022.03.30.01.45.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 30 Mar 2022 01:45:28 -0700 (PDT)
+From: Judy Hsiao <judyhsiao@chromium.org>
+To: broonie@kernel.org
+Subject: [v1] ASoC: qcom: Add driver support for ALC5682I-VS.
+Date: Wed, 30 Mar 2022 16:45:19 +0800
+Message-Id: <20220330084519.3863856-1-judyhsiao@chromium.org>
+X-Mailer: git-send-email 2.35.1.1021.g381101b075-goog
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: judyhsiao@google.com, Banajit Goswami <bgoswami@codeaurora.org>,
+ cychiang@google.com, alsa-devel@alsa-project.org,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-arm-msm@vger.kernel.org,
+ swboyd@chromium.org, dianders@chromium.org, Takashi Iwai <tiwai@suse.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Judy Hsiao <judyhsiao@chromium.org>, yuhsuan@chromium.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,256 +102,187 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 29 Mar 2022 23:32:25 +0200,
-syzbot wrote:
-> 
-> Hello,
-> 
-> syzbot found the following issue on:
-> 
-> HEAD commit:    8515d05bf6bc Add linux-next specific files for 20220328
-> git tree:       linux-next
-> console output: https://syzkaller.appspot.com/x/log.txt?x=15c0acc7700000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=530c68bef4e2b8a8
-> dashboard link: https://syzkaller.appspot.com/bug?extid=6e5c88838328e99c7e1c
-> compiler:       gcc (Debian 10.2.1-6) 10.2.1 20210110, GNU ld (GNU Binutils for Debian) 2.35.2
-> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=14433ca5700000
-> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=163bb77d700000
-> 
-> IMPORTANT: if you fix the issue, please add the following tag to the commit:
-> Reported-by: syzbot+6e5c88838328e99c7e1c@syzkaller.appspotmail.com
-> 
-> ======================================================
-> WARNING: possible circular locking dependency detected
-> 5.17.0-next-20220328-syzkaller #0 Not tainted
-> ------------------------------------------------------
-> syz-executor329/3588 is trying to acquire lock:
-> ffff8880243c1d28 (&mm->mmap_lock#2){++++}-{3:3}, at: __might_fault+0xa1/0x170 mm/memory.c:5300
-> 
-> but task is already holding lock:
-> ffff88801afef230 (&runtime->buffer_mutex){+.+.}-{3:3}, at: wait_for_avail sound/core/pcm_lib.c:1913 [inline]
-> ffff88801afef230 (&runtime->buffer_mutex){+.+.}-{3:3}, at: __snd_pcm_lib_xfer+0xbca/0x1e20 sound/core/pcm_lib.c:2263
+Add Machine driver support for ALC5682I-VS codec.
 
-OK, that's a similar issue as we've hit in the past for OSS.
-Now it appears as we're taking a big lock at the whole read/write
-operations.
-
-The fix patch below.
-
-
-Takashi
-
--- 8< --
-From: Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH] ALSA: pcm: Fix potential AB/BA lock with buffer_mutex and
- mmap_lock
-
-syzbot caught a potential deadlock between the PCM
-runtime->buffer_mutex and the mm->mmap_lock.  It was brought by the
-recent fix to cover the racy read/write and other ioctls, and in that
-commit, I overlooked a (hopefully only) corner case that may take the
-revert lock, namely, the OSS mmap.  The OSS mmap operation
-exceptionally allows to re-configure the parameters inside the OSS
-syscall, where mm->mmap_mutex is already held.  Meanwhile, the
-copy_from/to_user calls at read/write operation also takes the
-mm->mmap_lock internally, hence it may read to a AB/BA deadlock.
-
-A similar problem was seen in the past and we fixed it with a refcount
-(in commit b248371628aa) -- although this covered only the call paths
-with OSS read/write and OSS ioctls.  Now we need to cover the
-concurrent access via both ALSA and OSS APIs.
-
-This patch addresses the problem above, by replacing the lock in the
-read/write operations with a refcount similar as we've used for OSS.
-The new field, runtime->buffer_accessing, keeps the concurrent
-read/write operations.  Unlike the former buffer_mutex protection,
-this protects only around the copy_from/to_user() calls; the other
-codes are basically protected by the PCM stream lock.  When it's
-already blocked (a negative value), it aborts.  In the ioctl side,
-they check the buffer_accessing, and set to a negative value unless
-it's already being accessed.
-
-Reported-by: syzbot+6e5c88838328e99c7e1c@syzkaller.appspotmail.com
-Fixes: dca947d4d26d ("ALSA: pcm: Fix races among concurrent read/write and buffer changes")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Judy Hsiao <judyhsiao@chromium.org>
 ---
- include/sound/pcm.h     |  1 +
- sound/core/pcm.c        |  1 +
- sound/core/pcm_lib.c    |  9 +++++----
- sound/core/pcm_native.c | 39 ++++++++++++++++++++++++++++++++-------
- 4 files changed, 39 insertions(+), 11 deletions(-)
+ sound/soc/qcom/Kconfig  |   2 +
+ sound/soc/qcom/sc7280.c | 104 ++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 106 insertions(+)
 
-diff --git a/include/sound/pcm.h b/include/sound/pcm.h
-index 314f2779cab5..6b99310b5b88 100644
---- a/include/sound/pcm.h
-+++ b/include/sound/pcm.h
-@@ -402,6 +402,7 @@ struct snd_pcm_runtime {
- 	struct fasync_struct *fasync;
- 	bool stop_operating;		/* sync_stop will be called */
- 	struct mutex buffer_mutex;	/* protect for buffer changes */
-+	atomic_t buffer_accessing;	/* >0: in r/w operation, <0: blocked */
+diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
+index 28d0dfb4033c..750653404ba3 100644
+--- a/sound/soc/qcom/Kconfig
++++ b/sound/soc/qcom/Kconfig
+@@ -197,6 +197,8 @@ config SND_SOC_SC7280
+ 	select SND_SOC_LPASS_MACRO_COMMON
+ 	imply SND_SOC_LPASS_RX_MACRO
+ 	imply SND_SOC_LPASS_TX_MACRO
++	select SND_SOC_RT5682_I2C
++	select SND_SOC_RT5682S
+ 	help
+ 	  Add support for audio on Qualcomm Technologies Inc.
+ 	  SC7280 SoC-based systems.
+diff --git a/sound/soc/qcom/sc7280.c b/sound/soc/qcom/sc7280.c
+index bd0bf9c8cb28..a3e6f61e92cb 100644
+--- a/sound/soc/qcom/sc7280.c
++++ b/sound/soc/qcom/sc7280.c
+@@ -12,14 +12,20 @@
+ #include <sound/jack.h>
+ #include <sound/pcm.h>
+ #include <sound/soc.h>
++#include <sound/rt5682s.h>
+ #include <linux/soundwire/sdw.h>
  
- 	/* -- private section -- */
- 	void *private_data;
-diff --git a/sound/core/pcm.c b/sound/core/pcm.c
-index edd9849210f2..977d54320a5c 100644
---- a/sound/core/pcm.c
-+++ b/sound/core/pcm.c
-@@ -970,6 +970,7 @@ int snd_pcm_attach_substream(struct snd_pcm *pcm, int stream,
++#include "../codecs/rt5682.h"
++#include "../codecs/rt5682s.h"
+ #include "common.h"
+ #include "lpass.h"
  
- 	runtime->status->state = SNDRV_PCM_STATE_OPEN;
- 	mutex_init(&runtime->buffer_mutex);
-+	atomic_set(&runtime->buffer_accessing, 0);
- 
- 	substream->runtime = runtime;
- 	substream->private_data = pcm->private_data;
-diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
-index a40a35e51fad..1fc7c50ffa62 100644
---- a/sound/core/pcm_lib.c
-+++ b/sound/core/pcm_lib.c
-@@ -1906,11 +1906,9 @@ static int wait_for_avail(struct snd_pcm_substream *substream,
- 		if (avail >= runtime->twake)
- 			break;
- 		snd_pcm_stream_unlock_irq(substream);
--		mutex_unlock(&runtime->buffer_mutex);
- 
- 		tout = schedule_timeout(wait_time);
- 
--		mutex_lock(&runtime->buffer_mutex);
- 		snd_pcm_stream_lock_irq(substream);
- 		set_current_state(TASK_INTERRUPTIBLE);
- 		switch (runtime->status->state) {
-@@ -2221,7 +2219,6 @@ snd_pcm_sframes_t __snd_pcm_lib_xfer(struct snd_pcm_substream *substream,
- 
- 	nonblock = !!(substream->f_flags & O_NONBLOCK);
- 
--	mutex_lock(&runtime->buffer_mutex);
- 	snd_pcm_stream_lock_irq(substream);
- 	err = pcm_accessible_state(runtime);
- 	if (err < 0)
-@@ -2276,6 +2273,10 @@ snd_pcm_sframes_t __snd_pcm_lib_xfer(struct snd_pcm_substream *substream,
- 			err = -EINVAL;
- 			goto _end_unlock;
- 		}
-+		if (!atomic_inc_unless_negative(&runtime->buffer_accessing)) {
-+			err = -EBUSY;
-+			goto _end_unlock;
-+		}
- 		snd_pcm_stream_unlock_irq(substream);
- 		if (!is_playback)
- 			snd_pcm_dma_buffer_sync(substream, SNDRV_DMA_SYNC_CPU);
-@@ -2284,6 +2285,7 @@ snd_pcm_sframes_t __snd_pcm_lib_xfer(struct snd_pcm_substream *substream,
- 		if (is_playback)
- 			snd_pcm_dma_buffer_sync(substream, SNDRV_DMA_SYNC_DEVICE);
- 		snd_pcm_stream_lock_irq(substream);
-+		atomic_dec(&runtime->buffer_accessing);
- 		if (err < 0)
- 			goto _end_unlock;
- 		err = pcm_accessible_state(runtime);
-@@ -2313,7 +2315,6 @@ snd_pcm_sframes_t __snd_pcm_lib_xfer(struct snd_pcm_substream *substream,
- 	if (xfer > 0 && err >= 0)
- 		snd_pcm_update_state(substream, runtime);
- 	snd_pcm_stream_unlock_irq(substream);
--	mutex_unlock(&runtime->buffer_mutex);
- 	return xfer > 0 ? (snd_pcm_sframes_t)xfer : err;
++#define DEFAULT_MCLK_RATE              19200000
++#define RT5682_PLL1_FREQ (48000 * 512)
+ struct sc7280_snd_data {
+ 	struct snd_soc_card card;
+ 	struct sdw_stream_runtime *sruntime[LPASS_MAX_PORTS];
++	u32 pri_mi2s_clk_count;
+ 	struct snd_soc_jack hs_jack;
+ 	struct snd_soc_jack hdmi_jack;
+ 	bool jack_setup;
+@@ -69,6 +75,7 @@ static int sc7280_headset_init(struct snd_soc_pcm_runtime *rtd)
+ 		pdata->jack_setup = true;
+ 	}
+ 	switch (cpu_dai->id) {
++	case MI2S_PRIMARY:
+ 	case LPASS_CDC_DMA_RX0:
+ 	case LPASS_CDC_DMA_TX3:
+ 		for_each_rtd_codec_dais(rtd, i, codec_dai) {
+@@ -110,11 +117,49 @@ static int sc7280_hdmi_init(struct snd_soc_pcm_runtime *rtd)
+ 	return snd_soc_component_set_jack(component, &pdata->hdmi_jack, NULL);
  }
- EXPORT_SYMBOL(__snd_pcm_lib_xfer);
-diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index 704fdc9ebf91..2b630b2b64be 100644
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -685,6 +685,24 @@ static int snd_pcm_hw_params_choose(struct snd_pcm_substream *pcm,
+ 
++static int sc7280_rt5682_init(struct snd_soc_pcm_runtime *rtd)
++{
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
++	struct snd_soc_card *card = rtd->card;
++	struct sc7280_snd_data *data = snd_soc_card_get_drvdata(card);
++	int ret;
++
++	if (++data->pri_mi2s_clk_count == 1) {
++		snd_soc_dai_set_sysclk(cpu_dai,
++			LPASS_MCLK0,
++			DEFAULT_MCLK_RATE,
++			SNDRV_PCM_STREAM_PLAYBACK);
++	}
++	snd_soc_dai_set_fmt(codec_dai,
++				SND_SOC_DAIFMT_CBS_CFS |
++				SND_SOC_DAIFMT_NB_NF |
++				SND_SOC_DAIFMT_I2S);
++
++	ret = snd_soc_dai_set_pll(codec_dai, RT5682S_PLL1, RT5682S_PLL_S_BCLK1,
++					1536000, RT5682_PLL1_FREQ);
++	if (ret) {
++		dev_err(rtd->dev, "can't set codec pll: %d\n", ret);
++		return ret;
++	}
++
++	ret = snd_soc_dai_set_sysclk(codec_dai, RT5682S_SCLK_S_PLL1,
++					RT5682_PLL1_FREQ,
++					SND_SOC_CLOCK_IN);
++
++	if (ret)
++		dev_err(rtd->dev, "snd_soc_dai_set_sysclk err = %d\n",
++			ret);
++
++	return 0;
++}
++
+ static int sc7280_init(struct snd_soc_pcm_runtime *rtd)
+ {
+ 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 
+ 	switch (cpu_dai->id) {
++	case MI2S_PRIMARY:
+ 	case LPASS_CDC_DMA_TX3:
+ 		return sc7280_headset_init(rtd);
+ 	case LPASS_CDC_DMA_RX0:
+@@ -227,10 +272,66 @@ static int sc7280_snd_hw_free(struct snd_pcm_substream *substream)
  	return 0;
  }
  
-+/* acquire buffer_mutex; if it's in r/w operation, return -EBUSY, otherwise
-+ * block the further r/w operations
-+ */
-+static int snd_pcm_buffer_access_lock(struct snd_pcm_runtime *runtime)
++static void sc7280_snd_shutdown(struct snd_pcm_substream *substream)
 +{
-+	if (!atomic_dec_unless_positive(&runtime->buffer_accessing))
-+		return -EBUSY;
-+	mutex_lock(&runtime->buffer_mutex);
-+	return 0; /* keep buffer_mutex */
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_card *card = rtd->card;
++	struct sc7280_snd_data *data = snd_soc_card_get_drvdata(card);
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
++
++	switch (cpu_dai->id) {
++	case MI2S_PRIMARY:
++		if (--data->pri_mi2s_clk_count == 0) {
++			snd_soc_dai_set_sysclk(cpu_dai,
++					       LPASS_MCLK0,
++					       0,
++					       SNDRV_PCM_STREAM_PLAYBACK);
++		}
++		break;
++	case MI2S_SECONDARY:
++		break;
++	case LPASS_DP_RX:
++		break;
++	default:
++		dev_err(rtd->dev, "%s: invalid dai id 0x%x\n", __func__,
++			cpu_dai->id);
++		break;
++	}
 +}
 +
-+/* clear r/w access flag and release the buffer_mutex */
-+static void snd_pcm_buffer_access_unlock(struct snd_pcm_runtime *runtime)
++static int sc7280_snd_startup(struct snd_pcm_substream *substream)
 +{
-+	atomic_inc(&runtime->buffer_accessing);
-+	mutex_unlock(&runtime->buffer_mutex);
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
++	int ret = 0;
++
++	switch (cpu_dai->id) {
++	case MI2S_PRIMARY:
++		ret = sc7280_rt5682_init(rtd);
++		break;
++	case MI2S_SECONDARY:
++		break;
++	case LPASS_DP_RX:
++		break;
++	default:
++		dev_err(rtd->dev, "%s: invalid dai id 0x%x\n", __func__,
++			cpu_dai->id);
++		return -EINVAL;
++	}
++	return ret;
 +}
 +
- #if IS_ENABLED(CONFIG_SND_PCM_OSS)
- #define is_oss_stream(substream)	((substream)->oss.oss)
- #else
-@@ -695,14 +713,16 @@ static int snd_pcm_hw_params(struct snd_pcm_substream *substream,
- 			     struct snd_pcm_hw_params *params)
- {
- 	struct snd_pcm_runtime *runtime;
--	int err = 0, usecs;
-+	int err, usecs;
- 	unsigned int bits;
- 	snd_pcm_uframes_t frames;
+ static const struct snd_soc_ops sc7280_ops = {
++	.startup = sc7280_snd_startup,
+ 	.hw_params = sc7280_snd_hw_params,
+ 	.hw_free = sc7280_snd_hw_free,
+ 	.prepare = sc7280_snd_prepare,
++	.shutdown = sc7280_snd_shutdown,
++};
++
++static const struct snd_soc_dapm_widget sc7280_snd_widgets[] = {
++	SND_SOC_DAPM_HP("Headphone Jack", NULL),
++	SND_SOC_DAPM_MIC("Headset Mic", NULL),
+ };
  
- 	if (PCM_RUNTIME_CHECK(substream))
- 		return -ENXIO;
- 	runtime = substream->runtime;
--	mutex_lock(&runtime->buffer_mutex);
-+	err = snd_pcm_buffer_access_lock(runtime);
-+	if (err < 0)
-+		return err;
- 	snd_pcm_stream_lock_irq(substream);
- 	switch (runtime->status->state) {
- 	case SNDRV_PCM_STATE_OPEN:
-@@ -820,7 +840,7 @@ static int snd_pcm_hw_params(struct snd_pcm_substream *substream,
- 			snd_pcm_lib_free_pages(substream);
- 	}
-  unlock:
--	mutex_unlock(&runtime->buffer_mutex);
-+	snd_pcm_buffer_access_unlock(runtime);
- 	return err;
- }
+ static int sc7280_snd_platform_probe(struct platform_device *pdev)
+@@ -252,6 +353,9 @@ static int sc7280_snd_platform_probe(struct platform_device *pdev)
+ 	card->driver_name = "SC7280";
+ 	card->dev = dev;
  
-@@ -865,7 +885,9 @@ static int snd_pcm_hw_free(struct snd_pcm_substream *substream)
- 	if (PCM_RUNTIME_CHECK(substream))
- 		return -ENXIO;
- 	runtime = substream->runtime;
--	mutex_lock(&runtime->buffer_mutex);
-+	result = snd_pcm_buffer_access_lock(runtime);
-+	if (result < 0)
-+		return result;
- 	snd_pcm_stream_lock_irq(substream);
- 	switch (runtime->status->state) {
- 	case SNDRV_PCM_STATE_SETUP:
-@@ -884,7 +906,7 @@ static int snd_pcm_hw_free(struct snd_pcm_substream *substream)
- 	snd_pcm_set_state(substream, SNDRV_PCM_STATE_OPEN);
- 	cpu_latency_qos_remove_request(&substream->latency_pm_qos_req);
-  unlock:
--	mutex_unlock(&runtime->buffer_mutex);
-+	snd_pcm_buffer_access_unlock(runtime);
- 	return result;
- }
- 
-@@ -1369,12 +1391,15 @@ static int snd_pcm_action_nonatomic(const struct action_ops *ops,
- 
- 	/* Guarantee the group members won't change during non-atomic action */
- 	down_read(&snd_pcm_link_rwsem);
--	mutex_lock(&substream->runtime->buffer_mutex);
-+	res = snd_pcm_buffer_access_lock(substream->runtime);
-+	if (res < 0)
-+		goto unlock;
- 	if (snd_pcm_stream_linked(substream))
- 		res = snd_pcm_action_group(ops, substream, state, false);
- 	else
- 		res = snd_pcm_action_single(ops, substream, state);
--	mutex_unlock(&substream->runtime->buffer_mutex);
-+	snd_pcm_buffer_access_unlock(substream->runtime);
-+ unlock:
- 	up_read(&snd_pcm_link_rwsem);
- 	return res;
- }
++	card->dapm_widgets = sc7280_snd_widgets;
++	card->num_dapm_widgets = ARRAY_SIZE(sc7280_snd_widgets);
++
+ 	ret = qcom_snd_parse_of(card);
+ 	if (ret)
+ 		return ret;
 -- 
-2.31.1
+2.35.1.1021.g381101b075-goog
 

@@ -2,92 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 059B24ECA92
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Mar 2022 19:25:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81AA94ECA9D
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Mar 2022 19:26:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 87E7B185D;
-	Wed, 30 Mar 2022 19:24:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 87E7B185D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2696F168D;
+	Wed, 30 Mar 2022 19:25:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2696F168D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648661129;
-	bh=sXIvE9dNkgtO4EXOy67WUkJ/qQhK9TK+SEsx1XCzbNo=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1648661205;
+	bh=i2ogFDs1/hB7tL86M3lTMBtLHed1a3thNCG6Yx4HssU=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gNPZOV3ychU5YKGthDIvAQ/mIufDYukz1+KcVk4mhKKzy4g7sLsvUgUWRHgkhJ2Kz
-	 qdjQWzLwmWFpVtT62r2aVsu3iyRr7NtXVR8p3SSE8kCOSVEL+jOdSBXrNxqPUNe6Ig
-	 MrBdL//hCD+M4+IQNBOXRjOjoyuP3gZdUELssUpM=
+	b=hBRF91iTTgh6WBbJktE6r8w8VrwBFdYW+8NexKPKGsWLyd8bUO0KJUDbT5wN0Cx7q
+	 IdfhynN/po33SvFxTURLgvWClu6z4+LqCqOU6zVeTMiY/GvKM23pctFQVV5cnd5XQg
+	 rOYTy1VWs1+H7NUY4JeQQW+yMLz3GU6ReCLALAcc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DAD0FF8025A;
-	Wed, 30 Mar 2022 19:24:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9ED5AF800F2;
+	Wed, 30 Mar 2022 19:25:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0E0B0F80254; Wed, 30 Mar 2022 19:24:21 +0200 (CEST)
+ id 95439F80254; Wed, 30 Mar 2022 19:25:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
- [IPv6:2607:f8b0:4864:20::431])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BF1F9F800F2
- for <alsa-devel@alsa-project.org>; Wed, 30 Mar 2022 19:24:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF1F9F800F2
+ by alsa1.perex.cz (Postfix) with ESMTPS id EBA22F80253
+ for <alsa-devel@alsa-project.org>; Wed, 30 Mar 2022 19:25:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EBA22F80253
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="ahzFnfI0"
-Received: by mail-pf1-x431.google.com with SMTP id b15so19417244pfm.5
- for <alsa-devel@alsa-project.org>; Wed, 30 Mar 2022 10:24:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=czlQvbkyhcIvLLP/kerBjk96Vh15ed44dz1d5B6c270=;
- b=ahzFnfI0hphDf3O+AHBufiZX0BHt092Wy224ems0w1nT2GF3hbO09GHnM1aXPSQXa8
- izSZm98/ey3wEGM4yhGNnOI151Iuceg/i6mHiC2cmoo0pcG+MbRpahKjFvXtnsefeupP
- emsBemXIOKGLevHkR5TK5/wOqklZvueumjohw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=czlQvbkyhcIvLLP/kerBjk96Vh15ed44dz1d5B6c270=;
- b=BD8eREgNbHIkiWkKKy6L5/wULzcgOGCZ+RNWP0TuXQ+jBWws30dT1FLNcI6MGXA7mK
- l0KBufSKajhynGQObwXwTU3cxjJODervi2LXEnibKgJOa1GAzLBGCWbHZPlrQ3i94NMr
- YODzEUM/+b6FLP0ibJ2Ox9kRRmB85wAYAx+F35SfiW5JV+s+PpNsynkZZpQJTKb/APhl
- i68fC0ZXVNB/y7qGXOS/hSnKNUOmVZug70q9Gl++nbICzjeU3RvWgSsGdVcV8+X8pGId
- Ua0B8cRKUX3G6fwZctK9me0wHB6z4HHun4dJ+bLLNtOm4mPz9WwYyGTEmQlcH5rDhYmP
- dUeA==
-X-Gm-Message-State: AOAM533FpuAKSad8tKDH/vygde9bOjDEc51NE6Gg/IrGHfwcxsb9DsLR
- zI3di7mbAbJXYiB7+gNuj6QDqg==
-X-Google-Smtp-Source: ABdhPJy1cMvbpr6Uu0vAt3g+S0FU168G58nrHSfPAT9H/HOzwsO0LQU4+C4+f6gSMeQOuU/fa0VijA==
-X-Received: by 2002:a05:6a00:885:b0:4f4:17d8:be31 with SMTP id
- q5-20020a056a00088500b004f417d8be31mr438686pfj.57.1648661050000; 
- Wed, 30 Mar 2022 10:24:10 -0700 (PDT)
-Received: from localhost ([2620:15c:202:201:d50d:daac:acf3:cda6])
- by smtp.gmail.com with UTF8SMTPSA id
- q20-20020a056a00151400b004fb31b073cesm17568038pfu.109.2022.03.30.10.24.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Mar 2022 10:24:09 -0700 (PDT)
-Date: Wed, 30 Mar 2022 10:24:07 -0700
-From: Matthias Kaehlcke <mka@chromium.org>
-To: Judy Hsiao <judyhsiao@chromium.org>
-Subject: Re: [v1] ASoC: qcom: Add driver support for ALC5682I-VS.
-Message-ID: <YkSSNypRYqM4PtFB@google.com>
-References: <20220330084519.3863856-1-judyhsiao@chromium.org>
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="FSCqcuIb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1648661131; x=1680197131;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=i2ogFDs1/hB7tL86M3lTMBtLHed1a3thNCG6Yx4HssU=;
+ b=FSCqcuIbzQgXeAYxhFNM4X7jFWLb+4y0f4aitgqjDemPSTxiPMpQcLlE
+ hiwAQGXqGJXs2WAntCbDjpKJqXWOtVpnonzeYKt6Q6F/2QilrZ7BCNsNs
+ L0H9aJikdc8fOZJuMWBYkom6T+X4SVImgE/Kk1r8W3A0ZVMwNdKptYiy1
+ 5LDYVJUc4iO53A++8jkAyaPkxTINq+LtNmemqbsx2P3rKKdK+8ETRkdMJ
+ KQ4DABWAGgZavLFfrJM1lZITSQVP6y9xgRcB0d+OEA89vrxtAaQVGDqA8
+ a9VLuB4eDKizMTTLzwUCHjcmQLGWSSa18msxLDd39aUAMO89Ysvlnm6aU Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="346036720"
+X-IronPort-AV: E=Sophos;i="5.90,223,1643702400"; d="scan'208";a="346036720"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2022 10:25:27 -0700
+X-IronPort-AV: E=Sophos;i="5.90,223,1643702400"; d="scan'208";a="565667617"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.241.89])
+ ([10.99.241.89])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2022 10:25:25 -0700
+Message-ID: <cf1df576-7861-d74c-6f50-86bebed0c850@linux.intel.com>
+Date: Wed, 30 Mar 2022 19:25:22 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20220330084519.3863856-1-judyhsiao@chromium.org>
-Cc: dianders@chromium.org, judyhsiao@google.com,
- Banajit Goswami <bgoswami@codeaurora.org>, cychiang@google.com,
- alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
- swboyd@chromium.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, broonie@kernel.org,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, yuhsuan@chromium.org
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: [PATCH v5 4/4] update tas27xx.c to support either TAS2764 or
+ TAS2780
+Content-Language: en-US
+To: Raphael-Xu <13691752556@139.com>, broonie@kernel.org
+References: <20220330144526.498-1-13691752556@139.com>
+ <20220330144526.498-4-13691752556@139.com>
+From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <20220330144526.498-4-13691752556@139.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, raphael-xu@ti.com, shenghao-ding@ti.com,
+ navada@ti.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,107 +95,192 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Mar 30, 2022 at 04:45:19PM +0800, Judy Hsiao wrote:
-> Subject: ASoC: qcom: Add driver support for ALC5682I-VS.
+On 3/30/2022 4:45 PM, Raphael-Xu wrote:
 
-nit: drop period from the subject
+Missing commit message in this patch and previous one. Even one sentence 
+explaining what you are doing and why is better then nothing.
 
-> Add Machine driver support for ALC5682I-VS codec.
-> 
-> Signed-off-by: Judy Hsiao <judyhsiao@chromium.org>
+Overall the series looks a lot better now, I still wonder if changing 
+coding style makes sense, but ultimately it's your code, so as long as 
+it patches checkpatch I will leave decision to Mark.
+
+And there are few nitpicks, below in this patch.
+
+> Signed-off-by: Raphael-Xu <13691752556@139.com>
 > ---
->  sound/soc/qcom/Kconfig  |   2 +
->  sound/soc/qcom/sc7280.c | 104 ++++++++++++++++++++++++++++++++++++++++
->  2 files changed, 106 insertions(+)
+>   sound/soc/codecs/tas27xx.c | 378 ++++++++++++++++++++++++++-----------
+>   1 file changed, 263 insertions(+), 115 deletions(-)
 > 
-> diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
-> index 28d0dfb4033c..750653404ba3 100644
-> --- a/sound/soc/qcom/Kconfig
-> +++ b/sound/soc/qcom/Kconfig
-> @@ -197,6 +197,8 @@ config SND_SOC_SC7280
->  	select SND_SOC_LPASS_MACRO_COMMON
->  	imply SND_SOC_LPASS_RX_MACRO
->  	imply SND_SOC_LPASS_TX_MACRO
-> +	select SND_SOC_RT5682_I2C
-> +	select SND_SOC_RT5682S
->  	help
->  	  Add support for audio on Qualcomm Technologies Inc.
->  	  SC7280 SoC-based systems.
-> diff --git a/sound/soc/qcom/sc7280.c b/sound/soc/qcom/sc7280.c
-> index bd0bf9c8cb28..a3e6f61e92cb 100644
-> --- a/sound/soc/qcom/sc7280.c
-> +++ b/sound/soc/qcom/sc7280.c
-> @@ -12,14 +12,20 @@
->  #include <sound/jack.h>
->  #include <sound/pcm.h>
->  #include <sound/soc.h>
-> +#include <sound/rt5682s.h>
->  #include <linux/soundwire/sdw.h>
->  
-> +#include "../codecs/rt5682.h"
-> +#include "../codecs/rt5682s.h"
->  #include "common.h"
->  #include "lpass.h"
->  
-> +#define DEFAULT_MCLK_RATE              19200000
-> +#define RT5682_PLL1_FREQ (48000 * 512)
->  struct sc7280_snd_data {
->  	struct snd_soc_card card;
->  	struct sdw_stream_runtime *sruntime[LPASS_MAX_PORTS];
-> +	u32 pri_mi2s_clk_count;
->  	struct snd_soc_jack hs_jack;
->  	struct snd_soc_jack hdmi_jack;
->  	bool jack_setup;
-> @@ -69,6 +75,7 @@ static int sc7280_headset_init(struct snd_soc_pcm_runtime *rtd)
->  		pdata->jack_setup = true;
->  	}
->  	switch (cpu_dai->id) {
-> +	case MI2S_PRIMARY:
->  	case LPASS_CDC_DMA_RX0:
->  	case LPASS_CDC_DMA_TX3:
->  		for_each_rtd_codec_dais(rtd, i, codec_dai) {
-> @@ -110,11 +117,49 @@ static int sc7280_hdmi_init(struct snd_soc_pcm_runtime *rtd)
->  	return snd_soc_component_set_jack(component, &pdata->hdmi_jack, NULL);
->  }
->  
-> +static int sc7280_rt5682_init(struct snd_soc_pcm_runtime *rtd)
+> diff --git a/sound/soc/codecs/tas27xx.c b/sound/soc/codecs/tas27xx.c
+> index 8118429bb2f5..bb845d4797ce 100644
+> --- a/sound/soc/codecs/tas27xx.c
+> +++ b/sound/soc/codecs/tas27xx.c
+
+...
+
+> @@ -146,8 +182,9 @@ static int tas27xx_dac_event(struct snd_soc_dapm_widget *w,
+>   		snd_soc_dapm_to_component(w->dapm);
+>   	struct tas27xx_priv *tas27xx =
+>   		snd_soc_component_get_drvdata(component);
+> -	int ret;
+> +	int ret = 0;
+>   
+> +	mutex_lock(&tas27xx->codec_lock);
+>   	switch (event) {
+>   	case SND_SOC_DAPM_POST_PMU:
+>   		ret = snd_soc_component_update_bits(component,
+> @@ -163,13 +200,16 @@ static int tas27xx_dac_event(struct snd_soc_dapm_widget *w,
+>   		break;
+>   	default:
+>   		dev_err(tas27xx->dev, "Unsupported event\n");
+> -		return -EINVAL;
+> +			ret = -EINVAL;
+
+There seems to be one tab to many here.
+
+>   	}
+> -
+> -	if (ret < 0)
+> -		return ret;
+> -
+> -	return 0;
+> +	if (ret < 0) {
+> +		pr_err("%s:%u:errCode:0x%0x:PWR_CTRL error\n",
+> +			__func__, __LINE__, ret);
+> +	} else {
+> +		ret = 0;
+> +	}
+> +	mutex_unlock(&tas27xx->codec_lock);
+> +	return ret;
+>   }
+>   
+>   static const struct snd_kcontrol_new isense_switch =
+> @@ -207,55 +247,96 @@ static const struct snd_soc_dapm_route tas27xx_audio_map[] = {
+>   static int tas27xx_mute(struct snd_soc_dai *dai, int mute, int direction)
+>   {
+>   	struct snd_soc_component *component = dai->component;
+> -	int ret;
+> +	struct tas27xx_priv *tas27xx =
+> +		snd_soc_component_get_drvdata(component);
+> +	int ret = 0;
+> +	
+> +	mutex_lock(&tas27xx->codec_lock);
+>   
+> +	if (mute == 0) {
+
+alternatively if (!mute), but you can leave as is
+
+> +		ret = snd_soc_component_update_bits(component,
+> +			TAS27XX_CLK_CFG,
+> +			TAS27XX_CLK_CFG_MASK,
+> +			TAS27XX_CLK_CFG_ENABLE);
+> +		if (ret < 0) {
+> +			dev_err(tas27xx->dev,
+> +				"%s:%u: Failed to CLK_CFG_ENABLE\n",
+> +				__func__, __LINE__);
+> +			goto EXIT;
+> +		}
+> +		usleep_range(2000, 2000);
+> +	}
+>   	ret = snd_soc_component_update_bits(component, TAS27XX_PWR_CTRL,
+> -					    TAS27XX_PWR_CTRL_MASK,
+> -					    mute ? TAS27XX_PWR_CTRL_MUTE : 0);
+> -
+> -	if (ret < 0)
+> -		return ret;
+> +		TAS27XX_PWR_CTRL_MASK,
+> +		mute ? TAS27XX_PWR_CTRL_MUTE : 0);
+> +	if (ret >= 0) {
+> +		tas27xx->mb_power_up = mute?false:true;
+> +		ret = 0;
+> +	}
+>   
+> -	return 0;
+> +	if (ret < 0) {
+
+You could probably just use } else { here with above if.
+
+> +		pr_err("%s:%u: Failed to set powercontrol\n",
+> +			__func__, __LINE__);
+> +	}
+> +EXIT:
+> +	mutex_unlock(&tas27xx->codec_lock);
+> +	return ret;
+>   }
+>   
+
+...
+
+>   
+>   static const struct snd_soc_dai_ops tas27xx_dai_ops = {
+> @@ -495,13 +615,13 @@ static struct snd_soc_dai_driver tas27xx_dai_driver[] = {
+>   		},
+>   		.capture = {
+>   			.stream_name    = "ASI1 Capture",
+> -			.channels_min   = 0,
+> +			.channels_min   = 1,
+>   			.channels_max   = 2,
+>   			.rates = TAS27XX_RATES,
+>   			.formats = TAS27XX_FORMATS,
+>   		},
+>   		.ops = &tas27xx_dai_ops,
+> -		.symmetric_rate = 1,
+> +		.symmetric_rates = 1,
+
+I'm pretty sure struct snd_soc_dai_driver uses .symmetric_rate, so this 
+change would result in build failure?
+
+>   	},
+>   };
+>   
+> @@ -509,7 +629,7 @@ static int tas27xx_codec_probe(struct snd_soc_component *component)
+>   {
+>   	struct tas27xx_priv *tas27xx =
+>   		snd_soc_component_get_drvdata(component);
+> -	int ret;
+> +	int ret = 0;
+>   
+>   	tas27xx->component = component;
+>   
+
+...
+
+>   
+>   static DECLARE_TLV_DB_SCALE(tas27xx_digital_tlv, 1100, 50, 0);
+> @@ -551,8 +685,10 @@ static const struct snd_kcontrol_new tas27xx_snd_controls[] = {
+>   
+>   static const struct snd_soc_component_driver soc_component_driver_tas27xx = {
+>   	.probe			= tas27xx_codec_probe,
+> +#ifdef CONFIG_PM
+>   	.suspend		= tas27xx_codec_suspend,
+>   	.resume			= tas27xx_codec_resume,
+> +#endif
+>   	.set_bias_level		= tas27xx_set_bias_level,
+>   	.controls		= tas27xx_snd_controls,
+>   	.num_controls		= ARRAY_SIZE(tas27xx_snd_controls),
+> @@ -590,6 +726,12 @@ static const struct regmap_range_cfg tas27xx_regmap_ranges[] = {
+>   	},
+>   };
+>   
+> +static bool tas27xx_volatile(struct device *dev,
+> +	unsigned int reg)
 > +{
-> +	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-> +	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-> +	struct snd_soc_card *card = rtd->card;
-> +	struct sc7280_snd_data *data = snd_soc_card_get_drvdata(card);
-> +	int ret;
-> +
-> +	if (++data->pri_mi2s_clk_count == 1) {
-> +		snd_soc_dai_set_sysclk(cpu_dai,
-> +			LPASS_MCLK0,
-> +			DEFAULT_MCLK_RATE,
-> +			SNDRV_PCM_STREAM_PLAYBACK);
-> +	}
-> +	snd_soc_dai_set_fmt(codec_dai,
-> +				SND_SOC_DAIFMT_CBS_CFS |
-> +				SND_SOC_DAIFMT_NB_NF |
-> +				SND_SOC_DAIFMT_I2S);
-> +
-> +	ret = snd_soc_dai_set_pll(codec_dai, RT5682S_PLL1, RT5682S_PLL_S_BCLK1,
-> +					1536000, RT5682_PLL1_FREQ);
-> +	if (ret) {
-> +		dev_err(rtd->dev, "can't set codec pll: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	ret = snd_soc_dai_set_sysclk(codec_dai, RT5682S_SCLK_S_PLL1,
-> +					RT5682_PLL1_FREQ,
-> +					SND_SOC_CLOCK_IN);
-> +
-> +	if (ret)
-> +		dev_err(rtd->dev, "snd_soc_dai_set_sysclk err = %d\n",
-> +			ret);
-
-With the current code the function would return 0, I imagine that's not
-intended.
-
-> +
-> +	return 0;
+> +		return true;
 > +}
 > +
+
+This seems bit weird, are all registers considered volatile?
+
+>   static const struct regmap_config tas27xx_i2c_regmap = {
+>   	.reg_bits = 8,
+>   	.val_bits = 8,
+> @@ -599,6 +741,7 @@ static const struct regmap_config tas27xx_i2c_regmap = {
+>   	.ranges = tas27xx_regmap_ranges,
+>   	.num_ranges = ARRAY_SIZE(tas27xx_regmap_ranges),
+>   	.max_register = 1 * 128,
+> +	.volatile_reg = tas27xx_volatile,
+>   };
+>   
+>   static int tas27xx_parse_dt(struct device *dev, struct tas27xx_priv *tas27xx)
+
+...

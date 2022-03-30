@@ -2,68 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03C624EC056
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Mar 2022 13:49:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1512F4EC070
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Mar 2022 13:49:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A4A9017B6;
-	Wed, 30 Mar 2022 13:48:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4A9017B6
+	by alsa0.perex.cz (Postfix) with ESMTPS id B19CF1788;
+	Wed, 30 Mar 2022 13:48:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B19CF1788
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648640956;
-	bh=yGnjY+lYxJXOnr0rrff8LCirneIsgVl27V7mWnMwbyg=;
+	s=default; t=1648640972;
+	bh=4pBJRB8w+YKZi9TSwaBVRrg0p/xCcnQyAssoSghSbO8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Il9SwS6HwfETMolWtnXQZkhSW/HvgQbt8/rKg13149Mja+vWDAPsZP8t6bjCN5MZN
-	 BnNLQaB0r3bSnT0etWLtkGT8piqqKR3S4Us95TvE33JBtFnPlryIpgwSnm8a5R2Kur
-	 Fdp2kNXXPRQxuBnGhzYOnhl2JyiaThdUXEZVgWfU=
+	b=pJBK4Yz5IdqTrEs9H5nUe4Q1YabQ9ZLm+NT6S/TyJO0idnj34gsg5Nw1S++Q522It
+	 hIKnmHr6NafMRJI4cZMSLcyj1kRaFV7WHuJjcTlHoZ0e9uBWEyn9fVL58h8Yi7Ze7S
+	 MTKYCgBlTfNB2uEkT4m5I765FvQglOZ5czz33ibk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E76CAF8051B;
-	Wed, 30 Mar 2022 13:47:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 857A6F80520;
+	Wed, 30 Mar 2022 13:47:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C9F83F8051A; Wed, 30 Mar 2022 13:47:17 +0200 (CEST)
+ id 223CCF8051E; Wed, 30 Mar 2022 13:47:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8E7ACF804B4
- for <alsa-devel@alsa-project.org>; Wed, 30 Mar 2022 13:47:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E7ACF804B4
+ by alsa1.perex.cz (Postfix) with ESMTPS id E0A87F80519
+ for <alsa-devel@alsa-project.org>; Wed, 30 Mar 2022 13:47:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0A87F80519
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="WYzWCO/W"
+ header.b="eW52Y6yd"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id E3AFECE1C71;
- Wed, 30 Mar 2022 11:47:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01029C340F2;
- Wed, 30 Mar 2022 11:47:01 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 9E30961626;
+ Wed, 30 Mar 2022 11:47:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79D25C340F2;
+ Wed, 30 Mar 2022 11:47:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1648640823;
- bh=yGnjY+lYxJXOnr0rrff8LCirneIsgVl27V7mWnMwbyg=;
+ s=k20201202; t=1648640839;
+ bh=4pBJRB8w+YKZi9TSwaBVRrg0p/xCcnQyAssoSghSbO8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=WYzWCO/WG1VOPjlqOGm5yKm4odeq9kpmw5ThZEHbiSEq+qQANSk2r6kwGo7vmCJoN
- abeSWFphnQ552YGFmgLqJ45fGOHMAj8/dgwLSrSe7g2m3RtPlfMXzTzOm4AnLElG/D
- cY+r3UqVGsv4KUOztsSHNs2NlzDHIi/WQpyqodg1vaFuEnKvd3JDIbg3PYI8Ab7aNo
- rtd37bJmzuPHvn37nHRJv5ufQ3IrdSM1CpcEq9yJO2lsxerq+z2YC27d8IHhw4A1+u
- 2eySsFpXHwQgNlOMResR8pdPsn2U8YpdaLhA+oFM/QyZ7XSMxRGipAwAUegPCpMf4o
- MvKB0TcB/e/Rg==
+ b=eW52Y6yde6v94bCIF1BpGpVIrrsasw6s+9DMd8sQP8S8NgBpX8yYDO12ugSNVrm9V
+ StxgnuSTHoQrjv1Ibf8czjF09WzPTHa0/81wV+jeDCc1HRPf/NrHJAdKC+f0uf6cEX
+ Z8QF/c8OQQ04+mGCAacl8YGqP2OZ70uyKldv3XFNAdXN7yphMjkOjaGGwvjKK8Pme5
+ V/8+HJvlIPx69LBj3aw8LBzQdbh8yL/FTObzRVHX0FC+QEiHIzKPIboVDOiNAgzhVK
+ F0ioDaoaTCHM5JNd3kkdAAOuzcCgauMO5zzkfL3uOEZMgnbyG3BCItmSO/mFtUYRLC
+ 5Yt++8dNknEIg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.17 10/66] ASoC: SOF: Intel: hda: Remove link
- assignment limitation
-Date: Wed, 30 Mar 2022 07:45:49 -0400
-Message-Id: <20220330114646.1669334-10-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.17 20/66] ASoC: madera: Add dependencies on MFD
+Date: Wed, 30 Mar 2022 07:45:59 -0400
+Message-Id: <20220330114646.1669334-20-sashal@kernel.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220330114646.1669334-1-sashal@kernel.org>
 References: <20220330114646.1669334-1-sashal@kernel.org>
@@ -71,13 +70,9 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- lgirdwood@gmail.com, tiwai@suse.com,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Rander Wang <rander.wang@intel.com>, Mark Brown <broonie@kernel.org>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ Charles Keepax <ckeepax@opensource.cirrus.com>, tiwai@suse.com,
+ lgirdwood@gmail.com, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,63 +88,58 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-[ Upstream commit 2ce0d008dcc59f9c01f43277b9f9743af7b01dad ]
+[ Upstream commit ec29170c724ca30305fc3a19ba2ee73ecac65509 ]
 
-The limitation to assign a link DMA channel for a BE iff the
-corresponding host DMA channel is assigned to a connected FE is only
-applicable if the PROCEN_FMT_QUIRK is set. So, remove it for platforms
-that do not enable the quirk.
+The Madera CODECs use regmap_irq functions but nothing ensures that
+regmap_irq is built into the kernel. Add dependencies on the ASoC
+symbols for the relevant MFD component. There is no point in building
+the ASoC driver if the MFD doesn't support it and the MFD part contains
+the necessary dependencies to ensure everything is built into the
+kernel.
 
-Complements: a792bfc1c2bc ("ASoC: SOF: Intel: hda-stream: limit PROCEN workaround")
-Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Link: https://lore.kernel.org/r/20220128130017.28508-1-peter.ujfalusi@linux.intel.com
+Reported-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Link: https://lore.kernel.org/r/20220203115025.16464-1-ckeepax@opensource.cirrus.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/sof/intel/hda-dai.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ sound/soc/codecs/Kconfig | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/sound/soc/sof/intel/hda-dai.c b/sound/soc/sof/intel/hda-dai.c
-index cd12589355ef..28a54145c150 100644
---- a/sound/soc/sof/intel/hda-dai.c
-+++ b/sound/soc/sof/intel/hda-dai.c
-@@ -59,6 +59,8 @@ static struct hdac_ext_stream *
- {
- 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct sof_intel_hda_stream *hda_stream;
-+	const struct sof_intel_dsp_desc *chip;
-+	struct snd_sof_dev *sdev;
- 	struct hdac_ext_stream *res = NULL;
- 	struct hdac_stream *stream = NULL;
+diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+index d3e5ae8310ef..30c00380499c 100644
+--- a/sound/soc/codecs/Kconfig
++++ b/sound/soc/codecs/Kconfig
+@@ -733,6 +733,7 @@ config SND_SOC_CS4349
  
-@@ -77,9 +79,20 @@ static struct hdac_ext_stream *
- 			continue;
+ config SND_SOC_CS47L15
+ 	tristate
++	depends on MFD_CS47L15
  
- 		hda_stream = hstream_to_sof_hda_stream(hstream);
-+		sdev = hda_stream->sdev;
-+		chip = get_chip_info(sdev->pdata);
+ config SND_SOC_CS47L24
+ 	tristate
+@@ -740,15 +741,19 @@ config SND_SOC_CS47L24
  
- 		/* check if link is available */
- 		if (!hstream->link_locked) {
-+			/*
-+			 * choose the first available link for platforms that do not have the
-+			 * PROCEN_FMT_QUIRK set.
-+			 */
-+			if (!(chip->quirks & SOF_INTEL_PROCEN_FMT_QUIRK)) {
-+				res = hstream;
-+				break;
-+			}
-+
- 			if (stream->opened) {
- 				/*
- 				 * check if the stream tag matches the stream
+ config SND_SOC_CS47L35
+ 	tristate
++	depends on MFD_CS47L35
+ 
+ config SND_SOC_CS47L85
+ 	tristate
++	depends on MFD_CS47L85
+ 
+ config SND_SOC_CS47L90
+ 	tristate
++	depends on MFD_CS47L90
+ 
+ config SND_SOC_CS47L92
+ 	tristate
++	depends on MFD_CS47L92
+ 
+ # Cirrus Logic Quad-Channel ADC
+ config SND_SOC_CS53L30
 -- 
 2.34.1
 

@@ -2,76 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58BA94EBAAB
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Mar 2022 08:15:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0BA34EBC1A
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Mar 2022 09:50:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D819C1705;
-	Wed, 30 Mar 2022 08:14:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D819C1705
+	by alsa0.perex.cz (Postfix) with ESMTPS id 74A991727;
+	Wed, 30 Mar 2022 09:49:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74A991727
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648620948;
-	bh=tocxJJmxSALBM9JyaZTFYf5XlDnh9NPks8kWtLvx+Ik=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=WArMN56oAhYKTBZq5a18/E/iRQS21QhxcOfbF/LAJedO5LomBRggWMDHdc/6kB6Pv
-	 vwdy8Z1LXVTq+NiaNad9bF3UI/SvZArH43nKseWlwIzVlWHgoqJ7TplK6No1bBcvzn
-	 nN4swA87Nef5w30/wYBEgQz1vyQmesmbGcfRjCs0=
+	s=default; t=1648626647;
+	bh=ECjZ01Rfd2F0RI/wJYDUt8UpRLRvFVVgDdRIGej91AM=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=V6t2XLUN1MqpF1E2+Ob8qFUE3RW1uBJC/rqc+WcybmfAAP7ys0/grtUzS6pfnxSPo
+	 RQvIL2/EX7ar3tyjWrWoINP+g6wa504G6MlV7cWVT/ZC5EwgWQHpIg7Fs0xjhpcKeq
+	 Qrt8rHXEHG68dFzMdRnYT+VZT9KqhFbOwO2vFjqw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 35636F8025A;
-	Wed, 30 Mar 2022 08:14:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 95A70F800B8;
+	Wed, 30 Mar 2022 09:49:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3ED9AF80254; Wed, 30 Mar 2022 08:14:40 +0200 (CEST)
+ id 6B903F80254; Wed, 30 Mar 2022 09:49:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-relay-canonical-1.canonical.com
- (smtp-relay-canonical-1.canonical.com [185.125.188.121])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 503FEF800F2
- for <alsa-devel@alsa-project.org>; Wed, 30 Mar 2022 08:14:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 503FEF800F2
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
- header.b="Y+HnX3fT"
-Received: from localhost.localdomain (unknown [10.101.196.174])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 1779F3F622; 
- Wed, 30 Mar 2022 06:14:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1648620865;
- bh=NUWrxgCHzurIsqxuvbtWFPBwSW5wtoM8Kr1QQ/VeCxE=;
- h=From:To:Cc:Subject:Date:Message-Id:MIME-Version;
- b=Y+HnX3fTIop0uCPSVesQeDxtk/RzuUTlrW74fYMDYPs55uEly6ZxXzfnhplRGO6Hl
- x432Vp3mg/uZna4woUy74o5PLqJKUhqCGvRpaZswhds2OH1WJR4fSRRjg0pcT/4T1R
- AjpQQhTz1rcSoOodC1YSIoF3PYCbKIOoHuJFpgncKBAnryGaRyLYSGvnqVepmf3AUz
- yxSKKTutecfTm3Xy5cw4qnSlvwTAodqZQKidxNCO578twleVqLmYBRdA9TUx82Bf7w
- YhSmhHPBhM4PQk9RQyyAgSNF/1HD92JxI/cBNP6ZF3H0oqLuRMTWGGCIsnhEIikFLF
- /yGSQnuPaSC5g==
-From: Kai-Heng Feng <kai.heng.feng@canonical.com>
-To: tiwai@suse.com
-Subject: [PATCH v2] ALSA: hda/realtek: Fix audio regression on Mi Notebook Pro
- 2020
-Date: Wed, 30 Mar 2022 14:13:33 +0800
-Message-Id: <20220330061335.1015533-1-kai.heng.feng@canonical.com>
-X-Mailer: git-send-email 2.34.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5BF3BF800B8
+ for <alsa-devel@alsa-project.org>; Wed, 30 Mar 2022 09:49:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BF3BF800B8
+Received: from ptx.hi.pengutronix.de ([2001:67c:670:100:1d::c0])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <sha@pengutronix.de>)
+ id 1nZT57-0005qE-LM; Wed, 30 Mar 2022 09:49:29 +0200
+Received: from sha by ptx.hi.pengutronix.de with local (Exim 4.92)
+ (envelope-from <sha@pengutronix.de>)
+ id 1nZT56-0002Md-T7; Wed, 30 Mar 2022 09:49:28 +0200
+Date: Wed, 30 Mar 2022 09:49:28 +0200
+From: Sascha Hauer <s.hauer@pengutronix.de>
+To: Fabio Estevam <festevam@gmail.com>
+Subject: Re: [PATCH v2 10/19] dma: imx-sdma: Add multi fifo support
+Message-ID: <20220330074928.GY12181@pengutronix.de>
+References: <20220328112744.1575631-1-s.hauer@pengutronix.de>
+ <20220328112744.1575631-11-s.hauer@pengutronix.de>
+ <CAOMZO5B3TdYMhvYX55H5c+tSgaR8mgUKPo=hOw2xKvd+b+X8=g@mail.gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Kailang Yang <kailang@realtek.com>,
- kernel test robot <lkp@intel.com>,
- Lucas Tanure <tanureal@opensource.cirrus.com>,
- Jeremy Szu <jeremy.szu@canonical.com>, linux-kernel@vger.kernel.org,
- Werner Sembach <wse@tuxedocomputers.com>, Hui Wang <hui.wang@canonical.com>,
- Kai-Heng Feng <kai.heng.feng@canonical.com>, Sami Loone <sami@loone.fi>,
- Cameron Berkenpas <cam@neo-zeon.de>, Dan Carpenter <dan.carpenter@oracle.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAOMZO5B3TdYMhvYX55H5c+tSgaR8mgUKPo=hOw2xKvd+b+X8=g@mail.gmail.com>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-IRC: #ptxdist @freenode
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
+X-Uptime: 09:48:24 up 109 days, 16:33, 78 users,  load average: 0.10, 0.10,
+ 0.09
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c0
+X-SA-Exim-Mail-From: sha@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Vinod Koul <vkoul@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
+ Sascha Hauer <kernel@pengutronix.de>, dmaengine@vger.kernel.org,
+ Shengjiu Wang <shengjiu.wang@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,43 +89,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Commit 5aec98913095 ("ALSA: hda/realtek - ALC236 headset MIC recording
-issue") is to solve recording issue met on AL236, by matching codec
-variant ALC269_TYPE_ALC257 and ALC269_TYPE_ALC256.
+Hi Fabio,
 
-This match can be too broad and Mi Notebook Pro 2020 is broken by the
-patch.
+On Tue, Mar 29, 2022 at 07:55:45AM -0300, Fabio Estevam wrote:
+> Hi Sascha,
+> 
+> On Mon, Mar 28, 2022 at 8:28 AM Sascha Hauer <s.hauer@pengutronix.de> wrote:
+> >
+> > Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+> 
+> Please add a commit log, thanks.
 
-Instead, use codec ID to be narrow down the scope, in order to make
-ALC256 unaffected.
+oh, sure. Will add this:
 
-Bugzilla: https://bugzilla.kernel.org/show_bug.cgi?id=215484
-Fixes: 5aec98913095 ("ALSA: hda/realtek - ALC236 headset MIC recording issue")
-Reported-by: kernel test robot <lkp@intel.com>
-Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
-Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
----
-v2:
- Fix wrong comparison, || -> &&
+    The i.MX SDMA engine can read from / write to multiple successive
+    hardware FIFO registers, referred to as "Multi FIFO support". This is
+    needed for the micfil driver and certain configurations of the SAI
+    driver. This patch adds support for this feature.
+    
+    The number of FIFOs to read from / write to must be communicated from
+    the client driver to the SDMA engine. For this the struct
+    dma_slave_config::peripheral_config field is used.
 
- sound/pci/hda/patch_realtek.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Sascha
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 4c33cb57963db..aace474a899de 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -3617,8 +3617,8 @@ static void alc256_shutup(struct hda_codec *codec)
- 	/* If disable 3k pulldown control for alc257, the Mic detection will not work correctly
- 	 * when booting with headset plugged. So skip setting it for the codec alc257
- 	 */
--	if (spec->codec_variant != ALC269_TYPE_ALC257 &&
--	    spec->codec_variant != ALC269_TYPE_ALC256)
-+	if (codec->core.vendor_id != 0x10ec0236 &&
-+	    codec->core.vendor_id != 0x10ec0257)
- 		alc_update_coef_idx(codec, 0x46, 0, 3 << 12);
- 
- 	if (!spec->no_shutup_pins)
 -- 
-2.34.1
-
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |

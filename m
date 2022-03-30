@@ -2,68 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72E934EC2FC
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Mar 2022 14:07:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC71B4EC2FE
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Mar 2022 14:07:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 163E51ABF;
-	Wed, 30 Mar 2022 14:06:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 163E51ABF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7C505192E;
+	Wed, 30 Mar 2022 14:06:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C505192E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648642035;
-	bh=i4LvtJMYs5t9UOhjaHJspxXRS2kYwM/x4i+LuKPkDHQ=;
+	s=default; t=1648642050;
+	bh=N7VV4WU4ve5a9mkAhzkgXt2CymUm4Y3tFt0YFfoLEbo=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FCaJlHMM6m+Xa9w6VdkP9cVRXV1hNC5kjHci/6ll/e3ksOx4elX+Dc/DsD8Z/TNOl
-	 u51HZxONx9yh6Nph8BDpeJ5cxy3dy0I/hwyravGeIFdFpodoTBhOeBBhKx3qXYprup
-	 C7qs9Eh9HEVY5upbI4hh+rXhFwCU+ZCZPa8Hk47g=
+	b=If9jvic7eSQa2kWOkmV5NlXqHfi2z1PbJBvnkuCjdUpxhIE/ZOjEso2iYhRWEev7y
+	 P/zIVDCFNgXYNW/om//xesH/K0eF2d3Fzvme26cB6vpJp7wGJ9/7H/6LARRIen12R0
+	 nA1v5JTcdV0J1jvgjf8gd+a9+rI8nl1KwzMje3U8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1A552F805C0;
-	Wed, 30 Mar 2022 13:54:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 24EC8F805C8;
+	Wed, 30 Mar 2022 13:54:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 971EEF805BF; Wed, 30 Mar 2022 13:54:33 +0200 (CEST)
+ id C0CB1F805C8; Wed, 30 Mar 2022 13:54:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9BF88F805BF
- for <alsa-devel@alsa-project.org>; Wed, 30 Mar 2022 13:54:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BF88F805BF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4422BF805C6
+ for <alsa-devel@alsa-project.org>; Wed, 30 Mar 2022 13:54:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4422BF805C6
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="H7nPFKqn"
+ header.b="DXdIoeDX"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5B8E2616E0;
- Wed, 30 Mar 2022 11:54:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BCD7C36AE3;
- Wed, 30 Mar 2022 11:54:24 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 3A6C66170A;
+ Wed, 30 Mar 2022 11:54:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0326C340F2;
+ Wed, 30 Mar 2022 11:54:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1648641265;
- bh=i4LvtJMYs5t9UOhjaHJspxXRS2kYwM/x4i+LuKPkDHQ=;
+ s=k20201202; t=1648641276;
+ bh=N7VV4WU4ve5a9mkAhzkgXt2CymUm4Y3tFt0YFfoLEbo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=H7nPFKqnZjaP+pXB88MVcs6hND4xYOwAoxj2S+LJpoaX9TNEGqv8XrLI58YQCqzt+
- m8DD0zUj+a9d6yuZelMnH/bw4VO8BQGhzG7SMgrXBwuOOiZ/FBP39pHIrdMmj44qiZ
- hBMk9T+wwX+ZK50YfrC+30QBIm6kNT2V84+2ryCzTUJZe1CjioTTD68R8xL1rTvCdX
- XCD2b7hto+Eg2sxKAr6PYm2tDVUjGgsjrVagFGGjG9wYoYO0JjZ9XZQ0TVBwoO6Uba
- sP2YwgB/m4bixGZhQsEhqsODYlD+7f3uFeedwfaHJvDmZEdt3lpqqpiNXs+DOVW9PT
- 4B9wYjWekKzPg==
+ b=DXdIoeDX0PfKBl0AOK4ma3bF3o7qHxhW+lnX9p9ERAJX5BLiQPSOtaMvrNdYethkB
+ j56COJp15mHwaxdIZwF+RQnIebXF/UkEFsoTJhYRZJvmEfz71qxkptjaq2LmJgfzi1
+ XBrhZoJrNeb9+7R+aRpj4AWNNKgx0twgHOntmIU3RUsVUVJjwQZx/dNEs3ebwPLdcU
+ IgCjbNryV8g3fF4DIQGvKtYre7pt11EqQknDSZIg7nEQBsU7J1MBQalmXB1l8w7vpC
+ Fiy8bQk4vaW6hOJ5BRZSANh/sCUnJFuqBT/Hd/Z0sqdZxemM5g4FWxEmSVsuZ4K7hg
+ WBboBKvFCeOXg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.9 10/17] ASoC: soc-core: skip zero num_dai component
- in searching dai name
-Date: Wed, 30 Mar 2022 07:53:59 -0400
-Message-Id: <20220330115407.1673214-10-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.9 17/17] ASoC: ak4642: Use of_device_get_match_data()
+Date: Wed, 30 Mar 2022 07:54:06 -0400
+Message-Id: <20220330115407.1673214-17-sashal@kernel.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220330115407.1673214-1-sashal@kernel.org>
 References: <20220330115407.1673214-1-sashal@kernel.org>
@@ -72,8 +72,8 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Shengjiu Wang <shengjiu.wang@nxp.com>, tiwai@suse.com, lgirdwood@gmail.com,
- Mark Brown <broonie@kernel.org>
+ Zeal Robot <zealci@zte.com.cn>, tiwai@suse.com, lgirdwood@gmail.com,
+ Minghao Chi <chi.minghao@zte.com.cn>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,45 +89,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
+From: Minghao Chi <chi.minghao@zte.com.cn>
 
-[ Upstream commit f7d344a2bd5ec81fbd1ce76928fd059e57ec9bea ]
+[ Upstream commit 835ca59799f5c60b4b54bdc7aa785c99552f63e4 ]
 
-In the case like dmaengine which's not a dai but as a component, the
-num_dai is zero, dmaengine component has the same component_of_node
-as cpu dai, when cpu dai component is not ready, but dmaengine component
-is ready, try to get cpu dai name, the snd_soc_get_dai_name() return
--EINVAL, not -EPROBE_DEFER, that cause below error:
+Use of_device_get_match_data() to simplify the code.
 
-asoc-simple-card <card name>: parse error -22
-asoc-simple-card: probe of <card name> failed with error -22
-
-The sound card failed to probe.
-
-So this patch fixes the issue above by skipping the zero num_dai
-component in searching dai name.
-
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-Link: https://lore.kernel.org/r/1644491952-7457-1-git-send-email-shengjiu.wang@nxp.com
+Reported-by: Zeal Robot <zealci@zte.com.cn>
+Signed-off-by: Minghao Chi <chi.minghao@zte.com.cn>
+Link: https://lore.kernel.org/r/20220315023226.2118354-1-chi.minghao@zte.com.cn
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/soc-core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/codecs/ak4613.c | 11 +++--------
+ 1 file changed, 3 insertions(+), 8 deletions(-)
 
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 0344d4423167..81c3aa167038 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -3799,7 +3799,7 @@ static int snd_soc_get_dai_name(struct of_phandle_args *args,
- 		if (!component_of_node && pos->dev->parent)
- 			component_of_node = pos->dev->parent->of_node;
+diff --git a/sound/soc/codecs/ak4613.c b/sound/soc/codecs/ak4613.c
+index e819dd8c82fd..b6b93c2b7593 100644
+--- a/sound/soc/codecs/ak4613.c
++++ b/sound/soc/codecs/ak4613.c
+@@ -500,15 +500,10 @@ static int ak4613_i2c_probe(struct i2c_client *i2c,
+ 	struct ak4613_priv *priv;
  
--		if (component_of_node != args->np)
-+		if (component_of_node != args->np || !pos->num_dai)
- 			continue;
+ 	regmap_cfg = NULL;
+-	if (np) {
+-		const struct of_device_id *of_id;
+-
+-		of_id = of_match_device(ak4613_of_match, dev);
+-		if (of_id)
+-			regmap_cfg = of_id->data;
+-	} else {
++	if (np)
++		regmap_cfg = of_device_get_match_data(dev);
++	else
+ 		regmap_cfg = (const struct regmap_config *)id->driver_data;
+-	}
  
- 		if (pos->driver->of_xlate_dai_name) {
+ 	if (!regmap_cfg)
+ 		return -EINVAL;
 -- 
 2.34.1
 

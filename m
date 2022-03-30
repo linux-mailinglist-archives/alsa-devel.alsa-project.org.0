@@ -2,97 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FDEB4EB91F
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Mar 2022 05:57:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58BA94EBAAB
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Mar 2022 08:15:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9E5F816BD;
-	Wed, 30 Mar 2022 05:56:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E5F816BD
+	by alsa0.perex.cz (Postfix) with ESMTPS id D819C1705;
+	Wed, 30 Mar 2022 08:14:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D819C1705
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648612641;
-	bh=QtGZLozjyAIOzsZSlD+JTTWigDKqQpgzm5oFEzYQXdA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=dUJKbe5s4AiStLWNmEWuXLFBKBC3A/4AkvBGuPSXbleuu4gvE5n6S3evlORE/RMhH
-	 jt7SL4sIDmZ6lY5PiIAQzw2yO51Qit/J/fzJhjesi3yXYFgaLo7RM2kF0334XZJEO2
-	 zyqH27QaVtLKmidHb/6UbkLOvWp3N7KNgM8Us8yQ=
+	s=default; t=1648620948;
+	bh=tocxJJmxSALBM9JyaZTFYf5XlDnh9NPks8kWtLvx+Ik=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=WArMN56oAhYKTBZq5a18/E/iRQS21QhxcOfbF/LAJedO5LomBRggWMDHdc/6kB6Pv
+	 vwdy8Z1LXVTq+NiaNad9bF3UI/SvZArH43nKseWlwIzVlWHgoqJ7TplK6No1bBcvzn
+	 nN4swA87Nef5w30/wYBEgQz1vyQmesmbGcfRjCs0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 08AC7F800B8;
-	Wed, 30 Mar 2022 05:56:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 35636F8025A;
+	Wed, 30 Mar 2022 08:14:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C4399F80254; Wed, 30 Mar 2022 05:56:13 +0200 (CEST)
+ id 3ED9AF80254; Wed, 30 Mar 2022 08:14:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-io1-xd2d.google.com (mail-io1-xd2d.google.com
- [IPv6:2607:f8b0:4864:20::d2d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-relay-canonical-1.canonical.com
+ (smtp-relay-canonical-1.canonical.com [185.125.188.121])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 66876F800B8;
- Wed, 30 Mar 2022 05:56:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66876F800B8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 503FEF800F2
+ for <alsa-devel@alsa-project.org>; Wed, 30 Mar 2022 08:14:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 503FEF800F2
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="GEKs8cX9"
-Received: by mail-io1-xd2d.google.com with SMTP id b16so23463700ioz.3;
- Tue, 29 Mar 2022 20:56:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=QtGZLozjyAIOzsZSlD+JTTWigDKqQpgzm5oFEzYQXdA=;
- b=GEKs8cX9+dTQ0wcyzXEKtdo7wsRCb/3kqRbEhVEUQhxDPvSdXhX9imKsdTQGyhq1FA
- 8szamnNrvmxjU60sHdwpsyOHDOApynv4nLLMfHzvSNF5Z7s01LUvf4VlNQz9/tal+wem
- +XUtPO+t/OY4idHz16zFBukaFybQEH5UGcvN+HkmjKWgjC/ThqCRB4hp6/1EnyEuuHYR
- F8/uv5HdduVgTki8ffVbjlg0Ybl1wtiliRI4g2lxqGHWzo8wnXlrSwxJR7nhxtjvtZHo
- O8EnZujZolkKG/la9760q0AoFV5B6fvPlyrYmgGiscgwFZHP2ZzJzMUybskE7zhiuJ8R
- Qdag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=QtGZLozjyAIOzsZSlD+JTTWigDKqQpgzm5oFEzYQXdA=;
- b=rmesA55WcbuxQjJyCmgNUJKkREmThvQVdxGdX1NhIa21d44PGoppmtCNfuwcKxL1Yx
- tDqxqtsYig4IZkIQAJrozO+s0pjuvQtjqBM9FIlzvi5luCmlTRZvO/RIgvsOO3Q6fbOp
- 6qNtlmQ3dSRUui5/FS8OAYB6Ai7lI3sNAa/tPArlCf1P3cfZ/Bo9kEmaAcUBle1ZoL1m
- dtO+Y1usC1cqTkN3h5G8Cm5MuHJLYJ2l27XSCw4srSw2nYtezebMj9dwGmk3vusCUu3/
- 8s59hLoorzkL3R+Yy3DMMr4YXLSwTDrpk+n6XmzNpwZs3H/XyOXsKRYbfhXDhPZY29uJ
- qrDw==
-X-Gm-Message-State: AOAM531LpOvSYUboovA6TIl4HoiM2wmOm2UaJkKVKf5S19ipiPfcnhVV
- 5gyg+EjIU0jNw23rvqHMfD51drYRITb5JAm2iyQ=
-X-Google-Smtp-Source: ABdhPJwMuy25sNkzJs/eXR4md0OPpU33Yss3XYjnsXRrorIW4S2a4Nc0fT/JGDbUoz1/Z60urvl9Bd+0ikuOaFsgdiQ=
-X-Received: by 2002:a05:6638:2192:b0:31a:db8:8d97 with SMTP id
- s18-20020a056638219200b0031a0db88d97mr17440595jaj.201.1648612563557; Tue, 29
- Mar 2022 20:56:03 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
+ header.b="Y+HnX3fT"
+Received: from localhost.localdomain (unknown [10.101.196.174])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 1779F3F622; 
+ Wed, 30 Mar 2022 06:14:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1648620865;
+ bh=NUWrxgCHzurIsqxuvbtWFPBwSW5wtoM8Kr1QQ/VeCxE=;
+ h=From:To:Cc:Subject:Date:Message-Id:MIME-Version;
+ b=Y+HnX3fTIop0uCPSVesQeDxtk/RzuUTlrW74fYMDYPs55uEly6ZxXzfnhplRGO6Hl
+ x432Vp3mg/uZna4woUy74o5PLqJKUhqCGvRpaZswhds2OH1WJR4fSRRjg0pcT/4T1R
+ AjpQQhTz1rcSoOodC1YSIoF3PYCbKIOoHuJFpgncKBAnryGaRyLYSGvnqVepmf3AUz
+ yxSKKTutecfTm3Xy5cw4qnSlvwTAodqZQKidxNCO578twleVqLmYBRdA9TUx82Bf7w
+ YhSmhHPBhM4PQk9RQyyAgSNF/1HD92JxI/cBNP6ZF3H0oqLuRMTWGGCIsnhEIikFLF
+ /yGSQnuPaSC5g==
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
+To: tiwai@suse.com
+Subject: [PATCH v2] ALSA: hda/realtek: Fix audio regression on Mi Notebook Pro
+ 2020
+Date: Wed, 30 Mar 2022 14:13:33 +0800
+Message-Id: <20220330061335.1015533-1-kai.heng.feng@canonical.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20220324084708.2009375-1-ajye_huang@compal.corp-partner.google.com>
-In-Reply-To: <20220324084708.2009375-1-ajye_huang@compal.corp-partner.google.com>
-From: ajye huang <ajye.huang@gmail.com>
-Date: Wed, 30 Mar 2022 11:55:52 +0800
-Message-ID: <CACCVik86TpCVzVo6jJWNmnduk1a6_z6-Pxe3Vt6kQGRDbOa=VQ@mail.gmail.com>
-Subject: Re: [PATCH v1] ASoC: Intel: sof_rt5682: Add support for max98360a
- speaker amp on SSP2
-To: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- sound-open-firmware@alsa-project.org,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Jie Yang <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mac Chiang <mac.chiang@intel.com>, Mark Brown <broonie@kernel.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, Brent Lu <brent.lu@intel.com>,
- Vamshi Krishna Gopal <vamshi.krishna.gopal@intel.com>,
- Yong Zhi <yong.zhi@intel.com>
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Kailang Yang <kailang@realtek.com>,
+ kernel test robot <lkp@intel.com>,
+ Lucas Tanure <tanureal@opensource.cirrus.com>,
+ Jeremy Szu <jeremy.szu@canonical.com>, linux-kernel@vger.kernel.org,
+ Werner Sembach <wse@tuxedocomputers.com>, Hui Wang <hui.wang@canonical.com>,
+ Kai-Heng Feng <kai.heng.feng@canonical.com>, Sami Loone <sami@loone.fi>,
+ Cameron Berkenpas <cam@neo-zeon.de>, Dan Carpenter <dan.carpenter@oracle.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,10 +87,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The relevant modification on coreboot FW was merged on coreboot
-upstream,https://review.coreboot.org/c/coreboot/+/62998.
-Based on coreboot modification, the OEM string
-"AUDIO-MAX98360_ALC5682I_I2S_AMP_SSP2" is correct by cmd dmidecode -t
-11.
+Commit 5aec98913095 ("ALSA: hda/realtek - ALC236 headset MIC recording
+issue") is to solve recording issue met on AL236, by matching codec
+variant ALC269_TYPE_ALC257 and ALC269_TYPE_ALC256.
 
-Could reviewers kindly review this Linux patch? thanks
+This match can be too broad and Mi Notebook Pro 2020 is broken by the
+patch.
+
+Instead, use codec ID to be narrow down the scope, in order to make
+ALC256 unaffected.
+
+Bugzilla: https://bugzilla.kernel.org/show_bug.cgi?id=215484
+Fixes: 5aec98913095 ("ALSA: hda/realtek - ALC236 headset MIC recording issue")
+Reported-by: kernel test robot <lkp@intel.com>
+Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
+Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+---
+v2:
+ Fix wrong comparison, || -> &&
+
+ sound/pci/hda/patch_realtek.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 4c33cb57963db..aace474a899de 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -3617,8 +3617,8 @@ static void alc256_shutup(struct hda_codec *codec)
+ 	/* If disable 3k pulldown control for alc257, the Mic detection will not work correctly
+ 	 * when booting with headset plugged. So skip setting it for the codec alc257
+ 	 */
+-	if (spec->codec_variant != ALC269_TYPE_ALC257 &&
+-	    spec->codec_variant != ALC269_TYPE_ALC256)
++	if (codec->core.vendor_id != 0x10ec0236 &&
++	    codec->core.vendor_id != 0x10ec0257)
+ 		alc_update_coef_idx(codec, 0x46, 0, 3 << 12);
+ 
+ 	if (!spec->no_shutup_pins)
+-- 
+2.34.1
+

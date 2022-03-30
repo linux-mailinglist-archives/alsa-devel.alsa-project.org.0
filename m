@@ -2,87 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18AD84EB6C0
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Mar 2022 01:28:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52C604EB857
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Mar 2022 04:34:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AD5EB1752;
-	Wed, 30 Mar 2022 01:27:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD5EB1752
+	by alsa0.perex.cz (Postfix) with ESMTPS id DD23E1724;
+	Wed, 30 Mar 2022 04:33:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD23E1724
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648596498;
-	bh=lXv6IuUPLOuIWJpkhwAVPVx2PxoRpWJn+TzT1aGzWjI=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1648607672;
+	bh=GsEr/ZLwn9Lg4sAaKkRB6dyS3J8jC4bvBENVs+nIiZU=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=B1ujZZE7N4hoZhKpg1PPyiaHrYZsLBQoFRNu7m9vmAMMgGDz1gk3UFgE0DYwIWMmp
-	 Hba6YhpShV08bS8DYQu9aZv/O1N/iLbcIfJLLc9uo9rW+6aIY5uVn4OyoBWzyRxLhQ
-	 KVMJk5VqTOOaVOU7E71NELEp7Ds6+uLjh3lKFQ5A=
+	b=oLQSy5lfMSkF8+YAYjnnokeaSVNAnzoDEZneaM/XGGXZgZJThBouh0kjzqYL/zvHJ
+	 n+uGCj6UCbcYC1O0zAvfW0mX8k7pLFDBjxuX0jUobMrf4KMzLvXl3kFjvFZz2pr44h
+	 ghm6191V4POBKsHQuPMWS7GgguYrv9mDj7rUc0oA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6DFBCF804D6;
-	Wed, 30 Mar 2022 01:26:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4CAE1F800B8;
+	Wed, 30 Mar 2022 04:33:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7CA58F80311; Wed, 30 Mar 2022 01:26:46 +0200 (CEST)
+ id 5D438F80254; Wed, 30 Mar 2022 04:33:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com
- [209.85.210.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 35D5DF80311
- for <alsa-devel@alsa-project.org>; Wed, 30 Mar 2022 01:26:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35D5DF80311
-Received: by mail-ot1-f50.google.com with SMTP id
- b17-20020a0568301df100b005ce0456a9efso359467otj.9
- for <alsa-devel@alsa-project.org>; Tue, 29 Mar 2022 16:26:39 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=Onx8whWtYNziaSOWeikFCxBSNS52wmmziZDYwpwSOs0=;
- b=oa78fy/tlBbNs6kPD4Ocz5mtw+HoMpBc4T7f8Q+cLuuaBW0kfzmOcoyfiXQfyhOn5/
- 71Rdk5MzxvjmACaGULHhdLpLNiSAC/oOeRx/BGrYW469py84vmWICmbEE/xCw2rc6sQ/
- R0sVUPbawUvR8c//lE8gOjl0Gy3DQnBf+59Y9YI35yZkA4U5IBrMJQpD2Tq7s68M35YL
- GdxzNQEQOqWh7MYsw6FTyn6v/2xdvybuE2WC0K4CIKmHH0O2jFtLVp9ENLTgF4C1b8Yr
- Xfr/zui/c6Re6rm4T4g/ZpGPCu5E4VuwnZd1GLmVs1bXTAztTyg1K0AXvywr6KEFd+Jc
- MB5A==
-X-Gm-Message-State: AOAM530SnDj/Oj9MJHNHGKrxR8wm1MS3QDR8myvLeVrRa+4mvR56FtEy
- 5m2WeKLBOBPg5sSLgDtG3g==
-X-Google-Smtp-Source: ABdhPJwgMeIuk1f9wBngw9sMNVUFDANIzQF6qRJJfG+W5rTEJltAFjng0HItLceLMRGMH3tlj1E5wg==
-X-Received: by 2002:a05:6830:82a:b0:5b2:36d5:1603 with SMTP id
- t10-20020a056830082a00b005b236d51603mr2173120ots.240.1648596397558; 
- Tue, 29 Mar 2022 16:26:37 -0700 (PDT)
-Received: from robh.at.kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- q12-20020a4ad54c000000b003245ac0a745sm9268545oos.22.2022.03.29.16.26.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 29 Mar 2022 16:26:36 -0700 (PDT)
-Received: (nullmailer pid 1552943 invoked by uid 1000);
- Tue, 29 Mar 2022 23:26:35 -0000
-Date: Tue, 29 Mar 2022 18:26:35 -0500
-From: Rob Herring <robh@kernel.org>
-To: Trevor Wu <trevor.wu@mediatek.com>
-Subject: Re: [PATCH v4 6/6] ASoC: dt-bindings: mediatek: mt8195: support
- mt8195-mt6359-max98390-rt5682
-Message-ID: <YkOVq9XA9VGSNqzc@robh.at.kernel.org>
-References: <20220324053851.27350-1-trevor.wu@mediatek.com>
- <20220324053851.27350-7-trevor.wu@mediatek.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 70011F80155
+ for <alsa-devel@alsa-project.org>; Wed, 30 Mar 2022 04:33:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70011F80155
+X-UUID: 9bf5674a47b648fbabf9829f4a820b1c-20220330
+X-UUID: 9bf5674a47b648fbabf9829f4a820b1c-20220330
+Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by
+ mailgw01.mediatek.com (envelope-from <jiaxin.yu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 1552206381; Wed, 30 Mar 2022 10:33:09 +0800
+Received: from mtkexhb01.mediatek.inc (172.21.101.102) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.2.792.15; Wed, 30 Mar 2022 10:33:08 +0800
+Received: from mtkcas10.mediatek.inc (172.21.101.39) by mtkexhb01.mediatek.inc
+ (172.21.101.102) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
+ Wed, 30 Mar 2022 10:33:07 +0800
+Received: from mhfsdcap04 (10.17.3.154) by mtkcas10.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Wed, 30 Mar 2022 10:33:06 +0800
+Message-ID: <dee3fbb7c9f0c3e1f11143db1d6fc4381cab827f.camel@mediatek.com>
+Subject: Re: [v7 2/4] ASoC: mediatek: mt8192: refactor for I2S3 DAI link of
+ speaker
+From: Jiaxin Yu <jiaxin.yu@mediatek.com>
+To: "=?ISO-8859-1?Q?N=EDcolas?= F. R. A. Prado" <nfraprado@collabora.com>
+Date: Wed, 30 Mar 2022 10:33:06 +0800
+In-Reply-To: <20220329223002.uo7kiemopkh7ak4x@notapiano>
+References: <20220324064511.10665-1-jiaxin.yu@mediatek.com>
+ <20220324064511.10665-3-jiaxin.yu@mediatek.com>
+ <20220329223002.uo7kiemopkh7ak4x@notapiano>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220324053851.27350-7-trevor.wu@mediatek.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com,
- robh+dt@kernel.org, linux-kernel@vger.kernel.org, tzungbi@google.com,
- miles.chen@mediatek.com, broonie@kernel.org,
- linux-mediatek@lists.infradead.org, yc.hung@mediatek.com,
- matthias.bgg@gmail.com, aaronyu@google.com,
+Content-Transfer-Encoding: 8bit
+X-MTK: N
+Cc: devicetree@vger.kernel.org, linmq006@gmail.com, alsa-devel@alsa-project.org,
+ robh+dt@kernel.org, linux-kernel@vger.kernel.org,
+ Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
+ broonie@kernel.org, linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
+ Tzung-Bi Shih <tzungbi@kernel.org>, matthias.bgg@gmail.com, aaronyu@google.com,
  linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -99,14 +89,188 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 24 Mar 2022 13:38:51 +0800, Trevor Wu wrote:
-> This patch adds compatible string "mediatek,mt8195-mt6359-max98390-rt5682"
-> to support mt8195 board with mt6359, max98390 and rt5682.
+On Tue, 2022-03-29 at 18:30 -0400, Nícolas F. R. A. Prado wrote:
+> Hi Jiaxin,
 > 
-> Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
-> ---
->  Documentation/devicetree/bindings/sound/mt8195-mt6359.yaml | 1 +
->  1 file changed, 1 insertion(+)
+> On Thu, Mar 24, 2022 at 02:45:09PM +0800, Jiaxin Yu wrote:
+> > MT8192 platform will use rt1015 or rt105p codec, so through the
+> > snd_soc_of_get_dai_link_codecs() to complete the configuration
+> > of dai_link's codecs.
+> > 
+> > Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
+> > Reviewed-by: Tzung-Bi Shih <tzungbi@kernel.org>
+> > ---
+> >  .../mt8192/mt8192-mt6359-rt1015-rt5682.c      | 108 ++++++++++--
+> > ------
+> >  1 file changed, 59 insertions(+), 49 deletions(-)
+> > 
+> > diff --git a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-
+> > rt5682.c b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
+> > index ee91569c0911..837c2ccd5b3d 100644
+> > --- a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
+> > +++ b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
+> > @@ -604,17 +604,9 @@ SND_SOC_DAILINK_DEFS(i2s2,
+> >  		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
+> >  		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+> >  
+> > -SND_SOC_DAILINK_DEFS(i2s3_rt1015,
+> > +SND_SOC_DAILINK_DEFS(i2s3,
+> >  		     DAILINK_COMP_ARRAY(COMP_CPU("I2S3")),
+> > -		     DAILINK_COMP_ARRAY(COMP_CODEC(RT1015_DEV0_NAME,
+> > -						   RT1015_CODEC_DAI),
+> > -					COMP_CODEC(RT1015_DEV1_NAME,
+> > -						   RT1015_CODEC_DAI)),
+> > -		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+> > -
+> > -SND_SOC_DAILINK_DEFS(i2s3_rt1015p,
+> > -		     DAILINK_COMP_ARRAY(COMP_CPU("I2S3")),
+> > -		     DAILINK_COMP_ARRAY(COMP_CODEC("rt1015p", "HiFi")),
+> > +		     DAILINK_COMP_ARRAY(COMP_EMPTY()),
+> >  		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+> >  
+> >  SND_SOC_DAILINK_DEFS(i2s5,
+> > @@ -929,6 +921,7 @@ static struct snd_soc_dai_link
+> > mt8192_mt6359_dai_links[] = {
+> >  		.dpcm_playback = 1,
+> >  		.ignore_suspend = 1,
+> >  		.be_hw_params_fixup = mt8192_i2s_hw_params_fixup,
+> > +		SND_SOC_DAILINK_REG(i2s3),
+> >  	},
+> >  	{
+> >  		.name = "I2S5",
+> > @@ -1100,55 +1093,64 @@ static struct snd_soc_card
+> > mt8192_mt6359_rt1015p_rt5682_card = {
+> >  	.num_dapm_routes =
+> > ARRAY_SIZE(mt8192_mt6359_rt1015p_rt5682_routes),
+> >  };
+> >  
+> > +static int mt8192_mt6359_card_set_be_link(struct snd_soc_card
+> > *card,
+> > +					  struct snd_soc_dai_link
+> > *link,
+> > +					  struct device_node *node,
+> > +					  char *link_name)
+> > +{
+> > +	int ret;
+> > +
+> > +	if (node && strcmp(link->name, link_name) == 0) {
+> > +		ret = snd_soc_of_get_dai_link_codecs(card->dev, node,
+> > link);
+> > +		if (ret < 0) {
+> > +			dev_err_probe(card->dev, ret, "get dai link
+> > codecs fail\n");
+> > +			return ret;
+> > +		}
+> > +	}
+> > +
+> > +	return 0;
+> > +}
+> > +
+> >  static int mt8192_mt6359_dev_probe(struct platform_device *pdev)
+> >  {
+> >  	struct snd_soc_card *card;
+> > -	struct device_node *platform_node, *hdmi_codec;
+> > +	struct device_node *platform_node, *hdmi_codec, *speaker_codec;
+> >  	int ret, i;
+> >  	struct snd_soc_dai_link *dai_link;
+> >  	struct mt8192_mt6359_priv *priv;
+> >  
+> > -	platform_node = of_parse_phandle(pdev->dev.of_node,
+> > -					 "mediatek,platform", 0);
+> > -	if (!platform_node) {
+> > -		dev_err(&pdev->dev, "Property 'platform' missing or
+> > invalid\n");
+> > +	card = (struct snd_soc_card *)of_device_get_match_data(&pdev-
+> > >dev);
+> > +	if (!card)
+> >  		return -EINVAL;
+> > +	card->dev = &pdev->dev;
+> > +
+> > +	platform_node = of_parse_phandle(pdev->dev.of_node,
+> > "mediatek,platform", 0);
+> > +	if (!platform_node) {
+> > +		ret = -EINVAL;
+> > +		dev_err_probe(&pdev->dev, ret, "Property 'platform'
+> > missing or invalid\n");
+> > +		goto err_platform_node;
+> >  	}
+> >  
+> > -	card = (struct snd_soc_card *)of_device_get_match_data(&pdev-
+> > >dev);
+> > -	if (!card) {
+> > +	hdmi_codec = of_parse_phandle(pdev->dev.of_node,
+> > "mediatek,hdmi-codec", 0);
+> > +	if (!hdmi_codec) {
+> >  		ret = -EINVAL;
+> > -		goto put_platform_node;
+> > +		dev_err_probe(&pdev->dev, ret, "Property 'hdmi-codec'
+> > missing or invalid\n");
+> > +		goto err_hdmi_codec;
 > 
+> You're making hdmi-codec a required property, since now the driver
+> fails to
+> probe without it. Is it really required though? The driver code still
+> checks for
+> the presence of hdmi_codec before using it, so shouldn't it be fine
+> to let it be
+> optional?
+> 
+> If it is really required now though, then I guess at least the dt-
+> binding should
+> be updated accordingly. (Although I think this would technically
+> break the ABI?)
+> 
+> Thanks,
+> Nícolas
 
-Acked-by: Rob Herring <robh@kernel.org>
+Hi Nícolas,
+
+Thanks for your comment. Indeed I made hdmi-codec a required property,
+because it is a must in this machine driver. I prefer to report errors
+during the registration rather than during the use.
+
+So I'd like to take your second suggestion. I need to update dt-binding 
+that set hdmi-codec as required property.
+
+"(Although I think this would technicallybreak the ABI?)"
+==> I can't understand this question, could you help explain it in more
+detail.
+
+Thanks,
+Jiaxin.Yu
+
+> 
+>  	}
+> > -	card->dev = &pdev->dev;
+> >  
+> > -	hdmi_codec = of_parse_phandle(pdev->dev.of_node,
+> > -				      "mediatek,hdmi-codec", 0);
+> > +	speaker_codec = of_get_child_by_name(pdev->dev.of_node,
+> > "speaker-codecs");
+> > +	if (!speaker_codec) {
+> > +		ret = -EINVAL;
+> > +		dev_err_probe(&pdev->dev, ret, "Property 'speaker-
+> > codecs' missing or invalid\n");
+> > +		goto err_speaker_codec;
+> > +	}
+> >  
+> 
+snip...
+> >  
+> > -put_hdmi_codec:
+> > +err_probe:
+> > +	of_node_put(speaker_codec);
+> > +err_speaker_codec:
+> >  	of_node_put(hdmi_codec);
+> > -put_platform_node:
+> > +err_hdmi_codec:
+> >  	of_node_put(platform_node);
+> > +err_platform_node:
+> >  	return ret;
+> >  }
+> >  
+> > -- 
+> > 2.18.0
+> > 
+> > 
+

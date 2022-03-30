@@ -2,80 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 289594EC2AC
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Mar 2022 14:00:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D21F34EC2DF
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Mar 2022 14:01:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ACBA6193E;
-	Wed, 30 Mar 2022 13:59:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ACBA6193E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 771321935;
+	Wed, 30 Mar 2022 14:00:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 771321935
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648641616;
-	bh=2gFQR24PiGDBVtJN+cyLU8brXWtqq6yATgfmqkV8Szs=;
+	s=default; t=1648641664;
+	bh=HHjBaMZZNUVS7HlclTpFmCYSIBZArxrZX0QEnHO+Zzk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pzm1rtAvyvs5j9Yxq6jcnF1V8BM6FutDknNiVQFk1gxJqQmBPTUxFzion815cmXw4
-	 ohW9HHG3lgC40Klo2uJJOy3GWrQRQ9pAq8F7w69PnzwEuaZo0lVBOPs1datjkgfBKA
-	 80Wy8/DdCPk77KLbeidIqzQ3dJyk10aJGbIHVCAM=
+	b=ljGmYryc10ZCdAbFFZqx61oQ1a0npvdjNyENsfKdk2UFaamqF7VYxHPGi/kaENnue
+	 MU54LdsOatI5M/pyolN/9ls4BxBT0mkzZNa+EhJekvRo8cmdSUIL8vhdV4FiCWXohP
+	 HDKgFxzwW4boT62W0k5GfJEzI/xiUbIT4pHhKoyE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D6BE5F80615;
-	Wed, 30 Mar 2022 13:50:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 59603F80620;
+	Wed, 30 Mar 2022 13:50:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E11F9F8060B; Wed, 30 Mar 2022 13:50:08 +0200 (CEST)
+ id 6BD82F8061D; Wed, 30 Mar 2022 13:50:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 472BFF805F6
- for <alsa-devel@alsa-project.org>; Wed, 30 Mar 2022 13:50:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 472BFF805F6
+ by alsa1.perex.cz (Postfix) with ESMTPS id 078CAF80544
+ for <alsa-devel@alsa-project.org>; Wed, 30 Mar 2022 13:50:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 078CAF80544
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ROXzdo6/"
+ header.b="EcNdWqDA"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 335E3616E6;
- Wed, 30 Mar 2022 11:50:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9334DC34112;
- Wed, 30 Mar 2022 11:50:02 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id AD74361616;
+ Wed, 30 Mar 2022 11:50:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5936BC36AE3;
+ Wed, 30 Mar 2022 11:50:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1648641004;
- bh=2gFQR24PiGDBVtJN+cyLU8brXWtqq6yATgfmqkV8Szs=;
+ s=k20201202; t=1648641015;
+ bh=HHjBaMZZNUVS7HlclTpFmCYSIBZArxrZX0QEnHO+Zzk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ROXzdo6/vJyhRx19MlQvKCIoVtFsCwyg39R00ZGGvVVtEE/tZsr/EODiyaqbzc07n
- 0usispoujcw70y1cHjd8FULhmgxGJLTzg06wqU065AdiO933bLZUb3S1rxY7GFRueO
- 5B8+aQYHNp9jVEOFPg2u7M16dXsbUXdJ8OwNSLnSSj7UjDMfKpTik6RE1VNepgaEaK
- 7e7zbA7LUTcyCbQG8oO4ky+T7N+V0IHizpV8hroBhZqWsb2nO/es4yAX2TS1lq/4VC
- K3CcEHvuvi0xdCvER8n/gq7iAkgLtxyq0ViK1d82FHQJqUT5PA4e5C1KSfYUDs3fFh
- Jqe6W3jRw3Wyw==
+ b=EcNdWqDA3jnU/XkLa+jRYu0DE6HSnIs+jdIkpK09j24l7WmC43Knn/I/77TR9ZzVW
+ TrYh7RNMaAS6djwNepWzdzTMnK61k7+Y/T+qFmIIcsWvUwPwHvbnSO5xX5ETdRzZUa
+ oVZxox0qNCpXYOlX9w8xdH6RUhYQA+cB0+7qZ5rqFk8XtaUSjA4VWmXSB7z2HcxzE6
+ yHcoUuH8dtuSrV6f0fbtqsWt7XHhP+Vu36eNC7/2sw1zcjceZEsLm1sIvPY6blqT02
+ Cz3zkox6wU1QX/Qko6uCwFTgp6ljpI9F9pNNWxmg/uwl6jhPTP+UyU+0Qwv/5yLLPl
+ DxS436d5TW7fg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.16 59/59] ALSA: hda/realtek: Add
- alc256-samsung-headphone fixup
-Date: Wed, 30 Mar 2022 07:48:31 -0400
-Message-Id: <20220330114831.1670235-59-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 06/50] ASoC: sh: rz-ssi: Make the data structures
+ available before registering the handlers
+Date: Wed, 30 Mar 2022 07:49:20 -0400
+Message-Id: <20220330115005.1671090-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220330114831.1670235-1-sashal@kernel.org>
-References: <20220330114831.1670235-1-sashal@kernel.org>
+In-Reply-To: <20220330115005.1671090-1-sashal@kernel.org>
+References: <20220330115005.1671090-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- corbet@lwn.net, Takashi Iwai <tiwai@suse.de>,
- Matt Kramer <mccleetus@gmail.com>, linux-doc@vger.kernel.org, tiwai@suse.com,
- hui.wang@canonical.com, sylee@canonical.com, gregkh@linuxfoundation.org,
- sudipm.mukherjee@gmail.com
+ Pavel Machek <pavel@denx.de>, tiwai@suse.com, lgirdwood@gmail.com,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Mark Brown <broonie@kernel.org>, Biju Das <biju.das.jz@bp.renesas.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,83 +91,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Matt Kramer <mccleetus@gmail.com>
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-[ Upstream commit ef248d9bd616b04df8be25539a4dc5db4b6c56f4 ]
+[ Upstream commit 0788785c78342d422f93b1c9831c2b2b7f137937 ]
 
-This fixes the near-silence of the headphone jack on the ALC256-based
-Samsung Galaxy Book Flex Alpha (NP730QCJ). The magic verbs were found
-through trial and error, using known ALC298 hacks as inspiration. The
-fixup is auto-enabled only when the NP730QCJ is detected. It can be
-manually enabled using model=alc256-samsung-headphone.
+Initialize the spinlock and make the data structures available before
+registering the interrupt handlers.
 
-Signed-off-by: Matt Kramer <mccleetus@gmail.com>
-Link: https://lore.kernel.org/r/3168355.aeNJFYEL58@linus
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Reported-by: Pavel Machek <pavel@denx.de>
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Reviewed-by: Biju Das <biju.das.jz@bp.renesas.com>
+Link: https://lore.kernel.org/r/20220110094711.8574-3-prabhakar.mahadev-lad.rj@bp.renesas.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- Documentation/sound/hd-audio/models.rst |  4 ++++
- sound/pci/hda/patch_realtek.c           | 11 +++++++++++
- 2 files changed, 15 insertions(+)
+ sound/soc/sh/rz-ssi.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/sound/hd-audio/models.rst b/Documentation/sound/hd-audio/models.rst
-index d25335993e55..9b52f50a6854 100644
---- a/Documentation/sound/hd-audio/models.rst
-+++ b/Documentation/sound/hd-audio/models.rst
-@@ -261,6 +261,10 @@ alc-sense-combo
- huawei-mbx-stereo
-     Enable initialization verbs for Huawei MBX stereo speakers;
-     might be risky, try this at your own risk
-+alc298-samsung-headphone
-+    Samsung laptops with ALC298
-+alc256-samsung-headphone
-+    Samsung laptops with ALC256
+diff --git a/sound/soc/sh/rz-ssi.c b/sound/soc/sh/rz-ssi.c
+index fa0cc08f70ec..f6ba00bfcc80 100644
+--- a/sound/soc/sh/rz-ssi.c
++++ b/sound/soc/sh/rz-ssi.c
+@@ -975,6 +975,9 @@ static int rz_ssi_probe(struct platform_device *pdev)
+ 	ssi->playback.priv = ssi;
+ 	ssi->capture.priv = ssi;
  
- ALC66x/67x/892
- ==============
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 08bf8a77a3e4..a4eb685dc76b 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -6816,6 +6816,7 @@ enum {
- 	ALC236_FIXUP_HP_MUTE_LED,
- 	ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF,
- 	ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET,
-+	ALC256_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET,
- 	ALC295_FIXUP_ASUS_MIC_NO_PRESENCE,
- 	ALC269VC_FIXUP_ACER_VCOPPERBOX_PINS,
- 	ALC269VC_FIXUP_ACER_HEADSET_MIC,
-@@ -8138,6 +8139,14 @@ static const struct hda_fixup alc269_fixups[] = {
- 			{ }
- 		},
- 	},
-+	[ALC256_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET] = {
-+		.type = HDA_FIXUP_VERBS,
-+		.v.verbs = (const struct hda_verb[]) {
-+			{ 0x20, AC_VERB_SET_COEF_INDEX, 0x08},
-+			{ 0x20, AC_VERB_SET_PROC_COEF, 0x2fcf},
-+			{ }
-+		},
-+	},
- 	[ALC295_FIXUP_ASUS_MIC_NO_PRESENCE] = {
- 		.type = HDA_FIXUP_PINS,
- 		.v.pins = (const struct hda_pintbl[]) {
-@@ -8900,6 +8909,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x144d, 0xc740, "Samsung Ativ book 8 (NP870Z5G)", ALC269_FIXUP_ATIV_BOOK_8),
- 	SND_PCI_QUIRK(0x144d, 0xc812, "Samsung Notebook Pen S (NT950SBE-X58)", ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET),
- 	SND_PCI_QUIRK(0x144d, 0xc830, "Samsung Galaxy Book Ion (NT950XCJ-X716A)", ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET),
-+	SND_PCI_QUIRK(0x144d, 0xc832, "Samsung Galaxy Book Flex Alpha (NP730QCJ)", ALC256_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET),
- 	SND_PCI_QUIRK(0x1458, 0xfa53, "Gigabyte BXBT-2807", ALC283_FIXUP_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1462, 0xb120, "MSI Cubi MS-B120", ALC283_FIXUP_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1462, 0xb171, "Cubi N 8GL (MS-B171)", ALC283_FIXUP_HEADSET_MIC),
-@@ -9242,6 +9252,7 @@ static const struct hda_model_fixup alc269_fixup_models[] = {
- 	{.id = ALC298_FIXUP_HUAWEI_MBX_STEREO, .name = "huawei-mbx-stereo"},
- 	{.id = ALC256_FIXUP_MEDION_HEADSET_NO_PRESENCE, .name = "alc256-medion-headset"},
- 	{.id = ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET, .name = "alc298-samsung-headphone"},
-+	{.id = ALC256_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET, .name = "alc256-samsung-headphone"},
- 	{.id = ALC255_FIXUP_XIAOMI_HEADSET_MIC, .name = "alc255-xiaomi-headset"},
- 	{.id = ALC274_FIXUP_HP_MIC, .name = "alc274-hp-mic-detect"},
- 	{.id = ALC245_FIXUP_HP_X360_AMP, .name = "alc245-hp-x360-amp"},
++	spin_lock_init(&ssi->lock);
++	dev_set_drvdata(&pdev->dev, ssi);
++
+ 	/* Error Interrupt */
+ 	ssi->irq_int = platform_get_irq_byname(pdev, "int_req");
+ 	if (ssi->irq_int < 0)
+@@ -1022,8 +1025,6 @@ static int rz_ssi_probe(struct platform_device *pdev)
+ 	pm_runtime_enable(&pdev->dev);
+ 	pm_runtime_resume_and_get(&pdev->dev);
+ 
+-	spin_lock_init(&ssi->lock);
+-	dev_set_drvdata(&pdev->dev, ssi);
+ 	ret = devm_snd_soc_register_component(&pdev->dev, &rz_ssi_soc_component,
+ 					      rz_ssi_soc_dai,
+ 					      ARRAY_SIZE(rz_ssi_soc_dai));
 -- 
 2.34.1
 

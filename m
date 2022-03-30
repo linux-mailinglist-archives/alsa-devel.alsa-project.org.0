@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74D304ECDCD
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Mar 2022 22:22:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D1B94ECDCA
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Mar 2022 22:21:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 14E221ABE;
-	Wed, 30 Mar 2022 22:21:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14E221ABE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1D6581AB8;
+	Wed, 30 Mar 2022 22:20:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D6581AB8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648671732;
-	bh=219w+WAhFOLOTuSWfHn8ygxlqsJUkzHLHdtOW7b9fFY=;
+	s=default; t=1648671690;
+	bh=v1AKXMhBFfjEwWOxrOxven0a28qinAa9HORzeGn2m/c=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MPuanJmwXjhPE2aQ/q2o4/2uN2tAJLnnYZY1YmE9lUNF8SuahSqUw7wTwAA+r+tqS
-	 xjAuSY1+djwpHGCbrxg6bjcti33ZcVzi1Yc2mp+J9XRwT5ySlAXyCcFrldys+KR5XL
-	 DR5lsvQz0O5KtUV7TZ+fqXfCz29jx7Z04/e8tFrc=
+	b=PUPMNGWPhPV3ViZ8L2tIboLcB5lLLuAobs7YQPCRfd7xoL0Jr9ZB1u+WwFZIPkNVm
+	 GSjASzrMy9nV9Ahla+qXOux+z0Ao5VrFhFtJGkqEYK3qPRpT6BQncmyiAMky3i2DVM
+	 x/olnQkxLUNxZTE7DRfnzPgEEU4cl1FtGQZAV5kw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 166B5F80525;
-	Wed, 30 Mar 2022 22:19:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E058CF8051A;
+	Wed, 30 Mar 2022 22:19:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 36E5CF80254; Wed, 30 Mar 2022 22:19:51 +0200 (CEST)
+ id 25FC1F8051C; Wed, 30 Mar 2022 22:19:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 97B37F8025A
+ by alsa1.perex.cz (Postfix) with ESMTPS id AE387F80254
  for <alsa-devel@alsa-project.org>; Wed, 30 Mar 2022 22:19:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97B37F8025A
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE387F80254
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="clJh/wdM"
+ header.b="JffgXHXq"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1648671583; x=1680207583;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=219w+WAhFOLOTuSWfHn8ygxlqsJUkzHLHdtOW7b9fFY=;
- b=clJh/wdMRyXQjfmQJF9SbP6ANPLMBOk1D94EKByMkqmmJvtOb65F5+he
- bn8WE25R1nJ2co54BheGPc+ZHUug6QeJVb9Y57cUOuXTdQgOquVw8w6F0
- AtDGj0GwGbAQqW/B6P0iuABRWxPm0D1Z7prFs22RfeK/pJwIv55350Kc/
- VoCK/2AYlpX20ufQRhkHbEyT4jMhDBBcFzgGOf8WqGRWLqUtfozMxiLus
- E0emZj/Y0Z0x0SGjdRrl1oCQCnq4jRXwYLXs6pzmLgsLUvGImy8sldP8M
- i2P3Sl+azK4b//JEM+nD77QZapIjOyAqpxozBt4mpnkS5umdWl98W3SOT g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="322819826"
-X-IronPort-AV: E=Sophos;i="5.90,223,1643702400"; d="scan'208";a="322819826"
+ bh=v1AKXMhBFfjEwWOxrOxven0a28qinAa9HORzeGn2m/c=;
+ b=JffgXHXqnCdY6KReLyyDra9y5cgsldbKPdT7RA1/pZNQdNGYyqa1VhdD
+ AvyBn812nUDsm5b5sbbR7rtHzNbVB+3i/51IOckVCyaEI8hoX43xYMXFO
+ iSw/Aw+PtsMs9BJvy1HOS/hzfigmVZlYQfjJi0wxHaK+Ik0kgIJrTyQ9I
+ XyAmdVGJuxc0SoZwkfwEAI/9sM4H7xuPjCIHomAlIu+2T+7bK03GgIGkg
+ PQGCUHbyfpoJPH5qkDAI8/3NbfwlTdqWyXV4zkoe19+VTMYc5JqsEvbOn
+ fI2bMTSue90pbSWap+O/Iq81bxTRX6zsyeYsbZb6t+tklBuK/jiHFhXri w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="322819828"
+X-IronPort-AV: E=Sophos;i="5.90,223,1643702400"; d="scan'208";a="322819828"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2022 13:19:36 -0700
-X-IronPort-AV: E=Sophos;i="5.90,223,1643702400"; d="scan'208";a="522045022"
+ 30 Mar 2022 13:19:37 -0700
+X-IronPort-AV: E=Sophos;i="5.90,223,1643702400"; d="scan'208";a="522045026"
 Received: from ggunnam-mobl.amr.corp.intel.com (HELO
  rsridh2-mobl1.localdomain) ([10.254.28.195])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  30 Mar 2022 13:19:36 -0700
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 03/11] ASoC: SOF: ipc: Add max_payload_size field in struct
- snd_sof_ipc
-Date: Wed, 30 Mar 2022 13:19:18 -0700
-Message-Id: <20220330201926.1330402-4-ranjani.sridharan@linux.intel.com>
+Subject: [PATCH 04/11] ASoC: SOF: ipc: Use ipc->max_payload_size for
+ message/reply size checking
+Date: Wed, 30 Mar 2022 13:19:19 -0700
+Message-Id: <20220330201926.1330402-5-ranjani.sridharan@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220330201926.1330402-1-ranjani.sridharan@linux.intel.com>
 References: <20220330201926.1330402-1-ranjani.sridharan@linux.intel.com>
@@ -97,8 +97,8 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
-The max_payload_size is an IPC level constraint. Add a new field,
-max_payload_size to struct snd_sof_ipc and set it during IPC init.
+Use the ipc->max_payload_size for validating that the message or reply
+size can be supported.
 
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
@@ -108,37 +108,24 @@ Reviewed-by: Rander Wang <rander.wang@intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 ---
- sound/soc/sof/ipc.c      | 2 ++
- sound/soc/sof/sof-priv.h | 3 +++
- 2 files changed, 5 insertions(+)
+ sound/soc/sof/ipc.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/sound/soc/sof/ipc.c b/sound/soc/sof/ipc.c
-index 5f5753608c79..af2efc1c8436 100644
+index af2efc1c8436..166d4906698b 100644
 --- a/sound/soc/sof/ipc.c
 +++ b/sound/soc/sof/ipc.c
-@@ -1005,6 +1005,8 @@ int sof_ipc_init_msg_memory(struct snd_sof_dev *sdev)
- 	if (!msg->reply_data)
- 		return -ENOMEM;
+@@ -373,8 +373,8 @@ int sof_ipc_tx_message_no_pm(struct snd_sof_ipc *ipc, u32 header,
+ {
+ 	int ret;
  
-+	sdev->ipc->max_payload_size = SOF_IPC_MSG_MAX_SIZE;
-+
- 	return 0;
- }
+-	if (msg_bytes > SOF_IPC_MSG_MAX_SIZE ||
+-	    reply_bytes > SOF_IPC_MSG_MAX_SIZE)
++	if (msg_bytes > ipc->max_payload_size ||
++	    reply_bytes > ipc->max_payload_size)
+ 		return -ENOBUFS;
  
-diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
-index 93de5547b952..f75c6f76297e 100644
---- a/sound/soc/sof/sof-priv.h
-+++ b/sound/soc/sof/sof-priv.h
-@@ -394,6 +394,9 @@ struct snd_sof_ipc {
- 	/* disables further sending of ipc's */
- 	bool disable_ipc_tx;
- 
-+	/* Maximum allowed size of a single IPC message/reply */
-+	size_t max_payload_size;
-+
- 	struct snd_sof_ipc_msg msg;
- 
- 	/* IPC ops based on version */
+ 	/* Serialise IPC TX */
 -- 
 2.25.1
 

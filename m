@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 295104EBC8D
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Mar 2022 10:19:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2DD34EBCA6
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Mar 2022 10:22:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B420F1728;
-	Wed, 30 Mar 2022 10:18:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B420F1728
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6219C172C;
+	Wed, 30 Mar 2022 10:21:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6219C172C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648628351;
-	bh=B0pZrWsAYX/+tH0LShfWGPuRT/WOn7SVKCoE9I819mc=;
+	s=default; t=1648628544;
+	bh=m3bXBYtGuizT4HU/1XKYd+KGzPFBrk1IXh76PVloyT8=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XWxSC8gI49Nrl3nYSaa/pU/lXguYVUztNU1eKJ9voVOSVlc08w2hycktHP5jk+pvx
-	 yXtFqPoPHB7avgeTKOT8FOEUyqOcb/2hYj7D3U0SObGnzHnkZ/4hsK5jfyT01kDUSl
-	 pkx/qwXi8obLzdDdgg8SEXu63qiBwYtebxaNkx+4=
+	b=QwllTgVtN2IclTPtmtQjyfxuaxikw96u83qvWF5DRBYSk3Y1X0TYCukcvD5t//q3f
+	 VqvyHapmsFa+Mqs85UNwAduRIocnE7Z4Z435vhQ/Kx7GvJWJEVJv8CswG0IMNcOmOd
+	 uwqe3x6M/za6+W0Ye2K2TxBW52du8Qf2u5REVNt0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 112A0F8025A;
-	Wed, 30 Mar 2022 10:18:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E6EC2F804E4;
+	Wed, 30 Mar 2022 10:21:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2A180F80254; Wed, 30 Mar 2022 10:18:03 +0200 (CEST)
+ id D8E34F804B4; Wed, 30 Mar 2022 10:21:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,56 +34,51 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9FCECF80155
- for <alsa-devel@alsa-project.org>; Wed, 30 Mar 2022 10:18:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9FCECF80155
+ by alsa1.perex.cz (Postfix) with ESMTPS id AB949F80253
+ for <alsa-devel@alsa-project.org>; Wed, 30 Mar 2022 10:21:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB949F80253
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="KAEOVn9G"; 
+ header.b="P6DRSmJO"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="W82zOpjz"
+ header.b="1cthgBtX"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 100A61F7AD;
- Wed, 30 Mar 2022 08:18:00 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 8B5201F86B;
+ Wed, 30 Mar 2022 08:21:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1648628280; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1648628469; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=/QNvaPOjH0w65NzenY+F0uSGoHt4n2nfiu+E5ad0lj4=;
- b=KAEOVn9GTVtqLByBcuNrce4yh4CgyY63d21mWqqh31uj3RiYMUT0b3QuClbUIYsmTTVmw+
- t8yiXPwNCXRXcPmZtd58V/32vk/mnf6UkQsSbIJUBpKa3fAJfnqyGzRHI62Pmw+tq3/leD
- Csv9tLs2bLaorO+I/BjfdCmCjnw60lo=
+ bh=JZqpMZhlCgF2AWsu+Wq2l6pQPVihV5vbzAZIPvQvkpk=;
+ b=P6DRSmJOVf7Vt858EakxkCUkSH3NaDE3Ipe4F9v3z8Q3n1BltUFCOoXst/Izqt6plHgqDD
+ J1U0aSPIrAUlc6XeW5eDfRMYq/mJPbXAyJ417RuH0rgrLkRupcWccIAZLieKdpFg/79xf2
+ 5esi4G+YmpqqT6ykGXsopfOPfU9+QMM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1648628280;
+ s=susede2_ed25519; t=1648628469;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=/QNvaPOjH0w65NzenY+F0uSGoHt4n2nfiu+E5ad0lj4=;
- b=W82zOpjzpo7MHfhww59XLeWVgqWa4dVgU/S+VrEKxcWaCx3O+XQ0pxjOfV1mQr1/d+x60Z
- r7aa5+GluzEMdFAg==
+ bh=JZqpMZhlCgF2AWsu+Wq2l6pQPVihV5vbzAZIPvQvkpk=;
+ b=1cthgBtX0KqqTG8I7YTX0nCdrUyLGezaYJ1+7ERJ1wJ8QVY0VjcFYdL2Q7ffpd+rHOMRLQ
+ XXBkoT3LIMLEWkDQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 61477A3B8A;
- Wed, 30 Mar 2022 08:17:59 +0000 (UTC)
-Date: Wed, 30 Mar 2022 10:17:59 +0200
-Message-ID: <s5hwngbhn0o.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 76E45A3BA9;
+ Wed, 30 Mar 2022 08:21:09 +0000 (UTC)
+Date: Wed, 30 Mar 2022 10:21:09 +0200
+Message-ID: <s5hv8vvhmve.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Subject: Re: [PATCH v2] ALSA: hda/realtek: Fix audio regression on Mi Notebook
- Pro 2020
-In-Reply-To: <20220330061335.1015533-1-kai.heng.feng@canonical.com>
-References: <20220330061335.1015533-1-kai.heng.feng@canonical.com>
+To: Mohan Kumar <mkumard@nvidia.com>
+Subject: Re: [PATCH] ALSA: hda: Avoid unsol event during RPM suspending
+In-Reply-To: <20220329155940.26331-1-mkumard@nvidia.com>
+References: <20220329155940.26331-1-mkumard@nvidia.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Kailang Yang <kailang@realtek.com>,
- kernel test robot <lkp@intel.com>,
- Lucas Tanure <tanureal@opensource.cirrus.com>,
- Jeremy Szu <jeremy.szu@canonical.com>, linux-kernel@vger.kernel.org,
- tiwai@suse.com, Werner Sembach <wse@tuxedocomputers.com>,
- Hui Wang <hui.wang@canonical.com>, Sami Loone <sami@loone.fi>,
- Cameron Berkenpas <cam@neo-zeon.de>, Dan Carpenter <dan.carpenter@oracle.com>
+Cc: jonathanh@nvidia.com, alsa-devel@alsa-project.org,
+ kai.vehmanen@linux.intel.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ thierry.reding@gmail.com, ville.syrjala@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,27 +94,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 30 Mar 2022 08:13:33 +0200,
-Kai-Heng Feng wrote:
+On Tue, 29 Mar 2022 17:59:40 +0200,
+Mohan Kumar wrote:
 > 
-> Commit 5aec98913095 ("ALSA: hda/realtek - ALC236 headset MIC recording
-> issue") is to solve recording issue met on AL236, by matching codec
-> variant ALC269_TYPE_ALC257 and ALC269_TYPE_ALC256.
+> There is a corner case with unsol event handling during codec runtime
+> suspending state. When the codec runtime suspend call initiated, the
+> codec->in_pm atomic variable would be 0, currently the codec runtime
+> suspend function calls snd_hdac_enter_pm() which will just increments
+> the codec->in_pm atomic variable. Consider unsol event happened just
+> after this step and before snd_hdac_leave_pm() in the codec runtime
+> suspend function. The snd_hdac_power_up_pm() in the unsol event
+> flow in hdmi_present_sense_via_verbs() function would just increment
+> the codec->in_pm atomic variable without calling pm_runtime_get_sync
+> function.
 > 
-> This match can be too broad and Mi Notebook Pro 2020 is broken by the
-> patch.
+> As codec runtime suspend flow is already in progress and in parallel
+> unsol event is also accessing the codec verbs, as soon as codec
+> suspend flow completes and clocks are  switched off before completing
+> the unsol event handling as both functions doesn't wait for each other.
+> This will result in below errors
 > 
-> Instead, use codec ID to be narrow down the scope, in order to make
-> ALC256 unaffected.
+> [  589.428020] tegra-hda 3510000.hda: azx_get_response timeout, switching
+> to polling mode: last cmd=0x505f2f57
+> [  589.428344] tegra-hda 3510000.hda: spurious response 0x80000074:0x5,
+> last cmd=0x505f2f57
+> [  589.428547] tegra-hda 3510000.hda: spurious response 0x80000065:0x5,
+> last cmd=0x505f2f57
 > 
-> Bugzilla: https://bugzilla.kernel.org/show_bug.cgi?id=215484
-> Fixes: 5aec98913095 ("ALSA: hda/realtek - ALC236 headset MIC recording issue")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
-> Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
-> ---
-> v2:
->  Fix wrong comparison, || -> &&
+> To avoid this, the unsol event flow should not perform any codec verb
+> related operations during RPM_SUSPENDING state.
+> 
+> Signed-off-by: Mohan Kumar <mkumard@nvidia.com>
 
 Thanks, applied now.
 

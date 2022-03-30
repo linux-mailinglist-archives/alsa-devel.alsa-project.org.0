@@ -2,68 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12A374EC04D
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Mar 2022 13:48:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D36204EC04F
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Mar 2022 13:48:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AA968176C;
-	Wed, 30 Mar 2022 13:47:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA968176C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 90A4B17B5;
+	Wed, 30 Mar 2022 13:48:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90A4B17B5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648640928;
-	bh=l3oxgia/AH524WfPDCJYya+1eJReQrdeKfEHcOOgSqc=;
+	s=default; t=1648640930;
+	bh=a+hYV3dWe1oVsX+cvNgh7RLaS51GSRre3hs0wbTB+k0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Jlb9TF2ml+LQMSpSSVP9gCQyHr6FqVy5rrRp51hs4waEXOsENJjPiKH0XCR/Q8tnN
-	 jxIhQ8fOtHMP4ke3fKuUhp/oJwc2XjHgc09ySWIuK+nFGe8/gG4iAR0qWTUgtwktWH
-	 TqMT1VVUGNJ6Sfaf2SPr2WybBo5jJXx67rfxTiJc=
+	b=TmW1cG3+IDwB/1qRrw6MiRVRhLcxb5VN7C0N9QWQneCz5CCrKyJ6ZDllKVWx1Rz/p
+	 avJ7c2dq2H8cvGkfccqoChLW4rjdv07Y7gq8pxLx2mApXFRbaG8/VRjaOc89GIseer
+	 P0BDrvlDrLiFwwIFAM8358lzE/Tkzzrfalczuw7A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DDB26F80506;
-	Wed, 30 Mar 2022 13:47:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4D614F80517;
+	Wed, 30 Mar 2022 13:47:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F076FF800F2; Wed, 30 Mar 2022 13:47:07 +0200 (CEST)
+ id AEFA8F80253; Wed, 30 Mar 2022 13:47:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 774F2F800F2
- for <alsa-devel@alsa-project.org>; Wed, 30 Mar 2022 13:47:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 774F2F800F2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3C0B0F80253
+ for <alsa-devel@alsa-project.org>; Wed, 30 Mar 2022 13:47:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C0B0F80253
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="BKZBDQFn"
+ header.b="X2uP9fqI"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 453DD615F3;
- Wed, 30 Mar 2022 11:46:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40673C340F3;
- Wed, 30 Mar 2022 11:46:57 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 424236137A;
+ Wed, 30 Mar 2022 11:47:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E24E8C340EE;
+ Wed, 30 Mar 2022 11:46:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1648640818;
- bh=l3oxgia/AH524WfPDCJYya+1eJReQrdeKfEHcOOgSqc=;
+ s=k20201202; t=1648640820;
+ bh=a+hYV3dWe1oVsX+cvNgh7RLaS51GSRre3hs0wbTB+k0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=BKZBDQFnDlUmNPQrIk5fTrC0DmYqBe84xLm/SnVMW3xCPvH0qlCPMoXAzTBjseSXV
- HMFpKJiE5iX6i1dVJciMN/3ARvs86aB3al89N+CtsxxSaYGYQplSp7f68dS4MiIQjb
- ftg4Hw3vk1A6PShHeARrMQawAJUalMv9/KBxGx1HqS63ta+gTXQYUMvUapkQKcAxDD
- 1c9soVoZtnke3643N6SkMRx0KtHT9H5BZFiJee1viW13TGqennYhBfk56gZTEy6GQy
- vOg4Dtritgby0q9PgOeG6t9+gFYolx3UB5LR1g7RuS30r4lhLplZm/ZK+37Kdrmv7r
- 1Y4DB5eLHQAog==
+ b=X2uP9fqI7ApUQ0nAdxfB5YEJN6Zh8mEKqA6lJar2pdp6t9KEPaVPrMMNLGrYhdSFb
+ YZKR/jXe3nR+IXZQhpPgnLC/KArLyDGTxIBLWvbEtGRo0Ci7dmLwbBB5//pE1ObnQh
+ LfgN/0DKXuc779kNuQYi4ZkkQ/LBj1vVzPydekM/fuVMeKcCr5KNxM+i6+Hz8cAFnd
+ 3eoK/SuxiIaoPazf1fw7syBdNo30OdYfrvH4ob+tgDOC/exVjIzCIx/LrVgFXnjIAm
+ OpyvzM3MqFiCYJyyY71TGepgsre0njcnnQ7TUlnpd+j0Rz9BixfLnd3AfEeW27v1KK
+ yK3HfSwAI682w==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.17 07/66] ASoC: cs42l42: Report full jack status
- when plug is detected
-Date: Wed, 30 Mar 2022 07:45:46 -0400
-Message-Id: <20220330114646.1669334-7-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.17 08/66] ASoC: SOF: Intel: match sdw version on
+ link_slaves_found
+Date: Wed, 30 Mar 2022 07:45:47 -0400
+Message-Id: <20220330114646.1669334-8-sashal@kernel.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220330114646.1669334-1-sashal@kernel.org>
 References: <20220330114646.1669334-1-sashal@kernel.org>
@@ -71,10 +71,13 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, brian.austin@cirrus.com,
- alsa-devel@alsa-project.org, tiwai@suse.com, lgirdwood@gmail.com,
- Paul.Handrigan@cirrus.com, Richard Fitzgerald <rf@opensource.cirrus.com>,
- Mark Brown <broonie@kernel.org>
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, tiwai@suse.com,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, Reddy Muralidhar <muralidhar.reddy@intel.com>,
+ Rander Wang <rander.wang@intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,65 +93,83 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
 
-[ Upstream commit 8d06f797f844d04a961f201f886f7f9985edc9bf ]
+[ Upstream commit f67c0c0d3b9048d86ea6ae52e36a2b78c48f265d ]
 
-When a plug event is detect report the full state of all status
-bits, don't assume that there will have been a previous unplug
-event to clear all the bits. Report the state of both HEADPHONE
-and MICROPHONE bits according to detected type, and clear all the
-button status bits. The current button status is already checked
-and reported at the end of the function.
+Codecs with the same part id, manufacturer id and part id, but different
+sdw version should be treated as different codecs. For example, rt711 and
+rt711-sdca are different. So, we should match sdw version as well.
 
-During a system suspend the jack could be unplugged and plugged,
-possibly changing the jack type. On resume the interrupt status will
-indicate a plug event - there will not be an unplug event to clear
-the bits.
-
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
-Link: https://lore.kernel.org/r/20220121120412.672284-2-rf@opensource.cirrus.com
+Reported-by: Reddy Muralidhar <muralidhar.reddy@intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Rander Wang <rander.wang@intel.com>
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20220120232157.199919-2-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/cs42l42.c | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
+ sound/soc/sof/intel/hda.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
 
-diff --git a/sound/soc/codecs/cs42l42.c b/sound/soc/codecs/cs42l42.c
-index 43d98bdb5b5b..2c294868008e 100644
---- a/sound/soc/codecs/cs42l42.c
-+++ b/sound/soc/codecs/cs42l42.c
-@@ -1637,7 +1637,11 @@ static irqreturn_t cs42l42_irq_thread(int irq, void *data)
+diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+index 1385695d7745..848d1d563170 100644
+--- a/sound/soc/sof/intel/hda.c
++++ b/sound/soc/sof/intel/hda.c
+@@ -1188,7 +1188,7 @@ static bool link_slaves_found(struct snd_sof_dev *sdev,
+ 	struct hdac_bus *bus = sof_to_bus(sdev);
+ 	struct sdw_intel_slave_id *ids = sdw->ids;
+ 	int num_slaves = sdw->num_slaves;
+-	unsigned int part_id, link_id, unique_id, mfg_id;
++	unsigned int part_id, link_id, unique_id, mfg_id, version;
+ 	int i, j, k;
  
- 	mutex_lock(&cs42l42->jack_detect_mutex);
+ 	for (i = 0; i < link->num_adr; i++) {
+@@ -1198,12 +1198,14 @@ static bool link_slaves_found(struct snd_sof_dev *sdev,
+ 		mfg_id = SDW_MFG_ID(adr);
+ 		part_id = SDW_PART_ID(adr);
+ 		link_id = SDW_DISCO_LINK_ID(adr);
++		version = SDW_VERSION(adr);
  
--	/* Check auto-detect status */
-+	/*
-+	 * Check auto-detect status. Don't assume a previous unplug event has
-+	 * cleared the flags. If the jack is unplugged and plugged during
-+	 * system suspend there won't have been an unplug event.
-+	 */
- 	if ((~masks[5]) & irq_params_table[5].mask) {
- 		if (stickies[5] & CS42L42_HSDET_AUTO_DONE_MASK) {
- 			cs42l42_process_hs_type_detect(cs42l42);
-@@ -1645,11 +1649,15 @@ static irqreturn_t cs42l42_irq_thread(int irq, void *data)
- 			case CS42L42_PLUG_CTIA:
- 			case CS42L42_PLUG_OMTP:
- 				snd_soc_jack_report(cs42l42->jack, SND_JACK_HEADSET,
--						    SND_JACK_HEADSET);
-+						    SND_JACK_HEADSET |
-+						    SND_JACK_BTN_0 | SND_JACK_BTN_1 |
-+						    SND_JACK_BTN_2 | SND_JACK_BTN_3);
- 				break;
- 			case CS42L42_PLUG_HEADPHONE:
- 				snd_soc_jack_report(cs42l42->jack, SND_JACK_HEADPHONE,
--						    SND_JACK_HEADPHONE);
-+						    SND_JACK_HEADSET |
-+						    SND_JACK_BTN_0 | SND_JACK_BTN_1 |
-+						    SND_JACK_BTN_2 | SND_JACK_BTN_3);
- 				break;
- 			default:
- 				break;
+ 		for (j = 0; j < num_slaves; j++) {
+ 			/* find out how many identical parts were reported on that link */
+ 			if (ids[j].link_id == link_id &&
+ 			    ids[j].id.part_id == part_id &&
+-			    ids[j].id.mfg_id == mfg_id)
++			    ids[j].id.mfg_id == mfg_id &&
++			    ids[j].id.sdw_version == version)
+ 				reported_part_count++;
+ 		}
+ 
+@@ -1212,21 +1214,24 @@ static bool link_slaves_found(struct snd_sof_dev *sdev,
+ 
+ 			if (ids[j].link_id != link_id ||
+ 			    ids[j].id.part_id != part_id ||
+-			    ids[j].id.mfg_id != mfg_id)
++			    ids[j].id.mfg_id != mfg_id ||
++			    ids[j].id.sdw_version != version)
+ 				continue;
+ 
+ 			/* find out how many identical parts are expected */
+ 			for (k = 0; k < link->num_adr; k++) {
+ 				u64 adr2 = link->adr_d[k].adr;
+-				unsigned int part_id2, link_id2, mfg_id2;
++				unsigned int part_id2, link_id2, mfg_id2, version2;
+ 
+ 				mfg_id2 = SDW_MFG_ID(adr2);
+ 				part_id2 = SDW_PART_ID(adr2);
+ 				link_id2 = SDW_DISCO_LINK_ID(adr2);
++				version2 = SDW_VERSION(adr2);
+ 
+ 				if (link_id2 == link_id &&
+ 				    part_id2 == part_id &&
+-				    mfg_id2 == mfg_id)
++				    mfg_id2 == mfg_id &&
++				    version2 == version)
+ 					expected_part_count++;
+ 			}
+ 
 -- 
 2.34.1
 

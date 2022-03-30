@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 489254ECDD1
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Mar 2022 22:23:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 409674ECDD0
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Mar 2022 22:23:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DFBDC1AC0;
-	Wed, 30 Mar 2022 22:22:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DFBDC1AC0
+	by alsa0.perex.cz (Postfix) with ESMTPS id DAA481AD1;
+	Wed, 30 Mar 2022 22:22:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DAA481AD1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648671797;
-	bh=OqFKwt4A9we7mD2JOnrn8nl7vvqgCI6+8961qBDqWCw=;
+	s=default; t=1648671784;
+	bh=a/fqv2IiV7jD0KVsUmmipo1DOaRBsw1fFQV9HqWxGH8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oUyUqdfbZgPFlyskZz33zFk7dDtG1hdgW6vxpIcntVATIsF/5HmnkU4q5YRJPJf3b
-	 JOpTrhlnR5IolWKaMBafALWM4L1i7DDLlEdBzrleeuWM7dZr3Gwgj9K6aHPezPSpPn
-	 uw1mSuFPjWGgYtCmFDKc2moMtfC2aBFYyEdPgnRM=
+	b=jTkT7KgsWQmKclhAWIRC0TUzAYaiGB32DfLvgJiUuh2t0iLLhyiIoWytbWhK+090f
+	 GAHNg89tUm2zoqVM5D/B57GeV/hnLCB/ih7+UNZGIqjEXTijE0Fcgj15BhvWFLUee4
+	 ZavkpQsjKMlWypg12if6dG5cTpfvYmW3qVqgDQLw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4F6C9F8053D;
-	Wed, 30 Mar 2022 22:20:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B17C2F8050F;
+	Wed, 30 Mar 2022 22:20:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 77B48F80536; Wed, 30 Mar 2022 22:19:58 +0200 (CEST)
+ id A445FF80520; Wed, 30 Mar 2022 22:19:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,49 +34,48 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 46B48F8050F
- for <alsa-devel@alsa-project.org>; Wed, 30 Mar 2022 22:19:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46B48F8050F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1FD9BF80518
+ for <alsa-devel@alsa-project.org>; Wed, 30 Mar 2022 22:19:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1FD9BF80518
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="lzJUDUff"
+ header.b="DZDO8xz8"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648671586; x=1680207586;
+ t=1648671588; x=1680207588;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=OqFKwt4A9we7mD2JOnrn8nl7vvqgCI6+8961qBDqWCw=;
- b=lzJUDUffGP4wOWi951Ax49dA0SWiUtZzC/P94aucoUC3l4BtBmka0fgC
- nDfLXhAtnmwptJ2NE7KTg5QM+YvtvbgnujQKqGhMZ61Wcj+i/Y7Y2CVYU
- Y+znq6yELKTEUod+1hkCYSOedV03mp22sBI8jrS+TkOVlOisbwp7BF4uk
- wH4DJQu7HjA1L8b6PY2qKGUIiKLX3lnwIHOVo38rU2NYogeyrMWqi5J8l
- o+QEiQfnx1ecUWubm1xaYZHd09iYy/uHM2eYjlaeydHlPU0IUyQNZiDcg
- DfIGGSth+ppnZtdyAUX/+TIW3h1cYiyYgttVIPlGA7pxljFru08kI7xof A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="322819833"
-X-IronPort-AV: E=Sophos;i="5.90,223,1643702400"; d="scan'208";a="322819833"
+ bh=a/fqv2IiV7jD0KVsUmmipo1DOaRBsw1fFQV9HqWxGH8=;
+ b=DZDO8xz8BN+LKjwSazbDuQbxy93/1L3S9rFriESRZehe18UCjCSpsYxM
+ K/rVuqfN4xs/7Vo/diR3r8GIP1lBJa4bHdObtJP+BHE/HODNjScOYw+tm
+ lHPmsEclBToOVIxqxt6R22j/cmoI1AmcATDuD2a8RWL8jLlI7b5N08Xld
+ NrZ4jrsjYrMAhAMW652DTLEjmPbWSTH1hJwsWm7FOf2jXUTuLaZR+7YU+
+ maFTQZN5TLJbaUvaAxeRnxIQj/W6djkuaUFZptBjIvPco75QPqKgtCiMz
+ EAjT/RCxaumHKscjJQgMocdDx2FU3/6zTMPhQLJ0uurb/tUYKLJRp+JKO w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="322819834"
+X-IronPort-AV: E=Sophos;i="5.90,223,1643702400"; d="scan'208";a="322819834"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  30 Mar 2022 13:19:38 -0700
-X-IronPort-AV: E=Sophos;i="5.90,223,1643702400"; d="scan'208";a="522045040"
+X-IronPort-AV: E=Sophos;i="5.90,223,1643702400"; d="scan'208";a="522045045"
 Received: from ggunnam-mobl.amr.corp.intel.com (HELO
  rsridh2-mobl1.localdomain) ([10.254.28.195])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  30 Mar 2022 13:19:38 -0700
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 08/11] ASoC: SOF: ipc: Use msg->reply_data directly in
- snd_sof_ipc_get_reply()
-Date: Wed, 30 Mar 2022 13:19:23 -0700
-Message-Id: <20220330201926.1330402-9-ranjani.sridharan@linux.intel.com>
+Subject: [PATCH 09/11] ASoC: SOF: Drop 'header' parameter from tx_message() API
+Date: Wed, 30 Mar 2022 13:19:24 -0700
+Message-Id: <20220330201926.1330402-10-ranjani.sridharan@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220330201926.1330402-1-ranjani.sridharan@linux.intel.com>
 References: <20220330201926.1330402-1-ranjani.sridharan@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: Bard Liao <yung-chuan.liao@linux.intel.com>, tiwai@suse.de,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, broonie@kernel.org,
- Daniel Baluta <daniel.baluta@nxp.com>
+Cc: tiwai@suse.de, Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ broonie@kernel.org, Rander Wang <rander.wang@intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,90 +93,393 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
-Instead of using a local reply to first read out the header from the
-mailbox then memcpy it or read it again to msg->reply_data, read it
-directly to it's final place from the start.
-
-If we received an error we do not need to do a memcpy anymore.
-If the reply is reporting a success then we don not need to read the reply
-again from the mailbox if the reply_size equals to the already read header
-size.
+The header parameter is not used anymore and now it can be dropped from
+the parameter list of tx_message().
 
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Reviewed-by: Rander Wang <rander.wang@intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 ---
- sound/soc/sof/ipc.c | 30 ++++++++++++++++--------------
- 1 file changed, 16 insertions(+), 14 deletions(-)
+ sound/soc/sof/compress.c      |  8 +++-----
+ sound/soc/sof/debug.c         |  2 +-
+ sound/soc/sof/intel/hda-dsp.c |  8 +++-----
+ sound/soc/sof/intel/tgl.c     |  6 ++----
+ sound/soc/sof/ipc.c           | 18 +++++++-----------
+ sound/soc/sof/ipc3-pcm.c      |  8 +++-----
+ sound/soc/sof/ipc3-topology.c | 25 +++++++++++--------------
+ sound/soc/sof/ipc3.c          |  4 ++--
+ sound/soc/sof/sof-client.c    |  2 +-
+ sound/soc/sof/sof-priv.h      |  8 +++-----
+ sound/soc/sof/trace.c         |  9 +++------
+ 11 files changed, 39 insertions(+), 59 deletions(-)
 
+diff --git a/sound/soc/sof/compress.c b/sound/soc/sof/compress.c
+index a8e908e50101..47639b6344c8 100644
+--- a/sound/soc/sof/compress.c
++++ b/sound/soc/sof/compress.c
+@@ -147,8 +147,7 @@ static int sof_compr_free(struct snd_soc_component *component,
+ 	stream.comp_id = spcm->stream[cstream->direction].comp_id;
+ 
+ 	if (spcm->prepared[cstream->direction]) {
+-		ret = sof_ipc_tx_message(sdev->ipc, stream.hdr.cmd,
+-					 &stream, sizeof(stream),
++		ret = sof_ipc_tx_message(sdev->ipc, &stream, sizeof(stream),
+ 					 &reply, sizeof(reply));
+ 		if (!ret)
+ 			spcm->prepared[cstream->direction] = false;
+@@ -209,7 +208,7 @@ static int sof_compr_set_params(struct snd_soc_component *component,
+ 		snd_pcm_format_physical_width(SNDRV_PCM_FORMAT_S32) >> 3;
+ 	pcm.params.host_period_bytes = params->buffer.fragment_size;
+ 
+-	ret = sof_ipc_tx_message(sdev->ipc, pcm.hdr.cmd, &pcm, sizeof(pcm),
++	ret = sof_ipc_tx_message(sdev->ipc, &pcm, sizeof(pcm),
+ 				 &ipc_params_reply, sizeof(ipc_params_reply));
+ 	if (ret < 0) {
+ 		dev_err(component->dev, "error ipc failed\n");
+@@ -268,8 +267,7 @@ static int sof_compr_trigger(struct snd_soc_component *component,
+ 		break;
+ 	}
+ 
+-	return sof_ipc_tx_message(sdev->ipc, stream.hdr.cmd,
+-				  &stream, sizeof(stream),
++	return sof_ipc_tx_message(sdev->ipc, &stream, sizeof(stream),
+ 				  &reply, sizeof(reply));
+ }
+ 
+diff --git a/sound/soc/sof/debug.c b/sound/soc/sof/debug.c
+index 7b1139961a99..8a77245b5182 100644
+--- a/sound/soc/sof/debug.c
++++ b/sound/soc/sof/debug.c
+@@ -236,7 +236,7 @@ static int memory_info_update(struct snd_sof_dev *sdev, char *buf, size_t buff_s
+ 		goto error;
+ 	}
+ 
+-	ret = sof_ipc_tx_message(sdev->ipc, msg.cmd, &msg, msg.size, reply, SOF_IPC_MSG_MAX_SIZE);
++	ret = sof_ipc_tx_message(sdev->ipc, &msg, msg.size, reply, SOF_IPC_MSG_MAX_SIZE);
+ 	pm_runtime_mark_last_busy(sdev->dev);
+ 	pm_runtime_put_autosuspend(sdev->dev);
+ 	if (ret < 0 || reply->rhdr.error < 0) {
+diff --git a/sound/soc/sof/intel/hda-dsp.c b/sound/soc/sof/intel/hda-dsp.c
+index 8ddde60c56b3..ad11df345be7 100644
+--- a/sound/soc/sof/intel/hda-dsp.c
++++ b/sound/soc/sof/intel/hda-dsp.c
+@@ -363,9 +363,8 @@ static int hda_dsp_send_pm_gate_ipc(struct snd_sof_dev *sdev, u32 flags)
+ 	pm_gate.flags = flags;
+ 
+ 	/* send pm_gate ipc to dsp */
+-	return sof_ipc_tx_message_no_pm(sdev->ipc, pm_gate.hdr.cmd,
+-					&pm_gate, sizeof(pm_gate), &reply,
+-					sizeof(reply));
++	return sof_ipc_tx_message_no_pm(sdev->ipc, &pm_gate, sizeof(pm_gate),
++					&reply, sizeof(reply));
+ }
+ 
+ static int hda_dsp_update_d0i3c_register(struct snd_sof_dev *sdev, u8 value)
+@@ -985,8 +984,7 @@ int hda_dsp_core_get(struct snd_sof_dev *sdev, int core)
+ 		return 0;
+ 
+ 	/* Now notify DSP for secondary cores */
+-	ret = sof_ipc_tx_message(sdev->ipc, pm_core_config.hdr.cmd,
+-				 &pm_core_config, sizeof(pm_core_config),
++	ret = sof_ipc_tx_message(sdev->ipc, &pm_core_config, sizeof(pm_core_config),
+ 				 &pm_core_config, sizeof(pm_core_config));
+ 	if (ret < 0) {
+ 		dev_err(sdev->dev, "failed to enable secondary core '%d' failed with %d\n",
+diff --git a/sound/soc/sof/intel/tgl.c b/sound/soc/sof/intel/tgl.c
+index cb1c319d5bee..72d92ff6cef5 100644
+--- a/sound/soc/sof/intel/tgl.c
++++ b/sound/soc/sof/intel/tgl.c
+@@ -35,8 +35,7 @@ static int tgl_dsp_core_get(struct snd_sof_dev *sdev, int core)
+ 		return hda_dsp_enable_core(sdev, BIT(core));
+ 
+ 	/* notify DSP for secondary cores */
+-	return sof_ipc_tx_message(sdev->ipc, pm_core_config.hdr.cmd,
+-				 &pm_core_config, sizeof(pm_core_config),
++	return sof_ipc_tx_message(sdev->ipc, &pm_core_config, sizeof(pm_core_config),
+ 				 &pm_core_config, sizeof(pm_core_config));
+ }
+ 
+@@ -55,8 +54,7 @@ static int tgl_dsp_core_put(struct snd_sof_dev *sdev, int core)
+ 		return hda_dsp_core_reset_power_down(sdev, BIT(core));
+ 
+ 	/* notify DSP for secondary cores */
+-	return sof_ipc_tx_message(sdev->ipc, pm_core_config.hdr.cmd,
+-				 &pm_core_config, sizeof(pm_core_config),
++	return sof_ipc_tx_message(sdev->ipc, &pm_core_config, sizeof(pm_core_config),
+ 				 &pm_core_config, sizeof(pm_core_config));
+ }
+ 
 diff --git a/sound/soc/sof/ipc.c b/sound/soc/sof/ipc.c
-index c722ca0b00a6..46c40dfd9f2b 100644
+index 46c40dfd9f2b..17dd51d342cf 100644
 --- a/sound/soc/sof/ipc.c
 +++ b/sound/soc/sof/ipc.c
-@@ -393,7 +393,7 @@ EXPORT_SYMBOL(sof_ipc_tx_message_no_pm);
- void snd_sof_ipc_get_reply(struct snd_sof_dev *sdev)
+@@ -341,9 +341,8 @@ static int sof_ipc_tx_message_unlocked(struct snd_sof_ipc *ipc,
+ }
+ 
+ /* send IPC message from host to DSP */
+-int sof_ipc_tx_message(struct snd_sof_ipc *ipc, u32 header,
+-		       void *msg_data, size_t msg_bytes, void *reply_data,
+-		       size_t reply_bytes)
++int sof_ipc_tx_message(struct snd_sof_ipc *ipc, void *msg_data, size_t msg_bytes,
++		       void *reply_data, size_t reply_bytes)
  {
- 	struct snd_sof_ipc_msg *msg = sdev->msg;
--	struct sof_ipc_reply reply;
-+	struct sof_ipc_reply *reply;
- 	int ret = 0;
- 
- 	/*
-@@ -407,13 +407,12 @@ void snd_sof_ipc_get_reply(struct snd_sof_dev *sdev)
+ 	const struct sof_dsp_power_state target_state = {
+ 		.state = SOF_DSP_PM_D0,
+@@ -357,7 +356,7 @@ int sof_ipc_tx_message(struct snd_sof_ipc *ipc, u32 header,
+ 		return ret;
  	}
  
- 	/* get the generic reply */
--	snd_sof_dsp_mailbox_read(sdev, sdev->host_box.offset, &reply,
+-	return sof_ipc_tx_message_no_pm(ipc, header, msg_data, msg_bytes,
++	return sof_ipc_tx_message_no_pm(ipc, msg_data, msg_bytes,
+ 					reply_data, reply_bytes);
+ }
+ EXPORT_SYMBOL(sof_ipc_tx_message);
+@@ -367,8 +366,7 @@ EXPORT_SYMBOL(sof_ipc_tx_message);
+  * This will be used for IPC's that can be handled by the DSP
+  * even in a low-power D0 substate.
+  */
+-int sof_ipc_tx_message_no_pm(struct snd_sof_ipc *ipc, u32 header,
+-			     void *msg_data, size_t msg_bytes,
++int sof_ipc_tx_message_no_pm(struct snd_sof_ipc *ipc, void *msg_data, size_t msg_bytes,
+ 			     void *reply_data, size_t reply_bytes)
+ {
+ 	int ret;
+@@ -701,8 +699,7 @@ int snd_sof_ipc_stream_posn(struct snd_soc_component *scomp,
+ 	stream.comp_id = spcm->stream[direction].comp_id;
+ 
+ 	/* send IPC to the DSP */
+-	err = sof_ipc_tx_message(sdev->ipc,
+-				 stream.hdr.cmd, &stream, sizeof(stream), posn,
++	err = sof_ipc_tx_message(sdev->ipc, &stream, sizeof(stream), posn,
+ 				 sizeof(*posn));
+ 	if (err < 0) {
+ 		dev_err(sdev->dev, "error: failed to get stream %d position\n",
+@@ -893,9 +890,8 @@ int snd_sof_ipc_set_get_comp_data(struct snd_sof_control *scontrol, bool set)
+ 
+ 	/* send normal size ipc in one part */
+ 	if (cdata->rhdr.hdr.size <= SOF_IPC_MSG_MAX_SIZE) {
+-		err = sof_ipc_tx_message(sdev->ipc, cdata->rhdr.hdr.cmd, cdata,
+-					 cdata->rhdr.hdr.size, cdata,
+-					 cdata->rhdr.hdr.size);
++		err = sof_ipc_tx_message(sdev->ipc, cdata, cdata->rhdr.hdr.size,
++					 cdata, cdata->rhdr.hdr.size);
+ 
+ 		if (err < 0)
+ 			dev_err(sdev->dev, "error: set/get ctrl ipc comp %d\n",
+diff --git a/sound/soc/sof/ipc3-pcm.c b/sound/soc/sof/ipc3-pcm.c
+index 58b75943cf6d..d7b6c67b2180 100644
+--- a/sound/soc/sof/ipc3-pcm.c
++++ b/sound/soc/sof/ipc3-pcm.c
+@@ -34,8 +34,7 @@ static int sof_ipc3_pcm_hw_free(struct snd_soc_component *component,
+ 	stream.comp_id = spcm->stream[substream->stream].comp_id;
+ 
+ 	/* send IPC to the DSP */
+-	return sof_ipc_tx_message(sdev->ipc, stream.hdr.cmd, &stream,
+-				  sizeof(stream), &reply, sizeof(reply));
++	return sof_ipc_tx_message(sdev->ipc, &stream, sizeof(stream), &reply, sizeof(reply));
+ }
+ 
+ static int sof_ipc3_pcm_hw_params(struct snd_soc_component *component,
+@@ -119,7 +118,7 @@ static int sof_ipc3_pcm_hw_params(struct snd_soc_component *component,
+ 	dev_dbg(component->dev, "stream_tag %d", pcm.params.stream_tag);
+ 
+ 	/* send hw_params IPC to the DSP */
+-	ret = sof_ipc_tx_message(sdev->ipc, pcm.hdr.cmd, &pcm, sizeof(pcm),
++	ret = sof_ipc_tx_message(sdev->ipc, &pcm, sizeof(pcm),
+ 				 &ipc_params_reply, sizeof(ipc_params_reply));
+ 	if (ret < 0) {
+ 		dev_err(component->dev, "HW params ipc failed for stream %d\n",
+@@ -175,8 +174,7 @@ static int sof_ipc3_pcm_trigger(struct snd_soc_component *component,
+ 	}
+ 
+ 	/* send IPC to the DSP */
+-	return sof_ipc_tx_message(sdev->ipc, stream.hdr.cmd, &stream,
+-				  sizeof(stream), &reply, sizeof(reply));
++	return sof_ipc_tx_message(sdev->ipc, &stream, sizeof(stream), &reply, sizeof(reply));
+ }
+ 
+ static void ssp_dai_config_pcm_params_match(struct snd_sof_dev *sdev, const char *link_name,
+diff --git a/sound/soc/sof/ipc3-topology.c b/sound/soc/sof/ipc3-topology.c
+index 2f8450a8c0a1..8320c25bd221 100644
+--- a/sound/soc/sof/ipc3-topology.c
++++ b/sound/soc/sof/ipc3-topology.c
+@@ -1551,8 +1551,7 @@ static int sof_ipc3_route_setup(struct snd_sof_dev *sdev, struct snd_sof_route *
+ 		sroute->sink_widget->widget->name);
+ 
+ 	/* send ipc */
+-	ret = sof_ipc_tx_message(sdev->ipc, connect.hdr.cmd, &connect, sizeof(connect),
+-				 &reply, sizeof(reply));
++	ret = sof_ipc_tx_message(sdev->ipc, &connect, sizeof(connect), &reply, sizeof(reply));
+ 	if (ret < 0)
+ 		dev_err(sdev->dev, "%s: route %s -> %s failed\n", __func__,
+ 			sroute->src_widget->widget->name, sroute->sink_widget->widget->name);
+@@ -1697,7 +1696,7 @@ static int sof_ipc3_control_free(struct snd_sof_dev *sdev, struct snd_sof_contro
+ 	fcomp.id = scontrol->comp_id;
+ 
+ 	/* send IPC to the DSP */
+-	return sof_ipc_tx_message(sdev->ipc, fcomp.hdr.cmd, &fcomp, sizeof(fcomp), NULL, 0);
++	return sof_ipc_tx_message(sdev->ipc, &fcomp, sizeof(fcomp), NULL, 0);
+ }
+ 
+ /* send pcm params ipc */
+@@ -1749,7 +1748,7 @@ static int sof_ipc3_keyword_detect_pcm_params(struct snd_sof_widget *swidget, in
+ 	}
+ 
+ 	/* send IPC to the DSP */
+-	ret = sof_ipc_tx_message(sdev->ipc, pcm.hdr.cmd, &pcm, sizeof(pcm),
++	ret = sof_ipc_tx_message(sdev->ipc, &pcm, sizeof(pcm),
+ 				 &ipc_params_reply, sizeof(ipc_params_reply));
+ 	if (ret < 0)
+ 		dev_err(scomp->dev, "%s: PCM params failed for %s\n", __func__,
+@@ -1773,8 +1772,7 @@ static int sof_ipc3_keyword_detect_trigger(struct snd_sof_widget *swidget, int c
+ 	stream.comp_id = swidget->comp_id;
+ 
+ 	/* send IPC to the DSP */
+-	ret = sof_ipc_tx_message(sdev->ipc, stream.hdr.cmd, &stream,
+-				 sizeof(stream), &reply, sizeof(reply));
++	ret = sof_ipc_tx_message(sdev->ipc, &stream, sizeof(stream), &reply, sizeof(reply));
+ 	if (ret < 0)
+ 		dev_err(scomp->dev, "%s: Failed to trigger %s\n", __func__, swidget->widget->name);
+ 
+@@ -1902,8 +1900,7 @@ static int sof_ipc3_complete_pipeline(struct snd_sof_dev *sdev, struct snd_sof_w
+ 	ready.hdr.cmd = SOF_IPC_GLB_TPLG_MSG | SOF_IPC_TPLG_PIPE_COMPLETE;
+ 	ready.comp_id = swidget->comp_id;
+ 
+-	ret = sof_ipc_tx_message(sdev->ipc, ready.hdr.cmd, &ready, sizeof(ready), &reply,
 -				 sizeof(reply));
-+	reply = msg->reply_data;
-+	snd_sof_dsp_mailbox_read(sdev, sdev->host_box.offset, reply, sizeof(*reply));
++	ret = sof_ipc_tx_message(sdev->ipc, &ready, sizeof(ready), &reply, sizeof(reply));
+ 	if (ret < 0)
+ 		return ret;
  
--	if (reply.error < 0) {
--		memcpy(msg->reply_data, &reply, sizeof(reply));
--		ret = reply.error;
--	} else if (!reply.hdr.size) {
-+	if (reply->error < 0) {
-+		ret = reply->error;
-+	} else if (!reply->hdr.size) {
- 		/* Reply should always be >= sizeof(struct sof_ipc_reply) */
- 		if (msg->reply_size)
- 			dev_err(sdev->dev,
-@@ -424,24 +423,27 @@ void snd_sof_ipc_get_reply(struct snd_sof_dev *sdev)
- 
- 		ret = -EINVAL;
- 	} else if (msg->reply_size > 0) {
--		if (reply.hdr.size == msg->reply_size) {
-+		if (reply->hdr.size == msg->reply_size) {
- 			ret = 0;
--		} else if (reply.hdr.size < msg->reply_size) {
-+		} else if (reply->hdr.size < msg->reply_size) {
- 			dev_dbg(sdev->dev,
- 				"reply size (%u) is less than expected (%zu)\n",
--				reply.hdr.size, msg->reply_size);
-+				reply->hdr.size, msg->reply_size);
- 
--			msg->reply_size = reply.hdr.size;
-+			msg->reply_size = reply->hdr.size;
- 			ret = 0;
- 		} else {
- 			dev_err(sdev->dev,
- 				"reply size (%u) exceeds the buffer size (%zu)\n",
--				reply.hdr.size, msg->reply_size);
-+				reply->hdr.size, msg->reply_size);
- 			ret = -EINVAL;
- 		}
- 
--		/* get the full message if reply.hdr.size <= msg->reply_size */
--		if (!ret)
-+		/*
-+		 * get the full message if reply->hdr.size <= msg->reply_size
-+		 * and the reply->hdr.size > sizeof(struct sof_ipc_reply)
-+		 */
-+		if (!ret && msg->reply_size > sizeof(*reply))
- 			snd_sof_dsp_mailbox_read(sdev, sdev->host_box.offset,
- 						 msg->reply_data, msg->reply_size);
+@@ -1939,7 +1936,7 @@ static int sof_ipc3_widget_free(struct snd_sof_dev *sdev, struct snd_sof_widget
+ 		break;
  	}
+ 
+-	ret = sof_ipc_tx_message(sdev->ipc, ipc_free.hdr.cmd, &ipc_free, sizeof(ipc_free),
++	ret = sof_ipc_tx_message(sdev->ipc, &ipc_free, sizeof(ipc_free),
+ 				 &reply, sizeof(reply));
+ 	if (ret < 0)
+ 		dev_err(sdev->dev, "failed to free widget %s\n", swidget->widget->name);
+@@ -2003,7 +2000,7 @@ static int sof_ipc3_dai_config(struct snd_sof_dev *sdev, struct snd_sof_widget *
+ 
+ 	/* only send the IPC if the widget is set up in the DSP */
+ 	if (swidget->use_count > 0) {
+-		ret = sof_ipc_tx_message(sdev->ipc, config->hdr.cmd, config, config->hdr.size,
++		ret = sof_ipc_tx_message(sdev->ipc, config, config->hdr.size,
+ 					 &reply, sizeof(reply));
+ 		if (ret < 0)
+ 			dev_err(sdev->dev, "Failed to set dai config for %s\n", dai->name);
+@@ -2028,7 +2025,7 @@ static int sof_ipc3_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget
+ 		struct sof_dai_private_data *dai_data = dai->private;
+ 		struct sof_ipc_comp *comp = &dai_data->comp_dai->comp;
+ 
+-		ret = sof_ipc_tx_message(sdev->ipc, comp->hdr.cmd, dai_data->comp_dai,
++		ret = sof_ipc_tx_message(sdev->ipc, dai_data->comp_dai,
+ 					 comp->hdr.size, &reply, sizeof(reply));
+ 		break;
+ 	}
+@@ -2037,8 +2034,8 @@ static int sof_ipc3_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget
+ 		struct sof_ipc_pipe_new *pipeline;
+ 
+ 		pipeline = swidget->private;
+-		ret = sof_ipc_tx_message(sdev->ipc, pipeline->hdr.cmd, pipeline,
+-					 sizeof(*pipeline), &reply, sizeof(reply));
++		ret = sof_ipc_tx_message(sdev->ipc, pipeline, sizeof(*pipeline),
++					 &reply, sizeof(reply));
+ 		break;
+ 	}
+ 	default:
+@@ -2046,7 +2043,7 @@ static int sof_ipc3_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget
+ 		struct sof_ipc_cmd_hdr *hdr;
+ 
+ 		hdr = swidget->private;
+-		ret = sof_ipc_tx_message(sdev->ipc, hdr->cmd, swidget->private, hdr->size,
++		ret = sof_ipc_tx_message(sdev->ipc, swidget->private, hdr->size,
+ 					 &reply, sizeof(reply));
+ 		break;
+ 	}
+diff --git a/sound/soc/sof/ipc3.c b/sound/soc/sof/ipc3.c
+index 03e914b62728..a7289804efda 100644
+--- a/sound/soc/sof/ipc3.c
++++ b/sound/soc/sof/ipc3.c
+@@ -19,8 +19,8 @@ static int sof_ipc3_ctx_ipc(struct snd_sof_dev *sdev, int cmd)
+ 	struct sof_ipc_reply reply;
+ 
+ 	/* send ctx save ipc to dsp */
+-	return sof_ipc_tx_message(sdev->ipc, pm_ctx.hdr.cmd, &pm_ctx,
+-				  sizeof(pm_ctx), &reply, sizeof(reply));
++	return sof_ipc_tx_message(sdev->ipc, &pm_ctx, sizeof(pm_ctx),
++				  &reply, sizeof(reply));
+ }
+ 
+ static int sof_ipc3_ctx_save(struct snd_sof_dev *sdev)
+diff --git a/sound/soc/sof/sof-client.c b/sound/soc/sof/sof-client.c
+index 686ad0c3bb61..5fb3eb21bf7d 100644
+--- a/sound/soc/sof/sof-client.c
++++ b/sound/soc/sof/sof-client.c
+@@ -247,7 +247,7 @@ int sof_client_ipc_tx_message(struct sof_client_dev *cdev, void *ipc_msg,
+ {
+ 	struct sof_ipc_cmd_hdr *hdr = ipc_msg;
+ 
+-	return sof_ipc_tx_message(cdev->sdev->ipc, hdr->cmd, ipc_msg, hdr->size,
++	return sof_ipc_tx_message(cdev->sdev->ipc, ipc_msg, hdr->size,
+ 				  reply_data, reply_bytes);
+ }
+ EXPORT_SYMBOL_NS_GPL(sof_client_ipc_tx_message, SND_SOC_SOF_CLIENT);
+diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
+index 0fb1db0ed7cd..fd815ae7f20a 100644
+--- a/sound/soc/sof/sof-priv.h
++++ b/sound/soc/sof/sof-priv.h
+@@ -584,11 +584,9 @@ void snd_sof_ipc_get_reply(struct snd_sof_dev *sdev);
+ void snd_sof_ipc_reply(struct snd_sof_dev *sdev, u32 msg_id);
+ void snd_sof_ipc_msgs_rx(struct snd_sof_dev *sdev);
+ int snd_sof_ipc_valid(struct snd_sof_dev *sdev);
+-int sof_ipc_tx_message(struct snd_sof_ipc *ipc, u32 header,
+-		       void *msg_data, size_t msg_bytes, void *reply_data,
+-		       size_t reply_bytes);
+-int sof_ipc_tx_message_no_pm(struct snd_sof_ipc *ipc, u32 header,
+-			     void *msg_data, size_t msg_bytes,
++int sof_ipc_tx_message(struct snd_sof_ipc *ipc, void *msg_data, size_t msg_bytes,
++		       void *reply_data, size_t reply_bytes);
++int sof_ipc_tx_message_no_pm(struct snd_sof_ipc *ipc, void *msg_data, size_t msg_bytes,
+ 			     void *reply_data, size_t reply_bytes);
+ int sof_ipc_init_msg_memory(struct snd_sof_dev *sdev);
+ static inline void snd_sof_ipc_process_reply(struct snd_sof_dev *sdev, u32 msg_id)
+diff --git a/sound/soc/sof/trace.c b/sound/soc/sof/trace.c
+index 26d9381596ff..ba6361b5d64b 100644
+--- a/sound/soc/sof/trace.c
++++ b/sound/soc/sof/trace.c
+@@ -152,8 +152,7 @@ static int sof_ipc_trace_update_filter(struct snd_sof_dev *sdev, int num_elems,
+ 		dev_err(sdev->dev, "error: enabling device failed: %d\n", ret);
+ 		goto error;
+ 	}
+-	ret = sof_ipc_tx_message(sdev->ipc, msg->hdr.cmd, msg, msg->hdr.size,
+-				 &reply, sizeof(reply));
++	ret = sof_ipc_tx_message(sdev->ipc, msg, msg->hdr.size, &reply, sizeof(reply));
+ 	pm_runtime_mark_last_busy(sdev->dev);
+ 	pm_runtime_put_autosuspend(sdev->dev);
+ 
+@@ -430,9 +429,7 @@ static int snd_sof_enable_trace(struct snd_sof_dev *sdev)
+ 	dev_dbg(sdev->dev, "%s: stream_tag: %d\n", __func__, params.stream_tag);
+ 
+ 	/* send IPC to the DSP */
+-	ret = sof_ipc_tx_message(sdev->ipc,
+-				 params.hdr.cmd, &params, sizeof(params),
+-				 &ipc_reply, sizeof(ipc_reply));
++	ret = sof_ipc_tx_message(sdev->ipc, &params, sizeof(params), &ipc_reply, sizeof(ipc_reply));
+ 	if (ret < 0) {
+ 		dev_err(sdev->dev,
+ 			"error: can't set params for DMA for trace %d\n", ret);
+@@ -575,7 +572,7 @@ static void snd_sof_release_trace(struct snd_sof_dev *sdev, bool only_stop)
+ 		hdr.size = sizeof(hdr);
+ 		hdr.cmd = SOF_IPC_GLB_TRACE_MSG | SOF_IPC_TRACE_DMA_FREE;
+ 
+-		ret = sof_ipc_tx_message(sdev->ipc, hdr.cmd, &hdr, hdr.size,
++		ret = sof_ipc_tx_message(sdev->ipc, &hdr, hdr.size,
+ 					 &ipc_reply, sizeof(ipc_reply));
+ 		if (ret < 0)
+ 			dev_err(sdev->dev, "DMA_TRACE_FREE failed with error: %d\n", ret);
 -- 
 2.25.1
 

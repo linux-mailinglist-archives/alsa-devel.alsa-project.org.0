@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 820524ECDC9
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Mar 2022 22:21:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90FC94ECDCC
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Mar 2022 22:21:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2AE381A47;
-	Wed, 30 Mar 2022 22:20:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2AE381A47
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2BA891A75;
+	Wed, 30 Mar 2022 22:21:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2BA891A75
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648671688;
-	bh=aAUqSmW6XkCA6aP1LCihLXXsOlY+IckZB/cQyjzqU08=;
+	s=default; t=1648671716;
+	bh=//VLX0NSVXpvaYf1bPnlh5QRE3lJwScoas6Df7RnmF4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vDd2SLRlmgTH/sijeVwcGKF8AQASk2YxBA1VufvfCQWH4FrdWsql6C2XNQVuuwRlK
-	 Uy/CZcPUMhRKfKEma7gDOV5ZrjH15kNiyEbR9Ybw8a+0RW1Z1ncumm+jobdGMpeKVR
-	 sr8KNBrzrrbwKTrQ3XnjNa9wbFxq8PXtLjNVQBWw=
+	b=ELqXeH+LW9HH5ys1EUbyYuzajW8bvVD6QFtfRz29L9Gt3P9OVVIfnpjFIDBYWs5PF
+	 28yduQoMh48XfQqRCTA2JTbNeOFKOZjwlUvjtwheM6ue7I5oHuW3mQrgTMVi97gRjO
+	 ai7GkRx4JnKG/+t13j3epskO2dl2DlpXYvd5KVrU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 803EDF80506;
-	Wed, 30 Mar 2022 22:19:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 82402F8051C;
+	Wed, 30 Mar 2022 22:19:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DBA54F8051A; Wed, 30 Mar 2022 22:19:47 +0200 (CEST)
+ id CAF93F8051A; Wed, 30 Mar 2022 22:19:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,40 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 91F11F80253
+ by alsa1.perex.cz (Postfix) with ESMTPS id C6DC1F80155
  for <alsa-devel@alsa-project.org>; Wed, 30 Mar 2022 22:19:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91F11F80253
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6DC1F80155
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="nE+Q5wjS"
+ header.b="LTWOsOZ8"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648671581; x=1680207581;
+ t=1648671582; x=1680207582;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=aAUqSmW6XkCA6aP1LCihLXXsOlY+IckZB/cQyjzqU08=;
- b=nE+Q5wjS0lrDAeN52dsNAQq1nDhhufZRpTEqYDLcD0N1adnp/1npULT+
- 9n0vB0TYHLFYl/W212YrkVx9zcOsOLD2LjvU0l5leqEObOkzutHwl9fr5
- ICHLo9qC1fPc2qsMcxUm46XFPJIW4t8uDJp/VdY/Cj5jplLMCXB+JOEaM
- Gdp2j7DXE/gIG4zGr+KPVv0ZSPr7a0ZQd0azmjQcnpGTIZfZRmNFXnDCT
- f1k8DU71o8jya8gdrcb6nF8JTWNQzvUkd0iSPcQxqtHAlbY59PM4veK5Z
- oXQpoGHT3rAxeJj2zFNECKbSFZZBH2nzY/NPHLDQvYTQEHiTbaiIGAb7/ A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="322819823"
-X-IronPort-AV: E=Sophos;i="5.90,223,1643702400"; d="scan'208";a="322819823"
+ bh=//VLX0NSVXpvaYf1bPnlh5QRE3lJwScoas6Df7RnmF4=;
+ b=LTWOsOZ8/YwGenNhm06kKBQvJvTA7yXrnoyyFC4ci7cCLK8kA2JZJd9j
+ ep2XGTIdxNr0zY/tX8LrRSzESaVKnuBnTml4wqJSvVqEQuNfuzgv3JoZ4
+ 5es5Rg6Ilh6yEtCu/FMtihYHGpV9EDFvcuk+yHl6BCm+FfSqxqtKq7sbh
+ c4BWSkkE+eM+96a2nvOivWcT3KbKqIjOGxoD/Gkh543bPT3/SpVB6kgoJ
+ LTEdeI4m9cIDD/3Zaek7seKfAtJrwDkI1rPa7wcKklyIOHlC/g2yQzHk8
+ kKA24/V1QnKKEihhMcZWF1hDHg+i4VK5K/rskXm9Ky/TKNaaBHM5HuY75 Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="322819825"
+X-IronPort-AV: E=Sophos;i="5.90,223,1643702400"; d="scan'208";a="322819825"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  30 Mar 2022 13:19:36 -0700
-X-IronPort-AV: E=Sophos;i="5.90,223,1643702400"; d="scan'208";a="522045016"
+X-IronPort-AV: E=Sophos;i="5.90,223,1643702400"; d="scan'208";a="522045017"
 Received: from ggunnam-mobl.amr.corp.intel.com (HELO
  rsridh2-mobl1.localdomain) ([10.254.28.195])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2022 13:19:35 -0700
+ 30 Mar 2022 13:19:36 -0700
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 01/11] ASoC: SOF: Intel: hda-loader: Use local snd_dma_buffer
-Date: Wed, 30 Mar 2022 13:19:16 -0700
-Message-Id: <20220330201926.1330402-2-ranjani.sridharan@linux.intel.com>
+Subject: [PATCH 02/11] ASoC: SOF: Remove dmab and dmab_bdl from snd_sof_dev
+ struct
+Date: Wed, 30 Mar 2022 13:19:17 -0700
+Message-Id: <20220330201926.1330402-3-ranjani.sridharan@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220330201926.1330402-1-ranjani.sridharan@linux.intel.com>
 References: <20220330201926.1330402-1-ranjani.sridharan@linux.intel.com>
@@ -93,79 +94,29 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
-There is no reason to use the sdev->dmab and sdev->dmab_bdl as the buffers
-are only used locally: allocated used and freed in the same function.
+The dmab and dmab_bdl is not used by any platform, it can be removed from
+struct snd_sof_dev.
 
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 ---
- sound/soc/sof/intel/hda-loader.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+ sound/soc/sof/sof-priv.h | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/sound/soc/sof/intel/hda-loader.c b/sound/soc/sof/intel/hda-loader.c
-index 2ac5d9d0719b..697d18a41a6e 100644
---- a/sound/soc/sof/intel/hda-loader.c
-+++ b/sound/soc/sof/intel/hda-loader.c
-@@ -313,6 +313,7 @@ int hda_dsp_cl_boot_firmware_iccmax(struct snd_sof_dev *sdev)
- 	struct hdac_ext_stream *iccmax_stream;
- 	struct hdac_bus *bus = sof_to_bus(sdev);
- 	struct firmware stripped_firmware;
-+	struct snd_dma_buffer dmab_bdl;
- 	int ret, ret1;
- 	u8 original_gb;
+diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
+index 0d9b640ae24c..93de5547b952 100644
+--- a/sound/soc/sof/sof-priv.h
++++ b/sound/soc/sof/sof-priv.h
+@@ -457,8 +457,6 @@ struct snd_sof_dev {
+ 	bool ipc_dump_printed;
  
-@@ -328,7 +329,7 @@ int hda_dsp_cl_boot_firmware_iccmax(struct snd_sof_dev *sdev)
- 
- 	/* prepare capture stream for ICCMAX */
- 	iccmax_stream = cl_stream_prepare(sdev, HDA_CL_STREAM_FORMAT, stripped_firmware.size,
--					  &sdev->dmab_bdl, SNDRV_PCM_STREAM_CAPTURE);
-+					  &dmab_bdl, SNDRV_PCM_STREAM_CAPTURE);
- 	if (IS_ERR(iccmax_stream)) {
- 		dev_err(sdev->dev, "error: dma prepare for ICCMAX stream failed\n");
- 		return PTR_ERR(iccmax_stream);
-@@ -340,7 +341,7 @@ int hda_dsp_cl_boot_firmware_iccmax(struct snd_sof_dev *sdev)
- 	 * Perform iccmax stream cleanup. This should be done even if firmware loading fails.
- 	 * If the cleanup also fails, we return the initial error
- 	 */
--	ret1 = cl_cleanup(sdev, &sdev->dmab_bdl, iccmax_stream);
-+	ret1 = cl_cleanup(sdev, &dmab_bdl, iccmax_stream);
- 	if (ret1 < 0) {
- 		dev_err(sdev->dev, "error: ICCMAX stream cleanup failed\n");
- 
-@@ -395,6 +396,7 @@ int hda_dsp_cl_boot_firmware(struct snd_sof_dev *sdev)
- 	const struct sof_intel_dsp_desc *chip_info;
- 	struct hdac_ext_stream *hext_stream;
- 	struct firmware stripped_firmware;
-+	struct snd_dma_buffer dmab;
- 	int ret, ret1, i;
- 
- 	if ((sdev->fw_ready.flags & SOF_IPC_INFO_D3_PERSISTENT) &&
-@@ -419,13 +421,13 @@ int hda_dsp_cl_boot_firmware(struct snd_sof_dev *sdev)
- 
- 	/* prepare DMA for code loader stream */
- 	hext_stream = cl_stream_prepare(sdev, HDA_CL_STREAM_FORMAT, stripped_firmware.size,
--					&sdev->dmab, SNDRV_PCM_STREAM_PLAYBACK);
-+					&dmab, SNDRV_PCM_STREAM_PLAYBACK);
- 	if (IS_ERR(hext_stream)) {
- 		dev_err(sdev->dev, "error: dma prepare for fw loading failed\n");
- 		return PTR_ERR(hext_stream);
- 	}
- 
--	memcpy(sdev->dmab.area, stripped_firmware.data,
-+	memcpy(dmab.area, stripped_firmware.data,
- 	       stripped_firmware.size);
- 
- 	/* try ROM init a few times before giving up */
-@@ -486,7 +488,7 @@ int hda_dsp_cl_boot_firmware(struct snd_sof_dev *sdev)
- 	 * This should be done even if firmware loading fails.
- 	 * If the cleanup also fails, we return the initial error
- 	 */
--	ret1 = cl_cleanup(sdev, &sdev->dmab, hext_stream);
-+	ret1 = cl_cleanup(sdev, &dmab, hext_stream);
- 	if (ret1 < 0) {
- 		dev_err(sdev->dev, "error: Code loader DSP cleanup failed\n");
- 
+ 	/* firmware loader */
+-	struct snd_dma_buffer dmab;
+-	struct snd_dma_buffer dmab_bdl;
+ 	struct sof_ipc_fw_ready fw_ready;
+ 	struct sof_ipc_fw_version fw_version;
+ 	struct sof_ipc_cc_version *cc_version;
 -- 
 2.25.1
 

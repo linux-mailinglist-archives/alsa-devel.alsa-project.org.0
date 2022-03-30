@@ -2,67 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBB764EC135
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Mar 2022 13:56:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C1024EC14C
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Mar 2022 13:56:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6956818C8;
-	Wed, 30 Mar 2022 13:55:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6956818C8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1CCF118FA;
+	Wed, 30 Mar 2022 13:55:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1CCF118FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648641389;
-	bh=FeVBirWUDsSNdHRMTaN1D2cMhlAoxiuriyc5vJocNC0=;
+	s=default; t=1648641400;
+	bh=SXDpUl53LOcvA7vl1vjJ+tv7O0zHMaTxiH6T79oerk8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KuHPVgDJM7lph/JQ97v6FNdRNYVBUCro5NogQhAMmPG/9GUxQSYq8PSV0xL9AFMdH
-	 1rf8zB6iE6/vnIRb4YsPu4sYMUSTDE1hUH7Yh4LMhhl3HMtL/5KPSskLAAtIxCpltI
-	 b9hx2H6c74oHSxIe3pg9f1ovX1gwCjEofMqRqC+I=
+	b=FNQW1i7oxkPZBZcAEu3yUpImdWbEJPCFOzMCt3QE6+iqJlSy4bV5B1YBMzt5IacA/
+	 /cOvpUByEYckV3wRL6aziTnU8Re8T4dsU61gnYwVXoCypOQUI7S017ERsdfVMV8cPt
+	 Zy0+0mHbVjsiLq/m5vQgfoi2XoY/Ccu3jlRvAjTM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E5AFFF8051B;
-	Wed, 30 Mar 2022 13:49:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 26349F80527;
+	Wed, 30 Mar 2022 13:49:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1B7F3F805E7; Wed, 30 Mar 2022 13:49:15 +0200 (CEST)
+ id 88083F805EC; Wed, 30 Mar 2022 13:49:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E56E5F8051A
- for <alsa-devel@alsa-project.org>; Wed, 30 Mar 2022 13:49:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E56E5F8051A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9226BF80527
+ for <alsa-devel@alsa-project.org>; Wed, 30 Mar 2022 13:49:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9226BF80527
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="lokuT5Nr"
+ header.b="kl++iMlz"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9AB51615E7;
- Wed, 30 Mar 2022 11:49:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55AF6C34113;
- Wed, 30 Mar 2022 11:49:04 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 08917B81C34;
+ Wed, 30 Mar 2022 11:49:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2F6BC36AE2;
+ Wed, 30 Mar 2022 11:49:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1648640945;
- bh=FeVBirWUDsSNdHRMTaN1D2cMhlAoxiuriyc5vJocNC0=;
+ s=k20201202; t=1648640950;
+ bh=SXDpUl53LOcvA7vl1vjJ+tv7O0zHMaTxiH6T79oerk8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=lokuT5NroYXJWdWxvIFiM76UQwyaVWs+Eya8ee2sLEZxT69/i6165aaFj9JOG76ax
- 73vKzvjQv6u02sX7663/mWhPVtzJzWk0oohz23caSHy1Bks6paTplDhcJFjHkU5dFB
- OuPWBFd7LPERX1kwzCcQy/YBLAFKvDYrIDXUQn5twlv96HC3jOiff0DGSUjNRC4pBz
- zXfrVQpLGZn+f3NjbGyuOFVdrcsxpISXNKWRiyfzcBhrSxbEzLv13bUPqC3z8an25G
- tIrIFpv6PMCtknMAKvnKjxBIqWMIKNa/som1WGItr0a6pVyJMi2pU7THm+7hDrBSjs
- V5RkoVC+x5jMw==
+ b=kl++iMlzQanbWuXliTryfv5p9W73Z2Jf1F5NnT9b9yRi/EbL1tIbs4PCOHY+i8l4R
+ mJlcIFXHbU33qhybGe/05yrDTRC/SY18S/PQo4YzOQyX+NpBaUMed85pQvmb92oQii
+ fpXd9iDbcYenyY1QPfKjuckSOfo9pW1wQaBWf1960qhZpBQCh2YIysyS+L7Qx4RQlE
+ FxzcytBnzM9K3HUijD1Hh5yCze2xfL+x/8XmbE0t2SbhR73ST0zZ7JCASTvXR3VBpY
+ FI0oQt4Q2nmaBTUdHN2uhMc0vGWHOrOkjwXxevX/trTIQkW0ct5w27vU2WchWVTGZE
+ umzDqWgCvJ3VA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.16 20/59] ASoC: madera: Add dependencies on MFD
-Date: Wed, 30 Mar 2022 07:47:52 -0400
-Message-Id: <20220330114831.1670235-20-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.16 24/59] ALSA: hda: Fix driver index handling at
+ re-binding
+Date: Wed, 30 Mar 2022 07:47:56 -0400
+Message-Id: <20220330114831.1670235-24-sashal@kernel.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220330114831.1670235-1-sashal@kernel.org>
 References: <20220330114831.1670235-1-sashal@kernel.org>
@@ -71,8 +72,8 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Charles Keepax <ckeepax@opensource.cirrus.com>, tiwai@suse.com,
- lgirdwood@gmail.com, Mark Brown <broonie@kernel.org>
+ Alexander Sergeyev <sergeev917@gmail.com>, Takashi Iwai <tiwai@suse.de>,
+ gregkh@linuxfoundation.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,58 +89,83 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
+From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit ec29170c724ca30305fc3a19ba2ee73ecac65509 ]
+[ Upstream commit 69458e2c27800da7697c87ed908b65323ef3f3bd ]
 
-The Madera CODECs use regmap_irq functions but nothing ensures that
-regmap_irq is built into the kernel. Add dependencies on the ASoC
-symbols for the relevant MFD component. There is no point in building
-the ASoC driver if the MFD doesn't support it and the MFD part contains
-the necessary dependencies to ensure everything is built into the
-kernel.
+HD-audio driver handles the multiple instances and keeps the static
+index that is incremented at each probe.  This becomes a problem when
+user tries to re-bind the device via sysfs multiple times; as the
+device index isn't cleared unlike rmmod case, it points to the next
+element at re-binding, and eventually later you can't probe any more
+when it reaches to SNDRV_CARDS_MAX (usually 32).
 
-Reported-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-Link: https://lore.kernel.org/r/20220203115025.16464-1-ckeepax@opensource.cirrus.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+This patch is an attempt to improve the handling at rebinding.
+Instead of a static device index, now we keep a bitmap and assigns to
+the first zero bit position.  At the driver remove, in return, the
+bitmap slot is cleared again, so that it'll be available for the next
+probe.
+
+Reported-by: Alexander Sergeyev <sergeev917@gmail.com>
+Link: https://lore.kernel.org/r/20220209081912.20687-1-tiwai@suse.de
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/Kconfig | 5 +++++
- 1 file changed, 5 insertions(+)
+ sound/pci/hda/hda_intel.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index 3a610ba183ff..0d4e1fb9befc 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -707,6 +707,7 @@ config SND_SOC_CS4349
+diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+index 3b6f2aacda45..1ffd96fbf230 100644
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -2061,14 +2061,16 @@ static const struct hda_controller_ops pci_hda_ops = {
+ 	.position_check = azx_position_check,
+ };
  
- config SND_SOC_CS47L15
- 	tristate
-+	depends on MFD_CS47L15
++static DECLARE_BITMAP(probed_devs, SNDRV_CARDS);
++
+ static int azx_probe(struct pci_dev *pci,
+ 		     const struct pci_device_id *pci_id)
+ {
+-	static int dev;
+ 	struct snd_card *card;
+ 	struct hda_intel *hda;
+ 	struct azx *chip;
+ 	bool schedule_probe;
++	int dev;
+ 	int err;
  
- config SND_SOC_CS47L24
- 	tristate
-@@ -714,15 +715,19 @@ config SND_SOC_CS47L24
+ 	if (pci_match_id(driver_denylist, pci)) {
+@@ -2076,10 +2078,11 @@ static int azx_probe(struct pci_dev *pci,
+ 		return -ENODEV;
+ 	}
  
- config SND_SOC_CS47L35
- 	tristate
-+	depends on MFD_CS47L35
++	dev = find_first_zero_bit(probed_devs, SNDRV_CARDS);
+ 	if (dev >= SNDRV_CARDS)
+ 		return -ENODEV;
+ 	if (!enable[dev]) {
+-		dev++;
++		set_bit(dev, probed_devs);
+ 		return -ENOENT;
+ 	}
  
- config SND_SOC_CS47L85
- 	tristate
-+	depends on MFD_CS47L85
+@@ -2146,7 +2149,7 @@ static int azx_probe(struct pci_dev *pci,
+ 	if (schedule_probe)
+ 		schedule_delayed_work(&hda->probe_work, 0);
  
- config SND_SOC_CS47L90
- 	tristate
-+	depends on MFD_CS47L90
+-	dev++;
++	set_bit(dev, probed_devs);
+ 	if (chip->disabled)
+ 		complete_all(&hda->probe_wait);
+ 	return 0;
+@@ -2369,6 +2372,7 @@ static void azx_remove(struct pci_dev *pci)
+ 		cancel_delayed_work_sync(&hda->probe_work);
+ 		device_lock(&pci->dev);
  
- config SND_SOC_CS47L92
- 	tristate
-+	depends on MFD_CS47L92
- 
- # Cirrus Logic Quad-Channel ADC
- config SND_SOC_CS53L30
++		clear_bit(chip->dev_index, probed_devs);
+ 		pci_set_drvdata(pci, NULL);
+ 		snd_card_free(card);
+ 	}
 -- 
 2.34.1
 

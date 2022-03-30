@@ -2,69 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB3284EC2E4
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Mar 2022 14:02:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3FE04EC2E5
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Mar 2022 14:02:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4BF191936;
-	Wed, 30 Mar 2022 14:01:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BF191936
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4E7751931;
+	Wed, 30 Mar 2022 14:01:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E7751931
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648641751;
-	bh=eAu7CtqUbejdrEQNt9DreNr/zKSssNpE1NjUjFYTwPA=;
+	s=default; t=1648641761;
+	bh=IVt9jYETt3TQfguSpdnH8Vu6cSpfeaiBih9Ro8JSimM=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=R2u6GI8RWLyZK8dISO2lWIiwxFAM8t/CbIyXKCuy2zMwtCGKvML5a2KoZMqmOtzZU
-	 8VochzPmsBuHcENKajXORNZaGXYBhH8E+VvVMEp6EsWSO+zONKNy0+GWeHKPoBGY9H
-	 2oghEK2587X6Phg4mB/P+Ehf9V4rhkLke83vosDY=
+	b=f9SpnYCn6KDDBsRyRB0ThRxPpPAWGpHaorciWQ/olTEYCcP3VDvM4tWQUfJig7qDs
+	 SmNi+nkWFIBUZraiwlcWRDoNO2Cw8PgZgSssm8tigZ9GbpvqIlOqGmhWZej/ar33nN
+	 5OG/YS0WYfkTDSCzU91HvtBIH2YjpSzUC16cGqTE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D9238F80633;
-	Wed, 30 Mar 2022 13:51:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6E526F80635;
+	Wed, 30 Mar 2022 13:51:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6B560F80632; Wed, 30 Mar 2022 13:51:22 +0200 (CEST)
+ id 16389F80635; Wed, 30 Mar 2022 13:51:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ DKIM_VALID_AU,SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 83238F80633
- for <alsa-devel@alsa-project.org>; Wed, 30 Mar 2022 13:51:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83238F80633
+ by alsa1.perex.cz (Postfix) with ESMTPS id E3CE9F80552
+ for <alsa-devel@alsa-project.org>; Wed, 30 Mar 2022 13:51:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3CE9F80552
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="rfGWVeLs"
+ header.b="g8rYC61l"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 597C061703;
- Wed, 30 Mar 2022 11:51:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85BB9C36AE2;
- Wed, 30 Mar 2022 11:51:13 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id DB8546137A;
+ Wed, 30 Mar 2022 11:51:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4498FC36AE5;
+ Wed, 30 Mar 2022 11:51:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1648641074;
- bh=eAu7CtqUbejdrEQNt9DreNr/zKSssNpE1NjUjFYTwPA=;
+ s=k20201202; t=1648641078;
+ bh=IVt9jYETt3TQfguSpdnH8Vu6cSpfeaiBih9Ro8JSimM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=rfGWVeLsdT/b04cTMn6JSS5Ws3dkU5/qk+ViidPKBFxFf76Pxt4TZxfRa955QWLKd
- PhqulUbVq3FfJBLJkFInnTABhXOk6qW+pOIk1dHlhuFAJsWoic/WrHL7vxM9mKeCSE
- 5q6GSRMY2YGZ7nEqfmRancYkFK05x1UBRhd1KIhwSWM+kLEPseIV5J6Lzm2zRhjIeP
- 5qwUsH5g2jRR8CrnyJTp3HcVqcMRImmhy4Ss6ME6mKO7gKX59CvcX4J9trYmwBlqc3
- /5swOYJoMUMTvVobIBkrXqk2oLR3HLQPTk+Wl+CEj/BXMaSrZlN2ebwza0hxEWJKzy
- XJ7tCqcyz8uUQ==
+ b=g8rYC61lvKi0e96XLCoIJCUwii2mHbU2SyRdTIF06DVATlNF6ME0M/o7V2TE5BoiL
+ OOH4gFLHKFzycFQz9wP5P+Z12Tnt5W+q+JqXEoMBOQDgeJ8bbLCH/URXQ5DZCwcOam
+ vCNu7drm9v4t56HtleveZ3NdUkzxJ/e7PkOlbqVSWYCZVlMSUDAEh3dplggnFeaOlY
+ DtNjeijaB9a5QDKcqKKJms7xor/julA9Omy7HNwCFh61bw1ZQsyw+1MjfF+a+grQIF
+ URbYN9LJTsY2SbnW/G66Au7LlvJbHlzYlEaPtB9nAITUOynPrwT3C41kzuUfpLvabP
+ svAXUiT+onVYA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 45/50] ASoC: Intel: sof_sdw: fix quirks for 2022
- HP Spectre x360 13"
-Date: Wed, 30 Mar 2022 07:49:59 -0400
-Message-Id: <20220330115005.1671090-45-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 48/50] ASoC: ak4642: Use
+ of_device_get_match_data()
+Date: Wed, 30 Mar 2022 07:50:02 -0400
+Message-Id: <20220330115005.1671090-48-sashal@kernel.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220330115005.1671090-1-sashal@kernel.org>
 References: <20220330115005.1671090-1-sashal@kernel.org>
@@ -73,9 +72,8 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- tiwai@suse.com, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- lgirdwood@gmail.com, Mark Brown <broonie@kernel.org>,
- Anthony I Gilea <i@cpp.in>, Rander Wang <rander.wang@intel.com>
+ Zeal Robot <zealci@zte.com.cn>, tiwai@suse.com, lgirdwood@gmail.com,
+ Minghao Chi <chi.minghao@zte.com.cn>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,52 +89,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Anthony I Gilea <i@cpp.in>
+From: Minghao Chi <chi.minghao@zte.com.cn>
 
-[ Upstream commit ce73ef6ec67104d1fcc4c5911d77ce83288a0998 ]
+[ Upstream commit 835ca59799f5c60b4b54bdc7aa785c99552f63e4 ]
 
-HP changed the DMI identification for 2022 devices:
-Product Name: HP Spectre x360 Conv 13-ap0001na
-Product Name: 8709
-This patch relaxes the DMI_MATCH criterion to work with all versions of this product.
+Use of_device_get_match_data() to simplify the code.
 
-Reviewed-by: Rander Wang <rander.wang@intel.com>
-Signed-off-by: Anthony I Gilea <i@cpp.in>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20220304204532.54675-4-pierre-louis.bossart@linux.intel.com
+Reported-by: Zeal Robot <zealci@zte.com.cn>
+Signed-off-by: Minghao Chi <chi.minghao@zte.com.cn>
+Link: https://lore.kernel.org/r/20220315023226.2118354-1-chi.minghao@zte.com.cn
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/soundwire/dmi-quirks.c   | 2 +-
- sound/soc/intel/boards/sof_sdw.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/codecs/ak4613.c | 11 +++--------
+ 1 file changed, 3 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/soundwire/dmi-quirks.c b/drivers/soundwire/dmi-quirks.c
-index 0ca2a3e3a02e..747983743a14 100644
---- a/drivers/soundwire/dmi-quirks.c
-+++ b/drivers/soundwire/dmi-quirks.c
-@@ -59,7 +59,7 @@ static const struct dmi_system_id adr_remap_quirk_table[] = {
- 	{
- 		.matches = {
- 			DMI_MATCH(DMI_SYS_VENDOR, "HP"),
--			DMI_MATCH(DMI_PRODUCT_NAME, "HP Spectre x360 Convertible"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "HP Spectre x360 Conv"),
- 		},
- 		.driver_data = (void *)intel_tgl_bios,
- 	},
-diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
-index 76759b209906..0bf3e56e1d58 100644
---- a/sound/soc/intel/boards/sof_sdw.c
-+++ b/sound/soc/intel/boards/sof_sdw.c
-@@ -184,7 +184,7 @@ static const struct dmi_system_id sof_sdw_quirk_table[] = {
- 		.callback = sof_sdw_quirk_cb,
- 		.matches = {
- 			DMI_MATCH(DMI_SYS_VENDOR, "HP"),
--			DMI_MATCH(DMI_PRODUCT_NAME, "HP Spectre x360 Convertible"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "HP Spectre x360 Conv"),
- 		},
- 		.driver_data = (void *)(SOF_SDW_TGL_HDMI |
- 					SOF_SDW_PCH_DMIC |
+diff --git a/sound/soc/codecs/ak4613.c b/sound/soc/codecs/ak4613.c
+index 4d2e78101f28..034195c83bd7 100644
+--- a/sound/soc/codecs/ak4613.c
++++ b/sound/soc/codecs/ak4613.c
+@@ -653,15 +653,10 @@ static int ak4613_i2c_probe(struct i2c_client *i2c,
+ 	struct ak4613_priv *priv;
+ 
+ 	regmap_cfg = NULL;
+-	if (np) {
+-		const struct of_device_id *of_id;
+-
+-		of_id = of_match_device(ak4613_of_match, dev);
+-		if (of_id)
+-			regmap_cfg = of_id->data;
+-	} else {
++	if (np)
++		regmap_cfg = of_device_get_match_data(dev);
++	else
+ 		regmap_cfg = (const struct regmap_config *)id->driver_data;
+-	}
+ 
+ 	if (!regmap_cfg)
+ 		return -EINVAL;
 -- 
 2.34.1
 

@@ -2,78 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5F834ED519
-	for <lists+alsa-devel@lfdr.de>; Thu, 31 Mar 2022 09:59:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 858714ED54D
+	for <lists+alsa-devel@lfdr.de>; Thu, 31 Mar 2022 10:17:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 313911852;
-	Thu, 31 Mar 2022 09:59:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 313911852
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2926B18CD;
+	Thu, 31 Mar 2022 10:16:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2926B18CD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648713591;
-	bh=FTfLRW31sCmsWFf+Ag4cFOe+7l0rk+hoXvffPPkpn+s=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1648714624;
+	bh=z8p5ZbMUPd777Gj4GRv2d1CHY2IjkrfFO/C5gpdysPA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FnQ/kDZMh8n0QMn0X9WMyQdx2nnuilFtmtk9Z/TjzuAE4z8+h6/yhj177PYoQHozc
-	 iYWSf7kPVDfhrIN+/xanO5htxQPZDYFd/znSSjBMFSYMVj0IxvErwBvmQt5xNOSdE0
-	 dEiRPPzmZhc/2eXZckDfQyUzjyk3pvsYMZuUZdwA=
+	b=i8pvnxBfjIbTfw6BsruB0Axo5j0F2Y+0I5fDzed4bgf2KyPxY5eRihYfNuY1PWU5s
+	 04TgsUwKCk1XT7K6Sfp1VVH4QFHgQAED//m9ey7HVMUorIMiwKRtlto49B0/Wde8tV
+	 KCEEpSg6D1SWpF/OV2heCXxvAj+flCfEPu0o2wyw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 92E9BF800E4;
-	Thu, 31 Mar 2022 09:58:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8E27BF80238;
+	Thu, 31 Mar 2022 10:15:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4BE1FF80227; Thu, 31 Mar 2022 09:58:42 +0200 (CEST)
+ id 628ACF80227; Thu, 31 Mar 2022 10:15:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [IPv6:2a00:1450:4864:20::42a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6C3CFF80100
- for <alsa-devel@alsa-project.org>; Thu, 31 Mar 2022 09:58:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C3CFF80100
-Received: from ptx.hi.pengutronix.de ([2001:67c:670:100:1d::c0])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <sha@pengutronix.de>)
- id 1nZphN-00023m-KG; Thu, 31 Mar 2022 09:58:29 +0200
-Received: from sha by ptx.hi.pengutronix.de with local (Exim 4.92)
- (envelope-from <sha@pengutronix.de>)
- id 1nZphM-0005tY-Dr; Thu, 31 Mar 2022 09:58:28 +0200
-Date: Thu, 31 Mar 2022 09:58:28 +0200
-From: Sascha Hauer <s.hauer@pengutronix.de>
-To: Vinod Koul <vkoul@kernel.org>
-Subject: Re: [PATCH v2 10/19] dma: imx-sdma: Add multi fifo support
-Message-ID: <20220331075828.GE4012@pengutronix.de>
-References: <20220328112744.1575631-1-s.hauer@pengutronix.de>
- <20220328112744.1575631-11-s.hauer@pengutronix.de>
- <YkU7cYhZUuGyWbob@matsya> <20220331064903.GC4012@pengutronix.de>
- <YkVQNhTpeIT7qO/7@matsya>
+ by alsa1.perex.cz (Postfix) with ESMTPS id A0EC0F80100
+ for <alsa-devel@alsa-project.org>; Thu, 31 Mar 2022 10:15:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0EC0F80100
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="J1HnsVIT"
+Received: by mail-wr1-x42a.google.com with SMTP id j18so32546759wrd.6
+ for <alsa-devel@alsa-project.org>; Thu, 31 Mar 2022 01:15:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=ce3XiUynrBovS1Dqjh/W2HbLqdCahz7xgN7KDMpYzcY=;
+ b=J1HnsVITgr6QSTK4m6TnBMailz49y681Ypvo1Y88KWhdeniaXsBVQZa0K1Oj2eADIl
+ nYByCdKr/pnmNrTP9i7v8jAhf7Bn31F6Tv7Qh7oXnM4q5zdstH6nJr2FRhFUMbrJSC1M
+ Bjjsewh6zrKz7zZyhbmjhZRlLEPF9UPyD2kqs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ce3XiUynrBovS1Dqjh/W2HbLqdCahz7xgN7KDMpYzcY=;
+ b=E4aE47gwvAWa8AoXu1yV6Ltev5B9rROq1cj4QfvwVFutteYIRRLobj9sGcQfp0d0LD
+ 2QHKVRXRTC565h2+sB8Gdve0toeUCl+xBgEzA+M1xIwcD7IhrpmH1pq3BpeX7S26RLph
+ SeptH+FMo6/3qvCkEj34/i14AHG6yKoq9HAIJdLLc9pEO8Asr3laNgs8EF9ki/j2fbx6
+ WWFZABB6ZLsOax439PIkj/hCkXEp4CtD2hsiX10J/xC3XUzYuaLOJ2zmjHS9LjI0qgUv
+ oQUbEuqgvrzWLmGYFkTDueLLzfKkbrV8TTmTY3jzQRDuiCLwNhqoURaEj0LYvpU96scA
+ ybMg==
+X-Gm-Message-State: AOAM533bbfk8RlyyZz3jWBDyoRMO9GCKOkJBZJ2Z3eS42Hmp4beN0/ca
+ tfEss78bmcwgKzfKpnAKl4MCOqMyqdtUd8liqdegEg==
+X-Google-Smtp-Source: ABdhPJxwK72eMVAlrWI9TufBptdUQt1Dm0cRvlerktWCd7Jibsvd0gmRTxIBjH+T20XY/zeapZypYCgga8qYMktqCn0=
+X-Received: by 2002:a5d:64a5:0:b0:205:8e66:e9b1 with SMTP id
+ m5-20020a5d64a5000000b002058e66e9b1mr3102248wrp.464.1648714550874; Thu, 31
+ Mar 2022 01:15:50 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YkVQNhTpeIT7qO/7@matsya>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-IRC: #ptxdist @freenode
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
-X-Uptime: 09:06:33 up 19:36, 39 users,  load average: 0.28, 0.28, 0.24
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c0
-X-SA-Exim-Mail-From: sha@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Cc: alsa-devel@alsa-project.org, Xiubo Li <Xiubo.Lee@gmail.com>,
- Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
- kernel@pengutronix.de, dmaengine@vger.kernel.org,
- Shengjiu Wang <shengjiu.wang@gmail.com>
+References: <20220330084519.3863856-1-judyhsiao@chromium.org>
+ <YkRBo/1s6BgCRCvP@sirena.org.uk>
+In-Reply-To: <YkRBo/1s6BgCRCvP@sirena.org.uk>
+From: Judy Hsiao <judyhsiao@chromium.org>
+Date: Thu, 31 Mar 2022 16:15:39 +0800
+Message-ID: <CAJXt+b8MFjcQ1oY4oe2_ePUGPui7c4Oek3rqNgr8tvi9ywLhcw@mail.gmail.com>
+Subject: Re: [v1] ASoC: qcom: Add driver support for ALC5682I-VS.
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: judyhsiao@google.com, cychiang@google.com, alsa-devel@alsa-project.org,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-arm-msm@vger.kernel.org,
+ swboyd@chromium.org, dianders@chromium.org, Takashi Iwai <tiwai@suse.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, yuhsuan@chromium.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,111 +95,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Mar 31, 2022 at 12:24:46PM +0530, Vinod Koul wrote:
-> On 31-03-22, 08:49, Sascha Hauer wrote:
-> > On Thu, Mar 31, 2022 at 10:56:09AM +0530, Vinod Koul wrote:
-> > > On 28-03-22, 13:27, Sascha Hauer wrote:
-> > > > Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
-> > > 
-> > > it is dmaengine: xxx
-> > 
-> > Ok.
-> > 
-> > > 
-> > > Also is this patch dependent on rest of the series, if not consider
-> > > sending separately
-> > 
-> > The rest of this series indeed depends on this patch.
-> > 
-> > > 
-> > > > diff --git a/include/linux/platform_data/dma-imx.h b/include/linux/platform_data/dma-imx.h
-> > > > index 281adbb26e6bd..4a43a048e1b4d 100644
-> > > > --- a/include/linux/platform_data/dma-imx.h
-> > > > +++ b/include/linux/platform_data/dma-imx.h
-> > > > @@ -39,6 +39,7 @@ enum sdma_peripheral_type {
-> > > >  	IMX_DMATYPE_SSI_DUAL,	/* SSI Dual FIFO */
-> > > >  	IMX_DMATYPE_ASRC_SP,	/* Shared ASRC */
-> > > >  	IMX_DMATYPE_SAI,	/* SAI */
-> > > > +	IMX_DMATYPE_MULTI_SAI,	/* MULTI FIFOs For Audio */
-> > > >  };
-> > > >  
-> > > >  enum imx_dma_prio {
-> > > > @@ -65,4 +66,10 @@ static inline int imx_dma_is_general_purpose(struct dma_chan *chan)
-> > > >  		!strcmp(chan->device->dev->driver->name, "imx-dma");
-> > > >  }
-> > > >  
-> > > > +struct sdma_peripheral_config {
-> > > > +	int n_fifos_src;
-> > > > +	int n_fifos_dst;
-> > > > +	bool sw_done;
-> > > > +};
-> > > 
-> > > Not more platform data :(
-> > 
-> > I'm not sure what you are referring to as platform_data. This is not the
-> > classical platform_data that is attached to a platform_device to
-> > configure behaviour of that device. It is rather data that needs to be
-> > communicated from the clients of the SDMA engine to the SDMA engine.
-> > 
-> > I have put this into include/linux/platform_data/dma-imx.h because
-> > that's the only existing include file that is available. I could move
-> > this to a new file if you like that better.
-> 
-> Lets move to include/linux/dma/
-
-Ok.
-
-> 
-> > 
-> > > 
-> > > Can you explain this structure and why this is required? What do these
-> > > fields refer to..?
-> > 
-> > The reasoning for this structure is described in the commit message that
-> > I have forgotten:
-> > 
-> >     The i.MX SDMA engine can read from / write to multiple successive
-> >     hardware FIFO registers, referred to as "Multi FIFO support". This is
-> >     needed for the micfil driver and certain configurations of the SAI
-> >     driver. This patch adds support for this feature.
-> > 
-> >     The number of FIFOs to read from / write to must be communicated from
-> >     the client driver to the SDMA engine. For this the struct
-> >     dma_slave_config::peripheral_config field is used.
-> > 
-> > I can describe the individual fields of struct sdma_peripheral_config in
-> > the header file if that's your point.
-> 
-> So you need to know the number of fifo right, what does sw_done imply?
-
-Honestly I don't know. Setting sw_done results in the DONE_SEL0 bit in
-the SDMA engine being set. This is described in the reference manual
-as:
-
-DONE_SEL0 Select Done from SW or HW for channel 0
-          0 HW
-          1 SW
-
-I can only assume that the signaling when a channel has transferred
-enough data (the generation of the channel done interrupt?) can either
-be done in hardware or in software in the SDMA engine. What I can tell
-for sure is that I need this bit set ;)
-
-> 
-> Also if this is hardware information, why not use dma-cells for this?
-
-The information is not static. For the micfil the number of fifos equals
-the number of channels that are recorded, see next patch:
-
-+       micfil->dma_params_rx.peripheral_config = &micfil->sdmacfg;
-+       micfil->dma_params_rx.peripheral_size = sizeof(micfil->sdmacfg);
-+       micfil->sdmacfg.n_fifos_src = channels;
-+       micfil->sdmacfg.sw_done = true;
-
-Sascha
-
--- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+On Wed, Mar 30, 2022 at 7:40 PM Mark Brown <broonie@kernel.org> wrote:
+> On Wed, Mar 30, 2022 at 04:45:19PM +0800, Judy Hsiao wrote:
+> > +     snd_soc_dai_set_fmt(codec_dai,
+> > +                             SND_SOC_DAIFMT_CBS_CFS |
+> > +                             SND_SOC_DAIFMT_NB_NF |
+> > +                             SND_SOC_DAIFMT_I2S);
+>
+> Please use _CBC_CFS, and this can be set in the dai_link as data.
+Done. Use _CBC_CFS.
+As the original driver did not declare the dai_link structs
+separately. Just leave as it is.
+Thanks!

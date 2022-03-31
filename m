@@ -2,69 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75DC44ED754
-	for <lists+alsa-devel@lfdr.de>; Thu, 31 Mar 2022 11:52:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D9A14ED895
+	for <lists+alsa-devel@lfdr.de>; Thu, 31 Mar 2022 13:35:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 093A718CD;
-	Thu, 31 Mar 2022 11:51:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 093A718CD
+	by alsa0.perex.cz (Postfix) with ESMTPS id A1E2E18DE;
+	Thu, 31 Mar 2022 13:35:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A1E2E18DE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648720341;
-	bh=XVfxl+k5CLsLvMCRcdeXoMbJF6QaBL0JCc4HLI0bfsY=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1648726551;
+	bh=I5op4/fhnQSUnYzJWaWQNlJ1H4wDb3rq0pO390uPg7E=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LWVtd9ukzNEcKxfM0oZxdAoyGcwq3Noo3nFcsu0j46GiNrpTdDGCgTQn3d/kTz9Tk
-	 l/4TEUMBXq/d5RNRVSj6XeyaNg0MCaG8TIFkIRZamTRyWKlkBS3TzLQgHz5m9MKUzG
-	 GQadWo7m2xDbYusKeyHbPdER0UAOPbK/J4AGMyI4=
+	b=TXxeu6Gx5NydOBykDCfowZTpRlQX7b2Zi3JQDB9VnTaVk5nljZJ7x+2v6S77sea2h
+	 coW81NDM19vr93zZsuPk1c7Ttgs9H38Z1rlbnatoc+NCX9yOGTPbMyqCwkooT7BI7x
+	 ub0r7L5IxkYC0TI0r98aKApZtj+KJFoc29YLoKFk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6FBC1F80238;
-	Thu, 31 Mar 2022 11:51:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E167FF80238;
+	Thu, 31 Mar 2022 13:34:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8F0BBF800B8; Thu, 31 Mar 2022 11:51:12 +0200 (CEST)
+ id B77DDF80227; Thu, 31 Mar 2022 13:34:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 622E9F800B8
- for <alsa-devel@alsa-project.org>; Thu, 31 Mar 2022 11:51:06 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 6772BA003F;
- Thu, 31 Mar 2022 11:51:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 6772BA003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1648720265; bh=cmwAeO4RmSnKMTddC78WtkxWgQoQB8koPJ87BY9glRQ=;
- h=Date:Subject:To:References:From:In-Reply-To:From;
- b=cBsHhvFt6c4KaQIfekMtCMZh5zA36jJzSL5h8a8vn5unLc9nitCTjPPrmORMLlbjW
- 0hBO3iTmn10QrSALkOWK1fc+zyewUEaz70GWaPGINBfOok7N5ivhhwDP5OJiYpxxf4
- PH9s8liKXG3/709KZHA/wM687xOb8htJLyCWdTrg=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Thu, 31 Mar 2022 11:51:03 +0200 (CEST)
-Message-ID: <ea87f863-5839-57c4-80a9-4259cc362974@perex.cz>
-Date: Thu, 31 Mar 2022 11:51:03 +0200
+ by alsa1.perex.cz (Postfix) with ESMTPS id ECF66F800E4
+ for <alsa-devel@alsa-project.org>; Thu, 31 Mar 2022 13:34:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ECF66F800E4
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="L4Mo6lbg"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id AFE91B81BE2;
+ Thu, 31 Mar 2022 11:34:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC2EEC34110;
+ Thu, 31 Mar 2022 11:34:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1648726476;
+ bh=I5op4/fhnQSUnYzJWaWQNlJ1H4wDb3rq0pO390uPg7E=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=L4Mo6lbgeciXAh4IfXNOebzQf0owI1GagEsI8A35i+oVILwvxCg/9rvHr/kpgZVVx
+ Tu27hq8sDCYkK5Z31kXcQQPk7MdVAijOi6/zE1PXoDYJQf6svNuRtlLSteEuPndVG5
+ /lnCyj51ESDtueBzkoSoQL8nXws6VnHgqde2sYVzPkSyI+ghvrXrHvqDT3rFVORRXR
+ D9UxEUMBT3mVxoqc4D3eYEARHpsKDS1N1eve9qCwVMXb4+8FYg49PyhqnlUYL9sjtn
+ qwmaeh3I3FMfJrtaBfZdI61z9sQt922riRkJpD9gIZvxvoJh6ZEQPpnBJhSFQh20FG
+ wDyPiEgmMmctQ==
+Date: Thu, 31 Mar 2022 12:34:29 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>
+Subject: Re: [RFC PATCH 2/5] HACK: ASoC: Add card->filter_controls hook
+Message-ID: <YkWRxWjQSnJ9f281@sirena.org.uk>
+References: <20220331000449.41062-1-povik+lin@cutebit.org>
+ <20220331000449.41062-3-povik+lin@cutebit.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH] ALSA: pcm: Fix potential AB/BA lock with buffer_mutex and
- mmap_lock
-Content-Language: en-US
-To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
-References: <20220330120903.4738-1-tiwai@suse.de>
-From: Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <20220330120903.4738-1-tiwai@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="Rn6cuR2n68nqDaPE"
+Content-Disposition: inline
+In-Reply-To: <20220331000449.41062-3-povik+lin@cutebit.org>
+X-Cookie: Reunite Gondwondaland!
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Sven Peter <sven@svenpeter.dev>, linux-kernel@vger.kernel.org,
+ Hector Martin <marcan@marcan.st>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Mark Kettenis <kettenis@openbsd.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,47 +91,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 30. 03. 22 14:09, Takashi Iwai wrote:
-> syzbot caught a potential deadlock between the PCM
-> runtime->buffer_mutex and the mm->mmap_lock.  It was brought by the
-> recent fix to cover the racy read/write and other ioctls, and in that
-> commit, I overlooked a (hopefully only) corner case that may take the
-> revert lock, namely, the OSS mmap.  The OSS mmap operation
-> exceptionally allows to re-configure the parameters inside the OSS
-> mmap syscall, where mm->mmap_mutex is already held.  Meanwhile, the
-> copy_from/to_user calls at read/write operations also take the
-> mm->mmap_lock internally, hence it may lead to a AB/BA deadlock.
-> 
-> A similar problem was already seen in the past and we fixed it with a
-> refcount (in commit b248371628aa).  The former fix covered only the
-> call paths with OSS read/write and OSS ioctls, while we need to cover
-> the concurrent access via both ALSA and OSS APIs now.
-> 
-> This patch addresses the problem above by replacing the buffer_mutex
-> lock in the read/write operations with a refcount similar as we've
-> used for OSS.  The new field, runtime->buffer_accessing, keeps the
-> number of concurrent read/write operations.  Unlike the former
-> buffer_mutex protection, this protects only around the
-> copy_from/to_user() calls; the other codes are basically protected by
-> the PCM stream lock.  The refcount can be a negative, meaning blocked
-> by the ioctls.  If a negative value is seen, the read/write aborts
-> with -EBUSY.  In the ioctl side, OTOH, they check this refcount, too,
-> and set to a negative value for blocking unless it's already being
-> accessed.
-> 
-> Reported-by: syzbot+6e5c88838328e99c7e1c@syzkaller.appspotmail.com
-> Fixes: dca947d4d26d ("ALSA: pcm: Fix races among concurrent read/write and buffer changes")
-> Cc: <stable@vger.kernel.org>
-> Link: https://lore.kernel.org/r/000000000000381a0d05db622a81@google.com
-> Signed-off-by: Takashi Iwai <tiwai@suse.de>
 
-The change looks good.
+--Rn6cuR2n68nqDaPE
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Jaroslav Kysela <perex@perex.cz>
+On Thu, Mar 31, 2022 at 02:04:46AM +0200, Martin Povi=C5=A1er wrote:
 
-				Thanks,
-					Jaroslav
+> Add a new ASoC card callback for filtering the kcontrols of the card's
+> constituent components. This lets the card take over some of the
+> controls, deciding their value instead of leaving it up to userspace.
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+Define "filter".  What is this trying to accomplish?  As a matter of
+policy we don't put use case configuration in the kernel, the goal is to
+avoid having to update the kernel when people decide to do new things
+with their userspace.
+
+> Also, and here's the HACK: part, move dapm_new_widgets call in front
+> of the card's late_probe call. This way all kcontrols should have been
+> created (and are safe to use) by the time late_probe is called.
+
+This will break any card that adds new controls, you could add a second
+call earlier but deleting the existing call is going to break other
+users.
+
+--Rn6cuR2n68nqDaPE
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJFkcQACgkQJNaLcl1U
+h9C7NQf9FwcUXaDm99g8Ruvdg/6JlPdvQmyopRmajEPaCmEEGsO1JSupvTnOYIAa
+nbQ1U6aIzTeOfITplg9jm5E5sADl5BBdyr8CHlSq2wxUT+yuDvG94WQuQi0mmzTf
+q+yit17En0FxVpnlQtLD/ML/xX13gs2jP8IdAO+B2IMuzfBQ4R2tnDu5Pu7wV7Nh
+HEBuZiBW9upxlSQpmKgG8OUE26Jr5Vv/2EuwBBfW1GaigIVFvSE0QCQYWiO8JtA5
+Q3dAd6VzuCbCgCwn6MJIG4q4bksBjrmDWykZmQEBgMQWM2C/n1/nvOWhNpyFXmEy
+HvhjTsf2toT/vrZQr6tXIKtEdE+4tg==
+=7ljO
+-----END PGP SIGNATURE-----
+
+--Rn6cuR2n68nqDaPE--

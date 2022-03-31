@@ -2,78 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 324704ED9B4
-	for <lists+alsa-devel@lfdr.de>; Thu, 31 Mar 2022 14:35:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21B104EDA04
+	for <lists+alsa-devel@lfdr.de>; Thu, 31 Mar 2022 14:57:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C1F6417B5;
-	Thu, 31 Mar 2022 14:34:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1F6417B5
+	by alsa0.perex.cz (Postfix) with ESMTPS id A39561901;
+	Thu, 31 Mar 2022 14:56:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A39561901
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648730144;
-	bh=RsQR6UjFWzyPEHFbDeMqA0h1nKTqnLcrPhy4Z1sufr8=;
+	s=default; t=1648731447;
+	bh=DfI4w1o+FCYxsAC0rPn+xFaT1PUgndy6Pzulupfti64=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lXq7TUUKAenb79y66p3ZQoXF0VfyHIK510ntv1jBBm0VXQ/KI64X40UBP2a163ItC
-	 2TprmZBTPH1MRMPcsjwqV9HeFfwfHGrgxYakeQRFiu5XEceMCt1fBsz0CAcAmMk+Ze
-	 1g0QajQIDhMvwFK8NUfDjowRu4kGfNrENMkoMCEE=
+	b=XVJ76Ds5HQDzrtuPDoGGgoTGOu0oJu76DlrAJqOc7EztGDEXRzEs7s2krAX0hFm0p
+	 9SEgG5FRLrCl85wCIbkETl6peBDNJOFNamzdtQ5MtJ9PATELrYRIOfrvHz/5Az37Wi
+	 hLhloQocLDk1c0e48xX1J+t0HbYwf0hsDWWrKqaE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2F6ACF80238;
-	Thu, 31 Mar 2022 14:34:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 018E8F80238;
+	Thu, 31 Mar 2022 14:56:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 022F6F80227; Thu, 31 Mar 2022 14:34:34 +0200 (CEST)
+ id 4E191F800E4; Thu, 31 Mar 2022 14:56:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_78,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C6EBDF80100
- for <alsa-devel@alsa-project.org>; Thu, 31 Mar 2022 14:34:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6EBDF80100
+ by alsa1.perex.cz (Postfix) with ESMTPS id B172FF800E4
+ for <alsa-devel@alsa-project.org>; Thu, 31 Mar 2022 14:56:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B172FF800E4
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="GpbWsMyd"
+ header.b="k/1uDpG0"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8FF9A61811;
- Thu, 31 Mar 2022 12:34:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A1CEC340EE;
- Thu, 31 Mar 2022 12:34:25 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id CAB9B61821;
+ Thu, 31 Mar 2022 12:56:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84ED6C340F2;
+ Thu, 31 Mar 2022 12:56:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1648730068;
- bh=RsQR6UjFWzyPEHFbDeMqA0h1nKTqnLcrPhy4Z1sufr8=;
+ s=k20201202; t=1648731372;
+ bh=DfI4w1o+FCYxsAC0rPn+xFaT1PUgndy6Pzulupfti64=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=GpbWsMyd5SCgjUxFmcZWvbXkh35ejpYCRk0oMjvUbK4aeUKC0k8GcCAU02vbXjsXz
- 0bnz/E2sF7brvDyzxg+B8D15PRCQzQmj3J8+DaFS1l4mxk9Rhev8Gqq4ZvXSKgR/K0
- pdhvYEI0pGVCw44PetsD7eqms/EmkrP432hH5cuvCSJOeI/lT1VjcYoNIUPOmFqd3S
- e3y8M/n8tVTEm24rNGBfqj+KWwXcL9rcOrr9AmX+GOyn1ukO3+aY8ZFvAoe9gDMy5v
- 5MkwTXUHlF00zBbvrXn7U9dlej4FZw59t6h0PbhBzdC/em55buBD3efZtVHg+MrntJ
- sQFyQrf3Q9ZxA==
-Date: Thu, 31 Mar 2022 13:34:22 +0100
+ b=k/1uDpG0COuH/xMycH1jXEnaAzYEpDjT5p7kU8rL4PHWzMMQXC+b+2cYoSf0m2F12
+ qxbJx8hW/8ikoGtSzP79VFsft4uHhbHea2hb00KmUMLsNcb/lBaBICgpkEhL1kfrRR
+ FhCaLlT9xc5IhKlKDyMom56/wnaMhWeIgHSM72t9LH7QgBaWFcjznoWhPtebcvDsGz
+ R1qbHGThUeONUvt2Ahw6SsUmSNlNGcl4G4rEcY8ubwIecE37Y8mMekI9I/iwHiK226
+ ueWktgb253XuGKtf35tC2WuDIaiSIUvtbZj123P2me2Gpmf7oaNVeKDksy+TMEQyWt
+ z8+yBENsT3S1A==
+Date: Thu, 31 Mar 2022 13:56:06 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>
-Subject: Re: [RFC PATCH 0/5] Apple Macs machine-level ASoC driver
-Message-ID: <YkWfziQzprEsWL72@sirena.org.uk>
+To: Martin =?utf-8?Q?Povi=C5=A1er?= <povik@cutebit.org>
+Subject: Re: [RFC PATCH 5/5] ASoC: Add macaudio machine driver
+Message-ID: <YkWk5vvBlC/Orpdr@sirena.org.uk>
 References: <20220331000449.41062-1-povik+lin@cutebit.org>
+ <20220331000449.41062-6-povik+lin@cutebit.org>
+ <YkWXs/f7edZwg1+W@sirena.org.uk>
+ <4651D426-BA1A-418F-90E5-278C705DA984@cutebit.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="3w0XWtrOW4Hfhq/l"
+ protocol="application/pgp-signature"; boundary="2p1SKEdgaX+tzFpw"
 Content-Disposition: inline
-In-Reply-To: <20220331000449.41062-1-povik+lin@cutebit.org>
+In-Reply-To: <4651D426-BA1A-418F-90E5-278C705DA984@cutebit.org>
 X-Cookie: Reunite Gondwondaland!
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  Sven Peter <sven@svenpeter.dev>, linux-kernel@vger.kernel.org,
  Hector Martin <marcan@marcan.st>, Takashi Iwai <tiwai@suse.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Mark Kettenis <kettenis@openbsd.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>
+ Mark Kettenis <kettenis@openbsd.org>,
+ Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,56 +95,62 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---3w0XWtrOW4Hfhq/l
+--2p1SKEdgaX+tzFpw
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Mar 31, 2022 at 02:04:44AM +0200, Martin Povi=C5=A1er wrote:
+On Thu, Mar 31, 2022 at 02:08:51PM +0200, Martin Povi=C5=A1er wrote:
+> > On 31. 3. 2022, at 13:59, Mark Brown <broonie@kernel.org> wrote:
 
-> I put together a machine-level ASoC driver for recent Apple Macs (the
-> ones with ARM64 SoCs) and want to gauge opinions.
+> >> +	for_each_rtd_components(rtd, i, component)
+> >> +		snd_soc_component_set_jack(component, &ma->jack, NULL);
 
-This would be a bit easier to review with a description of the hardware.
+> > What is the jack configuration this is attempting to describe?  It looks
+> > like you have some dedicated speaker driver devices which are going to
+> > get attached to jacks here for example.
 
-> Commit 2 adds a new ASoC card method (filter_controls) to let the card
-> prevent some codec kcontrols from being visible to userspace. For example
-> the TAS2770 speaker amp driver would be happy to expose TDM slot selection
-> and ISENSE/VSENSE enables which is ridiculous. I am all ears on how to
-> make the patch acceptable to upstream.
+> We know the speakers will ignore the set_jack call. There=E2=80=99s one j=
+ack and
+> this way we know the jack codec will attach to it, for speakers it=E2=80=
+=99s a no-op.
+> (If you prefer I will special-case it to the jack codec.)
 
-The broad issue here is that what you consider ridiculous someone else
-might have some bright ideas for configuring dynamically - if things are
-being exposed for dynamic configuration it's probably because someone
-wanted them, if the control is genuinely useless then it should just be
-removed.  Rather than getting in the way of people's policy arguments
-about how to set things we expose them to userspace and let userspace
-worry about it, usually with the help of UCM files.  The general
-userspace model is that people interact with their sound server more
-than the hardware card.  This is also helpful for people developing use
-cases, it means they're not having to get the kernel rebuilt to tune
-things.
+It would be better to special case, this looks obviously wrong and will
+break if someone adds error handling.
 
-The TDM swap thing you're mentioning looks like it's a left/right
-selection which people do use sometimes as a way of doing mono mixes and
-reorientation.  The ISENSE/VSENSE is less obvious, though it's possible
-there's issues with not having enough slots on a heavily used TDM bus or
-sometimes disabling the speaker protection processing for whatever
-reason.
+> >> +	return !strcmp(name, pattern);
+> >> +}
 
---3w0XWtrOW4Hfhq/l
+> > This looks worryingly like use case configuration.
+
+> I go over this in the cover letter! This is fixing the TDM slot selection
+> and disabling voltage/current sensing on the speaker amp codecs, which ha=
+ve
+> no business being exposed to userspace as options. This is not use case,
+> this not letting people blow their speakers from userspace.
+
+Your comments in the cover letter are all pretty vague too, that just
+says that these controls are "ridiculous" which isn't terribly specific
+about what the actual goal is.  If it's just "I can't see why anyone
+would want to configure this" then that's a decision you're taking about
+what people might want to do which is broadly a use case configuration
+and the control should be left there in case someone comes up with an
+idea.
+
+--2p1SKEdgaX+tzFpw
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJFn80ACgkQJNaLcl1U
-h9AgOggAhaQ6MuCNl7L/md1tarO7n6iReHCzBcOCtSc6T8vIiDTatsSdqb4mHmkZ
-jeeF4LCTvo+tb01vzCqHVStd4Pz5dMRv+3F8lI6ODG3g16Tv+E1CKQeIGkVM6VJN
-IwzoRsgTtDkz0h0Qi/6t0P4hSu/sobPGHwV8KYBGi4RjuuNl62tQzyUJOYmYah18
-Xaz6IbrYmtSc8zgq8tytUxG1j3HRO1icmWWM9jkpqMtGD+CESPbAJV2yWZUTywtl
-VjJf6JjiiXmMrAZLY0PlRZON2ePlsyARsJFPy9TDrhaErq2rSLhPI+FMaL6dssH2
-YOHlHOpxBEp1DEl5HsKaxiDhyA2x4A==
-=BnTH
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJFpOUACgkQJNaLcl1U
+h9CYzQf/Y08TIa0AXiiPTKniPzL9m3d7ArsJSmeKBxGOiqTtZ7kzWb4ElKSSGfRR
+SQBABq69Qoxq9aWhUfdocdGNf3I/MtDc8k0XUs4bO3MQgKJ0WIivkGNpRPield9D
+tbiVirXSxTSN28zrzJHzZZti6MVAFNCRjlrF+qOhAH2K6qKQNwcFwOYSFEjQaGLp
+noni9E2T7cwSkwem3gxTP6FDHdT2ivx3fwBArNpZ3WqWwK+3cBrlSD+pMYoPdWVD
+PMv8/IfgYHYm+ojMI6ILkAic1KojFLwM1stvNfFtR7fOO8QJEeSfPhKg18zLwvHj
+N1ZH9xNFrO4kKrMnwL7uEZAtBTHoGQ==
+=khz2
 -----END PGP SIGNATURE-----
 
---3w0XWtrOW4Hfhq/l--
+--2p1SKEdgaX+tzFpw--

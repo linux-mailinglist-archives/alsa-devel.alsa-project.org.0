@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA5544EDAD7
-	for <lists+alsa-devel@lfdr.de>; Thu, 31 Mar 2022 15:47:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C1DF4EDAD8
+	for <lists+alsa-devel@lfdr.de>; Thu, 31 Mar 2022 15:47:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0FDCC1A00;
-	Thu, 31 Mar 2022 15:46:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FDCC1A00
+	by alsa0.perex.cz (Postfix) with ESMTPS id E3EB916FB;
+	Thu, 31 Mar 2022 15:46:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3EB916FB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648734438;
-	bh=CYzl3iYtaka6CKARZWtlHQwm89zP/O27w2Oz1peGsWU=;
+	s=default; t=1648734458;
+	bh=/kroq1CeZsgFmqhdN26UXcgJuDtx/AAJTFFgphki9QY=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QrDprQJoGe/pXW3M3m3Sd5ENoZ/tdD4kC1fAA3otGofY1guNxfBI2pPgOiUDPUssM
-	 Ky6HvkdibAEwlsYHoJUx290JVB/WuBYGxjlu0VLh8lihbPtoXB9bAOaA3I+JdnKlEQ
-	 tbUDfHZ+EkGszIiMvDLT5AD9CjgGbqfZ075efheI=
+	b=JB8lx9Zz0PJzpzrc+WUvnVBSU+ipxrAnthKCEfJGUiRsvKnZcR+1X1TRE5JjMWx8L
+	 723C+HtFLOJKcRANJUUvzAu8NVFhgTFV6VsnIcyZJIe3fGZamLzrcIrnbiE/sWZNwJ
+	 eIPSes1TEFN5LTUE44hWkNjNrIv2PWyHSJN2KJcE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 28FB8F80564;
-	Thu, 31 Mar 2022 15:43:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BCD75F805A8;
+	Thu, 31 Mar 2022 15:43:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0E8A1F80589; Thu, 31 Mar 2022 15:42:56 +0200 (CEST)
+ id 30DDDF805A1; Thu, 31 Mar 2022 15:43:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C5C81F80564
- for <alsa-devel@alsa-project.org>; Thu, 31 Mar 2022 15:42:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5C81F80564
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3C43CF8057D
+ for <alsa-devel@alsa-project.org>; Thu, 31 Mar 2022 15:42:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C43CF8057D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="ADF3YsVB"
+ header.b="eIIG9Ii6"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648734174; x=1680270174;
+ t=1648734177; x=1680270177;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=CYzl3iYtaka6CKARZWtlHQwm89zP/O27w2Oz1peGsWU=;
- b=ADF3YsVBgJncW7fAms8guJ8WTsKwJPCNhvtYem0bHhqyEOK8qkEkPsHr
- 0zEOEGp3QF+jre84Sv/PF5FlT3Ervbyc2wC/5cnsPvmA2IwA+0F0zDlMl
- Ul3Cj8mcLOy7AqrMsFEz9G/vMauWJKFu7V8oHYphKoeKOfZvhrnecSBgA
- gxzFp6DSZD6DQeEkidoGjntyLRSUXlpm3Ods21+U4wOS2RvVf8QQhsDFD
- WEo7lxA4uNHXfx6VKfOCZEwVaVbVXv260kATHgizu6MzWQRuHRyQIaHNz
- 456b947rF0zlJtyXqTiJ5DH6piYODRK+1+kdcBOsfZnNHHrlq/tHEiHY+ g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="259819222"
-X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="259819222"
+ bh=/kroq1CeZsgFmqhdN26UXcgJuDtx/AAJTFFgphki9QY=;
+ b=eIIG9Ii6tT3DnZJpHtyL2GPgcjQr+yl4biUNjPAaRz4ftoWagQ5avUHY
+ HfFKM7ErA7fBOVeaqXwPzdLvuO1UsjXP2CTOgG2HeLtr3PScd/1uziKRf
+ JoZsKvcax2JaI4CYSgvOHvNrEMfJwXq3VN6l2+JrZmfX0fZbNlLzuitgv
+ Zl/IniXYNgWnUngtysX0xVz6f1GXolMniOHYXwDIdHWDWYNF0kZm7Hm2l
+ zz6T1A43fPrSzwK0dztSwRs8UukEVZTo3/v+arsISlrrrXQwmlibAttiv
+ pCi0SBSpKrEIz+faFNLIS7o1euwHaNcGRQi6N/8SGvP9PhPRy2H87G+26 g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="259819233"
+X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="259819233"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2022 06:42:52 -0700
+ 31 Mar 2022 06:42:55 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="522349290"
+X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="522349297"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by orsmga006.jf.intel.com with ESMTP; 31 Mar 2022 06:42:49 -0700
+ by orsmga006.jf.intel.com with ESMTP; 31 Mar 2022 06:42:52 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Subject: [PATCH v2 13/14] ASoC: Intel: avs: Prepare modules before bindings
- them
-Date: Thu, 31 Mar 2022 15:52:45 +0200
-Message-Id: <20220331135246.993089-14-cezary.rojewski@intel.com>
+Subject: [PATCH v2 14/14] ASoC: Intel: avs: Configure modules according to
+ their type
+Date: Thu, 31 Mar 2022 15:52:46 +0200
+Message-Id: <20220331135246.993089-15-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220331135246.993089-1-cezary.rojewski@intel.com>
 References: <20220331135246.993089-1-cezary.rojewski@intel.com>
@@ -94,69 +94,459 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When binding modules to pins other than pin0, sometimes additional
-preparations need to be made, depending on the module type.
-Add function that prepares modules when necessary before binding them.
+Each module on DSP side serves a processing purpose. Depending on its
+purpose, it needs different information during its initialization. Add
+functions responsible for creating instances of specific module types
+given the information coming from the topology file.
 
 Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/intel/avs/path.c | 35 +++++++++++++++++++++++++++++++++++
- 1 file changed, 35 insertions(+)
+ sound/soc/intel/Kconfig    |   1 +
+ sound/soc/intel/avs/avs.h  |   1 +
+ sound/soc/intel/avs/path.c | 378 ++++++++++++++++++++++++++++++++++++-
+ sound/soc/intel/avs/path.h |   1 +
+ 4 files changed, 380 insertions(+), 1 deletion(-)
 
+diff --git a/sound/soc/intel/Kconfig b/sound/soc/intel/Kconfig
+index 5da3ce1535af..c364ddf22267 100644
+--- a/sound/soc/intel/Kconfig
++++ b/sound/soc/intel/Kconfig
+@@ -217,6 +217,7 @@ config SND_SOC_INTEL_AVS
+ 	select SND_SOC_TOPOLOGY
+ 	select SND_HDA_EXT_CORE
+ 	select SND_HDA_DSP_LOADER
++	select SND_INTEL_NHLT
+ 	help
+ 	  Enable support for Intel(R) cAVS 1.5 platforms with DSP
+ 	  capabilities. This includes Skylake, Kabylake, Amberlake and
+diff --git a/sound/soc/intel/avs/avs.h b/sound/soc/intel/avs/avs.h
+index 45372b394862..c57a07a18d8e 100644
+--- a/sound/soc/intel/avs/avs.h
++++ b/sound/soc/intel/avs/avs.h
+@@ -106,6 +106,7 @@ struct avs_dev {
+ 
+ 	struct completion fw_ready;
+ 
++	struct nhlt_acpi_table *nhlt;
+ 	struct list_head comp_list;
+ 	struct mutex comp_list_mutex;
+ 	struct list_head path_list;
 diff --git a/sound/soc/intel/avs/path.c b/sound/soc/intel/avs/path.c
-index 13006c24ebf8..916a4f25636e 100644
+index 916a4f25636e..3d46dd5e5bc4 100644
 --- a/sound/soc/intel/avs/path.c
 +++ b/sound/soc/intel/avs/path.c
-@@ -463,6 +463,37 @@ struct avs_path *avs_path_create(struct avs_dev *adev, u32 dma_id,
- 	return path;
+@@ -113,6 +113,375 @@ avs_path_find_variant(struct avs_dev *adev,
+ 	return NULL;
  }
  
-+static int avs_path_bind_prepare(struct avs_dev *adev,
-+				 struct avs_path_binding *binding)
++__maybe_unused
++static bool avs_dma_type_is_host(u32 dma_type)
 +{
-+	const struct avs_audio_format *src_fmt, *sink_fmt;
-+	struct avs_tplg_module *tsource = binding->source->template;
-+	struct avs_path_module *source = binding->source;
-+	int ret;
-+
-+	/*
-+	 * only copier modules about to be bound
-+	 * to output pin other than 0 need preparation
-+	 */
-+	if (!binding->source_pin)
-+		return 0;
-+	if (!guid_equal(&tsource->cfg_ext->type, &AVS_COPIER_MOD_UUID))
-+		return 0;
-+
-+	src_fmt = tsource->in_fmt;
-+	sink_fmt = binding->sink->template->in_fmt;
-+
-+	ret = avs_ipc_copier_set_sink_format(adev, source->module_id,
-+					     source->instance_id, binding->source_pin,
-+					     src_fmt, sink_fmt);
-+	if (ret) {
-+		dev_err(adev->dev, "config copier failed: %d\n", ret);
-+		return AVS_IPC_RET(ret);
-+	}
-+
-+	return 0;
++	return dma_type == AVS_DMA_HDA_HOST_OUTPUT ||
++	       dma_type == AVS_DMA_HDA_HOST_INPUT;
 +}
 +
- int avs_path_bind(struct avs_path *path)
- {
- 	struct avs_path_pipeline *ppl;
-@@ -478,6 +509,10 @@ int avs_path_bind(struct avs_path *path)
- 			source = binding->source;
- 			sink = binding->sink;
- 
-+			ret = avs_path_bind_prepare(adev, binding);
-+			if (ret < 0)
-+				return ret;
++__maybe_unused
++static bool avs_dma_type_is_link(u32 dma_type)
++{
++	return !avs_dma_type_is_host(dma_type);
++}
 +
- 			ret = avs_ipc_bind(adev, source->module_id,
- 					   source->instance_id, sink->module_id,
- 					   sink->instance_id, binding->sink_pin,
++__maybe_unused
++static bool avs_dma_type_is_output(u32 dma_type)
++{
++	return dma_type == AVS_DMA_HDA_HOST_OUTPUT ||
++	       dma_type == AVS_DMA_HDA_LINK_OUTPUT ||
++	       dma_type == AVS_DMA_I2S_LINK_OUTPUT;
++}
++
++__maybe_unused
++static bool avs_dma_type_is_input(u32 dma_type)
++{
++	return !avs_dma_type_is_output(dma_type);
++}
++
++static int avs_copier_create(struct avs_dev *adev, struct avs_path_module *mod)
++{
++	struct nhlt_acpi_table *nhlt = adev->nhlt;
++	struct avs_tplg_module *t = mod->template;
++	struct avs_copier_cfg *cfg;
++	struct nhlt_specific_cfg *ep_blob;
++	union avs_connector_node_id node_id = {0};
++	size_t cfg_size, data_size = 0;
++	void *data = NULL;
++	u32 dma_type;
++	int ret;
++
++	dma_type = t->cfg_ext->copier.dma_type;
++	node_id.dma_type = dma_type;
++
++	switch (dma_type) {
++		struct avs_audio_format *fmt;
++		int direction;
++
++	case AVS_DMA_I2S_LINK_OUTPUT:
++	case AVS_DMA_I2S_LINK_INPUT:
++		if (avs_dma_type_is_input(dma_type))
++			direction = SNDRV_PCM_STREAM_CAPTURE;
++		else
++			direction = SNDRV_PCM_STREAM_PLAYBACK;
++
++		if (t->cfg_ext->copier.blob_fmt)
++			fmt = t->cfg_ext->copier.blob_fmt;
++		else if (direction == SNDRV_PCM_STREAM_CAPTURE)
++			fmt = t->in_fmt;
++		else
++			fmt = t->cfg_ext->copier.out_fmt;
++
++		ep_blob = intel_nhlt_get_endpoint_blob(adev->dev,
++			nhlt, t->cfg_ext->copier.vindex.i2s.instance,
++			NHLT_LINK_SSP, fmt->valid_bit_depth, fmt->bit_depth,
++			fmt->num_channels, fmt->sampling_freq, direction,
++			NHLT_DEVICE_I2S);
++		if (!ep_blob) {
++			dev_err(adev->dev, "no I2S ep_blob found\n");
++			return -ENOENT;
++		}
++
++		data = ep_blob->caps;
++		data_size = ep_blob->size;
++		/* I2S gateway's vindex is statically assigned in topology */
++		node_id.vindex = t->cfg_ext->copier.vindex.val;
++
++		break;
++
++	case AVS_DMA_DMIC_LINK_INPUT:
++		direction = SNDRV_PCM_STREAM_CAPTURE;
++
++		if (t->cfg_ext->copier.blob_fmt)
++			fmt = t->cfg_ext->copier.blob_fmt;
++		else
++			fmt = t->in_fmt;
++
++		ep_blob = intel_nhlt_get_endpoint_blob(adev->dev, nhlt, 0,
++				NHLT_LINK_DMIC, fmt->valid_bit_depth,
++				fmt->bit_depth, fmt->num_channels,
++				fmt->sampling_freq, direction, NHLT_DEVICE_DMIC);
++		if (!ep_blob) {
++			dev_err(adev->dev, "no DMIC ep_blob found\n");
++			return -ENOENT;
++		}
++
++		data = ep_blob->caps;
++		data_size = ep_blob->size;
++		/* DMIC gateway's vindex is statically assigned in topology */
++		node_id.vindex = t->cfg_ext->copier.vindex.val;
++
++		break;
++
++	case AVS_DMA_HDA_HOST_OUTPUT:
++	case AVS_DMA_HDA_HOST_INPUT:
++		/* HOST gateway's vindex is dynamically assigned with DMA id */
++		node_id.vindex = mod->owner->owner->dma_id;
++		break;
++
++	case AVS_DMA_HDA_LINK_OUTPUT:
++	case AVS_DMA_HDA_LINK_INPUT:
++		node_id.vindex = t->cfg_ext->copier.vindex.val |
++				 mod->owner->owner->dma_id;
++		break;
++
++	case INVALID_OBJECT_ID:
++	default:
++		node_id = INVALID_NODE_ID;
++		break;
++	}
++
++	cfg_size = sizeof(*cfg) + data_size;
++	/* Every config-BLOB contains gateway attributes. */
++	if (data_size)
++		cfg_size -= sizeof(cfg->gtw_cfg.config.attrs);
++
++	cfg = kzalloc(cfg_size, GFP_KERNEL);
++	if (!cfg)
++		return -ENOMEM;
++
++	cfg->base.cpc = t->cfg_base->cpc;
++	cfg->base.ibs = t->cfg_base->ibs;
++	cfg->base.obs = t->cfg_base->obs;
++	cfg->base.is_pages = t->cfg_base->is_pages;
++	cfg->base.audio_fmt = *t->in_fmt;
++	cfg->out_fmt = *t->cfg_ext->copier.out_fmt;
++	cfg->feature_mask = t->cfg_ext->copier.feature_mask;
++	cfg->gtw_cfg.node_id = node_id;
++	cfg->gtw_cfg.dma_buffer_size = t->cfg_ext->copier.dma_buffer_size;
++	/* config_length in DWORDs */
++	cfg->gtw_cfg.config_length = DIV_ROUND_UP(data_size, 4);
++	if (data)
++		memcpy(&cfg->gtw_cfg.config, data, data_size);
++
++	mod->gtw_attrs = cfg->gtw_cfg.config.attrs;
++
++	ret = avs_dsp_init_module(adev, mod->module_id, mod->owner->instance_id,
++				  t->core_id, t->domain, cfg, cfg_size,
++				  &mod->instance_id);
++	kfree(cfg);
++	return ret;
++}
++
++static int avs_updown_mix_create(struct avs_dev *adev, struct avs_path_module *mod)
++{
++	struct avs_tplg_module *t = mod->template;
++	struct avs_updown_mixer_cfg cfg;
++	int i;
++
++	cfg.base.cpc = t->cfg_base->cpc;
++	cfg.base.ibs = t->cfg_base->ibs;
++	cfg.base.obs = t->cfg_base->obs;
++	cfg.base.is_pages = t->cfg_base->is_pages;
++	cfg.base.audio_fmt = *t->in_fmt;
++	cfg.out_channel_config = t->cfg_ext->updown_mix.out_channel_config;
++	cfg.coefficients_select = t->cfg_ext->updown_mix.coefficients_select;
++	for (i = 0; i < AVS_CHANNELS_MAX; i++)
++		cfg.coefficients[i] = t->cfg_ext->updown_mix.coefficients[i];
++	cfg.channel_map = t->cfg_ext->updown_mix.channel_map;
++
++	return avs_dsp_init_module(adev, mod->module_id, mod->owner->instance_id,
++				   t->core_id, t->domain, &cfg, sizeof(cfg),
++				   &mod->instance_id);
++}
++
++static int avs_src_create(struct avs_dev *adev, struct avs_path_module *mod)
++{
++	struct avs_tplg_module *t = mod->template;
++	struct avs_src_cfg cfg;
++
++	cfg.base.cpc = t->cfg_base->cpc;
++	cfg.base.ibs = t->cfg_base->ibs;
++	cfg.base.obs = t->cfg_base->obs;
++	cfg.base.is_pages = t->cfg_base->is_pages;
++	cfg.base.audio_fmt = *t->in_fmt;
++	cfg.out_freq = t->cfg_ext->src.out_freq;
++
++	return avs_dsp_init_module(adev, mod->module_id, mod->owner->instance_id,
++				   t->core_id, t->domain, &cfg, sizeof(cfg),
++				   &mod->instance_id);
++}
++
++static int avs_asrc_create(struct avs_dev *adev, struct avs_path_module *mod)
++{
++	struct avs_tplg_module *t = mod->template;
++	struct avs_asrc_cfg cfg;
++
++	cfg.base.cpc = t->cfg_base->cpc;
++	cfg.base.ibs = t->cfg_base->ibs;
++	cfg.base.obs = t->cfg_base->obs;
++	cfg.base.is_pages = t->cfg_base->is_pages;
++	cfg.base.audio_fmt = *t->in_fmt;
++	cfg.out_freq = t->cfg_ext->asrc.out_freq;
++	cfg.mode = t->cfg_ext->asrc.mode;
++	cfg.disable_jitter_buffer = t->cfg_ext->asrc.disable_jitter_buffer;
++
++	return avs_dsp_init_module(adev, mod->module_id, mod->owner->instance_id,
++				   t->core_id, t->domain, &cfg, sizeof(cfg),
++				   &mod->instance_id);
++}
++
++static int avs_aec_create(struct avs_dev *adev, struct avs_path_module *mod)
++{
++	struct avs_tplg_module *t = mod->template;
++	struct avs_aec_cfg cfg;
++
++	cfg.base.cpc = t->cfg_base->cpc;
++	cfg.base.ibs = t->cfg_base->ibs;
++	cfg.base.obs = t->cfg_base->obs;
++	cfg.base.is_pages = t->cfg_base->is_pages;
++	cfg.base.audio_fmt = *t->in_fmt;
++	cfg.ref_fmt = *t->cfg_ext->aec.ref_fmt;
++	cfg.out_fmt = *t->cfg_ext->aec.out_fmt;
++	cfg.cpc_lp_mode = t->cfg_ext->aec.cpc_lp_mode;
++
++	return avs_dsp_init_module(adev, mod->module_id, mod->owner->instance_id,
++				   t->core_id, t->domain, &cfg, sizeof(cfg),
++				   &mod->instance_id);
++}
++
++static int avs_mux_create(struct avs_dev *adev, struct avs_path_module *mod)
++{
++	struct avs_tplg_module *t = mod->template;
++	struct avs_mux_cfg cfg;
++
++	cfg.base.cpc = t->cfg_base->cpc;
++	cfg.base.ibs = t->cfg_base->ibs;
++	cfg.base.obs = t->cfg_base->obs;
++	cfg.base.is_pages = t->cfg_base->is_pages;
++	cfg.base.audio_fmt = *t->in_fmt;
++	cfg.ref_fmt = *t->cfg_ext->mux.ref_fmt;
++	cfg.out_fmt = *t->cfg_ext->mux.out_fmt;
++
++	return avs_dsp_init_module(adev, mod->module_id, mod->owner->instance_id,
++				   t->core_id, t->domain, &cfg, sizeof(cfg),
++				   &mod->instance_id);
++}
++
++static int avs_wov_create(struct avs_dev *adev, struct avs_path_module *mod)
++{
++	struct avs_tplg_module *t = mod->template;
++	struct avs_wov_cfg cfg;
++
++	cfg.base.cpc = t->cfg_base->cpc;
++	cfg.base.ibs = t->cfg_base->ibs;
++	cfg.base.obs = t->cfg_base->obs;
++	cfg.base.is_pages = t->cfg_base->is_pages;
++	cfg.base.audio_fmt = *t->in_fmt;
++	cfg.cpc_lp_mode = t->cfg_ext->wov.cpc_lp_mode;
++
++	return avs_dsp_init_module(adev, mod->module_id, mod->owner->instance_id,
++				   t->core_id, t->domain, &cfg, sizeof(cfg),
++				   &mod->instance_id);
++}
++
++static int avs_micsel_create(struct avs_dev *adev, struct avs_path_module *mod)
++{
++	struct avs_tplg_module *t = mod->template;
++	struct avs_micsel_cfg cfg;
++
++	cfg.base.cpc = t->cfg_base->cpc;
++	cfg.base.ibs = t->cfg_base->ibs;
++	cfg.base.obs = t->cfg_base->obs;
++	cfg.base.is_pages = t->cfg_base->is_pages;
++	cfg.base.audio_fmt = *t->in_fmt;
++	cfg.out_fmt = *t->cfg_ext->micsel.out_fmt;
++
++	return avs_dsp_init_module(adev, mod->module_id, mod->owner->instance_id,
++				   t->core_id, t->domain, &cfg, sizeof(cfg),
++				   &mod->instance_id);
++}
++
++static int avs_modbase_create(struct avs_dev *adev, struct avs_path_module *mod)
++{
++	struct avs_tplg_module *t = mod->template;
++	struct avs_modcfg_base cfg;
++
++	cfg.cpc = t->cfg_base->cpc;
++	cfg.ibs = t->cfg_base->ibs;
++	cfg.obs = t->cfg_base->obs;
++	cfg.is_pages = t->cfg_base->is_pages;
++	cfg.audio_fmt = *t->in_fmt;
++
++	return avs_dsp_init_module(adev, mod->module_id, mod->owner->instance_id,
++				   t->core_id, t->domain, &cfg, sizeof(cfg),
++				   &mod->instance_id);
++}
++
++static int avs_modext_create(struct avs_dev *adev, struct avs_path_module *mod)
++{
++	struct avs_tplg_module *t = mod->template;
++	struct avs_tplg_modcfg_ext *tcfg = t->cfg_ext;
++	struct avs_modcfg_ext *cfg;
++	size_t cfg_size, num_pins;
++	int ret, i;
++
++	num_pins = tcfg->generic.num_input_pins + tcfg->generic.num_output_pins;
++	cfg_size = sizeof(*cfg) + sizeof(*cfg->pin_fmts) * num_pins;
++
++	cfg = kzalloc(cfg_size, GFP_KERNEL);
++	if (!cfg)
++		return -ENOMEM;
++
++	cfg->base.cpc = t->cfg_base->cpc;
++	cfg->base.ibs = t->cfg_base->ibs;
++	cfg->base.obs = t->cfg_base->obs;
++	cfg->base.is_pages = t->cfg_base->is_pages;
++	cfg->base.audio_fmt = *t->in_fmt;
++	cfg->num_input_pins = tcfg->generic.num_input_pins;
++	cfg->num_output_pins = tcfg->generic.num_output_pins;
++
++	/* configure pin formats */
++	for (i = 0; i < num_pins; i++) {
++		struct avs_tplg_pin_format *tpin = &tcfg->generic.pin_fmts[i];
++		struct avs_pin_format *pin = &cfg->pin_fmts[i];
++
++		pin->pin_index = tpin->pin_index;
++		pin->iobs = tpin->iobs;
++		pin->audio_fmt = *tpin->fmt;
++	}
++
++	ret = avs_dsp_init_module(adev, mod->module_id, mod->owner->instance_id,
++				  t->core_id, t->domain, cfg, cfg_size,
++				  &mod->instance_id);
++	kfree(cfg);
++	return ret;
++}
++
++static int avs_path_module_type_create(struct avs_dev *adev, struct avs_path_module *mod)
++{
++	const guid_t *type = &mod->template->cfg_ext->type;
++
++	if (guid_equal(type, &AVS_MIXIN_MOD_UUID) ||
++	    guid_equal(type, &AVS_MIXOUT_MOD_UUID) ||
++	    guid_equal(type, &AVS_KPBUFF_MOD_UUID))
++		return avs_modbase_create(adev, mod);
++	if (guid_equal(type, &AVS_COPIER_MOD_UUID))
++		return avs_copier_create(adev, mod);
++	if (guid_equal(type, &AVS_MICSEL_MOD_UUID))
++		return avs_micsel_create(adev, mod);
++	if (guid_equal(type, &AVS_MUX_MOD_UUID))
++		return avs_mux_create(adev, mod);
++	if (guid_equal(type, &AVS_UPDWMIX_MOD_UUID))
++		return avs_updown_mix_create(adev, mod);
++	if (guid_equal(type, &AVS_SRCINTC_MOD_UUID))
++		return avs_src_create(adev, mod);
++	if (guid_equal(type, &AVS_AEC_MOD_UUID))
++		return avs_aec_create(adev, mod);
++	if (guid_equal(type, &AVS_ASRC_MOD_UUID))
++		return avs_asrc_create(adev, mod);
++	if (guid_equal(type, &AVS_INTELWOV_MOD_UUID))
++		return avs_wov_create(adev, mod);
++
++	if (guid_equal(type, &AVS_PROBE_MOD_UUID)) {
++		dev_err(adev->dev, "Probe module can't be instantiated by topology");
++		return -EINVAL;
++	}
++
++	return avs_modext_create(adev, mod);
++}
++
+ static void avs_path_module_free(struct avs_dev *adev, struct avs_path_module *mod)
+ {
+ 	kfree(mod);
+@@ -124,7 +493,7 @@ avs_path_module_create(struct avs_dev *adev,
+ 		       struct avs_tplg_module *template)
+ {
+ 	struct avs_path_module *mod;
+-	int module_id;
++	int module_id, ret;
+ 
+ 	module_id = avs_get_module_id(adev, &template->cfg_ext->type);
+ 	if (module_id < 0)
+@@ -139,6 +508,13 @@ avs_path_module_create(struct avs_dev *adev,
+ 	mod->owner = owner;
+ 	INIT_LIST_HEAD(&mod->node);
+ 
++	ret = avs_path_module_type_create(adev, mod);
++	if (ret) {
++		dev_err(adev->dev, "module-type create failed: %d\n", ret);
++		kfree(mod);
++		return ERR_PTR(ret);
++	}
++
+ 	return mod;
+ }
+ 
+diff --git a/sound/soc/intel/avs/path.h b/sound/soc/intel/avs/path.h
+index 04a06473f04b..197222c5e008 100644
+--- a/sound/soc/intel/avs/path.h
++++ b/sound/soc/intel/avs/path.h
+@@ -38,6 +38,7 @@ struct avs_path_pipeline {
+ struct avs_path_module {
+ 	u16 module_id;
+ 	u16 instance_id;
++	union avs_gtw_attributes gtw_attrs;
+ 
+ 	struct avs_tplg_module *template;
+ 	struct avs_path_pipeline *owner;
 -- 
 2.25.1
 

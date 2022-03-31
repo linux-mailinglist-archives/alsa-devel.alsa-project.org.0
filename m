@@ -2,132 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B4574EDB53
-	for <lists+alsa-devel@lfdr.de>; Thu, 31 Mar 2022 16:06:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AC8B4EDB93
+	for <lists+alsa-devel@lfdr.de>; Thu, 31 Mar 2022 16:19:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 985F3167A;
-	Thu, 31 Mar 2022 16:05:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 985F3167A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1B1991AF0;
+	Thu, 31 Mar 2022 16:18:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B1991AF0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648735605;
-	bh=GZx6iToJQ5mf15PKqkB2BskRk8wm2y3jm0PT4q/+Kc0=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1648736385;
+	bh=esnRoKwPaWXl+mUZ11prb3bCZgCH28Gl04pKeuJeJMw=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YmEQzwn1d6dDshXj7oGA5H4jeBBR7eOJ1kv9tLxxVXtF613kp2jjBgLWnja9ry1MW
-	 Z08NcN7e+pg/ok/U4qyAwWjKd8tBnk2muoLzQuY/jO8tYh/5irOcx5wiadAQxIMic+
-	 5Tsc2eh3HK0scmRaUfRXPceLMaJcPlB2cwPmUBRU=
+	b=Kc7ZnRnmAa8KpmWyNupJ0WOIY8I7J0m0WWJzbi8oX1AJrUm16VoYE/imcbT/Nqprl
+	 P1ckVkIQA08xU7uuMEo8LklHq5PNpo3ATLrVds2tC+ehGDYvWy/Hd4a9yLXIPItd2E
+	 RIxypgqPZuwWaEtpoQB5e63KZgg/6NFDWHoo5xjg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C240EF80525;
-	Thu, 31 Mar 2022 16:04:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 77697F80227;
+	Thu, 31 Mar 2022 16:18:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D3157F8052D; Thu, 31 Mar 2022 16:04:22 +0200 (CEST)
+ id E2E0CF8020D; Thu, 31 Mar 2022 16:18:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam08on20630.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8b::630])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3F8E5F800B8
+ for <alsa-devel@alsa-project.org>; Thu, 31 Mar 2022 16:18:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F8E5F800B8
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="OuVRxthY"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0AC12F80525
- for <alsa-devel@alsa-project.org>; Thu, 31 Mar 2022 16:04:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0AC12F80525
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com
- header.b="JETQtE3A"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eGrgjS73OKDqJiswLwp47SXAZEqjVvCyX0OUrct8NdGwLkYWL/n0DF7gt8wm6DYPm7+JVJxM09cvkMkYGRtZAkpm7yEokP7Zp21dDgFETKjJ9rgDRVEAa5qEAXL26BsvHf7f1pujUAc6iy0lOCIwtHGSglp/hf+MRTvOtp7eyDOARevCHr6zARWUXTvXEW8htskLumYcaQw4aTjQauoVvjJW3ubOxDc3R6uVyCO0jxqPme4evod2yg7LWnPEBjs39deQd+SI+1FMQyQ/dMx/fjdmX7p4FJ7SkKNVB58qIWZA8gWyBS0CzDb2OnJ3Cv/aBiz3p9D5Gr0AoNBeBm4D6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iDSXocJiUNY1Pz+1qKhIaiV1ijyOWkdOcNqFV7QpXEo=;
- b=Q/ALnMgCscey+5T8yuccRucUNf/yLxMGhiOwc9QEwM0aXwN3o0FnghjhiZfnn20Z3TlJZBmRmP3exucLRQkhXFb+c0Yw84ElgHDlcJLW0OdQ1Fk/pYBoiIYzDwBt2oCGekHGaXfoYfuQ7icsEuTq4S+KVuLU0zaaVHmalgaJOUwycR5yGYoZ5WPk+MJ5O2Tb8/Qj+difEpxtSkfuIgDjlRD9G56Ipl5VWc3nJGg6yfKyinTeBqmeQqvsjjJAkzz3A4S6rcQ2flxvvyWfhhygjRCzREkbwF/JiFa2R2gsBZd6nAv3p0uclgTE/g4nVDJsQkRUNK5TbOIcNt7rBCq6Jg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 12.22.5.238) smtp.rcpttodomain=alsa-project.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iDSXocJiUNY1Pz+1qKhIaiV1ijyOWkdOcNqFV7QpXEo=;
- b=JETQtE3A7EZ0Nh1mBS5X3NQJnh9D+mVzMTVraGNIsz5yJY6rBx8EuTbDiGraDHJJuAjQm69/7rV+SG+lygslCLuSTxgFnKwOguWunTiPv12Bs3uA5giYTBVDUahqtNIokFodBP7ktpusuvaNVnK5pQPOgvd2YCOeWFVw72VK/ktTcxFX7YbJVEFvYTcugbI2YfuP5IjApGWsZ4GZv/qMhso6z24+/YbXfJxY3dTMapjTCx1aHv2WkCncb9R5BtHynJ5Kty7aeCcAfrllRbVTp2GrkCUu8Bg9IC+3DwyvkG5srbH00NH71ACrEgUjUgxFhAS8nPrE3jxjAhOzRvuVsw==
-Received: from BN9PR03CA0864.namprd03.prod.outlook.com (2603:10b6:408:13d::29)
- by CO6PR12MB5476.namprd12.prod.outlook.com (2603:10b6:303:138::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5123.21; Thu, 31 Mar
- 2022 14:04:14 +0000
-Received: from BN8NAM11FT055.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:13d:cafe::2e) by BN9PR03CA0864.outlook.office365.com
- (2603:10b6:408:13d::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5123.23 via Frontend
- Transport; Thu, 31 Mar 2022 14:04:14 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 12.22.5.238)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 12.22.5.238 as permitted sender) receiver=protection.outlook.com;
- client-ip=12.22.5.238; helo=mail.nvidia.com;
-Received: from mail.nvidia.com (12.22.5.238) by
- BN8NAM11FT055.mail.protection.outlook.com (10.13.177.62) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.20.5123.19 via Frontend Transport; Thu, 31 Mar 2022 14:04:13 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by DRHQMAIL105.nvidia.com
- (10.27.9.14) with Microsoft SMTP Server (TLS) id 15.0.1497.32;
- Thu, 31 Mar 2022 14:04:12 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Thu, 31 Mar
- 2022 07:04:12 -0700
-Received: from audio.nvidia.com (10.127.8.10) by mail.nvidia.com (10.129.68.8)
- with Microsoft SMTP Server id 15.2.986.22 via Frontend Transport;
- Thu, 31 Mar 2022 07:04:08 -0700
-From: Sameer Pujar <spujar@nvidia.com>
-To: <broonie@kernel.org>, <robh+dt@kernel.org>, <krzk+dt@kernel.org>,
- <thierry.reding@gmail.com>, <lgirdwood@gmail.com>, <perex@perex.cz>,
- <tiwai@suse.com>
-Subject: [PATCH v2 6/6] arm64: tegra: Enable ASRC on various platforms
-Date: Thu, 31 Mar 2022 19:33:32 +0530
-Message-ID: <1648735412-32220-7-git-send-email-spujar@nvidia.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1648735412-32220-1-git-send-email-spujar@nvidia.com>
-References: <1648735412-32220-1-git-send-email-spujar@nvidia.com>
+ by ams.source.kernel.org (Postfix) with ESMTPS id 6437EB81FB7;
+ Thu, 31 Mar 2022 14:18:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ED4DC340ED;
+ Thu, 31 Mar 2022 14:18:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1648736311;
+ bh=esnRoKwPaWXl+mUZ11prb3bCZgCH28Gl04pKeuJeJMw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=OuVRxthYGIVQh8Qd+oZBXVLCkWmukm9g7G48c22SH+zMZmK4CgOQQ1QZLOFyGirn7
+ z5f8/KNpTNPt9XS1P+DZejUoEXH0pKG1wBg5AAFkj4H0hb9vhiy0k4fwWvH+5RxtXQ
+ NR+OtOYjGIyCmjIaSRoGB7gqRJXB8lf0PBGV0XxXY/+tPbC9eR+0VfDFyYBwh5Gscj
+ c1MXWPz0s3lV9X3gCvggzHJsZzumQlHX+awirVZ2MVFEcC5oP64r60gHNprKrI7gVa
+ hf02crrQRIR711tL5eEOYt4qr0m2j0Tbgo6CR2ggL9M+LXDKKO+n9TxxeGfSoPktKD
+ urORRDAKvxMbA==
+Date: Thu, 31 Mar 2022 15:18:24 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Martin =?utf-8?Q?Povi=C5=A1er?= <povik@cutebit.org>
+Subject: Re: [RFC PATCH 0/5] Apple Macs machine-level ASoC driver
+Message-ID: <YkW4MPh8VWc8eSGg@sirena.org.uk>
+References: <20220331000449.41062-1-povik+lin@cutebit.org>
+ <YkWfziQzprEsWL72@sirena.org.uk>
+ <CCE4A06E-6D6F-457D-B3C5-C36209BF38D3@cutebit.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c41b89c8-4ed1-4eaf-8f26-08da131f5640
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5476:EE_
-X-Microsoft-Antispam-PRVS: <CO6PR12MB5476DA42169559E142AC5682A7E19@CO6PR12MB5476.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: /CqU2HyGJE2zoy9zYBoFNIMd4/xbe4QHcxi2+eLECnELAFyOca8DkhYpUHBmOXzLnYReJpdOv7jQ66jn1eAt4Ou5FKmxrwZIou+iBtSlyRWscWXkGIyzeXMpbBJDJsGTbgZR/qRMrQzxuvK09FgAWCNv5FUNLdrctQvdib9r7mDl7pjK3t67b4kCZGSTHaLCww8iOKaKaG0G+aE/jdJLX1i/Vwd+uJt4kQf2A10O0RLF/PnfSxrpg5eGnlDwmt1Pvs8H/TD/gro2GF0bz56yuP7E4mRO5pJuMO/Sc7s3A8xP9G/OUPf9xDbAolfyUbYc2jvz43nfw+PMnsU2eN8/VTr+CoWHAYY5EwEEIzipD7hHoWqpxm9ixxK5pkz8y8Z7qJBVXQtVFXEuwYUmOKeeiZQw38i4DGXQJE0SSQnPPpxcHZlrjhKSoPpzqAgOdwaQfFr8qDmEyQk4dsx9FuyvDf84ykxMuZsEZcnkrj7WuZHzo1Top0STTXZInrH5ttFyJPu/x72OiecduIavfn4VjRQEmiRrJMAjf1cqEEKstwKlbDaPVGsAXdZMqanXZ0k0z2NtCM5cjyd0vYFPSpAE5ungDJ0D/l3FUbCtLoj3ddvnIboRevDEoouobkNSDvwBvQlTIeOS1+4rSscBxPYrK+e3U/o4ZR9tjYegAH+8Ue2AulMFZtA3h0CC7w8AbkD3uZOt1c+u8CwP+0IpWvbe9g==
-X-Forefront-Antispam-Report: CIP:12.22.5.238; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:mail.nvidia.com; PTR:InfoNoRecords; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(82310400004)(30864003)(356005)(8936002)(7416002)(5660300002)(81166007)(6666004)(2616005)(107886003)(54906003)(426003)(40460700003)(186003)(26005)(336012)(508600001)(7696005)(110136005)(36860700001)(4326008)(316002)(47076005)(70206006)(70586007)(8676002)(86362001)(2906002)(36756003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2022 14:04:13.5832 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c41b89c8-4ed1-4eaf-8f26-08da131f5640
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[12.22.5.238];
- Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT055.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5476
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="zQ72vPhT+YMlpKH0"
+Content-Disposition: inline
+In-Reply-To: <CCE4A06E-6D6F-457D-B3C5-C36209BF38D3@cutebit.org>
+X-Cookie: Reunite Gondwondaland!
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- catalin.marinas@arm.com, Sameer Pujar <spujar@nvidia.com>,
- linux-kernel@vger.kernel.org, jonathanh@nvidia.com,
- linux-tegra@vger.kernel.org, will@kernel.org,
- linux-arm-kernel@lists.infradead.org
+ Sven Peter <sven@svenpeter.dev>, linux-kernel@vger.kernel.org,
+ Hector Martin <marcan@marcan.st>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Mark Kettenis <kettenis@openbsd.org>,
+ Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -143,1037 +93,114 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Enable ASRC module usage on various Jetson Platforms. This can be plugged
-into an audio path using ALSA mixer controls.
 
-Signed-off-by: Sameer Pujar <spujar@nvidia.com>
----
- arch/arm64/boot/dts/nvidia/tegra186-p2771-0000.dts | 223 +++++++++++++++++++++
- arch/arm64/boot/dts/nvidia/tegra194-p2972-0000.dts | 223 +++++++++++++++++++++
- .../arm64/boot/dts/nvidia/tegra194-p3509-0000.dtsi | 223 +++++++++++++++++++++
- .../dts/nvidia/tegra234-p3737-0000+p3701-0000.dts  | 223 +++++++++++++++++++++
- 4 files changed, 892 insertions(+)
+--zQ72vPhT+YMlpKH0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/arch/arm64/boot/dts/nvidia/tegra186-p2771-0000.dts b/arch/arm64/boot/dts/nvidia/tegra186-p2771-0000.dts
-index c4dee05..70737a0 100644
---- a/arch/arm64/boot/dts/nvidia/tegra186-p2771-0000.dts
-+++ b/arch/arm64/boot/dts/nvidia/tegra186-p2771-0000.dts
-@@ -811,6 +811,110 @@
- 						remote-endpoint = <&mixer_out5_ep>;
- 					};
- 				};
-+
-+				xbar_asrc_in1_port: port@63 {
-+					reg = <0x63>;
-+
-+					xbar_asrc_in1_ep: endpoint {
-+						remote-endpoint = <&asrc_in1_ep>;
-+					};
-+				};
-+
-+				port@64 {
-+					reg = <0x64>;
-+
-+					xbar_asrc_out1_ep: endpoint {
-+						remote-endpoint = <&asrc_out1_ep>;
-+					};
-+				};
-+
-+				xbar_asrc_in2_port: port@65 {
-+					reg = <0x65>;
-+
-+					xbar_asrc_in2_ep: endpoint {
-+						remote-endpoint = <&asrc_in2_ep>;
-+					};
-+				};
-+
-+				port@66 {
-+					reg = <0x66>;
-+
-+					xbar_asrc_out2_ep: endpoint {
-+						remote-endpoint = <&asrc_out2_ep>;
-+					};
-+				};
-+
-+				xbar_asrc_in3_port: port@67 {
-+					reg = <0x67>;
-+
-+					xbar_asrc_in3_ep: endpoint {
-+						remote-endpoint = <&asrc_in3_ep>;
-+					};
-+				};
-+
-+				port@68 {
-+					reg = <0x68>;
-+
-+					xbar_asrc_out3_ep: endpoint {
-+						remote-endpoint = <&asrc_out3_ep>;
-+					};
-+				};
-+
-+				xbar_asrc_in4_port: port@69 {
-+					reg = <0x69>;
-+
-+					xbar_asrc_in4_ep: endpoint {
-+						remote-endpoint = <&asrc_in4_ep>;
-+					};
-+				};
-+
-+				port@6a {
-+					reg = <0x6a>;
-+
-+					xbar_asrc_out4_ep: endpoint {
-+						remote-endpoint = <&asrc_out4_ep>;
-+					};
-+				};
-+
-+				xbar_asrc_in5_port: port@6b {
-+					reg = <0x6b>;
-+
-+					xbar_asrc_in5_ep: endpoint {
-+						remote-endpoint = <&asrc_in5_ep>;
-+					};
-+				};
-+
-+				port@6c {
-+					reg = <0x6c>;
-+
-+					xbar_asrc_out5_ep: endpoint {
-+						remote-endpoint = <&asrc_out5_ep>;
-+					};
-+				};
-+
-+				xbar_asrc_in6_port: port@6d {
-+					reg = <0x6d>;
-+
-+					xbar_asrc_in6_ep: endpoint {
-+						remote-endpoint = <&asrc_in6_ep>;
-+					};
-+				};
-+
-+				port@6e {
-+					reg = <0x6e>;
-+
-+					xbar_asrc_out6_ep: endpoint {
-+						remote-endpoint = <&asrc_out6_ep>;
-+					};
-+				};
-+
-+				xbar_asrc_in7_port: port@6f {
-+					reg = <0x6f>;
-+
-+					xbar_asrc_in7_ep: endpoint {
-+						remote-endpoint = <&asrc_in7_ep>;
-+					};
-+				};
- 			};
- 
- 			admaif@290f000 {
-@@ -1935,6 +2039,119 @@
- 					};
- 				};
- 			};
-+
-+			asrc@2910000 {
-+				status = "okay";
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					port@0 {
-+						reg = <0x0>;
-+
-+						asrc_in1_ep: endpoint {
-+							remote-endpoint = <&xbar_asrc_in1_ep>;
-+						};
-+					};
-+
-+					port@1 {
-+						reg = <0x1>;
-+
-+						asrc_in2_ep: endpoint {
-+							remote-endpoint = <&xbar_asrc_in2_ep>;
-+						};
-+					};
-+
-+					port@2 {
-+						reg = <0x2>;
-+
-+						asrc_in3_ep: endpoint {
-+							remote-endpoint = <&xbar_asrc_in3_ep>;
-+						};
-+					};
-+
-+					port@3 {
-+						reg = <0x3>;
-+
-+						asrc_in4_ep: endpoint {
-+							remote-endpoint = <&xbar_asrc_in4_ep>;
-+						};
-+					};
-+
-+					port@4 {
-+						reg = <0x4>;
-+
-+						asrc_in5_ep: endpoint {
-+							remote-endpoint = <&xbar_asrc_in5_ep>;
-+						};
-+					};
-+
-+					port@5 {
-+						reg = <0x5>;
-+
-+						asrc_in6_ep: endpoint {
-+							remote-endpoint = <&xbar_asrc_in6_ep>;
-+						};
-+					};
-+
-+					port@6 {
-+						reg = <0x6>;
-+
-+						asrc_in7_ep: endpoint {
-+							remote-endpoint = <&xbar_asrc_in7_ep>;
-+						};
-+					};
-+
-+					asrc_out1_port: port@7 {
-+						reg = <0x7>;
-+
-+						asrc_out1_ep: endpoint {
-+							remote-endpoint = <&xbar_asrc_out1_ep>;
-+						};
-+					};
-+
-+					asrc_out2_port: port@8 {
-+						reg = <0x8>;
-+
-+						asrc_out2_ep: endpoint {
-+							remote-endpoint = <&xbar_asrc_out2_ep>;
-+						};
-+					};
-+
-+					asrc_out3_port: port@9 {
-+						reg = <0x9>;
-+
-+						asrc_out3_ep: endpoint {
-+							remote-endpoint = <&xbar_asrc_out3_ep>;
-+						};
-+					};
-+
-+					asrc_out4_port: port@a {
-+						reg = <0xa>;
-+
-+						asrc_out4_ep: endpoint {
-+							remote-endpoint = <&xbar_asrc_out4_ep>;
-+						};
-+					};
-+
-+					asrc_out5_port: port@b {
-+						reg = <0xb>;
-+
-+						asrc_out5_ep: endpoint {
-+							remote-endpoint = <&xbar_asrc_out5_ep>;
-+						};
-+					};
-+
-+					asrc_out6_port:	port@c {
-+						reg = <0xc>;
-+
-+						asrc_out6_ep: endpoint {
-+							remote-endpoint = <&xbar_asrc_out6_ep>;
-+						};
-+					};
-+				};
-+			};
- 		};
- 	};
- 
-@@ -2331,6 +2548,10 @@
- 		       <&xbar_mixer_in5_port>, <&xbar_mixer_in6_port>,
- 		       <&xbar_mixer_in7_port>, <&xbar_mixer_in8_port>,
- 		       <&xbar_mixer_in9_port>, <&xbar_mixer_in10_port>,
-+		       <&xbar_asrc_in1_port>, <&xbar_asrc_in2_port>,
-+		       <&xbar_asrc_in3_port>, <&xbar_asrc_in4_port>,
-+		       <&xbar_asrc_in5_port>, <&xbar_asrc_in6_port>,
-+		       <&xbar_asrc_in7_port>,
- 		       /* HW accelerators */
- 		       <&sfc1_out_port>, <&sfc2_out_port>,
- 		       <&sfc3_out_port>, <&sfc4_out_port>,
-@@ -2348,6 +2569,8 @@
- 		       <&mixer_out1_port>, <&mixer_out2_port>,
- 		       <&mixer_out3_port>, <&mixer_out4_port>,
- 		       <&mixer_out5_port>,
-+		       <&asrc_out1_port>, <&asrc_out2_port>, <&asrc_out3_port>,
-+		       <&asrc_out4_port>, <&asrc_out5_port>, <&asrc_out6_port>,
- 		       /* I/O */
- 		       <&i2s1_port>, <&i2s2_port>, <&i2s3_port>, <&i2s4_port>,
- 		       <&i2s5_port>, <&i2s6_port>, <&dmic1_port>, <&dmic2_port>,
-diff --git a/arch/arm64/boot/dts/nvidia/tegra194-p2972-0000.dts b/arch/arm64/boot/dts/nvidia/tegra194-p2972-0000.dts
-index 2478ece9e..6719638 100644
---- a/arch/arm64/boot/dts/nvidia/tegra194-p2972-0000.dts
-+++ b/arch/arm64/boot/dts/nvidia/tegra194-p2972-0000.dts
-@@ -764,6 +764,110 @@
- 							remote-endpoint = <&mixer_out5_ep>;
- 						};
- 					};
-+
-+					xbar_asrc_in1_port: port@63 {
-+						reg = <0x63>;
-+
-+						xbar_asrc_in1_ep: endpoint {
-+							remote-endpoint = <&asrc_in1_ep>;
-+						};
-+					};
-+
-+					port@64 {
-+						reg = <0x64>;
-+
-+						xbar_asrc_out1_ep: endpoint {
-+							remote-endpoint = <&asrc_out1_ep>;
-+						};
-+					};
-+
-+					xbar_asrc_in2_port: port@65 {
-+						reg = <0x65>;
-+
-+						xbar_asrc_in2_ep: endpoint {
-+							remote-endpoint = <&asrc_in2_ep>;
-+						};
-+					};
-+
-+					port@66 {
-+						reg = <0x66>;
-+
-+						xbar_asrc_out2_ep: endpoint {
-+							remote-endpoint = <&asrc_out2_ep>;
-+						};
-+					};
-+
-+					xbar_asrc_in3_port: port@67 {
-+						reg = <0x67>;
-+
-+						xbar_asrc_in3_ep: endpoint {
-+							remote-endpoint = <&asrc_in3_ep>;
-+						};
-+					};
-+
-+					port@68 {
-+						reg = <0x68>;
-+
-+						xbar_asrc_out3_ep: endpoint {
-+							remote-endpoint = <&asrc_out3_ep>;
-+						};
-+					};
-+
-+					xbar_asrc_in4_port: port@69 {
-+						reg = <0x69>;
-+
-+						xbar_asrc_in4_ep: endpoint {
-+							remote-endpoint = <&asrc_in4_ep>;
-+						};
-+					};
-+
-+					port@6a {
-+						reg = <0x6a>;
-+
-+						xbar_asrc_out4_ep: endpoint {
-+							remote-endpoint = <&asrc_out4_ep>;
-+						};
-+					};
-+
-+					xbar_asrc_in5_port: port@6b {
-+						reg = <0x6b>;
-+
-+						xbar_asrc_in5_ep: endpoint {
-+							remote-endpoint = <&asrc_in5_ep>;
-+						};
-+					};
-+
-+					port@6c {
-+						reg = <0x6c>;
-+
-+						xbar_asrc_out5_ep: endpoint {
-+							remote-endpoint = <&asrc_out5_ep>;
-+						};
-+					};
-+
-+					xbar_asrc_in6_port: port@6d {
-+						reg = <0x6d>;
-+
-+						xbar_asrc_in6_ep: endpoint {
-+							remote-endpoint = <&asrc_in6_ep>;
-+						};
-+					};
-+
-+					port@6e {
-+						reg = <0x6e>;
-+
-+						xbar_asrc_out6_ep: endpoint {
-+							remote-endpoint = <&asrc_out6_ep>;
-+						};
-+					};
-+
-+					xbar_asrc_in7_port: port@6f {
-+						reg = <0x6f>;
-+
-+						xbar_asrc_in7_ep: endpoint {
-+							remote-endpoint = <&asrc_in7_ep>;
-+						};
-+					};
- 				};
- 
- 				admaif@290f000 {
-@@ -1734,6 +1838,119 @@
- 						};
- 					};
- 				};
-+
-+				asrc@2910000 {
-+					status = "okay";
-+
-+					ports {
-+						#address-cells = <1>;
-+						#size-cells = <0>;
-+
-+						port@0 {
-+							reg = <0x0>;
-+
-+							asrc_in1_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_in1_ep>;
-+							};
-+						};
-+
-+						port@1 {
-+							reg = <0x1>;
-+
-+							asrc_in2_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_in2_ep>;
-+							};
-+						};
-+
-+						port@2 {
-+							reg = <0x2>;
-+
-+							asrc_in3_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_in3_ep>;
-+							};
-+						};
-+
-+						port@3 {
-+							reg = <0x3>;
-+
-+							asrc_in4_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_in4_ep>;
-+							};
-+						};
-+
-+						port@4 {
-+							reg = <0x4>;
-+
-+							asrc_in5_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_in5_ep>;
-+							};
-+						};
-+
-+						port@5 {
-+							reg = <0x5>;
-+
-+							asrc_in6_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_in6_ep>;
-+							};
-+						};
-+
-+						port@6 {
-+							reg = <0x6>;
-+
-+							asrc_in7_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_in7_ep>;
-+							};
-+						};
-+
-+						asrc_out1_port: port@7 {
-+							reg = <0x7>;
-+
-+							asrc_out1_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_out1_ep>;
-+							};
-+						};
-+
-+						asrc_out2_port: port@8 {
-+							reg = <0x8>;
-+
-+							asrc_out2_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_out2_ep>;
-+							};
-+						};
-+
-+						asrc_out3_port: port@9 {
-+							reg = <0x9>;
-+
-+							asrc_out3_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_out3_ep>;
-+							};
-+						};
-+
-+						asrc_out4_port: port@a {
-+							reg = <0xa>;
-+
-+							asrc_out4_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_out4_ep>;
-+							};
-+						};
-+
-+						asrc_out5_port: port@b {
-+							reg = <0xb>;
-+
-+							asrc_out5_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_out5_ep>;
-+							};
-+						};
-+
-+						asrc_out6_port:	port@c {
-+							reg = <0xc>;
-+
-+							asrc_out6_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_out6_ep>;
-+							};
-+						};
-+					};
-+				};
- 			};
- 		};
- 
-@@ -2052,6 +2269,10 @@
- 		       <&xbar_mixer_in5_port>, <&xbar_mixer_in6_port>,
- 		       <&xbar_mixer_in7_port>, <&xbar_mixer_in8_port>,
- 		       <&xbar_mixer_in9_port>, <&xbar_mixer_in10_port>,
-+		       <&xbar_asrc_in1_port>, <&xbar_asrc_in2_port>,
-+		       <&xbar_asrc_in3_port>, <&xbar_asrc_in4_port>,
-+		       <&xbar_asrc_in5_port>, <&xbar_asrc_in6_port>,
-+		       <&xbar_asrc_in7_port>,
- 		       /* HW accelerators */
- 		       <&sfc1_out_port>, <&sfc2_out_port>,
- 		       <&sfc3_out_port>, <&sfc4_out_port>,
-@@ -2068,6 +2289,8 @@
- 		       <&adx4_out3_port>, <&adx4_out4_port>,
- 		       <&mixer_out1_port>, <&mixer_out2_port>, <&mixer_out3_port>,
- 		       <&mixer_out4_port>, <&mixer_out5_port>,
-+		       <&asrc_out1_port>, <&asrc_out2_port>, <&asrc_out3_port>,
-+		       <&asrc_out4_port>, <&asrc_out5_port>, <&asrc_out6_port>,
- 		       /* BE I/O Ports */
- 		       <&i2s1_port>, <&i2s2_port>, <&i2s4_port>, <&i2s6_port>,
- 		       <&dmic3_port>;
-diff --git a/arch/arm64/boot/dts/nvidia/tegra194-p3509-0000.dtsi b/arch/arm64/boot/dts/nvidia/tegra194-p3509-0000.dtsi
-index 32ce790..9c4871b 100644
---- a/arch/arm64/boot/dts/nvidia/tegra194-p3509-0000.dtsi
-+++ b/arch/arm64/boot/dts/nvidia/tegra194-p3509-0000.dtsi
-@@ -774,6 +774,110 @@
- 							remote-endpoint = <&mixer_out5_ep>;
- 						};
- 					};
-+
-+					xbar_asrc_in1_port: port@63 {
-+						reg = <0x63>;
-+
-+						xbar_asrc_in1_ep: endpoint {
-+							remote-endpoint = <&asrc_in1_ep>;
-+						};
-+					};
-+
-+					port@64 {
-+						reg = <0x64>;
-+
-+						xbar_asrc_out1_ep: endpoint {
-+							remote-endpoint = <&asrc_out1_ep>;
-+						};
-+					};
-+
-+					xbar_asrc_in2_port: port@65 {
-+						reg = <0x65>;
-+
-+						xbar_asrc_in2_ep: endpoint {
-+							remote-endpoint = <&asrc_in2_ep>;
-+						};
-+					};
-+
-+					port@66 {
-+						reg = <0x66>;
-+
-+						xbar_asrc_out2_ep: endpoint {
-+							remote-endpoint = <&asrc_out2_ep>;
-+						};
-+					};
-+
-+					xbar_asrc_in3_port: port@67 {
-+						reg = <0x67>;
-+
-+						xbar_asrc_in3_ep: endpoint {
-+							remote-endpoint = <&asrc_in3_ep>;
-+						};
-+					};
-+
-+					port@68 {
-+						reg = <0x68>;
-+
-+						xbar_asrc_out3_ep: endpoint {
-+							remote-endpoint = <&asrc_out3_ep>;
-+						};
-+					};
-+
-+					xbar_asrc_in4_port: port@69 {
-+						reg = <0x69>;
-+
-+						xbar_asrc_in4_ep: endpoint {
-+							remote-endpoint = <&asrc_in4_ep>;
-+						};
-+					};
-+
-+					port@6a {
-+						reg = <0x6a>;
-+
-+						xbar_asrc_out4_ep: endpoint {
-+							remote-endpoint = <&asrc_out4_ep>;
-+						};
-+					};
-+
-+					xbar_asrc_in5_port: port@6b {
-+						reg = <0x6b>;
-+
-+						xbar_asrc_in5_ep: endpoint {
-+							remote-endpoint = <&asrc_in5_ep>;
-+						};
-+					};
-+
-+					port@6c {
-+						reg = <0x6c>;
-+
-+						xbar_asrc_out5_ep: endpoint {
-+							remote-endpoint = <&asrc_out5_ep>;
-+						};
-+					};
-+
-+					xbar_asrc_in6_port: port@6d {
-+						reg = <0x6d>;
-+
-+						xbar_asrc_in6_ep: endpoint {
-+							remote-endpoint = <&asrc_in6_ep>;
-+						};
-+					};
-+
-+					port@6e {
-+						reg = <0x6e>;
-+
-+						xbar_asrc_out6_ep: endpoint {
-+							remote-endpoint = <&asrc_out6_ep>;
-+						};
-+					};
-+
-+					xbar_asrc_in7_port: port@6f {
-+						reg = <0x6f>;
-+
-+						xbar_asrc_in7_ep: endpoint {
-+							remote-endpoint = <&asrc_in7_ep>;
-+						};
-+					};
- 				};
- 
- 				admaif@290f000 {
-@@ -1794,6 +1898,119 @@
- 						};
- 					};
- 				};
-+
-+				asrc@2910000 {
-+					status = "okay";
-+
-+					ports {
-+						#address-cells = <1>;
-+						#size-cells = <0>;
-+
-+						port@0 {
-+							reg = <0x0>;
-+
-+							asrc_in1_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_in1_ep>;
-+							};
-+						};
-+
-+						port@1 {
-+							reg = <0x1>;
-+
-+							asrc_in2_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_in2_ep>;
-+							};
-+						};
-+
-+						port@2 {
-+							reg = <0x2>;
-+
-+							asrc_in3_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_in3_ep>;
-+							};
-+						};
-+
-+						port@3 {
-+							reg = <0x3>;
-+
-+							asrc_in4_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_in4_ep>;
-+							};
-+						};
-+
-+						port@4 {
-+							reg = <0x4>;
-+
-+							asrc_in5_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_in5_ep>;
-+							};
-+						};
-+
-+						port@5 {
-+							reg = <0x5>;
-+
-+							asrc_in6_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_in6_ep>;
-+							};
-+						};
-+
-+						port@6 {
-+							reg = <0x6>;
-+
-+							asrc_in7_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_in7_ep>;
-+							};
-+						};
-+
-+						asrc_out1_port: port@7 {
-+							reg = <0x7>;
-+
-+							asrc_out1_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_out1_ep>;
-+							};
-+						};
-+
-+						asrc_out2_port: port@8 {
-+							reg = <0x8>;
-+
-+							asrc_out2_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_out2_ep>;
-+							};
-+						};
-+
-+						asrc_out3_port: port@9 {
-+							reg = <0x9>;
-+
-+							asrc_out3_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_out3_ep>;
-+							};
-+						};
-+
-+						asrc_out4_port: port@a {
-+							reg = <0xa>;
-+
-+							asrc_out4_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_out4_ep>;
-+							};
-+						};
-+
-+						asrc_out5_port: port@b {
-+							reg = <0xb>;
-+
-+							asrc_out5_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_out5_ep>;
-+							};
-+						};
-+
-+						asrc_out6_port:	port@c {
-+							reg = <0xc>;
-+
-+							asrc_out6_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_out6_ep>;
-+							};
-+						};
-+					};
-+				};
- 			};
- 		};
- 
-@@ -2102,6 +2319,10 @@
- 		       <&xbar_mixer_in5_port>, <&xbar_mixer_in6_port>,
- 		       <&xbar_mixer_in7_port>, <&xbar_mixer_in8_port>,
- 		       <&xbar_mixer_in9_port>, <&xbar_mixer_in10_port>,
-+		       <&xbar_asrc_in1_port>, <&xbar_asrc_in2_port>,
-+		       <&xbar_asrc_in3_port>, <&xbar_asrc_in4_port>,
-+		       <&xbar_asrc_in5_port>, <&xbar_asrc_in6_port>,
-+		       <&xbar_asrc_in7_port>,
- 		       /* HW accelerators */
- 		       <&sfc1_out_port>, <&sfc2_out_port>,
- 		       <&sfc3_out_port>, <&sfc4_out_port>,
-@@ -2119,6 +2340,8 @@
- 		       <&mixer_out1_port>, <&mixer_out2_port>,
- 		       <&mixer_out3_port>, <&mixer_out4_port>,
- 		       <&mixer_out5_port>,
-+		       <&asrc_out1_port>, <&asrc_out2_port>, <&asrc_out3_port>,
-+		       <&asrc_out4_port>, <&asrc_out5_port>, <&asrc_out6_port>,
- 		       /* BE I/O Ports */
- 		       <&i2s3_port>, <&i2s5_port>,
- 		       <&dmic1_port>, <&dmic2_port>, <&dmic4_port>,
-diff --git a/arch/arm64/boot/dts/nvidia/tegra234-p3737-0000+p3701-0000.dts b/arch/arm64/boot/dts/nvidia/tegra234-p3737-0000+p3701-0000.dts
-index 34d6a01..eaf1994 100644
---- a/arch/arm64/boot/dts/nvidia/tegra234-p3737-0000+p3701-0000.dts
-+++ b/arch/arm64/boot/dts/nvidia/tegra234-p3737-0000+p3701-0000.dts
-@@ -763,6 +763,110 @@
- 							remote-endpoint = <&mix_out5>;
- 						};
- 					};
-+
-+					xbar_asrc_in1_port: port@63 {
-+						reg = <0x63>;
-+
-+						xbar_asrc_in1_ep: endpoint {
-+							remote-endpoint = <&asrc_in1_ep>;
-+						};
-+					};
-+
-+					port@64 {
-+						reg = <0x64>;
-+
-+						xbar_asrc_out1_ep: endpoint {
-+							remote-endpoint = <&asrc_out1_ep>;
-+						};
-+					};
-+
-+					xbar_asrc_in2_port: port@65 {
-+						reg = <0x65>;
-+
-+						xbar_asrc_in2_ep: endpoint {
-+							remote-endpoint = <&asrc_in2_ep>;
-+						};
-+					};
-+
-+					port@66 {
-+						reg = <0x66>;
-+
-+						xbar_asrc_out2_ep: endpoint {
-+							remote-endpoint = <&asrc_out2_ep>;
-+						};
-+					};
-+
-+					xbar_asrc_in3_port: port@67 {
-+						reg = <0x67>;
-+
-+						xbar_asrc_in3_ep: endpoint {
-+							remote-endpoint = <&asrc_in3_ep>;
-+						};
-+					};
-+
-+					port@68 {
-+						reg = <0x68>;
-+
-+						xbar_asrc_out3_ep: endpoint {
-+							remote-endpoint = <&asrc_out3_ep>;
-+						};
-+					};
-+
-+					xbar_asrc_in4_port: port@69 {
-+						reg = <0x69>;
-+
-+						xbar_asrc_in4_ep: endpoint {
-+							remote-endpoint = <&asrc_in4_ep>;
-+						};
-+					};
-+
-+					port@6a {
-+						reg = <0x6a>;
-+
-+						xbar_asrc_out4_ep: endpoint {
-+							remote-endpoint = <&asrc_out4_ep>;
-+						};
-+					};
-+
-+					xbar_asrc_in5_port: port@6b {
-+						reg = <0x6b>;
-+
-+						xbar_asrc_in5_ep: endpoint {
-+							remote-endpoint = <&asrc_in5_ep>;
-+						};
-+					};
-+
-+					port@6c {
-+						reg = <0x6c>;
-+
-+						xbar_asrc_out5_ep: endpoint {
-+							remote-endpoint = <&asrc_out5_ep>;
-+						};
-+					};
-+
-+					xbar_asrc_in6_port: port@6d {
-+						reg = <0x6d>;
-+
-+						xbar_asrc_in6_ep: endpoint {
-+							remote-endpoint = <&asrc_in6_ep>;
-+						};
-+					};
-+
-+					port@6e {
-+						reg = <0x6e>;
-+
-+						xbar_asrc_out6_ep: endpoint {
-+							remote-endpoint = <&asrc_out6_ep>;
-+						};
-+					};
-+
-+					xbar_asrc_in7_port: port@6f {
-+						reg = <0x6f>;
-+
-+						xbar_asrc_in7_ep: endpoint {
-+							remote-endpoint = <&asrc_in7_ep>;
-+						};
-+					};
- 				};
- 
- 				i2s@2901000 {
-@@ -1733,6 +1837,119 @@
- 						};
- 					};
- 				};
-+
-+				asrc@2910000 {
-+					status = "okay";
-+
-+					ports {
-+						#address-cells = <1>;
-+						#size-cells = <0>;
-+
-+						port@0 {
-+							reg = <0x0>;
-+
-+							asrc_in1_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_in1_ep>;
-+							};
-+						};
-+
-+						port@1 {
-+							reg = <0x1>;
-+
-+							asrc_in2_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_in2_ep>;
-+							};
-+						};
-+
-+						port@2 {
-+							reg = <0x2>;
-+
-+							asrc_in3_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_in3_ep>;
-+							};
-+						};
-+
-+						port@3 {
-+							reg = <0x3>;
-+
-+							asrc_in4_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_in4_ep>;
-+							};
-+						};
-+
-+						port@4 {
-+							reg = <0x4>;
-+
-+							asrc_in5_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_in5_ep>;
-+							};
-+						};
-+
-+						port@5 {
-+							reg = <0x5>;
-+
-+							asrc_in6_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_in6_ep>;
-+							};
-+						};
-+
-+						port@6 {
-+							reg = <0x6>;
-+
-+							asrc_in7_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_in7_ep>;
-+							};
-+						};
-+
-+						asrc_out1_port: port@7 {
-+							reg = <0x7>;
-+
-+							asrc_out1_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_out1_ep>;
-+							};
-+						};
-+
-+						asrc_out2_port: port@8 {
-+							reg = <0x8>;
-+
-+							asrc_out2_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_out2_ep>;
-+							};
-+						};
-+
-+						asrc_out3_port: port@9 {
-+							reg = <0x9>;
-+
-+							asrc_out3_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_out3_ep>;
-+							};
-+						};
-+
-+						asrc_out4_port: port@a {
-+							reg = <0xa>;
-+
-+							asrc_out4_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_out4_ep>;
-+							};
-+						};
-+
-+						asrc_out5_port: port@b {
-+							reg = <0xb>;
-+
-+							asrc_out5_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_out5_ep>;
-+							};
-+						};
-+
-+						asrc_out6_port:	port@c {
-+							reg = <0xc>;
-+
-+							asrc_out6_ep: endpoint {
-+								remote-endpoint = <&xbar_asrc_out6_ep>;
-+							};
-+						};
-+					};
-+				};
- 			};
- 
- 			dma-controller@2930000 {
-@@ -1823,6 +2040,10 @@
- 		       <&xbar_mix_in5_port>, <&xbar_mix_in6_port>,
- 		       <&xbar_mix_in7_port>, <&xbar_mix_in8_port>,
- 		       <&xbar_mix_in9_port>, <&xbar_mix_in10_port>,
-+		       <&xbar_asrc_in1_port>, <&xbar_asrc_in2_port>,
-+		       <&xbar_asrc_in3_port>, <&xbar_asrc_in4_port>,
-+		       <&xbar_asrc_in5_port>, <&xbar_asrc_in6_port>,
-+		       <&xbar_asrc_in7_port>,
- 		       /* HW accelerators */
- 		       <&sfc1_out_port>, <&sfc2_out_port>,
- 		       <&sfc3_out_port>, <&sfc4_out_port>,
-@@ -1839,6 +2060,8 @@
- 		       <&adx4_out3_port>, <&adx4_out4_port>,
- 		       <&mix_out1_port>, <&mix_out2_port>, <&mix_out3_port>,
- 		       <&mix_out4_port>, <&mix_out5_port>,
-+		       <&asrc_out1_port>, <&asrc_out2_port>, <&asrc_out3_port>,
-+		       <&asrc_out4_port>, <&asrc_out5_port>, <&asrc_out6_port>,
- 		       /* BE I/O Ports */
- 		       <&i2s1_port>, <&i2s2_port>, <&i2s4_port>, <&i2s6_port>,
- 		       <&dmic3_port>;
--- 
-2.7.4
+On Thu, Mar 31, 2022 at 03:28:12PM +0200, Martin Povi=C5=A1er wrote:
+> > On 31. 3. 2022, at 14:34, Mark Brown <broonie@kernel.org> wrote:
 
+> > The broad issue here is that what you consider ridiculous someone else
+> > might have some bright ideas for configuring dynamically - if things are
+> > being exposed for dynamic configuration it's probably because someone
+> > wanted them, if the control is genuinely useless then it should just be
+
+> Well but these are codec drivers reused on different systems, it can both
+> be 'not genuinely useless=E2=80=99 on some system and ridiculous to leave=
+ open on
+> the systems I am trying to write drivers for.
+
+It wouldn't be the first time that we've had someone turn up with a new
+idea for how to configure an already existing bit of hardware, part of
+the reason for this approach is that people do get surprised by user
+creativity with their systems.
+
+> > The TDM swap thing you're mentioning looks like it's a left/right
+> > selection which people do use sometimes as a way of doing mono mixes and
+> > reorientation.  The ISENSE/VSENSE is less obvious, though it's possible
+> > there's issues with not having enough slots on a heavily used TDM bus or
+> > sometimes disabling the speaker protection processing for whatever
+> > reason.
+
+> Not only that. On TAS2770 the default value for =E2=80=98ASI1 Sel=E2=80=
+=99 is =E2=80=98I2C offset=E2=80=99
+> meaning the speaker amp driver ignores my set_tdm_slot calls. If you tell
+> me it=E2=80=99s okay to change that behaviour and it won=E2=80=99t be con=
+sidered backwards
+> compatibility breaking, that would be part of the solution I am seeking
+> here.
+
+Having the default state be muted or not routed is quite common, UCM
+files or equivalent are typically required for embedded style hardware
+like this.
+
+> But even then, what for example if the system has a single speaker (as it
+> does on the Mac mini to be covered by this driver) and the I2S bus is left
+> undriven for the duration of unused TDM slots? That may genuinely pose
+> a risk of people blowing their speakers by switching something in alsamix=
+er.
+
+Right, so that's a more sensible and valid use case.  We do have the
+platform_max feature available for precisely this reason - that's
+probably more appropriate here since if there's a danger of people
+blowing their speaker with a floating input they could also blow their
+speaker with just a very loud audio signal so limiting the volume people
+can set on the speaker driver seems sensible and would also cover them
+for misrouting.  Whatever the device might pick up from noise on an
+undriven bus could also be played as audio down the bus.  This does
+become a little fun with speaker protection as we'd want to raise the
+kernel limit so that userspace can dynamically manage the volume to
+contorl power (though that might be done with software control), but
+it's easy enoguh to raise limits later.
+
+On the other hand it seems like userspace might reasonably choose to do
+a mono mix for this output entirely in software, in which case telling
+the speaker amp to pick up one channel would make sense, or to just play
+out a stereo signal over I2S and have the amplifier do a mono mix and
+I'm not seeing why we'd force one or the other in the machine driver.
+
+> The ISENSE/VSENSE controls are also actually useless on these systems as =
+we
+> are not doing anything to pick up the measured values (which are sent back
+> over the I2S lines). I don=E2=80=99t know if there can be driver conflict=
+ between
+
+Presumably someone might want to work on figuring that out though, and
+=66rom a hardware safety point of view it would be better if they did.
+
+> two speaker amps trying to drive the I2S lines at the same time should
+> the user happen to enable SENSE facilities on more than one of them.
+> Now I can grudgingly study that and rule it out but I would rather hide
+> the controls altogether.
+
+Yes, having two devices driving the bus at the same time wouldn't be
+great.  How is the TDM slot selection for the signals done in the
+hardware, I'm not seeing anything immediately obvious in the driver?
+I'd have thought that things would be implemented such that you could
+implement speaker protection on all speakers simultaneously but perhaps
+not.
+
+> That=E2=80=99s the reasoning anyway. To reiterate, seems to me the contro=
+ls
+> are useless/confusing at best and dangerous at worst.
+
+I'm just not seeing an issue for the slot selection.
+
+--zQ72vPhT+YMlpKH0
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJFuDAACgkQJNaLcl1U
+h9A9lwf/ddJhTaQ1UaqX3Bsb+GxAlui6cFVoONTfyUAR+vMtAaidhxfYhY8qmtt0
+pkQSmWdb1l8QtQ5pz0SQdW/ZhFi7CfdvDHLGtDCZHAUxCBrya28XC3ebn72jeGgK
+5vNs8vzfVvSpt7B7vseX89U1CvevM4iVkiu2paMQInPWGKjXAN/HtrELENEW20SE
+FV3WAR7m1aNrPc7sZ0d5Nvyr0QQsdTvUeDG48ZlPxy1Ta1SV2zX5qx5os9kXQE6K
+nTzwHh8cyH+t0kJASLEzsV28RBKGOUfCiNM8PSen/SfnsBAXEIeajIYeAGT7ZuJd
+r82cdFoj4At/BFUt9A/IvZMhqO36dQ==
+=YzFu
+-----END PGP SIGNATURE-----
+
+--zQ72vPhT+YMlpKH0--

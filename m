@@ -2,96 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 812FF4EE2BA
-	for <lists+alsa-devel@lfdr.de>; Thu, 31 Mar 2022 22:36:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D13F74EE2D0
+	for <lists+alsa-devel@lfdr.de>; Thu, 31 Mar 2022 22:45:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1431C18C8;
-	Thu, 31 Mar 2022 22:35:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1431C18C8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7246D18DE;
+	Thu, 31 Mar 2022 22:45:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7246D18DE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648758980;
-	bh=KwD3wEVnrzFXvpK/RhhbUbACyrvS38NubcQTz2EfjyA=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1648759552;
+	bh=Iaf2xkyeMRIggqdjNvujpO57+DQT1YTkiSERIlFe1CU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QiGo6vK4iV2SOsQqZVCgsQK8j/P0lF3DWxDC5cAkdlAtQmBLcddOGgZ3arvKgHi15
-	 stuNMqDPgBrTuUG+J8FIq2iheD3Ha7cyW7TP4FRB10VRGUBErVOobDmjUp5K7bsX7O
-	 OvrMyuaYxmnFFxXWWaHfWR7991hsmeowU+xFJsFQ=
+	b=jV+3j/K/debztENsYLE6aA0uKU+kY8jMlKdd/ohY3kIaNHXVflGqBni6xBJpx2VJl
+	 45gR1Nrc18g40vaUN6sZyFpTcqDz6iIGJm8TdK7CZrlp3Uya0dLBhTyPHa0v/jRXGM
+	 pZTrSRzeGgXiYbrPWW6e74GxhnV8SL4XznvhwrgU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8C490F80238;
-	Thu, 31 Mar 2022 22:35:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E2453F800B8;
+	Thu, 31 Mar 2022 22:44:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CE025F80227; Thu, 31 Mar 2022 22:35:10 +0200 (CEST)
+ id C616FF80227; Thu, 31 Mar 2022 22:44:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-oa1-f45.google.com (mail-oa1-f45.google.com
- [209.85.160.45])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.135])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AF814F800E4
- for <alsa-devel@alsa-project.org>; Thu, 31 Mar 2022 22:35:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF814F800E4
-Received: by mail-oa1-f45.google.com with SMTP id
- 586e51a60fabf-df02f7e2c9so509942fac.10
- for <alsa-devel@alsa-project.org>; Thu, 31 Mar 2022 13:35:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=7o8q97xCtSsryTgEf+sdFsnMX0/U036sQhYghPoefl4=;
- b=trtBCYdkJO6dIOtEZ+cBoRZjrQJHnSYDNBjzrRqWeuu+mLP6PDK7Ukn7mQvs71nRuR
- /81lsGFUVaioqtETviLYoOQKE+hid4W9hEe9lfjuS7KCKDzfCYP8ExZxZYnf/rMNB1Dx
- ST+eEJCBF7O1UFAjUFL72BqOdQMWIBORcnOHNWjfWfjtB9OFKJoYlO2oElaVRsjxNoQZ
- RDOnTElPmX13VfXfT+GTYAG66g+xXQQO5IYO6QRwBW+W1ZeDUq2jl35SswHBjOf8VH6W
- VAK7ECS/TN4wSF3c4jIowm9voHC3tkr4KHVnTGQXyV5PKhyHASyJy7D7tIYB1cYs5xvv
- WVjA==
-X-Gm-Message-State: AOAM5324NJdfxAV61egxCgHxXuEojtyw7NzGTx+J7Ih3NzUpjynpasyU
- 6sdO9kb1tHTJ2LvIVhXhcQ==
-X-Google-Smtp-Source: ABdhPJyOtg9v8M3rgMoWnDenrT80lRaoyYQt7XKsnQHhmcrqEG9E/JNZKDO/sxj1EcCQH8b9oxX0lA==
-X-Received: by 2002:a05:6870:79d:b0:da:56e3:fe99 with SMTP id
- en29-20020a056870079d00b000da56e3fe99mr3441337oab.95.1648758902507; 
- Thu, 31 Mar 2022 13:35:02 -0700 (PDT)
-Received: from robh.at.kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- r35-20020a056870582300b000df0dc42ff5sm219227oap.0.2022.03.31.13.34.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 31 Mar 2022 13:35:00 -0700 (PDT)
-Received: (nullmailer pid 1446207 invoked by uid 1000);
- Thu, 31 Mar 2022 20:34:59 -0000
-Date: Thu, 31 Mar 2022 15:34:59 -0500
-From: Rob Herring <robh@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH] dt-bindings: Fix incomplete if/then/else schemas
-Message-ID: <YkYQc/r8P5LYI6dt@robh.at.kernel.org>
-References: <20220330145741.3044896-1-robh@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id B9DE7F800B8
+ for <alsa-devel@alsa-project.org>; Thu, 31 Mar 2022 22:44:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9DE7F800B8
+Received: from mail-wm1-f44.google.com ([209.85.128.44]) by
+ mrelayeu.kundenserver.de (mreue010 [213.165.67.97]) with ESMTPSA (Nemesis) id
+ 1M6lUk-1ney8T40Tu-008Nmq for <alsa-devel@alsa-project.org>; Thu, 31 Mar 2022
+ 22:44:35 +0200
+Received: by mail-wm1-f44.google.com with SMTP id n35so500261wms.5
+ for <alsa-devel@alsa-project.org>; Thu, 31 Mar 2022 13:44:35 -0700 (PDT)
+X-Gm-Message-State: AOAM5339kY7e9wtpTZfH9GDKbd2+LnQrLlnkGzRll3MdGc7dytQJuTpE
+ Yhg6RRe39Q60mxzwwYBkdS2/ic51GMkEfg6g0kk=
+X-Google-Smtp-Source: ABdhPJyFeJUAUK6GAZ/NhueIXRM9Oewyb4HUoVhUwi2uLC9MSZns5oEWdhfhtv0wykqSw0IptauyUmpRy+Fn8YuUnQE=
+X-Received: by 2002:a05:600c:4e11:b0:38c:bd19:e72c with SMTP id
+ b17-20020a05600c4e1100b0038cbd19e72cmr6187817wmq.174.1648759475650; Thu, 31
+ Mar 2022 13:44:35 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220330145741.3044896-1-robh@kernel.org>
-Cc: Ulf Hansson <ulf.hansson@linaro.org>, linux-iio@vger.kernel.org,
- alsa-devel@alsa-project.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Thierry Reding <thierry.reding@gmail.com>, linux-phy@lists.infradead.org,
- Dmitry Osipenko <digetx@gmail.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- Lars-Peter Clausen <lars@metafoo.de>, Kishon Vijay Abraham I <kishon@ti.com>,
- Olivier Moysan <olivier.moysan@foss.st.com>, Jakub Kicinski <kuba@kernel.org>,
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
- Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
- Grygorii Strashko <grygorii.strashko@ti.com>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- Mark Brown <broonie@kernel.org>, linux-tegra@vger.kernel.org,
- netdev@vger.kernel.org, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
- Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
- Georgi Djakov <djakov@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, Jonathan Cameron <jic23@kernel.org>
+References: <20220325153121.1598494-1-broonie@kernel.org>
+ <20220325153121.1598494-8-broonie@kernel.org>
+In-Reply-To: <20220325153121.1598494-8-broonie@kernel.org>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Thu, 31 Mar 2022 22:44:19 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a00ejR8aJtxLPfoKU104J6yD44fS2tRyzCQvT4pUF4m6A@mail.gmail.com>
+Message-ID: <CAK8P3a00ejR8aJtxLPfoKU104J6yD44fS2tRyzCQvT4pUF4m6A@mail.gmail.com>
+Subject: Re: [PATCH v1 7/7] ARM: configs: Update multi_v5_defconfig for WM8731
+ bus refactoring
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+X-Provags-ID: V03:K1:xGJCZIwOUumy8qXAbie+IhtypMea37TD91BIVGZ2UyOeEl5bDvR
+ AR9BFXqfdjLsEEqIxavKaQL4IiFLbdMRNamjds/nWGQ6NrT5ttZLsLKjU1FVwNEXRFI+kTT
+ TZAJfyfL3OpSSSKuJuO7RO8KSm+gwNd5qSbUQYuERRRH4ZcvoJ10Dz/6IQlyakbd6Z7wSWC
+ QnrLY/vgfcL3cIihzm2Tg==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:u7E+KYdsFaA=:62BCXsbzvhvayR3bX/qamR
+ JzKkErverCmYEuMdzwLscFikF4yC/ieBu408lTVw+5aKiYA3aVFzak89DwJgBnmH3YCecUI5W
+ RijIrBgpSE7KWTyUne90xkhdJ0/4ncvSzJPAkop1vkIXi4+UEi8xfTb6SWX0J1EvpVsyx8KO7
+ k2nP0zcufwfw8IKLNsuvM3tNPDDwTwQuYpZWOhxCVOLSh5uSYDcX9PxdCN4UF5Hfvcn+qwnaH
+ VQxs2RaY0D7uEOg4e85X71W93cEUc4FboIaa8TM03fps8c6E+lCc7QKTM4C3Ycvmxhk+ouO6C
+ TT4IF/kH9g56KLTWAVV2yuEMbWv3A+LTAqOhgUeIWcjnvmM7Y+CtsVY1el1LAgyEsrfy0Js/N
+ GWUBUgiQ+GwQCzZ9J7ZopyT27NZ9/nbVY3Ggq3YLeZn6i0hBhyQyiqIfiKin1AnQF7VtdYoIq
+ EpL7ms+uj15nU5RCQAM8pPd4NgdlkyKKoKPwZFF5H+rAec3McXl3oXYonErwSho3pb4HUc7b4
+ VNIadAo0sOt5lBz5y7CDp779lfutUhbUVauwXTbU6M9mPLIjYjb3XeKsLSzfGrhiEHwELml0q
+ oaj6hm7dkjEv9uF/uFmHjWmmcjq4JeqgyJdAfEyUtCffNxC9gNuBXKcDuFDl4Jwiet9AG+zFw
+ TmjCXGkOefy89qMYRTO7MZCcIq7f0dkuYYLwJLuXDisW3S2299vrjO0J0GtDPBa0ni/Q=
+Cc: SoC Team <soc@kernel.org>, patches@opensource.cirrus.com,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,54 +93,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 30 Mar 2022 09:57:41 -0500, Rob Herring wrote:
-> A recent review highlighted that the json-schema meta-schema allows any
-> combination of if/then/else schema keywords even though if, then or else
-> by themselves makes little sense. With an added meta-schema to only
-> allow valid combinations, there's a handful of schemas found which need
-> fixing in a variety of ways. Incorrect indentation is the most common
-> issue.
-> 
-> Cc: Lars-Peter Clausen <lars@metafoo.de>
-> Cc: Michael Hennerich <Michael.Hennerich@analog.com>
-> Cc: Jonathan Cameron <jic23@kernel.org>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Olivier Moysan <olivier.moysan@foss.st.com>
-> Cc: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-> Cc: Bjorn Andersson <bjorn.andersson@linaro.org>
-> Cc: Georgi Djakov <djakov@kernel.org>
-> Cc: Ulf Hansson <ulf.hansson@linaro.org>
-> Cc: Thierry Reding <thierry.reding@gmail.com>
-> Cc: Jonathan Hunter <jonathanh@nvidia.com>
-> Cc: "David S. Miller" <davem@davemloft.net>
-> Cc: Jakub Kicinski <kuba@kernel.org>
-> Cc: Paolo Abeni <pabeni@redhat.com>
-> Cc: Kishon Vijay Abraham I <kishon@ti.com>
-> Cc: Vinod Koul <vkoul@kernel.org>
-> Cc: Mark Brown <broonie@kernel.org>
-> Cc: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-> Cc: Grygorii Strashko <grygorii.strashko@ti.com>
-> Cc: Dmitry Osipenko <digetx@gmail.com>
-> Cc: linux-iio@vger.kernel.org
-> Cc: alsa-devel@alsa-project.org
-> Cc: linux-mmc@vger.kernel.org
-> Cc: linux-tegra@vger.kernel.org
-> Cc: netdev@vger.kernel.org
-> Cc: linux-phy@lists.infradead.org
-> Signed-off-by: Rob Herring <robh@kernel.org>
+On Fri, Mar 25, 2022 at 4:31 PM Mark Brown <broonie@kernel.org> wrote:
+>
+> The WM8731 driver has been refactored so the I2C and SPI bus code is
+> separate modules. Refresh multi_v5_defconfig to reflect this.
+>
+> Signed-off-by: Mark Brown <broonie@kernel.org>
+> Cc: soc@kernel.org
 > ---
->  .../bindings/iio/adc/adi,ad7476.yaml          |  1 +
->  .../bindings/iio/adc/st,stm32-dfsdm-adc.yaml  |  8 +-
->  .../bindings/iio/dac/adi,ad5360.yaml          |  6 +-
->  .../bindings/interconnect/qcom,rpm.yaml       | 84 +++++++++----------
->  .../bindings/mmc/nvidia,tegra20-sdhci.yaml    |  2 +
->  .../bindings/net/ti,davinci-mdio.yaml         |  1 +
->  .../bindings/phy/nvidia,tegra20-usb-phy.yaml  | 20 ++---
->  .../bindings/phy/qcom,usb-hs-phy.yaml         | 36 ++++----
->  .../bindings/regulator/fixed-regulator.yaml   | 34 ++++----
->  .../bindings/sound/st,stm32-sai.yaml          |  6 +-
->  .../devicetree/bindings/sram/sram.yaml        | 16 ++--
->  11 files changed, 108 insertions(+), 106 deletions(-)
-> 
 
-Applied, thanks!
+Acked-by: Arnd Bergmann <arnd@arndb.de>
+
+If you prefer to keep it together with the driver patches, please merge through
+your tree.
+
+      Arnd

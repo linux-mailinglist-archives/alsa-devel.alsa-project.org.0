@@ -2,103 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 838264EE076
-	for <lists+alsa-devel@lfdr.de>; Thu, 31 Mar 2022 20:30:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8757C4EE28E
+	for <lists+alsa-devel@lfdr.de>; Thu, 31 Mar 2022 22:21:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 148CE18F1;
-	Thu, 31 Mar 2022 20:29:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 148CE18F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id DBEE918B1;
+	Thu, 31 Mar 2022 22:20:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DBEE918B1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648751447;
-	bh=tIrypwlKpwOuWanlNG+VPmAJagG5ok+okrTYDZN71OI=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=AuRieAvX/D81vQVKYkOUZbPCoT9NTQ0TKk7sLSyMg344zzVJRr/Kf9zEmFJrrp342
-	 wH+3gC29ucaD2swk7aZouX0kwRnqwTjPPhJRbyrbMKnZWLKJnXvx7s+7PI70g8Gl53
-	 KF3HK6JuK8sJjJRuwote2pC056npfgv1ND/g0t2k=
+	s=default; t=1648758068;
+	bh=fRBa5KgrP0ERty3hzbBujCS0ilaIQtGz8NdHEBzsCEI=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=LazOu8YBmS0RS/gUSKXEcVHZEhZk8cqo8EWAdfg5gOgfs6h/rr/JDD/TX8pw+WV+U
+	 IcVvAucemS/hWa8H9+sdLuWMXayDqTaVW+hpkyPNFbxlb6k1qn7oElpP0iVZSc09eA
+	 G2GZfbvC4H/3YoJRIItM6Lik+SfuQsXecmVxEOao=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78CDBF80238;
-	Thu, 31 Mar 2022 20:29:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5303FF80238;
+	Thu, 31 Mar 2022 22:20:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A8EDAF80227; Thu, 31 Mar 2022 20:29:35 +0200 (CEST)
+ id 24141F80227; Thu, 31 Mar 2022 22:19:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HK_RANDOM_ENVFROM,HK_RANDOM_FROM,PRX_BODY_13,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
+X-Spam-Level: 
+X-Spam-Status: No, score=0.2 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from smtp.smtpout.orange.fr (smtp02.smtpout.orange.fr
+ [80.12.242.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D6207F800B8
- for <alsa-devel@alsa-project.org>; Thu, 31 Mar 2022 20:29:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6207F800B8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="CkC9oZhm"
-Received: by mail-lf1-x131.google.com with SMTP id e16so618033lfc.13
- for <alsa-devel@alsa-project.org>; Thu, 31 Mar 2022 11:29:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=vTy2Og6/ksiOjfSxA2VkXzzf/gIJdlseQLiXWZzscsE=;
- b=CkC9oZhm5QLkzYE/EiXhlDW4YV4w/ZBdhMZ3ktKWhv2pD8YP0v1rVkkPWgQU6rLf+O
- iFzDZP3yMlAk08gwJTX8Oz4SyLSYUWtp456eZxDjEQoLkGaqJdg6zGolsGo+O53fHvfm
- Hm6tqFiyADHJi2RFPz8ojcbjuOcZlk+BGHuvbBtM7SfNlLLDbP2PLh34P4xErnIC7KOp
- MHodTinEHnPinj8B2Eg5PAobpBrqMJkZN4ZjlyAqJA0CTy/nBSV1naxSJCvUTQ2MPaWP
- CvmaFiFM6+G0sqN0GWj713bBV67u7X6eY7k+AIeIvbSV5cWwkM6aylyL0S/FzL8ndlE9
- L3fQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=vTy2Og6/ksiOjfSxA2VkXzzf/gIJdlseQLiXWZzscsE=;
- b=uUrw/UBkjgXoGtCFmom6LaCyEazzCqRjm4LuyYKonxou6NcBz+eR/yhcAPfCbfkG/G
- BRZ3M7Mn/VC1D7MJw3XlCsPFPRq94wLQXf9Tnggtlfh1cnAOxtsn0rFAn9jIWGYFkWgM
- FgJxXqgwm7zGqlnOKZ6rpm06QFExOsKlrdJ9fvS0I50UiNEp3vJLKm7nIQfJY8A21/yz
- R6qcthUa3ZZ3Hl0hV7TyckWg92unR5PonuTt9N3y3fgG06hZS0L4LZFw17g8aC+lfBWN
- UYRjEI9osblQ/HDuLJqLOlmqwAxhbMgP3LiQ/EREuxgm5XdqL3Hq9rzzd3H8T7AzZcqi
- W6XQ==
-X-Gm-Message-State: AOAM533J4d0TPFxYInrxnYxaeDTTSV6AZVxY3ieP8JQjSQdIAQWmVqSR
- H72kSy3Z/M3xdo3oUoE+PhY=
-X-Google-Smtp-Source: ABdhPJwrszT4Jfefk6W9i5pwR0Fl6j1s/lWxUfpWpqQ6NcbKVYRLD3pNIUASLzTxWjKHzEFpXW4xRw==
-X-Received: by 2002:a05:6512:2308:b0:44a:7562:9e25 with SMTP id
- o8-20020a056512230800b0044a75629e25mr11224488lfu.37.1648751369614; 
- Thu, 31 Mar 2022 11:29:29 -0700 (PDT)
-Received: from dell.intranet (93-181-165-181.internetia.net.pl.
- [93.181.165.181]) by smtp.gmail.com with ESMTPSA id
- bu1-20020a056512168100b004437db5e773sm13378lfb.94.2022.03.31.11.29.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 31 Mar 2022 11:29:28 -0700 (PDT)
-From: Janusz Krzysztofik <jmkrzyszt@gmail.com>
-To: Ulf Hansson <ulf.hansson@linaro.org>
-Subject: Re: [PATCH v2] ARM: OMAP1: Prepare for conversion of OMAP1 clocks to
- CCF
-Date: Thu, 31 Mar 2022 20:29:26 +0200
-Message-ID: <3657229.kQq0lBPeGt@dell>
-In-Reply-To: <CAPDyKFo3sD-5OrfknMQt10D8A7ygMCUW3PV7EQ7L_MB9GxEDbQ@mail.gmail.com>
-References: <20220310233307.99220-3-jmkrzyszt@gmail.com>
- <20220321215416.236250-1-jmkrzyszt@gmail.com>
- <CAPDyKFo3sD-5OrfknMQt10D8A7ygMCUW3PV7EQ7L_MB9GxEDbQ@mail.gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3872BF800E4
+ for <alsa-devel@alsa-project.org>; Thu, 31 Mar 2022 22:19:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3872BF800E4
+Received: from pop-os.home ([90.126.236.122]) by smtp.orange.fr with ESMTPA
+ id a1Gln3Kfl9eePa1GmnadrV; Thu, 31 Mar 2022 22:19:49 +0200
+X-ME-Helo: pop-os.home
+X-ME-Auth: YWZlNiIxYWMyZDliZWIzOTcwYTEyYzlhMmU3ZiQ1M2U2MzfzZDfyZTMxZTBkMTYyNDBjNDJlZmQ3ZQ==
+X-ME-Date: Thu, 31 Mar 2022 22:19:49 +0200
+X-ME-IP: 90.126.236.122
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH] ASoC: soc-pcm: use GFP_KERNEL when the code is sleepable
+Date: Thu, 31 Mar 2022 22:19:44 +0200
+Message-Id: <e740f1930843060e025e3c0f17ec1393cfdafb26.1648757961.git.christophe.jaillet@wanadoo.fr>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-Cc: alsa-devel@alsa-project.org, Felipe Balbi <balbi@kernel.org>,
- Paul Walmsley <paul@pwsan.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Arnd Bergmann <arnd@arndb.de>, Aaro Koskinen <aaro.koskinen@iki.fi>,
- Tony Lindgren <tony@atomide.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Helge Deller <deller@gmx.de>,
- linux-usb@vger.kernel.org, linux-mmc@vger.kernel.org,
- linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Janusz Krzysztofik <jmkrzyszt@gmail.com>, Mark Brown <broonie@kernel.org>,
- Alan Stern <stern@rowland.harvard.edu>, linux-omap@vger.kernel.org,
- Peter Ujfalusi <peter.ujfalusi@gmail.com>,
- linux-arm-kernel@lists.infradead.org
+Content-Transfer-Encoding: 8bit
+Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,461 +69,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Uffe,
+At the kzalloc() call in dpcm_be_connect(), there is no spin lock involved.
+It's merely protected by card->pcm_mutex, instead.  The spinlock is applied
+at the later call with snd_soc_pcm_stream_lock_irq() only for the list
+manipulations.  (See it's *_irq(), not *_irqsave(); that means the context
+being sleepable at that point.)  So, we can use GFP_KERNEL safely there.
 
-On Thursday, 31 March 2022 11:19:43 CEST Ulf Hansson wrote:
-> On Mon, 21 Mar 2022 at 22:54, Janusz Krzysztofik <jmkrzyszt@gmail.com> wrote:
-> >
-> > In preparation for conversion of OMAP1 clocks to common clock framework,
-> > identify users of those clocks which don't call clk_prepare/unprepare()
-> > and update them to call clk_prepare_enable/clk_disable_unprepare() instead
-> > of just clk_enable/disable(), as required by CCF implementation of clock
-> > API.
-> >
-> > v2: update still a few more OMAP specific drivers missed in v1,
-> >   - call clk_prepare/unprepare() just after/before clk_get/put() where it
-> >     can make more sense than merging prepare/unprepare with enable/disable.
-> >
-> > Signed-off-by: Janusz Krzysztofik <jmkrzyszt@gmail.com>
-> 
-> Is there a specific reason why you can't split this into a per subsystem patch?
-> 
-> Don't get me wrong, if you need my ack you have it, but I just wanted
-> to know why this is?
+This patch revert commit d8a9c6e1f676 ("ASoC: soc-pcm: use GFP_ATOMIC for
+dpcm structure") which is no longer needed since commit b7898396f4bb
+("ASoC: soc-pcm: Fix and cleanup DPCM locking").
 
-There is no specific reason, I just didn't think of that, and indeed, that 
-is perfectly possible and will be more easy to handle.  Please expect a 
-separate patch for each subsystem soon.
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+---
+See discussion in the thread at:
+   https://lore.kernel.org/all/ed322b8821fa787907c1a4cce879564d1281b69d.1642331884.git.christophe.jaillet@wanadoo.fr/
+---
+ sound/soc/soc-pcm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks,
-Janusz
-
-> 
-> Kind regards
-> Uffe
-> 
-> > ---
-> >  arch/arm/mach-omap1/mcbsp.c       |  8 ++++----
-> >  arch/arm/mach-omap1/ocpi.c        |  4 ++--
-> >  arch/arm/mach-omap1/serial.c      |  6 +++---
-> >  arch/arm/mach-omap1/timer32k.c    |  2 +-
-> >  drivers/mmc/host/omap.c           | 23 ++++++++++++++---------
-> >  drivers/usb/gadget/udc/omap_udc.c | 14 ++++++++------
-> >  drivers/usb/host/ohci-omap.c      | 18 ++++++++++++++++--
-> >  drivers/video/fbdev/omap/hwa742.c |  6 +++---
-> >  drivers/video/fbdev/omap/lcdc.c   |  6 +++---
-> >  drivers/video/fbdev/omap/sossi.c  |  5 +++--
-> >  sound/soc/ti/osk5912.c            |  9 ++++++++-
-> >  11 files changed, 65 insertions(+), 36 deletions(-)
-> >
-> > diff --git a/arch/arm/mach-omap1/mcbsp.c b/arch/arm/mach-omap1/mcbsp.c
-> > index f36c34f47f11..3ec2badff6af 100644
-> > --- a/arch/arm/mach-omap1/mcbsp.c
-> > +++ b/arch/arm/mach-omap1/mcbsp.c
-> > @@ -44,8 +44,8 @@ static void omap1_mcbsp_request(unsigned int id)
-> >                         api_clk = clk_get(NULL, "api_ck");
-> >                         dsp_clk = clk_get(NULL, "dsp_ck");
-> >                         if (!IS_ERR(api_clk) && !IS_ERR(dsp_clk)) {
-> > -                               clk_enable(api_clk);
-> > -                               clk_enable(dsp_clk);
-> > +                               clk_prepare_enable(api_clk);
-> > +                               clk_prepare_enable(dsp_clk);
-> >
-> >                                 /*
-> >                                  * DSP external peripheral reset
-> > @@ -63,11 +63,11 @@ static void omap1_mcbsp_free(unsigned int id)
-> >         if (id == 0 || id == 2) {
-> >                 if (--dsp_use == 0) {
-> >                         if (!IS_ERR(api_clk)) {
-> > -                               clk_disable(api_clk);
-> > +                               clk_disable_unprepare(api_clk);
-> >                                 clk_put(api_clk);
-> >                         }
-> >                         if (!IS_ERR(dsp_clk)) {
-> > -                               clk_disable(dsp_clk);
-> > +                               clk_disable_unprepare(dsp_clk);
-> >                                 clk_put(dsp_clk);
-> >                         }
-> >                 }
-> > diff --git a/arch/arm/mach-omap1/ocpi.c b/arch/arm/mach-omap1/ocpi.c
-> > index 380ea2de58c1..03cc48024fd6 100644
-> > --- a/arch/arm/mach-omap1/ocpi.c
-> > +++ b/arch/arm/mach-omap1/ocpi.c
-> > @@ -73,7 +73,7 @@ static int __init omap_ocpi_init(void)
-> >         if (IS_ERR(ocpi_ck))
-> >                 return PTR_ERR(ocpi_ck);
-> >
-> > -       clk_enable(ocpi_ck);
-> > +       clk_prepare_enable(ocpi_ck);
-> >         ocpi_enable();
-> >         pr_info("OMAP OCPI interconnect driver loaded\n");
-> >
-> > @@ -87,7 +87,7 @@ static void __exit omap_ocpi_exit(void)
-> >         if (!cpu_is_omap16xx())
-> >                 return;
-> >
-> > -       clk_disable(ocpi_ck);
-> > +       clk_disable_unprepare(ocpi_ck);
-> >         clk_put(ocpi_ck);
-> >  }
-> >
-> > diff --git a/arch/arm/mach-omap1/serial.c b/arch/arm/mach-omap1/serial.c
-> > index 9eb591fbfd89..5f591a836ab5 100644
-> > --- a/arch/arm/mach-omap1/serial.c
-> > +++ b/arch/arm/mach-omap1/serial.c
-> > @@ -141,7 +141,7 @@ void __init omap_serial_init(void)
-> >                         if (IS_ERR(uart1_ck))
-> >                                 printk("Could not get uart1_ck\n");
-> >                         else {
-> > -                               clk_enable(uart1_ck);
-> > +                               clk_prepare_enable(uart1_ck);
-> >                                 if (cpu_is_omap15xx())
-> >                                         clk_set_rate(uart1_ck, 12000000);
-> >                         }
-> > @@ -151,7 +151,7 @@ void __init omap_serial_init(void)
-> >                         if (IS_ERR(uart2_ck))
-> >                                 printk("Could not get uart2_ck\n");
-> >                         else {
-> > -                               clk_enable(uart2_ck);
-> > +                               clk_prepare_enable(uart2_ck);
-> >                                 if (cpu_is_omap15xx())
-> >                                         clk_set_rate(uart2_ck, 12000000);
-> >                                 else
-> > @@ -163,7 +163,7 @@ void __init omap_serial_init(void)
-> >                         if (IS_ERR(uart3_ck))
-> >                                 printk("Could not get uart3_ck\n");
-> >                         else {
-> > -                               clk_enable(uart3_ck);
-> > +                               clk_prepare_enable(uart3_ck);
-> >                                 if (cpu_is_omap15xx())
-> >                                         clk_set_rate(uart3_ck, 12000000);
-> >                         }
-> > diff --git a/arch/arm/mach-omap1/timer32k.c b/arch/arm/mach-omap1/timer32k.c
-> > index 780fdf03c3ce..049c7b7f28c4 100644
-> > --- a/arch/arm/mach-omap1/timer32k.c
-> > +++ b/arch/arm/mach-omap1/timer32k.c
-> > @@ -180,7 +180,7 @@ int __init omap_32k_timer_init(void)
-> >
-> >                 sync32k_ick = clk_get(NULL, "omap_32ksync_ick");
-> >                 if (!IS_ERR(sync32k_ick))
-> > -                       clk_enable(sync32k_ick);
-> > +                       clk_prepare_enable(sync32k_ick);
-> >
-> >                 ret = omap_init_clocksource_32k(base);
-> >         }
-> > diff --git a/drivers/mmc/host/omap.c b/drivers/mmc/host/omap.c
-> > index 5e5af34090f1..57d39283924d 100644
-> > --- a/drivers/mmc/host/omap.c
-> > +++ b/drivers/mmc/host/omap.c
-> > @@ -1374,7 +1374,7 @@ static int mmc_omap_probe(struct platform_device *pdev)
-> >         host->iclk = clk_get(&pdev->dev, "ick");
-> >         if (IS_ERR(host->iclk))
-> >                 return PTR_ERR(host->iclk);
-> > -       clk_enable(host->iclk);
-> > +       clk_prepare_enable(host->iclk);
-> >
-> >         host->fclk = clk_get(&pdev->dev, "fck");
-> >         if (IS_ERR(host->fclk)) {
-> > @@ -1382,16 +1382,18 @@ static int mmc_omap_probe(struct platform_device *pdev)
-> >                 goto err_free_iclk;
-> >         }
-> >
-> > +       ret = clk_prepare(host->fclk);
-> > +       if (ret)
-> > +               goto err_put_fclk;
-> > +
-> >         host->dma_tx_burst = -1;
-> >         host->dma_rx_burst = -1;
-> >
-> >         host->dma_tx = dma_request_chan(&pdev->dev, "tx");
-> >         if (IS_ERR(host->dma_tx)) {
-> >                 ret = PTR_ERR(host->dma_tx);
-> > -               if (ret == -EPROBE_DEFER) {
-> > -                       clk_put(host->fclk);
-> > -                       goto err_free_iclk;
-> > -               }
-> > +               if (ret == -EPROBE_DEFER)
-> > +                       goto err_free_fclk;
-> >
-> >                 host->dma_tx = NULL;
-> >                 dev_warn(host->dev, "TX DMA channel request failed\n");
-> > @@ -1403,8 +1405,7 @@ static int mmc_omap_probe(struct platform_device *pdev)
-> >                 if (ret == -EPROBE_DEFER) {
-> >                         if (host->dma_tx)
-> >                                 dma_release_channel(host->dma_tx);
-> > -                       clk_put(host->fclk);
-> > -                       goto err_free_iclk;
-> > +                       goto err_free_fclk;
-> >                 }
-> >
-> >                 host->dma_rx = NULL;
-> > @@ -1454,9 +1455,12 @@ static int mmc_omap_probe(struct platform_device *pdev)
-> >                 dma_release_channel(host->dma_tx);
-> >         if (host->dma_rx)
-> >                 dma_release_channel(host->dma_rx);
-> > +err_free_fclk:
-> > +       clk_unprepare(host->fclk);
-> > +err_put_fclk:
-> >         clk_put(host->fclk);
-> >  err_free_iclk:
-> > -       clk_disable(host->iclk);
-> > +       clk_disable_unprepare(host->iclk);
-> >         clk_put(host->iclk);
-> >         return ret;
-> >  }
-> > @@ -1476,8 +1480,9 @@ static int mmc_omap_remove(struct platform_device *pdev)
-> >
-> >         mmc_omap_fclk_enable(host, 0);
-> >         free_irq(host->irq, host);
-> > +       clk_unprepare(host->fclk);
-> >         clk_put(host->fclk);
-> > -       clk_disable(host->iclk);
-> > +       clk_disable_unprepare(host->iclk);
-> >         clk_put(host->iclk);
-> >
-> >         if (host->dma_tx)
-> > diff --git a/drivers/usb/gadget/udc/omap_udc.c b/drivers/usb/gadget/udc/omap_udc.c
-> > index 494da00398d7..8768a3280e19 100644
-> > --- a/drivers/usb/gadget/udc/omap_udc.c
-> > +++ b/drivers/usb/gadget/udc/omap_udc.c
-> > @@ -2604,6 +2604,8 @@ static void omap_udc_release(struct device *dev)
-> >         if (udc->dc_clk) {
-> >                 if (udc->clk_requested)
-> >                         omap_udc_enable_clock(0);
-> > +               clk_unprepare(udc->hhc_clk);
-> > +               clk_unprepare(udc->dc_clk);
-> >                 clk_put(udc->hhc_clk);
-> >                 clk_put(udc->dc_clk);
-> >         }
-> > @@ -2768,8 +2770,8 @@ static int omap_udc_probe(struct platform_device *pdev)
-> >                 hhc_clk = clk_get(&pdev->dev, "usb_hhc_ck");
-> >                 BUG_ON(IS_ERR(dc_clk) || IS_ERR(hhc_clk));
-> >                 /* can't use omap_udc_enable_clock yet */
-> > -               clk_enable(dc_clk);
-> > -               clk_enable(hhc_clk);
-> > +               clk_prepare_enable(dc_clk);
-> > +               clk_prepare_enable(hhc_clk);
-> >                 udelay(100);
-> >         }
-> >
-> > @@ -2778,8 +2780,8 @@ static int omap_udc_probe(struct platform_device *pdev)
-> >                 hhc_clk = clk_get(&pdev->dev, "l3_ocpi_ck");
-> >                 BUG_ON(IS_ERR(dc_clk) || IS_ERR(hhc_clk));
-> >                 /* can't use omap_udc_enable_clock yet */
-> > -               clk_enable(dc_clk);
-> > -               clk_enable(hhc_clk);
-> > +               clk_prepare_enable(dc_clk);
-> > +               clk_prepare_enable(hhc_clk);
-> >                 udelay(100);
-> >         }
-> >
-> > @@ -2927,8 +2929,8 @@ static int omap_udc_probe(struct platform_device *pdev)
-> >                 usb_put_phy(xceiv);
-> >
-> >         if (cpu_is_omap16xx() || cpu_is_omap7xx()) {
-> > -               clk_disable(hhc_clk);
-> > -               clk_disable(dc_clk);
-> > +               clk_disable_unprepare(hhc_clk);
-> > +               clk_disable_unprepare(dc_clk);
-> >                 clk_put(hhc_clk);
-> >                 clk_put(dc_clk);
-> >         }
-> > diff --git a/drivers/usb/host/ohci-omap.c b/drivers/usb/host/ohci-omap.c
-> > index 45dcf8292072..2ab2e089a2b7 100644
-> > --- a/drivers/usb/host/ohci-omap.c
-> > +++ b/drivers/usb/host/ohci-omap.c
-> > @@ -281,6 +281,10 @@ static int ohci_hcd_omap_probe(struct platform_device *pdev)
-> >                 goto err_put_hcd;
-> >         }
-> >
-> > +       retval = clk_prepare(priv->usb_host_ck);
-> > +       if (retval)
-> > +               goto err_put_host_ck;
-> > +
-> >         if (!cpu_is_omap15xx())
-> >                 priv->usb_dc_ck = clk_get(&pdev->dev, "usb_dc_ck");
-> >         else
-> > @@ -288,13 +292,17 @@ static int ohci_hcd_omap_probe(struct platform_device *pdev)
-> >
-> >         if (IS_ERR(priv->usb_dc_ck)) {
-> >                 retval = PTR_ERR(priv->usb_dc_ck);
-> > -               goto err_put_host_ck;
-> > +               goto err_unprepare_host_ck;
-> >         }
-> >
-> > +       retval = clk_prepare(priv->usb_dc_ck);
-> > +       if (retval)
-> > +               goto err_put_dc_ck;
-> > +
-> >         if (!request_mem_region(hcd->rsrc_start, hcd->rsrc_len, hcd_name)) {
-> >                 dev_dbg(&pdev->dev, "request_mem_region failed\n");
-> >                 retval = -EBUSY;
-> > -               goto err_put_dc_ck;
-> > +               goto err_unprepare_dc_ck;
-> >         }
-> >
-> >         hcd->regs = ioremap(hcd->rsrc_start, hcd->rsrc_len);
-> > @@ -319,8 +327,12 @@ static int ohci_hcd_omap_probe(struct platform_device *pdev)
-> >         iounmap(hcd->regs);
-> >  err2:
-> >         release_mem_region(hcd->rsrc_start, hcd->rsrc_len);
-> > +err_unprepare_dc_ck:
-> > +       clk_unprepare(priv->usb_dc_ck);
-> >  err_put_dc_ck:
-> >         clk_put(priv->usb_dc_ck);
-> > +err_unprepare_host_ck:
-> > +       clk_unprepare(priv->usb_host_ck);
-> >  err_put_host_ck:
-> >         clk_put(priv->usb_host_ck);
-> >  err_put_hcd:
-> > @@ -355,7 +367,9 @@ static int ohci_hcd_omap_remove(struct platform_device *pdev)
-> >         }
-> >         iounmap(hcd->regs);
-> >         release_mem_region(hcd->rsrc_start, hcd->rsrc_len);
-> > +       clk_unprepare(priv->usb_dc_ck);
-> >         clk_put(priv->usb_dc_ck);
-> > +       clk_unprepare(priv->usb_host_ck);
-> >         clk_put(priv->usb_host_ck);
-> >         usb_put_hcd(hcd);
-> >         return 0;
-> > diff --git a/drivers/video/fbdev/omap/hwa742.c b/drivers/video/fbdev/omap/hwa742.c
-> > index b191bef22d98..9d9fe5c3a7a1 100644
-> > --- a/drivers/video/fbdev/omap/hwa742.c
-> > +++ b/drivers/video/fbdev/omap/hwa742.c
-> > @@ -964,7 +964,7 @@ static int hwa742_init(struct omapfb_device *fbdev, int ext_mode,
-> >         if ((r = calc_extif_timings(ext_clk, &extif_mem_div)) < 0)
-> >                 goto err3;
-> >         hwa742.extif->set_timings(&hwa742.reg_timings);
-> > -       clk_enable(hwa742.sys_ck);
-> > +       clk_prepare_enable(hwa742.sys_ck);
-> >
-> >         calc_hwa742_clk_rates(ext_clk, &sys_clk, &pix_clk);
-> >         if ((r = calc_extif_timings(sys_clk, &extif_mem_div)) < 0)
-> > @@ -1023,7 +1023,7 @@ static int hwa742_init(struct omapfb_device *fbdev, int ext_mode,
-> >
-> >         return 0;
-> >  err4:
-> > -       clk_disable(hwa742.sys_ck);
-> > +       clk_disable_unprepare(hwa742.sys_ck);
-> >  err3:
-> >         hwa742.extif->cleanup();
-> >  err2:
-> > @@ -1037,7 +1037,7 @@ static void hwa742_cleanup(void)
-> >         hwa742_set_update_mode(OMAPFB_UPDATE_DISABLED);
-> >         hwa742.extif->cleanup();
-> >         hwa742.int_ctrl->cleanup();
-> > -       clk_disable(hwa742.sys_ck);
-> > +       clk_disable_unprepare(hwa742.sys_ck);
-> >  }
-> >
-> >  struct lcd_ctrl hwa742_ctrl = {
-> > diff --git a/drivers/video/fbdev/omap/lcdc.c b/drivers/video/fbdev/omap/lcdc.c
-> > index 7317c9aad677..97d20dc0d1d0 100644
-> > --- a/drivers/video/fbdev/omap/lcdc.c
-> > +++ b/drivers/video/fbdev/omap/lcdc.c
-> > @@ -711,7 +711,7 @@ static int omap_lcdc_init(struct omapfb_device *fbdev, int ext_mode,
-> >                 dev_err(fbdev->dev, "failed to adjust LCD rate\n");
-> >                 goto fail1;
-> >         }
-> > -       clk_enable(lcdc.lcd_ck);
-> > +       clk_prepare_enable(lcdc.lcd_ck);
-> >
-> >         r = request_irq(OMAP_LCDC_IRQ, lcdc_irq_handler, 0, MODULE_NAME, fbdev);
-> >         if (r) {
-> > @@ -746,7 +746,7 @@ static int omap_lcdc_init(struct omapfb_device *fbdev, int ext_mode,
-> >  fail3:
-> >         free_irq(OMAP_LCDC_IRQ, lcdc.fbdev);
-> >  fail2:
-> > -       clk_disable(lcdc.lcd_ck);
-> > +       clk_disable_unprepare(lcdc.lcd_ck);
-> >  fail1:
-> >         clk_put(lcdc.lcd_ck);
-> >  fail0:
-> > @@ -760,7 +760,7 @@ static void omap_lcdc_cleanup(void)
-> >         free_fbmem();
-> >         omap_free_lcd_dma();
-> >         free_irq(OMAP_LCDC_IRQ, lcdc.fbdev);
-> > -       clk_disable(lcdc.lcd_ck);
-> > +       clk_disable_unprepare(lcdc.lcd_ck);
-> >         clk_put(lcdc.lcd_ck);
-> >  }
-> >
-> > diff --git a/drivers/video/fbdev/omap/sossi.c b/drivers/video/fbdev/omap/sossi.c
-> > index 80ac67f27f0d..b9cb8b386627 100644
-> > --- a/drivers/video/fbdev/omap/sossi.c
-> > +++ b/drivers/video/fbdev/omap/sossi.c
-> > @@ -598,7 +598,7 @@ static int sossi_init(struct omapfb_device *fbdev)
-> >         l &= ~CONF_SOSSI_RESET_R;
-> >         omap_writel(l, MOD_CONF_CTRL_1);
-> >
-> > -       clk_enable(sossi.fck);
-> > +       clk_prepare_enable(sossi.fck);
-> >         l = omap_readl(ARM_IDLECT2);
-> >         l &= ~(1 << 8);                 /* DMACK_REQ */
-> >         omap_writel(l, ARM_IDLECT2);
-> > @@ -649,7 +649,7 @@ static int sossi_init(struct omapfb_device *fbdev)
-> >         return 0;
-> >
-> >  err:
-> > -       clk_disable(sossi.fck);
-> > +       clk_disable_unprepare(sossi.fck);
-> >         clk_put(sossi.fck);
-> >         return r;
-> >  }
-> > @@ -657,6 +657,7 @@ static int sossi_init(struct omapfb_device *fbdev)
-> >  static void sossi_cleanup(void)
-> >  {
-> >         omap_lcdc_free_dma_callback();
-> > +       clk_unprepare(sossi.fck);
-> >         clk_put(sossi.fck);
-> >         iounmap(sossi.base);
-> >  }
-> > diff --git a/sound/soc/ti/osk5912.c b/sound/soc/ti/osk5912.c
-> > index 40e29dda7e7a..22da3b335e81 100644
-> > --- a/sound/soc/ti/osk5912.c
-> > +++ b/sound/soc/ti/osk5912.c
-> > @@ -134,6 +134,10 @@ static int __init osk_soc_init(void)
-> >                 goto err2;
-> >         }
-> >
-> > +       err = clk_prepare(tlv320aic23_mclk);
-> > +       if (err)
-> > +               goto err3;
-> > +
-> >         /*
-> >          * Configure 12 MHz output on MCLK.
-> >          */
-> > @@ -142,7 +146,7 @@ static int __init osk_soc_init(void)
-> >                 if (clk_set_rate(tlv320aic23_mclk, CODEC_CLOCK)) {
-> >                         printk(KERN_ERR "Cannot set MCLK for AIC23 CODEC\n");
-> >                         err = -ECANCELED;
-> > -                       goto err3;
-> > +                       goto err4;
-> >                 }
-> >         }
-> >
-> > @@ -151,6 +155,8 @@ static int __init osk_soc_init(void)
-> >
-> >         return 0;
-> >
-> > +err4:
-> > +       clk_unprepare(tlv320aic23_mclk);
-> >  err3:
-> >         clk_put(tlv320aic23_mclk);
-> >  err2:
-> > @@ -164,6 +170,7 @@ static int __init osk_soc_init(void)
-> >
-> >  static void __exit osk_soc_exit(void)
-> >  {
-> > +       clk_unprepare(tlv320aic23_mclk);
-> >         clk_put(tlv320aic23_mclk);
-> >         platform_device_unregister(osk_snd_device);
-> >  }
-> > --
-> > 2.35.1
-> >
-> 
-
-
-
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index 9a954680d492..11c9853e9e80 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -1214,7 +1214,7 @@ static int dpcm_be_connect(struct snd_soc_pcm_runtime *fe,
+ 		be_substream->pcm->nonatomic = 1;
+ 	}
+ 
+-	dpcm = kzalloc(sizeof(struct snd_soc_dpcm), GFP_ATOMIC);
++	dpcm = kzalloc(sizeof(struct snd_soc_dpcm), GFP_KERNEL);
+ 	if (!dpcm)
+ 		return -ENOMEM;
+ 
+-- 
+2.32.0
 

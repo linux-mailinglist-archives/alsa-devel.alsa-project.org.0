@@ -2,57 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5F1F4ED0B0
-	for <lists+alsa-devel@lfdr.de>; Thu, 31 Mar 2022 02:07:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E37C4ED0B2
+	for <lists+alsa-devel@lfdr.de>; Thu, 31 Mar 2022 02:08:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 752411AA9;
-	Thu, 31 Mar 2022 02:06:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 752411AA9
+	by alsa0.perex.cz (Postfix) with ESMTPS id C27651AD6;
+	Thu, 31 Mar 2022 02:07:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C27651AD6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648685257;
-	bh=kBqmLJyK45UwHLatmSNkgmTzdLqU4v/Zl/8onBfplDk=;
+	s=default; t=1648685293;
+	bh=+fNKPocUjxQXDuz3GDZUxg0u1ctHRF6erM6q0fnGmzI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Rgv5jKTmSbWKbvp9+BApc6GlaAKT79FbtruwCnhWWgRzd85XYf5W1hmCdV4p/pfaM
-	 xlS/Pp2DRmO8sLFUYe/iAtRJ38cgUWL6XZpK6MLleeIFnVBoMNx2AcUoW1aRbLwX52
-	 Xo2unSVMJItp6hZusBEioI8FmtBWMLjopbw3SwAk=
+	b=dTDTPOO5yeDyBO+Dzm3YP87nybQKOSlZBGeNg7iF5OD9Ke9l3zmbD2yZKvee10K6O
+	 znZEVdXCpAyxIXQNveYQY8pkgJ2KAC9L/QfLRmobEq8/QzGR/nJ+j7xo83AW1t0wbt
+	 Zh7t1k4hnVT9umKhgi5uJiPhFgTptX30uUIqCqBY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7C2C9F804B4;
-	Thu, 31 Mar 2022 02:05:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 37140F80533;
+	Thu, 31 Mar 2022 02:05:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BE992F80518; Thu, 31 Mar 2022 02:05:39 +0200 (CEST)
+ id 9F5B5F8051D; Thu, 31 Mar 2022 02:05:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from hutie.ust.cz (unknown [IPv6:2a03:3b40:fe:f0::1])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from hutie.ust.cz (hutie.ust.cz [185.8.165.127])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 98901F80254
- for <alsa-devel@alsa-project.org>; Thu, 31 Mar 2022 02:05:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98901F80254
+ by alsa1.perex.cz (Postfix) with ESMTPS id 45339F80253
+ for <alsa-devel@alsa-project.org>; Thu, 31 Mar 2022 02:05:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45339F80253
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=cutebit.org header.i=@cutebit.org
- header.b="aN/8a0qf"
+ header.b="VpQis266"
 From: =?UTF-8?q?Martin=20Povi=C5=A1er?= <povik+lin@cutebit.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cutebit.org; s=mail;
- t=1648685132; bh=SeiIUiZeJW/WU1eEvgOIqMuWCeT5CiLubwaCNwTIB44=;
+ t=1648685133; bh=Ea0QBaJP2Xhb2qk22MNKaoz+blbZuooVi0kGOsoChyQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=aN/8a0qfTlacb8dkUsL9qNzNhslN5RAhSevBw6Ynn92QaDWLBR/+XW0cT6sDqo6Mk
- E2/xOWMdeUhPjHnUAIK+KYx93csU11L+jqfr5v7cswdYDU5sktP9sBxD8hG1hNDJkl
- I7PW6+g6HIA4W7v9ejkAvnTSXoyvnLB22q6pz2To=
+ b=VpQis266M9BalLOWg7P4c+68owWtkGGUriBUeUvRyIyl43yyS9AeR6+npb/uhLoFt
+ cMdw2Woc8wg62T4OF3zn6GU3pC59+r9ZlLV67mAu/hz1u2cugNWW+fk+SqwpnZqlhG
+ tWrI+oOjiZ4p8wuTk6iLkVWaYDX6HAojQwwwLI0o=
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [RFC PATCH 3/5] HACK: ASoC: Tolerate N-cpus-to-M-codecs links
-Date: Thu, 31 Mar 2022 02:04:47 +0200
-Message-Id: <20220331000449.41062-4-povik+lin@cutebit.org>
+Subject: [RFC PATCH 4/5] ASoC: Introduce snd_soc_of_get_dai_link_cpus
+Date: Thu, 31 Mar 2022 02:04:48 +0200
+Message-Id: <20220331000449.41062-5-povik+lin@cutebit.org>
 In-Reply-To: <20220331000449.41062-1-povik+lin@cutebit.org>
 References: <20220331000449.41062-1-povik+lin@cutebit.org>
 MIME-Version: 1.0
@@ -77,31 +77,121 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Tolerate N-to-M DAI links while using the first CPU DAI to decide
-playback/capture abilities.
+This function is an analogue of snd_soc_of_get_dai_link_codecs to help
+machine drivers read CPU DAI lists from devicetrees.
 
 Signed-off-by: Martin Povišer <povik+lin@cutebit.org>
 ---
- sound/soc/soc-pcm.c | 3 +++
- 1 file changed, 3 insertions(+)
+ include/sound/soc.h  |  4 +++
+ sound/soc/soc-core.c | 80 ++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 84 insertions(+)
 
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 9a954680d492..770cf367a147 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -2781,9 +2781,12 @@ static int soc_get_playback_capture(struct snd_soc_pcm_runtime *rtd,
- 			} else if (rtd->num_cpus == rtd->num_codecs) {
- 				cpu_dai = asoc_rtd_to_cpu(rtd, i);
- 			} else {
-+#if 0
- 				dev_err(rtd->card->dev,
- 					"N cpus to M codecs link is not supported yet\n");
- 				return -EINVAL;
-+#endif
-+				cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 			}
+diff --git a/include/sound/soc.h b/include/sound/soc.h
+index 0ab664500b8f..0bf9d1d0768c 100644
+--- a/include/sound/soc.h
++++ b/include/sound/soc.h
+@@ -1266,6 +1266,10 @@ int snd_soc_of_get_dai_link_codecs(struct device *dev,
+ 				   struct device_node *of_node,
+ 				   struct snd_soc_dai_link *dai_link);
+ void snd_soc_of_put_dai_link_codecs(struct snd_soc_dai_link *dai_link);
++int snd_soc_of_get_dai_link_cpus(struct device *dev,
++				 struct device_node *of_node,
++				 struct snd_soc_dai_link *dai_link);
++void snd_soc_of_put_dai_link_cpus(struct snd_soc_dai_link *dai_link);
  
- 			if (snd_soc_dai_stream_valid(codec_dai, SNDRV_PCM_STREAM_PLAYBACK) &&
+ int snd_soc_add_pcm_runtime(struct snd_soc_card *card,
+ 			    struct snd_soc_dai_link *dai_link);
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index 0bf05d98ec0d..a97476ec01ab 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -3400,6 +3400,86 @@ int snd_soc_of_get_dai_link_codecs(struct device *dev,
+ }
+ EXPORT_SYMBOL_GPL(snd_soc_of_get_dai_link_codecs);
+ 
++/*
++ * snd_soc_of_put_dai_link_cpus - Dereference device nodes in the codecs array
++ * @dai_link: DAI link
++ *
++ * Dereference device nodes acquired by snd_soc_of_get_dai_link_cpus().
++ */
++void snd_soc_of_put_dai_link_cpus(struct snd_soc_dai_link *dai_link)
++{
++	struct snd_soc_dai_link_component *component;
++	int index;
++
++	for_each_link_cpus(dai_link, index, component) {
++		if (!component->of_node)
++			break;
++		of_node_put(component->of_node);
++		component->of_node = NULL;
++	}
++}
++EXPORT_SYMBOL_GPL(snd_soc_of_put_dai_link_cpus);
++
++/*
++ * snd_soc_of_get_dai_link_cpus - Parse a list of CPU DAIs in the devicetree
++ * @dev: Card device
++ * @of_node: Device node
++ * @dai_link: DAI link
++ *
++ * Is analogous to snd_soc_of_get_dai_link_codecs but parses a list of CPU DAIs
++ * instead.
++ *
++ * Returns 0 for success
++ */
++int snd_soc_of_get_dai_link_cpus(struct device *dev,
++				 struct device_node *of_node,
++				 struct snd_soc_dai_link *dai_link)
++{
++	struct of_phandle_args args;
++	struct snd_soc_dai_link_component *component;
++	char *name;
++	int index, num_codecs, ret;
++
++	/* Count the number of CODECs */
++	name = "sound-dai";
++	num_codecs = of_count_phandle_with_args(of_node, name,
++						"#sound-dai-cells");
++	if (num_codecs <= 0) {
++		if (num_codecs == -ENOENT)
++			dev_err(dev, "No 'sound-dai' property\n");
++		else
++			dev_err(dev, "Bad phandle in 'sound-dai'\n");
++		return num_codecs;
++	}
++	component = devm_kcalloc(dev,
++				 num_codecs, sizeof(*component),
++				 GFP_KERNEL);
++	if (!component)
++		return -ENOMEM;
++	dai_link->cpus = component;
++	dai_link->num_cpus = num_codecs;
++
++	/* Parse the list */
++	for_each_link_cpus(dai_link, index, component) {
++		ret = of_parse_phandle_with_args(of_node, name,
++						 "#sound-dai-cells",
++						 index, &args);
++		if (ret)
++			goto err;
++		component->of_node = args.np;
++		ret = snd_soc_get_dai_name(&args, &component->dai_name);
++		if (ret < 0)
++			goto err;
++	}
++	return 0;
++err:
++	snd_soc_of_put_dai_link_codecs(dai_link);
++	dai_link->cpus = NULL;
++	dai_link->num_cpus = 0;
++	return ret;
++}
++EXPORT_SYMBOL_GPL(snd_soc_of_get_dai_link_cpus);
++
+ static int __init snd_soc_init(void)
+ {
+ 	snd_soc_debugfs_init();
 -- 
 2.33.0
 

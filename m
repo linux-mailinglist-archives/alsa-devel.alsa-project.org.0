@@ -2,95 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 306D34EF22E
-	for <lists+alsa-devel@lfdr.de>; Fri,  1 Apr 2022 17:03:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A1064EF232
+	for <lists+alsa-devel@lfdr.de>; Fri,  1 Apr 2022 17:04:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BD5561A5E;
-	Fri,  1 Apr 2022 17:02:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD5561A5E
+	by alsa0.perex.cz (Postfix) with ESMTPS id DB03A1AE1;
+	Fri,  1 Apr 2022 17:04:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB03A1AE1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648825419;
-	bh=vK8YtcbM8fx4DPbHV/29zhwoP2I79rX/2+cMYX/qDeU=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=jdW7mRdxisuwMRLiuNAnd+2P5D/7dKG1BfOyhR7ms3sNRgU8gKpLobv1E0dGPmm7j
-	 69wI+JG4/34kFfI+ngXH3mrCPVJmuldlnx4y2hOqlJxhnmXWCE9/n7yxH5tB6EN6hK
-	 2Qx1vcit79GrDsb9dupGV1XByZPrLtxgpQ4oQR4g=
+	s=default; t=1648825491;
+	bh=wVyq9J1SSbisUk8t9r2GT4LhTm0byo/d3aeBXkM2RMo=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=gxI8+vtlMIPPq+sbrtHW8C/y+JfQ3rzGyeU40uRqN5WDntMwrruyg2hqYi0iB04kU
+	 kDPJK0jXPTpvnDR2By2Mif95+7hAVPWoJ/3X52Eqvk+mLr2nchRmOqTafreTEgL/rd
+	 6aaLpr5mCtKdbVx8jRkzlj/6ABfm8zxGUM6K6jGM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2CD90F801D8;
-	Fri,  1 Apr 2022 17:02:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 68B21F80519;
+	Fri,  1 Apr 2022 17:03:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 09702F80279; Fri,  1 Apr 2022 17:02:29 +0200 (CEST)
+ id 4EA0DF80520; Fri,  1 Apr 2022 17:03:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Level: **
+X-Spam-Status: No, score=2.1 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FROM,FROM_LOCAL_DIGITS,FROM_LOCAL_HEX,SPF_HELO_NONE,SPF_NONE,
+ SPOOFED_FREEMAIL,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 224ACF80100
- for <alsa-devel@alsa-project.org>; Fri,  1 Apr 2022 17:02:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 224ACF80100
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="f5Y3eL2w"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 231CJbL4008410;
- Fri, 1 Apr 2022 10:02:19 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=PdYyuppgFyyHYAEkB/pCVaPIbFP1vk2s7gMdjvDUBi4=;
- b=f5Y3eL2wKH9irysVBEy3+mjnCENUWDETwnm1up4R1WbiMHyCEfXoCAt7cSQ6173TADjD
- mDGf01jJnd6Bc7PjHkq4b46O/5GXYPBCVO9xjsbdiyHlhV3CosrNcaJOBoe4B8uD8OzX
- GAzncZec1Pv6uIFqjgOGXLGfHDlyjMcIEBsLwdckEoH85qs/1mncCAZErEXlCj9e6sIg
- ZKIaOwYXwgQ8Nzr5Oytg9IsCKI0viJFi7SwBNOYrANUfA2WXkYFuHlmd8MuAl4EuAbbs
- 4HJ500afQQmrPUHkWD/9V4VnSRDzSXKuG5i/9p4h+ZuVb7vXFLUS+lMLsLxU9/SzfEt4 3g== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3f2081jg3u-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Fri, 01 Apr 2022 10:02:18 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Fri, 1 Apr
- 2022 16:02:16 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.24 via
- Frontend Transport; Fri, 1 Apr 2022 16:02:16 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id B32C211D1;
- Fri,  1 Apr 2022 15:02:16 +0000 (UTC)
-Date: Fri, 1 Apr 2022 15:02:16 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH] dt-bindings: Fix 'enum' lists with duplicate entries
-Message-ID: <20220401150216.GK38351@ediswmail.ad.cirrus.com>
-References: <20220401141247.2993925-1-robh@kernel.org>
+Received: from n169-112.mail.139.com (n169-112.mail.139.com [120.232.169.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 226CAF8020D
+ for <alsa-devel@alsa-project.org>; Fri,  1 Apr 2022 17:03:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 226CAF8020D
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM: 
+X-RM-SPAM-FLAG: 00000000
+Received: from LAPTOP-39QA2GAC.localdomain (unknown[120.231.214.8])
+ by rmsmtp-lg-appmail-27-12032 (RichMail) with SMTP id 2f0062471426e32-0cadd;
+ Fri, 01 Apr 2022 23:03:14 +0800 (CST)
+X-RM-TRANSID: 2f0062471426e32-0cadd
+From: Raphael-Xu <13691752556@139.com>
+To: broonie@kernel.org
+Subject: [PATCH v6 1/3] rename tas2764 to tas27xx
+Date: Fri,  1 Apr 2022 23:02:59 +0800
+Message-Id: <20220401150301.1011-1-13691752556@139.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20220401141247.2993925-1-robh@kernel.org>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-ORIG-GUID: foSJCjKXTi2Rwva_dqLI1GjRicTPaoII
-X-Proofpoint-GUID: foSJCjKXTi2Rwva_dqLI1GjRicTPaoII
-X-Proofpoint-Spam-Reason: safe
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-pm@vger.kernel.org, Tony Lindgren <tony@atomide.com>,
- Yunfei Dong <yunfei.dong@mediatek.com>,
- Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org,
- Jonathan Hunter <jonathanh@nvidia.com>, linux-gpio@vger.kernel.org,
- Thierry Reding <thierry.reding@gmail.com>, Sebastian Reichel <sre@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, - <patches@opensource.cirrus.com>,
- linux-media@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+Cc: navada@ti.com, alsa-devel@alsa-project.org, shenghao-ding@ti.com,
+ raphael-xu@ti.com, Raphael-Xu <13691752556@139.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,28 +69,75 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Apr 01, 2022 at 09:12:47AM -0500, Rob Herring wrote:
-> There's no reason to list the same value twice in an 'enum'. Fix all the
-> occurrences in the tree. A meta-schema change will catch future ones.
-> 
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Thierry Reding <thierry.reding@gmail.com>
-> Cc: Jonathan Hunter <jonathanh@nvidia.com>
-> Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-> Cc: Charles Keepax <ckeepax@opensource.cirrus.com>
-> Cc: Linus Walleij <linus.walleij@linaro.org>
-> Cc: Sebastian Reichel <sre@kernel.org>
-> Cc: Tony Lindgren <tony@atomide.com>
-> Cc: Yunfei Dong <yunfei.dong@mediatek.com>
-> Cc: - <patches@opensource.cirrus.com>
-> Cc: linux-media@vger.kernel.org
-> Cc: alsa-devel@alsa-project.org
-> Cc: linux-gpio@vger.kernel.org
-> Cc: linux-pm@vger.kernel.org
-> Signed-off-by: Rob Herring <robh@kernel.org>
-> ---
+rename tas2764.c and tas2764.h to tas27xx.c and tas27xx.h
 
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+rename tas2764 to tas27xx in Kconfig and Makefile
 
-Thanks,
-Charles
+Signed-off-by: Raphael-Xu <13691752556@139.com>
+---
+ sound/soc/codecs/Kconfig                  | 6 +++---
+ sound/soc/codecs/Makefile                 | 4 ++--
+ sound/soc/codecs/{tas2764.c => tas27xx.c} | 0
+ sound/soc/codecs/{tas2764.h => tas27xx.h} | 0
+ 4 files changed, 5 insertions(+), 5 deletions(-)
+ rename sound/soc/codecs/{tas2764.c => tas27xx.c} (100%)
+ rename sound/soc/codecs/{tas2764.h => tas27xx.h} (100%)
+
+diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+index f46a22660103..3aa5f35c1d7c 100644
+--- a/sound/soc/codecs/Kconfig
++++ b/sound/soc/codecs/Kconfig
+@@ -213,7 +213,7 @@ config SND_SOC_ALL_CODECS
+ 	imply SND_SOC_STI_SAS
+ 	imply SND_SOC_TAS2552
+ 	imply SND_SOC_TAS2562
+-	imply SND_SOC_TAS2764
++	imply SND_SOC_TAS27XX
+ 	imply SND_SOC_TAS2770
+ 	imply SND_SOC_TAS5086
+ 	imply SND_SOC_TAS571X
+@@ -1472,8 +1472,8 @@ config SND_SOC_TAS2562
+ 	tristate "Texas Instruments TAS2562 Mono Audio amplifier"
+ 	depends on I2C
+ 
+-config SND_SOC_TAS2764
+-	tristate "Texas Instruments TAS2764 Mono Audio amplifier"
++config SND_SOC_TAS27XX
++	tristate "Texas Instruments TAS27xx Mono Audio amplifier"
+ 	depends on I2C
+ 
+ config SND_SOC_TAS2770
+diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
+index 8637e9e869e3..15ceb95d42f5 100644
+--- a/sound/soc/codecs/Makefile
++++ b/sound/soc/codecs/Makefile
+@@ -337,7 +337,7 @@ snd-soc-simple-amplifier-objs := simple-amplifier.o
+ snd-soc-tpa6130a2-objs := tpa6130a2.o
+ snd-soc-tas2552-objs := tas2552.o
+ snd-soc-tas2562-objs := tas2562.o
+-snd-soc-tas2764-objs := tas2764.o
++snd-soc-tas27xx-objs := tas27xx.o
+ # Mux
+ snd-soc-simple-mux-objs := simple-mux.o
+ 
+@@ -574,7 +574,7 @@ obj-$(CONFIG_SND_SOC_STAC9766)	+= snd-soc-stac9766.o
+ obj-$(CONFIG_SND_SOC_STI_SAS)	+= snd-soc-sti-sas.o
+ obj-$(CONFIG_SND_SOC_TAS2552)	+= snd-soc-tas2552.o
+ obj-$(CONFIG_SND_SOC_TAS2562)	+= snd-soc-tas2562.o
+-obj-$(CONFIG_SND_SOC_TAS2764)	+= snd-soc-tas2764.o
++obj-$(CONFIG_SND_SOC_TAS27XX)	+= snd-soc-tas27xx.o
+ obj-$(CONFIG_SND_SOC_TAS5086)	+= snd-soc-tas5086.o
+ obj-$(CONFIG_SND_SOC_TAS571X)	+= snd-soc-tas571x.o
+ obj-$(CONFIG_SND_SOC_TAS5720)	+= snd-soc-tas5720.o
+diff --git a/sound/soc/codecs/tas2764.c b/sound/soc/codecs/tas27xx.c
+similarity index 100%
+rename from sound/soc/codecs/tas2764.c
+rename to sound/soc/codecs/tas27xx.c
+diff --git a/sound/soc/codecs/tas2764.h b/sound/soc/codecs/tas27xx.h
+similarity index 100%
+rename from sound/soc/codecs/tas2764.h
+rename to sound/soc/codecs/tas27xx.h
+-- 
+2.35.1
+
+

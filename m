@@ -2,48 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A44A4EE58C
-	for <lists+alsa-devel@lfdr.de>; Fri,  1 Apr 2022 03:06:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7B3C4EE5E9
+	for <lists+alsa-devel@lfdr.de>; Fri,  1 Apr 2022 04:13:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2013F18A0;
-	Fri,  1 Apr 2022 03:06:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2013F18A0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4612C1888;
+	Fri,  1 Apr 2022 04:12:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4612C1888
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648775217;
-	bh=YUrasn1FgxdUNw4JxzSoOr6Wy/ZMaHL12dBIlgDQFN8=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1648779196;
+	bh=rs9Tek2W5T0R706rFsrCl9RXT9rcxHjOFhNJyoUnoOU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gygsWWmOIuk5sU+ozN5gCQ3+IXt4RBGle3CdLmR0otZORRWZht5R1i45Ioq+dH5jC
-	 6UYd5YuwSztmVa1An0yIBwh9X/mF3qW3ElzWl2zKRHpv7vZTJHPe94H2ogXnhDzByN
-	 l4sDhwOOb6d5KkI/EICkS6BD5rIgraL5dIsU9J9o=
+	b=VJwMnWiatW9I1Ka4ROhZdNOteyQkMlFsGVRZdvpVM1jho7RgPg4IhC9uCxkM0lCz3
+	 LyGe2jfzCK1eniCni6ptZFJOcq+vhjyuf1U5YlxRSuSv0kPWTLgy6po3bwYQKswJfN
+	 7wTtEMPggaHbsUhZqS4H4fKD5/jUsRldIZRV+8CM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 86EACF800E4;
-	Fri,  1 Apr 2022 03:05:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B4C9EF8032D;
+	Fri,  1 Apr 2022 04:12:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6F672F8020D; Fri,  1 Apr 2022 03:05:47 +0200 (CEST)
+ id 58878F80100; Fri,  1 Apr 2022 04:12:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 11C68F800B8
- for <alsa-devel@alsa-project.org>; Fri,  1 Apr 2022 03:05:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11C68F800B8
+X-Spam-Level: 
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-qv1-xf34.google.com (mail-qv1-xf34.google.com
+ [IPv6:2607:f8b0:4864:20::f34])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6E41CF80100
+ for <alsa-devel@alsa-project.org>; Fri,  1 Apr 2022 04:12:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E41CF80100
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="UOYSEjNC"
+Received: by mail-qv1-xf34.google.com with SMTP id ke15so1004738qvb.11
+ for <alsa-devel@alsa-project.org>; Thu, 31 Mar 2022 19:12:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=tfF4jMoourRXWty+VeiIwmu3poFQSsT7at+4kHLppy4=;
+ b=UOYSEjNCt4hvd1B3augR+23XTiJ93+NZvhnXrjnOQu1PLlGGuM5kE5DTveWmUYsJ4F
+ w4zNDyY/pfzHfNS28LbSqNiFA8sxRW/3PJySNvuMKwvhTEoEJprO3kjyr4UA2W+Zm+Q1
+ Bw0hjwHG0lUQOfRS/7gUFksaeiuU7nSMAHrD2pMn2e90Xdma+bIMvXZoQVBgzJz9KSE3
+ 0QlZo7pjve6cb7nG1842znWNewGcnKis4gv2L8Z2XF2HERAMdxbJrRrDSVDKknyKYC6+
+ 47OCiaWkmmCsdg0U1gFsCX+KBqemmaPe3o8VatmtPVljCKff9gm6WiRSiXsNW3iC1NcH
+ dqoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=tfF4jMoourRXWty+VeiIwmu3poFQSsT7at+4kHLppy4=;
+ b=UG8RzE/3btyqDbqsSfl8EwIuhqzSQY3GnJldslzdhB42uzT6o8dqcEBYLwM3ct/mT4
+ Zywdf3TEiCXcRH+yOyKmBH9GkkiUmirQrYeqb/jbQQ4OSAuAhK+rK8dQPTvKmjq1nT6N
+ 9layUBzDrSfZBbbAvPKyqCne1YA9r4srBrZfyv/ISRH0IyHCGT90Sk5l2I/mOdmEUhbQ
+ DOjzvOEAbQAh5HBakO50IOhZ7c4LvgGiohmQRynKu8XZoKpxUGffNASA4shb7OA5lXtd
+ WVv86dJB5IAlTwfLn9y5Jj63yIR+hPB6mzozU02OsWDhb94p+KnXrXF+c3M5LX3mu782
+ W8UA==
+X-Gm-Message-State: AOAM531vXhoJqYtZIpSwrNZdvO/I2iAgfFWop8qd2nAzQvwJgCEh9eQF
+ uVmDwWpj3AxF5a2HGG5gdP21Wie0xf+j4uikMNg=
+X-Google-Smtp-Source: ABdhPJxzRZI+WONbFlobAstHM9ajemhoLTb/bdpcboZ7nAT4a/jycTUcFDcLDacKgW+Geq1QQGLspmi7s/8rNimfeGo=
+X-Received: by 2002:a05:6214:1c85:b0:443:8347:d7a5 with SMTP id
+ ib5-20020a0562141c8500b004438347d7a5mr11363444qvb.11.1648779120601; Thu, 31
+ Mar 2022 19:12:00 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1648775142388217926-webhooks-bot@alsa-project.org>
-References: <1648775142388217926-webhooks-bot@alsa-project.org>
-Subject: [PATCH 0/6] add internal static library to include common utilities
-Message-Id: <20220401010547.6F672F8020D@alsa1.perex.cz>
-Date: Fri,  1 Apr 2022 03:05:47 +0200 (CEST)
+References: <20220331215003.882143-1-jakobkoschel@gmail.com>
+ <20220331215003.882143-2-jakobkoschel@gmail.com>
+In-Reply-To: <20220331215003.882143-2-jakobkoschel@gmail.com>
+From: Baolin Wang <baolin.wang7@gmail.com>
+Date: Fri, 1 Apr 2022 10:12:42 +0800
+Message-ID: <CADBw62qyyisDy2NkE29GYZkCi_O5Vgp+t1jeZtOkPsLV8UGFGQ@mail.gmail.com>
+Subject: Re: [PATCH 2/3] ASoC: sprd: remove check of list iterator against
+ head past the loop body
+To: Jakob Koschel <jakobkoschel@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: alsa-devel@alsa-project.org, Cezary Rojewski <cezary.rojewski@intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Cristiano Giuffrida <c.giuffrida@vu.nl>, Chunyan Zhang <zhang.lyra@gmail.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, "Bos,
+ H.J." <h.j.bos@vu.nl>, Yang Yingliang <yangyingliang@huawei.com>,
+ Orson Zhai <orsonzhai@gmail.com>,
+ Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
+ Arnd Bergmann <arnd@arndb.de>, Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Brian Johannesmeyer <bjohannesmeyer@gmail.com>,
+ Mark Brown <broonie@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ LKML <linux-kernel@vger.kernel.org>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>, Mike Rapoport <rppt@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,51 +110,64 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-gobject pull request #67 was opened from takaswie:
+On Fri, Apr 1, 2022 at 5:52 AM Jakob Koschel <jakobkoschel@gmail.com> wrote:
+>
+> When list_for_each_entry() completes the iteration over the whole list
+> without breaking the loop, the iterator value will be a bogus pointer
+> computed based on the head element.
+>
+> While it is safe to use the pointer to determine if it was computed
+> based on the head element, either with list_entry_is_head() or
+> &pos->member == head, using the iterator variable after the loop should
+> be avoided.
+>
+> In preparation to limiting the scope of a list iterator to the list
+> traversal loop, use a dedicated pointer to point to the found element [1].
+>
+> Link: https://lore.kernel.org/all/CAHk-=wgRr_D8CB-D9Kg-c=EHreAsk5SqXPwr9Y7k9sA6cWXJ6w@mail.gmail.com/ [1]
+> Signed-off-by: Jakob Koschel <jakobkoschel@gmail.com>
 
-Current implementation of included libraries have duplicated codes
-to operate over sysfs by libudev and so. It's inconvenient in a point of
-maintenance.
+LGTM. Thanks.
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
 
-This patchset adds internal static library to include such codes.
+>  sound/soc/sprd/sprd-mcdt.c | 13 ++++++-------
+>  1 file changed, 6 insertions(+), 7 deletions(-)
+>
+> diff --git a/sound/soc/sprd/sprd-mcdt.c b/sound/soc/sprd/sprd-mcdt.c
+> index f6a55fa60c1b..6e27789a0df5 100644
+> --- a/sound/soc/sprd/sprd-mcdt.c
+> +++ b/sound/soc/sprd/sprd-mcdt.c
+> @@ -866,20 +866,19 @@ EXPORT_SYMBOL_GPL(sprd_mcdt_chan_dma_disable);
+>  struct sprd_mcdt_chan *sprd_mcdt_request_chan(u8 channel,
+>                                               enum sprd_mcdt_channel_type type)
+>  {
+> -       struct sprd_mcdt_chan *temp;
+> +       struct sprd_mcdt_chan *temp = NULL;
+> +       struct sprd_mcdt_chan *iter;
+>
+>         mutex_lock(&sprd_mcdt_list_mutex);
+>
+> -       list_for_each_entry(temp, &sprd_mcdt_chan_list, list) {
+> -               if (temp->type == type && temp->id == channel) {
+> -                       list_del_init(&temp->list);
+> +       list_for_each_entry(iter, &sprd_mcdt_chan_list, list) {
+> +               if (iter->type == type && iter->id == channel) {
+> +                       list_del_init(&iter->list);
+> +                       temp = iter;
+>                         break;
+>                 }
+>         }
+>
+> -       if (list_entry_is_head(temp, &sprd_mcdt_chan_list, list))
+> -               temp = NULL;
+> -
+>         mutex_unlock(&sprd_mcdt_list_mutex);
+>
+>         return temp;
+> --
+> 2.25.1
+>
 
-```
-Takashi Sakamoto (6):
-  utils: build internal static library including common utilities
-  utils: add utility to compute integer value from string literal
-  utils: add utilities to allocate string information for device
-  utils: add utilitiy to generate list of sysnum by prefix of sysname
-  utils: add utilities to request control ioctl
-  utils: add utility macros to generate GError with file domain
 
- src/ctl/card.c            |   5 +-
- src/ctl/meson.build       |   2 +-
- src/ctl/query.c           | 261 ++----------------------------
- src/hwdep/meson.build     |   2 +-
- src/hwdep/query.c         | 306 +++--------------------------------
- src/meson.build           |   1 +
- src/rawmidi/meson.build   |   2 +-
- src/rawmidi/query.c       | 324 ++++----------------------------------
- src/rawmidi/stream-pair.c |   5 +-
- src/seq/meson.build       |   2 +-
- src/seq/query.c           |  87 ++--------
- src/seq/user-client.c     |   5 +-
- src/timer/meson.build     |   2 +-
- src/timer/query.c         | 105 +++---------
- src/timer/user-instance.c |   5 +-
- src/utils/ioctl.c         |  45 ++++++
- src/utils/meson.build     |  23 +++
- src/utils/string.c        |  47 ++++++
- src/utils/sysfs.c         | 176 +++++++++++++++++++++
- src/utils/utils.h         | 176 +++++++++++++++++++++
- 20 files changed, 578 insertions(+), 1003 deletions(-)
- create mode 100644 src/utils/ioctl.c
- create mode 100644 src/utils/meson.build
- create mode 100644 src/utils/string.c
- create mode 100644 src/utils/sysfs.c
- create mode 100644 src/utils/utils.h
-```
-
-Request URL   : https://github.com/alsa-project/alsa-gobject/pull/67
-Patch URL     : https://github.com/alsa-project/alsa-gobject/pull/67.patch
-Repository URL: https://github.com/alsa-project/alsa-gobject
+-- 
+Baolin Wang

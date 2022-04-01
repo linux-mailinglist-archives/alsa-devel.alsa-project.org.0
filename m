@@ -2,60 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9A124EF231
-	for <lists+alsa-devel@lfdr.de>; Fri,  1 Apr 2022 17:04:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 826BD4EF41E
+	for <lists+alsa-devel@lfdr.de>; Fri,  1 Apr 2022 17:29:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D25D71AF4;
-	Fri,  1 Apr 2022 17:03:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D25D71AF4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 19FF1185B;
+	Fri,  1 Apr 2022 17:28:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19FF1185B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648825467;
-	bh=da+sqdIXwvISO325vS9eFlgihZQmLQj59wmTRj2pPio=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1648826973;
+	bh=0+Qy6DqL3DzylnNPp1BpGcwg8sHoEzTpg9tt+67cetk=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=l1Q8YnnNgtCpTSBd+o4EqGNko68TSlsK8Wfm/rhfLTj/3lfRDABkvkaT0OgrMyaG+
-	 PwH3awHHbLlgaps6ptj+sLd0WN4RIVqUwYBe+LbhGrnoVWBql/hErvGkHjDT227Bbw
-	 KNBtG/cEE/Ct+pmYQyK/tOZBzi4nN6MnDPgt/K18=
+	b=BwaBpd5p/KCgddWpYT7wWb7uI9W0WT0OEGoI3idUOb+Ee0ZQwvImPDyg9Au6F2VyF
+	 LLtRvM0fjATjm9f+ydh8dmFDeupRpFUsGJVJmIoueLfxTOD3o01xlgFJpcYCar+5vo
+	 1VKOHwCiGZi9Uj4+9CNShicvrD4HAPdBTaqbxLjE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B1D68F8051C;
-	Fri,  1 Apr 2022 17:03:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 738D7F801D8;
+	Fri,  1 Apr 2022 17:28:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5443AF8051D; Fri,  1 Apr 2022 17:03:31 +0200 (CEST)
+ id A6C3EF80279; Fri,  1 Apr 2022 17:28:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.6 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FROM,FROM_LOCAL_DIGITS,FROM_LOCAL_HEX,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from n169-112.mail.139.com (n169-112.mail.139.com [120.232.169.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 693F7F8047D
- for <alsa-devel@alsa-project.org>; Fri,  1 Apr 2022 17:03:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 693F7F8047D
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM: 
-X-RM-SPAM-FLAG: 00000000
-Received: from LAPTOP-39QA2GAC.localdomain (unknown[120.231.214.8])
- by rmsmtp-lg-appmail-27-12032 (RichMail) with SMTP id 2f0062471426e32-0cae9;
- Fri, 01 Apr 2022 23:03:19 +0800 (CST)
-X-RM-TRANSID: 2f0062471426e32-0cae9
-From: Raphael-Xu <13691752556@139.com>
-To: broonie@kernel.org
-Subject: [PATCH v6 3/3] update to support either TAS2764 or TAS2780
-Date: Fri,  1 Apr 2022 23:03:01 +0800
-Message-Id: <20220401150301.1011-3-13691752556@139.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220401150301.1011-1-13691752556@139.com>
-References: <20220401150301.1011-1-13691752556@139.com>
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 36492F80100
+ for <alsa-devel@alsa-project.org>; Fri,  1 Apr 2022 17:28:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36492F80100
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
+ header.b="oaadmmE9"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) (Authenticated sender: sre)
+ with ESMTPSA id CD6A51F47CE7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1648826893;
+ bh=0+Qy6DqL3DzylnNPp1BpGcwg8sHoEzTpg9tt+67cetk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=oaadmmE9l2jBobRHcuF+5apmP/oV1M+yQTgaQXh/490G5z2SvOZp7QLQgtzJgg9LJ
+ kSSRoR/nvZ9CwLp45EzhG+gsEx3koHVUSuHt1JW59/t+bmT8pXUVS2QmnY9xmsUTpC
+ X1WV89JttUN6+Th3tQeeGyVC1YwWsXUAEy4E+P0Xan4XfKtfPr4ZtwGN333euh6WrD
+ N3loL42J+dcFCtia8Qc/ofLuqb3G3buKPaL9WdfbuFavNDoIIMZDK0K3IoFi0LcBXI
+ AskMmI0jNnVIhTdrzAIT7CJxNibpnxmJUqkKLyDRo57zBD7XpsP3QwbD56h1ddTp85
+ QH8WLFv/Q71Kg==
+Received: by mercury (Postfix, from userid 1000)
+ id 2CCD61060582; Fri,  1 Apr 2022 17:28:11 +0200 (CEST)
+Date: Fri, 1 Apr 2022 17:28:11 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Rob Herring <robh@kernel.org>
+Subject: Re: [PATCH] dt-bindings: Fix 'enum' lists with duplicate entries
+Message-ID: <20220401152811.uv3wm55byrmk4gqc@mercury.elektranox.org>
+References: <20220401141247.2993925-1-robh@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: navada@ti.com, alsa-devel@alsa-project.org, shenghao-ding@ti.com,
- raphael-xu@ti.com, Raphael-Xu <13691752556@139.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="gjfd7i3tbgmmz62e"
+Content-Disposition: inline
+In-Reply-To: <20220401141247.2993925-1-robh@kernel.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Charles Keepax <ckeepax@opensource.cirrus.com>, linux-pm@vger.kernel.org,
+ Tony Lindgren <tony@atomide.com>, Yunfei Dong <yunfei.dong@mediatek.com>,
+ Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org,
+ Jonathan Hunter <jonathanh@nvidia.com>, linux-gpio@vger.kernel.org,
+ Thierry Reding <thierry.reding@gmail.com>, - <patches@opensource.cirrus.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,749 +89,154 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-fix no sound issue on some platforms
 
-Signed-off-by: Raphael-Xu <13691752556@139.com>
----
- sound/soc/codecs/tas27xx.c | 405 +++++++++++++++++++++++++++----------
- sound/soc/codecs/tas27xx.h |   2 +-
- 2 files changed, 295 insertions(+), 112 deletions(-)
+--gjfd7i3tbgmmz62e
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/sound/soc/codecs/tas27xx.c b/sound/soc/codecs/tas27xx.c
-index 8953516b55dc..fd8000f9526a 100644
---- a/sound/soc/codecs/tas27xx.c
-+++ b/sound/soc/codecs/tas27xx.c
-@@ -1,5 +1,5 @@
- // SPDX-License-Identifier: GPL-2.0
--// Driver for the Texas Instruments TAS2764 Mono
-+// Driver for the Texas Instruments TAS2764/TAS2780 Mono
- //		Audio amplifier
- // Copyright (C) 2020-2022 Texas Instruments Inc.
- 
-@@ -12,11 +12,9 @@
- #include <linux/i2c.h>
- #include <linux/gpio.h>
- #include <linux/gpio/consumer.h>
--#include <linux/regulator/consumer.h>
- #include <linux/regmap.h>
- #include <linux/of.h>
- #include <linux/of_gpio.h>
--#include <linux/slab.h>
- #include <sound/soc.h>
- #include <sound/pcm.h>
- #include <sound/pcm_params.h>
-@@ -31,21 +29,25 @@ struct tas27xx_priv {
- 	struct gpio_desc *sdz_gpio;
- 	struct regmap *regmap;
- 	struct device *dev;
--	
-+	struct mutex codec_lock;
- 	int v_sense_slot;
- 	int i_sense_slot;
-+	int device_id;
-+	bool mb_power_up;
- };
- 
- enum tas27xx {
- 	TAS2764 = 0,
-+	TAS2780 = 1,
- };
- 
- static void tas27xx_reset(struct tas27xx_priv *tas27xx)
- {
- 	if (tas27xx->reset_gpio) {
- 		gpiod_set_value_cansleep(tas27xx->reset_gpio, 0);
--		msleep(20);
-+		usleep_range(2000, 2050);
- 		gpiod_set_value_cansleep(tas27xx->reset_gpio, 1);
-+		usleep_range(5000, 5050);
- 	}
- 
- 	snd_soc_component_write(tas27xx->component, TAS27XX_SW_RST,
-@@ -57,32 +59,52 @@ static int tas27xx_set_bias_level(struct snd_soc_component *component,
- {
- 	struct tas27xx_priv *tas27xx = 
- 		snd_soc_component_get_drvdata(component);
--
-+	int ret = 0;
-+
-+	mutex_lock(&tas27xx->codec_lock);
- 	switch (level) {
- 	case SND_SOC_BIAS_ON:
--		snd_soc_component_update_bits(component, TAS27XX_PWR_CTRL,
--					      TAS27XX_PWR_CTRL_MASK,
--					      TAS27XX_PWR_CTRL_ACTIVE);
-+		ret = snd_soc_component_update_bits(component,
-+					TAS27XX_PWR_CTRL,
-+					TAS27XX_PWR_CTRL_MASK,
-+					TAS27XX_PWR_CTRL_ACTIVE);
-+		if (ret >= 0) {
-+			tas27xx->mb_power_up = true;
-+			ret = 0;
-+		}
- 		break;
- 	case SND_SOC_BIAS_STANDBY:
- 	case SND_SOC_BIAS_PREPARE:
--		snd_soc_component_update_bits(component, TAS27XX_PWR_CTRL,
--					      TAS27XX_PWR_CTRL_MASK,
--					      TAS27XX_PWR_CTRL_MUTE);
-+		ret = snd_soc_component_update_bits(component,
-+			TAS27XX_PWR_CTRL,
-+			TAS27XX_PWR_CTRL_MASK,
-+			TAS27XX_PWR_CTRL_MUTE);
-+		if (ret >= 0) {
-+			tas27xx->mb_power_up = true;
-+			ret = 0;
-+		}
- 		break;
- 	case SND_SOC_BIAS_OFF:
--		snd_soc_component_update_bits(component, TAS27XX_PWR_CTRL,
--					      TAS27XX_PWR_CTRL_MASK,
--					      TAS27XX_PWR_CTRL_SHUTDOWN);
-+		ret = snd_soc_component_update_bits(component,
-+			TAS27XX_PWR_CTRL,
-+			TAS27XX_PWR_CTRL_MASK,
-+			TAS27XX_PWR_CTRL_SHUTDOWN);
-+		if (ret >= 0) {
-+			tas27xx->mb_power_up = false;
-+			ret = 0;
-+		}
- 		break;
- 
- 	default:
- 		dev_err(tas27xx->dev,
--				"wrong power level setting %d\n", level);
--		return -EINVAL;
-+			"wrong power level setting %d\n", level);
-+		ret = -EINVAL;
- 	}
--
--	return 0;
-+	if (ret < 0)
-+		pr_err("%s:%u:errCode:0x%0x:set BIAS error\n",
-+			__func__, __LINE__, ret);
-+	mutex_unlock(&tas27xx->codec_lock);
-+	return ret;
- }
- 
- #ifdef CONFIG_PM
-@@ -90,30 +112,37 @@ static int tas27xx_codec_suspend(struct snd_soc_component *component)
- {
- 	struct tas27xx_priv *tas27xx = 
- 		snd_soc_component_get_drvdata(component);
--	int ret;
-+	int ret = 0;
- 
-+	mutex_lock(&tas27xx->codec_lock);
- 	ret = snd_soc_component_update_bits(component, TAS27XX_PWR_CTRL,
- 					    TAS27XX_PWR_CTRL_MASK,
- 					    TAS27XX_PWR_CTRL_SHUTDOWN);
- 
--	if (ret < 0)
--		return ret;
--
-+	if (ret < 0) {
-+		pr_err("%s:%u:errCode:0x%0x:power down error\n",
-+			__func__, __LINE__, ret);
-+		goto EXIT;
-+	}
-+	ret = 0;
-+	tas27xx->mb_power_up = false;
- 	if (tas27xx->sdz_gpio)
- 		gpiod_set_value_cansleep(tas27xx->sdz_gpio, 0);
- 
- 	regcache_cache_only(tas27xx->regmap, true);
- 	regcache_mark_dirty(tas27xx->regmap);
--
--	return 0;
-+EXIT:
-+	mutex_unlock(&tas27xx->codec_lock);
-+	return ret;
- }
- 
- static int tas27xx_codec_resume(struct snd_soc_component *component)
- {
- 	struct tas27xx_priv *tas27xx = 
- 		snd_soc_component_get_drvdata(component);
--	int ret;
-+	int ret = 0;
- 
-+	mutex_lock(&tas27xx->codec_lock);
- 	if (tas27xx->sdz_gpio)
- 		gpiod_set_value_cansleep(tas27xx->sdz_gpio, 1);
- 
-@@ -121,16 +150,19 @@ static int tas27xx_codec_resume(struct snd_soc_component *component)
- 					    TAS27XX_PWR_CTRL_MASK,
- 					    TAS27XX_PWR_CTRL_ACTIVE);
- 
--	if (ret < 0)
--		return ret;
--
-+	if (ret < 0) {
-+		pr_err("%s:%u:errCode:0x%0x:power down error\n",
-+			__func__, __LINE__, ret);
-+		goto EXIT;
-+	}
-+	ret = 0;
-+	tas27xx->mb_power_up = false;
- 	regcache_cache_only(tas27xx->regmap, false);
--
--	return regcache_sync(tas27xx->regmap);
-+	ret = regcache_sync(tas27xx->regmap);
-+EXIT:
-+	mutex_unlock(&tas27xx->codec_lock);
-+	return ret;
- }
--#else
--#define tas27xx_codec_suspend NULL
--#define tas27xx_codec_resume NULL
- #endif
- 
- static const char * const tas27xx_ASI1_src[] = {
-@@ -150,8 +182,9 @@ static int tas27xx_dac_event(struct snd_soc_dapm_widget *w,
- 		snd_soc_dapm_to_component(w->dapm);
- 	struct tas27xx_priv *tas27xx = 
- 		snd_soc_component_get_drvdata(component);
--	int ret;
-+	int ret = 0;
- 
-+	mutex_lock(&tas27xx->codec_lock);
- 	switch (event) {
- 	case SND_SOC_DAPM_POST_PMU:
- 		ret = snd_soc_component_update_bits(component, 
-@@ -167,13 +200,16 @@ static int tas27xx_dac_event(struct snd_soc_dapm_widget *w,
- 		break;
- 	default:
- 		dev_err(tas27xx->dev, "Unsupported event\n");
--		return -EINVAL;
-+		ret = -EINVAL;
- 	}
--
--	if (ret < 0)
--		return ret;
--
--	return 0;
-+	if (ret < 0) {
-+		pr_err("%s:%u:errCode:0x%0x:PWR_CTRL error\n",
-+			__func__, __LINE__, ret);
-+	} else {
-+		ret = 0;
-+	}
-+	mutex_unlock(&tas27xx->codec_lock);
-+	return ret;
- }
- 
- static const struct snd_kcontrol_new isense_switch =
-@@ -211,55 +247,106 @@ static const struct snd_soc_dapm_route tas27xx_audio_map[] = {
- static int tas27xx_mute(struct snd_soc_dai *dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = dai->component;
--	int ret;
--
-+	struct tas27xx_priv *tas27xx =
-+		snd_soc_component_get_drvdata(component);
-+	int ret = 0;
-+
-+	mutex_lock(&tas27xx->codec_lock);
-+
-+	if (!mute) {
-+		ret = snd_soc_component_read(component,
-+			TAS27XX_CLK_CFG);
-+		if (ret < 0) {
-+			dev_err(tas27xx->dev,
-+				"%s:%u:errCode:0x%x read "
-+				"TAS27XX_CLK_CFG error\n",
-+				__func__, __LINE__, ret);
-+			goto EXIT;
-+		}
-+		if ((ret & TAS27XX_CLK_CFG_MASK) != TAS27XX_CLK_CFG_ENABLE) {
-+			ret = snd_soc_component_update_bits(component,
-+				TAS27XX_CLK_CFG,
-+				TAS27XX_CLK_CFG_MASK,
-+				TAS27XX_CLK_CFG_ENABLE);
-+			if (ret < 0) {
-+				dev_err(tas27xx->dev,
-+					"%s:%u: Failed to CLK_CFG_ENABLE\n",
-+					__func__, __LINE__);
-+				goto EXIT;
-+			}
-+			usleep_range(3000, 3050);
-+		}
-+	}
- 	ret = snd_soc_component_update_bits(component, TAS27XX_PWR_CTRL,
--					    TAS27XX_PWR_CTRL_MASK,
--					    mute ? TAS27XX_PWR_CTRL_MUTE : 0);
--
--	if (ret < 0)
--		return ret;
-+		TAS27XX_PWR_CTRL_MASK,
-+		mute ? TAS27XX_PWR_CTRL_MUTE : 0);
-+	if (ret >= 0) {
-+		tas27xx->mb_power_up = mute?false:true;
-+		ret = 0;
-+	} else {
-+		pr_err("%s:%u: Failed to set powercontrol\n",
-+			__func__, __LINE__);
-+	}
- 
--	return 0;
-+EXIT:
-+	mutex_unlock(&tas27xx->codec_lock);
-+	return ret;
- }
- 
- static int tas27xx_set_bitwidth(struct tas27xx_priv *tas27xx, int bitwidth)
- {
- 	struct snd_soc_component *component = tas27xx->component;
--	int sense_en;
--	int val;
--	int ret;
-+	int sense_en, val, ret, slot_size;
- 
-+	mutex_lock(&tas27xx->codec_lock);
- 	switch (bitwidth) {
- 	case SNDRV_PCM_FORMAT_S16_LE:
- 		ret = snd_soc_component_update_bits(component,
--					TAS27XX_TDM_CFG2,
--					TAS27XX_TDM_CFG2_RXW_MASK,
--					TAS27XX_TDM_CFG2_RXW_16BITS);
-+			TAS27XX_TDM_CFG2,
-+			TAS27XX_TDM_CFG2_RXW_MASK,
-+			TAS27XX_TDM_CFG2_RXW_16BITS);
-+		slot_size = TAS27XX_TDM_CFG2_RXS_16BITS;
- 		break;
- 	case SNDRV_PCM_FORMAT_S24_LE:
- 		ret = snd_soc_component_update_bits(component,
- 					TAS27XX_TDM_CFG2,
- 					TAS27XX_TDM_CFG2_RXW_MASK,
- 					TAS27XX_TDM_CFG2_RXW_24BITS);
-+		slot_size = TAS27XX_TDM_CFG2_RXS_24BITS;
- 		break;
- 	case SNDRV_PCM_FORMAT_S32_LE:
- 		ret = snd_soc_component_update_bits(component,
- 					TAS27XX_TDM_CFG2,
- 					TAS27XX_TDM_CFG2_RXW_MASK,
- 					TAS27XX_TDM_CFG2_RXW_32BITS);
-+		slot_size = TAS27XX_TDM_CFG2_RXS_32BITS;
- 		break;
- 
- 	default:
--		return -EINVAL;
-+		ret = -EINVAL;
- 	}
- 
--	if (ret < 0)
--		return ret;
-+	if (ret < 0) {
-+		pr_err("%s:%u:errCode:0x%x set bitwidth error\n",
-+			__func__, __LINE__, ret);
-+		goto EXIT;
-+	}
-+
-+	ret = snd_soc_component_update_bits(component, TAS27XX_TDM_CFG2,
-+		TAS27XX_TDM_CFG2_RXS_MASK, slot_size);
-+	if (ret < 0) {
-+		pr_err("%s:%u:errCode:0x%x set RX slot size error\n",
-+			__func__, __LINE__, ret);
-+		goto EXIT;
-+	}
- 
- 	val = snd_soc_component_read(tas27xx->component, TAS27XX_PWR_CTRL);
--	if (val < 0)
--		return val;
-+	if (val < 0) {
-+		pr_err("%s:%u:errCode:0x%x read PWR_CTRL error\n",
-+			__func__, __LINE__, val);
-+		ret = val;
-+		goto EXIT;
-+	}
- 
- 	if (val & (1 << TAS27XX_VSENSE_POWER_EN))
- 		sense_en = 0;
-@@ -268,8 +355,11 @@ static int tas27xx_set_bitwidth(struct tas27xx_priv *tas27xx, int bitwidth)
- 
- 	ret = snd_soc_component_update_bits(tas27xx->component, 
- 		TAS27XX_TDM_CFG5, TAS27XX_TDM_CFG5_VSNS_ENABLE, sense_en);
--	if (ret < 0)
--		return ret;
-+	if (ret < 0) {
-+		pr_err("%s:%u:errCode:0x%x enable vSNS error\n",
-+			__func__, __LINE__, ret);
-+		goto EXIT;
-+	}
- 
- 	if (val & (1 << TAS27XX_ISENSE_POWER_EN))
- 		sense_en = 0;
-@@ -278,10 +368,14 @@ static int tas27xx_set_bitwidth(struct tas27xx_priv *tas27xx, int bitwidth)
- 
- 	ret = snd_soc_component_update_bits(tas27xx->component, 
- 		TAS27XX_TDM_CFG6, TAS27XX_TDM_CFG6_ISNS_ENABLE, sense_en);
--	if (ret < 0)
--		return ret;
--
--	return 0;
-+	if (ret < 0) {
-+		pr_err("%s:%u:errCode:0x%x enable iSNS error\n",
-+			__func__, __LINE__, ret);
-+	}
-+	ret = 0;
-+EXIT:
-+	mutex_unlock(&tas27xx->codec_lock);
-+	return ret;
- }
- 
- static int tas27xx_set_samplerate(
-@@ -311,15 +405,20 @@ static int tas27xx_set_samplerate(
- 	default:
- 		return -EINVAL;
- 	}
--
-+	mutex_lock(&tas27xx->codec_lock);
- 	ret = snd_soc_component_update_bits(component, TAS27XX_TDM_CFG0,
- 					    TAS27XX_TDM_CFG0_SMP_MASK |
- 					    TAS27XX_TDM_CFG0_MASK,
- 					    ramp_rate_val);
--	if (ret < 0)
--		return ret;
--
--	return 0;
-+	if (ret < 0) {
-+		pr_err("%s:%u:errCode:0x%x Failed to set ramp_rate_val\n",
-+			__func__, __LINE__, ret);
-+		goto EXIT;
-+	}
-+	ret = 0;
-+EXIT:
-+	mutex_unlock(&tas27xx->codec_lock);
-+	return ret;
- }
- 
- static int tas27xx_hw_params(struct snd_pcm_substream *substream,
-@@ -345,7 +444,7 @@ static int tas27xx_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
- 		snd_soc_component_get_drvdata(component);
- 	u8 tdm_rx_start_slot = 0, asi_cfg_1 = 0;
- 	int iface;
--	int ret;
-+	int ret = 0;
- 
- 	switch (fmt & SND_SOC_DAIFMT_INV_MASK) {
- 	case SND_SOC_DAIFMT_NB_NF:
-@@ -358,12 +457,15 @@ static int tas27xx_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
- 		dev_err(tas27xx->dev, "ASI format Inverse is not found\n");
- 		return -EINVAL;
- 	}
--
-+	mutex_lock(&tas27xx->codec_lock);
- 	ret = snd_soc_component_update_bits(component, TAS27XX_TDM_CFG1,
- 					    TAS27XX_TDM_CFG1_RX_MASK,
- 					    asi_cfg_1);
--	if (ret < 0)
--		return ret;
-+	if (ret < 0) {
-+		pr_err("%s:%u:errCode:0x%x Failed to set asi_cfg_1\n",
-+			__func__, __LINE__, ret);
-+		goto EXIT;
-+	}
- 
- 	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
- 	case SND_SOC_DAIFMT_I2S:
-@@ -377,23 +479,32 @@ static int tas27xx_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
- 		tdm_rx_start_slot = 0;
- 		break;
- 	default:
--		dev_err(tas27xx->dev,
--			"DAI Format is not found, fmt=0x%x\n", fmt);
--		return -EINVAL;
-+		pr_err("%s:%u:DAI Format is not found, fmt=0x%x\n",
-+			__func__, __LINE__, fmt);
-+		ret = -EINVAL;
-+		goto EXIT;
- 	}
- 
- 	ret = snd_soc_component_update_bits(component, TAS27XX_TDM_CFG1,
- 		TAS27XX_TDM_CFG1_MASK,
- 		(tdm_rx_start_slot << TAS27XX_TDM_CFG1_51_SHIFT));
--	if (ret < 0)
--		return ret;
-+	if (ret < 0) {
-+		pr_err("%s:%u:errCode:0x%x Failed to set tdm_rx_start_slot\n",
-+			__func__, __LINE__, ret);
-+		goto EXIT;
-+	}
- 
- 	ret = snd_soc_component_update_bits(component, TAS27XX_TDM_CFG2,
- 		TAS27XX_TDM_CFG2_SCFG_MASK, iface);
--	if (ret < 0)
--		return ret;
--
--	return 0;
-+	if (ret < 0) {
-+		pr_err("%s:%u:errCode:0x%x Failed to set iface\n",
-+			__func__, __LINE__, ret);
-+		goto EXIT;
-+	}
-+	ret = 0;
-+EXIT:
-+	mutex_unlock(&tas27xx->codec_lock);
-+	return ret;
- }
- 
- static int tas27xx_set_dai_tdm_slot(struct snd_soc_dai *dai,
-@@ -407,7 +518,7 @@ static int tas27xx_set_dai_tdm_slot(struct snd_soc_dai *dai,
- 	int left_slot, right_slot;
- 	int slots_cfg;
- 	int slot_size;
--	int ret;
-+	int ret = 0;
- 
- 	if (tx_mask == 0 || rx_mask != 0)
- 		return -EINVAL;
-@@ -432,10 +543,13 @@ static int tas27xx_set_dai_tdm_slot(struct snd_soc_dai *dai,
- 		return -EINVAL;
- 
- 	slots_cfg = (right_slot << TAS27XX_TDM_CFG3_RXS_SHIFT) | left_slot;
--
-+	mutex_lock(&tas27xx->codec_lock);
- 	ret = snd_soc_component_write(component, TAS27XX_TDM_CFG3, slots_cfg);
--	if (ret)
--		return ret;
-+	if (ret) {
-+		pr_err("%s:%u:errCode:0x%x Failed to set slots_cfg\n",
-+			__func__, __LINE__, ret);
-+		goto EXIT;
-+	}
- 
- 	switch (slot_width) {
- 	case 16:
-@@ -448,28 +562,40 @@ static int tas27xx_set_dai_tdm_slot(struct snd_soc_dai *dai,
- 		slot_size = TAS27XX_TDM_CFG2_RXS_32BITS;
- 		break;
- 	default:
--		return -EINVAL;
-+		ret = -EINVAL;
-+		goto EXIT;
- 	}
- 
- 	ret = snd_soc_component_update_bits(component, TAS27XX_TDM_CFG2,
- 					    TAS27XX_TDM_CFG2_RXS_MASK,
- 					    slot_size);
--	if (ret < 0)
--		return ret;
-+	if (ret < 0) {
-+		pr_err("%s:%u:errCode:0x%x Failed to set slot_size\n",
-+			__func__, __LINE__, ret);
-+		goto EXIT;
-+	}
- 
- 	ret = snd_soc_component_update_bits(component, TAS27XX_TDM_CFG5,
- 					    TAS27XX_TDM_CFG5_50_MASK,
- 					    tas27xx->v_sense_slot);
--	if (ret < 0)
--		return ret;
-+	if (ret < 0) {
-+		pr_err("%s:%u:errCode:0x%x Failed to set v_sense_slot\n",
-+			__func__, __LINE__, ret);
-+		goto EXIT;
-+	}
- 
- 	ret = snd_soc_component_update_bits(component, TAS27XX_TDM_CFG6,
- 					    TAS27XX_TDM_CFG6_50_MASK,
- 					    tas27xx->i_sense_slot);
--	if (ret < 0)
--		return ret;
--
--	return 0;
-+	if (ret < 0) {
-+		pr_err("%s:%u:errCode:0x%x Failed to set i_sense_slot\n",
-+			__func__, __LINE__, ret);
-+		goto EXIT;
-+	}
-+	ret = 0;
-+EXIT:
-+	mutex_unlock(&tas27xx->codec_lock);
-+	return ret;
- }
- 
- static const struct snd_soc_dai_ops tas27xx_dai_ops = {
-@@ -499,7 +625,7 @@ static struct snd_soc_dai_driver tas27xx_dai_driver[] = {
- 		},
- 		.capture = {
- 			.stream_name    = "ASI1 Capture",
--			.channels_min   = 0,
-+			.channels_min   = 1,
- 			.channels_max   = 2,
- 			.rates = TAS27XX_RATES,
- 			.formats = TAS27XX_FORMATS,
-@@ -513,7 +639,7 @@ static int tas27xx_codec_probe(struct snd_soc_component *component)
- {
- 	struct tas27xx_priv *tas27xx = 
- 		snd_soc_component_get_drvdata(component);
--	int ret;
-+	int ret = 0;
- 
- 	tas27xx->component = component;
- 
-@@ -521,26 +647,54 @@ static int tas27xx_codec_probe(struct snd_soc_component *component)
- 		gpiod_set_value_cansleep(tas27xx->sdz_gpio, 1);
- 
- 	tas27xx_reset(tas27xx);
-+	usleep_range(5000, 5050);
- 
--	ret = snd_soc_component_update_bits(tas27xx->component, 
--						TAS27XX_TDM_CFG5,
-+	ret = snd_soc_component_update_bits(component,
-+		TAS27XX_CLK_CFG,
-+		TAS27XX_CLK_CFG_MASK,
-+		TAS27XX_CLK_CFG_ENABLE);
-+	if (ret < 0) {
-+		dev_err(tas27xx->dev,
-+			"%s:%u: Failed to CLK_CFG_ENABLE\n",
-+			__func__, __LINE__);
-+		goto EXIT;
-+	}
-+
-+	ret = snd_soc_component_update_bits(component, TAS27XX_TDM_CFG5,
- 					    TAS27XX_TDM_CFG5_VSNS_ENABLE, 0);
--	if (ret < 0)
--		return ret;
-+	if (ret < 0) {
-+		dev_err(tas27xx->dev, "%s:%u: Failed to enable vSNS\n",
-+			__func__, __LINE__);
-+		goto EXIT;
-+	}
- 
--	ret = snd_soc_component_update_bits(tas27xx->component, 
--						TAS27XX_TDM_CFG6,
-+	ret = snd_soc_component_update_bits(component, TAS27XX_TDM_CFG6,
- 					    TAS27XX_TDM_CFG6_ISNS_ENABLE, 0);
--	if (ret < 0)
--		return ret;
-+	if (ret < 0) {
-+		dev_err(tas27xx->dev, "%s:%u: Failed to enable iSNS\n",
-+			__func__, __LINE__);
-+		goto EXIT;
-+	}
- 
- 	ret = snd_soc_component_update_bits(component, TAS27XX_PWR_CTRL,
- 					    TAS27XX_PWR_CTRL_MASK,
- 					    TAS27XX_PWR_CTRL_MUTE);
--	if (ret < 0)
--		return ret;
-+	if (ret < 0) {
-+		dev_err(tas27xx->dev, "%s:%u: Failed to PWR_CTRL_MUTE\n",
-+			__func__, __LINE__);
-+		goto EXIT;
-+	}
- 
--	return 0;
-+	ret = snd_soc_component_write(component, TAS27XX_PWR_CTRL, 0x02);
-+
-+	if (ret < 0) {
-+		dev_err(tas27xx->dev, "%s:%u: Failed to initial active\n",
-+			__func__, __LINE__);
-+		goto EXIT;
-+	}
-+	ret = 0;
-+EXIT:
-+	return ret;
- }
- 
- static DECLARE_TLV_DB_SCALE(tas27xx_digital_tlv, 1100, 50, 0);
-@@ -555,8 +709,10 @@ static const struct snd_kcontrol_new tas27xx_snd_controls[] = {
- 
- static const struct snd_soc_component_driver soc_component_driver_tas27xx = {
- 	.probe			= tas27xx_codec_probe,
-+#ifdef CONFIG_PM
- 	.suspend		= tas27xx_codec_suspend,
- 	.resume			= tas27xx_codec_resume,
-+#endif
- 	.set_bias_level		= tas27xx_set_bias_level,
- 	.controls		= tas27xx_snd_controls,
- 	.num_controls		= ARRAY_SIZE(tas27xx_snd_controls),
-@@ -594,6 +750,27 @@ static const struct regmap_range_cfg tas27xx_regmap_ranges[] = {
- 	},
- };
- 
-+static bool tas27xx_volatile(struct device *dev,
-+	unsigned int reg)
-+{
-+	switch (reg) {
-+	case TAS27XX_SW_RST:
-+	case TAS27XX_PWR_CTRL:
-+	case TAS27XX_PAGE:
-+	case TAS27XX_DVC:
-+	case TAS27XX_CHNL_0:
-+	case TAS27XX_TDM_CFG0:
-+	case TAS27XX_TDM_CFG1:
-+	case TAS27XX_TDM_CFG2:
-+	case TAS27XX_TDM_CFG3:
-+	case TAS27XX_TDM_CFG5:
-+	case TAS27XX_TDM_CFG6:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
- static const struct regmap_config tas27xx_i2c_regmap = {
- 	.reg_bits = 8,
- 	.val_bits = 8,
-@@ -603,6 +780,7 @@ static const struct regmap_config tas27xx_i2c_regmap = {
- 	.ranges = tas27xx_regmap_ranges,
- 	.num_ranges = ARRAY_SIZE(tas27xx_regmap_ranges),
- 	.max_register = 1 * 128,
-+	.volatile_reg = tas27xx_volatile,
- };
- 
- static int tas27xx_parse_dt(struct device *dev, struct tas27xx_priv *tas27xx)
-@@ -650,7 +828,7 @@ static int tas27xx_i2c_probe(struct i2c_client *client,
- 			       GFP_KERNEL);
- 	if (!tas27xx)
- 		return -ENOMEM;
--
-+	mutex_init(&tas27xx->codec_lock);
- 	tas27xx->dev = &client->dev;
- 	i2c_set_clientdata(client, tas27xx);
- 	dev_set_drvdata(&client->dev, tas27xx);
-@@ -672,6 +850,9 @@ static int tas27xx_i2c_probe(struct i2c_client *client,
- 		}
- 	}
- 
-+	tas27xx->device_id = id->driver_data;
-+	dev_info(tas27xx->dev, "chip_id: %u\n", tas27xx->device_id);
-+
- 	return devm_snd_soc_register_component(tas27xx->dev,
- 		&soc_component_driver_tas27xx, tas27xx_dai_driver,
- 		ARRAY_SIZE(tas27xx_dai_driver));
-@@ -679,6 +860,7 @@ static int tas27xx_i2c_probe(struct i2c_client *client,
- 
- static const struct i2c_device_id tas27xx_i2c_id[] = {
- 	{ "tas2764", TAS2764},
-+	{ "tas2780", TAS2780},
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, tas27xx_i2c_id);
-@@ -686,6 +868,7 @@ MODULE_DEVICE_TABLE(i2c, tas27xx_i2c_id);
- #if defined(CONFIG_OF)
- static const struct of_device_id tas27xx_of_match[] = {
- 	{ .compatible = "ti,tas2764" },
-+	{ .compatible = "ti,tas2780" },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, tas27xx_of_match);
-diff --git a/sound/soc/codecs/tas27xx.h b/sound/soc/codecs/tas27xx.h
-index 6f76645f5cd6..95923e437a38 100644
---- a/sound/soc/codecs/tas27xx.h
-+++ b/sound/soc/codecs/tas27xx.h
-@@ -1,6 +1,6 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
- /*
-- * tas27xx.h - ALSA SoC Texas Instruments TAS2764 Mono Audio Amplifier
-+ * tas27xx.h - ALSA SoC Texas Instruments TAS2764/TAS2780 Mono Audio Amplifier
-  *
-  * Copyright (C) 2020-2022 Texas Instruments Incorporated - https://www.ti.com
-  *
--- 
-2.35.1
+Hi,
 
+On Fri, Apr 01, 2022 at 09:12:47AM -0500, Rob Herring wrote:
+> There's no reason to list the same value twice in an 'enum'. Fix all the
+> occurrences in the tree. A meta-schema change will catch future ones.
+>=20
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Thierry Reding <thierry.reding@gmail.com>
+> Cc: Jonathan Hunter <jonathanh@nvidia.com>
+> Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+> Cc: Charles Keepax <ckeepax@opensource.cirrus.com>
+> Cc: Linus Walleij <linus.walleij@linaro.org>
+> Cc: Sebastian Reichel <sre@kernel.org>
+> Cc: Tony Lindgren <tony@atomide.com>
+> Cc: Yunfei Dong <yunfei.dong@mediatek.com>
+> Cc: - <patches@opensource.cirrus.com>
+> Cc: linux-media@vger.kernel.org
+> Cc: alsa-devel@alsa-project.org
+> Cc: linux-gpio@vger.kernel.org
+> Cc: linux-pm@vger.kernel.org
+> Signed-off-by: Rob Herring <robh@kernel.org>
+> ---
 
+Acked-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+
+-- Sebastian
+
+> There's also one other occurrence in snps,dwmac.yaml I didn't fix as=20
+> there's a patch[1] for it which prompted this patch.
+>=20
+> Rob
+>=20
+> [1] https://lore.kernel.org/r/20220401030847epcms1p8cf7a8e1d8cd7d325dacf3=
+0f78da36328@epcms1p8
+>=20
+>  .../bindings/arm/tegra/nvidia,tegra20-pmc.yaml        |  1 -
+>  Documentation/devicetree/bindings/bus/ti-sysc.yaml    |  1 -
+>  .../bindings/media/mediatek,vcodec-encoder.yaml       |  1 -
+>  .../devicetree/bindings/pinctrl/cirrus,madera.yaml    | 11 +++++------
+>  .../devicetree/bindings/power/supply/bq2415x.yaml     |  1 -
+>  5 files changed, 5 insertions(+), 10 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/arm/tegra/nvidia,tegra20-p=
+mc.yaml b/Documentation/devicetree/bindings/arm/tegra/nvidia,tegra20-pmc.ya=
+ml
+> index 0afec83cc723..564ae6aaccf7 100644
+> --- a/Documentation/devicetree/bindings/arm/tegra/nvidia,tegra20-pmc.yaml
+> +++ b/Documentation/devicetree/bindings/arm/tegra/nvidia,tegra20-pmc.yaml
+> @@ -13,7 +13,6 @@ maintainers:
+>  properties:
+>    compatible:
+>      enum:
+> -      - nvidia,tegra20-pmc
+>        - nvidia,tegra20-pmc
+>        - nvidia,tegra30-pmc
+>        - nvidia,tegra114-pmc
+> diff --git a/Documentation/devicetree/bindings/bus/ti-sysc.yaml b/Documen=
+tation/devicetree/bindings/bus/ti-sysc.yaml
+> index bd40213302da..fced4082b047 100644
+> --- a/Documentation/devicetree/bindings/bus/ti-sysc.yaml
+> +++ b/Documentation/devicetree/bindings/bus/ti-sysc.yaml
+> @@ -34,7 +34,6 @@ properties:
+>      oneOf:
+>        - items:
+>            - enum:
+> -              - ti,sysc-omap2
+>                - ti,sysc-omap2
+>                - ti,sysc-omap4
+>                - ti,sysc-omap4-simple
+> diff --git a/Documentation/devicetree/bindings/media/mediatek,vcodec-enco=
+der.yaml b/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.=
+yaml
+> index e7b65a91c92c..df7df06c378f 100644
+> --- a/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
+> +++ b/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
+> @@ -106,7 +106,6 @@ allOf:
+>            enum:
+>              - mediatek,mt8173-vcodec-enc
+>              - mediatek,mt8192-vcodec-enc
+> -            - mediatek,mt8173-vcodec-enc
+> =20
+>      then:
+>        properties:
+> diff --git a/Documentation/devicetree/bindings/pinctrl/cirrus,madera.yaml=
+ b/Documentation/devicetree/bindings/pinctrl/cirrus,madera.yaml
+> index 8a90d8273767..6bd42e43cdab 100644
+> --- a/Documentation/devicetree/bindings/pinctrl/cirrus,madera.yaml
+> +++ b/Documentation/devicetree/bindings/pinctrl/cirrus,madera.yaml
+> @@ -48,13 +48,12 @@ properties:
+>                Name of one pin group to configure.
+>              enum: [ aif1, aif2, aif3, aif4, mif1, mif2, mif3, pdmspk1,
+>                      pdmspk2, dmic4, dmic5, dmic6, gpio1, gpio2, gpio3,
+> -                    gpio4, gpio5, gpio6, gpio7, gpio7, gpio8, gpio9,
+> +                    gpio4, gpio5, gpio6, gpio7, gpio8, gpio9,
+>                      gpio10, gpio11, gpio12, gpio13, gpio14, gpio15,
+> -                    gpio16, gpio17, gpio17, gpio18, gpio19, gpio20,
+> -                    gpio21, gpio22, gpio23, gpio24, gpio25, gpio26,
+> -                    gpio27, gpio27, gpio28, gpio29, gpio30, gpio31,
+> -                    gpio32, gpio33, gpio34, gpio35, gpio36, gpio37,
+> -                    gpio37, gpio38, gpio39 ]
+> +                    gpio16, gpio17, gpio18, gpio19, gpio20, gpio21,
+> +                    gpio22, gpio23, gpio24, gpio25, gpio26, gpio27,
+> +                    gpio28, gpio29, gpio30, gpio31, gpio32, gpio33,
+> +                    gpio34, gpio35, gpio36, gpio37, gpio38, gpio39 ]
+> =20
+>            function:
+>              description:
+> diff --git a/Documentation/devicetree/bindings/power/supply/bq2415x.yaml =
+b/Documentation/devicetree/bindings/power/supply/bq2415x.yaml
+> index f8461f06e6f4..118cf484cc69 100644
+> --- a/Documentation/devicetree/bindings/power/supply/bq2415x.yaml
+> +++ b/Documentation/devicetree/bindings/power/supply/bq2415x.yaml
+> @@ -16,7 +16,6 @@ allOf:
+>  properties:
+>    compatible:
+>      enum:
+> -      - ti,bq24150
+>        - ti,bq24150
+>        - ti,bq24150a
+>        - ti,bq24151
+> --=20
+> 2.32.0
+>=20
+
+--gjfd7i3tbgmmz62e
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmJHGggACgkQ2O7X88g7
++po2uA/+OS0hkCudE7TWE85KDv5+/Qb+6/JFLz20iy0f8rQr3U1VOufXZccdMBmV
+lPY7v8Tzl+P3F2tHUdy1A6MSRvSrfxGQi32YeaSR/jNylRY7Lpmm73psjokmXsX/
+FZZMXB7SvHvSLPqIdfKfs9sxuWjeZqw/YsYTDXHvubTSX5LkDuxx1p9KYYoTtZ5y
+jDDUYqCdc1j8+z6u302ErkzZLLxowhYXlfy5I0D3I9VlVA42X6+gVT6j108fgLMw
+ARg8mB8LrTwigl+qpW4E91pH0IOwwVbyIoUAJOUEQlj2qsAxfxAvNOaAbT5KbRZS
+Tj+4TqPQYM+srE8e4dqKCQHB5GQFqHlgFa4r4ATqaqCddL04Zvl1MhaVqoXIuGL/
+NH28aDPnRib2ZR7JkbAQ77NyLnBFtfEbJ7EU58YeTkD+QWJ41Xj9OzH4oEDdurCx
+ggml7FuQj4LaC4uy4cR2MDyHlsrg2wS24+R9rFeXc47HchTboXS14r+a5fOLetpp
+BydxRULRfek5NWLZZGaWLzZZmWwGgG3/hNeNFXDPazkECoHC6HtfpNGX5XAuR3dx
+/PUycmAYpb2KfL3gVZksITrrAZ2qc3tGJgn//rsmCHcouG1w5Kf9NlvRsCzCUAAY
+gbTebdGk0p0ilzuOB4jo1QTy5xJgR6pUMzCWXigh4jkRzJU2pYI=
+=3CSB
+-----END PGP SIGNATURE-----
+
+--gjfd7i3tbgmmz62e--

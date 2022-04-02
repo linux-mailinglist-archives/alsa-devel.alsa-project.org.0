@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 080B44F04F0
-	for <lists+alsa-devel@lfdr.de>; Sat,  2 Apr 2022 18:32:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C6E44F04F1
+	for <lists+alsa-devel@lfdr.de>; Sat,  2 Apr 2022 18:34:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8E9FA17A3;
-	Sat,  2 Apr 2022 18:32:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E9FA17A3
+	by alsa0.perex.cz (Postfix) with ESMTPS id CC06E17E7;
+	Sat,  2 Apr 2022 18:33:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC06E17E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648917175;
-	bh=eBD0US2XIxp4F/ffI9gYxv6zA7XVqWq2OlUPNGB/UPo=;
+	s=default; t=1648917247;
+	bh=L0dEr0Og4BkrupUP+ZQZiQjoUM1WFhoD9Klvx4qS97o=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JJN+Z8VRABEspM7Jx/T92MdQIDVAcjkuSfuKpCrJca69bY5o5JcXjoLtw3NWD4l3g
-	 vhxAOoq8UK+q8Z5CbpvZkNeaMsxO7gfL1unopntGHVv3zmXwj557wcHkcwfG5ocJU5
-	 QRlXfP+OiCelXJGGSsIJ6Wlg/VW06B73jlgJh0WM=
+	b=iQAZbgPNx6Yz4kBtqe6pBYJjJk57oPIstUagjnOdhk4v7nBPXuMZ0uYi3Ercv5Wch
+	 UMirFL4+Hv/bsrj7etw11JoLkJ16llb1/L4hBALi01qcGdOHEBw3c95jE1mePaiSa5
+	 kcwvQLV2yP4qeuQzrtsDw2r5/TYN4Rj5H07MuhqU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 10817F8047C;
-	Sat,  2 Apr 2022 18:32:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4FCF4F80310;
+	Sat,  2 Apr 2022 18:33:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1C01CF80423; Sat,  2 Apr 2022 18:32:04 +0200 (CEST)
+ id 98C48F801D8; Sat,  2 Apr 2022 18:32:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,32 +34,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from gnuweeb.org (gnuweeb.org [51.81.211.47])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2240FF80100;
- Sat,  2 Apr 2022 18:31:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2240FF80100
+ by alsa1.perex.cz (Postfix) with ESMTPS id DE46BF80310;
+ Sat,  2 Apr 2022 18:32:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE46BF80310
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gnuweeb.org header.i=@gnuweeb.org
- header.b="eADNGdZi"
+ header.b="V8xd221K"
 Received: from integral2.. (unknown [182.2.36.61])
- by gnuweeb.org (Postfix) with ESMTPSA id 496827E312;
- Sat,  2 Apr 2022 16:31:46 +0000 (UTC)
+ by gnuweeb.org (Postfix) with ESMTPSA id 900A07E312;
+ Sat,  2 Apr 2022 16:32:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gnuweeb.org;
- s=default; t=1648917115;
- bh=eBD0US2XIxp4F/ffI9gYxv6zA7XVqWq2OlUPNGB/UPo=;
+ s=default; t=1648917170;
+ bh=L0dEr0Og4BkrupUP+ZQZiQjoUM1WFhoD9Klvx4qS97o=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=eADNGdZi2euUZuamRSiTQ5O5Q7kME4KHnDQvK+4eOWOe8A3LI9bkDFakQZhA+x+6e
- WpzdC3empnQs4JBvECdztpW5N5Nc2Xf/z+mPJ4iH5L4v4qCAPEAPMDI5WX2L+wI7u7
- fyq56i5rOHxLR6J9NYjVdHy2Ru9etS+01p8KN8z5M2ZO5ZiB373DuXdvCx2e9maEIg
- oC7R7gAfCYqzAqBPljh+NLVONCfjP2svRk+9beCDtmqx4EYFJiBZgtLnFHWZBgYY5w
- 0DMN/D7AcHefmYtXShnQO1h7iVdHFIrQYpvBLIuZJlVq3X07ztQoMgCspouD4Ir6lF
- g1fps/OKkoYHQ==
+ b=V8xd221KsZYF1WR1tPJeNVdbfQePpjfHvsUHIg7oCvxMy1oqkRPIL7/QIJZXhaKcn
+ 1pRJm9hRORB0334+T5XXOijW4+YuN4CDb2szcY/LZmHKF2D5HHIx0LA0zQnJlJd4l+
+ hsORtjS3CUyddm92h2mK/b+sS6b22DADUG5pEtE+Wgj52brEl03e0I+6FRZXs6Pc90
+ 7KmC0GPv3r4ZxSr9L18dhRgZQvkYDl1gPUxMB5Y/vzLHMr6xxq/jIuY9BlldFcttxX
+ k/sm1CC8h13t6xlmyMaB5qm94HgjJWF4tgBMdO0mw/FYkZ61RA8cz31eEeL1DuJma+
+ Kouy0eV6onRWg==
 From: Ammar Faizi <ammarfaizi2@gnuweeb.org>
 To: stable@vger.kernel.org,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH linux-5.4.y] ASoC: SOF: Intel: Fix NULL ptr dereference when
+Subject: [PATCH linux-5.10.y] ASoC: SOF: Intel: Fix NULL ptr dereference when
  ENOMEM
-Date: Sat,  2 Apr 2022 23:31:38 +0700
-Message-Id: <20220402163138.11632-1-ammarfaizi2@gnuweeb.org>
+Date: Sat,  2 Apr 2022 23:32:26 +0700
+Message-Id: <20220402163226.12209-1-ammarfaizi2@gnuweeb.org>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20220402163026.11299-1-ammarfaizi2@gnuweeb.org>
 References: 
@@ -145,17 +145,17 @@ Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Ammar Faizi <ammarfaizi2@gnuweeb.org>
 Link: https://lore.kernel.org/r/20220224185836.44907-1-ammarfaizi2@gnuweeb.org
 Signed-off-by: Mark Brown <broonie@kernel.org>
-[ammarfaizi2: Backport to Linux 5.4 LTS]
+[ammarfaizi2: Backport to Linux 5.10 LTS]
 Signed-off-by: Ammar Faizi <ammarfaizi2@gnuweeb.org>
 ---
- sound/soc/sof/intel/hda-loader.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ sound/soc/sof/intel/hda-loader.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
 diff --git a/sound/soc/sof/intel/hda-loader.c b/sound/soc/sof/intel/hda-loader.c
-index 356bb134ae93..7573f3f9f0f2 100644
+index 2707a16c6a4d..347636a80b48 100644
 --- a/sound/soc/sof/intel/hda-loader.c
 +++ b/sound/soc/sof/intel/hda-loader.c
-@@ -50,7 +50,7 @@ static int cl_stream_prepare(struct snd_sof_dev *sdev, unsigned int format,
+@@ -47,7 +47,7 @@ static struct hdac_ext_stream *cl_stream_prepare(struct snd_sof_dev *sdev, unsig
  	ret = snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV_SG, &pci->dev, size, dmab);
  	if (ret < 0) {
  		dev_err(sdev->dev, "error: memory alloc failed: %x\n", ret);
@@ -164,17 +164,24 @@ index 356bb134ae93..7573f3f9f0f2 100644
  	}
  
  	hstream->period_bytes = 0;/* initialize period_bytes */
-@@ -60,16 +60,17 @@ static int cl_stream_prepare(struct snd_sof_dev *sdev, unsigned int format,
- 	ret = hda_dsp_stream_hw_params(sdev, dsp_stream, dmab, NULL);
- 	if (ret < 0) {
- 		dev_err(sdev->dev, "error: hdac prepare failed: %x\n", ret);
--		goto error;
-+		goto out_free;
+@@ -58,22 +58,23 @@ static struct hdac_ext_stream *cl_stream_prepare(struct snd_sof_dev *sdev, unsig
+ 		ret = hda_dsp_iccmax_stream_hw_params(sdev, dsp_stream, dmab, NULL);
+ 		if (ret < 0) {
+ 			dev_err(sdev->dev, "error: iccmax stream prepare failed: %x\n", ret);
+-			goto error;
++			goto out_free;
+ 		}
+ 	} else {
+ 		ret = hda_dsp_stream_hw_params(sdev, dsp_stream, dmab, NULL);
+ 		if (ret < 0) {
+ 			dev_err(sdev->dev, "error: hdac prepare failed: %x\n", ret);
+-			goto error;
++			goto out_free;
+ 		}
+ 		hda_dsp_stream_spib_config(sdev, dsp_stream, HDA_DSP_SPIB_ENABLE, size);
  	}
  
- 	hda_dsp_stream_spib_config(sdev, dsp_stream, HDA_DSP_SPIB_ENABLE, size);
- 
- 	return hstream->stream_tag;
+ 	return dsp_stream;
  
 -error:
 -	hda_dsp_stream_put(sdev, direction, hstream->stream_tag);
@@ -182,11 +189,11 @@ index 356bb134ae93..7573f3f9f0f2 100644
  	snd_dma_free_pages(dmab);
 +out_put:
 +	hda_dsp_stream_put(sdev, direction, hstream->stream_tag);
- 	return ret;
+ 	return ERR_PTR(ret);
  }
  
 
-base-commit: 2845ff3fd34499603249676495c524a35e795b45
+base-commit: d9c5818a0bc09e4cc9fe663edb69e4d6cdae4f70
 -- 
 2.32.0
 

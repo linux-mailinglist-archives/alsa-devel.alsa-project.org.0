@@ -2,67 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69A994F088B
-	for <lists+alsa-devel@lfdr.de>; Sun,  3 Apr 2022 11:14:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F43F4F08BC
+	for <lists+alsa-devel@lfdr.de>; Sun,  3 Apr 2022 12:26:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 006BD1775;
-	Sun,  3 Apr 2022 11:13:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 006BD1775
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9E9FA17AA;
+	Sun,  3 Apr 2022 12:25:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E9FA17AA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648977256;
-	bh=D2itVu7GIoHUR47Nm0OsBTITwtQii9HP5+pPJMzvq4c=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=lFN7sDMI8aWDBYy1tPH115yXnINyiClhnahEL8qLNfo3YVYtVpbBoGxQIH02YixWB
-	 Z3v8XnJUXoksWZRBzHKuc1bH1cqv/RbzZzDLLS1D0+feZw9wf+hc+QR0PyQYKXkll8
-	 JqDUkwZbvGwyoZD8cfdsWcVnTD7KtqTmEndzb9Rs=
+	s=default; t=1648981561;
+	bh=j/5tDEcr4uwpIHDqOnfXsy3VKAmLbLfALLScCp6XurE=;
+	h=Subject:To:From:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=gHXPALWJ9t7J34BqLP7rJfjktOtWg44gI3BiBy9TN2oN6ZLNkx/Xn5ec+DMGvuqUu
+	 IojCyRNdDWfPv+pkjOzBThYH5ScdN+ZPmV10zZmuYetLVb81duBH9+UkHu6vMSnB21
+	 ZwfEgRpNudy+0F/7e2nUS9OTPN+Mtx/Ztq18g3ZI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1C4D7F80100;
-	Sun,  3 Apr 2022 11:13:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 75158F804FD;
+	Sun,  3 Apr 2022 12:24:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0BCEEF80248; Sun,  3 Apr 2022 11:13:07 +0200 (CEST)
+ id 29FD5F80248; Sun,  3 Apr 2022 12:24:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from smtp.smtpout.orange.fr (smtp07.smtpout.orange.fr
- [80.12.242.129])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6922CF8012A
- for <alsa-devel@alsa-project.org>; Sun,  3 Apr 2022 11:13:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6922CF8012A
-Received: from [192.168.1.18] ([90.126.236.122]) by smtp.orange.fr with ESMTPA
- id awI7nFC7WRGzQawI7nw1jb; Sun, 03 Apr 2022 11:13:01 +0200
-X-ME-Helo: [192.168.1.18]
-X-ME-Auth: YWZlNiIxYWMyZDliZWIzOTcwYTEyYzlhMmU3ZiQ1M2U2MzfzZDfyZTMxZTBkMTYyNDBjNDJlZmQ3ZQ==
-X-ME-Date: Sun, 03 Apr 2022 11:13:01 +0200
-X-ME-IP: 90.126.236.122
-Message-ID: <6dd4ac07-397c-1e02-2ac5-2a8f243bfefe@wanadoo.fr>
-Date: Sun, 3 Apr 2022 11:12:59 +0200
+ by alsa1.perex.cz (Postfix) with ESMTPS id 52183F800E9;
+ Sun,  3 Apr 2022 12:24:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52183F800E9
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=linuxfoundation.org
+ header.i=@linuxfoundation.org header.b="mweQPTB8"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D972060FC7;
+ Sun,  3 Apr 2022 10:24:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B325DC340ED;
+ Sun,  3 Apr 2022 10:24:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1648981480;
+ bh=j/5tDEcr4uwpIHDqOnfXsy3VKAmLbLfALLScCp6XurE=;
+ h=Subject:To:Cc:From:Date:From;
+ b=mweQPTB8KrVvBcWhgrdZbTEirSmF6NJ76iMZgPKOO/ohWieA6rf63YSd1VY4UOQMd
+ 7Wz++av6VWWucZTiPyQIg9zi/HvEIqLeh+YNRUjoWpUOlCZbV812vOVzs8K9pigpG+
+ OZGh4bAJeEhRpLY5YMQKy8vWnPt/ok/sgD3aKLn4=
+Subject: Patch "ASoC: SOF: Intel: Fix NULL ptr dereference when ENOMEM" has
+ been added to the 5.4-stable tree
+To: alsa-devel@alsa-project.org, ammarfaizi2@gnuweeb.org, broonie@kernel.org,
+ daniel.baluta@nxp.com, gregkh@linuxfoundation.org,
+ kai.vehmanen@linux.intel.com, lgirdwood@gmail.com, perex@perex.cz,
+ peter.ujfalusi@linux.intel.com, pierre-louis.bossart@linux.intel.com,
+ rander.wang@intel.com, ranjani.sridharan@linux.intel.com,
+ sound-open-firmware@alsa-project.org, tiwai@suse.com, yang.jie@linux.intel.com
+From: <gregkh@linuxfoundation.org>
+Date: Sun, 03 Apr 2022 12:24:37 +0200
+Message-ID: <1648981477183201@kroah.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH] ASoC: msm8916-wcd-digital: Fix missing
- clk_disable_unprepare() in msm8916_wcd_digital_probe
-Content-Language: en-US
-To: =?UTF-8?B?5p6X5aaZ5YCp?= <linmq006@gmail.com>
-References: <20220307084523.28687-1-linmq006@gmail.com>
- <93751991-30ce-93a0-0f33-105f99b8dfe3@wanadoo.fr>
- <CAH-r-ZGw+toVfasD-45p4Z4Rryn2advNOZbgJd0g4SGw_Kd6FQ@mail.gmail.com>
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-In-Reply-To: <CAH-r-ZGw+toVfasD-45p4Z4Rryn2advNOZbgJd0g4SGw_Kd6FQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+X-stable: commit
+X-Patchwork-Hint: ignore 
+Cc: stable-commits@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,64 +86,125 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Le 03/04/2022 à 09:15, 林妙倩 a écrit :
-> Hi,
-> 
-> Yes, I agree with you. We should check the error code of
-> devm_snd_soc_register_component() and do corresponding
-> handling.
 
-You already fixed the first issue, do you mind sending a patch for this 
-one as well?
+This is a note to let you know that I've just added the patch titled
 
-CJ
-> 
-> Christophe JAILLET <christophe.jaillet@wanadoo.fr> 于2022年4月3日周日 13:51写道：
-> 
->> Le 07/03/2022 à 09:45, Miaoqian Lin a écrit :
->>> Fix the missing clk_disable_unprepare() before return
->>> from msm8916_wcd_digital_probe in the error handling case.
->>>
->>> Fixes: 150db8c5afa1 ("ASoC: codecs: Add msm8916-wcd digital codec")
->>> Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
->>> ---
->>>    sound/soc/codecs/msm8916-wcd-digital.c | 5 ++++-
->>>    1 file changed, 4 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/sound/soc/codecs/msm8916-wcd-digital.c
->> b/sound/soc/codecs/msm8916-wcd-digital.c
->>> index fcc10c8bc625..9ad7fc0baf07 100644
->>> --- a/sound/soc/codecs/msm8916-wcd-digital.c
->>> +++ b/sound/soc/codecs/msm8916-wcd-digital.c
->>> @@ -1201,7 +1201,7 @@ static int msm8916_wcd_digital_probe(struct
->> platform_device *pdev)
->>>        ret = clk_prepare_enable(priv->mclk);
->>>        if (ret < 0) {
->>>                dev_err(dev, "failed to enable mclk %d\n", ret);
->>> -             return ret;
->>> +             goto err_clk;
->>>        }
->>>
->>>        dev_set_drvdata(dev, priv);
->>> @@ -1209,6 +1209,9 @@ static int msm8916_wcd_digital_probe(struct
->> platform_device *pdev)
->>>        return devm_snd_soc_register_component(dev, &msm8916_wcd_digital,
->>>                                      msm8916_wcd_digital_dai,
->>>                                      ARRAY_SIZE(msm8916_wcd_digital_dai));
->>> +err_clk:
->>> +     clk_disable_unprepare(priv->ahbclk);
->>> +     return ret;
->>>    }
->>>
->>>    static int msm8916_wcd_digital_remove(struct platform_device *pdev)
->>
->> Hi,
->> I think that the same should be done for 'priv->mclk' if
->> devm_snd_soc_register_component() returns an error.
->>
->> Can you give it a look?
->>
->> CJ
->>
-> 
+    ASoC: SOF: Intel: Fix NULL ptr dereference when ENOMEM
 
+to the 5.4-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+
+The filename of the patch is:
+     asoc-sof-intel-fix-null-ptr-dereference-when-enomem.patch
+and it can be found in the queue-5.4 subdirectory.
+
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
+
+
+From b7fb0ae09009d076964afe4c1a2bde1ee2bd88a9 Mon Sep 17 00:00:00 2001
+From: Ammar Faizi <ammarfaizi2@gnuweeb.org>
+Date: Fri, 25 Feb 2022 01:58:36 +0700
+Subject: ASoC: SOF: Intel: Fix NULL ptr dereference when ENOMEM
+
+From: Ammar Faizi <ammarfaizi2@gnuweeb.org>
+
+commit b7fb0ae09009d076964afe4c1a2bde1ee2bd88a9 upstream.
+
+Do not call snd_dma_free_pages() when snd_dma_alloc_pages() returns
+-ENOMEM because it leads to a NULL pointer dereference bug.
+
+The dmesg says:
+
+  [ T1387] sof-audio-pci-intel-tgl 0000:00:1f.3: error: memory alloc failed: -12
+  [ T1387] BUG: kernel NULL pointer dereference, address: 0000000000000000
+  [ T1387] #PF: supervisor read access in kernel mode
+  [ T1387] #PF: error_code(0x0000) - not-present page
+  [ T1387] PGD 0 P4D 0
+  [ T1387] Oops: 0000 [#1] PREEMPT SMP NOPTI
+  [ T1387] CPU: 6 PID: 1387 Comm: alsa-sink-HDA A Tainted: G        W         5.17.0-rc4-superb-owl-00055-g80d47f5de5e3
+  [ T1387] Hardware name: HP HP Laptop 14s-dq2xxx/87FD, BIOS F.15 09/15/2021
+  [ T1387] RIP: 0010:dma_free_noncontiguous+0x37/0x80
+  [ T1387] Code: [... snip ...]
+  [ T1387] RSP: 0000:ffffc90002b87770 EFLAGS: 00010246
+  [ T1387] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000000
+  [ T1387] RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffff888101db30d0
+  [ T1387] RBP: 00000000fffffff4 R08: 0000000000000000 R09: 0000000000000000
+  [ T1387] R10: 0000000000000000 R11: ffffc90002b874d0 R12: 0000000000000001
+  [ T1387] R13: 0000000000058000 R14: ffff888105260c68 R15: ffff888105260828
+  [ T1387] FS:  00007f42e2ffd640(0000) GS:ffff888466b80000(0000) knlGS:0000000000000000
+  [ T1387] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+  [ T1387] CR2: 0000000000000000 CR3: 000000014acf0003 CR4: 0000000000770ee0
+  [ T1387] PKRU: 55555554
+  [ T1387] Call Trace:
+  [ T1387]  <TASK>
+  [ T1387]  cl_stream_prepare+0x10a/0x120 [snd_sof_intel_hda_common 146addf995b9279ae7f509621078cccbe4f875e1]
+  [... snip ...]
+  [ T1387]  </TASK>
+
+Cc: Daniel Baluta <daniel.baluta@nxp.com>
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Cc: Keyon Jie <yang.jie@linux.intel.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Rander Wang <rander.wang@intel.com>
+Cc: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: sound-open-firmware@alsa-project.org
+Cc: alsa-devel@alsa-project.org
+Cc: linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org # v5.2+
+Fixes: d16046ffa6de040bf580a64d5f4d0aa18258a854 ("ASoC: SOF: Intel: Add Intel specific HDA firmware loader")
+Link: https://lore.kernel.org/lkml/20220224145124.15985-1-ammarfaizi2@gnuweeb.org/ # v1
+Link: https://lore.kernel.org/lkml/20220224180850.34592-1-ammarfaizi2@gnuweeb.org/ # v2
+Link: https://lore.kernel.org/lkml/20220224182818.40301-1-ammarfaizi2@gnuweeb.org/ # v3
+Reviewed-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Signed-off-by: Ammar Faizi <ammarfaizi2@gnuweeb.org>
+Link: https://lore.kernel.org/r/20220224185836.44907-1-ammarfaizi2@gnuweeb.org
+Signed-off-by: Mark Brown <broonie@kernel.org>
+[ammarfaizi2: Backport to Linux 5.4 LTS]
+Signed-off-by: Ammar Faizi <ammarfaizi2@gnuweeb.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ sound/soc/sof/intel/hda-loader.c |    9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+--- a/sound/soc/sof/intel/hda-loader.c
++++ b/sound/soc/sof/intel/hda-loader.c
+@@ -50,7 +50,7 @@ static int cl_stream_prepare(struct snd_
+ 	ret = snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV_SG, &pci->dev, size, dmab);
+ 	if (ret < 0) {
+ 		dev_err(sdev->dev, "error: memory alloc failed: %x\n", ret);
+-		goto error;
++		goto out_put;
+ 	}
+ 
+ 	hstream->period_bytes = 0;/* initialize period_bytes */
+@@ -60,16 +60,17 @@ static int cl_stream_prepare(struct snd_
+ 	ret = hda_dsp_stream_hw_params(sdev, dsp_stream, dmab, NULL);
+ 	if (ret < 0) {
+ 		dev_err(sdev->dev, "error: hdac prepare failed: %x\n", ret);
+-		goto error;
++		goto out_free;
+ 	}
+ 
+ 	hda_dsp_stream_spib_config(sdev, dsp_stream, HDA_DSP_SPIB_ENABLE, size);
+ 
+ 	return hstream->stream_tag;
+ 
+-error:
+-	hda_dsp_stream_put(sdev, direction, hstream->stream_tag);
++out_free:
+ 	snd_dma_free_pages(dmab);
++out_put:
++	hda_dsp_stream_put(sdev, direction, hstream->stream_tag);
+ 	return ret;
+ }
+ 
+
+
+Patches currently in stable-queue which might be from ammarfaizi2@gnuweeb.org are
+
+queue-5.4/asoc-sof-intel-fix-null-ptr-dereference-when-enomem.patch

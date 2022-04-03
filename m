@@ -2,64 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AAFC4F083A
-	for <lists+alsa-devel@lfdr.de>; Sun,  3 Apr 2022 08:59:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C7764F0840
+	for <lists+alsa-devel@lfdr.de>; Sun,  3 Apr 2022 09:16:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B8548172A;
-	Sun,  3 Apr 2022 08:58:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8548172A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1D61B168A;
+	Sun,  3 Apr 2022 09:16:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D61B168A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648969184;
-	bh=Kj1Zjm1Vc1FnXLUjvRtX4inUb8Gt6ksSzpuJH9jIoLw=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=r/dNhxg5lpmBIC/4aqWeRdzxy/29Al+hnRqnL/MugaqpQJ0Oji2s+GOlFOuT6Hn4O
-	 HfPCmkqhuTXo6nwYhE3xT9S8CsqO6Q7qHKhdNVQ79UopVYWPUyQgeaGhd/F0UAhXKE
-	 l6CLqMFwRCpeO1gWssB0OmbBhpbKHYriBta8c7UU=
+	s=default; t=1648970219;
+	bh=Puosx4ScBJ1d6mX7dzd4LfScEkjyaJqMLV7/dbri1Gg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=UAplunfKwfbuXAVVEE04IelnUHVtgHhZ62OLeE2xWK+/9n+bgzrhrqC3RZDM0Belj
+	 ROvjgpU32M5QtBeYXjdfWF8WBjlNoEtdkSWeuVrCOEifNk8Lo0cRdIrlh5bNwTK3bL
+	 6+RF/nKO6HOMhZA/eC9arH95NbVe/psODt9VvwLI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2763FF8028B;
-	Sun,  3 Apr 2022 08:58:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 86790F8028B;
+	Sun,  3 Apr 2022 09:15:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 92BACF80248; Sun,  3 Apr 2022 08:58:35 +0200 (CEST)
+ id 1DAFCF8012A; Sun,  3 Apr 2022 09:15:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.4 required=5.0 tests=KHOP_HELO_FCRDNS,
- RCVD_IN_BL_SPAMCOP_NET,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from smtp.smtpout.orange.fr (smtp03.smtpout.orange.fr
- [80.12.242.125])
+X-Spam-Level: 
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,HTML_MESSAGE,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-yw1-x1135.google.com (mail-yw1-x1135.google.com
+ [IPv6:2607:f8b0:4864:20::1135])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C736BF8012A
- for <alsa-devel@alsa-project.org>; Sun,  3 Apr 2022 08:58:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C736BF8012A
-Received: from pop-os.home ([90.126.236.122]) by smtp.orange.fr with ESMTPA
- id auBxnonYqN7CcauBynMxii; Sun, 03 Apr 2022 08:58:31 +0200
-X-ME-Helo: pop-os.home
-X-ME-Auth: YWZlNiIxYWMyZDliZWIzOTcwYTEyYzlhMmU3ZiQ1M2U2MzfzZDfyZTMxZTBkMTYyNDBjNDJlZmQ3ZQ==
-X-ME-Date: Sun, 03 Apr 2022 08:58:31 +0200
-X-ME-IP: 90.126.236.122
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@codeaurora.org>,
- Venkata Prasad Potturu <quic_potturu@quicinc.com>,
- Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Subject: [PATCH v2] ASoC: codecs: Fix an error handling path in
- (rx|tx|va)_macro_probe()
-Date: Sun,  3 Apr 2022 08:58:27 +0200
-Message-Id: <5b5a015a9b1dc8011c6a4053fa49da1f2531e47c.1648969065.git.christophe.jaillet@wanadoo.fr>
-X-Mailer: git-send-email 2.32.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id DA15CF8012A
+ for <alsa-devel@alsa-project.org>; Sun,  3 Apr 2022 09:15:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA15CF8012A
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="qo2t7nuA"
+Received: by mail-yw1-x1135.google.com with SMTP id
+ 00721157ae682-2eb46d33db9so17310377b3.12
+ for <alsa-devel@alsa-project.org>; Sun, 03 Apr 2022 00:15:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=3ico19JA9GM1O/bamMVefJvScGGPa2Lrj2Zc1+4P3Dk=;
+ b=qo2t7nuAanNyShzJs/m0KlPwYeN9qpYNzHsYelLVUb2PNs9YGroYb0QL4chF5qTOSL
+ u/EKCIP3IE46DZANB0DLpNf26qDX6ABIsmYWV9Z/f+LybfmqazCiNDvQw9UxO07CTld8
+ Sk0xP1fzpPRNXJE8k6CkhGFQ9oGigFmUwn//xjvEYv7dKaOc0QGIUubd0y2I2cnIl0xJ
+ /HL8KOYAgrdwavKhJv2A/U/r32UUKL19657BcYRf4iRGI+KK5VgLwdrl8ir1zeyfA0IS
+ em7NfctS7baSBoi6wrr2iAVVLR1EbLguqkz+HWAKz2A2VcIz0lPAcfc0nac5u4tmpUpZ
+ ATNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=3ico19JA9GM1O/bamMVefJvScGGPa2Lrj2Zc1+4P3Dk=;
+ b=PcXuXC9cmGImi/ssG53kSchw3i/nvzYdNXhPUUIm6oweH0rhFXnOnkPUDOPFr1523d
+ DselZg3E4uku2VerGPWID9tiqHplVqdbotqOJ3pfFLXmZPvgGxB2ov53yQXnCw2Uz/oq
+ d5QEthnyinu9+D+MHyLieYVUDErDKJ570GvslkJ9FfSHvqLm832sGU6AO5aqhfmQszVM
+ /mWwTWc0UxRssEgZ8myitXJfT1vi+BC72N6iM2xbUx8WobK8SoK5ydktWdw87vf5DbGA
+ K2Uqpn71zT4OLQYH30M2Qj/LsjOCSaE98KRFG9RhIm6jRrAfft+ltLIPZ/02gFrk3Mpn
+ Rwcg==
+X-Gm-Message-State: AOAM530WzVWl9Kd5gTNVAyAQrx+M8ULlFj/xZmO9PWS+qIxMGLCxa3nC
+ HYJ4WKHov03C7RB3vuDXcj2AuwAKI2ZQ0jYSpLg=
+X-Google-Smtp-Source: ABdhPJxKdHGO5wEnJx1da4CESMJxQvp/xmr8bKemy8fruAhYWGq2jYiClxmZKW8HCNdyfXkNV4G3fZut275u30L10eg=
+X-Received: by 2002:a81:6c4b:0:b0:2e5:e0c0:3eaf with SMTP id
+ h72-20020a816c4b000000b002e5e0c03eafmr16978188ywc.408.1648970142661; Sun, 03
+ Apr 2022 00:15:42 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org
+References: <20220307084523.28687-1-linmq006@gmail.com>
+ <93751991-30ce-93a0-0f33-105f99b8dfe3@wanadoo.fr>
+In-Reply-To: <93751991-30ce-93a0-0f33-105f99b8dfe3@wanadoo.fr>
+From: =?UTF-8?B?5p6X5aaZ5YCp?= <linmq006@gmail.com>
+Date: Sun, 3 Apr 2022 15:15:31 +0800
+Message-ID: <CAH-r-ZGw+toVfasD-45p4Z4Rryn2advNOZbgJd0g4SGw_Kd6FQ@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: msm8916-wcd-digital: Fix missing
+ clk_disable_unprepare() in msm8916_wcd_digital_probe
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,126 +102,58 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-After a successful lpass_macro_pds_init() call, lpass_macro_pds_exit() must
-be called.
+Hi,
 
-Add the missing call in the error handling path of the probe function and
-use it.
+Yes, I agree with you. We should check the error code of
+devm_snd_soc_register_component() and do corresponding
+handling.
 
-Fixes: 9e3d83c52844 ("ASoC: codecs: Add power domains support in digital macro codecs")
-Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
----
-Maybe some lpass_macro_pds_init() calls could be moved in order to simplify
-some error handling paths. This would avoid the
-s/return/ret = <error>; goto err;/ introduced in this patch.
-However I'm always reluctant to shuffle code because it sometimes introduce
-some subtle bugs. So I've left it as-is.
-Let me know the right direction.
----
- sound/soc/codecs/lpass-rx-macro.c | 14 ++++++++++----
- sound/soc/codecs/lpass-tx-macro.c | 14 ++++++++++----
- sound/soc/codecs/lpass-va-macro.c |  8 ++++++--
- 3 files changed, 26 insertions(+), 10 deletions(-)
+Christophe JAILLET <christophe.jaillet@wanadoo.fr> =E4=BA=8E2022=E5=B9=B44=
+=E6=9C=883=E6=97=A5=E5=91=A8=E6=97=A5 13:51=E5=86=99=E9=81=93=EF=BC=9A
 
-diff --git a/sound/soc/codecs/lpass-rx-macro.c b/sound/soc/codecs/lpass-rx-macro.c
-index 6884ae505e33..3143f9cd7277 100644
---- a/sound/soc/codecs/lpass-rx-macro.c
-+++ b/sound/soc/codecs/lpass-rx-macro.c
-@@ -3566,12 +3566,16 @@ static int rx_macro_probe(struct platform_device *pdev)
- 		return PTR_ERR(rx->pds);
- 
- 	base = devm_platform_ioremap_resource(pdev, 0);
--	if (IS_ERR(base))
--		return PTR_ERR(base);
-+	if (IS_ERR(base)) {
-+		ret = PTR_ERR(base);
-+		goto err;
-+	}
- 
- 	rx->regmap = devm_regmap_init_mmio(dev, base, &rx_regmap_config);
--	if (IS_ERR(rx->regmap))
--		return PTR_ERR(rx->regmap);
-+	if (IS_ERR(rx->regmap)) {
-+		ret = PTR_ERR(rx->regmap);
-+		goto err;
-+	}
- 
- 	dev_set_drvdata(dev, rx);
- 
-@@ -3632,6 +3636,8 @@ static int rx_macro_probe(struct platform_device *pdev)
- err_dcodec:
- 	clk_disable_unprepare(rx->macro);
- err:
-+	lpass_macro_pds_exit(rx->pds);
-+
- 	return ret;
- }
- 
-diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpass-tx-macro.c
-index 714a411d5337..55503ba480bb 100644
---- a/sound/soc/codecs/lpass-tx-macro.c
-+++ b/sound/soc/codecs/lpass-tx-macro.c
-@@ -1828,8 +1828,10 @@ static int tx_macro_probe(struct platform_device *pdev)
- 		return PTR_ERR(tx->pds);
- 
- 	base = devm_platform_ioremap_resource(pdev, 0);
--	if (IS_ERR(base))
--		return PTR_ERR(base);
-+	if (IS_ERR(base)) {
-+		ret = PTR_ERR(base);
-+		goto err;
-+	}
- 
- 	/* Update defaults for lpass sc7280 */
- 	if (of_device_is_compatible(np, "qcom,sc7280-lpass-tx-macro")) {
-@@ -1846,8 +1848,10 @@ static int tx_macro_probe(struct platform_device *pdev)
- 	}
- 
- 	tx->regmap = devm_regmap_init_mmio(dev, base, &tx_regmap_config);
--	if (IS_ERR(tx->regmap))
--		return PTR_ERR(tx->regmap);
-+	if (IS_ERR(tx->regmap)) {
-+		ret = PTR_ERR(tx->regmap);
-+		goto err;
-+	}
- 
- 	dev_set_drvdata(dev, tx);
- 
-@@ -1907,6 +1911,8 @@ static int tx_macro_probe(struct platform_device *pdev)
- err_dcodec:
- 	clk_disable_unprepare(tx->macro);
- err:
-+	lpass_macro_pds_exit(tx->pds);
-+
- 	return ret;
- }
- 
-diff --git a/sound/soc/codecs/lpass-va-macro.c b/sound/soc/codecs/lpass-va-macro.c
-index f3cb596058e0..d18b56e60433 100644
---- a/sound/soc/codecs/lpass-va-macro.c
-+++ b/sound/soc/codecs/lpass-va-macro.c
-@@ -1434,8 +1434,10 @@ static int va_macro_probe(struct platform_device *pdev)
- 		va->dmic_clk_div = VA_MACRO_CLK_DIV_2;
- 	} else {
- 		ret = va_macro_validate_dmic_sample_rate(sample_rate, va);
--		if (!ret)
--			return -EINVAL;
-+		if (!ret) {
-+			ret = -EINVAL;
-+			goto err;
-+		}
- 	}
- 
- 	base = devm_platform_ioremap_resource(pdev, 0);
-@@ -1492,6 +1494,8 @@ static int va_macro_probe(struct platform_device *pdev)
- err_dcodec:
- 	clk_disable_unprepare(va->macro);
- err:
-+	lpass_macro_pds_exit(va->pds);
-+
- 	return ret;
- }
- 
--- 
-2.32.0
-
+> Le 07/03/2022 =C3=A0 09:45, Miaoqian Lin a =C3=A9crit :
+> > Fix the missing clk_disable_unprepare() before return
+> > from msm8916_wcd_digital_probe in the error handling case.
+> >
+> > Fixes: 150db8c5afa1 ("ASoC: codecs: Add msm8916-wcd digital codec")
+> > Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
+> > ---
+> >   sound/soc/codecs/msm8916-wcd-digital.c | 5 ++++-
+> >   1 file changed, 4 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/sound/soc/codecs/msm8916-wcd-digital.c
+> b/sound/soc/codecs/msm8916-wcd-digital.c
+> > index fcc10c8bc625..9ad7fc0baf07 100644
+> > --- a/sound/soc/codecs/msm8916-wcd-digital.c
+> > +++ b/sound/soc/codecs/msm8916-wcd-digital.c
+> > @@ -1201,7 +1201,7 @@ static int msm8916_wcd_digital_probe(struct
+> platform_device *pdev)
+> >       ret =3D clk_prepare_enable(priv->mclk);
+> >       if (ret < 0) {
+> >               dev_err(dev, "failed to enable mclk %d\n", ret);
+> > -             return ret;
+> > +             goto err_clk;
+> >       }
+> >
+> >       dev_set_drvdata(dev, priv);
+> > @@ -1209,6 +1209,9 @@ static int msm8916_wcd_digital_probe(struct
+> platform_device *pdev)
+> >       return devm_snd_soc_register_component(dev, &msm8916_wcd_digital,
+> >                                     msm8916_wcd_digital_dai,
+> >                                     ARRAY_SIZE(msm8916_wcd_digital_dai)=
+);
+> > +err_clk:
+> > +     clk_disable_unprepare(priv->ahbclk);
+> > +     return ret;
+> >   }
+> >
+> >   static int msm8916_wcd_digital_remove(struct platform_device *pdev)
+>
+> Hi,
+> I think that the same should be done for 'priv->mclk' if
+> devm_snd_soc_register_component() returns an error.
+>
+> Can you give it a look?
+>
+> CJ
+>

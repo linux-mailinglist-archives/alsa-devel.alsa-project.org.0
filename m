@@ -2,79 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5037F4F04F9
-	for <lists+alsa-devel@lfdr.de>; Sat,  2 Apr 2022 18:37:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E1464F07F9
+	for <lists+alsa-devel@lfdr.de>; Sun,  3 Apr 2022 07:52:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F0D4817B7;
-	Sat,  2 Apr 2022 18:36:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0D4817B7
+	by alsa0.perex.cz (Postfix) with ESMTPS id EDAE2171E;
+	Sun,  3 Apr 2022 07:52:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EDAE2171E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1648917423;
-	bh=mkH8uJWXxF9WDJTF9GQSX6lH/7+pN83clSgWCPk/tJo=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1648965178;
+	bh=FoQaaRpcp1JAicdGBuWpjWNBGGxyIm5q1C/xkje+4hU=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=h7iTt3fGV3BAk4cINrYLvnQFjnxzezRSMmJLbZDzsbdv1837LjuY1VfAHJiVUL9+6
-	 hu4sjMDFr0c7jcWYcWRj1DHB18uW7SRO7n4wNdIfEYQ0qKCtBUehN8mGUmZjZyGtP8
-	 9GKv73CQ7FWhSl/jCslSu6Ydw6D0eDWZ2vVf/Y70=
+	b=a6ACdlbN2P7BZK1lkBJ58D4MsUZxzHAMiyzclQ0qJnYKV/hDC/kBf9hVppnzMklNI
+	 RExTUd3RGFAm9fX18EkNfoNMi2AYg8bV/h0XVtTQB3zEJv6763/38Aqrp9OC6LgsIC
+	 9iSD9vzL/Jr9weJZ38bu0j3bEYdN3H7bCWI2jxrY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6773BF80310;
-	Sat,  2 Apr 2022 18:35:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5547AF8028B;
+	Sun,  3 Apr 2022 07:51:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0B275F802DB; Sat,  2 Apr 2022 18:35:53 +0200 (CEST)
+ id 4056BF80248; Sun,  3 Apr 2022 07:51:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.4 required=5.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
+ RCVD_IN_BL_SPAMCOP_NET,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from smtp.smtpout.orange.fr (smtp03.smtpout.orange.fr
+ [80.12.242.125])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D7468F80100
- for <alsa-devel@alsa-project.org>; Sat,  2 Apr 2022 18:35:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7468F80100
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="D+vCMtlg"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8F7C260B6C;
- Sat,  2 Apr 2022 16:35:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75363C340EE;
- Sat,  2 Apr 2022 16:35:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1648917345;
- bh=mkH8uJWXxF9WDJTF9GQSX6lH/7+pN83clSgWCPk/tJo=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=D+vCMtlg9wDUXQg/1cudIhkrlzFEBvMJLjDtXPGF/NvH4Xf47sqh62KthhKdR+JXa
- LJGA1LnSyvtEtBiRRRWGRHlWjGwVChU+dKFQyWnB9XKz44tXdU8ojeIEPt20lhsUtg
- mEkd/l2Dv/uBr5Pi9MLjTNSQWYRnPpuD3kWCBMui0SB4o1OaAQcJah9ziEcge2NAqL
- 6SgZCAg/Lyz6Rt4hqR5sjYWqYq7z/eVM51i+Ht/Lfg8QqCDHaMXZTYt+0+/BZxyj9E
- VbXvm2Chj8ah0B5D05Vl0Ncwohdjc9LuLajNvi9IMkw70d+p3+XeVeYN3RK0jo4Sbb
- vygZfZxO56STA==
-Date: Sat, 2 Apr 2022 18:35:39 +0200
-From: Mauro Carvalho Chehab <mchehab@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH AUTOSEL 5.16 54/59] ASoC: Intel: sof_es8336: log all quirks
-Message-ID: <20220402183539.738ffb7b@coco.lan>
-In-Reply-To: <20220330114831.1670235-54-sashal@kernel.org>
-References: <20220330114831.1670235-1-sashal@kernel.org>
- <20220330114831.1670235-54-sashal@kernel.org>
-X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.31; x86_64-redhat-linux-gnu)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9E9CFF80100
+ for <alsa-devel@alsa-project.org>; Sun,  3 Apr 2022 07:51:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E9CFF80100
+Received: from [192.168.1.18] ([90.126.236.122]) by smtp.orange.fr with ESMTPA
+ id at9JnoLlRN7Ccat9JnMpFF; Sun, 03 Apr 2022 07:51:43 +0200
+X-ME-Helo: [192.168.1.18]
+X-ME-Auth: YWZlNiIxYWMyZDliZWIzOTcwYTEyYzlhMmU3ZiQ1M2U2MzfzZDfyZTMxZTBkMTYyNDBjNDJlZmQ3ZQ==
+X-ME-Date: Sun, 03 Apr 2022 07:51:43 +0200
+X-ME-IP: 90.126.236.122
+Message-ID: <93751991-30ce-93a0-0f33-105f99b8dfe3@wanadoo.fr>
+Date: Sun, 3 Apr 2022 07:51:41 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- Bard Liao <yung-chuan.liao@linux.intel.com>, tiwai@suse.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Mark Brown <broonie@kernel.org>,
- =?UTF-8?B?UMOpdGVy?= Ujfalusi <peter.ujfalusi@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: [PATCH] ASoC: msm8916-wcd-digital: Fix missing
+ clk_disable_unprepare() in msm8916_wcd_digital_probe
+Content-Language: fr
+To: Miaoqian Lin <linmq006@gmail.com>
+References: <20220307084523.28687-1-linmq006@gmail.com>
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+In-Reply-To: <20220307084523.28687-1-linmq006@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,37 +77,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-HI Sasha,
-
-Em Wed, 30 Mar 2022 07:48:26 -0400
-Sasha Levin <sashal@kernel.org> escreveu:
-
-> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Le 07/03/2022 à 09:45, Miaoqian Lin a écrit :
+> Fix the missing clk_disable_unprepare() before return
+> from msm8916_wcd_digital_probe in the error handling case.
 > 
-> [ Upstream commit 9c818d849192491a8799b1cb14ca0f7aead4fb09 ]
+> Fixes: 150db8c5afa1 ("ASoC: codecs: Add msm8916-wcd digital codec")
+> Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
+> ---
+>   sound/soc/codecs/msm8916-wcd-digital.c | 5 ++++-
+>   1 file changed, 4 insertions(+), 1 deletion(-)
 > 
-> We only logged the SSP quirk, make sure the GPIO and DMIC quirks are
-> exposed.
+> diff --git a/sound/soc/codecs/msm8916-wcd-digital.c b/sound/soc/codecs/msm8916-wcd-digital.c
+> index fcc10c8bc625..9ad7fc0baf07 100644
+> --- a/sound/soc/codecs/msm8916-wcd-digital.c
+> +++ b/sound/soc/codecs/msm8916-wcd-digital.c
+> @@ -1201,7 +1201,7 @@ static int msm8916_wcd_digital_probe(struct platform_device *pdev)
+>   	ret = clk_prepare_enable(priv->mclk);
+>   	if (ret < 0) {
+>   		dev_err(dev, "failed to enable mclk %d\n", ret);
+> -		return ret;
+> +		goto err_clk;
+>   	}
+>   
+>   	dev_set_drvdata(dev, priv);
+> @@ -1209,6 +1209,9 @@ static int msm8916_wcd_digital_probe(struct platform_device *pdev)
+>   	return devm_snd_soc_register_component(dev, &msm8916_wcd_digital,
+>   				      msm8916_wcd_digital_dai,
+>   				      ARRAY_SIZE(msm8916_wcd_digital_dai));
+> +err_clk:
+> +	clk_disable_unprepare(priv->ahbclk);
+> +	return ret;
+>   }
+>   
+>   static int msm8916_wcd_digital_remove(struct platform_device *pdev)
 
-Checking the backports for sof_es8336, it would be nice to also
-backport this one:
+Hi,
+I think that the same should be done for 'priv->mclk' if 
+devm_snd_soc_register_component() returns an error.
 
-	https://lore.kernel.org/all/20220308192610.392950-20-pierre-louis.bossart@linux.intel.com/
+Can you give it a look?
 
-Without that, UCM won't detect a digital microphone and would fallback
-to analog mic, which won't work on machines with digital mic.
-
--
-
-Btw, I'm testing those using upstream UCM plus a couple of fixes
-I applied on the top of it:
-
-	https://github.com/mchehab/alsa-ucm-conf/commits/master
-
-there's a pending PR#144 for upstream's alsa-ucm-conf fixing 3
-issues at the UCM logic for essx8336.
-
-Tested on a Huawei Matebook D15 notebook.
-
-Thanks,
-Mauro
+CJ

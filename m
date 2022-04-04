@@ -2,89 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F4564F1229
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Apr 2022 11:36:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F06434F13E3
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Apr 2022 13:34:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F19F316CB;
-	Mon,  4 Apr 2022 11:35:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F19F316CB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8284D16F0;
+	Mon,  4 Apr 2022 13:33:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8284D16F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649065004;
-	bh=MISkUlMJwjTnq7mFlq/oNBnWh38mnW81WtCm3p2Ztqg=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1649072048;
+	bh=c0wFuTMFWKRfhUqfRe35SgYb06M5c27av/rwjk1yJxE=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=WPFETuZudIZl5tzAQln2ePGjC9nofhsk5bnDiLqHfu68GPbXs0TBE/sV3l22+fAWY
-	 PXjzRfkB9DJoe2qMU2BmrFHr/mISDJuDNvQ+DIgnMpHbT9dV/EtygVAIijhZvCCxyq
-	 RTIeEKmsNfw73LM+iVVP+Swvr4mGqo51T5klzzaQ=
+	b=UEkjAonJnry30rIlczuvTTGuuN7y2tndm/aWVSaa20ZQ6H1sceZNn+2dnBX3FbbIt
+	 kIQy1qTWbC+VNXiqFCd7rhZBVlKqEZ4XbedD1qEJ/QpVwxtA0RWLzp6BykZS5PeN/u
+	 x1bNILoNpaxtvFt68/7wosjYAKQm3p6eCr/GvvGg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 73438F801F7;
-	Mon,  4 Apr 2022 11:35:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DC06FF801F7;
+	Mon,  4 Apr 2022 13:33:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ADF30F800D1; Mon,  4 Apr 2022 11:35:43 +0200 (CEST)
+ id A634BF8010B; Mon,  4 Apr 2022 13:33:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com
- [IPv6:2607:f8b0:4864:20::1036])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 26D00F800D1
- for <alsa-devel@alsa-project.org>; Mon,  4 Apr 2022 11:35:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26D00F800D1
+ by alsa1.perex.cz (Postfix) with ESMTPS id F1372F800D1
+ for <alsa-devel@alsa-project.org>; Mon,  4 Apr 2022 13:32:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1372F800D1
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="hqie0Vxb"
-Received: by mail-pj1-x1036.google.com with SMTP id fu5so2506438pjb.1
- for <alsa-devel@alsa-project.org>; Mon, 04 Apr 2022 02:35:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:subject:date:message-id;
- bh=NFJoHT6EmGTYBUPOupG38cbbiA5NqTvKVPy1Pb3g8l0=;
- b=hqie0VxbYc6jPuFUDUUWm1ttjYV4p5WiT7ENtpsiDJIZxfyFn8KEFNdFEfMWRv7WlT
- s4gwzU9BbT8f7aP01MHVF85zFMbgqlHDUL3hg3KSpHA88D7qEyQN8o9S1mZRK2HTupsz
- pjLzKJCvhIICpDKDOqz4Au81BgUEMVRv/nxup5iZJBKY6fktTyWz2ww03AWmpaPE8TVy
- SyzKdH5qTb00ZfGBjVS5/XU1AQBJ1SPMpZ2Od2UUpqxrDw4MvEGj1R8nbyqfxHiJ3FiZ
- Hw8k2PMX0hgXLjfsdoKXvPWmHxc/U07vws0xXytgr0GA+Y6fL1626W5leKk1qWV1VFfo
- 87Rg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:subject:date:message-id;
- bh=NFJoHT6EmGTYBUPOupG38cbbiA5NqTvKVPy1Pb3g8l0=;
- b=ezc3ripqCPhkOnerFV1lwRL3G5r1oLuEY5NYwXTDk57/fw+6XwwSmEdqZmTcX7+PLn
- iVODgdr6C07/lAgjl0w2xXiAKQ1u/2eAXnLsW+yS3DRRDo0yIAhrkKpANsX3XI5R1o0c
- +cxI6hPgs6FNuNcHerHDbT4DqHf6faBwJM9+m5zAsvYaQCIYGNQfuDc/pxKNyMhLa5EW
- 7L21tEu+pruxzbjI9ly5BVguaH5c2i4bpA5/u00YPt5fw1Mj+E1BRfuZtpXfng4KX/Hj
- PY5KNoyFk5PUrH2IIss5fdFcLf9UyOW7gRTDlbN3+2UDYdfEZGaec97blqyufVn734JK
- Bq4w==
-X-Gm-Message-State: AOAM532aBKBP3EgvcyqInR/K8GYknqkZ0syIuh1TRm5hv13KfjTYfbAM
- 9k6TzTA/cZ/kPv+reuhBf1c=
-X-Google-Smtp-Source: ABdhPJw99iosJV9nPCTMTX9k/SsOa92D4Q8eA8BMrDxaMJ3zDelyoQIOKd0hFHAqFwuNdvPttgVplA==
-X-Received: by 2002:a17:90b:164f:b0:1c7:8d20:ff6d with SMTP id
- il15-20020a17090b164f00b001c78d20ff6dmr25522757pjb.64.1649064938871; 
- Mon, 04 Apr 2022 02:35:38 -0700 (PDT)
-Received: from localhost.localdomain ([159.226.95.43])
- by smtp.googlemail.com with ESMTPSA id
- j20-20020a62e914000000b004fa3bd9bef0sm11032863pfh.110.2022.04.04.02.35.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 Apr 2022 02:35:38 -0700 (PDT)
-From: Miaoqian Lin <linmq006@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Rikard Falkeborn <rikard.falkeborn@gmail.com>,
- Miaoqian Lin <linmq006@gmail.com>, Ryder Lee <ryder.lee@mediatek.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-Subject: [PATCH] ASoC: mediatek: Fix missing of_node_put in
- mt2701_wm8960_machine_probe
-Date: Mon,  4 Apr 2022 09:35:25 +0000
-Message-Id: <20220404093526.30004-1-linmq006@gmail.com>
-X-Mailer: git-send-email 2.17.1
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="jSWvRvoK"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 234ARsRs021747;
+ Mon, 4 Apr 2022 06:32:57 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=H63J8bNo1U5sBmx2P4okC9/PwTimoEy0MqDW58hghvE=;
+ b=jSWvRvoKOAi7WQU7VmBMfGcTKFHk4avxW2Im1ogeHTSiUC/RN0Gc79PFIvWzpezFNCvO
+ HUAPp0x8BSNqLsP7e08h+BU03EZzxOtKq1Dl/m/T+2ztc+ekrX3t6qNIHVLRjcWGucPh
+ qM50cVOXgavEGupm68sPUEHSIK07TONSC0jLIWfk3EmtvUPI0sL/5MDbW57UtfsULyNK
+ V6SEnnpD/oUXTajdkDi8NBon3LbJmw3eHl6yP3Lj7FuhdpCxeJ53m3/rXvxy3Ig3jAj7
+ ZQD78iFjuIP7VhSjKwmoXmDNwAxWvi2rXJrE5hJHj5MQzBGWL1zc5kJyoYEf5IXYjkc3 Vg== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3f6jwnt2sf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Mon, 04 Apr 2022 06:32:57 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Mon, 4 Apr
+ 2022 12:32:55 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.24 via
+ Frontend Transport; Mon, 4 Apr 2022 12:32:55 +0100
+Received: from AUSNPC0LSNW1-debian.cirrus.com (AUSNPC0LSNW1.ad.cirrus.com
+ [198.61.65.88])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 9687FB10;
+ Mon,  4 Apr 2022 11:32:55 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <broonie@kernel.org>
+Subject: [PATCH] ASoC: simple-card-utils: Avoid NULL deref in
+ asoc_simple_set_tdm()
+Date: Mon, 4 Apr 2022 12:32:52 +0100
+Message-ID: <20220404113252.1152659-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: -H8KNmp3Gh51xxtvDil9ArkdgQVvLksO
+X-Proofpoint-GUID: -H8KNmp3Gh51xxtvDil9ArkdgQVvLksO
+X-Proofpoint-Spam-Reason: safe
+Cc: alsa-devel@alsa-project.org, kernel test robot <lkp@intel.com>,
+ patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Dan Carpenter <dan.carpenter@oracle.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,50 +100,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This node pointer is returned by of_parse_phandle() with
-refcount incremented in this function.
-Calling of_node_put() to avoid the refcount leak.
+Don't dereference simple_dai before it has been checked for NULL.
 
-Fixes: 8625c1dbd876 ("ASoC: mediatek: Add mt2701-wm8960 machine driver")
-Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+Fixes: 1e974e5b82b3 ("ASoC: audio_graph_card2: Add support for variable slot widths")
+Reported-by: kernel test robot <lkp@intel.com>
+Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
 ---
- sound/soc/mediatek/mt2701/mt2701-wm8960.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ sound/soc/generic/simple-card-utils.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/mediatek/mt2701/mt2701-wm8960.c b/sound/soc/mediatek/mt2701/mt2701-wm8960.c
-index f56de1b918bf..0cdf2ae36243 100644
---- a/sound/soc/mediatek/mt2701/mt2701-wm8960.c
-+++ b/sound/soc/mediatek/mt2701/mt2701-wm8960.c
-@@ -129,7 +129,8 @@ static int mt2701_wm8960_machine_probe(struct platform_device *pdev)
- 	if (!codec_node) {
- 		dev_err(&pdev->dev,
- 			"Property 'audio-codec' missing or invalid\n");
--		return -EINVAL;
-+		ret = -EINVAL;
-+		goto put_platform_node;
- 	}
- 	for_each_card_prelinks(card, i, dai_link) {
- 		if (dai_link->codecs->name)
-@@ -140,7 +141,7 @@ static int mt2701_wm8960_machine_probe(struct platform_device *pdev)
- 	ret = snd_soc_of_parse_audio_routing(card, "audio-routing");
- 	if (ret) {
- 		dev_err(&pdev->dev, "failed to parse audio-routing: %d\n", ret);
--		return ret;
-+		goto put_codec_node;
- 	}
+diff --git a/sound/soc/generic/simple-card-utils.c b/sound/soc/generic/simple-card-utils.c
+index 8e037835bc58..f2157944247f 100644
+--- a/sound/soc/generic/simple-card-utils.c
++++ b/sound/soc/generic/simple-card-utils.c
+@@ -364,13 +364,15 @@ static int asoc_simple_set_tdm(struct snd_soc_dai *dai,
+ 				struct snd_pcm_hw_params *params)
+ {
+ 	int sample_bits = params_width(params);
+-	int slot_width = simple_dai->slot_width;
+-	int slot_count = simple_dai->slots;
++	int slot_width, slot_count;
+ 	int i, ret;
  
- 	ret = devm_snd_soc_register_card(&pdev->dev, card);
-@@ -148,6 +149,10 @@ static int mt2701_wm8960_machine_probe(struct platform_device *pdev)
- 		dev_err(&pdev->dev, "%s snd_soc_register_card fail %d\n",
- 			__func__, ret);
+ 	if (!simple_dai || !simple_dai->tdm_width_map)
+ 		return 0;
  
-+put_codec_node:
-+	of_node_put(codec_node);
-+put_platform_node:
-+	of_node_put(platform_node);
- 	return ret;
- }
++	slot_width = simple_dai->slot_width;
++	slot_count = simple_dai->slots;
++
+ 	if (slot_width == 0)
+ 		slot_width = sample_bits;
  
 -- 
-2.17.1
+2.30.2
 

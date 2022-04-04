@@ -2,77 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 653FA4F15D0
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Apr 2022 15:24:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C71BD4F16A4
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Apr 2022 15:58:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0840716D1;
-	Mon,  4 Apr 2022 15:24:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0840716D1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6399616CA;
+	Mon,  4 Apr 2022 15:58:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6399616CA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649078692;
-	bh=tCSYa1fuEtZIBfVWvKo6VO6FlHRCRYIuc3x6jjBJ5jo=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1649080737;
+	bh=HyEQWxdGR2ZgP/ErykllsbEDEwioL0bja82aVJIN1GE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TuyHE56S00x1K5iEVTwDK4R5mmBk70dwO4voE3M2nCZQ2MaA7hcNwWfE9yQHL3oUf
-	 rurma7e6+loEB6SaExutn5fR68N6XVgxHAoIQ4GSM9aWMCPrXM4CKpX527C/ZqOw9g
-	 q9RoGCYo3rWVzex2knnE0HSdZcGldMX3Hh25Rna4=
+	b=vVow4ZlqP7ydzoRj3W6FaTKQ1E9Fk+bmk5TLmNUnHqwGSBTZHeKHcJ+wv/Lw/anZk
+	 GFYdbQK/8KlXfLXuxSgvTpotX3e2D/ZVJuYM1bRU9+/0M+zDRogRO/8TFikIt149ZO
+	 4VxPxzZCiszUV0IIvE0uXycjV2mXuiHfTZwWBeiQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 606EDF801F7;
-	Mon,  4 Apr 2022 15:23:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CAD39F801F7;
+	Mon,  4 Apr 2022 15:57:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 32B4FF80162; Mon,  4 Apr 2022 15:23:51 +0200 (CEST)
+ id 72612F80162; Mon,  4 Apr 2022 15:57:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com
+ [209.85.222.182])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 12A1EF800D1
- for <alsa-devel@alsa-project.org>; Mon,  4 Apr 2022 15:23:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12A1EF800D1
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="d4+6mBOA"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5A6A561232;
- Mon,  4 Apr 2022 13:23:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE81DC2BBE4;
- Mon,  4 Apr 2022 13:23:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1649078618;
- bh=tCSYa1fuEtZIBfVWvKo6VO6FlHRCRYIuc3x6jjBJ5jo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=d4+6mBOAJwMGXVvCpi7WBjdQjwPgNjtJ9ApqxbeX9Qn/z1zzwclRtckRhXXh7dpxZ
- tc9+DbDEFSZXlYQcjU+hdO4Jra82n3wizNIruKCWOWQadJlOJZ8HqUZkCGvgnMm2zt
- RkNCeE2BqbeOAXirUaQHQ5Ab2FSh7FCTnWgjgQmEDc3+9qyZj81b6niJV/ZwY7ud02
- bqrVTP21rdlFsICY2SIEWoDfW5OQ71lnulol5ZFEl9ahupLPR23iOBNoDQf/SdgPQ1
- 8puJPglmp2LkNzysDT8IznqzMe9wjSvHxOCANfKDFR8dyt6LNCyXX+RU8IdWOPV9DM
- ccLwyQ5HV6Gqg==
-Date: Mon, 4 Apr 2022 14:23:34 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Codrin.Ciubotariu@microchip.com
-Subject: Re: [PATCH v1 2/3] ASoC: atmel: Fix error handling in at91samg20ek
- probe()
-Message-ID: <YkrxVpO8vQxHjuUY@sirena.org.uk>
-References: <20220325154241.1600757-1-broonie@kernel.org>
- <20220325154241.1600757-3-broonie@kernel.org>
- <cc73b6ab-9b76-6359-5c2c-7199ed5a3166@microchip.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4702CF800D1
+ for <alsa-devel@alsa-project.org>; Mon,  4 Apr 2022 15:57:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4702CF800D1
+Received: by mail-qk1-f182.google.com with SMTP id h196so7623061qke.12
+ for <alsa-devel@alsa-project.org>; Mon, 04 Apr 2022 06:57:49 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=D3y+W+WKQd7hPp6d6usVi59eLjz9RE6hzmPFo/q5LYE=;
+ b=HTnMntZ9HrR30KED3GyQAYYRowFOoVowO57mC03wlAe7BJDwT2Av017XUjIcTsBntw
+ VcSJnSTDksZ3CHgM7Pwdh0Qm+UquTyRw4jylk68YRPZXPkJ7yiziQWAkzpQVjiCcyHbB
+ BBKozyhgfyhumzAST7/wUMeKOBlp+E7kp+Jf+L/iBBcDyw3QHcQc38BGqKePRYsLw6pQ
+ uX8c/+mzysNPoiKuTk67phaOOAP0QAmBNOm3dQ8gzwEgawvVIEV1ny9GESQ00iV75+Wt
+ TxMzvXcBsVpd4aH0d4snOUdZHBRc7zqQzlAUNcB9wUWI1VWhs/7kWH4dqCTP3KmJSEan
+ D6sA==
+X-Gm-Message-State: AOAM532MdVHjHuxvE7KM0DLKjA+yLT15l1gsfxY8Kcqrka70xHiph+05
+ xoozYFH5UIINu47+ZhyO/T0mMyv5leBuag==
+X-Google-Smtp-Source: ABdhPJy2ywUJB284wAAkl5OoaWzVyJb5/5XyoGK2wFmAvFOLupq2C7sg5sEzuSny8dlF4uRay4yM6w==
+X-Received: by 2002:a05:620a:44d4:b0:67d:ba87:e4ee with SMTP id
+ y20-20020a05620a44d400b0067dba87e4eemr14129434qkp.734.1649080667932; 
+ Mon, 04 Apr 2022 06:57:47 -0700 (PDT)
+Received: from mail-yb1-f181.google.com (mail-yb1-f181.google.com.
+ [209.85.219.181]) by smtp.gmail.com with ESMTPSA id
+ c11-20020a05620a134b00b006809a92a94fsm6108486qkl.79.2022.04.04.06.57.47
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 04 Apr 2022 06:57:47 -0700 (PDT)
+Received: by mail-yb1-f181.google.com with SMTP id o62so2722938ybo.2
+ for <alsa-devel@alsa-project.org>; Mon, 04 Apr 2022 06:57:47 -0700 (PDT)
+X-Received: by 2002:a5b:24e:0:b0:63d:cba0:3d55 with SMTP id
+ g14-20020a5b024e000000b0063dcba03d55mr4760604ybp.613.1649080667232; Mon, 04
+ Apr 2022 06:57:47 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="62cxRDxb1oiRs2UF"
-Content-Disposition: inline
-In-Reply-To: <cc73b6ab-9b76-6359-5c2c-7199ed5a3166@microchip.com>
-X-Cookie: Did I say I was a sardine?  Or a bus???
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com
+References: <20220403222510.12670-1-rdunlap@infradead.org>
+In-Reply-To: <20220403222510.12670-1-rdunlap@infradead.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 4 Apr 2022 15:57:35 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUCdGKE04U4yMqv7TPUztwfih7aLwoTfEP5vcATW=CCxw@mail.gmail.com>
+Message-ID: <CAMuHMdUCdGKE04U4yMqv7TPUztwfih7aLwoTfEP5vcATW=CCxw@mail.gmail.com>
+Subject: Re: [PATCH v2] sound/oss/dmasound: fix build when drivers are mixed
+ =y/=m
+To: Randy Dunlap <rdunlap@infradead.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ kernel test robot <lkp@intel.com>, Arnd Bergmann <arnd@arndb.de>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,40 +98,109 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Randy,
 
---62cxRDxb1oiRs2UF
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Mon, Apr 4, 2022 at 12:25 AM Randy Dunlap <rdunlap@infradead.org> wrote:
+> When CONFIG_DMASOUND_ATARI=m and CONFIG_DMASOUND_Q40=y (or vice versa),
+> dmasound_core.o can be built without dmasound_deinit() being defined,
+> causing a build error:
+>
+> ERROR: modpost: "dmasound_deinit" [sound/oss/dmasound/dmasound_atari.ko] undefined!
+>
+> Modify dmasound_core.c so that dmasound_deinit() is always available.
+>
+> Suggested-by: Arnd Bergmann <arnd@arndb.de>
+> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
 
-On Mon, Apr 04, 2022 at 12:47:27PM +0000, Codrin.Ciubotariu@microchip.com w=
-rote:
-> On 25.03.2022 17:42, Mark Brown wrote:
-> > The error handling in the AT91SAM9G20-EK machine driver probe did not
-> > consistently free the SSC in error paths, sometimes immediately returni=
-ng
-> > an error rather than doing cleanup. Fix this.
-> >=20
-> > Signed-off-by: Mark Brown <broonie@kernel.org>
->=20
-> Should we have a 'Fixes' tag here?
+Thanks for spending more time on this ;-)
 
-I'm not sure those code paths are ever executing, I really don't think
-it's worth the effort or noise checking.
+> --- linux-next-20220401.orig/sound/oss/dmasound/dmasound_core.c
+> +++ linux-next-20220401/sound/oss/dmasound/dmasound_core.c
+> @@ -1424,27 +1424,29 @@ int dmasound_init(void)
+>         return 0;
+>  }
+>
+> -#ifdef MODULE
+> -
+>  void dmasound_deinit(void)
+>  {
+> +#ifdef MODULE
 
---62cxRDxb1oiRs2UF
-Content-Type: application/pgp-signature; name="signature.asc"
+I think this #ifdef must not be added: if the modular subdriver
+calls dmasound_deinit(), the resources should be freed, else a subsequent
+reload of the subdriver will not work.  This does mean all variables
+protected by "#ifdef MODULE" must exist unconditionally.
 
------BEGIN PGP SIGNATURE-----
+Alternatively, the test can be replaced by "#ifdef CONFIG_MODULES".
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJK8VUACgkQJNaLcl1U
-h9DhxAf/doLG2EvvT0Glnf/kahhfQDQMbucF/mEz4FlJ0o3zwIRqXgRGObW0dYOv
-6SAcbVO9T4ZnZxr/Bu+d6bIf4b0NrfBx185qpa8j1waWC009c2XmQJedKyons+Rh
-Dpi5WroiAzV8H52oeMplbu42j4n31kJ4yjP3Whxquln/GVijnzxmYF0xbHkIG/QU
-dFIyi3R5GWNyP9z3dhBYwlRqtjp/G5CScE4IokbEaHOMOX77wLt4IwjWQuALgkIg
-Tl9F/Hv89t26ZHNT8oISfbQ5HgtTZP8ZaRsesE7OnPRln7k6nJmflh0l4wJrkO3L
-t4bYFEH89o89PWODuOFgOLDJ5EW5vw==
-=VRNB
------END PGP SIGNATURE-----
+One big caveat below...
 
---62cxRDxb1oiRs2UF--
+>         if (irq_installed) {
+>                 sound_silence();
+>                 dmasound.mach.irqcleanup();
+>                 irq_installed = 0;
+>         }
+> +#endif
+>
+>         write_sq_release_buffers();
+>
+> +#ifdef MODULE
+
+Likewise.
+
+>         if (mixer_unit >= 0)
+>                 unregister_sound_mixer(mixer_unit);
+>         if (state_unit >= 0)
+>                 unregister_sound_special(state_unit);
+>         if (sq_unit >= 0)
+>                 unregister_sound_dsp(sq_unit);
+> +#endif
+>  }
+>
+> -#else /* !MODULE */
+> +#ifndef MODULE
+>
+>  static int dmasound_setup(char *str)
+>  {
+
+> --- linux-next-20220401.orig/sound/oss/dmasound/dmasound.h
+> +++ linux-next-20220401/sound/oss/dmasound/dmasound.h
+> @@ -88,11 +88,7 @@ static inline int ioctl_return(int __use
+>       */
+>
+>  extern int dmasound_init(void);
+> -#ifdef MODULE
+>  extern void dmasound_deinit(void);
+> -#else
+> -#define dmasound_deinit()      do { } while (0)
+> -#endif
+>
+>  /* description of the set-up applies to either hard or soft settings */
+
+... Below, there is:
+
+    typedef struct {
+        [...]
+    #ifdef MODULE
+        void (*irqcleanup)(void);
+    #endif
+        [...]
+    } MACHINE;
+
+This means the MACHINE struct is not compatible between builtin
+and modular code :-(  Hence the "#ifdef MODULE" should be removed,
+or replaced by "#ifdef CONFIG_MODULES", too.
+
+P.S. I think the younger myself is responsible for this mess.
+     Please accept my apologies, after +25 years...
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds

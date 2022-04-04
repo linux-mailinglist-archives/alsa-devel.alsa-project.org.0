@@ -2,74 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38E364F159B
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Apr 2022 15:14:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 653FA4F15D0
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Apr 2022 15:24:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BBD4416E9;
-	Mon,  4 Apr 2022 15:13:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BBD4416E9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0840716D1;
+	Mon,  4 Apr 2022 15:24:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0840716D1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649078078;
-	bh=+DqX1qebVc7NPGN9C3wVhR4T3xFPZrevTgdQPmE/GdQ=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=DtgqMey8dbO3s8TKs3R2UKg/KSHB/S6qP5G7O+m1Orf8UtsPs2IPlFozplRcs5y3x
-	 41V6NHMeicj3hWUh5AxDDD+bZgVk1Ekl5g24faySI3rk6vUNwKkYqb3uUH3xTH3Qtv
-	 NvJLD64Vev2CZq/Y+jZdmdvplTC6p3fYLXV6ItfQ=
+	s=default; t=1649078692;
+	bh=tCSYa1fuEtZIBfVWvKo6VO6FlHRCRYIuc3x6jjBJ5jo=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=TuyHE56S00x1K5iEVTwDK4R5mmBk70dwO4voE3M2nCZQ2MaA7hcNwWfE9yQHL3oUf
+	 rurma7e6+loEB6SaExutn5fR68N6XVgxHAoIQ4GSM9aWMCPrXM4CKpX527C/ZqOw9g
+	 q9RoGCYo3rWVzex2knnE0HSdZcGldMX3Hh25Rna4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 13BDFF801F7;
-	Mon,  4 Apr 2022 15:13:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 606EDF801F7;
+	Mon,  4 Apr 2022 15:23:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0B5C6F800D1; Mon,  4 Apr 2022 15:13:38 +0200 (CEST)
+ id 32B4FF80162; Mon,  4 Apr 2022 15:23:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 12A1EF800D1
+ for <alsa-devel@alsa-project.org>; Mon,  4 Apr 2022 15:23:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12A1EF800D1
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="d4+6mBOA"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 80A35F800D1
- for <alsa-devel@alsa-project.org>; Mon,  4 Apr 2022 15:13:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80A35F800D1
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="fQ7OTecY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649078012; x=1680614012;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=+DqX1qebVc7NPGN9C3wVhR4T3xFPZrevTgdQPmE/GdQ=;
- b=fQ7OTecYaCEsLsOqy0w1R3HSh3LOE15YtrHegImBz9CuJ4JJdZDYsLvA
- rKE/70xAl1fqQyR03rpq/KtHRBfTlu3S7UL+SP2odlxR7P7FOJn0VYTEO
- josOE4enAzKLlhyjspKIKyeyVp136TTztxD/un4BKt+l0urW59o5rQx/M
- bRDYJnzaTQZVvV/MtV9zVmhqinRHzkjpwOTA9/ffLYFOuVRq7OhLoW5tW
- UjVFzgf2yn4qk2QCGgGvU3Rs6+AOXfnYyJbjozgQyVoY2pXS5lZ+dcM88
- tmhgKeVHkRbXF0BV5ZtLLeDz/Jc4acl5MOAT+rjE1oF4cPJsL2yiiYFGB Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10306"; a="248023854"
-X-IronPort-AV: E=Sophos;i="5.90,234,1643702400"; d="scan'208";a="248023854"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Apr 2022 06:13:26 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,234,1643702400"; d="scan'208";a="504900508"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga003.jf.intel.com with ESMTP; 04 Apr 2022 06:13:24 -0700
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	tiwai@suse.de
-Subject: [PATCH] ALSA: hda/i915 - skip acomp init if no matching display
-Date: Mon,  4 Apr 2022 16:03:56 +0300
-Message-Id: <20220404130356.2776970-1-kai.vehmanen@linux.intel.com>
-X-Mailer: git-send-email 2.35.1
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 5A6A561232;
+ Mon,  4 Apr 2022 13:23:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE81DC2BBE4;
+ Mon,  4 Apr 2022 13:23:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1649078618;
+ bh=tCSYa1fuEtZIBfVWvKo6VO6FlHRCRYIuc3x6jjBJ5jo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=d4+6mBOAJwMGXVvCpi7WBjdQjwPgNjtJ9ApqxbeX9Qn/z1zzwclRtckRhXXh7dpxZ
+ tc9+DbDEFSZXlYQcjU+hdO4Jra82n3wizNIruKCWOWQadJlOJZ8HqUZkCGvgnMm2zt
+ RkNCeE2BqbeOAXirUaQHQ5Ab2FSh7FCTnWgjgQmEDc3+9qyZj81b6niJV/ZwY7ud02
+ bqrVTP21rdlFsICY2SIEWoDfW5OQ71lnulol5ZFEl9ahupLPR23iOBNoDQf/SdgPQ1
+ 8puJPglmp2LkNzysDT8IznqzMe9wjSvHxOCANfKDFR8dyt6LNCyXX+RU8IdWOPV9DM
+ ccLwyQ5HV6Gqg==
+Date: Mon, 4 Apr 2022 14:23:34 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Codrin.Ciubotariu@microchip.com
+Subject: Re: [PATCH v1 2/3] ASoC: atmel: Fix error handling in at91samg20ek
+ probe()
+Message-ID: <YkrxVpO8vQxHjuUY@sirena.org.uk>
+References: <20220325154241.1600757-1-broonie@kernel.org>
+ <20220325154241.1600757-3-broonie@kernel.org>
+ <cc73b6ab-9b76-6359-5c2c-7199ed5a3166@microchip.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>, kai.vehmanen@linux.intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="62cxRDxb1oiRs2UF"
+Content-Disposition: inline
+In-Reply-To: <cc73b6ab-9b76-6359-5c2c-7199ed5a3166@microchip.com>
+X-Cookie: Did I say I was a sardine?  Or a bus???
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,77 +88,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In systems with only a discrete i915 GPU, the acomp init will
-always timeout for the PCH HDA controller instance.
 
-Avoid the timeout by checking the PCI device hierarchy
-whether any display class PCI device can be found on the system,
-and at the same level as the HDA PCI device. If found, proceed
-with the acomp init, which will wait until i915 probe is complete
-and component binding can proceed. If no matching display
-device is found, the audio component bind can be safely skipped.
+--62cxRDxb1oiRs2UF
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-The bind timeout will still be hit if the display is present
-in the system, but i915 driver does not bind to it by configuration
-choice or probe error. In this case the 60sec timeout will be
-hit.
+On Mon, Apr 04, 2022 at 12:47:27PM +0000, Codrin.Ciubotariu@microchip.com w=
+rote:
+> On 25.03.2022 17:42, Mark Brown wrote:
+> > The error handling in the AT91SAM9G20-EK machine driver probe did not
+> > consistently free the SSC in error paths, sometimes immediately returni=
+ng
+> > an error rather than doing cleanup. Fix this.
+> >=20
+> > Signed-off-by: Mark Brown <broonie@kernel.org>
+>=20
+> Should we have a 'Fixes' tag here?
 
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Acked-by: Lucas De Marchi <lucas.demarchi@intel.com>
----
- sound/hda/hdac_i915.c | 29 +++++++++++++++++++----------
- 1 file changed, 19 insertions(+), 10 deletions(-)
+I'm not sure those code paths are ever executing, I really don't think
+it's worth the effort or noise checking.
 
-diff --git a/sound/hda/hdac_i915.c b/sound/hda/hdac_i915.c
-index efe810af28c5..55b61b1a0ef9 100644
---- a/sound/hda/hdac_i915.c
-+++ b/sound/hda/hdac_i915.c
-@@ -116,16 +116,25 @@ static int i915_component_master_match(struct device *dev, int subcomponent,
- 	return 0;
- }
- 
--/* check whether intel graphics is present */
--static bool i915_gfx_present(void)
-+/* check whether Intel graphics is present and reachable */
-+static int i915_gfx_present(struct pci_dev *hdac_pci)
- {
--	static const struct pci_device_id ids[] = {
--		{ PCI_DEVICE(PCI_VENDOR_ID_INTEL, PCI_ANY_ID),
--		  .class = PCI_BASE_CLASS_DISPLAY << 16,
--		  .class_mask = 0xff << 16 },
--		{}
--	};
--	return pci_dev_present(ids);
-+	unsigned int class = PCI_BASE_CLASS_DISPLAY << 16;
-+	struct pci_dev *display_dev = NULL;
-+	bool match = false;
-+
-+	do {
-+		display_dev = pci_get_class(class, display_dev);
-+		if (display_dev)
-+			if (display_dev->vendor == PCI_VENDOR_ID_INTEL &&
-+			    connectivity_check(display_dev, hdac_pci))
-+				match = true;
-+
-+		pci_dev_put(display_dev);
-+
-+	} while (!match && display_dev);
-+
-+	return match;
- }
- 
- /**
-@@ -145,7 +154,7 @@ int snd_hdac_i915_init(struct hdac_bus *bus)
- 	struct drm_audio_component *acomp;
- 	int err;
- 
--	if (!i915_gfx_present())
-+	if (!i915_gfx_present(to_pci_dev(bus->dev)))
- 		return -ENODEV;
- 
- 	err = snd_hdac_acomp_init(bus, NULL,
+--62cxRDxb1oiRs2UF
+Content-Type: application/pgp-signature; name="signature.asc"
 
-base-commit: bfa1e1a62c8bdbe3d8c915fbb7a078dc783b2ee8
--- 
-2.35.1
+-----BEGIN PGP SIGNATURE-----
 
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJK8VUACgkQJNaLcl1U
+h9DhxAf/doLG2EvvT0Glnf/kahhfQDQMbucF/mEz4FlJ0o3zwIRqXgRGObW0dYOv
+6SAcbVO9T4ZnZxr/Bu+d6bIf4b0NrfBx185qpa8j1waWC009c2XmQJedKyons+Rh
+Dpi5WroiAzV8H52oeMplbu42j4n31kJ4yjP3Whxquln/GVijnzxmYF0xbHkIG/QU
+dFIyi3R5GWNyP9z3dhBYwlRqtjp/G5CScE4IokbEaHOMOX77wLt4IwjWQuALgkIg
+Tl9F/Hv89t26ZHNT8oISfbQ5HgtTZP8ZaRsesE7OnPRln7k6nJmflh0l4wJrkO3L
+t4bYFEH89o89PWODuOFgOLDJ5EW5vw==
+=VRNB
+-----END PGP SIGNATURE-----
+
+--62cxRDxb1oiRs2UF--

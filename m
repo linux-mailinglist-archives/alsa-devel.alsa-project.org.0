@@ -2,89 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F06434F13E3
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Apr 2022 13:34:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 252754F14CF
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Apr 2022 14:29:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8284D16F0;
-	Mon,  4 Apr 2022 13:33:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8284D16F0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9B84F168C;
+	Mon,  4 Apr 2022 14:28:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B84F168C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649072048;
-	bh=c0wFuTMFWKRfhUqfRe35SgYb06M5c27av/rwjk1yJxE=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=UEkjAonJnry30rIlczuvTTGuuN7y2tndm/aWVSaa20ZQ6H1sceZNn+2dnBX3FbbIt
-	 kIQy1qTWbC+VNXiqFCd7rhZBVlKqEZ4XbedD1qEJ/QpVwxtA0RWLzp6BykZS5PeN/u
-	 x1bNILoNpaxtvFt68/7wosjYAKQm3p6eCr/GvvGg=
+	s=default; t=1649075382;
+	bh=xs4c6MXzpV8ng4CjtZYCgJS2RsuPKpKdPUzYO+hnHgE=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=vq89SCSv8Uxe8LyIXTY8sowdK1wUNLdeuwvTQxXqDlKZ2pjvmv4PgiDQeszNYmleM
+	 7BOlcGHnACnYiuD0FunIsZmXG0GY3bPeeBFRZt0TNbqDsm6P4BSiJmle4RQsAcmWbl
+	 qBTZmKMJlAv8n3GNIyGn94KPuZu2+gIlCYEBiZ+Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DC06FF801F7;
-	Mon,  4 Apr 2022 13:33:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 01E28F801F7;
+	Mon,  4 Apr 2022 14:28:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A634BF8010B; Mon,  4 Apr 2022 13:33:07 +0200 (CEST)
+ id 178E9F80162; Mon,  4 Apr 2022 14:28:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 16D39F80100
+ for <alsa-devel@alsa-project.org>; Mon,  4 Apr 2022 14:28:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 16D39F80100
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="T7GBgI2G"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F1372F800D1
- for <alsa-devel@alsa-project.org>; Mon,  4 Apr 2022 13:32:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1372F800D1
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="jSWvRvoK"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 234ARsRs021747;
- Mon, 4 Apr 2022 06:32:57 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=PODMain02222019;
- bh=H63J8bNo1U5sBmx2P4okC9/PwTimoEy0MqDW58hghvE=;
- b=jSWvRvoKOAi7WQU7VmBMfGcTKFHk4avxW2Im1ogeHTSiUC/RN0Gc79PFIvWzpezFNCvO
- HUAPp0x8BSNqLsP7e08h+BU03EZzxOtKq1Dl/m/T+2ztc+ekrX3t6qNIHVLRjcWGucPh
- qM50cVOXgavEGupm68sPUEHSIK07TONSC0jLIWfk3EmtvUPI0sL/5MDbW57UtfsULyNK
- V6SEnnpD/oUXTajdkDi8NBon3LbJmw3eHl6yP3Lj7FuhdpCxeJ53m3/rXvxy3Ig3jAj7
- ZQD78iFjuIP7VhSjKwmoXmDNwAxWvi2rXJrE5hJHj5MQzBGWL1zc5kJyoYEf5IXYjkc3 Vg== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3f6jwnt2sf-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Mon, 04 Apr 2022 06:32:57 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Mon, 4 Apr
- 2022 12:32:55 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.24 via
- Frontend Transport; Mon, 4 Apr 2022 12:32:55 +0100
-Received: from AUSNPC0LSNW1-debian.cirrus.com (AUSNPC0LSNW1.ad.cirrus.com
- [198.61.65.88])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 9687FB10;
- Mon,  4 Apr 2022 11:32:55 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: <broonie@kernel.org>
-Subject: [PATCH] ASoC: simple-card-utils: Avoid NULL deref in
- asoc_simple_set_tdm()
-Date: Mon, 4 Apr 2022 12:32:52 +0100
-Message-ID: <20220404113252.1152659-1-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.30.2
+ by ams.source.kernel.org (Postfix) with ESMTPS id 8EBA0B8165D;
+ Mon,  4 Apr 2022 12:28:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C93E8C2BBE4;
+ Mon,  4 Apr 2022 12:28:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1649075314;
+ bh=xs4c6MXzpV8ng4CjtZYCgJS2RsuPKpKdPUzYO+hnHgE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=T7GBgI2GTxELAK0/ohe2a9WUz5f54xUcos+VlcjM4byBQtlHumr57JKG4pYLFXlFj
+ /pmwE/Ln1e5SZNaS75jo3WCh9JJQCxn2TBxUMdzXWZeYvcTaMPyRo/zl7Lz2Lmpuut
+ Ibck0ncRDCkwQvi91v8hNZAexCpRD/gu5y4fC8OQR9koOvZTIzK+em0qFgO32tMylI
+ JzUuqLZoyO9Oza2r5JQOOvUc2+bB9gZ1ZCgBEc8D7mj7xur9iu0eleS0p5glEEKHO/
+ M+kMMzFKaAWePT6DtzsgqM1PC0zE+Af9AEd5/U3OqjWZcNhth1oWC8/h1GFtHcktEH
+ ScotCNfry7Xag==
+Date: Mon, 4 Apr 2022 13:28:28 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>
+Subject: Re: [RFC PATCH 3/5] HACK: ASoC: Tolerate N-cpus-to-M-codecs links
+Message-ID: <YkrkbBNYULLgeS5w@sirena.org.uk>
+References: <20220331000449.41062-1-povik+lin@cutebit.org>
+ <20220331000449.41062-4-povik+lin@cutebit.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: -H8KNmp3Gh51xxtvDil9ArkdgQVvLksO
-X-Proofpoint-GUID: -H8KNmp3Gh51xxtvDil9ArkdgQVvLksO
-X-Proofpoint-Spam-Reason: safe
-Cc: alsa-devel@alsa-project.org, kernel test robot <lkp@intel.com>,
- patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Dan Carpenter <dan.carpenter@oracle.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="f/2nG60b2Y2bNyVh"
+Content-Disposition: inline
+In-Reply-To: <20220331000449.41062-4-povik+lin@cutebit.org>
+X-Cookie: Did I say I was a sardine?  Or a bus???
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Sven Peter <sven@svenpeter.dev>, linux-kernel@vger.kernel.org,
+ Hector Martin <marcan@marcan.st>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Mark Kettenis <kettenis@openbsd.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,38 +90,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Don't dereference simple_dai before it has been checked for NULL.
 
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
-Fixes: 1e974e5b82b3 ("ASoC: audio_graph_card2: Add support for variable slot widths")
-Reported-by: kernel test robot <lkp@intel.com>
-Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
----
- sound/soc/generic/simple-card-utils.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+--f/2nG60b2Y2bNyVh
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/sound/soc/generic/simple-card-utils.c b/sound/soc/generic/simple-card-utils.c
-index 8e037835bc58..f2157944247f 100644
---- a/sound/soc/generic/simple-card-utils.c
-+++ b/sound/soc/generic/simple-card-utils.c
-@@ -364,13 +364,15 @@ static int asoc_simple_set_tdm(struct snd_soc_dai *dai,
- 				struct snd_pcm_hw_params *params)
- {
- 	int sample_bits = params_width(params);
--	int slot_width = simple_dai->slot_width;
--	int slot_count = simple_dai->slots;
-+	int slot_width, slot_count;
- 	int i, ret;
- 
- 	if (!simple_dai || !simple_dai->tdm_width_map)
- 		return 0;
- 
-+	slot_width = simple_dai->slot_width;
-+	slot_count = simple_dai->slots;
-+
- 	if (slot_width == 0)
- 		slot_width = sample_bits;
- 
--- 
-2.30.2
+On Thu, Mar 31, 2022 at 02:04:47AM +0200, Martin Povi=C5=A1er wrote:
 
+> +#if 0
+>  				dev_err(rtd->card->dev,
+>  					"N cpus to M codecs link is not supported yet\n");
+>  				return -EINVAL;
+> +#endif
+> +				cpu_dai =3D asoc_rtd_to_cpu(rtd, 0);
+
+We need to figure out an interface for describing which CODEC/CPU
+combinations are connected to each other.  I'm not seeing a great way to
+do that right now, probably some side data table is going to be needed,
+or perhaps the CPU DAI drivers can be persuaded to only have one DAI
+actually register and claim to support more channels?  I'm not sure how
+a configuraiton like this is going to work at userspace level if the
+multiple CPU DAIs end up being visible...
+
+--f/2nG60b2Y2bNyVh
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJK5GsACgkQJNaLcl1U
+h9Dh0gf/Q1fqGCEc/wB1XRysOW+Zr5es3K9uEZqWeoFmgY3PJHzaoQyoY8BDO6Ve
+RDsWRNXnUAuatmcX1NOrm141Q5vVthZt2Y3q60kJOAtBjRg1eLsw0uILEy5Q7cb1
+lj7GMjVex4PXcDIJHOb52ZeUhEx1HCpwPCW3Gtx7yU2vmpmpM/vPnugND7wgXoL0
+nuD3L00ieLVGfeaBi5ZBYBBvMqO6a8Vc8D4q2zgV+1NVnexzLy8nSWqZCmyKa5SF
+bf1jHHMuHJUNF6xeTjSLqzeoRH4q0TEzMMJhF4K4ACM693Dy1HBOXRPKNU33u6/8
+7REwlCduNI1JEBSwNjzHv4gMWLxfNQ==
+=QGn3
+-----END PGP SIGNATURE-----
+
+--f/2nG60b2Y2bNyVh--

@@ -2,87 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C71BD4F16A4
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Apr 2022 15:58:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C72134F1938
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Apr 2022 18:16:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6399616CA;
-	Mon,  4 Apr 2022 15:58:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6399616CA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5C39F16C2;
+	Mon,  4 Apr 2022 18:15:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C39F16C2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649080737;
-	bh=HyEQWxdGR2ZgP/ErykllsbEDEwioL0bja82aVJIN1GE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1649088996;
+	bh=m1mU6BlU2B4FGrW+3lCN164st5AaCcn5BL7QiunBPA8=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vVow4ZlqP7ydzoRj3W6FaTKQ1E9Fk+bmk5TLmNUnHqwGSBTZHeKHcJ+wv/Lw/anZk
-	 GFYdbQK/8KlXfLXuxSgvTpotX3e2D/ZVJuYM1bRU9+/0M+zDRogRO/8TFikIt149ZO
-	 4VxPxzZCiszUV0IIvE0uXycjV2mXuiHfTZwWBeiQ=
+	b=AfZZfM5RLrqCTbji3Q2Y2aMVOjgP4mwLkIU2BWX5geGsaOA4NexW/60+Y5/ndZ0Fw
+	 tlQvKHtvbpDFTF4A822bwQ3Q2Aj/bKd22UJYls9FNNdtXpnkbF235RloXPxpjubSFq
+	 qNLSIRVSIU0TbJEzrJ8Uox4DpMtLFVQVhGkvOa4k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CAD39F801F7;
-	Mon,  4 Apr 2022 15:57:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B5B32F801F7;
+	Mon,  4 Apr 2022 18:15:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 72612F80162; Mon,  4 Apr 2022 15:57:56 +0200 (CEST)
+ id B70DCF80162; Mon,  4 Apr 2022 18:15:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com
- [209.85.222.182])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4702CF800D1
- for <alsa-devel@alsa-project.org>; Mon,  4 Apr 2022 15:57:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4702CF800D1
-Received: by mail-qk1-f182.google.com with SMTP id h196so7623061qke.12
- for <alsa-devel@alsa-project.org>; Mon, 04 Apr 2022 06:57:49 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=D3y+W+WKQd7hPp6d6usVi59eLjz9RE6hzmPFo/q5LYE=;
- b=HTnMntZ9HrR30KED3GyQAYYRowFOoVowO57mC03wlAe7BJDwT2Av017XUjIcTsBntw
- VcSJnSTDksZ3CHgM7Pwdh0Qm+UquTyRw4jylk68YRPZXPkJ7yiziQWAkzpQVjiCcyHbB
- BBKozyhgfyhumzAST7/wUMeKOBlp+E7kp+Jf+L/iBBcDyw3QHcQc38BGqKePRYsLw6pQ
- uX8c/+mzysNPoiKuTk67phaOOAP0QAmBNOm3dQ8gzwEgawvVIEV1ny9GESQ00iV75+Wt
- TxMzvXcBsVpd4aH0d4snOUdZHBRc7zqQzlAUNcB9wUWI1VWhs/7kWH4dqCTP3KmJSEan
- D6sA==
-X-Gm-Message-State: AOAM532MdVHjHuxvE7KM0DLKjA+yLT15l1gsfxY8Kcqrka70xHiph+05
- xoozYFH5UIINu47+ZhyO/T0mMyv5leBuag==
-X-Google-Smtp-Source: ABdhPJy2ywUJB284wAAkl5OoaWzVyJb5/5XyoGK2wFmAvFOLupq2C7sg5sEzuSny8dlF4uRay4yM6w==
-X-Received: by 2002:a05:620a:44d4:b0:67d:ba87:e4ee with SMTP id
- y20-20020a05620a44d400b0067dba87e4eemr14129434qkp.734.1649080667932; 
- Mon, 04 Apr 2022 06:57:47 -0700 (PDT)
-Received: from mail-yb1-f181.google.com (mail-yb1-f181.google.com.
- [209.85.219.181]) by smtp.gmail.com with ESMTPSA id
- c11-20020a05620a134b00b006809a92a94fsm6108486qkl.79.2022.04.04.06.57.47
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Apr 2022 06:57:47 -0700 (PDT)
-Received: by mail-yb1-f181.google.com with SMTP id o62so2722938ybo.2
- for <alsa-devel@alsa-project.org>; Mon, 04 Apr 2022 06:57:47 -0700 (PDT)
-X-Received: by 2002:a5b:24e:0:b0:63d:cba0:3d55 with SMTP id
- g14-20020a5b024e000000b0063dcba03d55mr4760604ybp.613.1649080667232; Mon, 04
- Apr 2022 06:57:47 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id C1D9FF8010B
+ for <alsa-devel@alsa-project.org>; Mon,  4 Apr 2022 18:15:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1D9FF8010B
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="Pd+LCB7l"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1649088929; x=1680624929;
+ h=message-id:date:mime-version:subject:to:references:cc:
+ from:in-reply-to:content-transfer-encoding;
+ bh=m1mU6BlU2B4FGrW+3lCN164st5AaCcn5BL7QiunBPA8=;
+ b=Pd+LCB7lZ1+FJ1lxeo78DFjGlC5V3hdnZCrU4YAkoQWoTs98YoR++NM0
+ sxvYfULQ6/rcnuYu1CUde65n8Y5cMCD2Ntn9tAbTXkeaQMnBExsNe8JBP
+ oMAK5MGI0zqjE01SV3bHYWGcuDvd5I4tnnkQ5ho7qY3q5rpTtgnrkv/JP
+ oTLL1RzhdTgLwkIotHzlOi+q5XcVfoPN7GpKY+pLvPOmp+iXsmjZdK2QM
+ HU5r5EArpZ+3t+ZdAkx8BywN0kNJ0eu/a7ZpBkAdECOmozy8uIoklAFij
+ pDgHqj89X6GEGGmEaPrBAcrEDpJmRqNvR5Cyz/9XqcQYU7wV3CR8kQXhp A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10307"; a="346991902"
+X-IronPort-AV: E=Sophos;i="5.90,234,1643702400"; d="scan'208";a="346991902"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Apr 2022 09:15:24 -0700
+X-IronPort-AV: E=Sophos;i="5.90,234,1643702400"; d="scan'208";a="523636963"
+Received: from tpbigam-mobl1.amr.corp.intel.com (HELO [10.212.232.52])
+ ([10.212.232.52])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Apr 2022 09:15:23 -0700
+Message-ID: <34a05d7b-ee42-acd2-56ea-f8adae74f169@linux.intel.com>
+Date: Mon, 4 Apr 2022 11:15:22 -0500
 MIME-Version: 1.0
-References: <20220403222510.12670-1-rdunlap@infradead.org>
-In-Reply-To: <20220403222510.12670-1-rdunlap@infradead.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 4 Apr 2022 15:57:35 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUCdGKE04U4yMqv7TPUztwfih7aLwoTfEP5vcATW=CCxw@mail.gmail.com>
-Message-ID: <CAMuHMdUCdGKE04U4yMqv7TPUztwfih7aLwoTfEP5vcATW=CCxw@mail.gmail.com>
-Subject: Re: [PATCH v2] sound/oss/dmasound: fix build when drivers are mixed
- =y/=m
-To: Randy Dunlap <rdunlap@infradead.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- kernel test robot <lkp@intel.com>, Arnd Bergmann <arnd@arndb.de>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.5.0
+Subject: Re: [PATCH 1/1] ASoC: codecs: add support for ES8326
+Content-Language: en-US
+To: "zhuning@everest-semi.com" <zhuning@everest-semi.com>,
+ alsa-devel <alsa-devel@alsa-project.org>
+References: <2022032612075311484468@everest-semi.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <2022032612075311484468@everest-semi.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,109 +92,127 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Randy,
 
-On Mon, Apr 4, 2022 at 12:25 AM Randy Dunlap <rdunlap@infradead.org> wrote:
-> When CONFIG_DMASOUND_ATARI=m and CONFIG_DMASOUND_Q40=y (or vice versa),
-> dmasound_core.o can be built without dmasound_deinit() being defined,
-> causing a build error:
->
-> ERROR: modpost: "dmasound_deinit" [sound/oss/dmasound/dmasound_atari.ko] undefined!
->
-> Modify dmasound_core.c so that dmasound_deinit() is always available.
->
-> Suggested-by: Arnd Bergmann <arnd@arndb.de>
-> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
 
-Thanks for spending more time on this ;-)
+On 3/25/22 23:07, zhuning@everest-semi.com wrote:
+>  From 18deaac165343c049bb5ac7a71d222576caec9fc Mon Sep 17 00:00:00 2001
+> From: yangxiaohua <yangxiaohua@everest-semi.com>
+> Date: Thu, 10 Mar 2022 16:59:29 +0800
+> Subject: [PATCH 1/1] ASoC: codecs: add support for ES8326
+> 
+> The ES8326 codec is not compatible with ES8316 and requires a dedicated driver.
+> 
+> Signed-off-by: David Yang <yangxiaohua@everest-semi.com>
 
-> --- linux-next-20220401.orig/sound/oss/dmasound/dmasound_core.c
-> +++ linux-next-20220401/sound/oss/dmasound/dmasound_core.c
-> @@ -1424,27 +1424,29 @@ int dmasound_init(void)
->         return 0;
->  }
->
-> -#ifdef MODULE
-> -
->  void dmasound_deinit(void)
->  {
-> +#ifdef MODULE
+You need to copy maintainers (added in CC:), and you're also missing a 
+Signed-off-by when sending patches developed by someone else.
 
-I think this #ifdef must not be added: if the modular subdriver
-calls dmasound_deinit(), the resources should be freed, else a subsequent
-reload of the subdriver will not work.  This does mean all variables
-protected by "#ifdef MODULE" must exist unconditionally.
+Also please use git send-email, it looks like the indentations were 
+removed by your email client.
 
-Alternatively, the test can be replaced by "#ifdef CONFIG_MODULES".
-
-One big caveat below...
-
->         if (irq_installed) {
->                 sound_silence();
->                 dmasound.mach.irqcleanup();
->                 irq_installed = 0;
->         }
-> +#endif
->
->         write_sq_release_buffers();
->
-> +#ifdef MODULE
-
-Likewise.
-
->         if (mixer_unit >= 0)
->                 unregister_sound_mixer(mixer_unit);
->         if (state_unit >= 0)
->                 unregister_sound_special(state_unit);
->         if (sq_unit >= 0)
->                 unregister_sound_dsp(sq_unit);
-> +#endif
->  }
->
-> -#else /* !MODULE */
-> +#ifndef MODULE
->
->  static int dmasound_setup(char *str)
->  {
-
-> --- linux-next-20220401.orig/sound/oss/dmasound/dmasound.h
-> +++ linux-next-20220401/sound/oss/dmasound/dmasound.h
-> @@ -88,11 +88,7 @@ static inline int ioctl_return(int __use
->       */
->
->  extern int dmasound_init(void);
-> -#ifdef MODULE
->  extern void dmasound_deinit(void);
-> -#else
-> -#define dmasound_deinit()      do { } while (0)
-> -#endif
->
->  /* description of the set-up applies to either hard or soft settings */
-
-... Below, there is:
-
-    typedef struct {
-        [...]
-    #ifdef MODULE
-        void (*irqcleanup)(void);
-    #endif
-        [...]
-    } MACHINE;
-
-This means the MACHINE struct is not compatible between builtin
-and modular code :-(  Hence the "#ifdef MODULE" should be removed,
-or replaced by "#ifdef CONFIG_MODULES", too.
-
-P.S. I think the younger myself is responsible for this mess.
-     Please accept my apologies, after +25 years...
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+> ---
+>   sound/soc/codecs/Kconfig  |   5 +
+>   sound/soc/codecs/Makefile |   2 +
+>   sound/soc/codecs/es8326.c | 753 ++++++++++++++++++++++++++++++++++++++
+>   sound/soc/codecs/es8326.h | 184 ++++++++++
+>   4 files changed, 944 insertions(+)
+>   create mode 100755 sound/soc/codecs/es8326.c
+>   create mode 100755 sound/soc/codecs/es8326.h
+> 
+> diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+> index c2627f7489a4..66bc2358e31e 100644
+> --- a/sound/soc/codecs/Kconfig
+> +++ b/sound/soc/codecs/Kconfig
+> @@ -95,6 +95,7 @@ config SND_SOC_ALL_CODECS
+>    imply SND_SOC_DA9055
+>    imply SND_SOC_DMIC
+>    imply SND_SOC_ES8316
+> + imply SND_SOC_ES8326
+>    imply SND_SOC_ES8328_SPI
+>    imply SND_SOC_ES8328_I2C
+>    imply SND_SOC_ES7134
+> @@ -867,6 +868,10 @@ config SND_SOC_ES8316
+>    tristate "Everest Semi ES8316 CODEC"
+>    depends on I2C
+>   
+> +config SND_SOC_ES8326
+> + tristate "Everest Semi ES8326 CODEC"
+> + depends on I2C
+> +
+>   config SND_SOC_ES8328
+>    tristate
+>   
+> diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
+> index b4e11c3e4a08..73043d5bc1ea 100644
+> --- a/sound/soc/codecs/Makefile
+> +++ b/sound/soc/codecs/Makefile
+> @@ -95,6 +95,7 @@ snd-soc-dmic-objs := dmic.o
+>   snd-soc-es7134-objs := es7134.o
+>   snd-soc-es7241-objs := es7241.o
+>   snd-soc-es8316-objs := es8316.o
+> +snd-soc-es8326-objs := es8326.o
+>   snd-soc-es8328-objs := es8328.o
+>   snd-soc-es8328-i2c-objs := es8328-i2c.o
+>   snd-soc-es8328-spi-objs := es8328-spi.o
+> @@ -437,6 +438,7 @@ obj-$(CONFIG_SND_SOC_DMIC) += snd-soc-dmic.o
+>   obj-$(CONFIG_SND_SOC_ES7134) += snd-soc-es7134.o
+>   obj-$(CONFIG_SND_SOC_ES7241) += snd-soc-es7241.o
+>   obj-$(CONFIG_SND_SOC_ES8316)    += snd-soc-es8316.o
+> +obj-$(CONFIG_SND_SOC_ES8326)    += snd-soc-es8326.o
+>   obj-$(CONFIG_SND_SOC_ES8328) += snd-soc-es8328.o
+>   obj-$(CONFIG_SND_SOC_ES8328_I2C)+= snd-soc-es8328-i2c.o
+>   obj-$(CONFIG_SND_SOC_ES8328_SPI)+= snd-soc-es8328-spi.o
+> diff --git a/sound/soc/codecs/es8326.c b/sound/soc/codecs/es8326.c
+> new file mode 100755
+> index 000000000000..a80649e04aa6
+> --- /dev/null
+> +++ b/sound/soc/codecs/es8326.c
+> @@ -0,0 +1,753 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * es8326.c -- es8326 ALSA SoC audio driver
+> + * Copyright Everest Semiconductor Co., Ltd
+> + *
+> + * Authors: David Yang <yangxiaohua@everest-semi.com>
+> + */
+> +
+> +#include <linux/clk.h>
+> +#include <linux/gpio.h>
+> +#include <linux/i2c.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/irq.h>
+> +#include <linux/module.h>
+> +#include <sound/jack.h>
+> +#include <sound/pcm_params.h>
+> +#include <sound/soc.h>
+> +#include <sound/soc-dapm.h>
+> +#include <sound/tlv.h>
+> +#include "es8326.h"
+> +
+> +struct es8326_priv {
+> + struct clk *mclk;
+> + struct snd_pcm_hw_constraint_list *sysclk_constraints;
+> + struct i2c_client *i2c;
+> + struct regmap *regmap;
+> + struct snd_soc_component *component;
+> + struct delayed_work jack_detect_work;
+> + bool amic;
+> + bool start;
+> + bool muted;
+> + bool hp_inserted;
+> + bool spk_gpio_level;
+> + bool hp_det_level;
+> + struct snd_soc_jack *jack;
+> + int irq;
+> + /* The lock protects the situation that an irq is generated
+> + * while the previous irq is still being processed.
+> + */
+> + struct mutex lock;
+> + u8 amic1_src;
+> + u8 amic2_src;
+> + u8 mic1_src;
+> + u8 mic2_src;
+> + u8 jack_pol;
+> + bool jd_inverted;
+> + unsigned int sysclk;
+> +};

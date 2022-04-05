@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8EBA4F2919
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 10:38:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCDFF4F296E
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 11:26:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 75B261775;
-	Tue,  5 Apr 2022 10:37:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 75B261775
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7D82B172A;
+	Tue,  5 Apr 2022 11:26:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D82B172A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649147895;
+	s=default; t=1649150818;
 	bh=oLz+MdJD0jtSs4e83QcUaDfl6IArG7XSm65pZxaB7rc=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kkyZcDl3xnE7kbz386TcHnLRDA2/LbCzDYDeEgQyaMPXqrEZF+4a3Kc0QmCNsUak5
-	 Kc2RIUnubZI2rpadUBP7OVY3YQ5hMplD+SCwTl52OKgi5Px3wbhss0yCHQbeaC6DDU
-	 qIenWZOZcQsq63h14w7wiboxIHckqLGGvZKwaS2U=
+	b=bo/renQSn4GT0iCCjSHynGPwIhcA+8gUiwIXHxct7UzhGE9bb5r4CXmTdXdBogsCw
+	 WpFO0cHd8aLvi4PGm+W/gcm4GflSIBSq9ShckxRff/PiSSccyZUJrpXrOyWaln5K6x
+	 D4O4RA1zRmS+KF0Q3tAxu7eACgHfuiyrw14a69fo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 76CECF8049C;
-	Tue,  5 Apr 2022 10:37:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 31423F800D2;
+	Tue,  5 Apr 2022 11:26:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 41B87F8016A; Tue,  5 Apr 2022 10:37:14 +0200 (CEST)
+ id A493BF800D2; Tue,  5 Apr 2022 11:25:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,35 +35,35 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 132EFF800D1;
- Tue,  5 Apr 2022 10:37:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 132EFF800D1
+ by alsa1.perex.cz (Postfix) with ESMTPS id CB5CBF800D2;
+ Tue,  5 Apr 2022 11:25:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB5CBF800D2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=linuxfoundation.org
- header.i=@linuxfoundation.org header.b="xfTwN9pV"
+ header.i=@linuxfoundation.org header.b="XerjX/i9"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id B2F5A61521;
- Tue,  5 Apr 2022 08:37:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 090BFC385A0;
- Tue,  5 Apr 2022 08:37:02 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 9777961693;
+ Tue,  5 Apr 2022 09:25:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A5D9C385A3;
+ Tue,  5 Apr 2022 09:25:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1649147822;
+ s=korg; t=1649150747;
  bh=oLz+MdJD0jtSs4e83QcUaDfl6IArG7XSm65pZxaB7rc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=xfTwN9pVFdXGjKxCENnVja/0XmsxRoxqYS51s0Zs5AR1B9v7RSqZT47zNL1uzw3ZY
- pX0o00IF2KOGSZomSYRzp7VS5NheqQYqI/1jEUdDVwOAJ0jnSfCNgqGKTaiAjaFFZA
- /RQi+zXtzFqirqMoyZ5xoAIMMFSq5firFyEIb+PI=
+ b=XerjX/i91IzTDtz9Zk2CYldkf/M2kJ1T9P49rUOCqNKK4DoXkqJ+1rHeuCs5qyi46
+ GTE2A5M4DwBqbjErfdaz9269Tl6aWuzZlKe8OC5QRmNaPWvjeXkg0o08oBQV9ygh5H
+ l1uftP+9CQJpV6VXGN+8nOsLXo0aLvbk8voMcwnc=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org
-Subject: [PATCH 5.16 0134/1017] ASoC: SOF: Intel: Fix NULL ptr dereference
- when ENOMEM
-Date: Tue,  5 Apr 2022 09:17:27 +0200
-Message-Id: <20220405070358.179697571@linuxfoundation.org>
+Subject: [PATCH 5.15 128/913] ASoC: SOF: Intel: Fix NULL ptr dereference when
+ ENOMEM
+Date: Tue,  5 Apr 2022 09:19:50 +0200
+Message-Id: <20220405070343.666390871@linuxfoundation.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220405070354.155796697@linuxfoundation.org>
-References: <20220405070354.155796697@linuxfoundation.org>
+In-Reply-To: <20220405070339.801210740@linuxfoundation.org>
+References: <20220405070339.801210740@linuxfoundation.org>
 User-Agent: quilt/0.66
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8

@@ -2,75 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87F164F21E5
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 06:19:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A60F4F22C8
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 07:58:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2EA2A1679;
-	Tue,  5 Apr 2022 06:18:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EA2A1679
+	by alsa0.perex.cz (Postfix) with ESMTPS id C702E170E;
+	Tue,  5 Apr 2022 07:57:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C702E170E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649132376;
-	bh=DA6uMLvp/9YEcI9TewrH+tVj6sA1lozPencPzepXYCA=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1649138299;
+	bh=WTEqoba+HGqrhmIu7D0ULSf5yuod+p3l5ZwyoiWwnEU=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qJkNfpRD+DrswC6M8Zr24jbPZYlPNrYEDh+Z0CEdJ9q4zZ3WK3k+MbV7eWRFfK/hx
-	 fjBK8N4Q/lyRW60do1sE15KWw/3AUWxlQQqTbDHIyNcjlcYgMRyO0eUCD+1INYtoyQ
-	 foYNtAwRaf51dfcNFAWlShjbN0Z23CJ/vRkPUORk=
+	b=KDjjAc4fQvkZWlNltO2M23AKh2gqM0WGHO2ywAE3QsUKUzE3Qqf2m49aJp5DbCC3e
+	 zUTLSKqm+78uIpXcA0D31pHCpuLwuRzHNucLev64l5yBiXnZ+mNOO35ZK36IIVMucy
+	 CW0jxFKUYXCQ4Vz/cRc72b7UddQdMOja1u5vT4WI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B07B9F8016B;
-	Tue,  5 Apr 2022 06:18:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2BD7CF800D1;
+	Tue,  5 Apr 2022 07:57:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0C356F8016A; Tue,  5 Apr 2022 06:18:36 +0200 (CEST)
+ id C9D0CF8016A; Tue,  5 Apr 2022 07:57:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B8033F800D2
- for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 06:18:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8033F800D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3C98EF800D1
+ for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 07:57:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C98EF800D1
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Z5dW1I05"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 4F040B818F8;
- Tue,  5 Apr 2022 04:18:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85417C340F0;
- Tue,  5 Apr 2022 04:18:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1649132310;
- bh=DA6uMLvp/9YEcI9TewrH+tVj6sA1lozPencPzepXYCA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Z5dW1I05rgukaZq1vTHq5kXrq62Y9a6G+Lz8OxCfzky1ft9SSCDnDFexN9sKb6/iT
- rc9tnobefW7WAvK0XN5bVdKjPyL0YIKvtm1/TXyUNuDEsnPci/sJow4+xbBbKWRm2q
- Mh3igWR7KY3YbFFuOMSQCtHpOvZfA5V9Rxidq8jgGjyrB214SwwudkS9cj+mxVWwUw
- bsa8y0c2zni67nvZsEB5IZ7EBFNB9ZAUX8X3fKJGUYopb2qgrjeEJva8PaPiFN+G9P
- syIittDkBx7FOp3/D2Tigx+zKO5xEa7mVafgWp6rYu6FhUeJnH0Z8WxgVCrbIfaV3y
- /gVgDbdsVC1kg==
-Date: Tue, 5 Apr 2022 09:48:26 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Wang Wensheng <wangwensheng4@huawei.com>
-Subject: Re: [PATCH -next] soundwire: stream: Fix error return code in
- do_bank_switch()
-Message-ID: <YkvDEvoWMZJn1fIQ@matsya>
-References: <20220307074039.117488-1-wangwensheng4@huawei.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220307074039.117488-1-wangwensheng4@huawei.com>
-Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- linux-kernel@vger.kernel.org, xuqiang36@huawei.com, sanyog.r.kale@intel.com,
- yung-chuan.liao@linux.intel.com
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="nGu2CIBB"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="FMvCcseb"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 775201F37E;
+ Tue,  5 Apr 2022 05:57:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1649138230; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=aq+dfe7t7uVb6nhFWo1ZuXqHwk+7toIxAoNOkXg7JeM=;
+ b=nGu2CIBBBIVdM9h/HXw2+mXUxdT4zvs8uLiwvCpeQBtTvNRk2bVzoQAmjmigT/DJennzvY
+ Rkwvvee04yfAS/2VtE1Q+SHqesryFM/fMwPy+86C2CFdfLW5a5dxFveIjUzSztWMDTtO3F
+ SPURh6iJms3RPNL2iAL42BkUHY5GQ+0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1649138230;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=aq+dfe7t7uVb6nhFWo1ZuXqHwk+7toIxAoNOkXg7JeM=;
+ b=FMvCcsebYvOYoGOtv2oF54oHadK6D06fDLoZbg23UtWhc7dUnAM6LkeJQO2vKWVGeKIBCT
+ 8K03Ttjniez8yyDw==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 9B3DAA3B82;
+ Tue,  5 Apr 2022 05:57:09 +0000 (UTC)
+Date: Tue, 05 Apr 2022 07:57:09 +0200
+Message-ID: <s5hfsms843u.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mohan Kumar <mkumard@nvidia.com>
+Subject: Re: [PATCH] ALSA: hda/tegra: Fix hda Jack detection
+In-Reply-To: <20220405032607.8489-1-mkumard@nvidia.com>
+References: <20220405032607.8489-1-mkumard@nvidia.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ spujar@nvidia.com, tiwai@suse.com, jonathanh@nvidia.com,
+ thierry.reding@gmail.com, linux-tegra@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,11 +94,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 07-03-22, 07:40, Wang Wensheng wrote:
-> Fix to return a negative error code from the error handling case instead
-> of 0, as done elsewhere in this function.
+On Tue, 05 Apr 2022 05:26:07 +0200,
+Mohan Kumar wrote:
+> 
+> Tegra HDA Jack detection logic doesn't work when the HDACODEC
+> in runtime suspended state as unsol event won't be triggered
+> during D3 state. As pulseaudio server in userspace rely on the
+> jack mixer control status to show the audio devices in gui and
+> any display sink device hotplug event during D3 state will never
+> updates the jack status which will result in no audio device option
+> available in userspace settings.
+> 
+> The possible option available to resolve this issue for multiple
+> tegra platforms is to use Jack polling method for every 5 seconds.
+> Also to make Jack detection work seamlessly the Jack worker thread
+> needs to run continuously after HDA sound card registered
+> irrespective of whether HDMI sink device connected or not, but the
+> Jack state update call happens only when Codec is not powered on.
+> 
+> Signed-off-by: Mohan Kumar <mkumard@nvidia.com>
 
-Applied, thanks
+Hmm, any reason not to use the standard jackpoll stuff that is already
+implemented in HD-audio controller side?  That is, doesn't the
+following oneliner work instead?
 
--- 
-~Vinod
+
+thanks,
+
+Takashi
+
+-- 8< --
+--- a/sound/pci/hda/hda_tegra.c
++++ b/sound/pci/hda/hda_tegra.c
+@@ -421,6 +421,7 @@ static int hda_tegra_create(struct snd_card *card,
+ 	chip->driver_type = driver_caps & 0xff;
+ 	chip->dev_index = 0;
+ 	INIT_LIST_HEAD(&chip->pcm_list);
++	chip->jackpoll_interval = msecs_to_jiffies(5000);
+ 
+ 	chip->codec_probe_mask = -1;
+ 

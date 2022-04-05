@@ -2,89 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 651C24F35EE
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 15:55:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D77C4F35F8
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 15:55:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 119571801;
-	Tue,  5 Apr 2022 15:54:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 119571801
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1F546184D;
+	Tue,  5 Apr 2022 15:55:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F546184D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649166924;
-	bh=9SGnmA54MQR0zqHRHapma+5XMyzxo1UD90+WzhXkXdI=;
+	s=default; t=1649166950;
+	bh=4WqylMW8i+rQfLRmQu6qHTLDIIC8RebC1tDp4MbEjrw=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=PDGgn3DMSBZG6LQGjZewIaRuaEDzIn6pScttV94mVK4e9DtRwiFFedUVLDORBaYil
-	 RTicr4wLHj9jINR1EU7q+ibZwL4XKjldwFP27QFFYHUIQznegAwL3Css205lewzBTY
-	 wEoxT+faDWw3uJ2keKq5w9jBH5X2zaQuOlpwZy8c=
+	b=VmA5DSinjjMr2vN+4Fxj5VGjl191m2WJKWFRBy1qoPdeYFuuL/LzzYaGSs6wjzgci
+	 h3vwxFllwidMmhGvEId3K7xD8UQKdRfNI7LlGEsRHBo/dPHSXxGIPNyp8R2BNoIjvp
+	 qAk/jJRaMnq1p6Xg4pKxlCjWhl++gyO6gA0VZvwk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D3C16F80519;
-	Tue,  5 Apr 2022 15:54:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 093F9F80528;
+	Tue,  5 Apr 2022 15:54:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ABFB0F8016A; Tue,  5 Apr 2022 15:54:20 +0200 (CEST)
+ id AA092F80527; Tue,  5 Apr 2022 15:54:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [IPv6:2a00:1450:4864:20::42a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E9496F8016E
- for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 15:54:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9496F8016E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2D588F800D1
+ for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 15:54:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D588F800D1
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="KRuBEqee"
-Received: by mail-wr1-x42a.google.com with SMTP id b19so19417604wrh.11
- for <alsa-devel@alsa-project.org>; Tue, 05 Apr 2022 06:54:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=DtW73tEE2+XFkT3bPsX/7iGbHd2vWpPYT/i50JAUgmI=;
- b=KRuBEqeehUWFQiE6Qb6pz2CZtRUAXww/24GIyCnvwpdbtfIKvDXbMg/G7g3DnY42x6
- /iZbgKc5kKf24N8Ac4Mpu156t4HMYzU7Nm+RM3S3BnmbpSHNkHbZn/OOn478oWoEpF8E
- De5/l0DXrm9uA/jpBI0/y5L4nLSqe4IWXKqb4B9WfjbhMRIsV28Dz8F/Eb2URXYcNzQM
- AtiZNEnvnfUmIdfza2vc32Mep19NqVFUKjYP78+D97mljq2ztcdx3TyvTolE+C9Klo0g
- A++9eTEGSW/RNdTwnTzk/7OBaYYwNf3nClqpPAgFLubykoDzWaSzpo9QnkjU9VSqUVjI
- FKYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=DtW73tEE2+XFkT3bPsX/7iGbHd2vWpPYT/i50JAUgmI=;
- b=x5gZ1I8DomwmHyam3aDVRWb4gMWGNhKgpCssiH/PGF5FoowN5eji8Fqb8MVnnEX5Ol
- fEonSWAeS7XJOEInRhpbvA88wOGoqufPjDxkvVyyOk1SkhgOdcAu1saJtrVuVNjmXbYp
- zCxjqISMDlM8DIdpAdXm5SSuuLDV3Ok4XwRXZv95pIvMmLXlydlUD/m1UG40mOuWhi+a
- /Zq49nWF8l2ZB/OR11Jg4ed5KKYCj7tzOBwaiLGBdrRef1/bvVnCDRuc1CBU4UZiiTfX
- 4gpDqX7740j3xa+8+a8yPhXrroXDCcsCe455IFojUe9UG2UfUItTwBvZzj9Y/tr0zpql
- BAhw==
-X-Gm-Message-State: AOAM5308ISIxG0L8H1aVWZT6/g8brYB+DvvU2314HN9cp/RO3V39Ty0l
- /rCt4pE1KgEw+uEvZbCiYMQ=
-X-Google-Smtp-Source: ABdhPJx7uWLB6seAta51fiSK0+njz9yI+4yOg/CEwF3nvoU2EuPI0t4kkYbH392xPZ7JN2jShsBA+w==
-X-Received: by 2002:a05:6000:156d:b0:204:c24:895f with SMTP id
- 13-20020a056000156d00b002040c24895fmr3015212wrz.339.1649166854425; 
- Tue, 05 Apr 2022 06:54:14 -0700 (PDT)
-Received: from localhost (cpc154979-craw9-2-0-cust193.16-3.cable.virginm.net.
- [80.193.200.194]) by smtp.gmail.com with ESMTPSA id
- k12-20020a5d628c000000b00203e2fbb2absm12132822wru.113.2022.04.05.06.54.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Apr 2022 06:54:13 -0700 (PDT)
-From: Colin Ian King <colin.i.king@gmail.com>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: echoaudio: remove redundant assignment to variable i
-Date: Tue,  5 Apr 2022 14:54:12 +0100
-Message-Id: <20220405135412.199251-1-colin.i.king@gmail.com>
-X-Mailer: git-send-email 2.35.1
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="g2jQs73Q"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 2356jiGC029879;
+ Tue, 5 Apr 2022 08:54:25 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=D7H9GzgzNTUv2SxZBu6ky5Mhjq+9FrGLu3EkwWXFSIo=;
+ b=g2jQs73Qjk38eI+fMIuqbIBkeVF1/x//BzW1DoRLUX5JKXvc1TCbFH5dpjQt+gYWNDZk
+ FaJgSd4VvUCtFWgHk0DaLA47+Liqhj5ThoQ7VPA/KteyHZtY7wWYN2Be4QEwXjA5LXvB
+ yLGM/hdATnIsWHrGXd/XF8TITzLS/k0Gwh1y4dJ1P2CI8RaSgB0i4dfTROnDjao0SLkO
+ hkyVn0i85Nn+Ef4PLpUFaXBH7Y5h/wXOXHkv8bwZ/MDcoZbD039JKg1vguafOmJeZCIV
+ lreIJZhiNE4ex1PsvTswd2iTMMLi74qVeCD86CX1GTmtMe6RQwLE+WGuERHK9tnJpTNu 2g== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3f6kw2brws-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Tue, 05 Apr 2022 08:54:25 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Tue, 5 Apr
+ 2022 14:54:23 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.24 via
+ Frontend Transport; Tue, 5 Apr 2022 14:54:23 +0100
+Received: from AUSNPC0LSNW1-debian.cirrus.com (AUSNPC0LSNW1.ad.cirrus.com
+ [198.61.65.88])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id C644E458;
+ Tue,  5 Apr 2022 13:54:22 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <broonie@kernel.org>
+Subject: [PATCH v2 0/5] ASoC: Add a driver for the Cirrus Logic CS35L45 Smart
+ Amplifier
+Date: Tue, 5 Apr 2022 14:54:14 +0100
+Message-ID: <20220405135419.1230088-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: cJo1vpfXBTPYhRk3hu6TOOHFtAt-ZQXd
+X-Proofpoint-GUID: cJo1vpfXBTPYhRk3hu6TOOHFtAt-ZQXd
+X-Proofpoint-Spam-Reason: safe
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, robh+dt@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,27 +98,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The variable i is being assigned a value that is never read, it
-is being re-assigned in the following for-loop. The assignment is
-redundant and can be removed.
+This adds basic audio support for the Cirrus Logic CS35L45 amplifier.
 
-Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
----
- sound/pci/echoaudio/midi.c | 1 -
- 1 file changed, 1 deletion(-)
+The first two patches add two generic helpers to ASoC, and patch 3 is
+a kunit test for patch 2.
 
-diff --git a/sound/pci/echoaudio/midi.c b/sound/pci/echoaudio/midi.c
-index 7be5c3327b16..47b2c023ee3d 100644
---- a/sound/pci/echoaudio/midi.c
-+++ b/sound/pci/echoaudio/midi.c
-@@ -124,7 +124,6 @@ static int midi_service_irq(struct echoaudio *chip)
- 		return 0;
- 
- 	/* Get the MIDI data from the comm page */
--	i = 1;
- 	received = 0;
- 	for (i = 1; i <= count; i++) {
- 		/* Get the MIDI byte */
+CHANGES SINCE V1:
+Patch #5:
+ - spi .remove callback now has void return
+ - use new I2C .probe_new callback
+ - force boost-bypass mode as default
+
+James Schulman (1):
+  ASoC: cs35l45: Add driver for Cirrus Logic CS35L45 Smart Amp
+
+Richard Fitzgerald (4):
+  ASoC: soc.h: Add SOC_SINGLE_S_TLV() macro
+  ASoC: soc-utils: Add helper to calculate BCLK from TDM info
+  ASoC: soc-utils: Add kunit test for snd_soc_tdm_params_to_bclk()
+  ASoC: dt-bindings: cs35l45: Cirrus Logic CS35L45 Smart Amp
+
+ .../bindings/sound/cirrus,cs35l45.yaml        |  75 ++
+ MAINTAINERS                                   |   2 +
+ include/dt-bindings/sound/cs35l45.h           |  20 +
+ include/sound/soc.h                           |   4 +
+ sound/soc/Kconfig                             |   9 +-
+ sound/soc/Makefile                            |   5 +
+ sound/soc/codecs/Kconfig                      |  30 +
+ sound/soc/codecs/Makefile                     |   8 +
+ sound/soc/codecs/cs35l45-i2c.c                |  72 ++
+ sound/soc/codecs/cs35l45-spi.c                |  72 ++
+ sound/soc/codecs/cs35l45-tables.c             | 202 +++++
+ sound/soc/codecs/cs35l45.c                    | 693 ++++++++++++++++++
+ sound/soc/codecs/cs35l45.h                    | 217 ++++++
+ sound/soc/soc-utils-test.c                    | 186 +++++
+ sound/soc/soc-utils.c                         |  45 ++
+ 15 files changed, 1639 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml
+ create mode 100644 include/dt-bindings/sound/cs35l45.h
+ create mode 100644 sound/soc/codecs/cs35l45-i2c.c
+ create mode 100644 sound/soc/codecs/cs35l45-spi.c
+ create mode 100644 sound/soc/codecs/cs35l45-tables.c
+ create mode 100644 sound/soc/codecs/cs35l45.c
+ create mode 100644 sound/soc/codecs/cs35l45.h
+ create mode 100644 sound/soc/soc-utils-test.c
+
 -- 
-2.35.1
+2.30.2
 

@@ -2,87 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2F3A4F3C55
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 17:33:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEB614F3C60
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 17:38:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5B04C1703;
-	Tue,  5 Apr 2022 17:33:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B04C1703
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4B5FA182D;
+	Tue,  5 Apr 2022 17:37:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B5FA182D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649172835;
-	bh=dEC+V/OyDk+FwNNsbexnYPxE6UkgnGWi9hDvx8Kx64s=;
+	s=default; t=1649173097;
+	bh=B71FoNUqZdUne/qe1E9xWKXEEFKXBJjXYedQ6YEnXDg=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DqBpbIPhTmEUAlMThW2O1uJStdExMZCP10HLefgef2zUX1Ho2JrgjTiSITE0nTbB6
-	 zrosEj/l7fzyCMaDNuFHhhtnalP8XuFtLZ28DIBmWHlxZvD6Bs2swlO8LDtGX7s079
-	 9a9o/xTVcIWYqVNnFBJbqUKGAht7wTfMURE6XXRI=
+	b=KGuKGp52rkzxlvVJsXpC+O3Nkm68gD5O4PFhO8fHkDFEAoMW6hMlVow9zCl7aOwvt
+	 sO9fUrv1NEzDN/7oSIqX4XhxAjZC4AJTMjucDxG4+zH9orkcJWrzuR3HnuL7VE2ISr
+	 ydFic/oV46+vukq0NM238p/fUqS/n+Zz0GGk/Zbc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C83D1F8012C;
-	Tue,  5 Apr 2022 17:32:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CA240F800D1;
+	Tue,  5 Apr 2022 17:37:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D5D1DF8016A; Tue,  5 Apr 2022 17:32:55 +0200 (CEST)
+ id 994E8F8012C; Tue,  5 Apr 2022 17:37:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AA753F8012C
- for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 17:32:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA753F8012C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4B42AF8012C
+ for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 17:37:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B42AF8012C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="HJrwxsR6"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="NKx+vh5j"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 015831F37D;
- Tue,  5 Apr 2022 15:32:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1649172769; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=o1T9kHw4YkgzAzeHJb8LqxvUd4Kx7c2662b3fqCcBDI=;
- b=HJrwxsR6IrepVQxZuwAYKA5i47gop3GBVCxUmmL/En11Ginj0aIAx2mipjasfKc0OcWG+q
- 5MQUPN1Iq1/0eHJ81qeeEw7Rwae9RhuCmFp2XbSVSs28Y76L8UjIF0Pr1XTm7tzikjpbUj
- wigD95WPiLM6HiTx/3zDSRkeVGOh15E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1649172769;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=o1T9kHw4YkgzAzeHJb8LqxvUd4Kx7c2662b3fqCcBDI=;
- b=NKx+vh5j2MgY3SkmqQoj7qVrFVUZsnMrY4IRPYwtRSEajM4wEJ82VbxDDRa6Fq6Kd1a2JY
- 59YLb8kPdL4mLkCQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id E3E12A3B82;
- Tue,  5 Apr 2022 15:32:48 +0000 (UTC)
-Date: Tue, 05 Apr 2022 17:32:48 +0200
-Message-ID: <s5hwng35yvz.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Borislav Petkov <bp@alien8.de>
-Subject: Re: [PATCH 02/11] ALSA: usb-audio: Fix undefined behavior due to
- shift overflowing the constant
-In-Reply-To: <20220405151517.29753-3-bp@alien8.de>
-References: <20220405151517.29753-1-bp@alien8.de>
- <20220405151517.29753-3-bp@alien8.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
- LKML <linux-kernel@vger.kernel.org>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="ckGGO2G2"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id E78BC6184A;
+ Tue,  5 Apr 2022 15:37:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80488C385A0;
+ Tue,  5 Apr 2022 15:37:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1649173027;
+ bh=B71FoNUqZdUne/qe1E9xWKXEEFKXBJjXYedQ6YEnXDg=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=ckGGO2G2Mbm4Yc3/yniY9O0/9GsO/TkdzlK1/hwMowWAtPWLGK9oe5WuHXF3KuHEP
+ 0mmL8ZQmDPhElerlXQV4l1gXG2CLU7QyMlO4kFzz6To9DeDvIRciNeAH97aycDTfMg
+ 1Q5tOjYzaeutYMASko1MjrGd/2SJ+bYqlV3gJKLqGtgUUw8r7XWegyoW69UWcY+kj3
+ wfWNLcyf5hoRV3YKvQ3+wno4633847GBEcNlVj6t4P9eyneI8SZu6nvep7D3tOQVp8
+ H49zOcY6sbTXYDl9Uod9KKfew3WCCfyn97ZOzNo0HiOdPX2j1RbPZ0js8QmU9I/Sdt
+ SBzAZaMGek0LA==
+Date: Tue, 5 Apr 2022 17:37:01 +0200
+From: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH v2 1/2] ASoC: Intel: sof_es8336: support a separate gpio
+ to control headphone
+Message-ID: <20220405173701.1459b198@coco.lan>
+In-Reply-To: <5df9bb3c-2346-f465-fcae-eb6fe381def3@linux.intel.com>
+References: <cover.1649147890.git.mchehab@kernel.org>
+ <0f1e8233fc6744c3d78353e4a20f9669035e693d.1649147890.git.mchehab@kernel.org>
+ <5df9bb3c-2346-f465-fcae-eb6fe381def3@linux.intel.com>
+X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.31; x86_64-redhat-linux-gnu)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Hans de Goede <hdegoede@redhat.com>, Mark Brown <broonie@kernel.org>,
+ =?UTF-8?B?UMOpdGVy?= Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,44 +94,92 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 05 Apr 2022 17:15:08 +0200,
-Borislav Petkov wrote:
-> 
-> From: Borislav Petkov <bp@suse.de>
-> 
-> Fix:
-> 
->   sound/usb/midi.c: In function ‘snd_usbmidi_out_endpoint_create’:
->   sound/usb/midi.c:1389:2: error: case label does not reduce to an integer constant
->     case USB_ID(0xfc08, 0x0101): /* Unknown vendor Cable */
->     ^~~~
-> 
-> See https://lore.kernel.org/r/YkwQ6%2BtIH8GQpuct@zn.tnic for the gory
-> details as to why it triggers with older gccs only.
-> 
-> Signed-off-by: Borislav Petkov <bp@suse.de>
-> Cc: Jaroslav Kysela <perex@perex.cz>
-> Cc: Takashi Iwai <tiwai@suse.com>
-> Cc: alsa-devel@alsa-project.org
-> ---
->  sound/usb/usbaudio.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/sound/usb/usbaudio.h b/sound/usb/usbaudio.h
-> index 167834133b9b..2b3dd55e8ee0 100644
-> --- a/sound/usb/usbaudio.h
-> +++ b/sound/usb/usbaudio.h
-> @@ -8,7 +8,7 @@
->   */
->  
->  /* handling of USB vendor/product ID pairs as 32-bit numbers */
-> -#define USB_ID(vendor, product) (((vendor) << 16) | (product))
-> +#define USB_ID(vendor, product) ((((unsigned int)vendor) << 16) | (product))
+Em Tue, 5 Apr 2022 09:57:30 -0500
+Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com> escreveu:
 
-Parentheses are needed around vendor (as usual for a macro).
-Could you resubmit with it?
+> On 4/5/22 03:44, Mauro Carvalho Chehab wrote:
+> > From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+> > 
+> > Some devices may use both gpio0 and gpio1 to independently switch
+> > the speaker and the headphone.
+> > 
+> > Add support for that.
+> > 
+> > Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+> > Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
+> > ---
+> > 
+> > See [PATCH v2 0/2] at: https://lore.kernel.org/all/cover.1649147890.git.mchehab@kernel.org/
+> > 
+> >   sound/soc/intel/boards/sof_es8336.c | 60 ++++++++++++++++++++++++-----
+> >   1 file changed, 50 insertions(+), 10 deletions(-)
+> > 
+> > diff --git a/sound/soc/intel/boards/sof_es8336.c b/sound/soc/intel/boards/sof_es8336.c
+> > index 5e0529aa4f1d..bcd80870d252 100644
+> > --- a/sound/soc/intel/boards/sof_es8336.c
+> > +++ b/sound/soc/intel/boards/sof_es8336.c
+> > @@ -30,6 +30,7 @@
+> >   #define SOF_ES8336_TGL_GPIO_QUIRK		BIT(4)
+> >   #define SOF_ES8336_ENABLE_DMIC			BIT(5)
+> >   #define SOF_ES8336_JD_INVERTED			BIT(6)
+> > +#define SOF_ES8336_HEADPHONE_GPIO		BIT(7)
+> >   
+> >   static unsigned long quirk;
+> >   
+> > @@ -39,7 +40,7 @@ MODULE_PARM_DESC(quirk, "Board-specific quirk override");
+> >   
+> >   struct sof_es8336_private {
+> >   	struct device *codec_dev;
+> > -	struct gpio_desc *gpio_pa;
+> > +	struct gpio_desc *gpio_pa, *gpio_pa_headphone;
+> >   	struct snd_soc_jack jack;
+> >   	struct list_head hdmi_pcm_list;
+> >   	bool speaker_en;
+> > @@ -51,15 +52,28 @@ struct sof_hdmi_pcm {
+> >   	int device;
+> >   };
+> >   
+> > -static const struct acpi_gpio_params pa_enable_gpio = { 0, 0, true };
+> > +static const struct acpi_gpio_params pa_enable_gpio0 = { 0, 0, true };
+> > +static const struct acpi_gpio_params pa_enable_gpio1 = { 1, 0, true };
+> > +
+> >   static const struct acpi_gpio_mapping acpi_es8336_gpios[] = {
+> > -	{ "pa-enable-gpios", &pa_enable_gpio, 1 },
+> > +	{ "pa-enable-gpios", &pa_enable_gpio0, 1 },
+> >   	{ }
+> >   };
+> >   
+> > -static const struct acpi_gpio_params quirk_pa_enable_gpio = { 1, 0, true };
+> >   static const struct acpi_gpio_mapping quirk_acpi_es8336_gpios[] = {
+> > -	{ "pa-enable-gpios", &quirk_pa_enable_gpio, 1 },
+> > +	{ "pa-enable-gpios", &pa_enable_gpio1, 1 },
+> > +	{ }
+> > +};
+> > +
+> > +static const struct acpi_gpio_mapping quirk_acpi_headphone_es8336_gpios[] = {
+> > +	{ "pa-enable-gpios", &pa_enable_gpio0, 1 },
+> > +	{ "pa-enable-headphone-gpios", &pa_enable_gpio1, 1 },
+> > +	{ }
+> > +};
+> > +
+> > +static const struct acpi_gpio_mapping quirk_tgl_acpi_headphone_es8336_gpios[] = {
+> > +	{ "pa-enable-gpios", &pa_enable_gpio1, 1 },
+> > +	{ "pa-enable-headphone-gpios", &pa_enable_gpio0, 1 },
+> >   	{ }  
+> 
+> This is starting to be a bit messy, the initial gpios were really 
+> intended for speakers and should be clearly referring to speakers now. 
+> the TGL quirk really means gpio1 is used instead of gpio0, and I can't 
+> figure out what the 'pa' prefix is needed for.
+> 
+> Can I suggest the attached cleanup patch be added first? That would make 
+> it clearer and more readable IMHO. Compile-tested only since I don't 
+> have hardware.
 
+Makes sense. I'll place it before the first patch, rebase them,
+test and re-submit.
 
-Thanks.
+> Thanks!
 
-Takashi
+Thanks!
+Mauro

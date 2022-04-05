@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E9C24F2980
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 11:35:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9715A4F2982
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 11:35:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 75D4417C8;
-	Tue,  5 Apr 2022 11:34:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 75D4417C8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 31A04176C;
+	Tue,  5 Apr 2022 11:34:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 31A04176C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649151322;
-	bh=1E6UPt1+5XL6Dw5BhQTnm2f6j13hSa6vSN1R8TrP9M4=;
+	s=default; t=1649151334;
+	bh=uenQ5PTJTk45mI+LcbrDbJhSKL0UrjCnt82W9zY+s0I=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HJKChGI4SiRTIDgfK0AeRtxfWc/oBzTO1uqAcFWFebSaygfv4BLUBiHqvemsOdBxe
-	 3Z86hq4Lt0NE+SeYewW0bsIczMjH4rC0FyVBAIg5easAvcnTrTT+nfuiQuSwe2schM
-	 XR7A79ARut5dAukQRsARXGupQezUkmimDoJL09dw=
+	b=IkJmv+aZl+IHqXd+jEWEIV3HAJH2zxulNp7htQc8C3uc0vRrlmu0HB75qHd+5EQoj
+	 5ZAL7lhVfrt7N8KEtI+x5FJWXb6O/bVd1CEvztO75mg8fsRV6uhmswWff52YjKhQ57
+	 jiiw0OBn2FZBgy7shaj/KBgH7rXlEBR5Mb30QDhU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0789EF8055B;
-	Tue,  5 Apr 2022 11:31:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 826A3F80559;
+	Tue,  5 Apr 2022 11:31:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AA3D9F8055A; Tue,  5 Apr 2022 11:31:35 +0200 (CEST)
+ id 962C8F80564; Tue,  5 Apr 2022 11:31:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,41 +34,46 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 40F98F80558
- for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 11:31:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40F98F80558
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2032CF8055C
+ for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 11:31:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2032CF8055C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="UA67/1Tl"
+ header.b="CF7a3xLA"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id CE34E6165C;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id DA053616D2;
+ Tue,  5 Apr 2022 09:31:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C060FC385A0;
  Tue,  5 Apr 2022 09:31:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFA9EC385A7;
- Tue,  5 Apr 2022 09:31:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1649151091;
- bh=1E6UPt1+5XL6Dw5BhQTnm2f6j13hSa6vSN1R8TrP9M4=;
+ s=k20201202; t=1649151094;
+ bh=uenQ5PTJTk45mI+LcbrDbJhSKL0UrjCnt82W9zY+s0I=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=UA67/1Tl6FysJvQlhz3zTowW0JwF4aUwTfA5SKaKKz/DPCYrFvP2iMJkrjc7oqskq
- tQjWELsiiWrzgJdQ6I8nBsYZg/4kqL765VDWzGlVNfVRXGYGy4d2HpfhGPV26woru5
- KcZU4S/WjNYoV9OkoHuADMkP5qozXK3EaLiePYaQ0tvldrIN/1XeyHMh936lFDLn5s
- Dfksj207GRRk8WuwYMn6pzu35URi5LS7G7WPOcEavvE54Q1lHvZJTpHHLCfy2S1hfh
- JQtv11gUyQxmCMqU6P7UptAeobwzW3za/eGX24pHq0kvLUVi4vTH8f4E0eytaKNoNS
- RI3Bcr4/ZNNjA==
+ b=CF7a3xLAF/P87ypUF0Qng9SPB+YI0nG0+F1zbYVUhGjH9ey+WsqUhUCZYp4M2/Seh
+ v0HRD4ZUjlDgqGbSJK1lZcCkfqLFX0xyQQuFfNNnRtHO1EsNvLhLoif/j5B+0qXZkn
+ nsAggl7EESWkqAmr0h1B54qZeBYXTVCxdrfyCgCmv+QsOboWkRiuuC6INLeHES710C
+ zc+Qms5U2WuykD2XD5M1m6FgthS8uIeAWSqme3JJS5w6jkuCwmTwhi+jmVmF1AT/8c
+ 9LX6dRtB3BVD3Ds/Y7ArU5PMZRaX6kMvb2xxBMYtFh1eCbuwiCTUKpFP66Ha91o472
+ nKLHvWPYzlRNQ==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, amadeuszx.slawinski@linux.intel.com
-In-Reply-To: <20220401120200.4047867-1-amadeuszx.slawinski@linux.intel.com>
-References: <20220401120200.4047867-1-amadeuszx.slawinski@linux.intel.com>
-Subject: Re: [PATCH 0/6] ASoC: topology: Cleanup patches
-Message-Id: <164915108967.276574.4319376218535549999.b4-ty@kernel.org>
-Date: Tue, 05 Apr 2022 10:31:29 +0100
+To: krzk@kernel.org, rikard.falkeborn@gmail.com,
+ Liam Girdwood <lgirdwood@gmail.com>, s.nawrocki@samsung.com
+In-Reply-To: <20220330204227.25081-1-rikard.falkeborn@gmail.com>
+References: <20220330204227.25081-1-rikard.falkeborn@gmail.com>
+Subject: Re: [PATCH] ASoC: samsung: Constify snd_soc_dapm_{route,
+ widget} structs
+Message-Id: <164915109148.276574.7227991139286446163.b4-ty@kernel.org>
+Date: Tue, 05 Apr 2022 10:31:31 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: cezary.rojewski@intel.com, pierre-louis.bossart@linux.intel.com,
- alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, mani@kernel.org,
+ linux-actions@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, afaerber@suse.de,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,21 +89,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 1 Apr 2022 14:01:54 +0200, Amadeusz Sławiński wrote:
-> Following patches contain minor changes, cleaning up code to be easier
-> to read.
-> Clean up few loops, to be simpler or altogether remove them.
-> Rename some things to make code easier to understand.
+On Wed, 30 Mar 2022 22:42:27 +0200, Rikard Falkeborn wrote:
+> These structs only have their address assigned to the
+> dapm_{routes,widget} fields in the snd_soc_card struct,
+> both which are pointers to const data. Make them const to
+> allow the compiler to put them in read-only memory.
 > 
-> Amadeusz Sławiński (6):
->   ASoC: topology: Use for loop instead of while
->   ASoC: topology: Remove unnecessary looping
->   ASoC: topology: Return bool instead of int
->   ASoC: topology: Rename SOC_TPLG_PASS_MIXER to _CONTROL
->   ASoC: topology: Correct error message
->   ASoC: topology: Rename soc_tplg_init_kcontrol() function
 > 
-> [...]
 
 Applied to
 
@@ -106,18 +103,8 @@ Applied to
 
 Thanks!
 
-[1/6] ASoC: topology: Use for loop instead of while
-      commit: 395f8fd616086310c40ddc4e9686440f147d5c00
-[2/6] ASoC: topology: Remove unnecessary looping
-      commit: 0db627c4f5df704d44699ed27dd81caa6d782a17
-[3/6] ASoC: topology: Return bool instead of int
-      commit: 4fad3cc6eb962a6fe32ab9fb9d30b08a88298f63
-[4/6] ASoC: topology: Rename SOC_TPLG_PASS_MIXER to _CONTROL
-      commit: 5e2cd47a36b386080e7a29c1efbb0247ed6ed365
-[5/6] ASoC: topology: Correct error message
-      commit: 34b310451cbf4dedcee56b4534085c20203c6b53
-[6/6] ASoC: topology: Rename soc_tplg_init_kcontrol() function
-      commit: 430791dd9207271099002b65aa65fd5e6aa31236
+[1/1] ASoC: samsung: Constify snd_soc_dapm_{route,widget} structs
+      commit: 5449fd7bd01fc13266979a6ab48493d4d2e43725
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

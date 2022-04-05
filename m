@@ -2,87 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5CD44F3D2B
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 20:21:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3AEB24F3D5E
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 21:40:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5242417C8;
-	Tue,  5 Apr 2022 20:20:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5242417C8
+	by alsa0.perex.cz (Postfix) with ESMTPS id C4F7917E6;
+	Tue,  5 Apr 2022 21:39:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4F7917E6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649182900;
-	bh=bmqhj+dQXEzPy8rAY5fr0GpG0DNLJCDWIFX94qTSai0=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=go6+rgr9dfXYb7dezyf82/N8o35JAg65iPpHSikakPfbD1/9XnXL13emQwUXWXCH+
-	 fyynokUeIBkLERZVpy9KmszA0975R+LRmVJHI9MzChizB3Hr5g3jdH21Okx5IbbejE
-	 kiZQIWh9To8hptKEvpBr0d4IyoiSzi225HSUoaW4=
+	s=default; t=1649187637;
+	bh=/s6fZDVbpiIQW0S5UO2G1RWfpbsAjuqB16uALNiR7fA=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=NDNtvxF0p/e7ScoPZHMEKP2jxJw4gR/msMXnwFNfZUOWDlRiTjhoftPXBN+Xc/GXF
+	 lDSIMZk/vd060GF5GML5tzQuBr1hZWCaDhffV5dDsj24wcYxK/r5+syMQwfKbrblUi
+	 MBCtDSiSa20FV1zyihlHkQzR0bKJ5Nl8n0ICnUJM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B459DF800D2;
-	Tue,  5 Apr 2022 20:20:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2E715F8016B;
+	Tue,  5 Apr 2022 21:39:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5526AF800D2; Tue,  5 Apr 2022 20:20:41 +0200 (CEST)
+ id B3F3AF8016A; Tue,  5 Apr 2022 21:39:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A5E41F800D2
- for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 20:20:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5E41F800D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id EB58CF800D2
+ for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 21:39:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB58CF800D2
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="Hy7iZizb"
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.nyi.internal (Postfix) with ESMTP id E6ADF5C0265;
- Tue,  5 Apr 2022 14:20:30 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute5.internal (MEProxy); Tue, 05 Apr 2022 14:20:30 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
- :from:from:in-reply-to:message-id:mime-version:reply-to:sender
- :subject:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; bh=Ga8/NQRe6ecv/Jchsk+F5fxHBv6FG
- +R9T1sj2w8EIcY=; b=Hy7iZizbj9mmsqClDkYEw140K7wsbhYPuTQFMWoek/e+q
- Cvp4CaoV/C4vbedVf6r21q1m/LYSoepPNsu6ldoAMPl/KsZBm8vmlt3hwLK12Nzu
- 0RSz+G+v8TcGcXuoEnGdEt4L7y4xpfoDowJLFj+/5veTVzKfYb8EPhzba8FKVLvX
- QeAsfYWPVMSnjPi4dVSQGT0DwEnswQmarU8Nr/KWP8DIqvVp9Jcnq3BIufcfbDTh
- QABJdd1h3oES/kBpsdwTK2I7YVM/IulGTcwyTOGE/isXKypoG5hX/rhgmuSCW/6w
- L9qG0tmuI9no8OXykkMT6jFmZi5szyLy671AOxR4A==
-X-ME-Sender: <xms:bohMYnaniXzpzn_efy84YIyifO5AyFXKveTJtxOE7oGo8ME_iSuIWw>
- <xme:bohMYmZtzq9nhsZ6PPrwv_tG8wIKvWExnncgrmD8HHj0XHMha_VjEiUnheyiR-mI-
- Vh7LvVsBbSh9dubog>
-X-ME-Received: <xmr:bohMYp-QlpYCAg_7QxZOCIpMpUYeh5NqBxMk_Dy2oNBLxb3xrUkURoUn>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrudejgedguddulecutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffoggfgsedtkeertd
- ertddtnecuhfhrohhmpefvihhmucevrhgrfihfohhrugcuoehttghrrgiffhhorhgusehs
- hihsthgvmhejiedrtghomheqnecuggftrfgrthhtvghrnhepgeeugffhieegledvuddtge
- dtieetvdffkeeltdejhfejvefgtefgleetteehfefgnecuvehluhhsthgvrhfuihiivgep
- tdenucfrrghrrghmpehmrghilhhfrhhomhepthgtrhgrfihfohhrugesshihshhtvghmje
- eirdgtohhm
-X-ME-Proxy: <xmx:bohMYtrZgd1hyI3GvHc64TtiqBgelP0t7VLV8UpCFNAArPgpRlooHQ>
- <xmx:bohMYipiPxeCE74gYqvdTbQEfi8QcwleuGroXOZxEdVotiWFLLh2_A>
- <xmx:bohMYjQkzUNnTABYXbw75L89RDKJZrKT07sj6kLbTEqSVmAh3DiSvw>
- <xmx:bohMYnCG5DEkwCUO6T7R3qNFaDz-4vgEKLvEAUIhaxBDroBHsIDHRQ>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 5 Apr 2022 14:20:30 -0400 (EDT)
-From: Tim Crawford <tcrawford@system76.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: hda/realtek: Add quirk for Clevo PD50PNT
-Date: Tue,  5 Apr 2022 12:20:29 -0600
-Message-Id: <20220405182029.27431-1-tcrawford@system76.com>
-X-Mailer: git-send-email 2.34.1
+ dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
+ header.b="du7y76Mr"
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: adalessandro) with ESMTPSA id 1EB511F4370D
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1649187569;
+ bh=/s6fZDVbpiIQW0S5UO2G1RWfpbsAjuqB16uALNiR7fA=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=du7y76Mrgs9fzjL6kCL5pOm6CipJjs1QamPYv1VvPMSWG91LVSDu1RxdfWBh6lZPg
+ +JGG/hCKtjAEKHkndXb3mOeTS33Xm53CSSlkRW355R9tGA7mUS7EQqKjc7cAaj5Kea
+ HSxDfF4SMeP3vJ6Bt/9Ap2xsNhDHtmayvmHu7wnzVfu9vcLM6gPvdnVbY3JTkkcZzZ
+ yS2ib2WEBNIRVpbXFfho7OvHdDDTTacxJLJ3byL5utZtnzqhYboqXajagIfyD/MWTu
+ 08J2P3HZ36pAqXCQvIeD/UYFPHTEOdagRPIY/mnP5S1pU+e4h13Fsnu0n2z5b1sCCH
+ OdOslyJaw4/6g==
+Message-ID: <9887dc0c-c2e0-868c-55e3-32083f820e09@collabora.com>
+Date: Tue, 5 Apr 2022 16:39:16 -0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, productdev@system76.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.4.1
+Subject: Re: [PATCH v4] arm64: dts: imx8mn-bsh-smm-s2pro: Add tlv320aic31xx
+ audio card node
+Content-Language: en-US
+To: Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>
+References: <20220323135601.42435-1-ariel.dalessandro@collabora.com>
+ <CAOMZO5D4_WboF4S0dgSLD1m15a13c2irK2yjDV4C77_Wb15=2w@mail.gmail.com>
+ <d9f14221-b0ad-9853-e9c8-a35d9111549b@collabora.com>
+ <3e3b223f-7d05-f439-625a-a15afb44b95f@collabora.com>
+ <CAOMZO5D8UHkkyJE9uJ4yBmf+ajjbzJOrLM57OHpyAiATvMNXcw@mail.gmail.com>
+From: Ariel D'Alessandro <ariel.dalessandro@collabora.com>
+In-Reply-To: <CAOMZO5D8UHkkyJE9uJ4yBmf+ajjbzJOrLM57OHpyAiATvMNXcw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Linux-ALSA <alsa-devel@alsa-project.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ linux-kernel <linux-kernel@vger.kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ NXP Linux Team <linux-imx@nxp.com>, Sascha Hauer <kernel@pengutronix.de>,
+ Michael Trimarchi <michael@amarulasolutions.com>,
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,25 +96,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fixes speaker output and headset detection on Clevo PD50PNT.
+Hi Shawn,
 
-Signed-off-by: Tim Crawford <tcrawford@system76.com>
----
- sound/pci/hda/patch_realtek.c | 1 +
- 1 file changed, 1 insertion(+)
+Gentle ping :-)
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index aace474a899d..61df440fdb61 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -2619,6 +2619,7 @@ static const struct snd_pci_quirk alc882_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1558, 0x65e1, "Clevo PB51[ED][DF]", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
- 	SND_PCI_QUIRK(0x1558, 0x65e5, "Clevo PC50D[PRS](?:-D|-G)?", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
- 	SND_PCI_QUIRK(0x1558, 0x65f1, "Clevo PC50HS", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
-+	SND_PCI_QUIRK(0x1558, 0x65f5, "Clevo PD50PN[NRT]", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
- 	SND_PCI_QUIRK(0x1558, 0x67d1, "Clevo PB71[ER][CDF]", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
- 	SND_PCI_QUIRK(0x1558, 0x67e1, "Clevo PB71[DE][CDF]", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
- 	SND_PCI_QUIRK(0x1558, 0x67e5, "Clevo PC70D[PRS](?:-D|-G)?", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
--- 
-2.35.1
-
+On 3/31/22 10:48, Fabio Estevam wrote:
+> Hi Ariel,
+> 
+> On Thu, Mar 31, 2022 at 10:35 AM Ariel D'Alessandro
+> <ariel.dalessandro@collabora.com> wrote:
+>>
+>> Hi Fabio, Shawn,
+>>
+>> Can we merge this please?
+> 
+> Shawn will probably start picking the patches for the next cycle after
+> 5.18-rc1 is released.

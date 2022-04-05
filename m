@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13D2D4F2998
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 11:45:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54A8B4F29BD
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 12:26:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C0BF31863;
-	Tue,  5 Apr 2022 11:44:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0BF31863
+	by alsa0.perex.cz (Postfix) with ESMTPS id 093C617EE;
+	Tue,  5 Apr 2022 12:25:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 093C617EE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649151921;
-	bh=I7N5ZTge/HpMiy4bW+5+PVtzIh9pvkUkVrCwN8eIMtA=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1649154390;
+	bh=NRI08BMC2mQMJAMCwOYu968Ay1sZqWVmKmribbWVRmc=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qFv+FOZ9/PB+675RdT9u4f0zun0fpycVCgOldX+5UIkqvbpwUOHEIPxJ6GNpD2xl7
-	 msh+0X5r6E16wfsfCoGaKqz/G/ZCKcWpwEATRyZyIPxDXfvwk3ZIRV4MEw/G4RkVwZ
-	 lUtV7ccxvTIwZkDSsKz8L+HDg9JPWIBiw+o8q0MI=
+	b=GbsA1Petlc3qcGxFPuOjFB4JL7GLi2OzxX/dSLAgtDOHaix3OgzSQBLNJ/LSISDiU
+	 Gb2vK2aUjChL8iEwXrxSMoEefXu5XfXjJuxAKy0hemTJBaiTimkaQBXPblrX4waJNJ
+	 JscBre0Q5UJMOqRwJlDpxZa3WC3GWaY17ERmWiUM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B1F08F8016E;
-	Tue,  5 Apr 2022 11:44:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5DF9BF800D2;
+	Tue,  5 Apr 2022 12:25:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9424AF8016E; Tue,  5 Apr 2022 11:44:20 +0200 (CEST)
+ id 3096DF8016B; Tue,  5 Apr 2022 12:25:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,44 +35,49 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7819DF8012C
- for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 11:44:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7819DF8012C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 53A8EF800D1;
+ Tue,  5 Apr 2022 12:25:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53A8EF800D1
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="RT1Ya5K3"
+ dkim=pass (1024-bit key) header.d=linuxfoundation.org
+ header.i=@linuxfoundation.org header.b="J2R8z3Ju"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id C7E3861368;
- Tue,  5 Apr 2022 09:44:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0480EC385A3;
- Tue,  5 Apr 2022 09:44:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1649151849;
- bh=I7N5ZTge/HpMiy4bW+5+PVtzIh9pvkUkVrCwN8eIMtA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=RT1Ya5K3CUAgZ9b1Icx2eokJZXHHLPki8f5IblGNODgfE7Dup0r3B/wPaCrYtZYw2
- LRF4JNjlY3YM+woaqtF7WY8qVy4WR51ICnQDKqkjdvrx1iHR6/6cX8CbML2/mA/JG5
- UyXCZn0aryIBt9SUmsKHNYXFSeootNLn/FHeJK4xoxKsG0YwUVAlZYiZR8hyLcMfKs
- HqAfu/V3668iD9vSRUFQ+zBOU+6cS9vp/1xtT3JtO9MTgzczBngagw5WiP7G5Ya7tM
- IWcf/Kn7/iIxVJl/msK8xW1Ea6WjS78m9ST1PROheKz4VPmbrnfXKwDW/16A/8oYKu
- nLvxiNbr1JQ1Q==
-Date: Tue, 5 Apr 2022 10:44:04 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Raphael-Xu <13691752556@139.com>
-Subject: Re: [PATCH v6 3/3] update to support either TAS2764 or TAS2780
-Message-ID: <YkwPZJLnxDe9YyZp@sirena.org.uk>
-References: <20220401150301.1011-1-13691752556@139.com>
- <20220401150301.1011-3-13691752556@139.com>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id B49126142E;
+ Tue,  5 Apr 2022 10:25:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93349C385A0;
+ Tue,  5 Apr 2022 10:25:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1649154317;
+ bh=NRI08BMC2mQMJAMCwOYu968Ay1sZqWVmKmribbWVRmc=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=J2R8z3JuWE8qgfRPOc9kmQfd5gb4AtE9kkhe+zdMfBWSROTnCFi1WgKn9LZAprkix
+ EZ4wi6X77/ww9EiZAgM9Aj3q8SoEEyz0S1t5+0IqJj1gCBoxpO1lulolPMsVWgpyja
+ OxBUcDeUaYdzQ8CJytBes6l3T6PMkmhXnzAHmYgg=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: linux-kernel@vger.kernel.org
+Subject: [PATCH 5.10 537/599] ASoC: SOF: Intel: Fix NULL ptr dereference when
+ ENOMEM
+Date: Tue,  5 Apr 2022 09:33:51 +0200
+Message-Id: <20220405070314.821469619@linuxfoundation.org>
+X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220405070258.802373272@linuxfoundation.org>
+References: <20220405070258.802373272@linuxfoundation.org>
+User-Agent: quilt/0.66
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="O/18VVxbDPCfi3ZQ"
-Content-Disposition: inline
-In-Reply-To: <20220401150301.1011-3-13691752556@139.com>
-X-Cookie: Avoid contact with eyes.
-Cc: alsa-devel@alsa-project.org, raphael-xu@ti.com, shenghao-ding@ti.com,
- navada@ti.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Ammar Faizi <ammarfaizi2@gnuweeb.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Takashi Iwai <tiwai@suse.com>,
+ Keyon Jie <yang.jie@linux.intel.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ stable@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Rander Wang <rander.wang@intel.com>, Daniel Baluta <daniel.baluta@nxp.com>,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,37 +93,108 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+From: Ammar Faizi <ammarfaizi2@gnuweeb.org>
 
---O/18VVxbDPCfi3ZQ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+commit b7fb0ae09009d076964afe4c1a2bde1ee2bd88a9 upstream.
 
-On Fri, Apr 01, 2022 at 11:03:01PM +0800, Raphael-Xu wrote:
-> fix no sound issue on some platforms
->=20
-> Signed-off-by: Raphael-Xu <13691752556@139.com>
-> ---
->  sound/soc/codecs/tas27xx.c | 405 +++++++++++++++++++++++++++----------
->  sound/soc/codecs/tas27xx.h |   2 +-
->  2 files changed, 295 insertions(+), 112 deletions(-)
+Do not call snd_dma_free_pages() when snd_dma_alloc_pages() returns
+-ENOMEM because it leads to a NULL pointer dereference bug.
 
-This doesn't apply against current code (with your first two patches
-applied), please check and resend - should just be a rebase.
+The dmesg says:
 
---O/18VVxbDPCfi3ZQ
-Content-Type: application/pgp-signature; name="signature.asc"
+  [ T1387] sof-audio-pci-intel-tgl 0000:00:1f.3: error: memory alloc failed: -12
+  [ T1387] BUG: kernel NULL pointer dereference, address: 0000000000000000
+  [ T1387] #PF: supervisor read access in kernel mode
+  [ T1387] #PF: error_code(0x0000) - not-present page
+  [ T1387] PGD 0 P4D 0
+  [ T1387] Oops: 0000 [#1] PREEMPT SMP NOPTI
+  [ T1387] CPU: 6 PID: 1387 Comm: alsa-sink-HDA A Tainted: G        W         5.17.0-rc4-superb-owl-00055-g80d47f5de5e3
+  [ T1387] Hardware name: HP HP Laptop 14s-dq2xxx/87FD, BIOS F.15 09/15/2021
+  [ T1387] RIP: 0010:dma_free_noncontiguous+0x37/0x80
+  [ T1387] Code: [... snip ...]
+  [ T1387] RSP: 0000:ffffc90002b87770 EFLAGS: 00010246
+  [ T1387] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000000
+  [ T1387] RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffff888101db30d0
+  [ T1387] RBP: 00000000fffffff4 R08: 0000000000000000 R09: 0000000000000000
+  [ T1387] R10: 0000000000000000 R11: ffffc90002b874d0 R12: 0000000000000001
+  [ T1387] R13: 0000000000058000 R14: ffff888105260c68 R15: ffff888105260828
+  [ T1387] FS:  00007f42e2ffd640(0000) GS:ffff888466b80000(0000) knlGS:0000000000000000
+  [ T1387] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+  [ T1387] CR2: 0000000000000000 CR3: 000000014acf0003 CR4: 0000000000770ee0
+  [ T1387] PKRU: 55555554
+  [ T1387] Call Trace:
+  [ T1387]  <TASK>
+  [ T1387]  cl_stream_prepare+0x10a/0x120 [snd_sof_intel_hda_common 146addf995b9279ae7f509621078cccbe4f875e1]
+  [... snip ...]
+  [ T1387]  </TASK>
 
------BEGIN PGP SIGNATURE-----
+Cc: Daniel Baluta <daniel.baluta@nxp.com>
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Cc: Keyon Jie <yang.jie@linux.intel.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Rander Wang <rander.wang@intel.com>
+Cc: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: sound-open-firmware@alsa-project.org
+Cc: alsa-devel@alsa-project.org
+Cc: linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org # v5.2+
+Fixes: d16046ffa6de040bf580a64d5f4d0aa18258a854 ("ASoC: SOF: Intel: Add Intel specific HDA firmware loader")
+Link: https://lore.kernel.org/lkml/20220224145124.15985-1-ammarfaizi2@gnuweeb.org/ # v1
+Link: https://lore.kernel.org/lkml/20220224180850.34592-1-ammarfaizi2@gnuweeb.org/ # v2
+Link: https://lore.kernel.org/lkml/20220224182818.40301-1-ammarfaizi2@gnuweeb.org/ # v3
+Reviewed-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Signed-off-by: Ammar Faizi <ammarfaizi2@gnuweeb.org>
+Link: https://lore.kernel.org/r/20220224185836.44907-1-ammarfaizi2@gnuweeb.org
+Signed-off-by: Mark Brown <broonie@kernel.org>
+[ammarfaizi2: Backport to Linux 5.10 LTS]
+Signed-off-by: Ammar Faizi <ammarfaizi2@gnuweeb.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ sound/soc/sof/intel/hda-loader.c |   11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJMD2QACgkQJNaLcl1U
-h9CSpggAgLA3V+y06zBInxSiJxnjfcOuIgekvMJMgrtmKAnBVhHyWEV485wGOzCk
-329+VccVHhChKYvqNu/m/Ar/tls4n05voxQVMTjJofMIjxRlTGw1rN7Q2dIAOifa
-k0YI1/DObYX6+h0QR5CvpWfxTZftRSpUswv4r0yi3BhfL2dl0LS2KEVeLZ9JND9V
-A/D7uyVnM8U3Cm5dV/OsRCPO/RQNZ3kaCSCaYx8e/EbD+1n8DQVC6fT+AigOQiNS
-su5m7Kw9OLNO5JvN8qy/r0mlmJnYfunnSI7GsFL7qF8oNFSOG2/mjS7Qk2ieOOuX
-uaSWdZON9VipbHSGO7/lsHXj7X7W6w==
-=BAbP
------END PGP SIGNATURE-----
+--- a/sound/soc/sof/intel/hda-loader.c
++++ b/sound/soc/sof/intel/hda-loader.c
+@@ -47,7 +47,7 @@ static struct hdac_ext_stream *cl_stream
+ 	ret = snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV_SG, &pci->dev, size, dmab);
+ 	if (ret < 0) {
+ 		dev_err(sdev->dev, "error: memory alloc failed: %x\n", ret);
+-		goto error;
++		goto out_put;
+ 	}
+ 
+ 	hstream->period_bytes = 0;/* initialize period_bytes */
+@@ -58,22 +58,23 @@ static struct hdac_ext_stream *cl_stream
+ 		ret = hda_dsp_iccmax_stream_hw_params(sdev, dsp_stream, dmab, NULL);
+ 		if (ret < 0) {
+ 			dev_err(sdev->dev, "error: iccmax stream prepare failed: %x\n", ret);
+-			goto error;
++			goto out_free;
+ 		}
+ 	} else {
+ 		ret = hda_dsp_stream_hw_params(sdev, dsp_stream, dmab, NULL);
+ 		if (ret < 0) {
+ 			dev_err(sdev->dev, "error: hdac prepare failed: %x\n", ret);
+-			goto error;
++			goto out_free;
+ 		}
+ 		hda_dsp_stream_spib_config(sdev, dsp_stream, HDA_DSP_SPIB_ENABLE, size);
+ 	}
+ 
+ 	return dsp_stream;
+ 
+-error:
+-	hda_dsp_stream_put(sdev, direction, hstream->stream_tag);
++out_free:
+ 	snd_dma_free_pages(dmab);
++out_put:
++	hda_dsp_stream_put(sdev, direction, hstream->stream_tag);
+ 	return ERR_PTR(ret);
+ }
+ 
 
---O/18VVxbDPCfi3ZQ--
+

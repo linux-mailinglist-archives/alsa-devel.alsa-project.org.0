@@ -2,83 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 524C14F3D22
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 20:09:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5CD44F3D2B
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 20:21:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D6C94177E;
-	Tue,  5 Apr 2022 20:08:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6C94177E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5242417C8;
+	Tue,  5 Apr 2022 20:20:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5242417C8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649182189;
-	bh=NtBhGURVESJUSY8I9nvNgpznPalXmXHV0lFgfPnMkxk=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=mz+xZMn21oS+yeelR9zKFLN0NBWQohKndOSmVp0enm+MnTrF1eghLW+/M9HzYr7dx
-	 mxFCH8JkOU7jr+MAQVdVp/modoQTX5GwbtC1dtb7AUOEIMWMvSlizX4esm1NNSDDrQ
-	 zYAflk+EJVkqFSqmu3mEdy/lSlIvc+QciyhXrKP4=
+	s=default; t=1649182900;
+	bh=bmqhj+dQXEzPy8rAY5fr0GpG0DNLJCDWIFX94qTSai0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=go6+rgr9dfXYb7dezyf82/N8o35JAg65iPpHSikakPfbD1/9XnXL13emQwUXWXCH+
+	 fyynokUeIBkLERZVpy9KmszA0975R+LRmVJHI9MzChizB3Hr5g3jdH21Okx5IbbejE
+	 kiZQIWh9To8hptKEvpBr0d4IyoiSzi225HSUoaW4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 475BAF8012C;
-	Tue,  5 Apr 2022 20:08:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B459DF800D2;
+	Tue,  5 Apr 2022 20:20:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 52648F8016A; Tue,  5 Apr 2022 20:08:50 +0200 (CEST)
+ id 5526AF800D2; Tue,  5 Apr 2022 20:20:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C6D32F800D2
- for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 20:08:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6D32F800D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id A5E41F800D2
+ for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 20:20:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5E41F800D2
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="qOy5Makr"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id E57CBB81F69;
- Tue,  5 Apr 2022 18:08:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72C53C385A0;
- Tue,  5 Apr 2022 18:08:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1649182123;
- bh=NtBhGURVESJUSY8I9nvNgpznPalXmXHV0lFgfPnMkxk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=qOy5MakrI0EOT7P8JeLQx2F/MwmflIt1w4Vijv94UiEFSKbI0/LjQDFLSMNOff2cD
- FEwTAHiEAXA1xFNXLe5dtSUvC2xMorJb8wWLmzfJLN/NSCIslF2HR0YF9GH/8kBEC+
- +dL/iulLAfgdv+OvrVx9xX3a7uRTYkkvTW7u/Sv5LZTyJ+X7nQe7vqyvAvacgbJgzN
- /qTUCoowkyDFTlCKQhcGP+Q5AOfSg7yrxgRd47XSJJ8GUSaDkaqTRiKrBcgDdhGSu2
- KrD6zTRA3rx8VGMYVHbzCPF4TfzNwjNq8fvY2l9KCvufMUmghSFck/axFGWBevTcZY
- toELS8zyDBPfA==
-Date: Tue, 5 Apr 2022 19:08:38 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [PATCH v2 0/2] ASoC: meson: aiu: fix duplicate debugfs directory
- error
-Message-ID: <YkyFpmHhZwg19EmL@sirena.org.uk>
-References: <51953618-79b6-0df7-2d28-d5dce4dc86c7@gmail.com>
- <8a63cf25-3662-032e-b088-6a343b86462f@gmail.com>
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="Hy7iZizb"
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.nyi.internal (Postfix) with ESMTP id E6ADF5C0265;
+ Tue,  5 Apr 2022 14:20:30 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute5.internal (MEProxy); Tue, 05 Apr 2022 14:20:30 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
+ :from:from:in-reply-to:message-id:mime-version:reply-to:sender
+ :subject:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm3; bh=Ga8/NQRe6ecv/Jchsk+F5fxHBv6FG
+ +R9T1sj2w8EIcY=; b=Hy7iZizbj9mmsqClDkYEw140K7wsbhYPuTQFMWoek/e+q
+ Cvp4CaoV/C4vbedVf6r21q1m/LYSoepPNsu6ldoAMPl/KsZBm8vmlt3hwLK12Nzu
+ 0RSz+G+v8TcGcXuoEnGdEt4L7y4xpfoDowJLFj+/5veTVzKfYb8EPhzba8FKVLvX
+ QeAsfYWPVMSnjPi4dVSQGT0DwEnswQmarU8Nr/KWP8DIqvVp9Jcnq3BIufcfbDTh
+ QABJdd1h3oES/kBpsdwTK2I7YVM/IulGTcwyTOGE/isXKypoG5hX/rhgmuSCW/6w
+ L9qG0tmuI9no8OXykkMT6jFmZi5szyLy671AOxR4A==
+X-ME-Sender: <xms:bohMYnaniXzpzn_efy84YIyifO5AyFXKveTJtxOE7oGo8ME_iSuIWw>
+ <xme:bohMYmZtzq9nhsZ6PPrwv_tG8wIKvWExnncgrmD8HHj0XHMha_VjEiUnheyiR-mI-
+ Vh7LvVsBbSh9dubog>
+X-ME-Received: <xmr:bohMYp-QlpYCAg_7QxZOCIpMpUYeh5NqBxMk_Dy2oNBLxb3xrUkURoUn>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrudejgedguddulecutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffoggfgsedtkeertd
+ ertddtnecuhfhrohhmpefvihhmucevrhgrfihfohhrugcuoehttghrrgiffhhorhgusehs
+ hihsthgvmhejiedrtghomheqnecuggftrfgrthhtvghrnhepgeeugffhieegledvuddtge
+ dtieetvdffkeeltdejhfejvefgtefgleetteehfefgnecuvehluhhsthgvrhfuihiivgep
+ tdenucfrrghrrghmpehmrghilhhfrhhomhepthgtrhgrfihfohhrugesshihshhtvghmje
+ eirdgtohhm
+X-ME-Proxy: <xmx:bohMYtrZgd1hyI3GvHc64TtiqBgelP0t7VLV8UpCFNAArPgpRlooHQ>
+ <xmx:bohMYipiPxeCE74gYqvdTbQEfi8QcwleuGroXOZxEdVotiWFLLh2_A>
+ <xmx:bohMYjQkzUNnTABYXbw75L89RDKJZrKT07sj6kLbTEqSVmAh3DiSvw>
+ <xmx:bohMYnCG5DEkwCUO6T7R3qNFaDz-4vgEKLvEAUIhaxBDroBHsIDHRQ>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 5 Apr 2022 14:20:30 -0400 (EDT)
+From: Tim Crawford <tcrawford@system76.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: hda/realtek: Add quirk for Clevo PD50PNT
+Date: Tue,  5 Apr 2022 12:20:29 -0600
+Message-Id: <20220405182029.27431-1-tcrawford@system76.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="T9mryndXkvnrkI3o"
-Content-Disposition: inline
-In-Reply-To: <8a63cf25-3662-032e-b088-6a343b86462f@gmail.com>
-X-Cookie: diplomacy, n:
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- Neil Armstrong <narmstrong@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Kevin Hilman <khilman@baylibre.com>, Takashi Iwai <tiwai@suse.com>,
- "open list:ARM/Amlogic Meson..." <linux-amlogic@lists.infradead.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- Jerome Brunet <jbrunet@baylibre.com>
+Content-Transfer-Encoding: 8bit
+Cc: tiwai@suse.de, productdev@system76.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,42 +98,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Fixes speaker output and headset detection on Clevo PD50PNT.
 
---T9mryndXkvnrkI3o
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Tim Crawford <tcrawford@system76.com>
+---
+ sound/pci/hda/patch_realtek.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-On Thu, Mar 31, 2022 at 07:56:03AM +0200, Heiner Kallweit wrote:
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index aace474a899d..61df440fdb61 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -2619,6 +2619,7 @@ static const struct snd_pci_quirk alc882_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1558, 0x65e1, "Clevo PB51[ED][DF]", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
+ 	SND_PCI_QUIRK(0x1558, 0x65e5, "Clevo PC50D[PRS](?:-D|-G)?", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
+ 	SND_PCI_QUIRK(0x1558, 0x65f1, "Clevo PC50HS", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
++	SND_PCI_QUIRK(0x1558, 0x65f5, "Clevo PD50PN[NRT]", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
+ 	SND_PCI_QUIRK(0x1558, 0x67d1, "Clevo PB71[ER][CDF]", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
+ 	SND_PCI_QUIRK(0x1558, 0x67e1, "Clevo PB71[DE][CDF]", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
+ 	SND_PCI_QUIRK(0x1558, 0x67e5, "Clevo PC70D[PRS](?:-D|-G)?", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
+-- 
+2.35.1
 
-> Any feedback here?
-
-Please don't send content free pings and please allow a reasonable time
-for review.  People get busy, go on holiday, attend conferences and so=20
-on so unless there is some reason for urgency (like critical bug fixes)
-please allow at least a couple of weeks for review.  If there have been
-review comments then people may be waiting for those to be addressed.
-
-Sending content free pings adds to the mail volume (if they are seen at
-all) which is often the problem and since they can't be reviewed
-directly if something has gone wrong you'll have to resend the patches
-anyway, so sending again is generally a better approach though there are
-some other maintainers who like them - if in doubt look at how patches
-for the subsystem are normally handled.
-
---T9mryndXkvnrkI3o
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJMhaUACgkQJNaLcl1U
-h9ChEQf/fdrtl6/9MJ57RFUXrTsC2lG+dsXbtpQcaTa4gKgwY4vaKp1fejWu7nOv
-WIolAlOmllu2hZGHWQqMfpoeWmAwNvTyk7Hbp2pjotT1IAK8GqqRzNXBd0C+q4tG
-aj3cObZTK+03w5WNG7soIhQki0yscHapzYqx0zA2X4Io96OaAOZ+2ltF5ZIGUV4e
-3GYwkO9c8mAD9Y+9iDf/LQV4pzN/IE5fnfQv59u8wc9UuJle+mr9HTcwNecmgCAo
-jLhjCjskR20/m3Oj1Cj6tIaqeIjM1zzyw/Lvs9FlH2nC+OO6mJm2T57Mwvfmr0EW
-ydpIMBaKkx8D4DjhbeVzJi4tou+KLg==
-=5pXh
------END PGP SIGNATURE-----
-
---T9mryndXkvnrkI3o--

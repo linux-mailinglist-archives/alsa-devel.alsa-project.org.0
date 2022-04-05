@@ -2,83 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A60F4F22C8
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 07:58:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A48D4F22CB
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 07:58:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C702E170E;
-	Tue,  5 Apr 2022 07:57:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C702E170E
+	by alsa0.perex.cz (Postfix) with ESMTPS id E0A6E171D;
+	Tue,  5 Apr 2022 07:58:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E0A6E171D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649138299;
-	bh=WTEqoba+HGqrhmIu7D0ULSf5yuod+p3l5ZwyoiWwnEU=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1649138334;
+	bh=SpQT9D0PlXe5QAoiLPCESfP7QQ6zNYrIRVnmnPal7IQ=;
+	h=Date:Subject:From:To:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KDjjAc4fQvkZWlNltO2M23AKh2gqM0WGHO2ywAE3QsUKUzE3Qqf2m49aJp5DbCC3e
-	 zUTLSKqm+78uIpXcA0D31pHCpuLwuRzHNucLev64l5yBiXnZ+mNOO35ZK36IIVMucy
-	 CW0jxFKUYXCQ4Vz/cRc72b7UddQdMOja1u5vT4WI=
+	b=HsGzc6TYRa8GyH/8Fj9vedRZLFBYG+DXebsk2HxENm1WVsjgzsstrITVsa5/kE2nN
+	 H6A9CkBV9kcQhx8fmXgV83wLlbgBN1v7egPMmnoMw23O3EyQWZVZ0WtgZI7R5PKAuc
+	 WFPgBhERiSZBNHh2IgwphlpAkmO2sFsv0+97efcI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2BD7CF800D1;
-	Tue,  5 Apr 2022 07:57:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CD506F8049C;
+	Tue,  5 Apr 2022 07:57:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C9D0CF8016A; Tue,  5 Apr 2022 07:57:19 +0200 (CEST)
+ id 27EAEF80482; Tue,  5 Apr 2022 07:57:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from router.aksignal.cz (router.aksignal.cz [62.44.4.214])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3C98EF800D1
- for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 07:57:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C98EF800D1
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="nGu2CIBB"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="FMvCcseb"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 775201F37E;
- Tue,  5 Apr 2022 05:57:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1649138230; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=aq+dfe7t7uVb6nhFWo1ZuXqHwk+7toIxAoNOkXg7JeM=;
- b=nGu2CIBBBIVdM9h/HXw2+mXUxdT4zvs8uLiwvCpeQBtTvNRk2bVzoQAmjmigT/DJennzvY
- Rkwvvee04yfAS/2VtE1Q+SHqesryFM/fMwPy+86C2CFdfLW5a5dxFveIjUzSztWMDTtO3F
- SPURh6iJms3RPNL2iAL42BkUHY5GQ+0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1649138230;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=aq+dfe7t7uVb6nhFWo1ZuXqHwk+7toIxAoNOkXg7JeM=;
- b=FMvCcsebYvOYoGOtv2oF54oHadK6D06fDLoZbg23UtWhc7dUnAM6LkeJQO2vKWVGeKIBCT
- 8K03Ttjniez8yyDw==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 9B3DAA3B82;
- Tue,  5 Apr 2022 05:57:09 +0000 (UTC)
-Date: Tue, 05 Apr 2022 07:57:09 +0200
-Message-ID: <s5hfsms843u.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mohan Kumar <mkumard@nvidia.com>
-Subject: Re: [PATCH] ALSA: hda/tegra: Fix hda Jack detection
-In-Reply-To: <20220405032607.8489-1-mkumard@nvidia.com>
-References: <20220405032607.8489-1-mkumard@nvidia.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- spujar@nvidia.com, tiwai@suse.com, jonathanh@nvidia.com,
- thierry.reding@gmail.com, linux-tegra@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7281DF800D2
+ for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 07:57:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7281DF800D2
+Received: from localhost (localhost [127.0.0.1])
+ by router.aksignal.cz (Postfix) with ESMTP id 8990443151;
+ Tue,  5 Apr 2022 07:57:33 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at router.aksignal.cz
+Received: from router.aksignal.cz ([127.0.0.1])
+ by localhost (router.aksignal.cz [127.0.0.1]) (amavisd-new, port 10026)
+ with LMTP id YlU9JqGIT7Md; Tue,  5 Apr 2022 07:57:33 +0200 (CEST)
+Received: from [172.25.161.48] (unknown [83.240.30.185])
+ (Authenticated sender: jiri.prchal@aksignal.cz)
+ by router.aksignal.cz (Postfix) with ESMTPSA id C605A43138;
+ Tue,  5 Apr 2022 07:57:32 +0200 (CEST)
+Message-ID: <c55051a5-8294-213b-5746-cb5761a7230e@aksignal.cz>
+Date: Tue, 5 Apr 2022 07:57:32 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: simple-audio-card
+Content-Language: en-US
+From: =?UTF-8?B?SmnFmcOtIFByY2hhbA==?= <jiri.prchal@aksignal.cz>
+To: kuninori.morimoto.gx@renesas.com, alsa-devel@alsa-project.org
+References: <0f560987-151f-b844-e5b4-a3a10c8d46a8@aksignal.cz>
+In-Reply-To: <0f560987-151f-b844-e5b4-a3a10c8d46a8@aksignal.cz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Cc: Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,43 +76,105 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 05 Apr 2022 05:26:07 +0200,
-Mohan Kumar wrote:
+Hi,
+something strange with it. When I compile kernel without loadable module 
+support (# CONFIG_MODULES is not set) it works.
+
+On 10. 03. 22 17:33, Jiří Prchal wrote:
+> Hi everybody,
+> would be someone so kind and help me with my sound card?
+> My connection is:
+> cpu AT91SAM9G25 I2S (SSC0) --> codec TLV320AIC3106 <-- clock 12MHz
+> Codec is clock master.
 > 
-> Tegra HDA Jack detection logic doesn't work when the HDACODEC
-> in runtime suspended state as unsol event won't be triggered
-> during D3 state. As pulseaudio server in userspace rely on the
-> jack mixer control status to show the audio devices in gui and
-> any display sink device hotplug event during D3 state will never
-> updates the jack status which will result in no audio device option
-> available in userspace settings.
+> dts related parts:
 > 
-> The possible option available to resolve this issue for multiple
-> tegra platforms is to use Jack polling method for every 5 seconds.
-> Also to make Jack detection work seamlessly the Jack worker thread
-> needs to run continuously after HDA sound card registered
-> irrespective of whether HDMI sink device connected or not, but the
-> Jack state update call happens only when Codec is not powered on.
+>      sound {
+>          compatible = "simple-audio-card";
+>          simple-audio-card,name = "TLV320AIC3106";
+>          simple-audio-card,widgets =
+>              "Headphone", "Front Out",
+>              "Line", "Rear Out",
+>              "Line", "GSM Out",
+>              "Speaker", "Speaker",
+>              "Microphone", "Front In",
+>              "Line", "Rear In",
+>              "Line", "GSM In";
+>          simple-audio-card,routing =
+>              "Front Out", "HPLOUT",
+>              "Rear Out", "HPROUT",
+>              "GSM Out", "LLOUT",
+>              "SP_AMP INL", "MONO_LOUT",
+>              "Speaker", "SP_AMP OUTL",
+>              "MIC3L", "Front In",
+>              "LINE1R", "Rear In",
+>              "LINE1L", "GSM In";
+>          simple-audio-card,format = "i2s";
+>          simple-audio-card,bitclock-master = <&sound_master>;
+>          simple-audio-card,frame-master = <&sound_master>;
+>          simple-audio-card,aux-devs = <&speaker_amp>;
 > 
-> Signed-off-by: Mohan Kumar <mkumard@nvidia.com>
-
-Hmm, any reason not to use the standard jackpoll stuff that is already
-implemented in HD-audio controller side?  That is, doesn't the
-following oneliner work instead?
-
-
-thanks,
-
-Takashi
-
--- 8< --
---- a/sound/pci/hda/hda_tegra.c
-+++ b/sound/pci/hda/hda_tegra.c
-@@ -421,6 +421,7 @@ static int hda_tegra_create(struct snd_card *card,
- 	chip->driver_type = driver_caps & 0xff;
- 	chip->dev_index = 0;
- 	INIT_LIST_HEAD(&chip->pcm_list);
-+	chip->jackpoll_interval = msecs_to_jiffies(5000);
- 
- 	chip->codec_probe_mask = -1;
- 
+>          simple-audio-card,cpu {
+>              sound-dai = <&ssc0>;
+>          };
+> 
+>          sound_master: simple-audio-card,codec {
+>              sound-dai = <&tlv320aic3106>;
+>              system-clock-frequency = <12000000>;
+>          };
+>      };
+> 
+> &ssc0 {
+>      #sound-dai-cells = <0>;
+>      status = "okay";
+>      pinctrl-0 = <&pinctrl_ssc0_tx_rx>;
+> };
+> 
+> &spi0 {
+>      status = "okay";
+>      cs-gpios =
+>          <&pioA 22 0
+>           &pioC 14 0
+>           &pioC 29 0
+>           &pioA  4 0>;
+> 
+>      tlv320aic3106: codec@3 {
+>          compatible = "ti,tlv320aic3106";
+>          reg = <3>;
+>          spi-max-frequency = <1000000>;
+>          #sound-dai-cells = <0>;
+>          adc-settle-ms = <40>;
+>          ai3x-micbias-vg = <2>; /* 2.5V */
+>          status = "okay";
+>          DRVDD-supply = <&vcc_3v3>;
+>          AVDD-supply = <&vcc_3v3>;
+>          IOVDD-supply = <&vcc_3v3>;
+>          DVDD-supply = <&vcc_1v8>;
+>          ai3x-ocmv = <2>; /* 1.65V */
+>      };
+> };
+> 
+> 
+> In kernel 5.12 it worked fine, but I can't make it in either 5.15 or 5.17.
+> 
+> dmesg doesn't help at all, even with debug compilation switch:
+> ...
+> [    1.203333] ssc f0010000.ssc: Atmel SSC device at 0x(ptrval) (irq 22)
+> ...
+> [    1.616666] atmel_spi f0000000.spi: Using dma0chan2 (tx) and 
+> dma0chan3 (rx) for DMA transfers
+> ...
+> [    1.639999] codec@3 enforce active low on chipselect handle
+> [    1.656666] at25 spi0.0: 128 KByte fm25 fram, pagesize 4096
+> [    1.696666] atmel_spi f0000000.spi: Atmel SPI Controller version 
+> 0x212 at 0xf0000000 (irq 28)
+> ...
+> [    3.033333] ALSA device list:
+> [    3.036666]   No soundcards found.
+> 
+> The only difference in 5.12 is:
+> [    3.869999] ALSA device list:
+> [    3.876666]   #0: TLV320AIC3106
+> 
+> So, what's wrong?
+> Thanks Jiri

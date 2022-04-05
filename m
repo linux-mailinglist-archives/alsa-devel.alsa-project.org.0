@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5549D4F2985
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 11:36:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D6F94F2987
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 11:36:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C9EC0181D;
-	Tue,  5 Apr 2022 11:35:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9EC0181D
+	by alsa0.perex.cz (Postfix) with ESMTPS id B4A311632;
+	Tue,  5 Apr 2022 11:35:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B4A311632
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649151367;
-	bh=zrh6vghs2wjpbqTv1tqfq5bENYFMGsSNRdUt0yAWN5c=;
+	s=default; t=1649151384;
+	bh=GnVFPiOOhRcTD3zLND1UO5HvxhaKLW3t8URl9b6HK+Y=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WKINvPzAad+EQzKg/5uulSj/V3mm6DJwm+pZB+Qd6orLLRTvMVAkIQsafOsSJSxE6
-	 CLoJEEMw2Il+31n8KRtPVXiLF+VMo7FLh9pxXg/8luiz2Mpx5nPj5FmWntBkRaAGuw
-	 6wK0gIRM6/ewjleti9TQe5H2QSp0z9394FMA0kqI=
+	b=gii7hubZKf6rvoHN8//15eYaI1+RMOEcSzsYjlTn6PcSD8/Xsl45RQIQzCMvUbV5n
+	 xyVSJMGg5LXHAYulKSZDaMNTUsFG2SkuOo2OI7fDKwwMxXTnKR8+NgU4/QJww3xow0
+	 nT8DBtsRUCBbh7INBbVq2vizuAOE/v8V4Cx9uBF0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9360BF80570;
-	Tue,  5 Apr 2022 11:31:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4DC7EF8012C;
+	Tue,  5 Apr 2022 11:31:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8BD0AF8057B; Tue,  5 Apr 2022 11:31:44 +0200 (CEST)
+ id 43AB9F8057A; Tue,  5 Apr 2022 11:31:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,42 +34,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F1421F80566
- for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 11:31:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1421F80566
+ by alsa1.perex.cz (Postfix) with ESMTPS id 31E58F80570
+ for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 11:31:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31E58F80570
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="bGg50v7M"
+ header.b="fyeHDRig"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id C3508B81CBB;
- Tue,  5 Apr 2022 09:31:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B03AC385A9;
- Tue,  5 Apr 2022 09:31:37 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 34917B81C6E;
+ Tue,  5 Apr 2022 09:31:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BBF0C385A2;
+ Tue,  5 Apr 2022 09:31:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1649151099;
- bh=zrh6vghs2wjpbqTv1tqfq5bENYFMGsSNRdUt0yAWN5c=;
+ s=k20201202; t=1649151100;
+ bh=GnVFPiOOhRcTD3zLND1UO5HvxhaKLW3t8URl9b6HK+Y=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=bGg50v7M+Hf+yTXrOrpR1xcsEs5OJK2fKabvNa8pEirakb4/97aDkCW1Wgh/mCGlL
- O8pJ9pKi07pLqC6hwoFSM++DIISgE+5mxC1OW7Lqzb/vsSJUGulcQ0DvlCXE0eNYRm
- eGF8ZZoe0wXed5tY5LLcRmpwM2o6g2DuQGdfIeJrKs2jUccKOZF4eKNtGLvQat75Ps
- zBd1C6RwMZo0owP2Tu5yY7Y2X6MHme+3TsFQZaTjSevPWXmkHEly1V959r+LkklMbs
- EimGHqyDk9fqWuJZ0Ky9F/a1qXKhZQo0sdnCDAxLWB3NAto8mhln7DKNy9gczPHOq+
- Op+Iek2/Dopkg==
+ b=fyeHDRigr5BDJW6HZOeDA6Yf7p0x35jw5jvCadGY2wXDdzIRdVhKfKSQkN5C+54Rw
+ gz5idjEFI2weufyVqfM8UeEhVQVwwln7oLCieqPZ6u2KI2dQ3UUqUkxQKc+q3pno4o
+ xAQjX0r0NlhrFoJKVTAlmjYIlNBKLbeJUeaLvKp7ah6+C6ERcyUlRQ9K8pqHD0aGOn
+ 41zSVNMUfk1VioouBDohnXCGOZssWtBZdBP8CVWxGq/ptHiSERYmFeSOQWw7AanlsD
+ aJAtHoQB4+k2frBUzwMTXFUan3VrNwri46ExtosWZkg3eXPG/5cCaKdjPbVvNZh9to
+ 6jdbA6TAtr3RA==
 From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.com>, christophe.jaillet@wanadoo.fr,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <e740f1930843060e025e3c0f17ec1393cfdafb26.1648757961.git.christophe.jaillet@wanadoo.fr>
-References: <e740f1930843060e025e3c0f17ec1393cfdafb26.1648757961.git.christophe.jaillet@wanadoo.fr>
-Subject: Re: [PATCH] ASoC: soc-pcm: use GFP_KERNEL when the code is sleepable
-Message-Id: <164915109789.276574.4185820197463277703.b4-ty@kernel.org>
-Date: Tue, 05 Apr 2022 10:31:37 +0100
+To: broonie@kernel.org, Liam Girdwood <lgirdwood@gmail.com>
+In-Reply-To: <20220325153121.1598494-1-broonie@kernel.org>
+References: <20220325153121.1598494-1-broonie@kernel.org>
+Subject: Re: [PATCH v1 0/7] ASoC: wm8731: Overhaul of the driver
+Message-Id: <164915109977.276574.5874273006136998398.b4-ty@kernel.org>
+Date: Tue, 05 Apr 2022 10:31:39 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,16 +83,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 31 Mar 2022 22:19:44 +0200, Christophe JAILLET wrote:
-> At the kzalloc() call in dpcm_be_connect(), there is no spin lock involved.
-> It's merely protected by card->pcm_mutex, instead.  The spinlock is applied
-> at the later call with snd_soc_pcm_stream_lock_irq() only for the list
-> manipulations.  (See it's *_irq(), not *_irqsave(); that means the context
-> being sleepable at that point.)  So, we can use GFP_KERNEL safely there.
+On Fri, 25 Mar 2022 15:31:14 +0000, Mark Brown wrote:
+> This series contains a bunch of fairly minor changes which overhaul and
+> modernise the WM8731 driver, there should be no impact on the driver's
+> functionality.
 > 
-> This patch revert commit d8a9c6e1f676 ("ASoC: soc-pcm: use GFP_ATOMIC for
-> dpcm structure") which is no longer needed since commit b7898396f4bb
-> ("ASoC: soc-pcm: Fix and cleanup DPCM locking").
+> Mark Brown (7):
+>   ASoC: wm8731: Update to modern DAI terminology
+>   ASoC: wm8731: Factor component init out of bus code
+>   ASoC: wm8731: Move regulator request into wm8731_init()
+>   ASoC: wm8731: Factor our MCLK and mutex initialisation
+>   ASoC: wm8731: Factor out the I2C and SPI bus code into separate
+>     modules
+>   ASoC: wm8731: Convert DT bindings to YAML format
+>   ARM: configs: Update multi_v5_defconfig for WM8731 bus refactoring
 > 
 > [...]
 
@@ -104,8 +106,20 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: soc-pcm: use GFP_KERNEL when the code is sleepable
-      commit: fb6d679fee95d272c0a94912c4e534146823ee89
+[1/7] ASoC: wm8731: Update to modern DAI terminology
+      commit: 00b87e18f3c0a98e2e22a95eb205c2ae03862a23
+[2/7] ASoC: wm8731: Factor component init out of bus code
+      commit: 3f4fb905510911f6149593a7321ae1825259b242
+[3/7] ASoC: wm8731: Move regulator request into wm8731_init()
+      commit: 5f1b9d1e424b91a8ae04211cbe4d354463c83583
+[4/7] ASoC: wm8731: Factor our MCLK and mutex initialisation
+      commit: 8875d104af6c237bfedb47309afd938984a3c05b
+[5/7] ASoC: wm8731: Factor out the I2C and SPI bus code into separate modules
+      commit: 9dc15f81baf273b5aaaa3302ee8faacd78f361fd
+[6/7] ASoC: wm8731: Convert DT bindings to YAML format
+      commit: 0e336eeaf467cdd86d827d696e24081b638ef61c
+[7/7] ARM: configs: Update multi_v5_defconfig for WM8731 bus refactoring
+      commit: 64a1a4e04e4450a89940adc8f339a85e2c01d905
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

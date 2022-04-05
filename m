@@ -2,83 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCC824F35E4
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 15:55:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 651C24F35EE
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 15:55:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4560C1838;
-	Tue,  5 Apr 2022 15:54:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4560C1838
+	by alsa0.perex.cz (Postfix) with ESMTPS id 119571801;
+	Tue,  5 Apr 2022 15:54:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 119571801
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649166910;
-	bh=uRCqPiSmDm50AsV2xR5Q4AxiYFD6rvyaw7Au70Xqr6c=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=IPVK8mKZxnJl345B9VJ5Bo4VdLkjPrRA42vICHvV3oANRE8oeCIRuk/fgrFeT2zE9
-	 wHcwL37N+vdEMoDmrQwZyJ3PwIFfrxbdWuYfjbhN1Fv1hrCfNuJ0j84A3vQkQSLqlk
-	 vNxKnzcg+Fv14xs607UR9jk/WMTtzalMfGwXXHAQ=
+	s=default; t=1649166924;
+	bh=9SGnmA54MQR0zqHRHapma+5XMyzxo1UD90+WzhXkXdI=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=PDGgn3DMSBZG6LQGjZewIaRuaEDzIn6pScttV94mVK4e9DtRwiFFedUVLDORBaYil
+	 RTicr4wLHj9jINR1EU7q+ibZwL4XKjldwFP27QFFYHUIQznegAwL3Css205lewzBTY
+	 wEoxT+faDWw3uJ2keKq5w9jBH5X2zaQuOlpwZy8c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4E00AF804AA;
-	Tue,  5 Apr 2022 15:53:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D3C16F80519;
+	Tue,  5 Apr 2022 15:54:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1E4D5F804AA; Tue,  5 Apr 2022 15:53:30 +0200 (CEST)
+ id ABFB0F8016A; Tue,  5 Apr 2022 15:54:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [IPv6:2a00:1450:4864:20::42a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B6C27F804AA
- for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 15:53:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6C27F804AA
+ by alsa1.perex.cz (Postfix) with ESMTPS id E9496F8016E
+ for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 15:54:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9496F8016E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="YIXABeKS"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 242086181D;
- Tue,  5 Apr 2022 13:53:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 817C3C385A0;
- Tue,  5 Apr 2022 13:53:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1649166801;
- bh=uRCqPiSmDm50AsV2xR5Q4AxiYFD6rvyaw7Au70Xqr6c=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=YIXABeKSO6EetTKWYp/B5wn78lHER0NNxbIHWF/2eiybNzyn9aktzwdpguALXmIpF
- FWI21vFN+mRcQSaSTG5aXuVGdFLq/ypYu30dPI9Z95oXio+45gge2I6NY+pHCyStCw
- Ww/qvoFlCqJtZibYrVUBDULM3FtU4oUYVcGPPfNXAbIzjq8lTB60F+ouM1xAVJWeY8
- IrClZPQ7ovoG7/feMaWLd2/2Vdp62Qg/XLfkxNMJWMZq9Qlgcm+ZnxVt6JojQtLDuh
- gBHnqpXU3O09/W4gviRTs/T3B/V7xE4fa7/HlgoJhTCrLrLBoGXHcmz1Va1swAvwVT
- Aj4HkAwCvZTfQ==
-Received: from mchehab by mail.kernel.org with local (Exim 4.94.2)
- (envelope-from <mchehab@kernel.org>)
- id 1nbjcV-001lTa-71; Tue, 05 Apr 2022 15:53:19 +0200
-From: Mauro Carvalho Chehab <mchehab@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [PATCH v2 RESEND 2/2] ASoC: Intel: sof_es8336: Huawei Matebook D15
- uses a headphone gpio
-Date: Tue,  5 Apr 2022 15:53:17 +0200
-Message-Id: <2e5821bf815a97786d2b58c62dcef98bc7b19ed8.1649166634.git.mchehab@kernel.org>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="KRuBEqee"
+Received: by mail-wr1-x42a.google.com with SMTP id b19so19417604wrh.11
+ for <alsa-devel@alsa-project.org>; Tue, 05 Apr 2022 06:54:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=DtW73tEE2+XFkT3bPsX/7iGbHd2vWpPYT/i50JAUgmI=;
+ b=KRuBEqeehUWFQiE6Qb6pz2CZtRUAXww/24GIyCnvwpdbtfIKvDXbMg/G7g3DnY42x6
+ /iZbgKc5kKf24N8Ac4Mpu156t4HMYzU7Nm+RM3S3BnmbpSHNkHbZn/OOn478oWoEpF8E
+ De5/l0DXrm9uA/jpBI0/y5L4nLSqe4IWXKqb4B9WfjbhMRIsV28Dz8F/Eb2URXYcNzQM
+ AtiZNEnvnfUmIdfza2vc32Mep19NqVFUKjYP78+D97mljq2ztcdx3TyvTolE+C9Klo0g
+ A++9eTEGSW/RNdTwnTzk/7OBaYYwNf3nClqpPAgFLubykoDzWaSzpo9QnkjU9VSqUVjI
+ FKYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=DtW73tEE2+XFkT3bPsX/7iGbHd2vWpPYT/i50JAUgmI=;
+ b=x5gZ1I8DomwmHyam3aDVRWb4gMWGNhKgpCssiH/PGF5FoowN5eji8Fqb8MVnnEX5Ol
+ fEonSWAeS7XJOEInRhpbvA88wOGoqufPjDxkvVyyOk1SkhgOdcAu1saJtrVuVNjmXbYp
+ zCxjqISMDlM8DIdpAdXm5SSuuLDV3Ok4XwRXZv95pIvMmLXlydlUD/m1UG40mOuWhi+a
+ /Zq49nWF8l2ZB/OR11Jg4ed5KKYCj7tzOBwaiLGBdrRef1/bvVnCDRuc1CBU4UZiiTfX
+ 4gpDqX7740j3xa+8+a8yPhXrroXDCcsCe455IFojUe9UG2UfUItTwBvZzj9Y/tr0zpql
+ BAhw==
+X-Gm-Message-State: AOAM5308ISIxG0L8H1aVWZT6/g8brYB+DvvU2314HN9cp/RO3V39Ty0l
+ /rCt4pE1KgEw+uEvZbCiYMQ=
+X-Google-Smtp-Source: ABdhPJx7uWLB6seAta51fiSK0+njz9yI+4yOg/CEwF3nvoU2EuPI0t4kkYbH392xPZ7JN2jShsBA+w==
+X-Received: by 2002:a05:6000:156d:b0:204:c24:895f with SMTP id
+ 13-20020a056000156d00b002040c24895fmr3015212wrz.339.1649166854425; 
+ Tue, 05 Apr 2022 06:54:14 -0700 (PDT)
+Received: from localhost (cpc154979-craw9-2-0-cust193.16-3.cable.virginm.net.
+ [80.193.200.194]) by smtp.gmail.com with ESMTPSA id
+ k12-20020a5d628c000000b00203e2fbb2absm12132822wru.113.2022.04.05.06.54.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 05 Apr 2022 06:54:13 -0700 (PDT)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: echoaudio: remove redundant assignment to variable i
+Date: Tue,  5 Apr 2022 14:54:12 +0100
+Message-Id: <20220405135412.199251-1-colin.i.king@gmail.com>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <cover.1649166634.git.mchehab@kernel.org>
-References: <cover.1649166634.git.mchehab@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Hans de Goede <hdegoede@redhat.com>, Mark Brown <broonie@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
- linux-kernel@vger.kernel.org
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,39 +100,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Based on experimental tests, Huawei Matebook D15 actually uses
-both gpio0 and gpio1: the first one controls the speaker, while
-the other one controls the headphone.
+The variable i is being assigned a value that is never read, it
+is being re-assigned in the following for-loop. The assignment is
+redundant and can be removed.
 
-Add a quirk for that.
-
-Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
 ---
+ sound/pci/echoaudio/midi.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-See [PATCH v2 RESEND 0/2] at: https://lore.kernel.org/all/cover.1649166634.git.mchehab@kernel.org/
-
- sound/soc/intel/boards/sof_es8336.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/sound/soc/intel/boards/sof_es8336.c b/sound/soc/intel/boards/sof_es8336.c
-index bcd80870d252..79cf9777c4fc 100644
---- a/sound/soc/intel/boards/sof_es8336.c
-+++ b/sound/soc/intel/boards/sof_es8336.c
-@@ -292,6 +292,14 @@ static const struct dmi_system_id sof_es8336_quirk_table[] = {
- 		},
- 		.driver_data = (void *)(SOF_ES8336_TGL_GPIO_QUIRK)
- 	},
-+	{
-+		.callback = sof_es8336_quirk_cb,
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "HUAWEI"),
-+			DMI_MATCH(DMI_BOARD_NAME, "BOHB-WAX9-PCB-B2"),
-+		},
-+		.driver_data = (void *)(SOF_ES8336_HEADPHONE_GPIO)
-+	},
- 	{}
- };
+diff --git a/sound/pci/echoaudio/midi.c b/sound/pci/echoaudio/midi.c
+index 7be5c3327b16..47b2c023ee3d 100644
+--- a/sound/pci/echoaudio/midi.c
++++ b/sound/pci/echoaudio/midi.c
+@@ -124,7 +124,6 @@ static int midi_service_irq(struct echoaudio *chip)
+ 		return 0;
  
+ 	/* Get the MIDI data from the comm page */
+-	i = 1;
+ 	received = 0;
+ 	for (i = 1; i <= count; i++) {
+ 		/* Get the MIDI byte */
 -- 
 2.35.1
 

@@ -2,81 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA5324F3C98
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 18:20:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A99544F3C9A
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 18:21:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6A53617EB;
-	Tue,  5 Apr 2022 18:19:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A53617EB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 863931840;
+	Tue,  5 Apr 2022 18:20:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 863931840
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649175615;
-	bh=rg1a7NuVcrgejck2X2pgwmxSZcENh9+kvoPYI+VIxE8=;
+	s=default; t=1649175690;
+	bh=RvXHnPE8qruceScyXPxd0+LJSu+h7R9V4x62TiplfuE=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZOrRPxacZu1GpNzNLBPV62LZTb+jZ9/51iuQeuyEGm6crBMz8ubZUADzzpuo7eTqj
-	 eG9uXuFyMGbThvaTj6f++vzdpFDXaLA6wiwJ4gyIBnJgnWmCnwLd2bqns4YBd5Ua/y
-	 6NKwmmYVVcK6+0JG+Xln1tZ+cRyQrhSDVESsk6xE=
+	b=cSv+0f9PpYLVNbvXFOtEbHnqR41wycgrMN8RusnwDMhfB2KE8Mit+c7xJLRiTJWrB
+	 ovftCC6FRLk6qksE0Ty/gSPA5ad1Pa3KIrlByFXjFJoRT4Y7r8diwtX+9Ja1NLX+l7
+	 wtPtzUH5va7b1IlAPbQ7Q6ZTsMvZvJZzrr9wMtrA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1A891F8016B;
-	Tue,  5 Apr 2022 18:19:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2A8ABF800D2;
+	Tue,  5 Apr 2022 18:20:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CB248F8016A; Tue,  5 Apr 2022 18:19:15 +0200 (CEST)
+ id 60EE8F8016A; Tue,  5 Apr 2022 18:20:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D1EA8F800D1
- for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 18:19:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1EA8F800D1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2A4B2F800D2
+ for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 18:20:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A4B2F800D2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="AKj9LJnI"; 
+ header.b="R4n65WDv"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="p6524sDS"
+ header.b="JuSbKRdE"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 770131F38D;
- Tue,  5 Apr 2022 16:19:08 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id DCBFE1F38D;
+ Tue,  5 Apr 2022 16:20:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1649175548; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1649175635; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=O/Lxv7V91iXt+be8I3irqo2pfP3pYV7z7H3BgavzGfM=;
- b=AKj9LJnI9wTB0kI+PLFWEtGPX+E+x1oEh5cS/fW36DYXivEO7/t3AmcklojEr0/whX6ldD
- eXhzXnRDhsmXXgGImGdLNSD20hmYC4FrLG3znppjpKbd59V0PXxiNwy5+37XQtiRqdicDt
- bMoYhXqkWdz7GXAjcfn/UyvYNSwCrLE=
+ bh=IaeKt7hV7UqwigSIbp40W1LQkurWXOIlKnY07ODu6m0=;
+ b=R4n65WDvnTHDlv1h8WsdQcxcF+ycmmkc9KiVy5PgkRKBndkJGYAK8pZPGu0b65mFIB78y9
+ gXzP6TUGH0n0P9TsMcXV4XFD6U6VJXOAP+Vk6fKuKb/Mu1oIV0apBbFOxmoBCCX2gglF/B
+ ZNIn0UXFUpN2LHOjzp4nWaNiW8dqrsw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1649175548;
+ s=susede2_ed25519; t=1649175635;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=O/Lxv7V91iXt+be8I3irqo2pfP3pYV7z7H3BgavzGfM=;
- b=p6524sDSUcPhZwISQfSF9lOtX4uHz7anLmhHnu5Hzn0uupUT0BcHWeEsr8N20lLcjO2/PE
- 7tqOJnzdTYe2mwDQ==
+ bh=IaeKt7hV7UqwigSIbp40W1LQkurWXOIlKnY07ODu6m0=;
+ b=JuSbKRdEVmd3C3fVNg6/P94AXqhC70FYDi15WnxwsYcWNX181kZCN6aAG2jZJ8HlUJWuIV
+ a+15WpjRFs+L94Cg==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 68498A3B83;
- Tue,  5 Apr 2022 16:19:08 +0000 (UTC)
-Date: Tue, 05 Apr 2022 18:19:08 +0200
-Message-ID: <s5hfsmr5wqr.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id C7A22A3B88;
+ Tue,  5 Apr 2022 16:20:35 +0000 (UTC)
+Date: Tue, 05 Apr 2022 18:20:35 +0200
+Message-ID: <s5hee2b5woc.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: Re: [PATCH v2] ALSA: hda/i915 - skip acomp init if no matching display
-In-Reply-To: <20220405123622.2874457-1-kai.vehmanen@linux.intel.com>
-References: <20220405123622.2874457-1-kai.vehmanen@linux.intel.com>
+To: Colin Ian King <colin.i.king@gmail.com>
+Subject: Re: [PATCH] ALSA: echoaudio: remove redundant assignment to variable i
+In-Reply-To: <20220405135412.199251-1-colin.i.king@gmail.com>
+References: <20220405135412.199251-1-colin.i.king@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ kernel-janitors@vger.kernel.org, Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,28 +93,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 05 Apr 2022 14:36:22 +0200,
-Kai Vehmanen wrote:
+On Tue, 05 Apr 2022 15:54:12 +0200,
+Colin Ian King wrote:
 > 
-> In systems with only a discrete i915 GPU, the acomp init will
-> always timeout for the PCH HDA controller instance.
+> The variable i is being assigned a value that is never read, it
+> is being re-assigned in the following for-loop. The assignment is
+> redundant and can be removed.
 > 
-> Avoid the timeout by checking the PCI device hierarchy
-> whether any display class PCI device can be found on the system,
-> and at the same level as the HDA PCI device. If found, proceed
-> with the acomp init, which will wait until i915 probe is complete
-> and component binding can proceed. If no matching display
-> device is found, the audio component bind can be safely skipped.
-> 
-> The bind timeout will still be hit if the display is present
-> in the system, but i915 driver does not bind to it by configuration
-> choice or probe error. In this case the 60sec timeout will be
-> hit.
-> 
-> Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-> Acked-by: Lucas De Marchi <lucas.demarchi@intel.com>
+> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
 
-Thanks, applied now.
+Thanks, applied.
 
 
 Takashi

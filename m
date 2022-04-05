@@ -2,85 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DBD74F3C93
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 18:17:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E89394F3C97
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 18:18:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E69DB17E8;
-	Tue,  5 Apr 2022 18:16:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E69DB17E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 86E2517A0;
+	Tue,  5 Apr 2022 18:17:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86E2517A0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649175440;
-	bh=tXoU3lRqICObNTdg0Sxru3Phlvzb92HnWTbSeLYr604=;
+	s=default; t=1649175528;
+	bh=OM890sGG5uBYEBhNZ6nY+tfPpSy3hDW3KqOxjG264sY=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aav7x60fMYfwrzjc7FyvyuCIB/s8nmdGILsdvYMFiXcNjvcu84vQ5BAjEvZi7oMrI
-	 oBZs9NrDmV50XNwZdIttSEnOdG3ENte9w/5LfeN6xovpKbLVj0IeLdzweVDLzgrWaN
-	 KueNs8LHZGnWRr84QPPYMrkp99MaoT01BJmBuvv0=
+	b=JKkYhmsGr0U57Zv+Jr51uOVwyikp1J+CnJsRTdqLNmb103hvtZfBKfIOboc7cf+c8
+	 tDFg4khDiqBFixaRjprgGxCc8lbZIY/vNuyIMqXkL8zUa8c05+gUcBR6FaVeEZdi5Y
+	 vzwqD5K6Dmjb2ze6ZkQpdy88c0EP8bEwQ3twgFnI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5942CF8016B;
-	Tue,  5 Apr 2022 18:16:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1B210F8016B;
+	Tue,  5 Apr 2022 18:17:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C9154F8016A; Tue,  5 Apr 2022 18:16:20 +0200 (CEST)
+ id AC877F8016A; Tue,  5 Apr 2022 18:17:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6CF86F800D1
- for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 18:16:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6CF86F800D1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4098AF800D1
+ for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 18:17:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4098AF800D1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="pM1EpMtm"; 
+ header.b="0O8C9QNr"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="4Tej+bvG"
+ header.b="am4tIWb8"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id EED1C210F1;
- Tue,  5 Apr 2022 16:16:17 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id A07211F37D;
+ Tue,  5 Apr 2022 16:17:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1649175377; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1649175462; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=1ZOY9F/5g5PeZhpDl0566aC7WZpwSzJmzpmgZjPPJCs=;
- b=pM1EpMtmCVxrKZFrB9tLqjrLE/6GD5oYc2vVk5dgZvS3rczpy1QwsGUxs5Ek+3YtY8ypfz
- tndqeVZDbPxz0CSEDVeYltfZSc705g9k9/oUkNgPkMsIZsu9pYe2B52yB/LAVhQp7mcElm
- shSt4QJMq65o/v3icBKz/C+vagGCyPQ=
+ bh=i5jWb08T0RxS89hDAMTR9oLVSxo0c9WfDhnxBD/u/5s=;
+ b=0O8C9QNrGERCkFNQON7oAKUQUHnC0Y8NVVLvN9SzKVjpS+Jvt0sJLuDKWlYnZjnAewJqER
+ MnVdri7fjg6cDddHVFAFH9Gfpx6gSDdRmYGBHoieIj1OhsY2ct11Z2dMrFJYqdUIoKJwOz
+ X9DwCDlZDww8R0/uhNeMaZo4rC5WFr8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1649175377;
+ s=susede2_ed25519; t=1649175462;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=1ZOY9F/5g5PeZhpDl0566aC7WZpwSzJmzpmgZjPPJCs=;
- b=4Tej+bvG48jBLEq/iHWdONwEYnh5u0NpMsK9fU3f845V8jHN/awTO0gI5ReSv3mI0p3/Yr
- e8FE95qhuVdKaOBw==
+ bh=i5jWb08T0RxS89hDAMTR9oLVSxo0c9WfDhnxBD/u/5s=;
+ b=am4tIWb8GphVIN0zBVgh8YNpMkPO8GF9t/KZkjCpsJ/utR+1XTDM0ARoDyimAh1qCXD12q
+ i7e1Radr9iPx/fAg==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id CF989A3B83;
- Tue,  5 Apr 2022 16:16:17 +0000 (UTC)
-Date: Tue, 05 Apr 2022 18:16:17 +0200
-Message-ID: <s5hilrn5wvi.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 89B85A3B96;
+ Tue,  5 Apr 2022 16:17:42 +0000 (UTC)
+Date: Tue, 05 Apr 2022 18:17:42 +0200
+Message-ID: <s5hh7775wt5.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Borislav Petkov <bp@alien8.de>
-Subject: Re: [PATCH 02/11] ALSA: usb-audio: Fix undefined behavior due to
- shift overflowing the constant
-In-Reply-To: <Ykxo+0p5IeeM7mge@zn.tnic>
-References: <20220405151517.29753-1-bp@alien8.de>
- <20220405151517.29753-3-bp@alien8.de>
- <s5hwng35yvz.wl-tiwai@suse.de> <Ykxo+0p5IeeM7mge@zn.tnic>
+To: Robin Murphy <robin.murphy@arm.com>
+Subject: Re: [PATCH v2] ALSA: emu10k1: Stop using iommu_present()
+In-Reply-To: <9b506b4a4fe8a7f40aa8bad1aafc82426cf3dd92.1649165210.git.robin.murphy@arm.com>
+References: <9b506b4a4fe8a7f40aa8bad1aafc82426cf3dd92.1649165210.git.robin.murphy@arm.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
- LKML <linux-kernel@vger.kernel.org>
+Cc: linux-kernel@vger.kernel.org, iommu@lists.linux-foundation.org,
+ tiwai@suse.com, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,18 +93,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 05 Apr 2022 18:06:19 +0200,
-Borislav Petkov wrote:
+On Tue, 05 Apr 2022 15:27:54 +0200,
+Robin Murphy wrote:
 > 
-> On Tue, Apr 05, 2022 at 05:32:48PM +0200, Takashi Iwai wrote:
-> > > +#define USB_ID(vendor, product) ((((unsigned int)vendor) << 16) | (product))
-> > 
-> > Parentheses are needed around vendor (as usual for a macro).
-> > Could you resubmit with it?
+> iommu_get_domain_for_dev() is already perfectly happy to return NULL
+> if the given device has no IOMMU. Drop the unnecessary check in favour
+> of just handling that condition appropriately.
 > 
-> Or you can fix it up while applying. :)
+> Signed-off-by: Robin Murphy <robin.murphy@arm.com>
+> ---
+> 
+> v2: Get "!domain" condition right
 
-If you prefer, sure.
+Applied now.  Thanks.
 
 
 Takashi

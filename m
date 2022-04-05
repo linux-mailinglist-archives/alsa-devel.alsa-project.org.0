@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A99544F3C9A
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 18:21:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6EDB4F3C9C
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 18:24:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 863931840;
-	Tue,  5 Apr 2022 18:20:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 863931840
+	by alsa0.perex.cz (Postfix) with ESMTPS id 751BB17E8;
+	Tue,  5 Apr 2022 18:23:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 751BB17E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649175690;
-	bh=RvXHnPE8qruceScyXPxd0+LJSu+h7R9V4x62TiplfuE=;
+	s=default; t=1649175877;
+	bh=Acwl1YGGaUG/UELr2kBw1zQD2VA5itprzAwhR6TsnEs=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cSv+0f9PpYLVNbvXFOtEbHnqR41wycgrMN8RusnwDMhfB2KE8Mit+c7xJLRiTJWrB
-	 ovftCC6FRLk6qksE0Ty/gSPA5ad1Pa3KIrlByFXjFJoRT4Y7r8diwtX+9Ja1NLX+l7
-	 wtPtzUH5va7b1IlAPbQ7Q6ZTsMvZvJZzrr9wMtrA=
+	b=fAP9SYT5MjvAdykIHCJUfNF9P9s1RcxTZaL5I5tJxJpgbuVIfV2Afef8YChLskuff
+	 jpzPgNJvQ3boO8IHeQjrAb/8WrlTUSTbCtJVE4TCJJ7W9lMsWiMPY4kWhXn5Wu7VcF
+	 u6n0jKQe+yuPdx92OkSkdSmtKeXg9sp2O0NSD99s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2A8ABF800D2;
-	Tue,  5 Apr 2022 18:20:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EB701F8016B;
+	Tue,  5 Apr 2022 18:23:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 60EE8F8016A; Tue,  5 Apr 2022 18:20:38 +0200 (CEST)
+ id ECD38F8016A; Tue,  5 Apr 2022 18:23:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,50 +34,50 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2A4B2F800D2
- for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 18:20:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A4B2F800D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 90DCDF800D2
+ for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 18:23:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90DCDF800D2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="R4n65WDv"; 
+ header.b="B8Cvl2gR"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="JuSbKRdE"
+ header.b="x5OdFof4"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id DCBFE1F38D;
- Tue,  5 Apr 2022 16:20:35 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 5ECBE1F37D;
+ Tue,  5 Apr 2022 16:23:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1649175635; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1649175816; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=IaeKt7hV7UqwigSIbp40W1LQkurWXOIlKnY07ODu6m0=;
- b=R4n65WDvnTHDlv1h8WsdQcxcF+ycmmkc9KiVy5PgkRKBndkJGYAK8pZPGu0b65mFIB78y9
- gXzP6TUGH0n0P9TsMcXV4XFD6U6VJXOAP+Vk6fKuKb/Mu1oIV0apBbFOxmoBCCX2gglF/B
- ZNIn0UXFUpN2LHOjzp4nWaNiW8dqrsw=
+ bh=ykCeFdRHzbg8pKxVJSeHKqINfG4k8lBXawxc1XeGUzs=;
+ b=B8Cvl2gRF/UvEV542lJvIKELM2F+jVH71W3lwsdZEXpvO0bQJOUjfLi3WD+BYghHVjpXcX
+ UzLcEKuEgbxfgq+BU5RAH/4DokxMwx09qLYwQCGin+0WPliO4w00Py61aCwCzJzIKyfjzd
+ 8PK6ar07GtJGKVZTqF8cWDkJ9YVuqJ0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1649175635;
+ s=susede2_ed25519; t=1649175816;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=IaeKt7hV7UqwigSIbp40W1LQkurWXOIlKnY07ODu6m0=;
- b=JuSbKRdEVmd3C3fVNg6/P94AXqhC70FYDi15WnxwsYcWNX181kZCN6aAG2jZJ8HlUJWuIV
- a+15WpjRFs+L94Cg==
+ bh=ykCeFdRHzbg8pKxVJSeHKqINfG4k8lBXawxc1XeGUzs=;
+ b=x5OdFof40ytH5uaj8vjGonl47B8YgmvZpJHEacavNebJgg809dMf/LGZrsvLaaxta/hQni
+ NcsT5NVkqjM74jAA==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id C7A22A3B88;
- Tue,  5 Apr 2022 16:20:35 +0000 (UTC)
-Date: Tue, 05 Apr 2022 18:20:35 +0200
-Message-ID: <s5hee2b5woc.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 51C16A3B87;
+ Tue,  5 Apr 2022 16:23:35 +0000 (UTC)
+Date: Tue, 05 Apr 2022 18:23:35 +0200
+Message-ID: <s5hczhv5wjc.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Colin Ian King <colin.i.king@gmail.com>
-Subject: Re: [PATCH] ALSA: echoaudio: remove redundant assignment to variable i
-In-Reply-To: <20220405135412.199251-1-colin.i.king@gmail.com>
-References: <20220405135412.199251-1-colin.i.king@gmail.com>
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Subject: Re: [PATCH v3 0/3] firewire: assist unit driver to compute packet
+ time stamp
+In-Reply-To: <20220405072221.226217-1-o-takashi@sakamocchi.jp>
+References: <20220405072221.226217-1-o-takashi@sakamocchi.jp>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- kernel-janitors@vger.kernel.org, Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,16 +93,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 05 Apr 2022 15:54:12 +0200,
-Colin Ian King wrote:
+On Tue, 05 Apr 2022 09:22:18 +0200,
+Takashi Sakamoto wrote:
 > 
-> The variable i is being assigned a value that is never read, it
-> is being re-assigned in the following for-loop. The assignment is
-> redundant and can be removed.
+> Hi,
 > 
-> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+> Current implementation of Linux FireWire subsystem doesn't allow unit
+> driver to operate content of packet in IR context according to
+> time stamp. Additionally it doesn't allow unit driver to read current value
+> of CYCLE_TIME register in OHCI 1394 controller. It brings disadvantages to
+> drivers in Linux sound subsystem in regards of handling time for sampled
+> data such as PCM frames and MIDI messages.
+> 
+> This rerolled patchset is first step to improve the situation.
+> 
+> Changes in v3:
+>  * Rebase v2 patchset to v5.18-rc1
+> Changes in v2:
+>  * Rebase v1 patchset to v5.16 release
+>  * https://lore.kernel.org/lkml/20220212022131.199855-1-o-takashi@sakamocchi.jp/
+> V1:
+>  * https://lore.kernel.org/lkml/20211202113457.24011-1-o-takashi@sakamocchi.jp/
+> 
+> Hector Martin (1):
+>   firewire: Add dummy read_csr/write_csr functions
+> 
+> Takashi Sakamoto (2):
+>   firewire: add kernel API to access CYCLE_TIME register
+>   firewire: add kernel API to access packet structure in request
+>     structure for AR context
 
-Thanks, applied.
+Thanks, applied all three patches now to for-next branch.
 
 
 Takashi

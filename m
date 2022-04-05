@@ -2,93 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7D6E4F8FD9
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Apr 2022 09:51:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A48D4F8FD3
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Apr 2022 09:50:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4424818D8;
-	Fri,  8 Apr 2022 09:50:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4424818D8
+	by alsa0.perex.cz (Postfix) with ESMTPS id A50D618DA;
+	Fri,  8 Apr 2022 09:49:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A50D618DA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649404266;
-	bh=sfI+F1qddgBQPEPVyPm4UsT8iPzrWXdjhWe583jbPNo=;
-	h=From:To:Subject:In-Reply-To:References:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=IfFk7jMK1L+AXyRtbuOEPmjTyXrRKUTLg8jzmoNYCzwyv34GhOFVEmcA4XbzovdwB
-	 vzsUXCqlVd99y7NdJ5iUYRlYbRuhl9oC2wkTqSujZIZspQS6Kd3/t+kOkmRQhh8O2L
-	 zYfpDaL/lEnanSBR38JlXtzlh/YsiviCqBhZ1R3w=
+	s=default; t=1649404214;
+	bh=FsyREYMYKn1QmBjCJun6dJg1NNqvs5q63rhd5zU1eOs=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=HGQ6xlEr0AwuwB4WuEHnsyBDmCHX41f1FQgzMVzffh52HY+/7V0kay8w3ZEmsewHc
+	 7DxbtlnvbrRcjfznH+bZ0rbfKiQeMZWrM1ia2QEkEKT/GSUX/Eo0IQYCuAy+vuREba
+	 cyg2h4xcMSO+WgDWi5Zjho33it7GlObfMCNhvxbg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C0C48F80537;
-	Fri,  8 Apr 2022 09:48:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BC66DF8051B;
+	Fri,  8 Apr 2022 09:48:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7EAB1F8016A; Tue,  5 Apr 2022 08:52:50 +0200 (CEST)
+ id 12E98F8016A; Tue,  5 Apr 2022 14:10:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com
+ [IPv6:2607:f8b0:4864:20::102b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2F944F800D1
- for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 08:52:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F944F800D1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 513E7F8012C
+ for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 14:10:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 513E7F8012C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="V/qs96Fw"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id AFA87B81B9C;
- Tue,  5 Apr 2022 06:52:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5887BC340F3;
- Tue,  5 Apr 2022 06:52:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1649141561;
- bh=sfI+F1qddgBQPEPVyPm4UsT8iPzrWXdjhWe583jbPNo=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
- b=V/qs96FwacDoAwIb3AYjsXmHxIyAPgkVCDF70o06rl9Kv/EU36wYnE2B+iVWmFDuY
- 9yuhSTxtp1RApbos0thzGGcgBcYzB4OUjwwadhMoCk9ddnMLEKl7z5ojHVyxLNPTxe
- fkI47UjfZEnf1/Ud4Zb2n1JXmLeINpIf17so9GlwWdiyUMNfRV7wQ5S+MxBnAEYklV
- Y8YdKnoXbq3CdeKDF/1PwekiJc2XNSMWQ0QvtapOIX7H8ZI+dMggm5cQNjfN6CVOOX
- 7Pm2r4QROcmMfAGlnaeACUWbHHdwgaBx6T+/ZTGZ0SVcsrXuQJQPOhC5ncYhaHg04Y
- CE7JnbN9mYeEw==
-From: Kalle Valo <kvalo@kernel.org>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Subject: Re: Build regressions/improvements in v5.18-rc1
-In-Reply-To: <CAMuHMdV_-3TOHYehUsHeqwHjQtzN1Ot886K7vwPr4P-4u8eehw@mail.gmail.com>
- (Geert Uytterhoeven's message of "Tue, 5 Apr 2022 08:46:06 +0200")
-References: <CAHk-=wg6FWL1xjVyHx7DdjD2dHZETA5_=FqqW17Z19X-WTfWSg@mail.gmail.com>
- <20220404074734.1092959-1-geert@linux-m68k.org>
- <alpine.DEB.2.22.394.2204041006230.1941618@ramsan.of.borg>
- <874k38u20c.fsf@tynnyri.adurom.net>
- <CAMuHMdV_-3TOHYehUsHeqwHjQtzN1Ot886K7vwPr4P-4u8eehw@mail.gmail.com>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.1 (gnu/linux)
-Date: Tue, 05 Apr 2022 09:52:33 +0300
-Message-ID: <87czhwrphq.fsf@kernel.org>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="f90euc1z"
+Received: by mail-pj1-x102b.google.com with SMTP id gt4so5808184pjb.4
+ for <alsa-devel@alsa-project.org>; Tue, 05 Apr 2022 05:10:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=FbiE+hfmclVFPMzSs7FFPFZTMtCm2FkL6jROPMDnRco=;
+ b=f90euc1zGDb5iI2Drt4AgWz4VSglJB6yfAjqBN2f2PEHYRVTGUMuR2aWLT+B9bQLYZ
+ 5mdNK58woXp0Y4e9aOv3d8OX/VqNTyQtckVs5+qiav9/te+260XIfZTexMNJ1laI1MOS
+ UPtB203QxYia416r6lnWw63WrEB3TjBwSdLl2sTYYDa5Dgjfxv/80o+ItR/X4Fci8vsc
+ bDwtnerqMSS5Tg51zD50a1oBl0zZM6gHRDpyLX+uQxW4P4PyIiMXRCZF7LYrOp504pSZ
+ 5By7/QzVinQqc/m+fx/fy/oyq/uJtMRlCqlfknv48FM1UjI/IphqHLC/x1Unw5gvUOJs
+ T4tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=FbiE+hfmclVFPMzSs7FFPFZTMtCm2FkL6jROPMDnRco=;
+ b=hQTAeriAqE2mG/OTQMe3GAzlKswLxXDKww3cGDs2weEQJlgg5gOfMauWIiTTrNZO+4
+ Fx8palcs2Qiu4oRS7Ja1KBIZhr9gMZBy9z3MiM++t1uVcSBsCff98TupQl2vhPXrtSoo
+ IGKJnaPCv7IEIkN/2S46JKJBLhH9F7JiW39hG18+7Dlpo7l4s4WM8YFEuRd/UQUI4oWT
+ XvwdZJB+JHWqTp6tsidoEnUGNeHloxRmAYds/CctAJtsuVD5qiT7c2fkNFTTVn/XB5NT
+ 5g/tsCg7oAyAKBxKFt4Nv+K3AdynLTWA1jr/8uZ9Bd/YwYw51bdZ3vd48BXxb3HtdK9h
+ GTQQ==
+X-Gm-Message-State: AOAM5325TjryUMg6XqYqlAdrmKRHLUYTOtPIvWKtAmh4CUiQgPpds0FL
+ laEx+hzGRqhXYM/6lcw1xg==
+X-Google-Smtp-Source: ABdhPJysxtv6ffWslGA0KEeiw5vxSuzfXJxSlxUJAcxN0jasthK2NULv5We+duXJGrrCrP1B3w4OZw==
+X-Received: by 2002:a17:902:e748:b0:153:b484:bdf4 with SMTP id
+ p8-20020a170902e74800b00153b484bdf4mr3198892plf.66.1649160650444; 
+ Tue, 05 Apr 2022 05:10:50 -0700 (PDT)
+Received: from localhost.localdomain ([144.202.91.207])
+ by smtp.gmail.com with ESMTPSA id
+ n52-20020a056a000d7400b004fad9132d73sm14980117pfv.129.2022.04.05.05.10.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 05 Apr 2022 05:10:49 -0700 (PDT)
+From: Zheyu Ma <zheyuma97@gmail.com>
+To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com
+Subject: [PATCH] ASoC: wm8731: Disable the regulator when probing fails
+Date: Tue,  5 Apr 2022 20:10:38 +0800
+Message-Id: <20220405121038.4094051-1-zheyuma97@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 08 Apr 2022 09:48:11 +0200
-Cc: linux-wireless <linux-wireless@vger.kernel.org>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- USB list <linux-usb@vger.kernel.org>, scsi <linux-scsi@vger.kernel.org>,
- Parisc List <linux-parisc@vger.kernel.org>,
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
- linux-rdma <linux-rdma@vger.kernel.org>, netdev <netdev@vger.kernel.org>,
- Mike Marciniszyn <mike.marciniszyn@cornelisnetworks.com>,
- linux-um <linux-um@lists.infradead.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- DRI Development <dri-devel@lists.freedesktop.org>, linux-xfs@vger.kernel.org,
- linux-m68k <linux-m68k@lists.linux-m68k.org>,
- "open list:SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
- sparclinux <sparclinux@vger.kernel.org>,
- linux-s390 <linux-s390@vger.kernel.org>,
- Linux Media Mailing List <linux-media@vger.kernel.org>
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ Zheyu Ma <zheyuma97@gmail.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,41 +100,81 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Geert Uytterhoeven <geert@linux-m68k.org> writes:
+When the driver fails during probing, the driver should disable the
+regulator, not just handle it in wm8731_hw_init().
 
-> On Mon, Apr 4, 2022 at 8:39 PM Kalle Valo <kvalo@kernel.org> wrote:
->> Geert Uytterhoeven <geert@linux-m68k.org> writes:
->> >> /kisskb/src/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c:
->> >> error: case label does not reduce to an integer constant: => 3798:2,
->> >> 3809:2
->> >
->> > arm64-gcc5.4/arm64-allmodconfig
->> > powerpc-gcc5/powerpc-allmodconfig
->> > powerpc-gcc5/ppc64_book3e_allmodconfig
->>
->> After v5.17 there were two commits to brcmfmac/sdio.c:
->>
->> $ git log --oneline v5.17.. drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
->> ed26edf7bfd9 brcmfmac: Add BCM43454/6 support
->> 6d766d8cb505 brcmfmac: pcie: Declare missing firmware files in pcie.c
->>
->> I can't see how either of them could cause this warning. Could something
->> else cause this or am I missing something?
->
-> Doh, I should not have reduced the CC list in the xfs subthread...
->
-> The builds above are all gcc-5 builds, so they are affected by the same
-> issue as XFS: unsigned constants that don't fit in int are lacking a
-> "U" suffix.
->
-> I assume Arnd's patch for
-> drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
-> fixes this?
-> https://lore.kernel.org/all/CAK8P3a0wRiS03imdXk2WbGONkSSczEGdE-ue5ubF6UyyDE9dQg@mail.gmail.com
+The following log reveals it:
 
-Great, thanks. I assume Arnd will submit it officially at some point.
+[   17.812483] WARNING: CPU: 1 PID: 364 at drivers/regulator/core.c:2257 _regulator_put+0x3ec/0x4e0
+[   17.815958] RIP: 0010:_regulator_put+0x3ec/0x4e0
+[   17.824467] Call Trace:
+[   17.824774]  <TASK>
+[   17.825040]  regulator_bulk_free+0x82/0xe0
+[   17.825514]  devres_release_group+0x319/0x3d0
+[   17.825882]  i2c_device_probe+0x766/0x940
+[   17.829198]  i2c_register_driver+0xb5/0x130
 
+Signed-off-by: Zheyu Ma <zheyuma97@gmail.com>
+---
+ sound/soc/codecs/wm8731.c | 19 +++++++++++--------
+ 1 file changed, 11 insertions(+), 8 deletions(-)
+
+diff --git a/sound/soc/codecs/wm8731.c b/sound/soc/codecs/wm8731.c
+index 5d4949c2ec9b..b14c6d104e6d 100644
+--- a/sound/soc/codecs/wm8731.c
++++ b/sound/soc/codecs/wm8731.c
+@@ -602,7 +602,7 @@ static int wm8731_hw_init(struct device *dev, struct wm8731_priv *wm8731)
+ 	ret = wm8731_reset(wm8731->regmap);
+ 	if (ret < 0) {
+ 		dev_err(dev, "Failed to issue reset: %d\n", ret);
+-		goto err_regulator_enable;
++		goto err;
+ 	}
+ 
+ 	/* Clear POWEROFF, keep everything else disabled */
+@@ -619,10 +619,7 @@ static int wm8731_hw_init(struct device *dev, struct wm8731_priv *wm8731)
+ 
+ 	regcache_mark_dirty(wm8731->regmap);
+ 
+-err_regulator_enable:
+-	/* Regulators will be enabled by bias management */
+-	regulator_bulk_disable(ARRAY_SIZE(wm8731->supplies), wm8731->supplies);
+-
++err:
+ 	return ret;
+ }
+ 
+@@ -760,21 +757,27 @@ static int wm8731_i2c_probe(struct i2c_client *i2c,
+ 		ret = PTR_ERR(wm8731->regmap);
+ 		dev_err(&i2c->dev, "Failed to allocate register map: %d\n",
+ 			ret);
+-		return ret;
++		goto err_regulator_enable;
+ 	}
+ 
+ 	ret = wm8731_hw_init(&i2c->dev, wm8731);
+ 	if (ret != 0)
+-		return ret;
++		goto err_regulator_enable;
+ 
+ 	ret = devm_snd_soc_register_component(&i2c->dev,
+ 			&soc_component_dev_wm8731, &wm8731_dai, 1);
+ 	if (ret != 0) {
+ 		dev_err(&i2c->dev, "Failed to register CODEC: %d\n", ret);
+-		return ret;
++		goto err_regulator_enable;
+ 	}
+ 
+ 	return 0;
++
++err_regulator_enable:
++	/* Regulators will be enabled by bias management */
++	regulator_bulk_disable(ARRAY_SIZE(wm8731->supplies), wm8731->supplies);
++
++	return ret;
+ }
+ 
+ static const struct i2c_device_id wm8731_i2c_id[] = {
 -- 
-https://patchwork.kernel.org/project/linux-wireless/list/
+2.25.1
 
-https://wireless.wiki.kernel.org/en/developers/documentation/submittingpatches

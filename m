@@ -2,84 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 685034F369A
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 16:07:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 530A04F3668
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 16:03:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DFEFD186B;
-	Tue,  5 Apr 2022 16:06:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DFEFD186B
+	by alsa0.perex.cz (Postfix) with ESMTPS id E9E7D1849;
+	Tue,  5 Apr 2022 16:02:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9E7D1849
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649167642;
-	bh=SeDtkiBpl8t25BojcC39KMSSZ5AFaOtdTGhwPYsbs/I=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1649167406;
+	bh=GnA4g+UKLIMkvGQrZKHeAzi6hA8riPDDqpGJ82LWMrY=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cs2hFkhHm7WD59zzBfJI7OHg2ftJyxS9fi2TRwiCqaCp0HLPaVECAmpuCJBmuKH53
-	 yDDr2ASDO94snDkQoh90umFapqSK24F6kGBInlDGUrB+Yan6HxXch+49Lw/NNwi7ES
-	 66/oiqvaKUDD2wESst1Q1NBcuX2n2YMdTmr1DV/0=
+	b=NtsaFSOyHuulZnUZDnkEotmnYWx3s/VAqvFXs8U3J3fuxgF10jmsNBWFusS/UeAab
+	 qXd19s+vUjk11k+5BPVONSODlVvwdGpugYTlItY8u+kMfMMKauHGcxZOb9RrgB1Q5P
+	 qySFqDfRg+jV/1w6NURs1VZVTlxm4BWfNxq53CuY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 933AAF80518;
-	Tue,  5 Apr 2022 16:05:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 658FAF800D1;
+	Tue,  5 Apr 2022 16:02:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 203AAF8049C; Tue,  5 Apr 2022 16:05:50 +0200 (CEST)
+ id E6BCBF800D2; Tue,  5 Apr 2022 16:02:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=DATE_IN_PAST_12_24, DKIM_SIGNED,
- DKIM_VALID,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5EAA1F800D2
+ for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 16:02:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5EAA1F800D2
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="AC7aTD5q"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5E019F800D1
- for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 16:05:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E019F800D1
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="mg5i+wyq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649167544; x=1680703544;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=SeDtkiBpl8t25BojcC39KMSSZ5AFaOtdTGhwPYsbs/I=;
- b=mg5i+wyqwSFAJ42VxD7VdWk0dLshLx3P8KMfIQC9O1xrWFkCT3IMnAoV
- DL+CxcV4XGl+7sOdcXFMWYopMzzcauiqM/EYDLRbe38HayRw1tXrN3mHL
- oYmXKYlAp8epoosuCDOtfq37oaTqgiArBFfKa5axQjUG+Jw55/yZ4T9bU
- W2s8UlGOQFkl+0atOkPMBt4kBdxJDAK1lROSS1ba+LRUeGm5USGYIywDh
- ElJZJoU20rSHt+rEjVENG7sOoGmhzExdWi5W4u/PIbnDUB7LPvIFzjoJC
- d1O7qhr5q6tfJTHV6+Xwbpofqnn93SxNDhnhH5BswRuQrXNzZ1ql6Aj8C g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10307"; a="347196779"
-X-IronPort-AV: E=Sophos;i="5.90,236,1643702400"; d="scan'208";a="347196779"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Apr 2022 07:05:37 -0700
-X-IronPort-AV: E=Sophos;i="5.90,236,1643702400"; d="scan'208";a="651903453"
-Received: from ctveazey-mobl2.amr.corp.intel.com (HELO [10.255.230.126])
- ([10.255.230.126])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Apr 2022 07:05:36 -0700
-Message-ID: <1c104eb8-6c7d-7d4f-8c24-fd374a224831@linux.intel.com>
-Date: Mon, 4 Apr 2022 11:06:09 -0500
+ by ams.source.kernel.org (Postfix) with ESMTPS id 6B86BB81BA9;
+ Tue,  5 Apr 2022 14:02:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE28CC385A0;
+ Tue,  5 Apr 2022 14:02:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1649167340;
+ bh=GnA4g+UKLIMkvGQrZKHeAzi6hA8riPDDqpGJ82LWMrY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=AC7aTD5qXCiOV2jQ4INX8R997tlTCfw4NaWwJZaUG2m71xbmRqn20+4f33P1EMtIM
+ CACxKPCze5Ca7q7bHtDSXIfX3vymH0PfaQNx1kjpAXR6C8Sr9TeNfmSTs/6stLomSN
+ 7giE49Wb3ZC3L+m4Fa6pW0NLs+2doUE8IM3zc691TbF5+RuPbBslQ/OaxD0eE+dP7y
+ k/rB+EMwN16DJWXLxrmRopZNNw4zJUhDjaiViI5cB87Z8oW/xZi63hDOEW3UswFJMi
+ 8S17kqQs4Q7t11tN1RvdNWIBazsyF5V2DlEV2ainUQiQVsgR8p19/YnOisygiN8tei
+ rPyQ9ucNpyVgQ==
+Date: Tue, 5 Apr 2022 15:02:15 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Zhu Ning <zhuning0077@gmail.com>
+Subject: Re: [PATCH] ASoC: codecs: add support for ES8326
+Message-ID: <YkxL51j8E11u0uV/@sirena.org.uk>
+References: <20220405131220.1149-1-zhuning0077@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.5.0
-Subject: Re: [PATCH v2] ASoC: SOF: topology: use new sound control LED layer
-Content-Language: en-US
-To: Jaroslav Kysela <perex@perex.cz>,
- ALSA development <alsa-devel@alsa-project.org>
-References: <20220329120039.2394138-1-perex@perex.cz>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20220329120039.2394138-1-perex@perex.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Cc: Takashi Iwai <tiwai@suse.de>,
- =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="BMbLmEImQ6t4Ji2F"
+Content-Disposition: inline
+In-Reply-To: <20220405131220.1149-1-zhuning0077@gmail.com>
+X-Cookie: diplomacy, n:
+Cc: Zhu Ning <zhuning@everest-semi.com>, alsa-devel@alsa-project.org,
+ pierre-louis.bossart@linux.intel.com,
+ yangxiaohua <yangxiaohua@everest-semi.com>, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,143 +89,104 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+--BMbLmEImQ6t4Ji2F
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 3/29/22 07:00, Jaroslav Kysela wrote:
-> Use the new sound control LED layer instead the direct ledtrig_audio_set()
-> call - see 22d8de62f11b ("ALSA: control - add generic LED trigger module
-> as the new control layer").
-> 
-> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
-> Cc: Mark Brown <broonie@kernel.org>
-> Cc: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-> Cc: Bard Liao <yung-chuan.liao@linux.intel.com>
-> Cc: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-> Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+On Tue, Apr 05, 2022 at 09:12:20PM +0800, Zhu Ning wrote:
 
+> The ES8326 codec is not compatible with ES8316 and requires a dedicated driver.
 
-LGTM - how many engineers does it take to turn on a LED :-)
+This looks mostly good - a few things below but nothing huge that should
+require big restructurings or anything.
 
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> +++ b/sound/soc/codecs/es8326.c
+> @@ -0,0 +1,753 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * es8326.c -- es8326 ALSA SoC audio driver
+> + * Copyright Everest Semiconductor Co., Ltd
 
-> 
-> -----
-> v2:
->    - add Mark to Cc:
->    - add snd_ctl_led_request() call
-> ---
->   sound/soc/sof/control.c  | 33 ---------------------------------
->   sound/soc/sof/sof-priv.h |  1 +
->   sound/soc/sof/topology.c | 16 ++++++++++++++++
->   3 files changed, 17 insertions(+), 33 deletions(-)
-> 
-> diff --git a/sound/soc/sof/control.c b/sound/soc/sof/control.c
-> index de1778c4002b..3b5718a3516d 100644
-> --- a/sound/soc/sof/control.c
-> +++ b/sound/soc/sof/control.c
-> @@ -15,36 +15,6 @@
->   #include "sof-priv.h"
->   #include "sof-audio.h"
->   
-> -static void update_mute_led(struct snd_sof_control *scontrol,
-> -			    struct snd_kcontrol *kcontrol,
-> -			    struct snd_ctl_elem_value *ucontrol)
-> -{
-> -	int temp = 0;
-> -	int mask;
-> -	int i;
-> -
-> -	mask = 1U << snd_ctl_get_ioffidx(kcontrol, &ucontrol->id);
-> -
-> -	for (i = 0; i < scontrol->num_channels; i++) {
-> -		if (ucontrol->value.integer.value[i]) {
-> -			temp |= mask;
-> -			break;
-> -		}
-> -	}
-> -
-> -	if (temp == scontrol->led_ctl.led_value)
-> -		return;
-> -
-> -	scontrol->led_ctl.led_value = temp;
-> -
-> -#if IS_REACHABLE(CONFIG_LEDS_TRIGGER_AUDIO)
-> -	if (!scontrol->led_ctl.direction)
-> -		ledtrig_audio_set(LED_AUDIO_MUTE, temp ? LED_OFF : LED_ON);
-> -	else
-> -		ledtrig_audio_set(LED_AUDIO_MICMUTE, temp ? LED_OFF : LED_ON);
-> -#endif
-> -}
-> -
->   int snd_sof_volume_get(struct snd_kcontrol *kcontrol,
->   		       struct snd_ctl_elem_value *ucontrol)
->   {
-> @@ -121,9 +91,6 @@ int snd_sof_switch_put(struct snd_kcontrol *kcontrol,
->   	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
->   	const struct sof_ipc_tplg_ops *tplg_ops = sdev->ipc->ops->tplg;
->   
-> -	if (scontrol->led_ctl.use_led)
-> -		update_mute_led(scontrol, kcontrol, ucontrol);
-> -
->   	if (tplg_ops->control->switch_put)
->   		return tplg_ops->control->switch_put(scontrol, ucontrol);
->   
-> diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
-> index 0d9b640ae24c..e537b1258aa8 100644
-> --- a/sound/soc/sof/sof-priv.h
-> +++ b/sound/soc/sof/sof-priv.h
-> @@ -473,6 +473,7 @@ struct snd_sof_dev {
->   	struct list_head route_list;
->   	struct snd_soc_component *component;
->   	u32 enabled_cores_mask; /* keep track of enabled cores */
-> +	bool led_present;
->   
->   	/* FW configuration */
->   	struct sof_ipc_window *info_window;
-> diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-> index 9b11e9795a7a..e47a64934c04 100644
-> --- a/sound/soc/sof/topology.c
-> +++ b/sound/soc/sof/topology.c
-> @@ -773,6 +773,7 @@ static int sof_control_load_volume(struct snd_soc_component *scomp,
->   	struct snd_soc_tplg_mixer_control *mc =
->   		container_of(hdr, struct snd_soc_tplg_mixer_control, hdr);
->   	int tlv[TLV_ITEMS];
-> +	unsigned int mask;
->   	int ret;
->   
->   	/* validate topology data */
-> @@ -821,6 +822,16 @@ static int sof_control_load_volume(struct snd_soc_component *scomp,
->   		goto err;
->   	}
->   
-> +	if (scontrol->led_ctl.use_led) {
-> +		mask = scontrol->led_ctl.direction ? SNDRV_CTL_ELEM_ACCESS_MIC_LED :
-> +							SNDRV_CTL_ELEM_ACCESS_SPK_LED;
-> +		scontrol->access &= ~SNDRV_CTL_ELEM_ACCESS_LED_MASK;
-> +		scontrol->access |= mask;
-> +		kc->access &= ~SNDRV_CTL_ELEM_ACCESS_LED_MASK;
-> +		kc->access |= mask;
-> +		sdev->led_present = true;
-> +	}
-> +
->   	dev_dbg(scomp->dev, "tplg: load kcontrol index %d chans %d\n",
->   		scontrol->comp_id, scontrol->num_channels);
->   
-> @@ -2027,6 +2038,7 @@ static struct snd_soc_tplg_ops sof_tplg_ops = {
->   
->   int snd_sof_load_topology(struct snd_soc_component *scomp, const char *file)
->   {
-> +	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
->   	const struct firmware *fw;
->   	int ret;
->   
-> @@ -2049,6 +2061,10 @@ int snd_sof_load_topology(struct snd_soc_component *scomp, const char *file)
->   	}
->   
->   	release_firmware(fw);
-> +
-> +	if (ret >= 0 && sdev->led_present)
-> +		ret = snd_ctl_led_request();
-> +
->   	return ret;
->   }
->   EXPORT_SYMBOL(snd_sof_load_topology);
+Please make the entire comment a C++ one so things look more
+intentional.
+
+> +#include <linux/clk.h>
+> +#include <linux/gpio.h>
+
+The driver doesn't actually seem to use the GPIO APIs?
+
+> +	/* The lock protects the situation that an irq is generated
+> +	 * while the previous irq is still being processed.
+> +	 */
+> +	struct mutex lock;
+
+It doesn't seem to, it seems to protect registrations and
+deregistrations from racing against each other?  The actual interrupt
+handling doesn't use it.
+
+> +	SOC_SINGLE_TLV("ADC Analog PGA Gain", ES8326_PAGGAIN_23, 0, 10, 0, adc_analog_pga_tlv),
+
+Control name should end in Volume - see control-names.rst.
+
+> +	regmap_write(es8326->regmap, ES8326_CLK_CTL_01, ES8326_CLK_ON);
+> +	/* Two channel ADC */
+> +	regmap_write(es8326->regmap, ES8326_PULLUP_CTL_F9, 0x02);
+> +	regmap_write(es8326->regmap, ES8326_CLK_INV_02, 0x00);
+> +	regmap_write(es8326->regmap, ES8326_CLK_DIV_CPC_0C, 0x1F);
+> +	regmap_write(es8326->regmap, ES8326_CLK_TRI_0E, 0x00);
+> +	regmap_write(es8326->regmap, ES8326_CLK_VMIDS1_10, 0xC8);
+> +	regmap_write(es8326->regmap, ES8326_CLK_VMIDS2_11, 0x88);
+> +	regmap_write(es8326->regmap, ES8326_CLK_CAL_TIME_12, 0x20);
+> +	regmap_write(es8326->regmap, ES8326_DAC_MUTE_14, 0x00);
+> +	regmap_write(es8326->regmap, ES8326_ANA_LOWPOWER_19, 0xF0);
+> +	regmap_write(es8326->regmap, ES8326_SYS_BIAS_1D, 0x08);
+> +	regmap_write(es8326->regmap, ES8326_DAC2HPMIX_25, 0x22);
+> +	regmap_write(es8326->regmap, ES8326_ADC_SCALE_29, 0x00);
+> +	regmap_write(es8326->regmap, ES8326_ADC1_SRC_2A, es8326->mic1_src);
+> +	regmap_write(es8326->regmap, ES8326_ADC2_SRC_2B, es8326->mic2_src);
+> +	regmap_write(es8326->regmap, ES8326_HP_CAL_4A, 0x00);
+> +	regmap_write(es8326->regmap, ES8326_DAC_DSM_4D, 0x08);
+> +	regmap_write(es8326->regmap, ES8326_DAC_RAMPRATE_4E, 0x20);
+> +	regmap_write(es8326->regmap, ES8326_DAC_VPPSCALE_4F, 0x15);
+> +	regmap_write(es8326->regmap, ES8326_HPJACK_TIMER_56, 0x88);
+> +	regmap_write(es8326->regmap, ES8326_HP_DET_57,
+> +		     ES8326_HP_DET_SRC_PIN9 | es8326->jack_pol);
+> +	regmap_write(es8326->regmap, ES8326_INT_SOURCE_58, 0x08);
+> +	regmap_write(es8326->regmap, ES8326_INTOUT_IO_59, 0x45);
+> +	regmap_write(es8326->regmap, ES8326_RESET_00, ES8326_CSM_ON);
+> +	snd_soc_component_update_bits(component, ES8326_PAGGAIN_23,
+> +				      ES8326_MIC_SEL_MASK, ES8326_MIC1_SEL);
+
+This looks like some or all of it is doing routing which would normally
+be configured from userspace using controls - the ADC1/2 sources and
+DAC controls jump out for example.  Some of it like the pullups might
+make sense fixed, or as DT properties like the jack detect polarity is
+here, but not all of it.
+
+> +#ifdef CONFIG_OF
+> +static const struct i2c_device_id es8326_i2c_id[] = {
+> +	{"es8326", 0 },
+> +	{}
+> +};
+> +MODULE_DEVICE_TABLE(i2c, es8326_i2c_id);
+> +#endif
+
+This should be unconditional, the ifdefs should be around
+es8326_of_match instead.
+
+--BMbLmEImQ6t4Ji2F
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJMS+YACgkQJNaLcl1U
+h9B7qwf/cq6HuiiTZKmhMZSKZf1xbCh016wpsRV1XD42vdtGkRxxohv6oZXcbKLK
+OrE15UZsZaeztO5QYa/gM0Rw1ecX/FoqcWTDuOUfd5HyAAzQw67l9Z+bce6LiVwJ
+BLK4B8p39hrQ6tmeGthaijLtcceBj9wL3sV4Fi7Lpg5lwHjn1QVn8AXidy+RO6y3
+WkDZi8h5/HlHcs12IE2Pyf8YoewekHLrWKMq6UYtJqGvjVUgLcZrjzXc6WIsDQ5e
+4PT5P4o/+jxS4RBBQG6uoYBZ+BtdN3J+shWNTtHTfoNHEQUlTQVFq+SNJr+2KLdj
+/2fnx9yiYSn6cGk/jXDJpnY/7ixpDA==
+=YJm8
+-----END PGP SIGNATURE-----
+
+--BMbLmEImQ6t4Ji2F--

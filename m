@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 229A44F2983
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 11:35:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5549D4F2985
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 11:36:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 98A831813;
-	Tue,  5 Apr 2022 11:35:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98A831813
+	by alsa0.perex.cz (Postfix) with ESMTPS id C9EC0181D;
+	Tue,  5 Apr 2022 11:35:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9EC0181D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649151354;
-	bh=PTjivoyGXs/CkRZCvvCX+908n0DKoSEzUrbI2LgEOkc=;
+	s=default; t=1649151367;
+	bh=zrh6vghs2wjpbqTv1tqfq5bENYFMGsSNRdUt0yAWN5c=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=A8KkYmGKSUkoORuvAMSZoE0QAtgXnK9W2IaZ32wbaYQ6zyvQ+p6d/jq/qmdyenoIr
-	 egytnEIZjA6BKU5qoGAjEeZO5MY6lwrjNauCgBxf1IH+heo9zjZxQ2x1mYEdLgcC1N
-	 1TW1eSkvDnYE19LRmQ9rURY0+p8ZGksb3oDWxriA=
+	b=WKINvPzAad+EQzKg/5uulSj/V3mm6DJwm+pZB+Qd6orLLRTvMVAkIQsafOsSJSxE6
+	 CLoJEEMw2Il+31n8KRtPVXiLF+VMo7FLh9pxXg/8luiz2Mpx5nPj5FmWntBkRaAGuw
+	 6wK0gIRM6/ewjleti9TQe5H2QSp0z9394FMA0kqI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0BC05F80571;
-	Tue,  5 Apr 2022 11:31:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9360BF80570;
+	Tue,  5 Apr 2022 11:31:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B198DF8056F; Tue,  5 Apr 2022 11:31:41 +0200 (CEST)
+ id 8BD0AF8057B; Tue,  5 Apr 2022 11:31:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,44 +34,42 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6A97CF80566
- for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 11:31:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A97CF80566
+ by alsa1.perex.cz (Postfix) with ESMTPS id F1421F80566
+ for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 11:31:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1421F80566
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="QLoRWQ7g"
+ header.b="bGg50v7M"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id E71E4B81CB9;
- Tue,  5 Apr 2022 09:31:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4C23C385A7;
- Tue,  5 Apr 2022 09:31:34 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id C3508B81CBB;
+ Tue,  5 Apr 2022 09:31:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B03AC385A9;
+ Tue,  5 Apr 2022 09:31:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1649151097;
- bh=PTjivoyGXs/CkRZCvvCX+908n0DKoSEzUrbI2LgEOkc=;
+ s=k20201202; t=1649151099;
+ bh=zrh6vghs2wjpbqTv1tqfq5bENYFMGsSNRdUt0yAWN5c=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=QLoRWQ7gd5z5sVQg4LVS16yj6W4zJt94Y1TN9AEsL3E9/j73G4vHGYcYX/FH1v/F7
- lFL3Oc/XpMBV1ulsVuHownh37cniGuzMtbPfXZqdeEiNh1EsCuxbew0E+lEpQCsRKO
- ywZ3zPExKGLFm2JDJshIRcjUNv9gtEv/2UCwFOf7gf/5XUajfZYKJaXg4vZfxWKS3r
- vbX7wf/taWf+UF9H/TVSuQarThNOpxLNVtM4zfYsYQEUfd3rfT/BytvnEu3fOx8gok
- V6AyV19s71iP64BMt01EzT4sOkMcv8g+yTWIBY4xcAnrSdTtPZ8KJg87RVEu5IQAgz
- Zffd90+4cW5Yw==
+ b=bGg50v7M+Hf+yTXrOrpR1xcsEs5OJK2fKabvNa8pEirakb4/97aDkCW1Wgh/mCGlL
+ O8pJ9pKi07pLqC6hwoFSM++DIISgE+5mxC1OW7Lqzb/vsSJUGulcQ0DvlCXE0eNYRm
+ eGF8ZZoe0wXed5tY5LLcRmpwM2o6g2DuQGdfIeJrKs2jUccKOZF4eKNtGLvQat75Ps
+ zBd1C6RwMZo0owP2Tu5yY7Y2X6MHme+3TsFQZaTjSevPWXmkHEly1V959r+LkklMbs
+ EimGHqyDk9fqWuJZ0Ky9F/a1qXKhZQo0sdnCDAxLWB3NAto8mhln7DKNy9gczPHOq+
+ Op+Iek2/Dopkg==
 From: Mark Brown <broonie@kernel.org>
-To: spujar@nvidia.com, lgirdwood@gmail.com, robh+dt@kernel.org, tiwai@suse.com,
- thierry.reding@gmail.com, krzk+dt@kernel.org, perex@perex.cz
-In-Reply-To: <1648735412-32220-1-git-send-email-spujar@nvidia.com>
-References: <1648735412-32220-1-git-send-email-spujar@nvidia.com>
-Subject: Re: (subset) [PATCH v2 0/6] ASRC support on Tegra186 and later
-Message-Id: <164915109452.276574.5258971838741299202.b4-ty@kernel.org>
-Date: Tue, 05 Apr 2022 10:31:34 +0100
+To: Takashi Iwai <tiwai@suse.com>, christophe.jaillet@wanadoo.fr,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <e740f1930843060e025e3c0f17ec1393cfdafb26.1648757961.git.christophe.jaillet@wanadoo.fr>
+References: <e740f1930843060e025e3c0f17ec1393cfdafb26.1648757961.git.christophe.jaillet@wanadoo.fr>
+Subject: Re: [PATCH] ASoC: soc-pcm: use GFP_KERNEL when the code is sleepable
+Message-Id: <164915109789.276574.4185820197463277703.b4-ty@kernel.org>
+Date: Tue, 05 Apr 2022 10:31:37 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- catalin.marinas@arm.com, linux-kernel@vger.kernel.org, jonathanh@nvidia.com,
- linux-tegra@vger.kernel.org, will@kernel.org,
- linux-arm-kernel@lists.infradead.org
+Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,16 +85,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 31 Mar 2022 19:33:26 +0530, Sameer Pujar wrote:
-> This series adds support for Asynchronous Sample Rate Converter (ASRC)
-> module on Tegra186 and later generations of SoCs. ASRC is a client of
-> AHUB. The driver and DT support is added to make it work with Tegra
-> audio graph card. The module can be plugged into audio path using ALSA
-> mixer controls.
+On Thu, 31 Mar 2022 22:19:44 +0200, Christophe JAILLET wrote:
+> At the kzalloc() call in dpcm_be_connect(), there is no spin lock involved.
+> It's merely protected by card->pcm_mutex, instead.  The spinlock is applied
+> at the later call with snd_soc_pcm_stream_lock_irq() only for the list
+> manipulations.  (See it's *_irq(), not *_irqsave(); that means the context
+> being sleepable at that point.)  So, we can use GFP_KERNEL safely there.
 > 
-> ASRC supports two modes of operation, where it gets the ratio info
-> from SW and ratio detector module. Presently the support is added for
-> SW mode.
+> This patch revert commit d8a9c6e1f676 ("ASoC: soc-pcm: use GFP_ATOMIC for
+> dpcm structure") which is no longer needed since commit b7898396f4bb
+> ("ASoC: soc-pcm: Fix and cleanup DPCM locking").
 > 
 > [...]
 
@@ -106,12 +104,8 @@ Applied to
 
 Thanks!
 
-[1/6] ASoC: tegra: Add binding doc for ASRC module
-      commit: c54ce1a17232215c4a518149292b41835992eee8
-[2/6] ASoC: tegra: Add Tegra186 based ASRC driver
-      commit: a2df8c2d5b36fc66b9a6e674f3e0c87c0b9d0a48
-[3/6] ASoC: tegra: AHUB routes for ASRC module
-      commit: 76821c139d7e0429845e7c0798747e7eec16ec83
+[1/1] ASoC: soc-pcm: use GFP_KERNEL when the code is sleepable
+      commit: fb6d679fee95d272c0a94912c4e534146823ee89
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

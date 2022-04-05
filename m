@@ -2,74 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53AFA4F2991
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 11:38:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13D2D4F2998
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 11:45:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1A633187B;
-	Tue,  5 Apr 2022 11:37:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A633187B
+	by alsa0.perex.cz (Postfix) with ESMTPS id C0BF31863;
+	Tue,  5 Apr 2022 11:44:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0BF31863
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649151520;
-	bh=OpxkvsWDpiQYTePXfsp0MaQAGyq3eu748KArM++RvRE=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1649151921;
+	bh=I7N5ZTge/HpMiy4bW+5+PVtzIh9pvkUkVrCwN8eIMtA=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Eox3JR56ekk3cMTLfqcADHbAbELXKCUDYetWYlGeAENNaRcLKWgcr62kiFYotwf/W
-	 Eml5ep2yQDNX87J7YhkxywcbnLZYR/ahk1JczbVOBhkUFrq4K+wKe77R8jj04BuV12
-	 kIibJApvyvFkzq970tGHT6hIL9ikDYgmpdRiBvQ8=
+	b=qFv+FOZ9/PB+675RdT9u4f0zun0fpycVCgOldX+5UIkqvbpwUOHEIPxJ6GNpD2xl7
+	 msh+0X5r6E16wfsfCoGaKqz/G/ZCKcWpwEATRyZyIPxDXfvwk3ZIRV4MEw/G4RkVwZ
+	 lUtV7ccxvTIwZkDSsKz8L+HDg9JPWIBiw+o8q0MI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AAF81F80518;
-	Tue,  5 Apr 2022 11:32:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B1F08F8016E;
+	Tue,  5 Apr 2022 11:44:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 741F6F805BF; Tue,  5 Apr 2022 11:32:04 +0200 (CEST)
+ id 9424AF8016E; Tue,  5 Apr 2022 11:44:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3428DF805C4
- for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 11:31:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3428DF805C4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7819DF8012C
+ for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 11:44:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7819DF8012C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="UEwXMYlv"
+ header.b="RT1Ya5K3"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id A64DEB81C6E;
- Tue,  5 Apr 2022 09:31:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 265B3C385A6;
- Tue,  5 Apr 2022 09:31:54 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id C7E3861368;
+ Tue,  5 Apr 2022 09:44:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0480EC385A3;
+ Tue,  5 Apr 2022 09:44:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1649151116;
- bh=OpxkvsWDpiQYTePXfsp0MaQAGyq3eu748KArM++RvRE=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=UEwXMYlv3ocbTerZaJ/KE7KQ0iEzOoVWYxZx/TQUAf/hGvY3Z+xSnRykcSmN2x4mV
- QljNF43EE7mgLY1LdBDalZ59MOOxuk3FgrXmmR4gWrppNzCPhwKj2JAosJ7XPD2HkF
- lN/HTYShoXCypVzRnQZMDAGRGLRu9Uw8s9pZL1M8KnjGiifJUJs9WPZXXfajtJD4G0
- sJxlBX+yq7kjvl27x9evTaRyDLPcY0phKo0oAXg2Ve99t7Sh1l5cjL/+16lWJ0rezM
- EIODOyMoGfQSRp2DcCKGhFjkdh5BVQdvvRp05REq3/kAY1TI8ciQ4gO8hl0xBegw+i
- MnmcJnQ+30hRA==
+ s=k20201202; t=1649151849;
+ bh=I7N5ZTge/HpMiy4bW+5+PVtzIh9pvkUkVrCwN8eIMtA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=RT1Ya5K3CUAgZ9b1Icx2eokJZXHHLPki8f5IblGNODgfE7Dup0r3B/wPaCrYtZYw2
+ LRF4JNjlY3YM+woaqtF7WY8qVy4WR51ICnQDKqkjdvrx1iHR6/6cX8CbML2/mA/JG5
+ UyXCZn0aryIBt9SUmsKHNYXFSeootNLn/FHeJK4xoxKsG0YwUVAlZYiZR8hyLcMfKs
+ HqAfu/V3668iD9vSRUFQ+zBOU+6cS9vp/1xtT3JtO9MTgzczBngagw5WiP7G5Ya7tM
+ IWcf/Kn7/iIxVJl/msK8xW1Ea6WjS78m9ST1PROheKz4VPmbrnfXKwDW/16A/8oYKu
+ nLvxiNbr1JQ1Q==
+Date: Tue, 5 Apr 2022 10:44:04 +0100
 From: Mark Brown <broonie@kernel.org>
-To: cezary.rojewski@intel.com, alsa-devel@alsa-project.org
-In-Reply-To: <20220403141647.1037173-1-cezary.rojewski@intel.com>
-References: <20220403141647.1037173-1-cezary.rojewski@intel.com>
-Subject: Re: [PATCH] ASoC: Intel: catpt: Drop redundant enum constant
-Message-Id: <164915111486.276574.4849436518929535974.b4-ty@kernel.org>
-Date: Tue, 05 Apr 2022 10:31:54 +0100
+To: Raphael-Xu <13691752556@139.com>
+Subject: Re: [PATCH v6 3/3] update to support either TAS2764 or TAS2780
+Message-ID: <YkwPZJLnxDe9YyZp@sirena.org.uk>
+References: <20220401150301.1011-1-13691752556@139.com>
+ <20220401150301.1011-3-13691752556@139.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: hdegoede@redhat.com, amadeuszx.slawinski@linux.intel.com, tiwai@suse.com,
- pierre-louis.bossart@linux.intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="O/18VVxbDPCfi3ZQ"
+Content-Disposition: inline
+In-Reply-To: <20220401150301.1011-3-13691752556@139.com>
+X-Cookie: Avoid contact with eyes.
+Cc: alsa-devel@alsa-project.org, raphael-xu@ti.com, shenghao-ding@ti.com,
+ navada@ti.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,37 +88,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 3 Apr 2022 16:16:47 +0200, Cezary Rojewski wrote:
-> CATPT_SSP_IFACE_LAST is being used only to calculate CATPT_SSP_COUNT.
-> Make CATPT_SSP_COUNT part of the enum directly and remove the redundant
-> constant.
-> 
-> 
 
-Applied to
+--O/18VVxbDPCfi3ZQ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Fri, Apr 01, 2022 at 11:03:01PM +0800, Raphael-Xu wrote:
+> fix no sound issue on some platforms
+>=20
+> Signed-off-by: Raphael-Xu <13691752556@139.com>
+> ---
+>  sound/soc/codecs/tas27xx.c | 405 +++++++++++++++++++++++++++----------
+>  sound/soc/codecs/tas27xx.h |   2 +-
+>  2 files changed, 295 insertions(+), 112 deletions(-)
 
-Thanks!
+This doesn't apply against current code (with your first two patches
+applied), please check and resend - should just be a rebase.
 
-[1/1] ASoC: Intel: catpt: Drop redundant enum constant
-      commit: b695f5c0a86ea685500a72b6a9959da041f26da6
+--O/18VVxbDPCfi3ZQ
+Content-Type: application/pgp-signature; name="signature.asc"
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+-----BEGIN PGP SIGNATURE-----
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJMD2QACgkQJNaLcl1U
+h9CSpggAgLA3V+y06zBInxSiJxnjfcOuIgekvMJMgrtmKAnBVhHyWEV485wGOzCk
+329+VccVHhChKYvqNu/m/Ar/tls4n05voxQVMTjJofMIjxRlTGw1rN7Q2dIAOifa
+k0YI1/DObYX6+h0QR5CvpWfxTZftRSpUswv4r0yi3BhfL2dl0LS2KEVeLZ9JND9V
+A/D7uyVnM8U3Cm5dV/OsRCPO/RQNZ3kaCSCaYx8e/EbD+1n8DQVC6fT+AigOQiNS
+su5m7Kw9OLNO5JvN8qy/r0mlmJnYfunnSI7GsFL7qF8oNFSOG2/mjS7Qk2ieOOuX
+uaSWdZON9VipbHSGO7/lsHXj7X7W6w==
+=BAbP
+-----END PGP SIGNATURE-----
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+--O/18VVxbDPCfi3ZQ--

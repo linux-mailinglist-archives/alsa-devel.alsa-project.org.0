@@ -2,78 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC44B4F2973
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 11:32:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E02F4F2974
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 11:32:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D25CB176C;
-	Tue,  5 Apr 2022 11:31:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D25CB176C
+	by alsa0.perex.cz (Postfix) with ESMTPS id C484C1775;
+	Tue,  5 Apr 2022 11:31:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C484C1775
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649151130;
-	bh=L/0Q71877NZ2dI0wBiiMHZiv88UEejC3hMOyoQIhhOM=;
+	s=default; t=1649151167;
+	bh=ZGgcCi5etsj/pvdNymelG0J+xQ3fmCGazR103cY2n40=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WNiy8QxgxIvasEEr7f9RFigwc/KGYGlBAuz5BA8XsVcEXwViErFBJwgtjfUsmlswV
-	 kuDOpQsHGFvrga/T0GV9MLF4Qj1nSYIz5ZzWMT6dyVt9WwsLlnsBzvjbBggntVygYP
-	 57nRT47MLKr20ySSjbLSwzEE3Jp2MTqsOQyvDOCs=
+	b=afhE4ah5eHd/HIZOquKYVSnv2+c6uyAstAEsm/gJd9EROq8v3wSQyj1NNdPT7Ek86
+	 yomiKX2voAiGpABMGhcoOQaoQjnEI3NhSwLJdkVJvFPwZzIYy/A5PrWXXGuPo1ey5J
+	 5pkmJQnHZe5VSSeeTlCJkhgF60iozoXmVuPcT8Do=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3C545F8016B;
+	by alsa1.perex.cz (Postfix) with ESMTP id EB58DF80482;
 	Tue,  5 Apr 2022 11:31:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B9C1AF8016B; Tue,  5 Apr 2022 11:31:08 +0200 (CEST)
+ id 95032F8016E; Tue,  5 Apr 2022 11:31:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AB49FF800D2
- for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 11:31:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB49FF800D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0037BF8012C
+ for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 11:31:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0037BF8012C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="AgDJjONY"
+ header.b="bmWpDMVc"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 10F7261368;
- Tue,  5 Apr 2022 09:31:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81866C385A0;
- Tue,  5 Apr 2022 09:30:58 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8EB07616AE;
+ Tue,  5 Apr 2022 09:31:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEE27C385AA;
+ Tue,  5 Apr 2022 09:31:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1649151061;
- bh=L/0Q71877NZ2dI0wBiiMHZiv88UEejC3hMOyoQIhhOM=;
+ s=k20201202; t=1649151063;
+ bh=ZGgcCi5etsj/pvdNymelG0J+xQ3fmCGazR103cY2n40=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=AgDJjONY1wQTxOWX0xahtmDF9bEXicjJL27tCntdMedb4VNO9KYvVoiAWMZPjA7Lj
- 5NnZrRhEeZ9zt6Pa0v0rHidk3XSkliXvAN+6REZapyLd168aFSyhQUMPoT5KUlGiX9
- ePo3rAwYd/Yl29hQUC1h1tC6GjJf5RFlNwriiPrAo8/j8ff3cJBV/w39v07IR114oQ
- AdcExNHquO/rGrr82eqJTDlim0QeYHEdOWUdYFS6eulDqg16E2wPB1WyIxiN3IHc3u
- 9Bk+i9XHTAC2gT9z5/hqWISvs0kDF3NYSuEWlES2a11NSIwETChz3aEgX1Ye5jeVGr
- AoigEHcyZE+IQ==
+ b=bmWpDMVcHwGSCkAb/6swRdsLKzarBvMsR6i9BVfhCHLHduWvSaZv+WMdmYukSvxQN
+ Gk201GEFtba2J/pONgtfNY9Xdhvi8Y+VzFV1hhctltfQ/F6/wsXo8PnS6pEyqVITm5
+ R2HpQVKamxUMRGn362NSS9PzFj5V9pCRezq5FR3ZmweB+mvRyuREnlJvPrxVt5m6u8
+ 2hVNkIv57E23W8MGcG+934xb8huAUHfj7R1IQNlZVPuEAQaeOsh1IzBKoS+aRpvVRi
+ l44Mk0shevncEXQ4eEH2aGsMxEwsZJSE8GYm8LhP+a9QIixz79A0v1hO34CxoethBf
+ /zUyV8iMqWryg==
 From: Mark Brown <broonie@kernel.org>
-To: quic_plai@quicinc.com, srinivas.kandagatla@linaro.org, agross@kernel.org,
- judyhsiao@chromium.org, linux-kernel@vger.kernel.org, lgirdwood@gmail.com,
- quic_srivasam@quicinc.com, robh+dt@kernel.org, swboyd@chromium.org,
- tiwai@suse.com, bjorn.andersson@linaro.org, alsa-devel@alsa-project.org,
- perex@perex.cz, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <1647965937-32203-1-git-send-email-quic_srivasam@quicinc.com>
-References: <1647965937-32203-1-git-send-email-quic_srivasam@quicinc.com>
-Subject: Re: [PATCH] ASoC: codecs: Fix error handling in power domain init and
- exit handlers
-Message-Id: <164915105825.276574.11537900689104070957.b4-ty@kernel.org>
-Date: Tue, 05 Apr 2022 10:30:58 +0100
+To: tiwai@suse.de, alsa-devel@alsa-project.org
+In-Reply-To: <20220322154826.19400-1-tiwai@suse.de>
+References: <20220322154826.19400-1-tiwai@suse.de>
+Subject: Re: [PATCH] ASoC: intel: atom: Remove superfluous
+ flush_scheduled_work()
+Message-Id: <164915106170.276574.15836716587431543651.b4-ty@kernel.org>
+Date: Tue, 05 Apr 2022 10:31:01 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: quic_potturu@quicinc.com
+Cc: penguin-kernel@I-love.SAKURA.ne.jp, cezary.rojewski@intel.com,
+ pierre-louis.bossart@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,15 +85,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 22 Mar 2022 21:48:57 +0530, Srinivasa Rao Mandadapu wrote:
-> Update error handling in power domain init and exit handlers, as existing handling
-> may cause issues in device remove function.
-> Use appropriate pm core api for power domain get and sync to avoid redundant code.
+On Tue, 22 Mar 2022 16:48:26 +0100, Takashi Iwai wrote:
+> It seems that flush_scheduled_work() is called without any real
+> purpose at sst_context_cleanup() (the driver doesn't put works on the
+> global queue at all).  As the flush_schedule_work() function is going
+> to be abolished in near future, let's drop it now.
 > 
-> Fixes: 9e3d83c52844 ("ASoC: codecs: Add power domains support in digital macro codecs")
 > 
-> 
-> [...]
 
 Applied to
 
@@ -105,8 +99,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: codecs: Fix error handling in power domain init and exit handlers
-      commit: 1a8ee4cf84187bce17c76886eb6dd9389c3b99a8
+[1/1] ASoC: intel: atom: Remove superfluous flush_scheduled_work()
+      commit: 290186e14c3bbef07a6c68e689f26bf076259ee4
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

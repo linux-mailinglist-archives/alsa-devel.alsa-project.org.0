@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E89394F3C97
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 18:18:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA5324F3C98
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 18:20:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 86E2517A0;
-	Tue,  5 Apr 2022 18:17:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86E2517A0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6A53617EB;
+	Tue,  5 Apr 2022 18:19:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A53617EB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649175528;
-	bh=OM890sGG5uBYEBhNZ6nY+tfPpSy3hDW3KqOxjG264sY=;
+	s=default; t=1649175615;
+	bh=rg1a7NuVcrgejck2X2pgwmxSZcENh9+kvoPYI+VIxE8=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JKkYhmsGr0U57Zv+Jr51uOVwyikp1J+CnJsRTdqLNmb103hvtZfBKfIOboc7cf+c8
-	 tDFg4khDiqBFixaRjprgGxCc8lbZIY/vNuyIMqXkL8zUa8c05+gUcBR6FaVeEZdi5Y
-	 vzwqD5K6Dmjb2ze6ZkQpdy88c0EP8bEwQ3twgFnI=
+	b=ZOrRPxacZu1GpNzNLBPV62LZTb+jZ9/51iuQeuyEGm6crBMz8ubZUADzzpuo7eTqj
+	 eG9uXuFyMGbThvaTj6f++vzdpFDXaLA6wiwJ4gyIBnJgnWmCnwLd2bqns4YBd5Ua/y
+	 6NKwmmYVVcK6+0JG+Xln1tZ+cRyQrhSDVESsk6xE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1B210F8016B;
-	Tue,  5 Apr 2022 18:17:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1A891F8016B;
+	Tue,  5 Apr 2022 18:19:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AC877F8016A; Tue,  5 Apr 2022 18:17:49 +0200 (CEST)
+ id CB248F8016A; Tue,  5 Apr 2022 18:19:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,50 +34,49 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4098AF800D1
- for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 18:17:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4098AF800D1
+ by alsa1.perex.cz (Postfix) with ESMTPS id D1EA8F800D1
+ for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 18:19:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1EA8F800D1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="0O8C9QNr"; 
+ header.b="AKj9LJnI"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="am4tIWb8"
+ header.b="p6524sDS"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id A07211F37D;
- Tue,  5 Apr 2022 16:17:42 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 770131F38D;
+ Tue,  5 Apr 2022 16:19:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1649175462; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1649175548; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=i5jWb08T0RxS89hDAMTR9oLVSxo0c9WfDhnxBD/u/5s=;
- b=0O8C9QNrGERCkFNQON7oAKUQUHnC0Y8NVVLvN9SzKVjpS+Jvt0sJLuDKWlYnZjnAewJqER
- MnVdri7fjg6cDddHVFAFH9Gfpx6gSDdRmYGBHoieIj1OhsY2ct11Z2dMrFJYqdUIoKJwOz
- X9DwCDlZDww8R0/uhNeMaZo4rC5WFr8=
+ bh=O/Lxv7V91iXt+be8I3irqo2pfP3pYV7z7H3BgavzGfM=;
+ b=AKj9LJnI9wTB0kI+PLFWEtGPX+E+x1oEh5cS/fW36DYXivEO7/t3AmcklojEr0/whX6ldD
+ eXhzXnRDhsmXXgGImGdLNSD20hmYC4FrLG3znppjpKbd59V0PXxiNwy5+37XQtiRqdicDt
+ bMoYhXqkWdz7GXAjcfn/UyvYNSwCrLE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1649175462;
+ s=susede2_ed25519; t=1649175548;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=i5jWb08T0RxS89hDAMTR9oLVSxo0c9WfDhnxBD/u/5s=;
- b=am4tIWb8GphVIN0zBVgh8YNpMkPO8GF9t/KZkjCpsJ/utR+1XTDM0ARoDyimAh1qCXD12q
- i7e1Radr9iPx/fAg==
+ bh=O/Lxv7V91iXt+be8I3irqo2pfP3pYV7z7H3BgavzGfM=;
+ b=p6524sDSUcPhZwISQfSF9lOtX4uHz7anLmhHnu5Hzn0uupUT0BcHWeEsr8N20lLcjO2/PE
+ 7tqOJnzdTYe2mwDQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 89B85A3B96;
- Tue,  5 Apr 2022 16:17:42 +0000 (UTC)
-Date: Tue, 05 Apr 2022 18:17:42 +0200
-Message-ID: <s5hh7775wt5.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 68498A3B83;
+ Tue,  5 Apr 2022 16:19:08 +0000 (UTC)
+Date: Tue, 05 Apr 2022 18:19:08 +0200
+Message-ID: <s5hfsmr5wqr.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Robin Murphy <robin.murphy@arm.com>
-Subject: Re: [PATCH v2] ALSA: emu10k1: Stop using iommu_present()
-In-Reply-To: <9b506b4a4fe8a7f40aa8bad1aafc82426cf3dd92.1649165210.git.robin.murphy@arm.com>
-References: <9b506b4a4fe8a7f40aa8bad1aafc82426cf3dd92.1649165210.git.robin.murphy@arm.com>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH v2] ALSA: hda/i915 - skip acomp init if no matching display
+In-Reply-To: <20220405123622.2874457-1-kai.vehmanen@linux.intel.com>
+References: <20220405123622.2874457-1-kai.vehmanen@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: linux-kernel@vger.kernel.org, iommu@lists.linux-foundation.org,
- tiwai@suse.com, alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org, Lucas De Marchi <lucas.demarchi@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,19 +92,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 05 Apr 2022 15:27:54 +0200,
-Robin Murphy wrote:
+On Tue, 05 Apr 2022 14:36:22 +0200,
+Kai Vehmanen wrote:
 > 
-> iommu_get_domain_for_dev() is already perfectly happy to return NULL
-> if the given device has no IOMMU. Drop the unnecessary check in favour
-> of just handling that condition appropriately.
+> In systems with only a discrete i915 GPU, the acomp init will
+> always timeout for the PCH HDA controller instance.
 > 
-> Signed-off-by: Robin Murphy <robin.murphy@arm.com>
-> ---
+> Avoid the timeout by checking the PCI device hierarchy
+> whether any display class PCI device can be found on the system,
+> and at the same level as the HDA PCI device. If found, proceed
+> with the acomp init, which will wait until i915 probe is complete
+> and component binding can proceed. If no matching display
+> device is found, the audio component bind can be safely skipped.
 > 
-> v2: Get "!domain" condition right
+> The bind timeout will still be hit if the display is present
+> in the system, but i915 driver does not bind to it by configuration
+> choice or probe error. In this case the 60sec timeout will be
+> hit.
+> 
+> Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> Acked-by: Lucas De Marchi <lucas.demarchi@intel.com>
 
-Applied now.  Thanks.
+Thanks, applied now.
 
 
 Takashi

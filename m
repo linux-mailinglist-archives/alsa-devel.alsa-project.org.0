@@ -2,81 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C7D44F3CDE
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 19:32:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C92CD4F3CDF
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 19:33:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DD01017E6;
-	Tue,  5 Apr 2022 19:32:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD01017E6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 72C0B18A4;
+	Tue,  5 Apr 2022 19:32:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 72C0B18A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649179977;
-	bh=kDz4odTZgDHIyUZM1F1K0HHazfp3FGiBRkXBAq4Nw9o=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1649180001;
+	bh=Da6YW7ygWaEuklSxuYdsfPnTi0OQwxW/GGZ7tT2lWds=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UIcPBK4bLLGE3+gfWalRht/26e92K491qW+CyswKHYceKWPwV1TcamzrDfuFqTg3a
-	 Xp1qTEheLqwNVixc0AJ10oN0itxn2tIOCAJd4Wu9wE8voHvGsyZWg0Wvp0Uqfppr2e
-	 4CQrQiy13oVC1Gii4g+EQ9Gm2S5K8vNWfgiMQi/M=
+	b=GvpfOyMIUW+wRI/1ZWASO+HP42lMdeLpSeBNcsWDrlK0OfGB0AaatesJn2bRRx1T6
+	 a3iARyZ0Chol4XvNL8Oc1JIpYCoH2B9r8y/LkAsz7acsoTcLqUPGUfxjwa+jR87mL8
+	 uqwB/mbwKqV6DHQPy/izs7GX04VV92JdixCAUEi0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 95DBCF805AB;
-	Tue,  5 Apr 2022 19:27:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F13ABF8016B;
+	Tue,  5 Apr 2022 19:31:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E33C1F8055B; Tue,  5 Apr 2022 19:27:55 +0200 (CEST)
+ id E6C60F8012C; Tue,  5 Apr 2022 19:31:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 64E95F8016A
- for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 19:27:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64E95F8016A
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="lKVWiTLS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649179664; x=1680715664;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=kDz4odTZgDHIyUZM1F1K0HHazfp3FGiBRkXBAq4Nw9o=;
- b=lKVWiTLSGA30fk+4jkscV+VVd3L0bhTsdR3qHNjFTzXZKSxAfABy+c7+
- 8OThiXTLlAlgBzFvtq+BuSa+O200ohb66Z4csSFnFK2ovMIB03XmQtt0N
- Vr6QUZSru0tCyxBpoT0mqcKFCBdlg3k1vceA+7UVCmkE/tFwUxOkwOgOj
- eLqq2SJ5tSVZxg1R/mU/P61XIhTrBdLgb1mHLHrDkS6/O5BtUip5YE9d/
- SA3STfdvTw/k4RRiu+Zgt0LsmU5NBII+EEDYVUp+AvBe1yomb3y5xb0Pt
- 4uYKqphKQgUpLM0lStAvflBcympL2VEGBPL9pFmzwtG0hIRFKrQbAeIDm A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10308"; a="323986796"
-X-IronPort-AV: E=Sophos;i="5.90,236,1643702400"; d="scan'208";a="323986796"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Apr 2022 10:27:27 -0700
-X-IronPort-AV: E=Sophos;i="5.90,236,1643702400"; d="scan'208";a="722141026"
-Received: from reginari-mobl7.amr.corp.intel.com (HELO
- rsridh2-mobl1.localdomain) ([10.254.28.131])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Apr 2022 10:27:27 -0700
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 15/15] ASoC: SOF: ipc: Move the ipc_set_get_comp_data() local
- to ipc3-control
-Date: Tue,  5 Apr 2022 10:27:08 -0700
-Message-Id: <20220405172708.122168-16-ranjani.sridharan@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220405172708.122168-1-ranjani.sridharan@linux.intel.com>
-References: <20220405172708.122168-1-ranjani.sridharan@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id B76A5F8016A
+ for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 19:31:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B76A5F8016A
+Received: from ptx.hi.pengutronix.de ([2001:67c:670:100:1d::c0])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <sha@pengutronix.de>)
+ id 1nbn1n-0005q6-Lf; Tue, 05 Apr 2022 19:31:39 +0200
+Received: from sha by ptx.hi.pengutronix.de with local (Exim 4.92)
+ (envelope-from <sha@pengutronix.de>)
+ id 1nbn1l-0004Ld-6t; Tue, 05 Apr 2022 19:31:37 +0200
+Date: Tue, 5 Apr 2022 19:31:37 +0200
+From: Sascha Hauer <s.hauer@pengutronix.de>
+To: Ahmad Fatoum <a.fatoum@pengutronix.de>
+Subject: Re: [PATCH] ASoC: fsl_sai: fix 1:1 bclk:mclk ratio support
+Message-ID: <20220405173137.GR4012@pengutronix.de>
+References: <20220405155731.745413-1-a.fatoum@pengutronix.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, broonie@kernel.org,
- Daniel Baluta <daniel.baluta@nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220405155731.745413-1-a.fatoum@pengutronix.de>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-IRC: #ptxdist @freenode
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
+X-Uptime: 19:31:02 up 6 days, 6:00, 66 users, load average: 0.28, 0.18, 0.18
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c0
+X-SA-Exim-Mail-From: sha@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
+ kernel@pengutronix.de, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Viorel Suman <viorel.suman@nxp.com>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,305 +88,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+On Tue, Apr 05, 2022 at 05:57:31PM +0200, Ahmad Fatoum wrote:
+> Refactoring in commit a50b7926d015 ("ASoC: fsl_sai: implement 1:1
+> bclk:mclk ratio support") led to the bypass never happening
+> as (ratio = 1) was caught in the existing if (ratio & 1) continue;
+> check. The correct check sequence instead is:
+> 
+>  - skip all ratios lower than one and higher than 512
+>  - skip all odd ratios except for 1:1
+>  - skip 1:1 ratio if and only if !support_1_1_ratio
+> 
+> And for all others, calculate the appropriate divider. Adjust the
+> code to facilitate this.
+> 
+> Fixes: a50b7926d015 ("ASoC: fsl_sai: implement 1:1 bclk:mclk ratio support")
+> Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
 
-The snd_sof_ipc_set_get_comp_data() only used for kcontrol data update
-and it is an IPC3 message parsing function.
+Reviewed-by: Sascha Hauer <s.hauer@pengutronix.de>
 
-Move it out from the generic ipc.c to ipc3-control.c and rename it to
-better describe it's function.
+Sascha
 
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
----
- sound/soc/sof/ipc.c          | 83 ------------------------------
- sound/soc/sof/ipc3-control.c | 97 ++++++++++++++++++++++++++++++++----
- sound/soc/sof/sof-audio.h    |  5 --
- 3 files changed, 88 insertions(+), 97 deletions(-)
+> ---
+>  sound/soc/fsl/fsl_sai.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
+> index a992d51568cc..50c377f16097 100644
+> --- a/sound/soc/fsl/fsl_sai.c
+> +++ b/sound/soc/fsl/fsl_sai.c
+> @@ -372,7 +372,7 @@ static int fsl_sai_set_bclk(struct snd_soc_dai *dai, bool tx, u32 freq)
+>  			continue;
+>  		if (ratio == 1 && !support_1_1_ratio)
+>  			continue;
+> -		else if (ratio & 1)
+> +		if ((ratio & 1) && ratio > 1)
+>  			continue;
+>  
+>  		diff = abs((long)clk_rate - ratio * freq);
+> -- 
+> 2.30.2
+> 
+> 
 
-diff --git a/sound/soc/sof/ipc.c b/sound/soc/sof/ipc.c
-index 45c487ab8b54..6f8ac3fb195f 100644
---- a/sound/soc/sof/ipc.c
-+++ b/sound/soc/sof/ipc.c
-@@ -137,89 +137,6 @@ void snd_sof_ipc_reply(struct snd_sof_dev *sdev, u32 msg_id)
- }
- EXPORT_SYMBOL(snd_sof_ipc_reply);
- 
--/*
-- * IPC get()/set() for kcontrols.
-- */
--int snd_sof_ipc_set_get_comp_data(struct snd_sof_control *scontrol, bool set)
--{
--	struct snd_soc_component *scomp = scontrol->scomp;
--	struct sof_ipc_ctrl_data *cdata = scontrol->ipc_control_data;
--	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
--	const struct sof_ipc_ops *iops = sdev->ipc->ops;
--	enum sof_ipc_ctrl_type ctrl_type;
--	struct snd_sof_widget *swidget;
--	bool widget_found = false;
--	u32 ipc_cmd, msg_bytes;
--
--	list_for_each_entry(swidget, &sdev->widget_list, list) {
--		if (swidget->comp_id == scontrol->comp_id) {
--			widget_found = true;
--			break;
--		}
--	}
--
--	if (!widget_found) {
--		dev_err(sdev->dev, "%s: can't find widget with id %d\n", __func__,
--			scontrol->comp_id);
--		return -EINVAL;
--	}
--
--	/*
--	 * Volatile controls should always be part of static pipelines and the widget use_count
--	 * would always be > 0 in this case. For the others, just return the cached value if the
--	 * widget is not set up.
--	 */
--	if (!swidget->use_count)
--		return 0;
--
--	/*
--	 * Select the IPC cmd and the ctrl_type based on the ctrl_cmd and the
--	 * direction
--	 * Note: SOF_CTRL_TYPE_VALUE_COMP_* is not used and supported currently
--	 *	 for ctrl_type
--	 */
--	if (cdata->cmd == SOF_CTRL_CMD_BINARY) {
--		ipc_cmd = set ? SOF_IPC_COMP_SET_DATA : SOF_IPC_COMP_GET_DATA;
--		ctrl_type = set ? SOF_CTRL_TYPE_DATA_SET : SOF_CTRL_TYPE_DATA_GET;
--	} else {
--		ipc_cmd = set ? SOF_IPC_COMP_SET_VALUE : SOF_IPC_COMP_GET_VALUE;
--		ctrl_type = set ? SOF_CTRL_TYPE_VALUE_CHAN_SET : SOF_CTRL_TYPE_VALUE_CHAN_GET;
--	}
--
--	cdata->rhdr.hdr.cmd = SOF_IPC_GLB_COMP_MSG | ipc_cmd;
--	cdata->type = ctrl_type;
--	cdata->comp_id = scontrol->comp_id;
--	cdata->msg_index = 0;
--
--	/* calculate header and data size */
--	switch (cdata->type) {
--	case SOF_CTRL_TYPE_VALUE_CHAN_GET:
--	case SOF_CTRL_TYPE_VALUE_CHAN_SET:
--		cdata->num_elems = scontrol->num_channels;
--
--		msg_bytes = scontrol->num_channels *
--			    sizeof(struct sof_ipc_ctrl_value_chan);
--		msg_bytes += sizeof(struct sof_ipc_ctrl_data);
--		break;
--	case SOF_CTRL_TYPE_DATA_GET:
--	case SOF_CTRL_TYPE_DATA_SET:
--		cdata->num_elems = cdata->data->size;
--
--		msg_bytes = cdata->data->size;
--		msg_bytes += sizeof(struct sof_ipc_ctrl_data) +
--			     sizeof(struct sof_abi_hdr);
--		break;
--	default:
--		return -EINVAL;
--	}
--
--	cdata->rhdr.hdr.size = msg_bytes;
--	cdata->elems_remaining = 0;
--
--	return iops->set_get_data(sdev, cdata, cdata->rhdr.hdr.size, set);
--}
--EXPORT_SYMBOL(snd_sof_ipc_set_get_comp_data);
--
- int snd_sof_ipc_valid(struct snd_sof_dev *sdev)
- {
- 	struct sof_ipc_fw_ready *ready = &sdev->fw_ready;
-diff --git a/sound/soc/sof/ipc3-control.c b/sound/soc/sof/ipc3-control.c
-index 4e647142dc2b..cde9e481f7f2 100644
---- a/sound/soc/sof/ipc3-control.c
-+++ b/sound/soc/sof/ipc3-control.c
-@@ -11,6 +11,85 @@
- #include "sof-audio.h"
- #include "ipc3-ops.h"
- 
-+/* IPC set()/get() for kcontrols. */
-+static int sof_ipc3_set_get_kcontrol_data(struct snd_sof_control *scontrol, bool set)
-+{
-+	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scontrol->scomp);
-+	struct sof_ipc_ctrl_data *cdata = scontrol->ipc_control_data;
-+	const struct sof_ipc_ops *iops = sdev->ipc->ops;
-+	enum sof_ipc_ctrl_type ctrl_type;
-+	struct snd_sof_widget *swidget;
-+	bool widget_found = false;
-+	u32 ipc_cmd, msg_bytes;
-+
-+	list_for_each_entry(swidget, &sdev->widget_list, list) {
-+		if (swidget->comp_id == scontrol->comp_id) {
-+			widget_found = true;
-+			break;
-+		}
-+	}
-+
-+	if (!widget_found) {
-+		dev_err(sdev->dev, "%s: can't find widget with id %d\n", __func__,
-+			scontrol->comp_id);
-+		return -EINVAL;
-+	}
-+
-+	/*
-+	 * Volatile controls should always be part of static pipelines and the widget use_count
-+	 * would always be > 0 in this case. For the others, just return the cached value if the
-+	 * widget is not set up.
-+	 */
-+	if (!swidget->use_count)
-+		return 0;
-+
-+	/*
-+	 * Select the IPC cmd and the ctrl_type based on the ctrl_cmd and the
-+	 * direction
-+	 * Note: SOF_CTRL_TYPE_VALUE_COMP_* is not used and supported currently
-+	 *	 for ctrl_type
-+	 */
-+	if (cdata->cmd == SOF_CTRL_CMD_BINARY) {
-+		ipc_cmd = set ? SOF_IPC_COMP_SET_DATA : SOF_IPC_COMP_GET_DATA;
-+		ctrl_type = set ? SOF_CTRL_TYPE_DATA_SET : SOF_CTRL_TYPE_DATA_GET;
-+	} else {
-+		ipc_cmd = set ? SOF_IPC_COMP_SET_VALUE : SOF_IPC_COMP_GET_VALUE;
-+		ctrl_type = set ? SOF_CTRL_TYPE_VALUE_CHAN_SET : SOF_CTRL_TYPE_VALUE_CHAN_GET;
-+	}
-+
-+	cdata->rhdr.hdr.cmd = SOF_IPC_GLB_COMP_MSG | ipc_cmd;
-+	cdata->type = ctrl_type;
-+	cdata->comp_id = scontrol->comp_id;
-+	cdata->msg_index = 0;
-+
-+	/* calculate header and data size */
-+	switch (cdata->type) {
-+	case SOF_CTRL_TYPE_VALUE_CHAN_GET:
-+	case SOF_CTRL_TYPE_VALUE_CHAN_SET:
-+		cdata->num_elems = scontrol->num_channels;
-+
-+		msg_bytes = scontrol->num_channels *
-+			    sizeof(struct sof_ipc_ctrl_value_chan);
-+		msg_bytes += sizeof(struct sof_ipc_ctrl_data);
-+		break;
-+	case SOF_CTRL_TYPE_DATA_GET:
-+	case SOF_CTRL_TYPE_DATA_SET:
-+		cdata->num_elems = cdata->data->size;
-+
-+		msg_bytes = cdata->data->size;
-+		msg_bytes += sizeof(struct sof_ipc_ctrl_data) +
-+			     sizeof(struct sof_abi_hdr);
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	cdata->rhdr.hdr.size = msg_bytes;
-+	cdata->elems_remaining = 0;
-+
-+	return iops->set_get_data(sdev, cdata, cdata->rhdr.hdr.size, set);
-+}
-+
- static inline u32 mixer_to_ipc(unsigned int value, u32 *volume_map, int size)
- {
- 	if (value >= size)
-@@ -49,7 +128,7 @@ static void snd_sof_refresh_control(struct snd_sof_control *scontrol)
- 
- 	/* refresh the component data from DSP */
- 	scontrol->comp_data_dirty = false;
--	ret = snd_sof_ipc_set_get_comp_data(scontrol, false);
-+	ret = sof_ipc3_set_get_kcontrol_data(scontrol, false);
- 	if (ret < 0) {
- 		dev_err(scomp->dev, "Failed to get control data: %d\n", ret);
- 
-@@ -97,7 +176,7 @@ static bool sof_ipc3_volume_put(struct snd_sof_control *scontrol,
- 
- 	/* notify DSP of mixer updates */
- 	if (pm_runtime_active(scomp->dev)) {
--		int ret = snd_sof_ipc_set_get_comp_data(scontrol, true);
-+		int ret = sof_ipc3_set_get_kcontrol_data(scontrol, true);
- 
- 		if (ret < 0) {
- 			dev_err(scomp->dev, "Failed to set mixer updates for %s\n",
-@@ -145,7 +224,7 @@ static bool sof_ipc3_switch_put(struct snd_sof_control *scontrol,
- 
- 	/* notify DSP of mixer updates */
- 	if (pm_runtime_active(scomp->dev)) {
--		int ret = snd_sof_ipc_set_get_comp_data(scontrol, true);
-+		int ret = sof_ipc3_set_get_kcontrol_data(scontrol, true);
- 
- 		if (ret < 0) {
- 			dev_err(scomp->dev, "Failed to set mixer updates for %s\n",
-@@ -193,7 +272,7 @@ static bool sof_ipc3_enum_put(struct snd_sof_control *scontrol,
- 
- 	/* notify DSP of enum updates */
- 	if (pm_runtime_active(scomp->dev)) {
--		int ret = snd_sof_ipc_set_get_comp_data(scontrol, true);
-+		int ret = sof_ipc3_set_get_kcontrol_data(scontrol, true);
- 
- 		if (ret < 0) {
- 			dev_err(scomp->dev, "Failed to set enum updates for %s\n",
-@@ -265,7 +344,7 @@ static int sof_ipc3_bytes_put(struct snd_sof_control *scontrol,
- 
- 	/* notify DSP of byte control updates */
- 	if (pm_runtime_active(scomp->dev))
--		return snd_sof_ipc_set_get_comp_data(scontrol, true);
-+		return sof_ipc3_set_get_kcontrol_data(scontrol, true);
- 
- 	return 0;
- }
-@@ -379,7 +458,7 @@ static int sof_ipc3_bytes_ext_put(struct snd_sof_control *scontrol,
- 
- 	/* notify DSP of byte control updates */
- 	if (pm_runtime_active(scomp->dev))
--		return snd_sof_ipc_set_get_comp_data(scontrol, true);
-+		return sof_ipc3_set_get_kcontrol_data(scontrol, true);
- 
- 	return 0;
- }
-@@ -409,7 +488,7 @@ static int sof_ipc3_bytes_ext_volatile_get(struct snd_sof_control *scontrol,
- 	cdata->data->abi = SOF_ABI_VERSION;
- 
- 	/* get all the component data from DSP */
--	ret = snd_sof_ipc_set_get_comp_data(scontrol, false);
-+	ret = sof_ipc3_set_get_kcontrol_data(scontrol, false);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -588,7 +667,7 @@ static int sof_ipc3_widget_kcontrol_setup(struct snd_sof_dev *sdev,
- 	list_for_each_entry(scontrol, &sdev->kcontrol_list, list)
- 		if (scontrol->comp_id == swidget->comp_id) {
- 			/* set kcontrol data in DSP */
--			ret = snd_sof_ipc_set_get_comp_data(scontrol, true);
-+			ret = sof_ipc3_set_get_kcontrol_data(scontrol, true);
- 			if (ret < 0) {
- 				dev_err(sdev->dev,
- 					"kcontrol %d set up failed for widget %s\n",
-@@ -605,7 +684,7 @@ static int sof_ipc3_widget_kcontrol_setup(struct snd_sof_dev *sdev,
- 			if (swidget->dynamic_pipeline_widget)
- 				continue;
- 
--			ret = snd_sof_ipc_set_get_comp_data(scontrol, false);
-+			ret = sof_ipc3_set_get_kcontrol_data(scontrol, false);
- 			if (ret < 0)
- 				dev_warn(sdev->dev,
- 					 "kcontrol %d read failed for widget %s\n",
-diff --git a/sound/soc/sof/sof-audio.h b/sound/soc/sof/sof-audio.h
-index c85461dbe945..0898f4dbe29f 100644
---- a/sound/soc/sof/sof-audio.h
-+++ b/sound/soc/sof/sof-audio.h
-@@ -431,11 +431,6 @@ static inline void snd_sof_compr_fragment_elapsed(struct snd_compr_stream *cstre
- static inline void snd_sof_compr_init_elapsed_work(struct work_struct *work) { }
- #endif
- 
--/*
-- * Mixer IPC
-- */
--int snd_sof_ipc_set_get_comp_data(struct snd_sof_control *scontrol, bool set);
--
- /* DAI link fixup */
- int sof_pcm_dai_link_fixup(struct snd_soc_pcm_runtime *rtd, struct snd_pcm_hw_params *params);
- 
 -- 
-2.25.1
-
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |

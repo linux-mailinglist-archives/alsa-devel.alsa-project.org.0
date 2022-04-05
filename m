@@ -2,73 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7664E4F2979
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 11:33:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 690004F297A
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 11:33:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E6915174D;
-	Tue,  5 Apr 2022 11:32:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6915174D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 59462172F;
+	Tue,  5 Apr 2022 11:32:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59462172F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649151202;
-	bh=w/qmrPEIOfBh1lZCVrt3be7cmnNT8Ingtoi9EdxNVuo=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1649151224;
+	bh=pOJGaCsrQN3x9r+PY1FtlGxQPslrXTTIlgn21bMNlm4=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PjHuQUWde401fZv61G+dj3BTwkqArgSk3M/GZ1Ikv/YX2E0YgR7EAkl5xc8ynDHGh
-	 lWeiurzj/WgDn4UZ2A0YexbQnAHnh/1xTx3F3w490lVwS6MgcA9IK43M0wz8ERYc/V
-	 94CTWfz3O2DYWswLEyW9lNsMwFGqDAgacn8K3wlI=
+	b=jsqaGJcgBo57FmCkd+06NzsuWdMSxfp9DwJj1kNy+LxM6q91tR2+HcUeBZ0kLbBo7
+	 4ilcvrwS5IYdUz5EPVLY7Sy3U1LqqBpD2qhheMvRRCectb08bDuoXnwd/mZr0G6XzB
+	 fjyZTc8V6eLR/JVMilawskr+79dXryd8+Pkqdih8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 00B16F80525;
+	by alsa1.perex.cz (Postfix) with ESMTP id 751F9F80527;
 	Tue,  5 Apr 2022 11:31:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8A927F800D2; Tue,  5 Apr 2022 11:31:13 +0200 (CEST)
+ id 2DEE4F8051B; Tue,  5 Apr 2022 11:31:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ADDFDF8049C
- for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 11:31:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ADDFDF8049C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3A1DFF80516
+ for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 11:31:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A1DFF80516
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="VvYIo+BX"
+ header.b="s1qJ74J5"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 31231616D2;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 89CB5B81B14;
+ Tue,  5 Apr 2022 09:31:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74931C385A2;
  Tue,  5 Apr 2022 09:31:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEC50C385A0;
- Tue,  5 Apr 2022 09:31:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1649151068;
- bh=w/qmrPEIOfBh1lZCVrt3be7cmnNT8Ingtoi9EdxNVuo=;
- h=From:To:In-Reply-To:References:Subject:Date:From;
- b=VvYIo+BX32qG55V3iMfHtdiN/sPr8AkGsOxSwhz016IUSGNCSsQWp/fvjJRUO9Xae
- XYv/o1ku/6mUjCjcDt5DC1tMXx/x7t9YELIisUpksc5BzHEbGaH7D47y2k9wXKziZu
- jnMj38HUQuCSQJdFLDnuSrGz2tDxA+zuo/jAxtKwWvgYhGuhk+ZWnBeX6TkrNJwMPg
- Rz8QcWHz/zKRQQEbTw/G5QIu9RY/HzgW7L2LpQzeoIaYWh5heLo/S9affHOm5yHdZn
- hGINCP4ejKeYB+gbMoUwGLGhkak14ePpsZHCze0pO9m0LnbK/n4kE11BVBgF/+R+Id
- ogLDHsrqW2oQg==
+ s=k20201202; t=1649151069;
+ bh=pOJGaCsrQN3x9r+PY1FtlGxQPslrXTTIlgn21bMNlm4=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=s1qJ74J5Qg5S4QZNnwSCrKsz71rWVroUteBFHhnlqpokmx2mj7Pg/jM/XyzddvfkD
+ 44S++w3zK90yPOlSvTTwvyvamg564l1CWzNPvO+wK4fJVKR4xd9uYdfCzSca3hwFRA
+ 0lH/OC8UBB9ZBGqQvnmwCH+YmTXhIs0RJdR6OP628xS7bb72aq8k1Gv6ngqICS9m24
+ MnnYlxeMcx1d7K0p24AQT3fYmb7dfQQt9dAYMCGfA7/IOvrK66PfVIl6gch5wlbynL
+ DQgrskefTf7NnyOJOFh4WQUWGs4gOj8vKC89UBO74AKMzvTVByUXO7EPUxiqnO1sTw
+ tC97+CIWsJRkA==
 From: Mark Brown <broonie@kernel.org>
-To: patches@opensource.cirrus.com, tanureal@opensource.cirrus.com,
- alsa-devel@alsa-project.org, ckeepax@opensource.cirrus.com,
- hui.wang@canonical.com
-In-Reply-To: <20220324081839.62009-1-hui.wang@canonical.com>
-References: <20220324081839.62009-1-hui.wang@canonical.com>
-Subject: Re: [PATCH 1/2] ASoC: cs35l41: Add one more variable in the debug log
-Message-Id: <164915106640.276574.12404607783112800825.b4-ty@kernel.org>
-Date: Tue, 05 Apr 2022 10:31:06 +0100
+To: broonie@kernel.org, codrin.ciubotariu@microchip.com,
+ Liam Girdwood <lgirdwood@gmail.com>
+In-Reply-To: <20220325154241.1600757-1-broonie@kernel.org>
+References: <20220325154241.1600757-1-broonie@kernel.org>
+Subject: Re: [PATCH v1 0/3] ASoC: atmel: Fixes for AT91SAM9G20-EK audio driver
+Message-Id: <164915106820.276574.15570595209250540791.b4-ty@kernel.org>
+Date: Tue, 05 Apr 2022 10:31:08 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,12 +85,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 24 Mar 2022 16:18:38 +0800, Hui Wang wrote:
-> otp_map[].size is a key variable to compute the value of otp_val and
-> to update the bit_offset, it is helpful to debug if could put it in
-> the debug log.
+On Fri, 25 Mar 2022 15:42:38 +0000, Mark Brown wrote:
+> At some point the machine driver for the audio subsystem on the
+> AT91SAM9G20-EK appears to have bitrotted, no longer probing due to
+> effects of the transition to the common clock framework. The first patch
+> in this series fixes the initial probe problem, with the rest of the
+> series being random other fixes and cleanups I noticed while looking at
+> the driver.
 > 
-> 
+> [...]
 
 Applied to
 
@@ -97,10 +101,12 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: cs35l41: Add one more variable in the debug log
-      commit: c598ccfbeb26cb9452f99e7beb92ef779dcb16b1
-[2/2] ASoC: cs35l41: Fix a shift-out-of-bounds warning found by UBSAN
-      commit: 0b3d5d2e358ca6772fc3662fca27acb12a682fbf
+[1/3] ASoC: atmel: Remove system clock tree configuration for at91sam9g20ek
+      commit: c775cbf62ed4911e4f0f23880f01815753123690
+[2/3] ASoC: atmel: Fix error handling in at91samg20ek probe()
+      commit: 28103509248b94392e04a8ffcbc47da5e3e31dfc
+[3/3] ASoC: atmel: Don't squash error codes from atmel_ssc_set_audio()
+      commit: 01251dd004d8e106295c3aa8e3ba890f0dd55e02
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

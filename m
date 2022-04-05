@@ -2,125 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C3AF4F20DE
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 05:27:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A02F84F20E3
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 06:07:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0F64D16DE;
-	Tue,  5 Apr 2022 05:26:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F64D16DE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 90E5216E5;
+	Tue,  5 Apr 2022 06:06:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90E5216E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649129261;
-	bh=vhWYWzHXwuumybc6NX/fCE/X7a49nkphVU9HzeBnt+Q=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=rabu0DGeusf7v5RkQltZDpVe+luF1eYSCC69PUG5d3YSm+/nIwID6xMm3SqIL8xSL
-	 8HgYSn97SdujcINJAjxd90Lw699fj9P5IEPnZVExnR673O0z7l5eFDT6dXOFaP8KUQ
-	 xoFvexbnF1/zqcoW1HWipNMYnCA5bPjlYBtBf4Ek=
+	s=default; t=1649131668;
+	bh=kHtEycWZ45y55Y6RvDzK2Hra6uI165mJfOXu4WeCcoM=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Fk5Nlg6d/7lkhk4xpUzbtBIe2DHs7vuHfoungNJSukBowyaplfEL9Dt8sexoDYieg
+	 7VF/OeH7Rn6oFD5it9zrnJUa93zs1Uv9qy7inQkxJ11UkXVk7/KUylzwsZB8u+mQEW
+	 n/D5GEIfZJbWygB4W4VnGnvk4dmfRxq9h6qJfD5s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 608DAF8016B;
-	Tue,  5 Apr 2022 05:26:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DC429F8016B;
+	Tue,  5 Apr 2022 06:06:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D6F0CF8016A; Tue,  5 Apr 2022 05:26:39 +0200 (CEST)
+ id 19B28F8016A; Tue,  5 Apr 2022 06:06:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2062a.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5a::62a])
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CD11DF800D1
- for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 05:26:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD11DF800D1
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com
- header.b="DGniTY8d"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mSPNfDMvPJAoo57gT5/yL5dp8aOXNvbl2kVY/n+RsXS8FiUjCRvgFx1eKvdFlUspvMN3VCgHPN1Y0GLDxfHpf9XUg0V2mQwr0OoF1BaXRQSDvcMGN8rfaiKE6+rMsdcWyZz+hnn/Cy0K+M//U6Ocph6uOmeGQysF2zdNqnG6Zo4tN6nkvE93bLC5xA4BX24PfclHE+97NdNZ+pcLvxDXpMUEl8uZQsNNxcqqrWsRoZVt+14iVhOMyQZSjhBU4n8dcuc9+/9r8J/h7F8uwfLQxE+5pGM6TJtJT2nM2jZGyEKr9D+AjfjZyxHBV1OkSuezI51Ir3yZkPJmO7n1i+3Pzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IA7zynkRaV1KdeaxxxQFfYP6tw2qcfFRprDw22m5CQI=;
- b=MsEtX8I14MnZsUZe/xgTkmcxUWM1sBD4g6gMwWL8AIIiNMwxy6EU34MkcS0AS7pv/yqwDiMjtP8vtsGRl9SaweVBeIzu9tuao2Je/TdRSGsQRbrB3iFpyFqf47UJo1SrzfNA4+tYsgNrKtiVKRjOeM400KzH3I23V3HRPG+1nBl9B+kBn1VcNwuiqXQk7ah7ReBW71SNPQvTLq5WdNl09I8/wocG5M631INMNzWjYTja7DHSp0xchXtr7hcRn/AVIsGaKKnNGJrVuduwjyfc1YwpERc4ysPAtQFKrBt2Z/+/n6U+uxkWAoyM57alxLePuL2HImECjV3VSJSyoHKp+Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 12.22.5.234) smtp.rcpttodomain=alsa-project.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IA7zynkRaV1KdeaxxxQFfYP6tw2qcfFRprDw22m5CQI=;
- b=DGniTY8djwnW2hhMdgh6CHbtn+juIzx5VdTqIxoXYdIadODTNNhklotODtisrV4m6iMDSrNo8vNsQo0+G24HrYQT/liySjVZ5vOw7dUKjHxpT98mck0ktywh30I/EXWtbFTF+YGkJh318DzqaBaPD2d3uJFL5jCy4LqC2dDnj6E1BD+9I7hVhpfIyv3W5TOQghpEg27TbDUSHxlT7kmL0TJU6kqX7k9tC5wEPT7U3YkjjOCGT2JeTZ0veSzJjEW1zeiDztHopGKtQoDCqXbRDHT3gNQanE/HXF3xBEPDU4EWtWArnLMSip4hmOZ2Cfk10Ujyiq6FwNjmVkYvIq+mow==
-Received: from BN9PR03CA0092.namprd03.prod.outlook.com (2603:10b6:408:fd::7)
- by BL1PR12MB5096.namprd12.prod.outlook.com (2603:10b6:208:316::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5123.31; Tue, 5 Apr
- 2022 03:26:25 +0000
-Received: from BN8NAM11FT064.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:fd:cafe::10) by BN9PR03CA0092.outlook.office365.com
- (2603:10b6:408:fd::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5123.31 via Frontend
- Transport; Tue, 5 Apr 2022 03:26:25 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 12.22.5.234)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 12.22.5.234 as permitted sender) receiver=protection.outlook.com;
- client-ip=12.22.5.234; helo=mail.nvidia.com;
-Received: from mail.nvidia.com (12.22.5.234) by
- BN8NAM11FT064.mail.protection.outlook.com (10.13.176.160) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.20.5123.19 via Frontend Transport; Tue, 5 Apr 2022 03:26:24 +0000
-Received: from rnnvmail205.nvidia.com (10.129.68.10) by DRHQMAIL101.nvidia.com
- (10.27.9.10) with Microsoft SMTP Server (TLS) id 15.0.1497.32;
- Tue, 5 Apr 2022 03:26:23 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by rnnvmail205.nvidia.com
- (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Mon, 4 Apr 2022
- 20:26:22 -0700
-Received: from mkumard.nvidia.com (10.127.8.13) by mail.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server id 15.2.986.22 via Frontend
- Transport; Mon, 4 Apr 2022 20:26:20 -0700
-From: Mohan Kumar <mkumard@nvidia.com>
-To: <tiwai@suse.com>, <perex@perex.cz>
-Subject: [PATCH] ALSA: hda/tegra: Fix hda Jack detection
-Date: Tue, 5 Apr 2022 08:56:07 +0530
-Message-ID: <20220405032607.8489-1-mkumard@nvidia.com>
-X-Mailer: git-send-email 2.17.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 31993F800D2
+ for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 06:06:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31993F800D2
+X-UUID: 270c0d8d6eea477fa457c65fac8df177-20220405
+X-UUID: 270c0d8d6eea477fa457c65fac8df177-20220405
+Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw01.mediatek.com
+ (envelope-from <jiaxin.yu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 2092507740; Tue, 05 Apr 2022 12:06:31 +0800
+Received: from mtkexhb02.mediatek.inc (172.21.101.103) by
+ mtkmbs07n1.mediatek.inc (172.21.101.16) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.2; Tue, 5 Apr 2022 12:06:30 +0800
+Received: from mtkcas11.mediatek.inc (172.21.101.40) by mtkexhb02.mediatek.inc
+ (172.21.101.103) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
+ Tue, 5 Apr 2022 12:06:30 +0800
+Received: from mhfsdcap04 (10.17.3.154) by mtkcas11.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Tue, 5 Apr 2022 12:06:29 +0800
+Message-ID: <6a29c32f42c25ec6e19de0db999ac7ca25869c36.camel@mediatek.com>
+Subject: Re: [v3 15/19] ASoC: mediatek: mt8186: add machine driver with
+ mt6366, da7219 and max98357
+From: Jiaxin Yu <jiaxin.yu@mediatek.com>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ <broonie@kernel.org>, <robh+dt@kernel.org>
+Date: Tue, 5 Apr 2022 12:06:29 +0800
+In-Reply-To: <d13b7bb3-989c-55eb-c7b9-41836ccb95a9@collabora.com>
+References: <20220313151023.21229-1-jiaxin.yu@mediatek.com>
+ <20220313151023.21229-16-jiaxin.yu@mediatek.com>
+ <d13b7bb3-989c-55eb-c7b9-41836ccb95a9@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
 MIME-Version: 1.0
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2e898d14-5941-470c-f5c7-08da16b41024
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5096:EE_
-X-Microsoft-Antispam-PRVS: <BL1PR12MB5096CFC70B546B4E325A1048C1E49@BL1PR12MB5096.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 9Z+1McxsWpLxrI2Uy4pcDfR1eK2UEJ3Z2EzUwLSDoK4Ry4FWlm48Cn2e/asnwOZC39asSou1TRg+ymsmZzsxoPte2UvSbn4Z5SqcIrt3T3+vUogdWdU/kLFp8SekX8j6sKVE1/mPqfHf/SaCkxRQ4szV9meglelNWV3G22aXfHzqO2rcULQMW6f6Y+wb6QS267MP+KUlaTs5dpNfq84bTn9epojJTkOlfF6raKwDs29hFrzDdLToFoBnzXbDGKhtu3CwpX7KZ0m7tP6TMogDkfeWHFy/zhgjDT7CHbSyh8PXJ3nOO8vLzC8J8jSprB4MAb8ajD8XNkwFNjxhHa5SuO/x5chRqHdwjGP0PKXf5gwMQ5UhiSNtpse9ad4Mo0MRGc3v20XgmMXMs4nCiOVURlGCoi1f3hVNNwclnNzVJ72SP+Uyu9gt+wLNf7rXGP4gWs8rE54+nO0oYWExcDjRW3E0/7UPyf1dGIKvbNXLBwZiYx3sez8L+1/FDLQAWYtiJOwSn817ZIS/oGMhtUu2dXdc+1+5C1aVWoMxmJpF1w3uiXkC4DriEUrBh9cE/DtTKsfAb+Y72p+8GZqjmf1wUYUN+BH7Kvg7JOkT2sLRFUkLvBOozyBJLXss14aZEvlDtWGMMBhTkxZA6NMWFvcp6NPtzrz0rj3Vexek0kg0lx2VVG5fbKGpy9B0z1EPh7JjeVg8M1TqIQuxmSAlUlWVJA==
-X-Forefront-Antispam-Report: CIP:12.22.5.234; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:mail.nvidia.com; PTR:InfoNoRecords; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(508600001)(81166007)(6666004)(82310400005)(86362001)(36756003)(54906003)(107886003)(83380400001)(2616005)(7696005)(316002)(186003)(110136005)(26005)(356005)(1076003)(426003)(336012)(2906002)(40460700003)(8676002)(5660300002)(4326008)(8936002)(70586007)(47076005)(36860700001)(70206006)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Apr 2022 03:26:24.4941 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2e898d14-5941-470c-f5c7-08da16b41024
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[12.22.5.234];
- Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT064.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5096
-Cc: alsa-devel@alsa-project.org, spujar@nvidia.com,
- linux-kernel@vger.kernel.org, jonathanh@nvidia.com, thierry.reding@gmail.com,
- linux-tegra@vger.kernel.org, Mohan Kumar <mkumard@nvidia.com>
+Content-Transfer-Encoding: 7bit
+X-MTK: N
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org,
+ Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
+ linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
+ matthias.bgg@gmail.com, aaronyu@google.com, julianbraha@gmail.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -136,163 +89,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Tegra HDA Jack detection logic doesn't work when the HDACODEC
-in runtime suspended state as unsol event won't be triggered
-during D3 state. As pulseaudio server in userspace rely on the
-jack mixer control status to show the audio devices in gui and
-any display sink device hotplug event during D3 state will never
-updates the jack status which will result in no audio device option
-available in userspace settings.
+On Mon, 2022-03-14 at 11:44 +0100, AngeloGioacchino Del Regno wrote:
+> Il 13/03/22 16:10, Jiaxin Yu ha scritto:
+> > Add support for mt8186 board with mt6366, da7219 and max98357.
+> > 
+> > Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
+> > ---
+> >   .../mt8186/mt8186-mt6366-da7219-max98357.c    | 924
+> > ++++++++++++++++++
+> >   1 file changed, 924 insertions(+)
+> >   create mode 100644 sound/soc/mediatek/mt8186/mt8186-mt6366-
+> > da7219-max98357.c
+> > 
+> 
+> Hello Jiaxin,
+> 
+> I see some duplication between this one and the mt6366-rt1019-
+> rt5682s....
+> ....for this reason, I would propose to split out the MT6366 bits
+> into a
+> common file, something like mt8186-mt6366-common.c, as to reduce the
+> duplication.
+> 
 
-The possible option available to resolve this issue for multiple
-tegra platforms is to use Jack polling method for every 5 seconds.
-Also to make Jack detection work seamlessly the Jack worker thread
-needs to run continuously after HDA sound card registered
-irrespective of whether HDMI sink device connected or not, but the
-Jack state update call happens only when Codec is not powered on.
+Hello Angelo,
 
-Signed-off-by: Mohan Kumar <mkumard@nvidia.com>
----
- sound/pci/hda/hda_tegra.c | 43 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 43 insertions(+)
+I'm sorry to reply so later about this comment. I've been thinking
+about the repetition of these two machine driver recently. The biggest
+difference between them are the .init .ops and .be_hw_params_fixup
+callback functions of BE's dai_link. So I want break them down into
+rt1019-rt5682s.c and da7219-max98357.c, the rest becomes mt8186-
+mt6366.c.
 
-diff --git a/sound/pci/hda/hda_tegra.c b/sound/pci/hda/hda_tegra.c
-index 2347d0304f93..c92938a47b65 100644
---- a/sound/pci/hda/hda_tegra.c
-+++ b/sound/pci/hda/hda_tegra.c
-@@ -28,6 +28,7 @@
- 
- #include <sound/hda_codec.h>
- #include "hda_controller.h"
-+#include "hda_jack.h"
- 
- /* Defines for Nvidia Tegra HDA support */
- #define HDA_BAR0           0x8000
-@@ -67,6 +68,7 @@
-  * is used to update the GCAP register to workaround the issue.
-  */
- #define TEGRA194_NUM_SDO_LINES	  4
-+#define JACKPOLL_INTERVAL	msecs_to_jiffies(5000)
- 
- struct hda_tegra_soc {
- 	bool has_hda2codec_2x_reset;
-@@ -82,6 +84,7 @@ struct hda_tegra {
- 	unsigned int nclocks;
- 	void __iomem *regs;
- 	struct work_struct probe_work;
-+	struct delayed_work jack_work;
- 	const struct hda_tegra_soc *soc;
- };
- 
-@@ -127,8 +130,11 @@ static void hda_tegra_init(struct hda_tegra *hda)
- static int __maybe_unused hda_tegra_suspend(struct device *dev)
- {
- 	struct snd_card *card = dev_get_drvdata(dev);
-+	struct azx *chip = card->private_data;
-+	struct hda_tegra *hda = container_of(chip, struct hda_tegra, chip);
- 	int rc;
- 
-+	cancel_delayed_work_sync(&hda->jack_work);
- 	rc = pm_runtime_force_suspend(dev);
- 	if (rc < 0)
- 		return rc;
-@@ -140,6 +146,8 @@ static int __maybe_unused hda_tegra_suspend(struct device *dev)
- static int __maybe_unused hda_tegra_resume(struct device *dev)
- {
- 	struct snd_card *card = dev_get_drvdata(dev);
-+	struct azx *chip = card->private_data;
-+	struct hda_tegra *hda = container_of(chip, struct hda_tegra, chip);
- 	int rc;
- 
- 	rc = pm_runtime_force_resume(dev);
-@@ -147,6 +155,8 @@ static int __maybe_unused hda_tegra_resume(struct device *dev)
- 		return rc;
- 	snd_power_change_state(card, SNDRV_CTL_POWER_D0);
- 
-+	schedule_delayed_work(&hda->jack_work, JACKPOLL_INTERVAL);
-+
- 	return 0;
- }
- 
-@@ -209,6 +219,29 @@ static const struct dev_pm_ops hda_tegra_pm = {
- 			   NULL)
- };
- 
-+static void  hda_tegra_jack_work(struct work_struct *work)
-+{
-+	struct hda_tegra *hda =
-+			container_of(work, struct hda_tegra, jack_work.work);
-+	struct azx *chip = &hda->chip;
-+	struct hda_codec *codec;
-+
-+	if (!chip->running)
-+		return;
-+
-+	list_for_each_codec(codec, &chip->bus) {
-+		if (snd_hdac_is_power_on(&codec->core))
-+			continue;
-+
-+		snd_hda_power_up_pm(codec);
-+		snd_hda_jack_set_dirty_all(codec);
-+		snd_hda_jack_poll_all(codec);
-+		snd_hda_power_down_pm(codec);
-+	}
-+
-+	schedule_delayed_work(&hda->jack_work, JACKPOLL_INTERVAL);
-+}
-+
- static int hda_tegra_dev_disconnect(struct snd_device *device)
- {
- 	struct azx *chip = device->device_data;
-@@ -226,6 +259,7 @@ static int hda_tegra_dev_free(struct snd_device *device)
- 	struct hda_tegra *hda = container_of(chip, struct hda_tegra, chip);
- 
- 	cancel_work_sync(&hda->probe_work);
-+	cancel_delayed_work_sync(&hda->jack_work);
- 	if (azx_bus(chip)->chip_init) {
- 		azx_stop_all_streams(chip);
- 		azx_stop_chip(chip);
-@@ -428,6 +462,7 @@ static int hda_tegra_create(struct snd_card *card,
- 	chip->snoop = true;
- 
- 	INIT_WORK(&hda->probe_work, hda_tegra_probe_work);
-+	INIT_DELAYED_WORK(&hda->jack_work, hda_tegra_jack_work);
- 
- 	err = azx_bus_init(chip, NULL);
- 	if (err < 0)
-@@ -574,13 +609,18 @@ static void hda_tegra_probe_work(struct work_struct *work)
- 
-  out_free:
- 	pm_runtime_put(hda->dev);
-+	schedule_delayed_work(&hda->jack_work, JACKPOLL_INTERVAL);
- 	return; /* no error return from async probe */
- }
- 
- static int hda_tegra_remove(struct platform_device *pdev)
- {
-+	struct snd_card *card = dev_get_drvdata(&pdev->dev);
-+	struct azx *chip = card->private_data;
-+	struct hda_tegra *hda = container_of(chip, struct hda_tegra, chip);
- 	int ret;
- 
-+	cancel_delayed_work_sync(&hda->jack_work);
- 	ret = snd_card_free(dev_get_drvdata(&pdev->dev));
- 	pm_runtime_disable(&pdev->dev);
- 
-@@ -591,10 +631,13 @@ static void hda_tegra_shutdown(struct platform_device *pdev)
- {
- 	struct snd_card *card = dev_get_drvdata(&pdev->dev);
- 	struct azx *chip;
-+	struct hda_tegra *hda;
- 
- 	if (!card)
- 		return;
- 	chip = card->private_data;
-+	hda = container_of(chip, struct hda_tegra, chip);
-+	cancel_delayed_work_sync(&hda->jack_work);
- 	if (chip && chip->running)
- 		azx_stop_chip(chip);
- }
--- 
-2.17.1
+SND_SOC_MT8186_MT6366 ==> mt8186-mt6366.c
+SND_SOC_RT1019_RT5682S ==> rt1019-rt5682s.c
+SND_SOC_DA7219_MAX98357 ==> da7219-max98357.c
+
+Or put these three files in the same mt8186-mt6366.c, then distinguish
+by different compatible string.
+
+If it is expected to see MT8186 machines with DA7219 or MAX98357,
+> then it'd be a
+> good idea to also do something about preventively commonizing these
+> ones, like
+> it is being done in ... MT8192, if I remember correctly.
+> 
+> Regards,
+> Angelo
+
+Yes, I will change this part that being done in MT8192 to simplify the
+code. But the part of mt8192 is being reviewed. I'm not sure if you
+have any comments about this series.
+
+Link: 
+https://lore.kernel.org/linux-arm-kernel/20220402051754.17513-1-jiaxin.yu@mediatek.com/T/
+
+Jiaxin.Yu
+Thanks.
+
+
 

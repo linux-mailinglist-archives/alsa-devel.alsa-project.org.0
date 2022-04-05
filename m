@@ -2,75 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4D534F297C
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 11:34:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 039DB4F297B
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 11:33:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BC87517DE;
-	Tue,  5 Apr 2022 11:33:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC87517DE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 093BD17F6;
+	Tue,  5 Apr 2022 11:33:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 093BD17F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649151248;
-	bh=IOSYXfJ51+obZ0DPubnnqwWUEVpRPJNuHWU0Ke67zD4=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1649151230;
+	bh=6hPaKj46Ta/FHnJuIOaaZWGm+AiJawFaYXScRGm6ONg=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BiBnG1vobgTYbUG3aJ9/Z05qd8Hqd5cXjBzqsBkUvvS2mV87xMBHnEdbvrCWRBdwW
-	 br0eM+fDKFZOT56HHcV0PipBFh7BOZ8CgqlgmsGirA4Kmu+rOfsl3qsLoIEH/UYkjV
-	 nnnx46pAtGNm+qNK718lbpiSqj7lLVpGf00ANX60=
+	b=gm/g4gnFl0GsxLDTR+OViW+1Tc/4YO6oNC4vgBspMDerPuaVhyOnfSm3uwlxhwEn4
+	 Lwq9aST0cJvhACYVIkcER4amUihiVvqA/O0lKpM0w2v4CPn9hr5xhnFtMWAnOdZP5R
+	 +mvztywzyRiO0sSV4lue9y8H/kEb5jAkJivNYQuk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F0A5EF80536;
+	by alsa1.perex.cz (Postfix) with ESMTP id 42ABCF80533;
 	Tue,  5 Apr 2022 11:31:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F07C7F8052F; Tue,  5 Apr 2022 11:31:22 +0200 (CEST)
+ id D9219F80533; Tue,  5 Apr 2022 11:31:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B454CF8052D
- for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 11:31:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B454CF8052D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 734F3F80529
+ for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 11:31:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 734F3F80529
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="HFPs++2y"
+ header.b="r+4PyjzB"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 463B66165C;
- Tue,  5 Apr 2022 09:31:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1B0DC385A2;
- Tue,  5 Apr 2022 09:31:12 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 670D7616C1;
+ Tue,  5 Apr 2022 09:31:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5999C385A0;
+ Tue,  5 Apr 2022 09:31:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1649151074;
- bh=IOSYXfJ51+obZ0DPubnnqwWUEVpRPJNuHWU0Ke67zD4=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=HFPs++2yuz+7jArezb8F7EwiXxL5nG/fgaIwrMSS61ULIS9+ExTy5aPAa5ETnObMB
- P4IaxeEgdZPW3/k5T/Nz8P3F8oBsA+unDOOEeRR50R37XM/LwPg/CFm56UKDKxj/f3
- VeiHXUtHnueZq+etK9fyA6UVxhB3oWVdcdW2sE7jzMySQ2OhLlYLFFTn0CLs6LHlfJ
- stH4ng5nN2j5a/mAtrfpenNnsi7Dcs4hXFCDgWwHwhlLcQPzlWh6EJWdQAtjh3rEdW
- IXWf2z+Jidsysk9IuEGMRAzzCgNT64bpo9jziqWMKz9Mvus1eMHLUay7GUgOZROU2e
- LjqyPtWM74vLg==
+ s=k20201202; t=1649151077;
+ bh=6hPaKj46Ta/FHnJuIOaaZWGm+AiJawFaYXScRGm6ONg=;
+ h=From:To:In-Reply-To:References:Subject:Date:From;
+ b=r+4PyjzBqaVp+BAyJdhAcMtxpkZy33JnUARGDRzHM9DO0afUFYxBYgiO+m/Xruyd5
+ EvwZ3QL3CCQ+Me8tI5R+iVIuMd8oD0ln9dxS79WxwFIZjovFkAaUbeR8Dvq+sXN7lj
+ LTzUX+ZpVoHLsWo4lilJJneqlCmq8uT+XwyyzzmVU8kycWSqeQYqpAFAVf7YA+KoEg
+ rbxxaqxfBw3P1VmnV8OCuO1y/S9YuGHr8djA8hoCu2j0b5Qm6sckVx1ndoTuNAUkNR
+ WbzBJ1wzr09Tfw80lxydn0I1HLqFZivlj37JKxS9fSP79PdHlCM8LqJl8A6P47Mjs8
+ Yj4ZjV/GydC/A==
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, derek.fang@realtek.com
-In-Reply-To: <20220328053338.21441-1-derek.fang@realtek.com>
-References: <20220328053338.21441-1-derek.fang@realtek.com>
-Subject: Re: [PATCH v2] ASoC: rt5682s: Separate the regulator consumer controls
-Message-Id: <164915107270.276574.15918118218792649202.b4-ty@kernel.org>
-Date: Tue, 05 Apr 2022 10:31:12 +0100
+To: patches@opensource.cirrus.com, tanureal@opensource.cirrus.com,
+ alsa-devel@alsa-project.org, ckeepax@opensource.cirrus.com,
+ hui.wang@canonical.com
+In-Reply-To: <20220328123535.50000-1-hui.wang@canonical.com>
+References: <20220328123535.50000-1-hui.wang@canonical.com>
+Subject: Re: [PATCH v3 1/2] ASoC: cs35l41: Add one more variable in the debug
+ log
+Message-Id: <164915107653.276574.10074506787215359634.b4-ty@kernel.org>
+Date: Tue, 05 Apr 2022 10:31:16 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
- lars@metafoo.de, albertchen@realtek.com, shumingf@realtek.com,
- flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,11 +85,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 28 Mar 2022 13:33:38 +0800, derek.fang@realtek.com wrote:
-> From: Derek Fang <derek.fang@realtek.com>
-> 
-> Control the regulators separately instead of using regulator_bulk to
-> accord to the timing request in the datasheet.
+On Mon, 28 Mar 2022 20:35:34 +0800, Hui Wang wrote:
+> otp_map[].size is a key variable to compute the value of otp_val and
+> to update the bit_offset, it is helpful to debug if could put it in
+> the debug log.
 > 
 > 
 
@@ -100,8 +98,10 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: rt5682s: Separate the regulator consumer controls
-      commit: bc0505bdfb85fc2eb8767c7eb5aec556e176cb41
+[1/2] ASoC: cs35l41: Add one more variable in the debug log
+      commit: c598ccfbeb26cb9452f99e7beb92ef779dcb16b1
+[2/2] ASoC: cs35l41: Fix an out-of-bounds access in otp_packed_element_t
+      commit: 9f342904216f378e88008bb0ce1ae200a4b99fe8
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

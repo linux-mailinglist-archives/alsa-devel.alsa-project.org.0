@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B2C24F35FB
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 15:56:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A2F14F3625
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 15:57:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B19D31862;
-	Tue,  5 Apr 2022 15:55:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B19D31862
+	by alsa0.perex.cz (Postfix) with ESMTPS id DBE061853;
+	Tue,  5 Apr 2022 15:56:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DBE061853
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649166960;
-	bh=9Uql8c+Fl9U5sHdxEVT5M0QrEAQoxprPi0DaNYVsQNo=;
+	s=default; t=1649167024;
+	bh=d0hsk5pSs1MKjclvyuueCzDoAucg0ejXaNCFspxGINM=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pwIGPWHCnQYfD17qrm+I+wRAZc6R03IJTZpWn0ePhDtlV/dVzLxu96gDWiym0rAJm
-	 mdIsMk2YuN4QmxmKDyE/JIGgO0M2/4lNXcjdUbmGzenf1B8bYfeR8Os+KVfxvdT/eF
-	 uZH9Nqaj6U9bwG2XOHaAauX4G7aQWeusOyDru9YQ=
+	b=pX60bBx15KYaJ/4kRdaDaQg0MkR5mEPSdu1frX7Vz9CfsepJPtufDvCV28Anjr2GG
+	 hCFDLbgVvBKFQ+4dbM9zaO7OSE+e123x7W58X0aNpfmgQU+LjhNdgAywD2+XzuCeJ8
+	 26zfWhapQ46aLgi2mHV9Sr6c4u9KURO0YK3qZV0k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BC249F80527;
-	Tue,  5 Apr 2022 15:54:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 19948F8053B;
+	Tue,  5 Apr 2022 15:54:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E5569F8052D; Tue,  5 Apr 2022 15:54:35 +0200 (CEST)
+ id 9169AF80525; Tue,  5 Apr 2022 15:54:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,29 +35,29 @@ Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
  [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2D5ADF800D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 95D26F8051C
  for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 15:54:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D5ADF800D2
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95D26F8051C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="ATDDzgl9"
+ header.b="Mn5mZuyz"
 Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 235BpSUC025148;
- Tue, 5 Apr 2022 08:54:25 -0500
+ by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 235BpSUD025148;
+ Tue, 5 Apr 2022 08:54:26 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=PODMain02222019;
- bh=sKPCxZ+xTBcQoblGnSzkvv6udMhhqbVepx2ZD2fI5i0=;
- b=ATDDzgl9AUjcR8Pw6A0mgx4kf0fSH/e85cwNTm/yhKInblbRe6Sp0a3tqHDado5wJO1+
- uLpck0Wyx6piRQG9PHKHj34HO6+mGu1vHveI94nwEOr6q9y+8vhRu84aOaDHt5Uj4taO
- vmIhpKdntkF8BiPWrAaVfErMrp9mzAWR7RlySY/mSLG0GUVzaFbx8DYCIs6sR063FTeK
- 5xDC2tiyTZnh0eoTi4layLJtiRMlbOog07SVfAHCo6pnA8mS0uNK4hPJWi4VEfzf/dPm
- D5kMPEE+t5XzzFX1jc/kz+St7r+jwHPaOs/vq0Ub9VfmmHI838qTK3AFNCSzvTutIo/3 xQ== 
+ bh=4d6rWR2g05rrvgH9va5u4PzJbivisDzt5rjTsvYag0c=;
+ b=Mn5mZuyzXlj2NymzhbFhc00KtzTkkm0ahpwT0N4SH1DqKDIWibBjdTV/uheKL0Cb4wm8
+ Wit1TM1nUcKCt6yD+GDGhcazOLnLkP2TTmBNfgiaU5c2I4bzIC1Y/4sgROIwC3exvoNg
+ Uum8ftOB0iMBnl6OEMC/vR4G72GZg7krklc+jb77+6sVD09+GLimo9sPEZSBfPgmFLNu
+ j+o8Ol09ny6yfspIozkypXKsk0ykIalrYsvNlm0v1Z/6JH0gorbLx4lVGD5KnRFx+AgN
+ 1qavsb0GqFFcNLcUXuVxqNkM7ODnzJGEM5hM1E2eHMTqVloBmn6yNh9NMVcYcnmrUp+w PA== 
 Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3f6kw2brwt-1
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3f6kw2brwt-2
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Tue, 05 Apr 2022 08:54:25 -0500
+ Tue, 05 Apr 2022 08:54:26 -0500
 Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
  (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Tue, 5 Apr
@@ -67,21 +67,22 @@ Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
  Frontend Transport; Tue, 5 Apr 2022 14:54:23 +0100
 Received: from AUSNPC0LSNW1-debian.cirrus.com (AUSNPC0LSNW1.ad.cirrus.com
  [198.61.65.88])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 378B8B1A;
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 9711B475;
  Tue,  5 Apr 2022 13:54:23 +0000 (UTC)
 From: Richard Fitzgerald <rf@opensource.cirrus.com>
 To: <broonie@kernel.org>
-Subject: [PATCH v2 1/5] ASoC: soc.h: Add SOC_SINGLE_S_TLV() macro
-Date: Tue, 5 Apr 2022 14:54:15 +0100
-Message-ID: <20220405135419.1230088-2-rf@opensource.cirrus.com>
+Subject: [PATCH v2 2/5] ASoC: soc-utils: Add helper to calculate BCLK from TDM
+ info
+Date: Tue, 5 Apr 2022 14:54:16 +0100
+Message-ID: <20220405135419.1230088-3-rf@opensource.cirrus.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220405135419.1230088-1-rf@opensource.cirrus.com>
 References: <20220405135419.1230088-1-rf@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: yuf6CHlyAXEpejNsxbiA-4FDRbynNDev
-X-Proofpoint-GUID: yuf6CHlyAXEpejNsxbiA-4FDRbynNDev
+X-Proofpoint-ORIG-GUID: eT3ZaaXP_DxRzllQcsDM9-C86CHR2txL
+X-Proofpoint-GUID: eT3ZaaXP_DxRzllQcsDM9-C86CHR2txL
 X-Proofpoint-Spam-Reason: safe
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
@@ -101,29 +102,105 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add a convenience macro for defining a single (mono) TLV control
-with a signed value. This can already be done by using
-SOC_DOUBLE_R_S_TLV() with the same address for left and right
-registers, but a dedicated macro is more readable.
+Add a helper function snd_soc_tdm_params_to_bclk() to calculate
+the bclk from params info and the tdm sots configuration.
+
+When using a TDM frame of N slots of width W bits:
+
+   bclk = sample_rate * N * W
+
+As a convenience to simplify calling code, if the slot count or
+slot width are 0 a value will be obtained from the params. This
+allows calling code to use this one function to handle cases of
+TDM where only one parameter is fixed, or I2S where the slot width
+is fixed (for example to set a 32-bit slot for 24-bit samples).
+
+Also as a convenience the slot count can optionally be rounded up
+to a multiple. This is mainly useful for I2S systems, since I2S has
+two phases of LRCLK the number of slots is always a multiple of 2.
 
 Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
 ---
- include/sound/soc.h | 2 ++
- 1 file changed, 2 insertions(+)
+ include/sound/soc.h   |  2 ++
+ sound/soc/soc-utils.c | 45 +++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 47 insertions(+)
 
 diff --git a/include/sound/soc.h b/include/sound/soc.h
-index d3d3a26e8867..55fb6a6d7d25 100644
+index 55fb6a6d7d25..2d3261799d2c 100644
 --- a/include/sound/soc.h
 +++ b/include/sound/soc.h
-@@ -176,6 +176,8 @@
- 	.get = snd_soc_get_volsw, .put = snd_soc_put_volsw, \
- 	.private_value = SOC_DOUBLE_R_S_VALUE(reg_left, reg_right, xshift, \
- 					    xmin, xmax, xsign_bit, xinvert) }
-+#define SOC_SINGLE_S_TLV(xname, xreg, xshift, xmin, xmax, xsign_bit, xinvert, tlv_array) \
-+	SOC_DOUBLE_R_S_TLV(xname, xreg, xreg, xshift, xmin, xmax, xsign_bit, xinvert, tlv_array)
- #define SOC_SINGLE_S8_TLV(xname, xreg, xmin, xmax, tlv_array) \
- {	.iface  = SNDRV_CTL_ELEM_IFACE_MIXER, .name = (xname), \
- 	.access = SNDRV_CTL_ELEM_ACCESS_TLV_READ | \
+@@ -487,6 +487,8 @@ int snd_soc_calc_frame_size(int sample_size, int channels, int tdm_slots);
+ int snd_soc_params_to_frame_size(struct snd_pcm_hw_params *params);
+ int snd_soc_calc_bclk(int fs, int sample_size, int channels, int tdm_slots);
+ int snd_soc_params_to_bclk(struct snd_pcm_hw_params *parms);
++int snd_soc_tdm_params_to_bclk(struct snd_pcm_hw_params *params,
++			       int tdm_width, int tdm_slots, int slot_multiple);
+ 
+ /* set runtime hw params */
+ int snd_soc_set_runtime_hwparams(struct snd_pcm_substream *substream,
+diff --git a/sound/soc/soc-utils.c b/sound/soc/soc-utils.c
+index a4efe7e52a8b..594cb311ff30 100644
+--- a/sound/soc/soc-utils.c
++++ b/sound/soc/soc-utils.c
+@@ -9,6 +9,7 @@
+ 
+ #include <linux/platform_device.h>
+ #include <linux/export.h>
++#include <linux/math.h>
+ #include <sound/core.h>
+ #include <sound/pcm.h>
+ #include <sound/pcm_params.h>
+@@ -52,6 +53,50 @@ int snd_soc_params_to_bclk(struct snd_pcm_hw_params *params)
+ }
+ EXPORT_SYMBOL_GPL(snd_soc_params_to_bclk);
+ 
++/**
++ * snd_soc_tdm_params_to_bclk - calculate bclk from params and tdm slot info.
++ *
++ * Calculate the bclk from the params sample rate and the tdm slot count and
++ * tdm slot width. Either or both of tdm_width and tdm_slots can be 0.
++ *
++ * If tdm_width == 0 and tdm_slots > 0:	the params_width will be used.
++ * If tdm_width > 0 and tdm_slots == 0:	the params_channels will be used
++ *					as the slot count.
++ * Both tdm_width and tdm_slots are 0:	this is equivalent to calling
++ *					snd_soc_params_to_bclk().
++ *
++ * If slot_multiple > 1 the slot count (or params_channels if tdm_slots == 0)
++ * will be rounded up to a multiple of this value. This is mainly useful for
++ * I2S mode, which has a left and right phase so the number of slots is always
++ * a multiple of 2.
++ *
++ * @params:        Pointer to struct_pcm_hw_params.
++ * @tdm_width:     Width in bits of the tdm slots.
++ * @tdm_slots:     Number of tdm slots per frame.
++ * @slot_multiple: If >1 roundup slot count to a multiple of this value.
++ *
++ * Return: bclk frequency in Hz, else a negative error code if params format
++ *	   is invalid.
++ */
++int snd_soc_tdm_params_to_bclk(struct snd_pcm_hw_params *params,
++			       int tdm_width, int tdm_slots, int slot_multiple)
++{
++	if (!tdm_slots)
++		tdm_slots = params_channels(params);
++
++	if (slot_multiple > 1)
++		tdm_slots = roundup(tdm_slots, slot_multiple);
++
++	if (!tdm_width) {
++		tdm_width = snd_pcm_format_width(params_format(params));
++		if (tdm_width < 0)
++			return tdm_width;
++	}
++
++	return snd_soc_calc_bclk(params_rate(params), tdm_width, 1, tdm_slots);
++}
++EXPORT_SYMBOL_GPL(snd_soc_tdm_params_to_bclk);
++
+ static const struct snd_pcm_hardware dummy_dma_hardware = {
+ 	/* Random values to keep userspace happy when checking constraints */
+ 	.info			= SNDRV_PCM_INFO_INTERLEAVED |
 -- 
 2.30.2
 

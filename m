@@ -2,74 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E02F4F2974
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 11:32:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F16854F2975
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Apr 2022 11:32:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C484C1775;
-	Tue,  5 Apr 2022 11:31:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C484C1775
+	by alsa0.perex.cz (Postfix) with ESMTPS id E296517DB;
+	Tue,  5 Apr 2022 11:32:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E296517DB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649151167;
-	bh=ZGgcCi5etsj/pvdNymelG0J+xQ3fmCGazR103cY2n40=;
+	s=default; t=1649151176;
+	bh=YypSHEp1rOHcihtmVFUWRUSVBqn1rhBtj2pQDDhyoOI=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=afhE4ah5eHd/HIZOquKYVSnv2+c6uyAstAEsm/gJd9EROq8v3wSQyj1NNdPT7Ek86
-	 yomiKX2voAiGpABMGhcoOQaoQjnEI3NhSwLJdkVJvFPwZzIYy/A5PrWXXGuPo1ey5J
-	 5pkmJQnHZe5VSSeeTlCJkhgF60iozoXmVuPcT8Do=
+	b=lJhHM2Xk7Q11FTrxxCMxwT29IReljIOsQxbmNzxr5CZ10E1XCmc+oqXGoe26z6rDr
+	 uPrdPAaDcAktTifkCDk50B6TRjQlYt/zcMHMNTE9haXAcgZNr4RgJpq+DW89wFW4HJ
+	 gL1vLl52adtZofmLCxGYOUt8hv5Pgt3XsxFl4MBg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EB58DF80482;
-	Tue,  5 Apr 2022 11:31:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C6242F8051A;
+	Tue,  5 Apr 2022 11:31:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 95032F8016E; Tue,  5 Apr 2022 11:31:09 +0200 (CEST)
+ id 99401F8016A; Tue,  5 Apr 2022 11:31:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0037BF8012C
- for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 11:31:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0037BF8012C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2DC1DF8014B
+ for <alsa-devel@alsa-project.org>; Tue,  5 Apr 2022 11:31:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DC1DF8014B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="bmWpDMVc"
+ header.b="OQgUIMa2"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8EB07616AE;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 619ACB81C6E;
+ Tue,  5 Apr 2022 09:31:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81404C385A2;
  Tue,  5 Apr 2022 09:31:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEE27C385AA;
- Tue,  5 Apr 2022 09:31:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1649151063;
- bh=ZGgcCi5etsj/pvdNymelG0J+xQ3fmCGazR103cY2n40=;
+ s=k20201202; t=1649151066;
+ bh=YypSHEp1rOHcihtmVFUWRUSVBqn1rhBtj2pQDDhyoOI=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=bmWpDMVcHwGSCkAb/6swRdsLKzarBvMsR6i9BVfhCHLHduWvSaZv+WMdmYukSvxQN
- Gk201GEFtba2J/pONgtfNY9Xdhvi8Y+VzFV1hhctltfQ/F6/wsXo8PnS6pEyqVITm5
- R2HpQVKamxUMRGn362NSS9PzFj5V9pCRezq5FR3ZmweB+mvRyuREnlJvPrxVt5m6u8
- 2hVNkIv57E23W8MGcG+934xb8huAUHfj7R1IQNlZVPuEAQaeOsh1IzBKoS+aRpvVRi
- l44Mk0shevncEXQ4eEH2aGsMxEwsZJSE8GYm8LhP+a9QIixz79A0v1hO34CxoethBf
- /zUyV8iMqWryg==
+ b=OQgUIMa2+Jl5ZN/tEN/rPzkKmhEaurR5d+v0K2yZR31kmlkdJkgvJ1UiBhBzt5RSM
+ ydqLwdVnexufAh7HFSeU/S0f2WHs6PYKrJOB1GpykjS42ntFc3btzZzVpLYEU8V481
+ 5xnHiBquaMN7puc//Amlvcf2iRbUseZUCom+xKF66Nm87x/vy11Phosp0dENqtVdkG
+ WkgGsQd1vJpfhYNB0H0g8IcYzxPeMSwSGV1XxmNF3AtxqaHR9nCMjA6iQ+TduCEobD
+ z/Dt03CLIwASXP+0esQU+i1N9gdzwE5cTKsr/P7p7sOhaxmLVUNB7FtbmJC7ECnRTw
+ yeHets5eAbOyw==
 From: Mark Brown <broonie@kernel.org>
-To: tiwai@suse.de, alsa-devel@alsa-project.org
-In-Reply-To: <20220322154826.19400-1-tiwai@suse.de>
-References: <20220322154826.19400-1-tiwai@suse.de>
-Subject: Re: [PATCH] ASoC: intel: atom: Remove superfluous
- flush_scheduled_work()
-Message-Id: <164915106170.276574.15836716587431543651.b4-ty@kernel.org>
-Date: Tue, 05 Apr 2022 10:31:01 +0100
+To: tiwai@suse.com, trevor.wu@mediatek.com, robh+dt@kernel.org,
+ matthias.bgg@gmail.com
+In-Reply-To: <20220324053851.27350-1-trevor.wu@mediatek.com>
+References: <20220324053851.27350-1-trevor.wu@mediatek.com>
+Subject: Re: [PATCH v4 0/6] ASoC: mediatek: Add support for MT8195 sound card
+ with max98390 and rt5682
+Message-Id: <164915106325.276574.14625118005435337786.b4-ty@kernel.org>
+Date: Tue, 05 Apr 2022 10:31:03 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: penguin-kernel@I-love.SAKURA.ne.jp, cezary.rojewski@intel.com,
- pierre-louis.bossart@linux.intel.com
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, tzungbi@google.com, miles.chen@mediatek.com,
+ linux-mediatek@lists.infradead.org, yc.hung@mediatek.com, aaronyu@google.com,
+ linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,13 +89,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 22 Mar 2022 16:48:26 +0100, Takashi Iwai wrote:
-> It seems that flush_scheduled_work() is called without any real
-> purpose at sst_context_cleanup() (the driver doesn't put works on the
-> global queue at all).  As the flush_schedule_work() function is going
-> to be abolished in near future, let's drop it now.
+On Thu, 24 Mar 2022 13:38:45 +0800, Trevor Wu wrote:
+> This series of patches adds support for mt8195 board with mt6359, max98390
+> and rt5682.
 > 
+> To prevent from copy-paste components, mt8195 machine drivers and
+> dt-bindings are merged in the patch.
 > 
+> Patches are based on broonie tree "for-next" branch.
+> 
+> [...]
 
 Applied to
 
@@ -99,8 +106,18 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: intel: atom: Remove superfluous flush_scheduled_work()
-      commit: 290186e14c3bbef07a6c68e689f26bf076259ee4
+[1/6] ASoC: mediatek: mt8195: revise mt8195-mt6359-rt1019-rt5682.c
+      commit: 4dbc714fe07641e7a07731f82152448ef09f3002
+[2/6] ASoC: mediatek: mt8195: merge machine driver
+      commit: 094e30efa444a118a535cb67ec000bbee9f8d150
+[3/6] ASoC: dt-bindings: mediatek: mt8195: merge mt8195 machine yaml
+      commit: dc16399078aea4c98f17aa99f0cdea9d5ac9c4a9
+[4/6] ASoC: mediatek: mt8195: rename card controls
+      commit: 3a0323c26c6720447fd5eff6495c1aea514b77d5
+[5/6] ASoC: mediatek: mt8195: add machine support for max98390 and rt5682
+      commit: 86a6b9c9dffff1bd653d582cfc5138da75e5f7b0
+[6/6] ASoC: dt-bindings: mediatek: mt8195: support mt8195-mt6359-max98390-rt5682
+      commit: cae34da5323b6ce4d0dc365d1b971f838dcff318
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

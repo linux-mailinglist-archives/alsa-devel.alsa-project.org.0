@@ -2,68 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F4494F47A4
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Apr 2022 01:42:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 775DE4F4BA8
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Apr 2022 03:05:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CA2E717A3;
-	Wed,  6 Apr 2022 01:41:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA2E717A3
+	by alsa0.perex.cz (Postfix) with ESMTPS id DBD7B1760;
+	Wed,  6 Apr 2022 03:05:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DBD7B1760
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649202165;
-	bh=OT+A+NATq+EXkOz2EBfTT8w2G7X2u5T1BQhtFjGS5Hg=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=b46MCvHYSz2RYcp24crcwEadb9O2COS8YjFHJlV+oAtneP9TtgPhHrsFCE11Z9BYx
-	 GxV5FenTKaGHpp9IB8lNOjOj8xGarQ+2sb49E94xgLcqz1F+SFa9YVfqlgyaF9PIu+
-	 jHx8JUGG4Qqu1eBEISKhqX6btCUgwpca8z1iCAu4=
+	s=default; t=1649207158;
+	bh=ZRlRd3gKnPMwhHGABcPERiIMz82HdvfvZFULEH0uKeU=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=gnW98luTKAXZaml7w4+hTMfXYihrbqUpPWQMFTeQ131AJ/PmBh/n37rtdIc8i+haB
+	 /pz+TvEa/YpVUdat5SfzQutF63tNZkl5MTKNDedrBcV2AaNVQx9uOrjOUdcRfRhufC
+	 g8AIvZC+DLRCWDntEl15UAr+gT37S5OnbJTGAFcw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 546ACF8016B;
-	Wed,  6 Apr 2022 01:41:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6B9F6F800D1;
+	Wed,  6 Apr 2022 03:05:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E3597F8016A; Wed,  6 Apr 2022 01:41:45 +0200 (CEST)
+ id 2F3A6F8016A; Wed,  6 Apr 2022 03:04:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id B6176F800D1
+ for <alsa-devel@alsa-project.org>; Wed,  6 Apr 2022 03:04:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6176F800D1
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="m3QUpTq3"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C3118F800D2
- for <alsa-devel@alsa-project.org>; Wed,  6 Apr 2022 01:41:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3118F800D2
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="fRCXkrEw"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- MIME-Version:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
- Content-ID:Content-Description:In-Reply-To:References;
- bh=Bqjzo3dRF9g7zUJGDSV93bexe38finF36uQEXO1Q6Eo=; b=fRCXkrEwv9VlqF3i5n9xEpcHOQ
- dD8CsjQZQI67uzl8Uwku21HAQ42AP38UPrbcrebkHkjbMYeaCCYtw+mbtyliiMBCcly08eIZQMtub
- vHHKUQOUdY5DQIIU80MGvObCOJ3Ib17YBDuiTuOuq+Vbd2Y23xdMQfWjaVnihN3onI6Zz9HtuEG9q
- y7udsfo4rC+7RTknUG98ZKECcgOR8AJXqS3OYBuKIUjHzrjt4WtxMmIesbIP58wUXhQX5JmC1W4aN
- NaRIOkkN5ZeQ1+LufEbHO1p5DMxt5OvHIQSZ6JY8lpmhHcOfqIidOTdW+GNKKU87fWCa04IQ304lC
- f6We2LSg==;
-Received: from [2601:1c0:6280:3f0::aa0b] (helo=bombadil.infradead.org)
- by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1nbsnY-0031Cn-28; Tue, 05 Apr 2022 23:41:20 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: linux-kernel@vger.kernel.org
-Subject: [PATCH v3] sound/oss/dmasound: fix build when drivers are mixed =y/=m
-Date: Tue,  5 Apr 2022 16:41:18 -0700
-Message-Id: <20220405234118.24830-1-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.34.1
+ by ams.source.kernel.org (Postfix) with ESMTPS id 1C22BB8201E;
+ Wed,  6 Apr 2022 01:04:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DEA8C385A1;
+ Wed,  6 Apr 2022 01:04:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1649207089;
+ bh=ZRlRd3gKnPMwhHGABcPERiIMz82HdvfvZFULEH0uKeU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=m3QUpTq3qLgqgS+okjKB46lmEkQN5K2jrohyioql6n3wK0PaAYfURRz90lv2Jigui
+ It7xoI18022b6ndfbDYzk3sOmWLLbwPnvCOrk3P+4YXj48666dLILFHnX9lb49kdJl
+ 35fnsDWO/AeR69LIyWTIHrgucqpestGuJO3h9H2om6d87AWd+dgjIJ9I8WU9c7k5va
+ SO8PGrnXZLwKjEzpQ4g1Pb5+tW6c6CZstX3EbBqXgmD6Io6ZQqEOKnEybcSc1qn3pg
+ 18y8D2iICLlsqx9F3lFwwiqflmVWdxQcBGXHYqx3DZd+NUszTfOKZa2WwAphykzAQr
+ 84rTT0ERDFImw==
+Date: Wed, 6 Apr 2022 09:04:42 +0800
+From: Shawn Guo <shawnguo@kernel.org>
+To: Ariel D'Alessandro <ariel.dalessandro@collabora.com>
+Subject: Re: [PATCH v4] arm64: dts: imx8mn-bsh-smm-s2pro: Add tlv320aic31xx
+ audio card node
+Message-ID: <20220406010442.GB129381@dragon>
+References: <20220323135601.42435-1-ariel.dalessandro@collabora.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, kernel test robot <lkp@intel.com>,
- Arnd Bergmann <arnd@arndb.de>, Randy Dunlap <rdunlap@infradead.org>,
- Takashi Iwai <tiwai@suse.com>, Geert Uytterhoeven <geert@linux-m68k.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220323135601.42435-1-ariel.dalessandro@collabora.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ krzysztof.kozlowski@canonical.com, s.hauer@pengutronix.de,
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org, lgirdwood@gmail.com,
+ broonie@kernel.org, linux-imx@nxp.com, kernel@pengutronix.de,
+ michael@amarulasolutions.com, festevam@gmail.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,165 +90,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When CONFIG_DMASOUND_ATARI=m and CONFIG_DMASOUND_Q40=y (or vice versa),
-dmasound_core.o can be built without dmasound_deinit() being defined,
-causing a build error:
+On Wed, Mar 23, 2022 at 10:56:01AM -0300, Ariel D'Alessandro wrote:
+> BSH SystemMaster (SMM) S2 PRO board comes with an audio card based on
+> tlv320aic31xx family codec.
+> 
+> The audio card exposes two playback devices, one of them using the EASRC
+> (Enhanced Asynchronous Sample Rate Converter) module. Note that this
+> would require SDMA and EASRC firmware in order to work.
+> 
+> Signed-off-by: Ariel D'Alessandro <ariel.dalessandro@collabora.com>
+> Signed-off-by: Michael Trimarchi <michael@amarulasolutions.com>
 
-ERROR: modpost: "dmasound_deinit" [sound/oss/dmasound/dmasound_atari.ko] undefined!
-
-Modify dmasound_core.c and dmasound.h so that dmasound_deinit() is
-always available.
-
-The mixed modes (=y/=m) also mean that several variables and structs
-have to be declared in all cases.
-
-Suggested-by: Arnd Bergmann <arnd@arndb.de>
-Suggested-by: Geert Uytterhoeven <geert@linux-m68k.org>
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-Reported-by: kernel test robot <lkp@intel.com>
-Link: lore.kernel.org/r/202204032138.EFT9qGEd-lkp@intel.com
-Cc: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>
-Cc: alsa-devel@alsa-project.org
----
-v3: Remove use of #ifdef MODULE/#endif since the conditional data & code
-    need to be there for some of the cases. (Geert)
-v2: make dmasound_deinit() defined and available in all configs (Arnd)
-
-@Geert: any way to test this?
-
-#Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-
- sound/oss/dmasound/dmasound.h      |    6 ------
- sound/oss/dmasound/dmasound_core.c |   24 +-----------------------
- 2 files changed, 1 insertion(+), 29 deletions(-)
-
---- a/sound/oss/dmasound/dmasound_core.c
-+++ b/sound/oss/dmasound/dmasound_core.c
-@@ -206,12 +206,10 @@ module_param(writeBufSize, int, 0);
- 
- MODULE_LICENSE("GPL");
- 
--#ifdef MODULE
- static int sq_unit = -1;
- static int mixer_unit = -1;
- static int state_unit = -1;
- static int irq_installed;
--#endif /* MODULE */
- 
- /* control over who can modify resources shared between play/record */
- static fmode_t shared_resource_owner;
-@@ -391,9 +389,6 @@ static const struct file_operations mixe
- 
- static void mixer_init(void)
- {
--#ifndef MODULE
--	int mixer_unit;
--#endif
- 	mixer_unit = register_sound_mixer(&mixer_fops, -1);
- 	if (mixer_unit < 0)
- 		return;
-@@ -1171,9 +1166,6 @@ static const struct file_operations sq_f
- static int sq_init(void)
- {
- 	const struct file_operations *fops = &sq_fops;
--#ifndef MODULE
--	int sq_unit;
--#endif
- 
- 	sq_unit = register_sound_dsp(fops, -1);
- 	if (sq_unit < 0) {
-@@ -1366,9 +1358,6 @@ static const struct file_operations stat
- 
- static int state_init(void)
- {
--#ifndef MODULE
--	int state_unit;
--#endif
- 	state_unit = register_sound_special(&state_fops, SND_DEV_STATUS);
- 	if (state_unit < 0)
- 		return state_unit ;
-@@ -1386,10 +1375,9 @@ static int state_init(void)
- int dmasound_init(void)
- {
- 	int res ;
--#ifdef MODULE
-+
- 	if (irq_installed)
- 		return -EBUSY;
--#endif
- 
- 	/* Set up sound queue, /dev/audio and /dev/dsp. */
- 
-@@ -1408,9 +1396,7 @@ int dmasound_init(void)
- 		printk(KERN_ERR "DMA sound driver: Interrupt initialization failed\n");
- 		return -ENODEV;
- 	}
--#ifdef MODULE
- 	irq_installed = 1;
--#endif
- 
- 	printk(KERN_INFO "%s DMA sound driver rev %03d installed\n",
- 		dmasound.mach.name, (DMASOUND_CORE_REVISION<<4) +
-@@ -1424,8 +1410,6 @@ int dmasound_init(void)
- 	return 0;
- }
- 
--#ifdef MODULE
--
- void dmasound_deinit(void)
- {
- 	if (irq_installed) {
-@@ -1444,8 +1428,6 @@ void dmasound_deinit(void)
- 		unregister_sound_dsp(sq_unit);
- }
- 
--#else /* !MODULE */
--
- static int dmasound_setup(char *str)
- {
- 	int ints[6], size;
-@@ -1489,8 +1471,6 @@ static int dmasound_setup(char *str)
- 
- __setup("dmasound=", dmasound_setup);
- 
--#endif /* !MODULE */
--
-     /*
-      *  Conversion tables
-      */
-@@ -1577,9 +1557,7 @@ char dmasound_alaw2dma8[] = {
- 
- EXPORT_SYMBOL(dmasound);
- EXPORT_SYMBOL(dmasound_init);
--#ifdef MODULE
- EXPORT_SYMBOL(dmasound_deinit);
--#endif
- EXPORT_SYMBOL(dmasound_write_sq);
- EXPORT_SYMBOL(dmasound_catchRadius);
- #ifdef HAS_8BIT_TABLES
---- a/sound/oss/dmasound/dmasound.h
-+++ b/sound/oss/dmasound/dmasound.h
-@@ -88,11 +88,7 @@ static inline int ioctl_return(int __use
-      */
- 
- extern int dmasound_init(void);
--#ifdef MODULE
- extern void dmasound_deinit(void);
--#else
--#define dmasound_deinit()	do { } while (0)
--#endif
- 
- /* description of the set-up applies to either hard or soft settings */
- 
-@@ -114,9 +110,7 @@ typedef struct {
-     void *(*dma_alloc)(unsigned int, gfp_t);
-     void (*dma_free)(void *, unsigned int);
-     int (*irqinit)(void);
--#ifdef MODULE
-     void (*irqcleanup)(void);
--#endif
-     void (*init)(void);
-     void (*silence)(void);
-     int (*setFormat)(int);
+Applied, thanks!

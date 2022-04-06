@@ -2,87 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDEAF4F5A64
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Apr 2022 12:02:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5FFA4F5A6C
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Apr 2022 12:06:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 599AD16CD;
-	Wed,  6 Apr 2022 12:01:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 599AD16CD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5290016CD;
+	Wed,  6 Apr 2022 12:05:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5290016CD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649239347;
-	bh=jOfeicbw/JScyVhh53psjDYGnbIZcXcpErltoVQ17I0=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=W4fLyjUFbNOFFEPbl3dVUnf9lbOalu5bJb9P4qao2oyOuCn60uo7sLzkNPAoYQ27D
-	 CgwQL4OyRUtn4I+VeebZpzk4sAxjHHLOZmf7cxfTyVbYFnu2H7YlgnQlB/28m/4aQT
-	 ACQBVMr6nI/wJpcvEDtxyw2nqNGVki3HjUdPkjRc=
+	s=default; t=1649239591;
+	bh=scQldvv1iDZqwEABi2JwZtUs+cWKBfJamX0Y/iXprPw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Cq6sgsJoOR+vTFHII9dFFUy7cJHs2H7UxgMwpCscDHm+qERkxulfM0lq/bbApL6z+
+	 7jZC0M59vmfpE/JLBtaP2H139GgLEWYq4SCMJ2/CJL321XddWEmOjSro+94xxs2Rk5
+	 LKWs/h1PaFW6at+y7790IyIBih+b3g5tA6JgHXPA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D7387F8019B;
-	Wed,  6 Apr 2022 12:01:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CFC02F800D1;
+	Wed,  6 Apr 2022 12:05:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F06FBF80161; Wed,  6 Apr 2022 12:01:27 +0200 (CEST)
+ id D1256F800D1; Wed,  6 Apr 2022 12:05:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY autolearn=disabled
+ version=3.4.0
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6408FF80054
- for <alsa-devel@alsa-project.org>; Wed,  6 Apr 2022 12:01:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6408FF80054
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="iNLU6lLl"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 2369U3LH017684;
- Wed, 6 Apr 2022 05:01:23 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=sPI0KE262NMl5/Dd//VQ2u+CPs7TTFSV0fZrVrMi8pU=;
- b=iNLU6lLlA9LTbz034bLu9e6yO6hks9uAqdmCLlJX/mwQ0QGVovSOjUQd6WgtxyGUAP2f
- KhCuWjYST7x/EdMjbHQY+H7XS4mMp/x+UUSA6uycll49gM4o1/AZ5BTZRa0/99B93gnV
- sL3LkzqXpjJ10jG1jJT9IGyNdqivhIA9P+s1i1GqPKdHIZ0TOa2sM0H6SwgRybffJJ0M
- r6B5dDYW7iBwfHjKNqcvR5L2r2E5S4XVJhwDomzrooW3poVTteiXc5Yf6p0pTejiO6PE
- eH9waaxewp6EuafkhGkwjn+u9vQ3NVSvteYe0MP7UZ9IT18im9QgZxR5bk4FNd5Iziqu hQ== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3f6jwnvryv-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Wed, 06 Apr 2022 05:01:23 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Wed, 6 Apr
- 2022 11:01:21 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.24 via
- Frontend Transport; Wed, 6 Apr 2022 11:01:21 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id A8E0FB1A;
- Wed,  6 Apr 2022 10:01:21 +0000 (UTC)
-Date: Wed, 6 Apr 2022 10:01:21 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Zheyu Ma <zheyuma97@gmail.com>
-Subject: Re: [PATCH] ASoC: wm8731: Disable the regulator when probing fails
-Message-ID: <20220406100121.GV38351@ediswmail.ad.cirrus.com>
-References: <20220405121038.4094051-1-zheyuma97@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 44650F800D1
+ for <alsa-devel@alsa-project.org>; Wed,  6 Apr 2022 12:05:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44650F800D1
+X-UUID: e083e76070ff486d94d015fd75f891d4-20220406
+X-UUID: e083e76070ff486d94d015fd75f891d4-20220406
+Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw01.mediatek.com
+ (envelope-from <jiaxin.yu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 487573804; Wed, 06 Apr 2022 18:05:18 +0800
+Received: from mtkcas11.mediatek.inc (172.21.101.40) by
+ mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.792.3; 
+ Wed, 6 Apr 2022 18:05:16 +0800
+Received: from localhost.localdomain (10.17.3.154) by mtkcas11.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Wed, 6 Apr 2022 18:05:16 +0800
+From: Jiaxin Yu <jiaxin.yu@mediatek.com>
+To: <broonie@kernel.org>, <robh+dt@kernel.org>, <nfraprado@collabora.com>,
+ <tzungbi@google.com>
+Subject: [v9 0/4] ASoC: mediatek: mt8192: support rt1015p_rt5682s
+Date: Wed, 6 Apr 2022 18:05:10 +0800
+Message-ID: <20220406100514.11269-1-jiaxin.yu@mediatek.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20220405121038.4094051-1-zheyuma97@gmail.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-ORIG-GUID: S2HnYa2CZmleDIUjLpESqyKuo9NJ9nV_
-X-Proofpoint-GUID: S2HnYa2CZmleDIUjLpESqyKuo9NJ9nV_
-X-Proofpoint-Spam-Reason: safe
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com, tiwai@suse.com,
- lgirdwood@gmail.com, broonie@kernel.org, linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
+Cc: devicetree@vger.kernel.org, linmq006@gmail.com, alsa-devel@alsa-project.org,
+ Jiaxin Yu <jiaxin.yu@mediatek.com>, linux-kernel@vger.kernel.org,
+ Project_Global_Chrome_Upstream_Group@mediatek.com,
+ linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
+ matthias.bgg@gmail.com, aaronyu@google.com,
+ linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,27 +81,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Apr 05, 2022 at 08:10:38PM +0800, Zheyu Ma wrote:
-> When the driver fails during probing, the driver should disable the
-> regulator, not just handle it in wm8731_hw_init().
-> 
-> The following log reveals it:
-> 
-> [   17.812483] WARNING: CPU: 1 PID: 364 at drivers/regulator/core.c:2257 _regulator_put+0x3ec/0x4e0
-> [   17.815958] RIP: 0010:_regulator_put+0x3ec/0x4e0
-> [   17.824467] Call Trace:
-> [   17.824774]  <TASK>
-> [   17.825040]  regulator_bulk_free+0x82/0xe0
-> [   17.825514]  devres_release_group+0x319/0x3d0
-> [   17.825882]  i2c_device_probe+0x766/0x940
-> [   17.829198]  i2c_register_driver+0xb5/0x130
-> 
-> Signed-off-by: Zheyu Ma <zheyuma97@gmail.com>
-> ---
+The series reuses mt8192-mt6359-rt1015-rt5682.c for supporting machine
+driver with rt1015p speaker amplifier and rt5682s headset codec.
 
-Mark just merged a big chain overhauling a lot of this driver, at
-the very least this patch is going to require a rebase on top of
-that lot.
+Changes from v8:
+  - fix typos.
 
-Thanks,
-Charles
+Changes from v7:
+  - "mediatek,hdmi-codec" is an optional property, the code and the
+    binding document should match.
+
+Changes from v6:
+  - "speaker-codec" changes to "speaker-codecs" due to there may be two
+    speaker codec.
+
+Changes from v5:
+  - "mediatek,headset-codec" and "mediatek,speaker-codec" drop prefix
+    and move to properties from patternProperties.
+
+Changes form v4:
+  - split a large patch into three small patches for easy reviewing
+  - correct coding style
+
+Changes from v3:
+  - fix build error: too many arguments for format
+    [-Werror-format-extra-args]
+
+Changes from v2:
+  - fix build warnings such as "data argument not used by format string"
+
+Changes from v1:
+  - uses the snd_soc_of_get_dai_link_codecs to complete the
+  configuration of dai_link's codecs
+  - uses definitions to simplifies card name and compatible name
+
+Jiaxin Yu (4):
+  ASoC: dt-bindings: mt8192-mt6359: add new compatible and new
+    properties
+  ASoC: mediatek: mt8192: refactor for I2S3 DAI link of speaker
+  ASoC: mediatek: mt8192: refactor for I2S8/I2S9 DAI links of headset
+  ASoC: mediatek: mt8192: support rt1015p_rt5682s
+
+ .../sound/mt8192-mt6359-rt1015-rt5682.yaml    |  32 +++
+ sound/soc/mediatek/Kconfig                    |   1 +
+ .../mt8192/mt8192-mt6359-rt1015-rt5682.c      | 199 +++++++++++-------
+ 3 files changed, 153 insertions(+), 79 deletions(-)
+
+-- 
+2.25.1
+

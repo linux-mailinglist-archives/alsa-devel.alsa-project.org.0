@@ -2,72 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DAAE4F5A71
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Apr 2022 12:07:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C7014F5C96
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Apr 2022 13:48:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EEDC216FF;
-	Wed,  6 Apr 2022 12:06:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EEDC216FF
+	by alsa0.perex.cz (Postfix) with ESMTPS id EA7DC16DE;
+	Wed,  6 Apr 2022 13:47:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA7DC16DE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649239669;
-	bh=IX1AiYPNESNDN4XNKpJwVPP3zsCBvsRvVEb/M0nbzpY=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1649245691;
+	bh=tXPhpgNGH81XCO0weHduJUeybFGlON6eNoh3yO+cW0w=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=svyo6jG/2Gb0G9aY5trqQ/rrovs2SCCIuvssCMOr9WAHUYbl2wQNDP747xlMBdlX7
-	 8vEccpmhdPNdc4lgyEcrDr5DwNFkhbSXRk7wO0KUY984L7JMPPv1zlmEu/5X8eRIgb
-	 Dj+KTktimKXiJX+457FMVSJCTNXf48abR7Au4gt4=
+	b=CoVWNfTFjVBeCCeqDf6gBq3hmujAJJ44/rLRgbQy1LPMSYozqwVH00UtzsrrFhg0z
+	 T0pWeB5HyDgxTBs/j0QKmFvsJLNTMdDxP70jCaV5y9IErDSt4aAHb1VZRqHlKg/M07
+	 ed8VsRbDnNvs1BCqfTl6C8Yn8Q4TEmF1XccuLNvc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7C10EF8051B;
-	Wed,  6 Apr 2022 12:06:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 594C1F8019B;
+	Wed,  6 Apr 2022 13:47:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E81CCF8051F; Wed,  6 Apr 2022 12:06:23 +0200 (CEST)
+ id BF636F80161; Wed,  6 Apr 2022 13:47:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-qt1-x836.google.com (mail-qt1-x836.google.com
+ [IPv6:2607:f8b0:4864:20::836])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 08839F80475
- for <alsa-devel@alsa-project.org>; Wed,  6 Apr 2022 12:05:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08839F80475
-X-UUID: 95c2eb6cf8af432bb27dcc2009b10b31-20220406
-X-UUID: 95c2eb6cf8af432bb27dcc2009b10b31-20220406
-Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw02.mediatek.com
- (envelope-from <jiaxin.yu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 2147457778; Wed, 06 Apr 2022 18:05:22 +0800
-Received: from mtkcas11.mediatek.inc (172.21.101.40) by
- mtkmbs07n1.mediatek.inc (172.21.101.16) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Wed, 6 Apr 2022 18:05:21 +0800
-Received: from localhost.localdomain (10.17.3.154) by mtkcas11.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Wed, 6 Apr 2022 18:05:20 +0800
-From: Jiaxin Yu <jiaxin.yu@mediatek.com>
-To: <broonie@kernel.org>, <robh+dt@kernel.org>, <nfraprado@collabora.com>,
- <tzungbi@google.com>
-Subject: [v9 4/4] ASoC: mediatek: mt8192: support rt1015p_rt5682s
-Date: Wed, 6 Apr 2022 18:05:14 +0800
-Message-ID: <20220406100514.11269-5-jiaxin.yu@mediatek.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220406100514.11269-1-jiaxin.yu@mediatek.com>
-References: <20220406100514.11269-1-jiaxin.yu@mediatek.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 31CABF800D1
+ for <alsa-devel@alsa-project.org>; Wed,  6 Apr 2022 13:46:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31CABF800D1
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="LxwYZdZS"
+Received: by mail-qt1-x836.google.com with SMTP id t2so3719508qtw.9
+ for <alsa-devel@alsa-project.org>; Wed, 06 Apr 2022 04:46:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=S2Nl3JdFZ9VubeYR4Ev6cWdmlBon32kGwXYpk8+f+RA=;
+ b=LxwYZdZSrG1ZSZvC2j8L0ROB7bO/fcPauFWQzgzYZkcS1eg/uCAijF+Joo4OwntqkZ
+ rcQivVbZym4PiF+XPOFaO7G4FmTEXfTaIg1XLwJaK2twNfyDERqLyUXxKA4D1EErbPuO
+ gs+g70xOC/wdqS/6HPYswjFO708psNS+GggSWheX30ynHPJ77IRxM5I7Kue97yGG+JYs
+ 6lyngVmzcaJwS8UpWoU38j2aPBaTtWKTD7S7JQ5ZOSGSLCLcBAOSXUdp47MK8g7fRLtc
+ 9DwmSfGTKb9eki9cE0gE/6S+6SNNfVf0CF5WaLlw3iEdZHX+el5CS6zGiiFkbChDq5RV
+ FEuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=S2Nl3JdFZ9VubeYR4Ev6cWdmlBon32kGwXYpk8+f+RA=;
+ b=r3Id9SS6VkQo44eOrZdsKmstmRQkxh3XZ5TBrVtM/WJDKm+q+J2UBcB7KEc6CcWW8F
+ 8WKWqOhTUBizY3DgWRLbOqBEOAnuOPTySPVyMAf/Ad/DyxmO9OqHNQeZzcxtzdAElrd7
+ ENkqDwM56YCxFHr/cOxznbsfoCg/nwdFH9qGQhBiaWtIjWJqdvmjsDbGeQH35kcbvkwG
+ lFVAcWHREcX0w+edfFWKdupH+a/pcefAZi7I/POUY+J4iztAf3xJwybpM96Ij08Tno2S
+ PkZl8xeA4sVBVbqds3pE2q/YMT6XXMKSb/CQreHKQNhbXJeTnZowifoUDJx5impaNSEX
+ W+ow==
+X-Gm-Message-State: AOAM530R3IypgUl/SZGFjZBqJD9yTGL1ym1JjUFnPXKY3DlpN+0mjM/v
+ RJea3lht5pKQwfmjNPU5k1/CtLR9rYAVUF/6xOA=
+X-Google-Smtp-Source: ABdhPJwudmIThBJ67fOrCNhkhLGMOleJ/iIuMroubZ2D8FO7Q+AKvzRxzMScGMUrHG1Tyju1bTr6aH3JI8PdykEuT0M=
+X-Received: by 2002:a37:a28e:0:b0:67b:eac:e839 with SMTP id
+ l136-20020a37a28e000000b0067b0eace839mr5275153qke.80.1649245617996; Wed, 06
+ Apr 2022 04:46:57 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MTK: N
-Cc: devicetree@vger.kernel.org, linmq006@gmail.com, alsa-devel@alsa-project.org,
- Jiaxin Yu <jiaxin.yu@mediatek.com>, linux-kernel@vger.kernel.org,
- Project_Global_Chrome_Upstream_Group@mediatek.com,
- linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
- Tzung-Bi Shih <tzungbi@kernel.org>, matthias.bgg@gmail.com, aaronyu@google.com,
- linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
+References: <20220405155731.745413-1-a.fatoum@pengutronix.de>
+In-Reply-To: <20220405155731.745413-1-a.fatoum@pengutronix.de>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Wed, 6 Apr 2022 19:46:47 +0800
+Message-ID: <CAA+D8AMapYEGiiXjM84U90WcRwu3nMjXuZKPn3sQh9-y+AXg4w@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: fsl_sai: fix 1:1 bclk:mclk ratio support
+To: Ahmad Fatoum <a.fatoum@pengutronix.de>
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: alsa-devel@alsa-project.org, Sascha Hauer <kernel@pengutronix.de>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Viorel Suman <viorel.suman@nxp.com>,
+ Fabio Estevam <festevam@gmail.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,180 +101,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-To support machine that only choose one of the rt5682s and rt5682 as
-headset codec, adds new compatible string "mt8192_mt6359_rt1015p_rt5682s".
-Meanwhile, using macros to simplifies card name and compatible name.
+On Tue, Apr 5, 2022 at 11:58 PM Ahmad Fatoum <a.fatoum@pengutronix.de>
+wrote:
 
-Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
-Reviewed-by: Tzung-Bi Shih <tzungbi@kernel.org>
----
- sound/soc/mediatek/Kconfig                    |  1 +
- .../mt8192/mt8192-mt6359-rt1015-rt5682.c      | 61 ++++++++++++-------
- 2 files changed, 40 insertions(+), 22 deletions(-)
+> Refactoring in commit a50b7926d015 ("ASoC: fsl_sai: implement 1:1
+> bclk:mclk ratio support") led to the bypass never happening
+> as (ratio = 1) was caught in the existing if (ratio & 1) continue;
+> check. The correct check sequence instead is:
+>
+>  - skip all ratios lower than one and higher than 512
+>  - skip all odd ratios except for 1:1
+>  - skip 1:1 ratio if and only if !support_1_1_ratio
+>
+> And for all others, calculate the appropriate divider. Adjust the
+> code to facilitate this.
+>
+> Fixes: a50b7926d015 ("ASoC: fsl_sai: implement 1:1 bclk:mclk ratio
+> support")
+> Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
+>
 
-diff --git a/sound/soc/mediatek/Kconfig b/sound/soc/mediatek/Kconfig
-index ae838bbc7933..9e5ce1a82639 100644
---- a/sound/soc/mediatek/Kconfig
-+++ b/sound/soc/mediatek/Kconfig
-@@ -179,6 +179,7 @@ config SND_SOC_MT8192_MT6359_RT1015_RT5682
- 	select SND_SOC_RT1015
- 	select SND_SOC_RT1015P
- 	select SND_SOC_RT5682_I2C
-+	select SND_SOC_RT5682S
- 	select SND_SOC_DMIC
- 	help
- 	  This adds ASoC driver for Mediatek MT8192 boards
-diff --git a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
-index 4a11f687d416..2c71bd8a2db8 100644
---- a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
-+++ b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
-@@ -28,6 +28,14 @@
- #define RT1015_DEV0_NAME	"rt1015.1-0028"
- #define RT1015_DEV1_NAME	"rt1015.1-0029"
- 
-+#define RT1015_RT5682_CARD_NAME "mt8192_mt6359_rt1015_rt5682"
-+#define RT1015P_RT5682_CARD_NAME "mt8192_mt6359_rt1015p_rt5682"
-+#define RT1015P_RT5682S_CARD_NAME "mt8192_mt6359_rt1015p_rt5682s"
-+
-+#define RT1015_RT5682_OF_NAME "mediatek,mt8192_mt6359_rt1015_rt5682"
-+#define RT1015P_RT5682_OF_NAME "mediatek,mt8192_mt6359_rt1015p_rt5682"
-+#define RT1015P_RT5682S_OF_NAME "mediatek,mt8192_mt6359_rt1015p_rt5682s"
-+
- struct mt8192_mt6359_priv {
- 	struct snd_soc_jack headset_jack;
- 	struct snd_soc_jack hdmi_jack;
-@@ -68,8 +76,8 @@ static int mt8192_rt1015_i2s_hw_params(struct snd_pcm_substream *substream,
- 	return snd_soc_dai_set_sysclk(cpu_dai, 0, mclk_fs, SND_SOC_CLOCK_OUT);
- }
- 
--static int mt8192_rt5682_i2s_hw_params(struct snd_pcm_substream *substream,
--				       struct snd_pcm_hw_params *params)
-+static int mt8192_rt5682x_i2s_hw_params(struct snd_pcm_substream *substream,
-+					struct snd_pcm_hw_params *params)
- {
- 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_card *card = rtd->card;
-@@ -118,8 +126,8 @@ static const struct snd_soc_ops mt8192_rt1015_i2s_ops = {
- 	.hw_params = mt8192_rt1015_i2s_hw_params,
- };
- 
--static const struct snd_soc_ops mt8192_rt5682_i2s_ops = {
--	.hw_params = mt8192_rt5682_i2s_hw_params,
-+static const struct snd_soc_ops mt8192_rt5682x_i2s_ops = {
-+	.hw_params = mt8192_rt5682x_i2s_hw_params,
- };
- 
- static int mt8192_mt6359_mtkaif_calibration(struct snd_soc_pcm_runtime *rtd)
-@@ -950,7 +958,7 @@ static struct snd_soc_dai_link mt8192_mt6359_dai_links[] = {
- 		.init = mt8192_rt5682_init,
- 		.be_hw_params_fixup = mt8192_i2s_hw_params_fixup,
- 		SND_SOC_DAILINK_REG(i2s8),
--		.ops = &mt8192_rt5682_i2s_ops,
-+		.ops = &mt8192_rt5682x_i2s_ops,
- 	},
- 	{
- 		.name = "I2S9",
-@@ -959,7 +967,7 @@ static struct snd_soc_dai_link mt8192_mt6359_dai_links[] = {
- 		.ignore_suspend = 1,
- 		.be_hw_params_fixup = mt8192_i2s_hw_params_fixup,
- 		SND_SOC_DAILINK_REG(i2s9),
--		.ops = &mt8192_rt5682_i2s_ops,
-+		.ops = &mt8192_rt5682x_i2s_ops,
- 	},
- 	{
- 		.name = "CONNSYS_I2S",
-@@ -1039,7 +1047,7 @@ static struct snd_soc_codec_conf rt1015_amp_conf[] = {
- };
- 
- static struct snd_soc_card mt8192_mt6359_rt1015_rt5682_card = {
--	.name = "mt8192_mt6359_rt1015_rt5682",
-+	.name = RT1015_RT5682_CARD_NAME,
- 	.owner = THIS_MODULE,
- 	.dai_link = mt8192_mt6359_dai_links,
- 	.num_links = ARRAY_SIZE(mt8192_mt6359_dai_links),
-@@ -1053,14 +1061,13 @@ static struct snd_soc_card mt8192_mt6359_rt1015_rt5682_card = {
- 	.num_configs = ARRAY_SIZE(rt1015_amp_conf),
- };
- 
--static const struct snd_soc_dapm_widget
--mt8192_mt6359_rt1015p_rt5682_widgets[] = {
-+static const struct snd_soc_dapm_widget mt8192_mt6359_rt1015p_rt5682x_widgets[] = {
- 	SND_SOC_DAPM_SPK("Speakers", NULL),
- 	SND_SOC_DAPM_HP("Headphone Jack", NULL),
- 	SND_SOC_DAPM_MIC("Headset Mic", NULL),
- };
- 
--static const struct snd_soc_dapm_route mt8192_mt6359_rt1015p_rt5682_routes[] = {
-+static const struct snd_soc_dapm_route mt8192_mt6359_rt1015p_rt5682x_routes[] = {
- 	/* speaker */
- 	{ "Speakers", NULL, "Speaker" },
- 	/* headset */
-@@ -1069,23 +1076,22 @@ static const struct snd_soc_dapm_route mt8192_mt6359_rt1015p_rt5682_routes[] = {
- 	{ "IN1P", NULL, "Headset Mic" },
- };
- 
--static const struct snd_kcontrol_new mt8192_mt6359_rt1015p_rt5682_controls[] = {
-+static const struct snd_kcontrol_new mt8192_mt6359_rt1015p_rt5682x_controls[] = {
- 	SOC_DAPM_PIN_SWITCH("Speakers"),
- 	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
- 	SOC_DAPM_PIN_SWITCH("Headset Mic"),
- };
- 
--static struct snd_soc_card mt8192_mt6359_rt1015p_rt5682_card = {
--	.name = "mt8192_mt6359_rt1015p_rt5682",
-+static struct snd_soc_card mt8192_mt6359_rt1015p_rt5682x_card = {
- 	.owner = THIS_MODULE,
- 	.dai_link = mt8192_mt6359_dai_links,
- 	.num_links = ARRAY_SIZE(mt8192_mt6359_dai_links),
--	.controls = mt8192_mt6359_rt1015p_rt5682_controls,
--	.num_controls = ARRAY_SIZE(mt8192_mt6359_rt1015p_rt5682_controls),
--	.dapm_widgets = mt8192_mt6359_rt1015p_rt5682_widgets,
--	.num_dapm_widgets = ARRAY_SIZE(mt8192_mt6359_rt1015p_rt5682_widgets),
--	.dapm_routes = mt8192_mt6359_rt1015p_rt5682_routes,
--	.num_dapm_routes = ARRAY_SIZE(mt8192_mt6359_rt1015p_rt5682_routes),
-+	.controls = mt8192_mt6359_rt1015p_rt5682x_controls,
-+	.num_controls = ARRAY_SIZE(mt8192_mt6359_rt1015p_rt5682x_controls),
-+	.dapm_widgets = mt8192_mt6359_rt1015p_rt5682x_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(mt8192_mt6359_rt1015p_rt5682x_widgets),
-+	.dapm_routes = mt8192_mt6359_rt1015p_rt5682x_routes,
-+	.num_dapm_routes = ARRAY_SIZE(mt8192_mt6359_rt1015p_rt5682x_routes),
- };
- 
- static int mt8192_mt6359_card_set_be_link(struct snd_soc_card *card,
-@@ -1119,6 +1125,13 @@ static int mt8192_mt6359_dev_probe(struct platform_device *pdev)
- 		return -EINVAL;
- 	card->dev = &pdev->dev;
- 
-+	if (of_device_is_compatible(pdev->dev.of_node, RT1015P_RT5682_OF_NAME))
-+		card->name = RT1015P_RT5682_CARD_NAME;
-+	else if (of_device_is_compatible(pdev->dev.of_node, RT1015P_RT5682S_OF_NAME))
-+		card->name = RT1015P_RT5682S_CARD_NAME;
-+	else
-+		dev_dbg(&pdev->dev, "No need to set card name\n");
-+
- 	hdmi_codec = of_parse_phandle(pdev->dev.of_node, "mediatek,hdmi-codec", 0);
- 	if (!hdmi_codec)
- 		dev_dbg(&pdev->dev, "The machine has no hdmi-codec\n");
-@@ -1209,12 +1222,16 @@ static int mt8192_mt6359_dev_probe(struct platform_device *pdev)
- #ifdef CONFIG_OF
- static const struct of_device_id mt8192_mt6359_dt_match[] = {
- 	{
--		.compatible = "mediatek,mt8192_mt6359_rt1015_rt5682",
-+		.compatible = RT1015_RT5682_OF_NAME,
- 		.data = &mt8192_mt6359_rt1015_rt5682_card,
- 	},
- 	{
--		.compatible = "mediatek,mt8192_mt6359_rt1015p_rt5682",
--		.data = &mt8192_mt6359_rt1015p_rt5682_card,
-+		.compatible = RT1015P_RT5682_OF_NAME,
-+		.data = &mt8192_mt6359_rt1015p_rt5682x_card,
-+	},
-+	{
-+		.compatible = RT1015P_RT5682S_OF_NAME,
-+		.data = &mt8192_mt6359_rt1015p_rt5682x_card,
- 	},
- 	{}
- };
--- 
-2.25.1
+Acked-by: Shengjiu Wang <shengjiu.wang@gmail.com>
 
+Best regards
+Wang shengjiu
+
+
+> ---
+>  sound/soc/fsl/fsl_sai.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
+> index a992d51568cc..50c377f16097 100644
+> --- a/sound/soc/fsl/fsl_sai.c
+> +++ b/sound/soc/fsl/fsl_sai.c
+> @@ -372,7 +372,7 @@ static int fsl_sai_set_bclk(struct snd_soc_dai *dai,
+> bool tx, u32 freq)
+>                         continue;
+>                 if (ratio == 1 && !support_1_1_ratio)
+>                         continue;
+> -               else if (ratio & 1)
+> +               if ((ratio & 1) && ratio > 1)
+>                         continue;
+>
+>                 diff = abs((long)clk_rate - ratio * freq);
+> --
+> 2.30.2
+>
+>

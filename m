@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E43374F6006
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Apr 2022 15:31:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DEA6B4F6008
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Apr 2022 15:31:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 90083170D;
-	Wed,  6 Apr 2022 15:30:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90083170D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7BC0D1720;
+	Wed,  6 Apr 2022 15:31:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BC0D1720
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649251893;
-	bh=ZZeh6zTDcFwtbxD5va/nJQyyLywroM+cwhGSFxHPOY8=;
+	s=default; t=1649251912;
+	bh=HlOW/rtcooRbC/awUJEDc/IhUFjAooRRWlUwyIeWzk0=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LKbjpBwOOwQrDVIZZIpgnRBKkPRZ0r+38vkpRCvTXMV7NywkNCObOgPgYoXwJbTz+
-	 KaP/Ytn/W73TUjRYHoXxKPnlZxqmnDPQxMUVyBGPARh/UFRDmVriD9dfWlxPNFGweU
-	 VigwG5wLeZZuTAzMlN5IrXpeWAKZGi9/kgYAVcAg=
+	b=N8nOm1AuLK8q0F0j0yHGy3j/wl5ieHBu0/AALpy/tROon6m87YfG0mrRSaUs+u0Dw
+	 Y3PSxC/TqXGZqoC5CcNhyppG/aIVNo7HPahan9nyrxmqsjzahVHpDVueOfffXeW1Nj
+	 eJO++oGBg2r2o7Bk5rkUZDejxlsFlarVQMLz5fWU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9CEABF80534;
-	Wed,  6 Apr 2022 15:28:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 19493F80538;
+	Wed,  6 Apr 2022 15:29:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6D2C8F80525; Wed,  6 Apr 2022 15:28:55 +0200 (CEST)
+ id 3BFFAF80528; Wed,  6 Apr 2022 15:28:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,42 +34,44 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0AE78F8051A
- for <alsa-devel@alsa-project.org>; Wed,  6 Apr 2022 15:28:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0AE78F8051A
+ by alsa1.perex.cz (Postfix) with ESMTPS id C0C8AF80525
+ for <alsa-devel@alsa-project.org>; Wed,  6 Apr 2022 15:28:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0C8AF80525
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="e68Neh16"
+ header.b="AlbjvL82"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8C479615B6;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2907D615B1;
+ Wed,  6 Apr 2022 13:28:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7329CC385A1;
  Wed,  6 Apr 2022 13:28:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA46DC385A7;
- Wed,  6 Apr 2022 13:28:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1649251730;
- bh=ZZeh6zTDcFwtbxD5va/nJQyyLywroM+cwhGSFxHPOY8=;
+ s=k20201202; t=1649251732;
+ bh=HlOW/rtcooRbC/awUJEDc/IhUFjAooRRWlUwyIeWzk0=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=e68Neh16zqsi6ozs7M9q9u+X150Cf/5gO/40+b73FPQow30cPj+GLR2vaPMhC+HTx
- iR6Phw04NsvKelnF7Qy8GKAJFjM8rpn2YuCxKd/CowT7TlB1fMpHOAqkJNSHmZVbFd
- bope+12XR2c6psl5Snqe0Ya1gzfeYw7UcKFo2yGyFVkdjkkmY1vwtNsFpil6teSluu
- B4WCqTprKj9u1ASVzAiAWCL0yUcQpN1JMZe73LSd0A5wj1Zxv/XlETz7e53rUhLzzZ
- Q0EWM94S1iEiM8IclW/la9cg4u/JySJngzoZctx1zEFMrmnCdt6/0DrEdZQC6whVlO
- NrG6vRGqbJ3BQ==
+ b=AlbjvL82cmQ3T9Y795YHAd/6YC1Dw9MkbRoVaRz7zzJJJPZsh/b10LMIwRWxrQ3jG
+ O/I8MhrZpH8c70e9OQKoIBX0fgoCy2TQIegLQSwo3cdaE2zyVQSEGsXYbTV0Q5ZFXp
+ AJgDWdkhsUOdWmJ0uiB74asWDoKTYuzOM+e4epnJ6wsO+vg6MwM8hGTC27zno0ShN+
+ tjqTisRyehuF5ys/MmLB0BYeMXrPd1xomDcTrUsFtm9gStSl9TGUum4U+necRmv367
+ fMuyLvhBQbbMfPsJ+Bwh9bIi4QCZXJISG4JEaFrY8Q/VpOfc47XxyQTUMDaVmzeLtL
+ 02yHYm5qsjpPA==
 From: Mark Brown <broonie@kernel.org>
-To: rf@opensource.cirrus.com
-In-Reply-To: <20220405135419.1230088-1-rf@opensource.cirrus.com>
-References: <20220405135419.1230088-1-rf@opensource.cirrus.com>
-Subject: Re: [PATCH v2 0/5] ASoC: Add a driver for the Cirrus Logic CS35L45
- Smart Amplifier
-Message-Id: <164925172848.83821.10687099289112753993.b4-ty@kernel.org>
-Date: Wed, 06 Apr 2022 14:28:48 +0100
+To: tiwai@suse.com, narmstrong@baylibre.com, khilman@baylibre.com,
+ perex@perex.cz, jbrunet@baylibre.com, lgirdwood@gmail.com,
+ hkallweit1@gmail.com, martin.blumenstingl@googlemail.com
+In-Reply-To: <51953618-79b6-0df7-2d28-d5dce4dc86c7@gmail.com>
+References: <51953618-79b6-0df7-2d28-d5dce4dc86c7@gmail.com>
+Subject: Re: [PATCH v2 0/2] ASoC: meson: aiu: fix duplicate debugfs directory
+ error
+Message-Id: <164925173019.83821.614218458873558335.b4-ty@kernel.org>
+Date: Wed, 06 Apr 2022 14:28:50 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, robh+dt@kernel.org,
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
+Cc: linux-amlogic@lists.infradead.org, alsa-devel@alsa-project.org,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,17 +87,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 5 Apr 2022 14:54:14 +0100, Richard Fitzgerald wrote:
-> This adds basic audio support for the Cirrus Logic CS35L45 amplifier.
+On Wed, 9 Mar 2022 21:20:01 +0100, Heiner Kallweit wrote:
+> On a S905W-based system I get the following error:
+> debugfs: Directory 'c1105400.audio-controller' with parent 'P230-Q200' already present!
 > 
-> The first two patches add two generic helpers to ASoC, and patch 3 is
-> a kunit test for patch 2.
-> 
-> CHANGES SINCE V1:
-> Patch #5:
->  - spi .remove callback now has void return
->  - use new I2C .probe_new callback
->  - force boost-bypass mode as default
+> Turned out that multiple components having the same name triggers this
+> error in soc_init_component_debugfs(). The proposed solution allows
+> other drivers to adopt the same approach with minimal effort.
+> With the patch the error is gone and that's the debugfs entries.
 > 
 > [...]
 
@@ -105,16 +104,10 @@ Applied to
 
 Thanks!
 
-[1/5] ASoC: soc.h: Add SOC_SINGLE_S_TLV() macro
-      commit: bc8cb02976cd602b8d7631a6f4a54a9cf305d38c
-[2/5] ASoC: soc-utils: Add helper to calculate BCLK from TDM info
-      commit: 1ef34dd2b90d78a9830398441801658ef86eee9d
-[3/5] ASoC: soc-utils: Add kunit test for snd_soc_tdm_params_to_bclk()
-      commit: 89342fa38bbaade51584f255eee5cd43621f4e10
-[4/5] ASoC: dt-bindings: cs35l45: Cirrus Logic CS35L45 Smart Amp
-      commit: 72661ff7662acc00d51976d4b2d2d13eb5628385
-[5/5] ASoC: cs35l45: Add driver for Cirrus Logic CS35L45 Smart Amp
-      commit: 0d463d016000d68d7e982720b5e4380b2d83409a
+[1/2] ASoC: soc-core: add debugfs_prefix member to snd_soc_component_driver
+      commit: d462f6ed2aeac30c0b440a91fb05d964956935f9
+[2/2] ASoC: meson: aiu: fix duplicate debugfs directory error
+      commit: 89bac792faf03fae5a9564bebfaacab53a029932
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

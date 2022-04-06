@@ -2,81 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D8E94F6A31
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Apr 2022 21:43:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48DAA4F6AAD
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Apr 2022 21:58:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 08E8D172F;
-	Wed,  6 Apr 2022 21:42:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08E8D172F
+	by alsa0.perex.cz (Postfix) with ESMTPS id C5AE9170F;
+	Wed,  6 Apr 2022 21:57:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C5AE9170F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649274205;
-	bh=sH4/bDXN0EtfABLxfyRPn5r+jLwoQhUogpWs2PSXaI0=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1649275096;
+	bh=VZOpPuNLMzwL5gdslrykRO3rE041x6y0M1he5pPnhEE=;
+	h=Date:From:Subject:To:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mR5K+1LgOwSXu7xNnmavlR+IZtcO5fzPc4RPU9oNzhpg5otL0TQsB/fK9CRcNuuH6
-	 FWvMEkaYn9/58S7dW2qaS6DVor+SjKqnpRUU0jFY4b3WEGlODmXqDb9+Ac5wMF9Xxy
-	 LGdP7dVAbKrwbMIdgU52WlfpNIpy4gfCKWo7SQlE=
+	b=mWaMu0ExQi0boyR+AkUNTYUHDf/xtcnO3DDw0rxuOBwjMyNyCn8orNfg+oYz6+mv5
+	 1YdmVZUwXZ4ORldGp6pXDTasV7M8IsI+J15Lyn1B6drWMHAKefdMHiJgvOPvN2FUHK
+	 IQyLtp5T0XYzUy7hwrDo0L2BTmQWgnmrMHWCrR1A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B0401F80161;
-	Wed,  6 Apr 2022 21:41:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 44C4FF80054;
+	Wed,  6 Apr 2022 21:57:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C6336F80520; Wed,  6 Apr 2022 21:41:16 +0200 (CEST)
+ id 60975F80141; Wed,  6 Apr 2022 21:57:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [IPv6:2a00:1450:4864:20::12b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8FA46F80161
- for <alsa-devel@alsa-project.org>; Wed,  6 Apr 2022 21:41:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8FA46F80161
+ by alsa1.perex.cz (Postfix) with ESMTPS id B370BF800D1
+ for <alsa-devel@alsa-project.org>; Wed,  6 Apr 2022 21:57:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B370BF800D1
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="Mj3KtonN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649274068; x=1680810068;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=sH4/bDXN0EtfABLxfyRPn5r+jLwoQhUogpWs2PSXaI0=;
- b=Mj3KtonNEWMtxFRXuzvi+R2DBNSOYBS3ho6T+sQunaKZ6sMJPkrTe1tO
- BbbbMpKoXwtZYfEBjaMc1QLmNWfBR1ZGI+qMpThc4hHOJm9U4oYoU3VZL
- wM/7yst02RZfMfK9/oBKkud+6eKi6qV/p0NWfVxM6P6y0DLh+XpiK+5WS
- fq0ZOLkR+SLD8CLiNAEfNf6mcBa0FOek7lLaUpJv3Xg/E9UXh60EaNhSz
- Kki6JsD3ZaLeMSvjXvSIp50JIF/d7MOCjpmXKWGZPMRe2Pay3KciTO2Wi
- lFu2EML32fhV8+J1B0tI8DB1ur9ee//hK/iey4U7rsKgjTIm0ASSBeljg A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10309"; a="347582624"
-X-IronPort-AV: E=Sophos;i="5.90,240,1643702400"; d="scan'208";a="347582624"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Apr 2022 12:41:02 -0700
-X-IronPort-AV: E=Sophos;i="5.90,240,1643702400"; d="scan'208";a="570713315"
-Received: from cbok-mobl.amr.corp.intel.com (HELO
- pbossart-mobl3.amr.corp.intel.com) ([10.252.137.86])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Apr 2022 12:41:01 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 4/4] ASoC: SOF: amd: Use dedicated MBOX for ACP and PSP
- communication
-Date: Wed,  6 Apr 2022 14:40:48 -0500
-Message-Id: <20220406194048.289787-5-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20220406194048.289787-1-pierre-louis.bossart@linux.intel.com>
-References: <20220406194048.289787-1-pierre-louis.bossart@linux.intel.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="qQ26SHSZ"
+Received: by mail-lf1-x12b.google.com with SMTP id y32so5953003lfa.6
+ for <alsa-devel@alsa-project.org>; Wed, 06 Apr 2022 12:57:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:from:subject:to:cc
+ :references:content-language:in-reply-to:content-transfer-encoding;
+ bh=g7ztqiXiRJRWyb0oF8JanOthw/sBGyBWWS1T9cwNFWA=;
+ b=qQ26SHSZT6N2m5UMWrPZvxHJGfnffKEvFJmf+AiWAlUNgpOQY8WXUy7LcnzBrLgzGt
+ 9zLN060XMX5PI3NFkk1JChqWAbw9Gmxorw3Og8nUOCNB5TfxjfezD0GB9rG6Yj4e4+k1
+ CNdv4rxdO1J54ddTKgYF4hnBPFRx/x3+tyO/UeqAEBKsguQdjEpsMiYjbpYXIOso7LKH
+ C7uNebs9yYBFIFiX+ufGavfOCnJymLQBB6GiarnSAS9CgiTyN+VEV7mxoOW+KiioCr2n
+ WRddAhl/ro7i0jb9t7hPzlW1fHB9QinIocsXiWT8gEspKZ4IgbQckqJ7YhsvkqCi4uhD
+ R2mw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:from
+ :subject:to:cc:references:content-language:in-reply-to
+ :content-transfer-encoding;
+ bh=g7ztqiXiRJRWyb0oF8JanOthw/sBGyBWWS1T9cwNFWA=;
+ b=J1vmRnNobcucJbA4SWT1FtlVfPs5YGBJrFzdWOH/4BvQbPCSB6+clWhll3kfVYtXZZ
+ UAW6kxwoKhQLZH2E5SNC8xs6TKW4Wub5crWPsgzt7wAtoUt6obuYv6vEr8D/qpCIoByY
+ DoN3wQOOEvC1Gdg2QY8wOIW0q9RWDGGDyXNBNUhpQDSSjcQpCBgIgEoE7weT2+CxMScM
+ GMbwy01U0+DGFI/5POUXF3wX4tVpuU24FcKmpO0QjDbKVTW/EmAayebs2YYr6lsY/JVr
+ VtF3207sKcwdI0o2ULQaSEFtge6aA7GQl4j235NewO2nU6uhZXVtxsphaJ9Uz+Vo5mM0
+ v+7g==
+X-Gm-Message-State: AOAM533OLQ0pQ7Zcrsot8q/1XUTMnftSTJaEVk8Fhtk27fXEcGlLbrGR
+ lVyLsGzopYIB1/jO1Fw3W1x6S8ijNUSmW5pL
+X-Google-Smtp-Source: ABdhPJynpegKu4/oSyXIHRHMGizneGJGYguDdzuoasTpZArw9AqSno9DKrZaGCfs/NLf0zj1CkLOJA==
+X-Received: by 2002:a05:6512:20ce:b0:44a:384a:9195 with SMTP id
+ u14-20020a05651220ce00b0044a384a9195mr7076190lfr.492.1649275032572; 
+ Wed, 06 Apr 2022 12:57:12 -0700 (PDT)
+Received: from [10.0.0.127] (91-159-150-230.elisa-laajakaista.fi.
+ [91.159.150.230]) by smtp.gmail.com with ESMTPSA id
+ h1-20020a2e9ec1000000b0024afb868455sm1744622ljk.5.2022.04.06.12.57.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 06 Apr 2022 12:57:11 -0700 (PDT)
+Message-ID: <1fa386d7-2222-f12d-8a8f-c7be29b1c6d2@gmail.com>
+Date: Wed, 6 Apr 2022 22:57:34 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.0
+From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@gmail.com>
+Subject: Re: [PATCH] ASoC: ti: osk5912: Make it CCF clk API compatible
+To: Janusz Krzysztofik <jmkrzyszt@gmail.com>, Mark Brown <broonie@kernel.org>
+References: <20220402120106.131118-1-jmkrzyszt@gmail.com>
+Content-Language: en-US
+In-Reply-To: <20220402120106.131118-1-jmkrzyszt@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>, tiwai@suse.de,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, broonie@kernel.org,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, linux-omap@vger.kernel.org,
+ Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,94 +106,68 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
+Hi Janusz,
 
-We are currently using generic PSP Mailbox register for sending SHA
-complete command to PSP but observe random arbitration issue during
-PSP validation as MP0_C2PMSG_26_REG used by other kernel modules.
+On 02/04/2022 15:01, Janusz Krzysztofik wrote:
+> The driver, OMAP1 specific, now omits clk_prepare/unprepare() steps, not
+> supported by OMAP1 custom implementation of clock API.  However, non-CCF
+> stubs of those functions exist for use on such platforms until converted
+> to CCF.
+> 
+> Update the driver to be compatible with CCF implementation of clock API.
+> 
+> Signed-off-by: Janusz Krzysztofik <jmkrzyszt@gmail.com>
+> ---
+>  sound/soc/ti/osk5912.c | 9 ++++++++-
+>  1 file changed, 8 insertions(+), 1 deletion(-)
+> 
+> diff --git a/sound/soc/ti/osk5912.c b/sound/soc/ti/osk5912.c
+> index 40e29dda7e7a..22da3b335e81 100644
+> --- a/sound/soc/ti/osk5912.c
+> +++ b/sound/soc/ti/osk5912.c
+> @@ -134,6 +134,10 @@ static int __init osk_soc_init(void)
+>  		goto err2;
+>  	}
+>  
+> +	err = clk_prepare(tlv320aic23_mclk);
 
-Use separate mailbox registers and doorbell mechanism to send SHA_DMA
-complete command to PSP. This fixes such validation issues and added
-flexibility for sending more ACP commands to PSP in future as new mbox
-registers i.e MP0_C2PMSG_114_REG and MP0_C2PMSG_73_REG are dedicated
-by PSP for ACP communications.
+would not make sense to change the clk_enable() to clk_prepare_enable()
+in osk_startup() and the clk_disable() to clk_disable_unprepare() in
+osk_shutdown() instead leaving the clock in prepared state as long as
+the driver is loaded?
 
-Signed-off-by: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
----
- sound/soc/sof/amd/acp.c | 23 ++++++++++++++++++++---
- sound/soc/sof/amd/acp.h |  6 ++++--
- 2 files changed, 24 insertions(+), 5 deletions(-)
+> +	if (err)
+> +		goto err3;
+> +
+>  	/*
+>  	 * Configure 12 MHz output on MCLK.
+>  	 */
+> @@ -142,7 +146,7 @@ static int __init osk_soc_init(void)
+>  		if (clk_set_rate(tlv320aic23_mclk, CODEC_CLOCK)) {
+>  			printk(KERN_ERR "Cannot set MCLK for AIC23 CODEC\n");
+>  			err = -ECANCELED;
+> -			goto err3;
+> +			goto err4;
+>  		}
+>  	}
+>  
+> @@ -151,6 +155,8 @@ static int __init osk_soc_init(void)
+>  
+>  	return 0;
+>  
+> +err4:
+> +	clk_unprepare(tlv320aic23_mclk);
+>  err3:
+>  	clk_put(tlv320aic23_mclk);
+>  err2:
+> @@ -164,6 +170,7 @@ static int __init osk_soc_init(void)
+>  
+>  static void __exit osk_soc_exit(void)
+>  {
+> +	clk_unprepare(tlv320aic23_mclk);
+>  	clk_put(tlv320aic23_mclk);
+>  	platform_device_unregister(osk_snd_device);
+>  }
 
-diff --git a/sound/soc/sof/amd/acp.c b/sound/soc/sof/amd/acp.c
-index 461f9b0ce49e..0c272573df97 100644
---- a/sound/soc/sof/amd/acp.c
-+++ b/sound/soc/sof/amd/acp.c
-@@ -152,7 +152,7 @@ static int psp_mbox_ready(struct acp_dev_data *adata, bool ack)
- 
- 	for (timeout = ACP_PSP_TIMEOUT_COUNTER; timeout > 0; timeout--) {
- 		msleep(20);
--		smn_read(adata->smn_dev, MP0_C2PMSG_26_REG, &data);
-+		smn_read(adata->smn_dev, MP0_C2PMSG_114_REG, &data);
- 		if (data & MBOX_READY_MASK)
- 			return 0;
- 	}
-@@ -174,17 +174,34 @@ static int psp_mbox_ready(struct acp_dev_data *adata, bool ack)
- static int psp_send_cmd(struct acp_dev_data *adata, int cmd)
- {
- 	struct snd_sof_dev *sdev = adata->dev;
--	int ret;
-+	int ret, timeout;
-+	u32 data;
- 
- 	if (!cmd)
- 		return -EINVAL;
- 
-+	/* Get a non-zero Doorbell value from PSP */
-+	for (timeout = ACP_PSP_TIMEOUT_COUNTER; timeout > 0; timeout--) {
-+		msleep(MBOX_DELAY);
-+		smn_read(adata->smn_dev, MP0_C2PMSG_73_REG, &data);
-+		if (data)
-+			break;
-+	}
-+
-+	if (!timeout) {
-+		dev_err(sdev->dev, "Failed to get Doorbell from MBOX %x\n", MP0_C2PMSG_73_REG);
-+		return -EINVAL;
-+	}
-+
- 	/* Check if PSP is ready for new command */
- 	ret = psp_mbox_ready(adata, 0);
- 	if (ret)
- 		return ret;
- 
--	smn_write(adata->smn_dev, MP0_C2PMSG_26_REG, cmd);
-+	smn_write(adata->smn_dev, MP0_C2PMSG_114_REG, cmd);
-+
-+	/* Ring the Doorbell for PSP */
-+	smn_write(adata->smn_dev, MP0_C2PMSG_73_REG, data);
- 
- 	/* Check MBOX ready as PSP ack */
- 	ret = psp_mbox_ready(adata, 1);
-diff --git a/sound/soc/sof/amd/acp.h b/sound/soc/sof/amd/acp.h
-index 35e46fe6676a..eb4e2a9a9c25 100644
---- a/sound/soc/sof/amd/acp.h
-+++ b/sound/soc/sof/amd/acp.h
-@@ -57,8 +57,10 @@
- #define ACP_SHA_STAT				0x8000
- #define ACP_PSP_TIMEOUT_COUNTER			5
- #define ACP_EXT_INTR_ERROR_STAT			0x20000000
--#define MP0_C2PMSG_26_REG			0x03810570
--#define MBOX_ACP_SHA_DMA_COMMAND		0x330000
-+#define MP0_C2PMSG_114_REG			0x3810AC8
-+#define MP0_C2PMSG_73_REG			0x3810A24
-+#define MBOX_ACP_SHA_DMA_COMMAND		0x70000
-+#define MBOX_DELAY				1000
- #define MBOX_READY_MASK				0x80000000
- #define MBOX_STATUS_MASK			0xFFFF
- 
 -- 
-2.30.2
-
+Péter

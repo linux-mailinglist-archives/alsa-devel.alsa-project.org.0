@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 903144F79B1
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Apr 2022 10:30:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B680A4F79B4
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Apr 2022 10:30:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0DA54172D;
-	Thu,  7 Apr 2022 10:29:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DA54172D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 479A117A3;
+	Thu,  7 Apr 2022 10:30:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 479A117A3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649320224;
-	bh=XKGH3WRJT8+kJMmujddMgZy3BSb38lm2VaU3keZyWmE=;
+	s=default; t=1649320257;
+	bh=1DmUDTV2qB8I3A+A+2JENeVgGHKyQsRN/hcLKOnMzpE=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jGqis7Gd/360PECPgQOAI2t+Fgtdv3AMJrDGqW6gLRc5Glz06oee28mZOmeWG8yIn
-	 oPGrdp0QvFWzlFFptNrC6lmnRjXMaM4FjSLTEnGs+2bhX9O9fFB0qcxa2juImnCxdh
-	 6U5xVYY92HAh31b6SwbVS76MrF1WgAGt4t/AdTm4=
+	b=rY7jPMsDzj8ZMsJEAaIQy+JY/QaTnlmhp6Sfd5iLp9yrEiO0WjUCIvm/bED7Y9lyr
+	 JW2H9w0icDANK6fLibngyZTkXMdeqYHTjrwmFWQLso60OlwKzdKiAn0DLWYGOA72Dg
+	 m8dsJS163WUDeYakHgO5DCP9kzR9gj+ye2xE3RdI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9096BF80054;
-	Thu,  7 Apr 2022 10:29:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4E9CDF804CF;
+	Thu,  7 Apr 2022 10:29:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 688EAF8024C; Thu,  7 Apr 2022 10:29:24 +0200 (CEST)
+ id EC557F8047B; Thu,  7 Apr 2022 10:29:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,52 +34,51 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C83BCF80054
- for <alsa-devel@alsa-project.org>; Thu,  7 Apr 2022 10:29:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C83BCF80054
+ by alsa1.perex.cz (Postfix) with ESMTPS id E2310F8012A
+ for <alsa-devel@alsa-project.org>; Thu,  7 Apr 2022 10:29:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2310F8012A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="QN+J2jes"; 
+ header.b="h3bU2XHu"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="yVktQ/Jv"
+ header.b="4okZhu8E"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 63AFA21117;
- Thu,  7 Apr 2022 08:29:18 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id BD7122112B;
+ Thu,  7 Apr 2022 08:29:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1649320158; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1649320184; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=qiMMcbgbBUNCl5v74qCWUJz7Rx460O5aMRrz4d3d/Os=;
- b=QN+J2jesQwcpmA8WQ30ocJSLuwPomgNuIKm7afkyfyJuaSaCNgxfxbKJgFExCtjXOeIumK
- YFi7qP3HbWyzR7PF1RevbDhqW5fMXAVF5P10+zR1T9K+qbgWbpkHenLT9Dc6tNXmKv7KBK
- P0o1iOpTV/EXB5G1yPtzj5hYOOqWtEs=
+ bh=1mgmDXYTa0SE2WxBL7Z6tuNLtdiT9Np10hDxGURb5Wk=;
+ b=h3bU2XHuf9emVfqnh7mHPSTWCuvWKlDgEOl6PfDLmwVtPH0RsQTOM5/fkqXpd8UDTeUpgD
+ 4M5v4UanqHzPgbG3ciBNDyZ7g0oFE/dgCeYpQEcdn6fm6zcRIVoK8LeaYy+PHn0ufpz/rp
+ bxHEOMLjPkFoup+rDei/UeiX0oZezZI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1649320158;
+ s=susede2_ed25519; t=1649320184;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=qiMMcbgbBUNCl5v74qCWUJz7Rx460O5aMRrz4d3d/Os=;
- b=yVktQ/JvhOMsUPyWxOKGdCvChgSlaAKm0Me/cywl+hfAKNMzomcG+gc2LetawRRUAqJujD
- uAzc6VVKBRp9eRDQ==
+ bh=1mgmDXYTa0SE2WxBL7Z6tuNLtdiT9Np10hDxGURb5Wk=;
+ b=4okZhu8EWd8sJwndIYaZWkd1OsbUv7+BJr/UtaZY5VH22Ph/3BZwzKZMvQS2qJllTn2M1y
+ 4rATbS3XDKnsG8Dg==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id ED8A0A3B96;
- Thu,  7 Apr 2022 08:29:13 +0000 (UTC)
-Date: Thu, 07 Apr 2022 10:29:18 +0200
-Message-ID: <s5hfsmp2t5t.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 4C099A3B97;
+ Thu,  7 Apr 2022 08:29:40 +0000 (UTC)
+Date: Thu, 07 Apr 2022 10:29:44 +0200
+Message-ID: <s5hee292t53.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Randy Dunlap <rdunlap@infradead.org>
-Subject: Re: [PATCH v3] sound/oss/dmasound: fix build when drivers are mixed
- =y/=m
-In-Reply-To: <20220405234118.24830-1-rdunlap@infradead.org>
-References: <20220405234118.24830-1-rdunlap@infradead.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ALSA: hda: intel-dsp-config: update AlderLake PCI IDs
+In-Reply-To: <20220406190418.245044-1-pierre-louis.bossart@linux.intel.com>
+References: <20220406190418.245044-1-pierre-louis.bossart@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, kernel test robot <lkp@intel.com>,
- Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,32 +94,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 06 Apr 2022 01:41:18 +0200,
-Randy Dunlap wrote:
+On Wed, 06 Apr 2022 21:04:18 +0200,
+Pierre-Louis Bossart wrote:
 > 
-> When CONFIG_DMASOUND_ATARI=m and CONFIG_DMASOUND_Q40=y (or vice versa),
-> dmasound_core.o can be built without dmasound_deinit() being defined,
-> causing a build error:
+> Add missing AlderLake-PS and RaptorLake-S PCI IDs (already in HDaudio
+> and SOF drivers), add comments and regroup by skew.
 > 
-> ERROR: modpost: "dmasound_deinit" [sound/oss/dmasound/dmasound_atari.ko] undefined!
-> 
-> Modify dmasound_core.c and dmasound.h so that dmasound_deinit() is
-> always available.
-> 
-> The mixed modes (=y/=m) also mean that several variables and structs
-> have to be declared in all cases.
-> 
-> Suggested-by: Arnd Bergmann <arnd@arndb.de>
-> Suggested-by: Geert Uytterhoeven <geert@linux-m68k.org>
-> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-> Reported-by: kernel test robot <lkp@intel.com>
-> Link: lore.kernel.org/r/202204032138.EFT9qGEd-lkp@intel.com
-> Cc: Geert Uytterhoeven <geert@linux-m68k.org>
-> Cc: Jaroslav Kysela <perex@perex.cz>
-> Cc: Takashi Iwai <tiwai@suse.com>
-> Cc: alsa-devel@alsa-project.org
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 
-Thanks, applied now.
+Thanks, applied.
 
 
 Takashi

@@ -2,74 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 739564F847B
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Apr 2022 18:02:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 652574F8510
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Apr 2022 18:38:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 147F31848;
-	Thu,  7 Apr 2022 18:01:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 147F31848
+	by alsa0.perex.cz (Postfix) with ESMTPS id E907816B9;
+	Thu,  7 Apr 2022 18:37:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E907816B9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649347328;
-	bh=mbr3tWvPXS+7oc88iMgsYe6AtOVAw2C4CiflUG3/xUM=;
+	s=default; t=1649349494;
+	bh=anQLnsuZxYc4YusrMg10WYGJTNoSFZFyAbngTsYWJWM=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ey1pseTcCDI/S3DmmzDthbywGLnjMEYXgaH8j7ri8Ccd+a48tHFO5r/nks6Ep8jt+
-	 TCX8SHnZBlhTMieY9XfF2G1T6ViBI8+7PV4UdQAGs+IT2Of2y3GEE/6ro3+G0eZHSa
-	 KYHHMx15BrqvrPsvf3IQfAN81rbIXu+4SN3IgWTU=
+	b=dmicf6fx1pUORCuJseXHwwkaIBtJd1CoqEA3eNAy/ZWo/zSgZqUhkkrMGIkKLDmoA
+	 Y5A6fkNn4BrR0J8ZbdNhh7Kc7eJUbWr8iScb5wjS0SrEtOK6z5EFWybyeW/A84W26n
+	 LTuRP46kBe55RMlfHTbQjh/mtn1Q0ahcRlY6vo68=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6D8ACF8026A;
-	Thu,  7 Apr 2022 18:01:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5651FF80054;
+	Thu,  7 Apr 2022 18:37:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 49026F8024C; Thu,  7 Apr 2022 18:01:07 +0200 (CEST)
+ id 0C3F1F8024C; Thu,  7 Apr 2022 18:37:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EF961F80085
- for <alsa-devel@alsa-project.org>; Thu,  7 Apr 2022 18:01:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF961F80085
+ by alsa1.perex.cz (Postfix) with ESMTPS id 584F4F80054
+ for <alsa-devel@alsa-project.org>; Thu,  7 Apr 2022 18:37:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 584F4F80054
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="bMga4QKm"
+ header.b="MeF0uNyy"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 0C91BB826CB;
- Thu,  7 Apr 2022 16:01:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6067AC385A4;
- Thu,  7 Apr 2022 16:00:59 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0187660C24;
+ Thu,  7 Apr 2022 16:37:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DAFEC385A4;
+ Thu,  7 Apr 2022 16:37:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1649347260;
- bh=mbr3tWvPXS+7oc88iMgsYe6AtOVAw2C4CiflUG3/xUM=;
+ s=k20201202; t=1649349426;
+ bh=anQLnsuZxYc4YusrMg10WYGJTNoSFZFyAbngTsYWJWM=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=bMga4QKmJ1LUTPMP+vjb2fbuJfIVFrhIocSnkYmNw90qxt1AxJhgRJmJvsUVERHfT
- pkQLtGuYL+nPxTHy37QfE2LNLIaDPB0rCArhW9RF/vGc53Uy1TiO65Q3b7Gbg7MKPE
- pNMg5uplzmYVhy3AUb/lq0qQk95DFZBEs6fufii9AB3cAom5l6t4uLb0DO+YABGexn
- Y+XXJ244SwKEnwGgQOkeLgSdiQyPLHW+bMKgexkevwKINm1f2SZe60PsfO7HWuXW5+
- op6mIRRgWGrjju/k/WItloVn93t4Vud8fXq3UIoMMp+t6iNF3ipcsYJID/ygcYNp4/
- u97uqcrT6fjGg==
-Date: Thu, 7 Apr 2022 17:00:55 +0100
+ b=MeF0uNyyDZzNOfXb9zUW1ftJBxaHSlt6MObKb6s0BTNxUNtyW0lFoawXT0zMd8biU
+ pyqo1BWrOCMPNYTfZ66BNUZnLqrtLxk7pFLwUgqBD5CX0hKn/Y4mpUjHd0Mi4mKaQ8
+ YD9TNJta/h9laHydGgegv6HOVBGF2c/eVh+5RwzceEPyjFVqGCbcKON8iKHxpv0zb4
+ NIGekAl0KkJJ574m7dBxP1xcotWdLh84f1yCIzzXhL64WdIh50aRoAjeqrtgJKREQv
+ M5CGWtlSIYn4PlgnXO/WobFneA1owfz5rpaAb1YEY4qj8vSOeM1lxY5vKevedXQGui
+ EQhk7UaTrKtcQ==
+Date: Thu, 7 Apr 2022 17:37:01 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Akihiko Odaki <akihiko.odaki@gmail.com>
 Subject: Re: [PATCH] ASoC: rt5682: Add jack kcontrol
-Message-ID: <Yk8Ktyyt0veW4g+j@sirena.org.uk>
+Message-ID: <Yk8TLUnEHRKstyxq@sirena.org.uk>
 References: <20220407141316.5099-1-akihiko.odaki@gmail.com>
  <Yk7+jbQ0KBM0zVh9@sirena.org.uk>
  <96dae189-c0ff-4054-3d00-41c3b44c2cd6@gmail.com>
+ <Yk8Ktyyt0veW4g+j@sirena.org.uk>
+ <f86a10e1-b5a7-5c59-8e53-cec65d97234b@gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="8xcL5lOc7SqbwO08"
+ protocol="application/pgp-signature"; boundary="K9Hi8t9P2T4/0vtf"
 Content-Disposition: inline
-In-Reply-To: <96dae189-c0ff-4054-3d00-41c3b44c2cd6@gmail.com>
+In-Reply-To: <f86a10e1-b5a7-5c59-8e53-cec65d97234b@gmail.com>
 X-Cookie: Look ere ye leap.
 Cc: Oder Chiou <oder_chiou@realtek.com>, Liam Girdwood <lgirdwood@gmail.com>,
  alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
@@ -89,42 +91,49 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---8xcL5lOc7SqbwO08
+--K9Hi8t9P2T4/0vtf
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Fri, Apr 08, 2022 at 12:46:04AM +0900, Akihiko Odaki wrote:
-> On 2022/04/08 0:09, Mark Brown wrote:
+j
+On Fri, Apr 08, 2022 at 01:11:22AM +0900, Akihiko Odaki wrote:
+> On 2022/04/08 1:00, Mark Brown wrote:
 
-> > Why not use DAPM for the jack?  Note that normally the jack is part of
-> > the machine driver not the CODEC - there's no way the CODEC can know how
-> > it's been wired in on any given system.
+> > That bit is very common but there's still machine specific aspects - is
+> > the required hardware wired up, if it is wired up how exactly are things
+> > wired (separate microphone jack, headset jack, one of many jacks?).  A
+> > lot of the machine driver part of things is about labeling things so
+> > that it can be displayed in a way that's easy to connect to the physical
+> > system.  Generally the machine driver would define a jack and then
+> > connect the CODEC to it.
 
-> It seems it is an unsual case where the codec knows the source of the jack.
-> RT5682 has interrupts and registers for the jack; see e.g.
-> rt5682_button_detect in sound/soc/codecs/rt5682.c for details.
+> Whether the required hardware wired is told from the user of the codec via
+> jack's type specified with snd_soc_card_jack_new(). The other details live
+> in the codec.
 
-That bit is very common but there's still machine specific aspects - is
-the required hardware wired up, if it is wired up how exactly are things
-wired (separate microphone jack, headset jack, one of many jacks?).  A
-lot of the machine driver part of things is about labeling things so
-that it can be displayed in a way that's easy to connect to the physical
-system.  Generally the machine driver would define a jack and then
-connect the CODEC to it.
+So I'm confused about what problem this patch is intended to fix.  It
+really sounds like there's some issue with the driver not using standard
+interfaces that you're trying to work around but the changelog is not at
+all clear.  The "doesn't use DAPM" bit is a bit of a warning sign, it
+sounds like the audio signals to and from the CODEC aren't being
+connected to the jack properly.
 
---8xcL5lOc7SqbwO08
+Look at how other devices with jack detection hardware handle this and
+follow a similar pattern.
+
+--K9Hi8t9P2T4/0vtf
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJPCrYACgkQJNaLcl1U
-h9B83Qf+NEFoAdBE+er4vf/cVC387DUBcJVgFBUYuzcHoWp6kYb1ldpbXWV9l3u/
-hnAyX4s/YzH7Eiw6D8Ws9KNmhUSUz02gPeSm8wr4r1diSSSYnSxoFuCjzcTZr465
-/pvLVzfuYXjFiA0DF+FAjZknY4xdorErZtg0iTh3nRPo0cbl7SPlsa99mdrKtzQO
-5tW53mM3uRCcie+j4B73D1tFnBALby3bcOjsb8OMss5wttOg9X1fT67LhszzY6Mc
-XLD5OcGD1/esuJXBydM5A8Xqt4P6kuyoR63uFcZMpMZrXDUQ3eQFbz0SaU0g9Pia
-+xNp4Lv55FQgnksYvtPlhPThgdHkmg==
-=cC3L
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJPEywACgkQJNaLcl1U
+h9BD0wf/VfBhw9GQTwXU5Qj1Mq/d+fRP1+2jj+kUbV7xuu9nyDuVH7YLFP/Da2G5
+dFgQBgY6vSA7++fPrbG4kqzGpvLPcNy6s+kjZHj2anBccZg/4Q9yADqp5ifggHcj
+o/ltdaGMidJydvYgAF0EZnoW37eKRXNR/caF2nvE4aa7X9t/e3FOFQsfEP9nYi6Y
+8zyr5aUabYQe5NYx903wgSoUKQoc0c8VS820KAxyoSw5T7Y3O/CprXZyFk8Wc05y
+OpPLRzW2d/fqjWe/bhzaC2AYICirJSaO7R6fAMaV12fbZJj4i+F5K3+CU/7GlWc0
+H3WCDElgw0O9PivSGGwzUasIlzOWYw==
+=9nxM
 -----END PGP SIGNATURE-----
 
---8xcL5lOc7SqbwO08--
+--K9Hi8t9P2T4/0vtf--

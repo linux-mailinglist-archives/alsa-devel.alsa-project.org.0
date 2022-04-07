@@ -2,86 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28AEA4F811B
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Apr 2022 15:58:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 849B34F819A
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Apr 2022 16:29:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B476A1748;
-	Thu,  7 Apr 2022 15:57:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B476A1748
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1357417CC;
+	Thu,  7 Apr 2022 16:28:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1357417CC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649339920;
-	bh=kk7NhQcAK/XdGiF/LKoqPfZ505ncylyO6/swBP7AGTM=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1649341752;
+	bh=rvgOuVepiat93jjbiIHz1uDoVSPTzuq6D+lseJsHMlc=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qYGERH89UP0Yq1237fu2QRSdExxYdw8qvRWhRvtyALFjm1VcUZGVqirID2mHo6Gm9
-	 jyZTZpqRDIYX3XQZrlEG2ZSGP9G974CK+34AA+GpCIp1WkNFEPayrlBTUbejUoH84h
-	 L/hnfCcpirYWjVLcSzwQXFm+laLP7X4kCTiRFqyI=
+	b=G5EpQUkY67jrfOB4iLgcbZpnOEZ9HsbqMgiYC56RBZXvjVE9HVUWKjuR/0x70o9Qd
+	 17qVe+1L+gnxQebq7aToJ9y56jZWhLyu3ZJZckv8krCJW8SOgDH0uNRTjhDfIgOsNA
+	 eShcXBJYcEgaowsWi4A4bq+MUMDpbshkoPpNbZSU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 06C41F8026A;
-	Thu,  7 Apr 2022 15:57:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7DBBDF8026A;
+	Thu,  7 Apr 2022 16:28:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 09F9BF8024C; Thu,  7 Apr 2022 15:57:40 +0200 (CEST)
+ id 56CA2F8024C; Thu,  7 Apr 2022 16:28:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from fudo.makrotopia.org (fudo.makrotopia.org
+ [IPv6:2a07:2ec0:3002::71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3F7B7F80085
- for <alsa-devel@alsa-project.org>; Thu,  7 Apr 2022 15:57:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F7B7F80085
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="Urabs4A7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649339857; x=1680875857;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=kk7NhQcAK/XdGiF/LKoqPfZ505ncylyO6/swBP7AGTM=;
- b=Urabs4A7i3TKJWAq2PTtPFnj13dzbr9QV02eRCsu48dFltUYtiBJj6n8
- EmkBRMsf20ND8Tokhs4TVt0ZmfgDmHKwp7Tj3CFpLBBF3jttEmfpLHYg5
- v5ktH7daDOGKTNKca2x7ic+dHvjEQjdq3jhsFU6L5Wm/388f8syrx44wV
- mvLvP61shqDg0qU7RTZkeJf0TvI2/Z+cH01Ae1FEKjDLsl+PlXp8qUDLG
- JgQMTKS4j+rrgNNVml3GpWsGywHH4by96tT5TSuVoJUzgx+qrKSiT7Vyp
- UCrygW6aFBJZZmbK3qAcOl3/67XNSBk7z6E1kzRUILCuKUpEO5dCfYNZd g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10309"; a="261320101"
-X-IronPort-AV: E=Sophos;i="5.90,242,1643702400"; d="scan'208";a="261320101"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2022 06:57:32 -0700
-X-IronPort-AV: E=Sophos;i="5.90,242,1643702400"; d="scan'208";a="524373853"
-Received: from achordiy-mobl.amr.corp.intel.com (HELO [10.209.88.227])
- ([10.209.88.227])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2022 06:57:31 -0700
-Message-ID: <cbea05d4-ed7b-d0d7-53a6-80add0d8ffe2@linux.intel.com>
-Date: Thu, 7 Apr 2022 08:23:54 -0500
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4440FF8012A;
+ Thu,  7 Apr 2022 16:27:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4440FF8012A
+Received: from local
+ by fudo.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
+ (Exim 4.94.2) (envelope-from <daniel@makrotopia.org>)
+ id 1ncT6r-0000NC-PG; Thu, 07 Apr 2022 16:27:41 +0200
+Date: Thu, 7 Apr 2022 15:27:35 +0100
+From: Daniel Golle <daniel@makrotopia.org>
+To: Allen-KH Cheng <allen-kh.cheng@mediatek.com>
+Subject: Re: [PATCH v7 0/1] firmware: mtk: add adsp ipc protocol for SOF
+Message-ID: <Yk701wLNKQs1DEVx@makrotopia.org>
+References: <20220407130338.28939-1-allen-kh.cheng@mediatek.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.5.0
-Subject: Re: [PATCH 1/2] ASoC: soc-pcm: improve BE transition for PAUSE_RELEASE
-Content-Language: en-US
-To: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>, alsa-devel@alsa-project.org
-References: <20220406190056.233481-1-pierre-louis.bossart@linux.intel.com>
- <20220406190056.233481-2-pierre-louis.bossart@linux.intel.com>
- <bf8b2067-3d5d-c368-68b0-f5ab58d9c5b7@linux.intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <bf8b2067-3d5d-c368-68b0-f5ab58d9c5b7@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, Bard Liao <yung-chuan.liao@linux.intel.com>,
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220407130338.28939-1-allen-kh.cheng@mediatek.com>
+Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
+ linux-kernel@vger.kernel.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, cujomalainey@google.com,
+ Kevin Hilman <khilman@baylibre.com>, Takashi Iwai <tiwai@suse.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
+ Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Rander Wang <rander.wang@intel.com>, broonie@kernel.org,
- =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+ Chen-Yu Tsai <wenst@chromium.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, linux-arm-kernel@lists.infradead.org,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,99 +77,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
->> diff --git a/include/sound/soc-dpcm.h b/include/sound/soc-dpcm.h
->> index 75b92d883976..5b689c663290 100644
->> --- a/include/sound/soc-dpcm.h
->> +++ b/include/sound/soc-dpcm.h
->> @@ -103,6 +103,8 @@ struct snd_soc_dpcm_runtime {
->>       int trigger_pending; /* trigger cmd + 1 if pending, 0 if not */
->>       int be_start; /* refcount protected by BE stream pcm lock */
->> +    int be_pause; /* refcount protected by BE stream pcm lock */
->> +    bool fe_pause; /* used to track STOP after PAUSE */
->>   };
->>   #define for_each_dpcm_fe(be, stream, _dpcm)                \
->> diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
->> index 11c9853e9e80..e8700dd1839f 100644
->> --- a/sound/soc/soc-pcm.c
->> +++ b/sound/soc/soc-pcm.c
->> @@ -2090,6 +2090,7 @@ int dpcm_be_dai_trigger(struct 
->> snd_soc_pcm_runtime *fe, int stream,
->>                      int cmd)
->>   {
->>       struct snd_soc_pcm_runtime *be;
->> +    bool pause_stop_transition;
->>       struct snd_soc_dpcm *dpcm;
->>       unsigned long flags;
->>       int ret = 0;
->> @@ -2148,10 +2149,12 @@ int dpcm_be_dai_trigger(struct 
->> snd_soc_pcm_runtime *fe, int stream,
->>           case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
->>               if (!be->dpcm[stream].be_start &&
->>                   (be->dpcm[stream].state != SND_SOC_DPCM_STATE_START) &&
->> -                (be->dpcm[stream].state != SND_SOC_DPCM_STATE_STOP) &&
->>                   (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED))
->>                   goto next;
->> +            fe->dpcm[stream].fe_pause = false;
->> +            be->dpcm[stream].be_pause--;
->> +
->>               be->dpcm[stream].be_start++;
->>               if (be->dpcm[stream].be_start != 1)
->>                   goto next;
->> @@ -2175,14 +2178,33 @@ int dpcm_be_dai_trigger(struct 
->> snd_soc_pcm_runtime *fe, int stream,
->>               if (be->dpcm[stream].be_start != 0)
->>                   goto next;
->> -            ret = soc_pcm_trigger(be_substream, cmd);
->> +            pause_stop_transition = false;
->> +            if (fe->dpcm[stream].fe_pause) {
+On Thu, Apr 07, 2022 at 09:03:37PM +0800, Allen-KH Cheng wrote:
+> This patch provides mediatek adsp ipc support for SOF.
+> ADSP IPC protocol offers (send/recv) interfaces using
+> mediatek-mailbox APIs.
 > 
-> As you access fe here anyway, any chance something like
-> if (fe->dpcm[stream].state == SND_SOC_DPCM_STATE_PAUSED)
-> can be used here instead of adding fe_pause to snd_soc_dpcm_runtime?
+> This patch was tested and confirmed to with SOF fw on MT8195
+> cherry board.
 
-I didn't want to make any assumption on whether the state of the FE is 
-updated before or after the BE state, depending on the trigger order, so 
-only used the trigger command to drive the state machine changes.
+... confirmed to **work** with ...
+is probably what you meant to write here.
 
->> +                pause_stop_transition = true;
->> +                fe->dpcm[stream].fe_pause = false;
->> +                be->dpcm[stream].be_pause--;
->> +            }
->> +
->> +            if (be->dpcm[stream].be_pause != 0)
->> +                ret = soc_pcm_trigger(be_substream, 
->> SNDRV_PCM_TRIGGER_PAUSE_PUSH);
->> +            else
->> +                ret = soc_pcm_trigger(be_substream, 
->> SNDRV_PCM_TRIGGER_STOP);
->> +
->>               if (ret) {
->>                   if (be->dpcm[stream].state == SND_SOC_DPCM_STATE_START)
->>                       be->dpcm[stream].be_start++;
->> +                if (pause_stop_transition) {
->> +                    fe->dpcm[stream].fe_pause = true;
->> +                    be->dpcm[stream].be_pause++;
->> +                }
->>                   goto next;
->>               }
->> -            be->dpcm[stream].state = SND_SOC_DPCM_STATE_STOP;
->> +            if (be->dpcm[stream].be_pause != 0)
->> +                be->dpcm[stream].state = SND_SOC_DPCM_STATE_PAUSED;
->> +            else
->> +                be->dpcm[stream].state = SND_SOC_DPCM_STATE_STOP;
->> +
->>               break;
->>           case SNDRV_PCM_TRIGGER_SUSPEND:
->>               if (be->dpcm[stream].state != SND_SOC_DPCM_STATE_START)
->> @@ -2204,6 +2226,9 @@ int dpcm_be_dai_trigger(struct 
->> snd_soc_pcm_runtime *fe, int stream,
->>               if (be->dpcm[stream].state != SND_SOC_DPCM_STATE_START)
->>                   goto next;
->> +            fe->dpcm[stream].fe_pause = true;
->> +            be->dpcm[stream].be_pause++;
->> +
->>               be->dpcm[stream].be_start--;
->>               if (be->dpcm[stream].be_start != 0)
->>                   goto next;
+
+> 
+> Based on matthias.bgg/linux.git, v5.18-next/soc
+> changes since v6:
+> - rebase to matthias.bgg/linux.git, v5.18-next/soc
+> - Prefer "GPL" over "GPL v2" for MODULE_LICENSE
+> 
+> changes since v5:
+> - fix WARNING: modpost: missing MODULE_LICENSE() in drivers/mailbox
+>   /mtk-adsp-mailbox.o. Add MODULE_LICENSE in the last line.
+> - Due to WARNING: Missing or malformed SPDX-License-Identifier tag
+>   in line 1 in checkpatch, we don't remove SPDX-License in line 1.
+> 
+> changes since v4:
+> - add error message for wrong mbox chan
+> 
+> changes since v3:
+> - rebase on v5.16-rc8
+> - update reviewers
+> 
+> changes since v2:
+> - add out tag for two memory free phases
+> 
+> changes since v1:
+> - add comments for mtk_adsp_ipc_send and mtk_adsp_ipc_recv
+> - remove useless MODULE_LICENSE
+> - change label name to out_free
+> 
+> 
+> Allen-KH Cheng (1):
+>   firmware: mediatek: add adsp ipc protocol interface
+> 
+>  drivers/firmware/Kconfig                      |   1 +
+>  drivers/firmware/Makefile                     |   1 +
+>  drivers/firmware/mediatek/Kconfig             |   9 +
+>  drivers/firmware/mediatek/Makefile            |   2 +
+>  drivers/firmware/mediatek/mtk-adsp-ipc.c      | 161 ++++++++++++++++++
+>  .../linux/firmware/mediatek/mtk-adsp-ipc.h    |  65 +++++++
+>  6 files changed, 239 insertions(+)
+>  create mode 100644 drivers/firmware/mediatek/Kconfig
+>  create mode 100644 drivers/firmware/mediatek/Makefile
+>  create mode 100644 drivers/firmware/mediatek/mtk-adsp-ipc.c
+>  create mode 100644 include/linux/firmware/mediatek/mtk-adsp-ipc.h
+> 
+> -- 
+> 2.18.0
 > 

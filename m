@@ -2,77 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 395144F7BE4
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Apr 2022 11:40:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DC8D4F7BE5
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Apr 2022 11:40:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C67C517C9;
-	Thu,  7 Apr 2022 11:39:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C67C517C9
+	by alsa0.perex.cz (Postfix) with ESMTPS id A03651860;
+	Thu,  7 Apr 2022 11:40:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A03651860
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649324443;
-	bh=q6HaN3d0Wc4BX8ScAWKhh8emcIaugeEwIsXTjJpawCQ=;
+	s=default; t=1649324454;
+	bh=5s9OskJhRbRG2UiHya741d2AQEc7gXNCfqv7+61bHTo=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=h5MmWklED33pdc6l6PCHLDQF6hXkz1lRLq48MD1+rjITFP0i3etLSSzRDV+h2egWS
-	 YU3r7o0KxeXMx6/FIawXAFWl+8tdKe/ak5d/DPBX/XymRBjhs0ooq6ep0oG4JAzSSo
-	 d3G0j4rAekq4BmV974OK4Z9zWfT6exT0rKPlQh0w=
+	b=i+wJBA5WzDiwdJOZ8v/MIVI35HFgap6I7Ss4AriFxKpuumljZ98KpjK+LGZJkOTjc
+	 DWRrgVA2HtVHyXXTStgPkyYeBL4B84WM8AeKhT81JBlD7fWLHtkZLdmt/n//Rx6/WT
+	 hciu5QuE/nAamyj3lZYTN/k6+G5J7nAZZbHMtwTM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 681FEF80534;
-	Thu,  7 Apr 2022 11:38:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 079F3F80535;
+	Thu,  7 Apr 2022 11:38:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3D778F8052D; Thu,  7 Apr 2022 11:38:32 +0200 (CEST)
+ id AAF46F80538; Thu,  7 Apr 2022 11:38:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D005AF80524
- for <alsa-devel@alsa-project.org>; Thu,  7 Apr 2022 11:38:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D005AF80524
+ by alsa1.perex.cz (Postfix) with ESMTPS id 45823F80535
+ for <alsa-devel@alsa-project.org>; Thu,  7 Apr 2022 11:38:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45823F80535
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="jDs25bbn"
+ header.b="oSgF3tta"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id CCCF2B826EB;
- Thu,  7 Apr 2022 09:38:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB1C8C385A8;
- Thu,  7 Apr 2022 09:38:24 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id A97B2B826FA;
+ Thu,  7 Apr 2022 09:38:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 225A9C385A4;
+ Thu,  7 Apr 2022 09:38:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1649324307;
- bh=q6HaN3d0Wc4BX8ScAWKhh8emcIaugeEwIsXTjJpawCQ=;
+ s=k20201202; t=1649324312;
+ bh=5s9OskJhRbRG2UiHya741d2AQEc7gXNCfqv7+61bHTo=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=jDs25bbn3/0QsT4YpXsLyKfbVWolN6z7t2NW5wae9Xx7AbvyoCskY4Gki2pAChFJh
- fxrPJTgP2NS2nU1lm9L+pHXj39Qf4lOZ9N7ohio9BBUbZpE7fInyEkJGOGbp/7L88v
- F9dRCwftYPgfY5XFZGfNOLUaV0ZJ9ACI1+3s6uTvEqnt3ld5/xMbmhvbRIuyVH+vnC
- ocUdo9UYJztl6mtBhYhhLtxSgNiKRjC+JSpDz/i8AalrcdBH2Nge4JvGcZqzeZzRUt
- 3CVTb/XNaOEUrj1OHBDXgYaxVyw/ZiWzIP3bOsTvqJookhEHQwYE9bJictLCSj2Heg
- VN2Be9RiddtWg==
+ b=oSgF3ttao0gVuOlFBOMt9yHpO0kCnAqrr5505QzbDPd51pMmOkIeBjYcQRtVRyGyP
+ Ait3GuJuxl0/lyEPOO4Yf1AciPnd5o3Rd6UmadIK6jXimksRI2/q/QI7GfhL1og0f8
+ F6sKXWjfmQQ4Flol+icFsLEmIGMmrSm6bN00haeFXqCqdpm6W5o2m0QaQt4+lM9sbs
+ fwtOS8sWrSWcg5SE2Pyoq7Gn2rcmpwi4TnsOLybt/P1gf7xJVUPwLiBLS3aa9V9W1A
+ 2lCl6vYS7ej/9+1Rn4IHNx95h1v9aaKr5YDa+hHBXezAn6TPRcVsue0kemWQfKEp+7
+ Xj0dRH+U6rSmg==
 From: Mark Brown <broonie@kernel.org>
-To: viorel.suman@nxp.com, shengjiu.wang@gmail.com, nicoleotsuka@gmail.com,
- lgirdwood@gmail.com, Sascha Hauer <s.hauer@pengutronix.de>,
- a.fatoum@pengutronix.de, Xiubo.Lee@gmail.com, festevam@gmail.com
-In-Reply-To: <20220405155731.745413-1-a.fatoum@pengutronix.de>
-References: <20220405155731.745413-1-a.fatoum@pengutronix.de>
-Subject: Re: [PATCH] ASoC: fsl_sai: fix 1:1 bclk:mclk ratio support
-Message-Id: <164932430460.3844153.13561902931852849107.b4-ty@kernel.org>
-Date: Thu, 07 Apr 2022 10:38:24 +0100
+To: rf@opensource.cirrus.com
+In-Reply-To: <20220404113252.1152659-1-rf@opensource.cirrus.com>
+References: <20220404113252.1152659-1-rf@opensource.cirrus.com>
+Subject: Re: [PATCH] ASoC: simple-card-utils: Avoid NULL deref in
+ asoc_simple_set_tdm()
+Message-Id: <164932431085.3844153.445127549627667818.b4-ty@kernel.org>
+Date: Thu, 07 Apr 2022 10:38:30 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, kernel@pengutronix.de,
- linuxppc-dev@lists.ozlabs.org
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org, lkp@intel.com,
+ dan.carpenter@oracle.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,17 +85,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 5 Apr 2022 17:57:31 +0200, Ahmad Fatoum wrote:
-> Refactoring in commit a50b7926d015 ("ASoC: fsl_sai: implement 1:1
-> bclk:mclk ratio support") led to the bypass never happening
-> as (ratio = 1) was caught in the existing if (ratio & 1) continue;
-> check. The correct check sequence instead is:
+On Mon, 4 Apr 2022 12:32:52 +0100, Richard Fitzgerald wrote:
+> Don't dereference simple_dai before it has been checked for NULL.
 > 
->  - skip all ratios lower than one and higher than 512
->  - skip all odd ratios except for 1:1
->  - skip 1:1 ratio if and only if !support_1_1_ratio
 > 
-> [...]
 
 Applied to
 
@@ -106,8 +96,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: fsl_sai: fix 1:1 bclk:mclk ratio support
-      commit: d00887c106dac47b9af6ed70e8d5c45b69c4bd52
+[1/1] ASoC: simple-card-utils: Avoid NULL deref in asoc_simple_set_tdm()
+      commit: 51a630a7051f7f4f1cfdd64c20c7110f9907c230
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

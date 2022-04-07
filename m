@@ -2,58 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 431EE4F7A5E
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Apr 2022 10:51:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 593D94F7A95
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Apr 2022 10:56:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C52C217A3;
-	Thu,  7 Apr 2022 10:50:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C52C217A3
+	by alsa0.perex.cz (Postfix) with ESMTPS id BF10D18AE;
+	Thu,  7 Apr 2022 10:55:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF10D18AE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649321488;
-	bh=y//iCs8apNfn9JzyLf4AAfG0PL8HYlrJBCkBvMyj2S0=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=JCg12Jn7QqnS7pMm0zCC8HQuU5ue1N5HP3DnZOxeovjy49lyL2oPbH8PeoxeR2ykm
-	 FdJ6cdT0kujPRiVoiCuZQ+VeHFHnRLZXAJwWR7yl/kURcOXhwH432MRFkhC9L5H3gN
-	 5aG2rHQSa0lKV6I0wi8K0OpwqYEG6ZbWoBe1rR4I=
+	s=default; t=1649321782;
+	bh=XPI52egTqfb9mQKIoH/CG9CCRHL9wF2xtY0UcraIXic=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=aPQXr6GJksQ+n1nzdF6GNq5KCKgAj6buNKKiH9jfRamynOL4SrpcY5FMaK8Ifjno2
+	 MQ5Pn+e/Iu3NE9S9jaVvBy9DO6zp+0WKEMxrip6CSzuNcYZLKxyL61tiJrBxNugpIC
+	 hJyGBNZKWn/n0M63qUJ0ObjDumob6WVu8qiDmxX8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8E9B2F80529;
-	Thu,  7 Apr 2022 10:49:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 84545F805C1;
+	Thu,  7 Apr 2022 10:50:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 39187F80527; Thu,  7 Apr 2022 10:49:54 +0200 (CEST)
+ id 2A3A8F80557; Thu,  7 Apr 2022 10:50:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=PRX_BODY_13,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
  [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B69E9F8024C
- for <alsa-devel@alsa-project.org>; Thu,  7 Apr 2022 10:49:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B69E9F8024C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0E544F80526
+ for <alsa-devel@alsa-project.org>; Thu,  7 Apr 2022 10:49:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E544F80526
 Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
  by metis.ext.pengutronix.de with esmtps
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <sha@pengutronix.de>)
- id 1ncNpp-0003cs-Sj; Thu, 07 Apr 2022 10:49:45 +0200
+ id 1ncNps-0003hS-7Q; Thu, 07 Apr 2022 10:49:48 +0200
 Received: from [2a0a:edc0:0:1101:1d::28] (helo=dude02.red.stw.pengutronix.de)
  by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
  (envelope-from <sha@pengutronix.de>)
- id 1ncNpp-001Zqg-PS; Thu, 07 Apr 2022 10:49:44 +0200
+ id 1ncNps-001Zrr-H6; Thu, 07 Apr 2022 10:49:47 +0200
 Received: from sha by dude02.red.stw.pengutronix.de with local (Exim 4.94.2)
  (envelope-from <sha@pengutronix.de>)
- id 1ncNpm-000w3y-Gb; Thu, 07 Apr 2022 10:49:42 +0200
+ id 1ncNpm-000w40-HN; Thu, 07 Apr 2022 10:49:42 +0200
 From: Sascha Hauer <s.hauer@pengutronix.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v4 00/21] ASoC: fsl_micfil: Driver updates
-Date: Thu,  7 Apr 2022 10:49:15 +0200
-Message-Id: <20220407084936.223075-1-s.hauer@pengutronix.de>
+Subject: [PATCH v4 01/21] ASoC: fsl_micfil: Drop unnecessary register read
+Date: Thu,  7 Apr 2022 10:49:16 +0200
+Message-Id: <20220407084936.223075-2-s.hauer@pengutronix.de>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20220407084936.223075-1-s.hauer@pengutronix.de>
+References: <20220407084936.223075-1-s.hauer@pengutronix.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
@@ -80,79 +83,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This series has a bunch of cleanups for the FSL MICFIL driver. There is
-not much chance for regressions in this series as the driver currently
-can't work at all. The MICFIL needs multififo support in the i.MX SDMA
-engine which is added with this series, see 11/20.
+in get_pdm_clk() REG_MICFIL_CTRL2 is read twice. Drop second read.
 
-The multififo support is selected in the dma phandle arguments in the
-device tree, the transfer type must be '25' aka IMX_DMATYPE_MULTI_SAI.
-This is set already to 25 in the upstream i.MX8M[NM] dtsi files, but the
-SDMA driver silently ignores unsupported values instead of throwing an
-error. This is fixed in this series and multififo support is added.
+Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+Acked-by: Shengjiu Wang <shengjiu.wang@gmail.com>
+---
+ sound/soc/fsl/fsl_micfil.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-The dmaengine patches have acks from Vinod, so the series is free to
-go through the ASoC tree.
-
-Changes since v3:
-- Add commit log to "ASoC: fsl_micfil: drop unused variables"
-- Fix include name in "ASoC: fsl_micfil: add multi fifo support"
-- Drop unnecessary temporary adding of struct fsl_micfil::osr
-- Leave default quality setting at 'medium'
-- Drop debugging message printed at error level
-- collect acks from Shengjiu Wang and Vinod Koul
-
-Changes since v2:
-- Add forgotten commit log to dmaengine patches
-- Add patch to move include/linux/platform_data/dma-imx.h to include/linux/dma/imx-dma.h
-- Use prefix dmaengine: for dma patches
-
-Changes since v1:
-- Drop unused variable sw_done_sel
-- Evaluate sdmac->direction directly instead of storing value in n_fifos
-- add missing include linux/bitfield.h
-
-Sascha Hauer (21):
-  ASoC: fsl_micfil: Drop unnecessary register read
-  ASoC: fsl_micfil: Drop unused register read
-  ASoC: fsl_micfil: drop fsl_micfil_set_mclk_rate()
-  ASoC: fsl_micfil: do not define SHIFT/MASK for single bits
-  ASoC: fsl_micfil: use GENMASK to define register bit fields
-  ASoC: fsl_micfil: use clear/set bits
-  ASoC: fsl_micfil: drop error messages from failed register accesses
-  ASoC: fsl_micfil: drop unused variables
-  dmaengine: imx: Move header to include/dma/
-  dmaengine: imx-sdma: error out on unsupported transfer types
-  dmaengine: imx-sdma: Add multi fifo support
-  ASoC: fsl_micfil: add multi fifo support
-  ASoC: fsl_micfil: use define for OSR default value
-  ASoC: fsl_micfil: Drop get_pdm_clk()
-  ASoC: fsl_micfil: simplify clock setting
-  ASoC: fsl_micfil: rework quality setting
-  ASoC: fsl_micfil: drop unused include
-  ASoC: fsl_micfil: drop only once used defines
-  ASoC: fsl_micfil: drop support for undocumented property
-  ASoC: fsl_micfil: fold fsl_set_clock_params() into its only user
-  ASoC: fsl_micfil: Remove debug message
-
- drivers/dma/imx-dma.c                         |   2 +-
- drivers/dma/imx-sdma.c                        |  76 +++-
- drivers/mmc/host/mxcmmc.c                     |   2 +-
- drivers/spi/spi-fsl-lpspi.c                   |   2 +-
- drivers/spi/spi-imx.c                         |   2 +-
- drivers/tty/serial/imx.c                      |   2 +-
- drivers/video/fbdev/mx3fb.c                   |   2 +-
- .../dma-imx.h => dma/imx-dma.h}               |  26 +-
- sound/soc/fsl/fsl_asrc.c                      |   2 +-
- sound/soc/fsl/fsl_asrc_dma.c                  |   2 +-
- sound/soc/fsl/fsl_easrc.h                     |   2 +-
- sound/soc/fsl/fsl_micfil.c                    | 369 +++++++-----------
- sound/soc/fsl/fsl_micfil.h                    | 269 +++----------
- sound/soc/fsl/imx-pcm.h                       |   2 +-
- sound/soc/fsl/imx-ssi.h                       |   2 +-
- 15 files changed, 297 insertions(+), 465 deletions(-)
- rename include/linux/{platform_data/dma-imx.h => dma/imx-dma.h} (67%)
-
+diff --git a/sound/soc/fsl/fsl_micfil.c b/sound/soc/fsl/fsl_micfil.c
+index 9f90989ac59a6..64019d003784b 100644
+--- a/sound/soc/fsl/fsl_micfil.c
++++ b/sound/soc/fsl/fsl_micfil.c
+@@ -118,8 +118,6 @@ static inline int get_pdm_clk(struct fsl_micfil *micfil,
+ 	regmap_read(micfil->regmap, REG_MICFIL_CTRL2, &ctrl2_reg);
+ 	osr = 16 - ((ctrl2_reg & MICFIL_CTRL2_CICOSR_MASK)
+ 		    >> MICFIL_CTRL2_CICOSR_SHIFT);
+-
+-	regmap_read(micfil->regmap, REG_MICFIL_CTRL2, &ctrl2_reg);
+ 	qsel = ctrl2_reg & MICFIL_CTRL2_QSEL_MASK;
+ 
+ 	switch (qsel) {
 -- 
 2.30.2
 

@@ -2,83 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B680A4F79B4
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Apr 2022 10:30:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A8CC4F79C9
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Apr 2022 10:31:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 479A117A3;
-	Thu,  7 Apr 2022 10:30:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 479A117A3
+	by alsa0.perex.cz (Postfix) with ESMTPS id AD84317CF;
+	Thu,  7 Apr 2022 10:30:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD84317CF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649320257;
-	bh=1DmUDTV2qB8I3A+A+2JENeVgGHKyQsRN/hcLKOnMzpE=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1649320305;
+	bh=IEmIfmvDjDAuODcnl6zPz7PmfjuZn6iSpv14hlqDUDs=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rY7jPMsDzj8ZMsJEAaIQy+JY/QaTnlmhp6Sfd5iLp9yrEiO0WjUCIvm/bED7Y9lyr
-	 JW2H9w0icDANK6fLibngyZTkXMdeqYHTjrwmFWQLso60OlwKzdKiAn0DLWYGOA72Dg
-	 m8dsJS163WUDeYakHgO5DCP9kzR9gj+ye2xE3RdI=
+	b=JieuS0bDJOUfiEBX2mWyA4fC9Tmd7Qn7ijwp1OQOQgh+QbvSg//0QJ4vZiUjtWrnU
+	 P9svlSvvjHX7MHEkkTk07M8A7d8NICEBxIsg7gJnpjt90siOiyOMduCe3BpP18UMNA
+	 ZKV03c1b0kcqWJhywA3Rq7ccNRuz6MlTDJo7HAdU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4E9CDF804CF;
-	Thu,  7 Apr 2022 10:29:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 56367F8026D;
+	Thu,  7 Apr 2022 10:30:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EC557F8047B; Thu,  7 Apr 2022 10:29:50 +0200 (CEST)
+ id 4B49DF80141; Thu,  7 Apr 2022 10:30:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E2310F8012A
- for <alsa-devel@alsa-project.org>; Thu,  7 Apr 2022 10:29:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2310F8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5F878F80141
+ for <alsa-devel@alsa-project.org>; Thu,  7 Apr 2022 10:30:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F878F80141
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="h3bU2XHu"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="4okZhu8E"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id BD7122112B;
- Thu,  7 Apr 2022 08:29:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1649320184; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=1mgmDXYTa0SE2WxBL7Z6tuNLtdiT9Np10hDxGURb5Wk=;
- b=h3bU2XHuf9emVfqnh7mHPSTWCuvWKlDgEOl6PfDLmwVtPH0RsQTOM5/fkqXpd8UDTeUpgD
- 4M5v4UanqHzPgbG3ciBNDyZ7g0oFE/dgCeYpQEcdn6fm6zcRIVoK8LeaYy+PHn0ufpz/rp
- bxHEOMLjPkFoup+rDei/UeiX0oZezZI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1649320184;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=1mgmDXYTa0SE2WxBL7Z6tuNLtdiT9Np10hDxGURb5Wk=;
- b=4okZhu8EWd8sJwndIYaZWkd1OsbUv7+BJr/UtaZY5VH22Ph/3BZwzKZMvQS2qJllTn2M1y
- 4rATbS3XDKnsG8Dg==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 4C099A3B97;
- Thu,  7 Apr 2022 08:29:40 +0000 (UTC)
-Date: Thu, 07 Apr 2022 10:29:44 +0200
-Message-ID: <s5hee292t53.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH] ALSA: hda: intel-dsp-config: update AlderLake PCI IDs
-In-Reply-To: <20220406190418.245044-1-pierre-louis.bossart@linux.intel.com>
-References: <20220406190418.245044-1-pierre-louis.bossart@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="BmCEXZbd"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id D9843B826C3;
+ Thu,  7 Apr 2022 08:30:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E85E9C385A0;
+ Thu,  7 Apr 2022 08:30:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1649320240;
+ bh=IEmIfmvDjDAuODcnl6zPz7PmfjuZn6iSpv14hlqDUDs=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=BmCEXZbd408Zz2y7hnodiPy882CHg0C+PfopsvMnDPaEE36IKRWNmRgmjefa5e8bp
+ 2elEi791fTI90o3DC2iLIkXC64kbBUPxZbuNFuJ3dTGcCyrpooOJ+XCiSpriWdDc68
+ 7DsVThZQGdBk+lI3TF1BOBxbukY6cPpvMWR7v4eLZQ0cgBQ/uSohWsssqNpdcf7YXS
+ tQlCJar531QE1liYKyurnBy4WwSA4NBTxJ+5Ly6JfuwGStS36D9IKp0m8uvTaB2n8d
+ m6TQT8C/zjE3TL5cWf4d6XuvJUaLOJaE08G5W8sShAyMWxVWc53UkxpQe9RenZcQmJ
+ 3U9XPfhWQThIA==
+Date: Thu, 7 Apr 2022 14:00:35 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Sascha Hauer <s.hauer@pengutronix.de>
+Subject: Re: [PATCH v3 10/20] dmaengine: imx-sdma: error out on unsupported
+ transfer types
+Message-ID: <Yk6hK58PR4oPb0iy@matsya>
+References: <20220405075959.2744803-1-s.hauer@pengutronix.de>
+ <20220405075959.2744803-11-s.hauer@pengutronix.de>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220405075959.2744803-11-s.hauer@pengutronix.de>
+Cc: alsa-devel@alsa-project.org, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
+ kernel@pengutronix.de, dmaengine@vger.kernel.org,
+ Shengjiu Wang <shengjiu.wang@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,17 +89,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 06 Apr 2022 21:04:18 +0200,
-Pierre-Louis Bossart wrote:
-> 
-> Add missing AlderLake-PS and RaptorLake-S PCI IDs (already in HDaudio
-> and SOF drivers), add comments and regroup by skew.
-> 
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-> Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+On 05-04-22, 09:59, Sascha Hauer wrote:
+> The i.MX SDMA driver currently silently ignores unsupported transfer
+> types. These transfer types are specified in the dma channel description
+> in the device tree, so they should really be checked.
+> Issue a message and error out when we hit unsupported transfer types.
 
-Thanks, applied.
+Acked-By: Vinod Koul <vkoul@kernel.org>
 
-
-Takashi
+-- 
+~Vinod

@@ -2,83 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 321EF4F8766
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Apr 2022 20:52:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A82AB4F87A0
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Apr 2022 21:02:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C8BCC184E;
-	Thu,  7 Apr 2022 20:51:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8BCC184E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 562C7185E;
+	Thu,  7 Apr 2022 21:02:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 562C7185E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649357529;
-	bh=IzAnxhKtrFFJ8vCMp+1utrg5TgDF5B4BYIS5/xgk0Es=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1649358178;
+	bh=+Do0YfsDHRH1l+qnksliBRchsPuZipjLmbC6F1eP0s4=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=X1J5hbA/yQRBTKdY5PKDYIq6GUNTkBt/tlwa0mdtKXQonGPyglOfOIeIi7J2okygV
-	 PoWQ1PJUyyMWjEl03cIkXm8L1pd45uFwK8r6e9soD1bzf4E+LXTUyk/ghE0rCYtz40
-	 TqPI67hmZcZ/+HjRHBcpdS9B2yrDt8U/ZkddcplA=
+	b=UizgGkjuR9IK8wSy0lxBuyO/B3SpVbAVF1Z7np455IZslMc2588xNS6Al+AoL0qQy
+	 3/h+5QYoAaFxwj2kl7IIAooaQ0N74slzrnCHBe0kO4fxfpge7MDWKIFWKB759HfX9O
+	 c9A9FiL8PEbD+CLonu1Pyid3E4rAGkhPajz60zZI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 65497F8051D;
-	Thu,  7 Apr 2022 20:50:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B70F8F80054;
+	Thu,  7 Apr 2022 21:01:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6440AF80519; Thu,  7 Apr 2022 20:50:10 +0200 (CEST)
+ id 2C03DF8024C; Thu,  7 Apr 2022 21:01:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 34E23F8024C
- for <alsa-devel@alsa-project.org>; Thu,  7 Apr 2022 20:50:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34E23F8024C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="XYPfaO1Z"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 84D57B82968;
- Thu,  7 Apr 2022 18:50:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C185EC385AE;
- Thu,  7 Apr 2022 18:50:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1649357402;
- bh=IzAnxhKtrFFJ8vCMp+1utrg5TgDF5B4BYIS5/xgk0Es=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=XYPfaO1ZldtHyrOG0XA0KqWNH9KXVUMXQa8zNepOteTeXlEOSfiIUlMXruxUeSnNf
- AkqPi6MPT4EOdZKSbexaPlFuNYof6v8LveVa5EZcwDeHVkjHiWgZfA0Fk0NEyYWK74
- Bt4J3fW7hYXVAakIIHY7MWExyEtBWyRY9cTmqFSotpRsgSQ2taQ2ti7cvqLd8s/yQd
- lFBsQziGlPqU/EO9G8E5dgfAU3aNbM4IlTbZ324JfIQ2hPHnxbct30VXpyqa0S2/oe
- j0nwSwmywxWS1g7w5Kq58pBjL2D8CbcO6tNdAQgaBnrVpS3IENw1Sh4ltCHYFp0Z3/
- RQTyiBbHD1VnQ==
-Received: from mchehab by mail.kernel.org with local (Exim 4.94.2)
- (envelope-from <mchehab@kernel.org>)
- id 1ncXCi-000Rux-CG; Thu, 07 Apr 2022 20:50:00 +0200
-From: Mauro Carvalho Chehab <mchehab@kernel.org>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v5 4/4] ASoC: Intel: sof_es8336: Add a quirk for Huawei
- Matebook D15
-Date: Thu,  7 Apr 2022 20:49:59 +0200
-Message-Id: <d678aef9fc9a07aced611aa7cb8c9b800c649e5a.1649357263.git.mchehab@kernel.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <cover.1649357263.git.mchehab@kernel.org>
-References: <cover.1649357263.git.mchehab@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id C2B36F80054
+ for <alsa-devel@alsa-project.org>; Thu,  7 Apr 2022 21:01:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2B36F80054
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="HgtXLrsv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1649358115; x=1680894115;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=+Do0YfsDHRH1l+qnksliBRchsPuZipjLmbC6F1eP0s4=;
+ b=HgtXLrsv7efFu8d8EceCJfjeEmGfWOE3QdgXViwG/HTCVzzIWe9QTlWx
+ 8uO1Si0dX1nzj7CAVoQx3fjaf/cI68g0xvOSYACJ/+J3MycMtbUIIB0d6
+ e0vTPhdx2rDi3+Jnfqomi2Vh5PWuW2xcz5QVXgfii7fQiVU3XumnUUCkk
+ +O7aiabbCCucdFY35YvLrrRi3GSCqyZlF7px7Za1AJg/Emgnj7kQ9tp8a
+ r+9tC7cYFc9DKr9fg84hKDhTupTFPWAaaowdMhMgndYRtozfysKmCUAld
+ nwkyYQXp7ZVBLgQHDG8YB4D/mpQgs+kIaljx0ht+yniB5tRQWV+tvyq7B Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10310"; a="322107538"
+X-IronPort-AV: E=Sophos;i="5.90,242,1643702400"; d="scan'208";a="322107538"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Apr 2022 12:01:29 -0700
+X-IronPort-AV: E=Sophos;i="5.90,242,1643702400"; d="scan'208";a="524499719"
+Received: from achordiy-mobl.amr.corp.intel.com (HELO [10.209.88.227])
+ ([10.209.88.227])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Apr 2022 12:01:27 -0700
+Message-ID: <591f1596-a2be-309c-4f61-0d58ab0effc0@linux.intel.com>
+Date: Thu, 7 Apr 2022 14:01:27 -0500
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.5.0
+Subject: Re: [PATCH v5 0/4] Make headphone work on Huawei Matebook D15
+Content-Language: en-US
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, alsa-devel@alsa-project.org
+References: <cover.1649357263.git.mchehab@kernel.org>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <cover.1649357263.git.mchehab@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Jie Yang <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
  Liam Girdwood <liam.r.girdwood@linux.intel.com>,
  Hans de Goede <hdegoede@redhat.com>, Mark Brown <broonie@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+ =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
  linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -95,42 +97,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Based on experimental tests, Huawei Matebook D15 actually uses
-both gpio0 and gpio1: the first one controls the speaker, while
-the other one controls the headphone.
 
-Also, the headset is mapped as MIC1, instead of MIC2.
 
-So, add a quirk for it.
+On 4/7/22 13:49, Mauro Carvalho Chehab wrote:
+> Huawei Matebook D15 uses two different GPIOs are used to control the output:
+> 
+> 	- gpio0 controls the speaker output;
+> 	- gpio1 controls the headphone output.
+> 
+> Changing both at the same time cause spurious events that are mis-interpreted
+> as input events, causing troubles on apps. So, a delay is needed before turning
+> on such gpios.
+> 
+> Also, the headset microphone is connected to MIC1, instead of MIC2 port.
+> 
+> With this patch, plugging a headphone causes a jack event to trigger the speaker
+> supply, powering down the speaker and powering up the headphone output.
+> Removing the headphone also triggers the power supply, powering up the speaker
+> and powering down the headphone.
+> 
+> The headset microphone also works. 
 
-Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
----
+For the series:
 
-See [PATCH v5 0/4] at: https://lore.kernel.org/all/cover.1649357263.git.mchehab@kernel.org/
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
- sound/soc/intel/boards/sof_es8336.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+Thanks Mauro for your work, much appreciated.
 
-diff --git a/sound/soc/intel/boards/sof_es8336.c b/sound/soc/intel/boards/sof_es8336.c
-index c71842be9d59..9d617831dd20 100644
---- a/sound/soc/intel/boards/sof_es8336.c
-+++ b/sound/soc/intel/boards/sof_es8336.c
-@@ -304,6 +304,15 @@ static const struct dmi_system_id sof_es8336_quirk_table[] = {
- 		},
- 		.driver_data = (void *)(SOF_ES8336_SPEAKERS_EN_GPIO1_QUIRK)
- 	},
-+	{
-+		.callback = sof_es8336_quirk_cb,
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "HUAWEI"),
-+			DMI_MATCH(DMI_BOARD_NAME, "BOHB-WAX9-PCB-B2"),
-+		},
-+		.driver_data = (void *)(SOF_ES8336_HEADPHONE_GPIO |
-+					SOC_ES8336_HEADSET_MIC1)
-+	},
- 	{}
- };
- 
--- 
-2.35.1
-
+> 
+> ---
+> 
+> v5:
+>   - dropped an uneeded differential mux from the boards driver.
+> 
+> v4:
+>   - add support for headset microphone on MIC1 port.
+> 
+> v3:
+>   - add a patch changing GPIO quirk speaker naming. Patch 2 got rebased on the top of it.
+> 
+> Mauro Carvalho Chehab (3):
+>   ASoC: Intel: sof_es8336: support a separate gpio to control headphone
+>   ASoC: Intel: sof_es8336: add a quirk for headset at mic1 port
+>   ASoC: Intel: sof_es8336: Add a quirk for Huawei Matebook D15
+> 
+> Pierre-Louis Bossart (1):
+>   ASoC: Intel: sof_es8336: simplify speaker gpio naming
+> 
+>  sound/soc/intel/boards/sof_es8336.c | 117 +++++++++++++++++++++-------
+>  1 file changed, 89 insertions(+), 28 deletions(-)
+> 

@@ -2,74 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9BFD4F88C0
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Apr 2022 23:18:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3DF04F88C9
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Apr 2022 23:25:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1DE501748;
-	Thu,  7 Apr 2022 23:17:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1DE501748
+	by alsa0.perex.cz (Postfix) with ESMTPS id 72333185C;
+	Thu,  7 Apr 2022 23:24:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 72333185C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649366298;
-	bh=Xe6t/KwR7yLErk5qBWZKxsvD2JGxMceRUxiTsHmbH7M=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Z/OJOpvMTSgoRC9iSJsTPo7ZuA/0MLpIxQv1te3/Uj+dPzZWy9ui940+hGULTQ2zZ
-	 QI0ykc6VMv5JgakYCq81FwSwt9AbcDanqAADZpfaACMxaiJUuFMlybfsFI9AN1dbHd
-	 Lvdu/oDlphgZDVROWmfefhDjxNJM8w8os9pNyw0M=
+	s=default; t=1649366733;
+	bh=ZM2JW5hpiHTPcC5mYT0UabIz9BN1FEYm0emgVb8w8vQ=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=gNBy26hffy9ofZIy9R+gl6V2XvBVhGZJX2lPpQ14AEadCAFtRUXAO1j/Wuyghhu+s
+	 1qN/fDzRwFMbrzKYiIyLS9EZ8Om0T6kebwIgPlYD6/epHDBHSOIlKhhicXN5dqM10l
+	 twUeTWasW1FtZNe3ROaF3c5JAVYCFIzL7JSF1WkM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8F804F8026A;
-	Thu,  7 Apr 2022 23:17:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DB542F80085;
+	Thu,  7 Apr 2022 23:24:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BE2B5F8024C; Thu,  7 Apr 2022 23:17:15 +0200 (CEST)
+ id BDBA8F8024C; Thu,  7 Apr 2022 23:24:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 74140F8012A
- for <alsa-devel@alsa-project.org>; Thu,  7 Apr 2022 23:17:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74140F8012A
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 80197F8012A
+ for <alsa-devel@alsa-project.org>; Thu,  7 Apr 2022 23:24:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80197F8012A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="RSNBu+lg"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="MYI/jZM+"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 8C6041F37C
- for <alsa-devel@alsa-project.org>; Thu,  7 Apr 2022 21:17:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1649366228; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=riGNQT5zL5Uq+vahL0R2zp+s1dNtGbHVSfXaY7Gf6p8=;
- b=RSNBu+lguxgo12n28ktZmVE2Gp4ht18CuJ0EmUshuwS0T9nCJVsoWEbjzlKbyOAfwEtRUS
- V7DqDz7VnB/TJ9S6iA408VHevR+nIOKSFSGQGAPYTlEPFM2npypnRUf8BDYvTRZT+/Njcz
- hccVlEv4i1ZMaBu7A0OmyG/r5QpMCMg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1649366228;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=riGNQT5zL5Uq+vahL0R2zp+s1dNtGbHVSfXaY7Gf6p8=;
- b=MYI/jZM+J2cnXzA4cKYH+vzT3Vily9w16vmWE0bHS9b8FRALDoRcoPEPO8/vuTNJgZWmhi
- 0IHwqe8THeEqUrAg==
-Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 7C216A3B83;
- Thu,  7 Apr 2022 21:17:07 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: usb-audio: Cap upper limits of buffer/period bytes for
- implicit fb
-Date: Thu,  7 Apr 2022 23:16:57 +0200
-Message-Id: <20220407211657.15087-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.31.1
+ dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
+ header.b="LiryOxC+"
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: nfraprado) with ESMTPSA id 9D6F51F46A45
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1649366665;
+ bh=ZM2JW5hpiHTPcC5mYT0UabIz9BN1FEYm0emgVb8w8vQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=LiryOxC+H+6BonxWrZ4+pNbcRKz86e6YgydNpcl43YPOLnyxpjUYiuoJfDqPbWNjP
+ za8u8bpPBJ2SUcPe72Vh0zPerv8izJOtPuyw7OH62o+US/bHtLN2nWjGExklAJZa0O
+ bn45EReCe/JewyiEtM9fqb8GTOeZuirZ3BEyzoZbSnk0Dw9ET+f7p7neAGzBslUxZu
+ LiuamJvfs1iYdtbMoc+KagPnr+mPm1qTutqlk/ISg5k1/QqMJTQDK/yJekAndw4APh
+ Ct6w5Zg6lWpsHRJalImfqOHkw9c3inpZsON6kjdmQHIRTNg2i7lOizfBqNpYmJRIUg
+ Fl8PimTFnVqvA==
+Date: Thu, 7 Apr 2022 17:24:20 -0400
+From: =?utf-8?B?TsOtY29sYXMgRi4gUi4gQS4=?= Prado <nfraprado@collabora.com>
+To: Jiaxin Yu <jiaxin.yu@mediatek.com>
+Subject: Re: [v9 2/4] ASoC: mediatek: mt8192: refactor for I2S3 DAI link of
+ speaker
+Message-ID: <20220407212420.tncc576jo5iwaqk7@notapiano>
+References: <20220406100514.11269-1-jiaxin.yu@mediatek.com>
+ <20220406100514.11269-3-jiaxin.yu@mediatek.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20220406100514.11269-3-jiaxin.yu@mediatek.com>
+Cc: devicetree@vger.kernel.org, linmq006@gmail.com, alsa-devel@alsa-project.org,
+ robh+dt@kernel.org, linux-kernel@vger.kernel.org,
+ Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
+ broonie@kernel.org, linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
+ matthias.bgg@gmail.com, aaronyu@google.com,
+ linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,158 +86,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In the implicit feedback mode, some parameters are tied between both
-playback and capture streams.  One of the tied parameters is the
-period size, and this can be a problem if the device has different
-number of channels to both streams.  Assume that an application opens
-a playback stream that has an implicit feedback from a capture stream,
-and it allocates up to the max period and buffer size as much as
-possible.  When the capture device supports only more channels than
-the playback, the minimum period and buffer sizes become larger than
-the sizes the playback stream took.  That is, the minimum size will be
-over the max size the driver limits, and PCM core sees as if no
-available configuration is found, returning -EINVAL mercilessly.
+Hi Jiaxin,
 
-For avoiding this problem, we have to look through the counter part of
-audioformat list for each sync ep, and checks the channels.  If more
-channels are found there, we reduce the max period and buffer sizes
-accordingly.
+On Wed, Apr 06, 2022 at 06:05:12PM +0800, Jiaxin Yu wrote:
+> MT8192 platform will use rt1015 or rt1015p codec, so through the
+> snd_soc_of_get_dai_link_codecs() to complete the configuration
+> of dai_link's codecs.
 
-You may wonder that the patch adds only the evaluation of channels
-between streams, and what about other parameters?  Both the format and
-the rate are tied in the implicit fb mode, hence they are always
-identical.
+Suggestion for the commit message:
 
-BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=215792
-Fixes: 5a6c3e11c9c9 ("ALSA: usb-audio: Add hw constraint for implicit fb sync")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/usb/pcm.c | 89 +++++++++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 87 insertions(+), 2 deletions(-)
+As part of the refactoring to allow the same machine driver to be used for the
+rt1015(p) and rt5682(s) codecs on the MT8192 platform, parse the rt1015(p)
+codecs from the speaker-codecs property in the devicetree and wire them to the
+I2S3 backend, instead of hardcoding the links and selecting through the
+compatible.
 
-diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
-index cec6e91afea2..6a460225f2e3 100644
---- a/sound/usb/pcm.c
-+++ b/sound/usb/pcm.c
-@@ -659,6 +659,9 @@ static int snd_usb_pcm_prepare(struct snd_pcm_substream *substream)
- #define hwc_debug(fmt, args...) do { } while(0)
- #endif
- 
-+#define MAX_BUFFER_BYTES	(1024 * 1024)
-+#define MAX_PERIOD_BYTES	(512 * 1024)
-+
- static const struct snd_pcm_hardware snd_usb_hardware =
- {
- 	.info =			SNDRV_PCM_INFO_MMAP |
-@@ -669,9 +672,9 @@ static const struct snd_pcm_hardware snd_usb_hardware =
- 				SNDRV_PCM_INFO_PAUSE,
- 	.channels_min =		1,
- 	.channels_max =		256,
--	.buffer_bytes_max =	1024 * 1024,
-+	.buffer_bytes_max =	MAX_BUFFER_BYTES,
- 	.period_bytes_min =	64,
--	.period_bytes_max =	512 * 1024,
-+	.period_bytes_max =	MAX_PERIOD_BYTES,
- 	.periods_min =		2,
- 	.periods_max =		1024,
- };
-@@ -971,6 +974,78 @@ static int hw_rule_periods_implicit_fb(struct snd_pcm_hw_params *params,
- 				      ep->cur_buffer_periods);
- }
- 
-+/* get the adjusted max buffer (or period) bytes that can fit with the
-+ * paired format for implicit fb
-+ */
-+static unsigned int
-+get_adjusted_max_bytes(struct snd_usb_substream *subs,
-+		       struct snd_usb_substream *pair,
-+		       struct snd_pcm_hw_params *params,
-+		       unsigned int max_bytes,
-+		       bool reverse_map)
-+{
-+	const struct audioformat *fp, *pp;
-+	unsigned int rmax = 0, r;
-+
-+	list_for_each_entry(fp, &subs->fmt_list, list) {
-+		if (!fp->implicit_fb)
-+			continue;
-+		if (!reverse_map &&
-+		    !hw_check_valid_format(subs, params, fp))
-+			continue;
-+		list_for_each_entry(pp, &pair->fmt_list, list) {
-+			if (pp->iface != fp->sync_iface ||
-+			    pp->altsetting != fp->sync_altsetting ||
-+			    pp->ep_idx != fp->sync_ep_idx)
-+				continue;
-+			if (reverse_map &&
-+			    !hw_check_valid_format(pair, params, pp))
-+				break;
-+			if (!reverse_map && pp->channels > fp->channels)
-+				r = max_bytes * fp->channels / pp->channels;
-+			else if (reverse_map && pp->channels < fp->channels)
-+				r = max_bytes * pp->channels / fp->channels;
-+			else
-+				r = max_bytes;
-+			rmax = max(rmax, r);
-+			break;
-+		}
-+	}
-+	return rmax;
-+}
-+
-+/* Reduce the period or buffer bytes depending on the paired substream;
-+ * when a paired configuration for implicit fb has a higher number of channels,
-+ * we need to reduce the max size accordingly, otherwise it may become unusable
-+ */
-+static int hw_rule_bytes_implicit_fb(struct snd_pcm_hw_params *params,
-+				     struct snd_pcm_hw_rule *rule)
-+{
-+	struct snd_usb_substream *subs = rule->private;
-+	struct snd_usb_substream *pair;
-+	struct snd_interval *it;
-+	unsigned int max_bytes;
-+	unsigned int rmax;
-+
-+	pair = &subs->stream->substream[!subs->direction];
-+	if (!pair->ep_num)
-+		return 0;
-+
-+	if (rule->var == SNDRV_PCM_HW_PARAM_PERIOD_BYTES)
-+		max_bytes = MAX_PERIOD_BYTES;
-+	else
-+		max_bytes = MAX_BUFFER_BYTES;
-+
-+	rmax = get_adjusted_max_bytes(subs, pair, params, max_bytes, false);
-+	if (!rmax)
-+		rmax = get_adjusted_max_bytes(pair, subs, params, max_bytes, true);
-+	if (!rmax)
-+		return 0;
-+
-+	it = hw_param_interval(params, rule->var);
-+	return apply_hw_params_minmax(it, 0, rmax);
-+}
-+
- /*
-  * set up the runtime hardware information.
-  */
-@@ -1085,6 +1160,16 @@ static int setup_hw_info(struct snd_pcm_runtime *runtime, struct snd_usb_substre
- 				  SNDRV_PCM_HW_PARAM_PERIODS, -1);
- 	if (err < 0)
- 		return err;
-+	err = snd_pcm_hw_rule_add(runtime, 0, SNDRV_PCM_HW_PARAM_BUFFER_BYTES,
-+				  hw_rule_bytes_implicit_fb, subs,
-+				  SNDRV_PCM_HW_PARAM_BUFFER_BYTES, -1);
-+	if (err < 0)
-+		return err;
-+	err = snd_pcm_hw_rule_add(runtime, 0, SNDRV_PCM_HW_PARAM_PERIOD_BYTES,
-+				  hw_rule_bytes_implicit_fb, subs,
-+				  SNDRV_PCM_HW_PARAM_PERIOD_BYTES, -1);
-+	if (err < 0)
-+		return err;
- 
- 	list_for_each_entry(fp, &subs->fmt_list, list) {
- 		if (fp->implicit_fb) {
--- 
-2.34.1
+> 
+> Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
 
+Reviewed-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
+Tested-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
+
+- Tested on mt8192-asurada-spherion (rt1015p and rt5682). All audio paths still
+  work as previous to this refactor. And it's still possible to omit
+  mediatek,hdmi-codec.
+
+Thanks,
+Nícolas

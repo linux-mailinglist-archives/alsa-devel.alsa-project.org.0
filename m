@@ -2,73 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3862D4F6DEC
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Apr 2022 00:41:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91DAA4F6EF8
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Apr 2022 02:11:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B782316F8;
-	Thu,  7 Apr 2022 00:40:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B782316F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1D53D171D;
+	Thu,  7 Apr 2022 02:10:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D53D171D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649284905;
-	bh=SLBmZmUQFu6ocPpiTXg/ZfKopGRrWNCkVkI/W8/zI8c=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1649290297;
+	bh=DcRZH8NgShI8Ec8r73MvzK8V3+XYpTchVt1K+RsLep8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YlfduLpc7KG8vWj/6fGoc470MeVl2GHA5YTXYHzfHbDuQznPpMK9F5wwrpq3CiK6p
-	 rv0AVYwSbrt0M/tQ5LJwFLqd2Mt7dOoqDNc2lO3nqulxsL8PyziDoTWbKqA9eGqdiq
-	 Z58v53PP2g7XeZODNKd+Gu9C3lE8zD/yJYrAGTXk=
+	b=K5LGQono2qFZbPrlkk9/IGkKZ7NStegi6+bEy2Pd4CRTQuUESXbn8TBtbMEGFaqzh
+	 5sXAVOt/80zUCUHvaNY9/Iu6N6YW2pVPmChnXA2Ioge+iMvECarra8JMIVOL1Ry7hH
+	 fkeLbX0ByX7Pw5X8iXbKB/xaCg6OerZi25ahLi6A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 428ACF8019B;
-	Thu,  7 Apr 2022 00:40:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 730E1F8019B;
+	Thu,  7 Apr 2022 02:10:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 84456F800D2; Thu,  7 Apr 2022 00:40:46 +0200 (CEST)
+ id DB8B8F80161; Thu,  7 Apr 2022 02:10:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
+ [64.147.123.21])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F3EA0F800D2
- for <alsa-devel@alsa-project.org>; Thu,  7 Apr 2022 00:40:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3EA0F800D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2E10CF80054
+ for <alsa-devel@alsa-project.org>; Thu,  7 Apr 2022 02:10:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E10CF80054
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="C3r93B7N"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 5E3F5B82528;
- Wed,  6 Apr 2022 22:40:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80B20C385A3;
- Wed,  6 Apr 2022 22:40:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1649284840;
- bh=SLBmZmUQFu6ocPpiTXg/ZfKopGRrWNCkVkI/W8/zI8c=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=C3r93B7NMrOaojcfkklSZljw1rKZTdD3K4A8FORKTIH7CuCuFFDtVN4zQonXs74Tk
- TYVT/WHUB7YXqdR6dXRMEWMLKSc+Q9PgW+qhPXyORqzNpu0A3fO4QrwuRFcXDbrFbw
- D52E0OBjMGoC+vtBfY0/eO5sMQ6ZdXHu4Cb9mEek4YZdJawNFrJdusdGp8TienuUrQ
- 8IJSTAGkWKQXXx/JFudtkIdT4e5nmxDStQkBIV03VsEPxRvmFDr2Wx7DMOzx8Ojx1w
- Ejqbs9ZKmKBPQ58pRVFzfAs6l6m4aZHJqTzb+CABK/31VO5353mSrYLEZ8Sf+51lIh
- 6P0pfLbufR/EQ==
-From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87h778p9mx.wl-kuninori.morimoto.gx@renesas.com>
-References: <87h778p9mx.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH 0/6] ASoC: ak4613: add TDM256 test support
-Message-Id: <164928483922.1687192.11746744849051499713.b4-ty@kernel.org>
-Date: Wed, 06 Apr 2022 23:40:39 +0100
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="LE60T11Y"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="ZPUFTidV"
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.west.internal (Postfix) with ESMTP id 3327E3201F24;
+ Wed,  6 Apr 2022 20:10:26 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Wed, 06 Apr 2022 20:10:26 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=cc:cc:content-type:date:date:from:from:in-reply-to
+ :in-reply-to:message-id:mime-version:references:reply-to:sender
+ :subject:subject:to:to; s=fm1; bh=U5WfQ+6qT79WcWmJEsxQhXGAhm+D0K
+ JQuIx4kwqDUAQ=; b=LE60T11Y8eIKEJmIQYQFBkJvNvz59moAx/a92uEz1+hHAs
+ khGz9FO1XCAihio4ldWIJSpcsceeIPmXqDOSEVvrl8ifUR0fiv5kt35F+AgcP/5c
+ /+BfAwf7v+bNVcUDx6W1IIn6QgOYVljg+vHXgImH1lZ4BusBmZtlO8x58iTmD2D5
+ 6WeRT6omRRrd3dWz+9Nhu6IWmD0zbdx0esh9rmM6Vb6etG8S3uReSIG1m5KqeQyM
+ CRmpY3BWAVwQCiPcSYlaM62+zlIwI9CWx1kdr9c3wSMKA5pMEX1J5cN6KD4dDBIN
+ bSQVgogoFV947+w68ff3GsMfCBs5lGQaR3HXnLow==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:date:date:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=U5WfQ+6qT79WcWmJE
+ sxQhXGAhm+D0KJQuIx4kwqDUAQ=; b=ZPUFTidVN0jHZmK6d28u/Krm5zmOb8ki1
+ H6mv6PdCeQKa8C+GMMkc1NFB3QgkrMjW4iMl9I18o3XSEmnM2456ZxEEkjbYFh9+
+ XMMe4u/RZSfbbDF++qWqNSA87QQ0AKq7n/VM/gZnTmuc0yDHir9MllbPS0TM+TO+
+ V/u1hlVg2c8VUHDpTu+Q+XDLH4i4e8v2gVZTHsyWdfJZYJAoxQppbWBESTjLgmCD
+ jIIsPrO0eHCfpldzkv+u0yKk1DR8Ac+39+/JvlkYK4XVv7P0HFchpL4nXg/nxcqb
+ Z76gUERoWGzzxM2CHD1GE53a8AKgpee/D752wAc/w+YDsWsb1LfAQ==
+X-ME-Sender: <xms:8StOYsdKY2-rGhqPaPqAzIhgsDZalAvfYbCeU40kMWXV9iEkcetlDA>
+ <xme:8StOYuO832uNnAcdB6HKg5uDkGGhTZTDfzEO0AgkujrAUWND8EasmhWW3IpQdWLDy
+ vfeOcRao1njYzs-E7k>
+X-ME-Received: <xmr:8StOYti2m-SAL5aNoygZSxXGPYt_1lgRNIJugDAONBmg0Z4XemFwcnHe2QM8FO3vjPwMxDMyUQYvRg-CSSv3Xs1RnVz24wdi>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrudejjedgfeduucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefvrghkrghs
+ hhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjh
+ hpqeenucggtffrrghtthgvrhhnpeejgeeifeeuveeufeeigeegjeelvdfgjeegffejgfdv
+ keelhefgtdefteejleekjeenucffohhmrghinhepkhgvrhhnvghlrdhorhhgnecuvehluh
+ hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhh
+ ihesshgrkhgrmhhotggthhhirdhjph
+X-ME-Proxy: <xmx:8StOYh9WlmD0GsoROWT8eztL7NWnFdPxFl-KuXZUbvLlsL9o8Nl_Fw>
+ <xmx:8StOYotJOrS3n4tqFBh0xc_ZN4x-kjzX5azYMzUktI1AVfn-HVMOog>
+ <xmx:8StOYoHO7vEtlUHYktVyDepWftci7FD1uf_m2BI0YellxKPYTLm7pg>
+ <xmx:8StOYkIjWF-XyFlh7VYxEhlk9h68Kg2iSxizFliMFD1An1R5oCErog>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 6 Apr 2022 20:10:23 -0400 (EDT)
+Date: Thu, 7 Apr 2022 09:10:21 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH v3 0/3] firewire: assist unit driver to compute packet
+ time stamp
+Message-ID: <Yk4r7VcotHz0iMOU@workstation>
+Mail-Followup-To: Takashi Iwai <tiwai@suse.de>, clemens@ladisch.de,
+ alsa-devel@alsa-project.org, linux1394-devel@lists.sourceforge.net,
+ linux-kernel@vger.kernel.org
+References: <20220405072221.226217-1-o-takashi@sakamocchi.jp>
+ <s5hczhv5wjc.wl-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <s5hczhv5wjc.wl-tiwai@suse.de>
+Cc: alsa-devel@alsa-project.org, linux1394-devel@lists.sourceforge.net,
+ clemens@ladisch.de, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,50 +120,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 5 Apr 2022 02:05:42 +0000, Kuninori Morimoto wrote:
-> Renesas is the only user of ak4613 driver on upstream for now.
-> It has STEREO/TDM512/TDM256/TDM128 mode, but STEREO only is used,
-> because of Renesas board connection.
+On Tue, Apr 05, 2022 at 06:23:35PM +0200, Takashi Iwai wrote:
+> On Tue, 05 Apr 2022 09:22:18 +0200,
+> Takashi Sakamoto wrote:
+> > 
+> > Hi,
+> > 
+> > Current implementation of Linux FireWire subsystem doesn't allow unit
+> > driver to operate content of packet in IR context according to
+> > time stamp. Additionally it doesn't allow unit driver to read current value
+> > of CYCLE_TIME register in OHCI 1394 controller. It brings disadvantages to
+> > drivers in Linux sound subsystem in regards of handling time for sampled
+> > data such as PCM frames and MIDI messages.
+> > 
+> > This rerolled patchset is first step to improve the situation.
+> > 
+> > Changes in v3:
+> >  * Rebase v2 patchset to v5.18-rc1
+> > Changes in v2:
+> >  * Rebase v1 patchset to v5.16 release
+> >  * https://lore.kernel.org/lkml/20220212022131.199855-1-o-takashi@sakamocchi.jp/
+> > V1:
+> >  * https://lore.kernel.org/lkml/20211202113457.24011-1-o-takashi@sakamocchi.jp/
+> > 
+> > Hector Martin (1):
+> >   firewire: Add dummy read_csr/write_csr functions
+> > 
+> > Takashi Sakamoto (2):
+> >   firewire: add kernel API to access CYCLE_TIME register
+> >   firewire: add kernel API to access packet structure in request
+> >     structure for AR context
 > 
-> I noticed that I can test first 2ch out of TDM256 mode 8ch
-> Playback even in such a situation.
-> 
-> [...]
+> Thanks, applied all three patches now to for-next branch.
 
-Applied to
+Although thanks for your applying them into your tree, I apologize to
+trouble you if you overlook that the included changes is just for Linux
+FireWire subsystem. It's my fault to send them only to Linux sound
+subsystem, but the changes are required to my work in sound drivers... 
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+If you are willing to include patches to Linux FireWire subsystem for
+your pull-request to Linus, I can prepare respined patches for it since
+I have the list of patches posted to LKML as bug fixes for Linux FireWire
+subsystem.
 
-Thanks!
+I need any help to solve current situation of Linux FireWire subsystem
+that bug fixes and new changes are hardly merged. Of course, IEEE 1394 bus
+is already outdated and legacy, but I know that some users still work
+with it. If your path is available for it, it's the easiest and the most
+convenient way for upstreaming, I think.
 
-[1/6] ASoC: ak4613: add missing mutex_lock()
-      commit: 3407e36dc78f4a980588c9347076aee9925ca51f
-[2/6] ASoC: ak4613: tidyup ak4613_interface
-      commit: f7c0e14f5717aabc5db7e4eb6324d750d415d022
-[3/6] ASoC: ak4613: return error if it was setup as clock provider
-      commit: c08673ede71fba70a10be0470565ed2470ef1fe5
-[4/6] ASoC: ak4613: priv has ctrl1 instead of iface
-      commit: e67d19a400cb12650169e4f57b8943e41266de53
-[5/6] ASoC: ak4613: rename constraint to constraint_rates
-      commit: 7bbb049c961a4e6b33520ab56d4b3abd947315ca
-[6/6] ASoC: ak4613: add TDM256 support
-      commit: f28dbaa958fbd8fb7ffe40211b0e083156191f84
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Thanks
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Takashi Sakamoto

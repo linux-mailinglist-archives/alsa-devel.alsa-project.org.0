@@ -2,89 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85B684F756C
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Apr 2022 07:38:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD4064F7595
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Apr 2022 08:03:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C6EFD175D;
-	Thu,  7 Apr 2022 07:36:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C6EFD175D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 65A011774;
+	Thu,  7 Apr 2022 08:02:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 65A011774
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649309880;
-	bh=BTPN2TZWR6ejyaCgjDJEIqZIk5HddgyFEdTSmNvD90M=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1649311395;
+	bh=wb6vVfXGtG3EFcRiLSEOhY8md98Vw50SAb75rOxoPpo=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=W79DjlAUiGk1auFJfoa2jnCJIPpms4bQzheoO16VtmQisnNq1BuQlwgG8tJ2dkAek
-	 A0+Oi3+sKquBUjG1+GDqdhUkGvnzOPhe3LmtkqRBB57QpknuOc04jvQUjlOpOA5chS
-	 1hoFOYYT/zYTHDERy2NZDpCEM3OKYmyTtOQR/Ojo=
+	b=T6quBLpn7Y94NJ9iziV5qPUx0KeqTGCa1eJFhTWOkaPwdHL4qlm82d5rsIUD3SVMG
+	 tM7Dq7L1OsXmPkD9ZXh7Avif1/thhuv5+UNh6H+bLkZvze6kaYLYpgsO8UVyin8Rix
+	 yX+Uob+R/FiRG080o5VnVbjh2YO8SG1/si/CFVyM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3FD6CF80085;
-	Thu,  7 Apr 2022 07:36:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B6FE1F8012A;
+	Thu,  7 Apr 2022 08:02:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 412C5F8024C; Thu,  7 Apr 2022 07:36:30 +0200 (CEST)
+ id 1F7C0F8024C; Thu,  7 Apr 2022 08:02:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-qk1-x72b.google.com (mail-qk1-x72b.google.com
- [IPv6:2607:f8b0:4864:20::72b])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D745CF8012A
- for <alsa-devel@alsa-project.org>; Thu,  7 Apr 2022 07:36:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D745CF8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id A338AF80085
+ for <alsa-devel@alsa-project.org>; Thu,  7 Apr 2022 08:02:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A338AF80085
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="fIHUCm0y"
-Received: by mail-qk1-x72b.google.com with SMTP id b189so1372986qkf.11
- for <alsa-devel@alsa-project.org>; Wed, 06 Apr 2022 22:36:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=/b+6GfWpy3HejXTEixsJR2eQI3cukiPRsu4rr42PL3g=;
- b=fIHUCm0ydP1XO3sCpWk89a6DegpK3O1uQiqwQa3iocnw3Fby7IbOUEfB8ys3vQbBUx
- NODbsHJRaWguZaF8Kx0r2EEXzbihg1OuLsVrIHGpTTSdG+odBBuVX1HF5fiQcl4gVnwO
- O4YJBSeL57BY9qghZn7dsYUZGvhXaPSarKVDsMlH9Djj1cpzbUwfgl1Tt1MCfW1z9Nqv
- VWKWrdhHluMDbN1zuBOfrO1Aoe86Ze6ZUNfD91X52s5oQ2CZ30QCpSuzgtyDbXrlY5SS
- rAXrK4YFk0w30jz4z4LkF9hMRhyKqGk33++flcAbvPesZY8s5tcEgftpHL/+FROIvHYZ
- N/+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=/b+6GfWpy3HejXTEixsJR2eQI3cukiPRsu4rr42PL3g=;
- b=sHdmcbS60KCyGdDvtWeoFeaLRRhoAa1ijo5M+twzFa3QZ1yjC9nCFp51jxQH//bzM3
- QWEPZQOeMt+c6cOBuHPX0QhfOyS/ZzDsgLrdUmHX9lYTaIIPHlIzGynz1WNExPHPDC1E
- lK9G8LZ47tbE+UVCr78mBqucWsok/mIchv20PlsVLu/bm2+Mfv8l80hwZ2w8bYa1c+X7
- +55ghcwpjIC2WPx5nqHn5M6UuP52ibze3VgQXB0rK9rjODEJvJXnjZIHuSeAE5A+riw8
- bxw5UL9tEj6ev56u32XCok/t8QDozHZOaf9n5qUVRxshI/k/HPDz3W/Tj79DiPUAVMLD
- mpKg==
-X-Gm-Message-State: AOAM5327YVkPnphi9M2YF6m4H4j18Y3R5Hilv1ski2Z4ll53DI7Jrl8M
- cW8mloEJPW/nSAC5PqsJP5Ky9JQmVwTIl/t8JBI=
-X-Google-Smtp-Source: ABdhPJylWlp5k4TZBlrrfuEI4ZfQt6elNJGOtfHrdmgKPLn4NkXTgmqTtEsGul9YSfJQbkXaxMweBNWfyMWR9s9NdRQ=
-X-Received: by 2002:a05:620a:254f:b0:680:f510:22e4 with SMTP id
- s15-20020a05620a254f00b00680f51022e4mr8053341qko.554.1649309778024; Wed, 06
- Apr 2022 22:36:18 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220405075959.2744803-1-s.hauer@pengutronix.de>
- <20220405075959.2744803-21-s.hauer@pengutronix.de>
-In-Reply-To: <20220405075959.2744803-21-s.hauer@pengutronix.de>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Thu, 7 Apr 2022 13:36:07 +0800
-Message-ID: <CAA+D8AM+Sj2VvipTkLZ9=-L96+OduuMT6o0+kDdgk+h_Xa3PEQ@mail.gmail.com>
-Subject: Re: [PATCH v3 20/20] ASoC: fsl_micfil: fold fsl_set_clock_params()
- into its only user
-To: Sascha Hauer <s.hauer@pengutronix.de>
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: alsa-devel@alsa-project.org, Xiubo Li <Xiubo.Lee@gmail.com>,
- Vinod Koul <vkoul@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
- Sascha Hauer <kernel@pengutronix.de>, dmaengine@vger.kernel.org,
- Fabio Estevam <festevam@gmail.com>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="vZ2m/aIT"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="6z+z7H4q"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 29BA221117;
+ Thu,  7 Apr 2022 06:02:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1649311331; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=zcVA2leKEHZCBy0L6O+DAKg05GvJhbtAx6yj2EYofvk=;
+ b=vZ2m/aITGXDAq6n8nhnsUrvPRMPIkKnWD/KRTTGFB0nr+ykHFGw/AEtWdF/ElB9rJTby5g
+ zNbcBPB8Y50/7gHSfWJ/iEOpR6naCLf3Oe41SYm5L+Xa4ekwfdom+aUoi51z0/gBcsjLOt
+ y8X0HtBS9VZ9cc/hc78ohGsHPsQxwd8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1649311331;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=zcVA2leKEHZCBy0L6O+DAKg05GvJhbtAx6yj2EYofvk=;
+ b=6z+z7H4qA0BPXVQG32Ue9gbbgIcmW0u3QrAwQSja86P/ki0wj6NwbYCk//jpel7RvfXrjt
+ INS2E3TFJ5EGqoBg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 1F97FA3B82;
+ Thu,  7 Apr 2022 06:02:10 +0000 (UTC)
+Date: Thu, 07 Apr 2022 08:02:10 +0200
+Message-ID: <s5htub52zz1.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Subject: Re: [PATCH v3 0/3] firewire: assist unit driver to compute packet
+ time stamp
+In-Reply-To: <Yk4r7VcotHz0iMOU@workstation>
+References: <20220405072221.226217-1-o-takashi@sakamocchi.jp>
+ <s5hczhv5wjc.wl-tiwai@suse.de> <Yk4r7VcotHz0iMOU@workstation>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, linux1394-devel@lists.sourceforge.net,
+ clemens@ladisch.de, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,96 +95,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Apr 5, 2022 at 4:00 PM Sascha Hauer <s.hauer@pengutronix.de> wrote:
+On Thu, 07 Apr 2022 02:10:21 +0200,
+Takashi Sakamoto wrote:
+> 
+> On Tue, Apr 05, 2022 at 06:23:35PM +0200, Takashi Iwai wrote:
+> > On Tue, 05 Apr 2022 09:22:18 +0200,
+> > Takashi Sakamoto wrote:
+> > > 
+> > > Hi,
+> > > 
+> > > Current implementation of Linux FireWire subsystem doesn't allow unit
+> > > driver to operate content of packet in IR context according to
+> > > time stamp. Additionally it doesn't allow unit driver to read current value
+> > > of CYCLE_TIME register in OHCI 1394 controller. It brings disadvantages to
+> > > drivers in Linux sound subsystem in regards of handling time for sampled
+> > > data such as PCM frames and MIDI messages.
+> > > 
+> > > This rerolled patchset is first step to improve the situation.
+> > > 
+> > > Changes in v3:
+> > >  * Rebase v2 patchset to v5.18-rc1
+> > > Changes in v2:
+> > >  * Rebase v1 patchset to v5.16 release
+> > >  * https://lore.kernel.org/lkml/20220212022131.199855-1-o-takashi@sakamocchi.jp/
+> > > V1:
+> > >  * https://lore.kernel.org/lkml/20211202113457.24011-1-o-takashi@sakamocchi.jp/
+> > > 
+> > > Hector Martin (1):
+> > >   firewire: Add dummy read_csr/write_csr functions
+> > > 
+> > > Takashi Sakamoto (2):
+> > >   firewire: add kernel API to access CYCLE_TIME register
+> > >   firewire: add kernel API to access packet structure in request
+> > >     structure for AR context
+> > 
+> > Thanks, applied all three patches now to for-next branch.
+> 
+> Although thanks for your applying them into your tree, I apologize to
+> trouble you if you overlook that the included changes is just for Linux
+> FireWire subsystem. It's my fault to send them only to Linux sound
+> subsystem, but the changes are required to my work in sound drivers... 
+> 
+> If you are willing to include patches to Linux FireWire subsystem for
+> your pull-request to Linus, I can prepare respined patches for it since
+> I have the list of patches posted to LKML as bug fixes for Linux FireWire
+> subsystem.
+> 
+> I need any help to solve current situation of Linux FireWire subsystem
+> that bug fixes and new changes are hardly merged. Of course, IEEE 1394 bus
+> is already outdated and legacy, but I know that some users still work
+> with it. If your path is available for it, it's the easiest and the most
+> convenient way for upstreaming, I think.
 
-> fsl_set_clock_params() is used only once and easily be folded into its
-> caller, do so.
->
-> Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
->
+Ah OK, it's fine for me in either way.  I can keep up those changes in
+my tree, or go through others.  I leave the decision Firewire
+subsystem people.  Just let me know.
 
-Acked-by: Shengjiu Wang <shengjiu.wang@gmail.com>
 
-Best regards
-Wang Shengjiu
+thanks,
 
-> ---
->  sound/soc/fsl/fsl_micfil.c | 41 ++++++++++++--------------------------
->  1 file changed, 13 insertions(+), 28 deletions(-)
->
-> diff --git a/sound/soc/fsl/fsl_micfil.c b/sound/soc/fsl/fsl_micfil.c
-> index 99c256f46f38e..26b3395020973 100644
-> --- a/sound/soc/fsl/fsl_micfil.c
-> +++ b/sound/soc/fsl/fsl_micfil.c
-> @@ -253,29 +253,6 @@ static int fsl_micfil_trigger(struct
-> snd_pcm_substream *substream, int cmd,
->         return 0;
->  }
->
-> -static int fsl_set_clock_params(struct device *dev, unsigned int rate)
-> -{
-> -       struct fsl_micfil *micfil = dev_get_drvdata(dev);
-> -       int clk_div = 8;
-> -       int osr = MICFIL_OSR_DEFAULT;
-> -       int ret;
-> -
-> -       ret = clk_set_rate(micfil->mclk, rate * clk_div * osr * 8);
-> -       if (ret)
-> -               return ret;
-> -
-> -       ret = micfil_set_quality(micfil);
-> -       if (ret)
-> -               return ret;
-> -
-> -       ret = regmap_update_bits(micfil->regmap, REG_MICFIL_CTRL2,
-> -                                MICFIL_CTRL2_CLKDIV | MICFIL_CTRL2_CICOSR,
-> -                                FIELD_PREP(MICFIL_CTRL2_CLKDIV, clk_div) |
-> -                                FIELD_PREP(MICFIL_CTRL2_CICOSR, 16 -
-> osr));
-> -
-> -       return ret;
-> -}
-> -
->  static int fsl_micfil_hw_params(struct snd_pcm_substream *substream,
->                                 struct snd_pcm_hw_params *params,
->                                 struct snd_soc_dai *dai)
-> @@ -283,7 +260,8 @@ static int fsl_micfil_hw_params(struct
-> snd_pcm_substream *substream,
->         struct fsl_micfil *micfil = snd_soc_dai_get_drvdata(dai);
->         unsigned int channels = params_channels(params);
->         unsigned int rate = params_rate(params);
-> -       struct device *dev = &micfil->pdev->dev;
-> +       int clk_div = 8;
-> +       int osr = MICFIL_OSR_DEFAULT;
->         int ret;
->
->         /* 1. Disable the module */
-> @@ -298,11 +276,18 @@ static int fsl_micfil_hw_params(struct
-> snd_pcm_substream *substream,
->         if (ret)
->                 return ret;
->
-> -       ret = fsl_set_clock_params(dev, rate);
-> -       if (ret < 0) {
-> -               dev_err(dev, "Failed to set clock parameters [%d]\n", ret);
-> +       ret = clk_set_rate(micfil->mclk, rate * clk_div * osr * 8);
-> +       if (ret)
->                 return ret;
-> -       }
-> +
-> +       ret = micfil_set_quality(micfil);
-> +       if (ret)
-> +               return ret;
-> +
-> +       ret = regmap_update_bits(micfil->regmap, REG_MICFIL_CTRL2,
-> +                                MICFIL_CTRL2_CLKDIV | MICFIL_CTRL2_CICOSR,
-> +                                FIELD_PREP(MICFIL_CTRL2_CLKDIV, clk_div) |
-> +                                FIELD_PREP(MICFIL_CTRL2_CICOSR, 16 -
-> osr));
->
->         micfil->dma_params_rx.peripheral_config = &micfil->sdmacfg;
->         micfil->dma_params_rx.peripheral_size = sizeof(micfil->sdmacfg);
-> --
-> 2.30.2
->
->
+Takashi

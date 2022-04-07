@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7410A4F79AA
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Apr 2022 10:28:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 903144F79B1
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Apr 2022 10:30:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 08CC7172D;
-	Thu,  7 Apr 2022 10:27:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08CC7172D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0DA54172D;
+	Thu,  7 Apr 2022 10:29:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DA54172D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649320119;
-	bh=r5TBjc8UZm1lKY7awcUPWUy8IL44d39ZrcsY06gBI6g=;
+	s=default; t=1649320224;
+	bh=XKGH3WRJT8+kJMmujddMgZy3BSb38lm2VaU3keZyWmE=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=m4Vm84Z2dSl7EK7IFWyRNLh0awh8e6RyL/6tpic0l+idZLii58KHdg62oLiuHIaEy
-	 27EyGM2TtoP1EjxYnP8xYnivZJ1UA1HtANJh2N0m4CQcjhMnuyKLRLnzImZD57i51v
-	 FK/YtHj55UgOzVv5Co24tjtmo2hM0xLPKZo4k0Fw=
+	b=jGqis7Gd/360PECPgQOAI2t+Fgtdv3AMJrDGqW6gLRc5Glz06oee28mZOmeWG8yIn
+	 oPGrdp0QvFWzlFFptNrC6lmnRjXMaM4FjSLTEnGs+2bhX9O9fFB0qcxa2juImnCxdh
+	 6U5xVYY92HAh31b6SwbVS76MrF1WgAGt4t/AdTm4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 768C1F8026A;
-	Thu,  7 Apr 2022 10:27:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9096BF80054;
+	Thu,  7 Apr 2022 10:29:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9D731F8024C; Thu,  7 Apr 2022 10:27:38 +0200 (CEST)
+ id 688EAF8024C; Thu,  7 Apr 2022 10:29:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,49 +34,52 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 95291F8012A
- for <alsa-devel@alsa-project.org>; Thu,  7 Apr 2022 10:27:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95291F8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id C83BCF80054
+ for <alsa-devel@alsa-project.org>; Thu,  7 Apr 2022 10:29:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C83BCF80054
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="1HnAJ+20"; 
+ header.b="QN+J2jes"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="B3Y/QPnf"
+ header.b="yVktQ/Jv"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 5A6E121117;
- Thu,  7 Apr 2022 08:27:32 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 63AFA21117;
+ Thu,  7 Apr 2022 08:29:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1649320052; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1649320158; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=dEL12L9EoYZbvztXCgNjCR53/UxE2hnXvAuiH7/2KS4=;
- b=1HnAJ+20VfMWMBZfeiuhk3/k1ZRnzCg2bDqOaF/F+15lRUPyJYRCq6rRUPF1F2IuUl+Z4z
- T3LBGtWAN953z2ThCPQbTjEdUIWQUc+bVaWlSO146aNvoQTDtVyG+rHOvB1G8xwAqSGRms
- Nu9wNKA7w4FLrxjUdrHoeZt29ef7fcw=
+ bh=qiMMcbgbBUNCl5v74qCWUJz7Rx460O5aMRrz4d3d/Os=;
+ b=QN+J2jesQwcpmA8WQ30ocJSLuwPomgNuIKm7afkyfyJuaSaCNgxfxbKJgFExCtjXOeIumK
+ YFi7qP3HbWyzR7PF1RevbDhqW5fMXAVF5P10+zR1T9K+qbgWbpkHenLT9Dc6tNXmKv7KBK
+ P0o1iOpTV/EXB5G1yPtzj5hYOOqWtEs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1649320052;
+ s=susede2_ed25519; t=1649320158;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=dEL12L9EoYZbvztXCgNjCR53/UxE2hnXvAuiH7/2KS4=;
- b=B3Y/QPnf+ssee0OMBCkzoyekHONlUrqYb6UXoRsPssGWvYtM3gMig1V4bkMHG4ixeTAt2x
- 9Qp9ONoNe7sKEgAg==
+ bh=qiMMcbgbBUNCl5v74qCWUJz7Rx460O5aMRrz4d3d/Os=;
+ b=yVktQ/JvhOMsUPyWxOKGdCvChgSlaAKm0Me/cywl+hfAKNMzomcG+gc2LetawRRUAqJujD
+ uAzc6VVKBRp9eRDQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id E3C89A3B96;
- Thu,  7 Apr 2022 08:27:27 +0000 (UTC)
-Date: Thu, 07 Apr 2022 10:27:32 +0200
-Message-ID: <s5hh7752t8r.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id ED8A0A3B96;
+ Thu,  7 Apr 2022 08:29:13 +0000 (UTC)
+Date: Thu, 07 Apr 2022 10:29:18 +0200
+Message-ID: <s5hfsmp2t5t.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Tim Crawford <tcrawford@system76.com>
-Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for Clevo PD50PNT
-In-Reply-To: <20220405182029.27431-1-tcrawford@system76.com>
-References: <20220405182029.27431-1-tcrawford@system76.com>
+To: Randy Dunlap <rdunlap@infradead.org>
+Subject: Re: [PATCH v3] sound/oss/dmasound: fix build when drivers are mixed
+ =y/=m
+In-Reply-To: <20220405234118.24830-1-rdunlap@infradead.org>
+References: <20220405234118.24830-1-rdunlap@infradead.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: productdev@system76.com, alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org, kernel test robot <lkp@intel.com>,
+ Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Geert Uytterhoeven <geert@linux-m68k.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,12 +95,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 05 Apr 2022 20:20:29 +0200,
-Tim Crawford wrote:
+On Wed, 06 Apr 2022 01:41:18 +0200,
+Randy Dunlap wrote:
 > 
-> Fixes speaker output and headset detection on Clevo PD50PNT.
+> When CONFIG_DMASOUND_ATARI=m and CONFIG_DMASOUND_Q40=y (or vice versa),
+> dmasound_core.o can be built without dmasound_deinit() being defined,
+> causing a build error:
 > 
-> Signed-off-by: Tim Crawford <tcrawford@system76.com>
+> ERROR: modpost: "dmasound_deinit" [sound/oss/dmasound/dmasound_atari.ko] undefined!
+> 
+> Modify dmasound_core.c and dmasound.h so that dmasound_deinit() is
+> always available.
+> 
+> The mixed modes (=y/=m) also mean that several variables and structs
+> have to be declared in all cases.
+> 
+> Suggested-by: Arnd Bergmann <arnd@arndb.de>
+> Suggested-by: Geert Uytterhoeven <geert@linux-m68k.org>
+> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+> Reported-by: kernel test robot <lkp@intel.com>
+> Link: lore.kernel.org/r/202204032138.EFT9qGEd-lkp@intel.com
+> Cc: Geert Uytterhoeven <geert@linux-m68k.org>
+> Cc: Jaroslav Kysela <perex@perex.cz>
+> Cc: Takashi Iwai <tiwai@suse.com>
+> Cc: alsa-devel@alsa-project.org
 
 Thanks, applied now.
 

@@ -2,84 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD4064F7595
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Apr 2022 08:03:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBCE54F76C6
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Apr 2022 09:06:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 65A011774;
-	Thu,  7 Apr 2022 08:02:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 65A011774
+	by alsa0.perex.cz (Postfix) with ESMTPS id 58500174A;
+	Thu,  7 Apr 2022 09:05:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 58500174A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649311395;
-	bh=wb6vVfXGtG3EFcRiLSEOhY8md98Vw50SAb75rOxoPpo=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1649315163;
+	bh=Yi5ywt6yEIomD3NlhRqxwQdS7ErGkhZq72f4qhtQQz0=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=T6quBLpn7Y94NJ9iziV5qPUx0KeqTGCa1eJFhTWOkaPwdHL4qlm82d5rsIUD3SVMG
-	 tM7Dq7L1OsXmPkD9ZXh7Avif1/thhuv5+UNh6H+bLkZvze6kaYLYpgsO8UVyin8Rix
-	 yX+Uob+R/FiRG080o5VnVbjh2YO8SG1/si/CFVyM=
+	b=IPNtW5ANS5EQpqkH+FswYgo0f6EVURqgE18BO+3F2kbheqi4BcSz/oeNoaVB/JYyU
+	 AQ4vg8TcpNMmzsFONNrnJa2SZHk6IrS7BBxBLfRNDZzZqtmUckequDe2Ee1gqZ1Hu+
+	 voSaCxice54G3WTuUzNcnAl4VRcbY6JrUCY1h9As=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B6FE1F8012A;
-	Thu,  7 Apr 2022 08:02:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A31D4F80141;
+	Thu,  7 Apr 2022 09:05:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1F7C0F8024C; Thu,  7 Apr 2022 08:02:14 +0200 (CEST)
+ id 6CFA5F8012A; Thu,  7 Apr 2022 09:05:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A338AF80085
- for <alsa-devel@alsa-project.org>; Thu,  7 Apr 2022 08:02:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A338AF80085
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="vZ2m/aIT"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="6z+z7H4q"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 29BA221117;
- Thu,  7 Apr 2022 06:02:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1649311331; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=zcVA2leKEHZCBy0L6O+DAKg05GvJhbtAx6yj2EYofvk=;
- b=vZ2m/aITGXDAq6n8nhnsUrvPRMPIkKnWD/KRTTGFB0nr+ykHFGw/AEtWdF/ElB9rJTby5g
- zNbcBPB8Y50/7gHSfWJ/iEOpR6naCLf3Oe41SYm5L+Xa4ekwfdom+aUoi51z0/gBcsjLOt
- y8X0HtBS9VZ9cc/hc78ohGsHPsQxwd8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1649311331;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=zcVA2leKEHZCBy0L6O+DAKg05GvJhbtAx6yj2EYofvk=;
- b=6z+z7H4qA0BPXVQG32Ue9gbbgIcmW0u3QrAwQSja86P/ki0wj6NwbYCk//jpel7RvfXrjt
- INS2E3TFJ5EGqoBg==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 1F97FA3B82;
- Thu,  7 Apr 2022 06:02:10 +0000 (UTC)
-Date: Thu, 07 Apr 2022 08:02:10 +0200
-Message-ID: <s5htub52zz1.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [PATCH v3 0/3] firewire: assist unit driver to compute packet
- time stamp
-In-Reply-To: <Yk4r7VcotHz0iMOU@workstation>
-References: <20220405072221.226217-1-o-takashi@sakamocchi.jp>
- <s5hczhv5wjc.wl-tiwai@suse.de> <Yk4r7VcotHz0iMOU@workstation>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, linux1394-devel@lists.sourceforge.net,
- clemens@ladisch.de, linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6A6B0F80085
+ for <alsa-devel@alsa-project.org>; Thu,  7 Apr 2022 09:04:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A6B0F80085
+Received: from ptx.hi.pengutronix.de ([2001:67c:670:100:1d::c0])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <sha@pengutronix.de>)
+ id 1ncMCK-0002PS-Os; Thu, 07 Apr 2022 09:04:52 +0200
+Received: from sha by ptx.hi.pengutronix.de with local (Exim 4.92)
+ (envelope-from <sha@pengutronix.de>)
+ id 1ncMCK-00043z-0E; Thu, 07 Apr 2022 09:04:52 +0200
+Date: Thu, 7 Apr 2022 09:04:51 +0200
+From: Sascha Hauer <s.hauer@pengutronix.de>
+To: Shengjiu Wang <shengjiu.wang@gmail.com>
+Subject: Re: [PATCH v3 14/20] ASoC: fsl_micfil: Drop get_pdm_clk()
+Message-ID: <20220407070451.GY4012@pengutronix.de>
+References: <20220405075959.2744803-1-s.hauer@pengutronix.de>
+ <20220405075959.2744803-15-s.hauer@pengutronix.de>
+ <CAA+D8AMMDF1eL_sdE_zF-52ZoaxyWjAtCOQyOZ71+ozzfqf1qg@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-15
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAA+D8AMMDF1eL_sdE_zF-52ZoaxyWjAtCOQyOZ71+ozzfqf1qg@mail.gmail.com>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-IRC: #ptxdist @freenode
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
+X-Uptime: 09:04:04 up 7 days, 19:33, 61 users, load average: 0.26, 0.73, 0.52
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c0
+X-SA-Exim-Mail-From: sha@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Vinod Koul <vkoul@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
+ Sascha Hauer <kernel@pengutronix.de>, dmaengine@vger.kernel.org,
+ Fabio Estevam <festevam@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,63 +89,85 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 07 Apr 2022 02:10:21 +0200,
-Takashi Sakamoto wrote:
+On Thu, Apr 07, 2022 at 11:41:52AM +0800, Shengjiu Wang wrote:
+>    On Tue, Apr 5, 2022 at 4:00 PM Sascha Hauer <[1]s.hauer@pengutronix.de>
+>    wrote:
 > 
-> On Tue, Apr 05, 2022 at 06:23:35PM +0200, Takashi Iwai wrote:
-> > On Tue, 05 Apr 2022 09:22:18 +0200,
-> > Takashi Sakamoto wrote:
-> > > 
-> > > Hi,
-> > > 
-> > > Current implementation of Linux FireWire subsystem doesn't allow unit
-> > > driver to operate content of packet in IR context according to
-> > > time stamp. Additionally it doesn't allow unit driver to read current value
-> > > of CYCLE_TIME register in OHCI 1394 controller. It brings disadvantages to
-> > > drivers in Linux sound subsystem in regards of handling time for sampled
-> > > data such as PCM frames and MIDI messages.
-> > > 
-> > > This rerolled patchset is first step to improve the situation.
-> > > 
-> > > Changes in v3:
-> > >  * Rebase v2 patchset to v5.18-rc1
-> > > Changes in v2:
-> > >  * Rebase v1 patchset to v5.16 release
-> > >  * https://lore.kernel.org/lkml/20220212022131.199855-1-o-takashi@sakamocchi.jp/
-> > > V1:
-> > >  * https://lore.kernel.org/lkml/20211202113457.24011-1-o-takashi@sakamocchi.jp/
-> > > 
-> > > Hector Martin (1):
-> > >   firewire: Add dummy read_csr/write_csr functions
-> > > 
-> > > Takashi Sakamoto (2):
-> > >   firewire: add kernel API to access CYCLE_TIME register
-> > >   firewire: add kernel API to access packet structure in request
-> > >     structure for AR context
-> > 
-> > Thanks, applied all three patches now to for-next branch.
+>      get_pdm_clk() calculates the PDM clock based on the quality setting,
+>      but really the PDM clock is independent of the quality, it's always
+>      rate * 4 * micfil->osr. Just drop the function and do the calculation
+>      in the caller.
 > 
-> Although thanks for your applying them into your tree, I apologize to
-> trouble you if you overlook that the included changes is just for Linux
-> FireWire subsystem. It's my fault to send them only to Linux sound
-> subsystem, but the changes are required to my work in sound drivers... 
+>      Signed-off-by: Sascha Hauer <[2]s.hauer@pengutronix.de>
+>      ---
+>       sound/soc/fsl/fsl_micfil.c | 38 +-------------------------------------
+>       1 file changed, 1 insertion(+), 37 deletions(-)
 > 
-> If you are willing to include patches to Linux FireWire subsystem for
-> your pull-request to Linus, I can prepare respined patches for it since
-> I have the list of patches posted to LKML as bug fixes for Linux FireWire
-> subsystem.
+>      diff --git a/sound/soc/fsl/fsl_micfil.c b/sound/soc/fsl/fsl_micfil.c
+>      index 4b4b7fbbf5c4f..8335646a84d17 100644
+>      --- a/sound/soc/fsl/fsl_micfil.c
+>      +++ b/sound/soc/fsl/fsl_micfil.c
+>      @@ -111,42 +111,6 @@ static const struct snd_kcontrol_new
+>      fsl_micfil_snd_controls[] = {
+>                           snd_soc_get_enum_double, snd_soc_put_enum_double),
+>       };
 > 
-> I need any help to solve current situation of Linux FireWire subsystem
-> that bug fixes and new changes are hardly merged. Of course, IEEE 1394 bus
-> is already outdated and legacy, but I know that some users still work
-> with it. If your path is available for it, it's the easiest and the most
-> convenient way for upstreaming, I think.
+>      -static inline int get_pdm_clk(struct fsl_micfil *micfil,
+>      -                             unsigned int rate)
+>      -{
+>      -       u32 ctrl2_reg;
+>      -       int qsel;
+>      -       int bclk;
+>      -       int osr = MICFIL_OSR_DEFAULT;
+>      -
+>      -       regmap_read(micfil->regmap, REG_MICFIL_CTRL2, &ctrl2_reg);
+>      -       qsel = FIELD_GET(MICFIL_CTRL2_QSEL, ctrl2_reg);
+>      -
+>      -       switch (qsel) {
+>      -       case MICFIL_QSEL_HIGH_QUALITY:
+>      -               bclk = rate * 8 * osr / 2; /* kfactor = 0.5 */
+>      -               break;
+>      -       case MICFIL_QSEL_MEDIUM_QUALITY:
+>      -       case MICFIL_QSEL_VLOW0_QUALITY:
+>      -               bclk = rate * 4 * osr * 1; /* kfactor = 1 */
+>      -               break;
+>      -       case MICFIL_QSEL_LOW_QUALITY:
+>      -       case MICFIL_QSEL_VLOW1_QUALITY:
+>      -               bclk = rate * 2 * osr * 2; /* kfactor = 2 */
+>      -               break;
+>      -       case MICFIL_QSEL_VLOW2_QUALITY:
+>      -               bclk = rate * osr * 4; /* kfactor = 4 */
+>      -               break;
+>      -       default:
+>      -               dev_err(&micfil->pdev->dev,
+>      -                       "Please make sure you select a valid
+>      quality.\n");
+>      -               bclk = -1;
+>      -               break;
+>      -       }
+>      -
+>      -       return bclk;
+>      -}
+>      -
+>       static inline int get_clk_div(struct fsl_micfil *micfil,
+>                                    unsigned int rate)
+>       {
+>      @@ -155,7 +119,7 @@ static inline int get_clk_div(struct fsl_micfil
+>      *micfil,
+> 
+>              mclk_rate = clk_get_rate(micfil->mclk);
+> 
+>      -       clk_div = mclk_rate / (get_pdm_clk(micfil, rate) * 2);
+>      +       clk_div = mclk_rate / (rate * micfil->osr * 8);
+> 
+>    Where is micfil->osr assigned a value?
 
-Ah OK, it's fine for me in either way.  I can keep up those changes in
-my tree, or go through others.  I leave the decision Firewire
-subsystem people.  Just let me know.
+Should be MICFIL_OSR_DEFAULT instead.
 
+Sascha
 
-thanks,
-
-Takashi
+-- 
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |

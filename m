@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 837E44F942E
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Apr 2022 13:35:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47AC44F9424
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Apr 2022 13:32:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 01E9D1AA6;
-	Fri,  8 Apr 2022 13:34:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 01E9D1AA6
+	by alsa0.perex.cz (Postfix) with ESMTPS id CE8081A60;
+	Fri,  8 Apr 2022 13:31:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE8081A60
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649417700;
-	bh=e1ikxwzrwoyM/JgiRi4qkbqMWeAjft+OxwSvJ1zVC7I=;
+	s=default; t=1649417527;
+	bh=jhFQUaenNu9zLwekgA7WJUOzJwzSxTj+ototL4sevCA=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ycf2C4EbOOObWtlfiYGliP4dew9NsM5/BJ5WNc1ulbB6WorkqwobHVLAIIAn+fSg1
-	 FdzJX/u4tgZcAYCg7O689Nz9vYsvwLnt5QSgu8c7ya3BPDcNg9zXPGeEucTM/tLw4U
-	 S/Ho+o7hYWjgNNOcQwLgtsY1yCCJhudycRaqzUwI=
+	b=hwbWQmnoA+ZfvLQAZWDE3Ym3Od7633OooazbtYqfDRbui9niHhn0xyO+ZfjSHK/aq
+	 Ad7wknbjTznoY8xnWn6g+K8ByeM5gs7Hpd3h7Vkp4ZTmIFJ9eZE+jJ93YcZef6zJ8O
+	 UfHMOWH8iERhJYNSO5T0u2tFbpXL1FVw8MzMulBo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B38EBF805A1;
-	Fri,  8 Apr 2022 13:30:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C6D9AF80538;
+	Fri,  8 Apr 2022 13:29:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0AB99F80544; Fri,  8 Apr 2022 13:30:06 +0200 (CEST)
+ id 74A46F804B0; Fri,  8 Apr 2022 13:29:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -34,26 +34,26 @@ Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
  [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DD158F8051F
- for <alsa-devel@alsa-project.org>; Fri,  8 Apr 2022 13:29:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD158F8051F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1A0B2F804CC
+ for <alsa-devel@alsa-project.org>; Fri,  8 Apr 2022 13:29:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A0B2F804CC
 Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
  by metis.ext.pengutronix.de with esmtps
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <sha@pengutronix.de>)
- id 1ncmo6-0004tU-6g; Fri, 08 Apr 2022 13:29:38 +0200
+ id 1ncmo7-0004vY-Kh; Fri, 08 Apr 2022 13:29:39 +0200
 Received: from [2a0a:edc0:0:1101:1d::28] (helo=dude02.red.stw.pengutronix.de)
  by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
  (envelope-from <sha@pengutronix.de>)
- id 1ncmo6-001n6A-Gn; Fri, 08 Apr 2022 13:29:37 +0200
+ id 1ncmo8-001n6j-35; Fri, 08 Apr 2022 13:29:38 +0200
 Received: from sha by dude02.red.stw.pengutronix.de with local (Exim 4.94.2)
  (envelope-from <sha@pengutronix.de>)
- id 1ncmo2-005ZAl-OK; Fri, 08 Apr 2022 13:29:34 +0200
+ id 1ncmo2-005ZAo-Os; Fri, 08 Apr 2022 13:29:34 +0200
 From: Sascha Hauer <s.hauer@pengutronix.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v5 02/21] ASoC: fsl_micfil: Drop unused register read
-Date: Fri,  8 Apr 2022 13:29:09 +0200
-Message-Id: <20220408112928.1326755-3-s.hauer@pengutronix.de>
+Subject: [PATCH v5 03/21] ASoC: fsl_micfil: drop fsl_micfil_set_mclk_rate()
+Date: Fri,  8 Apr 2022 13:29:10 +0200
+Message-Id: <20220408112928.1326755-4-s.hauer@pengutronix.de>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220408112928.1326755-1-s.hauer@pengutronix.de>
 References: <20220408112928.1326755-1-s.hauer@pengutronix.de>
@@ -83,32 +83,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In get_pdm_clk() REG_MICFIL_CTRL2 is read, but the result is never used.
-Drop the unused code.
+All that the .set_sysclk hook in the micfil driver does is to pass
+the sysclk frequency to fsl_micfil_set_mclk_rate(). This function
+expects the sample rate as argument though, not any kind of sysclk
+frequency. The resulting rate setting of the clock is overwritten
+in hw_params anyway, so drop this altogether.
 
 Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
 Acked-by: Shengjiu Wang <shengjiu.wang@gmail.com>
 ---
- sound/soc/fsl/fsl_micfil.c | 3 ---
- 1 file changed, 3 deletions(-)
+ sound/soc/fsl/fsl_micfil.c | 20 --------------------
+ 1 file changed, 20 deletions(-)
 
 diff --git a/sound/soc/fsl/fsl_micfil.c b/sound/soc/fsl/fsl_micfil.c
-index 64019d003784b..cf10c212d770d 100644
+index cf10c212d770d..5353474d0ff2b 100644
 --- a/sound/soc/fsl/fsl_micfil.c
 +++ b/sound/soc/fsl/fsl_micfil.c
-@@ -148,12 +148,9 @@ static inline int get_pdm_clk(struct fsl_micfil *micfil,
- static inline int get_clk_div(struct fsl_micfil *micfil,
- 			      unsigned int rate)
- {
--	u32 ctrl2_reg;
- 	long mclk_rate;
- 	int clk_div;
+@@ -358,30 +358,10 @@ static int fsl_micfil_hw_params(struct snd_pcm_substream *substream,
+ 	return 0;
+ }
  
--	regmap_read(micfil->regmap, REG_MICFIL_CTRL2, &ctrl2_reg);
+-static int fsl_micfil_set_dai_sysclk(struct snd_soc_dai *dai, int clk_id,
+-				     unsigned int freq, int dir)
+-{
+-	struct fsl_micfil *micfil = snd_soc_dai_get_drvdata(dai);
+-	struct device *dev = &micfil->pdev->dev;
 -
- 	mclk_rate = clk_get_rate(micfil->mclk);
+-	int ret;
+-
+-	if (!freq)
+-		return 0;
+-
+-	ret = fsl_micfil_set_mclk_rate(micfil, freq);
+-	if (ret < 0)
+-		dev_err(dev, "failed to set mclk[%lu] to rate %u\n",
+-			clk_get_rate(micfil->mclk), freq);
+-
+-	return ret;
+-}
+-
+ static const struct snd_soc_dai_ops fsl_micfil_dai_ops = {
+ 	.startup = fsl_micfil_startup,
+ 	.trigger = fsl_micfil_trigger,
+ 	.hw_params = fsl_micfil_hw_params,
+-	.set_sysclk = fsl_micfil_set_dai_sysclk,
+ };
  
- 	clk_div = mclk_rate / (get_pdm_clk(micfil, rate) * 2);
+ static int fsl_micfil_dai_probe(struct snd_soc_dai *cpu_dai)
 -- 
 2.30.2
 

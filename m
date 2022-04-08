@@ -2,69 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A342A4F8F54
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Apr 2022 09:16:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FA774F90FC
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Apr 2022 10:38:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2BB281702;
-	Fri,  8 Apr 2022 09:16:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2BB281702
+	by alsa0.perex.cz (Postfix) with ESMTPS id 19053185B;
+	Fri,  8 Apr 2022 10:37:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19053185B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649402212;
-	bh=6466gEGhxznW7rwa3hxyltu9py8601v4dqiiQAcvWk0=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1649407104;
+	bh=Vh7/Aw62bJPPW9qMlk/IJaaJBuBRuzQNqitXUrJDUxg=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=h4iCA1G/aEZn+vfn3rqcSYRcbZS6Eaw7p0RfLqB2vV/cHyp/qfYH++p07vLJnLfqX
-	 q9xues3xLI4vUy8b32Dpbvju3S8xTgno9zghwUmHr09PL4cuhLzOl/vE8t28cydaS7
-	 mDwnZ/DcfedP78Y7sYi6BWns0GCCg7jZC8n9JRHA=
+	b=BwIbQ0dmrBeA59XxSWonTqznZrAF5Jf3Tg3IbvvWSsJqZ6Lk7KktpwKCiEhyulc9Z
+	 pvPOXX+QtClHoKU5oGQfnv+iuafTLQL/qMTAfunvxYyPbkLZzxEe8fjWR5VbbqFAvO
+	 mJ5SBd+phFEW0J/+pb5StC4Rt/pMmeu6NfzBMNK0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B218DF8012A;
-	Fri,  8 Apr 2022 09:15:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7BE5EF80128;
+	Fri,  8 Apr 2022 10:37:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1AEF5F8014E; Fri,  8 Apr 2022 09:15:50 +0200 (CEST)
+ id 8FDCDF8014E; Fri,  8 Apr 2022 10:37:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 11403F80054
- for <alsa-devel@alsa-project.org>; Fri,  8 Apr 2022 09:15:42 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id C3043A003F;
- Fri,  8 Apr 2022 09:15:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz C3043A003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1649402141; bh=rjFZNSHy7qwYLLuTgA1fJ9Peq7sBnKo73nRP4i9Z6NY=;
- h=Date:Subject:To:References:Cc:From:In-Reply-To:From;
- b=dxarWlC7r9ol4cGzW0VGZRY+mEDK/sHwYilZvBkoF21G6hoHoyImz8927rwEPQmEp
- 7XIIADIS7ZiWz5umk8THtU2HOwOVT77WU/Rrpc/Q17Ch6c1R24mHxwAj1cgHK8znVw
- VCqFZGkCJn9wIIKi7peKp3KQtK+v8gas0IxCH2ic=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Fri,  8 Apr 2022 09:15:39 +0200 (CEST)
-Message-ID: <31de7ea6-5319-7f9e-81a1-f0b501d5bdf9@perex.cz>
-Date: Fri, 8 Apr 2022 09:15:39 +0200
+ by alsa1.perex.cz (Postfix) with ESMTPS id AD4C5F80054
+ for <alsa-devel@alsa-project.org>; Fri,  8 Apr 2022 10:37:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD4C5F80054
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="pZqjBUiq"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id DE43761A55;
+ Fri,  8 Apr 2022 08:37:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16F0DC385A3;
+ Fri,  8 Apr 2022 08:37:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1649407032;
+ bh=Vh7/Aw62bJPPW9qMlk/IJaaJBuBRuzQNqitXUrJDUxg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=pZqjBUiq/UDAi2+3sVC4Om2fyqh1AJRZKyp+OzM80UV0NQj2ufkmhjrqH1U88s2Od
+ lkAHsUyG5fj/t/mtd63ZEFpNyRgMttRGOmGSrnPOJ1S3UFMhf9MLTz/lezZB7uVNHM
+ YueCYrOM9kkmULE7E/4NHSUquByAQGXeJ0iZjgoWxfTvue8LCkIuXT32NRrhNREeo8
+ CW0OeEgG7vGkI3+fWdG0aBqBleeDpzm/HYn7WvoQdsbF85ZLfPmbqjJsx24H+jskz2
+ c/Wnh5989Vnt6zVaqWfg2p7t2JEbJVednoYYbseILodlV4Zw7D8Ze+1Eifv7lWgoj2
+ w/3MQ7pPVrfMQ==
+Date: Fri, 8 Apr 2022 09:37:07 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 3/4] ASoC: SOF: amd: Add psp_mbox_ready() and
+ psp_send_cmd() callback
+Message-ID: <Yk/0M59OO3VdKfrf@sirena.org.uk>
+References: <20220406194048.289787-1-pierre-louis.bossart@linux.intel.com>
+ <20220406194048.289787-4-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH] ALSA: usb-audio: Increase max buffer size
-Content-Language: en-US
-To: Takashi Iwai <tiwai@suse.de>
-References: <20220407212740.17920-1-tiwai@suse.de>
-From: Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <20220407212740.17920-1-tiwai@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: ALSA development <alsa-devel@alsa-project.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="itSEVMqTJtOSaPkd"
+Content-Disposition: inline
+In-Reply-To: <20220406194048.289787-4-pierre-louis.bossart@linux.intel.com>
+X-Cookie: From concentrate.
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,37 +90,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 07. 04. 22 23:27, Takashi Iwai wrote:
-> The current limit of max buffer size 1MB seems too small for modern
-> devices with lots of channels and high sample rates.
-> Let's make bigger, 4MB.
 
-Reviewed-by: Jaroslav Kysela <perex@perex.cz>
+--itSEVMqTJtOSaPkd
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Thanks,
-	Jaroslav
+On Wed, Apr 06, 2022 at 02:40:47PM -0500, Pierre-Louis Bossart wrote:
+> From: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
+>=20
+> We need to ensure if PSP is mbox ready before and after sending cmd
+> to PSP over SMN interface. Add method to check MBOX_READY bit of PSP
+> with some delay over ACP_PSP_TIMEOUT_COUNTER. Replace psp_fw_validate
+> with new method psp_send_cmd() to send command via psp mailbox.
 
-> 
-> Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> ---
->   sound/usb/pcm.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
-> index 6a460225f2e3..37ee6df8b15a 100644
-> --- a/sound/usb/pcm.c
-> +++ b/sound/usb/pcm.c
-> @@ -659,7 +659,7 @@ static int snd_usb_pcm_prepare(struct snd_pcm_substream *substream)
->   #define hwc_debug(fmt, args...) do { } while(0)
->   #endif
->   
-> -#define MAX_BUFFER_BYTES	(1024 * 1024)
-> +#define MAX_BUFFER_BYTES	(4 * 1024 * 1024)
->   #define MAX_PERIOD_BYTES	(512 * 1024)
->   
->   static const struct snd_pcm_hardware snd_usb_hardware =
+This breaks an x86 allmodconfig build with GCC 11:
+
+/build/stage/linux/sound/soc/sof/amd/acp.c: In function =E2=80=98psp_send_c=
+md=E2=80=99:
+/build/stage/linux/sound/soc/sof/amd/acp.c:176:29: error: unused variable =
+=E2=80=98sdev=E2=80=99 [-Werror=3Dunused-variable]
+  176 |         struct snd_sof_dev *sdev =3D adata->dev;
+      |                             ^~~~
+cc1: all warnings being treated as errors
+make[5]: *** [/build/stage/linux/scripts/Makefile.build:288: sound/soc/sof/=
+amd/acp.o] Error 1
+make[5]: Target '__build' not remade because of errors.
+make[4]: *** [/build/stage/linux/scripts/Makefile.build:550: sound/soc/sof/=
+amd] Error 2
+make[4]: Target '__build' not remade because of errors.
+make[3]: *** [/build/stage/linux/scripts/Makefile.build:550: sound/soc/sof]=
+ Error 2
+make[3]: Target '__build' not remade because of errors.
+make[2]: *** [/build/stage/linux/scripts/Makefile.build:550: sound/soc] Err=
+or 2
 
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+--itSEVMqTJtOSaPkd
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJP9DMACgkQJNaLcl1U
+h9A5Vwf/YAj5BPEzo0i3mV1WZOall5etaoWc5EKTUn5IFdLU0j2IIbDVAiy7hlT0
+kQAm9KOd6Z2+BZS0qBNQDLNP/mJ5wyMlKwMnqcEx4rS4JldlyZS38zxZblfh/hlz
+3vLqYPr5ZvnZTi+F1IcL1KOtpQduAfONqVYGLa4+wo9ACrYUtnYx7wGs6cAAa2ys
+yMIA9m99Zm9SXoivZXhghGHXCLEgfigVCzgWszX18kmcRloWiAGWJDf7r83i3jzS
+slNnKuRLfW5euBcGhp8oiF23SzGrcBqN3n3Rgo8xm6mci/A1EY/RKRO3NFijupIu
+OquzdJmxBGhyWmJub66R0c0dxZR5aA==
+=MJSx
+-----END PGP SIGNATURE-----
+
+--itSEVMqTJtOSaPkd--

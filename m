@@ -2,101 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50A504F8FEC
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Apr 2022 09:53:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA9264F8FEE
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Apr 2022 09:54:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A58291924;
-	Fri,  8 Apr 2022 09:52:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A58291924
+	by alsa0.perex.cz (Postfix) with ESMTPS id 30F311925;
+	Fri,  8 Apr 2022 09:53:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 30F311925
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649404427;
-	bh=wM0Qjnj33alBhk8tVlovrNerUXruPfozkRlptDNw8o8=;
-	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1649404442;
+	bh=117hOlhWPa15/IwM3rUWZ0y8dYfcnauXmQKveMu/xto=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=friWVZdcynJ7wT0LyMCzeJwmopeXVuloXML8HjzX2PYTyJdEDglXn7SH4S2d6873B
-	 pKR3JFG/mmn2XsL8EoIzIf4NNMlq75ULYhR0p4hko/kVSq/dLphXxjkCDFp/b/5OK7
-	 yQc4eB/lNrjUjESyr9kk7E2TXvIwek93tcRug0A0=
+	b=BN13HN3HnEdoS3MVgEo1BlTtXqC8K6KjGCS8wVXhAwmGv+gHn0h62byxciISguGQj
+	 cPaUF9oWuPe7Sb9JWOFiYmWizgFNZ3togt7OByhHE7fFNH3aoPM96HUgB5gLHRcVST
+	 Ws7asyamJigq+ckIpxu0gA8iNJog3QTpP5tsKxaI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0C2EEF8058C;
+	by alsa1.perex.cz (Postfix) with ESMTP id B6B5FF8059F;
 	Fri,  8 Apr 2022 09:48:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 19603F8024C; Thu,  7 Apr 2022 22:35:38 +0200 (CEST)
+ id EDB8FF8014E; Fri,  8 Apr 2022 06:11:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HEXHASH_WORD,PRX_BODY_125,PRX_BODY_13,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com
+ [IPv6:2607:f8b0:4864:20::1029])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0223FF80085
- for <alsa-devel@alsa-project.org>; Thu,  7 Apr 2022 22:35:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0223FF80085
+ by alsa1.perex.cz (Postfix) with ESMTPS id 566D5F80128
+ for <alsa-devel@alsa-project.org>; Fri,  8 Apr 2022 06:11:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 566D5F80128
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="GYHZYGLh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649363724; x=1680899724;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=wM0Qjnj33alBhk8tVlovrNerUXruPfozkRlptDNw8o8=;
- b=GYHZYGLhLta6tovPmHeIhWgwuuxBBAQrjOBt7DykPzE5Lgt1mcf7WeUN
- dBavaRMC5COE7gnMl5+rdfZn/V6AE3HqskV85AJS13vKsaaq1E+kf370z
- y9LAumdurCqVOd+Y4Nic5PToRXc16Sft+Y7k/0YydRrqC6tw2Bv/VGxyr
- EMRCj+nUZ+GVy2t45RkWKOLxHgOVFbV+GLlX4hWKa+wjFWmIpblev8AK5
- cyyreFNAuKCzmsbscshf+UisHdxCB16HvaHU8121NcbEqMV+1RMnBEu4r
- yyTnD1L7MWPEinJ98Waqkbhbl/i3XxGH4Tej8g2S9PAF6NyGrZ/kEujkC w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10310"; a="243570286"
-X-IronPort-AV: E=Sophos;i="5.90,242,1643702400"; d="scan'208";a="243570286"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2022 13:35:15 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,242,1643702400"; d="scan'208";a="652979357"
-Received: from lkp-server02.sh.intel.com (HELO a44fdfb70b94) ([10.239.97.151])
- by fmsmga002.fm.intel.com with ESMTP; 07 Apr 2022 13:35:05 -0700
-Received: from kbuild by a44fdfb70b94 with local (Exim 4.95)
- (envelope-from <lkp@intel.com>) id 1ncYqO-0005lL-N1;
- Thu, 07 Apr 2022 20:35:04 +0000
-Date: Fri, 08 Apr 2022 04:34:25 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- 2e9a9857569ec27e64d2ddd01294bbe3c736acb1
-Message-ID: <624f4ad1.ehJRp+VA/jsfIl/D%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="njZdvK92"
+Received: by mail-pj1-x1029.google.com with SMTP id
+ n6-20020a17090a670600b001caa71a9c4aso8510355pjj.1
+ for <alsa-devel@alsa-project.org>; Thu, 07 Apr 2022 21:11:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=HgE3wbd8GWxUwcZlMMJCOiqXfWOa+RmugyiQ1vQxym8=;
+ b=njZdvK92wEilmvL7t7vRRKjeqr4w30VWtXDcmFut7xqKzZP7odL3hIX6LOogb2vFTZ
+ PjEmZxtW5mGRdfaa/yZSgeiCESp8Y2rE5pNu/aECUlFURPn9c7o6LIMretP+4Yzb+9cy
+ ajcGb/aTqdKO7p14z3xLNYNmGyiIb4j3zgCAoRwmgKB5vT7m/RO0q9QtRJOiNz6CmuUo
+ tjO4euOBllPgCFXLvlvUX6ZBIifiaKrGECmIBsoUWpz2ZJbwjKPCMf7ZJnmGW6xTzbSb
+ EvMXAZNphQJZmubDVn/k4X5qGHOQ7t8iPiLK3XvZboUhQJKrav7xK/G5asrcOpXTUDi4
+ O8Ng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=HgE3wbd8GWxUwcZlMMJCOiqXfWOa+RmugyiQ1vQxym8=;
+ b=dSh2DV1p3JOueTVzgI56u1SICdJx525Drp9zr/qq3Ded8OmfMto/BDnprPz56joh7s
+ LX249pqaRqusWd8vcVP/RR4jid/4tQbBIsuXH4fpioXXNOv+4jJggxpyPC5wJMOoxN8k
+ R73SeilVJ9X5ZYmOyJIbEQ+xSxc1NJCwXZrSXXECzzzLg0oLWRXR0F114CXHzklekkAb
+ 57dB7nNkBEgdA7W9o8Zdrn8yc+zdR08/g90TS0GTwG5dpb8J6utUdRyl3Waxv77t4bb4
+ SRCOFTvfdUa6AlWi1txTdxAplFQAuUG7EbsgJfZ9rKUkSPubXTxlESfoOmZUVzXxayzw
+ 1qMw==
+X-Gm-Message-State: AOAM530rRtFDLEDX6Yf9De5aRyW4MowoIVesGEoE6WLIR0e6EkqV63u1
+ eqzyr6JAlLkgZ3Y/GjX1wu5pNq5Q0wY=
+X-Google-Smtp-Source: ABdhPJxSOtf5Ltl/mpS/RxxQnaUscbsMRh11+co0VPaGi3dvNuxJIvHcQH6NxN6lvsAoULPvLUm//Q==
+X-Received: by 2002:a17:902:f64d:b0:151:3895:46bf with SMTP id
+ m13-20020a170902f64d00b00151389546bfmr17409261plg.31.1649391093419; 
+ Thu, 07 Apr 2022 21:11:33 -0700 (PDT)
+Received: from fedora.flets-east.jp ([2400:4050:c360:8200:8ae8:3c4:c0da:7419])
+ by smtp.gmail.com with ESMTPSA id
+ o5-20020a17090a3d4500b001c97528521asm10365636pjf.6.2022.04.07.21.11.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 Apr 2022 21:11:32 -0700 (PDT)
+From: Akihiko Odaki <akihiko.odaki@gmail.com>
+To: 
+Subject: [PATCH] ASoC: soc-card: Create jack kcontrol without pins
+Date: Fri,  8 Apr 2022 13:11:14 +0900
+Message-Id: <20220408041114.6024-1-akihiko.odaki@gmail.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 08 Apr 2022 09:48:11 +0200
-Cc: linux-fbdev@vger.kernel.org, linux-parport@lists.infradead.org,
- kvm@vger.kernel.org, linux-sh@vger.kernel.org, linux-iio@vger.kernel.org,
- samba-technical@lists.samba.org, alsa-devel@alsa-project.org,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- Linux Memory Management List <linux-mm@kvack.org>, linux-sctp@vger.kernel.org,
- keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-kselftest@vger.kernel.org, cgroups@vger.kernel.org,
- linux-riscv@lists.infradead.org, codalist@coda.cs.cmu.edu,
- linux-clk@vger.kernel.org, linux-leds@vger.kernel.org,
- linux-cifs@vger.kernel.org, dccp@vger.kernel.org, linux-rdma@vger.kernel.org,
- bridge@lists.linux-foundation.org, ceph-devel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-afs@lists.infradead.org,
- cluster-devel@redhat.com, linux-pci@vger.kernel.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-nfc@lists.01.org, linux-input@vger.kernel.org, linux-can@vger.kernel.org,
- rcu@vger.kernel.org, linux-gpio@vger.kernel.org, linux-fscrypt@vger.kernel.org,
- linux-hams@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
- kunit-dev@googlegroups.com, linaro-mm-sig@lists.linaro.org,
- patches@opensource.cirrus.com, linux-usb@vger.kernel.org,
- linux-wireless@vger.kernel.org, linux-unionfs@vger.kernel.org,
- linux-bluetooth@vger.kernel.org, iommu@lists.linux-foundation.org,
- linux-crypto@vger.kernel.org, netdev@vger.kernel.org,
- linux-fsdevel@vger.kernel.org
+Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, Akihiko Odaki <akihiko.odaki@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,2661 +102,1944 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: 2e9a9857569ec27e64d2ddd01294bbe3c736acb1  Add linux-next specific files for 20220407
+snd_soc_card_jack_new() allowed to create jack kcontrol without pins,
+but did not create kcontrols. The jack would not have kcontrols if pins
+were not going to be added.
 
-Error/Warning reports:
+This renames the old snd_soc_card_jack_new() to
+snd_soc_card_jack_new_pins() for use when pins are provided or will be
+added later. The new snd_soc_card_jack_new() appropriately creates a
+jack for use without pins and adds a kcontrol.
 
-https://lore.kernel.org/linux-mm/202203160358.yulPl6b4-lkp@intel.com
-https://lore.kernel.org/llvm/202203241958.Uw9bWfMD-lkp@intel.com
+Signed-off-by: Akihiko Odaki <akihiko.odaki@gmail.com>
+---
+ drivers/staging/greybus/audio_codec.c         | 12 ++--
+ include/sound/soc-card.h                      |  7 ++-
+ sound/soc/amd/acp-da7219-max98357a.c          |  4 +-
+ sound/soc/amd/acp-rt5645.c                    |  2 +-
+ sound/soc/amd/acp/acp-mach-common.c           |  4 +-
+ sound/soc/amd/acp3x-rt5682-max9836.c          |  2 +-
+ sound/soc/amd/vangogh/acp5x-mach.c            |  8 +--
+ sound/soc/codecs/cs43130.c                    |  2 +-
+ sound/soc/fsl/imx-es8328.c                    |  2 +-
+ sound/soc/fsl/imx-hdmi.c                      |  5 +-
+ sound/soc/generic/simple-card-utils.c         |  5 +-
+ sound/soc/intel/boards/bdw-rt5650.c           |  6 +-
+ sound/soc/intel/boards/bdw-rt5677.c           |  4 +-
+ sound/soc/intel/boards/broadwell.c            |  2 +-
+ sound/soc/intel/boards/bxt_da7219_max98357a.c |  5 +-
+ sound/soc/intel/boards/bxt_rt298.c            |  5 +-
+ sound/soc/intel/boards/bytcht_cx2072x.c       | 10 ++--
+ sound/soc/intel/boards/bytcht_es8316.c        |  8 +--
+ sound/soc/intel/boards/bytcr_rt5640.c         | 24 ++++----
+ sound/soc/intel/boards/bytcr_rt5651.c         |  7 ++-
+ sound/soc/intel/boards/bytcr_wm5102.c         |  6 +-
+ sound/soc/intel/boards/cht_bsw_max98090_ti.c  | 10 ++--
+ sound/soc/intel/boards/cht_bsw_nau8824.c      |  4 +-
+ sound/soc/intel/boards/cht_bsw_rt5645.c       |  6 +-
+ sound/soc/intel/boards/cht_bsw_rt5672.c       | 12 ++--
+ sound/soc/intel/boards/cml_rt1011_rt5682.c    |  5 +-
+ sound/soc/intel/boards/glk_rt5682_max98357a.c |  5 +-
+ sound/soc/intel/boards/kbl_da7219_max98357a.c |  5 +-
+ sound/soc/intel/boards/kbl_da7219_max98927.c  |  5 +-
+ sound/soc/intel/boards/kbl_rt5660.c           | 15 +++--
+ sound/soc/intel/boards/kbl_rt5663_max98927.c  |  7 +--
+ .../intel/boards/kbl_rt5663_rt5514_max98927.c |  7 +--
+ sound/soc/intel/boards/skl_hda_dsp_common.c   |  8 +--
+ .../soc/intel/boards/skl_nau88l25_max98357a.c |  6 +-
+ sound/soc/intel/boards/skl_nau88l25_ssm4567.c |  6 +-
+ sound/soc/intel/boards/skl_rt286.c            |  5 +-
+ sound/soc/intel/boards/sof_cs42l42.c          |  5 +-
+ sound/soc/intel/boards/sof_da7219_max98373.c  |  2 +-
+ sound/soc/intel/boards/sof_es8336.c           |  8 +--
+ sound/soc/intel/boards/sof_nau8825.c          |  2 +-
+ sound/soc/intel/boards/sof_rt5682.c           |  5 +-
+ sound/soc/intel/boards/sof_sdw_rt5682.c       | 14 ++---
+ sound/soc/intel/boards/sof_sdw_rt700.c        | 14 ++---
+ sound/soc/intel/boards/sof_sdw_rt711.c        | 14 ++---
+ sound/soc/intel/boards/sof_sdw_rt711_sdca.c   | 14 ++---
+ sound/soc/intel/boards/sof_ssp_amp.c          |  3 +-
+ sound/soc/mediatek/mt8173/mt8173-max98090.c   |  8 +--
+ .../mediatek/mt8173/mt8173-rt5650-rt5514.c    |  2 +-
+ .../mediatek/mt8173/mt8173-rt5650-rt5676.c    |  2 +-
+ sound/soc/mediatek/mt8173/mt8173-rt5650.c     |  4 +-
+ .../mediatek/mt8183/mt8183-da7219-max98357.c  |  5 +-
+ .../mt8183/mt8183-mt6358-ts3a227-max98357.c   |  5 +-
+ .../mt8192/mt8192-mt6359-rt1015-rt5682.c      |  4 +-
+ .../mt8195/mt8195-mt6359-rt1011-rt5682.c      |  6 +-
+ .../mt8195/mt8195-mt6359-rt1019-rt5682.c      |  6 +-
+ sound/soc/pxa/hx4700.c                        |  6 +-
+ sound/soc/pxa/palm27x.c                       |  7 ++-
+ sound/soc/pxa/ttc-dkb.c                       | 14 +++--
+ sound/soc/pxa/z2.c                            |  7 ++-
+ sound/soc/qcom/apq8016_sbc.c                  |  2 +-
+ sound/soc/qcom/sc7180.c                       |  4 +-
+ sound/soc/qcom/sc7280.c                       |  4 +-
+ sound/soc/qcom/sdm845.c                       |  2 +-
+ sound/soc/qcom/sm8250.c                       |  2 +-
+ sound/soc/rockchip/rk3288_hdmi_analog.c       |  8 +--
+ sound/soc/rockchip/rk3399_gru_sound.c         | 16 +++---
+ sound/soc/rockchip/rockchip_max98090.c        | 16 +++---
+ sound/soc/rockchip/rockchip_rt5645.c          |  2 +-
+ sound/soc/samsung/aries_wm8994.c              |  4 +-
+ sound/soc/samsung/h1940_uda1380.c             |  3 +-
+ sound/soc/samsung/littlemill.c                |  2 +-
+ sound/soc/samsung/lowland.c                   |  9 +--
+ sound/soc/samsung/midas_wm1811.c              |  2 +-
+ sound/soc/samsung/rx1950_uda1380.c            |  3 +-
+ sound/soc/samsung/smartq_wm8987.c             |  8 +--
+ sound/soc/samsung/speyside.c                  | 10 ++--
+ sound/soc/samsung/tobermory.c                 |  8 +--
+ sound/soc/soc-card.c                          | 56 ++++++++++++++-----
+ sound/soc/soc-jack.c                          |  2 +-
+ sound/soc/tegra/tegra_asoc_machine.c          | 30 +++++-----
+ sound/soc/tegra/tegra_wm8903.c                | 10 ++--
+ sound/soc/ti/ams-delta.c                      |  4 +-
+ sound/soc/ti/omap-abe-twl6040.c               |  8 +--
+ sound/soc/ti/omap-twl4030.c                   |  8 +--
+ sound/soc/ti/rx51.c                           |  2 +-
+ 85 files changed, 319 insertions(+), 299 deletions(-)
 
-Error/Warning: (recently discovered and may have been fixed)
-
-/kbuild/src/includecheck/kernel/sched/sched.h: linux/static_key.h is included more than once.
-ERROR: dtschema minimum version is v2022.3
-ERROR: modpost: "__aeabi_uldivmod" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
-drivers/bus/mhi/host/main.c:792:13: warning: parameter 'event_quota' set but not used [-Wunused-but-set-parameter]
-drivers/gpu/drm/amd/amdgpu/../display/dc/virtual/virtual_link_hwss.c:32:6: warning: no previous prototype for 'virtual_setup_stream_attribute' [-Wmissing-prototypes]
-include/uapi/linux/byteorder/big_endian.h:32:52: warning: passing argument 1 of '__fswab64' makes integer from pointer without a cast [-Wint-conversion]
-include/uapi/linux/swab.h:128:46: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
-include/uapi/linux/swab.h:131:31: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
-
-Unverified Error/Warning (likely false positive, please contact us if interested):
-
-Makefile:684: arch/h8300/Makefile: No such file or directory
-arch/Kconfig:10: can't open file "arch/h8300/Kconfig"
-arch/riscv/kernel/cacheinfo.c:189:1: internal compiler error: Segmentation fault
-arch/riscv/kernel/crash_dump.c:46:1: internal compiler error: Segmentation fault
-arch/riscv/kernel/patch.c:133:1: internal compiler error: Segmentation fault
-arch/riscv/kernel/signal.c:323:1: internal compiler error: Segmentation fault
-arch/riscv/mm/extable.c:71:1: internal compiler error: Segmentation fault
-arch/s390/include/asm/spinlock.h:81:3: error: unexpected token in '.rept' directive
-arch/s390/include/asm/spinlock.h:81:3: error: unknown directive
-arch/s390/include/asm/spinlock.h:81:3: error: unmatched '.endr' directive
-arch/s390/lib/spinlock.c:78:3: error: unexpected token in '.rept' directive
-arch/s390/lib/spinlock.c:78:3: error: unknown directive
-arch/s390/lib/spinlock.c:78:3: error: unmatched '.endr' directive
-arch/sh/lib/mcount.S:269: undefined reference to `dump_stack'
-crypto/acompress.c:198:1: internal compiler error: Segmentation fault
-crypto/aead.c:303:1: internal compiler error: Segmentation fault
-crypto/ahash.c:660:1: internal compiler error: Segmentation fault
-crypto/akcipher.c:158:1: internal compiler error: Segmentation fault
-crypto/api.c:660:1: internal compiler error: Segmentation fault
-crypto/asymmetric_keys/public_key.c:468:1: internal compiler error: Segmentation fault
-crypto/dh.c:925:1: internal compiler error: Segmentation fault
-crypto/ecc.c:1668:1: internal compiler error: Segmentation fault
-crypto/geniv.c:163:1: internal compiler error: Segmentation fault
-crypto/gf128mul.c:416:1: internal compiler error: Segmentation fault
-crypto/kpp.c:144:1: internal compiler error: Segmentation fault
-crypto/rng.c:228:1: internal compiler error: Segmentation fault
-crypto/scompress.c:305:1: internal compiler error: Segmentation fault
-crypto/shash.c:627:1: internal compiler error: Segmentation fault
-crypto/skcipher.c:984:1: internal compiler error: Segmentation fault
-drivers/acpi/arm64/agdi.c:88:13: warning: no previous prototype for function 'acpi_agdi_init' [-Wmissing-prototypes]
-drivers/base/map.c:154:1: internal compiler error: Segmentation fault
-drivers/base/regmap/regcache-flat.c:83:1: internal compiler error: Segmentation fault
-drivers/base/regmap/regcache-rbtree.c:553:1: internal compiler error: Segmentation fault
-drivers/base/regmap/regcache.c:785:1: internal compiler error: Segmentation fault
-drivers/base/regmap/regmap-debugfs.c:692:1: internal compiler error: Segmentation fault
-drivers/base/regmap/regmap-mmio.c:453:1: internal compiler error: Segmentation fault
-drivers/base/syscore.c:128:1: internal compiler error: Segmentation fault
-drivers/bluetooth/btbcm.c:722:1: internal compiler error: Segmentation fault
-drivers/bluetooth/btintel.c:2660:1: internal compiler error: Segmentation fault
-drivers/bluetooth/btmrvl_debugfs.c:206:1: internal compiler error: Segmentation fault
-drivers/bluetooth/btmrvl_main.c:806:1: internal compiler error: Segmentation fault
-drivers/bluetooth/btrtl.c:949:1: internal compiler error: Segmentation fault
-drivers/char/ipmi/ipmi_bt_sm.c:696:1: internal compiler error: Segmentation fault
-drivers/char/ipmi/ipmi_kcs_sm.c:536:1: internal compiler error: Segmentation fault
-drivers/char/ipmi/ipmi_si_hotmod.c:237:1: internal compiler error: Segmentation fault
-drivers/char/ipmi/ipmi_si_mem_io.c:146:1: internal compiler error: Segmentation fault
-drivers/char/ipmi/ipmi_smic_sm.c:585:1: internal compiler error: Segmentation fault
-drivers/clk/clk-composite.c:487:1: internal compiler error: Segmentation fault
-drivers/clk/clk-fractional-divider.c:259:1: internal compiler error: Segmentation fault
-drivers/clk/imx/clk-pll14xx.c:166:2: warning: Value stored to 'pll_div_ctl1' is never read [clang-analyzer-deadcode.DeadStores]
-drivers/comedi/comedi_buf.c:691:1: internal compiler error: Segmentation fault
-drivers/comedi/drivers.c:1183:1: internal compiler error: Segmentation fault
-drivers/comedi/range.c:131:1: internal compiler error: Segmentation fault
-drivers/connector/cn_queue.c:147:1: internal compiler error: Segmentation fault
-drivers/connector/connector.c:284:1: internal compiler error: Segmentation fault
-drivers/counter/104-quad-8.c:150:9: sparse:    unsigned char
-drivers/counter/104-quad-8.c:150:9: sparse:    void
-drivers/counter/104-quad-8.c:150:9: sparse: sparse: incompatible types in conditional expression (different base types):
-drivers/crypto/ccree/cc_aead.c:2664:1: internal compiler error: Segmentation fault
-drivers/crypto/ccree/cc_buffer_mgr.c:1390:1: internal compiler error: Segmentation fault
-drivers/crypto/ccree/cc_cipher.c:1509:1: internal compiler error: Segmentation fault
-drivers/crypto/ccree/cc_hash.c:2315:1: internal compiler error: Segmentation fault
-drivers/crypto/ccree/cc_request_mgr.c:662:1: internal compiler error: Segmentation fault
-drivers/crypto/ccree/cc_sram_mgr.c:91:1: internal compiler error: Segmentation fault
-drivers/dma-buf/dma-fence-array.c:253:1: internal compiler error: Segmentation fault
-drivers/dma-buf/dma-fence-chain.c:265:1: internal compiler error: Segmentation fault
-drivers/dma-buf/dma-fence.c:960:1: internal compiler error: Segmentation fault
-drivers/dma-buf/dma-heap.c:324:1: internal compiler error: Segmentation fault
-drivers/dma-buf/st-dma-fence-unwrap.c:125:13: warning: variable 'err' set but not used [-Wunused-but-set-variable]
-drivers/dma-buf/st-dma-fence-unwrap.c:261:1: internal compiler error: Segmentation fault
-drivers/firmware/turris-mox-rwtm.c:146:1: warning: Call to function 'sprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
-drivers/gpio/gpiolib-of.c:1055:1: internal compiler error: Segmentation fault
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn31/dcn31_hubp.c:57:6: warning: no previous prototype for 'hubp31_program_extended_blank' [-Wmissing-prototypes]
-drivers/gpu/drm/drm_of.c:292:2-13: ERROR: probable double put.
-drivers/gpu/drm/selftests/test-drm_buddy.c:525:7: warning: Value stored to 'err' is never read [clang-analyzer-deadcode.DeadStores]
-drivers/hid/hid-cmedia.c:246:1: internal compiler error: Segmentation fault
-drivers/hid/hid-core.c:1665:30: warning: Although the value stored to 'field' is used in the enclosing expression, the value is never actually read from 'field' [clang-analyzer-deadcode.DeadStores]
-drivers/hid/hid-debug.c:1269:1: internal compiler error: Segmentation fault
-drivers/hid/hid-uclogic-params.c:1120:1: internal compiler error: Segmentation fault
-drivers/hid/hid-uclogic-rdesc.c:873:1: internal compiler error: Segmentation fault
-drivers/hid/usbhid/hiddev.c:945:1: internal compiler error: Segmentation fault
-drivers/hwmon/da9055-hwmon.c:201:9: warning: Call to function 'sprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
-drivers/hwmon/nsa320-hwmon.c:114:9: warning: Call to function 'sprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
-drivers/infiniband/core/addr.c:889:1: internal compiler error: Segmentation fault
-drivers/infiniband/core/agent.c:221:1: internal compiler error: Segmentation fault
-drivers/infiniband/core/cache.c:1674:1: internal compiler error: Segmentation fault
-drivers/infiniband/core/cm_trace.c:16: internal compiler error: Segmentation fault
-drivers/infiniband/core/counters.c:669:1: internal compiler error: Segmentation fault
-drivers/infiniband/core/cq.c:507:1: internal compiler error: Segmentation fault
-drivers/infiniband/core/ib_core_uverbs.c:367:1: internal compiler error: Segmentation fault
-drivers/infiniband/core/iwpm_msg.c:846:1: internal compiler error: Segmentation fault
-drivers/infiniband/core/iwpm_util.c:793:1: internal compiler error: Segmentation fault
-drivers/infiniband/core/lag.c:138:1: internal compiler error: Segmentation fault
-drivers/infiniband/core/mad_rmpp.c:960:1: internal compiler error: Segmentation fault
-drivers/infiniband/core/mr_pool.c:82:1: internal compiler error: Segmentation fault
-drivers/infiniband/core/multicast.c:906:1: internal compiler error: Segmentation fault
-drivers/infiniband/core/netlink.c:331:1: internal compiler error: Segmentation fault
-drivers/infiniband/core/packer.c:201:1: internal compiler error: Segmentation fault
-drivers/infiniband/core/restrack.c:355:1: internal compiler error: Segmentation fault
-drivers/infiniband/core/rw.c:761:1: internal compiler error: Segmentation fault
-drivers/infiniband/core/sa_query.c:2268:1: internal compiler error: Segmentation fault
-drivers/infiniband/core/smi.c:338:1: internal compiler error: Segmentation fault
-drivers/infiniband/core/sysfs.c:1475:1: internal compiler error: Segmentation fault
-drivers/infiniband/core/trace.c:13: internal compiler error: Segmentation fault
-drivers/infiniband/core/ud_header.c:547:1: internal compiler error: Segmentation fault
-drivers/infiniband/core/verbs.c:3023:1: internal compiler error: Segmentation fault
-drivers/infiniband/sw/siw/siw_cm.c:1956:1: internal compiler error: Segmentation fault
-drivers/infiniband/sw/siw/siw_cq.c:102:1: internal compiler error: Segmentation fault
-drivers/infiniband/sw/siw/siw_mem.c:449:1: internal compiler error: Segmentation fault
-drivers/infiniband/sw/siw/siw_qp.c:1347:1: internal compiler error: Segmentation fault
-drivers/infiniband/sw/siw/siw_qp_tx.c:1279:1: internal compiler error: Segmentation fault
-drivers/infiniband/sw/siw/siw_verbs.c:1854:1: internal compiler error: Segmentation fault
-drivers/input/matrix-keymap.c:202:1: internal compiler error: Segmentation fault
-drivers/input/rmi4/rmi_2d_sensor.c:330:1: internal compiler error: Segmentation fault
-drivers/input/rmi4/rmi_f01.c:729:1: internal compiler error: Segmentation fault
-drivers/input/rmi4/rmi_f03.c:328:1: internal compiler error: Segmentation fault
-drivers/input/rmi4/rmi_f55.c:128:1: internal compiler error: Segmentation fault
-drivers/input/touchscreen.c:207:1: internal compiler error: Segmentation fault
-drivers/leds/leds-ti-lmu-common.c:153:1: internal compiler error: Segmentation fault
-drivers/media/common/videobuf2/frame_vector.c:235:1: internal compiler error: Segmentation fault
-drivers/media/common/videobuf2/vb2-trace.c:10:1: internal compiler error: Segmentation fault
-drivers/media/common/videobuf2/videobuf2-memops.c:129:1: internal compiler error: Segmentation fault
-drivers/media/common/videobuf2/videobuf2-vmalloc.c:450:1: internal compiler error: Segmentation fault
-drivers/memory/brcmstb_dpfe.c:707:10: warning: Call to function 'sprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
-drivers/mfd/madera-core.c:799:1: internal compiler error: Segmentation fault
-drivers/mfd/mfd-core.c:440:1: internal compiler error: Segmentation fault
-drivers/mtd/chips/cfi_cmdset_0020.c:1401:1: internal compiler error: Segmentation fault
-drivers/mtd/hyperbus/hyperbus-core.c:144:1: internal compiler error: Segmentation fault
-drivers/mtd/mtdsuper.c:202:1: internal compiler error: Segmentation fault
-drivers/mtd/nand/bbt.c:131:1: internal compiler error: Segmentation fault
-drivers/mtd/nand/ecc-mxic.c:523:17: warning: Value stored to 'dev' during its initialization is never read [clang-analyzer-deadcode.DeadStores]
-drivers/mtd/nand/ecc-mxic.c:595:6: warning: Branch condition evaluates to a garbage value [clang-analyzer-core.uninitialized.Branch]
-drivers/net/can/dev/bittiming.c:284:1: internal compiler error: Segmentation fault
-drivers/net/can/dev/length.c:95:1: internal compiler error: Segmentation fault
-drivers/net/can/dev/netlink.c:624:1: internal compiler error: Segmentation fault
-drivers/net/can/dev/rx-offload.c:402:1: internal compiler error: Segmentation fault
-drivers/net/can/dev/skb.c:254:1: internal compiler error: Segmentation fault
-drivers/net/can/flexcan/flexcan-ethtool.c:114:1: internal compiler error: Segmentation fault
-drivers/net/can/usb/etas_es58x/es581_4.c:507:1: internal compiler error: Segmentation fault
-drivers/net/can/usb/etas_es58x/es58x_fd.c:565:1: internal compiler error: Segmentation fault
-drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c:2065:1: internal compiler error: Segmentation fault
-drivers/net/can/usb/kvaser_usb/kvaser_usb_leaf.c:1398:1: internal compiler error: Segmentation fault
-drivers/net/vxlan/vxlan_core.c:440:34: sparse: sparse: incorrect type in argument 2 (different base types)
-drivers/nfc/fdp/fdp.c:756:1: internal compiler error: Segmentation fault
-drivers/of/kobj.c:165:1: internal compiler error: Segmentation fault
-drivers/parport/ieee1284_ops.c:893:1: internal compiler error: Segmentation fault
-drivers/pci/of.c:635:1: internal compiler error: Segmentation fault
-drivers/pci/vgaarb.c:213:17: warning: Value stored to 'dev' during its initialization is never read [clang-analyzer-deadcode.DeadStores]
-drivers/phy/broadcom/phy-brcm-usb.c:233:9: warning: Call to function 'sprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
-drivers/ptp/ptp_vclock.c:270:1: internal compiler error: Segmentation fault
-drivers/ssb/driver_chipcommon.c:598:1: internal compiler error: Segmentation fault
-drivers/ssb/scan.c:446:1: internal compiler error: Segmentation fault
-drivers/usb/cdns3/drd.c:495:1: internal compiler error: Segmentation fault
-drivers/usb/chipidea/core.c:956:10: warning: Call to function 'sprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
-drivers/usb/chipidea/host.c:486:1: internal compiler error: Segmentation fault
-drivers/usb/core/config.c:1094:1: internal compiler error: Segmentation fault
-drivers/usb/core/devices.c:593:1: internal compiler error: Segmentation fault
-drivers/usb/core/endpoint.c:191:1: internal compiler error: Segmentation fault
-drivers/usb/core/generic.c:324:1: internal compiler error: Segmentation fault
-drivers/usb/core/port.c:658:1: internal compiler error: Segmentation fault
-drivers/usb/core/quirks.c:703:1: internal compiler error: Segmentation fault
-drivers/usb/core/sysfs.c:1263:1: internal compiler error: Segmentation fault
-drivers/usb/dwc3/debugfs.c:934:1: internal compiler error: Segmentation fault
-drivers/usb/dwc3/host.c:140:1: internal compiler error: Segmentation fault
-drivers/usb/gadget/configfs.c:237:8: warning: Call to function 'sprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
-drivers/usb/gadget/function/storage_common.c:370:9: warning: Call to function 'sprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
-drivers/usb/gadget/udc/core.c:1664:9: warning: Call to function 'sprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
-drivers/usb/host/xhci-dbg.c:35:1: internal compiler error: Segmentation fault
-drivers/usb/typec/altmodes/displayport.c:396:8: warning: Call to function 'sprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
-drivers/usb/typec/bus.c:412:1: internal compiler error: Segmentation fault
-drivers/usb/usbip/usbip_event.c:196:1: internal compiler error: Segmentation fault
-drivers/video/fbdev/core/fb_defio.c:258:1: internal compiler error: Segmentation fault
-drivers/video/fbdev/core/fbcmap.c:362:1: internal compiler error: Segmentation fault
-drivers/video/fbdev/core/fbsysfs.c:570:1: internal compiler error: Segmentation fault
-drivers/virtio/virtio_ring.c:2448:1: internal compiler error: Segmentation fault
-drivers/w1/w1_family.c:130:1: internal compiler error: Segmentation fault
-fs/afs/addr_list.c:404:1: internal compiler error: Segmentation fault
-fs/afs/callback.c:228:1: internal compiler error: Segmentation fault
-fs/afs/cmservice.c:672:1: internal compiler error: Segmentation fault
-fs/afs/dir_edit.c:493:1: internal compiler error: Segmentation fault
-fs/afs/dir_silly.c:282:1: internal compiler error: Segmentation fault
-fs/afs/dynroot.c:394:1: internal compiler error: Segmentation fault
-fs/afs/file.c:600:1: internal compiler error: Segmentation fault
-fs/afs/flock.c:877:1: internal compiler error: Segmentation fault
-fs/afs/fs_operation.c:259:1: internal compiler error: Segmentation fault
-fs/afs/fs_probe.c:475:1: internal compiler error: Segmentation fault
-fs/afs/mntpt.c:225:1: internal compiler error: Segmentation fault
-fs/afs/server_list.c:129:1: internal compiler error: Segmentation fault
-fs/afs/vl_alias.c:383:1: internal compiler error: Segmentation fault
-fs/afs/vl_list.c:335:1: internal compiler error: Segmentation fault
-fs/afs/vl_probe.c:292:1: internal compiler error: Segmentation fault
-fs/afs/vl_rotate.c:348:1: internal compiler error: Segmentation fault
-fs/afs/vlclient.c:759:1: internal compiler error: Segmentation fault
-fs/afs/volume.c:428:1: internal compiler error: Segmentation fault
-fs/afs/write.c:1039:1: internal compiler error: Segmentation fault
-fs/afs/xattr.c:363:1: internal compiler error: Segmentation fault
-fs/ceph/addr.c:2041:1: internal compiler error: Segmentation fault
-fs/ceph/caps.c:4712:1: internal compiler error: Segmentation fault
-fs/ceph/debugfs.c:466:1: internal compiler error: Segmentation fault
-fs/ceph/dir.c:2003:1: internal compiler error: Segmentation fault
-fs/ceph/export.c:583:1: internal compiler error: Segmentation fault
-fs/ceph/file.c:2611:1: internal compiler error: Segmentation fault
-fs/ceph/inode.c:2495:1: internal compiler error: Segmentation fault
-fs/ceph/io.c:163:1: internal compiler error: Segmentation fault
-fs/ceph/ioctl.c:295:1: internal compiler error: Segmentation fault
-fs/ceph/mdsmap.c:422:1: internal compiler error: Segmentation fault
-fs/ceph/metric.c:353:1: internal compiler error: Segmentation fault
-fs/ceph/quota.c:531:1: internal compiler error: Segmentation fault
-fs/ceph/snap.c:1270:1: internal compiler error: Segmentation fault
-fs/ceph/xattr.c:1408:1: internal compiler error: Segmentation fault
-fs/cifs/cifs_debug.c:1066:1: internal compiler error: Segmentation fault
-fs/cifs/cifs_dfs_ref.c:374:1: internal compiler error: Segmentation fault
-fs/cifs/cifs_spnego.c:236:1: internal compiler error: Segmentation fault
-fs/cifs/cifs_unicode.c:632:1: internal compiler error: Segmentation fault
-fs/cifs/cifsacl.c:1668:1: internal compiler error: Segmentation fault
-fs/cifs/cifsencrypt.c:767:1: internal compiler error: Segmentation fault
-fs/cifs/cifssmb.c:6054:1: internal compiler error: Segmentation fault
-fs/cifs/connect.c:4550:1: internal compiler error: Segmentation fault
-fs/cifs/dfs_cache.c:1661:1: internal compiler error: Segmentation fault
-fs/cifs/dir.c:864:1: internal compiler error: Segmentation fault
-fs/cifs/file.c:5008:1: internal compiler error: Segmentation fault
-fs/cifs/fs_context.c:1764:1: internal compiler error: Segmentation fault
-fs/cifs/inode.c:3014:1: internal compiler error: Segmentation fault
-fs/cifs/ioctl.c:501:1: internal compiler error: Segmentation fault
-fs/cifs/link.c:734:1: internal compiler error: Segmentation fault
-fs/cifs/misc.c:1353:1: internal compiler error: Segmentation fault
-fs/cifs/netmisc.c:1021:1: internal compiler error: Segmentation fault
-fs/cifs/readdir.c:1056:1: internal compiler error: Segmentation fault
-fs/cifs/sess.c:1718:1: internal compiler error: Segmentation fault
-fs/cifs/smb1ops.c:1256:1: internal compiler error: Segmentation fault
-fs/cifs/smb2file.c:287:1: internal compiler error: Segmentation fault
-fs/cifs/smb2inode.c:750:1: internal compiler error: Segmentation fault
-fs/cifs/smb2maperror.c:2481:1: internal compiler error: Segmentation fault
-fs/cifs/smb2misc.c:924:1: internal compiler error: Segmentation fault
-fs/cifs/smb2ops.c:5993:1: internal compiler error: Segmentation fault
-fs/cifs/smb2pdu.c:5616:1: internal compiler error: Segmentation fault
-fs/cifs/smb2transport.c:933:1: internal compiler error: Segmentation fault
-fs/cifs/smbencrypt.c:91:1: internal compiler error: Segmentation fault
-fs/cifs/trace.c:9: internal compiler error: Segmentation fault
-fs/cifs/transport.c:1639:1: internal compiler error: Segmentation fault
-fs/cifs/unc.c:69:1: internal compiler error: Segmentation fault
-fs/coda/cache.c:118:1: internal compiler error: Segmentation fault
-fs/coda/cnode.c:178:1: internal compiler error: Segmentation fault
-fs/coda/dir.c:595:1: internal compiler error: Segmentation fault
-fs/coda/file.c:306:1: internal compiler error: Segmentation fault
-fs/coda/pioctl.c:88:1: internal compiler error: Segmentation fault
-fs/coda/symlink.c:48:1: internal compiler error: Segmentation fault
-fs/coda/upcall.c:961:1: internal compiler error: Segmentation fault
-fs/configfs/file.c:482:1: internal compiler error: Segmentation fault
-fs/configfs/inode.c:244:1: internal compiler error: Segmentation fault
-fs/configfs/symlink.c:269:1: internal compiler error: Segmentation fault
-fs/crypto/fname.c:595:1: internal compiler error: Segmentation fault
-fs/crypto/hkdf.c:182:1: internal compiler error: Segmentation fault
-fs/crypto/hooks.c:430:1: internal compiler error: Segmentation fault
-fs/crypto/keysetup.c:794:1: internal compiler error: Segmentation fault
-fs/crypto/keysetup_v1.c:319:1: internal compiler error: Segmentation fault
-fs/crypto/policy.c:818:1: internal compiler error: Segmentation fault
-fs/d_path.c:448:1: internal compiler error: Segmentation fault
-fs/dlm/dir.c:306:1: internal compiler error: Segmentation fault
-fs/dlm/member.c:730:1: internal compiler error: Segmentation fault
-fs/dlm/midcomms.c:1494:1: internal compiler error: Segmentation fault
-fs/dlm/rcom.c:677:1: internal compiler error: Segmentation fault
-fs/dlm/recover.c:955:1: internal compiler error: Segmentation fault
-fs/dlm/recoverd.c:352:1: internal compiler error: Segmentation fault
-fs/dlm/requestqueue.c:171:1: internal compiler error: Segmentation fault
-fs/eventfd.c:457:1: internal compiler error: Segmentation fault
-fs/exportfs/expfs.c:586:1: internal compiler error: Segmentation fault
-fs/fhandle.c:267:1: internal compiler error: Segmentation fault
-fs/fs_context.c:717:1: internal compiler error: Segmentation fault
-fs/fs_pin.c:97:1: internal compiler error: Segmentation fault
-fs/fs_struct.c:168:1: internal compiler error: Segmentation fault
-fs/fsopen.c:469:1: internal compiler error: Segmentation fault
-fs/ioctl.c:875:1: internal compiler error: Segmentation fault
-fs/kernfs/dir.c:1769:1: internal compiler error: Segmentation fault
-fs/kernfs/file.c:1017:1: internal compiler error: Segmentation fault
-fs/kernfs/inode.c:446:1: internal compiler error: Segmentation fault
-fs/kernfs/symlink.c:153:1: internal compiler error: Segmentation fault
-fs/namei.c:5044:1: internal compiler error: Segmentation fault
-fs/nls/nls_base.c:548:1: internal compiler error: Segmentation fault
-fs/open.c:1562:1: internal compiler error: Segmentation fault
-fs/overlayfs/dir.c:1315:1: internal compiler error: Segmentation fault
-fs/overlayfs/export.c:872:1: internal compiler error: Segmentation fault
-fs/overlayfs/inode.c:1196:1: internal compiler error: Segmentation fault
-fs/overlayfs/namei.c:1191:1: internal compiler error: Segmentation fault
-fs/overlayfs/readdir.c:1233:1: internal compiler error: Segmentation fault
-fs/overlayfs/util.c:1062:1: internal compiler error: Segmentation fault
-fs/pnode.c:602:1: internal compiler error: Segmentation fault
-fs/posix_acl.c:1018:1: internal compiler error: Segmentation fault
-fs/pstore/pmsg.c:94:1: internal compiler error: Segmentation fault
-fs/quota/quota.c:1013:1: internal compiler error: Segmentation fault
-fs/readdir.c:384:1: internal compiler error: Segmentation fault
-fs/select.c:1123:1: internal compiler error: Segmentation fault
-fs/smbfs_common/cifs_md4.c:197:1: internal compiler error: Segmentation fault
-fs/splice.c:1721:1: internal compiler error: Segmentation fault
-fs/statfs.c:264:1: internal compiler error: Segmentation fault
-fs/sync.c:382:1: internal compiler error: Segmentation fault
-fs/utimes.c:264:1: internal compiler error: Segmentation fault
-fs/xattr.c:1183:1: internal compiler error: Segmentation fault
-include/uapi/linux/byteorder/little_endian.h:32:43: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
-ipc/msgutil.c:184:1: internal compiler error: Segmentation fault
-kernel/cgroup/freezer.c:323:1: internal compiler error: Segmentation fault
-kernel/dma/direct.c:633:1: internal compiler error: Segmentation fault
-kernel/irq/chip.c:1606:1: internal compiler error: Segmentation fault
-kernel/module/sysfs.c:436:1: internal compiler error: Segmentation fault
-kernel/printk/printk_ringbuffer.c:2124:1: internal compiler error: Segmentation fault
-kernel/printk/printk_safe.c:52:1: internal compiler error: Segmentation fault
-kernel/range.c:165:1: internal compiler error: Segmentation fault
-kernel/rcu/rcu_segcblist.c:633:1: internal compiler error: Segmentation fault
-kernel/rcu/sync.c:206:1: internal compiler error: Segmentation fault
-kernel/sched/core.c:5268:20: warning: no previous prototype for function 'task_sched_runtime' [-Wmissing-prototypes]
-kernel/sched/core.c:8997:6: warning: no previous prototype for 'idle_task_exit' [-Wmissing-prototypes]
-kernel/sched/core.c:8997:6: warning: no previous prototype for function 'idle_task_exit' [-Wmissing-prototypes]
-kernel/sched/core.c:9232:5: warning: no previous prototype for 'sched_cpu_activate' [-Wmissing-prototypes]
-kernel/sched/core.c:9232:5: warning: no previous prototype for function 'sched_cpu_activate' [-Wmissing-prototypes]
-kernel/sched/core.c:9277:5: warning: no previous prototype for 'sched_cpu_deactivate' [-Wmissing-prototypes]
-kernel/sched/core.c:9277:5: warning: no previous prototype for function 'sched_cpu_deactivate' [-Wmissing-prototypes]
-kernel/sched/core.c:9352:5: warning: no previous prototype for 'sched_cpu_starting' [-Wmissing-prototypes]
-kernel/sched/core.c:9352:5: warning: no previous prototype for function 'sched_cpu_starting' [-Wmissing-prototypes]
-kernel/sched/core.c:9373:5: warning: no previous prototype for 'sched_cpu_wait_empty' [-Wmissing-prototypes]
-kernel/sched/core.c:9373:5: warning: no previous prototype for function 'sched_cpu_wait_empty' [-Wmissing-prototypes]
-kernel/sched/core.c:9415:5: warning: no previous prototype for 'sched_cpu_dying' [-Wmissing-prototypes]
-kernel/sched/core.c:9415:5: warning: no previous prototype for function 'sched_cpu_dying' [-Wmissing-prototypes]
-kernel/sched/core.c:9438:13: warning: no previous prototype for function 'sched_init_smp' [-Wmissing-prototypes]
-kernel/sched/core.c:9471:13: warning: no previous prototype for function 'sched_init_smp' [-Wmissing-prototypes]
-kernel/sched/core.c:9499:13: warning: no previous prototype for function 'sched_init' [-Wmissing-prototypes]
-kernel/sched/fair.c:10665:6: warning: no previous prototype for 'nohz_balance_enter_idle' [-Wmissing-prototypes]
-kernel/sched/fair.c:10665:6: warning: no previous prototype for function 'nohz_balance_enter_idle' [-Wmissing-prototypes]
-kernel/sched/loadavg.c:245:6: warning: no previous prototype for 'calc_load_nohz_start' [-Wmissing-prototypes]
-kernel/sched/loadavg.c:245:6: warning: no previous prototype for function 'calc_load_nohz_start' [-Wmissing-prototypes]
-kernel/sched/loadavg.c:258:6: warning: no previous prototype for 'calc_load_nohz_remote' [-Wmissing-prototypes]
-kernel/sched/loadavg.c:258:6: warning: no previous prototype for function 'calc_load_nohz_remote' [-Wmissing-prototypes]
-kernel/sched/loadavg.c:263:6: warning: no previous prototype for 'calc_load_nohz_stop' [-Wmissing-prototypes]
-kernel/sched/loadavg.c:263:6: warning: no previous prototype for function 'calc_load_nohz_stop' [-Wmissing-prototypes]
-kernel/sys.c:2711:1: internal compiler error: Segmentation fault
-kernel/task_work.c:169:1: internal compiler error: Segmentation fault
-kernel/trace/trace_clock.c:158:1: internal compiler error: Segmentation fault
-kernel/umh.c:564:1: internal compiler error: Segmentation fault
-lib/asn1_decoder.c:521:1: internal compiler error: Segmentation fault
-lib/cmdline.c:275:1: internal compiler error: Segmentation fault
-lib/crypto/aes.c:356:1: internal compiler error: Segmentation fault
-lib/crypto/blake2s-generic.c:115:1: internal compiler error: Segmentation fault
-lib/crypto/poly1305.c:78:1: internal compiler error: Segmentation fault
-lib/dim/dim.c:83:1: internal compiler error: Segmentation fault
-lib/dim/net_dim.c:246:1: internal compiler error: Segmentation fault
-lib/dim/rdma_dim.c:108:1: internal compiler error: Segmentation fault
-lib/dynamic_queue_limits.c:138:1: internal compiler error: Segmentation fault
-lib/extable.c:118:1: internal compiler error: Segmentation fault
-lib/fdt.c:3: internal compiler error: Segmentation fault
-lib/fdt_ro.c:3: internal compiler error: Segmentation fault
-lib/fdt_rw.c:3: internal compiler error: Segmentation fault
-lib/fdt_sw.c:3: internal compiler error: Segmentation fault
-lib/fdt_wip.c:3: internal compiler error: Segmentation fault
-lib/flex_proportions.c:282:1: internal compiler error: Segmentation fault
-lib/iov_iter.c:2067:1: internal compiler error: Segmentation fault
-lib/is_single_threaded.c:54:1: internal compiler error: Segmentation fault
-lib/kunit/resource.c:129:1: internal compiler error: Segmentation fault
-lib/linear_ranges.c:276:1: internal compiler error: Segmentation fault
-lib/logic_pio.c:232:1: internal compiler error: Segmentation fault
-lib/lz4/lz4_compress.c:940:1: internal compiler error: Segmentation fault
-lib/lz4/lz4_decompress.c:719:1: internal compiler error: Segmentation fault
-lib/lzo/lzo1x_compress.c:400:1: internal compiler error: Segmentation fault
-lib/lzo/lzo1x_decompress_safe.c:294:1: internal compiler error: Segmentation fault
-lib/math/rational.c:111:1: internal compiler error: Segmentation fault
-lib/mpi/generic_mpih-mul2.c:47:1: internal compiler error: Segmentation fault
-lib/mpi/generic_mpih-mul3.c:48:1: internal compiler error: Segmentation fault
-lib/mpi/mpi-div.c:234:1: internal compiler error: Segmentation fault
-lib/mpi/mpi-mod.c:157:1: internal compiler error: Segmentation fault
-lib/mpi/mpih-div.c:517:1: internal compiler error: Segmentation fault
-lib/mpi/mpih-mul.c:509:1: internal compiler error: Segmentation fault
-lib/nlattr.c:1121:1: internal compiler error: Segmentation fault
-lib/oid_registry.c:199:1: internal compiler error: Segmentation fault
-lib/seq_buf.c:397:1: internal compiler error: Segmentation fault
-lib/syscall.c:88:1: internal compiler error: Segmentation fault
-lib/vsprintf.c:2781:5: warning: Null pointer passed as 1st argument to memory copy function [clang-analyzer-unix.cstring.NullArg]
-lib/vsprintf.c:2801:12: warning: Dereference of null pointer (loaded from variable 'str') [clang-analyzer-core.NullDereference]
-lib/zlib_deflate/deflate.c:1146:1: internal compiler error: Segmentation fault
-lib/zlib_deflate/deftree.c:1058:1: internal compiler error: Segmentation fault
-lib/zlib_inflate/inffast.c:325:1: internal compiler error: Segmentation fault
-lib/zlib_inflate/inflate.c:814:1: internal compiler error: Segmentation fault
-lib/zstd/common/entropy_common.c:357:1: internal compiler error: Segmentation fault
-lib/zstd/common/fse_decompress.c:386:1: internal compiler error: Segmentation fault
-lib/zstd/compress/fse_compress.c:622:1: internal compiler error: Segmentation fault
-lib/zstd/compress/hist.c:164:1: internal compiler error: Segmentation fault
-lib/zstd/compress/huf_compress.c:904:1: internal compiler error: Segmentation fault
-lib/zstd/compress/zstd_compress.c:5109:1: internal compiler error: Segmentation fault
-lib/zstd/compress/zstd_compress_literals.c:158:1: internal compiler error: Segmentation fault
-lib/zstd/compress/zstd_compress_sequences.c:439:1: internal compiler error: Segmentation fault
-lib/zstd/compress/zstd_compress_superblock.c:852:1: internal compiler error: Segmentation fault
-lib/zstd/compress/zstd_double_fast.c:519:1: internal compiler error: Segmentation fault
-lib/zstd/compress/zstd_fast.c:496:1: internal compiler error: Segmentation fault
-lib/zstd/compress/zstd_lazy.c:1414:1: internal compiler error: Segmentation fault
-lib/zstd/compress/zstd_ldm.c:686:1: internal compiler error: Segmentation fault
-lib/zstd/compress/zstd_opt.c:1354:1: internal compiler error: Segmentation fault
-lib/zstd/decompress/huf_decompress.c:1205:1: internal compiler error: Segmentation fault
-lib/zstd/decompress/zstd_ddict.c:241:1: internal compiler error: Segmentation fault
-lib/zstd/decompress/zstd_decompress.c:2085:1: internal compiler error: Segmentation fault
-lib/zstd/decompress/zstd_decompress_block.c:1540:1: internal compiler error: Segmentation fault
-make[1]: *** No rule to make target 'arch/h8300/Makefile'.
-mm/folio-compat.c:166:1: internal compiler error: Segmentation fault
-mm/interval_tree.c:110:1: internal compiler error: Segmentation fault
-net/802/stp.c:101:1: internal compiler error: Segmentation fault
-net/ax25/ax25_iface.c:214:1: internal compiler error: Segmentation fault
-net/ax25/ax25_in.c:451:1: internal compiler error: Segmentation fault
-net/ax25/ax25_ip.c:246:1: internal compiler error: Segmentation fault
-net/ax25/ax25_out.c:386:1: internal compiler error: Segmentation fault
-net/ax25/ax25_std_in.c:443:1: internal compiler error: Segmentation fault
-net/ax25/ax25_std_timer.c:175:1: internal compiler error: Segmentation fault
-net/ax25/ax25_subr.c:296:1: internal compiler error: Segmentation fault
-net/bluetooth/ecdh_helper.c:228:1: internal compiler error: Segmentation fault
-net/bluetooth/eir.c:335:1: internal compiler error: Segmentation fault
-net/bluetooth/hci_codec.c:252:1: internal compiler error: Segmentation fault
-net/bluetooth/hci_conn.c:1790:1: internal compiler error: Segmentation fault
-net/bluetooth/hci_core.c:3876:1: internal compiler error: Segmentation fault
-net/bluetooth/hci_event.c:6956:1: internal compiler error: Segmentation fault
-net/bluetooth/hci_request.c:2659:1: internal compiler error: Segmentation fault
-net/bluetooth/hci_sync.c:5340:1: internal compiler error: Segmentation fault
-net/bluetooth/leds.c:100:1: internal compiler error: Segmentation fault
-net/bluetooth/mgmt.c:9890:1: internal compiler error: Segmentation fault
-net/bluetooth/mgmt_config.c:346:1: internal compiler error: Segmentation fault
-net/bluetooth/mgmt_util.c:316:1: internal compiler error: Segmentation fault
-net/bluetooth/smp.c:3463:1: internal compiler error: Segmentation fault
-net/bridge/br_arp_nd_proxy.c:228:1: internal compiler error: Segmentation fault
-net/bridge/br_device.c:533:1: internal compiler error: Segmentation fault
-net/bridge/br_forward.c:248:1: internal compiler error: Segmentation fault
-net/bridge/br_if.c:787:1: internal compiler error: Segmentation fault
-net/bridge/br_input.c:434:1: internal compiler error: Segmentation fault
-net/bridge/br_ioctl.c:440:1: internal compiler error: Segmentation fault
-net/bridge/br_mrp.c:1260:1: internal compiler error: Segmentation fault
-net/bridge/br_mrp_netlink.c:571:1: internal compiler error: Segmentation fault
-net/bridge/br_netlink_tunnel.c:339:1: internal compiler error: Segmentation fault
-net/bridge/br_stp.c:713:1: internal compiler error: Segmentation fault
-net/bridge/br_stp_bpdu.c:247:1: internal compiler error: Segmentation fault
-net/bridge/br_stp_if.c:351:1: internal compiler error: Segmentation fault
-net/bridge/br_stp_timer.c:161:1: internal compiler error: Segmentation fault
-net/bridge/br_sysfs_br.c:1084:1: internal compiler error: Segmentation fault
-net/bridge/br_sysfs_if.c:412:1: internal compiler error: Segmentation fault
-net/caif/cfcnfg.c:612:1: internal compiler error: Segmentation fault
-net/caif/cfctrl.c:634:1: internal compiler error: Segmentation fault
-net/caif/cfdgml.c:113:1: internal compiler error: Segmentation fault
-net/caif/cffrml.c:197:1: internal compiler error: Segmentation fault
-net/caif/cfmuxl.c:267:1: internal compiler error: Segmentation fault
-net/caif/cfpkt_skbuff.c:382:1: internal compiler error: Segmentation fault
-net/caif/cfrfml.c:299:1: internal compiler error: Segmentation fault
-net/caif/cfserl.c:192:1: internal compiler error: Segmentation fault
-net/caif/cfsrvl.c:220:1: internal compiler error: Segmentation fault
-net/caif/cfutill.c:104:1: internal compiler error: Segmentation fault
-net/caif/cfveil.c:101:1: internal compiler error: Segmentation fault
-net/ceph/armor.c:106:1: internal compiler error: Segmentation fault
-net/ceph/auth.c:659:1: internal compiler error: Segmentation fault
-net/ceph/auth_none.c:146:1: internal compiler error: Segmentation fault
-net/ceph/auth_x.c:1122:1: internal compiler error: Segmentation fault
-net/ceph/buffer.c:59:1: internal compiler error: Segmentation fault
-net/ceph/cls_lock_client.c:431:1: internal compiler error: Segmentation fault
-net/ceph/crush/crush.c:142:1: internal compiler error: Segmentation fault
-net/ceph/crush/mapper.c:1099:1: internal compiler error: Segmentation fault
-net/ceph/decode.c:193:1: internal compiler error: Segmentation fault
-net/ceph/messenger_v1.c:1548:1: internal compiler error: Segmentation fault
-net/ceph/messenger_v2.c:3577:1: internal compiler error: Segmentation fault
-net/ceph/mon_client.c:1586:1: internal compiler error: Segmentation fault
-net/ceph/msgpool.c:94:1: internal compiler error: Segmentation fault
-net/ceph/osdmap.c:3090:1: internal compiler error: Segmentation fault
-net/ceph/pagelist.c:171:1: internal compiler error: Segmentation fault
-net/ceph/pagevec.c:166:1: internal compiler error: Segmentation fault
-net/ceph/snapshot.c:63:1: internal compiler error: Segmentation fault
-net/ceph/string_table.c:106:1: internal compiler error: Segmentation fault
-net/ceph/striper.c:278:1: internal compiler error: Segmentation fault
-net/core/datagram.c:837:1: internal compiler error: Segmentation fault
-net/core/dev_addr_lists.c:1048:1: internal compiler error: Segmentation fault
-net/core/dst.c:355:1: internal compiler error: Segmentation fault
-net/core/dst_cache.c:183:1: internal compiler error: Segmentation fault
-net/core/flow_offload.c:597:1: internal compiler error: Segmentation fault
-net/core/gen_estimator.c:278:1: internal compiler error: Segmentation fault
-net/core/gen_stats.c:485:1: internal compiler error: Segmentation fault
-net/core/gro.c:787:1: internal compiler error: Segmentation fault
-net/core/gro_cells.c:139:1: internal compiler error: Segmentation fault
-net/core/link_watch.c:279:1: internal compiler error: Segmentation fault
-net/core/lwtunnel.c:424:1: internal compiler error: Segmentation fault
-net/core/net-traces.c:63:1: internal compiler error: Segmentation fault
-net/core/of_net.c:170:1: internal compiler error: Segmentation fault
-net/core/scm.c:367:1: internal compiler error: Segmentation fault
-net/core/secure_seq.c:167:1: internal compiler error: Segmentation fault
-net/core/sock.c:3948:1: internal compiler error: Segmentation fault
-net/core/sock_reuseport.c:649:1: internal compiler error: Segmentation fault
-net/core/stream.c:212:1: internal compiler error: Segmentation fault
-net/core/tso.c:97:1: internal compiler error: Segmentation fault
-net/core/utils.c:486:1: internal compiler error: Segmentation fault
-net/dccp/ccids/ccid2.c:788:1: internal compiler error: Segmentation fault
-net/dccp/input.c:739:1: internal compiler error: Segmentation fault
-net/dccp/output.c:709:1: internal compiler error: Segmentation fault
-net/dccp/qpolicy.c:136:1: internal compiler error: Segmentation fault
-net/devres.c:95:1: internal compiler error: Segmentation fault
-net/dns_resolver/dns_query.c:172:1: internal compiler error: Segmentation fault
-net/ethtool/common.c:596:1: internal compiler error: Segmentation fault
-net/ethtool/ioctl.c:3351:1: internal compiler error: Segmentation fault
-net/ipv4/datagram.c:128:1: internal compiler error: Segmentation fault
-net/ipv4/fib_semantics.c:2261:1: internal compiler error: Segmentation fault
-net/ipv4/inet_connection_sock.c:1296:1: internal compiler error: Segmentation fault
-net/ipv4/inet_timewait_sock.c:259:1: internal compiler error: Segmentation fault
-net/ipv4/ip_forward.c:175:1: internal compiler error: Segmentation fault
-net/ipv4/ip_input.c:661:1: internal compiler error: Segmentation fault
-net/ipv4/ip_options.c:641:1: internal compiler error: Segmentation fault
-net/ipv4/ip_sockglue.c:1794:1: internal compiler error: Segmentation fault
-net/ipv4/ip_tunnel.c:1280:1: internal compiler error: Segmentation fault
-net/ipv4/metrics.c:92:1: internal compiler error: Segmentation fault
-net/ipv4/netlink.c:33:1: internal compiler error: Segmentation fault
-net/ipv4/syncookies.c:449:1: internal compiler error: Segmentation fault
-net/ipv4/tcp_fastopen.c:591:1: internal compiler error: Segmentation fault
-net/ipv4/tcp_input.c:6992:1: internal compiler error: Segmentation fault
-net/ipv4/tcp_minisocks.c:852:1: internal compiler error: Segmentation fault
-net/ipv4/tcp_rate.c:204:1: internal compiler error: Segmentation fault
-net/ipv4/tcp_recovery.c:240:1: internal compiler error: Segmentation fault
-net/ipv4/tcp_timer.c:798:1: internal compiler error: Segmentation fault
-net/ipv4/tcp_ulp.c:161:1: internal compiler error: Segmentation fault
-net/ipv4/udp_tunnel_core.c:205:1: internal compiler error: Segmentation fault
-net/ipv4/xfrm4_input.c:172:1: internal compiler error: Segmentation fault
-net/ipv6/addrconf_core.c:273:1: internal compiler error: Segmentation fault
-net/ipv6/exthdrs_core.c:280:1: internal compiler error: Segmentation fault
-net/ipv6/ip6_checksum.c:137:1: internal compiler error: Segmentation fault
-net/ipv6/output_core.c:165:1: internal compiler error: Segmentation fault
-net/llc/llc_input.c:227:1: internal compiler error: Segmentation fault
-net/llc/llc_output.c:74:1: internal compiler error: Segmentation fault
-net/netrom/nr_dev.c:178:1: internal compiler error: Segmentation fault
-net/netrom/nr_in.c:301:1: internal compiler error: Segmentation fault
-net/netrom/nr_out.c:270:1: internal compiler error: Segmentation fault
-net/netrom/nr_route.c:983:1: internal compiler error: Segmentation fault
-net/netrom/nr_subr.c:278:1: internal compiler error: Segmentation fault
-net/netrom/nr_timer.c:247:1: internal compiler error: Segmentation fault
-net/rxrpc/call_accept.c:491:1: internal compiler error: Segmentation fault
-net/rxrpc/call_event.c:446:1: internal compiler error: Segmentation fault
-net/rxrpc/call_object.c:733:1: internal compiler error: Segmentation fault
-net/rxrpc/conn_client.c:1121:1: internal compiler error: Segmentation fault
-net/rxrpc/conn_event.c:499:1: internal compiler error: Segmentation fault
-net/rxrpc/conn_object.c:486:1: internal compiler error: Segmentation fault
-net/rxrpc/conn_service.c:203:1: internal compiler error: Segmentation fault
-net/rxrpc/input.c:1468:1: internal compiler error: Segmentation fault
-net/rxrpc/insecure.c:102:1: internal compiler error: Segmentation fault
-net/rxrpc/key.c:695:1: internal compiler error: Segmentation fault
-net/rxrpc/local_event.c:115:1: internal compiler error: Segmentation fault
-net/rxrpc/local_object.c:467:1: internal compiler error: Segmentation fault
-net/rxrpc/output.c:675:1: internal compiler error: Segmentation fault
-net/rxrpc/peer_event.c:417:1: internal compiler error: Segmentation fault
-net/rxrpc/peer_object.c:526:1: internal compiler error: Segmentation fault
-net/rxrpc/recvmsg.c:818:1: internal compiler error: Segmentation fault
-net/rxrpc/rtt.c:195:1: internal compiler error: Segmentation fault
-net/rxrpc/sendmsg.c:860:1: internal compiler error: Segmentation fault
-net/rxrpc/server_key.c:146:1: internal compiler error: Segmentation fault
-net/rxrpc/skbuff.c:96:1: internal compiler error: Segmentation fault
-net/rxrpc/utils.c:44:1: internal compiler error: Segmentation fault
-net/sched/sch_fifo.c:271:1: internal compiler error: Segmentation fault
-net/sched/sch_frag.c:152:1: internal compiler error: Segmentation fault
-net/sctp/associola.c:1731:1: internal compiler error: Segmentation fault
-net/sctp/auth.c:1079:1: internal compiler error: Segmentation fault
-net/sctp/bind_addr.c:569:1: internal compiler error: Segmentation fault
-net/sctp/chunk.c:353:1: internal compiler error: Segmentation fault
-net/sctp/endpointola.c:417:1: internal compiler error: Segmentation fault
-net/sctp/input.c:1347:1: internal compiler error: Segmentation fault
-net/sctp/inqueue.c:237:1: internal compiler error: Segmentation fault
-net/sctp/output.c:864:1: internal compiler error: Segmentation fault
-net/sctp/outqueue.c:1919:1: internal compiler error: Segmentation fault
-net/sctp/sm_make_chunk.c:3937:1: internal compiler error: Segmentation fault
-net/sctp/sm_sideeffect.c:1818:1: internal compiler error: Segmentation fault
-net/sctp/sm_statefuns.c:6679:1: internal compiler error: Segmentation fault
-net/sctp/socket.c:9664:1: internal compiler error: Segmentation fault
-net/sctp/stream.c:1089:1: internal compiler error: Segmentation fault
-net/sctp/stream_interleave.c:1360:1: internal compiler error: Segmentation fault
-net/sctp/stream_sched.c:273:1: internal compiler error: Segmentation fault
-net/sctp/stream_sched_prio.c:337:1: internal compiler error: Segmentation fault
-net/sctp/stream_sched_rr.c:191:1: internal compiler error: Segmentation fault
-net/sctp/transport.c:853:1: internal compiler error: Segmentation fault
-net/sctp/tsnmap.c:364:1: internal compiler error: Segmentation fault
-net/sctp/ulpevent.c:1190:1: internal compiler error: Segmentation fault
-net/sctp/ulpqueue.c:1136:1: internal compiler error: Segmentation fault
-net/unix/scm.c:154:1: internal compiler error: Segmentation fault
-net/vmw_vsock/af_vsock_tap.c:110:1: internal compiler error: Segmentation fault
-net/vmw_vsock/virtio_transport_common.c:1352:1: internal compiler error: Segmentation fault
-net/vmw_vsock/vsock_addr.c:69:1: internal compiler error: Segmentation fault
-net/xfrm/xfrm_algo.c:866:1: internal compiler error: Segmentation fault
-net/xfrm/xfrm_hash.c:40:1: internal compiler error: Segmentation fault
-net/xfrm/xfrm_ipcomp.c:373:1: internal compiler error: Segmentation fault
-net/xfrm/xfrm_output.c:909:1: internal compiler error: Segmentation fault
-net/xfrm/xfrm_replay.c:791:1: internal compiler error: Segmentation fault
-security/keys/request_key.c:805:1: internal compiler error: Segmentation fault
-sound/core/control.c:2307:1: internal compiler error: Segmentation fault
-sound/core/device.c:260:1: internal compiler error: Segmentation fault
-sound/core/init.c:1094:1: internal compiler error: Segmentation fault
-sound/core/memalloc.c:750:1: internal compiler error: Segmentation fault
-sound/core/pcm_lib.c:2534:1: internal compiler error: Segmentation fault
-sound/core/pcm_memory.c:530:1: internal compiler error: Segmentation fault
-sound/core/pcm_misc.c:616:1: internal compiler error: Segmentation fault
-sound/core/pcm_native.c:4132:1: internal compiler error: Segmentation fault
-sound/core/seq/seq_fifo.c:283:1: internal compiler error: Segmentation fault
-sound/core/seq/seq_lock.c:26:1: internal compiler error: Segmentation fault
-sound/core/seq/seq_memory.c:504:1: internal compiler error: Segmentation fault
-sound/core/seq/seq_midi_event.c:459:1: internal compiler error: Segmentation fault
-sound/core/seq/seq_ports.c:711:1: internal compiler error: Segmentation fault
-sound/core/seq/seq_queue.c:726:1: internal compiler error: Segmentation fault
-sound/core/seq/seq_timer.c:471:1: internal compiler error: Segmentation fault
-sound/usb/6fire/chip.c:130:2: warning: Call to function 'sprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
-sound/usb/line6/driver.c:770:2: warning: Call to function 'sprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
-
-Error/Warning ids grouped by kconfigs:
-
-gcc_recent_errors
-|-- alpha-allmodconfig
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- alpha-allyesconfig
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- arc-allmodconfig
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- include-uapi-linux-byteorder-big_endian.h:warning:passing-argument-of-__fswab64-makes-integer-from-pointer-without-a-cast
-|   |-- include-uapi-linux-swab.h:warning:cast-from-pointer-to-integer-of-different-size
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- arc-allyesconfig
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- include-uapi-linux-byteorder-big_endian.h:warning:passing-argument-of-__fswab64-makes-integer-from-pointer-without-a-cast
-|   |-- include-uapi-linux-swab.h:warning:cast-from-pointer-to-integer-of-different-size
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- arc-buildonly-randconfig-r005-20220406
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|-- arc-defconfig
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- arc-nsimosci_hs_smp_defconfig
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- arc-randconfig-r034-20220407
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|-- arc-vdk_hs38_smp_defconfig
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|-- arm-allmodconfig
-|   |-- ERROR:__aeabi_uldivmod-drivers-gpu-drm-amd-amdgpu-amdgpu.ko-undefined
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_setup_stream_attribute
-|   |-- include-uapi-linux-swab.h:warning:cast-from-pointer-to-integer-of-different-size
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- arm-allyesconfig
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_setup_stream_attribute
-|   |-- freesync.c:(.text):undefined-reference-to-__aeabi_uldivmod
-|   |-- include-uapi-linux-swab.h:warning:cast-from-pointer-to-integer-of-different-size
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- arm-buildonly-randconfig-r004-20220407
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- arm-defconfig
-|   |-- ERROR:dtschema-minimum-version-is-v2022.
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- arm-randconfig-c002-20220406
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- arm-realview_defconfig
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- arm64-allmodconfig
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_setup_stream_attribute
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- arm64-allyesconfig
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_setup_stream_attribute
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- arm64-buildonly-randconfig-r005-20220407
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- arm64-defconfig
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- arm64-randconfig-r002-20220407
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- arm64-randconfig-r011-20220406
-|   |-- include-uapi-linux-byteorder-big_endian.h:warning:passing-argument-of-__fswab64-makes-integer-from-pointer-without-a-cast
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- arm64-randconfig-r021-20220406
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- arm64-randconfig-r025-20220406
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- csky-allmodconfig
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_setup_stream_attribute
-|   |-- include-uapi-linux-byteorder-little_endian.h:warning:cast-from-pointer-to-integer-of-different-size
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- csky-allyesconfig
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_setup_stream_attribute
-|   |-- include-uapi-linux-byteorder-little_endian.h:warning:cast-from-pointer-to-integer-of-different-size
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- csky-defconfig
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- h8300-allmodconfig
-|   |-- Makefile:arch-h8300-Makefile:No-such-file-or-directory
-|   |-- arch-Kconfig:can-t-open-file-arch-h8300-Kconfig
-|   `-- make:No-rule-to-make-target-arch-h8300-Makefile-.
-|-- h8300-allyesconfig
-|   |-- Makefile:arch-h8300-Makefile:No-such-file-or-directory
-|   |-- arch-Kconfig:can-t-open-file-arch-h8300-Kconfig
-|   `-- make:No-rule-to-make-target-arch-h8300-Makefile-.
-|-- h8300-randconfig-r022-20220407
-|   |-- Makefile:arch-h8300-Makefile:No-such-file-or-directory
-|   |-- arch-Kconfig:can-t-open-file-arch-h8300-Kconfig
-|   `-- make:No-rule-to-make-target-arch-h8300-Makefile-.
-|-- i386-allyesconfig
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn31-dcn31_hubp.c:warning:no-previous-prototype-for-hubp31_program_extended_blank
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- i386-debian-10.3
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- i386-debian-10.3-kselftests
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- i386-defconfig
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- i386-randconfig-a003
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|-- i386-randconfig-a005
-|   |-- include-uapi-linux-byteorder-little_endian.h:warning:cast-from-pointer-to-integer-of-different-size
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|-- i386-randconfig-a012
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- i386-randconfig-a014
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|-- i386-randconfig-a016
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|-- i386-randconfig-c001
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- i386-randconfig-m021
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|-- i386-randconfig-s001
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- i386-randconfig-s002
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- ia64-allmodconfig
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|-- ia64-allyesconfig
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|-- ia64-defconfig
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|-- ia64-randconfig-r001-20220406
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_setup_stream_attribute
-|-- ia64-randconfig-r022-20220406
-|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|-- ia64-randconfig-r026-20220406
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|-- ia64-randconfig-r032-20220406
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|-- m68k-allmodconfig
-|   |-- drivers-counter-quad-.c:sparse:sparse:incompatible-types-in-conditional-expression-(different-base-types):
-|   |-- drivers-counter-quad-.c:sparse:unsigned-char
-|   |-- drivers-counter-quad-.c:sparse:void
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- drivers-net-vxlan-vxlan_core.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-int-usertype-b-got-restricted-__be32-usertype-vni
-|   |-- include-uapi-linux-byteorder-big_endian.h:warning:passing-argument-of-__fswab64-makes-integer-from-pointer-without-a-cast
-|   `-- include-uapi-linux-swab.h:warning:cast-from-pointer-to-integer-of-different-size
-|-- m68k-allyesconfig
-|   |-- drivers-counter-quad-.c:sparse:sparse:incompatible-types-in-conditional-expression-(different-base-types):
-|   |-- drivers-counter-quad-.c:sparse:unsigned-char
-|   |-- drivers-counter-quad-.c:sparse:void
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- drivers-net-vxlan-vxlan_core.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-int-usertype-b-got-restricted-__be32-usertype-vni
-|   |-- include-uapi-linux-byteorder-big_endian.h:warning:passing-argument-of-__fswab64-makes-integer-from-pointer-without-a-cast
-|   `-- include-uapi-linux-swab.h:warning:cast-from-pointer-to-integer-of-different-size
-|-- m68k-buildonly-randconfig-r002-20220406
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- include-uapi-linux-byteorder-big_endian.h:warning:passing-argument-of-__fswab64-makes-integer-from-pointer-without-a-cast
-|   `-- include-uapi-linux-swab.h:warning:cast-from-pointer-to-integer-of-different-size
-|-- m68k-defconfig
-|   |-- include-uapi-linux-byteorder-big_endian.h:warning:passing-argument-of-__fswab64-makes-integer-from-pointer-without-a-cast
-|   `-- include-uapi-linux-swab.h:warning:cast-from-pointer-to-integer-of-different-size
-|-- m68k-randconfig-c024-20220406
-|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|-- m68k-randconfig-r012-20220406
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- include-uapi-linux-byteorder-big_endian.h:warning:passing-argument-of-__fswab64-makes-integer-from-pointer-without-a-cast
-|   `-- include-uapi-linux-swab.h:warning:cast-from-pointer-to-integer-of-different-size
-|-- m68k-randconfig-r025-20220407
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- include-uapi-linux-byteorder-big_endian.h:warning:passing-argument-of-__fswab64-makes-integer-from-pointer-without-a-cast
-|   `-- include-uapi-linux-swab.h:warning:cast-from-pointer-to-integer-of-different-size
-|-- m68k-randconfig-r033-20220406
-|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|-- m68k-randconfig-s032-20220406
-|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|-- m68k-sun3x_defconfig
-|   |-- include-uapi-linux-byteorder-big_endian.h:warning:passing-argument-of-__fswab64-makes-integer-from-pointer-without-a-cast
-|   `-- include-uapi-linux-swab.h:warning:cast-from-pointer-to-integer-of-different-size
-|-- microblaze-randconfig-c023-20220407
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- microblaze-randconfig-r016-20220406
-|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|-- microblaze-randconfig-r033-20220407
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- mips-allmodconfig
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_setup_stream_attribute
-|   |-- drivers-net-vxlan-vxlan_core.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-int-usertype-b-got-restricted-__be32-usertype-vni
-|   |-- include-uapi-linux-swab.h:warning:cast-from-pointer-to-integer-of-different-size
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- mips-allyesconfig
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_setup_stream_attribute
-|   |-- drivers-net-vxlan-vxlan_core.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-int-usertype-b-got-restricted-__be32-usertype-vni
-|   |-- include-uapi-linux-swab.h:warning:cast-from-pointer-to-integer-of-different-size
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- mips-ci20_defconfig
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- mips-maltasmvp_defconfig
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- nios2-allmodconfig
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- include-uapi-linux-byteorder-little_endian.h:warning:cast-from-pointer-to-integer-of-different-size
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- nios2-allyesconfig
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- include-uapi-linux-byteorder-little_endian.h:warning:cast-from-pointer-to-integer-of-different-size
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- nios2-defconfig
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- nios2-randconfig-r003-20220406
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- nios2-randconfig-r003-20220407
-|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|-- nios2-randconfig-r006-20220406
-|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|-- nios2-randconfig-r014-20220406
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- nios2-randconfig-r026-20220407
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- nios2-randconfig-s031-20220406
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- openrisc-buildonly-randconfig-r006-20220406
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- openrisc-randconfig-c004-20220406
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|-- parisc-allmodconfig
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_setup_stream_attribute
-|   |-- include-uapi-linux-byteorder-big_endian.h:warning:passing-argument-of-__fswab64-makes-integer-from-pointer-without-a-cast
-|   |-- include-uapi-linux-swab.h:warning:cast-from-pointer-to-integer-of-different-size
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|-- parisc-allyesconfig
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_setup_stream_attribute
-|   |-- include-uapi-linux-byteorder-big_endian.h:warning:passing-argument-of-__fswab64-makes-integer-from-pointer-without-a-cast
-|   |-- include-uapi-linux-swab.h:warning:cast-from-pointer-to-integer-of-different-size
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|-- parisc-defconfig
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|-- parisc-randconfig-r004-20220406
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|-- parisc64-defconfig
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|-- powerpc-allmodconfig
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_setup_stream_attribute
-|   |-- drivers-net-vxlan-vxlan_core.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-int-usertype-b-got-restricted-__be32-usertype-vni
-|   |-- include-uapi-linux-swab.h:warning:cast-from-pointer-to-integer-of-different-size
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- powerpc-allyesconfig
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_setup_stream_attribute
-|   |-- drivers-net-vxlan-vxlan_core.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-int-usertype-b-got-restricted-__be32-usertype-vni
-|   |-- include-uapi-linux-swab.h:warning:cast-from-pointer-to-integer-of-different-size
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- powerpc-currituck_defconfig
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|-- powerpc-eiger_defconfig
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- powerpc-linkstation_defconfig
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- powerpc-randconfig-r015-20220406
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|-- powerpc64-randconfig-c003-20220406
-|   |-- drivers-gpu-drm-drm_of.c:ERROR:probable-double-put.
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|-- riscv-allmodconfig
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_setup_stream_attribute
-|   |-- drivers-net-vxlan-vxlan_core.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-int-usertype-b-got-restricted-__be32-usertype-vni
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- riscv-allyesconfig
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_setup_stream_attribute
-|   |-- drivers-net-vxlan-vxlan_core.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-int-usertype-b-got-restricted-__be32-usertype-vni
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- riscv-defconfig
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- riscv-nommu_k210_defconfig
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|-- riscv-nommu_virt_defconfig
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|-- riscv-randconfig-r013-20220406
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- riscv-randconfig-r031-20220407
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|-- riscv-randconfig-r042-20220406
-|   |-- arch-riscv-kernel-cacheinfo.c:internal-compiler-error:Segmentation-fault
-|   |-- arch-riscv-kernel-crash_dump.c:internal-compiler-error:Segmentation-fault
-|   |-- arch-riscv-kernel-patch.c:internal-compiler-error:Segmentation-fault
-|   |-- arch-riscv-kernel-signal.c:internal-compiler-error:Segmentation-fault
-|   |-- arch-riscv-mm-extable.c:internal-compiler-error:Segmentation-fault
-|   |-- crypto-acompress.c:internal-compiler-error:Segmentation-fault
-|   |-- crypto-aead.c:internal-compiler-error:Segmentation-fault
-|   |-- crypto-ahash.c:internal-compiler-error:Segmentation-fault
-|   |-- crypto-akcipher.c:internal-compiler-error:Segmentation-fault
-|   |-- crypto-api.c:internal-compiler-error:Segmentation-fault
-|   |-- crypto-asymmetric_keys-public_key.c:internal-compiler-error:Segmentation-fault
-|   |-- crypto-dh.c:internal-compiler-error:Segmentation-fault
-|   |-- crypto-ecc.c:internal-compiler-error:Segmentation-fault
-|   |-- crypto-geniv.c:internal-compiler-error:Segmentation-fault
-|   |-- crypto-gf128mul.c:internal-compiler-error:Segmentation-fault
-|   |-- crypto-kpp.c:internal-compiler-error:Segmentation-fault
-|   |-- crypto-rng.c:internal-compiler-error:Segmentation-fault
-|   |-- crypto-scompress.c:internal-compiler-error:Segmentation-fault
-|   |-- crypto-shash.c:internal-compiler-error:Segmentation-fault
-|   |-- crypto-skcipher.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-base-map.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-base-regmap-regcache-flat.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-base-regmap-regcache-rbtree.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-base-regmap-regcache.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-base-regmap-regmap-debugfs.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-base-regmap-regmap-mmio.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-base-syscore.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-bluetooth-btbcm.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-bluetooth-btintel.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-bluetooth-btmrvl_debugfs.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-bluetooth-btmrvl_main.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-bluetooth-btrtl.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-char-ipmi-ipmi_bt_sm.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-char-ipmi-ipmi_kcs_sm.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-char-ipmi-ipmi_si_hotmod.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-char-ipmi-ipmi_si_mem_io.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-char-ipmi-ipmi_smic_sm.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-clk-clk-composite.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-clk-clk-fractional-divider.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-comedi-comedi_buf.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-comedi-drivers.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-comedi-range.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-connector-cn_queue.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-connector-connector.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-crypto-ccree-cc_aead.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-crypto-ccree-cc_buffer_mgr.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-crypto-ccree-cc_cipher.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-crypto-ccree-cc_hash.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-crypto-ccree-cc_request_mgr.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-crypto-ccree-cc_sram_mgr.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-dma-buf-dma-fence-array.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-dma-buf-dma-fence-chain.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-dma-buf-dma-fence.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-dma-buf-dma-heap.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- drivers-gpio-gpiolib-of.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-hid-hid-cmedia.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-hid-hid-debug.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-hid-hid-uclogic-params.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-hid-hid-uclogic-rdesc.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-hid-usbhid-hiddev.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-infiniband-core-addr.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-infiniband-core-agent.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-infiniband-core-cache.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-infiniband-core-cm_trace.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-infiniband-core-counters.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-infiniband-core-cq.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-infiniband-core-ib_core_uverbs.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-infiniband-core-iwpm_msg.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-infiniband-core-iwpm_util.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-infiniband-core-lag.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-infiniband-core-mad_rmpp.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-infiniband-core-mr_pool.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-infiniband-core-multicast.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-infiniband-core-netlink.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-infiniband-core-packer.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-infiniband-core-restrack.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-infiniband-core-rw.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-infiniband-core-sa_query.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-infiniband-core-smi.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-infiniband-core-sysfs.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-infiniband-core-trace.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-infiniband-core-ud_header.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-infiniband-core-verbs.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-infiniband-sw-siw-siw_cm.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-infiniband-sw-siw-siw_cq.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-infiniband-sw-siw-siw_mem.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-infiniband-sw-siw-siw_qp.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-infiniband-sw-siw-siw_qp_tx.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-infiniband-sw-siw-siw_verbs.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-input-matrix-keymap.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-input-rmi4-rmi_2d_sensor.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-input-rmi4-rmi_f01.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-input-rmi4-rmi_f03.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-input-rmi4-rmi_f55.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-input-touchscreen.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-leds-leds-ti-lmu-common.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-media-common-videobuf2-frame_vector.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-media-common-videobuf2-vb2-trace.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-media-common-videobuf2-videobuf2-memops.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-media-common-videobuf2-videobuf2-vmalloc.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-mfd-madera-core.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-mfd-mfd-core.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-mtd-chips-cfi_cmdset_0020.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-mtd-hyperbus-hyperbus-core.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-mtd-mtdsuper.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-mtd-nand-bbt.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-net-can-dev-bittiming.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-net-can-dev-length.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-net-can-dev-netlink.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-net-can-dev-rx-offload.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-net-can-dev-skb.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-net-can-flexcan-flexcan-ethtool.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-net-can-usb-etas_es58x-es581_4.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-net-can-usb-etas_es58x-es58x_fd.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-net-can-usb-kvaser_usb-kvaser_usb_hydra.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-net-can-usb-kvaser_usb-kvaser_usb_leaf.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-nfc-fdp-fdp.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-of-kobj.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-parport-ieee1284_ops.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-pci-of.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-ptp-ptp_vclock.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-ssb-driver_chipcommon.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-ssb-scan.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-usb-cdns3-drd.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-usb-chipidea-host.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-usb-core-config.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-usb-core-devices.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-usb-core-endpoint.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-usb-core-generic.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-usb-core-port.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-usb-core-quirks.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-usb-core-sysfs.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-usb-dwc3-debugfs.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-usb-dwc3-host.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-usb-host-xhci-dbg.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-usb-typec-bus.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-usb-usbip-usbip_event.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-video-fbdev-core-fb_defio.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-video-fbdev-core-fbcmap.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-video-fbdev-core-fbsysfs.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-virtio-virtio_ring.c:internal-compiler-error:Segmentation-fault
-|   |-- drivers-w1-w1_family.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-afs-addr_list.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-afs-callback.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-afs-cmservice.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-afs-dir_edit.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-afs-dir_silly.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-afs-dynroot.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-afs-file.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-afs-flock.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-afs-fs_operation.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-afs-fs_probe.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-afs-mntpt.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-afs-server_list.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-afs-vl_alias.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-afs-vl_list.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-afs-vl_probe.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-afs-vl_rotate.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-afs-vlclient.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-afs-volume.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-afs-write.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-afs-xattr.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-ceph-addr.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-ceph-caps.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-ceph-debugfs.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-ceph-dir.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-ceph-export.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-ceph-file.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-ceph-inode.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-ceph-io.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-ceph-ioctl.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-ceph-mdsmap.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-ceph-metric.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-ceph-quota.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-ceph-snap.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-ceph-xattr.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-cifs-cifs_debug.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-cifs-cifs_dfs_ref.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-cifs-cifs_spnego.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-cifs-cifs_unicode.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-cifs-cifsacl.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-cifs-cifsencrypt.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-cifs-cifssmb.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-cifs-connect.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-cifs-dfs_cache.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-cifs-dir.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-cifs-file.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-cifs-fs_context.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-cifs-inode.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-cifs-ioctl.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-cifs-link.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-cifs-misc.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-cifs-netmisc.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-cifs-readdir.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-cifs-sess.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-cifs-smb1ops.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-cifs-smb2file.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-cifs-smb2inode.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-cifs-smb2maperror.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-cifs-smb2misc.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-cifs-smb2ops.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-cifs-smb2pdu.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-cifs-smb2transport.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-cifs-smbencrypt.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-cifs-trace.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-cifs-transport.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-cifs-unc.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-coda-cache.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-coda-cnode.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-coda-dir.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-coda-file.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-coda-pioctl.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-coda-symlink.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-coda-upcall.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-configfs-file.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-configfs-inode.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-configfs-symlink.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-crypto-fname.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-crypto-hkdf.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-crypto-hooks.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-crypto-keysetup.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-crypto-keysetup_v1.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-crypto-policy.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-d_path.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-dlm-dir.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-dlm-member.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-dlm-midcomms.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-dlm-rcom.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-dlm-recover.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-dlm-recoverd.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-dlm-requestqueue.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-eventfd.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-exportfs-expfs.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-fhandle.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-fs_context.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-fs_pin.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-fs_struct.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-fsopen.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-ioctl.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-kernfs-dir.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-kernfs-file.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-kernfs-inode.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-kernfs-symlink.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-namei.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-nls-nls_base.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-open.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-overlayfs-dir.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-overlayfs-export.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-overlayfs-inode.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-overlayfs-namei.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-overlayfs-readdir.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-overlayfs-util.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-pnode.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-posix_acl.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-pstore-pmsg.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-quota-quota.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-readdir.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-select.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-smbfs_common-cifs_md4.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-splice.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-statfs.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-sync.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-utimes.c:internal-compiler-error:Segmentation-fault
-|   |-- fs-xattr.c:internal-compiler-error:Segmentation-fault
-|   |-- ipc-msgutil.c:internal-compiler-error:Segmentation-fault
-|   |-- kernel-cgroup-freezer.c:internal-compiler-error:Segmentation-fault
-|   |-- kernel-dma-direct.c:internal-compiler-error:Segmentation-fault
-|   |-- kernel-irq-chip.c:internal-compiler-error:Segmentation-fault
-|   |-- kernel-printk-printk_ringbuffer.c:internal-compiler-error:Segmentation-fault
-|   |-- kernel-printk-printk_safe.c:internal-compiler-error:Segmentation-fault
-|   |-- kernel-range.c:internal-compiler-error:Segmentation-fault
-|   |-- kernel-rcu-rcu_segcblist.c:internal-compiler-error:Segmentation-fault
-|   |-- kernel-rcu-sync.c:internal-compiler-error:Segmentation-fault
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|   |-- kernel-sys.c:internal-compiler-error:Segmentation-fault
-|   |-- kernel-task_work.c:internal-compiler-error:Segmentation-fault
-|   |-- kernel-trace-trace_clock.c:internal-compiler-error:Segmentation-fault
-|   |-- kernel-umh.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-asn1_decoder.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-cmdline.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-crypto-aes.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-crypto-blake2s-generic.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-crypto-poly1305.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-dim-dim.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-dim-net_dim.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-dim-rdma_dim.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-dynamic_queue_limits.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-extable.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-fdt.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-fdt_ro.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-fdt_rw.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-fdt_sw.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-fdt_wip.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-flex_proportions.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-iov_iter.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-is_single_threaded.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-kunit-resource.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-linear_ranges.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-logic_pio.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-lz4-lz4_compress.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-lz4-lz4_decompress.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-lzo-lzo1x_compress.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-lzo-lzo1x_decompress_safe.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-math-rational.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-mpi-generic_mpih-mul2.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-mpi-generic_mpih-mul3.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-mpi-mpi-div.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-mpi-mpi-mod.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-mpi-mpih-div.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-mpi-mpih-mul.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-nlattr.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-oid_registry.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-seq_buf.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-syscall.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-zlib_deflate-deflate.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-zlib_deflate-deftree.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-zlib_inflate-inffast.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-zlib_inflate-inflate.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-zstd-common-entropy_common.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-zstd-common-fse_decompress.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-zstd-compress-fse_compress.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-zstd-compress-hist.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-zstd-compress-huf_compress.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-zstd-compress-zstd_compress.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-zstd-compress-zstd_compress_literals.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-zstd-compress-zstd_compress_sequences.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-zstd-compress-zstd_compress_superblock.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-zstd-compress-zstd_double_fast.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-zstd-compress-zstd_fast.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-zstd-compress-zstd_lazy.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-zstd-compress-zstd_ldm.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-zstd-compress-zstd_opt.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-zstd-decompress-huf_decompress.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-zstd-decompress-zstd_ddict.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-zstd-decompress-zstd_decompress.c:internal-compiler-error:Segmentation-fault
-|   |-- lib-zstd-decompress-zstd_decompress_block.c:internal-compiler-error:Segmentation-fault
-|   |-- mm-folio-compat.c:internal-compiler-error:Segmentation-fault
-|   |-- mm-interval_tree.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ax25-ax25_iface.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ax25-ax25_in.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ax25-ax25_ip.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ax25-ax25_out.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ax25-ax25_std_in.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ax25-ax25_std_timer.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ax25-ax25_subr.c:internal-compiler-error:Segmentation-fault
-|   |-- net-bluetooth-ecdh_helper.c:internal-compiler-error:Segmentation-fault
-|   |-- net-bluetooth-eir.c:internal-compiler-error:Segmentation-fault
-|   |-- net-bluetooth-hci_codec.c:internal-compiler-error:Segmentation-fault
-|   |-- net-bluetooth-hci_conn.c:internal-compiler-error:Segmentation-fault
-|   |-- net-bluetooth-hci_core.c:internal-compiler-error:Segmentation-fault
-|   |-- net-bluetooth-hci_event.c:internal-compiler-error:Segmentation-fault
-|   |-- net-bluetooth-hci_request.c:internal-compiler-error:Segmentation-fault
-|   |-- net-bluetooth-hci_sync.c:internal-compiler-error:Segmentation-fault
-|   |-- net-bluetooth-leds.c:internal-compiler-error:Segmentation-fault
-|   |-- net-bluetooth-mgmt.c:internal-compiler-error:Segmentation-fault
-|   |-- net-bluetooth-mgmt_config.c:internal-compiler-error:Segmentation-fault
-|   |-- net-bluetooth-mgmt_util.c:internal-compiler-error:Segmentation-fault
-|   |-- net-bluetooth-smp.c:internal-compiler-error:Segmentation-fault
-|   |-- net-bridge-br_arp_nd_proxy.c:internal-compiler-error:Segmentation-fault
-|   |-- net-bridge-br_device.c:internal-compiler-error:Segmentation-fault
-|   |-- net-bridge-br_forward.c:internal-compiler-error:Segmentation-fault
-|   |-- net-bridge-br_if.c:internal-compiler-error:Segmentation-fault
-|   |-- net-bridge-br_input.c:internal-compiler-error:Segmentation-fault
-|   |-- net-bridge-br_ioctl.c:internal-compiler-error:Segmentation-fault
-|   |-- net-bridge-br_mrp.c:internal-compiler-error:Segmentation-fault
-|   |-- net-bridge-br_mrp_netlink.c:internal-compiler-error:Segmentation-fault
-|   |-- net-bridge-br_netlink_tunnel.c:internal-compiler-error:Segmentation-fault
-|   |-- net-bridge-br_stp.c:internal-compiler-error:Segmentation-fault
-|   |-- net-bridge-br_stp_bpdu.c:internal-compiler-error:Segmentation-fault
-|   |-- net-bridge-br_stp_if.c:internal-compiler-error:Segmentation-fault
-|   |-- net-bridge-br_stp_timer.c:internal-compiler-error:Segmentation-fault
-|   |-- net-bridge-br_sysfs_br.c:internal-compiler-error:Segmentation-fault
-|   |-- net-bridge-br_sysfs_if.c:internal-compiler-error:Segmentation-fault
-|   |-- net-caif-cfcnfg.c:internal-compiler-error:Segmentation-fault
-|   |-- net-caif-cfctrl.c:internal-compiler-error:Segmentation-fault
-|   |-- net-caif-cfdgml.c:internal-compiler-error:Segmentation-fault
-|   |-- net-caif-cffrml.c:internal-compiler-error:Segmentation-fault
-|   |-- net-caif-cfmuxl.c:internal-compiler-error:Segmentation-fault
-|   |-- net-caif-cfpkt_skbuff.c:internal-compiler-error:Segmentation-fault
-|   |-- net-caif-cfrfml.c:internal-compiler-error:Segmentation-fault
-|   |-- net-caif-cfserl.c:internal-compiler-error:Segmentation-fault
-|   |-- net-caif-cfsrvl.c:internal-compiler-error:Segmentation-fault
-|   |-- net-caif-cfutill.c:internal-compiler-error:Segmentation-fault
-|   |-- net-caif-cfveil.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ceph-armor.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ceph-auth.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ceph-auth_none.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ceph-auth_x.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ceph-buffer.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ceph-cls_lock_client.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ceph-crush-crush.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ceph-crush-mapper.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ceph-decode.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ceph-messenger_v1.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ceph-messenger_v2.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ceph-mon_client.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ceph-msgpool.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ceph-osdmap.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ceph-pagelist.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ceph-pagevec.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ceph-snapshot.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ceph-string_table.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ceph-striper.c:internal-compiler-error:Segmentation-fault
-|   |-- net-core-datagram.c:internal-compiler-error:Segmentation-fault
-|   |-- net-core-dev_addr_lists.c:internal-compiler-error:Segmentation-fault
-|   |-- net-core-dst.c:internal-compiler-error:Segmentation-fault
-|   |-- net-core-dst_cache.c:internal-compiler-error:Segmentation-fault
-|   |-- net-core-flow_offload.c:internal-compiler-error:Segmentation-fault
-|   |-- net-core-gen_estimator.c:internal-compiler-error:Segmentation-fault
-|   |-- net-core-gen_stats.c:internal-compiler-error:Segmentation-fault
-|   |-- net-core-gro.c:internal-compiler-error:Segmentation-fault
-|   |-- net-core-gro_cells.c:internal-compiler-error:Segmentation-fault
-|   |-- net-core-link_watch.c:internal-compiler-error:Segmentation-fault
-|   |-- net-core-lwtunnel.c:internal-compiler-error:Segmentation-fault
-|   |-- net-core-net-traces.c:internal-compiler-error:Segmentation-fault
-|   |-- net-core-of_net.c:internal-compiler-error:Segmentation-fault
-|   |-- net-core-scm.c:internal-compiler-error:Segmentation-fault
-|   |-- net-core-secure_seq.c:internal-compiler-error:Segmentation-fault
-|   |-- net-core-sock.c:internal-compiler-error:Segmentation-fault
-|   |-- net-core-sock_reuseport.c:internal-compiler-error:Segmentation-fault
-|   |-- net-core-stream.c:internal-compiler-error:Segmentation-fault
-|   |-- net-core-tso.c:internal-compiler-error:Segmentation-fault
-|   |-- net-core-utils.c:internal-compiler-error:Segmentation-fault
-|   |-- net-dccp-ccids-ccid2.c:internal-compiler-error:Segmentation-fault
-|   |-- net-dccp-input.c:internal-compiler-error:Segmentation-fault
-|   |-- net-dccp-output.c:internal-compiler-error:Segmentation-fault
-|   |-- net-dccp-qpolicy.c:internal-compiler-error:Segmentation-fault
-|   |-- net-devres.c:internal-compiler-error:Segmentation-fault
-|   |-- net-dns_resolver-dns_query.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ethtool-common.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ethtool-ioctl.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ipv4-datagram.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ipv4-fib_semantics.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ipv4-inet_connection_sock.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ipv4-inet_timewait_sock.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ipv4-ip_forward.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ipv4-ip_input.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ipv4-ip_options.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ipv4-ip_sockglue.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ipv4-ip_tunnel.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ipv4-metrics.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ipv4-netlink.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ipv4-syncookies.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ipv4-tcp_fastopen.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ipv4-tcp_input.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ipv4-tcp_minisocks.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ipv4-tcp_rate.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ipv4-tcp_recovery.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ipv4-tcp_timer.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ipv4-tcp_ulp.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ipv4-udp_tunnel_core.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ipv4-xfrm4_input.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ipv6-addrconf_core.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ipv6-exthdrs_core.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ipv6-ip6_checksum.c:internal-compiler-error:Segmentation-fault
-|   |-- net-ipv6-output_core.c:internal-compiler-error:Segmentation-fault
-|   |-- net-llc-llc_input.c:internal-compiler-error:Segmentation-fault
-|   |-- net-llc-llc_output.c:internal-compiler-error:Segmentation-fault
-|   |-- net-netrom-nr_dev.c:internal-compiler-error:Segmentation-fault
-|   |-- net-netrom-nr_in.c:internal-compiler-error:Segmentation-fault
-|   |-- net-netrom-nr_out.c:internal-compiler-error:Segmentation-fault
-|   |-- net-netrom-nr_route.c:internal-compiler-error:Segmentation-fault
-|   |-- net-netrom-nr_subr.c:internal-compiler-error:Segmentation-fault
-|   |-- net-netrom-nr_timer.c:internal-compiler-error:Segmentation-fault
-|   |-- net-rxrpc-call_accept.c:internal-compiler-error:Segmentation-fault
-|   |-- net-rxrpc-call_event.c:internal-compiler-error:Segmentation-fault
-|   |-- net-rxrpc-call_object.c:internal-compiler-error:Segmentation-fault
-|   |-- net-rxrpc-conn_client.c:internal-compiler-error:Segmentation-fault
-|   |-- net-rxrpc-conn_event.c:internal-compiler-error:Segmentation-fault
-|   |-- net-rxrpc-conn_object.c:internal-compiler-error:Segmentation-fault
-|   |-- net-rxrpc-conn_service.c:internal-compiler-error:Segmentation-fault
-|   |-- net-rxrpc-input.c:internal-compiler-error:Segmentation-fault
-|   |-- net-rxrpc-insecure.c:internal-compiler-error:Segmentation-fault
-|   |-- net-rxrpc-key.c:internal-compiler-error:Segmentation-fault
-|   |-- net-rxrpc-local_event.c:internal-compiler-error:Segmentation-fault
-|   |-- net-rxrpc-local_object.c:internal-compiler-error:Segmentation-fault
-|   |-- net-rxrpc-output.c:internal-compiler-error:Segmentation-fault
-|   |-- net-rxrpc-peer_event.c:internal-compiler-error:Segmentation-fault
-|   |-- net-rxrpc-peer_object.c:internal-compiler-error:Segmentation-fault
-|   |-- net-rxrpc-recvmsg.c:internal-compiler-error:Segmentation-fault
-|   |-- net-rxrpc-rtt.c:internal-compiler-error:Segmentation-fault
-|   |-- net-rxrpc-sendmsg.c:internal-compiler-error:Segmentation-fault
-|   |-- net-rxrpc-server_key.c:internal-compiler-error:Segmentation-fault
-|   |-- net-rxrpc-skbuff.c:internal-compiler-error:Segmentation-fault
-|   |-- net-rxrpc-utils.c:internal-compiler-error:Segmentation-fault
-|   |-- net-sched-sch_fifo.c:internal-compiler-error:Segmentation-fault
-|   |-- net-sched-sch_frag.c:internal-compiler-error:Segmentation-fault
-|   |-- net-sctp-associola.c:internal-compiler-error:Segmentation-fault
-|   |-- net-sctp-auth.c:internal-compiler-error:Segmentation-fault
-|   |-- net-sctp-bind_addr.c:internal-compiler-error:Segmentation-fault
-|   |-- net-sctp-chunk.c:internal-compiler-error:Segmentation-fault
-|   |-- net-sctp-endpointola.c:internal-compiler-error:Segmentation-fault
-|   |-- net-sctp-input.c:internal-compiler-error:Segmentation-fault
-|   |-- net-sctp-inqueue.c:internal-compiler-error:Segmentation-fault
-|   |-- net-sctp-output.c:internal-compiler-error:Segmentation-fault
-|   |-- net-sctp-outqueue.c:internal-compiler-error:Segmentation-fault
-|   |-- net-sctp-sm_make_chunk.c:internal-compiler-error:Segmentation-fault
-|   |-- net-sctp-sm_sideeffect.c:internal-compiler-error:Segmentation-fault
-|   |-- net-sctp-sm_statefuns.c:internal-compiler-error:Segmentation-fault
-|   |-- net-sctp-socket.c:internal-compiler-error:Segmentation-fault
-|   |-- net-sctp-stream.c:internal-compiler-error:Segmentation-fault
-|   |-- net-sctp-stream_interleave.c:internal-compiler-error:Segmentation-fault
-|   |-- net-sctp-stream_sched.c:internal-compiler-error:Segmentation-fault
-|   |-- net-sctp-stream_sched_prio.c:internal-compiler-error:Segmentation-fault
-|   |-- net-sctp-stream_sched_rr.c:internal-compiler-error:Segmentation-fault
-|   |-- net-sctp-transport.c:internal-compiler-error:Segmentation-fault
-|   |-- net-sctp-tsnmap.c:internal-compiler-error:Segmentation-fault
-|   |-- net-sctp-ulpevent.c:internal-compiler-error:Segmentation-fault
-|   |-- net-sctp-ulpqueue.c:internal-compiler-error:Segmentation-fault
-|   |-- net-stp.c:internal-compiler-error:Segmentation-fault
-|   |-- net-unix-scm.c:internal-compiler-error:Segmentation-fault
-|   |-- net-vmw_vsock-af_vsock_tap.c:internal-compiler-error:Segmentation-fault
-|   |-- net-vmw_vsock-virtio_transport_common.c:internal-compiler-error:Segmentation-fault
-|   |-- net-vmw_vsock-vsock_addr.c:internal-compiler-error:Segmentation-fault
-|   |-- net-xfrm-xfrm_algo.c:internal-compiler-error:Segmentation-fault
-|   |-- net-xfrm-xfrm_hash.c:internal-compiler-error:Segmentation-fault
-|   |-- net-xfrm-xfrm_ipcomp.c:internal-compiler-error:Segmentation-fault
-|   |-- net-xfrm-xfrm_output.c:internal-compiler-error:Segmentation-fault
-|   |-- net-xfrm-xfrm_replay.c:internal-compiler-error:Segmentation-fault
-|   |-- security-keys-request_key.c:internal-compiler-error:Segmentation-fault
-|   |-- sound-core-control.c:internal-compiler-error:Segmentation-fault
-|   |-- sound-core-device.c:internal-compiler-error:Segmentation-fault
-|   |-- sound-core-init.c:internal-compiler-error:Segmentation-fault
-|   |-- sound-core-memalloc.c:internal-compiler-error:Segmentation-fault
-|   |-- sound-core-pcm_lib.c:internal-compiler-error:Segmentation-fault
-|   |-- sound-core-pcm_memory.c:internal-compiler-error:Segmentation-fault
-|   |-- sound-core-pcm_misc.c:internal-compiler-error:Segmentation-fault
-|   |-- sound-core-pcm_native.c:internal-compiler-error:Segmentation-fault
-|   |-- sound-core-seq-seq_fifo.c:internal-compiler-error:Segmentation-fault
-|   |-- sound-core-seq-seq_lock.c:internal-compiler-error:Segmentation-fault
-|   |-- sound-core-seq-seq_memory.c:internal-compiler-error:Segmentation-fault
-|   |-- sound-core-seq-seq_midi_event.c:internal-compiler-error:Segmentation-fault
-|   |-- sound-core-seq-seq_ports.c:internal-compiler-error:Segmentation-fault
-|   |-- sound-core-seq-seq_queue.c:internal-compiler-error:Segmentation-fault
-|   `-- sound-core-seq-seq_timer.c:internal-compiler-error:Segmentation-fault
-|-- riscv-randconfig-s032-20220406
-|   |-- kernel-module-strict_rwx.c:internal-compiler-error:Segmentation-fault
-|   `-- kernel-module-sysfs.c:internal-compiler-error:Segmentation-fault
-|-- riscv-rv32_defconfig
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- s390-allmodconfig
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- drivers-net-vxlan-vxlan_core.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-int-usertype-b-got-restricted-__be32-usertype-vni
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- s390-allyesconfig
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_setup_stream_attribute
-|   |-- drivers-net-vxlan-vxlan_core.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-int-usertype-b-got-restricted-__be32-usertype-vni
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- s390-buildonly-randconfig-r004-20220406
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- s390-defconfig
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- s390-randconfig-r006-20220407
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- s390-randconfig-r044-20220406
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|-- sh-allmodconfig
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- include-uapi-linux-byteorder-little_endian.h:warning:cast-from-pointer-to-integer-of-different-size
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- sh-allyesconfig
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- include-uapi-linux-byteorder-little_endian.h:warning:cast-from-pointer-to-integer-of-different-size
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- sh-j2_defconfig
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- sh-randconfig-r002-20220406
-|   |-- arch-sh-lib-mcount.S:undefined-reference-to-dump_stack
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- sparc-allmodconfig
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_setup_stream_attribute
-|   |-- include-uapi-linux-byteorder-big_endian.h:warning:passing-argument-of-__fswab64-makes-integer-from-pointer-without-a-cast
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- sparc-allyesconfig
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_setup_stream_attribute
-|   |-- include-uapi-linux-byteorder-big_endian.h:warning:passing-argument-of-__fswab64-makes-integer-from-pointer-without-a-cast
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- um-i386_defconfig
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- um-x86_64_defconfig
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- x86_64-allnoconfig
-|   `-- kernel-sched-sched.h:linux-static_key.h-is-included-more-than-once.
-|-- x86_64-allyesconfig
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- x86_64-defconfig
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- x86_64-kexec
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- x86_64-randconfig-a002
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- x86_64-randconfig-a004
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- x86_64-randconfig-a006
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- x86_64-randconfig-a011
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- x86_64-randconfig-a015
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- x86_64-randconfig-c002
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- x86_64-randconfig-c022
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- x86_64-randconfig-s021
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- x86_64-randconfig-s022
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- x86_64-rhel-8.3
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- x86_64-rhel-8.3-func
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- x86_64-rhel-8.3-kselftests
-|   |-- drivers-net-vxlan-vxlan_core.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-int-usertype-b-got-restricted-__be32-usertype-vni
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- x86_64-rhel-8.3-kunit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-sched_cpu_wait_empty
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- xtensa-allmodconfig
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_setup_stream_attribute
-|   |-- include-uapi-linux-byteorder-big_endian.h:warning:passing-argument-of-__fswab64-makes-integer-from-pointer-without-a-cast
-|   |-- include-uapi-linux-swab.h:warning:cast-from-pointer-to-integer-of-different-size
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- xtensa-allyesconfig
-|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_setup_stream_attribute
-|   |-- include-uapi-linux-byteorder-big_endian.h:warning:passing-argument-of-__fswab64-makes-integer-from-pointer-without-a-cast
-|   |-- include-uapi-linux-swab.h:warning:cast-from-pointer-to-integer-of-different-size
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- xtensa-nommu_kc705_defconfig
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-|-- xtensa-randconfig-p001-20220406
-|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-`-- xtensa-randconfig-r032-20220407
-    |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
-    |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_remote
-    |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_start
-    `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-calc_load_nohz_stop
-
-clang_recent_errors
-|-- arm-mainstone_defconfig
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init_smp
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-function-task_sched_runtime
-|-- arm-multi_v5_defconfig
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init_smp
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-task_sched_runtime
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_stop
-|-- arm-randconfig-c002-20220406
-|   |-- drivers-clk-imx-clk-pll14xx.c:warning:Value-stored-to-pll_div_ctl1-is-never-read-clang-analyzer-deadcode.DeadStores
-|   |-- drivers-firmware-turris-mox-rwtm.c:warning:Call-to-function-sprintf-is-insecure-as-it-does-not-provide-bounding-of-the-memory-buffer-or-security-checks-introduced-in-the-C11-standard.-Replace-with-ana
-|   |-- drivers-gpu-drm-selftests-test-drm_buddy.c:warning:Value-stored-to-err-is-never-read-clang-analyzer-deadcode.DeadStores
-|   |-- drivers-hid-hid-core.c:warning:Although-the-value-stored-to-field-is-used-in-the-enclosing-expression-the-value-is-never-actually-read-from-field-clang-analyzer-deadcode.DeadStores
-|   |-- drivers-hwmon-da9055-hwmon.c:warning:Call-to-function-sprintf-is-insecure-as-it-does-not-provide-bounding-of-the-memory-buffer-or-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous
-|   |-- drivers-hwmon-nsa320-hwmon.c:warning:Call-to-function-sprintf-is-insecure-as-it-does-not-provide-bounding-of-the-memory-buffer-or-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous
-|   |-- drivers-memory-brcmstb_dpfe.c:warning:Call-to-function-sprintf-is-insecure-as-it-does-not-provide-bounding-of-the-memory-buffer-or-security-checks-introduced-in-the-C11-standard.-Replace-with-analogou
-|   |-- drivers-mtd-nand-ecc-mxic.c:warning:Branch-condition-evaluates-to-a-garbage-value-clang-analyzer-core.uninitialized.Branch
-|   |-- drivers-mtd-nand-ecc-mxic.c:warning:Value-stored-to-dev-during-its-initialization-is-never-read-clang-analyzer-deadcode.DeadStores
-|   |-- drivers-phy-broadcom-phy-brcm-usb.c:warning:Call-to-function-sprintf-is-insecure-as-it-does-not-provide-bounding-of-the-memory-buffer-or-security-checks-introduced-in-the-C11-standard.-Replace-with-an
-|   |-- drivers-usb-chipidea-core.c:warning:Call-to-function-sprintf-is-insecure-as-it-does-not-provide-bounding-of-the-memory-buffer-or-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-
-|   |-- drivers-usb-gadget-configfs.c:warning:Call-to-function-sprintf-is-insecure-as-it-does-not-provide-bounding-of-the-memory-buffer-or-security-checks-introduced-in-the-C11-standard.-Replace-with-analogou
-|   |-- drivers-usb-gadget-function-storage_common.c:warning:Call-to-function-sprintf-is-insecure-as-it-does-not-provide-bounding-of-the-memory-buffer-or-security-checks-introduced-in-the-C11-standard.-Replac
-|   |-- drivers-usb-gadget-udc-core.c:warning:Call-to-function-sprintf-is-insecure-as-it-does-not-provide-bounding-of-the-memory-buffer-or-security-checks-introduced-in-the-C11-standard.-Replace-with-analogou
-|   |-- drivers-usb-typec-altmodes-displayport.c:warning:Call-to-function-sprintf-is-insecure-as-it-does-not-provide-bounding-of-the-memory-buffer-or-security-checks-introduced-in-the-C11-standard.-Replace-wi
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init_smp
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-task_sched_runtime
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_start
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_stop
-|   |-- sound-usb-6fire-chip.c:warning:Call-to-function-sprintf-is-insecure-as-it-does-not-provide-bounding-of-the-memory-buffer-or-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-funct
-|   `-- sound-usb-line6-driver.c:warning:Call-to-function-sprintf-is-insecure-as-it-does-not-provide-bounding-of-the-memory-buffer-or-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-fun
-|-- arm-randconfig-r023-20220406
-|   |-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init_smp
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-function-task_sched_runtime
-|-- arm64-allmodconfig
-|   |-- drivers-acpi-arm64-agdi.c:warning:no-previous-prototype-for-function-acpi_agdi_init
-|   |-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init_smp
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-task_sched_runtime
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-function-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_stop
-|-- hexagon-randconfig-r005-20220406
-|   |-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init_smp
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-task_sched_runtime
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-function-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_stop
-|-- hexagon-randconfig-r031-20220406
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init_smp
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-function-task_sched_runtime
-|-- hexagon-randconfig-r041-20220406
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init_smp
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-function-task_sched_runtime
-|-- hexagon-randconfig-r045-20220406
-|   |-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init_smp
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-task_sched_runtime
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-function-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_stop
-|-- i386-allmodconfig
-|   |-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_wait_empty
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init_smp
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-task_sched_runtime
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-function-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_stop
-|-- i386-randconfig-a002
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_wait_empty
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init_smp
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-task_sched_runtime
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-function-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_stop
-|-- i386-randconfig-a004
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_wait_empty
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init_smp
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-function-task_sched_runtime
-|-- i386-randconfig-a006
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_wait_empty
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init_smp
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-function-task_sched_runtime
-|-- i386-randconfig-a011
-|   |-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_wait_empty
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init_smp
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-task_sched_runtime
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-function-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_stop
-|-- i386-randconfig-a013
-|   |-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_wait_empty
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init_smp
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-function-task_sched_runtime
-|-- i386-randconfig-a015
-|   |-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init_smp
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-function-task_sched_runtime
-|-- i386-randconfig-c001
-|   |-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
-|   |-- drivers-hid-hid-core.c:warning:Although-the-value-stored-to-field-is-used-in-the-enclosing-expression-the-value-is-never-actually-read-from-field-clang-analyzer-deadcode.DeadStores
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init_smp
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-task_sched_runtime
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_start
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_stop
-|   |-- lib-vsprintf.c:warning:Dereference-of-null-pointer-(loaded-from-variable-str-)-clang-analyzer-core.NullDereference
-|   `-- lib-vsprintf.c:warning:Null-pointer-passed-as-1st-argument-to-memory-copy-function-clang-analyzer-unix.cstring.NullArg
-|-- mips-cu1830-neo_defconfig
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init_smp
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-task_sched_runtime
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_stop
-|-- mips-randconfig-c004-20220406
-|   |-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init_smp
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-task_sched_runtime
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-function-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_stop
-|-- riscv-randconfig-c006-20220406
-|   |-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_wait_empty
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init_smp
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-task_sched_runtime
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-function-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_stop
-|-- riscv-randconfig-r001-20220406
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init_smp
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-task_sched_runtime
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_stop
-|-- s390-buildonly-randconfig-r006-20220407
-|   |-- arch-s390-include-asm-spinlock.h:error:unexpected-token-in-.rept-directive
-|   |-- arch-s390-include-asm-spinlock.h:error:unknown-directive
-|   |-- arch-s390-include-asm-spinlock.h:error:unmatched-.endr-directive
-|   |-- arch-s390-lib-spinlock.c:error:unexpected-token-in-.rept-directive
-|   |-- arch-s390-lib-spinlock.c:error:unknown-directive
-|   |-- arch-s390-lib-spinlock.c:error:unmatched-.endr-directive
-|   |-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_wait_empty
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init_smp
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-function-task_sched_runtime
-|-- s390-randconfig-c005-20220406
-|   |-- arch-s390-include-asm-spinlock.h:error:unexpected-token-in-.rept-directive
-|   |-- arch-s390-include-asm-spinlock.h:error:unknown-directive
-|   |-- arch-s390-include-asm-spinlock.h:error:unmatched-.endr-directive
-|   |-- arch-s390-lib-spinlock.c:error:unexpected-token-in-.rept-directive
-|   |-- arch-s390-lib-spinlock.c:error:unknown-directive
-|   |-- arch-s390-lib-spinlock.c:error:unmatched-.endr-directive
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_wait_empty
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init_smp
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-task_sched_runtime
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-function-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_stop
-|-- s390-randconfig-r034-20220406
-|   |-- arch-s390-include-asm-spinlock.h:error:unexpected-token-in-.rept-directive
-|   |-- arch-s390-include-asm-spinlock.h:error:unknown-directive
-|   |-- arch-s390-include-asm-spinlock.h:error:unmatched-.endr-directive
-|   |-- arch-s390-lib-spinlock.c:error:unexpected-token-in-.rept-directive
-|   |-- arch-s390-lib-spinlock.c:error:unknown-directive
-|   |-- arch-s390-lib-spinlock.c:error:unmatched-.endr-directive
-|   |-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_wait_empty
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init_smp
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-task_sched_runtime
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-function-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_stop
-|-- x86_64-randconfig-a001
-|   |-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init_smp
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-function-task_sched_runtime
-|-- x86_64-randconfig-a003
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_wait_empty
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init_smp
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-function-task_sched_runtime
-|-- x86_64-randconfig-a005
-|   |-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_wait_empty
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init_smp
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-task_sched_runtime
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-function-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_stop
-|-- x86_64-randconfig-a012
-|   |-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init_smp
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-task_sched_runtime
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_stop
-|-- x86_64-randconfig-a014
-|   |-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_wait_empty
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init_smp
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-task_sched_runtime
-|   |-- kernel-sched-fair.c:warning:no-previous-prototype-for-function-nohz_balance_enter_idle
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_remote
-|   |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_start
-|   `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_stop
-|-- x86_64-randconfig-a016
-|   |-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-idle_task_exit
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_activate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_deactivate
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_dying
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_starting
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_wait_empty
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init
-|   |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init_smp
-|   `-- kernel-sched-core.c:warning:no-previous-prototype-for-function-task_sched_runtime
-`-- x86_64-randconfig-c007
-    |-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
-    |-- drivers-hid-hid-core.c:warning:Although-the-value-stored-to-field-is-used-in-the-enclosing-expression-the-value-is-never-actually-read-from-field-clang-analyzer-deadcode.DeadStores
-    |-- drivers-pci-vgaarb.c:warning:Value-stored-to-dev-during-its-initialization-is-never-read-clang-analyzer-deadcode.DeadStores
-    |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-idle_task_exit
-    |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_activate
-    |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_deactivate
-    |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_dying
-    |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_starting
-    |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_cpu_wait_empty
-    |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init
-    |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-sched_init_smp
-    |-- kernel-sched-core.c:warning:no-previous-prototype-for-function-task_sched_runtime
-    |-- kernel-sched-fair.c:warning:no-previous-prototype-for-function-nohz_balance_enter_idle
-    |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_remote
-    |-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_start
-    `-- kernel-sched-loadavg.c:warning:no-previous-prototype-for-function-calc_load_nohz_stop
-
-elapsed time: 721m
-
-configs tested: 121
-configs skipped: 5
-
-gcc tested configs:
-arm                                 defconfig
-arm                              allmodconfig
-arm                              allyesconfig
-arm64                            allyesconfig
-arm64                               defconfig
-um                             i386_defconfig
-um                           x86_64_defconfig
-mips                             allyesconfig
-mips                             allmodconfig
-riscv                            allyesconfig
-riscv                            allmodconfig
-m68k                             allyesconfig
-s390                             allmodconfig
-powerpc                          allmodconfig
-powerpc                          allyesconfig
-m68k                             allmodconfig
-s390                             allyesconfig
-sh                               allmodconfig
-i386                          randconfig-c001
-arc                              allyesconfig
-alpha                            allyesconfig
-nios2                            allyesconfig
-mips                           ci20_defconfig
-powerpc                        warp_defconfig
-arm                             rpc_defconfig
-powerpc                 linkstation_defconfig
-arc                        nsim_700_defconfig
-arc                    vdk_hs38_smp_defconfig
-sh                     sh7710voipgw_defconfig
-arc                              alldefconfig
-m68k                          sun3x_defconfig
-sparc                       sparc32_defconfig
-sh                         ap325rxa_defconfig
-powerpc                   currituck_defconfig
-sh                               j2_defconfig
-sh                        sh7763rdp_defconfig
-powerpc                       eiger_defconfig
-mips                      maltasmvp_defconfig
-powerpc                     taishan_defconfig
-powerpc                     tqm8541_defconfig
-sh                          urquell_defconfig
-arm                        realview_defconfig
-xtensa                  nommu_kc705_defconfig
-m68k                       m5475evb_defconfig
-arc                 nsimosci_hs_smp_defconfig
-x86_64                        randconfig-c001
-arm                  randconfig-c002-20220406
-ia64                                defconfig
-ia64                             allmodconfig
-ia64                             allyesconfig
-m68k                                defconfig
-alpha                               defconfig
-csky                                defconfig
-h8300                            allyesconfig
-arc                                 defconfig
-xtensa                           allyesconfig
-parisc                              defconfig
-parisc64                            defconfig
-parisc                           allyesconfig
-s390                                defconfig
-i386                   debian-10.3-kselftests
-i386                              debian-10.3
-i386                                defconfig
-i386                             allyesconfig
-sparc                            allyesconfig
-sparc                               defconfig
-nios2                               defconfig
-powerpc                           allnoconfig
-i386                          randconfig-a001
-i386                          randconfig-a003
-i386                          randconfig-a005
-x86_64                        randconfig-a011
-x86_64                        randconfig-a015
-x86_64                        randconfig-a013
-i386                          randconfig-a014
-i386                          randconfig-a012
-i386                          randconfig-a016
-x86_64                        randconfig-a004
-x86_64                        randconfig-a002
-x86_64                        randconfig-a006
-riscv                randconfig-r042-20220406
-arc                  randconfig-r043-20220406
-s390                 randconfig-r044-20220406
-riscv                    nommu_k210_defconfig
-riscv                    nommu_virt_defconfig
-riscv                             allnoconfig
-riscv                          rv32_defconfig
-riscv                               defconfig
-x86_64                    rhel-8.3-kselftests
-x86_64                              defconfig
-x86_64                           allyesconfig
-x86_64                                  kexec
-x86_64                          rhel-8.3-func
-x86_64                               rhel-8.3
-x86_64                         rhel-8.3-kunit
-
-clang tested configs:
-powerpc              randconfig-c003-20220406
-mips                 randconfig-c004-20220406
-s390                 randconfig-c005-20220406
-x86_64                        randconfig-c007
-riscv                randconfig-c006-20220406
-arm                  randconfig-c002-20220406
-i386                          randconfig-c001
-arm                       mainstone_defconfig
-mips                     cu1830-neo_defconfig
-arm                        multi_v5_defconfig
-powerpc                 mpc836x_rdk_defconfig
-powerpc                     tqm5200_defconfig
-powerpc                    gamecube_defconfig
-mips                           ip28_defconfig
-i386                          randconfig-a002
-i386                          randconfig-a006
-i386                          randconfig-a004
-x86_64                        randconfig-a012
-x86_64                        randconfig-a014
-x86_64                        randconfig-a016
-i386                          randconfig-a013
-i386                          randconfig-a011
-i386                          randconfig-a015
-x86_64                        randconfig-a001
-x86_64                        randconfig-a003
-x86_64                        randconfig-a005
-hexagon              randconfig-r041-20220406
-hexagon              randconfig-r045-20220406
-
+diff --git a/drivers/staging/greybus/audio_codec.c b/drivers/staging/greybus/audio_codec.c
+index b589cf6b1d03..db0b600ee5d1 100644
+--- a/drivers/staging/greybus/audio_codec.c
++++ b/drivers/staging/greybus/audio_codec.c
+@@ -702,8 +702,9 @@ static int gbaudio_init_jack(struct gbaudio_module_info *module,
+ 
+ 	headset->pin = module->jack_name;
+ 	headset->mask = module->jack_mask;
+-	ret = snd_soc_card_jack_new(card, module->jack_name, module->jack_mask,
+-				    &module->headset.jack, headset, 1);
++	ret = snd_soc_card_jack_new_pins(card, module->jack_name,
++					 module->jack_mask,
++					 &module->headset.jack, headset, 1);
+ 	if (ret) {
+ 		dev_err(module->dev, "Failed to create new jack\n");
+ 		return ret;
+@@ -725,9 +726,10 @@ static int gbaudio_init_jack(struct gbaudio_module_info *module,
+ 
+ 	button->pin = module->button_name;
+ 	button->mask = module->button_mask;
+-	ret = snd_soc_card_jack_new(card, module->button_name,
+-				    module->button_mask, &module->button.jack,
+-				    button, 1);
++	ret = snd_soc_card_jack_new_pins(card, module->button_name,
++					 module->button_mask,
++					 &module->button.jack,
++					 button, 1);
+ 	if (ret) {
+ 		dev_err(module->dev, "Failed to create button jack\n");
+ 		goto free_jacks;
+diff --git a/include/sound/soc-card.h b/include/sound/soc-card.h
+index 4f2cc4fb56b7..df08573bd80c 100644
+--- a/include/sound/soc-card.h
++++ b/include/sound/soc-card.h
+@@ -16,8 +16,11 @@ enum snd_soc_card_subclass {
+ struct snd_kcontrol *snd_soc_card_get_kcontrol(struct snd_soc_card *soc_card,
+ 					       const char *name);
+ int snd_soc_card_jack_new(struct snd_soc_card *card, const char *id, int type,
+-			  struct snd_soc_jack *jack,
+-			  struct snd_soc_jack_pin *pins, unsigned int num_pins);
++			  struct snd_soc_jack *jack);
++int snd_soc_card_jack_new_pins(struct snd_soc_card *card, const char *id,
++			       int type, struct snd_soc_jack *jack,
++			       struct snd_soc_jack_pin *pins,
++			       unsigned int num_pins);
+ 
+ int snd_soc_card_suspend_pre(struct snd_soc_card *card);
+ int snd_soc_card_suspend_post(struct snd_soc_card *card);
+diff --git a/sound/soc/amd/acp-da7219-max98357a.c b/sound/soc/amd/acp-da7219-max98357a.c
+index 3bf86c2424ae..ef1b4cefc273 100644
+--- a/sound/soc/amd/acp-da7219-max98357a.c
++++ b/sound/soc/amd/acp-da7219-max98357a.c
+@@ -71,7 +71,7 @@ static int cz_da7219_init(struct snd_soc_pcm_runtime *rtd)
+ 				SND_JACK_HEADSET | SND_JACK_LINEOUT |
+ 				SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+ 				SND_JACK_BTN_2 | SND_JACK_BTN_3,
+-				&cz_jack, NULL, 0);
++				&cz_jack);
+ 	if (ret) {
+ 		dev_err(card->dev, "HP jack creation failed %d\n", ret);
+ 		return ret;
+@@ -151,7 +151,7 @@ static int cz_rt5682_init(struct snd_soc_pcm_runtime *rtd)
+ 				    SND_JACK_HEADSET | SND_JACK_LINEOUT |
+ 				    SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+ 				    SND_JACK_BTN_2 | SND_JACK_BTN_3,
+-				    &cz_jack, NULL, 0);
++				    &cz_jack);
+ 	if (ret) {
+ 		dev_err(card->dev, "HP jack creation failed %d\n", ret);
+ 		return ret;
+diff --git a/sound/soc/amd/acp-rt5645.c b/sound/soc/amd/acp-rt5645.c
+index a79a46646d50..532aa98a2241 100644
+--- a/sound/soc/amd/acp-rt5645.c
++++ b/sound/soc/amd/acp-rt5645.c
+@@ -80,7 +80,7 @@ static int cz_init(struct snd_soc_pcm_runtime *rtd)
+ 				SND_JACK_HEADPHONE | SND_JACK_MICROPHONE |
+ 				SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+ 				SND_JACK_BTN_2 | SND_JACK_BTN_3,
+-				&cz_jack, NULL, 0);
++				&cz_jack);
+ 	if (ret) {
+ 		dev_err(card->dev, "HP jack creation failed %d\n", ret);
+ 		return ret;
+diff --git a/sound/soc/amd/acp/acp-mach-common.c b/sound/soc/amd/acp/acp-mach-common.c
+index caa202f7864e..51adb8f3f83e 100644
+--- a/sound/soc/amd/acp/acp-mach-common.c
++++ b/sound/soc/amd/acp/acp-mach-common.c
+@@ -145,7 +145,7 @@ static int acp_card_rt5682_init(struct snd_soc_pcm_runtime *rtd)
+ 				    SND_JACK_HEADSET | SND_JACK_LINEOUT |
+ 				    SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+ 				    SND_JACK_BTN_2 | SND_JACK_BTN_3,
+-				    &pco_jack, NULL, 0);
++				    &pco_jack);
+ 	if (ret) {
+ 		dev_err(card->dev, "HP jack creation failed %d\n", ret);
+ 		return ret;
+@@ -266,7 +266,7 @@ static int acp_card_rt5682s_init(struct snd_soc_pcm_runtime *rtd)
+ 				    SND_JACK_HEADSET | SND_JACK_LINEOUT |
+ 				    SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+ 				    SND_JACK_BTN_2 | SND_JACK_BTN_3,
+-				    &pco_jack, NULL, 0);
++				    &pco_jack);
+ 	if (ret) {
+ 		dev_err(card->dev, "HP jack creation failed %d\n", ret);
+ 		return ret;
+diff --git a/sound/soc/amd/acp3x-rt5682-max9836.c b/sound/soc/amd/acp3x-rt5682-max9836.c
+index dad70436d063..0543dda75b99 100644
+--- a/sound/soc/amd/acp3x-rt5682-max9836.c
++++ b/sound/soc/amd/acp3x-rt5682-max9836.c
+@@ -90,7 +90,7 @@ static int acp3x_5682_init(struct snd_soc_pcm_runtime *rtd)
+ 				SND_JACK_HEADSET | SND_JACK_LINEOUT |
+ 				SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+ 				SND_JACK_BTN_2 | SND_JACK_BTN_3,
+-				&pco_jack, NULL, 0);
++				&pco_jack);
+ 	if (ret) {
+ 		dev_err(card->dev, "HP jack creation failed %d\n", ret);
+ 		return ret;
+diff --git a/sound/soc/amd/vangogh/acp5x-mach.c b/sound/soc/amd/vangogh/acp5x-mach.c
+index 1551546c3050..d8b25622f911 100644
+--- a/sound/soc/amd/vangogh/acp5x-mach.c
++++ b/sound/soc/amd/vangogh/acp5x-mach.c
+@@ -61,10 +61,10 @@ static int acp5x_8821_init(struct snd_soc_pcm_runtime *rtd)
+ 	 * Headset buttons map to the google Reference headset.
+ 	 * These can be configured by userspace.
+ 	 */
+-	ret = snd_soc_card_jack_new(card, "Headset Jack",
+-				    SND_JACK_HEADSET | SND_JACK_BTN_0,
+-				    &vg_headset, acp5x_nau8821_jack_pins,
+-				    ARRAY_SIZE(acp5x_nau8821_jack_pins));
++	ret = snd_soc_card_jack_new_pins(card, "Headset Jack",
++					 SND_JACK_HEADSET | SND_JACK_BTN_0,
++					 &vg_headset, acp5x_nau8821_jack_pins,
++					 ARRAY_SIZE(acp5x_nau8821_jack_pins));
+ 	if (ret) {
+ 		dev_err(rtd->dev, "Headset Jack creation failed %d\n", ret);
+ 		return ret;
+diff --git a/sound/soc/codecs/cs43130.c b/sound/soc/codecs/cs43130.c
+index 44b20c1ef851..a771707145e0 100644
+--- a/sound/soc/codecs/cs43130.c
++++ b/sound/soc/codecs/cs43130.c
+@@ -2303,7 +2303,7 @@ static int cs43130_probe(struct snd_soc_component *component)
+ 	}
+ 
+ 	ret = snd_soc_card_jack_new(card, "Headphone", CS43130_JACK_MASK,
+-				    &cs43130->jack, NULL, 0);
++				    &cs43130->jack);
+ 	if (ret < 0) {
+ 		dev_err(component->dev, "Cannot create jack\n");
+ 		return ret;
+diff --git a/sound/soc/fsl/imx-es8328.c b/sound/soc/fsl/imx-es8328.c
+index 168973035e35..b80c57362fb8 100644
+--- a/sound/soc/fsl/imx-es8328.c
++++ b/sound/soc/fsl/imx-es8328.c
+@@ -48,7 +48,7 @@ static int imx_es8328_dai_init(struct snd_soc_pcm_runtime *rtd)
+ 	if (gpio_is_valid(data->jack_gpio)) {
+ 		ret = snd_soc_card_jack_new(rtd->card, "Headphone",
+ 					    SND_JACK_HEADPHONE | SND_JACK_BTN_0,
+-					    &headset_jack, NULL, 0);
++					    &headset_jack);
+ 		if (ret)
+ 			return ret;
+ 
+diff --git a/sound/soc/fsl/imx-hdmi.c b/sound/soc/fsl/imx-hdmi.c
+index 929f69b758af..e10136afa741 100644
+--- a/sound/soc/fsl/imx-hdmi.c
++++ b/sound/soc/fsl/imx-hdmi.c
+@@ -78,8 +78,9 @@ static int imx_hdmi_init(struct snd_soc_pcm_runtime *rtd)
+ 	data->hdmi_jack_pin.pin = "HDMI Jack";
+ 	data->hdmi_jack_pin.mask = SND_JACK_LINEOUT;
+ 	/* enable jack detection */
+-	ret = snd_soc_card_jack_new(card, "HDMI Jack", SND_JACK_LINEOUT,
+-				    &data->hdmi_jack, &data->hdmi_jack_pin, 1);
++	ret = snd_soc_card_jack_new_pins(card, "HDMI Jack", SND_JACK_LINEOUT,
++					 &data->hdmi_jack,
++					 &data->hdmi_jack_pin, 1);
+ 	if (ret) {
+ 		dev_err(card->dev, "Can't new HDMI Jack %d\n", ret);
+ 		return ret;
+diff --git a/sound/soc/generic/simple-card-utils.c b/sound/soc/generic/simple-card-utils.c
+index 8e037835bc58..da44f6c0f742 100644
+--- a/sound/soc/generic/simple-card-utils.c
++++ b/sound/soc/generic/simple-card-utils.c
+@@ -719,9 +719,8 @@ int asoc_simple_init_jack(struct snd_soc_card *card,
+ 		sjack->gpio.invert	= !!(flags & OF_GPIO_ACTIVE_LOW);
+ 		sjack->gpio.debounce_time = 150;
+ 
+-		snd_soc_card_jack_new(card, pin_name, mask,
+-				      &sjack->jack,
+-				      &sjack->pin, 1);
++		snd_soc_card_jack_new_pins(card, pin_name, mask, &sjack->jack,
++					   &sjack->pin, 1);
+ 
+ 		snd_soc_jack_add_gpios(&sjack->jack, 1,
+ 				       &sjack->gpio);
+diff --git a/sound/soc/intel/boards/bdw-rt5650.c b/sound/soc/intel/boards/bdw-rt5650.c
+index bc0eab1c304a..aae857fdcdb8 100644
+--- a/sound/soc/intel/boards/bdw-rt5650.c
++++ b/sound/soc/intel/boards/bdw-rt5650.c
+@@ -192,15 +192,15 @@ static int bdw_rt5650_init(struct snd_soc_pcm_runtime *rtd)
+ 	}
+ 
+ 	/* Create and initialize headphone jack */
+-	if (snd_soc_card_jack_new(rtd->card, "Headphone Jack",
++	if (snd_soc_card_jack_new_pins(rtd->card, "Headphone Jack",
+ 			SND_JACK_HEADPHONE, &headphone_jack,
+ 			&headphone_jack_pin, 1)) {
+ 		dev_err(component->dev, "Can't create headphone jack\n");
+ 	}
+ 
+ 	/* Create and initialize mic jack */
+-	if (snd_soc_card_jack_new(rtd->card, "Mic Jack", SND_JACK_MICROPHONE,
+-			&mic_jack, &mic_jack_pin, 1)) {
++	if (snd_soc_card_jack_new_pins(rtd->card, "Mic Jack",
++			SND_JACK_MICROPHONE, &mic_jack, &mic_jack_pin, 1)) {
+ 		dev_err(component->dev, "Can't create mic jack\n");
+ 	}
+ 
+diff --git a/sound/soc/intel/boards/bdw-rt5677.c b/sound/soc/intel/boards/bdw-rt5677.c
+index 071557fada29..d0ecbba2febe 100644
+--- a/sound/soc/intel/boards/bdw-rt5677.c
++++ b/sound/soc/intel/boards/bdw-rt5677.c
+@@ -256,7 +256,7 @@ static int bdw_rt5677_init(struct snd_soc_pcm_runtime *rtd)
+ 	}
+ 
+ 	/* Create and initialize headphone jack */
+-	if (!snd_soc_card_jack_new(rtd->card, "Headphone Jack",
++	if (!snd_soc_card_jack_new_pins(rtd->card, "Headphone Jack",
+ 			SND_JACK_HEADPHONE, &headphone_jack,
+ 			&headphone_jack_pin, 1)) {
+ 		headphone_jack_gpio.gpiod_dev = component->dev;
+@@ -268,7 +268,7 @@ static int bdw_rt5677_init(struct snd_soc_pcm_runtime *rtd)
+ 	}
+ 
+ 	/* Create and initialize mic jack */
+-	if (!snd_soc_card_jack_new(rtd->card, "Mic Jack",
++	if (!snd_soc_card_jack_new_pins(rtd->card, "Mic Jack",
+ 			SND_JACK_MICROPHONE, &mic_jack,
+ 			&mic_jack_pin, 1)) {
+ 		mic_jack_gpio.gpiod_dev = component->dev;
+diff --git a/sound/soc/intel/boards/broadwell.c b/sound/soc/intel/boards/broadwell.c
+index d37c74fd1a3c..c30a9dca6801 100644
+--- a/sound/soc/intel/boards/broadwell.c
++++ b/sound/soc/intel/boards/broadwell.c
+@@ -69,7 +69,7 @@ static int broadwell_rt286_codec_init(struct snd_soc_pcm_runtime *rtd)
+ {
+ 	struct snd_soc_component *component = asoc_rtd_to_codec(rtd, 0)->component;
+ 	int ret = 0;
+-	ret = snd_soc_card_jack_new(rtd->card, "Headset",
++	ret = snd_soc_card_jack_new_pins(rtd->card, "Headset",
+ 		SND_JACK_HEADSET | SND_JACK_BTN_0, &broadwell_headset,
+ 		broadwell_headset_pins, ARRAY_SIZE(broadwell_headset_pins));
+ 	if (ret)
+diff --git a/sound/soc/intel/boards/bxt_da7219_max98357a.c b/sound/soc/intel/boards/bxt_da7219_max98357a.c
+index 9bc7b88e346b..d98376da425a 100644
+--- a/sound/soc/intel/boards/bxt_da7219_max98357a.c
++++ b/sound/soc/intel/boards/bxt_da7219_max98357a.c
+@@ -234,7 +234,7 @@ static int broxton_da7219_codec_init(struct snd_soc_pcm_runtime *rtd)
+ 	ret = snd_soc_card_jack_new(rtd->card, "Headset Jack",
+ 			SND_JACK_HEADSET | SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+ 			SND_JACK_BTN_2 | SND_JACK_BTN_3 | SND_JACK_LINEOUT,
+-			&broxton_headset, NULL, 0);
++			&broxton_headset);
+ 	if (ret) {
+ 		dev_err(rtd->dev, "Headset Jack creation failed: %d\n", ret);
+ 		return ret;
+@@ -720,8 +720,7 @@ static int bxt_card_late_probe(struct snd_soc_card *card)
+ 		snprintf(jack_name, sizeof(jack_name),
+ 			"HDMI/DP, pcm=%d Jack", pcm->device);
+ 		err = snd_soc_card_jack_new(card, jack_name,
+-					SND_JACK_AVOUT, &broxton_hdmi[i],
+-					NULL, 0);
++					SND_JACK_AVOUT, &broxton_hdmi[i]);
+ 
+ 		if (err)
+ 			return err;
+diff --git a/sound/soc/intel/boards/bxt_rt298.c b/sound/soc/intel/boards/bxt_rt298.c
+index 05e833076499..75995d17597d 100644
+--- a/sound/soc/intel/boards/bxt_rt298.c
++++ b/sound/soc/intel/boards/bxt_rt298.c
+@@ -168,7 +168,7 @@ static int broxton_rt298_codec_init(struct snd_soc_pcm_runtime *rtd)
+ 	struct snd_soc_component *component = asoc_rtd_to_codec(rtd, 0)->component;
+ 	int ret = 0;
+ 
+-	ret = snd_soc_card_jack_new(rtd->card, "Headset",
++	ret = snd_soc_card_jack_new_pins(rtd->card, "Headset",
+ 		SND_JACK_HEADSET | SND_JACK_BTN_0,
+ 		&broxton_headset,
+ 		broxton_headset_pins, ARRAY_SIZE(broxton_headset_pins));
+@@ -544,8 +544,7 @@ static int bxt_card_late_probe(struct snd_soc_card *card)
+ 		snprintf(jack_name, sizeof(jack_name),
+ 			"HDMI/DP, pcm=%d Jack", pcm->device);
+ 		err = snd_soc_card_jack_new(card, jack_name,
+-					SND_JACK_AVOUT, &broxton_hdmi[i],
+-					NULL, 0);
++					SND_JACK_AVOUT, &broxton_hdmi[i]);
+ 
+ 		if (err)
+ 			return err;
+diff --git a/sound/soc/intel/boards/bytcht_cx2072x.c b/sound/soc/intel/boards/bytcht_cx2072x.c
+index 96d3201efbbd..0eed68a11f7e 100644
+--- a/sound/soc/intel/boards/bytcht_cx2072x.c
++++ b/sound/soc/intel/boards/bytcht_cx2072x.c
+@@ -87,11 +87,11 @@ static int byt_cht_cx2072x_init(struct snd_soc_pcm_runtime *rtd)
+ 		return ret;
+ 	}
+ 
+-	ret = snd_soc_card_jack_new(card, "Headset",
+-				    SND_JACK_HEADSET | SND_JACK_BTN_0,
+-				    &byt_cht_cx2072x_headset,
+-				    byt_cht_cx2072x_headset_pins,
+-				    ARRAY_SIZE(byt_cht_cx2072x_headset_pins));
++	ret = snd_soc_card_jack_new_pins(card, "Headset",
++					 SND_JACK_HEADSET | SND_JACK_BTN_0,
++					 &byt_cht_cx2072x_headset,
++					 byt_cht_cx2072x_headset_pins,
++					 ARRAY_SIZE(byt_cht_cx2072x_headset_pins));
+ 	if (ret)
+ 		return ret;
+ 
+diff --git a/sound/soc/intel/boards/bytcht_es8316.c b/sound/soc/intel/boards/bytcht_es8316.c
+index e18371b5a771..a08507783e44 100644
+--- a/sound/soc/intel/boards/bytcht_es8316.c
++++ b/sound/soc/intel/boards/bytcht_es8316.c
+@@ -219,10 +219,10 @@ static int byt_cht_es8316_init(struct snd_soc_pcm_runtime *runtime)
+ 		return ret;
+ 	}
+ 
+-	ret = snd_soc_card_jack_new(card, "Headset",
+-				    SND_JACK_HEADSET | SND_JACK_BTN_0,
+-				    &priv->jack, byt_cht_es8316_jack_pins,
+-				    ARRAY_SIZE(byt_cht_es8316_jack_pins));
++	ret = snd_soc_card_jack_new_pins(card, "Headset",
++					 SND_JACK_HEADSET | SND_JACK_BTN_0,
++					 &priv->jack, byt_cht_es8316_jack_pins,
++					 ARRAY_SIZE(byt_cht_es8316_jack_pins));
+ 	if (ret) {
+ 		dev_err(card->dev, "jack creation failed %d\n", ret);
+ 		return ret;
+diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
+index d76a505052fb..702a4f116656 100644
+--- a/sound/soc/intel/boards/bytcr_rt5640.c
++++ b/sound/soc/intel/boards/bytcr_rt5640.c
+@@ -1300,10 +1300,10 @@ static int byt_rt5640_init(struct snd_soc_pcm_runtime *runtime)
+ 	}
+ 
+ 	if (BYT_RT5640_JDSRC(byt_rt5640_quirk)) {
+-		ret = snd_soc_card_jack_new(card, "Headset",
+-					    SND_JACK_HEADSET | SND_JACK_BTN_0,
+-					    &priv->jack, rt5640_pins,
+-					    ARRAY_SIZE(rt5640_pins));
++		ret = snd_soc_card_jack_new_pins(card, "Headset",
++						 SND_JACK_HEADSET | SND_JACK_BTN_0,
++						 &priv->jack, rt5640_pins,
++						 ARRAY_SIZE(rt5640_pins));
+ 		if (ret) {
+ 			dev_err(card->dev, "Jack creation failed %d\n", ret);
+ 			return ret;
+@@ -1321,17 +1321,17 @@ static int byt_rt5640_init(struct snd_soc_pcm_runtime *runtime)
+ 	}
+ 
+ 	if (byt_rt5640_quirk & BYT_RT5640_JD_HP_ELITEP_1000G2) {
+-		ret = snd_soc_card_jack_new(card, "Headset",
+-					    SND_JACK_HEADSET,
+-					    &priv->jack, rt5640_pins,
+-					    ARRAY_SIZE(rt5640_pins));
++		ret = snd_soc_card_jack_new_pins(card, "Headset",
++						 SND_JACK_HEADSET,
++						 &priv->jack, rt5640_pins,
++						 ARRAY_SIZE(rt5640_pins));
+ 		if (ret)
+ 			return ret;
+ 
+-		ret = snd_soc_card_jack_new(card, "Headset 2",
+-					    SND_JACK_HEADSET,
+-					    &priv->jack2, rt5640_pins2,
+-					    ARRAY_SIZE(rt5640_pins2));
++		ret = snd_soc_card_jack_new_pins(card, "Headset 2",
++						 SND_JACK_HEADSET,
++						 &priv->jack2, rt5640_pins2,
++						 ARRAY_SIZE(rt5640_pins2));
+ 		if (ret)
+ 			return ret;
+ 
+diff --git a/sound/soc/intel/boards/bytcr_rt5651.c b/sound/soc/intel/boards/bytcr_rt5651.c
+index 39348d2b242f..d467fcaa48ea 100644
+--- a/sound/soc/intel/boards/bytcr_rt5651.c
++++ b/sound/soc/intel/boards/bytcr_rt5651.c
+@@ -652,9 +652,10 @@ static int byt_rt5651_init(struct snd_soc_pcm_runtime *runtime)
+ 		report = SND_JACK_HEADSET;
+ 
+ 	if (report) {
+-		ret = snd_soc_card_jack_new(runtime->card, "Headset",
+-				    report, &priv->jack, bytcr_jack_pins,
+-				    ARRAY_SIZE(bytcr_jack_pins));
++		ret = snd_soc_card_jack_new_pins(runtime->card, "Headset",
++						 report, &priv->jack,
++						 bytcr_jack_pins,
++						 ARRAY_SIZE(bytcr_jack_pins));
+ 		if (ret) {
+ 			dev_err(runtime->dev, "jack creation failed %d\n", ret);
+ 			return ret;
+diff --git a/sound/soc/intel/boards/bytcr_wm5102.c b/sound/soc/intel/boards/bytcr_wm5102.c
+index 8d8e96e3cd2d..00384c6fbcaa 100644
+--- a/sound/soc/intel/boards/bytcr_wm5102.c
++++ b/sound/soc/intel/boards/bytcr_wm5102.c
+@@ -226,9 +226,9 @@ static int byt_wm5102_init(struct snd_soc_pcm_runtime *runtime)
+ 
+ 	jack_type = ARIZONA_JACK_MASK | SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+ 		    SND_JACK_BTN_2 | SND_JACK_BTN_3;
+-	ret = snd_soc_card_jack_new(card, "Headset", jack_type,
+-				    &priv->jack, byt_wm5102_pins,
+-				    ARRAY_SIZE(byt_wm5102_pins));
++	ret = snd_soc_card_jack_new_pins(card, "Headset", jack_type,
++					 &priv->jack, byt_wm5102_pins,
++					 ARRAY_SIZE(byt_wm5102_pins));
+ 	if (ret) {
+ 		dev_err(card->dev, "Error creating jack: %d\n", ret);
+ 		return ret;
+diff --git a/sound/soc/intel/boards/cht_bsw_max98090_ti.c b/sound/soc/intel/boards/cht_bsw_max98090_ti.c
+index b3d7a0725ef2..5f6e6b86892c 100644
+--- a/sound/soc/intel/boards/cht_bsw_max98090_ti.c
++++ b/sound/soc/intel/boards/cht_bsw_max98090_ti.c
+@@ -201,9 +201,10 @@ static int cht_codec_init(struct snd_soc_pcm_runtime *runtime)
+ 
+ 	jack_type = SND_JACK_HEADPHONE | SND_JACK_MICROPHONE;
+ 
+-	ret = snd_soc_card_jack_new(runtime->card, "Headset Jack",
+-				    jack_type, jack,
+-				    hs_jack_pins, ARRAY_SIZE(hs_jack_pins));
++	ret = snd_soc_card_jack_new_pins(runtime->card, "Headset Jack",
++					 jack_type, jack,
++					 hs_jack_pins,
++					 ARRAY_SIZE(hs_jack_pins));
+ 	if (ret) {
+ 		dev_err(runtime->dev, "Headset Jack creation failed %d\n", ret);
+ 		return ret;
+@@ -306,8 +307,7 @@ static int cht_max98090_headset_init(struct snd_soc_component *component)
+ 		    SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+ 		    SND_JACK_BTN_2 | SND_JACK_BTN_3;
+ 
+-	ret = snd_soc_card_jack_new(card, "Headset Jack", jack_type,
+-				    jack, NULL, 0);
++	ret = snd_soc_card_jack_new(card, "Headset Jack", jack_type, jack);
+ 	if (ret) {
+ 		dev_err(card->dev, "Headset Jack creation failed %d\n", ret);
+ 		return ret;
+diff --git a/sound/soc/intel/boards/cht_bsw_nau8824.c b/sound/soc/intel/boards/cht_bsw_nau8824.c
+index da6c659de266..4c1d83b317c7 100644
+--- a/sound/soc/intel/boards/cht_bsw_nau8824.c
++++ b/sound/soc/intel/boards/cht_bsw_nau8824.c
+@@ -108,8 +108,8 @@ static int cht_codec_init(struct snd_soc_pcm_runtime *runtime)
+ 	 */
+ 	jack_type = SND_JACK_HEADSET | SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+ 		SND_JACK_BTN_2 | SND_JACK_BTN_3;
+-	ret = snd_soc_card_jack_new(runtime->card, "Headset", jack_type, jack,
+-		cht_bsw_jack_pins, ARRAY_SIZE(cht_bsw_jack_pins));
++	ret = snd_soc_card_jack_new_pins(runtime->card, "Headset", jack_type,
++		jack, cht_bsw_jack_pins, ARRAY_SIZE(cht_bsw_jack_pins));
+ 	if (ret) {
+ 		dev_err(runtime->dev,
+ 			"Headset Jack creation failed %d\n", ret);
+diff --git a/sound/soc/intel/boards/cht_bsw_rt5645.c b/sound/soc/intel/boards/cht_bsw_rt5645.c
+index c21561c6a464..45c301ea5e00 100644
+--- a/sound/soc/intel/boards/cht_bsw_rt5645.c
++++ b/sound/soc/intel/boards/cht_bsw_rt5645.c
+@@ -302,9 +302,9 @@ static int cht_codec_init(struct snd_soc_pcm_runtime *runtime)
+ 	else
+ 		jack_type = SND_JACK_HEADPHONE | SND_JACK_MICROPHONE;
+ 
+-	ret = snd_soc_card_jack_new(runtime->card, "Headset",
+-				    jack_type, &ctx->jack,
+-				    cht_bsw_jack_pins, ARRAY_SIZE(cht_bsw_jack_pins));
++	ret = snd_soc_card_jack_new_pins(runtime->card, "Headset", jack_type,
++					 &ctx->jack, cht_bsw_jack_pins,
++					 ARRAY_SIZE(cht_bsw_jack_pins));
+ 	if (ret) {
+ 		dev_err(runtime->dev, "Headset jack creation failed %d\n", ret);
+ 		return ret;
+diff --git a/sound/soc/intel/boards/cht_bsw_rt5672.c b/sound/soc/intel/boards/cht_bsw_rt5672.c
+index 9882aeb24d33..c80324f34b1b 100644
+--- a/sound/soc/intel/boards/cht_bsw_rt5672.c
++++ b/sound/soc/intel/boards/cht_bsw_rt5672.c
+@@ -221,12 +221,12 @@ static int cht_codec_init(struct snd_soc_pcm_runtime *runtime)
+ 	if (ret)
+ 		return ret;
+ 
+-        ret = snd_soc_card_jack_new(runtime->card, "Headset",
+-				    SND_JACK_HEADSET | SND_JACK_BTN_0 |
+-				    SND_JACK_BTN_1 | SND_JACK_BTN_2,
+-				    &ctx->headset,
+-				    cht_bsw_headset_pins,
+-				    ARRAY_SIZE(cht_bsw_headset_pins));
++	ret = snd_soc_card_jack_new_pins(runtime->card, "Headset",
++					 SND_JACK_HEADSET | SND_JACK_BTN_0 |
++					 SND_JACK_BTN_1 | SND_JACK_BTN_2,
++					 &ctx->headset,
++					 cht_bsw_headset_pins,
++					 ARRAY_SIZE(cht_bsw_headset_pins));
+         if (ret)
+                 return ret;
+ 
+diff --git a/sound/soc/intel/boards/cml_rt1011_rt5682.c b/sound/soc/intel/boards/cml_rt1011_rt5682.c
+index 27615acddacd..a99f74a15b5f 100644
+--- a/sound/soc/intel/boards/cml_rt1011_rt5682.c
++++ b/sound/soc/intel/boards/cml_rt1011_rt5682.c
+@@ -141,7 +141,7 @@ static int cml_rt5682_codec_init(struct snd_soc_pcm_runtime *rtd)
+ 				    SND_JACK_HEADSET | SND_JACK_BTN_0 |
+ 				    SND_JACK_BTN_1 | SND_JACK_BTN_2 |
+ 				    SND_JACK_BTN_3,
+-				    &ctx->headset, NULL, 0);
++				    &ctx->headset);
+ 	if (ret) {
+ 		dev_err(rtd->dev, "Headset Jack creation failed: %d\n", ret);
+ 		return ret;
+@@ -338,8 +338,7 @@ static int sof_card_late_probe(struct snd_soc_card *card)
+ 		snprintf(jack_name, sizeof(jack_name),
+ 			 "HDMI/DP, pcm=%d Jack", pcm->device);
+ 		ret = snd_soc_card_jack_new(card, jack_name,
+-					    SND_JACK_AVOUT, &hdmi_jack[i],
+-					    NULL, 0);
++					    SND_JACK_AVOUT, &hdmi_jack[i]);
+ 		if (ret)
+ 			return ret;
+ 
+diff --git a/sound/soc/intel/boards/glk_rt5682_max98357a.c b/sound/soc/intel/boards/glk_rt5682_max98357a.c
+index e4bfb0fe5f12..170164baae7d 100644
+--- a/sound/soc/intel/boards/glk_rt5682_max98357a.c
++++ b/sound/soc/intel/boards/glk_rt5682_max98357a.c
+@@ -176,7 +176,7 @@ static int geminilake_rt5682_codec_init(struct snd_soc_pcm_runtime *rtd)
+ 	ret = snd_soc_card_jack_new(rtd->card, "Headset Jack",
+ 			SND_JACK_HEADSET | SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+ 			SND_JACK_BTN_2 | SND_JACK_BTN_3 | SND_JACK_LINEOUT,
+-			&ctx->geminilake_headset, NULL, 0);
++			&ctx->geminilake_headset);
+ 	if (ret) {
+ 		dev_err(rtd->dev, "Headset Jack creation failed: %d\n", ret);
+ 		return ret;
+@@ -571,8 +571,7 @@ static int glk_card_late_probe(struct snd_soc_card *card)
+ 		snprintf(jack_name, sizeof(jack_name),
+ 			"HDMI/DP, pcm=%d Jack", pcm->device);
+ 		err = snd_soc_card_jack_new(card, jack_name,
+-					SND_JACK_AVOUT, &geminilake_hdmi[i],
+-					NULL, 0);
++					SND_JACK_AVOUT, &geminilake_hdmi[i]);
+ 
+ 		if (err)
+ 			return err;
+diff --git a/sound/soc/intel/boards/kbl_da7219_max98357a.c b/sound/soc/intel/boards/kbl_da7219_max98357a.c
+index a4bdf634e9b9..ceabed85e9da 100644
+--- a/sound/soc/intel/boards/kbl_da7219_max98357a.c
++++ b/sound/soc/intel/boards/kbl_da7219_max98357a.c
+@@ -182,7 +182,7 @@ static int kabylake_da7219_codec_init(struct snd_soc_pcm_runtime *rtd)
+ 	ret = snd_soc_card_jack_new(kabylake_audio_card, "Headset Jack",
+ 			SND_JACK_HEADSET | SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+ 			SND_JACK_BTN_2 | SND_JACK_BTN_3 | SND_JACK_LINEOUT,
+-			&ctx->kabylake_headset, NULL, 0);
++			&ctx->kabylake_headset);
+ 	if (ret) {
+ 		dev_err(rtd->dev, "Headset Jack creation failed: %d\n", ret);
+ 		return ret;
+@@ -587,8 +587,7 @@ static int kabylake_card_late_probe(struct snd_soc_card *card)
+ 		snprintf(jack_name, sizeof(jack_name),
+ 			"HDMI/DP, pcm=%d Jack", pcm->device);
+ 		err = snd_soc_card_jack_new(card, jack_name,
+-					SND_JACK_AVOUT, &skylake_hdmi[i],
+-					NULL, 0);
++					SND_JACK_AVOUT, &skylake_hdmi[i]);
+ 
+ 		if (err)
+ 			return err;
+diff --git a/sound/soc/intel/boards/kbl_da7219_max98927.c b/sound/soc/intel/boards/kbl_da7219_max98927.c
+index 620a9fbcb08f..703ccff634b0 100644
+--- a/sound/soc/intel/boards/kbl_da7219_max98927.c
++++ b/sound/soc/intel/boards/kbl_da7219_max98927.c
+@@ -357,7 +357,7 @@ static int kabylake_da7219_codec_init(struct snd_soc_pcm_runtime *rtd)
+ 	ret = snd_soc_card_jack_new(kabylake_audio_card, "Headset Jack",
+ 			SND_JACK_HEADSET | SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+ 			SND_JACK_BTN_2 | SND_JACK_BTN_3 | SND_JACK_LINEOUT,
+-			&ctx->kabylake_headset, NULL, 0);
++			&ctx->kabylake_headset);
+ 	if (ret) {
+ 		dev_err(rtd->dev, "Headset Jack creation failed: %d\n", ret);
+ 		return ret;
+@@ -965,8 +965,7 @@ static int kabylake_card_late_probe(struct snd_soc_card *card)
+ 		snprintf(jack_name, sizeof(jack_name),
+ 			"HDMI/DP, pcm=%d Jack", pcm->device);
+ 		err = snd_soc_card_jack_new(card, jack_name,
+-					SND_JACK_AVOUT, &kabylake_hdmi[i],
+-					NULL, 0);
++					SND_JACK_AVOUT, &kabylake_hdmi[i]);
+ 
+ 		if (err)
+ 			return err;
+diff --git a/sound/soc/intel/boards/kbl_rt5660.c b/sound/soc/intel/boards/kbl_rt5660.c
+index 1cb56ec363e8..2c7a547f63c9 100644
+--- a/sound/soc/intel/boards/kbl_rt5660.c
++++ b/sound/soc/intel/boards/kbl_rt5660.c
+@@ -173,9 +173,9 @@ static int kabylake_rt5660_codec_init(struct snd_soc_pcm_runtime *rtd)
+ 	}
+ 
+ 	/* Create and initialize headphone jack, this jack is not mandatory, don't return if fails */
+-	ret = snd_soc_card_jack_new(rtd->card, "Lineout Jack",
+-				    SND_JACK_LINEOUT, &lineout_jack,
+-				    &lineout_jack_pin, 1);
++	ret = snd_soc_card_jack_new_pins(rtd->card, "Lineout Jack",
++					 SND_JACK_LINEOUT, &lineout_jack,
++					 &lineout_jack_pin, 1);
+ 	if (ret)
+ 		dev_warn(component->dev, "Can't create Lineout jack\n");
+ 	else {
+@@ -187,9 +187,9 @@ static int kabylake_rt5660_codec_init(struct snd_soc_pcm_runtime *rtd)
+ 	}
+ 
+ 	/* Create and initialize mic jack, this jack is not mandatory, don't return if fails */
+-	ret = snd_soc_card_jack_new(rtd->card, "Mic Jack",
+-				    SND_JACK_MICROPHONE, &mic_jack,
+-				    &mic_jack_pin, 1);
++	ret = snd_soc_card_jack_new_pins(rtd->card, "Mic Jack",
++					 SND_JACK_MICROPHONE, &mic_jack,
++					 &mic_jack_pin, 1);
+ 	if (ret)
+ 		dev_warn(component->dev, "Can't create mic jack\n");
+ 	else {
+@@ -485,8 +485,7 @@ static int kabylake_card_late_probe(struct snd_soc_card *card)
+ 		snprintf(jack_name, sizeof(jack_name),
+ 			"HDMI/DP, pcm=%d Jack", pcm->device);
+ 		err = snd_soc_card_jack_new(card, jack_name,
+-					SND_JACK_AVOUT, &skylake_hdmi[i],
+-					NULL, 0);
++					SND_JACK_AVOUT, &skylake_hdmi[i]);
+ 
+ 		if (err)
+ 			return err;
+diff --git a/sound/soc/intel/boards/kbl_rt5663_max98927.c b/sound/soc/intel/boards/kbl_rt5663_max98927.c
+index f24e0ce5d49f..8d37b2676a81 100644
+--- a/sound/soc/intel/boards/kbl_rt5663_max98927.c
++++ b/sound/soc/intel/boards/kbl_rt5663_max98927.c
+@@ -273,8 +273,8 @@ static int kabylake_rt5663_codec_init(struct snd_soc_pcm_runtime *rtd)
+ 	 */
+ 	ret = snd_soc_card_jack_new(kabylake_audio_card, "Headset Jack",
+ 			SND_JACK_HEADSET | SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+-			SND_JACK_BTN_2 | SND_JACK_BTN_3, &ctx->kabylake_headset,
+-			NULL, 0);
++			SND_JACK_BTN_2 | SND_JACK_BTN_3,
++			&ctx->kabylake_headset);
+ 	if (ret) {
+ 		dev_err(rtd->dev, "Headset Jack creation failed %d\n", ret);
+ 		return ret;
+@@ -919,8 +919,7 @@ static int kabylake_card_late_probe(struct snd_soc_card *card)
+ 		snprintf(jack_name, sizeof(jack_name),
+ 			"HDMI/DP, pcm=%d Jack", pcm->device);
+ 		err = snd_soc_card_jack_new(card, jack_name,
+-					SND_JACK_AVOUT, &skylake_hdmi[i],
+-					NULL, 0);
++					SND_JACK_AVOUT, &skylake_hdmi[i]);
+ 
+ 		if (err)
+ 			return err;
+diff --git a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c b/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
+index 6874e981c8df..564c70a0fbc8 100644
+--- a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
++++ b/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
+@@ -230,8 +230,8 @@ static int kabylake_rt5663_codec_init(struct snd_soc_pcm_runtime *rtd)
+ 	 */
+ 	ret = snd_soc_card_jack_new(&kabylake_audio_card, "Headset Jack",
+ 			SND_JACK_HEADSET | SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+-			SND_JACK_BTN_2 | SND_JACK_BTN_3, &ctx->kabylake_headset,
+-			NULL, 0);
++			SND_JACK_BTN_2 | SND_JACK_BTN_3,
++			&ctx->kabylake_headset);
+ 	if (ret) {
+ 		dev_err(rtd->dev, "Headset Jack creation failed %d\n", ret);
+ 		return ret;
+@@ -743,8 +743,7 @@ static int kabylake_card_late_probe(struct snd_soc_card *card)
+ 		snprintf(jack_name, sizeof(jack_name),
+ 			"HDMI/DP,pcm=%d Jack", pcm->device);
+ 		err = snd_soc_card_jack_new(card, jack_name,
+-				SND_JACK_AVOUT, &ctx->kabylake_hdmi[i],
+-				NULL, 0);
++				SND_JACK_AVOUT, &ctx->kabylake_hdmi[i]);
+ 
+ 		if (err)
+ 			return err;
+diff --git a/sound/soc/intel/boards/skl_hda_dsp_common.c b/sound/soc/intel/boards/skl_hda_dsp_common.c
+index 07bfb2e64b3b..e9cefa4ae56d 100644
+--- a/sound/soc/intel/boards/skl_hda_dsp_common.c
++++ b/sound/soc/intel/boards/skl_hda_dsp_common.c
+@@ -150,17 +150,11 @@ int skl_hda_hdmi_jack_init(struct snd_soc_card *card)
+ 		snprintf(jack_name, sizeof(jack_name),
+ 			 "HDMI/DP, pcm=%d Jack", pcm->device);
+ 		err = snd_soc_card_jack_new(card, jack_name,
+-					    SND_JACK_AVOUT, &pcm->hdmi_jack,
+-					    NULL, 0);
++					    SND_JACK_AVOUT, &pcm->hdmi_jack);
+ 
+ 		if (err)
+ 			return err;
+ 
+-		err = snd_jack_add_new_kctl(pcm->hdmi_jack.jack,
+-					    jack_name, SND_JACK_AVOUT);
+-		if (err)
+-			dev_warn(component->dev, "failed creating Jack kctl\n");
+-
+ 		err = hdac_hdmi_jack_init(pcm->codec_dai, pcm->device,
+ 					  &pcm->hdmi_jack);
+ 		if (err < 0)
+diff --git a/sound/soc/intel/boards/skl_nau88l25_max98357a.c b/sound/soc/intel/boards/skl_nau88l25_max98357a.c
+index 7297eb05613c..8e2d03e36079 100644
+--- a/sound/soc/intel/boards/skl_nau88l25_max98357a.c
++++ b/sound/soc/intel/boards/skl_nau88l25_max98357a.c
+@@ -165,8 +165,7 @@ static int skylake_nau8825_codec_init(struct snd_soc_pcm_runtime *rtd)
+ 	 */
+ 	ret = snd_soc_card_jack_new(&skylake_audio_card, "Headset Jack",
+ 			SND_JACK_HEADSET | SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+-			SND_JACK_BTN_2 | SND_JACK_BTN_3, &skylake_headset,
+-			NULL, 0);
++			SND_JACK_BTN_2 | SND_JACK_BTN_3, &skylake_headset);
+ 	if (ret) {
+ 		dev_err(rtd->dev, "Headset Jack creation failed %d\n", ret);
+ 		return ret;
+@@ -610,8 +609,7 @@ static int skylake_card_late_probe(struct snd_soc_card *card)
+ 			"HDMI/DP, pcm=%d Jack", pcm->device);
+ 		err = snd_soc_card_jack_new(card, jack_name,
+ 					SND_JACK_AVOUT,
+-					&skylake_hdmi[i],
+-					NULL, 0);
++					&skylake_hdmi[i]);
+ 
+ 		if (err)
+ 			return err;
+diff --git a/sound/soc/intel/boards/skl_nau88l25_ssm4567.c b/sound/soc/intel/boards/skl_nau88l25_ssm4567.c
+index 68efde1633b3..501f0bbfc404 100644
+--- a/sound/soc/intel/boards/skl_nau88l25_ssm4567.c
++++ b/sound/soc/intel/boards/skl_nau88l25_ssm4567.c
+@@ -184,8 +184,7 @@ static int skylake_nau8825_codec_init(struct snd_soc_pcm_runtime *rtd)
+ 	 */
+ 	ret = snd_soc_card_jack_new(&skylake_audio_card, "Headset Jack",
+ 		SND_JACK_HEADSET | SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+-		SND_JACK_BTN_2 | SND_JACK_BTN_3, &skylake_headset,
+-		NULL, 0);
++		SND_JACK_BTN_2 | SND_JACK_BTN_3, &skylake_headset);
+ 	if (ret) {
+ 		dev_err(rtd->dev, "Headset Jack creation failed %d\n", ret);
+ 		return ret;
+@@ -651,8 +650,7 @@ static int skylake_card_late_probe(struct snd_soc_card *card)
+ 			"HDMI/DP, pcm=%d Jack", pcm->device);
+ 		err = snd_soc_card_jack_new(card, jack_name,
+ 					SND_JACK_AVOUT,
+-					&skylake_hdmi[i],
+-					NULL, 0);
++					&skylake_hdmi[i]);
+ 
+ 		if (err)
+ 			return err;
+diff --git a/sound/soc/intel/boards/skl_rt286.c b/sound/soc/intel/boards/skl_rt286.c
+index eca4a78668af..e9f9520dcea4 100644
+--- a/sound/soc/intel/boards/skl_rt286.c
++++ b/sound/soc/intel/boards/skl_rt286.c
+@@ -125,7 +125,7 @@ static int skylake_rt286_codec_init(struct snd_soc_pcm_runtime *rtd)
+ 	struct snd_soc_component *component = asoc_rtd_to_codec(rtd, 0)->component;
+ 	int ret;
+ 
+-	ret = snd_soc_card_jack_new(rtd->card, "Headset",
++	ret = snd_soc_card_jack_new_pins(rtd->card, "Headset",
+ 		SND_JACK_HEADSET | SND_JACK_BTN_0,
+ 		&skylake_headset,
+ 		skylake_headset_pins, ARRAY_SIZE(skylake_headset_pins));
+@@ -491,8 +491,7 @@ static int skylake_card_late_probe(struct snd_soc_card *card)
+ 		snprintf(jack_name, sizeof(jack_name),
+ 			"HDMI/DP, pcm=%d Jack", pcm->device);
+ 		err = snd_soc_card_jack_new(card, jack_name,
+-					SND_JACK_AVOUT, &skylake_hdmi[i],
+-					NULL, 0);
++					SND_JACK_AVOUT, &skylake_hdmi[i]);
+ 
+ 		if (err)
+ 			return err;
+diff --git a/sound/soc/intel/boards/sof_cs42l42.c b/sound/soc/intel/boards/sof_cs42l42.c
+index ce78c1879887..6a979c333bc5 100644
+--- a/sound/soc/intel/boards/sof_cs42l42.c
++++ b/sound/soc/intel/boards/sof_cs42l42.c
+@@ -102,7 +102,7 @@ static int sof_cs42l42_init(struct snd_soc_pcm_runtime *rtd)
+ 				    SND_JACK_HEADSET | SND_JACK_BTN_0 |
+ 				    SND_JACK_BTN_1 | SND_JACK_BTN_2 |
+ 				    SND_JACK_BTN_3,
+-				    jack, NULL, 0);
++				    jack);
+ 	if (ret) {
+ 		dev_err(rtd->dev, "Headset Jack creation failed: %d\n", ret);
+ 		return ret;
+@@ -186,8 +186,7 @@ static int sof_card_late_probe(struct snd_soc_card *card)
+ 		snprintf(jack_name, sizeof(jack_name),
+ 			 "HDMI/DP, pcm=%d Jack", pcm->device);
+ 		err = snd_soc_card_jack_new(card, jack_name,
+-					    SND_JACK_AVOUT, &pcm->hdmi_jack,
+-					    NULL, 0);
++					    SND_JACK_AVOUT, &pcm->hdmi_jack);
+ 
+ 		if (err)
+ 			return err;
+diff --git a/sound/soc/intel/boards/sof_da7219_max98373.c b/sound/soc/intel/boards/sof_da7219_max98373.c
+index b7b3b0bf994a..a83f30b687cf 100644
+--- a/sound/soc/intel/boards/sof_da7219_max98373.c
++++ b/sound/soc/intel/boards/sof_da7219_max98373.c
+@@ -160,7 +160,7 @@ static int da7219_codec_init(struct snd_soc_pcm_runtime *rtd)
+ 				    SND_JACK_HEADSET | SND_JACK_BTN_0 |
+ 				    SND_JACK_BTN_1 | SND_JACK_BTN_2 |
+ 				    SND_JACK_BTN_3 | SND_JACK_LINEOUT,
+-				    &headset, NULL, 0);
++				    &headset);
+ 	if (ret) {
+ 		dev_err(rtd->dev, "Headset Jack creation failed: %d\n", ret);
+ 		return ret;
+diff --git a/sound/soc/intel/boards/sof_es8336.c b/sound/soc/intel/boards/sof_es8336.c
+index 5e0529aa4f1d..2c3342a502ff 100644
+--- a/sound/soc/intel/boards/sof_es8336.c
++++ b/sound/soc/intel/boards/sof_es8336.c
+@@ -206,10 +206,10 @@ static int sof_es8316_init(struct snd_soc_pcm_runtime *runtime)
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = snd_soc_card_jack_new(card, "Headset",
+-				    SND_JACK_HEADSET | SND_JACK_BTN_0,
+-				    &priv->jack, sof_es8316_jack_pins,
+-				    ARRAY_SIZE(sof_es8316_jack_pins));
++	ret = snd_soc_card_jack_new_pins(card, "Headset",
++					 SND_JACK_HEADSET | SND_JACK_BTN_0,
++					 &priv->jack, sof_es8316_jack_pins,
++					 ARRAY_SIZE(sof_es8316_jack_pins));
+ 	if (ret) {
+ 		dev_err(card->dev, "jack creation failed %d\n", ret);
+ 		return ret;
+diff --git a/sound/soc/intel/boards/sof_nau8825.c b/sound/soc/intel/boards/sof_nau8825.c
+index 33de043b66c6..97dcd204a246 100644
+--- a/sound/soc/intel/boards/sof_nau8825.c
++++ b/sound/soc/intel/boards/sof_nau8825.c
+@@ -97,7 +97,7 @@ static int sof_nau8825_codec_init(struct snd_soc_pcm_runtime *rtd)
+ 				    SND_JACK_HEADSET | SND_JACK_BTN_0 |
+ 				    SND_JACK_BTN_1 | SND_JACK_BTN_2 |
+ 				    SND_JACK_BTN_3,
+-				    &ctx->sof_headset, NULL, 0);
++				    &ctx->sof_headset);
+ 	if (ret) {
+ 		dev_err(rtd->dev, "Headset Jack creation failed: %d\n", ret);
+ 		return ret;
+diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
+index ebec4d15edaa..e1716e2b6041 100644
+--- a/sound/soc/intel/boards/sof_rt5682.c
++++ b/sound/soc/intel/boards/sof_rt5682.c
+@@ -285,7 +285,7 @@ static int sof_rt5682_codec_init(struct snd_soc_pcm_runtime *rtd)
+ 				    SND_JACK_HEADSET | SND_JACK_BTN_0 |
+ 				    SND_JACK_BTN_1 | SND_JACK_BTN_2 |
+ 				    SND_JACK_BTN_3,
+-				    &ctx->sof_headset, NULL, 0);
++				    &ctx->sof_headset);
+ 	if (ret) {
+ 		dev_err(rtd->dev, "Headset Jack creation failed: %d\n", ret);
+ 		return ret;
+@@ -441,8 +441,7 @@ static int sof_card_late_probe(struct snd_soc_card *card)
+ 		snprintf(jack_name, sizeof(jack_name),
+ 			 "HDMI/DP, pcm=%d Jack", pcm->device);
+ 		err = snd_soc_card_jack_new(card, jack_name,
+-					    SND_JACK_AVOUT, &sof_hdmi[i],
+-					    NULL, 0);
++					    SND_JACK_AVOUT, &sof_hdmi[i]);
+ 
+ 		if (err)
+ 			return err;
+diff --git a/sound/soc/intel/boards/sof_sdw_rt5682.c b/sound/soc/intel/boards/sof_sdw_rt5682.c
+index ea55479609a8..3a9be8211586 100644
+--- a/sound/soc/intel/boards/sof_sdw_rt5682.c
++++ b/sound/soc/intel/boards/sof_sdw_rt5682.c
+@@ -82,13 +82,13 @@ static int rt5682_rtd_init(struct snd_soc_pcm_runtime *rtd)
+ 		return ret;
+ 	}
+ 
+-	ret = snd_soc_card_jack_new(rtd->card, "Headset Jack",
+-				    SND_JACK_HEADSET | SND_JACK_BTN_0 |
+-				    SND_JACK_BTN_1 | SND_JACK_BTN_2 |
+-				    SND_JACK_BTN_3,
+-				    &ctx->sdw_headset,
+-				    rt5682_jack_pins,
+-				    ARRAY_SIZE(rt5682_jack_pins));
++	ret = snd_soc_card_jack_new_pins(rtd->card, "Headset Jack",
++					 SND_JACK_HEADSET | SND_JACK_BTN_0 |
++					 SND_JACK_BTN_1 | SND_JACK_BTN_2 |
++					 SND_JACK_BTN_3,
++					 &ctx->sdw_headset,
++					 rt5682_jack_pins,
++					 ARRAY_SIZE(rt5682_jack_pins));
+ 	if (ret) {
+ 		dev_err(rtd->card->dev, "Headset Jack creation failed: %d\n",
+ 			ret);
+diff --git a/sound/soc/intel/boards/sof_sdw_rt700.c b/sound/soc/intel/boards/sof_sdw_rt700.c
+index bb9584c8f866..c93b1f5b9440 100644
+--- a/sound/soc/intel/boards/sof_sdw_rt700.c
++++ b/sound/soc/intel/boards/sof_sdw_rt700.c
+@@ -82,13 +82,13 @@ static int rt700_rtd_init(struct snd_soc_pcm_runtime *rtd)
+ 		return ret;
+ 	}
+ 
+-	ret = snd_soc_card_jack_new(rtd->card, "Headset Jack",
+-				    SND_JACK_HEADSET | SND_JACK_BTN_0 |
+-				    SND_JACK_BTN_1 | SND_JACK_BTN_2 |
+-				    SND_JACK_BTN_3,
+-				    &ctx->sdw_headset,
+-				    rt700_jack_pins,
+-				    ARRAY_SIZE(rt700_jack_pins));
++	ret = snd_soc_card_jack_new_pins(rtd->card, "Headset Jack",
++					 SND_JACK_HEADSET | SND_JACK_BTN_0 |
++					 SND_JACK_BTN_1 | SND_JACK_BTN_2 |
++					 SND_JACK_BTN_3,
++					 &ctx->sdw_headset,
++					 rt700_jack_pins,
++					 ARRAY_SIZE(rt700_jack_pins));
+ 	if (ret) {
+ 		dev_err(rtd->card->dev, "Headset Jack creation failed: %d\n",
+ 			ret);
+diff --git a/sound/soc/intel/boards/sof_sdw_rt711.c b/sound/soc/intel/boards/sof_sdw_rt711.c
+index c38b70c9fac3..49ff0871e9e7 100644
+--- a/sound/soc/intel/boards/sof_sdw_rt711.c
++++ b/sound/soc/intel/boards/sof_sdw_rt711.c
+@@ -106,13 +106,13 @@ static int rt711_rtd_init(struct snd_soc_pcm_runtime *rtd)
+ 		return ret;
+ 	}
+ 
+-	ret = snd_soc_card_jack_new(rtd->card, "Headset Jack",
+-				    SND_JACK_HEADSET | SND_JACK_BTN_0 |
+-				    SND_JACK_BTN_1 | SND_JACK_BTN_2 |
+-				    SND_JACK_BTN_3,
+-				    &ctx->sdw_headset,
+-				    rt711_jack_pins,
+-				    ARRAY_SIZE(rt711_jack_pins));
++	ret = snd_soc_card_jack_new_pins(rtd->card, "Headset Jack",
++					 SND_JACK_HEADSET | SND_JACK_BTN_0 |
++					 SND_JACK_BTN_1 | SND_JACK_BTN_2 |
++					 SND_JACK_BTN_3,
++					 &ctx->sdw_headset,
++					 rt711_jack_pins,
++					 ARRAY_SIZE(rt711_jack_pins));
+ 	if (ret) {
+ 		dev_err(rtd->card->dev, "Headset Jack creation failed: %d\n",
+ 			ret);
+diff --git a/sound/soc/intel/boards/sof_sdw_rt711_sdca.c b/sound/soc/intel/boards/sof_sdw_rt711_sdca.c
+index 4215ddc36419..b3fc32bacfa8 100644
+--- a/sound/soc/intel/boards/sof_sdw_rt711_sdca.c
++++ b/sound/soc/intel/boards/sof_sdw_rt711_sdca.c
+@@ -107,13 +107,13 @@ static int rt711_sdca_rtd_init(struct snd_soc_pcm_runtime *rtd)
+ 		return ret;
+ 	}
+ 
+-	ret = snd_soc_card_jack_new(rtd->card, "Headset Jack",
+-				    SND_JACK_HEADSET | SND_JACK_BTN_0 |
+-				    SND_JACK_BTN_1 | SND_JACK_BTN_2 |
+-				    SND_JACK_BTN_3,
+-				    &ctx->sdw_headset,
+-				    rt711_sdca_jack_pins,
+-				    ARRAY_SIZE(rt711_sdca_jack_pins));
++	ret = snd_soc_card_jack_new_pins(rtd->card, "Headset Jack",
++					 SND_JACK_HEADSET | SND_JACK_BTN_0 |
++					 SND_JACK_BTN_1 | SND_JACK_BTN_2 |
++					 SND_JACK_BTN_3,
++					 &ctx->sdw_headset,
++					 rt711_sdca_jack_pins,
++					 ARRAY_SIZE(rt711_sdca_jack_pins));
+ 	if (ret) {
+ 		dev_err(rtd->card->dev, "Headset Jack creation failed: %d\n",
+ 			ret);
+diff --git a/sound/soc/intel/boards/sof_ssp_amp.c b/sound/soc/intel/boards/sof_ssp_amp.c
+index 88530e9de543..02a27aaed92f 100644
+--- a/sound/soc/intel/boards/sof_ssp_amp.c
++++ b/sound/soc/intel/boards/sof_ssp_amp.c
+@@ -118,8 +118,7 @@ static int sof_card_late_probe(struct snd_soc_card *card)
+ 		snprintf(jack_name, sizeof(jack_name),
+ 			 "HDMI/DP, pcm=%d Jack", pcm->device);
+ 		err = snd_soc_card_jack_new(card, jack_name,
+-					    SND_JACK_AVOUT, &pcm->sof_hdmi,
+-					    NULL, 0);
++					    SND_JACK_AVOUT, &pcm->sof_hdmi);
+ 
+ 		if (err)
+ 			return err;
+diff --git a/sound/soc/mediatek/mt8173/mt8173-max98090.c b/sound/soc/mediatek/mt8173/mt8173-max98090.c
+index 4cb90da89262..5cb1eb86a22d 100644
+--- a/sound/soc/mediatek/mt8173/mt8173-max98090.c
++++ b/sound/soc/mediatek/mt8173/mt8173-max98090.c
+@@ -70,10 +70,10 @@ static int mt8173_max98090_init(struct snd_soc_pcm_runtime *runtime)
+ 	struct snd_soc_component *component = asoc_rtd_to_codec(runtime, 0)->component;
+ 
+ 	/* enable jack detection */
+-	ret = snd_soc_card_jack_new(card, "Headphone", SND_JACK_HEADPHONE,
+-				    &mt8173_max98090_jack,
+-				    mt8173_max98090_jack_pins,
+-				    ARRAY_SIZE(mt8173_max98090_jack_pins));
++	ret = snd_soc_card_jack_new_pins(card, "Headphone", SND_JACK_HEADPHONE,
++					 &mt8173_max98090_jack,
++					 mt8173_max98090_jack_pins,
++					 ARRAY_SIZE(mt8173_max98090_jack_pins));
+ 	if (ret) {
+ 		dev_err(card->dev, "Can't create a new Jack %d\n", ret);
+ 		return ret;
+diff --git a/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5514.c b/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5514.c
+index b55122b99f07..12f40c81b101 100644
+--- a/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5514.c
++++ b/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5514.c
+@@ -86,7 +86,7 @@ static int mt8173_rt5650_rt5514_init(struct snd_soc_pcm_runtime *runtime)
+ 				    SND_JACK_HEADPHONE | SND_JACK_MICROPHONE |
+ 				    SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+ 				    SND_JACK_BTN_2 | SND_JACK_BTN_3,
+-				    &mt8173_rt5650_rt5514_jack, NULL, 0);
++				    &mt8173_rt5650_rt5514_jack);
+ 	if (ret) {
+ 		dev_err(card->dev, "Can't new Headset Jack %d\n", ret);
+ 		return ret;
+diff --git a/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5676.c b/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5676.c
+index 5716d9299066..70bf312e855f 100644
+--- a/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5676.c
++++ b/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5676.c
+@@ -99,7 +99,7 @@ static int mt8173_rt5650_rt5676_init(struct snd_soc_pcm_runtime *runtime)
+ 				    SND_JACK_HEADPHONE | SND_JACK_MICROPHONE |
+ 				    SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+ 				    SND_JACK_BTN_2 | SND_JACK_BTN_3,
+-				    &mt8173_rt5650_rt5676_jack, NULL, 0);
++				    &mt8173_rt5650_rt5676_jack);
+ 	if (ret) {
+ 		dev_err(card->dev, "Can't new Headset Jack %d\n", ret);
+ 		return ret;
+diff --git a/sound/soc/mediatek/mt8173/mt8173-rt5650.c b/sound/soc/mediatek/mt8173/mt8173-rt5650.c
+index fc164f4f95f8..d1c94acb4516 100644
+--- a/sound/soc/mediatek/mt8173/mt8173-rt5650.c
++++ b/sound/soc/mediatek/mt8173/mt8173-rt5650.c
+@@ -132,7 +132,7 @@ static int mt8173_rt5650_init(struct snd_soc_pcm_runtime *runtime)
+ 				    SND_JACK_HEADPHONE | SND_JACK_MICROPHONE |
+ 				    SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+ 				    SND_JACK_BTN_2 | SND_JACK_BTN_3,
+-				    &mt8173_rt5650_jack, NULL, 0);
++				    &mt8173_rt5650_jack);
+ 	if (ret) {
+ 		dev_err(card->dev, "Can't new Headset Jack %d\n", ret);
+ 		return ret;
+@@ -149,7 +149,7 @@ static int mt8173_rt5650_hdmi_init(struct snd_soc_pcm_runtime *rtd)
+ 	int ret;
+ 
+ 	ret = snd_soc_card_jack_new(rtd->card, "HDMI Jack", SND_JACK_LINEOUT,
+-				    &mt8173_rt5650_hdmi_jack, NULL, 0);
++				    &mt8173_rt5650_hdmi_jack);
+ 	if (ret)
+ 		return ret;
+ 
+diff --git a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
+index f090dee0c7a4..b33cc9a73ed1 100644
+--- a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
++++ b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
+@@ -364,7 +364,7 @@ static int mt8183_da7219_max98357_hdmi_init(struct snd_soc_pcm_runtime *rtd)
+ 	int ret;
+ 
+ 	ret = snd_soc_card_jack_new(rtd->card, "HDMI Jack", SND_JACK_LINEOUT,
+-				    &priv->hdmi_jack, NULL, 0);
++				    &priv->hdmi_jack);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -546,8 +546,7 @@ mt8183_da7219_max98357_headset_init(struct snd_soc_component *component)
+ 				    SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+ 				    SND_JACK_BTN_2 | SND_JACK_BTN_3 |
+ 				    SND_JACK_LINEOUT,
+-				    &priv->headset_jack,
+-				    NULL, 0);
++				    &priv->headset_jack);
+ 	if (ret)
+ 		return ret;
+ 
+diff --git a/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c b/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
+index 889f9e4a96aa..ab157db78335 100644
+--- a/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
++++ b/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
+@@ -383,7 +383,7 @@ mt8183_mt6358_ts3a227_max98357_hdmi_init(struct snd_soc_pcm_runtime *rtd)
+ 	int ret;
+ 
+ 	ret = snd_soc_card_jack_new(rtd->card, "HDMI Jack", SND_JACK_LINEOUT,
+-				    &priv->hdmi_jack, NULL, 0);
++				    &priv->hdmi_jack);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -613,8 +613,7 @@ mt8183_mt6358_ts3a227_max98357_headset_init(struct snd_soc_component *component)
+ 				    SND_JACK_HEADSET |
+ 				    SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+ 				    SND_JACK_BTN_2 | SND_JACK_BTN_3,
+-				    &priv->headset_jack,
+-				    NULL, 0);
++				    &priv->headset_jack);
+ 	if (ret)
+ 		return ret;
+ 
+diff --git a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
+index ee91569c0911..730145ad9b19 100644
+--- a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
++++ b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
+@@ -316,7 +316,7 @@ static int mt8192_rt5682_init(struct snd_soc_pcm_runtime *rtd)
+ 				    SND_JACK_HEADSET | SND_JACK_BTN_0 |
+ 				    SND_JACK_BTN_1 | SND_JACK_BTN_2 |
+ 				    SND_JACK_BTN_3,
+-				    jack, NULL, 0);
++				    jack);
+ 	if (ret) {
+ 		dev_err(rtd->dev, "Headset Jack creation failed: %d\n", ret);
+ 		return ret;
+@@ -338,7 +338,7 @@ static int mt8192_mt6359_hdmi_init(struct snd_soc_pcm_runtime *rtd)
+ 	int ret;
+ 
+ 	ret = snd_soc_card_jack_new(rtd->card, "HDMI Jack", SND_JACK_LINEOUT,
+-				    &priv->hdmi_jack, NULL, 0);
++				    &priv->hdmi_jack);
+ 	if (ret) {
+ 		dev_err(rtd->dev, "HDMI Jack creation failed: %d\n", ret);
+ 		return ret;
+diff --git a/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1011-rt5682.c b/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1011-rt5682.c
+index 5443a29da7b1..66950bce50d5 100644
+--- a/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1011-rt5682.c
++++ b/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1011-rt5682.c
+@@ -341,7 +341,7 @@ static int mt8195_rt5682_init(struct snd_soc_pcm_runtime *rtd)
+ 				    SND_JACK_HEADSET | SND_JACK_BTN_0 |
+ 				    SND_JACK_BTN_1 | SND_JACK_BTN_2 |
+ 				    SND_JACK_BTN_3,
+-				    jack, NULL, 0);
++				    jack);
+ 	if (ret) {
+ 		dev_err(rtd->dev, "Headset Jack creation failed: %d\n", ret);
+ 		return ret;
+@@ -442,7 +442,7 @@ static int mt8195_dptx_codec_init(struct snd_soc_pcm_runtime *rtd)
+ 	int ret;
+ 
+ 	ret = snd_soc_card_jack_new(rtd->card, "DP Jack", SND_JACK_LINEOUT,
+-				    &priv->dp_jack, NULL, 0);
++				    &priv->dp_jack);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -458,7 +458,7 @@ static int mt8195_hdmi_codec_init(struct snd_soc_pcm_runtime *rtd)
+ 	int ret;
+ 
+ 	ret = snd_soc_card_jack_new(rtd->card, "HDMI Jack", SND_JACK_LINEOUT,
+-				    &priv->hdmi_jack, NULL, 0);
++				    &priv->hdmi_jack);
+ 	if (ret)
+ 		return ret;
+ 
+diff --git a/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c b/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c
+index e3146311722f..04c0cb747d05 100644
+--- a/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c
++++ b/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c
+@@ -331,7 +331,7 @@ static int mt8195_rt5682_init(struct snd_soc_pcm_runtime *rtd)
+ 				    SND_JACK_HEADSET | SND_JACK_BTN_0 |
+ 				    SND_JACK_BTN_1 | SND_JACK_BTN_2 |
+ 				    SND_JACK_BTN_3,
+-				    jack, NULL, 0);
++				    jack);
+ 	if (ret) {
+ 		dev_err(rtd->dev, "Headset Jack creation failed: %d\n", ret);
+ 		return ret;
+@@ -435,7 +435,7 @@ static int mt8195_dptx_codec_init(struct snd_soc_pcm_runtime *rtd)
+ 	int ret = 0;
+ 
+ 	ret = snd_soc_card_jack_new(rtd->card, "DP Jack", SND_JACK_LINEOUT,
+-				    &priv->dp_jack, NULL, 0);
++				    &priv->dp_jack);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -451,7 +451,7 @@ static int mt8195_hdmi_codec_init(struct snd_soc_pcm_runtime *rtd)
+ 	int ret = 0;
+ 
+ 	ret = snd_soc_card_jack_new(rtd->card, "HDMI Jack", SND_JACK_LINEOUT,
+-				    &priv->hdmi_jack, NULL, 0);
++				    &priv->hdmi_jack);
+ 	if (ret)
+ 		return ret;
+ 
+diff --git a/sound/soc/pxa/hx4700.c b/sound/soc/pxa/hx4700.c
+index 7334fac758de..9a816156f012 100644
+--- a/sound/soc/pxa/hx4700.c
++++ b/sound/soc/pxa/hx4700.c
+@@ -122,9 +122,9 @@ static int hx4700_ak4641_init(struct snd_soc_pcm_runtime *rtd)
+ 	int err;
+ 
+ 	/* Jack detection API stuff */
+-	err = snd_soc_card_jack_new(rtd->card, "Headphone Jack",
+-				    SND_JACK_HEADPHONE, &hs_jack, hs_jack_pin,
+-				    ARRAY_SIZE(hs_jack_pin));
++	err = snd_soc_card_jack_new_pins(rtd->card, "Headphone Jack",
++					 SND_JACK_HEADPHONE, &hs_jack,
++					 hs_jack_pin, ARRAY_SIZE(hs_jack_pin));
+ 	if (err)
+ 		return err;
+ 
+diff --git a/sound/soc/pxa/palm27x.c b/sound/soc/pxa/palm27x.c
+index b92ea1a0453f..65257f7fe4c4 100644
+--- a/sound/soc/pxa/palm27x.c
++++ b/sound/soc/pxa/palm27x.c
+@@ -71,9 +71,10 @@ static int palm27x_ac97_init(struct snd_soc_pcm_runtime *rtd)
+ 	int err;
+ 
+ 	/* Jack detection API stuff */
+-	err = snd_soc_card_jack_new(rtd->card, "Headphone Jack",
+-				    SND_JACK_HEADPHONE, &hs_jack, hs_jack_pins,
+-				    ARRAY_SIZE(hs_jack_pins));
++	err = snd_soc_card_jack_new_pins(rtd->card, "Headphone Jack",
++					 SND_JACK_HEADPHONE, &hs_jack,
++					 hs_jack_pins,
++					 ARRAY_SIZE(hs_jack_pins));
+ 	if (err)
+ 		return err;
+ 
+diff --git a/sound/soc/pxa/ttc-dkb.c b/sound/soc/pxa/ttc-dkb.c
+index d5f2961b1a3e..6cc970bb2aac 100644
+--- a/sound/soc/pxa/ttc-dkb.c
++++ b/sound/soc/pxa/ttc-dkb.c
+@@ -64,12 +64,14 @@ static int ttc_pm860x_init(struct snd_soc_pcm_runtime *rtd)
+ 	struct snd_soc_component *component = asoc_rtd_to_codec(rtd, 0)->component;
+ 
+ 	/* Headset jack detection */
+-	snd_soc_card_jack_new(rtd->card, "Headphone Jack", SND_JACK_HEADPHONE |
+-			      SND_JACK_BTN_0 | SND_JACK_BTN_1 | SND_JACK_BTN_2,
+-			      &hs_jack, hs_jack_pins, ARRAY_SIZE(hs_jack_pins));
+-	snd_soc_card_jack_new(rtd->card, "Microphone Jack", SND_JACK_MICROPHONE,
+-			      &mic_jack, mic_jack_pins,
+-			      ARRAY_SIZE(mic_jack_pins));
++	snd_soc_card_jack_new_pins(rtd->card, "Headphone Jack",
++				   SND_JACK_HEADPHONE | SND_JACK_BTN_0 |
++				   SND_JACK_BTN_1 | SND_JACK_BTN_2,
++				   &hs_jack,
++				   hs_jack_pins, ARRAY_SIZE(hs_jack_pins));
++	snd_soc_card_jack_new_pins(rtd->card, "Microphone Jack",
++				   SND_JACK_MICROPHONE, &mic_jack,
++				   mic_jack_pins, ARRAY_SIZE(mic_jack_pins));
+ 
+ 	/* headphone, microphone detection & headset short detection */
+ 	pm860x_hs_jack_detect(component, &hs_jack, SND_JACK_HEADPHONE,
+diff --git a/sound/soc/pxa/z2.c b/sound/soc/pxa/z2.c
+index edf2b9eec5b8..f4a7cfe22115 100644
+--- a/sound/soc/pxa/z2.c
++++ b/sound/soc/pxa/z2.c
+@@ -132,9 +132,10 @@ static int z2_wm8750_init(struct snd_soc_pcm_runtime *rtd)
+ 	int ret;
+ 
+ 	/* Jack detection API stuff */
+-	ret = snd_soc_card_jack_new(rtd->card, "Headset Jack", SND_JACK_HEADSET,
+-				    &hs_jack, hs_jack_pins,
+-				    ARRAY_SIZE(hs_jack_pins));
++	ret = snd_soc_card_jack_new_pins(rtd->card, "Headset Jack",
++					 SND_JACK_HEADSET, &hs_jack,
++					 hs_jack_pins,
++					 ARRAY_SIZE(hs_jack_pins));
+ 	if (ret)
+ 		goto err;
+ 
+diff --git a/sound/soc/qcom/apq8016_sbc.c b/sound/soc/qcom/apq8016_sbc.c
+index f9d69375320e..b0a4f7ca2751 100644
+--- a/sound/soc/qcom/apq8016_sbc.c
++++ b/sound/soc/qcom/apq8016_sbc.c
+@@ -96,7 +96,7 @@ static int apq8016_dai_init(struct snd_soc_pcm_runtime *rtd, int mi2s)
+ 					     SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+ 					     SND_JACK_BTN_2 | SND_JACK_BTN_3 |
+ 					     SND_JACK_BTN_4,
+-					     &pdata->jack, NULL, 0);
++					     &pdata->jack);
+ 
+ 		if (rval < 0) {
+ 			dev_err(card->dev, "Unable to add Headphone Jack\n");
+diff --git a/sound/soc/qcom/sc7180.c b/sound/soc/qcom/sc7180.c
+index 37225ef2563a..efccb5c0b3e0 100644
+--- a/sound/soc/qcom/sc7180.c
++++ b/sound/soc/qcom/sc7180.c
+@@ -57,7 +57,7 @@ static int sc7180_headset_init(struct snd_soc_pcm_runtime *rtd)
+ 			SND_JACK_HEADPHONE |
+ 			SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+ 			SND_JACK_BTN_2 | SND_JACK_BTN_3,
+-			&pdata->hs_jack, NULL, 0);
++			&pdata->hs_jack);
+ 
+ 	if (rval < 0) {
+ 		dev_err(card->dev, "Unable to add Headset Jack\n");
+@@ -89,7 +89,7 @@ static int sc7180_hdmi_init(struct snd_soc_pcm_runtime *rtd)
+ 	rval = snd_soc_card_jack_new(
+ 			card, "HDMI Jack",
+ 			SND_JACK_LINEOUT,
+-			&pdata->hdmi_jack, NULL, 0);
++			&pdata->hdmi_jack);
+ 
+ 	if (rval < 0) {
+ 		dev_err(card->dev, "Unable to add HDMI Jack\n");
+diff --git a/sound/soc/qcom/sc7280.c b/sound/soc/qcom/sc7280.c
+index bd0bf9c8cb28..a6893aded069 100644
+--- a/sound/soc/qcom/sc7280.c
++++ b/sound/soc/qcom/sc7280.c
+@@ -50,7 +50,7 @@ static int sc7280_headset_init(struct snd_soc_pcm_runtime *rtd)
+ 					     SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+ 					     SND_JACK_BTN_2 | SND_JACK_BTN_3 |
+ 					     SND_JACK_BTN_4 | SND_JACK_BTN_5,
+-					     &pdata->hs_jack, NULL, 0);
++					     &pdata->hs_jack);
+ 
+ 		if (rval < 0) {
+ 			dev_err(card->dev, "Unable to add Headset Jack\n");
+@@ -96,7 +96,7 @@ static int sc7280_hdmi_init(struct snd_soc_pcm_runtime *rtd)
+ 	int rval;
+ 
+ 	rval = snd_soc_card_jack_new(card, "HDMI Jack",	SND_JACK_LINEOUT,
+-				     &pdata->hdmi_jack, NULL, 0);
++				     &pdata->hdmi_jack);
+ 
+ 	if (rval < 0) {
+ 		dev_err(card->dev, "Unable to add HDMI Jack\n");
+diff --git a/sound/soc/qcom/sdm845.c b/sound/soc/qcom/sdm845.c
+index 5c1d13eccbee..61fda790f375 100644
+--- a/sound/soc/qcom/sdm845.c
++++ b/sound/soc/qcom/sdm845.c
+@@ -247,7 +247,7 @@ static int sdm845_dai_init(struct snd_soc_pcm_runtime *rtd)
+ 				SND_JACK_HEADPHONE |
+ 				SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+ 				SND_JACK_BTN_2 | SND_JACK_BTN_3,
+-				&pdata->jack, NULL, 0);
++				&pdata->jack);
+ 
+ 		if (rval < 0) {
+ 			dev_err(card->dev, "Unable to add Headphone Jack\n");
+diff --git a/sound/soc/qcom/sm8250.c b/sound/soc/qcom/sm8250.c
+index 114a29e01c0f..6e1184c8b672 100644
+--- a/sound/soc/qcom/sm8250.c
++++ b/sound/soc/qcom/sm8250.c
+@@ -41,7 +41,7 @@ static int sm8250_snd_init(struct snd_soc_pcm_runtime *rtd)
+ 					     SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+ 					     SND_JACK_BTN_2 | SND_JACK_BTN_3 |
+ 					     SND_JACK_BTN_4 | SND_JACK_BTN_5,
+-					     &data->jack, NULL, 0);
++					     &data->jack);
+ 
+ 		if (rval < 0) {
+ 			dev_err(card->dev, "Unable to add Headphone Jack\n");
+diff --git a/sound/soc/rockchip/rk3288_hdmi_analog.c b/sound/soc/rockchip/rk3288_hdmi_analog.c
+index b052642ea620..bcdeddeba80c 100644
+--- a/sound/soc/rockchip/rk3288_hdmi_analog.c
++++ b/sound/soc/rockchip/rk3288_hdmi_analog.c
+@@ -124,10 +124,10 @@ static int rk_init(struct snd_soc_pcm_runtime *runtime)
+ 
+ 	/* Enable Headset Jack detection */
+ 	if (gpio_is_valid(machine->gpio_hp_det)) {
+-		snd_soc_card_jack_new(runtime->card, "Headphone Jack",
+-				      SND_JACK_HEADPHONE, &headphone_jack,
+-				      headphone_jack_pins,
+-				      ARRAY_SIZE(headphone_jack_pins));
++		snd_soc_card_jack_new_pins(runtime->card, "Headphone Jack",
++					   SND_JACK_HEADPHONE, &headphone_jack,
++					   headphone_jack_pins,
++					   ARRAY_SIZE(headphone_jack_pins));
+ 		rk_hp_jack_gpio.gpio = machine->gpio_hp_det;
+ 		snd_soc_jack_add_gpios(&headphone_jack, 1, &rk_hp_jack_gpio);
+ 	}
+diff --git a/sound/soc/rockchip/rk3399_gru_sound.c b/sound/soc/rockchip/rk3399_gru_sound.c
+index eeef3ed70037..2540b9ba37c8 100644
+--- a/sound/soc/rockchip/rk3399_gru_sound.c
++++ b/sound/soc/rockchip/rk3399_gru_sound.c
+@@ -174,7 +174,7 @@ static int rockchip_sound_cdndp_init(struct snd_soc_pcm_runtime *rtd)
+ 
+ 	/* Enable jack detection. */
+ 	ret = snd_soc_card_jack_new(card, "DP Jack", SND_JACK_LINEOUT,
+-				    &cdn_dp_card_jack, NULL, 0);
++				    &cdn_dp_card_jack);
+ 	if (ret) {
+ 		dev_err(card->dev, "Can't create DP Jack %d\n", ret);
+ 		return ret;
+@@ -204,13 +204,13 @@ static int rockchip_sound_da7219_init(struct snd_soc_pcm_runtime *rtd)
+ 	}
+ 
+ 	/* Enable Headset and 4 Buttons Jack detection */
+-	ret = snd_soc_card_jack_new(rtd->card, "Headset Jack",
+-				    SND_JACK_HEADSET | SND_JACK_LINEOUT |
+-				    SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+-				    SND_JACK_BTN_2 | SND_JACK_BTN_3,
+-				    &rockchip_sound_jack,
+-				    rockchip_sound_jack_pins,
+-				    ARRAY_SIZE(rockchip_sound_jack_pins));
++	ret = snd_soc_card_jack_new_pins(rtd->card, "Headset Jack",
++					 SND_JACK_HEADSET | SND_JACK_LINEOUT |
++					 SND_JACK_BTN_0 | SND_JACK_BTN_1 |
++					 SND_JACK_BTN_2 | SND_JACK_BTN_3,
++					 &rockchip_sound_jack,
++					 rockchip_sound_jack_pins,
++					 ARRAY_SIZE(rockchip_sound_jack_pins));
+ 
+ 	if (ret) {
+ 		dev_err(rtd->card->dev, "New Headset Jack failed! (%d)\n", ret);
+diff --git a/sound/soc/rockchip/rockchip_max98090.c b/sound/soc/rockchip/rockchip_max98090.c
+index c8f1a28a92b7..150ac524a590 100644
+--- a/sound/soc/rockchip/rockchip_max98090.c
++++ b/sound/soc/rockchip/rockchip_max98090.c
+@@ -231,7 +231,7 @@ static int rk_hdmi_init(struct snd_soc_pcm_runtime *runtime)
+ 
+ 	/* enable jack detection */
+ 	ret = snd_soc_card_jack_new(card, "HDMI Jack", SND_JACK_LINEOUT,
+-				    &rk_hdmi_jack, NULL, 0);
++				    &rk_hdmi_jack);
+ 	if (ret) {
+ 		dev_err(card->dev, "Can't new HDMI Jack %d\n", ret);
+ 		return ret;
+@@ -345,13 +345,13 @@ static int rk_98090_headset_init(struct snd_soc_component *component)
+ 	int ret;
+ 
+ 	/* Enable Headset and 4 Buttons Jack detection */
+-	ret = snd_soc_card_jack_new(component->card, "Headset Jack",
+-				    SND_JACK_HEADSET |
+-				    SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+-				    SND_JACK_BTN_2 | SND_JACK_BTN_3,
+-				    &headset_jack,
+-				    headset_jack_pins,
+-				    ARRAY_SIZE(headset_jack_pins));
++	ret = snd_soc_card_jack_new_pins(component->card, "Headset Jack",
++					 SND_JACK_HEADSET |
++					 SND_JACK_BTN_0 | SND_JACK_BTN_1 |
++					 SND_JACK_BTN_2 | SND_JACK_BTN_3,
++					 &headset_jack,
++					 headset_jack_pins,
++					 ARRAY_SIZE(headset_jack_pins));
+ 	if (ret)
+ 		return ret;
+ 
+diff --git a/sound/soc/rockchip/rockchip_rt5645.c b/sound/soc/rockchip/rockchip_rt5645.c
+index 16ca2ad92426..d07cc5c813f2 100644
+--- a/sound/soc/rockchip/rockchip_rt5645.c
++++ b/sound/soc/rockchip/rockchip_rt5645.c
+@@ -107,7 +107,7 @@ static int rk_init(struct snd_soc_pcm_runtime *runtime)
+ 				    SND_JACK_HEADPHONE | SND_JACK_MICROPHONE |
+ 				    SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+ 				    SND_JACK_BTN_2 | SND_JACK_BTN_3,
+-				    &headset_jack, NULL, 0);
++				    &headset_jack);
+ 	if (ret) {
+ 		dev_err(card->dev, "New Headset Jack failed! (%d)\n", ret);
+ 		return ret;
+diff --git a/sound/soc/samsung/aries_wm8994.c b/sound/soc/samsung/aries_wm8994.c
+index 5265e546b124..5b5fc66885e1 100644
+--- a/sound/soc/samsung/aries_wm8994.c
++++ b/sound/soc/samsung/aries_wm8994.c
+@@ -343,7 +343,7 @@ static int aries_late_probe(struct snd_soc_card *card)
+ 	struct aries_wm8994_data *priv = snd_soc_card_get_drvdata(card);
+ 	int ret, irq;
+ 
+-	ret = snd_soc_card_jack_new(card, "Dock", SND_JACK_LINEOUT,
++	ret = snd_soc_card_jack_new_pins(card, "Dock", SND_JACK_LINEOUT,
+ 			&aries_dock, dock_pins, ARRAY_SIZE(dock_pins));
+ 	if (ret)
+ 		return ret;
+@@ -361,7 +361,7 @@ static int aries_late_probe(struct snd_soc_card *card)
+ 	else
+ 		snd_soc_jack_report(&aries_dock, 0, SND_JACK_LINEOUT);
+ 
+-	ret = snd_soc_card_jack_new(card, "Headset",
++	ret = snd_soc_card_jack_new_pins(card, "Headset",
+ 			SND_JACK_HEADSET | SND_JACK_BTN_0,
+ 			&aries_headset,
+ 			jack_pins, ARRAY_SIZE(jack_pins));
+diff --git a/sound/soc/samsung/h1940_uda1380.c b/sound/soc/samsung/h1940_uda1380.c
+index c994e67d1eaf..907266aee839 100644
+--- a/sound/soc/samsung/h1940_uda1380.c
++++ b/sound/soc/samsung/h1940_uda1380.c
+@@ -151,7 +151,8 @@ static const struct snd_soc_dapm_route audio_map[] = {
+ 
+ static int h1940_uda1380_init(struct snd_soc_pcm_runtime *rtd)
+ {
+-	snd_soc_card_jack_new(rtd->card, "Headphone Jack", SND_JACK_HEADPHONE,
++	snd_soc_card_jack_new_pins(rtd->card, "Headphone Jack",
++		SND_JACK_HEADPHONE,
+ 		&hp_jack, hp_jack_pins, ARRAY_SIZE(hp_jack_pins));
+ 
+ 	snd_soc_jack_add_gpios(&hp_jack, ARRAY_SIZE(hp_jack_gpios),
+diff --git a/sound/soc/samsung/littlemill.c b/sound/soc/samsung/littlemill.c
+index 34067cc314ff..f3dfe3558b77 100644
+--- a/sound/soc/samsung/littlemill.c
++++ b/sound/soc/samsung/littlemill.c
+@@ -285,7 +285,7 @@ static int littlemill_late_probe(struct snd_soc_card *card)
+ 				    SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+ 				    SND_JACK_BTN_2 | SND_JACK_BTN_3 |
+ 				    SND_JACK_BTN_4 | SND_JACK_BTN_5,
+-				    &littlemill_headset, NULL, 0);
++				    &littlemill_headset);
+ 	if (ret)
+ 		return ret;
+ 
+diff --git a/sound/soc/samsung/lowland.c b/sound/soc/samsung/lowland.c
+index 7b12ccd2a9b2..b1ac8e89faf4 100644
+--- a/sound/soc/samsung/lowland.c
++++ b/sound/soc/samsung/lowland.c
+@@ -51,10 +51,11 @@ static int lowland_wm5100_init(struct snd_soc_pcm_runtime *rtd)
+ 		return ret;
+ 	}
+ 
+-	ret = snd_soc_card_jack_new(rtd->card, "Headset", SND_JACK_LINEOUT |
+-				    SND_JACK_HEADSET | SND_JACK_BTN_0,
+-				    &lowland_headset, lowland_headset_pins,
+-				    ARRAY_SIZE(lowland_headset_pins));
++	ret = snd_soc_card_jack_new_pins(rtd->card, "Headset",
++					 SND_JACK_LINEOUT | SND_JACK_HEADSET |
++					 SND_JACK_BTN_0,
++					 &lowland_headset, lowland_headset_pins,
++					 ARRAY_SIZE(lowland_headset_pins));
+ 	if (ret)
+ 		return ret;
+ 
+diff --git a/sound/soc/samsung/midas_wm1811.c b/sound/soc/samsung/midas_wm1811.c
+index 5e9dc18687cc..6931b9a45b3e 100644
+--- a/sound/soc/samsung/midas_wm1811.c
++++ b/sound/soc/samsung/midas_wm1811.c
+@@ -309,7 +309,7 @@ static int midas_late_probe(struct snd_soc_card *card)
+ 			SND_JACK_HEADSET | SND_JACK_MECHANICAL |
+ 			SND_JACK_BTN_0 | SND_JACK_BTN_1 | SND_JACK_BTN_2 |
+ 			SND_JACK_BTN_3 | SND_JACK_BTN_4 | SND_JACK_BTN_5,
+-			&priv->headset_jack, NULL, 0);
++			&priv->headset_jack);
+ 	if (ret)
+ 		return ret;
+ 
+diff --git a/sound/soc/samsung/rx1950_uda1380.c b/sound/soc/samsung/rx1950_uda1380.c
+index 6ea1c8cc9167..ff3acc94a454 100644
+--- a/sound/soc/samsung/rx1950_uda1380.c
++++ b/sound/soc/samsung/rx1950_uda1380.c
+@@ -201,7 +201,8 @@ static int rx1950_hw_params(struct snd_pcm_substream *substream,
+ 
+ static int rx1950_uda1380_init(struct snd_soc_pcm_runtime *rtd)
+ {
+-	snd_soc_card_jack_new(rtd->card, "Headphone Jack", SND_JACK_HEADPHONE,
++	snd_soc_card_jack_new_pins(rtd->card, "Headphone Jack",
++		SND_JACK_HEADPHONE,
+ 		&hp_jack, hp_jack_pins, ARRAY_SIZE(hp_jack_pins));
+ 
+ 	snd_soc_jack_add_gpios(&hp_jack, ARRAY_SIZE(hp_jack_gpios),
+diff --git a/sound/soc/samsung/smartq_wm8987.c b/sound/soc/samsung/smartq_wm8987.c
+index cee39ad16667..29bf917242fe 100644
+--- a/sound/soc/samsung/smartq_wm8987.c
++++ b/sound/soc/samsung/smartq_wm8987.c
+@@ -139,10 +139,10 @@ static int smartq_wm8987_init(struct snd_soc_pcm_runtime *rtd)
+ 	snd_soc_dapm_nc_pin(dapm, "ROUT1");
+ 
+ 	/* Headphone jack detection */
+-	err = snd_soc_card_jack_new(rtd->card, "Headphone Jack",
+-				    SND_JACK_HEADPHONE, &smartq_jack,
+-				    smartq_jack_pins,
+-				    ARRAY_SIZE(smartq_jack_pins));
++	err = snd_soc_card_jack_new_pins(rtd->card, "Headphone Jack",
++					 SND_JACK_HEADPHONE, &smartq_jack,
++					 smartq_jack_pins,
++					 ARRAY_SIZE(smartq_jack_pins));
+ 	if (err)
+ 		return err;
+ 
+diff --git a/sound/soc/samsung/speyside.c b/sound/soc/samsung/speyside.c
+index 37b1f4f60b21..221b54045d0b 100644
+--- a/sound/soc/samsung/speyside.c
++++ b/sound/soc/samsung/speyside.c
+@@ -156,10 +156,12 @@ static int speyside_wm8996_init(struct snd_soc_pcm_runtime *rtd)
+ 		pr_err("Failed to request HP_SEL GPIO: %d\n", ret);
+ 	gpio_direction_output(WM8996_HPSEL_GPIO, speyside_jack_polarity);
+ 
+-	ret = snd_soc_card_jack_new(rtd->card, "Headset", SND_JACK_LINEOUT |
+-				    SND_JACK_HEADSET | SND_JACK_BTN_0,
+-				    &speyside_headset, speyside_headset_pins,
+-				    ARRAY_SIZE(speyside_headset_pins));
++	ret = snd_soc_card_jack_new_pins(rtd->card, "Headset",
++					 SND_JACK_LINEOUT | SND_JACK_HEADSET |
++					 SND_JACK_BTN_0,
++					 &speyside_headset,
++					 speyside_headset_pins,
++					 ARRAY_SIZE(speyside_headset_pins));
+ 	if (ret)
+ 		return ret;
+ 
+diff --git a/sound/soc/samsung/tobermory.c b/sound/soc/samsung/tobermory.c
+index 8d3149a47a4c..ff8e6463e283 100644
+--- a/sound/soc/samsung/tobermory.c
++++ b/sound/soc/samsung/tobermory.c
+@@ -189,10 +189,10 @@ static int tobermory_late_probe(struct snd_soc_card *card)
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	ret = snd_soc_card_jack_new(card, "Headset", SND_JACK_HEADSET |
+-				    SND_JACK_BTN_0, &tobermory_headset,
+-				    tobermory_headset_pins,
+-				    ARRAY_SIZE(tobermory_headset_pins));
++	ret = snd_soc_card_jack_new_pins(card, "Headset", SND_JACK_HEADSET |
++					 SND_JACK_BTN_0, &tobermory_headset,
++					 tobermory_headset_pins,
++					 ARRAY_SIZE(tobermory_headset_pins));
+ 	if (ret)
+ 		return ret;
+ 
+diff --git a/sound/soc/soc-card.c b/sound/soc/soc-card.c
+index 41c586b86dc3..4158f5aacfd3 100644
+--- a/sound/soc/soc-card.c
++++ b/sound/soc/soc-card.c
+@@ -42,8 +42,42 @@ struct snd_kcontrol *snd_soc_card_get_kcontrol(struct snd_soc_card *soc_card,
+ }
+ EXPORT_SYMBOL_GPL(snd_soc_card_get_kcontrol);
+ 
++static int jack_new(struct snd_soc_card *card, const char *id, int type,
++		    struct snd_soc_jack *jack, bool initial_kctl)
++{
++	mutex_init(&jack->mutex);
++	jack->card = card;
++	INIT_LIST_HEAD(&jack->pins);
++	INIT_LIST_HEAD(&jack->jack_zones);
++	BLOCKING_INIT_NOTIFIER_HEAD(&jack->notifier);
++
++	return snd_jack_new(card->snd_card, id, type, &jack->jack, initial_kctl, false);
++}
++
+ /**
+- * snd_soc_card_jack_new - Create a new jack
++ * snd_soc_card_jack_new - Create a new jack without pins
++ * @card:  ASoC card
++ * @id:    an identifying string for this jack
++ * @type:  a bitmask of enum snd_jack_type values that can be detected by
++ *         this jack
++ * @jack:  structure to use for the jack
++ *
++ * Creates a new jack object without pins. If adding pins later,
++ * snd_soc_card_jack_new_pins() should be used instead with 0 as num_pins
++ * argument.
++ *
++ * Returns zero if successful, or a negative error code on failure.
++ * On success jack will be initialised.
++ */
++int snd_soc_card_jack_new(struct snd_soc_card *card, const char *id, int type,
++			  struct snd_soc_jack *jack)
++{
++	return soc_card_ret(card, jack_new(card, id, type, jack, true));
++}
++EXPORT_SYMBOL_GPL(snd_soc_card_jack_new);
++
++/**
++ * snd_soc_card_jack_new_pins - Create a new jack with pins
+  * @card:  ASoC card
+  * @id:    an identifying string for this jack
+  * @type:  a bitmask of enum snd_jack_type values that can be detected by
+@@ -52,24 +86,20 @@ EXPORT_SYMBOL_GPL(snd_soc_card_get_kcontrol);
+  * @pins:  Array of jack pins to be added to the jack or NULL
+  * @num_pins: Number of elements in the @pins array
+  *
+- * Creates a new jack object.
++ * Creates a new jack object with pins. If not adding pins,
++ * snd_soc_card_jack_new() should be used instead.
+  *
+  * Returns zero if successful, or a negative error code on failure.
+  * On success jack will be initialised.
+  */
+-int snd_soc_card_jack_new(struct snd_soc_card *card, const char *id, int type,
+-			  struct snd_soc_jack *jack,
+-			  struct snd_soc_jack_pin *pins, unsigned int num_pins)
++int snd_soc_card_jack_new_pins(struct snd_soc_card *card, const char *id,
++			       int type, struct snd_soc_jack *jack,
++			       struct snd_soc_jack_pin *pins,
++			       unsigned int num_pins)
+ {
+ 	int ret;
+ 
+-	mutex_init(&jack->mutex);
+-	jack->card = card;
+-	INIT_LIST_HEAD(&jack->pins);
+-	INIT_LIST_HEAD(&jack->jack_zones);
+-	BLOCKING_INIT_NOTIFIER_HEAD(&jack->notifier);
+-
+-	ret = snd_jack_new(card->snd_card, id, type, &jack->jack, false, false);
++	ret = jack_new(card, id, type, jack, false);
+ 	if (ret)
+ 		goto end;
+ 
+@@ -78,7 +108,7 @@ int snd_soc_card_jack_new(struct snd_soc_card *card, const char *id, int type,
+ end:
+ 	return soc_card_ret(card, ret);
+ }
+-EXPORT_SYMBOL_GPL(snd_soc_card_jack_new);
++EXPORT_SYMBOL_GPL(snd_soc_card_jack_new_pins);
+ 
+ int snd_soc_card_suspend_pre(struct snd_soc_card *card)
+ {
+diff --git a/sound/soc/soc-jack.c b/sound/soc/soc-jack.c
+index d798765d168c..fcece5ca38c6 100644
+--- a/sound/soc/soc-jack.c
++++ b/sound/soc/soc-jack.c
+@@ -126,7 +126,7 @@ EXPORT_SYMBOL_GPL(snd_soc_jack_get_type);
+ /**
+  * snd_soc_jack_add_pins - Associate DAPM pins with an ASoC jack
+  *
+- * @jack:  ASoC jack
++ * @jack:  ASoC jack created with snd_soc_card_jack_new_pins()
+  * @count: Number of pins
+  * @pins:  Array of pins
+  *
+diff --git a/sound/soc/tegra/tegra_asoc_machine.c b/sound/soc/tegra/tegra_asoc_machine.c
+index a73404879aa1..78faa8bcae27 100644
+--- a/sound/soc/tegra/tegra_asoc_machine.c
++++ b/sound/soc/tegra/tegra_asoc_machine.c
+@@ -133,11 +133,11 @@ int tegra_asoc_machine_init(struct snd_soc_pcm_runtime *rtd)
+ 		else
+ 			jack_name = "Headphones Jack";
+ 
+-		err = snd_soc_card_jack_new(card, jack_name,
+-					    SND_JACK_HEADPHONE,
+-					    &tegra_machine_hp_jack,
+-					    tegra_machine_hp_jack_pins,
+-					    ARRAY_SIZE(tegra_machine_hp_jack_pins));
++		err = snd_soc_card_jack_new_pins(card, jack_name,
++						 SND_JACK_HEADPHONE,
++						 &tegra_machine_hp_jack,
++						 tegra_machine_hp_jack_pins,
++						 ARRAY_SIZE(tegra_machine_hp_jack_pins));
+ 		if (err) {
+ 			dev_err(rtd->dev,
+ 				"Headphones Jack creation failed: %d\n", err);
+@@ -153,11 +153,11 @@ int tegra_asoc_machine_init(struct snd_soc_pcm_runtime *rtd)
+ 	}
+ 
+ 	if (machine->gpiod_hp_det && machine->asoc->add_headset_jack) {
+-		err = snd_soc_card_jack_new(card, "Headset Jack",
+-					    SND_JACK_HEADSET,
+-					    &tegra_machine_headset_jack,
+-					    tegra_machine_headset_jack_pins,
+-					    ARRAY_SIZE(tegra_machine_headset_jack_pins));
++		err = snd_soc_card_jack_new_pins(card, "Headset Jack",
++						 SND_JACK_HEADSET,
++						 &tegra_machine_headset_jack,
++						 tegra_machine_headset_jack_pins,
++						 ARRAY_SIZE(tegra_machine_headset_jack_pins));
+ 		if (err) {
+ 			dev_err(rtd->dev,
+ 				"Headset Jack creation failed: %d\n", err);
+@@ -173,11 +173,11 @@ int tegra_asoc_machine_init(struct snd_soc_pcm_runtime *rtd)
+ 	}
+ 
+ 	if (machine->gpiod_mic_det && machine->asoc->add_mic_jack) {
+-		err = snd_soc_card_jack_new(rtd->card, "Mic Jack",
+-					    SND_JACK_MICROPHONE,
+-					    &tegra_machine_mic_jack,
+-					    tegra_machine_mic_jack_pins,
+-					    ARRAY_SIZE(tegra_machine_mic_jack_pins));
++		err = snd_soc_card_jack_new_pins(rtd->card, "Mic Jack",
++						 SND_JACK_MICROPHONE,
++						 &tegra_machine_mic_jack,
++						 tegra_machine_mic_jack_pins,
++						 ARRAY_SIZE(tegra_machine_mic_jack_pins));
+ 		if (err) {
+ 			dev_err(rtd->dev, "Mic Jack creation failed: %d\n", err);
+ 			return err;
+diff --git a/sound/soc/tegra/tegra_wm8903.c b/sound/soc/tegra/tegra_wm8903.c
+index 5751fb398c1a..b3cd0a34da63 100644
+--- a/sound/soc/tegra/tegra_wm8903.c
++++ b/sound/soc/tegra/tegra_wm8903.c
+@@ -79,11 +79,11 @@ static int tegra_wm8903_init(struct snd_soc_pcm_runtime *rtd)
+ 		struct snd_soc_component *component = codec_dai->component;
+ 		int shrt = 0;
+ 
+-		err = snd_soc_card_jack_new(rtd->card, "Mic Jack",
+-					    SND_JACK_MICROPHONE,
+-					    machine->mic_jack,
+-					    tegra_wm8903_mic_jack_pins,
+-					    ARRAY_SIZE(tegra_wm8903_mic_jack_pins));
++		err = snd_soc_card_jack_new_pins(rtd->card, "Mic Jack",
++						 SND_JACK_MICROPHONE,
++						 machine->mic_jack,
++						 tegra_wm8903_mic_jack_pins,
++						 ARRAY_SIZE(tegra_wm8903_mic_jack_pins));
+ 		if (err) {
+ 			dev_err(rtd->dev, "Mic Jack creation failed: %d\n", err);
+ 			return err;
+diff --git a/sound/soc/ti/ams-delta.c b/sound/soc/ti/ams-delta.c
+index b1a32545babd..438e2fa843a0 100644
+--- a/sound/soc/ti/ams-delta.c
++++ b/sound/soc/ti/ams-delta.c
+@@ -471,8 +471,8 @@ static int ams_delta_cx20442_init(struct snd_soc_pcm_runtime *rtd)
+ 
+ 	/* Add hook switch - can be used to control the codec from userspace
+ 	 * even if line discipline fails */
+-	ret = snd_soc_card_jack_new(card, "hook_switch", SND_JACK_HEADSET,
+-				    &ams_delta_hook_switch, NULL, 0);
++	ret = snd_soc_card_jack_new_pins(card, "hook_switch", SND_JACK_HEADSET,
++					 &ams_delta_hook_switch, NULL, 0);
+ 	if (ret)
+ 		dev_warn(card->dev,
+ 				"Failed to allocate resources for hook switch, "
+diff --git a/sound/soc/ti/omap-abe-twl6040.c b/sound/soc/ti/omap-abe-twl6040.c
+index da809c7f25a4..805ffbf89014 100644
+--- a/sound/soc/ti/omap-abe-twl6040.c
++++ b/sound/soc/ti/omap-abe-twl6040.c
+@@ -182,10 +182,10 @@ static int omap_abe_twl6040_init(struct snd_soc_pcm_runtime *rtd)
+ 
+ 	/* Headset jack detection only if it is supported */
+ 	if (priv->jack_detection) {
+-		ret = snd_soc_card_jack_new(rtd->card, "Headset Jack",
+-					    SND_JACK_HEADSET, &hs_jack,
+-					    hs_jack_pins,
+-					    ARRAY_SIZE(hs_jack_pins));
++		ret = snd_soc_card_jack_new_pins(rtd->card, "Headset Jack",
++						 SND_JACK_HEADSET, &hs_jack,
++						 hs_jack_pins,
++						 ARRAY_SIZE(hs_jack_pins));
+ 		if (ret)
+ 			return ret;
+ 
+diff --git a/sound/soc/ti/omap-twl4030.c b/sound/soc/ti/omap-twl4030.c
+index 1da05a6cdc9f..950eec44503b 100644
+--- a/sound/soc/ti/omap-twl4030.c
++++ b/sound/soc/ti/omap-twl4030.c
+@@ -155,10 +155,10 @@ static int omap_twl4030_init(struct snd_soc_pcm_runtime *rtd)
+ 	if (priv->jack_detect > 0) {
+ 		hs_jack_gpios[0].gpio = priv->jack_detect;
+ 
+-		ret = snd_soc_card_jack_new(rtd->card, "Headset Jack",
+-					    SND_JACK_HEADSET, &priv->hs_jack,
+-					    hs_jack_pins,
+-					    ARRAY_SIZE(hs_jack_pins));
++		ret = snd_soc_card_jack_new_pins(rtd->card, "Headset Jack",
++						 SND_JACK_HEADSET,
++						 &priv->hs_jack, hs_jack_pins,
++						 ARRAY_SIZE(hs_jack_pins));
+ 		if (ret)
+ 			return ret;
+ 
+diff --git a/sound/soc/ti/rx51.c b/sound/soc/ti/rx51.c
+index a2629ccc1dc8..322c398d209b 100644
+--- a/sound/soc/ti/rx51.c
++++ b/sound/soc/ti/rx51.c
+@@ -277,7 +277,7 @@ static int rx51_aic34_init(struct snd_soc_pcm_runtime *rtd)
+ 	/* AV jack detection */
+ 	err = snd_soc_card_jack_new(rtd->card, "AV Jack",
+ 				    SND_JACK_HEADSET | SND_JACK_VIDEOOUT,
+-				    &rx51_av_jack, NULL, 0);
++				    &rx51_av_jack);
+ 	if (err) {
+ 		dev_err(card->dev, "Failed to add AV Jack\n");
+ 		return err;
 -- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+2.35.1
+

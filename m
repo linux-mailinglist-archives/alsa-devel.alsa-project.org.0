@@ -2,79 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FA774F90FC
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Apr 2022 10:38:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26B044F9278
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Apr 2022 12:02:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 19053185B;
-	Fri,  8 Apr 2022 10:37:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19053185B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9CD15190C;
+	Fri,  8 Apr 2022 12:01:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CD15190C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649407104;
-	bh=Vh7/Aw62bJPPW9qMlk/IJaaJBuBRuzQNqitXUrJDUxg=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1649412153;
+	bh=y2Z8H4r5yL5fYxfps5SscpYEsfiWgrzqC4K+pnf/lyA=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BwIbQ0dmrBeA59XxSWonTqznZrAF5Jf3Tg3IbvvWSsJqZ6Lk7KktpwKCiEhyulc9Z
-	 pvPOXX+QtClHoKU5oGQfnv+iuafTLQL/qMTAfunvxYyPbkLZzxEe8fjWR5VbbqFAvO
-	 mJ5SBd+phFEW0J/+pb5StC4Rt/pMmeu6NfzBMNK0=
+	b=mRaHktqjtCNUIn4j7CN+WtjI6tA8bGKwDATgfrdfVH4tLcJ3zFK2P9vMopNwPOhPl
+	 tyUhVk1R8X9s3Zm7ilZs4eVVDNe3x+cI2V3pJkgLzo8kRawDAHOnN60sdBFxqfQx9g
+	 IY8QpN8+ChUND5LUReQYIp6gLBa96CV4/0dVWpf4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7BE5EF80128;
-	Fri,  8 Apr 2022 10:37:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2F600F8050F;
+	Fri,  8 Apr 2022 12:01:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8FDCDF8014E; Fri,  8 Apr 2022 10:37:22 +0200 (CEST)
+ id 5CD59F80116; Fri,  8 Apr 2022 12:01:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AD4C5F80054
- for <alsa-devel@alsa-project.org>; Fri,  8 Apr 2022 10:37:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD4C5F80054
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1ECD2F80116
+ for <alsa-devel@alsa-project.org>; Fri,  8 Apr 2022 12:01:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1ECD2F80116
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="pZqjBUiq"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id DE43761A55;
- Fri,  8 Apr 2022 08:37:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16F0DC385A3;
- Fri,  8 Apr 2022 08:37:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1649407032;
- bh=Vh7/Aw62bJPPW9qMlk/IJaaJBuBRuzQNqitXUrJDUxg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=pZqjBUiq/UDAi2+3sVC4Om2fyqh1AJRZKyp+OzM80UV0NQj2ufkmhjrqH1U88s2Od
- lkAHsUyG5fj/t/mtd63ZEFpNyRgMttRGOmGSrnPOJ1S3UFMhf9MLTz/lezZB7uVNHM
- YueCYrOM9kkmULE7E/4NHSUquByAQGXeJ0iZjgoWxfTvue8LCkIuXT32NRrhNREeo8
- CW0OeEgG7vGkI3+fWdG0aBqBleeDpzm/HYn7WvoQdsbF85ZLfPmbqjJsx24H+jskz2
- c/Wnh5989Vnt6zVaqWfg2p7t2JEbJVednoYYbseILodlV4Zw7D8Ze+1Eifv7lWgoj2
- w/3MQ7pPVrfMQ==
-Date: Fri, 8 Apr 2022 09:37:07 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 3/4] ASoC: SOF: amd: Add psp_mbox_ready() and
- psp_send_cmd() callback
-Message-ID: <Yk/0M59OO3VdKfrf@sirena.org.uk>
-References: <20220406194048.289787-1-pierre-louis.bossart@linux.intel.com>
- <20220406194048.289787-4-pierre-louis.bossart@linux.intel.com>
+ dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
+ header.b="L5h59Cyc"
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: kholk11) with ESMTPSA id 865581F46D04
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1649412083;
+ bh=y2Z8H4r5yL5fYxfps5SscpYEsfiWgrzqC4K+pnf/lyA=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=L5h59CycUo+jq7lWmAiMkXvl3wNFJp5cEoROTefBRkPTCrtlSnVmpK76P+n6W1vl6
+ Z+1UHNmCeIVigvB9n7Hc5zbXaWneCBR24v06HTYBAbbvM5n7uHVX8BdBuYRymsM/oA
+ YS67LvnFEC0ZPFIr7ApecusZPzqbAAwFwMkShV9mCltWDzg1QGRY+E+HXmmEzkhEpQ
+ oLXiEAS2dwCkXaC1HEylmFCpBO/VUBWD+9FLjSOMyj+5ohJ8CPVLLoJGAdJOTm0Tgh
+ umwwshvQRybzkyfQwxDtpiQjruxDsxDCeaPhDOIkM5KvnIWEklWaSKJ1w+IuoTSUJt
+ LV+8F0VyUmadQ==
+Message-ID: <4f9fbf6c-e4b0-c3d8-d340-0e5e018b3c42@collabora.com>
+Date: Fri, 8 Apr 2022 12:01:19 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="itSEVMqTJtOSaPkd"
-Content-Disposition: inline
-In-Reply-To: <20220406194048.289787-4-pierre-louis.bossart@linux.intel.com>
-X-Cookie: From concentrate.
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: [v10 1/4] ASoC: dt-bindings: mt8192-mt6359: add new compatible
+ and new properties
+Content-Language: en-US
+To: Jiaxin Yu <jiaxin.yu@mediatek.com>, broonie@kernel.org,
+ robh+dt@kernel.org, nfraprado@collabora.com, tzungbi@google.com
+References: <20220408060552.26607-1-jiaxin.yu@mediatek.com>
+ <20220408060552.26607-2-jiaxin.yu@mediatek.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20220408060552.26607-2-jiaxin.yu@mediatek.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Cc: devicetree@vger.kernel.org, linmq006@gmail.com,
+ Rob Herring <robh@kernel.org>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org,
+ Project_Global_Chrome_Upstream_Group@mediatek.com,
+ linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
+ matthias.bgg@gmail.com, aaronyu@google.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,55 +90,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Il 08/04/22 08:05, Jiaxin Yu ha scritto:
+> 1. Adds new compatible string "mt8192_mt6359_rt1015p_rt5682s" for machines
+> with rt1015p and rt5682s.
+> 2. Adds new property "headset-codec" for getting headset codec.
+> 3. Adds new property "speaker-codecs" for getting speaker codecs.
+> 
+> Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
+> Reviewed-by: Rob Herring <robh@kernel.org>
+> Reviewed-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
+> Tested-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
 
---itSEVMqTJtOSaPkd
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, Apr 06, 2022 at 02:40:47PM -0500, Pierre-Louis Bossart wrote:
-> From: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
->=20
-> We need to ensure if PSP is mbox ready before and after sending cmd
-> to PSP over SMN interface. Add method to check MBOX_READY bit of PSP
-> with some delay over ACP_PSP_TIMEOUT_COUNTER. Replace psp_fw_validate
-> with new method psp_send_cmd() to send command via psp mailbox.
-
-This breaks an x86 allmodconfig build with GCC 11:
-
-/build/stage/linux/sound/soc/sof/amd/acp.c: In function =E2=80=98psp_send_c=
-md=E2=80=99:
-/build/stage/linux/sound/soc/sof/amd/acp.c:176:29: error: unused variable =
-=E2=80=98sdev=E2=80=99 [-Werror=3Dunused-variable]
-  176 |         struct snd_sof_dev *sdev =3D adata->dev;
-      |                             ^~~~
-cc1: all warnings being treated as errors
-make[5]: *** [/build/stage/linux/scripts/Makefile.build:288: sound/soc/sof/=
-amd/acp.o] Error 1
-make[5]: Target '__build' not remade because of errors.
-make[4]: *** [/build/stage/linux/scripts/Makefile.build:550: sound/soc/sof/=
-amd] Error 2
-make[4]: Target '__build' not remade because of errors.
-make[3]: *** [/build/stage/linux/scripts/Makefile.build:550: sound/soc/sof]=
- Error 2
-make[3]: Target '__build' not remade because of errors.
-make[2]: *** [/build/stage/linux/scripts/Makefile.build:550: sound/soc] Err=
-or 2
-
-
---itSEVMqTJtOSaPkd
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJP9DMACgkQJNaLcl1U
-h9A5Vwf/YAj5BPEzo0i3mV1WZOall5etaoWc5EKTUn5IFdLU0j2IIbDVAiy7hlT0
-kQAm9KOd6Z2+BZS0qBNQDLNP/mJ5wyMlKwMnqcEx4rS4JldlyZS38zxZblfh/hlz
-3vLqYPr5ZvnZTi+F1IcL1KOtpQduAfONqVYGLa4+wo9ACrYUtnYx7wGs6cAAa2ys
-yMIA9m99Zm9SXoivZXhghGHXCLEgfigVCzgWszX18kmcRloWiAGWJDf7r83i3jzS
-slNnKuRLfW5euBcGhp8oiF23SzGrcBqN3n3Rgo8xm6mci/A1EY/RKRO3NFijupIu
-OquzdJmxBGhyWmJub66R0c0dxZR5aA==
-=MJSx
------END PGP SIGNATURE-----
-
---itSEVMqTJtOSaPkd--
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>

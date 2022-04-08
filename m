@@ -2,77 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D2794F9402
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Apr 2022 13:27:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C1534F942A
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Apr 2022 13:33:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 052FD192E;
-	Fri,  8 Apr 2022 13:26:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 052FD192E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1D3A91AA3;
+	Fri,  8 Apr 2022 13:32:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D3A91AA3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649417229;
-	bh=HD2LcDKvmyG1fX0S/usHPsdJIssyypdemdstvg2vvdw=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Di/OzQBk1JDfWsuDn0Lu+uCTH13UCaoa6hGer4LOmc4QQ3lq5uN9tnhJTvgM24+RB
-	 vtJ+m5y0uR+6tOqGCo2EndwGHpsYDXAL4Dp3QyRS3HCv9RXZWV3VAr9SEyugRctKKa
-	 C2VByzxYP21vPBX5H8gv69pHiXdJlZqckNReweUc=
+	s=default; t=1649417627;
+	bh=+tL5RO5qWoH9lpYjqUtm96EdT0j4Z7k1m5zZzJ/7T+Q=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=QDqyTXiJhmrKnDSzmLI5cl9NlN1cCcqXKdv5m0USCg4EpHr5JAka48IgvzhB4zKHo
+	 cU/kSvmU5owzsga/DghDEm1/GVB9VxytxJugfXv0xw3LNZKYUVtx1ykHMhefpu1Wgt
+	 uuCaByBka3bWVVebUGRSLC2g42RhPXToQA1x8u58=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 04614F80537;
-	Fri,  8 Apr 2022 13:24:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1A94BF80558;
+	Fri,  8 Apr 2022 13:30:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 74E12F80526; Fri,  8 Apr 2022 13:24:27 +0200 (CEST)
+ id ECA2EF8053E; Fri,  8 Apr 2022 13:30:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EB6C1F8051E
- for <alsa-devel@alsa-project.org>; Fri,  8 Apr 2022 13:24:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB6C1F8051E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="TTc4iqZs"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=0.5 required=5.0 tests=PRX_BODY_13,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 8283BB82A6F;
- Fri,  8 Apr 2022 11:24:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5421C385A1;
- Fri,  8 Apr 2022 11:24:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1649417063;
- bh=HD2LcDKvmyG1fX0S/usHPsdJIssyypdemdstvg2vvdw=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=TTc4iqZsmw76TPVZAhs/N6k8UGhng0ic7zNL8SIQdiX7+RlQneGvUl7rVFqIp+vG8
- TKnViVdPqyQSx0wUPRlG6xxYqiONWmHQ9ZSnO2gCXJhjRUZ5+5RAjK0x2AOV4Osyqo
- cF3jc3PMjqUR9Atm0lnd5cJKyoJnAA1ruQbHfxS1lD2Fn7Y2YXxkUdswimHbu9ayD8
- XkNMUjOIdSVravNeTstKhO8pz9N5+94wu44Yv6myEvOaF82WMTh2OPGydisGEony6e
- /KgLROw6N8RsZgWt3JnYzMqUEoYmfUM17pdbiYmcJF0uBc+bdjHt3jQOkz1vuNd22y
- ZNX8TtrgxDr+Q==
-From: Mark Brown <broonie@kernel.org>
-To: mchehab@kernel.org, alsa-devel@alsa-project.org
-In-Reply-To: <cover.1649357263.git.mchehab@kernel.org>
-References: <cover.1649357263.git.mchehab@kernel.org>
-Subject: Re: [PATCH v5 0/4] Make headphone work on Huawei Matebook D15
-Message-Id: <164941706065.1295287.8387779207290913522.b4-ty@kernel.org>
-Date: Fri, 08 Apr 2022 12:24:20 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5F137F80516
+ for <alsa-devel@alsa-project.org>; Fri,  8 Apr 2022 13:29:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F137F80516
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <sha@pengutronix.de>)
+ id 1ncmo8-0004wV-9Q; Fri, 08 Apr 2022 13:29:40 +0200
+Received: from [2a0a:edc0:0:1101:1d::28] (helo=dude02.red.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <sha@pengutronix.de>)
+ id 1ncmo8-001n6p-HT; Fri, 08 Apr 2022 13:29:39 +0200
+Received: from sha by dude02.red.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <sha@pengutronix.de>)
+ id 1ncmo2-005ZAg-Mz; Fri, 08 Apr 2022 13:29:34 +0200
+From: Sascha Hauer <s.hauer@pengutronix.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v5 00/21] ASoC: fsl_micfil: Driver updates
+Date: Fri,  8 Apr 2022 13:29:07 +0200
+Message-Id: <20220408112928.1326755-1-s.hauer@pengutronix.de>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: pierre-louis.bossart@linux.intel.com, cezary.rojewski@intel.com,
- yung-chuan.liao@linux.intel.com, Takashi Iwai <tiwai@suse.com>,
- yang.jie@linux.intel.com, linux-kernel@vger.kernel.org,
- liam.r.girdwood@linux.intel.com, hdegoede@redhat.com,
- peter.ujfalusi@linux.intel.com
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: sha@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Cc: Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Vinod Koul <vkoul@kernel.org>,
+ NXP Linux Team <linux-imx@nxp.com>, kernel@pengutronix.de,
+ dmaengine@vger.kernel.org, Shengjiu Wang <shengjiu.wang@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,48 +80,83 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 7 Apr 2022 20:49:55 +0200, Mauro Carvalho Chehab wrote:
-> Huawei Matebook D15 uses two different GPIOs are used to control the output:
-> 
-> 	- gpio0 controls the speaker output;
-> 	- gpio1 controls the headphone output.
-> 
-> Changing both at the same time cause spurious events that are mis-interpreted
-> as input events, causing troubles on apps. So, a delay is needed before turning
-> on such gpios.
-> 
-> [...]
+This series has a bunch of cleanups for the FSL MICFIL driver. There is
+not much chance for regressions in this series as the driver currently
+can't work at all. The MICFIL needs multififo support in the i.MX SDMA
+engine which is added with this series, see 11/20.
 
-Applied to
+The multififo support is selected in the dma phandle arguments in the
+device tree, the transfer type must be '25' aka IMX_DMATYPE_MULTI_SAI.
+This is set already to 25 in the upstream i.MX8M[NM] dtsi files, but the
+SDMA driver silently ignores unsupported values instead of throwing an
+error. This is fixed in this series and multififo support is added.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+The dmaengine patches have acks from Vinod, so the series is free to
+go through the ASoC tree.
 
-Thanks!
+Changes since v4:
+- collect more acks
+- whitespace cleanup in 16/21
 
-[1/4] ASoC: Intel: sof_es8336: simplify speaker gpio naming
-      commit: 890a4087a6c2045911b5002566d1528f710cd723
-[2/4] ASoC: Intel: sof_es8336: support a separate gpio to control headphone
-      commit: 6e1ff1459e0086312e61c2d1ff8b74395a082fcb
-[3/4] ASoC: Intel: sof_es8336: add a quirk for headset at mic1 port
-      commit: 7c7bb2a059b226ebadb14ce07460f6357023d56c
-[4/4] ASoC: Intel: sof_es8336: Add a quirk for Huawei Matebook D15
-      commit: c7cb4717f641db68e8117635bfcf62a9c27dc8d3
+Changes since v3:
+- Add commit log to "ASoC: fsl_micfil: drop unused variables"
+- Fix include name in "ASoC: fsl_micfil: add multi fifo support"
+- Drop unnecessary temporary adding of struct fsl_micfil::osr
+- Leave default quality setting at 'medium'
+- Drop debugging message printed at error level
+- collect acks from Shengjiu Wang and Vinod Koul
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Changes since v2:
+- Add forgotten commit log to dmaengine patches
+- Add patch to move include/linux/platform_data/dma-imx.h to include/linux/dma/imx-dma.h
+- Use prefix dmaengine: for dma patches
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Changes since v1:
+- Drop unused variable sw_done_sel
+- Evaluate sdmac->direction directly instead of storing value in n_fifos
+- add missing include linux/bitfield.h
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+Sascha Hauer (21):
+  ASoC: fsl_micfil: Drop unnecessary register read
+  ASoC: fsl_micfil: Drop unused register read
+  ASoC: fsl_micfil: drop fsl_micfil_set_mclk_rate()
+  ASoC: fsl_micfil: do not define SHIFT/MASK for single bits
+  ASoC: fsl_micfil: use GENMASK to define register bit fields
+  ASoC: fsl_micfil: use clear/set bits
+  ASoC: fsl_micfil: drop error messages from failed register accesses
+  ASoC: fsl_micfil: drop unused variables
+  dmaengine: imx: Move header to include/dma/
+  dmaengine: imx-sdma: error out on unsupported transfer types
+  dmaengine: imx-sdma: Add multi fifo support
+  ASoC: fsl_micfil: add multi fifo support
+  ASoC: fsl_micfil: use define for OSR default value
+  ASoC: fsl_micfil: Drop get_pdm_clk()
+  ASoC: fsl_micfil: simplify clock setting
+  ASoC: fsl_micfil: rework quality setting
+  ASoC: fsl_micfil: drop unused include
+  ASoC: fsl_micfil: drop only once used defines
+  ASoC: fsl_micfil: drop support for undocumented property
+  ASoC: fsl_micfil: fold fsl_set_clock_params() into its only user
+  ASoC: fsl_micfil: Remove debug message
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+ drivers/dma/imx-dma.c                         |   2 +-
+ drivers/dma/imx-sdma.c                        |  76 +++-
+ drivers/mmc/host/mxcmmc.c                     |   2 +-
+ drivers/spi/spi-fsl-lpspi.c                   |   2 +-
+ drivers/spi/spi-imx.c                         |   2 +-
+ drivers/tty/serial/imx.c                      |   2 +-
+ drivers/video/fbdev/mx3fb.c                   |   2 +-
+ .../dma-imx.h => dma/imx-dma.h}               |  26 +-
+ sound/soc/fsl/fsl_asrc.c                      |   2 +-
+ sound/soc/fsl/fsl_asrc_dma.c                  |   2 +-
+ sound/soc/fsl/fsl_easrc.h                     |   2 +-
+ sound/soc/fsl/fsl_micfil.c                    | 369 +++++++-----------
+ sound/soc/fsl/fsl_micfil.h                    | 269 +++----------
+ sound/soc/fsl/imx-pcm.h                       |   2 +-
+ sound/soc/fsl/imx-ssi.h                       |   2 +-
+ 15 files changed, 297 insertions(+), 465 deletions(-)
+ rename include/linux/{platform_data/dma-imx.h => dma/imx-dma.h} (67%)
 
-Thanks,
-Mark
+-- 
+2.30.2
+

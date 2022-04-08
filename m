@@ -2,78 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A50B44F938F
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Apr 2022 13:13:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E02D64F939F
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Apr 2022 13:18:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3420F18F1;
-	Fri,  8 Apr 2022 13:12:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3420F18F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 60B9E18F6;
+	Fri,  8 Apr 2022 13:17:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60B9E18F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649416380;
-	bh=2HR4Re1Lb9mqEl0QgosfUK/xx8nRtewji7oxHFSlrMg=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1649416690;
+	bh=XjK6FPW7Vc8NpPd20O6mbJ9q6qAq8yXw2kBKcolbZJk=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=obyl2nJBs4XQYJ13h9VhOdDLHxEwq/dYBbXlDJPvFSmUz90EaSJZ9mgSJiqsEl1yz
-	 EVi0Yn8qoO9KVTucil6atDGaj1SnnFPaz87sDQTkqMWd1nB6kudbdAgt/mZ0Wq7s4V
-	 YYZUOjz2wAmUW9BhwBLCO4T298rtG83kQNwY4Abs=
+	b=KX5yK2Iug4PiVEPX9qTZ05ftxfnCQpcBwc2NlDWsofAXkRBFl2XGAOxIu+fUXMIK7
+	 XMlDrdEVAmFq3mafor+Z//xxet9NrIqcCRTUoF3862j7iHJChp4OBnnv7SB5lNRSOw
+	 44eG+qU/nXYHULNqfYTfah0bx0LaIJFSUOB9QAFE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8F01CF80311;
-	Fri,  8 Apr 2022 13:12:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D75C1F80311;
+	Fri,  8 Apr 2022 13:17:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 30A22F8014E; Fri,  8 Apr 2022 13:11:58 +0200 (CEST)
+ id BA808F80311; Fri,  8 Apr 2022 13:17:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5C7BBF80128
+ for <alsa-devel@alsa-project.org>; Fri,  8 Apr 2022 13:17:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C7BBF80128
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="QuCxh3M/"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 61FD1F80054;
- Fri,  8 Apr 2022 13:11:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61FD1F80054
-X-UUID: 4096078d201047d5b87b2fcebf145510-20220408
-X-UUID: 4096078d201047d5b87b2fcebf145510-20220408
-Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw01.mediatek.com
- (envelope-from <allen-kh.cheng@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 347008398; Fri, 08 Apr 2022 19:11:38 +0800
-Received: from mtkcas11.mediatek.inc (172.21.101.40) by
- mtkmbs07n2.mediatek.inc (172.21.101.141) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Fri, 8 Apr 2022 19:11:37 +0800
-Received: from mtksdccf07 (172.21.84.99) by mtkcas11.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Fri, 8 Apr 2022 19:11:37 +0800
-Message-ID: <2ffb9949e47726d7c714666dc7755ed586720709.camel@mediatek.com>
-Subject: Re: [PATCH v7 0/1] firmware: mtk: add adsp ipc protocol for SOF
-From: allen-kh.cheng <allen-kh.cheng@mediatek.com>
-To: Daniel Golle <daniel@makrotopia.org>
-Date: Fri, 8 Apr 2022 19:11:37 +0800
-In-Reply-To: <Yk701wLNKQs1DEVx@makrotopia.org>
-References: <20220407130338.28939-1-allen-kh.cheng@mediatek.com>
- <Yk701wLNKQs1DEVx@makrotopia.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+ by ams.source.kernel.org (Postfix) with ESMTPS id 5349BB82A26;
+ Fri,  8 Apr 2022 11:17:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EFF5C385A3;
+ Fri,  8 Apr 2022 11:16:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1649416622;
+ bh=XjK6FPW7Vc8NpPd20O6mbJ9q6qAq8yXw2kBKcolbZJk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=QuCxh3M/xC87SmDX834tHwuwAnd9hwPduk15Afq4eCgQJ8SjB6M5AIdac6GEo2ppG
+ TZ569RXr/+DO2NqC44USCtxZKZCpksM73vhVd7JcenKqwQ1lxOMiq/IKy+fUm+9/14
+ aV8Q7G+pb3xlgQDwY8uiNgEdw1BT8LSXQWtWxK/B2KK2ySxBZuPt4rNsXzI28iXE8X
+ efpIGn2sRhnppoUTVNH6vm+exiW/TXbNfn9mXSCEfdA6AqjE0cMu3AaIOGUUrkLl+Z
+ 2ALpOZY2tsJBgjTShog87s7NfFLucoIOXyWxTcEbw5ZVYApdn+MmyDA7YYL+dAy4Qw
+ yEwmzvnQRNXVw==
+Date: Fri, 8 Apr 2022 12:16:56 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: Re: [PATCH v2 00/14] ASoC: Intel: avs: Topology and path management
+Message-ID: <YlAZqC4TQTn2xYRY@sirena.org.uk>
+References: <20220331135246.993089-1-cezary.rojewski@intel.com>
+ <6d7a64b4-9b5f-2fc9-e53b-603cdda6cecf@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-MTK: N
-Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
- linux-kernel@vger.kernel.org, Kai
- Vehmanen <kai.vehmanen@linux.intel.com>, Liam Girdwood <lgirdwood@gmail.com>,
- cujomalainey@google.com, Kevin
- Hilman <khilman@baylibre.com>, Takashi Iwai <tiwai@suse.com>, Pierre-Louis
- Bossart <pierre-louis.bossart@linux.intel.com>,
- Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
- Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Chen-Yu Tsai <wenst@chromium.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, linux-arm-kernel@lists.infradead.org,
- sound-open-firmware@alsa-project.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="M7vTjtv3RgO4IF9L"
+Content-Disposition: inline
+In-Reply-To: <6d7a64b4-9b5f-2fc9-e53b-603cdda6cecf@intel.com>
+X-Cookie: Look ere ye leap.
+Cc: alsa-devel@alsa-project.org, upstream@semihalf.com, harshapriya.n@intel.com,
+ rad@semihalf.com, pierre-louis.bossart@linux.intel.com, tiwai@suse.com,
+ hdegoede@redhat.com, amadeuszx.slawinski@linux.intel.com,
+ cujomalainey@chromium.org, lma@semihalf.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,79 +90,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Daniel,
 
-On Thu, 2022-04-07 at 15:27 +0100, Daniel Golle wrote:
-> On Thu, Apr 07, 2022 at 09:03:37PM +0800, Allen-KH Cheng wrote:
-> > This patch provides mediatek adsp ipc support for SOF.
-> > ADSP IPC protocol offers (send/recv) interfaces using
-> > mediatek-mailbox APIs.
-> > 
-> > This patch was tested and confirmed to with SOF fw on MT8195
-> > cherry board.
-> 
-> ... confirmed to **work** with ...
-> is probably what you meant to write here.
-> 
-> 
+--M7vTjtv3RgO4IF9L
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Yes, thanks for your reminder. 
+On Fri, Apr 08, 2022 at 12:54:11PM +0200, Cezary Rojewski wrote:
 
-It appears that for some reason I forgot to add this part.
+> Should I resend this one? Would like to move forward with the follow up
+> series so the skylake-driver can be finally replaced :)
 
-We had tested ADSP IPC protocol with SOF in
-github.com/thesofproject/sof/tree/mt8195/v0.4.
+No need to resend but let's wait a bit more in case there's some review
+comments from people.
 
-The other mailbox control is patchwork.kernel.org/patch/12728222/
+--M7vTjtv3RgO4IF9L
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Thanks,
-Allen
+-----BEGIN PGP SIGNATURE-----
 
-> > 
-> > Based on matthias.bgg/linux.git, v5.18-next/soc
-> > changes since v6:
-> > - rebase to matthias.bgg/linux.git, v5.18-next/soc
-> > - Prefer "GPL" over "GPL v2" for MODULE_LICENSE
-> > 
-> > changes since v5:
-> > - fix WARNING: modpost: missing MODULE_LICENSE() in drivers/mailbox
-> >   /mtk-adsp-mailbox.o. Add MODULE_LICENSE in the last line.
-> > - Due to WARNING: Missing or malformed SPDX-License-Identifier tag
-> >   in line 1 in checkpatch, we don't remove SPDX-License in line 1.
-> > 
-> > changes since v4:
-> > - add error message for wrong mbox chan
-> > 
-> > changes since v3:
-> > - rebase on v5.16-rc8
-> > - update reviewers
-> > 
-> > changes since v2:
-> > - add out tag for two memory free phases
-> > 
-> > changes since v1:
-> > - add comments for mtk_adsp_ipc_send and mtk_adsp_ipc_recv
-> > - remove useless MODULE_LICENSE
-> > - change label name to out_free
-> > 
-> > 
-> > Allen-KH Cheng (1):
-> >   firmware: mediatek: add adsp ipc protocol interface
-> > 
-> >  drivers/firmware/Kconfig                      |   1 +
-> >  drivers/firmware/Makefile                     |   1 +
-> >  drivers/firmware/mediatek/Kconfig             |   9 +
-> >  drivers/firmware/mediatek/Makefile            |   2 +
-> >  drivers/firmware/mediatek/mtk-adsp-ipc.c      | 161
-> > ++++++++++++++++++
-> >  .../linux/firmware/mediatek/mtk-adsp-ipc.h    |  65 +++++++
-> >  6 files changed, 239 insertions(+)
-> >  create mode 100644 drivers/firmware/mediatek/Kconfig
-> >  create mode 100644 drivers/firmware/mediatek/Makefile
-> >  create mode 100644 drivers/firmware/mediatek/mtk-adsp-ipc.c
-> >  create mode 100644 include/linux/firmware/mediatek/mtk-adsp-ipc.h
-> > 
-> > -- 
-> > 2.18.0
-> > 
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJQGacACgkQJNaLcl1U
+h9Daegf/baKpqbr8ML4CG+h4B1SA0lmtmxyECr1AfEOXxf+/hBd1dIHJZlW7pniT
+yEogrFvAGvP5CH3rCWkfyRURyMroufXswS/1jp2lFE0bohfNap+VB16fNfFJTegM
+loqt9KzROkLjd2F8O7HQZEIayYWo65QnDWHmjPBbudNTR3uaWT4m2duxx3HmQpV0
+2Rkew1MCCnwnE7Mii/YUd2esicwzk7QoseMIKr8ngURyFVyUiPRM0v3wJ1Y7Na43
+3g2S0uUCp14Q44stLKEzlhC1vPVxdoVzRCVaASK/01iRVa3L/bA02tDuSNqvWWDr
+G+lxBhVqq/WGZZJ5QP6T7KEu1JfPKg==
+=DjVe
+-----END PGP SIGNATURE-----
 
+--M7vTjtv3RgO4IF9L--

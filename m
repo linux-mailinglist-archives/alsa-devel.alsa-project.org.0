@@ -2,79 +2,110 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B18364F8A60
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Apr 2022 00:41:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D7904F8BED
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Apr 2022 04:16:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2612F17A8;
-	Fri,  8 Apr 2022 00:40:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2612F17A8
+	by alsa0.perex.cz (Postfix) with ESMTPS id CED95185C;
+	Fri,  8 Apr 2022 04:15:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CED95185C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649371289;
-	bh=7+M8a6kcAiKeskgBjMTmoAJ4Q5qmhVqYibOqT1Y3M1M=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=WWA6z3FewrY8Lq7ltH7Lzr04wTteAmPkP3D6RS0Slrl4HR5tZavFtPQwOnfzc8sSM
-	 HPgD92zjiVXO5BBvn/93eqQl2VcJvv2UKscoya9CkLn/cDKS1pxrZcY+geQ1VS7bJE
-	 +4V4yCTNeU+I4vYtwaDj0kLz63X7XCXL4iI9DTUE=
+	s=default; t=1649384189;
+	bh=vjwJMrCY9DZGkR0fCILFB/YNtRxgwi8y6n89wUolpzw=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=kqCVLAcFBK/6bN0/2IGKZ9pWWsoKt5E9DgkZ714qV34F5fVyMiKgDzcUd6UOM8RAf
+	 wbHf64nlU+geey2ABvYd8fgz7NnJq9tL0VDQdu8xlqNxecGI/itvvDqRJnUcuIu/jD
+	 Bnw89lLarXiVmJaeuD5asd4maSAyyAFCsBlGhyiY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 99441F8026A;
-	Fri,  8 Apr 2022 00:40:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4C474F80054;
+	Fri,  8 Apr 2022 04:15:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 88D00F8024C; Fri,  8 Apr 2022 00:40:27 +0200 (CEST)
+ id 2E980F8014E; Fri,  8 Apr 2022 04:15:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 857AFF8012A
- for <alsa-devel@alsa-project.org>; Fri,  8 Apr 2022 00:40:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 857AFF8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 77FB3F80116
+ for <alsa-devel@alsa-project.org>; Fri,  8 Apr 2022 04:15:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77FB3F80116
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="ESUeVm32"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649371221; x=1680907221;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=7+M8a6kcAiKeskgBjMTmoAJ4Q5qmhVqYibOqT1Y3M1M=;
- b=ESUeVm32iVp5EF7Kra81+UJD7KbH6c4MhBOkdCKf8yR8fLbfQRxKknOW
- F7kkOXfdrQrX3kUH0/oJS+fx/DOZVQolMYBUE+FiwW0EDonbC2+JejaHf
- x9xXgM0ZkdKtMdKeUtaTpmTSRxOFx0+lhhHXvcWPbkdpQO4SM4Ckouvv/
- kFFXbB0nV0HcJvOmn2xmHZtb6KznDX0M+f9zhhLDaYjd0bYiD7nXS+uvc
- vRut3KI2tuP534+iBxR8qEqu4GNBMC+SETlx2ir6qiRcmHieBwVCyXUav
- OhaGbQy/HG+T3OP5+CXmhd4pYHDXmKIoXYhinfSogco/mY7xK3sXLK+lf g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10310"; a="322145765"
-X-IronPort-AV: E=Sophos;i="5.90,242,1643702400"; d="scan'208";a="322145765"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2022 15:40:15 -0700
-X-IronPort-AV: E=Sophos;i="5.90,242,1643702400"; d="scan'208";a="550267759"
-Received: from achordiy-mobl.amr.corp.intel.com (HELO
- pbossart-mobl3.amr.corp.intel.com) ([10.209.88.227])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2022 15:40:14 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	srinivas.kandagatla@linaro.org
-Subject: [RFC PATCH] soundwire: use driver callbacks directly with proper
- locking
-Date: Thu,  7 Apr 2022 17:39:32 -0500
-Message-Id: <20220407223932.84526-1-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.30.2
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="Png8i7qU"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="DKeAQHx6"
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.nyi.internal (Postfix) with ESMTP id 585305C013B;
+ Thu,  7 Apr 2022 22:15:21 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute3.internal (MEProxy); Thu, 07 Apr 2022 22:15:21 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=cc:cc:content-type:date:date:from:from:in-reply-to
+ :in-reply-to:message-id:mime-version:references:reply-to:sender
+ :subject:subject:to:to; s=fm1; bh=nvkFaMbev4/kVyqnJNPqVSo+frUbKl
+ NHC+DpOIWGrBw=; b=Png8i7qUPf5HmJFJ58DmULMRRGYoAmB73A3ZOYEqFUm1fU
+ 43PFXFKD9iepd1G5yZsz9+lMRJAQS+DLN/POwV1J7BJcjFkwz59ZIw9mRnGUwlZf
+ Ctmdp0B0Mlqd+9uY+KT/Tyo2fQstOHWVit5j3YtALZkV35WE9UFuUFLCQxj3FZyz
+ K6CAF8zwT+X7sLrJIUXQnsl9qILn2iBGw0VHpdRKJC1Gz0qtaCQgra4rauaBPeWN
+ RHnLssQtAL378A+ibP0ZN1Hb1LTsKjEVApYDLUggi6QxyFkvw+q59/c37vStoKf1
+ pnyPBufUAUHiDOTySi/VebnjcCrd/hiXROBSZnOw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:date:date:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=nvkFaMbev4/kVyqnJ
+ NPqVSo+frUbKlNHC+DpOIWGrBw=; b=DKeAQHx6rcKdL75fyOgCawkzYIYKN2p7X
+ 10oUueW8uqnBWhrF8gXHfytM87wfwhpkeFUtGtnyb5e+TC9Hu8YyaXi3fvT3mcMG
+ PmGAS52g2HN5SXbpqfujsnWEk/Cqb9RY6ekbGCUdxtj2VmQTt+T82wp1b3PpD7u8
+ 0BhFuD9x3xOuwBICffODz7F4IeiqBsc3EaJpbFleXZSH3Uv5Xvr+2Q7jh5WTtwzc
+ xJ3xq/Cabyat4SD0cFcnZlNVjKorCobwz/tU4XP3I8pGD5xCb2GL5HjpqMsCmn8G
+ 8uF2Log6rcbW5V6kUKC9Zhdp7pZXEIbOGwGYstIUaNDN7qfia2kcw==
+X-ME-Sender: <xms:uJpPYh8IWikMqZyG5HWZtkDitNp0CcOBambTyoc2IfoLIh51tZFDvQ>
+ <xme:uJpPYltrKyW_iaTQLV6ED03-o7gDHimQJp_2sEQqVqiJOqDTojJOM3PUvUBsrMVK5
+ lvEavz7BkcxHnU_uMo>
+X-ME-Received: <xmr:uJpPYvDPNK87LZse2QcaukTasHMe3vzByBwzctUwzUux3SAUDeP8qFvTMlraX1dd3O2Xqk0NUoTuPSnHoRwTGmhC0-2rjuX0>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrudejledghedvucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefvrghkrghs
+ hhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjh
+ hpqeenucggtffrrghtthgvrhhnpeejgeeifeeuveeufeeigeegjeelvdfgjeegffejgfdv
+ keelhefgtdefteejleekjeenucffohhmrghinhepkhgvrhhnvghlrdhorhhgnecuvehluh
+ hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhh
+ ihesshgrkhgrmhhotggthhhirdhjph
+X-ME-Proxy: <xmx:uJpPYleVcSI-JrzdC8B_p9WH-4t8mOl-WHN8W6f8_D-INaZlG6mLmQ>
+ <xmx:uJpPYmOEABEsKmR-ozhl4WgiKx0aY4VDcuBkuDB6c_XzwHTJ-GjVhw>
+ <xmx:uJpPYnnsUxqgkqg5OoZr_nU0HWUhokxzXEiET0sakS6f-VyjGlyjKg>
+ <xmx:uZpPYjoI1r7BEHTKCRp2wfHZeTfX9d3uhXAHL7rZSUsdqmo8xAuLtQ>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 7 Apr 2022 22:15:19 -0400 (EDT)
+Date: Fri, 8 Apr 2022 11:15:16 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH v3 0/3] firewire: assist unit driver to compute packet
+ time stamp
+Message-ID: <Yk+atHM5c9EI3584@workstation>
+Mail-Followup-To: Takashi Iwai <tiwai@suse.de>, clemens@ladisch.de,
+ alsa-devel@alsa-project.org, linux1394-devel@lists.sourceforge.net,
+ linux-kernel@vger.kernel.org
+References: <20220405072221.226217-1-o-takashi@sakamocchi.jp>
+ <s5hczhv5wjc.wl-tiwai@suse.de> <Yk4r7VcotHz0iMOU@workstation>
+ <s5htub52zz1.wl-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, gregkh@linuxfoundation.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, vkoul@kernel.org,
- broonie@kernel.org, Bard liao <yung-chuan.liao@linux.intel.com>,
- Rander Wang <rander.wang@linux.intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <s5htub52zz1.wl-tiwai@suse.de>
+Cc: alsa-devel@alsa-project.org, linux1394-devel@lists.sourceforge.net,
+ clemens@ladisch.de, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,335 +121,69 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In the SoundWire probe, we store a pointer from the driver ops into
-the 'slave' structure. This can lead to kernel oopses when unbinding
-codec drivers, e.g. with the following sequence to remove machine
-driver and codec driver.
+On Thu, Apr 07, 2022 at 08:02:10AM +0200, Takashi Iwai wrote:
+> On Thu, 07 Apr 2022 02:10:21 +0200,
+> Takashi Sakamoto wrote:
+> > 
+> > On Tue, Apr 05, 2022 at 06:23:35PM +0200, Takashi Iwai wrote:
+> > > On Tue, 05 Apr 2022 09:22:18 +0200,
+> > > Takashi Sakamoto wrote:
+> > > > 
+> > > > Hi,
+> > > > 
+> > > > Current implementation of Linux FireWire subsystem doesn't allow unit
+> > > > driver to operate content of packet in IR context according to
+> > > > time stamp. Additionally it doesn't allow unit driver to read current value
+> > > > of CYCLE_TIME register in OHCI 1394 controller. It brings disadvantages to
+> > > > drivers in Linux sound subsystem in regards of handling time for sampled
+> > > > data such as PCM frames and MIDI messages.
+> > > > 
+> > > > This rerolled patchset is first step to improve the situation.
+> > > > 
+> > > > Changes in v3:
+> > > >  * Rebase v2 patchset to v5.18-rc1
+> > > > Changes in v2:
+> > > >  * Rebase v1 patchset to v5.16 release
+> > > >  * https://lore.kernel.org/lkml/20220212022131.199855-1-o-takashi@sakamocchi.jp/
+> > > > V1:
+> > > >  * https://lore.kernel.org/lkml/20211202113457.24011-1-o-takashi@sakamocchi.jp/
+> > > > 
+> > > > Hector Martin (1):
+> > > >   firewire: Add dummy read_csr/write_csr functions
+> > > > 
+> > > > Takashi Sakamoto (2):
+> > > >   firewire: add kernel API to access CYCLE_TIME register
+> > > >   firewire: add kernel API to access packet structure in request
+> > > >     structure for AR context
+> > > 
+> > > Thanks, applied all three patches now to for-next branch.
+> > 
+> > Although thanks for your applying them into your tree, I apologize to
+> > trouble you if you overlook that the included changes is just for Linux
+> > FireWire subsystem. It's my fault to send them only to Linux sound
+> > subsystem, but the changes are required to my work in sound drivers... 
+> > 
+> > If you are willing to include patches to Linux FireWire subsystem for
+> > your pull-request to Linus, I can prepare respined patches for it since
+> > I have the list of patches posted to LKML as bug fixes for Linux FireWire
+> > subsystem.
+> > 
+> > I need any help to solve current situation of Linux FireWire subsystem
+> > that bug fixes and new changes are hardly merged. Of course, IEEE 1394 bus
+> > is already outdated and legacy, but I know that some users still work
+> > with it. If your path is available for it, it's the easiest and the most
+> > convenient way for upstreaming, I think.
+> 
+> Ah OK, it's fine for me in either way.  I can keep up those changes in
+> my tree, or go through others.  I leave the decision Firewire
+> subsystem people.  Just let me know.
 
-/sbin/modprobe -r snd_soc_sof_sdw
-/sbin/modprobe -r snd_soc_rt711
+That's great. I think we can see few objections.
 
-The full details can be found in the BugLink below, for reference the
-two following examples show different cases of driver ops/callbacks
-being invoked after the driver .remove().
+In this weekend, I'll send two respined patchset. One is for bug fixes for
+your for-linus and living stables. Another is for your linux-next.
 
-kernel: BUG: kernel NULL pointer dereference, address: 0000000000000150
-kernel: Workqueue: events cdns_update_slave_status_work [soundwire_cadence]
-kernel: RIP: 0010:mutex_lock+0x19/0x30
-kernel: Call Trace:
-kernel:  ? sdw_handle_slave_status+0x426/0xe00 [soundwire_bus 94ff184bf398570c3f8ff7efe9e32529f532e4ae]
-kernel:  ? newidle_balance+0x26a/0x400
-kernel:  ? cdns_update_slave_status_work+0x1e9/0x200 [soundwire_cadence 1bcf98eebe5ba9833cd433323769ac923c9c6f82]
+Thanks for your kindness.
 
-kernel: BUG: unable to handle page fault for address: ffffffffc07654c8
-kernel: Workqueue: pm pm_runtime_work
-kernel: RIP: 0010:sdw_bus_prep_clk_stop+0x6f/0x160 [soundwire_bus]
-kernel: Call Trace:
-kernel:  <TASK>
-kernel:  sdw_cdns_clock_stop+0xb5/0x1b0 [soundwire_cadence 1bcf98eebe5ba9833cd433323769ac923c9c6f82]
-kernel:  intel_suspend_runtime+0x5f/0x120 [soundwire_intel aca858f7c87048d3152a4a41bb68abb9b663a1dd]
-kernel:  ? dpm_sysfs_remove+0x60/0x60
 
-This was not detected earlier in Intel tests since the tests first
-remove the parent PCI device and shut down the bus. The sequence
-above is a corner case which keeps the bus operational but without a
-driver bound.
-
-This patch removes the use the 'slave' ops and uses proper locking to
-make sure there are no live callbacks based on a dangling pointer
-executed during or after the driver unbinding sequence. In one
-specific case, indicated with comments in the code, the device lock is
-already taken at a higher level when starting the resume operations.
-
-The issue with the ops pointer has been there since December 2017, but
-there were so many changes in the bus handling code that this patch
-will not apply cleanly all the way to this initial commit. The changes
-can be easily backported though.
-
-Thanks to Dan Williams for his suggestions on an earlier version of
-this patch.
-
-BugLink: https://github.com/thesofproject/linux/issues/3531
-Fixes: 56d4fe31af77 ("soundwire: Add MIPI DisCo property helpers")
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
-
-This is a follow-up on the initial discussion in https://lore.kernel.org/alsa-devel/d0559e97-c4a0-b817-428c-d3e305390270@linux.intel.com/
-
-I could use feedback on whether using device_lock() is appropriate and
-test results on non-Intel platforms. Thanks!
-Pierre
-
- drivers/soundwire/bus.c      | 78 ++++++++++++++++++++++++++++--------
- drivers/soundwire/bus_type.c |  6 +--
- drivers/soundwire/stream.c   | 57 +++++++++++++++++---------
- 3 files changed, 102 insertions(+), 39 deletions(-)
-
-diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-index 8b7a680f388e..545b379a119e 100644
---- a/drivers/soundwire/bus.c
-+++ b/drivers/soundwire/bus.c
-@@ -7,6 +7,7 @@
- #include <linux/pm_runtime.h>
- #include <linux/soundwire/sdw_registers.h>
- #include <linux/soundwire/sdw.h>
-+#include <linux/soundwire/sdw_type.h>
- #include "bus.h"
- #include "sysfs_local.h"
- 
-@@ -846,12 +847,18 @@ static int sdw_slave_clk_stop_callback(struct sdw_slave *slave,
- 				       enum sdw_clk_stop_mode mode,
- 				       enum sdw_clk_stop_type type)
- {
--	int ret;
-+	struct device *dev = &slave->dev;
-+	struct sdw_driver *drv;
- 
--	if (slave->ops && slave->ops->clk_stop) {
--		ret = slave->ops->clk_stop(slave, mode, type);
--		if (ret < 0)
--			return ret;
-+	/*
-+	 * this function can only be called from a pm_runtime
-+	 * sequence where the device is already locked
-+	 */
-+
-+	if (dev->driver) {
-+		drv = drv_to_sdw_driver(dev->driver);
-+		if (drv && drv->ops && drv->ops->clk_stop)
-+			return drv->ops->clk_stop(slave, mode, type);
- 	}
- 
- 	return 0;
-@@ -1616,14 +1623,25 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
- 		}
- 
- 		/* Update the Slave driver */
--		if (slave_notify && slave->ops &&
--		    slave->ops->interrupt_callback) {
--			slave_intr.sdca_cascade = sdca_cascade;
--			slave_intr.control_port = clear;
--			memcpy(slave_intr.port, &port_status,
--			       sizeof(slave_intr.port));
--
--			slave->ops->interrupt_callback(slave, &slave_intr);
-+		if (slave_notify) {
-+			struct device *dev = &slave->dev;
-+			struct sdw_driver *drv;
-+
-+			device_lock(dev);
-+
-+			if (dev->driver) {
-+				drv = drv_to_sdw_driver(dev->driver);
-+				if (drv && drv->ops && drv->ops->interrupt_callback) {
-+					slave_intr.sdca_cascade = sdca_cascade;
-+					slave_intr.control_port = clear;
-+					memcpy(slave_intr.port, &port_status,
-+					       sizeof(slave_intr.port));
-+
-+					drv->ops->interrupt_callback(slave, &slave_intr);
-+				}
-+			}
-+
-+			device_unlock(dev);
- 		}
- 
- 		/* Ack interrupt */
-@@ -1697,7 +1715,12 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
- static int sdw_update_slave_status(struct sdw_slave *slave,
- 				   enum sdw_slave_status status)
- {
-+	struct device *dev = &slave->dev;
-+	struct sdw_driver *drv;
- 	unsigned long time;
-+	int ret = 0;
-+
-+	device_lock_assert(dev);
- 
- 	if (!slave->probed) {
- 		/*
-@@ -1716,10 +1739,13 @@ static int sdw_update_slave_status(struct sdw_slave *slave,
- 		}
- 	}
- 
--	if (!slave->ops || !slave->ops->update_status)
--		return 0;
-+	if (dev->driver) {
-+		drv = drv_to_sdw_driver(dev->driver);
-+		if (drv && drv->ops && drv->ops->update_status)
-+			ret = drv->ops->update_status(slave, status);
-+	}
- 
--	return slave->ops->update_status(slave, status);
-+	return ret;
- }
- 
- /**
-@@ -1828,7 +1854,10 @@ int sdw_handle_slave_status(struct sdw_bus *bus,
- 			break;
- 		}
- 
-+		device_lock(&slave->dev);
- 		ret = sdw_update_slave_status(slave, status[i]);
-+		device_unlock(&slave->dev);
-+
- 		if (ret < 0)
- 			dev_err(&slave->dev,
- 				"Update Slave status failed:%d\n", ret);
-@@ -1860,6 +1889,7 @@ EXPORT_SYMBOL(sdw_handle_slave_status);
- void sdw_clear_slave_status(struct sdw_bus *bus, u32 request)
- {
- 	struct sdw_slave *slave;
-+	bool lock;
- 	int i;
- 
- 	/* Check all non-zero devices */
-@@ -1878,7 +1908,23 @@ void sdw_clear_slave_status(struct sdw_bus *bus, u32 request)
- 		if (slave->status != SDW_SLAVE_UNATTACHED) {
- 			sdw_modify_slave_status(slave, SDW_SLAVE_UNATTACHED);
- 			slave->first_interrupt_done = false;
-+
-+			lock = device_trylock(&slave->dev);
-+
-+			/*
-+			 * this bus/manager-level function can only be called from
-+			 * a resume sequence. If the peripheral device (child of the
-+			 *  manager device) is locked, this indicates a resume operation
-+			 * initiated by the device core to deal with .remove() or .shutdown()
-+			 * at the peripheral level. With the parent-child order enforced
-+			 * by PM frameworks on resume, the peripheral resume has not started
-+			 * yet, so it's safe to assume the lock will not be released while
-+			 * the update_status callback is invoked.
-+			 */
- 			sdw_update_slave_status(slave, SDW_SLAVE_UNATTACHED);
-+
-+			if (lock)
-+				device_unlock(&slave->dev);
- 		}
- 
- 		/* keep track of request, used in pm_runtime resume */
-diff --git a/drivers/soundwire/bus_type.c b/drivers/soundwire/bus_type.c
-index 893296f3fe39..91f39c8c119a 100644
---- a/drivers/soundwire/bus_type.c
-+++ b/drivers/soundwire/bus_type.c
-@@ -98,8 +98,6 @@ static int sdw_drv_probe(struct device *dev)
- 	if (!id)
- 		return -ENODEV;
- 
--	slave->ops = drv->ops;
--
- 	/*
- 	 * attach to power domain but don't turn on (last arg)
- 	 */
-@@ -118,8 +116,8 @@ static int sdw_drv_probe(struct device *dev)
- 	}
- 
- 	/* device is probed so let's read the properties now */
--	if (slave->ops && slave->ops->read_prop)
--		slave->ops->read_prop(slave);
-+	if (drv->ops && drv->ops->read_prop)
-+		drv->ops->read_prop(slave);
- 
- 	/* init the sysfs as we have properties now */
- 	ret = sdw_slave_sysfs_init(slave);
-diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
-index f273459b2023..7862b4403d14 100644
---- a/drivers/soundwire/stream.c
-+++ b/drivers/soundwire/stream.c
-@@ -13,6 +13,7 @@
- #include <linux/slab.h>
- #include <linux/soundwire/sdw_registers.h>
- #include <linux/soundwire/sdw.h>
-+#include <linux/soundwire/sdw_type.h>
- #include <sound/soc.h>
- #include "bus.h"
- 
-@@ -401,20 +402,26 @@ static int sdw_do_port_prep(struct sdw_slave_runtime *s_rt,
- 			    struct sdw_prepare_ch prep_ch,
- 			    enum sdw_port_prep_ops cmd)
- {
--	const struct sdw_slave_ops *ops = s_rt->slave->ops;
--	int ret;
-+	struct device *dev = &s_rt->slave->dev;
-+	struct sdw_driver *drv;
-+	int ret = 0;
- 
--	if (ops->port_prep) {
--		ret = ops->port_prep(s_rt->slave, &prep_ch, cmd);
--		if (ret < 0) {
--			dev_err(&s_rt->slave->dev,
--				"Slave Port Prep cmd %d failed: %d\n",
--				cmd, ret);
--			return ret;
-+	device_lock(dev);
-+
-+	if (dev->driver) {
-+		drv = drv_to_sdw_driver(dev->driver);
-+		if (drv && drv->ops && drv->ops->port_prep) {
-+			ret = drv->ops->port_prep(s_rt->slave, &prep_ch, cmd);
-+			if (ret < 0)
-+				dev_err(&s_rt->slave->dev,
-+					"Slave Port Prep cmd %d failed: %d\n",
-+					cmd, ret);
- 		}
- 	}
- 
--	return 0;
-+	device_unlock(dev);
-+
-+	return ret;
- }
- 
- static int sdw_prep_deprep_slave_ports(struct sdw_bus *bus,
-@@ -578,7 +585,7 @@ static int sdw_notify_config(struct sdw_master_runtime *m_rt)
- 	struct sdw_slave_runtime *s_rt;
- 	struct sdw_bus *bus = m_rt->bus;
- 	struct sdw_slave *slave;
--	int ret = 0;
-+	int ret;
- 
- 	if (bus->ops->set_bus_conf) {
- 		ret = bus->ops->set_bus_conf(bus, &bus->params);
-@@ -587,19 +594,31 @@ static int sdw_notify_config(struct sdw_master_runtime *m_rt)
- 	}
- 
- 	list_for_each_entry(s_rt, &m_rt->slave_rt_list, m_rt_node) {
--		slave = s_rt->slave;
-+		struct sdw_driver *drv;
-+		struct device *dev;
- 
--		if (slave->ops->bus_config) {
--			ret = slave->ops->bus_config(slave, &bus->params);
--			if (ret < 0) {
--				dev_err(bus->dev, "Notify Slave: %d failed\n",
--					slave->dev_num);
--				return ret;
-+		slave = s_rt->slave;
-+		dev = &slave->dev;
-+
-+		device_lock(dev);
-+
-+		if (dev->driver) {
-+			drv = drv_to_sdw_driver(dev->driver);
-+			if (drv && drv->ops && drv->ops->bus_config) {
-+				ret = drv->ops->bus_config(slave, &bus->params);
-+				if (ret < 0) {
-+					device_unlock(dev);
-+					dev_err(bus->dev, "Notify Slave: %d failed\n",
-+						slave->dev_num);
-+					return ret;
-+				}
- 			}
- 		}
-+
-+		device_unlock(dev);
- 	}
- 
--	return ret;
-+	return 0;
- }
- 
- /**
--- 
-2.30.2
-
+Takashi Sakamoto

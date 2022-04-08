@@ -2,74 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14D134F9D65
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Apr 2022 20:58:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DDCD4F9DAC
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Apr 2022 21:31:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A9A1718E2;
-	Fri,  8 Apr 2022 20:57:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9A1718E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 235F11817;
+	Fri,  8 Apr 2022 21:30:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 235F11817
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649444292;
-	bh=149hZWeq+g56B3wWXpoGYNPuJSl1G0KTxvCS0gaI4u0=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=L6pUcOjIm6yHh7a427Vj+fVz/ZIQS7EgYImok0is495mWVa9xT1X3DsIT9bf7WiY9
-	 En6z7A6l+DTtWPrkoAkOHsLbAhLQ9Xu4WDsWOi9XaLwAIBBIE6iTTcRAMlzRTJ0yS1
-	 ij3FGaBgfNqUK9cW6ART90A/waktqi56lIXOLwZ4=
+	s=default; t=1649446303;
+	bh=Eowgv0LUyI0h3TKSreTC6v5RJaOKYzw3jWl00qAco9s=;
+	h=From:Date:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=D39VoA1sjg5tS94YkCUunzdoJZyeq2I5Tr85rTMfcPcZ1KLhPYC7Rx7zskt/yx2k0
+	 xVWSlmSRTv3HLeG+ohQwFhfghIVdUDfHKo16NA6zW1CyccJWiRfLqg8xVM1BQUJ/Nt
+	 7QGRoqhqktvfMjxITbOCEYLpYXn0Hx3nyrebHhEA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6ED22F804CC;
-	Fri,  8 Apr 2022 20:56:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8822FF80311;
+	Fri,  8 Apr 2022 21:30:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9AB73F804B1; Fri,  8 Apr 2022 20:56:41 +0200 (CEST)
+ id 58AB2F8014E; Fri,  8 Apr 2022 21:30:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [IPv6:2a00:1450:4864:20::62c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 17482F8012A
- for <alsa-devel@alsa-project.org>; Fri,  8 Apr 2022 20:56:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17482F8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5D5F8F80128
+ for <alsa-devel@alsa-project.org>; Fri,  8 Apr 2022 21:30:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D5F8F80128
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="s2DUjNiW"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 1D309B826CF;
- Fri,  8 Apr 2022 18:56:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C68C7C385A3;
- Fri,  8 Apr 2022 18:56:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1649444192;
- bh=149hZWeq+g56B3wWXpoGYNPuJSl1G0KTxvCS0gaI4u0=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=s2DUjNiWa1DALn3pqmwLPuHWWTWlViHwPs4LIFxnOuzJeqZGk1tcqogev66n3jf3M
- jAq13vJUgSeh8C0CIlGSZ+E0M7fHwPjKexwY/uP/91F0EJ7Mydxabc+7Ze2DVfgPIX
- M8GDpyDVCXbw+gCzksMrZ9CkYlIWhZvidnf1qWy1ziYM85/K3nNYablBRxnuHCkXJj
- pOiXvIJ3BXljq7le6j9H9HamO9LywbUTovtKkx3yn72CLwCb4hu1jd2Oc+GYoplqMF
- 3zEbTsN03rY0coDVnzy0Gp0EzciqOHg9550z7e41hmxgOOl25tKUj8IteJ+Nbz2QLy
- CdEsXl1BJre3A==
-From: Mark Brown <broonie@kernel.org>
-To: 13691752556@139.com
-In-Reply-To: <20220408141119.958-1-13691752556@139.com>
-References: <20220408141119.958-1-13691752556@139.com>
-Subject: Re: [PATCH v1 1/2] rename tas2764 to tas27xx
-Message-Id: <164944419152.1442858.649390696709348398.b4-ty@kernel.org>
-Date: Fri, 08 Apr 2022 19:56:31 +0100
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="mZzVK7FH"
+Received: by mail-ej1-x62c.google.com with SMTP id p15so19229597ejc.7
+ for <alsa-devel@alsa-project.org>; Fri, 08 Apr 2022 12:30:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=eRUN0O5EZKDnJuwUUP97OSxnpH8ov14n5wR5REHvJZs=;
+ b=mZzVK7FHZIFCsSyHnbfH6HWHkpO6Aw7td1acOjEZGhSeQSFEOyrmwkOCdtN4jTuitc
+ py6sfGQTjDjmVaSfTBLWc/rzjdDlcj3JAL7t5Ub5MLwBBCOQerlQpkm3+jMCWX2VBAod
+ V5nZ+R0JnS/JhjqvLF9U9Kqg8KP+f7qhqY+S8KUFxOKSoc1bcCT9IykIkJvsqJnhkJXO
+ t89T94FBPpMXZOZMV39tvIAkTf7SJNS6kCuQ2qjz4M7Bq0gnmwKVDhnTAfVapAOlgy9G
+ 2vgCSG3N2q1RoN2EA8LMka3VO0nETUPsnkY6vWvz0KczYdtI16L3yiieQyg+26JfZuRU
+ iJIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=eRUN0O5EZKDnJuwUUP97OSxnpH8ov14n5wR5REHvJZs=;
+ b=hbhGu566sZ+dR3VoqvI2xXjrYCFK653L+gSD15LilURdTkNvaEgqa41v5rLR86vx0w
+ WWDPlgsAM2eMjSmkP6dE6X86bq2RqnYr4n5apNH7hEna+hb1hgYR7h/MNhZvjUe3cfiT
+ OstoqMZHP1yv3A++MWDPYxtKG4ltRpPj2FoXtluXu2AUVHrPM7d9uWRUJyKZSByPjred
+ eJq1Zw8POg5vJA26PzCLRpT9zbz/m7XObpMWPNtxqpydnnPsy/dZBQFn4bDmkx9xSpcO
+ Tb9Hc+sx92H88L3GOatlij+8L7zS9w7JPo7XN0GnTmoQYKLL88mSe5dHPjYDOkvpnziA
+ moLA==
+X-Gm-Message-State: AOAM532PvZbJXPAk9aGG4zh1QJRMkBXm44HxHv07Rv4yfAZvlg88lZBX
+ 91YZHABmJbpukCGtn4V1vTjCB/bTVuadGxJRRKA=
+X-Google-Smtp-Source: ABdhPJxHQ9FtGhzGtlVx/DGJUCTvQriPFtvSLkwFOlCwLrkrLW4xQwEFMc69pgF2HGhZZ4Jkc9pXxATYIC8/XAcHcbI=
+X-Received: by 2002:a17:906:32d0:b0:6ce:e1cf:3f2e with SMTP id
+ k16-20020a17090632d000b006cee1cf3f2emr19073698ejk.214.1649446231443; Fri, 08
+ Apr 2022 12:30:31 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, raphael-xu@ti.com, navada@ti.com,
- shenghao-ding@ti.com
+From: Fabio Estevam <festevam@gmail.com>
+Date: Fri, 8 Apr 2022 16:30:19 -0300
+Message-ID: <CAOMZO5AadRQ6B-xbvZenppf6YHMcWERoYuo=kr_gRx03aPsOeg@mail.gmail.com>
+Subject: imx8mn: Using the easrc driver
+To: "S.j. Wang" <shengjiu.wang@nxp.com>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Daniel Baluta <daniel.baluta@nxp.com>,
+ Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
+ Adam Ford <aford173@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,37 +93,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 8 Apr 2022 22:11:18 +0800, Raphael-Xu wrote:
-> rename tas2764.yaml to tas27xx.yaml
-> 
-> 
+Hi Shengjiu,
 
-Applied to
+I am running kernel 5.18-rc1 on an imx8mn-ddr4-evk board.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+The following playback devices are available:
 
-Thanks!
+# aplay -l
+**** List of PLAYBACK Hardware Devices ****
+card 0: imxspdif [imx-spdif], device 0: S/PDIF PCM snd-soc-dummy-dai-0
+[S/PDIF PCM snd-soc-dummy-dai-0]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 1: wm8524audio [wm8524-audio], device 0: HiFi wm8524-hifi-0 [HiFi
+wm8524-hifi-0]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 1: wm8524audio [wm8524-audio], device 1: HiFi-ASRC-FE (*) []
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+#
 
-[1/2] rename tas2764 to tas27xx
-      commit: aecf03614d5ded3f930143cda2ba3d76d09b107d
-[2/2] update to support either TAS2764 or TAS2780
-      commit: 239556a34385706562a481f452ce0963fb569cb8
+I would like to use the sample rate conversion (provided by the easrc driver):
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+# aplay -D hw:1,1 /media/f2bjrop1.0.wav
+Playing WAVE '/media/f2bjrop1.0.wav' : Signed 16 bit Little Endian,
+Rate 16000 Hz, Mono
+Warning: rate is not accurate (requested = 16000Hz, got = 32000Hz)
+         please, try the plug plugin
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+, but the playback does not play at the correct speed. It plays at a
+much faster rate.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+The f2bjrop1.0.wav file I got from:
+http://www.fit.vutbr.cz/~motlicek/speech_hnm.html
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+What should be done for the easrc to convert the sampling rates properly?
 
 Thanks,
-Mark
+
+Fabio Estevam

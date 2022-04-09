@@ -2,86 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12A034FA196
-	for <lists+alsa-devel@lfdr.de>; Sat,  9 Apr 2022 04:15:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE63F4FA245
+	for <lists+alsa-devel@lfdr.de>; Sat,  9 Apr 2022 06:14:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 98D221893;
-	Sat,  9 Apr 2022 04:14:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98D221893
+	by alsa0.perex.cz (Postfix) with ESMTPS id 61BDD1849;
+	Sat,  9 Apr 2022 06:13:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 61BDD1849
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649470531;
-	bh=3tUjl2++P+P69FIWniii1miB7GtpSqLNh00DWBbUWjg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=alnihj196kVyY69/f1uoGwMSFIDfisGS0UZEOGvUvzJazUZUG+BGTUr0W8gryN68q
-	 ufoW5UQOl2awne45eGqK3CuUIJ8fMMmLrdhstynwb4Q/tuyge/mY0QJ6GEF6pp9nhV
-	 lNpH8DifQ/BJ4R0GoadZl4SK1VVHBJrWEu9cwKXw=
+	s=default; t=1649477642;
+	bh=swf2x1AxLBLJD/F/Kx1AM1jKTEbLHYhSQjz6wTP15mU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=LoVC7hjaxCM1WwFcjujCqxPNod4+xRX0AVuryaWu6V8cxdeFr2+S/vYuTKrXGL0w3
+	 DgMfbf55UJSkjwP5aYXiihP/knq2WpvQtWpvYjNaMVJ+y43+g+6SFu0T7cyuHuCLML
+	 6deM1xG/qEf9ZX0SUmY59gW+Xzml7bewp05dPx2Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 036B3F80054;
-	Sat,  9 Apr 2022 04:14:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ED568F80155;
+	Sat,  9 Apr 2022 06:13:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 50524F80253; Sat,  9 Apr 2022 04:14:29 +0200 (CEST)
+ id 13116F8027C; Sat,  9 Apr 2022 06:13:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-qk1-x734.google.com (mail-qk1-x734.google.com
- [IPv6:2607:f8b0:4864:20::734])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
+ [64.147.123.24])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E8199F80054
- for <alsa-devel@alsa-project.org>; Sat,  9 Apr 2022 04:14:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8199F80054
+ by alsa1.perex.cz (Postfix) with ESMTPS id E4AD8F80054
+ for <alsa-devel@alsa-project.org>; Sat,  9 Apr 2022 06:12:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4AD8F80054
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="FDEynsur"
-Received: by mail-qk1-x734.google.com with SMTP id e10so4623234qka.6
- for <alsa-devel@alsa-project.org>; Fri, 08 Apr 2022 19:14:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=HdHisndypV31+5Xb1kmi6gvlBiyR0g/rMDVNCI91T2s=;
- b=FDEynsurvlEHtPbdzTAWyrnFJuhhtr3tSxaiK0pzbHqYC1Khgiil7ZWwrP8nxGk55k
- p7CugPnY+OFXz45s7Zx3edwoemMtvW9ypaI0PEgzwSUjxLaGMFBmxAOzpN0Nok556ksm
- 6QZZepFFQZhLRuZa58C58DrDWbViP8hdQ7Cd040lpZOxttpnlBdSYjc+Twnb/mvUM0x7
- YlEpbGOTp+Vd8ChKVDIN4VyIhUttvCeqYQIDadh0ZQgzaddDtBKpxIyiKjQlVxC9MCmV
- /1CiiFXr64vfeoobzspfid1QQ3NudZ+7Dd9LTzQP/zlRARpJD+JOodyZc4IBPuMP11Ig
- ZSfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=HdHisndypV31+5Xb1kmi6gvlBiyR0g/rMDVNCI91T2s=;
- b=toW8Hj2Lj96oijCSUS9XFAmk8bJoFsFWFpu2duDJw4bVJb320CVSU+lt1EnUnbS3tS
- UgjquVwVm2u01YxdC6lHNQ0PPT7m3ebGG8GiBbaLqmFEbvhkFoT8IYq7JSaqw07g3SIU
- +NhBPGk+kNp6CY33zjA/y/X2Hee0Bg9izqNDXHJ8M51VmtqIGoDPJXVYHsxq+eNnHhFR
- Se1pwJLmu+TKeGSELDylyz42XSlvm7FCZQbzhtCkRz9a1r3hxU6ATxKXmxnkkhut5r1C
- oaBbwmE+r2a2IZzp8UicXiimeVL4rn5MlXws0LVVigRcdaEm4jFjitWV9XwRRlcsvK8M
- jF4Q==
-X-Gm-Message-State: AOAM532MQz1Zqn4e1tJPy0twhappTXZo174cD25BnGNW2joH6AAVRnDu
- 3J4rBFzMhH46XENGvcNjKzMBomXuocFLClGfJzs=
-X-Google-Smtp-Source: ABdhPJziDg40H8CUMy2CF0kWXphgtfTQ2MmSaTQHslg6vDBbw9geJBbZSrflduoaKXC64N9bUIm7f3z3s7lu7D9Fa38=
-X-Received: by 2002:a05:620a:254f:b0:680:f510:22e4 with SMTP id
- s15-20020a05620a254f00b00680f51022e4mr14772116qko.554.1649470459747; Fri, 08
- Apr 2022 19:14:19 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="YyY0CKke"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="nK3P+zeW"
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.west.internal (Postfix) with ESMTP id CF6E33201DE8;
+ Sat,  9 Apr 2022 00:12:48 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute3.internal (MEProxy); Sat, 09 Apr 2022 00:12:49 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=cc:cc:content-transfer-encoding:date:date:from:from
+ :in-reply-to:message-id:mime-version:reply-to:sender:subject
+ :subject:to:to; s=fm1; bh=SnrLR3Sr37N2IK+ovWdtsG2oHIe46e1XW5qxi2
+ 8NvZs=; b=YyY0CKkeBs4TQ4eVNBXIMFQgjcC5X1ynOl+Y0Wz3ICfay3DcPhl/sZ
+ akpkNVCR00i00WOOadJ+MBubnLhswKK21AcXcuWQgQFcN/i1EHavkIjZRS4Rnt+8
+ 1qzeIPmoLQjax6TFcFKdadzGTf1NGnw3KgTkja7TD14GVV0Hb6xb57A0BsHHtrbP
+ lR7Ek8bhbeHPOhEnLwX9EVXXl7W/wuvPweDL+dw5L187xN5Di7ZkulzCsgqPNjuk
+ p/+rDNbocBnEKsUvDBnLqiTGOVH76V4xf+FvSY84JBR0/3QbSTGY784vVyqeynYG
+ VUg0j0SOIn/FSBw8kJSqN5rEMP/xhwPQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
+ :from:from:in-reply-to:message-id:mime-version:reply-to:sender
+ :subject:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm3; bh=SnrLR3Sr37N2IK+ovWdtsG2oHIe46
+ e1XW5qxi28NvZs=; b=nK3P+zeW/T8wQL+Vg/eByQMkQFCjo6lpIqCE5RfyvRiS3
+ wTcnh8817kj/hYjuDKKfTCo+fy/M1TSWiE747Ku8qOCzAPdYOLMOCjekoMiKjvSg
+ PMCj2ztPqLFCGyvqrIg1UEQW3Fix/8WG0pQu5iV9455d/NqItzG+GBc6ql/qWjxe
+ uIEYZvvi+K5+qb1PvHSC2qhqP35uQxUhCJ7R3DH/2h2TpTUZGVFS7hjg1PZtke6h
+ 8JhKvSj5/oUoEmK2wqtyKY1QyFIEPRxdXRR0w1vB4iLAsXhO7T9beJzCE3/T3dKx
+ jcYCBeIyguz+nJRWtlCnhdpldQzCnlt8QaYWMXc4A==
+X-ME-Sender: <xms:vwdRYn4yV8TT6W6H_b6oQP5UorSd1RvtwO6upMN3gLSRm64T0vEK1w>
+ <xme:vwdRYs7PmwhsDOfoRNKjtFvj9En01kFezXCxYyuIqr__J08DOD8HJwXuXX48fOdm6
+ fJzgdOSKTotfIAjvpg>
+X-ME-Received: <xmr:vwdRYufmUtSkCKOiYrZxaD-hyEGVITvP9A8VTmyPpVlAHWIXULyN-x9_Lv-EDw7-aIoLu3AVs_gEKh90Aqp0sopvUm-kgT1gG7UIbZwXGbV2Q7A8efY>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrudekuddgjeejucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
+ dttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
+ ihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepteeiuefhjeekke
+ efheetieekvdegfefhgffgvdeiheehhfehiedvhffgjeejuddunecuffhomhgrihhnpehk
+ vghrnhgvlhdrohhrghenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrih
+ hlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjhhp
+X-ME-Proxy: <xmx:wAdRYoJGl1alGqvkd6Z_2H7mtoj3cWK4cBCJY4nmJkTMouF2ARwJrA>
+ <xmx:wAdRYrKV3b-w9kFXGWEWwymTSuu0bCVVEZ2IeRVyWvQ3u9Xffs9rRg>
+ <xmx:wAdRYhxF1aKVxyUkvK965n7LcmSlnyU2DTEe3e_EmV_7np2Fg2mvWQ>
+ <xmx:wAdRYiXnDkm2a3HrgxRukcapBjsMZmaOqhKyYYXRsEkAwkD1B2aw3g>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 9 Apr 2022 00:12:46 -0400 (EDT)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: tiwai@suse.de
+Subject: [PATCH 0/3] firewire: fixes for kernel v4.9 or later
+Date: Sat,  9 Apr 2022 13:12:40 +0900
+Message-Id: <20220409041243.603210-1-o-takashi@sakamocchi.jp>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <CAOMZO5AadRQ6B-xbvZenppf6YHMcWERoYuo=kr_gRx03aPsOeg@mail.gmail.com>
-In-Reply-To: <CAOMZO5AadRQ6B-xbvZenppf6YHMcWERoYuo=kr_gRx03aPsOeg@mail.gmail.com>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Sat, 9 Apr 2022 10:14:08 +0800
-Message-ID: <CAA+D8APY4RZTF=-i3KNbgQK-m18z6ymvxCaQkgy8w9rb5++oQw@mail.gmail.com>
-Subject: Re: imx8mn: Using the easrc driver
-To: Fabio Estevam <festevam@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: Daniel Baluta <daniel.baluta@nxp.com>, "S.j. Wang" <shengjiu.wang@nxp.com>,
- Mark Brown <broonie@kernel.org>, Adam Ford <aford173@gmail.com>,
- Linux-ALSA <alsa-devel@alsa-project.org>
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, linux1394-devel@lists.sourceforge.net,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,83 +111,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, Apr 9, 2022 at 3:30 AM Fabio Estevam <festevam@gmail.com> wrote:
+Hi,
 
-> Hi Shengjiu,
->
-> I am running kernel 5.18-rc1 on an imx8mn-ddr4-evk board.
->
-> The following playback devices are available:
->
-> # aplay -l
-> **** List of PLAYBACK Hardware Devices ****
-> card 0: imxspdif [imx-spdif], device 0: S/PDIF PCM snd-soc-dummy-dai-0
-> [S/PDIF PCM snd-soc-dummy-dai-0]
->   Subdevices: 1/1
->   Subdevice #0: subdevice #0
-> card 1: wm8524audio [wm8524-audio], device 0: HiFi wm8524-hifi-0 [HiFi
-> wm8524-hifi-0]
->   Subdevices: 1/1
->   Subdevice #0: subdevice #0
-> card 1: wm8524audio [wm8524-audio], device 1: HiFi-ASRC-FE (*) []
->   Subdevices: 1/1
->   Subdevice #0: subdevice #0
-> #
->
-> I would like to use the sample rate conversion (provided by the easrc
-> driver):
->
-> # aplay -D hw:1,1 /media/f2bjrop1.0.wav
-> Playing WAVE '/media/f2bjrop1.0.wav' : Signed 16 bit Little Endian,
-> Rate 16000 Hz, Mono
-> Warning: rate is not accurate (requested = 16000Hz, got = 32000Hz)
->          please, try the plug plugin
->
-> , but the playback does not play at the correct speed. It plays at a
-> much faster rate.
->
-> The f2bjrop1.0.wav file I got from:
-> http://www.fit.vutbr.cz/~motlicek/speech_hnm.html
->
-> What should be done for the easrc to convert the sampling rates properly?
->
->
-> Maybe it is caused by this "constraint is not needed for back end
-bitstream for
-the sample rate is fixed by dts and the constraint is propagated to front
-end
-bitstream for they share the same snd_soc_pcm_runtime."
+This patchset respins patches posted before to fix some bugs for Linux
+FireWire subsystem. I expect them to be sent to Linus via pull request
+by maintainer of Linux sound subsystem since the path appears to be
+available after a short conversation with the maintainer. This patchset
+is expected to be applied to 'for-linus' branch for v5.18 kernel, and
+to stable kernels based on v4.9 or later.
 
-Please try the below change.  this change hasn't been upstreamed yet.
+This patchset includes below patches:
 
-diff --git a/sound/soc/codecs/wm8524.c b/sound/soc/codecs/wm8524.c
-index 81f858f6bd67..442a59857875 100644
---- a/sound/soc/codecs/wm8524.c
-+++ b/sound/soc/codecs/wm8524.c
-@@ -61,6 +61,7 @@ static int wm8524_startup(struct snd_pcm_substream
-*substream,
- {
-        struct snd_soc_component *component = dai->component;
-        struct wm8524_priv *wm8524 =
-snd_soc_component_get_drvdata(component);
-+       struct snd_soc_pcm_runtime *rtd = substream->private_data;
+* [PATCH V2] drivers/firewire: use struct_size over open coded arithmetic
+    * https://lore.kernel.org/lkml/20220210060805.1608198-1-chi.minghao@zte.com.cn/
+* [PATCH] firewire: core: extend card->lock in fw_core_handle_bus_reset
+    * https://lore.kernel.org/lkml/20220303183038.54126-1-dossche.niels@gmail.com/
+* [PATCH] firewire: remove check of list iterator against head past the loop body
+    * https://lore.kernel.org/lkml/20220331223601.902329-1-jakobkoschel@gmail.com/
 
-        /* The set of sample rates that can be supported depends on the
-         * MCLK supplied to the CODEC - enforce this.
-@@ -71,9 +72,10 @@ static int wm8524_startup(struct snd_pcm_substream
-*substream,
-                return -EINVAL;
-        }
+Chengfeng Ye (1):
+  firewire: fix potential uaf in outbound_phy_packet_callback()
 
--       snd_pcm_hw_constraint_list(substream->runtime, 0,
--                                  SNDRV_PCM_HW_PARAM_RATE,
--                                  &wm8524->rate_constraint);
-+       if (!rtd->dai_link->be_hw_params_fixup)
-+               snd_pcm_hw_constraint_list(substream->runtime, 0,
-+                                          SNDRV_PCM_HW_PARAM_RATE,
-+                                          &wm8524->rate_constraint);
+Jakob Koschel (1):
+  firewire: remove check of list iterator against head past the loop
+    body
 
-        gpiod_set_value_cansleep(wm8524->mute, 1);
+Niels Dossche (1):
+  firewire: core: extend card->lock in fw_core_handle_bus_reset
 
-best regards
-wang shengjiu
+ drivers/firewire/core-card.c        |  3 +++
+ drivers/firewire/core-cdev.c        |  4 +++-
+ drivers/firewire/core-topology.c    |  9 +++------
+ drivers/firewire/core-transaction.c | 30 +++++++++++++++--------------
+ drivers/firewire/sbp2.c             | 13 +++++++------
+ 5 files changed, 32 insertions(+), 27 deletions(-)
+
+-- 
+2.34.1
+

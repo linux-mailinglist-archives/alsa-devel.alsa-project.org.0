@@ -2,86 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59A2D4FAA7F
-	for <lists+alsa-devel@lfdr.de>; Sat,  9 Apr 2022 21:30:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 929F14FAAD0
+	for <lists+alsa-devel@lfdr.de>; Sat,  9 Apr 2022 22:37:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DA3F4174D;
-	Sat,  9 Apr 2022 21:29:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA3F4174D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 29109173F;
+	Sat,  9 Apr 2022 22:36:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 29109173F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649532615;
-	bh=IRJTpx14lau5YSpeJYb35VkmX3BuzcZq7LLCupqIavM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1649536640;
+	bh=YH1KYIUY2qEz2O1SC/5M1ZyYTc9GTVd2feI8AyDJ7bQ=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CZMQ+1bhcuhYwVLQD2d2Q+lDmxctwTUUV3q3bgr8TGVT5vW0VAfx7ybEmQg99d7i/
-	 hmuI8qohGqpN4rPZ7oc35hFOtGYU1D3/oRwxEHyBxzRAbC317w8kawI4iVtMEeniyv
-	 p1TSyyJCYZ1iiVYX1KyS4MlbgnkSfYujWLevzkBc=
+	b=cZbY06IUpYGzsqCOT5R5UY2ng3UtEofWhIFAAf4lThDdldlJe7qSwgEzTUo6u6cgB
+	 rxjRhvSIKCbpe2pRc0qAQLLFqwJCGmQ4wcXpYAXGvzjgG+Y8X2lfOn4E6n4bIBZB4S
+	 tCdYI8Boi+nkXPovsN2bEQ2zQ/atF3s0Za9Q09bE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 46168F80254;
-	Sat,  9 Apr 2022 21:29:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9E54AF80254;
+	Sat,  9 Apr 2022 22:36:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 83F28F80253; Sat,  9 Apr 2022 21:29:12 +0200 (CEST)
+ id 83FB4F80253; Sat,  9 Apr 2022 22:36:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [IPv6:2a00:1450:4864:20::534])
+Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
+ [IPv6:2607:f8b0:4864:20::229])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 98A53F80128
- for <alsa-devel@alsa-project.org>; Sat,  9 Apr 2022 21:29:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98A53F80128
+ by alsa1.perex.cz (Postfix) with ESMTPS id AAFC2F80054
+ for <alsa-devel@alsa-project.org>; Sat,  9 Apr 2022 22:36:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AAFC2F80054
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="GF6EHM/8"
-Received: by mail-ed1-x534.google.com with SMTP id t25so996252edt.9
- for <alsa-devel@alsa-project.org>; Sat, 09 Apr 2022 12:29:01 -0700 (PDT)
+ header.b="LlJXRttn"
+Received: by mail-oi1-x229.google.com with SMTP id e189so12208566oia.8
+ for <alsa-devel@alsa-project.org>; Sat, 09 Apr 2022 13:36:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=42SYpNZ4gWGjgkkO1ijhGokL9fRRX2OSgDVpwy1LrNs=;
- b=GF6EHM/8BYVgk6i/cp8erL0+1aRtnZYL8va9Cx0KLXftNNXmvhgYMZ2kvV6jiGWq5B
- qbs6aYgahKTV1GrB3TF/UQpAFOzasPhvv5XYDkeoDb0lZ7LgfeKqN7UOLZAyqvW5sKmG
- +xwxUQOPUPimA7w0CF6VqqnoOe35rZRenALExlcos3YzOORGczMkkOEC/hDqcAobBjVz
- XXAQFlAgvKJzsoPdJm9MUVPWugx5OD/JTAwnOt2wmjVPs6fEx+FKEQZ+7xKAosLvys7/
- YVYcuZGjwqljBJiH4gADEvnJDS0d2uMzDHBho1K+NLDe63mbFC0BbGYQZROtBSU1Axzr
- ZH0A==
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=Sw9XDpU5uI5p73R0ixtjbNY1SV8v6quaADBM74EVTyY=;
+ b=LlJXRttnHGXfO1kX+w/tO1LbKJ1JsdftQtefhbwCFhzCMSkcjkvppca/4VakjWLRxK
+ T2W8HNCUt3hT7Aq61Q7ofcsd+csyPsJsTL4e/gYDTY3O4dtXvDIS+Tffc6ewnUgWwOnb
+ el6xZVwvNMMGI11PSyvWwPpajNpR37PzS/OAnRrLyvrJoMSNh9DSm+T+R6kykJJI/Apr
+ 71gnOarrDT8Fj6OuacWpLxWYdi/egQDYcOwpul5tGQ+u6j14YhgcqXSCNNiYsBbZmIul
+ LrJMxgcB4K22Kbq49Xg1OTN5Nnrwg7IjFff8jOFhCHdfFRMjywmD2hdYfYW0jpb2uiFk
+ pHsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=42SYpNZ4gWGjgkkO1ijhGokL9fRRX2OSgDVpwy1LrNs=;
- b=t1APqu5VsJk32fPMH8h2hd7nvr1c0c5aEFt2BIWtUdzQzUvSc3cSUO3sPKMN1kliB9
- ve6prYyQkwjgqZMJLBAm4uTTyoOI3h7tLD4tSaL0BtD0n0jpkNtPoPMZJY7xijIcU4ra
- mW10SWM+2tru2r3R/C3p+INjP77w1I7niZuuHYe2/4k89SvLuUB9AqO56SOAxGFJNymM
- C/kQeGC8KJXB7l2RUiOHQ1oaGOHx7JO8TJWnEwwgbV0ig9+AvsY42j8+na4TmvT4hvQa
- LBkVmR7ORO79KJx726vVySivuExnPBH3tVHwsKbAsGxWL7lGX9vMKyxemryffDkBGXLl
- rmtg==
-X-Gm-Message-State: AOAM531vkfukzE+WmxmH40KqiCGmTGnJenSM1JeJ8oxSXtWCcN7VsBfU
- 17yL6qJSLf72hAF586cp+iDDoKb0r828Y8kWK60=
-X-Google-Smtp-Source: ABdhPJxNWiKOFQeQugNVTAzQ+K46ZQj0Xvv0n13qp1/13UzekwGNx8nczlrvWfkw/w00cWMKySS63PIF3ZnNisQEqIE=
-X-Received: by 2002:aa7:d495:0:b0:41c:c46a:550f with SMTP id
- b21-20020aa7d495000000b0041cc46a550fmr25526367edr.305.1649532539565; Sat, 09
- Apr 2022 12:28:59 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=Sw9XDpU5uI5p73R0ixtjbNY1SV8v6quaADBM74EVTyY=;
+ b=wipCis3kPUhA0zh6mEwh6Un/naCNe5CUSpgNzJfzf9DKWpfVRoW7ocO58mAa/7TtnY
+ 5Mvw8zRceP0yIV4N0hZFLAgds1N0lZ+1/CfnMbbpz7XuaRUhZ9zBKx1fUbd5xLse0kQq
+ 62koIqfObNMJwYVOmf6S9PA1FO1vFwgcDhj2FVpqfzvk2pa03YknItjZMEEKLnFdndzj
+ O41GRDR99jwYkofjlWpT/YDIMIo5dL9ODoCVOjKZTzjJzK6cLpvkTLZbZKqyvahNAHLd
+ kWqMC862PVAcCPEgYzgRE4Ay1TNQETLNwc6CSMhlxng0shtnSbUBoyAYZf+1brELs39l
+ Ygpg==
+X-Gm-Message-State: AOAM530KMlcLdxOcbTHwkirhgx2jMFGIMdwhI7N571JPths5F+uOXVDq
+ aQ7nrRERMSuyvah8P3ikcpU=
+X-Google-Smtp-Source: ABdhPJzb5WK0fX1wg23QIBb2K9gBZUX4HFZjP3/4P5KWwdGa2+DAuYB3pgA/01v79xnPEFWRIBdsjA==
+X-Received: by 2002:a05:6808:d4c:b0:2f8:d0d2:d06c with SMTP id
+ w12-20020a0568080d4c00b002f8d0d2d06cmr2336059oik.285.1649536569305; 
+ Sat, 09 Apr 2022 13:36:09 -0700 (PDT)
+Received: from geday ([2804:7f2:8006:103:60b1:f833:388a:391])
+ by smtp.gmail.com with ESMTPSA id
+ m13-20020a056820050d00b003297b35bc63sm6551018ooj.40.2022.04.09.13.36.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 09 Apr 2022 13:36:08 -0700 (PDT)
+Date: Sat, 9 Apr 2022 17:36:17 -0300
+From: Geraldo Nascimento <geraldogabriel@gmail.com>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH] ALSA: usb-audio: Increase max buffer size
+Message-ID: <YlHuQWqGM+3T3HUP@geday>
+References: <20220407212740.17920-1-tiwai@suse.de>
 MIME-Version: 1.0
-References: <CAOMZO5AadRQ6B-xbvZenppf6YHMcWERoYuo=kr_gRx03aPsOeg@mail.gmail.com>
- <CAA+D8APY4RZTF=-i3KNbgQK-m18z6ymvxCaQkgy8w9rb5++oQw@mail.gmail.com>
-In-Reply-To: <CAA+D8APY4RZTF=-i3KNbgQK-m18z6ymvxCaQkgy8w9rb5++oQw@mail.gmail.com>
-From: Fabio Estevam <festevam@gmail.com>
-Date: Sat, 9 Apr 2022 16:28:47 -0300
-Message-ID: <CAOMZO5BeNknnpT8St_EP-vWKpJbUFrea0HqxD_8aQHvcXGhK6g@mail.gmail.com>
-Subject: Re: imx8mn: Using the easrc driver
-To: Shengjiu Wang <shengjiu.wang@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Daniel Baluta <daniel.baluta@nxp.com>, "S.j. Wang" <shengjiu.wang@nxp.com>,
- Mark Brown <broonie@kernel.org>, Adam Ford <aford173@gmail.com>,
- Linux-ALSA <alsa-devel@alsa-project.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220407212740.17920-1-tiwai@suse.de>
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,24 +101,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Shengjiu,
+On Thu, Apr 07, 2022 at 11:27:40PM +0200, Takashi Iwai wrote:
+> The current limit of max buffer size 1MB seems too small for modern
+> devices with lots of channels and high sample rates.
+> Let's make bigger, 4MB.
 
-On Fri, Apr 8, 2022 at 11:14 PM Shengjiu Wang <shengjiu.wang@gmail.com> wrote:
+Hi Takashi,
 
-> Maybe it is caused by this "constraint is not needed for back end bitstream for
-> the sample rate is fixed by dts and the constraint is propagated to front end
-> bitstream for they share the same snd_soc_pcm_runtime."
->
-> Please try the below change.  this change hasn't been upstreamed yet.
+I did some math and 4MB is still too little for some extreme hardware
+like the Behringer Wing, which is USB 2.0 by the way. According to my
+calculations, at 192 KHz and 48 channels, even with this 4MB patch, we
+would still have only 151.7 ms of buffer for the Wing.
 
-With your patch applied the audio is played at the correct rate
+Therefore my suggestion is to expose the MAX_BUFFER_BYTES as Kconf.
 
-When you submit the patch, please add:
+Do you think this is plausible?
 
-Tested-by: Fabio Estevam <festevam@denx.de>
+Thanks,
+Geraldo Nascimento
 
-I will run more tests with different sampling rates.
-
-Thanks a lot,
-
-Fabio Estevam
+> 
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> ---
+>  sound/usb/pcm.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
+> index 6a460225f2e3..37ee6df8b15a 100644
+> --- a/sound/usb/pcm.c
+> +++ b/sound/usb/pcm.c
+> @@ -659,7 +659,7 @@ static int snd_usb_pcm_prepare(struct snd_pcm_substream *substream)
+>  #define hwc_debug(fmt, args...) do { } while(0)
+>  #endif
+>  
+> -#define MAX_BUFFER_BYTES	(1024 * 1024)
+> +#define MAX_BUFFER_BYTES	(4 * 1024 * 1024)
+>  #define MAX_PERIOD_BYTES	(512 * 1024)
+>  
+>  static const struct snd_pcm_hardware snd_usb_hardware =
+> -- 
+> 2.31.1
+> 

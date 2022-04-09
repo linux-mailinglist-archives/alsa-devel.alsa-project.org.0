@@ -2,88 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82AC64FA7AD
-	for <lists+alsa-devel@lfdr.de>; Sat,  9 Apr 2022 14:33:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 144214FA912
+	for <lists+alsa-devel@lfdr.de>; Sat,  9 Apr 2022 16:41:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 142D218EE;
-	Sat,  9 Apr 2022 14:32:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 142D218EE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9ED03173D;
+	Sat,  9 Apr 2022 16:40:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9ED03173D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649507614;
-	bh=cvmxKaWWH4h9hw2g1qMin6dvw6Henpq5DU7P6qlLi20=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=G/eSAKGDa0HlQLufAUz7Edtgm7ELByFkLYnXVxYGEISuK2LPhnzd4vh1viiXwWpb7
-	 ylzWuKzfS2jrGR8AXDn3Q/yTq5XP3d9NQIh/7c3QzMCOS+0WqKk00t4yF6t0PkuQZS
-	 vcrbjy9/IjaW5vmZTzHHpkmthSXt/Kui0hYNjhRE=
+	s=default; t=1649515272;
+	bh=Ss7dIghfZmGX4GdyI/1emD/Oq3aIXX4S8Yp9iWlYrpA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=lOEXSe4aMtIaqdxIo2c2kCOS3t70w4zz0B29bqaTOajy+m8OLtSJs1DUoIGC0XJK0
+	 h7Wqh0j5kQgzWtwh9lHAbL5xQmqFBRsKblblyZ3UJQBplKjGK0f3mCPqIy6ACV/T0v
+	 P0fqMhfzB+rQaLl4qGffDE25b9T4WDifeaSAhQtc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 76BF4F80254;
-	Sat,  9 Apr 2022 14:32:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A14CF80254;
+	Sat,  9 Apr 2022 16:40:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 24855F80253; Sat,  9 Apr 2022 14:32:32 +0200 (CEST)
+ id A3413F80253; Sat,  9 Apr 2022 16:40:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,PRX_APP_ATTACH,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com
+ [IPv6:2607:f8b0:4864:20::435])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7E796F80054
- for <alsa-devel@alsa-project.org>; Sat,  9 Apr 2022 14:32:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E796F80054
+ by alsa1.perex.cz (Postfix) with ESMTPS id E4B03F80054;
+ Sat,  9 Apr 2022 16:40:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4B03F80054
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="MdkD+LRR"
-Received: from lelv0265.itg.ti.com ([10.180.67.224])
- by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 239CWDri038222;
- Sat, 9 Apr 2022 07:32:13 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1649507533;
- bh=VPSKr+fE4UN+HClFuDN9x/kAxwQ26BcKeLG+mwPc8Rg=;
- h=From:To:CC:Subject:Date:References:In-Reply-To;
- b=MdkD+LRRORW56Vi31T+iri67g5gMEXqF0Gpj+tO+LuYcFI17bioRzPBnvaQp/b8oI
- tdPCWG0r/z2lVoWCi5/hxOuPF7MuhSfqEhCyyuyEnRICgS/Nq1V479cw9U1xFb2wMu
- oET4l3i+9ZiUZFCtFJf8fcWFjf2kyOvni2bd5Xt4=
-Received: from DFLE103.ent.ti.com (dfle103.ent.ti.com [10.64.6.24])
- by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 239CWDiu014102
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Sat, 9 Apr 2022 07:32:13 -0500
-Received: from DFLE107.ent.ti.com (10.64.6.28) by DFLE103.ent.ti.com
- (10.64.6.24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2308.14; Sat, 9
- Apr 2022 07:32:12 -0500
-Received: from DFLE107.ent.ti.com ([fe80::86f:14f0:164b:4dbe]) by
- DFLE107.ent.ti.com ([fe80::86f:14f0:164b:4dbe%17]) with mapi id
- 15.01.2308.014; Sat, 9 Apr 2022 07:32:12 -0500
-From: "Xu, Yang" <raphael-xu@ti.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [EXTERNAL] Re: [PATCH v6 3/3] update to support either TAS2764 or
- TAS2780
-Thread-Topic: [EXTERNAL] Re: [PATCH v6 3/3] update to support either TAS2764
- or TAS2780
-Thread-Index: AQHYSNG0ZpP17ReTjUCeCp3SNVUls6zniglH
-Date: Sat, 9 Apr 2022 12:32:12 +0000
-Message-ID: <0818F893-038F-47B2-9003-2893316038B1@ti.com>
-References: <20220401150301.1011-1-13691752556@139.com>
- <20220401150301.1011-3-13691752556@139.com>,<YkwPZJLnxDe9YyZp@sirena.org.uk>
-In-Reply-To: <YkwPZJLnxDe9YyZp@sirena.org.uk>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator: 
-x-exclaimer-md-config: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Content-Type: multipart/mixed;
- boundary="_004_0818F893038F47B290032893316038B1ticom_"
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="FcErb1/a"
+Received: by mail-pf1-x435.google.com with SMTP id h19so10864493pfv.1;
+ Sat, 09 Apr 2022 07:40:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=JU41SxMqoMbPQ8QDWJHCi79lbMEbsjN5J5bWfMPCK44=;
+ b=FcErb1/aURM81N0KQMBD4HiiOBV3ZvN/fKTZEZCoVKB4fpu3Yz2xPUczF6QvdYRNoF
+ l+8SzpOuuPgzj9fkGjH7uHoEDVg6+VdDH3GC1qA12fmXurrcYKgEoPirQCHDPkJu4dXQ
+ 5rL0z9yh/sslZFzBAJzMffuqGGMwyMD2W6lKYPxOhQY18mH85wVuYt05zPRxlAZy+YL0
+ 7YUyl9TJAHE+6zeWsNamzUdjJrZ2COO12vYK50DkZRQ8W/qF6LLVd8sfozz2w9YtxjcD
+ 2Jew7Cb4adTIRU62EqpBj28FQcMTLFaTchc3ZaKVl28JgkAhGkyx8mH2l/9dXfP+ah1v
+ JDuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=JU41SxMqoMbPQ8QDWJHCi79lbMEbsjN5J5bWfMPCK44=;
+ b=5V1rlSVWfpSldMtLCyA+ib3aaJqf8aTTA+zDaBXBWSKKhtVUXsYk14CB6tYmIT5blx
+ b6RSyeL/jKBNt3g8MaCe8BaBnxbC2bhxk0mhDM9NlnneFQYDdFy3720YOB7VN6tbAtoN
+ /hR9PFs1AvS5TmpTuqL56y3PMRm4xYigFXuS03RNot/0DawY+7ncBh6nLibleVUQOiL6
+ 9ZoU7U0kFgzc6fg0Nm/NMpbtplm1obzNBUerhL1RSnkYHt8bsVc79qydkqrXsvWtU+PK
+ Uqu7gk5mzKsdRKDYLMbQhbUWPyu9P6lJ5NzNqsAtJz/AoGZxHWNj8Fx8PYUx1aiF3skI
+ SacQ==
+X-Gm-Message-State: AOAM532qx6XFhxiP5QVOjEyL7UrQIn9mEYSLCwzrgxaF7ODynJM39KrN
+ UCllUfG+6654EYP/c/LrCQ==
+X-Google-Smtp-Source: ABdhPJzsW+eToTWCrP8SHQ9RBgakFlrWo4D3JSdC6x9/gCg055Ug42/f1pZhPJGIslBLxzrw0/4W8A==
+X-Received: by 2002:a05:6a00:b47:b0:4fd:a5b5:a279 with SMTP id
+ p7-20020a056a000b4700b004fda5b5a279mr24556558pfo.19.1649515204528; 
+ Sat, 09 Apr 2022 07:40:04 -0700 (PDT)
+Received: from localhost.localdomain ([144.202.91.207])
+ by smtp.gmail.com with ESMTPSA id
+ f15-20020a056a001acf00b004fb2ad05521sm29225307pfv.215.2022.04.09.07.40.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 09 Apr 2022 07:40:03 -0700 (PDT)
+From: Zheyu Ma <zheyuma97@gmail.com>
+To: pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com,
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
+ broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ peter.ujfalusi@linux.intel.com
+Subject: [PATCH] ASoC: SOF: Intel: Check the bar size before remapping
+Date: Sat,  9 Apr 2022 22:39:50 +0800
+Message-Id: <20220409143950.2570186-1-zheyuma97@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: "Ding, Shenghao" <shenghao-ding@ti.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Raphael-Xu <13691752556@139.com>, "Navada Kanyana, Mukund" <navada@ti.com>
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Zheyu Ma <zheyuma97@gmail.com>,
+ linux-kernel@vger.kernel.org, sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,39 +102,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
---_004_0818F893038F47B290032893316038B1ticom_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+The driver should use the pci_resource_len() to get the actual length of
+pci bar, and compare it with the expect value. If the bar size is too
+small (such as a broken device), the driver should return an error.
 
-DQoNCg0KDQrlnKggMjAyMuW5tDTmnIg15pel77yM5LiL5Y2INTo0NO+8jE1hcmsgQnJvd24gPGJy
-b29uaWVAa2VybmVsLm9yZz4g5YaZ6YGT77yaDQoNCu+7v09uIEZyaSwgQXByIDAxLCAyMDIyIGF0
-IDExOjAzOjAxUE0gKzA4MDAsIFJhcGhhZWwtWHUgd3JvdGU6DQpmaXggbm8gc291bmQgaXNzdWUg
-b24gc29tZSBwbGF0Zm9ybXMNCg0KU2lnbmVkLW9mZi1ieTogUmFwaGFlbC1YdSA8MTM2OTE3NTI1
-NTZAMTM5LmNvbT4NCi0tLQ0Kc291bmQvc29jL2NvZGVjcy90YXMyN3h4LmMgfCA0MDUgKysrKysr
-KysrKysrKysrKysrKysrKysrKysrLS0tLS0tLS0tLQ0Kc291bmQvc29jL2NvZGVjcy90YXMyN3h4
-LmggfCAgIDIgKy0NCjIgZmlsZXMgY2hhbmdlZCwgMjk1IGluc2VydGlvbnMoKyksIDExMiBkZWxl
-dGlvbnMoLSkNCg0KVGhpcyBkb2Vzbid0IGFwcGx5IGFnYWluc3QgY3VycmVudCBjb2RlICh3aXRo
-IHlvdXIgZmlyc3QgdHdvIHBhdGNoZXMNCmFwcGxpZWQpLCBwbGVhc2UgY2hlY2sgYW5kIHJlc2Vu
-ZCAtIHNob3VsZCBqdXN0IGJlIGEgcmViYXNlLg0KDQpKdXN0IHJlc3VibWl0IHRoZSBwYXRjaGVz
-IHdoaWNoIGJhc2Ugb24gdGhlICBsYXRlc3Qga2VybmVsIG9yaWdpbi9tYXN0ZXIgdG9kYXkuDQo=
+Signed-off-by: Zheyu Ma <zheyuma97@gmail.com>
+---
+ sound/soc/sof/intel/pci-tng.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
---_004_0818F893038F47B290032893316038B1ticom_
-Content-Type: application/octet-stream; name="signature.asc"
-Content-Description: signature.asc
-Content-Disposition: attachment; filename="signature.asc"; size=499;
-	creation-date="Sat, 09 Apr 2022 12:32:12 GMT";
-	modification-date="Sat, 09 Apr 2022 12:32:12 GMT"
-Content-ID: <EB0F7F24-26EB-41C5-92DD-5DFA2C453684>
-Content-Transfer-Encoding: base64
+diff --git a/sound/soc/sof/intel/pci-tng.c b/sound/soc/sof/intel/pci-tng.c
+index 6efef225973f..7d502cc3ca80 100644
+--- a/sound/soc/sof/intel/pci-tng.c
++++ b/sound/soc/sof/intel/pci-tng.c
+@@ -75,7 +75,11 @@ static int tangier_pci_probe(struct snd_sof_dev *sdev)
+ 
+ 	/* LPE base */
+ 	base = pci_resource_start(pci, desc->resindex_lpe_base) - IRAM_OFFSET;
+-	size = PCI_BAR_SIZE;
++	size = pci_resource_len(pci, desc->resindex_lpe_base);
++	if (size < PCI_BAR_SIZE) {
++		dev_err(sdev->dev, "error: I/O region is too small.\n");
++		return -ENODEV;
++	}
+ 
+ 	dev_dbg(sdev->dev, "LPE PHY base at 0x%x size 0x%x", base, size);
+ 	sdev->bar[DSP_BAR] = devm_ioremap(sdev->dev, base, size);
+-- 
+2.25.1
 
-LS0tLS1CRUdJTiBQR1AgU0lHTkFUVVJFLS0tLS0NCg0KaVFFekJBQUJDZ0FkRmlFRXJlWm9xbWRY
-R0xXZjRwL3FKTmFMY2wxVWg5QUZBbUpNRDJRQUNna1FKTmFMY2wxVQ0KaDlDU3BnZ0FnTEEzVit5
-MDZ6QklueFNpSnhuamZjT3VJZ2Vrdk1KTWdydG1LQW5CVmhIeVdFVjQ4NXdHT3pDaw0KMzI5K1Zj
-Y1ZIaENoS1l2cU51L20vQXIvdGxzNG4wNXZveFFWTVRqSm9mTUlqeFJsVEd3MXJON1EyZElBT2lm
-YQ0KazBZSTEvRE9iWVg2K2gwUVI1Q3ZwV2Z4VFpmdFJTcFVzd3Y0cjB5aTNCaGZMMmRsMExTMktF
-VmVMWjlKTkQ5Vg0KQS9EN3V5Vm5NOFUzQ201ZFYvT3NSQ1BPL1JRTloza2FDU0NhWXg4ZS9FYkQr
-MW44RFFWQzZmVCtBaWdPUWlOUw0Kc3U1bTdLdzlPTE5PNUp2TjhxeS9yMG1sbUpuWWZ1bm5TSTdH
-c0ZMN3FGOG9ORlNPRzIvbWpTN1FrMmllT091WA0KdWFTV2RaT045VmlwYkhTR083L2xzSFhqN1g3
-VzZ3PT0NCj1CQWJQDQotLS0tLUVORCBQR1AgU0lHTkFUVVJFLS0tLS0NCg==
-
---_004_0818F893038F47B290032893316038B1ticom_--

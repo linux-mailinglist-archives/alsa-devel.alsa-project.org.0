@@ -2,106 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C15254FA24B
-	for <lists+alsa-devel@lfdr.de>; Sat,  9 Apr 2022 06:15:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEDCF4FA509
+	for <lists+alsa-devel@lfdr.de>; Sat,  9 Apr 2022 07:22:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4BFC61849;
-	Sat,  9 Apr 2022 06:14:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BFC61849
+	by alsa0.perex.cz (Postfix) with ESMTPS id 568FC17A2;
+	Sat,  9 Apr 2022 07:22:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 568FC17A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649477706;
-	bh=HXKctxrSYSCY/KLEQpOM7OjJTnVYewjD2a9dzBnQQ/g=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=SnSJKMr+MnUejpdlaP8lObK9F8HWIvTbY1rOakktzN7CIDlPzc99l9VgO6MmnaxvU
-	 b+5lZv3TqiMIGLK9oYQMafNckD9/luzSXypWmMBossVlSv422mHvts4d8g4iZDhQSB
-	 1lPfHBD1cfuXgMa7zLRrVpszvrmhOT3M9rBsEEsU=
+	s=default; t=1649481770;
+	bh=94n3ChKsG6yMLO5A1Hqs4TmFHcSD7tKRKyuvhfQ6sOo=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=c7ehDuO1NdJo5VDd5UMu95iAlu3LHcH45NWGPnbBWPnNxd/sXp8o2Q0oAsLBRDkOc
+	 pbI8mR1xtjdJStuw0lra6xXIbuWbP9OtSWik+3Zbv4I0VR4rC828PKP5ilfOPXL9ot
+	 fGP6AGvNrQOO5HNyI8VeJdYMHisQEenhBFXB5xoQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CF5ACF8051F;
-	Sat,  9 Apr 2022 06:13:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C2E3AF80155;
+	Sat,  9 Apr 2022 07:21:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 26037F80519; Sat,  9 Apr 2022 06:13:08 +0200 (CEST)
+ id EF376F80253; Sat,  9 Apr 2022 07:21:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
- [64.147.123.24])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:e::133])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A65DEF8011C
- for <alsa-devel@alsa-project.org>; Sat,  9 Apr 2022 06:12:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A65DEF8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id A6499F8011C
+ for <alsa-devel@alsa-project.org>; Sat,  9 Apr 2022 07:21:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6499F8011C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="APB0YY7I"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="TJHeDKpt"
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 953413201FED;
- Sat,  9 Apr 2022 00:12:56 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Sat, 09 Apr 2022 00:12:57 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=cc:cc:content-transfer-encoding:date:date:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to; s=fm1; bh=4IOIHeCPahu18m
- XrSxL18izkRq7PcU2ik7+XDSoutzQ=; b=APB0YY7IuFNdX0tRyjaWJ2ji1+8e4H
- oe+DmPaIVCp68N7ERJT2afcFSYTrYuGDOV5/CLdJW4R/M2yqPF2jqYvURSR4XweN
- C4baOJooMG7wKxbmSfOnndIV6q/xlkBey2lGxAoxLFu43NgXGfo4F5k05w+FtjxP
- iG/hHr6mUYLFpTkEzpTHpV9r6GBdL1mrAPpwVE2W4CfjQzxQAHXclOTTne1JkTTJ
- aCAj71nK1sD4KUdQYmGXKSZxfNY8tsCMSku5k1wR3Y+J3lC8yWMuqfXLCtoHoqfK
- fmV6Xl0n8QqZ1WHPQbiZg8lUF2bK9Px2FBNWC+m+seeWxzK6S52dy2IA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:sender:subject:subject:to:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=4IOIHe
- CPahu18mXrSxL18izkRq7PcU2ik7+XDSoutzQ=; b=TJHeDKptwJcAYqlnKQEKGq
- 3x48SXXw6MuBE0M7wBwqsuLR8hYZWWKiLx+R527mKqAUcSv+Cqa6dVbiO7Sq2mij
- HJ0eFsj917POjnfiC9tiUqgUL1RftvVsRB0RJ5oV9VSqdL/CvSMgj/B2VewH2aUd
- 9pwpM8yw4xZXr4x+YT9yTUr7lQ5BetcFSVYDHW/fto8KmtzAQmLSkJUXHcOgmbDf
- b3VTXH3I3YgoEpJAtyzXppyN581DkyDSrRe3F4Wre0Sk+YytRS0iQn2JpgOAKfU9
- JQPVBlsR8QCKThfUztaqD2Z3yfcRs3ojjWhE+BgpZbGnHBak6dymYUSjJXNcTL2Q
- ==
-X-ME-Sender: <xms:yAdRYsKkR6fsXQcy5Ul-ulGk0PckdjjsZjSv4r-sO6VmYQCzsRlVqg>
- <xme:yAdRYsKOVf42OpUF6T5D8WHO3SOCOsoPtyoizN6c9CL2k-kMC1UMXq2qgV-grAg9b
- TGFZ0VNJNYv6MoKyxk>
-X-ME-Received: <xmr:yAdRYsts6Pa8J9QJmtZL_QuTl9XzDZzCciJ79REVzzwY33rbadr3RClNdBqTAfl057-5xa4ULu0SX6lJKVe2PR-MEc1cC0DIlg9yYmbqcw_wWbmifH8>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrudekuddgjeekucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhephffvufffkffojghfggfgsedtkeertdertddtnecuhfhrohhmpefvrghkrghs
- hhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjh
- hpqeenucggtffrrghtthgvrhhnpeevfefffeektefgveegfeelheffhfeujedtjeevtefh
- keevkedtjeejvddtjefhjeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmh
- grihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:yAdRYpYgvIxax5GQvs0APY_MjMRZIlPJo48dd2t5_81tdihfjPh52A>
- <xmx:yAdRYjZo7EspOiSbAk4-fJ4c9t0_r1CJpi6Vrgccv3vVPpPNogioCA>
- <xmx:yAdRYlB_9x-rWPvkO8_PNr0RQZlPmFbHlupl4rVgi4oHEfUtRRKIkA>
- <xmx:yAdRYiUyTCcFik1ZRixzVGiNLxErsSoVoOh7G8i4vDHUMtV8kYtSkw>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 9 Apr 2022 00:12:54 -0400 (EDT)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: tiwai@suse.de
-Subject: [PATCH 3/3] firewire: core: extend card->lock in
- fw_core_handle_bus_reset
-Date: Sat,  9 Apr 2022 13:12:43 +0900
-Message-Id: <20220409041243.603210-4-o-takashi@sakamocchi.jp>
+ dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
+ header.b="iotYhzG6"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ MIME-Version:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
+ Content-ID:Content-Description:In-Reply-To:References;
+ bh=L0vleVIlE534qVbDB+2q/IG8Y66YuIRD+ClxjHh9uKs=; b=iotYhzG6/ErQMr3KAc//VLH0KZ
+ 8bHeTQ62XL8KfU+yNWbCONpi67LMEiJzi5exzXfGhOqyOwuyT3jLET1oHI9nLvKXXvfcdNORHgkFo
+ AMQjG9nNoTsEuDp6O7dn6Osq0L0DfPDAY1/mdKmzeqjMy1cpNdBiRGhTRgB6flOBqUEYXfq0ncaTW
+ arnNwHeFc1TzOCD3+tN7LHGmdPORaoyIRcCyE5CVqIsjQq9om5G+IJymzBrn5XIS3MbtM7r0ky/h1
+ bIF4HcVPYa64RWpThlipfH+DK5ukO0jXTcJGqdWu31eOi0t3Kbi8MUBh4WN1RXp1t8HAK8bSQUTIc
+ 01aqiMSg==;
+Received: from [2601:1c0:6280:3f0::aa0b] (helo=bombadil.infradead.org)
+ by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1nd3XF-002FZ1-QK; Sat, 09 Apr 2022 05:21:25 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: linux-kernel@vger.kernel.org
+Subject: [PATCH] sound: soc/codecs: tlv320adc3xxx: needs GPIOLIB
+Date: Fri,  8 Apr 2022 22:21:20 -0700
+Message-Id: <20220409052120.3780-1-rdunlap@infradead.org>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220409041243.603210-1-o-takashi@sakamocchi.jp>
-References: <20220409041243.603210-1-o-takashi@sakamocchi.jp>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux1394-devel@lists.sourceforge.net,
- Niels Dossche <dossche.niels@gmail.com>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, kernel test robot <lkp@intel.com>,
+ Randy Dunlap <rdunlap@infradead.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Ricard Wanderlof <ricardw@axis.com>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -117,91 +80,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Niels Dossche <dossche.niels@gmail.com>
+Fix build errors when CONFIG_GPIOLIB is not enabled:
 
-card->local_node and card->bm_retries are both always accessed under
-card->lock.
-fw_core_handle_bus_reset has a check whose condition depends on
-card->local_node and whose body writes to card->bm_retries.
-Both of these accesses are not under card->lock. Move the lock acquiring
-of card->lock to before this check such that these accesses do happen
-when card->lock is held.
-fw_destroy_nodes is called inside the check.
-Since fw_destroy_nodes already acquires card->lock inside its function
-body, move this out to the callsites of fw_destroy_nodes.
-Also add a comment to indicate which locking is necessary when calling
-fw_destroy_nodes.
+../sound/soc/codecs/tlv320adc3xxx.c: In function 'adc3xxx_i2c_probe':
+../sound/soc/codecs/tlv320adc3xxx.c:1352:28: error: implicit declaration of function 'devm_gpiod_get'; did you mean 'devm_gpio_free'? [-Werror=implicit-function-declaration]
+ 1352 |         adc3xxx->rst_pin = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
+../sound/soc/codecs/tlv320adc3xxx.c:1352:57: error: 'GPIOD_OUT_LOW' undeclared (first use in this function); did you mean 'GPIOF_INIT_LOW'?
+ 1352 |         adc3xxx->rst_pin = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
+  CC      lib/dynamic_debug.o
+../sound/soc/codecs/tlv320adc3xxx.c:1400:9: error: implicit declaration of function 'gpiod_set_value_cansleep'; did you mean 'gpio_set_value_cansleep'? [-Werror=implicit-function-declaration]
+ 1400 |         gpiod_set_value_cansleep(adc3xxx->rst_pin, 1);
 
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Niels Dossche <dossche.niels@gmail.com>
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Fixes: e9a3b57efd28 ("ASoC: codec: tlv320adc3xxx: New codec driver")
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Reported-by: kernel test robot <lkp@intel.com>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>
+Cc: Ricard Wanderlof <ricardw@axis.com>
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org
 ---
- drivers/firewire/core-card.c     | 3 +++
- drivers/firewire/core-topology.c | 9 +++------
- 2 files changed, 6 insertions(+), 6 deletions(-)
+ sound/soc/codecs/Kconfig |    1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/firewire/core-card.c b/drivers/firewire/core-card.c
-index 54be88167c60..f3b3953cac83 100644
---- a/drivers/firewire/core-card.c
-+++ b/drivers/firewire/core-card.c
-@@ -668,6 +668,7 @@ EXPORT_SYMBOL_GPL(fw_card_release);
- void fw_core_remove_card(struct fw_card *card)
- {
- 	struct fw_card_driver dummy_driver = dummy_driver_template;
-+	unsigned long flags;
- 
- 	card->driver->update_phy_reg(card, 4,
- 				     PHY_LINK_ACTIVE | PHY_CONTENDER, 0);
-@@ -682,7 +683,9 @@ void fw_core_remove_card(struct fw_card *card)
- 	dummy_driver.stop_iso		= card->driver->stop_iso;
- 	card->driver = &dummy_driver;
- 
-+	spin_lock_irqsave(&card->lock, flags);
- 	fw_destroy_nodes(card);
-+	spin_unlock_irqrestore(&card->lock, flags);
- 
- 	/* Wait for all users, especially device workqueue jobs, to finish. */
- 	fw_card_put(card);
-diff --git a/drivers/firewire/core-topology.c b/drivers/firewire/core-topology.c
-index b63d55f5ebd3..f40c81534381 100644
---- a/drivers/firewire/core-topology.c
-+++ b/drivers/firewire/core-topology.c
-@@ -375,16 +375,13 @@ static void report_found_node(struct fw_card *card,
- 	card->bm_retries = 0;
- }
- 
-+/* Must be called with card->lock held */
- void fw_destroy_nodes(struct fw_card *card)
- {
--	unsigned long flags;
--
--	spin_lock_irqsave(&card->lock, flags);
- 	card->color++;
- 	if (card->local_node != NULL)
- 		for_each_fw_node(card, card->local_node, report_lost_node);
- 	card->local_node = NULL;
--	spin_unlock_irqrestore(&card->lock, flags);
- }
- 
- static void move_tree(struct fw_node *node0, struct fw_node *node1, int port)
-@@ -510,6 +507,8 @@ void fw_core_handle_bus_reset(struct fw_card *card, int node_id, int generation,
- 	struct fw_node *local_node;
- 	unsigned long flags;
- 
-+	spin_lock_irqsave(&card->lock, flags);
-+
- 	/*
- 	 * If the selfID buffer is not the immediate successor of the
- 	 * previously processed one, we cannot reliably compare the
-@@ -521,8 +520,6 @@ void fw_core_handle_bus_reset(struct fw_card *card, int node_id, int generation,
- 		card->bm_retries = 0;
- 	}
- 
--	spin_lock_irqsave(&card->lock, flags);
--
- 	card->broadcast_channel_allocated = card->broadcast_channel_auto_allocated;
- 	card->node_id = node_id;
- 	/*
--- 
-2.34.1
-
+--- a/sound/soc/codecs/Kconfig
++++ b/sound/soc/codecs/Kconfig
+@@ -1567,6 +1567,7 @@ config SND_SOC_TFA989X
+ config SND_SOC_TLV320ADC3XXX
+ 	tristate "Texas Instruments TLV320ADC3001/3101 audio ADC"
+ 	depends on I2C
++	depends on GPIOLIB
+ 	help
+ 	 Enable support for Texas Instruments TLV320ADC3001 and TLV320ADC3101
+ 	 ADCs.

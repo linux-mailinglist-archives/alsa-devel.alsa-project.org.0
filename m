@@ -2,82 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 007EA4FAC95
-	for <lists+alsa-devel@lfdr.de>; Sun, 10 Apr 2022 09:41:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BBFE4FAD06
+	for <lists+alsa-devel@lfdr.de>; Sun, 10 Apr 2022 11:15:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5F9081709;
-	Sun, 10 Apr 2022 09:40:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F9081709
+	by alsa0.perex.cz (Postfix) with ESMTPS id 886C91748;
+	Sun, 10 Apr 2022 11:14:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 886C91748
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649576476;
-	bh=uhe+yQvXagV5/RyUJocK1PzYxBf73N6PdueHWKKosXY=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=MOaZurrrUwLMG39FmSl9hRUDT3C3PnITvoG4ruXxkRmWKHiayr8mt6JqY5m1DhVZo
-	 Dhycdj5vcAvPdI2sULyY+FilcEaNS9KPHV1GpRUCS4YTpnGyRPKBRBvXwg9Y3X4x7k
-	 oTHrCdkaGaiBwDwkP18vEfCoj+se9GmCGuzFAdFM=
+	s=default; t=1649582115;
+	bh=6e8hhd4bMl6yvFivzulWwLd0jJ/QYzJD3wm7Kr4IQLA=;
+	h=From:Date:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=LCslQoINkOLajZp8YHKUXgxo5RCHY4rZyK7Qnaup41dAojYxj4hJ6cJbFZDA9dgI+
+	 +F+rB1zEqOI2OhXwS5XFlynF2PI1CYZS3KLI8XmIkjBMtubDprnR7RnyfG6VgflJzc
+	 a7a7aEXbdK79uKHw1IkXjTOeZNaZibWD3Uru6bfk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D7DE3F8049E;
-	Sun, 10 Apr 2022 09:40:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 00CEDF80217;
+	Sun, 10 Apr 2022 11:14:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B06C4F80425; Sun, 10 Apr 2022 09:40:14 +0200 (CEST)
+ id 75146F80128; Sun, 10 Apr 2022 11:14:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com
+ [IPv6:2607:f8b0:4864:20::102b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 95DE6F80217
- for <alsa-devel@alsa-project.org>; Sun, 10 Apr 2022 09:40:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95DE6F80217
+ by alsa1.perex.cz (Postfix) with ESMTPS id CCBB7F800F2
+ for <alsa-devel@alsa-project.org>; Sun, 10 Apr 2022 11:14:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CCBB7F800F2
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="t6e4Zfkr"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="c8CtlWcN"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id F228D1F381;
- Sun, 10 Apr 2022 07:40:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1649576410; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=MHaBkBtaRQJRl5CcCoPPglrCNrM4dbPIu4Uo8mtxAzw=;
- b=t6e4ZfkrusOZsoCwfXsHLjSnHcpTPZK93xb3k/xlt/+SEeSdVKDi3kfBLiEPvRDpopLb5Q
- e8YYSi9l2X4GlS4AuoxvY/v2vBCs17lOx+IkbLrGxXUNZOw2rgt7CEZEuzcmW3F3toJRaa
- oOU134JPL9fWbhSvmBrWkeb4w/e9fxQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1649576410;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=MHaBkBtaRQJRl5CcCoPPglrCNrM4dbPIu4Uo8mtxAzw=;
- b=c8CtlWcNGV/u3YiN3IDdCQBJF+x6teW5/8CxgGWsWCmxD85y2uIfaA13ra51IkaDHD9vG3
- tVp/uB3roG/iyXAQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id E6BAEA3B82;
- Sun, 10 Apr 2022 07:40:10 +0000 (UTC)
-Date: Sun, 10 Apr 2022 09:40:10 +0200
-Message-ID: <s5hczhpe691.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH] ALSA: usb-audio: Increase max buffer size
-In-Reply-To: <dee9ff0a-4d99-1ae3-4f37-15107ab40637@perex.cz>
-References: <20220407212740.17920-1-tiwai@suse.de> <YlHuQWqGM+3T3HUP@geday>
- <dee9ff0a-4d99-1ae3-4f37-15107ab40637@perex.cz>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Geraldo Nascimento <geraldogabriel@gmail.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="QkEh1cbc"
+Received: by mail-pj1-x102b.google.com with SMTP id bx5so12456117pjb.3
+ for <alsa-devel@alsa-project.org>; Sun, 10 Apr 2022 02:14:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=WDPfrzxoEqoQc1/eGWlrbqzJhsvrBmHHWTvNKjsYkJM=;
+ b=QkEh1cbcPct4JczcOnXh+aKqtrHGkH6NNm7c3AONE1RhylRzyBpeOLzvd7XWaCm6XH
+ 0w+5Wx7u/vA05q6JUyqN7PQhtlbPVEysyU/yzh0BQULuiFdn8agGYwB+505VhLt4peSN
+ 4TQqL0CwpNkLD+pXkok19uXrGYOz1aLuv2SoKOxiG7XXzfYrJOFdAFlZPt91JtvjVucl
+ 8meujpcl/phahG9kPygAXIHfghNcXE4SYZgupB24Crh1GdY5Wp3W4DUMacPMraqYwDHG
+ Ihs0My6BDesqs2JDr04owaQwiBUL40bYC6Zr0GgT47YsCjoM5Q8dxiknldQpzfe+gFOU
+ BG6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=WDPfrzxoEqoQc1/eGWlrbqzJhsvrBmHHWTvNKjsYkJM=;
+ b=pSsOfUu7XH7JvlCgteFdoec0+F5Oh9aCRexDKlUn26KCBp6K+gx7d4VmO+7HGpoGcr
+ Fdg228DCagBc+O6twxOn9jgkDzk7S9zksOHQ2/L1AfPpK4DsGA74lDCdjOmtXzaDj+3R
+ gGyHpee/c0O9/c+k3Ur4Y3W5ngzZC+HaHHCTdg161KNjV1R+zU1k9rGgYWKkuH6FUZPI
+ fUKIjpjeuRSP2O2msvOiB0yYjUy+ewJzUXsi1fh6bbRxVYv9j2JuELAKw4SaeFnHAeDW
+ pft28fbXk0BbkwuxLTIhpMpWxrijNwj8rHnFEEZEdQLxzVFg3ykx+ef4ZfbcL6pe63YF
+ bEiQ==
+X-Gm-Message-State: AOAM532VUrc2iVuteCncEAtqnoKuoZOQ/vIL3AOg1fS96TAILSYtqyxw
+ mfxuFKtJ0ABtev5P+0Ik6QkMBbhekCCzcPl5eg==
+X-Google-Smtp-Source: ABdhPJxlVIb0T0CZqME8DQnXouztNp0D0cA7yEivwZdQ+Mrtmiv3y7hyXAvfEkrS8G4zaFx+aG1mH3vaE5zcmg+cO7w=
+X-Received: by 2002:a17:90b:915:b0:1ca:b584:8241 with SMTP id
+ bo21-20020a17090b091500b001cab5848241mr30853251pjb.46.1649582046260; Sun, 10
+ Apr 2022 02:14:06 -0700 (PDT)
+MIME-Version: 1.0
+From: Zheyu Ma <zheyuma97@gmail.com>
+Date: Sun, 10 Apr 2022 17:13:55 +0800
+Message-ID: <CAMhUBjm2AdyEZ_-EgexdNDN7SvY4f89=4=FwAL+c0Mg0O+X50A@mail.gmail.com>
+Subject: [BUG] ALSA: echoaudio: warning when the driver fails to probe
+To: perex@perex.cz, tiwai@suse.com
+Content-Type: text/plain; charset="UTF-8"
+Cc: alsa-devel@alsa-project.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,44 +91,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 09 Apr 2022 22:43:13 +0200,
-Jaroslav Kysela wrote:
-> 
-> On 09. 04. 22 22:36, Geraldo Nascimento wrote:
-> > On Thu, Apr 07, 2022 at 11:27:40PM +0200, Takashi Iwai wrote:
-> >> The current limit of max buffer size 1MB seems too small for modern
-> >> devices with lots of channels and high sample rates.
-> >> Let's make bigger, 4MB.
-> >
-> > Hi Takashi,
-> >
-> > I did some math and 4MB is still too little for some extreme hardware
-> > like the Behringer Wing, which is USB 2.0 by the way. According to my
-> > calculations, at 192 KHz and 48 channels, even with this 4MB patch, we
-> > would still have only 151.7 ms of buffer for the Wing.
-> >
-> > Therefore my suggestion is to expose the MAX_BUFFER_BYTES as Kconf.
-> >
-> > Do you think this is plausible?
-> 
-> I think that much better behaviour may be to calculate and limit the
-> max buffer size at runtime depending on the max channels / rate /
-> sample bits obtained from the USB descriptors by default. For standard
-> hardware, those big buffers do not make much sense and there's usually
-> a mix of the USB sound hardware in the system.
+Hello,
 
-IMO, one good way would be to leave buffer and period bytes max
-unlimited, while limiting buffer and period max time instead.  It
-should cover all combinations.  But involving the buffer/period time
-may have some alignment issue with bytes and frame sizes, so we need
-to check whether it works reliably (although I believe it'd work in
-that case).
+I found a bug in echoaudio.c.
+When the driver fails at the function snd_echo_create(), it should
+release resources requested before, otherwise we will get the
+following warning:
 
-My concern by removing the limit is, however, the behavior change in
-certain applications.  It can't be known until we really hit the
-issue, though.  Let's see.
+[    3.262866] remove_proc_entry: removing non-empty directory
+'irq/21', leaking at least 'snd_indigodj'
+[    3.263577] WARNING: CPU: 3 PID: 261 at fs/proc/generic.c:717
+remove_proc_entry+0x389/0x3f0
+[    3.267098] RIP: 0010:remove_proc_entry+0x389/0x3f0
+[    3.269976] Call Trace:
+[    3.269979]  <TASK>
+[    3.269988]  unregister_irq_proc+0x14c/0x170
+[    3.269997]  irq_free_descs+0x94/0xe0
+[    3.270004]  mp_unmap_irq+0xb6/0x100
+[    3.270011]  acpi_unregister_gsi_ioapic+0x27/0x40
+[    3.270017]  acpi_pci_irq_disable+0x1d3/0x320
+[    3.270025]  pci_disable_device+0x1ad/0x380
+[    3.270034]  pcim_release+0x566/0x6d0
+[    3.270046]  devres_release_all+0x1f1/0x2c0
+[    3.270057]  really_probe+0xe0/0x920
 
-
-thanks,
-
-Takashi
+Regards,
+Zheyu Ma

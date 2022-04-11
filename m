@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60FE34FC5B1
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Apr 2022 22:21:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10D444FC5B7
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Apr 2022 22:23:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E9953177E;
-	Mon, 11 Apr 2022 22:20:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9953177E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 95AFB17A8;
+	Mon, 11 Apr 2022 22:22:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95AFB17A8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649708502;
-	bh=pWo17U9Y3pAhwuPn2joJ8CpP54ulDCjd9WOoRmvR0i8=;
+	s=default; t=1649708587;
+	bh=H4ktIngn7owDJMgeZYmLjN8VDxt0GwWUrGgQvTIdfxc=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fuEX6V748QsTNdNlv+iO72ns6FGovv9i4n+2719+ODICCnwnEqH4nVRkTmpgdSs1w
-	 6idPti5x0sAGpWU6830P/u2JHn3z91rqaeN9ByqDaHaI1mAOZAtOatXLuqACR6GINl
-	 0jDG+BaH0jxLlmhSkGHLbP6bVKBX+hml/XwIgrqg=
+	b=GPtn+f15Exgu/63DVNi+szS6t8BSPbMExH8czQTSxm00qp9ghb8Q0eWQ0cuUzpRt+
+	 gqQrpObeoSBtkWh8P2jKK9hJKbNLoSyko7rYDwZpt8Ak/RCHNE//u8c7BP8hMS0aOn
+	 zNHt8xE4iM3kkSHA5OFpENpHSQzGh/CL4jRk1gg4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D4704F8055B;
-	Mon, 11 Apr 2022 22:18:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 12FC2F805AB;
+	Mon, 11 Apr 2022 22:18:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E7F5BF8053E; Mon, 11 Apr 2022 22:18:15 +0200 (CEST)
+ id 70FC4F8055A; Mon, 11 Apr 2022 22:18:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,40 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1FB76F80511
- for <alsa-devel@alsa-project.org>; Mon, 11 Apr 2022 22:18:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1FB76F80511
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8D5D5F80279
+ for <alsa-devel@alsa-project.org>; Mon, 11 Apr 2022 22:18:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D5D5F80279
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="oJrBIuQ3"
+ header.b="WlvfALmq"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1649708285; x=1681244285;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=pWo17U9Y3pAhwuPn2joJ8CpP54ulDCjd9WOoRmvR0i8=;
- b=oJrBIuQ3tVvAVVd6vzZO3jALphnU5gaKuUwATQTW7od2ewNu7YfxHyIr
- 1pMUl+7XBeI04hCRbX4GVnH6+IlV4HqlRZaWwAMSJY2hioSczCJqqrtCn
- YfOvC8AYzuSp27Lh27ClK1kiivIMmZOfIdDiR1L93Rf2U/k4VrMjjOROc
- WEoNg8B33LZWBK/A8NxJI5nHvylYnulwv1ZgJ9+LHnqaeBEZ1DpVQCylI
- l3fMNmL//TVxoVS2bZEdt1NklPjXwCSh46gLf+WlE8qf5kjmqzoi1Poxf
- 7rhREzXoRipv6jPHMB5fhaWv3wV9UWU6za/yhWG+x35+fMGyusX13+s0+ A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10314"; a="244090843"
-X-IronPort-AV: E=Sophos;i="5.90,252,1643702400"; d="scan'208";a="244090843"
+ bh=H4ktIngn7owDJMgeZYmLjN8VDxt0GwWUrGgQvTIdfxc=;
+ b=WlvfALmqSfInqS9hYD4b3B1TftXWbHs60U08Sf0HO46zwKCiWaVuAStx
+ jvrV8dTaw/5VA5sxey69CuAolLO+eu+xlGoHN1tCf3UvpyAqs4OT0SpZJ
+ 6HmwA7J2GyCHkHlbcuZo0MdtREnrDVB7G7wy/omCwp/T+uYgxaXD7pBEa
+ G380959qSesfQe7P8K+NMCjjmZlKjqxQTnf7oai2VSG1pWDTj3FRB0qmy
+ 09PuDaQeZbdpfosL1/o9ox8PS+9bNis5mOG/F6zQsCQWsiMXcnKPNFF8B
+ rpKme5kv8NuSHbRmbh9GHJdk41y/9tMoCJHKTEV1WwGZo9Y1kyn/bEmzh Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10314"; a="244090845"
+X-IronPort-AV: E=Sophos;i="5.90,252,1643702400"; d="scan'208";a="244090845"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Apr 2022 13:17:57 -0700
-X-IronPort-AV: E=Sophos;i="5.90,252,1643702400"; d="scan'208";a="526135695"
+ 11 Apr 2022 13:17:58 -0700
+X-IronPort-AV: E=Sophos;i="5.90,252,1643702400"; d="scan'208";a="526135698"
 Received: from prposam-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.212.162.151])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  11 Apr 2022 13:17:57 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 12/16] ASoC: SOF: Intel: hda: define check_ipc_irq op
-Date: Mon, 11 Apr 2022 15:17:23 -0500
-Message-Id: <20220411201727.77971-13-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 13/16] ASoC: SOF: Intel: hda: Define rom_status_reg in
+ sof_intel_dsp_desc
+Date: Mon, 11 Apr 2022 15:17:24 -0500
+Message-Id: <20220411201727.77971-14-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220411201727.77971-1-pierre-louis.bossart@linux.intel.com>
 References: <20220411201727.77971-1-pierre-louis.bossart@linux.intel.com>
@@ -94,140 +95,204 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 
-Define the check_ipc_irq op for HDA platforms and use it
-when checking if it is an IPC IRQ.
+Add the rom_status_reg field to struct sof_intel_dsp_desc and define
+it for HDA platforms. This will be used to check the ROM status during
+FW boot.
 
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 ---
- sound/soc/sof/intel/apl.c  |  1 +
- sound/soc/sof/intel/cnl.c  |  2 ++
- sound/soc/sof/intel/hda.c  | 13 ++++++++++++-
- sound/soc/sof/intel/icl.c  |  1 +
- sound/soc/sof/intel/shim.h |  1 +
- sound/soc/sof/intel/tgl.c  |  4 ++++
- 6 files changed, 21 insertions(+), 1 deletion(-)
+ sound/soc/sof/intel/apl.c        |  1 +
+ sound/soc/sof/intel/cnl.c        |  2 ++
+ sound/soc/sof/intel/hda-loader.c | 14 ++++++++------
+ sound/soc/sof/intel/hda.c        |  8 ++++++--
+ sound/soc/sof/intel/icl.c        |  1 +
+ sound/soc/sof/intel/shim.h       |  1 +
+ sound/soc/sof/intel/tgl.c        |  4 ++++
+ 7 files changed, 23 insertions(+), 8 deletions(-)
 
 diff --git a/sound/soc/sof/intel/apl.c b/sound/soc/sof/intel/apl.c
-index eb471602dae7..b3e3f2494c74 100644
+index b3e3f2494c74..4762846d8a33 100644
 --- a/sound/soc/sof/intel/apl.c
 +++ b/sound/soc/sof/intel/apl.c
-@@ -75,5 +75,6 @@ const struct sof_intel_dsp_desc apl_chip_info = {
+@@ -71,6 +71,7 @@ const struct sof_intel_dsp_desc apl_chip_info = {
+ 	.ipc_ack = HDA_DSP_REG_HIPCIE,
+ 	.ipc_ack_mask = HDA_DSP_REG_HIPCIE_DONE,
+ 	.ipc_ctl = HDA_DSP_REG_HIPCCTL,
++	.rom_status_reg = HDA_DSP_SRAM_REG_ROM_STATUS,
+ 	.rom_init_timeout	= 150,
  	.ssp_count = APL_SSP_COUNT,
  	.ssp_base_offset = APL_SSP_BASE_OFFSET,
- 	.quirks = SOF_INTEL_PROCEN_FMT_QUIRK,
-+	.check_ipc_irq	= hda_dsp_check_ipc_irq,
- };
- EXPORT_SYMBOL_NS(apl_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
 diff --git a/sound/soc/sof/intel/cnl.c b/sound/soc/sof/intel/cnl.c
-index 21168ebc02cc..ab1f45bfc83b 100644
+index ab1f45bfc83b..86b683486f06 100644
 --- a/sound/soc/sof/intel/cnl.c
 +++ b/sound/soc/sof/intel/cnl.c
-@@ -295,6 +295,7 @@ const struct sof_intel_dsp_desc cnl_chip_info = {
- 	.sdw_shim_base = SDW_SHIM_BASE,
- 	.sdw_alh_base = SDW_ALH_BASE,
- 	.check_sdw_irq	= hda_common_check_sdw_irq,
-+	.check_ipc_irq	= hda_dsp_check_ipc_irq,
- };
- EXPORT_SYMBOL_NS(cnl_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
+@@ -289,6 +289,7 @@ const struct sof_intel_dsp_desc cnl_chip_info = {
+ 	.ipc_ack = CNL_DSP_REG_HIPCIDA,
+ 	.ipc_ack_mask = CNL_DSP_REG_HIPCIDA_DONE,
+ 	.ipc_ctl = CNL_DSP_REG_HIPCCTL,
++	.rom_status_reg = HDA_DSP_SRAM_REG_ROM_STATUS,
+ 	.rom_init_timeout	= 300,
+ 	.ssp_count = CNL_SSP_COUNT,
+ 	.ssp_base_offset = CNL_SSP_BASE_OFFSET,
+@@ -316,6 +317,7 @@ const struct sof_intel_dsp_desc jsl_chip_info = {
+ 	.ipc_ack = CNL_DSP_REG_HIPCIDA,
+ 	.ipc_ack_mask = CNL_DSP_REG_HIPCIDA_DONE,
+ 	.ipc_ctl = CNL_DSP_REG_HIPCCTL,
++	.rom_status_reg = HDA_DSP_SRAM_REG_ROM_STATUS,
+ 	.rom_init_timeout	= 300,
+ 	.ssp_count = ICL_SSP_COUNT,
+ 	.ssp_base_offset = CNL_SSP_BASE_OFFSET,
+diff --git a/sound/soc/sof/intel/hda-loader.c b/sound/soc/sof/intel/hda-loader.c
+index 625bc1e67f1e..f6c50ee526fa 100644
+--- a/sound/soc/sof/intel/hda-loader.c
++++ b/sound/soc/sof/intel/hda-loader.c
+@@ -171,7 +171,7 @@ static int cl_dsp_init(struct snd_sof_dev *sdev, int stream_tag)
  
-@@ -321,5 +322,6 @@ const struct sof_intel_dsp_desc jsl_chip_info = {
- 	.sdw_shim_base = SDW_SHIM_BASE,
- 	.sdw_alh_base = SDW_ALH_BASE,
- 	.check_sdw_irq	= hda_common_check_sdw_irq,
-+	.check_ipc_irq	= hda_dsp_check_ipc_irq,
- };
- EXPORT_SYMBOL_NS(jsl_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
+ 	/* step 7: wait for ROM init */
+ 	ret = snd_sof_dsp_read_poll_timeout(sdev, HDA_DSP_BAR,
+-					HDA_DSP_SRAM_REG_ROM_STATUS, status,
++					chip->rom_status_reg, status,
+ 					((status & HDA_DSP_ROM_STS_MASK)
+ 						== HDA_DSP_ROM_INIT),
+ 					HDA_DSP_REG_POLL_INTERVAL_US,
+@@ -188,8 +188,8 @@ static int cl_dsp_init(struct snd_sof_dev *sdev, int stream_tag)
+ 
+ 	if (hda->boot_iteration == HDA_FW_BOOT_ATTEMPTS)
+ 		dev_err(sdev->dev,
+-			"error: %s: timeout HDA_DSP_SRAM_REG_ROM_STATUS read\n",
+-			__func__);
++			"%s: timeout with rom_status_reg (%#x) read\n",
++			__func__, chip->rom_status_reg);
+ 
+ err:
+ 	flags = SOF_DBG_DUMP_PCI | SOF_DBG_DUMP_MBOX | SOF_DBG_DUMP_OPTIONAL;
+@@ -268,6 +268,8 @@ static int cl_cleanup(struct snd_sof_dev *sdev, struct snd_dma_buffer *dmab,
+ 
+ static int cl_copy_fw(struct snd_sof_dev *sdev, struct hdac_ext_stream *hext_stream)
+ {
++	struct sof_intel_hda_dev *hda = sdev->pdata->hw_pdata;
++	const struct sof_intel_dsp_desc *chip = hda->desc;
+ 	unsigned int reg;
+ 	int ret, status;
+ 
+@@ -278,7 +280,7 @@ static int cl_copy_fw(struct snd_sof_dev *sdev, struct hdac_ext_stream *hext_str
+ 	}
+ 
+ 	status = snd_sof_dsp_read_poll_timeout(sdev, HDA_DSP_BAR,
+-					HDA_DSP_SRAM_REG_ROM_STATUS, reg,
++					chip->rom_status_reg, reg,
+ 					((reg & HDA_DSP_ROM_STS_MASK)
+ 						== HDA_DSP_ROM_FW_ENTERED),
+ 					HDA_DSP_REG_POLL_INTERVAL_US,
+@@ -291,8 +293,8 @@ static int cl_copy_fw(struct snd_sof_dev *sdev, struct hdac_ext_stream *hext_str
+ 
+ 	if (status < 0) {
+ 		dev_err(sdev->dev,
+-			"error: %s: timeout HDA_DSP_SRAM_REG_ROM_STATUS read\n",
+-			__func__);
++			"%s: timeout with rom_status_reg (%#x) read\n",
++			__func__, chip->rom_status_reg);
+ 	}
+ 
+ 	ret = cl_trigger(sdev, hext_stream, SNDRV_PCM_TRIGGER_STOP);
 diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-index da665d15302e..af3693d820fd 100644
+index af3693d820fd..d34cd4d341c5 100644
 --- a/sound/soc/sof/intel/hda.c
 +++ b/sound/soc/sof/intel/hda.c
-@@ -493,6 +493,17 @@ void hda_dsp_dump(struct snd_sof_dev *sdev, u32 flags)
- 	}
- }
+@@ -406,11 +406,13 @@ static const struct hda_dsp_msg_code hda_dsp_rom_msg[] = {
  
-+static bool hda_check_ipc_irq(struct snd_sof_dev *sdev)
-+{
-+	const struct sof_intel_dsp_desc *chip;
-+
-+	chip = get_chip_info(sdev->pdata);
-+	if (chip && chip->check_ipc_irq)
-+		return chip->check_ipc_irq(sdev);
-+
-+	return false;
-+}
-+
- void hda_ipc_irq_dump(struct snd_sof_dev *sdev)
+ static void hda_dsp_get_status(struct snd_sof_dev *sdev, const char *level)
  {
- 	struct hdac_bus *bus = sof_to_bus(sdev);
-@@ -816,7 +827,7 @@ static irqreturn_t hda_dsp_interrupt_thread(int irq, void *context)
- 	if (hda_dsp_check_stream_irq(sdev))
- 		hda_dsp_stream_threaded_handler(irq, sdev);
++	const struct sof_intel_dsp_desc *chip;
+ 	u32 status;
+ 	int i;
  
--	if (hda_dsp_check_ipc_irq(sdev))
-+	if (hda_check_ipc_irq(sdev))
- 		sof_ops(sdev)->irq_thread(irq, sdev);
++	chip = get_chip_info(sdev->pdata);
+ 	status = snd_sof_dsp_read(sdev, HDA_DSP_BAR,
+-				  HDA_DSP_SRAM_REG_ROM_STATUS);
++				  chip->rom_status_reg);
  
- 	if (hda_dsp_check_sdw_irq(sdev))
+ 	for (i = 0; i < ARRAY_SIZE(hda_dsp_rom_msg); i++) {
+ 		if (status == hda_dsp_rom_msg[i].code) {
+@@ -456,13 +458,15 @@ static void hda_dsp_get_registers(struct snd_sof_dev *sdev,
+ static void hda_dsp_dump_ext_rom_status(struct snd_sof_dev *sdev, const char *level,
+ 					u32 flags)
+ {
++	const struct sof_intel_dsp_desc *chip;
+ 	char msg[128];
+ 	int len = 0;
+ 	u32 value;
+ 	int i;
+ 
++	chip = get_chip_info(sdev->pdata);
+ 	for (i = 0; i < HDA_EXT_ROM_STATUS_SIZE; i++) {
+-		value = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_SRAM_REG_ROM_STATUS + i * 0x4);
++		value = snd_sof_dsp_read(sdev, HDA_DSP_BAR, chip->rom_status_reg + i * 0x4);
+ 		len += snprintf(msg + len, sizeof(msg) - len, " 0x%x", value);
+ 	}
+ 
 diff --git a/sound/soc/sof/intel/icl.c b/sound/soc/sof/intel/icl.c
-index 148d03f4164b..964014239afd 100644
+index 964014239afd..2e4d371f7860 100644
 --- a/sound/soc/sof/intel/icl.c
 +++ b/sound/soc/sof/intel/icl.c
-@@ -140,5 +140,6 @@ const struct sof_intel_dsp_desc icl_chip_info = {
- 	.sdw_shim_base = SDW_SHIM_BASE,
- 	.sdw_alh_base = SDW_ALH_BASE,
- 	.check_sdw_irq	= hda_common_check_sdw_irq,
-+	.check_ipc_irq	= hda_dsp_check_ipc_irq,
- };
- EXPORT_SYMBOL_NS(icl_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
+@@ -134,6 +134,7 @@ const struct sof_intel_dsp_desc icl_chip_info = {
+ 	.ipc_ack = CNL_DSP_REG_HIPCIDA,
+ 	.ipc_ack_mask = CNL_DSP_REG_HIPCIDA_DONE,
+ 	.ipc_ctl = CNL_DSP_REG_HIPCCTL,
++	.rom_status_reg = HDA_DSP_SRAM_REG_ROM_STATUS,
+ 	.rom_init_timeout	= 300,
+ 	.ssp_count = ICL_SSP_COUNT,
+ 	.ssp_base_offset = CNL_SSP_BASE_OFFSET,
 diff --git a/sound/soc/sof/intel/shim.h b/sound/soc/sof/intel/shim.h
-index 80c61a7cedf6..fd64377de9a0 100644
+index fd64377de9a0..3eb09941ae6e 100644
 --- a/sound/soc/sof/intel/shim.h
 +++ b/sound/soc/sof/intel/shim.h
-@@ -171,6 +171,7 @@ struct sof_intel_dsp_desc {
- 	u32 sdw_alh_base;
- 	u32 quirks;
- 	bool (*check_sdw_irq)(struct snd_sof_dev *sdev);
-+	bool (*check_ipc_irq)(struct snd_sof_dev *sdev);
- };
- 
- extern struct snd_sof_dsp_ops sof_tng_ops;
+@@ -164,6 +164,7 @@ struct sof_intel_dsp_desc {
+ 	int ipc_ack;
+ 	int ipc_ack_mask;
+ 	int ipc_ctl;
++	int rom_status_reg;
+ 	int rom_init_timeout;
+ 	int ssp_count;			/* ssp count of the platform */
+ 	int ssp_base_offset;		/* base address of the SSPs */
 diff --git a/sound/soc/sof/intel/tgl.c b/sound/soc/sof/intel/tgl.c
-index 18e01db882f3..d0f805c67d5b 100644
+index d0f805c67d5b..32d7e15126c2 100644
 --- a/sound/soc/sof/intel/tgl.c
 +++ b/sound/soc/sof/intel/tgl.c
-@@ -111,6 +111,7 @@ const struct sof_intel_dsp_desc tgl_chip_info = {
- 	.sdw_shim_base = SDW_SHIM_BASE,
- 	.sdw_alh_base = SDW_ALH_BASE,
- 	.check_sdw_irq	= hda_common_check_sdw_irq,
-+	.check_ipc_irq	= hda_dsp_check_ipc_irq,
- };
- EXPORT_SYMBOL_NS(tgl_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
-@@ -130,6 +131,7 @@ const struct sof_intel_dsp_desc tglh_chip_info = {
- 	.sdw_shim_base = SDW_SHIM_BASE,
- 	.sdw_alh_base = SDW_ALH_BASE,
- 	.check_sdw_irq	= hda_common_check_sdw_irq,
-+	.check_ipc_irq	= hda_dsp_check_ipc_irq,
- };
- EXPORT_SYMBOL_NS(tglh_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
-@@ -149,6 +151,7 @@ const struct sof_intel_dsp_desc ehl_chip_info = {
- 	.sdw_shim_base = SDW_SHIM_BASE,
- 	.sdw_alh_base = SDW_ALH_BASE,
- 	.check_sdw_irq	= hda_common_check_sdw_irq,
-+	.check_ipc_irq	= hda_dsp_check_ipc_irq,
- };
- EXPORT_SYMBOL_NS(ehl_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
-@@ -168,5 +171,6 @@ const struct sof_intel_dsp_desc adls_chip_info = {
- 	.sdw_shim_base = SDW_SHIM_BASE,
- 	.sdw_alh_base = SDW_ALH_BASE,
- 	.check_sdw_irq	= hda_common_check_sdw_irq,
-+	.check_ipc_irq	= hda_dsp_check_ipc_irq,
- };
- EXPORT_SYMBOL_NS(adls_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
+@@ -105,6 +105,7 @@ const struct sof_intel_dsp_desc tgl_chip_info = {
+ 	.ipc_ack = CNL_DSP_REG_HIPCIDA,
+ 	.ipc_ack_mask = CNL_DSP_REG_HIPCIDA_DONE,
+ 	.ipc_ctl = CNL_DSP_REG_HIPCCTL,
++	.rom_status_reg = HDA_DSP_SRAM_REG_ROM_STATUS,
+ 	.rom_init_timeout	= 300,
+ 	.ssp_count = ICL_SSP_COUNT,
+ 	.ssp_base_offset = CNL_SSP_BASE_OFFSET,
+@@ -125,6 +126,7 @@ const struct sof_intel_dsp_desc tglh_chip_info = {
+ 	.ipc_ack = CNL_DSP_REG_HIPCIDA,
+ 	.ipc_ack_mask = CNL_DSP_REG_HIPCIDA_DONE,
+ 	.ipc_ctl = CNL_DSP_REG_HIPCCTL,
++	.rom_status_reg = HDA_DSP_SRAM_REG_ROM_STATUS,
+ 	.rom_init_timeout	= 300,
+ 	.ssp_count = ICL_SSP_COUNT,
+ 	.ssp_base_offset = CNL_SSP_BASE_OFFSET,
+@@ -145,6 +147,7 @@ const struct sof_intel_dsp_desc ehl_chip_info = {
+ 	.ipc_ack = CNL_DSP_REG_HIPCIDA,
+ 	.ipc_ack_mask = CNL_DSP_REG_HIPCIDA_DONE,
+ 	.ipc_ctl = CNL_DSP_REG_HIPCCTL,
++	.rom_status_reg = HDA_DSP_SRAM_REG_ROM_STATUS,
+ 	.rom_init_timeout	= 300,
+ 	.ssp_count = ICL_SSP_COUNT,
+ 	.ssp_base_offset = CNL_SSP_BASE_OFFSET,
+@@ -165,6 +168,7 @@ const struct sof_intel_dsp_desc adls_chip_info = {
+ 	.ipc_ack = CNL_DSP_REG_HIPCIDA,
+ 	.ipc_ack_mask = CNL_DSP_REG_HIPCIDA_DONE,
+ 	.ipc_ctl = CNL_DSP_REG_HIPCCTL,
++	.rom_status_reg = HDA_DSP_SRAM_REG_ROM_STATUS,
+ 	.rom_init_timeout	= 300,
+ 	.ssp_count = ICL_SSP_COUNT,
+ 	.ssp_base_offset = CNL_SSP_BASE_OFFSET,
 -- 
 2.30.2
 

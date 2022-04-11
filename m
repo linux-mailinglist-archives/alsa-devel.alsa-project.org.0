@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B5564FC5AB
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Apr 2022 22:21:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 538F44FC5AF
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Apr 2022 22:21:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ED0A51760;
-	Mon, 11 Apr 2022 22:20:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED0A51760
+	by alsa0.perex.cz (Postfix) with ESMTPS id DCAC51731;
+	Mon, 11 Apr 2022 22:20:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DCAC51731
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649708466;
-	bh=aXtxGAK2A/K9CKdbIo37X8KFqxLnfPL4qWmdVJBCT38=;
+	s=default; t=1649708490;
+	bh=EgFZFeUA5Z+PIY6gfHVphgYYECmAuDlPVIoZm1jES3w=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=N0JVAInnmABd4/3R6BQvBlALjWbWbH2HUpBfVFiOPT3/yAfUbEFWjXhV4McmySRDq
-	 /nS2DfgRHkQ1kfRtOHAm21/tENmF1y5XeOSkQ03jyXSTCyf4AgnZ38qNytsHqr/YgS
-	 2RPrhGd3zd1HBfuZO+4GDwCLMBp2U1Wky48lv7RM=
+	b=frh6KPP9lPzdjwwntBWbKRpDwRRKvSgP/ir+18wimX8dyQzEuuAIw1dx5sNTzSSXF
+	 o/ljMIco53NrBclGE/mH4glkICqO8ew+gkai9UeGeWQ7FpP+YiLt7VHGHksG4zDsj4
+	 WwY8znuOjl9yZiw0IBH/oiMMcUqbFeP8Rz0EpWwM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 50437F80544;
-	Mon, 11 Apr 2022 22:18:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4F1EFF80558;
+	Mon, 11 Apr 2022 22:18:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8E8E8F804E6; Mon, 11 Apr 2022 22:18:11 +0200 (CEST)
+ id 81164F80543; Mon, 11 Apr 2022 22:18:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,51 +34,52 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 69A19F804EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id BBBE3F804ED
  for <alsa-devel@alsa-project.org>; Mon, 11 Apr 2022 22:18:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69A19F804EC
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BBBE3F804ED
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="Rz2PK4A8"
+ header.b="nI1H7tT5"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1649708281; x=1681244281;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=aXtxGAK2A/K9CKdbIo37X8KFqxLnfPL4qWmdVJBCT38=;
- b=Rz2PK4A8W8jlA1NLJEy8fKAL7qiqOPkV3J4ClworywsO6H5vUC0dmQje
- AimtnbwLwL6Mnr7oq3m6xpgmwILk3MpJU4yyzH5HfYggUQexKDX6Z14a5
- ch8R83Pn52hzPFtlUXN4dfZDqJ2l9dIloCh5HKvIA8Xf7QRI9zcjuM/52
- R1+iDSNZTXq0/jp9ykBLlv0olrg61stfbm6qF7V8P6TxaZ/IKPw79sjs6
- HNt+p8AnIbHMLnmDV8cqI/JVUDanavnDLX6lU1h6LWWQ8oXNen2ixtbpz
- ErNESpmY/JefAocvz7SvR7LnvP0xi7KOR3HiM+0G7OTUL55R9SqdjYAP3 A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10314"; a="244090837"
-X-IronPort-AV: E=Sophos;i="5.90,252,1643702400"; d="scan'208";a="244090837"
+ bh=EgFZFeUA5Z+PIY6gfHVphgYYECmAuDlPVIoZm1jES3w=;
+ b=nI1H7tT5ZhNZ61ozlTbkZOKw/35QrWYlCuSFvyuq+ocDm33WboHkdqqh
+ Gbgl//GDz/OyPX2T7aWpzc/7XNod7gLcDeu1MpJOnYG+0I9by746LUtRU
+ 7y6ON51w23fyYCWzGQOCwdyooQoT9ISqVYKx4Q3ODzzyPJx+v0H2lmSGi
+ brhtIJFKYhyaLC7pqwzx7WPj+ajd7Q0tHjNG4sv9VhiKj8/TqWTqyyVZX
+ F61VnlfIb0Fq178JFeyoGiHwaLkqxVM5QkvNuyvB1+vjR06O3pN8Lsaqa
+ tg/sccKXeC4qY4N+SmTTW1hIAzmLqoMp47Umnw1mlJ72Z69e/wv0hnhNb w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10314"; a="244090838"
+X-IronPort-AV: E=Sophos;i="5.90,252,1643702400"; d="scan'208";a="244090838"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Apr 2022 13:17:54 -0700
-X-IronPort-AV: E=Sophos;i="5.90,252,1643702400"; d="scan'208";a="526135668"
+ 11 Apr 2022 13:17:55 -0700
+X-IronPort-AV: E=Sophos;i="5.90,252,1643702400"; d="scan'208";a="526135678"
 Received: from prposam-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.212.162.151])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Apr 2022 13:17:53 -0700
+ 11 Apr 2022 13:17:54 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 07/16] ASoC: SOF: sof-audio: preserve topology filename
- override in nocodec mode
-Date: Mon, 11 Apr 2022 15:17:18 -0500
-Message-Id: <20220411201727.77971-8-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 08/16] ASoC: SOF: remove const qualifier for 'struct
+ snd_sof_dsp_ops'
+Date: Mon, 11 Apr 2022 15:17:19 -0500
+Message-Id: <20220411201727.77971-9-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220411201727.77971-1-pierre-louis.bossart@linux.intel.com>
 References: <20220411201727.77971-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de,
- =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>, tiwai@suse.de,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, broonie@kernel.org,
- Paul Olaru <paul.olaru@oss.nxp.com>, Daniel Baluta <daniel.baluta@nxp.com>
+ Rander Wang <rander.wang@intel.com>,
+ =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,33 +95,329 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If the topology filename is modified at a higher level, be it with a
-DMI quirk or a kernel module parameter, we don't want to use the
-default 'nocodec' topology name extracted from descriptors.
+Now that we start having multiple platforms with minor variants, the
+use of the const qualifier for 'dsp_ops' is starting to be
+sub-optimal: the structures are copied across platforms, with only a
+couple of members that differ.
+
+This patch removes the const qualifier without any functionality
+changes, and adds an optional initialization callback. In follow-up
+patches, the dsp_ops will revisited for Intel HDaudio platforms, with
+the differences added programmatically over a common baseline.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
-Reviewed-by: Paul Olaru <paul.olaru@oss.nxp.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Reviewed-by: Rander Wang <rander.wang@intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- sound/soc/sof/sof-audio.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ include/sound/sof.h                    | 4 +++-
+ sound/soc/sof/amd/acp.h                | 2 +-
+ sound/soc/sof/amd/renoir.c             | 2 +-
+ sound/soc/sof/core.c                   | 3 +++
+ sound/soc/sof/debug.c                  | 2 +-
+ sound/soc/sof/imx/imx8.c               | 4 ++--
+ sound/soc/sof/imx/imx8m.c              | 2 +-
+ sound/soc/sof/intel/apl.c              | 2 +-
+ sound/soc/sof/intel/bdw.c              | 2 +-
+ sound/soc/sof/intel/byt.c              | 4 ++--
+ sound/soc/sof/intel/cnl.c              | 2 +-
+ sound/soc/sof/intel/hda.h              | 8 ++++----
+ sound/soc/sof/intel/icl.c              | 2 +-
+ sound/soc/sof/intel/pci-tng.c          | 2 +-
+ sound/soc/sof/intel/shim.h             | 2 +-
+ sound/soc/sof/intel/tgl.c              | 2 +-
+ sound/soc/sof/mediatek/mt8195/mt8195.c | 2 +-
+ sound/soc/sof/ops.h                    | 6 ++++++
+ sound/soc/sof/pcm.c                    | 2 +-
+ 19 files changed, 33 insertions(+), 22 deletions(-)
 
-diff --git a/sound/soc/sof/sof-audio.c b/sound/soc/sof/sof-audio.c
-index 49fdfe06a9a3..6c08b5f4ffa6 100644
---- a/sound/soc/sof/sof-audio.c
-+++ b/sound/soc/sof/sof-audio.c
-@@ -698,7 +698,8 @@ int sof_machine_check(struct snd_sof_dev *sdev)
- 		return -ENOMEM;
+diff --git a/include/sound/sof.h b/include/sound/sof.h
+index 96997650be65..1a82a0db5e7f 100644
+--- a/include/sound/sof.h
++++ b/include/sound/sof.h
+@@ -16,6 +16,7 @@
+ #include <sound/soc-acpi.h>
  
- 	mach->drv_name = "sof-nocodec";
--	sof_pdata->tplg_filename = desc->nocodec_tplg_filename;
-+	if (!sof_pdata->tplg_filename)
-+		sof_pdata->tplg_filename = desc->nocodec_tplg_filename;
+ struct snd_sof_dsp_ops;
++struct snd_sof_dev;
  
- 	sof_pdata->machine = mach;
- 	snd_sof_set_mach_params(mach, sdev);
+ /**
+  * enum sof_fw_state - DSP firmware state definitions
+@@ -135,7 +136,8 @@ struct sof_dev_desc {
+ 	/* default firmware name */
+ 	const char *default_fw_filename[SOF_IPC_TYPE_COUNT];
+ 
+-	const struct snd_sof_dsp_ops *ops;
++	struct snd_sof_dsp_ops *ops;
++	int (*ops_init)(struct snd_sof_dev *sdev);
+ };
+ 
+ int sof_dai_get_mclk(struct snd_soc_pcm_runtime *rtd);
+diff --git a/sound/soc/sof/amd/acp.h b/sound/soc/sof/amd/acp.h
+index 35e46fe6676a..ca69b4969ca2 100644
+--- a/sound/soc/sof/amd/acp.h
++++ b/sound/soc/sof/amd/acp.h
+@@ -204,7 +204,7 @@ int acp_pcm_hw_params(struct snd_sof_dev *sdev, struct snd_pcm_substream *substr
+ 		      struct snd_pcm_hw_params *params,
+ 		      struct snd_sof_platform_stream_params *platform_params);
+ 
+-extern const struct snd_sof_dsp_ops sof_renoir_ops;
++extern struct snd_sof_dsp_ops sof_renoir_ops;
+ 
+ /* Machine configuration */
+ int snd_amd_acp_find_config(struct pci_dev *pci);
+diff --git a/sound/soc/sof/amd/renoir.c b/sound/soc/sof/amd/renoir.c
+index 409fd57448b8..73f639fa16a4 100644
+--- a/sound/soc/sof/amd/renoir.c
++++ b/sound/soc/sof/amd/renoir.c
+@@ -123,7 +123,7 @@ static struct snd_soc_acpi_mach *amd_sof_machine_select(struct snd_sof_dev *sdev
+ }
+ 
+ /* AMD Renoir DSP ops */
+-const struct snd_sof_dsp_ops sof_renoir_ops = {
++struct snd_sof_dsp_ops sof_renoir_ops = {
+ 	/* probe and remove */
+ 	.probe			= amd_sof_acp_probe,
+ 	.remove			= amd_sof_acp_remove,
+diff --git a/sound/soc/sof/core.c b/sound/soc/sof/core.c
+index e91631618bff..27a98867f999 100644
+--- a/sound/soc/sof/core.c
++++ b/sound/soc/sof/core.c
+@@ -357,6 +357,9 @@ int snd_sof_device_probe(struct device *dev, struct snd_sof_pdata *plat_data)
+ 	sdev->first_boot = true;
+ 	dev_set_drvdata(dev, sdev);
+ 
++	/* init ops, if necessary */
++	sof_ops_init(sdev);
++
+ 	/* check all mandatory ops */
+ 	if (!sof_ops(sdev) || !sof_ops(sdev)->probe || !sof_ops(sdev)->run ||
+ 	    !sof_ops(sdev)->block_read || !sof_ops(sdev)->block_write ||
+diff --git a/sound/soc/sof/debug.c b/sound/soc/sof/debug.c
+index 8a77245b5182..b59619ecfacf 100644
+--- a/sound/soc/sof/debug.c
++++ b/sound/soc/sof/debug.c
+@@ -331,7 +331,7 @@ EXPORT_SYMBOL_GPL(snd_sof_dbg_memory_info_init);
+ 
+ int snd_sof_dbg_init(struct snd_sof_dev *sdev)
+ {
+-	const struct snd_sof_dsp_ops *ops = sof_ops(sdev);
++	struct snd_sof_dsp_ops *ops = sof_ops(sdev);
+ 	const struct snd_sof_debugfs_map *map;
+ 	int i;
+ 	int err;
+diff --git a/sound/soc/sof/imx/imx8.c b/sound/soc/sof/imx/imx8.c
+index db53be825384..d3a60c8e42cc 100644
+--- a/sound/soc/sof/imx/imx8.c
++++ b/sound/soc/sof/imx/imx8.c
+@@ -487,7 +487,7 @@ static int imx8_dsp_set_power_state(struct snd_sof_dev *sdev,
+ }
+ 
+ /* i.MX8 ops */
+-static const struct snd_sof_dsp_ops sof_imx8_ops = {
++static struct snd_sof_dsp_ops sof_imx8_ops = {
+ 	/* probe and remove */
+ 	.probe		= imx8_probe,
+ 	.remove		= imx8_remove,
+@@ -550,7 +550,7 @@ static const struct snd_sof_dsp_ops sof_imx8_ops = {
+ };
+ 
+ /* i.MX8X ops */
+-static const struct snd_sof_dsp_ops sof_imx8x_ops = {
++static struct snd_sof_dsp_ops sof_imx8x_ops = {
+ 	/* probe and remove */
+ 	.probe		= imx8_probe,
+ 	.remove		= imx8_remove,
+diff --git a/sound/soc/sof/imx/imx8m.c b/sound/soc/sof/imx/imx8m.c
+index 196ca7d7521f..8e9ae08dc7b0 100644
+--- a/sound/soc/sof/imx/imx8m.c
++++ b/sound/soc/sof/imx/imx8m.c
+@@ -412,7 +412,7 @@ static int imx8m_dsp_suspend(struct snd_sof_dev *sdev, unsigned int target_state
+ }
+ 
+ /* i.MX8 ops */
+-static const struct snd_sof_dsp_ops sof_imx8m_ops = {
++static struct snd_sof_dsp_ops sof_imx8m_ops = {
+ 	/* probe and remove */
+ 	.probe		= imx8m_probe,
+ 	.remove		= imx8m_remove,
+diff --git a/sound/soc/sof/intel/apl.c b/sound/soc/sof/intel/apl.c
+index 6721c8f95161..518d543591b5 100644
+--- a/sound/soc/sof/intel/apl.c
++++ b/sound/soc/sof/intel/apl.c
+@@ -26,7 +26,7 @@ static const struct snd_sof_debugfs_map apl_dsp_debugfs[] = {
+ };
+ 
+ /* apollolake ops */
+-const struct snd_sof_dsp_ops sof_apl_ops = {
++struct snd_sof_dsp_ops sof_apl_ops = {
+ 	/* probe/remove/shutdown */
+ 	.probe		= hda_dsp_probe,
+ 	.remove		= hda_dsp_remove,
+diff --git a/sound/soc/sof/intel/bdw.c b/sound/soc/sof/intel/bdw.c
+index efdc9e6282f3..3449eeccd9e8 100644
+--- a/sound/soc/sof/intel/bdw.c
++++ b/sound/soc/sof/intel/bdw.c
+@@ -567,7 +567,7 @@ static struct snd_soc_dai_driver bdw_dai[] = {
+ };
+ 
+ /* broadwell ops */
+-static const struct snd_sof_dsp_ops sof_bdw_ops = {
++static struct snd_sof_dsp_ops sof_bdw_ops = {
+ 	/*Device init */
+ 	.probe          = bdw_probe,
+ 
+diff --git a/sound/soc/sof/intel/byt.c b/sound/soc/sof/intel/byt.c
+index 748d1452d4d8..3db125d82a1e 100644
+--- a/sound/soc/sof/intel/byt.c
++++ b/sound/soc/sof/intel/byt.c
+@@ -216,7 +216,7 @@ static int byt_acpi_probe(struct snd_sof_dev *sdev)
+ }
+ 
+ /* baytrail ops */
+-static const struct snd_sof_dsp_ops sof_byt_ops = {
++static struct snd_sof_dsp_ops sof_byt_ops = {
+ 	/* device init */
+ 	.probe		= byt_acpi_probe,
+ 	.remove		= byt_remove,
+@@ -298,7 +298,7 @@ static const struct sof_intel_dsp_desc byt_chip_info = {
+ };
+ 
+ /* cherrytrail and braswell ops */
+-static const struct snd_sof_dsp_ops sof_cht_ops = {
++static struct snd_sof_dsp_ops sof_cht_ops = {
+ 	/* device init */
+ 	.probe		= byt_acpi_probe,
+ 	.remove		= byt_remove,
+diff --git a/sound/soc/sof/intel/cnl.c b/sound/soc/sof/intel/cnl.c
+index 6a96470b967f..81fe490c7f77 100644
+--- a/sound/soc/sof/intel/cnl.c
++++ b/sound/soc/sof/intel/cnl.c
+@@ -244,7 +244,7 @@ void cnl_ipc_dump(struct snd_sof_dev *sdev)
+ }
+ 
+ /* cannonlake ops */
+-const struct snd_sof_dsp_ops sof_cnl_ops = {
++struct snd_sof_dsp_ops sof_cnl_ops = {
+ 	/* probe/remove/shutdown */
+ 	.probe		= hda_dsp_probe,
+ 	.remove		= hda_dsp_remove,
+diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
+index 05e5e158614a..c7e248280527 100644
+--- a/sound/soc/sof/intel/hda.h
++++ b/sound/soc/sof/intel/hda.h
+@@ -687,10 +687,10 @@ extern struct snd_soc_dai_driver skl_dai[];
+ /*
+  * Platform Specific HW abstraction Ops.
+  */
+-extern const struct snd_sof_dsp_ops sof_apl_ops;
+-extern const struct snd_sof_dsp_ops sof_cnl_ops;
+-extern const struct snd_sof_dsp_ops sof_tgl_ops;
+-extern const struct snd_sof_dsp_ops sof_icl_ops;
++extern struct snd_sof_dsp_ops sof_apl_ops;
++extern struct snd_sof_dsp_ops sof_cnl_ops;
++extern struct snd_sof_dsp_ops sof_tgl_ops;
++extern struct snd_sof_dsp_ops sof_icl_ops;
+ 
+ extern const struct sof_intel_dsp_desc apl_chip_info;
+ extern const struct sof_intel_dsp_desc cnl_chip_info;
+diff --git a/sound/soc/sof/intel/icl.c b/sound/soc/sof/intel/icl.c
+index b44a649bfc0b..da1e6dc4dc85 100644
+--- a/sound/soc/sof/intel/icl.c
++++ b/sound/soc/sof/intel/icl.c
+@@ -88,7 +88,7 @@ static int icl_dsp_post_fw_run(struct snd_sof_dev *sdev)
+ }
+ 
+ /* Icelake ops */
+-const struct snd_sof_dsp_ops sof_icl_ops = {
++struct snd_sof_dsp_ops sof_icl_ops = {
+ 	/* probe/remove/shutdown */
+ 	.probe		= hda_dsp_probe,
+ 	.remove		= hda_dsp_remove,
+diff --git a/sound/soc/sof/intel/pci-tng.c b/sound/soc/sof/intel/pci-tng.c
+index 98dcb1c391ca..8ef027a1fde8 100644
+--- a/sound/soc/sof/intel/pci-tng.c
++++ b/sound/soc/sof/intel/pci-tng.c
+@@ -132,7 +132,7 @@ static int tangier_pci_probe(struct snd_sof_dev *sdev)
+ 	return ret;
+ }
+ 
+-const struct snd_sof_dsp_ops sof_tng_ops = {
++struct snd_sof_dsp_ops sof_tng_ops = {
+ 	/* device init */
+ 	.probe		= tangier_pci_probe,
+ 
+diff --git a/sound/soc/sof/intel/shim.h b/sound/soc/sof/intel/shim.h
+index f36cd9d5eb94..80c61a7cedf6 100644
+--- a/sound/soc/sof/intel/shim.h
++++ b/sound/soc/sof/intel/shim.h
+@@ -173,7 +173,7 @@ struct sof_intel_dsp_desc {
+ 	bool (*check_sdw_irq)(struct snd_sof_dev *sdev);
+ };
+ 
+-extern const struct snd_sof_dsp_ops sof_tng_ops;
++extern struct snd_sof_dsp_ops sof_tng_ops;
+ 
+ extern const struct sof_intel_dsp_desc tng_chip_info;
+ 
+diff --git a/sound/soc/sof/intel/tgl.c b/sound/soc/sof/intel/tgl.c
+index 72d92ff6cef5..2bb32bbce426 100644
+--- a/sound/soc/sof/intel/tgl.c
++++ b/sound/soc/sof/intel/tgl.c
+@@ -59,7 +59,7 @@ static int tgl_dsp_core_put(struct snd_sof_dev *sdev, int core)
+ }
+ 
+ /* Tigerlake ops */
+-const struct snd_sof_dsp_ops sof_tgl_ops = {
++struct snd_sof_dsp_ops sof_tgl_ops = {
+ 	/* probe/remove/shutdown */
+ 	.probe		= hda_dsp_probe,
+ 	.remove		= hda_dsp_remove,
+diff --git a/sound/soc/sof/mediatek/mt8195/mt8195.c b/sound/soc/sof/mediatek/mt8195/mt8195.c
+index 5085a3ac3da8..90ec7b14823b 100644
+--- a/sound/soc/sof/mediatek/mt8195/mt8195.c
++++ b/sound/soc/sof/mediatek/mt8195/mt8195.c
+@@ -393,7 +393,7 @@ static struct snd_soc_dai_driver mt8195_dai[] = {
+ };
+ 
+ /* mt8195 ops */
+-static const struct snd_sof_dsp_ops sof_mt8195_ops = {
++static struct snd_sof_dsp_ops sof_mt8195_ops = {
+ 	/* probe and remove */
+ 	.probe		= mt8195_dsp_probe,
+ 	.remove		= mt8195_dsp_remove,
+diff --git a/sound/soc/sof/ops.h b/sound/soc/sof/ops.h
+index a19474663767..d866a96ba0d9 100644
+--- a/sound/soc/sof/ops.h
++++ b/sound/soc/sof/ops.h
+@@ -21,6 +21,12 @@
+ #define sof_ops(sdev) \
+ 	((sdev)->pdata->desc->ops)
+ 
++static inline void sof_ops_init(struct snd_sof_dev *sdev)
++{
++	if (sdev->pdata->desc->ops_init)
++		sdev->pdata->desc->ops_init(sdev);
++}
++
+ /* Mandatory operations are verified during probing */
+ 
+ /* init */
+diff --git a/sound/soc/sof/pcm.c b/sound/soc/sof/pcm.c
+index b5cbc8b5c0ee..6242327e663e 100644
+--- a/sound/soc/sof/pcm.c
++++ b/sound/soc/sof/pcm.c
+@@ -393,7 +393,7 @@ static int sof_pcm_open(struct snd_soc_component *component,
+ 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(component);
+-	const struct snd_sof_dsp_ops *ops = sof_ops(sdev);
++	struct snd_sof_dsp_ops *ops = sof_ops(sdev);
+ 	struct snd_sof_pcm *spcm;
+ 	struct snd_soc_tplg_stream_caps *caps;
+ 	int ret;
 -- 
 2.30.2
 

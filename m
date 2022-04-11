@@ -2,87 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 646E54FC013
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Apr 2022 17:15:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4B4C4FC237
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Apr 2022 18:24:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DED4D16C2;
-	Mon, 11 Apr 2022 17:14:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DED4D16C2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3F9961708;
+	Mon, 11 Apr 2022 18:24:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F9961708
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649690124;
-	bh=NCrogxvrttUfp3YnTtPBx3Lw5rnRrigS0+f2nwViXhg=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1649694294;
+	bh=ltUQurSEf7syUrN+loaIb4/tJxXmlbA0TKblHJomdWg=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JAnR3sodge/M0trxZlyvcqEdfOsbwX7bz2dPRXyPYALFWF1i7xxFj4bLHiJpKBkBC
-	 NJk6MrX+mqaQZi21oRQyQWOxqSiey1d+V57hFHi5O3mEeMqiILHxc/07uqGmLpiqKo
-	 w3mCAv1KiXQ4o12XjAozWoVv9Qu+0145yuJfqYXs=
+	b=FXPi0b72Xzz987XLjk0wPST2COayJxnhqXo6PgS/n1e5fTYSVIth68jg2QplCs7ij
+	 OxULKxnoqXQssVt+xkGlYsmllRG1f3AUjzKinOulVkGsvYxro15k/zmvnG3SUVgxnh
+	 3owLdyElHdyKezC1/LIcQm+uKR6gtTIqIeZwwqg4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 542F2F8032D;
-	Mon, 11 Apr 2022 17:14:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B8B50F804E4;
+	Mon, 11 Apr 2022 18:23:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8877CF80279; Mon, 11 Apr 2022 17:14:23 +0200 (CEST)
+ id C176FF800E8; Mon, 11 Apr 2022 18:23:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A87B9F8011C
- for <alsa-devel@alsa-project.org>; Mon, 11 Apr 2022 17:14:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A87B9F8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4BBD7F800E8;
+ Mon, 11 Apr 2022 18:23:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4BBD7F800E8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="EauwTN4n"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="xhTEJM/z"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 2911B1F868;
- Mon, 11 Apr 2022 15:14:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1649690056; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=bYyWuGBryhvqK2tsPLce9K8YGWCuvS5YA97DnFXA4Z8=;
- b=EauwTN4nsydagFeq6dRvkTovp3T+iJeKjfWWLPB6kqn3RvRNzAhMINqdCoikctMJ2EzpwO
- 2FG4AvhFn/Y0LkFe+5Imi5KITnk6UiLnRd+Uq4WoQzxWYaVfc+mL9kBJrYAJx4m8Vs+jYu
- G4BU/YQRPxzbk7oHSoCSmxYX9A6HqvI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1649690056;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=bYyWuGBryhvqK2tsPLce9K8YGWCuvS5YA97DnFXA4Z8=;
- b=xhTEJM/zWjjSSmzCpVfvZD/zwYMgUfpSvsPpbyUpg1vE8Hf5vY2rb8BKhGJWANFeG/CWid
- po07yp1ifha5nEBw==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 0E4EFA3B9C;
- Mon, 11 Apr 2022 15:14:16 +0000 (UTC)
-Date: Mon, 11 Apr 2022 17:14:16 +0200
-Message-ID: <s5hsfqjbqk7.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Zheyu Ma <zheyuma97@gmail.com>
-Subject: Re: [BUG] ALSA: echoaudio: warning when the driver fails to probe
-In-Reply-To: <CAMhUBj=yiAtbYmGDuaBrSxNMrxz6S8DJotwTLihcs64JSOQuVg@mail.gmail.com>
-References: <CAMhUBjm2AdyEZ_-EgexdNDN7SvY4f89=4=FwAL+c0Mg0O+X50A@mail.gmail.com>
- <s5hk0bwcbjh.wl-tiwai@suse.de>
- <CAMhUBjmr_mHcz2G0tQ2qktGFw6XDLJiDTAHvM1yoRWzvtA6MYg@mail.gmail.com>
- <s5ha6csc7lq.wl-tiwai@suse.de> <s5h7d7wc75u.wl-tiwai@suse.de>
- <s5h35ijdiab.wl-tiwai@suse.de>
- <CAMhUBj=yiAtbYmGDuaBrSxNMrxz6S8DJotwTLihcs64JSOQuVg@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- alsa-devel@alsa-project.org, tiwai@suse.com
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="E227KpKF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1649694228; x=1681230228;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=ltUQurSEf7syUrN+loaIb4/tJxXmlbA0TKblHJomdWg=;
+ b=E227KpKFdrpxZe06RICmYteN3p2YsX3kbhtF9wAwLZwAvUUnnyk4cfyD
+ apTTkU8RGmWb3+GRVw/pOqVar0E5QktxfigvVU1OB3OpzLK9Cs1GtYZIw
+ 68vP++Gt+BnDIMEAroEkUiaKxYmrHcHKe2AOc8fULXjqugwQPqKOKvFVy
+ JMfELqQLapThHhSQMOXyb9rTUFOi43dbvJjs8y7xcybdXNIkQxpz+aIxg
+ ay9LauJ8zRwM2OrQxRE73xzsEYdQG6bPEpfXmvhCss2grp4g+cw5Y9Nc9
+ YMfGUEc5jAGHka4rztaQw3BCU8bEEkG8KjMOQ9NAJ6A0LzmZ+gyXgDtXh w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10314"; a="287165362"
+X-IronPort-AV: E=Sophos;i="5.90,252,1643702400"; d="scan'208";a="287165362"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Apr 2022 09:23:39 -0700
+X-IronPort-AV: E=Sophos;i="5.90,252,1643702400"; d="scan'208";a="572279148"
+Received: from prposam-mobl.amr.corp.intel.com (HELO [10.212.162.151])
+ ([10.212.162.151])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Apr 2022 09:23:26 -0700
+Message-ID: <18cb711a-de2a-69e3-d753-7012a67bf2a7@linux.intel.com>
+Date: Mon, 11 Apr 2022 10:28:11 -0500
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.5.0
+Subject: Re: [PATCH] ASoC: SOF: Intel: Check the bar size before remapping
+Content-Language: en-US
+To: Zheyu Ma <zheyuma97@gmail.com>, lgirdwood@gmail.com,
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
+ broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ peter.ujfalusi@linux.intel.com
+References: <20220409143950.2570186-1-zheyuma97@gmail.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20220409143950.2570186-1-zheyuma97@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,133 +95,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 11 Apr 2022 12:34:56 +0200,
-Zheyu Ma wrote:
+
+
+On 4/9/22 09:39, Zheyu Ma wrote:
+> The driver should use the pci_resource_len() to get the actual length of
+> pci bar, and compare it with the expect value. If the bar size is too
+> small (such as a broken device), the driver should return an error.
 > 
-> On Mon, Apr 11, 2022 at 6:30 PM Takashi Iwai <tiwai@suse.de> wrote:
-> >
-> > On Mon, 11 Apr 2022 11:15:41 +0200,
-> > Takashi Iwai wrote:
-> > >
-> > > On Mon, 11 Apr 2022 11:06:09 +0200,
-> > > Takashi Iwai wrote:
-> > > >
-> > > > On Mon, 11 Apr 2022 10:49:53 +0200,
-> > > > Zheyu Ma wrote:
-> > > > >
-> > > > > On Mon, Apr 11, 2022 at 3:41 PM Takashi Iwai <tiwai@suse.de> wrote:
-> > > > > >
-> > > > > > On Sun, 10 Apr 2022 11:13:55 +0200,
-> > > > > > Zheyu Ma wrote:
-> > > > > > >
-> > > > > > > Hello,
-> > > > > > >
-> > > > > > > I found a bug in echoaudio.c.
-> > > > > > > When the driver fails at the function snd_echo_create(), it should
-> > > > > > > release resources requested before, otherwise we will get the
-> > > > > > > following warning:
-> > > > > > >
-> > > > > > > [    3.262866] remove_proc_entry: removing non-empty directory
-> > > > > > > 'irq/21', leaking at least 'snd_indigodj'
-> > > > > > > [    3.263577] WARNING: CPU: 3 PID: 261 at fs/proc/generic.c:717
-> > > > > > > remove_proc_entry+0x389/0x3f0
-> > > > > > > [    3.267098] RIP: 0010:remove_proc_entry+0x389/0x3f0
-> > > > > > > [    3.269976] Call Trace:
-> > > > > > > [    3.269979]  <TASK>
-> > > > > > > [    3.269988]  unregister_irq_proc+0x14c/0x170
-> > > > > > > [    3.269997]  irq_free_descs+0x94/0xe0
-> > > > > > > [    3.270004]  mp_unmap_irq+0xb6/0x100
-> > > > > > > [    3.270011]  acpi_unregister_gsi_ioapic+0x27/0x40
-> > > > > > > [    3.270017]  acpi_pci_irq_disable+0x1d3/0x320
-> > > > > > > [    3.270025]  pci_disable_device+0x1ad/0x380
-> > > > > > > [    3.270034]  pcim_release+0x566/0x6d0
-> > > > > > > [    3.270046]  devres_release_all+0x1f1/0x2c0
-> > > > > > > [    3.270057]  really_probe+0xe0/0x920
-> > > > > >
-> > > > > > Could you try the patch below?
-> > > > >
-> > > > > The following patch works for me, the previous warning disappears, thank you.
-> > > > > But I got another error, I have no idea about it.
-> > > >
-> > > > OK, that's bad, it's basically the destructor order problem.
-> > > > Could you try the patch below instead of the previous one?
-> > >
-> > > Sorry, the below one instead.
-> >
-> > Err, scratch this one, too.  It's a deeper problem than I thought.
-> > Will post a revised patch later.
+> Signed-off-by: Zheyu Ma <zheyuma97@gmail.com>
+> ---
+>  sound/soc/sof/intel/pci-tng.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
 > 
-> Yeah, you are right, these two patches do not work, I got the same
-> error message.
-> Thanks for your effort.
+> diff --git a/sound/soc/sof/intel/pci-tng.c b/sound/soc/sof/intel/pci-tng.c
+> index 6efef225973f..7d502cc3ca80 100644
+> --- a/sound/soc/sof/intel/pci-tng.c
+> +++ b/sound/soc/sof/intel/pci-tng.c
+> @@ -75,7 +75,11 @@ static int tangier_pci_probe(struct snd_sof_dev *sdev)
+>  
+>  	/* LPE base */
+>  	base = pci_resource_start(pci, desc->resindex_lpe_base) - IRAM_OFFSET;
+> -	size = PCI_BAR_SIZE;
+> +	size = pci_resource_len(pci, desc->resindex_lpe_base);
+> +	if (size < PCI_BAR_SIZE) {
+> +		dev_err(sdev->dev, "error: I/O region is too small.\n");
+> +		return -ENODEV;
+> +	}
 
-Here we go, a revised patch.  Basically it enforces the call of
-snd_card_free() at the error path during probe.
+May I ask how you found this issue?
 
-There are a bunch of similar patterns, and we need to address them
-all...
+I am not clear on why there's a patch dedicated for a single device, but the same pattern in hda.c and in the HDaudio legacy driver exists.
 
-
-thanks,
-
-Takashi
-
----
---- a/include/sound/core.h
-+++ b/include/sound/core.h
-@@ -279,6 +279,7 @@ int snd_card_new(struct device *parent, int idx, const char *xid,
- int snd_devm_card_new(struct device *parent, int idx, const char *xid,
- 		      struct module *module, size_t extra_size,
- 		      struct snd_card **card_ret);
-+int snd_devm_probe_or_release(struct device *dev, int ret);
- 
- int snd_card_disconnect(struct snd_card *card);
- void snd_card_disconnect_sync(struct snd_card *card);
---- a/sound/core/init.c
-+++ b/sound/core/init.c
-@@ -235,6 +235,19 @@ int snd_devm_card_new(struct device *parent, int idx, const char *xid,
- }
- EXPORT_SYMBOL_GPL(snd_devm_card_new);
- 
-+int snd_devm_probe_or_release(struct device *dev, int ret)
-+{
-+	struct snd_card *card;
-+
-+	if (!ret)
-+		return 0;
-+	card = devres_find(dev, __snd_card_release, NULL, NULL);
-+	if (card)
-+		snd_card_free(card);
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(snd_devm_probe_or_release);
-+
- static int snd_card_init(struct snd_card *card, struct device *parent,
- 			 int idx, const char *xid, struct module *module,
- 			 size_t extra_size)
---- a/sound/pci/echoaudio/echoaudio.c
-+++ b/sound/pci/echoaudio/echoaudio.c
-@@ -1970,8 +1970,8 @@ static int snd_echo_create(struct snd_card *card,
- }
- 
- /* constructor */
--static int snd_echo_probe(struct pci_dev *pci,
--			  const struct pci_device_id *pci_id)
-+static int __snd_echo_probe(struct pci_dev *pci,
-+			    const struct pci_device_id *pci_id)
- {
- 	static int dev;
- 	struct snd_card *card;
-@@ -2139,6 +2139,12 @@ static int snd_echo_probe(struct pci_dev *pci,
- 	return 0;
- }
- 
-+static int snd_echo_probe(struct pci_dev *pci,
-+			  const struct pci_device_id *pci_id)
-+{
-+	return snd_devm_probe_or_release(&pci->dev,
-+					 __snd_echo_probe(pci, pci_id));
-+}
- 
- 
- #if defined(CONFIG_PM_SLEEP)
+>  
+>  	dev_dbg(sdev->dev, "LPE PHY base at 0x%x size 0x%x", base, size);
+>  	sdev->bar[DSP_BAR] = devm_ioremap(sdev->dev, base, size);

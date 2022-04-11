@@ -2,64 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A7484FB19D
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Apr 2022 04:10:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 254684FB4E4
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Apr 2022 09:32:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2F50F1694;
-	Mon, 11 Apr 2022 04:09:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F50F1694
+	by alsa0.perex.cz (Postfix) with ESMTPS id A432216CA;
+	Mon, 11 Apr 2022 09:31:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A432216CA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649643028;
-	bh=ln+MPM5vCcXW/wrOLqKOoOd2rhjXeqqVEQ0tbIqHnhg=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=cKXE9FSargjAaKsVyOxUWx1YjzaNo6gNe2S+nhxh6UxxG/rrkuSXUmkqW4LRkqdJb
-	 5csgQmv9aJDbVRvaVWRaQ8qOGHbbUCpJr/8wUnhvdXoRrMUQ/iNcqHNtX5v65E+Ldk
-	 CCTZIXqGq9O+77w0wzXJHA71/+yAX5hMXR6W/jvM=
+	s=default; t=1649662327;
+	bh=aElULTWrmQ9nA06GFAxFWUzzQUnI6LEzmGYSvr9MDEA=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=I11qzozq3WzjbmiB8rdY+lfKoz7uQVa0AeMQxJlwnKqiYyEIdkLwhK/Oj6YVrva8i
+	 hYQ5kEKRjBlvGSwb8yTScU2aixZ324lTVWFeF+UbEYIBHGFjEHo0EnP2A7Lm6iAgBV
+	 fS2sonoVCKaq1isfRDFJJ8fGkLco8U2cB1QTzgic=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 682B7F8032D;
-	Mon, 11 Apr 2022 04:09:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D8A5AF8032D;
+	Mon, 11 Apr 2022 09:31:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6785DF80279; Mon, 11 Apr 2022 04:09:25 +0200 (CEST)
+ id 61E5FF80279; Mon, 11 Apr 2022 09:31:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DAE5FF8011C
- for <alsa-devel@alsa-project.org>; Mon, 11 Apr 2022 04:09:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DAE5FF8011C
-Received: from canpemm500007.china.huawei.com (unknown [172.30.72.53])
- by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4KcC2H6qNyz1HBJm;
- Mon, 11 Apr 2022 10:08:39 +0800 (CST)
-Received: from localhost (10.174.179.215) by canpemm500007.china.huawei.com
- (7.192.104.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Mon, 11 Apr
- 2022 10:09:12 +0800
-From: YueHaibing <yuehaibing@huawei.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>, <thierry.reding@gmail.com>, <jonathanh@nvidia.com>,
- <spujar@nvidia.com>, <yuehaibing@huawei.com>
-Subject: [PATCH -next] ASoC: tegra186_asrc: mark runtime-pm functions as
- __maybe_unused
-Date: Mon, 11 Apr 2022 10:09:08 +0800
-Message-ID: <20220411020908.580-1-yuehaibing@huawei.com>
-X-Mailer: git-send-email 2.10.2.windows.1
-MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.174.179.215]
-X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
- canpemm500007.china.huawei.com (7.192.104.62)
-X-CFilter-Loop: Reflected
-Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id B3B1FF800E8
+ for <alsa-devel@alsa-project.org>; Mon, 11 Apr 2022 09:30:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3B1FF800E8
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="VaX/t9Ck"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="HMPQ5Y8k"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id E9E1F1F38D;
+ Mon, 11 Apr 2022 07:30:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1649662253; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=FkiUFak26W238IEF2QDnp+GxZTbgXdfnry5p+Bz72Q8=;
+ b=VaX/t9CkRQ8mJFi/T2qHw3HWMhL6QJZOQ3RJQivpldSfSPOBQ8LWYtSX1Qc+3qyB2ZX6lc
+ z1bS9ApZLX0XbF08sDIQ5fA5rN5UBiBX65Sk+9aJE6fZwFslcA9lxWTDG7hFNfI+oWMywz
+ xC/GEsbK6j/IvtPrrPXdUXxGhVXJvos=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1649662253;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=FkiUFak26W238IEF2QDnp+GxZTbgXdfnry5p+Bz72Q8=;
+ b=HMPQ5Y8kPZMA+kiMsbHF/yVX7IGaILTy24ySHKbpCsb9GRvgFOq6XYW6ZFNcMXFgtW2Hk2
+ a464EOcjb9DoN6CA==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id CD0EDA3B8A;
+ Mon, 11 Apr 2022 07:30:53 +0000 (UTC)
+Date: Mon, 11 Apr 2022 09:30:53 +0200
+Message-ID: <s5hr164cc0i.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Fabio M. De Francesco" <fmdefrancesco@gmail.com>
+Subject: Re: [PATCH] ALSA: pcm: Test for "silence" field in struct
+ "pcm_format_data"
+In-Reply-To: <20220409012655.9399-1-fmdefrancesco@gmail.com>
+References: <20220409012655.9399-1-fmdefrancesco@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>,
+ syzbot+205eb15961852c2c5974@syzkaller.appspotmail.com,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,43 +96,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-sound/soc/tegra/tegra186_asrc.c:90:12: error: ‘tegra186_asrc_runtime_resume’ defined but not used [-Werror=unused-function]
- static int tegra186_asrc_runtime_resume(struct device *dev)
-            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-sound/soc/tegra/tegra186_asrc.c:80:12: error: ‘tegra186_asrc_runtime_suspend’ defined but not used [-Werror=unused-function]
- static int tegra186_asrc_runtime_suspend(struct device *dev)
-            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+On Sat, 09 Apr 2022 03:26:55 +0200,
+Fabio M. De Francesco wrote:
+> 
+> Syzbot reports "KASAN: null-ptr-deref Write in
+> snd_pcm_format_set_silence".[1]
+> 
+> It is due to missing validation of the "silence" field of struct
+> "pcm_format_data" in "pcm_formats" array.
+> 
+> Add a test for valid "pat" and, if it is not so, return -EINVAL.
+> 
+> [1] https://lore.kernel.org/lkml/000000000000d188ef05dc2c7279@google.com/
+> 
+> Reported-and-tested-by: syzbot+205eb15961852c2c5974@syzkaller.appspotmail.com
+> Signed-off-by: Fabio M. De Francesco <fmdefrancesco@gmail.com>
 
-Mark these functions as __maybe_unused to avoid this kind of warning.
+Thanks, applied now.
 
-Fixes: a2df8c2d5b36 ("ASoC: tegra: Add Tegra186 based ASRC driver")
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
----
- sound/soc/tegra/tegra186_asrc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/tegra/tegra186_asrc.c b/sound/soc/tegra/tegra186_asrc.c
-index 3c1e20cbb319..9f12faaa609d 100644
---- a/sound/soc/tegra/tegra186_asrc.c
-+++ b/sound/soc/tegra/tegra186_asrc.c
-@@ -77,7 +77,7 @@ static void tegra186_asrc_lock_stream(struct tegra186_asrc *asrc,
- 		     1);
- }
- 
--static int tegra186_asrc_runtime_suspend(struct device *dev)
-+static int __maybe_unused tegra186_asrc_runtime_suspend(struct device *dev)
- {
- 	struct tegra186_asrc *asrc = dev_get_drvdata(dev);
- 
-@@ -87,7 +87,7 @@ static int tegra186_asrc_runtime_suspend(struct device *dev)
- 	return 0;
- }
- 
--static int tegra186_asrc_runtime_resume(struct device *dev)
-+static int __maybe_unused tegra186_asrc_runtime_resume(struct device *dev)
- {
- 	struct tegra186_asrc *asrc = dev_get_drvdata(dev);
- 	int id;
--- 
-2.17.1
+> ---
+> 
+> I wasn't able to figure out the commit for the "Fixes:" tag. If this patch
+> is good, can someone please help with providing this missing information?
 
+That must be present from the very beginning.
+I just add Cc-to-stable for allowing backport to all releases.
+
+
+thanks,
+
+Takashi

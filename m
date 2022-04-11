@@ -2,77 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA3834FB6E6
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Apr 2022 11:07:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F11204FB72D
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Apr 2022 11:16:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 43F4916CE;
-	Mon, 11 Apr 2022 11:06:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43F4916CE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 849F01718;
+	Mon, 11 Apr 2022 11:15:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 849F01718
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649668039;
-	bh=89XyG7ZCxTXCW207EJyel2WD2Y9CW0g0gedQS2/nvxo=;
+	s=default; t=1649668609;
+	bh=AbxPjVN8CE+KCnwOpQYvFLzfGeR6znzKZ1amEhsiFiM=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QABjIjdOXfLoXmesW8es96RFP6sPtJH9HGukvazxgnjVImxRCZy/0GNiwI4BU4Xf/
-	 ixkZpfFnoTFcnhmS4HEZxN3x0gz5MqfNtPfv9riB0bXRPhebIiO2dk9kjqXPgedDrJ
-	 aeKIJoFBVojfHGnNtT2aeDatIBEEgORPjRvc3jhg=
+	b=PX5Ta0/Z0HZ1JT9+OF43h1ECne5zU3NIuqPx5ROlrtVFC38vzKGlioORJyrllzBP7
+	 42K5l9KxyRE0Wn7wkZgXD1Bf4TA6ifh0w+8JV6H8DiLkcv68QoT2wOb63PsOFhLZnw
+	 0vf3CJ1XngNe679aikp6GYjYir8VMOx/l7tIGqDc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A560DF8032D;
-	Mon, 11 Apr 2022 11:06:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F0967F8032D;
+	Mon, 11 Apr 2022 11:15:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E7745F80279; Mon, 11 Apr 2022 11:06:17 +0200 (CEST)
+ id 6D971F80279; Mon, 11 Apr 2022 11:15:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BC089F8020D
- for <alsa-devel@alsa-project.org>; Mon, 11 Apr 2022 11:06:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC089F8020D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4B3FBF8011C
+ for <alsa-devel@alsa-project.org>; Mon, 11 Apr 2022 11:15:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B3FBF8011C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="xsxGF0qS"; 
+ header.b="EqakTEAZ"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="hOKHQg2/"
+ header.b="0RA8IxeJ"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 85BAD210E5;
- Mon, 11 Apr 2022 09:06:09 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 2AB2B1F37D;
+ Mon, 11 Apr 2022 09:15:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1649667969; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1649668541; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=j1BIddY6le6cyd+FZDW9T54cDdgofPkisbaeMK/YIcA=;
- b=xsxGF0qSAxSaOEKbBEIT2Phwv6p0OucaYNthjTefbqq5cO22mMqRLXC/W3hz2Sy1Piu/mC
- Jmg3uNlT7+dm7PzSP6vLJThTVD0W292aNm+PyoNez17NEH3hCMCjTI1xARRmdAAyCy4h57
- sjcHXZ38cJNEhG0XXZu9AdTJORIOaSQ=
+ bh=Yh1GNW6gU42sVXZoPHtYENnDyIjgUm1nwQNJwCgjCEA=;
+ b=EqakTEAZ2mph5kkYg7YPFnK/6MbnQaNyEMO0t1MYwoCiHgeEWB1VzJm0dCR3lfI7AOjgTy
+ Czlbe7F7Vonev3BSZ2kRTGB0raY0i/ifY0kGVokdGFSJvnMMXnFMiLQb2G7mcFFke1ixXI
+ Murr6SvWAEEXL4jxkVZo2E706tkONbk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1649667969;
+ s=susede2_ed25519; t=1649668541;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=j1BIddY6le6cyd+FZDW9T54cDdgofPkisbaeMK/YIcA=;
- b=hOKHQg2/uChgGFS9gwKxB9vWVupGkQBhrgkpHlpdN63EH3XOyeiyxtlwfwqv7Bk0L9IN3J
- ttRpV+F1KJrhtQDw==
+ bh=Yh1GNW6gU42sVXZoPHtYENnDyIjgUm1nwQNJwCgjCEA=;
+ b=0RA8IxeJaW5gSq73ZxHKtdAmN9TxWTh1C5zAVhO/d8Lche3QpsdC7LKPh8U9vse27yiAXZ
+ SAhmIHXljILWBwBA==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 7416BA3B82;
- Mon, 11 Apr 2022 09:06:09 +0000 (UTC)
-Date: Mon, 11 Apr 2022 11:06:09 +0200
-Message-ID: <s5ha6csc7lq.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 21DBFA3B87;
+ Mon, 11 Apr 2022 09:15:41 +0000 (UTC)
+Date: Mon, 11 Apr 2022 11:15:41 +0200
+Message-ID: <s5h7d7wc75u.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Zheyu Ma <zheyuma97@gmail.com>
 Subject: Re: [BUG] ALSA: echoaudio: warning when the driver fails to probe
-In-Reply-To: <CAMhUBjmr_mHcz2G0tQ2qktGFw6XDLJiDTAHvM1yoRWzvtA6MYg@mail.gmail.com>
+In-Reply-To: <s5ha6csc7lq.wl-tiwai@suse.de>
 References: <CAMhUBjm2AdyEZ_-EgexdNDN7SvY4f89=4=FwAL+c0Mg0O+X50A@mail.gmail.com>
  <s5hk0bwcbjh.wl-tiwai@suse.de>
  <CAMhUBjmr_mHcz2G0tQ2qktGFw6XDLJiDTAHvM1yoRWzvtA6MYg@mail.gmail.com>
+ <s5ha6csc7lq.wl-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -95,48 +96,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 11 Apr 2022 10:49:53 +0200,
-Zheyu Ma wrote:
+On Mon, 11 Apr 2022 11:06:09 +0200,
+Takashi Iwai wrote:
 > 
-> On Mon, Apr 11, 2022 at 3:41 PM Takashi Iwai <tiwai@suse.de> wrote:
-> >
-> > On Sun, 10 Apr 2022 11:13:55 +0200,
-> > Zheyu Ma wrote:
+> On Mon, 11 Apr 2022 10:49:53 +0200,
+> Zheyu Ma wrote:
+> > 
+> > On Mon, Apr 11, 2022 at 3:41 PM Takashi Iwai <tiwai@suse.de> wrote:
 > > >
-> > > Hello,
+> > > On Sun, 10 Apr 2022 11:13:55 +0200,
+> > > Zheyu Ma wrote:
+> > > >
+> > > > Hello,
+> > > >
+> > > > I found a bug in echoaudio.c.
+> > > > When the driver fails at the function snd_echo_create(), it should
+> > > > release resources requested before, otherwise we will get the
+> > > > following warning:
+> > > >
+> > > > [    3.262866] remove_proc_entry: removing non-empty directory
+> > > > 'irq/21', leaking at least 'snd_indigodj'
+> > > > [    3.263577] WARNING: CPU: 3 PID: 261 at fs/proc/generic.c:717
+> > > > remove_proc_entry+0x389/0x3f0
+> > > > [    3.267098] RIP: 0010:remove_proc_entry+0x389/0x3f0
+> > > > [    3.269976] Call Trace:
+> > > > [    3.269979]  <TASK>
+> > > > [    3.269988]  unregister_irq_proc+0x14c/0x170
+> > > > [    3.269997]  irq_free_descs+0x94/0xe0
+> > > > [    3.270004]  mp_unmap_irq+0xb6/0x100
+> > > > [    3.270011]  acpi_unregister_gsi_ioapic+0x27/0x40
+> > > > [    3.270017]  acpi_pci_irq_disable+0x1d3/0x320
+> > > > [    3.270025]  pci_disable_device+0x1ad/0x380
+> > > > [    3.270034]  pcim_release+0x566/0x6d0
+> > > > [    3.270046]  devres_release_all+0x1f1/0x2c0
+> > > > [    3.270057]  really_probe+0xe0/0x920
 > > >
-> > > I found a bug in echoaudio.c.
-> > > When the driver fails at the function snd_echo_create(), it should
-> > > release resources requested before, otherwise we will get the
-> > > following warning:
-> > >
-> > > [    3.262866] remove_proc_entry: removing non-empty directory
-> > > 'irq/21', leaking at least 'snd_indigodj'
-> > > [    3.263577] WARNING: CPU: 3 PID: 261 at fs/proc/generic.c:717
-> > > remove_proc_entry+0x389/0x3f0
-> > > [    3.267098] RIP: 0010:remove_proc_entry+0x389/0x3f0
-> > > [    3.269976] Call Trace:
-> > > [    3.269979]  <TASK>
-> > > [    3.269988]  unregister_irq_proc+0x14c/0x170
-> > > [    3.269997]  irq_free_descs+0x94/0xe0
-> > > [    3.270004]  mp_unmap_irq+0xb6/0x100
-> > > [    3.270011]  acpi_unregister_gsi_ioapic+0x27/0x40
-> > > [    3.270017]  acpi_pci_irq_disable+0x1d3/0x320
-> > > [    3.270025]  pci_disable_device+0x1ad/0x380
-> > > [    3.270034]  pcim_release+0x566/0x6d0
-> > > [    3.270046]  devres_release_all+0x1f1/0x2c0
-> > > [    3.270057]  really_probe+0xe0/0x920
-> >
-> > Could you try the patch below?
+> > > Could you try the patch below?
+> > 
+> > The following patch works for me, the previous warning disappears, thank you.
+> > But I got another error, I have no idea about it.
 > 
-> The following patch works for me, the previous warning disappears, thank you.
-> But I got another error, I have no idea about it.
+> OK, that's bad, it's basically the destructor order problem.
+> Could you try the patch below instead of the previous one?
 
-OK, that's bad, it's basically the destructor order problem.
-Could you try the patch below instead of the previous one?
+Sorry, the below one instead.
 
-
-thanks,
 
 Takashi
 
@@ -167,18 +171,25 @@ Takashi
  /* <--snd_echo_probe() */
  static int snd_echo_create(struct snd_card *card,
  			   struct pci_dev *pci)
-@@ -1945,8 +1952,9 @@ static int snd_echo_create(struct snd_card *card,
- 	card->sync_irq = chip->irq;
- 	dev_dbg(card->dev, "pci=%p irq=%d subdev=%04x Init hardware...\n",
- 		chip->pci, chip->irq, chip->pci->subsystem_device);
--
--	card->private_free = snd_echo_free;
+@@ -1936,6 +1943,9 @@ static int snd_echo_create(struct snd_card *card,
+ 		return -ENOMEM;
+ 	}
+ 
 +	err = devm_add_action(card->dev, do_free_irq, chip);
 +	if (err < 0)
 +		return err;
+ 	if (request_irq(pci->irq, snd_echo_interrupt, IRQF_SHARED,
+ 			KBUILD_MODNAME, chip)) {
+ 		dev_err(chip->card->dev, "cannot grab irq\n");
+@@ -1946,8 +1956,6 @@ static int snd_echo_create(struct snd_card *card,
+ 	dev_dbg(card->dev, "pci=%p irq=%d subdev=%04x Init hardware...\n",
+ 		chip->pci, chip->irq, chip->pci->subsystem_device);
  
+-	card->private_free = snd_echo_free;
+-
  	/* Create the DSP comm page - this is the area of memory used for most
  	of the communication with the DSP, which accesses it via bus mastering */
+ 	chip->commpage_dma_buf =
 @@ -1957,6 +1965,7 @@ static int snd_echo_create(struct snd_card *card,
  		return -ENOMEM;
  	chip->comm_page_phys = chip->commpage_dma_buf->addr;

@@ -2,82 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B9D84FB522
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Apr 2022 09:42:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B79B4FB571
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Apr 2022 09:58:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 114FE16CB;
-	Mon, 11 Apr 2022 09:41:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 114FE16CB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 22FFC16F4;
+	Mon, 11 Apr 2022 09:57:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22FFC16F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649662930;
-	bh=BhrmUVP+9MjEfSsjV7qonOVrE8aNZ282P6Gbvvabu3g=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=M12L2SHy+TGyPjsmbw99EUpuRe522/vBy7jgFOHn6fPGhxYY15NCK9YkVCDvnM3Gh
-	 Wpx1ld9XdfXbKSYM1zfAVybRX0WyMoQkw/ZCX304Ru8s2dJhPTeczCzY9D0XO5e13D
-	 6AIZ+sVFUzNpMAotvwJFAs8I2d+3+6TB/RAFQOrU=
+	s=default; t=1649663901;
+	bh=Omf2i8I/s2BFqQfXN5DuKH0qRqjaeBz15xtwGmFOXv4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=LSVBqQScoVOpST//ds1jOAAxem9N4/3l7VJEoqQ8NDXd8MOTpUxvaF5Gq3y5Hvijb
+	 fC+9R06V2//1K61PbHL9qZgWonds1AxKtf97L7sx9iO9ogxP29jRCoVfRowJbL/maF
+	 UpN7h/Irrfn+aNj7Dh+EXcISNw3ZNiT9dwFD+PQg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 85CB6F8032D;
-	Mon, 11 Apr 2022 09:41:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8523EF80249;
+	Mon, 11 Apr 2022 09:57:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 67A65F80279; Mon, 11 Apr 2022 09:41:09 +0200 (CEST)
+ id A1D1DF80279; Mon, 11 Apr 2022 09:57:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+X-Spam-Level: **
+X-Spam-Status: No, score=2.1 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FROM,FROM_LOCAL_DIGITS,FROM_LOCAL_HEX,SPF_HELO_NONE,SPF_NONE,
+ SPOOFED_FREEMAIL,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E55E4F800E8
- for <alsa-devel@alsa-project.org>; Mon, 11 Apr 2022 09:41:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E55E4F800E8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="B32e+ZkD"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="yBcd7j5J"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 73A9C1F37D;
- Mon, 11 Apr 2022 07:41:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1649662866; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=jn50J4OXXzYzRftzsfTWnK2V/NAvOb/ccwOAXbOa7rA=;
- b=B32e+ZkDqLxKQiB82LhRcriS4BBbCsRbQ7CBAowvjDo8cXZj0bTnjc3lVJCRtLOZqfWoT9
- eN5zyYwtxd/waVVDEWP72KupUrEqzbwLmQvP7sIaQZ9cw3ycQDqqzKpmU8gKmeN0DkngFZ
- 7gdyPUgFZXalitHmc5y/l7x/KFv5F9g=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1649662866;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=jn50J4OXXzYzRftzsfTWnK2V/NAvOb/ccwOAXbOa7rA=;
- b=yBcd7j5JQW03huMKC4RdjnrINErxiruAZuh9oVX2QkaMsxZvmIao1e0qPl8wB0M9QtM6iw
- vu6H+km8NWzCrsBA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 6B7AEA3BA9;
- Mon, 11 Apr 2022 07:41:06 +0000 (UTC)
-Date: Mon, 11 Apr 2022 09:41:06 +0200
-Message-ID: <s5hk0bwcbjh.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Zheyu Ma <zheyuma97@gmail.com>
-Subject: Re: [BUG] ALSA: echoaudio: warning when the driver fails to probe
-In-Reply-To: <CAMhUBjm2AdyEZ_-EgexdNDN7SvY4f89=4=FwAL+c0Mg0O+X50A@mail.gmail.com>
-References: <CAMhUBjm2AdyEZ_-EgexdNDN7SvY4f89=4=FwAL+c0Mg0O+X50A@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- alsa-devel@alsa-project.org, tiwai@suse.com
+Received: from n169-112.mail.139.com (n169-112.mail.139.com [120.232.169.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id BFCA3F800E8
+ for <alsa-devel@alsa-project.org>; Mon, 11 Apr 2022 09:57:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BFCA3F800E8
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM: 
+X-RM-SPAM-FLAG: 00000000
+Received: from LAPTOP-39QA2GAC.localdomain (unknown[192.163.20.102])
+ by rmsmtp-lg-appmail-21-12024 (RichMail) with SMTP id 2ef86253df46832-8c34f;
+ Mon, 11 Apr 2022 15:57:08 +0800 (CST)
+X-RM-TRANSID: 2ef86253df46832-8c34f
+From: Raphael-Xu <13691752556@139.com>
+To: broonie@kernel.org
+Subject: [PATCH v8 1/3] rename tas2764 to tas27xx
+Date: Mon, 11 Apr 2022 15:56:50 +0800
+Message-Id: <20220411075652.2346-1-13691752556@139.com>
+X-Mailer: git-send-email 2.35.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: navada@ti.com, alsa-devel@alsa-project.org, shenghao-ding@ti.com,
+ raphael-xu@ti.com, Raphael-Xu <13691752556@139.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,61 +69,75 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 10 Apr 2022 11:13:55 +0200,
-Zheyu Ma wrote:
-> 
-> Hello,
-> 
-> I found a bug in echoaudio.c.
-> When the driver fails at the function snd_echo_create(), it should
-> release resources requested before, otherwise we will get the
-> following warning:
-> 
-> [    3.262866] remove_proc_entry: removing non-empty directory
-> 'irq/21', leaking at least 'snd_indigodj'
-> [    3.263577] WARNING: CPU: 3 PID: 261 at fs/proc/generic.c:717
-> remove_proc_entry+0x389/0x3f0
-> [    3.267098] RIP: 0010:remove_proc_entry+0x389/0x3f0
-> [    3.269976] Call Trace:
-> [    3.269979]  <TASK>
-> [    3.269988]  unregister_irq_proc+0x14c/0x170
-> [    3.269997]  irq_free_descs+0x94/0xe0
-> [    3.270004]  mp_unmap_irq+0xb6/0x100
-> [    3.270011]  acpi_unregister_gsi_ioapic+0x27/0x40
-> [    3.270017]  acpi_pci_irq_disable+0x1d3/0x320
-> [    3.270025]  pci_disable_device+0x1ad/0x380
-> [    3.270034]  pcim_release+0x566/0x6d0
-> [    3.270046]  devres_release_all+0x1f1/0x2c0
-> [    3.270057]  really_probe+0xe0/0x920
+rename tas2764.c and tas2764.h to tas27xx.c and tas27xx.h
 
-Could you try the patch below?
+rename tas2764 to tas27xx in Kconfig and Makefile
 
-
-thanks,
-
-Takashi
-
+Signed-off-by: Raphael-Xu <13691752556@139.com>
 ---
---- a/sound/pci/echoaudio/echoaudio.c
-+++ b/sound/pci/echoaudio/echoaudio.c
-@@ -1906,9 +1906,6 @@ static int snd_echo_create(struct snd_card *card,
+ sound/soc/codecs/Kconfig                  | 6 +++---
+ sound/soc/codecs/Makefile                 | 4 ++--
+ sound/soc/codecs/{tas2764.c => tas27xx.c} | 0
+ sound/soc/codecs/{tas2764.h => tas27xx.h} | 0
+ 4 files changed, 5 insertions(+), 5 deletions(-)
+ rename sound/soc/codecs/{tas2764.c => tas27xx.c} (100%)
+ rename sound/soc/codecs/{tas2764.h => tas27xx.h} (100%)
+
+diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+index f46a22660103..2c4595f6f7ec 100644
+--- a/sound/soc/codecs/Kconfig
++++ b/sound/soc/codecs/Kconfig
+@@ -213,7 +213,7 @@ config SND_SOC_ALL_CODECS
+ 	imply SND_SOC_STI_SAS
+ 	imply SND_SOC_TAS2552
+ 	imply SND_SOC_TAS2562
+-	imply SND_SOC_TAS2764
++	imply SND_SOC_TAS27XX
+ 	imply SND_SOC_TAS2770
+ 	imply SND_SOC_TAS5086
+ 	imply SND_SOC_TAS571X
+@@ -1472,8 +1472,8 @@ config SND_SOC_TAS2562
+ 	tristate "Texas Instruments TAS2562 Mono Audio amplifier"
+ 	depends on I2C
  
- 	pci_write_config_byte(pci, PCI_LATENCY_TIMER, 0xC0);
+-config SND_SOC_TAS2764
+-	tristate "Texas Instruments TAS2764 Mono Audio amplifier"
++config SND_SOC_TAS27XX
++	tristate "Texas Instruments TAS2764/TAS2780 Mono Audio amplifier"
+ 	depends on I2C
  
--	err = pcim_enable_device(pci);
--	if (err < 0)
--		return err;
- 	pci_set_master(pci);
+ config SND_SOC_TAS2770
+diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
+index 8637e9e869e3..15ceb95d42f5 100644
+--- a/sound/soc/codecs/Makefile
++++ b/sound/soc/codecs/Makefile
+@@ -337,7 +337,7 @@ snd-soc-simple-amplifier-objs := simple-amplifier.o
+ snd-soc-tpa6130a2-objs := tpa6130a2.o
+ snd-soc-tas2552-objs := tas2552.o
+ snd-soc-tas2562-objs := tas2562.o
+-snd-soc-tas2764-objs := tas2764.o
++snd-soc-tas27xx-objs := tas27xx.o
+ # Mux
+ snd-soc-simple-mux-objs := simple-mux.o
  
- 	/* Allocate chip if needed */
-@@ -1987,6 +1984,10 @@ static int snd_echo_probe(struct pci_dev *pci,
- 		return -ENOENT;
- 	}
- 
-+	err = pcim_enable_device(pci);
-+	if (err < 0)
-+		return err;
-+
- 	i = 0;
- 	err = snd_devm_card_new(&pci->dev, index[dev], id[dev], THIS_MODULE,
- 				sizeof(*chip), &card);
+@@ -574,7 +574,7 @@ obj-$(CONFIG_SND_SOC_STAC9766)	+= snd-soc-stac9766.o
+ obj-$(CONFIG_SND_SOC_STI_SAS)	+= snd-soc-sti-sas.o
+ obj-$(CONFIG_SND_SOC_TAS2552)	+= snd-soc-tas2552.o
+ obj-$(CONFIG_SND_SOC_TAS2562)	+= snd-soc-tas2562.o
+-obj-$(CONFIG_SND_SOC_TAS2764)	+= snd-soc-tas2764.o
++obj-$(CONFIG_SND_SOC_TAS27XX)	+= snd-soc-tas27xx.o
+ obj-$(CONFIG_SND_SOC_TAS5086)	+= snd-soc-tas5086.o
+ obj-$(CONFIG_SND_SOC_TAS571X)	+= snd-soc-tas571x.o
+ obj-$(CONFIG_SND_SOC_TAS5720)	+= snd-soc-tas5720.o
+diff --git a/sound/soc/codecs/tas2764.c b/sound/soc/codecs/tas27xx.c
+similarity index 100%
+rename from sound/soc/codecs/tas2764.c
+rename to sound/soc/codecs/tas27xx.c
+diff --git a/sound/soc/codecs/tas2764.h b/sound/soc/codecs/tas27xx.h
+similarity index 100%
+rename from sound/soc/codecs/tas2764.h
+rename to sound/soc/codecs/tas27xx.h
+-- 
+2.35.1
+
+

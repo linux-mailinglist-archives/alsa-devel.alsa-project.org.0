@@ -2,85 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 254684FB4E4
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Apr 2022 09:32:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DFAA4FB4E5
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Apr 2022 09:32:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A432216CA;
-	Mon, 11 Apr 2022 09:31:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A432216CA
+	by alsa0.perex.cz (Postfix) with ESMTPS id AA91C16DA;
+	Mon, 11 Apr 2022 09:31:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA91C16DA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649662327;
-	bh=aElULTWrmQ9nA06GFAxFWUzzQUnI6LEzmGYSvr9MDEA=;
+	s=default; t=1649662368;
+	bh=YNF6ebeo5unb2f99+xgZ1SEogVDnLhNw+HxKdzkQZ0M=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=I11qzozq3WzjbmiB8rdY+lfKoz7uQVa0AeMQxJlwnKqiYyEIdkLwhK/Oj6YVrva8i
-	 hYQ5kEKRjBlvGSwb8yTScU2aixZ324lTVWFeF+UbEYIBHGFjEHo0EnP2A7Lm6iAgBV
-	 fS2sonoVCKaq1isfRDFJJ8fGkLco8U2cB1QTzgic=
+	b=bX9tqngmD5V0v+MhRZRMqKWs85jtJWehXd2HDuLUa3VMTIaIAec0KJS2XzFLotvzx
+	 w9Hjfea7DKldO8aeA3gHptTHlAq/KfLsB0OxF3CP8Pgkysc34qcH5mWLIj7pQPQpEK
+	 kWuhPng2QBMxyBKYNuTPKCxljH61dqQmEX95ZGDc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D8A5AF8032D;
-	Mon, 11 Apr 2022 09:31:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A7DAEF804E4;
+	Mon, 11 Apr 2022 09:31:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 61E5FF80279; Mon, 11 Apr 2022 09:31:05 +0200 (CEST)
+ id 17B00F804C1; Mon, 11 Apr 2022 09:31:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B3B1FF800E8
- for <alsa-devel@alsa-project.org>; Mon, 11 Apr 2022 09:30:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3B1FF800E8
+ by alsa1.perex.cz (Postfix) with ESMTPS id BC2C1F80279
+ for <alsa-devel@alsa-project.org>; Mon, 11 Apr 2022 09:31:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC2C1F80279
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="VaX/t9Ck"; 
+ header.b="qFHOsUfd"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="HMPQ5Y8k"
+ header.b="c0C1kD7r"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id E9E1F1F38D;
- Mon, 11 Apr 2022 07:30:53 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 942E41F388;
+ Mon, 11 Apr 2022 07:31:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1649662253; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1649662313; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=FkiUFak26W238IEF2QDnp+GxZTbgXdfnry5p+Bz72Q8=;
- b=VaX/t9CkRQ8mJFi/T2qHw3HWMhL6QJZOQ3RJQivpldSfSPOBQ8LWYtSX1Qc+3qyB2ZX6lc
- z1bS9ApZLX0XbF08sDIQ5fA5rN5UBiBX65Sk+9aJE6fZwFslcA9lxWTDG7hFNfI+oWMywz
- xC/GEsbK6j/IvtPrrPXdUXxGhVXJvos=
+ bh=9BXxr47if0wvUCYrye6Mmk69ffGZ8rARy5QSdgVQhXI=;
+ b=qFHOsUfdyS9XvUONuOp0hoCYf6jSQIFamtTvnEeIzR7y3EYySs3E3cEJElY/g0Kf2bLAR3
+ fwqw+0tKQ34rT6D9X036gdm+hffjY3q2lFUnrllo7vz5m2oIcyQcei7YVLNAWEwjIMbJqe
+ g6RESX+9Te5nBAkaBpciTr/c5Ar/vEY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1649662253;
+ s=susede2_ed25519; t=1649662313;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=FkiUFak26W238IEF2QDnp+GxZTbgXdfnry5p+Bz72Q8=;
- b=HMPQ5Y8kPZMA+kiMsbHF/yVX7IGaILTy24ySHKbpCsb9GRvgFOq6XYW6ZFNcMXFgtW2Hk2
- a464EOcjb9DoN6CA==
+ bh=9BXxr47if0wvUCYrye6Mmk69ffGZ8rARy5QSdgVQhXI=;
+ b=c0C1kD7rWbuZtNu5rV0Q8kC3Me+i2fFyVc5gR8jV13xPnia2sunDd/0iEPkZDZRL/4L1yz
+ rI6hKimncuua0wBQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id CD0EDA3B8A;
- Mon, 11 Apr 2022 07:30:53 +0000 (UTC)
-Date: Mon, 11 Apr 2022 09:30:53 +0200
-Message-ID: <s5hr164cc0i.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 8232AA3B95;
+ Mon, 11 Apr 2022 07:31:53 +0000 (UTC)
+Date: Mon, 11 Apr 2022 09:31:53 +0200
+Message-ID: <s5hpmlocbyu.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: "Fabio M. De Francesco" <fmdefrancesco@gmail.com>
-Subject: Re: [PATCH] ALSA: pcm: Test for "silence" field in struct
- "pcm_format_data"
-In-Reply-To: <20220409012655.9399-1-fmdefrancesco@gmail.com>
-References: <20220409012655.9399-1-fmdefrancesco@gmail.com>
+To: Tao Jin <tao-j@outlook.com>
+Subject: Re: [PATCH] ALSA: hda/realtek: add quirk for Lenovo Thinkpad X12
+ speakers
+In-Reply-To: <CO6PR03MB6241CD73310B37858FE64C85E1E89@CO6PR03MB6241.namprd03.prod.outlook.com>
+References: <CO6PR03MB6241CD73310B37858FE64C85E1E89@CO6PR03MB6241.namprd03.prod.outlook.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>,
- syzbot+205eb15961852c2c5974@syzkaller.appspotmail.com,
- Mark Brown <broonie@kernel.org>
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,34 +94,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 09 Apr 2022 03:26:55 +0200,
-Fabio M. De Francesco wrote:
+On Sun, 10 Apr 2022 00:44:24 +0200,
+Tao Jin wrote:
 > 
-> Syzbot reports "KASAN: null-ptr-deref Write in
-> snd_pcm_format_set_silence".[1]
+> For this specific device on Lenovo Thinkpad X12 tablet, the verbs were 
+> dumped by qemu running a guest OS that init this codec properly. 
+> After studying the dump, it turns out that 
+> the same quirk used by the other Lenovo devices can be reused. 
 > 
-> It is due to missing validation of the "silence" field of struct
-> "pcm_format_data" in "pcm_formats" array.
+> The patch was tested working against the mainline kernel. 
 > 
-> Add a test for valid "pat" and, if it is not so, return -EINVAL.
-> 
-> [1] https://lore.kernel.org/lkml/000000000000d188ef05dc2c7279@google.com/
-> 
-> Reported-and-tested-by: syzbot+205eb15961852c2c5974@syzkaller.appspotmail.com
-> Signed-off-by: Fabio M. De Francesco <fmdefrancesco@gmail.com>
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Tao Jin <tao-j@outlook.com>
 
-Thanks, applied now.
+Thanks, applied.
 
-
-> ---
-> 
-> I wasn't able to figure out the commit for the "Fixes:" tag. If this patch
-> is good, can someone please help with providing this missing information?
-
-That must be present from the very beginning.
-I just add Cc-to-stable for allowing backport to all releases.
-
-
-thanks,
 
 Takashi

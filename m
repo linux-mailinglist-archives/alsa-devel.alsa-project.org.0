@@ -2,89 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB6A54FD350
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Apr 2022 11:30:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D14624FD354
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Apr 2022 11:32:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6DDDB1729;
-	Tue, 12 Apr 2022 11:29:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6DDDB1729
+	by alsa0.perex.cz (Postfix) with ESMTPS id 73FC31743;
+	Tue, 12 Apr 2022 11:31:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 73FC31743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649755811;
-	bh=YSDFdHLKQcmtc6U9K43kxaObvC32MpST+iY7XoAYgA4=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=jAa2ku99kBjHo5NqaywWwJUOF9J3LoKNPZtAAQBBnDOz3YPPU2+neYpxjEQxgKQVl
-	 iBr3Ftf7TAqvKHeN9X8m7GSv6SYLAmS4yukxJQW+ts1G+Cx/jpD4PzRAUXuw1W3p/b
-	 Zw6i6KrRVo9JTXlY7rG281dkFOJ+fmkbLLgM+Wis=
+	s=default; t=1649755967;
+	bh=RPk4PhW5pxYzhU/oA9ozj+RvUhL5HWHshphr95DMo00=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=usMzTRTfmZOUGDxQw+rezdoXKZE87nSudUbSXO41O/K3m53TKbXKM+R1Uw/A+i2Gn
+	 OGFfwjWcXuord08JLSuZoLWlwdzDHb3YGVDK7N7ywIGPEqFq84Vgenq7ggKsmEj9ag
+	 6Srrad9/510wdATJG2gtcNhUnJ2t6qwPYsryIajk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EE42DF80134;
-	Tue, 12 Apr 2022 11:29:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F0727F80245;
+	Tue, 12 Apr 2022 11:31:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4BC15F80154; Tue, 12 Apr 2022 11:29:05 +0200 (CEST)
+ id 40626F8011C; Tue, 12 Apr 2022 11:31:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 85C78F8011C
- for <alsa-devel@alsa-project.org>; Tue, 12 Apr 2022 11:28:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85C78F8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1FAF1F8011C
+ for <alsa-devel@alsa-project.org>; Tue, 12 Apr 2022 11:31:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1FAF1F8011C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="DpakoTOJ"; 
+ header.b="JhnpkOPb"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="Yua83Tc8"
+ header.b="zb4yvhZK"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 1ACEA21607;
- Tue, 12 Apr 2022 09:28:54 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id AC60F1F858;
+ Tue, 12 Apr 2022 09:31:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1649755734; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=T2Rx21k8VxcsRpmbn7I5LQ0UCXULFAyPawiB+5E+i2k=;
- b=DpakoTOJZFatp1oV8Xjm5wVfwHPScVHlCSyxWF5vgexTUzQzYV93wSF1w5xJ04Pbw0AoS2
- tIM7gQ9ULVoh5T7tTbjnKrIYcJwo7Hjyq4K/99c4KuCZcp+SgorTGDmWoZOT66W0yqsKjl
- rVRKZL8e5x43nC+bA23PUeOhLEWvPu4=
+ t=1649755902; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=AyOQ7nSchVvbLX6w/Nhe+v9mhA1J28Uelg0sIR/lwjw=;
+ b=JhnpkOPbT2EjKA2hgZHTs8tE2DEz50mQo+v8woThrHGvTto04xlmbVZ92CZMDMbk9Is9c3
+ pJxS3Jdb4vjQc6iZFf5vjDR4tGnFqJ/bJlVxAJNGV4IwEr8oHAgqLir9NRHGR4uZewE9wK
+ k8KRTowKYAQLFMSFrRNIxmpP6RLiwFE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1649755734;
+ s=susede2_ed25519; t=1649755902;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=T2Rx21k8VxcsRpmbn7I5LQ0UCXULFAyPawiB+5E+i2k=;
- b=Yua83Tc8tRMQk6PJJ4AjeA//lKRqOKzUPnZfaYGeHdNLIw1d7yBByT0DYcmxnDcCrDvblx
- BUp1z4TQJTuJi0Dw==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 07EFAA3B82;
- Tue, 12 Apr 2022 09:28:54 +0000 (UTC)
-Date: Tue, 12 Apr 2022 11:28:54 +0200
-Message-ID: <s5h4k2ybqg9.wl-tiwai@suse.de>
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=AyOQ7nSchVvbLX6w/Nhe+v9mhA1J28Uelg0sIR/lwjw=;
+ b=zb4yvhZKmIMSYPDWZd8utvM4kFl6LbsKVCkLAnwSKqwctWk2DZoJFPTtZgLc3P+3XGFgDE
+ J+ab0jQugy+AVCBQ==
+Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 9B64EA3B8A;
+ Tue, 12 Apr 2022 09:31:42 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
-To: Zheyu Ma <zheyuma97@gmail.com>
-Subject: Re: [BUG] ALSA: echoaudio: warning when the driver fails to probe
-In-Reply-To: <CAMhUBjno-2qCe5FDF0ftuy5aoq=735N4_SeQyQRpDEsurAsU+w@mail.gmail.com>
-References: <CAMhUBjm2AdyEZ_-EgexdNDN7SvY4f89=4=FwAL+c0Mg0O+X50A@mail.gmail.com>
- <s5hk0bwcbjh.wl-tiwai@suse.de>
- <CAMhUBjmr_mHcz2G0tQ2qktGFw6XDLJiDTAHvM1yoRWzvtA6MYg@mail.gmail.com>
- <s5ha6csc7lq.wl-tiwai@suse.de> <s5h7d7wc75u.wl-tiwai@suse.de>
- <s5h35ijdiab.wl-tiwai@suse.de>
- <CAMhUBj=yiAtbYmGDuaBrSxNMrxz6S8DJotwTLihcs64JSOQuVg@mail.gmail.com>
- <s5hsfqjbqk7.wl-tiwai@suse.de>
- <CAMhUBjno-2qCe5FDF0ftuy5aoq=735N4_SeQyQRpDEsurAsU+w@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- alsa-devel@alsa-project.org, tiwai@suse.com
+To: alsa-devel@alsa-project.org
+Subject: [PATCH 0/2] ALSA: echoaudio: Fix the probe error handling
+Date: Tue, 12 Apr 2022 11:31:39 +0200
+Message-Id: <20220412093141.8008-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.31.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: Zheyu Ma <zheyuma97@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,81 +85,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 12 Apr 2022 03:36:27 +0200,
-Zheyu Ma wrote:
-> 
-> On Mon, Apr 11, 2022 at 11:14 PM Takashi Iwai <tiwai@suse.de> wrote:
-> >
-> > On Mon, 11 Apr 2022 12:34:56 +0200,
-> > Zheyu Ma wrote:
-> > >
-> > > On Mon, Apr 11, 2022 at 6:30 PM Takashi Iwai <tiwai@suse.de> wrote:
-> > > >
-> > > > On Mon, 11 Apr 2022 11:15:41 +0200,
-> > > > Takashi Iwai wrote:
-> > > > >
-> > > > > On Mon, 11 Apr 2022 11:06:09 +0200,
-> > > > > Takashi Iwai wrote:
-> > > > > >
-> > > > > > On Mon, 11 Apr 2022 10:49:53 +0200,
-> > > > > > Zheyu Ma wrote:
-> > > > > > >
-> > > > > > > On Mon, Apr 11, 2022 at 3:41 PM Takashi Iwai <tiwai@suse.de> wrote:
-> > > > > > > >
-> > > > > > > > On Sun, 10 Apr 2022 11:13:55 +0200,
-> > > > > > > > Zheyu Ma wrote:
-> > > > > > > > >
-> > > > > > > > > Hello,
-> > > > > > > > >
-> > > > > > > > > I found a bug in echoaudio.c.
-> > > > > > > > > When the driver fails at the function snd_echo_create(), it should
-> > > > > > > > > release resources requested before, otherwise we will get the
-> > > > > > > > > following warning:
-> > > > > > > > >
-> > > > > > > > > [    3.262866] remove_proc_entry: removing non-empty directory
-> > > > > > > > > 'irq/21', leaking at least 'snd_indigodj'
-> > > > > > > > > [    3.263577] WARNING: CPU: 3 PID: 261 at fs/proc/generic.c:717
-> > > > > > > > > remove_proc_entry+0x389/0x3f0
-> > > > > > > > > [    3.267098] RIP: 0010:remove_proc_entry+0x389/0x3f0
-> > > > > > > > > [    3.269976] Call Trace:
-> > > > > > > > > [    3.269979]  <TASK>
-> > > > > > > > > [    3.269988]  unregister_irq_proc+0x14c/0x170
-> > > > > > > > > [    3.269997]  irq_free_descs+0x94/0xe0
-> > > > > > > > > [    3.270004]  mp_unmap_irq+0xb6/0x100
-> > > > > > > > > [    3.270011]  acpi_unregister_gsi_ioapic+0x27/0x40
-> > > > > > > > > [    3.270017]  acpi_pci_irq_disable+0x1d3/0x320
-> > > > > > > > > [    3.270025]  pci_disable_device+0x1ad/0x380
-> > > > > > > > > [    3.270034]  pcim_release+0x566/0x6d0
-> > > > > > > > > [    3.270046]  devres_release_all+0x1f1/0x2c0
-> > > > > > > > > [    3.270057]  really_probe+0xe0/0x920
-> > > > > > > >
-> > > > > > > > Could you try the patch below?
-> > > > > > >
-> > > > > > > The following patch works for me, the previous warning disappears, thank you.
-> > > > > > > But I got another error, I have no idea about it.
-> > > > > >
-> > > > > > OK, that's bad, it's basically the destructor order problem.
-> > > > > > Could you try the patch below instead of the previous one?
-> > > > >
-> > > > > Sorry, the below one instead.
-> > > >
-> > > > Err, scratch this one, too.  It's a deeper problem than I thought.
-> > > > Will post a revised patch later.
-> > >
-> > > Yeah, you are right, these two patches do not work, I got the same
-> > > error message.
-> > > Thanks for your effort.
-> >
-> > Here we go, a revised patch.  Basically it enforces the call of
-> > snd_card_free() at the error path during probe.
-> 
-> Thanks for your patch, it works for me :)
-> 
-> Tested-by: Zheyu Ma <zheyuma97@gmail.com>
+Hi,
 
-Great, I'm going to submit a proper patch set.
+this is a patch set to address the regression of the error handling
+in the echoaudio driver probe phase.  Similar error patterns are seen
+in other drivers, and the newly introduced helper will be used later
+for those, too.
 
-
-Thanks!
 
 Takashi
+
+===
+
+Takashi Iwai (2):
+  ALSA: core: Add snd_card_free_on_error() helper
+  ALSA: echoaudio: Fix the missing snd_card_free() call at probe error
+
+ include/sound/core.h            |  1 +
+ sound/core/init.c               | 28 ++++++++++++++++++++++++++++
+ sound/pci/echoaudio/echoaudio.c |  9 +++++++--
+ 3 files changed, 36 insertions(+), 2 deletions(-)
+
+-- 
+2.31.1
+

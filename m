@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D1AB4FD7E3
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Apr 2022 12:33:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A5CC4FD7F8
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Apr 2022 12:34:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D66E118F1;
-	Tue, 12 Apr 2022 12:33:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D66E118F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id EAA0F1923;
+	Tue, 12 Apr 2022 12:33:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EAA0F1923
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649759634;
-	bh=MwyBHd5ko2CVUfdBZdKImVThC22dzsyuB2f7HuTZFeU=;
+	s=default; t=1649759681;
+	bh=jnMaWXJW6GjMVOtPTxKVOdPoFp07E4LTnv0z/U7S7Wc=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ah9xwRwsrTGTufr7ERezME+cIL0uSMFwTbe0ALjtB8Mxs0FNpE26QY5d6I/Ufxdmt
-	 EoYEVvc5xciOlueXkFxKxpj4CUQKx0JQwCNjnmG48OkgB0mxVJA7WhRFSchujndZ5P
-	 DyomCBVcXP4S7j3e3i4GgKOigbgyoT9naoMMbTFo=
+	b=Ok2a2ODCwMt8i1xA+OKscYg2P2FOZMtURU8DamVje6CQ8xnG2IEsS6vAmLVotDGKY
+	 2XoUgCplu8NJMVUxz5kgLQkhr4Y9iyC3ItAUskseeOTQw6PXORXFCUx55iryqHi8X0
+	 gR7Mh9gS9dgQTcy9qsrSQmZdS8M+GkE0hWPwCK0w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D43CAF805D9;
-	Tue, 12 Apr 2022 12:27:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 25A2EF805E7;
+	Tue, 12 Apr 2022 12:27:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 69EF4F805B2; Tue, 12 Apr 2022 12:27:25 +0200 (CEST)
+ id 01579F8052D; Tue, 12 Apr 2022 12:27:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,44 +34,44 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ABC9DF80526
+ by alsa1.perex.cz (Postfix) with ESMTPS id D9C08F8052D
  for <alsa-devel@alsa-project.org>; Tue, 12 Apr 2022 12:26:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABC9DF80526
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9C08F8052D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="QrfAFAAA"; 
+ header.b="UvciaLTz"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="jBwT05GV"
+ header.b="OWMp8Dfl"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 0C58121611
+ by smtp-out1.suse.de (Postfix) with ESMTP id 1A0E621612
  for <alsa-devel@alsa-project.org>; Tue, 12 Apr 2022 10:26:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1649759205; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=5LzHnZb/RPia00zKlb5KDq/JXdna9EYMtLb6ycagHow=;
- b=QrfAFAAA1vffYwTJCWopRjsXy6I1p9q58s5YPwBytg6Bm5ky5CV3/P8UJ9ScgTkVGiuL8J
- Ngti1yRwYIq6hwFCVSltmCHLJ7KoiA9/F+hw+3JXdbHVfcLJmb8Ij55rXioRL2blRlXxim
- ojgV4MwmfZdN1Ht79MRbeSPbZQV4bQs=
+ bh=ehylo5yqaXEf1g+aGbs/DleWSZeD8RPbeK8d2F2T+v8=;
+ b=UvciaLTzvIHd8tOU9K0xQTsAe0NzS8zxp9sCrzXbH/xK7sryHAbeiPZIL5i6kkQNIH3yo2
+ PVnLYmKc8u2eiVE6o27N/cu446zXe5GEJOgoPbgunjU/T8z61P04FYxtWSNrAQvkkZ7+2d
+ SMiFrKoxWxtcGfw5xNULi4JikNMZwfs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1649759205;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=5LzHnZb/RPia00zKlb5KDq/JXdna9EYMtLb6ycagHow=;
- b=jBwT05GVrd8UuI+whEP2hjjuV/uuRuryc5ERxX4UtGcHFtZ6MWYYfaDxF2tj6HX+bGq2uL
- qyllSNGmO1xi5zDA==
+ bh=ehylo5yqaXEf1g+aGbs/DleWSZeD8RPbeK8d2F2T+v8=;
+ b=OWMp8DflqEh1rSpUaqyyRtrs+KoA6W/BtBT1Xr9Egk4U8b1L+OtzAcDxBiy43BXkSDzdr6
+ 8fj+mG1p4GN/KMAA==
 Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 07600A3B87;
+ by relay2.suse.de (Postfix) with ESMTP id 0A830A3B88;
  Tue, 12 Apr 2022 10:26:45 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 37/39] ALSA: rme9652: Fix the missing snd_card_free() call at
- probe error
-Date: Tue, 12 Apr 2022 12:26:34 +0200
-Message-Id: <20220412102636.16000-38-tiwai@suse.de>
+Subject: [PATCH 38/39] ALSA: mtpav: Don't call card private_free at probe
+ error path
+Date: Tue, 12 Apr 2022 12:26:35 +0200
+Message-Id: <20220412102636.16000-39-tiwai@suse.de>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20220412102636.16000-1-tiwai@suse.de>
 References: <20220412102636.16000-1-tiwai@suse.de>
@@ -92,51 +92,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The previous cleanup with devres may lead to the incorrect release
-orders at the probe error handling due to the devres's nature.  Until
-we register the card, snd_card_free() has to be called at first for
-releasing the stuff properly when the driver tries to manage and
-release the stuff via card->private_free().
+The card destructor of nm256 driver does merely stopping the running
+timer, and it's superfluous for the probe error handling.  Moreover,
+calling this via the previous devres change would lead to another
+problem due to the reverse call order.
 
-This patch fixes it by calling snd_card_free() manually on the error
-from the probe callback.
+This patch moves the setup of the private_free callback after the card
+registration, so that it can be used only after fully set up.
 
-Fixes: b1002b2d41c5 ("ALSA: rme9652: Allocate resources with device-managed APIs")
-Cc: <stable@vger.kernel.org>
+Fixes: aa92050f10f0 ("ALSA: mtpav: Allocate resources with device-managed APIs")
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/rme9652/rme9652.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ sound/drivers/mtpav.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/pci/rme9652/rme9652.c b/sound/pci/rme9652/rme9652.c
-index 7755e19aa776..1d614fe89a6a 100644
---- a/sound/pci/rme9652/rme9652.c
-+++ b/sound/pci/rme9652/rme9652.c
-@@ -2572,7 +2572,7 @@ static int snd_rme9652_probe(struct pci_dev *pci,
- 	rme9652->pci = pci;
- 	err = snd_rme9652_create(card, rme9652, precise_ptr[dev]);
- 	if (err)
--		return err;
-+		goto error;
+diff --git a/sound/drivers/mtpav.c b/sound/drivers/mtpav.c
+index 11235baaf6fa..f212f233ea61 100644
+--- a/sound/drivers/mtpav.c
++++ b/sound/drivers/mtpav.c
+@@ -693,8 +693,6 @@ static int snd_mtpav_probe(struct platform_device *dev)
+ 	mtp_card->outmidihwport = 0xffffffff;
+ 	timer_setup(&mtp_card->timer, snd_mtpav_output_timer, 0);
  
- 	strcpy(card->shortname, rme9652->card_name);
+-	card->private_free = snd_mtpav_free;
+-
+ 	err = snd_mtpav_get_RAWMIDI(mtp_card);
+ 	if (err < 0)
+ 		return err;
+@@ -716,6 +714,8 @@ static int snd_mtpav_probe(struct platform_device *dev)
+ 	if (err < 0)
+ 		return err;
  
-@@ -2580,10 +2580,14 @@ static int snd_rme9652_probe(struct pci_dev *pci,
- 		card->shortname, rme9652->port, rme9652->irq);
- 	err = snd_card_register(card);
- 	if (err)
--		return err;
-+		goto error;
- 	pci_set_drvdata(pci, card);
- 	dev++;
- 	return 0;
++	card->private_free = snd_mtpav_free;
 +
-+ error:
-+	snd_card_free(card);
-+	return err;
- }
- 
- static struct pci_driver rme9652_driver = {
+ 	platform_set_drvdata(dev, card);
+ 	printk(KERN_INFO "Motu MidiTimePiece on parallel port irq: %d ioport: 0x%lx\n", irq, port);
+ 	return 0;
 -- 
 2.31.1
 

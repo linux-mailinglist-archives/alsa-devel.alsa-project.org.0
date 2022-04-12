@@ -2,92 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 728274FE453
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Apr 2022 17:06:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0762E4FE607
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Apr 2022 18:40:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1935018B9;
-	Tue, 12 Apr 2022 17:05:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1935018B9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8DADF172C;
+	Tue, 12 Apr 2022 18:39:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DADF172C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649775975;
-	bh=ZPXNsQhBlY5X7mvV2wpDPubtYGw02FRf8N/D8DsT7fs=;
+	s=default; t=1649781644;
+	bh=/nMbG601VniC5baXH3er75YBmXfSkCgSoBZkOaKS3IY=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=Q6v67tEeQqXc9wJpmWN7qL+AfJBOnY9vSURanqRlyKx09/73tkEqO71yTPA1hh/9K
-	 qCbSO9J9AQ0PDBvh3XDfKkAQd6hTU26HLUFwno23s+5aV7OPIS7J7Vrl0Kas2MrzXQ
-	 1NCDzvf0r9AVftn9VR36q5SaAog6qXOaaaimQL4w=
+	b=u21C3HxszpXQOjTPRrGQF70kaDaMkY2XsqcLU/hIwmBsUYPTjmMAFEdugmcGlWom3
+	 NeFckabkD9HfNqzVAe5rbOweGcnZ71gIysmC5btgmbNplR6GOnVFopaOLgmf9ScyRD
+	 JZrcTmsVtTPktTrG1xieiFrhRHft3jQXZBM/Zz4w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7D8EFF80095;
-	Tue, 12 Apr 2022 17:05:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0E6EEF80109;
+	Tue, 12 Apr 2022 18:39:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4D040F80154; Tue, 12 Apr 2022 17:05:13 +0200 (CEST)
+ id 25212F80154; Tue, 12 Apr 2022 18:39:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [IPv6:2a00:1450:4864:20::435])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EF152F8011C
- for <alsa-devel@alsa-project.org>; Tue, 12 Apr 2022 17:05:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF152F8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id C5194F8011C
+ for <alsa-devel@alsa-project.org>; Tue, 12 Apr 2022 18:39:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5194F8011C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=baylibre-com.20210112.gappssmtp.com
- header.i=@baylibre-com.20210112.gappssmtp.com header.b="FLvdqRwx"
-Received: by mail-wr1-x435.google.com with SMTP id c10so7031943wrb.1
- for <alsa-devel@alsa-project.org>; Tue, 12 Apr 2022 08:05:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20210112.gappssmtp.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=AU2XsmDlDNlX0BEIJLBYiWWgvTto/3B9fgEktWGlYes=;
- b=FLvdqRwxsxx8Xo/stue2ji1qIfkqVdTAjxTS4EXVFaBypzDQTGplbAch/Ak2V+kLAO
- 1VSMTefrGAQ8MwRJM9lsr/J1AZ5q7x33iM3UKBRn63jlvQSSyuLOCPbubYe8xOPzCY0S
- CZAfT9NJWSAKvXuIZlHOsKDY7zua6SrVtoyS42Ymh5XNMQiUYasLIjio4vYF3T6FUmf+
- DXC7rNP1FKqVsxUMzPoJE3mIANYsQp4U2hnDwClCb0ezUCJSlojSetiiznwCkfsPLoi8
- BQQE+P3W4xSrSR0p7HD4UOCeshOvLd6Yz2oLZqKUZppDnJV3WGLPTPJm7nNzIcMS3piu
- bPkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=AU2XsmDlDNlX0BEIJLBYiWWgvTto/3B9fgEktWGlYes=;
- b=3VL8m65IK9F6hthSmpOkHU7CbyMR8r0/5RzVhNoAwIe4GdP28rd5jLDPrYGxHf06Qq
- o2+eFceYRv7BKu/deew4NODCp6vH9pYtTtVGPX37YKLVdH5GXxXM3nI/I6GexZg9C8vU
- WjthHwRQuN9PUOeiljdk5+Py7/f/TtAWKl0iwBUOCqr3qKuJYBii3Yf/HS+vchSJ4Ano
- T0cp5REMwYCicvVYqsdQanHGmPZeh7FzIZIHD0idxUJbUDWMg0ybQSY5VAZgipF4SzCO
- nJ0ydq5p+FxAOjX0Ma3awBqo2JpwVntyCibjDKhLct/iTl611RVr6OdbLzXtnkG6eOZv
- X3Mw==
-X-Gm-Message-State: AOAM532u9iH0VNOKHxcIvlB6H9NaIMhU7RauMjaoV30iEJ22deEchCJj
- RIrC41tv1U3TX1JYhVmIPv6E/g==
-X-Google-Smtp-Source: ABdhPJxd7WjJ9ssivqQBFFzu00/JymmKh7NNpLeijb6Bysb443KvBJi9evGO+J3pEkJBE/id0C1F5Q==
-X-Received: by 2002:adf:ee81:0:b0:206:1b32:d6f2 with SMTP id
- b1-20020adfee81000000b002061b32d6f2mr28536137wro.144.1649775903583; 
- Tue, 12 Apr 2022 08:05:03 -0700 (PDT)
-Received: from localhost.localdomain
- (laubervilliers-658-1-213-31.w90-63.abo.wanadoo.fr. [90.63.244.31])
- by smtp.googlemail.com with ESMTPSA id
- 61-20020adf8143000000b002061d8d807esm19685371wrm.87.2022.04.12.08.05.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 12 Apr 2022 08:05:03 -0700 (PDT)
-From: Corentin Labbe <clabbe@baylibre.com>
-To: broonie@kernel.org, krzysztof.kozlowski+dt@linaro.org, lgirdwood@gmail.com,
- robh+dt@kernel.org
-Subject: [PATCH v2] ASoC: dt-bindings: tas27xx: fix invalid yaml
-Date: Tue, 12 Apr 2022 15:04:44 +0000
-Message-Id: <20220412150444.3918829-1-clabbe@baylibre.com>
-X-Mailer: git-send-email 2.25.1
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="pFNSQhTS"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 23BNTBcJ022664;
+ Tue, 12 Apr 2022 11:39:32 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=OruPJRSEpxz+SS2SuZh1l9IfGObv7YDQ/pALU12P51I=;
+ b=pFNSQhTSS0a88LvD+zsAZgniqVR4Cu6PagZ9fUQjYK9eSomORE3gcHul+5mI320yDsdr
+ JLQ0vNP4UNGn/Ii6nOygZpOtORnDVFyng1nUAzHF0lLpbiLNayIrzz3lOT6hhp73QRUC
+ kkOAv0WBAyY6dH3gpaTx1+71cVsYVPD7IN9xzdqspJdiI0ScTwt9DDwEq3D0SVuCFNrH
+ 0221fBIuckVkR2HR6SuWkR3A5bTV0fBREohZ8jEbsqM7HqfK0JSvZBZB9gTfvaEv8BEq
+ hTQtDiV6Zb5491Q48hG0mXtR5jA7FzmUCHPMmYvKDhA47su4fhb/iqGfZ+Ol8aSxmnTx vQ== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3fb7hym18n-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Tue, 12 Apr 2022 11:39:32 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Tue, 12 Apr
+ 2022 17:39:30 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.24 via
+ Frontend Transport; Tue, 12 Apr 2022 17:39:30 +0100
+Received: from AUSNPC0LSNW1-debian.cirrus.com (AUSNPC0LSNW1.ad.cirrus.com
+ [198.61.64.75])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 04470458;
+ Tue, 12 Apr 2022 16:39:29 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <broonie@kernel.org>
+Subject: [PATCH] firmware: cs_dsp: Fix overrun of unterminated control name
+ string
+Date: Tue, 12 Apr 2022 17:39:27 +0100
+Message-ID: <20220412163927.1303470-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Corentin Labbe <clabbe@baylibre.com>
+Content-Type: text/plain
+X-Proofpoint-GUID: TpmPQ69TQXk_a1C_3XAa3qKwEZ0TFgTA
+X-Proofpoint-ORIG-GUID: TpmPQ69TQXk_a1C_3XAa3qKwEZ0TFgTA
+X-Proofpoint-Spam-Reason: safe
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,30 +98,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The word "or" is useless and breaks yaml validation.
+For wmfw format v2 and later the coefficient name strings have a length
+field and are NOT null-terminated. Use kasprintf() to convert the
+unterminated string into a null-terminated string in an allocated buffer.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Signed-off-by: Corentin Labbe <clabbe@baylibre.com>
+The previous code handled this duplication incorrectly using kmemdup()
+and getting the length from a strlen() of the (unterminated) source string.
+This resulted in creating a string that continued up to the next byte in
+the firmware file that just happened to be 0x00.
+
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+Fixes: f6bc909e7673 ("firmware: cs_dsp: add driver to support firmware loading on Cirrus Logic DSPs")
 ---
-Change since v1:
-- Added reviewed-by
-- Fixed subject
+ drivers/firmware/cirrus/cs_dsp.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
- Documentation/devicetree/bindings/sound/tas27xx.yaml | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/Documentation/devicetree/bindings/sound/tas27xx.yaml b/Documentation/devicetree/bindings/sound/tas27xx.yaml
-index 191f4bceb4ee..66a0df8850ea 100644
---- a/Documentation/devicetree/bindings/sound/tas27xx.yaml
-+++ b/Documentation/devicetree/bindings/sound/tas27xx.yaml
-@@ -20,7 +20,6 @@ properties:
-   compatible:
-     enum:
-       - ti,tas2764
--      or
-       - ti,tas2780
- 
-   reg:
+diff --git a/drivers/firmware/cirrus/cs_dsp.c b/drivers/firmware/cirrus/cs_dsp.c
+index e48108e694f8..7dad6f57d970 100644
+--- a/drivers/firmware/cirrus/cs_dsp.c
++++ b/drivers/firmware/cirrus/cs_dsp.c
+@@ -955,8 +955,7 @@ static int cs_dsp_create_control(struct cs_dsp *dsp,
+ 	ctl->alg_region = *alg_region;
+ 	if (subname && dsp->fw_ver >= 2) {
+ 		ctl->subname_len = subname_len;
+-		ctl->subname = kmemdup(subname,
+-				       strlen(subname) + 1, GFP_KERNEL);
++		ctl->subname = kasprintf(GFP_KERNEL, "%.*s", subname_len, subname);
+ 		if (!ctl->subname) {
+ 			ret = -ENOMEM;
+ 			goto err_ctl;
 -- 
-2.35.1
+2.30.2
 

@@ -2,100 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B70E14FE44A
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Apr 2022 17:02:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87CFE4FE463
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Apr 2022 17:13:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4330A18B8;
-	Tue, 12 Apr 2022 17:01:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4330A18B8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 33E4D17A2;
+	Tue, 12 Apr 2022 17:12:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 33E4D17A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649775737;
-	bh=makjnG246G3e9hn7HA9S30zgnNabrwvQfJwonsz13bc=;
+	s=default; t=1649776419;
+	bh=D/7uXVQQJqcjVO5VqFBaDYYJRNFnb5+cG95Rv/bhEjw=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fhQL29wmPFN3tW72TZGH+v0Icr9VC9wtrRZeXqS6U8Yxfpe0mWeGKgnNNUBF3/EU1
-	 wlij1OIu6gKfH7Dv0IpC5Dhi30ZM2Yuo63U+GxC1HuLB39YDBDZvRXQkHl3hZkinKN
-	 prd5qj6BDt8OUDQ+Rw5NpXJAKOZ4GXhlMVjv80pc=
+	b=icL8vhFAiGRDlQf0vtAtO6xsqVKusnI8Zuq97KpAUSw/+GrBLaAThOHREaOytKLMe
+	 0nWf8zAyV9V1VRta93p8HoUmG38Z+uzMYH6EN/7D6bsYvCEGxJlMDG9ZcUGNHjaJZP
+	 mOydIX7avI1rlaO8hhZUg7BNQ60Wa+DR/qLANHq0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9B740F80245;
-	Tue, 12 Apr 2022 17:01:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A5AF2F80095;
+	Tue, 12 Apr 2022 17:12:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 248A8F80154; Tue, 12 Apr 2022 17:01:15 +0200 (CEST)
+ id 9FCEBF80095; Tue, 12 Apr 2022 17:12:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [IPv6:2a00:1450:4864:20::32a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A4330F8011C
- for <alsa-devel@alsa-project.org>; Tue, 12 Apr 2022 17:01:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4330F8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 08526F80095
+ for <alsa-devel@alsa-project.org>; Tue, 12 Apr 2022 17:12:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08526F80095
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="Z2uChZtZ"
-Received: by mail-wm1-x32a.google.com with SMTP id
- l62-20020a1c2541000000b0038e4570af2fso1792379wml.5
- for <alsa-devel@alsa-project.org>; Tue, 12 Apr 2022 08:01:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=7js1UH2M/H4XFdT/VYX4By9FNV4HBtwbQGAItNp0olE=;
- b=Z2uChZtZEb6EjRK0LBefZZB3/73zZjLJyUy8NLxgtpVI8sZBEOsYczIsK4qz/vKXJ7
- aIVS5OagmaNmz88LDX3kaGrIHNEFQIzGWFrXQGANXHDw4f+tpS1ZaMQODYuPNa4ydUvY
- 9sJgUVa+aiKi1IJRtNeUo/6XnEXk8MbKk4UBCqlppIa6VCzsUJ1whX2kDlya7CKYbWSJ
- gLEMs2t5ZjVtEYCNI4r192x3vgHR4I0f+LaLnjL37RV6SsqR2ubRQfQvhRoeoD+gSqYA
- AjZflTeIBr/wXKUKDnQGKNo4p57EA/cb2Wo55A7mbjr7WDk2yhtAlX/gKPqiMd8Kdela
- RDUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=7js1UH2M/H4XFdT/VYX4By9FNV4HBtwbQGAItNp0olE=;
- b=xkS/bYVmBEy0AogxbKEBWowVugPoyY8YuoLy4Vod44zDr/8Kds0q8vnG+PEdWt3XBv
- 5PB0cC9IYNtlJmg1adu78q5v337nuQx6lp7kTTVLtx/KVL2f92P0KuiqKySkmt6x2Ujv
- ajQp0QyjG1HdGKYZDlAIe3Ndjf5OAY+U/O4bQ7jeRFOBhUGcwIgsR3emwiyE7H0snH4M
- ixSQsYxv5WxLqksY9AkPNANhXr5o7ReKNwEo+cWTmOkFCCrxOY33qSyMaf+S96901QqL
- tcF5zPfpWBFFjkO/Ve+aNeS3ATx/u4ACpBaCNp/JV+NXTVhr1ralZYvv04cvnkIq4gKJ
- r52A==
-X-Gm-Message-State: AOAM533hTDSp/av1DPD61EQ+ZWVINuVNeOP6I0t8BsxgmeMR0TdSAM6f
- R809MYwj7dFv/F7XHe6OZpKdtQ==
-X-Google-Smtp-Source: ABdhPJzTSHSfyrwau3xW+AehkcTP+X4MnzJII/oAmUKEdfBGnGP6TA25S/PTwJfKeSYbm/uhBORLsw==
-X-Received: by 2002:a1c:44c5:0:b0:38e:abd1:d894 with SMTP id
- r188-20020a1c44c5000000b0038eabd1d894mr4561539wma.40.1649775667018; 
- Tue, 12 Apr 2022 08:01:07 -0700 (PDT)
-Received: from [192.168.86.34]
- (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.googlemail.com with ESMTPSA id
- n23-20020a05600c3b9700b0038b7c4c0803sm3026900wms.30.2022.04.12.08.01.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Apr 2022 08:01:06 -0700 (PDT)
-Message-ID: <149e3140-1b9d-b864-c14c-4d2cb098ec9a@linaro.org>
-Date: Tue, 12 Apr 2022 16:01:04 +0100
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="XvKQtgXN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1649776355; x=1681312355;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=D/7uXVQQJqcjVO5VqFBaDYYJRNFnb5+cG95Rv/bhEjw=;
+ b=XvKQtgXNs+XnInZ17Qpyw9IwU2o8wOPSJKKYIH9129ALfebfFQ83J2NA
+ n1FddcDQ2VnfdFe4hyShDzkG21bV0Z9BvBkxrpfty/9Qz4o5pesiZ56KU
+ tgubQ3oD9PT7Urgxw74litq7c1kdWf80vbRwym3GZ8zx9RgLsACKYM2i4
+ 2IIpHsLj53/dlqJydVKHpuCAskMCJxHQIz9guMQEwUWyIdAB7uAizvR4j
+ yj1IlHPSvUUowDnHJhQPJ/9iU4P5XJbJVJD+NLBzv1oPqfpwrQU/0N/cc
+ n2oo9896+kwgccUoenEfUxd2fGoAyobMah2LonC8RtEaLsJhPgPoAgann A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10315"; a="287416037"
+X-IronPort-AV: E=Sophos;i="5.90,254,1643702400"; d="scan'208";a="287416037"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Apr 2022 08:12:23 -0700
+X-IronPort-AV: E=Sophos;i="5.90,254,1643702400"; d="scan'208";a="507578395"
+Received: from aschultz-mobl2.amr.corp.intel.com (HELO [10.251.2.233])
+ ([10.251.2.233])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Apr 2022 08:12:20 -0700
+Message-ID: <3759eab0-6f1e-e6cb-2528-e0d5f79d6ec1@linux.intel.com>
+Date: Tue, 12 Apr 2022 10:03:02 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH] slimbus: qcom: fix error check return value of
- platform_get_irq()
+ Firefox/91.0 Thunderbird/91.5.0
+Subject: Re: [RFC PATCH] soundwire: use driver callbacks directly with proper
+ locking
 Content-Language: en-US
-To: cgel.zte@gmail.com, agross@kernel.org, bjorn.andersson@linaro.org
-References: <20220412090259.2533316-1-lv.ruyi@zte.com.cn>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20220412090259.2533316-1-lv.ruyi@zte.com.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Vinod Koul <vkoul@kernel.org>
+References: <20220407223932.84526-1-pierre-louis.bossart@linux.intel.com>
+ <YlVaJ+stdbRUX5TM@matsya>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <YlVaJ+stdbRUX5TM@matsya>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, gregkh@linuxfoundation.org,
- Lv Ruyi <lv.ruyi@zte.com.cn>, Zeal Robot <zealci@zte.com.cn>,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- sdharia@codeaurora.org
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
+ broonie@kernel.org, srinivas.kandagatla@linaro.org,
+ Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,39 +96,150 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Thanks Vinod for the review.
 
-
-On 12/04/2022 10:02, cgel.zte@gmail.com wrote:
-> From: Lv Ruyi <lv.ruyi@zte.com.cn>
+>> I could use feedback on whether using device_lock() is appropriate and
 > 
-> platform_get_irq() return negative value on failure, so null check of
-> ctrl->irq is incorrect. Fix it by comparing whether it is less than zero.
+> Looking at other uses of device_lock() it seems apt to me
 > 
-> Fixes: ad7fcbc308b0 ("slimbus: qcom: Add Qualcomm Slimbus controller driver")
-> Reported-by: Zeal Robot <zealci@zte.com.cn>
-> Signed-off-by: Lv Ruyi <lv.ruyi@zte.com.cn>
+>> test results on non-Intel platforms. Thanks!
+>> Pierre
+>>
+>>  drivers/soundwire/bus.c      | 78 ++++++++++++++++++++++++++++--------
+>>  drivers/soundwire/bus_type.c |  6 +--
+>>  drivers/soundwire/stream.c   | 57 +++++++++++++++++---------
+>>  3 files changed, 102 insertions(+), 39 deletions(-)
+>>
+>> diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
+>> index 8b7a680f388e..545b379a119e 100644
+>> --- a/drivers/soundwire/bus.c
+>> +++ b/drivers/soundwire/bus.c
+>> @@ -7,6 +7,7 @@
+>>  #include <linux/pm_runtime.h>
+>>  #include <linux/soundwire/sdw_registers.h>
+>>  #include <linux/soundwire/sdw.h>
+>> +#include <linux/soundwire/sdw_type.h>
+>>  #include "bus.h"
+>>  #include "sysfs_local.h"
+>>  
+>> @@ -846,12 +847,18 @@ static int sdw_slave_clk_stop_callback(struct sdw_slave *slave,
+>>  				       enum sdw_clk_stop_mode mode,
+>>  				       enum sdw_clk_stop_type type)
+>>  {
+>> -	int ret;
+>> +	struct device *dev = &slave->dev;
+>> +	struct sdw_driver *drv;
+>>  
+>> -	if (slave->ops && slave->ops->clk_stop) {
+>> -		ret = slave->ops->clk_stop(slave, mode, type);
+>> -		if (ret < 0)
+>> -			return ret;
+>> +	/*
+>> +	 * this function can only be called from a pm_runtime
+>> +	 * sequence where the device is already locked
+>> +	 */
+> 
+> If this is guaranteed..
+> 
+>> +
+>> +	if (dev->driver) {
+> 
+> do we need to check this? Did you find a case where this was not valid
+> while device is locked, maybe do this while holding the lock (kind of
+> moot to process the calls if driver is gone)
 
+Humm, good feedback. I will re-check for cases where the driver is 'blacklisted' and also cases there there's no power management supported.
 
-There was already a patch posted to fix this
+> 
+>> +		drv = drv_to_sdw_driver(dev->driver);
+>> +		if (drv && drv->ops && drv->ops->clk_stop)
+>> +			return drv->ops->clk_stop(slave, mode, type);
 
+In the last version I did remove the check for if (drv) above since it can't be NULL
+
+>>  	}
+>>  
+>>  	return 0;
+>> @@ -1616,14 +1623,25 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
+>>  		}
+>>  
+>>  		/* Update the Slave driver */
+>> -		if (slave_notify && slave->ops &&
+>> -		    slave->ops->interrupt_callback) {
+>> -			slave_intr.sdca_cascade = sdca_cascade;
+>> -			slave_intr.control_port = clear;
+>> -			memcpy(slave_intr.port, &port_status,
+>> -			       sizeof(slave_intr.port));
+>> -
+>> -			slave->ops->interrupt_callback(slave, &slave_intr);
+>> +		if (slave_notify) {
+>> +			struct device *dev = &slave->dev;
+>> +			struct sdw_driver *drv;
+>> +
+>> +			device_lock(dev);
+> 
+> device is locked
+> 
+>> +
+>> +			if (dev->driver) {
+> 
+> Same here as well
+
+This is a different case. You can have a headset codec that detects a headset and changes it status to alert, even when there is no driver probed.
+So that case is very real, and it's simpler to think of the sequence backwards.
+
+We have to verify if there is indeed a driver bound before invoking the 'interrupt_callback', otherwise we might de-reference a NULL or dangling pointer.
+And to prevent a race condition with the .probe/.remove/.shutdown which will modify dev->driver, we have to take the lock before testing dev->driver.
  
-https://git.kernel.org/pub/scm/linux/kernel/git/srini/slimbus.git/commit/?h=for-next&id=54bf672111eef18819fa6e562f68b2d6c449b05d
-
---srini
-> ---
->   drivers/slimbus/qcom-ctrl.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/slimbus/qcom-ctrl.c b/drivers/slimbus/qcom-ctrl.c
-> index f04b961b96cd..b2f01e155d77 100644
-> --- a/drivers/slimbus/qcom-ctrl.c
-> +++ b/drivers/slimbus/qcom-ctrl.c
-> @@ -510,7 +510,7 @@ static int qcom_slim_probe(struct platform_device *pdev)
->   	}
->   
->   	ctrl->irq = platform_get_irq(pdev, 0);
-> -	if (!ctrl->irq) {
-> +	if (ctrl->irq < 0) {
->   		dev_err(&pdev->dev, "no slimbus IRQ\n");
->   		return -ENODEV;
->   	}
+>> +				drv = drv_to_sdw_driver(dev->driver);
+>> +				if (drv && drv->ops && drv->ops->interrupt_callback) {
+>> +					slave_intr.sdca_cascade = sdca_cascade;
+>> +					slave_intr.control_port = clear;
+>> +					memcpy(slave_intr.port, &port_status,
+>> +					       sizeof(slave_intr.port));
+>> +
+>> +					drv->ops->interrupt_callback(slave, &slave_intr);
+>> +				}
+>> +			}
+>> +
+>> +			device_unlock(dev);
+
+>>  	/* Check all non-zero devices */
+>> @@ -1878,7 +1908,23 @@ void sdw_clear_slave_status(struct sdw_bus *bus, u32 request)
+>>  		if (slave->status != SDW_SLAVE_UNATTACHED) {
+>>  			sdw_modify_slave_status(slave, SDW_SLAVE_UNATTACHED);
+>>  			slave->first_interrupt_done = false;
+>> +
+>> +			lock = device_trylock(&slave->dev);
+> 
+> should we proceed if we dont get a lock? also why the trylock variant.
+> We can do the lock, this is wq context
+
+I tried to explain this with the comment below. if we take the lock unconditionally here when it's already taken by the resume sequence, then we created a dead-lock. 
+
+This 'sdw_update_slave_status' is invoked from two completely different contexts.
+
+a) the first case is when a manager resumes. In that case, we want to take a lock to prevent .probe or .remove from updating the dev->driver pointer while we're using it.
+b) the remove is already on-going and the lock was taken by the remove routine. In that case we don't need to take a lock.
+
+So the idea of trylock was to detect which of the two cases we have to deal with.
+
+> 
+>> +
+>> +			/*
+>> +			 * this bus/manager-level function can only be called from
+>> +			 * a resume sequence. If the peripheral device (child of the
+>> +			 *  manager device) is locked, this indicates a resume operation
+>> +			 * initiated by the device core to deal with .remove() or .shutdown()
+>> +			 * at the peripheral level. With the parent-child order enforced
+>> +			 * by PM frameworks on resume, the peripheral resume has not started
+>> +			 * yet, so it's safe to assume the lock will not be released while
+>> +			 * the update_status callback is invoked.
+>> +			 */
+>>  			sdw_update_slave_status(slave, SDW_SLAVE_UNATTACHED);
+>> +
+>> +			if (lock)
+>> +				device_unlock(&slave->dev);
+>>  		}
+

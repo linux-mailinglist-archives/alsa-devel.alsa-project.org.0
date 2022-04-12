@@ -2,183 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D23804FE63F
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Apr 2022 18:46:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2AC34FE6A6
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Apr 2022 19:16:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8614F18A7;
-	Tue, 12 Apr 2022 18:45:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8614F18A7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8B5B11785;
+	Tue, 12 Apr 2022 19:15:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B5B11785
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649781991;
-	bh=1r3iUKCdec/ny3oVMfy3Bn2XvYr58LdBvwSphgEyWCQ=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1649783777;
+	bh=2Pz6OEw74Mlmz5jY7tzAq+2wvQR0bnhMVaceduyaDno=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=A0ZaS+nUmFDBAAeLXkvo3Rgwm8Gu9zcRB7dDOoibo70ojsKdqFSeEAV+L3Z7OERPj
-	 6vOaYf3ecnBzeZheu4NUzfAyfbqHSIZ9+ACu6wu7pQ9rnHzdlU7ZhdqkxQE1s4EBt0
-	 og4hK/C5lzizzIh5GD6pTDcq0wMODPrV4Tisp7Nw=
+	b=KDSsXbQYdUv+rc59TLRpjkzNj/vzq9hu5izQC7ALgjCyx71rbtAotjkS/aTCC9A8H
+	 8+ucS/nzAhPJ5+m4e9YdvoLeM8CQfl+QJz5kxWL40m+KonEErq9Eq7g7d2oUji5TpC
+	 SoN3xqlOrB0pgko/VB2mzjEof49IMTJuPz9yBuoc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2DD1AF80245;
-	Tue, 12 Apr 2022 18:45:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E92A3F80245;
+	Tue, 12 Apr 2022 19:15:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C45D1F80245; Tue, 12 Apr 2022 18:45:38 +0200 (CEST)
+ id 95097F80109; Tue, 12 Apr 2022 19:15:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_14,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 00BA3F80109
- for <alsa-devel@alsa-project.org>; Tue, 12 Apr 2022 18:45:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00BA3F80109
+ by alsa1.perex.cz (Postfix) with ESMTPS id 07321F80109
+ for <alsa-devel@alsa-project.org>; Tue, 12 Apr 2022 19:15:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07321F80109
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="AVVbJWHa"
+ header.b="SfdsEp/7"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649781933; x=1681317933;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=1r3iUKCdec/ny3oVMfy3Bn2XvYr58LdBvwSphgEyWCQ=;
- b=AVVbJWHag26VIiJE5Iy8PpGciG7eUEj4Q1tUG8AgFFT8kk2m1OZY9YrV
- oonefKkDwxhWQDrIM1K9p2YUZUN+E3Zx3vxYJgQz9/UTyrqcbKcewHuT4
- xEmUH5FmoBPwuMkTYULYVLnPAv1qoP57ykQRgdAYjHViit54SkQKs4IRJ
- wNOU4nLbZdIkmxcynT8Tz3dWI4rvvoOJ5o09fSF1z9HdaTvsvs3bDBiae
- WEmkfPKgvPMxeOOlpcZ9Z0LnfPbQC7FwAhRBmKH+G5+by9IgZu3VBEgq3
- pftK0qShkm2d+zNvnpXd9XI3w5xC+h6CFUXhiV0ujopgH0QhcdZoSIsrc w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10315"; a="242376744"
-X-IronPort-AV: E=Sophos;i="5.90,254,1643702400"; d="scan'208";a="242376744"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Apr 2022 09:42:35 -0700
+ t=1649783710; x=1681319710;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=2Pz6OEw74Mlmz5jY7tzAq+2wvQR0bnhMVaceduyaDno=;
+ b=SfdsEp/7+9gZuQvejLm+Ge1ZN9zzciUM8RJSEclLfqz6pp5RY8gyL3qa
+ mM/9IdQOy3xseNJxtLmUOa/9zpMZnF62YpcdkCCsUU6OVN/VwsJWI+hnA
+ TwlJkL/vS42WQRmHWMdjMN2kYLuagvbFFi7uLAIg89k5zj58sVYCOZbyf
+ +qR6W4YXKzw6VUXELacEuc7YmUxDHeK4CY707B9Jri74mIM0ui/latS/o
+ KnmvvFOvrAqLlcmhWJrMe3uRN0liuVzvyXIw/p3dBIBSk7Q/+MIFaTfMh
+ SFVZID5oLI7VwggHe1j0ovrvcqevlE4ybjzG5WfHze5aOHjUOpPIhfsEd w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10315"; a="322890564"
+X-IronPort-AV: E=Sophos;i="5.90,254,1643702400"; d="scan'208";a="322890564"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Apr 2022 10:15:02 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,254,1643702400"; d="scan'208";a="551801219"
-Received: from orsmsx606.amr.corp.intel.com ([10.22.229.19])
- by orsmga007.jf.intel.com with ESMTP; 12 Apr 2022 09:42:34 -0700
-Received: from orsmsx601.amr.corp.intel.com (10.22.229.14) by
- ORSMSX606.amr.corp.intel.com (10.22.229.19) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27; Tue, 12 Apr 2022 09:42:34 -0700
-Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
- orsmsx601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27 via Frontend Transport; Tue, 12 Apr 2022 09:42:34 -0700
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com (104.47.58.176)
- by edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2308.27; Tue, 12 Apr 2022 09:42:34 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Y0eezcTSf1stzpv0kZszteuSBfvK4DPDXori5WoUC5R8YNPv0Lp+6SZIfVLmBrYeZJR5ZQkMtjq1AE2s7hoN/OzT/TSpKnrbWbmtMItTJIIW5B8fFq24BSZQE0AINVEzFwvRS+6MrdE1j6Ef1eBp6bLZuoCfEuFzz2EOcwHEzESRTStzE88r9LQo9uRzMkSbult3TfbI0a/D0Q/glgSWY1IjzwjLgJ+UE81+D2QlMXKeQVBdhdvXzYX4Ccm+eDhuIRoVZC4AvIVRBcNc0ggAs9kUjO86SYIBkqQKAlLv1wXzPzB40M20RWBaa4+rCU18Q2s7a1lEnqpJn7X/kvI0Qw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vcD9KYom2SinCYA5wsIV3wboESfRtjM7hNPGATtfBpg=;
- b=YpURvuQ7DduD7kyuPWdmgFtutlSHzgCd8TIu4xcKGFrcxUNf647aPZ8/cIUpNFu0YLXtnvN5u61dnIg57zIgWhgW3dZ/+sAorZ8Vz5B/HNXAgCQyJeWsVDK3V6G5MU0tD4K//mk2fhBLqwAO0LVvlI7s2Drjn2FW3cqjD24wAdvX4WDd0FGaoOOLKSieFEhkZmxVlEanllw98DhzjYbKWhsf9VSOnKn8g7VSY7rIMd5ziDIH+C7fkJ5OqzO1Gdvq8Sy5Vt2LdkHuS6BSN9LZI4e2fePE1vuVSGacNf2N3DxnKpTMfScjRzIa205d0TEzdQkyEORdpiLnZbHc/WCBDg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from MWHPR1101MB2157.namprd11.prod.outlook.com
- (2603:10b6:301:51::10) by MN0PR11MB5963.namprd11.prod.outlook.com
- (2603:10b6:208:372::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.29; Tue, 12 Apr
- 2022 16:42:32 +0000
-Received: from MWHPR1101MB2157.namprd11.prod.outlook.com
- ([fe80::ccac:dd6b:b12e:477c]) by MWHPR1101MB2157.namprd11.prod.outlook.com
- ([fe80::ccac:dd6b:b12e:477c%12]) with mapi id 15.20.5144.029; Tue, 12 Apr
- 2022 16:42:32 +0000
-Message-ID: <df4e2b39-6b52-ce66-3ecf-d93bb089ee28@intel.com>
-Date: Tue, 12 Apr 2022 18:42:24 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.7.0
-Subject: Re: [PATCH 15/16] ASoC: SOF: Intel: add initial SKL/KBL hardware
- support
-Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-References: <20220411201727.77971-1-pierre-louis.bossart@linux.intel.com>
- <20220411201727.77971-16-pierre-louis.bossart@linux.intel.com>
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-In-Reply-To: <20220411201727.77971-16-pierre-louis.bossart@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P123CA0066.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:153::17) To MWHPR1101MB2157.namprd11.prod.outlook.com
- (2603:10b6:301:51::10)
+X-IronPort-AV: E=Sophos;i="5.90,254,1643702400"; d="scan'208";a="644830139"
+Received: from lkp-server02.sh.intel.com (HELO d3fc50ef50de) ([10.239.97.151])
+ by FMSMGA003.fm.intel.com with ESMTP; 12 Apr 2022 10:15:01 -0700
+Received: from kbuild by d3fc50ef50de with local (Exim 4.95)
+ (envelope-from <lkp@intel.com>) id 1neK6W-00031W-Lu;
+ Tue, 12 Apr 2022 17:15:00 +0000
+Date: Wed, 13 Apr 2022 01:14:09 +0800
+From: kernel test robot <lkp@intel.com>
+To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
+Subject: Re: [PATCH 26/39] ALSA: intel_hdmi: Fix the missing snd_card_free()
+ call at probe error
+Message-ID: <202204130129.SNA1B1hM-lkp@intel.com>
+References: <20220412102636.16000-27-tiwai@suse.de>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b250e9b4-1a7e-4adc-8624-08da1ca37070
-X-MS-TrafficTypeDiagnostic: MN0PR11MB5963:EE_
-X-Microsoft-Antispam-PRVS: <MN0PR11MB59632FB52441B6CE969CB5B5E3ED9@MN0PR11MB5963.namprd11.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: bN/rz0yJbcW345Oj7YpuDxIH0WlKi/Cd4UFIvHhoyqpiIAux7XUeuMXLgvnBf64w9JNVjbK4yiYCBg9hGZNaeDm9zIXj6HWZ1xvbOnA3WW2C/8+JKyS9xnlGd6Epwh8ScyJZ/J0gZjOVDNFWL7w1NbecYvcHXJQGSFOvRomBga1PSRoXrP6VUEYTOLph/SQOyen0Polq3liNTV7w2SEzPaZuN1Augo8p6ao4RcGKZv2sAfES/A5yo23iGKv0XgHtgPWn0h7iN9fVBlL12OoIcKljfvQf8S3lnZtgzFOWV9ImaKVmdpz7HcBSjLBVLOjIb7VSdoYtfW+Rrbwigi6QxqEpQkUi87S7hz3Q3JCUXBFuPT5bCBe9sMOnz1NCwThtQ0nQ6HZFsd83OukBPKc/Wl4VNdI8MP8lO8SgAqpGRkJpiuPywiMGqjtEW8cMcp8+Cp5p1fJAzh7dJWYYVQCWe8++QEk+2Eq9dh5T9mbMIaj61tKnnZe/Vz/j9mSytYegJiUKqbU+qlb86Es/zjlgKjJqcrlZY3wVMJr3DpOJD5UEbPejKGzP0SOMSZaM3NVvfgJkg/ELI3xEEBavoBtaC539u55PZwoK6P04eNDoZuUpfKlQzYWMkZV2kAaRJ1cMlprrW69h+xPGBW2Zbiub2jZ2SVO9vWia3beS+e0N9OoE/dcsX/7dch1Ye8OKalxj2U1QUc6tUPmyf5ZJ3m6ksGM85UUBanKm+u026mdVqxo=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR1101MB2157.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(366004)(8936002)(6486002)(66946007)(83380400001)(316002)(5660300002)(44832011)(54906003)(6916009)(53546011)(8676002)(31686004)(6512007)(4326008)(6666004)(6506007)(2616005)(186003)(26005)(66476007)(66556008)(508600001)(36756003)(86362001)(31696002)(82960400001)(38100700002)(2906002)(45980500001)(43740500002);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K280d3BqSWFVdjhHb2lZZ1cxaUN3TGpIaTdpcFk3QkJDa0UxZWZrd1EwVHhT?=
- =?utf-8?B?UlhFVHBMeEdJT2dIOHRDNnRYVUc4Njg2M3JxbmEyVGZsRSt1YjUyQ3RTclAy?=
- =?utf-8?B?SjhqZGtMbStrajRvbk1meUEzYzZxUm1lTFAvQi92eEh6YVJhUkxRckNudkls?=
- =?utf-8?B?SkZTczljSlNMeXVvYTR5aHFJK1N4c0w3YW9rNDVjYTc1OTlONXpJQ3g1ck55?=
- =?utf-8?B?eC90MElxK2ZBU0JxbnBoNXZqYWZOV0Rmc3hQdnVWQ3I4ZUJaeFBBeU11S05l?=
- =?utf-8?B?dFJmZHYzeGZKZFltUzlENXFvdGFwc1FQVURJTzB1dXlQVW1jbnkxdHhyaFQ4?=
- =?utf-8?B?NGxDZHNFcXB1K0J5K1RmOExxNmNOaDEzekJ3TXd6MnZpUjV0THM3MGYyQy9p?=
- =?utf-8?B?RjdxM3ZCUnV6bW1zcUR3aVh2ZloyNmtWbk5aWXBRemVjVXRzMGFSYmdFWXVM?=
- =?utf-8?B?bUt2ZGNKOEo3Qkw4ZDZ1VVIrdzd4Qm5LTE9VaGZnTEoxV3JaK1g1TEJVekww?=
- =?utf-8?B?T3QzSUtMeDVnUVhPU2YwVDU4azYzampJNldXbUx0aG84WnpNSEVsWjNXa0I2?=
- =?utf-8?B?RkpHWjNzdWRwVlBOODNUSEk1QmtGQWxyYXZ0OEdlaVkyU24rV3Nha1JNc3Vu?=
- =?utf-8?B?ZUpZSzgwcUZFaG5aaHdRb0NzdmorMFFKTjl3R0h1UlM0UU9FOUZuSWxuT2Vj?=
- =?utf-8?B?UjArTW8zRVVseVh1MER1K3Z2Yzd4SEROei84Zjc0d2dNOEtaRmdBNW5NMXV3?=
- =?utf-8?B?TEtUU0wxRnYxdWo5aUpjUEVKRVpLUWJ6cUFWSmdSL3FLZTBQeVdhOWJFZ0p2?=
- =?utf-8?B?K3YyM1hVbHgvUXJJL3BBZTM2MSsxeEw0QWRKamNWb29DQitpWnFPUnI3NTVJ?=
- =?utf-8?B?SGJveEVxbUJJU0tHNnVJYi9kZXhTME1MQldFTG9hcVpMTHV0cFlyTmlvMFJl?=
- =?utf-8?B?K0FDS09qbW5sSDRKVjNyQlA3VFZtK3pHc3FybmpjakIweUQ1a1NQMWgvR1pH?=
- =?utf-8?B?V2pRSk9mb3c1MnU5TEpLaGdpRDRSOGtEQ054ZmdjdVN0Wm1oUmxRNTQrcnYx?=
- =?utf-8?B?K2lpMHJkMlgzcVVOOUtqOEpjYVdzL010eVNSR0lKVWMraTJSNEdBc2dXN2NT?=
- =?utf-8?B?NU1XRzZWblZIRlZPWW5qK3Z1cklJRG1TSVBsMG9OSmpVUHNPWFIwRExNeGlH?=
- =?utf-8?B?OWNlUXBQbGtGQi9YSU0zNTBJUGZxZHdxUi8zdENNaG45N2NSeS9kSzdWNUdw?=
- =?utf-8?B?dC9DNmY0NkRFOXZmdnlnbTVMWDk3SmN6MWg4M2ZIN3MzZXIyMXdLQ1JiSTBP?=
- =?utf-8?B?R1JYM1djeGlORkN4NnJjbFVzNnIrejBKbm0xM2FVaHNEOG4zQWRmLzJXaEpj?=
- =?utf-8?B?M21vSW9zZ1dSVkg5cWUwSXJUZmhxaEEwRFdDRVdHa1QxQWZLMnp6R285TFMz?=
- =?utf-8?B?MGlqdVFNMENXQklIUVphb01Wc3hMbXMxOGVxdmJERHlJWWVtbDJjd2RsSmgx?=
- =?utf-8?B?bmtyS2p0MVB6R2hTQUtIRGU2bjluZHBLMlZqaGhHVnI2SmI3eGRQSmRNdTRY?=
- =?utf-8?B?cnlhbVZrdlp3V096SmhudWNJbHJnK2xDMVkxYzh2QkdNKy9nT1dxcmg0d2ZY?=
- =?utf-8?B?cVU4c2NVVm82WW94WVdJSFVxZmlMMlo2VTR5eXJqNXlwc1dsOE9kUXNSR3A3?=
- =?utf-8?B?d1RXcjVMMnFidHpya1UxREJjR1d1SUVUeWN6Wm8wUGFjeDl6ck5GazRyUW9t?=
- =?utf-8?B?cTBleXFrRTA3ejIybHh2a2ltR2dOaFpGWEdxZHB2NExrb21NRy9MejZ0cGRr?=
- =?utf-8?B?MzRON3hHQzlPczV0M0J5WENCdFFIZnhBUzhrcUFocGJCTTJmY2M0bUk3VThF?=
- =?utf-8?B?MjlTbVhPOWUrUVV6M2dLUU9LVEFjY1ZOTmFPOUFJWEExNS82ZTI4OGRaRGdx?=
- =?utf-8?B?L2ZwWkh5T2o0a0tOZnFJQ1RMcEdXSXRvT0txbEpNcVJSV0ttemNPVFR3b0E0?=
- =?utf-8?B?NERqWVZzbmlaSzgyTThBdG9jUlFiUjVuWExTY1hUeUFraGlabWkvQ3JaMDNL?=
- =?utf-8?B?ZFRHWHRxU3ZxUVhFdUI4WlpOOGxiTjd4aXg4ejBNZUFOK0lHdjB2MzRwaUVx?=
- =?utf-8?B?bFFTVDJhTVVrL2dVV1dVai82NGMyaENDSGtzbzdOb1BleEJ2WmE5K01PRjM2?=
- =?utf-8?B?L2N0cXM5aTNXTUpnVnFzTDk0T3NHTWtqd09PZHVIOVRjREhVTVNld1B5djFm?=
- =?utf-8?B?YXBCZ2MzQnRaM2tmOWVpdVBvUnpQd1pwSGNEZXI5T0VKdTJwbWYyQmpxd2NZ?=
- =?utf-8?B?S3VyTHhHSlQxZG13RS83MWtUUVhUUkJETWp5czVnRXdmSEhUZDZQUDVJOUZC?=
- =?utf-8?Q?oXYnSDdY7/UdWs0Q=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: b250e9b4-1a7e-4adc-8624-08da1ca37070
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR1101MB2157.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Apr 2022 16:42:32.0828 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: j/haH7uDJJ5gWZtYxaxWyq/ptYjXv6crAEXGvU/aTNNYBMmoBevfjxEmeYB86YgstidikgQUOvLlL/rn9yM/pV1hhDHHetPnLOdJI8FF518=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR11MB5963
-X-OriginatorOrg: intel.com
-Cc: tiwai@suse.de, "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- broonie@kernel.org,
- =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220412102636.16000-27-tiwai@suse.de>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: kbuild-all@lists.01.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -194,50 +92,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2022-04-11 10:17 PM, Pierre-Louis Bossart wrote:
-> In preparation of the IPCv4 IPC support, this patch adds
-> support for SkyLake and KabyLake boot and code loader and descriptors
-> used when probing the PCI driver.
-> 
-> The work was initially contributed in 2018 by Liam Girdwood and Zhu
-> Yingjiang, and abandoned due to firmware signature issues. With the
-> upcoming support of IPC v4, and hence the Intel closed-source
-> firmware, it's time to re-add this capability.
-> 
-> The SKL ops are left empty at this time since the driver cannot be
-> tested with the SOF firmware. The ops will be populated when the IPC4
-> is added during the next kernel cycles.
-> 
-> Tested with the IPC4 and closed-source firmware on Dell XPS 9350
-> and KBL NUC with HDaudio codecs. The SSP and DMIC interfaces are not
-> supported at this time.
-> 
-> Co-developed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-> Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-> Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-> ---
->   sound/soc/sof/intel/Kconfig          |  24 ++
->   sound/soc/sof/intel/Makefile         |   4 +
->   sound/soc/sof/intel/hda-dsp.c        |   4 +-
->   sound/soc/sof/intel/hda-ipc.c        |   8 +
->   sound/soc/sof/intel/hda-loader-skl.c | 583 +++++++++++++++++++++++++++
->   sound/soc/sof/intel/hda.c            |   2 +
->   sound/soc/sof/intel/hda.h            |  12 +
->   sound/soc/sof/intel/pci-skl.c        |  89 ++++
->   sound/soc/sof/intel/skl.c            |  69 ++++
->   9 files changed, 793 insertions(+), 2 deletions(-)
->   create mode 100644 sound/soc/sof/intel/hda-loader-skl.c
->   create mode 100644 sound/soc/sof/intel/pci-skl.c
->   create mode 100644 sound/soc/sof/intel/skl.c
+Hi Takashi,
+
+I love your patch! Yet something to improve:
+
+[auto build test ERROR on tiwai-sound/for-next]
+[also build test ERROR on v5.18-rc2 next-20220412]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Takashi-Iwai/ALSA-Fix-error-handling-order-at-probe-error/20220412-183941
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
+config: i386-randconfig-a016-20220411 (https://download.01.org/0day-ci/archive/20220413/202204130129.SNA1B1hM-lkp@intel.com/config)
+compiler: gcc-11 (Debian 11.2.0-19) 11.2.0
+reproduce (this is a W=1 build):
+        # https://github.com/intel-lab-lkp/linux/commit/9e76730fee819f96c44f07e9a100c907457aed8b
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Takashi-Iwai/ALSA-Fix-error-handling-order-at-probe-error/20220412-183941
+        git checkout 9e76730fee819f96c44f07e9a100c907457aed8b
+        # save the config file to linux build tree
+        mkdir build_dir
+        make W=1 O=build_dir ARCH=i386 SHELL=/bin/bash
+
+If you fix the issue, kindly add following tag as appropriate
+Reported-by: kernel test robot <lkp@intel.com>
+
+All errors (new ones prefixed by >>):
+
+   sound/x86/intel_hdmi_audio.c: In function 'hdmi_lpe_audio_probe':
+>> sound/x86/intel_hdmi_audio.c:1820:16: error: implicit declaration of function 'snd_card_free_on_error'; did you mean 'snd_ctl_free_one'? [-Werror=implicit-function-declaration]
+    1820 |         return snd_card_free_on_error(&pdev->dev, __hdmi_lpe_audio_probe(pdev));
+         |                ^~~~~~~~~~~~~~~~~~~~~~
+         |                snd_ctl_free_one
+   cc1: some warnings being treated as errors
 
 
-Regardless if this piece should be or not, let's not hide the 
-code-loading implementation behind "initial hardware support". It would 
-have been better to split this change into two - one for CL, one for 
-"initial hardware support".
+vim +1820 sound/x86/intel_hdmi_audio.c
 
+  1817	
+  1818	static int hdmi_lpe_audio_probe(struct platform_device *pdev)
+  1819	{
+> 1820		return snd_card_free_on_error(&pdev->dev, __hdmi_lpe_audio_probe(pdev));
+  1821	}
+  1822	
 
-Regards,
-Czarek
+-- 
+0-DAY CI Kernel Test Service
+https://01.org/lkp

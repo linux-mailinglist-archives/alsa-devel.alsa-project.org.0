@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BDE24FD746
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Apr 2022 12:28:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6B874FD785
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Apr 2022 12:29:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 29B5E17FD;
-	Tue, 12 Apr 2022 12:27:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 29B5E17FD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 78E081867;
+	Tue, 12 Apr 2022 12:28:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78E081867
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649759306;
-	bh=MZrEiqx27iFiln3jWfLnhnErBpRM/W+IsCNj+AU8+pk=;
+	s=default; t=1649759366;
+	bh=WDQaYDlUURN1OSjGBJ58GzJyqLJ18Shgceopwe1h6z0=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hBh4noh2FPWvQz0m6WKTS8REPKVQPyNckaaHz8pvGznnjgm3Ah+XNqGoJ/F1/qzeG
-	 Bm6mmcmC+nOIBfy+Z1F4kK6nQL/rSG4EOM1jHHpZggbbrTgw5vBBgVrXyyD1LKGx3u
-	 JNAIw3rZHep9x8c+5tpwq3PQK61m4Wzgzg1LWZIs=
+	b=Zcgph1WMQse5YXvSfQ/SNBnBk33YsGh7m2yE9W1ksANMxgpbpD/FNjWzOaG+7+X6P
+	 1D56v/jyeS9gWMi3ZlaYfYWmZnkE2uODGrc6WWZdIdjC7VeNsW1Vq5UwP/Jmp28cOJ
+	 phZL5YzAJjFc9wn8Timir3qr2QysZDwXiunaXwKw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0D8F5F8054A;
-	Tue, 12 Apr 2022 12:26:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E5655F8055C;
+	Tue, 12 Apr 2022 12:27:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 239C4F80548; Tue, 12 Apr 2022 12:26:52 +0200 (CEST)
+ id 08467F80245; Tue, 12 Apr 2022 12:26:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,44 +34,44 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D5944F80095
+ by alsa1.perex.cz (Postfix) with ESMTPS id ED55EF80245
  for <alsa-devel@alsa-project.org>; Tue, 12 Apr 2022 12:26:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5944F80095
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED55EF80245
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="DtRZFw5m"; 
+ header.b="yxJ7gNss"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="NawHa88n"
+ header.b="X3n7aQ+9"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 4C9F21F869
+ by smtp-out2.suse.de (Postfix) with ESMTP id 5A9D11FCFD
  for <alsa-devel@alsa-project.org>; Tue, 12 Apr 2022 10:26:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1649759204; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=v2UaeZ2JIwkwxcxwzADrycEE5VWLOUR74ly2547YINY=;
- b=DtRZFw5mVQk/c/P1xEdbkXMDyoHMtVSbty2WjiN5T29yIwQh/hWAyqdDVkSP2LOomZLcyV
- IdU/sk+pO2bzgqxrw/GUAhEB31Ia04BKblT5RaIsEGG0sFMyJ9sfddzJOjlT2bj3xfwPyv
- Kdil6+/A4a+xnE2QkpUm4QtxZmcRtd0=
+ bh=vXkaw4IR7n8jzFGw1i9wNYypWy9VxVCqQwfKbf1rWrA=;
+ b=yxJ7gNsshpdSH7rv5i5U80tT+PWEWk9D0pEmLCtNH6sMyWHWvYv8iBGo7y+arcLrosWI09
+ GIz5LulX/ggs2Wjx7pw/YDwqPjKiw6hMshDZwyiI7H1Yrh15n5gHeGJ+cvl2eWJl0j3J7X
+ Zclk6z/pFIzK3uq0FEnQ+ZUXxRLMMSE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1649759204;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=v2UaeZ2JIwkwxcxwzADrycEE5VWLOUR74ly2547YINY=;
- b=NawHa88nV3+Hb+T/r0Q6+fb6+esxCGp8CLH9c9xltxC2kQVDrIF5vrbTGHwqd2KKYp2LcS
- A1jFFKo03n627QDQ==
+ bh=vXkaw4IR7n8jzFGw1i9wNYypWy9VxVCqQwfKbf1rWrA=;
+ b=X3n7aQ+9Rqq7VMLSFKq/gvQxnsUaHmNpx3bIbtiyKPlhbTRUERjsSLVYqtJsMncCYj1FAa
+ b3vNBLXRk3y/k2Ag==
 Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 47FC3A3B83;
+ by relay2.suse.de (Postfix) with ESMTP id 4B252A3B87;
  Tue, 12 Apr 2022 10:26:44 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 05/39] ALSA: als4000: Fix the missing snd_card_free() call at
+Subject: [PATCH 06/39] ALSA: atiixp: Fix the missing snd_card_free() call at
  probe error
-Date: Tue, 12 Apr 2022 12:26:02 +0200
-Message-Id: <20220412102636.16000-6-tiwai@suse.de>
+Date: Tue, 12 Apr 2022 12:26:03 +0200
+Message-Id: <20220412102636.16000-7-tiwai@suse.de>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20220412102636.16000-1-tiwai@suse.de>
 References: <20220412102636.16000-1-tiwai@suse.de>
@@ -101,41 +101,70 @@ release the stuff via card->private_free().
 This patch fixes it by calling snd_card_free() on the error from the
 probe callback using a new helper function.
 
-Fixes: 0e175f665960 ("ALSA: als4000: Allocate resources with device-managed APIs")
+Fixes: 86bde74dbf09 ("ALSA: atiixp: Allocate resources with device-managed APIs")
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/als4000.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ sound/pci/atiixp.c       | 10 ++++++++--
+ sound/pci/atiixp_modem.c | 10 ++++++++--
+ 2 files changed, 16 insertions(+), 4 deletions(-)
 
-diff --git a/sound/pci/als4000.c b/sound/pci/als4000.c
-index 535eccd124be..f33aeb692a11 100644
---- a/sound/pci/als4000.c
-+++ b/sound/pci/als4000.c
-@@ -806,8 +806,8 @@ static void snd_card_als4000_free( struct snd_card *card )
- 	snd_als4000_free_gameport(acard);
+diff --git a/sound/pci/atiixp.c b/sound/pci/atiixp.c
+index b8e035d5930d..43d01f1847ed 100644
+--- a/sound/pci/atiixp.c
++++ b/sound/pci/atiixp.c
+@@ -1572,8 +1572,8 @@ static int snd_atiixp_init(struct snd_card *card, struct pci_dev *pci)
  }
  
--static int snd_card_als4000_probe(struct pci_dev *pci,
--				  const struct pci_device_id *pci_id)
-+static int __snd_card_als4000_probe(struct pci_dev *pci,
-+				    const struct pci_device_id *pci_id)
+ 
+-static int snd_atiixp_probe(struct pci_dev *pci,
+-			    const struct pci_device_id *pci_id)
++static int __snd_atiixp_probe(struct pci_dev *pci,
++			      const struct pci_device_id *pci_id)
  {
- 	static int dev;
  	struct snd_card *card;
-@@ -930,6 +930,12 @@ static int snd_card_als4000_probe(struct pci_dev *pci,
+ 	struct atiixp *chip;
+@@ -1623,6 +1623,12 @@ static int snd_atiixp_probe(struct pci_dev *pci,
  	return 0;
  }
  
-+static int snd_card_als4000_probe(struct pci_dev *pci,
-+				  const struct pci_device_id *pci_id)
++static int snd_atiixp_probe(struct pci_dev *pci,
++			    const struct pci_device_id *pci_id)
 +{
-+	return snd_card_free_on_error(&pci->dev, __snd_card_als4000_probe(pci, pci_id));
++	return snd_card_free_on_error(&pci->dev, __snd_atiixp_probe(pci, pci_id));
 +}
 +
- #ifdef CONFIG_PM_SLEEP
- static int snd_als4000_suspend(struct device *dev)
+ static struct pci_driver atiixp_driver = {
+ 	.name = KBUILD_MODNAME,
+ 	.id_table = snd_atiixp_ids,
+diff --git a/sound/pci/atiixp_modem.c b/sound/pci/atiixp_modem.c
+index 178dce8ef1e9..8864c4c3c7e1 100644
+--- a/sound/pci/atiixp_modem.c
++++ b/sound/pci/atiixp_modem.c
+@@ -1201,8 +1201,8 @@ static int snd_atiixp_init(struct snd_card *card, struct pci_dev *pci)
+ }
+ 
+ 
+-static int snd_atiixp_probe(struct pci_dev *pci,
+-			    const struct pci_device_id *pci_id)
++static int __snd_atiixp_probe(struct pci_dev *pci,
++			      const struct pci_device_id *pci_id)
  {
+ 	struct snd_card *card;
+ 	struct atiixp_modem *chip;
+@@ -1247,6 +1247,12 @@ static int snd_atiixp_probe(struct pci_dev *pci,
+ 	return 0;
+ }
+ 
++static int snd_atiixp_probe(struct pci_dev *pci,
++			    const struct pci_device_id *pci_id)
++{
++	return snd_card_free_on_error(&pci->dev, __snd_atiixp_probe(pci, pci_id));
++}
++
+ static struct pci_driver atiixp_modem_driver = {
+ 	.name = KBUILD_MODNAME,
+ 	.id_table = snd_atiixp_ids,
 -- 
 2.31.1
 

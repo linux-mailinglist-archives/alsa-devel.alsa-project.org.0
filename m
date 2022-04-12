@@ -2,81 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AE3C4FC5BB
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Apr 2022 22:23:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D69E24FCBEF
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Apr 2022 03:37:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9D08715CC;
-	Mon, 11 Apr 2022 22:22:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D08715CC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6B1851701;
+	Tue, 12 Apr 2022 03:37:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B1851701
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649708626;
-	bh=0p4MVDCujJhpUBXsCLojHP3nDnSM/F2N1GUJHFk9dH0=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1649727470;
+	bh=UEW9kzkQ/TWBaj4vvhTEppsomnvWB1SU16LdtQtB7nU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lBFLNCzzyaGb61yAFx6SI+VxukuTEyARRhnvtV/aGmL9NQhqK+jmm2duwgFZJZ8PF
-	 VNf1oCuEIHeUpOkB/2B546Vk7Vhg7aeC70KWhE9kbW1DgoVomlqc/t9CZzoyhQKzmb
-	 MoatRmklJKMNsv+U1f8A+YNKHg9DlZFwYY6F+uqM=
+	b=KFFmWkSK1QUbxjPgKyU8DuUOUVQ+wB37neJ9fI918waZAg992PdFt/q09KJuWJcUN
+	 yXSq7WH4qoanC3RcpB6hcuupK5sGTV+k334TZJ41ufyy2P2Yy/urbtdMjR7yStFbWs
+	 VJsFJzE1kb+4rbjTxQ7rRoCuTPpjmtejElzfcHic=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C27BBF805BE;
-	Mon, 11 Apr 2022 22:18:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C80F2F80245;
+	Tue, 12 Apr 2022 03:36:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1532DF8052D; Mon, 11 Apr 2022 22:18:24 +0200 (CEST)
+ id 6D65EF80154; Tue, 12 Apr 2022 03:36:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE, 
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com
+ [IPv6:2607:f8b0:4864:20::430])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8A243F8052D
- for <alsa-devel@alsa-project.org>; Mon, 11 Apr 2022 22:18:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A243F8052D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 89F9EF80109
+ for <alsa-devel@alsa-project.org>; Tue, 12 Apr 2022 03:36:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89F9EF80109
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="O2TQJMe6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649708287; x=1681244287;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=0p4MVDCujJhpUBXsCLojHP3nDnSM/F2N1GUJHFk9dH0=;
- b=O2TQJMe61Xm8zoMO3oUnMb45le34HQzPgsZ9GCWqkYsBiicMug5cYICZ
- eX9hbWlYt3m+YdWF/3ES4gBzsotFtHKYJeUqCe+WAt6CnndnXPULIE2Px
- Tcj1r4wgTE3+c3y830QkE5XktBin0Pd5bqu0OjTfgDyTcsgCNXCBfRDZ9
- m/Ydb0HWBh7zWhLMFnfxFI98IHtpltT29o67c+UJX6Jls+VZ9TIR9dTIW
- 5Yq33R1HHtxyko3su1jufawX1TlBWUfqDzX/AwRR8SuTC0p8TtODyFLua
- dfpucF8U7tg3eKrMXrOLhkFzue5ugjFqLy+mlQhfsndBnin6AczMNbQ7c g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10314"; a="244090856"
-X-IronPort-AV: E=Sophos;i="5.90,252,1643702400"; d="scan'208";a="244090856"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Apr 2022 13:18:00 -0700
-X-IronPort-AV: E=Sophos;i="5.90,252,1643702400"; d="scan'208";a="526135720"
-Received: from prposam-mobl.amr.corp.intel.com (HELO
- pbossart-mobl3.amr.corp.intel.com) ([10.212.162.151])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Apr 2022 13:17:59 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 16/16] ASoC: SOF: Intel: add IP identifier
-Date: Mon, 11 Apr 2022 15:17:27 -0500
-Message-Id: <20220411201727.77971-17-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20220411201727.77971-1-pierre-louis.bossart@linux.intel.com>
-References: <20220411201727.77971-1-pierre-louis.bossart@linux.intel.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="pqKOYr+L"
+Received: by mail-pf1-x430.google.com with SMTP id s8so16099754pfk.12
+ for <alsa-devel@alsa-project.org>; Mon, 11 Apr 2022 18:36:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=rFRvD+s5/CV5Fwvh/2Kxb6y/LQ1QtPgz7+1+S1OLjeI=;
+ b=pqKOYr+LXaLecw0bb3DNqMe5E+IhIVzHNhjtZO1lym0KqdJPOKFntKwBTpuaiBTzQO
+ fDVd8MCm8Y2D/De+jtEFuZjBJRjPTtB1+A0OhThytabGmrgoE3+7ZbQ3gjzAvkL5OiqT
+ kj1+r1xM6lAgXNDoAcyF6S2c8LRJIiw0yHtBRi1rqfv3bxdWIk6NnxGvEvex7fyX90BM
+ mzm1BsKvbOw22Mi4ytOyvzyjDUvvf3T+Rb1CphVJZ74sKzVBt3grHwndcAx5vFCgyqdJ
+ 6iq6UxkE+t27QKQfY4VKpMu0MHtdO/tzlmmv7iEdDhULluaGopxoj1hAUQy+udOxzaDH
+ tZkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=rFRvD+s5/CV5Fwvh/2Kxb6y/LQ1QtPgz7+1+S1OLjeI=;
+ b=Plq/yDO4awbQET06RW/ICfzKVgIvEevvyFYnQaSy00y5TOd5yZZROJlyW9qHK4pn+v
+ 8EFo7ufQJAYg9Vji6dBbknn3mvXk7URKDez7yTi5wVUqqmLg0hXMMnMSGWLIyg3RgjtS
+ M9AucmfymbskvcytkJX6a7BE3QSP5X0xUJRm+Kudre7yV9UWVAWAkJhLgxlegpZPbMgt
+ rzSO99MzYCHSGGW1qPpaP4XgjmO+zYaM5vfxE6kTWneefkGMlrH3/fpYEnSVuCtv6o2Y
+ 5MhwwKOniI26LnUSCkiUrHCeXfjo+fqiDPheI2JSfkThzJF5KawUwmVz6K4rnfy/zFwT
+ 4vow==
+X-Gm-Message-State: AOAM532ZlN9uJmw1eOCF33FMrtJvH7yz9OmWbv7s3taPZqet+HQ+eRLH
+ f5w4xwhq2conlGjfdYxPxNAQ4XrbwfwM5wregQ==
+X-Google-Smtp-Source: ABdhPJxOjebZBWztw/YCoC8rhytZT8acARz0zbn9BB5A9VE2qQTyOtE549aCPF8GIsh+UoJKJAW5VnRHIh6cfQSgFGs=
+X-Received: by 2002:a63:610:0:b0:39d:300c:ad9b with SMTP id
+ 16-20020a630610000000b0039d300cad9bmr9563708pgg.113.1649727398350; Mon, 11
+ Apr 2022 18:36:38 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, broonie@kernel.org,
- =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+References: <CAMhUBjm2AdyEZ_-EgexdNDN7SvY4f89=4=FwAL+c0Mg0O+X50A@mail.gmail.com>
+ <s5hk0bwcbjh.wl-tiwai@suse.de>
+ <CAMhUBjmr_mHcz2G0tQ2qktGFw6XDLJiDTAHvM1yoRWzvtA6MYg@mail.gmail.com>
+ <s5ha6csc7lq.wl-tiwai@suse.de> <s5h7d7wc75u.wl-tiwai@suse.de>
+ <s5h35ijdiab.wl-tiwai@suse.de>
+ <CAMhUBj=yiAtbYmGDuaBrSxNMrxz6S8DJotwTLihcs64JSOQuVg@mail.gmail.com>
+ <s5hsfqjbqk7.wl-tiwai@suse.de>
+In-Reply-To: <s5hsfqjbqk7.wl-tiwai@suse.de>
+From: Zheyu Ma <zheyuma97@gmail.com>
+Date: Tue, 12 Apr 2022 09:36:27 +0800
+Message-ID: <CAMhUBjno-2qCe5FDF0ftuy5aoq=735N4_SeQyQRpDEsurAsU+w@mail.gmail.com>
+Subject: Re: [BUG] ALSA: echoaudio: warning when the driver fails to probe
+To: Takashi Iwai <tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,186 +102,73 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch adds an IP identifier for each Intel platform. The
-identifier will be used to select different code branches or
-constants.
+On Mon, Apr 11, 2022 at 11:14 PM Takashi Iwai <tiwai@suse.de> wrote:
+>
+> On Mon, 11 Apr 2022 12:34:56 +0200,
+> Zheyu Ma wrote:
+> >
+> > On Mon, Apr 11, 2022 at 6:30 PM Takashi Iwai <tiwai@suse.de> wrote:
+> > >
+> > > On Mon, 11 Apr 2022 11:15:41 +0200,
+> > > Takashi Iwai wrote:
+> > > >
+> > > > On Mon, 11 Apr 2022 11:06:09 +0200,
+> > > > Takashi Iwai wrote:
+> > > > >
+> > > > > On Mon, 11 Apr 2022 10:49:53 +0200,
+> > > > > Zheyu Ma wrote:
+> > > > > >
+> > > > > > On Mon, Apr 11, 2022 at 3:41 PM Takashi Iwai <tiwai@suse.de> wrote:
+> > > > > > >
+> > > > > > > On Sun, 10 Apr 2022 11:13:55 +0200,
+> > > > > > > Zheyu Ma wrote:
+> > > > > > > >
+> > > > > > > > Hello,
+> > > > > > > >
+> > > > > > > > I found a bug in echoaudio.c.
+> > > > > > > > When the driver fails at the function snd_echo_create(), it should
+> > > > > > > > release resources requested before, otherwise we will get the
+> > > > > > > > following warning:
+> > > > > > > >
+> > > > > > > > [    3.262866] remove_proc_entry: removing non-empty directory
+> > > > > > > > 'irq/21', leaking at least 'snd_indigodj'
+> > > > > > > > [    3.263577] WARNING: CPU: 3 PID: 261 at fs/proc/generic.c:717
+> > > > > > > > remove_proc_entry+0x389/0x3f0
+> > > > > > > > [    3.267098] RIP: 0010:remove_proc_entry+0x389/0x3f0
+> > > > > > > > [    3.269976] Call Trace:
+> > > > > > > > [    3.269979]  <TASK>
+> > > > > > > > [    3.269988]  unregister_irq_proc+0x14c/0x170
+> > > > > > > > [    3.269997]  irq_free_descs+0x94/0xe0
+> > > > > > > > [    3.270004]  mp_unmap_irq+0xb6/0x100
+> > > > > > > > [    3.270011]  acpi_unregister_gsi_ioapic+0x27/0x40
+> > > > > > > > [    3.270017]  acpi_pci_irq_disable+0x1d3/0x320
+> > > > > > > > [    3.270025]  pci_disable_device+0x1ad/0x380
+> > > > > > > > [    3.270034]  pcim_release+0x566/0x6d0
+> > > > > > > > [    3.270046]  devres_release_all+0x1f1/0x2c0
+> > > > > > > > [    3.270057]  really_probe+0xe0/0x920
+> > > > > > >
+> > > > > > > Could you try the patch below?
+> > > > > >
+> > > > > > The following patch works for me, the previous warning disappears, thank you.
+> > > > > > But I got another error, I have no idea about it.
+> > > > >
+> > > > > OK, that's bad, it's basically the destructor order problem.
+> > > > > Could you try the patch below instead of the previous one?
+> > > >
+> > > > Sorry, the below one instead.
+> > >
+> > > Err, scratch this one, too.  It's a deeper problem than I thought.
+> > > Will post a revised patch later.
+> >
+> > Yeah, you are right, these two patches do not work, I got the same
+> > error message.
+> > Thanks for your effort.
+>
+> Here we go, a revised patch.  Basically it enforces the call of
+> snd_card_free() at the error path during probe.
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
----
- sound/soc/sof/intel/apl.c     |  1 +
- sound/soc/sof/intel/bdw.c     |  1 +
- sound/soc/sof/intel/byt.c     |  2 ++
- sound/soc/sof/intel/cnl.c     |  2 ++
- sound/soc/sof/intel/icl.c     |  1 +
- sound/soc/sof/intel/pci-tng.c |  1 +
- sound/soc/sof/intel/shim.h    | 12 ++++++++++++
- sound/soc/sof/intel/skl.c     |  1 +
- sound/soc/sof/intel/tgl.c     |  4 ++++
- 9 files changed, 25 insertions(+)
+Thanks for your patch, it works for me :)
 
-diff --git a/sound/soc/sof/intel/apl.c b/sound/soc/sof/intel/apl.c
-index 4762846d8a33..cb499f3905ce 100644
---- a/sound/soc/sof/intel/apl.c
-+++ b/sound/soc/sof/intel/apl.c
-@@ -77,5 +77,6 @@ const struct sof_intel_dsp_desc apl_chip_info = {
- 	.ssp_base_offset = APL_SSP_BASE_OFFSET,
- 	.quirks = SOF_INTEL_PROCEN_FMT_QUIRK,
- 	.check_ipc_irq	= hda_dsp_check_ipc_irq,
-+	.hw_ip_version = SOF_INTEL_CAVS_1_5_PLUS,
- };
- EXPORT_SYMBOL_NS(apl_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
-diff --git a/sound/soc/sof/intel/bdw.c b/sound/soc/sof/intel/bdw.c
-index 3449eeccd9e8..73a20172bf77 100644
---- a/sound/soc/sof/intel/bdw.c
-+++ b/sound/soc/sof/intel/bdw.c
-@@ -637,6 +637,7 @@ static struct snd_sof_dsp_ops sof_bdw_ops = {
- static const struct sof_intel_dsp_desc bdw_chip_info = {
- 	.cores_num = 1,
- 	.host_managed_cores_mask = 1,
-+	.hw_ip_version = SOF_INTEL_BROADWELL,
- };
- 
- static const struct sof_dev_desc sof_acpi_broadwell_desc = {
-diff --git a/sound/soc/sof/intel/byt.c b/sound/soc/sof/intel/byt.c
-index 3db125d82a1e..08376e8fdc61 100644
---- a/sound/soc/sof/intel/byt.c
-+++ b/sound/soc/sof/intel/byt.c
-@@ -295,6 +295,7 @@ static struct snd_sof_dsp_ops sof_byt_ops = {
- static const struct sof_intel_dsp_desc byt_chip_info = {
- 	.cores_num = 1,
- 	.host_managed_cores_mask = 1,
-+	.hw_ip_version = SOF_INTEL_BAYTRAIL,
- };
- 
- /* cherrytrail and braswell ops */
-@@ -378,6 +379,7 @@ static struct snd_sof_dsp_ops sof_cht_ops = {
- static const struct sof_intel_dsp_desc cht_chip_info = {
- 	.cores_num = 1,
- 	.host_managed_cores_mask = 1,
-+	.hw_ip_version = SOF_INTEL_BAYTRAIL,
- };
- 
- /* BYTCR uses different IRQ index */
-diff --git a/sound/soc/sof/intel/cnl.c b/sound/soc/sof/intel/cnl.c
-index 86b683486f06..f5bac91c335b 100644
---- a/sound/soc/sof/intel/cnl.c
-+++ b/sound/soc/sof/intel/cnl.c
-@@ -297,6 +297,7 @@ const struct sof_intel_dsp_desc cnl_chip_info = {
- 	.sdw_alh_base = SDW_ALH_BASE,
- 	.check_sdw_irq	= hda_common_check_sdw_irq,
- 	.check_ipc_irq	= hda_dsp_check_ipc_irq,
-+	.hw_ip_version = SOF_INTEL_CAVS_1_8,
- };
- EXPORT_SYMBOL_NS(cnl_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
-@@ -325,5 +326,6 @@ const struct sof_intel_dsp_desc jsl_chip_info = {
- 	.sdw_alh_base = SDW_ALH_BASE,
- 	.check_sdw_irq	= hda_common_check_sdw_irq,
- 	.check_ipc_irq	= hda_dsp_check_ipc_irq,
-+	.hw_ip_version = SOF_INTEL_CAVS_2_0,
- };
- EXPORT_SYMBOL_NS(jsl_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
-diff --git a/sound/soc/sof/intel/icl.c b/sound/soc/sof/intel/icl.c
-index 2e4d371f7860..8dd562696934 100644
---- a/sound/soc/sof/intel/icl.c
-+++ b/sound/soc/sof/intel/icl.c
-@@ -142,5 +142,6 @@ const struct sof_intel_dsp_desc icl_chip_info = {
- 	.sdw_alh_base = SDW_ALH_BASE,
- 	.check_sdw_irq	= hda_common_check_sdw_irq,
- 	.check_ipc_irq	= hda_dsp_check_ipc_irq,
-+	.hw_ip_version = SOF_INTEL_CAVS_2_0,
- };
- EXPORT_SYMBOL_NS(icl_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
-diff --git a/sound/soc/sof/intel/pci-tng.c b/sound/soc/sof/intel/pci-tng.c
-index 8ef027a1fde8..6b4e4b7583eb 100644
---- a/sound/soc/sof/intel/pci-tng.c
-+++ b/sound/soc/sof/intel/pci-tng.c
-@@ -206,6 +206,7 @@ struct snd_sof_dsp_ops sof_tng_ops = {
- const struct sof_intel_dsp_desc tng_chip_info = {
- 	.cores_num = 1,
- 	.host_managed_cores_mask = 1,
-+	.hw_ip_version = SOF_INTEL_TANGIER,
- };
- 
- static const struct sof_dev_desc tng_desc = {
-diff --git a/sound/soc/sof/intel/shim.h b/sound/soc/sof/intel/shim.h
-index 3eb09941ae6e..1fd7b485d821 100644
---- a/sound/soc/sof/intel/shim.h
-+++ b/sound/soc/sof/intel/shim.h
-@@ -11,6 +11,17 @@
- #ifndef __SOF_INTEL_SHIM_H
- #define __SOF_INTEL_SHIM_H
- 
-+enum sof_intel_hw_ip_version {
-+	SOF_INTEL_TANGIER,
-+	SOF_INTEL_BAYTRAIL,
-+	SOF_INTEL_BROADWELL,
-+	SOF_INTEL_CAVS_1_5,	/* SkyLake, KabyLake, AmberLake */
-+	SOF_INTEL_CAVS_1_5_PLUS,/* ApolloLake, GeminiLake */
-+	SOF_INTEL_CAVS_1_8,	/* CannonLake, CometLake, CoffeeLake */
-+	SOF_INTEL_CAVS_2_0,	/* IceLake, JasperLake */
-+	SOF_INTEL_CAVS_2_5,	/* TigerLake, AlderLake */
-+};
-+
- /*
-  * SHIM registers for BYT, BSW, CHT, BDW
-  */
-@@ -171,6 +182,7 @@ struct sof_intel_dsp_desc {
- 	u32 sdw_shim_base;
- 	u32 sdw_alh_base;
- 	u32 quirks;
-+	enum sof_intel_hw_ip_version hw_ip_version;
- 	bool (*check_sdw_irq)(struct snd_sof_dev *sdev);
- 	bool (*check_ipc_irq)(struct snd_sof_dev *sdev);
- };
-diff --git a/sound/soc/sof/intel/skl.c b/sound/soc/sof/intel/skl.c
-index e13c8a4b4634..446a7afddfdb 100644
---- a/sound/soc/sof/intel/skl.c
-+++ b/sound/soc/sof/intel/skl.c
-@@ -65,5 +65,6 @@ const struct sof_intel_dsp_desc skl_chip_info = {
- 	.rom_status_reg = HDA_DSP_SRAM_REG_ROM_STATUS_SKL,
- 	.rom_init_timeout	= 300,
- 	.check_ipc_irq	= hda_dsp_check_ipc_irq,
-+	.hw_ip_version = SOF_INTEL_CAVS_1_5,
- };
- EXPORT_SYMBOL_NS(skl_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
-diff --git a/sound/soc/sof/intel/tgl.c b/sound/soc/sof/intel/tgl.c
-index 32d7e15126c2..816571305f24 100644
---- a/sound/soc/sof/intel/tgl.c
-+++ b/sound/soc/sof/intel/tgl.c
-@@ -113,6 +113,7 @@ const struct sof_intel_dsp_desc tgl_chip_info = {
- 	.sdw_alh_base = SDW_ALH_BASE,
- 	.check_sdw_irq	= hda_common_check_sdw_irq,
- 	.check_ipc_irq	= hda_dsp_check_ipc_irq,
-+	.hw_ip_version = SOF_INTEL_CAVS_2_5,
- };
- EXPORT_SYMBOL_NS(tgl_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
-@@ -134,6 +135,7 @@ const struct sof_intel_dsp_desc tglh_chip_info = {
- 	.sdw_alh_base = SDW_ALH_BASE,
- 	.check_sdw_irq	= hda_common_check_sdw_irq,
- 	.check_ipc_irq	= hda_dsp_check_ipc_irq,
-+	.hw_ip_version = SOF_INTEL_CAVS_2_5,
- };
- EXPORT_SYMBOL_NS(tglh_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
-@@ -155,6 +157,7 @@ const struct sof_intel_dsp_desc ehl_chip_info = {
- 	.sdw_alh_base = SDW_ALH_BASE,
- 	.check_sdw_irq	= hda_common_check_sdw_irq,
- 	.check_ipc_irq	= hda_dsp_check_ipc_irq,
-+	.hw_ip_version = SOF_INTEL_CAVS_2_5,
- };
- EXPORT_SYMBOL_NS(ehl_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
-@@ -176,5 +179,6 @@ const struct sof_intel_dsp_desc adls_chip_info = {
- 	.sdw_alh_base = SDW_ALH_BASE,
- 	.check_sdw_irq	= hda_common_check_sdw_irq,
- 	.check_ipc_irq	= hda_dsp_check_ipc_irq,
-+	.hw_ip_version = SOF_INTEL_CAVS_2_5,
- };
- EXPORT_SYMBOL_NS(adls_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
--- 
-2.30.2
+Tested-by: Zheyu Ma <zheyuma97@gmail.com>
 
+Zheyu Ma

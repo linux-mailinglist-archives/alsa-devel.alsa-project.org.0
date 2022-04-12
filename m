@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 931554FE75B
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Apr 2022 19:39:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD62E4FE75F
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Apr 2022 19:39:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 30929187A;
-	Tue, 12 Apr 2022 19:38:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 30929187A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3434D18C3;
+	Tue, 12 Apr 2022 19:39:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3434D18C3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649785188;
-	bh=zZkQCYesF/sm5DoAVfI8r+QbjE7oMDeDYotH3+XpDaU=;
+	s=default; t=1649785198;
+	bh=TZTX+w/+zW7qddMqOIK0hPgH/PbZ/aVnw54OFqAFprU=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OvqbjkuRn6sGnIdyu/je37zwgZkCDf4XM/Oh9rR1jr21jSXFgi/EiGlqyeveVQD4o
-	 +OHGdvlj0X75GZ/CTxU0Jcf47UAZcDu7M7TlEgdUQWwgezfcJCLr9IUOy5sgm02kSJ
-	 sZ8EzYDKlz0Nb+I95u273CKZbvP2iPms3WBz2doA=
+	b=lXJ+0JyMaZjXfW3ehCvhiLY602OlBFEZfkhB1THQM/gvo9lar/nkAZSwjMDv6i7L2
+	 CtFBazXSxM6quhvTbb+cll/luWCI/SvXrNyjToFeEuX5TbohCI3Z+GaryvrOWyRgh+
+	 LdnMqLQWB/dYvzQDL8/YWvhChNGxRRlg1VgoAbFQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B91FDF80095;
-	Tue, 12 Apr 2022 19:38:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 50FE4F804F3;
+	Tue, 12 Apr 2022 19:38:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E0DAAF80154; Tue, 12 Apr 2022 19:38:14 +0200 (CEST)
+ id B55C2F8032B; Tue, 12 Apr 2022 19:38:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,43 +34,44 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 892C5F80109
- for <alsa-devel@alsa-project.org>; Tue, 12 Apr 2022 19:38:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 892C5F80109
+ by alsa1.perex.cz (Postfix) with ESMTPS id 47FFDF80249
+ for <alsa-devel@alsa-project.org>; Tue, 12 Apr 2022 19:38:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47FFDF80249
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="s0NFGWHc"
+ header.b="qk14KPFh"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 1A35CB81F5F;
- Tue, 12 Apr 2022 17:38:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E32F1C385A1;
- Tue, 12 Apr 2022 17:38:08 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id D9EA2B817F0;
+ Tue, 12 Apr 2022 17:38:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5614CC385A5;
+ Tue, 12 Apr 2022 17:38:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1649785090;
- bh=zZkQCYesF/sm5DoAVfI8r+QbjE7oMDeDYotH3+XpDaU=;
+ s=k20201202; t=1649785093;
+ bh=TZTX+w/+zW7qddMqOIK0hPgH/PbZ/aVnw54OFqAFprU=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=s0NFGWHc5QAgTBSymp29uk7oQhEMqGisqfHn4x1/xF9xqYlm5JMsTxRA89yI00uPL
- rHvTifL97r26jNMjXlDwvsFUTNbPcbknnhm16iVxHcEgAfc2KC/i93gS+XOx7TdEnh
- z/0t6h9hCb/uHkNDg4LQnfipwYVRxQUApuf3A6SRs03Qpxba5eKIAOWFeez3PyWUVg
- iQThjtzcxRxMbIH8mY9QnYLF0tUCm3RHdgf96vkJeSnrcKvnOIRWRf4T7fJXHFp2RH
- euZQUtMZWgA+85Fd/DpOI0l3476J+qCfb3gv4F1ql4QtBktXYvVuBgF67rvxBOoUPC
- nFC9C4o9CRRtg==
+ b=qk14KPFhxSpUtSDDpUrQPtmZKHEA8QRq9okCEXCsHg7m5qRx9Tl19b6P4UV0kjHN+
+ za0ptCA2WKxtEBh/kq/2dh3a2OTm4Ik70VdQNLgGzXMesS0HljfDMg5G0aFMmdiPoG
+ DZzLJ2y0JhfoEQPVjC1mwsWJK1nqO1in92GR7ByI9Dwq1UBP8AA2W5y6y9M/DPsd2t
+ qX4ifT9/av9A/kwhrASs4L97lM2Gx6IO7EurkfutQOVtK36zievHtBaK0HTpxPzdoR
+ ybQJmXHCw42SSGwgg9mZmvCYtLDvA0x8XViMREzYB/ALeUybnEP4IFiDEbwvIXW2gc
+ f3bSF/fKG82uQ==
 From: Mark Brown <broonie@kernel.org>
-To: thierry.reding@gmail.com, lgirdwood@gmail.com, jonathanh@nvidia.com,
- perex@perex.cz, tiwai@suse.com, spujar@nvidia.com, yuehaibing@huawei.com
-In-Reply-To: <20220411020908.580-1-yuehaibing@huawei.com>
-References: <20220411020908.580-1-yuehaibing@huawei.com>
-Subject: Re: [PATCH -next] ASoC: tegra186_asrc: mark runtime-pm functions as
- __maybe_unused
-Message-Id: <164978508863.404572.4357231774639790524.b4-ty@kernel.org>
-Date: Tue, 12 Apr 2022 18:38:08 +0100
+To: Vijendar.Mukunda@amd.com, alsa-devel@alsa-project.org
+In-Reply-To: <20220411134119.1767646-1-Vijendar.Mukunda@amd.com>
+References: <20220411134119.1767646-1-Vijendar.Mukunda@amd.com>
+Subject: Re: [PATCH] ASoC: amd: yc: add new YC platform varaint support
+Message-Id: <164978509107.404572.15074301323548091062.b4-ty@kernel.org>
+Date: Tue, 12 Apr 2022 18:38:11 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+Cc: Sunil-kumar.Dommati@amd.com, Richard.Gong@amd.com,
+ Basavaraj.Hiregoudar@amd.com, lgirdwood@gmail.com,
+ Takashi Iwai <tiwai@suse.com>, Mario.Limonciello@amd.com,
+ Alexander.Deucher@amd.com, dan.carpenter@oracle.com,
+ open list <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,15 +87,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 11 Apr 2022 10:09:08 +0800, YueHaibing wrote:
-> sound/soc/tegra/tegra186_asrc.c:90:12: error: ‘tegra186_asrc_runtime_resume’ defined but not used [-Werror=unused-function]
->  static int tegra186_asrc_runtime_resume(struct device *dev)
->             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> sound/soc/tegra/tegra186_asrc.c:80:12: error: ‘tegra186_asrc_runtime_suspend’ defined but not used [-Werror=unused-function]
->  static int tegra186_asrc_runtime_suspend(struct device *dev)
->             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+On Mon, 11 Apr 2022 19:11:15 +0530, Vijendar Mukunda wrote:
+> Update PCI revision id check for the new YC platform varaint.
 > 
-> [...]
+> 
 
 Applied to
 
@@ -102,8 +98,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: tegra186_asrc: mark runtime-pm functions as __maybe_unused
-      commit: dc7680ca7ac6c32b8c18aff36bca728a2f83e2a0
+[1/1] ASoC: amd: yc: add new YC platform varaint support
+      commit: b1630fcbfde6c071d964b1c475871db0ebc96048
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,83 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 693154FDF67
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Apr 2022 14:25:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A36474FE091
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Apr 2022 14:40:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0021B18B8;
-	Tue, 12 Apr 2022 14:24:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0021B18B8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 095481745;
+	Tue, 12 Apr 2022 14:39:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 095481745
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649766304;
-	bh=lXxEtT9MbnVIe1eajfGqyasG5kUd2IvmHjhm1sSbGoQ=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1649767221;
+	bh=r2ozEyixlXEDZat/EBQhfhK+ZomNGZGTkYgMhu0q//o=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=igHqsJeMOlJZUtfo1V8eHZZeYQzpWk6upLaHl1JgezsrPp/PTTxOAqBcN30bYa3bL
-	 SQ9zvuj3sixnWAoK1x+Lx69giGbUUtWWM7stl8y4RXGSaTzuyRQVQMWKShQzr83jm+
-	 P9Xm0g9B3xRxzsxm+eNMnLmBChB8gxY50mXFtIaQ=
+	b=CZN2X6sOF9W6Jia+9e1dvUWoGQhiEW97Nq8La/evILuN8kVMiOE+5QHY0aEYdTXVh
+	 R2oWq/TVFjPA2ztjGlGRlJq8acn/SYj4kNWP0GQdwJUBGmh/rS+Lk/s0TMaFxcon4v
+	 CxAGxVw//Sb9Qfhud6ntskd6uGSL3fXDEtaScSzw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A629F80245;
-	Tue, 12 Apr 2022 14:24:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 69317F80245;
+	Tue, 12 Apr 2022 14:39:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CA230F80134; Tue, 12 Apr 2022 14:24:02 +0200 (CEST)
+ id 442BBF80154; Tue, 12 Apr 2022 14:39:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 13804F8011C
- for <alsa-devel@alsa-project.org>; Tue, 12 Apr 2022 14:23:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13804F8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4F757F80109
+ for <alsa-devel@alsa-project.org>; Tue, 12 Apr 2022 14:39:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F757F80109
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="h4/RS/2i"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="FavSTvcO"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 8092321607;
- Tue, 12 Apr 2022 12:23:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1649766235; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=pBXHI+1R1F5JwOGKGN5rrz5OFKaglVHeeuRdmzPM3kA=;
- b=h4/RS/2iOQWmoyT3SDHmzOqh/4qWz6VFRGBmdNu7ruUc72CQCWzxwv59tAk4069TArF0Fg
- rvyGRlgv806x61+G8hI9QFp60bnd9+TJt1vwzkXdvfeqHh/JDJy97dgqXGtoZ//PGVrX2o
- t+Ya6bLMd6a99ktbrt88kZHUXIzITNE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1649766235;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=pBXHI+1R1F5JwOGKGN5rrz5OFKaglVHeeuRdmzPM3kA=;
- b=FavSTvcOo4343O1e+Kby1QMFsZg7prKD/aKB3/zDPRf7hI680ZpGTbj5HhJQ0Dh00kCp4h
- 2mE37/Ofv5y1PMAQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 6AE68A3B88;
- Tue, 12 Apr 2022 12:23:55 +0000 (UTC)
-Date: Tue, 12 Apr 2022 14:23:55 +0200
-Message-ID: <s5hilrea3s4.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [PATCH 1/2] ALSA: core: Add snd_card_free_on_error() helper
-In-Reply-To: <YlVY08C4/maO5s93@workstation>
-References: <20220412093141.8008-1-tiwai@suse.de>
- <20220412093141.8008-2-tiwai@suse.de>
- <YlVY08C4/maO5s93@workstation>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Zheyu Ma <zheyuma97@gmail.com>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="tICf7t/u"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 632FAB81B40;
+ Tue, 12 Apr 2022 12:39:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A2E3C385A5;
+ Tue, 12 Apr 2022 12:39:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1649767152;
+ bh=r2ozEyixlXEDZat/EBQhfhK+ZomNGZGTkYgMhu0q//o=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=tICf7t/usfMJ3yYnlwiUXvo2DF7Ir2NQvHctzBOGx9VT1QWTJTGwyd0vh20t+G1R3
+ PQUzUs8wtg/wGOk40U9mv5kBJTmOzy+MkaoZaEikB7WIO1//gpBd2COJ6mUC1oMzHc
+ 8WJ1jI+wZyA89GRepoT6oLrif0LehgCcGgIi0LCXehaLse62X4lQayHTo+TYHtwI31
+ kQaAumEWDrmUoiIkfYoP9yno2R+lFVCoYwD03P+GpyR0xcaw4g3Fseh+SSA7tgldFt
+ TrcNtJXSNPvCTilN2+i27EToYjuOlH8GLVbyHSZVxard92WHC/mszVRl7dHSES+HkD
+ kW8765DMjFVRQ==
+Date: Tue, 12 Apr 2022 13:39:06 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+Subject: Re: [PATCH] ASoC: wm8524: remove rate constraint for FE-BE case
+Message-ID: <YlVy6tAPMw+MHq/f@sirena.org.uk>
+References: <1649754826-2651-1-git-send-email-shengjiu.wang@nxp.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="LwWF2GkpX7AfLGu/"
+Content-Disposition: inline
+In-Reply-To: <1649754826-2651-1-git-send-email-shengjiu.wang@nxp.com>
+X-Cookie: Approved for veterans.
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com, tiwai@suse.com,
+ lgirdwood@gmail.com, shengjiu.wang@gmail.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,120 +86,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 12 Apr 2022 12:47:47 +0200,
-Takashi Sakamoto wrote:
-> 
-> Hi,
-> 
-> On Tue, Apr 12, 2022 at 11:31:40AM +0200, Takashi Iwai wrote:
-> > This is a small helper function to handle the error path more easily
-> > when an error happens during the probe for the device with the
-> > device-managed card.  Since devres releases in the reverser order of
-> > the creations, usually snd_card_free() gets called at the last in the
-> > probe error path unless it already reached snd_card_register() calls.
-> > Due to this nature, when a driver expects the resource releases in
-> > card->private_free, this might be called too lately.
-> > 
-> > As a workaround, one should call the probe like:
-> > 
-> >  static int __some_probe(...) { // do real probe.... }
-> > 
-> >  static int some_probe(...)
-> >  {
-> > 	return snd_card_free_on_error(dev, __some_probe(dev, ...));
-> >  }
-> > 
-> > so that the snd_card_free() is called explicitly at the beginning of
-> > the error path from the probe.
-> > 
-> > This function will be used in the upcoming fixes to address the
-> > regressions by devres usages.
-> > 
-> > Fixes: e8ad415b7a55 ("ALSA: core: Add managed card creation")
-> > Cc: <stable@vger.kernel.org>
-> > Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> > ---
-> >  include/sound/core.h |  1 +
-> >  sound/core/init.c    | 28 ++++++++++++++++++++++++++++
-> >  2 files changed, 29 insertions(+)
-> > 
-> > diff --git a/include/sound/core.h b/include/sound/core.h
-> > index b7e9b58d3c78..6d4cc49584c6 100644
-> > --- a/include/sound/core.h
-> > +++ b/include/sound/core.h
-> > @@ -284,6 +284,7 @@ int snd_card_disconnect(struct snd_card *card);
-> >  void snd_card_disconnect_sync(struct snd_card *card);
-> >  int snd_card_free(struct snd_card *card);
-> >  int snd_card_free_when_closed(struct snd_card *card);
-> > +int snd_card_free_on_error(struct device *dev, int ret);
-> >  void snd_card_set_id(struct snd_card *card, const char *id);
-> >  int snd_card_register(struct snd_card *card);
-> >  int snd_card_info_init(void);
-> > diff --git a/sound/core/init.c b/sound/core/init.c
-> > index 31ba7024e3ad..726a8353201f 100644
-> > --- a/sound/core/init.c
-> > +++ b/sound/core/init.c
-> > @@ -209,6 +209,12 @@ static void __snd_card_release(struct device *dev, void *data)
-> >   * snd_card_register(), the very first devres action to call snd_card_free()
-> >   * is added automatically.  In that way, the resource disconnection is assured
-> >   * at first, then released in the expected order.
-> > + *
-> > + * If an error happens at the probe before snd_card_register() is called and
-> > + * there have been other devres resources, you'd need to free the card manually
-> > + * via snd_card_free() call in the error; otherwise it may lead to UAF due to
-> > + * devres call orders.  You can use snd_card_free_on_error() helper for
-> > + * handling it more easily.
-> >   */
-> >  int snd_devm_card_new(struct device *parent, int idx, const char *xid,
-> >  		      struct module *module, size_t extra_size,
-> > @@ -235,6 +241,28 @@ int snd_devm_card_new(struct device *parent, int idx, const char *xid,
-> >  }
-> >  EXPORT_SYMBOL_GPL(snd_devm_card_new);
-> >  
-> > +/**
-> > + * snd_card_free_on_error - a small helper for handling devm probe errors
-> > + * @dev: the managed device object
-> > + * @ret: the return code from the probe callback
-> > + *
-> > + * This function handles the explicit snd_card_free() call at the error from
-> > + * the probe callback.  It's just a small helper for simplifying the error
-> > + * handling with the managed devices.
-> > + */
-> > +int snd_card_free_on_error(struct device *dev, int ret)
-> > +{
-> > +	struct snd_card *card;
-> > +
-> > +	if (!ret)
-> > +		return 0;
-> > +	card = devres_find(dev, __snd_card_release, NULL, NULL);
-> > +	if (card)
-> > +		snd_card_free(card);
-> > +	return ret;
-> > +}
-> > +EXPORT_SYMBOL_GPL(snd_card_free_on_error);
-> > +
-> >  static int snd_card_init(struct snd_card *card, struct device *parent,
-> >  			 int idx, const char *xid, struct module *module,
-> >  			 size_t extra_size)
-> > -- 
-> > 2.31.1
-> 
-> The idea looks good itself to me. On the other hand, the name
-> 'snd_card_free_on_error()' is not so suitable since it assumes that
-> 'snd_devm_card_new()' is called in advance, while we have another function,
-> 'snd_card_new()'.
-> 
-> I think it better to use 'snd_devm_card_free_on_error()' instead since
-> the function doesn't work as expected in the case of 'snd_card_new()'
-> (the snd_card_free() is not called because nothing found in devres).
 
-Yeah, that came to my mind in the first implementations, too, but it
-looked too long to me, so I took this term in the submitted version :)
+--LwWF2GkpX7AfLGu/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-In theory, we can extend it to retrieve the card from the device data,
-too, but I don't think worth for it.
+On Tue, Apr 12, 2022 at 05:13:46PM +0800, Shengjiu Wang wrote:
+> The constraint is propagate to Front End Bitstream
+> for Front End and Back End share same snd_soc_pcm_runtime.
 
+> The constraint is not needed for Back End Bitstream
+> when there is be_hw_params_fixup() defined.
 
-thanks,
+> -	snd_pcm_hw_constraint_list(substream->runtime, 0,
+> -				   SNDRV_PCM_HW_PARAM_RATE,
+> -				   &wm8524->rate_constraint);
+> +	if (!rtd->dai_link->be_hw_params_fixup)
+> +		snd_pcm_hw_constraint_list(substream->runtime, 0,
+> +					   SNDRV_PCM_HW_PARAM_RATE,
+> +					   &wm8524->rate_constraint);
 
-Takashi
+This applies in general to constraints set by the CODEC, it's not
+something that should be fixed at the driver level.  Peering into the
+runtime to see if DPCM is doing anything isn't a great solution here,
+nor is having to open code it into the driver.  I already had it in the
+back of my head to generalise the set constraints based on sysclk
+pattern into the core, that might be productive here.
+
+--LwWF2GkpX7AfLGu/
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJVcukACgkQJNaLcl1U
+h9DK0gf8CiRXWJm7/sW3H5tgx0lkpjF5i+wEkbvG0c1jAoEOwr5nKr3568cS0R4L
+4E8czDxBzq2KOgznS7d8uoIylxzFppv/nJaWh6E+qCuOwhIOPmvQnPa7Vce5M4JW
+hZa82ypUj3Nn3ZfCYh4L0Re3I4pS2OT6meuXBroHso0+hUmjVtWLpU64+yHlH2YI
+C49SoR3GdWwcWHcccdmkAlojQuhqn2Y/OCNww0ptvxiw/rRoRnYyxKmKUd6O9bRw
+pIaIxQAn9263ywhW4uhTfLnB1uXQd0XiXGKllIIb45ifASOIm6nUDBdnvembqVxc
+V7QB5yNHTY07UQ8vpynHiAGfqS+pYQ==
+=Sl43
+-----END PGP SIGNATURE-----
+
+--LwWF2GkpX7AfLGu/--

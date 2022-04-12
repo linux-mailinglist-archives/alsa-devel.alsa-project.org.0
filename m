@@ -2,75 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C89024FE762
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Apr 2022 19:40:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 820AA4FE761
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Apr 2022 19:40:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CFF3718F1;
-	Tue, 12 Apr 2022 19:39:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CFF3718F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2D080189A;
+	Tue, 12 Apr 2022 19:39:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D080189A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649785248;
-	bh=KwPW9yKy3O6s/y56BuSot0lytzFBzBqLRaUF9YdWAXs=;
+	s=default; t=1649785237;
+	bh=HD2LcDKvmyG1fX0S/usHPsdJIssyypdemdstvg2vvdw=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=idmDXM1k0Hx1NSvNSTUG8aJn5iFGzzCz2f4PpbfK4w7yqOflNWT3q7EzGtQjtgRry
-	 TYdNaviNbtgoI60zJsxRBZGNSULFDSwkY3ju8G/AHZxJWTQquRmjlw1Lr208HBxtOU
-	 oNkqnk2j/4SnEaQKcYhX8l4L9caVSSz25ra1Kj1c=
+	b=L2vK3YBXzgAR7UqpXmV2rcZNwnMQEEp5rLA0klfO5U3R8CCSQuCJIPM9fc3/Um7SS
+	 xGxLlU82KfY4TP3svB3ja3c673IHjSG/YpESDYIjuTUehmQyYMkrldmNj9AlZiLR6t
+	 CI85yFf0n715b2Gg9wtpAWGI6Qf3xl29B0gKNn7I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 559C3F80535;
-	Tue, 12 Apr 2022 19:38:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A33B0F8052E;
+	Tue, 12 Apr 2022 19:38:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AB344F80529; Tue, 12 Apr 2022 19:38:25 +0200 (CEST)
+ id 2A35CF80527; Tue, 12 Apr 2022 19:38:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 62C45F80511
- for <alsa-devel@alsa-project.org>; Tue, 12 Apr 2022 19:38:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62C45F80511
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6F1BDF8051A
+ for <alsa-devel@alsa-project.org>; Tue, 12 Apr 2022 19:38:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F1BDF8051A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="YHN6zySv"
+ header.b="gqoXRvUi"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D6A53619B2;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 523FFB81F61;
+ Tue, 12 Apr 2022 17:38:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4F98C385A5;
  Tue, 12 Apr 2022 17:38:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15DADC385A1;
- Tue, 12 Apr 2022 17:38:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1649785095;
- bh=KwPW9yKy3O6s/y56BuSot0lytzFBzBqLRaUF9YdWAXs=;
+ s=k20201202; t=1649785098;
+ bh=HD2LcDKvmyG1fX0S/usHPsdJIssyypdemdstvg2vvdw=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=YHN6zySvezGKOHP/bquwZaPKRVqXDwopc/4F9jNjlyTPeO5xSsCa5C7GF16MowhEZ
- DTi1E/B6ACn44IhpUaC9Nsnft95GAo/r9DcnYo7yFxBobPCmOnY7bteGI3YudtK/KP
- 2FfwPEZcvLITAUiUPqZ5ZaUNyIzc7NJVJRGhb+GEWiMPgKE2trAv38n+GB8W8olSqP
- TvmK1cUPP/S4GPvXNMSJykVIfKZfyb5JNHZ9OIgcwwJrIKJ6qsFLflVRLUw6BGAMGZ
- JSFPM1aeKalMWhdu0ksLBNVcVOLo7i9QcxwQfDQnr7F9vqFpUFLCW/L+GaI8DY8Msk
- KTCkkxtUH/CZA==
+ b=gqoXRvUimZcFcceovn2J+Rf0GqMz1odxtZPMaghx4ByR0cKWfTWG5VEM2QrVeBYH1
+ npd9mnieADkXqady/jsxlCiUZNyO3H1Fb8/8MIVfRg58BELqI/sFUv6e80KNj3f/ln
+ YGDdmdqlVQilOFekgWKjXfw/XYyjj0gQENx6LwaD2HeyY8Ty8MEagMBL1g1giCdRhg
+ BLPA7o6y6XTBh743y7nn8IJlBCze24QHMaWADOrpBKh7SZ/VhLNzhKeWz05rwi9+Ed
+ wJkuwyvditcl0ucOyA+bG6E43tHGpppAk+5hOoV4X9ymQjf1kdT8gP3bXSveDJc4Wx
+ ltUG7WEEPRamQ==
 From: Mark Brown <broonie@kernel.org>
-To: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, mario.limonciello@amd.com
-In-Reply-To: <20220411134532.13538-1-mario.limonciello@amd.com>
-References: <20220411134532.13538-1-mario.limonciello@amd.com>
-Subject: Re: [PATCH 0/2] Allow detecting ACP6x DMIC via _DSD
-Message-Id: <164978509381.404572.11948454165750728359.b4-ty@kernel.org>
-Date: Tue, 12 Apr 2022 18:38:13 +0100
+To: mchehab@kernel.org, alsa-devel@alsa-project.org
+In-Reply-To: <cover.1649357263.git.mchehab@kernel.org>
+References: <cover.1649357263.git.mchehab@kernel.org>
+Subject: Re: [PATCH v5 0/4] Make headphone work on Huawei Matebook D15
+Message-Id: <164978509553.404572.15488518886546999478.b4-ty@kernel.org>
+Date: Tue, 12 Apr 2022 18:38:15 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: open list <linux-kernel@vger.kernel.org>, Vijendar.Mukunda@amd.com
+Cc: cezary.rojewski@intel.com, peter.ujfalusi@linux.intel.com,
+ Takashi Iwai <tiwai@suse.com>, yang.jie@linux.intel.com,
+ pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
+ liam.r.girdwood@linux.intel.com, hdegoede@redhat.com,
+ yung-chuan.liao@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,15 +88,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 11 Apr 2022 08:45:30 -0500, Mario Limonciello wrote:
-> It's not possible to probe for the presence of a DMIC, so the ACP6x
-> machine driver currently has a hardcoded list of all the systems known
-> to have a DMIC connected to the ACP.
+On Thu, 7 Apr 2022 20:49:55 +0200, Mauro Carvalho Chehab wrote:
+> Huawei Matebook D15 uses two different GPIOs are used to control the output:
 > 
-> Although this design works it means that the acp6x driver needs to always
-> grow with more systems and worse, if an OEM introduces a new system there
-> will be a mismatch in time that even if the driver (otherwise) works fine
-> it needs their system added to the list to work.
+> 	- gpio0 controls the speaker output;
+> 	- gpio1 controls the headphone output.
+> 
+> Changing both at the same time cause spurious events that are mis-interpreted
+> as input events, causing troubles on apps. So, a delay is needed before turning
+> on such gpios.
 > 
 > [...]
 
@@ -104,10 +106,14 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: amd: Add driver data to acp6x machine driver
-      commit: e521f087780d07731e8c950f2f34d08358c86bc9
-[2/2] ASoC: amd: Add support for enabling DMIC on acp6x via _DSD
-      commit: 5426f506b58424f8ab2cd741bacf4b18b5fe578e
+[1/4] ASoC: Intel: sof_es8336: simplify speaker gpio naming
+      commit: 890a4087a6c2045911b5002566d1528f710cd723
+[2/4] ASoC: Intel: sof_es8336: support a separate gpio to control headphone
+      commit: 6e1ff1459e0086312e61c2d1ff8b74395a082fcb
+[3/4] ASoC: Intel: sof_es8336: add a quirk for headset at mic1 port
+      commit: 7c7bb2a059b226ebadb14ce07460f6357023d56c
+[4/4] ASoC: Intel: sof_es8336: Add a quirk for Huawei Matebook D15
+      commit: c7cb4717f641db68e8117635bfcf62a9c27dc8d3
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

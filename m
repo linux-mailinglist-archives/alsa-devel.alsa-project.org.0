@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DE2C4FD83E
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Apr 2022 12:35:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 698B04FD884
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Apr 2022 12:36:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BFF7E1916;
-	Tue, 12 Apr 2022 12:34:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BFF7E1916
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0B73619FF;
+	Tue, 12 Apr 2022 12:35:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B73619FF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649759741;
-	bh=3/tBqllMumUMNvb0OQSAOSRZ0nicJpO2rrUWHSPxtO4=;
+	s=default; t=1649759791;
+	bh=xdv3UulaSh0VJ6lnjc6r/xgs2OwWsJ/jTY92CpelV98=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=n6QyOL829PDCsh9om86ISFYnJllgD2rabZZDR0YdYJTK3mSjTkmuSfA8mLeRg6r9c
-	 /Y+W5+fLz9O8Lozsb718vjUHhwe3IFIoU0aN0MeEIbv+ng8nBMWXkL+0y7bxDQ5s9h
-	 w6PQPFXP6VBN05EdISeGfFsUB9ipfg5UeYnQomrA=
+	b=SUjO+tASCR1toXIQEn+9DPLe27zLdCXegXv3KBFeOsUTXykMqlibw1NYSS4CRY7zw
+	 VyeUG/ZSIfSniD+vFPs5j5QcquhdUdPvVPFn7+EtLUqNlguvI0nT0zUX6ZrCthik+z
+	 lo7VUKrGyrRzwz/1tA9zuUTP4t6Z4A5E0oaYBKVQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9853FF805F5;
-	Tue, 12 Apr 2022 12:27:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 32335F805FC;
+	Tue, 12 Apr 2022 12:27:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B02C2F805D5; Tue, 12 Apr 2022 12:27:33 +0200 (CEST)
+ id D382BF80539; Tue, 12 Apr 2022 12:27:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,44 +34,44 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5D9CDF80535
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6F3BEF80536
  for <alsa-devel@alsa-project.org>; Tue, 12 Apr 2022 12:26:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D9CDF80535
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F3BEF80536
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Nk3h4inh"; 
+ header.b="ZxE97iFF"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="hTN3Ilyw"
+ header.b="R0zvCYMe"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 8D8421FD0B
+ by smtp-out2.suse.de (Postfix) with ESMTP id 9029A1FD0C
  for <alsa-devel@alsa-project.org>; Tue, 12 Apr 2022 10:26:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1649759204; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=HxQ8QNdZr+AhJ2KjuuBfUnCTq6S8w0MU9hTosNC5+54=;
- b=Nk3h4inhhptucaVsT30wDs+pckJUntkB1oNUjldm16tQ0PeJz1eEy4QHmVTMkO+29PG+HW
- z6Slx7qBGZ5JYjiHN0iSbDj2fc8cBLt2FOt+wqGZ0CocJQX1pnucx5sUZKMc23abGdXKBa
- EZuMOMHwMRnnxd1cLpMCXHcHyDdv3wM=
+ bh=EOUXjo6Ac9NmInUspviFoMlTTSwXxyGlBvnZBLBywYY=;
+ b=ZxE97iFFCNMRCptk2RvjmEpIMcyivJhsJcZ27mbSP3vn28F0/5j5BxWORqz1U+FqZyrLu6
+ IjAQiblw2l8d82AzieWilGnx1BR+jQExkyA+5W91suFXVSavXyfCRps3WFasQZ1itXtw6Z
+ KpDX6feyYfVd0x2jakvxqu8fXJP+Wwg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1649759204;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=HxQ8QNdZr+AhJ2KjuuBfUnCTq6S8w0MU9hTosNC5+54=;
- b=hTN3IlywRrPizyEaZqCBGV3lYA46MTXHJaxNGFVFXluLXxVoWZ52RNpZMudqGQGl8AO3tz
- erRbKvui2lnU85Cg==
+ bh=EOUXjo6Ac9NmInUspviFoMlTTSwXxyGlBvnZBLBywYY=;
+ b=R0zvCYMeAB8jEx37ERM3pIBGy1aGB9/z6gpJnrrfujjPUBrF0J5UW5quoq1J3p6+xe99K9
+ X1ePKzYkpIs4kiDQ==
 Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 8986EA3B87;
+ by relay2.suse.de (Postfix) with ESMTP id 8C8D8A3B82;
  Tue, 12 Apr 2022 10:26:44 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 21/39] ALSA: riptide: Fix the missing snd_card_free() call at
+Subject: [PATCH 22/39] ALSA: rme32: Fix the missing snd_card_free() call at
  probe error
-Date: Tue, 12 Apr 2022 12:26:18 +0200
-Message-Id: <20220412102636.16000-22-tiwai@suse.de>
+Date: Tue, 12 Apr 2022 12:26:19 +0200
+Message-Id: <20220412102636.16000-23-tiwai@suse.de>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20220412102636.16000-1-tiwai@suse.de>
 References: <20220412102636.16000-1-tiwai@suse.de>
@@ -101,39 +101,39 @@ release the stuff via card->private_free().
 This patch fixes it by calling snd_card_free() on the error from the
 probe callback using a new helper function.
 
-Fixes: 546c201a891e ("ALSA: riptide: Allocate resources with device-managed APIs")
+Fixes: 102e6156ded2 ("ALSA: rme32: Allocate resources with device-managed APIs")
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/riptide/riptide.c | 8 +++++++-
+ sound/pci/rme32.c | 8 +++++++-
  1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/sound/pci/riptide/riptide.c b/sound/pci/riptide/riptide.c
-index 5a987c683c41..b37c877c2c16 100644
---- a/sound/pci/riptide/riptide.c
-+++ b/sound/pci/riptide/riptide.c
-@@ -2023,7 +2023,7 @@ static void snd_riptide_joystick_remove(struct pci_dev *pci)
- #endif
+diff --git a/sound/pci/rme32.c b/sound/pci/rme32.c
+index 5b6bd9f0b2f7..9c0ac025e143 100644
+--- a/sound/pci/rme32.c
++++ b/sound/pci/rme32.c
+@@ -1875,7 +1875,7 @@ static void snd_rme32_card_free(struct snd_card *card)
+ }
  
  static int
--snd_card_riptide_probe(struct pci_dev *pci, const struct pci_device_id *pci_id)
-+__snd_card_riptide_probe(struct pci_dev *pci, const struct pci_device_id *pci_id)
+-snd_rme32_probe(struct pci_dev *pci, const struct pci_device_id *pci_id)
++__snd_rme32_probe(struct pci_dev *pci, const struct pci_device_id *pci_id)
  {
  	static int dev;
- 	struct snd_card *card;
-@@ -2124,6 +2124,12 @@ snd_card_riptide_probe(struct pci_dev *pci, const struct pci_device_id *pci_id)
+ 	struct rme32 *rme32;
+@@ -1927,6 +1927,12 @@ snd_rme32_probe(struct pci_dev *pci, const struct pci_device_id *pci_id)
  	return 0;
  }
  
 +static int
-+snd_card_riptide_probe(struct pci_dev *pci, const struct pci_device_id *pci_id)
++snd_rme32_probe(struct pci_dev *pci, const struct pci_device_id *pci_id)
 +{
-+	return snd_card_free_on_error(&pci->dev, __snd_card_riptide_probe(pci, pci_id));
++	return snd_card_free_on_error(&pci->dev, __snd_rme32_probe(pci, pci_id));
 +}
 +
- static struct pci_driver driver = {
- 	.name = KBUILD_MODNAME,
- 	.id_table = snd_riptide_ids,
+ static struct pci_driver rme32_driver = {
+ 	.name =		KBUILD_MODNAME,
+ 	.id_table =	snd_rme32_ids,
 -- 
 2.31.1
 

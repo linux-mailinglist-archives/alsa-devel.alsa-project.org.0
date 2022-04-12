@@ -2,81 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2AC34FE6A6
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Apr 2022 19:16:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A47C4FE755
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Apr 2022 19:39:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8B5B11785;
-	Tue, 12 Apr 2022 19:15:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B5B11785
+	by alsa0.perex.cz (Postfix) with ESMTPS id C214017E7;
+	Tue, 12 Apr 2022 19:38:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C214017E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649783777;
-	bh=2Pz6OEw74Mlmz5jY7tzAq+2wvQR0bnhMVaceduyaDno=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1649785155;
+	bh=fBl2LPwe+lkzNoWmCpfjNU0fJkItIvIhZ4aTseCslDA=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KDSsXbQYdUv+rc59TLRpjkzNj/vzq9hu5izQC7ALgjCyx71rbtAotjkS/aTCC9A8H
-	 8+ucS/nzAhPJ5+m4e9YdvoLeM8CQfl+QJz5kxWL40m+KonEErq9Eq7g7d2oUji5TpC
-	 SoN3xqlOrB0pgko/VB2mzjEof49IMTJuPz9yBuoc=
+	b=kzscxIj3oT2JRFqBLW1zU2PaxBIFiydmLYGWNy/FGGRrPUBYMTi9KBDMmzH4jp/YY
+	 wyILdkAR/5OY/EDaYGvLTTuqh91zW6yQr/SXa4/eobXUuxGCqY1LuWqdecBWvdQr7c
+	 cYef2rnSy2x7R2LiP2PwWBlCUDw0flNWRru/VsB4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E92A3F80245;
-	Tue, 12 Apr 2022 19:15:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0C145F80109;
+	Tue, 12 Apr 2022 19:38:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 95097F80109; Tue, 12 Apr 2022 19:15:15 +0200 (CEST)
+ id 58BE9F80154; Tue, 12 Apr 2022 19:38:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_14,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id B1080F80095
+ for <alsa-devel@alsa-project.org>; Tue, 12 Apr 2022 19:38:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1080F80095
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="iNfsGuun"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 07321F80109
- for <alsa-devel@alsa-project.org>; Tue, 12 Apr 2022 19:15:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07321F80109
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="SfdsEp/7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649783710; x=1681319710;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=2Pz6OEw74Mlmz5jY7tzAq+2wvQR0bnhMVaceduyaDno=;
- b=SfdsEp/7+9gZuQvejLm+Ge1ZN9zzciUM8RJSEclLfqz6pp5RY8gyL3qa
- mM/9IdQOy3xseNJxtLmUOa/9zpMZnF62YpcdkCCsUU6OVN/VwsJWI+hnA
- TwlJkL/vS42WQRmHWMdjMN2kYLuagvbFFi7uLAIg89k5zj58sVYCOZbyf
- +qR6W4YXKzw6VUXELacEuc7YmUxDHeK4CY707B9Jri74mIM0ui/latS/o
- KnmvvFOvrAqLlcmhWJrMe3uRN0liuVzvyXIw/p3dBIBSk7Q/+MIFaTfMh
- SFVZID5oLI7VwggHe1j0ovrvcqevlE4ybjzG5WfHze5aOHjUOpPIhfsEd w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10315"; a="322890564"
-X-IronPort-AV: E=Sophos;i="5.90,254,1643702400"; d="scan'208";a="322890564"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Apr 2022 10:15:02 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,254,1643702400"; d="scan'208";a="644830139"
-Received: from lkp-server02.sh.intel.com (HELO d3fc50ef50de) ([10.239.97.151])
- by FMSMGA003.fm.intel.com with ESMTP; 12 Apr 2022 10:15:01 -0700
-Received: from kbuild by d3fc50ef50de with local (Exim 4.95)
- (envelope-from <lkp@intel.com>) id 1neK6W-00031W-Lu;
- Tue, 12 Apr 2022 17:15:00 +0000
-Date: Wed, 13 Apr 2022 01:14:09 +0800
-From: kernel test robot <lkp@intel.com>
-To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
-Subject: Re: [PATCH 26/39] ALSA: intel_hdmi: Fix the missing snd_card_free()
- call at probe error
-Message-ID: <202204130129.SNA1B1hM-lkp@intel.com>
-References: <20220412102636.16000-27-tiwai@suse.de>
+ by ams.source.kernel.org (Postfix) with ESMTPS id B3DAAB817F0;
+ Tue, 12 Apr 2022 17:38:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B54F8C385A5;
+ Tue, 12 Apr 2022 17:38:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1649785088;
+ bh=fBl2LPwe+lkzNoWmCpfjNU0fJkItIvIhZ4aTseCslDA=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=iNfsGuunmEJvjQyK2c6nNDTLD2+K/jCdL5eQBjgOlJZWhXXk34SSgEGpuog3S0KQ1
+ 17Ge60XubFC8tzfEdHcu8Di7nK4YOtbp5tQtacf6vNXmiIwuT2ppRnRxDGut1dBixa
+ MjPyVB35lXzXTtaKbvKiur1Vo+yJHmv9D2ZLQZJBOQU+W1W884RZeXPlwrvNQmhhQg
+ +ZuXjSIc3VrHqT0cJ7lQuaIAPG+C+RYN5N3JxcIXdmZ10DNbRsmCxQwA3tTwfduzfg
+ /hSmymkS99KALSHNrhTAbtF0FVsuBtc0ESfTkeGJkHVybdZGu2txptPTtzMsw8uhr5
+ GCbr1ubQRDGHw==
+From: Mark Brown <broonie@kernel.org>
+To: ranjani.sridharan@linux.intel.com, alsa-devel@alsa-project.org
+In-Reply-To: <20220405172708.122168-1-ranjani.sridharan@linux.intel.com>
+References: <20220405172708.122168-1-ranjani.sridharan@linux.intel.com>
+Subject: Re: [PATCH 00/15] ASoC: SOF: Abstractions for top-level IPC ops
+Message-Id: <164978508747.404572.10382904573744741596.b4-ty@kernel.org>
+Date: Tue, 12 Apr 2022 18:38:07 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220412102636.16000-27-tiwai@suse.de>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: kbuild-all@lists.01.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: tiwai@suse.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,51 +83,84 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Takashi,
+On Tue, 5 Apr 2022 10:26:53 -0700, Ranjani Sridharan wrote:
+> This series is continuation of the IPC abstraction in the SOF driver in
+> preparation for supporting the new IPC supported by the SOF firmware.
+> It introduces abstraction for top-level IPC ops for sending/receiving
+> regular and large IPC's.
+> 
+> Peter Ujfalusi (15):
+>   ASoC: SOF: Add helper function to prepare and send an IPC message
+>   ASoC: SOF: Add high level IPC IO callback definitions to ipc_ops
+>   ASoC: SOF: ipc3: Implement the tx_msg IPC ops
+>   ASoC: SOF: ipc3: Use sof_ipc3_tx_msg() internally for message sending
+>   ASoC: SOF: ipc3: Implement the set_get_data IPC ops
+>   ASoC: SOF: ipc3: Implement the get_reply IPC ops
+>   ASoC: SOF: ipc3: Implement rx_msg IPC ops
+>   ASoC: SOF: ipc: Separate the ops checks by functions/topics
+>   ASoC: SOF: ipc: Add check for mandatory IPC message handling ops
+>   ASoC: SOF: ipc: Use the get_reply ops in snd_sof_ipc_get_reply()
+>   ASoC: SOF: ipc: Switch over to use the tx_msg and set_get_data ops
+>   ASoC: SOF: ipc: Switch over to use the rx_msg ops
+>   ASoC: SOF: Add widget_kcontrol_setup control ops for IPC3
+>   ASoC: SOF: sof-audio: Use the widget_kcontrol_setup ops for kcontrol
+>     set up
+>   ASoC: SOF: ipc: Move the ipc_set_get_comp_data() local to ipc3-control
+> 
+> [...]
 
-I love your patch! Yet something to improve:
+Applied to
 
-[auto build test ERROR on tiwai-sound/for-next]
-[also build test ERROR on v5.18-rc2 next-20220412]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch]
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Takashi-Iwai/ALSA-Fix-error-handling-order-at-probe-error/20220412-183941
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
-config: i386-randconfig-a016-20220411 (https://download.01.org/0day-ci/archive/20220413/202204130129.SNA1B1hM-lkp@intel.com/config)
-compiler: gcc-11 (Debian 11.2.0-19) 11.2.0
-reproduce (this is a W=1 build):
-        # https://github.com/intel-lab-lkp/linux/commit/9e76730fee819f96c44f07e9a100c907457aed8b
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Takashi-Iwai/ALSA-Fix-error-handling-order-at-probe-error/20220412-183941
-        git checkout 9e76730fee819f96c44f07e9a100c907457aed8b
-        # save the config file to linux build tree
-        mkdir build_dir
-        make W=1 O=build_dir ARCH=i386 SHELL=/bin/bash
+Thanks!
 
-If you fix the issue, kindly add following tag as appropriate
-Reported-by: kernel test robot <lkp@intel.com>
+[01/15] ASoC: SOF: Add helper function to prepare and send an IPC message
+        commit: b4dcafe45e46f107b5f65a004d49e11e56fe4f87
+[02/15] ASoC: SOF: Add high level IPC IO callback definitions to ipc_ops
+        commit: 25e77672c4e18fe76dbf2e21ab8c7c36d6a323cc
+[03/15] ASoC: SOF: ipc3: Implement the tx_msg IPC ops
+        commit: 0881918087ac7adfeed2652a03b4edb1131826ba
+[04/15] ASoC: SOF: ipc3: Use sof_ipc3_tx_msg() internally for message sending
+        commit: dbcf543cf91edc7f6fe833d51b58fe65265f2a72
+[05/15] ASoC: SOF: ipc3: Implement the set_get_data IPC ops
+        commit: e974b8e190d30fdd0c5edc1447ee1425a30d15ea
+[06/15] ASoC: SOF: ipc3: Implement the get_reply IPC ops
+        commit: 783b5f1797595a9df4476dd66f7bf34915be246b
+[07/15] ASoC: SOF: ipc3: Implement rx_msg IPC ops
+        commit: 74ad8ed6512186134527fc82440f62007a98ff48
+[08/15] ASoC: SOF: ipc: Separate the ops checks by functions/topics
+        commit: 785b3fbe61c6c1c413b696e335e9f288aaec4364
+[09/15] ASoC: SOF: ipc: Add check for mandatory IPC message handling ops
+        commit: defad9d2e2703b040c3a001978c09c75970357f0
+[10/15] ASoC: SOF: ipc: Use the get_reply ops in snd_sof_ipc_get_reply()
+        commit: 045bc49bc9572f883db1a0740cb36bf6eeb206db
+[11/15] ASoC: SOF: ipc: Switch over to use the tx_msg and set_get_data ops
+        commit: 85d0f881471531ffb081711b13df32b1f6f1f637
+[12/15] ASoC: SOF: ipc: Switch over to use the rx_msg ops
+        commit: 2f1f5a438899a9d2933ef004a1f0f2c962b29fb4
+[13/15] ASoC: SOF: Add widget_kcontrol_setup control ops for IPC3
+        commit: e394ffb82f9c24fd6f7f4d896cb4ef32771dae7a
+[14/15] ASoC: SOF: sof-audio: Use the widget_kcontrol_setup ops for kcontrol set up
+        commit: 50d4d8cf544dfbb9668dce87a21580fedb6e827f
+[15/15] ASoC: SOF: ipc: Move the ipc_set_get_comp_data() local to ipc3-control
+        commit: e760f102c92c16307abebffd24a31bdb3ccd78ac
 
-All errors (new ones prefixed by >>):
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-   sound/x86/intel_hdmi_audio.c: In function 'hdmi_lpe_audio_probe':
->> sound/x86/intel_hdmi_audio.c:1820:16: error: implicit declaration of function 'snd_card_free_on_error'; did you mean 'snd_ctl_free_one'? [-Werror=implicit-function-declaration]
-    1820 |         return snd_card_free_on_error(&pdev->dev, __hdmi_lpe_audio_probe(pdev));
-         |                ^~~~~~~~~~~~~~~~~~~~~~
-         |                snd_ctl_free_one
-   cc1: some warnings being treated as errors
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-vim +1820 sound/x86/intel_hdmi_audio.c
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-  1817	
-  1818	static int hdmi_lpe_audio_probe(struct platform_device *pdev)
-  1819	{
-> 1820		return snd_card_free_on_error(&pdev->dev, __hdmi_lpe_audio_probe(pdev));
-  1821	}
-  1822	
-
--- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+Thanks,
+Mark

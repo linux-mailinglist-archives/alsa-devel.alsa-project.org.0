@@ -2,82 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A37D4FD357
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Apr 2022 11:33:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFFEF4FD35F
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Apr 2022 11:41:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E053E175C;
-	Tue, 12 Apr 2022 11:32:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E053E175C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6DACC16E6;
+	Tue, 12 Apr 2022 11:41:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6DACC16E6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649756010;
-	bh=QITigztYz6ZcYz5mACqVvjfRh+8Oc1SZapKmMNtErcc=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1649756513;
+	bh=VjOfsQjS0mVuy8d6V7P2mX33Oi6r84VrvESTdWGqNBI=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ijDieEY/CACBo7d+cdSSyxY7eA5MkpzQr2OaMOEnRe3XMMpkTqfUR8iQ4kNGnSSeX
-	 AoOteZBkzHiYFF648Y2V+zf1P1FRLED5HEJMWtMzZzIoeL9FWF3BPPRKrh06NLUwHN
-	 C3QTsuPqlLlptTxeedcTak9sNyyUXMKPYnrMpLoc=
+	b=X30SS9FqGxOxs0SUTCsMn6qSzH3PTKbyR8oW//ni3co3KpkydB8MgWeRsXxz5stnZ
+	 HRf4wyi4mu1XIsfTvwf6O43DKWO0fkChGWPHDLnPbHPpB3ys7gLad52J/5WnlC/GDl
+	 J8WYMt8s7ZaZd8LcO3jt6ZeZ99PoT7fVgAyQvFlk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 241C4F804FD;
-	Tue, 12 Apr 2022 11:31:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C58CDF80245;
+	Tue, 12 Apr 2022 11:40:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8B30FF8032B; Tue, 12 Apr 2022 11:31:51 +0200 (CEST)
+ id 88538F80154; Tue, 12 Apr 2022 11:40:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6342EF80134
- for <alsa-devel@alsa-project.org>; Tue, 12 Apr 2022 11:31:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6342EF80134
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3AFF4F80095
+ for <alsa-devel@alsa-project.org>; Tue, 12 Apr 2022 11:40:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3AFF4F80095
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="QSnYWNGO"; 
+ header.b="p3E/JOgF"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="ei2JXXMH"
+ header.b="NKqzGjti"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id C24EA210EC;
- Tue, 12 Apr 2022 09:31:42 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 9786421607;
+ Tue, 12 Apr 2022 09:40:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1649755902; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ t=1649756447; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=iYGohI/5bFagDxlQUsCcCU5EjtwoUAZhILIOZBfRbL8=;
- b=QSnYWNGOctbS6toChgIEGFo06EC8EAJIsdYWwMcEb6wWJ2mUL2t1/PwrtTT5T8Pqddw4qW
- hK6QmicRXn1oM2erFxALAgN3o2dAPDONpl9clq6spq1BJGL1y7qrxU+lPnyH+Xrn9tJ6MT
- r4sPwwn17QDh5G1FPtQpF6kIkk4FJOg=
+ bh=bkguOHS25qrPH4cy023xw9DKfBQ51MXemolrey7zUVE=;
+ b=p3E/JOgFkR8lcey6pyrqWXeoGEztC05amRlArwKjrdHSPmYwPAK54CVRoFq+DehzHA3L+4
+ NF4dDxB1+Ye8EaOXLdlLH4snPR+0b2qNlWyw4/GXHMzY3yO9Dkj1BFdik3xW018+NRiwJ4
+ yres96qnadKKMJDFoETDB2nIy56VaCQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1649755902;
+ s=susede2_ed25519; t=1649756447;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=iYGohI/5bFagDxlQUsCcCU5EjtwoUAZhILIOZBfRbL8=;
- b=ei2JXXMHDWi48J07v69nSeXqw6lRvMn438lXQYZyPFXP9V/ujGwCnp1BGeMG6NHiTHhPxQ
- UFA1bdmNNiU/GpCQ==
-Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id B83E1A3B8A;
- Tue, 12 Apr 2022 09:31:42 +0000 (UTC)
+ bh=bkguOHS25qrPH4cy023xw9DKfBQ51MXemolrey7zUVE=;
+ b=NKqzGjtiX/MC1SFgVyoyx7szkUm5t9FdJsYIjxmyHwpohqhusQJ/oJrQKPx9fVV+Uo+d7n
+ X4/3t39nqNJMlYDA==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 75292A3B97;
+ Tue, 12 Apr 2022 09:40:47 +0000 (UTC)
+Date: Tue, 12 Apr 2022 11:40:47 +0200
+Message-ID: <s5hzgkqabc0.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 2/2] ALSA: echoaudio: Fix the missing snd_card_free() call at
- probe error
-Date: Tue, 12 Apr 2022 11:31:41 +0200
-Message-Id: <20220412093141.8008-3-tiwai@suse.de>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20220412093141.8008-1-tiwai@suse.de>
-References: <20220412093141.8008-1-tiwai@suse.de>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Zheyu Ma <zheyuma97@gmail.com>
+To: Mohan Kumar <mkumard@nvidia.com>
+Subject: Re: [PATCH 0/2] Add support for HDA Jack poll in suspend state
+In-Reply-To: <20220411073210.23445-1-mkumard@nvidia.com>
+References: <20220411073210.23445-1-mkumard@nvidia.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ spujar@nvidia.com, tiwai@suse.com, jonathanh@nvidia.com,
+ thierry.reding@gmail.com, linux-tegra@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,51 +94,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The previous cleanup with devres may lead to the incorrect release
-orders at the probe error handling due to the devres's nature.  Until
-we register the card, snd_card_free() has to be called at first for
-releasing the stuff properly when the driver tries to manage and
-release the stuff via card->private_free().
+On Mon, 11 Apr 2022 09:32:08 +0200,
+Mohan Kumar wrote:
+> 
+> This series is to add HDA jack polling support to update the Jack mixer control
+> status properly even during runtime suspended state, as unsol event won't be
+> triggered during D3 state.
+> 
+> Mohan Kumar (2):
+>   ALSA: hda: Jack detection poll in suspend state
+>   ALSA: hda/tegra: Enable Jack poll for tegra
 
-This patch fixes it by calling snd_card_free() on the error from the
-probe callback using a new helper function.
+Applied both patches now to for-next branch.
 
-Fixes: 9c211bf392bb ("ALSA: echoaudio: Allocate resources with device-managed APIs")
-Reported-and-tested-by: Zheyu Ma <zheyuma97@gmail.com>
-Cc: <stable@vger.kernel.org>
-Link: https://lore.kernel.org/r/CAMhUBjm2AdyEZ_-EgexdNDN7SvY4f89=4=FwAL+c0Mg0O+X50A@mail.gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/pci/echoaudio/echoaudio.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/sound/pci/echoaudio/echoaudio.c b/sound/pci/echoaudio/echoaudio.c
-index 25b012ef5c3e..c70c3ac4e99a 100644
---- a/sound/pci/echoaudio/echoaudio.c
-+++ b/sound/pci/echoaudio/echoaudio.c
-@@ -1970,8 +1970,8 @@ static int snd_echo_create(struct snd_card *card,
- }
- 
- /* constructor */
--static int snd_echo_probe(struct pci_dev *pci,
--			  const struct pci_device_id *pci_id)
-+static int __snd_echo_probe(struct pci_dev *pci,
-+			    const struct pci_device_id *pci_id)
- {
- 	static int dev;
- 	struct snd_card *card;
-@@ -2139,6 +2139,11 @@ static int snd_echo_probe(struct pci_dev *pci,
- 	return 0;
- }
- 
-+static int snd_echo_probe(struct pci_dev *pci,
-+			  const struct pci_device_id *pci_id)
-+{
-+	return snd_card_free_on_error(&pci->dev, __snd_echo_probe(pci, pci_id));
-+}
- 
- 
- #if defined(CONFIG_PM_SLEEP)
--- 
-2.31.1
+thanks,
 
+Takashi

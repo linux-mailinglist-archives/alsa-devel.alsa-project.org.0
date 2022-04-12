@@ -2,81 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1A974FD903
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Apr 2022 12:38:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E8084FD9AE
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Apr 2022 12:41:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3FECA1A9B;
-	Tue, 12 Apr 2022 12:37:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3FECA1A9B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1C1521942;
+	Tue, 12 Apr 2022 12:40:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C1521942
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649759921;
-	bh=FbVJHItLsICAKfVRl+4pAOgtMEoggS7/eqn5Nud/CXU=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1649760107;
+	bh=gk4asamOqiLy4SjIMBC0f/TxSFUWTMR9ihMn30DhcWs=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RKdvQlvxmqFNfGdR5u9GeEUzvgSv3rLZEGN2g8G+Zmvj7UT1QHBZGquimK/rRhGF3
-	 Nyu2morvdMhnWo3dmZAgelYrFU9g2XZoQ31Gwr2KnxNnESbt/lOImFRljFjY4nAYmJ
-	 2ChKnN9lz9ZJN1QbIJLQngok+tWVGCsZWOjAr7cg=
+	b=q/OLufuIRRK80JmpYnDjtW6h73a5Bdy0YdDm05hU6uFF5kTG7F75F1mTCcZqaVwHz
+	 qHJOkzWfdb2myhaOpZUQYv50YC+ySITV8vB08GM+pf1xgROG+n/LCb2svnIZC3Zay0
+	 mMwvRknXhMAEvlE7xk1gbnYFeZTBj9GCmD55/hP8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5BE96F80621;
-	Tue, 12 Apr 2022 12:27:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 88635F80245;
+	Tue, 12 Apr 2022 12:40:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 31A23F805F8; Tue, 12 Apr 2022 12:27:46 +0200 (CEST)
+ id 42AE4F80154; Tue, 12 Apr 2022 12:40:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3EACCF80542
- for <alsa-devel@alsa-project.org>; Tue, 12 Apr 2022 12:26:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3EACCF80542
+ by alsa1.perex.cz (Postfix) with ESMTPS id 403F9F80095
+ for <alsa-devel@alsa-project.org>; Tue, 12 Apr 2022 12:40:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 403F9F80095
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="d+l/CtWv"; 
+ header.b="eHoitYL/"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="tgwqiZVF"
+ header.b="2Lcifyhi"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 27BBD1FD16
- for <alsa-devel@alsa-project.org>; Tue, 12 Apr 2022 10:26:45 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 6DE3A21606;
+ Tue, 12 Apr 2022 10:40:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1649759205; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ t=1649760037; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=03dgr07nhG4Rn1cIBF5pDGEidG7Jn4qc5FrK0AHa2ig=;
- b=d+l/CtWvVSN7dW7kC0kfMG8ZGCtl8ldy6N24KaFQ7IR4UhR14jaRt4nSz1eI7dFYBCsHGi
- 8i8DOGWx7sAgVWDgDtEVoNH+OmdY3MNGYf2QpCXAvcqoohxjJfNcluBWhB/K6Ov9ynhGpG
- tAijhrfCwGGzukp+91YuAY4o3ComSDY=
+ bh=ywTSK07/jBkbyMdlliW1M9JqJ0Jx0hOmJt1kgOVIerY=;
+ b=eHoitYL/lwYpVw3xWud/2a/2CB5Q6siJP6lmJhiVKyb1BIm/gLwiNSw0xoMgf4VXcPcsVr
+ YVs/yJfRshqFDBfW84jc6dV9bzboMh5yhVchkYTd14aV1i5SXKY+HOFiCPmXibKXCGTAjW
+ FURQxVv1yeV4p21kIuckMoJHFqRGhlM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1649759205;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ s=susede2_ed25519; t=1649760037;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=03dgr07nhG4Rn1cIBF5pDGEidG7Jn4qc5FrK0AHa2ig=;
- b=tgwqiZVFGscLGSFCxZzIbMgzj3KFGJPKn7qnKQSzQR8L511E1WjQoCXjXo8RxMwMt8XKMO
- Q+070LUO7uhXu0Dg==
-Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 17EC7A3B82;
- Tue, 12 Apr 2022 10:26:45 +0000 (UTC)
+ bh=ywTSK07/jBkbyMdlliW1M9JqJ0Jx0hOmJt1kgOVIerY=;
+ b=2Lcifyhizd2gAQVQx/58HyPVXlqN2NJIbQ+Kk1VOJGkzWpK2ENp4AAu0xHuuumRpZGHF2w
+ R472sFEWBpuAdQDg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 55B3CA3B82;
+ Tue, 12 Apr 2022 10:40:37 +0000 (UTC)
+Date: Tue, 12 Apr 2022 12:40:37 +0200
+Message-ID: <s5hlewaa8ka.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 39/39] ALSA: nm256: Don't call card private_free at probe
- error path
-Date: Tue, 12 Apr 2022 12:26:36 +0200
-Message-Id: <20220412102636.16000-40-tiwai@suse.de>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20220412102636.16000-1-tiwai@suse.de>
-References: <20220412102636.16000-1-tiwai@suse.de>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+To: Lucas Tanure <tanureal@opensource.cirrus.com>
+Subject: Re: [PATCH v6 00/16] Support external boost at CS35l41 ASoC driver
+In-Reply-To: <20220409091315.1663410-1-tanureal@opensource.cirrus.com>
+References: <20220409091315.1663410-1-tanureal@opensource.cirrus.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
+ Rob Herring <robh+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,41 +97,70 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The card destructor of nm256 driver does merely stopping the running
-streams, and it's superfluous for the probe error handling.  Moreover,
-calling this via the previous devres change would lead to another
-problem due to the reverse call order.
+On Sat, 09 Apr 2022 11:12:59 +0200,
+Lucas Tanure wrote:
+> 
+> Move the support for CS35L41 external boost to its shared library
+> for ASoC use.
+> This move resulted in cs35l41_hda_reg_sequence being removed,
+> and its steps were broken down into regmap writes or functions
+> from the library. And hardware configuration struct was unified
+> for its use in the shared lib.
+> While at it, some minor bugs were found and fixed it.
+> 
+> v6 changelog:
+>  - Rebased on top of Linux Next with community patches for CS35L41
+>  - Document patch acked by Charles Keepax
+> 
+> v5 changelog:
+>  - Fixed wrong indentation at Documentation patch
+>  - Use of consistent prefix
+> 
+> v4 changelog:
+>  - Separated GPIO 1 and 2 function enums
+> 
+> v3 changelog:
+>  - Remove patches already accepted
+>  - Improved logic in documentation patch
+>  - Documentation patch goes before its code
+>  - Fixed missing Signed-off-by
+>  - Fixed subject for HDA patches
+> 
+> v2 changelog:
+>  - Instead of removing the log, playback actions will log the last regmap access.
+>  - Documentation patch with the correct subject line and fixed bug reported by Rob Herring on the
+>  provided example.
+> 
+> Previous versions:
+>  v1: https://lkml.org/lkml/2022/3/3/759
+>  v2: https://lkml.org/lkml/2022/3/4/743
+>  v3: https://lkml.org/lkml/2022/3/8/975
+>  v4: https://lkml.org/lkml/2022/3/17/267
+>  v5: https://lkml.org/lkml/2022/3/22/696
+> 
+> David Rhodes (1):
+>   ASoC: cs35l41: Document CS35l41 External Boost
+> 
+> Lucas Tanure (15):
+>   ALSA: cs35l41: Unify hardware configuration
+>   ALSA: cs35l41: Check hw_config before using it
+>   ALSA: cs35l41: Move cs35l41_gpio_config to shared lib
+>   ALSA: hda: cs35l41: Fix I2S params comments
+>   ALSA: hda: cs35l41: Always configure the DAI
+>   ALSA: hda: cs35l41: Add Boost type flag
+>   ALSA: hda: cs35l41: Put the device into safe mode for external boost
+>   ALSA: hda: cs35l41: Mute the device before shutdown
+>   ALSA: cs35l41: Enable Internal Boost in shared lib
+>   ALSA: hda: cs35l41: Move boost config to initialization code
+>   ALSA: hda: cs35l41: Remove cs35l41_hda_reg_sequence struct
+>   ALSA: hda: cs35l41: Reorganize log for playback actions
+>   ALSA: hda: cs35l41: Handle all external boost setups the same way
+>   ALSA: hda: cs35l41: Move external boost handling to lib for ASoC use
+>   ASoC: cs35l41: Support external boost
 
-This patch moves the setup of the private_free callback after the card
-registration, so that it can be used only after fully set up.
+If it's OK for Mark, I'm going to merge those to my tree for 5.18.
 
-Fixes: c19935f04784 ("ALSA: nm256: Allocate resources with device-managed APIs")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/pci/nm256/nm256.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/pci/nm256/nm256.c b/sound/pci/nm256/nm256.c
-index c9c178504959..f99a1e96e923 100644
---- a/sound/pci/nm256/nm256.c
-+++ b/sound/pci/nm256/nm256.c
-@@ -1573,7 +1573,6 @@ snd_nm256_create(struct snd_card *card, struct pci_dev *pci)
- 	chip->coeffs_current = 0;
- 
- 	snd_nm256_init_chip(chip);
--	card->private_free = snd_nm256_free;
- 
- 	// pci_set_master(pci); /* needed? */
- 	return 0;
-@@ -1680,6 +1679,7 @@ static int snd_nm256_probe(struct pci_dev *pci,
- 	err = snd_card_register(card);
- 	if (err < 0)
- 		return err;
-+	card->private_free = snd_nm256_free;
- 
- 	pci_set_drvdata(pci, card);
- 	return 0;
--- 
-2.31.1
+thanks,
 
+Takashi

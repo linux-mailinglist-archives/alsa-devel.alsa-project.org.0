@@ -2,77 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10FA44FF188
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Apr 2022 10:13:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31E774FF1B8
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Apr 2022 10:22:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A7F3A1729;
-	Wed, 13 Apr 2022 10:12:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7F3A1729
+	by alsa0.perex.cz (Postfix) with ESMTPS id BFA751740;
+	Wed, 13 Apr 2022 10:21:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BFA751740
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649837614;
-	bh=jnHMBCdSCKArbHEBHOSUsFF87GYZjVs22uoSgvWhEyo=;
+	s=default; t=1649838168;
+	bh=Tc6zkooWpSEGEIwbcsDvVQ9VBssKV62ocsSZtE1HEN0=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qaf4Jh68tcxCwvttPFhH37U9iq3JSsObkWCPWA8o/KIiSJR0kL38tpZLwV/wjj2G2
-	 Yr9UiAlc755uRbVizQL0dVlM9D8f6wgz8f1w3YPfW4hosPpm5Bp53BBfg2oZOVoQl3
-	 qAnK3k1ZMugNRihMS5ufksAEqs/8/mf1L5Etq4Pc=
+	b=GEff0exuaGeIofb4fwXwMCad2PgUhBwwWuXhxYh3GFPdJWGHboXu4/FTqSU1T8Jbx
+	 pb0ZeW8W9cbXNMYzDwfARWUkOKQ/whiIP4wDGZGrpOVX93CPhPa+nqqp4eBUSa1Q3/
+	 /fDloiKVI5PoszFwdlgDwZdhGsj4PT4MWGhyVB+A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 49D20F80248;
-	Wed, 13 Apr 2022 10:12:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0AE20F8011C;
+	Wed, 13 Apr 2022 10:21:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 92B5BF8013F; Wed, 13 Apr 2022 10:12:32 +0200 (CEST)
+ id 6A5A7F8011C; Wed, 13 Apr 2022 10:21:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6F37AF8013F
- for <alsa-devel@alsa-project.org>; Wed, 13 Apr 2022 10:12:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F37AF8013F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7CCEBF8011C
+ for <alsa-devel@alsa-project.org>; Wed, 13 Apr 2022 10:21:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CCEBF8011C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="SuCFzaa4"; 
+ header.b="hGIA8j3b"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="hmmGccGx"
+ header.b="ej3JAywe"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id A965B1F38D;
- Wed, 13 Apr 2022 08:12:25 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 3AE94210DE;
+ Wed, 13 Apr 2022 08:21:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1649837545; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1649838099; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=YFQcubMNkImdYfz8+a4Ig60IGZfMB0rBvlz+BQaWd3M=;
- b=SuCFzaa4MA/2apTozXmONpP0f2wE/BzXXZ4y2sinNzKXDBt620YmnIpCkzrCuFOd3r2N6e
- nikU4n9M4+IoTqU5jsN8LL4FdM/u3+lQ8vHrlrCBpwROX5KlP4aZNeIMJ6dm2nHah/JzpE
- Ljbohjq6KMK+PpjJDVFZGIIuPXDReiA=
+ bh=jJOTeo9MgnyvEvJ2ZvQ6zBUd5YE6fkQYw26vIwQ/IKM=;
+ b=hGIA8j3bO1oldIFv1hNechuNLHlJuXukvulJOo5MSj7lxM8I0oL9T630KnnMYczpHXUNTp
+ cLSVsY3vEZgMXt9cmF7KbR8Mm9M2AZ1YI/SCPzHcEZt0F9VtjlfWd9pgVP9i7Ke66GPhUw
+ JEHe35aiXjDgJ8PiO2rk1+diTaeQXsk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1649837545;
+ s=susede2_ed25519; t=1649838099;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=YFQcubMNkImdYfz8+a4Ig60IGZfMB0rBvlz+BQaWd3M=;
- b=hmmGccGxfoWdNNpaPcMznOsHs85D2GFuXFCpjX7ZUjwUeSLLvH5K1NDNq2knSnfqd5a5Qd
- 26AQmklFlgbJmNCw==
+ bh=jJOTeo9MgnyvEvJ2ZvQ6zBUd5YE6fkQYw26vIwQ/IKM=;
+ b=ej3JAyweVX2uxxa/d/cwBA8vSGyqH/lD19ZMW8aP7Qh44E6ode6l3qg2B6DVr0reinaQao
+ QaR1tw8oqXWC3oBA==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 9784FA3B92;
- Wed, 13 Apr 2022 08:12:25 +0000 (UTC)
-Date: Wed, 13 Apr 2022 10:12:25 +0200
-Message-ID: <s5hv8vd766u.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 2DAC4A3B88;
+ Wed, 13 Apr 2022 08:21:39 +0000 (UTC)
+Date: Wed, 13 Apr 2022 10:21:39 +0200
+Message-ID: <s5hr16175rg.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: <tanureal@opensource.cirrus.com>
 Subject: Re: [PATCH v6 00/16] Support external boost at CS35l41 ASoC driver
-In-Reply-To: <f3926070-34e0-4004-22cb-99f26aec34f4@opensource.cirrus.com>
+In-Reply-To: <s5hv8vd766u.wl-tiwai@suse.de>
 References: <20220409091315.1663410-1-tanureal@opensource.cirrus.com>
  <s5h1qy18lpg.wl-tiwai@suse.de>
  <f3926070-34e0-4004-22cb-99f26aec34f4@opensource.cirrus.com>
+ <s5hv8vd766u.wl-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -99,38 +100,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 13 Apr 2022 10:10:16 +0200,
-<tanureal@opensource.cirrus.com> wrote:
+On Wed, 13 Apr 2022 10:12:25 +0200,
+Takashi Iwai wrote:
 > 
-> On 4/13/22 8:51 AM, Takashi Iwai <tiwai@suse.de> wrote:
-> > On Sat, 09 Apr 2022 11:12:59 +0200,
-> > Lucas Tanure wrote:
+> On Wed, 13 Apr 2022 10:10:16 +0200,
+> <tanureal@opensource.cirrus.com> wrote:
+> > 
+> > On 4/13/22 8:51 AM, Takashi Iwai <tiwai@suse.de> wrote:
+> > > On Sat, 09 Apr 2022 11:12:59 +0200,
+> > > Lucas Tanure wrote:
+> > > >
+> > > > Move the support for CS35L41 external boost to its shared library
+> > > > for ASoC use.
+> > > > This move resulted in cs35l41_hda_reg_sequence being removed,
+> > > > and its steps were broken down into regmap writes or functions
+> > > > from the library. And hardware configuration struct was unified
+> > > > for its use in the shared lib.
+> > > > While at it, some minor bugs were found and fixed it.
 > > >
-> > > Move the support for CS35L41 external boost to its shared library
-> > > for ASoC use.
-> > > This move resulted in cs35l41_hda_reg_sequence being removed,
-> > > and its steps were broken down into regmap writes or functions
-> > > from the library. And hardware configuration struct was unified
-> > > for its use in the shared lib.
-> > > While at it, some minor bugs were found and fixed it.
-> >
-> > The patch series seem inapplicable via git am.
-> > Could you check the setup of your mailer?
-> >
-> >
-> > thanks,
-> >
-> > Takashi
-> >
-> Hi,
-> Could you explain how you apply this series? So I can reproduce it and see what's going on.
-> To apply a series of patches I usually:
+> > > The patch series seem inapplicable via git am.
+> > > Could you check the setup of your mailer?
+> > >
+> > >
+> > > thanks,
+> > >
+> > > Takashi
+> > >
+> > Hi,
+> > Could you explain how you apply this series? So I can reproduce it and see what's going on.
+> > To apply a series of patches I usually:
+> > 
+> > 1 - Find the patch series on https://patchwork.kernel.org/
+> > 2 - Click the series button on the right top corner, which will give me the single patch file with all series changes
+> > 3 - git am ~/Downloads/Support-external-boost-at-CS35l41-ASoC-driver.patch
 > 
-> 1 - Find the patch series on https://patchwork.kernel.org/
-> 2 - Click the series button on the right top corner, which will give me the single patch file with all series changes
-> 3 - git am ~/Downloads/Support-external-boost-at-CS35l41-ASoC-driver.patch
+> I tried b4 am and git am.
 
-I tried b4 am and git am.
+Maybe your patch base isn't aligned with the current upstream.
+Could you rebase to 5.18-rc2?
 
 
 Takashi

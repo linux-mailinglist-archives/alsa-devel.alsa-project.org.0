@@ -2,175 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6BA04FF29C
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Apr 2022 10:49:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 016AD4FF180
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Apr 2022 10:11:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7803A18A5;
-	Wed, 13 Apr 2022 10:48:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7803A18A5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8D8E615F9;
+	Wed, 13 Apr 2022 10:10:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D8E615F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649839784;
-	bh=fel3A0ApSvdsqU1UmqlQeSG4HRvUuXe0NaYlNm6Wwl8=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1649837490;
+	bh=cmvxWusnVL5bD9s50qXXa+xtNz6dc66N02AiMPf7utQ=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=C+h7N2hyfd28DVT18uKNZ4ILrT4+XPAt1WYES/Wu6x1S/ASe8Zd85/c7OeZVjYm6j
-	 O1gl0N9v/3/x3qHOt7D7DleUV3d5zatUtwaCXa8whoTA/vjAXGu/mFC1YoGxyW5KX+
-	 nU0Uen74lpsn2IMLN0NtZbjN9B53lIpSNwjVZV+I=
+	b=G2tuRfB6wU8kbENY+ItisSEkxsKsdCtp/9gklCtWzTgfnwlhkS5FD06prYIZBbm+R
+	 P7FHVG0bv/I75o1ADUqBgYaPSeU2z4x+G0oi5pd0xFsrpbZQrk1d+s3AMAtI+gZZbS
+	 At8Gi4KMI5/o/YOIcxT1y0V3WU+6SwnXZd5nbRak=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 092D8F8028B;
-	Wed, 13 Apr 2022 10:48:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E53F8F8028B;
+	Wed, 13 Apr 2022 10:10:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E24EFF80109; Tue, 12 Apr 2022 16:10:21 +0200 (CEST)
+ id 24DF1F80248; Wed, 13 Apr 2022 10:10:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from JPN01-TYC-obe.outbound.protection.outlook.com
- (mail-tycjpn01on2072b.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:7010::72b])
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D4029F80109
- for <alsa-devel@alsa-project.org>; Tue, 12 Apr 2022 16:10:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4029F80109
+ by alsa1.perex.cz (Postfix) with ESMTPS id F06D6F80095
+ for <alsa-devel@alsa-project.org>; Wed, 13 Apr 2022 10:10:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F06D6F80095
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com
- header.b="OduNuckq"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=G3qpcnI7xWUPqyyuHjzLXTkn1us+WFONzXaI2EN+ttN6HAlliokiS0FaT7YDrqtlfymVl1gaL+pDpaJ2LURfuuuIpcKno0Fgy6ToTa+dqoeiFfAierwPwEkYH/3pKt0Q4Wu2AjrTM6fpf7tB+2+DbqrEul27FvbRFQ9qGeOE71ypnEguQpMpd2CHjG6A66iWORw7seBKytQu6C8UctfmqwsicddYCnqHDDnsIj2PbZeS75YyiShC7EsIW4Uo9lU/lw+7vcZfgo2iWHRhMnY4JU1QgGNBpY2LmSgVOLt4AAplod4r81DWyxpQOgKpynhCzMnmp+gBvOkRX7qRoE7SEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bYA9LIGGC8faHr6AqXOHKlZ151ZpV7JNd9NSOV1aTJM=;
- b=PeUKii0FAuuzBc7wlszlJtsGr6kzVyLTYEzZaew9qrX5Dl5yV9Ae5KSBEQi6SpvuCcHThQ/PPh0BErODLYCQQ/5vFDRx6Q1kBUoFYjgqbNlGOiJYAV29n4EWDLSv7A8yJZJc6tqd7LZQ5pd/KpB64hRRjekbkgsfIJXtV8Xj1AksJdyqIo/Dp2bf4Oe03rJ/PKM9vnFuC4SByt44ZvwxLel+vd3tJhrv9dKDFvxVvSCVjSwWLwz9Z0IRbPJ8GEpONsHKUMsY7A7NdTrJJCrQCFrHuGE7YXot1vsnlhMRflVL0oDwwhtgSPooPig2/nMVBnIDen1Ezr3rDK1iq0cHuA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bYA9LIGGC8faHr6AqXOHKlZ151ZpV7JNd9NSOV1aTJM=;
- b=OduNuckqCdv/yRUYIGVGcLrxD8ZY5PyTkH6Ngt2VI02JCTFH8bEoYFL3ZWqP232nyYP9/cM8oQUj6K+94HdH11Zc3GIqUoQr2UpxJ+OnOfwHh2whbp++acuzCYHCnsDXzLOG9rzuzJtPyq9HFRdf14yOLpbxmlhjS9RyseJhRZk=
-Received: from OS0PR01MB5922.jpnprd01.prod.outlook.com (2603:1096:604:bb::5)
- by TYAPR01MB3278.jpnprd01.prod.outlook.com (2603:1096:404:8e::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.29; Tue, 12 Apr
- 2022 14:10:07 +0000
-Received: from OS0PR01MB5922.jpnprd01.prod.outlook.com
- ([fe80::b129:a6f3:c39e:98db]) by OS0PR01MB5922.jpnprd01.prod.outlook.com
- ([fe80::b129:a6f3:c39e:98db%4]) with mapi id 15.20.5144.030; Tue, 12 Apr 2022
- 14:10:07 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>
-Subject: RE: [PATCH v6 12/12] rpmsg: Fix kfree() of static memory on setting
- driver_override
-Thread-Topic: [PATCH v6 12/12] rpmsg: Fix kfree() of static memory on setting
- driver_override
-Thread-Index: AQHYR4usqrdzUSvyPkWDhxjfW2t+CqzsXZDQ
-Date: Tue, 12 Apr 2022 14:10:06 +0000
-Message-ID: <OS0PR01MB59226666C2C6805C86304BE586ED9@OS0PR01MB5922.jpnprd01.prod.outlook.com>
-References: <20220403183758.192236-1-krzysztof.kozlowski@linaro.org>
- <20220403183758.192236-13-krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220403183758.192236-13-krzysztof.kozlowski@linaro.org>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: e8802f44-eace-4f82-502c-08da1c8e25c0
-x-ms-traffictypediagnostic: TYAPR01MB3278:EE_
-x-microsoft-antispam-prvs: <TYAPR01MB3278C5C34FEFA4862B36686786ED9@TYAPR01MB3278.jpnprd01.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: l7yyihSdqh18KGDInynfQ3GmUNqp4rlMGc/6lPs1su9XSd59TFMpdz+aEqyBz/HGgXNB58mXTaxTS+Al2sDniXao0ybOuKN44fnMzOd15x5NXtctiqv6bQ7Kh9jTBt0NhgCE6ooEGgRiWUP2rzHYppFnh9Gf163SJyQaWZXh+Oc53L1eftqEkrSXy9TKkd8PByglE/4s9e0vOVX9vRQEk6T+LdqWIMNVhqg2t8HQBMClin+dj7E/+Mlx+e53qnxYFB262OmzNnobhCWjNJH5Ue2452puV23B8aONv+ou5A1CZ51xgFINeWav3sdSya5/JdZbXiIuNHqVv9Ok4+U5knqKe6NplYfZrGdP55Z4M3/5MnfOlBZaNf5Cc17UWOyXbJxF6i/IfRZzBYXv9RliArSNc5hw5l+PcbzCxBieO8aF64AEDRr/sEtGg0Hhcli2tcT/oh3xGl2zhxRntQwPv6t6zdcsAG8Z++nD134CLwJjzUd9klbeANdUmjj2veBQ2M+JgRygjLL23el4ACQFU/cufrAnQT1V77oCqZVkttvgaG6Kldoj2dPuGsykzY1pFJO3zH0lzlUeU1qX5GDDN7cD18UiYurbliN2NlFiC8kFf2bZmKQP9skfg5HzZvMQhKAijhvlzFRbHk2PQyl0B8YOhe3GDgTOh1k3wXbeRN45uFE5EsuZ7CQTeohwx74CaSoSXSipSye8+PG3W9+E6w==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:OS0PR01MB5922.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(9686003)(4326008)(54906003)(52536014)(7696005)(26005)(38070700005)(110136005)(5660300002)(66556008)(66476007)(76116006)(64756008)(66946007)(8936002)(86362001)(8676002)(66446008)(7406005)(7416002)(6506007)(508600001)(316002)(71200400001)(83380400001)(186003)(2906002)(55016003)(33656002)(38100700002)(122000001);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?kS/7Mw8c8d89Eps3nGW8n7fxISKtLhs8AcelqC0l8dgFf/5GoTV5IVMOAC6T?=
- =?us-ascii?Q?L55En4uigCnV+ktV1aEfRlNnuQ2n33RnLo05ZJqRDzFKBkptDMVRWJCRMk2A?=
- =?us-ascii?Q?tdB4WDkfe85meoZzOFFbCvy/R6JixdryxGhzkUi6i3nc2qeXE2yO/rF6QfAF?=
- =?us-ascii?Q?l4RMu0lc9WLLjm6/jDiUUmgadQH9oc//4PzwOkywomQjI0j4CzKbpT/7kK8e?=
- =?us-ascii?Q?P7Sj8yaalPWn5oqogOAzM2pf2GPlo+IWl58h7APuBuFsw1vf2FGC9W8ncE26?=
- =?us-ascii?Q?uhssJGeBh6oQdIP6NSh9Rln3E7LRdZ+xILafGUxQpVuYBa8xYbUM3UaL5R3j?=
- =?us-ascii?Q?lN3yxOuVQVVLsB85JI99KwkAkIGyT0599VvsFlO3/A4e5L4hmSTJfmJ676EM?=
- =?us-ascii?Q?pLtFFwCf/1u5qAFILuUeqC8Lea1eFDYyGW8oJHLAXo5drUC3LJ22GPZ401To?=
- =?us-ascii?Q?z7Z/KfEqX92eS1E5dzhcSnGWQ674I2xJeAxgiy2bwWeXUv/0CXTw1pxPSVMZ?=
- =?us-ascii?Q?Yd2kAczEPPStZotJzldm3Tb467z6t2uSg8jqC3nP8QXU2AB10X6vqwXWgyhM?=
- =?us-ascii?Q?6ISFhXmBxxd6lQY3O9CFtgqXGaWRziFAZHzOR3J2RYnwa6qz4yHEYF2balf+?=
- =?us-ascii?Q?ewIqaYIJJsCPnsvVwjC31VQ5brSkRjJQmwRTEc294lkFdQujCZoB6XQ/l0Gn?=
- =?us-ascii?Q?MfXPwI/RP9F+hEUN5hoqnWEojNWJwaZHSjgSEyy0Ho3lSM8CNoiGwzZSK8Rh?=
- =?us-ascii?Q?fQdYPm5Ft97UzUCiLUzt9xC4kUFLR+tJ9Sq8A1thJpnP3awmVBUz/ginGdf3?=
- =?us-ascii?Q?tlFFpoboU9vsp8mLVs/qQh+NbUw2jz4i9KyeBwSIGCwnt5YPB10neLejfWNT?=
- =?us-ascii?Q?rYMuUWnR+ax5CK3N9tsD/kBWLC8YZm4oHwUK6ZPg5W7Qr8d7evmyxYkvaXbh?=
- =?us-ascii?Q?xhVkfo7VVr4OVlFttkcOODewACkpVaZGYlziy09flYPMMft8IiNzigW36FUc?=
- =?us-ascii?Q?d3oDaK1DI/ctvVSCCbW1WWarBDcWxp23xaOcvMnbUBPagAdSQZzE7T6HFvM5?=
- =?us-ascii?Q?2NTk4SP5B/cua8WvQVoTCBxv7YP1LmRDkN+SRM3EYAWj+5NChVQYgfpBvXsh?=
- =?us-ascii?Q?y0ST1csHh2gYYz7TkmCK33TG3axvJ7D4vxIBgl9XRYwKRvjhtohN9zhBltcV?=
- =?us-ascii?Q?CWF0HccWMmg+xG5iRi0WW4CZGwiJZG7nF8JpF0Dhd3YDalCcnHEaK8KkDEhZ?=
- =?us-ascii?Q?ozgRHMJdwaLUTM2OEYuF80Uc9aJL4W8JG6ZgH1nyfUItS5p+q1J1SsFO9gH4?=
- =?us-ascii?Q?lPF3raWze9YKNs7Gv8s2G/WlmIHIsNP8Xyla7s9avoz51VB63JGkrbqZ2wWX?=
- =?us-ascii?Q?WSsh0vc59nPkavP0B1U+s+2fPwx90FRXWdiWvkCOWgEpKl/aYEBb6f2BU+i+?=
- =?us-ascii?Q?G+MxIxlefjaJ2dqrVnIQubKG8rxR9xBEgtC3DCXesTZLj+N7DoeDwNhbtFVg?=
- =?us-ascii?Q?Noj6A3Nw783dzlWBqDHxTiglq4+m9vLXX+owPCdU1ohSgpRR4AJdNHJP7SeX?=
- =?us-ascii?Q?nN4qQV4oVTYy5t+l/GSO6ac+SMpFanhHfXn09v+Y2353rrM2bUb/z0kY71kb?=
- =?us-ascii?Q?gkSeynhb1ynWHb2mcLZFfEYihzq6T7BEcvHVxQIHUpmrAsYJ9GcMegO6I2lM?=
- =?us-ascii?Q?LZ623MX42M2h8DzckW0ADhHR5VCfmrmnxIjSnVs7jwopP2t+WoXc+J8aAqRh?=
- =?us-ascii?Q?SKuqPClZx2arh2d7BHyzmBHfDHmwID8=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="Ph4a58+G"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 23D6IFDP015619;
+ Wed, 13 Apr 2022 03:10:19 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=message-id : date :
+ mime-version : from : to : subject : references : in-reply-to :
+ content-type : content-transfer-encoding; s=PODMain02222019;
+ bh=O4GoFNVVTf47ppwTSm5vJVuvbs0wXiJG5IAnDR+VmCs=;
+ b=Ph4a58+G3WJ1IkQhNki3uX/KrDbxtqzTepvtCPDC0XrTv7mk7b09s/x0kB+6jyfHQU+X
+ k//aDLP5QmplUyv+MNG7tftHGCtNWUWUqB6oBhrsUnNfe0UQ5q8c58ttyu6e0glGp/0h
+ LqE0P235t+R7OzTKThr8TbD3ExB0p5z/rfWlRrU6wGjgp7FcP2zNMAM9CE52OgU87aHu
+ x5ewIUataEhPcZfpRvyxXU2Bg7bx4zh5IEFisDdfN8YhTyLrmISH+yeTghvMrDN0M4wt
+ G2HJx7HS1n0gOoB6Yvhpcy0G7k/WvJ7JsrDgRVS1G5VZxs/Jg8jVL0W/qaGuISfsFend 3w== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3fb7hymvex-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Wed, 13 Apr 2022 03:10:19 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Wed, 13 Apr
+ 2022 09:10:17 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.24 via
+ Frontend Transport; Wed, 13 Apr 2022 09:10:17 +0100
+Received: from [198.61.64.152] (unknown [198.61.64.152])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 2826E475;
+ Wed, 13 Apr 2022 08:10:17 +0000 (UTC)
+Message-ID: <f3926070-34e0-4004-22cb-99f26aec34f4@opensource.cirrus.com>
+Date: Wed, 13 Apr 2022 09:10:16 +0100
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: OS0PR01MB5922.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e8802f44-eace-4f82-502c-08da1c8e25c0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Apr 2022 14:10:06.9859 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: E0guRv2xTjNIkZnwnA4TaHrqwRSu9/HKZjRQWLmjRIGpNThTUm6aXvrfH1C+BrrIdvjGrlGM/m2CKuwOYyW94pTDKf8I2G/duHSnGdjryVM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYAPR01MB3278
-X-Mailman-Approved-At: Wed, 13 Apr 2022 10:48:43 +0200
-Cc: "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
- Stuart Yoder <stuyoder@gmail.com>,
- "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
- "linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Peter Oberparleiter <oberpar@linux.ibm.com>,
- Vineeth Vijayan <vneethv@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- "K. Y. Srinivasan" <kys@microsoft.com>,
- "linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
- "linux-s390@vger.kernel.org" <linux-s390@vger.kernel.org>,
- Wei Liu <wei.liu@kernel.org>, Stephen Hemminger <sthemmin@microsoft.com>,
- Dexuan Cui <decui@microsoft.com>, Andy Shevchenko <andy.shevchenko@gmail.com>,
- Andy Gross <agross@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- "virtualization@lists.linux-foundation.org"
- <virtualization@lists.linux-foundation.org>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- Haiyang Zhang <haiyangz@microsoft.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-spi@vger.kernel.org" <linux-spi@vger.kernel.org>,
- Sven Schnelle <svens@linux.ibm.com>,
- Linus Torvalds <torvalds@linux-foundation.org>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.0
+From: <tanureal@opensource.cirrus.com>
+To: Takashi Iwai <tiwai@suse.de>, Liam Girdwood <lgirdwood@gmail.com>, Mark
+ Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>, Krzysztof
+ Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Jaroslav Kysela
+ <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v6 00/16] Support external boost at CS35l41 ASoC driver
+References: <20220409091315.1663410-1-tanureal@opensource.cirrus.com>
+ <s5h1qy18lpg.wl-tiwai@suse.de>
+In-Reply-To: <s5h1qy18lpg.wl-tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: ZGKUxCH8Q4Lm2O9JyzL89XjML9VP9zNY
+X-Proofpoint-ORIG-GUID: ZGKUxCH8Q4Lm2O9JyzL89XjML9VP9zNY
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -186,120 +104,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Krzysztof Kozlowski,
+On 4/13/22 8:51 AM, Takashi Iwai <tiwai@suse.de> wrote:
+> On Sat, 09 Apr 2022 11:12:59 +0200,
+> Lucas Tanure wrote:
+> >
+> > Move the support for CS35L41 external boost to its shared library
+> > for ASoC use.
+> > This move resulted in cs35l41_hda_reg_sequence being removed,
+> > and its steps were broken down into regmap writes or functions
+> > from the library. And hardware configuration struct was unified
+> > for its use in the shared lib.
+> > While at it, some minor bugs were found and fixed it.
+> 
+> The patch series seem inapplicable via git am.
+> Could you check the setup of your mailer?
+> 
+> 
+> thanks,
+> 
+> Takashi
+> 
+Hi,
+Could you explain how you apply this series? So I can reproduce it and see what's going on.
+To apply a series of patches I usually:
 
-Thanks for the patch.
+1 - Find the patch series on https://patchwork.kernel.org/
+2 - Click the series button on the right top corner, which will give me the single patch file with all series changes
+3 - git am ~/Downloads/Support-external-boost-at-CS35l41-ASoC-driver.patch
 
-> Subject: [PATCH v6 12/12] rpmsg: Fix kfree() of static memory on setting
-> driver_override
->=20
-> The driver_override field from platform driver should not be initialized
-> from static memory (string literal) because the core later kfree() it, fo=
-r
-> example when driver_override is set via sysfs.
->=20
-> Use dedicated helper to set driver_override properly.
->=20
-> Fixes: 950a7388f02b ("rpmsg: Turn name service into a stand alone driver"=
-)
-> Fixes: c0cdc19f84a4 ("rpmsg: Driver for user space endpoint interface")
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-> ---
->  drivers/rpmsg/rpmsg_internal.h | 13 +++++++++++--
->  drivers/rpmsg/rpmsg_ns.c       | 14 ++++++++++++--
->  include/linux/rpmsg.h          |  6 ++++--
->  3 files changed, 27 insertions(+), 6 deletions(-)
->=20
-> diff --git a/drivers/rpmsg/rpmsg_internal.h
-> b/drivers/rpmsg/rpmsg_internal.h index d4b23fd019a8..1a2fb8edf5d3 100644
-> --- a/drivers/rpmsg/rpmsg_internal.h
-> +++ b/drivers/rpmsg/rpmsg_internal.h
-> @@ -94,10 +94,19 @@ int rpmsg_release_channel(struct rpmsg_device *rpdev,
->   */
->  static inline int rpmsg_ctrldev_register_device(struct rpmsg_device
-> *rpdev)  {
-> +	int ret;
-> +
->  	strcpy(rpdev->id.name, "rpmsg_ctrl");
-> -	rpdev->driver_override =3D "rpmsg_ctrl";
-> +	ret =3D driver_set_override(&rpdev->dev, &rpdev->driver_override,
-> +				  "rpmsg_ctrl", strlen("rpmsg_ctrl"));
+And that works fine for me here.
 
-Is it not possible to use rpdev->id.name instead of "rpmsg_ctrl" ?
-rpdev->id.name has "rpmsg_ctrl" from strcpy(rpdev->id.name, "rpmsg_ctrl");
-
-Same for "rpmsg_ns" as well
-
-Cheers,
-Biju
-
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D rpmsg_register_device(rpdev);
-> +	if (ret)
-> +		kfree(rpdev->driver_override);
->=20
-> -	return rpmsg_register_device(rpdev);
-> +	return ret;
->  }
->=20
->  #endif
-> diff --git a/drivers/rpmsg/rpmsg_ns.c b/drivers/rpmsg/rpmsg_ns.c index
-> 762ff1ae279f..95a51543f5ad 100644
-> --- a/drivers/rpmsg/rpmsg_ns.c
-> +++ b/drivers/rpmsg/rpmsg_ns.c
-> @@ -20,12 +20,22 @@
->   */
->  int rpmsg_ns_register_device(struct rpmsg_device *rpdev)  {
-> +	int ret;
-> +
->  	strcpy(rpdev->id.name, "rpmsg_ns");
-> -	rpdev->driver_override =3D "rpmsg_ns";
-> +	ret =3D driver_set_override(&rpdev->dev, &rpdev->driver_override,
-> +				  "rpmsg_ns", strlen("rpmsg_ns"));
-> +	if (ret)
-> +		return ret;
-> +
->  	rpdev->src =3D RPMSG_NS_ADDR;
->  	rpdev->dst =3D RPMSG_NS_ADDR;
->=20
-> -	return rpmsg_register_device(rpdev);
-> +	ret =3D rpmsg_register_device(rpdev);
-> +	if (ret)
-> +		kfree(rpdev->driver_override);
-> +
-> +	return ret;
->  }
->  EXPORT_SYMBOL(rpmsg_ns_register_device);
->=20
-> diff --git a/include/linux/rpmsg.h b/include/linux/rpmsg.h index
-> 02fa9116cd60..20c8cd1cde21 100644
-> --- a/include/linux/rpmsg.h
-> +++ b/include/linux/rpmsg.h
-> @@ -41,7 +41,9 @@ struct rpmsg_channel_info {
->   * rpmsg_device - device that belong to the rpmsg bus
->   * @dev: the device struct
->   * @id: device id (used to match between rpmsg drivers and devices)
-> - * @driver_override: driver name to force a match
-> + * @driver_override: driver name to force a match; do not set directly,
-> + *                   because core frees it; use driver_set_override() to
-> + *                   set or clear it.
->   * @src: local address
->   * @dst: destination address
->   * @ept: the rpmsg endpoint of this channel @@ -51,7 +53,7 @@ struct
-> rpmsg_channel_info {  struct rpmsg_device {
->  	struct device dev;
->  	struct rpmsg_device_id id;
-> -	char *driver_override;
-> +	const char *driver_override;
->  	u32 src;
->  	u32 dst;
->  	struct rpmsg_endpoint *ept;
-> --
-> 2.32.0
->=20
->=20
-> _______________________________________________
+Thanks
+Lucas

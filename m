@@ -2,86 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D1874FF2BE
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Apr 2022 10:53:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 161084FF476
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Apr 2022 12:11:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0995D1896;
-	Wed, 13 Apr 2022 10:52:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0995D1896
+	by alsa0.perex.cz (Postfix) with ESMTPS id 935CE183B;
+	Wed, 13 Apr 2022 12:10:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 935CE183B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649839991;
-	bh=EPhjaqiCaHdz3Cz5h+6G9ROxJYPvEhzoSqxas/Wgioc=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=P6MAnITPKjSyK890t6PwyKA3Z+e6BKj45uSgtVDQx73pL0E1LU+WfJM8+ETGyx2ta
-	 OjMMyyCSLIIZkVhXIsui+EIEGXf5b/36QkWHpZZO9aUUvULsz3Si+zmHrFwzEIU8Lo
-	 LjFDbseDhbSmYZRkeaxzG0x4WRyK2HzuYfHYQS8A=
+	s=default; t=1649844695;
+	bh=X8bb90Rr2e2M+IL3QWRI4Jt/d89GL5Hur1ZM+Y65XAM=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=hNyGC/UZXO/nidnB9gANEOZIXtOH2sOHipIgFktKxNQfGdPkh/KSJYJjwCkyLzdCq
+	 zubKp+0b83OtgQVRD7hSQG+M/TpcOIulE79fE7S6hcQsN83MlI+DuWfuB6upHmMrMo
+	 aH1uRgh7t5KER1f2nhH+sc447ySS6zHF4ZoJuYKQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6CC93F80095;
-	Wed, 13 Apr 2022 10:52:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EFAFEF8028B;
+	Wed, 13 Apr 2022 12:10:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DACF5F80248; Wed, 13 Apr 2022 10:52:09 +0200 (CEST)
+ id 4B9CEF80248; Wed, 13 Apr 2022 12:10:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D781BF8011C
- for <alsa-devel@alsa-project.org>; Wed, 13 Apr 2022 10:52:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D781BF8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id A8515F80095
+ for <alsa-devel@alsa-project.org>; Wed, 13 Apr 2022 12:10:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8515F80095
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="SRrH+U6/"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="RJtEx7vK"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 7698121110;
- Wed, 13 Apr 2022 08:52:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1649839923; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=9GYpfybgqBmDWR1LwtozuNW1NwOcsVxp2JYkv3jb+yY=;
- b=SRrH+U6/GxLh5gIco/h3NzyN6nL2hY7kKvFftKjks6rLr11sAaM5xBB9AmQ8CZ+yYHvNsB
- a1IeWuSXON5AXDovDW7as7+RizvxtpTJXhqkfyIgY0Jr2oeuifFxgxwvYg/Tp9QAh6uj9S
- KY5Pje9vDWz2DQXTlsPgipFmm4SX6qE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1649839923;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=9GYpfybgqBmDWR1LwtozuNW1NwOcsVxp2JYkv3jb+yY=;
- b=RJtEx7vKdnApwiOUV4wEAhgiR1vk2SsFPNkKs4+FdxjrRWnCW3PXF6TkzPLbm+BpjTMHAX
- mk20nz1CuzQIOPDQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 613FEA3B95;
- Wed, 13 Apr 2022 08:52:03 +0000 (UTC)
-Date: Wed, 13 Apr 2022 10:52:03 +0200
-Message-ID: <s5hilrd74cs.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Lucas Tanure <tanureal@opensource.cirrus.com>
-Subject: Re: [PATCH v7 00/16] Support external boost at CS35l41 ASoC driver
-In-Reply-To: <20220413083728.10730-1-tanureal@opensource.cirrus.com>
-References: <20220413083728.10730-1-tanureal@opensource.cirrus.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
- Rob Herring <robh+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-kernel@vger.kernel.org
+ dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
+ header.b="q336GL8/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1649844629; x=1681380629;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=mXEo1vMbCQhz7IIKv1PA2DXOYacKulksQjxVdLQuTL8=;
+ b=q336GL8/hmgFlDGu2RENbXMN+fjGAWFDjJVz3CBNiKty8ciln+S+g3f/
+ a+0HWLx+FVIVk48o9PyqzUFziYHvNxGcp9b3hPsvBStm4ZHeu3bBJ54+/
+ WoZ3tRTlw8tV3IMIi+cvoWMVC1EUmn5eZp1PaK6N0OCtSc43hT5Pp7Odb Y=;
+Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
+ by alexa-out.qualcomm.com with ESMTP; 13 Apr 2022 03:10:24 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Apr 2022 03:10:23 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Wed, 13 Apr 2022 03:10:22 -0700
+Received: from hu-srivasam-hyd.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Wed, 13 Apr 2022 03:10:16 -0700
+From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+To: <agross@kernel.org>, <bjorn.andersson@linaro.org>, <lgirdwood@gmail.com>, 
+ <broonie@kernel.org>, <robh+dt@kernel.org>, <quic_plai@quicinc.com>,
+ <bgoswami@codeaurora.org>, <perex@perex.cz>, <tiwai@suse.com>,
+ <srinivas.kandagatla@linaro.org>, <quic_rohkumar@quicinc.com>,
+ <linux-arm-msm@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <swboyd@chromium.org>, <judyhsiao@chromium.org>
+Subject: [PATCH] ASoC: qcom: lpass-platform: Update memremap flag to
+ MEMREMAP_WC
+Date: Wed, 13 Apr 2022 15:39:56 +0530
+Message-ID: <1649844596-5264-1-git-send-email-quic_srivasam@quicinc.com>
+X-Mailer: git-send-email 2.7.4
+MIME-Version: 1.0
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Cc: Venkata Prasad Potturu <quic_potturu@quicinc.com>,
+ Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,75 +96,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 13 Apr 2022 10:37:12 +0200,
-Lucas Tanure wrote:
-> 
-> Move the support for CS35L41 external boost to its shared library
-> for ASoC use.
-> This move resulted in cs35l41_hda_reg_sequence being removed,
-> and its steps were broken down into regmap writes or functions
-> from the library. And hardware configuration struct was unified
-> for its use in the shared lib.
-> While at it, some minor bugs were found and fixed it.
-> 
-> v7 changelog:
->  - Rebased on top v5.18-rc2 tag
->  - Acks from Mark Brown
-> 
-> v6 changelog:
->  - Rebased on top of Linux Next with community patches for CS35L41
->  - Document patch acked by Charles Keepax
-> 
-> v5 changelog:
->  - Fixed wrong indentation at Documentation patch
->  - Use of consistent prefix
-> 
-> v4 changelog:
->  - Separated GPIO 1 and 2 function enums
-> 
-> v3 changelog:
->  - Remove patches already accepted
->  - Improved logic in documentation patch
->  - Documentation patch goes before its code
->  - Fixed missing Signed-off-by
->  - Fixed subject for HDA patches
-> 
-> v2 changelog:
->  - Instead of removing the log, playback actions will log the last regmap access.
->  - Documentation patch with the correct subject line and fixed bug reported by Rob Herring on the
->  provided example.
-> 
-> Previous versions:
->  v1: https://lkml.org/lkml/2022/3/3/759
->  v2: https://lkml.org/lkml/2022/3/4/743
->  v3: https://lkml.org/lkml/2022/3/8/975
->  v4: https://lkml.org/lkml/2022/3/17/267
->  v5: https://lkml.org/lkml/2022/3/22/696
->  v6: https://lkml.org/lkml/2022/4/9/114
-> 
-> David Rhodes (1):
->   ASoC: cs35l41: Document CS35l41 External Boost
-> 
-> Lucas Tanure (15):
->   ALSA: cs35l41: Unify hardware configuration
->   ALSA: cs35l41: Check hw_config before using it
->   ALSA: cs35l41: Move cs35l41_gpio_config to shared lib
->   ALSA: hda: cs35l41: Fix I2S params comments
->   ALSA: hda: cs35l41: Always configure the DAI
->   ALSA: hda: cs35l41: Add Boost type flag
->   ALSA: hda: cs35l41: Put the device into safe mode for external boost
->   ALSA: hda: cs35l41: Mute the device before shutdown
->   ALSA: cs35l41: Enable Internal Boost in shared lib
->   ALSA: hda: cs35l41: Move boost config to initialization code
->   ALSA: hda: cs35l41: Remove cs35l41_hda_reg_sequence struct
->   ALSA: hda: cs35l41: Reorganize log for playback actions
->   ALSA: hda: cs35l41: Handle all external boost setups the same way
->   ALSA: hda: cs35l41: Move external boost handling to lib for ASoC use
->   ASoC: cs35l41: Support external boost
+Update memremap flag from MEMREMAP_WT to MEMREMAP_WC for better
+performance.
 
-Now applied all 16 patches to for-next branch.
+Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+Co-developed-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
+Signed-off-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
+---
+ sound/soc/qcom/lpass-platform.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/sound/soc/qcom/lpass-platform.c b/sound/soc/qcom/lpass-platform.c
+index a7c677f..2590d65 100644
+--- a/sound/soc/qcom/lpass-platform.c
++++ b/sound/soc/qcom/lpass-platform.c
+@@ -1160,7 +1160,7 @@ static int lpass_platform_prealloc_cdc_dma_buffer(struct snd_soc_component *comp
+ 		break;
+ 	}
+ 
+-	buf->area = (unsigned char * __force)memremap(buf->addr, buf->bytes, MEMREMAP_WT);
++	buf->area = (unsigned char * __force)memremap(buf->addr, buf->bytes, MEMREMAP_WC);
+ 
+ 	return 0;
+ }
+-- 
+2.7.4
 
-thanks,
-
-Takashi

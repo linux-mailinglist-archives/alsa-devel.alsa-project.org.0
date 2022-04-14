@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3D64501B5C
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Apr 2022 20:52:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF037501B5A
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Apr 2022 20:51:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 924581908;
-	Thu, 14 Apr 2022 20:51:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 924581908
+	by alsa0.perex.cz (Postfix) with ESMTPS id 492601E9;
+	Thu, 14 Apr 2022 20:51:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 492601E9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649962342;
-	bh=hz0j5HdOTjDc5+YpSg319DZvwXWGnDvQQi8cCT8RzVo=;
+	s=default; t=1649962314;
+	bh=Kik+9+SfKKI4E1TR9yQB/5ZfFMhtkMxzroJYBMB2ajo=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QR/yJl0IJsOM8QsA4lVyHpclb7JhcvoV+AD3yeSWzFUqfpvrON1Ilsdzur8ioZgI6
-	 up9v1KtCsByjWjdmNMN7n7FkgBPQKsN7IEIEtnr1wuKq5BIZxSA9Wm4ow5ydknUOIV
-	 d69x8Z5t6jHvaRtn2nj+BjH5uBpKzqRD38Znen8M=
+	b=AH2+ja0eJ1gPSE62l/1NkgnX1wzXOe/lzZjfcAFNwmh5Z3/D2kNUnL8ff2biPKOHe
+	 Rvl3Z4aO0G6PDIvPB9reCmdd+DzpfuPMoN6sZSKXgwiYbRzyPp8BGIQuLld39QRC12
+	 h2+mCzpkJQYiVb78AWIxwW2IQie0K+UPJtxQ7VI8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C9CEAF8055B;
-	Thu, 14 Apr 2022 20:49:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7E101F80533;
+	Thu, 14 Apr 2022 20:49:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C472AF80544; Thu, 14 Apr 2022 20:49:07 +0200 (CEST)
+ id C7182F80543; Thu, 14 Apr 2022 20:49:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 81D67F80526
- for <alsa-devel@alsa-project.org>; Thu, 14 Apr 2022 20:48:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81D67F80526
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8513EF8052D
+ for <alsa-devel@alsa-project.org>; Thu, 14 Apr 2022 20:48:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8513EF8052D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="j0Pt+c06"
+ header.b="QL+qIBbU"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649962137; x=1681498137;
+ t=1649962138; x=1681498138;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=hz0j5HdOTjDc5+YpSg319DZvwXWGnDvQQi8cCT8RzVo=;
- b=j0Pt+c06KaWVU1j9WrWRqY97UpnvWvXaIh+YC0A0oIVnIdj1HdLTaay5
- yu4jxuNfLtaW41diviMQt8G/QgmN8WJMFS1xTCmDLm1M5plE+M0WlnBCw
- z+NxZMSGpkAt6//p2Rqb/iqZ/qOxfp8oiUS6BMYDSFGW3fZCdoFs1B7cc
- ABBO0i5XPVWQtI0FHB5n7IUqKPSyf4TZFxpfyYCUEbkBsbag5LZ5M1CuR
- PsLpWeUSvTi48AYIE4wWVbKyHuQpm22mwx580fcwNYjpBYKayky1Kxe38
- hQ2r5qpkIPSU6DKZFLmMmyGrz/9iieRW7FaEyAQe7KV9ip9a0D45O7hBX w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10317"; a="349442350"
-X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="349442350"
+ bh=Kik+9+SfKKI4E1TR9yQB/5ZfFMhtkMxzroJYBMB2ajo=;
+ b=QL+qIBbUtGM4+5RmXrEDIhGKAYDjth31JVpyLwDxMb5oPxndsGKup2cD
+ fnxqQghtMpTaNUfS+e4wQvo9YpFsMmRaT+0wzYodN8NC+IdeL2F/rn+nk
+ BhGuCBNMnaYv5SrYNPbMRYq/OnThdNOz7Am9bs5ZxCe1dX9fBOVpuWx/W
+ Z0pXug80Kfg/hvmjuVmxqMJYWqjTtO4C0805/qXmMM7hJKgVxcN6Eg5WK
+ pr9xIJYDczCeJAYf/R+RE1e3x1OjEnOAzLvMyx0dY4T1gOkuQVZ1bH7Tg
+ CbqRJVz3XP6Dsu5ByYkTLgT6JpeX6isGadLM6cxf7c2jezpAMSKXYpUOK Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10317"; a="349442354"
+X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="349442354"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2022 11:48:40 -0700
-X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="560304642"
+ 14 Apr 2022 11:48:41 -0700
+X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="560304647"
 Received: from rrsolima-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.252.130.212])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2022 11:48:39 -0700
+ 14 Apr 2022 11:48:40 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v2 08/15] ASoC: SOF: remove const qualifier for 'struct
- snd_sof_dsp_ops'
-Date: Thu, 14 Apr 2022 13:48:10 -0500
-Message-Id: <20220414184817.362215-9-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH v2 09/15] ASoC: SOF: Intel: hda: use common ops across
+ platforms
+Date: Thu, 14 Apr 2022 13:48:11 -0500
+Message-Id: <20220414184817.362215-10-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220414184817.362215-1-pierre-louis.bossart@linux.intel.com>
 References: <20220414184817.362215-1-pierre-louis.bossart@linux.intel.com>
@@ -95,15 +95,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Now that we start having multiple platforms with minor variants, the
-use of the const qualifier for 'dsp_ops' is starting to be
-sub-optimal: the structures are copied across platforms, with only a
-couple of members that differ.
-
-This patch removes the const qualifier without any functionality
-changes, and adds an optional initialization callback. In follow-up
-patches, the dsp_ops will revisited for Intel HDaudio platforms, with
-the differences added programmatically over a common baseline.
+The dsp_ops are mostly common between platforms. Introduce a common
+structure and an init function to set platform-specific values.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
@@ -112,312 +105,863 @@ Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Reviewed-by: Rander Wang <rander.wang@intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- include/sound/sof.h                    | 4 +++-
- sound/soc/sof/amd/acp.h                | 2 +-
- sound/soc/sof/amd/renoir.c             | 2 +-
- sound/soc/sof/core.c                   | 3 +++
- sound/soc/sof/debug.c                  | 2 +-
- sound/soc/sof/imx/imx8.c               | 4 ++--
- sound/soc/sof/imx/imx8m.c              | 2 +-
- sound/soc/sof/intel/apl.c              | 2 +-
- sound/soc/sof/intel/bdw.c              | 2 +-
- sound/soc/sof/intel/byt.c              | 4 ++--
- sound/soc/sof/intel/cnl.c              | 2 +-
- sound/soc/sof/intel/hda.h              | 8 ++++----
- sound/soc/sof/intel/icl.c              | 2 +-
- sound/soc/sof/intel/pci-tng.c          | 2 +-
- sound/soc/sof/intel/shim.h             | 2 +-
- sound/soc/sof/intel/tgl.c              | 2 +-
- sound/soc/sof/mediatek/mt8195/mt8195.c | 2 +-
- sound/soc/sof/ops.h                    | 6 ++++++
- sound/soc/sof/pcm.c                    | 2 +-
- 19 files changed, 33 insertions(+), 22 deletions(-)
+ sound/soc/sof/core.c                 |   5 +-
+ sound/soc/sof/intel/Makefile         |   2 +-
+ sound/soc/sof/intel/apl.c            | 104 +++++---------------------
+ sound/soc/sof/intel/cnl.c            | 106 +++++---------------------
+ sound/soc/sof/intel/hda-common-ops.c | 107 ++++++++++++++++++++++++++
+ sound/soc/sof/intel/hda.h            |   7 +-
+ sound/soc/sof/intel/icl.c            | 108 +++++----------------------
+ sound/soc/sof/intel/pci-apl.c        |   2 +
+ sound/soc/sof/intel/pci-cnl.c        |   3 +
+ sound/soc/sof/intel/pci-icl.c        |   2 +
+ sound/soc/sof/intel/pci-tgl.c        |   6 +-
+ sound/soc/sof/intel/tgl.c            | 108 +++++----------------------
+ sound/soc/sof/ops.h                  |   6 +-
+ 13 files changed, 211 insertions(+), 355 deletions(-)
+ create mode 100644 sound/soc/sof/intel/hda-common-ops.c
 
-diff --git a/include/sound/sof.h b/include/sound/sof.h
-index 96997650be65..1a82a0db5e7f 100644
---- a/include/sound/sof.h
-+++ b/include/sound/sof.h
-@@ -16,6 +16,7 @@
- #include <sound/soc-acpi.h>
- 
- struct snd_sof_dsp_ops;
-+struct snd_sof_dev;
- 
- /**
-  * enum sof_fw_state - DSP firmware state definitions
-@@ -135,7 +136,8 @@ struct sof_dev_desc {
- 	/* default firmware name */
- 	const char *default_fw_filename[SOF_IPC_TYPE_COUNT];
- 
--	const struct snd_sof_dsp_ops *ops;
-+	struct snd_sof_dsp_ops *ops;
-+	int (*ops_init)(struct snd_sof_dev *sdev);
- };
- 
- int sof_dai_get_mclk(struct snd_soc_pcm_runtime *rtd);
-diff --git a/sound/soc/sof/amd/acp.h b/sound/soc/sof/amd/acp.h
-index 35e46fe6676a..ca69b4969ca2 100644
---- a/sound/soc/sof/amd/acp.h
-+++ b/sound/soc/sof/amd/acp.h
-@@ -204,7 +204,7 @@ int acp_pcm_hw_params(struct snd_sof_dev *sdev, struct snd_pcm_substream *substr
- 		      struct snd_pcm_hw_params *params,
- 		      struct snd_sof_platform_stream_params *platform_params);
- 
--extern const struct snd_sof_dsp_ops sof_renoir_ops;
-+extern struct snd_sof_dsp_ops sof_renoir_ops;
- 
- /* Machine configuration */
- int snd_amd_acp_find_config(struct pci_dev *pci);
-diff --git a/sound/soc/sof/amd/renoir.c b/sound/soc/sof/amd/renoir.c
-index 409fd57448b8..73f639fa16a4 100644
---- a/sound/soc/sof/amd/renoir.c
-+++ b/sound/soc/sof/amd/renoir.c
-@@ -123,7 +123,7 @@ static struct snd_soc_acpi_mach *amd_sof_machine_select(struct snd_sof_dev *sdev
- }
- 
- /* AMD Renoir DSP ops */
--const struct snd_sof_dsp_ops sof_renoir_ops = {
-+struct snd_sof_dsp_ops sof_renoir_ops = {
- 	/* probe and remove */
- 	.probe			= amd_sof_acp_probe,
- 	.remove			= amd_sof_acp_remove,
 diff --git a/sound/soc/sof/core.c b/sound/soc/sof/core.c
-index e91631618bff..27a98867f999 100644
+index 27a98867f999..d981a1c3fb05 100644
 --- a/sound/soc/sof/core.c
 +++ b/sound/soc/sof/core.c
-@@ -357,6 +357,9 @@ int snd_sof_device_probe(struct device *dev, struct snd_sof_pdata *plat_data)
- 	sdev->first_boot = true;
+@@ -342,6 +342,7 @@ static void sof_probe_work(struct work_struct *work)
+ int snd_sof_device_probe(struct device *dev, struct snd_sof_pdata *plat_data)
+ {
+ 	struct snd_sof_dev *sdev;
++	int ret;
+ 
+ 	sdev = devm_kzalloc(dev, sizeof(*sdev), GFP_KERNEL);
+ 	if (!sdev)
+@@ -358,7 +359,9 @@ int snd_sof_device_probe(struct device *dev, struct snd_sof_pdata *plat_data)
  	dev_set_drvdata(dev, sdev);
  
-+	/* init ops, if necessary */
-+	sof_ops_init(sdev);
-+
+ 	/* init ops, if necessary */
+-	sof_ops_init(sdev);
++	ret = sof_ops_init(sdev);
++	if (ret < 0)
++		return ret;
+ 
  	/* check all mandatory ops */
  	if (!sof_ops(sdev) || !sof_ops(sdev)->probe || !sof_ops(sdev)->run ||
- 	    !sof_ops(sdev)->block_read || !sof_ops(sdev)->block_write ||
-diff --git a/sound/soc/sof/debug.c b/sound/soc/sof/debug.c
-index 8a77245b5182..b59619ecfacf 100644
---- a/sound/soc/sof/debug.c
-+++ b/sound/soc/sof/debug.c
-@@ -331,7 +331,7 @@ EXPORT_SYMBOL_GPL(snd_sof_dbg_memory_info_init);
+diff --git a/sound/soc/sof/intel/Makefile b/sound/soc/sof/intel/Makefile
+index 1f473d4d8416..b9d51dc39ffa 100644
+--- a/sound/soc/sof/intel/Makefile
++++ b/sound/soc/sof/intel/Makefile
+@@ -6,7 +6,7 @@ snd-sof-acpi-intel-bdw-objs := bdw.o
+ snd-sof-intel-hda-common-objs := hda.o hda-loader.o hda-stream.o hda-trace.o \
+ 				 hda-dsp.o hda-ipc.o hda-ctrl.o hda-pcm.o \
+ 				 hda-dai.o hda-bus.o \
+-				 apl.o cnl.o tgl.o icl.o
++				 apl.o cnl.o tgl.o icl.o hda-common-ops.o
+ snd-sof-intel-hda-common-$(CONFIG_SND_SOC_SOF_HDA_PROBES) += hda-probes.o
  
- int snd_sof_dbg_init(struct snd_sof_dev *sdev)
- {
--	const struct snd_sof_dsp_ops *ops = sof_ops(sdev);
-+	struct snd_sof_dsp_ops *ops = sof_ops(sdev);
- 	const struct snd_sof_debugfs_map *map;
- 	int i;
- 	int err;
-diff --git a/sound/soc/sof/imx/imx8.c b/sound/soc/sof/imx/imx8.c
-index db53be825384..d3a60c8e42cc 100644
---- a/sound/soc/sof/imx/imx8.c
-+++ b/sound/soc/sof/imx/imx8.c
-@@ -487,7 +487,7 @@ static int imx8_dsp_set_power_state(struct snd_sof_dev *sdev,
- }
- 
- /* i.MX8 ops */
--static const struct snd_sof_dsp_ops sof_imx8_ops = {
-+static struct snd_sof_dsp_ops sof_imx8_ops = {
- 	/* probe and remove */
- 	.probe		= imx8_probe,
- 	.remove		= imx8_remove,
-@@ -550,7 +550,7 @@ static const struct snd_sof_dsp_ops sof_imx8_ops = {
- };
- 
- /* i.MX8X ops */
--static const struct snd_sof_dsp_ops sof_imx8x_ops = {
-+static struct snd_sof_dsp_ops sof_imx8x_ops = {
- 	/* probe and remove */
- 	.probe		= imx8_probe,
- 	.remove		= imx8_remove,
-diff --git a/sound/soc/sof/imx/imx8m.c b/sound/soc/sof/imx/imx8m.c
-index 196ca7d7521f..8e9ae08dc7b0 100644
---- a/sound/soc/sof/imx/imx8m.c
-+++ b/sound/soc/sof/imx/imx8m.c
-@@ -412,7 +412,7 @@ static int imx8m_dsp_suspend(struct snd_sof_dev *sdev, unsigned int target_state
- }
- 
- /* i.MX8 ops */
--static const struct snd_sof_dsp_ops sof_imx8m_ops = {
-+static struct snd_sof_dsp_ops sof_imx8m_ops = {
- 	/* probe and remove */
- 	.probe		= imx8m_probe,
- 	.remove		= imx8m_remove,
+ snd-sof-intel-hda-objs := hda-codec.o
 diff --git a/sound/soc/sof/intel/apl.c b/sound/soc/sof/intel/apl.c
-index 6721c8f95161..518d543591b5 100644
+index 518d543591b5..eb471602dae7 100644
 --- a/sound/soc/sof/intel/apl.c
 +++ b/sound/soc/sof/intel/apl.c
-@@ -26,7 +26,7 @@ static const struct snd_sof_debugfs_map apl_dsp_debugfs[] = {
+@@ -26,108 +26,40 @@ static const struct snd_sof_debugfs_map apl_dsp_debugfs[] = {
  };
  
  /* apollolake ops */
--const struct snd_sof_dsp_ops sof_apl_ops = {
-+struct snd_sof_dsp_ops sof_apl_ops = {
- 	/* probe/remove/shutdown */
- 	.probe		= hda_dsp_probe,
- 	.remove		= hda_dsp_remove,
-diff --git a/sound/soc/sof/intel/bdw.c b/sound/soc/sof/intel/bdw.c
-index efdc9e6282f3..3449eeccd9e8 100644
---- a/sound/soc/sof/intel/bdw.c
-+++ b/sound/soc/sof/intel/bdw.c
-@@ -567,7 +567,7 @@ static struct snd_soc_dai_driver bdw_dai[] = {
+-struct snd_sof_dsp_ops sof_apl_ops = {
+-	/* probe/remove/shutdown */
+-	.probe		= hda_dsp_probe,
+-	.remove		= hda_dsp_remove,
+-	.shutdown	= hda_dsp_shutdown,
+-
+-	/* Register IO */
+-	.write		= sof_io_write,
+-	.read		= sof_io_read,
+-	.write64	= sof_io_write64,
+-	.read64		= sof_io_read64,
++struct snd_sof_dsp_ops sof_apl_ops;
++EXPORT_SYMBOL_NS(sof_apl_ops, SND_SOC_SOF_INTEL_HDA_COMMON);
+ 
+-	/* Block IO */
+-	.block_read	= sof_block_read,
+-	.block_write	= sof_block_write,
++int sof_apl_ops_init(struct snd_sof_dev *sdev)
++{
++	/* common defaults */
++	memcpy(&sof_apl_ops, &sof_hda_common_ops, sizeof(struct snd_sof_dsp_ops));
+ 
+-	/* Mailbox IO */
+-	.mailbox_read	= sof_mailbox_read,
+-	.mailbox_write	= sof_mailbox_write,
++	/* probe/remove/shutdown */
++	sof_apl_ops.shutdown	= hda_dsp_shutdown;
+ 
+ 	/* doorbell */
+-	.irq_thread	= hda_dsp_ipc_irq_thread,
++	sof_apl_ops.irq_thread	= hda_dsp_ipc_irq_thread;
+ 
+ 	/* ipc */
+-	.send_msg	= hda_dsp_ipc_send_msg,
+-	.fw_ready	= sof_fw_ready,
+-	.get_mailbox_offset = hda_dsp_ipc_get_mailbox_offset,
+-	.get_window_offset = hda_dsp_ipc_get_window_offset,
+-
+-	.ipc_msg_data	= hda_ipc_msg_data,
+-	.set_stream_data_offset = hda_set_stream_data_offset,
+-
+-	/* machine driver */
+-	.machine_select = hda_machine_select,
+-	.machine_register = sof_machine_register,
+-	.machine_unregister = sof_machine_unregister,
+-	.set_mach_params = hda_set_mach_params,
++	sof_apl_ops.send_msg	= hda_dsp_ipc_send_msg;
+ 
+ 	/* debug */
+-	.debug_map	= apl_dsp_debugfs,
+-	.debug_map_count	= ARRAY_SIZE(apl_dsp_debugfs),
+-	.dbg_dump	= hda_dsp_dump,
+-	.ipc_dump	= hda_ipc_dump,
+-	.debugfs_add_region_item = snd_sof_debugfs_add_region_item_iomem,
+-
+-	/* stream callbacks */
+-	.pcm_open	= hda_dsp_pcm_open,
+-	.pcm_close	= hda_dsp_pcm_close,
+-	.pcm_hw_params	= hda_dsp_pcm_hw_params,
+-	.pcm_hw_free	= hda_dsp_stream_hw_free,
+-	.pcm_trigger	= hda_dsp_pcm_trigger,
+-	.pcm_pointer	= hda_dsp_pcm_pointer,
+-	.pcm_ack	= hda_dsp_pcm_ack,
+-
+-	/* firmware loading */
+-	.load_firmware = snd_sof_load_firmware_raw,
++	sof_apl_ops.debug_map	= apl_dsp_debugfs;
++	sof_apl_ops.debug_map_count	= ARRAY_SIZE(apl_dsp_debugfs);
++	sof_apl_ops.ipc_dump	= hda_ipc_dump;
+ 
+ 	/* firmware run */
+-	.run = hda_dsp_cl_boot_firmware,
++	sof_apl_ops.run = hda_dsp_cl_boot_firmware;
+ 
+ 	/* pre/post fw run */
+-	.pre_fw_run = hda_dsp_pre_fw_run,
+-	.post_fw_run = hda_dsp_post_fw_run,
+-
+-	/* parse platform specific extended manifest */
+-	.parse_platform_ext_manifest = hda_dsp_ext_man_get_cavs_config_data,
++	sof_apl_ops.post_fw_run = hda_dsp_post_fw_run;
+ 
+ 	/* dsp core get/put */
+-	.core_get = hda_dsp_core_get,
+-
+-	/* trace callback */
+-	.trace_init = hda_dsp_trace_init,
+-	.trace_release = hda_dsp_trace_release,
+-	.trace_trigger = hda_dsp_trace_trigger,
+-
+-	/* client ops */
+-	.register_ipc_clients = hda_register_clients,
+-	.unregister_ipc_clients = hda_unregister_clients,
+-
+-	/* DAI drivers */
+-	.drv		= skl_dai,
+-	.num_drv	= SOF_SKL_NUM_DAIS,
++	sof_apl_ops.core_get = hda_dsp_core_get;
+ 
+-	/* PM */
+-	.suspend		= hda_dsp_suspend,
+-	.resume			= hda_dsp_resume,
+-	.runtime_suspend	= hda_dsp_runtime_suspend,
+-	.runtime_resume		= hda_dsp_runtime_resume,
+-	.runtime_idle		= hda_dsp_runtime_idle,
+-	.set_hw_params_upon_resume = hda_dsp_set_hw_params_upon_resume,
+-	.set_power_state	= hda_dsp_set_power_state,
+-
+-	/* ALSA HW info flags */
+-	.hw_info =	SNDRV_PCM_INFO_MMAP |
+-			SNDRV_PCM_INFO_MMAP_VALID |
+-			SNDRV_PCM_INFO_INTERLEAVED |
+-			SNDRV_PCM_INFO_PAUSE |
+-			SNDRV_PCM_INFO_NO_PERIOD_WAKEUP,
+-
+-	.dsp_arch_ops = &sof_xtensa_arch_ops,
++	return 0;
  };
+-EXPORT_SYMBOL_NS(sof_apl_ops, SND_SOC_SOF_INTEL_HDA_COMMON);
++EXPORT_SYMBOL_NS(sof_apl_ops_init, SND_SOC_SOF_INTEL_HDA_COMMON);
  
- /* broadwell ops */
--static const struct snd_sof_dsp_ops sof_bdw_ops = {
-+static struct snd_sof_dsp_ops sof_bdw_ops = {
- 	/*Device init */
- 	.probe          = bdw_probe,
- 
-diff --git a/sound/soc/sof/intel/byt.c b/sound/soc/sof/intel/byt.c
-index 748d1452d4d8..3db125d82a1e 100644
---- a/sound/soc/sof/intel/byt.c
-+++ b/sound/soc/sof/intel/byt.c
-@@ -216,7 +216,7 @@ static int byt_acpi_probe(struct snd_sof_dev *sdev)
- }
- 
- /* baytrail ops */
--static const struct snd_sof_dsp_ops sof_byt_ops = {
-+static struct snd_sof_dsp_ops sof_byt_ops = {
- 	/* device init */
- 	.probe		= byt_acpi_probe,
- 	.remove		= byt_remove,
-@@ -298,7 +298,7 @@ static const struct sof_intel_dsp_desc byt_chip_info = {
- };
- 
- /* cherrytrail and braswell ops */
--static const struct snd_sof_dsp_ops sof_cht_ops = {
-+static struct snd_sof_dsp_ops sof_cht_ops = {
- 	/* device init */
- 	.probe		= byt_acpi_probe,
- 	.remove		= byt_remove,
+ const struct sof_intel_dsp_desc apl_chip_info = {
+ 	/* Apollolake */
 diff --git a/sound/soc/sof/intel/cnl.c b/sound/soc/sof/intel/cnl.c
-index 6a96470b967f..81fe490c7f77 100644
+index 81fe490c7f77..21168ebc02cc 100644
 --- a/sound/soc/sof/intel/cnl.c
 +++ b/sound/soc/sof/intel/cnl.c
-@@ -244,7 +244,7 @@ void cnl_ipc_dump(struct snd_sof_dev *sdev)
+@@ -244,108 +244,40 @@ void cnl_ipc_dump(struct snd_sof_dev *sdev)
  }
  
  /* cannonlake ops */
--const struct snd_sof_dsp_ops sof_cnl_ops = {
-+struct snd_sof_dsp_ops sof_cnl_ops = {
- 	/* probe/remove/shutdown */
- 	.probe		= hda_dsp_probe,
- 	.remove		= hda_dsp_remove,
+-struct snd_sof_dsp_ops sof_cnl_ops = {
+-	/* probe/remove/shutdown */
+-	.probe		= hda_dsp_probe,
+-	.remove		= hda_dsp_remove,
+-	.shutdown	= hda_dsp_shutdown,
+-
+-	/* Register IO */
+-	.write		= sof_io_write,
+-	.read		= sof_io_read,
+-	.write64	= sof_io_write64,
+-	.read64		= sof_io_read64,
++struct snd_sof_dsp_ops sof_cnl_ops;
++EXPORT_SYMBOL_NS(sof_cnl_ops, SND_SOC_SOF_INTEL_HDA_COMMON);
+ 
+-	/* Block IO */
+-	.block_read	= sof_block_read,
+-	.block_write	= sof_block_write,
++int sof_cnl_ops_init(struct snd_sof_dev *sdev)
++{
++	/* common defaults */
++	memcpy(&sof_cnl_ops, &sof_hda_common_ops, sizeof(struct snd_sof_dsp_ops));
+ 
+-	/* Mailbox IO */
+-	.mailbox_read	= sof_mailbox_read,
+-	.mailbox_write	= sof_mailbox_write,
++	/* probe/remove/shutdown */
++	sof_cnl_ops.shutdown	= hda_dsp_shutdown;
+ 
+ 	/* doorbell */
+-	.irq_thread	= cnl_ipc_irq_thread,
++	sof_cnl_ops.irq_thread	= cnl_ipc_irq_thread;
+ 
+ 	/* ipc */
+-	.send_msg	= cnl_ipc_send_msg,
+-	.fw_ready	= sof_fw_ready,
+-	.get_mailbox_offset = hda_dsp_ipc_get_mailbox_offset,
+-	.get_window_offset = hda_dsp_ipc_get_window_offset,
+-
+-	.ipc_msg_data	= hda_ipc_msg_data,
+-	.set_stream_data_offset = hda_set_stream_data_offset,
+-
+-	/* machine driver */
+-	.machine_select = hda_machine_select,
+-	.machine_register = sof_machine_register,
+-	.machine_unregister = sof_machine_unregister,
+-	.set_mach_params = hda_set_mach_params,
++	sof_cnl_ops.send_msg	= cnl_ipc_send_msg;
+ 
+ 	/* debug */
+-	.debug_map	= cnl_dsp_debugfs,
+-	.debug_map_count	= ARRAY_SIZE(cnl_dsp_debugfs),
+-	.dbg_dump	= hda_dsp_dump,
+-	.ipc_dump	= cnl_ipc_dump,
+-	.debugfs_add_region_item = snd_sof_debugfs_add_region_item_iomem,
+-
+-	/* stream callbacks */
+-	.pcm_open	= hda_dsp_pcm_open,
+-	.pcm_close	= hda_dsp_pcm_close,
+-	.pcm_hw_params	= hda_dsp_pcm_hw_params,
+-	.pcm_hw_free	= hda_dsp_stream_hw_free,
+-	.pcm_trigger	= hda_dsp_pcm_trigger,
+-	.pcm_pointer	= hda_dsp_pcm_pointer,
+-	.pcm_ack	= hda_dsp_pcm_ack,
+-
+-	/* firmware loading */
+-	.load_firmware = snd_sof_load_firmware_raw,
++	sof_cnl_ops.debug_map	= cnl_dsp_debugfs;
++	sof_cnl_ops.debug_map_count	= ARRAY_SIZE(cnl_dsp_debugfs);
++	sof_cnl_ops.ipc_dump	= cnl_ipc_dump;
+ 
+ 	/* pre/post fw run */
+-	.pre_fw_run = hda_dsp_pre_fw_run,
+-	.post_fw_run = hda_dsp_post_fw_run,
++	sof_cnl_ops.post_fw_run = hda_dsp_post_fw_run;
+ 
+-	/* parse platform specific extended manifest */
+-	.parse_platform_ext_manifest = hda_dsp_ext_man_get_cavs_config_data,
++	/* firmware run */
++	sof_cnl_ops.run = hda_dsp_cl_boot_firmware;
+ 
+ 	/* dsp core get/put */
+-	.core_get = hda_dsp_core_get,
++	sof_cnl_ops.core_get = hda_dsp_core_get;
+ 
+-	/* firmware run */
+-	.run = hda_dsp_cl_boot_firmware,
+-
+-	/* trace callback */
+-	.trace_init = hda_dsp_trace_init,
+-	.trace_release = hda_dsp_trace_release,
+-	.trace_trigger = hda_dsp_trace_trigger,
+-
+-	/* client ops */
+-	.register_ipc_clients = hda_register_clients,
+-	.unregister_ipc_clients = hda_unregister_clients,
+-
+-	/* DAI drivers */
+-	.drv		= skl_dai,
+-	.num_drv	= SOF_SKL_NUM_DAIS,
+-
+-	/* PM */
+-	.suspend		= hda_dsp_suspend,
+-	.resume			= hda_dsp_resume,
+-	.runtime_suspend	= hda_dsp_runtime_suspend,
+-	.runtime_resume		= hda_dsp_runtime_resume,
+-	.runtime_idle		= hda_dsp_runtime_idle,
+-	.set_hw_params_upon_resume = hda_dsp_set_hw_params_upon_resume,
+-	.set_power_state	= hda_dsp_set_power_state,
+-
+-	/* ALSA HW info flags */
+-	.hw_info =	SNDRV_PCM_INFO_MMAP |
+-			SNDRV_PCM_INFO_MMAP_VALID |
+-			SNDRV_PCM_INFO_INTERLEAVED |
+-			SNDRV_PCM_INFO_PAUSE |
+-			SNDRV_PCM_INFO_NO_PERIOD_WAKEUP,
+-
+-	.dsp_arch_ops = &sof_xtensa_arch_ops,
++	return 0;
+ };
+-EXPORT_SYMBOL_NS(sof_cnl_ops, SND_SOC_SOF_INTEL_HDA_COMMON);
++EXPORT_SYMBOL_NS(sof_cnl_ops_init, SND_SOC_SOF_INTEL_HDA_COMMON);
+ 
+ const struct sof_intel_dsp_desc cnl_chip_info = {
+ 	/* Cannonlake */
+diff --git a/sound/soc/sof/intel/hda-common-ops.c b/sound/soc/sof/intel/hda-common-ops.c
+new file mode 100644
+index 000000000000..257eace4a563
+--- /dev/null
++++ b/sound/soc/sof/intel/hda-common-ops.c
+@@ -0,0 +1,107 @@
++// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
++//
++// This file is provided under a dual BSD/GPLv2 license.  When using or
++// redistributing this file, you may do so under either license.
++//
++// Copyright(c) 2022 Intel Corporation. All rights reserved.
++//
++
++/*
++ * common ops for SKL+ HDAudio platforms
++ */
++
++#include "../sof-priv.h"
++#include "hda.h"
++#include "../sof-audio.h"
++
++struct snd_sof_dsp_ops sof_hda_common_ops = {
++	/* probe/remove/shutdown */
++	.probe		= hda_dsp_probe,
++	.remove		= hda_dsp_remove,
++
++	/* Register IO */
++	.write		= sof_io_write,
++	.read		= sof_io_read,
++	.write64	= sof_io_write64,
++	.read64		= sof_io_read64,
++
++	/* Block IO */
++	.block_read	= sof_block_read,
++	.block_write	= sof_block_write,
++
++	/* Mailbox IO */
++	.mailbox_read	= sof_mailbox_read,
++	.mailbox_write	= sof_mailbox_write,
++
++	/* ipc */
++	.fw_ready	= sof_fw_ready,
++	.get_mailbox_offset = hda_dsp_ipc_get_mailbox_offset,
++	.get_window_offset = hda_dsp_ipc_get_window_offset,
++
++	.ipc_msg_data	= hda_ipc_msg_data,
++	.set_stream_data_offset = hda_set_stream_data_offset,
++
++	/* machine driver */
++	.machine_select = hda_machine_select,
++	.machine_register = sof_machine_register,
++	.machine_unregister = sof_machine_unregister,
++	.set_mach_params = hda_set_mach_params,
++
++	/* debug */
++	.dbg_dump	= hda_dsp_dump,
++	.debugfs_add_region_item = snd_sof_debugfs_add_region_item_iomem,
++
++	/* stream callbacks */
++	.pcm_open	= hda_dsp_pcm_open,
++	.pcm_close	= hda_dsp_pcm_close,
++	.pcm_hw_params	= hda_dsp_pcm_hw_params,
++	.pcm_hw_free	= hda_dsp_stream_hw_free,
++	.pcm_trigger	= hda_dsp_pcm_trigger,
++	.pcm_pointer	= hda_dsp_pcm_pointer,
++	.pcm_ack	= hda_dsp_pcm_ack,
++
++	/* firmware loading */
++	.load_firmware = snd_sof_load_firmware_raw,
++
++	/* pre/post fw run */
++	.pre_fw_run = hda_dsp_pre_fw_run,
++
++	/* firmware run */
++	.run = hda_dsp_cl_boot_firmware,
++
++	/* parse platform specific extended manifest */
++	.parse_platform_ext_manifest = hda_dsp_ext_man_get_cavs_config_data,
++
++	/* dsp core get/put */
++
++	/* trace callback */
++	.trace_init = hda_dsp_trace_init,
++	.trace_release = hda_dsp_trace_release,
++	.trace_trigger = hda_dsp_trace_trigger,
++
++	/* client ops */
++	.register_ipc_clients = hda_register_clients,
++	.unregister_ipc_clients = hda_unregister_clients,
++
++	/* DAI drivers */
++	.drv		= skl_dai,
++	.num_drv	= SOF_SKL_NUM_DAIS,
++
++	/* PM */
++	.suspend		= hda_dsp_suspend,
++	.resume			= hda_dsp_resume,
++	.runtime_suspend	= hda_dsp_runtime_suspend,
++	.runtime_resume		= hda_dsp_runtime_resume,
++	.runtime_idle		= hda_dsp_runtime_idle,
++	.set_hw_params_upon_resume = hda_dsp_set_hw_params_upon_resume,
++	.set_power_state	= hda_dsp_set_power_state,
++
++	/* ALSA HW info flags */
++	.hw_info =	SNDRV_PCM_INFO_MMAP |
++			SNDRV_PCM_INFO_MMAP_VALID |
++			SNDRV_PCM_INFO_INTERLEAVED |
++			SNDRV_PCM_INFO_PAUSE |
++			SNDRV_PCM_INFO_NO_PERIOD_WAKEUP,
++
++	.dsp_arch_ops = &sof_xtensa_arch_ops,
++};
 diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
-index 05e5e158614a..c7e248280527 100644
+index c7e248280527..5d083ebbb886 100644
 --- a/sound/soc/sof/intel/hda.h
 +++ b/sound/soc/sof/intel/hda.h
-@@ -687,10 +687,10 @@ extern struct snd_soc_dai_driver skl_dai[];
+@@ -687,14 +687,19 @@ extern struct snd_soc_dai_driver skl_dai[];
  /*
   * Platform Specific HW abstraction Ops.
   */
--extern const struct snd_sof_dsp_ops sof_apl_ops;
--extern const struct snd_sof_dsp_ops sof_cnl_ops;
--extern const struct snd_sof_dsp_ops sof_tgl_ops;
--extern const struct snd_sof_dsp_ops sof_icl_ops;
-+extern struct snd_sof_dsp_ops sof_apl_ops;
-+extern struct snd_sof_dsp_ops sof_cnl_ops;
-+extern struct snd_sof_dsp_ops sof_tgl_ops;
-+extern struct snd_sof_dsp_ops sof_icl_ops;
++extern struct snd_sof_dsp_ops sof_hda_common_ops;
++
+ extern struct snd_sof_dsp_ops sof_apl_ops;
++int sof_apl_ops_init(struct snd_sof_dev *sdev);
+ extern struct snd_sof_dsp_ops sof_cnl_ops;
++int sof_cnl_ops_init(struct snd_sof_dev *sdev);
+ extern struct snd_sof_dsp_ops sof_tgl_ops;
++int sof_tgl_ops_init(struct snd_sof_dev *sdev);
+ extern struct snd_sof_dsp_ops sof_icl_ops;
++int sof_icl_ops_init(struct snd_sof_dev *sdev);
  
  extern const struct sof_intel_dsp_desc apl_chip_info;
  extern const struct sof_intel_dsp_desc cnl_chip_info;
+-extern const struct sof_intel_dsp_desc skl_chip_info;
+ extern const struct sof_intel_dsp_desc icl_chip_info;
+ extern const struct sof_intel_dsp_desc tgl_chip_info;
+ extern const struct sof_intel_dsp_desc tglh_chip_info;
 diff --git a/sound/soc/sof/intel/icl.c b/sound/soc/sof/intel/icl.c
-index b44a649bfc0b..da1e6dc4dc85 100644
+index da1e6dc4dc85..148d03f4164b 100644
 --- a/sound/soc/sof/intel/icl.c
 +++ b/sound/soc/sof/intel/icl.c
-@@ -88,7 +88,7 @@ static int icl_dsp_post_fw_run(struct snd_sof_dev *sdev)
+@@ -88,109 +88,41 @@ static int icl_dsp_post_fw_run(struct snd_sof_dev *sdev)
  }
  
  /* Icelake ops */
--const struct snd_sof_dsp_ops sof_icl_ops = {
-+struct snd_sof_dsp_ops sof_icl_ops = {
- 	/* probe/remove/shutdown */
- 	.probe		= hda_dsp_probe,
- 	.remove		= hda_dsp_remove,
-diff --git a/sound/soc/sof/intel/pci-tng.c b/sound/soc/sof/intel/pci-tng.c
-index 38ce6fd838b5..ca313c7db47e 100644
---- a/sound/soc/sof/intel/pci-tng.c
-+++ b/sound/soc/sof/intel/pci-tng.c
-@@ -136,7 +136,7 @@ static int tangier_pci_probe(struct snd_sof_dev *sdev)
- 	return ret;
- }
+-struct snd_sof_dsp_ops sof_icl_ops = {
+-	/* probe/remove/shutdown */
+-	.probe		= hda_dsp_probe,
+-	.remove		= hda_dsp_remove,
+-	.shutdown	= hda_dsp_shutdown,
+-
+-	/* Register IO */
+-	.write		= sof_io_write,
+-	.read		= sof_io_read,
+-	.write64	= sof_io_write64,
+-	.read64		= sof_io_read64,
++struct snd_sof_dsp_ops sof_icl_ops;
++EXPORT_SYMBOL_NS(sof_icl_ops, SND_SOC_SOF_INTEL_HDA_COMMON);
  
--const struct snd_sof_dsp_ops sof_tng_ops = {
-+struct snd_sof_dsp_ops sof_tng_ops = {
- 	/* device init */
- 	.probe		= tangier_pci_probe,
+-	/* Block IO */
+-	.block_read	= sof_block_read,
+-	.block_write	= sof_block_write,
++int sof_icl_ops_init(struct snd_sof_dev *sdev)
++{
++	/* common defaults */
++	memcpy(&sof_icl_ops, &sof_hda_common_ops, sizeof(struct snd_sof_dsp_ops));
  
-diff --git a/sound/soc/sof/intel/shim.h b/sound/soc/sof/intel/shim.h
-index f36cd9d5eb94..80c61a7cedf6 100644
---- a/sound/soc/sof/intel/shim.h
-+++ b/sound/soc/sof/intel/shim.h
-@@ -173,7 +173,7 @@ struct sof_intel_dsp_desc {
- 	bool (*check_sdw_irq)(struct snd_sof_dev *sdev);
+-	/* Mailbox IO */
+-	.mailbox_read	= sof_mailbox_read,
+-	.mailbox_write	= sof_mailbox_write,
++	/* probe/remove/shutdown */
++	sof_icl_ops.shutdown	= hda_dsp_shutdown;
+ 
+ 	/* doorbell */
+-	.irq_thread	= cnl_ipc_irq_thread,
++	sof_icl_ops.irq_thread	= cnl_ipc_irq_thread;
+ 
+ 	/* ipc */
+-	.send_msg	= cnl_ipc_send_msg,
+-	.fw_ready	= sof_fw_ready,
+-	.get_mailbox_offset = hda_dsp_ipc_get_mailbox_offset,
+-	.get_window_offset = hda_dsp_ipc_get_window_offset,
+-
+-	.ipc_msg_data	= hda_ipc_msg_data,
+-	.set_stream_data_offset = hda_set_stream_data_offset,
+-
+-	/* machine driver */
+-	.machine_select = hda_machine_select,
+-	.machine_register = sof_machine_register,
+-	.machine_unregister = sof_machine_unregister,
+-	.set_mach_params = hda_set_mach_params,
++	sof_icl_ops.send_msg	= cnl_ipc_send_msg;
+ 
+ 	/* debug */
+-	.debug_map	= icl_dsp_debugfs,
+-	.debug_map_count	= ARRAY_SIZE(icl_dsp_debugfs),
+-	.dbg_dump	= hda_dsp_dump,
+-	.ipc_dump	= cnl_ipc_dump,
+-	.debugfs_add_region_item = snd_sof_debugfs_add_region_item_iomem,
+-
+-	/* stream callbacks */
+-	.pcm_open	= hda_dsp_pcm_open,
+-	.pcm_close	= hda_dsp_pcm_close,
+-	.pcm_hw_params	= hda_dsp_pcm_hw_params,
+-	.pcm_hw_free	= hda_dsp_stream_hw_free,
+-	.pcm_trigger	= hda_dsp_pcm_trigger,
+-	.pcm_pointer	= hda_dsp_pcm_pointer,
+-	.pcm_ack	= hda_dsp_pcm_ack,
+-
+-	/* firmware loading */
+-	.load_firmware = snd_sof_load_firmware_raw,
++	sof_icl_ops.debug_map	= icl_dsp_debugfs;
++	sof_icl_ops.debug_map_count	= ARRAY_SIZE(icl_dsp_debugfs);
++	sof_icl_ops.ipc_dump	= cnl_ipc_dump;
+ 
+ 	/* pre/post fw run */
+-	.pre_fw_run = hda_dsp_pre_fw_run,
+-	.post_fw_run = icl_dsp_post_fw_run,
++	sof_icl_ops.post_fw_run = icl_dsp_post_fw_run;
+ 
+-	/* parse platform specific extended manifest */
+-	.parse_platform_ext_manifest = hda_dsp_ext_man_get_cavs_config_data,
++	/* firmware run */
++	sof_icl_ops.run = hda_dsp_cl_boot_firmware_iccmax;
++	sof_icl_ops.stall = icl_dsp_core_stall;
+ 
+ 	/* dsp core get/put */
+-	.core_get = hda_dsp_core_get,
++	sof_icl_ops.core_get = hda_dsp_core_get;
+ 
+-	/* firmware run */
+-	.run = hda_dsp_cl_boot_firmware_iccmax,
+-	.stall = icl_dsp_core_stall,
+-
+-	/* trace callback */
+-	.trace_init = hda_dsp_trace_init,
+-	.trace_release = hda_dsp_trace_release,
+-	.trace_trigger = hda_dsp_trace_trigger,
+-
+-	/* client ops */
+-	.register_ipc_clients = hda_register_clients,
+-	.unregister_ipc_clients = hda_unregister_clients,
+-
+-	/* DAI drivers */
+-	.drv		= skl_dai,
+-	.num_drv	= SOF_SKL_NUM_DAIS,
+-
+-	/* PM */
+-	.suspend		= hda_dsp_suspend,
+-	.resume			= hda_dsp_resume,
+-	.runtime_suspend	= hda_dsp_runtime_suspend,
+-	.runtime_resume		= hda_dsp_runtime_resume,
+-	.runtime_idle		= hda_dsp_runtime_idle,
+-	.set_hw_params_upon_resume = hda_dsp_set_hw_params_upon_resume,
+-	.set_power_state	= hda_dsp_set_power_state,
+-
+-	/* ALSA HW info flags */
+-	.hw_info =	SNDRV_PCM_INFO_MMAP |
+-			SNDRV_PCM_INFO_MMAP_VALID |
+-			SNDRV_PCM_INFO_INTERLEAVED |
+-			SNDRV_PCM_INFO_PAUSE |
+-			SNDRV_PCM_INFO_NO_PERIOD_WAKEUP,
+-
+-	.dsp_arch_ops = &sof_xtensa_arch_ops,
++	return 0;
+ };
+-EXPORT_SYMBOL_NS(sof_icl_ops, SND_SOC_SOF_INTEL_HDA_COMMON);
++EXPORT_SYMBOL_NS(sof_icl_ops_init, SND_SOC_SOF_INTEL_HDA_COMMON);
+ 
+ const struct sof_intel_dsp_desc icl_chip_info = {
+ 	/* Icelake */
+diff --git a/sound/soc/sof/intel/pci-apl.c b/sound/soc/sof/intel/pci-apl.c
+index 1f0e509738dc..2de3658eb817 100644
+--- a/sound/soc/sof/intel/pci-apl.c
++++ b/sound/soc/sof/intel/pci-apl.c
+@@ -43,6 +43,7 @@ static const struct sof_dev_desc bxt_desc = {
+ 	},
+ 	.nocodec_tplg_filename = "sof-apl-nocodec.tplg",
+ 	.ops = &sof_apl_ops,
++	.ops_init = sof_apl_ops_init,
  };
  
--extern const struct snd_sof_dsp_ops sof_tng_ops;
-+extern struct snd_sof_dsp_ops sof_tng_ops;
+ static const struct sof_dev_desc glk_desc = {
+@@ -69,6 +70,7 @@ static const struct sof_dev_desc glk_desc = {
+ 	},
+ 	.nocodec_tplg_filename = "sof-glk-nocodec.tplg",
+ 	.ops = &sof_apl_ops,
++	.ops_init = sof_apl_ops_init,
+ };
  
- extern const struct sof_intel_dsp_desc tng_chip_info;
+ /* PCI IDs */
+diff --git a/sound/soc/sof/intel/pci-cnl.c b/sound/soc/sof/intel/pci-cnl.c
+index 858e8a1bf564..87e587aef9c9 100644
+--- a/sound/soc/sof/intel/pci-cnl.c
++++ b/sound/soc/sof/intel/pci-cnl.c
+@@ -44,6 +44,7 @@ static const struct sof_dev_desc cnl_desc = {
+ 	},
+ 	.nocodec_tplg_filename = "sof-cnl-nocodec.tplg",
+ 	.ops = &sof_cnl_ops,
++	.ops_init = sof_cnl_ops_init,
+ };
  
+ static const struct sof_dev_desc cfl_desc = {
+@@ -71,6 +72,7 @@ static const struct sof_dev_desc cfl_desc = {
+ 	},
+ 	.nocodec_tplg_filename = "sof-cnl-nocodec.tplg",
+ 	.ops = &sof_cnl_ops,
++	.ops_init = sof_cnl_ops_init,
+ };
+ 
+ static const struct sof_dev_desc cml_desc = {
+@@ -98,6 +100,7 @@ static const struct sof_dev_desc cml_desc = {
+ 	},
+ 	.nocodec_tplg_filename = "sof-cnl-nocodec.tplg",
+ 	.ops = &sof_cnl_ops,
++	.ops_init = sof_cnl_ops_init,
+ };
+ 
+ /* PCI IDs */
+diff --git a/sound/soc/sof/intel/pci-icl.c b/sound/soc/sof/intel/pci-icl.c
+index 21bcd5d34b18..1c7f16ce531e 100644
+--- a/sound/soc/sof/intel/pci-icl.c
++++ b/sound/soc/sof/intel/pci-icl.c
+@@ -44,6 +44,7 @@ static const struct sof_dev_desc icl_desc = {
+ 	},
+ 	.nocodec_tplg_filename = "sof-icl-nocodec.tplg",
+ 	.ops = &sof_icl_ops,
++	.ops_init = sof_icl_ops_init,
+ };
+ 
+ static const struct sof_dev_desc jsl_desc = {
+@@ -70,6 +71,7 @@ static const struct sof_dev_desc jsl_desc = {
+ 	},
+ 	.nocodec_tplg_filename = "sof-jsl-nocodec.tplg",
+ 	.ops = &sof_cnl_ops,
++	.ops_init = sof_cnl_ops_init,
+ };
+ 
+ /* PCI IDs */
+diff --git a/sound/soc/sof/intel/pci-tgl.c b/sound/soc/sof/intel/pci-tgl.c
+index caefd3000d51..478f9d051c4c 100644
+--- a/sound/soc/sof/intel/pci-tgl.c
++++ b/sound/soc/sof/intel/pci-tgl.c
+@@ -44,6 +44,7 @@ static const struct sof_dev_desc tgl_desc = {
+ 	},
+ 	.nocodec_tplg_filename = "sof-tgl-nocodec.tplg",
+ 	.ops = &sof_tgl_ops,
++	.ops_init = sof_tgl_ops_init,
+ };
+ 
+ static const struct sof_dev_desc tglh_desc = {
+@@ -71,6 +72,7 @@ static const struct sof_dev_desc tglh_desc = {
+ 	},
+ 	.nocodec_tplg_filename = "sof-tgl-nocodec.tplg",
+ 	.ops = &sof_tgl_ops,
++	.ops_init = sof_tgl_ops_init,
+ };
+ 
+ static const struct sof_dev_desc ehl_desc = {
+@@ -97,6 +99,7 @@ static const struct sof_dev_desc ehl_desc = {
+ 	},
+ 	.nocodec_tplg_filename = "sof-ehl-nocodec.tplg",
+ 	.ops = &sof_tgl_ops,
++	.ops_init = sof_tgl_ops_init,
+ };
+ 
+ static const struct sof_dev_desc adls_desc = {
+@@ -124,6 +127,7 @@ static const struct sof_dev_desc adls_desc = {
+ 	},
+ 	.nocodec_tplg_filename = "sof-adl-nocodec.tplg",
+ 	.ops = &sof_tgl_ops,
++	.ops_init = sof_tgl_ops_init,
+ };
+ 
+ static const struct sof_dev_desc adl_desc = {
+@@ -151,6 +155,7 @@ static const struct sof_dev_desc adl_desc = {
+ 	},
+ 	.nocodec_tplg_filename = "sof-adl-nocodec.tplg",
+ 	.ops = &sof_tgl_ops,
++	.ops_init = sof_tgl_ops_init,
+ };
+ 
+ /* PCI IDs */
+@@ -195,4 +200,3 @@ module_pci_driver(snd_sof_pci_intel_tgl_driver);
+ MODULE_LICENSE("Dual BSD/GPL");
+ MODULE_IMPORT_NS(SND_SOC_SOF_INTEL_HDA_COMMON);
+ MODULE_IMPORT_NS(SND_SOC_SOF_PCI_DEV);
+-
 diff --git a/sound/soc/sof/intel/tgl.c b/sound/soc/sof/intel/tgl.c
-index 72d92ff6cef5..2bb32bbce426 100644
+index 2bb32bbce426..18e01db882f3 100644
 --- a/sound/soc/sof/intel/tgl.c
 +++ b/sound/soc/sof/intel/tgl.c
-@@ -59,7 +59,7 @@ static int tgl_dsp_core_put(struct snd_sof_dev *sdev, int core)
+@@ -59,109 +59,41 @@ static int tgl_dsp_core_put(struct snd_sof_dev *sdev, int core)
  }
  
  /* Tigerlake ops */
--const struct snd_sof_dsp_ops sof_tgl_ops = {
-+struct snd_sof_dsp_ops sof_tgl_ops = {
- 	/* probe/remove/shutdown */
- 	.probe		= hda_dsp_probe,
- 	.remove		= hda_dsp_remove,
-diff --git a/sound/soc/sof/mediatek/mt8195/mt8195.c b/sound/soc/sof/mediatek/mt8195/mt8195.c
-index 5085a3ac3da8..90ec7b14823b 100644
---- a/sound/soc/sof/mediatek/mt8195/mt8195.c
-+++ b/sound/soc/sof/mediatek/mt8195/mt8195.c
-@@ -393,7 +393,7 @@ static struct snd_soc_dai_driver mt8195_dai[] = {
- };
+-struct snd_sof_dsp_ops sof_tgl_ops = {
+-	/* probe/remove/shutdown */
+-	.probe		= hda_dsp_probe,
+-	.remove		= hda_dsp_remove,
+-	.shutdown	= hda_dsp_shutdown,
+-
+-	/* Register IO */
+-	.write		= sof_io_write,
+-	.read		= sof_io_read,
+-	.write64	= sof_io_write64,
+-	.read64		= sof_io_read64,
++struct snd_sof_dsp_ops sof_tgl_ops;
++EXPORT_SYMBOL_NS(sof_tgl_ops, SND_SOC_SOF_INTEL_HDA_COMMON);
  
- /* mt8195 ops */
--static const struct snd_sof_dsp_ops sof_mt8195_ops = {
-+static struct snd_sof_dsp_ops sof_mt8195_ops = {
- 	/* probe and remove */
- 	.probe		= mt8195_dsp_probe,
- 	.remove		= mt8195_dsp_remove,
+-	/* Block IO */
+-	.block_read	= sof_block_read,
+-	.block_write	= sof_block_write,
++int sof_tgl_ops_init(struct snd_sof_dev *sdev)
++{
++	/* common defaults */
++	memcpy(&sof_tgl_ops, &sof_hda_common_ops, sizeof(struct snd_sof_dsp_ops));
+ 
+-	/* Mailbox IO */
+-	.mailbox_read	= sof_mailbox_read,
+-	.mailbox_write	= sof_mailbox_write,
++	/* probe/remove/shutdown */
++	sof_tgl_ops.shutdown	= hda_dsp_shutdown;
+ 
+ 	/* doorbell */
+-	.irq_thread	= cnl_ipc_irq_thread,
++	sof_tgl_ops.irq_thread	= cnl_ipc_irq_thread;
+ 
+ 	/* ipc */
+-	.send_msg	= cnl_ipc_send_msg,
+-	.fw_ready	= sof_fw_ready,
+-	.get_mailbox_offset = hda_dsp_ipc_get_mailbox_offset,
+-	.get_window_offset = hda_dsp_ipc_get_window_offset,
+-
+-	.ipc_msg_data	= hda_ipc_msg_data,
+-	.set_stream_data_offset = hda_set_stream_data_offset,
+-
+-	/* machine driver */
+-	.machine_select = hda_machine_select,
+-	.machine_register = sof_machine_register,
+-	.machine_unregister = sof_machine_unregister,
+-	.set_mach_params = hda_set_mach_params,
++	sof_tgl_ops.send_msg	= cnl_ipc_send_msg;
+ 
+ 	/* debug */
+-	.debug_map	= tgl_dsp_debugfs,
+-	.debug_map_count	= ARRAY_SIZE(tgl_dsp_debugfs),
+-	.dbg_dump	= hda_dsp_dump,
+-	.ipc_dump	= cnl_ipc_dump,
+-	.debugfs_add_region_item = snd_sof_debugfs_add_region_item_iomem,
+-
+-	/* stream callbacks */
+-	.pcm_open	= hda_dsp_pcm_open,
+-	.pcm_close	= hda_dsp_pcm_close,
+-	.pcm_hw_params	= hda_dsp_pcm_hw_params,
+-	.pcm_hw_free	= hda_dsp_stream_hw_free,
+-	.pcm_trigger	= hda_dsp_pcm_trigger,
+-	.pcm_pointer	= hda_dsp_pcm_pointer,
+-	.pcm_ack	= hda_dsp_pcm_ack,
+-
+-	/* firmware loading */
+-	.load_firmware = snd_sof_load_firmware_raw,
++	sof_tgl_ops.debug_map	= tgl_dsp_debugfs;
++	sof_tgl_ops.debug_map_count	= ARRAY_SIZE(tgl_dsp_debugfs);
++	sof_tgl_ops.ipc_dump	= cnl_ipc_dump;
+ 
+ 	/* pre/post fw run */
+-	.pre_fw_run = hda_dsp_pre_fw_run,
+-	.post_fw_run = hda_dsp_post_fw_run,
++	sof_tgl_ops.post_fw_run = hda_dsp_post_fw_run;
+ 
+-	/* parse platform specific extended manifest */
+-	.parse_platform_ext_manifest = hda_dsp_ext_man_get_cavs_config_data,
++	/* firmware run */
++	sof_tgl_ops.run = hda_dsp_cl_boot_firmware_iccmax;
+ 
+ 	/* dsp core get/put */
+-	.core_get = tgl_dsp_core_get,
+-	.core_put = tgl_dsp_core_put,
++	sof_tgl_ops.core_get = tgl_dsp_core_get;
++	sof_tgl_ops.core_put = tgl_dsp_core_put;
+ 
+-	/* firmware run */
+-	.run = hda_dsp_cl_boot_firmware_iccmax,
+-
+-	/* trace callback */
+-	.trace_init = hda_dsp_trace_init,
+-	.trace_release = hda_dsp_trace_release,
+-	.trace_trigger = hda_dsp_trace_trigger,
+-
+-	/* client ops */
+-	.register_ipc_clients = hda_register_clients,
+-	.unregister_ipc_clients = hda_unregister_clients,
+-
+-	/* DAI drivers */
+-	.drv		= skl_dai,
+-	.num_drv	= SOF_SKL_NUM_DAIS,
+-
+-	/* PM */
+-	.suspend		= hda_dsp_suspend,
+-	.resume			= hda_dsp_resume,
+-	.runtime_suspend	= hda_dsp_runtime_suspend,
+-	.runtime_resume		= hda_dsp_runtime_resume,
+-	.runtime_idle		= hda_dsp_runtime_idle,
+-	.set_hw_params_upon_resume = hda_dsp_set_hw_params_upon_resume,
+-	.set_power_state	= hda_dsp_set_power_state,
+-
+-	/* ALSA HW info flags */
+-	.hw_info =	SNDRV_PCM_INFO_MMAP |
+-			SNDRV_PCM_INFO_MMAP_VALID |
+-			SNDRV_PCM_INFO_INTERLEAVED |
+-			SNDRV_PCM_INFO_PAUSE |
+-			SNDRV_PCM_INFO_NO_PERIOD_WAKEUP,
+-
+-	.dsp_arch_ops = &sof_xtensa_arch_ops,
++	return 0;
+ };
+-EXPORT_SYMBOL_NS(sof_tgl_ops, SND_SOC_SOF_INTEL_HDA_COMMON);
++EXPORT_SYMBOL_NS(sof_tgl_ops_init, SND_SOC_SOF_INTEL_HDA_COMMON);
+ 
+ const struct sof_intel_dsp_desc tgl_chip_info = {
+ 	/* Tigerlake , Alderlake */
 diff --git a/sound/soc/sof/ops.h b/sound/soc/sof/ops.h
-index a19474663767..d866a96ba0d9 100644
+index d866a96ba0d9..aa64e3bd645f 100644
 --- a/sound/soc/sof/ops.h
 +++ b/sound/soc/sof/ops.h
-@@ -21,6 +21,12 @@
+@@ -21,10 +21,12 @@
  #define sof_ops(sdev) \
  	((sdev)->pdata->desc->ops)
  
-+static inline void sof_ops_init(struct snd_sof_dev *sdev)
-+{
-+	if (sdev->pdata->desc->ops_init)
-+		sdev->pdata->desc->ops_init(sdev);
-+}
+-static inline void sof_ops_init(struct snd_sof_dev *sdev)
++static inline int sof_ops_init(struct snd_sof_dev *sdev)
+ {
+ 	if (sdev->pdata->desc->ops_init)
+-		sdev->pdata->desc->ops_init(sdev);
++		return sdev->pdata->desc->ops_init(sdev);
 +
- /* Mandatory operations are verified during probing */
++	return 0;
+ }
  
- /* init */
-diff --git a/sound/soc/sof/pcm.c b/sound/soc/sof/pcm.c
-index b5cbc8b5c0ee..6242327e663e 100644
---- a/sound/soc/sof/pcm.c
-+++ b/sound/soc/sof/pcm.c
-@@ -393,7 +393,7 @@ static int sof_pcm_open(struct snd_soc_component *component,
- 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(component);
--	const struct snd_sof_dsp_ops *ops = sof_ops(sdev);
-+	struct snd_sof_dsp_ops *ops = sof_ops(sdev);
- 	struct snd_sof_pcm *spcm;
- 	struct snd_soc_tplg_stream_caps *caps;
- 	int ret;
+ /* Mandatory operations are verified during probing */
 -- 
 2.30.2
 

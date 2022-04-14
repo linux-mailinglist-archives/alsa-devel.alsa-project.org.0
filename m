@@ -2,73 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 588305018AA
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Apr 2022 18:29:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9508B501A1B
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Apr 2022 19:38:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 968EF18AE;
-	Thu, 14 Apr 2022 18:28:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 968EF18AE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2BDB61848;
+	Thu, 14 Apr 2022 19:38:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2BDB61848
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649953769;
-	bh=USl5M95XsFDgFlVl/R87KE+ih7joYD5oFCQHmkrb/oY=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1649957939;
+	bh=6dOv01az04T/z1BTO+IT24inw8nsBFbY540g2cn/Fkk=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=U7G0SzZxHdJmsb4nTuDUsR6XqkAYK34/4n3zqeuNBNphJQtnBiRWdd4Y6lUvbtNOc
-	 PUlRnqXmFAJsQWnAnlxgvzHwJABzZ6VYC/z22s68GBag3rR+CTfWAOY/AV90gieae1
-	 HnUQDQjiK/CxaoOLaEvGsl9yhTF+/MQaVh3LOlWU=
+	b=RwzSMWzJNJEz1/E5kbW4d7hfmsp35FMk7VT46ZNeKEL9L2T/uhtpMTf2bif3HCgRy
+	 05s+FRV3Q7J0T7fY5GiLn4t9eCfOJzmtcRDBX7IbwLqhef6p8y6GeHiRnsQ2ugzKln
+	 ePZSxrG0e1LAPG6VebCr+BhU0EMfnLDYMIotGzxg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D2E48F805C3;
-	Thu, 14 Apr 2022 18:23:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A4F0BF80114;
+	Thu, 14 Apr 2022 19:38:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1B824F80566; Thu, 14 Apr 2022 18:23:27 +0200 (CEST)
+ id 27D48F80162; Thu, 14 Apr 2022 19:37:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id EA5DDF80114
+ for <alsa-devel@alsa-project.org>; Thu, 14 Apr 2022 19:37:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA5DDF80114
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="LG79QvOu"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DBC0BF8051A
- for <alsa-devel@alsa-project.org>; Thu, 14 Apr 2022 18:22:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DBC0BF8051A
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <sha@pengutronix.de>)
- id 1nf2FF-0007Vc-4s; Thu, 14 Apr 2022 18:22:57 +0200
-Received: from [2a0a:edc0:0:1101:1d::28] (helo=dude02.red.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <sha@pengutronix.de>)
- id 1nf2FF-00313Z-50; Thu, 14 Apr 2022 18:22:55 +0200
-Received: from sha by dude02.red.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <sha@pengutronix.de>)
- id 1nf2F9-00GuF2-Sv; Thu, 14 Apr 2022 18:22:51 +0200
-From: Sascha Hauer <s.hauer@pengutronix.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v6 21/21] ASoC: fsl_micfil: Remove debug message
-Date: Thu, 14 Apr 2022 18:22:49 +0200
-Message-Id: <20220414162249.3934543-22-s.hauer@pengutronix.de>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20220414162249.3934543-1-s.hauer@pengutronix.de>
-References: <20220414162249.3934543-1-s.hauer@pengutronix.de>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D54F562153;
+ Thu, 14 Apr 2022 17:37:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05A2BC385A1;
+ Thu, 14 Apr 2022 17:37:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1649957871;
+ bh=6dOv01az04T/z1BTO+IT24inw8nsBFbY540g2cn/Fkk=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=LG79QvOujphjFiE7awNBuY5vBsXnGOqY8CuaLQGHgNFC8sxXWS4augbLnrwQSiGXN
+ sWfBXgNvPE4fK0z14guRsmx5qUgzswleIXrh2bwMK+VH8O03uGVO/2qG0AJlrq2x6I
+ DDnlf/cVe1/hlyQSIPoXvQBD5zTzZ3yaE2bDOYue5Vlt56TvOD1ACXIzALl72ZkGm4
+ Frwq69xH+JjXB+VhgABOdoa1znAHoIa4ksH6IOxV6yEYBYMbMzo+aeneB0enNmJYvR
+ cVpFnW9zwbDMM4OMuoDK/UrpCY+qmI5GkodTRS7pOeoRYhNwbyYkdiIs0sO3+d1IJq
+ RZn+UtyJiau7g==
+From: Mark Brown <broonie@kernel.org>
+To: akihiko.odaki@gmail.com
+In-Reply-To: <20220408041114.6024-1-akihiko.odaki@gmail.com>
+References: <20220408041114.6024-1-akihiko.odaki@gmail.com>
+Subject: Re: [PATCH] ASoC: soc-card: Create jack kcontrol without pins
+Message-Id: <164995786974.2810970.8441162989456904692.b4-ty@kernel.org>
+Date: Thu, 14 Apr 2022 18:37:49 +0100
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: sha@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Cc: Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Vinod Koul <vkoul@kernel.org>,
- Mark Brown <broonie@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
- kernel@pengutronix.de, dmaengine@vger.kernel.org,
- Shengjiu Wang <shengjiu.wang@gmail.com>
+Cc: oder_chiou@realtek.com, lgirdwood@gmail.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,32 +84,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The micfil driver prints out the IRQ numbers for each interrupt at error
-level. This information is useful for debugging at best, remove it.
+On Fri, 8 Apr 2022 13:11:14 +0900, Akihiko Odaki wrote:
+> snd_soc_card_jack_new() allowed to create jack kcontrol without pins,
+> but did not create kcontrols. The jack would not have kcontrols if pins
+> were not going to be added.
+> 
+> This renames the old snd_soc_card_jack_new() to
+> snd_soc_card_jack_new_pins() for use when pins are provided or will be
+> added later. The new snd_soc_card_jack_new() appropriately creates a
+> jack for use without pins and adds a kcontrol.
+> 
+> [...]
 
-Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
-Acked-by: Shengjiu Wang <shengjiu.wang@gmail.com>
----
+Applied to
 
-Notes:
-    Changes since v3:
-    - new patch
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
- sound/soc/fsl/fsl_micfil.c | 1 -
- 1 file changed, 1 deletion(-)
+Thanks!
 
-diff --git a/sound/soc/fsl/fsl_micfil.c b/sound/soc/fsl/fsl_micfil.c
-index 8c7b15dbd1d45..cd85c8714f970 100644
---- a/sound/soc/fsl/fsl_micfil.c
-+++ b/sound/soc/fsl/fsl_micfil.c
-@@ -597,7 +597,6 @@ static int fsl_micfil_probe(struct platform_device *pdev)
- 	/* get IRQs */
- 	for (i = 0; i < MICFIL_IRQ_LINES; i++) {
- 		micfil->irq[i] = platform_get_irq(pdev, i);
--		dev_err(&pdev->dev, "GET IRQ: %d\n", micfil->irq[i]);
- 		if (micfil->irq[i] < 0)
- 			return micfil->irq[i];
- 	}
--- 
-2.30.2
+[1/1] ASoC: soc-card: Create jack kcontrol without pins
+      commit: 19aed2d6cdb72a7c92909832b9480d9cadebeef9
 
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

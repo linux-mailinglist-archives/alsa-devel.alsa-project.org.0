@@ -2,82 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EB05500FBF
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Apr 2022 15:46:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76811501323
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Apr 2022 17:16:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 270AF16F4;
-	Thu, 14 Apr 2022 15:45:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 270AF16F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0B1F616F8;
+	Thu, 14 Apr 2022 17:15:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B1F616F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649943993;
-	bh=z2gKQDvjDAKZigd8ys86qyu4ItR5GIXfvt3KCuNW2lE=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=mF9X/laTqEPpm9l24/NXHlaltepyaA8nYJApaWd+3KXa5Hymb0NmCpt8EO53iPi6z
-	 KdYn9G0Q2UUaNEGwMIp7USQWCGqvVRUsLaKEoxR4Cjh0xs9cdqNJgOBapbnLOZWEM9
-	 1CnncJhwG9TlDKP5OZQ1nZCcjgTZCuykF2/FZJJA=
+	s=default; t=1649949365;
+	bh=pBtmS4CNcQ3M1U3j4ZfCOikWC5Aj0zjGDiU1U1DtET0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=CLscEQcNr6PXCpO5GoR2LXO1jeMFbkQGSKNqHwp3LiQu/8Mb9D7kmiRnl9/aLp9wp
+	 AGIdOspzKvs0n2zvljifULBQE0PufJB1x7Ltujcp7QhqpT4GEl6A4HBMNCsFQeakQw
+	 DVqdbGcVGE4PGPsa/ewxQDyminrFyPYB6srNAy+E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A89ACF80095;
-	Thu, 14 Apr 2022 15:45:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 28F35F801F7;
+	Thu, 14 Apr 2022 17:15:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0F848F80095; Thu, 14 Apr 2022 15:45:33 +0200 (CEST)
+ id BBEDCF80162; Thu, 14 Apr 2022 17:15:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4B15CF80124;
- Thu, 14 Apr 2022 15:45:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B15CF80124
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=linuxfoundation.org
- header.i=@linuxfoundation.org header.b="o2n76p6Q"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 978BC61D70;
- Thu, 14 Apr 2022 13:45:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F2B1C385A9;
- Thu, 14 Apr 2022 13:45:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1649943923;
- bh=z2gKQDvjDAKZigd8ys86qyu4ItR5GIXfvt3KCuNW2lE=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=o2n76p6QOZ1Mm3IB3gWLUXr8Exo6WRYSB1hqDg78B+n55+qDHry6g+TdL68HQeAoF
- Rj8snyjxv+Sck2U+TS3XO9mUNDEyentZl96zu3WPUpWfd84yuEl0p311fQQ9CE3sHY
- Krgr6Dixcc58V/WyD7PIpuzUQmb44yJk+YiCykxM=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: linux-kernel@vger.kernel.org
-Subject: [PATCH 5.4 330/475] ASoC: SOF: Intel: Fix NULL ptr dereference when
- ENOMEM
-Date: Thu, 14 Apr 2022 15:11:55 +0200
-Message-Id: <20220414110904.320644296@linuxfoundation.org>
-X-Mailer: git-send-email 2.35.2
-In-Reply-To: <20220414110855.141582785@linuxfoundation.org>
-References: <20220414110855.141582785@linuxfoundation.org>
-User-Agent: quilt/0.66
+ by alsa1.perex.cz (Postfix) with ESMTPS id ECDB8F80114
+ for <alsa-devel@alsa-project.org>; Thu, 14 Apr 2022 17:14:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ECDB8F80114
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="XKsxq4XN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1649949299; x=1681485299;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=pBtmS4CNcQ3M1U3j4ZfCOikWC5Aj0zjGDiU1U1DtET0=;
+ b=XKsxq4XNZkGipEF4X/e8N00RdWLxGhQJbwVrJCskobjPOib0PgMXe/fS
+ NKiMCHYCZomHAHtlad1oqVE7HI2AuIsOWCZNNEw4H+hLyJVV8iMj6LFt+
+ p6fZqi838ckt71EDEj946k88eBQXthADyyyC33zxrHBoWBltHUudpxMyr
+ OPlUzdYjW2/37d7Gc3ScAx6iCE5eZ6k7kqTOEpfJ/2CwV8PN3dLIylaUz
+ jzPaaNWIR4VOy/DxTsTqpW7936ECulKqJCAjqN74kUSkE5y2Rgd7OYtYz
+ cgOaDMDsuh+a15OGmSavAJ6UnO1EGII380U0CGIkPq0cWr375qlrmNmAa A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10317"; a="243539913"
+X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="243539913"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Apr 2022 08:14:53 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="645656451"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by FMSMGA003.fm.intel.com with ESMTP; 14 Apr 2022 08:14:52 -0700
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+To: alsa-devel@alsa-project.org,
+	tiwai@suse.de
+Subject: [PATCH] ALSA: hda/hdmi: fix warning about PCM count when used with SOF
+Date: Thu, 14 Apr 2022 18:05:16 +0300
+Message-Id: <20220414150516.3638283-1-kai.vehmanen@linux.intel.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Ammar Faizi <ammarfaizi2@gnuweeb.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Takashi Iwai <tiwai@suse.com>,
- Keyon Jie <yang.jie@linux.intel.com>, Liam Girdwood <lgirdwood@gmail.com>,
- stable@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Rander Wang <rander.wang@intel.com>, Daniel Baluta <daniel.baluta@nxp.com>,
- sound-open-firmware@alsa-project.org
+Cc: Mohan Kumar <mkumard@nvidia.com>, kai.vehmanen@linux.intel.com,
+ pierre-louis.bossart@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,101 +86,60 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Ammar Faizi <ammarfaizi2@gnuweeb.org>
+With commit 13046370c4d1 ("ALSA: hda/hdmi: let new platforms assign the
+pcm slot dynamically"), old behaviour to consider the HDA pin number,
+when choosing PCM to assign, was dropped.
 
-commit b7fb0ae09009d076964afe4c1a2bde1ee2bd88a9 upstream.
+Build on this change and limit the number of PCMs created to number of
+converters (= maximum number of concurrent display/receivers) when
+"mst_no_extra_pcms" and "dyn_pcm_no_legacy" quirks are both set.
 
-Do not call snd_dma_free_pages() when snd_dma_alloc_pages() returns
--ENOMEM because it leads to a NULL pointer dereference bug.
+Fix the check in hdmi_find_pcm_slot() to ensure only spec->pcm_used
+entries are considered in the search. Elsewhere in the driver
+spec->pcm_used is already checked properly.
 
-The dmesg says:
+Doing this avoids following warning at SOF driver probe for multiple
+machine drivers:
 
-  [ T1387] sof-audio-pci-intel-tgl 0000:00:1f.3: error: memory alloc failed: -12
-  [ T1387] BUG: kernel NULL pointer dereference, address: 0000000000000000
-  [ T1387] #PF: supervisor read access in kernel mode
-  [ T1387] #PF: error_code(0x0000) - not-present page
-  [ T1387] PGD 0 P4D 0
-  [ T1387] Oops: 0000 [#1] PREEMPT SMP NOPTI
-  [ T1387] CPU: 6 PID: 1387 Comm: alsa-sink-HDA A Tainted: G        W         5.17.0-rc4-superb-owl-00055-g80d47f5de5e3
-  [ T1387] Hardware name: HP HP Laptop 14s-dq2xxx/87FD, BIOS F.15 09/15/2021
-  [ T1387] RIP: 0010:dma_free_noncontiguous+0x37/0x80
-  [ T1387] Code: [... snip ...]
-  [ T1387] RSP: 0000:ffffc90002b87770 EFLAGS: 00010246
-  [ T1387] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000000
-  [ T1387] RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffff888101db30d0
-  [ T1387] RBP: 00000000fffffff4 R08: 0000000000000000 R09: 0000000000000000
-  [ T1387] R10: 0000000000000000 R11: ffffc90002b874d0 R12: 0000000000000001
-  [ T1387] R13: 0000000000058000 R14: ffff888105260c68 R15: ffff888105260828
-  [ T1387] FS:  00007f42e2ffd640(0000) GS:ffff888466b80000(0000) knlGS:0000000000000000
-  [ T1387] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-  [ T1387] CR2: 0000000000000000 CR3: 000000014acf0003 CR4: 0000000000770ee0
-  [ T1387] PKRU: 55555554
-  [ T1387] Call Trace:
-  [ T1387]  <TASK>
-  [ T1387]  cl_stream_prepare+0x10a/0x120 [snd_sof_intel_hda_common 146addf995b9279ae7f509621078cccbe4f875e1]
-  [... snip ...]
-  [ T1387]  </TASK>
+[  112.425297] sof_sdw sof_sdw: hda_dsp_hdmi_build_controls: no
+PCM in topology for HDMI converter 4
+[  112.425298] sof_sdw sof_sdw: hda_dsp_hdmi_build_controls: no
+PCM in topology for HDMI converter 5
+[  112.425299] sof_sdw sof_sdw: hda_dsp_hdmi_build_controls: no
+PCM in topology for HDMI converter 6
 
-Cc: Daniel Baluta <daniel.baluta@nxp.com>
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Cc: Keyon Jie <yang.jie@linux.intel.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>
-Cc: Rander Wang <rander.wang@intel.com>
-Cc: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Cc: Takashi Iwai <tiwai@suse.com>
-Cc: sound-open-firmware@alsa-project.org
-Cc: alsa-devel@alsa-project.org
-Cc: linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org # v5.2+
-Fixes: d16046ffa6de040bf580a64d5f4d0aa18258a854 ("ASoC: SOF: Intel: Add Intel specific HDA firmware loader")
-Link: https://lore.kernel.org/lkml/20220224145124.15985-1-ammarfaizi2@gnuweeb.org/ # v1
-Link: https://lore.kernel.org/lkml/20220224180850.34592-1-ammarfaizi2@gnuweeb.org/ # v2
-Link: https://lore.kernel.org/lkml/20220224182818.40301-1-ammarfaizi2@gnuweeb.org/ # v3
-Reviewed-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Ammar Faizi <ammarfaizi2@gnuweeb.org>
-Link: https://lore.kernel.org/r/20220224185836.44907-1-ammarfaizi2@gnuweeb.org
-Signed-off-by: Mark Brown <broonie@kernel.org>
-[ammarfaizi2: Backport to Linux 5.4 LTS]
-Signed-off-by: Ammar Faizi <ammarfaizi2@gnuweeb.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+BugLink: https://github.com/thesofproject/linux/issues/2573
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 ---
- sound/soc/sof/intel/hda-loader.c |    9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ sound/pci/hda/patch_hdmi.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
---- a/sound/soc/sof/intel/hda-loader.c
-+++ b/sound/soc/sof/intel/hda-loader.c
-@@ -50,7 +50,7 @@ static int cl_stream_prepare(struct snd_
- 	ret = snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV_SG, &pci->dev, size, dmab);
- 	if (ret < 0) {
- 		dev_err(sdev->dev, "error: memory alloc failed: %x\n", ret);
--		goto error;
-+		goto out_put;
+diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
+index 3e086eebf88d..f9d67058d69d 100644
+--- a/sound/pci/hda/patch_hdmi.c
++++ b/sound/pci/hda/patch_hdmi.c
+@@ -1395,7 +1395,7 @@ static int hdmi_find_pcm_slot(struct hdmi_spec *spec,
+ 
+  last_try:
+ 	/* the last try; check the empty slots in pins */
+-	for (i = 0; i < spec->num_nids; i++) {
++	for (i = 0; i < spec->pcm_used; i++) {
+ 		if (!test_bit(i, &spec->pcm_bitmap))
+ 			return i;
  	}
+@@ -2325,7 +2325,9 @@ static int generic_hdmi_build_pcms(struct hda_codec *codec)
+ 	 * dev_num is the device entry number in a pin
+ 	 */
  
- 	hstream->period_bytes = 0;/* initialize period_bytes */
-@@ -60,16 +60,17 @@ static int cl_stream_prepare(struct snd_
- 	ret = hda_dsp_stream_hw_params(sdev, dsp_stream, dmab, NULL);
- 	if (ret < 0) {
- 		dev_err(sdev->dev, "error: hdac prepare failed: %x\n", ret);
--		goto error;
-+		goto out_free;
- 	}
- 
- 	hda_dsp_stream_spib_config(sdev, dsp_stream, HDA_DSP_SPIB_ENABLE, size);
- 
- 	return hstream->stream_tag;
- 
--error:
--	hda_dsp_stream_put(sdev, direction, hstream->stream_tag);
-+out_free:
- 	snd_dma_free_pages(dmab);
-+out_put:
-+	hda_dsp_stream_put(sdev, direction, hstream->stream_tag);
- 	return ret;
- }
- 
+-	if (codec->mst_no_extra_pcms)
++	if (spec->dyn_pcm_no_legacy && codec->mst_no_extra_pcms)
++		pcm_num = spec->num_cvts;
++	else if (codec->mst_no_extra_pcms)
+ 		pcm_num = spec->num_nids;
+ 	else
+ 		pcm_num = spec->num_nids + spec->dev_num - 1;
 
+base-commit: 4516d04608b40d9ad150df6c2faef4a12d038ff6
+-- 
+2.35.1
 

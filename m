@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CE90501876
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Apr 2022 18:26:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32627501873
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Apr 2022 18:25:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 99FE917D5;
-	Thu, 14 Apr 2022 18:25:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99FE917D5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1E0871774;
+	Thu, 14 Apr 2022 18:24:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E0871774
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649953587;
-	bh=wbR/FZ2eGw04T8M7hyFkYjybTbihC5iCRDg/4YDBL5I=;
+	s=default; t=1649953538;
+	bh=a7yzLwIQjibdtUh5N6GklfhrKmEjI6CIY3x/Op11pDs=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CemGX97JCKFmuvwHBt9szYT0+amzjurefiTQHU0u234vTAxnquSFxf0R/LjIDZBAA
-	 P2WvIpjgsYhZBBGb3SFdKp9LQ1yX0v5voN7ZA3Qh5aB8LtmSuVDMjqdieM5xqaCqZu
-	 x6KV+ClWHY2VUB+s8vrOBj+gbfbRX/PbdvORChLw=
+	b=Fetim5NDOhUKnMu2g8R8e3P26vSYhzf4bGoeAX6IiuKXKVnM2q0HuBz7VvGLoxh+L
+	 1l8IbrXc1qA8fBItGSp9ougjEBh849Ln0DI558lGU3I8nDQt0KFjd42fhSrCjJNJkd
+	 kaBX9e71j5Um6xQgPpYWhdbxiQR30kd3FC6ekM+k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C942FF80553;
-	Thu, 14 Apr 2022 18:23:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 971D8F80544;
+	Thu, 14 Apr 2022 18:23:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 731F3F8053E; Thu, 14 Apr 2022 18:23:14 +0200 (CEST)
+ id DFB10F80535; Thu, 14 Apr 2022 18:23:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -34,26 +34,27 @@ Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
  [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C5671F804CB
- for <alsa-devel@alsa-project.org>; Thu, 14 Apr 2022 18:22:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5671F804CB
+ by alsa1.perex.cz (Postfix) with ESMTPS id B0C97F80212
+ for <alsa-devel@alsa-project.org>; Thu, 14 Apr 2022 18:22:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0C97F80212
 Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
  by metis.ext.pengutronix.de with esmtps
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <sha@pengutronix.de>)
- id 1nf2FD-0007Qr-VJ; Thu, 14 Apr 2022 18:22:56 +0200
+ id 1nf2FC-0007PT-Na; Thu, 14 Apr 2022 18:22:54 +0200
 Received: from [2a0a:edc0:0:1101:1d::28] (helo=dude02.red.stw.pengutronix.de)
  by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
  (envelope-from <sha@pengutronix.de>)
- id 1nf2FD-00312w-O3; Thu, 14 Apr 2022 18:22:54 +0200
+ id 1nf2FD-00312h-6p; Thu, 14 Apr 2022 18:22:53 +0200
 Received: from sha by dude02.red.stw.pengutronix.de with local (Exim 4.94.2)
  (envelope-from <sha@pengutronix.de>)
- id 1nf2F9-00GuDa-PI; Thu, 14 Apr 2022 18:22:51 +0200
+ id 1nf2F9-00GuEK-Qs; Thu, 14 Apr 2022 18:22:51 +0200
 From: Sascha Hauer <s.hauer@pengutronix.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v6 18/21] ASoC: fsl_micfil: drop only once used defines
-Date: Thu, 14 Apr 2022 18:22:46 +0200
-Message-Id: <20220414162249.3934543-19-s.hauer@pengutronix.de>
+Subject: [PATCH v6 19/21] ASoC: fsl_micfil: drop support for undocumented
+ property
+Date: Thu, 14 Apr 2022 18:22:47 +0200
+Message-Id: <20220414162249.3934543-20-s.hauer@pengutronix.de>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220414162249.3934543-1-s.hauer@pengutronix.de>
 References: <20220414162249.3934543-1-s.hauer@pengutronix.de>
@@ -84,41 +85,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-FSL_MICFIL_RATES and FSL_MICFIL_FORMATS is only used once. Drop
-the unnecesary indirection and use SNDRV_PCM_RATE_8000_48000 and
-SNDRV_PCM_FMTBIT_S16_LE directly.
+The "fsl,shared-interrupt" property is undocumented and unnecessary.
+Just pass IRQF_SHARED unconditionally.
 
 Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
 Acked-by: Shengjiu Wang <shengjiu.wang@gmail.com>
 ---
- sound/soc/fsl/fsl_micfil.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+ sound/soc/fsl/fsl_micfil.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
 diff --git a/sound/soc/fsl/fsl_micfil.c b/sound/soc/fsl/fsl_micfil.c
-index 821beca9b4bf1..89af6cfe24e69 100644
+index 89af6cfe24e69..a603033daed69 100644
 --- a/sound/soc/fsl/fsl_micfil.c
 +++ b/sound/soc/fsl/fsl_micfil.c
-@@ -25,9 +25,6 @@
+@@ -554,7 +554,6 @@ static int fsl_micfil_probe(struct platform_device *pdev)
+ 	struct resource *res;
+ 	void __iomem *regs;
+ 	int ret, i;
+-	unsigned long irqflag = 0;
  
- #include "fsl_micfil.h"
+ 	micfil = devm_kzalloc(&pdev->dev, sizeof(*micfil), GFP_KERNEL);
+ 	if (!micfil)
+@@ -618,12 +617,9 @@ static int fsl_micfil_probe(struct platform_device *pdev)
+ 			return micfil->irq[i];
+ 	}
  
--#define FSL_MICFIL_RATES		SNDRV_PCM_RATE_8000_48000
--#define FSL_MICFIL_FORMATS		(SNDRV_PCM_FMTBIT_S16_LE)
+-	if (of_property_read_bool(np, "fsl,shared-interrupt"))
+-		irqflag = IRQF_SHARED;
 -
- #define MICFIL_OSR_DEFAULT	16
+ 	/* Digital Microphone interface interrupt */
+ 	ret = devm_request_irq(&pdev->dev, micfil->irq[0],
+-			       micfil_isr, irqflag,
++			       micfil_isr, IRQF_SHARED,
+ 			       micfil->name, micfil);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "failed to claim mic interface irq %u\n",
+@@ -633,7 +629,7 @@ static int fsl_micfil_probe(struct platform_device *pdev)
  
- enum quality {
-@@ -350,8 +347,8 @@ static struct snd_soc_dai_driver fsl_micfil_dai = {
- 		.stream_name = "CPU-Capture",
- 		.channels_min = 1,
- 		.channels_max = 8,
--		.rates = FSL_MICFIL_RATES,
--		.formats = FSL_MICFIL_FORMATS,
-+		.rates = SNDRV_PCM_RATE_8000_48000,
-+		.formats = SNDRV_PCM_FMTBIT_S16_LE,
- 	},
- 	.ops = &fsl_micfil_dai_ops,
- };
+ 	/* Digital Microphone interface error interrupt */
+ 	ret = devm_request_irq(&pdev->dev, micfil->irq[1],
+-			       micfil_err_isr, irqflag,
++			       micfil_err_isr, IRQF_SHARED,
+ 			       micfil->name, micfil);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "failed to claim mic interface error irq %u\n",
 -- 
 2.30.2
 

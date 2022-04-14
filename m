@@ -2,92 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66C185008EA
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Apr 2022 10:54:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA77E500996
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Apr 2022 11:20:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E89341713;
-	Thu, 14 Apr 2022 10:53:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E89341713
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5C4BD170C;
+	Thu, 14 Apr 2022 11:20:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C4BD170C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649926470;
-	bh=cEQEvphBiIzg6/kr9UccLiqAiwpoYj2x8zoUPjFGmKU=;
+	s=default; t=1649928058;
+	bh=TqgD68icMhsgG5FiomUxsnlNOKradkh5u6bGh1bp3qs=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=J8/7O8Qt0fiElLzoJppoNpzD/s/J+ks5VEzZB692Uz9Q2IxP8LH3HQ20swJi2hOwH
-	 voVlJ8IeMJoI3EGMHGOgMpySx8D+bh4ds/emjOcXZXuW14ArOZUUHi2mqr+68NGT4/
-	 AU7QuHFyxqLqit4cJNQOLDB9HlpFD12TU2KOFB2I=
+	b=YI26l1r/dh/QRkYboYf6pWpZHRumoGQRVZMw7M15J6f6TBhhg+WxoxBJZYDSB6cRc
+	 Fzdz+SIrCh4noRq3mjeZV4DuQ0NYAKi3RCSd6mfe0RPyNf9NbE62/ytoFABROwrGm+
+	 88mYvbDJrWJ2fh5UAwoaLdXAJnVuEGQCfIqRHU2I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BD9A3F804B4;
-	Thu, 14 Apr 2022 10:53:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BFDAEF80114;
+	Thu, 14 Apr 2022 11:19:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F1AE5F80431; Thu, 14 Apr 2022 10:53:22 +0200 (CEST)
+ id 6371AF80162; Thu, 14 Apr 2022 11:19:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
- [IPv6:2607:f8b0:4864:20::102e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 951CFF80114
- for <alsa-devel@alsa-project.org>; Thu, 14 Apr 2022 10:53:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 951CFF80114
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="qnyXFQ7F"
-Received: by mail-pj1-x102e.google.com with SMTP id
- mm4-20020a17090b358400b001cb93d8b137so8704756pjb.2
- for <alsa-devel@alsa-project.org>; Thu, 14 Apr 2022 01:53:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=uLc5LuG9DXxlk7SdW/vHLWzAxidCNAK1f7OoSBQxLQc=;
- b=qnyXFQ7FYH5F6pL3WLFATSJXtdiijMkQeXs8/yj2+YwPJaHulFoZGbQiHMbiDE91+p
- cUe7Yx6OF2vgFsoIl386+fhn2xBWMuowEbN/Rndu3udC/AwQyDi/NM8zUWH8wJ7AKS/T
- nvia84DR4Fkn1T+iKmcuSCbpgTpIGF23+DhJFCKfiUQQqPkRUX/gpRVW7BRr/72tzQ5Z
- T/OrY30V5Z0kkU5f6rmlBXzUyVmrwaNZWMe740WBz4QxmrzN+gdmoEhRd0T+2clmz9Eq
- tzGDDnrErsY1hUJ+uKF+GNxwtitUgH7qCauyKMLekTWHncPkceUxauzh4B4/RVMpny6i
- V6Jg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=uLc5LuG9DXxlk7SdW/vHLWzAxidCNAK1f7OoSBQxLQc=;
- b=QYsvk3neL7WbN7PXN+ha9Dxk1BlyZBCOOLi23LMIZ5b+fjl5G9KICzgpv2+5PNA3A8
- XQ/gUhsr8C4xX7Mvn5hRw1iWdPCif+aynNOsbYUcW+WSa+5jN8bD6dxFNinQNJ5Yd9lJ
- k7PlVXHiGF7FuBXNbjy7rmvC9FA+lebRiv8+VQryGPWSVweyRTDFfX2wKcRAm3Xmh64b
- rYBpPGNQtjDIT/JUpDHynbn9qu/zepoyJw6n2byuUD/m0hHpwNGAnJEPtEctqs1rmoMt
- 3Pp3c5DR4DlUK22gUmhQGd0DuKw6f+eTx3f1Trras5DByfqjDv3OsIflDHFaJAKC1zwF
- oC7w==
-X-Gm-Message-State: AOAM532qlBvguexd//fC/mgo5YEXLQfd6v2+UBa0V5gV1erBSttva+uk
- BXUl8kaa83azXomI11scqno=
-X-Google-Smtp-Source: ABdhPJx0tQpLjh8XEtImq0YVQ7dWH0j69VdBypkfkQcK9Fda3lLIGA5Klhd5KmwXibG5Bvu/7fwUzg==
-X-Received: by 2002:a17:902:cf05:b0:156:8445:ce0f with SMTP id
- i5-20020a170902cf0500b001568445ce0fmr46185920plg.99.1649926394326; 
- Thu, 14 Apr 2022 01:53:14 -0700 (PDT)
-Received: from localhost.localdomain ([193.203.214.57])
- by smtp.gmail.com with ESMTPSA id
- e12-20020a056a0000cc00b00508343a6f9esm720759pfj.5.2022.04.14.01.53.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 Apr 2022 01:53:14 -0700 (PDT)
-From: cgel.zte@gmail.com
-X-Google-Original-From: chi.minghao@zte.com.cn
-To: lgirdwood@gmail.com
-Subject: [PATCH] ASoC: img-i2s-in: using pm_runtime_resume_and_get instead of
- pm_runtime_get_sync
-Date: Thu, 14 Apr 2022 08:53:10 +0000
-Message-Id: <20220414085310.2541546-1-chi.minghao@zte.com.cn>
-X-Mailer: git-send-email 2.25.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id D2A43F80114
+ for <alsa-devel@alsa-project.org>; Thu, 14 Apr 2022 11:19:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2A43F80114
+X-UUID: 19af92ff3eaa41ad9c77d4ed76c1d6fb-20220414
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.4, REQID:8658021b-0be8-4d85-a32a-7515a3822e1b, OB:0,
+ LO
+ B:10,IP:0,URL:0,TC:0,Content:0,EDM:0,RT:0,SF:100,FILE:0,RULE:Release_Ham,A
+ CTION:release,TS:100
+X-CID-INFO: VERSION:1.1.4, REQID:8658021b-0be8-4d85-a32a-7515a3822e1b, OB:0,
+ LOB:
+ 10,IP:0,URL:0,TC:0,Content:0,EDM:0,RT:0,SF:100,FILE:0,RULE:Spam_GS981B3D,A
+ CTION:quarantine,TS:100
+X-CID-META: VersionHash:faefae9, CLOUDID:d0435f78-0afa-4dca-bdec-ca54c998425a,
+ C
+ OID:ea95d75fe251,Recheck:0,SF:13|15|28|17|19|48,TC:nil,Content:0,EDM:-3,Fi
+ le:nil,QS:0,BEC:nil
+X-UUID: 19af92ff3eaa41ad9c77d4ed76c1d6fb-20220414
+Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw01.mediatek.com
+ (envelope-from <miles.chen@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 135584740; Thu, 14 Apr 2022 17:19:43 +0800
+Received: from mtkcas11.mediatek.inc (172.21.101.40) by
+ mtkmbs07n2.mediatek.inc (172.21.101.141) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.2; Thu, 14 Apr 2022 17:19:41 +0800
+Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas11.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
+ Frontend Transport; Thu, 14 Apr 2022 17:19:41 +0800
+From: Miles Chen <miles.chen@mediatek.com>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Matthias
+ Brugger <matthias.bgg@gmail.com>, Randy Dunlap <rdunlap@infradead.org>
+Subject: [PATCH -next V2] sound/oss/dmasound: fix 'dmasound_setup' defined but
+ not used
+Date: Thu, 14 Apr 2022 17:19:38 +0800
+Message-ID: <20220414091940.2216-1-miles.chen@mediatek.com>
+X-Mailer: git-send-email 2.18.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
- linux-kernel@vger.kernel.org, Minghao Chi <chi.minghao@zte.com.cn>,
- Zeal Robot <zealci@zte.com.cn>
+Content-Type: text/plain
+X-MTK: N
+Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>,
+ linux-kernel@vger.kernel.org, Miles Chen <miles.chen@mediatek.com>,
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,37 +90,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Minghao Chi <chi.minghao@zte.com.cn>
+We observed: 'dmasound_setup' defined but not used error with
+COMPILER=gcc ARCH=m68k DEFCONFIG=allmodconfig build.
 
-Using pm_runtime_resume_and_get() to replace pm_runtime_get_sync and
-pm_runtime_put_noidle. This change is just to simplify the code, no
-actual functional changes.
+Fix it by adding __maybe_unused to dmasound_setup.
 
-Reported-by: Zeal Robot <zealci@zte.com.cn>
-Signed-off-by: Minghao Chi <chi.minghao@zte.com.cn>
+Error(s):
+sound/oss/dmasound/dmasound_core.c:1431:12: error: 'dmasound_setup' defined but not used [-Werror=unused-function]
+
+Fixes: 9dd7c46346ca ("sound/oss/dmasound: fix build when drivers are mixed =y/=m")
+Signed-off-by: Miles Chen <miles.chen@mediatek.com>
+Cc: Takashi Iwai <tiwai@suse.com>
+
 ---
- sound/soc/img/img-i2s-in.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/img/img-i2s-in.c b/sound/soc/img/img-i2s-in.c
-index f1f36f15a503..09d23b11621c 100644
---- a/sound/soc/img/img-i2s-in.c
-+++ b/sound/soc/img/img-i2s-in.c
-@@ -342,11 +342,9 @@ static int img_i2s_in_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+Change sinve v1:
+ add fixes tag
+ use __maybe_unused
+
+---
+ sound/oss/dmasound/dmasound_core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sound/oss/dmasound/dmasound_core.c b/sound/oss/dmasound/dmasound_core.c
+index 9c48f3a9e3d1..164335d3c200 100644
+--- a/sound/oss/dmasound/dmasound_core.c
++++ b/sound/oss/dmasound/dmasound_core.c
+@@ -1428,7 +1428,7 @@ void dmasound_deinit(void)
+ 		unregister_sound_dsp(sq_unit);
+ }
  
- 	chan_control_mask = IMG_I2S_IN_CH_CTL_CLK_TRANS_MASK;
+-static int dmasound_setup(char *str)
++static int __maybe_unused dmasound_setup(char *str)
+ {
+ 	int ints[6], size;
  
--	ret = pm_runtime_get_sync(i2s->dev);
--	if (ret < 0) {
--		pm_runtime_put_noidle(i2s->dev);
-+	ret = pm_runtime_resume_and_get(i2s->dev);
-+	if (ret < 0)
- 		return ret;
--	}
- 
- 	for (i = 0; i < i2s->active_channels; i++)
- 		img_i2s_in_ch_disable(i2s, i);
 -- 
-2.25.1
-
+2.18.0
 

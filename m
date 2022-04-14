@@ -2,78 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BF63500B1F
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Apr 2022 12:30:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06171500BE5
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Apr 2022 13:11:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A520A16CD;
-	Thu, 14 Apr 2022 12:29:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A520A16CD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 924F116B3;
+	Thu, 14 Apr 2022 13:10:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 924F116B3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649932234;
-	bh=NVCX9XRjtVkfZkMq6lnnXLzxuKXz8YkTsns499QHdj8=;
+	s=default; t=1649934691;
+	bh=B/1tgmAGUpguw5H1LN4QJqZnt8JIa4mgt53+CKvzFps=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RiBMDe/QPfo41ucnas6EceOpMHeQ2pvbBOHVjly6krIgANu82SIt8CyiP1HYctKCB
-	 0/myPVEkSliIk0fxOvYSBbGEQ84ztMTTutkNrwlq3mtjpKiXxcUef5/UOpgYCdqR9I
-	 EhpyWZNPPtez9bdFo2/3IAQGm78ix3L65U0VzIcQ=
+	b=EYp4iKF9GOJUZmFmX7D08MIKcGVxM6oJK4mm0+334/sLKPliM9izO4gU5XuAHJgMy
+	 uc3sm19DTx+Af+DAFLam+smnm/tyOty2mfy55CvH1hKH8XgMTt2g/1utiplkypbIQP
+	 CsHmXeKR3+RsiDm1tPkRbIpMBSUus2s3rZKEKxrU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E9C21F801F7;
-	Thu, 14 Apr 2022 12:29:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 14790F80124;
+	Thu, 14 Apr 2022 13:10:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3C732F80162; Thu, 14 Apr 2022 12:29:32 +0200 (CEST)
+ id 84E4AF80162; Thu, 14 Apr 2022 13:10:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 48D5FF80124
- for <alsa-devel@alsa-project.org>; Thu, 14 Apr 2022 12:29:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48D5FF80124
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Tf5Y0i1T"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 8FE25CE294B;
- Thu, 14 Apr 2022 10:29:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02163C385A5;
- Thu, 14 Apr 2022 10:29:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1649932162;
- bh=NVCX9XRjtVkfZkMq6lnnXLzxuKXz8YkTsns499QHdj8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Tf5Y0i1TQR9xlzKJ8ku9Tgdd0Ba8ntqqcTgxb7g4rNsoVaD8MyeylGdx4T6lI411i
- P4X+Pww8YBvmBui6u5YLuVAkpiIcuU/qTxRKtEID1gwrm7VffjNX9+ZsOly2/A4CPK
- /ZF3/Lynz3przf19KYW87UUd/8yxVsEseoBrBLQM7PsvIfWPEgu+vweZSmG5snp/9H
- +popEuLmWAJIx+6FJWap7RN6DTbBuS6waqHtiIc7HpW2+WlW2nxiuhcQTQR0O3/zkH
- HFLLvxw0Lzk3mW7I3sab3PbL0/vY3FP4kzwIkrN9MIsr7crRuKCl1DdiA9N0jctRml
- +Me3awv3prk1w==
-Date: Thu, 14 Apr 2022 11:29:16 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Sascha Hauer <s.hauer@pengutronix.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 63CB2F80095
+ for <alsa-devel@alsa-project.org>; Thu, 14 Apr 2022 13:10:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63CB2F80095
+Received: from ptx.hi.pengutronix.de ([2001:67c:670:100:1d::c0])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <sha@pengutronix.de>)
+ id 1nexMk-0004XR-Nl; Thu, 14 Apr 2022 13:10:22 +0200
+Received: from sha by ptx.hi.pengutronix.de with local (Exim 4.92)
+ (envelope-from <sha@pengutronix.de>)
+ id 1nexMj-0005aj-LJ; Thu, 14 Apr 2022 13:10:21 +0200
+Date: Thu, 14 Apr 2022 13:10:21 +0200
+From: Sascha Hauer <s.hauer@pengutronix.de>
+To: Mark Brown <broonie@kernel.org>
 Subject: Re: [PATCH v5 00/21] ASoC: fsl_micfil: Driver updates
-Message-ID: <Ylf3fAU5TV/RnHBW@sirena.org.uk>
+Message-ID: <20220414111021.GK4012@pengutronix.de>
 References: <20220408112928.1326755-1-s.hauer@pengutronix.de>
  <20220414075114.GC2387@pengutronix.de>
+ <Ylf3fAU5TV/RnHBW@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="0MtUBW2crG30UMoy"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220414075114.GC2387@pengutronix.de>
-X-Cookie: Available while quantities last.
+In-Reply-To: <Ylf3fAU5TV/RnHBW@sirena.org.uk>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-IRC: #ptxdist @freenode
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
+X-Uptime: 13:06:35 up 14 days, 23:36, 64 users,  load average: 0.08, 0.23, 0.17
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c0
+X-SA-Exim-Mail-From: sha@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
 Cc: alsa-devel@alsa-project.org, Xiubo Li <Xiubo.Lee@gmail.com>,
- Fabio Estevam <festevam@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>, Vinod Koul <vkoul@kernel.org>,
  NXP Linux Team <linux-imx@nxp.com>, kernel@pengutronix.de,
- dmaengine@vger.kernel.org, Shengjiu Wang <shengjiu.wang@gmail.com>
+ dmaengine@vger.kernel.org, Fabio Estevam <festevam@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,32 +88,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, Apr 14, 2022 at 11:29:16AM +0100, Mark Brown wrote:
+> On Thu, Apr 14, 2022 at 09:51:14AM +0200, Sascha Hauer wrote:
+> 
+> > Ok to apply this series? I just realized that I missed to Cc: you on
+> > this series. Let me know if I should resend.
+> 
+> Please resend.  What's the plan with the dmaengine bits - it looks like
+> the ASoC bits are relatively substatantial here?
 
---0MtUBW2crG30UMoy
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Ok, I'll resend. I'd like to merge the dmaengine bits through your tree.
+I have collected the acks from Vinod for this. I just rechecked there
+are no conflicts with -next so far.
 
-On Thu, Apr 14, 2022 at 09:51:14AM +0200, Sascha Hauer wrote:
+Sascha
 
-> Ok to apply this series? I just realized that I missed to Cc: you on
-> this series. Let me know if I should resend.
 
-Please resend.  What's the plan with the dmaengine bits - it looks like
-the ASoC bits are relatively substatantial here?
-
---0MtUBW2crG30UMoy
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJX93sACgkQJNaLcl1U
-h9BZqwf/Sz0ZbUHbd7F/7Wkgdp4rn8hEyQE0ytnOC3YYvmgcD9VzWXB5MIaZ+8ln
-f4Iiayqh+oeL3fFmMMziTzg/ExD9fq1WzVbKrCavZ7VrbsYwz/5q3FIdt78UL393
-+HcMaFb9SCe39Oll78CJuPymVNDqQsiKU6jgr8HxerQJXWOIFkS5AN9wD/Ty4ePr
-m52je0qAlUwMt8ghxEPjakD2svtM7aDvl5UxiYZcwCO+hCXI67ZY/M10QsNF4W/r
-XamSmp+JeKKYKvbr0jfjtQ9fM0UrlnrJzhW+0fMuHynJy1+cGVTno1gwSqccN16H
-X3yos1ltE56mcJ9A5klumtgDLv+nCw==
-=EFgn
------END PGP SIGNATURE-----
-
---0MtUBW2crG30UMoy--
+-- 
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |

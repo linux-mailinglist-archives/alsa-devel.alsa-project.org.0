@@ -2,74 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97443501865
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Apr 2022 18:12:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E07950186F
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Apr 2022 18:24:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 17B331640;
-	Thu, 14 Apr 2022 18:11:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17B331640
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7EF7B171B;
+	Thu, 14 Apr 2022 18:23:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7EF7B171B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649952742;
-	bh=JHRqMz4gAhqXCZ0oOD51j0XWL2JY+ezYae/a6d6QvJE=;
+	s=default; t=1649953487;
+	bh=Zq8r/U4o14JjGe32uuXqzQfs0Cno8OuQ23bJBVbOcm0=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=IuDYfkdzCvEbLa7Zobj0mVmHTRwkd37XY3tYklvMQvXAq9T+kycP4oQY/8mg2h+cn
-	 fHwSY89FzId3RJnlItdtDvaRGScdKWsOACroSveT0a8j1euACbWcah8wGxjyGMh5qX
-	 yzxUgd0N4/xs2b2KUFIr7a1ZqPxudBKBXKowpvLU=
+	b=i1Tb1PjclHfxAP8bTXGqeCfuYH10yDmcsHNRkL3eqESZw58NzjkfnRgMdvEHtATzv
+	 8k4cvXD/jWL9gUaVmn3AKcEd9eUSPkUQ7lW8HdOY68G6Gm5j/IWPzXG1NR4mUEbTRg
+	 omOIv3Qn2C1NH4xShPfgc6lRzBInTRcVHJR7762M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 36C43F801F7;
-	Thu, 14 Apr 2022 18:11:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 44791F80536;
+	Thu, 14 Apr 2022 18:23:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 37C1FF80162; Thu, 14 Apr 2022 18:11:21 +0200 (CEST)
+ id C57F4F80536; Thu, 14 Apr 2022 18:23:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+X-Spam-Status: No, score=0.5 required=5.0 tests=PRX_BODY_13,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4142EF80114
- for <alsa-devel@alsa-project.org>; Thu, 14 Apr 2022 18:11:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4142EF80114
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="XMiTHxFO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649952675; x=1681488675;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=JHRqMz4gAhqXCZ0oOD51j0XWL2JY+ezYae/a6d6QvJE=;
- b=XMiTHxFO8/XSx7nEglvxm79xkfDEFwUw+GGhKVhJ2cwXPotu6b7XN+7B
- xY+VEY54v94NQKNljU196BR+J6Akvm2FunEHuyjOp39tncFsyg3lpucnR
- 8dU3nhreVvOs1ft2mrR1olJW3ssqdbaBXwlWZGMzWHoqR7j4GKxK6NIMo
- 9KWLnUaqw/54Vm+gxpZ5WLKtPw3Ls1S+jjtUXXYpVaNs+zREZc69TqJbY
- lCwgZlvxieMlzw/fbi2QJk0av7JNymLc6UwOiaeSSVoB/1kzU3nNTvV0B
- DT1QlCp2wrZSK2wwaa0oj2aTaMw01/EzrX/mQUqwWnRK+C6/GDWNrtR3L w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10317"; a="242899740"
-X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="242899740"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2022 09:11:10 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="700730868"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by fmsmga001.fm.intel.com with ESMTP; 14 Apr 2022 09:11:09 -0700
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	tiwai@suse.de
-Subject: [PATCH] ALSA: hda/hdmi: add HDMI codec VID for Raptorlake-P
-Date: Thu, 14 Apr 2022 19:01:29 +0300
-Message-Id: <20220414160129.3641411-1-kai.vehmanen@linux.intel.com>
-X-Mailer: git-send-email 2.35.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 62F39F80162
+ for <alsa-devel@alsa-project.org>; Thu, 14 Apr 2022 18:22:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62F39F80162
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <sha@pengutronix.de>)
+ id 1nf2FC-0007P5-5X; Thu, 14 Apr 2022 18:22:54 +0200
+Received: from [2a0a:edc0:0:1101:1d::28] (helo=dude02.red.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <sha@pengutronix.de>)
+ id 1nf2FC-00312W-Lx; Thu, 14 Apr 2022 18:22:53 +0200
+Received: from sha by dude02.red.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <sha@pengutronix.de>)
+ id 1nf2F8-00Gu51-Uk; Thu, 14 Apr 2022 18:22:50 +0200
+From: Sascha Hauer <s.hauer@pengutronix.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v6 00/21] ASoC: fsl_micfil: Driver updates
+Date: Thu, 14 Apr 2022 18:22:28 +0200
+Message-Id: <20220414162249.3934543-1-s.hauer@pengutronix.de>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: kai.vehmanen@linux.intel.com
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: sha@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Cc: Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Vinod Koul <vkoul@kernel.org>,
+ Mark Brown <broonie@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
+ kernel@pengutronix.de, dmaengine@vger.kernel.org,
+ Shengjiu Wang <shengjiu.wang@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,27 +81,77 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add HDMI codec VID for Intel Raptorlake-P platform.
+I added one more ack from Shengjiu Wang, but other than that it's just a
+resend with +Cc: Mark Brown
 
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
----
- sound/pci/hda/patch_hdmi.c | 1 +
- 1 file changed, 1 insertion(+)
+Sascha
 
-diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
-index 3e086eebf88d..9f9784e93db2 100644
---- a/sound/pci/hda/patch_hdmi.c
-+++ b/sound/pci/hda/patch_hdmi.c
-@@ -4551,6 +4551,7 @@ HDA_CODEC_ENTRY(0x80862819, "DG2 HDMI",	patch_i915_adlp_hdmi),
- HDA_CODEC_ENTRY(0x8086281a, "Jasperlake HDMI",	patch_i915_icl_hdmi),
- HDA_CODEC_ENTRY(0x8086281b, "Elkhartlake HDMI",	patch_i915_icl_hdmi),
- HDA_CODEC_ENTRY(0x8086281c, "Alderlake-P HDMI", patch_i915_adlp_hdmi),
-+HDA_CODEC_ENTRY(0x8086281f, "Raptorlake-P HDMI",	patch_i915_adlp_hdmi),
- HDA_CODEC_ENTRY(0x80862880, "CedarTrail HDMI",	patch_generic_hdmi),
- HDA_CODEC_ENTRY(0x80862882, "Valleyview2 HDMI",	patch_i915_byt_hdmi),
- HDA_CODEC_ENTRY(0x80862883, "Braswell HDMI",	patch_i915_byt_hdmi),
+Changes since v5:
+- Add one more ack from Shengjiu Wang
 
-base-commit: 4516d04608b40d9ad150df6c2faef4a12d038ff6
+Changes since v4:
+- collect more acks
+- whitespace cleanup in 16/21
+
+Changes since v3:
+- Add commit log to "ASoC: fsl_micfil: drop unused variables"
+- Fix include name in "ASoC: fsl_micfil: add multi fifo support"
+- Drop unnecessary temporary adding of struct fsl_micfil::osr
+- Leave default quality setting at 'medium'
+- Drop debugging message printed at error level
+- collect acks from Shengjiu Wang and Vinod Koul
+
+Changes since v2:
+- Add forgotten commit log to dmaengine patches
+- Add patch to move include/linux/platform_data/dma-imx.h to include/linux/dma/imx-dma.h
+- Use prefix dmaengine: for dma patches
+
+Changes since v1:
+- Drop unused variable sw_done_sel
+- Evaluate sdmac->direction directly instead of storing value in n_fifos
+- add missing include linux/bitfield.h
+
+Sascha Hauer (21):
+  ASoC: fsl_micfil: Drop unnecessary register read
+  ASoC: fsl_micfil: Drop unused register read
+  ASoC: fsl_micfil: drop fsl_micfil_set_mclk_rate()
+  ASoC: fsl_micfil: do not define SHIFT/MASK for single bits
+  ASoC: fsl_micfil: use GENMASK to define register bit fields
+  ASoC: fsl_micfil: use clear/set bits
+  ASoC: fsl_micfil: drop error messages from failed register accesses
+  ASoC: fsl_micfil: drop unused variables
+  dmaengine: imx: Move header to include/dma/
+  dmaengine: imx-sdma: error out on unsupported transfer types
+  dmaengine: imx-sdma: Add multi fifo support
+  ASoC: fsl_micfil: add multi fifo support
+  ASoC: fsl_micfil: use define for OSR default value
+  ASoC: fsl_micfil: Drop get_pdm_clk()
+  ASoC: fsl_micfil: simplify clock setting
+  ASoC: fsl_micfil: rework quality setting
+  ASoC: fsl_micfil: drop unused include
+  ASoC: fsl_micfil: drop only once used defines
+  ASoC: fsl_micfil: drop support for undocumented property
+  ASoC: fsl_micfil: fold fsl_set_clock_params() into its only user
+  ASoC: fsl_micfil: Remove debug message
+
+ drivers/dma/imx-dma.c                         |   2 +-
+ drivers/dma/imx-sdma.c                        |  76 +++-
+ drivers/mmc/host/mxcmmc.c                     |   2 +-
+ drivers/spi/spi-fsl-lpspi.c                   |   2 +-
+ drivers/spi/spi-imx.c                         |   2 +-
+ drivers/tty/serial/imx.c                      |   2 +-
+ drivers/video/fbdev/mx3fb.c                   |   2 +-
+ .../dma-imx.h => dma/imx-dma.h}               |  26 +-
+ sound/soc/fsl/fsl_asrc.c                      |   2 +-
+ sound/soc/fsl/fsl_asrc_dma.c                  |   2 +-
+ sound/soc/fsl/fsl_easrc.h                     |   2 +-
+ sound/soc/fsl/fsl_micfil.c                    | 369 +++++++-----------
+ sound/soc/fsl/fsl_micfil.h                    | 269 +++----------
+ sound/soc/fsl/imx-pcm.h                       |   2 +-
+ sound/soc/fsl/imx-ssi.h                       |   2 +-
+ 15 files changed, 297 insertions(+), 465 deletions(-)
+ rename include/linux/{platform_data/dma-imx.h => dma/imx-dma.h} (67%)
+
 -- 
-2.35.1
+2.30.2
 

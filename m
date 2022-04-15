@@ -2,81 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 085D250262A
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Apr 2022 09:23:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F044502637
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Apr 2022 09:28:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9E072184D;
-	Fri, 15 Apr 2022 09:22:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E072184D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 318B21866;
+	Fri, 15 Apr 2022 09:27:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 318B21866
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650007404;
-	bh=YHMfKMm/l9aC1gYPwEn93Zpv5iF4DdDiqlarOaodEuY=;
+	s=default; t=1650007703;
+	bh=aJk1jCG9pXOURiFPS29pNNoKZ5CsgDnAZpIfOtXhytQ=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=m5fGtTp8c9bRTsvJhwXSCmfue47HBpRbyXYreh53S5oKYG62DbyDeWgqsxkF9jWpe
-	 EQ9LHCh8XUQHddujfOgXpbUlMcanwARI7Rb4+Wrkf0jVLLuSBg5CU5LnrvTi8q4Yuu
-	 0qmbHxzkyyCoivTwJ7NY64tHKKpxJH28KLaBMlwQ=
+	b=GNZd9TvJ0EwO3YYzgztwkK/oBRc3eSt2/hApo2/A3l0RL0uUkT3UK1z3LOMqJQ5f5
+	 vLg4bYuIqTLytrXHhigEMYC0DPcaTz7T8H8IoZtv7cu8g/nCFg5+yHYgStnyhSLyxM
+	 VIBErUEA6dM0zpvDTIEkDoQWsnFBcCWa9vqKPdwI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4AD72F804AA;
-	Fri, 15 Apr 2022 09:22:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B31D8F8016B;
+	Fri, 15 Apr 2022 09:27:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3752AF8049C; Fri, 15 Apr 2022 09:22:23 +0200 (CEST)
+ id AF464F800AE; Fri, 15 Apr 2022 09:27:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0C162F8016B
- for <alsa-devel@alsa-project.org>; Fri, 15 Apr 2022 09:22:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C162F8016B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8B70CF800AE
+ for <alsa-devel@alsa-project.org>; Fri, 15 Apr 2022 09:27:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B70CF800AE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="UkQWzMOV"; 
+ header.b="ksFPBduZ"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="hgpgABCg"
+ header.b="jFXh5seq"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 90A7D210E3;
- Fri, 15 Apr 2022 07:22:16 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 6AFE01F747;
+ Fri, 15 Apr 2022 07:27:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1650007336; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1650007634; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=l4ZM4PKAyeqwOvqrSWVVpzl+yVvozX1rZYg0VwVaLgE=;
- b=UkQWzMOVq35ti1k/2cq3qRHVcDgwU/c27iltgeHEaUxrtxuXJkGpj85vlavK4/C59zJaAB
- EYeBs3XyYq+UMMSxt7A/+n5oPKwKL2hdj1JtYDBY1fL7NOh4c3yNO5c8DJf2MJ8ideFTOF
- cwnaSpIME8R1GbqDbJOuCl2OYRE22P4=
+ bh=NQp4dgP52jBSrHcJ7SNKb36txdDbpBHCpgTrRR0ucgA=;
+ b=ksFPBduZGDieA3GOncjNhs4WzbUgY5zNFCXg0Ss2QsguMqfvgYTipXI79Y/CeriXfmr7Fe
+ qbJyPzw5zAD1N2+zDi2Fg/f97wn82SiNmKhFGBtgaRhtvE7R/JJa49rYkWeGpQc1EkOG/c
+ pkFkGTaGXZpYL1o3hx7Rh7clP1FULo8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1650007336;
+ s=susede2_ed25519; t=1650007634;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=l4ZM4PKAyeqwOvqrSWVVpzl+yVvozX1rZYg0VwVaLgE=;
- b=hgpgABCg0Qq0v/9nCg+eiiCsJ9pg2FGj2IJNrdT7iXrabvOnMZ7EJtSKWH3bbIF7IZ5g9K
- dVl8KoAWiU4MkyCQ==
+ bh=NQp4dgP52jBSrHcJ7SNKb36txdDbpBHCpgTrRR0ucgA=;
+ b=jFXh5seqlDQcNQyxNwZ1fJ2gcOtV/ra5tFcmiNd0gvlW6n2qTm7bEzBMSQPU0uyZ4sB08x
+ nGSkDqQeQewDojCg==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 7F124A3B88;
- Fri, 15 Apr 2022 07:22:16 +0000 (UTC)
-Date: Fri, 15 Apr 2022 09:22:16 +0200
-Message-ID: <s5h7d7q4xqv.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 4F2B2A3B88;
+ Fri, 15 Apr 2022 07:27:14 +0000 (UTC)
+Date: Fri, 15 Apr 2022 09:27:14 +0200
+Message-ID: <s5h5yna4xil.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: Re: [PATCH] ALSA: hda/hdmi: add HDMI codec VID for Raptorlake-P
-In-Reply-To: <20220414160129.3641411-1-kai.vehmanen@linux.intel.com>
-References: <20220414160129.3641411-1-kai.vehmanen@linux.intel.com>
+To: Nirmoy Das <nirmoy.das@intel.com>
+Subject: Re: [PATCH v2] ALSA: hda: handle UAF at probe error
+In-Reply-To: <20220414182437.14944-1-nirmoy.das@intel.com>
+References: <20220414182437.14944-1-nirmoy.das@intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org, lucas.demarchi@intel.com, tiwai@suse.com,
+ kai.vehmanen@linux.intel.com, matthew.auld@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,14 +93,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 14 Apr 2022 18:01:29 +0200,
-Kai Vehmanen wrote:
+On Thu, 14 Apr 2022 20:24:37 +0200,
+Nirmoy Das wrote:
 > 
-> Add HDMI codec VID for Intel Raptorlake-P platform.
-> 
-> Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> Call snd_card_free_on_error() on probe error instead of
+> calling snd_card_free() which should handle devres call orders.
 
-Thanks, applied now.
+This won't change any practical behavior, because HD-audio driver
+doesn't use snd_devm_card_new().  snd_card_free() still gets called
+explicitly in the relevant code paths.
 
+> Issues: https://gitlab.freedesktop.org/drm/intel/-/issues/5701
+
+So it must be a different cause for this problem...
+
+
+thanks,
 
 Takashi

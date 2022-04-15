@@ -2,83 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D2FC502629
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Apr 2022 09:22:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 085D250262A
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Apr 2022 09:23:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AE22417F4;
-	Fri, 15 Apr 2022 09:22:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE22417F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9E072184D;
+	Fri, 15 Apr 2022 09:22:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E072184D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650007370;
-	bh=YYtV78c9XI+PmEHLyMTT2ldM/qtGtGMZwdNW7j9SMrQ=;
+	s=default; t=1650007404;
+	bh=YHMfKMm/l9aC1gYPwEn93Zpv5iF4DdDiqlarOaodEuY=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JjoOZ4/5xp2f+yH81D7hJMh34CZkcoTIQoynY7GgCHLZZusIDuAcTbNAZSazlgx1Z
-	 fNPPhQdeo4UIAKx5Blkv+fXrgL96BYilACyrxTeHFEgrMBSrUuiWSuFy3e2l0acme0
-	 OsnfOuFPdmPB3qxjYPeaaFIpNId93jxiNC4Y2Pno=
+	b=m5fGtTp8c9bRTsvJhwXSCmfue47HBpRbyXYreh53S5oKYG62DbyDeWgqsxkF9jWpe
+	 EQ9LHCh8XUQHddujfOgXpbUlMcanwARI7Rb4+Wrkf0jVLLuSBg5CU5LnrvTi8q4Yuu
+	 0qmbHxzkyyCoivTwJ7NY64tHKKpxJH28KLaBMlwQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1EA48F800AE;
-	Fri, 15 Apr 2022 09:21:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4AD72F804AA;
+	Fri, 15 Apr 2022 09:22:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D34B4F8016A; Fri, 15 Apr 2022 09:21:50 +0200 (CEST)
+ id 3752AF8049C; Fri, 15 Apr 2022 09:22:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 95996F800AE
- for <alsa-devel@alsa-project.org>; Fri, 15 Apr 2022 09:21:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95996F800AE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0C162F8016B
+ for <alsa-devel@alsa-project.org>; Fri, 15 Apr 2022 09:22:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C162F8016B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="mj4mY7Ph"; 
+ header.b="UkQWzMOV"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="IsSovWmw"
+ header.b="hgpgABCg"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 67D831F747;
- Fri, 15 Apr 2022 07:21:42 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 90A7D210E3;
+ Fri, 15 Apr 2022 07:22:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1650007302; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1650007336; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=ABPxZYHaviFKB0i6eVmmXiy8mC0OF32xWlFHHkUxH2o=;
- b=mj4mY7PhPfV2vI1gJ1B5MbP4HfQJmaeM8PQ1noJW3sQ6MCWFD89Jf1S2PTgOeDaWqOvnMI
- QVOLD4fkKxStOMRJWJyMu4SH1ASVRVPkPC+ws4Nj4FOwqSEF/sawvQkB/7epthfpMrLmGb
- apHan9R96iPqvNcILuxsF/m5Vdnv8AY=
+ bh=l4ZM4PKAyeqwOvqrSWVVpzl+yVvozX1rZYg0VwVaLgE=;
+ b=UkQWzMOVq35ti1k/2cq3qRHVcDgwU/c27iltgeHEaUxrtxuXJkGpj85vlavK4/C59zJaAB
+ EYeBs3XyYq+UMMSxt7A/+n5oPKwKL2hdj1JtYDBY1fL7NOh4c3yNO5c8DJf2MJ8ideFTOF
+ cwnaSpIME8R1GbqDbJOuCl2OYRE22P4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1650007302;
+ s=susede2_ed25519; t=1650007336;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=ABPxZYHaviFKB0i6eVmmXiy8mC0OF32xWlFHHkUxH2o=;
- b=IsSovWmwL1cfAuv5vEiCkmcAk95P8EFKJfYxTnQyKJNw1Q4svNIE2B1dQR0MQfA1rRB8KZ
- aWL+dh9nmgcrZNAA==
+ bh=l4ZM4PKAyeqwOvqrSWVVpzl+yVvozX1rZYg0VwVaLgE=;
+ b=hgpgABCg0Qq0v/9nCg+eiiCsJ9pg2FGj2IJNrdT7iXrabvOnMZ7EJtSKWH3bbIF7IZ5g9K
+ dVl8KoAWiU4MkyCQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 6023FA3B88;
- Fri, 15 Apr 2022 07:21:42 +0000 (UTC)
-Date: Fri, 15 Apr 2022 09:21:42 +0200
-Message-ID: <s5h8rs64xrt.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 7F124A3B88;
+ Fri, 15 Apr 2022 07:22:16 +0000 (UTC)
+Date: Fri, 15 Apr 2022 09:22:16 +0200
+Message-ID: <s5h7d7q4xqv.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: Re: [PATCH] ALSA: hda/hdmi: fix warning about PCM count when used
- with SOF
-In-Reply-To: <20220414150516.3638283-1-kai.vehmanen@linux.intel.com>
-References: <20220414150516.3638283-1-kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH] ALSA: hda/hdmi: add HDMI codec VID for Raptorlake-P
+In-Reply-To: <20220414160129.3641411-1-kai.vehmanen@linux.intel.com>
+References: <20220414160129.3641411-1-kai.vehmanen@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Mohan Kumar <mkumard@nvidia.com>,
- pierre-louis.bossart@linux.intel.com
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,32 +92,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 14 Apr 2022 17:05:16 +0200,
+On Thu, 14 Apr 2022 18:01:29 +0200,
 Kai Vehmanen wrote:
 > 
-> With commit 13046370c4d1 ("ALSA: hda/hdmi: let new platforms assign the
-> pcm slot dynamically"), old behaviour to consider the HDA pin number,
-> when choosing PCM to assign, was dropped.
+> Add HDMI codec VID for Intel Raptorlake-P platform.
 > 
-> Build on this change and limit the number of PCMs created to number of
-> converters (= maximum number of concurrent display/receivers) when
-> "mst_no_extra_pcms" and "dyn_pcm_no_legacy" quirks are both set.
-> 
-> Fix the check in hdmi_find_pcm_slot() to ensure only spec->pcm_used
-> entries are considered in the search. Elsewhere in the driver
-> spec->pcm_used is already checked properly.
-> 
-> Doing this avoids following warning at SOF driver probe for multiple
-> machine drivers:
-> 
-> [  112.425297] sof_sdw sof_sdw: hda_dsp_hdmi_build_controls: no
-> PCM in topology for HDMI converter 4
-> [  112.425298] sof_sdw sof_sdw: hda_dsp_hdmi_build_controls: no
-> PCM in topology for HDMI converter 5
-> [  112.425299] sof_sdw sof_sdw: hda_dsp_hdmi_build_controls: no
-> PCM in topology for HDMI converter 6
-> 
-> BugLink: https://github.com/thesofproject/linux/issues/2573
 > Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 
 Thanks, applied now.

@@ -2,76 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4A89501F6A
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Apr 2022 02:03:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57EAD502147
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Apr 2022 06:25:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 308BB189D;
-	Fri, 15 Apr 2022 02:02:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 308BB189D
+	by alsa0.perex.cz (Postfix) with ESMTPS id DA649183E;
+	Fri, 15 Apr 2022 06:24:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA649183E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1649980990;
-	bh=izxFiO/+lGj81wPRSdsKtBD0iUjS+y/YmW/KAAdQnxU=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1649996709;
+	bh=W0L8azuaC2MCibnZYsueMMwFov8vLMqD5y8W/NeDMeE=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LHPdl7NzP8wu6nQm9hsaMiXie475QcxmlFJ0W3SzCnfJs9ytj/8YbhXkVZj4UvGbg
-	 wESsY7/0R3oknlU3hqtP3xyBw0T67Fe3FWMnEYhUQPcu440CUtX+IhEI3yhp6SxZR1
-	 EtAGfVGCuYKT7OJ5ypiN1mPrxApagCOnwsSSF6Co=
+	b=UEOtxX/ImXb8VI85llNB9Ewj+WIgxVqV98+011+11I5VcUDHC+qZtoEXuB+6pKHxb
+	 XjO4PPFIBdIApLnzMHvciwXgMKZGI+Gy8ET8Pr1f4cDjiJi8WGBZstTu0sF5ciUy2v
+	 0SPX1n7W1XqYhA4obPeXzqOqi7xT9hgfT8rX2TNQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 97C59F801F7;
-	Fri, 15 Apr 2022 02:02:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5D13EF800AE;
+	Fri, 15 Apr 2022 06:24:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6B7B7F80162; Fri, 15 Apr 2022 02:02:09 +0200 (CEST)
+ id 2132EF8016A; Fri, 15 Apr 2022 06:24:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from desiato.infradead.org (desiato.infradead.org
- [IPv6:2001:8b0:10b:1:d65d:64ff:fe57:4e05])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 530B8F8012E
- for <alsa-devel@alsa-project.org>; Fri, 15 Apr 2022 02:01:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 530B8F8012E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 15834F80095
+ for <alsa-devel@alsa-project.org>; Fri, 15 Apr 2022 06:24:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15834F80095
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="qjfgI842"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=desiato.20200630; h=Content-Transfer-Encoding:Content-Type
- :In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:
- Sender:Reply-To:Content-ID:Content-Description;
- bh=v2Dn6qtvKX9phF9c++5hboesgqNOkOUVB6NrTw92XNw=; b=qjfgI842dUFH+bNI1oFu9a4fJi
- 17/vob0IxmH8C1n6WdZhGqOstu6pL3DY33dsJ48tiDWfJEjHhxmaxNj+Gw273XjBGPCUhuotBzCBr
- iNlqogqPRlmOFIM4Q4wsKow+BZzCDFnqt+ve9nOd8p8LcNAKn5ShUAIldrZL32xiWbhL7Qe3av3q5
- 5zDpaDra5C3dTfPhcQkBwULaN7QIGMcnY+SqIvtoZT/8ivzwqZFzSzUfH/n9kEenDYrW11qjGnKxO
- nPTyHV8W8IOnWvVTgEJnmJTtDf6R+aD1xYoiBdlqZl1+gN4B+Ez/CnCUP8D9S+3PnA0UvZBW3fnbb
- Bz/Bc6Cg==;
-Received: from [2601:1c0:6280:3f0::aa0b]
- by desiato.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1nf9P8-005Bn5-Sb; Fri, 15 Apr 2022 00:01:39 +0000
-Message-ID: <292dcb6e-6f23-7e61-7927-5b6fe5911f97@infradead.org>
-Date: Thu, 14 Apr 2022 17:01:31 -0700
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="iu04dlbs"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1649996642; x=1681532642;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=W0L8azuaC2MCibnZYsueMMwFov8vLMqD5y8W/NeDMeE=;
+ b=iu04dlbspXXy4v+4CL5IozsDJrZJDYRoTiVAzXvDacPmU8urB7GcPVWu
+ oBvQ/Qryq8UEkrG954fgzr+C1xsW7sRYpZ3e+h9aQdmXNsf6a+veCqIiZ
+ jjdwkxovj9Z5y6r23jQljiP0riEZkslGveN5QJ061ZCvOQ5SRwbbdMGgh
+ wGrhgt3tWe4cycoNaZqsLTMbJGUg4IQHpoHa1BWEzLwKV2ugJJGGRZ7+Q
+ u38t69ezIWrd+V53w3ectL9oBcbMt0vOJ/UWDqsKMcan6AdJqIxPeOjPt
+ X83zlFjRTx1Pifw3cwA3+A/GuvzouM3gjHTqMXo9qf2neqYIGmH/DNx34 A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10317"; a="323533767"
+X-IronPort-AV: E=Sophos;i="5.90,261,1643702400"; d="scan'208";a="323533767"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Apr 2022 21:23:56 -0700
+X-IronPort-AV: E=Sophos;i="5.90,261,1643702400"; d="scan'208";a="645897227"
+Received: from rramesh2-mobl1.amr.corp.intel.com (HELO ldmartin-desk2)
+ ([10.209.35.174])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Apr 2022 21:23:56 -0700
+Date: Thu, 14 Apr 2022 21:23:56 -0700
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: Nirmoy Das <nirmoy.das@intel.com>
+Subject: Re: [PATCH v2] ALSA: hda: handle UAF at probe error
+Message-ID: <20220415042356.arajaxgmzbkzltc4@ldmartin-desk2>
+References: <20220414182437.14944-1-nirmoy.das@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Subject: Re: [PATCH -next V2] sound/oss/dmasound: fix 'dmasound_setup' defined
- but not used
-Content-Language: en-US
-To: Miles Chen <miles.chen@mediatek.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Matthias Brugger <matthias.bgg@gmail.com>
-References: <20220414091940.2216-1-miles.chen@mediatek.com>
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20220414091940.2216-1-miles.chen@mediatek.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20220414182437.14944-1-nirmoy.das@intel.com>
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com, kai.vehmanen@linux.intel.com,
+ matthew.auld@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,49 +89,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, Apr 14, 2022 at 08:24:37PM +0200, Nirmoy Das wrote:
+>Call snd_card_free_on_error() on probe error instead of
+>calling snd_card_free() which should handle devres call orders.
+>
+>Issues: https://gitlab.freedesktop.org/drm/intel/-/issues/5701
+>Fixes: e8ad415b7a55 ("ALSA: core: Add managed card creation")
+>Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
 
+This failure in i915 CI seems suspicious since is around module removal.
+https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_102714v1/fi-tgl-1115g4/igt@i915_suspend@system-suspend-without-i915.html
 
-On 4/14/22 02:19, Miles Chen wrote:
-> We observed: 'dmasound_setup' defined but not used error with
-> COMPILER=gcc ARCH=m68k DEFCONFIG=allmodconfig build.
-> 
-> Fix it by adding __maybe_unused to dmasound_setup.
-> 
-> Error(s):
-> sound/oss/dmasound/dmasound_core.c:1431:12: error: 'dmasound_setup' defined but not used [-Werror=unused-function]
-> 
-> Fixes: 9dd7c46346ca ("sound/oss/dmasound: fix build when drivers are mixed =y/=m")
-> Signed-off-by: Miles Chen <miles.chen@mediatek.com>
-> Cc: Takashi Iwai <tiwai@suse.com>
-> 
+And it seems it didn't fix the issue in dg2:
 
-Acked-by: Randy Dunlap <rdunlap@infradead.org>
+https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_102714v1/bat-dg2-8/igt@gem_lmem_swapping@random-engines.html
 
-Thanks.
+Lucas De Marchi
 
-> ---
-> 
-> Change sinve v1:
->  add fixes tag
->  use __maybe_unused
-> 
-> ---
->  sound/oss/dmasound/dmasound_core.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/sound/oss/dmasound/dmasound_core.c b/sound/oss/dmasound/dmasound_core.c
-> index 9c48f3a9e3d1..164335d3c200 100644
-> --- a/sound/oss/dmasound/dmasound_core.c
-> +++ b/sound/oss/dmasound/dmasound_core.c
-> @@ -1428,7 +1428,7 @@ void dmasound_deinit(void)
->  		unregister_sound_dsp(sq_unit);
->  }
->  
-> -static int dmasound_setup(char *str)
-> +static int __maybe_unused dmasound_setup(char *str)
->  {
->  	int ints[6], size;
->  
-
--- 
-~Randy
+>---
+> sound/pci/hda/hda_intel.c | 7 ++++---
+> 1 file changed, 4 insertions(+), 3 deletions(-)
+>
+>diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+>index 82a45f2b31c4..eb4228c9e37f 100644
+>--- a/sound/pci/hda/hda_intel.c
+>+++ b/sound/pci/hda/hda_intel.c
+>@@ -1730,7 +1730,9 @@ static void azx_check_snoop_available(struct azx *chip)
+> static void azx_probe_work(struct work_struct *work)
+> {
+> 	struct hda_intel *hda = container_of(work, struct hda_intel, probe_work.work);
+>-	azx_probe_continue(&hda->chip);
+>+	struct azx *chip = &hda->chip;
+>+
+>+	snd_card_free_on_error(&chip->pci->dev, azx_probe_continue(chip));
+> }
+>
+> static int default_bdl_pos_adj(struct azx *chip)
+>@@ -2028,7 +2030,7 @@ static void azx_firmware_cb(const struct firmware *fw, void *context)
+> 		dev_err(card->dev, "Cannot load firmware, continue without patching\n");
+> 	if (!chip->disabled) {
+> 		/* continue probing */
+>-		azx_probe_continue(chip);
+>+		snd_card_free_on_error(&chip->pci->dev, azx_probe_continue(chip));
+> 	}
+> }
+> #endif
+>@@ -2338,7 +2340,6 @@ static int azx_probe_continue(struct azx *chip)
+> out_free:
+> 	if (err < 0) {
+> 		pci_set_drvdata(pci, NULL);
+>-		snd_card_free(chip->card);
+> 		return err;
+> 	}
+>
+>-- 
+>2.35.1
+>

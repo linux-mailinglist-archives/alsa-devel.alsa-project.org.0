@@ -2,78 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF1C95036A6
-	for <lists+alsa-devel@lfdr.de>; Sat, 16 Apr 2022 14:54:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADFB65036AA
+	for <lists+alsa-devel@lfdr.de>; Sat, 16 Apr 2022 14:55:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1A0541704;
-	Sat, 16 Apr 2022 14:53:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A0541704
+	by alsa0.perex.cz (Postfix) with ESMTPS id 39356170D;
+	Sat, 16 Apr 2022 14:54:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39356170D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650113650;
-	bh=4L3NfQ2POEX6etb/24DF8Wi9rMkJiPPS08lGG/w6ZOE=;
+	s=default; t=1650113727;
+	bh=vAQgtJeb7+OIweYBHbnV8mzchpWFHuDxrbNsxaDJ9s0=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=jBJUqOWVelkKRBhfYM47sfQX250T7bOuW1Wzx64OHMAIyYK3v6fgZyiLbkS9PQCOF
-	 +BLosYzzHATOfeKtq3ZgwNJqoz9oXeTq30dcAz4oDDeqPv44ocz12nW5JzRmfDP4f1
-	 HxxDFvztJ7rXEaLVHO/NaM7SGRtgtv77Zj8hcG1E=
+	b=izjlUVp3HtvgxdyF0cKAbFgZMNiEsw0h2JR1uN0ng0RG4M4PNzXfXild6kyEQdIp6
+	 K9HahUyXNmAv2E3JrTan+2CRBZ83bEhO9Z2R4LVylm7YbPrNCZyHbuQiPXMUkJUIcE
+	 UQ6OFDJBrV60psuecNGv7SKKNML3HAzz2kKVZ9pk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A5AEAF80095;
-	Sat, 16 Apr 2022 14:53:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CD75BF8012E;
+	Sat, 16 Apr 2022 14:54:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A538CF80161; Sat, 16 Apr 2022 14:53:09 +0200 (CEST)
+ id 4DA0CF80161; Sat, 16 Apr 2022 14:54:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 953D0F80095
- for <alsa-devel@alsa-project.org>; Sat, 16 Apr 2022 14:53:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 953D0F80095
+ by alsa1.perex.cz (Postfix) with ESMTPS id B4479F80095
+ for <alsa-devel@alsa-project.org>; Sat, 16 Apr 2022 14:54:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4479F80095
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="sqjDUeyh"
+ header.b="kXCgS75G"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id EF84560EFA;
- Sat, 16 Apr 2022 12:53:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 448D3C385A1;
- Sat, 16 Apr 2022 12:53:01 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2DE4460F0E;
+ Sat, 16 Apr 2022 12:54:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8130CC385A3;
+ Sat, 16 Apr 2022 12:54:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1650113582;
- bh=4L3NfQ2POEX6etb/24DF8Wi9rMkJiPPS08lGG/w6ZOE=;
+ s=k20201202; t=1650113661;
+ bh=vAQgtJeb7+OIweYBHbnV8mzchpWFHuDxrbNsxaDJ9s0=;
  h=From:To:Cc:Subject:Date:From;
- b=sqjDUeyhMqgzLpinaGvocS/A3bPmWA4FJ6ObHacfWbHSEVFCIHT80eOMc8LkWlx/D
- 5WP9sfJTCRtzSsv0KIU2zk6mUiXBdyZYfCE/ick2HCO1Pa4ew1wTvnX0KjmQxDkRtM
- IZDGCEv5izY+du7xsD19yooCd7ncZMbJrrV1K69nD2w4tWCcpv3AOSeeusHCUdaxMD
- 3UGUN+eAO7d+rlHAjxTEy0HEFQ+u8SyltflXFnNKgz5k/veQhh4DzT7imGBwMreUO9
- L9eCM7rvi4wl1YqNwQ0VvVVxPWc7VQysVELFuot8MQ+IXE+/aIaUMASoV6EiR6PRcB
- cq4EB6dbAYxsQ==
+ b=kXCgS75Gu8SYMrogzL4tpqVf4XuIHtdcgnN+HDRahovgJBfsfIV10eXHZvG8jznc3
+ +6q3HmKUTy2caxNvmrO77e0A6tR6osqVDrAA62M7KdLEm2ZBFOGzauPb17uAu8xC7R
+ blUZzeghh7J0iB1utMFZ26wLnc1878fDt7brxLHxhGNY7Xmi9q+ULLc4nDnDUpb0iv
+ aQH+NV/cdSeMUpY/bt1tdIV/CcKxReWltFYbdjX2KiHYr3bh0oVAUhhLTx9DQ8i4ox
+ f8a+cyQBCxvg0ROpCyQvG9Ocqf6YczEPf4Yezmxz6TAUCMKKeRH1AIgZX1zj6X1kv/
+ 9SvD89A4lFXzg==
 From: Mark Brown <broonie@kernel.org>
-To: Support Opensource <support.opensource@diasemi.com>,
- Liam Girdwood <lgirdwood@gmail.com>
-Subject: [PATCH] ASoC: da7219: Fix change notifications for tone generator
- frequency
-Date: Sat, 16 Apr 2022 13:52:56 +0100
-Message-Id: <20220416125257.197348-1-broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	patches@opensource.cirrus.com
+Subject: [PATCH] ASoC: wm8958: Fix change notifications for DSP controls
+Date: Sat, 16 Apr 2022 13:54:08 +0100
+Message-Id: <20220416125408.197440-1-broonie@kernel.org>
 X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1624; h=from:subject;
- bh=4L3NfQ2POEX6etb/24DF8Wi9rMkJiPPS08lGG/w6ZOE=;
- b=owGbwMvMwMWocq27KDak/QLjabUkhqSoPYIH/WtCS8oXXMlmOKBV6McXWZdgffvRwclpDyYpSKd3
- pIV3MhqzMDByMciKKbKsfZaxKj1cYuv8R/NfwQxiZQKZwsDFKQATqVDlYGhQ6Vigec3W4uqq7i8COz
- 5r/xPzeXN80uqS/fUvJLqmv3zw2Wqxy/KiTNPIiMfJfzcaTuS7lcYUlrBM7U5rxX/H9Rr+qXLrzlee
- OJMy0+vH9k3PTVQ750oKKD9NK3/3YXVpR+2hzbZsHa11E0T7TI9KtZdbNs4Sv743ZvUMm5imy0V2ys
- WvHR33cy5/ezEt3o/357xkUX+O2Hf5YuyLNosHzytkenla+dYRHcNVEQ87RJ94Cj7WvD3XjGVqNDeP
- 09Yun01JcZVL39wx4z7/1thsnldCWlJ/TkWN1PfTvjN/X+ZVSr9/11hhktjfGJFypbNSHf12Ur+yK5
- i31HX8Y7yUln+dMbZIa9bhFQU+AA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1526; h=from:subject;
+ bh=vAQgtJeb7+OIweYBHbnV8mzchpWFHuDxrbNsxaDJ9s0=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBiWrxFquVGEG4qukE43PbX+CkeM8LMEga8rYZE/Bn+
+ Sbf1kg+JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCYlq8RQAKCRAk1otyXVSH0HakB/
+ kBEcXlL8gXn69rBg+t/sNxenbpT/uPB67HAzt1vss6WYOr4G9FYq8iu3nF5fET9POp+75oFBNP2rlf
+ ebJxPb5MuLGBnnKSh8mb4tzGai7nOIfeMNXYmmUwyqT6wRNssgDCEyElPtsLr9T3WywDJWLy6CwJeD
+ IUTux5ncLE2SCTsvqOm//4KeAwCcDrV2PjPZmXc8DjTQzOZ408iOoCyfovUMUlbfRMgLwBStgX4T+8
+ qOIclwL8nJyAakkrfVeJqtu1zuxqAZpxPCKNkl5neEL5GPpiGD8FuTL555hDmwp6bncGPeRMWtE5th
+ /xIZMIDmXV2ugPjPRIo3j9ujASSfcU
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 Content-Transfer-Encoding: 8bit
@@ -93,52 +93,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The tone generator frequency control just returns 0 on successful write,
-not a boolean value indicating if there was a change or not.  Compare
-what was written with the value that was there previously so that
-notifications are generated appropraitely when the value changes.
+The WM8958 DSP controls all return 0 on successful write, not a boolean
+value indicating if the write changed the value of the control. Fix this
+by returning 1 after a change, there is already a check at the start of
+each put() that skips the function in the case that there is no change.
 
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/da7219.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+ sound/soc/codecs/wm8958-dsp2.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/codecs/da7219.c b/sound/soc/codecs/da7219.c
-index a28d3601b932..166a3cad3445 100644
---- a/sound/soc/codecs/da7219.c
-+++ b/sound/soc/codecs/da7219.c
-@@ -446,7 +446,7 @@ static int da7219_tonegen_freq_put(struct snd_kcontrol *kcontrol,
- 	struct soc_mixer_control *mixer_ctrl =
- 		(struct soc_mixer_control *) kcontrol->private_value;
- 	unsigned int reg = mixer_ctrl->reg;
--	__le16 val;
-+	__le16 val_new, val_old;
- 	int ret;
+diff --git a/sound/soc/codecs/wm8958-dsp2.c b/sound/soc/codecs/wm8958-dsp2.c
+index e4018ba3b19a..7878c7a58ff1 100644
+--- a/sound/soc/codecs/wm8958-dsp2.c
++++ b/sound/soc/codecs/wm8958-dsp2.c
+@@ -530,7 +530,7 @@ static int wm8958_mbc_put(struct snd_kcontrol *kcontrol,
  
- 	/*
-@@ -454,13 +454,19 @@ static int da7219_tonegen_freq_put(struct snd_kcontrol *kcontrol,
- 	 * Therefore we need to convert to little endian here to align with
- 	 * HW registers.
- 	 */
--	val = cpu_to_le16(ucontrol->value.integer.value[0]);
-+	val_new = cpu_to_le16(ucontrol->value.integer.value[0]);
+ 	wm8958_dsp_apply(component, mbc, wm8994->mbc_ena[mbc]);
  
- 	mutex_lock(&da7219->ctrl_lock);
--	ret = regmap_raw_write(da7219->regmap, reg, &val, sizeof(val));
-+	ret = regmap_raw_read(da7219->regmap, reg, &val_old, sizeof(val_old));
-+	if (ret != 0)
-+		ret = regmap_raw_write(da7219->regmap, reg,
-+				&val_new, sizeof(val_new));
- 	mutex_unlock(&da7219->ctrl_lock);
+-	return 0;
++	return 1;
+ }
  
--	return ret;
-+	if (ret < 0)
-+		return ret;
-+
-+	return val_old != val_new;
+ #define WM8958_MBC_SWITCH(xname, xval) {\
+@@ -656,7 +656,7 @@ static int wm8958_vss_put(struct snd_kcontrol *kcontrol,
+ 
+ 	wm8958_dsp_apply(component, vss, wm8994->vss_ena[vss]);
+ 
+-	return 0;
++	return 1;
  }
  
  
+@@ -730,7 +730,7 @@ static int wm8958_hpf_put(struct snd_kcontrol *kcontrol,
+ 
+ 	wm8958_dsp_apply(component, hpf % 3, ucontrol->value.integer.value[0]);
+ 
+-	return 0;
++	return 1;
+ }
+ 
+ #define WM8958_HPF_SWITCH(xname, xval) {\
+@@ -824,7 +824,7 @@ static int wm8958_enh_eq_put(struct snd_kcontrol *kcontrol,
+ 
+ 	wm8958_dsp_apply(component, eq, ucontrol->value.integer.value[0]);
+ 
+-	return 0;
++	return 1;
+ }
+ 
+ #define WM8958_ENH_EQ_SWITCH(xname, xval) {\
 -- 
 2.30.2
 

@@ -2,90 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DB425051BA
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Apr 2022 14:40:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D31C15053BA
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Apr 2022 14:59:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B7F6016A6;
-	Mon, 18 Apr 2022 14:40:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7F6016A6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 543A716D4;
+	Mon, 18 Apr 2022 14:58:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 543A716D4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650285655;
-	bh=zUSRkPbn0yZMfxI+0fSUOS/TUrJSOosBpORvAI0TPP8=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1650286789;
+	bh=6qvbSZPsRQ2QK7L0KsygJhGgQaH0vRfdVk+d0/VFA/Y=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WS43PucCYbdv5OBTatpWT1waHWdyRax9/sXVh/ncQgydmh4S6v/sTDgnEJt9NPYTO
-	 bgqSXzln9wXfOALLPbGDCCLCbnbtUZa/FTC1YQSku67LgUkfJU9Uo7AhDOEG/azqrp
-	 sEOpKSFdUYcffVjid7Y972QcMf92DU/n5hy45ZDU=
+	b=QVbU+3NHtLPMa0ZAfLeOjrNKMkvfMHYEGmpw/pM1qNmTPG6NJsROJK3RAaetNbRhw
+	 ncxWCBLl5Gfy5AczSLSIRQevrapFpHsVrDYIActsPk5/wP1O6s29ppVkMFxrAJjo4Q
+	 8+hLKBpzcuSVkDIxkc8Iz+IRwirEaP8TGLgHQ1fE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9EE4FF8053C;
-	Mon, 18 Apr 2022 14:38:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B5BF6F80311;
+	Mon, 18 Apr 2022 14:58:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 25EB5F8053E; Mon, 18 Apr 2022 14:38:29 +0200 (CEST)
+ id 1D77CF8014E; Mon, 18 Apr 2022 14:58:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A489AF80519
- for <alsa-devel@alsa-project.org>; Mon, 18 Apr 2022 14:38:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A489AF80519
+ by alsa1.perex.cz (Postfix) with ESMTPS id 062B3F800D8
+ for <alsa-devel@alsa-project.org>; Mon, 18 Apr 2022 14:58:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 062B3F800D8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="fcwTW+ZT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1650285503; x=1681821503;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version;
- bh=A0LmYC/gEqsIU27Z6oRulOsy/d8igGAqb2T/BGD0plE=;
- b=fcwTW+ZTjBpRO1uiXpDH4sBX+sLINIcsn30PACkNAudPucA417j95hO+
- GX5ceAYIc1SHd7E08gROGRxOyCk6kK3zEG+SBh/ArWWKbjZeqtlGx/z3W
- SyrIPWEDSAODtOgPEoPi4Rk8tos2zzt+5LR5Nn0wLN7hk4oeJaFdnwqgI o=;
-Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 18 Apr 2022 05:38:20 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Apr 2022 05:38:20 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Mon, 18 Apr 2022 05:38:19 -0700
-Received: from hu-srivasam-hyd.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Mon, 18 Apr 2022 05:38:12 -0700
-From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-To: <agross@kernel.org>, <bjorn.andersson@linaro.org>, <lgirdwood@gmail.com>, 
- <broonie@kernel.org>, <robh+dt@kernel.org>, <quic_plai@quicinc.com>,
- <bgoswami@quicinc.com>, <perex@perex.cz>, <tiwai@suse.com>,
- <srinivas.kandagatla@linaro.org>, <quic_rohkumar@quicinc.com>,
- <linux-arm-msm@vger.kernel.org>, <alsa-devel@alsa-project.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <swboyd@chromium.org>, <judyhsiao@chromium.org>, Linus Walleij
- <linus.walleij@linaro.org>, <linux-gpio@vger.kernel.org>
-Subject: [PATCH v13 7/7] pinctrl: qcom: Update clock voting as optional
-Date: Mon, 18 Apr 2022 18:07:07 +0530
-Message-ID: <1650285427-19752-8-git-send-email-quic_srivasam@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1650285427-19752-1-git-send-email-quic_srivasam@quicinc.com>
-References: <1650285427-19752-1-git-send-email-quic_srivasam@quicinc.com>
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="C97ZD9Bc"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 23IAwEtM010624;
+ Mon, 18 Apr 2022 07:58:40 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=wtcSYcZxtfhTiECiHdXdRT35LqK5yyZ+wgb/9w9e73c=;
+ b=C97ZD9Bcagu+qpg2/X/NKwG8OnkKtuyzokDA2spaXWbIv6es9hPk9D9h8pW4hGaAzWTF
+ sZ59as0uBHSx7PEFwrINncW7mrTAW+qUkOKkClDDwpF2pRrJUZ3GplZa+R07kccq6OH7
+ yL3WbCDjJVrfgygXozG/3P6pcoj1gDs+ScdIJYXlD4s9Em/GEOuALChRiYGM+Sgt8gwg
+ orRnLuKqZpSxCtvQnYMj/aKmunBSVvdcYxoPL3EKLiSr/d6kK7q8WAeO87amukfGaCvY
+ g2OfLJqJvwfhyxpS2TrZFWD+qbuLnZe3UcmXVD3ZXcSkf9IEK6MDcG/9wqmwXNFH9NM8 SQ== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3ffu70hvg0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Mon, 18 Apr 2022 07:58:40 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Mon, 18 Apr
+ 2022 13:58:38 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.24 via
+ Frontend Transport; Mon, 18 Apr 2022 13:58:38 +0100
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 5A1AFB10;
+ Mon, 18 Apr 2022 12:58:38 +0000 (UTC)
+Date: Mon, 18 Apr 2022 12:58:38 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH] ASoC: wm8958: Fix change notifications for DSP controls
+Message-ID: <20220418125838.GB38351@ediswmail.ad.cirrus.com>
+References: <20220416125408.197440-1-broonie@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Cc: Venkata Prasad Potturu <quic_potturu@quicinc.com>,
- Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20220416125408.197440-1-broonie@kernel.org>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-ORIG-GUID: qyPhmTm-nkLrzb9xMSD0gUsNGhZ0mEKx
+X-Proofpoint-GUID: qyPhmTm-nkLrzb9xMSD0gUsNGhZ0mEKx
+X-Proofpoint-Spam-Reason: safe
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,64 +99,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Update bulk clock voting to optional voting as ADSP bypass platform doesn't
-need macro and decodec clocks, as these macro and dcodec GDSC switches are
-maintained as power domains and operated from lpass clock drivers.
+On Sat, Apr 16, 2022 at 01:54:08PM +0100, Mark Brown wrote:
+> The WM8958 DSP controls all return 0 on successful write, not a boolean
+> value indicating if the write changed the value of the control. Fix this
+> by returning 1 after a change, there is already a check at the start of
+> each put() that skips the function in the case that there is no change.
+> 
+> Signed-off-by: Mark Brown <broonie@kernel.org>
+> ---
 
-Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Co-developed-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
-Signed-off-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
-Reviewed-by: Matthias Kaehlcke <mka@chromium.org>
----
- drivers/pinctrl/qcom/pinctrl-lpass-lpi.c        | 8 ++++++--
- drivers/pinctrl/qcom/pinctrl-lpass-lpi.h        | 1 +
- drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c | 1 +
- 3 files changed, 8 insertions(+), 2 deletions(-)
+Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-diff --git a/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c b/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c
-index 717e937..74810ec 100644
---- a/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c
-+++ b/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c
-@@ -401,9 +401,13 @@ int lpi_pinctrl_probe(struct platform_device *pdev)
- 		return dev_err_probe(dev, PTR_ERR(pctrl->slew_base),
- 				     "Slew resource not provided\n");
- 
--	ret = devm_clk_bulk_get(dev, MAX_LPI_NUM_CLKS, pctrl->clks);
-+	if (data->is_clk_optional)
-+		ret = devm_clk_bulk_get_optional(dev, MAX_LPI_NUM_CLKS, pctrl->clks);
-+	else
-+		ret = devm_clk_bulk_get(dev, MAX_LPI_NUM_CLKS, pctrl->clks);
-+
- 	if (ret)
--		return dev_err_probe(dev, ret, "Can't get clocks\n");
-+		return ret;
- 
- 	ret = clk_bulk_prepare_enable(MAX_LPI_NUM_CLKS, pctrl->clks);
- 	if (ret)
-diff --git a/drivers/pinctrl/qcom/pinctrl-lpass-lpi.h b/drivers/pinctrl/qcom/pinctrl-lpass-lpi.h
-index afbac2a..759d5d8 100644
---- a/drivers/pinctrl/qcom/pinctrl-lpass-lpi.h
-+++ b/drivers/pinctrl/qcom/pinctrl-lpass-lpi.h
-@@ -77,6 +77,7 @@ struct lpi_pinctrl_variant_data {
- 	int ngroups;
- 	const struct lpi_function *functions;
- 	int nfunctions;
-+	bool is_clk_optional;
- };
- 
- int lpi_pinctrl_probe(struct platform_device *pdev);
-diff --git a/drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c b/drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c
-index d615b6c5..2add9a4 100644
---- a/drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c
-+++ b/drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c
-@@ -141,6 +141,7 @@ static const struct lpi_pinctrl_variant_data sc7280_lpi_data = {
- 	.ngroups = ARRAY_SIZE(sc7280_groups),
- 	.functions = sc7280_functions,
- 	.nfunctions = ARRAY_SIZE(sc7280_functions),
-+	.is_clk_optional = true,
- };
- 
- static const struct of_device_id lpi_pinctrl_of_match[] = {
--- 
-2.7.4
-
+Thanks,
+Charles

@@ -2,83 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B55C50675C
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Apr 2022 11:02:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8088550677B
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Apr 2022 11:11:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B4742172C;
-	Tue, 19 Apr 2022 11:02:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B4742172C
+	by alsa0.perex.cz (Postfix) with ESMTPS id CE87A1725;
+	Tue, 19 Apr 2022 11:10:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE87A1725
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650358973;
-	bh=HyqKlH8bOwBwVO91Kr6l4qEPG3zTPcjI+nlMvdOflsk=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1650359500;
+	bh=FbXeMj7sNSapIYcCX/VoUHfiudGG0sTjr+ZLxh+KghY=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=d7gzFzUuhHl1aksC23gPURdXAYEMPOy8UJd1qVUpbcX55wKHViLyzD6O3NjtXIpQW
-	 5np4FGAstPwxI1bTCPJ6fgPAgDhSs1uI9xLDOSv26akmxhjMShyXcT/BlbYxQkHpBK
-	 fPdsl4CBxV55xwJixiouHMyopadxx0zEwJlU79KE=
+	b=oVKfxSMAVeKH40zOj6SvAl5kAB6lCxgKxyZPDlMmbhO+KjIuP1XkD0uruX6MX12pk
+	 3shosdStq2yMo1dnHIYDGYJLEfgynXmng7Wmsz9eK5htaAdHvqfbLLsboqrvhaLGtG
+	 O+aQlmkrSTU8MJ/bG9x8KixYmPaNIXC1aNQ+2No4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 59CDFF80121;
-	Tue, 19 Apr 2022 11:01:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D283EF80269;
+	Tue, 19 Apr 2022 11:10:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4B3C5F8025D; Tue, 19 Apr 2022 11:01:54 +0200 (CEST)
+ id 69F2FF8025D; Tue, 19 Apr 2022 11:10:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SORTED_RECIPS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3C527F80121
- for <alsa-devel@alsa-project.org>; Tue, 19 Apr 2022 11:01:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C527F80121
+ by alsa1.perex.cz (Postfix) with ESMTPS id 014F0F80121
+ for <alsa-devel@alsa-project.org>; Tue, 19 Apr 2022 11:10:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 014F0F80121
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Hi3ztoMt"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="8guWCu+M"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 742BC210F1;
- Tue, 19 Apr 2022 09:01:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1650358907; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=7tmu8xW2ZdVQ7G42JQsUqYarrqw3vZczKi0AAynAqgs=;
- b=Hi3ztoMt7VAfNp7D2N610rfR3Z9oRO4g0B4pGiE+a02MGcEtQNagvYOe4XxP5BRMEvgFEt
- lZrwyMotHsvAub3vGNoBJnHZvZjLs/eIsnehJWYvnCl6ggGHMvRqArbBJk6v+3QAVosZB7
- 3S7QBRE0XZuyCvUGeL61yLf2jvBf+L8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1650358907;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=7tmu8xW2ZdVQ7G42JQsUqYarrqw3vZczKi0AAynAqgs=;
- b=8guWCu+Ml7aWrhiMjov3KuKxQRUN66aMC/mN7a1pAijAExCi0UGVQo6ofVhvZkFti//Gjo
- kIFWUeH7O0HMCeDA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 50E982C146;
- Tue, 19 Apr 2022 09:01:47 +0000 (UTC)
-Date: Tue, 19 Apr 2022 11:01:47 +0200
-Message-ID: <s5hk0bl1m6c.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: syzbot <syzbot+70e777a39907d6d5fd0a@syzkaller.appspotmail.com>
-Subject: Re: [syzbot] KASAN: use-after-free Read in __snd_rawmidi_transmit_peek
-In-Reply-To: <00000000000011555605dceaff03@google.com>
-References: <00000000000011555605dceaff03@google.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, coding@diwic.se, tiwai@suse.com,
- syzkaller-bugs@googlegroups.com, linux-kernel@vger.kernel.org,
- colin.king@intel.com
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="eWXVtgZA"
+Received: by mail-wr1-x429.google.com with SMTP id t1so21535892wra.4
+ for <alsa-devel@alsa-project.org>; Tue, 19 Apr 2022 02:10:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=zF4V/xMqxOt1lzS1W7B1kHA2IPJXPFkf0vVAZ2mtUOI=;
+ b=eWXVtgZA+DXI5LtnTRmFH591Bjcrb5vrHiVbW8HPi94dgBRFXPKjOSV9gyPgKRqm52
+ rrVlipat7vdond408O5t4VhcN2nPQhhFcZXe2dUFhuvyC5SIV5ByxCO9LoHvOuc/A5QC
+ +erFGfnay8ZaZz/QQj4Pqlm5/e0rq543/oAXGambL7Hlvh5Fj4wrl+aQ4+2kuGQhgoYE
+ 5KGLQALi31ZSh52U7i+orSq01/ZI18TYcR/0o5/Cd65WwNrYPzv74DG/pu07G8hi08/T
+ JEu/B/VUKo8ltzPt02H7zx5SBBU7cViBqkWRJuQQrbiu6P9x3aYqHc+OwlgSjKYXvyUT
+ axEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=zF4V/xMqxOt1lzS1W7B1kHA2IPJXPFkf0vVAZ2mtUOI=;
+ b=z/txiFkaL4dh5oX5CQ434SR8VQ/ECvghX6cqAXlIb8zyC3EQ+XD1LIBr4KlrPpnNjW
+ TTiGgeeG9GXYeKEI5XBVTsKSjgmhGRs/8cO1+wYeJM1V8NMhYOL60tSJ1bJmUi7Qemwr
+ KwFQpr5Vc2n76haw0YVgffEv+W4qMgVkFahFoqpkwBAliNUrPmXhRGETxexMRvkAXKqM
+ tiFdHGm+vM2PE6uRcFnJjPnCo5jB/ytQbpnGghlIz+7dvlD9rXzLfgSdw7h457wDeEsU
+ gZmHaccCwuf8Hup4Zf0dqCq+0hUHwy5oPTSA0WeQObd6cj+ouKgHazAJ9P9RF6GAhDP9
+ XBOw==
+X-Gm-Message-State: AOAM532hj+uHm3EjI6ahGuNsCB4ZNjCvAdos936gFBWh+1eqmWq2AbB2
+ /m8lDDCxYEGbV9bMujNcqnZPTWALKYUp0g==
+X-Google-Smtp-Source: ABdhPJz2TaXo5HkQRvMqgFpi/YCNwh6ssF0uj1RZEHz7LmaUi64xmuEniT+fhOrhuJs7L2SHUMCbgA==
+X-Received: by 2002:a05:6000:15cd:b0:20a:aaf7:33e4 with SMTP id
+ y13-20020a05600015cd00b0020aaaf733e4mr45876wry.406.1650359430725; 
+ Tue, 19 Apr 2022 02:10:30 -0700 (PDT)
+Received: from [192.168.86.34]
+ (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
+ by smtp.googlemail.com with ESMTPSA id
+ j18-20020a05600c1c1200b0039297ba9a6dsm4659679wms.26.2022.04.19.02.10.29
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 19 Apr 2022 02:10:29 -0700 (PDT)
+Message-ID: <72ca1cd4-da90-9e4c-b326-46eef2e1cb58@linaro.org>
+Date: Tue, 19 Apr 2022 10:10:28 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: [PATCH 1/2] ASoC: qcom: lpass: Fix apq8016 compat string to match
+ yaml
+Content-Language: en-US
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, robh+dt@kernel.org,
+ krzk+dt@kernel.org
+References: <20220418230956.3059563-1-bryan.odonoghue@linaro.org>
+ <20220418230956.3059563-2-bryan.odonoghue@linaro.org>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: <20220418230956.3059563-2-bryan.odonoghue@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,122 +110,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 18 Apr 2022 12:12:23 +0200,
-syzbot wrote:
+
+
+On 19/04/2022 00:09, Bryan O'Donoghue wrote:
+> The documented yaml compat string for the apq8016 is
+> "qcom,apq8016-lpass-cpu" not "qcom,lpass-cpu-apq8016". Looking at the other
+> lpass compat strings the general form is "qcom,socnum-lpass-cpu".
 > 
-> Hello,
+> We need to fix both the driver and dts to match.
+
+Fixes tag is missing.
+
 > 
-> syzbot found the following issue on:
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+
+
+other than that it LGTM.
+
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+
+--srini
+
+> ---
+>   sound/soc/qcom/lpass-apq8016.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> HEAD commit:    a19944809fe9 Merge tag 'hardening-v5.18-rc3' of git://git...
-> git tree:       upstream
-> console output: https://syzkaller.appspot.com/x/log.txt?x=16a40ae0f00000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=eb177500e563582f
-> dashboard link: https://syzkaller.appspot.com/bug?extid=70e777a39907d6d5fd0a
-> compiler:       gcc (Debian 10.2.1-6) 10.2.1 20210110, GNU ld (GNU Binutils for Debian) 2.35.2
-> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1590dfa8f00000
-> 
-> IMPORTANT: if you fix the issue, please add the following tag to the commit:
-> Reported-by: syzbot+70e777a39907d6d5fd0a@syzkaller.appspotmail.com
-> 
-> ==================================================================
-> BUG: KASAN: use-after-free in __snd_rawmidi_transmit_peek+0x261/0x360 sound/core/rawmidi.c:1286
-
-Looks like a leftover work.  The fix patch is below.
-
-
-Takashi
-
--- 8< --
-From: Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH] ALSA: usb-audio: Fix potential use-after-free at releasing
- MIDI streams
-
-As recently spotted by syzbot, the USB MIDI code may leave a work that
-handles the pending output queue even after a stream gets released
-(either internally via sequencer or via device files), which may lead
-to use-after-free.  We have already a proper drop of pending URBs but
-this is executed only at the device disconnection.
-
-This patch moves the URB clean-up code into both the code path that is
-called at releasing, namely, snd_usb_midi_in_endpoint_delete() and
-snd_usb_midi_out_endpoint_clear() functions, so that the pending URBs
-and work are cleared properly before releasing the resources.
-
-Reported-by: syzbot+70e777a39907d6d5fd0a@syzkaller.appspotmail.com
-Cc: <stable@vger.kernel.org>
-Link: https://lore.kernel.org/r/00000000000011555605dceaff03@google.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/usb/midi.c | 34 +++++++++++++++++-----------------
- 1 file changed, 17 insertions(+), 17 deletions(-)
-
-diff --git a/sound/usb/midi.c b/sound/usb/midi.c
-index 2c01649c70f6..8e5281f7f1fc 100644
---- a/sound/usb/midi.c
-+++ b/sound/usb/midi.c
-@@ -1247,6 +1247,10 @@ static void snd_usbmidi_in_endpoint_delete(struct snd_usb_midi_in_endpoint *ep)
- {
- 	unsigned int i;
- 
-+	for (i = 0; i < INPUT_URBS; ++i)
-+		if (ep->urbs[i])
-+			usb_kill_urb(ep->urbs[i]);
-+
- 	for (i = 0; i < INPUT_URBS; ++i)
- 		if (ep->urbs[i])
- 			free_urb_and_buffer(ep->umidi, ep->urbs[i],
-@@ -1327,6 +1331,18 @@ static void snd_usbmidi_out_endpoint_clear(struct snd_usb_midi_out_endpoint *ep)
- {
- 	unsigned int i;
- 
-+	cancel_work_sync(&ep->work);
-+	for (i = 0; i < OUTPUT_URBS; ++i)
-+		if (ep->urbs[i].urb)
-+			usb_kill_urb(ep->urbs[i].urb);
-+	if (ep->umidi->usb_protocol_ops->finish_out_endpoint)
-+		ep->umidi->usb_protocol_ops->finish_out_endpoint(ep);
-+	ep->active_urbs = 0;
-+	if (ep->drain_urbs) {
-+		ep->drain_urbs = 0;
-+		wake_up(&ep->drain_wait);
-+	}
-+
- 	for (i = 0; i < OUTPUT_URBS; ++i)
- 		if (ep->urbs[i].urb) {
- 			free_urb_and_buffer(ep->umidi, ep->urbs[i].urb,
-@@ -1469,7 +1485,7 @@ static void snd_usbmidi_free(struct snd_usb_midi *umidi)
- void snd_usbmidi_disconnect(struct list_head *p)
- {
- 	struct snd_usb_midi *umidi;
--	unsigned int i, j;
-+	unsigned int i;
- 
- 	umidi = list_entry(p, struct snd_usb_midi, list);
- 	/*
-@@ -1487,22 +1503,6 @@ void snd_usbmidi_disconnect(struct list_head *p)
- 
- 	for (i = 0; i < MIDI_MAX_ENDPOINTS; ++i) {
- 		struct snd_usb_midi_endpoint *ep = &umidi->endpoints[i];
--		if (ep->out)
--			cancel_work_sync(&ep->out->work);
--		if (ep->out) {
--			for (j = 0; j < OUTPUT_URBS; ++j)
--				usb_kill_urb(ep->out->urbs[j].urb);
--			if (umidi->usb_protocol_ops->finish_out_endpoint)
--				umidi->usb_protocol_ops->finish_out_endpoint(ep->out);
--			ep->out->active_urbs = 0;
--			if (ep->out->drain_urbs) {
--				ep->out->drain_urbs = 0;
--				wake_up(&ep->out->drain_wait);
--			}
--		}
--		if (ep->in)
--			for (j = 0; j < INPUT_URBS; ++j)
--				usb_kill_urb(ep->in->urbs[j]);
- 		/* free endpoints here; later call can result in Oops */
- 		if (ep->out)
- 			snd_usbmidi_out_endpoint_clear(ep->out);
--- 
-2.31.1
-
+> diff --git a/sound/soc/qcom/lpass-apq8016.c b/sound/soc/qcom/lpass-apq8016.c
+> index 3efa133d1c64..10edc5e9c8ef 100644
+> --- a/sound/soc/qcom/lpass-apq8016.c
+> +++ b/sound/soc/qcom/lpass-apq8016.c
+> @@ -292,7 +292,7 @@ static struct lpass_variant apq8016_data = {
+>   };
+>   
+>   static const struct of_device_id apq8016_lpass_cpu_device_id[] __maybe_unused = {
+> -	{ .compatible = "qcom,lpass-cpu-apq8016", .data = &apq8016_data },
+> +	{ .compatible = "qcom,apq8016-lpass-cpu", .data = &apq8016_data },
+>   	{}
+>   };
+>   MODULE_DEVICE_TABLE(of, apq8016_lpass_cpu_device_id);

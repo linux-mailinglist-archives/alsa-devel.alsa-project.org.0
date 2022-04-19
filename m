@@ -2,92 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CECD5061F2
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Apr 2022 04:00:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 884B6506410
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Apr 2022 07:55:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0F63216EB;
-	Tue, 19 Apr 2022 03:59:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F63216EB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1C45616B9;
+	Tue, 19 Apr 2022 07:54:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C45616B9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650333635;
-	bh=fRr6wX0i3nxYWOHj1ahUcFHQgyhC0jpanOrqYCD4Ygw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1650347740;
+	bh=jJveFDHy30Dejyb0Tl1ENmYhauhtZNIhHnsaUcVQqT0=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NSRvgIq4vh5dvQKCtS3LpXA+I/6ye8yIx34YyrI3zkR8pNSbQ3iawdhDFm24+s5L1
-	 gBjGm1LgmExkbWX/wp0uCloRDDtSvIJn8xBb8jtXddxFaDTwRhf2GwT30KU2Vimp1K
-	 lnF5mg0YErOR/iYbB7HM8NffVZeYwcarAFQ5Gs20=
+	b=hz6qUoJ8Iw9pagnvV54S0IHJh9iveTMqknMcZTI7bNVN/2ywx8T9wO5df+cpPmRKT
+	 Ky8ETuUkEGKf8aYKSezjlxEmXIZo5qmUBrzjQP+qlU6yYWAcNkvjX01T+5Xjq4MVy9
+	 YZCUKRsZ5bXCLTUBp4eji/URYa1+5RtoxaKTOPA4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 263BFF804CB;
-	Tue, 19 Apr 2022 03:59:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9B057F80116;
+	Tue, 19 Apr 2022 07:54:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 45D82F8025D; Tue, 19 Apr 2022 03:59:34 +0200 (CEST)
+ id 5995DF8025D; Tue, 19 Apr 2022 07:54:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, SPF_HELO_NONE, SPF_NONE, T_SCC_BODY_TEXT_LINE,
- USER_IN_DEF_DKIM_WL autolearn=disabled version=3.4.0
-Received: from mail-qk1-x72a.google.com (mail-qk1-x72a.google.com
- [IPv6:2607:f8b0:4864:20::72a])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 39DABF80116
- for <alsa-devel@alsa-project.org>; Tue, 19 Apr 2022 03:59:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39DABF80116
+ by alsa1.perex.cz (Postfix) with ESMTPS id F0726F800C1
+ for <alsa-devel@alsa-project.org>; Tue, 19 Apr 2022 07:54:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0726F800C1
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="M9TlNCxx"
-Received: by mail-qk1-x72a.google.com with SMTP id b68so7739173qkc.4
- for <alsa-devel@alsa-project.org>; Mon, 18 Apr 2022 18:59:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=wCsQtD2NQ+gbeoKp9EzAjHzyK6SBXrAkZNvU9pPrYqA=;
- b=M9TlNCxxcBX0yUHiIVEapcv8P3OPBDK5VOwlHdUva2h3+sMA0gk7fJtp7stFVeb8CY
- HYTNcluvwI0Sgg42bXELRbBOCihfzVIb5lpF8DVz/ljn7GPxht0cJSqtxrlfSHIDr+qK
- mVpxQfqMgMwWpGRBRWzBwHLOCb+qKSrk9it8C0Ai0PGUwlJc1EdrAgnZlhHRz1q8fv9+
- rqzkmxsv26cA7Ha1t4s5ukPeM4hDhXlnW8U8m8pb1KYOJXjj5BnpxsyCXMS86WHXhVPx
- /5lKSn9NdL4M1vNq+YiAoWFCPvEb1mR2rcroAF0mpO+YkQioXAtJ6yXAge0kiLzkYxyI
- CYRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=wCsQtD2NQ+gbeoKp9EzAjHzyK6SBXrAkZNvU9pPrYqA=;
- b=3+EjcN32YbbpM/XSXOcelPRITpWi+pB6yqBLqxN5C0ooadgQky/f+oc0H/75+52vE9
- nwVVCjrbZf+VulUqrzvAtidReKkiadj9qadVQn8QGZLWiMihpWcehJ/55zLlMjdBYjiJ
- YjFQOKh1ER/3wNUnAKjqwzKr4fSBBwFlBl+Xdq9zN0xjYHKvGcwCEgOGpr0Dv+BMIJVb
- WS88AYpUCectN6K7ECkH98rLBi2Db3xfL0WFfCW4JuOIGbcf7CPhxulpPy+WqiQMnSQx
- tEwxGuLmgdf8Hejdc1JA51Sy7IYhmrvXcnugpkzkGSWb76yC/BVCbL/+E8sRWx1/ofje
- gVQA==
-X-Gm-Message-State: AOAM5309JfojsIocY9r1YhlXJls+sIqwa0+LpiYFp3twqG3fKRjkDUXd
- qW/6vtiiNJb+k67gudh582nv1On/Fdt2S8l6ErQN6Q==
-X-Google-Smtp-Source: ABdhPJymdwkKvk3KkRb/O6pCJ7D6/9Nv7MBaNf+tmHbYqlewiWquB4d2TgeCmsw5i4kp2kBKCwfxtnz9T03ex9VIObA=
-X-Received: by 2002:a37:9603:0:b0:67d:da02:19e8 with SMTP id
- y3-20020a379603000000b0067dda0219e8mr8458309qkd.242.1650333568819; Mon, 18
- Apr 2022 18:59:28 -0700 (PDT)
-MIME-Version: 1.0
-References: <Ylk5o3EC/hyX5UQ0@google.com>
-In-Reply-To: <Ylk5o3EC/hyX5UQ0@google.com>
-From: Curtis Malainey <cujomalainey@google.com>
-Date: Mon, 18 Apr 2022 18:59:17 -0700
-Message-ID: <CAOReqxhDpmexe_aLHb2-ESjSE2uij2SrPxRCZD3YxZm0JjtwrA@mail.gmail.com>
-Subject: Re: [Sound-open-firmware] out-of-bounds access in
- sound/soc/sof/topology.c
-To: Sergey Senozhatsky <senozhatsky@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Ricardo Ribalda <ribalda@chromium.org>, Tomasz Figa <tfiga@chromium.org>,
- Sound Open Firmware <sound-open-firmware@alsa-project.org>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="uxvnlnC/"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="IfXXSkBv"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id C60A81F37E;
+ Tue, 19 Apr 2022 05:54:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1650347670; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=2N3Ip/JaMBhfh7P/K8zsWkej8aS8SAaAJc3WaNdFEt4=;
+ b=uxvnlnC/SRXOyf1N1A2h5PV79E+lvijv/JwstO+mwG3Rd7q0YqME6TLqDz2P8Afg9Rqvez
+ 3YgQ1k65cX0fzsl6gm41OGVth1+ktd2nMsELrzukCHA62cdEgTWFaRQJijMRfpY5CjOSpr
+ b2lDe0BdjFW50+q8L48EQSu/2Mrxdd4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1650347670;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=2N3Ip/JaMBhfh7P/K8zsWkej8aS8SAaAJc3WaNdFEt4=;
+ b=IfXXSkBvCqZEEK60Dtrsv0YMR8Q46fhCCml2OC2DcbS4n1a7jmvOosAIOn2sVrXrqXYTFX
+ oZnnEDcxlLj+G6DA==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id BEB40A3B89;
+ Tue, 19 Apr 2022 05:54:30 +0000 (UTC)
+Date: Tue, 19 Apr 2022 07:54:30 +0200
+Message-ID: <s5hilr539ex.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Lucas De Marchi <lucas.demarchi@intel.com>
+Subject: Re: [Intel-gfx] [PATCH] ALSA: hda/i915: Fix one too many pci_dev_put()
+In-Reply-To: <20220418045032.74gipx7fo6ajnoib@ldmartin-desk2>
+References: <20220416064418.2364582-1-lucas.demarchi@intel.com>
+ <alpine.DEB.2.22.394.2204171309420.1532214@eliteleevi.tm.intel.com>
+ <20220418045032.74gipx7fo6ajnoib@ldmartin-desk2>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: intel-gfx@lists.freedesktop.org, alsa-devel@alsa-project.org,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,17 +95,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-> Now control data allocations looks as follows
->
->         scontrol->size = struct_size(scontrol->control_data, chanv,
->                                      le32_to_cpu(mc->num_channels));
->         scontrol->control_data = kzalloc(scontrol->size, GFP_KERNEL);
->
-> Which is sizeof(sof_ipc_ctrl_data) + mc->num_channels * sizeof(sof_ipc_ctrl_value_chan)
->
-> For some reason it uses sizeof(sof_ipc_ctrl_value_chan), which is not
-> the largest member of the union.
->
+On Mon, 18 Apr 2022 06:50:32 +0200,
+Lucas De Marchi wrote:
+> 
+> On Sun, Apr 17, 2022 at 01:13:49PM +0300, Kai Vehmanen wrote:
+> >Hi,
+> >
+> >On Fri, 15 Apr 2022, Lucas De Marchi wrote:
+> >
+> >> pci_get_class() will already unref the pci device passed as argument.
+> >> So if it's unconditionally unref'ed, even if the loop is not stopped,
+> >
+> >thanks Lucas. And yes indeed, overlooked that pci_get_class()
+> >will decrement the from device is specified.
+> >
+> >> --- a/sound/hda/hdac_i915.c
+> >> +++ b/sound/hda/hdac_i915.c
+> >> @@ -127,11 +127,10 @@ static int i915_gfx_present(struct pci_dev *hdac_pci)
+> >>  		display_dev = pci_get_class(class, display_dev);
+> >>
+> >>  		if (display_dev && display_dev->vendor == PCI_VENDOR_ID_INTEL &&
+> >> -		    connectivity_check(display_dev, hdac_pci))
+> >> +		    connectivity_check(display_dev, hdac_pci)) {
+> >> +			pci_dev_put(display_dev);
+> >>  			match = true;
+> >> -
+> >> -		pci_dev_put(display_dev);
+> >> -
+> >> +		}
+> >
+> >Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> 
+> I applied this to our topic/core-for-CI branch to unblock CI on
+> DG2. Ultimately the target for this is the sound tree though.
 
-For the record, this could be hitting as far back as 5.4 as I have
-been trying to debug an invalid IPC write in JSL.
+The patch looks good, feel free to submit it.
+
+
+thanks,
+
+Takashi

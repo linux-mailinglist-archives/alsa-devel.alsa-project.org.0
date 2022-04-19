@@ -2,67 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A26F6506ED8
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Apr 2022 15:45:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04CD4506ED9
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Apr 2022 15:46:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 377961A28;
-	Tue, 19 Apr 2022 15:45:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 377961A28
+	by alsa0.perex.cz (Postfix) with ESMTPS id 895A61A2D;
+	Tue, 19 Apr 2022 15:45:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 895A61A2D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650375959;
-	bh=MZYlA7Z/cfhwWB+m0aX3wfxPDdGSvAoxapWbog01ZUk=;
+	s=default; t=1650375980;
+	bh=oZtauX33c1zFZCWuCbZTTaJ18jk9xVoX5IhxwTCNxww=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WhH3WQjHyB1aW2fq7tSp6lIazhcfbzKTPB6+hWzWT6rC1oFZ+gqIJs/d51L79IVH/
-	 JLXcxPcMalMzuCokrACBa22Qtt6jwQ3H1lTbGkBURUmX8jCjMAg6BCqNgeoubhlqRs
-	 y9kAzhL/f6SsDMfE9QEScUaH9qSoVRiA+AcuIjeE=
+	b=cdEKLsxahVKXpgOsiYjzfIjr5qrF3laDsQE/e3deT1QFfL+bF7Wzn1eMqi493Dn7B
+	 J9KXPjKTU8+xyESVUFpvAuYByhRYBzR/TBoStJc0Wov41u/dJVNlrQHcVDYIGi9xA4
+	 07RQ/4cj9USioZQUqfALq/1YoZGxMfcVBlv54Gl8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C92BDF8052F;
-	Tue, 19 Apr 2022 15:43:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5C89DF80534;
+	Tue, 19 Apr 2022 15:43:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8986EF8025D; Tue, 19 Apr 2022 15:38:45 +0200 (CEST)
+ id 76919F802E3; Tue, 19 Apr 2022 15:38:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_13,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A3A76F80116
- for <alsa-devel@alsa-project.org>; Tue, 19 Apr 2022 15:38:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3A76F80116
+ by alsa1.perex.cz (Postfix) with ESMTPS id B6AA7F80116
+ for <alsa-devel@alsa-project.org>; Tue, 19 Apr 2022 15:38:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6AA7F80116
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="MdZyrL2K"
+ header.b="TZAucFVW"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9631F616A1;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 1AAE5B81974;
+ Tue, 19 Apr 2022 13:38:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9A31C385AA;
  Tue, 19 Apr 2022 13:38:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90F89C385A5;
- Tue, 19 Apr 2022 13:38:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1650375488;
- bh=MZYlA7Z/cfhwWB+m0aX3wfxPDdGSvAoxapWbog01ZUk=;
+ s=k20201202; t=1650375495;
+ bh=oZtauX33c1zFZCWuCbZTTaJ18jk9xVoX5IhxwTCNxww=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=MdZyrL2KRzGofp4P5QTIbBmZ0XyiPDEb8w8y28sLj+tarhQKLn07vB63wnc/YADun
- PU7PvbaS3DDxQTwk4r5YG2+bHNT4S4FLmZ/oPTK7Gd5u14hl/54byIoriPsb1/0/j9
- B7tlavvL9imuJwBR+QRCpa1TkY5grKm440xc2QgNCXswxLctzeCsUmzlGTTgKIm64y
- deeYlDPZvYme04F6wXyybloglv6pE3/opuw9/Y/kzutWgv3lWUPl2TFn1k/LeqS+T+
- pc0fhu1DxU6BEdl20vjgvKKR5517wr05DaOEJuhu+i3bk7HLcp24nnQYomoQZOSYSL
- c+2Hz7W+Q/R+g==
+ b=TZAucFVWO41am0SQC0JdPxHsfpXAegfeSL0T5ZxjYhle79NFeZasi7CnlTRQ0kpDT
+ RgJM48CCiZkSwr4OLl5xcJVMcoWUkzpDQ+b/HHC4/3BwGofVK53JoNPEDoPYfu3s0/
+ x72kXCh33mfbDuG6tyL+6K0tZ9V1e1g5XAq/l+jHQMeIW99BJGZv3/09jXJgLVa6/U
+ T9y58wvo3eiTOXnZahzwQj6xcZW39JaD0b53mh/EEoJgWFgbFV7lbhOfTelyFNZ6JU
+ WcuMxrVRFRsUUAC/roo/+B34yzjcsMkJbIMP/ScuvmFAz2o/Fdbnk2IFbC7fFUY5ZA
+ YUEvYSBt6/XRg==
 From: Arnd Bergmann <arnd@kernel.org>
 To: linux-omap@vger.kernel.org, tony@atomide.com, aaro.koskinen@iki.fi,
  jmkrzyszt@gmail.com
-Subject: [PATCH 04/41] ARM: omap1: declare a dummy omap_set_dma_priority
-Date: Tue, 19 Apr 2022 15:36:46 +0200
-Message-Id: <20220419133723.1394715-5-arnd@kernel.org>
+Subject: [PATCH 05/41] fbdev: omap: pass irqs as resource
+Date: Tue, 19 Apr 2022 15:36:47 +0200
+Message-Id: <20220419133723.1394715-6-arnd@kernel.org>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20220419133723.1394715-1-arnd@kernel.org>
 References: <20220419133723.1394715-1-arnd@kernel.org>
@@ -103,31 +103,158 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Arnd Bergmann <arnd@arndb.de>
 
-omapfb calls directly into the omap_set_dma_priority() function in
-the DMA driver. This prevents compile-testing omapfb on other
-architectures. Add an inline function next to the other ones
-for non-omap configurations.
+To avoid relying on the mach/irqs.h header, stop using
+OMAP_LCDC_IRQ and INT_1610_SoSSI_MATCH directly in the driver
+code, but instead pass these as resources.
 
 Acked-by: Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>
 Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- include/linux/omap-dma.h | 3 +++
- 1 file changed, 3 insertions(+)
+ arch/arm/mach-omap1/fb.c               | 19 ++++++++++++++++++-
+ drivers/video/fbdev/omap/lcdc.c        |  6 +++---
+ drivers/video/fbdev/omap/omapfb.h      |  2 ++
+ drivers/video/fbdev/omap/omapfb_main.c | 16 +++++++++++++++-
+ drivers/video/fbdev/omap/sossi.c       |  2 +-
+ 5 files changed, 39 insertions(+), 6 deletions(-)
 
-diff --git a/include/linux/omap-dma.h b/include/linux/omap-dma.h
-index 441f5f0919c6..5e228428fda1 100644
---- a/include/linux/omap-dma.h
-+++ b/include/linux/omap-dma.h
-@@ -338,6 +338,9 @@ static inline int omap_lcd_dma_running(void)
- #endif
+diff --git a/arch/arm/mach-omap1/fb.c b/arch/arm/mach-omap1/fb.c
+index 0e32a959f254..b093375afc27 100644
+--- a/arch/arm/mach-omap1/fb.c
++++ b/arch/arm/mach-omap1/fb.c
+@@ -17,9 +17,12 @@
+ #include <linux/io.h>
+ #include <linux/omapfb.h>
+ #include <linux/dma-mapping.h>
++#include <linux/irq.h>
  
- #else /* CONFIG_ARCH_OMAP */
-+static inline void omap_set_dma_priority(int lch, int dst_port, int priority)
-+{
-+}
+ #include <asm/mach/map.h>
  
- static inline struct omap_system_dma_plat_info *omap_get_plat_info(void)
- {
++#include <mach/irqs.h>
++
+ #if IS_ENABLED(CONFIG_FB_OMAP)
+ 
+ static bool omapfb_lcd_configured;
+@@ -27,6 +30,19 @@ static struct omapfb_platform_data omapfb_config;
+ 
+ static u64 omap_fb_dma_mask = ~(u32)0;
+ 
++struct resource omap_fb_resources[] = {
++	{
++		.name  = "irq",
++		.start = INT_LCD_CTRL,
++		.flags = IORESOURCE_IRQ,
++	},
++	{
++		.name  = "irq",
++		.start = INT_SOSSI_MATCH,
++		.flags = IORESOURCE_IRQ,
++	},
++};
++
+ static struct platform_device omap_fb_device = {
+ 	.name		= "omapfb",
+ 	.id		= -1,
+@@ -35,7 +51,8 @@ static struct platform_device omap_fb_device = {
+ 		.coherent_dma_mask	= DMA_BIT_MASK(32),
+ 		.platform_data		= &omapfb_config,
+ 	},
+-	.num_resources = 0,
++	.num_resources = ARRAY_SIZE(omap_fb_resources),
++	.resource = omap_fb_resources,
+ };
+ 
+ void __init omapfb_set_lcd_config(const struct omap_lcd_config *config)
+diff --git a/drivers/video/fbdev/omap/lcdc.c b/drivers/video/fbdev/omap/lcdc.c
+index d9a23f6cf7fc..d9731d12bd72 100644
+--- a/drivers/video/fbdev/omap/lcdc.c
++++ b/drivers/video/fbdev/omap/lcdc.c
+@@ -713,7 +713,7 @@ static int omap_lcdc_init(struct omapfb_device *fbdev, int ext_mode,
+ 	}
+ 	clk_enable(lcdc.lcd_ck);
+ 
+-	r = request_irq(OMAP_LCDC_IRQ, lcdc_irq_handler, 0, MODULE_NAME, fbdev);
++	r = request_irq(fbdev->int_irq, lcdc_irq_handler, 0, MODULE_NAME, fbdev);
+ 	if (r) {
+ 		dev_err(fbdev->dev, "unable to get IRQ\n");
+ 		goto fail2;
+@@ -744,7 +744,7 @@ static int omap_lcdc_init(struct omapfb_device *fbdev, int ext_mode,
+ fail4:
+ 	omap_free_lcd_dma();
+ fail3:
+-	free_irq(OMAP_LCDC_IRQ, lcdc.fbdev);
++	free_irq(fbdev->int_irq, lcdc.fbdev);
+ fail2:
+ 	clk_disable(lcdc.lcd_ck);
+ fail1:
+@@ -759,7 +759,7 @@ static void omap_lcdc_cleanup(void)
+ 		free_palette_ram();
+ 	free_fbmem();
+ 	omap_free_lcd_dma();
+-	free_irq(OMAP_LCDC_IRQ, lcdc.fbdev);
++	free_irq(lcdc.fbdev->int_irq, lcdc.fbdev);
+ 	clk_disable(lcdc.lcd_ck);
+ 	clk_put(lcdc.lcd_ck);
+ }
+diff --git a/drivers/video/fbdev/omap/omapfb.h b/drivers/video/fbdev/omap/omapfb.h
+index d930152c289c..313a051fe7a4 100644
+--- a/drivers/video/fbdev/omap/omapfb.h
++++ b/drivers/video/fbdev/omap/omapfb.h
+@@ -204,6 +204,8 @@ struct omapfb_device {
+ 	struct lcd_panel	*panel;			/* LCD panel */
+ 	const struct lcd_ctrl	*ctrl;			/* LCD controller */
+ 	const struct lcd_ctrl	*int_ctrl;		/* internal LCD ctrl */
++	int			ext_irq;
++	int			int_irq;
+ 	struct lcd_ctrl_extif	*ext_if;		/* LCD ctrl external
+ 							   interface */
+ 	struct device		*dev;
+diff --git a/drivers/video/fbdev/omap/omapfb_main.c b/drivers/video/fbdev/omap/omapfb_main.c
+index 083388a4ceeb..b8fd509f11e4 100644
+--- a/drivers/video/fbdev/omap/omapfb_main.c
++++ b/drivers/video/fbdev/omap/omapfb_main.c
+@@ -1624,7 +1624,7 @@ static int omapfb_do_probe(struct platform_device *pdev,
+ 
+ 	init_state = 0;
+ 
+-	if (pdev->num_resources != 0) {
++	if (pdev->num_resources != 2) {
+ 		dev_err(&pdev->dev, "probed for an unknown device\n");
+ 		r = -ENODEV;
+ 		goto cleanup;
+@@ -1643,6 +1643,20 @@ static int omapfb_do_probe(struct platform_device *pdev,
+ 		r = -ENOMEM;
+ 		goto cleanup;
+ 	}
++	fbdev->int_irq = platform_get_irq(pdev, 0);
++	if (!fbdev->int_irq) {
++		dev_err(&pdev->dev, "unable to get irq\n");
++		r = ENXIO;
++		goto cleanup;
++	}
++
++	fbdev->ext_irq = platform_get_irq(pdev, 1);
++	if (!fbdev->ext_irq) {
++		dev_err(&pdev->dev, "unable to get irq\n");
++		r = ENXIO;
++		goto cleanup;
++	}
++
+ 	init_state++;
+ 
+ 	fbdev->dev = &pdev->dev;
+diff --git a/drivers/video/fbdev/omap/sossi.c b/drivers/video/fbdev/omap/sossi.c
+index d3c755b293ea..ade9d452254c 100644
+--- a/drivers/video/fbdev/omap/sossi.c
++++ b/drivers/video/fbdev/omap/sossi.c
+@@ -639,7 +639,7 @@ static int sossi_init(struct omapfb_device *fbdev)
+ 	l &= ~(1 << 31); /* REORDERING */
+ 	sossi_write_reg(SOSSI_INIT1_REG, l);
+ 
+-	if ((r = request_irq(INT_1610_SoSSI_MATCH, sossi_match_irq,
++	if ((r = request_irq(fbdev->ext_irq, sossi_match_irq,
+ 			     IRQ_TYPE_EDGE_FALLING,
+ 	     "sossi_match", sossi.fbdev->dev)) < 0) {
+ 		dev_err(sossi.fbdev->dev, "can't get SoSSI match IRQ\n");
 -- 
 2.29.2
 

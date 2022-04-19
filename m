@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 023DE506F4C
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Apr 2022 15:54:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACF16506F84
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Apr 2022 15:55:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 740041B52;
-	Tue, 19 Apr 2022 15:53:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 740041B52
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3F8C51DF7;
+	Tue, 19 Apr 2022 15:54:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F8C51DF7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650376483;
-	bh=W3qNGAAX2ECL+9vJh3xisWUOh4fEYqZMZtajKR6sclM=;
+	s=default; t=1650376536;
+	bh=VizbppVwzPYdQPDTL7NxrAMjSGA3HHnCFb6Pzlcg7cg=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SAlrNHmLnOdIzfLAzsb8LX3+NojTmspW5BZE9XMLg8xx5U5F5OlazUcPO2xHsy19V
-	 3cRkPVFj0IeT/mF1R5jvKCubL/n0b2pq1IRrcIIk3x0qx9ZIiqmRUYl4gHMzn5FnOM
-	 w6JL45qYKaPLOkkou5i5MplYcUD+nlWYqB8etdJM=
+	b=KFlvIBjM5DNI6VHmNJ+mcMu06gjCH+NbWu0I6rI4keUeOcGekzQNR67nIIYd4SYQ2
+	 /glfQU/XaEDhMmRceOggCAH/EOOicOjUk/7TtLsqknD6mXJxg25BPeZHfNeUOAsO7R
+	 BoD+HxXBRPCqsqa6AmACtN6PNlFMZoUryGf4Y2FI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B4815F8060F;
-	Tue, 19 Apr 2022 15:43:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F0A8CF80677;
+	Tue, 19 Apr 2022 15:43:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 15CFCF8025D; Tue, 19 Apr 2022 15:42:59 +0200 (CEST)
+ id B7DEEF8025D; Tue, 19 Apr 2022 15:43:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,41 +34,42 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 74FE0F80116
- for <alsa-devel@alsa-project.org>; Tue, 19 Apr 2022 15:42:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74FE0F80116
+ by alsa1.perex.cz (Postfix) with ESMTPS id B685FF80121
+ for <alsa-devel@alsa-project.org>; Tue, 19 Apr 2022 15:43:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B685FF80121
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="SKr7WyMG"
+ header.b="ewcomR5Y"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9B38B61710;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A6221616D0;
+ Tue, 19 Apr 2022 13:42:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82131C385AF;
  Tue, 19 Apr 2022 13:42:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58C17C385B1;
- Tue, 19 Apr 2022 13:42:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1650375744;
- bh=W3qNGAAX2ECL+9vJh3xisWUOh4fEYqZMZtajKR6sclM=;
+ s=k20201202; t=1650375751;
+ bh=VizbppVwzPYdQPDTL7NxrAMjSGA3HHnCFb6Pzlcg7cg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=SKr7WyMGRCWl7v/bvtIsgn5/V3JSlMflq4Q/DrYtsnDWWlhOP2f/QZz/mAStrQbfv
- OSwRVbecQTirW0bkg8ct8ZX3ZvidG0fdpIIrdb2ikG6e1iNCk3oIpODN2KEsBn4jaL
- iL1TEBzQNkc83ablhzvNcTWLRxSQzhIsMUM2UfvRw82yolwxFIjf4Y+jmK8MZi28dA
- ifEP8JGP4wd2T+YWPd4y4nvn8O71HicpNzx1mj7AHN8SDPpjQNwTaZ+3S7klD2C0Uk
- BJ3IJCwHBlprKwQ/njIgRCNqvECW/GFDYnEeMMMA/9HeNtfHcZKV7YKlqEhQpUs3u3
- p4wr3YRVJnM7w==
+ b=ewcomR5Y+ebhEER2jEsmmEKS/5FV86pDTEgeOQLxiozH7E0tm578fLHS1YYtVXf6Y
+ D9fxFVuX1bjJa3WJD1rU9pxOwPFHjkiSj0XoD3GwlA9L252sd9q8N/PHPkjkvFCtAn
+ k9k7I3mGsf29zuf2FaLzo9lrKBip8FJn5AMZkfh+pAPB7jcGBApFAL7YRSSvm96zlr
+ UUQxLcM59kgkggbLPetkP6H/llR+WY7zHgb6OvzSaqxVdVRU74hWZ02nmqay1W/nN0
+ Z36YNnqN7DBeFOPhQT8ZAba7fOItSy31B3qvefulS0ykv74DV92yrMGAp61HVmMz42
+ +DpY44FhKTZZA==
 From: Arnd Bergmann <arnd@kernel.org>
 To: linux-omap@vger.kernel.org, tony@atomide.com, aaro.koskinen@iki.fi,
  jmkrzyszt@gmail.com
-Subject: [PATCH 38/41] [MERGED] mmc: omap: Make it CCF clk API compatible
-Date: Tue, 19 Apr 2022 15:37:20 +0200
-Message-Id: <20220419133723.1394715-39-arnd@kernel.org>
+Subject: [PATCH 39/41] [MERGED] ASoC: ti: osk5912: Make it CCF clk API
+ compatible
+Date: Tue, 19 Apr 2022 15:37:21 +0200
+Message-Id: <20220419133723.1394715-40-arnd@kernel.org>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20220419133723.1394715-1-arnd@kernel.org>
 References: <20220419133723.1394715-1-arnd@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 19 Apr 2022 15:43:17 +0200
+X-Mailman-Approved-At: Tue, 19 Apr 2022 15:43:51 +0200
 Cc: Ulf Hansson <ulf.hansson@linaro.org>,
  Dmitry Torokhov <dmitry.torokhov@gmail.com>,
  Linus Walleij <linus.walleij@linaro.org>, linux-fbdev@vger.kernel.org,
@@ -102,90 +103,40 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Janusz Krzysztofik <jmkrzyszt@gmail.com>
 
-The driver, OMAP specific, now omits clk_prepare/unprepare() steps, not
-supported by OMAP custom implementation of clock API.  However, non-CCF
+The driver, OMAP1 specific, now omits clk_prepare/unprepare() steps, not
+supported by OMAP1 custom implementation of clock API.  However, non-CCF
 stubs of those functions exist for use on such platforms until converted
 to CCF.
 
 Update the driver to be compatible with CCF implementation of clock API.
 
+v2: use clk_prepare_enable/clk_disable_unprepare() (Peter)
+
 Signed-off-by: Janusz Krzysztofik <jmkrzyszt@gmail.com>
 Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- drivers/mmc/host/omap.c | 23 ++++++++++++++---------
- 1 file changed, 14 insertions(+), 9 deletions(-)
+ sound/soc/ti/osk5912.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/mmc/host/omap.c b/drivers/mmc/host/omap.c
-index 5e5af34090f1..57d39283924d 100644
---- a/drivers/mmc/host/omap.c
-+++ b/drivers/mmc/host/omap.c
-@@ -1374,7 +1374,7 @@ static int mmc_omap_probe(struct platform_device *pdev)
- 	host->iclk = clk_get(&pdev->dev, "ick");
- 	if (IS_ERR(host->iclk))
- 		return PTR_ERR(host->iclk);
--	clk_enable(host->iclk);
-+	clk_prepare_enable(host->iclk);
+diff --git a/sound/soc/ti/osk5912.c b/sound/soc/ti/osk5912.c
+index 40e29dda7e7a..2790c8915f55 100644
+--- a/sound/soc/ti/osk5912.c
++++ b/sound/soc/ti/osk5912.c
+@@ -27,12 +27,12 @@ static struct clk *tlv320aic23_mclk;
  
- 	host->fclk = clk_get(&pdev->dev, "fck");
- 	if (IS_ERR(host->fclk)) {
-@@ -1382,16 +1382,18 @@ static int mmc_omap_probe(struct platform_device *pdev)
- 		goto err_free_iclk;
- 	}
- 
-+	ret = clk_prepare(host->fclk);
-+	if (ret)
-+		goto err_put_fclk;
-+
- 	host->dma_tx_burst = -1;
- 	host->dma_rx_burst = -1;
- 
- 	host->dma_tx = dma_request_chan(&pdev->dev, "tx");
- 	if (IS_ERR(host->dma_tx)) {
- 		ret = PTR_ERR(host->dma_tx);
--		if (ret == -EPROBE_DEFER) {
--			clk_put(host->fclk);
--			goto err_free_iclk;
--		}
-+		if (ret == -EPROBE_DEFER)
-+			goto err_free_fclk;
- 
- 		host->dma_tx = NULL;
- 		dev_warn(host->dev, "TX DMA channel request failed\n");
-@@ -1403,8 +1405,7 @@ static int mmc_omap_probe(struct platform_device *pdev)
- 		if (ret == -EPROBE_DEFER) {
- 			if (host->dma_tx)
- 				dma_release_channel(host->dma_tx);
--			clk_put(host->fclk);
--			goto err_free_iclk;
-+			goto err_free_fclk;
- 		}
- 
- 		host->dma_rx = NULL;
-@@ -1454,9 +1455,12 @@ static int mmc_omap_probe(struct platform_device *pdev)
- 		dma_release_channel(host->dma_tx);
- 	if (host->dma_rx)
- 		dma_release_channel(host->dma_rx);
-+err_free_fclk:
-+	clk_unprepare(host->fclk);
-+err_put_fclk:
- 	clk_put(host->fclk);
- err_free_iclk:
--	clk_disable(host->iclk);
-+	clk_disable_unprepare(host->iclk);
- 	clk_put(host->iclk);
- 	return ret;
+ static int osk_startup(struct snd_pcm_substream *substream)
+ {
+-	return clk_enable(tlv320aic23_mclk);
++	return clk_prepare_enable(tlv320aic23_mclk);
  }
-@@ -1476,8 +1480,9 @@ static int mmc_omap_remove(struct platform_device *pdev)
  
- 	mmc_omap_fclk_enable(host, 0);
- 	free_irq(host->irq, host);
-+	clk_unprepare(host->fclk);
- 	clk_put(host->fclk);
--	clk_disable(host->iclk);
-+	clk_disable_unprepare(host->iclk);
- 	clk_put(host->iclk);
+ static void osk_shutdown(struct snd_pcm_substream *substream)
+ {
+-	clk_disable(tlv320aic23_mclk);
++	clk_disable_unprepare(tlv320aic23_mclk);
+ }
  
- 	if (host->dma_tx)
+ static int osk_hw_params(struct snd_pcm_substream *substream,
 -- 
 2.29.2
 

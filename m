@@ -2,98 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1947D506723
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Apr 2022 10:48:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B55C50675C
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Apr 2022 11:02:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AC74216DE;
-	Tue, 19 Apr 2022 10:47:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC74216DE
+	by alsa0.perex.cz (Postfix) with ESMTPS id B4742172C;
+	Tue, 19 Apr 2022 11:02:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B4742172C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650358129;
-	bh=1tXO7yuJYsP6FS2Dr89x6WVNDZZGD55Dvox3rD0g/UE=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1650358973;
+	bh=HyqKlH8bOwBwVO91Kr6l4qEPG3zTPcjI+nlMvdOflsk=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Tn5MMuasKyuXZ+hEp+9o88q7rvmIdffn+fNhueaBOpMFyQiFliAUXAnVWoTy1+bRn
-	 3EeD6Ac3tPQ79qX5bc6ti37ktAdPa8DoZJtTMMUGdEnv/eXrihehGT+OFEEJPONrdP
-	 ydWurbBAAk5NGv31otKMbWkL/jQxJc9Bv82w5aJM=
+	b=d7gzFzUuhHl1aksC23gPURdXAYEMPOy8UJd1qVUpbcX55wKHViLyzD6O3NjtXIpQW
+	 5np4FGAstPwxI1bTCPJ6fgPAgDhSs1uI9xLDOSv26akmxhjMShyXcT/BlbYxQkHpBK
+	 fPdsl4CBxV55xwJixiouHMyopadxx0zEwJlU79KE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 26872F80121;
-	Tue, 19 Apr 2022 10:47:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 59CDFF80121;
+	Tue, 19 Apr 2022 11:01:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2E27BF8025D; Tue, 19 Apr 2022 10:47:49 +0200 (CEST)
+ id 4B3C5F8025D; Tue, 19 Apr 2022 11:01:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
+X-Spam-Level: **
+X-Spam-Status: No, score=2.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SORTED_RECIPS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 581B4F80116
- for <alsa-devel@alsa-project.org>; Tue, 19 Apr 2022 10:47:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 581B4F80116
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3C527F80121
+ for <alsa-devel@alsa-project.org>; Tue, 19 Apr 2022 11:01:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C527F80121
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="QMuKTTF4"
-Received: by mail-wr1-x42d.google.com with SMTP id m14so21439162wrb.6
- for <alsa-devel@alsa-project.org>; Tue, 19 Apr 2022 01:47:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=3zfxgfhhkGrdZQPttYFIyDKGOpAjycnaX8YYYe3nvMs=;
- b=QMuKTTF4XAeRFnDlBJHu27U50iu6XBNoG05MeKFeLU7LsVVjUcV3ejaRRo+hmzy4HE
- 8RGR84YLIk71QD5AQiyRP+u8oMQokSNGjOV2GeZzTXIeNHMYrl62RYagKfoW7/4BX+KF
- C9hVR3VkHU0ESauWkgoubLwV7f0N8V8CxKFQOSGTKkkgEfNubRFW8kfT801AsfBDEl8X
- broAjmmh0Unod0xRCJh7b138tc2H80Cnl9U7AdllLIwQddcei+hpFnZERUtovQtlRIg6
- YAxxTykq5evBHh9fJaw2Sx8sp2Rao0lkkWMBCyOUCVh/qrBePzCPZAAaTK7uhf4Xw479
- BJ9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=3zfxgfhhkGrdZQPttYFIyDKGOpAjycnaX8YYYe3nvMs=;
- b=2Bay0E4qPe8/viwys/sP7+gK9o10PPAici1/KfBTt/CxDkh1C7SAVMyriMYRiIycx2
- BwdgADvhuwmEKdftHqHjA2dYC0zPbjld0Px+PrwtG54XUYnXvl/lL4E8ZxcQkfp6fiU7
- PqkGk1q3PRB60QKvTtX4W7IQVQvsXoMnYnqJk4wa3ZT+yrvphxvyu/0Lbof2VBljBb9h
- lzAKIyJ9Px5yDmoylSYrDch77T9aVxfEUWZcfGxD+LX5R1cWui8/oDZXRsD5Q64Lfae8
- //HxvJoJOTFVOVGqdv527QCr0G/GEdbTXhg09pv4tSZlkbn2jJ5CFNKBoI1K0/YeORJy
- tnLg==
-X-Gm-Message-State: AOAM5329zWhI4VmFtEYgnJ1OzRfzOlOgwNZlvt4px1ZFixrkRlSeOKfI
- mITdrOYUj2fb0hwAAgi/frnUMUOFDkqt0A==
-X-Google-Smtp-Source: ABdhPJyGYvopwBZKM+g01h8Kn+VxX+cUxfwLusUKA6MiYSG6VWvCuPXWxSd3hPj8JfuBmWdc2LElng==
-X-Received: by 2002:adf:dd8a:0:b0:207:9e5f:fd0a with SMTP id
- x10-20020adfdd8a000000b002079e5ffd0amr10553750wrl.94.1650358064065; 
- Tue, 19 Apr 2022 01:47:44 -0700 (PDT)
-Received: from [192.168.86.34]
- (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.googlemail.com with ESMTPSA id
- g8-20020a5d4888000000b00207a49fa6a1sm14168011wrq.81.2022.04.19.01.47.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Apr 2022 01:47:43 -0700 (PDT)
-Message-ID: <e48a9b3a-4a9f-3fa7-2bd2-edac34328c37@linaro.org>
-Date: Tue, 19 Apr 2022 09:47:42 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH -next] slimbus: qcom: Remove unnecessary print function
- dev_err()
-Content-Language: en-US
-To: Yang Li <yang.lee@linux.alibaba.com>, agross@kernel.org
-References: <20220414014430.19051-1-yang.lee@linux.alibaba.com>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20220414014430.19051-1-yang.lee@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- Abaci Robot <abaci@linux.alibaba.com>, linux-kernel@vger.kernel.org,
- bjorn.andersson@linaro.org
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="Hi3ztoMt"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="8guWCu+M"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 742BC210F1;
+ Tue, 19 Apr 2022 09:01:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1650358907; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=7tmu8xW2ZdVQ7G42JQsUqYarrqw3vZczKi0AAynAqgs=;
+ b=Hi3ztoMt7VAfNp7D2N610rfR3Z9oRO4g0B4pGiE+a02MGcEtQNagvYOe4XxP5BRMEvgFEt
+ lZrwyMotHsvAub3vGNoBJnHZvZjLs/eIsnehJWYvnCl6ggGHMvRqArbBJk6v+3QAVosZB7
+ 3S7QBRE0XZuyCvUGeL61yLf2jvBf+L8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1650358907;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=7tmu8xW2ZdVQ7G42JQsUqYarrqw3vZczKi0AAynAqgs=;
+ b=8guWCu+Ml7aWrhiMjov3KuKxQRUN66aMC/mN7a1pAijAExCi0UGVQo6ofVhvZkFti//Gjo
+ kIFWUeH7O0HMCeDA==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 50E982C146;
+ Tue, 19 Apr 2022 09:01:47 +0000 (UTC)
+Date: Tue, 19 Apr 2022 11:01:47 +0200
+Message-ID: <s5hk0bl1m6c.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: syzbot <syzbot+70e777a39907d6d5fd0a@syzkaller.appspotmail.com>
+Subject: Re: [syzbot] KASAN: use-after-free Read in __snd_rawmidi_transmit_peek
+In-Reply-To: <00000000000011555605dceaff03@google.com>
+References: <00000000000011555605dceaff03@google.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, coding@diwic.se, tiwai@suse.com,
+ syzkaller-bugs@googlegroups.com, linux-kernel@vger.kernel.org,
+ colin.king@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,40 +94,122 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 14/04/2022 02:44, Yang Li wrote:
-> The print function dev_err() is redundant because
-> platform_get_irq_byname() already prints an error.
+On Mon, 18 Apr 2022 12:12:23 +0200,
+syzbot wrote:
 > 
-> Eliminate the follow coccicheck warning:
-> ./drivers/slimbus/qcom-ctrl.c:514:2-9: line 514 is redundant because
-> platform_get_irq() already prints an error
+> Hello,
 > 
-> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-> Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
-
-
-Applied thanks,
-
---srini
-> ---
->   drivers/slimbus/qcom-ctrl.c | 4 +---
->   1 file changed, 1 insertion(+), 3 deletions(-)
+> syzbot found the following issue on:
 > 
-> diff --git a/drivers/slimbus/qcom-ctrl.c b/drivers/slimbus/qcom-ctrl.c
-> index ec58091fc948..c0c4f895d76e 100644
-> --- a/drivers/slimbus/qcom-ctrl.c
-> +++ b/drivers/slimbus/qcom-ctrl.c
-> @@ -510,10 +510,8 @@ static int qcom_slim_probe(struct platform_device *pdev)
->   	}
->   
->   	ctrl->irq = platform_get_irq(pdev, 0);
-> -	if (ctrl->irq < 0) {
-> -		dev_err(&pdev->dev, "no slimbus IRQ\n");
-> +	if (ctrl->irq < 0)
->   		return ctrl->irq;
-> -	}
->   
->   	sctrl = &ctrl->ctrl;
->   	sctrl->dev = &pdev->dev;
+> HEAD commit:    a19944809fe9 Merge tag 'hardening-v5.18-rc3' of git://git...
+> git tree:       upstream
+> console output: https://syzkaller.appspot.com/x/log.txt?x=16a40ae0f00000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=eb177500e563582f
+> dashboard link: https://syzkaller.appspot.com/bug?extid=70e777a39907d6d5fd0a
+> compiler:       gcc (Debian 10.2.1-6) 10.2.1 20210110, GNU ld (GNU Binutils for Debian) 2.35.2
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1590dfa8f00000
+> 
+> IMPORTANT: if you fix the issue, please add the following tag to the commit:
+> Reported-by: syzbot+70e777a39907d6d5fd0a@syzkaller.appspotmail.com
+> 
+> ==================================================================
+> BUG: KASAN: use-after-free in __snd_rawmidi_transmit_peek+0x261/0x360 sound/core/rawmidi.c:1286
+
+Looks like a leftover work.  The fix patch is below.
+
+
+Takashi
+
+-- 8< --
+From: Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH] ALSA: usb-audio: Fix potential use-after-free at releasing
+ MIDI streams
+
+As recently spotted by syzbot, the USB MIDI code may leave a work that
+handles the pending output queue even after a stream gets released
+(either internally via sequencer or via device files), which may lead
+to use-after-free.  We have already a proper drop of pending URBs but
+this is executed only at the device disconnection.
+
+This patch moves the URB clean-up code into both the code path that is
+called at releasing, namely, snd_usb_midi_in_endpoint_delete() and
+snd_usb_midi_out_endpoint_clear() functions, so that the pending URBs
+and work are cleared properly before releasing the resources.
+
+Reported-by: syzbot+70e777a39907d6d5fd0a@syzkaller.appspotmail.com
+Cc: <stable@vger.kernel.org>
+Link: https://lore.kernel.org/r/00000000000011555605dceaff03@google.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/usb/midi.c | 34 +++++++++++++++++-----------------
+ 1 file changed, 17 insertions(+), 17 deletions(-)
+
+diff --git a/sound/usb/midi.c b/sound/usb/midi.c
+index 2c01649c70f6..8e5281f7f1fc 100644
+--- a/sound/usb/midi.c
++++ b/sound/usb/midi.c
+@@ -1247,6 +1247,10 @@ static void snd_usbmidi_in_endpoint_delete(struct snd_usb_midi_in_endpoint *ep)
+ {
+ 	unsigned int i;
+ 
++	for (i = 0; i < INPUT_URBS; ++i)
++		if (ep->urbs[i])
++			usb_kill_urb(ep->urbs[i]);
++
+ 	for (i = 0; i < INPUT_URBS; ++i)
+ 		if (ep->urbs[i])
+ 			free_urb_and_buffer(ep->umidi, ep->urbs[i],
+@@ -1327,6 +1331,18 @@ static void snd_usbmidi_out_endpoint_clear(struct snd_usb_midi_out_endpoint *ep)
+ {
+ 	unsigned int i;
+ 
++	cancel_work_sync(&ep->work);
++	for (i = 0; i < OUTPUT_URBS; ++i)
++		if (ep->urbs[i].urb)
++			usb_kill_urb(ep->urbs[i].urb);
++	if (ep->umidi->usb_protocol_ops->finish_out_endpoint)
++		ep->umidi->usb_protocol_ops->finish_out_endpoint(ep);
++	ep->active_urbs = 0;
++	if (ep->drain_urbs) {
++		ep->drain_urbs = 0;
++		wake_up(&ep->drain_wait);
++	}
++
+ 	for (i = 0; i < OUTPUT_URBS; ++i)
+ 		if (ep->urbs[i].urb) {
+ 			free_urb_and_buffer(ep->umidi, ep->urbs[i].urb,
+@@ -1469,7 +1485,7 @@ static void snd_usbmidi_free(struct snd_usb_midi *umidi)
+ void snd_usbmidi_disconnect(struct list_head *p)
+ {
+ 	struct snd_usb_midi *umidi;
+-	unsigned int i, j;
++	unsigned int i;
+ 
+ 	umidi = list_entry(p, struct snd_usb_midi, list);
+ 	/*
+@@ -1487,22 +1503,6 @@ void snd_usbmidi_disconnect(struct list_head *p)
+ 
+ 	for (i = 0; i < MIDI_MAX_ENDPOINTS; ++i) {
+ 		struct snd_usb_midi_endpoint *ep = &umidi->endpoints[i];
+-		if (ep->out)
+-			cancel_work_sync(&ep->out->work);
+-		if (ep->out) {
+-			for (j = 0; j < OUTPUT_URBS; ++j)
+-				usb_kill_urb(ep->out->urbs[j].urb);
+-			if (umidi->usb_protocol_ops->finish_out_endpoint)
+-				umidi->usb_protocol_ops->finish_out_endpoint(ep->out);
+-			ep->out->active_urbs = 0;
+-			if (ep->out->drain_urbs) {
+-				ep->out->drain_urbs = 0;
+-				wake_up(&ep->out->drain_wait);
+-			}
+-		}
+-		if (ep->in)
+-			for (j = 0; j < INPUT_URBS; ++j)
+-				usb_kill_urb(ep->in->urbs[j]);
+ 		/* free endpoints here; later call can result in Oops */
+ 		if (ep->out)
+ 			snd_usbmidi_out_endpoint_clear(ep->out);
+-- 
+2.31.1
+

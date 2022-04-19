@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63C3B506B9E
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Apr 2022 14:00:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 460C0506B9F
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Apr 2022 14:00:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E447118F0;
-	Tue, 19 Apr 2022 13:59:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E447118F0
+	by alsa0.perex.cz (Postfix) with ESMTPS id D755618F8;
+	Tue, 19 Apr 2022 13:59:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D755618F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650369625;
-	bh=VEmOpcjnL7XGeyl3v3Thbp/Rsyd+Xhm5CY+J0slY/88=;
+	s=default; t=1650369640;
+	bh=o9QJR4CyzRYxdQS8LJ2xtYX6f43psHz4CTAnevE7iP0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VoHwxR+iDGSFMs2m8SNk/Emh+Rh9JcU5QZLk3hZvdaVEp+X9YeTmWVRAyX/jZrpL4
-	 oImiEjUWTYLmD/g2+HnaJxsdBUUR+sHfKDFWxszahaWtB/PhX91+bVymV2MKX5pfY2
-	 udZQyYHhyxKdhrIeUjkI8/uthIq6A/8hC4d77MYQ=
+	b=OqK8LuMcCG2xZuDY/nfuTeECovCd1WuY4EYbHH8FSdFZ00G+WKsjGOqe4zWEI1EHw
+	 wAjfIMlfm50XsgQXYOjYj7+61CIFKXL0uDy5/Ou9qp9IyMSSa6YJwZYsCw7XWEmNsx
+	 WmYqK0ZGopaw+JLladwz05n+AzQWWDSVCpMxYyAk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 127E3F805CB;
+	by alsa1.perex.cz (Postfix) with ESMTP id A2416F805DF;
 	Tue, 19 Apr 2022 13:52:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E402BF804FD; Tue, 19 Apr 2022 13:35:12 +0200 (CEST)
+ id ED2A6F80237; Tue, 19 Apr 2022 13:35:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,53 +35,52 @@ Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
  [IPv6:2a00:1450:4864:20::62c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E8A5AF804F1
- for <alsa-devel@alsa-project.org>; Tue, 19 Apr 2022 13:35:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8A5AF804F1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4ECEBF80237
+ for <alsa-devel@alsa-project.org>; Tue, 19 Apr 2022 13:35:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4ECEBF80237
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="zVkWhAv5"
-Received: by mail-ej1-x62c.google.com with SMTP id t11so32219439eju.13
- for <alsa-devel@alsa-project.org>; Tue, 19 Apr 2022 04:35:04 -0700 (PDT)
+ header.b="EpULbiMc"
+Received: by mail-ej1-x62c.google.com with SMTP id u15so32219269ejf.11
+ for <alsa-devel@alsa-project.org>; Tue, 19 Apr 2022 04:35:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=za2ChgFa2MAb73hYI38RRAcoAzGnc/qyPQX8xgHdvQM=;
- b=zVkWhAv51DVC1p4aJpiAjPCoWQril/21gAKuMsm6z+0NXkTbr3mNaIqUaZFcjR39cY
- v4OMQBXlR/2rhpUCTx0VbESTsmsehL0V/OOEUkWQRkkVnA5m6023KnbBO9lJSa8rsIY2
- /tvt+ZeGz8iYq05ODrVkPfPZK8t74hDar82Awg+fciFFk2Qd2NRV/6z2dC+Ds9ob3PSI
- mNw5Vt41Pgcg5nBS6798wd5iqS4jiUWHQ3/NMJ/nlbxPJyi3xKd5m7ZfgU/xleQBIUs/
- ITljrACLgzODper1Rl5lTvuiSCAyj79YAn5Qn9t2W7PwalGl5eAtA378B8fj3iSS5XxU
- x/Hg==
+ bh=MZB4AAiYpghp+j0HlvXqcm6S1oaOh86fqoD06sTrQvg=;
+ b=EpULbiMcIyvOq1eTI1FkoG7wHTnnsB+t3uW7Gr9XJVTSv6M+N6+CpqVJ4tX3TkCJmj
+ sx+dBtweIzXDc+/elWAvba2OBrbAX04zVGMt+UVOEGyNqFedX1c7G9LuvmQ/ozIthkTq
+ Y3/IDX3dscPP1/B9ADdZKVAGu6XTtAEaCHeesCj2xtEjHqF5DWbZVPStC3571/pmn2Bq
+ Jc6N0AFyt8OgU0gUmyQ0UxOeUpTVrV+LWpEZXyanIUvvzGU7ES/Sw3k+CIBiihhHS8LF
+ G+8pz++8wqbv055aZZ2wCgi1Pz812gH503ntSZGp5dxdbkotFOTkn+daw5aiX/a4Di1V
+ uI1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=za2ChgFa2MAb73hYI38RRAcoAzGnc/qyPQX8xgHdvQM=;
- b=R2oucu9ITBWBywX3/wxG1cgYsJxrMO53LKgRPOd8NJN24mj+35+DksMf325F+x6qkA
- UTPDBIONRnGsQBjZP/Giqm2lQHiS42CihoZAqr+1Usoc/9FuUkqK2lvwrfAHz/H103wL
- i/zQokRJz/HxlOTFjGppYaiLt5vAFv/3UB6ESLmvk0QukRmlB46ypYNbUIAU61CcM3Qp
- 8pvh9ieoHujHqbrqnE3v0rRu0uV7xCvXjhQ2Pb6GkaZ01rl6qNvVS70pgehekmbtldNl
- RXYZUIRXitasAIOftIChPbzpYaMg7WG3FhSDh2Z0vT7dkq91pxvhmidPuSEbxCHdKSf8
- 6XUg==
-X-Gm-Message-State: AOAM533DHvichC9egNH5P8pBLj1LfRK/piwsU0ks2CmqADhxqRruFO2Z
- l+L+yQ6rQ3maI8PuVFca+ktEcA==
-X-Google-Smtp-Source: ABdhPJykXBXYimpAeumTHTNdPOwvvfUNc2rfx1d0CpWSKysWkExiziY11QDQTp0Hk2gdb+t7K6B5eQ==
-X-Received: by 2002:a17:907:2d0f:b0:6e8:b710:a68 with SMTP id
- gs15-20020a1709072d0f00b006e8b7100a68mr12790234ejc.510.1650368103349; 
- Tue, 19 Apr 2022 04:35:03 -0700 (PDT)
+ bh=MZB4AAiYpghp+j0HlvXqcm6S1oaOh86fqoD06sTrQvg=;
+ b=5l1au1zSnQbzOUaPYnwATsxMbt+G/es3K87A4lwK/PVgLaIBzzo4cdL5+P+GdCcYje
+ E3mjkrwg2Z9UwfDl2qYfWDBAVGvx6TgPuWv3xUVc61Ep5WjMDjf4kJU4UyV+pYDV9bMS
+ GDs3yeeI5YH3/NTUMPjF4s2Gzl5QpfV0JrB3cJeE/pHkmRukIKiiqvrI0UMv9Y+DqxaA
+ F6TbVefIfPCQUXne/VLu/ICUOn2VEqS4WHe86oNnq6ACAz8uzJEC39pJIx+yjWt0EmLO
+ 54EyJRUGSP/k1cb/OfDrXvnkROQSIlkzy4hxEdBGkL7citSjluagKnqv+uCC/9iYB/z1
+ PCbw==
+X-Gm-Message-State: AOAM532iYdr2Hmwt2yMB6hL1DSHdAk+G3j1Gjt57xK4bongiWeJSbxjj
+ VqKDUqW79FKrgpWJ4EvaMTuTrQ==
+X-Google-Smtp-Source: ABdhPJz5IEvGiK922/vJClBDi+mKcO5SsMUlVd7BXDUmO4dQvqIub6KWUVkwOaaikp1xnTNTPgx3tw==
+X-Received: by 2002:a17:907:7e92:b0:6e8:8df7:cf92 with SMTP id
+ qb18-20020a1709077e9200b006e88df7cf92mr12502150ejc.541.1650368104852; 
+ Tue, 19 Apr 2022 04:35:04 -0700 (PDT)
 Received: from localhost.localdomain (xdsl-188-155-176-92.adslplus.ch.
  [188.155.176.92]) by smtp.gmail.com with ESMTPSA id
- ce21-20020a170906b25500b006e89869cbf9sm5608802ejb.105.2022.04.19.04.35.01
+ ce21-20020a170906b25500b006e89869cbf9sm5608802ejb.105.2022.04.19.04.35.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 Apr 2022 04:35:02 -0700 (PDT)
+ Tue, 19 Apr 2022 04:35:04 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  "Rafael J. Wysocki" <rafael@kernel.org>
-Subject: [PATCH v7 10/12] slimbus: qcom-ngd: Fix kfree() of static memory on
- setting driver_override
-Date: Tue, 19 Apr 2022 13:34:33 +0200
-Message-Id: <20220419113435.246203-11-krzysztof.kozlowski@linaro.org>
+Subject: [PATCH v7 11/12] rpmsg: Constify local variable in field store macro
+Date: Tue, 19 Apr 2022 13:34:34 +0200
+Message-Id: <20220419113435.246203-12-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20220419113435.246203-1-krzysztof.kozlowski@linaro.org>
 References: <20220419113435.246203-1-krzysztof.kozlowski@linaro.org>
@@ -91,7 +90,6 @@ X-Mailman-Approved-At: Tue, 19 Apr 2022 13:52:23 +0200
 Cc: linux-hyperv@vger.kernel.org, Stuart Yoder <stuyoder@gmail.com>,
  linux-pci@vger.kernel.org, linux-remoteproc@vger.kernel.org,
  alsa-devel@alsa-project.org, Peter Oberparleiter <oberpar@linux.ibm.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  Vineeth Vijayan <vneethv@linux.ibm.com>,
  Alexander Gordeev <agordeev@linux.ibm.com>,
  "K. Y. Srinivasan" <kys@microsoft.com>, linux-clk@vger.kernel.org,
@@ -127,50 +125,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The driver_override field from platform driver should not be initialized
-from static memory (string literal) because the core later kfree() it,
-for example when driver_override is set via sysfs.
+Memory pointed by variable 'old' in field store macro is not modified,
+so it can be made a pointer to const.
 
-Use dedicated helper to set driver_override properly.
-
-Fixes: 917809e2280b ("slimbus: ngd: Add qcom SLIMBus NGD driver")
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
- drivers/slimbus/qcom-ngd-ctrl.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+ drivers/rpmsg/rpmsg_core.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
-index 0f29a08b4c09..0aa8408464ad 100644
---- a/drivers/slimbus/qcom-ngd-ctrl.c
-+++ b/drivers/slimbus/qcom-ngd-ctrl.c
-@@ -1434,6 +1434,7 @@ static int of_qcom_slim_ngd_register(struct device *parent,
- 	const struct of_device_id *match;
- 	struct device_node *node;
- 	u32 id;
-+	int ret;
- 
- 	match = of_match_node(qcom_slim_ngd_dt_match, parent->of_node);
- 	data = match->data;
-@@ -1455,7 +1456,17 @@ static int of_qcom_slim_ngd_register(struct device *parent,
- 		}
- 		ngd->id = id;
- 		ngd->pdev->dev.parent = parent;
--		ngd->pdev->driver_override = QCOM_SLIM_NGD_DRV_NAME;
-+
-+		ret = driver_set_override(&ngd->pdev->dev,
-+					  &ngd->pdev->driver_override,
-+					  QCOM_SLIM_NGD_DRV_NAME,
-+					  strlen(QCOM_SLIM_NGD_DRV_NAME));
-+		if (ret) {
-+			platform_device_put(ngd->pdev);
-+			kfree(ngd);
-+			of_node_put(node);
-+			return ret;
-+		}
- 		ngd->pdev->dev.of_node = node;
- 		ctrl->ngd = ngd;
- 
+diff --git a/drivers/rpmsg/rpmsg_core.c b/drivers/rpmsg/rpmsg_core.c
+index 79368a957d89..95fc283f6af7 100644
+--- a/drivers/rpmsg/rpmsg_core.c
++++ b/drivers/rpmsg/rpmsg_core.c
+@@ -400,7 +400,8 @@ field##_store(struct device *dev, struct device_attribute *attr,	\
+ 	      const char *buf, size_t sz)				\
+ {									\
+ 	struct rpmsg_device *rpdev = to_rpmsg_device(dev);		\
+-	char *new, *old;						\
++	const char *old;						\
++	char *new;							\
+ 									\
+ 	new = kstrndup(buf, sz, GFP_KERNEL);				\
+ 	if (!new)							\
 -- 
 2.32.0
 

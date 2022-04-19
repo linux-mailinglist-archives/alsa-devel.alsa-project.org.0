@@ -2,82 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74D82506547
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Apr 2022 09:02:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E1F4506551
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Apr 2022 09:05:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 11147170E;
-	Tue, 19 Apr 2022 09:01:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 11147170E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0A30C826;
+	Tue, 19 Apr 2022 09:04:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A30C826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650351762;
-	bh=86UcdBzNLy132ueDh2DtqcaruOSrAN0kVZUzioiVKt4=;
+	s=default; t=1650351920;
+	bh=sSsV7w3ctD13/+8mUG+fqew5+AfkQfxw2NxPWh2JLPY=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ej2P89LX4XR+HUssANVjynu0ErZVl6v4H56Fp9TvmPw6ix0L8xwKL//ux4GbVRahO
-	 8qGnY/Tw0OmYMOH6J8BR4DQyAkV1HIYro+SpHJQLNSXq6mvF8LfkraJhzGcHge/Wcg
-	 QgPSHQDJR/Lfx4dG7Nv5pXrNIg3X3vJsGUAfvTMo=
+	b=aSjFYK/9DlaybbPwtVtzi15xQTre4vJh46m0abp/Tiru4M7UOppP9IstEGaOXGKVd
+	 nRZKjU9qHekOBshWnRUFHQyH/o2afXkL72AKz8wdKi5lnAgQKBmFZnOz0npHWGa7fm
+	 weTHCL0QRXrBIcJBa+tuqFN+gHwW+D6Tj0+U+zQM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7E642F80237;
-	Tue, 19 Apr 2022 09:01:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 73066F80269;
+	Tue, 19 Apr 2022 09:04:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 27975F8025D; Tue, 19 Apr 2022 09:01:42 +0200 (CEST)
+ id CEDEBF80116; Tue, 19 Apr 2022 09:04:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 405B1F80121
- for <alsa-devel@alsa-project.org>; Tue, 19 Apr 2022 09:01:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 405B1F80121
+ by alsa1.perex.cz (Postfix) with ESMTPS id 76688F80116
+ for <alsa-devel@alsa-project.org>; Tue, 19 Apr 2022 09:04:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76688F80116
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="yvqQEPUa"; 
+ header.b="MbIIDIL6"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="Mni+J2F2"
+ header.b="OTdxFv1M"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 5F3882112B;
- Tue, 19 Apr 2022 07:01:34 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 253C01F383;
+ Tue, 19 Apr 2022 07:04:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1650351694; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1650351858; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=IVrxI7k1ifm5AVHxBNA4vg7g3DvfNn+i52sKD4CT/7c=;
- b=yvqQEPUaxXn5KdShiAjhnM9VU/RVcB/rY2uDynwP1oUg1mPBMsi+qb+Y/U/DnL0G++hH4h
- SWcElFyY1kqEGX5ieutAjOstFiFZn6PgiHb0zfelESoMdZ29Orr/EZZ+OUwwKchvissEes
- YiSK/qrA8zCzFDyA+4azrki0XDGFEfU=
+ bh=knXt9XhDx+Ap4kWvY6X4tC4+Razra9ND3kEQxWBDW6U=;
+ b=MbIIDIL6lZnG7DVSWX6iT2/67zJF9/+NDaEgjHFAgcyt3kYk2ITJk+IRVa9LpWqRMrJxRX
+ 6+QGwFHPWDG1m1bhGMfu6CSs/O5lZQuvssSDjeUnk7WxLwwifI6nmTSsE4DVnFmdOhl41p
+ NCbW9IvV9vAZ5njM5XLrXZQ3D1HLHRI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1650351694;
+ s=susede2_ed25519; t=1650351858;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=IVrxI7k1ifm5AVHxBNA4vg7g3DvfNn+i52sKD4CT/7c=;
- b=Mni+J2F2Ixk0cEGqa+xf3AfdNYY8/xNsoe5B0CSeEkAMSomAUjmlpZii2y5qMgsOB2KHt1
- 7OB4EvB15pToP4Bw==
+ bh=knXt9XhDx+Ap4kWvY6X4tC4+Razra9ND3kEQxWBDW6U=;
+ b=OTdxFv1MTo4i5DahevWO5/0TpW+W0YEIATHZn0hCTsrLJdhPMLLRTbfs3LyMDKCxoEAtr6
+ 0hJMSp0IHAFkaoDw==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 4BD4CA3BAD;
- Tue, 19 Apr 2022 07:01:34 +0000 (UTC)
-Date: Tue, 19 Apr 2022 09:01:34 +0200
-Message-ID: <s5h35i936b5.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 18426A3B83;
+ Tue, 19 Apr 2022 07:04:18 +0000 (UTC)
+Date: Tue, 19 Apr 2022 09:04:18 +0200
+Message-ID: <s5hzgkh1rm5.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Lucas De Marchi <lucas.demarchi@intel.com>
-Subject: Re: [PATCH] ALSA: hda/i915: Fix one too many pci_dev_put()
-In-Reply-To: <20220416064418.2364582-1-lucas.demarchi@intel.com>
-References: <20220416064418.2364582-1-lucas.demarchi@intel.com>
+To: Maurizio Avogadro <mavoga@gmail.com>
+Subject: Re: [PATCH] ALSA: usb-audio: add mapping for MSI MAG X570S Torpedo
+ MAX.
+In-Reply-To: <Yl1ykPaGgsFf3SnW@ryzen>
+References: <Yl1nXcsAKWrFOMbY@ryzen>
+	<Yl1ykPaGgsFf3SnW@ryzen>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: intel-gfx@lists.freedesktop.org, alsa-devel@alsa-project.org,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Cc: Andrea Fagiani <andfagiani@gmail.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ Timo Gurr <timo.gurr@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,22 +96,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 16 Apr 2022 08:44:18 +0200,
-Lucas De Marchi wrote:
+On Mon, 18 Apr 2022 16:15:44 +0200,
+Maurizio Avogadro wrote:
 > 
-> pci_get_class() will already unref the pci device passed as argument.
-> So if it's unconditionally unref'ed, even if the loop is not stopped,
-> there will be one too many unref for each device not matched.
+> Fixed description, sorry.
+> >From c49119b1dcfcca1fcefadd92e095463e6245d4e1 Mon Sep 17 00:00:00 2001
+> From: Maurizio Avogadro <mavoga@gmail.com>
+> Date: Mon, 18 Apr 2022 15:16:12 +0200
+> Subject: [PATCH] ALSA: usb-audio: add mapping for MSI MAG X570S Torpedo MAX.
 > 
-> Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-> Cc: Takashi Iwai <tiwai@suse.de>
-> Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/5701
-> Fixes: 0dc2696a4623 ("ALSA: hda/i915 - skip acomp init if no matching display")
-> Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+> The USB audio device 0db0:a073 based on the Realtek ALC4080 chipset
+> exposes all playback volume controls as "PCM". This makes
+> distinguishing the individual functions hard.
+> The mapping already adopted for device 0db0:419c based on the same
+> chipset fixes the issue, apply it for this device too.
+> 
+> Signed-off-by: Maurizio Avogadro <mavoga@gmail.com>
 
-Thanks, applied now.
-But the Fixes commit id was wrong.  I corrected to the right upstream
-one, c9db8a30d9f0.
+Applied now.  Thanks.
 
 
 Takashi

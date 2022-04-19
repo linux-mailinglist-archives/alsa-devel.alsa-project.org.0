@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED13350B8C4
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Apr 2022 15:39:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9597A50B8C6
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Apr 2022 15:40:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 999C51725;
-	Fri, 22 Apr 2022 15:39:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 999C51725
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3E2121710;
+	Fri, 22 Apr 2022 15:39:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E2121710
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650634791;
-	bh=rF4AqAeeG3pFiw8ba+j1AjJKI0o8rpvYnUVlfmsd5CQ=;
+	s=default; t=1650634809;
+	bh=jhDfr1ZWF3PO87dsTFnhjEgY7CrgFIhStoxQAjgbO8c=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hswLyDKsINZZThlGF3UxFqNSHKqOf0rfl80npGze9cGb/VW50WWD9v+S5HDJFs6YY
-	 E+h3F1l9rbWkk6dIJOR1mcmI6+COFtg7gX7qQG+/H4gzX+Kn2yJ0tC5p6Q/9X5i3eO
-	 VxPdjv0EIoiBJzakpsaO1DN2AB/a75mLEJdlSLGI=
+	b=Uem2j3AF5ZoiEthf3zJiPlj+O7E2e4mSUlR+yNrNuNjHRLJqLekSNFKUe0PYgwvt9
+	 kOib5O5V7sOVmNEivRsiB8WvGHWvunt2HwSA6mreyZkop0nB4mu3dOoWL0q1EsKtRZ
+	 dLPha1JOhzpML9Rx1REkAp3qvKPUusxtdATcFrMQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E1C25F805EA;
-	Fri, 22 Apr 2022 15:32:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9221DF805F0;
+	Fri, 22 Apr 2022 15:32:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BC013F8025D; Tue, 19 Apr 2022 18:40:49 +0200 (CEST)
+ id 0B21FF80237; Tue, 19 Apr 2022 18:40:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,35 +34,35 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DF8B0F80121
- for <alsa-devel@alsa-project.org>; Tue, 19 Apr 2022 18:40:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF8B0F80121
+ by alsa1.perex.cz (Postfix) with ESMTPS id 10D0BF80237
+ for <alsa-devel@alsa-project.org>; Tue, 19 Apr 2022 18:40:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10D0BF80237
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="rZcwYWiP"
+ header.b="IQZbCphc"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 84427B81A22;
- Tue, 19 Apr 2022 16:40:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4F6BC385A5;
- Tue, 19 Apr 2022 16:40:34 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 57A46B819F8;
+ Tue, 19 Apr 2022 16:40:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8675C385AD;
+ Tue, 19 Apr 2022 16:40:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1650386442;
- bh=rF4AqAeeG3pFiw8ba+j1AjJKI0o8rpvYnUVlfmsd5CQ=;
+ s=k20201202; t=1650386450;
+ bh=jhDfr1ZWF3PO87dsTFnhjEgY7CrgFIhStoxQAjgbO8c=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=rZcwYWiPc2XajjwXFY6Hgb0z8xaKQouR3mgetcNfOG0jAxjf+wc+NkAqTEieKNj2K
- hTb4pSkBn4p6/vPrbGHHFSjrFJKYhOj58gtETWj5zjgxOpUV+N5TFkzWHrEi+oCpGA
- Z7qHH3Z4/Qz1lfbHK13P/9eVzrzGxLoE72yig5fdPb2W9JmcSPG6EbgjwxoLszNbC8
- JtYVwf2JvVtYboOyzewKz6pEaGgLg3OpWUMntuI+0iqBattNddhmtXKm3DuOkqoKaX
- 6oeCBZj9AZy/bFRn3L+Ral/WFjNSaI6bmC11HJKF0hZPiK+pyR2FGR0p1wVrtmDFDN
- RN3P/E7CISDfQ==
+ b=IQZbCphc2aVG/7nQPc8i6SmaXQBHDLcd8lu8VCmzfuxTE9zQ1fttSmG7EuqkoEKfV
+ +AijdqGUGVaVV7Gc6JQtpvmfbM8oJLiqSVhH1EBaliC1N03xEc1T1smfyTfNlPQ+ci
+ g7D2ubLO4DZSZbQ1S7mLLZAjhkr/Lf9nzpyNW7rUgW2JoDBYVacKhRiIFK/VFk/Xdk
+ UDw/LuEvBj9xe6IYc/bXh3fl9uuuA9b3Lcl7FHH7ZpoOjUIFEYceuWcUa/cIuAsEha
+ DxLdKbU1RVdss4xqHuQUN0IBiEAqCfNSmrZdnpLyeTBHr4KtQrWshWX4LLED0dDmoN
+ GxgomaIMHhKEQ==
 From: Arnd Bergmann <arnd@kernel.org>
 To: robert.jarzmik@free.fr,
 	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH 14/48] ARM: pxa: maybe fix gpio lookup tables
-Date: Tue, 19 Apr 2022 18:37:36 +0200
-Message-Id: <20220419163810.2118169-15-arnd@kernel.org>
+Subject: [PATCH 15/48] ARM: pxa: tosa: use gpio descriptor for audio
+Date: Tue, 19 Apr 2022 18:37:37 +0200
+Message-Id: <20220419163810.2118169-16-arnd@kernel.org>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20220419163810.2118169-1-arnd@kernel.org>
 References: <20220419163810.2118169-1-arnd@kernel.org>
@@ -86,9 +86,8 @@ Cc: Ulf Hansson <ulf.hansson@linaro.org>, linux-usb@vger.kernel.org,
  Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
  Stephen Boyd <sboyd@kernel.org>, patches@opensource.cirrus.com,
  Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-mmc@vger.kernel.org,
- linux-mips@vger.kernel.org, stable@vger.kernel.org,
- Michael Turquette <mturquette@baylibre.com>, alsa-devel@alsa-project.org,
- Daniel Mack <daniel@zonque.org>
+ linux-mips@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>,
+ alsa-devel@alsa-project.org, Daniel Mack <daniel@zonque.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,74 +105,115 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Arnd Bergmann <arnd@arndb.de>
 
-From inspection I found a couple of GPIO lookups that are
-listed with device "gpio-pxa", but actually have a number
-from a different gpio controller.
+The audio driver should not use a hardwired gpio number
+from the header. Change it to use a lookup table.
 
-Try to rectify that here, with a guess of what the actual
-device name is.
-
+Acked-by: Mark Brown <broonie@kernel.org>
 Acked-by: Robert Jarzmik <robert.jarzmik@free.fr>
-Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
-Cc: stable@vger.kernel.org
+Cc: alsa-devel@alsa-project.org
 Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- arch/arm/mach-pxa/cm-x300.c  | 8 ++++----
- arch/arm/mach-pxa/magician.c | 2 +-
- arch/arm/mach-pxa/tosa.c     | 4 ++--
- 3 files changed, 7 insertions(+), 7 deletions(-)
+ arch/arm/mach-pxa/tosa.c | 12 ++++++++++++
+ sound/soc/pxa/tosa.c     | 16 +++++++---------
+ 2 files changed, 19 insertions(+), 9 deletions(-)
 
-diff --git a/arch/arm/mach-pxa/cm-x300.c b/arch/arm/mach-pxa/cm-x300.c
-index 09a5264a27c8..01f364a66446 100644
---- a/arch/arm/mach-pxa/cm-x300.c
-+++ b/arch/arm/mach-pxa/cm-x300.c
-@@ -356,13 +356,13 @@ static struct platform_device cm_x300_spi_gpio = {
- static struct gpiod_lookup_table cm_x300_spi_gpiod_table = {
- 	.dev_id         = "spi_gpio",
- 	.table          = {
--		GPIO_LOOKUP("gpio-pxa", GPIO_LCD_SCL,
-+		GPIO_LOOKUP("pca9555.1", GPIO_LCD_SCL - GPIO_LCD_BASE,
- 			    "sck", GPIO_ACTIVE_HIGH),
--		GPIO_LOOKUP("gpio-pxa", GPIO_LCD_DIN,
-+		GPIO_LOOKUP("pca9555.1", GPIO_LCD_DIN - GPIO_LCD_BASE,
- 			    "mosi", GPIO_ACTIVE_HIGH),
--		GPIO_LOOKUP("gpio-pxa", GPIO_LCD_DOUT,
-+		GPIO_LOOKUP("pca9555.1", GPIO_LCD_DOUT - GPIO_LCD_BASE,
- 			    "miso", GPIO_ACTIVE_HIGH),
--		GPIO_LOOKUP("gpio-pxa", GPIO_LCD_CS,
-+		GPIO_LOOKUP("pca9555.1", GPIO_LCD_CS - GPIO_LCD_BASE,
- 			    "cs", GPIO_ACTIVE_HIGH),
- 		{ },
- 	},
-diff --git a/arch/arm/mach-pxa/magician.c b/arch/arm/mach-pxa/magician.c
-index 20ca3e28c7fb..d105deb1e098 100644
---- a/arch/arm/mach-pxa/magician.c
-+++ b/arch/arm/mach-pxa/magician.c
-@@ -681,7 +681,7 @@ static struct platform_device bq24022 = {
- static struct gpiod_lookup_table bq24022_gpiod_table = {
- 	.dev_id = "gpio-regulator",
- 	.table = {
--		GPIO_LOOKUP("gpio-pxa", EGPIO_MAGICIAN_BQ24022_ISET2,
-+		GPIO_LOOKUP("htc-egpio-0", EGPIO_MAGICIAN_BQ24022_ISET2 - MAGICIAN_EGPIO_BASE,
- 			    NULL, GPIO_ACTIVE_HIGH),
- 		GPIO_LOOKUP("gpio-pxa", GPIO30_MAGICIAN_BQ24022_nCHARGE_EN,
- 			    "enable", GPIO_ACTIVE_LOW),
 diff --git a/arch/arm/mach-pxa/tosa.c b/arch/arm/mach-pxa/tosa.c
-index 5af980d77d39..9476ed0f55e9 100644
+index 9476ed0f55e9..5a16a025192c 100644
 --- a/arch/arm/mach-pxa/tosa.c
 +++ b/arch/arm/mach-pxa/tosa.c
-@@ -296,9 +296,9 @@ static struct gpiod_lookup_table tosa_mci_gpio_table = {
- 	.table = {
- 		GPIO_LOOKUP("gpio-pxa", TOSA_GPIO_nSD_DETECT,
- 			    "cd", GPIO_ACTIVE_LOW),
--		GPIO_LOOKUP("gpio-pxa", TOSA_GPIO_SD_WP,
-+		GPIO_LOOKUP("sharp-scoop.0", TOSA_GPIO_SD_WP - TOSA_SCOOP_GPIO_BASE,
- 			    "wp", GPIO_ACTIVE_LOW),
--		GPIO_LOOKUP("gpio-pxa", TOSA_GPIO_PWR_ON,
-+		GPIO_LOOKUP("sharp-scoop.0", TOSA_GPIO_PWR_ON - TOSA_SCOOP_GPIO_BASE,
- 			    "power", GPIO_ACTIVE_HIGH),
- 		{ },
- 	},
+@@ -887,6 +887,17 @@ static struct platform_device wm9712_device = {
+ 	.id	= -1,
+ };
+ 
++static struct gpiod_lookup_table tosa_audio_gpio_table = {
++	.dev_id = "tosa-audio",
++	.table = {
++		GPIO_LOOKUP("tc6393xb",
++			    TOSA_GPIO_L_MUTE - TOSA_TC6393XB_GPIO_BASE,
++			    "l-mute", GPIO_ACTIVE_HIGH),
++		{ },
++	},
++};
++
++
+ static struct platform_device tosa_audio_device = {
+ 	.name	= "tosa-audio",
+ 	.id	= -1,
+@@ -944,6 +955,7 @@ static void __init tosa_init(void)
+ 	PMCR = 0x01;
+ 
+ 	gpiod_add_lookup_table(&tosa_mci_gpio_table);
++	gpiod_add_lookup_table(&tosa_audio_gpio_table);
+ 	pxa_set_mci_info(&tosa_mci_platform_data);
+ 	pxa_set_ficp_info(&tosa_ficp_platform_data);
+ 	pxa_set_i2c_info(NULL);
+diff --git a/sound/soc/pxa/tosa.c b/sound/soc/pxa/tosa.c
+index 06226f9b863e..157e6bcacffd 100644
+--- a/sound/soc/pxa/tosa.c
++++ b/sound/soc/pxa/tosa.c
+@@ -16,14 +16,13 @@
+ #include <linux/module.h>
+ #include <linux/moduleparam.h>
+ #include <linux/device.h>
+-#include <linux/gpio.h>
++#include <linux/gpio/consumer.h>
+ 
+ #include <sound/core.h>
+ #include <sound/pcm.h>
+ #include <sound/soc.h>
+ 
+ #include <asm/mach-types.h>
+-#include <mach/tosa.h>
+ #include <linux/platform_data/asoc-pxa.h>
+ 
+ #define TOSA_HP        0
+@@ -35,6 +34,7 @@
+ 
+ static int tosa_jack_func;
+ static int tosa_spk_func;
++static struct gpio_desc *l_mute_gpio;
+ 
+ static void tosa_ext_control(struct snd_soc_dapm_context *dapm)
+ {
+@@ -128,7 +128,7 @@ static int tosa_set_spk(struct snd_kcontrol *kcontrol,
+ static int tosa_hp_event(struct snd_soc_dapm_widget *w,
+ 	struct snd_kcontrol *k, int event)
+ {
+-	gpio_set_value(TOSA_GPIO_L_MUTE, SND_SOC_DAPM_EVENT_ON(event) ? 1 : 0);
++	gpiod_set_value(l_mute_gpio, SND_SOC_DAPM_EVENT_ON(event) ? 1 : 0);
+ 	return 0;
+ }
+ 
+@@ -222,25 +222,23 @@ static int tosa_probe(struct platform_device *pdev)
+ 	struct snd_soc_card *card = &tosa;
+ 	int ret;
+ 
+-	ret = gpio_request_one(TOSA_GPIO_L_MUTE, GPIOF_OUT_INIT_LOW,
+-			       "Headphone Jack");
++	l_mute_gpio = devm_gpiod_get(&pdev->dev, "l-mute", GPIOD_OUT_LOW);
++	ret = PTR_ERR_OR_ZERO(l_mute_gpio);
+ 	if (ret)
+ 		return ret;
+ 
+ 	card->dev = &pdev->dev;
+ 
+ 	ret = devm_snd_soc_register_card(&pdev->dev, card);
+-	if (ret) {
++	if (ret)
+ 		dev_err(&pdev->dev, "snd_soc_register_card() failed: %d\n",
+ 			ret);
+-		gpio_free(TOSA_GPIO_L_MUTE);
+-	}
++
+ 	return ret;
+ }
+ 
+ static int tosa_remove(struct platform_device *pdev)
+ {
+-	gpio_free(TOSA_GPIO_L_MUTE);
+ 	return 0;
+ }
+ 
 -- 
 2.29.2
 

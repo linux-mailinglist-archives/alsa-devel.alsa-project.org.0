@@ -2,73 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3504D5071D6
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Apr 2022 17:31:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC9285071EB
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Apr 2022 17:36:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AD6D51AF2;
-	Tue, 19 Apr 2022 17:30:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD6D51AF2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4144D1AE9;
+	Tue, 19 Apr 2022 17:35:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4144D1AE9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650382282;
-	bh=xr4+GRv6uRv/fbQhe5BhSVrxCf6BcMHd+siZ/yc4BXI=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1650382595;
+	bh=pNZY/mTP5bpoQN7eEPcFpF7eenLvJ+hPeif9oc7HxSE=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ODbQ0wT1cm3UEyZ6gpoOZtrRyl4MkVUULj+BA4pxNucPGTv+uCS9XYutc0pN/ye+E
-	 nOi+c3Q93csVs0VKAIFFWUvloR4tl9JLi9CY4PoZJa3Oh+NxWJAeCYvvStuDKvdynr
-	 pwT9cVvjIEYKEZ7sBqMQ+hiaSi7kQPzYh4SQOEG0=
+	b=e4ZR4DbrAf5R6PhsUW9r8WxI3ovf1oUL/DE8ZYxu+vyHPZas0MqALtN397p+pVhEZ
+	 PpkpPdCiMMTo+AgPKZOigSda9swFWUBu0BcHSW8Fhe8plA5CZbeN0geua5KmUu+i/F
+	 UkuT5y9pipqWX2JBixHF96G7EqfF/EWFGYw1V8L4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5B9AAF800C1;
-	Tue, 19 Apr 2022 17:29:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AFA08F80269;
+	Tue, 19 Apr 2022 17:35:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D28F2F80269; Tue, 19 Apr 2022 17:29:52 +0200 (CEST)
+ id B852AF8025D; Tue, 19 Apr 2022 17:35:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 833D5F80237
- for <alsa-devel@alsa-project.org>; Tue, 19 Apr 2022 17:29:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 833D5F80237
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8B7C9F80121
+ for <alsa-devel@alsa-project.org>; Tue, 19 Apr 2022 17:35:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B7C9F80121
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="dQ+zPpGy"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id B0EB3CE19AE;
- Tue, 19 Apr 2022 15:29:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F96CC385A7;
- Tue, 19 Apr 2022 15:29:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1650382186;
- bh=xr4+GRv6uRv/fbQhe5BhSVrxCf6BcMHd+siZ/yc4BXI=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=dQ+zPpGy7WHc/HYs1aqLbzGB2sT86nFs/Kspn61Rcnerrb1n8fjPnwaA9GnxKhgLJ
- BiP/GGLfYWauPUphdkw5+/test+0g6d4/Rrfeeq8kqBuane6h/O6F5CFUQS1aA5Ze3
- HSRZ9fNmdHvThnN43iwgzqZ7OYHzmZ+vlMhTm7i3eOfrxkRXlT1v/C9M6uhmoY+2jD
- /+KNb0Bx9SvHUbpcFfjm6JJaQamajy3/csb9SpfCU4q/03InmizQI0G3fwHMmcTAJw
- zmp+aDO3hy/4S7iiJUtY90Lk1OFnUNZ14oK2OEDvG5CR2WDnU/0PPGBYVdO90ZtKDw
- 4ujXMEZ/xtegQ==
-From: Mark Brown <broonie@kernel.org>
-To: patches@opensource.cirrus.com, broonie@kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>
-In-Reply-To: <20220416125408.197440-1-broonie@kernel.org>
-References: <20220416125408.197440-1-broonie@kernel.org>
-Subject: Re: [PATCH] ASoC: wm8958: Fix change notifications for DSP controls
-Message-Id: <165038218491.995461.7141441522433059070.b4-ty@kernel.org>
-Date: Tue, 19 Apr 2022 16:29:44 +0100
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="jyVP9lrE"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="FgmMEAn2"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 0BB0121115;
+ Tue, 19 Apr 2022 15:35:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1650382533; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=cDtxVc8f4zVwOusCn9H9amTzMtlsrPS/MGOf/DhpqSI=;
+ b=jyVP9lrEriOklVOdOePjxehWuQ21gBbYsq2hxW+GRngwFePk+u7gBHHvk1I4fq/h/ewKPp
+ 48X1oCix1lvynA99UvvQNQKXPjCyle1qvZcXYgFWSPcNValwMr1LKo3wl68qQr0n0VnYDz
+ gJ0NGM5SGUePRNytERUV/V8ViIoGpKQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1650382533;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=cDtxVc8f4zVwOusCn9H9amTzMtlsrPS/MGOf/DhpqSI=;
+ b=FgmMEAn2xMtGvOVzJ3G2ip+vwMT3MsrOBNfrGAqwWQbaG4E8dNur/G/xdRzo4XhosqoRWc
+ i0tL9wpQ67Efh1BQ==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 04AE52C141;
+ Tue, 19 Apr 2022 15:35:33 +0000 (UTC)
+Date: Tue, 19 Apr 2022 17:35:32 +0200
+Message-ID: <s5hbkwxytkr.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [GIT PULL] ASoC fixes for v5.18-rc3
+In-Reply-To: <20220419152200.7AA2BC385A7@smtp.kernel.org>
+References: <20220419152200.7AA2BC385A7@smtp.kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,38 +92,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 16 Apr 2022 13:54:08 +0100, Mark Brown wrote:
-> The WM8958 DSP controls all return 0 on successful write, not a boolean
-> value indicating if the write changed the value of the control. Fix this
-> by returning 1 after a change, there is already a check at the start of
-> each put() that skips the function in the case that there is no change.
+On Tue, 19 Apr 2022 17:21:45 +0200,
+Mark Brown wrote:
 > 
+> The following changes since commit 3123109284176b1532874591f7c81f3837bbdc17:
 > 
+>   Linux 5.18-rc1 (2022-04-03 14:08:21 -0700)
+> 
+> are available in the Git repository at:
+> 
+>   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v5.18-rc3
+> 
+> for you to fetch changes up to 5b933c7262c5b0ea11ea3c3b3ea81add04895954:
+> 
+>   firmware: cs_dsp: Fix overrun of unterminated control name string (2022-04-12 17:57:04 +0100)
+> 
+> ----------------------------------------------------------------
+> ASoC: Fixes for v5.18
+> 
+> A collection of fixes that came in since the merge window, plus one new
+> device ID for an x86 laptop.  Nothing that really stands out with
+> particularly big impact outside of the affected device.
 
-Applied to
+Pulled now.  Thanks.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Thanks!
-
-[1/1] ASoC: wm8958: Fix change notifications for DSP controls
-      commit: b4f5c6b2e52b27462c0599e64e96e53b58438de1
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Takashi

@@ -2,89 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3C88506480
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Apr 2022 08:31:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34D795064AE
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Apr 2022 08:41:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5015C16F3;
-	Tue, 19 Apr 2022 08:31:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5015C16F3
+	by alsa0.perex.cz (Postfix) with ESMTPS id BEBB81702;
+	Tue, 19 Apr 2022 08:40:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BEBB81702
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650349910;
-	bh=hVmsiYX30awqKUFal02yrA9ucf+MA/i6MC197IGxQ0w=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=PnqNQWK1LZ8meP6/3kjuhgR3FAjhglkjri7HF7yidP9KLvE2Se2HEQU+3ArW/T4ja
-	 n2gyYzlgtX7W/w/ADkh9oblFC3gzuEezyWu3MGxdqA8CR3efMzOEYe8+T8N6869x08
-	 AFsgc9xbLg52XnaEdy7rGmWtRpCkSBgXIZkTXyEk=
+	s=default; t=1650350468;
+	bh=DSA6m3l9zD3RUlcNs0VXglIkSEq42D7PXoB46wesiHQ=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=k7pmURBKMCqmG8LM49FHktGcBhlMBZY5ffixIuMsgM6nXBoL6g7Cr8vEbCz/aE92J
+	 d844vzYjr1TI4Ig4im96jochZdMAf9KHNAJH5d/fJp5pG6PnaZlj/pszBkE3WIIi6V
+	 PtsAbZ6inzbh+OcXp2VAvP5K6u480wo4TXwYmARg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E48E9F8025D;
-	Tue, 19 Apr 2022 08:30:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E973EF80237;
+	Tue, 19 Apr 2022 08:40:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8C036F8025D; Tue, 19 Apr 2022 08:30:49 +0200 (CEST)
+ id 5507DF8025D; Tue, 19 Apr 2022 08:40:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-pg1-x534.google.com (mail-pg1-x534.google.com
- [IPv6:2607:f8b0:4864:20::534])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CF995F80121
- for <alsa-devel@alsa-project.org>; Tue, 19 Apr 2022 08:30:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF995F80121
+ by alsa1.perex.cz (Postfix) with ESMTPS id 29615F80116
+ for <alsa-devel@alsa-project.org>; Tue, 19 Apr 2022 08:40:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29615F80116
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="RWkdh0fW"
-Received: by mail-pg1-x534.google.com with SMTP id k14so23140583pga.0
- for <alsa-devel@alsa-project.org>; Mon, 18 Apr 2022 23:30:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=IGmYqg606kAg3pvf8xUnL9K7oIiJlnNVadVtLgVbgco=;
- b=RWkdh0fWRj03OC2HBnrauhCncJUjSGJ0AeHUpDr5r/cb7UVOAeXm8EQztSLv93EFEL
- D00g3C3lKxXGUGhNdXhnatXICWxg7LPef+A6Cx/445cmyUV/U40i9vfzpDbbbhTxVuby
- tJ/TZ618PcIYJVvFBrQcn/KAAAqZbf4iXF99U=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=IGmYqg606kAg3pvf8xUnL9K7oIiJlnNVadVtLgVbgco=;
- b=3k+ajztP9NsLyyYckCNWzW0oXNxI8mVJSjvQysEEaHGygum9qc3FRzj1hzLVeVBISw
- 05oofbNciWRHjPLaEea0s0gD4g8QC81bYlJ2UaAFIzNloCsuHysP6QfvBpv2iJUxguad
- Im98aivG1dho6S+orX8TPGjH7h62Ex0Tl8BRRuqxwCMjtBtqHlHl/t/5/13vn7Z0XQ9P
- heuX1DZJ5gfw/oYJN6paRuNijsPgtxtB8+elgSCJPBqEozxoiTV/+TnfIAngcRLuSXkC
- RzrwaJ0wcaVWATmsh2eC0jS1T61qKJMPGfUQ8FMMTD+Zd8ZUZsLJ3p34Vdd3XTz5N+xt
- zznQ==
-X-Gm-Message-State: AOAM531q7bZ+2lB1DroM1VbNegCfgQdlbVMpfrJvhL+uC/h8B6MXC4rl
- mR9JddcG3XEp/720DNXoDeZa0w==
-X-Google-Smtp-Source: ABdhPJy7pNWUWctP7Lv46n/YF3SODEnZqNA23wE38kIGlBCogjWCsgKW/AUcTAlCjeXacJM37KLXkw==
-X-Received: by 2002:a05:6a00:2392:b0:4fa:dcd2:5bc1 with SMTP id
- f18-20020a056a00239200b004fadcd25bc1mr16242411pfc.8.1650349836670; 
- Mon, 18 Apr 2022 23:30:36 -0700 (PDT)
-Received: from judyhsiao-p920.tpe.corp.google.com
- ([2401:fa00:1:17:ff0b:b586:d329:c4f4])
- by smtp.gmail.com with ESMTPSA id
- n14-20020a17090a394e00b001c670d67b8esm15037041pjf.32.2022.04.18.23.30.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 Apr 2022 23:30:36 -0700 (PDT)
-From: Judy Hsiao <judyhsiao@chromium.org>
-To: broonie@kernel.org
-Subject: [v1] ASoC: qcom: Use MCLK as RT5682I-VS sysclk source
-Date: Tue, 19 Apr 2022 14:29:52 +0800
-Message-Id: <20220419062952.356017-1-judyhsiao@chromium.org>
-X-Mailer: git-send-email 2.36.0.rc0.470.gd361397f0d-goog
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: judyhsiao@google.com, cychiang@google.com, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>, linux-arm-msm@vger.kernel.org,
- swboyd@chromium.org, dianders@chromium.org, Takashi Iwai <tiwai@suse.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Judy Hsiao <judyhsiao@chromium.org>, yuhsuan@chromium.org
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="qsDghvnB"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="rX5iZaha"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 9890D210F5;
+ Tue, 19 Apr 2022 06:40:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1650350401; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=E/7EnBv+wNnSnepOQkL6k47cZM0CYr2UDZFQKWFwRTI=;
+ b=qsDghvnB+CX2vTCT8HRayOKuZL4rtp4fpm8FyqVtowzvMR80b67xUI8qPNlmr+T+phNo7L
+ pXXJTYm9FEfOAlkQmkwv3gi6WPs1HMNR7ENLFYPnsBtNegH5yIcM38sEBmnhP4bMwftj9j
+ Rke2glfQeKUI+WPsUyjVLa4ozhiyiMs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1650350401;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=E/7EnBv+wNnSnepOQkL6k47cZM0CYr2UDZFQKWFwRTI=;
+ b=rX5iZaha2exrr54YUjCnxtvqZ11Z3gHUm8dYU6bK0GqcFkzJNFxDi22sth+S2/KuX3xO+J
+ OGG94t/i2OlwrlBg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 8B822A3B93;
+ Tue, 19 Apr 2022 06:40:01 +0000 (UTC)
+Date: Tue, 19 Apr 2022 08:40:01 +0200
+Message-ID: <s5hee1t37b2.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Lucas De Marchi <lucas.demarchi@intel.com>
+Subject: Re: [Intel-gfx] [PATCH] ALSA: hda/i915: Fix one too many pci_dev_put()
+In-Reply-To: <20220419062606.73bsepujqcmlnjl3@ldmartin-desk2>
+References: <20220416064418.2364582-1-lucas.demarchi@intel.com>
+ <alpine.DEB.2.22.394.2204171309420.1532214@eliteleevi.tm.intel.com>
+ <20220418045032.74gipx7fo6ajnoib@ldmartin-desk2>
+ <s5hilr539ex.wl-tiwai@suse.de>
+ <20220419062606.73bsepujqcmlnjl3@ldmartin-desk2>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: intel-gfx@lists.freedesktop.org, alsa-devel@alsa-project.org,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,50 +97,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Both MCLK and BCLK can be the clock source of sysclk via PLL
-according to its datasheet.
-This patch sets MCLK as the clock source as we use MCLK in the
-previous projects.
+On Tue, 19 Apr 2022 08:26:06 +0200,
+Lucas De Marchi wrote:
+> 
+> On Tue, Apr 19, 2022 at 07:54:30AM +0200, Takashi Iwai wrote:
+> >On Mon, 18 Apr 2022 06:50:32 +0200,
+> >Lucas De Marchi wrote:
+> >>
+> >> On Sun, Apr 17, 2022 at 01:13:49PM +0300, Kai Vehmanen wrote:
+> >> >Hi,
+> >> >
+> >> >On Fri, 15 Apr 2022, Lucas De Marchi wrote:
+> >> >
+> >> >> pci_get_class() will already unref the pci device passed as argument.
+> >> >> So if it's unconditionally unref'ed, even if the loop is not stopped,
+> >> >
+> >> >thanks Lucas. And yes indeed, overlooked that pci_get_class()
+> >> >will decrement the from device is specified.
+> >> >
+> >> >> --- a/sound/hda/hdac_i915.c
+> >> >> +++ b/sound/hda/hdac_i915.c
+> >> >> @@ -127,11 +127,10 @@ static int i915_gfx_present(struct pci_dev *hdac_pci)
+> >> >>  		display_dev = pci_get_class(class, display_dev);
+> >> >>
+> >> >>  		if (display_dev && display_dev->vendor == PCI_VENDOR_ID_INTEL &&
+> >> >> -		    connectivity_check(display_dev, hdac_pci))
+> >> >> +		    connectivity_check(display_dev, hdac_pci)) {
+> >> >> +			pci_dev_put(display_dev);
+> >> >>  			match = true;
+> >> >> -
+> >> >> -		pci_dev_put(display_dev);
+> >> >> -
+> >> >> +		}
+> >> >
+> >> >Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> >>
+> >> I applied this to our topic/core-for-CI branch to unblock CI on
+> >> DG2. Ultimately the target for this is the sound tree though.
+> >
+> >The patch looks good, feel free to submit it.
+> 
+> not sure if I was clear. This patch is already targeting the sound tree:
+> it should apply cleanly.
 
-Fixes: c5198db82d4c ("ASoC: qcom: Add driver support for ALC5682I-VS")
-Signed-off-by: Judy Hsiao <judyhsiao@chromium.org>
----
- sound/soc/qcom/sc7280.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+The original patch hasn't reached to me (we've had the mail server
+problem in the last weekend, and that might be the reason).
 
-diff --git a/sound/soc/qcom/sc7280.c b/sound/soc/qcom/sc7280.c
-index 4ef4034ba6ee..dfcb7ed44331 100644
---- a/sound/soc/qcom/sc7280.c
-+++ b/sound/soc/qcom/sc7280.c
-@@ -21,7 +21,7 @@
- #include "lpass.h"
- 
- #define DEFAULT_MCLK_RATE              19200000
--#define RT5682_PLL1_FREQ (48000 * 512)
-+#define RT5682_PLL_FREQ (48000 * 512)
- 
- struct sc7280_snd_data {
- 	struct snd_soc_card card;
-@@ -137,15 +137,15 @@ static int sc7280_rt5682_init(struct snd_soc_pcm_runtime *rtd)
- 				SND_SOC_DAIFMT_NB_NF |
- 				SND_SOC_DAIFMT_I2S);
- 
--	ret = snd_soc_dai_set_pll(codec_dai, RT5682S_PLL1, RT5682S_PLL_S_BCLK1,
--					1536000, RT5682_PLL1_FREQ);
-+	ret = snd_soc_dai_set_pll(codec_dai, RT5682S_PLL2, RT5682S_PLL_S_MCLK,
-+					DEFAULT_MCLK_RATE, RT5682_PLL_FREQ);
- 	if (ret) {
- 		dev_err(rtd->dev, "can't set codec pll: %d\n", ret);
- 		return ret;
- 	}
- 
--	ret = snd_soc_dai_set_sysclk(codec_dai, RT5682S_SCLK_S_PLL1,
--					RT5682_PLL1_FREQ,
-+	ret = snd_soc_dai_set_sysclk(codec_dai, RT5682S_SCLK_S_PLL2,
-+					RT5682_PLL_FREQ,
- 					SND_SOC_CLOCK_IN);
- 
- 	if (ret) {
--- 
-2.36.0.rc0.470.gd361397f0d-goog
+Could you resubmit?
 
+
+thanks,
+
+Takashi

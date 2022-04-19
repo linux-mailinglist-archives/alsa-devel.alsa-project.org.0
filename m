@@ -2,67 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 336F1506EFA
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Apr 2022 15:52:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA15B506EF8
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Apr 2022 15:52:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B70721B12;
-	Tue, 19 Apr 2022 15:52:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B70721B12
+	by alsa0.perex.cz (Postfix) with ESMTPS id 49C5E1B06;
+	Tue, 19 Apr 2022 15:51:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49C5E1B06
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650376372;
-	bh=tnWw7oBH8X/XBSc06dB4T/Xrxth9FWCIgmXAbL0gUiI=;
+	s=default; t=1650376341;
+	bh=UESTNhRpqCdmOp1XFvzi39fpM7sULzK7+yHauqukJgM=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZF4+GvU2q7zKqFO6WSecNJU89tVMeeMyLZI3dfo02nfy5bXh7Tf5jhMRn8jIv5Rg6
-	 01vUK7t0WOwTa5T2helUtlt4J1T0JglbB9qCnPUJhO/zz4SeSTOHhqAD16oPmZEOU7
-	 CCM/JZLj/gnFt9lu8+S8U0fvZwb/9tau9A1r1t/g=
+	b=XshQNKNxgXt5Y/lDsHEUDnBIwmpOlHXrmV9CpNmFxwdhOgnZmcSic5lBmiC2IsRMD
+	 swJ7BmvHIU5Tl6VaYfNvQhneNZxCfd5w+lB4S+kOffyoY/GwJW5o7PKMdo8lBF3NMB
+	 oyL0H7aYltOCNX0Zm00hdcI/OEjSFBS8d0WL4Eoc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 18FF3F805F4;
-	Tue, 19 Apr 2022 15:43:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 80E09F805E7;
+	Tue, 19 Apr 2022 15:43:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F28ECF804FE; Tue, 19 Apr 2022 15:42:05 +0200 (CEST)
+ id 1A9EDF80506; Tue, 19 Apr 2022 15:41:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 94E1EF804FE
- for <alsa-devel@alsa-project.org>; Tue, 19 Apr 2022 15:42:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94E1EF804FE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 850E3F804F1
+ for <alsa-devel@alsa-project.org>; Tue, 19 Apr 2022 15:41:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 850E3F804F1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="l353b3xn"
+ header.b="qN9Y+eXI"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 338E8B81980;
- Tue, 19 Apr 2022 13:41:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BB39C385A8;
- Tue, 19 Apr 2022 13:41:24 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 6EC4D616D3;
+ Tue, 19 Apr 2022 13:41:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85ADEC385B0;
+ Tue, 19 Apr 2022 13:41:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1650375692;
- bh=tnWw7oBH8X/XBSc06dB4T/Xrxth9FWCIgmXAbL0gUiI=;
+ s=k20201202; t=1650375699;
+ bh=UESTNhRpqCdmOp1XFvzi39fpM7sULzK7+yHauqukJgM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=l353b3xn7RP12XuOF9Cs9zO9tge/orX72WpKCH58E7muL7FyXckbWebpZVTgREpYO
- 94nj83AEJ8G4ma3/hGOjwiDA7u44mm32sOWTOmedTY1j9E754Khi/eBhNw7sZcR/fP
- sEELa4g6tqqCHlME51Brhwnr6YLWLyI8Af7wRGM8o8xD8amnnB09engI4zVkiclXXu
- mCNS0Sb+wp3+DZySStUMonTFolm2Ob9v/CLQNN4JWPX7Aweoh7N2XbyQM1ddcyBgBz
- 1g2qalhGNLlbW40TdlyWoLmDXnGz4w+LLuOQpSk9G4QwyJjZxE6HKbSgWD1lwNbvb3
- UwCXSJ2vUo86g==
+ b=qN9Y+eXIXoBe7y4TGwmSZZVExIPvDiGiWQet4fH81EnPncUzwHNWtwJGsY0JYakO5
+ ieE4QfHwXAynpvZYZ8I/rORqxFxxcrHC8uhh9dPC5cMy5EFTa1VMfxpra8+tJNdEGG
+ y/nxkofQTm0FspP0LVUYlssfbUKsMywSyPappcPTyOe/CcTltiL0WCa18tUiJ5htqe
+ P7yjD5xk7TGFmi/cCP8q3ujCRWlK/rt27yUduttq75nsmlB26koCVmVI39ToEeDgJ3
+ 4QYMXy9PKlQiS9e/fHPi6ZUa8bAMf16ReuxZRt8ni4Y+YGTV+WxebK/v6W2sjZcyA9
+ IDq9aNHMe6VJg==
 From: Arnd Bergmann <arnd@kernel.org>
 To: linux-omap@vger.kernel.org, tony@atomide.com, aaro.koskinen@iki.fi,
  jmkrzyszt@gmail.com
-Subject: [PATCH 31/41] ARM: OMAP1: clock: Fix early UART rate issues
-Date: Tue, 19 Apr 2022 15:37:13 +0200
-Message-Id: <20220419133723.1394715-32-arnd@kernel.org>
+Subject: [PATCH 32/41] ARM: OMAP1: clock: Fix UART rate reporting algorithm
+Date: Tue, 19 Apr 2022 15:37:14 +0200
+Message-Id: <20220419133723.1394715-33-arnd@kernel.org>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20220419133723.1394715-1-arnd@kernel.org>
 References: <20220419133723.1394715-1-arnd@kernel.org>
@@ -102,50 +102,29 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Janusz Krzysztofik <jmkrzyszt@gmail.com>
 
-Commit ef772f2ee31e ("ARM: OMAP: Fix CONFIG_DEBUG_LL") was supposed to fix
-low level debugging, most possibly by early enabling UART clocks.  The fix
-actually introduced early reset of most bits of MOD_CONF_CTRL_0 register,
-with the exception of UART1 and UART2 clock related bits which were set
-high.  However, UART1 clock bit can play different roles on different
-OMAP1 variants.  On OMAP1610 it enables the clock as intended, but on
-OMAP1510 it switches the clock rate from 12 to 48 MHz.  Even worth, for
-UART2 the bit changes its clock rate also on OMAP1610.  As a result, UART
-rates set by a bootloader can be unintentionally changed early on kernel
-boot and low level debugging broken, not fixed.  Besides, reset of all
-other bits was not justified.
-
-Don't touch register bits not related to UART clocks.  Also, don't touch
-the bit of UART2 clock.  Make sure UART1 and UART3 are enabled early on
-relevant OMAP1610 machine types while preserving bootloader UART clock
-rates on others.
+Since its introduction to the mainline kernel, omap1_uart_recalc() helper
+makes incorrect use of clk->enable_bit as a ready to use bitmap mask while
+it only provides the bit number.  Fix it.
 
 Signed-off-by: Janusz Krzysztofik <jmkrzyszt@gmail.com>
 Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- arch/arm/mach-omap1/clock_data.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ arch/arm/mach-omap1/clock.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm/mach-omap1/clock_data.c b/arch/arm/mach-omap1/clock_data.c
-index 36f04da4b939..57d3752babf8 100644
---- a/arch/arm/mach-omap1/clock_data.c
-+++ b/arch/arm/mach-omap1/clock_data.c
-@@ -766,11 +766,11 @@ int __init omap1_clk_init(void)
- 	u32 reg;
+diff --git a/arch/arm/mach-omap1/clock.c b/arch/arm/mach-omap1/clock.c
+index 44877554eb41..42e094e781ce 100644
+--- a/arch/arm/mach-omap1/clock.c
++++ b/arch/arm/mach-omap1/clock.c
+@@ -41,7 +41,7 @@ static DEFINE_SPINLOCK(clockfw_lock);
+ unsigned long omap1_uart_recalc(struct clk *clk)
+ {
+ 	unsigned int val = __raw_readl(clk->enable_reg);
+-	return val & clk->enable_bit ? 48000000 : 12000000;
++	return val & 1 << clk->enable_bit ? 48000000 : 12000000;
+ }
  
- #ifdef CONFIG_DEBUG_LL
--	/*
--	 * Resets some clocks that may be left on from bootloader,
--	 * but leaves serial clocks on.
--	 */
--	omap_writel(0x3 << 29, MOD_CONF_CTRL_0);
-+	/* Make sure UART clocks are enabled early */
-+	if (cpu_is_omap16xx())
-+		omap_writel(omap_readl(MOD_CONF_CTRL_0) |
-+			    CONF_MOD_UART1_CLK_MODE_R |
-+			    CONF_MOD_UART3_CLK_MODE_R, MOD_CONF_CTRL_0);
- #endif
- 
- 	/* USB_REQ_EN will be disabled later if necessary (usb_dc_ck) */
+ unsigned long omap1_sossi_recalc(struct clk *clk)
 -- 
 2.29.2
 

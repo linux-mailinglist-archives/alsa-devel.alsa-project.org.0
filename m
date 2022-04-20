@@ -2,74 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98A2A509241
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Apr 2022 23:43:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06B8F509245
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Apr 2022 23:43:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 46DED1B5C;
-	Wed, 20 Apr 2022 23:42:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46DED1B5C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9E72D1B3F;
+	Wed, 20 Apr 2022 23:42:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E72D1B3F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650490996;
-	bh=pF71VMayyryoyp9jgJoRbg+bg0B2Uk3dltg/2exZUhg=;
+	s=default; t=1650491026;
+	bh=6jaiM5EEkZokoyNt2f05Dgwu++Zj3+Z8+mfjrNupSEI=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=P8dVQ741CuFus9escR3iRECf+G3cRgXezWyN4I0Qd1rZ9xQ6uYLT4AfhDuHH2zVrz
-	 iV8simKeCHvTF9bXXbKXkGJscJ8Js7GEBNq5HlqhOAeTK3+74hUIXxMT+4J3MS4rc6
-	 eGxjvclBm4TH4H4NpaNCA8CoEiHZKczR5pecy5Og=
+	b=CD2roUFm3ufysv9dVV/8aPTcx+0rlE7F3KqtVxrFvpV0H6BpoYp+RKyRT27UWN7jI
+	 5S0mctON92V9weKqqzxkj7d3UPzUqeYPEAXc4tvKdQaORwaICwFOKrR0rEUwRHGmPf
+	 GKxkmITEo8hR2IViwllfw+nTarW953inwQNjFgQ4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 70280F8052E;
-	Wed, 20 Apr 2022 23:41:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9A5A3F8053B;
+	Wed, 20 Apr 2022 23:41:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2C15CF8050F; Wed, 20 Apr 2022 23:41:00 +0200 (CEST)
+ id 2A46EF80529; Wed, 20 Apr 2022 23:41:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A566DF804FE
- for <alsa-devel@alsa-project.org>; Wed, 20 Apr 2022 23:40:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A566DF804FE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 55E66F804FE
+ for <alsa-devel@alsa-project.org>; Wed, 20 Apr 2022 23:41:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55E66F804FE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="lFc7x9Rx"
+ header.b="OeUkZbOD"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 10B566197F;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 670A2B82194;
+ Wed, 20 Apr 2022 21:41:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D897C385A0;
  Wed, 20 Apr 2022 21:40:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F134C385A0;
- Wed, 20 Apr 2022 21:40:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1650490855;
- bh=pF71VMayyryoyp9jgJoRbg+bg0B2Uk3dltg/2exZUhg=;
+ s=k20201202; t=1650490858;
+ bh=6jaiM5EEkZokoyNt2f05Dgwu++Zj3+Z8+mfjrNupSEI=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=lFc7x9RxqD9kGfP1oRev4q76orJwO381Wzk/d1jX9L0HqgUZSWASk9LDTWMO/AodR
- tTsA8ZAl77TllPQS1ASdWhQ6wvJoqA69NTYcP0EL5HtVS8eDg6rnPdhMJLe2T8YAPR
- MRwb9pFDZvr5xw9LoDCmvtVoimNm2OtmFzya/X55cw4qIiILZvKYV5+o3TYZnXSsXJ
- 4QeWe1ygLVoUSWa6fCda7pHLBvRZvyzOoTx7K5aN9yn1dFNAWlrmd3FkaE7AzWt42g
- yejpM0ncjwH0IAK6zWFgg7V8wyQRkTbxj+F9wkBome20U43hurrhUEB/l2meF7KL/X
- W9s+1mc8jddsA==
+ b=OeUkZbODgwjPKvS1nHtnuZlnoQvT041gNVtxebkD7ofNZOZnQbM4vvhfET+1DfEHN
+ babP+yod5/7sLDCUDQTG9mgtqtoQKpC+/HlA+ytRbPnyUxKkbBdcThRzufTdk8tVfD
+ wvZFsJyZg9M8KM+yetLt6cZmYCpmNcoiu2k2vZhV+tTV9hfs3OOrSiNvgb3NNMsXCb
+ Gnf0k3QUIY0fOuHSEId6pO/pF55QR9R8B6bO+1pGr91U1lK18XrCBc2oZopUiOK8vS
+ Gd1Jt9WRIQ+COAmIrPZjzb5PzWuGmoui0SLUGgVa56wQLkOwZo+ZhH1m4alZI9NOsp
+ jvD7uOtrKWkxQ==
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
-In-Reply-To: <20220406190056.233481-1-pierre-louis.bossart@linux.intel.com>
-References: <20220406190056.233481-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 0/2] ASoC: soc-pcm: improve BE state transitions
-Message-Id: <165049085490.138067.16905252029264883162.b4-ty@kernel.org>
-Date: Wed, 20 Apr 2022 22:40:54 +0100
+To: samuel@sholland.org, rf@opensource.cirrus.com,
+ Takashi Iwai <tiwai@suse.com>, robert.hancock@calian.com, spujar@nvidia.com,
+ olivier.moysan@foss.st.com,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, stephan@gerhold.net,
+ Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <20220412111658.11015-1-olivier.moysan@foss.st.com>
+References: <20220412111658.11015-1-olivier.moysan@foss.st.com>
+Subject: Re: [PATCH] ASoC: simple-card-utils: fix sysclk shutdown
+Message-Id: <165049085609.138067.16736006063801162834.b4-ty@kernel.org>
+Date: Wed, 20 Apr 2022 22:40:56 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,13 +89,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 6 Apr 2022 14:00:54 -0500, Pierre-Louis Bossart wrote:
-> With additional tests with the introduction of a 'deep-buffer' PCM
-> device mixed with the regular low-latency path, we came up with two
-> improvements in the BE state machine and transitions. The short
-> explanation is that the BE cannot directly use the trigger commands
-> provided by the FE, and a translation is needed to deal with paused
-> states.
+On Tue, 12 Apr 2022 13:16:58 +0200, Olivier Moysan wrote:
+> In asoc_simple_shutdown() the snd_soc_dai_set_sysclk() function
+> is called twice with input direction SND_SOC_CLOCK_IN.
+> Restore one call with output direction SND_SOC_CLOCK_OUT.
+> 
+> Fixes: 5ca2ab459817 ("ASoC: simple-card-utils: Add new system-clock-fixed flag")
+> 
 > 
 > [...]
 
@@ -101,10 +105,8 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: soc-pcm: improve BE transition for PAUSE_RELEASE
-      commit: 9995c1d096c8ab1b5f1edc4141257719f6a53524
-[2/2] ASoC: soc-pcm: improve BE transition for TRIGGER_START
-      commit: 374b50e234a3e2f92bb881a814218f9740e85dcc
+[1/1] ASoC: simple-card-utils: fix sysclk shutdown
+      commit: 3756aa16fadaef2873cfbd2659dfa1978a7e1859
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

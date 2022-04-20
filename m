@@ -2,60 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 416745082A5
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Apr 2022 09:50:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8213508316
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Apr 2022 10:01:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C526516FA;
-	Wed, 20 Apr 2022 09:49:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C526516FA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5DB301917;
+	Wed, 20 Apr 2022 10:01:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5DB301917
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650441003;
-	bh=2mRpXuk95u3wV5Kstv+0lYYBB/ApOGsY+16BvYY39MQ=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1650441712;
+	bh=9IWR7AFyGNsgvIMJzmZ1qULjOPDpoMZV2VFr9yQ58tw=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aqr/8g+xAFew/Eb2fr58P5BNcK6z4l+Z/AvS20wyeJbuYdFy0S4SzR0ZRsJjzsOkj
-	 YhmTE0cGcz8ikWCv4Hd1b0kNd5NtV8Hu42Duxh0RWwi6Md0i/Utg4V8nvXMFNg8kMp
-	 f3Lej4qgVC6vc80c77dXskA5bwchqOihVRWgwy48=
+	b=kzB8Z4Dit9oPz2x69Dq/aDf9f27jhLjLz6xpAZ//fIMcDPxwiXUAOuYvVMy4jw3qk
+	 8qPGUPNwJ7Jjal0bmDJ+3gcM2zpMGT45bl0Akyu/GiPqpPQEsvbVYhXn5SlcwZNh/K
+	 z9mlwFZtFM1kXzIdYUApyeSCOgC76V494EhBY7AA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2EA43F80128;
-	Wed, 20 Apr 2022 09:49:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CD15AF800F8;
+	Wed, 20 Apr 2022 10:00:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3444EF80125; Wed, 20 Apr 2022 09:49:03 +0200 (CEST)
+ id D7775F80125; Wed, 20 Apr 2022 10:00:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from jabberwock.ucw.cz (jabberwock.ucw.cz [46.255.230.98])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1714EF800F8
- for <alsa-devel@alsa-project.org>; Wed, 20 Apr 2022 09:48:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1714EF800F8
-Received: by jabberwock.ucw.cz (Postfix, from userid 1017)
- id 4B86C1C0B87; Wed, 20 Apr 2022 09:48:56 +0200 (CEST)
-Date: Wed, 20 Apr 2022 09:48:55 +0200
-From: Pavel Machek <pavel@ucw.cz>
-To: cgel.zte@gmail.com
-Subject: Re: [PATCH] ASoC: fsl: using pm_runtime_resume_and_get instead of
- pm_runtime_get_sync
-Message-ID: <20220420074855.GA25823@amd>
-References: <20220412083000.2532711-1-chi.minghao@zte.com.cn>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
- protocol="application/pgp-signature"; boundary="BOKacYhQ+x31HxR3"
-Content-Disposition: inline
-In-Reply-To: <20220412083000.2532711-1-chi.minghao@zte.com.cn>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-Cc: alsa-devel@alsa-project.org, Xiubo.Lee@gmail.com, shengjiu.wang@gmail.com,
- Zeal Robot <zealci@zte.com.cn>, linuxppc-dev@lists.ozlabs.org,
- lgirdwood@gmail.com, Minghao Chi <chi.minghao@zte.com.cn>,
- linux-kernel@vger.kernel.org, nicoleotsuka@gmail.com, broonie@kernel.org,
- festevam@gmail.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4DF26F800F8
+ for <alsa-devel@alsa-project.org>; Wed, 20 Apr 2022 10:00:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4DF26F800F8
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="ZEyXdzCF"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="kH34oOtO"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id D15FE1F380;
+ Wed, 20 Apr 2022 08:00:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1650441647; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=nTqN2uKTgO9t8sRIjlC5jrKREK2dixrGoWGuqIKtYKM=;
+ b=ZEyXdzCFrLNKwoTyaY7I3luB4JwIWOtNmm40bWkcnSVHxmGAEqPPd+f+BAHCiC7+jyFV8i
+ /niR0xB+hP3rYG6KBOjTOQS8hPem2QeeJv6Pu2C3s4Bpu0jGZlxMEqhD9Ym9eUjcEHs1aR
+ fZh1V78+WX2V/JrJd61L/gLKPM1TGZI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1650441647;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=nTqN2uKTgO9t8sRIjlC5jrKREK2dixrGoWGuqIKtYKM=;
+ b=kH34oOtOzqdyJkEWRI/bVQxUmAof9rRWphrKNgLpkQrJqRo3YKijkwUFsB/a2Fq/Njp5xa
+ VjQbCTHZ1y/xgmAA==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 08ADC2C149;
+ Wed, 20 Apr 2022 08:00:47 +0000 (UTC)
+Date: Wed, 20 Apr 2022 10:00:47 +0200
+Message-ID: <s5htuaoxjyo.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [bug report] ALSA: memalloc: Add fallback SG-buffer allocations
+ for x86
+In-Reply-To: <20220420074458.GA32681@kili>
+References: <20220420074458.GA32681@kili>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,72 +93,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, 20 Apr 2022 09:44:58 +0200,
+Dan Carpenter wrote:
+> 
+> Hello Takashi Iwai,
+> 
+> The patch 925ca893b4a6: "ALSA: memalloc: Add fallback SG-buffer
+> allocations for x86" from Apr 13, 2022, leads to the following Smatch
+> static checker warning:
+> 
+> 	sound/core/memalloc.c:732 snd_dma_sg_fallback_alloc()
+> 	error: 'p' came from dma_alloc_coherent() so we can't do virt_to_phys()
+> 
+> sound/core/memalloc.c
+>     708 static void *snd_dma_sg_fallback_alloc(struct snd_dma_buffer *dmab, size_t size)
+>     709 {
+>     710         struct snd_dma_sg_fallback *sgbuf;
+>     711         struct page **pages;
+>     712         size_t i, count;
+>     713         void *p;
+>     714 
+>     715         sgbuf = kzalloc(sizeof(*sgbuf), GFP_KERNEL);
+>     716         if (!sgbuf)
+>     717                 return NULL;
+>     718         count = PAGE_ALIGN(size) >> PAGE_SHIFT;
+>     719         pages = kvcalloc(count, sizeof(*pages), GFP_KERNEL);
+>     720         if (!pages)
+>     721                 goto error;
+>     722         sgbuf->pages = pages;
+>     723         sgbuf->addrs = kvcalloc(count, sizeof(*sgbuf->addrs), GFP_KERNEL);
+>     724         if (!sgbuf->addrs)
+>     725                 goto error;
+>     726 
+>     727         for (i = 0; i < count; sgbuf->count++, i++) {
+>     728                 p = dma_alloc_coherent(dmab->dev.dev, PAGE_SIZE,
+>     729                                        &sgbuf->addrs[i], DEFAULT_GFP);
+>     730                 if (!p)
+>     731                         goto error;
+> --> 732                 sgbuf->pages[i] = virt_to_page(p);
+> 
+> The warning is a bit useless.  It's complaining about __phys_addr()
+> and not virt_to_phys().  I don't really understand the rules here, it
+> might be legal in certain contexts.
 
---BOKacYhQ+x31HxR3
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In general it's not good to perform virt_to_page() for the
+dma_alloc_coherent(), but here the code is special only for x86 and
+certain circumstances, so this must work -- it's the very same stuff
+we had over a decade, after all.  The code was resurrected in a
+simplified form as a fallback now.
 
-Hi!
 
-> From: Minghao Chi <chi.minghao@zte.com.cn>
->=20
-> Using pm_runtime_resume_and_get is more appropriate
-> for simplifing code
->=20
-> Reported-by: Zeal Robot <zealci@zte.com.cn>
-> Signed-off-by: Minghao Chi <chi.minghao@zte.com.cn>
-> ---
->  sound/soc/fsl/fsl_esai.c | 6 ++----
->  1 file changed, 2 insertions(+), 4 deletions(-)
->=20
-> diff --git a/sound/soc/fsl/fsl_esai.c b/sound/soc/fsl/fsl_esai.c
-> index ed444e8f1d6b..1a2bdf8e76f0 100644
-> --- a/sound/soc/fsl/fsl_esai.c
-> +++ b/sound/soc/fsl/fsl_esai.c
-> @@ -1050,11 +1050,9 @@ static int fsl_esai_probe(struct platform_device *=
-pdev)
->  			goto err_pm_disable;
->  	}
-> =20
-> -	ret =3D pm_runtime_get_sync(&pdev->dev);
-> -	if (ret < 0) {
-> -		pm_runtime_put_noidle(&pdev->dev);
-> +	ret =3D pm_runtime_resume_and_get(&pdev->dev);
-> +	if (ret < 0)
->  		goto err_pm_get_sync;
-> -	}
-> =20
->  	ret =3D fsl_esai_hw_init(esai_priv);
->  	if (ret)
+thanks,
 
-Please take a closer look at that function.
-
-a) error labels are now misnamed
-
-b) there's leak if
-   ret =3D fsl_esai_hw_init(esai_priv);
-   if (ret)
-     goto err_pm_get_sync;
-
-happens.
-
-Best regards,
-							Pavel			  =20
-
---=20
-People of Russia, stop Putin before his war on Ukraine escalates.
-
---BOKacYhQ+x31HxR3
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v1
-
-iEYEARECAAYFAmJfuucACgkQMOfwapXb+vIiGACffOMVcK21uP4rckwMmbnzLCim
-9/QAnjyoa8+Std4g2m6imouSbgDhSKdo
-=cpOV
------END PGP SIGNATURE-----
-
---BOKacYhQ+x31HxR3--
+Takashi

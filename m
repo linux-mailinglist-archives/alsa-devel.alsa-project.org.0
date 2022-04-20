@@ -2,148 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 344EB508BE3
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Apr 2022 17:15:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7ABF4508C0C
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Apr 2022 17:25:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D5BD91AC8;
-	Wed, 20 Apr 2022 17:14:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5BD91AC8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 158891AE0;
+	Wed, 20 Apr 2022 17:24:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 158891AE0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650467731;
-	bh=b5z0Z9kngGmiSLEXaDj/u2bdzsCzxTp7cwlIGKY/z9Q=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1650468315;
+	bh=pTegFcEzPPzXHOlhThQwB50tWAx2IuniG5QgJSoNRBw=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hNVJDf5ewnPZesNPJI99e5p3JgU8SHPrzaEEsggkSDC3V1p0gnM81diAyHue8aCZ8
-	 Y9kjY0yS3dMh/lwwLaBLSjAK3sPz1Rxd4R3sXgsyjhbSw06F2232wEsxp2kdkNA9DR
-	 UIyA7Z5r95P0CnAkl5mfUjRLBbteMKUHk3NA+JK4=
+	b=NAmM5xldwea++rg1jLlKsGB6P9rxl+PSoPruIS/kF6TD85SHIlowdcfw91WLHU+0C
+	 oL9zBghSAkSUAMln3EheWQz0zRa/VlutzDV1c4nQeV+bSecXfHMSaYdq6TcNN5zt5Y
+	 DIyIDca4CCLUBajVbLgk5y6ag5MX/6jp9b6vaoQY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 42943F800F8;
-	Wed, 20 Apr 2022 17:14:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 68510F80128;
+	Wed, 20 Apr 2022 17:24:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0BE1AF80125; Wed, 20 Apr 2022 17:14:31 +0200 (CEST)
+ id 36250F8010B; Wed, 20 Apr 2022 17:24:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on20625.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e1b::625])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0ED10F8010B;
+ Wed, 20 Apr 2022 17:24:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0ED10F8010B
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="vDjy4Cei"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D9462F800F8
- for <alsa-devel@alsa-project.org>; Wed, 20 Apr 2022 17:14:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9462F800F8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=dialogsemiconductor.onmicrosoft.com
- header.i=@dialogsemiconductor.onmicrosoft.com header.b="jOOGC38c"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RzhcNWmAHtd8f7/oQAJif+sz7Qcus+DfEaEWwpuNcHRrEgZ6ZlNrP+47DprIuECiTQEMGgrpceXvkSqcmpe4TLgDxUjK/MPIdiuUswk7Bp7Nwn5VC37DhGszTrJhI5oF6Y3Wge3QYlBN306qBPPGjwcCWRFK6EcD1fqvS4t0LA7HmoDPSxQ5bIMLTsJ8A//Fesu4h/lystmg+MeWGcCtPLGGwxtWoqmKNwNyDMYMaidiZKzXiMBXptzaa8ZeSl2kjcX4pGbSU7VkVMADd1MN45oJLas+U5y5kqwHukHeBjegQtB83e17lg1fX+dH6DtP+PCherYjhH6kzz6oPhLOKw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cMKsUo4yNTncp4U93Gfay7PsHFHnKWWYWOaS1qtiWKg=;
- b=GnI3aN05GYQVSEstxt9t3tNE9iSYznPlMG7r4dPok/wFzFN/IvnJocdZfhlS2FEfokb7hV85FeYRFsfKVzlzz33rXghQ8LFuGA4GRLoA/b68YnwP+Mj1tOxbz0mgtqV94WzEFU/aQC3cGkz0kzd6iGd+M6Mf1uBaTH/xf30G13p5FFDFkts1Coa/sRMBFy9KrXC8iElxs3jMsZhRCbHHyAAthn5qeNJV5NqOWf9afH9l9B/n6QLCOUXnq39sdfHpvifpY/oMi28HufUwvLvGJtVEqdFTo5HE3ELIwOkooe+waxqD8E/A00u0KxAtlE43p9Ox2ROt1cJBgi25c2bj1Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=diasemi.com; dmarc=pass action=none header.from=diasemi.com;
- dkim=pass header.d=diasemi.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=dialogsemiconductor.onmicrosoft.com;
- s=selector1-dialogsemiconductor-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cMKsUo4yNTncp4U93Gfay7PsHFHnKWWYWOaS1qtiWKg=;
- b=jOOGC38c7VeY83JeCpvV8NofKFe/Js5e2futlviaXPipkiPqx1JfYiA4uoYvbUF4Nxv8Gd9AgePAH3bA6VDJ0pM117/fVJzHlXqP4lz1Gy52KsF9pubYPs7HFZPV9zZkezioih/koT+Cq4Ta8w55HwYRFImROlFneF5SsaCZv9c=
-Received: from GV1PR10MB6124.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:150:98::9)
- by DB6PR1001MB1303.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:4:ac::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.13; Wed, 20 Apr
- 2022 15:14:16 +0000
-Received: from GV1PR10MB6124.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::492b:803f:c731:623b]) by GV1PR10MB6124.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::492b:803f:c731:623b%4]) with mapi id 15.20.5164.025; Wed, 20 Apr 2022
- 15:14:16 +0000
-From: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>
-To: Mark Brown <broonie@kernel.org>, Support Opensource
- <Support.Opensource@diasemi.com>, Liam Girdwood <lgirdwood@gmail.com>
-Subject: RE: [PATCH v3] ASoC: da7219: Fix change notifications for tone
- generator frequency
-Thread-Topic: [PATCH v3] ASoC: da7219: Fix change notifications for tone
- generator frequency
-Thread-Index: AQHYVLtl370RZFV1WUKWQuKjFGImh6z46GcQ
-Date: Wed, 20 Apr 2022 15:14:16 +0000
-Message-ID: <GV1PR10MB6124C4725691FF2CC0A5981A80F59@GV1PR10MB6124.EURPRD10.PROD.OUTLOOK.COM>
-References: <20220420133437.569229-1-broonie@kernel.org>
-In-Reply-To: <20220420133437.569229-1-broonie@kernel.org>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=diasemi.com;
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 8666be77-94e1-4292-865a-08da22e06f78
-x-ms-traffictypediagnostic: DB6PR1001MB1303:EE_
-x-ms-exchange-sharedmailbox-routingagent-processed: True
-x-microsoft-antispam-prvs: <DB6PR1001MB1303B116D87213C7190E9AE4A7F59@DB6PR1001MB1303.EURPRD10.PROD.OUTLOOK.COM>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: lt9+ZO8O8FO4zdrGS9jpSu2KWZ+2zZd9P2eU0aahCF+LvfzCws2e6aGdfzuNeaoDwX4IvbjtbkXC36WO3F5xj1M2fdU9L4n/tDEREkNRC4EnUJXCDIGORN9L8m8fH94QTwhWEsDd5XGI6RX2cSQwwKvt1Pb97mq6+xL1dWsqw2YMn6akBm0MLMGshkgm2rY9Bwtz1NP3oWja1Yrwwicr/+w1wEjFpn7wm/oScLK+Q+MtYL6YEDUdpkCmP8bbzx8bft44e2U9WrM5ZIgA2/yGKaU3lrdZWl28Ws8ga6iqkkxwL8mtmWD77UFGBqzZTrAF1fW3N4n/2O3Z+1dhJDA6xxkU5Dw9zGoKJ0nAcKsEk9mZdO3/UYyu2+LiTGKZaRl0AJeiBpLIgEHYLVS9GqTGM6AVkEmSVad93tXbbvk19wJA/kyCSQq76HrxbEfifl2KIG4c3EnchLLdu9sUXMuYkhIqzSG7XJrzah3gARUvEhbkP5edUU0XcOfPyVpt6krt4iuiJcjFitLgRR/18uChlLTpDxf8sNsqq7Rup9ULcAoVx1pmkJkb2KxC2lVTLsSgDCcp50iJ3dPalnhlExAUQ9SLtStUFZwXEmXt9jOTQ/R/V2P0V8iJP3ZZe+a1rq19nkOB3esw5Gsjp71/RiPJhg06wpeDuoYomMwN/73uaZYyYeGyPWJdjUbWrgodIOXgnOp9HiQLkECRcxrJi/L/Fw==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:GV1PR10MB6124.EURPRD10.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(26005)(52536014)(508600001)(86362001)(186003)(55016003)(7696005)(33656002)(71200400001)(9686003)(8936002)(2906002)(5660300002)(53546011)(15650500001)(6506007)(83380400001)(110136005)(4744005)(66476007)(76116006)(8676002)(4326008)(64756008)(66556008)(66446008)(38070700005)(66946007)(122000001)(38100700002)(316002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?90UELCckr00wOPVPJ0p8S4ZidtSc2oFUwBmsV6pnBlKNCJPB6PFva0rUtL8+?=
- =?us-ascii?Q?KrfKDro14Wkm+Pw1DEgNw/C+pTkS9cY4FWqrvaYWjFATKeU9BW64qRIFVgoa?=
- =?us-ascii?Q?+HmLFz5orFhCU7bKBk78r0c9CjRjqRwr8ewSZrpyijOTxS9sJxdYTCflYRop?=
- =?us-ascii?Q?l/kMjww0Xxo5wXad+KEvszWqQ6yLkV+FZTDPGfIbLh4jNyX0b8/lj7xOHLPj?=
- =?us-ascii?Q?MrR7DqPBHV2c2HnNp/2BkWZnrqF5LIkWUkj1gmFd6T0P0E4UD75lRgFyaofr?=
- =?us-ascii?Q?swKOwoPpKddJYRI9Au8LCvOvFq6twOghOK3dYSd5lnnuIwp0QEVDnBXl3a2B?=
- =?us-ascii?Q?wyU1jUYOvEA7BzOI0KMrJb+92ShJlniDK0x18zI3wPLTeMIjcNSOtc4OrfyO?=
- =?us-ascii?Q?hNWSH7nZpOJQTDzHt36AFQmtnBdq86WWF+SULx99+m+kAtIadaYfmDXLBzA2?=
- =?us-ascii?Q?B/6LDhULnUI/drdP7vLny7afoFZX8qS7Fv0eekirdbkEBctPT9rhzGKfRxMq?=
- =?us-ascii?Q?O8NkNhjeqeUjpABsByWSv22fRMOqNZFW03BVdOIx4Vgn+pwZTX4ZPugEARgh?=
- =?us-ascii?Q?usdjF+sNvZDm5uyQqZqmMHM6xJ69o5Bp4xxQfXHPOTDcMq9SBj7NSoa9uCxG?=
- =?us-ascii?Q?Jo59nuJQe7ltHzGodmFVa42kVAtOwcwWpnmXlZhwaMZA8amFyGN+XgDWTeQe?=
- =?us-ascii?Q?QK/b3ro0vW7t4eMKOBAIx8LptXlgZWokGtV8Q1Ra4CY/7TB+sKgzfVxxl8pp?=
- =?us-ascii?Q?8AMbfXwpTba7MmrkwGAzhnHFq0XyrfFX2u1zyzJXC+Mf5huQECzyZgn+12KO?=
- =?us-ascii?Q?y1nygC+BuR5UlvE22xxKb8T8Z0xUIryBvLWU3zOMGrlRRi2pmt3FBB9LvifO?=
- =?us-ascii?Q?UI/niO9ZBB4M/bHfcShBO40e+rte7bj7x/7kvIX4/nqjX6o7eNHSQqADX7Z3?=
- =?us-ascii?Q?8AnQLIdrsXHyCp+iH77YXo6I8btmEOzQCGlD7wt7gQotusNDdfbmNQj8PJmY?=
- =?us-ascii?Q?fSQCy93SbVFnUNXtTQ2U+pM1hpvmI9TiI2jAiUv2PcjWYMEgnXZKgR8vpr8K?=
- =?us-ascii?Q?0ZgSCdMgmZY/RrcHc6AaQJhfwJnG3uYr8TiEfHzGKFRYD/PW2R4oNj6c1tNE?=
- =?us-ascii?Q?PILBfGCj3gclveQYDY6RaP4br0r3gHLxgNB56lIwp2N6CsosprK2B91qBgWz?=
- =?us-ascii?Q?wlGDdJKrOJrwv8emj3W4wc0exjZZTpAhyrNHk/bTmB33ybvureUvvAI16x4I?=
- =?us-ascii?Q?uzwFg41aJG9KuKXCTbJDzyVX+JdSEYlNmwefUbJe70h/XQXavludkMwJOOgL?=
- =?us-ascii?Q?97PtSKTEDZiqgyiLC6mD4Q9q7hWwXDiNjYN1JwTbhucVMusRmUPr74S9DXf6?=
- =?us-ascii?Q?NyThLa5ytiKpMOKdAE4xdFo00hQK5uLxtIKH/JqSkTX+M/+VeAEUlHzkJf2d?=
- =?us-ascii?Q?DnngQYJYAaxBDGr4qDMxcFHWs0+lWY6R3IgfBiF9saqc+V5SfiCddxvBs3Jr?=
- =?us-ascii?Q?igkF8WUjyp3CychcJyhcKHjaRuYF09H/QGcd731NdLPdzK3AKBhQbHMZWRF0?=
- =?us-ascii?Q?iOZcJml2fltmZDthp5kgbf+pfNg0ZhTZzs68JqMvAVdOg0CuXGlM9KwAlK5c?=
- =?us-ascii?Q?/UzYJm31Ui2ImmzKxYgs1XhE66gTfAeclLv8n7OmCiugAREqApOOPqABuJv/?=
- =?us-ascii?Q?Lr710bPnzGvlIqn1/qcDsffOGGh9XspAzupBSNIGu48JRL33alwLHYbxP1bt?=
- =?us-ascii?Q?NKzwS1uutQ4D+cvt+JLcyK93elQbgZA=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ by ams.source.kernel.org (Postfix) with ESMTPS id EBE43B81F95;
+ Wed, 20 Apr 2022 15:24:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79B52C385A1;
+ Wed, 20 Apr 2022 15:24:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1650468245;
+ bh=pTegFcEzPPzXHOlhThQwB50tWAx2IuniG5QgJSoNRBw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=vDjy4CeioT1M/pnJcfekxFqW5ZiVgGgJ4riZPiFjYyv5YRgdNXA2FU5IwW7dEsm10
+ KuO08g4r4BCEqyGP6W7+e87bzcnrszXjrjMuR+G9AAU+x2gwKyN7acwx7C+giY7iYK
+ McjEEGACHuMZboB671mbAjyvYrhWbTh98YCJI9RepNSU2DO4qyAnO8m0VQQ/C/CSQz
+ VUWuFYZC0KLt5+oI9olTL2IL0dLsnFSXvHuKv1cHnCMZGYXkEhesEcoOv6cFHwgruA
+ Zng0osQR/cnHAQ857cuBLQ3XEggOsvi0r0GkucgosS6A1yYXgfpFeV2l2p+0FQTY6U
+ PiicTLOhar3CQ==
+Date: Wed, 20 Apr 2022 16:23:57 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: using pm_runtime_resume_and_get to simplify
+ the code
+Message-ID: <YmAljQjpLCoBv+nj@sirena.org.uk>
+References: <20220420030315.2575691-1-chi.minghao@zte.com.cn>
+ <78c7edc3-f431-9735-238d-9aa2b45ec45e@linux.intel.com>
 MIME-Version: 1.0
-X-OriginatorOrg: diasemi.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV1PR10MB6124.EURPRD10.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8666be77-94e1-4292-865a-08da22e06f78
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Apr 2022 15:14:16.2816 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 511e3c0e-ee96-486e-a2ec-e272ffa37b7c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: D/XJAFsoQdj9+8sNDBuvxVi75218cNcDGBuhP5P4Ks1Mq8jH6FqF089nbBz2cPGE/ujw7MBZ1fmc7sl6AuXkaTF58XVNgb7XWFMoH1+RJjA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR1001MB1303
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="zeKpAx+TuuUhkCBw"
+Content-Disposition: inline
+In-Reply-To: <78c7edc3-f431-9735-238d-9aa2b45ec45e@linux.intel.com>
+X-Cookie: Will it improve my CASH FLOW?
+Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
+ cgel.zte@gmail.com, Zeal Robot <zealci@zte.com.cn>, lgirdwood@gmail.com,
+ Minghao Chi <chi.minghao@zte.com.cn>, ranjani.sridharan@linux.intel.com,
+ daniel.baluta@nxp.com, linux-kernel@vger.kernel.org,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -159,13 +92,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 20 April 2022 14:35, Mark Brown wrote:
 
-> The tone generator frequency control just returns 0 on successful write,
-> not a boolean value indicating if there was a change or not.  Compare
-> what was written with the value that was there previously so that
-> notifications are generated appropriately when the value changes.
->=20
-> Signed-off-by: Mark Brown <broonie@kernel.org>
+--zeKpAx+TuuUhkCBw
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Reviewed-by: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>
+On Wed, Apr 20, 2022 at 08:28:31AM -0500, Pierre-Louis Bossart wrote:
+> On 4/19/22 22:03, cgel.zte@gmail.com wrote:
+> > From: Minghao Chi <chi.minghao@zte.com.cn>
+
+> > Using pm_runtime_resume_and_get() to replace pm_runtime_get_sync and
+> > pm_runtime_put_noidle. This change is just to simplify the code, no
+> > actual functional changes.
+
+> Well, maybe that's a simplification, but we've been using the same pattern for years now.
+
+> Is there really a clear direction to use this new function?
+
+It seems like a much better pattern and there's been a steady stream of
+conversion patches.  The whole get/idle thing is pretty much just sharp
+edges.
+
+> the overwhelming majority of drivers in sound/soc still rely on the pm_runtime_get_sync (111 v. 7).
+
+We'll get there I'm sure.
+
+--zeKpAx+TuuUhkCBw
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJgJYwACgkQJNaLcl1U
+h9ByVAf8DXE7lOFokxmahlu7hkfvPBsSrIveu11ngt9J9BUWxMgtsaM8uX7VcAEl
+7si3QcSbzKxs4nTCChbLWU8ok7JZ06ArH2cKnKlDyeEC4u4nvUchV5CV3BkxrnKR
+y/afCq90x9JXGnBD3UzdYDR33Myi6EQZ/mjIB3bM7Mgvf1O5ELCHruTkBdQADnTJ
+gOgYg3AEGyQQCeDNJfLN4Ss8h0ofay9PGoYs9ibb0jnMP/qCfL9Z0Upo/KmfivHn
+Zr9U4JasNeArdoGexSCe0Z0jyZlInbX2xqQBa03XFo6lzI2NAZzsyPSj6wprDgXR
+h1QIOFvzTsQWTKbcXYd6wEIgbgI0Rw==
+=qioF
+-----END PGP SIGNATURE-----
+
+--zeKpAx+TuuUhkCBw--

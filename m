@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 853E8509240
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Apr 2022 23:42:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BF45509243
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Apr 2022 23:43:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 283C81B3D;
-	Wed, 20 Apr 2022 23:42:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 283C81B3D
+	by alsa0.perex.cz (Postfix) with ESMTPS id A2BC01B22;
+	Wed, 20 Apr 2022 23:42:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2BC01B22
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650490976;
-	bh=hJ4Cnh58Gh4Afg8kZfmnguM7Bo4hwgAMX8DV3JNSniw=;
+	s=default; t=1650491013;
+	bh=7QRfVrCEKqRJBhIOT39b+us9XDpvDmsvc9P5y3uEIgQ=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CD0JJoHtnfmK5MveY/MjpOYK2DxpQNb0rxZeOJ8SukXXngDks6jsJUCJAChCsvQnF
-	 k6N8+C/VRqoEHPmozKHCw+O2VZ0Qx1QrZ/jzqiF5zH3ytqzhb0Je64hzIAPRYGlzWx
-	 THgnefinCvH0vM4NNl+otxaH9PZZFcbPq+aJ945o=
+	b=ejYL/22MfDnrhjtXYZ5ZifzEYLFTdzOSPu/K+X1UysUvaQpRvxrYN1xEOfu4mnw76
+	 6aRwEdgp+1DN2u5gbDzNQ2YxughrsX8YWqkcmrYp7tp19b7YACFu3SXY27hSpfNzlq
+	 8ZAfcaOvnihu3pEV6Iott0ajSwmGcSFOVAWy0jZw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 94DAAF80519;
-	Wed, 20 Apr 2022 23:41:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F2277F80537;
+	Wed, 20 Apr 2022 23:41:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 15605F804FE; Wed, 20 Apr 2022 23:40:58 +0200 (CEST)
+ id BC764F80508; Wed, 20 Apr 2022 23:41:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,41 +35,43 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BF8C3F80246
- for <alsa-devel@alsa-project.org>; Wed, 20 Apr 2022 23:40:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF8C3F80246
+ by alsa1.perex.cz (Postfix) with ESMTPS id 03AF0F80506;
+ Wed, 20 Apr 2022 23:40:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03AF0F80506
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="R7T8gMSb"
+ header.b="Dw4PX0/Q"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D77A26196B;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 6E9E761972;
+ Wed, 20 Apr 2022 21:40:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C055AC385A1;
  Wed, 20 Apr 2022 21:40:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6CC4C385A9;
- Wed, 20 Apr 2022 21:40:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1650490852;
- bh=hJ4Cnh58Gh4Afg8kZfmnguM7Bo4hwgAMX8DV3JNSniw=;
+ s=k20201202; t=1650490854;
+ bh=7QRfVrCEKqRJBhIOT39b+us9XDpvDmsvc9P5y3uEIgQ=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=R7T8gMSbfivvxJfUlI1y/F6TZeVLsQDOD9tZhN/odCiTjLKcj0kubeSOTHxayi38y
- Q8IEToUsWyI+fLD0hyKFo9DPCD7SYnoybKrzu5I6haKkEJQDa9RVbWr+LGa+jfi060
- e9hGkTrYqPe1Gmzme8DFd3B86eNioisbdqDoUrkOZT5vKnztwKD4fhBOVlIp87GdAq
- 76DgI70RBnQCp/GK1OODawTGZRtucDhVzr2Zj3+E0HZJPcaCp+brNgmQrH+N42+QHd
- 5iFVS37hScFMzuvFV7oDnDYD+MuQBnnXhNgHpyphlOiGKjIYY5zAJwe4/xrllz+341
- Du4NbuMpxgYFg==
+ b=Dw4PX0/QOfCA9Axml6+wtRwf0dWzIhjobeBWuNexSWb2iCB43+dVAzPmkLJzmQ9N9
+ 2V+iDC2pfywqVMyhv607Obsj4sjZYJE9AeVyZIOMZ2R8ESmL+90w+kYqV8ZSvfs38l
+ uymh9PFzC/Kdtmg581d2skPwxUu8Ui8oLhLTsazTxRw3pNFIlCNmkGkno9Ite8YNJQ
+ QkjSVHofmBRP58Y/eEAoReOzW/fRBH/+2mxzqItUijuU68A5hOYyhYKlzpDOEPXVPp
+ ftoyuq9Ii2ZNJPOs0zo5lF2oITuiNPbXAh23tQNDVfZiF5v+3eHr7Yc9ElOOMecSgM
+ Xn35nEO9gdzmA==
 From: Mark Brown <broonie@kernel.org>
-To: shengjiu.wang@nxp.com, perex@perex.cz, tiwai@suse.com, lgirdwood@gmail.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-In-Reply-To: <1650251910-8932-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1650251910-8932-1-git-send-email-shengjiu.wang@nxp.com>
-Subject: Re: [PATCH] ASoC: dmic: Add support for DSD data format
-Message-Id: <165049085059.138067.16136927619532559711.b4-ty@kernel.org>
-Date: Wed, 20 Apr 2022 22:40:50 +0100
+To: rf@opensource.cirrus.com, ranjani.sridharan@linux.intel.com,
+ kai.vehmanen@linux.intel.com, peter.ujfalusi@linux.intel.com,
+ lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com
+In-Reply-To: <20220407153813.1231866-1-rf@opensource.cirrus.com>
+References: <20220407153813.1231866-1-rf@opensource.cirrus.com>
+Subject: Re: [PATCH] ASoC: SOF: Kconfig: Make SND_SOC_SOF_HDA_PROBES tristate
+Message-Id: <165049085249.138067.17008390714250645371.b4-ty@kernel.org>
+Date: Wed, 20 Apr 2022 22:40:52 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: shengjiu.wang@gmail.com
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,13 +87,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 18 Apr 2022 11:18:30 +0800, Shengjiu Wang wrote:
-> Add DSD format support in this generic dmic driver:
-> DSD_U8,
-> DSD_U16_LE,
-> DSD_U32_LE,
+On Thu, 7 Apr 2022 16:38:13 +0100, Richard Fitzgerald wrote:
+> SND_SOC_SOF_HDA_PROBES must be tristate because the code it builds
+> depends on code that is tristate.
 > 
+> If SND_SOC_SOF_HDA_PROBES is bool it leads to the following build
+> inconsistency:
 > 
+> SND_SOC_SOF_HDA_COMMON=m
+>   which selects SND_SOC_SOF_HDA_PROBES
+>     but since this is a bool SND_SOC_SOF_HDA_PROBES=y
+> 
+> [...]
 
 Applied to
 
@@ -99,8 +106,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: dmic: Add support for DSD data format
-      commit: 3271be0628917a97d8757b02b5bc40856fd03476
+[1/1] ASoC: SOF: Kconfig: Make SND_SOC_SOF_HDA_PROBES tristate
+      commit: e18610eaa66a1849aaa00ca43d605fb1a6fed800
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

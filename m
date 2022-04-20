@@ -2,108 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D7D550B92B
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Apr 2022 15:53:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D6D950B889
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Apr 2022 15:33:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E3FFF17D5;
-	Fri, 22 Apr 2022 15:52:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3FFF17D5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 47F0F16D1;
+	Fri, 22 Apr 2022 15:32:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 47F0F16D1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650635583;
-	bh=0xiJARz6YR5iBXyf6sFgKaEQfsOcHtnafpjzW3tn43w=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1650634397;
+	bh=3TzZ94muhsGWomlivMfRE4x2o0qOufT0JaGehGJv5h0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dGq2vwcHf02WT749nG9kwYCHrKzYHw40/MNlQexrQF3kBgzxkfVNlKjGfQLNLrEX1
-	 JRgetrLck481do0+FfUXa0jJse68fxnlgPzDKsA4Yy7mBCTNAJTz+Kbv34ZCNNRq+T
-	 Y8/PsvOUjq8jrUWlBTgZXY3o7r8R+Ubc37Xa1uPE=
+	b=tiGDZdiR8XatihpyD9pLCdeZBduuEs4px1JoJ5jtiQtaex0Y5eu5RD1DOo6GXr6hw
+	 RAVCOz//ZPoqwFCHwfnOB4BPX/OQg5UCAMS4hfvOBeNawrhGudA81aB/s8S0QbjU5B
+	 +VqyqcqMVJD5rXi+NHV4q8tqZJ7iaf9coXJhCj4g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AC404F80879;
-	Fri, 22 Apr 2022 15:32:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1B65EF8027C;
+	Fri, 22 Apr 2022 15:31:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 45489F800F8; Wed, 20 Apr 2022 19:08:49 +0200 (CEST)
+ id 59D51F8010B; Wed, 20 Apr 2022 19:13:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [IPv6:2a0b:5c81:1c1::37])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-yb1-f178.google.com (mail-yb1-f178.google.com
+ [209.85.219.178])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2481AF8010B
- for <alsa-devel@alsa-project.org>; Wed, 20 Apr 2022 19:08:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2481AF8010B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b="kTa4PeKc"
-Received: from darkstar.musicnaut.iki.fi (85-76-69-216-nat.elisa-mobile.fi
- [85.76.69.216])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: aaro.koskinen)
- by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 75C061B00220;
- Wed, 20 Apr 2022 20:08:38 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu; 
- t=1650474519;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=B5msNSogp8zw4YAcAsDj6Qc4zdyDGRTVYmRgqRI/0Bk=;
- b=kTa4PeKcYbiz8v0d1bG/DaDfDPW+JW/Y5caY8AdpKOUIvDM5o36RCvYnTBodU8x4tUxuiF
- ktxA1VDWnp4JhwdnVZN87iQgFWmYig18OVXRM8AVMhj39aWpQH20CPI4avqgLCd+YIg1Qy
- idcTWI4UYPweIAjRUudXT1Zf+FbV1KFQ6CsP671o0mcoZYtmGXBa6OtYrK6P6K3jtGr5MZ
- EHOyrIqm3R/nP1YaqVIW53HsDJDowGirtgtowbqAHter8eYPWisaRosyEAvgWd8N5xDazf
- MEVSDjkPCt3ICTrqoO34GRh7hV71rJoxKjbq4SJKV8lZ4881URlm0+K8k78LMA==
-Date: Wed, 20 Apr 2022 20:08:36 +0300
-From: Aaro Koskinen <aaro.koskinen@iki.fi>
-To: Arnd Bergmann <arnd@kernel.org>
-Subject: Re: [PATCH 00/41] OMAP1 full multiplatform conversion
-Message-ID: <20220420170836.GB1947@darkstar.musicnaut.iki.fi>
-References: <20220419133723.1394715-1-arnd@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 09281F8010B
+ for <alsa-devel@alsa-project.org>; Wed, 20 Apr 2022 19:13:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09281F8010B
+Received: by mail-yb1-f178.google.com with SMTP id w133so1381450ybe.5
+ for <alsa-devel@alsa-project.org>; Wed, 20 Apr 2022 10:13:00 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=/ASIWAo0HytBTKR5fLcMLGJJVl7MsnssiA8AeEXSjEM=;
+ b=pEKP+TKMoug0AOWqwHFjMPQ8bfcwlqmp1Zeww3KBZ2gZ6ZWTDpGoE9foo6UaH5hHPI
+ ZABn751ats1W6iU4jDMUmt6jyZiTxIISogflYCBBl7u2cTxmmSaHEXQMVQx8BpU8PwDf
+ gpt5araOmthzBsN+VaPnMR12GMm4YX8stmvc7Db3H/eHgp1xcN5fyqm/czltK/sfCgqk
+ yv29Z+fCzd79TPKVaQd4BgyMbcOMCHIkljQkb+WqmSNpl+7wlxg0hU6brKqhexFzbuAf
+ 038yrw2HTT7jU+75jUpmg/VG/x/o3VCToA2JQjDk3AXdF4IYy7D9oszpj2x0sx2IvFNX
+ h05g==
+X-Gm-Message-State: AOAM530dvbokNFiPIvx9bK7w6m/1EM2mL0sMtwJpSJEs/kAbXTzuGtvz
+ wbKHymtJEJ76NfnVdBwOvGT8vZZrA8UEwSYnEto=
+X-Google-Smtp-Source: ABdhPJygxTqwH/fYP8f9/TOx3wegsu6FxX5O1kN/quLL9EMh/cabSnVGqayxP5pVJxnDK33VgIW6Cm39TvZfF3wMYBU=
+X-Received: by 2002:a25:e082:0:b0:641:cf5:b91f with SMTP id
+ x124-20020a25e082000000b006410cf5b91fmr20887561ybg.482.1650474779115; Wed, 20
+ Apr 2022 10:12:59 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220419133723.1394715-1-arnd@kernel.org>
-ARC-Seal: i=1; s=lahtoruutu; d=iki.fi; t=1650474519; a=rsa-sha256; cv=none;
- b=fUP5y+/XQ6zNbth6dMfmG2kN9cICXfnwRNYbkGoVeRNsnY+v6znhO5ch2i5vR5slzPAUec
- Sztc4GVEZyZOwSwkjLWA4eNpQZV5fEBKgPV4PA0N+8DX6z5GrX6hFbFsM5SltaEfdOE+4X
- UDuk5UOcv8jYUvEeGfo5RBPyqhwpuA6b4fVpMKqPEFiwGDCvSZdERPOuJX+KlmiYWEjjRQ
- bzFS2MgkL1ik8EAGHbfrB4YVK4K3DZYBDGcMAmDesHi8ybCiB4PqONwfrj/O7/GLX4DLwE
- F7s5Eze8miwVNtjGjumlbsWMr0sA8n2Asp4QdugmIsfg6AnQuJaXDQ3ZfwifVA==
-ARC-Authentication-Results: i=1; ORIGINATING;
- auth=pass smtp.auth=aaro.koskinen smtp.mailfrom=aaro.koskinen@iki.fi
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
- s=lahtoruutu; t=1650474519;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=B5msNSogp8zw4YAcAsDj6Qc4zdyDGRTVYmRgqRI/0Bk=;
- b=uAZuJDKZ7bj4MVqgI3bbcZAOIBMgL+TVcCp9+D4Bx6tcZMUwn0Yukw4zw8doMpCzXb5WaN
- pJVbadhIweA9yGpQNueUVV9vr1H4bIPdTLnUt9sq85H8sbrTY3WHbuj7hKBBvCPd9hNdLm
- 1ukZgRh1UpuRnt4Qyg6muAqbGwQyb+0ufFu2ZZFIwmdViYeENLfMfCKbIoMvRNyQt/3O2K
- fLMvlRgaN2w7kyqhajE30yj5vD3Ir8o/PY21vwX9mxyhgmVGkpxJMIAtFXlT8CRNLmGomp
- hDjQyLXElaOcP4BTszvgdBbpo30Bae+K5TvQUlGAai/EzsAchzF8OdhdOWxG2A==
+References: <20220419113435.246203-1-krzysztof.kozlowski@linaro.org>
+ <20220419113435.246203-2-krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20220419113435.246203-2-krzysztof.kozlowski@linaro.org>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Wed, 20 Apr 2022 19:12:48 +0200
+Message-ID: <CAJZ5v0ijsLvgeN5y+T1D+iLAkYEOiSTPd0+m5_GMpBnVuqEOKA@mail.gmail.com>
+Subject: Re: [PATCH v7 01/12] driver: platform: Add helper for safer setting
+ of driver_override
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Fri, 22 Apr 2022 15:31:40 +0200
-Cc: Ulf Hansson <ulf.hansson@linaro.org>, linux-usb@vger.kernel.org,
- tony@atomide.com, Linus Walleij <linus.walleij@linaro.org>,
- linux-fbdev@vger.kernel.org, Dominik Brodowski <linux@dominikbrodowski.net>,
- Lee Jones <lee.jones@linaro.org>, Daniel Thompson <daniel.thompson@linaro.org>,
- Kevin Hilman <khilman@kernel.org>, Peter Ujfalusi <peter.ujfalusi@gmail.com>,
- Helge Deller <deller@gmx.de>, jmkrzyszt@gmail.com,
- Russell King <linux@armlinux.org.uk>, Krzysztof Kozlowski <krzk@kernel.org>,
- Alan Stern <stern@rowland.harvard.edu>, linux-serial@vger.kernel.org,
- linux-input@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
- Mark Brown <broonie@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Felipe Balbi <balbi@kernel.org>, Paul Walmsley <paul@pwsan.com>,
- Jingoo Han <jingoohan1@gmail.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, dmaengine@vger.kernel.org,
- alsa-devel@alsa-project.org
+Cc: Linux on Hyper-V List <linux-hyperv@vger.kernel.org>,
+ Stuart Yoder <stuyoder@gmail.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Linux PCI <linux-pci@vger.kernel.org>, linux-remoteproc@vger.kernel.org,
+ "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Vineeth Vijayan <vneethv@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ "K. Y. Srinivasan" <kys@microsoft.com>, linux-clk <linux-clk@vger.kernel.org>,
+ linux-s390@vger.kernel.org, Wei Liu <wei.liu@kernel.org>,
+ Stephen Hemminger <sthemmin@microsoft.com>, Dexuan Cui <decui@microsoft.com>,
+ Andy Shevchenko <andy.shevchenko@gmail.com>, Andy Gross <agross@kernel.org>,
+ NXP Linux Team <linux-imx@nxp.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Haiyang Zhang <haiyangz@microsoft.com>, linux-spi <linux-spi@vger.kernel.org>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Bjorn Helgaas <bhelgaas@google.com>, virtualization@lists.linux-foundation.org,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Peter Oberparleiter <oberpar@linux.ibm.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Sven Schnelle <svens@linux.ibm.com>,
+ Linus Torvalds <torvalds@linux-foundation.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -119,28 +109,218 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+On Tue, Apr 19, 2022 at 1:34 PM Krzysztof Kozlowski
+<krzysztof.kozlowski@linaro.org> wrote:
+>
+> Several core drivers and buses expect that driver_override is a
+> dynamically allocated memory thus later they can kfree() it.
+>
+> However such assumption is not documented, there were in the past and
+> there are already users setting it to a string literal. This leads to
+> kfree() of static memory during device release (e.g. in error paths or
+> during unbind):
+>
+>     kernel BUG at ../mm/slub.c:3960!
+>     Internal error: Oops - BUG: 0 [#1] PREEMPT SMP ARM
+>     ...
+>     (kfree) from [<c058da50>] (platform_device_release+0x88/0xb4)
+>     (platform_device_release) from [<c0585be0>] (device_release+0x2c/0x90)
+>     (device_release) from [<c0a69050>] (kobject_put+0xec/0x20c)
+>     (kobject_put) from [<c0f2f120>] (exynos5_clk_probe+0x154/0x18c)
+>     (exynos5_clk_probe) from [<c058de70>] (platform_drv_probe+0x6c/0xa4)
+>     (platform_drv_probe) from [<c058b7ac>] (really_probe+0x280/0x414)
+>     (really_probe) from [<c058baf4>] (driver_probe_device+0x78/0x1c4)
+>     (driver_probe_device) from [<c0589854>] (bus_for_each_drv+0x74/0xb8)
+>     (bus_for_each_drv) from [<c058b48c>] (__device_attach+0xd4/0x16c)
+>     (__device_attach) from [<c058a638>] (bus_probe_device+0x88/0x90)
+>     (bus_probe_device) from [<c05871fc>] (device_add+0x3dc/0x62c)
+>     (device_add) from [<c075ff10>] (of_platform_device_create_pdata+0x94/0xbc)
+>     (of_platform_device_create_pdata) from [<c07600ec>] (of_platform_bus_create+0x1a8/0x4fc)
+>     (of_platform_bus_create) from [<c0760150>] (of_platform_bus_create+0x20c/0x4fc)
+>     (of_platform_bus_create) from [<c07605f0>] (of_platform_populate+0x84/0x118)
+>     (of_platform_populate) from [<c0f3c964>] (of_platform_default_populate_init+0xa0/0xb8)
+>     (of_platform_default_populate_init) from [<c01031f8>] (do_one_initcall+0x8c/0x404)
+>
+> Provide a helper which clearly documents the usage of driver_override.
+> This will allow later to reuse the helper and reduce the amount of
+> duplicated code.
+>
+> Convert the platform driver to use a new helper and make the
+> driver_override field const char (it is not modified by the core).
+>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> ---
+>  drivers/base/driver.c           | 69 +++++++++++++++++++++++++++++++++
+>  drivers/base/platform.c         | 28 ++-----------
+>  include/linux/device/driver.h   |  2 +
+>  include/linux/platform_device.h |  6 ++-
+>  4 files changed, 80 insertions(+), 25 deletions(-)
+>
+> diff --git a/drivers/base/driver.c b/drivers/base/driver.c
+> index 8c0d33e182fd..1b9d47b10bd0 100644
+> --- a/drivers/base/driver.c
+> +++ b/drivers/base/driver.c
+> @@ -30,6 +30,75 @@ static struct device *next_device(struct klist_iter *i)
+>         return dev;
+>  }
+>
+> +/**
+> + * driver_set_override() - Helper to set or clear driver override.
+> + * @dev: Device to change
+> + * @override: Address of string to change (e.g. &device->driver_override);
+> + *            The contents will be freed and hold newly allocated override.
 
-On Tue, Apr 19, 2022 at 03:36:42PM +0200, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> This is the full series for converting OMAP1 to multiplatform, rebased
-> from my 2019 attempt to do the same thing. The soc tree contains simpler
-> patches to do the same for iop32x, ixp4xx, ep93xx and s3c24xx, which
-> means we are getting closer to completing this for all ARMv5 platforms
-> (I have patches for PXA, which is the last one remaining).
-> 
-> Janusz already tested the branch separately and did the missing work
-> for the common-clk conversion after my previous approach was broken.
+I would stick to one-line description here and possibly expand them in
+the body of the comment.
 
-I tested the full series on the following OMAP1 boards: ams-delta,
-nokia770, osk, palmte and sx1 (QEMU only).
+Regardless, I think that the series is an improvement, so please feel
+free to add
 
-Apart from the earlyprintk breakage, everything seemed to work OK.
+Reviewed-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 
-A minor note, zImage grows about 50 KB with a minimal kernel config. This
-is not yet critical, there's still about 7% headroom on 770 to the 2 MB
-bootloader limit on my setup. Also the decompression time is approaching
-the hardcoded watchdog timeout...
+to this patch and
 
-A.
+Acked-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+
+to the other patches in the series.
+
+> + * @s: NUL-terminated string, new driver name to force a match, pass empty
+> + *     string to clear it ("" or "\n", where the latter is only for sysfs
+> + *     interface).
+> + * @len: length of @s
+> + *
+> + * Helper to set or clear driver override in a device, intended for the cases
+> + * when the driver_override field is allocated by driver/bus code.
+> + *
+> + * Returns: 0 on success or a negative error code on failure.
+> + */
+> +int driver_set_override(struct device *dev, const char **override,
+> +                       const char *s, size_t len)
+> +{
+> +       const char *new, *old;
+> +       char *cp;
+> +
+> +       if (!override || !s)
+> +               return -EINVAL;
+> +
+> +       /*
+> +        * The stored value will be used in sysfs show callback (sysfs_emit()),
+> +        * which has a length limit of PAGE_SIZE and adds a trailing newline.
+> +        * Thus we can store one character less to avoid truncation during sysfs
+> +        * show.
+> +        */
+> +       if (len >= (PAGE_SIZE - 1))
+> +               return -EINVAL;
+> +
+> +       if (!len) {
+> +               /* Empty string passed - clear override */
+> +               device_lock(dev);
+> +               old = *override;
+> +               *override = NULL;
+> +               device_unlock(dev);
+> +               kfree(old);
+> +
+> +               return 0;
+> +       }
+> +
+> +       cp = strnchr(s, len, '\n');
+> +       if (cp)
+> +               len = cp - s;
+> +
+> +       new = kstrndup(s, len, GFP_KERNEL);
+> +       if (!new)
+> +               return -ENOMEM;
+> +
+> +       device_lock(dev);
+> +       old = *override;
+> +       if (cp != s) {
+> +               *override = new;
+> +       } else {
+> +               /* "\n" passed - clear override */
+> +               kfree(new);
+> +               *override = NULL;
+> +       }
+> +       device_unlock(dev);
+> +
+> +       kfree(old);
+> +
+> +       return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(driver_set_override);
+> +
+>  /**
+>   * driver_for_each_device - Iterator for devices bound to a driver.
+>   * @drv: Driver we're iterating.
+> diff --git a/drivers/base/platform.c b/drivers/base/platform.c
+> index 8cc272fd5c99..b684157b7f2f 100644
+> --- a/drivers/base/platform.c
+> +++ b/drivers/base/platform.c
+> @@ -1275,31 +1275,11 @@ static ssize_t driver_override_store(struct device *dev,
+>                                      const char *buf, size_t count)
+>  {
+>         struct platform_device *pdev = to_platform_device(dev);
+> -       char *driver_override, *old, *cp;
+> -
+> -       /* We need to keep extra room for a newline */
+> -       if (count >= (PAGE_SIZE - 1))
+> -               return -EINVAL;
+> -
+> -       driver_override = kstrndup(buf, count, GFP_KERNEL);
+> -       if (!driver_override)
+> -               return -ENOMEM;
+> -
+> -       cp = strchr(driver_override, '\n');
+> -       if (cp)
+> -               *cp = '\0';
+> -
+> -       device_lock(dev);
+> -       old = pdev->driver_override;
+> -       if (strlen(driver_override)) {
+> -               pdev->driver_override = driver_override;
+> -       } else {
+> -               kfree(driver_override);
+> -               pdev->driver_override = NULL;
+> -       }
+> -       device_unlock(dev);
+> +       int ret;
+>
+> -       kfree(old);
+> +       ret = driver_set_override(dev, &pdev->driver_override, buf, count);
+> +       if (ret)
+> +               return ret;
+>
+>         return count;
+>  }
+> diff --git a/include/linux/device/driver.h b/include/linux/device/driver.h
+> index 15e7c5e15d62..700453017e1c 100644
+> --- a/include/linux/device/driver.h
+> +++ b/include/linux/device/driver.h
+> @@ -151,6 +151,8 @@ extern int __must_check driver_create_file(struct device_driver *driver,
+>  extern void driver_remove_file(struct device_driver *driver,
+>                                const struct driver_attribute *attr);
+>
+> +int driver_set_override(struct device *dev, const char **override,
+> +                       const char *s, size_t len);
+>  extern int __must_check driver_for_each_device(struct device_driver *drv,
+>                                                struct device *start,
+>                                                void *data,
+> diff --git a/include/linux/platform_device.h b/include/linux/platform_device.h
+> index 7c96f169d274..582d83ed9a91 100644
+> --- a/include/linux/platform_device.h
+> +++ b/include/linux/platform_device.h
+> @@ -31,7 +31,11 @@ struct platform_device {
+>         struct resource *resource;
+>
+>         const struct platform_device_id *id_entry;
+> -       char *driver_override; /* Driver name to force a match */
+> +       /*
+> +        * Driver name to force a match.  Do not set directly, because core
+> +        * frees it.  Use driver_set_override() to set or clear it.
+> +        */
+> +       const char *driver_override;
+>
+>         /* MFD cell pointer */
+>         struct mfd_cell *mfd_cell;
+> --
+> 2.32.0
+>

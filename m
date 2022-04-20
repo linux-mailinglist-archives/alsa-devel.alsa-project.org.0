@@ -2,69 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C987E507EDA
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Apr 2022 04:34:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63048507EE1
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Apr 2022 04:34:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 49E5A18E9;
-	Wed, 20 Apr 2022 04:33:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49E5A18E9
+	by alsa0.perex.cz (Postfix) with ESMTPS id B69F918FB;
+	Wed, 20 Apr 2022 04:34:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B69F918FB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650422047;
-	bh=P/LF63BZojFF1TydFmx94mDoFedoUAjUhNq7cH5d2nc=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=CrRH+iaSktwIRaTt+E1DbnT3g1tt1rus+Y/R7jBhDmD0mKyfkYMV3ipX4zrL0roMs
-	 9fOUsl3dNT4v5pNmq1ONftsXPyEkhroRQYhgtha2e4ob3umQlJ1a0k/5QGJPAdIBhR
-	 tAfUz1tXv+dGRP2I8RkCjxO9R/U4H+wsa2RXLFlw=
+	s=default; t=1650422090;
+	bh=0eWwMl+ObBY5gfMXyIhi98beSo6eDTBnlE0TeJeZonY=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=MrRXyHiNxaIRPP4DE/Q1M3eF4KB39pYgZy+pzXVyd0PqavDtfmemb6k6KDKzPyi3h
+	 foAw7YdCyytEBPMx/p0lBw4wYEsxs+I8hhTYaiAVVXKzQXFO/2VnqeOk1PZ+YZn6vd
+	 aWsyr6XlPpzq1drwEnu6HVrbd67Px8fn4NdRfkk0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 437E2F80246;
-	Wed, 20 Apr 2022 04:33:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6A9C2F804F3;
+	Wed, 20 Apr 2022 04:33:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4D900F800F8; Wed, 20 Apr 2022 04:33:06 +0200 (CEST)
+ id 6FEC1F80125; Wed, 20 Apr 2022 04:33:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 97DAFF800F8
- for <alsa-devel@alsa-project.org>; Wed, 20 Apr 2022 04:33:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97DAFF800F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id B0A17F800C1
+ for <alsa-devel@alsa-project.org>; Wed, 20 Apr 2022 04:33:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0A17F800C1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="FNvfq8lz"
+ header.b="CVbVaMNJ"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1650421983; x=1681957983;
- h=from:to:cc:subject:date:message-id;
- bh=P/LF63BZojFF1TydFmx94mDoFedoUAjUhNq7cH5d2nc=;
- b=FNvfq8lziaieFQwz+Q4YoW7p0i0GtnRcj3cLXxx3NjRfxxsVkqyZWPTO
- jpolVWt3TKGQ4jzv7Hyr/17o1MEHbqpbf2UqtwLHu4tCWNQAVzxHh8Qab
- usuRIYmhanyd3GTY7aI/J9+dbdOpGbAzedVz8CBvNo9ecx0asVbq125gU
- mVqBFn/ydS0gZqXUka3rQcsnNrPZ10iG1FxwekHiwTegoC85h7lxAff3B
- HEBTKrr/Ig82womJc9vqo1i5BcC9LlmHiyx4UTJQipL+TkDDGgGanfDnU
- GuzhbfN8bdyp3NPFW8vkHpTb9498Noo8e0dO2AaSUS9gpuBEtP02aGrqx g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10322"; a="263384308"
-X-IronPort-AV: E=Sophos;i="5.90,274,1643702400"; d="scan'208";a="263384308"
+ t=1650421985; x=1681957985;
+ h=from:to:cc:subject:date:message-id:in-reply-to: references;
+ bh=0eWwMl+ObBY5gfMXyIhi98beSo6eDTBnlE0TeJeZonY=;
+ b=CVbVaMNJ2M9r9NE2zmD87ue2G+dK1Pi+IfTz/7ICAzjnNVHdi8sRxm2N
+ Rd3iIwi2S9KqzytdCqRuDUqom4a8ddAkD3gQWE89WVMEeOlZE7Rejh7YP
+ 9lv04ejmKOW1IyEb3daZXTiR1+zdQfF/gwzIjwcjVfNDCCSgngo++qBQz
+ aP1Y2SfPZZ6tNjkUi4ciJxy/dYfM46VEtncfG/v2KRkKrWwTfrs85Rh4O
+ VJjgfMz8++UgMwq9EwHiXW/tBD7wvShQ1dcfZUAR5xZkG0frhgmDUHnFQ
+ nvmjKPfKHObXdJXEBdW1ZZ2s1RqQySuNGpK8nic21aWet/tGOvlNXHVIq A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10322"; a="263384313"
+X-IronPort-AV: E=Sophos;i="5.90,274,1643702400"; d="scan'208";a="263384313"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Apr 2022 19:32:58 -0700
-X-IronPort-AV: E=Sophos;i="5.90,274,1643702400"; d="scan'208";a="529554550"
+ 19 Apr 2022 19:33:01 -0700
+X-IronPort-AV: E=Sophos;i="5.90,274,1643702400"; d="scan'208";a="529554562"
 Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Apr 2022 19:32:55 -0700
+ 19 Apr 2022 19:32:58 -0700
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	vkoul@kernel.org
-Subject: [PATCH 0/3] soundwire: pm runtime improvements
-Date: Wed, 20 Apr 2022 10:32:38 +0800
-Message-Id: <20220420023241.14335-1-yung-chuan.liao@linux.intel.com>
+Subject: [PATCH 1/3] soundwire: intel: prevent pm_runtime resume prior to
+ system suspend
+Date: Wed, 20 Apr 2022 10:32:39 +0800
+Message-Id: <20220420023241.14335-2-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20220420023241.14335-1-yung-chuan.liao@linux.intel.com>
+References: <20220420023241.14335-1-yung-chuan.liao@linux.intel.com>
 Cc: vinod.koul@linaro.org, gregkh@linuxfoundation.org,
  pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
  srinivas.kandagatla@linaro.org, sanyog.r.kale@intel.com, bard.liao@intel.com
@@ -83,24 +88,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This series provides a solution to solve a corner case issue where the
-manager device may become pm_runtime active, but without ALSA/ASoC
-requesting any functionality from the peripherals. In this case, the
-hardware peripheral device will report as ATTACHED and its initialization
-routine will be executed. If this initialization routine initiates any
-sort of deferred processing, there is a possibility that the manager could
-suspend without the peripheral suspend sequence being invoked: from the
-pm_runtime framework perspective, the peripheral is *already* suspended.
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-Pierre-Louis Bossart (3):
-  soundwire: intel: prevent pm_runtime resume prior to system suspend
-  soundwire: intel: disable WAKEEN in pm_runtime resume
-  soundwire: bus: pm_runtime_request_resume on peripheral attachment
+commit e38f9ff63e6d ("ACPI: scan: Do not add device IDs from _CID if _HID is not valid")
+exposes a race condition on a TGL RVP device leading to a timeout.
 
- drivers/soundwire/bus.c   | 12 ++++++++++++
- drivers/soundwire/intel.c |  6 ++++++
- 2 files changed, 18 insertions(+)
+The detailed analysis shows the RT711 codec driver scheduling a jack
+detection workqueue while attaching during a spurious pm_runtime
+resume, and the work function happens to be scheduled after the
+manager device is suspended.
 
+The direct link between this ACPI patch and a spurious pm_runtime
+resume is not obvious; the most likely explanation is that a change in
+the ACPI device linked list management modifies the order in which the
+pm_runtime device status is checked and exposes a race condition that
+was probably present for a very long time, but was not identified.
+
+We already have a check in the .prepare stage, where we will resume to
+full power from specific clock-stop modes. In all other cases, we
+don't need to resume to full power by default. Adding the
+SMART_SUSPEND flag prevents the spurious resume from happening.
+
+BugLink: https://github.com/thesofproject/linux/issues/3459
+Fixes: 029bfd1cd53cd ("soundwire: intel: conditionally exit clock stop mode on system suspend")
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Rander Wang <rander.wang@intel.com>
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+---
+ drivers/soundwire/intel.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
+index 63101f1ba271..32e5fdb823c4 100644
+--- a/drivers/soundwire/intel.c
++++ b/drivers/soundwire/intel.c
+@@ -1293,6 +1293,9 @@ static int intel_link_probe(struct auxiliary_device *auxdev,
+ 	/* use generic bandwidth allocation algorithm */
+ 	sdw->cdns.bus.compute_params = sdw_compute_params;
+ 
++	/* avoid resuming from pm_runtime suspend if it's not required */
++	dev_pm_set_driver_flags(dev, DPM_FLAG_SMART_SUSPEND);
++
+ 	ret = sdw_bus_master_add(bus, dev, dev->fwnode);
+ 	if (ret) {
+ 		dev_err(dev, "sdw_bus_master_add fail: %d\n", ret);
 -- 
 2.17.1
 

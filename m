@@ -2,83 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93085508D30
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Apr 2022 18:24:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07D22508EBA
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Apr 2022 19:43:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 34587177E;
-	Wed, 20 Apr 2022 18:23:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 34587177E
+	by alsa0.perex.cz (Postfix) with ESMTPS id A06151AD4;
+	Wed, 20 Apr 2022 19:42:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A06151AD4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650471877;
-	bh=SBnyZwALtyPYeKnG3vPDUEjUDcPRsFRW6H4/3UQsehI=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1650476615;
+	bh=rbZu7eWEid6dNs7PEy4WsbHQMUyRtvOvvbZT7aD6MhU=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dJ9YpsLvftwPwXtHRWfywm+RdoTBCD2zR9P3eNYX9/o771I1buAeX83eBvHPw/MGs
-	 iWN6chH+uJAEN4BZ2f8Uo8tTLavSjsgXDEi/0w6MELWdK5R8hNECyMD4IWNCecgZOL
-	 nda0JTCOdf082QPtD7xcDeUiOWogQBad+Xqln/I8=
+	b=GxEQ18EUG3f/1/8V3SRz7KA5Yx83G2VYDzfMkdBfxT3HATJyzHD7cuzF3CsHrlsNx
+	 v5n4iS1DvqwUNP15P4V7pcrlg8RFjXXfam0ZNPiFxPs5KCCuQ5kZeDpD1mOaJ32rFe
+	 Oz5oVMRwkdWrapYHNVEm47cqpfj3l4zp4z2KIx/w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B1579F800C1;
-	Wed, 20 Apr 2022 18:23:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1A447F8010B;
+	Wed, 20 Apr 2022 19:42:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A5F27F80125; Wed, 20 Apr 2022 18:23:37 +0200 (CEST)
+ id 67AE4F80254; Wed, 20 Apr 2022 19:42:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 57BCEF800C1;
- Wed, 20 Apr 2022 18:23:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57BCEF800C1
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="JjtEy44t"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2AA1F6193B;
- Wed, 20 Apr 2022 16:23:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2886CC385A1;
- Wed, 20 Apr 2022 16:23:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1650471811;
- bh=SBnyZwALtyPYeKnG3vPDUEjUDcPRsFRW6H4/3UQsehI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=JjtEy44tAZJMG/MPWmRPct3HexSkYWqmoasVTFPZ0uDJo4SfOND2yhrgLZrbiom4E
- mAGZAKGNCF60K4HILY+oQR1dyXxr4n/3mH3rfA7VOBsYl1mujCzegSxvutbkcuH0dU
- zGS9YqNNGBQkE9j9glelr4mQpowsUk1hD//UDzaPtn3AFPs7VNGhbJGgT2gudlmy+7
- hxEq/KBeXcuts/XtmA3+D1MCzJXMMxaAxoC1ClyIv2nlOfmZ8V4JP1HJJR51dvjDl/
- vmkVJsVvyG5oY7wufmwSGblpizL0tpauqJBzYmyq5iNkjO4pWNOYYSZZoZunBmFrF2
- UOFmw635NmDog==
-Date: Wed, 20 Apr 2022 17:23:25 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: using pm_runtime_resume_and_get to simplify
- the code
-Message-ID: <YmAzfTlr9VauoyLu@sirena.org.uk>
-References: <20220420030315.2575691-1-chi.minghao@zte.com.cn>
- <78c7edc3-f431-9735-238d-9aa2b45ec45e@linux.intel.com>
- <YmAljQjpLCoBv+nj@sirena.org.uk>
- <2572220e-57d0-4f10-1695-bfeab54de38d@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0603AF800F8
+ for <alsa-devel@alsa-project.org>; Wed, 20 Apr 2022 19:42:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0603AF800F8
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="AePhtwM4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1650476522; x=1682012522;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=rbZu7eWEid6dNs7PEy4WsbHQMUyRtvOvvbZT7aD6MhU=;
+ b=AePhtwM4/eSG3KDauBXk6rdC8lT5QcresEowFmNLwu8UlYRlTxgtjyxr
+ L+WpnUTNh2PgzkmSVSy8LCnYEIF1AmKIxEHeK+S2dKA9QwfYueDlCJtYL
+ Z8oE/+7rbjeU97CoNbE89wZYCzTS92LL1eB5d4H11br7qxjm3HJ5itdw/
+ 8i8Wo+AG3DybiUKC/iGWtTdizdodBQsUjvEBspYx8FbaliSAcXWcy3yL9
+ mdBJT8kmv4yaGPOs0HbZbqc8yFrrGpwgC+B2R5lCgsinbN7ymsO1qxg0s
+ stz7fcxem1+VgHK5tOMEkaVO01rlq5Dn8sPWa4sCj9IUS9mwLhVQTtyTl g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10323"; a="327006923"
+X-IronPort-AV: E=Sophos;i="5.90,276,1643702400"; d="scan'208";a="327006923"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Apr 2022 10:40:57 -0700
+X-IronPort-AV: E=Sophos;i="5.90,276,1643702400"; d="scan'208";a="576712395"
+Received: from sbidasar-mobl.amr.corp.intel.com (HELO [10.209.100.171])
+ ([10.209.100.171])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Apr 2022 10:40:56 -0700
+Message-ID: <10eb3973-03c4-74cd-d28a-014fc280cdf8@linux.intel.com>
+Date: Wed, 20 Apr 2022 12:39:26 -0500
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="pPSA/PyGUaMRPFlK"
-Content-Disposition: inline
-In-Reply-To: <2572220e-57d0-4f10-1695-bfeab54de38d@linux.intel.com>
-X-Cookie: Will it improve my CASH FLOW?
-Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
- cgel.zte@gmail.com, Zeal Robot <zealci@zte.com.cn>, lgirdwood@gmail.com,
- Minghao Chi <chi.minghao@zte.com.cn>, ranjani.sridharan@linux.intel.com,
- daniel.baluta@nxp.com, linux-kernel@vger.kernel.org,
- sound-open-firmware@alsa-project.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.5.0
+Subject: Re: [PATCH v3 1/3] soundwire: qcom: add runtime pm support
+Content-Language: en-US
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, robh+dt@kernel.org, 
+ vkoul@kernel.org, yung-chuan.liao@linux.intel.com
+References: <20220228172528.3489-1-srinivas.kandagatla@linaro.org>
+ <20220228172528.3489-2-srinivas.kandagatla@linaro.org>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20220228172528.3489-2-srinivas.kandagatla@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, quic_srivasam@quicinc.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,29 +95,64 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---pPSA/PyGUaMRPFlK
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Wed, Apr 20, 2022 at 11:11:03AM -0500, Pierre-Louis Bossart wrote:
+> @@ -1017,6 +1032,15 @@ static int qcom_swrm_startup(struct snd_pcm_substream *substream,
+>  	struct snd_soc_dai *codec_dai;
+>  	int ret, i;
+>  
+> +	ret = pm_runtime_get_sync(ctrl->dev);
+> +	if (ret < 0 && ret != -EACCES) {
+> +		dev_err_ratelimited(ctrl->dev,
+> +				    "pm_runtime_get_sync failed in %s, ret %d\n",
+> +				    __func__, ret);
+> +		pm_runtime_put_noidle(ctrl->dev);
+> +		return ret;
 
-> ok, I'll send follow-up patches for the remaining code.
+here there's an error handling, but ...
 
-Thanks, like you say there's a lot to get through here!
+> +	}
+> +
+>  	sruntime = sdw_alloc_stream(dai->name);
+>  	if (!sruntime)
+>  		return -ENOMEM;
+> @@ -1044,6 +1068,9 @@ static void qcom_swrm_shutdown(struct snd_pcm_substream *substream,
+>  
+>  	sdw_release_stream(ctrl->sruntime[dai->id]);
+>  	ctrl->sruntime[dai->id] = NULL;
+> +	pm_runtime_mark_last_busy(ctrl->dev);
+> +	pm_runtime_put_autosuspend(ctrl->dev);
+> +
+>  }
+>  
+>  static const struct snd_soc_dai_ops qcom_swrm_pdm_dai_ops = {
+> @@ -1197,12 +1224,23 @@ static int qcom_swrm_get_port_config(struct qcom_swrm_ctrl *ctrl)
+>  static int swrm_reg_show(struct seq_file *s_file, void *data)
+>  {
+>  	struct qcom_swrm_ctrl *swrm = s_file->private;
+> -	int reg, reg_val;
+> +	int reg, reg_val, ret;
+> +
+> +	ret = pm_runtime_get_sync(swrm->dev);
+> +	if (ret < 0 && ret != -EACCES) {
+> +		dev_err_ratelimited(swrm->dev,
+> +				    "pm_runtime_get_sync failed in %s, ret %d\n",
+> +				    __func__, ret);
+> +		pm_runtime_put_noidle(swrm->dev);
 
---pPSA/PyGUaMRPFlK
-Content-Type: application/pgp-signature; name="signature.asc"
+... here it's missing?
 
------BEGIN PGP SIGNATURE-----
+I have a fix ready but thought I would check first if this was intentional
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJgM3wACgkQJNaLcl1U
-h9CQJgf/fmHmEvmSkw+o5cwa89eqRnsRjl0W9UEoY268KcH7oP1YF3/DZCS5KkLi
-fkv2zMjTMNU96KRgcX7T0LQ1nqatX4hkWZXfYmTfPTT03sVzJ1q9FXT4IEERV587
-Y+R0wsTgHWV2e4/n3GNsYcq3dgfeDt1c2LrcLnhpClO8SMTl0Qjdv2ci0NCBdmqe
-ISS9aCBtP2e2zAu8MOqwFBR0BVwaPu8euKJiVtpu7y6cXuh3awKaqOQYnGCUm/dD
-cqYtMnQwLh3WzAoyKUrK5Pohu/AtQBkssGiS/n3c9JMjU7utg/K5x2+t2tZrBh88
-fvVmR2Mo8H18gUzxmZ6rybDj0TM1BA==
-=XETb
------END PGP SIGNATURE-----
+https://github.com/thesofproject/linux/pull/3602/commits/6353eec8dc971c5f0fda0166ae1777f71784ea32
 
---pPSA/PyGUaMRPFlK--
+> +	}
+>  
+>  	for (reg = 0; reg <= SWR_MSTR_MAX_REG_ADDR; reg += 4) {
+>  		swrm->reg_read(swrm, reg, &reg_val);
+>  		seq_printf(s_file, "0x%.3x: 0x%.2x\n", reg, reg_val);
+>  	}
+> +	pm_runtime_mark_last_busy(swrm->dev);
+> +	pm_runtime_put_autosuspend(swrm->dev);
+> +
+>  
+>  	return 0;

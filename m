@@ -2,91 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9176450B92A
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Apr 2022 15:52:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D7D550B92B
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Apr 2022 15:53:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2859C174A;
-	Fri, 22 Apr 2022 15:51:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2859C174A
+	by alsa0.perex.cz (Postfix) with ESMTPS id E3FFF17D5;
+	Fri, 22 Apr 2022 15:52:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3FFF17D5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650635567;
-	bh=G6ea1fpw5gRoog8FtrJZPvIqxrg1pc80ET+fXnmHV2s=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ep6RAWpnCgW4/ypNLF7kZo6wxC+NZn+UXQcm7w/1WXNfvO+/hNEeNaEVN6BM7EgnZ
-	 kuoKD3a4G6XOHtQ0GqwdMAcmzIBBSZdJwuquuHqdNzrD5pSl/bcctw7lQ68WLBrowH
-	 +vRhnXSCzjvllAAXfFrSrcTjCfGHZPNHwtpYEDFI=
+	s=default; t=1650635583;
+	bh=0xiJARz6YR5iBXyf6sFgKaEQfsOcHtnafpjzW3tn43w=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=dGq2vwcHf02WT749nG9kwYCHrKzYHw40/MNlQexrQF3kBgzxkfVNlKjGfQLNLrEX1
+	 JRgetrLck481do0+FfUXa0jJse68fxnlgPzDKsA4Yy7mBCTNAJTz+Kbv34ZCNNRq+T
+	 Y8/PsvOUjq8jrUWlBTgZXY3o7r8R+Ubc37Xa1uPE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 00880F80864;
+	by alsa1.perex.cz (Postfix) with ESMTP id AC404F80879;
 	Fri, 22 Apr 2022 15:32:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C24E2F800F8; Wed, 20 Apr 2022 17:10:05 +0200 (CEST)
+ id 45489F800F8; Wed, 20 Apr 2022 19:08:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [IPv6:2a0b:5c81:1c1::37])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 08BA9F800F8
- for <alsa-devel@alsa-project.org>; Wed, 20 Apr 2022 17:09:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08BA9F800F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2481AF8010B
+ for <alsa-devel@alsa-project.org>; Wed, 20 Apr 2022 19:08:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2481AF8010B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com
- header.b="s7o4aJsX"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b="kTa4PeKc"
+Received: from darkstar.musicnaut.iki.fi (85-76-69-216-nat.elisa-mobile.fi
+ [85.76.69.216])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 5B4A1210E4;
- Wed, 20 Apr 2022 15:09:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1650467398; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=E9Za1fy7SJZVuU3gsJHYcUnfUQspR3rknfU8bXQql9Y=;
- b=s7o4aJsXllglxjEicM+le/pE5Q4+nZsQh1+qkc+l1wMXB8I5KM8EXHpK9vVJQBopp4olwE
- /0eL2tvJFzr8/5F+QMy5ysfmCp4A5ramqeRsMJKSZCtFDWgeFHKh6l0oEFDWWCNJk0EhzP
- yXIHNy0QuiJkmeTPgRibcNpvjDS2yuo=
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 96AE513AD5;
- Wed, 20 Apr 2022 15:09:57 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id QAKAI0UiYGJILQAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 20 Apr 2022 15:09:57 +0000
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-usb@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-integrity@vger.kernel.org,
- linux-pci@vger.kernel.org
-Subject: [PATCH 00/18] xen: simplify frontend side ring setup
-Date: Wed, 20 Apr 2022 17:09:24 +0200
-Message-Id: <20220420150942.31235-1-jgross@suse.com>
-X-Mailer: git-send-email 2.34.1
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: aaro.koskinen)
+ by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 75C061B00220;
+ Wed, 20 Apr 2022 20:08:38 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu; 
+ t=1650474519;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=B5msNSogp8zw4YAcAsDj6Qc4zdyDGRTVYmRgqRI/0Bk=;
+ b=kTa4PeKcYbiz8v0d1bG/DaDfDPW+JW/Y5caY8AdpKOUIvDM5o36RCvYnTBodU8x4tUxuiF
+ ktxA1VDWnp4JhwdnVZN87iQgFWmYig18OVXRM8AVMhj39aWpQH20CPI4avqgLCd+YIg1Qy
+ idcTWI4UYPweIAjRUudXT1Zf+FbV1KFQ6CsP671o0mcoZYtmGXBa6OtYrK6P6K3jtGr5MZ
+ EHOyrIqm3R/nP1YaqVIW53HsDJDowGirtgtowbqAHter8eYPWisaRosyEAvgWd8N5xDazf
+ MEVSDjkPCt3ICTrqoO34GRh7hV71rJoxKjbq4SJKV8lZ4881URlm0+K8k78LMA==
+Date: Wed, 20 Apr 2022 20:08:36 +0300
+From: Aaro Koskinen <aaro.koskinen@iki.fi>
+To: Arnd Bergmann <arnd@kernel.org>
+Subject: Re: [PATCH 00/41] OMAP1 full multiplatform conversion
+Message-ID: <20220420170836.GB1947@darkstar.musicnaut.iki.fi>
+References: <20220419133723.1394715-1-arnd@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 22 Apr 2022 15:31:41 +0200
-Cc: Juergen Gross <jgross@suse.com>, Jens Axboe <axboe@kernel.dk>,
- alsa-devel@alsa-project.org, Stefano Stabellini <sstabellini@kernel.org>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- David Airlie <airlied@linux.ie>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "James E.J. Bottomley" <jejb@linux.ibm.com>, Takashi Iwai <tiwai@suse.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Jarkko Sakkinen <jarkko@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, Bjorn Helgaas <bhelgaas@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- Peter Huewe <peterhuewe@gmx.de>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220419133723.1394715-1-arnd@kernel.org>
+ARC-Seal: i=1; s=lahtoruutu; d=iki.fi; t=1650474519; a=rsa-sha256; cv=none;
+ b=fUP5y+/XQ6zNbth6dMfmG2kN9cICXfnwRNYbkGoVeRNsnY+v6znhO5ch2i5vR5slzPAUec
+ Sztc4GVEZyZOwSwkjLWA4eNpQZV5fEBKgPV4PA0N+8DX6z5GrX6hFbFsM5SltaEfdOE+4X
+ UDuk5UOcv8jYUvEeGfo5RBPyqhwpuA6b4fVpMKqPEFiwGDCvSZdERPOuJX+KlmiYWEjjRQ
+ bzFS2MgkL1ik8EAGHbfrB4YVK4K3DZYBDGcMAmDesHi8ybCiB4PqONwfrj/O7/GLX4DLwE
+ F7s5Eze8miwVNtjGjumlbsWMr0sA8n2Asp4QdugmIsfg6AnQuJaXDQ3ZfwifVA==
+ARC-Authentication-Results: i=1; ORIGINATING;
+ auth=pass smtp.auth=aaro.koskinen smtp.mailfrom=aaro.koskinen@iki.fi
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
+ s=lahtoruutu; t=1650474519;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=B5msNSogp8zw4YAcAsDj6Qc4zdyDGRTVYmRgqRI/0Bk=;
+ b=uAZuJDKZ7bj4MVqgI3bbcZAOIBMgL+TVcCp9+D4Bx6tcZMUwn0Yukw4zw8doMpCzXb5WaN
+ pJVbadhIweA9yGpQNueUVV9vr1H4bIPdTLnUt9sq85H8sbrTY3WHbuj7hKBBvCPd9hNdLm
+ 1ukZgRh1UpuRnt4Qyg6muAqbGwQyb+0ufFu2ZZFIwmdViYeENLfMfCKbIoMvRNyQt/3O2K
+ fLMvlRgaN2w7kyqhajE30yj5vD3Ir8o/PY21vwX9mxyhgmVGkpxJMIAtFXlT8CRNLmGomp
+ hDjQyLXElaOcP4BTszvgdBbpo30Bae+K5TvQUlGAai/EzsAchzF8OdhdOWxG2A==
+X-Mailman-Approved-At: Fri, 22 Apr 2022 15:31:40 +0200
+Cc: Ulf Hansson <ulf.hansson@linaro.org>, linux-usb@vger.kernel.org,
+ tony@atomide.com, Linus Walleij <linus.walleij@linaro.org>,
+ linux-fbdev@vger.kernel.org, Dominik Brodowski <linux@dominikbrodowski.net>,
+ Lee Jones <lee.jones@linaro.org>, Daniel Thompson <daniel.thompson@linaro.org>,
+ Kevin Hilman <khilman@kernel.org>, Peter Ujfalusi <peter.ujfalusi@gmail.com>,
+ Helge Deller <deller@gmx.de>, jmkrzyszt@gmail.com,
+ Russell King <linux@armlinux.org.uk>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Alan Stern <stern@rowland.harvard.edu>, linux-serial@vger.kernel.org,
+ linux-input@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
+ Mark Brown <broonie@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Felipe Balbi <balbi@kernel.org>, Paul Walmsley <paul@pwsan.com>,
+ Jingoo Han <jingoohan1@gmail.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Vinod Koul <vkoul@kernel.org>, dmaengine@vger.kernel.org,
+ alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,51 +119,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Many Xen PV frontends share similar code for setting up a ring page
-(allocating and granting access for the backend) and for tearing it
-down.
+Hi,
 
-Create new service functions doing all needed steps in one go.
+On Tue, Apr 19, 2022 at 03:36:42PM +0200, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
+> 
+> This is the full series for converting OMAP1 to multiplatform, rebased
+> from my 2019 attempt to do the same thing. The soc tree contains simpler
+> patches to do the same for iop32x, ixp4xx, ep93xx and s3c24xx, which
+> means we are getting closer to completing this for all ARMv5 platforms
+> (I have patches for PXA, which is the last one remaining).
+> 
+> Janusz already tested the branch separately and did the missing work
+> for the common-clk conversion after my previous approach was broken.
 
-This requires all frontends to use a common value for an invalid
-grant reference in order to make the functions idempotent.
+I tested the full series on the following OMAP1 boards: ams-delta,
+nokia770, osk, palmte and sx1 (QEMU only).
 
-Juergen Gross (18):
-  xen/blkfront: switch blkfront to use INVALID_GRANT_REF
-  xen/netfront: switch netfront to use INVALID_GRANT_REF
-  xen/scsifront: remove unused GRANT_INVALID_REF definition
-  xen/usb: switch xen-hcd to use INVALID_GRANT_REF
-  xen/drm: switch xen_drm_front to use INVALID_GRANT_REF
-  xen/sound: switch xen_snd_front to use INVALID_GRANT_REF
-  xen/dmabuf: switch gntdev-dmabuf to use INVALID_GRANT_REF
-  xen/shbuf: switch xen-front-pgdir-shbuf to use INVALID_GRANT_REF
-  xen/xenbus: add xenbus_setup_ring() service function
-  xen/blkfront: use xenbus_setup_ring() and xenbus_teardown_ring()
-  xen/netfront: use xenbus_setup_ring() and xenbus_teardown_ring()
-  xen/tpmfront: use xenbus_setup_ring() and xenbus_teardown_ring()
-  xen/drmfront: use xenbus_setup_ring() and xenbus_teardown_ring()
-  xen/pcifront: use xenbus_setup_ring() and xenbus_teardown_ring()
-  xen/scsifront: use xenbus_setup_ring() and xenbus_teardown_ring()
-  xen/usbfront: use xenbus_setup_ring() and xenbus_teardown_ring()
-  xen/sndfront: use xenbus_setup_ring() and xenbus_teardown_ring()
-  xen/xenbus: eliminate xenbus_grant_ring()
+Apart from the earlyprintk breakage, everything seemed to work OK.
 
- drivers/block/xen-blkfront.c                | 54 ++++----------
- drivers/char/tpm/xen-tpmfront.c             | 18 +----
- drivers/gpu/drm/xen/xen_drm_front.h         |  9 ---
- drivers/gpu/drm/xen/xen_drm_front_evtchnl.c | 40 +++-------
- drivers/net/xen-netfront.c                  | 77 ++++++--------------
- drivers/pci/xen-pcifront.c                  | 19 +----
- drivers/scsi/xen-scsifront.c                | 30 ++------
- drivers/usb/host/xen-hcd.c                  | 59 ++++-----------
- drivers/xen/gntdev-dmabuf.c                 | 13 +---
- drivers/xen/xen-front-pgdir-shbuf.c         | 17 +----
- drivers/xen/xenbus/xenbus_client.c          | 81 ++++++++++++++++-----
- include/xen/xenbus.h                        |  4 +-
- sound/xen/xen_snd_front_evtchnl.c           | 41 +++--------
- sound/xen/xen_snd_front_evtchnl.h           |  9 ---
- 14 files changed, 156 insertions(+), 315 deletions(-)
+A minor note, zImage grows about 50 KB with a minimal kernel config. This
+is not yet critical, there's still about 7% headroom on 770 to the 2 MB
+bootloader limit on my setup. Also the decompression time is approaching
+the hardcoded watchdog timeout...
 
--- 
-2.34.1
-
+A.

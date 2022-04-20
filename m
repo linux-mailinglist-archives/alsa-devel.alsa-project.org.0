@@ -2,76 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF0D3509249
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Apr 2022 23:44:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F1EC509339
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Apr 2022 00:56:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6D9A91DE3;
-	Wed, 20 Apr 2022 23:43:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D9A91DE3
+	by alsa0.perex.cz (Postfix) with ESMTPS id B095E1E73;
+	Thu, 21 Apr 2022 00:55:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B095E1E73
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650491068;
-	bh=F8AeT1gPh9EBU1TCJSOcCs0CcyJJkegE+/aoO8QW668=;
+	s=default; t=1650495391;
+	bh=S08eSAdYrQJga6xYsuWjf8O1Pg3/hVA5TSGnx1sYPuA=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Fhd6yw5LAr06911saAtGyjLZsx5ilwqbHm7KcnhAht8IPrMARkswj2whDgmjfJAI1
-	 0RTLE40BsANLaUv97ZEBfKZvopfKxFU6oUq4lJBg/CRU8hLFyInumjFqr+dkCSLuoS
-	 rFe0pmLfYpkQL5OA9QkuCZr5INkd4CPhxb+btocY=
+	b=hN6qYY8V4EVQ5tLsMjMA6lqSiBNPb4k1SXAch4P/PxUOkE5Na5cjn1Qm67GQquFJF
+	 ZExLI2LntYfik7p4xgOMsOVWqPlWoyuxg1AonSCYxai46/yyYU1bNFd8+jhAB3aZqU
+	 WNAi3WrMQG7mKTMqHih2lNcB/XBAQXopIdg5QhXI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0D374F80551;
-	Wed, 20 Apr 2022 23:41:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0DF6AF80116;
+	Thu, 21 Apr 2022 00:55:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AFBDBF80544; Wed, 20 Apr 2022 23:41:13 +0200 (CEST)
+ id 69866F80128; Thu, 21 Apr 2022 00:55:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 43DD2F80536;
- Wed, 20 Apr 2022 23:41:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43DD2F80536
+ by alsa1.perex.cz (Postfix) with ESMTPS id DBBFFF800F8
+ for <alsa-devel@alsa-project.org>; Thu, 21 Apr 2022 00:55:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DBBFFF800F8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="X7pEUC2W"
+ header.b="ldDFE60t"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8302C61972;
- Wed, 20 Apr 2022 21:41:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C77EEC385A0;
- Wed, 20 Apr 2022 21:41:01 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id CC772B821C7;
+ Wed, 20 Apr 2022 22:55:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD825C385A1;
+ Wed, 20 Apr 2022 22:55:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1650490864;
- bh=F8AeT1gPh9EBU1TCJSOcCs0CcyJJkegE+/aoO8QW668=;
+ s=k20201202; t=1650495326;
+ bh=S08eSAdYrQJga6xYsuWjf8O1Pg3/hVA5TSGnx1sYPuA=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=X7pEUC2WxvodOpeK94bF0YdDjxehU8afHnEejPFz2CKDsmdIPM4c/cLT+Ot4czbQE
- B+iO17j3/0Mz5KxTeonal+AzYI3xwI5DOJYb3qdJTQBjHEykYeHLVp/1IeBp3FDSuG
- tEMgOoXsydeBS/spPk8xFLXZnMHDL/FMQ6Oe9oqTNZMq0vL6WZBzNoTEqJPa3AKJXw
- D8l1VSUEwMQkLenMSVl9ALZtKhgrA8noBy0qgSKDVYfFc0Tw5GKrzFmvX7S7qPSBLg
- QMRMYSOYTsFrcDC1+reR5M3mtcOW5B/HUnxA7J8/KM2BabcmLdzRV92Sar+QdYrW6F
- xJJfkRnFqHgjA==
+ b=ldDFE60tzmaWZdgd74Im2je8yQJ7nFmS/AiD5znPDs/Gte6f4X6CYrWbvftUw4HD1
+ tD1bEtq+j6mObay5OfYuLmh5BcXk6LIlTDbzDUTR1NiabMVEXtM+/nx/P6wt+jAMGU
+ TVRlCKUP8tvjOcp5fmk0WvkNiefhH5EJSV6qUf5cNgArKRdPyQNcw+3vBC+It6HmvZ
+ TSIiAKWKiVPFj461Q7LCpNh0XQLD5f6Ir+PI5DJ7iFQEv08QXx+rn/X1bO0TgkjzOc
+ zQ2ZG8ZOzPGilwSEhb71F6Uyj2Blujz7QdyHxydPyfCT8I5d5HtSYYvATlq3xI3wCB
+ vVlioIEUiXsBw==
 From: Mark Brown <broonie@kernel.org>
-To: pierre-louis.bossart@linux.intel.com, cgel.zte@gmail.com
-In-Reply-To: <20220420030315.2575691-1-chi.minghao@zte.com.cn>
-References: <20220420030315.2575691-1-chi.minghao@zte.com.cn>
-Subject: Re: [PATCH] ASoC: SOF: using pm_runtime_resume_and_get to simplify
- the code
-Message-Id: <165049086153.138067.9717341459328892843.b4-ty@kernel.org>
-Date: Wed, 20 Apr 2022 22:41:01 +0100
+To: lgirdwood@gmail.com, support.opensource@diasemi.com, broonie@kernel.org
+In-Reply-To: <20220416125257.197348-1-broonie@kernel.org>
+References: <20220416125257.197348-1-broonie@kernel.org>
+Subject: Re: [PATCH] ASoC: da7219: Fix change notifications for tone generator
+ frequency
+Message-Id: <165049532540.1351794.8166671194335085604.b4-ty@kernel.org>
+Date: Wed, 20 Apr 2022 23:55:25 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
- linux-kernel@vger.kernel.org, zealci@zte.com.cn,
- ranjani.sridharan@linux.intel.com, chi.minghao@zte.com.cn, lgirdwood@gmail.com,
- daniel.baluta@nxp.com, sound-open-firmware@alsa-project.org
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,15 +85,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 20 Apr 2022 03:03:15 +0000, cgel.zte@gmail.com wrote:
-> From: Minghao Chi <chi.minghao@zte.com.cn>
+On Sat, 16 Apr 2022 13:52:56 +0100, Mark Brown wrote:
+> The tone generator frequency control just returns 0 on successful write,
+> not a boolean value indicating if there was a change or not.  Compare
+> what was written with the value that was there previously so that
+> notifications are generated appropraitely when the value changes.
 > 
-> Using pm_runtime_resume_and_get() to replace pm_runtime_get_sync and
-> pm_runtime_put_noidle. This change is just to simplify the code, no
-> actual functional changes.
 > 
-> 
-> [...]
 
 Applied to
 
@@ -103,8 +99,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: SOF: using pm_runtime_resume_and_get to simplify the code
-      commit: b3598fe6d009b2f2144115dfc381615c8b534aec
+[1/1] ASoC: da7219: Fix change notifications for tone generator frequency
+      commit: 08ef48404965cfef99343d6bbbcf75b88c74aa0e
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

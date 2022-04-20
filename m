@@ -2,113 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F3DB50B91E
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Apr 2022 15:51:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DD8350B920
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Apr 2022 15:51:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D3861F3;
-	Fri, 22 Apr 2022 15:50:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3861F3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1C0CA16C2;
+	Fri, 22 Apr 2022 15:50:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C0CA16C2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650635468;
-	bh=yB6+MMVExRHKJM5njMqnJ8F3rjm47XZT2Ijs66vzxAo=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1650635485;
+	bh=SVJ1k2v3tWdUGg+iydyQsi4Bq8zjjEYtWiKbWgwFaLw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=i5xmO85zMu40hT1KuG3MmWmlTInrvXU+OvcjEb3sfB/FsBI8kuAl90oYfWmMqddZL
-	 OCq/DkKdsoFOrRHcuJXIDuQq7K7Iit7Kbsad5aN2XVzUJKjgc4VMznOUYT5WHSvyb8
-	 qew1WmpsmAgg+/xbLXkMp8GZ4+nt+3ySr2nZYvj8=
+	b=Vx7P4fjMy9bkV4S/cET1bphn/g07Ehrrh0POKcRALNCVjszWgU6wHEyM01r6P8P+I
+	 /QIfxO3zMUGGRf30lF8ln5oi2S5PNLxiwGhT7z8oEarWD0OZAurze4iZ8CvKzE62zX
+	 N2v+RLdBmmbyWePMhuFEh789gsWzZGfKWvuxU8wI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 419B8F8081A;
+	by alsa1.perex.cz (Postfix) with ESMTP id E8002F8081B;
 	Fri, 22 Apr 2022 15:32:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2D997F8010B; Wed, 20 Apr 2022 11:24:20 +0200 (CEST)
+ id 42DD2F80125; Wed, 20 Apr 2022 13:32:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,PRX_BODY_13,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,PRX_BODY_13,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B27E9F8010B
- for <alsa-devel@alsa-project.org>; Wed, 20 Apr 2022 11:24:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B27E9F8010B
+ by alsa1.perex.cz (Postfix) with ESMTPS id B7F98F8010B
+ for <alsa-devel@alsa-project.org>; Wed, 20 Apr 2022 13:32:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7F98F8010B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="VCx/HeNd"
-Received: by mail-lf1-x12a.google.com with SMTP id t25so1741727lfg.7
- for <alsa-devel@alsa-project.org>; Wed, 20 Apr 2022 02:24:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=u55Ek4ovTu93jGC6owGr6QZtrHl98TBOqnvlwoTCUt0=;
- b=VCx/HeNdAIrVvK22LWtPVkq9Bv1IKELkDsHc9ZDCJpEzPZXiUk1L12Dy+mMZouB4Kb
- Sm5gqeWiHiAo7O1rqL4fR/FRWrLwV1sxcNCEE/ser/ng6KnPEXuXeI6mJT4hEuhbpkyR
- CnEwq7dF8XjnevURjfPXlQSPsthUbrMgXmTx0ftPiqNOdHSrKFkOiwbXMIgL4L8pif1x
- S2OC7crPo4slcyULVJrhskiIc37n3wR0KWOXQ2sj5i0hsb8hGWYGa7c9kFuF9uQx1Lrd
- PnwrnrwZvh2dBVEvqkQHhB/xuL6v+vJ4eVgGVRgIh8ublrifvFa02qV7bdCp+CMifVZv
- cETg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=u55Ek4ovTu93jGC6owGr6QZtrHl98TBOqnvlwoTCUt0=;
- b=raeNokcZu9YxpcwItn90Kvm+Wxdx1usMXeNmW/7WVaqJkvkDouvUDO6+txhEPqws0+
- zbeC/KkH2OQbJygbEKYg6vZFFXXebFzgDVp8vysUE0762SzOV3P/0Q0iC62ok9GvGYQp
- BvSdPM0sO8X6rysfd4MggqdnQH2dVoZIBGZGC3JDyyBcieoF7RnKTopuSlgkLc/5k9v+
- poGhXoXC3rhY+butn3JAk3NFT67Nd/B5MYm94FgVE+k4DQJyWfQOilYnxcrydL1YhPcQ
- jTSyJVRqsfjkuSblqy7AXVPqa52/QmgSnGEJndCqJGX2/2pgbBLFsiVV/gb8Nb2u6DF2
- qTWw==
-X-Gm-Message-State: AOAM531Ek0qRzHYv5rfQMAFJeR/06eUSQP5wHx7cC/YOeGz8nVdody3Q
- Qm8TLdp0DywOdiPEuR2NVJkS4jO8YRl5Tg==
-X-Google-Smtp-Source: ABdhPJwBIjGhPQR/MG3suNBpw+sG1uqlbM+4wIOJy5ZknDOvMCYopGuZbVrLmdXv8OTjIhB4lEs0Kw==
-X-Received: by 2002:a05:6512:168d:b0:471:6cb9:c20f with SMTP id
- bu13-20020a056512168d00b004716cb9c20fmr11611107lfb.229.1650446651069; 
- Wed, 20 Apr 2022 02:24:11 -0700 (PDT)
-Received: from [192.168.1.103] ([178.176.74.70])
- by smtp.gmail.com with ESMTPSA id
- d11-20020a19384b000000b0046bbd144dfesm1760268lfj.125.2022.04.20.02.24.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 Apr 2022 02:24:10 -0700 (PDT)
-Subject: Re: [PATCH 01/41] video: fbdev: omapfb: lcd_ams_delta: fix unused
- variable warning
-To: Arnd Bergmann <arnd@kernel.org>, linux-omap@vger.kernel.org,
- tony@atomide.com, aaro.koskinen@iki.fi, jmkrzyszt@gmail.com
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="sQ6L9Sz7"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 4773661939
+ for <alsa-devel@alsa-project.org>; Wed, 20 Apr 2022 11:32:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B6B3C385A0
+ for <alsa-devel@alsa-project.org>; Wed, 20 Apr 2022 11:32:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1650454351;
+ bh=SVJ1k2v3tWdUGg+iydyQsi4Bq8zjjEYtWiKbWgwFaLw=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=sQ6L9Sz7HsTeFplAqNVVqZ6QvDLXO7taCfdy4bCI083iKPBu4Tu1W3tAjRXjBMJP+
+ vEnLCGH51YORxEsFGOcZi/zoMsoYQoogO656Bx3dJCN3iokeUHMcZ/sRdJXG/FEfPy
+ OVbCsNPPUvMBA4ygYO3ABwIPljbcDkM69w6wy8bq4hi0dZRIAMv8YMoKSdGB49RoPV
+ 7T06gmGwLx2hqcDTbF36X1GFj0Gux2+ukzAt7yv7JaGdNy5Qv43jNDhgQacW6a+5lC
+ 7ziU5CwWVIqq9dL54xJaRWmMjZZOJMF8J98DaHAPKZKsUB+PqhqrA4wPmQhlfKvBIW
+ qSWfkWYIEhJww==
+Received: by mail-wr1-f48.google.com with SMTP id m14so1846759wrb.6
+ for <alsa-devel@alsa-project.org>; Wed, 20 Apr 2022 04:32:31 -0700 (PDT)
+X-Gm-Message-State: AOAM530/q3Oxqqh6/0QvG1CUvmLevtNHP4YEzvy6Re5hT5/3YwIdkC/T
+ v2ABII7Z3KXKYb6/W0TgZcDH2jizOLVIuPjmel0=
+X-Google-Smtp-Source: ABdhPJyiDPtmjdTUE7gVl98mXVlPUP43tSlAHIUMCCxTRsYmEILlWV1BOcaVw3t9k0Uq80bvmC166gAUNNWM192dlCo=
+X-Received: by 2002:a5d:64a3:0:b0:20a:7931:5b84 with SMTP id
+ m3-20020a5d64a3000000b0020a79315b84mr15873027wrp.407.1650454349319; Wed, 20
+ Apr 2022 04:32:29 -0700 (PDT)
+MIME-Version: 1.0
 References: <20220419133723.1394715-1-arnd@kernel.org>
  <20220419133723.1394715-2-arnd@kernel.org>
-From: Sergei Shtylyov <sergei.shtylyov@gmail.com>
-Message-ID: <ddaf112d-f997-84b7-2c57-bab3d0cca382@gmail.com>
-Date: Wed, 20 Apr 2022 12:24:08 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
-MIME-Version: 1.0
-In-Reply-To: <20220419133723.1394715-2-arnd@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+ <ddaf112d-f997-84b7-2c57-bab3d0cca382@gmail.com>
+In-Reply-To: <ddaf112d-f997-84b7-2c57-bab3d0cca382@gmail.com>
+From: Arnd Bergmann <arnd@kernel.org>
+Date: Wed, 20 Apr 2022 13:32:13 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a3+5p5i2Nxy6AxH5qDsVqqxwSR_5ufjoYCALProSLNspg@mail.gmail.com>
+Message-ID: <CAK8P3a3+5p5i2Nxy6AxH5qDsVqqxwSR_5ufjoYCALProSLNspg@mail.gmail.com>
+Subject: Re: [PATCH 01/41] video: fbdev: omapfb: lcd_ams_delta: fix unused
+ variable warning
+To: Sergei Shtylyov <sergei.shtylyov@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Fri, 22 Apr 2022 15:31:42 +0200
-Cc: Ulf Hansson <ulf.hansson@linaro.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Linus Walleij <linus.walleij@linaro.org>, linux-fbdev@vger.kernel.org,
+Cc: Ulf Hansson <ulf.hansson@linaro.org>, USB list <linux-usb@vger.kernel.org>,
+ Tony Lindgren <tony@atomide.com>, Linus Walleij <linus.walleij@linaro.org>,
+ Linux Fbdev development list <linux-fbdev@vger.kernel.org>,
  Dominik Brodowski <linux@dominikbrodowski.net>,
  Lee Jones <lee.jones@linaro.org>, Daniel Thompson <daniel.thompson@linaro.org>,
- Kevin Hilman <khilman@kernel.org>, Peter Ujfalusi <peter.ujfalusi@gmail.com>,
- Helge Deller <deller@gmx.de>, Russell King <linux@armlinux.org.uk>,
+ Aaro Koskinen <aaro.koskinen@iki.fi>,
+ Peter Ujfalusi <peter.ujfalusi@gmail.com>, Helge Deller <deller@gmx.de>,
+ Janusz Krzysztofik <jmkrzyszt@gmail.com>, Russell King <linux@armlinux.org.uk>,
  Krzysztof Kozlowski <krzk@kernel.org>, Alan Stern <stern@rowland.harvard.edu>,
- linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
+ "open list:SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
+ "open list:HID CORE LAYER" <linux-input@vger.kernel.org>,
  Arnd Bergmann <arnd@arndb.de>, Mark Brown <broonie@kernel.org>,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ linux-omap <linux-omap@vger.kernel.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
  Felipe Balbi <balbi@kernel.org>, Paul Walmsley <paul@pwsan.com>,
- Jingoo Han <jingoohan1@gmail.com>, linux-usb@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, dmaengine@vger.kernel.org,
- alsa-devel@alsa-project.org
+ Jingoo Han <jingoohan1@gmail.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ linux-mmc <linux-mmc@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Kevin Hilman <khilman@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ dmaengine@vger.kernel.org,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -124,40 +116,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello!
+On Wed, Apr 20, 2022 at 11:24 AM Sergei Shtylyov
+<sergei.shtylyov@gmail.com> wrote:
+> On 4/19/22 4:36 PM, Arnd Bergmann wrote:
+>
+> > From: Arnd Bergmann <arnd@arndb.de>
+> >
+> > A recent cleanup patch removed the only reference to a local variable
+> > in some configurations.
+> >
+> > Move the variable into the one block it is still used in, inside
+> > of an #ifdef, to avoid this warning.
+> >
+> > Fixes: 9d773f103b89 ("video: fbdev: omapfb: lcd_ams_delta: Make use of the helper function dev_err_probe()")
+> > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> > ---
+> >  drivers/video/fbdev/omap/lcd_ams_delta.c | 3 +--
+> >  1 file changed, 1 insertion(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/video/fbdev/omap/lcd_ams_delta.c b/drivers/video/fbdev/omap/lcd_ams_delta.c
+> > index bbf871f9d862..01944ce46aa1 100644
+> > --- a/drivers/video/fbdev/omap/lcd_ams_delta.c
+> > +++ b/drivers/video/fbdev/omap/lcd_ams_delta.c
+> [...]
+> > @@ -145,7 +144,7 @@ static int ams_delta_panel_probe(struct platform_device *pdev)
+> >                                               &ams_delta_lcd_ops);
+> >
+> >       if (IS_ERR(lcd_device)) {
+> > -             ret = PTR_ERR(lcd_device);
+> > +             int ret = PTR_ERR(lcd_device);
+>
+>    How about inserting an empty line after declaration?
 
-On 4/19/22 4:36 PM, Arnd Bergmann wrote:
+Ok, done.
 
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> A recent cleanup patch removed the only reference to a local variable
-> in some configurations.
-> 
-> Move the variable into the one block it is still used in, inside
-> of an #ifdef, to avoid this warning.
-> 
-> Fixes: 9d773f103b89 ("video: fbdev: omapfb: lcd_ams_delta: Make use of the helper function dev_err_probe()")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
->  drivers/video/fbdev/omap/lcd_ams_delta.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/drivers/video/fbdev/omap/lcd_ams_delta.c b/drivers/video/fbdev/omap/lcd_ams_delta.c
-> index bbf871f9d862..01944ce46aa1 100644
-> --- a/drivers/video/fbdev/omap/lcd_ams_delta.c
-> +++ b/drivers/video/fbdev/omap/lcd_ams_delta.c
-[...]
-> @@ -145,7 +144,7 @@ static int ams_delta_panel_probe(struct platform_device *pdev)
->  						&ams_delta_lcd_ops);
->  
->  	if (IS_ERR(lcd_device)) {
-> -		ret = PTR_ERR(lcd_device);
-> +		int ret = PTR_ERR(lcd_device);
-
-   How about inserting an empty line after declaration?
-
->  		dev_err(&pdev->dev, "failed to register device\n");
->  		return ret;
->  	}
-
-MBR, Sergey
+        Arnd

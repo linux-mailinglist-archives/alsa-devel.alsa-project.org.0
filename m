@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63048507EE1
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Apr 2022 04:34:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A790507EE2
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Apr 2022 04:35:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B69F918FB;
-	Wed, 20 Apr 2022 04:34:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B69F918FB
+	by alsa0.perex.cz (Postfix) with ESMTPS id DBD9918E6;
+	Wed, 20 Apr 2022 04:34:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DBD9918E6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650422090;
-	bh=0eWwMl+ObBY5gfMXyIhi98beSo6eDTBnlE0TeJeZonY=;
+	s=default; t=1650422110;
+	bh=de3CW2NHaO3Zlt6dACJu87GE5nxvTHKkn6BThHigbYQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MrRXyHiNxaIRPP4DE/Q1M3eF4KB39pYgZy+pzXVyd0PqavDtfmemb6k6KDKzPyi3h
-	 foAw7YdCyytEBPMx/p0lBw4wYEsxs+I8hhTYaiAVVXKzQXFO/2VnqeOk1PZ+YZn6vd
-	 aWsyr6XlPpzq1drwEnu6HVrbd67Px8fn4NdRfkk0=
+	b=YnnDeSINNteLfIPj6pE1Wzz/sUYUCGFTouEtuQu33PIlsR6GfJQJfSzb0ApH1QAPb
+	 l+X2FfASlj+TA+z+Cz3OFX03Z7K4keK0wVBzlD3bE2fRwG08XAtHKv7wIUWUd1adU5
+	 0McaZNsUizhvPREmT4HhC5n+A70+TUpoBEFablg0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6A9C2F804F3;
-	Wed, 20 Apr 2022 04:33:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ADE6FF80511;
+	Wed, 20 Apr 2022 04:33:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6FEC1F80125; Wed, 20 Apr 2022 04:33:11 +0200 (CEST)
+ id 16EC1F80511; Wed, 20 Apr 2022 04:33:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,38 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B0A17F800C1
+ by alsa1.perex.cz (Postfix) with ESMTPS id DC468F80254
  for <alsa-devel@alsa-project.org>; Wed, 20 Apr 2022 04:33:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0A17F800C1
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC468F80254
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="CVbVaMNJ"
+ header.b="RYRNdYA9"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1650421985; x=1681957985;
+ t=1650421989; x=1681957989;
  h=from:to:cc:subject:date:message-id:in-reply-to: references;
- bh=0eWwMl+ObBY5gfMXyIhi98beSo6eDTBnlE0TeJeZonY=;
- b=CVbVaMNJ2M9r9NE2zmD87ue2G+dK1Pi+IfTz/7ICAzjnNVHdi8sRxm2N
- Rd3iIwi2S9KqzytdCqRuDUqom4a8ddAkD3gQWE89WVMEeOlZE7Rejh7YP
- 9lv04ejmKOW1IyEb3daZXTiR1+zdQfF/gwzIjwcjVfNDCCSgngo++qBQz
- aP1Y2SfPZZ6tNjkUi4ciJxy/dYfM46VEtncfG/v2KRkKrWwTfrs85Rh4O
- VJjgfMz8++UgMwq9EwHiXW/tBD7wvShQ1dcfZUAR5xZkG0frhgmDUHnFQ
- nvmjKPfKHObXdJXEBdW1ZZ2s1RqQySuNGpK8nic21aWet/tGOvlNXHVIq A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10322"; a="263384313"
-X-IronPort-AV: E=Sophos;i="5.90,274,1643702400"; d="scan'208";a="263384313"
+ bh=de3CW2NHaO3Zlt6dACJu87GE5nxvTHKkn6BThHigbYQ=;
+ b=RYRNdYA9VpIYvfeaIcpSC70rsz5n5EMIPXQaj4jODRizroE30RL6DjjF
+ cPw9AyPFZTWL419WmL/7NjlvglMV0OVktNTQgICy5XtN035JsSus9aDTj
+ HAGsVjm4fh1t6ppVOSfTTb/5Siz/vVAK+kV57dt4W8hXnba44H8Z5Pk7A
+ NuR/rUHNhO6emWGhp6ZguCfpz5LuT/tC7MY0/aL4ao1/iI7sdO8Pnz6DJ
+ H8uz6SciMbwJJUeh7vD3Pc8GXVEySIYAIANDCoqOD889WRNVEo3S8E8En
+ 1bdU10VDuO0HM8eYTlbsWn2br7wpZvK0i256XBSLgVA2Y+tYp5RNN3mSw Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10322"; a="263384320"
+X-IronPort-AV: E=Sophos;i="5.90,274,1643702400"; d="scan'208";a="263384320"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Apr 2022 19:33:01 -0700
-X-IronPort-AV: E=Sophos;i="5.90,274,1643702400"; d="scan'208";a="529554562"
+ 19 Apr 2022 19:33:03 -0700
+X-IronPort-AV: E=Sophos;i="5.90,274,1643702400"; d="scan'208";a="529554573"
 Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Apr 2022 19:32:58 -0700
+ 19 Apr 2022 19:33:00 -0700
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	vkoul@kernel.org
-Subject: [PATCH 1/3] soundwire: intel: prevent pm_runtime resume prior to
- system suspend
-Date: Wed, 20 Apr 2022 10:32:39 +0800
-Message-Id: <20220420023241.14335-2-yung-chuan.liao@linux.intel.com>
+Subject: [PATCH 2/3] soundwire: intel: disable WAKEEN in pm_runtime resume
+Date: Wed, 20 Apr 2022 10:32:40 +0800
+Message-Id: <20220420023241.14335-3-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20220420023241.14335-1-yung-chuan.liao@linux.intel.com>
 References: <20220420023241.14335-1-yung-chuan.liao@linux.intel.com>
@@ -90,27 +89,29 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-commit e38f9ff63e6d ("ACPI: scan: Do not add device IDs from _CID if _HID is not valid")
-exposes a race condition on a TGL RVP device leading to a timeout.
+When the manager device is pm_runtime resumed, we see a series of
+spurious wakes and attempts to resume the same device:
 
-The detailed analysis shows the RT711 codec driver scheduling a jack
-detection workqueue while attaching during a spurious pm_runtime
-resume, and the work function happens to be scheduled after the
-manager device is suspended.
+soundwire_intel.link.0: intel_resume_runtime: start
+soundwire_intel.link.0: intel_link_power_up: powering up all links
+soundwire_intel.link.0: intel_link_power_up: first link up, programming SYNCPRD
+soundwire_intel.link.0: intel_shim_wake: WAKEEN disabled for link 0
+soundwire_intel.link.0: intel_link_process_wakeen_event: pm_request_resume start
+soundwire_intel.link.0: intel_link_process_wakeen_event: pm_request_resume done
+soundwire_intel.link.0: intel_shim_wake: WAKEEN disabled for link 0
+soundwire_intel.link.0: intel_link_process_wakeen_event: pm_request_resume start
+soundwire_intel.link.0: intel_link_process_wakeen_event: pm_request_resume done
 
-The direct link between this ACPI patch and a spurious pm_runtime
-resume is not obvious; the most likely explanation is that a change in
-the ACPI device linked list management modifies the order in which the
-pm_runtime device status is checked and exposes a race condition that
-was probably present for a very long time, but was not identified.
+This sequence does not break anything but is totally unnecessary.
 
-We already have a check in the .prepare stage, where we will resume to
-full power from specific clock-stop modes. In all other cases, we
-don't need to resume to full power by default. Adding the
-SMART_SUSPEND flag prevents the spurious resume from happening.
+Currently the wakes are only disabled after the peripheral generates a
+wake, e.g. for jack detection.
 
-BugLink: https://github.com/thesofproject/linux/issues/3459
-Fixes: 029bfd1cd53cd ("soundwire: intel: conditionally exit clock stop mode on system suspend")
+If the resume is initiated by the host drivers as a result of
+userspace actions (play/record typically), we need to disable wake
+detection as well. Doing so prevents the spurious wakes and calls to
+pm_request_resume().
+
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Rander Wang <rander.wang@intel.com>
@@ -120,19 +121,19 @@ Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
  1 file changed, 3 insertions(+)
 
 diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
-index 63101f1ba271..32e5fdb823c4 100644
+index 32e5fdb823c4..4b458e5e7336 100644
 --- a/drivers/soundwire/intel.c
 +++ b/drivers/soundwire/intel.c
-@@ -1293,6 +1293,9 @@ static int intel_link_probe(struct auxiliary_device *auxdev,
- 	/* use generic bandwidth allocation algorithm */
- 	sdw->cdns.bus.compute_params = sdw_compute_params;
+@@ -1831,6 +1831,9 @@ static int __maybe_unused intel_resume_runtime(struct device *dev)
+ 		return 0;
+ 	}
  
-+	/* avoid resuming from pm_runtime suspend if it's not required */
-+	dev_pm_set_driver_flags(dev, DPM_FLAG_SMART_SUSPEND);
++	/* unconditionally disable WAKEEN interrupt */
++	intel_shim_wake(sdw, false);
 +
- 	ret = sdw_bus_master_add(bus, dev, dev->fwnode);
- 	if (ret) {
- 		dev_err(dev, "sdw_bus_master_add fail: %d\n", ret);
+ 	link_flags = md_flags >> (bus->link_id * 8);
+ 	multi_link = !(link_flags & SDW_INTEL_MASTER_DISABLE_MULTI_LINK);
+ 
 -- 
 2.17.1
 

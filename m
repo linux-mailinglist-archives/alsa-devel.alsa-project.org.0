@@ -2,81 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7711950A91A
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Apr 2022 21:25:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C699550A91B
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Apr 2022 21:26:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 181C116A5;
-	Thu, 21 Apr 2022 21:24:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 181C116A5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 66F1D162F;
+	Thu, 21 Apr 2022 21:25:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66F1D162F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650569139;
-	bh=FTR+sYhyC4WhehBea2cs9+Yc//XXo1/hs6Ulvba8Jyk=;
+	s=default; t=1650569168;
+	bh=Q6BzN8sSZVeNkxnmLkJKA9kW1DtyN3wuKtxJTHJkr+k=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IyhIKH9Ay6+WYBVx+Cu4uoAULtxwX7Szs3WhS8r+VMYMjm4AoXB2eypOb2clt4itF
-	 T4IeUuYk3avhEUXGl0OoscHBDw+Tmlxo/hX7b64ZTfSXc1FJ/SbDgLxkuBFPe8IEVv
-	 bV5Oz0iDbEjDiQ8B20VZVSWPh7vU0Z0ilC2mVTDg=
+	b=EGdNke0nfVDzxS6UE56KGV4YlsKERq/Z0VE1BgcRRSv+aD3W060Smxe+WVbXP7eyX
+	 SV/hrDSejS//BdxPMUl59tSfW7HdM4mlPz/rLag2untyZ+SuB/MaT1spo/+ZRNGAid
+	 UlUdT4POlE8VKfhFNs5UWlfQUPKKXVXDF37BshJk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9D330F800C1;
-	Thu, 21 Apr 2022 21:24:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B18D7F80506;
+	Thu, 21 Apr 2022 21:24:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 76DEDF800F4; Thu, 21 Apr 2022 21:24:39 +0200 (CEST)
+ id B6157F804FE; Thu, 21 Apr 2022 21:24:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6DA64F800F4
- for <alsa-devel@alsa-project.org>; Thu, 21 Apr 2022 21:24:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DA64F800F4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9775DF800F4
+ for <alsa-devel@alsa-project.org>; Thu, 21 Apr 2022 21:24:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9775DF800F4
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="QNOkxTdk"; 
+ header.b="Uirr/YA+"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="0arhRVAK"
+ header.b="tVB7N6/K"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id D828E1F388;
- Thu, 21 Apr 2022 19:24:28 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id C149521117;
+ Thu, 21 Apr 2022 19:24:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1650569068; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1650569090; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=8b0hZN7Q+FgzVFi6P/1phChmw1uu9xQWT0IWCWuybH8=;
- b=QNOkxTdkHjMYDZQQl7aKRJXGKQWwYTW9W0xk8tJ3ZW8dtJA+rhDfo+ot25/ogUCxbpi1nO
- xnx4HRUH1apjsjjYSjJk9wzdbj6tYS6xZV/J5EJvQUEsCQn0lek5CrxqKpZm0dgoEU47pw
- zs2Z1924CgApsWsG2vpIxVnSu1uA/nU=
+ bh=kbVNZndrFhmeTtmRFJEevPK/oXTmZZzhU+Ylz3Dwu48=;
+ b=Uirr/YA++DjqK3emcWntoxzi9Is0p517gYJ0hjEC9wZFAXN79V2hYAF1jj315MvwoskXdg
+ JvJ9bJ1HVMNFqb9JPIH3CMbNSpJdA5L0gbAFAM3z6RRdaZm3yKo1JFKZ2uNVlCaiJYhRyZ
+ ULQuqic/1H2ndUjDQEr4k4UBuVATlKw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1650569068;
+ s=susede2_ed25519; t=1650569090;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=8b0hZN7Q+FgzVFi6P/1phChmw1uu9xQWT0IWCWuybH8=;
- b=0arhRVAKDVXjdiGFHi1XYH73WaGArSVKOH3mduRdm45ZWdS84N/kcMS1ZliYzjEB5gNZmG
- LtZYhtopstc5oADg==
+ bh=kbVNZndrFhmeTtmRFJEevPK/oXTmZZzhU+Ylz3Dwu48=;
+ b=tVB7N6/K4akQXGaegI0mkMXXEdPj82fUv807TGTAIjn61E9LARd9xo+8y7Qb+K/sZv/Hpo
+ OQwCHDuVU4s3aABA==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id C5FED2C14B;
- Thu, 21 Apr 2022 19:24:28 +0000 (UTC)
-Date: Thu, 21 Apr 2022 21:24:28 +0200
-Message-ID: <s5h8rryutn7.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id AE65E2C145;
+ Thu, 21 Apr 2022 19:24:50 +0000 (UTC)
+Date: Thu, 21 Apr 2022 21:24:50 +0200
+Message-ID: <s5h7d7iutml.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Tim Crawford <tcrawford@system76.com>
-Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for Clevo NP70PNP
-In-Reply-To: <20220421170412.3697-1-tcrawford@system76.com>
-References: <20220421170412.3697-1-tcrawford@system76.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ALSA: hda: intel-dsp-config: Add RaptorLake PCI IDs
+In-Reply-To: <20220421163546.319604-1-pierre-louis.bossart@linux.intel.com>
+References: <20220421163546.319604-1-pierre-louis.bossart@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: productdev@system76.com, alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
+ Gongjun Song <gongjun.song@intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,12 +94,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 21 Apr 2022 19:04:12 +0200,
-Tim Crawford wrote:
+On Thu, 21 Apr 2022 18:35:46 +0200,
+Pierre-Louis Bossart wrote:
 > 
-> Fixes headset detection on Clevo NP70PNP.
+> From: Gongjun Song <gongjun.song@intel.com>
 > 
-> Signed-off-by: Tim Crawford <tcrawford@system76.com>
+> Add RaptorLake-P PCI IDs
+> 
+> Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> Signed-off-by: Gongjun Song <gongjun.song@intel.com>
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
 Thanks, applied.
 

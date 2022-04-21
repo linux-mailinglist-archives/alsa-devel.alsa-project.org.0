@@ -2,87 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BD42509965
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Apr 2022 09:41:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56E26509978
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Apr 2022 09:51:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B0B5818BE;
-	Thu, 21 Apr 2022 09:40:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0B5818BE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0363F1867;
+	Thu, 21 Apr 2022 09:50:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0363F1867
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650526893;
-	bh=kfRYR4zT6Rv5Mw5mQTG9Isz6mdBGy+Rn01+fewmagjw=;
+	s=default; t=1650527501;
+	bh=MEeVwI379WgA09MlMZXbXvmOgmFrYjcO8jiiK7McHiw=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tzAsP0R4wufUofSqmQq/6wOi7YE7ujYO5QfcZodYwQybBNhUcBCYuqJ5OfcPZKG7a
-	 XEDkpUXes6qnurQPLwqJWImFaVG89lzazGAHlsOVPsAdA/a/dk1vbZpclEsqhElNZL
-	 YnX8eRHMm7rBHwnVoiM75TTOtruSdIdx1yniRXJg=
+	b=Ddpk1HoJoaUwFmIXf6HRuuOnNQuindBRpRACimLbmeMKG8CvrkqJLUsJtuDjoVF65
+	 zu5SD7BOp6rr09xEOtQM5DeQvPkv1PLPDYR3m7In0gDT6nEPc64QYFWH1pTHqXY/V7
+	 iGK2gAZXTo06srXld1hJXUDuL00oHDXJtd7Nbnqw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0A5D2F800C1;
-	Thu, 21 Apr 2022 09:40:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 62FB9F8047D;
+	Thu, 21 Apr 2022 09:50:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9986DF8032D; Thu, 21 Apr 2022 09:40:32 +0200 (CEST)
+ id AF8E9F8032D; Thu, 21 Apr 2022 09:50:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 74EA4F80125
- for <alsa-devel@alsa-project.org>; Thu, 21 Apr 2022 09:40:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74EA4F80125
+ by alsa1.perex.cz (Postfix) with ESMTPS id 41F08F800F4
+ for <alsa-devel@alsa-project.org>; Thu, 21 Apr 2022 09:50:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41F08F800F4
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="P00KCYcg"; 
+ header.b="R83R793l"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="hJGPFvUp"
+ header.b="uE+LB8CD"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id B50EC210EC;
- Thu, 21 Apr 2022 07:40:20 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 7FC721F752;
+ Thu, 21 Apr 2022 07:50:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1650526820; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1650527433; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=IqEtnjW6418zXdvHj8cc/wsZWDoQ9eJoFWmipwpTJ8g=;
- b=P00KCYcgFN3f8vsuv1T6iNzE2RLPKSm9zNFHyqMUH2aPgpbIRcPy9f9jnyAsIFMVia3zOd
- zl0Lex67IbvzUcYw8ZJ/zniDUpDVbWPvVG1Obm6Y0rSLZp811qByYeai1j5V2rlWndLTby
- XMsx0v2a9LB7X43a/6pJ5z/fxxCRmk0=
+ bh=CA8kHCu+RuJ2Qz5MzQDrr+1TQ2WCXiSuesXVWzAwX6Q=;
+ b=R83R793l5tI1FDIlyDQR37X1D335eNo12t7F4agHHWAO8BbadbWQoHMkVm684HJbf7UtOH
+ e7JBIkzUiY5n4RTBTVHySUR8BuUo1NXd1+a19KLCIs9d8vs4nC7xkgtAaZsclGrsx1UHmD
+ m9x7XIF1uarn3XVC8mfODisowgBu1wQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1650526820;
+ s=susede2_ed25519; t=1650527433;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=IqEtnjW6418zXdvHj8cc/wsZWDoQ9eJoFWmipwpTJ8g=;
- b=hJGPFvUp7P7QqRlllkoWqgZKZ8A6NwZIBRDTBUghIdTLKCekTUsybGSSyqDTQ/vVTTKJNz
- HEerKcRg0o2uDCBQ==
+ bh=CA8kHCu+RuJ2Qz5MzQDrr+1TQ2WCXiSuesXVWzAwX6Q=;
+ b=uE+LB8CDSh9IYEtB/WpE2lFzFgVxIThKWYKuv1AfqKjsQfGK4y/9BnkgKHTGIC4v/1Nlm4
+ xiQ72q3JPJSHkEAQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 3D1952C149;
- Thu, 21 Apr 2022 07:40:20 +0000 (UTC)
-Date: Thu, 21 Apr 2022 09:40:20 +0200
-Message-ID: <s5ha6cex4t7.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 758962C15A;
+ Thu, 21 Apr 2022 07:50:33 +0000 (UTC)
+Date: Thu, 21 Apr 2022 09:50:33 +0200
+Message-ID: <s5h8rryx4c6.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Andy Chi <andy.chi@canonical.com>
-Subject: Re: [PATCH] ALSA: hda/realtek: Enable mute/micmute LEDs and limit mic
- boost on EliteBook 845/865 G9
-In-Reply-To: <20220421063606.39772-1-andy.chi@canonical.com>
-References: <20220421063606.39772-1-andy.chi@canonical.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH] selftests: alsa: Start validating control names
+In-Reply-To: <20220420203320.3035329-1-broonie@kernel.org>
+References: <20220420203320.3035329-1-broonie@kernel.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Kailang Yang <kailang@realtek.com>,
- Lucas Tanure <tanureal@opensource.cirrus.com>,
- Jeremy Szu <jeremy.szu@canonical.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Werner Sembach <wse@tuxedocomputers.com>,
- Hui Wang <hui.wang@canonical.com>, Kai-Heng Feng <kai.heng.feng@canonical.com>,
- Sami Loone <sami@loone.fi>, Cameron Berkenpas <cam@neo-zeon.de>
+Cc: alsa-devel@alsa-project.org, Shuah Khan <shuah@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, linux-kselftest@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,15 +93,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 21 Apr 2022 08:36:04 +0200,
-Andy Chi wrote:
+On Wed, 20 Apr 2022 22:33:20 +0200,
+Mark Brown wrote:
 > 
-> On HP EliteBook 845 G9 and EliteBook 865 G9, the audio LEDs can be enabled by
-> ALC285_FIXUP_HP_MUTE_LED. So use it accordingly.
-> 
-> Signed-off-by: Andy Chi <andy.chi@canonical.com>
+> +bool strend(const char *haystack, const char *needle)
 
-Thanks, applied with Fixes tag to commit 07bcab93946c.
+Missing static?
 
+> +{
+> +	size_t haystack_len = strlen(haystack);
+> +	size_t needle_len = strlen(needle);
+> +
+> +	if (needle_len > haystack_len)
+> +		return false;
+> +	return strcmp(haystack + haystack_len - needle_len, needle) == 0;
+> +}
+> +
+> +static void test_ctl_name(struct ctl_data *ctl)
+> +{
+> +	bool name_ok = true;
+> +	bool check;
+> +
+> +	/* Only boolean controls should end in Switch */
+> +	if (strend(ctl->name, "Switch")) {
+
+This should be with " Switch" so that it won't check a concatenated
+word.
+
+> +		if (snd_ctl_elem_info_get_type(ctl->info) != SND_CTL_ELEM_TYPE_BOOLEAN) {
+> +			ksft_print_msg("%d.%d %s ends in Switch but is not boolean\n",
+> +				       ctl->card->card, ctl->elem, ctl->name);
+> +			name_ok = false;
+> +		}
+> +	}
+> +
+> +	/* Writeable boolean controls should end in Switch */
+> +	if (snd_ctl_elem_info_get_type(ctl->info) == SND_CTL_ELEM_TYPE_BOOLEAN &&
+> +	    snd_ctl_elem_info_is_writable(ctl->info)) {
+> +		if (!strend(ctl->name, "Switch")) {
+> +			ksft_print_msg("%d.%d %s is a writeable boolean but not a Switch\n",
+> +				       ctl->card->card, ctl->elem, ctl->name);
+> +			name_ok = false;
+
+I'm afraid that this would hit too many when applying to the existing
+code; although the control name should be indeed with Switch suffix,
+we tend to allow without suffix for casual non-standard elements.
+
+But having the check would help for avoiding such a mistake for the
+future code, so it's fine to add this strict check, IMO.
+
+
+thanks,
 
 Takashi

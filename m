@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0C7F509A37
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Apr 2022 10:09:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1218509A38
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Apr 2022 10:09:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B211817E0;
-	Thu, 21 Apr 2022 10:08:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B211817E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7050A1817;
+	Thu, 21 Apr 2022 10:08:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7050A1817
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650528548;
-	bh=UhcPkQ2F0+AfVFg9YHqNEPCYB37LdJwX2du13NXYzUo=;
+	s=default; t=1650528563;
+	bh=zkvthi76P/YE+QkDLNlyF5yXTNxCHupDAXBsGqej12U=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KunP1nN292uE01Bp4V8X99Sc+ykgd+KxrvK/QnHv788ya4ybYy1fs19d9cbsPfXoS
-	 NMP2DsHVVH8Uyz+LLv/kDmWBznTLsHxYyXx/fBfqh6LDWQyUcil4WynsWp8wxkf3x4
-	 a4mv/fRsncQCfftrORA2Q/4WWDTGf0nUiWtYsbXw=
+	b=teJWlL0bpGBVAEs7iK8B+LS6h5m6jZYZHDQMG/M5FSytgcby/fAqktR85QUSArdu3
+	 ih8uCw+dA6PSJqCuTPPV8b5duNFXu86j6zIFz1i3aJFtf1UG+nfGfAUzkmlYaxv5UF
+	 Qf4o6p/mj7+C3TarZACzUnAKjLDEbcfb43zxDtgE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B25E9F80519;
-	Thu, 21 Apr 2022 10:07:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5AC99F80528;
+	Thu, 21 Apr 2022 10:07:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BD6EAF804F3; Thu, 21 Apr 2022 10:07:26 +0200 (CEST)
+ id E0975F80526; Thu, 21 Apr 2022 10:07:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,41 +34,41 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1CA23F8032D
- for <alsa-devel@alsa-project.org>; Thu, 21 Apr 2022 10:07:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1CA23F8032D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4AE15F80125
+ for <alsa-devel@alsa-project.org>; Thu, 21 Apr 2022 10:07:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4AE15F80125
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="nP1CnJfG"
+ header.b="BXTt+fiX"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1650528441; x=1682064441;
+ t=1650528445; x=1682064445;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=UhcPkQ2F0+AfVFg9YHqNEPCYB37LdJwX2du13NXYzUo=;
- b=nP1CnJfG/hsSKQW/Ti9ModdXkTT6UYCuK8a8JQAbExJVOZ+ZbB6l07fX
- hqVGIRiTJOVysgy4jK3QRtS6m9Ja1uQ01YxC22tmL/uWxo8TELh/xSvv4
- VlJkX0x4l68CQJf+75pN+8K9qkjAnXI3lqeIL0lhWepOwGQjzoTEWukjN
- bfcnrCDWzC1/54BnOl0ai4E3xAMMhNTSMNhkhufRZ3uBsW0ABtKT//whV
- nwWZWCk1IYgRQiDQYB6/+XcQbs2lKVxWptgPC5GcCFOcSRJ8yHgvimNts
- cJcifSfh2k8nSaNT0HVoI/VJcWXmBp3LvUSFqCKUACW8VpKZ+NWyZ9Luq g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10323"; a="324718779"
-X-IronPort-AV: E=Sophos;i="5.90,278,1643702400"; d="scan'208";a="324718779"
+ bh=zkvthi76P/YE+QkDLNlyF5yXTNxCHupDAXBsGqej12U=;
+ b=BXTt+fiXRqSBPLXQlOv5MCd4i4+3pVR7sQlvDqg+8ktoB0Thp5TtXiDc
+ CAarrrtXD1NagHbv2u5fGVcbsJ0F7stCTw28aB49w/IVba2yJCIFAccdH
+ rHdokwaa7cAS5Jy5RiALMZt+5yYIq3uKLQ6c8F2BdH9gqj5AxU7Wm6gHg
+ TeCTda6f9Alvf44rW0kYugHm7s+JbOEWkenOeSCTI8zdO/9ZpRhzfH353
+ UjhLV4F5DL0DpQcg9BfVE6zxpGA/HZlLmbLnAvEyU9EFMxitrTDSmEw6R
+ exFQ0QjybYqzQuWTN0pwIh/oj/eKw3/h723OIqakHDeFkc8U3IKCvOrYI g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10323"; a="324718782"
+X-IronPort-AV: E=Sophos;i="5.90,278,1643702400"; d="scan'208";a="324718782"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Apr 2022 01:07:19 -0700
-X-IronPort-AV: E=Sophos;i="5.90,278,1643702400"; d="scan'208";a="577087013"
+ 21 Apr 2022 01:07:22 -0700
+X-IronPort-AV: E=Sophos;i="5.90,278,1643702400"; d="scan'208";a="577087050"
 Received: from dchirca-mobl4.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.251.215.207])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Apr 2022 01:07:16 -0700
+ 21 Apr 2022 01:07:19 -0700
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com, broonie@kernel.org,
  pierre-louis.bossart@linux.intel.com, AjitKumar.Pandey@amd.com,
  daniel.baluta@nxp.com
-Subject: [PATCH 2/6] ASoC: SOF: Do not check for the fw_ready callback
-Date: Thu, 21 Apr 2022 11:07:31 +0300
-Message-Id: <20220421080735.31698-3-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 3/6] ASoC: SOF: amd: Do not set fw_ready callback
+Date: Thu, 21 Apr 2022 11:07:32 +0300
+Message-Id: <20220421080735.31698-4-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20220421080735.31698-1-peter.ujfalusi@linux.intel.com>
 References: <20220421080735.31698-1-peter.ujfalusi@linux.intel.com>
@@ -91,8 +91,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The fw_ready is handled internally to ipc3, the callback no longer in
-use and it is going to be removed.
+The fw_ready is handled internally to ipc3 and the callback no longer in
+use.
 
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
@@ -100,22 +100,21 @@ Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Ajit Pandey <ajitkumar.pandey@amd.com>
 Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
 ---
- sound/soc/sof/core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/sof/amd/renoir.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/sound/soc/sof/core.c b/sound/soc/sof/core.c
-index d981a1c3fb05..5f43adda0b11 100644
---- a/sound/soc/sof/core.c
-+++ b/sound/soc/sof/core.c
-@@ -367,7 +367,7 @@ int snd_sof_device_probe(struct device *dev, struct snd_sof_pdata *plat_data)
- 	if (!sof_ops(sdev) || !sof_ops(sdev)->probe || !sof_ops(sdev)->run ||
- 	    !sof_ops(sdev)->block_read || !sof_ops(sdev)->block_write ||
- 	    !sof_ops(sdev)->send_msg || !sof_ops(sdev)->load_firmware ||
--	    !sof_ops(sdev)->ipc_msg_data || !sof_ops(sdev)->fw_ready) {
-+	    !sof_ops(sdev)->ipc_msg_data) {
- 		dev_err(dev, "error: missing mandatory ops\n");
- 		return -EINVAL;
- 	}
+diff --git a/sound/soc/sof/amd/renoir.c b/sound/soc/sof/amd/renoir.c
+index 73f639fa16a4..275f266c5e4d 100644
+--- a/sound/soc/sof/amd/renoir.c
++++ b/sound/soc/sof/amd/renoir.c
+@@ -152,7 +152,6 @@ struct snd_sof_dsp_ops sof_renoir_ops = {
+ 	.ipc_msg_data		= acp_sof_ipc_msg_data,
+ 	.get_mailbox_offset	= acp_sof_ipc_get_mailbox_offset,
+ 	.irq_thread		= acp_sof_ipc_irq_thread,
+-	.fw_ready		= sof_fw_ready,
+ 
+ 	/* DAI drivers */
+ 	.drv			= renoir_sof_dai,
 -- 
 2.35.3
 

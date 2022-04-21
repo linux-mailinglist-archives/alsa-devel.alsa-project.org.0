@@ -2,76 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 413C4509FD1
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Apr 2022 14:41:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 274CB50A01B
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Apr 2022 14:55:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ECE9E1902;
-	Thu, 21 Apr 2022 14:40:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ECE9E1902
+	by alsa0.perex.cz (Postfix) with ESMTPS id B16F318E9;
+	Thu, 21 Apr 2022 14:54:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B16F318E9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650544860;
-	bh=o11R5hwjSfUkooG6aTnJOb4+mrujki8srLF/y/Ayj5w=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Z11UU+ahmI89RMB0Glib9Q/2Ss9hGqMLxjJXCta0qKK/i4XyVR46ZgVVFsY4J43pE
-	 5K6MrM0D7k/1OP0tEjYux0S0aKAqmb3Z2RoOJ9bFC0Of1ikBtdJGj0/jhBbDGTFI5o
-	 y2SFSyHKUk93/ay3SzbrOwzXRJP3zyf990JffS5c=
+	s=default; t=1650545731;
+	bh=pgtX4YON8Zrq5OpIcU6N0ns6NSZEzAs8X3R7e2dHKOA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=JUCDWRDVXTLu43zUrsOHHUYDJaGSEBRjvecuF0B+xsSjceDHACFX3pWcdw2cogdB8
+	 P4CgdmDH8hLajqNl+FT36fMXlxj0gt2jnEuoOAL3WGQY09vKTlVrvCO31yLJg+4Fz+
+	 qfxEEvbBCMhEAjyzeuOm5DFmi70WgpKnKfq0/g+0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8235BF804F1;
-	Thu, 21 Apr 2022 14:40:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0E11EF800F4;
+	Thu, 21 Apr 2022 14:54:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D0D55F804DA; Thu, 21 Apr 2022 14:40:07 +0200 (CEST)
+ id B0348F800F4; Thu, 21 Apr 2022 14:54:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2D8C7F800F4
- for <alsa-devel@alsa-project.org>; Thu, 21 Apr 2022 14:40:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D8C7F800F4
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="JYJkQkKw"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
+ [68.232.153.233])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id EF934CE21D8;
- Thu, 21 Apr 2022 12:40:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE0BAC385A5;
- Thu, 21 Apr 2022 12:39:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1650544800;
- bh=o11R5hwjSfUkooG6aTnJOb4+mrujki8srLF/y/Ayj5w=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=JYJkQkKwoTyGa0ulPg1rE265+urp7kMJQvj9//k4VdiHqGOUDT83PQM/6vihrqhZf
- SehnMN18VT2D2JqWpMaenqmwkYqNdJV7DpUFN7RXsgqoNbXi/GL86GN9aQ5DlCBaVu
- vLW8OKLXmMi8gbbJu1rrtSCiIlRMknpmBSkq5c0qV4SAdHuGeQxmu19REDBUw86l3m
- Upntzd4ub0sAYiKDn2lKkSReoqY8s0WrG4b71Ptl78lghUphpXFgVJ+5fd7iUOMDLM
- 2zIpVe9u9izJyNDTAIQ7Zy3/1l6fch60A9Yl1ipwTPgZxBgI9bVrTc3jgqyCf3WesD
- wSz1RQ0xicC2w==
-Date: Thu, 21 Apr 2022 13:39:55 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH] selftests: alsa: Start validating control names
-Message-ID: <YmFQm8xtgjMurBB0@sirena.org.uk>
-References: <20220420203320.3035329-1-broonie@kernel.org>
- <s5h8rryx4c6.wl-tiwai@suse.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id EF23AF800F4
+ for <alsa-devel@alsa-project.org>; Thu, 21 Apr 2022 14:54:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF23AF800F4
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com
+ header.b="VYj7LyJb"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+ t=1650545665; x=1682081665;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=pgtX4YON8Zrq5OpIcU6N0ns6NSZEzAs8X3R7e2dHKOA=;
+ b=VYj7LyJbyO9p4Juectf10j8fqddO07SIYvP77I15SGFez84iE/5Siz3l
+ NTpV+IJBKAzx59kb9tsEw74U1l596knVq6WhrzY8YkLPzV92YE0mifaZe
+ fEO4DuCxHKxd3pSSMZexteZrtKlciPtzJHxyaGljEHW3sBwpImbj0gc0r
+ r4cRcs19jS00Xr3QSk1Oeh/6a+D4mVlUHoD40AXSdYiHF9XAPU36lB33N
+ lFn4u8SWM87qh5eMUH+eQLzBWLGyD0kh0FVA274MAEG/eZCCVPcXNgn7L
+ Q+Lz1ZRfgtEiInrKhb0eBext1lODOMjULEtuKuQ3JMgSGoDt3XHO/dACh Q==;
+X-IronPort-AV: E=Sophos;i="5.90,278,1643698800"; d="scan'208";a="161255136"
+Received: from smtpout.microchip.com (HELO email.microchip.com)
+ ([198.175.253.82])
+ by esa3.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 21 Apr 2022 05:54:21 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.17; Thu, 21 Apr 2022 05:54:20 -0700
+Received: from rob-ult-m19940.amer.actel.com (10.10.115.15) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
+ 15.1.2375.17 via Frontend Transport; Thu, 21 Apr 2022 05:54:17 -0700
+From: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+To: <alsa-devel@alsa-project.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: [PATCH 1/2] Revert "ASoC: dmaengine: do not use a NULL
+ prepare_slave_config() callback"
+Date: Thu, 21 Apr 2022 15:54:02 +0300
+Message-ID: <20220421125403.2180824-1-codrin.ciubotariu@microchip.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="x95ZG5vdA0TpYUkG"
-Content-Disposition: inline
-In-Reply-To: <s5h8rryx4c6.wl-tiwai@suse.de>
-X-Cookie: Two percent of zero is almost nothing.
-Cc: alsa-devel@alsa-project.org, Shuah Khan <shuah@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, linux-kselftest@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Cc: alexandre.belloni@bootlin.com, tiwai@suse.com, broonie@kernel.org,
+ Codrin Ciubotariu <codrin.ciubotariu@microchip.com>, sha@pengutronix.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,46 +92,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+This reverts commit 9a1e13440a4f2e7566fd4c5eae6a53e6400e08a4.
 
---x95ZG5vdA0TpYUkG
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+As pointed out by Sascha Hauer, this patch changes:
+if (pmc->config && !pcm->config->prepare_slave_config)
+        <do nothing>
+to:
+if (pmc->config && !pcm->config->prepare_slave_config)
+        snd_dmaengine_pcm_prepare_slave_config()
 
-On Thu, Apr 21, 2022 at 09:50:33AM +0200, Takashi Iwai wrote:
-> Mark Brown wrote:
+This breaks the drivers that do not need a call to
+dmaengine_slave_config(). Drivers that still need to call
+snd_dmaengine_pcm_prepare_slave_config(), but have a NULL
+pcm->config->prepare_slave_config should use
+snd_dmaengine_pcm_prepare_slave_config() as their prepare_slave_config
+callback.
 
-> > +		if (!strend(ctl->name, "Switch")) {
-> > +			ksft_print_msg("%d.%d %s is a writeable boolean but not a Switch\n",
-> > +				       ctl->card->card, ctl->elem, ctl->name);
-> > +			name_ok = false;
+Fixes: 9a1e13440a4f ("ASoC: dmaengine: do not use a NULL prepare_slave_config() callback")
+Reported-by: Sascha Hauer <sha@pengutronix.de>
+Signed-off-by: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+---
+ sound/soc/soc-generic-dmaengine-pcm.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-> I'm afraid that this would hit too many when applying to the existing
-> code; although the control name should be indeed with Switch suffix,
-> we tend to allow without suffix for casual non-standard elements.
+diff --git a/sound/soc/soc-generic-dmaengine-pcm.c b/sound/soc/soc-generic-dmaengine-pcm.c
+index 2ab2ddc1294dd..285441d6aeed4 100644
+--- a/sound/soc/soc-generic-dmaengine-pcm.c
++++ b/sound/soc/soc-generic-dmaengine-pcm.c
+@@ -86,10 +86,10 @@ static int dmaengine_pcm_hw_params(struct snd_soc_component *component,
+ 
+ 	memset(&slave_config, 0, sizeof(slave_config));
+ 
+-	if (pcm->config && pcm->config->prepare_slave_config)
+-		prepare_slave_config = pcm->config->prepare_slave_config;
+-	else
++	if (!pcm->config)
+ 		prepare_slave_config = snd_dmaengine_pcm_prepare_slave_config;
++	else
++		prepare_slave_config = pcm->config->prepare_slave_config;
+ 
+ 	if (prepare_slave_config) {
+ 		int ret = prepare_slave_config(substream, params, &slave_config);
+-- 
+2.32.0
 
-It wasn't looking too bad in my survey of cards I had to hand - the
-writable check is there because of jacks, which does make sense since
-you can't actually switch them.  Some of that is due to ASoC handling
-this in the core though.
-
-> But having the check would help for avoiding such a mistake for the
-> future code, so it's fine to add this strict check, IMO.
-
-Yeah, that's more the target here.
-
---x95ZG5vdA0TpYUkG
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJhUJoACgkQJNaLcl1U
-h9DhIQf+N389H3wgNXpD0bo1p+p0J6C/m3tiBfLE8K/+AMDSkJPsDEwmPzHlMHeN
-gjCBVTb4m0bm1zikekh4e/zDNApl2zNCxKQGHM4kdRqKLBIkWqcwcnBVTV9Z33H3
-1QDpFA//vZ9F8dQUCaoL/zVnnc+YijWS8bzvYHo4H1uVkBxHGzDPedVDf2NXklsN
-Ga6WA7TxumkWMavyT0o2364P/XBNDq40XQhEn+Wo0UFN4JRpwNjKvPnn3FyqVyNe
-aJ0EKmIL1SE1xesFyaurKJrNRPxl6e4V7ozcPMN//RAl3wMSp498ISf05D6oLk4S
-2iEEiJv8kSpUHdHlOZ2z/3C8LENdlw==
-=/U6j
------END PGP SIGNATURE-----
-
---x95ZG5vdA0TpYUkG--

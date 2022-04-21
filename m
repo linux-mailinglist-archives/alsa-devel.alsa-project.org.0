@@ -2,100 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E877B50A689
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Apr 2022 19:05:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 156CF50A6FC
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Apr 2022 19:22:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 92AEA169E;
-	Thu, 21 Apr 2022 19:04:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92AEA169E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 62D7D16A0;
+	Thu, 21 Apr 2022 19:21:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62D7D16A0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650560724;
-	bh=UgJuWIHEHA2mr40o9NTZeHb+CxhzAS3O/FL7iOPlaTY=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=SFiD8MOdB+E5m+NlnNsh//djKXwzumih4UvQukgFzgpBSU5FFqrm1A3Cwz4eBe5rc
-	 FSh8zqqC4rWz61n8Ns/msRNAZFajvFUb/QG6UDkxInQp4ZEWQ/8BHoMziGpsiJQbjz
-	 th8PsrrFsQAzayUfqTPrBR8+HGzvX9Vakv8RmtnU=
+	s=default; t=1650561729;
+	bh=WuG3mEg/8lhQCajKRUfY5lcdr1UBJIgbvl5qAQTm+EY=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=LuVW1/m3jpfoCyQaKv1LtTyh7Tv3I0MWKYBhfIsAKA8ifnb/UXoD1HrPK601+PclX
+	 znSIEfiNmiHIi6to3M9C6uwdRm0rdkYdUAryq6nyQbxI856telcs6uVQ0oadEGsyyz
+	 F7AnhbN4KC5hSlsG++nZr6Fy1xZFp2X9tybZW0us=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F0C3EF800F4;
-	Thu, 21 Apr 2022 19:04:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C29C3F8047D;
+	Thu, 21 Apr 2022 19:21:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8BA77F8032D; Thu, 21 Apr 2022 19:04:24 +0200 (CEST)
+ id 2E679F8032D; Thu, 21 Apr 2022 19:21:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 76A38F80125
- for <alsa-devel@alsa-project.org>; Thu, 21 Apr 2022 19:04:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76A38F80125
+ by alsa1.perex.cz (Postfix) with ESMTPS id DA2DCF800F4
+ for <alsa-devel@alsa-project.org>; Thu, 21 Apr 2022 19:21:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA2DCF800F4
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=system76.com header.i=@system76.com
- header.b="he9pMkN7"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="uB/aETs7"
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.nyi.internal (Postfix) with ESMTP id 456A85C01F7;
- Thu, 21 Apr 2022 13:04:15 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute5.internal (MEProxy); Thu, 21 Apr 2022 13:04:15 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=system76.com; h=
- cc:cc:content-transfer-encoding:date:date:from:from:in-reply-to
- :message-id:mime-version:reply-to:sender:subject:subject:to:to;
- s=fm1; t=1650560655; x=1650647055; bh=GAP2pBpYIARefoTrhKrg6TbWO
- bjZkTgzanJzjS/SNlI=; b=he9pMkN7/WSekoGGynwhCNR6j92igjXsUl7kfbeDU
- h7dMmcnsLYl8fa3N1m+5gnFLmpNXsSQxFaBYmqZF7JdyYKjBj6mC00W4dJcfbYqo
- A1w6VNGQGKUHkqB6iYHMk9sBukYVrohEWfpNrZAr9Yk2AVEcJHWnxAqrwJjJleaL
- uwA00bWfpxzgpqeE/3Ejf8u0Ah94/UWaV/fd17kvUKuF4sL9thtImGm0oxu1my7O
- oTIisK09IgZsWL9+kpm71yy5QxShlbjT7KUVgRFWd3Nc/Zn38z/ri3p3X2AMpCnc
- O4b5B+gZAQ6ThLHHATeNRocQs19aks1xInk6lZ5fgiz6Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
- :from:from:in-reply-to:message-id:mime-version:reply-to:sender
- :subject:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; t=1650560655; x=1650647055; bh=G
- AP2pBpYIARefoTrhKrg6TbWObjZkTgzanJzjS/SNlI=; b=uB/aETs7ShWETCups
- wOOjlp6x+cQP6mtBFjWBU/Z9JR+NSpB+U7PNWnkHd0F7cMpDQfvOVk0TiWdOwRhL
- HloDpH/VTvyUj3Gl+JhCXGvC5c2ByLFX31lx4DbhiIeXFUu7cdRCiSsxkD1mID+d
- 63/x/Pna7mzEiqWlXLBrNLfRD1CIJpDvwz/NE1rI/+SJ5yBc3YjJqNkuJIan1oaN
- mRFSemzaagQzQoROKertHS+eNq/U8aN3JdmbGQulKjI9P9mV+S46eyWOVoB38y9m
- LvtTdSkh7iZAUe26LeSApyO8RiqKZqfst+G6M9YrBjnFu66YMtyoYFN927n99XWV
- ZidmA==
-X-ME-Sender: <xms:jo5hYnaGyiqRwRoVDTb6wQ3wMrY6v7ouotKVEXGGf6jctXdlkwslxw>
- <xme:jo5hYmZgx71qDwWqwHiLUvGE3F2PJCbWKpMSNZLypVERT6_uNlk0tLMYkks7W4XGR
- _l3-nrAkCycRU1sQQ>
-X-ME-Received: <xmr:jo5hYp8H6Dfgh5u6QBaDPk3PcnTKv26OnUwzvZC_vu7x-53QbVB7-Pd_>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrtddvgddutdejucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefhvfevufffkffoggfgsedtkeertd
- ertddtnecuhfhrohhmpefvihhmucevrhgrfihfohhrugcuoehttghrrgiffhhorhgusehs
- hihsthgvmhejiedrtghomheqnecuggftrfgrthhtvghrnhepkefgteefvdeivdfhffdtff
- fgieffhfetgeduudekieefueeutdelfedtveeuheefnecuvehluhhsthgvrhfuihiivgep
- tdenucfrrghrrghmpehmrghilhhfrhhomhepthgtrhgrfihfohhrugesshihshhtvghmje
- eirdgtohhm
-X-ME-Proxy: <xmx:jo5hYtqEG3I-u9zunfGsMspAgJ_6rtqIbqKWXTPv5tIeFatS8IJUlA>
- <xmx:jo5hYioxTxBOis2KJSNXmErnptsqyrhc2jRpoTEGvurA7rJsP_ExRg>
- <xmx:jo5hYjRHglcRA4VS8m0O4Y_aHjDCDMm1iL6lWi70IHc-iTekBG4k4Q>
- <xmx:j45hYnCR6IFlQVJf0wbsYNuW8iSaTCGO1jjVkfNe4LXZodVAkpE94w>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 21 Apr 2022 13:04:14 -0400 (EDT)
-From: Tim Crawford <tcrawford@system76.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: hda/realtek: Add quirk for Clevo NP70PNP
-Date: Thu, 21 Apr 2022 11:04:12 -0600
-Message-Id: <20220421170412.3697-1-tcrawford@system76.com>
-X-Mailer: git-send-email 2.34.1
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="QgU9T0yP"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id AD933B827C0;
+ Thu, 21 Apr 2022 17:21:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1DE7C385A1;
+ Thu, 21 Apr 2022 17:21:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1650561662;
+ bh=WuG3mEg/8lhQCajKRUfY5lcdr1UBJIgbvl5qAQTm+EY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=QgU9T0yPDN+B9ndtK6XGBtJz7BOCT2pQGzZtRilym1TB1fF1H4OfAvk8ixGMBldhD
+ 86IQupGzW9mQTW+UVdMOlzVM7RmIPhHD0b6dv+3KPDS40b9sfIjHGVbzKSzJ9EdANb
+ fLYYUIP0IaXf/QvH2/ldBkPA5M0Gs5/d8L5iuiSArtxtls3b0yrQFhAOzFk68CFvLl
+ Dk3+HdS8UhgbFXkXTmrlo6etqzcQw/WWk9PmRKH34oE0inbVTSJpxCSJ38tPxsmvDO
+ d/jiuaRtBv5NGu31Cb2qpMvODgvEE/uhTA5++8pGrHhoAKqytXxixnsX8z4l/lrqGi
+ p9huEZboOlSLQ==
+Date: Thu, 21 Apr 2022 18:20:57 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Neil Armstrong <narmstrong@baylibre.com>
+Subject: Re: [PATCH 1/2] Revert "ASoC: meson: axg-tdm-interface: manage
+ formatters in trigger"
+Message-ID: <YmGSeVbwWtyHP/Tz@sirena.org.uk>
+References: <20220421155725.2589089-1-narmstrong@baylibre.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, productdev@system76.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="IrsbsSdYKQuD+rKo"
+Content-Disposition: inline
+In-Reply-To: <20220421155725.2589089-1-narmstrong@baylibre.com>
+X-Cookie: Two percent of zero is almost nothing.
+Cc: alsa-devel@alsa-project.org, Dmitry Shmidt <dimitrysh@google.com>,
+ linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, jbrunet@baylibre.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,25 +88,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fixes headset detection on Clevo NP70PNP.
 
-Signed-off-by: Tim Crawford <tcrawford@system76.com>
----
- sound/pci/hda/patch_realtek.c | 1 +
- 1 file changed, 1 insertion(+)
+--IrsbsSdYKQuD+rKo
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 62fbf3772b41..f0f95e25f3f1 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -9163,6 +9163,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1558, 0x8562, "Clevo NH[57][0-9]RZ[Q]", ALC269_FIXUP_DMIC),
- 	SND_PCI_QUIRK(0x1558, 0x8668, "Clevo NP50B[BE]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0x866d, "Clevo NP5[05]PN[HJK]", ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
-+	SND_PCI_QUIRK(0x1558, 0x867c, "Clevo NP7[01]PNP", ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0x867d, "Clevo NP7[01]PN[HJK]", ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0x8680, "Clevo NJ50LU", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0x8686, "Clevo NH50[CZ]U", ALC256_FIXUP_MIC_NO_PRESENCE_AND_RESUME),
--- 
-2.35.1
+On Thu, Apr 21, 2022 at 05:57:24PM +0200, Neil Armstrong wrote:
+> This reverts commit bf5e4887eeddb48480568466536aa08ec7f179a5 because
+> the following and required commit e138233e56e9829e65b6293887063a1a3ccb2d68
 
+One other thing - these should be Fixes: tags, that helps tooling figure
+out things like backports.
+
+Also:
+
+Please include human readable descriptions of things like commits and
+issues being discussed in e-mail in your mails, this makes them much
+easier for humans to read especially when they have no internet access.
+I do frequently catch up on my mail on flights or while otherwise
+travelling so this is even more pressing for me than just being about
+making things a bit easier to read.
+
+--IrsbsSdYKQuD+rKo
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJhkngACgkQJNaLcl1U
+h9C8Fgf/VidmSJ2cMNCtprev2dZXNKdvl5hp5ru5Oetxz+eMGSCdPjKGw4OW35Dc
+mj7OuaoYqZ6+1sHDdYhwtY5rpDGBpxXsRrLLun3ddBp6SrgFIFVZH4hUWAljayN4
+eLXEOdvmlTixcnKoGgvEnl7FxldrV3Ojvi6VixOhXWTpDPo3dlj1BoJvHKvU5rsr
+A3Iip2GOibnZvUxLfzblfBzGs6jg7kAdUF19GflvFDoSNtCMJ2O/lAULE6QUA8CC
++dkIBIWWJCHsGgwtaRPfridNv0z1gHS+gWQOxb1F8MM7zWcoVqHg3FQBNm+pRVIX
+DL2OPncZcm5/LpBtB0O7NM88PFr70Q==
+=JmF7
+-----END PGP SIGNATURE-----
+
+--IrsbsSdYKQuD+rKo--

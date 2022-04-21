@@ -2,84 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E16850A44D
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Apr 2022 17:33:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CD4B50A4DB
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Apr 2022 17:58:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 95BC61634;
-	Thu, 21 Apr 2022 17:33:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95BC61634
+	by alsa0.perex.cz (Postfix) with ESMTPS id E9D57AE9;
+	Thu, 21 Apr 2022 17:57:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9D57AE9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650555233;
-	bh=4NJY+rAE0PX2ltkkyFIncV9Uay4IZgMbp3EY7VuLtE4=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=rQdlW+P37rv/nBG7ZHaCNfpww02DdO/zv3xRhslZ1JrxuaGPbMQo/f9jDKc7xWeF4
-	 3vVuW7xmMKrNkN4OdiM9vhXviMah2TZlqIH0wYU6c1iIZ2s+WFWDIK6SgAgj2i76nz
-	 yWS0OZ1va0LFHcEatrfieziecYtm+Pv2wkOpgJ3k=
+	s=default; t=1650556720;
+	bh=NgQKtYVQd6Ve2Uu/oAmrqXji0aTJSP6xs6VZKOV7EBE=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=rH3KzNei528Qi/HzN8BTm1D5kKvk1Lz7YNf5VSs85XfuRKpdYpxzSrtrF89MC5u+O
+	 qV9YjvtttArOn86HPLRq+w0gHkzM/GvMkvhtb4TLHoNaupE4sNutVJXeg1xWYOvYWI
+	 bO+Un+EoaNlTUbI+KnCACQtGEfbqxknLvBkhyzoE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0EB30F80279;
-	Thu, 21 Apr 2022 17:32:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 46B83F804C1;
+	Thu, 21 Apr 2022 17:57:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ECB87F8032D; Thu, 21 Apr 2022 17:32:51 +0200 (CEST)
+ id B8B7BF800C1; Thu, 21 Apr 2022 17:57:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [IPv6:2a00:1450:4864:20::42b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ED0D5F80125
- for <alsa-devel@alsa-project.org>; Thu, 21 Apr 2022 17:32:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED0D5F80125
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6457BF800C1
+ for <alsa-devel@alsa-project.org>; Thu, 21 Apr 2022 17:57:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6457BF800C1
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="WFqQcO/3"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="7e956VZ4"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 612091F37B;
- Thu, 21 Apr 2022 15:32:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1650555165; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=FgH9Pia+omgZLo55DN5332+ZaY9MY18peY6wg/NFHn8=;
- b=WFqQcO/33hiEJ15vpnAQ1wDdptuoHA4dQq6hoijtP0tWFCywYkVtbgxzHPIFGYD2gsy8W4
- OihV6RZ1+KRaemT3AMabkLkY0x8lv3wB1o7L/wymXS8WBH5wqYh8SAabBwzQg3y8HfXBKi
- INaa+XMNagrblwK7Xlck96a/AND9h0g=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1650555165;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=FgH9Pia+omgZLo55DN5332+ZaY9MY18peY6wg/NFHn8=;
- b=7e956VZ4Lk/r9YsslQiAo2/BLaW2M79Du5OSv9neTBK3L+NdWNDPUOyVPhgVvYltore0eG
- vceiTotIQLyjplAg==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 4FE2E2C14E;
- Thu, 21 Apr 2022 15:32:45 +0000 (UTC)
-Date: Thu, 21 Apr 2022 17:32:45 +0200
-Message-ID: <s5hczhav4de.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Arnd Bergmann <arnd@kernel.org>
-Subject: Re: [PATCH] [v4] m68k: coldfire: drop ISA_DMA_API support
-In-Reply-To: <20220421082040.2866638-1-arnd@kernel.org>
-References: <20220421082040.2866638-1-arnd@kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: Ulf Hansson <ulf.hansson@linaro.org>, Arnd Bergmann <arnd@arndb.de>,
- linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-m68k@lists.linux-m68k.org, Geert Uytterhoeven <geert@linux-m68k.org>,
- alsa-devel@alsa-project.org, Greg Ungerer <gerg@linux-m68k.org>
+ dkim=pass (2048-bit key) header.d=baylibre-com.20210112.gappssmtp.com
+ header.i=@baylibre-com.20210112.gappssmtp.com header.b="Hr7mGBNy"
+Received: by mail-wr1-x42b.google.com with SMTP id t6so3889953wra.4
+ for <alsa-devel@alsa-project.org>; Thu, 21 Apr 2022 08:57:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20210112.gappssmtp.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=E0Xr29KwZXsM1RSTvbGVQLKdFlm6gLr6JsvZ9omdm1g=;
+ b=Hr7mGBNybXCXwQwcy2LhZMdh/KpBSQgzb45nO28fqdIb6vNwaGHZPto4AqwTiu36U7
+ 1J2H0Cy3CB0P4pTBdwieJdyBcv8KveCl9drrDLRiGm4BlVARbKLHJW/hnop9cbcN9I90
+ EV5xQyDgi4Z8kbFDOjkHK67bStZIAzJ+QmzlgzdXGURjmqUy2J54hMne6Klj01BitVe1
+ bx92ejZJKC2cswFvPxZFkteZOeEVIbqyfasj3U3pvxTyRoZniputX4dbzF2PiqgIPwv4
+ Wkz+RJJq2OMylno4iVKeRVvwDTKo4U9zMIyUfsT1lfUkqCnm7E8bIGShTC/eAnKcDC2w
+ GCGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=E0Xr29KwZXsM1RSTvbGVQLKdFlm6gLr6JsvZ9omdm1g=;
+ b=dxV3FPcHrJ3dS3LMrBHi4ETtnmWmovD3N5ImGsN+ro0XSHQPVl6xdG0/+9XQsy+lAA
+ TeWhTVNALQf7hDR0A0S/B5pSt2g/ft0Bp3o1aIqiv5OIHxtwq9QCbm6/dnoD6s1VNoTX
+ ti1dG6riAAZ3m7T0uR3wwSQNbIkP0jwwnmzISzCjIUUREiXZ5vPrt/op5zWpfbkhVllF
+ NIp7vQLmEF6npSNo79JFnwvYAIT2/60hm5gmWvKxpmVToE6hlkqGAwaltUrchUpsYGmf
+ 1rJ7J9iCsFNgcxnnJocVpQih56DsW0W4Qy6aiiJwOFXnva6xyd6MeOxK3kVY0h2GPMNV
+ N8kQ==
+X-Gm-Message-State: AOAM532vEMK/cIjpb/0mAKXcOVHCCb1GwG3+Pmyz2kl3mKSdbOXjtU8t
+ 52fjlz0DrBn8Wbib0seWh4U+dg==
+X-Google-Smtp-Source: ABdhPJx7vw1kRWMEjCJYzAEdaiwrgrOvmaqPUNeDkFIzBjyf49b6SsrkX7g8rEkQbjTibXRCOHMuJg==
+X-Received: by 2002:adf:efc6:0:b0:207:b89b:232b with SMTP id
+ i6-20020adfefc6000000b00207b89b232bmr280197wrp.403.1650556650106; 
+ Thu, 21 Apr 2022 08:57:30 -0700 (PDT)
+Received: from localhost.localdomain ([2001:861:44c0:66c0:35ba:2677:956:980d])
+ by smtp.gmail.com with ESMTPSA id
+ 61-20020adf8143000000b002061d8d807esm2623140wrm.87.2022.04.21.08.57.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 21 Apr 2022 08:57:29 -0700 (PDT)
+From: Neil Armstrong <narmstrong@baylibre.com>
+To: jbrunet@baylibre.com,
+	broonie@kernel.org
+Subject: [PATCH 1/2] Revert "ASoC: meson: axg-tdm-interface: manage formatters
+ in trigger"
+Date: Thu, 21 Apr 2022 17:57:24 +0200
+Message-Id: <20220421155725.2589089-1-narmstrong@baylibre.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Dmitry Shmidt <dimitrysh@google.com>,
+ Neil Armstrong <narmstrong@baylibre.com>, linux-kernel@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,692 +103,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 21 Apr 2022 10:20:12 +0200,
-Arnd Bergmann wrote:
-> 
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> After a build regression report, I took a look at possible users of
-> CONFIG_ISA_DMA_API on m68k and found none, which Greg confirmed. The
-> CONFIG_GENERIC_ISA_DMA option in turn is only needed to implement
-> ISA_DMA_API, and is clearly not used on the platforms with ISA support.
-> 
-> The CONFIG_ISA support for AMIGA_PCMCIA is probably also unneeded,
-> but this is less clear. Unlike other PCMCIA implementations, this one
-> does not use the drivers/pcmcia subsystem at all and just supports
-> the "apne" network driver. When it was first added, one could use
-> ISA drivers on it as well, but this probably broke at some point.
-> 
-> With no reason to keep this, let's just drop the corresponding files
-> and prevent the remaining ISA drivers that use this from getting built.
-> 
-> The remaining definitions in asm/dma.h are used for PCI support.
-> 
-> Link: https://lore.kernel.org/lkml/9e5ee1c3-ca80-f343-a1f5-66f3dd1c0727@linux-m68k.org/
-> Acked-by: Geert Uytterhoeven <geert@linux-m68k.org>
-> Acked-by: Ulf Hansson <ulf.hansson@linaro.org> # For MMC
-> Acked-by: Greg Ungerer <gerg@linux-m68k.org>
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+This reverts commit bf5e4887eeddb48480568466536aa08ec7f179a5 because
+the following and required commit e138233e56e9829e65b6293887063a1a3ccb2d68
+causes the following system crash when using audio:
+ BUG: sleeping function called from invalid context at kernel/locking/mutex.c:282
 
-For the sound part
+Reported-by: Dmitry Shmidt <dimitrysh@google.com>
+Signed-off-by: Neil Armstrong <narmstrong@baylibre.com>
+---
+ sound/soc/meson/axg-tdm-interface.c | 26 +++++---------------------
+ 1 file changed, 5 insertions(+), 21 deletions(-)
 
-Acked-by: Takashi Iwai <tiwai@suse.de>
+diff --git a/sound/soc/meson/axg-tdm-interface.c b/sound/soc/meson/axg-tdm-interface.c
+index 0c31934a9630..e076ced30025 100644
+--- a/sound/soc/meson/axg-tdm-interface.c
++++ b/sound/soc/meson/axg-tdm-interface.c
+@@ -351,29 +351,13 @@ static int axg_tdm_iface_hw_free(struct snd_pcm_substream *substream,
+ 	return 0;
+ }
+ 
+-static int axg_tdm_iface_trigger(struct snd_pcm_substream *substream,
+-				 int cmd,
++static int axg_tdm_iface_prepare(struct snd_pcm_substream *substream,
+ 				 struct snd_soc_dai *dai)
+ {
+-	struct axg_tdm_stream *ts =
+-		snd_soc_dai_get_dma_data(dai, substream);
+-
+-	switch (cmd) {
+-	case SNDRV_PCM_TRIGGER_START:
+-	case SNDRV_PCM_TRIGGER_RESUME:
+-	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+-		axg_tdm_stream_start(ts);
+-		break;
+-	case SNDRV_PCM_TRIGGER_SUSPEND:
+-	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+-	case SNDRV_PCM_TRIGGER_STOP:
+-		axg_tdm_stream_stop(ts);
+-		break;
+-	default:
+-		return -EINVAL;
+-	}
++	struct axg_tdm_stream *ts = snd_soc_dai_get_dma_data(dai, substream);
+ 
+-	return 0;
++	/* Force all attached formatters to update */
++	return axg_tdm_stream_reset(ts);
+ }
+ 
+ static int axg_tdm_iface_remove_dai(struct snd_soc_dai *dai)
+@@ -413,8 +397,8 @@ static const struct snd_soc_dai_ops axg_tdm_iface_ops = {
+ 	.set_fmt	= axg_tdm_iface_set_fmt,
+ 	.startup	= axg_tdm_iface_startup,
+ 	.hw_params	= axg_tdm_iface_hw_params,
++	.prepare	= axg_tdm_iface_prepare,
+ 	.hw_free	= axg_tdm_iface_hw_free,
+-	.trigger	= axg_tdm_iface_trigger,
+ };
+ 
+ /* TDM Backend DAIs */
+-- 
+2.25.1
 
-
-thanks,
-
-Takashi
-
-
-> ---
-> v4: actually fix the build regression
-> v3: fix build regression
-> v2: drop GENERIC_ISA_DMA as well, add some background on CONFIG_ISA.
-> ---
->  arch/m68k/Kconfig.bus       |  10 -
->  arch/m68k/coldfire/Makefile |   2 +-
->  arch/m68k/coldfire/dma.c    |  43 ----
->  arch/m68k/include/asm/dma.h | 483 ------------------------------------
->  arch/m68k/mm/motorola.c     |   1 -
->  drivers/mmc/host/Kconfig    |   2 +-
->  sound/core/Makefile         |   2 -
->  sound/isa/Kconfig           |   2 +-
->  8 files changed, 3 insertions(+), 542 deletions(-)
->  delete mode 100644 arch/m68k/coldfire/dma.c
-> 
-> diff --git a/arch/m68k/Kconfig.bus b/arch/m68k/Kconfig.bus
-> index d1e93a39cd3b..d5c0b2990ee1 100644
-> --- a/arch/m68k/Kconfig.bus
-> +++ b/arch/m68k/Kconfig.bus
-> @@ -56,16 +56,6 @@ config ATARI_ROM_ISA
->  	  The only driver currently using this adapter is the EtherNEC
->  	  driver for RTL8019AS based NE2000 compatible network cards.
->  
-> -config GENERIC_ISA_DMA
-> -	def_bool ISA
-> -
->  source "drivers/zorro/Kconfig"
->  
->  endif
-> -
-> -if COLDFIRE
-> -
-> -config ISA_DMA_API
-> -	def_bool !M5272
-> -
-> -endif
-> diff --git a/arch/m68k/coldfire/Makefile b/arch/m68k/coldfire/Makefile
-> index a3e18d73d8b8..9419a6c1f036 100644
-> --- a/arch/m68k/coldfire/Makefile
-> +++ b/arch/m68k/coldfire/Makefile
-> @@ -15,7 +15,7 @@
->  
->  asflags-$(CONFIG_FULLDEBUG) := -DDEBUGGER_COMPATIBLE_CACHE=1
->  
-> -obj-$(CONFIG_COLDFIRE)	+= cache.o clk.o device.o dma.o entry.o vectors.o
-> +obj-$(CONFIG_COLDFIRE)	+= cache.o clk.o device.o entry.o vectors.o
->  obj-$(CONFIG_M5206)	+= m5206.o intc.o reset.o
->  obj-$(CONFIG_M5206e)	+= m5206.o intc.o reset.o
->  obj-$(CONFIG_M520x)	+= m520x.o intc-simr.o reset.o
-> diff --git a/arch/m68k/coldfire/dma.c b/arch/m68k/coldfire/dma.c
-> deleted file mode 100644
-> index c3279f7467d7..000000000000
-> --- a/arch/m68k/coldfire/dma.c
-> +++ /dev/null
-> @@ -1,43 +0,0 @@
-> -// SPDX-License-Identifier: GPL-2.0
-> -/***************************************************************************/
-> -
-> -/*
-> - *	dma.c -- Freescale ColdFire DMA support
-> - *
-> - *	Copyright (C) 2007, Greg Ungerer (gerg@snapgear.com)
-> - */
-> -
-> -/***************************************************************************/
-> -
-> -#include <linux/kernel.h>
-> -#include <linux/module.h>
-> -#include <asm/dma.h>
-> -#include <asm/coldfire.h>
-> -#include <asm/mcfsim.h>
-> -#include <asm/mcfdma.h>
-> -
-> -/***************************************************************************/
-> -
-> -/*
-> - *      DMA channel base address table.
-> - */
-> -unsigned int dma_base_addr[MAX_M68K_DMA_CHANNELS] = {
-> -#ifdef MCFDMA_BASE0
-> -	MCFDMA_BASE0,
-> -#endif
-> -#ifdef MCFDMA_BASE1
-> -	MCFDMA_BASE1,
-> -#endif
-> -#ifdef MCFDMA_BASE2
-> -	MCFDMA_BASE2,
-> -#endif
-> -#ifdef MCFDMA_BASE3
-> -	MCFDMA_BASE3,
-> -#endif
-> -};
-> -EXPORT_SYMBOL(dma_base_addr);
-> -
-> -unsigned int dma_device_address[MAX_M68K_DMA_CHANNELS];
-> -EXPORT_SYMBOL(dma_device_address);
-> -
-> -/***************************************************************************/
-> diff --git a/arch/m68k/include/asm/dma.h b/arch/m68k/include/asm/dma.h
-> index ae2021964e32..f6c5e0dfb4e5 100644
-> --- a/arch/m68k/include/asm/dma.h
-> +++ b/arch/m68k/include/asm/dma.h
-> @@ -2,493 +2,10 @@
->  #ifndef _M68K_DMA_H
->  #define _M68K_DMA_H 1
->  
-> -#ifdef CONFIG_COLDFIRE
-> -/*
-> - * ColdFire DMA Model:
-> - *   ColdFire DMA supports two forms of DMA: Single and Dual address. Single
-> - * address mode emits a source address, and expects that the device will either
-> - * pick up the data (DMA READ) or source data (DMA WRITE). This implies that
-> - * the device will place data on the correct byte(s) of the data bus, as the
-> - * memory transactions are always 32 bits. This implies that only 32 bit
-> - * devices will find single mode transfers useful. Dual address DMA mode
-> - * performs two cycles: source read and destination write. ColdFire will
-> - * align the data so that the device will always get the correct bytes, thus
-> - * is useful for 8 and 16 bit devices. This is the mode that is supported
-> - * below.
-> - *
-> - * AUG/22/2000 : added support for 32-bit Dual-Address-Mode (K) 2000
-> - *               Oliver Kamphenkel (O.Kamphenkel@tu-bs.de)
-> - *
-> - * AUG/25/2000 : added support for 8, 16 and 32-bit Single-Address-Mode (K)2000
-> - *               Oliver Kamphenkel (O.Kamphenkel@tu-bs.de)
-> - *
-> - * APR/18/2002 : added proper support for MCF5272 DMA controller.
-> - *               Arthur Shipkowski (art@videon-central.com)
-> - */
-> -
-> -#include <asm/coldfire.h>
-> -#include <asm/mcfsim.h>
-> -#include <asm/mcfdma.h>
-> -
-> -/*
-> - * Set number of channels of DMA on ColdFire for different implementations.
-> - */
-> -#if defined(CONFIG_M5249) || defined(CONFIG_M5307) || defined(CONFIG_M5407) || \
-> -	defined(CONFIG_M523x) || defined(CONFIG_M527x) || \
-> -	defined(CONFIG_M528x) || defined(CONFIG_M525x)
-> -
-> -#define MAX_M68K_DMA_CHANNELS 4
-> -#elif defined(CONFIG_M5272)
-> -#define MAX_M68K_DMA_CHANNELS 1
-> -#elif defined(CONFIG_M53xx)
-> -#define MAX_M68K_DMA_CHANNELS 0
-> -#else
-> -#define MAX_M68K_DMA_CHANNELS 2
-> -#endif
-> -
-> -extern unsigned int dma_base_addr[MAX_M68K_DMA_CHANNELS];
-> -extern unsigned int dma_device_address[MAX_M68K_DMA_CHANNELS];
-> -
-> -#if !defined(CONFIG_M5272)
-> -#define DMA_MODE_WRITE_BIT  0x01  /* Memory/IO to IO/Memory select */
-> -#define DMA_MODE_WORD_BIT   0x02  /* 8 or 16 bit transfers */
-> -#define DMA_MODE_LONG_BIT   0x04  /* or 32 bit transfers */
-> -#define DMA_MODE_SINGLE_BIT 0x08  /* single-address-mode */
-> -
-> -/* I/O to memory, 8 bits, mode */
-> -#define DMA_MODE_READ	            0
-> -/* memory to I/O, 8 bits, mode */
-> -#define DMA_MODE_WRITE	            1
-> -/* I/O to memory, 16 bits, mode */
-> -#define DMA_MODE_READ_WORD          2
-> -/* memory to I/O, 16 bits, mode */
-> -#define DMA_MODE_WRITE_WORD         3
-> -/* I/O to memory, 32 bits, mode */
-> -#define DMA_MODE_READ_LONG          4
-> -/* memory to I/O, 32 bits, mode */
-> -#define DMA_MODE_WRITE_LONG         5
-> -/* I/O to memory, 8 bits, single-address-mode */
-> -#define DMA_MODE_READ_SINGLE        8
-> -/* memory to I/O, 8 bits, single-address-mode */
-> -#define DMA_MODE_WRITE_SINGLE       9
-> -/* I/O to memory, 16 bits, single-address-mode */
-> -#define DMA_MODE_READ_WORD_SINGLE  10
-> -/* memory to I/O, 16 bits, single-address-mode */
-> -#define DMA_MODE_WRITE_WORD_SINGLE 11
-> -/* I/O to memory, 32 bits, single-address-mode */
-> -#define DMA_MODE_READ_LONG_SINGLE  12
-> -/* memory to I/O, 32 bits, single-address-mode */
-> -#define DMA_MODE_WRITE_LONG_SINGLE 13
-> -
-> -#else /* CONFIG_M5272 is defined */
-> -
-> -/* Source static-address mode */
-> -#define DMA_MODE_SRC_SA_BIT 0x01
-> -/* Two bits to select between all four modes */
-> -#define DMA_MODE_SSIZE_MASK 0x06
-> -/* Offset to shift bits in */
-> -#define DMA_MODE_SSIZE_OFF  0x01
-> -/* Destination static-address mode */
-> -#define DMA_MODE_DES_SA_BIT 0x10
-> -/* Two bits to select between all four modes */
-> -#define DMA_MODE_DSIZE_MASK 0x60
-> -/* Offset to shift bits in */
-> -#define DMA_MODE_DSIZE_OFF  0x05
-> -/* Size modifiers */
-> -#define DMA_MODE_SIZE_LONG  0x00
-> -#define DMA_MODE_SIZE_BYTE  0x01
-> -#define DMA_MODE_SIZE_WORD  0x02
-> -#define DMA_MODE_SIZE_LINE  0x03
-> -
-> -/*
-> - * Aliases to help speed quick ports; these may be suboptimal, however. They
-> - * do not include the SINGLE mode modifiers since the MCF5272 does not have a
-> - * mode where the device is in control of its addressing.
-> - */
-> -
-> -/* I/O to memory, 8 bits, mode */
-> -#define DMA_MODE_READ	              ((DMA_MODE_SIZE_BYTE << DMA_MODE_DSIZE_OFF) | (DMA_MODE_SIZE_BYTE << DMA_MODE_SSIZE_OFF) | DMA_SRC_SA_BIT)
-> -/* memory to I/O, 8 bits, mode */
-> -#define DMA_MODE_WRITE	            ((DMA_MODE_SIZE_BYTE << DMA_MODE_DSIZE_OFF) | (DMA_MODE_SIZE_BYTE << DMA_MODE_SSIZE_OFF) | DMA_DES_SA_BIT)
-> -/* I/O to memory, 16 bits, mode */
-> -#define DMA_MODE_READ_WORD	        ((DMA_MODE_SIZE_WORD << DMA_MODE_DSIZE_OFF) | (DMA_MODE_SIZE_WORD << DMA_MODE_SSIZE_OFF) | DMA_SRC_SA_BIT)
-> -/* memory to I/O, 16 bits, mode */
-> -#define DMA_MODE_WRITE_WORD         ((DMA_MODE_SIZE_WORD << DMA_MODE_DSIZE_OFF) | (DMA_MODE_SIZE_WORD << DMA_MODE_SSIZE_OFF) | DMA_DES_SA_BIT)
-> -/* I/O to memory, 32 bits, mode */
-> -#define DMA_MODE_READ_LONG	        ((DMA_MODE_SIZE_LONG << DMA_MODE_DSIZE_OFF) | (DMA_MODE_SIZE_LONG << DMA_MODE_SSIZE_OFF) | DMA_SRC_SA_BIT)
-> -/* memory to I/O, 32 bits, mode */
-> -#define DMA_MODE_WRITE_LONG         ((DMA_MODE_SIZE_LONG << DMA_MODE_DSIZE_OFF) | (DMA_MODE_SIZE_LONG << DMA_MODE_SSIZE_OFF) | DMA_DES_SA_BIT)
-> -
-> -#endif /* !defined(CONFIG_M5272) */
-> -
-> -#if !defined(CONFIG_M5272)
-> -/* enable/disable a specific DMA channel */
-> -static __inline__ void enable_dma(unsigned int dmanr)
-> -{
-> -  volatile unsigned short *dmawp;
-> -
-> -#ifdef DMA_DEBUG
-> -  printk("enable_dma(dmanr=%d)\n", dmanr);
-> -#endif
-> -
-> -  dmawp = (unsigned short *) dma_base_addr[dmanr];
-> -  dmawp[MCFDMA_DCR] |= MCFDMA_DCR_EEXT;
-> -}
-> -
-> -static __inline__ void disable_dma(unsigned int dmanr)
-> -{
-> -  volatile unsigned short *dmawp;
-> -  volatile unsigned char  *dmapb;
-> -
-> -#ifdef DMA_DEBUG
-> -  printk("disable_dma(dmanr=%d)\n", dmanr);
-> -#endif
-> -
-> -  dmawp = (unsigned short *) dma_base_addr[dmanr];
-> -  dmapb = (unsigned char *) dma_base_addr[dmanr];
-> -
-> -  /* Turn off external requests, and stop any DMA in progress */
-> -  dmawp[MCFDMA_DCR] &= ~MCFDMA_DCR_EEXT;
-> -  dmapb[MCFDMA_DSR] = MCFDMA_DSR_DONE;
-> -}
-> -
-> -/*
-> - * Clear the 'DMA Pointer Flip Flop'.
-> - * Write 0 for LSB/MSB, 1 for MSB/LSB access.
-> - * Use this once to initialize the FF to a known state.
-> - * After that, keep track of it. :-)
-> - * --- In order to do that, the DMA routines below should ---
-> - * --- only be used while interrupts are disabled! ---
-> - *
-> - * This is a NOP for ColdFire. Provide a stub for compatibility.
-> - */
-> -static __inline__ void clear_dma_ff(unsigned int dmanr)
-> -{
-> -}
-> -
-> -/* set mode (above) for a specific DMA channel */
-> -static __inline__ void set_dma_mode(unsigned int dmanr, char mode)
-> -{
-> -
-> -  volatile unsigned char  *dmabp;
-> -  volatile unsigned short *dmawp;
-> -
-> -#ifdef DMA_DEBUG
-> -  printk("set_dma_mode(dmanr=%d,mode=%d)\n", dmanr, mode);
-> -#endif
-> -
-> -  dmabp = (unsigned char *) dma_base_addr[dmanr];
-> -  dmawp = (unsigned short *) dma_base_addr[dmanr];
-> -
-> -  /* Clear config errors */
-> -  dmabp[MCFDMA_DSR] = MCFDMA_DSR_DONE;
-> -
-> -  /* Set command register */
-> -  dmawp[MCFDMA_DCR] =
-> -    MCFDMA_DCR_INT |         /* Enable completion irq */
-> -    MCFDMA_DCR_CS |          /* Force one xfer per request */
-> -    MCFDMA_DCR_AA |          /* Enable auto alignment */
-> -    /* single-address-mode */
-> -    ((mode & DMA_MODE_SINGLE_BIT) ? MCFDMA_DCR_SAA : 0) |
-> -    /* sets s_rw (-> r/w) high if Memory to I/0 */
-> -    ((mode & DMA_MODE_WRITE_BIT) ? MCFDMA_DCR_S_RW : 0) |
-> -    /* Memory to I/O or I/O to Memory */
-> -    ((mode & DMA_MODE_WRITE_BIT) ? MCFDMA_DCR_SINC : MCFDMA_DCR_DINC) |
-> -    /* 32 bit, 16 bit or 8 bit transfers */
-> -    ((mode & DMA_MODE_WORD_BIT)  ? MCFDMA_DCR_SSIZE_WORD :
-> -     ((mode & DMA_MODE_LONG_BIT) ? MCFDMA_DCR_SSIZE_LONG :
-> -                                   MCFDMA_DCR_SSIZE_BYTE)) |
-> -    ((mode & DMA_MODE_WORD_BIT)  ? MCFDMA_DCR_DSIZE_WORD :
-> -     ((mode & DMA_MODE_LONG_BIT) ? MCFDMA_DCR_DSIZE_LONG :
-> -                                   MCFDMA_DCR_DSIZE_BYTE));
-> -
-> -#ifdef DEBUG_DMA
-> -  printk("%s(%d): dmanr=%d DSR[%x]=%x DCR[%x]=%x\n", __FILE__, __LINE__,
-> -         dmanr, (int) &dmabp[MCFDMA_DSR], dmabp[MCFDMA_DSR],
-> -	 (int) &dmawp[MCFDMA_DCR], dmawp[MCFDMA_DCR]);
-> -#endif
-> -}
-> -
-> -/* Set transfer address for specific DMA channel */
-> -static __inline__ void set_dma_addr(unsigned int dmanr, unsigned int a)
-> -{
-> -  volatile unsigned short *dmawp;
-> -  volatile unsigned int   *dmalp;
-> -
-> -#ifdef DMA_DEBUG
-> -  printk("set_dma_addr(dmanr=%d,a=%x)\n", dmanr, a);
-> -#endif
-> -
-> -  dmawp = (unsigned short *) dma_base_addr[dmanr];
-> -  dmalp = (unsigned int *) dma_base_addr[dmanr];
-> -
-> -  /* Determine which address registers are used for memory/device accesses */
-> -  if (dmawp[MCFDMA_DCR] & MCFDMA_DCR_SINC) {
-> -    /* Source incrementing, must be memory */
-> -    dmalp[MCFDMA_SAR] = a;
-> -    /* Set dest address, must be device */
-> -    dmalp[MCFDMA_DAR] = dma_device_address[dmanr];
-> -  } else {
-> -    /* Destination incrementing, must be memory */
-> -    dmalp[MCFDMA_DAR] = a;
-> -    /* Set source address, must be device */
-> -    dmalp[MCFDMA_SAR] = dma_device_address[dmanr];
-> -  }
-> -
-> -#ifdef DEBUG_DMA
-> -  printk("%s(%d): dmanr=%d DCR[%x]=%x SAR[%x]=%08x DAR[%x]=%08x\n",
-> -	__FILE__, __LINE__, dmanr, (int) &dmawp[MCFDMA_DCR], dmawp[MCFDMA_DCR],
-> -	(int) &dmalp[MCFDMA_SAR], dmalp[MCFDMA_SAR],
-> -	(int) &dmalp[MCFDMA_DAR], dmalp[MCFDMA_DAR]);
-> -#endif
-> -}
-> -
-> -/*
-> - * Specific for Coldfire - sets device address.
-> - * Should be called after the mode set call, and before set DMA address.
-> - */
-> -static __inline__ void set_dma_device_addr(unsigned int dmanr, unsigned int a)
-> -{
-> -#ifdef DMA_DEBUG
-> -  printk("set_dma_device_addr(dmanr=%d,a=%x)\n", dmanr, a);
-> -#endif
-> -
-> -  dma_device_address[dmanr] = a;
-> -}
-> -
-> -/*
-> - * NOTE 2: "count" represents _bytes_.
-> - */
-> -static __inline__ void set_dma_count(unsigned int dmanr, unsigned int count)
-> -{
-> -  volatile unsigned short *dmawp;
-> -
-> -#ifdef DMA_DEBUG
-> -  printk("set_dma_count(dmanr=%d,count=%d)\n", dmanr, count);
-> -#endif
-> -
-> -  dmawp = (unsigned short *) dma_base_addr[dmanr];
-> -  dmawp[MCFDMA_BCR] = (unsigned short)count;
-> -}
-> -
-> -/*
-> - * Get DMA residue count. After a DMA transfer, this
-> - * should return zero. Reading this while a DMA transfer is
-> - * still in progress will return unpredictable results.
-> - * Otherwise, it returns the number of _bytes_ left to transfer.
-> - */
-> -static __inline__ int get_dma_residue(unsigned int dmanr)
-> -{
-> -  volatile unsigned short *dmawp;
-> -  unsigned short count;
-> -
-> -#ifdef DMA_DEBUG
-> -  printk("get_dma_residue(dmanr=%d)\n", dmanr);
-> -#endif
-> -
-> -  dmawp = (unsigned short *) dma_base_addr[dmanr];
-> -  count = dmawp[MCFDMA_BCR];
-> -  return((int) count);
-> -}
-> -#else /* CONFIG_M5272 is defined */
-> -
-> -/*
-> - * The MCF5272 DMA controller is very different than the controller defined above
-> - * in terms of register mapping.  For instance, with the exception of the 16-bit
-> - * interrupt register (IRQ#85, for reference), all of the registers are 32-bit.
-> - *
-> - * The big difference, however, is the lack of device-requested DMA.  All modes
-> - * are dual address transfer, and there is no 'device' setup or direction bit.
-> - * You can DMA between a device and memory, between memory and memory, or even between
-> - * two devices directly, with any combination of incrementing and non-incrementing
-> - * addresses you choose.  This puts a crimp in distinguishing between the 'device
-> - * address' set up by set_dma_device_addr.
-> - *
-> - * Therefore, there are two options.  One is to use set_dma_addr and set_dma_device_addr,
-> - * which will act exactly as above in -- it will look to see if the source is set to
-> - * autoincrement, and if so it will make the source use the set_dma_addr value and the
-> - * destination the set_dma_device_addr value.  Otherwise the source will be set to the
-> - * set_dma_device_addr value and the destination will get the set_dma_addr value.
-> - *
-> - * The other is to use the provided set_dma_src_addr and set_dma_dest_addr functions
-> - * and make it explicit.  Depending on what you're doing, one of these two should work
-> - * for you, but don't mix them in the same transfer setup.
-> - */
-> -
-> -/* enable/disable a specific DMA channel */
-> -static __inline__ void enable_dma(unsigned int dmanr)
-> -{
-> -  volatile unsigned int  *dmalp;
-> -
-> -#ifdef DMA_DEBUG
-> -  printk("enable_dma(dmanr=%d)\n", dmanr);
-> -#endif
-> -
-> -  dmalp = (unsigned int *) dma_base_addr[dmanr];
-> -  dmalp[MCFDMA_DMR] |= MCFDMA_DMR_EN;
-> -}
-> -
-> -static __inline__ void disable_dma(unsigned int dmanr)
-> -{
-> -  volatile unsigned int   *dmalp;
-> -
-> -#ifdef DMA_DEBUG
-> -  printk("disable_dma(dmanr=%d)\n", dmanr);
-> -#endif
-> -
-> -  dmalp = (unsigned int *) dma_base_addr[dmanr];
-> -
-> -  /* Turn off external requests, and stop any DMA in progress */
-> -  dmalp[MCFDMA_DMR] &= ~MCFDMA_DMR_EN;
-> -  dmalp[MCFDMA_DMR] |= MCFDMA_DMR_RESET;
-> -}
-> -
-> -/*
-> - * Clear the 'DMA Pointer Flip Flop'.
-> - * Write 0 for LSB/MSB, 1 for MSB/LSB access.
-> - * Use this once to initialize the FF to a known state.
-> - * After that, keep track of it. :-)
-> - * --- In order to do that, the DMA routines below should ---
-> - * --- only be used while interrupts are disabled! ---
-> - *
-> - * This is a NOP for ColdFire. Provide a stub for compatibility.
-> - */
-> -static __inline__ void clear_dma_ff(unsigned int dmanr)
-> -{
-> -}
-> -
-> -/* set mode (above) for a specific DMA channel */
-> -static __inline__ void set_dma_mode(unsigned int dmanr, char mode)
-> -{
-> -
-> -  volatile unsigned int   *dmalp;
-> -  volatile unsigned short *dmawp;
-> -
-> -#ifdef DMA_DEBUG
-> -  printk("set_dma_mode(dmanr=%d,mode=%d)\n", dmanr, mode);
-> -#endif
-> -  dmalp = (unsigned int *) dma_base_addr[dmanr];
-> -  dmawp = (unsigned short *) dma_base_addr[dmanr];
-> -
-> -  /* Clear config errors */
-> -  dmalp[MCFDMA_DMR] |= MCFDMA_DMR_RESET;
-> -
-> -  /* Set command register */
-> -  dmalp[MCFDMA_DMR] =
-> -    MCFDMA_DMR_RQM_DUAL |         /* Mandatory Request Mode setting */
-> -    MCFDMA_DMR_DSTT_SD  |         /* Set up addressing types; set to supervisor-data. */
-> -    MCFDMA_DMR_SRCT_SD  |         /* Set up addressing types; set to supervisor-data. */
-> -    /* source static-address-mode */
-> -    ((mode & DMA_MODE_SRC_SA_BIT) ? MCFDMA_DMR_SRCM_SA : MCFDMA_DMR_SRCM_IA) |
-> -    /* dest static-address-mode */
-> -    ((mode & DMA_MODE_DES_SA_BIT) ? MCFDMA_DMR_DSTM_SA : MCFDMA_DMR_DSTM_IA) |
-> -    /* burst, 32 bit, 16 bit or 8 bit transfers are separately configurable on the MCF5272 */
-> -    (((mode & DMA_MODE_SSIZE_MASK) >> DMA_MODE_SSIZE_OFF) << MCFDMA_DMR_DSTS_OFF) |
-> -    (((mode & DMA_MODE_SSIZE_MASK) >> DMA_MODE_SSIZE_OFF) << MCFDMA_DMR_SRCS_OFF);
-> -
-> -  dmawp[MCFDMA_DIR] |= MCFDMA_DIR_ASCEN;   /* Enable completion interrupts */
-> -
-> -#ifdef DEBUG_DMA
-> -  printk("%s(%d): dmanr=%d DMR[%x]=%x DIR[%x]=%x\n", __FILE__, __LINE__,
-> -	 dmanr, (int) &dmalp[MCFDMA_DMR], dmalp[MCFDMA_DMR],
-> -	 (int) &dmawp[MCFDMA_DIR], dmawp[MCFDMA_DIR]);
-> -#endif
-> -}
-> -
-> -/* Set transfer address for specific DMA channel */
-> -static __inline__ void set_dma_addr(unsigned int dmanr, unsigned int a)
-> -{
-> -  volatile unsigned int   *dmalp;
-> -
-> -#ifdef DMA_DEBUG
-> -  printk("set_dma_addr(dmanr=%d,a=%x)\n", dmanr, a);
-> -#endif
-> -
-> -  dmalp = (unsigned int *) dma_base_addr[dmanr];
-> -
-> -  /* Determine which address registers are used for memory/device accesses */
-> -  if (dmalp[MCFDMA_DMR] & MCFDMA_DMR_SRCM) {
-> -    /* Source incrementing, must be memory */
-> -    dmalp[MCFDMA_DSAR] = a;
-> -    /* Set dest address, must be device */
-> -    dmalp[MCFDMA_DDAR] = dma_device_address[dmanr];
-> -  } else {
-> -    /* Destination incrementing, must be memory */
-> -    dmalp[MCFDMA_DDAR] = a;
-> -    /* Set source address, must be device */
-> -    dmalp[MCFDMA_DSAR] = dma_device_address[dmanr];
-> -  }
-> -
-> -#ifdef DEBUG_DMA
-> -  printk("%s(%d): dmanr=%d DMR[%x]=%x SAR[%x]=%08x DAR[%x]=%08x\n",
-> -	__FILE__, __LINE__, dmanr, (int) &dmalp[MCFDMA_DMR], dmalp[MCFDMA_DMR],
-> -	(int) &dmalp[MCFDMA_DSAR], dmalp[MCFDMA_DSAR],
-> -	(int) &dmalp[MCFDMA_DDAR], dmalp[MCFDMA_DDAR]);
-> -#endif
-> -}
-> -
-> -/*
-> - * Specific for Coldfire - sets device address.
-> - * Should be called after the mode set call, and before set DMA address.
-> - */
-> -static __inline__ void set_dma_device_addr(unsigned int dmanr, unsigned int a)
-> -{
-> -#ifdef DMA_DEBUG
-> -  printk("set_dma_device_addr(dmanr=%d,a=%x)\n", dmanr, a);
-> -#endif
-> -
-> -  dma_device_address[dmanr] = a;
-> -}
-> -
-> -/*
-> - * NOTE 2: "count" represents _bytes_.
-> - *
-> - * NOTE 3: While a 32-bit register, "count" is only a maximum 24-bit value.
-> - */
-> -static __inline__ void set_dma_count(unsigned int dmanr, unsigned int count)
-> -{
-> -  volatile unsigned int *dmalp;
-> -
-> -#ifdef DMA_DEBUG
-> -  printk("set_dma_count(dmanr=%d,count=%d)\n", dmanr, count);
-> -#endif
-> -
-> -  dmalp = (unsigned int *) dma_base_addr[dmanr];
-> -  dmalp[MCFDMA_DBCR] = count;
-> -}
-> -
-> -/*
-> - * Get DMA residue count. After a DMA transfer, this
-> - * should return zero. Reading this while a DMA transfer is
-> - * still in progress will return unpredictable results.
-> - * Otherwise, it returns the number of _bytes_ left to transfer.
-> - */
-> -static __inline__ int get_dma_residue(unsigned int dmanr)
-> -{
-> -  volatile unsigned int *dmalp;
-> -  unsigned int count;
-> -
-> -#ifdef DMA_DEBUG
-> -  printk("get_dma_residue(dmanr=%d)\n", dmanr);
-> -#endif
-> -
-> -  dmalp = (unsigned int *) dma_base_addr[dmanr];
-> -  count = dmalp[MCFDMA_DBCR];
-> -  return(count);
-> -}
-> -
-> -#endif /* !defined(CONFIG_M5272) */
-> -#endif /* CONFIG_COLDFIRE */
-> -
->  /* it's useless on the m68k, but unfortunately needed by the new
->     bootmem allocator (but this should do it for this) */
->  #define MAX_DMA_ADDRESS PAGE_OFFSET
->  
-> -#define MAX_DMA_CHANNELS 8
-> -
-> -extern int request_dma(unsigned int dmanr, const char * device_id);	/* reserve a DMA channel */
-> -extern void free_dma(unsigned int dmanr);	/* release it again */
-> -
->  #ifdef CONFIG_PCI
->  extern int isa_dma_bridge_buggy;
->  #else
-> diff --git a/arch/m68k/mm/motorola.c b/arch/m68k/mm/motorola.c
-> index ecbe948f4c1a..df7f797c908a 100644
-> --- a/arch/m68k/mm/motorola.c
-> +++ b/arch/m68k/mm/motorola.c
-> @@ -27,7 +27,6 @@
->  #include <asm/pgalloc.h>
->  #include <asm/machdep.h>
->  #include <asm/io.h>
-> -#include <asm/dma.h>
->  #ifdef CONFIG_ATARI
->  #include <asm/atari_stram.h>
->  #endif
-> diff --git a/drivers/mmc/host/Kconfig b/drivers/mmc/host/Kconfig
-> index af6c3c329076..d6144978e32d 100644
-> --- a/drivers/mmc/host/Kconfig
-> +++ b/drivers/mmc/host/Kconfig
-> @@ -508,7 +508,7 @@ config MMC_OMAP_HS
->  
->  config MMC_WBSD
->  	tristate "Winbond W83L51xD SD/MMC Card Interface support"
-> -	depends on ISA_DMA_API && !M68K
-> +	depends on ISA_DMA_API
->  	help
->  	  This selects the Winbond(R) W83L51xD Secure digital and
->  	  Multimedia card Interface.
-> diff --git a/sound/core/Makefile b/sound/core/Makefile
-> index 350d704ced98..2762f03d9b7b 100644
-> --- a/sound/core/Makefile
-> +++ b/sound/core/Makefile
-> @@ -9,9 +9,7 @@ ifneq ($(CONFIG_SND_PROC_FS),)
->  snd-y += info.o
->  snd-$(CONFIG_SND_OSSEMUL) += info_oss.o
->  endif
-> -ifneq ($(CONFIG_M68K),y)
->  snd-$(CONFIG_ISA_DMA_API) += isadma.o
-> -endif
->  snd-$(CONFIG_SND_OSSEMUL) += sound_oss.o
->  snd-$(CONFIG_SND_VMASTER) += vmaster.o
->  snd-$(CONFIG_SND_JACK)	  += ctljack.o jack.o
-> diff --git a/sound/isa/Kconfig b/sound/isa/Kconfig
-> index 570b88e0b201..6ffa48dd5983 100644
-> --- a/sound/isa/Kconfig
-> +++ b/sound/isa/Kconfig
-> @@ -22,7 +22,7 @@ config SND_SB16_DSP
->  menuconfig SND_ISA
->  	bool "ISA sound devices"
->  	depends on ISA || COMPILE_TEST
-> -	depends on ISA_DMA_API && !M68K
-> +	depends on ISA_DMA_API
->  	default y
->  	help
->  	  Support for sound devices connected via the ISA bus.
-> -- 
-> 2.29.2
-> 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D55C50AA0A
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Apr 2022 22:35:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 799E250AA1C
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Apr 2022 22:37:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2E00C1711;
-	Thu, 21 Apr 2022 22:35:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E00C1711
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1567316F8;
+	Thu, 21 Apr 2022 22:36:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1567316F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650573353;
-	bh=sQu9jhm4eg9QN53l9oLEDPOXKBPs5Nh7hcAitnpDpGw=;
+	s=default; t=1650573426;
+	bh=MsbOrM7VuASy4hGQDZScuOD3aLjHCY5ZgtKB8JWpYQc=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oJC6zdpEuISiqUzBKTbECRjT5zqtkv1w8kBzPq/ZPn07dI+dnnqwbxsPR9Ynr3Khd
-	 HbFjdG8fyMugbVjnzuF91hGy3WfeQb2P1KOTV3jEMeHa5koODKGFPJSxkJUgJ0vt++
-	 ibVdBXV0P8chhlDD0CK6EnI6MyfKlxvdgT4mUceQ=
+	b=vUtw7ZgPSxLoaaTyjSFhgBhLQqT806e6H4o15QJ9b84H5CEjm1laMZnl6flC+JRQJ
+	 J85f+v6x+6rhZjMM+8AenXWx3oJd2ooXloQoGJHuz0qQTWle7zvX2Li2jd58TYvpuW
+	 +pTYz70fnlS0+a45plAcWWA3VVgt2UIkGdjrvSI8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ED763F80543;
-	Thu, 21 Apr 2022 22:33:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 21020F80571;
+	Thu, 21 Apr 2022 22:33:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7CF84F8053B; Thu, 21 Apr 2022 22:32:59 +0200 (CEST)
+ id CFD41F8054A; Thu, 21 Apr 2022 22:33:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,39 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0534EF8050F
- for <alsa-devel@alsa-project.org>; Thu, 21 Apr 2022 22:32:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0534EF8050F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1F287F80527
+ for <alsa-devel@alsa-project.org>; Thu, 21 Apr 2022 22:32:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F287F80527
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="B0tAYa7f"
+ header.b="G5/OgfUE"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1650573167; x=1682109167;
+ t=1650573168; x=1682109168;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=sQu9jhm4eg9QN53l9oLEDPOXKBPs5Nh7hcAitnpDpGw=;
- b=B0tAYa7faXcNG9Tn1CVXizmjp8HPG5sXJ0stMNlVz0y3mXKzyAsNoewi
- 8wseCXyC4Bbltfji2W/PSravq0QH+i0001PjsSvtCVbwlFdq0SSYTljAq
- bPAvRRdWhcenRKrgsYuD03B7nHDeFELEQ6yQadEpKuA3guyfDzmqBrSYh
- C8Hax97B06Zs3qZ9UPgpshRGdIHKX/FyAnTiN2QU1WrlIEp2QayBTBDsN
- xcO1K7x7dlaBWxnE+Pnb9C7qGgoFKtigTMxRUKKTJNKUPmwkXqbVny5RK
- 4dIo8tX7tPobP0SCCcM8j9HicQciau9ZLzk4UCtXPG+GJTg5r2C0AHA// w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10324"; a="245047635"
-X-IronPort-AV: E=Sophos;i="5.90,279,1643702400"; d="scan'208";a="245047635"
+ bh=MsbOrM7VuASy4hGQDZScuOD3aLjHCY5ZgtKB8JWpYQc=;
+ b=G5/OgfUEhIrh7ljQbyve8Nj7IF9f5vJSCNicZzQfLEnXwfHze3N9uq7X
+ +Il4TecOAWeSKz4ZLTy5LI+VOrMMxf4CU+QmApzjSVpltZGeZHGSenT1M
+ sIN1sDIVhXTNcbgp0kcUdqhU/joSFB4fH/etUaKlhd/50DO9yApGwijOx
+ 46x7rnUjCJwoaRWHPESa0C/0MJPyDsCMCrnWghzojYHmD+vWVLIMjIYWn
+ fBEYn2RITi/a8yGrWPtNEANKKzE6oSTqjVdMqc75tRQhCD5eB2da+CG1b
+ /Vv+ybLCOq60S5md7Bk4vooM3mojAQAvV5lnSN0aytuwrWQSv33ApX64P g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10324"; a="245047639"
+X-IronPort-AV: E=Sophos;i="5.90,279,1643702400"; d="scan'208";a="245047639"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  21 Apr 2022 13:32:18 -0700
-X-IronPort-AV: E=Sophos;i="5.90,279,1643702400"; d="scan'208";a="577455798"
+X-IronPort-AV: E=Sophos;i="5.90,279,1643702400"; d="scan'208";a="577455806"
 Received: from qingsu-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.212.148.250])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Apr 2022 13:32:17 -0700
+ 21 Apr 2022 13:32:18 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 10/14] ASoC: SOF: Intel: hda-dai: move code to deal with hda
- dai/dailink suspend
-Date: Thu, 21 Apr 2022 15:31:57 -0500
-Message-Id: <20220421203201.1550328-11-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 11/14] ASoC: SOF: Intel: hda-dai: improve suspend case
+Date: Thu, 21 Apr 2022 15:31:58 -0500
+Message-Id: <20220421203201.1550328-12-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220421203201.1550328-1-pierre-louis.bossart@linux.intel.com>
 References: <20220421203201.1550328-1-pierre-louis.bossart@linux.intel.com>
@@ -94,10 +93,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The location of the code was not optimal and prevents us from using
-helpers, let's move it to hda-dai.c.
-
-No functionality change in this patch.
+Add comments and re-align with the TRIGGER_SUSPEND case with an
+additional call to hda_dai_hw_free_ipc() to free-up resources.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Rander Wang <rander.wang@intel.com>
@@ -105,151 +102,61 @@ Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- sound/soc/sof/intel/hda-dai.c | 58 +++++++++++++++++++++++++++++++++++
- sound/soc/sof/intel/hda-dsp.c | 42 ++++---------------------
- sound/soc/sof/intel/hda.h     |  1 +
- 3 files changed, 65 insertions(+), 36 deletions(-)
+ sound/soc/sof/intel/hda-dai.c | 27 ++++++++++++++++++++-------
+ 1 file changed, 20 insertions(+), 7 deletions(-)
 
 diff --git a/sound/soc/sof/intel/hda-dai.c b/sound/soc/sof/intel/hda-dai.c
-index 0521cb755a8af..c1ff7145745bc 100644
+index c1ff7145745bc..dbccd75defe84 100644
 --- a/sound/soc/sof/intel/hda-dai.c
 +++ b/sound/soc/sof/intel/hda-dai.c
-@@ -448,6 +448,45 @@ static const struct snd_soc_dai_ops ipc3_hda_dai_ops = {
- 	.prepare = ipc3_hda_dai_prepare,
- };
- 
-+static int hda_dai_suspend(struct hdac_bus *bus)
-+{
-+	struct snd_soc_pcm_runtime *rtd;
-+	struct hdac_ext_stream *hext_stream;
-+	struct hdac_ext_link *link;
-+	struct hdac_stream *s;
-+	const char *name;
-+	int stream_tag;
-+
-+	/* set internal flag for BE */
-+	list_for_each_entry(s, &bus->stream_list, list) {
-+		hext_stream = stream_to_hdac_ext_stream(s);
-+
-+		/*
-+		 * clear stream. This should already be taken care for running
-+		 * streams when the SUSPEND trigger is called. But paused
-+		 * streams do not get suspended, so this needs to be done
-+		 * explicitly during suspend.
-+		 */
-+		if (hext_stream->link_substream) {
-+			rtd = asoc_substream_to_rtd(hext_stream->link_substream);
-+			name = asoc_rtd_to_codec(rtd, 0)->component->name;
-+			link = snd_hdac_ext_bus_get_link(bus, name);
-+			if (!link)
-+				return -EINVAL;
-+
-+			hext_stream->link_prepared = 0;
-+
-+			if (hdac_stream(hext_stream)->direction ==
-+				SNDRV_PCM_STREAM_CAPTURE)
-+				continue;
-+
-+			stream_tag = hdac_stream(hext_stream)->stream_tag;
-+			snd_hdac_ext_link_clear_stream_id(link, stream_tag);
-+		}
-+	}
-+
-+	return 0;
-+}
- #endif
- 
- /* only one flag used so far to harden hw_params/hw_free/trigger/prepare */
-@@ -733,3 +772,22 @@ struct snd_soc_dai_driver skl_dai[] = {
- },
- #endif
- };
-+
-+int hda_dsp_dais_suspend(struct snd_sof_dev *sdev)
-+{
-+	/*
-+	 * In the corner case where a SUSPEND happens during a PAUSE, the ALSA core
-+	 * does not throw the TRIGGER_SUSPEND. This leaves the DAIs in an unbalanced state.
-+	 * Since the component suspend is called last, we can trap this corner case
-+	 * and force the DAIs to release their resources.
-+	 */
-+#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
+@@ -456,6 +456,7 @@ static int hda_dai_suspend(struct hdac_bus *bus)
+ 	struct hdac_stream *s;
+ 	const char *name;
+ 	int stream_tag;
 +	int ret;
-+
-+	ret = hda_dai_suspend(sof_to_bus(sdev));
-+	if (ret < 0)
-+		return ret;
-+#endif
-+
-+	return 0;
-+}
-diff --git a/sound/soc/sof/intel/hda-dsp.c b/sound/soc/sof/intel/hda-dsp.c
-index ad11df345be75..c068a3f2f6df3 100644
---- a/sound/soc/sof/intel/hda-dsp.c
-+++ b/sound/soc/sof/intel/hda-dsp.c
-@@ -894,44 +894,14 @@ int hda_dsp_shutdown(struct snd_sof_dev *sdev)
  
- int hda_dsp_set_hw_params_upon_resume(struct snd_sof_dev *sdev)
- {
--#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
--	struct hdac_bus *bus = sof_to_bus(sdev);
--	struct snd_soc_pcm_runtime *rtd;
--	struct hdac_ext_stream *hext_stream;
--	struct hdac_ext_link *link;
--	struct hdac_stream *s;
--	const char *name;
--	int stream_tag;
--
--	/* set internal flag for BE */
--	list_for_each_entry(s, &bus->stream_list, list) {
--		hext_stream = stream_to_hdac_ext_stream(s);
--
--		/*
--		 * clear stream. This should already be taken care for running
--		 * streams when the SUSPEND trigger is called. But paused
--		 * streams do not get suspended, so this needs to be done
--		 * explicitly during suspend.
--		 */
--		if (hext_stream->link_substream) {
--			rtd = asoc_substream_to_rtd(hext_stream->link_substream);
+ 	/* set internal flag for BE */
+ 	list_for_each_entry(s, &bus->stream_list, list) {
+@@ -468,20 +469,32 @@ static int hda_dai_suspend(struct hdac_bus *bus)
+ 		 * explicitly during suspend.
+ 		 */
+ 		if (hext_stream->link_substream) {
++			struct snd_soc_dai *cpu_dai;
++			struct snd_soc_dai *codec_dai;
++
+ 			rtd = asoc_substream_to_rtd(hext_stream->link_substream);
 -			name = asoc_rtd_to_codec(rtd, 0)->component->name;
--			link = snd_hdac_ext_bus_get_link(bus, name);
--			if (!link)
--				return -EINVAL;
--
--			hext_stream->link_prepared = 0;
-+	int ret;
++			cpu_dai = asoc_rtd_to_cpu(rtd, 0);
++			codec_dai = asoc_rtd_to_codec(rtd, 0);
++			name = codec_dai->component->name;
+ 			link = snd_hdac_ext_bus_get_link(bus, name);
+ 			if (!link)
+ 				return -EINVAL;
+ 
++			/*
++			 * we don't need to call snd_hdac_ext_link_stream_clear(he_stream)
++			 * since we can only reach this case in the pause_push state, and
++			 * the TRIGGER_PAUSE_PUSH already stops the DMA
++			 */
++			if (hdac_stream(hext_stream)->direction == SNDRV_PCM_STREAM_PLAYBACK) {
++				stream_tag = hdac_stream(hext_stream)->stream_tag;
++				snd_hdac_ext_link_clear_stream_id(link, stream_tag);
++			}
+ 			hext_stream->link_prepared = 0;
  
 -			if (hdac_stream(hext_stream)->direction ==
 -				SNDRV_PCM_STREAM_CAPTURE)
 -				continue;
-+	/* make sure all DAI resources are freed */
-+	ret = hda_dsp_dais_suspend(sdev);
-+	if (ret < 0)
-+		dev_warn(sdev->dev, "%s: failure in hda_dsp_dais_suspend\n", __func__);
- 
+-
 -			stream_tag = hdac_stream(hext_stream)->stream_tag;
 -			snd_hdac_ext_link_clear_stream_id(link, stream_tag);
--		}
--	}
--#endif
--	return 0;
-+	return ret;
- }
++			/* for consistency with TRIGGER_SUSPEND we free DAI resources */
++			ret = hda_dai_hw_free_ipc(hdac_stream(hext_stream)->direction, cpu_dai);
++			if (ret < 0)
++				return ret;
+ 		}
+ 	}
  
- void hda_dsp_d0i3_work(struct work_struct *work)
-diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
-index f520d1cf70c90..e52cade756179 100644
---- a/sound/soc/sof/intel/hda.h
-+++ b/sound/soc/sof/intel/hda.h
-@@ -697,6 +697,7 @@ static inline bool hda_common_check_sdw_irq(struct snd_sof_dev *sdev)
- 
- /* common dai driver */
- extern struct snd_soc_dai_driver skl_dai[];
-+int hda_dsp_dais_suspend(struct snd_sof_dev *sdev);
- 
- /*
-  * Platform Specific HW abstraction Ops.
 -- 
 2.30.2
 

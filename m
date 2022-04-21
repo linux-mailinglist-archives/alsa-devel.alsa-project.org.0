@@ -2,87 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6175450B88F
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Apr 2022 15:34:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6656450B943
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Apr 2022 15:56:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 041D716F2;
-	Fri, 22 Apr 2022 15:33:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 041D716F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 017B617C1;
+	Fri, 22 Apr 2022 15:55:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 017B617C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650634441;
-	bh=hitR8afuryPjSvr6VIcVMWcp/x8MYszP3S0RRqrfwNA=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1650635776;
+	bh=i0HMWq1JRa0F0CeO2hnG9SF3TuKwCFJPlYUxv+11vSY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MtW8BaskkdfbiybbbzPbnyi5EzA8kZd5jfXs/Wa7g09WqIlSZNNh4tD/iLhF4oC1m
-	 ztQR5KqzxjTuUjDa9xUdl0wYAUgsno6p0JMS1JxuyvYaVvespZHEqv6s7ht+8/j7bQ
-	 2VbwjOu6f/ZB9msDNQO7A+lsuR6e8s+DvoSqWCAE=
+	b=s9OSvD/qzygu3Mu84brEorOJmkVeJuvEf+F4AdYzYMkngMi/hKj/TZQRhZeBd9y3g
+	 YPpY0Ly+GqGQk6DG8bYEdPrE0yjFNbZpi66Eo2Ur9p9FpOveuPsj3zGlpTacSj/mNp
+	 jCkx876qHQwf5Ia9Ap3amyJPmExVQKjPoT6zbD7E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 10226F8051A;
-	Fri, 22 Apr 2022 15:31:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 713F2F80C5A;
+	Fri, 22 Apr 2022 15:32:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 39BAFF8032D; Thu, 21 Apr 2022 15:49:31 +0200 (CEST)
+ id E89A7F8032D; Thu, 21 Apr 2022 16:46:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A915DF800F4
+ for <alsa-devel@alsa-project.org>; Thu, 21 Apr 2022 16:46:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A915DF800F4
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="KYNnxH1/"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 516A1F80125
- for <alsa-devel@alsa-project.org>; Thu, 21 Apr 2022 15:49:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 516A1F80125
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="IlKi3DBH"
-Received: from fllv0035.itg.ti.com ([10.64.41.0])
- by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 23LDnPct064964;
- Thu, 21 Apr 2022 08:49:25 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1650548965;
- bh=sOz3H5JVFZa8DXo43LjtHrPf7nI/khmshY2meABrkFQ=;
- h=Date:From:To:CC:Subject:References:In-Reply-To;
- b=IlKi3DBHGtzAgBYQLAsXVp1JMjJvok3pPIWUXfGXmPonilChCKKCwa0bI8C/hSX0B
- VRBO8rftr9ZGNLprfjducb/NvIqC8WxohZA793oKR+uuRxdyfpcB2xKnMuLTjPPLzc
- 8dE0XefoWFF377o6OHtFFJqGS0VbEbNR3otANW0c=
-Received: from DLEE103.ent.ti.com (dlee103.ent.ti.com [157.170.170.33])
- by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 23LDnPKu096354
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Thu, 21 Apr 2022 08:49:25 -0500
-Received: from DLEE110.ent.ti.com (157.170.170.21) by DLEE103.ent.ti.com
- (157.170.170.33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2308.14; Thu, 21
- Apr 2022 08:49:23 -0500
-Received: from lelv0327.itg.ti.com (10.180.67.183) by DLEE110.ent.ti.com
- (157.170.170.21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2308.14 via
- Frontend Transport; Thu, 21 Apr 2022 08:49:23 -0500
-Received: from localhost (ileax41-snat.itg.ti.com [10.172.224.153])
- by lelv0327.itg.ti.com (8.15.2/8.15.2) with ESMTP id 23LDnNEs035425;
- Thu, 21 Apr 2022 08:49:23 -0500
-Date: Thu, 21 Apr 2022 08:49:23 -0500
-From: Nishanth Menon <nm@ti.com>
-To: Jai Luthra <j-luthra@ti.com>
-Subject: Re: [PATCH 0/3] Enable audio output on AM62-SK
-Message-ID: <20220421134923.5n546sckyfugfyp4@matador>
-References: <20220421132224.8601-1-j-luthra@ti.com>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 3FA1B61A7C
+ for <alsa-devel@alsa-project.org>; Thu, 21 Apr 2022 14:46:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38269C385B4
+ for <alsa-devel@alsa-project.org>; Thu, 21 Apr 2022 14:46:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1650552395;
+ bh=i0HMWq1JRa0F0CeO2hnG9SF3TuKwCFJPlYUxv+11vSY=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=KYNnxH1/6h4JHSpiitspdSKkTEwWa1tJBCwmto9ZMzu31V+JKmKgI743LDv+s34bq
+ QmSRKC+hHoCyn8rQMCoQYbCY9I4u1HRgIOm+Pz2OmA5gNIE7rXJyrAZQqUv9oA3TUQ
+ CVuRa/VFqB7epVLHtpWWZFuEw4IysfFmBo/cCYj+4wtcdzx74jW2LjnvsN+imBPGkx
+ NUHT9J1SbF8LbbqYNTV0fbd7NyddYgpQP9JQyBAmIQiZB0mHJDNoZgZMT3gNF6FO91
+ 4nSd3Odf/kHuZoRH+pZi1kgbPYDKmWC6TMUEyESfHfKmh/QjbWYzrE2aZ/dN2sYGsU
+ NUgA5p8ikcvFQ==
+Received: by mail-wr1-f51.google.com with SMTP id x18so7062532wrc.0
+ for <alsa-devel@alsa-project.org>; Thu, 21 Apr 2022 07:46:35 -0700 (PDT)
+X-Gm-Message-State: AOAM5322UWbzJjL3+fnWLp5NaRueBtYY3mJPCSsrjVfaLlWfmNdTtem/
+ d7yue/hfwwG39LBf75ZwSLOcTXHfuHecuzZjYYo=
+X-Google-Smtp-Source: ABdhPJwYkraliZNB9aswBiexBZv/yC4YtGe2R9rvi1KW9m/P8YE/IbH0HzS9xhCUm+8mp8SN41/aSdFZNG1cTJqd71I=
+X-Received: by 2002:a5d:6da5:0:b0:20a:8805:6988 with SMTP id
+ u5-20020a5d6da5000000b0020a88056988mr48774wrs.317.1650552393282; Thu, 21 Apr
+ 2022 07:46:33 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20220421132224.8601-1-j-luthra@ti.com>
-User-Agent: NeoMutt/20171215
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-X-Mailman-Approved-At: Fri, 22 Apr 2022 15:31:39 +0200
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Vignesh Raghavendra <vigneshr@ti.com>, Jayesh Choudhary <j-choudhary@ti.com>,
- linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Peter Ujfalusi <peter.ujfalusi@gmail.com>,
- linux-arm-kernel@lists.infradead.org
+References: <20220419133723.1394715-1-arnd@kernel.org>
+ <20220420170836.GB1947@darkstar.musicnaut.iki.fi>
+ <CAK8P3a1+sOrn8BWPVc7f+QFZ5=7fE6=MLsMYV9t+HJcG2aRCXA@mail.gmail.com>
+ <20220421133431.GE1947@darkstar.musicnaut.iki.fi>
+In-Reply-To: <20220421133431.GE1947@darkstar.musicnaut.iki.fi>
+From: Arnd Bergmann <arnd@kernel.org>
+Date: Thu, 21 Apr 2022 16:46:17 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a0LkJ5EvJ13xtAhWzCKnnvYhYgKpPsphr1T-FGg6bzDuw@mail.gmail.com>
+Message-ID: <CAK8P3a0LkJ5EvJ13xtAhWzCKnnvYhYgKpPsphr1T-FGg6bzDuw@mail.gmail.com>
+Subject: Re: [PATCH 00/41] OMAP1 full multiplatform conversion
+To: Aaro Koskinen <aaro.koskinen@iki.fi>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Fri, 22 Apr 2022 15:31:42 +0200
+Cc: Ulf Hansson <ulf.hansson@linaro.org>, USB list <linux-usb@vger.kernel.org>,
+ Tony Lindgren <tony@atomide.com>, Linus Walleij <linus.walleij@linaro.org>,
+ Linux Fbdev development list <linux-fbdev@vger.kernel.org>,
+ Dominik Brodowski <linux@dominikbrodowski.net>,
+ Lee Jones <lee.jones@linaro.org>, Daniel Thompson <daniel.thompson@linaro.org>,
+ Kevin Hilman <khilman@kernel.org>, Peter Ujfalusi <peter.ujfalusi@gmail.com>,
+ Helge Deller <deller@gmx.de>, Janusz Krzysztofik <jmkrzyszt@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Alan Stern <stern@rowland.harvard.edu>,
+ "open list:SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
+ "open list:HID CORE LAYER" <linux-input@vger.kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>, Mark Brown <broonie@kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ linux-omap <linux-omap@vger.kernel.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Felipe Balbi <balbi@kernel.org>, Paul Walmsley <paul@pwsan.com>,
+ Jingoo Han <jingoohan1@gmail.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ linux-mmc <linux-mmc@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, dmaengine@vger.kernel.org,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,37 +116,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 18:52-20220421, Jai Luthra wrote:
-> This patch series adds support for audio output via headphone jack on the 
-> AM62-SK board. The jack is wired to TLV320AIC3106 (codec), which is 
-> connected to McASP (serializer).
-> 
-> The same 3.5mm jack can be used for combined playback+recording, but audio 
-> input is currently disabled on McASP until further testing and debugging.
-> 
-> Please apply this series on top of 
-> https://lore.kernel.org/all/20220415131917.431137-1-vigneshr@ti.com/ 
-> 
-> Jai Luthra (1):
->   arm64: dts: ti: am625-sk: Add audio output support
-> 
-> Jayesh Choudhary (2):
->   arm64: dts: ti: k3-am62-main: Add McASP nodes
->   ASoC: ti: davinci-mcasp: Add dma-type for bcdma
-> 
->  arch/arm64/boot/dts/ti/k3-am62-main.dtsi | 51 ++++++++++++++
->  arch/arm64/boot/dts/ti/k3-am625-sk.dts   | 89 ++++++++++++++++++++++++
->  sound/soc/ti/davinci-mcasp.c             |  2 +
->  3 files changed, 142 insertions(+)
-> 
+On Thu, Apr 21, 2022 at 3:34 PM Aaro Koskinen <aaro.koskinen@iki.fi> wrote:
+>
+> Hi,
+>
+> On Wed, Apr 20, 2022 at 10:00:13PM +0200, Arnd Bergmann wrote:
+> > On Wed, Apr 20, 2022 at 7:08 PM Aaro Koskinen <aaro.koskinen@iki.fi> wrote:
+> > > On Tue, Apr 19, 2022 at 03:36:42PM +0200, Arnd Bergmann wrote:
+> > > > From: Arnd Bergmann <arnd@arndb.de>
+> > > >
+> > > > This is the full series for converting OMAP1 to multiplatform, rebased
+> > > > from my 2019 attempt to do the same thing. The soc tree contains simpler
+> > > > patches to do the same for iop32x, ixp4xx, ep93xx and s3c24xx, which
+> > > > means we are getting closer to completing this for all ARMv5 platforms
+> > > > (I have patches for PXA, which is the last one remaining).
+> > > >
+> > > > Janusz already tested the branch separately and did the missing work
+> > > > for the common-clk conversion after my previous approach was broken.
+> > >
+> > > I tested the full series on the following OMAP1 boards: ams-delta,
+> > > nokia770, osk, palmte and sx1 (QEMU only).
+> > >
+> > > Apart from the earlyprintk breakage, everything seemed to work OK.
+> >
+> > Nice, thanks a lot for testing!
+>
+> With the updated patch 26 also earlyprintk now works, so if you still
+> update the patches, feel free to add for the whole series:
+>
+> Tested-by: Aaro Koskinen <aaro.koskinen@iki.fi>
 
+I was just doing the merge, so I added the tag to the commit now.
 
-Please split this series up. Send out the sound/soc/ti/davinci-mcasp.c patch as it's own.
+There is now an "omap1/multiplatform-prep" branch that is part of
+arm/multiplatform, and I hope to not have to rebase that. I also
+have an arm/multiplatform-late branch with the remaining contents.
 
-dts changes are their own series.
-
-
--- 
-Regards,
-Nishanth Menon
-Key (0xDDB5849D1736249D) / Fingerprint: F8A2 8693 54EB 8232 17A3  1A34 DDB5 849D 1736 249D
+       Arnd

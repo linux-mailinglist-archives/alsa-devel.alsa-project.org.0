@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9F0F50AA07
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Apr 2022 22:35:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B1CE50AA0C
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Apr 2022 22:36:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6671916ED;
-	Thu, 21 Apr 2022 22:34:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6671916ED
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0B5611E4;
+	Thu, 21 Apr 2022 22:35:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B5611E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650573326;
-	bh=wuwZsOTag0+OVWlYEGuQCRRouZ9tDkDnyGH5uZ+AjpI=;
+	s=default; t=1650573370;
+	bh=42doVDkzqH+3Ckk8toMQBpwdpz4CHxzmvIKuhandJ1E=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mGypWBjHc1nmCRDiJUBwpLDlpZHXupXDC7vW0M9wOeG+0kyKTTlmp4ye82fdz9Wpo
-	 qWGEfFXyQlF1duXFnZ7Kps03gcRbfAV9UuMfMOOWUjik0kfDjetGWQzUFuL+K/uefx
-	 Uq+VySXmpkSirBKru+pCZh3qQChSK4KOhfdqese4=
+	b=pUyQmMBLKEwMYTC3iiljA9uYAgxbLU5tzpiaAvq0Re5uwTYK7MYa2OlMqaRuPbSbg
+	 UTxGLheaNPLBc9fQMzeijzyM9+/v2pugrllHTGiC9Kr62OE6ls42rbWUxByd8B/txm
+	 A3+FrNZMulC5kWMQEW8MNAwIs+ntPvp9bo5U6g78=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 848D1F8050F;
-	Thu, 21 Apr 2022 22:33:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9223FF80551;
+	Thu, 21 Apr 2022 22:33:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E380DF80539; Thu, 21 Apr 2022 22:32:57 +0200 (CEST)
+ id 9051AF80508; Thu, 21 Apr 2022 22:32:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,39 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9A2F3F80506
- for <alsa-devel@alsa-project.org>; Thu, 21 Apr 2022 22:32:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A2F3F80506
+ by alsa1.perex.cz (Postfix) with ESMTPS id 21A4DF804FD
+ for <alsa-devel@alsa-project.org>; Thu, 21 Apr 2022 22:32:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21A4DF804FD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="EmRn6B+S"
+ header.b="CaQ5i1TH"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1650573164; x=1682109164;
+ t=1650573166; x=1682109166;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=wuwZsOTag0+OVWlYEGuQCRRouZ9tDkDnyGH5uZ+AjpI=;
- b=EmRn6B+SdbCrbjqroR1JqcDbYiLB88T3wG/FGgK52w6uAGPf/EwJEo1R
- l3DUHLekURzuOZoxpnE96CYSccjiZHMAuHz0rj99jVaPCWelG7UindmUT
- ZoFMzXWMO2mnqGvqouPWqnyc4lC80K+SiUrZlNO/AixzBGXrGmfSg/BzG
- SyQtBQzwbd8/+qiwN9PdWwqCJ81BsjwGDC/9ykW0URdPD44K0/1mlIwhN
- YKZ1wxz7+s9Le/TaSAbpb8S4aNTcDFiGrhzJBoEVTwfp7Ybzplh04L5NS
- S150L0NSQYST0wwcZP8TU9jrjCtZV2h0L4o3//sL6mI66CakTXw5TgOim w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10324"; a="245047618"
-X-IronPort-AV: E=Sophos;i="5.90,279,1643702400"; d="scan'208";a="245047618"
+ bh=42doVDkzqH+3Ckk8toMQBpwdpz4CHxzmvIKuhandJ1E=;
+ b=CaQ5i1THqsFowUV+giJFOqXACoUUGwzF7ndx+hzbq2Heoafz3HkWabJ5
+ KPAih9tCxq188L/vvjjiXQEAHGTz/1pqcw5Y+2bVinWNE3GQuoj9fKThs
+ 03C5fAl9JtyqdD6xHEAXd+I4sarIG5TPKoALp/QWzd0FpJaEv2g0ioBCY
+ Y2aqUCxNkdaKaPMBDAEV1B1v+ArXnUwyhukr0Md6wgD9QAa3+bcBs4Vdq
+ 5hxR0M6WOJPDOZ9CVujkzWzup7cd3oVKdYTTCGNVtLa5JV8hFjkWEfyj8
+ OdUMMh1hKW2zc7eNzm7WgZlT4xFcsD9+zMpGNWEgAeMrbUxr3p1U1lJtq A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10324"; a="245047623"
+X-IronPort-AV: E=Sophos;i="5.90,279,1643702400"; d="scan'208";a="245047623"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  21 Apr 2022 13:32:16 -0700
-X-IronPort-AV: E=Sophos;i="5.90,279,1643702400"; d="scan'208";a="577455781"
+X-IronPort-AV: E=Sophos;i="5.90,279,1643702400"; d="scan'208";a="577455785"
 Received: from qingsu-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.212.148.250])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Apr 2022 13:32:15 -0700
+ 21 Apr 2022 13:32:16 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 07/14] ASoC: SOF: Intel: hda-dai: regroup dai and link DMA
- operations
-Date: Thu, 21 Apr 2022 15:31:54 -0500
-Message-Id: <20220421203201.1550328-8-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 08/14] ASoC: SOF: sof-audio: flag errors on pipeline teardown
+Date: Thu, 21 Apr 2022 15:31:55 -0500
+Message-Id: <20220421203201.1550328-9-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220421203201.1550328-1-pierre-louis.bossart@linux.intel.com>
 References: <20220421203201.1550328-1-pierre-louis.bossart@linux.intel.com>
@@ -94,8 +93,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Just code move with no functionality change, to clearly separate out
-the 'dai' operation from the link DMA ones.
+Before suspending, walk through all the widgets to make sure all
+refcounts are zero. If not, the resume will not work and random errors
+will be reported. Adding this paranoia check will help identify leaks
+and broken sequences.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Rander Wang <rander.wang@intel.com>
@@ -103,251 +104,32 @@ Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- sound/soc/sof/intel/hda-dai.c | 203 +++++++++++++++++-----------------
- 1 file changed, 102 insertions(+), 101 deletions(-)
+ sound/soc/sof/ipc3-topology.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/sound/soc/sof/intel/hda-dai.c b/sound/soc/sof/intel/hda-dai.c
-index d5ca5b1fefe67..20eb4097ce753 100644
---- a/sound/soc/sof/intel/hda-dai.c
-+++ b/sound/soc/sof/intel/hda-dai.c
-@@ -162,20 +162,6 @@ static int hda_link_dma_params(struct hdac_ext_stream *hext_stream,
- 	return 0;
- }
+diff --git a/sound/soc/sof/ipc3-topology.c b/sound/soc/sof/ipc3-topology.c
+index 572bcbfdb3566..3d00d371fbf31 100644
+--- a/sound/soc/sof/ipc3-topology.c
++++ b/sound/soc/sof/ipc3-topology.c
+@@ -2247,6 +2247,18 @@ static int sof_ipc3_tear_down_all_pipelines(struct snd_sof_dev *sdev, bool verif
+ 	list_for_each_entry(sroute, &sdev->route_list, list)
+ 		sroute->setup = false;
  
--static int hda_dai_widget_update(struct snd_soc_dapm_widget *w,
--				 int channel, bool widget_setup)
--{
--	struct snd_sof_dai_config_data data;
--
--	data.dai_data = channel;
--
--	/* set up/free DAI widget and send DAI_CONFIG IPC */
--	if (widget_setup)
--		return hda_ctrl_dai_widget_setup(w, SOF_DAI_CONFIG_FLAGS_2_STEP_STOP, &data);
--
--	return hda_ctrl_dai_widget_free(w, SOF_DAI_CONFIG_FLAGS_NONE, &data);
--}
--
- static int hda_link_dma_hw_params(struct snd_pcm_substream *substream,
- 				  struct snd_pcm_hw_params *params)
- {
-@@ -220,6 +206,108 @@ static int hda_link_dma_hw_params(struct snd_pcm_substream *substream,
- 	return hda_link_dma_params(hext_stream, &p_params);
- }
- 
-+static int hda_link_dma_prepare(struct snd_pcm_substream *substream)
-+{
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-+	int stream = substream->stream;
-+
-+	return hda_link_dma_hw_params(substream, &rtd->dpcm[stream].hw_params);
-+}
-+
-+static int hda_link_dma_trigger(struct snd_pcm_substream *substream, int cmd)
-+{
-+	struct hdac_stream *hstream = substream->runtime->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-+	struct hdac_ext_stream *hext_stream = snd_soc_dai_get_dma_data(cpu_dai, substream);
-+	struct hdac_ext_link *link;
-+	struct hdac_bus *bus = hstream->bus;
-+	int stream_tag;
-+
-+	link = snd_hdac_ext_bus_get_link(bus, codec_dai->component->name);
-+	if (!link)
-+		return -EINVAL;
-+
-+	dev_dbg(cpu_dai->dev, "%s: cmd=%d\n", __func__, cmd);
-+	switch (cmd) {
-+	case SNDRV_PCM_TRIGGER_START:
-+	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-+		snd_hdac_ext_link_stream_start(hext_stream);
-+		break;
-+	case SNDRV_PCM_TRIGGER_SUSPEND:
-+	case SNDRV_PCM_TRIGGER_STOP:
-+		snd_hdac_ext_link_stream_clear(hext_stream);
-+
-+		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
-+			stream_tag = hdac_stream(hext_stream)->stream_tag;
-+			snd_hdac_ext_link_clear_stream_id(link, stream_tag);
++	/*
++	 * before suspending, make sure the refcounts are all zeroed out. There's no way
++	 * to recover at this point but this will help root cause bad sequences leading to
++	 * more issues on resume
++	 */
++	list_for_each_entry(swidget, &sdev->widget_list, list) {
++		if (swidget->use_count != 0) {
++			dev_err(sdev->dev, "%s: widget %s is still in use: count %d\n",
++				__func__, swidget->widget->name, swidget->use_count);
 +		}
-+
-+		hext_stream->link_prepared = 0;
-+		break;
-+	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-+		snd_hdac_ext_link_stream_clear(hext_stream);
-+
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+	return 0;
-+}
-+
-+static int hda_link_dma_hw_free(struct snd_pcm_substream *substream)
-+{
-+	struct hdac_stream *hstream = substream->runtime->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-+	struct sof_intel_hda_stream *hda_stream;
-+	struct hdac_bus *bus = hstream->bus;
-+	struct hdac_ext_stream *hext_stream;
-+	struct hdac_ext_link *link;
-+	int stream_tag;
-+
-+	hext_stream = snd_soc_dai_get_dma_data(cpu_dai, substream);
-+	if (!hext_stream) {
-+		dev_dbg(cpu_dai->dev, "%s: hext_stream is not assigned\n", __func__);
-+		return -EINVAL;
 +	}
 +
-+	link = snd_hdac_ext_bus_get_link(bus, codec_dai->component->name);
-+	if (!link)
-+		return -EINVAL;
-+
-+	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
-+		stream_tag = hdac_stream(hext_stream)->stream_tag;
-+		snd_hdac_ext_link_clear_stream_id(link, stream_tag);
-+	}
-+
-+	snd_soc_dai_set_dma_data(cpu_dai, substream, NULL);
-+	snd_hdac_ext_stream_release(hext_stream, HDAC_EXT_STREAM_TYPE_LINK);
-+	hext_stream->link_prepared = 0;
-+
-+	/* free the host DMA channel reserved by hostless streams */
-+	hda_stream = hstream_to_sof_hda_stream(hext_stream);
-+	hda_stream->host_reserved = 0;
-+
-+	return 0;
-+}
-+
-+static int hda_dai_widget_update(struct snd_soc_dapm_widget *w,
-+				 int channel, bool widget_setup)
-+{
-+	struct snd_sof_dai_config_data data;
-+
-+	data.dai_data = channel;
-+
-+	/* set up/free DAI widget and send DAI_CONFIG IPC */
-+	if (widget_setup)
-+		return hda_ctrl_dai_widget_setup(w, SOF_DAI_CONFIG_FLAGS_2_STEP_STOP, &data);
-+
-+	return hda_ctrl_dai_widget_free(w, SOF_DAI_CONFIG_FLAGS_NONE, &data);
-+}
-+
- static int hda_dai_hw_params_update(struct snd_pcm_substream *substream,
- 				    struct snd_pcm_hw_params *params,
- 				    struct snd_soc_dai *dai)
-@@ -253,13 +341,6 @@ static int hda_dai_hw_params(struct snd_pcm_substream *substream,
- 	return hda_dai_hw_params_update(substream, params, dai);
- }
- 
--static int hda_link_dma_prepare(struct snd_pcm_substream *substream)
--{
--	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
--	int stream = substream->stream;
--
--	return hda_link_dma_hw_params(substream, &rtd->dpcm[stream].hw_params);
--}
- 
- static int hda_dai_config_pause_push_ipc(struct snd_soc_dapm_widget *w)
- {
-@@ -301,47 +382,6 @@ static int ipc3_hda_dai_prepare(struct snd_pcm_substream *substream,
- 	return hda_dai_hw_params_update(substream, &rtd->dpcm[stream].hw_params, dai);
- }
- 
--static int hda_link_dma_trigger(struct snd_pcm_substream *substream, int cmd)
--{
--	struct hdac_stream *hstream = substream->runtime->private_data;
--	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
--	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
--	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
--	struct hdac_ext_stream *hext_stream = snd_soc_dai_get_dma_data(cpu_dai, substream);
--	struct hdac_ext_link *link;
--	struct hdac_bus *bus = hstream->bus;
--	int stream_tag;
--
--	link = snd_hdac_ext_bus_get_link(bus, codec_dai->component->name);
--	if (!link)
--		return -EINVAL;
--
--	dev_dbg(cpu_dai->dev, "%s: cmd=%d\n", __func__, cmd);
--	switch (cmd) {
--	case SNDRV_PCM_TRIGGER_START:
--	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
--		snd_hdac_ext_link_stream_start(hext_stream);
--		break;
--	case SNDRV_PCM_TRIGGER_SUSPEND:
--	case SNDRV_PCM_TRIGGER_STOP:
--		snd_hdac_ext_link_stream_clear(hext_stream);
--
--		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
--			stream_tag = hdac_stream(hext_stream)->stream_tag;
--			snd_hdac_ext_link_clear_stream_id(link, stream_tag);
--		}
--
--		hext_stream->link_prepared = 0;
--		break;
--	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
--		snd_hdac_ext_link_stream_clear(hext_stream);
--
--		break;
--	default:
--		return -EINVAL;
--	}
--	return 0;
--}
- 
- static int ipc3_hda_dai_trigger(struct snd_pcm_substream *substream,
- 				int cmd, struct snd_soc_dai *dai)
-@@ -379,45 +419,6 @@ static int ipc3_hda_dai_trigger(struct snd_pcm_substream *substream,
  	return 0;
  }
  
--static int hda_link_dma_hw_free(struct snd_pcm_substream *substream)
--{
--	struct hdac_stream *hstream = substream->runtime->private_data;
--	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
--	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
--	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
--	struct sof_intel_hda_stream *hda_stream;
--	struct hdac_bus *bus = hstream->bus;
--	struct hdac_ext_stream *hext_stream;
--	struct hdac_ext_link *link;
--	int stream_tag;
--
--	hext_stream = snd_soc_dai_get_dma_data(cpu_dai, substream);
--	if (!hext_stream) {
--		dev_dbg(cpu_dai->dev,
--			"%s: hext_stream is not assigned\n", __func__);
--		return -EINVAL;
--	}
--
--	link = snd_hdac_ext_bus_get_link(bus, codec_dai->component->name);
--	if (!link)
--		return -EINVAL;
--
--	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
--		stream_tag = hdac_stream(hext_stream)->stream_tag;
--		snd_hdac_ext_link_clear_stream_id(link, stream_tag);
--	}
--
--	snd_soc_dai_set_dma_data(cpu_dai, substream, NULL);
--	snd_hdac_ext_stream_release(hext_stream, HDAC_EXT_STREAM_TYPE_LINK);
--	hext_stream->link_prepared = 0;
--
--	/* free the host DMA channel reserved by hostless streams */
--	hda_stream = hstream_to_sof_hda_stream(hext_stream);
--	hda_stream->host_reserved = 0;
--
--	return 0;
--}
--
- static int hda_dai_hw_free(struct snd_pcm_substream *substream,
- 			   struct snd_soc_dai *dai)
- {
 -- 
 2.30.2
 

@@ -2,52 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAA3E50AA20
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Apr 2022 22:37:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C24D150AA21
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Apr 2022 22:38:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8BAAC16FC;
-	Thu, 21 Apr 2022 22:37:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8BAAC16FC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5D9F7173F;
+	Thu, 21 Apr 2022 22:37:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D9F7173F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650573476;
-	bh=Ls1VrR4KtTiUhqRpIE2+kQmIoGVdpW+b65AJ0m+4ZOU=;
+	s=default; t=1650573493;
+	bh=FJ8gHzn96PdJz0Od4gfmPc9Om0v0pUIxQZphjpINH8g=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RccLbsVQe+NEslZBxQvKWc8mnen2AFX5Zc026T4DkTVgBkeEFyri1PJmCLVU2Sk+8
-	 tKSdMekDmVjPti5ZEhVnmZFuEI3vZEd4KKwWVEGsq65cbzMorioCQxvROA617jmG3F
-	 5trP3BXhSbcYwlldqPX99W01X2d6vHOkjLF2e4YQ=
+	b=i0Xt7l/ko3fpWTqb87MXDgHB0A+hVneznlRP4SYZwGXVVEMnRV85Qonc69NqcLddW
+	 5w3G2jYohV3Hh3mum/oVPsX38OOfJz1T79nU8Lt4ML7j3ZGcRXWnHAHF2Fl7ZHImDG
+	 lhGL8wmamnwy6hKe7OlLhIQXVQZAhKimi27gzv18=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E2F82F80125;
-	Thu, 21 Apr 2022 22:36:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A36CDF8051A;
+	Thu, 21 Apr 2022 22:36:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D8F56F80516; Thu, 21 Apr 2022 22:36:38 +0200 (CEST)
+ id 241F0F8032D; Thu, 21 Apr 2022 22:36:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 32B8BF804DA
- for <alsa-devel@alsa-project.org>; Thu, 21 Apr 2022 22:36:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32B8BF804DA
-X-IronPort-AV: E=Sophos;i="5.90,279,1643641200"; d="scan'208";a="118731525"
+ by alsa1.perex.cz (Postfix) with ESMTP id 87AD8F8047D
+ for <alsa-devel@alsa-project.org>; Thu, 21 Apr 2022 22:36:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87AD8F8047D
+X-IronPort-AV: E=Sophos;i="5.90,279,1643641200"; d="scan'208";a="118731528"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 22 Apr 2022 05:36:27 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 22 Apr 2022 05:36:31 +0900
 Received: from localhost.localdomain (unknown [10.226.36.204])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id A502340197BC;
- Fri, 22 Apr 2022 05:36:23 +0900 (JST)
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id AEDF340197BC;
+ Fri, 22 Apr 2022 05:36:27 +0900 (JST)
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
  alsa-devel@alsa-project.org
-Subject: [PATCH 1/3] ASoC: sh: rz-ssi: Drop unused macros
-Date: Thu, 21 Apr 2022 21:35:53 +0100
-Message-Id: <20220421203555.29011-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH 2/3] ASoC: sh: rz-ssi: Propagate error codes returned from
+ platform_get_irq_byname()
+Date: Thu, 21 Apr 2022 21:35:54 +0100
+Message-Id: <20220421203555.29011-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20220421203555.29011-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 References: <20220421203555.29011-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
@@ -71,28 +72,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Drop unused macros SSIFSR_TDC and SSIFSR_RDC.
+Propagate error codes returned from platform_get_irq_byname() instead of
+returning -ENODEV. platform_get_irq_byname() may return -EPROBE_DEFER, to
+handle such cases propagate the error codes.
 
-Reported-by: Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>
+While at it drop the dev_err_probe() messages as platform_get_irq_byname()
+already does this for us in case of error.
+
 Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 ---
- sound/soc/sh/rz-ssi.c | 2 --
- 1 file changed, 2 deletions(-)
+ sound/soc/sh/rz-ssi.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
 diff --git a/sound/soc/sh/rz-ssi.c b/sound/soc/sh/rz-ssi.c
-index e8edaed05d4c..cec458b8c507 100644
+index cec458b8c507..d9a684e71ec3 100644
 --- a/sound/soc/sh/rz-ssi.c
 +++ b/sound/soc/sh/rz-ssi.c
-@@ -59,9 +59,7 @@
- #define SSIFSR_RDC_MASK		0x3f
- #define SSIFSR_RDC_SHIFT	8
+@@ -977,8 +977,7 @@ static int rz_ssi_probe(struct platform_device *pdev)
+ 	/* Error Interrupt */
+ 	ssi->irq_int = platform_get_irq_byname(pdev, "int_req");
+ 	if (ssi->irq_int < 0)
+-		return dev_err_probe(&pdev->dev, -ENODEV,
+-				     "Unable to get SSI int_req IRQ\n");
++		return ssi->irq_int;
  
--#define SSIFSR_TDC(x)		(((x) & 0x1f) << 24)
- #define SSIFSR_TDE		BIT(16)
--#define SSIFSR_RDC(x)		(((x) & 0x1f) << 8)
- #define SSIFSR_RDF		BIT(0)
+ 	ret = devm_request_irq(&pdev->dev, ssi->irq_int, &rz_ssi_interrupt,
+ 			       0, dev_name(&pdev->dev), ssi);
+@@ -990,8 +989,7 @@ static int rz_ssi_probe(struct platform_device *pdev)
+ 		/* Tx and Rx interrupts (pio only) */
+ 		ssi->irq_tx = platform_get_irq_byname(pdev, "dma_tx");
+ 		if (ssi->irq_tx < 0)
+-			return dev_err_probe(&pdev->dev, -ENODEV,
+-					     "Unable to get SSI dma_tx IRQ\n");
++			return ssi->irq_tx;
  
- #define SSIOFR_LRCONT		BIT(8)
+ 		ret = devm_request_irq(&pdev->dev, ssi->irq_tx,
+ 				       &rz_ssi_interrupt, 0,
+@@ -1002,8 +1000,7 @@ static int rz_ssi_probe(struct platform_device *pdev)
+ 
+ 		ssi->irq_rx = platform_get_irq_byname(pdev, "dma_rx");
+ 		if (ssi->irq_rx < 0)
+-			return dev_err_probe(&pdev->dev, -ENODEV,
+-					     "Unable to get SSI dma_rx IRQ\n");
++			return ssi->irq_rx;
+ 
+ 		ret = devm_request_irq(&pdev->dev, ssi->irq_rx,
+ 				       &rz_ssi_interrupt, 0,
 -- 
 2.17.1
 

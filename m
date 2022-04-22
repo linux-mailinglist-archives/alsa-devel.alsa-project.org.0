@@ -2,82 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CD7850BA18
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Apr 2022 16:29:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B70250BBF2
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Apr 2022 17:44:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DFF50174C;
-	Fri, 22 Apr 2022 16:28:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DFF50174C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2193216F9;
+	Fri, 22 Apr 2022 17:43:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2193216F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650637750;
-	bh=DWCERtw4b2/z7Vq8Lpb4VipLlCkqnCxciwOAccE+5y8=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1650642276;
+	bh=1nodNxZJ5LdStbzMRccD34qFw7gDtiRC2FWXulcQRxc=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=myT5U8RlYr20ypGonnwcGMUgKI8N8ktm7HXQcYOXuCeZCePTmHt0Rlat8K9QTVPk7
-	 pn7/RLhvQiEB7RaZEE9qxUyso4n2OzLeh8G3FDhtWjLX/jdij+WF76yapbMstcsnNG
-	 C0ctc1JTJA3mPtrucD0zm846MOmUqHOs7ABlYsT0=
+	b=lpiGG/pouUvrrhdIGIHp67huif1usUENksU8ZT+WtYsiXlZsjt4LXmDjCmfltxv4N
+	 l5UTZN79T34BLsTOoWqFY4/jOL+n+s3IrB+0cFBtjInmVeJpSQA+8Be0hodctLUHjx
+	 poQsMHCb/GEmOu3dkIHFqmnEs9sSgQst6DbYJtts=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4492EF80125;
-	Fri, 22 Apr 2022 16:28:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B583AF80154;
+	Fri, 22 Apr 2022 17:43:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BB693F80245; Fri, 22 Apr 2022 16:28:07 +0200 (CEST)
+ id D2E10F80245; Fri, 22 Apr 2022 17:43:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 60FE6F80125
- for <alsa-devel@alsa-project.org>; Fri, 22 Apr 2022 16:27:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60FE6F80125
+ by alsa1.perex.cz (Postfix) with ESMTPS id 79B75F80134
+ for <alsa-devel@alsa-project.org>; Fri, 22 Apr 2022 17:43:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79B75F80134
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="wJ+D928Q"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="v9X9WOEQ"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 46809210F3;
- Fri, 22 Apr 2022 14:27:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1650637678; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=SIrg+jnlA/ySa4nkLtWhrnBgc7EPWse46JFnnP2g0JM=;
- b=wJ+D928QfglyQyNE79DSFOXsQJZRbwJe+B7gDp3MPRLcvZ1ZP8sU4wuq5n0ICLByBWXQTm
- St8Ta7Wqq1lj8h9H1vUcXpKCapMmKxXaIrRSO0rpUtpw06lpY+QMpqvlL59gGU0QfHaYCW
- lWsRYQkFfwdhUQWnybLsiCbnZ6oanX8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1650637678;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=SIrg+jnlA/ySa4nkLtWhrnBgc7EPWse46JFnnP2g0JM=;
- b=v9X9WOEQfEM4u+vaJDADbanymvMXXjCcP9nNgEdusM9tJZ2wWfGCITDXicVuXcbQFSO6gy
- qwXIr5hcaTlBn3AQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 33B182C14B;
- Fri, 22 Apr 2022 14:27:58 +0000 (UTC)
-Date: Fri, 22 Apr 2022 16:27:58 +0200
-Message-ID: <s5hzgkdry4x.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Daniel Kaehn <kaehndan@gmail.com>
-Subject: Re: [PATCH v2 2/2] Add generic serial MIDI driver using serial bus API
-In-Reply-To: <20220421172427.703231-3-kaehndan@gmail.com>
-References: <20220421172427.703231-1-kaehndan@gmail.com>
- <20220421172427.703231-3-kaehndan@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="YJBhtd6p"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 23MEJHnM021886;
+ Fri, 22 Apr 2022 10:43:25 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=fenBppHCqSMkTOtbCAyA0rMB+B8GHtohN3PghEPtipc=;
+ b=YJBhtd6p0zjBBrLju27yLFrIPpvE7OyjdrvA0iGEdWP890mzm1jgfpV2EtL4wa7tOW+d
+ Cf8eNYDkhpuNu4JYp40X4/2YkVwkfAPg9bHWQ71iDFgpYTJmizm6f1hQPKJYa6D9r7Wx
+ VmoIf95hoCX1tDgikD1NAwRROs1t3mkkVoa4yzdvM9nA3XjE1NwRc8cHi8xGiFFZBo1o
+ 7T/vLgzkqOe9+WMaPIljNs3LTnprmbWSE7ouQweeDn1SppyvLsccMWYqebQRG7tKigAm
+ NpqjCl5ZfnoTt0xX8vLcgcM18IMRTWN9qYPqgW+/iLYtnoqhkWPJKs8MlHdrhLT1Uiu3 wA== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3fft7my7uh-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Fri, 22 Apr 2022 10:43:24 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Fri, 22 Apr
+ 2022 16:43:23 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.24 via
+ Frontend Transport; Fri, 22 Apr 2022 16:43:23 +0100
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 483D2B16;
+ Fri, 22 Apr 2022 15:43:23 +0000 (UTC)
+Date: Fri, 22 Apr 2022 15:43:23 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Fabio Estevam <festevam@gmail.com>
+Subject: Re: [PATCH] ASoC: wm8524: remove constraint for FE-BE
+Message-ID: <20220422154323.GS38351@ediswmail.ad.cirrus.com>
+References: <20220422132125.1595729-1-festevam@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20220422132125.1595729-1-festevam@gmail.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-ORIG-GUID: j1JASBHoX_D_0TYdTNe8GfJY8B4ff8O8
+X-Proofpoint-GUID: j1JASBHoX_D_0TYdTNe8GfJY8B4ff8O8
+X-Proofpoint-Spam-Reason: safe
+Cc: alsa-devel@alsa-project.org, Fabio Estevam <festevam@denx.de>,
+ patches@opensource.cirrus.com, shengjiu.wang@nxp.com, broonie@kernel.org,
+ Viorel Suman <viorel.suman@nxp.com>, Daniel Baluta <daniel.baluta@nxp.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,147 +100,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 21 Apr 2022 19:24:27 +0200,
-Daniel Kaehn wrote:
+On Fri, Apr 22, 2022 at 10:21:25AM -0300, Fabio Estevam wrote:
+> From: Shengjiu Wang <shengjiu.wang@nxp.com>
 > 
-> Generic serial MIDI driver adding support for using serial devices
-> compatible with the serial bus as raw MIDI devices, allowing using
-> additional serial devices not compatible with the existing
-> serial-u16550 driver. Supports only setting standard serial baudrates on
-> the underlying serial device; however, the underlying serial device can
-> be configured so that a requested 38.4 kBaud is actually the standard MIDI
-> 31.25 kBaud. Supports DeviceTree configuration.
+> The constraint is not needed for back end bistream since
+> the sample rate is fixed by dts and the constraint
+> is propagated to front end bistream as they share the same
+> snd_soc_pcm_runtime.
 > 
-> Signed-off-by: Daniel Kaehn <kaehndan@gmail.com>
+> Fixes: 007b6a54c305 ("ASoC: codecs: add wm8524 codec driver")
+> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
+> Reviewed-by: Viorel Suman <viorel.suman@nxp.com>
+> Tested-by: Fabio Estevam <festevam@denx.de>
+> Signed-off-by: Fabio Estevam <festevam@denx.de>
 > ---
-> 
-> One ugly portion in the code I wanted to point out, but didn't find a
-> 'nice' way of solving. `snd_serial_generic_output_write` is called to
-> read from ALSA's output MIDI buffer and write to the serdev_device's
-> input buffer. While copying directly from the former to the later would
-> be desirable for performance, I assume violating the abstraction would
-> never be permissable. The current implementation creates an internal buffer of
-> an arbitrary size (currently 256) and copies there as an intermediate
-> step. Any advice on how to make this better is appreciated.
 
-It's OK, as MIDI data isn't that huge and fast, and the optimization
-is done at any time later.
+There was some previous discussion of this patch here:
 
-About the code: in general, please avoid the use of snd_printk() and
-co.  Those are old helpers, and better to use dev_err(), dev_dbg(),
-etc, if possible.
+https://patchwork.kernel.org/project/alsa-devel/patch/1649754826-2651-1-git-send-email-shengjiu.wang@nxp.com/
 
-Some more nitpicking:
-
-> +static int snd_serial_generic_ensure_serdev_open(struct snd_serial_generic *drvdata)
-> +{
-> +	int err = 0;
-
-Superfluous initialization.
-
-> +	unsigned int actual_baud;
-> +
-> +	if (drvdata->filemode == SERIAL_MODE_NOT_OPENED) {
-
-This expression is rather confusing.  It's essentially a zero check,
-and the simple zero check is rather easier to understand that there is
-no opener, i.e.
-
-	if (!drvdata->filemode) {
-		.....
-
-> +static int snd_serial_generic_input_open(struct snd_rawmidi_substream *substream)
-> +{
-> +	int err = 0;
-
-Superfluous.
-
-> +	struct snd_serial_generic *drvdata = substream->rmidi->private_data;
-> +
-> +	snd_printd("snd-serial-generic: DEBUG - Opening input for card %s\n",
-> +		drvdata->card->shortname);
-> +
-> +	err = snd_serial_generic_ensure_serdev_open(drvdata);
-> +	if (err < 0) {
-> +		snd_printk(KERN_WARNING "snd-serial-generic: failed to open input for card %s",
-> +			drvdata->card->shortname);
-
-Spewing an error message at each time would fill up the kernel log
-unnecessarily.  Make it a debug message, if you really need to print
-something.
-
-> +static int snd_serial_generic_input_close(struct snd_rawmidi_substream *substream)
-> +{
-> +	struct snd_serial_generic *drvdata = substream->rmidi->private_data;
-> +
-> +	drvdata->filemode &= ~SERIAL_MODE_INPUT_OPEN;
-> +	drvdata->midi_input = NULL;
-> +	if (drvdata->filemode == SERIAL_MODE_NOT_OPENED)
-
-Use zero check instead.  (Ditto for *_output functions).
-
-> +#define INTERNAL_BUF_SIZE 256
-> +
-> +static void snd_serial_generic_output_write(struct snd_rawmidi_substream *substream)
-> +{
-> +	static char buf[INTERNAL_BUF_SIZE];
-> +	int num_bytes;
-> +	struct snd_serial_generic *drvdata = substream->rmidi->private_data;
-> +
-> +	num_bytes = snd_rawmidi_transmit_peek(substream, buf, INTERNAL_BUF_SIZE);
-> +	num_bytes = serdev_device_write_buf(drvdata->serdev, buf, num_bytes);
-> +	snd_rawmidi_transmit_ack(substream, num_bytes);
-
-This needs to be a loop to process all pending bytes?
-
-> +static int snd_serial_generic_receive_buf(struct serdev_device *serdev,
-> +				const unsigned char *buf, size_t count)
-> +{
-> +	int ret = 0;
-
-Superfluous initialization.
-
-> +static int snd_serial_generic_create(struct serdev_device *serdev,
-> +				struct snd_card *card,
-> +				struct snd_serial_generic **rserialmidi)
-> +{
-> +	struct snd_serial_generic *drvdata;
-> +	int err;
-> +
-> +	drvdata = devm_kzalloc(card->dev, sizeof(*drvdata), GFP_KERNEL);
-> +	if (!drvdata)
-> +		return -ENOMEM;
-> +
-> +	drvdata->serdev = serdev;
-> +	drvdata->card = card;
-
-You can use card's private_data instead of an extra kmalloc().
-(Pass sizeof(*drvdata) to the extra_size argument of
-snd_devm_card_new()).
-
-> +	if (serdev->dev.of_node) {
-> +		err = of_property_read_u32(serdev->dev.of_node, "speed", &drvdata->baudrate);
-
-So, as we rely on of_node, the Kconfig should have the dependency,
-too?
-
-> +static int __init alsa_card_serial_generic_init(void)
-> +{
-> +	snd_printk(KERN_INFO "snd-serial-generic: Generic serial-based MIDI device\n");
-> +	return serdev_device_driver_register(&snd_serial_generic_driver);
-> +}
-> +
-> +static void __exit alsa_card_serial_generic_exit(void)
-> +{
-> +	serdev_device_driver_unregister(&snd_serial_generic_driver);
-> +}
-> +
-> +module_init(alsa_card_serial_generic_init)
-> +module_exit(alsa_card_serial_generic_exit)
-
-Those are simplified with module_serdev_device_driver()?
-
-
-thanks,
-
-Takashi
+Thanks,
+Charles

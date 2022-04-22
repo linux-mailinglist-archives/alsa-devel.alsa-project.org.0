@@ -2,76 +2,141 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D9BB50B894
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Apr 2022 15:34:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2E9250B958
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Apr 2022 15:59:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BE7B51FA;
-	Fri, 22 Apr 2022 15:33:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE7B51FA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5A8CC17EE;
+	Fri, 22 Apr 2022 15:58:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A8CC17EE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650634489;
-	bh=F6w/yj/ffWeFOB0KTSgJjCM8uAAwtgASk4fxMyEoiRU=;
-	h=Subject:From:In-Reply-To:Date:References:To:Cc:List-Id:
+	s=default; t=1650635980;
+	bh=f5a6/c8ZTTNTGEixwoR7cJbpIPP4WPc+1cT5RCseOf0=;
+	h=Date:To:References:Subject:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GikHAdloq//gZP0ER2MvzxOT/UF/CI3BXYopgb4PcJl1JtXPYaXgJCZYUtxe0lq95
-	 dzZNdhFxoYanxI1OBJCrMgnZ9fGsl4oO7ZgdVqNKXf+zi6M9gwn2DOS4vq53vqwKMG
-	 3Gk8do8iHEvNSKmCj56P2qSx76dRxPopInaW6rL4=
+	b=Sg5lvNyqeAgXrg2oqgJBWey43cmUmI/prk6o/0Ft1blYMxxGuAYIgmagWK6O1f1e5
+	 KuIWY8fQHrpGp5G5SXNzL+CY2U6AGn87m3WhQLIpZ1FMPBjzYEOfPcy6HpwRJYWEa8
+	 L06EYpJsHKzcQABE9vxuvmESEmm5KPWJsIs67h3Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ED415F80534;
-	Fri, 22 Apr 2022 15:31:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D67C0F80CBB;
+	Fri, 22 Apr 2022 15:33:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8B92FF80245; Fri, 22 Apr 2022 13:28:27 +0200 (CEST)
+ id 1D5F5F80125; Fri, 22 Apr 2022 13:39:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from hutie.ust.cz (hutie.ust.cz [185.8.165.127])
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FORGED_HOTMAIL_RCVD2,FORGED_MUA_MOZILLA,
+ FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,GB_FREEMAIL_DISPTO,NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur04olkn0831.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe0d::831])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 71060F80125
- for <alsa-devel@alsa-project.org>; Fri, 22 Apr 2022 13:28:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71060F80125
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6F3D9F80125
+ for <alsa-devel@alsa-project.org>; Fri, 22 Apr 2022 13:39:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F3D9F80125
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=cutebit.org header.i=@cutebit.org
- header.b="BAChplZk"
-Content-Type: text/plain;
-	charset=utf-8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cutebit.org; s=mail;
- t=1650626900; bh=nnRPoDn9UVOQmCSWBi2f0yPJ71M+pe94PUc3/C0TV6E=;
- h=Subject:From:In-Reply-To:Date:Cc:References:To;
- b=BAChplZkXMuMU7YQjAHHfzse8aIDAhSV5emQZaIx7Fr664MnS1WotKU9oMqA0G08L
- oXMJk5Zl8gsP1sytZjTBTyJAUSP9cPK8UoNsouQlgULCRve8jQJ5qZOdAtY4pCgwnh
- ywCL6HvHVjTcsUbT0ceA4vN62COm59lDp5Bn/fMM=
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3696.80.82.1.1\))
-Subject: Re: [RFC PATCH 0/5] Apple Macs machine-level ASoC driver
-From: =?utf-8?Q?Martin_Povi=C5=A1er?= <povik@cutebit.org>
-In-Reply-To: <YmKPQ6kLCPz+2XTJ@sirena.org.uk>
-Date: Fri, 22 Apr 2022 13:28:20 +0200
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <B68302F2-3D77-4065-8A16-A9CC690AE10B@cutebit.org>
-References: <20220331000449.41062-1-povik+lin@cutebit.org>
- <YkWfziQzprEsWL72@sirena.org.uk>
- <CCE4A06E-6D6F-457D-B3C5-C36209BF38D3@cutebit.org>
- <YkW4MPh8VWc8eSGg@sirena.org.uk>
- <6D199EAB-FE14-4030-96A7-2E0E89D25FAB@cutebit.org>
- <YkXKmxJ0R3qpUoH4@sirena.org.uk>
- <DB0255C3-C9EC-4EFA-A377-C4BB1073D9B3@cutebit.org>
- <YmKPQ6kLCPz+2XTJ@sirena.org.uk>
-To: Mark Brown <broonie@kernel.org>
+ dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com
+ header.b="eGQAkagP"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=N0KRPBzgmhBLcuERKDw7ClHzpxfO6Rz3sfBfjeNFkTMK2QvupC1KmpQykxONWnH6AC3IwJmZiClmNFTJL9Sw9Ms1x4MWB1W0cMsRFMvLF6JTVE9LjjHnayDp6cNUt9B9HDrzm0TrEWiWBtxcduRtROZXxutAtOiQdn5XsP+JVViSCNppqb8v3SCDJnjIx8A7c7L5A8qDgAZ6kJymHIDwNJbvQV9tjf7zNeCx4ssy8GfHSzV/s/cH71LPcSWTr1FYEV5iSzvPyErzJNQ6WDxOD/Y/U39bxMhPFDd6WTvltP1guXJFOKxP9VVAy8pDpIxz0TziU+R0WYVRfJQoeWgTYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=f5a6/c8ZTTNTGEixwoR7cJbpIPP4WPc+1cT5RCseOf0=;
+ b=S58JnGO3gL4o/N+LIDi3Gd6HO/qrlv3a74cdjX/oiJyxEOkBZ8L05lXUfPC+mklMHFOMu3oCxQqpii3Y8AX1zHCSFhmTVtzXE8TLwWRBAPUIiqp/lpzLIhdAgd5ddw9NIe/YNBp5jSn8TBOb4XTGBmiqO8nGQIllDAtT3OV9Dv/z1uL2LBCCDVwR03F/e2vZdK83D3Yo3ptVRQIQNs1HvioGTeDT125lz1CxF3ZdPZMeUpOP9tHXCkR5utgJp1pncgsrpXOX0NoNi2k+/GGMJyU3uGrL9a6RUb88I/H7Ojg5ul5yg60pUHQQDfE9vWEw9VH4QBhvyHJpNsaJDM+ecg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=f5a6/c8ZTTNTGEixwoR7cJbpIPP4WPc+1cT5RCseOf0=;
+ b=eGQAkagP+iy/Ns2asrrtGr03ZBjI9fkT5DndiJD+EdiYAobdeRoPLDYe0jyDe8gbEyYD02+IONmvBnI13OkyrhX3Cup0otMDoSaFW5u8T8B/eDi2j9NFKHjMs+JC4JpdWI4JBeEzZ8gVSi+3RUhskrRTEG9YJxKuLP4OmH9UyZ3vGv0AmSKq9TTGApPBBDS9qNIF74gVFc/Pd8S7Xni+Z/tkSil4tsFwIbA8vC/A0wqk/3fHXRI7wRt2cIxcY0CorCyH4drZf6PZl28/sk43QG9e2jAaxEobwTZPiP7lWG61chVBI4PVBljtHuBcY0ihhNlR732V62HP8Yr0OcKU1Q==
+Received: from PA4P191MB1502.EURP191.PROD.OUTLOOK.COM (2603:10a6:102:10a::22)
+ by AM9P191MB1366.EURP191.PROD.OUTLOOK.COM (2603:10a6:20b:1f7::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.14; Fri, 22 Apr
+ 2022 11:39:30 +0000
+Received: from PA4P191MB1502.EURP191.PROD.OUTLOOK.COM
+ ([fe80::61b4:dddc:b33b:bf57]) by PA4P191MB1502.EURP191.PROD.OUTLOOK.COM
+ ([fe80::61b4:dddc:b33b:bf57%5]) with mapi id 15.20.5186.015; Fri, 22 Apr 2022
+ 11:39:30 +0000
+Message-ID: <PA4P191MB1502A15E592796A2BF2A1F3C9EF79@PA4P191MB1502.EURP191.PROD.OUTLOOK.COM>
+Date: Fri, 22 Apr 2022 13:36:18 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.1
+To: tiwai@suse.de
+References: <20210111081611.12790-1-tiwai@suse.de>
+Subject: Re: [PATCH] ALSA: usb-audio: Always apply the hw constraints for
+ implicit fb sync
+Content-Language: en-US
+From: marco <mom482@hotmail.com>
+In-Reply-To: <20210111081611.12790-1-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TMN: [3BNEiXHxlAyYit2FAmaRMQyJ03GUKYrL]
+X-ClientProxiedBy: PR0P264CA0235.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:100:1e::31) To PA4P191MB1502.EURP191.PROD.OUTLOOK.COM
+ (2603:10a6:102:10a::22)
+X-Microsoft-Original-Message-ID: <6472c416-a1c4-386b-1927-bf01a8d23d44@hotmail.com>
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: ac121989-55cf-46db-a56a-08da2454c31e
+X-MS-TrafficTypeDiagnostic: AM9P191MB1366:EE_
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: av4Wytg2Ixo1qpzTL088q/ckl7nZ0J/wTOGi+N2qfx+EPRfzLzQVU6LKuBxlLAQirC28aTdnTYOkli9nQl+zEtrNuxVF3EsXJbGESOHlrEtW2DWThb9QofhmQjLkSqBqmKmAG2u5BLf8Ectu2qm4DMaNkRzKur1SDC3SFmPp+BnmQOJZ8RNnAYnG8nuRfUohbnRkCcsd/Td3JIJk/g6fJxOm2d0hUZXX5vZSl6LxVhD++V7B8cKv490J/+BhV8P1zX1FCvm5kL1gHdUZ4RRKeqPV34pS2ZYs0jzsX7L8aPzidt9znTJMUejVEIjh4eChJIMD0n/IXiVazqyobnz/C7CCobGabt9CdxvlqjtBMsaYW/s+awSRrfat2oMvsvKO9WFVC3lF3D5xVUcc+tNPINyah1ts/j9p/U9fT9brdi2sxHQUlOL3e4cZGS9Sm2cdwDhcY0zft0C/YFWiLoMcKnR2ihDOWL+4GScCI76rNl4UWHGSWLjNWswOqB3zsvetCF6SQEmmwmF4bllS1UN7uOiSu1s1gUV3j3R2ExgfMK5t4YAbFXtU5qnzMspMygscEa5lr0qsYHvMAdVStNYv2ZQovmrSw0rbAJinQFDQnB8=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c2JyclFvSTlmRUw0amRuZ1pBZkhCbW9SMUNYUUhMNFRGb3JZeUFQUW1sekNS?=
+ =?utf-8?B?MmRRaFVYanpURFQrVVVKMnZlcWUwT1MrYVlLSWFoTnhXOUNubng3N3ZhTG91?=
+ =?utf-8?B?WVNKNjNYY0lsVUNNY2pxL21NZkFUTUk1dVdvMUVIaGg2NEt4d1M4QXhzaGJk?=
+ =?utf-8?B?ZUhESTdOSFV3SU1nWFFocVBqbU80ZE1uaFpmOEVROFcyOTkxMkNIOERvdlA5?=
+ =?utf-8?B?QitmYkNTRFJNMlZGSVpxcXEwN0dUWHdodlRXTmt2UDlHSWV6TkJ6eit1UDFG?=
+ =?utf-8?B?TDkwYmk1VW1DOTYyWkptOVI4WDlCclg0T1RLRitmRmRLelJXK0QrbzZ2Z0dk?=
+ =?utf-8?B?VE9CdHRyN0h0a1hvT1FHejBsUmZtZk1VZCsxYnBXemJaNHFwaXFYa3dWUmFG?=
+ =?utf-8?B?dytiMmxXVkF0c3c3anhQQWJBUDFsUlUwOXllY25wUEk5QzhWTXNmZ3lXb2Iy?=
+ =?utf-8?B?b3hpZFNobTVMazFlaEM2WnhDc0dVbkJHdzFncy9LS2NkOEdRSDJEdDQ2eWFS?=
+ =?utf-8?B?NDJyOGQ2SmdXN0cyTVJZS1JxT1BMREdWWE5WeGZrTVlvRzBzNTJ2cDlMd1M0?=
+ =?utf-8?B?UXVuTC9tQWxPY01za2kvQlRiNUhFS1ZIazQzZjhLc2svQmhIS2RVUjM3Qjdv?=
+ =?utf-8?B?Tzc0RDREK1R6NldOK0MrMmozY0ZtUFVMUEpWUkVJd2NHNjQxUklOVGpsZ2Iw?=
+ =?utf-8?B?QVh1YnFaL3N1VHFtS08zc1h3RTVFVjc2eGFBRmNkYjVMVjFqSmgwN05vcmpt?=
+ =?utf-8?B?N21oUDZGSnFEZDJIOHBoRTA5N0orcmIxcXNuK0hFbU4wdUxNaldhdFJ3RHd0?=
+ =?utf-8?B?UEhzcFAwbWovRkxHTGZoRGhlcmJXbHhrRXIrTlhJaDJWMFVEcWx5bmo4dG1l?=
+ =?utf-8?B?Q0QxMTZiaTcxR0tQL0dPeXduUXJ6U2pXTGoxOUtVSVB2RmFscjVxYURHcU1h?=
+ =?utf-8?B?YmowUmpsOWlZRGxuL09ncVV2YWQrTHozMlhibUFxVFdKakxmNWJDLzlmcmVr?=
+ =?utf-8?B?V0g5MDBMTGlNM0FacVVoVW90bDZPRWdoUWNyczJaMG9RZ2ZMVXNOOTI5VGl5?=
+ =?utf-8?B?L0taSTNFTWo1VGY5blJZUzQxL3RqZnNwR3hMeXlMNVBHOWZ5K0VqTWhWMDFt?=
+ =?utf-8?B?ZkdrZWhoN0pyQ0FSU0s0aTM3M3FSVEF4ajM3ZmRIKzFrM09PVkFlQythTXhD?=
+ =?utf-8?B?SW1iM2dCdTJYUS9qMVhFdzdlcmZMMUZYcTM4eG1XMGhqUElobGdHNVdnamhI?=
+ =?utf-8?B?STl5NDNEUDBMemllUHBYMmFLVXkyMnFQRjluYTczcXF2eGZGb04wKzZWMUZN?=
+ =?utf-8?B?ZEhwVmNUVVJMTzU4VnVodVB4akJIbHg2U2VpN3Q5WDBzVUh4L05DT29NNFdS?=
+ =?utf-8?B?UUhhWnZMSGZ5c05SMGtPYTF2TUFhbkN0L3FUVVN5bDZHanE1QUtoNkxuRVd6?=
+ =?utf-8?B?Z1pEY2JKMjNkZSthK1lzRXp0VVA3ZmF5OXRYWFozb000OFhhYzEzRGVvNnpY?=
+ =?utf-8?B?aVNvaHpQTHNCbzlkakVWN29jOUNaV0tROUV2MXVWTWFNVTcvYjQ1U2ZwZWZD?=
+ =?utf-8?B?eEg5WGdWaVMxMTBQb1ZyNE45bVZKaVZWaThBc2ptdkg2TzVTcDNNNTBUN0Vx?=
+ =?utf-8?B?eS9YR0E5ZnNWekF0dkQzSFlWQlozMUZ6UzhvTGZzYjlSR0ZMY0VCY3BCUFRv?=
+ =?utf-8?B?QnNHZlNpa09VdUxFS2owbVIyQmhDNEptSHhCdlpmWSt5bFl4Y2RGaHR4S3Nn?=
+ =?utf-8?B?MjNoZW5SdEtHRHhzcW9iYkY0cDkxRVM5MURETlpTN1VYTWtWeHB3QU4ybmNP?=
+ =?utf-8?B?ckhLUHMwTWg0YU5KMDNLYlM5YjdGOGptUDVKQnR5MWVZZTI2T2ZUdDhUM011?=
+ =?utf-8?B?NlRZTkF2b2RTQjJySDdUNXlaa1BvTUUvaEZCbEFDeTFKTEk5RHJhOUx5UkU1?=
+ =?utf-8?Q?/hLQqN4pNao=3D?=
+X-OriginatorOrg: sct-15-20-4755-11-msonline-outlook-50200.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac121989-55cf-46db-a56a-08da2454c31e
+X-MS-Exchange-CrossTenant-AuthSource: PA4P191MB1502.EURP191.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2022 11:39:30.2326 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9P191MB1366
 X-Mailman-Approved-At: Fri, 22 Apr 2022 15:31:40 +0200
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Sven Peter <sven@svenpeter.dev>, linux-kernel@vger.kernel.org,
- Hector Martin <marcan@marcan.st>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Mark Kettenis <kettenis@openbsd.org>,
- =?utf-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: alsa-devel@alsa-project.org, dylan_robinson@motu.com,
+ kamilner@superlative.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,62 +152,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi,
 
+This patch introduces the lock of the sample rate which doesn't follow my configuration of switching the sample rate to a multiple of the audio playing. Moreover it feels that the playing speed isn't accurate (slightly accelerated) when playing an audio file which has a non multiple of the locked sample rate.
 
-> On 22. 4. 2022, at 13:19, Mark Brown <broonie@kernel.org> wrote:
->=20
-> On Fri, Apr 22, 2022 at 12:43:30PM +0200, Martin Povi=C5=A1er wrote:
->=20
->> I looked in the TAS2770 and TAS2764 drivers/datasheets, and to answer
->> the questions we had:
->=20
->> * VSENSE/ISENSE output slots are configured independently of audio =
-samples
->>   routing. Kernel drivers configure the slots based on the =
-'ti,imon-slot-no'
->>   and 'ti,vmon-slot-no' properties of devicetree.
->=20
->> * By default codecs transmit Hi-Z for duration of unused slots.
->=20
->> So once we supply the devicetree props it should be electrically =
-sound
->> under any configuration of userspace knobs.
->=20
-> Great, that's a relief.
->=20
->> One final thought on the playback routing controls: On systems with =
->2
->> speakers, the codecs need to be assigned slots through set_tdm_slot.
->> The macaudio driver RFCed here assigns a single slot to each speaker,
->> making the effect of each speaker's routing control this:
->=20
->>  'I2C offset' -- uses a random slot
->=20
->>  'Left' 'Right' 'LeftRight' -- uses the single slot we configured
->=20
->> I suppose I better assign two slots to speakers in each left-right =
-pair
->> of the same kind (e.g. woofer 1, woofer 2, tweeter). This way the
->> routing control will mimic its behavior from simple stereo systems =
-but
->> replicated within each left-right pair.  (I would prefer to hide the
->> controls altogether, but as I learned that hiding things unless =
-proven
->> dangerous is an ASoC non-goal, this way I can make the controls do
->> something interesting.)
->=20
-> I don't quite grasp the difference between the arrangement you're
-> proposing and assigning a single slot to each speaker?  Possibly it's
-> just a reordering of the slots?
+Similar bug as https://bugzilla.redhat.com/show_bug.cgi?id=1930199
 
-Ah, maybe what=E2=80=99s missing is the fact that the way the speaker =
-amp drivers
-are written, if they are assigned two slots with a call to set_tdm_slot,
-the first slot is considered 'left' and the second is 'right'.
+For information, upgrading from pulseaudio 13 to 15 has the effect of achieving the speakers balance at 100% volume only. If I lower the volume, it kills one side.
 
-So in the arrangement I am proposing the 'Left', 'Right' and 'LeftRight'
-values of the routing control have the nominal effect (within the =
-left-right
-speaker pair), while in the other arrangement it is as I described =
-above.
+My soundcard is a usb Audient id14.
 
+Could you point me to the right place to post the bug if not relevant here, or/and give me instructions how to revert the patch for a recent 5.17x kernel.
+
+Thanks,
+
+Marco

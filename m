@@ -2,102 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42B3450B2DE
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Apr 2022 10:28:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD1A150B37D
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Apr 2022 11:02:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C5ED11727;
-	Fri, 22 Apr 2022 10:27:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C5ED11727
+	by alsa0.perex.cz (Postfix) with ESMTPS id 70CCD1722;
+	Fri, 22 Apr 2022 11:01:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70CCD1722
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650616095;
-	bh=qKio00xXUbUiUXZm/vX+CQikpg00hi0mjBYT8PwbFRQ=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1650618153;
+	bh=/m9HtiXeSolu5qrg2Hq80k+3cr1LM6XYLdAbp3oTHTc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cU5xk6Kj1kEx9yNILFCDy53fRNZZPGrI2PKtWeNjDTVlMTFStSsJdJF7ES4kVvX4G
-	 +9o0ZPb3u3JfAINzXllZLUPK8vEOPpyhx/Xyouzk2lekB/+sun6zQsZ+CsbFZxnwv3
-	 WQfI+QV5Q/LJMo7KFS6Zv5Szwj037O/KCiWr8FKc=
+	b=Cx2SyTNV0Vd9ReTBpSP6kAsfMFNJXDDBiuO0AsuCEZrg1XrZrJxhHlavfyfjHnXsx
+	 C1gu63B4zqLeGWUoV4jsIUWqmp1P6d8X7pfk0RKaGwDgMr741mT9KzUkAhnFm3kRu/
+	 s1aHsLCL8sCgvjLWEaaI9lS/LgdFjyptxfPzKpz4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 37A95F800D1;
-	Fri, 22 Apr 2022 10:27:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DAA59F80249;
+	Fri, 22 Apr 2022 11:01:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6AB2DF80245; Fri, 22 Apr 2022 10:27:15 +0200 (CEST)
+ id D59C0F80125; Fri, 22 Apr 2022 11:01:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EDF2EF80134
- for <alsa-devel@alsa-project.org>; Fri, 22 Apr 2022 10:27:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EDF2EF80134
+ by alsa1.perex.cz (Postfix) with ESMTPS id 84F7DF80125
+ for <alsa-devel@alsa-project.org>; Fri, 22 Apr 2022 11:01:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84F7DF80125
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=baylibre-com.20210112.gappssmtp.com
- header.i=@baylibre-com.20210112.gappssmtp.com header.b="2/I5sgtu"
-Received: by mail-wr1-x433.google.com with SMTP id v12so3149154wrv.10
- for <alsa-devel@alsa-project.org>; Fri, 22 Apr 2022 01:27:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20210112.gappssmtp.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:organization:in-reply-to
- :content-transfer-encoding;
- bh=u7TUP/Txry1UFuyT1GMH6MxIlNWsEqUWlVQuJ3Ycgo4=;
- b=2/I5sgtu6yek/DqrCw3fNAG0CyFOv3PlhCCCJ+GXocYogXRpOANpLUGCSLIL6TXXJL
- ncM/kLDoJ/bNF7oVzLDmvTM1U3qDOvltDLOY94qFOFrVnXCkZfDsjDwyWE2jcRPo5B1P
- ttxqJ8yX7vcodL42mKjo/d0lRMIGPiXtLb17dpL2lYUuxkj6MobpP5XnR8PmKbChBY0Z
- 7zmq27Ase+2MLiNJ+AreILAY0VwbdAMekeGiuF36tHqnyXwpBeV6cqPt/OeTETRnDqrU
- +QHBEU1kHUMiZEs4+Xe8l3uwd3L6Dy+ht+n9MPLNoA7z1gb/z+BsoiCI7GOSeiqizJDX
- 7PeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:organization:in-reply-to
- :content-transfer-encoding;
- bh=u7TUP/Txry1UFuyT1GMH6MxIlNWsEqUWlVQuJ3Ycgo4=;
- b=a/IhmuUYkxm2FnVrU9q1A8Q3myvIpbplWuHC+AmzPWZK030VIK3Yp5CsqKfJ4jx5Gr
- /1i6s7ro8rX+UJJXH56/pzBW7PkYwxzoQJP33OM93Evrww9oholKmJbCkrL1MaDDjG26
- x6O6zuvMEExEgwe7kvOXkB0+z69ahZgOIgHgks8H+wn4CECfKJCVR/eUXMBzm3ZdURMI
- jhDgWfntVb8e0POupfI3Zm2tYLj7HNUeMTmoTf4PqOg0mObrBIO8EojGS0yPUX4NTfr9
- wLDUbNqeOy/Uq7/IOtujz4R84Yoqxi//QsSqpRjVWwMwBkXQf2KIhyozC1hHFYI/kCeV
- UU4A==
-X-Gm-Message-State: AOAM532eUR+ub5ljMgW3FyqCTLg0dfuScx5zvxTbxatintcPwqCiSBWc
- LJHPJkROOune+29nWH7OebfjSA==
-X-Google-Smtp-Source: ABdhPJwc7lC7iXT26SYx3VMbx1Xy9+zwh+M/Yt5wvRZ3xffC5nUuF/FW32z69itymsszmlEUC9PuCA==
-X-Received: by 2002:adf:f2cb:0:b0:20a:77c2:3958 with SMTP id
- d11-20020adff2cb000000b0020a77c23958mr2637147wrp.589.1650616021757; 
- Fri, 22 Apr 2022 01:27:01 -0700 (PDT)
-Received: from ?IPV6:2001:861:44c0:66c0:3ce1:1ed1:5e14:cd49?
- ([2001:861:44c0:66c0:3ce1:1ed1:5e14:cd49])
- by smtp.gmail.com with ESMTPSA id
- e4-20020a5d6d04000000b0020a8bbbb72bsm1335208wrq.97.2022.04.22.01.27.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 22 Apr 2022 01:27:00 -0700 (PDT)
-Message-ID: <b6029a92-04f0-9ae7-291c-621f9871280b@baylibre.com>
-Date: Fri, 22 Apr 2022 10:26:59 +0200
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="jBBBgfxN"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 3761A6137B
+ for <alsa-devel@alsa-project.org>; Fri, 22 Apr 2022 09:01:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24672C385AC
+ for <alsa-devel@alsa-project.org>; Fri, 22 Apr 2022 09:01:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1650618081;
+ bh=/m9HtiXeSolu5qrg2Hq80k+3cr1LM6XYLdAbp3oTHTc=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=jBBBgfxNw8Qg5UPzBjmDTjT+E3APsjuWTMVt+hprqOwS6DIxRVDImGrZN7wMEx+rx
+ 86vdIpshLw/2xvYq9EXVD6U2UdmQg2jRX0+t8216G1sy5tFLNYTW6io3yJaCI0QPDi
+ +fH/z8A5Z81qWD80aniD3CFr9+DcQ5t/+T4FsFJZDyW+Lf8LBXr2ZWf8iswYK9yKfa
+ i6FRRqnzC3GECksp/PEHUWBaSiEgEAKgocxi6UKsOOgJj2oKl2WyGacfZfbT6muE++
+ R+suLf2CeI5uMPJbWVzOPVsVKgB0U5HrVu/hHPwlJEySlo+e+tm5dGIoX+20rq6n6I
+ 1LbvJa+916YEg==
+Received: by mail-wm1-f44.google.com with SMTP id
+ n40-20020a05600c3ba800b0038ff1939b16so4997692wms.2
+ for <alsa-devel@alsa-project.org>; Fri, 22 Apr 2022 02:01:21 -0700 (PDT)
+X-Gm-Message-State: AOAM533+iLIZUEsBbXReC/uq8dw7SRYo+AqaT72NP72VafPpxX6AN8ok
+ tpIjnODxLebiU2Ar8ZlRS72TDVQaG4vbbrmfDxw=
+X-Google-Smtp-Source: ABdhPJyXx4ILSyW4olBWclzAEyhWJERXMp826335O4ZspD2rq64GVKddYaqSWtWZief/QyASpmBJtJchA9yTbG1sWmU=
+X-Received: by 2002:a7b:ce15:0:b0:38e:b7b0:79be with SMTP id
+ m21-20020a7bce15000000b0038eb7b079bemr3134739wmc.71.1650618079284; Fri, 22
+ Apr 2022 02:01:19 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH 1/2] Revert "ASoC: meson: axg-tdm-interface: manage
- formatters in trigger"
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>
-References: <20220421155725.2589089-1-narmstrong@baylibre.com>
- <YmGSeVbwWtyHP/Tz@sirena.org.uk>
-From: Neil Armstrong <narmstrong@baylibre.com>
-Organization: Baylibre
-In-Reply-To: <YmGSeVbwWtyHP/Tz@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, Dmitry Shmidt <dimitrysh@google.com>,
- linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, jbrunet@baylibre.com
+References: <20220421082040.2866638-1-arnd@kernel.org>
+ <2d2c0c14-461b-985b-ebf1-3c03fe97f332@gmail.com>
+In-Reply-To: <2d2c0c14-461b-985b-ebf1-3c03fe97f332@gmail.com>
+From: Arnd Bergmann <arnd@kernel.org>
+Date: Fri, 22 Apr 2022 11:01:03 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a1PvZUV9MDNqLWUZGT6Bb18SoPEv-j1V6RTEziKV74Z0A@mail.gmail.com>
+Message-ID: <CAK8P3a1PvZUV9MDNqLWUZGT6Bb18SoPEv-j1V6RTEziKV74Z0A@mail.gmail.com>
+Subject: Re: [PATCH] [v4] m68k: coldfire: drop ISA_DMA_API support
+To: Michael Schmitz <schmitzmic@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Ulf Hansson <ulf.hansson@linaro.org>, Arnd Bergmann <arnd@arndb.de>,
+ linux-mmc <linux-mmc@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-m68k <linux-m68k@lists.linux-m68k.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Greg Ungerer <gerg@linux-m68k.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,25 +99,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Mark,
+On Fri, Apr 22, 2022 at 9:48 AM Michael Schmitz <schmitzmic@gmail.com> wrote:
+> Am 21.04.2022 um 20:20 schrieb Arnd Bergmann:
+> > From: Arnd Bergmann <arnd@arndb.de>
+> >
+> > After a build regression report, I took a look at possible users of
+> > CONFIG_ISA_DMA_API on m68k and found none, which Greg confirmed. The
+> > CONFIG_GENERIC_ISA_DMA option in turn is only needed to implement
+> > ISA_DMA_API, and is clearly not used on the platforms with ISA support.
+> >
+> > The CONFIG_ISA support for AMIGA_PCMCIA is probably also unneeded,
+> > but this is less clear. Unlike other PCMCIA implementations, this one
+> > does not use the drivers/pcmcia subsystem at all and just supports
+> > the "apne" network driver. When it was first added, one could use
+> > ISA drivers on it as well, but this probably broke at some point.
+>
+> Hoping to clarify some of this:
+>
+> For the Amiga PCMCIA "apne" driver, both the definitions of
+> isa_type/isa_sex and the definitions of the low-level accessor and
+> address translation functions are protected by CONFIG_ISA (see
+> arch/m68k/kernel/setup_mm.c and arch/m68k/include/asm/io_mm.h for details).
+>
+> This could conceivably be changed (only AMIGA_PCMCIA and Q40 do use
+> these definitions, aside from ATARI_ROM_ISA), but as things are right
+> now, neither Q40 ISA nor Amiga PCMCIA will work without CONFIG_ISA defined.
 
-On 21/04/2022 19:20, Mark Brown wrote:
-> On Thu, Apr 21, 2022 at 05:57:24PM +0200, Neil Armstrong wrote:
->> This reverts commit bf5e4887eeddb48480568466536aa08ec7f179a5 because
->> the following and required commit e138233e56e9829e65b6293887063a1a3ccb2d68
-> 
-> One other thing - these should be Fixes: tags, that helps tooling figure
-> out things like backports.
-> 
-> Also:
-> 
-> Please include human readable descriptions of things like commits and
-> issues being discussed in e-mail in your mails, this makes them much
-> easier for humans to read especially when they have no internet access.
-> I do frequently catch up on my mail on flights or while otherwise
-> travelling so this is even more pressing for me than just being about
-> making things a bit easier to read.
+Ok, thanks for clarifying that, this makes a lot more sense now. I was wondering
+what ISA devices one can actually use without DMA, but it turns out that a
+lot of the older storage (pata_legacy, pata_isapnp, aha152x) and network
+(3c509, 8390, cs89x0, smc9194) devices work in PIO mode, aside from
+a couple of oddball special-purpose stuff (speech, busmouse, comedi,
+appletalk, wan, ...).
 
-Thanks, I'll think of this for the next time.
+> Regarding the Amiga PCMCIA driver's use of the drivers/pcmcia subsystem,
+> I have a patch in limbo at netdev that makes use of the cftable parser
+> code from drivers/pcmcia, but as far as I can recall, none of this
+> depends on CONFIG_ISA.
 
-Neil
+Yes, Geert mentioned that on IRC already. Note that Dominik Brodowski
+has said in the past that he would plan to eventually drop PCMCIA
+support from the kernel, but I think if that happens, the cftable
+parser can just be moved into the amiga_pcmcia code.
+
+       Arnd

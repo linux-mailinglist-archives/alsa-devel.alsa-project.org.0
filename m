@@ -2,81 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8050650BA02
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Apr 2022 16:24:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CD7850BA18
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Apr 2022 16:29:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5C41717DD;
-	Fri, 22 Apr 2022 16:23:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C41717DD
+	by alsa0.perex.cz (Postfix) with ESMTPS id DFF50174C;
+	Fri, 22 Apr 2022 16:28:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DFF50174C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650637442;
-	bh=PNxGIUKv6A/sfXfz2zbrvG335aLiVSWnVcFx7NtVMFk=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1650637750;
+	bh=DWCERtw4b2/z7Vq8Lpb4VipLlCkqnCxciwOAccE+5y8=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=j78uI88kEulKpduW4Q8ACF42ZYlt0tlc5f2/xB862NRyDLd9FliDQFF3ofid/7qzT
-	 zYIg03Vr6SZrCnXDnrggYCNpQLQR98L3IbTswbHCa2iZZMD2lOTmkzVhP87q6uHWJK
-	 SFN3ETwfR1GfGQ7wfuvwWlXPMQkarZibBjYaiBbQ=
+	b=myT5U8RlYr20ypGonnwcGMUgKI8N8ktm7HXQcYOXuCeZCePTmHt0Rlat8K9QTVPk7
+	 pn7/RLhvQiEB7RaZEE9qxUyso4n2OzLeh8G3FDhtWjLX/jdij+WF76yapbMstcsnNG
+	 C0ctc1JTJA3mPtrucD0zm846MOmUqHOs7ABlYsT0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B60ECF800D1;
-	Fri, 22 Apr 2022 16:23:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4492EF80125;
+	Fri, 22 Apr 2022 16:28:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B6FAAF80245; Fri, 22 Apr 2022 16:23:01 +0200 (CEST)
+ id BB693F80245; Fri, 22 Apr 2022 16:28:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2113AF800D1
- for <alsa-devel@alsa-project.org>; Fri, 22 Apr 2022 16:22:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2113AF800D1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 60FE6F80125
+ for <alsa-devel@alsa-project.org>; Fri, 22 Apr 2022 16:27:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60FE6F80125
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="f1T6hn2d"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1650637376; x=1682173376;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=PNxGIUKv6A/sfXfz2zbrvG335aLiVSWnVcFx7NtVMFk=;
- b=f1T6hn2d0yxp2dn55hfg4e/N3dVaa0PPg5Cin6nBsLY6KvPRsFz/PQUK
- HppP1CKjN+zjwBZYVKdTf4fAdCd+vdWstX4WfOK/PPQRyMYW8laaZ3qJg
- heHpRJ9LfV7XuDCLre8aX+U6Q3Eh+TEjYjclV+d3/IDEaa9lHaZcLAaKo
- TUxnIEBTgT/Q6lP3xtMmzhN4OsIw+RX3sjV4U4MVNpAq/HYiMuYOwNDEK
- NhfUVI3yHNUvHklQhjILS/QuJmwjo0wAzcKrBQsFwcAKHkib8BZwwgCo5
- v/cJ9tCHJ8RBRFCGnzdMTC6rQqWMSfPGMAsFQmgcZB+2pIvUtnyd0pdFS A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10324"; a="244614138"
-X-IronPort-AV: E=Sophos;i="5.90,282,1643702400"; d="scan'208";a="244614138"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Apr 2022 07:22:51 -0700
-X-IronPort-AV: E=Sophos;i="5.90,282,1643702400"; d="scan'208";a="806008004"
-Received: from jbarbe2x-mobl.amr.corp.intel.com (HELO [10.252.134.44])
- ([10.252.134.44])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Apr 2022 07:22:50 -0700
-Message-ID: <594043b4-5399-a187-7542-c9ef68bbf45a@linux.intel.com>
-Date: Fri, 22 Apr 2022 09:22:49 -0500
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.5.0
-Subject: Re: [PATCH] ASoC: SOF: bump SOF_ABI_MINOR
-Content-Language: en-US
-To: alsa-devel@alsa-project.org
-References: <20220421162640.302311-1-pierre-louis.bossart@linux.intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20220421162640.302311-1-pierre-louis.bossart@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: tiwai@suse.de, broonie@kernel.org, Daniel Baluta <daniel.baluta@nxp.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="wJ+D928Q"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="v9X9WOEQ"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 46809210F3;
+ Fri, 22 Apr 2022 14:27:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1650637678; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=SIrg+jnlA/ySa4nkLtWhrnBgc7EPWse46JFnnP2g0JM=;
+ b=wJ+D928QfglyQyNE79DSFOXsQJZRbwJe+B7gDp3MPRLcvZ1ZP8sU4wuq5n0ICLByBWXQTm
+ St8Ta7Wqq1lj8h9H1vUcXpKCapMmKxXaIrRSO0rpUtpw06lpY+QMpqvlL59gGU0QfHaYCW
+ lWsRYQkFfwdhUQWnybLsiCbnZ6oanX8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1650637678;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=SIrg+jnlA/ySa4nkLtWhrnBgc7EPWse46JFnnP2g0JM=;
+ b=v9X9WOEQfEM4u+vaJDADbanymvMXXjCcP9nNgEdusM9tJZ2wWfGCITDXicVuXcbQFSO6gy
+ qwXIr5hcaTlBn3AQ==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 33B182C14B;
+ Fri, 22 Apr 2022 14:27:58 +0000 (UTC)
+Date: Fri, 22 Apr 2022 16:27:58 +0200
+Message-ID: <s5hzgkdry4x.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Daniel Kaehn <kaehndan@gmail.com>
+Subject: Re: [PATCH v2 2/2] Add generic serial MIDI driver using serial bus API
+In-Reply-To: <20220421172427.703231-3-kaehndan@gmail.com>
+References: <20220421172427.703231-1-kaehndan@gmail.com>
+ <20220421172427.703231-3-kaehndan@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,34 +93,147 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 4/21/22 11:26, Pierre-Louis Bossart wrote:
-> Commit a0f84dfb3f6d9 ("ASoC: SOF: IPC: dai: Expand DAI_CONFIG IPC flags")
-> did not update the SOF_ABI_MINOR, bump to version 20 before new
-> changes are added.
+On Thu, 21 Apr 2022 19:24:27 +0200,
+Daniel Kaehn wrote:
 > 
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
-> Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> Generic serial MIDI driver adding support for using serial devices
+> compatible with the serial bus as raw MIDI devices, allowing using
+> additional serial devices not compatible with the existing
+> serial-u16550 driver. Supports only setting standard serial baudrates on
+> the underlying serial device; however, the underlying serial device can
+> be configured so that a requested 38.4 kBaud is actually the standard MIDI
+> 31.25 kBaud. Supports DeviceTree configuration.
+> 
+> Signed-off-by: Daniel Kaehn <kaehndan@gmail.com>
 > ---
->  include/uapi/sound/sof/abi.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/include/uapi/sound/sof/abi.h b/include/uapi/sound/sof/abi.h
-> index e052653a6e4cc..42227d4cb92c5 100644
-> --- a/include/uapi/sound/sof/abi.h
-> +++ b/include/uapi/sound/sof/abi.h
-> @@ -26,7 +26,7 @@
->  
->  /* SOF ABI version major, minor and patch numbers */
->  #define SOF_ABI_MAJOR 3
-> -#define SOF_ABI_MINOR 19
-> +#define SOF_ABI_MINOR 20
->  #define SOF_ABI_PATCH 1
+> One ugly portion in the code I wanted to point out, but didn't find a
+> 'nice' way of solving. `snd_serial_generic_output_write` is called to
+> read from ALSA's output MIDI buffer and write to the serdev_device's
+> input buffer. While copying directly from the former to the later would
+> be desirable for performance, I assume violating the abstraction would
+> never be permissable. The current implementation creates an internal buffer of
+> an arbitrary size (currently 256) and copies there as an intermediate
+> step. Any advice on how to make this better is appreciated.
 
-Please don't merge this, the ABI_PATCH level should have been reset as well.
-Need new glasses. I will send a v2.
+It's OK, as MIDI data isn't that huge and fast, and the optimization
+is done at any time later.
 
->  
->  /* SOF ABI version number. Format within 32bit word is MMmmmppp */
+About the code: in general, please avoid the use of snd_printk() and
+co.  Those are old helpers, and better to use dev_err(), dev_dbg(),
+etc, if possible.
+
+Some more nitpicking:
+
+> +static int snd_serial_generic_ensure_serdev_open(struct snd_serial_generic *drvdata)
+> +{
+> +	int err = 0;
+
+Superfluous initialization.
+
+> +	unsigned int actual_baud;
+> +
+> +	if (drvdata->filemode == SERIAL_MODE_NOT_OPENED) {
+
+This expression is rather confusing.  It's essentially a zero check,
+and the simple zero check is rather easier to understand that there is
+no opener, i.e.
+
+	if (!drvdata->filemode) {
+		.....
+
+> +static int snd_serial_generic_input_open(struct snd_rawmidi_substream *substream)
+> +{
+> +	int err = 0;
+
+Superfluous.
+
+> +	struct snd_serial_generic *drvdata = substream->rmidi->private_data;
+> +
+> +	snd_printd("snd-serial-generic: DEBUG - Opening input for card %s\n",
+> +		drvdata->card->shortname);
+> +
+> +	err = snd_serial_generic_ensure_serdev_open(drvdata);
+> +	if (err < 0) {
+> +		snd_printk(KERN_WARNING "snd-serial-generic: failed to open input for card %s",
+> +			drvdata->card->shortname);
+
+Spewing an error message at each time would fill up the kernel log
+unnecessarily.  Make it a debug message, if you really need to print
+something.
+
+> +static int snd_serial_generic_input_close(struct snd_rawmidi_substream *substream)
+> +{
+> +	struct snd_serial_generic *drvdata = substream->rmidi->private_data;
+> +
+> +	drvdata->filemode &= ~SERIAL_MODE_INPUT_OPEN;
+> +	drvdata->midi_input = NULL;
+> +	if (drvdata->filemode == SERIAL_MODE_NOT_OPENED)
+
+Use zero check instead.  (Ditto for *_output functions).
+
+> +#define INTERNAL_BUF_SIZE 256
+> +
+> +static void snd_serial_generic_output_write(struct snd_rawmidi_substream *substream)
+> +{
+> +	static char buf[INTERNAL_BUF_SIZE];
+> +	int num_bytes;
+> +	struct snd_serial_generic *drvdata = substream->rmidi->private_data;
+> +
+> +	num_bytes = snd_rawmidi_transmit_peek(substream, buf, INTERNAL_BUF_SIZE);
+> +	num_bytes = serdev_device_write_buf(drvdata->serdev, buf, num_bytes);
+> +	snd_rawmidi_transmit_ack(substream, num_bytes);
+
+This needs to be a loop to process all pending bytes?
+
+> +static int snd_serial_generic_receive_buf(struct serdev_device *serdev,
+> +				const unsigned char *buf, size_t count)
+> +{
+> +	int ret = 0;
+
+Superfluous initialization.
+
+> +static int snd_serial_generic_create(struct serdev_device *serdev,
+> +				struct snd_card *card,
+> +				struct snd_serial_generic **rserialmidi)
+> +{
+> +	struct snd_serial_generic *drvdata;
+> +	int err;
+> +
+> +	drvdata = devm_kzalloc(card->dev, sizeof(*drvdata), GFP_KERNEL);
+> +	if (!drvdata)
+> +		return -ENOMEM;
+> +
+> +	drvdata->serdev = serdev;
+> +	drvdata->card = card;
+
+You can use card's private_data instead of an extra kmalloc().
+(Pass sizeof(*drvdata) to the extra_size argument of
+snd_devm_card_new()).
+
+> +	if (serdev->dev.of_node) {
+> +		err = of_property_read_u32(serdev->dev.of_node, "speed", &drvdata->baudrate);
+
+So, as we rely on of_node, the Kconfig should have the dependency,
+too?
+
+> +static int __init alsa_card_serial_generic_init(void)
+> +{
+> +	snd_printk(KERN_INFO "snd-serial-generic: Generic serial-based MIDI device\n");
+> +	return serdev_device_driver_register(&snd_serial_generic_driver);
+> +}
+> +
+> +static void __exit alsa_card_serial_generic_exit(void)
+> +{
+> +	serdev_device_driver_unregister(&snd_serial_generic_driver);
+> +}
+> +
+> +module_init(alsa_card_serial_generic_init)
+> +module_exit(alsa_card_serial_generic_exit)
+
+Those are simplified with module_serdev_device_driver()?
+
+
+thanks,
+
+Takashi

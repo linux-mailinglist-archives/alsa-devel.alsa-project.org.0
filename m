@@ -2,66 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D994550B60F
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Apr 2022 13:20:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55EE550B63B
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Apr 2022 13:34:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 68D221730;
-	Fri, 22 Apr 2022 13:19:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68D221730
+	by alsa0.perex.cz (Postfix) with ESMTPS id E4F66172F;
+	Fri, 22 Apr 2022 13:33:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4F66172F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650626444;
-	bh=zru8/UW9zmtAG0/PK5iDxBFRfJ8xYdeBvwTmA9VEK8g=;
+	s=default; t=1650627275;
+	bh=3jfuEAzvI+fireVbhLAA89FI7cLlXG2gLVIt5mnBIg8=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YMhE4va3OEUD92q+Mok0VRi3VdPaMhnIiHmU2qEfbA6vIU8ixmjzqsh3eKrnl8cuE
-	 xtKKMYnwYcBTxIzIX5sMG0XVdtYrij27NzymVrpELcMBVjZC6Ma8UJmcgVYUK2l/jn
-	 RckIAjJyk+jbYQ0bsPIpLLpKNU4t0BoCwTlGJkRY=
+	b=HasrxyqBvxaebNlauu2IGGfaKvMf9po+uIuKgSzkFYOQcgotGIj0iUr46zCbmJ/Ba
+	 ZICF9GIWxqPslj8SNt4Ehx4UJ0sgAT7E3pwaZHytop8I4LnPtt5XQe3U9v+zGeohf/
+	 OFAKf/5OLJy4IJZ+nNvmnWh8XD8VJtUyg5BD5vVg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C2B4DF80249;
-	Fri, 22 Apr 2022 13:19:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5C870F80154;
+	Fri, 22 Apr 2022 13:33:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BE3D6F80245; Fri, 22 Apr 2022 13:19:44 +0200 (CEST)
+ id 1AB98F80245; Fri, 22 Apr 2022 13:33:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5C39BF80125
- for <alsa-devel@alsa-project.org>; Fri, 22 Apr 2022 13:19:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C39BF80125
+ by alsa1.perex.cz (Postfix) with ESMTPS id 74B1FF800D1
+ for <alsa-devel@alsa-project.org>; Fri, 22 Apr 2022 13:33:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74B1FF800D1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="BFFN+sPT"
+ header.b="N4xc6sPb"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 8A4A0B82C15;
- Fri, 22 Apr 2022 11:19:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C96AC385A0;
- Fri, 22 Apr 2022 11:19:35 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 2DAA9CE28CB;
+ Fri, 22 Apr 2022 11:33:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4348C385A4;
+ Fri, 22 Apr 2022 11:33:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1650626378;
- bh=zru8/UW9zmtAG0/PK5iDxBFRfJ8xYdeBvwTmA9VEK8g=;
+ s=k20201202; t=1650627206;
+ bh=3jfuEAzvI+fireVbhLAA89FI7cLlXG2gLVIt5mnBIg8=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=BFFN+sPTXdnJk+Sp2znrcBOGnDhEq/ShO1v6/yJkZyAMaRVVOMgL8Y/sxkmuDq0/y
- NDfUXGw+porWAGWdY+2rRSYyvUukVuMEpW7ZA/6eMQ2mhk74CwKBR3n13ub1wF/imm
- nJb9mf1iV/h1dvfahX0RHBpSlpRgfuxbXYoAr19tQAWQka94k0bKFC8/ifhv0ymalX
- 4Bmq23wGE5nBm+5lh6rSeoTh1OK5Bt02nNUIiEYEZoetl5lz31D9THVwSO3tvvRRzG
- P0tEg7JEiLu0E5zAtbKtRaYjQOPIvLw+QZWmi5e5vQ2YBdECTTT2BlNDy+PF5wwXvj
- 07YN3tRQ0kdkQ==
-Date: Fri, 22 Apr 2022 12:19:31 +0100
+ b=N4xc6sPbo+yCUgMVCAfbmL9aaI0wq2uWC3lRyQp75hx9AB4KcChx7EvF3ADbYj3re
+ gjC5jcLuiV0rrYIRHI2hV1QJ9RN7Wef3noIirHog3grPtVx9m2FkUUx9dP+R0qYwNV
+ G6m1sInmZfIGXe5R3kzj6N0QL39ugPMBC63JxbP3xL0Zi5tcYr9i4g5MxxEInSG30o
+ VR5rygxQY/QCxUbIAi/iZxSHWejn0IhHm1atF2cWDlA3JlK077bU5reZv/HUHaFLZM
+ lOp9ohClb795LjV5CoLtPsIFEU/5EVPXXXFzitBgXBLis95T1yA32uKghxdnjcCuGH
+ P1lrjqCWbiDTQ==
+Date: Fri, 22 Apr 2022 12:33:20 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Martin =?utf-8?Q?Povi=C5=A1er?= <povik@cutebit.org>
 Subject: Re: [RFC PATCH 0/5] Apple Macs machine-level ASoC driver
-Message-ID: <YmKPQ6kLCPz+2XTJ@sirena.org.uk>
+Message-ID: <YmKSgHrbb/7koM36@sirena.org.uk>
 References: <20220331000449.41062-1-povik+lin@cutebit.org>
  <YkWfziQzprEsWL72@sirena.org.uk>
  <CCE4A06E-6D6F-457D-B3C5-C36209BF38D3@cutebit.org>
@@ -69,11 +70,13 @@ References: <20220331000449.41062-1-povik+lin@cutebit.org>
  <6D199EAB-FE14-4030-96A7-2E0E89D25FAB@cutebit.org>
  <YkXKmxJ0R3qpUoH4@sirena.org.uk>
  <DB0255C3-C9EC-4EFA-A377-C4BB1073D9B3@cutebit.org>
+ <YmKPQ6kLCPz+2XTJ@sirena.org.uk>
+ <B68302F2-3D77-4065-8A16-A9CC690AE10B@cutebit.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="8nVJ3HZ/2fzKiGhv"
+ protocol="application/pgp-signature"; boundary="HUPCgzDyOfBhsa/5"
 Content-Disposition: inline
-In-Reply-To: <DB0255C3-C9EC-4EFA-A377-C4BB1073D9B3@cutebit.org>
+In-Reply-To: <B68302F2-3D77-4065-8A16-A9CC690AE10B@cutebit.org>
 X-Cookie: Whoever dies with the most toys wins.
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  Sven Peter <sven@svenpeter.dev>, linux-kernel@vger.kernel.org,
@@ -98,63 +101,51 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---8nVJ3HZ/2fzKiGhv
+--HUPCgzDyOfBhsa/5
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Apr 22, 2022 at 12:43:30PM +0200, Martin Povi=C5=A1er wrote:
+On Fri, Apr 22, 2022 at 01:28:20PM +0200, Martin Povi=C5=A1er wrote:
+> > On 22. 4. 2022, at 13:19, Mark Brown <broonie@kernel.org> wrote:
+> > On Fri, Apr 22, 2022 at 12:43:30PM +0200, Martin Povi=C5=A1er wrote:
 
-> I looked in the TAS2770 and TAS2764 drivers/datasheets, and to answer
-> the questions we had:
+> >> One final thought on the playback routing controls: On systems with >2
+> >> speakers, the codecs need to be assigned slots through set_tdm_slot.
+> >> The macaudio driver RFCed here assigns a single slot to each speaker,
+> >> making the effect of each speaker's routing control this:
 
->  * VSENSE/ISENSE output slots are configured independently of audio sampl=
-es
->    routing. Kernel drivers configure the slots based on the 'ti,imon-slot=
--no'
->    and 'ti,vmon-slot-no' properties of devicetree.
+=2E..
 
->  * By default codecs transmit Hi-Z for duration of unused slots.
+> > I don't quite grasp the difference between the arrangement you're
+> > proposing and assigning a single slot to each speaker?  Possibly it's
+> > just a reordering of the slots?
 
-> So once we supply the devicetree props it should be electrically sound
-> under any configuration of userspace knobs.
+> Ah, maybe what=E2=80=99s missing is the fact that the way the speaker amp=
+ drivers
+> are written, if they are assigned two slots with a call to set_tdm_slot,
+> the first slot is considered 'left' and the second is 'right'.
 
-Great, that's a relief.
+> So in the arrangement I am proposing the 'Left', 'Right' and 'LeftRight'
+> values of the routing control have the nominal effect (within the left-ri=
+ght
+> speaker pair), while in the other arrangement it is as I described above.
 
-> One final thought on the playback routing controls: On systems with >2
-> speakers, the codecs need to be assigned slots through set_tdm_slot.
-> The macaudio driver RFCed here assigns a single slot to each speaker,
-> making the effect of each speaker's routing control this:
+So previously each speaker would get two slots but now it just gets one?
 
->   'I2C offset' -- uses a random slot
-
->   'Left' 'Right' 'LeftRight' -- uses the single slot we configured
-
-> I suppose I better assign two slots to speakers in each left-right pair
-> of the same kind (e.g. woofer 1, woofer 2, tweeter). This way the
-> routing control will mimic its behavior from simple stereo systems but
-> replicated within each left-right pair.  (I would prefer to hide the
-> controls altogether, but as I learned that hiding things unless proven
-> dangerous is an ASoC non-goal, this way I can make the controls do
-> something interesting.)
-
-I don't quite grasp the difference between the arrangement you're
-proposing and assigning a single slot to each speaker?  Possibly it's
-just a reordering of the slots?
-
---8nVJ3HZ/2fzKiGhv
+--HUPCgzDyOfBhsa/5
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJij0MACgkQJNaLcl1U
-h9BqUwf/QG0XzaX2s8b8WvT2Muxmu2J/H8wKfS7X/M+RzZh+hf9jkcmuXNvf6y+x
-szSnDY6wVDj8SHavGkPVPalUX3PogMNjOds6SJOIuEcKyDgenL9Rq0GluoyIKytF
-DrRr20N0WM7w4kPKuH/IdpkMjy3Oh+Afqiqp+FX11DmVGkvATcH6qTRlLqB78p2y
-VBnW5KrSXnkIc77pXVf4lYNb9Y+0f6ey4MIkEdq+/UO7dzzqNMUbLiIbvpkm9WxP
-AXVjwSl0RxhabUPZPYh1UpMW6V+DgfDim/4poEkvrX64cqUMtS3wLIzumNV3Xg6K
-G5V+FiiYQCyqYup6Z/ozRckIakyeBg==
-=0ea9
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJikn8ACgkQJNaLcl1U
+h9Apfwf9FyqYZwZ2D2ZxnG/lVxGl4cjqMmJe5FgwZCDKQPzM3Y9o4137S0U7kLTz
+QM1Jf+3LJgVkdvJN/Hj3GaJPazdeXB6mMQ5o3p28PEe/ASqNKJCa6Z1UcQ5zdcaZ
+D89JCKjmGPoHjNWiZCSRE6k7kXhtJO5MyXxNCgXAf5bk7352nedgPmg/4PapUL82
+sEV/b496dYNV/EQ6HLGey/73P3cKc6w+urEcUQKaPcFlLWjK1J9ZP+TQuBdSxBNp
+MjkcoQoQSNrw0PJ/rQWd++JkLimYQDwFEkaNeLWmh+K/L3/vCdun88ZtIbdeM3NL
+VwJzyNbDoxmUu+IBEFgYIa+SP/YvUw==
+=k+NI
 -----END PGP SIGNATURE-----
 
---8nVJ3HZ/2fzKiGhv--
+--HUPCgzDyOfBhsa/5--

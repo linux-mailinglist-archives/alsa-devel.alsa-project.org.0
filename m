@@ -2,70 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA1C350B1C8
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Apr 2022 09:40:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42B3450B2DE
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Apr 2022 10:28:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8D4D51718;
-	Fri, 22 Apr 2022 09:40:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D4D51718
+	by alsa0.perex.cz (Postfix) with ESMTPS id C5ED11727;
+	Fri, 22 Apr 2022 10:27:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C5ED11727
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650613252;
-	bh=sad6W7fSsklcw+UfZSdqvXQD6rkLhymaGEPnnZRSXB8=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=IyxhB9ah1YOjFxFZSrKZzOf5n86qv5dabM1rFS6ywYwfmNknX4FuloBG9pOyDS3D4
-	 bAJ7BtCv3fERBHqBbhW8NhSHWqjJs6WzRJB8z+KxtMz0wQcCTk6cVtuuDq8RenrZmo
-	 O52VMzkHpY2ZF7nXTqbkOzptNX8dQBP2YR147cXM=
+	s=default; t=1650616095;
+	bh=qKio00xXUbUiUXZm/vX+CQikpg00hi0mjBYT8PwbFRQ=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=cU5xk6Kj1kEx9yNILFCDy53fRNZZPGrI2PKtWeNjDTVlMTFStSsJdJF7ES4kVvX4G
+	 +9o0ZPb3u3JfAINzXllZLUPK8vEOPpyhx/Xyouzk2lekB/+sun6zQsZ+CsbFZxnwv3
+	 WQfI+QV5Q/LJMo7KFS6Zv5Szwj037O/KCiWr8FKc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 23F55F80249;
-	Fri, 22 Apr 2022 09:39:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 37A95F800D1;
+	Fri, 22 Apr 2022 10:27:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D22FEF80245; Fri, 22 Apr 2022 09:39:52 +0200 (CEST)
+ id 6AB2DF80245; Fri, 22 Apr 2022 10:27:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-relay-canonical-1.canonical.com
- (smtp-relay-canonical-1.canonical.com [185.125.188.121])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BA829F800D1
- for <alsa-devel@alsa-project.org>; Fri, 22 Apr 2022 09:39:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA829F800D1
+ by alsa1.perex.cz (Postfix) with ESMTPS id EDF2EF80134
+ for <alsa-devel@alsa-project.org>; Fri, 22 Apr 2022 10:27:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EDF2EF80134
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
- header.b="ClhivhJz"
-Received: from localhost.localdomain (unknown [123.112.65.7])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 83A3A3F776; 
- Fri, 22 Apr 2022 07:39:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1650613185;
- bh=DuRiumab7zYn7BMLUjK5U9ntoOKgstDPwsQqBhHpL7g=;
- h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=ClhivhJzBOMVbiNj0h8nRKOQCatd/iTJU9YvPfe0DOHNbCZJ92qmjxv/CpY19700V
- p5AX8O8dJ7h9d+hYsR7OuywJ1Eb38Fngq9htTQ6CRXIBPzjACQXf3WKyJIbF69xcen
- q1ZfuvuB5vJrLSzlXTzay5QBy2BOjY+M6QEEfUHVYyPLXN76kkPKzsiGJWcD3EERiw
- u62TkVA+r9zBCgyjc7pfvhpypf8XgBfaGFPkjehwR71cJB8FLtPX9vgIvU4UcBtMF3
- yteyhYA01sgp1yXqZDoHTo7/auGGXfL2/SbK6xgq8/Kyp0z65hsF1zgmgDxIlsfFUG
- 6FvzlKUpnRLXg==
-From: Hui Wang <hui.wang@canonical.com>
-To: alsa-devel@alsa-project.org,
-	tiwai@suse.de
-Subject: [PATCH] ALSA: hda/realtek: Fix mute led issue on thinkpad with
- cs35l41 s-codec
-Date: Fri, 22 Apr 2022 15:39:37 +0800
-Message-Id: <20220422073937.10073-1-hui.wang@canonical.com>
-X-Mailer: git-send-email 2.25.1
+ dkim=pass (2048-bit key) header.d=baylibre-com.20210112.gappssmtp.com
+ header.i=@baylibre-com.20210112.gappssmtp.com header.b="2/I5sgtu"
+Received: by mail-wr1-x433.google.com with SMTP id v12so3149154wrv.10
+ for <alsa-devel@alsa-project.org>; Fri, 22 Apr 2022 01:27:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20210112.gappssmtp.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:organization:in-reply-to
+ :content-transfer-encoding;
+ bh=u7TUP/Txry1UFuyT1GMH6MxIlNWsEqUWlVQuJ3Ycgo4=;
+ b=2/I5sgtu6yek/DqrCw3fNAG0CyFOv3PlhCCCJ+GXocYogXRpOANpLUGCSLIL6TXXJL
+ ncM/kLDoJ/bNF7oVzLDmvTM1U3qDOvltDLOY94qFOFrVnXCkZfDsjDwyWE2jcRPo5B1P
+ ttxqJ8yX7vcodL42mKjo/d0lRMIGPiXtLb17dpL2lYUuxkj6MobpP5XnR8PmKbChBY0Z
+ 7zmq27Ase+2MLiNJ+AreILAY0VwbdAMekeGiuF36tHqnyXwpBeV6cqPt/OeTETRnDqrU
+ +QHBEU1kHUMiZEs4+Xe8l3uwd3L6Dy+ht+n9MPLNoA7z1gb/z+BsoiCI7GOSeiqizJDX
+ 7PeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:organization:in-reply-to
+ :content-transfer-encoding;
+ bh=u7TUP/Txry1UFuyT1GMH6MxIlNWsEqUWlVQuJ3Ycgo4=;
+ b=a/IhmuUYkxm2FnVrU9q1A8Q3myvIpbplWuHC+AmzPWZK030VIK3Yp5CsqKfJ4jx5Gr
+ /1i6s7ro8rX+UJJXH56/pzBW7PkYwxzoQJP33OM93Evrww9oholKmJbCkrL1MaDDjG26
+ x6O6zuvMEExEgwe7kvOXkB0+z69ahZgOIgHgks8H+wn4CECfKJCVR/eUXMBzm3ZdURMI
+ jhDgWfntVb8e0POupfI3Zm2tYLj7HNUeMTmoTf4PqOg0mObrBIO8EojGS0yPUX4NTfr9
+ wLDUbNqeOy/Uq7/IOtujz4R84Yoqxi//QsSqpRjVWwMwBkXQf2KIhyozC1hHFYI/kCeV
+ UU4A==
+X-Gm-Message-State: AOAM532eUR+ub5ljMgW3FyqCTLg0dfuScx5zvxTbxatintcPwqCiSBWc
+ LJHPJkROOune+29nWH7OebfjSA==
+X-Google-Smtp-Source: ABdhPJwc7lC7iXT26SYx3VMbx1Xy9+zwh+M/Yt5wvRZ3xffC5nUuF/FW32z69itymsszmlEUC9PuCA==
+X-Received: by 2002:adf:f2cb:0:b0:20a:77c2:3958 with SMTP id
+ d11-20020adff2cb000000b0020a77c23958mr2637147wrp.589.1650616021757; 
+ Fri, 22 Apr 2022 01:27:01 -0700 (PDT)
+Received: from ?IPV6:2001:861:44c0:66c0:3ce1:1ed1:5e14:cd49?
+ ([2001:861:44c0:66c0:3ce1:1ed1:5e14:cd49])
+ by smtp.gmail.com with ESMTPSA id
+ e4-20020a5d6d04000000b0020a8bbbb72bsm1335208wrq.97.2022.04.22.01.27.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 22 Apr 2022 01:27:00 -0700 (PDT)
+Message-ID: <b6029a92-04f0-9ae7-291c-621f9871280b@baylibre.com>
+Date: Fri, 22 Apr 2022 10:26:59 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: [PATCH 1/2] Revert "ASoC: meson: axg-tdm-interface: manage
+ formatters in trigger"
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>
+References: <20220421155725.2589089-1-narmstrong@baylibre.com>
+ <YmGSeVbwWtyHP/Tz@sirena.org.uk>
+From: Neil Armstrong <narmstrong@baylibre.com>
+Organization: Baylibre
+In-Reply-To: <YmGSeVbwWtyHP/Tz@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, Dmitry Shmidt <dimitrysh@google.com>,
+ linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, jbrunet@baylibre.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,32 +113,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The quirk ALC287_FIXUP_CS35L41_I2C_2 needs to chain the quirk
-ALC269_FIXUP_THINKPAD_ACPI, otherwise the mute led will not work if a
-thinkpad machine applies that quirk.
+Hi Mark,
 
-And it will be safe if non-thinkpad machines apply that quirk since
-hda_fixup_thinkpad_acpi() will check and return in this case.
+On 21/04/2022 19:20, Mark Brown wrote:
+> On Thu, Apr 21, 2022 at 05:57:24PM +0200, Neil Armstrong wrote:
+>> This reverts commit bf5e4887eeddb48480568466536aa08ec7f179a5 because
+>> the following and required commit e138233e56e9829e65b6293887063a1a3ccb2d68
+> 
+> One other thing - these should be Fixes: tags, that helps tooling figure
+> out things like backports.
+> 
+> Also:
+> 
+> Please include human readable descriptions of things like commits and
+> issues being discussed in e-mail in your mails, this makes them much
+> easier for humans to read especially when they have no internet access.
+> I do frequently catch up on my mail on flights or while otherwise
+> travelling so this is even more pressing for me than just being about
+> making things a bit easier to read.
 
-Fixes: ae7abe36e352e ("ALSA: hda/realtek: Add CS35L41 support for Thinkpad laptops")
-Signed-off-by: Hui Wang <hui.wang@canonical.com>
----
- sound/pci/hda/patch_realtek.c | 2 ++
- 1 file changed, 2 insertions(+)
+Thanks, I'll think of this for the next time.
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 4c0c593f3c0a..f9c3b2c9ca12 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -8769,6 +8769,8 @@ static const struct hda_fixup alc269_fixups[] = {
- 	[ALC287_FIXUP_CS35L41_I2C_2] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = cs35l41_fixup_i2c_two,
-+		.chained = true,
-+		.chain_id = ALC269_FIXUP_THINKPAD_ACPI,
- 	},
- 	[ALC287_FIXUP_CS35L41_I2C_2_HP_GPIO_LED] = {
- 		.type = HDA_FIXUP_FUNC,
--- 
-2.25.1
-
+Neil

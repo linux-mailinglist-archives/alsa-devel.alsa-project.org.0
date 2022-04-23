@@ -2,162 +2,113 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAEDB50E1C8
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Apr 2022 15:31:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5932550E1C9
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Apr 2022 15:31:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4939F179B;
-	Mon, 25 Apr 2022 15:30:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4939F179B
+	by alsa0.perex.cz (Postfix) with ESMTPS id E8D4417C8;
+	Mon, 25 Apr 2022 15:30:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8D4417C8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650893483;
-	bh=s07emTYasGddtYbUqhiscP7qrAv61Lukw0gMF/l51fU=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1650893500;
+	bh=f+gN5VFSk9TvNUY6oLSGkqRdwS9xhEyKvVqBzBXLs0k=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kvITrUYxto/Jvv2tHUsluiqaB1YR09X/BoJblN4KGCFmwSYTnrhtiu1SiOR5qnS0S
-	 klH4aGTTZOsJI5covcELfK3yk4FscG+wkmH44nOL5LA/VOxrUWILO2Mu+P6owIFBGe
-	 D8ROwWRRC8XNQ9+1SIpkBE7tyQDboVCtCfxfaTWo=
+	b=gRaNGrKLzqhx7FxA7H65z4YuM2OkNzyXpwTGW6cBgVHPA9Hp1QI6+bZ9XtWn6CEQd
+	 zi5fsK4ttMwUlJeTV5nHgNSxlzr0yMmA7JwNicKI/gxg4RKk53f8Dgv13dLXkvZr+x
+	 B6t7jqW+/C9cTT1CagYl/cF/Bwr69bb/LIHU+aoA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2202BF80542;
+	by alsa1.perex.cz (Postfix) with ESMTP id F0BDBF80543;
 	Mon, 25 Apr 2022 15:27:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 352CBF80248; Sat, 23 Apr 2022 18:10:10 +0200 (CEST)
+ id 29191F800B6; Sat, 23 Apr 2022 21:55:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on20615.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e1a::615])
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id DD9C4F800B6
+ for <alsa-devel@alsa-project.org>; Sat, 23 Apr 2022 21:55:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD9C4F800B6
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="PzAHzR20"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 077FBF80109
- for <alsa-devel@alsa-project.org>; Sat, 23 Apr 2022 18:10:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 077FBF80109
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
- header.b="nLXMYMvq"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=POqKmcSxjOTBRJF0yUi2TbfOrsAywy5kcGpZioN66CkAISirDEofXs0wztwj0pWah9PWo/5Xhv59YbVRMF9saYFSkoPcVj6v0QXwCSgl1CqlQCr7B9j1u2zpO4ck3IV6PeciErwWbY5h9+FBz7KGImzy3Iw04TsTUxSHsBZoVFoORQhK+lw9WHLQA5oBaU4OTsKInmyRBsRsqyaCwAEmJFMqgh3Vp6ZW/ElvPOgV7Zb+IsYBkz+zOB3PeXr2Q9d5H29sFvdeqmCWPOoexY+7mkX01jWFgD1zan/8Cfjhhb38DeGMkP6U1zrl0Fo29krpeqZVvRb6/DHypzSmTioKNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IIOzQC//5Lg61psNuU3beGROQ/OGo6KgFewBNuoLHus=;
- b=RSn0axi15uc76q/oHt5GrPElcFpqESN1r+hoL+BN2cka0MC4dd6MLynZpvb4Vc6Y0fy4bvh3AQuxmv1b588cbhPNLTn50h2Yh/fkUwjNEd84kwrkmnpyKPSAp3shlpkzPmMqJHXgKXQeIehaZCON+Y4K672GNjonve6FP6OorSY9cjI6EEoUM+AYp2M+ab2xNa/HaE6ZVqiT/Jyw+Dff+7HUTEVSBFMGYPGcc9NMxjNQRSduYSrrDGWj1ZeLsiFasvA4ALJYRC/JUf39iEKVv7WH7908ELNVLGIsrJY0AYKKjGSKCcaWGglc8Fy4NhR7OiYT2fAsBVQS+ltF0+Dluw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IIOzQC//5Lg61psNuU3beGROQ/OGo6KgFewBNuoLHus=;
- b=nLXMYMvq7eOz9ZHls91XIL+rDvYZJucwHSS75nrAI0qv43EC+fzYNGtXTyOxEMugmQGOYZ1uxnC3S0QC4ikcJcEF7KDwiEg9fQW3Zu0DBYwcr3e3yKZdeBWq6bXhh1UYWCfM7A04m2Hq90H/jIE0iXF3Zw8XWOgvLz/1FkhbhGg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM6PR04MB4679.eurprd04.prod.outlook.com (2603:10a6:20b:15::32)
- by DB7PR04MB4044.eurprd04.prod.outlook.com (2603:10a6:5:1b::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.18; Sat, 23 Apr
- 2022 16:10:00 +0000
-Received: from AM6PR04MB4679.eurprd04.prod.outlook.com
- ([fe80::489c:22ea:f02d:ce42]) by AM6PR04MB4679.eurprd04.prod.outlook.com
- ([fe80::489c:22ea:f02d:ce42%7]) with mapi id 15.20.5186.018; Sat, 23 Apr 2022
- 16:10:00 +0000
-Date: Sat, 23 Apr 2022 19:09:56 +0300
-From: Abel Vesa <abel.vesa@nxp.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH v7 09/12] clk: imx: scu: Fix kfree() of static memory on
- setting driver_override
-Message-ID: <YmQk1ORliYWEgjKx@abelvesa>
-References: <20220419113435.246203-1-krzysztof.kozlowski@linaro.org>
- <20220419113435.246203-10-krzysztof.kozlowski@linaro.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220419113435.246203-10-krzysztof.kozlowski@linaro.org>
-X-ClientProxiedBy: VI1PR04CA0112.eurprd04.prod.outlook.com
- (2603:10a6:803:64::47) To AM6PR04MB4679.eurprd04.prod.outlook.com
- (2603:10a6:20b:15::32)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 1773FCE07EB
+ for <alsa-devel@alsa-project.org>; Sat, 23 Apr 2022 19:55:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F189C385A8
+ for <alsa-devel@alsa-project.org>; Sat, 23 Apr 2022 19:55:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1650743721;
+ bh=f+gN5VFSk9TvNUY6oLSGkqRdwS9xhEyKvVqBzBXLs0k=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=PzAHzR20lzvPfCTqt/UUzx12IPhOfz+TRjqNJ8NxEoRI/bWqgErqlZjk7cfTM259a
+ ES9ZLzK7AQ5x5SMPoX4fGuEBvk10IF/bYoYOZNrIybBirPtSW18FdAPqWZza8MudXV
+ vG23F9GYtnFHpHrf84m9ZBvRrLCT6HR3YBoZ5rIdgNbcdWJ4WulW+Ag5txr/fArK/K
+ 8hzENh6M4DW/B6aRii4K02sQiyHAgWdV6wTeninHDFb9FTGsk1kC60BC8Ty7Z9oRiu
+ uezNy/Q8OZSv9U2rlimKsK6lo1l+EW6dZRWZhxxZjuCiGNgZmaJtyoN+hSdEOEgF8G
+ ZbIfS2Abjyb2Q==
+Received: by mail-wm1-f51.google.com with SMTP id
+ u17-20020a05600c211100b0038eaf4cdaaeso10091501wml.1
+ for <alsa-devel@alsa-project.org>; Sat, 23 Apr 2022 12:55:21 -0700 (PDT)
+X-Gm-Message-State: AOAM532nZRvgutQhZG9WCLgI4lB58hBTszCn7vrEM57KZT9NgYKcfjx+
+ toiFT5nV1fzyC1H1y56E+4iweGprYMRRktyPYDg=
+X-Google-Smtp-Source: ABdhPJwI9oPHj0hjS6Y5T/XpNunPLjXzfhDb/y4TSIxWhFvis5ICGMzIa2Kp6ZajGKm/dLFayXeKiCmoNnJ4Fu7pVP8=
+X-Received: by 2002:a1c:f219:0:b0:38c:782c:3bb with SMTP id
+ s25-20020a1cf219000000b0038c782c03bbmr18417513wmc.94.1650743719480; Sat, 23
+ Apr 2022 12:55:19 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0b16d65d-000e-41d6-e96a-08da2543b7db
-X-MS-TrafficTypeDiagnostic: DB7PR04MB4044:EE_
-X-Microsoft-Antispam-PRVS: <DB7PR04MB40449FB3F631788A58438417F6F69@DB7PR04MB4044.eurprd04.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: RlLgeVF9AMUytFCchnksBsFX8Q1ZmMXyIeprQYuxvRGr0eTEzeGAO8NfZ35byTbSlwtAAX+DmmpOBbQ7u7moEt9UPUO08CyjIrqHD0UmvcgY1JcxNhC/muje84Nlg/sD7jBRvXGJ2YA7Bhq5CEgTPeThIDLo4Z7blvu8C35wHFeFbAWOe/TdoSzplohxdbaK/DtokSPfGJZDq5Pof7rZ1cvnsal9JxdAtiJ2YUDQVmJeXMXVxgm6rPoE4HVvjC86sJXDXDazw7Gh1DBWw6WHByqg/mMeEfjxSmmsq/TZQgBrf7P1est53ZzSkHsQMKB7/enLILjDHazaa8+w4hyWZAl2srhCm0eDPesfUBLUtDsi3qh2kObdHmLl13LWLMZRqlODzvVWZ37X6hww8/bLBib2jm0WoE4GBAgMe7dLRQHpGeAavSugky5ypcyCPgG6MU7zIzFRIPNuiXX5lcUQ1OJ3pxEqT+tUgGj+UC5VFmgb/dQhtp2EPIekrNQJPeysDjB9rw2Nr3HZS+Y7Kh77Wf0aVgz3dbn+wr52fi8q4/8jbusNvmlBzBA8Lc9B/dNczbpAdnDyGClUlmTWbn6zfoRt0XQb/U0CRn2eTMxVhvI1YMbcHtTnBWouORHyzeIo6Ibsc5ms/ezLBMplvhrawUMafw7WmNk2giAnJ17sktlEur8v9vjAovDVvNXxn//XIeQWfkBVgIQU0AnPrD3IBA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM6PR04MB4679.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(7916004)(4636009)(366004)(6916009)(83380400001)(54906003)(7416002)(7406005)(86362001)(2906002)(44832011)(6486002)(508600001)(53546011)(6506007)(186003)(38350700002)(38100700002)(33716001)(26005)(9686003)(6512007)(66476007)(8676002)(66556008)(4326008)(8936002)(5660300002)(66946007)(52116002)(316002)(6666004);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?BCz2QCshCOi4ZeSXE8b1I7cS8K7UHTXw9xrI7CG5yggrvzxgQ3o7NXilCBqx?=
- =?us-ascii?Q?MBdGJlOQ9c7LEvVyAfDxfRS+GDst17FojVkVlGMCHfZQFDHFyfXjuAWAdQbY?=
- =?us-ascii?Q?vvlpU1gCdRAiaaYwD3M6CCTzw23w+OD2LvyBQXG2/7wEzrpwdnmLE4UKFcmQ?=
- =?us-ascii?Q?hY/oJj3Spo4I4CtkFzzSCbG0Yp+Hwbws94S8gCb0Hc/8sa4P7ekdseYv+VW5?=
- =?us-ascii?Q?wGNHsLSSVJG6TnlBBh/oPDtI1Lp9qe5ZzTUk5yYvhOtini0iIKyq0D5vijoI?=
- =?us-ascii?Q?qPzUnmm5+8NCiEjz3z+gbv2AxMyD7j0pjeV8/ZTN5EuyZmrLdBE/M/2wCb41?=
- =?us-ascii?Q?0bYECZ2WSddeOl7xdq9wRTkfV0cnaAo2pq8zm0KNQJDcwMBdItXw7pxR5xaK?=
- =?us-ascii?Q?TG1epSG+8guETItU6vuJbjaprICuyvF4CZampGdsn2UL43IAQKjxFn2Bg6ZB?=
- =?us-ascii?Q?qTAsWVgo2WSqEDLsijHPA/wirAQB/jsj9pLm9rpFBVOIXUJTO+EJwrfdswuH?=
- =?us-ascii?Q?mbOMWmT4+O1gUb3T5VE2lG8QGcYa7EfnI3eTCStF9v4cQZNvuuS9QWAxhyhd?=
- =?us-ascii?Q?QKAcrt1M6RNT41CfXcTZaKNLPb/USpuELSs0FOkUa41wKdOOzYbPLQXUO0ZO?=
- =?us-ascii?Q?AOLez2x7Se7wHJZemJ+CXzWykzNqDXXr0yR7WgFhI0+/tPq37DtXCzWS7zHZ?=
- =?us-ascii?Q?Efqd8fFNEMO3EywH+eGv36rLa9kQmte3Vx6bG9OKI4TS0xczUzclenwhnjYT?=
- =?us-ascii?Q?hivsa68pK7/0dIaBpJfs4MfF0R/xIR3eOFduyiXQr8aZomhDs4R8AIILIBy3?=
- =?us-ascii?Q?HJjS4Ft2svtcYCc35wm0TzrJCBbKhWHl0JYg5pofZJZ/b2ADFk82olcH2gB6?=
- =?us-ascii?Q?sOYY7R6zQPHssGqQAxfvQyVg9WebvoycEVPkmKGJ+z6/o4+rtVrMP/zE454B?=
- =?us-ascii?Q?Xz/uHAgiZD3OSo5pFcvay4BlXBfsM7x2YJM3lUUSBMmwHXJktSbk2at+r73K?=
- =?us-ascii?Q?ramqvXtrGEUoeb+0/L9fyKnfseh0Dxof3HvWmO6U9q3eq2QuQ7POf8cBEu+x?=
- =?us-ascii?Q?lKXgCdiWGGFRNgTpj+Af52ayaEu2gVQNunqMzPrvmP6F1l8ZxliWrk8okGGh?=
- =?us-ascii?Q?oRzE9Jnfo0qyK4YxK+VLM+hHPJZ1FI/Oq3Gx0vVlQ/yGdxLtIoQz5veeAhjg?=
- =?us-ascii?Q?FcP9K1bV6VYEDwWfaGACC8tKhP3+zdJ5wOlO8okvxQmfq2Jh2iRRO/CS8bqk?=
- =?us-ascii?Q?wJoIJBEEK4CHvD56FE7w2Qk5xNd8QVr//nphvgmhD2aUt7qbTMPQpAjt2fTJ?=
- =?us-ascii?Q?R+cBC/EtyU06/7BSGrz+ieUnEJS1LMELcwIrjJGVVpSmv3rtUPCsKJYgv6Me?=
- =?us-ascii?Q?FSvblUTXsNWmb8ZlGoUwz+cC7rIMMkFSeB73RCqpTafIGCjtPtVPSdwVygg3?=
- =?us-ascii?Q?QRohEzFnfonDXNGk8hke7bzDc6N/9BjMyY5Nufd94YqeE6vzNnOJWLYTMgK9?=
- =?us-ascii?Q?C78KTCV5d1g4u5wjtxljpXnDWGijL6pa3VT7ztbaSuwhuTNhDPW04bbCKrpD?=
- =?us-ascii?Q?oNR+G56+YV9c1+XUIzNHaXcU4YGSRswFvr+tP0SAJ4qjtv5lXMtzDr76/Ndb?=
- =?us-ascii?Q?MvjCQ9amgiD3CKe5vFvdpHvIvJg93jvIgqjuPW4c+GNyZtVM9yKo2ehm8xAT?=
- =?us-ascii?Q?rVFIqCvydWedqN9TZjbjmIajR7eSmwmiLt2zjQWAF/4tFiH2yIMUExZ6RaAJ?=
- =?us-ascii?Q?qTyyklbGTg=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0b16d65d-000e-41d6-e96a-08da2543b7db
-X-MS-Exchange-CrossTenant-AuthSource: AM6PR04MB4679.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2022 16:10:00.5900 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: v3HnGcuBHLfKFmDVj6eiPp6VrPLDLwF51A8skzBje5u2zZVyyN42KSAwrCF01fRtEB+vjCcKSBifUsAvfL/BYw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR04MB4044
+References: <20220419163810.2118169-1-arnd@kernel.org>
+ <20220422170530.GA2338209@roeck-us.net>
+ <CAK8P3a3V=qxUqYT3Yt=dpXVv58-Y+HVi952wO6D4LPN5NNphGA@mail.gmail.com>
+ <8b36d3a4-ec85-2f9f-e4b7-734d8ddd3d8f@roeck-us.net>
+ <CAK8P3a0R9cpEb1d2=e9KnGSbi_uRv48RWfCu_J4DDak_cGZSuw@mail.gmail.com>
+ <20220422234150.GA3442771@roeck-us.net>
+In-Reply-To: <20220422234150.GA3442771@roeck-us.net>
+From: Arnd Bergmann <arnd@kernel.org>
+Date: Sat, 23 Apr 2022 21:55:03 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a3qZdEqnJ2nTOKwDMossngOgCpEvZq4cQMPQjSsUoU=6g@mail.gmail.com>
+Message-ID: <CAK8P3a3qZdEqnJ2nTOKwDMossngOgCpEvZq4cQMPQjSsUoU=6g@mail.gmail.com>
+Subject: Re: [PATCH v2 00/48] ARM: PXA multiplatform support
+To: Guenter Roeck <linux@roeck-us.net>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Mon, 25 Apr 2022 15:27:43 +0200
-Cc: linux-hyperv@vger.kernel.org, Stuart Yoder <stuyoder@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, linux-pci@vger.kernel.org,
- linux-remoteproc@vger.kernel.org, alsa-devel@alsa-project.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Vineeth Vijayan <vneethv@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- "K. Y. Srinivasan" <kys@microsoft.com>, linux-clk@vger.kernel.org,
- linux-s390@vger.kernel.org, Wei Liu <wei.liu@kernel.org>,
- Stephen Hemminger <sthemmin@microsoft.com>, Dexuan Cui <decui@microsoft.com>,
- Andy Shevchenko <andy.shevchenko@gmail.com>, Andy Gross <agross@kernel.org>,
- NXP Linux Team <linux-imx@nxp.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- linux-arm-msm@vger.kernel.org, Haiyang Zhang <haiyangz@microsoft.com>,
- linux-spi@vger.kernel.org, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Bjorn Helgaas <bhelgaas@google.com>, virtualization@lists.linux-foundation.org,
- linux-arm-kernel@lists.infradead.org,
- Mathieu Poirier <mathieu.poirier@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Peter Oberparleiter <oberpar@linux.ibm.com>, linux-kernel@vger.kernel.org,
- Sven Schnelle <svens@linux.ibm.com>,
- Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Ulf Hansson <ulf.hansson@linaro.org>, USB list <linux-usb@vger.kernel.org>,
+ Philipp Zabel <philipp.zabel@gmail.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>, Sergey Lapin <slapin@ossfans.org>,
+ Linux Fbdev development list <linux-fbdev@vger.kernel.org>,
+ Dominik Brodowski <linux@dominikbrodowski.net>,
+ "open list:BROADCOM NVRAM DRIVER" <linux-mips@vger.kernel.org>,
+ IDE-ML <linux-ide@vger.kernel.org>, linux-mtd <linux-mtd@lists.infradead.org>,
+ Tomas Cech <sleep_walker@suse.com>, Robert Jarzmik <robert.jarzmik@free.fr>,
+ linux-clk <linux-clk@vger.kernel.org>, linux-leds@vger.kernel.org,
+ linux-rtc@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>,
+ Helge Deller <deller@gmx.de>, Marek Vasut <marek.vasut@gmail.com>,
+ Paul Parsons <lost.distance@yahoo.com>,
+ Michael Turquette <mturquette@baylibre.com>, Arnd Bergmann <arnd@arndb.de>,
+ Linux PM list <linux-pm@vger.kernel.org>,
+ "open list:HID CORE LAYER" <linux-input@vger.kernel.org>,
+ Haojian Zhuang <haojian.zhuang@gmail.com>, Lubomir Rintel <lkundrak@v3.sk>,
+ Mark Brown <broonie@kernel.org>, dri-devel <dri-devel@lists.freedesktop.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Stephen Boyd <sboyd@kernel.org>, patches@opensource.cirrus.com,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ linux-mmc <linux-mmc@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Daniel Mack <daniel@zonque.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -173,41 +124,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 22-04-19 13:34:32, Krzysztof Kozlowski wrote:
-> The driver_override field from platform driver should not be initialized
-> from static memory (string literal) because the core later kfree() it,
-> for example when driver_override is set via sysfs.
+On Sat, Apr 23, 2022 at 1:41 AM Guenter Roeck <linux@roeck-us.net> wrote:
 >
-> Use dedicated helper to set driver_override properly.
+> On Sat, Apr 23, 2022 at 12:04:31AM +0200, Arnd Bergmann wrote:
+> > On Fri, Apr 22, 2022 at 10:55 PM Guenter Roeck <linux@roeck-us.net> wrote:
+> > > On 4/22/22 12:16, Arnd Bergmann wrote:
+> > > > On Fri, Apr 22, 2022 at 7:05 PM Guenter Roeck <linux@roeck-us.net> wrote:
+> > > >
+> > > > Which machine did you hit this on? Is this on hardware or in qemu?
+> > > >
+> > > qemu, as always. borzoi, spitz, terrier, tosa, z2, and sx1 fail.
+> > > Also, I just noticed that the failure is not always the same.
+> > > z2 fails to boot from initrd, and sx1 fails to boot completely.
+> >
+> > That's a lot of machines failing, I hope at least we got the same bugs more
+> > than once here.
+> >
+> > For the I/O space, I found now that PXA was not using the standard
+> > virtual I/O address yet, but instead used a NULL-based offset.
+> >
+> > I'm not entirely happy with this patch, but this is an outline of what
+> > I think we need to fix that: https://pastebin.com/3nVgQsEw
+> > This one is probably incomplete, at least it breaks sa1100 for now,
+> > and it adds a bogus CONFIG_PCI dependency. I'm also not sure
+> > in what way the last patch in the series triggers it, rather than the
+> > one that removed mach/io.h.
+> >
+> > I had sx1 booting in qemu at least, with the omap1 multiplatform series only.
+> > If you have a custom config for this one, make sure you get the right
+> > DEBUG_LL address.
+> >
+> > > I'll do another round of bisects.
+> >
 >
-> Fixes: 77d8f3068c63 ("clk: imx: scu: add two cells binding support")
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> Acked-by: Stephen Boyd <sboyd@kernel.org>
+> Here is the bisect for the sx1 boot failure.
 
-Reviewed-by: Abel Vesa <abel.vesa@nxp.com>
+Odd, I can't reproduce this at all. Do you get any console output at
+all for this?
 
-> ---
->  drivers/clk/imx/clk-scu.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/clk/imx/clk-scu.c b/drivers/clk/imx/clk-scu.c
-> index ed3c01d2e8ae..4996f1d94657 100644
-> --- a/drivers/clk/imx/clk-scu.c
-> +++ b/drivers/clk/imx/clk-scu.c
-> @@ -683,7 +683,12 @@ struct clk_hw *imx_clk_scu_alloc_dev(const char *name,
->  		return ERR_PTR(ret);
->  	}
->
-> -	pdev->driver_override = "imx-scu-clk";
-> +	ret = driver_set_override(&pdev->dev, &pdev->driver_override,
-> +				  "imx-scu-clk", strlen("imx-scu-clk"));
-> +	if (ret) {
-> +		platform_device_put(pdev);
-> +		return ERR_PTR(ret);
-> +	}
->
->  	ret = imx_clk_scu_attach_pd(&pdev->dev, rsrc_id);
->  	if (ret)
-> --
-> 2.32.0
->
+Is this the plain omap1_defconfig, or something else?
+
+One thing I keep having to apply myself is this snippet:
+
+diff --git a/arch/arm/mm/proc-arm925.S b/arch/arm/mm/proc-arm925.S
+index 0bfad62ea858..87c695703580 100644
+--- a/arch/arm/mm/proc-arm925.S
++++ b/arch/arm/mm/proc-arm925.S
+@@ -441,7 +441,6 @@ __arm925_setup:
+
+ #ifdef CONFIG_CPU_DCACHE_WRITETHROUGH
+        mov     r0, #4                          @ disable write-back
+on caches explicitly
+-       mcr     p15, 7, r0, c15, c0, 0
+ #endif
+
+        adr     r5, arm925_crval
+
+I don't remember what the story is behind this, but I can't actually manage
+to boot omap1_defconfig on qemu with the instruction intact.
+
+       Arnd

@@ -2,89 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CF1350E1DF
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Apr 2022 15:32:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D899C50E1E0
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Apr 2022 15:33:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 14C1017F7;
-	Mon, 25 Apr 2022 15:32:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14C1017F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6348317A3;
+	Mon, 25 Apr 2022 15:32:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6348317A3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650893578;
-	bh=otEwWf7cMu3vg+NWlsM6CNtLzeg/hdgkxBPwIwBB4e4=;
-	h=Date:To:References:From:Subject:In-Reply-To:Cc:List-Id:
+	s=default; t=1650893594;
+	bh=ipl3oSa3DODJXFqNROBx1CoqGwslciyjMuC+i+Saf6s=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bJJhwTBCktXFdwKy05n72VRJJoYVVW1KFEF4+ZJFIyP1ewPfhhA90JWJXajzChTjI
-	 8SdtloMEy8XyMQh9z21qRDXSA5YP0roc/68QzbP2l8hOxlj7BllbHeFU1FsR5cNVT+
-	 JkUcX4kCMx0SnJnC+ckCa+EaRc6eABRYw8I6J+Vs=
+	b=MTWwWA6tlBoh+hTAB5Ecw/v4qG+8MgZ7ST00bT8G+7zIgwohaAvPtS4Pn2HJ4HSZ4
+	 TpQIDmAfW5NYV/vL662sRl1JTDz3RQqfjduar7+l3ddlUnXj2anBzCWMbNPU7pdwB0
+	 DQN+BBI6APEoA/xbSLqnbHqUIw8T9qU9YlZhcS+I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 13B1AF80579;
+	by alsa1.perex.cz (Postfix) with ESMTP id A425BF8057B;
 	Mon, 25 Apr 2022 15:28:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 25F85F80163; Sun, 24 Apr 2022 17:28:37 +0200 (CEST)
+ id BC29EF80163; Sun, 24 Apr 2022 20:49:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
- HEADER_FROM_DIFFERENT_DOMAINS,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
- [IPv6:2607:f8b0:4864:20::22a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3B2A6F80109
- for <alsa-devel@alsa-project.org>; Sun, 24 Apr 2022 17:28:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B2A6F80109
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4CC96F800CB
+ for <alsa-devel@alsa-project.org>; Sun, 24 Apr 2022 20:49:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4CC96F800CB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="YTsJBncP"
-Received: by mail-oi1-x22a.google.com with SMTP id b188so14522905oia.13
- for <alsa-devel@alsa-project.org>; Sun, 24 Apr 2022 08:28:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=sender:message-id:date:mime-version:user-agent:content-language:to
- :cc:references:from:subject:in-reply-to:content-transfer-encoding;
- bh=yr0/AkbMMu8pn1dkU35YlQmF7na7yjrNnK/horRQvq8=;
- b=YTsJBncPwlsdJoy0clMDPkRYsap010NbelrrDwP4gT2p8VkAeOwyCadOMVg4EkLC3g
- BU6v4rcHRP7TcChruJdux/6WqtJmUToOWUlOimc0ldD0p/STL+v6YSxQqTz/SiEj3JGk
- 6SfYzDXOC60C+Zk6YtFsjMz2c7gYsvaefbEF/eKAM03STJHCFm25OuC/Z0YH/2cfNqkA
- U538FM4O480tv4oZ6rwPTTcYDvIV4RyyrEvA6n7gY5KKJPB4B+s22HrjImpN8j9osv2G
- SEdJ9k63zxNOgRDgM+KmfcxMquHhbq8CJJjUKerT4sEDujG7ogRPrwOnyNIjdLCE9lFh
- BU0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:sender:message-id:date:mime-version:user-agent
- :content-language:to:cc:references:from:subject:in-reply-to
- :content-transfer-encoding;
- bh=yr0/AkbMMu8pn1dkU35YlQmF7na7yjrNnK/horRQvq8=;
- b=b3LGQgd/F+1yIqcRjt7CJShYB2B2+yZl/L3hVXUOx0P0hJPRmTGzQXPx7/ee3WSS5Y
- 6GTITt0O/j/OoQGR0ND9nilBeb1m1hsy8/8EXiyUt05ZuvawsF4QKEpvk+vTZWjVw0NX
- riDxIm6W3BO3DmzSlPD2AIYmTMkI5VmlbMQKUuw5HkKXQXm5nbV3OsYawKA2uLQKpqTD
- k2loJQ7WV5AyNpyY1sRdshrfgqMVRnUBIijL0cfc//2H5kUcTYgFLkVjRQZez3rBAsst
- tHUiC/JaCd+Y78Nd86PHEprqzAjXABJDbzxu8joz7N0w3Dtzqj8OFCvWL14ssHJQlMti
- K7kQ==
-X-Gm-Message-State: AOAM531f8ZJwX47b5P8Tc0I0aDrkYNJrCcIiYJBRKS3+dkQNSWqaWIf4
- LbTCQje8Dluu2jxg5SoCb78=
-X-Google-Smtp-Source: ABdhPJy+gDyQI+jYYZai2x5URiEV01l+fMZDWT8YjU8/GgIriEk0FB5ZVdkvpb6NfVQx+IMk0aUfQA==
-X-Received: by 2002:aca:f286:0:b0:2da:58ba:c578 with SMTP id
- q128-20020acaf286000000b002da58bac578mr6576017oih.127.1650814104777; 
- Sun, 24 Apr 2022 08:28:24 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:329c:23ff:fee3:9d7c?
- ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id
- w8-20020a056830410800b00605b48122eesm53063ott.14.2022.04.24.08.28.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 24 Apr 2022 08:28:23 -0700 (PDT)
-Message-ID: <3df135a2-17f5-d6c6-b4a8-e1a60e254297@roeck-us.net>
-Date: Sun, 24 Apr 2022 08:28:19 -0700
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="BOkM82fI"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id DA8CD61260
+ for <alsa-devel@alsa-project.org>; Sun, 24 Apr 2022 18:48:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59193C385BD
+ for <alsa-devel@alsa-project.org>; Sun, 24 Apr 2022 18:48:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1650826137;
+ bh=ipl3oSa3DODJXFqNROBx1CoqGwslciyjMuC+i+Saf6s=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=BOkM82fII90m6hiFZrsM+S6NoOx/9JSXO645uDox3wouyvV5cDVRWJxz7xq/cB9au
+ LYrBwqxSBkhIKBzBNs0hwtCBHRO1gixAqGnRtxVTd+01UzyFfxHSDne9WN6ttlm+rb
+ jcQBniXrkaKqn2jBmZOb15DeGZFcd9PAC8aU0sErmt9X3VJ12+DgM2/0JBOHnN/nNw
+ G4IIFddQ3lsrPoLfBPfhYi7wy7+MEYhHtnQkavlIidm5fb5N3XrXiQ6swPnyQws0/W
+ CtU43okgiFy2OpjRFiWX3gSYz6BOM2afEEdzeBOnonvAaXEfnmyinRGY3cRVziG/FD
+ TihvS5WssHAGA==
+Received: by mail-wm1-f41.google.com with SMTP id
+ 17-20020a05600c021100b00393a19f8f98so5322822wmi.4
+ for <alsa-devel@alsa-project.org>; Sun, 24 Apr 2022 11:48:57 -0700 (PDT)
+X-Gm-Message-State: AOAM533j17C4k+5cJbrOQhTXdjPrZztLGdox6f4IbR1ctvEBEVFaiu3w
+ ebU99+JNsfpEob0GIePyf+W0+DcV8LwcgpCfatc=
+X-Google-Smtp-Source: ABdhPJy0bXzhrJhOMZ1X8kbnkslFxEyAGa0Ih/9fgvnO3mTuzgN7/0kU+dSPN2u/9dZRAXnrV+Nc5ftINsUw3V0d/rc=
+X-Received: by 2002:a05:600c:4e4a:b0:392:88e1:74a7 with SMTP id
+ e10-20020a05600c4e4a00b0039288e174a7mr22771106wmq.174.1650826135238; Sun, 24
+ Apr 2022 11:48:55 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Content-Language: en-US
-To: Arnd Bergmann <arnd@kernel.org>
 References: <20220419163810.2118169-1-arnd@kernel.org>
  <20220422170530.GA2338209@roeck-us.net>
  <CAK8P3a3V=qxUqYT3Yt=dpXVv58-Y+HVi952wO6D4LPN5NNphGA@mail.gmail.com>
@@ -94,12 +76,16 @@ References: <20220419163810.2118169-1-arnd@kernel.org>
  <CAK8P3a3qZdEqnJ2nTOKwDMossngOgCpEvZq4cQMPQjSsUoU=6g@mail.gmail.com>
  <3b4046ed-fd75-13ea-fac3-06469172806c@roeck-us.net>
  <CAK8P3a1LzEG1vo+5nMrnL3TOMcbSKJ3u=StcfY8dajV2raUBjA@mail.gmail.com>
-From: Guenter Roeck <linux@roeck-us.net>
+ <3df135a2-17f5-d6c6-b4a8-e1a60e254297@roeck-us.net>
+In-Reply-To: <3df135a2-17f5-d6c6-b4a8-e1a60e254297@roeck-us.net>
+From: Arnd Bergmann <arnd@kernel.org>
+Date: Sun, 24 Apr 2022 20:48:39 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a2EHMQPN4ny9sXXuReFG0jN0hyRV7h9v_AR_0pqpOU41w@mail.gmail.com>
+Message-ID: <CAK8P3a2EHMQPN4ny9sXXuReFG0jN0hyRV7h9v_AR_0pqpOU41w@mail.gmail.com>
 Subject: Re: [PATCH v2 00/48] ARM: PXA multiplatform support
-In-Reply-To: <CAK8P3a1LzEG1vo+5nMrnL3TOMcbSKJ3u=StcfY8dajV2raUBjA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Mon, 25 Apr 2022 15:27:44 +0200
+To: Guenter Roeck <linux@roeck-us.net>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Mon, 25 Apr 2022 15:27:43 +0200
 Cc: Ulf Hansson <ulf.hansson@linaro.org>, USB list <linux-usb@vger.kernel.org>,
  Philipp Zabel <philipp.zabel@gmail.com>,
  "Rafael J. Wysocki" <rafael@kernel.org>,
@@ -141,65 +127,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 4/24/22 01:52, Arnd Bergmann wrote:
-> On Sun, Apr 24, 2022 at 4:09 AM Guenter Roeck <linux@roeck-us.net> wrote:
->> On 4/23/22 12:55, Arnd Bergmann wrote:
->>> On Sat, Apr 23, 2022 at 1:41 AM Guenter Roeck <linux@roeck-us.net> wrote:
->>>> On Sat, Apr 23, 2022 at 12:04:31AM +0200, Arnd Bergmann wrote:
->>>
->>> Odd, I can't reproduce this at all. Do you get any console output at
->>> all for this?
->>>
->>> Is this the plain omap1_defconfig, or something else?
->>>
->>
->> No, it is my own sx1 specific configuration.
->>
->> https://github.com/groeck/linux-build-test/blob/master/rootfs/arm/qemu_sx1_defconfig
->>
->> I don't recall where I got it from but ...
-> 
-> Ok, that explains it, thanks!
-> 
-> I fixed all the defconfig files that come with the kernel, but for your own
-> ones you have to add
-> 
-> # CONFIG_ARCH_MULTI_V7 is not set
-> 
-> into the defconfig file, otherwise the multiplatform target defaults to
-> an ARMv7 instead of ARMv5 build. For an OMAP15xx as in the SX1,
-> you also need to enable CONFIG_ARCH_MULTI_V4T.
-> 
-> This is slightly unfortunate, but I don't see any way to avoid it, and the
-> modified defconfig will still work fine with older kernel trees.
-> 
+On Sun, Apr 24, 2022 at 5:28 PM Guenter Roeck <linux@roeck-us.net> wrote:
+> On 4/24/22 01:52, Arnd Bergmann wrote:
+> > On Sun, Apr 24, 2022 at 4:09 AM Guenter Roeck <linux@roeck-us.net> wrote:
+> > into the defconfig file, otherwise the multiplatform target defaults to
+> > an ARMv7 instead of ARMv5 build. For an OMAP15xx as in the SX1,
+> > you also need to enable CONFIG_ARCH_MULTI_V4T.
+> >
+> > This is slightly unfortunate, but I don't see any way to avoid it, and the
+> > modified defconfig will still work fine with older kernel trees.
+> >
+>
+> Yes, that works. I changed it in my configuration.
 
-Yes, that works. I changed it in my configuration.
+Ok, great!. I managed to boot the z2 machine with PCMCIA support
+and it gets around the issue with my patch, correctly detecting the
+CF card.
 
->>> One thing I keep having to apply myself is this snippet:
->>>
->>> diff --git a/arch/arm/mm/proc-arm925.S b/arch/arm/mm/proc-arm925.S
->>> index 0bfad62ea858..87c695703580 100644
->>> --- a/arch/arm/mm/proc-arm925.S
->>> +++ b/arch/arm/mm/proc-arm925.S
->>> @@ -441,7 +441,6 @@ __arm925_setup:
->>>
->>>    #ifdef CONFIG_CPU_DCACHE_WRITETHROUGH
->>>           mov     r0, #4                          @ disable write-back
->>> on caches explicitly
->>> -       mcr     p15, 7, r0, c15, c0, 0
->>>    #endif
->>
->> it does not have CONFIG_CPU_DCACHE_WRITETHROUGH enabled.
-> 
-> Maybe it was disabled explicitly for the sx1_defconfig because of this
-> bug. I would think that this is required for actual sx1 hardware because the
-> option is default-enabled for ARM925T, and that CPU core is exclusively
-> used in OMAP15xx.
-> 
+> >>> One thing I keep having to apply myself is this snippet:
+> >>>
+> >>> diff --git a/arch/arm/mm/proc-arm925.S b/arch/arm/mm/proc-arm925.S
+> >>> index 0bfad62ea858..87c695703580 100644
+> >>> --- a/arch/arm/mm/proc-arm925.S
+> >>> +++ b/arch/arm/mm/proc-arm925.S
+> >>> @@ -441,7 +441,6 @@ __arm925_setup:
+> >>>
+> >>>    #ifdef CONFIG_CPU_DCACHE_WRITETHROUGH
+> >>>           mov     r0, #4                          @ disable write-back
+> >>> on caches explicitly
+> >>> -       mcr     p15, 7, r0, c15, c0, 0
+> >>>    #endif
+> >>
+> >> it does not have CONFIG_CPU_DCACHE_WRITETHROUGH enabled.
+> >
+> > Maybe it was disabled explicitly for the sx1_defconfig because of this
+> > bug. I would think that this is required for actual sx1 hardware because the
+> > option is default-enabled for ARM925T, and that CPU core is exclusively
+> > used in OMAP15xx.
+> >
+>
+> That looks like a bug in qemu. ARM925T instruction support is limited to V4T
+> instructions. qemu doesn't have explicit 5T support. It is either V4T
+> or V5.
 
-That looks like a bug in qemu. ARM925T instruction support is limited to V4T
-instructions. qemu doesn't have explicit 5T support. It is either V4T
-or V5.
+I'm not entirely sure what instructions the CPU supports, but Linux
+treats it as ARMv4T as well, and qemu supports some of the 925t
+specific instructions as "ti925t" in target/arm/cpu_tcg.c, it just seems
+it's missing some others.
 
-Guenter
+      Arnd

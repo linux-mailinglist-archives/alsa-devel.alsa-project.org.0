@@ -2,92 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F87E50E1CC
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Apr 2022 15:32:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C85C50E1DE
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Apr 2022 15:32:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C974917EA;
-	Mon, 25 Apr 2022 15:31:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C974917EA
+	by alsa0.perex.cz (Postfix) with ESMTPS id C39E817EF;
+	Mon, 25 Apr 2022 15:31:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C39E817EF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650893544;
-	bh=B9WXEvMPCJfjtsoFAQ1oROQXG2hTvvFo/oCcE1/QGJ4=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1650893560;
+	bh=VAIS5RCD9giYhrbO5Hac6FpKh7We3My7pPHwyo54GI8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JE7tFQa6iFQrD3e28OYv1oMBRB23AFmqA6OrGpTciZFBaS7m7+xlA8Ij7fslax8aq
-	 Yb/qY3lyX35wS2Dk5zV+Jd59f88pvoay66Uq/1Bdlh5+Z7FFMFHihc09RWIl9NhVFw
-	 /Zzd4hhsYbm0kdL75IITfNbTJ/Nk0IGzS3Vhi18w=
+	b=mUtjU8Er5BFxIvbbk1k9chAC0PedMa/DRs56GYeuPlEUuxdHtc4SJOcYVqF8kOCMg
+	 vhuOfIWe0oOhUTVo8h1Fha0PRuzKVVKfOGMqbtAFzG1ukDm5JkX/QILFszd0DqBtlu
+	 cPU/H4vcAZia16Hj2NmdEyTW/fMYSKY6W8ZeNSzM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D8CF2F8055B;
-	Mon, 25 Apr 2022 15:27:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 750EEF8056F;
+	Mon, 25 Apr 2022 15:27:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7F36FF80163; Sun, 24 Apr 2022 04:09:17 +0200 (CEST)
+ id D638AF80163; Sun, 24 Apr 2022 10:53:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
- HEADER_FROM_DIFFERENT_DOMAINS,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
- [IPv6:2607:f8b0:4864:20::332])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 06E5CF80141
- for <alsa-devel@alsa-project.org>; Sun, 24 Apr 2022 04:09:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06E5CF80141
+ by alsa1.perex.cz (Postfix) with ESMTPS id AF0FCF80109
+ for <alsa-devel@alsa-project.org>; Sun, 24 Apr 2022 10:52:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF0FCF80109
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="iMm7j9be"
-Received: by mail-ot1-x332.google.com with SMTP id
- e15-20020a9d63cf000000b006054e65aaecso8383765otl.0
- for <alsa-devel@alsa-project.org>; Sat, 23 Apr 2022 19:09:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=sender:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=/4WY8lQ2r9E3jRayXo+cM/u5KEpSVq7T3K2hgqZLRN8=;
- b=iMm7j9be64nnY2we3kMeOQC5Pj129NrX5ABYhzCFQgIRJ+Ik/psrhjF5r/pmbNZvJy
- nA3uaouN4tuYuhiNIaHKYw+YwzjV+kJKW5pZWtDU0GTKWu//N59zGG1fdbP9tNgWJRjg
- AqNszvtPvjJNt2cEMqoWc2MQsq1/aQ70s6DAcNDBOaPYwZvIWFR4+Zb0ls+3EVu9eOAb
- KTSMm2n+k9g4CyFP8heqe4gzTDNSh2sRc5XtpvQCIpTgIm/O2folezzCln192gATJAVk
- i8DvmOlTzlnLi/wkKkSV70TYGsg4chRlc2jxJB+NXokPS/xNBOb/lAVbFPkYyy464S89
- OnjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:sender:message-id:date:mime-version:user-agent
- :subject:content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=/4WY8lQ2r9E3jRayXo+cM/u5KEpSVq7T3K2hgqZLRN8=;
- b=v7Wj+NNOkj+Us3C1Tz7DNVwhMWqSeCjgBXb1S1eq2HGLrCwtC0YOLV1F+bk6D8OURX
- UJrQP+lrdXG29oNpe13CFxgS0y/iLC8Z/AbUAM6AdJHJgWst2vvAzpD9DdUji7cGPUT6
- necb9QlcNXCXQUtzcXK7fJsk4ZmBVqi06TiSqi5QexEJEMbPY/Bspuqq1udto3wuJrw3
- pUS6P6UgD2+oiyK0KsGbszYUq5BkiOOusqRPCVmnAi9j/QrX720E6iP0PvBZ9j/pHnNp
- GNFUXOt88bjrhf8+m6NjyJv5iJlv1xZ9Dl1/enjUyvd/R6yhqXlVQWqp2xAm313lBkFV
- pWYQ==
-X-Gm-Message-State: AOAM533CXy/Tx6aOg2AXXyCbln35oswhRm01hyCDnnNIxqqSlPC6jg4O
- Hfk/0WQy0ZhqbH9Q/6qLH+8=
-X-Google-Smtp-Source: ABdhPJw1Nv7YurwGcrk889YKSXtPCE0PE6W5Bg0YNZLXIur1o0RT75r4zuYxuJBEQLPxL9fB1XCPwg==
-X-Received: by 2002:a05:6830:2b29:b0:605:7cdb:f10b with SMTP id
- l41-20020a0568302b2900b006057cdbf10bmr4208370otv.157.1650766147578; 
- Sat, 23 Apr 2022 19:09:07 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:329c:23ff:fee3:9d7c?
- ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id
- j126-20020acab984000000b002da77222b7dsm2325070oif.22.2022.04.23.19.09.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 23 Apr 2022 19:09:06 -0700 (PDT)
-Message-ID: <3b4046ed-fd75-13ea-fac3-06469172806c@roeck-us.net>
-Date: Sat, 23 Apr 2022 19:09:01 -0700
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="IlEUmxA7"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 7AD17B80D5F
+ for <alsa-devel@alsa-project.org>; Sun, 24 Apr 2022 08:52:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72E29C385BF
+ for <alsa-devel@alsa-project.org>; Sun, 24 Apr 2022 08:52:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1650790374;
+ bh=VAIS5RCD9giYhrbO5Hac6FpKh7We3My7pPHwyo54GI8=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=IlEUmxA7Upi/jZvwszo5tWXIcRM0EAFPHSwLNctN9Y58IvDFrOEsiQajUPCMH7Jvj
+ ffMGYU3Am1eiuRxan/QEzVGZIU4/nZDiD4I9qyEihHwFs57oDBFuZkioK/aaH82E/D
+ cafv1RJevyhRqAmfrOprDhzFhC5PdErVyqMypulLdZQgaDPE2OydWwwQC4+yvZmqbe
+ cKfnbHuByU+9iCxgB+9sW82eJWEWf6s1YXcaaJOKEOR6FMrQj52g4nRCkxQaL9o5DE
+ hRPjDgGmvEn6UrlX0oEzCHgEu1vF7VzmeRUbf/lMOXmL9MVlUAWdZQ45wrK1ipQsiq
+ 1YeW3uUpHXgig==
+Received: by mail-wm1-f49.google.com with SMTP id
+ r4-20020a05600c35c400b0039295dc1fc3so7816893wmq.3
+ for <alsa-devel@alsa-project.org>; Sun, 24 Apr 2022 01:52:54 -0700 (PDT)
+X-Gm-Message-State: AOAM532jTvt2vpcdXov0K7r128GpZg700dxl7ThQmlCus1ablN64oKap
+ 7w/0SD9YionUwqALrAQ7sMmV0ejXcT29A54AZ6I=
+X-Google-Smtp-Source: ABdhPJwWxQyFReh1xxhP87snsCB/AySgR1dxVTGy6Gpi4+Uz2ZZzeirzOgx8S2o3MdbrdLkLr/78d+DVsl9RCKwJ5Q8=
+X-Received: by 2002:a1c:f219:0:b0:38c:782c:3bb with SMTP id
+ s25-20020a1cf219000000b0038c782c03bbmr20347843wmc.94.1650790372472; Sun, 24
+ Apr 2022 01:52:52 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH v2 00/48] ARM: PXA multiplatform support
-Content-Language: en-US
-To: Arnd Bergmann <arnd@kernel.org>
 References: <20220419163810.2118169-1-arnd@kernel.org>
  <20220422170530.GA2338209@roeck-us.net>
  <CAK8P3a3V=qxUqYT3Yt=dpXVv58-Y+HVi952wO6D4LPN5NNphGA@mail.gmail.com>
@@ -95,11 +74,16 @@ References: <20220419163810.2118169-1-arnd@kernel.org>
  <CAK8P3a0R9cpEb1d2=e9KnGSbi_uRv48RWfCu_J4DDak_cGZSuw@mail.gmail.com>
  <20220422234150.GA3442771@roeck-us.net>
  <CAK8P3a3qZdEqnJ2nTOKwDMossngOgCpEvZq4cQMPQjSsUoU=6g@mail.gmail.com>
-From: Guenter Roeck <linux@roeck-us.net>
-In-Reply-To: <CAK8P3a3qZdEqnJ2nTOKwDMossngOgCpEvZq4cQMPQjSsUoU=6g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Mon, 25 Apr 2022 15:27:44 +0200
+ <3b4046ed-fd75-13ea-fac3-06469172806c@roeck-us.net>
+In-Reply-To: <3b4046ed-fd75-13ea-fac3-06469172806c@roeck-us.net>
+From: Arnd Bergmann <arnd@kernel.org>
+Date: Sun, 24 Apr 2022 10:52:36 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a1LzEG1vo+5nMrnL3TOMcbSKJ3u=StcfY8dajV2raUBjA@mail.gmail.com>
+Message-ID: <CAK8P3a1LzEG1vo+5nMrnL3TOMcbSKJ3u=StcfY8dajV2raUBjA@mail.gmail.com>
+Subject: Re: [PATCH v2 00/48] ARM: PXA multiplatform support
+To: Guenter Roeck <linux@roeck-us.net>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Mon, 25 Apr 2022 15:27:43 +0200
 Cc: Ulf Hansson <ulf.hansson@linaro.org>, USB list <linux-usb@vger.kernel.org>,
  Philipp Zabel <philipp.zabel@gmail.com>,
  "Rafael J. Wysocki" <rafael@kernel.org>,
@@ -141,77 +125,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 4/23/22 12:55, Arnd Bergmann wrote:
-> On Sat, Apr 23, 2022 at 1:41 AM Guenter Roeck <linux@roeck-us.net> wrote:
->>
->> On Sat, Apr 23, 2022 at 12:04:31AM +0200, Arnd Bergmann wrote:
->>> On Fri, Apr 22, 2022 at 10:55 PM Guenter Roeck <linux@roeck-us.net> wrote:
->>>> On 4/22/22 12:16, Arnd Bergmann wrote:
->>>>> On Fri, Apr 22, 2022 at 7:05 PM Guenter Roeck <linux@roeck-us.net> wrote:
->>>>>
->>>>> Which machine did you hit this on? Is this on hardware or in qemu?
->>>>>
->>>> qemu, as always. borzoi, spitz, terrier, tosa, z2, and sx1 fail.
->>>> Also, I just noticed that the failure is not always the same.
->>>> z2 fails to boot from initrd, and sx1 fails to boot completely.
->>>
->>> That's a lot of machines failing, I hope at least we got the same bugs more
->>> than once here.
->>>
->>> For the I/O space, I found now that PXA was not using the standard
->>> virtual I/O address yet, but instead used a NULL-based offset.
->>>
->>> I'm not entirely happy with this patch, but this is an outline of what
->>> I think we need to fix that: https://pastebin.com/3nVgQsEw
->>> This one is probably incomplete, at least it breaks sa1100 for now,
->>> and it adds a bogus CONFIG_PCI dependency. I'm also not sure
->>> in what way the last patch in the series triggers it, rather than the
->>> one that removed mach/io.h.
->>>
->>> I had sx1 booting in qemu at least, with the omap1 multiplatform series only.
->>> If you have a custom config for this one, make sure you get the right
->>> DEBUG_LL address.
->>>
->>>> I'll do another round of bisects.
->>>
->>
->> Here is the bisect for the sx1 boot failure.
-> 
-> Odd, I can't reproduce this at all. Do you get any console output at
-> all for this?
-> 
-> Is this the plain omap1_defconfig, or something else?
-> 
+On Sun, Apr 24, 2022 at 4:09 AM Guenter Roeck <linux@roeck-us.net> wrote:
+> On 4/23/22 12:55, Arnd Bergmann wrote:
+> > On Sat, Apr 23, 2022 at 1:41 AM Guenter Roeck <linux@roeck-us.net> wrote:
+> >> On Sat, Apr 23, 2022 at 12:04:31AM +0200, Arnd Bergmann wrote:
+> >
+> > Odd, I can't reproduce this at all. Do you get any console output at
+> > all for this?
+> >
+> > Is this the plain omap1_defconfig, or something else?
+> >
+>
+> No, it is my own sx1 specific configuration.
+>
+> https://github.com/groeck/linux-build-test/blob/master/rootfs/arm/qemu_sx1_defconfig
+>
+> I don't recall where I got it from but ...
 
-No, it is my own sx1 specific configuration.
+Ok, that explains it, thanks!
 
-https://github.com/groeck/linux-build-test/blob/master/rootfs/arm/qemu_sx1_defconfig
+I fixed all the defconfig files that come with the kernel, but for your own
+ones you have to add
 
-I don't recall where I got it from but ...
+# CONFIG_ARCH_MULTI_V7 is not set
 
-> One thing I keep having to apply myself is this snippet:
-> 
-> diff --git a/arch/arm/mm/proc-arm925.S b/arch/arm/mm/proc-arm925.S
-> index 0bfad62ea858..87c695703580 100644
-> --- a/arch/arm/mm/proc-arm925.S
-> +++ b/arch/arm/mm/proc-arm925.S
-> @@ -441,7 +441,6 @@ __arm925_setup:
-> 
->   #ifdef CONFIG_CPU_DCACHE_WRITETHROUGH
->          mov     r0, #4                          @ disable write-back
-> on caches explicitly
-> -       mcr     p15, 7, r0, c15, c0, 0
->   #endif
+into the defconfig file, otherwise the multiplatform target defaults to
+an ARMv7 instead of ARMv5 build. For an OMAP15xx as in the SX1,
+you also need to enable CONFIG_ARCH_MULTI_V4T.
 
-it does not have CONFIG_CPU_DCACHE_WRITETHROUGH enabled.
+This is slightly unfortunate, but I don't see any way to avoid it, and the
+modified defconfig will still work fine with older kernel trees.
 
-Guenter
+> > One thing I keep having to apply myself is this snippet:
+> >
+> > diff --git a/arch/arm/mm/proc-arm925.S b/arch/arm/mm/proc-arm925.S
+> > index 0bfad62ea858..87c695703580 100644
+> > --- a/arch/arm/mm/proc-arm925.S
+> > +++ b/arch/arm/mm/proc-arm925.S
+> > @@ -441,7 +441,6 @@ __arm925_setup:
+> >
+> >   #ifdef CONFIG_CPU_DCACHE_WRITETHROUGH
+> >          mov     r0, #4                          @ disable write-back
+> > on caches explicitly
+> > -       mcr     p15, 7, r0, c15, c0, 0
+> >   #endif
+>
+> it does not have CONFIG_CPU_DCACHE_WRITETHROUGH enabled.
 
-> 
->          adr     r5, arm925_crval
-> 
-> I don't remember what the story is behind this, but I can't actually manage
-> to boot omap1_defconfig on qemu with the instruction intact.
-> 
->         Arnd
+Maybe it was disabled explicitly for the sx1_defconfig because of this
+bug. I would think that this is required for actual sx1 hardware because the
+option is default-enabled for ARM925T, and that CPU core is exclusively
+used in OMAP15xx.
 
+        Arnd

@@ -2,101 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BA3050D125
-	for <lists+alsa-devel@lfdr.de>; Sun, 24 Apr 2022 12:25:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30DEC50D534
+	for <lists+alsa-devel@lfdr.de>; Sun, 24 Apr 2022 23:00:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1E04916EF;
-	Sun, 24 Apr 2022 12:24:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E04916EF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1EFEE16B8;
+	Sun, 24 Apr 2022 23:00:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1EFEE16B8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650795944;
-	bh=BFSnh3my9XMHi5kR7PthGNJ9P1fndoXDzUOVRxaUEuY=;
+	s=default; t=1650834053;
+	bh=F2v8k0IC13HkoZiLTt3goLYDoh4DdCUmxwUjpxsVm7w=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=ai/gAAKOQRwTVKE2mopsH7OupTrdmxxszWmJSVeK3MAVJkQczgW4F5/2dzfYnl4HS
-	 NhzpVSkGpmIKb7ppsLSfv5/+Im8zvRTZiTU9NLxrxkL9ZuE/wJZPRZrvRjP/hZXe4b
-	 NIox61y+nNyIytYiEoXhGEizzfFaQIgLaZa+qzfU=
+	b=L0Q6z4REgjW1QPpsws145mKMw/H62ivZQ/BtABJAKkCy5tYtDF2cgVKtfI2mv12TW
+	 E3oh2uZrOuwJ8KB62Gb+m1TTBIyVio4GC/OtdOe82z62wvzlb7rGhdALz/Z9MF4JIB
+	 uqUM2UPLE917mmpRrFirnu8U1FRYk3fztdop6SVs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8E6D1F80166;
-	Sun, 24 Apr 2022 12:24:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 69A41F80141;
+	Sun, 24 Apr 2022 22:59:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 41AA0F80163; Sun, 24 Apr 2022 12:24:44 +0200 (CEST)
+ id 69926F80163; Sun, 24 Apr 2022 22:59:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1E1D5F80109
- for <alsa-devel@alsa-project.org>; Sun, 24 Apr 2022 12:24:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E1D5F80109
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3D53EF80141
+ for <alsa-devel@alsa-project.org>; Sun, 24 Apr 2022 22:59:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D53EF80141
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="kF1hshVj"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="UF37VAZo"
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 6571C5C00D8;
- Sun, 24 Apr 2022 06:24:33 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Sun, 24 Apr 2022 06:24:33 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=cc:cc:content-transfer-encoding:date:date:from:from
- :in-reply-to:message-id:mime-version:reply-to:sender:subject
- :subject:to:to; s=fm1; t=1650795873; x=1650882273; bh=o2NRR3qRrC
- 8yOSNDXCsVvkqHb0WKo+3WKhgufdfUuVA=; b=kF1hshVju822dVk8B9C92H2JZH
- U/GMCXnQWVuSe8pOCFX+DC3V9qF+sLvWUcLEJwj/6s1LdZkWVZ9wuwarD8kA7rpW
- eNkhl540nJl3wwHhJcN1tW7K+VA/B7TVV/L6Vx2MAflJMk9ufW16faMSjbJsuyrF
- 3O51pYWi0SCFNKRvlb/1SIrskLjVTmLhuye+zvo/bopveseZH8u7yCx8rhVa3B0F
- wu4IPyIclmhPPTpmSsCjFWPv56Y6qZM3pbtrsRAEHb4IfpQSyz0MGfUTXz6/r5U3
- S0hH7yn307TZbv7nohXVpN9xiQp0iayW5GnUt2S3dUmZhArxBXddotIDRIvQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
- :from:from:in-reply-to:message-id:mime-version:reply-to:sender
- :subject:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; t=1650795873; x=1650882273; bh=o
- 2NRR3qRrC8yOSNDXCsVvkqHb0WKo+3WKhgufdfUuVA=; b=UF37VAZowsGD2yiG+
- CQ0U/hyNSIIY06nv9gWn79+Wt3YDrtd1q/QC93C7teLzH2rjUuV9BCBogsnjKBNU
- xvJrHb9rz2g7y3XxH7UM9K9By/XAcrgk8YaTRZnHkACiBVZWp0NC75PfRpl8kRuD
- 847B4iICu6UaEWm4H4Z8uWZusU4dUPh2rYs2MSd9WZPQjXEVMFTQ6iuYX1FAZGVL
- 4BmnT3Pva6pSeui765e0eUgtqIafxADDYAZkxd2jUmCYCwNgjhoNL1LVjraLOQ1S
- HSD9et2+SUdlg0Rs1UzGG+3GP3kMhW1x0LBkLEgHspsEApQhWL+/qXhoe3zkqMTd
- ji6JA==
-X-ME-Sender: <xms:YCVlYhKWcNXdO91ZgTltz84Kg2o90_-JLd9mj3Iq1V2ZWrz8QCCgkQ>
- <xme:YCVlYtItUkTTzeBGwijh_A10PViY9jUU08EYprHBq-TEIEMZ3mCmarFVTOCfOShjL
- fs5f1A9sb3rI-KACV8>
-X-ME-Received: <xmr:YCVlYpuGID2DK_Bwv2QmfhmyxfraYlNEAQsyNcvvXIY64SHQ5KV0lD9oZBQ80Om31MpBhFTZHU9hc062V9_Sya_hmvJeoEv9ntXhpxWMeBOqtlT_mXw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrtdelgddvlecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecunecujfgurhephffvvefufffkofgggfestdekredtre
- dttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
- ihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepffdvueelffevke
- duhfetjeduffeghfettdfguedtgfdvgfeufeduheevheevkeeknecuvehluhhsthgvrhfu
- ihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkh
- grmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:YCVlYib-jwVD3MinIsa4BKt_2tifXxbJjqy1BHKot-SFRb-P8vkKxQ>
- <xmx:YCVlYoYe8TdgaZcvbyUn6G8ixBhzIzBWOLBSIk3Bh6onY4pm4d6O3A>
- <xmx:YCVlYmD_hEtOkIzQw9LR65yy2v3yhLCWvwoDRp3DdFAPuSA7krdbdA>
- <xmx:YSVlYnk2M1izunN96-VJY7zVjk0OIy1fRIN_F9VJf9vqpZnSojUeRQ>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 24 Apr 2022 06:24:31 -0400 (EDT)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: tiwai@suse.de
-Subject: [PATCH] ALSA: fireworks: fix wrong return count shorter than expected
- by 4 bytes
-Date: Sun, 24 Apr 2022 19:24:28 +0900
-Message-Id: <20220424102428.21109-1-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.34.1
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="P+8os97R"
+Received: by mail-wr1-x429.google.com with SMTP id bv16so18217719wrb.9
+ for <alsa-devel@alsa-project.org>; Sun, 24 Apr 2022 13:59:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=iC9g0FH3bzlHy7hoAv9K0hivd/arMZ+Ly8xR4y4PBWk=;
+ b=P+8os97Rm5U4fIyuksZFXvRkInCU65BbYq2K9UoiK/mVjmr82Ylpl5MFYaRprjB+tn
+ 15C4QL7f4g8WZHtYI+7gd1R04rtCBQZzEjfUkCGHvHxTVpPklYNWEOAHIJp+I3mmeY4l
+ 0zA+UEhSK946KfO7C9AzBJ5f4PeevFiabTfmAeNheaYbkuc40D5DgaYLTdOpvVL5+YY8
+ clUsiu+UUHoIN4abTLuAqIBMtsa2fNmfmJ98WdAdba7pmFCufkXCkEaMPiiSKXfH8v1P
+ 4oQJCDm9pEBO63zeHJc8j99PWXxiPpkqML4vWfKRAjA5QeDwGNixWskYgsCu6j2Y/fr9
+ tAgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=iC9g0FH3bzlHy7hoAv9K0hivd/arMZ+Ly8xR4y4PBWk=;
+ b=Fcx1mbIOd4/eFNS4e7ssby1FTARPa0ongMScDQjagRcf4ZjbbQyYgP1JSAYEj7ndWF
+ rTAOfNhQ5G3yzgSZVe6sQtbJfkltsIE9+BuATm9NsW8PRH3iXxJdOpF1PGjimqLeBTn8
+ 4VU1T1B2WUgzVGnWS1j+zn9TIQcZj1apgOqz8SG+zZUzYNNtLGfVFa64xHU3iFJLsh2u
+ WU7UMoXFLhvq5vjRqbPjyZtcFUy57WgLJpMAnvI7u1jRG/tUdRKhHmI6lZkIUQVqNLkE
+ GnsJbnxXPfTKzuodXNJh9V/u42wbS+fIH9q949Ax22QGpi3ZfLUxbU5poTQ84YbvMrHr
+ 0rCw==
+X-Gm-Message-State: AOAM532popdNwnNBS7ya7GvJZvz3aSAdqRHUMKZUHIGw/RNbIWULms/4
+ J8zllMPm4646TFtYvg4adws=
+X-Google-Smtp-Source: ABdhPJyOmQXw6y5ZKF2bDQTx9dMffPCO4ImkFLqarqZm9PGwJVZtU39NB9Mq+ZuTOO9z5oke2RehRg==
+X-Received: by 2002:a05:6000:1a44:b0:20a:ccde:c139 with SMTP id
+ t4-20020a0560001a4400b0020accdec139mr9326075wry.320.1650833987138; 
+ Sun, 24 Apr 2022 13:59:47 -0700 (PDT)
+Received: from localhost (cpc154979-craw9-2-0-cust193.16-3.cable.virginm.net.
+ [80.193.200.194]) by smtp.gmail.com with ESMTPSA id
+ m41-20020a05600c3b2900b00393e6f6c130sm3653656wms.42.2022.04.24.13.59.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 24 Apr 2022 13:59:46 -0700 (PDT)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: pcm: Check for null pointer of pointer substream before
+ dereferencing it
+Date: Sun, 24 Apr 2022 21:59:45 +0100
+Message-Id: <20220424205945.1372247-1-colin.i.king@gmail.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, clemens@ladisch.de, stable@vger.kernel.org
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,30 +101,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-ALSA fireworks driver has a bug in its initial state to return count
-shorter than expected by 4 bytes to userspace applications when handling
-response frame for Echo Audio Fireworks transaction. It's due to missing
-addition of the size for the type of event in ALSA firewire stack.
+Pointer substream is being dereferenced on the assignment of pointer card
+before substream is being null checked with the macro PCM_RUNTIME_CHECK.
+Although PCM_RUNTIME_CHECK calls BUG_ON, it still is useful to perform the
+the pointer check before card is assigned.
 
-Fixes: 555e8a8f7f14 ("ALSA: fireworks: Add command/response functionality into hwdep interface")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Fixes: commit d4cfb30fce03 ("ALSA: pcm: Set per-card upper limit of PCM buffer allocations")
+
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
 ---
- sound/firewire/fireworks/fireworks_hwdep.c | 1 +
- 1 file changed, 1 insertion(+)
+ sound/core/pcm_memory.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/sound/firewire/fireworks/fireworks_hwdep.c b/sound/firewire/fireworks/fireworks_hwdep.c
-index 626c0c34b0b6..3a53914277d3 100644
---- a/sound/firewire/fireworks/fireworks_hwdep.c
-+++ b/sound/firewire/fireworks/fireworks_hwdep.c
-@@ -34,6 +34,7 @@ hwdep_read_resp_buf(struct snd_efw *efw, char __user *buf, long remained,
- 	type = SNDRV_FIREWIRE_EVENT_EFW_RESPONSE;
- 	if (copy_to_user(buf, &type, sizeof(type)))
- 		return -EFAULT;
-+	count += sizeof(type);
- 	remained -= sizeof(type);
- 	buf += sizeof(type);
+diff --git a/sound/core/pcm_memory.c b/sound/core/pcm_memory.c
+index 8848d2f3160d..b8296b6eb2c1 100644
+--- a/sound/core/pcm_memory.c
++++ b/sound/core/pcm_memory.c
+@@ -453,7 +453,6 @@ EXPORT_SYMBOL(snd_pcm_lib_malloc_pages);
+  */
+ int snd_pcm_lib_free_pages(struct snd_pcm_substream *substream)
+ {
+-	struct snd_card *card = substream->pcm->card;
+ 	struct snd_pcm_runtime *runtime;
  
+ 	if (PCM_RUNTIME_CHECK(substream))
+@@ -462,6 +461,8 @@ int snd_pcm_lib_free_pages(struct snd_pcm_substream *substream)
+ 	if (runtime->dma_area == NULL)
+ 		return 0;
+ 	if (runtime->dma_buffer_p != &substream->dma_buffer) {
++		struct snd_card *card = substream->pcm->card;
++
+ 		/* it's a newly allocated buffer.  release it now. */
+ 		do_free_pages(card, runtime->dma_buffer_p);
+ 		kfree(runtime->dma_buffer_p);
 -- 
-2.34.1
+2.35.1
 

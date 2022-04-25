@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3814550EB7F
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Apr 2022 00:14:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B903650EB82
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Apr 2022 00:15:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BCACA189F;
-	Tue, 26 Apr 2022 00:13:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCACA189F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4C28218A7;
+	Tue, 26 Apr 2022 00:14:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C28218A7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650924864;
-	bh=QKgDegJZTwyhoDhdqz38NcVCpxRuUqGeH2pkbhY8Nls=;
+	s=default; t=1650924915;
+	bh=EliuUMwfrzU8M65KhzMS1OAaHGUDv684QPEqp/fAXp0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=g9pfbTA7vxHcML1glS0o/5wvl69zou+1xRfYT4HsvNiLmBotg1PyKFPXhgaWUYFSP
-	 PiIUYMWkjCJHTy5GQ1EKjczmfCqI/Z7uAyia9PXSlmJ6B9NAS3Ovr/Ej9FOMo+7xJX
-	 UnHD4bslSAhe6a9272iAN4ERjNcomsf9W3dNtVH8=
+	b=kzF04voWkvpuOKzVDPtFJ5xninutjoPQ6CXLY3QhnTfhcqlvPw1P4iDFFMyMSw79o
+	 chBE3mnZygNyN5KEg1oPc98zSLKltsUJJGdfUqI8OWLOyDUkWILvvBWCJWOegbKdwV
+	 PG5Dp0Og/ZWdvCAMYsU11U+QCeEVXg76OXxDVe4g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 676ADF8052F;
-	Tue, 26 Apr 2022 00:12:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 665B3F80511;
+	Tue, 26 Apr 2022 00:12:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D36C2F8050F; Tue, 26 Apr 2022 00:11:56 +0200 (CEST)
+ id AC818F80534; Tue, 26 Apr 2022 00:12:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AF679F8016B
- for <alsa-devel@alsa-project.org>; Tue, 26 Apr 2022 00:11:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF679F8016B
+ by alsa1.perex.cz (Postfix) with ESMTPS id A559BF80152
+ for <alsa-devel@alsa-project.org>; Tue, 26 Apr 2022 00:11:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A559BF80152
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="aGnfrim0"
+ header.b="Wyg8+moV"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1650924714; x=1682460714;
+ t=1650924716; x=1682460716;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=QKgDegJZTwyhoDhdqz38NcVCpxRuUqGeH2pkbhY8Nls=;
- b=aGnfrim01N9Pn43UZHJRGfCrPMbNOQ3Htu6AmzNVK9yFDDHV9wb89Y6f
- cPvN32ML3ZTr9td2RxgM8v0iqU9Fxbd3sueD5GTik5mkqy5+CKkHAYyAh
- a2Fsnsne5P7Kb6n6KjbddThnkBo5X+ldjYHcS+/0hjKGZGCZr5Inzs/Jq
- v5ry9kczOYskEvtBGyaZUb7DJnMIvUEa1CrNxJqIGoXw6vACk2ZsQi9Fo
- OLKzyeobSAXMigVEX46ZecCEZYhf3t4KzgO7EOT3r5SrGjeMtEgAi1q2/
- YeDgKuGiuQiX31ncKM9nBPMyo5qrae0v59lhhDYPldAtrVzOxQ5neSsKe w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10328"; a="245942138"
-X-IronPort-AV: E=Sophos;i="5.90,289,1643702400"; d="scan'208";a="245942138"
+ bh=EliuUMwfrzU8M65KhzMS1OAaHGUDv684QPEqp/fAXp0=;
+ b=Wyg8+moVtE5WMRiRrX6jOO+hrM6A7/UR1hwX5kQ2dXMqUrM0BywImLRY
+ TGrUeINI9TphQsrMvxgdDIQKoJ2ZhieXLU4HXFUyvjYuL3GXakO1ln4Q/
+ dj3pJ/TYyzvlsFqRRbXgurAy8rSqJkDn7QNOVWEEctoiYO/Y6gg+GF+iQ
+ DWjzvgU6BodwZsiG/DCxdedPbXe1CjAlAZif+Aj1iLwzq1rhjFq/0bJOd
+ g18BAqgTSXoO4BqnuiJKG8XQPlvgVOKaWoUZHdP7DLLREvuPNmi+iLu+m
+ 9QfBfv26y56soWtxr9E0mWEv/OFc4tXuEO+EfrqxpnFb8AaIVBg3gMAVx w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10328"; a="245942139"
+X-IronPort-AV: E=Sophos;i="5.90,289,1643702400"; d="scan'208";a="245942139"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  25 Apr 2022 15:11:36 -0700
-X-IronPort-AV: E=Sophos;i="5.90,289,1643702400"; d="scan'208";a="729939905"
+X-IronPort-AV: E=Sophos;i="5.90,289,1643702400"; d="scan'208";a="729939911"
 Received: from shivakax-mobl.amr.corp.intel.com (HELO
  rsridh2-mobl1.localdomain) ([10.254.59.189])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Apr 2022 15:11:35 -0700
+ 25 Apr 2022 15:11:36 -0700
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 01/10] ASoC: SOF: Introduce IPC dependent ops for firmware
- handling, loading
-Date: Mon, 25 Apr 2022 15:11:20 -0700
-Message-Id: <20220425221129.124615-2-ranjani.sridharan@linux.intel.com>
+Subject: [PATCH 02/10] ASoC: SOF: ipc3-loader: Implement firmware parsing and
+ loading
+Date: Mon, 25 Apr 2022 15:11:21 -0700
+Message-Id: <20220425221129.124615-3-ranjani.sridharan@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220425221129.124615-1-ranjani.sridharan@linux.intel.com>
 References: <20220425221129.124615-1-ranjani.sridharan@linux.intel.com>
@@ -95,9 +95,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
-The parsing and loading of firmware modules/components are IPC dependent
-operations as the organization of the firmware depends on the IPC it is
-supporting.
+Add the IPC3 dependent implementation of validating the firmware image,
+parsing the ext manifest and to load modules via memcpy.
+
+The code introduced by this commit is the IPC dependent code from the
+loader.c, which is going to be removed later.
 
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
@@ -105,55 +107,587 @@ Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Rander Wang <rander.wang@intel.com>
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 ---
- sound/soc/sof/sof-priv.h | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+ sound/soc/sof/Makefile      |   2 +-
+ sound/soc/sof/ipc3-loader.c | 416 ++++++++++++++++++++++++++++++++++++
+ sound/soc/sof/ipc3-priv.h   |  24 +++
+ sound/soc/sof/ipc3.c        |  62 +++++-
+ 4 files changed, 498 insertions(+), 6 deletions(-)
+ create mode 100644 sound/soc/sof/ipc3-loader.c
+ create mode 100644 sound/soc/sof/ipc3-priv.h
 
-diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
-index 382187e89e54..1df0b1473661 100644
---- a/sound/soc/sof/sof-priv.h
-+++ b/sound/soc/sof/sof-priv.h
-@@ -364,6 +364,25 @@ struct sof_ipc_pm_ops {
- 	int (*ctx_restore)(struct snd_sof_dev *sdev);
- };
+diff --git a/sound/soc/sof/Makefile b/sound/soc/sof/Makefile
+index 18acbc001b9a..e7dc47b01437 100644
+--- a/sound/soc/sof/Makefile
++++ b/sound/soc/sof/Makefile
+@@ -2,7 +2,7 @@
  
-+/**
-+ * struct sof_ipc_fw_loader_ops - IPC/FW-specific loader ops
-+ * @validate:		Function pointer for validating the firmware image
-+ * @parse_ext_manifest:	Function pointer for parsing the manifest of the firmware
-+ * @load_fw_to_dsp:	Optional function pointer for loading the firmware to the
-+ *			DSP.
-+ *			The function implements generic, hardware independent way
-+ *			of loading the initial firmware and its modules (if any).
-+ * @query_fw_configuration: Optional function pointer to query information and
-+ *			configuration from the booted firmware.
-+ *			Executed after the first successful firmware boot.
-+ */
-+struct sof_ipc_fw_loader_ops {
-+	int (*validate)(struct snd_sof_dev *sdev);
-+	size_t (*parse_ext_manifest)(struct snd_sof_dev *sdev);
-+	int (*load_fw_to_dsp)(struct snd_sof_dev *sdev);
-+	int (*query_fw_configuration)(struct snd_sof_dev *sdev);
-+};
+ snd-sof-objs := core.o ops.o loader.o ipc.o pcm.o pm.o debug.o topology.o\
+ 		control.o trace.o iomem-utils.o sof-audio.o stream-ipc.o\
+-		ipc3-topology.o ipc3.o ipc3-control.o ipc3-pcm.o
++		ipc3-topology.o ipc3-control.o ipc3.o ipc3-pcm.o ipc3-loader.o
+ ifneq ($(CONFIG_SND_SOC_SOF_CLIENT),)
+ snd-sof-objs += sof-client.o
+ endif
+diff --git a/sound/soc/sof/ipc3-loader.c b/sound/soc/sof/ipc3-loader.c
+new file mode 100644
+index 000000000000..14158c52a2b7
+--- /dev/null
++++ b/sound/soc/sof/ipc3-loader.c
+@@ -0,0 +1,416 @@
++// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
++//
++// This file is provided under a dual BSD/GPLv2 license.  When using or
++// redistributing this file, you may do so under either license.
++//
++// Copyright(c) 2022 Intel Corporation. All rights reserved.
 +
- struct sof_ipc_tplg_ops;
- struct sof_ipc_pcm_ops;
++#include <linux/firmware.h>
++#include "sof-priv.h"
++#include "sof-audio.h"
++#include "ipc3-priv.h"
++#include "ipc3-ops.h"
++#include "ops.h"
++
++static int ipc3_fw_ext_man_get_version(struct snd_sof_dev *sdev,
++				       const struct sof_ext_man_elem_header *hdr)
++{
++	const struct sof_ext_man_fw_version *v =
++		container_of(hdr, struct sof_ext_man_fw_version, hdr);
++
++	memcpy(&sdev->fw_ready.version, &v->version, sizeof(v->version));
++	sdev->fw_ready.flags = v->flags;
++
++	/* log ABI versions and check FW compatibility */
++	return sof_ipc3_validate_fw_version(sdev);
++}
++
++static int ipc3_fw_ext_man_get_windows(struct snd_sof_dev *sdev,
++				       const struct sof_ext_man_elem_header *hdr)
++{
++	const struct sof_ext_man_window *w;
++
++	w = container_of(hdr, struct sof_ext_man_window, hdr);
++
++	return sof_ipc3_get_ext_windows(sdev, &w->ipc_window.ext_hdr);
++}
++
++static int ipc3_fw_ext_man_get_cc_info(struct snd_sof_dev *sdev,
++				       const struct sof_ext_man_elem_header *hdr)
++{
++	const struct sof_ext_man_cc_version *cc;
++
++	cc = container_of(hdr, struct sof_ext_man_cc_version, hdr);
++
++	return sof_ipc3_get_cc_info(sdev, &cc->cc_version.ext_hdr);
++}
++
++static int ipc3_fw_ext_man_get_dbg_abi_info(struct snd_sof_dev *sdev,
++					    const struct sof_ext_man_elem_header *hdr)
++{
++	const struct ext_man_dbg_abi *dbg_abi =
++		container_of(hdr, struct ext_man_dbg_abi, hdr);
++
++	if (sdev->first_boot)
++		dev_dbg(sdev->dev,
++			"Firmware: DBG_ABI %d:%d:%d\n",
++			SOF_ABI_VERSION_MAJOR(dbg_abi->dbg_abi.abi_dbg_version),
++			SOF_ABI_VERSION_MINOR(dbg_abi->dbg_abi.abi_dbg_version),
++			SOF_ABI_VERSION_PATCH(dbg_abi->dbg_abi.abi_dbg_version));
++
++	return 0;
++}
++
++static int ipc3_fw_ext_man_get_config_data(struct snd_sof_dev *sdev,
++					   const struct sof_ext_man_elem_header *hdr)
++{
++	const struct sof_ext_man_config_data *config =
++		container_of(hdr, struct sof_ext_man_config_data, hdr);
++	const struct sof_config_elem *elem;
++	int elems_counter;
++	int elems_size;
++	int ret = 0;
++	int i;
++
++	/* calculate elements counter */
++	elems_size = config->hdr.size - sizeof(struct sof_ext_man_elem_header);
++	elems_counter = elems_size / sizeof(struct sof_config_elem);
++
++	dev_dbg(sdev->dev, "%s can hold up to %d config elements\n",
++		__func__, elems_counter);
++
++	for (i = 0; i < elems_counter; ++i) {
++		elem = &config->elems[i];
++		dev_dbg(sdev->dev, "%s get index %d token %d val %d\n",
++			__func__, i, elem->token, elem->value);
++		switch (elem->token) {
++		case SOF_EXT_MAN_CONFIG_EMPTY:
++			/* unused memory space is zero filled - mapped to EMPTY elements */
++			break;
++		case SOF_EXT_MAN_CONFIG_IPC_MSG_SIZE:
++			/* TODO: use ipc msg size from config data */
++			break;
++		case SOF_EXT_MAN_CONFIG_MEMORY_USAGE_SCAN:
++			if (sdev->first_boot && elem->value)
++				ret = snd_sof_dbg_memory_info_init(sdev);
++			break;
++		default:
++			dev_info(sdev->dev,
++				 "Unknown firmware configuration token %d value %d",
++				 elem->token, elem->value);
++			break;
++		}
++		if (ret < 0) {
++			dev_err(sdev->dev,
++				"%s: processing failed for token %d value %#x, %d\n",
++				__func__, elem->token, elem->value, ret);
++			return ret;
++		}
++	}
++
++	return 0;
++}
++
++static ssize_t ipc3_fw_ext_man_size(const struct firmware *fw)
++{
++	const struct sof_ext_man_header *head;
++
++	head = (struct sof_ext_man_header *)fw->data;
++
++	/*
++	 * assert fw size is big enough to contain extended manifest header,
++	 * it prevents from reading unallocated memory from `head` in following
++	 * step.
++	 */
++	if (fw->size < sizeof(*head))
++		return -EINVAL;
++
++	/*
++	 * When fw points to extended manifest,
++	 * then first u32 must be equal SOF_EXT_MAN_MAGIC_NUMBER.
++	 */
++	if (head->magic == SOF_EXT_MAN_MAGIC_NUMBER)
++		return head->full_size;
++
++	/* otherwise given fw don't have an extended manifest */
++	return 0;
++}
++
++static size_t sof_ipc3_fw_parse_ext_man(struct snd_sof_dev *sdev)
++{
++	struct snd_sof_pdata *plat_data = sdev->pdata;
++	const struct firmware *fw = plat_data->fw;
++	const struct sof_ext_man_elem_header *elem_hdr;
++	const struct sof_ext_man_header *head;
++	ssize_t ext_man_size;
++	ssize_t remaining;
++	uintptr_t iptr;
++	int ret = 0;
++
++	head = (struct sof_ext_man_header *)fw->data;
++	remaining = head->full_size - head->header_size;
++	ext_man_size = ipc3_fw_ext_man_size(fw);
++
++	/* Assert firmware starts with extended manifest */
++	if (ext_man_size <= 0)
++		return ext_man_size;
++
++	/* incompatible version */
++	if (SOF_EXT_MAN_VERSION_INCOMPATIBLE(SOF_EXT_MAN_VERSION,
++					     head->header_version)) {
++		dev_err(sdev->dev,
++			"extended manifest version %#x differ from used %#x\n",
++			head->header_version, SOF_EXT_MAN_VERSION);
++		return -EINVAL;
++	}
++
++	/* get first extended manifest element header */
++	iptr = (uintptr_t)fw->data + head->header_size;
++
++	while (remaining > sizeof(*elem_hdr)) {
++		elem_hdr = (struct sof_ext_man_elem_header *)iptr;
++
++		dev_dbg(sdev->dev, "found sof_ext_man header type %d size %#x\n",
++			elem_hdr->type, elem_hdr->size);
++
++		if (elem_hdr->size < sizeof(*elem_hdr) ||
++		    elem_hdr->size > remaining) {
++			dev_err(sdev->dev,
++				"invalid sof_ext_man header size, type %d size %#x\n",
++				elem_hdr->type, elem_hdr->size);
++			return -EINVAL;
++		}
++
++		/* process structure data */
++		switch (elem_hdr->type) {
++		case SOF_EXT_MAN_ELEM_FW_VERSION:
++			ret = ipc3_fw_ext_man_get_version(sdev, elem_hdr);
++			break;
++		case SOF_EXT_MAN_ELEM_WINDOW:
++			ret = ipc3_fw_ext_man_get_windows(sdev, elem_hdr);
++			break;
++		case SOF_EXT_MAN_ELEM_CC_VERSION:
++			ret = ipc3_fw_ext_man_get_cc_info(sdev, elem_hdr);
++			break;
++		case SOF_EXT_MAN_ELEM_DBG_ABI:
++			ret = ipc3_fw_ext_man_get_dbg_abi_info(sdev, elem_hdr);
++			break;
++		case SOF_EXT_MAN_ELEM_CONFIG_DATA:
++			ret = ipc3_fw_ext_man_get_config_data(sdev, elem_hdr);
++			break;
++		case SOF_EXT_MAN_ELEM_PLATFORM_CONFIG_DATA:
++			ret = snd_sof_dsp_parse_platform_ext_manifest(sdev, elem_hdr);
++			break;
++		default:
++			dev_info(sdev->dev,
++				 "unknown sof_ext_man header type %d size %#x\n",
++				 elem_hdr->type, elem_hdr->size);
++			break;
++		}
++
++		if (ret < 0) {
++			dev_err(sdev->dev,
++				"failed to parse sof_ext_man header type %d size %#x\n",
++				elem_hdr->type, elem_hdr->size);
++			return ret;
++		}
++
++		remaining -= elem_hdr->size;
++		iptr += elem_hdr->size;
++	}
++
++	if (remaining) {
++		dev_err(sdev->dev, "error: sof_ext_man header is inconsistent\n");
++		return -EINVAL;
++	}
++
++	return ext_man_size;
++}
++
++/* generic module parser for mmaped DSPs */
++static int sof_ipc3_parse_module_memcpy(struct snd_sof_dev *sdev,
++					struct snd_sof_mod_hdr *module)
++{
++	struct snd_sof_blk_hdr *block;
++	int count, ret;
++	u32 offset;
++	size_t remaining;
++
++	dev_dbg(sdev->dev, "new module size %#x blocks %#x type %#x\n",
++		module->size, module->num_blocks, module->type);
++
++	block = (struct snd_sof_blk_hdr *)((u8 *)module + sizeof(*module));
++
++	/* module->size doesn't include header size */
++	remaining = module->size;
++	for (count = 0; count < module->num_blocks; count++) {
++		/* check for wrap */
++		if (remaining < sizeof(*block)) {
++			dev_err(sdev->dev, "not enough data remaining\n");
++			return -EINVAL;
++		}
++
++		/* minus header size of block */
++		remaining -= sizeof(*block);
++
++		if (block->size == 0) {
++			dev_warn(sdev->dev,
++				 "warning: block %d size zero\n", count);
++			dev_warn(sdev->dev, " type %#x offset %#x\n",
++				 block->type, block->offset);
++			continue;
++		}
++
++		switch (block->type) {
++		case SOF_FW_BLK_TYPE_RSRVD0:
++		case SOF_FW_BLK_TYPE_ROM...SOF_FW_BLK_TYPE_RSRVD14:
++			continue;	/* not handled atm */
++		case SOF_FW_BLK_TYPE_IRAM:
++		case SOF_FW_BLK_TYPE_DRAM:
++		case SOF_FW_BLK_TYPE_SRAM:
++			offset = block->offset;
++			break;
++		default:
++			dev_err(sdev->dev, "%s: bad type %#x for block %#x\n",
++				__func__, block->type, count);
++			return -EINVAL;
++		}
++
++		dev_dbg(sdev->dev, "block %d type %#x size %#x ==>  offset %#x\n",
++			count, block->type, block->size, offset);
++
++		/* checking block->size to avoid unaligned access */
++		if (block->size % sizeof(u32)) {
++			dev_err(sdev->dev, "%s: invalid block size %#x\n",
++				__func__, block->size);
++			return -EINVAL;
++		}
++		ret = snd_sof_dsp_block_write(sdev, block->type, offset,
++					      block + 1, block->size);
++		if (ret < 0) {
++			dev_err(sdev->dev, "%s: write to block type %#x failed\n",
++				__func__, block->type);
++			return ret;
++		}
++
++		if (remaining < block->size) {
++			dev_err(sdev->dev, "%s: not enough data remaining\n", __func__);
++			return -EINVAL;
++		}
++
++		/* minus body size of block */
++		remaining -= block->size;
++		/* next block */
++		block = (struct snd_sof_blk_hdr *)((u8 *)block + sizeof(*block)
++			+ block->size);
++	}
++
++	return 0;
++}
++
++static int sof_ipc3_load_fw_to_dsp(struct snd_sof_dev *sdev)
++{
++	struct snd_sof_pdata *plat_data = sdev->pdata;
++	const struct firmware *fw = plat_data->fw;
++	struct snd_sof_fw_header *header;
++	struct snd_sof_mod_hdr *module;
++	int (*load_module)(struct snd_sof_dev *sof_dev, struct snd_sof_mod_hdr *hdr);
++	size_t remaining;
++	int ret, count;
++
++	if (!plat_data->fw)
++		return -EINVAL;
++
++	header = (struct snd_sof_fw_header *)(fw->data + plat_data->fw_offset);
++	load_module = sof_ops(sdev)->load_module;
++	if (!load_module) {
++		dev_dbg(sdev->dev, "%s: Using generic module loading\n", __func__);
++		load_module = sof_ipc3_parse_module_memcpy;
++	} else {
++		dev_dbg(sdev->dev, "%s: Using custom module loading\n", __func__);
++	}
++
++	/* parse each module */
++	module = (struct snd_sof_mod_hdr *)(fw->data + plat_data->fw_offset +
++					    sizeof(*header));
++	remaining = fw->size - sizeof(*header) - plat_data->fw_offset;
++	/* check for wrap */
++	if (remaining > fw->size) {
++		dev_err(sdev->dev, "%s: fw size smaller than header size\n", __func__);
++		return -EINVAL;
++	}
++
++	for (count = 0; count < header->num_modules; count++) {
++		/* check for wrap */
++		if (remaining < sizeof(*module)) {
++			dev_err(sdev->dev, "%s: not enough data for a module\n",
++				__func__);
++			return -EINVAL;
++		}
++
++		/* minus header size of module */
++		remaining -= sizeof(*module);
++
++		/* module */
++		ret = load_module(sdev, module);
++		if (ret < 0) {
++			dev_err(sdev->dev, "%s: invalid module %d\n", __func__, count);
++			return ret;
++		}
++
++		if (remaining < module->size) {
++			dev_err(sdev->dev, "%s: not enough data remaining\n", __func__);
++			return -EINVAL;
++		}
++
++		/* minus body size of module */
++		remaining -=  module->size;
++		module = (struct snd_sof_mod_hdr *)((u8 *)module +
++			 sizeof(*module) + module->size);
++	}
++
++	return 0;
++}
++
++static int sof_ipc3_validate_firmware(struct snd_sof_dev *sdev)
++{
++	struct snd_sof_pdata *plat_data = sdev->pdata;
++	const struct firmware *fw = plat_data->fw;
++	struct snd_sof_fw_header *header;
++	size_t fw_size = fw->size - plat_data->fw_offset;
++
++	if (fw->size <= plat_data->fw_offset) {
++		dev_err(sdev->dev,
++			"firmware size must be greater than firmware offset\n");
++		return -EINVAL;
++	}
++
++	/* Read the header information from the data pointer */
++	header = (struct snd_sof_fw_header *)(fw->data + plat_data->fw_offset);
++
++	/* verify FW sig */
++	if (strncmp(header->sig, SND_SOF_FW_SIG, SND_SOF_FW_SIG_SIZE) != 0) {
++		dev_err(sdev->dev, "invalid firmware signature\n");
++		return -EINVAL;
++	}
++
++	/* check size is valid */
++	if (fw_size != header->file_size + sizeof(*header)) {
++		dev_err(sdev->dev,
++			"invalid filesize mismatch got 0x%zx expected 0x%zx\n",
++			fw_size, header->file_size + sizeof(*header));
++		return -EINVAL;
++	}
++
++	dev_dbg(sdev->dev, "header size=0x%x modules=0x%x abi=0x%x size=%zu\n",
++		header->file_size, header->num_modules,
++		header->abi, sizeof(*header));
++
++	return 0;
++}
++
++const struct sof_ipc_fw_loader_ops ipc3_loader_ops = {
++	.validate = sof_ipc3_validate_firmware,
++	.parse_ext_manifest = sof_ipc3_fw_parse_ext_man,
++	.load_fw_to_dsp = sof_ipc3_load_fw_to_dsp,
++};
+diff --git a/sound/soc/sof/ipc3-priv.h b/sound/soc/sof/ipc3-priv.h
+new file mode 100644
+index 000000000000..a9b9201508a5
+--- /dev/null
++++ b/sound/soc/sof/ipc3-priv.h
+@@ -0,0 +1,24 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause) */
++/*
++ * This file is provided under a dual BSD/GPLv2 license.  When using or
++ * redistributing this file, you may do so under either license.
++ *
++ * Copyright(c) 2021 Intel Corporation. All rights reserved.
++ */
++
++#ifndef __SOUND_SOC_SOF_IPC3_PRIV_H
++#define __SOUND_SOC_SOF_IPC3_PRIV_H
++
++#include "sof-priv.h"
++
++/* IPC3 specific ops */
++extern const struct sof_ipc_fw_loader_ops ipc3_loader_ops;
++
++/* helpers for fw_ready and ext_manifest parsing */
++int sof_ipc3_get_ext_windows(struct snd_sof_dev *sdev,
++			     const struct sof_ipc_ext_data_hdr *ext_hdr);
++int sof_ipc3_get_cc_info(struct snd_sof_dev *sdev,
++			 const struct sof_ipc_ext_data_hdr *ext_hdr);
++int sof_ipc3_validate_fw_version(struct snd_sof_dev *sdev);
++
++#endif
+diff --git a/sound/soc/sof/ipc3.c b/sound/soc/sof/ipc3.c
+index 7d28bfa3d231..efcd201597fa 100644
+--- a/sound/soc/sof/ipc3.c
++++ b/sound/soc/sof/ipc3.c
+@@ -11,6 +11,7 @@
+ #include <sound/sof/control.h>
+ #include "sof-priv.h"
+ #include "sof-audio.h"
++#include "ipc3-priv.h"
+ #include "ipc3-ops.h"
+ #include "ops.h"
  
-@@ -372,6 +391,7 @@ struct sof_ipc_pcm_ops;
-  * @tplg:	Pointer to IPC-specific topology ops
-  * @pm:		Pointer to PM ops
-  * @pcm:	Pointer to PCM ops
-+ * @fw_loader:	Pointer to Firmware Loader ops
-  *
-  * @tx_msg:	Function pointer for sending a 'short' IPC message
-  * @set_get_data: Function pointer for set/get data ('large' IPC message). This
-@@ -391,6 +411,7 @@ struct sof_ipc_ops {
- 	const struct sof_ipc_tplg_ops *tplg;
- 	const struct sof_ipc_pm_ops *pm;
- 	const struct sof_ipc_pcm_ops *pcm;
-+	const struct sof_ipc_fw_loader_ops *fw_loader;
+@@ -475,8 +476,8 @@ static int sof_ipc3_set_get_data(struct snd_sof_dev *sdev, void *data, size_t da
+ 	return ret;
+ }
  
- 	int (*tx_msg)(struct snd_sof_dev *sdev, void *msg_data, size_t msg_bytes,
- 		      void *reply_data, size_t reply_bytes, bool no_pm);
+-static int sof_ipc3_get_ext_windows(struct snd_sof_dev *sdev,
+-				    const struct sof_ipc_ext_data_hdr *ext_hdr)
++int sof_ipc3_get_ext_windows(struct snd_sof_dev *sdev,
++			     const struct sof_ipc_ext_data_hdr *ext_hdr)
+ {
+ 	const struct sof_ipc_window *w =
+ 		container_of(ext_hdr, struct sof_ipc_window, ext_hdr);
+@@ -500,8 +501,8 @@ static int sof_ipc3_get_ext_windows(struct snd_sof_dev *sdev,
+ 	return 0;
+ }
+ 
+-static int sof_ipc3_get_cc_info(struct snd_sof_dev *sdev,
+-				const struct sof_ipc_ext_data_hdr *ext_hdr)
++int sof_ipc3_get_cc_info(struct snd_sof_dev *sdev,
++			 const struct sof_ipc_ext_data_hdr *ext_hdr)
+ {
+ 	int ret;
+ 
+@@ -735,6 +736,56 @@ static int ipc3_init_reply_data_buffer(struct snd_sof_dev *sdev)
+ 	return 0;
+ }
+ 
++int sof_ipc3_validate_fw_version(struct snd_sof_dev *sdev)
++{
++	struct sof_ipc_fw_ready *ready = &sdev->fw_ready;
++	struct sof_ipc_fw_version *v = &ready->version;
++
++	dev_info(sdev->dev,
++		 "Firmware info: version %d:%d:%d-%s\n",  v->major, v->minor,
++		 v->micro, v->tag);
++	dev_info(sdev->dev,
++		 "Firmware: ABI %d:%d:%d Kernel ABI %d:%d:%d\n",
++		 SOF_ABI_VERSION_MAJOR(v->abi_version),
++		 SOF_ABI_VERSION_MINOR(v->abi_version),
++		 SOF_ABI_VERSION_PATCH(v->abi_version),
++		 SOF_ABI_MAJOR, SOF_ABI_MINOR, SOF_ABI_PATCH);
++
++	if (SOF_ABI_VERSION_INCOMPATIBLE(SOF_ABI_VERSION, v->abi_version)) {
++		dev_err(sdev->dev, "incompatible FW ABI version\n");
++		return -EINVAL;
++	}
++
++	if (SOF_ABI_VERSION_MINOR(v->abi_version) > SOF_ABI_MINOR) {
++		if (!IS_ENABLED(CONFIG_SND_SOC_SOF_STRICT_ABI_CHECKS)) {
++			dev_warn(sdev->dev, "FW ABI is more recent than kernel\n");
++		} else {
++			dev_err(sdev->dev, "FW ABI is more recent than kernel\n");
++			return -EINVAL;
++		}
++	}
++
++	if (ready->flags & SOF_IPC_INFO_BUILD) {
++		dev_info(sdev->dev,
++			 "Firmware debug build %d on %s-%s - options:\n"
++			 " GDB: %s\n"
++			 " lock debug: %s\n"
++			 " lock vdebug: %s\n",
++			 v->build, v->date, v->time,
++			 (ready->flags & SOF_IPC_INFO_GDB) ?
++				"enabled" : "disabled",
++			 (ready->flags & SOF_IPC_INFO_LOCKS) ?
++				"enabled" : "disabled",
++			 (ready->flags & SOF_IPC_INFO_LOCKSV) ?
++				"enabled" : "disabled");
++	}
++
++	/* copy the fw_version into debugfs at first boot */
++	memcpy(&sdev->fw_version, v, sizeof(*v));
++
++	return 0;
++}
++
+ static int ipc3_fw_ready(struct snd_sof_dev *sdev, u32 cmd)
+ {
+ 	struct sof_ipc_fw_ready *fw_ready = &sdev->fw_ready;
+@@ -767,7 +818,7 @@ static int ipc3_fw_ready(struct snd_sof_dev *sdev, u32 cmd)
+ 	}
+ 
+ 	/* make sure ABI version is compatible */
+-	ret = snd_sof_ipc_valid(sdev);
++	ret = sof_ipc3_validate_fw_version(sdev);
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -1019,6 +1070,7 @@ const struct sof_ipc_ops ipc3_ops = {
+ 	.tplg = &ipc3_tplg_ops,
+ 	.pm = &ipc3_pm_ops,
+ 	.pcm = &ipc3_pcm_ops,
++	.fw_loader = &ipc3_loader_ops,
+ 
+ 	.tx_msg = sof_ipc3_tx_msg,
+ 	.rx_msg = sof_ipc3_rx_msg,
 -- 
 2.25.1
 

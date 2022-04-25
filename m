@@ -2,94 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D39750DCAC
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Apr 2022 11:30:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 346C850DD36
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Apr 2022 11:53:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2E1D116E2;
-	Mon, 25 Apr 2022 11:30:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E1D116E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id B7C1E851;
+	Mon, 25 Apr 2022 11:52:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7C1E851
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650879056;
-	bh=R320qgim4zYEZ6PAyobQnzVk+ZJA8fEBvoJU0HBqq8I=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=pIpL1rBZUc+ZvkYSrTj3V6SoZu1g+u6PuEUxMnL5G/BjaJpF3RALcebAkvI7iY4GP
-	 +96iV9ra0jFGJwYcC+122RHpd1O38waAR+mfCDLgYjcxF+ZloYv5ehTdh3Vtl8J+Ds
-	 DpaXjqPNegKxbq5d4dRBfwkXG5RG9CjHhYfwcego=
+	s=default; t=1650880400;
+	bh=DioN8JmHiWUhPNUiHHcxaZSpqhlplu4NzErJ5KIVmSk=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=THLkpqOWlR0yep/x15ZBpC7EOMXjeoMu0UAUy9K/J5fR+N7AomTsYebaxVtL1lwGl
+	 CGDtciIlcWc5G1kvYecLbIXCyV4GyC3XAPF8gBYFovlq7CbHi+Rn0aZ3fcxT1mUwIl
+	 LaBw1zZ6yCQ6EyLM0nFTdT4yDpkhfgn1uy8r0P+M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ACF4DF8014B;
-	Mon, 25 Apr 2022 11:29:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 31900F8014B;
+	Mon, 25 Apr 2022 11:52:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DE22FF8016A; Mon, 25 Apr 2022 11:29:53 +0200 (CEST)
+ id 7C314F8016A; Mon, 25 Apr 2022 11:52:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-yw1-x1131.google.com (mail-yw1-x1131.google.com
- [IPv6:2607:f8b0:4864:20::1131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 891A9F8014B
- for <alsa-devel@alsa-project.org>; Mon, 25 Apr 2022 11:29:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 891A9F8014B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 516A4F8014B
+ for <alsa-devel@alsa-project.org>; Mon, 25 Apr 2022 11:52:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 516A4F8014B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="GCZuUnp9"
-Received: by mail-yw1-x1131.google.com with SMTP id
- 00721157ae682-2f7d7e3b5bfso28145507b3.5
- for <alsa-devel@alsa-project.org>; Mon, 25 Apr 2022 02:29:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=7DI/4yWN3y1GMnceS1NFP6W+fM0r79CNMIWUatbJf0I=;
- b=GCZuUnp932JxImCO8yyc4Gc8wkN98T+o2cGsdEEVoxF899i6hRCXUz2OVFWzZcrvXj
- 76MEiMn2LB4F2TlZBPj1tpYKE1kWpUxpfMjGKbKEaKhvPn61cEgu+MTEtZuig9QuGO8D
- /cbW5lAIiXLyzhZPP0MKrlG/LXT1vBPRYMD18sTaeN5Kk1qRD2vRnDNdyjpz7Gmr1Udb
- UUgkkwngftahjHMpHyW8CdC42noowsLzEFVjhFvf7W+MglaDl1JpoMd+jWVHPMEkFhS4
- iW2ZTI506E3XEKox9qIvbFG2L4CCcmZZMVYO8DC5FYdqtIJAyzaQjfDeHpyP2RL2H5WX
- EhSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=7DI/4yWN3y1GMnceS1NFP6W+fM0r79CNMIWUatbJf0I=;
- b=AXDKC+dVzCls9U+IkTwhuIrPP9wZtIMSwCBYW2hvdBYPvuaMSffBTv6L0q9JmRe8Lr
- QKXOkIGUW/DKQ+plCb1AOJNaI9lKlNZEWJAA8cZ91bCDePYr5gJ74AMCgXXa+teHEPWT
- 6UaSE9qHJYB/Rg3JS4+lLo178Ekmcdl2ssDGQT19UaHvej9ZtdQemPP4weZVMRs49AU/
- GvMqc/SevdJSJqkG/yOkYbo1V4ubzkMqhIevxCGkwokW0XDub+4Z/Z9Nv394zUR2/4XD
- 9xB5Y/2QPNvRbr4xhTd5N5JRC+Y5zMwDPNA9sjhEsI6y7i8L5CQT97E5aHZ9mltP36jB
- 4hfg==
-X-Gm-Message-State: AOAM5331fctcNHbQj6aqQIGNs13ktmsrsnWZEsjs55lrl1qeLEGQ+p7n
- o6BJJPPpZ0eoFRhUTpmjjlbrKBppJKeZ1a4XyHE=
-X-Google-Smtp-Source: ABdhPJzuYw9o/w71YlaAQBnSBo3Oq9wnJmCtC+7inm7LG9vm9W7JrUu2ex+pkxwWlm67/LgyDA1JRGeK+fregfJ01b4=
-X-Received: by 2002:a81:6a46:0:b0:2f4:dc3f:e8f8 with SMTP id
- f67-20020a816a46000000b002f4dc3fe8f8mr16106476ywc.292.1650878981595; Mon, 25
- Apr 2022 02:29:41 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="jthua2Ku"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 23P9PN9p019843;
+ Mon, 25 Apr 2022 04:52:11 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=NFYRxNRFMgph5kuhS/kFHxiZIc8JuWC3fIicqgsvoqw=;
+ b=jthua2KuL1MAJPBg7Hz+E4nZHxUeSqasfyxx5l/qlTU56YNZucP6HkwZ3quIvrYBk1Nq
+ K3oBw5KD9CrFOrAhpgm8qIrsvO/PXfJ8oehG5yHL3rwMlnYYPHsihMdc8PMn8jayvzyC
+ wXrVtSJfJNm3Gf+Dl9E0LRWj1eA//X0OjoRL6C65LHyMRKZkeHsYhqUqfCADC4PMKnOG
+ LIF2z3YRMKaEdLeQUG6Iq/jLw6LhvjrOxbJgdtlGIWFrJk1UdATyerkMW7lmKW1aUhIV
+ qrjiXoCjgk3/3rpL0mekJGGxLlqILH7H7l8fzXaAhHprpQGTHukpoEEdepJFtdJ1fBxk MA== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3fmev31rbk-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Mon, 25 Apr 2022 04:52:11 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Mon, 25 Apr
+ 2022 10:52:09 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.24 via
+ Frontend Transport; Mon, 25 Apr 2022 10:52:09 +0100
+Received: from debianA11184.ad.cirrus.com (debianA11184.ad.cirrus.com
+ [198.90.251.83])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 54717B16;
+ Mon, 25 Apr 2022 09:52:03 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <broonie@kernel.org>
+Subject: [PATCH] firmware: cirrus: cs_dsp: Avoid padding bytes in
+ cs_dsp_coeff_ctl
+Date: Mon, 25 Apr 2022 10:51:59 +0100
+Message-ID: <20220425095159.3044527-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-References: <20220421203555.29011-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20220421203555.29011-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <OS0PR01MB5922C8287D7EEAB3F9DB60C386F79@OS0PR01MB5922.jpnprd01.prod.outlook.com>
-In-Reply-To: <OS0PR01MB5922C8287D7EEAB3F9DB60C386F79@OS0PR01MB5922.jpnprd01.prod.outlook.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Mon, 25 Apr 2022 10:29:15 +0100
-Message-ID: <CA+V-a8uGhUMK11BXQX9e-+8bwaq9Gx_AGHBob1KTiT6Npb-8Rw@mail.gmail.com>
-Subject: Re: [PATCH 3/3] ASoC: sh: rz-ssi: Add a devres action to release the
- DMA channels
-To: Biju Das <biju.das.jz@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Pavel Machek <pavel@denx.de>,
- Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Takashi Iwai <tiwai@suse.com>,
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
- Mark Brown <broonie@kernel.org>,
- Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: OJnBY_xRTKz-Fg6o5MuUGyNJgsWreoGb
+X-Proofpoint-GUID: OJnBY_xRTKz-Fg6o5MuUGyNJgsWreoGb
+X-Proofpoint-Spam-Reason: safe
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,94 +98,80 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Biju,
+Change the order of members in struct cs_dsp_coeff_ctl to avoid
+the compiler having to insert alignment padding bytes. On a x86_64
+build this saves 16 bytes per control.
 
-Thank you for the review.
+- Pointers are collected to the top of the struct (with the exception of
+  priv, as noted below), so that they are inherently aligned.
+- The set and enable bitflags are placed together so they can be merged.
+- priv is placed at the end of the struct - it is for use by the
+  client so it is helpful to make it stand out, and since the compiler
+  will always pad the struct size to an alignment multiple putting a
+  pointer last won't introduce any more padding.
+- struct cs_dsp_alg_region is placed at the end, right before priv, for
+  the same reasoning as priv.
 
-On Fri, Apr 22, 2022 at 7:52 AM Biju Das <biju.das.jz@bp.renesas.com> wrote:
->
-> Hi Lad Prabhakar,
->
-> Thanks for the patch.
->
-> > Subject: [PATCH 3/3] ASoC: sh: rz-ssi: Add a devres action to release the
-> > DMA channels
-> >
-> > DMA channels requested by rz_ssi_dma_request() in rz_ssi_probe() were never
-> > released in the error path apart from one place. This patch fixes this
-> > issue by adding a devres action to release the DMA channels and dropping
-> > the single rz_ssi_release_dma_channels() call which was placed in the error
-> > path in case devm_snd_soc_register_component() failed.
-> >
-> > Fixes: 26ac471c5354 ("ASoC: sh: rz-ssi: Add SSI DMAC support")
-> > Reported-by: Pavel Machek <pavel@denx.de>
-> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> > ---
-> >  sound/soc/sh/rz-ssi.c | 12 ++++++++++--
-> >  1 file changed, 10 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/sound/soc/sh/rz-ssi.c b/sound/soc/sh/rz-ssi.c index
-> > d9a684e71ec3..f04da1bf5680 100644
-> > --- a/sound/soc/sh/rz-ssi.c
-> > +++ b/sound/soc/sh/rz-ssi.c
-> > @@ -912,6 +912,11 @@ static const struct snd_soc_component_driver
-> > rz_ssi_soc_component = {
-> >       .pcm_construct  = rz_ssi_pcm_new,
-> >  };
-> >
-> > +static void rz_ssi_release_dma_channels_action(void *data) {
-> > +     rz_ssi_release_dma_channels(data);
-> > +}
-> > +
-> >  static int rz_ssi_probe(struct platform_device *pdev)  {
-> >       struct rz_ssi_priv *ssi;
-> > @@ -966,6 +971,11 @@ static int rz_ssi_probe(struct platform_device *pdev)
-> >               dev_info(&pdev->dev, "DMA enabled");
-> >               ssi->playback.transfer = rz_ssi_dma_transfer;
-> >               ssi->capture.transfer = rz_ssi_dma_transfer;
-> > +
-> > +             ret = devm_add_action_or_reset(&pdev->dev,
-> > +                                            rz_ssi_release_dma_channels_action,
-> > ssi);
-> > +             if (ret)
-> > +                     return ret;
-> >       }
-> >
-> >       ssi->playback.priv = ssi;
-> > @@ -1027,8 +1037,6 @@ static int rz_ssi_probe(struct platform_device *pdev)
-> >                                             rz_ssi_soc_dai,
-> >                                             ARRAY_SIZE(rz_ssi_soc_dai));
-> >       if (ret < 0) {
-> > -             rz_ssi_release_dma_channels(ssi);
-> > -
->
-> Maybe we need to keep this as it is, otherwise DMA channel release will happen
-> after CLK disable and Reset assert. Ideally release the channel, disable the clock and assert
-> the reset.
->
-Ok will move this call to individual error paths.
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+---
+ include/linux/firmware/cirrus/cs_dsp.h | 28 +++++++++++++-------------
+ 1 file changed, 14 insertions(+), 14 deletions(-)
 
-> Similarly, you may want to add "rz_ssi_release_dma_channels(ssi)" for error path related to
-> Pm_runtime_resume_get.
->
-yes this needs to go under all error paths except the pio chunk.
+diff --git a/include/linux/firmware/cirrus/cs_dsp.h b/include/linux/firmware/cirrus/cs_dsp.h
+index 38b4da3ddfe4..30055706cce2 100644
+--- a/include/linux/firmware/cirrus/cs_dsp.h
++++ b/include/linux/firmware/cirrus/cs_dsp.h
+@@ -68,36 +68,36 @@ struct cs_dsp_alg_region {
+ 
+ /**
+  * struct cs_dsp_coeff_ctl - Describes a coefficient control
++ * @list:		List node for internal use
++ * @dsp:		DSP instance associated with this control
++ * @cache:		Cached value of the control
+  * @fw_name:		Name of the firmware
+  * @subname:		Name of the control parsed from the WMFW
+  * @subname_len:	Length of subname
+- * @alg_region:		Logical region associated with this control
+- * @dsp:		DSP instance associated with this control
+- * @enabled:		Flag indicating whether control is enabled
+- * @list:		List node for internal use
+- * @cache:		Cached value of the control
+  * @offset:		Offset of control within alg_region in words
+  * @len:		Length of the cached value in bytes
+- * @set:		Flag indicating the value has been written by the user
+- * @flags:		Bitfield of WMFW_CTL_FLAG_ control flags defined in wmfw.h
+  * @type:		One of the WMFW_CTL_TYPE_ control types defined in wmfw.h
++ * @flags:		Bitfield of WMFW_CTL_FLAG_ control flags defined in wmfw.h
++ * @set:		Flag indicating the value has been written by the user
++ * @enabled:		Flag indicating whether control is enabled
++ * @alg_region:		Logical region associated with this control
+  * @priv:		For use by the client
+  */
+ struct cs_dsp_coeff_ctl {
++	struct list_head list;
++	struct cs_dsp *dsp;
++	void *cache;
+ 	const char *fw_name;
+ 	/* Subname is needed to match with firmware */
+ 	const char *subname;
+ 	unsigned int subname_len;
+-	struct cs_dsp_alg_region alg_region;
+-	struct cs_dsp *dsp;
+-	unsigned int enabled:1;
+-	struct list_head list;
+-	void *cache;
+ 	unsigned int offset;
+ 	size_t len;
+-	unsigned int set:1;
+-	unsigned int flags;
+ 	unsigned int type;
++	unsigned int flags;
++	unsigned int set:1;
++	unsigned int enabled:1;
++	struct cs_dsp_alg_region alg_region;
+ 
+ 	void *priv;
+ };
+-- 
+2.30.2
 
->
-> Also with this change there is unbalanced release_dma_channels() one from devres and other from remove.
->
-Agreed.
-
-Cheers,
-Prabhakar
-
-> Regards,
-> Biju
->
->
->
-> >               pm_runtime_put(ssi->dev);
-> >               pm_runtime_disable(ssi->dev);
-> >               reset_control_assert(ssi->rstc);
-> > --
-> > 2.17.1
->

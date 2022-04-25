@@ -2,82 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABFA650D92E
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Apr 2022 08:05:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27DCE50D932
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Apr 2022 08:06:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3A4F516D5;
-	Mon, 25 Apr 2022 08:04:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A4F516D5
+	by alsa0.perex.cz (Postfix) with ESMTPS id B5A2A16DE;
+	Mon, 25 Apr 2022 08:05:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B5A2A16DE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650866706;
-	bh=q5h7AnTHB3/rUD6Y9RVrhawst7LHm1wH2PPLPbIsTNQ=;
+	s=default; t=1650866805;
+	bh=uY2oRR3X662owYzLIwBB5tfOUS9DAG2s/xS1YjdtI0c=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uZfaFyckF32CkFql+m4gYYVjH+8q7nZpjOcdu5O0VsVt+GPvRNSd2wSPCQBVB78ux
-	 KlBeiYFsv6cPUlyQ7ffINGF8rJ2FOWKY8Mk/q8y4h8E0Citm10ZXopjjXEU1+czqy0
-	 Hs7iwVldt+1gcytnKX8NvAB9zXhU40wO1iVUTIm0=
+	b=qYtCbAN9S7KR+ONunRBcvGRFxa+n8Ft2mhBfPW/TkeLaUaKI/DNPvFZ3vgn9vdX7W
+	 aX0MRvZfjyt53Ct72dDSR/2w4a7q8HrCa5Re0LEe+lm92pr1+M9KKfYx06tKmbwJoi
+	 Vs470ziCYL+ND8yJHEDNh5Ld918VcSYMNlJYgIj4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DE563F800CB;
-	Mon, 25 Apr 2022 08:04:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 46324F800CB;
+	Mon, 25 Apr 2022 08:05:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A56ACF8049C; Mon, 25 Apr 2022 08:04:07 +0200 (CEST)
+ id 050BBF8016A; Mon, 25 Apr 2022 08:05:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C4C98F800CB
- for <alsa-devel@alsa-project.org>; Mon, 25 Apr 2022 08:04:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4C98F800CB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1AC95F800CB
+ for <alsa-devel@alsa-project.org>; Mon, 25 Apr 2022 08:05:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1AC95F800CB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="PlXIdPcc"; 
+ header.b="Xg1qT5Dy"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="ZfAKyonp"
+ header.b="No1OWXNU"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 7570A1F381;
- Mon, 25 Apr 2022 06:04:00 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id DC155210E7;
+ Mon, 25 Apr 2022 06:05:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1650866640; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1650866740; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=dIyadkM8lLOGTrNVFa5kguptrHG3TI+AiOTO/mZ0e7g=;
- b=PlXIdPccGKRdL5my/G9Rk+eJJJ1RWqO235BWiLm38Sc/gg/iInAHMhnYvRlegyC3GAYxbd
- 2qKEB8fVEfPjlXRPNtbFesYVLV2v1LT0mqSqpmui3BQ37PkEpsgC1Mb53kU4IHy3qPK/gJ
- pFbYSJJar5Woh6FSUElxrPHLNLikft8=
+ bh=plxmMsG+5AGW4/mNwbhaRMchMn5bkj9cqleBqjx9DwU=;
+ b=Xg1qT5DyTMS8Ipa26Ki0VDPYfAPP+Ia+0yV3ESO5NMwsUeQD2Mss2fpWlgSGOHwTD5iXAX
+ KEPSevyQudXsyq577Fdtk4Wb+kVzGXuLCp08vY552DqYYGJqcU8A1o9AzethSyR+0vYneK
+ rewME3Ms+iQ+Fl3fm0jFrvKCDIx9TyE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1650866640;
+ s=susede2_ed25519; t=1650866740;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=dIyadkM8lLOGTrNVFa5kguptrHG3TI+AiOTO/mZ0e7g=;
- b=ZfAKyonp4xsRdVDO7RUEHyNj0q9mL2AwsuSKhkxf0eqbeL+p/6uac3V9HzNivecGohegRt
- OMDwhZDKsWwBivCQ==
+ bh=plxmMsG+5AGW4/mNwbhaRMchMn5bkj9cqleBqjx9DwU=;
+ b=No1OWXNUUwbnPdKJTMdlZRG1p7nh/8WtSz3g4QeD82Q5Rln2Mg3tz8RBTOihu2rNMgKSqU
+ uaYSZuf5RlHsfqBg==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 5E8812C1B4;
- Mon, 25 Apr 2022 06:04:00 +0000 (UTC)
-Date: Mon, 25 Apr 2022 08:04:00 +0200
-Message-ID: <s5hzgk9r967.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id D43D12C199;
+ Mon, 25 Apr 2022 06:05:40 +0000 (UTC)
+Date: Mon, 25 Apr 2022 08:05:40 +0200
+Message-ID: <s5hwnfdr93f.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [PATCH] ALSA: fireworks: fix wrong return count shorter than
- expected by 4 bytes
-In-Reply-To: <20220424102428.21109-1-o-takashi@sakamocchi.jp>
-References: <20220424102428.21109-1-o-takashi@sakamocchi.jp>
+Subject: Re: [PATCH 0/3] firewire: fixes for kernel v4.9 or later
+In-Reply-To: <20220409041243.603210-1-o-takashi@sakamocchi.jp>
+References: <20220409041243.603210-1-o-takashi@sakamocchi.jp>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, clemens@ladisch.de, stable@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, linux1394-devel@lists.sourceforge.net,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,19 +93,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 24 Apr 2022 12:24:28 +0200,
+On Sat, 09 Apr 2022 06:12:40 +0200,
 Takashi Sakamoto wrote:
 > 
-> ALSA fireworks driver has a bug in its initial state to return count
-> shorter than expected by 4 bytes to userspace applications when handling
-> response frame for Echo Audio Fireworks transaction. It's due to missing
-> addition of the size for the type of event in ALSA firewire stack.
+> Hi,
 > 
-> Fixes: 555e8a8f7f14 ("ALSA: fireworks: Add command/response functionality into hwdep interface")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+> This patchset respins patches posted before to fix some bugs for Linux
+> FireWire subsystem. I expect them to be sent to Linus via pull request
+> by maintainer of Linux sound subsystem since the path appears to be
+> available after a short conversation with the maintainer. This patchset
+> is expected to be applied to 'for-linus' branch for v5.18 kernel, and
+> to stable kernels based on v4.9 or later.
+> 
+> This patchset includes below patches:
+> 
+> * [PATCH V2] drivers/firewire: use struct_size over open coded arithmetic
+>     * https://lore.kernel.org/lkml/20220210060805.1608198-1-chi.minghao@zte.com.cn/
+> * [PATCH] firewire: core: extend card->lock in fw_core_handle_bus_reset
+>     * https://lore.kernel.org/lkml/20220303183038.54126-1-dossche.niels@gmail.com/
+> * [PATCH] firewire: remove check of list iterator against head past the loop body
+>     * https://lore.kernel.org/lkml/20220331223601.902329-1-jakobkoschel@gmail.com/
+> 
+> Chengfeng Ye (1):
+>   firewire: fix potential uaf in outbound_phy_packet_callback()
+> 
+> Jakob Koschel (1):
+>   firewire: remove check of list iterator against head past the loop
+>     body
+> 
+> Niels Dossche (1):
+>   firewire: core: extend card->lock in fw_core_handle_bus_reset
 
-Thanks, applied.
+Now I applied all those pending patches to topic/firewire branch,
+merged into for-linus branch.
 
+
+thanks,
 
 Takashi

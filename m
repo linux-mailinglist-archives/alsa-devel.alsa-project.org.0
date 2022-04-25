@@ -2,90 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93CFD50D9F3
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Apr 2022 09:12:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66E2450DA3A
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Apr 2022 09:35:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F09CE164F;
-	Mon, 25 Apr 2022 09:11:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F09CE164F
+	by alsa0.perex.cz (Postfix) with ESMTPS id E98AB16D9;
+	Mon, 25 Apr 2022 09:34:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E98AB16D9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650870728;
-	bh=9Xt2htmeVJs0TLgtBJU6PkYxB2+izhFR1BnWRxdLjNU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=iySw/voInsY5Rtpfk0zcBt2dEZY4ldvALX/hH6/J4ZvSHpHJJ4vmugv6hEamKcdsZ
-	 eOuutOCbhNoYn7jtPmLYp8T9VHzpmtHvmfIXt9KH4YfRknlpc1Lkp9p4F4OA+kaNMW
-	 bxsbAdP+fmxRDFR7NIKDWF7S9dV8UHG/303iKbFM=
+	s=default; t=1650872117;
+	bh=P0elyap3jJyv6oeBk7ZYObcjk6RQDNqrN8dqB9D9/HQ=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=OhaUh3AyZxlAgg2W+rtQ/EdXqKYSiqCP8P4jJCki8cIvhYW6L4kM2Svx0AH76hghk
+	 YRRwyPfUh+X+3a7RvtDcw62xlkcxpVHd7+I63xbLFboofEaon62Nyriv2DxKz1TgrM
+	 GvR5b05iPBVzaYKbzEy15Xcu6sJY8iK+n6ctQ+d0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 56B10F8014B;
-	Mon, 25 Apr 2022 09:11:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5B54EF8016B;
+	Mon, 25 Apr 2022 09:34:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 422A3F8016A; Mon, 25 Apr 2022 09:11:07 +0200 (CEST)
+ id B2485F8016A; Mon, 25 Apr 2022 09:34:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com
- [209.85.219.44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 54AFAF800FA
- for <alsa-devel@alsa-project.org>; Mon, 25 Apr 2022 09:10:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54AFAF800FA
-Received: by mail-qv1-f44.google.com with SMTP id e17so11129431qvj.11
- for <alsa-devel@alsa-project.org>; Mon, 25 Apr 2022 00:10:58 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=UiAv8Aic2vVJVwyihga0T+23vlcl9W+2+olbQc8im/I=;
- b=Kr9rJ+PonkJyAPop89EeqR3IoVYTTPqhLOhkRktq6eGCd4C/q36D5J3GhphbPDvVgx
- L7dHizB5oEXmiTKbfAflT9frexscNS8Urpk9z1LjdSxK8cVkZLa1N1IominMPgZMKG0N
- PUgs2/QXb9lu/An9f6Ox+52hPvze6FxsrEl5gMCPNQPl8i5akq/OipXMWt1T6DQSk8p+
- UBa8DOKxRhbXe4fwiTtV+euQkoTrs2o4JYH47AKk1j6K2332O8XpSOjHdrXDCNikAXCg
- Taw61Q5XdIao65TN5w2dp2A5GujAMff9QLCRJRdwu20b1COyjs/YbISY+3M2AdL2cNAu
- zcxw==
-X-Gm-Message-State: AOAM530u6LdOYcnoOsRcyH9cFEgDloM2FcikKmI1npBHTfNu1TihenYE
- hCSDy97KWheUrHrTO/98KKWAQMIh0TP23w==
-X-Google-Smtp-Source: ABdhPJz8sB/xFEO1GGqRMnfsZQM43Plt/m6U3mEVcTz6EVix74H4jT+IO5YT1sNKVePazBS0mOxMbw==
-X-Received: by 2002:ad4:5aed:0:b0:446:4db4:e26b with SMTP id
- c13-20020ad45aed000000b004464db4e26bmr11517786qvh.23.1650870657233; 
- Mon, 25 Apr 2022 00:10:57 -0700 (PDT)
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com.
- [209.85.128.169]) by smtp.gmail.com with ESMTPSA id
- x188-20020a3795c5000000b0069eb51aa159sm4574136qkd.108.2022.04.25.00.10.56
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Apr 2022 00:10:56 -0700 (PDT)
-Received: by mail-yw1-f169.google.com with SMTP id
- 00721157ae682-2ef5380669cso138514297b3.9
- for <alsa-devel@alsa-project.org>; Mon, 25 Apr 2022 00:10:56 -0700 (PDT)
-X-Received: by 2002:a81:c703:0:b0:2d0:cc6b:3092 with SMTP id
- m3-20020a81c703000000b002d0cc6b3092mr15122808ywi.449.1650870656410; Mon, 25
- Apr 2022 00:10:56 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id C4DF6F8014B
+ for <alsa-devel@alsa-project.org>; Mon, 25 Apr 2022 09:34:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4DF6F8014B
+Received: from dggpemm500024.china.huawei.com (unknown [172.30.72.57])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4KmxZL2yNhzfb7r;
+ Mon, 25 Apr 2022 15:33:14 +0800 (CST)
+Received: from dggpemm500007.china.huawei.com (7.185.36.183) by
+ dggpemm500024.china.huawei.com (7.185.36.203) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.24; Mon, 25 Apr 2022 15:33:55 +0800
+Received: from huawei.com (10.175.103.91) by dggpemm500007.china.huawei.com
+ (7.185.36.183) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Mon, 25 Apr
+ 2022 15:33:54 +0800
+From: Yang Yingliang <yangyingliang@huawei.com>
+To: <linux-kernel@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+ <linux-arm-kernel@lists.infradead.org>
+Subject: [PATCH -next] ARM: pxa: pxa2xx-ac97-lib: fix return value check of
+ platform_get_irq()
+Date: Mon, 25 Apr 2022 15:45:59 +0800
+Message-ID: <20220425074559.2436002-1-yangyingliang@huawei.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20220423164443.146299-1-biju.das.jz@bp.renesas.com>
-In-Reply-To: <20220423164443.146299-1-biju.das.jz@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 25 Apr 2022 09:10:44 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWOc_BskYpKnQJ-V5vo7cXuzFdW-deqDB4mquasows-8A@mail.gmail.com>
-Message-ID: <CAMuHMdWOc_BskYpKnQJ-V5vo7cXuzFdW-deqDB4mquasows-8A@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: sh: Make SND_SOC_RZ depend on ARCH_RZG2L
-To: Biju Das <biju.das.jz@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
- Mark Brown <broonie@kernel.org>, Chris Paterson <Chris.Paterson2@renesas.com>,
- Biju Das <biju.das@bp.renesas.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.175.103.91]
+X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
+ dggpemm500007.china.huawei.com (7.185.36.183)
+X-CFilter-Loop: Reflected
+Cc: robert.jarzmik@free.fr, arnd@arndb.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,23 +77,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, Apr 23, 2022 at 6:44 PM Biju Das <biju.das.jz@bp.renesas.com> wrote:
-> The SSI block is identical on Renesas RZ/G2L, RZ/G2UL and RZ/V2L SoC's, so
-> instead of adding dependency for each SoC's add dependency on ARCH_RZG2L.
-> The ARCH_RZG2L config option is already selected by ARCH_R9A07G043,
-> ARCH_R9A07G044 and ARCH_R9A07G054.
->
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+platform_get_irq() returns negative error number on failure, fix the
+return value check in pxa2xx_ac97_hw_probe() and assign the error code
+to 'ret'.
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Fixes: 2548e6c76ebf ("ARM: pxa: pxa2xx-ac97-lib: use IRQ resource")
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
+---
+ sound/arm/pxa2xx-ac97-lib.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Gr{oetje,eeting}s,
+diff --git a/sound/arm/pxa2xx-ac97-lib.c b/sound/arm/pxa2xx-ac97-lib.c
+index e55c0421718b..2ca33fd5a575 100644
+--- a/sound/arm/pxa2xx-ac97-lib.c
++++ b/sound/arm/pxa2xx-ac97-lib.c
+@@ -402,8 +402,10 @@ int pxa2xx_ac97_hw_probe(struct platform_device *dev)
+ 		goto err_clk2;
+ 
+ 	irq = platform_get_irq(dev, 0);
+-	if (!irq)
++	if (irq < 0) {
++		ret = irq;
+ 		goto err_irq;
++	}
+ 
+ 	ret = request_irq(irq, pxa2xx_ac97_irq, 0, "AC97", NULL);
+ 	if (ret < 0)
+-- 
+2.25.1
 
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds

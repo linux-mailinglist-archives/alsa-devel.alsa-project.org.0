@@ -2,116 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D899C50E1E0
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Apr 2022 15:33:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C065950E032
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Apr 2022 14:26:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6348317A3;
-	Mon, 25 Apr 2022 15:32:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6348317A3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 445B116FD;
+	Mon, 25 Apr 2022 14:25:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 445B116FD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650893594;
-	bh=ipl3oSa3DODJXFqNROBx1CoqGwslciyjMuC+i+Saf6s=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1650889577;
+	bh=6GrE4NWT57K7czTKp7ru4wzIZWD6o9ArIieCTvXxaTE=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MTWwWA6tlBoh+hTAB5Ecw/v4qG+8MgZ7ST00bT8G+7zIgwohaAvPtS4Pn2HJ4HSZ4
-	 TpQIDmAfW5NYV/vL662sRl1JTDz3RQqfjduar7+l3ddlUnXj2anBzCWMbNPU7pdwB0
-	 DQN+BBI6APEoA/xbSLqnbHqUIw8T9qU9YlZhcS+I=
+	b=HfvTHDZ1SrXHo8Kf0aAUr30+u1/zRCgu3eTzsVQ4YFIBj2z5VKfjxld1NLWcxPH2l
+	 eIDvmS/tfcDDH4PB3Rnv9aPr8xXX5K8flLYG23XwiLyn8OXgqsQGg3AQqri1ES2iyG
+	 UYJN1aJzFb6sktq+41WcYmWhpXTptAQ6xQq4rGvg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A425BF8057B;
-	Mon, 25 Apr 2022 15:28:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9ACACF8016B;
+	Mon, 25 Apr 2022 14:25:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BC29EF80163; Sun, 24 Apr 2022 20:49:09 +0200 (CEST)
+ id 79767F8016A; Mon, 25 Apr 2022 14:25:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4CC96F800CB
- for <alsa-devel@alsa-project.org>; Sun, 24 Apr 2022 20:49:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4CC96F800CB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 32D40F800CB
+ for <alsa-devel@alsa-project.org>; Mon, 25 Apr 2022 14:25:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32D40F800CB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="BOkM82fI"
+ header.b="gz1V7yk8"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id DA8CD61260
- for <alsa-devel@alsa-project.org>; Sun, 24 Apr 2022 18:48:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59193C385BD
- for <alsa-devel@alsa-project.org>; Sun, 24 Apr 2022 18:48:57 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 302B8B8160E;
+ Mon, 25 Apr 2022 12:25:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CF4DC385A4;
+ Mon, 25 Apr 2022 12:25:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1650826137;
- bh=ipl3oSa3DODJXFqNROBx1CoqGwslciyjMuC+i+Saf6s=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=BOkM82fII90m6hiFZrsM+S6NoOx/9JSXO645uDox3wouyvV5cDVRWJxz7xq/cB9au
- LYrBwqxSBkhIKBzBNs0hwtCBHRO1gixAqGnRtxVTd+01UzyFfxHSDne9WN6ttlm+rb
- jcQBniXrkaKqn2jBmZOb15DeGZFcd9PAC8aU0sErmt9X3VJ12+DgM2/0JBOHnN/nNw
- G4IIFddQ3lsrPoLfBPfhYi7wy7+MEYhHtnQkavlIidm5fb5N3XrXiQ6swPnyQws0/W
- CtU43okgiFy2OpjRFiWX3gSYz6BOM2afEEdzeBOnonvAaXEfnmyinRGY3cRVziG/FD
- TihvS5WssHAGA==
-Received: by mail-wm1-f41.google.com with SMTP id
- 17-20020a05600c021100b00393a19f8f98so5322822wmi.4
- for <alsa-devel@alsa-project.org>; Sun, 24 Apr 2022 11:48:57 -0700 (PDT)
-X-Gm-Message-State: AOAM533j17C4k+5cJbrOQhTXdjPrZztLGdox6f4IbR1ctvEBEVFaiu3w
- ebU99+JNsfpEob0GIePyf+W0+DcV8LwcgpCfatc=
-X-Google-Smtp-Source: ABdhPJy0bXzhrJhOMZ1X8kbnkslFxEyAGa0Ih/9fgvnO3mTuzgN7/0kU+dSPN2u/9dZRAXnrV+Nc5ftINsUw3V0d/rc=
-X-Received: by 2002:a05:600c:4e4a:b0:392:88e1:74a7 with SMTP id
- e10-20020a05600c4e4a00b0039288e174a7mr22771106wmq.174.1650826135238; Sun, 24
- Apr 2022 11:48:55 -0700 (PDT)
+ s=k20201202; t=1650889507;
+ bh=6GrE4NWT57K7czTKp7ru4wzIZWD6o9ArIieCTvXxaTE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=gz1V7yk8c6K7MiFjBSSxV6qtIy6DDMy+HAPCGj9Ixxl8JOX44rM2EQF8KscugLMyJ
+ BD2rViz7o/zR649dKviwIwUSg1U+hg84qvs0L4abD3hHR+AFZtZzipCD1+oKeIRTdi
+ h6L8q97SxDCW0Hj7Jrpj0CswJcXt+9DBtQ0mtDZllWjmgrsH669j5+GzW8F6Q4q7N4
+ nyeHoDGjle1jNO3OLOTdHYEym9AWzvJy/Ohsi6Hw8mB/0aTRmGaRT9LPK3ZJJrI3Mx
+ 6dDyVYCUd+gC8tggiYxlH4q3GkRg42btwhdC3j524PNnSUv8aftrrZjDZKsIsim8Hv
+ zIw/NsAm+2mVQ==
+Date: Mon, 25 Apr 2022 13:25:01 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Martin =?utf-8?Q?Povi=C5=A1er?= <povik@cutebit.org>
+Subject: Re: [RFC PATCH 3/5] HACK: ASoC: Tolerate N-cpus-to-M-codecs links
+Message-ID: <YmaTHTKWAfM7FCcY@sirena.org.uk>
+References: <20220331000449.41062-1-povik+lin@cutebit.org>
+ <20220331000449.41062-4-povik+lin@cutebit.org>
+ <YkrkbBNYULLgeS5w@sirena.org.uk>
+ <904EB8A1-5561-4555-8030-B85703E24F2E@cutebit.org>
 MIME-Version: 1.0
-References: <20220419163810.2118169-1-arnd@kernel.org>
- <20220422170530.GA2338209@roeck-us.net>
- <CAK8P3a3V=qxUqYT3Yt=dpXVv58-Y+HVi952wO6D4LPN5NNphGA@mail.gmail.com>
- <8b36d3a4-ec85-2f9f-e4b7-734d8ddd3d8f@roeck-us.net>
- <CAK8P3a0R9cpEb1d2=e9KnGSbi_uRv48RWfCu_J4DDak_cGZSuw@mail.gmail.com>
- <20220422234150.GA3442771@roeck-us.net>
- <CAK8P3a3qZdEqnJ2nTOKwDMossngOgCpEvZq4cQMPQjSsUoU=6g@mail.gmail.com>
- <3b4046ed-fd75-13ea-fac3-06469172806c@roeck-us.net>
- <CAK8P3a1LzEG1vo+5nMrnL3TOMcbSKJ3u=StcfY8dajV2raUBjA@mail.gmail.com>
- <3df135a2-17f5-d6c6-b4a8-e1a60e254297@roeck-us.net>
-In-Reply-To: <3df135a2-17f5-d6c6-b4a8-e1a60e254297@roeck-us.net>
-From: Arnd Bergmann <arnd@kernel.org>
-Date: Sun, 24 Apr 2022 20:48:39 +0200
-X-Gmail-Original-Message-ID: <CAK8P3a2EHMQPN4ny9sXXuReFG0jN0hyRV7h9v_AR_0pqpOU41w@mail.gmail.com>
-Message-ID: <CAK8P3a2EHMQPN4ny9sXXuReFG0jN0hyRV7h9v_AR_0pqpOU41w@mail.gmail.com>
-Subject: Re: [PATCH v2 00/48] ARM: PXA multiplatform support
-To: Guenter Roeck <linux@roeck-us.net>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Mon, 25 Apr 2022 15:27:43 +0200
-Cc: Ulf Hansson <ulf.hansson@linaro.org>, USB list <linux-usb@vger.kernel.org>,
- Philipp Zabel <philipp.zabel@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, Sergey Lapin <slapin@ossfans.org>,
- Linux Fbdev development list <linux-fbdev@vger.kernel.org>,
- Dominik Brodowski <linux@dominikbrodowski.net>,
- "open list:BROADCOM NVRAM DRIVER" <linux-mips@vger.kernel.org>,
- IDE-ML <linux-ide@vger.kernel.org>, linux-mtd <linux-mtd@lists.infradead.org>,
- Tomas Cech <sleep_walker@suse.com>, Robert Jarzmik <robert.jarzmik@free.fr>,
- linux-clk <linux-clk@vger.kernel.org>, linux-leds@vger.kernel.org,
- linux-rtc@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>,
- Helge Deller <deller@gmx.de>, Marek Vasut <marek.vasut@gmail.com>,
- Paul Parsons <lost.distance@yahoo.com>,
- Michael Turquette <mturquette@baylibre.com>, Arnd Bergmann <arnd@arndb.de>,
- Linux PM list <linux-pm@vger.kernel.org>,
- "open list:HID CORE LAYER" <linux-input@vger.kernel.org>,
- Haojian Zhuang <haojian.zhuang@gmail.com>, Lubomir Rintel <lkundrak@v3.sk>,
- Mark Brown <broonie@kernel.org>, dri-devel <dri-devel@lists.freedesktop.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Stephen Boyd <sboyd@kernel.org>, patches@opensource.cirrus.com,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- linux-mmc <linux-mmc@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Daniel Mack <daniel@zonque.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="b1F3yj0YVHTi5nws"
+Content-Disposition: inline
+In-Reply-To: <904EB8A1-5561-4555-8030-B85703E24F2E@cutebit.org>
+X-Cookie: An apple a day makes 365 apples a year.
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Sven Peter <sven@svenpeter.dev>, linux-kernel@vger.kernel.org,
+ Hector Martin <marcan@marcan.st>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Mark Kettenis <kettenis@openbsd.org>,
+ Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -127,52 +95,60 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, Apr 24, 2022 at 5:28 PM Guenter Roeck <linux@roeck-us.net> wrote:
-> On 4/24/22 01:52, Arnd Bergmann wrote:
-> > On Sun, Apr 24, 2022 at 4:09 AM Guenter Roeck <linux@roeck-us.net> wrote:
-> > into the defconfig file, otherwise the multiplatform target defaults to
-> > an ARMv7 instead of ARMv5 build. For an OMAP15xx as in the SX1,
-> > you also need to enable CONFIG_ARCH_MULTI_V4T.
-> >
-> > This is slightly unfortunate, but I don't see any way to avoid it, and the
-> > modified defconfig will still work fine with older kernel trees.
-> >
->
-> Yes, that works. I changed it in my configuration.
 
-Ok, great!. I managed to boot the z2 machine with PCMCIA support
-and it gets around the issue with my patch, correctly detecting the
-CF card.
+--b1F3yj0YVHTi5nws
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> >>> One thing I keep having to apply myself is this snippet:
-> >>>
-> >>> diff --git a/arch/arm/mm/proc-arm925.S b/arch/arm/mm/proc-arm925.S
-> >>> index 0bfad62ea858..87c695703580 100644
-> >>> --- a/arch/arm/mm/proc-arm925.S
-> >>> +++ b/arch/arm/mm/proc-arm925.S
-> >>> @@ -441,7 +441,6 @@ __arm925_setup:
-> >>>
-> >>>    #ifdef CONFIG_CPU_DCACHE_WRITETHROUGH
-> >>>           mov     r0, #4                          @ disable write-back
-> >>> on caches explicitly
-> >>> -       mcr     p15, 7, r0, c15, c0, 0
-> >>>    #endif
-> >>
-> >> it does not have CONFIG_CPU_DCACHE_WRITETHROUGH enabled.
-> >
-> > Maybe it was disabled explicitly for the sx1_defconfig because of this
-> > bug. I would think that this is required for actual sx1 hardware because the
-> > option is default-enabled for ARM925T, and that CPU core is exclusively
-> > used in OMAP15xx.
-> >
->
-> That looks like a bug in qemu. ARM925T instruction support is limited to V4T
-> instructions. qemu doesn't have explicit 5T support. It is either V4T
-> or V5.
+On Fri, Apr 22, 2022 at 04:06:06PM +0200, Martin Povi=C5=A1er wrote:
+> > On 4. 4. 2022, at 14:28, Mark Brown <broonie@kernel.org> wrote:
 
-I'm not entirely sure what instructions the CPU supports, but Linux
-treats it as ARMv4T as well, and qemu supports some of the 925t
-specific instructions as "ti925t" in target/arm/cpu_tcg.c, it just seems
-it's missing some others.
+> > We need to figure out an interface for describing which CODEC/CPU
+> > combinations are connected to each other.  I'm not seeing a great way to
+> > do that right now, probably some side data table is going to be needed,
+> > or perhaps the CPU DAI drivers can be persuaded to only have one DAI
+> > actually register and claim to support more channels?  I'm not sure how
+> > a configuraiton like this is going to work at userspace level if the
+> > multiple CPU DAIs end up being visible...
 
-      Arnd
+> To understand the issue better: How could the multiple CPU DAIs be
+> visible from userspace?
+
+If you register two separate DAIs (well, links) with the API without
+doing anything else the API will just expose them to userspace as two
+separate things with no indication that they're related.
+
+> What about this interim solution: In case of N-to-M links we put in
+> the most restrictive condition for checking capture/playback stream
+> validity: we check all of the CPU DAIs. Whatever ends up being the
+> proper solution later can only be less restrictive than this.
+
+That's not the issue here? =20
+
+> As a reminder what happens on the Macs: the platform driver drives
+> all the CPU-side I2S ports that belong to the link with the same data,
+> so the particular CPU/CODEC wiring doesn=E2=80=99t matter.
+
+Oh, that's not something I was aware of.  In that case this is the wrong
+API - you should be using DPCM to map one front end onto multiple back
+ends (Kirkwood does something similar IIRC, there will be other examples
+but that's probably the simplest).  The back ends probably don't really
+need to know that they're on the same physical bus (if indeed they are).
+
+--b1F3yj0YVHTi5nws
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJmkx0ACgkQJNaLcl1U
+h9AXZQf/TTU2DnW1ZuWYtCiYoQytNm53DGhJatv03n1CX5CEQnTpF2SqtDQXWV7P
+FFaj07c+6IYGLOqLmA6TrABjGUoF5YgAmHBesHfS7uLK1pT/dz3c2wB8Dz3agqh5
+qSh562UKa7k6eXV17jANpgVJSBoWf/XjQTc031lOcsV1SPT6Z+if6WTBuXu+JGRt
+IBk9JY4WLK+c2eQUXKeaV2sPISK9CQObtHXr8CVBlgYuUIGnNTUarF19Vdoyq+2y
+QUsZDshFnfBtx/ArsyDMfgX9wO84Ids6rjPSe4pQ0WdRp+TsUiUk1useAx87UMd1
+JkINblZc68f3bqMDmN1HJoVYVFHa1g==
+=9iG+
+-----END PGP SIGNATURE-----
+
+--b1F3yj0YVHTi5nws--

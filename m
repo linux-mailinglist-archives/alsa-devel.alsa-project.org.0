@@ -2,82 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88CE350EB7C
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Apr 2022 00:13:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26AC050EB86
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Apr 2022 00:17:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 173051896;
-	Tue, 26 Apr 2022 00:13:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 173051896
+	by alsa0.perex.cz (Postfix) with ESMTPS id AA1D6184D;
+	Tue, 26 Apr 2022 00:16:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA1D6184D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650924830;
-	bh=AMRW5eziPeO4ski4QQbDsenTkp3kwPEgBjvxBfvtOIY=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1650925060;
+	bh=OGI3yIo69MD3uToKo6qDkJGp8r8e4eKqTD3NvuRMJZw=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dZ/4uo5odgSjD/Go0BpYgSQPpawNaFO+Lz2UpfYWIgVB9wQT4INK1HyUA3C/IiEs9
-	 TLFbXfLJUHUVlOeAOoIZQWrpVO4DUTfmtw80PtenUUlI9uuLBEKbhbe1kE0igeveb7
-	 qgBa9Mymsa6JRUi5gZc4CXDiu/MFrY61mV97tQ64=
+	b=EwZCTHcwTBS+vDgk7gjV2dC0uU4Ra7YCPtKG42nDkn0Y/Hw62y/m5hTgKYXk5gkVY
+	 iLooiUcG95Joh5E6+kzr/fcik4x7uBfOMgbw1ITtv/h2NyBYpIU8Mfv+jLB5q+tsYt
+	 24bGv8jk9NSxjBHbJu2YlGaqvItxfzg1itvJuT08=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0DE73F80526;
-	Tue, 26 Apr 2022 00:11:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1A313F8016B;
+	Tue, 26 Apr 2022 00:16:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8D918F8016B; Tue, 26 Apr 2022 00:11:52 +0200 (CEST)
+ id 59892F8016A; Tue, 26 Apr 2022 00:16:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
  SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com
+ [209.85.210.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 03793F8016B
- for <alsa-devel@alsa-project.org>; Tue, 26 Apr 2022 00:11:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03793F8016B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="SKTLmCmT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1650924709; x=1682460709;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=AMRW5eziPeO4ski4QQbDsenTkp3kwPEgBjvxBfvtOIY=;
- b=SKTLmCmTNgPIC6f8MmVJyosYpjsWZqazwRQhkluWKIsS/2wUDMy5Tmza
- ZPpQ0sY4oQ56uW8yMQefp+S6oZpcFa02DbiHi3qPn1EqF5/M2EsAYMzxs
- KtoWkKr5O6O1WLyO1MH+SE7eexjjmeHk7Q6qKKTxTxFcM9IvV52kI62t+
- y/RVTn+VM51lUNXSGKv9SYMbetL5cGSBkVVmRIbAJr9KSUzQ7Vtf+F5pq
- QiD9KmgfwP75GBFxk34yRcxAjGwrUbF2uTWasJY5dRXDl5JGr19p5OGEA
- 2D/sVnpKJWS40BUy6fzIeCzl3Ik+DUquayVU1j3PDQA4tKmwp1oY5tnMh A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10328"; a="264897782"
-X-IronPort-AV: E=Sophos;i="5.90,289,1643702400"; d="scan'208";a="264897782"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Apr 2022 15:11:40 -0700
-X-IronPort-AV: E=Sophos;i="5.90,289,1643702400"; d="scan'208";a="729939964"
-Received: from shivakax-mobl.amr.corp.intel.com (HELO
- rsridh2-mobl1.localdomain) ([10.254.59.189])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Apr 2022 15:11:39 -0700
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 10/10] ASoC: SOF: loader: Call optional query_fw_configuration
- on first boot
-Date: Mon, 25 Apr 2022 15:11:29 -0700
-Message-Id: <20220425221129.124615-11-ranjani.sridharan@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220425221129.124615-1-ranjani.sridharan@linux.intel.com>
-References: <20220425221129.124615-1-ranjani.sridharan@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0DA75F800FA
+ for <alsa-devel@alsa-project.org>; Tue, 26 Apr 2022 00:16:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0DA75F800FA
+Received: by mail-ot1-f42.google.com with SMTP id
+ u17-20020a9d4d91000000b00605a73abac1so3797143otk.7
+ for <alsa-devel@alsa-project.org>; Mon, 25 Apr 2022 15:16:31 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=pAnndawtmkUnKaymvAUKIHFVUO7wxjO7614Lrfui7b0=;
+ b=JaIS/xmQ5NIK3soTPrtRjzXd7I2dTgK9pelCzT5NoEa05KDPdYu7g9eSKPDYQujwr3
+ bHjPkMkupeZ897hV77pqFWwrKGFykynNZVx4ObdM3NFQMA7bjqY8cfNZMUNVUXn3+ElF
+ wGPyWQdpM6ZrAHhqQdFgR+rVqu5hhUHfbvOwWrwyZVCfoigFEOqEL4b67fQotyDnkGR1
+ gDktDjQfjqJerbrvDIkfY7QtGyonm+qOT+piSSWcjPigucTZ+NBu+yzN855IcjpOGEuF
+ 44tperMCJgzXegOLmXTyS22g3L9JEW4gozjD0etmAStDlM3AqN+MEuiu4C6nXDV5xxaz
+ KvNA==
+X-Gm-Message-State: AOAM532WUXk55e+B6aaG1qNkuLjLAEAkVbnujjswtQGpc5f8IK2P9Lok
+ qm8hQvEtCdKDOOtd5xQV6g==
+X-Google-Smtp-Source: ABdhPJyQC2EAtFQwZlhXb35X7/Amyr5Weeamh1E8SL8vFCDlnn2KP1B26/VAhdtzlqdwSbMI9hGkHQ==
+X-Received: by 2002:a9d:6503:0:b0:5e6:d8b6:f684 with SMTP id
+ i3-20020a9d6503000000b005e6d8b6f684mr7263746otl.289.1650924990039; 
+ Mon, 25 Apr 2022 15:16:30 -0700 (PDT)
+Received: from robh.at.kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ t22-20020a056870e75600b000e915a9121csm168977oak.52.2022.04.25.15.16.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 25 Apr 2022 15:16:29 -0700 (PDT)
+Received: (nullmailer pid 396470 invoked by uid 1000);
+ Mon, 25 Apr 2022 22:16:29 -0000
+Date: Mon, 25 Apr 2022 17:16:29 -0500
+From: Rob Herring <robh@kernel.org>
+To: Daniel Kaehn <kaehndan@gmail.com>
+Subject: Re: [PATCH v4 1/2] dt-bindings: sound: Add generic serial MIDI device
+Message-ID: <YmcdvcyeJJBB1pqW@robh.at.kernel.org>
+References: <20220425191602.770932-1-kaehndan@gmail.com>
+ <20220425191602.770932-2-kaehndan@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, tiwai@suse.com,
- Rander Wang <rander.wang@intel.com>, broonie@kernel.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220425191602.770932-2-kaehndan@gmail.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,34 +93,74 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+On Mon, Apr 25, 2022 at 02:16:02PM -0500, Daniel Kaehn wrote:
+> Adds dt-binding for snd-serial-generic serial MIDI driver
 
-Execute the firmware information query on the first boot if it is
-available.
+Bindings are for h/w and there's no such thing as generic h/w. There are 
+some exceptions but you'll have to justify why this is special.
 
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@intel.com>
-Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
----
- sound/soc/sof/loader.c | 3 +++
- 1 file changed, 3 insertions(+)
 
-diff --git a/sound/soc/sof/loader.c b/sound/soc/sof/loader.c
-index 8672dcc9cc1e..5f51d936b306 100644
---- a/sound/soc/sof/loader.c
-+++ b/sound/soc/sof/loader.c
-@@ -175,6 +175,9 @@ int snd_sof_run_firmware(struct snd_sof_dev *sdev)
- 	dev_dbg(sdev->dev, "firmware boot complete\n");
- 	sof_set_fw_state(sdev, SOF_FW_BOOT_COMPLETE);
- 
-+	if (sdev->first_boot && sdev->ipc->ops->fw_loader->query_fw_configuration)
-+		return sdev->ipc->ops->fw_loader->query_fw_configuration(sdev);
-+
- 	return 0;
- }
- EXPORT_SYMBOL(snd_sof_run_firmware);
--- 
-2.25.1
+> Signed-off-by: Daniel Kaehn <kaehndan@gmail.com>
+> ---
+>  .../devicetree/bindings/sound/serialmidi.yaml | 41 +++++++++++++++++++
+>  1 file changed, 41 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/serialmidi.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/serialmidi.yaml b/Documentation/devicetree/bindings/sound/serialmidi.yaml
+> new file mode 100644
+> index 000000000000..38ef49a0c2f9
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/serialmidi.yaml
+> @@ -0,0 +1,41 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/serialmidi.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Generic Serial MIDI Device
+> +
+> +maintainers:
+> +  - Daniel Kaehn <kaehndan@gmail.com>
+> +
+> +description: |
 
+Don't need '|' unless there is formatting to preserve.
+
+> +  Generic MIDI interface using a serial device. Can only be set to use standard speeds
+> +  corresponding to supported baud rates of the underlying serial device. If standard MIDI
+> +  speed of 31.25 kBaud is needed, configure the clocks of the underlying serial device
+> +  so that a requested speed of 38.4 kBaud resuts in the standard MIDI baud rate.
+> +
+> +properties:
+> +  compatible:
+> +    const: serialmidi
+> +
+> +  speed:
+
+Not a standard property and we already have 2 of them concerning baud 
+rate.
+
+> +    maxItems: 1
+> +    description: |
+> +      Speed to set the serial port to when the MIDI device is opened.
+> +      If not specified, the underlying serial device is allowed to use its configured default speed.
+> +
+> +required:
+> +  - compatible
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    serial {
+> +        midi {
+> +            compatible = "serialmidi";
+> +            speed = <38400>;
+> +        };
+> +    };
+> -- 
+> 2.33.0
+> 
+> 

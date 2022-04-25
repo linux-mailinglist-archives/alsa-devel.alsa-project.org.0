@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D346550D8FA
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Apr 2022 07:53:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8F6C50D8FC
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Apr 2022 07:54:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 57A2516CB;
-	Mon, 25 Apr 2022 07:52:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 57A2516CB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 659FF16C7;
+	Mon, 25 Apr 2022 07:53:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 659FF16C7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650866001;
-	bh=aaTx5q6iOC/IMeqJ3bWcfeC6mm1iC22oGS5udL40zvo=;
+	s=default; t=1650866080;
+	bh=yqvECeo/LjV0opRYcVjCxqoRUEuDbNgFaq8Bgtzm8CM=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OJDxdB8RfpIOMkdFKxhBb0AayuMODSmbEX3+rb1NlKSc+ksL8wA0MS1JrQkPHIVCj
-	 NNDp0USQ86ivGciucyw/GPzr5YP66m25BDO4rGTHEmsO+KIiZ+CdH4/lC8fElX8rQk
-	 rrIYFPBjopi07VLNN6SBzo8qh3nxTpF4d4QGylxM=
+	b=rGBY4gPvYQlNSOZJOW2MMJF67tybI+zuYtl1GoUs5r/SGFDXy66LDKvp+hVaUc4Xj
+	 /GhFTjc2w6/Fpb7SINA4jDoTLsGwYMc65wSQDCgszEpE0QjZ+SwQYbqtz6Nu/TLBXU
+	 2mkEpBoaTyaMmUUWVgYvD1FuVp+s8qA5dQyTP99c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CD597F800CB;
-	Mon, 25 Apr 2022 07:52:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EAD50F8014B;
+	Mon, 25 Apr 2022 07:53:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9D2B9F800CB; Mon, 25 Apr 2022 07:52:20 +0200 (CEST)
+ id CF91BF8014B; Mon, 25 Apr 2022 07:53:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,50 +34,51 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 76B1EF800CB
- for <alsa-devel@alsa-project.org>; Mon, 25 Apr 2022 07:52:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76B1EF800CB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 66D14F8014B
+ for <alsa-devel@alsa-project.org>; Mon, 25 Apr 2022 07:53:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66D14F8014B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="JjwS9qRs"; 
+ header.b="gS17fxWy"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="jEw0kGpZ"
+ header.b="46f5r/Yw"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id B71671F381;
- Mon, 25 Apr 2022 05:52:16 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 2ECC41F383;
+ Mon, 25 Apr 2022 05:53:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1650865936; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1650866017; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=fCKAvZZYPWla/BXTPFijV+7frH7DZptJmwOZd6Pgb2E=;
- b=JjwS9qRs5DUWeTinMIdx0dsNcaX5vJMDTfS0mnH+atWp08vwEoG9XwcDIFlNGGthOPnsdK
- xWdJ77TPYqixkxah9Upl5Hf7AogiPS6iuUydNWaG4HavNl+YNGn2AiQM2Z3zf/GLU16pES
- +/vJCU2OmAHTu88pLR0DkNzq0OGJPFE=
+ bh=kQc2TW6G4lsVFje2tMGtWR0dZm0cfWAopQn4O15nPTY=;
+ b=gS17fxWyHqo1KZGBv5lbFoplErMX/2BdAXSAfKsQHLfkHigKJm+0m/GRfYhTE1ovvT0g+7
+ O56hsDn2JBG57HOSFxvTj9KmGaUb8RvRLVaJZzQ05Z8FanR2CxxOt+aLMwH7vT40jSIAJt
+ owPwLLHayMSthoXfy6VRJgizziDecXc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1650865936;
+ s=susede2_ed25519; t=1650866017;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=fCKAvZZYPWla/BXTPFijV+7frH7DZptJmwOZd6Pgb2E=;
- b=jEw0kGpZnfD1bOI7vzyVghubTGgUdLOYrQqMc1FTKV1j/dLPNGHnw5oScWJKBWNNNGh5Gy
- LPatVgxjlMLoM5CQ==
+ bh=kQc2TW6G4lsVFje2tMGtWR0dZm0cfWAopQn4O15nPTY=;
+ b=46f5r/YwNCNqtHzdymA3kZPQv/9OxXZ06lmg9tjYqwih/NRX03bdEtqfRdwndMO8aAHddy
+ 2mDxb0Kgm2BSvFAA==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id A09262C141;
- Mon, 25 Apr 2022 05:52:16 +0000 (UTC)
-Date: Mon, 25 Apr 2022 07:52:16 +0200
-Message-ID: <s5h5ymxsoa7.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 1B3DD2C141;
+ Mon, 25 Apr 2022 05:53:37 +0000 (UTC)
+Date: Mon, 25 Apr 2022 07:53:37 +0200
+Message-ID: <s5h4k2hso7y.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH v2] selftests: alsa: Start validating control names
-In-Reply-To: <20220421115020.14118-1-broonie@kernel.org>
-References: <20220421115020.14118-1-broonie@kernel.org>
+To: Colin Ian King <colin.i.king@gmail.com>
+Subject: Re: [PATCH] ALSA: pcm: Check for null pointer of pointer substream
+ before dereferencing it
+In-Reply-To: <20220424205945.1372247-1-colin.i.king@gmail.com>
+References: <20220424205945.1372247-1-colin.i.king@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Shuah Khan <shuah@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, linux-kselftest@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,21 +94,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 21 Apr 2022 13:50:20 +0200,
-Mark Brown wrote:
+On Sun, 24 Apr 2022 22:59:45 +0200,
+Colin Ian King wrote:
 > 
-> Not much of a test but we keep on getting problems with boolean controls
-> not being called Switches so let's add a few basic checks to help people
-> spot problems.
+> Pointer substream is being dereferenced on the assignment of pointer card
+> before substream is being null checked with the macro PCM_RUNTIME_CHECK.
+> Although PCM_RUNTIME_CHECK calls BUG_ON, it still is useful to perform the
+> the pointer check before card is assigned.
 > 
-> Signed-off-by: Mark Brown <broonie@kernel.org>
-> ---
+> Fixes: commit d4cfb30fce03 ("ALSA: pcm: Set per-card upper limit of PCM buffer allocations")
 > 
-> v2:
->  - Make strend() static.
->  - Check for " Switch" rather than "Switch" at the end of the name.
+> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
 
-Thanks, applied.
+Thanks, applied with the correction of Fixes tag.
 
 
 Takashi

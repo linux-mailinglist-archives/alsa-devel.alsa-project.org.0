@@ -2,74 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBB5650E13C
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Apr 2022 15:12:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1D3950E153
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Apr 2022 15:15:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 594AA1738;
-	Mon, 25 Apr 2022 15:11:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 594AA1738
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2CA5D173F;
+	Mon, 25 Apr 2022 15:14:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2CA5D173F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650892343;
-	bh=CY3EpVP6sqx6E5CTHN6Hgjpu4eV1MD8tvUCPwPHHPkk=;
-	h=Subject:From:In-Reply-To:Date:References:To:Cc:List-Id:
+	s=default; t=1650892540;
+	bh=NFZGtIU3NiD6JM6D8mENFb5y8ZC2UqJWM6r+KrUBir0=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OlnI5q1xvPieg0nb5oazOPUZrsMAS/12dIqMf/6ae54oPYodGqQL4m+RAl01nSzEq
-	 iT+8+OaYem6jS0UW0RSzKGhFAODKl2qg9yVdfBuQiIXa7bfUZzPSNW9AhqHvELMETw
-	 r1mHUHqK3kytv2cIwbwkV7NO0gcMlnSAeGYNrbdY=
+	b=g59EN9c+xCSn/UqY4TsTMiOf5iUhKU97QvNkkAj2jOORBvA49sI31Sd2K2ZqH+zIV
+	 jVynaLK/d9936Tqe7dneS1kla53x9JsdAYTt85CoieUnN1t8hLUEAn8c+/oeWzjlAW
+	 Ccr35hjpuK8+JxOxfsFJJelTW+5hhHc+dHPji+vc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE216F8016B;
-	Mon, 25 Apr 2022 15:11:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9C5D8F8016B;
+	Mon, 25 Apr 2022 15:14:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5A892F8016A; Mon, 25 Apr 2022 15:11:23 +0200 (CEST)
+ id 42924F8016A; Mon, 25 Apr 2022 15:14:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from hutie.ust.cz (hutie.ust.cz [185.8.165.127])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0B91DF800FA
- for <alsa-devel@alsa-project.org>; Mon, 25 Apr 2022 15:11:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B91DF800FA
+ by alsa1.perex.cz (Postfix) with ESMTPS id E7598F800FA
+ for <alsa-devel@alsa-project.org>; Mon, 25 Apr 2022 15:14:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7598F800FA
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=cutebit.org header.i=@cutebit.org
- header.b="nFr8CC12"
-Content-Type: text/plain;
-	charset=utf-8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cutebit.org; s=mail;
- t=1650892275; bh=/hL2s+lh63ESjiRaWWsxzMR/f4Yu9cM9nehZyfa7E0g=;
- h=Subject:From:In-Reply-To:Date:Cc:References:To;
- b=nFr8CC12dlvYY0ye7Cw0D5/WM1QFzo3/SRqKTUxMe0my0I7ZZ4f4xN63aMSAhhq2V
- OgPLAz4XUoeMd0sgXUnHtJxv0EqXekSKCJIIp1n11uLXZByvyi8+OxY5VoUmh4xT5z
- V4a8aqsvCFfG35Gz9e1wkkDP63AmJJdfBJEfXrw0=
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3696.80.82.1.1\))
-Subject: Re: [RFC PATCH 3/5] HACK: ASoC: Tolerate N-cpus-to-M-codecs links
-From: =?utf-8?Q?Martin_Povi=C5=A1er?= <povik@cutebit.org>
-In-Reply-To: <YmaaPa8A03rWV7HE@sirena.org.uk>
-Date: Mon, 25 Apr 2022 15:11:14 +0200
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <4CF6B0A7-F218-4798-BB21-18D563309D5C@cutebit.org>
-References: <20220331000449.41062-1-povik+lin@cutebit.org>
- <20220331000449.41062-4-povik+lin@cutebit.org>
- <YkrkbBNYULLgeS5w@sirena.org.uk>
- <904EB8A1-5561-4555-8030-B85703E24F2E@cutebit.org>
- <YmaTHTKWAfM7FCcY@sirena.org.uk>
- <9F8BCBA8-5EE3-4F87-9518-91CB7AB4E077@cutebit.org>
- <YmaaPa8A03rWV7HE@sirena.org.uk>
-To: Mark Brown <broonie@kernel.org>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Sven Peter <sven@svenpeter.dev>, linux-kernel@vger.kernel.org,
- Hector Martin <marcan@marcan.st>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Mark Kettenis <kettenis@openbsd.org>,
- =?utf-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="CMS5i+YK"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="Wd/qnkK4"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 75FD31F38D;
+ Mon, 25 Apr 2022 13:14:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1650892477; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=YC7JBkWKuFPXqbASOhCH10KHexm4Q563rnMayuDiKvE=;
+ b=CMS5i+YKuqIhcfin1iIfSBwyKdaDjS36pWLDWudes9WaG44poP4xImUjNhhNOdjRPz3hlA
+ wa0KDmgxd2v9CFMoClXiH9ve20lm2bMlm65aOPHLB5uUMK5Wv+eGlNu+l8oUPgVjMd/++x
+ 17B2Df2jC1Ut3sFUCKyWjF+wWMZWx4A=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1650892477;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=YC7JBkWKuFPXqbASOhCH10KHexm4Q563rnMayuDiKvE=;
+ b=Wd/qnkK4fMdW4pj0g/mKagZpwqURJLeC2KuPpa81/fScw3je6JctikcVqqt/Hzcsq1OhQ7
+ x8BqkBQaqLpFWOCA==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 6F4CD2C141;
+ Mon, 25 Apr 2022 13:14:37 +0000 (UTC)
+Date: Mon, 25 Apr 2022 15:14:37 +0200
+Message-ID: <s5h8rrtqp8i.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: P9ter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH] ALSA: memalloc: Add fallback SG-buffer free if fallback
+ is used for noncontig
+In-Reply-To: <f3a09ea6-5440-02a2-35b4-f95d0c9dfa98@linux.intel.com>
+References: <20220425122814.751-1-peter.ujfalusi@linux.intel.com>
+ <f3a09ea6-5440-02a2-35b4-f95d0c9dfa98@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,67 +94,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Mon, 25 Apr 2022 14:49:35 +0200,
+P9ter Ujfalusi wrote:
+> 
+> 
+> 
+> On 25/04/2022 15:28, Peter Ujfalusi wrote:
+> > From: Peter Ujfalusi <peter.ujfalusi@gmail.com>
+> > 
+> > If the dma_alloc_noncontiguous() fails in snd_dma_noncontig_alloc() we are
+> > taking a fallback path which should be taken into account on the free path
+> > since the way to free the two type of allocations are not the same.
+> > 
+> > Fixes: 925ca893b4a6 ("ALSA: memalloc: Add fallback SG-buffer allocations for x86")
+> > Signed-off-by: Peter Ujfalusi <peter.ujfalusi@gmail.com>
+> > ---
+> > Hi Takashi,
+> > 
+> > I'm not sure about thisa as I can not get my systems to use the fallback, but in
+> > theory this shiuld be done, no?
+> 
+> RIght, this is not needed as on the free path the callback is picked
+> based on the dmab->dev.type, so it should be picking the correct free
+> after all.
+> 
+> Please this patch.
 
-> On 25. 4. 2022, at 14:55, Mark Brown <broonie@kernel.org> wrote:
->=20
-> On Mon, Apr 25, 2022 at 02:34:33PM +0200, Martin Povi=C5=A1er wrote:
->>> On 25. 4. 2022, at 14:25, Mark Brown <broonie@kernel.org> wrote:
->=20
->>> If you register two separate DAIs (well, links) with the API without
->>> doing anything else the API will just expose them to userspace as =
-two
->>> separate things with no indication that they're related.
->=20
->> Sure, but what I am addressing here is a single DAI link with =
-multiple
->> CPU DAIs, invoked in DT like this:
->=20
->> 	dai-link@0 {
->> 		link-name =3D "Speakers";
->> 		mclk-fs =3D <256>;
->>=20
->> 		cpu {
->> 			sound-dai =3D <&mca 0>, <&mca 1>;
->> 		};
->> 		codec {
->> 			sound-dai =3D <&speaker_left_woof1>,
->> 				<&speaker_right_woof1>,
->> 				<&speaker_left_tweet>,
->> 				<&speaker_right_tweet>,
->> 				<&speaker_left_woof2>,
->> 				<&speaker_right_woof2>;
->> 		};
->> 	};
->=20
-> You could parse this into two separate links for the benefit of the
-> framewokr if you're using a custom machine driver (which I suspect you
-> probably have to).
+Yes, the type got overwritten at switching to the fallback, so your
+change is superfluous.
 
-Yeah, this is parsed by the =E2=80=98macaudio=E2=80=99 machine driver =
-from the series.
 
->>>> What about this interim solution: In case of N-to-M links we put in
->>>> the most restrictive condition for checking capture/playback stream
->>>> validity: we check all of the CPU DAIs. Whatever ends up being the
->>>> proper solution later can only be less restrictive than this.
->=20
->>> That's not the issue here?
->=20
->> Well to me it looks like it is. Because if I invoke the DAI link like
->> I quoted above, and the platform driver supports it, the =
-playback/capture
->> stream validity check is the only place it breaks down. =
-Notwithstanding
->> this may be the wrong API as you wrote.
->=20
-> I am surprised that doesn't otherwise explode TBH - at the very least
-> I'd expect it to show two PCMs to userspace which if I'm understanding
-> your description correctly isn't really what's going on.
+> > Since you have introduced the fallback, I believe there are cases when it is
+> > taken and it might be related to some strange memory allocation errors happening
+> > in SOF during firmware loading, like:
+> > https://github.com/thesofproject/linux/issues/3609
+> > https://github.com/thesofproject/linux/issues/3584
+> > https://github.com/thesofproject/linux/issues/3530
+> 
+> Still these reports are real and somehow they are pointing to dma
+> allocation issues.
+> 
+> Hrm, the fallback got backported to 5.17.4, so it might have been fixed
+> already?
 
-I fill in a single snd_soc_dai_link, it exposes a single PCM and works
-like a charm. That is as long as I patch the playback/capture check in
-question.
+Yes, it should be.  Let me know if the problem still persists even
+after the fallback support is backported to stable kernels.
 
-I read that to be the clear intention of ASoC code: a DAI link becomes
-one snd_soc_pcm_runtime.
 
+thanks,
+
+Takashi

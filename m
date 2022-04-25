@@ -2,75 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 606E750E739
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Apr 2022 19:27:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D482550E73A
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Apr 2022 19:27:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F06C317E2;
-	Mon, 25 Apr 2022 19:26:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F06C317E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 68AC917F2;
+	Mon, 25 Apr 2022 19:26:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68AC917F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650907647;
-	bh=tJnkeRG9BIqZLpOKq/h7T9aOg9jlOc0o6WxzFD5dKrc=;
+	s=default; t=1650907662;
+	bh=oYA/5qwVt2no/9pKCd4CNdLbo4ChI1dy6z3kzNC4xfw=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=c7xcHNVlZE4Pl3HA8Zf70Z+kWtunQlKh316WLVUxc69cXKCUzrm0sgYbSRKr7/IhV
-	 yvmmqvm2J542J2PHfbeU74BmIjcE+GyjpltBTp9o0D17KsHykH1tWXlbx/SwpfjBRL
-	 uwyltyYTkyT35rJTSG5TC9WEyHmXdjbraD2Izbyo=
+	b=X6m4mSIwuQiJoe5EQnocFqwE7hrZzbXrazdIBwEhSMCM8pEgYEA65k7whpmPJ83BN
+	 Z+vNPv/cKN1JjBrhJ9nkghXIgw/cNvSjBVj1lNqckG2+ky1T6O+HbVIXfekRcPmbRz
+	 EcrivJGHjB7icR869WTwGt40o/EfJ8TO/KBncFRo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 09261F80537;
+	by alsa1.perex.cz (Postfix) with ESMTP id B60F0F8053A;
 	Mon, 25 Apr 2022 19:24:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4456EF80519; Mon, 25 Apr 2022 19:24:29 +0200 (CEST)
+ id 86E90F80519; Mon, 25 Apr 2022 19:24:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 89BB4F8016B
- for <alsa-devel@alsa-project.org>; Mon, 25 Apr 2022 19:24:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89BB4F8016B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 07218F80510
+ for <alsa-devel@alsa-project.org>; Mon, 25 Apr 2022 19:24:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07218F80510
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="gCPqIbvb"
+ header.b="kAy0HdU/"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5248561501;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id CDF1861501;
+ Mon, 25 Apr 2022 17:24:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F472C385A7;
  Mon, 25 Apr 2022 17:24:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0CA7C385A4;
- Mon, 25 Apr 2022 17:24:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1650907464;
- bh=tJnkeRG9BIqZLpOKq/h7T9aOg9jlOc0o6WxzFD5dKrc=;
+ s=k20201202; t=1650907467;
+ bh=oYA/5qwVt2no/9pKCd4CNdLbo4ChI1dy6z3kzNC4xfw=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=gCPqIbvbWYsMjXDO3Jxj9fu+yo9WsrIYr+rDqr6m3ZH4J/33ONKiTFrhd8Y/81qpT
- b4HRnfwEvC/I7CnztsnbeYU7PmyH8aCmfrkBTDN8Fn+STF3ajXwxZkt2zGsq3IfJOy
- ZtJ77/AFvq4SV6Tk/pHAuXh3bCcVnasZAiBTf62I/1UsouQE+HEms66BGheeFOk3UZ
- rQPIMET9t57/vZZTceLfAvfm8DT+WB2HnsR+5wN1LTf8YKeoIgf7hmGegzzJb8aAqc
- eOGqRPNQC3IzCUN5vk729AjhQqSFRaco6jZmJUJp/YbVrSsnP1BGH9jvORg5SLb0yl
- pmRtyv6bQF2uQ==
+ b=kAy0HdU/w0/d/I4tT+cLgSLNN16EMTMF2gTydmhfp+DmBu90/3CqAD2u/zHySvuwo
+ 6FMSAX1O/mYTprgb6Yb6kF5VtTU/fpaLDZnfv9RPxzs1SFBxSXbwzWfzOlP8rRlqI1
+ 0jGfpp+2MIcguiIX/CXyJK591EHuW7l2hYFO7iQjhgKP2XZCtAyA4/d5iXhKEVScqD
+ /jEQV7OUaenrGgxKr4OA6zRiw5VgoNw1S5YypqDKEaR9ow5h3f6vw7K7gshzKcA3X+
+ tnBmUe5bJnF4TsaFyPAckzEMQoQo+I+hk1pz19BE9OjjSfkUr784MBEwL3BIJUWkmY
+ uSo62ManH0Cmw==
 From: Mark Brown <broonie@kernel.org>
-To: rf@opensource.cirrus.com
-In-Reply-To: <20220425095159.3044527-1-rf@opensource.cirrus.com>
-References: <20220425095159.3044527-1-rf@opensource.cirrus.com>
-Subject: Re: [PATCH] firmware: cirrus: cs_dsp: Avoid padding bytes in
- cs_dsp_coeff_ctl
-Message-Id: <165090746356.583823.11843544325300863784.b4-ty@kernel.org>
-Date: Mon, 25 Apr 2022 18:24:23 +0100
+To: tiwai@suse.com, perex@perex.cz, biju.das.jz@bp.renesas.com
+In-Reply-To: <20220423164443.146299-1-biju.das.jz@bp.renesas.com>
+References: <20220423164443.146299-1-biju.das.jz@bp.renesas.com>
+Subject: Re: [PATCH] ASoC: sh: Make SND_SOC_RZ depend on ARCH_RZG2L
+Message-Id: <165090746497.583823.16541884820378976603.b4-ty@kernel.org>
+Date: Mon, 25 Apr 2022 18:24:24 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, geert+renesas@glider.be,
+ prabhakar.mahadev-lad.rj@bp.renesas.com, lgirdwood@gmail.com,
+ linux-renesas-soc@vger.kernel.org, Chris.Paterson2@renesas.com,
+ biju.das@bp.renesas.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,22 +86,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 25 Apr 2022 10:51:59 +0100, Richard Fitzgerald wrote:
-> Change the order of members in struct cs_dsp_coeff_ctl to avoid
-> the compiler having to insert alignment padding bytes. On a x86_64
-> build this saves 16 bytes per control.
+On Sat, 23 Apr 2022 17:44:43 +0100, Biju Das wrote:
+> The SSI block is identical on Renesas RZ/G2L, RZ/G2UL and RZ/V2L SoC's, so
+> instead of adding dependency for each SoC's add dependency on ARCH_RZG2L.
+> The ARCH_RZG2L config option is already selected by ARCH_R9A07G043,
+> ARCH_R9A07G044 and ARCH_R9A07G054.
 > 
-> - Pointers are collected to the top of the struct (with the exception of
->   priv, as noted below), so that they are inherently aligned.
-> - The set and enable bitflags are placed together so they can be merged.
-> - priv is placed at the end of the struct - it is for use by the
->   client so it is helpful to make it stand out, and since the compiler
->   will always pad the struct size to an alignment multiple putting a
->   pointer last won't introduce any more padding.
-> - struct cs_dsp_alg_region is placed at the end, right before priv, for
->   the same reasoning as priv.
 > 
-> [...]
 
 Applied to
 
@@ -109,8 +100,8 @@ Applied to
 
 Thanks!
 
-[1/1] firmware: cirrus: cs_dsp: Avoid padding bytes in cs_dsp_coeff_ctl
-      commit: 430c3500995484962bdbccf358201afef8055535
+[1/1] ASoC: sh: Make SND_SOC_RZ depend on ARCH_RZG2L
+      commit: cc691ba94cf8d6c586076ed489bb9d385a2650ad
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,81 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 276E850E961
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Apr 2022 21:18:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C468850E981
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Apr 2022 21:32:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B8F191865;
-	Mon, 25 Apr 2022 21:17:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8F191865
+	by alsa0.perex.cz (Postfix) with ESMTPS id 613661843;
+	Mon, 25 Apr 2022 21:31:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 613661843
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650914320;
-	bh=yViJOkZnsqckBbTkyZ90SnXrgeHTmvv/ta1oNYoitnE=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=K+ra6cNSXYcH8kpk63c9YDhCWsYu9oNBD6alDgGptapwFX4Y/lHotDKNHgHd/ZZ5w
-	 gHDCt2zhct0u3+HTTEc7L0BtIbhcMh62WcN5+GNljathihXp9Hx8jlLCb/n1CYozCc
-	 FLaxD5WkDhCxiDZKY/AF+vYWRHAfvKVveKynG8rs=
+	s=default; t=1650915122;
+	bh=+cc4yFMT0h9UAjUH3DxcsAUeKNdI0vm+sgGTjC0LVzM=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=QXJb7rft7pHK2dfeQDvHU8xZWiwv2vu4H1Anc3icpQtG+g08k0Laz/LNrAhqA8HsW
+	 FEtfLM6Cab/j4YxBvpxlpxv4Swd3/WqktpjRpkl55M57e7hyCyySLbxdZAuAkva5D8
+	 mNA4pgC3piF1VJkmLvVOBQQH4RFCiKh0cNgMUqUU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 77C98F80152;
-	Mon, 25 Apr 2022 21:17:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CABE6F8016B;
+	Mon, 25 Apr 2022 21:31:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 22E5AF8016B; Mon, 25 Apr 2022 21:17:40 +0200 (CEST)
+ id 71B47F8016A; Mon, 25 Apr 2022 21:31:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_14,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BFD2AF800FA
- for <alsa-devel@alsa-project.org>; Mon, 25 Apr 2022 21:17:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BFD2AF800FA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="NoSzLVh2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1650914255; x=1682450255;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=yViJOkZnsqckBbTkyZ90SnXrgeHTmvv/ta1oNYoitnE=;
- b=NoSzLVh22TRel8v81NB56TN0toxlk98JmeRwEOOJVUvRbOssCt8qv2jk
- LeCueiBKFaRk8oK+UJKjuiA0bj27MafQlvpbhF551+PiZwJ1qiJmsTdhS
- 9DpTwh2IA3i+56evIjKH7rHyUg1DJF7YrxZuPnl2IPf/OAeVsZRUgzDtd
- jAJr9s8liloQavg+apXx3JJJTXRF3jb9Zn7XiU3bFQMfFTgdXYj2Ox0I3
- Z1Mqg7Jte/fLAJDrgVKR13g6GyQ4n8lZjsMAL8+qb4jvy5PwehfflfaFX
- Q4Ej/WVmOte4Wc+jU02OgP1fHQ9JeW1FQr9o7Arfd4Ps+uHYBZVg8WCLC Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10328"; a="264861574"
-X-IronPort-AV: E=Sophos;i="5.90,289,1643702400"; d="scan'208";a="264861574"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Apr 2022 12:17:30 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,289,1643702400"; d="scan'208";a="677365608"
-Received: from lkp-server01.sh.intel.com (HELO 5056e131ad90) ([10.239.97.150])
- by orsmga004.jf.intel.com with ESMTP; 25 Apr 2022 12:17:28 -0700
-Received: from kbuild by 5056e131ad90 with local (Exim 4.95)
- (envelope-from <lkp@intel.com>) id 1nj4DA-0002nw-2O;
- Mon, 25 Apr 2022 19:17:28 +0000
-Date: Tue, 26 Apr 2022 03:16:37 +0800
-From: kernel test robot <lkp@intel.com>
-To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, tiwai@suse.de
-Subject: Re: [PATCH] ALSA: memalloc: Add fallback SG-buffer free if fallback
- is used for noncontig
-Message-ID: <202204260301.TAt89QGn-lkp@intel.com>
-References: <20220425122814.751-1-peter.ujfalusi@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id F1C73F800FA
+ for <alsa-devel@alsa-project.org>; Mon, 25 Apr 2022 21:30:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1C73F800FA
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1nj4Py-0004Ra-Dg; Mon, 25 Apr 2022 21:30:42 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1nj4Px-005Co3-Ey; Mon, 25 Apr 2022 21:30:40 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1nj4Pv-005aWF-Ct; Mon, 25 Apr 2022 21:30:39 +0200
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>
+Subject: [PATCH] ASoC: pcm1789: Make pcm1789_common_exit() return void
+Date: Mon, 25 Apr 2022 21:30:23 +0200
+Message-Id: <20220425193023.61046-1-u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220425122814.751-1-peter.ujfalusi@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, kbuild-all@lists.01.org,
- pierre-louis.bossart@linux.intel.com
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2070; h=from:subject;
+ bh=+cc4yFMT0h9UAjUH3DxcsAUeKNdI0vm+sgGTjC0LVzM=;
+ b=owEBbQGS/pANAwAKAcH8FHityuwJAcsmYgBiZvbLKe7OmkO0h0zielrL4CiFKdPAYjf0XNXLtNPu
+ pYmmiyuJATMEAAEKAB0WIQR+cioWkBis/z50pAvB/BR4rcrsCQUCYmb2ywAKCRDB/BR4rcrsCRZZCA
+ CUDBJ+SItNDx+JF83dD0bNTZe1NjWpu1j1Rl4oyxWx+OmZL7qIMS4MxZw/lX6pM/4Y2X69GM2KeGiF
+ WgVJjEpXi3MUGMMlmOrsAPdHG/lSTE5kit4ytWaZN23iA8YSfSNmu6oZdwFWnzZdEqnoPlgYObEcZr
+ hnTqEqJ3iXLzH0lhF/GuWcntkOrRDwbTgyLf1SOGtulxtekjSX9xYaEFTiYH6MXqfP0YR+wdhluDqv
+ vuiHYzXnD8zJfOopxQALHX287eXgb2XTMH5bvnrgqrda0mIlmyshs8WRaKflSReQnD3BiS6G/rtyMo
+ NgqH31hMb59M48mro71bXwi1gK8G0R
+X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
+ kernel@pengutronix.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,71 +91,67 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Peter,
+This function returns zero unconditionally, so there isn't any benefit
+of returning a value. Make it return void to be able to see at a glance
+that the return value of pcm1789_i2c_remove() is always zero.
 
-I love your patch! Yet something to improve:
+This patch is a preparation for making i2c remove callbacks return void.
 
-[auto build test ERROR on tiwai-sound/for-next]
-[also build test ERROR on v5.18-rc4 next-20220422]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch]
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+---
+ sound/soc/codecs/pcm1789-i2c.c | 4 +++-
+ sound/soc/codecs/pcm1789.c     | 4 +---
+ sound/soc/codecs/pcm1789.h     | 2 +-
+ 3 files changed, 5 insertions(+), 5 deletions(-)
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Peter-Ujfalusi/ALSA-memalloc-Add-fallback-SG-buffer-free-if-fallback-is-used-for-noncontig/20220425-203012
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
-config: arm-randconfig-r033-20220425 (https://download.01.org/0day-ci/archive/20220426/202204260301.TAt89QGn-lkp@intel.com/config)
-compiler: arm-linux-gnueabi-gcc (GCC) 11.3.0
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/bf91cb1cd103c5f1e78fa154c30f1436be2723ac
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Peter-Ujfalusi/ALSA-memalloc-Add-fallback-SG-buffer-free-if-fallback-is-used-for-noncontig/20220425-203012
-        git checkout bf91cb1cd103c5f1e78fa154c30f1436be2723ac
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-11.3.0 make.cross W=1 O=build_dir ARCH=arm SHELL=/bin/bash sound/core/
+diff --git a/sound/soc/codecs/pcm1789-i2c.c b/sound/soc/codecs/pcm1789-i2c.c
+index 7a6be45f8149..3396f237637c 100644
+--- a/sound/soc/codecs/pcm1789-i2c.c
++++ b/sound/soc/codecs/pcm1789-i2c.c
+@@ -30,7 +30,9 @@ static int pcm1789_i2c_probe(struct i2c_client *client,
+ 
+ static int pcm1789_i2c_remove(struct i2c_client *client)
+ {
+-	return pcm1789_common_exit(&client->dev);
++	pcm1789_common_exit(&client->dev);
++
++	return 0;
+ }
+ 
+ #ifdef CONFIG_OF
+diff --git a/sound/soc/codecs/pcm1789.c b/sound/soc/codecs/pcm1789.c
+index 620dec172ce7..35788b57e11f 100644
+--- a/sound/soc/codecs/pcm1789.c
++++ b/sound/soc/codecs/pcm1789.c
+@@ -259,13 +259,11 @@ int pcm1789_common_init(struct device *dev, struct regmap *regmap)
+ }
+ EXPORT_SYMBOL_GPL(pcm1789_common_init);
+ 
+-int pcm1789_common_exit(struct device *dev)
++void pcm1789_common_exit(struct device *dev)
+ {
+ 	struct pcm1789_private *priv = dev_get_drvdata(dev);
+ 
+ 	flush_work(&priv->work);
+-
+-	return 0;
+ }
+ EXPORT_SYMBOL_GPL(pcm1789_common_exit);
+ 
+diff --git a/sound/soc/codecs/pcm1789.h b/sound/soc/codecs/pcm1789.h
+index c446d789ed48..79439c8322b3 100644
+--- a/sound/soc/codecs/pcm1789.h
++++ b/sound/soc/codecs/pcm1789.h
+@@ -12,6 +12,6 @@
+ extern const struct regmap_config pcm1789_regmap_config;
+ 
+ int pcm1789_common_init(struct device *dev, struct regmap *regmap);
+-int pcm1789_common_exit(struct device *dev);
++void pcm1789_common_exit(struct device *dev);
+ 
+ #endif
 
-If you fix the issue, kindly add following tag as appropriate
-Reported-by: kernel test robot <lkp@intel.com>
-
-All errors (new ones prefixed by >>):
-
-   sound/core/memalloc.c: In function 'snd_dma_noncontig_free':
->> sound/core/memalloc.c:540:31: error: 'SNDRV_DMA_TYPE_DEV_WC_SG_FALLBACK' undeclared (first use in this function); did you mean 'SNDRV_DMA_TYPE_DEV_WC_SG'?
-     540 |         if (dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG_FALLBACK ||
-         |                               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-         |                               SNDRV_DMA_TYPE_DEV_WC_SG
-   sound/core/memalloc.c:540:31: note: each undeclared identifier is reported only once for each function it appears in
->> sound/core/memalloc.c:541:31: error: 'SNDRV_DMA_TYPE_DEV_SG_FALLBACK' undeclared (first use in this function); did you mean 'SNDRV_DMA_TYPE_DEV_SG'?
-     541 |             dmab->dev.type == SNDRV_DMA_TYPE_DEV_SG_FALLBACK) {
-         |                               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-         |                               SNDRV_DMA_TYPE_DEV_SG
->> sound/core/memalloc.c:543:17: error: implicit declaration of function 'snd_dma_sg_fallback_free'; did you mean 'snd_dma_vmalloc_free'? [-Werror=implicit-function-declaration]
-     543 |                 snd_dma_sg_fallback_free(dmab);
-         |                 ^~~~~~~~~~~~~~~~~~~~~~~~
-         |                 snd_dma_vmalloc_free
-   cc1: some warnings being treated as errors
-
-
-vim +540 sound/core/memalloc.c
-
-   537	
-   538	static void snd_dma_noncontig_free(struct snd_dma_buffer *dmab)
-   539	{
- > 540		if (dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG_FALLBACK ||
- > 541		    dmab->dev.type == SNDRV_DMA_TYPE_DEV_SG_FALLBACK) {
-   542			/* The allocation is done with a fallback, use the matching free */
- > 543			snd_dma_sg_fallback_free(dmab);
-   544			return;
-   545		}
-   546	
-   547		dma_vunmap_noncontiguous(dmab->dev.dev, dmab->area);
-   548		dma_free_noncontiguous(dmab->dev.dev, dmab->bytes, dmab->private_data,
-   549				       dmab->dev.dir);
-   550	}
-   551	
-
+base-commit: 3123109284176b1532874591f7c81f3837bbdc17
 -- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+2.35.1
+

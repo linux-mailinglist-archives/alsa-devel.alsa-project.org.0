@@ -2,76 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B38E51087F
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Apr 2022 21:06:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A3A7510897
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Apr 2022 21:08:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 22554189C;
-	Tue, 26 Apr 2022 21:05:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22554189C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0D93117F0;
+	Tue, 26 Apr 2022 21:08:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D93117F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651000002;
-	bh=IahD/UGbAtp5D8KEjlB7ZHxiAoNcd+ZHPnhmK08V4LI=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=A2YduXaUeW1IB6kmw+X/BsPbSFlPDU7KjReILuShX23IFQXLLj3dUPDTzkr8xzqc+
-	 +U5MtvNLfIIgRuh4UG+5RlElJdyhnDEwWwx0Mt3agYWPrTF4TzNzXnt22TgAYtJhlp
-	 i4UWRECw+pdTWBmgen1JpFLQzn9K5lJIRb8cHlG8=
+	s=default; t=1651000134;
+	bh=lDS4r8VUg0uT04q+a1QxoG8HJ5gRSx6/HBQJlYipm60=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=g5FvP3K1uk+094N6vTeum1inwXM+YiP9m2FSpqj5IB8HmoHMVJiS5nu5vvSEP32yD
+	 uLUot6d0QN18b7U0oV9sRtR22w0oVkBj255cqT9PXllpNu1tDMWmn8oeYBQSr6hzQD
+	 LEAzRY4T/JX0YzcB9V5DQCkqQ0RA3aOGASMp9u38=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B1645F80564;
-	Tue, 26 Apr 2022 21:03:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 95515F8014B;
+	Tue, 26 Apr 2022 21:07:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A93FCF80570; Tue, 26 Apr 2022 21:03:10 +0200 (CEST)
+ id 257F2F80152; Tue, 26 Apr 2022 21:07:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2694CF80564
- for <alsa-devel@alsa-project.org>; Tue, 26 Apr 2022 21:03:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2694CF80564
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="mpN08wHH"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D7F6961A00;
- Tue, 26 Apr 2022 19:03:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF0F0C385AA;
- Tue, 26 Apr 2022 19:03:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1650999786;
- bh=IahD/UGbAtp5D8KEjlB7ZHxiAoNcd+ZHPnhmK08V4LI=;
- h=From:To:Cc:Subject:Date:From;
- b=mpN08wHHX0pvtH8ZJHsVKngKNRnLy9eYQ4TWteVVN6hBMXtJoSxYSps7YyNibZ9aC
- l1IsePvFjEp8qOc9owPDmFleX5atvYOxfY7Psm+9L8e3aJa2zHwK9Tzr3jVZfEX1lc
- J+tjrubbSSASxphBqDrbvAlO1fuYN34HTv7kqdmsdAc3NtX+vL/Y44MbGUjBiG59gC
- mY8Phx5u3neNE25BG+bwzJ+8Gy8gPVmN45R2zcg452LKe+d7S9GHlExkVEeRkrDPAa
- gNlIhM/vF0wPDFqVJDQxjJ+86m2oED3OJEVtEwx2Socq7AkmJMpuMZskGVQduqGLym
- cdasWvhz5EyAA==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.9 1/3] ASoC: wm8731: Disable the regulator when
- probing fails
-Date: Tue, 26 Apr 2022 15:03:01 -0400
-Message-Id: <20220426190304.2351976-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.35.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 10904F80105
+ for <alsa-devel@alsa-project.org>; Tue, 26 Apr 2022 21:07:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10904F80105
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="WaG0R9Uf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1651000071; x=1682536071;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=lDS4r8VUg0uT04q+a1QxoG8HJ5gRSx6/HBQJlYipm60=;
+ b=WaG0R9Uf50lPlUUNZuXVfVuZqU3TJCD5VfLmcAMR+8YU8yoOWg5poTR4
+ fQ2TYflt069tvwqvm7wp1cd5zIKfnrMyS5QI297TSifB9rWqGBVqq8WzI
+ ifiifRXd2wOK2f6QupZkDunw79Ei7RGO/kJBO1+A/j55MhZr57nbtcVZ+
+ EYru3LxWaZpmAfYUYEBRqyacSrqLRePlArsUxVFUkwWdL0L8EKU4fFd4f
+ wLz1kS7iIEPhbzAnzXT9kUOI3aGhiud6HUnb3I94zW7eme916e8vRUvFU
+ msB4GYD8siXThwj5ck+FVB3HOkwBbiowZHzYiHXAK5DwBqN2If2nigEej w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10329"; a="263286522"
+X-IronPort-AV: E=Sophos;i="5.90,291,1643702400"; d="scan'208";a="263286522"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Apr 2022 12:07:46 -0700
+X-IronPort-AV: E=Sophos;i="5.90,291,1643702400"; d="scan'208";a="580102378"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.249.202])
+ ([10.99.249.202])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Apr 2022 12:07:44 -0700
+Message-ID: <54e21f85-ecbe-2a88-0557-0f810b45f1eb@linux.intel.com>
+Date: Tue, 26 Apr 2022 21:07:42 +0200
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: [PATCH] ASoC: Intel: avs: Depend on CONFIG_ACPI
+Content-Language: en-US
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, Cezary Rojewski <cezary.rojewski@intel.com>
+References: <20220426115454.685787-1-amadeuszx.slawinski@linux.intel.com>
+ <eab567f0-73a4-bf23-76bf-8d576fa942f0@linux.intel.com>
+ <YmgnE/HKNmI+agNs@sirena.org.uk>
+ <726c58e5-241d-053f-8b4c-d56a5a228f0f@intel.com>
+ <Ymg5CAbwf/UxUOff@sirena.org.uk>
+ <ba9e90de-94ad-d6c9-b6df-1fe6f802e9d6@linux.intel.com>
+From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <ba9e90de-94ad-d6c9-b6df-1fe6f802e9d6@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- ckeepax@opensource.cirrus.com, patches@opensource.cirrus.com,
- Zheyu Ma <zheyuma97@gmail.com>, tiwai@suse.com, lgirdwood@gmail.com,
- Mark Brown <broonie@kernel.org>, u.kleine-koenig@pengutronix.de
+Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
+ kernel test robot <lkp@intel.com>, Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,88 +99,73 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Zheyu Ma <zheyuma97@gmail.com>
+On 4/26/2022 8:26 PM, Pierre-Louis Bossart wrote:
+> 
+> 
+> On 4/26/22 13:25, Mark Brown wrote:
+>> On Tue, Apr 26, 2022 at 08:07:22PM +0200, Cezary Rojewski wrote:
+>>
+>>> Would you like the change proposed by Pierre to be part of this patch or a
+>>> separate one?
+>>
+>> Either is fine.
+>>
+>>> Also, I assume the above code does not change, just:
+>>> s/select SND_SOC_ACPI/select SND_SOC_ACPI if ACPI/
+>>
+>>> is applied on top of what's already in the patch. Is my deduction correct?
+>>
+>> AIUI the current patch and associated hard dependency on ACPI could be
+>> dropped but I've not checked or thought too deeply about it
+> 
+> 
+> my suggestion was the following:
+> 
+> depends on PCI
+> depends on COMMON_CLK
+> select SND_SOC_ACPI if ACPI
 
-[ Upstream commit 92ccbf17eeacf510cf1eed9c252d9332ca24f02d ]
+Thanks for suggestion, I tested with it, but it doesn't work as we 
+access fields from struct nhlt_specific_cfg which is available only if 
+ACPI support is enabled:
 
-When the driver fails during probing, the driver should disable the
-regulator, not just handle it in wm8731_hw_init().
+sound/soc/intel/avs/path.c: In function ‘avs_copier_create’:
+sound/soc/intel/avs/path.c:186:17: error: ‘struct nhlt_specific_cfg’ has 
+no member named ‘caps’
+   186 |   data = ep_blob->caps;
+       |                 ^~
+sound/soc/intel/avs/path.c:187:22: error: ‘struct nhlt_specific_cfg’ has 
+no member named ‘size’
+   187 |   data_size = ep_blob->size;
+       |                      ^~
+sound/soc/intel/avs/path.c:210:17: error: ‘struct nhlt_specific_cfg’ has 
+no member named ‘caps’
+   210 |   data = ep_blob->caps;
+       |                 ^~
+sound/soc/intel/avs/path.c:211:22: error: ‘struct nhlt_specific_cfg’ has 
+no member named ‘size’
+   211 |   data_size = ep_blob->size;
+       |                      ^~
 
-The following log reveals it:
+Now there are few ways this can be solved:
+1. Move the struct nhlt_specific_cfg definition out of define check... 
+in include/sound/intel-nhlt.h, but that seems kind of sloppy to me, even 
+if it makes sense.
+2. NHLT is only needed for I2S and DMIC configuration, so we could in 
+theory add #ifdef ACPI around configuration for those endpoints in 
+sound/soc/intel/avs/path.c - but it introduces potential problems on x86 
+platforms with users doing some weird config.
+3. Depend directly on ACPI (current patch) causing NHLT support to be 
+always enabled. And then apply change suggested by Pierre when we 
+rewrite NHLT support to use NHLT structures in include/acpi/actbl2.h 
+header as it as far as I can tell exposes all structures unconditionally.
 
-[   17.812483] WARNING: CPU: 1 PID: 364 at drivers/regulator/core.c:2257 _regulator_put+0x3ec/0x4e0
-[   17.815958] RIP: 0010:_regulator_put+0x3ec/0x4e0
-[   17.824467] Call Trace:
-[   17.824774]  <TASK>
-[   17.825040]  regulator_bulk_free+0x82/0xe0
-[   17.825514]  devres_release_group+0x319/0x3d0
-[   17.825882]  i2c_device_probe+0x766/0x940
-[   17.829198]  i2c_register_driver+0xb5/0x130
+I've discussed with Cezary and we are leaning towards option 3. but if 
+there is any other preference we can prepare patch for that option.
 
-Signed-off-by: Zheyu Ma <zheyuma97@gmail.com>
-Link: https://lore.kernel.org/r/20220405121038.4094051-1-zheyuma97@gmail.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/soc/codecs/wm8731.c | 19 +++++++++++--------
- 1 file changed, 11 insertions(+), 8 deletions(-)
 
-diff --git a/sound/soc/codecs/wm8731.c b/sound/soc/codecs/wm8731.c
-index 4f9a1eb28120..abe5e77ba171 100644
---- a/sound/soc/codecs/wm8731.c
-+++ b/sound/soc/codecs/wm8731.c
-@@ -604,7 +604,7 @@ static int wm8731_hw_init(struct device *dev, struct wm8731_priv *wm8731)
- 	ret = wm8731_reset(wm8731->regmap);
- 	if (ret < 0) {
- 		dev_err(dev, "Failed to issue reset: %d\n", ret);
--		goto err_regulator_enable;
-+		goto err;
- 	}
- 
- 	/* Clear POWEROFF, keep everything else disabled */
-@@ -621,10 +621,7 @@ static int wm8731_hw_init(struct device *dev, struct wm8731_priv *wm8731)
- 
- 	regcache_mark_dirty(wm8731->regmap);
- 
--err_regulator_enable:
--	/* Regulators will be enabled by bias management */
--	regulator_bulk_disable(ARRAY_SIZE(wm8731->supplies), wm8731->supplies);
--
-+err:
- 	return ret;
- }
- 
-@@ -768,21 +765,27 @@ static int wm8731_i2c_probe(struct i2c_client *i2c,
- 		ret = PTR_ERR(wm8731->regmap);
- 		dev_err(&i2c->dev, "Failed to allocate register map: %d\n",
- 			ret);
--		return ret;
-+		goto err_regulator_enable;
- 	}
- 
- 	ret = wm8731_hw_init(&i2c->dev, wm8731);
- 	if (ret != 0)
--		return ret;
-+		goto err_regulator_enable;
- 
- 	ret = snd_soc_register_codec(&i2c->dev,
- 			&soc_codec_dev_wm8731, &wm8731_dai, 1);
- 	if (ret != 0) {
- 		dev_err(&i2c->dev, "Failed to register CODEC: %d\n", ret);
--		return ret;
-+		goto err_regulator_enable;
- 	}
- 
- 	return 0;
-+
-+err_regulator_enable:
-+	/* Regulators will be enabled by bias management */
-+	regulator_bulk_disable(ARRAY_SIZE(wm8731->supplies), wm8731->supplies);
-+
-+	return ret;
- }
- 
- static int wm8731_i2c_remove(struct i2c_client *client)
--- 
-2.35.1
+
+
+
+
 

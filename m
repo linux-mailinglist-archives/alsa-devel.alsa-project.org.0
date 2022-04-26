@@ -2,79 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B71805104E8
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Apr 2022 19:08:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 323EA5104ED
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Apr 2022 19:09:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 424441852;
-	Tue, 26 Apr 2022 19:08:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 424441852
+	by alsa0.perex.cz (Postfix) with ESMTPS id B77731863;
+	Tue, 26 Apr 2022 19:08:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B77731863
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650992936;
-	bh=dgLR3TJhT/EC15yAj4pcZSpH0ev/CMEBayE7jUH2n2k=;
+	s=default; t=1650992966;
+	bh=aaBawI33NbfAGFpgHbLl1Dslz5ZFBG98N9c+G0KtajE=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BXnbPNDMaf3X25Db8VtMFKm/CLVaUOY90ujut5AeQK659k6BpqhoiWHeQ5F3fWLJm
-	 HVOHfUc2dIClb6FXp2cczN4fW8tCunJet84fmCNwSEoPKgtDfSk6mx2jkju8oU6Vqq
-	 QPiJDo/FxN99YurgjAr2babgwmnWdQBqQ+5rqFek=
+	b=phS3QGpfMP/EUPXm6ctQ3eEKAX9vvBC6x5mRt7jxek++Zc7hd29PAxC2rrDhwGrTN
+	 c+fBDQo2M/7WcJooqR6fyovO8RKebx9r6tmhL/KUYZDGwdzUEuoBdHrR9zv1GXCBvp
+	 79TrLd/XliTkMC8rEHkYYgiSPD9VgcN+00FFq3Do=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 65284F801D5;
-	Tue, 26 Apr 2022 19:07:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 87667F80510;
+	Tue, 26 Apr 2022 19:08:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EB280F80105; Tue, 26 Apr 2022 19:07:55 +0200 (CEST)
+ id A9557F8050F; Tue, 26 Apr 2022 19:08:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,MIME_8BIT_HEADER,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5AFE3F80105
+ by alsa1.perex.cz (Postfix) with ESMTPS id 27A63F800FA
  for <alsa-devel@alsa-project.org>; Tue, 26 Apr 2022 19:07:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5AFE3F80105
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27A63F800FA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="R6yCjZh9"
+ header.b="AOdq2uw6"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 32DE161372;
- Tue, 26 Apr 2022 17:07:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EE08C385A0;
- Tue, 26 Apr 2022 17:07:46 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 5F8C4B8210A;
+ Tue, 26 Apr 2022 17:07:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12FD2C385AA;
+ Tue, 26 Apr 2022 17:07:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1650992869;
- bh=dgLR3TJhT/EC15yAj4pcZSpH0ev/CMEBayE7jUH2n2k=;
+ s=k20201202; t=1650992871;
+ bh=aaBawI33NbfAGFpgHbLl1Dslz5ZFBG98N9c+G0KtajE=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=R6yCjZh9Pd5a1cJfpZbK4GvKX+nR4A/muitN3gB2kT+ln6pKlwWs4cb+jM4qax83X
- ItwRgJI57HCHD5rhEVHZymhSUa6z36Q5RVNNAoBDb5nAZo9aWwz8xm4fM2ftT/HkWu
- yxhMqsrvwFA/G6VqWKp6MPs8k+9n70C3ANdRJrJT6PAkUbAQmYKDcHzBjLdK5JTjfV
- xllp1hAQvdKGXQGAjJljA+UylV3BxUHY+rQiZOmFfZ5izY2QQQu7kCRmgYLA4doyRh
- j0/1zc7QdVTdTPeB8gh1qmoOh2wqX0emkCbWyzbc0qnK3+yrTi4ZzgT5AH5JNnNtjs
- tCO95OsDKH+rw==
+ b=AOdq2uw62zzWiXpXg5cPtPj91ZK68OtswauVWFKecjbmYw/TT91x/GavnlxI5aj+h
+ vo+Mb7Yz93VjCJz+TSvrPyffDQfedk+mk5h3HYYjhD5CVK3gRn7c5q7XrFBTrQSrIr
+ NONhKDK4uxyCRprlFKokdcPJuIND6Z5YQ7LMyV2l+jgASLeZ8doJPTJbHSF9WNECXF
+ 4Y/Hw5Y3KjMLKpp8vp96+49WO+Bkc18ibN30kHac/ZMnVPkPSCvTV6YLDUYeE1xwEA
+ 6NZ0PV7dJKdYJIHGuTcCIBPRImoyVRRFGdSgFRBOG7QPNHLuXsHpYBq5+KPJcZNKrU
+ IiewgXqVdPbRg==
 From: Mark Brown <broonie@kernel.org>
-To: linux-arm-msm@vger.kernel.org, srinivas.kandagatla@linaro.org,
- quic_rohkumar@quicinc.com, robh+dt@kernel.org, judyhsiao@chromium.org,
- agross@kernel.org, quic_srivasam@quicinc.com, bjorn.andersson@linaro.org,
- bgoswami@quicinc.com, alsa-devel@alsa-project.org, tiwai@suse.com,
- perex@perex.cz, linux-kernel@vger.kernel.org, quic_plai@quicinc.com,
- swboyd@chromium.org, lgirdwood@gmail.com
-In-Reply-To: <1650374329-7279-1-git-send-email-quic_srivasam@quicinc.com>
-References: <1650374329-7279-1-git-send-email-quic_srivasam@quicinc.com>
-Subject: Re: [PATCH v2] ASoC: qcom: SC7280: Update machine driver startup,
- shutdown callbacks
-Message-Id: <165099286607.2323572.4725275320203551447.b4-ty@kernel.org>
-Date: Tue, 26 Apr 2022 18:07:46 +0100
+To: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>, Liam Girdwood <lgirdwood@gmail.com>
+In-Reply-To: <20220425193023.61046-1-u.kleine-koenig@pengutronix.de>
+References: <20220425193023.61046-1-u.kleine-koenig@pengutronix.de>
+Subject: Re: [PATCH] ASoC: pcm1789: Make pcm1789_common_exit() return void
+Message-Id: <165099286979.2323572.8803042675528868354.b4-ty@kernel.org>
+Date: Tue, 26 Apr 2022 18:07:49 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: quic_potturu@quicinc.com
+Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
+ kernel@pengutronix.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,13 +84,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 19 Apr 2022 18:48:49 +0530, Srinivasa Rao Mandadapu wrote:
-> Update machine driver startup, shutdown callback functions to avoid
-> sound card registration failure on other platforms.
-> Without this change, platforms with WCD codec is failing to register
-> sound card.
+On Mon, 25 Apr 2022 21:30:23 +0200, Uwe Kleine-König wrote:
+> This function returns zero unconditionally, so there isn't any benefit
+> of returning a value. Make it return void to be able to see at a glance
+> that the return value of pcm1789_i2c_remove() is always zero.
 > 
-> Fixes: c5198db82d4c ("ASoC: qcom: Add driver support for ALC5682I-VS")
+> This patch is a preparation for making i2c remove callbacks return void.
+> 
 > 
 > [...]
 
@@ -106,8 +100,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: qcom: SC7280: Update machine driver startup, shutdown callbacks
-      commit: c85f533d51ca42a461a61303322b0cf74fb75a6b
+[1/1] ASoC: pcm1789: Make pcm1789_common_exit() return void
+      commit: 6cefb6264277c073030a3b2d91ba6b28593b4c89
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

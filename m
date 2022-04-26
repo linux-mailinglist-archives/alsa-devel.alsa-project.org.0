@@ -2,68 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5179751080C
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Apr 2022 21:04:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A8DD51080D
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Apr 2022 21:04:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D1CE218A2;
-	Tue, 26 Apr 2022 21:03:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1CE218A2
+	by alsa0.perex.cz (Postfix) with ESMTPS id CCFDE187A;
+	Tue, 26 Apr 2022 21:03:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CCFDE187A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650999860;
-	bh=0wa8R2ae7L5HvBja6cgYpwoZNRFRA5di92a2dlL7/Zo=;
+	s=default; t=1650999877;
+	bh=TM6ssMyvZvcASYsT6Apxm/GZUaH1RFTdyW2HscOYdQs=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=g00Zrph4pgFhlmGfP7CzCUopCkugTIj+CsmDsVnCUjgyp3uWzYsCMAtB4XOEyhorM
-	 ex4AIwP2TOo2BprkU5x5jMNDmv5GTcX2L9KQPp5GIQ8tqueaQ8IV5C7nyvTKa9Bqtn
-	 9uEn4UCsvoUDQOx7bKjN22HZOXkICpljg1iPmwwo=
+	b=CwdFrclxg1oARVZETMZXeoUFLxPCPIlI2wrw7erw/+MSrvuBEK1/GFUHrfuBxKPiH
+	 mGe1+U70MaM1xuHwye0/sNFft9BCEXn1BO59ih4N67sWeSJ97QTY75KlER7mMu8xp5
+	 Up5W1lyjg6SBoHHjKNm0zcQJb1RNnPS0W8LKrtLU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 85B00F80535;
-	Tue, 26 Apr 2022 21:02:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2E1D5F80539;
+	Tue, 26 Apr 2022 21:02:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 33781F80534; Tue, 26 Apr 2022 21:02:09 +0200 (CEST)
+ id E2011F80533; Tue, 26 Apr 2022 21:02:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ DKIM_VALID_AU,SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DFC8CF80507
- for <alsa-devel@alsa-project.org>; Tue, 26 Apr 2022 21:02:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFC8CF80507
+ by alsa1.perex.cz (Postfix) with ESMTPS id E458EF80533
+ for <alsa-devel@alsa-project.org>; Tue, 26 Apr 2022 21:02:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E458EF80533
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="GQrhIvv5"
+ header.b="mXHeulJN"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 65A23B82250;
- Tue, 26 Apr 2022 19:02:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDE86C385AA;
- Tue, 26 Apr 2022 19:01:59 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8D7F0619CF;
+ Tue, 26 Apr 2022 19:02:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35745C385B0;
+ Tue, 26 Apr 2022 19:02:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1650999720;
- bh=0wa8R2ae7L5HvBja6cgYpwoZNRFRA5di92a2dlL7/Zo=;
+ s=k20201202; t=1650999732;
+ bh=TM6ssMyvZvcASYsT6Apxm/GZUaH1RFTdyW2HscOYdQs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=GQrhIvv5cSV+xbheXI4gmS7HafKBEpY1H585Z8pXQuQalOW6Ci+TPUC8MCMJGKqK8
- s3a2kUS913wA3A05MTT1gSjmtsMwhEkjg7uTKcFv+fkc0/hzJqL5mjhFzI1z8zsGA2
- zUb3kVUpIyrMkUOR+wNxz5w/B+Fo/ImG6YSI5Iw7UyU5euGVnTuRjf+qN1fdUuwZQy
- KjaK4QRILGM5e3Mh/BYC2+vzR9wEm2FVHAlXKgVg49r0T718iLQeKgicddpFwzKsCU
- uh/arpViRmHc0wosCVr0SmVV2fzS2ZFmLdnfYzI4uOEjTNk8DOyE9iynxppNJDbnGA
- 2A2MqiQikPCGw==
+ b=mXHeulJNpeGGkbtWWrghXM9cDW3Ynr6s+TT1w1pvTJsLwunhlihTeJMT2WqcMntsu
+ xsCYN9tgQUTAIpqBfARJdeSPuQ6kFLg0xkk8uaVkCcngI9TQCcK8Mc3quJl3j+x/H2
+ IepitMmeyTNk9aQf7XuJG3jrMsesQPCkHfH76olV9pwiy9HwkMEYDODNo8uYZJJOxz
+ eoWiK+rXf2CFSMDm6AQiYm63xaczvAwSrN0HkjgIfvFqMAdmBhWQBL6KXd0OZBi7C3
+ OEQSTmu/ZeWSc4Zv7XAuVfbv2iAfJuXWgVVAm9T/CzE0T5QibIIJDMCS3WURtABr3x
+ R5dPXGsW3p56A==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.17 06/22] ASoC: Intel: sof_es8336: Add a quirk for
- Huawei Matebook D15
-Date: Tue, 26 Apr 2022 15:01:29 -0400
-Message-Id: <20220426190145.2351135-6-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.17 19/22] ALSA: hda: intel-dsp-config: Add
+ RaptorLake PCI IDs
+Date: Tue, 26 Apr 2022 15:01:42 -0400
+Message-Id: <20220426190145.2351135-19-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220426190145.2351135-1-sashal@kernel.org>
 References: <20220426190145.2351135-1-sashal@kernel.org>
@@ -71,12 +72,12 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, cezary.rojewski@intel.com,
- alsa-devel@alsa-project.org, yung-chuan.liao@linux.intel.com, tiwai@suse.com,
- yang.jie@linux.intel.com,
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, Takashi Iwai <tiwai@suse.de>,
+ yung-chuan.liao@linux.intel.com, tiwai@suse.com,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- liam.r.girdwood@linux.intel.com, Mark Brown <broonie@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, peter.ujfalusi@linux.intel.com
+ broonie@kernel.org, amadeuszx.slawinski@linux.intel.com,
+ Gongjun Song <gongjun.song@intel.com>, brent.lu@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,47 +93,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Mauro Carvalho Chehab <mchehab@kernel.org>
+From: Gongjun Song <gongjun.song@intel.com>
 
-[ Upstream commit c7cb4717f641db68e8117635bfcf62a9c27dc8d3 ]
+[ Upstream commit b07908ab26ceab51165c13714277c19252e62594 ]
 
-Based on experimental tests, Huawei Matebook D15 actually uses
-both gpio0 and gpio1: the first one controls the speaker, while
-the other one controls the headphone.
+Add RaptorLake-P PCI IDs
 
-Also, the headset is mapped as MIC1, instead of MIC2.
-
-So, add a quirk for it.
-
-Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/d678aef9fc9a07aced611aa7cb8c9b800c649e5a.1649357263.git.mchehab@kernel.org
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Signed-off-by: Gongjun Song <gongjun.song@intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20220421163546.319604-1-pierre-louis.bossart@linux.intel.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/intel/boards/sof_es8336.c | 9 +++++++++
+ sound/hda/intel-dsp-config.c | 9 +++++++++
  1 file changed, 9 insertions(+)
 
-diff --git a/sound/soc/intel/boards/sof_es8336.c b/sound/soc/intel/boards/sof_es8336.c
-index 28d7670b8f8f..b18951a8f309 100644
---- a/sound/soc/intel/boards/sof_es8336.c
-+++ b/sound/soc/intel/boards/sof_es8336.c
-@@ -252,6 +252,15 @@ static const struct dmi_system_id sof_es8336_quirk_table[] = {
- 					SOF_ES8336_TGL_GPIO_QUIRK |
- 					SOF_ES8336_ENABLE_DMIC)
+diff --git a/sound/hda/intel-dsp-config.c b/sound/hda/intel-dsp-config.c
+index 70fd8b13938e..55deb7447183 100644
+--- a/sound/hda/intel-dsp-config.c
++++ b/sound/hda/intel-dsp-config.c
+@@ -410,6 +410,15 @@ static const struct config_entry config_table[] = {
+ 		.flags = FLAG_SOF | FLAG_SOF_ONLY_IF_DMIC_OR_SOUNDWIRE,
+ 		.device = 0x54c8,
  	},
++	/* RaptorLake-P */
 +	{
-+		.callback = sof_es8336_quirk_cb,
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "HUAWEI"),
-+			DMI_MATCH(DMI_BOARD_NAME, "BOHB-WAX9-PCB-B2"),
-+		},
-+		.driver_data = (void *)(SOF_ES8336_HEADPHONE_GPIO |
-+					SOC_ES8336_HEADSET_MIC1)
++		.flags = FLAG_SOF | FLAG_SOF_ONLY_IF_DMIC_OR_SOUNDWIRE,
++		.device = 0x51ca,
 +	},
- 	{}
- };
++	{
++		.flags = FLAG_SOF | FLAG_SOF_ONLY_IF_DMIC_OR_SOUNDWIRE,
++		.device = 0x51cb,
++	},
+ #endif
  
+ };
 -- 
 2.35.1
 

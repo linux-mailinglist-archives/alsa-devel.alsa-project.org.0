@@ -2,74 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F03A15101C2
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Apr 2022 17:21:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB0EA5103AA
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Apr 2022 18:37:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 707CD1866;
-	Tue, 26 Apr 2022 17:20:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 707CD1866
+	by alsa0.perex.cz (Postfix) with ESMTPS id 741161856;
+	Tue, 26 Apr 2022 18:36:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 741161856
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650986485;
-	bh=vmoJSaUJRZdsSIUhqg8W6CJXq1/wRlWBeL5HX4oxyI8=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=fuHjaIApmwfw7L/SeGcLlGYEFhEWs27Fut6llpkv/3FwhvZYl68ElLCWJvRzAntgf
-	 A7SPzy9vaAk2gWQxEtB8IIavXJEC5oN3fMEDNkWKG4iIRr1N4wIEW3TXtmOm7Cq7qw
-	 e5/z9N/xPhF1D/xZQ1cgMNo1Vhcl/RvgTCo8PpvE=
+	s=default; t=1650991063;
+	bh=aayBXJ/zeK0CaGspcrexa2j8cKiJh49bQchMUDOFKDE=;
+	h=From:Date:Subject:To:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=dE/zQ2CmI7fc9s2TtuM2cD/RIjriOSCnqAXJzrM5TOON4uFkLET4wg/sdw75oq710
+	 fbt4lbjJq0Ei3shRkWOq85vFEF6BasSywslNJlHQEjvmpG2pmlKClp/rzs/ImHqDuZ
+	 69+JiSDjp2zZjyd3ADSDvUjfk4T5ga/OHX31Fns8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E75A3F800FA;
-	Tue, 26 Apr 2022 17:20:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D9A3AF80171;
+	Tue, 26 Apr 2022 18:36:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2D5B8F800FA; Tue, 26 Apr 2022 17:20:24 +0200 (CEST)
+ id 43A35F80152; Tue, 26 Apr 2022 18:36:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [IPv6:2a00:1450:4864:20::532])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 92EF7F800FA
- for <alsa-devel@alsa-project.org>; Tue, 26 Apr 2022 17:20:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92EF7F800FA
+ by alsa1.perex.cz (Postfix) with ESMTPS id A5C4FF80105
+ for <alsa-devel@alsa-project.org>; Tue, 26 Apr 2022 18:36:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5C4FF80105
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="eAmJ3vou"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id E0BC461973;
- Tue, 26 Apr 2022 15:20:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97E52C385AA;
- Tue, 26 Apr 2022 15:20:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1650986414;
- bh=vmoJSaUJRZdsSIUhqg8W6CJXq1/wRlWBeL5HX4oxyI8=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=eAmJ3vou1rVFzZMAg8AB6n2pxOq9WzJr42sOBcLdXWqBzyGgTRhCQVyJPZUWgCfNU
- tUMRh02PwJUVuB+J8WZgUY5hCMNd7+rlNhvlrBhwPHz74vRxl0YWs0al/1m8ig7ANV
- a/pV7xwGdHbusly6uQ1DdDtxRRNgOYQTJka+nMvZt9jySH6jWA7Tzd3RlkeJ4ooEOX
- X5XOzQsreQR+AlfTNPZ+VaCxYqXk0BPCQ2F6akf0idTCp9w3tq+doS6CU7lbz7PVV7
- pa4SU1vy+wKfTb2GKvFBedTNk6SGlp9s9SXtWyhlo/TXAWfmhIAvxbBXEstCA8YyTP
- eU9WPVfKhEt5Q==
-From: Mark Brown <broonie@kernel.org>
-To: broonie@kernel.org, lgirdwood@gmail.com
-In-Reply-To: <20220423131239.3375261-1-broonie@kernel.org>
-References: <20220423131239.3375261-1-broonie@kernel.org>
-Subject: Re: [PATCH] ASoC: ops: Validate input values in
- snd_soc_put_volsw_range()
-Message-Id: <165098641328.1230967.7597927501953767931.b4-ty@kernel.org>
-Date: Tue, 26 Apr 2022 16:20:13 +0100
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="Ju0tDEl4"
+Received: by mail-ed1-x532.google.com with SMTP id d6so17969570ede.8
+ for <alsa-devel@alsa-project.org>; Tue, 26 Apr 2022 09:36:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=FJp2GszXaUUYd0FTj+zKkFOledHEnE7077N6+TPFxPQ=;
+ b=Ju0tDEl4iLaxAJIiajcwookxRoFjwmT2Z5TceFxESZk12UtRSRgrmtlV3XGRaZgLgA
+ iBhTfQZaG+0/4CzxTDZ/lgdyGK2JwnbuEI7FsTboFfvRcKXNYvaq0u/WqmkQ04RBhg8G
+ rArn7H5tjf/sTbEnEGujfYEb5eMCgI6WCyb8DxUxWvjuRRHUIpQ+NDUek3rin96I7RQM
+ UWhdx6p9gZJPJ/4bQsorE6FKM32O3YGUm0MPvYjed4+JqAB+vDg3zcHNY3wtd7dWEQLS
+ zPAM6/fgujnB2hNwVEA6XN+Yzyw3arclLpxfyCuTazdqH/ZnPq/lU60Bu0stsXSmfCL4
+ q/AQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=FJp2GszXaUUYd0FTj+zKkFOledHEnE7077N6+TPFxPQ=;
+ b=boYYrUUsku60gfx9hDVA3S4CJdBO/x1j4vlSnbJ8Snt713jcyQYIJl0SaTm5biWYHn
+ mLwPUjh7QP7f96AaM99oOAdigt8f9eia3qzAkHqbeILAbUqFWQoLzvzJlAF0gkMyWeYD
+ QqxgkYOKSKiXlBRnekeZ4pS0eRHYw6qTV571/jEQUeJV4IqDxrQfSL2Jf/lLZw3yi4qF
+ Kno8BJyvDKg6wpfs0B0n1SGaOCeaPE/XSgRgZODhTGCyBtIY24EkWeikI9qxDRqnFuuj
+ 1AxpRb2EcPgz55g6/glKDl7D1zIipzxZSepKIjIT5VcyOeqhYBM6ku79sKG4o4nDq1xh
+ +hHQ==
+X-Gm-Message-State: AOAM533DO40TF0+YaBxIJ7Qjrqjk+zRyzcfEXERDjFsVeACsfuUfTyFI
+ NnhLVqHv1f7m4l+12uwE6AHNtJwXKqlNY0MOJ8w=
+X-Google-Smtp-Source: ABdhPJxQLQkmBcAW3Sqn2hFM/qXsQMEQifeWc1ZfcPCdS1KcCXL3bL7pyHxFElh4m6s6oqmBNxW1v6RNo8YsyaiDd5k=
+X-Received: by 2002:aa7:c619:0:b0:425:b14f:1183 with SMTP id
+ h25-20020aa7c619000000b00425b14f1183mr25303560edq.254.1650990997549; Tue, 26
+ Apr 2022 09:36:37 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org
+From: Adam Ford <aford173@gmail.com>
+Date: Tue, 26 Apr 2022 11:36:26 -0500
+Message-ID: <CAHCN7xJuAuGmSQsmBfg-C6jOdJmf1Li=YWp7Jdi29nU3kk1GcA@mail.gmail.com>
+Subject: WM8962 crashing on suspend
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ patches@opensource.cirrus.com, 
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,37 +92,22 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 23 Apr 2022 14:12:39 +0100, Mark Brown wrote:
-> Check that values written via snd_soc_put_volsw_range() are
-> within the range advertised by the control, ensuring that we
-> don't write out of spec values to the hardware.
-> 
-> 
+I have an imx8m Mini with a wm8962 codec.  If I run a speaker test and
+suspend the board while the speaker test is running, I get the
+following upon wake:
 
-Applied to
+wm8962 3-001a: ASoC: error at soc_component_read_no_lock on wm8962.3-001a: -16
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+This message repeats itself over and over again.  If I attempt to use
+any audio, it fails until I reboot the board.
 
-Thanks!
+If I run the audio test, then exit and suspend, the audio works upon
+resume, so it appears to be related to suspending while running.
 
-[1/1] ASoC: ops: Validate input values in snd_soc_put_volsw_range()
-      commit: aa22125c57f9e577f0a667e4fa07fc3fa8ca1e60
+I am hoping someone might have a suggestion as to what I might be able
+to do or try to allow this to successfully suspend and resume if the
+device is playing sound.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+thank you,
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+adam

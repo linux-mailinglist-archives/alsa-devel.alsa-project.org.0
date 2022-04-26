@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC84751074F
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Apr 2022 20:42:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9807B510752
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Apr 2022 20:43:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E07B1693;
-	Tue, 26 Apr 2022 20:42:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E07B1693
+	by alsa0.perex.cz (Postfix) with ESMTPS id 39D3417E0;
+	Tue, 26 Apr 2022 20:42:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39D3417E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650998575;
-	bh=rwol6x/SfjecZsFCcc8LN8zJ5AJPw1o+5OE89dSPITk=;
+	s=default; t=1650998601;
+	bh=De2EiuLXwcaEq+Iv5rmHiTmFuHEwNKxBjosg0uobJTw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=f9LUp9lrhnRY9RrIOmjaRobhUtpm5zK/pfcxLKzAaIbrQaUV5mJnavgcCvttB5xs1
-	 g8nBz1qddrcgl/bcmGvNbzuofv1ppSE9i+yYqfmEV8LoukWSqM+iBFSRTzShmuwL9R
-	 8fUicrTeVhL7mnPgsB5qeN6VqPgzcHG38O9w+tVw=
+	b=eCpodF9i7egLVSwXCel5VvqU6rEmwRgJb5nZlD7zJyg/8wk4S9cFK36AcslPv1p/0
+	 x/Jlb2hPn5iUnMXB3Ev26F4ThlsBC3otpu1LYFWqUwmQV0moYA7DifYNGdGebZxzHN
+	 g+yGCurlSRWe/rnZc5d3SF7b/6TmQ0S/3btVKZqE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C90DFF804B4;
-	Tue, 26 Apr 2022 20:41:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D5489F8027D;
+	Tue, 26 Apr 2022 20:41:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 214E1F804B4; Tue, 26 Apr 2022 20:41:24 +0200 (CEST)
+ id EB339F80510; Tue, 26 Apr 2022 20:41:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4890EF800AE
- for <alsa-devel@alsa-project.org>; Tue, 26 Apr 2022 20:41:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4890EF800AE
+ by alsa1.perex.cz (Postfix) with ESMTPS id F37CBF8014B
+ for <alsa-devel@alsa-project.org>; Tue, 26 Apr 2022 20:41:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F37CBF8014B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="FJ4hnMlk"
+ header.b="ccKsSz25"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1650998481; x=1682534481;
+ t=1650998482; x=1682534482;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=rwol6x/SfjecZsFCcc8LN8zJ5AJPw1o+5OE89dSPITk=;
- b=FJ4hnMlkB7eFs/N0VMOgvAnXOzGoyg6sHODXRiyg3jkyGPKaCmRIGG06
- iR8gtRms/guao5JAJunX6KpMpCW4ixWj3/HeYkgT+3gW1Td5t1KqIfwVR
- OqB8/5sC4pdZkeW9rW2N1XiNvicdp98xVVW78gHhSbOwAm+DRfIDXDPBb
- Y9fHzQZT7Kbje59om+d78Mm//0M//q9m0k6E4N8j0LEK/xSRhdYV1mczG
- 0Ov5A8mvnMHBAjX6qsVjegeLIOWhlqO+U+a6U0KI/PukCPtnJm6Rbu0WK
- 7bTQ6YOF7AulTTQJrr0ZSl5+OzKteshf7MgfmTDANzWI6dXnTqpPniu2U g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10329"; a="326176830"
-X-IronPort-AV: E=Sophos;i="5.90,291,1643702400"; d="scan'208";a="326176830"
+ bh=De2EiuLXwcaEq+Iv5rmHiTmFuHEwNKxBjosg0uobJTw=;
+ b=ccKsSz25LIdZVi4TssNU/ew8h4O5crfAGz7D81iSAocX1tAPi3sTqu6A
+ ki7nFtBAx4PGQi18nIGxeuh0GIyL8fFJOGRZef0qMV2XVWq57GBdsMQos
+ 8fIJYhzIhixa4NPrctvHlXwqBANmqDB/BvJjEO8s/GreIhnXhNJ7GyQHy
+ KSDreXX2Bk+/BTOvhT532D2k8AM8pVUbgD0XH/51tHGeAwH+HUhUGs2Jd
+ wUP1C1z2qJyzfw6zG0hUCgZpYgXq6/halQxmBc7W04GBYuT5K2N/g6hQD
+ FDOMsa7E14oBzu5zG8bq3nXMy3Cvc4QAz1apBze9fp6xymAJiJ2GFHQAn w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10329"; a="326176832"
+X-IronPort-AV: E=Sophos;i="5.90,291,1643702400"; d="scan'208";a="326176832"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2022 11:41:16 -0700
-X-IronPort-AV: E=Sophos;i="5.90,291,1643702400"; d="scan'208";a="513300133"
+ 26 Apr 2022 11:41:17 -0700
+X-IronPort-AV: E=Sophos;i="5.90,291,1643702400"; d="scan'208";a="513300138"
 Received: from jzhang96-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.212.151.202])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  26 Apr 2022 11:41:16 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 1/4] ASoC: SOF: control: use pm_runtime_resume_and_get()
-Date: Tue, 26 Apr 2022 13:41:03 -0500
-Message-Id: <20220426184106.102636-2-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 2/4] ASoC: SOF: debug: use pm_runtime_resume_and_get()
+Date: Tue, 26 Apr 2022 13:41:04 -0500
+Message-Id: <20220426184106.102636-3-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220426184106.102636-1-pierre-louis.bossart@linux.intel.com>
 References: <20220426184106.102636-1-pierre-louis.bossart@linux.intel.com>
@@ -101,25 +101,24 @@ Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- sound/soc/sof/control.c | 3 +--
+ sound/soc/sof/debug.c | 3 +--
  1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/sound/soc/sof/control.c b/sound/soc/sof/control.c
-index 3b5718a3516de..e0e9efd25d34e 100644
---- a/sound/soc/sof/control.c
-+++ b/sound/soc/sof/control.c
-@@ -187,10 +187,9 @@ int snd_sof_bytes_ext_volatile_get(struct snd_kcontrol *kcontrol, unsigned int _
- 	const struct sof_ipc_tplg_ops *tplg_ops = sdev->ipc->ops->tplg;
- 	int ret, err;
+diff --git a/sound/soc/sof/debug.c b/sound/soc/sof/debug.c
+index b59619ecfacfc..54d3643b46adb 100644
+--- a/sound/soc/sof/debug.c
++++ b/sound/soc/sof/debug.c
+@@ -229,9 +229,8 @@ static int memory_info_update(struct snd_sof_dev *sdev, char *buf, size_t buff_s
+ 	if (!reply)
+ 		return -ENOMEM;
  
--	ret = pm_runtime_get_sync(scomp->dev);
-+	ret = pm_runtime_resume_and_get(scomp->dev);
+-	ret = pm_runtime_get_sync(sdev->dev);
++	ret = pm_runtime_resume_and_get(sdev->dev);
  	if (ret < 0 && ret != -EACCES) {
- 		dev_err_ratelimited(scomp->dev, "%s: failed to resume %d\n", __func__, ret);
--		pm_runtime_put_noidle(scomp->dev);
- 		return ret;
+-		pm_runtime_put_noidle(sdev->dev);
+ 		dev_err(sdev->dev, "error: enabling device failed: %d\n", ret);
+ 		goto error;
  	}
- 
 -- 
 2.30.2
 

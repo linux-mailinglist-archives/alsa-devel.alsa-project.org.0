@@ -2,82 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7130051052D
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Apr 2022 19:19:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 997B8510579
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Apr 2022 19:33:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 03DF218C6;
-	Tue, 26 Apr 2022 19:18:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 03DF218C6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 20C1E18F1;
+	Tue, 26 Apr 2022 19:33:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 20C1E18F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650993589;
-	bh=keZIZKYCX14q7yELHCogeCc5qwdgBRFgBo6OZOESXQQ=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1650994432;
+	bh=qkD86Xitsnlb5Yfbt9GM23fzahcRn2FpxVppqyesr7c=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hhnNaz/g08PS9CZ22eh0QYwl3Ww/1J70y56XBWF2LRxqC38BybZ703eMHh7us0hvR
-	 O5llv6JVYBe8A/HT8p/eAAhYo17fcCavWQ+ezfRAxW8Y6tWrHkbgoa7vndygcOKNhe
-	 O99V2Fs6LY9PEOQserlMl8lpsXZsMU7nXsUQBNuM=
+	b=g8fe4Q2ahL1hWkueMwu33EcdLoe6ESJsxWLJW9MxKXqEDoIOunorGy4n5bVOqjVfA
+	 X60x0hmoAL/mxhU5lusbunKOwdhg+aJnyxQ+Y7JXwcjYStc5+BmTGIWqEndhBXuRUO
+	 8Pk5DDnPmqdKRAuhUPLN/mc4A0p59tN4Uia7HAuw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9ED1CF8058C;
-	Tue, 26 Apr 2022 19:16:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 767D8F800FA;
+	Tue, 26 Apr 2022 19:32:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D9F51F800FA; Tue, 26 Apr 2022 19:15:49 +0200 (CEST)
+ id A3F2FF80152; Tue, 26 Apr 2022 19:32:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 57BA5F800FA
+ for <alsa-devel@alsa-project.org>; Tue, 26 Apr 2022 19:32:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57BA5F800FA
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="V/hs/xNt"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 12A92F80559
- for <alsa-devel@alsa-project.org>; Tue, 26 Apr 2022 19:15:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12A92F80559
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="EO4BJUNs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1650993343; x=1682529343;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=keZIZKYCX14q7yELHCogeCc5qwdgBRFgBo6OZOESXQQ=;
- b=EO4BJUNsmF5lUQ17xiVcBarev8N+N1nU17hHoYvKrp+79khDfsAMZxAP
- g/uhK4hRez4ZfznFFrdz5PWdZ3pNTGiXIaVVVoe4QQreRpxUu/XLQ00tr
- 4PEbI7OuNTFLiWF6BYLxH5XphoEjSMqf/wMqetkaiyVcCVSNeTqap/aDS
- MVMhCafKFHxzpAmOxAhRAWbvI7eVdMSxECzOm4jOn9zkom/+4bweAI/V4
- xejInKQfkIOM2/2IMdRPsWGf0vkktqqDVvv5Jv//6Guc9zMU5DfiZwE5u
- p8gaBO2o2cBIUAJq0BDrAu07kWjiUOr4oaGdFlHM5a3wdektuuWrWq06y Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10329"; a="264508146"
-X-IronPort-AV: E=Sophos;i="5.90,291,1643702400"; d="scan'208";a="264508146"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2022 10:15:28 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,291,1643702400"; d="scan'208";a="650305746"
-Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by FMSMGA003.fm.intel.com with ESMTP; 26 Apr 2022 10:15:25 -0700
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-To: alsa-devel@alsa-project.org,
-	broonie@kernel.org
-Subject: [PATCH 14/14] ASoC: Intel: avs: APL-based platforms support
-Date: Tue, 26 Apr 2022 19:23:46 +0200
-Message-Id: <20220426172346.3508411-15-cezary.rojewski@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220426172346.3508411-1-cezary.rojewski@intel.com>
-References: <20220426172346.3508411-1-cezary.rojewski@intel.com>
+ by ams.source.kernel.org (Postfix) with ESMTPS id D5A61B81FE5;
+ Tue, 26 Apr 2022 17:32:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22D6CC385A0;
+ Tue, 26 Apr 2022 17:32:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1650994366;
+ bh=qkD86Xitsnlb5Yfbt9GM23fzahcRn2FpxVppqyesr7c=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=V/hs/xNtPRFVBfiDGb5EOEFmPohjKr1J6aFFelbZV781VBIl62xYSla9FgN14Zcj3
+ ZBIYdo+DT88ERsxbMsa3s1AFLgDmyZuG0tgMs7UFK/DFy+oc4+sZ7bF1LY2s7scZcp
+ 2wITDDhJq5AlSnmSr9J0ZAY5da8SFiEqlUxdnwNGlsfLcz+d5ndlygpMLBrWG+18iY
+ WQ4jlcprHycvq2FNNXLDpTKgrjJxenZeXW6D/LViXa4qhHzmbW6hnptIk8QzfPq8aK
+ KuIsfEgVyR6F+EgClNFMQlm5M5XOifwUpqLGbgYw8dY0bIiRegQ4T+2V/reby6WGqQ
+ xLn2SamighHWA==
+Date: Tue, 26 Apr 2022 18:32:41 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Adam Ford <aford173@gmail.com>
+Subject: Re: WM8962 crashing on suspend
+Message-ID: <YmgsuUmHwffwP6X9@sirena.org.uk>
+References: <CAHCN7xJuAuGmSQsmBfg-C6jOdJmf1Li=YWp7Jdi29nU3kk1GcA@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, upstream@semihalf.com,
- harshapriya.n@intel.com, rad@semihalf.com,
- pierre-louis.bossart@linux.intel.com, tiwai@suse.com, hdegoede@redhat.com,
- amadeuszx.slawinski@linux.intel.com, cujomalainey@chromium.org,
- lma@semihalf.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="LDgDtAzLAJ5BxvSB"
+Content-Disposition: inline
+In-Reply-To: <CAHCN7xJuAuGmSQsmBfg-C6jOdJmf1Li=YWp7Jdi29nU3kk1GcA@mail.gmail.com>
+X-Cookie: I'm a Lisp variable -- bind me!
+Cc: patches@opensource.cirrus.com,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,410 +88,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Define handlers specific to cAVS 1.5+ platforms, that is, APL and
-similar platforms. These differ from SKL-alike ones in terms of AudioDSP
-firmware generation and thus the '+' suffix. Introduciton of IMR,
-removal of CLDMA, D0IX support and monolithic-ation of library/module
-code are most impactful but are not the only changes brought with this
-newer generation. Some generic and 1.5 operations are being re-used to
-reduce code size.
 
-Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
----
- sound/soc/intel/avs/Makefile    |   2 +-
- sound/soc/intel/avs/apl.c       | 250 ++++++++++++++++++++++++++++++++
- sound/soc/intel/avs/avs.h       |  13 ++
- sound/soc/intel/avs/core.c      |  18 +++
- sound/soc/intel/avs/loader.c    |   4 +
- sound/soc/intel/avs/messages.h  |   7 +
- sound/soc/intel/avs/registers.h |   2 +
- 7 files changed, 295 insertions(+), 1 deletion(-)
- create mode 100644 sound/soc/intel/avs/apl.c
+--LDgDtAzLAJ5BxvSB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/sound/soc/intel/avs/Makefile b/sound/soc/intel/avs/Makefile
-index 7d09385bc970..b6b93ae80304 100644
---- a/sound/soc/intel/avs/Makefile
-+++ b/sound/soc/intel/avs/Makefile
-@@ -3,7 +3,7 @@
- snd-soc-avs-objs := dsp.o ipc.o messages.o utils.o core.o loader.o \
- 		    topology.o path.o pcm.o board_selection.o
- snd-soc-avs-objs += cldma.o
--snd-soc-avs-objs += skl.o
-+snd-soc-avs-objs += skl.o apl.o
- 
- snd-soc-avs-objs += trace.o
- # tell define_trace.h where to find the trace header
-diff --git a/sound/soc/intel/avs/apl.c b/sound/soc/intel/avs/apl.c
-new file mode 100644
-index 000000000000..b8e2b23c9f64
---- /dev/null
-+++ b/sound/soc/intel/avs/apl.c
-@@ -0,0 +1,250 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+//
-+// Copyright(c) 2021-2022 Intel Corporation. All rights reserved.
-+//
-+// Authors: Cezary Rojewski <cezary.rojewski@intel.com>
-+//          Amadeusz Slawinski <amadeuszx.slawinski@linux.intel.com>
-+//
-+
-+#include <linux/devcoredump.h>
-+#include <linux/slab.h>
-+#include "avs.h"
-+#include "messages.h"
-+#include "path.h"
-+#include "topology.h"
-+
-+static int apl_enable_logs(struct avs_dev *adev, enum avs_log_enable enable, u32 aging_period,
-+			   u32 fifo_full_period, unsigned long resource_mask, u32 *priorities)
-+{
-+	struct apl_log_state_info *info;
-+	u32 size, num_cores = adev->hw_cfg.dsp_cores;
-+	int ret, i;
-+
-+	if (fls_long(resource_mask) > num_cores)
-+		return -EINVAL;
-+	size = struct_size(info, logs_core, num_cores);
-+	info = kzalloc(size, GFP_KERNEL);
-+	if (!info)
-+		return -ENOMEM;
-+
-+	info->aging_timer_period = aging_period;
-+	info->fifo_full_timer_period = fifo_full_period;
-+	info->core_mask = resource_mask;
-+	if (enable)
-+		for_each_set_bit(i, &resource_mask, num_cores) {
-+			info->logs_core[i].enable = enable;
-+			info->logs_core[i].min_priority = *priorities++;
-+		}
-+	else
-+		for_each_set_bit(i, &resource_mask, num_cores)
-+			info->logs_core[i].enable = enable;
-+
-+	ret = avs_ipc_set_enable_logs(adev, (u8 *)info, size);
-+	kfree(info);
-+	if (ret)
-+		return AVS_IPC_RET(ret);
-+
-+	return 0;
-+}
-+
-+static int apl_log_buffer_status(struct avs_dev *adev, union avs_notify_msg *msg)
-+{
-+	struct apl_log_buffer_layout layout;
-+	unsigned long flags;
-+	void __iomem *addr, *buf;
-+
-+	addr = avs_log_buffer_addr(adev, msg->log.core);
-+	if (!addr)
-+		return -ENXIO;
-+
-+	memcpy_fromio(&layout, addr, sizeof(layout));
-+
-+	spin_lock_irqsave(&adev->dbg.trace_lock, flags);
-+	if (!kfifo_initialized(&adev->dbg.trace_fifo))
-+		/* consume the logs regardless of consumer presence */
-+		goto update_read_ptr;
-+
-+	buf = apl_log_payload_addr(addr);
-+
-+	if (layout.read_ptr > layout.write_ptr) {
-+		__kfifo_fromio_locked(&adev->dbg.trace_fifo, buf + layout.read_ptr,
-+				      apl_log_payload_size(adev) - layout.read_ptr,
-+				      &adev->dbg.fifo_lock);
-+		layout.read_ptr = 0;
-+	}
-+	__kfifo_fromio_locked(&adev->dbg.trace_fifo, buf + layout.read_ptr,
-+			      layout.write_ptr - layout.read_ptr, &adev->dbg.fifo_lock);
-+
-+	wake_up(&adev->dbg.trace_waitq);
-+
-+update_read_ptr:
-+	spin_unlock_irqrestore(&adev->dbg.trace_lock, flags);
-+	writel(layout.write_ptr, addr);
-+	return 0;
-+}
-+
-+static int apl_wait_log_entry(struct avs_dev *adev, u32 core, struct apl_log_buffer_layout *layout)
-+{
-+	unsigned long timeout;
-+	void __iomem *addr;
-+
-+	addr = avs_log_buffer_addr(adev, core);
-+	if (!addr)
-+		return -ENXIO;
-+
-+	timeout = jiffies + msecs_to_jiffies(10);
-+
-+	do {
-+		memcpy_fromio(layout, addr, sizeof(*layout));
-+		if (layout->read_ptr != layout->write_ptr)
-+			return 0;
-+		usleep_range(500, 1000);
-+	} while (!time_after(jiffies, timeout));
-+
-+	return -ETIMEDOUT;
-+}
-+
-+/* reads log header and tests its type */
-+#define apl_is_entry_stackdump(addr) ((readl(addr) >> 30) & 0x1)
-+
-+static int apl_coredump(struct avs_dev *adev, union avs_notify_msg *msg)
-+{
-+	struct apl_log_buffer_layout layout;
-+	void __iomem *addr, *buf;
-+	size_t dump_size;
-+	u16 offset = 0;
-+	u8 *dump, *pos;
-+
-+	dump_size = AVS_FW_REGS_SIZE + msg->ext.coredump.stack_dump_size;
-+	dump = vzalloc(dump_size);
-+	if (!dump)
-+		return -ENOMEM;
-+
-+	memcpy_fromio(dump, avs_sram_addr(adev, AVS_FW_REGS_WINDOW), AVS_FW_REGS_SIZE);
-+
-+	if (!msg->ext.coredump.stack_dump_size)
-+		goto exit;
-+
-+	/* Dump the registers even if an external error prevents gathering the stack. */
-+	addr = avs_log_buffer_addr(adev, msg->ext.coredump.core_id);
-+	if (!addr)
-+		goto exit;
-+
-+	buf = apl_log_payload_addr(addr);
-+	memcpy_fromio(&layout, addr, sizeof(layout));
-+	if (!apl_is_entry_stackdump(buf + layout.read_ptr)) {
-+		/*
-+		 * DSP awaits the remaining logs to be
-+		 * gathered before dumping stack
-+		 */
-+		msg->log.core = msg->ext.coredump.core_id;
-+		avs_dsp_op(adev, log_buffer_status, msg);
-+	}
-+
-+	pos = dump + AVS_FW_REGS_SIZE;
-+	/* gather the stack */
-+	do {
-+		u32 count;
-+
-+		if (apl_wait_log_entry(adev, msg->ext.coredump.core_id, &layout))
-+			break;
-+
-+		if (layout.read_ptr > layout.write_ptr) {
-+			count = apl_log_payload_size(adev) - layout.read_ptr;
-+			memcpy_fromio(pos + offset, buf + layout.read_ptr, count);
-+			layout.read_ptr = 0;
-+			offset += count;
-+		}
-+		count = layout.write_ptr - layout.read_ptr;
-+		memcpy_fromio(pos + offset, buf + layout.read_ptr, count);
-+		offset += count;
-+
-+		/* update read pointer */
-+		writel(layout.write_ptr, addr);
-+	} while (offset < msg->ext.coredump.stack_dump_size);
-+
-+exit:
-+	dev_coredumpv(adev->dev, dump, dump_size, GFP_KERNEL);
-+
-+	return 0;
-+}
-+
-+static bool apl_lp_streaming(struct avs_dev *adev)
-+{
-+	struct avs_path *path;
-+
-+	/* Any gateway without buffer allocated in LP area disqualifies D0IX. */
-+	list_for_each_entry(path, &adev->path_list, node) {
-+		struct avs_path_pipeline *ppl;
-+
-+		list_for_each_entry(ppl, &path->ppl_list, node) {
-+			struct avs_path_module *mod;
-+
-+			list_for_each_entry(mod, &ppl->mod_list, node) {
-+				struct avs_tplg_modcfg_ext *cfg;
-+
-+				cfg = mod->template->cfg_ext;
-+
-+				/* only copiers have gateway attributes */
-+				if (!guid_equal(&cfg->type, &AVS_COPIER_MOD_UUID))
-+					continue;
-+				/* non-gateway copiers do not prevent PG */
-+				if (cfg->copier.dma_type == INVALID_OBJECT_ID)
-+					continue;
-+
-+				if (!mod->gtw_attrs.lp_buffer_alloc)
-+					return false;
-+			}
-+		}
-+	}
-+
-+	return true;
-+}
-+
-+static bool apl_d0ix_toggle(struct avs_dev *adev, struct avs_ipc_msg *tx, bool wake)
-+{
-+	/* wake in all cases */
-+	if (wake)
-+		return true;
-+
-+	/*
-+	 * If no pipelines are running, allow for d0ix schedule.
-+	 * If all gateways have lp=1, allow for d0ix schedule.
-+	 * If any gateway with lp=0 is allocated, abort scheduling d0ix.
-+	 *
-+	 * Note: for cAVS 1.5+ and 1.8, D0IX is LP-firmware transition,
-+	 * not the power-gating mechanism known from cAVS 2.0.
-+	 */
-+	return apl_lp_streaming(adev);
-+}
-+
-+static int apl_set_d0ix(struct avs_dev *adev, bool enable)
-+{
-+	bool streaming = false;
-+	int ret;
-+
-+	if (enable)
-+		/* Either idle or all gateways with lp=1. */
-+		streaming = !list_empty(&adev->path_list);
-+
-+	ret = avs_ipc_set_d0ix(adev, enable, streaming);
-+	return AVS_IPC_RET(ret);
-+}
-+
-+const struct avs_dsp_ops apl_dsp_ops = {
-+	.power = avs_dsp_core_power,
-+	.reset = avs_dsp_core_reset,
-+	.stall = avs_dsp_core_stall,
-+	.irq_handler = avs_dsp_irq_handler,
-+	.irq_thread = avs_dsp_irq_thread,
-+	.int_control = avs_dsp_interrupt_control,
-+	.load_basefw = avs_hda_load_basefw,
-+	.load_lib = avs_hda_load_library,
-+	.transfer_mods = avs_hda_transfer_modules,
-+	.enable_logs = apl_enable_logs,
-+	.log_buffer_offset = skl_log_buffer_offset,
-+	.log_buffer_status = apl_log_buffer_status,
-+	.coredump = apl_coredump,
-+	.d0ix_toggle = apl_d0ix_toggle,
-+	.set_d0ix = apl_set_d0ix,
-+};
-diff --git a/sound/soc/intel/avs/avs.h b/sound/soc/intel/avs/avs.h
-index c0b8d6354089..e5f40b2f3d2e 100644
---- a/sound/soc/intel/avs/avs.h
-+++ b/sound/soc/intel/avs/avs.h
-@@ -57,6 +57,7 @@ struct avs_dsp_ops {
- 	((adev)->spec->dsp_ops->op(adev, ## __VA_ARGS__))
- 
- extern const struct avs_dsp_ops skl_dsp_ops;
-+extern const struct avs_dsp_ops apl_dsp_ops;
- 
- #define AVS_PLATATTR_CLDMA		BIT_ULL(0)
- #define AVS_PLATATTR_IMR		BIT_ULL(1)
-@@ -333,4 +334,16 @@ unsigned int __kfifo_fromio_locked(struct kfifo *fifo, const void __iomem *src,
- 			 (avs_sram_addr(adev, AVS_DEBUG_WINDOW) + __offset); \
- })
- 
-+struct apl_log_buffer_layout {
-+	u32 read_ptr;
-+	u32 write_ptr;
-+	u8 buffer[];
-+} __packed;
-+
-+#define apl_log_payload_size(adev) \
-+	(avs_log_buffer_size(adev) - sizeof(struct apl_log_buffer_layout))
-+
-+#define apl_log_payload_addr(addr) \
-+	(addr + sizeof(struct apl_log_buffer_layout))
-+
- #endif /* __SOUND_SOC_INTEL_AVS_H */
-diff --git a/sound/soc/intel/avs/core.c b/sound/soc/intel/avs/core.c
-index b6387c2c6361..3442f73fca0c 100644
---- a/sound/soc/intel/avs/core.c
-+++ b/sound/soc/intel/avs/core.c
-@@ -674,9 +674,27 @@ static const struct avs_spec skl_desc = {
- 	.rom_status = SKL_ADSP_SRAM_BASE_OFFSET,
- };
- 
-+static const struct avs_spec apl_desc = {
-+	.name = "apl",
-+	.min_fw_version = {
-+		.major = 9,
-+		.minor = 22,
-+		.hotfix = 1,
-+		.build = 4323,
-+	},
-+	.dsp_ops = &apl_dsp_ops,
-+	.core_init_mask = 3,
-+	.attributes = AVS_PLATATTR_IMR,
-+	.sram_base_offset = APL_ADSP_SRAM_BASE_OFFSET,
-+	.sram_window_size = APL_ADSP_SRAM_WINDOW_SIZE,
-+	.rom_status = APL_ADSP_SRAM_BASE_OFFSET,
-+};
-+
- static const struct pci_device_id avs_ids[] = {
- 	{ PCI_VDEVICE(INTEL, 0x9d70), (unsigned long)&skl_desc }, /* SKL */
- 	{ PCI_VDEVICE(INTEL, 0x9d71), (unsigned long)&skl_desc }, /* KBL */
-+	{ PCI_VDEVICE(INTEL, 0x5a98), (unsigned long)&apl_desc }, /* APL */
-+	{ PCI_VDEVICE(INTEL, 0x3198), (unsigned long)&apl_desc }, /* GML */
- 	{ 0 }
- };
- MODULE_DEVICE_TABLE(pci, avs_ids);
-diff --git a/sound/soc/intel/avs/loader.c b/sound/soc/intel/avs/loader.c
-index de98f4c3adf8..f6ceec3c229a 100644
---- a/sound/soc/intel/avs/loader.c
-+++ b/sound/soc/intel/avs/loader.c
-@@ -37,6 +37,8 @@
- #define AVS_EXT_MANIFEST_MAGIC		0x31454124
- #define SKL_MANIFEST_MAGIC		0x00000006
- #define SKL_ADSPFW_OFFSET		0x284
-+#define APL_MANIFEST_MAGIC		0x44504324
-+#define APL_ADSPFW_OFFSET		0x2000
- 
- /* Occasionally, engineering (release candidate) firmware is provided for testing. */
- static bool debug_ignore_fw_version;
-@@ -87,6 +89,8 @@ static int avs_fw_manifest_offset(struct firmware *fw)
- 	switch (magic) {
- 	case SKL_MANIFEST_MAGIC:
- 		return SKL_ADSPFW_OFFSET;
-+	case APL_MANIFEST_MAGIC:
-+		return APL_ADSPFW_OFFSET;
- 	default:
- 		return -EINVAL;
- 	}
-diff --git a/sound/soc/intel/avs/messages.h b/sound/soc/intel/avs/messages.h
-index 981ec024b152..c0f90dba9af8 100644
---- a/sound/soc/intel/avs/messages.h
-+++ b/sound/soc/intel/avs/messages.h
-@@ -365,6 +365,13 @@ struct skl_log_state_info {
- 	struct skl_log_state logs_core[];
- } __packed;
- 
-+struct apl_log_state_info {
-+	u32 aging_timer_period;
-+	u32 fifo_full_timer_period;
-+	u32 core_mask;
-+	struct skl_log_state logs_core[];
-+} __packed;
-+
- int avs_ipc_set_enable_logs(struct avs_dev *adev, u8 *log_info, size_t size);
- 
- struct avs_fw_version {
-diff --git a/sound/soc/intel/avs/registers.h b/sound/soc/intel/avs/registers.h
-index 68f06aa4e10f..95be86148cf3 100644
---- a/sound/soc/intel/avs/registers.h
-+++ b/sound/soc/intel/avs/registers.h
-@@ -51,6 +51,8 @@
- /* Intel HD Audio SRAM windows base addresses */
- #define SKL_ADSP_SRAM_BASE_OFFSET	0x8000
- #define SKL_ADSP_SRAM_WINDOW_SIZE	0x2000
-+#define APL_ADSP_SRAM_BASE_OFFSET	0x80000
-+#define APL_ADSP_SRAM_WINDOW_SIZE	0x20000
- 
- /* Constants used when accessing SRAM, space shared with firmware */
- #define AVS_FW_REG_BASE(adev)		((adev)->spec->sram_base_offset)
--- 
-2.25.1
+On Tue, Apr 26, 2022 at 11:36:26AM -0500, Adam Ford wrote:
+> I have an imx8m Mini with a wm8962 codec.  If I run a speaker test and
+> suspend the board while the speaker test is running, I get the
+> following upon wake:
+>=20
+> wm8962 3-001a: ASoC: error at soc_component_read_no_lock on wm8962.3-001a=
+: -16
+>=20
+> This message repeats itself over and over again.  If I attempt to use
+> any audio, it fails until I reboot the board.
+>=20
+> If I run the audio test, then exit and suspend, the audio works upon
+> resume, so it appears to be related to suspending while running.
+>=20
+> I am hoping someone might have a suggestion as to what I might be able
+> to do or try to allow this to successfully suspend and resume if the
+> device is playing sound.
 
+I do note that wm8962 doesn't have any system suspend code which is
+possibly an issue if power is lost during suspend, it only has runtime
+PM operations.  If the device was runtime idle before suspend those will
+figure everything out, if the device was active they won't kick in.
+
+--LDgDtAzLAJ5BxvSB
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJoLLkACgkQJNaLcl1U
+h9Co3Qf5AVzJYM6Psm59y4APUE6ixsi4TpiV+RZIxbVMf6dXLqfg1SPUY9TwHYxf
+J8xUtuTpSz4KfkvMjATVau6+DqpDAgxPxJDiw8RBa28y6B/8irrAVEioFC4WHybR
+6PqyRnVUd9gi7EFDYWyiL4DiE4l2ZwwcyLMlzw4yCAc/4MuZVxi5Geqhu4U7AXbL
+AM5APAPIZ95xLBWmyaME+KgF8QUIVHxqYHmIs08A48waTHQLjIdGR6j0SqY887N9
+O0Gg9Ryk03za80/kqx+zgkAJxSnBTmJ2FcyV5oafjg+iZOHpoF8K5TxDlBvhwqeH
+SfyZBzTizUgutjog10Hu2AiHRfyZ5g==
+=7hQM
+-----END PGP SIGNATURE-----
+
+--LDgDtAzLAJ5BxvSB--

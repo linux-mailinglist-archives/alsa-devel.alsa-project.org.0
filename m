@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A53551051A
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Apr 2022 19:17:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2072A51051E
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Apr 2022 19:18:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0A12718C2;
-	Tue, 26 Apr 2022 19:16:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A12718C2
+	by alsa0.perex.cz (Postfix) with ESMTPS id A8E231863;
+	Tue, 26 Apr 2022 19:17:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8E231863
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650993466;
-	bh=SDBS54z/0Zpp8UWzpdRFU/Tj5+UdFgEMUtmlrJXCkMk=;
+	s=default; t=1650993501;
+	bh=pfn1UplBgg8Ow2ZRsLMymbGx1fUQWbkq6V3nxUneLYE=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pc04me8wkHQ4J4O5wK1rXHxAVVh64pjcM/2kcXRFfe15qPzflJwBp906biXCwt3J/
-	 MAQWzx1nMIwfDVBLEkQUF++MqEtUy+Qi7XbDAOcbrp3rkzAmNUvTrcC+7a/GfIaMA4
-	 pZ+RLioKDRsCFTgKJ8/QEO68woEuDRbPtz/pmMts=
+	b=Iw8KL7Otp4esA1oFLNfm7+hN+b6Og/yZq0Irvjn07yGSLwbxcjKVE3V7UDSd/mjFx
+	 CJnC1FFXuUdKizLmlyDUxE88xd+gJ8SQnEe7ytlCcX7L19RO8PdhOOl5JbIcYJmX+v
+	 LV2bPi3nfZzlXxYN4aqFyGebTCiy37/z4HK6MtQk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 07312F80542;
-	Tue, 26 Apr 2022 19:15:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD909F8055A;
+	Tue, 26 Apr 2022 19:15:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F3F11F80542; Tue, 26 Apr 2022 19:15:16 +0200 (CEST)
+ id 4B94BF80507; Tue, 26 Apr 2022 19:15:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A976FF80536
- for <alsa-devel@alsa-project.org>; Tue, 26 Apr 2022 19:15:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A976FF80536
+ by alsa1.perex.cz (Postfix) with ESMTPS id EB612F804AC
+ for <alsa-devel@alsa-project.org>; Tue, 26 Apr 2022 19:15:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB612F804AC
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="i3kBlKed"
+ header.b="OjUFcAuq"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1650993314; x=1682529314;
+ t=1650993337; x=1682529337;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=SDBS54z/0Zpp8UWzpdRFU/Tj5+UdFgEMUtmlrJXCkMk=;
- b=i3kBlKedlVspo8Po8/rNs0RZiAhOqQ9vndOVqt7wZ850/9/ocbhhcHg8
- 4j1BrgLDp+JWH+F9ZKUUkMASx1RIKENcpBh1zD8ymEt7er/EP6QJ9bl/5
- V5rNdqtJmPNKxTYMXCuHGr8v/zAjRIWhEHaZRoIOoNFFqW9EWqNFFhxtS
- uNMtFTyW+sLMOF6cm0Y3Ita2NW4L0MzGLWesRUW97IFpzO1hKXa8ekxeL
- PDImhE9QS30pkFJI7FQo+ggkKP858bWQCQioeUf8zJcbW1JWszUU03loQ
- UUWyT+dzaKrgplEw2Wt8eKI69MswiJ9ixqgwBDFhCovKRFHIFcg+vi/Qk A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10329"; a="264507986"
-X-IronPort-AV: E=Sophos;i="5.90,291,1643702400"; d="scan'208";a="264507986"
+ bh=pfn1UplBgg8Ow2ZRsLMymbGx1fUQWbkq6V3nxUneLYE=;
+ b=OjUFcAuqMvNR0svSDRUisC/0bgIpF1aiUMNK5oWVEJVQg3JgdjIgJFty
+ zLOuefwRfbbV/f96mhrSL1xQ2MTcXs7MRY2eboLzw1xz/B/K/DDquWfda
+ /c+zhn0f4iZMIS9NBv2U+u106OjvrIo2jrt2O2//bbUfq+d42PoZxjbWz
+ pihR38sVQO+hY3jolpXlPQppCkVI/qNM4fmCFCPRDojkcQ3Nzc9iyrASi
+ AwtLTJ0EiW5iTi3Z3WvCjiPt0gdOgjU/Np0yA5UflTC2TlurxBB1Lbz5F
+ ovHvg4cCzKWqz2qw+X0PQ9a/o8TPhHd4wZ8c22NZHhXh9f43OQ1+QORJs g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10329"; a="264508006"
+X-IronPort-AV: E=Sophos;i="5.90,291,1643702400"; d="scan'208";a="264508006"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2022 10:15:06 -0700
+ 26 Apr 2022 10:15:09 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,291,1643702400"; d="scan'208";a="650305533"
+X-IronPort-AV: E=Sophos;i="5.90,291,1643702400"; d="scan'208";a="650305581"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by FMSMGA003.fm.intel.com with ESMTP; 26 Apr 2022 10:15:02 -0700
+ by FMSMGA003.fm.intel.com with ESMTP; 26 Apr 2022 10:15:06 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Subject: [PATCH 07/14] ASoC: Intel: avs: Prepare for firmware tracing
-Date: Tue, 26 Apr 2022 19:23:39 +0200
-Message-Id: <20220426172346.3508411-8-cezary.rojewski@intel.com>
+Subject: [PATCH 08/14] ASoC: Intel: avs: D0ix power state support
+Date: Tue, 26 Apr 2022 19:23:40 +0200
+Message-Id: <20220426172346.3508411-9-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220426172346.3508411-1-cezary.rojewski@intel.com>
 References: <20220426172346.3508411-1-cezary.rojewski@intel.com>
@@ -93,269 +93,299 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Firmware provides its own debug functionality. While coredump is one of
-these, traces are the main area of interest. kfifo is enlisted to cache
-log data that is being pumped to driver through SRAM. Separate DSP
-operations are declared as actual feature implementation differs between
-firmware generations.
+Audio DSP device supports D0 substates in form of D0ix, allowing for
+preserving more power even when device is still considered active (D0).
+When entered, certain domains which are not being currently used become
+power gated. Entering and leaving D0ix is a complex process and differs
+between firmware generations.
 
-As log gathering involves usage of IPCs, add all necessary: ENABLE_LOGS
-and SYSTEM_TIME.
+Conditions that disallow D0i3 and require immediate D0i0 transition
+include but may not be limited to: IPC traffic, firmware tracing and
+SRAM I/O. To make D0ix toggling sane, delay D0i3 transition and refresh
+the timer each time an IPC is requrested.
 
 Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/intel/avs/avs.h       | 32 ++++++++++++++++++++++++++++++++
- sound/soc/intel/avs/ipc.c       |  5 +++++
- sound/soc/intel/avs/messages.c  | 31 +++++++++++++++++++++++++++++++
- sound/soc/intel/avs/messages.h  | 21 +++++++++++++++++++++
- sound/soc/intel/avs/registers.h |  1 +
- sound/soc/intel/avs/utils.c     | 23 +++++++++++++++++++++++
- 6 files changed, 113 insertions(+)
+ sound/soc/intel/avs/avs.h      |  14 ++++
+ sound/soc/intel/avs/dsp.c      |  14 ++++
+ sound/soc/intel/avs/ipc.c      | 119 ++++++++++++++++++++++++++++++++-
+ sound/soc/intel/avs/messages.c |   4 +-
+ 4 files changed, 148 insertions(+), 3 deletions(-)
 
 diff --git a/sound/soc/intel/avs/avs.h b/sound/soc/intel/avs/avs.h
-index 02c2aa1bcd5c..917a8b06cace 100644
+index 917a8b06cace..c3323f90b693 100644
 --- a/sound/soc/intel/avs/avs.h
 +++ b/sound/soc/intel/avs/avs.h
-@@ -11,6 +11,7 @@
+@@ -22,6 +22,7 @@ struct avs_dev;
+ struct avs_tplg;
+ struct avs_tplg_library;
+ struct avs_soc_component;
++struct avs_ipc_msg;
  
- #include <linux/device.h>
- #include <linux/firmware.h>
-+#include <linux/kfifo.h>
- #include <sound/hda_codec.h>
- #include <sound/hda_register.h>
- #include <sound/soc-component.h>
-@@ -42,6 +43,10 @@ struct avs_dsp_ops {
- 	int (* const load_basefw)(struct avs_dev *, struct firmware *);
- 	int (* const load_lib)(struct avs_dev *, struct firmware *, u32);
- 	int (* const transfer_mods)(struct avs_dev *, bool, struct avs_module_entry *, u32);
-+	int (* const enable_logs)(struct avs_dev *, enum avs_log_enable, u32, u32, unsigned long,
-+				  u32 *);
-+	int (* const log_buffer_offset)(struct avs_dev *, u32);
-+	int (* const log_buffer_status)(struct avs_dev *, union avs_notify_msg *);
- 	int (* const coredump)(struct avs_dev *, union avs_notify_msg *);
- };
- 
-@@ -75,6 +80,16 @@ struct avs_fw_entry {
- 	struct list_head node;
- };
- 
-+struct avs_debug {
-+	struct kfifo trace_fifo;
-+	spinlock_t fifo_lock;	/* serialize I/O for trace_fifo */
-+	spinlock_t trace_lock;	/* serialize debug window I/O between each LOG_BUFFER_STATUS */
-+	wait_queue_head_t trace_waitq;
-+	u32 aging_timer_period;
-+	u32 fifo_full_timer_period;
-+	u32 logged_resources;	/* context dependent: core or library */
-+};
-+
  /*
-  * struct avs_dev - Intel HD-Audio driver data
-  *
-@@ -115,6 +130,8 @@ struct avs_dev {
- 	struct list_head path_list;
- 	spinlock_t path_list_lock;
- 	struct mutex path_mutex;
-+
-+	struct avs_debug dbg;
+  * struct avs_dsp_ops - Platform-specific DSP operations
+@@ -48,6 +49,8 @@ struct avs_dsp_ops {
+ 	int (* const log_buffer_offset)(struct avs_dev *, u32);
+ 	int (* const log_buffer_status)(struct avs_dev *, union avs_notify_msg *);
+ 	int (* const coredump)(struct avs_dev *, union avs_notify_msg *);
++	bool (* const d0ix_toggle)(struct avs_dev *, struct avs_ipc_msg *, bool);
++	int (* const set_d0ix)(struct avs_dev *, bool);
  };
  
- /* from hda_bus to avs_dev */
-@@ -279,4 +296,19 @@ int avs_i2s_platform_register(struct avs_dev *adev, const char *name, unsigned l
- 			      unsigned long *tdms);
- int avs_hda_platform_register(struct avs_dev *adev, const char *name);
+ #define avs_dsp_op(adev, op, ...) \
+@@ -191,6 +194,9 @@ struct avs_ipc {
+ 	struct completion busy_completion;
  
-+/* Firmware tracing helpers */
+ 	struct work_struct recovery_work;
++	struct delayed_work d0ix_work;
++	atomic_t d0ix_disable_depth;
++	bool in_d0ix;
+ };
+ 
+ #define AVS_EIPC	EREMOTEIO
+@@ -227,6 +233,11 @@ int avs_dsp_send_msg_timeout(struct avs_dev *adev,
+ 			     struct avs_ipc_msg *reply, int timeout);
+ int avs_dsp_send_msg(struct avs_dev *adev,
+ 		     struct avs_ipc_msg *request, struct avs_ipc_msg *reply);
++/* Two variants below are for messages that control DSP power states. */
++int avs_dsp_send_pm_msg_timeout(struct avs_dev *adev, struct avs_ipc_msg *request,
++				struct avs_ipc_msg *reply, int timeout, bool wake_d0i0);
++int avs_dsp_send_pm_msg(struct avs_dev *adev, struct avs_ipc_msg *request,
++			struct avs_ipc_msg *reply, bool wake_d0i0);
+ int avs_dsp_send_rom_msg_timeout(struct avs_dev *adev,
+ 				 struct avs_ipc_msg *request, int timeout);
+ int avs_dsp_send_rom_msg(struct avs_dev *adev, struct avs_ipc_msg *request);
+@@ -234,6 +245,9 @@ void avs_dsp_interrupt_control(struct avs_dev *adev, bool enable);
+ int avs_ipc_init(struct avs_ipc *ipc, struct device *dev);
+ void avs_ipc_block(struct avs_ipc *ipc);
+ 
++int avs_dsp_disable_d0ix(struct avs_dev *adev);
++int avs_dsp_enable_d0ix(struct avs_dev *adev);
 +
-+unsigned int __kfifo_fromio_locked(struct kfifo *fifo, const void __iomem *src, unsigned int len,
-+				   spinlock_t *lock);
+ /* Firmware resources management */
+ 
+ int avs_get_module_entry(struct avs_dev *adev, const guid_t *uuid, struct avs_module_entry *entry);
+diff --git a/sound/soc/intel/avs/dsp.c b/sound/soc/intel/avs/dsp.c
+index 3ff17bd22a5a..2f18b137ff42 100644
+--- a/sound/soc/intel/avs/dsp.c
++++ b/sound/soc/intel/avs/dsp.c
+@@ -152,6 +152,15 @@ static int avs_dsp_get_core(struct avs_dev *adev, u32 core_id)
+ 
+ 	adev->core_refs[core_id]++;
+ 	if (adev->core_refs[core_id] == 1) {
++		/*
++		 * No cores other than main-core can be running for DSP
++		 * to achieve d0ix. Conscious SET_D0IX IPC failure is permitted,
++		 * simply d0ix power state will no longer be attempted.
++		 */
++		ret = avs_dsp_disable_d0ix(adev);
++		if (ret && ret != -AVS_EIPC)
++			goto err_disable_d0ix;
 +
-+#define avs_log_buffer_size(adev) \
-+	((adev)->fw_cfg.trace_log_bytes / (adev)->hw_cfg.dsp_cores)
+ 		ret = avs_dsp_enable(adev, mask);
+ 		if (ret)
+ 			goto err_enable_dsp;
+@@ -160,6 +169,8 @@ static int avs_dsp_get_core(struct avs_dev *adev, u32 core_id)
+ 	return 0;
+ 
+ err_enable_dsp:
++	avs_dsp_enable_d0ix(adev);
++err_disable_d0ix:
+ 	adev->core_refs[core_id]--;
+ err:
+ 	dev_err(adev->dev, "get core %d failed: %d\n", core_id, ret);
+@@ -185,6 +196,9 @@ static int avs_dsp_put_core(struct avs_dev *adev, u32 core_id)
+ 		ret = avs_dsp_disable(adev, mask);
+ 		if (ret)
+ 			goto err;
 +
-+#define avs_log_buffer_addr(adev, core) \
-+({ \
-+	s32 __offset = avs_dsp_op(adev, log_buffer_offset, core); \
-+	(__offset < 0) ? NULL : \
-+			 (avs_sram_addr(adev, AVS_DEBUG_WINDOW) + __offset); \
-+})
-+
- #endif /* __SOUND_SOC_INTEL_AVS_H */
++		/* Match disable_d0ix in avs_dsp_get_core(). */
++		avs_dsp_enable_d0ix(adev);
+ 	}
+ 
+ 	return 0;
 diff --git a/sound/soc/intel/avs/ipc.c b/sound/soc/intel/avs/ipc.c
-index 84cb411c82fa..b535bbb5953a 100644
+index b535bbb5953a..0820d8f93c7c 100644
 --- a/sound/soc/intel/avs/ipc.c
 +++ b/sound/soc/intel/avs/ipc.c
-@@ -138,6 +138,7 @@ static void avs_dsp_process_notification(struct avs_dev *adev, u64 header)
- 		data_size = sizeof(struct avs_notify_res_data);
- 		break;
+@@ -13,6 +13,82 @@
+ #include "registers.h"
  
-+	case AVS_NOTIFY_LOG_BUFFER_STATUS:
- 	case AVS_NOTIFY_EXCEPTION_CAUGHT:
- 		break;
- 
-@@ -168,6 +169,10 @@ static void avs_dsp_process_notification(struct avs_dev *adev, u64 header)
- 		complete(&adev->fw_ready);
- 		break;
- 
-+	case AVS_NOTIFY_LOG_BUFFER_STATUS:
-+		avs_dsp_op(adev, log_buffer_status, &msg);
-+		break;
+ #define AVS_IPC_TIMEOUT_MS	300
++#define AVS_D0IX_DELAY_MS	300
 +
- 	case AVS_NOTIFY_EXCEPTION_CAUGHT:
- 		avs_dsp_exception_caught(adev, &msg);
- 		break;
++static int
++avs_dsp_set_d0ix(struct avs_dev *adev, bool enable)
++{
++	struct avs_ipc *ipc = adev->ipc;
++	int ret;
++
++	/* Is transition required? */
++	if (ipc->in_d0ix == enable)
++		return 0;
++
++	ret = avs_dsp_op(adev, set_d0ix, enable);
++	if (ret) {
++		/* Prevent further d0ix attempts on conscious IPC failure. */
++		if (ret == -AVS_EIPC)
++			atomic_inc(&ipc->d0ix_disable_depth);
++
++		ipc->in_d0ix = false;
++		return ret;
++	}
++
++	ipc->in_d0ix = enable;
++	return 0;
++}
++
++static void avs_dsp_schedule_d0ix(struct avs_dev *adev, struct avs_ipc_msg *tx)
++{
++	if (atomic_read(&adev->ipc->d0ix_disable_depth))
++		return;
++
++	mod_delayed_work(system_power_efficient_wq, &adev->ipc->d0ix_work,
++			 msecs_to_jiffies(AVS_D0IX_DELAY_MS));
++}
++
++static void avs_dsp_d0ix_work(struct work_struct *work)
++{
++	struct avs_ipc *ipc = container_of(work, struct avs_ipc, d0ix_work.work);
++
++	avs_dsp_set_d0ix(to_avs_dev(ipc->dev), true);
++}
++
++static int avs_dsp_wake_d0i0(struct avs_dev *adev, struct avs_ipc_msg *tx)
++{
++	struct avs_ipc *ipc = adev->ipc;
++
++	if (!atomic_read(&ipc->d0ix_disable_depth)) {
++		cancel_delayed_work_sync(&ipc->d0ix_work);
++		return avs_dsp_set_d0ix(adev, false);
++	}
++
++	return 0;
++}
++
++int avs_dsp_disable_d0ix(struct avs_dev *adev)
++{
++	struct avs_ipc *ipc = adev->ipc;
++
++	/* Prevent PG only on the first disable. */
++	if (atomic_add_return(1, &ipc->d0ix_disable_depth) == 1) {
++		cancel_delayed_work_sync(&ipc->d0ix_work);
++		return avs_dsp_set_d0ix(adev, false);
++	}
++
++	return 0;
++}
++
++int avs_dsp_enable_d0ix(struct avs_dev *adev)
++{
++	struct avs_ipc *ipc = adev->ipc;
++
++	if (atomic_dec_and_test(&ipc->d0ix_disable_depth))
++		queue_delayed_work(system_power_efficient_wq, &ipc->d0ix_work,
++				   msecs_to_jiffies(AVS_D0IX_DELAY_MS));
++	return 0;
++}
+ 
+ static void avs_dsp_recovery(struct avs_dev *adev)
+ {
+@@ -391,10 +467,35 @@ static int avs_dsp_do_send_msg(struct avs_dev *adev, struct avs_ipc_msg *request
+ 	return ret;
+ }
+ 
++static int avs_dsp_send_msg_sequence(struct avs_dev *adev, struct avs_ipc_msg *request,
++				     struct avs_ipc_msg *reply, int timeout, bool wake_d0i0,
++				     bool schedule_d0ix)
++{
++	int ret;
++
++	if (wake_d0i0) {
++		ret = avs_dsp_wake_d0i0(adev, request);
++		if (ret)
++			return ret;
++	}
++
++	ret = avs_dsp_do_send_msg(adev, request, reply, timeout);
++	if (ret)
++		return ret;
++
++	if (schedule_d0ix)
++		avs_dsp_schedule_d0ix(adev, request);
++
++	return 0;
++}
++
+ int avs_dsp_send_msg_timeout(struct avs_dev *adev, struct avs_ipc_msg *request,
+ 			     struct avs_ipc_msg *reply, int timeout)
+ {
+-	return avs_dsp_do_send_msg(adev, request, reply, timeout);
++	bool wake_d0i0 = avs_dsp_op(adev, d0ix_toggle, request, true);
++	bool schedule_d0ix = avs_dsp_op(adev, d0ix_toggle, request, false);
++
++	return avs_dsp_send_msg_sequence(adev, request, reply, timeout, wake_d0i0, schedule_d0ix);
+ }
+ 
+ int avs_dsp_send_msg(struct avs_dev *adev, struct avs_ipc_msg *request,
+@@ -403,6 +504,19 @@ int avs_dsp_send_msg(struct avs_dev *adev, struct avs_ipc_msg *request,
+ 	return avs_dsp_send_msg_timeout(adev, request, reply, adev->ipc->default_timeout_ms);
+ }
+ 
++int avs_dsp_send_pm_msg_timeout(struct avs_dev *adev, struct avs_ipc_msg *request,
++				struct avs_ipc_msg *reply, int timeout, bool wake_d0i0)
++{
++	return avs_dsp_send_msg_sequence(adev, request, reply, timeout, wake_d0i0, false);
++}
++
++int avs_dsp_send_pm_msg(struct avs_dev *adev, struct avs_ipc_msg *request,
++			struct avs_ipc_msg *reply, bool wake_d0i0)
++{
++	return avs_dsp_send_pm_msg_timeout(adev, request, reply, adev->ipc->default_timeout_ms,
++					   wake_d0i0);
++}
++
+ static int avs_dsp_do_send_rom_msg(struct avs_dev *adev, struct avs_ipc_msg *request, int timeout)
+ {
+ 	struct avs_ipc *ipc = adev->ipc;
+@@ -463,6 +577,7 @@ int avs_ipc_init(struct avs_ipc *ipc, struct device *dev)
+ 	ipc->ready = false;
+ 	ipc->default_timeout_ms = AVS_IPC_TIMEOUT_MS;
+ 	INIT_WORK(&ipc->recovery_work, avs_dsp_recovery_work);
++	INIT_DELAYED_WORK(&ipc->d0ix_work, avs_dsp_d0ix_work);
+ 	init_completion(&ipc->done_completion);
+ 	init_completion(&ipc->busy_completion);
+ 	spin_lock_init(&ipc->rx_lock);
+@@ -475,4 +590,6 @@ void avs_ipc_block(struct avs_ipc *ipc)
+ {
+ 	ipc->ready = false;
+ 	cancel_work_sync(&ipc->recovery_work);
++	cancel_delayed_work_sync(&ipc->d0ix_work);
++	ipc->in_d0ix = false;
+ }
 diff --git a/sound/soc/intel/avs/messages.c b/sound/soc/intel/avs/messages.c
-index 004da166a943..3da33150aabf 100644
+index 3da33150aabf..6404fce8cde4 100644
 --- a/sound/soc/intel/avs/messages.c
 +++ b/sound/soc/intel/avs/messages.c
-@@ -677,6 +677,37 @@ int avs_ipc_get_modules_info(struct avs_dev *adev, struct avs_mods_info **info)
- 	return 0;
- }
+@@ -432,7 +432,7 @@ int avs_ipc_set_dx(struct avs_dev *adev, u32 core_mask, bool powerup)
+ 	request.data = &dx;
+ 	request.size = sizeof(dx);
  
-+int avs_ipc_set_enable_logs(struct avs_dev *adev, u8 *log_info, size_t size)
-+{
-+	int ret;
-+
-+	ret = avs_ipc_set_large_config(adev, AVS_BASEFW_MOD_ID, AVS_BASEFW_INST_ID,
-+				       AVS_BASEFW_ENABLE_LOGS, log_info, size);
-+	if (ret)
-+		dev_err(adev->dev, "enable logs failed: %d\n", ret);
-+
-+	return ret;
-+}
-+
-+int avs_ipc_set_system_time(struct avs_dev *adev)
-+{
-+	struct avs_sys_time sys_time;
-+	int ret;
-+	u64 us;
-+
-+	/* firmware expects UTC time in micro seconds */
-+	us = ktime_to_us(ktime_get());
-+	sys_time.val_l = us & UINT_MAX;
-+	sys_time.val_u = us >> 32;
-+
-+	ret = avs_ipc_set_large_config(adev, AVS_BASEFW_MOD_ID, AVS_BASEFW_INST_ID,
-+				       AVS_BASEFW_SYSTEM_TIME, (u8 *)&sys_time, sizeof(sys_time));
-+	if (ret)
-+		dev_err(adev->dev, "set system time failed: %d\n", ret);
-+
-+	return ret;
-+}
-+
- int avs_ipc_copier_set_sink_format(struct avs_dev *adev, u16 module_id,
- 				   u8 instance_id, u32 sink_id,
- 				   const struct avs_audio_format *src_fmt,
-diff --git a/sound/soc/intel/avs/messages.h b/sound/soc/intel/avs/messages.h
-index 94875a153124..257482e160bc 100644
---- a/sound/soc/intel/avs/messages.h
-+++ b/sound/soc/intel/avs/messages.h
-@@ -186,6 +186,7 @@ union avs_reply_msg {
- enum avs_notify_msg_type {
- 	AVS_NOTIFY_PHRASE_DETECTED = 4,
- 	AVS_NOTIFY_RESOURCE_EVENT = 5,
-+	AVS_NOTIFY_LOG_BUFFER_STATUS = 6,
- 	AVS_NOTIFY_FW_READY = 8,
- 	AVS_NOTIFY_EXCEPTION_CAUGHT = 10,
- 	AVS_NOTIFY_MODULE_EVENT = 12,
-@@ -203,6 +204,10 @@ union avs_notify_msg {
- 				u32 msg_direction:1;
- 				u32 msg_target:1;
- 			};
-+			struct {
-+				u16 rsvd:12;
-+				u16 core:4;
-+			} log;
- 		};
- 		union {
- 			u32 val;
-@@ -329,12 +334,21 @@ int avs_ipc_set_d0ix(struct avs_dev *adev, bool enable_pg, bool streaming);
- #define AVS_BASEFW_INST_ID	0
+-	ret = avs_dsp_send_msg(adev, &request, NULL);
++	ret = avs_dsp_send_pm_msg(adev, &request, NULL, true);
+ 	if (ret)
+ 		avs_ipc_err(adev, &request, "set dx", ret);
  
- enum avs_basefw_runtime_param {
-+	AVS_BASEFW_ENABLE_LOGS = 6,
- 	AVS_BASEFW_FIRMWARE_CONFIG = 7,
- 	AVS_BASEFW_HARDWARE_CONFIG = 8,
- 	AVS_BASEFW_MODULES_INFO = 9,
- 	AVS_BASEFW_LIBRARIES_INFO = 16,
-+	AVS_BASEFW_SYSTEM_TIME = 20,
-+};
-+
-+enum avs_log_enable {
-+	AVS_LOG_DISABLE = 0,
-+	AVS_LOG_ENABLE = 1
- };
+@@ -456,7 +456,7 @@ int avs_ipc_set_d0ix(struct avs_dev *adev, bool enable_pg, bool streaming)
  
-+int avs_ipc_set_enable_logs(struct avs_dev *adev, u8 *log_info, size_t size);
-+
- struct avs_fw_version {
- 	u16 major;
- 	u16 minor;
-@@ -502,6 +516,13 @@ static inline bool avs_module_entry_is_loaded(struct avs_module_entry *mentry)
+ 	request.header = msg.val;
  
- int avs_ipc_get_modules_info(struct avs_dev *adev, struct avs_mods_info **info);
+-	ret = avs_dsp_send_msg(adev, &request, NULL);
++	ret = avs_dsp_send_pm_msg(adev, &request, NULL, false);
+ 	if (ret)
+ 		avs_ipc_err(adev, &request, "set d0ix", ret);
  
-+struct avs_sys_time {
-+	u32 val_l;
-+	u32 val_u;
-+} __packed;
-+
-+int avs_ipc_set_system_time(struct avs_dev *adev);
-+
- /* Module configuration */
- 
- #define AVS_MIXIN_MOD_UUID \
-diff --git a/sound/soc/intel/avs/registers.h b/sound/soc/intel/avs/registers.h
-index 3fd02389ed2b..f951d3441cdf 100644
---- a/sound/soc/intel/avs/registers.h
-+++ b/sound/soc/intel/avs/registers.h
-@@ -58,6 +58,7 @@
- #define AVS_UPLINK_WINDOW		AVS_FW_REGS_WINDOW
- /* HOST -> DSP communication window */
- #define AVS_DOWNLINK_WINDOW		1
-+#define AVS_DEBUG_WINDOW		2
- 
- /* registry I/O helpers */
- #define avs_sram_offset(adev, window_idx) \
-diff --git a/sound/soc/intel/avs/utils.c b/sound/soc/intel/avs/utils.c
-index 6473e3ae4c6e..13611dee9787 100644
---- a/sound/soc/intel/avs/utils.c
-+++ b/sound/soc/intel/avs/utils.c
-@@ -7,6 +7,7 @@
- //
- 
- #include <linux/firmware.h>
-+#include <linux/kfifo.h>
- #include <linux/slab.h>
- #include "avs.h"
- #include "messages.h"
-@@ -299,3 +300,25 @@ void avs_release_firmwares(struct avs_dev *adev)
- 		kfree(entry);
- 	}
- }
-+
-+unsigned int __kfifo_fromio_locked(struct kfifo *fifo, const void __iomem *src, unsigned int len,
-+				   spinlock_t *lock)
-+{
-+	struct __kfifo *__fifo = &fifo->kfifo;
-+	unsigned long flags;
-+	unsigned int l, off;
-+
-+	spin_lock_irqsave(lock, flags);
-+	len = min(len, kfifo_avail(fifo));
-+	off = __fifo->in & __fifo->mask;
-+	l = min(len, kfifo_size(fifo) - off);
-+
-+	memcpy_fromio(__fifo->data + off, src, l);
-+	memcpy_fromio(__fifo->data, src + l, len - l);
-+	/* Make sure data copied from SRAM is visible to all CPUs. */
-+	smp_mb();
-+	__fifo->in += len;
-+	spin_unlock_irqrestore(lock, flags);
-+
-+	return len;
-+}
 -- 
 2.25.1
 

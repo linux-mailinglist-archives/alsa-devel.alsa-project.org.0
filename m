@@ -2,80 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8EA1510C03
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Apr 2022 00:25:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EAAC510C01
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Apr 2022 00:24:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 898471841;
-	Wed, 27 Apr 2022 00:24:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 898471841
+	by alsa0.perex.cz (Postfix) with ESMTPS id 21FCE17F9;
+	Wed, 27 Apr 2022 00:24:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21FCE17F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651011907;
-	bh=b3BQ1wKTjQRhfACrX1mPyrOU5bEd9mMG8twKfvDzcAU=;
+	s=default; t=1651011898;
+	bh=ftM0fcE4GaiSImgZEA3q1nzC5UKMEusnjsjrvmxeVac=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dz70u0+GlNr9hFNLyWGSAUndF0l3gJzEclUAEOLmxTBpe8YVCDPeZOOcJw5ReJr95
-	 wug0hQgnWbu0FFqAUruXO/wiuSqVd/oOa0vPW0+Q+Uz3YDytAOpDx6thaSSissuNt4
-	 D7L6MwydmU8/AuCqi94wHGmjEkDoF9oOx2wXs6Nk=
+	b=I+V6pw36IJ8LjijghkVRLS/VTJeB3mz2ooApPGLk2CHISAiDBteSh01AIZwbqaeOi
+	 Oxt3tMLAzK7NiqzFIJugmlIT2r7483pBpXadhPRKaksiWqy2tJTa/s/VVrPuQeHcU7
+	 781lrDYj3bEsPlCjobtc8Brv/lmwX+tbA8WJMggg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 62CF8F80152;
-	Wed, 27 Apr 2022 00:23:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7B9D2F804AC;
+	Wed, 27 Apr 2022 00:23:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 590D9F80507; Wed, 27 Apr 2022 00:23:26 +0200 (CEST)
+ id CE137F80508; Wed, 27 Apr 2022 00:23:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 73E23F80105
- for <alsa-devel@alsa-project.org>; Wed, 27 Apr 2022 00:23:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73E23F80105
+ by alsa1.perex.cz (Postfix) with ESMTPS id 25266F800FA
+ for <alsa-devel@alsa-project.org>; Wed, 27 Apr 2022 00:23:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25266F800FA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="mTqGMDlI"
+ header.b="IO0UYcRL"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1651011800; x=1682547800;
+ t=1651011801; x=1682547801;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=b3BQ1wKTjQRhfACrX1mPyrOU5bEd9mMG8twKfvDzcAU=;
- b=mTqGMDlIxiBJN8dP9Z3vuihvkS13temepVQFY4JftXaVT10YAMBC7doC
- jeVuByRpViJceMFLmA5R+mnnlNfbxXA+dcmP6/5BhxEOiDv9NWsmEcnq9
- bbxQkd8DaFm+eDL8942ouag2kvIt/LOLtpIQ9P1KyuoQFSOri6Wtvy3LE
- pEaUCuRICidbn+KMkaeP/yfnSa1dGscAI3+jjFl5eRvjI6fWdarQI3EFe
- +f91wamyviRGG71NdeqlG9cwndVdId2PpsyB8w+SiDWG56gUbV82R4YIW
- aqsaltUG9kLuRQEcDwWc3F/eF8bfTbh8QSoGyVVAAG1ghXGApcEatxYtT A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10329"; a="245660705"
-X-IronPort-AV: E=Sophos;i="5.90,292,1643702400"; d="scan'208";a="245660705"
+ bh=ftM0fcE4GaiSImgZEA3q1nzC5UKMEusnjsjrvmxeVac=;
+ b=IO0UYcRLeljSt64mtOmOyhYfXXU/TiKkcJMVDsO9yhPLW2oIfUrWxBqC
+ z1LXOlt8zvaMvQ63qR5XC3cSrnGR8rU4ElHA342yI3Yz1eXfDtpAlVdMK
+ Q3oo2C+L48Yu1NR8IgeMmfH7utxiRwORUbFYQY+uP1H62Z4wDfMEdZuQT
+ tP4LzVKSLklUuvddGKac1cAbtNcdGiSRF9yOeRFazMmNyjtQmxP7AllJo
+ df0TXwg2u5IrUtzJ9jAcackkr7GDrp+AxqJvHNoDfxhE6EC0Dg+G+PwIx
+ 2j6EVzgZyeDOYlvHYrbuLAk9KIlib/QhO+NQqSIFKpduK1oUbNRXWeHgg g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10329"; a="245660711"
+X-IronPort-AV: E=Sophos;i="5.90,292,1643702400"; d="scan'208";a="245660711"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2022 15:23:11 -0700
-X-IronPort-AV: E=Sophos;i="5.90,292,1643702400"; d="scan'208";a="532888590"
+ 26 Apr 2022 15:23:12 -0700
+X-IronPort-AV: E=Sophos;i="5.90,292,1643702400"; d="scan'208";a="532888597"
 Received: from gkanakas-mobl.amr.corp.intel.com (HELO [10.212.152.229])
  ([10.212.152.229])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2022 15:23:10 -0700
-Message-ID: <9854d2e1-63da-2377-3fd1-120adfb4d381@linux.intel.com>
-Date: Tue, 26 Apr 2022 16:21:19 -0500
+ 26 Apr 2022 15:23:11 -0700
+Message-ID: <988b37aa-a7ce-af9a-76b0-3c4036ba7884@linux.intel.com>
+Date: Tue, 26 Apr 2022 16:33:16 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Firefox/91.0 Thunderbird/91.5.0
-Subject: Re: [PATCH 01/14] ASoC: Intel: avs: Account for libraries when
- booting basefw
+Subject: Re: [PATCH 02/14] ASoC: Intel: avs: Generic soc component driver
 Content-Language: en-US
 To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org, 
  broonie@kernel.org
 References: <20220426172346.3508411-1-cezary.rojewski@intel.com>
- <20220426172346.3508411-2-cezary.rojewski@intel.com>
+ <20220426172346.3508411-3-cezary.rojewski@intel.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20220426172346.3508411-2-cezary.rojewski@intel.com>
+In-Reply-To: <20220426172346.3508411-3-cezary.rojewski@intel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 Cc: upstream@semihalf.com, harshapriya.n@intel.com, rad@semihalf.com,
@@ -98,162 +97,158 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 4/26/22 12:23, Cezary Rojewski wrote:
-> Not all modules are part of base firmware. Some are part of loadable
-> libraries. These need to be loaded after base firmware reports ready
-> status through FW_READY notification.
-> 
-> Their loading process is similar to the base firmware's one. Request the
-> binary file, verify and strip the manifest and load the actual code into
-> DSP memory with help of CLDMA or HD-Audio render stream, depending on
-> audio device generation.
-> 
-> List of libraries needed for loading is obtained through the topology -
-> vendor sections specifying the name of firmware files to request.
-> 
-> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
-> ---
->  sound/soc/intel/avs/avs.h    |  3 ++
->  sound/soc/intel/avs/loader.c | 79 ++++++++++++++++++++++++++++++++++++
->  2 files changed, 82 insertions(+)
-> 
-> diff --git a/sound/soc/intel/avs/avs.h b/sound/soc/intel/avs/avs.h
-> index c57a07a18d8e..14b4a780a91c 100644
-> --- a/sound/soc/intel/avs/avs.h
-> +++ b/sound/soc/intel/avs/avs.h
-> @@ -19,6 +19,8 @@
->  
->  struct avs_dev;
->  struct avs_tplg;
-> +struct avs_tplg_library;
-> +struct avs_soc_component;
->  
->  /*
->   * struct avs_dsp_ops - Platform-specific DSP operations
-> @@ -241,6 +243,7 @@ void avs_hda_clock_gating_enable(struct avs_dev *adev, bool enable);
->  void avs_hda_power_gating_enable(struct avs_dev *adev, bool enable);
->  void avs_hda_l1sen_enable(struct avs_dev *adev, bool enable);
->  
-> +int avs_dsp_load_libraries(struct avs_dev *adev, struct avs_tplg_library *libs, u32 num_libs);
->  int avs_dsp_boot_firmware(struct avs_dev *adev, bool purge);
->  int avs_dsp_first_boot_firmware(struct avs_dev *adev);
->  
-> diff --git a/sound/soc/intel/avs/loader.c b/sound/soc/intel/avs/loader.c
-> index c47f85161d95..de98f4c3adf8 100644
-> --- a/sound/soc/intel/avs/loader.c
-> +++ b/sound/soc/intel/avs/loader.c
-> @@ -15,6 +15,7 @@
->  #include "cldma.h"
->  #include "messages.h"
->  #include "registers.h"
-> +#include "topology.h"
->  
->  #define AVS_ROM_STS_MASK		0xFF
->  #define AVS_ROM_INIT_DONE		0x1
-> @@ -466,6 +467,70 @@ int avs_hda_transfer_modules(struct avs_dev *adev, bool load,
->  	return 0;
->  }
->  
-> +int avs_dsp_load_libraries(struct avs_dev *adev, struct avs_tplg_library *libs, u32 num_libs)
+> +struct avs_dma_data {
+> +	struct avs_tplg_path_template *template;
+> +	struct avs_path *path;
+> +	/*
+> +	 * link stream is stored within substream's runtime
+> +	 * private_data to fulfill the needs of codec BE path
+> +	 *
+> +	 * host stream assigned
+
+not able to parse that comment, what are you trying to say?
+
+> +	 */
+> +	struct hdac_ext_stream *host_stream;
+> +};
+> +
+> +static ssize_t topology_name_read(struct file *file, char __user *user_buf, size_t count,
+> +				  loff_t *ppos)
 > +{
-> +	int start, id, i = 0;
+> +	struct snd_soc_component *component = file->private_data;
+> +	struct snd_soc_card *card = component->card;
+> +	struct snd_soc_acpi_mach *mach = dev_get_platdata(card->dev);
+> +	char buf[64];
+> +	size_t len;
+> +
+> +	len = snprintf(buf, sizeof(buf), "%s/%s\n", component->driver->topology_name_prefix,
+> +		       mach->tplg_filename);
+> +
+> +	return simple_read_from_buffer(user_buf, count, ppos, buf, len);
+> +}
+> +
+> +static const struct file_operations topology_name_fops = {
+> +	.open = simple_open,
+> +	.read = topology_name_read,
+> +	.llseek = default_llseek,
+> +};
+
+can you clarify why this is needed?
+
+> +
+> +static int avs_component_load_libraries(struct avs_soc_component *acomp)
+> +{
+> +	struct avs_tplg *tplg = acomp->tplg;
+> +	struct avs_dev *adev = to_avs_dev(acomp->base.dev);
 > +	int ret;
 > +
-> +	/* Calculate the id to assign for the next lib. */
-> +	for (id = 0; id < adev->fw_cfg.max_libs_count; id++)
-> +		if (adev->lib_names[id][0] == '\0')
-> +			break;
-> +	if (id + num_libs >= adev->fw_cfg.max_libs_count)
-> +		return -EINVAL;
-
-use ida_alloc_max() ?
-
+> +	if (!tplg->num_libs)
+> +		return 0;
 > +
-> +	start = id;
-> +	while (i < num_libs) {
-> +		struct avs_fw_manifest *man;
-> +		const struct firmware *fw;
-> +		struct firmware stripped_fw;
-> +		char *filename;
-> +		int j;
-> +
-> +		filename = kasprintf(GFP_KERNEL, "%s/%s/%s", AVS_ROOT_DIR, adev->spec->name,
-> +				     libs[i].name);
-> +		if (!filename)
-> +			return -ENOMEM;
-> +
-> +		ret = avs_request_firmware(adev, &fw, filename);
-> +		kfree(filename);
-> +		if (ret < 0)
-> +			return ret;
-> +
-> +		stripped_fw = *fw;
-> +		ret = avs_fw_manifest_strip_verify(adev, &stripped_fw, NULL);
-> +		if (ret) {
-> +			dev_err(adev->dev, "invalid library data: %d\n", ret);
-> +			goto release_fw;
-> +		}
-> +
-> +		ret = avs_fw_manifest_offset(&stripped_fw);
-> +		if (ret < 0)
-> +			goto release_fw;
-> +		man = (struct avs_fw_manifest *)(stripped_fw.data + ret);
-> +
-> +		/* Don't load anything that's already in DSP memory. */
-> +		for (j = 0; j < id; j++)
-> +			if (!strncmp(adev->lib_names[j], man->name, AVS_LIB_NAME_SIZE))
-> +				goto next_lib;
-> +
-> +		ret = avs_dsp_op(adev, load_lib, &stripped_fw, id);
-> +		if (ret)
-> +			goto release_fw;
-> +
-> +		strncpy(adev->lib_names[id], man->name, AVS_LIB_NAME_SIZE);
-> +		id++;
-> +next_lib:
-> +		i++;
+> +	/* Parent device may be asleep and library loading involves IPCs. */
+> +	ret = pm_runtime_get_sync(adev->dev);
+> +	if (ret < 0 && ret != -EACCES) {
+> +		pm_runtime_put_noidle(adev->dev);
+> +		return ret;
 > +	}
-> +
-> +	return start == id ? 1 : 0;
-> +
-> +release_fw:
-> +	avs_release_last_firmware(adev);
 
-why release only the last library and not all the ones that were previous loaded?
-or why bother to even release the last since at this point you probably need to restart completely?
+Mark recommends the use of pm_runtime_resume_and_get(), see patches from today.
 
+> +
+> +	avs_hda_clock_gating_enable(adev, false);
+> +	avs_hda_l1sen_enable(adev, false);
+> +
+> +	ret = avs_dsp_load_libraries(adev, tplg->libs, tplg->num_libs);
+> +
+> +	avs_hda_l1sen_enable(adev, true);
+> +	avs_hda_clock_gating_enable(adev, true);
+> +
+> +	if (!ret)
+> +		ret = avs_module_info_init(adev, false);
+> +
+> +	pm_runtime_mark_last_busy(adev->dev);
+> +	pm_runtime_put_autosuspend(adev->dev);
+> +
 > +	return ret;
 > +}
 > +
->  static int avs_dsp_load_basefw(struct avs_dev *adev)
->  {
->  	const struct avs_fw_version *min_req;
-> @@ -519,6 +584,7 @@ static int avs_dsp_load_basefw(struct avs_dev *adev)
->  
->  int avs_dsp_boot_firmware(struct avs_dev *adev, bool purge)
->  {
+> +static int avs_component_probe(struct snd_soc_component *component)
+> +{
+> +	struct snd_soc_card *card = component->card;
+> +	struct snd_soc_acpi_mach *mach;
 > +	struct avs_soc_component *acomp;
->  	int ret, i;
->  
->  	/* Forgo full boot if flash from IMR succeeds. */
-> @@ -538,7 +604,20 @@ int avs_dsp_boot_firmware(struct avs_dev *adev, bool purge)
->  	avs_hda_l1sen_enable(adev, false);
->  
->  	ret = avs_dsp_load_basefw(adev);
-> +	if (ret)
-> +		goto reenable_gating;
+> +	struct avs_dev *adev;
+> +	char *filename;
+> +	int ret;
+> +
+> +	dev_dbg(card->dev, "probing %s card %s\n", component->name, card->name);
+> +	mach = dev_get_platdata(card->dev);
+> +	acomp = to_avs_soc_component(component);
+> +	adev = to_avs_dev(component->dev);
+> +
+> +	acomp->tplg = avs_tplg_new(component);
+> +	if (!acomp->tplg)
+> +		return -ENOMEM;
+> +
+> +	if (!mach->tplg_filename)
+> +		goto finalize;
+> +
+> +	/* Load specified topology and create sysfs for it. */
+> +	filename = kasprintf(GFP_KERNEL, "%s/%s", component->driver->topology_name_prefix,
+> +			     mach->tplg_filename);
+
+what is the link between topology and sysfs?
+
+> +	if (!filename)
+> +		return -ENOMEM;
+> +
+> +	ret = avs_load_topology(component, filename);
+> +	kfree(filename);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	ret = avs_component_load_libraries(acomp);
+> +	if (ret < 0) {
+> +		dev_err(card->dev, "libraries loading failed: %d\n", ret);
+> +		goto err_load_libs;
+> +	}
+> +
+> +finalize:
+> +	debugfs_create_file("topology_name", 0444, component->debugfs_root, component,
+> +			    &topology_name_fops);
+
+that's debugfs here, is this to make it possible to select an alternate topology file? If yes, a comment earlier wouldn't hurt.
+
 > +
 > +	mutex_lock(&adev->comp_list_mutex);
-> +	list_for_each_entry(acomp, &adev->comp_list, node) {
-> +		struct avs_tplg *tplg = acomp->tplg;
-> +
-> +		ret = avs_dsp_load_libraries(adev, tplg->libs, tplg->num_libs);
-> +		if (ret < 0)
-> +			break;
-> +	}
+> +	list_add_tail(&acomp->node, &adev->comp_list);
 > +	mutex_unlock(&adev->comp_list_mutex);
->  
-> +reenable_gating:
->  	avs_hda_l1sen_enable(adev, true);
->  	avs_hda_clock_gating_enable(adev, true);
->  
+> +
+> +	return 0;
+> +
+> +err_load_libs:
+> +	avs_remove_topology(component);
+> +	return ret;
+> +}
+> +
+
+
+> +static const struct snd_soc_component_driver avs_component_driver = {
+> +	.name			= "avs-pcm",
+> +	.probe			= avs_component_probe,
+> +	.remove			= avs_component_remove,
+> +	.open			= avs_component_open,
+> +	.pointer		= avs_component_pointer,
+> +	.mmap			= avs_component_mmap,
+> +	.pcm_construct		= avs_component_construct,
+> +	.module_get_upon_open	= 1, /* increment refcount when a pcm is opened */
+> +	.topology_name_prefix	= "intel/avs",
+
+is this intentional that the firmware binaries and topologies will be stored in the same intel/avs directory?
+
+> +	.non_legacy_dai_naming	= true,
+
+is this needed? we've never used this for Intel?
+
+> +};
+> +

@@ -2,74 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B5A551074D
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Apr 2022 20:42:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC84751074F
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Apr 2022 20:42:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AD8A91720;
-	Tue, 26 Apr 2022 20:41:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD8A91720
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E07B1693;
+	Tue, 26 Apr 2022 20:42:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E07B1693
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650998541;
-	bh=0FXOLz6jkgnBAjf3N2fkOzYqWhVK+MJPoAM+FJDMrx0=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=j4ol4C33jzhnkvPzefwRWIYz/V5cz6x694+FHHgpTlxNtb8a4XmK/lf/NSf1OEM/0
-	 f4cqsITfY0ka4kQyHSopsVlJN52ehwyzYjLZt/7Z+z9ponZv9zbAE4hrLHwj9IWlbo
-	 SQ6Yzz8UG4AqiZuWUQMqnYaez1UUf57T8IQfMEJk=
+	s=default; t=1650998575;
+	bh=rwol6x/SfjecZsFCcc8LN8zJ5AJPw1o+5OE89dSPITk=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=f9LUp9lrhnRY9RrIOmjaRobhUtpm5zK/pfcxLKzAaIbrQaUV5mJnavgcCvttB5xs1
+	 g8nBz1qddrcgl/bcmGvNbzuofv1ppSE9i+yYqfmEV8LoukWSqM+iBFSRTzShmuwL9R
+	 8fUicrTeVhL7mnPgsB5qeN6VqPgzcHG38O9w+tVw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2C039F8025C;
-	Tue, 26 Apr 2022 20:41:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C90DFF804B4;
+	Tue, 26 Apr 2022 20:41:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D2033F800FA; Tue, 26 Apr 2022 20:41:21 +0200 (CEST)
+ id 214E1F804B4; Tue, 26 Apr 2022 20:41:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E3258F800FA
- for <alsa-devel@alsa-project.org>; Tue, 26 Apr 2022 20:41:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3258F800FA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4890EF800AE
+ for <alsa-devel@alsa-project.org>; Tue, 26 Apr 2022 20:41:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4890EF800AE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="a70F+2ee"
+ header.b="FJ4hnMlk"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1650998480; x=1682534480;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=0FXOLz6jkgnBAjf3N2fkOzYqWhVK+MJPoAM+FJDMrx0=;
- b=a70F+2ee71RyhDsFOQVvLxL7vrHHH/tTLXRAcFPo/VvZZifSkwlmKHXm
- gpaGIttLoB9zzizSiN7TDKT8Da/uAx5/5/jRMp+ymOoj+quD1K0Qxmhwa
- 3rECALSGpzkuwIuKHd0hJkIJCLCelCtIPQ9r+vFRgpT3AOVOW2SZQBerO
- 3L0/WIrkONOXDhzbjlcMhUrVfnfPuTnDgCoYlRKf7XvU+xldZJZW16xa2
- PMJNPsWpgE+yZrMNhxJWd317P+2i72L6NeQGheCtU8xOdUH1jHY+Y5AGI
- hGed/2/Mu9QYPotI2Q2Px22pfB2bVDiGXVXyNwpCOpszvtYiI7RAXbV9l w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10329"; a="326176823"
-X-IronPort-AV: E=Sophos;i="5.90,291,1643702400"; d="scan'208";a="326176823"
+ t=1650998481; x=1682534481;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=rwol6x/SfjecZsFCcc8LN8zJ5AJPw1o+5OE89dSPITk=;
+ b=FJ4hnMlkB7eFs/N0VMOgvAnXOzGoyg6sHODXRiyg3jkyGPKaCmRIGG06
+ iR8gtRms/guao5JAJunX6KpMpCW4ixWj3/HeYkgT+3gW1Td5t1KqIfwVR
+ OqB8/5sC4pdZkeW9rW2N1XiNvicdp98xVVW78gHhSbOwAm+DRfIDXDPBb
+ Y9fHzQZT7Kbje59om+d78Mm//0M//q9m0k6E4N8j0LEK/xSRhdYV1mczG
+ 0Ov5A8mvnMHBAjX6qsVjegeLIOWhlqO+U+a6U0KI/PukCPtnJm6Rbu0WK
+ 7bTQ6YOF7AulTTQJrr0ZSl5+OzKteshf7MgfmTDANzWI6dXnTqpPniu2U g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10329"; a="326176830"
+X-IronPort-AV: E=Sophos;i="5.90,291,1643702400"; d="scan'208";a="326176830"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  26 Apr 2022 11:41:16 -0700
-X-IronPort-AV: E=Sophos;i="5.90,291,1643702400"; d="scan'208";a="513300130"
+X-IronPort-AV: E=Sophos;i="5.90,291,1643702400"; d="scan'208";a="513300133"
 Received: from jzhang96-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.212.151.202])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2022 11:41:15 -0700
+ 26 Apr 2022 11:41:16 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 0/4] ASoC: SOF: use pm_runtime_resume_and_get()
-Date: Tue, 26 Apr 2022 13:41:02 -0500
-Message-Id: <20220426184106.102636-1-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 1/4] ASoC: SOF: control: use pm_runtime_resume_and_get()
+Date: Tue, 26 Apr 2022 13:41:03 -0500
+Message-Id: <20220426184106.102636-2-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20220426184106.102636-1-pierre-louis.bossart@linux.intel.com>
+References: <20220426184106.102636-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, broonie@kernel.org,
+Cc: tiwai@suse.de, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ broonie@kernel.org,
+ =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -86,21 +92,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-simplify code pattern as recommended by Mark Brown.
+Use pm_runtime_resume_and_get() to replace the pm_runtime_get_sync() and
+pm_runtime_put_noidle() pattern.
 
-Pierre-Louis Bossart (4):
-  ASoC: SOF: control: use pm_runtime_resume_and_get()
-  ASoC: SOF: debug: use pm_runtime_resume_and_get()
-  ASoC: SOF: sof-client-ipc-flood-test: use pm_runtime_resume_and_get()
-  ASoC: SOF: sof-client-ipc-msg-injector: use
-    pm_runtime_resume_and_get()
+No functional changes.
 
- sound/soc/sof/control.c                     | 3 +--
- sound/soc/sof/debug.c                       | 3 +--
- sound/soc/sof/sof-client-ipc-flood-test.c   | 3 +--
- sound/soc/sof/sof-client-ipc-msg-injector.c | 3 +--
- 4 files changed, 4 insertions(+), 8 deletions(-)
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+---
+ sound/soc/sof/control.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
+diff --git a/sound/soc/sof/control.c b/sound/soc/sof/control.c
+index 3b5718a3516de..e0e9efd25d34e 100644
+--- a/sound/soc/sof/control.c
++++ b/sound/soc/sof/control.c
+@@ -187,10 +187,9 @@ int snd_sof_bytes_ext_volatile_get(struct snd_kcontrol *kcontrol, unsigned int _
+ 	const struct sof_ipc_tplg_ops *tplg_ops = sdev->ipc->ops->tplg;
+ 	int ret, err;
+ 
+-	ret = pm_runtime_get_sync(scomp->dev);
++	ret = pm_runtime_resume_and_get(scomp->dev);
+ 	if (ret < 0 && ret != -EACCES) {
+ 		dev_err_ratelimited(scomp->dev, "%s: failed to resume %d\n", __func__, ret);
+-		pm_runtime_put_noidle(scomp->dev);
+ 		return ret;
+ 	}
+ 
 -- 
 2.30.2
 

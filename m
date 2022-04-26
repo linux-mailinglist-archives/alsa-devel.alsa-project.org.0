@@ -2,68 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45094510808
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Apr 2022 21:03:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38FFB510806
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Apr 2022 21:03:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DCE5717F8;
-	Tue, 26 Apr 2022 21:02:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DCE5717F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id D25C4183A;
+	Tue, 26 Apr 2022 21:02:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D25C4183A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650999813;
-	bh=Yin+YIOwRDSLjxFgNOB0DFj+qPCPFVJCMRkOd+EWZdQ=;
+	s=default; t=1650999802;
+	bh=Lczrt4+YUqRZ1mToh23wQuAlFBbPmfoWphl6BE6TpG8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eB+F/2s3aFYnfOR6WH7P3I8nlr2oKIdtYI+nH0+gAvCBGFaT5r4Y8Iz4kUCKQtzpF
-	 FBStWfS7Fn1xvdPaTqNipgk8OV4ceZV0Fnn2Z9r0IJNSWrlcLVxPExNeHdJEVksS3m
-	 3c2GHFhaperLmzGQCG4Ru+Iqg+JlkfHDTtzedHm4=
+	b=Q515vT9UJui8y28GMgA4eWpiB857vDhaNUrd7DGiH2acgB3HVMMVwsvYs1SzSh++Q
+	 ccE1mYuYPWnk08BgAdPuoFh7nC3V/usuLQkG4M+BWWm4EGZc67LZK1nzcUfJh+fKa0
+	 n+YzDJfdAsST/PYelPUNhT8tdWgwS6wUAXsjyLAY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 83B3BF80519;
-	Tue, 26 Apr 2022 21:02:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A1813F80510;
+	Tue, 26 Apr 2022 21:02:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 47011F8050F; Tue, 26 Apr 2022 21:02:00 +0200 (CEST)
+ id 6FBC6F80510; Tue, 26 Apr 2022 21:01:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E5C1BF804FE
+ by alsa1.perex.cz (Postfix) with ESMTPS id E9086F8027D
  for <alsa-devel@alsa-project.org>; Tue, 26 Apr 2022 21:01:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5C1BF804FE
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9086F8027D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="HWAW4530"
+ header.b="j1Y3W/cD"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 00658619A9;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 7AD69619AC;
  Tue, 26 Apr 2022 19:01:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DD0BC385AD;
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE9CAC385AA;
  Tue, 26 Apr 2022 19:01:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1650999707;
- bh=Yin+YIOwRDSLjxFgNOB0DFj+qPCPFVJCMRkOd+EWZdQ=;
+ bh=Lczrt4+YUqRZ1mToh23wQuAlFBbPmfoWphl6BE6TpG8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=HWAW4530gzEiEjR1/9S5parkOPlkV733WvLz2yx6T51lQL/nsGd/mM8IvjRO65rXn
- RKy6FSO+KOLyH7J1X7gPJ2wMaReN9l03zLhvpJLZWejkK6Qj5Z2RZimAFVDNtcJvYR
- bp1qwPMF8NAN/82YdGHlGf8xj0Q8z+94WNNOIBVRYJIM+Yt7Hm2g1PzCu1gs/e1ygH
- bEE3I8ElKiDpVnMKJX/GBfK1LTEeMqva9SsaWGCLCDClFpOtsp8/C2fU4KYUcvy2XA
- LUXpd2Z0hu7JDYjUk8R8VUmNNIi/tQ6GtlxkSKQdh9bRuGOYpDfMQpDFyiMkivMbqG
- xoFGfFiQd1D8Q==
+ b=j1Y3W/cDiQF6/YxPYC0jGB8sliXqFZlhFUltYGhUWmPAKyAtrjcZ86UEj23CJDfWT
+ gQBw32n4QTJ91c3OX+FpVn7LfaMVezW7HbAEbJifEttVwJmLPwbF/1XTrawHziyKwK
+ yeuQaogYfVUOqcz4j/LYCGKI3GMgmQDmHYDgG5a0JZdyNhxqDtX5Rgc9lDDSnwbc2r
+ Tzkzx/cx4727XNHwJozoJr/CJt6X3XpNHvHKN+mnjhv7VuDBUtVFfStTYuS3rjrAke
+ 3F0Qnnb/HCAIB9UxKvCLShTRLEvTgZSTs1Y9RhvuNJjcd1s3EwHtIQtg9lNUems1p1
+ JLlJafdNc0tMA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.17 02/22] ASoC: cs35l41: Fix a shift-out-of-bounds
- warning found by UBSAN
-Date: Tue, 26 Apr 2022 15:01:25 -0400
-Message-Id: <20220426190145.2351135-2-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.17 03/22] ASoC: rt711/5682: check if bus is active
+ before deferred jack detection
+Date: Tue, 26 Apr 2022 15:01:26 -0400
+Message-Id: <20220426190145.2351135-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220426190145.2351135-1-sashal@kernel.org>
 References: <20220426190145.2351135-1-sashal@kernel.org>
@@ -71,11 +72,11 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- tanureal@opensource.cirrus.com, patches@opensource.cirrus.com, tiwai@suse.com,
- lgirdwood@gmail.com, david.rhodes@cirrus.com,
- Hui Wang <hui.wang@canonical.com>, Mark Brown <broonie@kernel.org>,
- james.schulman@cirrus.com
+Cc: Sasha Levin <sashal@kernel.org>, oder_chiou@realtek.com,
+ alsa-devel@alsa-project.org, lgirdwood@gmail.com, tiwai@suse.com,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Rander Wang <rander.wang@intel.com>, Mark Brown <broonie@kernel.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,69 +92,72 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Hui Wang <hui.wang@canonical.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-[ Upstream commit 0b3d5d2e358ca6772fc3662fca27acb12a682fbf ]
+[ Upstream commit 770f3d992a3f7330f801dfeee98429b2885c9fdb ]
 
-We enabled UBSAN in the ubuntu kernel, and the cs35l41 driver triggers
-a warning calltrace like below:
+This patch takes a defensive programming and paranoid approach in case
+the parent device (SoundWire) is pm_runtime resumed but the rt711
+device is not. In that case, during the attachment and initialization,
+a jack detection workqueue can be scheduled. Since the pm_runtime
+suspend routines will not be invoked, the sequence to cancel all
+deferred work is not executed, and the jack detection could happen
+after the bus stops operating, leading to a timeout.
 
-cs35l41-hda i2c-CSC3551:00-cs35l41-hda.0: bitoffset= 8, word_offset=23, bit_sum mod 32=0, otp_map[i].size = 24
-cs35l41-hda i2c-CSC3551:00-cs35l41-hda.0: bitoffset= 0, word_offset=24, bit_sum mod 32=24, otp_map[i].size = 0
-================================================================================
-UBSAN: shift-out-of-bounds in linux-kernel-src/sound/soc/codecs/cs35l41-lib.c:836:8
-shift exponent 64 is too large for 64-bit type 'long unsigned int'
-CPU: 10 PID: 595 Comm: systemd-udevd Not tainted 5.15.0-23-generic #23
-Hardware name: LENOVO \x02MFG_IN_GO/\x02MFG_IN_GO, BIOS N3GET19W (1.00 ) 03/11/2022
-Call Trace:
- <TASK>
- show_stack+0x52/0x58
- dump_stack_lvl+0x4a/0x5f
- dump_stack+0x10/0x12
- ubsan_epilogue+0x9/0x45
- __ubsan_handle_shift_out_of_bounds.cold+0x61/0xef
- ? regmap_unlock_mutex+0xe/0x10
- cs35l41_otp_unpack.cold+0x1c6/0x2b2 [snd_soc_cs35l41_lib]
- cs35l41_hda_probe+0x24f/0x33a [snd_hda_scodec_cs35l41]
- cs35l41_hda_i2c_probe+0x65/0x90 [snd_hda_scodec_cs35l41_i2c]
+This patch applies the same solution to rt5682, based on the
+similarities between codec drivers. The race condition with rt5682 was
+not detected experimentally though.
 
-When both bitoffset and otp_map[i].size are 0, the line 836 will
-result in GENMASK(-1, 0), this triggers the shift-out-of-bounds
-calltrace.
-
-Here add a checking, if both bitoffset and otp_map[i].size are 0,
-do not run GENMASK() and directly set otp_val to 0, this will not
-bring any function change on the driver but could avoid the calltrace.
-
-Signed-off-by: Hui Wang <hui.wang@canonical.com>
-Link: https://lore.kernel.org/r/20220324081839.62009-2-hui.wang@canonical.com
+BugLink: https://github.com/thesofproject/linux/issues/3459
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Rander Wang <rander.wang@intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Link: https://lore.kernel.org/r/20220406192005.262996-1-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/cs35l41-lib.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ sound/soc/codecs/rt5682.c | 9 +++++++++
+ sound/soc/codecs/rt711.c  | 7 +++++++
+ 2 files changed, 16 insertions(+)
 
-diff --git a/sound/soc/codecs/cs35l41-lib.c b/sound/soc/codecs/cs35l41-lib.c
-index e5a56bcbb223..281a710a4123 100644
---- a/sound/soc/codecs/cs35l41-lib.c
-+++ b/sound/soc/codecs/cs35l41-lib.c
-@@ -831,12 +831,14 @@ int cs35l41_otp_unpack(struct device *dev, struct regmap *regmap)
- 					GENMASK(bit_offset + otp_map[i].size - 33, 0)) <<
- 					(32 - bit_offset);
- 			bit_offset += otp_map[i].size - 32;
--		} else {
-+		} else if (bit_offset + otp_map[i].size - 1 >= 0) {
- 			otp_val = (otp_mem[word_offset] &
- 				   GENMASK(bit_offset + otp_map[i].size - 1, bit_offset)
- 				  ) >> bit_offset;
- 			bit_offset += otp_map[i].size;
--		}
-+		} else /* both bit_offset and otp_map[i].size are 0 */
-+			otp_val = 0;
-+
- 		bit_sum += otp_map[i].size;
+diff --git a/sound/soc/codecs/rt5682.c b/sound/soc/codecs/rt5682.c
+index be68d573a490..e6f7e9f82511 100644
+--- a/sound/soc/codecs/rt5682.c
++++ b/sound/soc/codecs/rt5682.c
+@@ -1100,6 +1100,15 @@ void rt5682_jack_detect_handler(struct work_struct *work)
+ 		return;
+ 	}
  
- 		if (bit_offset == 32) {
++	if (rt5682->is_sdw) {
++		if (pm_runtime_status_suspended(rt5682->slave->dev.parent)) {
++			dev_dbg(&rt5682->slave->dev,
++				"%s: parent device is pm_runtime_status_suspended, skipping jack detection\n",
++				__func__);
++			return;
++		}
++	}
++
+ 	dapm = snd_soc_component_get_dapm(rt5682->component);
+ 
+ 	snd_soc_dapm_mutex_lock(dapm);
+diff --git a/sound/soc/codecs/rt711.c b/sound/soc/codecs/rt711.c
+index 6770825d037a..ea25fd58d43a 100644
+--- a/sound/soc/codecs/rt711.c
++++ b/sound/soc/codecs/rt711.c
+@@ -245,6 +245,13 @@ static void rt711_jack_detect_handler(struct work_struct *work)
+ 	if (!rt711->component->card->instantiated)
+ 		return;
+ 
++	if (pm_runtime_status_suspended(rt711->slave->dev.parent)) {
++		dev_dbg(&rt711->slave->dev,
++			"%s: parent device is pm_runtime_status_suspended, skipping jack detection\n",
++			__func__);
++		return;
++	}
++
+ 	reg = RT711_VERB_GET_PIN_SENSE | RT711_HP_OUT;
+ 	ret = regmap_read(rt711->regmap, reg, &jack_status);
+ 	if (ret < 0)
 -- 
 2.35.1
 

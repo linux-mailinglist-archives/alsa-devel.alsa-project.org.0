@@ -2,67 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A95DC51087D
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Apr 2022 21:06:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E8F4510883
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Apr 2022 21:06:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 56EE2184C;
-	Tue, 26 Apr 2022 21:05:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 56EE2184C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1214E181A;
+	Tue, 26 Apr 2022 21:06:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1214E181A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1650999976;
-	bh=kP8vkEbi7l6zQ+HStJBxrehrXF5ycY+sgq3il3p6mlc=;
+	s=default; t=1651000011;
+	bh=IahD/UGbAtp5D8KEjlB7ZHxiAoNcd+ZHPnhmK08V4LI=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=Zpc0AdeRsIQbcKdl/umkeKtOBwvjfiUuvC7iB6z7myMY80x3xai+xOiLsUyBdWxTe
-	 WWubFijhv9qIzelSWVW+41UIRF4S0dsi+zWC7BmSDw/FPg4fSU5hk3P6gMtewQaEfV
-	 prLu9Iw+T2onY3f6h5X3YqOVksjKbGfxya47ZSgM=
+	b=marF1RtFoylcCW5rcv04IU/4+cBzR19SvuY/ZyEPih7og1CfYwsm5Q0ydzpx9uiOi
+	 nKHFUFueyiLvEPXgq0dtX4UR4V63Hy5mjKcyuiLKIqZXPa1IpJ8ph/zDgos5swT5jy
+	 ZXf+8w00VqXCCczG8NWjcKGtwOUYrlBtUtKk+MFw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8EECCF8055B;
-	Tue, 26 Apr 2022 21:03:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7459FF80511;
+	Tue, 26 Apr 2022 21:03:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 04969F80559; Tue, 26 Apr 2022 21:03:00 +0200 (CEST)
+ id 27065F80510; Tue, 26 Apr 2022 21:03:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BECF1F8055A
- for <alsa-devel@alsa-project.org>; Tue, 26 Apr 2022 21:02:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BECF1F8055A
+ by alsa1.perex.cz (Postfix) with ESMTPS id B2255F804AC
+ for <alsa-devel@alsa-project.org>; Tue, 26 Apr 2022 21:03:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2255F804AC
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="pv4jE7oz"
+ header.b="URFRHNES"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id DA273619C2;
- Tue, 26 Apr 2022 19:02:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 220CDC385A4;
- Tue, 26 Apr 2022 19:02:52 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id BC553B8224C;
+ Tue, 26 Apr 2022 19:03:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56750C385A0;
+ Tue, 26 Apr 2022 19:02:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1650999772;
- bh=kP8vkEbi7l6zQ+HStJBxrehrXF5ycY+sgq3il3p6mlc=;
+ s=k20201202; t=1650999779;
+ bh=IahD/UGbAtp5D8KEjlB7ZHxiAoNcd+ZHPnhmK08V4LI=;
  h=From:To:Cc:Subject:Date:From;
- b=pv4jE7oz4cREnzsC9jWLHwd8bKJWSFKuA0PCanCVAtztxNAPhMenjPqkQOSYnpx2w
- 3KUax3XwOyZFlh8oJ+ZE3zm75A4k4MXR9M4RRLeQo9mn0qKoz71AZ0H/moTvahAkBu
- j9LBdJI6MCCGGn8KJHot5QlVhQN15LAvlIVoKgcWndPSLRXma64EcHLnbgKv8qzmg7
- Ev1AOuoIX5ixSRuxub2KDtMy7lkvYQpPB0+BlGBic3YI9SHeBUmNevbhup9x74T5Rq
- obNflKBVs0XEJQlMLxjImWT9KE7sW61OXU0ZE5p31yyt3YvDrGsKkp+kcudBWAX5L6
- Yyi8ACmQ5VW+A==
+ b=URFRHNESFL5/TWAsJPZv2mzFgObA4TCmpdF04ifwTtJMn2u0mffWR2Ggc6gz+WUEQ
+ RQeseiukQNba5N88kR0krx4HhQaxNopknmWOlWyoaQpuR/kuCQil52UmYKtKoSVZq8
+ AeUZxzqTIK2bBUTsWatxxvncD2uCMhTKAwrBX/PLYHNHVJ4wVOOXH8iG2FBD8CTC7s
+ JzTfw/V58WLfuJwE/5WJWzgLFOX80JKgk8hb2JL1c3ntRP1vrG+si+7bkgvOCZwneK
+ K6nEhZ8kLnoNVGQ7G+av0GE52SegaJlRg8ytK+drprTcufYXM4UWj1itL1y/bVe846
+ ofdPD9dy2bNFg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.19 1/6] ASoC: wm8731: Disable the regulator when
+Subject: [PATCH AUTOSEL 4.14 1/5] ASoC: wm8731: Disable the regulator when
  probing fails
-Date: Tue, 26 Apr 2022 15:02:44 -0400
-Message-Id: <20220426190251.2351817-1-sashal@kernel.org>
+Date: Tue, 26 Apr 2022 15:02:52 -0400
+Message-Id: <20220426190258.2351902-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
 X-stable: review
@@ -114,7 +115,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 11 insertions(+), 8 deletions(-)
 
 diff --git a/sound/soc/codecs/wm8731.c b/sound/soc/codecs/wm8731.c
-index 7c8fad865d6b..3c5c02b034a9 100644
+index 4f9a1eb28120..abe5e77ba171 100644
 --- a/sound/soc/codecs/wm8731.c
 +++ b/sound/soc/codecs/wm8731.c
 @@ -604,7 +604,7 @@ static int wm8731_hw_init(struct device *dev, struct wm8731_priv *wm8731)
@@ -151,8 +152,8 @@ index 7c8fad865d6b..3c5c02b034a9 100644
 -		return ret;
 +		goto err_regulator_enable;
  
- 	ret = devm_snd_soc_register_component(&i2c->dev,
- 			&soc_component_dev_wm8731, &wm8731_dai, 1);
+ 	ret = snd_soc_register_codec(&i2c->dev,
+ 			&soc_codec_dev_wm8731, &wm8731_dai, 1);
  	if (ret != 0) {
  		dev_err(&i2c->dev, "Failed to register CODEC: %d\n", ret);
 -		return ret;

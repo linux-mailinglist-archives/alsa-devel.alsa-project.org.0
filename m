@@ -2,77 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF0065116E1
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Apr 2022 14:41:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A90DA5116E4
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Apr 2022 14:42:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7AD51177E;
-	Wed, 27 Apr 2022 14:40:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7AD51177E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2DFC11720;
+	Wed, 27 Apr 2022 14:41:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2DFC11720
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651063273;
-	bh=LSRw/wzOR/NLKoz6fnNfdOCy3t98jeLEWYIwQbmk9V4=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=MRUrwnduwqRFfqs//UpBdhmfWhauEeD5dv5kJ7Zxawawzu8qLroxYJ5T/5AHS/2Sx
-	 PrVw484OZH/FQa27mUksKlZ1Va6be1VkWZms6RJ/IU0q3ZpwqlwzrewTpz+Rc1UWZ6
-	 zTHaMzi7ZNC68/WEmTOzjbjUI6E/pIdQiTtub+jg=
+	s=default; t=1651063338;
+	bh=a7TD6N0NJNeX0H34sslwEVoctiZTbr5NDz9Rb9P2bX4=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=i+hnwV1DFTlC291t75pBHMKWUzLGcNlaP9Pbb1FSwLOL/MtUVPiSjOsNHtDyNWQzn
+	 JAF7DteB0XY3vIdoqqhcMW7JhArbY0F/IcCJ6ITnAvPAZZu0neZu//j0aT/nwZQGjb
+	 hqj+Itttj/tJfl1V+pmZ/AfvhhzowCfk2lkQpFQU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0319BF80253;
-	Wed, 27 Apr 2022 14:40:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0372AF80256;
+	Wed, 27 Apr 2022 14:41:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 630F4F8016E; Wed, 27 Apr 2022 14:40:13 +0200 (CEST)
+ id 968C0F80155; Wed, 27 Apr 2022 14:41:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com
+ [IPv6:2607:f8b0:4864:20::1033])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 96EBEF80100
- for <alsa-devel@alsa-project.org>; Wed, 27 Apr 2022 14:40:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96EBEF80100
+ by alsa1.perex.cz (Postfix) with ESMTPS id CE9D5F80100
+ for <alsa-devel@alsa-project.org>; Wed, 27 Apr 2022 14:41:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE9D5F80100
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="nXwLz1Oj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1651063207; x=1682599207;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=LSRw/wzOR/NLKoz6fnNfdOCy3t98jeLEWYIwQbmk9V4=;
- b=nXwLz1OjGRPz4Mrgyw/fBytW0y06WH73rBMgrIrSzB0niBZIMnbJ637L
- elrzWgAKwF4h5/WqJwjM8V4v77Q9HneV3M6WzjAX6yXJmdH2CI9zEHalj
- ixfZLBDrMGpIACkJ8xxFUckELQ/qJAbgZcP46OUnyovqKPpxwx8JJPIfT
- kXXIGt8b6MYqsnSJl/9RHuim8fWM97pPc18d070Z2ns+ik5iC+GlmwpwY
- h7ZEv/bU86+dv4nUTHO8IyPJ51X4faXwfBgTYHgteeSoWy8nbcSBlsU+h
- tsXX10nQJ9DNFJFBMY/jP6Gv1DvpGnEWR9llAacI/vT1Ycf/QYa4I9ruS g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10329"; a="263501202"
-X-IronPort-AV: E=Sophos;i="5.90,293,1643702400"; d="scan'208";a="263501202"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Apr 2022 05:40:04 -0700
-X-IronPort-AV: E=Sophos;i="5.90,293,1643702400"; d="scan'208";a="533186931"
-Received: from rdegreef-mobl1.ger.corp.intel.com (HELO
- pujfalus-desk.ger.corp.intel.com) ([10.252.32.27])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Apr 2022 05:40:01 -0700
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com, broonie@kernel.org,
- pierre-louis.bossart@linux.intel.com, senozhatsky@chromium.org
-Subject: [PATCH v3] ASoC: SOF: ipc3-topology: Correct get_control_data for non
- bytes payload
-Date: Wed, 27 Apr 2022 15:40:25 +0300
-Message-Id: <20220427124025.14615-1-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.36.0
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="DW3Rqq7s"
+Received: by mail-pj1-x1033.google.com with SMTP id
+ j8-20020a17090a060800b001cd4fb60dccso1670334pjj.2
+ for <alsa-devel@alsa-project.org>; Wed, 27 Apr 2022 05:41:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=Wq28PJtFp2ZXhRI034iH1Qnz5afUUU3Bl0HP6yTmjKs=;
+ b=DW3Rqq7sdovtPYzb0tjAqJdwFSepX2FFO39TgI2LCNcd7ZBq1OttA9K9M+yYB9VX8q
+ 0QB72cRgDQlGcnlw3z/2O/qiGlUEs7ekEmZ2Rf+/YTdqgIBJ4QAHsaIP22O0XnEVWjpm
+ NFB8zuMl6gO/CTxPFxyBIqVxOiJAjh7G6yr6c=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=Wq28PJtFp2ZXhRI034iH1Qnz5afUUU3Bl0HP6yTmjKs=;
+ b=dRpahOEB4FleHYyGJdFUEJdu6VRVJ8KrQxCfurNcbBdLoUNv0WQoy0gCVVJetjd/XV
+ z9HHteCSlsJAjAgPD1whV02pgM8Tk3tdBVrbOGDrQXv+6Ti9KaVxHm3Aatllt62P2Y8b
+ VbBRF0slSUcPygn/n+ix1nKiv/REVjmtBOGitOZ996kDljo2FtaOYOYOexIoGH4VC0PH
+ ZnVfMo2fxphnIHiUGPX18f9OLhjB+sVth9sYknbiwZrv0DDnkqNiH5PA+CfTox7PooEz
+ tUGFNPR3kSzFcem2YGafMfs7PusWA48Rpf3JOI6OhIEza310e/Nz+qr45GSH3H4dOFuv
+ NxBg==
+X-Gm-Message-State: AOAM530Smhvg1xR+IR48fTtG4j4Jtax9HxhBz5mBfz1HCxdbWUwDzObi
+ JaPj1cXQGpFpdqc6yo4iXoSa0g==
+X-Google-Smtp-Source: ABdhPJyKqchzIfscFubVswNDkjUM9U4zaIRXMAoOdaQFTE+AoK5T6ID2J7IVFkZJOJ0f+Pc4UF41XQ==
+X-Received: by 2002:a17:902:7897:b0:15d:318d:706b with SMTP id
+ q23-20020a170902789700b0015d318d706bmr9712210pll.16.1651063272455; 
+ Wed, 27 Apr 2022 05:41:12 -0700 (PDT)
+Received: from google.com ([2401:fa00:8f:203:8e2d:263:26e7:c039])
+ by smtp.gmail.com with ESMTPSA id
+ i5-20020a635845000000b003aaba2d78c2sm15733630pgm.71.2022.04.27.05.41.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 27 Apr 2022 05:41:11 -0700 (PDT)
+Date: Wed, 27 Apr 2022 21:41:07 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: =?iso-8859-1?Q?P=E9ter?= Ujfalusi <peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH v2] ASoC: SOF: ipc3-topology: Correct get_control_data
+ for non bytes payload
+Message-ID: <Ymk542TrKrLTiBO8@google.com>
+References: <20220427105253.16640-1-peter.ujfalusi@linux.intel.com>
+ <YmknCrJKihRkpyTq@google.com>
+ <83698b90-855a-f5e0-11ba-94aba393a7b1@linux.intel.com>
+ <YmkvBAgBrxRAMUcO@google.com>
+ <03a5d9ee-90ef-e4b9-5117-e59e81407453@linux.intel.com>
+ <Ymk3jYPd1lpvfjBE@google.com>
+ <6b8e7ef5-d5f2-b691-e493-2ba2d8ef783b@linux.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Cc: cujomalainey@google.com, alsa-devel@alsa-project.org,
- ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com
+In-Reply-To: <6b8e7ef5-d5f2-b691-e493-2ba2d8ef783b@linux.intel.com>
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ kai.vehmanen@linux.intel.com, cujomalainey@google.com,
+ ranjani.sridharan@linux.intel.com, lgirdwood@gmail.com,
+ Sergey Senozhatsky <senozhatsky@chromium.org>, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,109 +111,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-It is possible to craft a topology where sof_get_control_data() would do
-out of bounds access because it expects that it is only called when the
-payload is bytes type.
-Confusingly it also handles other types of controls, but the payload
-parsing implementation is only valid for bytes.
+On (22/04/27 15:35), Péter Ujfalusi wrote:
+> >> Hrm, uhm. clang is right. The check is (and was) bogus...
+> >>
+> >> cdata->data is a pointer (to cdata->data[0]) which is always:
+> >> cdata + sizeof(struct sof_ipc_ctrl_data).
+> >> Checking if it is NULL or not is irrelevant and wrong. If we do not have
+> >> additional data then cdata->data points to memory which is outside of
+> >> the struct and it can be random data (might be 0, might not be).
+> > 
+> > Yeah to be honest that's what I'm thinking too.
+> > 
+> > Does sof_ipc_ctrl_data have to be a var-sized structure? Or can that union
+> > hold pointers that are allocated separately?
+> > 
+> > 	scontrol->data = kzalloc(sizeof sof_ipc_ctrl_data);
+> > 	scontrol->data->chan = kzalloc(sizeof chan * mc->num_channels)
+> 
+> Unfortunately no, the data/chanv/compv needs to be flexible array as it
+> is the IPC message itself.
 
-Fix the code to count the non bytes controls and instead of storing a
-pointer to sof_abi_hdr in sof_widget_data (which is only valid for bytes),
-store the pointer to the data itself and add a new member to save the size
-of the data.
+That's what I suspected.
 
-In case of non bytes controls we store the pointer to the chanv itself,
-which is just an array of values at the end.
+> >> I think we can just drop this check as we would not be here if
+> >> additional data was not allocated for the payload prior?
+> > 
+> > I don't have enough knowledge of this code. ->data check doesn't do what
+> > it is expected to do so removing it shouldn't do harm.
+> 
+> Let me quickly send v3 with dropped cdata->data check.
 
-In case of bytes control, drop the wrong cdata->data (wdata[i].pdata) check
-against NULL since it is incorrect and invalid in this context.
-The data is pointing to the end of cdata struct, so it should never be
-null.
-
-Reported-by: Sergey Senozhatsky <senozhatsky@chromium.org>
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
----
-Hi,
-
-Changes since v2:
-- Drop the cdata->data check against NULL as it is not a valid test and since we
-  are in sof_get_control_data() the memory has been already allocated
-
-changes since v1:
-- adjust the payload size for non bytes controls by subtracting the size of the
-  sof_ipc_ctrl_data struct, plus add comment to note this
-
-Regards,
-Peter
-
- sound/soc/sof/ipc3-topology.c | 37 +++++++++++++++++++++++------------
- 1 file changed, 25 insertions(+), 12 deletions(-)
-
-diff --git a/sound/soc/sof/ipc3-topology.c b/sound/soc/sof/ipc3-topology.c
-index 572bcbfdb356..66034624e479 100644
---- a/sound/soc/sof/ipc3-topology.c
-+++ b/sound/soc/sof/ipc3-topology.c
-@@ -20,7 +20,8 @@
- struct sof_widget_data {
- 	int ctrl_type;
- 	int ipc_cmd;
--	struct sof_abi_hdr *pdata;
-+	void *pdata;
-+	size_t pdata_size;
- 	struct snd_sof_control *control;
- };
- 
-@@ -784,16 +785,26 @@ static int sof_get_control_data(struct snd_soc_component *scomp,
- 		}
- 
- 		cdata = wdata[i].control->ipc_control_data;
--		wdata[i].pdata = cdata->data;
--		if (!wdata[i].pdata)
--			return -EINVAL;
- 
- 		/* make sure data is valid - data can be updated at runtime */
--		if (widget->dobj.widget.kcontrol_type[i] == SND_SOC_TPLG_TYPE_BYTES &&
--		    wdata[i].pdata->magic != SOF_ABI_MAGIC)
--			return -EINVAL;
-+		if (widget->dobj.widget.kcontrol_type[i] == SND_SOC_TPLG_TYPE_BYTES) {
-+			if (cdata->data->magic != SOF_ABI_MAGIC)
-+				return -EINVAL;
-+
-+			wdata[i].pdata = cdata->data->data;
-+			wdata[i].pdata_size = cdata->data->size;
-+		} else {
-+			/* points to the control data union */
-+			wdata[i].pdata = cdata->chanv;
-+			/*
-+			 * wdata[i].control->size is calculated with struct_size
-+			 * and includes the size of struct sof_ipc_ctrl_data
-+			 */
-+			wdata[i].pdata_size = wdata[i].control->size -
-+					      sizeof(struct sof_ipc_ctrl_data);
-+		}
- 
--		*size += wdata[i].pdata->size;
-+		*size += wdata[i].pdata_size;
- 
- 		/* get data type */
- 		switch (cdata->cmd) {
-@@ -876,10 +887,12 @@ static int sof_process_load(struct snd_soc_component *scomp,
- 	 */
- 	if (ipc_data_size) {
- 		for (i = 0; i < widget->num_kcontrols; i++) {
--			memcpy(&process->data[offset],
--			       wdata[i].pdata->data,
--			       wdata[i].pdata->size);
--			offset += wdata[i].pdata->size;
-+			if (!wdata[i].pdata_size)
-+				continue;
-+
-+			memcpy(&process->data[offset], wdata[i].pdata,
-+			       wdata[i].pdata_size);
-+			offset += wdata[i].pdata_size;
- 		}
- 	}
- 
--- 
-2.36.0
-
+OK. I'll remove if from the backport, run another test and will call it a
+day. As you can guess I was puzzled by that ->data check but it's another
+very long day in the office for me and in the end I just dropped the ball
+and decide to suppress clang warning instead. Very smart! (NO). My bad. (YES).

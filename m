@@ -2,91 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96B6D511C74
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Apr 2022 18:56:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D21E511C7A
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Apr 2022 19:03:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 27FD320C;
-	Wed, 27 Apr 2022 18:55:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27FD320C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 900B220C;
+	Wed, 27 Apr 2022 19:02:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 900B220C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651078562;
-	bh=BprxktdNPE+NYGOYbvLnlWf4wY7E07o36Wa6YG7j7Yk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1651079005;
+	bh=ouO9czTH1hGnxhRnNmCrMytCCUcGkvz2EgFW4yiQlKY=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LU896D9v4y6r1RG/hzKd1FDC+6UrqOVsIhd2B9uD30R2bkte9TDcOab9eZiKepVbH
-	 xdYFrN/KrbGWFIWPbtyacZIOnRt8sdR0XMFTsXiLdCepczTwWoVcBVRxZvpm6wSJBG
-	 det2jfaqeWIf9+ljQ1oX1ptq5J++e3FAHbXcrFi0=
+	b=MwLNBD+k2oKiac8YJsDBXnB3XKiUflnIkcA1Zn3qn/CAYBpCNyNI+LlJyckznVKGn
+	 De/wNgShyMczFJsxk4vbYlQ6yNNQv+L1/uWX8cf8JGGnuWBW8uxY5CH/f14AN/xTzp
+	 4Xr6N/VzKzfyylKgv/3iGG9PpDoxq1pTbDV+0rrc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 804FCF80100;
-	Wed, 27 Apr 2022 18:55:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 112A6F80253;
+	Wed, 27 Apr 2022 19:02:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B1CA1F8016E; Wed, 27 Apr 2022 18:55:01 +0200 (CEST)
+ id 738D5F8016E; Wed, 27 Apr 2022 19:02:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,PRX_BODY_30,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [IPv6:2a00:1450:4864:20::535])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5E919F80152
- for <alsa-devel@alsa-project.org>; Wed, 27 Apr 2022 18:54:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E919F80152
+ by alsa1.perex.cz (Postfix) with ESMTPS id 13B5BF80152
+ for <alsa-devel@alsa-project.org>; Wed, 27 Apr 2022 19:02:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13B5BF80152
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="cN/MStJF"
-Received: by mail-ed1-x535.google.com with SMTP id z19so2634523edx.9
- for <alsa-devel@alsa-project.org>; Wed, 27 Apr 2022 09:54:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=TQEfts7gGgrS3RTNrz2Amxg4xfYD+j4xnGdHlASdH9I=;
- b=cN/MStJFBDig4DNtSuDfP9IMen7lJr0c0zoMBqSlQbV4uW7pAlntvzRFZdgz/swyd6
- dVaRK8xP9m9wfqB0uu4bj7i/XSpVblxxlAoWIgvRm/coJFm/dTQZR8TGKD6NN1MBuBP2
- R5muNDW8b49AWLlgvQoUusLyTZkiJGrGsj+WRVEVSYbKYb3GTRJUiMC1ASFi2xz1WssX
- QH0Fpjnpf5w47KOPqL1Kw4EMd5u2tln/TS3NuGq1mACmGzPN8xBL+IpUgXQ1Hn0zi+Sa
- PYmgVzNyo5/6RPLMjLdkD4WxJZqSjM9uj/EC98KCa3bvo2sfQD81Nws2BvthLSorxcB/
- /BdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=TQEfts7gGgrS3RTNrz2Amxg4xfYD+j4xnGdHlASdH9I=;
- b=MnZRg0vEZ4enelBrO7aK8E9uipf3QvFiRUA0+V4v6k/lFoRREzG9MsG4zu8PT9Holh
- 1o1Wmx6KJ7ANRg1iXFNxnj1Jk5Pe8w2A+Dz/PeksOOxW9lJN6xckiUW6l/qBFNf3JQXm
- E9PMZZZluilz5WmWPfpC1YkzE+l4+npk+IEK4XAc9LmbIrEW7VFyBZts4GSl8uWsCweb
- IWG4F0w/4DiNkTsh4UaN1DmV3EtC76kdJfDDIPt6AKy5cspMA1ESEjr6IvB4oc3Ny6GS
- 1ddOPA8V3FJ3I/GcPuHOykr4RYZVcckGDocRgnpAsrpgo6aNdgqqMFJNGns7S9+gzkB+
- +vCQ==
-X-Gm-Message-State: AOAM532SmiTTbnnTMcUwgVEuYuLJrw+hEqPQUgfotgbhNuk+otMSubLk
- JaHVOqrWT70EGp2++Pg7aSbyMaNXQcTatdDQooznLlRz5jc=
-X-Google-Smtp-Source: ABdhPJwgoNy1H9XcwcsUGxoasbcDBzq7WtxOrHlC76valho4hFxrC3TCWeuptcHUT67MMZuyDOCisnyGSl8/nYlDU50=
-X-Received: by 2002:aa7:d5c5:0:b0:425:b144:ab84 with SMTP id
- d5-20020aa7d5c5000000b00425b144ab84mr31520840eds.200.1651078491902; Wed, 27
- Apr 2022 09:54:51 -0700 (PDT)
-MIME-Version: 1.0
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="P41MUKbW"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 80A3B61DD9;
+ Wed, 27 Apr 2022 17:02:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E2B5C385A9;
+ Wed, 27 Apr 2022 17:02:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1651078936;
+ bh=ouO9czTH1hGnxhRnNmCrMytCCUcGkvz2EgFW4yiQlKY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=P41MUKbWcbp+/p4irkEFK7rEw3lVlBg/J/trLlJiHk+9o+VybeWYbjl1vWl0xJ7WF
+ axwKtNA3sh6/iPwHybf7RG4lQ2Mk5nQGghluWK+WnMghaRhE2BtOzxFC+wKFf3P77q
+ NzX7XfZ2XbTs3qQ4zgcFPD4D8xleg8CaH/+56UvncWtlvCa0duPXZR6mQ3Y3FPJibE
+ AHDiKn4FWNUW9EUZyO3xK7E2ZWQe1mFJbnyjQjIymW1xzJGCaxvZBWwm9JKOL3nJ75
+ Inv2/YtFcIUPKR+X9V4jm1f4XW70VLmwCzKEwwiI24iCXmHh0uukq8kY/CwdUqVf84
+ NBAegH8Jw3AHg==
+Date: Wed, 27 Apr 2022 18:02:12 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Subject: Re: WM8962 crashing on suspend
+Message-ID: <Yml3FLb4edRWKwTX@sirena.org.uk>
 References: <CAHCN7xJuAuGmSQsmBfg-C6jOdJmf1Li=YWp7Jdi29nU3kk1GcA@mail.gmail.com>
  <20220426174150.GZ38351@ediswmail.ad.cirrus.com>
  <CAHCN7xLqixKxM_L7P9T2BqLpyHoGTYpMODKJotCneXZK+wUEMg@mail.gmail.com>
  <20220427145730.GE38351@ediswmail.ad.cirrus.com>
  <YmlgL+Ur6BeWiUtr@sirena.org.uk>
  <20220427164825.GH38351@ediswmail.ad.cirrus.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="JBWjWul9bDTCdfX+"
+Content-Disposition: inline
 In-Reply-To: <20220427164825.GH38351@ediswmail.ad.cirrus.com>
-From: Adam Ford <aford173@gmail.com>
-Date: Wed, 27 Apr 2022 11:54:40 -0500
-Message-ID: <CAHCN7xJSpYsZbVRrCmt8QobEOk+bvRLs=qgTHqqsh-K1xEUgUA@mail.gmail.com>
-Subject: Re: WM8962 crashing on suspend
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Content-Type: text/plain; charset="UTF-8"
+X-Cookie: Buckle up!
 Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
  patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+ Liam Girdwood <lgirdwood@gmail.com>, Adam Ford <aford173@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,45 +92,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Apr 27, 2022 at 11:48 AM Charles Keepax
-<ckeepax@opensource.cirrus.com> wrote:
->
-> On Wed, Apr 27, 2022 at 04:24:31PM +0100, Mark Brown wrote:
-> > On Wed, Apr 27, 2022 at 02:57:30PM +0000, Charles Keepax wrote:
-> > > On Wed, Apr 27, 2022 at 08:12:56AM -0500, Adam Ford wrote:
-> > > > static const struct dev_pm_ops wm8962_pm = {
-> > > > + SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
-> > > > SET_RUNTIME_PM_OPS(wm8962_runtime_suspend, wm8962_runtime_resume, NULL)
-> > > > };
-> >
-> > > > I applied this, and it appears to make the issue go away on a 5.15
-> > > > kernel.  I haven't tried it on a 5.18 yet.  If this fixes the issue,
-> > > > would that be an acceptable solution to push upstream?
-> >
-> > > Feels like those operations should be runtime PM, like there is
-> > > no reason to keep the CODEC in a high power state than necessary.
-> >
-> > The issue Adam reported was suspending during playback - if you suspend
-> > during playback or capture the device is not idle at the point where we
-> > start trying to suspend so it shouldn't be in runtime suspend and won't
-> > by default be runtime suspended by the PM core.
->
+
+--JBWjWul9bDTCdfX+
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Wed, Apr 27, 2022 at 04:48:25PM +0000, Charles Keepax wrote:
+
 > Yeah in my head snd_soc_suspend would have been called which
 > would (assuming the DAI doesn't have ignore_suspend set) shut
 > down the DAPM graph for the audio route, causing the runtime
 > references to all be released and the CODEC to be suspended
 > through runtime_pm. Not sure if I missed something there, and
+
+Runtime suspend won't do anything beyond tracking the reference count
+when we're in the middle of system suspend IIRC, it won't actually call
+the operations.
+
 > that also allows for systems where the CODEC doesn't suspend
 > during system suspend. That said guess there probably arn't
 > any use-cases for that on wm8962 and I am more than happy to
 > use the force_suspend ops if you are happy with it.
 
-I am not familiar with this driver or the force_suspend ops, so I am
-not sure if there are going to be side-effects.
-I don't mind collecting more data if it's helpful.  I probably won't
-be able to add more debug info until this weekend at the earliest.
+The other option would be to move the runtime PM stuff into the bias
+level configuration I guess.
 
-adam
->
-> Thanks,
-> Charles
+--JBWjWul9bDTCdfX+
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJpdxMACgkQJNaLcl1U
+h9AiLAf/V0iFrJXSvKhJSN37re/9556nmJM0hkzqFzuDHY0aNA3GXqQuxwzRwZeb
+WBG/TfXmzyFOSGFHu2XNzxiA3Q87nVcQIyKoEftz8th7lqC1B5ZZHd6mbN8Seydh
+I/zT5enwLnMzObA/cT0xlZduStCptlOfWLXcm5XNzOQrYhYZTsV8+0DcPdu5eZSw
+TC+zYtbPM2tNc7DKSf/JipuT595Wh1C3o5g03CDwwoybHqotObIdWz6yN1gwFB1g
+vIKyMP2mEOXdQGY/3F7ZoL7e8dVw4CozymEVg/7bbEo0WsGYX70JVN/84TQYGeLe
+1gzgl6Az9g5MgsGOCRuA9ZHVXjDr8A==
+=dGQx
+-----END PGP SIGNATURE-----
+
+--JBWjWul9bDTCdfX+--

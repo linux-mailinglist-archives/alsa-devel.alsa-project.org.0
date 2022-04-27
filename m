@@ -2,92 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C57F511820
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Apr 2022 15:10:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 098AD511828
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Apr 2022 15:14:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 922E917A2;
-	Wed, 27 Apr 2022 15:09:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 922E917A2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 820E3175F;
+	Wed, 27 Apr 2022 15:13:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 820E3175F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651065030;
-	bh=e6xGywLcX0101hcEv8u2O6zeeEux8RXeETnpT+Rpybs=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1651065257;
+	bh=tuOORYVtReGl+OkaPdyAAnN6S4hP4eSUBYI72nHm5YM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=k+7GEy5zrL6GPeW3VW6skKQ1IpN9/AG7ZaWfN80wrHZcoBFASYWdgJJ0BmwkZhGbh
-	 wZ93NKsMtjqZd3+z6jo1XEquiW/gD1zbolM/PSvlbXruZN+3NkQKhz8VY2G3mAYMUK
-	 8NFvwKRuQNdXDp63RPdAgvq9hDTRaNeTAt1b3kCM=
+	b=X93uLGpyni5NmY8cXHJYrwxfIwe5bSYePDAHeeLpX7TQDUzv3VUTkNHSFEK7qVtec
+	 KClgiI3pWngz8c6jvpdY+41AMGyTCP0ziRiNEl4Co3O74h6Q+MeMytL3u8Kythz6U7
+	 LCdrongb5OB/aNwI3UVQrcd9/BrSOXwgMuKvOxUo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 34E17F80152;
-	Wed, 27 Apr 2022 15:09:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0808DF80253;
+	Wed, 27 Apr 2022 15:13:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7EC71F8016E; Wed, 27 Apr 2022 15:09:38 +0200 (CEST)
+ id D5526F80152; Wed, 27 Apr 2022 15:13:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from mail-pj1-x1034.google.com (mail-pj1-x1034.google.com
- [IPv6:2607:f8b0:4864:20::1034])
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE, 
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [IPv6:2a00:1450:4864:20::629])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6D740F80152
- for <alsa-devel@alsa-project.org>; Wed, 27 Apr 2022 15:09:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D740F80152
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9944EF800AE
+ for <alsa-devel@alsa-project.org>; Wed, 27 Apr 2022 15:13:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9944EF800AE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="kuUSMG7c"
-Received: by mail-pj1-x1034.google.com with SMTP id fv2so1440385pjb.4
- for <alsa-devel@alsa-project.org>; Wed, 27 Apr 2022 06:09:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=I5p0hV+TwBwjsgZNGvX8XN68V3XCv2JKwi8F4mHH+vs=;
- b=kuUSMG7cK8jz8F9+hZ8iXJyUVBSIXNbv58X2nmjQyUwrFHC3V0kDT5AOfo3Y2vic2w
- s7dfiGYgAZbjwouv8sWz2YKux60A7quW/RW95urruy714j67rNHAqaMv/DCFa2QDooyl
- LvTZlKKoh6WZlfoLIu88SYnebExT8DPOI2pKY=
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="eAbx9o6M"
+Received: by mail-ej1-x629.google.com with SMTP id l18so3305722ejc.7
+ for <alsa-devel@alsa-project.org>; Wed, 27 Apr 2022 06:13:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=BYt6s7EgHuLGC4TAypu6h/0IfajDEyZ4jHY5i7KAMN4=;
+ b=eAbx9o6MKnZElI9veihhhbIfQ3AtsOXWS2SmMP2MwAAxLXXmJIUqBNP4D6Vx6IKsaO
+ 4Jc4WzsE8T4HZXUswRt9/lgnNIpitr+hQB4BJkmbgRTpNiZmfrla/y8mtG5HgiUBNzVY
+ jgA4flaeYq+VrX9ZzRy8uJE6aou6D65E8eDfgbDBxzoKJpAbWB/wpnZIFz7OU1kdjFQj
+ Y2ZyfBWtCNnq8cn0kyPUnlhqUIqm092j2YidaBD2u2wOX3NiwgmR7wu2Duo92XHQcki3
+ xmhVXcg2fnYWvoD5iPGJyY/4JRj5k/QMnW6Z91sEeoioVp+dHNeRhbXtSkuWzxxzUnkU
+ G96w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=I5p0hV+TwBwjsgZNGvX8XN68V3XCv2JKwi8F4mHH+vs=;
- b=TCjxaDF44dS1uV65txa/KWiV/rwxdsxXdGT7P6cLP/D1czvg99suAf5c5EXPGW54qY
- Gk/vaapy9ZkHMHOfSIBMfQO0ylU5Rn3oAh+NTWJOE2kqWtgKGdlbMhS1E3r/zhZHP1WS
- ipcu+wtTZWjkIwxM0PhR9432K/54R/ddZ3wQLX9G4hcSS5/z3Xi/WfOJdSOc8PYFHAwv
- sdLnNeMkVFzUbnF0nAutAcjue79BG+QiOR3upcHPmZb1u2AIkPBkbdhvwBmgTvCiAjBX
- VVbIQt3YIrCsebWvy607yGtWfHxDCdFnb7jqcf9JA+eKf3qY/uwarheWvUuT+S+d70eQ
- byNg==
-X-Gm-Message-State: AOAM530j2oA2Ae+c1yyVRGyJ+WPP73R8c0beXYpJQQ/s1YRk+ivu92iw
- 4hbOyVXsiyg8IfOeYBXeF3EFzw==
-X-Google-Smtp-Source: ABdhPJxmayT7zXl7sibWPsjhw+Xq61mC739TWJL+2h+QM72HXSqUXqKFXYWf93TmjuEM6hQ6z1w0MA==
-X-Received: by 2002:a17:903:22c6:b0:15d:45d8:8f8a with SMTP id
- y6-20020a17090322c600b0015d45d88f8amr5871445plg.31.1651064968824; 
- Wed, 27 Apr 2022 06:09:28 -0700 (PDT)
-Received: from google.com ([2401:fa00:8f:203:8e2d:263:26e7:c039])
- by smtp.gmail.com with ESMTPSA id
- f33-20020a631021000000b0039dbae3fce0sm16191999pgl.43.2022.04.27.06.09.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 27 Apr 2022 06:09:28 -0700 (PDT)
-Date: Wed, 27 Apr 2022 22:09:23 +0900
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
-To: Sergey Senozhatsky <senozhatsky@chromium.org>
-Subject: Re: [PATCH v3] ASoC: SOF: ipc3-topology: Correct get_control_data
- for non bytes payload
-Message-ID: <YmlAgxxuG+zbnyP9@google.com>
-References: <20220427124025.14615-1-peter.ujfalusi@linux.intel.com>
- <YmlAOm7AlZGpQLPS@google.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=BYt6s7EgHuLGC4TAypu6h/0IfajDEyZ4jHY5i7KAMN4=;
+ b=v+jKnaGTnb5nsDO258uGUTfWkAyfmGaQwONCC6oSKkyUtO8kRss5ysncwIpLW5T26e
+ Ot6mylc7CwW7+It2fbGx5YLW3PFiVF8U9VLI+fVEF15pBoii0ZEo4U7+6jvkjytXmUvw
+ qAngUTQoapJGL0Zx1hkeYkocBMLP6Lf2wLF4+DXFvQPzok3PVdI1pY/RIQPnXJymgqKN
+ Q+fs6gscE4Y7ZVZ9ttF10qjHE+jHuV7RuTRTw1K15Cv7bs4reBfsubWA1n4NayiV1tSV
+ zwx6wbkGYXttycCRHFLiEkhA7lK3wa2fW7gGbfkLua3kzLeFuN1Tl1wHXcAobbZBrCkf
+ RF0A==
+X-Gm-Message-State: AOAM531SY5ClHOQVIQmexmUbt/Q5XJtPJ88hdxejlAS7F3+EBYtPsV75
+ 3Wvdwrcu7L5ie6I2igJs1a3941RSkPsWNtFAVHU=
+X-Google-Smtp-Source: ABdhPJzSyVewch82Zaea7zZ4HUaGOQW+pHtACc2D7nrWgAIDWb1nr3sPuYI4K+H687iDMIb0i+z7s+PH8ZlOncY6ZJI=
+X-Received: by 2002:a17:907:3e25:b0:6ef:e246:cfc7 with SMTP id
+ hp37-20020a1709073e2500b006efe246cfc7mr26087043ejc.613.1651065187136; Wed, 27
+ Apr 2022 06:13:07 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YmlAOm7AlZGpQLPS@google.com>
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- kai.vehmanen@linux.intel.com, cujomalainey@google.com,
- ranjani.sridharan@linux.intel.com, lgirdwood@gmail.com, broonie@kernel.org,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+References: <CAHCN7xJuAuGmSQsmBfg-C6jOdJmf1Li=YWp7Jdi29nU3kk1GcA@mail.gmail.com>
+ <20220426174150.GZ38351@ediswmail.ad.cirrus.com>
+In-Reply-To: <20220426174150.GZ38351@ediswmail.ad.cirrus.com>
+From: Adam Ford <aford173@gmail.com>
+Date: Wed, 27 Apr 2022 08:12:56 -0500
+Message-ID: <CAHCN7xLqixKxM_L7P9T2BqLpyHoGTYpMODKJotCneXZK+wUEMg@mail.gmail.com>
+Subject: Re: WM8962 crashing on suspend
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,83 +98,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On (22/04/27 22:08), Sergey Senozhatsky wrote:
-> 
-> I also have a 5.4 backport but it's entirely untested.
+On Tue, Apr 26, 2022 at 12:41 PM Charles Keepax
+<ckeepax@opensource.cirrus.com> wrote:
+>
+> On Tue, Apr 26, 2022 at 11:36:26AM -0500, Adam Ford wrote:
+> > I have an imx8m Mini with a wm8962 codec.  If I run a speaker test and
+> > suspend the board while the speaker test is running, I get the
+> > following upon wake:
+> >
+> > wm8962 3-001a: ASoC: error at soc_component_read_no_lock on wm8962.3-001a: -16
+> >
+> > This message repeats itself over and over again.  If I attempt to use
+> > any audio, it fails until I reboot the board.
+> >
+> > If I run the audio test, then exit and suspend, the audio works upon
+> > resume, so it appears to be related to suspending while running.
+> >
+> > I am hoping someone might have a suggestion as to what I might be able
+> > to do or try to allow this to successfully suspend and resume if the
+> > device is playing sound.
+> >
+>
+> Hmm... EBUSY is what regmap returns when a volatile register is
+> read whilst the chip is still in cache only. The driver does
+> appear to be missing the usually fairly important work around to
+> avoid the IRQ and the PM runtime deadlocking on resume. Although
+> not sure that would actually lead to the error message you are
+> seeing.
+>
+> Would be really handy to see a little more of the log leading up
+> to the failure if that is possible? And would be really awesome
+> if you had any idea which read was returning the error? You could
+> shove a dump_stack in _soc_component_ret next to the error
+> message.
 
-5.4
+Because NXP had a downstream kernel, and it didn't appear to happen
+when using their downstream kernel, I wanted to see the difference.
+I found this:
 
----
+static const struct dev_pm_ops wm8962_pm = {
++ SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
+SET_RUNTIME_PM_OPS(wm8962_runtime_suspend, wm8962_runtime_resume, NULL)
+};
 
-diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index fa299e078156..a70b7e71c235 100644
---- a/sound/soc/sof/topology.c
-+++ b/sound/soc/sof/topology.c
-@@ -45,7 +45,8 @@
- struct sof_widget_data {
- 	int ctrl_type;
- 	int ipc_cmd;
--	struct sof_abi_hdr *pdata;
-+	void *pdata;
-+	size_t pdata_size;
- 	struct snd_sof_control *control;
- };
- 
-@@ -1761,6 +1762,7 @@ static int sof_get_control_data(struct snd_sof_dev *sdev,
- 				size_t *size)
- {
- 	const struct snd_kcontrol_new *kc;
-+	struct sof_ipc_ctrl_data *cdata;
- 	struct soc_mixer_control *sm;
- 	struct soc_bytes_ext *sbe;
- 	struct soc_enum *se;
-@@ -1797,15 +1799,25 @@ static int sof_get_control_data(struct snd_sof_dev *sdev,
- 			return -EINVAL;
- 		}
- 
--		wdata[i].pdata = wdata[i].control->control_data->data;
--		if (!wdata[i].pdata)
--			return -EINVAL;
-+		cdata = wdata[i].control->control_data;
-+		if (widget->dobj.widget.kcontrol_type[i] == SND_SOC_TPLG_TYPE_BYTES) {
-+			if (cdata->data->magic != SOF_ABI_MAGIC)
-+				return -EINVAL;
- 
--		/* make sure data is valid - data can be updated at runtime */
--		if (wdata[i].pdata->magic != SOF_ABI_MAGIC)
--			return -EINVAL;
-+			wdata[i].pdata = cdata->data->data;
-+			wdata[i].pdata_size = cdata->data->size;
-+		} else {
-+			/* points to the control data union */
-+			wdata[i].pdata = cdata->chanv;
-+			/*
-+			 * wdata[i].control->size is calculated with struct_size
-+			 * and includes the size of struct sof_ipc_ctrl_data
-+			 */
-+			wdata[i].pdata_size = wdata[i].control->size -
-+					      sizeof(struct sof_ipc_ctrl_data);
-+		}
- 
--		*size += wdata[i].pdata->size;
-+		*size += wdata[i].pdata_size;
- 
- 		/* get data type */
- 		switch (wdata[i].control->cmd) {
-@@ -1909,10 +1921,12 @@ static int sof_process_load(struct snd_soc_component *scomp, int index,
- 	 */
- 	if (ipc_data_size) {
- 		for (i = 0; i < widget->num_kcontrols; i++) {
--			memcpy(&process->data + offset,
--			       wdata[i].pdata->data,
--			       wdata[i].pdata->size);
--			offset += wdata[i].pdata->size;
-+			if (!wdata[i].pdata_size)
-+				continue;
-+
-+			memcpy(&process->data[offset], wdata[i].pdata,
-+			       wdata[i].pdata_size);
-+			offset += wdata[i].pdata_size;
- 		}
- 	}
- 
+I applied this, and it appears to make the issue go away on a 5.15
+kernel.  I haven't tried it on a 5.18 yet.  If this fixes the issue,
+would that be an acceptable solution to push upstream?
+
+adam
+>
+> Thanks,
+> Charles

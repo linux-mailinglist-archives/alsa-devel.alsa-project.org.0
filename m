@@ -2,81 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BE60511871
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Apr 2022 15:40:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CE8A511881
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Apr 2022 15:50:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A875D16AB;
-	Wed, 27 Apr 2022 15:40:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A875D16AB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 329961779;
+	Wed, 27 Apr 2022 15:49:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 329961779
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651066850;
-	bh=CmwInyW8+Oe6kiq/PB0kUNrRENslXv0ZrYfN7MqxIa0=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Rt7JgNPb3J1K7oNTxv5Fp8Zir1UEq+SFvHiqMwTm/CHMBhC981I/twUBnHbIKxwLI
-	 Vd9pAzyVDGwnRPR68GAMEEkfbZ1TSbcFZCAvvCegKI694FkB9UCdOuEby/2nwVoxbR
-	 nyljgPm0jpasTq+QKbt/VZV3U0/e4l2rwXC/h5LQ=
+	s=default; t=1651067438;
+	bh=DjllssG7bdnzt8EKfYAvtWgHpQmuzoQkAlHqi64B8lI=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=IqADYBhiV1Ct4Ct8xg4vJntmV1VB+xkeOwd14P9Ua8PFIUkV9/na4HZB/4Myg0/Bp
+	 +XnFi8doRvHt+48C9j+qfqJ0/OZYUE09415I5kCvfuHNDfw+6z7AvHgkG8Edp2m162
+	 1ReOL1MOfCGRGEPr4FBJ0AuYP5KGUb/3oJXIo4u4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 21575F800AE;
-	Wed, 27 Apr 2022 15:39:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 76B4BF80253;
+	Wed, 27 Apr 2022 15:49:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 175D3F8016E; Wed, 27 Apr 2022 15:39:51 +0200 (CEST)
+ id 9D92AF8016E; Wed, 27 Apr 2022 15:49:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D99D1F800AE
- for <alsa-devel@alsa-project.org>; Wed, 27 Apr 2022 15:39:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D99D1F800AE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="p/icx8L3"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 083BAB8268A;
- Wed, 27 Apr 2022 13:39:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7B39C385A7;
- Wed, 27 Apr 2022 13:39:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1651066786;
- bh=CmwInyW8+Oe6kiq/PB0kUNrRENslXv0ZrYfN7MqxIa0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=p/icx8L31CpxaFBmV2i6NxtoQ6IpZwLWokLZtYlHZGsNbJ8v7xbG+wcTutkFCDIPI
- 0zAVUGcCviqtztZLuDUwIl0jyKkh+Qm1if/75jwVi5vLvlA/E4ly28NHf0ROUDR1zb
- uTwe5iCjcOqmjvmYwFs+FVDn+FQi1A/s7rmoeIG6GJ2KXLG5OqnACNDlIhGWP0wp7S
- yhX/ug+nTc1p1AtPsLHja+9Xwy16ndXw1tuAF/hK+R3zOmkmcl5Vaumwz6wBc0aEwv
- s9wznuLzargRbnAErJih5zU8mUoM7EZ4+G2+V32JMBZVUoSUH2lFMM1oUbHoh237Fc
- 8fH32vsOxWe8w==
-Date: Wed, 27 Apr 2022 14:39:41 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Andre Przywara <andre.przywara@arm.com>
-Subject: Re: [PATCH 04/11] dt-bindings: sound: add Arm PL041 AACI DT schema
-Message-ID: <YmlHnahS+Gxbt/YX@sirena.org.uk>
-References: <20220427112528.4097815-1-andre.przywara@arm.com>
- <20220427112528.4097815-5-andre.przywara@arm.com>
- <Ymkr8dFjbzEonXOO@sirena.org.uk>
- <20220427143345.73d81a91@donnerap.cambridge.arm.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 30A9AF800AE
+ for <alsa-devel@alsa-project.org>; Wed, 27 Apr 2022 15:49:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30A9AF800AE
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="BG4J/MDX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1651067371;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=lJDyIORPqq7XIE0uqCzS2kQU7RGLtvkgdvLtAHz8ERk=;
+ b=BG4J/MDXZGrlRP9H+m1uPpYr5QgvhTXJ1nJYON/uWuNDNjCCL3J09hgOl/NpWm+tvTxsik
+ +7CDa5ImSY5Y4G+SCYXFcLZTaq7yM2E1jdkXbA5cZxT+uuj5cBvDcK/qXx+5UMJjywBmF9
+ PZa1JRSWcjh075Tv8RZ33AcSAesFJLY=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-45-L9F4snhtPPKh9Ggflze7ug-1; Wed, 27 Apr 2022 09:49:28 -0400
+X-MC-Unique: L9F4snhtPPKh9Ggflze7ug-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CDAAA1014A61;
+ Wed, 27 Apr 2022 13:49:27 +0000 (UTC)
+Received: from localhost.localdomain (unknown [10.39.195.255])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id A11951468F25;
+ Wed, 27 Apr 2022 13:49:26 +0000 (UTC)
+From: Hans de Goede <hdegoede@redhat.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jie Yang <yang.jie@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
+Subject: [PATCH] ASoC: Intel: bytcr_rt5640: Add quirk for the HP Pro Tablet 408
+Date: Wed, 27 Apr 2022 15:49:18 +0200
+Message-Id: <20220427134918.527381-1-hdegoede@redhat.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="3MNGj1XKwnnFh1tK"
-Content-Disposition: inline
-In-Reply-To: <20220427143345.73d81a91@donnerap.cambridge.arm.com>
-X-Cookie: Buckle up!
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Liviu Dudau <liviu.dudau@arm.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Robin Murphy <robin.murphy@arm.com>, linux-arm-kernel@lists.infradead.org
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
+Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,31 +95,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Add a quirk for the HP Pro Tablet 408, this BYTCR tablet has no CHAN
+package in its ACPI tables and uses SSP0-AIF1 rather then SSP0-AIF2 which
+is the default for BYTCR devices.
 
---3MNGj1XKwnnFh1tK
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+It also uses DMIC1 for the internal mic rather then the default IN3
+and it uses JD2 rather then the default JD1 for jack-detect.
 
-On Wed, Apr 27, 2022 at 02:33:45PM +0100, Andre Przywara wrote:
+BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=211485
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+---
+ sound/soc/intel/boards/bytcr_rt5640.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-> I was assuming that Rob usually takes those binding patches, or do they go
-> through the affected subsystem tree?
+diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
+index d76a505052fb..f81ae742faa7 100644
+--- a/sound/soc/intel/boards/bytcr_rt5640.c
++++ b/sound/soc/intel/boards/bytcr_rt5640.c
+@@ -773,6 +773,18 @@ static const struct dmi_system_id byt_rt5640_quirk_table[] = {
+ 					BYT_RT5640_OVCD_SF_0P75 |
+ 					BYT_RT5640_MCLK_EN),
+ 	},
++	{	/* HP Pro Tablet 408 */
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "Hewlett-Packard"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "HP Pro Tablet 408"),
++		},
++		.driver_data = (void *)(BYT_RT5640_DMIC1_MAP |
++					BYT_RT5640_JD_SRC_JD2_IN4N |
++					BYT_RT5640_OVCD_TH_1500UA |
++					BYT_RT5640_OVCD_SF_0P75 |
++					BYT_RT5640_SSP0_AIF1 |
++					BYT_RT5640_MCLK_EN),
++	},
+ 	{	/* HP Stream 7 */
+ 		.matches = {
+ 			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Hewlett-Packard"),
+-- 
+2.36.0
 
-Bindings usually go through the subsystem.
-
---3MNGj1XKwnnFh1tK
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJpR5wACgkQJNaLcl1U
-h9C0zgf/VfPY4PkwXjCy10oLlkI3NzSeNlJMXfz5ZHBDHayEauBbRLJE3imBvZMx
-0VmaDOKo3jjTgm7M7FGVJf8Jl8JhyWuG8hBjJ6ClNdSGtknDFhB6UUZLen1cHM7X
-UxyxSq8D01L4gOwft3S5mUSe3yV7wThzoGAnCM1kEAbjJj8gcXTXS8F8UhcXbZXY
-glVsdKT9pVvT3rWxFzF5hzygMRsMKT6ruWtKZodrA947+2xS/pC5AKqBrPheQid1
-EmLQ2XVJynt4qBFYi4u5AJHHKYzUCm2M7JlYd7UEz4ojG1teKDOyZnLjcvaIgYO+
-TJrADMStqytXUoUseGyIBmn2LuvoSQ==
-=3wfO
------END PGP SIGNATURE-----
-
---3MNGj1XKwnnFh1tK--

@@ -2,82 +2,172 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27D55511359
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Apr 2022 10:13:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FF255113D3
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Apr 2022 10:51:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C38FE17EB;
-	Wed, 27 Apr 2022 10:12:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C38FE17EB
+	by alsa0.perex.cz (Postfix) with ESMTPS id C35A316DB;
+	Wed, 27 Apr 2022 10:50:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C35A316DB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651047205;
-	bh=1PJatVHBipzUOIXBuO70sSBJ+iElhHbgH1UpO15qdNI=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=qtqun2J7622kk2dAngiYk6FbcmfcQm430kAPyhksths/SM0UxdGtA51HBfmg6U9xa
-	 q0V4ABMNaMrEjligwqCF5LEUGt0g+sVKuOUIVubhshw7sJuFLdvEOeSTRnfv+0aI5U
-	 +kymXQe99ay0wLFFMY0yZ6tyWU6nVcy9yvRPpLQ0=
+	s=default; t=1651049495;
+	bh=DBfsYovc46CcC5KqNORknn5ZWBBJUqXkRe69KVT2Ils=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ZDOIWNA5zZjg/zErttZSSCDSMLyWfMMrP6tmBgc+YqD5DU4sIs/cFVPqvCeM5nNkS
+	 CQ54DgGtj13TgB6YPaw4vPx5NnHpjEoiZogzBwAGf5Is7crek5octvL4m95ZghmzKo
+	 NQmg7a3gXhEGkws3Fz1QA38nPXQaqjSfaHS6XK2g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BC6A0F80571;
-	Wed, 27 Apr 2022 10:10:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 19CCCF8016E;
+	Wed, 27 Apr 2022 10:50:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 09070F80563; Wed, 27 Apr 2022 10:10:00 +0200 (CEST)
+ id 39CF9F80256; Wed, 27 Apr 2022 10:50:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 17F6FF80536
- for <alsa-devel@alsa-project.org>; Wed, 27 Apr 2022 10:09:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17F6FF80536
+ by alsa1.perex.cz (Postfix) with ESMTPS id 92803F800AE;
+ Wed, 27 Apr 2022 10:50:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92803F800AE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="dvs10slb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1651046986; x=1682582986;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=1PJatVHBipzUOIXBuO70sSBJ+iElhHbgH1UpO15qdNI=;
- b=dvs10slbugUm/dqTiKoVY7Z9iBD6E6VcdHwsk8kEroCgafrCB8A6xK/Q
- VbJfgYZtdXD08brqiHpESUyw6lBgCcKGAMdPO2nlqOiiRYKxmdaAJpGEU
- iYOK6OaNyq0pApNcTPhB8CeVBPau0ypWuUlcxLF8YiWTeNh3CH/pBAeU7
- RpJPnMhJJ3I78h8sFMyXe9+hwwud6LO5r9rzdanAwRoPf7IJoINScEF89
- lOIHxLPv9OKqWi06ZgrvIMIeP4ZDgA30vDluyn0zcYQ+iD9fnPJkzvsus
- NvTKRH2sv5us+mPcCREGr67gEq2z5FlxolV5TSvvwR43xTyXXe52FLLUV w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10329"; a="291006341"
-X-IronPort-AV: E=Sophos;i="5.90,292,1643702400"; d="scan'208";a="291006341"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Apr 2022 01:09:44 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,292,1643702400"; d="scan'208";a="705437686"
-Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by fmsmga001.fm.intel.com with ESMTP; 27 Apr 2022 01:09:41 -0700
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-To: alsa-devel@alsa-project.org,
-	broonie@kernel.org
-Subject: [PATCH 14/14] ASoC: Intel: avs: Add da7219 machine board
-Date: Wed, 27 Apr 2022 10:19:02 +0200
-Message-Id: <20220427081902.3525183-15-cezary.rojewski@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220427081902.3525183-1-cezary.rojewski@intel.com>
-References: <20220427081902.3525183-1-cezary.rojewski@intel.com>
+ dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
+ header.b="Exetpy6S"; 
+ dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com
+ header.i=@oracle.onmicrosoft.com header.b="qu+LBdvx"
+Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 23R6Wr4L003733;
+ Wed, 27 Apr 2022 08:50:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : content-type : mime-version; s=corp-2021-07-09;
+ bh=3FCi/JQBz+JvLXoii7/W4AfOqpaqrYpyUbeqgPR2xCc=;
+ b=Exetpy6SG7SgTJhWf1x7UfpXYsbmKQL5MDn14HHdhlz3bk4ZyEa570oHuctHnxZHRQgB
+ aTULqO+LF/m/wVddFZTG6S68Q66GevmyaN5F1jD0O+xbu5KGc6tKrPk1ngTBvKkNvZUD
+ L7UBDlSldow/s0FtP3uyVxadUz61GfCokIKfZMk1uBQYGWPI9Y31H4mkh+Oktr7bWreQ
+ aGm2v0kIGmOpO8W8XL+dDEoScEUwf9hn+uq2/bhU9g35/tokG2eOIq4E89t+P41aEC3U
+ 9QjjuJZgYV0EN2K6exkcwQjhk4kzuC+lyr6fpiou8sWR6L0XO8bsD+CMaF/QgO8xdteG Ew== 
+Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com
+ (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3fmbb4r3td-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 27 Apr 2022 08:50:12 +0000
+Received: from pps.filterd
+ (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+ by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.16.1.2/8.16.1.2)
+ with SMTP id 23R8k8I4032431; Wed, 27 Apr 2022 08:50:12 GMT
+Received: from nam02-dm3-obe.outbound.protection.outlook.com
+ (mail-dm3nam07lp2047.outbound.protection.outlook.com [104.47.56.47])
+ by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com with ESMTP id
+ 3fm7w4c4eb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 27 Apr 2022 08:50:11 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=H2ZcqrokiQNXpubzJnoEBUsOB0LaOVx6yXsU7Hp45kTwbSrlgPl6OVpXlQuSjSwAfLIuV+J5niP1u7EAcVwMM5SNOcn9bqCksiJRFxrAzPhja78ygjcL4u8LLx7nGBs5IBlW3rDNRC0K7c1juNIs1UwJdO92O4svpZEh2VwzsAQRP1JFud0RsPxhNnA2eZyXOKH7pKREVGDLPqHk0x3U9Kka9eazcqG7MRwc+0X1cetdz2iPvlPnFRERme2ZEPtd/cETIE3Uulb5jnAJUHG1fQQPILtur4j3Poq29Q8MbT7yJgPxx5s592xYcXcyl3vJ4/X5Ze7xu/V6yuvfU8zg/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3FCi/JQBz+JvLXoii7/W4AfOqpaqrYpyUbeqgPR2xCc=;
+ b=hJ30oOiyukh0O24x8BSjCJ/S/ETzCFbz9q7qaBEgrZdloZnJyA7lZZWXPol7Y42k6TZnPmRrbkT6wYKYHiLZG2Q8YO+RpmiDMRFwhLw9wtftCnCLsdyLk44GL6UMZdswBnebpdgDrKTH2G0BqziFk7ElhCbqXO6QyCf9LsRzVEwt7a4YuDzw5Ae088EBqm7BeWu+XVw6l8cpEIiEyX9mPYcO+8el5pYTb7nI1TNUQhzmMEi1nqQmQtUx2Fzv4vZ/46oAijXRjn9nHfW8J+k2iuKop3bEE3heuoQ4R/XeyuCxwrAzpWy+pu2iURHkpqKbBUnlayLOAp9q4OmUNGHYPA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3FCi/JQBz+JvLXoii7/W4AfOqpaqrYpyUbeqgPR2xCc=;
+ b=qu+LBdvxUzl6Ia6De0eUriw3XyoAnPlHFBl0hLFZxKBv7WshjYWiizGTi3IisK25AOYf6cXSmreRqjizud2ej7mHM5Sf7rUvlCB60WRtuEzoL0AbxUX3t+rVbQxJDtx7zzvt9rrIyWxZ4KwFOQSDrGAB0W/HBNjcJdHEEsOxXUk=
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+ (2603:10b6:301:2d::28) by CO1PR10MB4770.namprd10.prod.outlook.com
+ (2603:10b6:303:96::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.12; Wed, 27 Apr
+ 2022 08:50:10 +0000
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+ ([fe80::b5d5:7b39:ca2d:1b87]) by MWHPR1001MB2365.namprd10.prod.outlook.com
+ ([fe80::b5d5:7b39:ca2d:1b87%5]) with mapi id 15.20.5164.025; Wed, 27 Apr 2022
+ 08:50:10 +0000
+Date: Wed, 27 Apr 2022 11:49:54 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: peter.ujfalusi@linux.intel.com
+Subject: [bug report] ASoC: SOF: Intel: hda: Revisit IMR boot sequence
+Message-ID: <YmkDss9WDmk3zjyl@kili>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-ClientProxiedBy: ZR0P278CA0099.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:23::14) To MWHPR1001MB2365.namprd10.prod.outlook.com
+ (2603:10b6:301:2d::28)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, upstream@semihalf.com,
- harshapriya.n@intel.com, rad@semihalf.com,
- pierre-louis.bossart@linux.intel.com, tiwai@suse.com, hdegoede@redhat.com,
- amadeuszx.slawinski@linux.intel.com, cujomalainey@chromium.org,
- lma@semihalf.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 758f457c-0ded-4130-1a9b-08da282aef97
+X-MS-TrafficTypeDiagnostic: CO1PR10MB4770:EE_
+X-Microsoft-Antispam-PRVS: <CO1PR10MB4770FA9504A20C6EBA1BC0378EFA9@CO1PR10MB4770.namprd10.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: NCu2Nejku6E5Z5MKK6ZRLgbGVspqmRNot46pFeagf1jt2F/sheX68YmEdGHfPnGmWEMP12vJCasV21TC9ch8P4Mdmvw2Ymit2uYNkjPZWWIVaheDAuG1S2TJRxlQUWnYLsl6AMEYPNY+IZuNVtpov2iNkF9lQfHeyMbUk0p6qT0iBpHnl9UtP9EWpkHMu0RhJ8heBTtVUZ8FlypAt3uhLEWgX+4MlJhZEOYp3V7bULtyaSADVAQTipfojlgwOrZ3ENWNZaUB6TUctqAocSfSl7AMUtkI5iLxSM69vALpbgHCt40gGQ2Q2A3anZM5Zf19BItTtgr5CIH38KkL4IsL8QFA18qpedb1hz7j2udQ++PXeIXMnB/2pz5ZTBFqdUj+DITGl4Zp7X0ngI8aCZ4B1JZu3M5jjQ2m8d7M8PjI86L1tDkd5lytWgf01DTGMDOXRtcKYkZShFKeC8jcF4yH3qMbS8zEp/jc8a92E4WXDGyOhN5MgipRd2BHv/42+f41DcAv9VRykWBxzcXMmyCHhC2l8C7bjQdgs4DUM24Yry5/NyJAPL5avSFN6IMtu1MB8GH2EBZk5CYajW9cQQmUZD1GUGc0o4ebGWgXoIbVm2T+zanQ57swDtSfyXfF0dmKLpNF8T5bv/5cyhMpmJ0MFM8lLIwIjO4MUzjGax2ru6Toh7cROrgddvwy9p7gb2O9FtIjyIAyMPU6w1vBWBWB1w==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR1001MB2365.namprd10.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(7916004)(366004)(6512007)(9686003)(83380400001)(186003)(52116002)(26005)(6506007)(38100700002)(38350700002)(66476007)(6916009)(316002)(44832011)(2906002)(8676002)(4326008)(33716001)(5660300002)(66556008)(8936002)(66946007)(508600001)(6666004)(6486002)(86362001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?dqElcVsUhlf94vuArST69D8NHc7G6wb4xXU8iQx8j8SwKAF6B01lPjqo7Avz?=
+ =?us-ascii?Q?nXO6lYiOf2R80ZEXvUzbR6SEdEyalVr2bg90cSreW4R7ubzCRDYP9oWm56q2?=
+ =?us-ascii?Q?VgaGHe9hmPKyF5bEjfrfT65X8SpNwSyKZFpIxw2FVXW984no67M3BASBRXcs?=
+ =?us-ascii?Q?7LUNilUMMJzl2K9jDjXTSQLqohY6v2BnSnOEqClOJpDrNgxYfOAX7kyANeZt?=
+ =?us-ascii?Q?kJlpDk5Evm1OoBm5ZJ7spdh15+lQsPla/JW4IxjvrKS8RqvqFfQ4B20ii7u5?=
+ =?us-ascii?Q?coAhFrc8etMkH/CXsm63t73Hal07i2/Z53UNvvSWN8RhJGNE3drUtQOi7Cmw?=
+ =?us-ascii?Q?4bFwuiy8cKFrNI0Hbu+LcZeifQoIGgeEL93N3LMQzQFUjJKP6jWsrN51anWm?=
+ =?us-ascii?Q?7jlafdLspWAkldnysni/5HAbhHL8U1gXlW232g05jWi0SkCzlYTfjIWC3/qo?=
+ =?us-ascii?Q?Uum1rURjrbr9rI2UoTyJfpC14laQ7UOmSPQBV9qVtTAdPP84XZHoTpM2NCqJ?=
+ =?us-ascii?Q?vuBiJYPc2eF53A0fwM36AKuAAwMm3sJC8hlEZTXiTpW6cIKcaCC57pFsrbBg?=
+ =?us-ascii?Q?+ZCYnrDE1haKfu50/xKqpx+/0IpFhh5GvBGuF5D5CFUlbZERvleS8W0AU3PM?=
+ =?us-ascii?Q?3LHO9hbxbEhXYx5WmCWi2wCwAB0RPHTFgfXLwYfWyGgs9AFrvDhKhNZGP8VJ?=
+ =?us-ascii?Q?HC4p3ThU9ViLh96wjHxskNqxYQT2lrLQuAbO91oq3Fv9eYLAcQDjEqVwwDLZ?=
+ =?us-ascii?Q?t/2qimS7sXFhTsbVSNT7wk/GF+/cVJ282HdL3qql01HUWliQnumc06w1Zu8A?=
+ =?us-ascii?Q?G8fB/febjDycWj+MXGUGTD5CeftrC61g1gRiuqSoYb5huG1ERbThhemV47zM?=
+ =?us-ascii?Q?TZCelKEuzBiuHYT6WPzbxcfS3kaLlDtRwMftYeo+rQojmmgkllfXwhZfvQdr?=
+ =?us-ascii?Q?WJtlO3tFvIYC0R2bjYUSuOjMujF9ce7E1m9yD8tDHVf/fSYqvWH6198v6IuK?=
+ =?us-ascii?Q?tdJTvtQkYKVDTV381YQqTm6T2X6yoa0vJrpL66QMfOjtACktfNRagBaBU6sm?=
+ =?us-ascii?Q?IvpV/VP/pqyuTE1tkyBvtsIKKVvooyw5CRqsnbOHD8kRNsdXAy/294WnPVht?=
+ =?us-ascii?Q?JwER75qkGyVZI2pX2xsQosYWunijewvKxhBE5TO44zUGJggICu9N1EqWeIOI?=
+ =?us-ascii?Q?tWFrMrVn3xVsyqS6XXzi82gN+OnPLrKdGxeD6lBnODctYe75z3AyuhhndOvC?=
+ =?us-ascii?Q?roPnBdMcfpMdl3+uoAia9DFrZt5SGT6aSfJ2Zu0LI28Cco0b+e6GZiAJfF1M?=
+ =?us-ascii?Q?1PA3QM5zXVgw93MBPe/cBwLxV2XPtvzzqlvFOwuOyvHTXVLSXbPtGkqKV1tC?=
+ =?us-ascii?Q?kfg3l8lyZ+UDWo6Aq0CC4GJADaz7nNxH5MpL269FSFEyBrqRf68QIJNuCnJe?=
+ =?us-ascii?Q?EIiznyNq8nyGNpwTqTIKWHblLgkq8YAUTeMCF+0V0cs6FJeKGdW0cHHAwhRx?=
+ =?us-ascii?Q?G0oIADUa1H41QO5U1SELeedi3234eBZ7y8a62lvvPPGWVLEb1XTL3vG/MIxF?=
+ =?us-ascii?Q?42zbAsqn6EBRIvLULCsngWxDFQedqN3izft/SGgw6gLfF0kazQVScWyk5k41?=
+ =?us-ascii?Q?iJyBdFz5dVFWMk6rSih2Tum1ZWQp0xzffAzBdcLAaWTDrKVY1tr+wXcmlMa7?=
+ =?us-ascii?Q?CMaURQK9tpma+/XDRJfXIQ1uNC3JGMPSDl/664J9UtHibX4tmyg+WG0tpCtx?=
+ =?us-ascii?Q?/1EV4kKu/HCipcLdDu6hb0toxDWYHI8=3D?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 758f457c-0ded-4130-1a9b-08da282aef97
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2365.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Apr 2022 08:50:10.0835 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aRM2gvhvEbT3yJWSUlL28BZ2H9lWMVxdowkP/NkxWS7Q+8F3t8EtTB7VmAHt2Q8zxZReDSYCbG3yaFxY7StiYjM8xJe2HZVCyF8DXBdhtjE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR10MB4770
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.486, 18.0.858
+ definitions=2022-04-27_03:2022-04-26,
+ 2022-04-27 signatures=0
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ mlxlogscore=993
+ malwarescore=0 mlxscore=0 phishscore=0 bulkscore=0 adultscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2202240000 definitions=main-2204270058
+X-Proofpoint-ORIG-GUID: E6B1ZX-1LKUPfPv_o1QS0lD3Bb8TDsqe
+X-Proofpoint-GUID: E6B1ZX-1LKUPfPv_o1QS0lD3Bb8TDsqe
+Cc: alsa-devel@alsa-project.org, sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,345 +183,68 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-To support AVS-da7219 configuration add machine board connecting AVS
-platform component driver with da7219 codec one.
+Hello Peter Ujfalusi,
 
-Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
----
- sound/soc/intel/avs/boards/Kconfig  |  10 +
- sound/soc/intel/avs/boards/Makefile |   2 +
- sound/soc/intel/avs/boards/da7219.c | 281 ++++++++++++++++++++++++++++
- 3 files changed, 293 insertions(+)
- create mode 100644 sound/soc/intel/avs/boards/da7219.c
+The patch 2a68ff846164: "ASoC: SOF: Intel: hda: Revisit IMR boot
+sequence" from Apr 21, 2022, leads to the following Smatch static
+checker warning:
 
-diff --git a/sound/soc/intel/avs/boards/Kconfig b/sound/soc/intel/avs/boards/Kconfig
-index 38a76f486d91..3a24cc9ec64d 100644
---- a/sound/soc/intel/avs/boards/Kconfig
-+++ b/sound/soc/intel/avs/boards/Kconfig
-@@ -4,6 +4,16 @@ menu "Intel AVS Machine drivers"
- 
- comment "Available DSP configurations"
- 
-+config SND_SOC_INTEL_AVS_MACH_DA7219
-+	tristate "da7219 I2S board"
-+	depends on I2C
-+	depends on MFD_INTEL_LPSS || COMPILE_TEST
-+	select SND_SOC_DA7219
-+	help
-+	  This adds support for AVS with DA7219 I2S codec configuration.
-+	  Say Y or m if you have such a device. This is a recommended option.
-+	  If unsure select "N".
-+
- config SND_SOC_INTEL_AVS_MACH_DMIC
- 	tristate "DMIC generic board"
- 	select SND_SOC_DMIC
-diff --git a/sound/soc/intel/avs/boards/Makefile b/sound/soc/intel/avs/boards/Makefile
-index a9e27638d23c..5d8ddd1e08c5 100644
---- a/sound/soc/intel/avs/boards/Makefile
-+++ b/sound/soc/intel/avs/boards/Makefile
-@@ -1,5 +1,6 @@
- # SPDX-License-Identifier: GPL-2.0-only
- 
-+snd-soc-avs-da7219-objs := da7219.o
- snd-soc-avs-dmic-objs := dmic.o
- snd-soc-avs-hdaudio-objs := hdaudio.o
- snd-soc-avs-max98357a-objs := max98357a.o
-@@ -12,6 +13,7 @@ snd-soc-avs-rt5682-objs := rt5682.o
- snd-soc-avs-ssm4567-objs := ssm4567.o
- snd-soc-avs-ssp-test-objs := ssp_test.o
- 
-+obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_DA7219) += snd-soc-avs-da7219.o
- obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_DMIC) += snd-soc-avs-dmic.o
- obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_HDAUDIO) += snd-soc-avs-hdaudio.o
- obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_MAX98357A) += snd-soc-avs-max98357a.o
-diff --git a/sound/soc/intel/avs/boards/da7219.c b/sound/soc/intel/avs/boards/da7219.c
-new file mode 100644
-index 000000000000..80ef0642649b
---- /dev/null
-+++ b/sound/soc/intel/avs/boards/da7219.c
-@@ -0,0 +1,281 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+//
-+// Copyright(c) 2021-2022 Intel Corporation. All rights reserved.
-+//
-+// Author: Cezary Rojewski <cezary.rojewski@intel.com>
-+//
-+
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <sound/jack.h>
-+#include <sound/pcm.h>
-+#include <sound/pcm_params.h>
-+#include <sound/soc.h>
-+#include <sound/soc-acpi.h>
-+#include <sound/soc-dapm.h>
-+#include <uapi/linux/input-event-codes.h>
-+#include "../../../codecs/da7219.h"
-+#include "../../../codecs/da7219-aad.h"
-+
-+#define DA7219_DAI_NAME		"da7219-hifi"
-+
-+static const struct snd_kcontrol_new card_controls[] = {
-+	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
-+	SOC_DAPM_PIN_SWITCH("Headset Mic"),
-+};
-+
-+static int platform_clock_control(struct snd_soc_dapm_widget *w,
-+				  struct snd_kcontrol *k, int  event)
-+{
-+	struct snd_soc_dapm_context *dapm = w->dapm;
-+	struct snd_soc_card *card = dapm->card;
-+	struct snd_soc_dai *codec_dai;
-+	int ret = 0;
-+
-+	codec_dai = snd_soc_card_get_codec_dai(card, DA7219_DAI_NAME);
-+	if (!codec_dai) {
-+		dev_err(card->dev, "Codec dai not found. Unable to set/unset codec pll\n");
-+		return -EIO;
-+	}
-+
-+	if (SND_SOC_DAPM_EVENT_OFF(event)) {
-+		ret = snd_soc_dai_set_pll(codec_dai, 0, DA7219_SYSCLK_MCLK, 0, 0);
-+		if (ret)
-+			dev_err(card->dev, "failed to stop PLL: %d\n", ret);
-+	} else if (SND_SOC_DAPM_EVENT_ON(event)) {
-+		ret = snd_soc_dai_set_pll(codec_dai, 0, DA7219_SYSCLK_PLL_SRM,
-+					  0, DA7219_PLL_FREQ_OUT_98304);
-+		if (ret)
-+			dev_err(card->dev, "failed to start PLL: %d\n", ret);
-+	}
-+
-+	return ret;
-+}
-+
-+static const struct snd_soc_dapm_widget card_widgets[] = {
-+	SND_SOC_DAPM_HP("Headphone Jack", NULL),
-+	SND_SOC_DAPM_MIC("Headset Mic", NULL),
-+	SND_SOC_DAPM_SUPPLY("Platform Clock", SND_SOC_NOPM, 0, 0, platform_clock_control,
-+			    SND_SOC_DAPM_POST_PMD | SND_SOC_DAPM_PRE_PMU),
-+};
-+
-+static const struct snd_soc_dapm_route card_base_routes[] = {
-+	/* HP jack connectors - unknown if we have jack detection */
-+	{"Headphone Jack", NULL, "HPL"},
-+	{"Headphone Jack", NULL, "HPR"},
-+
-+	{"MIC", NULL, "Headset Mic"},
-+
-+	{ "Headphone Jack", NULL, "Platform Clock" },
-+	{ "Headset Mic", NULL, "Platform Clock" },
-+};
-+
-+static int avs_da7219_codec_init(struct snd_soc_pcm_runtime *runtime)
-+{
-+	struct snd_soc_component *component = asoc_rtd_to_codec(runtime, 0)->component;
-+	struct snd_soc_card *card = runtime->card;
-+	struct snd_soc_jack *jack;
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(runtime, 0);
-+	int clk_freq;
-+	int ret;
-+
-+	jack = snd_soc_card_get_drvdata(card);
-+	clk_freq = 19200000;
-+
-+	ret = snd_soc_dai_set_sysclk(codec_dai, DA7219_CLKSRC_MCLK, clk_freq, SND_SOC_CLOCK_IN);
-+	if (ret) {
-+		dev_err(card->dev, "can't set codec sysclk configuration\n");
-+		return ret;
-+	}
-+
-+	/*
-+	 * Headset buttons map to the google Reference headset.
-+	 * These can be configured by userspace.
-+	 */
-+	ret = snd_soc_card_jack_new(card, "Headset Jack",
-+				    SND_JACK_HEADSET | SND_JACK_BTN_0 |
-+				    SND_JACK_BTN_1 | SND_JACK_BTN_2 |
-+				    SND_JACK_BTN_3 | SND_JACK_LINEOUT, jack);
-+	if (ret) {
-+		dev_err(card->dev, "Headset Jack creation failed: %d\n", ret);
-+		return ret;
-+	}
-+
-+	snd_jack_set_key(jack->jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
-+	snd_jack_set_key(jack->jack, SND_JACK_BTN_1, KEY_VOLUMEUP);
-+	snd_jack_set_key(jack->jack, SND_JACK_BTN_2, KEY_VOLUMEDOWN);
-+	snd_jack_set_key(jack->jack, SND_JACK_BTN_3, KEY_VOICECOMMAND);
-+
-+	da7219_aad_jack_det(component, jack);
-+
-+	return 0;
-+}
-+
-+static int avs_create_dai_link(struct device *dev, const char *platform_name, int ssp_port,
-+			       struct snd_soc_dai_link **dai_link)
-+{
-+	struct snd_soc_dai_link_component *platform;
-+	struct snd_soc_dai_link *dl;
-+
-+	dl = devm_kzalloc(dev, sizeof(*dl), GFP_KERNEL);
-+	platform = devm_kzalloc(dev, sizeof(*platform), GFP_KERNEL);
-+	if (!dl || !platform)
-+		return -ENOMEM;
-+
-+	platform->name = platform_name;
-+
-+	dl->name = devm_kasprintf(dev, GFP_KERNEL, "SSP%d-Codec", ssp_port);
-+	dl->cpus = devm_kzalloc(dev, sizeof(*dl->cpus), GFP_KERNEL);
-+	dl->codecs = devm_kzalloc(dev, sizeof(*dl->codecs), GFP_KERNEL);
-+	if (!dl->name || !dl->cpus || !dl->codecs)
-+		return -ENOMEM;
-+
-+	dl->cpus->dai_name = devm_kasprintf(dev, GFP_KERNEL, "SSP%d Pin", ssp_port);
-+	dl->codecs->name = devm_kasprintf(dev, GFP_KERNEL, "i2c-DLGS7219:00");
-+	dl->codecs->dai_name = devm_kasprintf(dev, GFP_KERNEL, DA7219_DAI_NAME);
-+	if (!dl->cpus->dai_name || !dl->codecs->name || !dl->codecs->dai_name)
-+		return -ENOMEM;
-+
-+	dl->num_cpus = 1;
-+	dl->num_codecs = 1;
-+	dl->platforms = platform;
-+	dl->num_platforms = 1;
-+	dl->id = 0;
-+	dl->dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBS_CFS;
-+	dl->init = avs_da7219_codec_init;
-+	dl->nonatomic = 1;
-+	dl->no_pcm = 1;
-+	dl->dpcm_capture = 1;
-+	dl->dpcm_playback = 1;
-+
-+	*dai_link = dl;
-+
-+	return 0;
-+}
-+
-+static int avs_create_dapm_routes(struct device *dev, int ssp_port,
-+				  struct snd_soc_dapm_route **routes, int *num_routes)
-+{
-+	struct snd_soc_dapm_route *dr;
-+	const int num_base = ARRAY_SIZE(card_base_routes);
-+	const int num_dr = num_base + 2;
-+	int idx;
-+
-+	dr = devm_kcalloc(dev, num_dr, sizeof(*dr), GFP_KERNEL);
-+	if (!dr)
-+		return -ENOMEM;
-+
-+	memcpy(dr, card_base_routes, num_base * sizeof(*dr));
-+
-+	idx = num_base;
-+	dr[idx].sink = devm_kasprintf(dev, GFP_KERNEL, "Playback");
-+	dr[idx].source = devm_kasprintf(dev, GFP_KERNEL, "ssp%d Tx", ssp_port);
-+	if (!dr[idx].sink || !dr[idx].source)
-+		return -ENOMEM;
-+
-+	idx++;
-+	dr[idx].sink = devm_kasprintf(dev, GFP_KERNEL, "ssp%d Rx", ssp_port);
-+	dr[idx].source = devm_kasprintf(dev, GFP_KERNEL, "Capture");
-+	if (!dr[idx].sink || !dr[idx].source)
-+		return -ENOMEM;
-+
-+	*routes = dr;
-+	*num_routes = num_dr;
-+
-+	return 0;
-+}
-+
-+static int avs_card_set_jack(struct snd_soc_card *card, struct snd_soc_jack *jack)
-+{
-+	struct snd_soc_component *component;
-+
-+	for_each_card_components(card, component)
-+		snd_soc_component_set_jack(component, jack, NULL);
-+	return 0;
-+}
-+
-+static int avs_card_remove(struct snd_soc_card *card)
-+{
-+	return avs_card_set_jack(card, NULL);
-+}
-+
-+static int avs_card_suspend_pre(struct snd_soc_card *card)
-+{
-+	return avs_card_set_jack(card, NULL);
-+}
-+
-+static int avs_card_resume_post(struct snd_soc_card *card)
-+{
-+	struct snd_soc_jack *jack = snd_soc_card_get_drvdata(card);
-+
-+	return avs_card_set_jack(card, jack);
-+}
-+
-+static int avs_da7219_probe(struct platform_device *pdev)
-+{
-+	struct snd_soc_dapm_route *routes;
-+	struct snd_soc_dai_link *dai_link;
-+	struct snd_soc_acpi_mach *mach;
-+	struct snd_soc_card *card;
-+	struct snd_soc_jack *jack;
-+	struct device *dev = &pdev->dev;
-+	const char *pname;
-+	int ret, num_routes;
-+
-+	mach = dev_get_platdata(dev);
-+	pname = mach->mach_params.platform;
-+
-+	ret = avs_create_dai_link(dev, pname, __ffs(mach->link_mask), &dai_link);
-+	if (ret) {
-+		dev_err(dev, "Failed to create dai link: %d", ret);
-+		return ret;
-+	}
-+
-+	ret = avs_create_dapm_routes(dev, __ffs(mach->link_mask), &routes, &num_routes);
-+	if (ret) {
-+		dev_err(dev, "Failed to create dapm routes: %d", ret);
-+		return ret;
-+	}
-+
-+	jack = devm_kzalloc(dev, sizeof(*jack), GFP_KERNEL);
-+	card = devm_kzalloc(dev, sizeof(*card), GFP_KERNEL);
-+	if (!jack || !card)
-+		return -ENOMEM;
-+
-+	card->name = "avs_da7219";
-+	card->dev = dev;
-+	card->owner = THIS_MODULE;
-+	card->remove = avs_card_remove;
-+	card->suspend_pre = avs_card_suspend_pre;
-+	card->resume_post = avs_card_resume_post;
-+	card->dai_link = dai_link;
-+	card->num_links = 1;
-+	card->controls = card_controls;
-+	card->num_controls = ARRAY_SIZE(card_controls);
-+	card->dapm_widgets = card_widgets;
-+	card->num_dapm_widgets = ARRAY_SIZE(card_widgets);
-+	card->dapm_routes = routes;
-+	card->num_dapm_routes = num_routes;
-+	card->fully_routed = true;
-+	snd_soc_card_set_drvdata(card, jack);
-+
-+	ret = snd_soc_fixup_dai_links_platform_name(card, pname);
-+	if (ret)
-+		return ret;
-+
-+	return devm_snd_soc_register_card(dev, card);
-+}
-+
-+static struct platform_driver avs_da7219_driver = {
-+	.probe = avs_da7219_probe,
-+	.driver = {
-+		.name = "avs_da7219",
-+		.pm = &snd_soc_pm_ops,
-+	},
-+};
-+
-+module_platform_driver(avs_da7219_driver);
-+
-+MODULE_AUTHOR("Cezary Rojewski <cezary.rojewski@intel.com>");
-+MODULE_LICENSE("GPL");
-+MODULE_ALIAS("platform:avs_da7219");
--- 
-2.25.1
+	sound/soc/sof/intel/hda-loader.c:397 hda_dsp_cl_boot_firmware()
+	info: return a literal instead of 'ret'
 
+sound/soc/sof/intel/hda-loader.c
+    381 int hda_dsp_cl_boot_firmware(struct snd_sof_dev *sdev)
+    382 {
+    383         struct sof_intel_hda_dev *hda = sdev->pdata->hw_pdata;
+    384         struct snd_sof_pdata *plat_data = sdev->pdata;
+    385         const struct sof_dev_desc *desc = plat_data->desc;
+    386         const struct sof_intel_dsp_desc *chip_info;
+    387         struct hdac_ext_stream *hext_stream;
+    388         struct firmware stripped_firmware;
+    389         struct snd_dma_buffer dmab;
+    390         int ret, ret1, i;
+    391 
+    392         if (hda->imrboot_supported && !sdev->first_boot) {
+    393                 dev_dbg(sdev->dev, "IMR restore supported, booting from IMR directly\n");
+    394                 hda->boot_iteration = 0;
+    395                 ret = hda_dsp_boot_imr(sdev);
+    396                 if (ret >= 0)
+--> 397                         return ret;
+
+The hda_dsp_boot_imr() has some similar stuff where it checks for
+positive returns.  As far as I can see, this code never returns positive
+values.  Normally kernel code returns zero on success and negative
+error codes on failure.  When code returns non-standard things then it
+really should be documented what the positive returns mean.  Nothing
+complicated, just add a comment at the start of the function.
+
+The TLDR back story of this Smatch check is that it's not published but
+it regularly finds bugs.  The issue is that it's more readable, plus it
+looks more deliberate and intentional to write:
+
+	if (!ret)
+		return 0;
+
+instead of:
+
+	if (!ret)
+		return ret;
+
+With the latter format, the bug is that people intended to write:
+
+	if (ret)
+		return ret;
+
+Obviously this kind of bug would get caught in testing, but testing is
+often impossible in the kernel because it depends on hardware
+availability.
+
+    398 
+    399                 dev_warn(sdev->dev, "IMR restore failed, trying to cold boot\n");
+    400         }
+    401 
+    402         chip_info = desc->chip_info;
+    403 
+
+regards,
+dan carpenter

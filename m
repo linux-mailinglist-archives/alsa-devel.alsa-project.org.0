@@ -2,59 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6331511548
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Apr 2022 13:27:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2F3C51154A
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Apr 2022 13:29:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5E56517A9;
-	Wed, 27 Apr 2022 13:26:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E56517A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5DFD3177E;
+	Wed, 27 Apr 2022 13:29:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5DFD3177E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651058824;
-	bh=Z+vixEzL9h4i6hD9dVi/JbALafw3vzktF/dCd4Az7c0=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1651058990;
+	bh=KYefxwE8muQLfB8/GFKsQOVVnH3tuDDSR5Dacx6IqFs=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nfzd2V07oT3lWOae0i7hR8zCcGYk/IQtf0yz4QzNT5Rt5qxcFYSmGdL9C9xQlk154
-	 gxP61GkVxt3kvsvqnvzalMqup86oQyiXCE4+3sxa/3Wy4pdDIMyNiG0pjrStAyW37c
-	 w+nszOZiFWUFPl7foRrMZDET2oAMxaZO7la6Ad6Q=
+	b=ffbdXDpwQwm5zmHngi3gI5vmrRzsCNH4uMfiv+nCNAwaHpLzFEwD+igPEXnipzjNU
+	 CkbAk2a8yHfIu/KFL+2avDnuFVJTLo8DqqUwB94cbsGrFN0S+w5e5jTgvzxfhaDQue
+	 zMI78YS+oCFTIVkPzKdwGBBmQQ6Jwf/lMICHjJto=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B9C8CF80253;
-	Wed, 27 Apr 2022 13:26:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AAC5FF80253;
+	Wed, 27 Apr 2022 13:28:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7EAA0F8016E; Wed, 27 Apr 2022 13:26:03 +0200 (CEST)
+ id D0BB4F8016E; Wed, 27 Apr 2022 13:28:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 37412F800AE
- for <alsa-devel@alsa-project.org>; Wed, 27 Apr 2022 13:25:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37412F800AE
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 39E66143D;
- Wed, 27 Apr 2022 04:25:52 -0700 (PDT)
-Received: from donnerap.arm.com (donnerap.cambridge.arm.com [10.1.197.42])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DB6913F5A1;
- Wed, 27 Apr 2022 04:25:50 -0700 (PDT)
-From: Andre Przywara <andre.przywara@arm.com>
-To: Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Subject: [PATCH 04/11] dt-bindings: sound: add Arm PL041 AACI DT schema
-Date: Wed, 27 Apr 2022 12:25:21 +0100
-Message-Id: <20220427112528.4097815-5-andre.przywara@arm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220427112528.4097815-1-andre.przywara@arm.com>
-References: <20220427112528.4097815-1-andre.przywara@arm.com>
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0109FF80100
+ for <alsa-devel@alsa-project.org>; Wed, 27 Apr 2022 13:28:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0109FF80100
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="lWFbA7TJ"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 937C5CE24A4;
+ Wed, 27 Apr 2022 11:28:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44862C385AA;
+ Wed, 27 Apr 2022 11:28:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1651058918;
+ bh=KYefxwE8muQLfB8/GFKsQOVVnH3tuDDSR5Dacx6IqFs=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=lWFbA7TJ+gjyCugQoD38Y0xsuqPTvrv8+avXuCmzuu6EgBxKT+FdpwlkksGjrBHSw
+ F9oZe5C5XZ9sqPYqv+K+VNwynOTDmy6XL0eRHdREmkioTQfBs+7wdsvxfLzQELuxzw
+ IuMquBUy9l5Lc71+7HSsRifiBaia3rspjVwZ10FPud+NC8OS4DDjvkaXpUO/X/Js4j
+ ZclsUJZ/vJBxM9KDKmHATc2P/roRYljSHl72LnHzrhfuRHnGkpYSUUOCBd5Q6O8DaL
+ rhS1ZKKckKHiumBELoSkqNzcFwaV8KYxxV7FV/tDhWzPHl26vUMkyNECfTDEtobYi0
+ PvmCe40MAKZbA==
+Date: Wed, 27 Apr 2022 12:28:32 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Sasha Levin <sashal@kernel.org>
+Subject: Re: [PATCH AUTOSEL 5.17 06/22] ASoC: Intel: sof_es8336: Add a quirk
+ for Huawei Matebook D15
+Message-ID: <Ymko4F24MvbGJUXp@sirena.org.uk>
+References: <20220426190145.2351135-1-sashal@kernel.org>
+ <20220426190145.2351135-6-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Liviu Dudau <liviu.dudau@arm.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- linux-arm-kernel@lists.infradead.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="3g8d3iEzGGy4GnO+"
+Content-Disposition: inline
+In-Reply-To: <20220426190145.2351135-6-sashal@kernel.org>
+X-Cookie: Buckle up!
+Cc: cezary.rojewski@intel.com, alsa-devel@alsa-project.org,
+ yung-chuan.liao@linux.intel.com, tiwai@suse.com, yang.jie@linux.intel.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ liam.r.girdwood@linux.intel.com, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ peter.ujfalusi@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,86 +92,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The Arm PrimeCell Advanced Audio CODEC Interface (AACI aka PL041) is
-a peripheral that provides communication with an audio CODEC.
 
-Add a simple DT schema binding for it, so that DTs can be validated
-automatically.
+--3g8d3iEzGGy4GnO+
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Andre Przywara <andre.przywara@arm.com>
----
- .../devicetree/bindings/sound/amba-pl041.yaml | 62 +++++++++++++++++++
- 1 file changed, 62 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/amba-pl041.yaml
+On Tue, Apr 26, 2022 at 03:01:29PM -0400, Sasha Levin wrote:
+> From: Mauro Carvalho Chehab <mchehab@kernel.org>
+>=20
+> [ Upstream commit c7cb4717f641db68e8117635bfcf62a9c27dc8d3 ]
+>=20
+> Based on experimental tests, Huawei Matebook D15 actually uses
+> both gpio0 and gpio1: the first one controls the speaker, while
+> the other one controls the headphone.
 
-diff --git a/Documentation/devicetree/bindings/sound/amba-pl041.yaml b/Documentation/devicetree/bindings/sound/amba-pl041.yaml
-new file mode 100644
-index 0000000000000..f00796d5ea473
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/amba-pl041.yaml
-@@ -0,0 +1,62 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/amba-pl041.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Arm Ltd. PrimeCell PL041 AACI sound interface
-+
-+maintainers:
-+  - Andre Przywara <andre.przywara@arm.com>
-+
-+description:
-+  The Arm PrimeCell Advanced Audio CODEC Interface (AACI) is an AMBA compliant
-+  peripheral that provides communication with an audio CODEC using the AC-link
-+  protocol.
-+
-+# We need a select here so we don't match all nodes with 'arm,primecell'
-+select:
-+  properties:
-+    compatible:
-+      contains:
-+        const: arm,pl041
-+  required:
-+    - compatible
-+
-+properties:
-+  compatible:
-+    items:
-+      - const: arm,pl041
-+      - const: arm,primecell
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    description: APB register access clock
-+
-+  clock-names:
-+    const: apb_pclk
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    aaci@40000 {
-+            compatible = "arm,pl041", "arm,primecell";
-+            reg = <0x040000 0x1000>;
-+            interrupts = <11>;
-+            clocks = <&v2m_clk24mhz>;
-+            clock-names = "apb_pclk";
-+    };
-+
-+...
--- 
-2.25.1
+Are you sure this doesn't need the rest of the series it came along
+with?
 
+--3g8d3iEzGGy4GnO+
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJpKOAACgkQJNaLcl1U
+h9C2BQf9FuQSxz6S1uzeAKSRzxsY/5aEfiqZExmG3uWEF1KKk8OnUC8AxhiH4mYk
+FkxMONPvC/RyJlltvesFObLOloFwZpxybS0npgw8EzJ69lrTrcIMFnrhlKCofWuJ
+857AGRyGbmipP4oSDs++oTTjmBQYd5o5GXoBJ/sUyfO2bxMYyAhYXpZ/x5+nuMyQ
+6SII3rwtTk3GTQumxiYInwmyEzR5zq/ae4cPAG7fImWA3130lVM7Aa/HwP2HkxYB
+mzS1dP2Yjl944mqBCwq3jQC4SeCSx0zCZbCxGIWDKuRzZVL2KDHsfBvrIX/1EnQ4
+MDVnIs3Nv+dkG5Yj+ZszbK1mTFAf1g==
+=59WY
+-----END PGP SIGNATURE-----
+
+--3g8d3iEzGGy4GnO+--

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04D0E511C2E
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Apr 2022 18:03:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C687511C2C
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Apr 2022 18:03:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8986FE11;
-	Wed, 27 Apr 2022 18:03:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8986FE11
+	by alsa0.perex.cz (Postfix) with ESMTPS id 223DA1616;
+	Wed, 27 Apr 2022 18:02:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 223DA1616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651075436;
-	bh=q6ESZ+TtjvoyrnNlv0CgpB4Az4ve5WO08mXqbxu6fxM=;
+	s=default; t=1651075419;
+	bh=fqVdjaz6qlAuF6lixzxQYIJp8RiyZt6+dszD4kg0WRU=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=agrMHatcPLBMJdQcWSZ/ZoPXnrGf/Y1okJo8TK3MumMyijMM5BNb09Jn/M4Hl9aoV
-	 HRR0Dva8xwezUFs6nWCKzIwisBaN1CDJPNhUO3PtbILochOzbsPVf26cdOEOd00K+/
-	 MoOsqEgeov85U4Nu8TXBqeZ8TSRioUbFrgLR+ChY=
+	b=onhZRlSCFC8wlbxYKpcJmzUYq7Xrh6GQnY0jimgjTpylTJ6N1jHwKrArlAvjmf1sK
+	 jnEY+STLUKMj0S0wZRAzmouUSO/UCv4rIWAeUDqOAkNNFQ//fY/UkshDxPkoMecrRU
+	 5dNWI+t1XuTSnxE/qN8askMMTyyKi/6SvAX0PNOk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A5B65F800AE;
-	Wed, 27 Apr 2022 18:02:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8412BF80506;
+	Wed, 27 Apr 2022 18:02:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 38D82F8016E; Wed, 27 Apr 2022 18:02:10 +0200 (CEST)
+ id CA288F80253; Wed, 27 Apr 2022 18:02:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,53 +34,52 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 37B15F80155
- for <alsa-devel@alsa-project.org>; Wed, 27 Apr 2022 18:02:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37B15F80155
+ by alsa1.perex.cz (Postfix) with ESMTPS id 42122F8016E
+ for <alsa-devel@alsa-project.org>; Wed, 27 Apr 2022 18:02:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42122F8016E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="TfANLMbQ"
+ header.b="ddkGAJnR"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1651075324; x=1682611324;
+ t=1651075327; x=1682611327;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=q6ESZ+TtjvoyrnNlv0CgpB4Az4ve5WO08mXqbxu6fxM=;
- b=TfANLMbQ6leOOgG3LnDwsDMbTpKMWwjWjkQqokjzg7utO5bu2amuIHzl
- L3t/DeZMMNFwxgZolpl1xA50aSYi3FnBWvptTYW4VYAWbRXSenv75zNT0
- ue9Xw/YhHXZfTxTNxtRZkVoPg4UtBcjud+e6tBOv/OD3z6hAL+SO3RhS3
- 1tCQebfF2L2woSjUFhjfs2d3kregQOa7YGCQZSur16AyktyHHwm/1LFTp
- 7z+z4roICTfvOUFek8DKEezgjNltdDmEwzGjhSopr7ZZpKVQ9tJYOEXFT
- ewLwUg8BRXk7QDcVzq3LLOlavFo4eI1gDckp00eDcYDu29Gg3fnoe5+lq g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10330"; a="352414808"
-X-IronPort-AV: E=Sophos;i="5.90,293,1643702400"; d="scan'208";a="352414808"
+ bh=fqVdjaz6qlAuF6lixzxQYIJp8RiyZt6+dszD4kg0WRU=;
+ b=ddkGAJnRifQKcgDdHV0cvG/8l5XHCo3X2EZVisc/F4sJR8BexHbjuQ57
+ bPJk9p+5zNAEo2Q390lsFFbXPA6dsNA1+WQL7QpXSwQw8un7b21XQ2Is4
+ op1dHnhfGmDSfhlBypiF7udSnwVNDF60YkF/7LiZpwzLbvD+VHNEVXa+T
+ DOFTvRwwkB5VCLts7PtD+hugTGbgg2cWcw3XwHRFF0j9BZLowObXeEPeL
+ enNa+8pQIRX6oXrnlOl4kmP4OFrhsrt7901zJnMnVp0BlEcwwwpAlWVQu
+ 4TzEwNihOaChBuAKYH9/WldsspjRZmTsFDGe3bnjiyDpXaIsPKZZdmU7D g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10330"; a="352414810"
+X-IronPort-AV: E=Sophos;i="5.90,293,1643702400"; d="scan'208";a="352414810"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Apr 2022 08:56:37 -0700
-X-IronPort-AV: E=Sophos;i="5.90,293,1643702400"; d="scan'208";a="559008192"
+ 27 Apr 2022 08:56:38 -0700
+X-IronPort-AV: E=Sophos;i="5.90,293,1643702400"; d="scan'208";a="559008211"
 Received: from dktowns1-mobl2.amr.corp.intel.com (HELO [10.209.20.44])
  ([10.209.20.44])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Apr 2022 08:56:36 -0700
-Message-ID: <7bc3a92e-8bd1-c1d0-5610-af40dbb8fb7a@linux.intel.com>
-Date: Wed, 27 Apr 2022 10:47:12 -0500
+ 27 Apr 2022 08:56:38 -0700
+Message-ID: <ec01bea7-3757-b891-00d4-2ad6520e2ab5@linux.intel.com>
+Date: Wed, 27 Apr 2022 10:52:59 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Firefox/91.0 Thunderbird/91.5.0
-Subject: Re: [PATCH 02/14] ASoC: codecs: Add HD-Audio codec driver
+Subject: Re: [PATCH] ASoC: Intel: bytcr_rt5640: Add quirk for the HP Pro
+ Tablet 408
 Content-Language: en-US
-To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org, 
- broonie@kernel.org
-References: <20220427081902.3525183-1-cezary.rojewski@intel.com>
- <20220427081902.3525183-3-cezary.rojewski@intel.com>
+To: Hans de Goede <hdegoede@redhat.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jie Yang <yang.jie@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
+References: <20220427134918.527381-1-hdegoede@redhat.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20220427081902.3525183-3-cezary.rojewski@intel.com>
+In-Reply-To: <20220427134918.527381-1-hdegoede@redhat.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Cc: upstream@semihalf.com, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- harshapriya.n@intel.com, rad@semihalf.com, tiwai@suse.com, hdegoede@redhat.com,
- amadeuszx.slawinski@linux.intel.com, cujomalainey@chromium.org,
- lma@semihalf.com
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,634 +97,45 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 4/27/22 03:18, Cezary Rojewski wrote:
-> Add generic ASoC equivalent of ALSA HD-Audio codec. This codec is
-> designed to follow HDA_DEV_LEGACY convention. Driver wrapps existing
-> hda_codec.c handlers to prevent code duplication within the newly added
-> code. Number of DAIs created is dependent on capabilities exposed by the
-> codec itself. Because of this, single solution can be applied to support
-> every single HD-Audio codec type.
+On 4/27/22 08:49, Hans de Goede wrote:
+> Add a quirk for the HP Pro Tablet 408, this BYTCR tablet has no CHAN
+> package in its ACPI tables and uses SSP0-AIF1 rather then SSP0-AIF2 which
+> is the default for BYTCR devices.
 > 
-> At the same, through the ASoC topology, platform drivers may limit the
-> number of endpoints available to the userspace as codec driver exposes
-> BE DAIs only.
+> It also uses DMIC1 for the internal mic rather then the default IN3
+> and it uses JD2 rather then the default JD1 for jack-detect.
 > 
-> Both hda_codec_probe() and hda_codec_remove() declare their expectations
-> on device's usage_count and suspended-status. This is to catch any
-> unexpected behavior as PM-related code for HD-Audio has been changing
-> quite a bit throughout the years.
-> 
-> In order for codec DAI list to reflect its actual PCM capabilities, PCMs
-> need to be built and that can only happen once codec device is
-> constructed. To do that, a valid component->card->snd_card pointer is
-> needed. Said pointer will be provided by the framework once all card
-> components are accounted for and their probing can begin. Usage of
-> "binder" BE DAI solves the problem - codec can be listed as one of
-> HD-Audio card components without declaring any actual BE DAIs
-> statically.
+> BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=211485
+> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 
-I am surprised the explanations don't even mention the existence of hdac_hda.c
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-/*
+Thanks Hans!
 
- * hdac_hda.c - ASoC extensions to reuse the legacy HDA codec drivers
-
- * with ASoC platform drivers. These APIs are called by the legacy HDA
-
- * codec drivers using hdac_ext_bus_ops ops.
-
- */
-
-
-I thought the series was about adding machine drivers, but this also adds code on the sound/soc/codecs/ side which I didn't see coming.
-
-I am not qualified to review this part of the code, I just wonder about duplication of functionality.
-
-At the very least an explanation on why you decided to NOT use hdac_hda.c would be useful to reviewers and maintainers.
-
-Thanks.
-
-
-> 
-> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 > ---
->  sound/soc/codecs/Kconfig   |   5 +
->  sound/soc/codecs/Makefile  |   2 +
->  sound/soc/codecs/hda-dai.c | 102 ++++++++++
->  sound/soc/codecs/hda.c     | 395 +++++++++++++++++++++++++++++++++++++
->  sound/soc/codecs/hda.h     |  19 ++
->  5 files changed, 523 insertions(+)
->  create mode 100644 sound/soc/codecs/hda-dai.c
->  create mode 100644 sound/soc/codecs/hda.c
->  create mode 100644 sound/soc/codecs/hda.h
+>  sound/soc/intel/boards/bytcr_rt5640.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
 > 
-> diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-> index b106e5517090..23fdbf97e453 100644
-> --- a/sound/soc/codecs/Kconfig
-> +++ b/sound/soc/codecs/Kconfig
-> @@ -937,6 +937,11 @@ config SND_SOC_HDAC_HDA
->  	tristate
->  	select SND_HDA
->  
-> +config SND_SOC_HDA
-> +	tristate "HD-Audio codec driver"
-> +	select SND_HDA_EXT_CORE
-> +	select SND_HDA
-> +
->  config SND_SOC_ICS43432
->  	tristate "ICS43423 and compatible i2s microphones"
->  
-> diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
-> index 28dc4edfd01f..d32026ae326f 100644
-> --- a/sound/soc/codecs/Makefile
-> +++ b/sound/soc/codecs/Makefile
-> @@ -106,6 +106,7 @@ snd-soc-es8328-spi-objs := es8328-spi.o
->  snd-soc-gtm601-objs := gtm601.o
->  snd-soc-hdac-hdmi-objs := hdac_hdmi.o
->  snd-soc-hdac-hda-objs := hdac_hda.o
-> +snd-soc-hda-codec-objs := hda.o hda-dai.o
->  snd-soc-ics43432-objs := ics43432.o
->  snd-soc-inno-rk3036-objs := inno_rk3036.o
->  snd-soc-isabelle-objs := isabelle.o
-> @@ -458,6 +459,7 @@ obj-$(CONFIG_SND_SOC_ES8328_SPI)+= snd-soc-es8328-spi.o
->  obj-$(CONFIG_SND_SOC_GTM601)    += snd-soc-gtm601.o
->  obj-$(CONFIG_SND_SOC_HDAC_HDMI) += snd-soc-hdac-hdmi.o
->  obj-$(CONFIG_SND_SOC_HDAC_HDA) += snd-soc-hdac-hda.o
-> +obj-$(CONFIG_SND_SOC_HDA) += snd-soc-hda-codec.o
->  obj-$(CONFIG_SND_SOC_ICS43432)	+= snd-soc-ics43432.o
->  obj-$(CONFIG_SND_SOC_INNO_RK3036)	+= snd-soc-inno-rk3036.o
->  obj-$(CONFIG_SND_SOC_ISABELLE)	+= snd-soc-isabelle.o
-> diff --git a/sound/soc/codecs/hda-dai.c b/sound/soc/codecs/hda-dai.c
-> new file mode 100644
-> index 000000000000..5371ff086261
-> --- /dev/null
-> +++ b/sound/soc/codecs/hda-dai.c
-> @@ -0,0 +1,102 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +//
-> +// Copyright(c) 2021-2022 Intel Corporation. All rights reserved.
-> +//
-> +// Author: Cezary Rojewski <cezary.rojewski@intel.com>
-> +//
-> +
-> +#include <sound/soc.h>
-> +#include <sound/hda_codec.h>
-> +#include "hda.h"
-> +
-> +static int hda_codec_dai_startup(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
-> +{
-> +	struct hda_pcm_stream *stream_info;
-> +	struct hda_codec *codec;
-> +	struct hda_pcm *pcm;
-> +	int ret;
-> +
-> +	codec = dev_to_hda_codec(dai->dev);
-> +	stream_info = snd_soc_dai_get_dma_data(dai, substream);
-> +	pcm = container_of(stream_info, struct hda_pcm, stream[substream->stream]);
-> +
-> +	dev_dbg(dai->dev, "open stream codec: %08x, info: %p, pcm: %p %s substream: %p\n",
-> +		codec->core.vendor_id, stream_info, pcm, pcm->name, substream);
-> +
-> +	snd_hda_codec_pcm_get(pcm);
-> +
-> +	ret = stream_info->ops.open(stream_info, codec, substream);
-> +	if (ret < 0) {
-> +		dev_err(dai->dev, "codec open failed: %d\n", ret);
-> +		snd_hda_codec_pcm_put(pcm);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static void hda_codec_dai_shutdown(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
-> +{
-> +	struct hda_pcm_stream *stream_info;
-> +	struct hda_codec *codec;
-> +	struct hda_pcm *pcm;
-> +	int ret;
-> +
-> +	codec = dev_to_hda_codec(dai->dev);
-> +	stream_info = snd_soc_dai_get_dma_data(dai, substream);
-> +	pcm = container_of(stream_info, struct hda_pcm, stream[substream->stream]);
-> +
-> +	dev_dbg(dai->dev, "close stream codec: %08x, info: %p, pcm: %p %s substream: %p\n",
-> +		codec->core.vendor_id, stream_info, pcm, pcm->name, substream);
-> +
-> +	ret = stream_info->ops.close(stream_info, codec, substream);
-> +	if (ret < 0)
-> +		dev_err(dai->dev, "codec close failed: %d\n", ret);
-> +
-> +	snd_hda_codec_pcm_put(pcm);
-> +}
-> +
-> +static int hda_codec_dai_hw_free(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
-> +{
-> +	struct hda_pcm_stream *stream_info;
-> +	struct hda_codec *codec;
-> +
-> +	codec = dev_to_hda_codec(dai->dev);
-> +	stream_info = snd_soc_dai_get_dma_data(dai, substream);
-> +
-> +	snd_hda_codec_cleanup(codec, stream_info, substream);
-> +
-> +	return 0;
-> +}
-> +
-> +static int hda_codec_dai_prepare(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
-> +{
-> +	struct snd_pcm_runtime *runtime = substream->runtime;
-> +	struct hda_pcm_stream *stream_info;
-> +	struct hdac_stream *stream;
-> +	struct hda_codec *codec;
-> +	unsigned int format;
-> +	int ret;
-> +
-> +	codec = dev_to_hda_codec(dai->dev);
-> +	stream = substream->runtime->private_data;
-> +	stream_info = snd_soc_dai_get_dma_data(dai, substream);
-> +	format = snd_hdac_calc_stream_format(runtime->rate, runtime->channels, runtime->format,
-> +					     runtime->sample_bits, 0);
-> +
-> +	ret = snd_hda_codec_prepare(codec, stream_info, stream->stream_tag, format, substream);
-> +	if (ret < 0) {
-> +		dev_err(dai->dev, "codec prepare failed: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +const struct snd_soc_dai_ops snd_soc_hda_codec_dai_ops = {
-> +	.startup = hda_codec_dai_startup,
-> +	.shutdown = hda_codec_dai_shutdown,
-> +	.hw_free = hda_codec_dai_hw_free,
-> +	.prepare = hda_codec_dai_prepare,
-> +};
-> +EXPORT_SYMBOL_GPL(snd_soc_hda_codec_dai_ops);
-> diff --git a/sound/soc/codecs/hda.c b/sound/soc/codecs/hda.c
-> new file mode 100644
-> index 000000000000..edcb8bc6806b
-> --- /dev/null
-> +++ b/sound/soc/codecs/hda.c
-> @@ -0,0 +1,395 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +//
-> +// Copyright(c) 2021-2022 Intel Corporation. All rights reserved.
-> +//
-> +// Author: Cezary Rojewski <cezary.rojewski@intel.com>
-> +//
-> +
-> +#include <linux/module.h>
-> +#include <linux/pm_runtime.h>
-> +#include <sound/soc.h>
-> +#include <sound/hdaudio_ext.h>
-> +#include <sound/hda_i915.h>
-> +#include <sound/hda_codec.h>
-> +#include "hda.h"
-> +
-> +static int hda_codec_create_dais(struct hda_codec *codec, int pcm_count,
-> +				 struct snd_soc_dai_driver **drivers)
-> +{
-> +	struct device *dev = &codec->core.dev;
-> +	struct snd_soc_dai_driver *drvs;
-> +	struct hda_pcm *pcm;
-> +	int i;
-> +
-> +	drvs = devm_kcalloc(dev, pcm_count, sizeof(*drvs), GFP_KERNEL);
-> +	if (!drvs)
-> +		return -ENOMEM;
-> +
-> +	pcm = list_first_entry(&codec->pcm_list_head, struct hda_pcm, list);
-> +
-> +	for (i = 0; i < pcm_count; i++, pcm = list_next_entry(pcm, list)) {
-> +		struct snd_soc_pcm_stream *stream;
-> +		int dir;
-> +
-> +		dev_info(dev, "creating for %s %d\n", pcm->name, i);
-> +		drvs[i].id = i;
-> +		drvs[i].name = pcm->name;
-> +		drvs[i].ops = &snd_soc_hda_codec_dai_ops;
-> +
-> +		dir = SNDRV_PCM_STREAM_PLAYBACK;
-> +		stream = &drvs[i].playback;
-> +		if (!pcm->stream[dir].substreams) {
-> +			dev_info(dev, "skipping playback dai for %s\n", pcm->name);
-> +			goto capture_dais;
-> +		}
-> +
-> +		stream->stream_name =
-> +			devm_kasprintf(dev, GFP_KERNEL, "%s %s", pcm->name,
-> +				       snd_pcm_direction_name(dir));
-> +		if (!stream->stream_name)
-> +			return -ENOMEM;
-> +		stream->channels_min = pcm->stream[dir].channels_min;
-> +		stream->channels_max = pcm->stream[dir].channels_max;
-> +		stream->rates = pcm->stream[dir].rates;
-> +		stream->formats = pcm->stream[dir].formats;
-> +		stream->sig_bits = pcm->stream[dir].maxbps;
-> +
-> +capture_dais:
-> +		dir = SNDRV_PCM_STREAM_CAPTURE;
-> +		stream = &drvs[i].capture;
-> +		if (!pcm->stream[dir].substreams) {
-> +			dev_info(dev, "skipping capture dai for %s\n", pcm->name);
-> +			continue;
-> +		}
-> +
-> +		stream->stream_name =
-> +			devm_kasprintf(dev, GFP_KERNEL, "%s %s", pcm->name,
-> +				       snd_pcm_direction_name(dir));
-> +		if (!stream->stream_name)
-> +			return -ENOMEM;
-> +		stream->channels_min = pcm->stream[dir].channels_min;
-> +		stream->channels_max = pcm->stream[dir].channels_max;
-> +		stream->rates = pcm->stream[dir].rates;
-> +		stream->formats = pcm->stream[dir].formats;
-> +		stream->sig_bits = pcm->stream[dir].maxbps;
-> +	}
-> +
-> +	*drivers = drvs;
-> +	return 0;
-> +}
-> +
-> +static int hda_codec_register_dais(struct hda_codec *codec, struct snd_soc_component *component)
-> +{
-> +	struct snd_soc_dai_driver *drvs = NULL;
-> +	struct snd_soc_dapm_context *dapm;
-> +	struct hda_pcm *pcm;
-> +	int ret, pcm_count = 0;
-> +
-> +	if (list_empty(&codec->pcm_list_head))
-> +		return -EINVAL;
-> +	list_for_each_entry(pcm, &codec->pcm_list_head, list)
-> +		pcm_count++;
-> +
-> +	ret = hda_codec_create_dais(codec, pcm_count, &drvs);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	dapm = snd_soc_component_get_dapm(component);
-> +
-> +	list_for_each_entry(pcm, &codec->pcm_list_head, list) {
-> +		struct snd_soc_dai *dai;
-> +
-> +		dai = snd_soc_register_dai(component, drvs, false);
-> +		if (!dai) {
-> +			dev_err(component->dev, "register dai for %s failed\n", pcm->name);
-> +			return -EINVAL;
-> +		}
-> +
-> +		ret = snd_soc_dapm_new_dai_widgets(dapm, dai);
-> +		if (ret < 0) {
-> +			dev_err(component->dev, "create widgets failed: %d\n", ret);
-> +			snd_soc_unregister_dai(dai);
-> +			return ret;
-> +		}
-> +
-> +		snd_soc_dai_init_dma_data(dai, &pcm->stream[0], &pcm->stream[1]);
-> +		drvs++;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static void hda_codec_unregister_dais(struct hda_codec *codec,
-> +				      struct snd_soc_component *component)
-> +{
-> +	struct snd_soc_dai *dai, *save;
-> +	struct hda_pcm *pcm;
-> +
-> +	for_each_component_dais_safe(component, dai, save) {
-> +		list_for_each_entry(pcm, &codec->pcm_list_head, list) {
-> +			if (strcmp(dai->driver->name, pcm->name))
-> +				continue;
-> +
-> +			if (dai->playback_widget)
-> +				snd_soc_dapm_free_widget(dai->playback_widget);
-> +			if (dai->capture_widget)
-> +				snd_soc_dapm_free_widget(dai->capture_widget);
-> +			snd_soc_unregister_dai(dai);
-> +			break;
-> +		}
-> +	}
-> +}
-> +
-> +int hda_codec_probe_complete(struct hda_codec *codec)
-> +{
-> +	struct hdac_device *hdev = &codec->core;
-> +	struct hdac_bus *bus = hdev->bus;
-> +	int ret;
-> +
-> +	ret = snd_hda_codec_build_controls(codec);
-> +	if (ret < 0) {
-> +		dev_err(&hdev->dev, "unable to create controls %d\n", ret);
-> +		goto out;
-> +	}
-> +
-> +	/* Bus suspended codecs as it does not manage their pm */
-> +	pm_runtime_set_active(&hdev->dev);
-> +	/* rpm was forbidden in snd_hda_codec_device_new() */
-> +	snd_hda_codec_set_power_save(codec, 2000);
-> +	snd_hda_codec_register(codec);
-> +out:
-> +	/* Complement pm_runtime_get_sync(bus) in probe */
-> +	pm_runtime_mark_last_busy(bus->dev);
-> +	pm_runtime_put_autosuspend(bus->dev);
-> +
-> +	return ret;
-> +}
-> +EXPORT_SYMBOL_GPL(hda_codec_probe_complete);
-> +
-> +/* Expects codec with usage_count=1 and status=suspended */
-> +static int hda_codec_probe(struct snd_soc_component *component)
-> +{
-> +	struct hda_codec *codec = dev_to_hda_codec(component->dev);
-> +	struct hdac_device *hdev = &codec->core;
-> +	struct hdac_bus *bus = hdev->bus;
-> +	struct hdac_ext_link *hlink;
-> +	hda_codec_patch_t patch;
-> +	int ret;
-> +
-> +#ifdef CONFIG_PM
-> +	WARN_ON(atomic_read(&hdev->dev.power.usage_count) != 1 ||
-> +		!pm_runtime_status_suspended(&hdev->dev));
-> +#endif
-> +
-> +	hlink = snd_hdac_ext_bus_link_at(bus, hdev->addr);
-> +	if (!hlink) {
-> +		dev_err(&hdev->dev, "hdac link not found\n");
-> +		return -EIO;
-> +	}
-> +
-> +	pm_runtime_get_sync(bus->dev);
-> +	if (hda_codec_is_display(codec))
-> +		snd_hdac_display_power(bus, hdev->addr, true);
-> +	snd_hdac_ext_bus_link_get(bus, hlink);
-> +
-> +	ret = snd_hda_codec_device_new(codec->bus, component->card->snd_card, hdev->addr, codec,
-> +				       false);
-> +	if (ret < 0) {
-> +		dev_err(&hdev->dev, "create hda codec failed: %d\n", ret);
-> +		goto device_new_err;
-> +	}
-> +
-> +	ret = snd_hda_codec_set_name(codec, codec->preset->name);
-> +	if (ret < 0) {
-> +		dev_err(&hdev->dev, "name failed %s\n", codec->preset->name);
-> +		goto err;
-> +	}
-> +
-> +	ret = snd_hdac_regmap_init(&codec->core);
-> +	if (ret < 0) {
-> +		dev_err(&hdev->dev, "regmap init failed\n");
-> +		goto err;
-> +	}
-> +
-> +	patch = (hda_codec_patch_t)codec->preset->driver_data;
-> +	if (!patch) {
-> +		dev_err(&hdev->dev, "no patch specified?\n");
-> +		ret = -EINVAL;
-> +		goto err;
-> +	}
-> +
-> +	ret = patch(codec);
-> +	if (ret < 0) {
-> +		dev_err(&hdev->dev, "patch failed %d\n", ret);
-> +		goto err;
-> +	}
-> +
-> +	/* configure codec for 1:1 PCM:DAI mapping */
-> +	codec->mst_no_extra_pcms = 1;
-> +
-> +	ret = snd_hda_codec_parse_pcms(codec);
-> +	if (ret < 0) {
-> +		dev_err(&hdev->dev, "unable to map pcms to dai %d\n", ret);
-> +		goto parse_pcms_err;
-> +	}
-> +
-> +	ret = hda_codec_register_dais(codec, component);
-> +	if (ret < 0) {
-> +		dev_err(&hdev->dev, "update dais failed: %d\n", ret);
-> +		goto parse_pcms_err;
-> +	}
-> +
-> +	if (!hda_codec_is_display(codec)) {
-> +		ret = hda_codec_probe_complete(codec);
-> +		if (ret < 0)
-> +			goto complete_err;
-> +	}
-> +
-> +	codec->core.lazy_cache = true;
-> +
-> +	return 0;
-> +
-> +complete_err:
-> +	hda_codec_unregister_dais(codec, component);
-> +parse_pcms_err:
-> +	if (codec->patch_ops.free)
-> +		codec->patch_ops.free(codec);
-> +err:
-> +	snd_hda_codec_cleanup_for_unbind(codec);
-> +device_new_err:
-> +	if (hda_codec_is_display(codec))
-> +		snd_hdac_display_power(bus, hdev->addr, false);
-> +
-> +	snd_hdac_ext_bus_link_put(bus, hlink);
-> +
-> +	pm_runtime_mark_last_busy(bus->dev);
-> +	pm_runtime_put_autosuspend(bus->dev);
-> +	return ret;
-> +}
-> +
-> +/* Leaves codec with usage_count=1 and status=suspended */
-> +static void hda_codec_remove(struct snd_soc_component *component)
-> +{
-> +	struct hda_codec *codec = dev_to_hda_codec(component->dev);
-> +	struct hdac_device *hdev = &codec->core;
-> +	struct hdac_bus *bus = hdev->bus;
-> +	struct hdac_ext_link *hlink;
-> +	bool was_registered = codec->registered;
-> +
-> +	/* Don't allow any more runtime suspends */
-> +	pm_runtime_forbid(&hdev->dev);
-> +
-> +	hda_codec_unregister_dais(codec, component);
-> +
-> +	if (codec->patch_ops.free)
-> +		codec->patch_ops.free(codec);
-> +
-> +	snd_hda_codec_cleanup_for_unbind(codec);
-> +	pm_runtime_put_noidle(&hdev->dev);
-> +	/* snd_hdac_device_exit() is only called on bus remove */
-> +	pm_runtime_set_suspended(&hdev->dev);
-> +
-> +	if (hda_codec_is_display(codec))
-> +		snd_hdac_display_power(bus, hdev->addr, false);
-> +
-> +	hlink = snd_hdac_ext_bus_link_at(bus, hdev->addr);
-> +	if (hlink)
-> +		snd_hdac_ext_bus_link_put(bus, hlink);
-> +	/*
-> +	 * HDMI card's hda_codec_probe_complete() (see late_probe()) may
-> +	 * not be called due to early error, leaving bus uc unbalanced
-> +	 */
-> +	if (!was_registered) {
-> +		pm_runtime_mark_last_busy(bus->dev);
-> +		pm_runtime_put_autosuspend(bus->dev);
-> +	}
-> +
-> +#ifdef CONFIG_PM
-> +	WARN_ON(atomic_read(&hdev->dev.power.usage_count) != 1 ||
-> +		!pm_runtime_status_suspended(&hdev->dev));
-> +#endif
-> +}
-> +
-> +static const struct snd_soc_dapm_route hda_dapm_routes[] = {
-> +	{"AIF1TX", NULL, "Codec Input Pin1"},
-> +	{"AIF2TX", NULL, "Codec Input Pin2"},
-> +	{"AIF3TX", NULL, "Codec Input Pin3"},
-> +
-> +	{"Codec Output Pin1", NULL, "AIF1RX"},
-> +	{"Codec Output Pin2", NULL, "AIF2RX"},
-> +	{"Codec Output Pin3", NULL, "AIF3RX"},
-> +};
-> +
-> +static const struct snd_soc_dapm_widget hda_dapm_widgets[] = {
-> +	/* Audio Interface */
-> +	SND_SOC_DAPM_AIF_IN("AIF1RX", "Analog Codec Playback", 0, SND_SOC_NOPM, 0, 0),
-> +	SND_SOC_DAPM_AIF_IN("AIF2RX", "Digital Codec Playback", 0, SND_SOC_NOPM, 0, 0),
-> +	SND_SOC_DAPM_AIF_IN("AIF3RX", "Alt Analog Codec Playback", 0, SND_SOC_NOPM, 0, 0),
-> +	SND_SOC_DAPM_AIF_OUT("AIF1TX", "Analog Codec Capture", 0, SND_SOC_NOPM, 0, 0),
-> +	SND_SOC_DAPM_AIF_OUT("AIF2TX", "Digital Codec Capture", 0, SND_SOC_NOPM, 0, 0),
-> +	SND_SOC_DAPM_AIF_OUT("AIF3TX", "Alt Analog Codec Capture", 0, SND_SOC_NOPM, 0, 0),
-> +
-> +	/* Input Pins */
-> +	SND_SOC_DAPM_INPUT("Codec Input Pin1"),
-> +	SND_SOC_DAPM_INPUT("Codec Input Pin2"),
-> +	SND_SOC_DAPM_INPUT("Codec Input Pin3"),
-> +
-> +	/* Output Pins */
-> +	SND_SOC_DAPM_OUTPUT("Codec Output Pin1"),
-> +	SND_SOC_DAPM_OUTPUT("Codec Output Pin2"),
-> +	SND_SOC_DAPM_OUTPUT("Codec Output Pin3"),
-> +};
-> +
-> +static struct snd_soc_dai_driver card_binder_dai = {
-> +	.id = -1,
-> +	.name = "codec-probing-DAI",
-> +};
-> +
-> +static int hda_hdev_attach(struct hdac_device *hdev)
-> +{
-> +	struct hda_codec *codec = dev_to_hda_codec(&hdev->dev);
-> +	struct snd_soc_component_driver *comp_drv;
-> +
-> +	comp_drv = devm_kzalloc(&hdev->dev, sizeof(*comp_drv), GFP_KERNEL);
-> +	if (!comp_drv)
-> +		return -ENOMEM;
-> +
-> +	/*
-> +	 * It's save to rely on dev_name() rather than a copy as component
-> +	 * driver's lifetime is directly tied to hda codec one
-> +	 */
-> +	comp_drv->name = dev_name(&hdev->dev);
-> +	comp_drv->probe = hda_codec_probe;
-> +	comp_drv->remove = hda_codec_remove;
-> +	comp_drv->idle_bias_on = false;
-> +	if (!hda_codec_is_display(codec)) {
-> +		comp_drv->dapm_widgets = hda_dapm_widgets;
-> +		comp_drv->num_dapm_widgets = ARRAY_SIZE(hda_dapm_widgets);
-> +		comp_drv->dapm_routes = hda_dapm_routes;
-> +		comp_drv->num_dapm_routes = ARRAY_SIZE(hda_dapm_routes);
-> +	}
-> +
-> +	return snd_soc_register_component(&hdev->dev, comp_drv, &card_binder_dai, 1);
-> +}
-> +
-> +static int hda_hdev_detach(struct hdac_device *hdev)
-> +{
-> +	struct hda_codec *codec = dev_to_hda_codec(&hdev->dev);
-> +
-> +	if (codec->registered)
-> +		cancel_delayed_work_sync(&codec->jackpoll_work);
-> +
-> +	snd_soc_unregister_component(&hdev->dev);
-> +
-> +	return 0;
-> +}
-> +
-> +const struct hdac_ext_bus_ops soc_hda_ext_bus_ops = {
-> +	.hdev_attach = hda_hdev_attach,
-> +	.hdev_detach = hda_hdev_detach,
-> +};
-> +EXPORT_SYMBOL_GPL(soc_hda_ext_bus_ops);
-> +
-> +MODULE_DESCRIPTION("HD-Audio codec driver");
-> +MODULE_AUTHOR("Cezary Rojewski <cezary.rojewski@intel.com>");
-> +MODULE_LICENSE("GPL");
-> diff --git a/sound/soc/codecs/hda.h b/sound/soc/codecs/hda.h
-> new file mode 100644
-> index 000000000000..78a2be4945b1
-> --- /dev/null
-> +++ b/sound/soc/codecs/hda.h
-> @@ -0,0 +1,19 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * Copyright(c) 2021-2022 Intel Corporation. All rights reserved.
-> + *
-> + * Author: Cezary Rojewski <cezary.rojewski@intel.com>
-> + */
-> +
-> +#ifndef SND_SOC_CODECS_HDA_H
-> +#define SND_SOC_CODECS_HDA_H
-> +
-> +#define hda_codec_is_display(codec) \
-> +	((((codec)->core.vendor_id >> 16) & 0xFFFF) == 0x8086)
-> +
-> +extern const struct snd_soc_dai_ops snd_soc_hda_codec_dai_ops;
-> +
-> +extern const struct hdac_ext_bus_ops soc_hda_ext_bus_ops;
-> +int hda_codec_probe_complete(struct hda_codec *codec);
-> +
-> +#endif
+> diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
+> index d76a505052fb..f81ae742faa7 100644
+> --- a/sound/soc/intel/boards/bytcr_rt5640.c
+> +++ b/sound/soc/intel/boards/bytcr_rt5640.c
+> @@ -773,6 +773,18 @@ static const struct dmi_system_id byt_rt5640_quirk_table[] = {
+>  					BYT_RT5640_OVCD_SF_0P75 |
+>  					BYT_RT5640_MCLK_EN),
+>  	},
+> +	{	/* HP Pro Tablet 408 */
+> +		.matches = {
+> +			DMI_MATCH(DMI_SYS_VENDOR, "Hewlett-Packard"),
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "HP Pro Tablet 408"),
+> +		},
+> +		.driver_data = (void *)(BYT_RT5640_DMIC1_MAP |
+> +					BYT_RT5640_JD_SRC_JD2_IN4N |
+> +					BYT_RT5640_OVCD_TH_1500UA |
+> +					BYT_RT5640_OVCD_SF_0P75 |
+> +					BYT_RT5640_SSP0_AIF1 |
+> +					BYT_RT5640_MCLK_EN),
+> +	},
+>  	{	/* HP Stream 7 */
+>  		.matches = {
+>  			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Hewlett-Packard"),

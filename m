@@ -2,81 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D21E511C7A
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Apr 2022 19:03:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45C92511C95
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Apr 2022 19:26:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 900B220C;
-	Wed, 27 Apr 2022 19:02:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 900B220C
+	by alsa0.perex.cz (Postfix) with ESMTPS id A8537826;
+	Wed, 27 Apr 2022 19:25:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8537826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651079005;
-	bh=ouO9czTH1hGnxhRnNmCrMytCCUcGkvz2EgFW4yiQlKY=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=MwLNBD+k2oKiac8YJsDBXnB3XKiUflnIkcA1Zn3qn/CAYBpCNyNI+LlJyckznVKGn
-	 De/wNgShyMczFJsxk4vbYlQ6yNNQv+L1/uWX8cf8JGGnuWBW8uxY5CH/f14AN/xTzp
-	 4Xr6N/VzKzfyylKgv/3iGG9PpDoxq1pTbDV+0rrc=
+	s=default; t=1651080362;
+	bh=UL5tO6G6Xlp8JFEGHOzSEIwWu4Ognv9CHk6wK1s0ldU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=AHfEs1VVO4ESqi60jqN+LmALUcZ4oXSdz0iwJ44FKV/wSqg6VTBojy2LCwus7NmLo
+	 JdBxb4GUXKHVIyqPHkPWs0CrIHL7CjxzExJzw8IHrEWh93MBNNIy0m5qsD/qt5vOJ4
+	 nMidw3lkOnYwpanRR6QSojsNhfrDXOcBwJ2fmyMY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 112A6F80253;
-	Wed, 27 Apr 2022 19:02:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2E832F80253;
+	Wed, 27 Apr 2022 19:25:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 738D5F8016E; Wed, 27 Apr 2022 19:02:25 +0200 (CEST)
+ id 4ADFFF80100; Wed, 27 Apr 2022 19:25:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [IPv6:2a00:1450:4864:20::629])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 13B5BF80152
- for <alsa-devel@alsa-project.org>; Wed, 27 Apr 2022 19:02:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13B5BF80152
+ by alsa1.perex.cz (Postfix) with ESMTPS id 675B9F80100
+ for <alsa-devel@alsa-project.org>; Wed, 27 Apr 2022 19:25:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 675B9F80100
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="P41MUKbW"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 80A3B61DD9;
- Wed, 27 Apr 2022 17:02:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E2B5C385A9;
- Wed, 27 Apr 2022 17:02:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1651078936;
- bh=ouO9czTH1hGnxhRnNmCrMytCCUcGkvz2EgFW4yiQlKY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=P41MUKbWcbp+/p4irkEFK7rEw3lVlBg/J/trLlJiHk+9o+VybeWYbjl1vWl0xJ7WF
- axwKtNA3sh6/iPwHybf7RG4lQ2Mk5nQGghluWK+WnMghaRhE2BtOzxFC+wKFf3P77q
- NzX7XfZ2XbTs3qQ4zgcFPD4D8xleg8CaH/+56UvncWtlvCa0duPXZR6mQ3Y3FPJibE
- AHDiKn4FWNUW9EUZyO3xK7E2ZWQe1mFJbnyjQjIymW1xzJGCaxvZBWwm9JKOL3nJ75
- Inv2/YtFcIUPKR+X9V4jm1f4XW70VLmwCzKEwwiI24iCXmHh0uukq8kY/CwdUqVf84
- NBAegH8Jw3AHg==
-Date: Wed, 27 Apr 2022 18:02:12 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Subject: Re: WM8962 crashing on suspend
-Message-ID: <Yml3FLb4edRWKwTX@sirena.org.uk>
-References: <CAHCN7xJuAuGmSQsmBfg-C6jOdJmf1Li=YWp7Jdi29nU3kk1GcA@mail.gmail.com>
- <20220426174150.GZ38351@ediswmail.ad.cirrus.com>
- <CAHCN7xLqixKxM_L7P9T2BqLpyHoGTYpMODKJotCneXZK+wUEMg@mail.gmail.com>
- <20220427145730.GE38351@ediswmail.ad.cirrus.com>
- <YmlgL+Ur6BeWiUtr@sirena.org.uk>
- <20220427164825.GH38351@ediswmail.ad.cirrus.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="EYyIJudD"
+Received: by mail-ej1-x629.google.com with SMTP id kq17so4792315ejb.4
+ for <alsa-devel@alsa-project.org>; Wed, 27 Apr 2022 10:25:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=P52XUlnvWCDbdpSO0eow56ta8BYIoktLvffWsEefpbg=;
+ b=EYyIJudDhVOE7nkfQP1R77baA7wbkc6ve+j0cW06+oPnAeLrfHkIPvjhM8VSs9RP54
+ WUrZl2qV8Hp9WrdgrHudUuNOmQAsSwugxTKF0zdZhb98lU01+kJ0uTZZHDnfHo23KF8f
+ 7vJtUWbeJBZ48O+Rcz70/expiyA/HgPVGjOqzUyb1HzVmRkKPtKel1pAC8TrwJeDHSMa
+ FR7WouWdsXS4BTgy5cayvj6E92lge1vx0YVkzM6lujQbbz75L2BvdPJnKRJVjEZyZTx5
+ j8y1AT6+O7co6I6cll+Za0mbqMSTkEYbhG2ewGuphRI4UjAVKzM2+G71/z2L2pwD7pCt
+ Lhrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=P52XUlnvWCDbdpSO0eow56ta8BYIoktLvffWsEefpbg=;
+ b=EnYfLVzQm8kpIxdQ+fr1hOXZACC6dyGG+yKT/16SK2qQEePkyIqbSeADtGJJ+G16B1
+ Qt+CGNmR/lsrXiCDuEWRwbfm7u7TFuZtT1OwDsCb1zfKS0Up6h1SVqpgnbedrHu53hb1
+ OZ7cu/eBG1B2yJWhXaZp7Nl90ozgVELNvq8gihCxBEGx+iRPBwicCUNsmnyuDHcifIx7
+ XWuVE+QppZtYhhRQoj2fu9WfHND5HdUlE7u83BuGNVoJDIstaqeRijCVpr8KhRdLbwov
+ G7Dpw2FGmbojEloNfJHErLYOk7ElpJWxyUBDhskJBXRRRE1u5TIAGAn5gPVxtfHpYdYJ
+ 91rA==
+X-Gm-Message-State: AOAM532Via5Eotk3uOcfIbzxTzN3TkO/wD0xYcpSjnMOYNxXJYGniAJO
+ wy2CKejcSyY6W+A9KrEKRWI=
+X-Google-Smtp-Source: ABdhPJwtWnz45yI608lXspTGLXjHmcLI45v3raOCKlRDG2j3PHMzL3wk9KyjzWEraDNpDJY3BuR5sg==
+X-Received: by 2002:a17:907:97c9:b0:6db:ab53:1fdf with SMTP id
+ js9-20020a17090797c900b006dbab531fdfmr27725391ejc.406.1651080298559; 
+ Wed, 27 Apr 2022 10:24:58 -0700 (PDT)
+Received: from localhost.localdomain (84-72-105-84.dclient.hispeed.ch.
+ [84.72.105.84]) by smtp.gmail.com with ESMTPSA id
+ z2-20020a05640235c200b00425fff78dbbsm3328443edc.49.2022.04.27.10.24.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 27 Apr 2022 10:24:57 -0700 (PDT)
+From: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Katsuhiro Suzuki <katsuhiro@katsuster.net>
+Subject: [PATCH] ASoC: rk3328: fix disabling mclk on pclk probe failure
+Date: Wed, 27 Apr 2022 19:23:11 +0200
+Message-Id: <20220427172310.138638-1-frattaroli.nicolas@gmail.com>
+X-Mailer: git-send-email 2.36.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="JBWjWul9bDTCdfX+"
-Content-Disposition: inline
-In-Reply-To: <20220427164825.GH38351@ediswmail.ad.cirrus.com>
-X-Cookie: Buckle up!
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Adam Ford <aford173@gmail.com>
+Content-Transfer-Encoding: 8bit
+Cc: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
+ linux-rockchip@lists.infradead.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,44 +102,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+If preparing/enabling the pclk fails, the probe function should
+unprepare and disable the previously prepared and enabled mclk,
+which it doesn't do. This commit rectifies this.
 
---JBWjWul9bDTCdfX+
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Fixes: c32759035ad2 ("ASoC: rockchip: support ACODEC for rk3328")
+Signed-off-by: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
+---
+ sound/soc/codecs/rk3328_codec.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On Wed, Apr 27, 2022 at 04:48:25PM +0000, Charles Keepax wrote:
+diff --git a/sound/soc/codecs/rk3328_codec.c b/sound/soc/codecs/rk3328_codec.c
+index 758d439e8c7a..86b679cf7aef 100644
+--- a/sound/soc/codecs/rk3328_codec.c
++++ b/sound/soc/codecs/rk3328_codec.c
+@@ -481,7 +481,7 @@ static int rk3328_platform_probe(struct platform_device *pdev)
+ 	ret = clk_prepare_enable(rk3328->pclk);
+ 	if (ret < 0) {
+ 		dev_err(&pdev->dev, "failed to enable acodec pclk\n");
+-		return ret;
++		goto err_unprepare_mclk;
+ 	}
+ 
+ 	base = devm_platform_ioremap_resource(pdev, 0);
+-- 
+2.36.0
 
-> Yeah in my head snd_soc_suspend would have been called which
-> would (assuming the DAI doesn't have ignore_suspend set) shut
-> down the DAPM graph for the audio route, causing the runtime
-> references to all be released and the CODEC to be suspended
-> through runtime_pm. Not sure if I missed something there, and
-
-Runtime suspend won't do anything beyond tracking the reference count
-when we're in the middle of system suspend IIRC, it won't actually call
-the operations.
-
-> that also allows for systems where the CODEC doesn't suspend
-> during system suspend. That said guess there probably arn't
-> any use-cases for that on wm8962 and I am more than happy to
-> use the force_suspend ops if you are happy with it.
-
-The other option would be to move the runtime PM stuff into the bias
-level configuration I guess.
-
---JBWjWul9bDTCdfX+
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJpdxMACgkQJNaLcl1U
-h9AiLAf/V0iFrJXSvKhJSN37re/9556nmJM0hkzqFzuDHY0aNA3GXqQuxwzRwZeb
-WBG/TfXmzyFOSGFHu2XNzxiA3Q87nVcQIyKoEftz8th7lqC1B5ZZHd6mbN8Seydh
-I/zT5enwLnMzObA/cT0xlZduStCptlOfWLXcm5XNzOQrYhYZTsV8+0DcPdu5eZSw
-TC+zYtbPM2tNc7DKSf/JipuT595Wh1C3o5g03CDwwoybHqotObIdWz6yN1gwFB1g
-vIKyMP2mEOXdQGY/3F7ZoL7e8dVw4CozymEVg/7bbEo0WsGYX70JVN/84TQYGeLe
-1gzgl6Az9g5MgsGOCRuA9ZHVXjDr8A==
-=dGQx
------END PGP SIGNATURE-----
-
---JBWjWul9bDTCdfX+--

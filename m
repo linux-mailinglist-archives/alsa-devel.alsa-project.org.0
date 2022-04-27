@@ -2,90 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEA00511BBE
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Apr 2022 17:15:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6ACF4511BDB
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Apr 2022 17:25:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7291A1748;
-	Wed, 27 Apr 2022 17:14:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7291A1748
+	by alsa0.perex.cz (Postfix) with ESMTPS id F345616D6;
+	Wed, 27 Apr 2022 17:24:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F345616D6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651072508;
-	bh=CqOiYa1xZHSBVmM0s07l91cdfxn9ipZG+mzLsPvf+cM=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1651073141;
+	bh=JlPHMZjtz41n9jQFrgK3+bd+ZcmQpyjMl/Qk9pCRLtw=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CWHpOR5t2b3evZ3hyVkS2DT30GQYmuFj19WnUPYsZYIK4rBTYjkzPoztaUkWutGOk
-	 BjBBngI9EHpTI68lwMK+JiN18/W4BFTLhZ26sKJ6Z5U5kYUbAQ1HMmj+VEW/rN0mVb
-	 S0mWzrJ80XQlZug8guw55tQoGt9WMqAKcNnBOiTw=
+	b=YDlqL9MBkZrTltkXjwEur9ACKn9BRCyhLFXdVOsjO+2Plisr5QRWdmBK1xvKEd0WS
+	 tPZtswqLhqeUSuwKavTutlyekQVS74kcLI4ATmYR7AgBaJse3tnaTCp8Ru9AwO/lBU
+	 9ReacYex83/v9Q8RN51hsAgEYzypU8WoKW0K6iNo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5B04AF805E3;
-	Wed, 27 Apr 2022 17:08:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 54C48F80253;
+	Wed, 27 Apr 2022 17:24:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0BDE7F8057C; Wed, 27 Apr 2022 17:08:07 +0200 (CEST)
+ id B7C31F8016E; Wed, 27 Apr 2022 17:24:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4381FF800AE
+ for <alsa-devel@alsa-project.org>; Wed, 27 Apr 2022 17:24:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4381FF800AE
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="G6cdi3mV"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 73D87F8016E
- for <alsa-devel@alsa-project.org>; Wed, 27 Apr 2022 17:07:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73D87F8016E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="QHdiXIA5"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 23R6M8vt014103;
- Wed, 27 Apr 2022 10:07:42 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=PODMain02222019;
- bh=xLsU6Iv+ZJvxrpEJk5Y3A5YTrieVMpJFBJwo2HpKEV0=;
- b=QHdiXIA5IjZaFJOWrtmP7jRI4pc7KQ3H5r+lY2NwwQq9P2bbGItaHTBpjfqMxm0GxpA+
- gyEVvEfWu5Q3AM10PrXOOQudOpwfkouqqLf2ukdo7NMJcTXyWbuwe5kjFoJoUojC4ivl
- khWzzpGXg6z7sm6/cqb4tynBiRINgLzyN3fBwwuiwnGwRGphJ0wpOdvMAiEjDRc2npNM
- YbP7+lJDvgMRkze5z27rkXni+Qbv847vJK9oRISYOKqSgGugvNy3uZJyUGxvijCcc+xS
- Rel6IB+bw8EZxbtR6MU0jn4SZuVejo2XG9A7rxds/YOgc4CMrCb1VY6xX9X08jzgIdL0 dw== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3fprt60xth-13
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Wed, 27 Apr 2022 10:07:41 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Wed, 27 Apr
- 2022 16:07:34 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.24 via
- Frontend Transport; Wed, 27 Apr 2022 16:07:34 +0100
-Received: from vitaly-Legion-7-16ACHg6.ad.cirrus.com (unknown [198.90.238.170])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id D146F478;
- Wed, 27 Apr 2022 15:07:33 +0000 (UTC)
-From: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Mark
- Brown <broonie@kernel.org>
-Subject: [PATCH 26/26] ALSA: hda: cs35l41: Add kernel config to disable
- firmware autoload
-Date: Wed, 27 Apr 2022 16:07:20 +0100
-Message-ID: <20220427150720.9194-27-vitalyr@opensource.cirrus.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20220427150720.9194-1-vitalyr@opensource.cirrus.com>
-References: <20220427150720.9194-1-vitalyr@opensource.cirrus.com>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id E8E806119C;
+ Wed, 27 Apr 2022 15:24:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4287C385A9;
+ Wed, 27 Apr 2022 15:24:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1651073076;
+ bh=JlPHMZjtz41n9jQFrgK3+bd+ZcmQpyjMl/Qk9pCRLtw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=G6cdi3mV8Wm7lwMwZlMJhJyM6oiN1wulMwe7jiMaUq8uDGRwAITcPJLnd/sEmoxhr
+ LkUl+DAILm7hRI0sIqGwt7Okr+B66+2SHF9sHFCkK0LwFbblmrOKrMMpL4bVQYDDTA
+ V2KRIDTzz+2V4OLuxMkL8FZAME5HHj+fq0RhPx50K/ryV6V5a3t+mVxk2jlNI/MLeZ
+ G0wCmpwVYwCEmNyhY8PU6FeJzKVIbBpp1LRFdvRFZX7kE0SBYTM6reZ/khAN3OKks3
+ EZGiXwlE6ZIuIvNUR7dqrdsATOi8BfL3YkfEipv/NR4xczvN8I64ZDIiTuET4Jo3Y8
+ HAxZ+5RQj9wOQ==
+Date: Wed, 27 Apr 2022 16:24:31 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Subject: Re: WM8962 crashing on suspend
+Message-ID: <YmlgL+Ur6BeWiUtr@sirena.org.uk>
+References: <CAHCN7xJuAuGmSQsmBfg-C6jOdJmf1Li=YWp7Jdi29nU3kk1GcA@mail.gmail.com>
+ <20220426174150.GZ38351@ediswmail.ad.cirrus.com>
+ <CAHCN7xLqixKxM_L7P9T2BqLpyHoGTYpMODKJotCneXZK+wUEMg@mail.gmail.com>
+ <20220427145730.GE38351@ediswmail.ad.cirrus.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: dalm5jSeg-rUqnYu-p0YcBP0M-gg_LeU
-X-Proofpoint-ORIG-GUID: dalm5jSeg-rUqnYu-p0YcBP0M-gg_LeU
-X-Proofpoint-Spam-Reason: safe
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Stefan Binding <sbinding@opensource.cirrus.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="p1Fdl8n0WgrD8w9s"
+Content-Disposition: inline
+In-Reply-To: <20220427145730.GE38351@ediswmail.ad.cirrus.com>
+X-Cookie: Buckle up!
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Adam Ford <aford173@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,60 +90,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Stefan Binding <sbinding@opensource.cirrus.com>
 
-By default, the driver will automatically load DSP firmware
-for the amps, if available. Adding this option allows the
-autoload to be optional, which allows for different configurations.
+--p1Fdl8n0WgrD8w9s
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
-Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
----
- sound/pci/hda/Kconfig       |  7 +++++++
- sound/pci/hda/cs35l41_hda.c | 12 +++++++-----
- 2 files changed, 14 insertions(+), 5 deletions(-)
+On Wed, Apr 27, 2022 at 02:57:30PM +0000, Charles Keepax wrote:
+> On Wed, Apr 27, 2022 at 08:12:56AM -0500, Adam Ford wrote:
 
-diff --git a/sound/pci/hda/Kconfig b/sound/pci/hda/Kconfig
-index 1c378cca5dac..c4282dec4dd4 100644
---- a/sound/pci/hda/Kconfig
-+++ b/sound/pci/hda/Kconfig
-@@ -94,6 +94,13 @@ config SND_HDA_PATCH_LOADER
- config SND_HDA_SCODEC_CS35L41
- 	tristate
- 
-+config SND_HDA_SCODEC_CS35L41_DISABLE_FIRMWARE_AUTOSTART
-+	bool "Prevent CS35L41 from starting firmware on boot"
-+	depends on SND_HDA_SCODEC_CS35L41
-+	help
-+	  Say Y here to prevent the CS35L41 HDA driver from loading DSP
-+	  Firmware at boot
-+
- config SND_HDA_CS_DSP_CONTROLS
- 	tristate
- 	depends on CS_DSP
-diff --git a/sound/pci/hda/cs35l41_hda.c b/sound/pci/hda/cs35l41_hda.c
-index 70e5354e3950..8b9e966145b5 100644
---- a/sound/pci/hda/cs35l41_hda.c
-+++ b/sound/pci/hda/cs35l41_hda.c
-@@ -773,11 +773,13 @@ static int cs35l41_hda_bind(struct device *dev, struct device *master, void *mas
- 
- 	cs35l41->firmware_type = HDA_CS_DSP_FW_SPK_PROT;
- 
--	cs35l41->request_fw_load = true;
--	mutex_lock(&cs35l41->fw_mutex);
--	if (cs35l41_smart_amp(cs35l41) < 0)
--		dev_warn(cs35l41->dev, "Cannot Run Firmware, reverting to dsp bypass...\n");
--	mutex_unlock(&cs35l41->fw_mutex);
-+	if (!IS_ENABLED(CONFIG_SND_HDA_SCODEC_CS35L41_DISABLE_FIRMWARE_AUTOSTART)) {
-+		cs35l41->request_fw_load = true;
-+		mutex_lock(&cs35l41->fw_mutex);
-+		if (cs35l41_smart_amp(cs35l41) < 0)
-+			dev_warn(cs35l41->dev, "Cannot Run Firmware, reverting to dsp bypass...\n");
-+		mutex_unlock(&cs35l41->fw_mutex);
-+	}
- 
- 	cs35l41_create_controls(cs35l41);
- 
--- 
-2.32.0
+> > static const struct dev_pm_ops wm8962_pm = {
+> > + SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
+> > SET_RUNTIME_PM_OPS(wm8962_runtime_suspend, wm8962_runtime_resume, NULL)
+> > };
 
+> > I applied this, and it appears to make the issue go away on a 5.15
+> > kernel.  I haven't tried it on a 5.18 yet.  If this fixes the issue,
+> > would that be an acceptable solution to push upstream?
+
+> Feels like those operations should be runtime PM, like there is
+> no reason to keep the CODEC in a high power state than necessary.
+
+The issue Adam reported was suspending during playback - if you suspend
+during playback or capture the device is not idle at the point where we
+start trying to suspend so it shouldn't be in runtime suspend and won't
+by default be runtime suspended by the PM core.
+
+--p1Fdl8n0WgrD8w9s
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJpYC4ACgkQJNaLcl1U
+h9DpZAf/YusXgpjpzUXMZissqpoREXI0H8AwYtfEQSiRGiXunq8LiypyC9YpKXhD
+B16WNV3+HqQ5ZmC2M1ojVdmBBsQvKwFEDlqzPJTZ6O/0IuNsjtcBerSXrLQXSrTN
+2v6AlqqHLHEiLRtY4LkGtkiNsatBcsnG8rvA8S/aKjBnRVMV8qzK/kRjUWMosTnW
+DOY27vdFcGtPJQsUDVOHBHg+6bGKtsAARRT3B5zoo233iANkyxkKehx8B9DZ5sg+
+cMSX3a4PGyOv4m5ZJWBNkOqRtzThnyb3k2EcDEc6o2zWuF9uRPebgRZgyGtO2zD4
+Wh737VW9OEdyzKhU+6rOORXf5EibNA==
+=16bs
+-----END PGP SIGNATURE-----
+
+--p1Fdl8n0WgrD8w9s--

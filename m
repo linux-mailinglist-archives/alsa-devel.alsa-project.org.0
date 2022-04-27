@@ -2,79 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BE58512506
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 Apr 2022 00:06:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4D4E5124FF
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 Apr 2022 00:05:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8C3EE825;
-	Thu, 28 Apr 2022 00:05:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C3EE825
+	by alsa0.perex.cz (Postfix) with ESMTPS id 465CE9F6;
+	Thu, 28 Apr 2022 00:04:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 465CE9F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651097171;
-	bh=jGR3MtKiwYyR+lUnJSaAaDsNLiw4lH+yX1MtYnOs/i4=;
+	s=default; t=1651097118;
+	bh=0qUH1yz/MZ2iG2Pren6XMnLpsO2x2mXD9T1OMWEWdtE=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=glX0JLU3gDSoDBZkaWLVTxg2bxu0AJ1//6JtUmNWlbeIHNmST52Ix4tCAqLQu+Kiz
-	 C2IRVxgS4CeTZPXB9tlDUlX7lOs9PPxPnKNv4cIsYv2HL+kdbk7+uIO9t3Vik+dNWF
-	 DfHTpK/+HdlyKMSuRne/WvW2ItU5o1H2YanYzhfU=
+	b=KO664s81sgJbC2tmBmDaoNO/FKHVoZVshSMXgNQN1jLwyy4KF3cnRg24D4bZrxqeN
+	 FirLsk9lrONh/TUYYNceDiOFz492fqxxAs/PsC52ROuiN4W7WLBpNgXgxXxEvQ2CnW
+	 0RZDgok01tdeqhNo6VcNTN7w9R1ehO8Ps29x+PBo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 51523F8053E;
-	Thu, 28 Apr 2022 00:03:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 22D42F80529;
+	Thu, 28 Apr 2022 00:02:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 76E85F80542; Thu, 28 Apr 2022 00:03:02 +0200 (CEST)
+ id 7ECBBF8050F; Thu, 28 Apr 2022 00:02:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3411EF80536;
- Thu, 28 Apr 2022 00:02:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3411EF80536
+ by alsa1.perex.cz (Postfix) with ESMTPS id CFFEDF800AE
+ for <alsa-devel@alsa-project.org>; Thu, 28 Apr 2022 00:02:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFFEDF800AE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="KYAsSER2"
+ header.b="InrIzcFd"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id E24D0B82B06;
- Wed, 27 Apr 2022 22:02:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 374A9C385A7;
- Wed, 27 Apr 2022 22:02:39 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 39CF961E0B;
+ Wed, 27 Apr 2022 22:02:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 168E5C385A9;
+ Wed, 27 Apr 2022 22:02:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1651096962;
- bh=jGR3MtKiwYyR+lUnJSaAaDsNLiw4lH+yX1MtYnOs/i4=;
+ s=k20201202; t=1651096964;
+ bh=0qUH1yz/MZ2iG2Pren6XMnLpsO2x2mXD9T1OMWEWdtE=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=KYAsSER2fa68mS9DGuKJMxkz2YSD++pSrMvoxGWqBZ5FXe3TlAtwgsOqiA4aJk+7P
- FuC7iZnPgJiRFtfG+2TqFhKDB+aB4DF9nCvdnEZwf4nt1QKW3etyqCmmBh3DpTgIZm
- wFPwoKtcIqCFyYKxr8vgd+ej8mL9eM5Kz0ftgvB0h+bNI2N9rWu6XiD0pSWSBp8lS9
- Op3mySF/PDzwazx7lnmoYQibcQyvh6ZJbp9xQeZHubDMvGDQRgM7Q+s+BQWXFdt8b1
- gp5kEKwMNBA4bHkInGCJQiEozfrj5VYJpiGnY2D0C6L4paMmJuzSHS2r9Cdic0GlUW
- 1mFKxLwcqiTVg==
+ b=InrIzcFdyXeDhCjM8TZUApiy3wyTwU/wGsseUIGoUpiPkgh4WDV1xFg43IAvtw0o9
+ e/p6J8NmvMHVh3yzPC5ffLeukLUuyDH1LFEqy8+tfotEGBVkrb8cGXbMJwuHOWh4mf
+ ByTXkqX7BezGi6IVTkmn3zVwNbSXNMoshG2bTDiT3EZ4h3XTB2dveTJYMQTRzN/5UA
+ AzhTCd9RcS6iO1Wmt0oubawC00Vg6K17eMkjT0Ng3fOcBlLFGvEiZI4XOJSzQcv9LK
+ JX6FTy5dEwzNe2S9/IuJC0ME+ovdDfbtuJJyUAW/7LbUZqPNfx2U2SIdC9pOv2g5fY
+ 21sG+DrslthQw==
 From: Mark Brown <broonie@kernel.org>
-To: yc.hung@mediatek.com, tiwai@suse.com, matthias.bgg@gmail.com,
- perex@perex.cz, allen-kh.cheng@mediatek.com, ranjani.sridharan@linux.intel.com,
- yangyingliang@huawei.com, daniel.baluta@nxp.com, kai.vehmanen@linux.intel.com,
- pierre-louis.bossart@linux.intel.com, tinghan.shen@mediatek.com,
- lgirdwood@gmail.com
-In-Reply-To: <20220427071030.10172-1-tinghan.shen@mediatek.com>
-References: <20220427071030.10172-1-tinghan.shen@mediatek.com>
-Subject: Re: [PATCH v2] ASoC: SOF: mediatek: Fix allyesconfig build error
-Message-Id: <165109695894.498174.15533470381534539256.b4-ty@kernel.org>
-Date: Wed, 27 Apr 2022 23:02:38 +0100
+To: lgirdwood@gmail.com, amadeuszx.slawinski@linux.intel.com
+In-Reply-To: <20220426200539.894010-1-amadeuszx.slawinski@linux.intel.com>
+References: <20220426200539.894010-1-amadeuszx.slawinski@linux.intel.com>
+Subject: Re: [PATCH v2 1/2] ALSA: hda: intel-nhlt: Move structs out of #define
+ block
+Message-Id: <165109696281.498174.11920821240282779023.b4-ty@kernel.org>
+Date: Wed, 27 Apr 2022 23:02:42 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Project_Global_Chrome_Upstream_Group@mediatek.com,
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- sound-open-firmware@alsa-project.org
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ cezary.rojewski@intel.com, tiwai@suse.com, lkp@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,15 +86,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 27 Apr 2022 15:10:30 +0800, Tinghan Shen wrote:
-> ld: sound/soc/sof/mediatek/mt8186/mt8186-clk.o:(.opd+0x18): multiple
-> definition of `adsp_clock_on';
-> sound/soc/sof/mediatek/mt8195/mt8195-clk.o:(.opd+0x60): first defined
-> here
-> ld: sound/soc/sof/mediatek/mt8186/mt8186-clk.o: in function
-> `.adsp_clock_on':
+On Tue, 26 Apr 2022 22:05:38 +0200, Amadeusz Sławiński wrote:
+> As functions prototypes regerdless of CONFIG options as well as some
+> code depend on structures defined in sound/intel-nhlt.h header, move
+> them out of #define block. This allows to compile code depending on
+> mentioned header with "depends on ACPI || COMPILE_TEST" in Kconfig.
 > 
-> [...]
+> 
 
 Applied to
 
@@ -106,8 +100,10 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: SOF: mediatek: Fix allyesconfig build error
-      commit: 9ce170dc9c08895846c5828addb724e42bf98484
+[1/2] ALSA: hda: intel-nhlt: Move structs out of #define block
+      commit: 2d3694fdeef599ef5a1352b699bdd493a51ab8cb
+[2/2] ASoC: Intel: avs: Drop direct ACPI dependency
+      commit: 79fc62d6b2c278bffafc24a22fa4638edcae1aa9
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

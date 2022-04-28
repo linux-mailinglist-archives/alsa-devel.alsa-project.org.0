@@ -2,88 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8E125136F5
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 Apr 2022 16:33:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBFFF513827
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 Apr 2022 17:20:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 890721634;
-	Thu, 28 Apr 2022 16:32:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 890721634
+	by alsa0.perex.cz (Postfix) with ESMTPS id 53AEF1620;
+	Thu, 28 Apr 2022 17:19:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53AEF1620
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651156386;
-	bh=za25vWYtJMHWPMlHlJb5OE9jYl6XHpRkJCLemAOTtpU=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1651159208;
+	bh=9oBX6wnJdmrQZGDX1frfpp8FPP+Tz5ihHtmLmR4Zj2o=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AvcIGx0rv3D1I8KBt3LT7wa1dlXSauha2t0YlHc4tdHoQBQrq7HQvhUgJPl2hEMhb
-	 JLn+hpkmc0nDDggXSTwnXlAK1twYY9PcEYGnB5e5GbJDXjpByN2ZI/BhAd3lEy0xQs
-	 5k03+7YCM+RyNeiO94xrDvHCnrW+lhOp45LoJ69U=
+	b=IrJz6vxb1ZorD9puyAewBvqXoCzmjginvN2+GsICFtA0M0QHS9Zyxnrl+Rwz2+7JA
+	 8oSwBu6AqoqVfAbRxg2BfnLlirCvKHqgZ7Rucw++NGBQUOZBEglcl2IY5P7JK7XtvG
+	 22s7M5Dq2BHwn3ftm+ekmX6jZE+EMYb6NQB4kP10=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DC97CF80311;
-	Thu, 28 Apr 2022 16:32:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 93CA8F8020D;
+	Thu, 28 Apr 2022 17:19:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4A960F800F2; Thu, 28 Apr 2022 16:32:06 +0200 (CEST)
+ id CE7D4F8016E; Thu, 28 Apr 2022 17:19:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com
- [209.85.160.48])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 247D7F8016E
- for <alsa-devel@alsa-project.org>; Thu, 28 Apr 2022 16:31:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 247D7F8016E
-Received: by mail-oa1-f48.google.com with SMTP id
- 586e51a60fabf-e93bbb54f9so5296332fac.12
- for <alsa-devel@alsa-project.org>; Thu, 28 Apr 2022 07:31:59 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=EFB95ppsemYVokN3gYO95lpxo39WR8kyQdqON1ZHZnQ=;
- b=HJ3LUhg3bsFrgg9Uyo73H0mE+ro8UD4o8HjYGuPx1AIlDM7uEBd76JwlkS2dW2hC1L
- Ftd1U6/u7vD3/vSJDyKzUNvaVW/AFb5sbuHTJ5JvOD1tnOFoq+OKiMnOXST0yXZFUbrF
- IK8q8WiL126+1lGCv+H3Udg06H4cFcntyR0AaGlqowDzJXELVzH4Qlete7nqMre3zLa8
- aEgvIRV3C4KGLYq25/2/qfZ2rW51u4lvk1U1Xm5Z/5cWyN5GotX2KDo8/ywh8Tx5T30k
- wgjaN9XSENo/9UukPPfxiqtO+W3FVRaJe6k42v1vjDzH6YAo51wlekQKB+xiOfXjoiii
- 1RMA==
-X-Gm-Message-State: AOAM53219RCpZPXeNKst5+P3OHLg/+m4qQW33Znm8HqHeFgL8d590Kww
- eyVNRjh+qI9PsK940bXaqA==
-X-Google-Smtp-Source: ABdhPJw235998b030Ovpn3X4h/3URvpBnssiViFzusdjem+i4RpxdZR+j/0DQd7KDFfgjXtOmKRTVA==
-X-Received: by 2002:a05:6871:809:b0:e9:1bc3:9c5c with SMTP id
- q9-20020a056871080900b000e91bc39c5cmr11214584oap.289.1651156318117; 
- Thu, 28 Apr 2022 07:31:58 -0700 (PDT)
-Received: from robh.at.kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- o64-20020acad743000000b002ef3b249b9esm63207oig.58.2022.04.28.07.31.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 Apr 2022 07:31:57 -0700 (PDT)
-Received: (nullmailer pid 2185535 invoked by uid 1000);
- Thu, 28 Apr 2022 14:31:56 -0000
-Date: Thu, 28 Apr 2022 09:31:56 -0500
-From: Rob Herring <robh@kernel.org>
-To: Jiaxin Yu <jiaxin.yu@mediatek.com>
-Subject: Re: [v4 18/18] dt-bindings: mediatek: mt8186: add
- mt8186-mt6366-rt1019-rt5682s document
-Message-ID: <YmqlXNGAQLKb5LLO@robh.at.kernel.org>
-References: <20220428093355.16172-1-jiaxin.yu@mediatek.com>
- <20220428093355.16172-19-jiaxin.yu@mediatek.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7A59BF8012B
+ for <alsa-devel@alsa-project.org>; Thu, 28 Apr 2022 17:19:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A59BF8012B
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="XC3CWE7r"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id AED22B82DE8;
+ Thu, 28 Apr 2022 15:19:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7766BC385A9;
+ Thu, 28 Apr 2022 15:18:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1651159141;
+ bh=9oBX6wnJdmrQZGDX1frfpp8FPP+Tz5ihHtmLmR4Zj2o=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=XC3CWE7rpy2Ow2+2uRZA9OnxvsGux1ZYgx5QkmyAIJQMUrY4I+jKnoPQbnsZLNodF
+ MEKCOHSujZi4InpneAb86eeUeZhscosw5Aacrer78AFk+ovO6pxztsOLsVl94pNszO
+ djDzmyGo4VJWpm2PRtNae2dcWO/BS9t9IKEM7XxNzE7/s15k49zEp1YcDa3ibQv2eS
+ JK2etAOJNnDWfuoqQMx42FwXqal8m+oLBjRiDoGTzUSoUrldbS6dfolYgfeDbAZiyY
+ xLLyOsADgyZwB7O0o6aTNoPRwXtaA5B1pn7DgrJRdd5tm/wVX4vWytwNi5s3xy1mXN
+ 6Otn/+e4wyxIw==
+From: Mark Brown <broonie@kernel.org>
+To: yang.jie@linux.intel.com, cezary.rojewski@intel.com,
+ pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com, hdegoede@redhat.com
+In-Reply-To: <20220427134918.527381-1-hdegoede@redhat.com>
+References: <20220427134918.527381-1-hdegoede@redhat.com>
+Subject: Re: [PATCH] ASoC: Intel: bytcr_rt5640: Add quirk for the HP Pro
+ Tablet 408
+Message-Id: <165115913896.2739776.2191671080865096717.b4-ty@kernel.org>
+Date: Thu, 28 Apr 2022 16:18:58 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220428093355.16172-19-jiaxin.yu@mediatek.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org,
- Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
- broonie@kernel.org, linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
- matthias.bgg@gmail.com, aaronyu@google.com, julianbraha@gmail.com,
- linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,14 +86,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Apr 28, 2022 at 05:33:55PM +0800, Jiaxin Yu wrote:
-> Add document for mt8186 board with mt6366, rt1019 and rt5682s.
-
-Same comments apply to this patch too.
-
+On Wed, 27 Apr 2022 15:49:18 +0200, Hans de Goede wrote:
+> Add a quirk for the HP Pro Tablet 408, this BYTCR tablet has no CHAN
+> package in its ACPI tables and uses SSP0-AIF1 rather then SSP0-AIF2 which
+> is the default for BYTCR devices.
 > 
-> Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
-> ---
->  .../sound/mt8186-mt6366-rt1019-rt5682s.yaml   | 71 +++++++++++++++++++
->  1 file changed, 71 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml
+> It also uses DMIC1 for the internal mic rather then the default IN3
+> and it uses JD2 rather then the default JD1 for jack-detect.
+> 
+> [...]
+
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/1] ASoC: Intel: bytcr_rt5640: Add quirk for the HP Pro Tablet 408
+      commit: ce216cfa84a4e1c23b105e652c550bdeaac9e922
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

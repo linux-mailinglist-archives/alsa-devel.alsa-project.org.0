@@ -2,84 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89711513417
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 Apr 2022 14:46:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4049D5136F2
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 Apr 2022 16:32:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1C28915E2;
-	Thu, 28 Apr 2022 14:46:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C28915E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id BEA211622;
+	Thu, 28 Apr 2022 16:31:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BEA211622
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651150013;
-	bh=MGN68DWnYYUdsiWdNsZJsl1v39FiA5BfM93sDEKFzdI=;
+	s=default; t=1651156348;
+	bh=sdJ//UDLU3OyL+dC8CHIEWDQn1EDUjjncpErjLvLwjc=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VHqoWj1stRbk+7lHp0nXQgIgmTi4CTefszIsB4nJLnmTULJcvuGfIeh0hCOoTF9pz
-	 6cAJdaWJ/zSICHWjqhvtTGZu9lNVI+EaJ4ZnqY63T7vlU8JHQP0/C1jgYihCAdN2z8
-	 IDm/U8r4L+PN9v18kqCB5uVR+VdAftSmI1pHvCeI=
+	b=FsxwSoeWxRRskX1XgLTaP+CVYRfwGtIEPvhylCxxRuGtvEmZRF+fMzeHBwHO9FTWU
+	 YcuB/lhdVgJm9ksRAvbxi3pXftZZpfV8mWCztvRM16789oLydtDfrSBMOPwL/Te12t
+	 XpMLAmDUTLZVX7N1wIt27Z5J2DT0/GFVXaQ4qhIM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9971AF8016E;
-	Thu, 28 Apr 2022 14:45:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1D2D7F8020D;
+	Thu, 28 Apr 2022 16:31:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CD954F8016E; Thu, 28 Apr 2022 14:45:52 +0200 (CEST)
+ id B2B6CF8016E; Thu, 28 Apr 2022 16:31:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com
+ [209.85.160.41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3F780F800F2
- for <alsa-devel@alsa-project.org>; Thu, 28 Apr 2022 14:45:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F780F800F2
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="KgwJWItV"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id D2BE1CE2A6B;
- Thu, 28 Apr 2022 12:45:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A631C385A9;
- Thu, 28 Apr 2022 12:45:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1651149945;
- bh=MGN68DWnYYUdsiWdNsZJsl1v39FiA5BfM93sDEKFzdI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=KgwJWItViG0xIxjMQ/5Knsggur0JCDLEiKU+fVTziChdy59xVaDAN6d3ll9p8UMrC
- qr3+Cu9aH2IwSaYcvJacOtCgXyKMosqYKBN40cwzT0PxKh6hZidSyB6cnU+dIdMxRL
- cSAHHbfv+XgIYHMW8YNdB0Gwh00ucNNUkq5DwdPPre++Rcv1xEqXNOlKJ4myTFuzn9
- AS7c9eVEZxHhdT37G61xxyRePxoccUGlTRqas2orm/ha8Oy+OAbvSs25ClzLRn1xn+
- HuYdYcb8gRukU7DBtaVIYUk1kdnolukDj7pS+Ys5eTi6reT+VjZAlibwckFWonNEnk
- TIQuLSzxPsB0Q==
-Date: Thu, 28 Apr 2022 13:45:40 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Adam Ford <aford173@gmail.com>
-Subject: Re: WM8962 crashing on suspend
-Message-ID: <YmqMdMNu2258MO9b@sirena.org.uk>
-References: <CAHCN7xJuAuGmSQsmBfg-C6jOdJmf1Li=YWp7Jdi29nU3kk1GcA@mail.gmail.com>
- <20220426174150.GZ38351@ediswmail.ad.cirrus.com>
- <CAHCN7xLqixKxM_L7P9T2BqLpyHoGTYpMODKJotCneXZK+wUEMg@mail.gmail.com>
- <20220427145730.GE38351@ediswmail.ad.cirrus.com>
- <YmlgL+Ur6BeWiUtr@sirena.org.uk>
- <20220427164825.GH38351@ediswmail.ad.cirrus.com>
- <CAHCN7xJSpYsZbVRrCmt8QobEOk+bvRLs=qgTHqqsh-K1xEUgUA@mail.gmail.com>
- <20220428082321.GI38351@ediswmail.ad.cirrus.com>
- <CAHCN7xKOr5CJbBCCxJTUoyDndRy0rkfgk-N1WKJ5iAZsdTXS2A@mail.gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 13D5DF8012B
+ for <alsa-devel@alsa-project.org>; Thu, 28 Apr 2022 16:31:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13D5DF8012B
+Received: by mail-oa1-f41.google.com with SMTP id
+ 586e51a60fabf-e2442907a1so5303016fac.8
+ for <alsa-devel@alsa-project.org>; Thu, 28 Apr 2022 07:31:20 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=3Pbfgb+P+Y6uKRbvZrIbkDzsXq4uSgu+65I8ansZfZg=;
+ b=nWkxiuc6Avkl4wDpjJMITPqlZG/iLvdz15JHvITMl20PBNnqvBSlcYCKu4szkGae3S
+ MV8zJEMes7ILgOax3iJBPd6fQjdfiYv3QRLZW+tkF8WjLTDXaqWN5bOTzucfcx5FcGYS
+ +Tt0n/e2aOX6nJZ/Mvkxs0tqFsutgr3hQicoLVAAXIjvFkWizapmqEO9d1caEc5ZSivL
+ BQRvMr9YCAPDxJI3G7FW5skk/W0m+agooaRYgwChkjUfJPR38COsMdZ8W8g+GWkeSaDZ
+ hEgMQ3eEGZakv9aXfwzbyUuS1w9fqoD1V+KdxkKCFFu6MFIxDIVBKkQkWDCB5YyMqxkY
+ zbVw==
+X-Gm-Message-State: AOAM531EDvSEIVO7gCdcvLBML7BfqFz/SFJseFqUxEkgksWwBIka/DXB
+ 7AKxzoOxn6+8dV9CSjWpzw==
+X-Google-Smtp-Source: ABdhPJx1VX5F/tJUIHYIip9Fxu6rAMhFBcqi6cHTI0eggbgDWjn/9R4RMK7nTXnkcz/rMEflMMwQ3w==
+X-Received: by 2002:a05:6870:3292:b0:da:d2ff:9dca with SMTP id
+ q18-20020a056870329200b000dad2ff9dcamr14140353oac.215.1651156278750; 
+ Thu, 28 Apr 2022 07:31:18 -0700 (PDT)
+Received: from robh.at.kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ 5-20020a9d0105000000b005fbe5093eb0sm31088otu.54.2022.04.28.07.31.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 28 Apr 2022 07:31:18 -0700 (PDT)
+Received: (nullmailer pid 2184573 invoked by uid 1000);
+ Thu, 28 Apr 2022 14:31:17 -0000
+Date: Thu, 28 Apr 2022 09:31:17 -0500
+From: Rob Herring <robh@kernel.org>
+To: Jiaxin Yu <jiaxin.yu@mediatek.com>
+Subject: Re: [v4 16/18] dt-bindings: mediatek: mt8186: add
+ mt8186-mt6366-da7219-max98357 document
+Message-ID: <YmqlNV31FrcAyuN9@robh.at.kernel.org>
+References: <20220428093355.16172-1-jiaxin.yu@mediatek.com>
+ <20220428093355.16172-17-jiaxin.yu@mediatek.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="ETEnOQhhZs7STIKf"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAHCN7xKOr5CJbBCCxJTUoyDndRy0rkfgk-N1WKJ5iAZsdTXS2A@mail.gmail.com>
-X-Cookie: Bedfellows make strange politicians.
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Charles Keepax <ckeepax@opensource.cirrus.com>, patches@opensource.cirrus.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>
+In-Reply-To: <20220428093355.16172-17-jiaxin.yu@mediatek.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org,
+ Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
+ broonie@kernel.org, linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
+ matthias.bgg@gmail.com, aaronyu@google.com, julianbraha@gmail.com,
+ linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,39 +99,111 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, Apr 28, 2022 at 05:33:53PM +0800, Jiaxin Yu wrote:
+> Add document for mt8186 board with mt6366, da7219 and max98357.
+> 
+> Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
+> ---
+>  .../sound/mt8186-mt6366-da7219-max98357.yaml  | 71 +++++++++++++++++++
+>  1 file changed, 71 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/mt8186-mt6366-da7219-max98357.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/mt8186-mt6366-da7219-max98357.yaml b/Documentation/devicetree/bindings/sound/mt8186-mt6366-da7219-max98357.yaml
+> new file mode 100644
+> index 000000000000..55e8649f2aea
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/mt8186-mt6366-da7219-max98357.yaml
+> @@ -0,0 +1,71 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/mt8186-mt6366-da7219-max98357.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Mediatek MT8186 with MT6366, DA7219 and MAX98357 ASoC sound card driver
+> +
+> +maintainers:
+> +  - Jiaxin Yu <jiaxin.yu@mediatek.com>
+> +
+> +description:
+> +  This binding describes the MT8186 sound card.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - mediatek,mt8186_mt6366_da7219_max98357_sound
 
---ETEnOQhhZs7STIKf
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+s/_/-/
 
-On Thu, Apr 28, 2022 at 07:21:39AM -0500, Adam Ford wrote:
-> On Thu, Apr 28, 2022 at 3:23 AM Charles Keepax
+> +
+> +  mediatek,platform:
+> +    $ref: "/schemas/types.yaml#/definitions/phandle"
+> +    description: The phandle of MT8186 ASoC platform.
+> +
+> +  headset-codec:
+> +    type: object
 
-> > Nah, its good your ok to upstream your out of tree patch, just
-> > making sure I fill in the holes in my knowledge with Mark :-)
+       additionalProperties: false
 
-> I'd like to push the patch with a Fixes tag, but I am not sure that we
-> have a definitive hash to use.  Ideally, it'd get backported, but I am
-> not sure that I have the means to test it, because the hardware
-> platform I have doesn't go back that far.  Any thoughts? If not, I'll
-> just push it without a fixes tag.
+> +    properties:
+> +      sound-dai:
+> +        $ref: /schemas/types.yaml#/definitions/phandle
 
-Cc stable does just as well, though TBH just having the word "fix"
-somewhere in the changelog will probably cause the bots to pick it up.
+sound-dai already has a type, so drop and define how many entries.
 
---ETEnOQhhZs7STIKf
-Content-Type: application/pgp-signature; name="signature.asc"
+> +    required:
+> +        - sound-dai
+> +
+> +  playback-codecs:
+> +    type: object
 
------BEGIN PGP SIGNATURE-----
+       additionalProperties: false
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJqjHMACgkQJNaLcl1U
-h9BR+Qf9Fu6T+Rrt00Gw4+h9uhxkeAShG55Qgi5VGL2GlrxrsLJhF9j57Uc/mAYo
-l6zL6cvm9+/nirUHsEaTNa1JxX3Kunjx6uMrQdxYgVB2MUd75zlP6qX3Ovjaaxpm
-9l9k/gdg/ceV0gPLgnBEYnkWQoTFPGRw/YywsuQHedz5FLwsFkGudVRQVIoD5VsM
-RUejoHgQ23b2Lp9UkzuxxBhJcj8/UfCRDaL0aUhGCaRreWfDey9NteTYM6eejrRZ
-MZBgs8MBmqGtcPZLxsAXuzohoix5DmtNvulNRT1onoYxeBXT1xiwdBZzTi/BXVa1
-0drwX2wYHuLYbYxk/aP7YAuMkbQrfA==
-=7bKX
------END PGP SIGNATURE-----
+> +    properties:
+> +      sound-dai:
+> +        minItems: 2
+> +        maxItems: 3
 
---ETEnOQhhZs7STIKf--
+If more than 1 entry, then you need to define what each one is and the 
+order. Just like reg, interrupts, clocks, etc.
+
+> +        $ref: /schemas/types.yaml#/definitions/phandle-array
+
+Drop
+
+> +    required:
+> +        - sound-dai
+> +
+> +additionalProperties: false
+> +
+> +required:
+> +  - compatible
+> +  - mediatek,platform
+> +  - headset-codec
+> +  - playback-codecs
+> +
+> +examples:
+> +  - |
+> +
+> +    sound: mt8186-sound {
+> +        compatible = "mediatek,mt8186_mt6366_da7219_max98357_sound";
+> +        mediatek,platform = <&afe>;
+> +        pinctrl-names = "aud_clk_mosi_off",
+> +                        "aud_clk_mosi_on";
+> +        pinctrl-0 = <&aud_clk_mosi_off>;
+> +        pinctrl-1 = <&aud_clk_mosi_on>;
+> +
+> +        headset-codec {
+> +            sound-dai = <&da7219>;
+> +        };
+> +
+> +        playback-codecs {
+> +            sound-dai = <&anx_bridge_dp>,
+> +                        <&max98357a>;
+> +        };
+> +    };
+> +
+> +...
+> -- 
+> 2.25.1
+> 

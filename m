@@ -2,74 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 799AE51334F
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 Apr 2022 14:03:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17C6151336A
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 Apr 2022 14:15:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 183F415CA;
-	Thu, 28 Apr 2022 14:02:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 183F415CA
+	by alsa0.perex.cz (Postfix) with ESMTPS id AF758836;
+	Thu, 28 Apr 2022 14:14:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF758836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651147398;
-	bh=z/rcuQ6bVDZnTEpAnS4QlRzB5Yc+lFfj8TR9qyt755Y=;
+	s=default; t=1651148099;
+	bh=vxjMPjiYyFGhSMcGT25wyA/WTwatpL4xQZLW21y1LrY=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Bedm+jEpX4V6Xcucm4n+gaO0fA3KJNahtmYAdSZJwa/hHeM/K0SBwx8sRk0OwyCWr
-	 0vpeaAACIWnS+g+EHJe0Sf5bmGGjlmj0+/V02YqHVN1EiQngVOuBamw1JzIo6D/qsY
-	 MLap1xmb75KWT0SV4uojsLpCO9iWeGF0wMt/lEOM=
+	b=dHw+y12OiLez3RJ72TqoAK7eGATe7uWY0Nj9EywPWAeKahehYbajsgKs8lctyKGlF
+	 FmWCWEE4XobhBbsKqX24+VsySnczep4IMGiBNpnQ4+gyUQ8iMgvwBLJ02I3Oz0pqDP
+	 kZ2bEOzZDagk499BiUDkW0KJHulsmdc36xOJ5+fQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 842EBF800F2;
-	Thu, 28 Apr 2022 14:02:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09B6CF80311;
+	Thu, 28 Apr 2022 14:14:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3171BF8012B; Thu, 28 Apr 2022 14:02:17 +0200 (CEST)
+ id 494AFF800F2; Thu, 28 Apr 2022 14:13:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D8704F8012B
- for <alsa-devel@alsa-project.org>; Thu, 28 Apr 2022 14:02:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8704F8012B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 903BCF800F2
+ for <alsa-devel@alsa-project.org>; Thu, 28 Apr 2022 14:13:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 903BCF800F2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="si2hzBVd"
+ header.b="CZ6V0X68"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 05A1D61FBE;
- Thu, 28 Apr 2022 12:02:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92278C385A0;
- Thu, 28 Apr 2022 12:02:04 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 9285161F2C;
+ Thu, 28 Apr 2022 12:13:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22D50C385A9;
+ Thu, 28 Apr 2022 12:13:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1651147327;
- bh=z/rcuQ6bVDZnTEpAnS4QlRzB5Yc+lFfj8TR9qyt755Y=;
+ s=k20201202; t=1651148034;
+ bh=vxjMPjiYyFGhSMcGT25wyA/WTwatpL4xQZLW21y1LrY=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=si2hzBVdSNFEBs1SgfQe/IMiNDmiaAebPForIezTbJrYcMWx8DUqOFoD3nbKycvFX
- xJVX5eLCianPJHhpZCYyFuJrVdU3zLaVbnFQPLbJtjFrBJBBdHfISwgbSy4weuFDqV
- Yzs1wECbO0Yq+9bvY8V0fhs7z5JbOGPOi6+LhNskOT0L/e8tsXxhMW2tfs3jrsqIDD
- D1ASAm2ReV+JfUbpHHro8c1ZQsD5gBO2zgDQEaqYx9hdphw4k2kLUPM1X35rIGujjq
- 3XSOQc2obb2oK11OPs4V/dN6JrLsvw4Lp4m8MpZb2BoLKeRd07bUOsR4MJa66X3GkQ
- bvEvwzh+J+81A==
-Date: Thu, 28 Apr 2022 13:02:01 +0100
+ b=CZ6V0X68DhdaTkp6BMzGTX1rWbkZ1DzkL2YhYLd502WaLC5hwoO4uMqjMlVQlu898
+ yTH+GdehFwnErraXDMs8PVMX4Ha7/ae6hCmg8SHgzegUoSqyvR7RBqyoEq4QZo31zL
+ 2PVwD+W7KLhSKfZW8BxscVA/BHixp+9TiSPUUBvcJ4PZP7u0b0z5zUHdWq+gGArmoF
+ kcs73wCOduTNJz5pS2rtOBXp1/eEd0ykp1evkbcjfN8BAUC3UiiZktAJWVeIEpuC5a
+ 0OzZZsLv0dTEuYuSJUffm9lb6Gr1CT/f+naBJKllxKJED3w2hUgx0b4PkL2nFRArvv
+ PLwyVC3QwZCnw==
+Date: Thu, 28 Apr 2022 13:13:47 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Jiaxin Yu <jiaxin.yu@mediatek.com>
-Subject: Re: [v4 13/18] ASoC: mediatek: mt8186: add platform driver
-Message-ID: <YmqCORqp6nYuQJZf@sirena.org.uk>
+Subject: Re: [v4 07/18] ASoC: mediatek: mt8186: support i2s in platform driver
+Message-ID: <YmqE+80xyBoIJvto@sirena.org.uk>
 References: <20220428093355.16172-1-jiaxin.yu@mediatek.com>
- <20220428093355.16172-14-jiaxin.yu@mediatek.com>
+ <20220428093355.16172-8-jiaxin.yu@mediatek.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="jdU3xo2gQbe9oqCP"
+ protocol="application/pgp-signature"; boundary="qf2Y0CXE7QOl/F3W"
 Content-Disposition: inline
-In-Reply-To: <20220428093355.16172-14-jiaxin.yu@mediatek.com>
+In-Reply-To: <20220428093355.16172-8-jiaxin.yu@mediatek.com>
 X-Cookie: Bedfellows make strange politicians.
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org,
@@ -93,121 +93,54 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---jdU3xo2gQbe9oqCP
+--qf2Y0CXE7QOl/F3W
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Apr 28, 2022 at 05:33:50PM +0800, Jiaxin Yu wrote:
-> Add mt8186 platform and affiliated driver.
->=20
-> Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
-> ---
->  sound/soc/mediatek/Kconfig                    |   44 +
->  sound/soc/mediatek/Makefile                   |    1 +
->  sound/soc/mediatek/mt8186/Makefile            |   22 +
->  sound/soc/mediatek/mt8186/mt8186-afe-common.h |  235 ++
->  .../soc/mediatek/mt8186/mt8186-afe-control.c  |  261 ++
->  sound/soc/mediatek/mt8186/mt8186-afe-pcm.c    | 3005 +++++++++++++++++
->  .../mediatek/mt8186/mt8186-interconnection.h  |   69 +
->  .../soc/mediatek/mt8186/mt8186-misc-control.c |  294 ++
->  .../mediatek/mt8186/mt8186-mt6366-common.c    |   59 +
->  .../mediatek/mt8186/mt8186-mt6366-common.h    |   17 +
->  sound/soc/mediatek/mt8186/mt8186-reg.h        | 2913 ++++++++++++++++
->  11 files changed, 6920 insertions(+)
+On Thu, Apr 28, 2022 at 05:33:44PM +0800, Jiaxin Yu wrote:
 
-This looks mostly good though it is enormous so I might've missed some
-things.  The patch series is already very large but it might still be
-worth splitting this up a bit more, perhaps split the code and data
-tables/register definitions into separate patches?
-
-A few relatively minor issues with the controls.
-
-> +/* this order must match reg bit amp_div_ch1/2 */
-> +static const char * const mt8186_sgen_amp_str[] =3D {
-> +	"1/128", "1/64", "1/32", "1/16", "1/8", "1/4", "1/2", "1" };
-> +static const char * const mt8186_sgen_mute_str[] =3D {
-> +	"Off", "On"
+> +/* clock source control */
+> +static const char * const mt8186_i2s_src_str[] = {
+> +	"Master", "Slave"
+> +};
+> +
+> +static const struct soc_enum mt8186_i2s_src_enum[] = {
+> +	SOC_ENUM_SINGLE_EXT(ARRAY_SIZE(mt8186_i2s_src_str),
+> +			    mt8186_i2s_src_str),
 > +};
 
-On/off controls should be normal Switch controls not enums so userspace
-can display things sensibly.
+Not clear why this is user visible?  Shouldn't the machine driver be
+setting this.  Also please use more modern provider/consumer terminology
+for the clocking.
 
-> +static int mt8186_sgen_set(struct snd_kcontrol *kcontrol,
-> +			   struct snd_ctl_elem_value *ucontrol)
+> +static int mt8186_i2s_hd_set(struct snd_kcontrol *kcontrol,
+> +			     struct snd_ctl_elem_value *ucontrol)
 > +{
-> +	struct snd_soc_component *cmpnt =3D snd_soc_kcontrol_component(kcontrol=
-);
-> +	struct mtk_base_afe *afe =3D snd_soc_component_get_drvdata(cmpnt);
-> +	struct mt8186_afe_private *afe_priv =3D afe->platform_priv;
-> +	struct soc_enum *e =3D (struct soc_enum *)kcontrol->private_value;
-> +	int mode;
-> +	int mode_idx;
-> +
-> +	if (ucontrol->value.enumerated.item[0] >=3D e->items)
+
 > +		return -EINVAL;
-
-=2E..
-
-> +				   0x3f << INNER_LOOP_BACK_MODE_SFT);
 > +	}
 > +
-> +	afe_priv->sgen_mode =3D mode;
+> +	i2s_priv->low_jitter_en = hd_en;
 > +
 > +	return 0;
 > +}
 
-This should return 1 if the value is different from the previous value
-so event generation works, please run mixer-test against a system using
-the driver to help spot issues like this.  The same issue applies to at
-least some of the other custom controls.
+Same issue as on the other patch with the events - like I said there
+mixer-test will find a bunch of these issues for you.
 
-> +static int mt8186_sgen_mute_set(struct snd_kcontrol *kcontrol,
-> +				struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *cmpnt =3D snd_soc_kcontrol_component(kcontrol=
-);
-> +	struct mtk_base_afe *afe =3D snd_soc_component_get_drvdata(cmpnt);
-> +	struct soc_enum *e =3D (struct soc_enum *)kcontrol->private_value;
-> +	int mute;
-> +
-> +	if (ucontrol->value.enumerated.item[0] >=3D e->items)
-> +		return -EINVAL;
-> +
-> +	mute =3D ucontrol->value.integer.value[0];
-> +
-> +	dev_dbg(afe->dev, "%s(), kcontrol name %s, mute %d\n",
-> +		__func__, kcontrol->id.name, mute);
-> +
-> +	if (strcmp(kcontrol->id.name, SGEN_MUTE_CH1_KCONTROL_NAME) =3D=3D 0) {
-> +		regmap_update_bits(afe->regmap, AFE_SINEGEN_CON0,
-> +				   MUTE_SW_CH1_MASK_SFT,
-> +				   mute << MUTE_SW_CH1_SFT);
-> +	} else {
-> +		regmap_update_bits(afe->regmap, AFE_SINEGEN_CON0,
-> +				   MUTE_SW_CH2_MASK_SFT,
-> +				   mute << MUTE_SW_CH2_SFT);
-> +	}
-> +
-> +	return 0;
-> +}
-
-I can't tell why some of these are done with custom code rather than
-using a normal SOC_SINGLE()?
-
---jdU3xo2gQbe9oqCP
+--qf2Y0CXE7QOl/F3W
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJqgjgACgkQJNaLcl1U
-h9AdWgf/f48ddKYw5UEk9XqJetzu+AKnHMJdiGhcXVL8VJHS8NjNHgAIEkf7OtdR
-IViyQ7xxZBoVqVIdFG6R9agx3aFmdzL4xB1pujeQBINZxBU9AUsNZYVYvoPcOCVE
-1mTboTs+xpDB6w2l8wWS5LSep9LWUHZbNCVhjuauariDNPMIE1PtIsLdwrbFFn98
-TfLbVeGSNsabtkj1gp8Uy+7vMz8EyhsCZ+vVYLTbY9+vrFtMkKHo9kmNn/AfFSQE
-w4q2Jl2ktlwuhsQ3PYl+436ODLdrmUtBoV6RjRUn30TbpnGW2Z5qtR8+eMUR5PzZ
-nmzRcM5BGt4HvdA3tf5kTA6VLsD2Dw==
-=uhVL
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJqhPsACgkQJNaLcl1U
+h9DxEAf7BCZnRGuhD7QVceeLK9ft/+r5G6bcDYr/AzaD0m2ib8uHS9gAD2tNCPzS
+hqNii0XqfHOk8qRHngTUCf2jArvOxs/04PUbVN9osjE3US4GasV3r5A2mjdH5Xjb
+YfmoJbCF/LDmP3if9QwJkJEPJ13sqaEQLbO6MKBn9H/iMDXQGzXtLT+A/7vFmnlz
+5Z4kFX2c+4/M3Kkh/tL+5mAWE42SYETASHjOFnvFvK8EyRsHraxWahmN7Q1ZlcIb
+O/hK/hlH53YEyBysNZ4WG7U3CHHIJdf7XUN9/akMdwFo69exz+qHy2PItw6cix2Q
+B26GhDB6BEav6uk7TLEz59R0iKw+eQ==
+=QnX1
 -----END PGP SIGNATURE-----
 
---jdU3xo2gQbe9oqCP--
+--qf2Y0CXE7QOl/F3W--

@@ -2,99 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C59D5512C52
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 Apr 2022 09:07:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA947512E2F
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 Apr 2022 10:24:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 50A5A829;
-	Thu, 28 Apr 2022 09:06:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50A5A829
+	by alsa0.perex.cz (Postfix) with ESMTPS id 49BE3AE8;
+	Thu, 28 Apr 2022 10:23:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49BE3AE8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651129633;
-	bh=JJ58QTctyjgaKV9i6Cn3QJr3uRDiVT50KlC7K3dewB8=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1651134274;
+	bh=utY0TJJDYksc8K1Cbz8lopodtzgd3eqgjxLf4RKTC4w=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ScDQUUpw8VScJoDN0/+eevwsytH4/hmpADUZY/UamfoYqdajRoVlc5x1tcFMIjY4q
-	 M8dp8WWV1dJRA55ef5xekV7cQ3rTuShtMmtGkMDPrK8giEezVJKCAzDsy/yAZ4M200
-	 XhCRIAKHjdJC3Eyr3p0aLFpMmxCfZHbTBa8GRvkg=
+	b=PPg4WqyYYCAMKMGxJF4a+CE/nkjwHE/47/Y8nr7KvIc6Cc1LcSBUjcp8b0cOoy6Oy
+	 tuiR4WKPEKQ50XuwAFkYxIdkBXU6PL5jKCgGvk7GmhQ3OfV8R2oUSMKd8A6N1iz6A9
+	 NOq2jsi33Mba6R5GdeK5Mxu4xAHI9r8Ii42pfKB4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BAEB9F800AE;
-	Thu, 28 Apr 2022 09:06:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A5A13F80311;
+	Thu, 28 Apr 2022 10:23:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DC233F800AE; Thu, 28 Apr 2022 09:06:12 +0200 (CEST)
+ id B690EF8016E; Thu, 28 Apr 2022 10:23:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [IPv6:2a00:1450:4864:20::631])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AC1C0F800AE
- for <alsa-devel@alsa-project.org>; Thu, 28 Apr 2022 09:06:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC1C0F800AE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 720BAF8012B
+ for <alsa-devel@alsa-project.org>; Thu, 28 Apr 2022 10:23:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 720BAF8012B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="dnR8dRNU"
-Received: by mail-ej1-x631.google.com with SMTP id m20so7630411ejj.10
- for <alsa-devel@alsa-project.org>; Thu, 28 Apr 2022 00:06:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=iBEhvrsPsOhgEt0Y1YW/HNHhU6vNHdiEta/57GlhVhk=;
- b=dnR8dRNUs7h9j/HKxlXNIA4lIpkFD31q+HvLJ/eKuI+nhJlW+YrFiWM9rP2CyoGaMS
- XeOLKlrYTjg5fMTkMESgKXIlyvnZ3oDuvVton7kAsZGNlZPnEjl2H2SPbwkktJTx7qCk
- ekfhcJMJmLtU2lITdXGqu4rePZT0Cb9pNkCEND2Na9cbucTF4Q1DTOawQPdvbwIMquid
- c672Ay3kWiDq9TOA+IELYO/uOyte64CA9KKzHDhPvgfQ9CVgHTohrIf+dryM44EkQPnl
- pk8oTToh1A+OPyPqUxfluHpdmEQUfAnKDlFUp7pvOy5qPgL8V4y45IAj37tfJG3qJQnj
- 89YQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=iBEhvrsPsOhgEt0Y1YW/HNHhU6vNHdiEta/57GlhVhk=;
- b=g0bOHb0OsvCVRC0oSGBh/yQzpPlBd0Y7KBKGTcxOpIue3ZbnTXHiWBY0JnSodjGQri
- vB8dCyl6U8hVr+BUyO3thvEz/T96MffH6qgATcMh+b7LSUp/ghfmCAVPWHMDBe+kd0OP
- qxNvvaXqyc8huEAZNeGY0uUCDh9AO/DTqb6Pbp1bAlUKMR3wO3D720aGRwxF3BYBCQi0
- rAVmtKwG04t1hFY8hoWKoAV6PRSa2nT598x2ByYXFKzcfHV9B6SmZr4+qogIBeeVpHMj
- rmkSaG+Ir87WnejL75sg7C+uiJ/e/Czn7qi0aay3shcP5XJ9kw0V0hj/ZKW51logvF6i
- oJoQ==
-X-Gm-Message-State: AOAM533kOM+Va6ryyXcMS3igwLm6C1381xgal/ebtIgxD5bTWxak+MhH
- QV+c2qIjcyZ3b63t4HxXrpqNow==
-X-Google-Smtp-Source: ABdhPJyEMosMEvWv2NKcCdkzSlAn1WgtjIOSc3yBPtrlslz4hSKiE5Mxs0hwDpBfDpfO4Wx0jZmH/w==
-X-Received: by 2002:a17:906:2883:b0:6e8:7012:4185 with SMTP id
- o3-20020a170906288300b006e870124185mr30112996ejd.204.1651129564100; 
- Thu, 28 Apr 2022 00:06:04 -0700 (PDT)
-Received: from [192.168.0.160] (xdsl-188-155-176-92.adslplus.ch.
- [188.155.176.92]) by smtp.gmail.com with ESMTPSA id
- s23-20020a056402037700b0042617ba639bsm1010973edw.37.2022.04.28.00.06.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Apr 2022 00:06:02 -0700 (PDT)
-Message-ID: <53e4eed4-16ae-95ce-967f-ed615158584d@linaro.org>
-Date: Thu, 28 Apr 2022 09:06:01 +0200
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="ZqMzD44p"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 23S8567J013814;
+ Thu, 28 Apr 2022 03:23:23 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=a5mj9TC7SBtuwpAFQ6mhy7Z/T9gjVnh5vllhtUwr+Dg=;
+ b=ZqMzD44pjcXugAaKQ3Pp1718kb45WG1aE1rbUFeZGNo+PXEc5HbOTENr8yI4e5acJDVH
+ hEzmHhZxFWYvyi0SBZhyq9M/QiVoH099gCvKQXB/NKT39WlciMv1G7FOus7mnMR0cpYu
+ GW34GCYYI9hrE4AwB5eLlojPmI3v/gh1mEjGiosewne82N2+wW1+JS4g0gQlJNO2z50p
+ l43oSHKFs1OKC57fCXmikMVWVI+LqYSeIjaG8gNds7TBhcXNR6USMK/J28ET9Zjml5pT
+ Mg2xg4+4MSEZJGS1Jpg1Qf69/tkhrL6elRko4fnjZaamReqWAXtebOQ5B9XuBr1RWaW3 Wg== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3fprt61uu8-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Thu, 28 Apr 2022 03:23:23 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Thu, 28 Apr
+ 2022 09:23:21 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.24 via
+ Frontend Transport; Thu, 28 Apr 2022 09:23:21 +0100
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 402E1B10;
+ Thu, 28 Apr 2022 08:23:21 +0000 (UTC)
+Date: Thu, 28 Apr 2022 08:23:21 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Adam Ford <aford173@gmail.com>
+Subject: Re: WM8962 crashing on suspend
+Message-ID: <20220428082321.GI38351@ediswmail.ad.cirrus.com>
+References: <CAHCN7xJuAuGmSQsmBfg-C6jOdJmf1Li=YWp7Jdi29nU3kk1GcA@mail.gmail.com>
+ <20220426174150.GZ38351@ediswmail.ad.cirrus.com>
+ <CAHCN7xLqixKxM_L7P9T2BqLpyHoGTYpMODKJotCneXZK+wUEMg@mail.gmail.com>
+ <20220427145730.GE38351@ediswmail.ad.cirrus.com>
+ <YmlgL+Ur6BeWiUtr@sirena.org.uk>
+ <20220427164825.GH38351@ediswmail.ad.cirrus.com>
+ <CAHCN7xJSpYsZbVRrCmt8QobEOk+bvRLs=qgTHqqsh-K1xEUgUA@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH 04/11] dt-bindings: sound: add Arm PL041 AACI DT schema
-Content-Language: en-US
-To: Andre Przywara <andre.przywara@arm.com>, Rob Herring
- <robh+dt@kernel.org>, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-References: <20220427112528.4097815-1-andre.przywara@arm.com>
- <20220427112528.4097815-5-andre.przywara@arm.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220427112528.4097815-5-andre.przywara@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Liviu Dudau <liviu.dudau@arm.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <CAHCN7xJSpYsZbVRrCmt8QobEOk+bvRLs=qgTHqqsh-K1xEUgUA@mail.gmail.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: 8DwGxAWjaS7zZz6S2H1MmILeCRT7SqYD
+X-Proofpoint-ORIG-GUID: 8DwGxAWjaS7zZz6S2H1MmILeCRT7SqYD
+X-Proofpoint-Spam-Reason: safe
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,95 +106,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 27/04/2022 13:25, Andre Przywara wrote:
-> The Arm PrimeCell Advanced Audio CODEC Interface (AACI aka PL041) is
-> a peripheral that provides communication with an audio CODEC.
+On Wed, Apr 27, 2022 at 11:54:40AM -0500, Adam Ford wrote:
+> On Wed, Apr 27, 2022 at 11:48 AM Charles Keepax
+> <ckeepax@opensource.cirrus.com> wrote:
+> > On Wed, Apr 27, 2022 at 04:24:31PM +0100, Mark Brown wrote:
+> > > On Wed, Apr 27, 2022 at 02:57:30PM +0000, Charles Keepax wrote:
+> > > > On Wed, Apr 27, 2022 at 08:12:56AM -0500, Adam Ford wrote:
+> > > > > I applied this, and it appears to make the issue go away on a 5.15
+> > > > > kernel.  I haven't tried it on a 5.18 yet.  If this fixes the issue,
+> > > > > would that be an acceptable solution to push upstream?
+> > >
+> > > > Feels like those operations should be runtime PM, like there is
+> > > > no reason to keep the CODEC in a high power state than necessary.
+> > >
+> > > The issue Adam reported was suspending during playback - if you suspend
+> > > during playback or capture the device is not idle at the point where we
+> > > start trying to suspend so it shouldn't be in runtime suspend and won't
+> > > by default be runtime suspended by the PM core.
+> >
+> > Yeah in my head snd_soc_suspend would have been called which
+> > would (assuming the DAI doesn't have ignore_suspend set) shut
+> > down the DAPM graph for the audio route, causing the runtime
+> > references to all be released and the CODEC to be suspended
+> > through runtime_pm. Not sure if I missed something there, and
+> > that also allows for systems where the CODEC doesn't suspend
+> > during system suspend. That said guess there probably arn't
+> > any use-cases for that on wm8962 and I am more than happy to
+> > use the force_suspend ops if you are happy with it.
 > 
-> Add a simple DT schema binding for it, so that DTs can be validated
-> automatically.
+> I am not familiar with this driver or the force_suspend ops, so I am
+> not sure if there are going to be side-effects.
+> I don't mind collecting more data if it's helpful.  I probably won't
+> be able to add more debug info until this weekend at the earliest.
 > 
-> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
-> ---
->  .../devicetree/bindings/sound/amba-pl041.yaml | 62 +++++++++++++++++++
->  1 file changed, 62 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/amba-pl041.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/amba-pl041.yaml b/Documentation/devicetree/bindings/sound/amba-pl041.yaml
-> new file mode 100644
-> index 0000000000000..f00796d5ea473
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/amba-pl041.yaml
 
-Filename: vendor,device, so "arm,amba-pl041" or "arm,pl041"
+Nah, its good your ok to upstream your out of tree patch, just
+making sure I fill in the holes in my knowledge with Mark :-)
 
-> @@ -0,0 +1,62 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/amba-pl041.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Arm Ltd. PrimeCell PL041 AACI sound interface
-> +
-> +maintainers:
-> +  - Andre Przywara <andre.przywara@arm.com>
-> +
-> +description:
-> +  The Arm PrimeCell Advanced Audio CODEC Interface (AACI) is an AMBA compliant
-> +  peripheral that provides communication with an audio CODEC using the AC-link
-> +  protocol.
-> +
-> +# We need a select here so we don't match all nodes with 'arm,primecell'
-> +select:
-> +  properties:
-> +    compatible:
-> +      contains:
-> +        const: arm,pl041
-> +  required:
-> +    - compatible
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - const: arm,pl041
-> +      - const: arm,primecell
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    description: APB register access clock
-> +
-> +  clock-names:
-> +    const: apb_pclk
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - clocks
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    aaci@40000 {
-
-Would be nice to find here a generic node name, so "audio-controller"?
-It's not a codec, right?
-
-> +            compatible = "arm,pl041", "arm,primecell";
-> +            reg = <0x040000 0x1000>;
-> +            interrupts = <11>;
-> +            clocks = <&v2m_clk24mhz>;
-> +            clock-names = "apb_pclk";
-> +    };
-> +
-> +...
-
-
-Best regards,
-Krzysztof
+Thanks,
+Charles

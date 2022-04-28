@@ -2,91 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B739512E35
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 Apr 2022 10:26:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40294512E6E
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 Apr 2022 10:28:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 064FC82E;
-	Thu, 28 Apr 2022 10:25:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 064FC82E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8835C15C2;
+	Thu, 28 Apr 2022 10:27:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8835C15C2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651134365;
-	bh=beK4f2dzjDAE0MrJa4Q3lZ8T9c1a516FBWj+Yv4uTX4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1651134529;
+	bh=wbHa8iR8uoZwVa0jtdk8uiWg7aMlSg89e3SdsUbLaMU=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NfDeqmFZhpt2A1LbrWkFRiwVPTy/lrIDBLKAf6PwcwEVroZuQJp5TZu/I+icML1N3
-	 mV4fp+sx1yrUHkuvl7cyMEuoPF/IXRD/uz10fiT/Iz1ZxZ/e/lwGf0koc2I133Cllt
-	 G4RxwpoqNTsi7a8SsacvXtD3SVNBinHxTv+kiOUs=
+	b=JkMUi2IWrEiPwQ3GOxDGnDmld4ApkOo/PTcGhv0li78qW38R+L32Fpax3wM+nRHsn
+	 RJKyuJxW9AxOHP9z5+kvj+ctEQw6eDW/vAfFAD2jAl9ZYZYZwW5H8/olxf66V/uR4j
+	 GyTwbHcAsZNkUX+2NG2tWNNoWnRu8D8TNYjN38qM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 934DAF800F2;
-	Thu, 28 Apr 2022 10:25:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1DEE3F80311;
+	Thu, 28 Apr 2022 10:27:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5578AF8016E; Thu, 28 Apr 2022 10:25:05 +0200 (CEST)
+ id 1D71FF804BB; Thu, 28 Apr 2022 10:27:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 27C4FF800F2
- for <alsa-devel@alsa-project.org>; Thu, 28 Apr 2022 10:24:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27C4FF800F2
+ by alsa1.perex.cz (Postfix) with ESMTPS id E48E9F8012B
+ for <alsa-devel@alsa-project.org>; Thu, 28 Apr 2022 10:27:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E48E9F8012B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="JHmoA1J4"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 23S85KIx014079;
- Thu, 28 Apr 2022 03:24:57 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=Pm7r4W1Cm//VcduQTiTK26jaLSZ7r2ZK0U6VdwqHIWA=;
- b=JHmoA1J4Uuq1Ef7gUpLGXwMVvmgOEVlK+pNeFhphAOhoHQ5abU/AgcnXFwHHhVSqtnrN
- xrO4FsZeAka+u1k4Ih6L8gsqOs/LBfk8tjmPpyxtT+AlFsu4AMGD+SSMGidnbZMPdpbp
- tj8BgLo/fgRXxEniXerGvObmR1mhzfBoQKOieQhds58/zs0Z1uS7TvAlgdQ4Mmlt08mr
- nMMvfa366girDwbc6fA2LdXC1VjpoegKVG/mA/5dFQWLaSvjOEDoy//8v1yb1vO+q0aQ
- bWdaJbTtKvgyI5rkrivN381EQv0D2Rd1fItidKO2CznKb+c70LAPDGgU2BdhzcHysW6k zg== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3fprt61uw4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 28 Apr 2022 03:24:57 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Thu, 28 Apr
- 2022 09:24:56 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.24 via
- Frontend Transport; Thu, 28 Apr 2022 09:24:56 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 06E5446C;
- Thu, 28 Apr 2022 08:24:56 +0000 (UTC)
-Date: Thu, 28 Apr 2022 08:24:56 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Nicola Lunghi <nick83ola@gmail.com>
-Subject: Re: [PATCH] ASoC: wm8960: Add ACPI support
-Message-ID: <20220428082456.GJ38351@ediswmail.ad.cirrus.com>
-References: <20220427212916.40145-1-nick83ola@gmail.com>
+ dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com
+ header.b="TYPIqdG6"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 804C41F8A8;
+ Thu, 28 Apr 2022 08:27:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1651134469; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=nqfEAJYikez5yuRaJWQFVEnr7bTvqklH6kJ7XEyZeH4=;
+ b=TYPIqdG6C2kNSXwfoxobkb0T7Qrlkecz89DW0NUUSRJk8G1Cl1McWKfb63f8rCvjK2Z1w9
+ hltCqgILrPkBWZf7D6lZQrTVsQ9bYGNjEQQXo2D58+bj+Zbr/uJommfLuFr/ZVITaGpYKs
+ 3TdHSODcKkMVn6eBxvw3c05nJoauKJs=
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4287913491;
+ Thu, 28 Apr 2022 08:27:49 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id sDPlDgVQamIBLgAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 28 Apr 2022 08:27:49 +0000
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 06/19] xen/sound: switch xen_snd_front to use
+ INVALID_GRANT_REF
+Date: Thu, 28 Apr 2022 10:27:30 +0200
+Message-Id: <20220428082743.16593-7-jgross@suse.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220428082743.16593-1-jgross@suse.com>
+References: <20220428082743.16593-1-jgross@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20220427212916.40145-1-nick83ola@gmail.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: 48N1y2DSeMR1C6Z9PycqBZyN_VANppph
-X-Proofpoint-ORIG-GUID: 48N1y2DSeMR1C6Z9PycqBZyN_VANppph
-X-Proofpoint-Spam-Reason: safe
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- patches@opensource.cirrus.com,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
- linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+Cc: Juergen Gross <jgross@suse.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,22 +94,57 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Apr 27, 2022 at 10:29:16PM +0100, Nicola Lunghi wrote:
-> HID made of either Wolfson/CirrusLogic PCI ID + 8960 identifier
-> 
-> This helps enumerate the Waveshare WM8960 WM8960 Hi-Fi Sound
-> Card HAT on the Up2 platform.
-> 
-> The scripts at https://github.com/thesofproject/acpi-scripts
-> can be used to add the ACPI initrd overlay.
-> 
-> This commit is similar to the commit:
-> 960cdd50ca9f ("ASoC: wm8804: Add ACPI support")
-> 
-> Signed-off-by: Nicola Lunghi <nick83ola@gmail.com>
-> ---
+Instead of using a private macro for an invalid grant reference use
+the common one.
 
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ sound/xen/xen_snd_front_evtchnl.c | 4 ++--
+ sound/xen/xen_snd_front_evtchnl.h | 9 ---------
+ 2 files changed, 2 insertions(+), 11 deletions(-)
 
-Thanks,
-Charles
+diff --git a/sound/xen/xen_snd_front_evtchnl.c b/sound/xen/xen_snd_front_evtchnl.c
+index ecbc294fc59a..3e21369c8216 100644
+--- a/sound/xen/xen_snd_front_evtchnl.c
++++ b/sound/xen/xen_snd_front_evtchnl.c
+@@ -167,7 +167,7 @@ static void evtchnl_free(struct xen_snd_front_info *front_info,
+ 		xenbus_free_evtchn(front_info->xb_dev, channel->port);
+ 
+ 	/* End access and free the page. */
+-	if (channel->gref != GRANT_INVALID_REF)
++	if (channel->gref != INVALID_GRANT_REF)
+ 		gnttab_end_foreign_access(channel->gref, page);
+ 	else
+ 		free_page(page);
+@@ -207,7 +207,7 @@ static int evtchnl_alloc(struct xen_snd_front_info *front_info, int index,
+ 	channel->index = index;
+ 	channel->front_info = front_info;
+ 	channel->state = EVTCHNL_STATE_DISCONNECTED;
+-	channel->gref = GRANT_INVALID_REF;
++	channel->gref = INVALID_GRANT_REF;
+ 	page = get_zeroed_page(GFP_KERNEL);
+ 	if (!page) {
+ 		ret = -ENOMEM;
+diff --git a/sound/xen/xen_snd_front_evtchnl.h b/sound/xen/xen_snd_front_evtchnl.h
+index cbe51fd1ec15..3675fba70564 100644
+--- a/sound/xen/xen_snd_front_evtchnl.h
++++ b/sound/xen/xen_snd_front_evtchnl.h
+@@ -15,15 +15,6 @@
+ 
+ struct xen_snd_front_info;
+ 
+-#ifndef GRANT_INVALID_REF
+-/*
+- * FIXME: usage of grant reference 0 as invalid grant reference:
+- * grant reference 0 is valid, but never exposed to a PV driver,
+- * because of the fact it is already in use/reserved by the PV console.
+- */
+-#define GRANT_INVALID_REF	0
+-#endif
+-
+ /* Timeout in ms to wait for backend to respond. */
+ #define VSND_WAIT_BACK_MS	3000
+ 
+-- 
+2.34.1
+

@@ -2,85 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7530251464A
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Apr 2022 12:09:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E52205149E8
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Apr 2022 14:50:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 149AA82A;
-	Fri, 29 Apr 2022 12:08:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 149AA82A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7968C20C;
+	Fri, 29 Apr 2022 14:50:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7968C20C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651226951;
-	bh=WY0qLc8hONdFW5NbGN8KXS8inO/L55/MMJmyQxs8cBY=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1651236656;
+	bh=mRng7upD/wBQvykCDiip2T+ajmoegwat89+qn9YQKkM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fEJbgwXXiwP7Tr5t94wpBK4jUe5bnQzL9D3JWR2trjpMo0IJ25uOlSFIZW9qd6k2b
-	 6WFpV3fvdQnQWNa6Ty2h0S+sQVbX14XzoPZukYBjXlzfnR1DZeMrPaBPD93ohesHRv
-	 FF/abSx5Hyo5SS2ehECe4PmTsjJBeGUEDhpDAdkQ=
+	b=uUX/T7I2A5sY4kSLRQHQ1t4AqsLiRd1FPt2nCVKSEKICxSUdREEFxZ1STxaofcruD
+	 YMlFLQAGjpEXcyFSzk6evfg5XYjYnFWx+4sLAIEByd9jnwpj8Zl5g10jN+Kgdn/PPo
+	 5z1+0ztWOaTfCKiHHZx9ksvVbmEVGw6ZWQd39qB4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7595FF8012B;
-	Fri, 29 Apr 2022 12:08:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E689AF80269;
+	Fri, 29 Apr 2022 14:49:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B7779F8025D; Fri, 29 Apr 2022 12:08:10 +0200 (CEST)
+ id 94E1AF8025D; Fri, 29 Apr 2022 14:49:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com
+ [209.85.222.174])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A6B73F8012B
- for <alsa-devel@alsa-project.org>; Fri, 29 Apr 2022 12:08:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6B73F8012B
-X-UUID: 045731cb2f5c49ca9f4965c85acaa12a-20220429
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.4, REQID:be8b9c79-132d-48e6-a122-55eb691152c0, OB:0,
- LO
- B:0,IP:0,URL:8,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,RULE:Release_Ham,ACTI
- ON:release,TS:8
-X-CID-META: VersionHash:faefae9, CLOUDID:043ef6c6-85ee-4ac1-ac05-bd3f1e72e732,
- C
- OID:IGNORED,Recheck:0,SF:nil,TC:nil,Content:0,EDM:-3,File:nil,QS:0,BEC:nil
-X-UUID: 045731cb2f5c49ca9f4965c85acaa12a-20220429
-Received: from mtkexhb01.mediatek.inc [(172.21.101.102)] by
- mailgw02.mediatek.com (envelope-from <jiaxin.yu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 592507732; Fri, 29 Apr 2022 18:07:54 +0800
-Received: from mtkmbs07n1.mediatek.inc (172.21.101.16) by
- mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.792.3; 
- Fri, 29 Apr 2022 18:07:53 +0800
-Received: from mtkcas10.mediatek.inc (172.21.101.39) by
- mtkmbs07n1.mediatek.inc (172.21.101.16) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Fri, 29 Apr 2022 18:07:53 +0800
-Received: from mhfsdcap04 (10.17.3.154) by mtkcas10.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Fri, 29 Apr 2022 18:07:52 +0800
-Message-ID: <99c329534a462b39d9b39ba04851318e7823e54c.camel@mediatek.com>
-Subject: Re: [v4 13/18] ASoC: mediatek: mt8186: add platform driver
-From: Jiaxin Yu <jiaxin.yu@mediatek.com>
-To: Mark Brown <broonie@kernel.org>
-Date: Fri, 29 Apr 2022 18:07:52 +0800
-In-Reply-To: <YmqCORqp6nYuQJZf@sirena.org.uk>
-References: <20220428093355.16172-1-jiaxin.yu@mediatek.com>
- <20220428093355.16172-14-jiaxin.yu@mediatek.com>
- <YmqCORqp6nYuQJZf@sirena.org.uk>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+ by alsa1.perex.cz (Postfix) with ESMTPS id 74823F8016E
+ for <alsa-devel@alsa-project.org>; Fri, 29 Apr 2022 14:49:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74823F8016E
+Received: by mail-qk1-f174.google.com with SMTP id 126so4754525qkm.4
+ for <alsa-devel@alsa-project.org>; Fri, 29 Apr 2022 05:49:50 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=4tqelAYwf2EnKhlkfmEW1Nniwpv4OsNQ/+Rpd0YuVJE=;
+ b=uv9ORgcqF5PwEIIXTnoXX8UK+1UDIV7zTmAqSjG94NrW75r/jwojF9AplgzUJcJzGG
+ QWMCz8ntLcTZRtY4FBM7IEhBa7VXxzzWj+0ww80RgslZuqRJvosnyYgUws/WXm05gYOm
+ p70c5CwV5koTENLbv0gXSDr9VgHidotXxuKqFUER8oCFX4RnqdoWUOs6aqbKiZfhzjva
+ LVnN1zcAiMQvGFiF2aGK8DZDOp+ta1Urkgd3uE/DkVkmrHSPF0rD3HQbJ9JIO0aWZ9tw
+ 7y0LbX8NykLvzW0Sn7T5/NWyNCWleunigetbR0Xyi5KcitQr2+sU9029wRWqmO8oaJm1
+ yivA==
+X-Gm-Message-State: AOAM5306tFuAaL3E0dVj5nV4Otfv5LheAWHXzV/hpfeb6aK1efwgwEz7
+ V94Awa1jANyaJUwIvswAuQUYe/7VCoRm9fWC
+X-Google-Smtp-Source: ABdhPJwYI3NV4o/0lt0OZt+tSlGMPcuadHAjQZuTpIzEovwfCDMKVSS5/c4LLaohUB/B1dDXsRt3KA==
+X-Received: by 2002:a05:620a:2943:b0:69f:2013:3783 with SMTP id
+ n3-20020a05620a294300b0069f20133783mr21077525qkp.727.1651236588309; 
+ Fri, 29 Apr 2022 05:49:48 -0700 (PDT)
+Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com.
+ [209.85.128.181]) by smtp.gmail.com with ESMTPSA id
+ n186-20020a37bdc3000000b0069c218173e8sm1402039qkf.112.2022.04.29.05.49.47
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 29 Apr 2022 05:49:47 -0700 (PDT)
+Received: by mail-yw1-f181.google.com with SMTP id
+ 00721157ae682-2f7c424c66cso84309077b3.1
+ for <alsa-devel@alsa-project.org>; Fri, 29 Apr 2022 05:49:47 -0700 (PDT)
+X-Received: by 2002:a81:e10d:0:b0:2f7:bb2a:6529 with SMTP id
+ w13-20020a81e10d000000b002f7bb2a6529mr34597687ywh.62.1651236586925; Fri, 29
+ Apr 2022 05:49:46 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-MTK: N
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org,
- Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
- robh+dt@kernel.org, linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
- matthias.bgg@gmail.com, aaronyu@google.com, julianbraha@gmail.com,
- linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
+References: <20220428093355.16172-1-jiaxin.yu@mediatek.com>
+ <CAMuHMdWYJofetMwkAH4d8UzKZH77hxwRhXrMhaECOs1suQV2PA@mail.gmail.com>
+ <b90426905a486ab720b9d67f00ed869285acd768.camel@mediatek.com>
+In-Reply-To: <b90426905a486ab720b9d67f00ed869285acd768.camel@mediatek.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 29 Apr 2022 14:49:35 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVA-JJqPB9fiUZSeXZR+fa58V5t2OQjaN1-JvGR+K_H4Q@mail.gmail.com>
+Message-ID: <CAMuHMdVA-JJqPB9fiUZSeXZR+fa58V5t2OQjaN1-JvGR+K_H4Q@mail.gmail.com>
+Subject: Re: [v4 00/18] ASoC: mediatek: Add support for MT8186 SoC
+To: Jiaxin Yu <jiaxin.yu@mediatek.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Project_Global_Chrome_Upstream_Group@mediatek.com,
+ Tzung-Bi Shih <tzungbi@google.com>, Mark Brown <broonie@kernel.org>,
+ linux-mediatek@lists.infradead.org, Trevor Wu <trevor.wu@mediatek.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, aaronyu@google.com,
+ Julian Braha <julianbraha@gmail.com>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,141 +108,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 2022-04-28 at 13:02 +0100, Mark Brown wrote:
-> On Thu, Apr 28, 2022 at 05:33:50PM +0800, Jiaxin Yu wrote:
-> > Add mt8186 platform and affiliated driver.
-> > 
-> > Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
-> > ---
-> >  sound/soc/mediatek/Kconfig                    |   44 +
-> >  sound/soc/mediatek/Makefile                   |    1 +
-> >  sound/soc/mediatek/mt8186/Makefile            |   22 +
-> >  sound/soc/mediatek/mt8186/mt8186-afe-common.h |  235 ++
-> >  .../soc/mediatek/mt8186/mt8186-afe-control.c  |  261 ++
-> >  sound/soc/mediatek/mt8186/mt8186-afe-pcm.c    | 3005
-> > +++++++++++++++++
-> >  .../mediatek/mt8186/mt8186-interconnection.h  |   69 +
-> >  .../soc/mediatek/mt8186/mt8186-misc-control.c |  294 ++
-> >  .../mediatek/mt8186/mt8186-mt6366-common.c    |   59 +
-> >  .../mediatek/mt8186/mt8186-mt6366-common.h    |   17 +
-> >  sound/soc/mediatek/mt8186/mt8186-reg.h        | 2913
-> > ++++++++++++++++
-> >  11 files changed, 6920 insertions(+)
-> 
-> This looks mostly good though it is enormous so I might've missed
-> some
-> things.  The patch series is already very large but it might still be
-> worth splitting this up a bit more, perhaps split the code and data
-> tables/register definitions into separate patches?
-> 
-Yes, agree with you.
+Hi Jiaxin,
 
-I will spit them into three patches:
+On Fri, Apr 29, 2022 at 11:32 AM Jiaxin Yu <jiaxin.yu@mediatek.com> wrote:
+> On Fri, 2022-04-29 at 10:47 +0200, Geert Uytterhoeven wrote:
+> > Gmail tends to mark your patches as spam.
+> > Can you please make sure to use "PATCH" in the subject line, e.g.
+> > "[PATCH v4 00/18] ASoC: mediatek: Add support for MT8186 SoC"?
 
-PATCH 1: 
-  - mt8186-reg.h
-  - mt8186-interconnection.h
-  - mt8186-misc-control.c
+> Sorry for this mistake, I usually use "git format-patch --subject-
+> prefix "v4" --cover-letter -x" to generate a series of patches.
+> So it automatically removes "PATCH". I will correct the cmd to "git
+> format-patch --subject-prefix "PATCH v4" --cover-letter -x".
 
-PATCH 2:
-  - mt8186-mt6366-common.c
-  - mt8186-mt6366-common.h
+You can just use e.g. "-v4" instead of the --subject-prefix option.
 
-PATCH 3:
-  - sound/soc/mediatek/Kconfig 
-  - sound/soc/mediatek/Makefile
-  - sound/soc/mediatek/mt8186/Makefile
-  - sound/soc/mediatek/mt8186/mt8186-afe-common.h
-  - .../soc/mediatek/mt8186/mt8186-afe-control.c
-  - sound/soc/mediatek/mt8186/mt8186-afe-pcm.c
+Gr{oetje,eeting}s,
 
-> A few relatively minor issues with the controls.
-> 
-> > +/* this order must match reg bit amp_div_ch1/2 */
-> > +static const char * const mt8186_sgen_amp_str[] = {
-> > +	"1/128", "1/64", "1/32", "1/16", "1/8", "1/4", "1/2", "1" };
-> > +static const char * const mt8186_sgen_mute_str[] = {
-> > +	"Off", "On"
-> > +};
-> 
-> On/off controls should be normal Switch controls not enums so
-> userspace
-> can display things sensibly.
-> 
-> > +static int mt8186_sgen_set(struct snd_kcontrol *kcontrol,
-> > +			   struct snd_ctl_elem_value *ucontrol)
-> > +{
-> > +	struct snd_soc_component *cmpnt =
-> > snd_soc_kcontrol_component(kcontrol);
-> > +	struct mtk_base_afe *afe =
-> > snd_soc_component_get_drvdata(cmpnt);
-> > +	struct mt8186_afe_private *afe_priv = afe->platform_priv;
-> > +	struct soc_enum *e = (struct soc_enum *)kcontrol-
-> > >private_value;
-> > +	int mode;
-> > +	int mode_idx;
-> > +
-> > +	if (ucontrol->value.enumerated.item[0] >= e->items)
-> > +		return -EINVAL;
-> 
-> ...
-> 
-> > +				   0x3f << INNER_LOOP_BACK_MODE_SFT);
-> > +	}
-> > +
-> > +	afe_priv->sgen_mode = mode;
-> > +
-> > +	return 0;
-> > +}
-> 
-> This should return 1 if the value is different from the previous
-> value
-> so event generation works, please run mixer-test against a system
-> using
-> the driver to help spot issues like this.  The same issue applies to
-> at
-> least some of the other custom controls.
-> 
-Got it.
+                        Geert
 
-> > +static int mt8186_sgen_mute_set(struct snd_kcontrol *kcontrol,
-> > +				struct snd_ctl_elem_value *ucontrol)
-> > +{
-> > +	struct snd_soc_component *cmpnt =
-> > snd_soc_kcontrol_component(kcontrol);
-> > +	struct mtk_base_afe *afe =
-> > snd_soc_component_get_drvdata(cmpnt);
-> > +	struct soc_enum *e = (struct soc_enum *)kcontrol-
-> > >private_value;
-> > +	int mute;
-> > +
-> > +	if (ucontrol->value.enumerated.item[0] >= e->items)
-> > +		return -EINVAL;
-> > +
-> > +	mute = ucontrol->value.integer.value[0];
-> > +
-> > +	dev_dbg(afe->dev, "%s(), kcontrol name %s, mute %d\n",
-> > +		__func__, kcontrol->id.name, mute);
-> > +
-> > +	if (strcmp(kcontrol->id.name, SGEN_MUTE_CH1_KCONTROL_NAME) ==
-> > 0) {
-> > +		regmap_update_bits(afe->regmap, AFE_SINEGEN_CON0,
-> > +				   MUTE_SW_CH1_MASK_SFT,
-> > +				   mute << MUTE_SW_CH1_SFT);
-> > +	} else {
-> > +		regmap_update_bits(afe->regmap, AFE_SINEGEN_CON0,
-> > +				   MUTE_SW_CH2_MASK_SFT,
-> > +				   mute << MUTE_SW_CH2_SFT);
-> > +	}
-> > +
-> > +	return 0;
-> > +}
-> 
-> I can't tell why some of these are done with custom code rather than
-> using a normal SOC_SINGLE()?
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-Yes, it's better to use SOC_SINGLE. I will fix them in next version.
-
-Thanks,
-Jiaxin.yu
-
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds

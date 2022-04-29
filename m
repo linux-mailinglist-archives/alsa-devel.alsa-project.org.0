@@ -2,97 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E52205149E8
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Apr 2022 14:50:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BEFB514A14
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Apr 2022 14:58:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7968C20C;
-	Fri, 29 Apr 2022 14:50:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7968C20C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1396FE11;
+	Fri, 29 Apr 2022 14:57:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1396FE11
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651236656;
-	bh=mRng7upD/wBQvykCDiip2T+ajmoegwat89+qn9YQKkM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1651237103;
+	bh=6BgciFoTNu0ccxYFjpm9MUMpH08+BBr85DN9TYNtN9U=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uUX/T7I2A5sY4kSLRQHQ1t4AqsLiRd1FPt2nCVKSEKICxSUdREEFxZ1STxaofcruD
-	 YMlFLQAGjpEXcyFSzk6evfg5XYjYnFWx+4sLAIEByd9jnwpj8Zl5g10jN+Kgdn/PPo
-	 5z1+0ztWOaTfCKiHHZx9ksvVbmEVGw6ZWQd39qB4=
+	b=Txxl18XHGTmnAgvwF6F/aypKy4O/8JWv9gkRfm7FpuY+BMfjFNoVIb4rz9Ae0aBpe
+	 VFAw9AdHBzBqeE1+cNUgeTis5qANWXH0Qt55ZE8O1t0DjG2s67u9QuZFKccW51BLYR
+	 65de9bB6sYobEFFsppeOlIa3Jghb/AXD1IbzH0V8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E689AF80269;
-	Fri, 29 Apr 2022 14:49:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 610F4F80269;
+	Fri, 29 Apr 2022 14:57:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 94E1AF8025D; Fri, 29 Apr 2022 14:49:56 +0200 (CEST)
+ id 8BE19F8025D; Fri, 29 Apr 2022 14:57:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com
- [209.85.222.174])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [IPv6:2a00:1450:4864:20::42b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 74823F8016E
- for <alsa-devel@alsa-project.org>; Fri, 29 Apr 2022 14:49:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74823F8016E
-Received: by mail-qk1-f174.google.com with SMTP id 126so4754525qkm.4
- for <alsa-devel@alsa-project.org>; Fri, 29 Apr 2022 05:49:50 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 05847F8012B
+ for <alsa-devel@alsa-project.org>; Fri, 29 Apr 2022 14:57:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 05847F8012B
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="UhDeT+7O"
+Received: by mail-wr1-x42b.google.com with SMTP id k2so10693660wrd.5
+ for <alsa-devel@alsa-project.org>; Fri, 29 Apr 2022 05:57:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=ePG6wKCbyk/Ae1arQi0XeTIwAd5LTspuTNbaM+4UP34=;
+ b=UhDeT+7OtGdUNKYaRyYzF4YBjNiqiG5cYbp0NWSnSrluhsGjG6xPIOa/eMOslCx/VC
+ t5MHMquFHD0iip2929xPOiKtfcZ7f7Kqyne/BGIHZtW0+1IXEEnNWPhHLQuKrUfZm56I
+ 9MWvhTeIbw3HTkCcUtk4saxKmzHFZqX3ZCB+WWrtNtRnHsgon3MF5RqJ9xvGQws7/0mS
+ b+KAA0MqsPPuKd+MsdTJD2DsZatnp/1g7cxsoG0dVaw4lhJmg2PfwCrWeXpcHA3xyvHa
+ 1U/RSSLyuPWacNUUqAFTW/EiOcufG4eM4aUy+7Ho0cBqUS68URBRmHKyevMB67igwyIh
+ HVWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=4tqelAYwf2EnKhlkfmEW1Nniwpv4OsNQ/+Rpd0YuVJE=;
- b=uv9ORgcqF5PwEIIXTnoXX8UK+1UDIV7zTmAqSjG94NrW75r/jwojF9AplgzUJcJzGG
- QWMCz8ntLcTZRtY4FBM7IEhBa7VXxzzWj+0ww80RgslZuqRJvosnyYgUws/WXm05gYOm
- p70c5CwV5koTENLbv0gXSDr9VgHidotXxuKqFUER8oCFX4RnqdoWUOs6aqbKiZfhzjva
- LVnN1zcAiMQvGFiF2aGK8DZDOp+ta1Urkgd3uE/DkVkmrHSPF0rD3HQbJ9JIO0aWZ9tw
- 7y0LbX8NykLvzW0Sn7T5/NWyNCWleunigetbR0Xyi5KcitQr2+sU9029wRWqmO8oaJm1
- yivA==
-X-Gm-Message-State: AOAM5306tFuAaL3E0dVj5nV4Otfv5LheAWHXzV/hpfeb6aK1efwgwEz7
- V94Awa1jANyaJUwIvswAuQUYe/7VCoRm9fWC
-X-Google-Smtp-Source: ABdhPJwYI3NV4o/0lt0OZt+tSlGMPcuadHAjQZuTpIzEovwfCDMKVSS5/c4LLaohUB/B1dDXsRt3KA==
-X-Received: by 2002:a05:620a:2943:b0:69f:2013:3783 with SMTP id
- n3-20020a05620a294300b0069f20133783mr21077525qkp.727.1651236588309; 
- Fri, 29 Apr 2022 05:49:48 -0700 (PDT)
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com.
- [209.85.128.181]) by smtp.gmail.com with ESMTPSA id
- n186-20020a37bdc3000000b0069c218173e8sm1402039qkf.112.2022.04.29.05.49.47
- for <alsa-devel@alsa-project.org>
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=ePG6wKCbyk/Ae1arQi0XeTIwAd5LTspuTNbaM+4UP34=;
+ b=I1VpJzeweorNrqp1OSMmhUSBP3Y6kdlZjq4AGx6vmJgtgzi0VaTKKt46fj9kKo1I4I
+ iie8GjkgqNC1p4QVV/guBuG8w1cMXj+IZDK04MZ13MAY/u3mzf8+lVTNw8roNP9EgSzw
+ F8VCUrDgsvX3pxZB20DFZCzBLnHlKY1mBr6x3Z9sPTs1srYk+hGx83gkzmbz7LonQYJY
+ 2vIlR38OEeyIpjJnbtUbUs1AZb/ZBnfjRZGHGjIH/M926kp9xhS+hNEaEzufM0TL1PJm
+ iPvRBjGh5oC8IPRHPTP0WYf+Z6WobIYhpkgb/lNZUicg8W320DfdoUgaxfKOPx/Xkrxw
+ R9RQ==
+X-Gm-Message-State: AOAM5314oDuyDOerSROMx0AWByk0iiMbYa6GYqtS536K+qqJO6UmQU4t
+ TGaqdDA95uqpv1J27qjtNM8DtpO2L3lR4g==
+X-Google-Smtp-Source: ABdhPJx9iOmaDdFy/exNMf07wrNEg2EtThd5KGiPKJ773aQXEiQRCBTb7PUS/mCPw+1r7dSeJNOlxg==
+X-Received: by 2002:adf:ec92:0:b0:20a:d261:2cf2 with SMTP id
+ z18-20020adfec92000000b0020ad2612cf2mr25223015wrn.296.1651237034054; 
+ Fri, 29 Apr 2022 05:57:14 -0700 (PDT)
+Received: from [192.168.0.43] (static-35-180-85-188.ipcom.comunitel.net.
+ [188.85.180.35]) by smtp.gmail.com with ESMTPSA id
+ h9-20020a05600c350900b00393f01c8f00sm6986212wmq.47.2022.04.29.05.57.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 29 Apr 2022 05:49:47 -0700 (PDT)
-Received: by mail-yw1-f181.google.com with SMTP id
- 00721157ae682-2f7c424c66cso84309077b3.1
- for <alsa-devel@alsa-project.org>; Fri, 29 Apr 2022 05:49:47 -0700 (PDT)
-X-Received: by 2002:a81:e10d:0:b0:2f7:bb2a:6529 with SMTP id
- w13-20020a81e10d000000b002f7bb2a6529mr34597687ywh.62.1651236586925; Fri, 29
- Apr 2022 05:49:46 -0700 (PDT)
+ Fri, 29 Apr 2022 05:57:13 -0700 (PDT)
+Message-ID: <cf9b425e-84ff-af12-72a7-4056b8cbf90d@gmail.com>
+Date: Fri, 29 Apr 2022 14:57:12 +0200
 MIME-Version: 1.0
-References: <20220428093355.16172-1-jiaxin.yu@mediatek.com>
- <CAMuHMdWYJofetMwkAH4d8UzKZH77hxwRhXrMhaECOs1suQV2PA@mail.gmail.com>
- <b90426905a486ab720b9d67f00ed869285acd768.camel@mediatek.com>
-In-Reply-To: <b90426905a486ab720b9d67f00ed869285acd768.camel@mediatek.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 29 Apr 2022 14:49:35 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVA-JJqPB9fiUZSeXZR+fa58V5t2OQjaN1-JvGR+K_H4Q@mail.gmail.com>
-Message-ID: <CAMuHMdVA-JJqPB9fiUZSeXZR+fa58V5t2OQjaN1-JvGR+K_H4Q@mail.gmail.com>
-Subject: Re: [v4 00/18] ASoC: mediatek: Add support for MT8186 SoC
-To: Jiaxin Yu <jiaxin.yu@mediatek.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Project_Global_Chrome_Upstream_Group@mediatek.com,
- Tzung-Bi Shih <tzungbi@google.com>, Mark Brown <broonie@kernel.org>,
- linux-mediatek@lists.infradead.org, Trevor Wu <trevor.wu@mediatek.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, aaronyu@google.com,
- Julian Braha <julianbraha@gmail.com>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH v4] dt-bindings: dsp: mediatek: add mt8195 dsp document
+Content-Language: en-US
+To: YC Hung <yc.hung@mediatek.com>, Rob Herring <robh@kernel.org>,
+ broonie@kernel.org
+References: <20220106064847.15588-1-yc.hung@mediatek.com>
+ <Yd4yNkeGlzdULNlv@robh.at.kernel.org>
+ <68895a40-559b-13ce-d433-f9b32c648323@gmail.com>
+ <9965188904de2e89bc5390fa6c71d9fb243f9d12.camel@mediatek.com>
+From: Matthias Brugger <matthias.bgg@gmail.com>
+In-Reply-To: <9965188904de2e89bc5390fa6c71d9fb243f9d12.camel@mediatek.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ allen-kh.cheng@mediatek.com, cezary.rojewski@intel.com, tiwai@suse.com,
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org,
+ linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
+ daniel.baluta@nxp.com, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,28 +113,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Jiaxin,
+Hi,
 
-On Fri, Apr 29, 2022 at 11:32 AM Jiaxin Yu <jiaxin.yu@mediatek.com> wrote:
-> On Fri, 2022-04-29 at 10:47 +0200, Geert Uytterhoeven wrote:
-> > Gmail tends to mark your patches as spam.
-> > Can you please make sure to use "PATCH" in the subject line, e.g.
-> > "[PATCH v4 00/18] ASoC: mediatek: Add support for MT8186 SoC"?
+On 29/04/2022 07:59, YC Hung wrote:
+> Hi Mattias/Rob,
+> 
+> Sorry I miss this mail.
+> Could you please help to check this patch? Thanks.
+> 
 
-> Sorry for this mistake, I usually use "git format-patch --subject-
-> prefix "v4" --cover-letter -x" to generate a series of patches.
-> So it automatically removes "PATCH". I will correct the cmd to "git
-> format-patch --subject-prefix "PATCH v4" --cover-letter -x".
+Rob gave his reviewed-by. I just saw that the driver maintainer is Mark, so I 
+expect him to take the patch through his tree. Didn't realized this beforehand.
 
-You can just use e.g. "-v4" instead of the --subject-prefix option.
+Regards,
+Matthias
 
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+> On Fri, 2022-01-14 at 13:56 +0100, Matthias Brugger wrote:
+>>
+>> On 12/01/2022 02:43, Rob Herring wrote:
+>>> On Thu, 06 Jan 2022 14:48:48 +0800, YC Hung wrote:
+>>>> From: "YC Hung" <yc.hung@mediatek.com>
+>>>>
+>>>> This patch adds mt8195 dsp document. The dsp is used for Sound
+>>>> Open
+>>>> Firmware driver node. It includes registers,  clocks, memory
+>>>> regions,
+>>>> and mailbox for dsp.
+>>>>
+>>>> Signed-off-by: yc.hung <yc.hung@mediatek.com>
+>>>> ---
+>>>> Changes since v3:
+>>>>     Fix patch v3 error : v3 only provide difference between v3 and
+>>>> v2.
+>>>>
+>>>> Changes since v2:
+>>>>     Remove useless watchdog interrupt.
+>>>>     Add commit message more detail description.
+>>>>
+>>>> Changes since v1:
+>>>>     Rename yaml file name as mediatek,mt8195-dsp.yaml
+>>>>     Refine descriptions for mailbox, memory-region and drop unused
+>>>> labels
+>>>>     in examples.
+>>>> ---
+>>>>    .../bindings/dsp/mediatek,mt8195-dsp.yaml     | 105
+>>>> ++++++++++++++++++
+>>>>    1 file changed, 105 insertions(+)
+>>>>    create mode 100644
+>>>> Documentation/devicetree/bindings/dsp/mediatek,mt8195-dsp.yaml
+>>>>
+>>>
+>>> Reviewed-by: Rob Herring <robh@kernel.org>
+>>>
+>>
+>> Rob, it seems we don't have a maintainer for this bindings. Shall I
+>> as MediaTek
+>> SoC maintainer take them through my branch?
+>>
+>> Regards,
+>> Matthias
+> 

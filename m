@@ -2,72 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 080A151502C
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Apr 2022 18:03:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3287515078
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Apr 2022 18:10:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AA5B915DC;
-	Fri, 29 Apr 2022 18:02:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA5B915DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 559C3204;
+	Fri, 29 Apr 2022 18:10:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 559C3204
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651248181;
-	bh=twOOGelUDBE6PZk7xbCYJOavgIVakOZCoPhBsz/Uam0=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=NY7/nru1Wv4SZOrMChmNNYEmM+/L0A8x27cBqrFVRt5t/weA629aT+C+BeSS4rMtL
-	 sk0RUj5ASKFVP9F6G56X5L9sUn3V6dp+KI3k/cUM1xxPXLnYFFivY3guW9qTQ/v3rK
-	 9n9q+m1r/9Aiv9OUMAV6j3Y7ZMNGq0gSj46HkoKU=
+	s=default; t=1651248651;
+	bh=M3YZXkmkPzaqqHX+AQb/KqCpXy52g3Pl2JwLXyfNdXg=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=RMjgR0j3aC+ZMfagam0Fwyo9amW8+XiygbQJ5ZDrP8CVbWPfMPeft3dCxUdJdHE1p
+	 nXoqua6433Y+2tgTebGXzyKGy6fYSj5Vl6nXzquAe2pzv1Ol+qMZVSua9H/7IYgKep
+	 5OtPmsVKuelFeg1mwSPfU8Bi9Zh5s5VfS/VxXDyU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 39332F8012B;
-	Fri, 29 Apr 2022 18:02:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BAB7EF80269;
+	Fri, 29 Apr 2022 18:09:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A8DF3F8025D; Fri, 29 Apr 2022 18:02:01 +0200 (CEST)
+ id AB39DF8025D; Fri, 29 Apr 2022 18:09:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [IPv6:2a00:1450:4864:20::435])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 033F5F8012B
- for <alsa-devel@alsa-project.org>; Fri, 29 Apr 2022 18:01:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 033F5F8012B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 92685F8012B
+ for <alsa-devel@alsa-project.org>; Fri, 29 Apr 2022 18:09:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92685F8012B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="YKZHXpus"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 75ED962261;
- Fri, 29 Apr 2022 16:01:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 373C4C385A7;
- Fri, 29 Apr 2022 16:01:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1651248116;
- bh=twOOGelUDBE6PZk7xbCYJOavgIVakOZCoPhBsz/Uam0=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=YKZHXpusHR3iMS4WWsHShkXReUTFMhV81La4xcnxsTK5fCVJ0sAFQltita4H0Bi75
- XA3/xt/fUVyVhF4tpH0jC4HImS3NvUqC9l6am9NoRkt+1FCKcEARge1Cul5lZUAUgo
- 6ePeHnAHh/Evt/jeIVjYUMvvSpj3xw0ETNx4eKliYRsyP3KXFVGcN+cRVAlZhFtcdY
- viWzLUi2WqRV/7uW7bMwleeavIyP+7m6eMSf3ds4v8CD4GhGedf7ZHVy6/B7Igy0UU
- 3dbr3EjF/STt206GL407v9v7p6MHrY/A4JQhL4oKN2RLRKf9+mtI52QW89KKYkrsG4
- OvORlm5uQ75Cg==
-From: Mark Brown <broonie@kernel.org>
-To: ranjani.sridharan@linux.intel.com, alsa-devel@alsa-project.org
-In-Reply-To: <20220425221129.124615-1-ranjani.sridharan@linux.intel.com>
-References: <20220425221129.124615-1-ranjani.sridharan@linux.intel.com>
-Subject: Re: [PATCH 00/10] ASoC: SOF: IPC Abstraction for FW loading
-Message-Id: <165124811594.194367.3984845475330069812.b4-ty@kernel.org>
-Date: Fri, 29 Apr 2022 17:01:55 +0100
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="hqE8BOyx"
+Received: by mail-wr1-x435.google.com with SMTP id k2so11401343wrd.5
+ for <alsa-devel@alsa-project.org>; Fri, 29 Apr 2022 09:09:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=JWMAn/Bn8ohxKs6BvOjyYpQ71mruJeatGTg+RHO7TDU=;
+ b=hqE8BOyx/OO+QvPg/NFycXPm1WifkvLBScYG4S0tODof3BwXf9egD1HH+z/2HRa88h
+ Wl7/0Mu5TyFJxNZvCEJOUAWZbSqhagKV5cXC1EPTltZOm4HOQfkYRJFYm+NO0elI/Kf6
+ oRRHthAd3vSAuzSLhR2udVVEaxcYJsuu039DoQrrV9fVH8i+353v34sqg/cpDy+pHydX
+ St2j+JlRt5iJfrZkM+stvUmzv5ZqTFhipJgLkOli6YzuyxEbZXQ+esnxPXD3n/jPxNmF
+ C/pbaVSfPlAjSN6oCRYpyTD569PX15RVUkHolHBFAJbegJQC9NB6kcsLRyG+uWkFk+Ix
+ JKEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=JWMAn/Bn8ohxKs6BvOjyYpQ71mruJeatGTg+RHO7TDU=;
+ b=ok9YKqIavGbIUheVsA+6Q/NvGR/26YCiKonFwaNfpXyrjoVTay5cQdS+ggCp0cpUCv
+ kxQiP+FIJqGPF8kH16tt2FDvacSN5mhpIkodnRDdTEDTFZkMn9Dh3tTaSIk+ThplpXTE
+ OBcoKyC3e/T+mq57ujTmsWwigk+16qNU49j6g4QUnvBoUC00djV7t/pPDGRG+EstDXFc
+ QAdjuM/paFXEn/JF8SNjBp4dkFHG8+aXcn3WHmSt0ghJBLISQtvEbZSPWBjFPMFUveqg
+ 6Ja28eIZM7uyBUrP+lFrLN55zJTH2ug1DxYTlOXVRTO5xrEyACsYKHylnMtm+jWEa3qj
+ sHpA==
+X-Gm-Message-State: AOAM5315/xTfrY8VoI7z0LSuQ2sU73IlsIKV+g6Ftl8i8dlhXPvFg3Km
+ 9uZ0emSArQvumkhS1o8zhlhPcw==
+X-Google-Smtp-Source: ABdhPJzZ/2OiJVcoHnRZLspX+t/FHdW4FlaxULi9G0U+ixxQ6FdHjGbd2IzZrLvCjcTb7ZyapRlOgg==
+X-Received: by 2002:a05:6000:1844:b0:20a:f429:f80c with SMTP id
+ c4-20020a056000184400b0020af429f80cmr8474722wri.643.1651248582988; 
+ Fri, 29 Apr 2022 09:09:42 -0700 (PDT)
+Received: from srini-hackbox.lan
+ (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
+ by smtp.gmail.com with ESMTPSA id
+ z11-20020a05600c220b00b00393ffde5f5fsm7827863wml.36.2022.04.29.09.09.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 29 Apr 2022 09:09:42 -0700 (PDT)
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+To: vkoul@kernel.org
+Subject: [PATCH] soundwire: qcom: adjust autoenumeration timeout
+Date: Fri, 29 Apr 2022 17:09:28 +0100
+Message-Id: <20220429160928.24614-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.com
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ pierre-louis.bossart@linux.intel.com,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, bard.liao@intel.com,
+ Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,67 +102,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 25 Apr 2022 15:11:19 -0700, Ranjani Sridharan wrote:
-> This series introduces IPC abstraction for FW loading in the SOF driver
-> in preparation for supporting the new IPC version in the SOF firmware.
-> 
-> Peter Ujfalusi (10):
->   ASoC: SOF: Introduce IPC dependent ops for firmware handling, loading
->   ASoC: SOF: ipc3-loader: Implement firmware parsing and loading
->   ASoC: SOF: ipc: Add check for fw_loader ops
->   ASoC: SOF: loader: Switch to use the fw_loader ops
->   ASoC: SOF: amd: renoir: Do not set the load_module ops
->   ASoC: SOF: imx: Do not set the load_module ops
->   ASoC: SOF: Intel: bdw/byt/pci-tng: Do not set the load_module ops
->   ASoC: SOF: mediatek: mt8195: Do not set the load_module ops
->   ASoC: SOF: loader: Remove snd_sof_parse_module_memcpy() as it is not
->     used
->   ASoC: SOF: loader: Call optional query_fw_configuration on first boot
-> 
-> [...]
+Currently timeout for autoenumeration during probe and bus reset is set to
+2 secs which is really a big value. This can have an adverse effect on
+boot time if the slave device is not ready/reset.
+This was the case with wcd938x which was not reset yet but we spent 2
+secs waiting in the soundwire controller probe. Reduce this time to
+1/10 of Hz which should be good enough time to finish autoenumeration
+if any slaves are available on the bus.
 
-Applied to
+Reported-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+---
+ drivers/soundwire/qcom.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+index da1ad7ebb1aa..432e5cb9a4d2 100644
+--- a/drivers/soundwire/qcom.c
++++ b/drivers/soundwire/qcom.c
+@@ -105,7 +105,7 @@
+ 
+ #define SWRM_SPECIAL_CMD_ID	0xF
+ #define MAX_FREQ_NUM		1
+-#define TIMEOUT_MS		(2 * HZ)
++#define TIMEOUT_MS		(HZ/10)
+ #define QCOM_SWRM_MAX_RD_LEN	0x1
+ #define QCOM_SDW_MAX_PORTS	14
+ #define DEFAULT_CLK_FREQ	9600000
+-- 
+2.21.0
 
-Thanks!
-
-[01/10] ASoC: SOF: Introduce IPC dependent ops for firmware handling, loading
-        commit: 61bafd1c4571ceb9cdf1830a257eac873d0b68ee
-[02/10] ASoC: SOF: ipc3-loader: Implement firmware parsing and loading
-        commit: d2458baa799fff377660d86323dd20a3f4deecb4
-[03/10] ASoC: SOF: ipc: Add check for fw_loader ops
-        commit: 2a6099a73c943130c6f864c2df9c5607d25f6b6b
-[04/10] ASoC: SOF: loader: Switch to use the fw_loader ops
-        commit: 143cdcf1780eae05c33184380987d29682ac1ad6
-[05/10] ASoC: SOF: amd: renoir: Do not set the load_module ops
-        commit: 0da5f110c583551b39471ecedc3fba704c7362a5
-[06/10] ASoC: SOF: imx: Do not set the load_module ops
-        commit: 499c55fe5f5e5c4d586777e6850f484c1ded3bb8
-[07/10] ASoC: SOF: Intel: bdw/byt/pci-tng: Do not set the load_module ops
-        commit: a22502fb61b2fdd9ba12e158590a29b6d35ae68a
-[08/10] ASoC: SOF: mediatek: mt8195: Do not set the load_module ops
-        commit: 77b677d139dbf53fec02e1cfe3cc593f5a5f080a
-[09/10] ASoC: SOF: loader: Remove snd_sof_parse_module_memcpy() as it is not used
-        commit: 910bd536d3f72d9c39e5ec08e946c11f9bcdc532
-[10/10] ASoC: SOF: loader: Call optional query_fw_configuration on first boot
-        commit: 1dd4b999dad2d8b8fce257e4c3c3d334a709c933
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

@@ -2,75 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 861FB5155B1
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Apr 2022 22:32:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43B6F515773
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Apr 2022 23:56:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E6E3F1630;
-	Fri, 29 Apr 2022 22:31:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6E3F1630
+	by alsa0.perex.cz (Postfix) with ESMTPS id B97E815E5;
+	Fri, 29 Apr 2022 23:55:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B97E815E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651264358;
-	bh=TGXOnKC566KySlgE7TthYsPemPWKYachLNySsPYvAsg=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=pFe3QUY+4Aa410d3WpiWRHmsX3ruOCeFMHwHO560r87cprPZU2nmbTJMgS9Gp35yk
-	 FyCvf7z6H4g+Tnfb7NyYmyPgBekMz7ebTRaO8aywm8RV9UXGtXTls35t8pQjM2e85l
-	 LJYSqcc8liHnXXVd4II4lke+5lmPyidSZXrGrWzQ=
+	s=default; t=1651269393;
+	bh=DfxjI8RkRMjkpatz3Z0pqRlYFjvYMxWMuRPuPuAAGxc=;
+	h=Date:To:From:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=D8SQTlsCAsr5BIwKNUc+XzAMDM9y1Up0IGR6AgyUGv7F6P6BpjF52zICD/97WhHML
+	 /TcqRTAWc4AbgOETy2v8l5bxRxYV306XBQlhBJZ5mGKZhL61Ga3/1SuN3PyASat7O/
+	 tEgfPHwcrqXOABDqEJGWuKUYTpvB1jCq5Vnw5eIU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E1D64F804FE;
-	Fri, 29 Apr 2022 22:31:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3A89FF80269;
+	Fri, 29 Apr 2022 23:55:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3A9E8F804FD; Fri, 29 Apr 2022 22:31:02 +0200 (CEST)
+ id 6C5B6F8025D; Fri, 29 Apr 2022 23:55:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8C998F8047B
- for <alsa-devel@alsa-project.org>; Fri, 29 Apr 2022 22:30:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C998F8047B
+ by alsa1.perex.cz (Postfix) with ESMTPS id B02EBF8012B
+ for <alsa-devel@alsa-project.org>; Fri, 29 Apr 2022 23:55:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B02EBF8012B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
- header.b="JGBsEe1e"
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: nfraprado) with ESMTPSA id 8504F1F469DC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1651264256;
- bh=TGXOnKC566KySlgE7TthYsPemPWKYachLNySsPYvAsg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=JGBsEe1eRAd8NEWxwWO63Bgl5dZPFLGJlFdaRgKMETqsbNVgwXwcRfRlEFgcJJCyS
- ooSnwfpyncNz0b9V2AU76cO2jhtczgyap0FFpH/nIMS1NmP6xcx16YzEak2F/OUwYQ
- PgUgwY8wePE7RHEdwIuyqlLyM1e640JeXNvHWhG+dTcBPE/ZMTrDJEsCCKdjxLrg+C
- Si1Z4cK7N0emfsOSCGIMsZ9jcHJTj+FNk400VBay/6N+CnuPZ8D12I7/6w1S5HinvZ
- on70teL+QK4YgcrORHVrjzo4PXuPOjhTwo+xhyHngAwqz/7xq/xP/T33A/GHQbXv96
- IE6c3nISQweTA==
-From: =?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
- <nfraprado@collabora.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: [PATCH 3/3] ASoC: dt-bindings: rt5682: Add #sound-dai-cells
-Date: Fri, 29 Apr 2022 16:30:39 -0400
-Message-Id: <20220429203039.2207848-4-nfraprado@collabora.com>
-X-Mailer: git-send-email 2.36.0
-In-Reply-To: <20220429203039.2207848-1-nfraprado@collabora.com>
-References: <20220429203039.2207848-1-nfraprado@collabora.com>
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="OSGLide+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1651269326; x=1682805326;
+ h=message-id:date:mime-version:to:cc:from:subject:
+ content-transfer-encoding;
+ bh=DfxjI8RkRMjkpatz3Z0pqRlYFjvYMxWMuRPuPuAAGxc=;
+ b=OSGLide+4lY+N7sDS6MTdZJpddA8UH84pCArF6OJuSLrtLSjKNMZyJhB
+ 69iJEzibimjbnb7taE89qVfq9iqmmo/xiUva1ATGrPiIBQFPWkIVRXKpO
+ aN3U6RyIF9i2J0C6aiW3RVI8+lb9y1qt8AZkq7em1KWXWpYj48+K43RZE
+ ZOQVMyhGkciIILJfGpAXGegKOrfA60wOzxpOnLkhumxowWDGicRNPAOi2
+ cbFtsaJlvlgSRXRhJDzFrtPYWGRgAXOqhEBCB9+/QmFcTLqYz8BLJxokx
+ PaTHh1pSgLXWiDnkqCNMM+15gej1RinLHxMSYScGDcDPmMxx81hxexU1Q A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10332"; a="254174844"
+X-IronPort-AV: E=Sophos;i="5.91,186,1647327600"; d="scan'208";a="254174844"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Apr 2022 14:55:20 -0700
+X-IronPort-AV: E=Sophos;i="5.91,186,1647327600"; d="scan'208";a="809324578"
+Received: from mellis-mobl.amr.corp.intel.com (HELO [10.212.234.24])
+ ([10.212.234.24])
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Apr 2022 14:55:19 -0700
+Message-ID: <d9c3fed4-de6a-2cd8-acb6-7f3d2ad46b70@linux.intel.com>
+Date: Fri, 29 Apr 2022 16:55:18 -0500
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.5.0
+Content-Language: en-US
+To: ALSA Development Mailing List <alsa-devel@alsa-project.org>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: ASoC component/card relationship
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- =?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
- <nfraprado@collabora.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, kernel@collabora.com,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Transfer-Encoding: 7bit
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Curtis Malainey <cujomalainey@google.com>,
+ =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>,
+ =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?= <amadeuszx.slawinski@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,30 +96,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The rt5682 codec can be pointed to through a sound-dai property to be
-used as part of a machine sound driver. dtc expects #sound-dai-cells to
-be defined in the codec's node in those cases, so add it in the
-dt-binding and set it to 0.
+Hi,
+In the existing ASoC code, there is a fixed mapping between ASoC card and component. A component relies on a ->card pointer that is set during the probe. A component cannot be used by or "bound to" more than one card [1]
 
-Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
----
+This has interesting impacts on how a codec or DSP driver need to be implemented.
 
- Documentation/devicetree/bindings/sound/rt5682.txt | 2 ++
- 1 file changed, 2 insertions(+)
+In the AVS series posted this week, multiple components are registered by the DSP driver, following an interface-based split. There's in addition a second-level split, where the logic is pushed further: the DSP driver partitions the SSP DAIs in different set of 'dai_driver's used by different components, which are in turn used by different cards. What is done in these patches is not wrong, and is probably the only solution to support a real-world platform with the existing ASoC code, but are the framework assumptions correct? In this example, the board-level information on which interface is used for what functionality trickles down to the lowest level of the DSP driver implementation.
 
-diff --git a/Documentation/devicetree/bindings/sound/rt5682.txt b/Documentation/devicetree/bindings/sound/rt5682.txt
-index cd8c53d8497e..c5f2b8febcee 100644
---- a/Documentation/devicetree/bindings/sound/rt5682.txt
-+++ b/Documentation/devicetree/bindings/sound/rt5682.txt
-@@ -46,6 +46,8 @@ Optional properties:
- 
- - realtek,dmic-clk-driving-high : Set the high driving of the DMIC clock out.
- 
-+- #sound-dai-cells: Should be set to '<0>'.
-+
- Pins on the device (for linking into audio routes) for RT5682:
- 
-   * DMIC L1
--- 
-2.36.0
+I believe this breaks to some extent the 'clean' split between platform and machine driver(s), and it's not quite aligned with the usual notion of register/probe used across frameworks, be it for drivers/clocks/you name it.
 
+A similar case could happen in a codec driver, if independent functionality such as headset and amplifier support was exposed by separate cards, that would in turn mandate that the codec driver exposed N components, each handling different functionality but the same type of DAI.
+
+An alternative approach would be that the DSP driver exposes all the possible DAIs that can be used, and the binding is refined to allow for more flexibility. I think it's really the individual DAI that cannot be used by more than one card.
+
+I figured I would ask on this mailing list if
+
+a) I am not mistaken on the component/card relationship and
+
+b) if this is by design, or if we want to clarify what a component is and what its restrictions might be.
+
+Thanks for your feedback/comments
+-Pierre
+
+[1] https://elixir.bootlin.com/linux/latest/source/sound/soc/soc-core.c#L1364

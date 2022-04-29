@@ -2,102 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BEFB514A14
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Apr 2022 14:58:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EB8D514A62
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Apr 2022 15:20:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1396FE11;
-	Fri, 29 Apr 2022 14:57:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1396FE11
+	by alsa0.perex.cz (Postfix) with ESMTPS id 423E33E7;
+	Fri, 29 Apr 2022 15:20:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 423E33E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651237103;
-	bh=6BgciFoTNu0ccxYFjpm9MUMpH08+BBr85DN9TYNtN9U=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1651238454;
+	bh=19u80WrRYBrn0euhR5t2IahZXsXYVRXAnPVdCH6q/OA=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Txxl18XHGTmnAgvwF6F/aypKy4O/8JWv9gkRfm7FpuY+BMfjFNoVIb4rz9Ae0aBpe
-	 VFAw9AdHBzBqeE1+cNUgeTis5qANWXH0Qt55ZE8O1t0DjG2s67u9QuZFKccW51BLYR
-	 65de9bB6sYobEFFsppeOlIa3Jghb/AXD1IbzH0V8=
+	b=ZtXiH9tBM/K9Czhl0oCJCny0L3Hs8lCJQooyWDGIJjEQ25mm8UJV3ueG/4y9mnDYI
+	 WL4/qFjHVUTDPQj/CE7hef39vaLc7+/kxwb+dkdX+uyt5yCHzpF6+lCe8Ub18hQfGa
+	 DMIFJQOxpYces8BtPZQIJWfVUgRqY/XbwSF8guOE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 610F4F80269;
-	Fri, 29 Apr 2022 14:57:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9BCACF8007E;
+	Fri, 29 Apr 2022 15:19:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8BE19F8025D; Fri, 29 Apr 2022 14:57:22 +0200 (CEST)
+ id D978FF8025D; Fri, 29 Apr 2022 15:19:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 05847F8012B
- for <alsa-devel@alsa-project.org>; Fri, 29 Apr 2022 14:57:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 05847F8012B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7F944F8012B
+ for <alsa-devel@alsa-project.org>; Fri, 29 Apr 2022 15:19:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F944F8012B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="UhDeT+7O"
-Received: by mail-wr1-x42b.google.com with SMTP id k2so10693660wrd.5
- for <alsa-devel@alsa-project.org>; Fri, 29 Apr 2022 05:57:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=ePG6wKCbyk/Ae1arQi0XeTIwAd5LTspuTNbaM+4UP34=;
- b=UhDeT+7OtGdUNKYaRyYzF4YBjNiqiG5cYbp0NWSnSrluhsGjG6xPIOa/eMOslCx/VC
- t5MHMquFHD0iip2929xPOiKtfcZ7f7Kqyne/BGIHZtW0+1IXEEnNWPhHLQuKrUfZm56I
- 9MWvhTeIbw3HTkCcUtk4saxKmzHFZqX3ZCB+WWrtNtRnHsgon3MF5RqJ9xvGQws7/0mS
- b+KAA0MqsPPuKd+MsdTJD2DsZatnp/1g7cxsoG0dVaw4lhJmg2PfwCrWeXpcHA3xyvHa
- 1U/RSSLyuPWacNUUqAFTW/EiOcufG4eM4aUy+7Ho0cBqUS68URBRmHKyevMB67igwyIh
- HVWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=ePG6wKCbyk/Ae1arQi0XeTIwAd5LTspuTNbaM+4UP34=;
- b=I1VpJzeweorNrqp1OSMmhUSBP3Y6kdlZjq4AGx6vmJgtgzi0VaTKKt46fj9kKo1I4I
- iie8GjkgqNC1p4QVV/guBuG8w1cMXj+IZDK04MZ13MAY/u3mzf8+lVTNw8roNP9EgSzw
- F8VCUrDgsvX3pxZB20DFZCzBLnHlKY1mBr6x3Z9sPTs1srYk+hGx83gkzmbz7LonQYJY
- 2vIlR38OEeyIpjJnbtUbUs1AZb/ZBnfjRZGHGjIH/M926kp9xhS+hNEaEzufM0TL1PJm
- iPvRBjGh5oC8IPRHPTP0WYf+Z6WobIYhpkgb/lNZUicg8W320DfdoUgaxfKOPx/Xkrxw
- R9RQ==
-X-Gm-Message-State: AOAM5314oDuyDOerSROMx0AWByk0iiMbYa6GYqtS536K+qqJO6UmQU4t
- TGaqdDA95uqpv1J27qjtNM8DtpO2L3lR4g==
-X-Google-Smtp-Source: ABdhPJx9iOmaDdFy/exNMf07wrNEg2EtThd5KGiPKJ773aQXEiQRCBTb7PUS/mCPw+1r7dSeJNOlxg==
-X-Received: by 2002:adf:ec92:0:b0:20a:d261:2cf2 with SMTP id
- z18-20020adfec92000000b0020ad2612cf2mr25223015wrn.296.1651237034054; 
- Fri, 29 Apr 2022 05:57:14 -0700 (PDT)
-Received: from [192.168.0.43] (static-35-180-85-188.ipcom.comunitel.net.
- [188.85.180.35]) by smtp.gmail.com with ESMTPSA id
- h9-20020a05600c350900b00393f01c8f00sm6986212wmq.47.2022.04.29.05.57.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 29 Apr 2022 05:57:13 -0700 (PDT)
-Message-ID: <cf9b425e-84ff-af12-72a7-4056b8cbf90d@gmail.com>
-Date: Fri, 29 Apr 2022 14:57:12 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="uzp9dNrw"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id C2269B8346D;
+ Fri, 29 Apr 2022 13:19:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABB19C385AC;
+ Fri, 29 Apr 2022 13:19:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1651238389;
+ bh=19u80WrRYBrn0euhR5t2IahZXsXYVRXAnPVdCH6q/OA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=uzp9dNrw1fq7kaRwzsuipBWIEcIQrGCJXYGUQ+EJvcUn1wqUYdAMvlbx+LuUGhAKn
+ 8xd69n0H8JX0CPgb6WjcW1q7XAfUofjuWy9WQ+fQO4NnJ5mRBJAAknOmVRLDPzOHCS
+ OS+7RFvMnFVE+xOeV77jBorf1wah47euXafGH6skPCZhCuZrgiFz/g+Lbv5N9ZTIMu
+ b5T8hbIzNmL26tDus1GewZO5h9kWYbB+tHrfcBxxkKFQIM3IS7wJgdMb+XHDJ/Xvn2
+ 3jABx64hHlDYm6X8MbIoOTloGjf005gkwoSMRILhEkLYoCmCClXJdky2dowXC2lUUk
+ AT0KiiAs5SSzg==
+Date: Fri, 29 Apr 2022 14:19:43 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Matthias Brugger <matthias.bgg@gmail.com>
 Subject: Re: [PATCH v4] dt-bindings: dsp: mediatek: add mt8195 dsp document
-Content-Language: en-US
-To: YC Hung <yc.hung@mediatek.com>, Rob Herring <robh@kernel.org>,
- broonie@kernel.org
+Message-ID: <Ymvl7x9NTJor/vfx@sirena.org.uk>
 References: <20220106064847.15588-1-yc.hung@mediatek.com>
  <Yd4yNkeGlzdULNlv@robh.at.kernel.org>
  <68895a40-559b-13ce-d433-f9b32c648323@gmail.com>
  <9965188904de2e89bc5390fa6c71d9fb243f9d12.camel@mediatek.com>
-From: Matthias Brugger <matthias.bgg@gmail.com>
-In-Reply-To: <9965188904de2e89bc5390fa6c71d9fb243f9d12.camel@mediatek.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- allen-kh.cheng@mediatek.com, cezary.rojewski@intel.com, tiwai@suse.com,
- linux-kernel@vger.kernel.org, robh+dt@kernel.org,
- linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
- daniel.baluta@nxp.com, linux-arm-kernel@lists.infradead.org
+ <cf9b425e-84ff-af12-72a7-4056b8cbf90d@gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="qbtHrth/VF0HNcN8"
+Content-Disposition: inline
+In-Reply-To: <cf9b425e-84ff-af12-72a7-4056b8cbf90d@gmail.com>
+X-Cookie: Are you still an ALCOHOLIC?
+Cc: Rob Herring <robh@kernel.org>, alsa-devel@alsa-project.org,
+ allen-kh.cheng@mediatek.com, devicetree@vger.kernel.org,
+ cezary.rojewski@intel.com, tiwai@suse.com, linux-kernel@vger.kernel.org,
+ robh+dt@kernel.org, linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
+ YC Hung <yc.hung@mediatek.com>, daniel.baluta@nxp.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,63 +94,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
 
-On 29/04/2022 07:59, YC Hung wrote:
-> Hi Mattias/Rob,
-> 
-> Sorry I miss this mail.
-> Could you please help to check this patch? Thanks.
-> 
+--qbtHrth/VF0HNcN8
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Rob gave his reviewed-by. I just saw that the driver maintainer is Mark, so I 
-expect him to take the patch through his tree. Didn't realized this beforehand.
+On Fri, Apr 29, 2022 at 02:57:12PM +0200, Matthias Brugger wrote:
+> On 29/04/2022 07:59, YC Hung wrote:
 
-Regards,
-Matthias
+> > Sorry I miss this mail.
+> > Could you please help to check this patch? Thanks.
 
-> On Fri, 2022-01-14 at 13:56 +0100, Matthias Brugger wrote:
->>
->> On 12/01/2022 02:43, Rob Herring wrote:
->>> On Thu, 06 Jan 2022 14:48:48 +0800, YC Hung wrote:
->>>> From: "YC Hung" <yc.hung@mediatek.com>
->>>>
->>>> This patch adds mt8195 dsp document. The dsp is used for Sound
->>>> Open
->>>> Firmware driver node. It includes registers,  clocks, memory
->>>> regions,
->>>> and mailbox for dsp.
->>>>
->>>> Signed-off-by: yc.hung <yc.hung@mediatek.com>
->>>> ---
->>>> Changes since v3:
->>>>     Fix patch v3 error : v3 only provide difference between v3 and
->>>> v2.
->>>>
->>>> Changes since v2:
->>>>     Remove useless watchdog interrupt.
->>>>     Add commit message more detail description.
->>>>
->>>> Changes since v1:
->>>>     Rename yaml file name as mediatek,mt8195-dsp.yaml
->>>>     Refine descriptions for mailbox, memory-region and drop unused
->>>> labels
->>>>     in examples.
->>>> ---
->>>>    .../bindings/dsp/mediatek,mt8195-dsp.yaml     | 105
->>>> ++++++++++++++++++
->>>>    1 file changed, 105 insertions(+)
->>>>    create mode 100644
->>>> Documentation/devicetree/bindings/dsp/mediatek,mt8195-dsp.yaml
->>>>
->>>
->>> Reviewed-by: Rob Herring <robh@kernel.org>
->>>
->>
->> Rob, it seems we don't have a maintainer for this bindings. Shall I
->> as MediaTek
->> SoC maintainer take them through my branch?
->>
->> Regards,
->> Matthias
-> 
+> Rob gave his reviewed-by. I just saw that the driver maintainer is Mark, so
+> I expect him to take the patch through his tree. Didn't realized this
+> beforehand.
+
+TBH I'd missed this since there was nothing in the subject line that
+drew my attention to it.  Seen it now though.
+
+Please submit patches using subject lines reflecting the style for the
+subsystem, this makes it easier for people to identify relevant patches.
+Look at what existing commits in the area you're changing are doing and
+make sure your subject lines visually resemble what they're doing.
+There's no need to resubmit to fix this alone.
+
+--qbtHrth/VF0HNcN8
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJr5e4ACgkQJNaLcl1U
+h9B6jQf/dW9MqjjZQdTkinE+KFUJIRcK4SQ+e5QvdyqXMZ17f40lR3vhJ4Xo1NME
+uNZx34lYDN8jy1PAvJa8HlyqyL0nVzOuxN7qjRuMr/uBlg/qhLEYFUcaxZXXc/wR
+aGaaF3csCsN0+n/CMwkWP/my21AyyzhXfu8ygvhEVqhdJhetwOtYNfOB/aIHOId7
+oszASoq1Jvbpvz7CRKq/Vqqk8O9ASXDpvSERh6iWSkWH4ShJMteoAipC4MndSgSI
+rc0LLIZ2+wq+MAdE5KoqccPfGnx2UsJ9+6MzcYc7SbpRx/LirYjr5THGGkLWS/m3
+kqvXdGrUS8RZNjj07qJ/cqGj8a/mOw==
+=Hfdr
+-----END PGP SIGNATURE-----
+
+--qbtHrth/VF0HNcN8--

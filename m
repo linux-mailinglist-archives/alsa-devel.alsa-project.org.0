@@ -2,111 +2,183 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 663E8514B61
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Apr 2022 15:53:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EF72514C28
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Apr 2022 16:03:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0274C15F2;
-	Fri, 29 Apr 2022 15:52:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0274C15F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id A9743829;
+	Fri, 29 Apr 2022 16:02:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9743829
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651240383;
-	bh=eaai1U2I0irbzi1cnriOSYcX1fbmtDusNn7pmsHLDeY=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1651240992;
+	bh=Tfn8QX+qEvkQUBxaiFOgVK8cr9LU9E0+kfM8JpYO9FY=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qqCP7yDlFlw1sBDYKj6lsDwjOkyLPZ9FnIlwrvl2WF+EvTmASksw88Q5b9m9lYlQp
-	 tleFwp5jqbd+B8s/jqP9ggq9igafs0fzG6qo89DsBLJMPjrx8ak8DxdkmzAJP9e+QY
-	 zrOktZJx2LkMewin55LO7kYLhwYjupBwltASPKMw=
+	b=EwNY4As9M0qyY8IOXJM1Q2QlCOoykdcDcAs2r91YJPjEbOCg3L0xt8Ox1TBtmS4Zv
+	 yFsuE0BuxjtjokZvuTXjsRnuqNXoElqPgyrHGlIT/nNjXZJftiGoVvavSm/NzCkFFA
+	 zqvHVYnWU/pkI42kU2fhq8yDhBjdQfUtLu6A3Ipw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8FCE4F8007E;
-	Fri, 29 Apr 2022 15:51:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0B6D8F80269;
+	Fri, 29 Apr 2022 16:02:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 91B15F804FE; Fri, 29 Apr 2022 15:51:55 +0200 (CEST)
+ id 9571DF8025D; Fri, 29 Apr 2022 16:02:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 52F26F804B2
- for <alsa-devel@alsa-project.org>; Fri, 29 Apr 2022 15:51:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52F26F804B2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 00385F8007E
+ for <alsa-devel@alsa-project.org>; Fri, 29 Apr 2022 16:02:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00385F8007E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com
- header.b="L8H2Yu9y"
-Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 23TCc7RS017233;
- Fri, 29 Apr 2022 13:51:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding; s=pp1;
- bh=daVhxiWTuS9B4P2cA2D0EYmsyoD90srap5wOQUbBuB8=;
- b=L8H2Yu9yMeE3gslDZ2wQ+Ms3dv0/1xnYkroe1i5YPDADLLWcFc06NyzLyXlXO0CISFr3
- FoMy70lgy+Ds+zwDWhyQnVbOFJXKqalOp6WD+GsoecTA797hW+2vrUEFbtxZ2u+pWvHq
- pVcMYUwAuKEJZjctUJBP7Ha8DVn4ZDxHALoD4t1/3E/oRLarIZou6y0i5uUq7ZEdJi1Q
- NMvQR2u9+9oWNgtoPKEKIMB0CxJ2bXjg2yWZLtYjtSks5koAjWdIceG/EIWqhJ4imxae
- Qf+5cR8F38PJp+JIQ2eSYs9OPsWlFZzNwufuMM/W9OndkChNWJLrMrc5xM+ejzwlEMxO mg== 
-Received: from ppma01fra.de.ibm.com (46.49.7a9f.ip4.static.sl-reverse.com
- [159.122.73.70])
- by mx0b-001b2d01.pphosted.com (PPS) with ESMTPS id 3fqqtnsutw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 29 Apr 2022 13:51:47 +0000
-Received: from pps.filterd (ppma01fra.de.ibm.com [127.0.0.1])
- by ppma01fra.de.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 23TDSeaH024602;
- Fri, 29 Apr 2022 13:51:46 GMT
-Received: from b06cxnps4074.portsmouth.uk.ibm.com
- (d06relay11.portsmouth.uk.ibm.com [9.149.109.196])
- by ppma01fra.de.ibm.com with ESMTP id 3fm938yac8-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 29 Apr 2022 13:51:45 +0000
-Received: from d06av22.portsmouth.uk.ibm.com (d06av22.portsmouth.uk.ibm.com
- [9.149.105.58])
- by b06cxnps4074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 23TDpgOb42205508
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 29 Apr 2022 13:51:42 GMT
-Received: from d06av22.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id AB38A4C044;
- Fri, 29 Apr 2022 13:51:42 +0000 (GMT)
-Received: from d06av22.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 5194A4C040;
- Fri, 29 Apr 2022 13:51:42 +0000 (GMT)
-Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.152.85.9])
- by d06av22.portsmouth.uk.ibm.com (Postfix) with ESMTP;
- Fri, 29 Apr 2022 13:51:42 +0000 (GMT)
-From: Niklas Schnelle <schnelle@linux.ibm.com>
-To: Arnd Bergmann <arnd@arndb.de>
-Subject: [RFC v2 31/39] sound: add HAS_IOPORT dependencies
-Date: Fri, 29 Apr 2022 15:50:54 +0200
-Message-Id: <20220429135108.2781579-57-schnelle@linux.ibm.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20220429135108.2781579-1-schnelle@linux.ibm.com>
-References: <20220429135108.2781579-1-schnelle@linux.ibm.com>
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="kql/brOL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1651240929; x=1682776929;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=Tfn8QX+qEvkQUBxaiFOgVK8cr9LU9E0+kfM8JpYO9FY=;
+ b=kql/brOLuiE0eAKa3VNFvJ/s7gAlqqOlRRcemRZuefrDwPq7gt5QaJY1
+ Z8oCbD5SfFiB5qmAqa5rfbd15eUYqC8hp2fVhRh1FAHVihSFx4P44z/1t
+ 31k5XwhGhvo4BOpPbAL6c1m25ZCKYMN8Q5qMkuCWYbFH1OVFjb7Ys+MCh
+ y85wNlG9kTVAHMEZLI8sil7AZhj0bHXrc3zdLJF17vX3VyDtsFecdpAKe
+ z/biih4dfIlTv6QLWDtsSRDq23lVHRQM423Uzh4HsuJdctwrCafa0dyHB
+ FUG7LwZ5p52Z4mfg0auyy3kBxYMRuZsKtanyzBqzztNhqjAOJSOpD7LTZ Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10331"; a="353080996"
+X-IronPort-AV: E=Sophos;i="5.91,185,1647327600"; d="scan'208";a="353080996"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Apr 2022 07:01:32 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.91,185,1647327600"; d="scan'208";a="582138635"
+Received: from fmsmsx604.amr.corp.intel.com ([10.18.126.84])
+ by orsmga008.jf.intel.com with ESMTP; 29 Apr 2022 07:01:31 -0700
+Received: from fmsmsx609.amr.corp.intel.com (10.18.126.89) by
+ fmsmsx604.amr.corp.intel.com (10.18.126.84) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.27; Fri, 29 Apr 2022 07:01:30 -0700
+Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
+ fmsmsx609.amr.corp.intel.com (10.18.126.89) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.27 via Frontend Transport; Fri, 29 Apr 2022 07:01:30 -0700
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com (104.47.55.170)
+ by edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2308.27; Fri, 29 Apr 2022 07:01:30 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=QiVEErYIHoHcB/wbLxv8L5P67voqCyGAs1Nd7WZSOdkzuHoZYz6N5IgEbYTLLaw9TTs/Xvbb2OlTOilyrxnkWHaT6HG9+/3mL9TdJY8NEhtM4IimMNexbm0Bj5DEJaFIsyhNdu+SAAUQTytjxlT/h83m454okDVcYN1oN0+4K4jw+zffhaMhz2cDEwCro1F6hdn17BGqaOqY6Lx83dABXuBLQLm4Ipoju2EESP/d2Ev58P8N3n3lTTd1IUHrHQbf9IUMvz7frl2S5d1B4HRkz/7volKda20vA460hYyZIsMtzc7hfI6NF7U7paSgnlRZ/JDlQiqEQBmD3bBiDYLqgw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XSB4MNAE5Vr+cKTW0AsgKkJZeA+DTUyCHqiuqdDBw1w=;
+ b=P2HcOovbFe/KIBxtG3z+ypQa/3Kb9A0HiHooFLL9nuVANU4wI6pB9tV/ykaRYIU6esZGKHSi43H2iSgYEn+9uetEWvINS/SaePwcdkUgKLyYzzkaL6e9mLhlgTnnYuYbTtpx1Pt0IjUdPDGi7UdbdpegiOx8tTI1SLPySb+8MLJ3g6w50WbEB8hP1s1Zlbw1cMw14QN+IJrX2DdZVk6k58y4KjD+ZmEwwxMVLtENnpqEHkgXejtvb1iJ+qKWQLttQqsYBHEnig3VT9h4ekL2w7aN01N/q2yPuL/gI1YL+lg5KTPY5zjLA8YEc+MSuWQKxXrd35i3boSO22v48bC7lw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from MWHPR1101MB2157.namprd11.prod.outlook.com
+ (2603:10b6:301:51::10) by CY4PR11MB1848.namprd11.prod.outlook.com
+ (2603:10b6:903:123::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.15; Fri, 29 Apr
+ 2022 14:01:28 +0000
+Received: from MWHPR1101MB2157.namprd11.prod.outlook.com
+ ([fe80::b1bc:45f3:e805:6942]) by MWHPR1101MB2157.namprd11.prod.outlook.com
+ ([fe80::b1bc:45f3:e805:6942%10]) with mapi id 15.20.5186.023; Fri, 29 Apr
+ 2022 14:01:28 +0000
+Message-ID: <f1607df1-a8de-f26c-fbdb-be4bfba899eb@intel.com>
+Date: Fri, 29 Apr 2022 16:01:19 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.7.0
+Subject: Re: [PATCH 10/14] ASoC: Intel: avs: Machine board registration
+Content-Language: en-US
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ <alsa-devel@alsa-project.org>, <broonie@kernel.org>
+References: <20220426172346.3508411-1-cezary.rojewski@intel.com>
+ <20220426172346.3508411-11-cezary.rojewski@intel.com>
+ <2cda9e60-483b-6866-7ad5-787e43c25824@linux.intel.com>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+In-Reply-To: <2cda9e60-483b-6866-7ad5-787e43c25824@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO2P265CA0452.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:e::32) To MWHPR1101MB2157.namprd11.prod.outlook.com
+ (2603:10b6:301:51::10)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: T2FI9TXjGGjp7GrM_qrYXBpDvXdCJh_C
-X-Proofpoint-GUID: T2FI9TXjGGjp7GrM_qrYXBpDvXdCJh_C
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.486,FMLib:17.11.64.514
- definitions=2022-04-29_06,2022-04-28_01,2022-02-23_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 bulkscore=0
- adultscore=0 impostorscore=0 malwarescore=0 suspectscore=0 phishscore=0
- priorityscore=1501 spamscore=0 clxscore=1015 mlxlogscore=747
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2202240000 definitions=main-2204290078
-Cc: linux-arch@vger.kernel.org, Arnd Bergmann <arnd@kernel.org>,
- "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 26a70d14-ec3e-4c07-bb89-08da29e8c15b
+X-MS-TrafficTypeDiagnostic: CY4PR11MB1848:EE_
+X-Microsoft-Antispam-PRVS: <CY4PR11MB184863F4634BCBCE3E4A7B23E3FC9@CY4PR11MB1848.namprd11.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: BanioTCgtKxDUavIHR810B4nQfmeh2cLgs8np8GpWlSDZMD7GhkzLg99B+BSvIp9vCWTG5hil5ATLZS94PIshXTXybm0M2K8ZX3CCOfN0PVxk/bdnxqu4bmqfKFdH1zs9ZiDjfNDDIHOluEZ/wmk/2PPmLZuokFB8QRo7XCdvrNlxH0YS5eote2lPJxL2Z+qDi6Pv+uDWEqtEuP8PU/zU7rMEooInDV8EDZ1jaREY72q2Qm640iVFQ53M26xp9cjB2Ao/5N5nTNtPAAHmdHvT3qselGh9u6X8ukvFlGftf8DvARcPxPjKxcUD21PTvJI5JN06eago8aWRN14/kxO/Rlxuds+G7q1/CsedjjdhA/DMxgF0StLlcpG04IF5X5VL4wzmrRfF9728wa8aU8PsfkGCfjZMyxLUvxOB+tTZusJmCiGVM4Vq6gXHXNjp37S7+9+Ma74VPFJIVUVeY4lSduEgV+jVCIykTrHz+FgzYaucRxZuZzg1So2Rter1AIlkmoEULtNNnQJZxtHXW8tO6WhjWitXwURDZguAFc4KLZlDCB4KNtVngWhQzLg2dU3q4fDv3thINv6PB2ADYFhISsWhPN/rtwxc4z0OLDDfGd0zredkEoapkRpRQ62tq6X/PPWFeiMLEfMXf8rTcft7xiDg9bnFu6y3tFRdUDeXndbQerGDNq2+IbN6yIaeHbcWk28CpabjGtZ4FHc5akUX4NLYALwgjdKIldb9wZLcsg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR1101MB2157.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(366004)(8676002)(5660300002)(8936002)(4326008)(44832011)(7416002)(36756003)(316002)(6666004)(508600001)(6512007)(53546011)(6486002)(31686004)(6506007)(26005)(66556008)(2906002)(66946007)(66476007)(86362001)(186003)(2616005)(83380400001)(38100700002)(82960400001)(31696002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RkJtR0FvWGd5VzdVaFdWZHVjOWxkWWFvdEJpOXFRdlY1KzFleE9uMGc2K3BM?=
+ =?utf-8?B?dHc3anFsWGt2MHV0aXJxam1xbk1TRGl3a1d3TEU3OGY4Rmd6eGlLK0pwUGtM?=
+ =?utf-8?B?VE1tNXBZRWJ5QVhKMlpnZVppbzVyYnU5RGhYNjdBbStZK1Yzai93b0FOVlhP?=
+ =?utf-8?B?Vjk0d1ZYKzFpYmtDNkRHMmdEQW5ZUmFucTRJQ2g2UDU4dmx5RzhUaTlGZWFO?=
+ =?utf-8?B?cDJRUE0wdG5PZnhlNXRDeDBHeWpyTmc5dlMxQ3owLy80WGQ3N0pQQmNoeTFy?=
+ =?utf-8?B?N0VVbHVoMFFMZVZUWVd2aTMxdXpIS2hMUXZGOGhPQXYrRFNvMWxyeVVXcUZn?=
+ =?utf-8?B?elV4NTRwbDNNZTY2dG5ZUjVWV2ZIRkt1SkdmYmRIVDV1STFGRFh4ZzFjTVJj?=
+ =?utf-8?B?VUJiYk9WbEtoaFNGcXlZNVlTeUNBcUtvUmRZUGhmRVBRaWthRkozYUswZkht?=
+ =?utf-8?B?aFQxSFpzOElTcUo0UjlTZkhRTllseTRrMDBFalByd1loZnFjcVRxeFpWMmM4?=
+ =?utf-8?B?OXZCeEVZanBLNC9tNnRadVl4U3Y2WVNqVm5BZ0JhUGlDYWt6K2gvTDJSK0pl?=
+ =?utf-8?B?U2FtVUg3UjNLRmpiZzVnei9Pa0wvZ1dGTVAzUGtxVmlXTmEyUDUvSGtDRlEx?=
+ =?utf-8?B?cmxoaWFrOWQxcHpCS0o3cGVZNmxSdGxwYkhRUXprWjI1b3FKSXhXd2VtN1JD?=
+ =?utf-8?B?bkp2TDNOVlRQMkFUVXFaS0w5bmM4UUtueTJhTjhGWGExc0pqdlRYOWg4M2Mz?=
+ =?utf-8?B?YkFpZXNLUzVzRjNnRElrSkNVa2trczJqV01tMWdGYk9tSGhHQ2FDTGRqQkxy?=
+ =?utf-8?B?MExFRFBFMkloOXFBNlFWTGQ3TlNLbXlCZnFrd2dEbkl2TEMvaWZkTzI2bnhl?=
+ =?utf-8?B?R0FpRTlGeWNFT3F4QStJckpBRUZVbnpLTklWdS9JZHJKT2JxSm1IaTk3T1pq?=
+ =?utf-8?B?aHRNSllHTnlFM2U5cGVMRCtpYkt2eGR1Vjkvbmd2UXBUT2JNUnZUNFBrcHZX?=
+ =?utf-8?B?M2lyTldqWjZwS1BFV1M0bDVXTmlsekR5TkxDUHdtMmp4RGFwcldTdDE0Vk1C?=
+ =?utf-8?B?bGdxQjF3M1V1aWdoc2tKbi9OVXdxeUdBanlrdm0vOXFzV1ZqK2JNeThYb1pF?=
+ =?utf-8?B?c2JTelRMb3pzcHpSTTA3TnVuNjBlN0tuR1liZkYxcS9nRlVaQXIxckh0ZSt4?=
+ =?utf-8?B?eloyR0IvUjcveHdZTVRsdEhmWFNvWjBUOGVVZDFrWnpZSnB0Zk14SHlpRW9t?=
+ =?utf-8?B?OXlDbVhBb0Z0N2E0K0t3Q1lFS20rcm1IKzdiSXFjQXVOVXR6WWM4NG9heFJ1?=
+ =?utf-8?B?djZuVHlNcWt0WFU2Y0prR21sOURRcUkwS0NEVVR3NGl1bWJSRkxhaFVnRDRT?=
+ =?utf-8?B?b0Nrb1drSytNRlIzRWdKWEFtUVJldm1kRnVGSzVwRmx3TVQxSnp6UGJIR0FK?=
+ =?utf-8?B?TlV1aEVvYTVHTDlUNlZWL1JPMWEzVTlqRE00OFFQWWZWZnhJTU56ejNMaFhM?=
+ =?utf-8?B?RDIvclJsdlVWL29yNlRHTE5FSU9pZmJVZmVkQks5dUJIRnBGeWhQUGhsbU5L?=
+ =?utf-8?B?ZUtublBsdDFVamh1YWtyWUh4ck5LUjlEcm1TUHZ3OVlGekVIOE92ZnVHaGhh?=
+ =?utf-8?B?NnBZYXNDSmlzVVBPY09mOEswaHBSSUdEVFAzNjIwaHhCU1p4TjNweG5FVkJC?=
+ =?utf-8?B?S1BBQkRoVWkxeW5uRExqcDEyUmhBaGozU25URm9Xb1JyM3BkQ2ZyaVppNHRp?=
+ =?utf-8?B?ZWhLM1g4TWhXdUFPVUlVMDN1YnhTUTg1TXN3Slo0ODBFa0g4czY5SDJNMmlj?=
+ =?utf-8?B?ZDhJa2tWYlp3RGtzaGFFSFdIU1czcDJvUGw2WFF2TUlSdDJSam9XVG5BSTZS?=
+ =?utf-8?B?eUxDY1FtWnN3MG55OXpMUzdOWTdabVphUkZrdWZtS1pSaDBxVmNqdUxDQlZ5?=
+ =?utf-8?B?ekxJRFRTYW1FOHN1M2lXLzZZc09kT1dWU0Jpd2cvL3RyaGpjRCtoQm9Ra1c2?=
+ =?utf-8?B?WUlKOHVHVWVhMzhPM3NVMXQveUhrZHRHZjVNemE0cU5TRU5MRDZoeVJHajNr?=
+ =?utf-8?B?bFRrb3B1Tzg0U2tYUjVCaFdjcHhueVVjZENNYXc1Q2Q0UFpwdnVmL1ZZblZ0?=
+ =?utf-8?B?ejZ0dWJBV2lzVWlzWC9pZEJYdWwyY0pFM0d1bU0wTVEwampqTkVvWWhTV0E3?=
+ =?utf-8?B?Z2hhcTFSU0lZNitlNEN2enhGS1VleHFyd1NyMGJOTm82MTlIUzNoRVNTeTNi?=
+ =?utf-8?B?VXk4YkhGdFZqVW5sdXVzY3JQV1pEMUFDeHo3Zks1dWxlVVVCV0pteVBBdS95?=
+ =?utf-8?B?RitSTTJQRm92QitCazBDZHdhL2V4V3FwczZFcG4vdDRybG84YUZ4MUpoazB3?=
+ =?utf-8?Q?VVe8lWDwteudCgZs=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 26a70d14-ec3e-4c07-bb89-08da29e8c15b
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1101MB2157.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2022 14:01:28.1699 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vrlkQX5KvQUmsKepupoY4ghJiEGvWqnaqIF/I21dUTbPyIH5lgGROM3qKjU35okkrq8A58LSKt4tceTsr6/wbw34ldc1Kkmq3cUU1Zej3HM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR11MB1848
+X-OriginatorOrg: intel.com
+Cc: upstream@semihalf.com, harshapriya.n@intel.com, rad@semihalf.com,
+ tiwai@suse.com, hdegoede@redhat.com, amadeuszx.slawinski@linux.intel.com,
+ cujomalainey@chromium.org, lma@semihalf.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -122,579 +194,213 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In a future patch HAS_IOPORT=n will result in inb()/outb() and friends
-not being declared. We thus need to add HAS_IOPORT as dependency for
-those drivers using them. For SND_OPL3_LIB this adds its first
-dependency so drivers currently selecting it unconditionally need to
-depend on it instead.
+On 2022-04-27 12:12 AM, Pierre-Louis Bossart wrote:
+> On 4/26/22 12:23, Cezary Rojewski wrote:
+>> AVS driver operates with granular audio card division in mind.
+>> Super-card approach (e.g.: I2S, DMIC and HDA DAIs combined) is
+>> deprecated in favour of individual cards - one per each device. This
+>> provides necessary dynamism, especially for configurations with number
+>> of codecs present and makes it easier to survive auxiliary devices
+>> failures - one card failing to probe does not prevent others from
+>> succeeding.
+>>
+>> All boards spawned by AVS are unregistered on ->remove(). This includes
+>> dummy codecs such as DMIC.
+>>
+>> As all machine boards found in sound/soc/intel/boards are irreversibly
+>> tied to 'super-card' approach, new boards are going to be introduced.
+>> This temporarily increases number of boards available under /intel
+>> directory until skylake-driver becomes deprecated and removed.
+> 
+> I thought you wanted your own directory for cards, what's the point of adding new machine drivers in intel/boards if they ONLY work with your AVS driver?
+> 
+> Also you can only remove the machine drivers that are NOT shared with SOF...
 
-Co-developed-by: Arnd Bergmann <arnd@kernel.org>
-Signed-off-by: Niklas Schnelle <schnelle@linux.ibm.com>
----
- sound/drivers/Kconfig |  5 ++++
- sound/isa/Kconfig     | 44 ++++++++++++++---------------
- sound/pci/Kconfig     | 64 +++++++++++++++++++++++++++++--------------
- 3 files changed, 70 insertions(+), 43 deletions(-)
 
-diff --git a/sound/drivers/Kconfig b/sound/drivers/Kconfig
-index ca4cdf666f82..4d250e619786 100644
---- a/sound/drivers/Kconfig
-+++ b/sound/drivers/Kconfig
-@@ -1,10 +1,12 @@
- # SPDX-License-Identifier: GPL-2.0-only
- config SND_MPU401_UART
- 	tristate
-+	depends on HAS_IOPORT
- 	select SND_RAWMIDI
- 
- config SND_OPL3_LIB
- 	tristate
-+	depends on HAS_IOPPORT
- 	select SND_TIMER
- 	select SND_HWDEP
- 	select SND_SEQ_DEVICE if SND_SEQUENCER != n
-@@ -128,6 +130,7 @@ config SND_VIRMIDI
- 
- config SND_MTPAV
- 	tristate "MOTU MidiTimePiece AV multiport MIDI"
-+	depends on HAS_IOPORT
- 	select SND_RAWMIDI
- 	help
- 	  To use a MOTU MidiTimePiece AV multiport MIDI adapter
-@@ -152,6 +155,7 @@ config SND_MTS64
- 
- config SND_SERIAL_U16550
- 	tristate "UART16550 serial MIDI driver"
-+	depends on HAS_IOPORT
- 	select SND_RAWMIDI
- 	help
- 	  To include support for MIDI serial port interfaces, say Y here
-@@ -167,6 +171,7 @@ config SND_SERIAL_U16550
- 
- config SND_MPU401
- 	tristate "Generic MPU-401 UART driver"
-+	depends on HAS_IOPORT
- 	select SND_MPU401_UART
- 	help
- 	  Say Y here to include support for MIDI ports compatible with
-diff --git a/sound/isa/Kconfig b/sound/isa/Kconfig
-index 570b88e0b201..072265429f39 100644
---- a/sound/isa/Kconfig
-+++ b/sound/isa/Kconfig
-@@ -31,7 +31,7 @@ if SND_ISA
- 
- config SND_ADLIB
- 	tristate "AdLib FM card"
--	select SND_OPL3_LIB
-+	depends on SND_OPL3_LIB
- 	help
- 	  Say Y here to include support for AdLib FM cards.
- 
-@@ -42,7 +42,7 @@ config SND_AD1816A
- 	tristate "Analog Devices SoundPort AD1816A"
- 	depends on PNP
- 	select ISAPNP
--	select SND_OPL3_LIB
-+	depends on SND_OPL3_LIB
- 	select SND_MPU401_UART
- 	select SND_PCM
- 	select SND_TIMER
-@@ -70,7 +70,7 @@ config SND_ALS100
- 	tristate "Diamond Tech. DT-019x and Avance Logic ALSxxx"
- 	depends on PNP
- 	select ISAPNP
--	select SND_OPL3_LIB
-+	depends on SND_OPL3_LIB
- 	select SND_MPU401_UART
- 	select SND_SB16_DSP
- 	help
-@@ -86,7 +86,7 @@ config SND_AZT1605
- 	depends on SND
- 	select SND_WSS_LIB
- 	select SND_MPU401_UART
--	select SND_OPL3_LIB
-+	depends on SND_OPL3_LIB
- 	help
- 	  Say Y here to include support for Aztech Sound Galaxy cards
- 	  based on the AZT1605 chipset.
-@@ -99,7 +99,7 @@ config SND_AZT2316
- 	depends on SND
- 	select SND_WSS_LIB
- 	select SND_MPU401_UART
--	select SND_OPL3_LIB
-+	depends on SND_OPL3_LIB
- 	help
- 	  Say Y here to include support for Aztech Sound Galaxy cards
- 	  based on the AZT2316 chipset.
-@@ -111,7 +111,7 @@ config SND_AZT2320
- 	tristate "Aztech Systems AZT2320"
- 	depends on PNP
- 	select ISAPNP
--	select SND_OPL3_LIB
-+	depends on SND_OPL3_LIB
- 	select SND_MPU401_UART
- 	select SND_WSS_LIB
- 	help
-@@ -124,7 +124,7 @@ config SND_AZT2320
- config SND_CMI8328
- 	tristate "C-Media CMI8328"
- 	select SND_WSS_LIB
--	select SND_OPL3_LIB
-+	depends on SND_OPL3_LIB
- 	select SND_MPU401_UART
- 	help
- 	  Say Y here to include support for soundcards based on the
-@@ -137,7 +137,7 @@ config SND_CMI8330
- 	tristate "C-Media CMI8330"
- 	select SND_WSS_LIB
- 	select SND_SB16_DSP
--	select SND_OPL3_LIB
-+	depends on SND_OPL3_LIB
- 	select SND_MPU401_UART
- 	help
- 	  Say Y here to include support for soundcards based on the
-@@ -159,7 +159,7 @@ config SND_CS4231
- 
- config SND_CS4236
- 	tristate "Generic Cirrus Logic CS4232/CS4236+ driver"
--	select SND_OPL3_LIB
-+	depends on SND_OPL3_LIB
- 	select SND_MPU401_UART
- 	select SND_WSS_LIB
- 	help
-@@ -172,7 +172,7 @@ config SND_CS4236
- 
- config SND_ES1688
- 	tristate "Generic ESS ES688/ES1688 and ES968 PnP driver"
--	select SND_OPL3_LIB
-+	depends on SND_OPL3_LIB
- 	select SND_MPU401_UART
- 	select SND_PCM
- 	help
-@@ -184,7 +184,7 @@ config SND_ES1688
- 
- config SND_ES18XX
- 	tristate "Generic ESS ES18xx driver"
--	select SND_OPL3_LIB
-+	depends on SND_OPL3_LIB
- 	select SND_MPU401_UART
- 	select SND_PCM
- 	help
-@@ -197,7 +197,7 @@ config SND_SC6000
- 	tristate "Gallant SC-6000/6600/7000 and Audio Excel DSP 16"
- 	depends on HAS_IOPORT_MAP
- 	select SND_WSS_LIB
--	select SND_OPL3_LIB
-+	depends on SND_OPL3_LIB
- 	select SND_MPU401_UART
- 	help
- 	  Say Y here to include support for Gallant SC-6000, SC-6600, SC-7000
-@@ -223,7 +223,7 @@ config SND_GUSCLASSIC
- 
- config SND_GUSEXTREME
- 	tristate "Gravis UltraSound Extreme"
--	select SND_OPL3_LIB
-+	depends on SND_OPL3_LIB
- 	select SND_MPU401_UART
- 	select SND_PCM
- 	select SND_TIMER
-@@ -273,7 +273,7 @@ config SND_INTERWAVE_STB
- 
- config SND_JAZZ16
- 	tristate "Media Vision Jazz16 card and compatibles"
--	select SND_OPL3_LIB
-+	depends on SND_OPL3_LIB
- 	select SND_MPU401_UART
- 	select SND_SB8_DSP
- 	help
-@@ -289,7 +289,7 @@ config SND_JAZZ16
- 
- config SND_OPL3SA2
- 	tristate "Yamaha OPL3-SA2/SA3"
--	select SND_OPL3_LIB
-+	depends on SND_OPL3_LIB
- 	select SND_MPU401_UART
- 	select SND_WSS_LIB
- 	help
-@@ -301,7 +301,7 @@ config SND_OPL3SA2
- 
- config SND_OPTI92X_AD1848
- 	tristate "OPTi 82C92x - AD1848"
--	select SND_OPL3_LIB
-+	depends on SND_OPL3_LIB
- 	select SND_OPL4_LIB
- 	select SND_MPU401_UART
- 	select SND_WSS_LIB
-@@ -314,7 +314,7 @@ config SND_OPTI92X_AD1848
- 
- config SND_OPTI92X_CS4231
- 	tristate "OPTi 82C92x - CS4231"
--	select SND_OPL3_LIB
-+	depends on SND_OPL3_LIB
- 	select SND_OPL4_LIB
- 	select SND_MPU401_UART
- 	select SND_WSS_LIB
-@@ -327,7 +327,7 @@ config SND_OPTI92X_CS4231
- 
- config SND_OPTI93X
- 	tristate "OPTi 82C93x"
--	select SND_OPL3_LIB
-+	depends on SND_OPL3_LIB
- 	select SND_MPU401_UART
- 	select SND_WSS_LIB
- 	help
-@@ -352,7 +352,7 @@ config SND_MIRO
- 
- config SND_SB8
- 	tristate "Sound Blaster 1.0/2.0/Pro (8-bit)"
--	select SND_OPL3_LIB
-+	depends on SND_OPL3_LIB
- 	select SND_RAWMIDI
- 	select SND_SB8_DSP
- 	help
-@@ -364,7 +364,7 @@ config SND_SB8
- 
- config SND_SB16
- 	tristate "Sound Blaster 16 (PnP)"
--	select SND_OPL3_LIB
-+	depends on SND_OPL3_LIB
- 	select SND_MPU401_UART
- 	select SND_SB16_DSP
- 	help
-@@ -376,7 +376,7 @@ config SND_SB16
- 
- config SND_SBAWE
- 	tristate "Sound Blaster AWE (32,64) (PnP)"
--	select SND_OPL3_LIB
-+	depends on SND_OPL3_LIB
- 	select SND_MPU401_UART
- 	select SND_SB16_DSP
- 	select SND_SEQ_DEVICE if SND_SEQUENCER != n
-@@ -427,7 +427,7 @@ config SND_SSCAPE
- config SND_WAVEFRONT
- 	tristate "Turtle Beach Maui,Tropez,Tropez+ (Wavefront)"
- 	select FW_LOADER
--	select SND_OPL3_LIB
-+	depends on SND_OPL3_LIB
- 	select SND_MPU401_UART
- 	select SND_WSS_LIB
- 	help
-diff --git a/sound/pci/Kconfig b/sound/pci/Kconfig
-index a55836225401..c9fd973a7893 100644
---- a/sound/pci/Kconfig
-+++ b/sound/pci/Kconfig
-@@ -25,8 +25,8 @@ config SND_ALS300
- 	tristate "Avance Logic ALS300/ALS300+"
- 	select SND_PCM
- 	select SND_AC97_CODEC
--	select SND_OPL3_LIB
--	depends on ZONE_DMA
-+	depends on SND_OPL3_LIB
-+	depends on ZONE_DMA && HAS_IOPORT
- 	help
- 	  Say 'Y' or 'M' to include support for Avance Logic ALS300/ALS300+
- 
-@@ -36,7 +36,7 @@ config SND_ALS300
- config SND_ALS4000
- 	tristate "Avance Logic ALS4000"
- 	depends on ISA_DMA_API
--	select SND_OPL3_LIB
-+	depends on SND_OPL3_LIB
- 	select SND_MPU401_UART
- 	select SND_PCM
- 	select SND_SB_COMMON
-@@ -51,7 +51,7 @@ config SND_ALI5451
- 	tristate "ALi M5451 PCI Audio Controller"
- 	select SND_MPU401_UART
- 	select SND_AC97_CODEC
--	depends on ZONE_DMA
-+	depends on ZONE_DMA && HAS_IOPORT
- 	help
- 	  Say Y here to include support for the integrated AC97 sound
- 	  device on motherboards using the ALi M5451 Audio Controller
-@@ -96,6 +96,7 @@ config SND_ATIIXP_MODEM
- 
- config SND_AU8810
- 	tristate "Aureal Advantage"
-+	depends on HAS_IOPORT
- 	select SND_MPU401_UART
- 	select SND_AC97_CODEC
- 	help
-@@ -110,6 +111,7 @@ config SND_AU8810
- 
- config SND_AU8820
- 	tristate "Aureal Vortex"
-+	depends on HAS_IOPORT
- 	select SND_MPU401_UART
- 	select SND_AC97_CODEC
- 	help
-@@ -123,6 +125,7 @@ config SND_AU8820
- 
- config SND_AU8830
- 	tristate "Aureal Vortex 2"
-+	depends on HAS_IOPORT
- 	select SND_MPU401_UART
- 	select SND_AC97_CODEC
- 	help
-@@ -151,13 +154,13 @@ config SND_AW2
- 
- config SND_AZT3328
- 	tristate "Aztech AZF3328 / PCI168"
--	select SND_OPL3_LIB
-+	depends on SND_OPL3_LIB
- 	select SND_MPU401_UART
- 	select SND_PCM
- 	select SND_RAWMIDI
- 	select SND_AC97_CODEC
- 	select SND_TIMER
--	depends on ZONE_DMA
-+	depends on ZONE_DMA && HAS_IOPORT
- 	help
- 	  Say Y here to include support for Aztech AZF3328 (PCI168)
- 	  soundcards.
-@@ -193,6 +196,7 @@ config SND_BT87X_OVERCLOCK
- 
- config SND_CA0106
- 	tristate "SB Audigy LS / Live 24bit"
-+	depends on HAS_IOPORT
- 	select SND_AC97_CODEC
- 	select SND_RAWMIDI
- 	select SND_VMASTER
-@@ -205,7 +209,8 @@ config SND_CA0106
- 
- config SND_CMIPCI
- 	tristate "C-Media 8338, 8738, 8768, 8770"
--	select SND_OPL3_LIB
-+	depends on HAS_IOPORT
-+	depends on SND_OPL3_LIB
- 	select SND_MPU401_UART
- 	select SND_PCM
- 	help
-@@ -221,6 +226,7 @@ config SND_OXYGEN_LIB
- 
- config SND_OXYGEN
- 	tristate "C-Media 8786, 8787, 8788 (Oxygen)"
-+	depends on HAS_IOPORT
- 	select SND_OXYGEN_LIB
- 	select SND_PCM
- 	select SND_MPU401_UART
-@@ -246,7 +252,8 @@ config SND_OXYGEN
- 
- config SND_CS4281
- 	tristate "Cirrus Logic (Sound Fusion) CS4281"
--	select SND_OPL3_LIB
-+	depends on HAS_IOPORT
-+	depends on SND_OPL3_LIB
- 	select SND_RAWMIDI
- 	select SND_AC97_CODEC
- 	help
-@@ -257,6 +264,7 @@ config SND_CS4281
- 
- config SND_CS46XX
- 	tristate "Cirrus Logic (Sound Fusion) CS4280/CS461x/CS462x/CS463x"
-+	depends on HAS_IOPORT
- 	select SND_RAWMIDI
- 	select SND_AC97_CODEC
- 	select FW_LOADER
-@@ -290,6 +298,7 @@ config SND_CS5530
- config SND_CS5535AUDIO
- 	tristate "CS5535/CS5536 Audio"
- 	depends on X86_32 || MIPS || COMPILE_TEST
-+	depends on HAS_IOPORT
- 	select SND_PCM
- 	select SND_AC97_CODEC
- 	help
-@@ -307,6 +316,7 @@ config SND_CS5535AUDIO
- 
- config SND_CTXFI
- 	tristate "Creative Sound Blaster X-Fi"
-+	depends on HAS_IOPORT
- 	select SND_PCM
- 	help
- 	  If you want to use soundcards based on Creative Sound Blastr X-Fi
-@@ -468,7 +478,7 @@ config SND_EMU10K1
- 	select SND_AC97_CODEC
- 	select SND_TIMER
- 	select SND_SEQ_DEVICE if SND_SEQUENCER != n
--	depends on ZONE_DMA
-+	depends on ZONE_DMA && HAS_IOPORT
- 	help
- 	  Say Y to include support for Sound Blaster PCI 512, Live!,
- 	  Audigy and E-mu APS (partially supported) soundcards.
-@@ -491,7 +501,7 @@ config SND_EMU10K1X
- 	tristate "Emu10k1X (Dell OEM Version)"
- 	select SND_AC97_CODEC
- 	select SND_RAWMIDI
--	depends on ZONE_DMA
-+	depends on ZONE_DMA && HAS_IOPORT
- 	help
- 	  Say Y here to include support for the Dell OEM version of the
- 	  Sound Blaster Live!.
-@@ -501,6 +511,7 @@ config SND_EMU10K1X
- 
- config SND_ENS1370
- 	tristate "(Creative) Ensoniq AudioPCI 1370"
-+	depends on HAS_IOPORT
- 	select SND_RAWMIDI
- 	select SND_PCM
- 	help
-@@ -511,6 +522,7 @@ config SND_ENS1370
- 
- config SND_ENS1371
- 	tristate "(Creative) Ensoniq AudioPCI 1371/1373"
-+	depends on HAS_IOPORT
- 	select SND_RAWMIDI
- 	select SND_AC97_CODEC
- 	help
-@@ -522,10 +534,10 @@ config SND_ENS1371
- 
- config SND_ES1938
- 	tristate "ESS ES1938/1946/1969 (Solo-1)"
--	select SND_OPL3_LIB
-+	depends on SND_OPL3_LIB
- 	select SND_MPU401_UART
- 	select SND_AC97_CODEC
--	depends on ZONE_DMA
-+	depends on ZONE_DMA && HAS_IOPORT
- 	help
- 	  Say Y here to include support for soundcards based on ESS Solo-1
- 	  (ES1938, ES1946, ES1969) chips.
-@@ -537,7 +549,7 @@ config SND_ES1968
- 	tristate "ESS ES1968/1978 (Maestro-1/2/2E)"
- 	select SND_MPU401_UART
- 	select SND_AC97_CODEC
--	depends on ZONE_DMA
-+	depends on ZONE_DMA && HAS_IOPORT
- 	help
- 	  Say Y here to include support for soundcards based on ESS Maestro
- 	  1/2/2E chips.
-@@ -569,7 +581,8 @@ config SND_ES1968_RADIO
- 
- config SND_FM801
- 	tristate "ForteMedia FM801"
--	select SND_OPL3_LIB
-+	depends on HAS_IOPORT
-+	depends on SND_OPL3_LIB
- 	select SND_MPU401_UART
- 	select SND_AC97_CODEC
- 	help
-@@ -624,7 +637,7 @@ config SND_ICE1712
- 	select SND_MPU401_UART
- 	select SND_AC97_CODEC
- 	select BITREVERSE
--	depends on ZONE_DMA
-+	depends on ZONE_DMA && HAS_IOPORT
- 	help
- 	  Say Y here to include support for soundcards based on the
- 	  ICE1712 (Envy24) chip.
-@@ -640,6 +653,7 @@ config SND_ICE1712
- 
- config SND_ICE1724
- 	tristate "ICE/VT1724/1720 (Envy24HT/PT)"
-+	depends on HAS_IOPORT
- 	select SND_RAWMIDI
- 	select SND_AC97_CODEC
- 	select SND_VMASTER
-@@ -712,7 +726,7 @@ config SND_LX6464ES
- config SND_MAESTRO3
- 	tristate "ESS Allegro/Maestro3"
- 	select SND_AC97_CODEC
--	depends on ZONE_DMA
-+	depends on ZONE_DMA && HAS_IOPORT
- 	help
- 	  Say Y here to include support for soundcards based on ESS Maestro 3
- 	  (Allegro) chips.
-@@ -753,6 +767,7 @@ config SND_NM256
- 
- config SND_PCXHR
- 	tristate "Digigram PCXHR"
-+	depends on HAS_IOPORT
- 	select FW_LOADER
- 	select SND_PCM
- 	select SND_HWDEP
-@@ -764,8 +779,9 @@ config SND_PCXHR
- 
- config SND_RIPTIDE
- 	tristate "Conexant Riptide"
-+	depends on HAS_IOPORT
- 	select FW_LOADER
--	select SND_OPL3_LIB
-+	depends on SND_OPL3_LIB
- 	select SND_MPU401_UART
- 	select SND_AC97_CODEC
- 	help
-@@ -808,6 +824,7 @@ config SND_RME9652
- config SND_SE6X
- 	tristate "Studio Evolution SE6X"
- 	depends on SND_OXYGEN=n && SND_VIRTUOSO=n  # PCI ID conflict
-+	depends on HAS_IOPORT
- 	select SND_OXYGEN_LIB
- 	select SND_PCM
- 	select SND_MPU401_UART
-@@ -827,10 +844,10 @@ config SND_SIS7019
- 
- config SND_SONICVIBES
- 	tristate "S3 SonicVibes"
--	select SND_OPL3_LIB
-+	depends on SND_OPL3_LIB
- 	select SND_MPU401_UART
- 	select SND_AC97_CODEC
--	depends on ZONE_DMA
-+	depends on ZONE_DMA && HAS_IOPORT
- 	help
- 	  Say Y here to include support for soundcards based on the S3
- 	  SonicVibes chip.
-@@ -842,7 +859,7 @@ config SND_TRIDENT
- 	tristate "Trident 4D-Wave DX/NX; SiS 7018"
- 	select SND_MPU401_UART
- 	select SND_AC97_CODEC
--	depends on ZONE_DMA
-+	depends on ZONE_DMA && HAS_IOPORT
- 	help
- 	  Say Y here to include support for soundcards based on Trident
- 	  4D-Wave DX/NX or SiS 7018 chips.
-@@ -852,6 +869,7 @@ config SND_TRIDENT
- 
- config SND_VIA82XX
- 	tristate "VIA 82C686A/B, 8233/8235 AC97 Controller"
-+	depends on HAS_IOPORT
- 	select SND_MPU401_UART
- 	select SND_AC97_CODEC
- 	help
-@@ -863,6 +881,7 @@ config SND_VIA82XX
- 
- config SND_VIA82XX_MODEM
- 	tristate "VIA 82C686A/B, 8233 based Modems"
-+	depends on HAS_IOPORT
- 	select SND_AC97_CODEC
- 	help
- 	  Say Y here to include support for the integrated MC97 modem on
-@@ -873,6 +892,7 @@ config SND_VIA82XX_MODEM
- 
- config SND_VIRTUOSO
- 	tristate "Asus Virtuoso 66/100/200 (Xonar)"
-+	depends on HAS_IOPORT
- 	select SND_OXYGEN_LIB
- 	select SND_PCM
- 	select SND_MPU401_UART
-@@ -889,6 +909,7 @@ config SND_VIRTUOSO
- 
- config SND_VX222
- 	tristate "Digigram VX222"
-+	depends on HAS_IOPORT
- 	select SND_VX_LIB
- 	help
- 	  Say Y here to include support for Digigram VX222 soundcards.
-@@ -898,7 +919,8 @@ config SND_VX222
- 
- config SND_YMFPCI
- 	tristate "Yamaha YMF724/740/744/754"
--	select SND_OPL3_LIB
-+	depends on HAS_IOPORT
-+	depends on SND_OPL3_LIB
- 	select SND_MPU401_UART
- 	select SND_AC97_CODEC
- 	select SND_TIMER
--- 
-2.32.0
+Yes, if something is being actively used even once skylake-driver is 
+removed, it will stay there. No worries. I recommend moving SOF-specific 
+boards into /sof/intel/boards/ though - it feels logical to have 
+driver-specific boards within driver-specific folder as very limited 
+number of boards, if any, are "common" here.
 
+I've provided board-related patchset on the list simultaneously so 
+people can see the full picture.
+
+>> +static struct snd_soc_acpi_mach *dmi_match_quirk(void *arg)
+>> +{
+>> +	struct snd_soc_acpi_mach *mach = arg;
+>> +	const struct dmi_system_id *dmi_id;
+>> +	struct dmi_system_id *dmi_table;
+>> +
+>> +	if (mach->quirk_data == NULL)
+>> +		return mach;
+>> +
+>> +	dmi_table = (struct dmi_system_id *)mach->quirk_data;
+>> +
+>> +	dmi_id = dmi_first_match(dmi_table);
+>> +	if (!dmi_id)
+>> +		return NULL;
+>> +
+>> +	return mach;
+>> +}
+>> +
+>> +#define AVS_SSP(x)		(BIT(x))
+>> +#define AVS_SSP_RANGE(a, b)	(GENMASK(b, a))
+>> +
+>> +/* supported I2S board codec configurations */
+>> +static struct snd_soc_acpi_mach avs_skl_i2s_machines[] = {
+>> +	{
+>> +		.id = "INT343A",
+>> +		.drv_name = "avs_rt286",
+>> +		.link_mask = AVS_SSP(0),
+> 
+> I've told this before, 'link_mask' was introduced for *SoundWire*. Please do not overload existing concepts and use this instead:
+> 
+> @i2s_link_mask: I2S/TDM links enabled on the board
+
+
+Noooo :( Sad panda is sad.
+
+'link_mask' is such a wonderful name as it matches naming used in our 
+specs - which call BE side 'LINK'.
+
+If it's a must then yes, we will resign from using 'link_mask'.
+
+>> +		.tplg_filename = "skl-rt286-tplg.bin",
+>> +	},
+>> +	{
+>> +		.id = "10508825",
+>> +		.drv_name = "avs_nau8825",
+>> +		.link_mask = AVS_SSP(1),
+>> +		.tplg_filename = "skl-nau8825-tplg.bin",
+>> +	},
+>> +	{
+>> +		.id = "INT343B",
+>> +		.drv_name = "avs_ssm4567",
+>> +		.link_mask = AVS_SSP(0),
+>> +		.tplg_filename = "skl-ssm4567-tplg.bin",
+>> +	},
+>> +	{
+>> +		.id = "MX98357A",
+>> +		.drv_name = "avs_max98357a",
+>> +		.link_mask = AVS_SSP(0),
+>> +		.tplg_filename = "skl-max98357a-tplg.bin",
+>> +	},
+>> +	{},
+>> +};
+>> +
+>> +static struct snd_soc_acpi_mach avs_kbl_i2s_machines[] = {
+>> +	{
+>> +		.id = "INT343A",
+>> +		.drv_name = "avs_rt286",
+>> +		.link_mask = AVS_SSP(0),
+>> +		.quirk_data = &kbl_dmi_table,
+>> +		.machine_quirk = dmi_match_quirk,
+>> +		.tplg_filename = "kbl-rt286-tplg.bin",
+>> +	},
+>> +	{
+>> +		.id = "INT343A",
+>> +		.drv_name = "avs_rt298",
+>> +		.link_mask = AVS_SSP(0),
+>> +		.quirk_data = &kbl_r_dmi_table,
+>> +		.machine_quirk = dmi_match_quirk,
+>> +		.tplg_filename = "kblr-rt298-tplg.bin",
+>> +	},
+>> +	{
+>> +		.id = "MX98373",
+>> +		.drv_name = "avs_max98373",
+>> +		.link_mask = AVS_SSP(0),
+>> +		.tplg_filename = "kbl-max98373-tplg.bin",
+>> +	},
+>> +	{
+>> +		.id = "DLGS7219",
+>> +		.drv_name = "avs_da7219",
+>> +		.link_mask = AVS_SSP(1),
+>> +		.tplg_filename = "kbl-da7219-tplg.bin",
+>> +	},
+>> +	{},
+>> +};
+>> +
+
+...
+
+>> +struct avs_acpi_boards {
+>> +	int id;
+>> +	struct snd_soc_acpi_mach *machs;
+>> +};
+>> +
+>> +#define AVS_MACH_ENTRY(_id, _mach) \
+>> +	{ .id = (_id), .machs = (_mach), }
+>> +
+>> +/* supported I2S boards per platform */
+>> +static const struct avs_acpi_boards i2s_boards[] = {
+>> +	AVS_MACH_ENTRY(0x9d70, avs_skl_i2s_machines), /* SKL */
+>> +	AVS_MACH_ENTRY(0x9d71, avs_kbl_i2s_machines), /* KBL */
+>> +	AVS_MACH_ENTRY(0x5a98, avs_apl_i2s_machines), /* APL */
+>> +	AVS_MACH_ENTRY(0x3198, avs_gml_i2s_machines), /* GML */
+>> +	{},
+> 
+> you are not using the intel/commmon matching and ACPI tables so I would recommend you deal with machine drivers in your private space.
+
+
+And that's what we chose to do! I'm sorry if the message brought any 
+confusion here. sound/soc/intel/avs/boards is the subdirectory for 
+avs-driver boards.
+
+>> +static int avs_register_hda_board(struct avs_dev *adev, struct hda_codec *codec)
+>> +{
+>> +	struct snd_soc_acpi_mach mach = {{0}};
+>> +	struct platform_device *board;
+>> +	struct hdac_device *hdev = &codec->core;
+>> +	char *pname;
+>> +	int ret, id;
+>> +
+>> +	pname = devm_kasprintf(adev->dev, GFP_KERNEL, "%s-platform", dev_name(&hdev->dev));
+>> +	if (!pname)
+>> +		return -ENOMEM;
+>> +
+>> +	ret = avs_hda_platform_register(adev, pname);
+>> +	if (ret < 0)
+>> +		return ret;
+>> +
+>> +	mach.pdata = codec;
+>> +	mach.mach_params.platform = pname;
+>> +	mach.tplg_filename = devm_kasprintf(adev->dev, GFP_KERNEL, "hda-%08x-tplg.bin",
+>> +					    hdev->vendor_id);
+> 
+> this is surprising, how many topologies will you end-up supporting then? Topologies are typically NOT dependent on the HDaudio codec type or vendor and only deal with HDaudio link DMA configurations.
+
+
+Keen eye. I'm not providing all the patches simultaneously so the 
+patchsets are easier to review. Note that avs/core.c (available on 
+upstream) still provides 'NULL' for its hda_ext_ops. Separate patches 
+for the point you brought here (and the completing the avs 
+initialization for that matter) will be sent later.
+
+The default: be specific when choosing topology for specific board - 
+allows for tailoring configuration-specific topology. However, if there 
+is no such files, load "generic" topology instead.
+
+In our repo, most of the hda-XXXX-tplg.bin files are actually symlinks 
+to few, real HD-Audio codec topologies.
+
+>> +	if (!mach.tplg_filename)
+>> +		return -ENOMEM;
+>> +
+>> +	id = adev->base.core.idx * HDA_MAX_CODECS + hdev->addr;
+>> +	board = platform_device_register_data(NULL, "avs_hdaudio", id, (const void *)&mach,
+>> +					      sizeof(mach));
+>> +	if (IS_ERR(board)) {
+>> +		dev_err(adev->dev, "hda board register failed\n");
+>> +		return PTR_ERR(board);
+>> +	}
+>> +
+>> +	ret = devm_add_action(adev->dev, board_pdev_unregister, board);
+>> +	if (ret < 0) {
+>> +		platform_device_unregister(board);
+>> +		return ret;
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> +

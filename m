@@ -2,89 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF16D51421F
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Apr 2022 08:01:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9E4E514265
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Apr 2022 08:33:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 805619F6;
-	Fri, 29 Apr 2022 08:00:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 805619F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5971915F2;
+	Fri, 29 Apr 2022 08:32:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5971915F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651212065;
-	bh=agT/OGbej8JavnKnB1CEWcJgau+bTDrE7NAcsDX59r4=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=RPoNoWeKH+A8E4nfoWd/OYdgRK3fBOVSFW+Og6DrMruiyooFKPSzNNWucvjv6IwAE
-	 LchrfXTupdfjZaJ2k9aTemDOCJetVrRWDSlmfbCKr/R6ZzpwSGheLzaqeWtaBU0puX
-	 Yb99FuxY2knug1DNhJJDau6P4zObEy3CteSI94tI=
+	s=default; t=1651213988;
+	bh=1qTI2+ULn9S33eUs/y9vp+7qFR3kaOf7jmVnCV4QTU0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ud1uIuJU0m/bfQY8mzNO6MTw11b6ATAjYkQ/wV5198jgFVEmw2OJdRukHmLTnBLje
+	 NcHBN9RJUmiFwjTjeIQTZugpyxulRXPhyeKIYk40PQIjO3UqJCcPX0TXWj8GmzbQMb
+	 wK9UoETxTLrGijRTbmkwmZ/f32mYupKaJMHvE8gY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E3C5FF8007E;
-	Fri, 29 Apr 2022 08:00:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 71C98F804A9;
+	Fri, 29 Apr 2022 08:31:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8D9FDF8025D; Fri, 29 Apr 2022 08:00:04 +0200 (CEST)
+ id 806CDF8016E; Fri, 29 Apr 2022 08:31:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_13,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 287CAF8016E
+ for <alsa-devel@alsa-project.org>; Fri, 29 Apr 2022 08:31:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 287CAF8016E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="oKda16HS"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B6A88F8007E
- for <alsa-devel@alsa-project.org>; Fri, 29 Apr 2022 07:59:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6A88F8007E
-X-UUID: bd6b44fac70b4733bbe0d11853d89fcf-20220429
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.4, REQID:6e9475b7-ebc5-477c-ac85-c26332b349d9, OB:0,
- LO
- B:0,IP:0,URL:0,TC:0,Content:-20,EDM:0,RT:0,SF:51,FILE:0,RULE:Release_Ham,A
- CTION:release,TS:31
-X-CID-INFO: VERSION:1.1.4, REQID:6e9475b7-ebc5-477c-ac85-c26332b349d9, OB:0,
- LOB:
- 0,IP:0,URL:0,TC:0,Content:-20,EDM:0,RT:0,SF:51,FILE:0,RULE:Release_Ham,ACT
- ION:release,TS:31
-X-CID-META: VersionHash:faefae9, CLOUDID:3fd5232f-6199-437e-8ab4-9920b4bc5b76,
- C
- OID:6ec4fd23a083,Recheck:0,SF:28|17|19|48,TC:nil,Content:0,EDM:-3,File:nil
- ,QS:0,BEC:nil
-X-UUID: bd6b44fac70b4733bbe0d11853d89fcf-20220429
-Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw02.mediatek.com
- (envelope-from <yc.hung@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 1785308049; Fri, 29 Apr 2022 13:59:47 +0800
-Received: from mtkmbs07n1.mediatek.inc (172.21.101.16) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.2.792.15; Fri, 29 Apr 2022 13:59:46 +0800
-Received: from mtkcas10.mediatek.inc (172.21.101.39) by
- mtkmbs07n1.mediatek.inc (172.21.101.16) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Fri, 29 Apr 2022 13:59:46 +0800
-Received: from mtksdccf07 (172.21.84.99) by mtkcas10.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Fri, 29 Apr 2022 13:59:45 +0800
-Message-ID: <9965188904de2e89bc5390fa6c71d9fb243f9d12.camel@mediatek.com>
-Subject: Re: [PATCH v4] dt-bindings: dsp: mediatek: add mt8195 dsp document
-From: YC Hung <yc.hung@mediatek.com>
-To: Matthias Brugger <matthias.bgg@gmail.com>, Rob Herring <robh@kernel.org>
-Date: Fri, 29 Apr 2022 13:59:46 +0800
-In-Reply-To: <68895a40-559b-13ce-d433-f9b32c648323@gmail.com>
-References: <20220106064847.15588-1-yc.hung@mediatek.com>
- <Yd4yNkeGlzdULNlv@robh.at.kernel.org>
- <68895a40-559b-13ce-d433-f9b32c648323@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 9E12261D7A;
+ Fri, 29 Apr 2022 06:31:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AFB0C385AC;
+ Fri, 29 Apr 2022 06:31:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1651213887;
+ bh=1qTI2+ULn9S33eUs/y9vp+7qFR3kaOf7jmVnCV4QTU0=;
+ h=From:To:Cc:Subject:Date:From;
+ b=oKda16HSltrM1J2Qv8n2yHzXm+KWDkgn6vpCbU3CbfalB9DsnP+Ip45pcRoJ4vYG2
+ TXInGSja1792BOhv1g7WnGV5fnSbmrIlAMZ5QrXdOG0mmq2AzZB8r/oZTBXI46gMyO
+ ILOot9hhasVU6Q0QhI3SUfoPAighV0XqYAhmPmOY/3ybC83GjCeb+DuTVpH6G1LTFW
+ RAqC1CzHD5jD0vKp3aOFknDlb0mPlA1z7qAL1GRfGzPn7zVyFkPSvZJnKBjQxDlylc
+ gqrmEugOKSe3ZkXOgWUUTx4NvJC+/H2fDLgdHk2RrMji1NnRlfe3qRrpwhJCCULhPY
+ nu3UR42ITLJPA==
+Received: from mchehab by mail.kernel.org with local (Exim 4.94.2)
+ (envelope-from <mchehab@kernel.org>)
+ id 1nkK9z-001Qmf-Ly; Fri, 29 Apr 2022 07:31:23 +0100
+From: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Luis Chamberlain <mcgrof@kernel.org>
+Subject: [PATCH 0/2] Let userspace know when snd-hda-intel needs i915
+Date: Fri, 29 Apr 2022 07:31:14 +0100
+Message-Id: <cover.1651212016.git.mchehab@kernel.org>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-MTK: N
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- allen-kh.cheng@mediatek.com, cezary.rojewski@intel.com, tiwai@suse.com,
- robh+dt@kernel.org, linux-kernel@vger.kernel.org, broonie@kernel.org,
- linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
- daniel.baluta@nxp.com, linux-arm-kernel@lists.infradead.org
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@intel.com>,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ Lucas De Marchi <lucas.demarchi@intel.com>, Takashi Iwai <tiwai@suse.com>,
+ dri-devel@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ mauro.chehab@intel.com, Daniel Vetter <daniel@ffwll.ch>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, linux-modules@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,53 +90,76 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Mattias/Rob,
+Currently, kernel/module annotates module dependencies when
+request_symbol is used, but it doesn't cover more complex inter-driver
+dependencies that are subsystem and/or driver-specific.
 
-Sorry I miss this mail.
-Could you please help to check this patch? Thanks.
+In the case of hdmi sound, depending on the CPU/GPU, sometimes the
+snd_hda_driver can talk directly with the hardware, but sometimes, it
+uses the i915 driver. When the snd_hda_driver uses i915, it should
+first be unbind/rmmod, as otherwise trying to unbind/rmmod the i915
+driver cause driver issues, as as reported by CI tools with different
+GPU models:
 
-On Fri, 2022-01-14 at 13:56 +0100, Matthias Brugger wrote:
-> 
-> On 12/01/2022 02:43, Rob Herring wrote:
-> > On Thu, 06 Jan 2022 14:48:48 +0800, YC Hung wrote:
-> > > From: "YC Hung" <yc.hung@mediatek.com>
-> > > 
-> > > This patch adds mt8195 dsp document. The dsp is used for Sound
-> > > Open
-> > > Firmware driver node. It includes registers,  clocks, memory
-> > > regions,
-> > > and mailbox for dsp.
-> > > 
-> > > Signed-off-by: yc.hung <yc.hung@mediatek.com>
-> > > ---
-> > > Changes since v3:
-> > >    Fix patch v3 error : v3 only provide difference between v3 and
-> > > v2.
-> > > 
-> > > Changes since v2:
-> > >    Remove useless watchdog interrupt.
-> > >    Add commit message more detail description.
-> > > 
-> > > Changes since v1:
-> > >    Rename yaml file name as mediatek,mt8195-dsp.yaml
-> > >    Refine descriptions for mailbox, memory-region and drop unused
-> > > labels
-> > >    in examples.
-> > > ---
-> > >   .../bindings/dsp/mediatek,mt8195-dsp.yaml     | 105
-> > > ++++++++++++++++++
-> > >   1 file changed, 105 insertions(+)
-> > >   create mode 100644
-> > > Documentation/devicetree/bindings/dsp/mediatek,mt8195-dsp.yaml
-> > > 
-> > 
-> > Reviewed-by: Rob Herring <robh@kernel.org>
-> > 
-> 
-> Rob, it seems we don't have a maintainer for this bindings. Shall I
-> as MediaTek 
-> SoC maintainer take them through my branch?
-> 
-> Regards,
-> Matthias
+	https://intel-gfx-ci.01.org/tree/drm-tip/IGT_6415/fi-tgl-1115g4/igt@core_hotunplug@unbind-rebind.html
+	https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11495/bat-adlm-1/igt@i915_module_load@reload.html
+
+In the past, just a few CPUs were doing such bindings, but this issue now
+applies to all "modern" Intel CPUs  that have onboard graphics, as well as
+to the  newer discrete GPUs.
+
+With the discrete GPU case, the HDA controller is physically separate and
+requires i915 to power on the hardware for all hardware  access. In this
+case, the issue is hit basicly 100% of the time.
+
+With on-board graphics, i915 driver is needed only when the display
+codec is accessed. If i915 is unbind during runtime suspend, while
+snd-hda-intel is still bound, nothing bad happens, but unbinding i915
+on other situations may also cause issues.
+
+So, add support at kernel/modules to allow snd-hda drivers to properly
+annotate when a dependency on a DRM driver dependencies exists,
+and add a call to such new function at the snd-hda driver when it
+successfully binds into the DRM driver.
+
+This would allow userspace tools to check and properly remove the
+audio driver before trying to remove or unbind the GPU driver.
+
+It should be noticed that this series conveys the hidden module
+dependencies. Other changes are needed in order to allow
+removing or unbinding the i915 driver while keeping the snd-hda-intel
+driver loaded/bound. With that regards, there are some discussions on
+how to improve this at alsa-devel a while  back:
+
+https://mailman.alsa-project.org/pipermail/alsa-devel/2021-September/190099.html
+
+So, future improvements on both in i915 and the audio drivers could be made.
+E.g. with  discrete GPUs, it's the only codec of the card, so it seems feasible
+to detach the ALSA card if i915 is bound (using infra made for VGA
+switcheroo), but,  until these improvements are done and land in
+upstream, audio drivers needs to be unbound if i915 driver goes unbind.
+
+Yet, even if such fixes got merged, this series is still needed, as it makes
+such dependencies more explicit and easier to debug.
+
+PS.: This series was generated against next-20220428.
+
+Luis/Takashi/Daniel/David,
+
+If OK for you, I would prefer to have such patches applied via the drm-tip
+tree once reviewed, in order to make easier to use them by some patches
+I'm preparing to improve the CI tests that use i915 unbind logic.
+
+Mauro Carvalho Chehab (2):
+  module: add a function to add module references
+  ALSA: hda - identify when audio is provided by a video driver
+
+ include/linux/module.h     |  7 +++++++
+ kernel/module/main.c       | 31 +++++++++++++++++++++++++++++++
+ sound/hda/hdac_component.c |  8 ++++++++
+ 3 files changed, 46 insertions(+)
+
+-- 
+2.35.1
+
 

@@ -2,95 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE7C05154D4
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Apr 2022 21:41:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29BD1515554
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Apr 2022 22:17:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4DDA81F2;
-	Fri, 29 Apr 2022 21:40:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4DDA81F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id B3758825;
+	Fri, 29 Apr 2022 22:16:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B3758825
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651261274;
-	bh=KMkJ3LTFTZAz4VUB2PpqdSSanbTQ6rDgKhpZXZaE7cY=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1651263463;
+	bh=4dp06qOEaKW05s5QmALqeOdm2AKjybVwFfK5fyH2Jps=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dm8i5jGwwnjmzNiUPIVXGO7luVQ9BT8wqFPazVWSICFSt6loIZ3cRezs0p+mytWbx
-	 jVw5PO9dsnHvqdueY5WMCCwUrpY+rMzEW5pmxyN9c73I6SSJMvO9b+9U7YdiPKX19+
-	 HuNd0jq6AFL1IRu57xrAo5mzttjzGg6DA7fU4hNw=
+	b=EU+adWC95xw0P4AJqAHbI720HgNPHaEXUGGFi+Ur0LcN5Mcrk9yXWAumJ6Fsqs0e4
+	 Qtu1ztMvavkwmd+hQCr+pDolPj+5UGbkXTwXCqdHLqeoX86eKVtESLmf0xg30BY4iV
+	 lC6RBIqs/+9sTxC7zqoOrubw/vVyidPuGORSklmw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C51DDF8007E;
-	Fri, 29 Apr 2022 21:40:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 24396F80269;
+	Fri, 29 Apr 2022 22:16:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B5858F8025D; Fri, 29 Apr 2022 21:40:13 +0200 (CEST)
+ id AF220F8025D; Fri, 29 Apr 2022 22:16:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com
+ [209.85.160.48])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 37928F8012B
- for <alsa-devel@alsa-project.org>; Fri, 29 Apr 2022 21:40:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37928F8012B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="lFm3iQKY"
-Received: by mail-lf1-x134.google.com with SMTP id x33so15835258lfu.1
- for <alsa-devel@alsa-project.org>; Fri, 29 Apr 2022 12:40:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=mwwKTzefmTJKE4K4xtYs5yV3nVraWz0ZikLnWGl59aE=;
- b=lFm3iQKYv+iXNQnPNgYbCjemLYCoLZ+6q3E1x5ZMCZD5yY5Lk3h4X7aYbN3drSWwRq
- CZR+ejaRvWTyJYhdfolC2BRIb3vwePu/AuaOIJBvbr/O8vgAUGwbvcXCgL2qQbuKN9Yt
- D6BhohHanWNoi3TeFJqIOyOcbGaZiW03aJle0blhFeqHz8o2E4TtUDsM/rLXL4UJyaUz
- sb2pclaEe80ffX92ViuVUvI5/jBhF5n9FySGqMvkJ8P/K5MPg0degFfETklPUxnLkw6m
- Sx9KK0aVCKgguvLJQxxQwj03fos43udYhs3ZE8/xNVjOwD+tL+3uKwMGc5DeY8UCeISv
- b8tQ==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 827CCF8007E
+ for <alsa-devel@alsa-project.org>; Fri, 29 Apr 2022 22:16:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 827CCF8007E
+Received: by mail-oa1-f48.google.com with SMTP id
+ 586e51a60fabf-e9027efe6aso9182821fac.10
+ for <alsa-devel@alsa-project.org>; Fri, 29 Apr 2022 13:16:36 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=mwwKTzefmTJKE4K4xtYs5yV3nVraWz0ZikLnWGl59aE=;
- b=2+0ItQcA01wB47NOn0mAiPSsFLCM4UBPZyzXkBWB/aI8nrXUVbDSYFFTiI2suoKeE4
- nK0pS7wPEdmM2imLctrHaKC2vk5/jz/8HWcKt6QH1yQgAVmUXT3/pLBRkZ0L8bgez/Q2
- xg3Ca4IRr2XSQvu1F6lg2d2ryTJEHnpt6TW3aLMyhsngnqyBPm81ne6Hzpd1Fj+lSJFM
- yZH5odXf0pU40pugN3dBO4gpyZPZTE/tGaZhuE8TEyUHak/YyDi99bQEGjgCUIbGJMqL
- ZGPdvhREX503W+n9wU/5VrJgKUKCiX1eHx1FTc+x685q3w58LIdG0N1R4NqTKsof8n3w
- +8CA==
-X-Gm-Message-State: AOAM533WIWXeDrkUd3NDUhTdyNLPB3gMJw2paecXNfD2Yeut88zmZPx6
- jPPM4Y8WYH7d6pwLzyFOsas=
-X-Google-Smtp-Source: ABdhPJwLT2ZuEsOVkBi1kQnU4XUi1G08j+m8GU1+lKJy45lTkkivaxkbrGinKlPedfjaN/CuQeBHKw==
-X-Received: by 2002:ac2:4884:0:b0:472:344:1c86 with SMTP id
- x4-20020ac24884000000b0047203441c86mr551948lfc.628.1651261204509; 
- Fri, 29 Apr 2022 12:40:04 -0700 (PDT)
-Received: from [10.0.0.42] (91-159-150-230.elisa-laajakaista.fi.
- [91.159.150.230]) by smtp.gmail.com with ESMTPSA id
- q14-20020ac2514e000000b0047255d211acsm7463lfd.219.2022.04.29.12.40.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 29 Apr 2022 12:40:03 -0700 (PDT)
-Message-ID: <8db28ee0-6aff-24aa-5bc1-45a639592f88@gmail.com>
-Date: Fri, 29 Apr 2022 22:46:46 +0300
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=tiOACVbwh67uqkrg+v7LDtn9Slnv0D8m91bpuKh0Ev0=;
+ b=1uA1ajJU3ftcD+hroQGg8pj9NnTKkhIk7Hwfa7L3m578QP0wUueNaiKrgCoJNbPvrS
+ zMDhS+bQt0DjUAuv/aWxUJv+IR6u6st4WUSN2HsKh54W3/vQsqGDmW8MKfCG2ojejuKh
+ QwyvNgaDoxCLJiD/+YutWppNe1zFtm3nQ+z08o4LtJcIPwlzSm3kKrq7G0WpkNJz2C01
+ Vd/0FM/7U8OI/VJL7m6YcQrLE+o7Dl2mK5y4BeJZOMkyGUx/mynbAC//sjndCsVYfZsb
+ q7QDEsUifDQUVQD6Y4ITXFjiqTQAC/ZZcCRhwC5LD/A2TpZLzCZPWDtb2YYXCdSEKYNa
+ 3MPw==
+X-Gm-Message-State: AOAM531/hRTY+1HZMoGeUhjpsuuJvJTSEgykvmjOZKKJkW3Mnduvnb4u
+ hu1NMA6vwJZlHUc2Spcl/g==
+X-Google-Smtp-Source: ABdhPJw2gDKOW+0tcM8RQuwAxxtSJfYernX60ZZrMMDRUED6g9kqv7Imhf1an1clOEIvD5i6uHJTWA==
+X-Received: by 2002:a05:6870:e245:b0:de:9321:9ea3 with SMTP id
+ d5-20020a056870e24500b000de93219ea3mr480183oac.79.1651263395259; 
+ Fri, 29 Apr 2022 13:16:35 -0700 (PDT)
+Received: from robh.at.kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ i13-20020a54408d000000b00325cda1ffb9sm67047oii.56.2022.04.29.13.16.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 29 Apr 2022 13:16:34 -0700 (PDT)
+Received: (nullmailer pid 2793009 invoked by uid 1000);
+ Fri, 29 Apr 2022 20:16:33 -0000
+Date: Fri, 29 Apr 2022 15:16:33 -0500
+From: Rob Herring <robh@kernel.org>
+To: Jiaxin Yu <jiaxin.yu@mediatek.com>
+Subject: Re: [v4 16/18] dt-bindings: mediatek: mt8186: add
+ mt8186-mt6366-da7219-max98357 document
+Message-ID: <YmxHoXfpmC2XxReg@robh.at.kernel.org>
+References: <20220428093355.16172-1-jiaxin.yu@mediatek.com>
+ <20220428093355.16172-17-jiaxin.yu@mediatek.com>
+ <YmqlNV31FrcAyuN9@robh.at.kernel.org>
+ <5e400f7ccb3b208a033e2ad8f220331851ff9c7e.camel@mediatek.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Subject: Re: [PATCH v2] ASoC: ti: davinci-mcasp: Add dma-type for bcdma
-Content-Language: en-US
-To: Jai Luthra <j-luthra@ti.com>
-References: <20220422054001.3738-1-j-luthra@ti.com>
-From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@gmail.com>
-In-Reply-To: <20220422054001.3738-1-j-luthra@ti.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Jayesh Choudhary <j-choudhary@ti.com>,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5e400f7ccb3b208a033e2ad8f220331851ff9c7e.camel@mediatek.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org,
+ Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
+ broonie@kernel.org, linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
+ matthias.bgg@gmail.com, aaronyu@google.com, julianbraha@gmail.com,
+ linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,34 +101,99 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, Apr 29, 2022 at 05:40:02PM +0800, Jiaxin Yu wrote:
+> On Thu, 2022-04-28 at 09:31 -0500, Rob Herring wrote:
+> > On Thu, Apr 28, 2022 at 05:33:53PM +0800, Jiaxin Yu wrote:
+> > > Add document for mt8186 board with mt6366, da7219 and max98357.
+> > > 
+> > > Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
+> > > ---
+> > >  .../sound/mt8186-mt6366-da7219-max98357.yaml  | 71
+> > > +++++++++++++++++++
+> > >  1 file changed, 71 insertions(+)
+> > >  create mode 100644 Documentation/devicetree/bindings/sound/mt8186-
+> > > mt6366-da7219-max98357.yaml
+> > > 
+> > > diff --git a/Documentation/devicetree/bindings/sound/mt8186-mt6366-
+> > > da7219-max98357.yaml
+> > > b/Documentation/devicetree/bindings/sound/mt8186-mt6366-da7219-
+> > > max98357.yaml
+> > > new file mode 100644
+> > > index 000000000000..55e8649f2aea
+> > > --- /dev/null
+> > > +++ b/Documentation/devicetree/bindings/sound/mt8186-mt6366-da7219-
+> > > max98357.yaml
+> > > @@ -0,0 +1,71 @@
+> > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > +%YAML 1.2
+> > > +---
+> > > +$id: 
+> > > http://devicetree.org/schemas/sound/mt8186-mt6366-da7219-max98357.yaml#
+> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > +
+> > > +title: Mediatek MT8186 with MT6366, DA7219 and MAX98357 ASoC sound
+> > > card driver
+> > > +
+> > > +maintainers:
+> > > +  - Jiaxin Yu <jiaxin.yu@mediatek.com>
+> > > +
+> > > +description:
+> > > +  This binding describes the MT8186 sound card.
+> > > +
+> > > +properties:
+> > > +  compatible:
+> > > +    enum:
+> > > +      - mediatek,mt8186_mt6366_da7219_max98357_sound
+> > 
+> > s/_/-/
+> > 
+> Got it.
+> > > +
+> > > +  mediatek,platform:
+> > > +    $ref: "/schemas/types.yaml#/definitions/phandle"
+> > > +    description: The phandle of MT8186 ASoC platform.
+> > > +
+> > > +  headset-codec:
+> > > +    type: object
+> > 
+> >        additionalProperties: false
+> Ditto.
+> > 
+> > > +    properties:
+> > > +      sound-dai:
+> > > +        $ref: /schemas/types.yaml#/definitions/phandle
+> > 
+> > sound-dai already has a type, so drop and define how many entries.
+> > 
+> Ditto.
 
+No need to reply in agreement. Just trim the email instead.
 
-On 4/22/22 08:40, Jai Luthra wrote:
-> From: Jayesh Choudhary <j-choudhary@ti.com>
+> > > +    properties:
+> > > +      sound-dai:
+> > > +        minItems: 2
+> > > +        maxItems: 3
+> > 
+> > If more than 1 entry, then you need to define what each one is and
+> > the 
+> > order. Just like reg, interrupts, clocks, etc.
+> > 
+> Hi Rob,
 > 
-> Set DMA type for ti-bcdma controller for AM62-SK.
-
-Acked-by: Peter Ujfalusi <peter.ujfalusi@gmail.com>
-
-> Signed-off-by: Jayesh Choudhary <j-choudhary@ti.com>
-> Signed-off-by: Jai Luthra <j-luthra@ti.com>
+> Should I correct them as below?
+> 
 > ---
->  sound/soc/ti/davinci-mcasp.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/sound/soc/ti/davinci-mcasp.c b/sound/soc/ti/davinci-mcasp.c
-> index 2c146b91fca3..377be2e2b6ee 100644
-> --- a/sound/soc/ti/davinci-mcasp.c
-> +++ b/sound/soc/ti/davinci-mcasp.c
-> @@ -2047,6 +2047,8 @@ static int davinci_mcasp_get_dma_type(struct davinci_mcasp *mcasp)
->  		return PCM_SDMA;
->  	else if (strstr(tmp, "udmap"))
->  		return PCM_UDMA;
-> +	else if (strstr(tmp, "bcdma"))
-> +		return PCM_UDMA;
->  
->  	return PCM_EDMA;
->  }
+> properties:
+>   sound-dai:
+>     minItems: 2
+>     maxItems: 3
+>     items:
+>       - items:
+>           - description: xxx
+>           - description: yyy
+>           - description: zzz
 
--- 
-Péter
+Drop the outer 'items'. As-is, you are saying you have 1 entry with 3 
+cells (1 phandle + 2 arg cells).
+
+Rob

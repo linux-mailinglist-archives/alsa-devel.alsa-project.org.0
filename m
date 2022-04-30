@@ -2,79 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAA30515DCE
-	for <lists+alsa-devel@lfdr.de>; Sat, 30 Apr 2022 15:43:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4AB3515DCD
+	for <lists+alsa-devel@lfdr.de>; Sat, 30 Apr 2022 15:43:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 84D7D15DC;
-	Sat, 30 Apr 2022 15:42:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84D7D15DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 82F2F9F6;
+	Sat, 30 Apr 2022 15:42:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82F2F9F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651326223;
-	bh=z1ShzoCSkbQb+bOpuaiBtOfCObZ5xV/5jCkA52fVM7U=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=cM7hIGGUlfBdIhBw3zAi2Rm+IyoOWHU/5yE6NSdHda5nvI6Io4sd0W3E9XrM+NIZO
-	 luozZD80En6ks/xz/pfJ1V8N+nj8tORC5uzyH8fgruflfpoRTQLuNKNhuJ5+PfwkvN
-	 lbE3UMiuTMEOqUkry94dmpJvp572wCf4WDodkd0g=
+	s=default; t=1651326211;
+	bh=oRIo74EBIqUQt2BggP6GLMLLkw6dNMctIDHE7rupAZM=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=P76pBfw7ZeEN6lsVUoeMJikwH8cslkMQQbh+HjJXXtIf7R/VcArP+iZyqQYK+1DTh
+	 fzQkB8DSo7iG2EsT6Y8esNgXw78fNEwXsKD5b8XteBJg9gy7CUMgILse2rQyuoELVZ
+	 AnK+WH9VYWdGqs6wUnTHb7s3yhHOeaAipJ6w4Ync=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6D6E1F80510;
-	Sat, 30 Apr 2022 15:42:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BA290F80506;
+	Sat, 30 Apr 2022 15:42:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 97B84F80125; Sat, 30 Apr 2022 15:42:05 +0200 (CEST)
+ id 51DD2F8012A; Sat, 30 Apr 2022 15:42:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_13,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2FB22F80125
- for <alsa-devel@alsa-project.org>; Sat, 30 Apr 2022 15:41:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2FB22F80125
+ by alsa1.perex.cz (Postfix) with ESMTPS id 441D0F80121
+ for <alsa-devel@alsa-project.org>; Sat, 30 Apr 2022 15:41:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 441D0F80121
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ZSoiPmfw"
+ header.b="Ny+p08Hj"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A157260EA5;
- Sat, 30 Apr 2022 13:41:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05609C385AA;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 46CDFB82B91;
+ Sat, 30 Apr 2022 13:41:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EC8AC385AF;
  Sat, 30 Apr 2022 13:41:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1651326114;
- bh=z1ShzoCSkbQb+bOpuaiBtOfCObZ5xV/5jCkA52fVM7U=;
- h=From:To:Cc:Subject:Date:From;
- b=ZSoiPmfwpPthXwwLa+SgKEi3DzH2Y1E+GN8PH8yc8mRVbjar4q05Gt45Z5GnuOC9r
- DTQR2PrUvyCR5hjBBVFXEkXT/24eZiI/31Qzl2M+9U+jdclLfZJ4cJOSqO/0zXB3fi
- /JQQCltMWzh4hCzbuZ49YlcTU/AynOFfg0PGeINz91OtWxxI3MnYaomVQO8VumZTZI
- JOj8/uyj+4pj+2nnTnlWrLoKjlTWhjC+PcukaXUpFLgVzNGNysenUz6lb4icrnpUMp
- loucqMnkOtEc6nfxhIT7qckU12c5SF85dy/WmK2mbaQCzhDuwYIkXc9z9/FXiTII/Q
- 4GiqNWH0i7hZw==
+ bh=oRIo74EBIqUQt2BggP6GLMLLkw6dNMctIDHE7rupAZM=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=Ny+p08HjVrXxoTDUZsW9vWR6yDP5UI/lSctNfXWbp1Rhg+wveY5qplOs0xpXmNQ1A
+ w3rfevmi69mgOEg8ROfY2XM+HhncElbV8+tCkayjBgt+aTYby2w86hvVOpqxJZZARO
+ TWjBLOkOW9YZLxTLDEyIl9qwxDv3QqTqg7BJmIEkoIxGul2OD4r2bfsJCwbf2IgF1l
+ LI3TKJknogTfaGiwRZPXXQaNl+b8cfmcESGGL83Lip61CDAQ9Z2TV3/ofU4nWqmlda
+ yI/0gc/O2cG+ThIPEkRr6iBNi09adk5E55LdRxZDq6WzOIYlnwfQxZT7VlIkzp3rHy
+ PGgzxtBbGPo8Q==
 Received: from mchehab by mail.kernel.org with local (Exim 4.94.2)
  (envelope-from <mchehab@kernel.org>)
- id 1nknM6-001nsd-HX; Sat, 30 Apr 2022 14:41:50 +0100
+ id 1nknM6-001nsg-Is; Sat, 30 Apr 2022 14:41:50 +0100
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
 To: Luis Chamberlain <mcgrof@kernel.org>
-Subject: [PATCH v3 0/2] Let userspace know when snd-hda-intel needs i915
-Date: Sat, 30 Apr 2022 14:41:46 +0100
-Message-Id: <cover.1651326000.git.mchehab@kernel.org>
+Subject: [PATCH v3 1/2] module: update dependencies at try_module_get()
+Date: Sat, 30 Apr 2022 14:41:47 +0100
+Message-Id: <a403bfabca4ce587ddd275f2a3c1dfc1d99bda86.1651326000.git.mchehab@kernel.org>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <cover.1651326000.git.mchehab@kernel.org>
+References: <cover.1651326000.git.mchehab@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: mauro.chehab@linux.intel.com, alsa-devel@alsa-project.org,
- Kai Vehmanen <kai.vehmanen@intel.com>, Greg KH <gregkh@linuxfoundation.org>,
+Cc: alsa-devel@alsa-project.org, mauro.chehab@linux.intel.com,
+ David Airlie <airlied@linux.ie>, Greg KH <gregkh@linuxfoundation.org>,
  intel-gfx@lists.freedesktop.org, Lucas De Marchi <lucas.demarchi@intel.com>,
  Takashi Iwai <tiwai@suse.com>, dri-devel@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, linux-modules@vger.kernel.org,
- Daniel Vetter <daniel@ffwll.ch>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-kernel@vger.kernel.org,
+ Kai Vehmanen <kai.vehmanen@intel.com>, linux-modules@vger.kernel.org,
+ Daniel Vetter <daniel@ffwll.ch>, Dan Williams <dan.j.williams@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, linux-kernel@vger.kernel.org,
  Pierre-Louis Bossart <pierre-louis.bossart@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -91,80 +93,97 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Currently, kernel/module annotates module dependencies when
-request_symbol is used, but it doesn't cover more complex inter-driver
-dependencies that are subsystem and/or driver-specific.
+Sometimes, device drivers are bound into each other via try_module_get(),
+making such references invisible when looking at /proc/modules or lsmod.
 
-In the case of hdmi sound, depending on the CPU/GPU, sometimes the
-snd_hda_driver can talk directly with the hardware, but sometimes, it
-uses the i915 driver. When the snd_hda_driver uses i915, it should
-first be unbind/rmmod, as otherwise trying to unbind/rmmod the i915
-driver cause driver issues, as as reported by CI tools with different
-GPU models:
+Add a function to allow setting up module references for such
+cases, and call it when try_module_get() is used.
 
-	https://intel-gfx-ci.01.org/tree/drm-tip/IGT_6415/fi-tgl-1115g4/igt@core_hotunplug@unbind-rebind.html
-	https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11495/bat-adlm-1/igt@i915_module_load@reload.html
-
-In the past, just a few CPUs were doing such bindings, but this issue now
-applies to all "modern" Intel CPUs  that have onboard graphics, as well as
-to the  newer discrete GPUs.
-
-With the discrete GPU case, the HDA controller is physically separate and
-requires i915 to power on the hardware for all hardware  access. In this
-case, the issue is hit basicly 100% of the time.
-
-With on-board graphics, i915 driver is needed only when the display
-codec is accessed. If i915 is unbind during runtime suspend, while
-snd-hda-intel is still bound, nothing bad happens, but unbinding i915
-on other situations may also cause issues.
-
-So, add support at kernel/modules to allow snd-hda drivers to properly
-annotate when a dependency on a DRM driver dependencies exists,
-and add a call to such new function at the snd-hda driver when it
-successfully binds into the DRM driver.
-
-This would allow userspace tools to check and properly remove the
-audio driver before trying to remove or unbind the GPU driver.
-
-It should be noticed that this series conveys the hidden module
-dependencies. Other changes are needed in order to allow
-removing or unbinding the i915 driver while keeping the snd-hda-intel
-driver loaded/bound. With that regards, there are some discussions on
-how to improve this at alsa-devel a while  back:
-
-https://mailman.alsa-project.org/pipermail/alsa-devel/2021-September/190099.html
-
-So, future improvements on both in i915 and the audio drivers could be made.
-E.g. with  discrete GPUs, it's the only codec of the card, so it seems feasible
-to detach the ALSA card if i915 is bound (using infra made for VGA
-switcheroo), but,  until these improvements are done and land in
-upstream, audio drivers needs to be unbound if i915 driver goes unbind.
-
-Yet, even if such fixes got merged, this series is still needed, as it makes
-such dependencies more explicit and easier to debug.
-
-PS.: This series was generated against next-20220428.
-
+Reviewed-by: Dan Williams <dan.j.williams@intel.com>
+Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 ---
 
-v3: minor fixes:
- - fixed a checkpatch warning;
- - use a single line for the new function prototype.
+See [PATCH v3 0/2] at: https://lore.kernel.org/all/cover.1651326000.git.mchehab@kernel.org/
 
-v2: 
- - the dependencies are now handled directly at try_module_get().
+ include/linux/module.h |  4 +++-
+ kernel/module/main.c   | 33 +++++++++++++++++++++++++++++++--
+ 2 files changed, 34 insertions(+), 3 deletions(-)
 
-
-Mauro Carvalho Chehab (2):
-  module: update dependencies at try_module_get()
-  ALSA: hda - identify when audio is provided by a video driver
-
- include/linux/module.h     |  4 +++-
- kernel/module/main.c       | 33 +++++++++++++++++++++++++++++++--
- sound/hda/hdac_component.c |  2 +-
- 3 files changed, 35 insertions(+), 4 deletions(-)
-
+diff --git a/include/linux/module.h b/include/linux/module.h
+index 46d4d5f2516e..836851baaad4 100644
+--- a/include/linux/module.h
++++ b/include/linux/module.h
+@@ -620,7 +620,9 @@ extern void __module_get(struct module *module);
+ 
+ /* This is the Right Way to get a module: if it fails, it's being removed,
+  * so pretend it's not there. */
+-extern bool try_module_get(struct module *module);
++extern bool __try_module_get(struct module *module, struct module *this);
++
++#define try_module_get(mod) __try_module_get(mod, THIS_MODULE)
+ 
+ extern void module_put(struct module *module);
+ 
+diff --git a/kernel/module/main.c b/kernel/module/main.c
+index 05a42d8fcd7a..d63ebf52392b 100644
+--- a/kernel/module/main.c
++++ b/kernel/module/main.c
+@@ -631,6 +631,33 @@ static int ref_module(struct module *a, struct module *b)
+ 	return 0;
+ }
+ 
++static int ref_module_dependency(struct module *mod, struct module *this)
++{
++	int ret;
++
++	if (!this || !this->name)
++		return -EINVAL;
++
++	if (mod == this)
++		return 0;
++
++	mutex_lock(&module_mutex);
++
++	ret = ref_module(this, mod);
++
++#ifdef CONFIG_MODULE_UNLOAD
++	if (ret)
++		goto ret;
++
++	ret = sysfs_create_link(mod->holders_dir,
++				&this->mkobj.kobj, this->name);
++#endif
++
++ret:
++	mutex_unlock(&module_mutex);
++	return ret;
++}
++
+ /* Clear the unload stuff of the module. */
+ static void module_unload_free(struct module *mod)
+ {
+@@ -841,7 +868,7 @@ void __module_get(struct module *module)
+ }
+ EXPORT_SYMBOL(__module_get);
+ 
+-bool try_module_get(struct module *module)
++bool __try_module_get(struct module *module, struct module *this)
+ {
+ 	bool ret = true;
+ 
+@@ -856,9 +883,11 @@ bool try_module_get(struct module *module)
+ 
+ 		preempt_enable();
+ 	}
++	if (ret)
++		ref_module_dependency(module, this);
+ 	return ret;
+ }
+-EXPORT_SYMBOL(try_module_get);
++EXPORT_SYMBOL(__try_module_get);
+ 
+ void module_put(struct module *module)
+ {
 -- 
 2.35.1
-
 

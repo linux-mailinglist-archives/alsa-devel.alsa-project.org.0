@@ -2,82 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7A53515DB7
-	for <lists+alsa-devel@lfdr.de>; Sat, 30 Apr 2022 15:39:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAA30515DCE
+	for <lists+alsa-devel@lfdr.de>; Sat, 30 Apr 2022 15:43:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 382931F4;
-	Sat, 30 Apr 2022 15:38:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 382931F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 84D7D15DC;
+	Sat, 30 Apr 2022 15:42:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84D7D15DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651325974;
-	bh=FzJFz5nQnOEB7AB6Bbc1j8nS92uMjFglrLsFGFrMKzw=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=HlkROBDVJjg6FtS1vSQDFLeXJRY96YOOeV4PGL2RaoSzHPIJZ3bISXdVx00OAsu/k
-	 01RK26MpEP2sceDp0NT0NuxYIjesW7raNuTUw3kCLtmitudeX8i5S9mcmrYHobiLGF
-	 BP0Jf3wtmRp5VZXv3qFKLsS+DZEFckflbpn6Fylg=
+	s=default; t=1651326223;
+	bh=z1ShzoCSkbQb+bOpuaiBtOfCObZ5xV/5jCkA52fVM7U=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=cM7hIGGUlfBdIhBw3zAi2Rm+IyoOWHU/5yE6NSdHda5nvI6Io4sd0W3E9XrM+NIZO
+	 luozZD80En6ks/xz/pfJ1V8N+nj8tORC5uzyH8fgruflfpoRTQLuNKNhuJ5+PfwkvN
+	 lbE3UMiuTMEOqUkry94dmpJvp572wCf4WDodkd0g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 91F99F80125;
-	Sat, 30 Apr 2022 15:38:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6D6E1F80510;
+	Sat, 30 Apr 2022 15:42:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 86732F8012A; Sat, 30 Apr 2022 15:38:33 +0200 (CEST)
+ id 97B84F80125; Sat, 30 Apr 2022 15:42:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_13,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5AFB3F80121
- for <alsa-devel@alsa-project.org>; Sat, 30 Apr 2022 15:38:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5AFB3F80121
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2FB22F80125
+ for <alsa-devel@alsa-project.org>; Sat, 30 Apr 2022 15:41:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2FB22F80125
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="jlSMgCul"
+ header.b="ZSoiPmfw"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9088260B43;
- Sat, 30 Apr 2022 13:38:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA220C385AA;
- Sat, 30 Apr 2022 13:38:18 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A157260EA5;
+ Sat, 30 Apr 2022 13:41:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05609C385AA;
+ Sat, 30 Apr 2022 13:41:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1651325904;
- bh=FzJFz5nQnOEB7AB6Bbc1j8nS92uMjFglrLsFGFrMKzw=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=jlSMgCulySK0sR8W6lTjvw+WKsHy9h2dvPSn/5YMc2Ov1/C/vSQeLPrh3/hxq3C2S
- 3IgkIw0WSNTct9hBvrXmgMyELaYee9X3mtIvkZ2yTAPC2v3ej3vzF8gFH8UU44MXbw
- KAqWgwhvW5Kb+28/T9aQZOdeMKDQxhCoyaDM5Rc4HmIJ7hWl19h6P1Gfv/gEy6VuWa
- AFwi7dJptexzaE2VQYSiaVEgvKpTyAV4wyKOTlFHh6sphvpGPBihxxB6k6TaJew2RL
- kkHhZDiMzx49PBfmL29bVUZATY3SHGlyUfdYempi/ByrrXPMeyQ9uc+WWBkNDMAlQp
- uxkJBLqr/FN2w==
-Date: Sat, 30 Apr 2022 14:38:14 +0100
+ s=k20201202; t=1651326114;
+ bh=z1ShzoCSkbQb+bOpuaiBtOfCObZ5xV/5jCkA52fVM7U=;
+ h=From:To:Cc:Subject:Date:From;
+ b=ZSoiPmfwpPthXwwLa+SgKEi3DzH2Y1E+GN8PH8yc8mRVbjar4q05Gt45Z5GnuOC9r
+ DTQR2PrUvyCR5hjBBVFXEkXT/24eZiI/31Qzl2M+9U+jdclLfZJ4cJOSqO/0zXB3fi
+ /JQQCltMWzh4hCzbuZ49YlcTU/AynOFfg0PGeINz91OtWxxI3MnYaomVQO8VumZTZI
+ JOj8/uyj+4pj+2nnTnlWrLoKjlTWhjC+PcukaXUpFLgVzNGNysenUz6lb4icrnpUMp
+ loucqMnkOtEc6nfxhIT7qckU12c5SF85dy/WmK2mbaQCzhDuwYIkXc9z9/FXiTII/Q
+ 4GiqNWH0i7hZw==
+Received: from mchehab by mail.kernel.org with local (Exim 4.94.2)
+ (envelope-from <mchehab@kernel.org>)
+ id 1nknM6-001nsd-HX; Sat, 30 Apr 2022 14:41:50 +0100
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
-To: Greg KH <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH v2 1/2] module: update dependencies at try_module_get()
-Message-ID: <20220430143814.7184bd93@sal.lan>
-In-Reply-To: <Ym0l6yeTWCCAeww8@kroah.com>
-References: <cover.1651314499.git.mchehab@kernel.org>
- <3c7547d551558c9da02038dda45992f91b1f5141.1651314499.git.mchehab@kernel.org>
- <Ym0l6yeTWCCAeww8@kroah.com>
-X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.31; x86_64-redhat-linux-gnu)
+To: Luis Chamberlain <mcgrof@kernel.org>
+Subject: [PATCH v3 0/2] Let userspace know when snd-hda-intel needs i915
+Date: Sat, 30 Apr 2022 14:41:46 +0100
+Message-Id: <cover.1651326000.git.mchehab@kernel.org>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, mauro.chehab@linux.intel.com,
- David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org,
+Content-Transfer-Encoding: 8bit
+Cc: mauro.chehab@linux.intel.com, alsa-devel@alsa-project.org,
+ Kai Vehmanen <kai.vehmanen@intel.com>, Greg KH <gregkh@linuxfoundation.org>,
  intel-gfx@lists.freedesktop.org, Lucas De Marchi <lucas.demarchi@intel.com>,
  Takashi Iwai <tiwai@suse.com>, dri-devel@lists.freedesktop.org,
- Kai Vehmanen <kai.vehmanen@intel.com>, Luis Chamberlain <mcgrof@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, Dan Williams <dan.j.williams@intel.com>,
- linux-modules@vger.kernel.org,
+ David Airlie <airlied@linux.ie>, linux-modules@vger.kernel.org,
+ Daniel Vetter <daniel@ffwll.ch>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-kernel@vger.kernel.org,
  Pierre-Louis Bossart <pierre-louis.bossart@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -94,55 +91,80 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Em Sat, 30 Apr 2022 14:04:59 +0200
-Greg KH <gregkh@linuxfoundation.org> escreveu:
+Currently, kernel/module annotates module dependencies when
+request_symbol is used, but it doesn't cover more complex inter-driver
+dependencies that are subsystem and/or driver-specific.
 
-> On Sat, Apr 30, 2022 at 11:30:58AM +0100, Mauro Carvalho Chehab wrote:
+In the case of hdmi sound, depending on the CPU/GPU, sometimes the
+snd_hda_driver can talk directly with the hardware, but sometimes, it
+uses the i915 driver. When the snd_hda_driver uses i915, it should
+first be unbind/rmmod, as otherwise trying to unbind/rmmod the i915
+driver cause driver issues, as as reported by CI tools with different
+GPU models:
 
-> Did you run checkpatch on this?  Please do :)
-> 
-> > +
-> > +	if (mod == this)
-> > +		return 0;  
-> 
-> How can this happen?
-> When people mistakenly call try_module_get(THIS_MODULE)?  
+	https://intel-gfx-ci.01.org/tree/drm-tip/IGT_6415/fi-tgl-1115g4/igt@core_hotunplug@unbind-rebind.html
+	https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11495/bat-adlm-1/igt@i915_module_load@reload.html
 
-Yes. There are lots of place where this is happening:
+In the past, just a few CPUs were doing such bindings, but this issue now
+applies to all "modern" Intel CPUs  that have onboard graphics, as well as
+to the  newer discrete GPUs.
 
-	$ git grep try_module_get\(THIS_MODULE|wc -l
-	82
+With the discrete GPU case, the HDA controller is physically separate and
+requires i915 to power on the hardware for all hardware  access. In this
+case, the issue is hit basicly 100% of the time.
 
-> We should
-> throw up a big warning when that happens anyway as that's always wrong.
-> 
-> But that's a different issue from this change, sorry for the noise.
+With on-board graphics, i915 driver is needed only when the display
+codec is accessed. If i915 is unbind during runtime suspend, while
+snd-hda-intel is still bound, nothing bad happens, but unbinding i915
+on other situations may also cause issues.
 
-It sounds very weird to use try_module_get(THIS_MODULE).
+So, add support at kernel/modules to allow snd-hda drivers to properly
+annotate when a dependency on a DRM driver dependencies exists,
+and add a call to such new function at the snd-hda driver when it
+successfully binds into the DRM driver.
 
-We could add a WARN_ON() there - or something similar - but I would do it 
-on a separate patch.
+This would allow userspace tools to check and properly remove the
+audio driver before trying to remove or unbind the GPU driver.
 
-> 
-> > +
-> > +	mutex_lock(&module_mutex);
-> > +
-> > +	ret = ref_module(this, mod);
-> > +
-> > +#ifdef CONFIG_MODULE_UNLOAD
-> > +	if (ret)
-> > +		goto ret;
-> > +
-> > +	ret = sysfs_create_link(mod->holders_dir,
-> > +				&this->mkobj.kobj, this->name);  
-> 
-> Meta comment, why do we only create links if we can unload things?
+It should be noticed that this series conveys the hidden module
+dependencies. Other changes are needed in order to allow
+removing or unbinding the i915 driver while keeping the snd-hda-intel
+driver loaded/bound. With that regards, there are some discussions on
+how to improve this at alsa-devel a while  back:
 
-Good question. I don't know for certain. This is the already existing 
-pattern at add_usage_links() - see kernel/module/sysfs.c.
+https://mailman.alsa-project.org/pipermail/alsa-devel/2021-September/190099.html
 
-Also, lsmod uses sysfs links when showing dependencies.
+So, future improvements on both in i915 and the audio drivers could be made.
+E.g. with  discrete GPUs, it's the only codec of the card, so it seems feasible
+to detach the ALSA card if i915 is bound (using infra made for VGA
+switcheroo), but,  until these improvements are done and land in
+upstream, audio drivers needs to be unbound if i915 driver goes unbind.
 
-Regards,
-Mauro
+Yet, even if such fixes got merged, this series is still needed, as it makes
+such dependencies more explicit and easier to debug.
+
+PS.: This series was generated against next-20220428.
+
+---
+
+v3: minor fixes:
+ - fixed a checkpatch warning;
+ - use a single line for the new function prototype.
+
+v2: 
+ - the dependencies are now handled directly at try_module_get().
+
+
+Mauro Carvalho Chehab (2):
+  module: update dependencies at try_module_get()
+  ALSA: hda - identify when audio is provided by a video driver
+
+ include/linux/module.h     |  4 +++-
+ kernel/module/main.c       | 33 +++++++++++++++++++++++++++++++--
+ sound/hda/hdac_component.c |  2 +-
+ 3 files changed, 35 insertions(+), 4 deletions(-)
+
+-- 
+2.35.1
+
 

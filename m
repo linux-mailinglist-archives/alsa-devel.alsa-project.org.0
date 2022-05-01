@@ -2,184 +2,179 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FB96516370
-	for <lists+alsa-devel@lfdr.de>; Sun,  1 May 2022 11:47:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 791295163DA
+	for <lists+alsa-devel@lfdr.de>; Sun,  1 May 2022 12:46:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E822A15E5;
-	Sun,  1 May 2022 11:46:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E822A15E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0FAAA1ED;
+	Sun,  1 May 2022 12:46:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FAAA1ED
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651398428;
-	bh=BDwdUZHrBZkvuh+00WcMeqATuHqogI4d3rOdd8eAQdM=;
+	s=default; t=1651402013;
+	bh=eavD65aRJo9tQ/pOdXcfMe6kaB1D0on6xK8KnK1OOqo=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hgdmnwrJWXUk1VXaivdQco9mnwJP9FwmqcjCp5kCX/Vo9FpD3bNoUYD5QlEuXjVZ1
-	 rpCnljrxoPKHkRPSQXA6UKHTGlrTNlp1MNbfvwAJetg5CeWcNYUxXV/Gd0amn8H+MO
-	 PS+cXbUJGAuDcACOwZuRLjewcIh9wleKsMgSgqps=
+	b=LcFZPTxvylpNGo041WCOSvMB8MUineHRRI8rJjkTHqS0mo1BBSNkCUqHJ+DvNB8P4
+	 ex2A9fwEL+f4fC3IanU2eF4SltVYAxzZSrkJTtfYRXI5BJR7Jihyv0+3fGl0RktX0g
+	 UltKbPI54/UA06hBA/4fMZ5rryu/kTEY1+S9Cia0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 567FAF8015B;
-	Sun,  1 May 2022 11:46:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 85857F8015B;
+	Sun,  1 May 2022 12:45:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A3530F80137; Sun,  1 May 2022 11:46:06 +0200 (CEST)
+ id 6F560F80137; Sun,  1 May 2022 12:45:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0CB51F800EF
- for <alsa-devel@alsa-project.org>; Sun,  1 May 2022 11:46:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0CB51F800EF
+ by alsa1.perex.cz (Postfix) with ESMTPS id CA4BFF80124
+ for <alsa-devel@alsa-project.org>; Sun,  1 May 2022 12:45:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA4BFF80124
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="FLb1x1TT"
+ header.b="Fd4oJgQV"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1651398363; x=1682934363;
+ t=1651401949; x=1682937949;
  h=message-id:date:subject:to:cc:references:from:
  in-reply-to:content-transfer-encoding:mime-version;
- bh=BDwdUZHrBZkvuh+00WcMeqATuHqogI4d3rOdd8eAQdM=;
- b=FLb1x1TT/BX8V6xVD61TF8VrRU9WBE6I7WRX/iW2RAxEF+X39xppyDGY
- zNJfQWj0ScXNp/cb3AQt2EsGy/O/VfRju3evOOEBLVTUHmscB3xuaTrJs
- 2n7WV8wrTeFPxRqj+nJJ7Ftv6Eiq1Op1j1aCrLmKjn4o+3eJeEz8e1wH4
- jgj+G3v8xjoxPRh8K1IHPuQKXVy6n/cehC/3cnsvezI3JhYMtOiJmtjyb
- /N0K5HcU/iRLuEUT3gcIE4Z7tVo1zLyyHUGFlTH0CBcvGlMJjsDJiHr6d
- ZpZQzhR59GOm1rcnYNWueFLIQIKtw7yssxhDFJca3o9W63Nb8E4wVUQLS g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10333"; a="266848608"
-X-IronPort-AV: E=Sophos;i="5.91,189,1647327600"; d="scan'208";a="266848608"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 May 2022 02:45:58 -0700
+ bh=eavD65aRJo9tQ/pOdXcfMe6kaB1D0on6xK8KnK1OOqo=;
+ b=Fd4oJgQVTxem43XxNufH6os3068KFVpSgffz7KzeXKiUfqbHJdMgbt6c
+ mbMeV1bKoECEPmItjGHuWkSelwHilqVjMKk3RR/jo2IlELQNV055AM1rD
+ AxNb8jLiZjb6dF1WAwfamAjLuVq7C5e03OIdV9hy0KQEB4BrA0NXxRyd5
+ oxdLzIsRfYpWFbtENTHMx+gKdlNiGhx1b02ZxhRjnbvukr4hjxADWf3jI
+ TTp/URnQyBNl++UXriYd7WNH98a9fWqc97M5xqZqvlc/TayWfFbIML74S
+ 6SMm7RCnevvKOsH5+aYopDSteb9j4Afvn6ZPzKq0HNwS2ZyHFO5ppjwDX Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10333"; a="327522333"
+X-IronPort-AV: E=Sophos;i="5.91,189,1647327600"; d="scan'208";a="327522333"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 May 2022 03:45:44 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,189,1647327600"; d="scan'208";a="707191548"
-Received: from orsmsx605.amr.corp.intel.com ([10.22.229.18])
- by fmsmga001.fm.intel.com with ESMTP; 01 May 2022 02:45:57 -0700
-Received: from orsmsx609.amr.corp.intel.com (10.22.229.22) by
- ORSMSX605.amr.corp.intel.com (10.22.229.18) with Microsoft SMTP Server
+X-IronPort-AV: E=Sophos;i="5.91,189,1647327600"; d="scan'208";a="732955623"
+Received: from fmsmsx605.amr.corp.intel.com ([10.18.126.85])
+ by orsmga005.jf.intel.com with ESMTP; 01 May 2022 03:45:43 -0700
+Received: from fmsmsx612.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx605.amr.corp.intel.com (10.18.126.85) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27; Sun, 1 May 2022 02:45:57 -0700
-Received: from orsmsx609.amr.corp.intel.com (10.22.229.22) by
- ORSMSX609.amr.corp.intel.com (10.22.229.22) with Microsoft SMTP Server
+ 15.1.2308.27; Sun, 1 May 2022 03:45:43 -0700
+Received: from fmsedg601.ED.cps.intel.com (10.1.192.135) by
+ fmsmsx612.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27; Sun, 1 May 2022 02:45:56 -0700
-Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
- orsmsx609.amr.corp.intel.com (10.22.229.22) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27 via Frontend Transport; Sun, 1 May 2022 02:45:56 -0700
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com (104.47.66.45) by
- edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
+ 15.1.2308.27 via Frontend Transport; Sun, 1 May 2022 03:45:43 -0700
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com (104.47.59.168)
+ by edgegateway.intel.com (192.55.55.70) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2308.27; Sun, 1 May 2022 02:45:56 -0700
+ 15.1.2308.27; Sun, 1 May 2022 03:45:42 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=X+emtWJspkloOOUjdrWlfrGGba71PSQBfnWKrRZr5aAhVuqsnE0fBHo6GJX18BSjPTx4ixqRyPHzEuVf4PUctN/CIl+TUlsMv9mqDfQGf8esomBz+/zSNivyxZnpFXz00GUzSieAR/GQbZE14HgtGJPzAetFX++rOq/1LLXMxy82fK5/7ldSrdF2IP4zxslDWBWZFgJ40uYa1W8jaJiwhr2OnCSuj1eax9n46QMQblk0+iiHR2wqV3TgeQjeMFW9dp9361KoLDhlKcU7P5H5un2+xtFEVM3AbMhrooVaUfsy00HZ/5XebebJcGl58Wr9RZ82ZYtROxPycdXn53z7Tg==
+ b=LUuafd8NvG8s4Dq1tixj5MBooNHUNRNJn/GzhLQeYgQtF/M3tg3+s6+if+nKeduKT9cblQeIz7BA6hCA+j8qWgirUTDz+6wnzuDvAj4eZkJrcLjzju1xqBio9/UVHVl/aRjerFOhctU+29KBsroXz4kqspEHp8WyapIs6NnmKiOgOIXK7d70wf+E+VU+BEXB4NlpcQnFHo5E4m5vYygeDrjTaN9z0aZGvE12hbA8FRBS2Ny939ltWuHqMiXfTDFV3LcrR7o8969gPAkbkTUhbFLwc40Re2/KK6Qnrin7cJd9A5zah6YJlNqhNIKJuVa9zef4hk+D/fu764mDqGLQRw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jUS9ITWY7Q7sL6sbXXEP+oUaFLkpFKnppszyJaUUtwY=;
- b=lKbEwc4+yHfqXDFjSqw1CwM09O0uG5iTI/B13Vz451myGKCDedZAU3LxbU6KRh6kqEH+rUwERkqho8NQrHMsEsV/in/U404KwwahGT4VQ6oGIRPkap5oi+ogWOG88/EcbIo24D700HyOLQ0CiAyyqkYv0OsCo6EaLMt2mvWXtUaO4g1U5Q+o8YfC+DiXlppp8Yy+9p1TlSBUTKk9cUtZe+7HxoOrtbl/uj9QkwXBIKf0bWW0339kZyYxrICcC0x4bRvKx2ihwnif8yiwz7YJRld3kCt4VUwWhuQWa/Xg7HrRAHz+lXHTQ9e9u3lUe+wEBX9YqM+6X+0MxKluqhm0+A==
+ bh=hTlIRiAkWWcsvuDTj5wLtwwH6EAvV4ZcUn1SfsJeCQw=;
+ b=JWKlQM6sae7MAMCXWpBBvo8H4254MZl2aaC5TkOaBKvOJSTGWmCDB1qsfuJzYb98JFdWdkzyKr6tpbcsGQdEhjhTYMIZdnVeJi+E2p9lMa8tBBFqbPT5VC3813e04u5/bajjTfa4CbFaLeo0aNJCbNOIsoFdRY2Lhq9+zRPMnfXBRFp00wllIlHhnx53Kjmc6W3xMQg7zD9vdkL+uATqjLPUyAlJCU6YWeYjyhS6nTZxWowCNdWngpClcAb0F5MadWgnTJw+PFPuADMQg7cQG0sCIzkUfb/Weksi8LP1VgYq18ZOKrnYLzTVo9gVdOLvJH6EN5GAFQNMk0E+LPG74w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=intel.com;
 Received: from MWHPR1101MB2157.namprd11.prod.outlook.com
- (2603:10b6:301:51::10) by MN2PR11MB4062.namprd11.prod.outlook.com
- (2603:10b6:208:150::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.15; Sun, 1 May
- 2022 09:45:54 +0000
+ (2603:10b6:301:51::10) by CY4PR11MB1896.namprd11.prod.outlook.com
+ (2603:10b6:903:11a::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.14; Sun, 1 May
+ 2022 10:45:40 +0000
 Received: from MWHPR1101MB2157.namprd11.prod.outlook.com
  ([fe80::b1bc:45f3:e805:6942]) by MWHPR1101MB2157.namprd11.prod.outlook.com
  ([fe80::b1bc:45f3:e805:6942%10]) with mapi id 15.20.5186.028; Sun, 1 May 2022
- 09:45:53 +0000
-Message-ID: <4ba8b812-2b67-5dd4-2774-f7a94e2d3cc1@intel.com>
-Date: Sun, 1 May 2022 11:45:42 +0200
+ 10:45:40 +0000
+Message-ID: <e2fe9c5f-3bdb-2083-de75-bb6977daff10@intel.com>
+Date: Sun, 1 May 2022 12:45:29 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Firefox/91.0 Thunderbird/91.7.0
-Subject: Re: [PATCH 01/14] ASoC: Intel: avs: Account for libraries when
- booting basefw
+Subject: Re: [PATCH 02/14] ASoC: Intel: avs: Generic soc component driver
 Content-Language: en-US
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  <alsa-devel@alsa-project.org>, <broonie@kernel.org>
 References: <20220426172346.3508411-1-cezary.rojewski@intel.com>
- <20220426172346.3508411-2-cezary.rojewski@intel.com>
- <9854d2e1-63da-2377-3fd1-120adfb4d381@linux.intel.com>
+ <20220426172346.3508411-3-cezary.rojewski@intel.com>
+ <988b37aa-a7ce-af9a-76b0-3c4036ba7884@linux.intel.com>
 From: Cezary Rojewski <cezary.rojewski@intel.com>
-In-Reply-To: <9854d2e1-63da-2377-3fd1-120adfb4d381@linux.intel.com>
+In-Reply-To: <988b37aa-a7ce-af9a-76b0-3c4036ba7884@linux.intel.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO2P265CA0420.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:a0::24) To MWHPR1101MB2157.namprd11.prod.outlook.com
+X-ClientProxiedBy: LO2P265CA0348.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:d::24) To MWHPR1101MB2157.namprd11.prod.outlook.com
  (2603:10b6:301:51::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: fabc6ede-a22a-40cf-b45a-08da2b5761e7
-X-MS-TrafficTypeDiagnostic: MN2PR11MB4062:EE_
-X-Microsoft-Antispam-PRVS: <MN2PR11MB40624F5F2A9101249DC1BE34E3FE9@MN2PR11MB4062.namprd11.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 880c8720-4482-478d-c05c-08da2b5fbbd0
+X-MS-TrafficTypeDiagnostic: CY4PR11MB1896:EE_
+X-Microsoft-Antispam-PRVS: <CY4PR11MB189684584AD786E9D3E07EFEE3FE9@CY4PR11MB1896.namprd11.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: PvIBA0iEhdpwRI9jGMyG2ogxO1oSNlrFB8srqULvZzRhSR6wrY2tEOiXW2ZBFdWHsei9N8EnP3lohOJ0DYGvR2VKMyFxRMU17HB4RRXQil1nxO0SW7gi8neSSP4eEgJi1IjwDI8Myks8DnoCc48Q/rJZoh91t16q/9ygbsJmD6KdfO4rW+cPcQNUwe4HcxvfZ8iW2W7Xum4FOUL3ks03IhXhrh1YzZHg2KAIPDoyAwRf8K2F1imx7xWsRfbcwTeSBX7mZnVa0cHCWEnmS0eOeVKE0CQNMltvA1Wk9ClT6yQGLnBcfuXQ/TGxhOeySQHDjavWlv7LB3BZcUKM4HdikYGrrUSxtI71b663InGI11ogTgBvi0ROisYimrxXZC4zA76hPi3QZnieY1BC7RjdKOJX1/TwbJevqiYJhd62mIy1hM7iUW/iEOjkAca5jlBYwJc/c9nFx75Jm8VA3Yyi9XYoPUmYPaOvxXYgLrFYLTxPkoBDb4DZHmlVAsM8dVXONTGXuipE2W132Zp/HqeEOH1Qbtn6FQSr3xaPwxJERxwj5Co2wTp8XVJjwLSBQrqzXobaLqE8XG7EA0snGz/+/NmDE0jGokJ+xNyOrhzU0kB0cTgfJ3fIN+rzOt+/nhPlNexaAK+vQTiknbJXrga3l1gwsto0BGsBNdqMtZd5ncdSYzyr0/soipdi8/8htc5X17ywjQPEwmp+nsMM6VFZOvMxEKvek/yEqV7IoTlYYBA=
+X-Microsoft-Antispam-Message-Info: pqES8HVK+oF160o/49CtO+2rxQaATOYUA+BQbE5mKzBGwgZa9qoI9XwX4Lq00t0t966ceX0WEohdCiShhGwOC+jR4UWt67tgd/NZXzm8Y2UGtOKbT9G26mx1pI/rmDQRuXPWJU9357A3HBEyTNtTato26jTgrSAaisSa7Kfqznr8Xcy9BAShhQh9fkBTkQYoYpJ/pa7osLxT9aOln2FP24RRcJpXepfo8cguN6kPfKHS+HrazWpFNbjW2mHcaThF/khDDzA/2CSVj/siWZvr3wZ3oRq/a+GI4A/RGySoX5VzSjTNoeQR3O0+5i8lbTxW97UJYMil8Mv/XFrPoGJh4WGK3BXzwABuk1aECRWGn3atZhPuIvI7sop8+mB5Nog6aK3nYHHmAbhTrKfsZV99qIqti/YnX5bmh73gP9knIo4FgjQPUIKL34cRXRpL8ZbiyGrrJMpu3/fe76wX3+u5AoCHxfR50eBUCnDzYnIdoaH+i/WMx2c1R//l+w5uUab4Hi2kHbg7jblTT79X5GV4kM4GSiB12ajTSQTx9P8KqrWPwYUCWHb3xmIZ3kDwSXgDdJ+G7qQbPbRuYVAkutkayFwPrk3RVwA+5bbC6utSUv8Nd8LOV8WCofeamKuR2idV9ThLPj11yjDO2V26+jlmd9IlkXXs8rJjV3WXAl68/XYD0EP6cnVTkwnJyPvd7easR1D4TQXSk7yQEhG2QBxMp4BZt+ysWuNjxKgcG7XIp5m5GbsZw5QBuZDxOk/5z5ST
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MWHPR1101MB2157.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(366004)(316002)(83380400001)(7416002)(44832011)(5660300002)(36756003)(15650500001)(8936002)(2906002)(31686004)(31696002)(86362001)(53546011)(82960400001)(66946007)(508600001)(186003)(2616005)(6486002)(66556008)(38100700002)(8676002)(66476007)(6506007)(4326008)(6666004)(26005)(6512007)(45980500001)(43740500002);
+ SFS:(13230001)(366004)(66946007)(8676002)(2616005)(36756003)(31686004)(44832011)(5660300002)(66476007)(66556008)(38100700002)(4326008)(83380400001)(186003)(8936002)(7416002)(53546011)(6506007)(6512007)(26005)(2906002)(82960400001)(508600001)(6666004)(6486002)(86362001)(31696002)(316002)(41533002)(45980500001)(43740500002);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q0Uvb2ovRENHbURwQUVVc3hxN3ZGaE1URzNDU25FR2hnNWpmTndiSXpwWmFJ?=
- =?utf-8?B?b016ZW01a2s1eFJ4SGcxSUVNM1c4Rm5iaUJtNWRxazhEN2hRRDFIQ21YNU9T?=
- =?utf-8?B?UW56dmxDMitoK2lVR05PNThSd09rck5PNitNZnU1dW9kek5sT3psam9GL0dp?=
- =?utf-8?B?SCs5MXhwMmFLci9EZnl1ZUpYT3l0UTdTZVNTaXpaUnp6eGVNN3AxRHFvbTJU?=
- =?utf-8?B?Z0o5VTVXL1NFN2NuUGhIWnlhWm9HM2wySWp4U3pnWXRKWEQzeGU4bGs5SnJm?=
- =?utf-8?B?V0pwZDZPWGRNcU1wWlBLdVBGVXdDSCt1UkhpTXN5Y2MxSWhTTzJnM2FaUm9y?=
- =?utf-8?B?aGsrcnJGQzdTRUEwSm9OVWRxU1JFODBWbjJmZllHbnA1N01Ba2txVW5SeTMv?=
- =?utf-8?B?elZVZDZvZjg0NEQ1UFNDSjNPaFE1Z1RlUUc1eTUvL1lZTGNBTUJzQm1kTER2?=
- =?utf-8?B?eVJaRGI3S0wvNDIvU1c0SXd4emtJMkZyUGMzSU4zWHpJTmJQNmNVOFMvMk9O?=
- =?utf-8?B?Y21wOFVQZy9FZklwbXk0eUovTWVDcmZwK0NacG5yME52eXlqZlphdklzc3RX?=
- =?utf-8?B?Y2ZYMkliODRqRFBIVldYcHJCVHRBeDJ2c3AzeGZrZWR6RzdHeUx0YmhiR09s?=
- =?utf-8?B?RHpFU3Z2WWNxSit2T05nTDFVNHVKVHk4alQ2YTdKSnVybDBFaEdFWDlYYk9T?=
- =?utf-8?B?Z3lITTBTN2YwK1Z4eXd1UVY2VkU1RkFQc3FqdDJZU0lTYVA3bG5lSUliOVAz?=
- =?utf-8?B?ZkxmSWh5K3F5Q2RKMDlrQVMxYnBPa3cxQTNtRkpSOVVaUUtCZkVUYmZyTUlu?=
- =?utf-8?B?a2dTejBPVm1iOHZXV0ZRK2o5ZS9vcmZHcU10dmpVcytkeHVWOXdmTTlCT1g0?=
- =?utf-8?B?UEV4YkxOcUdUdzhyWWJMMUQ5VFVUOHpGMlgzei9vbVhhTEhPaG81Z09lOU15?=
- =?utf-8?B?Q3BNdFNiR1FPZ29aRGh1MVZFOXNOUkFDYitibFNrbFlXOExDYlFkdTBhWW9w?=
- =?utf-8?B?b21SM1QxS01rWmVJTHRPNTFoRnRNWWE1WFR0eGdYcFlvK0ZtZWZWYmtvUndU?=
- =?utf-8?B?aUozZnpqQkhPV3A5QWFlVVI1Y0pjN054WTdLQ1N5dDIraEs3VVUyaVdyVngy?=
- =?utf-8?B?Qzl5NERLMXB2UDcrWEZ6U3NuVWgwM1cyMmRXNFdSVUs3S0xiRVozNjJOWndp?=
- =?utf-8?B?dURBNmMrbitHd2t2Z1Z2NUhxYThmK210UFZNOWFhUzdPZVFRei9QSWtEM0Fy?=
- =?utf-8?B?MkJpMW03WVlKRDNXbUt4THlDbGFEVnZjNFQrQ3pmNnVHNG9OQWRweHg2RE1i?=
- =?utf-8?B?bTZVQUFjYk9mWUVENDlrQWJJTkQ2d1VoSExLRDJBU1huSndhUWtlOXdxckpY?=
- =?utf-8?B?eFRiUGhhZk05clZrdTZCK05sY0JIcmVzOFM3ZTNzZEkrQ0pPeFBNK3R2Si9Z?=
- =?utf-8?B?aTlLSWtBM2VEMHc1VVFUOFFqYlNlcXM5bEhBbVVld3NrbUxQc1dnY05IZVNO?=
- =?utf-8?B?ZWxvQmhIbVFGclhTbTJLNkxPQWl6VlZFclRLNjZkOVR1UlErRGZTanR2U2dG?=
- =?utf-8?B?amg0dDlFc1JVVDhiQStyQllrdXZBbWk2b3NQZ09ScFVHVDlMa0VyeEFnN1dQ?=
- =?utf-8?B?T2pUWFdxdVNCempnYVcrdEhGNkVhY0lWc0VKY3liUjkxYUNoQXpnRDlQdHlH?=
- =?utf-8?B?VUpOMm92QjhQdlE2blhucHQ1QytQT0o1OE01ZE5jNG5qUFJ3ZkxTcFkyb2NT?=
- =?utf-8?B?a1Q4U09KeEwrTWVoZ2tHRVNHWlprWWxKUHNzdjlCNVZQdllVT2hmWCs4UXpY?=
- =?utf-8?B?MVRQckIzOUdoVUdUMnN6UURtcGcyWFZ5K0laVkQ0OXlPa0dFeHBZeS9XTE03?=
- =?utf-8?B?NGlwZDVTZDFFY1NrOXE3T1JxdXlLUzRwUkl4U1R1RnVaR0FxV0dyMGQwVjdt?=
- =?utf-8?B?OEtiMmN5OFpzZG8veVNnNkFkdkxKUGRPLzc0TFZId3RxL1NacFJkVGhUU3Nz?=
- =?utf-8?B?T2pRL3dsdVhTbnJrOVBwSHhYTkRzVFVzbWNyOVdGcVovQXVQN1dLdUpwcFVm?=
- =?utf-8?B?RXhhc2lRd3dhb0tpTHR2UG0vb283N3FtTFArZUI5enZTTCs3OU5zaHFnOEZx?=
- =?utf-8?B?TldCVUxzckpocS9QcXV4Z0dNVGEwYXl1VjY1T1hCOVVRTWRYb0QxOXZXYUlw?=
- =?utf-8?B?dVk1MzZoR1J0bGRQRUVKaDdCT1FBa3R3Q1JBTEMwa0VyV0RsbzNOQWxMaHMy?=
- =?utf-8?B?bE0wbVhLS0lCTmhTa1AyMnZqdnB1M3pxaDNXRHUyVzRtamZjTG5mSnc4ZWRK?=
- =?utf-8?B?a2UvZ0ZmQjhpMXQ3cDlibGlna29uYW9rbjVuL1kvSmpRTGpBaVovNXloUVZV?=
- =?utf-8?Q?JSBfUnreDCMej//U=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: fabc6ede-a22a-40cf-b45a-08da2b5761e7
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NUZFMFlUZTR2bWpkL3BlSFVhTVN5eEVxK1o5ZVcrWUduMlNWNzVnMnkydXRP?=
+ =?utf-8?B?S1N0VWNFcE9pNy9iWTB2bUQvTGVVeEJWOVBkQXBUSGFaSUFUNDZXM1FodEw1?=
+ =?utf-8?B?VUxmTS83QW1pa3l4Lzg3Z1B6enZaYkZ3M0dWRm9JYU1Zd3FGUEhvKzc0OW9R?=
+ =?utf-8?B?MUxnOGdoZzVJMmhDS0djTGZDNE5ydjJERG5lQVdPR2oreUJZbGVNMTByS29Q?=
+ =?utf-8?B?V2tOdHlhQi9DWmYxenhLdW9rYWpGaHdBWGMrK3NkT0VTTGtmYkthTUh6RG5X?=
+ =?utf-8?B?OFdKVTdlTjl0YkVIMTZUL2h2cUI0VlFLd2RBUzRrbXM4aGhnQjU3aGhjTk5i?=
+ =?utf-8?B?VEsvZ2IzNTJnKzQvY3BsVGZ3K1hsZ2Rxa3R5Wm5ramFZdm1YNjlvYnh6dW1Z?=
+ =?utf-8?B?QU5IQmpaZGo4RENqbGExci94WWNnSm1IczFqY2pSMnZGVUZWT3FKOHBOc1Nr?=
+ =?utf-8?B?TEMvaEI1ZlpvWnU1b1lIV1RNZWRUOG1iUzB0ajFTa2FEZmdKQ1lnbWxqK1Za?=
+ =?utf-8?B?OWh3bk5taUEzMGdoelJiYzMyVWNhZGt4NHIya1ZhbFZSbngvc2p1MEZpblJH?=
+ =?utf-8?B?OHR6OVlLZUtPc1ZUQU54NEs4MExXSE9CZDRYbURraURITFVHMEc4UTlPVnJC?=
+ =?utf-8?B?T2tWcVJReE1RM1c5WnQzaWYrMnVSWloxZTZFSG1ZZXVGZkIwdERSeTFVcEVZ?=
+ =?utf-8?B?cEtFV0IzcnRFTDVpYjlmTDVPeFJNRjFZR2J3MDUrdlVIdEJRVnQ5VzZnakVy?=
+ =?utf-8?B?RW1hM0MxWHlRYWo2VEE2R1UwaHRBZW1wL2tXWTFCa0tKNldYWld1Qmw4S0Nr?=
+ =?utf-8?B?eTExZHU0RW14VnZsOFNZNFRXZVlzSjRJRGhyRmhlZEIxb2JUVmVETFdnUGt2?=
+ =?utf-8?B?WHljSFdKcFgvY3NDdUJnM0tKc0ZNUVBIRjNYVno1Q0hocXptRXR2V1dsNU1B?=
+ =?utf-8?B?U0p6NmsvYmhmSENVaVg4RUJrRzBxK1k4SUxIaFB1eHFVcXNWT29oN3pBRXVS?=
+ =?utf-8?B?eW0vaWZVOEV6SEhaek5nZlAxOHptUHRJTEFiZE50ODBpZGxrSzNlWmxuR1d1?=
+ =?utf-8?B?cDFpTDdXSlFGRVAzLzJhSW9JNWQ2SEFXVkRDYXNkQ01sZjVTWFRCSjZEOHRr?=
+ =?utf-8?B?Uy9HRXRhVU5GT0FzbW9OWm9kYXhUdk54WVV5Yk1sTnJpWHZ6clU1R0xxSWEw?=
+ =?utf-8?B?NXUrZ3J3NTRDUWJaNCtBaXJkTlU2RXdiK001aGZVVzlIWmxYb1RjRG1DaEJD?=
+ =?utf-8?B?bnovRHM1UTY4ZXV1eEJmTEtsdjgrM3Z2NVYvS2l4VUg4Y09qaXl1RTB2eHpQ?=
+ =?utf-8?B?NjdwNFRmME92UWIrKzFEM0h1akJsWHh2bUhqMzA5MVZ5TUVBbG96TXNJaUZF?=
+ =?utf-8?B?Ty9YbzgvVUFRL2ZPSUJhWlVoM2YvTXdEcE5vUy90dEFpdlZvWk01RHp4QVE0?=
+ =?utf-8?B?eTNucE51VWZlSGZEM1Y3dnhEQmpmYlkydlFnck5DZzUvYzdVY0JsZUtPb09j?=
+ =?utf-8?B?Y3VWZDllM3dnNG1OTVNlSkJYRGVCOW5YQ3hMUUR4UmRvTDNWaFlINlhmKzFs?=
+ =?utf-8?B?SXVJUEdPWUR3aC9LY2UzdExRVUlNOWdzdEUzcGVHSEZLVURia2h5YkZxRUFo?=
+ =?utf-8?B?dENOUXNxMkQ5OU9pcjNVeVhpRGR0bHI3QUU0Y25QY0Z4em1CYnhTajAycms2?=
+ =?utf-8?B?dXpSYnlsdVE5M09vSHVUVHJqbFg3UXVOWnNGNitqSnBOMjZxcDVXQi9WZmd3?=
+ =?utf-8?B?ei9IQWZzbDlpVTRLTjdQMmtuN1ZlK2V2VDJPcVNKR01QWHN6eWxXaHJmdmc4?=
+ =?utf-8?B?dFBlRHhPVEJqMWpCN2ZnakFsVysxMGZLbXJVV3VHVHpWTUdwaFF2blFnUW5C?=
+ =?utf-8?B?bXp6TFNadXAveHIrUjhEeU56c1d1Z2k0QWNwYXU4cjJWc2JrZkdHUEpSNjhL?=
+ =?utf-8?B?Q2xETXVELzZoUzdzTThFM2hRZnNmYWdnb1VvYW9uSUtPdER4N3QwY3V4RkpQ?=
+ =?utf-8?B?c0Z3aWsyY2NRNEhXaStzZGtaUldUWkN1OFVkbUJ0MWJROUtrUFZtajg1bHhw?=
+ =?utf-8?B?TUpLM1d6REtVb2FNMzBYV1FEdmsrSFFtSEI3ZVFXczJxQUpKWU9KenNtR2xL?=
+ =?utf-8?B?RC9mZWM4WDlqWVdXTGZIM2lSSmdjTW5keENZd1NNMzdkZTV3VFNvOFJzZnF4?=
+ =?utf-8?B?d1ZXTnowMjhDczFQUTJXa0g2UW9MTG04dXlsY1ZHS3NnS1g2S1NKUWRJbXR4?=
+ =?utf-8?B?Myt6c2RrWDNNQmc3d1FrZ29icUV0dlhCaWtRcUhqdndyTG94cXpyVEZXTlZm?=
+ =?utf-8?B?UW9XTnJ5OGw5QzQvNTFCS05RdTNsM2JhWmNFWWdPWHQ2MUUzVDh5Q1dIQnp3?=
+ =?utf-8?Q?0L+FuWBbVU4R3v/Q=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 880c8720-4482-478d-c05c-08da2b5fbbd0
 X-MS-Exchange-CrossTenant-AuthSource: MWHPR1101MB2157.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 May 2022 09:45:53.4039 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 May 2022 10:45:40.1753 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3nKBD3Ah/MaGKo2SCrWHRsrK8vqtPGzivNR3jcCv5ntuq5vFmfivH6Pempq8KymTi6v4GVuffXCdTXHh5lHHPBGUIJKpisNKszvJPdJ273s=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR11MB4062
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4a9QL+7UcBaZxPht/KHezQGzXbev98pGZsj1xtaCjd0KN/FDTAbrhA5xH7Y8dcOPwhMyIhUZNAdDHp5TwMnJj6tYRQmL6WNSitKywzTb+8A=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR11MB1896
 X-OriginatorOrg: intel.com
 Cc: upstream@semihalf.com, harshapriya.n@intel.com, rad@semihalf.com,
  tiwai@suse.com, hdegoede@redhat.com, amadeuszx.slawinski@linux.intel.com,
@@ -199,127 +194,208 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2022-04-26 11:21 PM, Pierre-Louis Bossart wrote:
-> On 4/26/22 12:23, Cezary Rojewski wrote:
+On 2022-04-26 11:33 PM, Pierre-Louis Bossart wrote:
+>> +struct avs_dma_data {
+>> +	struct avs_tplg_path_template *template;
+>> +	struct avs_path *path;
+>> +	/*
+>> +	 * link stream is stored within substream's runtime
+>> +	 * private_data to fulfill the needs of codec BE path
+>> +	 *
+>> +	 * host stream assigned
+> 
+> not able to parse that comment, what are you trying to say?
 
-...
 
->> diff --git a/sound/soc/intel/avs/loader.c b/sound/soc/intel/avs/loader.c
->> index c47f85161d95..de98f4c3adf8 100644
->> --- a/sound/soc/intel/avs/loader.c
->> +++ b/sound/soc/intel/avs/loader.c
->> @@ -15,6 +15,7 @@
->>   #include "cldma.h"
->>   #include "messages.h"
->>   #include "registers.h"
->> +#include "topology.h"
->>   
->>   #define AVS_ROM_STS_MASK		0xFF
->>   #define AVS_ROM_INIT_DONE		0x1
->> @@ -466,6 +467,70 @@ int avs_hda_transfer_modules(struct avs_dev *adev, bool load,
->>   	return 0;
->>   }
->>   
->> +int avs_dsp_load_libraries(struct avs_dev *adev, struct avs_tplg_library *libs, u32 num_libs)
+Sure. This actually stems from the legacy driver architecture. PCM 
+operations for legacy HD-Audio are found in 
+sound/pci/hda/hda_controller.c with respective types declared in 
+sound/pci/hda/hda_controller.h. Operations found there make use of 
+struct azx_dev and get_azx_dev(). So, to be able to re-use sound/pci/hda 
+as much as possible plus declare virtually no custom HD-Audio related 
+logic, we satisfy the needs of lower level code by assigning BE stream 
+to substream->runtime->private_data.
+
+As HD-Audio legacy operates in coupled mode only, there is no need for 
+it to differentiate between HOST and LINK side. It's not true for DSP 
+configurations though. So, we declare separate pointer for HOST stream 
+allowing PCM operations found here to have easy access to both, LINK and 
+HOST streams whenever necessary.
+
+>> +	 */
+>> +	struct hdac_ext_stream *host_stream;
+>> +};
+>> +
+>> +static ssize_t topology_name_read(struct file *file, char __user *user_buf, size_t count,
+>> +				  loff_t *ppos)
 >> +{
->> +	int start, id, i = 0;
+>> +	struct snd_soc_component *component = file->private_data;
+>> +	struct snd_soc_card *card = component->card;
+>> +	struct snd_soc_acpi_mach *mach = dev_get_platdata(card->dev);
+>> +	char buf[64];
+>> +	size_t len;
+>> +
+>> +	len = snprintf(buf, sizeof(buf), "%s/%s\n", component->driver->topology_name_prefix,
+>> +		       mach->tplg_filename);
+>> +
+>> +	return simple_read_from_buffer(user_buf, count, ppos, buf, len);
+>> +}
+>> +
+>> +static const struct file_operations topology_name_fops = {
+>> +	.open = simple_open,
+>> +	.read = topology_name_read,
+>> +	.llseek = default_llseek,
+>> +};
+> 
+> can you clarify why this is needed?
+
+
+The usage of default_llseek() or the topology_name_fops as a whole? The 
+latter is here to obtain name of the firmware file requested by given 
+machine board easily from the debugfs. The former is probably just a 
+copy-paste from other declarations of file_operation entries for 
+READ-only files.
+
+>> +
+>> +static int avs_component_load_libraries(struct avs_soc_component *acomp)
+>> +{
+>> +	struct avs_tplg *tplg = acomp->tplg;
+>> +	struct avs_dev *adev = to_avs_dev(acomp->base.dev);
 >> +	int ret;
 >> +
->> +	/* Calculate the id to assign for the next lib. */
->> +	for (id = 0; id < adev->fw_cfg.max_libs_count; id++)
->> +		if (adev->lib_names[id][0] == '\0')
->> +			break;
->> +	if (id + num_libs >= adev->fw_cfg.max_libs_count)
->> +		return -EINVAL;
-> 
-> use ida_alloc_max() ?
-
-
-After reading this one couple of times I'm keen to agree that IDA should 
-have been used for library ID allocation and a at the same time, 
-surprised it has't done that already. Till now we used IDA 'only' when 
-allocating pipeline IDs and module instance IDs. Pipeline allocation is 
-good comparison here - makes use of ida_alloc_max() already - library 
-one should follow.
-
-This finding is much appreciated, Pierre.
-
+>> +	if (!tplg->num_libs)
+>> +		return 0;
 >> +
->> +	start = id;
->> +	while (i < num_libs) {
->> +		struct avs_fw_manifest *man;
->> +		const struct firmware *fw;
->> +		struct firmware stripped_fw;
->> +		char *filename;
->> +		int j;
->> +
->> +		filename = kasprintf(GFP_KERNEL, "%s/%s/%s", AVS_ROOT_DIR, adev->spec->name,
->> +				     libs[i].name);
->> +		if (!filename)
->> +			return -ENOMEM;
->> +
->> +		ret = avs_request_firmware(adev, &fw, filename);
->> +		kfree(filename);
->> +		if (ret < 0)
->> +			return ret;
->> +
->> +		stripped_fw = *fw;
->> +		ret = avs_fw_manifest_strip_verify(adev, &stripped_fw, NULL);
->> +		if (ret) {
->> +			dev_err(adev->dev, "invalid library data: %d\n", ret);
->> +			goto release_fw;
->> +		}
->> +
->> +		ret = avs_fw_manifest_offset(&stripped_fw);
->> +		if (ret < 0)
->> +			goto release_fw;
->> +		man = (struct avs_fw_manifest *)(stripped_fw.data + ret);
->> +
->> +		/* Don't load anything that's already in DSP memory. */
->> +		for (j = 0; j < id; j++)
->> +			if (!strncmp(adev->lib_names[j], man->name, AVS_LIB_NAME_SIZE))
->> +				goto next_lib;
->> +
->> +		ret = avs_dsp_op(adev, load_lib, &stripped_fw, id);
->> +		if (ret)
->> +			goto release_fw;
->> +
->> +		strncpy(adev->lib_names[id], man->name, AVS_LIB_NAME_SIZE);
->> +		id++;
->> +next_lib:
->> +		i++;
+>> +	/* Parent device may be asleep and library loading involves IPCs. */
+>> +	ret = pm_runtime_get_sync(adev->dev);
+>> +	if (ret < 0 && ret != -EACCES) {
+>> +		pm_runtime_put_noidle(adev->dev);
+>> +		return ret;
 >> +	}
->> +
->> +	return start == id ? 1 : 0;
->> +
->> +release_fw:
->> +	avs_release_last_firmware(adev);
 > 
-> why release only the last library and not all the ones that were previous loaded?
-> or why bother to even release the last since at this point you probably need to restart completely?
+> Mark recommends the use of pm_runtime_resume_and_get(), see patches from today.
 
 
-Yes, avs_release_last_firmware() is used to clean 'locally' and indeed, 
-failing to load a library will most likely end-up is complete restart.
+Will definitely check this out, thanks for pointing this out.
 
-I'll provide an internal build with this part removed and have 
-validation do some testing first as performing 
-avs_release_last_firmware() keeps things sane i.e. no invalid entries in 
-the ->fw_list, no unnecessarily occupied memory for the already invalid 
-entry and such.
-
-In regard to *why is only last one released*, it's tied to how base 
-firmware behaves. Assuming a scenario where two libraries need to be 
-loaded, if the loading procedure for the second fails, base firmware 
-will NOT unload/unmap allocated memory and resources for the first one. 
-At the same time, there is no capability to unload library on demand. In 
-order to rollback the transaction, DSP has to be shut down entirely, 
-just like if we were talking about firmware exception or IPC timeout.
-
-So, by doing what we do here, driver reflects firmware side 
-(MODULES_INFO) basically 1:1.
-
-Another good one, Pierre.
-
+>> +
+>> +	avs_hda_clock_gating_enable(adev, false);
+>> +	avs_hda_l1sen_enable(adev, false);
+>> +
+>> +	ret = avs_dsp_load_libraries(adev, tplg->libs, tplg->num_libs);
+>> +
+>> +	avs_hda_l1sen_enable(adev, true);
+>> +	avs_hda_clock_gating_enable(adev, true);
+>> +
+>> +	if (!ret)
+>> +		ret = avs_module_info_init(adev, false);
+>> +
+>> +	pm_runtime_mark_last_busy(adev->dev);
+>> +	pm_runtime_put_autosuspend(adev->dev);
+>> +
 >> +	return ret;
 >> +}
+>> +
+>> +static int avs_component_probe(struct snd_soc_component *component)
+>> +{
+>> +	struct snd_soc_card *card = component->card;
+>> +	struct snd_soc_acpi_mach *mach;
+>> +	struct avs_soc_component *acomp;
+>> +	struct avs_dev *adev;
+>> +	char *filename;
+>> +	int ret;
+>> +
+>> +	dev_dbg(card->dev, "probing %s card %s\n", component->name, card->name);
+>> +	mach = dev_get_platdata(card->dev);
+>> +	acomp = to_avs_soc_component(component);
+>> +	adev = to_avs_dev(component->dev);
+>> +
+>> +	acomp->tplg = avs_tplg_new(component);
+>> +	if (!acomp->tplg)
+>> +		return -ENOMEM;
+>> +
+>> +	if (!mach->tplg_filename)
+>> +		goto finalize;
+>> +
+>> +	/* Load specified topology and create sysfs for it. */
+>> +	filename = kasprintf(GFP_KERNEL, "%s/%s", component->driver->topology_name_prefix,
+>> +			     mach->tplg_filename);
+> 
+> what is the link between topology and sysfs?
+
+
+This comment is misleading as debugfs entry is being created as seen in 
+the code below.
+
+To answer the question assuming s/sysfs/debugfs/:
+
+Ability to allow for reading name of the file requested by given machine 
+board from user space. AVS driver spawns multiple machine boards, each 
+requesting a topology file. To make it easier for the validation and 
+normal users to understand what has requested what, we provide a simple, 
+read-only debugfs entry for each of the boards within the avs tree.
+
+>> +	if (!filename)
+>> +		return -ENOMEM;
+>> +
+>> +	ret = avs_load_topology(component, filename);
+>> +	kfree(filename);
+>> +	if (ret < 0)
+>> +		return ret;
+>> +
+>> +	ret = avs_component_load_libraries(acomp);
+>> +	if (ret < 0) {
+>> +		dev_err(card->dev, "libraries loading failed: %d\n", ret);
+>> +		goto err_load_libs;
+>> +	}
+>> +
+>> +finalize:
+>> +	debugfs_create_file("topology_name", 0444, component->debugfs_root, component,
+>> +			    &topology_name_fops);
+> 
+> that's debugfs here, is this to make it possible to select an alternate topology file? If yes, a comment earlier wouldn't hurt.
+
+
+Nah, its purpose is very basic: get the exact name of the topology file 
+loaded. Example:
+
+intel/avs/hda-8086280b-tplg.bin
+
+>> +
+>> +	mutex_lock(&adev->comp_list_mutex);
+>> +	list_add_tail(&acomp->node, &adev->comp_list);
+>> +	mutex_unlock(&adev->comp_list_mutex);
+>> +
+>> +	return 0;
+>> +
+>> +err_load_libs:
+>> +	avs_remove_topology(component);
+>> +	return ret;
+>> +}
+>> +
+> 
+> 
+>> +static const struct snd_soc_component_driver avs_component_driver = {
+>> +	.name			= "avs-pcm",
+>> +	.probe			= avs_component_probe,
+>> +	.remove			= avs_component_remove,
+>> +	.open			= avs_component_open,
+>> +	.pointer		= avs_component_pointer,
+>> +	.mmap			= avs_component_mmap,
+>> +	.pcm_construct		= avs_component_construct,
+>> +	.module_get_upon_open	= 1, /* increment refcount when a pcm is opened */
+>> +	.topology_name_prefix	= "intel/avs",
+> 
+> is this intentional that the firmware binaries and topologies will be stored in the same intel/avs directory?
+> 
+>> +	.non_legacy_dai_naming	= true,
+> 
+> is this needed? we've never used this for Intel?
+
+
+I'll recheck this but back in time when we drawn PCM ops for the first 
+time there was a reason, certainly. Out of my head - impacts behavior of 
+snd_soc_register_dais().
+
+>> +};
+>> +

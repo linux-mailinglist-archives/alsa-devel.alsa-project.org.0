@@ -2,90 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18B0C516475
-	for <lists+alsa-devel@lfdr.de>; Sun,  1 May 2022 14:44:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4914E516498
+	for <lists+alsa-devel@lfdr.de>; Sun,  1 May 2022 15:24:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9E47215E2;
-	Sun,  1 May 2022 14:43:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E47215E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id D014F15E0;
+	Sun,  1 May 2022 15:23:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D014F15E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651409046;
-	bh=5swkpbHTT96IuZnt8lthAG18D/P4ym7dQ6EkUPjgkZQ=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1651411457;
+	bh=++iNHlIw5SqV2YVq14VBATRNNTjzqFKLXYK39QSoBM0=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=t1jkhyncsQ7ZK2eoIaZ+BO9k5Tem36Dy43NJ9ahDXp8t/m8MWnNLN15xcBvqrHqo+
-	 2LHuNEQbUItqHzUO5/fhINUVc0tPJyxvjZrhy7kCof71eQQc8DN23l5VRP68tRx14g
-	 +1eiWnKgavfKpDTOs1ryw+xi3mwbJeK7yZW5de0Q=
+	b=c4KQtIc5i7tY5xkUGlp982TI3vBboGAnhRIPPCzrsuP7k68Xa3g67mzlWAyR16I2J
+	 4vwTlvweEBG+rGDYgdAZnZ9XvqPfTRNK0NYzhaz9/sLpiGjKP4RGLKxaPb+ySXBpmk
+	 KwgNdm9n9l9pqjsPC2054mD4Aa2+uEPqYshCx3Ok=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0EA13F8015B;
-	Sun,  1 May 2022 14:43:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3FE56F8015B;
+	Sun,  1 May 2022 15:23:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BEE95F80137; Sun,  1 May 2022 14:43:05 +0200 (CEST)
+ id 589FEF800E9; Sun,  1 May 2022 15:23:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [IPv6:2a00:1450:4864:20::634])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from eu-smtp-delivery-151.mimecast.com
+ (eu-smtp-delivery-151.mimecast.com [185.58.86.151])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 009F8F800E9
- for <alsa-devel@alsa-project.org>; Sun,  1 May 2022 14:43:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 009F8F800E9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="hx5wcsKh"
-Received: by mail-ej1-x634.google.com with SMTP id k23so23385451ejd.3
- for <alsa-devel@alsa-project.org>; Sun, 01 May 2022 05:43:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=1vxO7qYbuf91SxJAOZgOiDdeZZIk+EdGKM0jh2u0r1I=;
- b=hx5wcsKhpG2mye5Xtbkri4icuDSRzo5Nc23odigOozmgTd7iDmE1L6u02uMr3UwRo5
- 3mCx5F1H1Vg3mLFFhfyOapAfIw92TBUwoc2OCjxv4EcThIYteAyK1TeTO7C/iEzV8fid
- dcay5wHZxHou5U6sz1RwGh8gJolNsMOuqbksNURGf9bdSOKq6GGpAirUbJY1OT5uvxSY
- Lp+cCm8sPzIQh8w/2bKVmGoHK4ejd3igd96ryZRk/qR2JxOAgOZmpCu38YbugSQo9+2a
- CUKOt26sqVrw7jffT8hilkbZB3V/Jod/kicHKypr9Gebxk26gPk0p8rkDyRKq2bYh248
- 82sg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=1vxO7qYbuf91SxJAOZgOiDdeZZIk+EdGKM0jh2u0r1I=;
- b=O/mLUbxhgLOsq0s4n9+pwR0vp36PQEQ9h9roTPa0S0DYCjrUklZVCwYF28a4uJwfBW
- yXEKqmw/4UVKL/fIyVHC4hOa4mjUFLMHpYfrviiSG7ANQ2l6/tAiR5RvT6MBV/jgXQkp
- uAgQF2oO356ij2F1HEaBfwNvo4I3FL1hlMVE1hGRcQhhzXFwPt/Q+3MBAIPvY0wvRxEZ
- RQn/bWNtsVl3hSIQF6aawbMXxTVSMm1aNlhxVOlXLewkLWdRh13TzMxE+qKVSAN2Nvoh
- ryFz1+7R3PDOF2Efcuh04zE5zjyXsmm81eVbK0Py52GkVQjvBDNyyo6rCTWaXSEahaY+
- Ds/g==
-X-Gm-Message-State: AOAM530LhN6tlvqEZ51yzzFjVECMjKNV79uBwmiRvF3SGkfQf8eFkyOJ
- A3DZ5rvELj4CBfoPFOTZZ07ph66xo7E=
-X-Google-Smtp-Source: ABdhPJxa8WJ8FXW2H8dsdVGmpM90xgYrgMBC0voRB5jrFR1CaXnk0EevY4u57w/yY9XMhAFKfBR1yw==
-X-Received: by 2002:a17:906:5641:b0:6da:8691:3fcc with SMTP id
- v1-20020a170906564100b006da86913fccmr7182444ejr.50.1651408980584; 
- Sun, 01 May 2022 05:43:00 -0700 (PDT)
-Received: from localhost.localdomain (net-109-116-144-55.cust.vodafonedsl.it.
- [109.116.144.55]) by smtp.gmail.com with ESMTPSA id
- co8-20020a0564020c0800b0042617ba63c6sm5320189edb.80.2022.05.01.05.42.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 01 May 2022 05:43:00 -0700 (PDT)
-From: Gabriele Mazzotta <gabriele.mzt@gmail.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v2] ALSA: hda/realtek: Add quirk for Dell Latitude 7520
-Date: Sun,  1 May 2022 14:42:37 +0200
-Message-Id: <20220501124237.4667-1-gabriele.mzt@gmail.com>
-X-Mailer: git-send-email 2.36.0
-In-Reply-To: <20220426101359.37794-1-gabriele.mzt@gmail.com>
-References: <20220426101359.37794-1-gabriele.mzt@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3A9A0F800E9
+ for <alsa-devel@alsa-project.org>; Sun,  1 May 2022 15:23:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A9A0F800E9
+Received: from AcuMS.aculab.com (156.67.243.121 [156.67.243.121]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ uk-mta-321-bb2nzyNUNPyo2ky-b2_4Hw-1; Sun, 01 May 2022 14:23:07 +0100
+X-MC-Unique: bb2nzyNUNPyo2ky-b2_4Hw-1
+Received: from AcuMS.Aculab.com (fd9f:af1c:a25b:0:994c:f5c2:35d6:9b65) by
+ AcuMS.aculab.com (fd9f:af1c:a25b:0:994c:f5c2:35d6:9b65) with Microsoft SMTP
+ Server (TLS) id 15.0.1497.32; Sun, 1 May 2022 14:23:06 +0100
+Received: from AcuMS.Aculab.com ([fe80::994c:f5c2:35d6:9b65]) by
+ AcuMS.aculab.com ([fe80::994c:f5c2:35d6:9b65%12]) with mapi id
+ 15.00.1497.033; Sun, 1 May 2022 14:23:06 +0100
+From: David Laight <David.Laight@ACULAB.COM>
+To: 'Mauro Carvalho Chehab' <mchehab@kernel.org>, Greg KH
+ <gregkh@linuxfoundation.org>
+Subject: RE: [PATCH v2 1/2] module: update dependencies at try_module_get()
+Thread-Topic: [PATCH v2 1/2] module: update dependencies at try_module_get()
+Thread-Index: AQHYXJeYYtni3pRwP0OIc2wg6VHamK0KAauw
+Date: Sun, 1 May 2022 13:23:06 +0000
+Message-ID: <1e88a3d4df43460c91f049762b9f4630@AcuMS.aculab.com>
+References: <cover.1651314499.git.mchehab@kernel.org>
+ <3c7547d551558c9da02038dda45992f91b1f5141.1651314499.git.mchehab@kernel.org>
+ <Ym0l6yeTWCCAeww8@kroah.com> <20220430143814.7184bd93@sal.lan>
+In-Reply-To: <20220430143814.7184bd93@sal.lan>
+Accept-Language: en-GB, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.202.205.107]
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, Gabriele Mazzotta <gabriele.mzt@gmail.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=C51A453 smtp.mailfrom=david.laight@aculab.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: aculab.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "mauro.chehab@linux.intel.com" <mauro.chehab@linux.intel.com>,
+ David Airlie <airlied@linux.ie>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, Takashi Iwai <tiwai@suse.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, Kai
+ Vehmanen <kai.vehmanen@intel.com>, Luis Chamberlain <mcgrof@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Dan Williams <dan.j.williams@intel.com>,
+ "linux-modules@vger.kernel.org" <linux-modules@vger.kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,96 +99,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The driver is currently using ALC269_FIXUP_DELL4_MIC_NO_PRESENCE for
-the Latitude 7520, but this fixup chain has some issues:
+From: Mauro Carvalho Chehab
+> Sent: 30 April 2022 14:38
+>=20
+> Em Sat, 30 Apr 2022 14:04:59 +0200
+> Greg KH <gregkh@linuxfoundation.org> escreveu:
+>=20
+> > On Sat, Apr 30, 2022 at 11:30:58AM +0100, Mauro Carvalho Chehab wrote:
+>=20
+> > Did you run checkpatch on this?  Please do :)
+> >
+> > > +
+> > > +=09if (mod =3D=3D this)
+> > > +=09=09return 0;
+> >
+> > How can this happen?
+> > When people mistakenly call try_module_get(THIS_MODULE)?
+>=20
+> Yes. There are lots of place where this is happening:
+>=20
+> =09$ git grep try_module_get\(THIS_MODULE|wc -l
+> =0982
+>=20
+> > We should
+> > throw up a big warning when that happens anyway as that's always wrong.
+> >
+> > But that's a different issue from this change, sorry for the noise.
+>=20
+> It sounds very weird to use try_module_get(THIS_MODULE).
+>=20
+> We could add a WARN_ON() there - or something similar - but I would do it
+> on a separate patch.
 
- - The internal mic is really loud and the recorded audio is distorted
-   at "standard" audio levels.
+You could add a compile-time check.
+But a run-time one seems unnecessary.
+Clearly try_module_get(THIS_MODULE) usually succeeds.
 
- - There are pop noises at system startup and when plugging/unplugging
-   headphone jacks.
+I think I can invent a case where it can fail:
+The module count must be zero, and a module unload in progress.
+The thread doing the unload is blocked somewhere.
+Another thread makes a callback into the module for some request
+that (for instance) would need to create a kernel thread.
+It tries to get a reference for the thread.
+So try_module_get(THIS_MODULE) is the right call - and will fail here.
 
-BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=215885
-Signed-off-by: Gabriele Mazzotta <gabriele.mzt@gmail.com>
----
- sound/pci/hda/patch_realtek.c | 43 +++++++++++++++++++++++++++++++++++
- 1 file changed, 43 insertions(+)
+=09David
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 62fbf3772b41..36920570660b 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -6780,6 +6780,41 @@ static void alc256_fixup_mic_no_presence_and_resume(struct hda_codec *codec,
- 	}
- }
- 
-+static void alc_fixup_dell4_mic_no_presence_quiet(struct hda_codec *codec,
-+						  const struct hda_fixup *fix,
-+						  int action)
-+{
-+	struct alc_spec *spec = codec->spec;
-+	struct hda_input_mux *imux = &spec->gen.input_mux;
-+	int i;
-+
-+	alc269_fixup_limit_int_mic_boost(codec, fix, action);
-+
-+	switch (action) {
-+	case HDA_FIXUP_ACT_PRE_PROBE:
-+		/**
-+		 * Set the vref of pin 0x19 (Headset Mic) and pin 0x1b (Headphone Mic)
-+		 * to Hi-Z to avoid pop noises at startup and when plugging and
-+		 * unplugging headphones.
-+		 */
-+		snd_hda_codec_set_pin_target(codec, 0x19, PIN_VREFHIZ);
-+		snd_hda_codec_set_pin_target(codec, 0x1b, PIN_VREFHIZ);
-+		break;
-+	case HDA_FIXUP_ACT_PROBE:
-+		/**
-+		 * Make the internal mic (0x12) the default input source to
-+		 * prevent pop noises on cold boot.
-+		 */
-+		for (i = 0; i < imux->num_items; i++) {
-+			if (spec->gen.imux_pins[i] == 0x12) {
-+				spec->gen.cur_mux[0] = i;
-+				break;
-+			}
-+		}
-+		break;
-+	}
-+}
-+
- enum {
- 	ALC269_FIXUP_GPIO2,
- 	ALC269_FIXUP_SONY_VAIO,
-@@ -6821,6 +6856,7 @@ enum {
- 	ALC269_FIXUP_DELL2_MIC_NO_PRESENCE,
- 	ALC269_FIXUP_DELL3_MIC_NO_PRESENCE,
- 	ALC269_FIXUP_DELL4_MIC_NO_PRESENCE,
-+	ALC269_FIXUP_DELL4_MIC_NO_PRESENCE_QUIET,
- 	ALC269_FIXUP_HEADSET_MODE,
- 	ALC269_FIXUP_HEADSET_MODE_NO_HP_MIC,
- 	ALC269_FIXUP_ASPIRE_HEADSET_MIC,
-@@ -8799,6 +8835,12 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.chained = true,
- 		.chain_id = ALC285_FIXUP_HP_MUTE_LED,
- 	},
-+	[ALC269_FIXUP_DELL4_MIC_NO_PRESENCE_QUIET] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc_fixup_dell4_mic_no_presence_quiet,
-+		.chained = true,
-+		.chain_id = ALC269_FIXUP_DELL4_MIC_NO_PRESENCE,
-+	},
- };
- 
- static const struct snd_pci_quirk alc269_fixup_tbl[] = {
-@@ -8889,6 +8931,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1028, 0x09bf, "Dell Precision", ALC233_FIXUP_ASUS_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1028, 0x0a2e, "Dell", ALC236_FIXUP_DELL_AIO_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1028, 0x0a30, "Dell", ALC236_FIXUP_DELL_AIO_HEADSET_MIC),
-+	SND_PCI_QUIRK(0x1028, 0x0a38, "Dell Latitude 7520", ALC269_FIXUP_DELL4_MIC_NO_PRESENCE_QUIET),
- 	SND_PCI_QUIRK(0x1028, 0x0a58, "Dell", ALC255_FIXUP_DELL_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1028, 0x0a61, "Dell XPS 15 9510", ALC289_FIXUP_DUAL_SPK),
- 	SND_PCI_QUIRK(0x1028, 0x0a62, "Dell Precision 5560", ALC289_FIXUP_DUAL_SPK),
--- 
-2.36.0
+-
+Registered Address Lakeside, Bramley Road, Mount Farm, Milton Keynes, MK1 1=
+PT, UK
+Registration No: 1397386 (Wales)
 

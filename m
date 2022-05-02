@@ -2,81 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D96C4516F44
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 May 2022 14:06:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3587A517014
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 May 2022 15:14:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 353D41ED;
-	Mon,  2 May 2022 14:05:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 353D41ED
+	by alsa0.perex.cz (Postfix) with ESMTPS id 927D715E5;
+	Mon,  2 May 2022 15:13:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 927D715E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651493172;
-	bh=9ajzmig39sZIW1tda8C5ZrZa0JA+CxOakY6tZ5XPreo=;
+	s=default; t=1651497289;
+	bh=i3sODOZ2hKY4Hg4AtT00iOazNEgIIhoNw/ZsA8dg1z0=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=vQvC8IXwG1PwcmlJUplTPXnp8cBO/gicKwpObA+0pvesrixFS0msH1pE0518Gy3bQ
-	 PlF5zPWj9AwczOuGJQqEP+DRdi5Eq+5j/NKXCg6Uo0M3pxwMRGaOHIesYiecbNhuWB
-	 kRw1vtk4gooWm6kF0uaRc9OE/R+ZJQRzUXsvB12g=
+	b=ixhSEANw71AXxJNhXt1BuOi5hLtm2wd6dyI+IjTvfoQs3AOt4bqBGWW1wX+B55j/Y
+	 bwUyb+IkwP3suq5ejTFTy+KU4jKVbG210fwwvlSbNRbY+fFmUkIF2A9rmuIOmo1DLj
+	 Gcq0MzjHXYADWlRCCPjpHi7qbqX7Onv0jBDjVWCU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A838DF80249;
-	Mon,  2 May 2022 14:05:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EAAF7F80129;
+	Mon,  2 May 2022 15:13:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DA85EF80245; Mon,  2 May 2022 14:05:11 +0200 (CEST)
+ id 637A8F80245; Mon,  2 May 2022 15:13:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_FILL_THIS_FORM_SHORT,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DB346F80129
- for <alsa-devel@alsa-project.org>; Mon,  2 May 2022 14:05:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB346F80129
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="Vecqb6cv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1651493106; x=1683029106;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=9ajzmig39sZIW1tda8C5ZrZa0JA+CxOakY6tZ5XPreo=;
- b=Vecqb6cvWNMyUnmhUCURYwhFc0bol3ghOwcSi8RaXVgjMXT5eLDtPbBc
- 0ApMj0oXJFYA/5G6VdVviRcg/Ra6LZhZ6/M1f5LoTjPl6IgF1ZnKn/8ks
- C66s5Vp7Uu9NKiM0mz5HePPiENXcsXNIwaf581n2tLGgr6Q9shJCIgBS/
- M144i7rS1Ql91qyz2Ja0DmtDN/jjnKhdX3LL/t9CnkS8JGN24A0H9WTP8
- g7p3hvlyzOw8PWxG1NrfF/aYVTSpKWOZYiB4TQuJi1a1Kka1vKA/xgp0n
- xSo96QGzHv4QV8KrBfr2YsucfQEyhtd/RoqMsx9SDLy+oJShpGy64wlgf Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10334"; a="266773185"
-X-IronPort-AV: E=Sophos;i="5.91,190,1647327600"; d="scan'208";a="266773185"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 May 2022 05:05:01 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,190,1647327600"; d="scan'208";a="663493307"
-Received: from black.fi.intel.com ([10.237.72.28])
- by fmsmga002.fm.intel.com with ESMTP; 02 May 2022 05:04:58 -0700
-Received: by black.fi.intel.com (Postfix, from userid 1003)
- id F3115179; Mon,  2 May 2022 15:04:58 +0300 (EEST)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v1 1/1] ASoC: cs43130: Re-use generic struct u16_fract
-Date: Mon,  2 May 2022 15:04:55 +0300
-Message-Id: <20220502120455.84386-1-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.35.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 345FCF800D2
+ for <alsa-devel@alsa-project.org>; Mon,  2 May 2022 15:13:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 345FCF800D2
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <sha@pengutronix.de>)
+ id 1nlVru-0000l5-7Q; Mon, 02 May 2022 15:13:38 +0200
+Received: from [2a0a:edc0:0:1101:1d::28] (helo=dude02.red.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <sha@pengutronix.de>)
+ id 1nlVru-006XlI-C6; Mon, 02 May 2022 15:13:36 +0200
+Received: from sha by dude02.red.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <sha@pengutronix.de>)
+ id 1nlVrs-00AvZi-7q; Mon, 02 May 2022 15:13:36 +0200
+From: Sascha Hauer <s.hauer@pengutronix.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: soc-generic-dmaengine-pcm: Use default config when none
+ is given
+Date: Mon,  2 May 2022 15:13:35 +0200
+Message-Id: <20220502131335.2604158-1-s.hauer@pengutronix.de>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: Lucas Tanure <tanureal@opensource.cirrus.com>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>,
- James Schulman <james.schulman@cirrus.com>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: sha@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Cc: Sascha Hauer <s.hauer@pengutronix.de>, Mark Brown <broonie@kernel.org>,
+ Lars-Peter Clausen <lars@metafoo.de>, kernel@pengutronix.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,243 +80,168 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Instead of custom data type re-use generic struct u16_fract.
-No changes intended.
+snd_dmaengine_pcm_register() can be passed a NULL pointer for the config
+which means that the we have to test for pcm->config being non NULL
+before accessing it. Make the code more straight forward by providing a
+default config when none is passed. With this pcm->config is never NULL
+and we can skip all the if (pcm->config) tests.
 
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
 ---
- sound/soc/codecs/cs43130.c |  16 ++--
- sound/soc/codecs/cs43130.h | 151 +++++++++++++++++++------------------
- 2 files changed, 84 insertions(+), 83 deletions(-)
+ sound/soc/soc-generic-dmaengine-pcm.c | 57 ++++++++++++---------------
+ 1 file changed, 25 insertions(+), 32 deletions(-)
 
-diff --git a/sound/soc/codecs/cs43130.c b/sound/soc/codecs/cs43130.c
-index 04548b577ad5..a2bce0f9f247 100644
---- a/sound/soc/codecs/cs43130.c
-+++ b/sound/soc/codecs/cs43130.c
-@@ -712,30 +712,30 @@ static int cs43130_set_sp_fmt(int dai_id, unsigned int bitwidth_sclk,
- 	case CS43130_ASP_PCM_DAI:
- 	case CS43130_ASP_DOP_DAI:
- 		regmap_write(cs43130->regmap, CS43130_ASP_DEN_1,
--			     (clk_gen->den & CS43130_SP_M_LSB_DATA_MASK) >>
-+			     (clk_gen->v.denominator & CS43130_SP_M_LSB_DATA_MASK) >>
- 			     CS43130_SP_M_LSB_DATA_SHIFT);
- 		regmap_write(cs43130->regmap, CS43130_ASP_DEN_2,
--			     (clk_gen->den & CS43130_SP_M_MSB_DATA_MASK) >>
-+			     (clk_gen->v.denominator & CS43130_SP_M_MSB_DATA_MASK) >>
- 			     CS43130_SP_M_MSB_DATA_SHIFT);
- 		regmap_write(cs43130->regmap, CS43130_ASP_NUM_1,
--			     (clk_gen->num & CS43130_SP_N_LSB_DATA_MASK) >>
-+			     (clk_gen->v.numerator & CS43130_SP_N_LSB_DATA_MASK) >>
- 			     CS43130_SP_N_LSB_DATA_SHIFT);
- 		regmap_write(cs43130->regmap, CS43130_ASP_NUM_2,
--			     (clk_gen->num & CS43130_SP_N_MSB_DATA_MASK) >>
-+			     (clk_gen->v.numerator & CS43130_SP_N_MSB_DATA_MASK) >>
- 			     CS43130_SP_N_MSB_DATA_SHIFT);
- 		break;
- 	case CS43130_XSP_DOP_DAI:
- 		regmap_write(cs43130->regmap, CS43130_XSP_DEN_1,
--			     (clk_gen->den & CS43130_SP_M_LSB_DATA_MASK) >>
-+			     (clk_gen->v.denominator & CS43130_SP_M_LSB_DATA_MASK) >>
- 			     CS43130_SP_M_LSB_DATA_SHIFT);
- 		regmap_write(cs43130->regmap, CS43130_XSP_DEN_2,
--			     (clk_gen->den & CS43130_SP_M_MSB_DATA_MASK) >>
-+			     (clk_gen->v.denominator & CS43130_SP_M_MSB_DATA_MASK) >>
- 			     CS43130_SP_M_MSB_DATA_SHIFT);
- 		regmap_write(cs43130->regmap, CS43130_XSP_NUM_1,
--			     (clk_gen->num & CS43130_SP_N_LSB_DATA_MASK) >>
-+			     (clk_gen->v.numerator & CS43130_SP_N_LSB_DATA_MASK) >>
- 			     CS43130_SP_N_LSB_DATA_SHIFT);
- 		regmap_write(cs43130->regmap, CS43130_XSP_NUM_2,
--			     (clk_gen->num & CS43130_SP_N_MSB_DATA_MASK) >>
-+			     (clk_gen->v.numerator & CS43130_SP_N_MSB_DATA_MASK) >>
- 			     CS43130_SP_N_MSB_DATA_SHIFT);
- 		break;
- 	default:
-diff --git a/sound/soc/codecs/cs43130.h b/sound/soc/codecs/cs43130.h
-index e62d671e95bb..1dd893674313 100644
---- a/sound/soc/codecs/cs43130.h
-+++ b/sound/soc/codecs/cs43130.h
-@@ -10,6 +10,8 @@
- #ifndef __CS43130_H__
- #define __CS43130_H__
+diff --git a/sound/soc/soc-generic-dmaengine-pcm.c b/sound/soc/soc-generic-dmaengine-pcm.c
+index 285441d6aeed4..87858462bba99 100644
+--- a/sound/soc/soc-generic-dmaengine-pcm.c
++++ b/sound/soc/soc-generic-dmaengine-pcm.c
+@@ -79,29 +79,19 @@ static int dmaengine_pcm_hw_params(struct snd_soc_component *component,
+ {
+ 	struct dmaengine_pcm *pcm = soc_component_to_pcm(component);
+ 	struct dma_chan *chan = snd_dmaengine_pcm_get_chan(substream);
+-	int (*prepare_slave_config)(struct snd_pcm_substream *substream,
+-			struct snd_pcm_hw_params *params,
+-			struct dma_slave_config *slave_config);
+ 	struct dma_slave_config slave_config;
++	int ret;
  
-+#include <linux/math.h>
+-	memset(&slave_config, 0, sizeof(slave_config));
+-
+-	if (!pcm->config)
+-		prepare_slave_config = snd_dmaengine_pcm_prepare_slave_config;
+-	else
+-		prepare_slave_config = pcm->config->prepare_slave_config;
++	if (!pcm->config->prepare_slave_config)
++		return 0;
+ 
+-	if (prepare_slave_config) {
+-		int ret = prepare_slave_config(substream, params, &slave_config);
+-		if (ret)
+-			return ret;
++	memset(&slave_config, 0, sizeof(slave_config));
+ 
+-		ret = dmaengine_slave_config(chan, &slave_config);
+-		if (ret)
+-			return ret;
+-	}
++	ret = pcm->config->prepare_slave_config(substream, params, &slave_config);
++	if (ret)
++		return ret;
+ 
+-	return 0;
++	return dmaengine_slave_config(chan, &slave_config);
+ }
+ 
+ static int
+@@ -121,7 +111,7 @@ dmaengine_pcm_set_runtime_hwparams(struct snd_soc_component *component,
+ 		return -EINVAL;
+ 	}
+ 
+-	if (pcm->config && pcm->config->pcm_hardware)
++	if (pcm->config->pcm_hardware)
+ 		return snd_soc_set_runtime_hwparams(substream,
+ 				pcm->config->pcm_hardware);
+ 
+@@ -188,7 +178,6 @@ static struct dma_chan *dmaengine_pcm_compat_request_channel(
+ {
+ 	struct dmaengine_pcm *pcm = soc_component_to_pcm(component);
+ 	struct snd_dmaengine_dai_dma_data *dma_data;
+-	dma_filter_fn fn = NULL;
+ 
+ 	if (rtd->num_cpus > 1) {
+ 		dev_err(rtd->dev,
+@@ -201,13 +190,11 @@ static struct dma_chan *dmaengine_pcm_compat_request_channel(
+ 	if ((pcm->flags & SND_DMAENGINE_PCM_FLAG_HALF_DUPLEX) && pcm->chan[0])
+ 		return pcm->chan[0];
+ 
+-	if (pcm->config && pcm->config->compat_request_channel)
++	if (pcm->config->compat_request_channel)
+ 		return pcm->config->compat_request_channel(rtd, substream);
+ 
+-	if (pcm->config)
+-		fn = pcm->config->compat_filter_fn;
+-
+-	return snd_dmaengine_pcm_request_channel(fn, dma_data->filter_data);
++	return snd_dmaengine_pcm_request_channel(pcm->config->compat_filter_fn,
++						 dma_data->filter_data);
+ }
+ 
+ static bool dmaengine_pcm_can_report_residue(struct device *dev,
+@@ -239,12 +226,12 @@ static int dmaengine_pcm_new(struct snd_soc_component *component,
+ 	size_t max_buffer_size;
+ 	unsigned int i;
+ 
+-	if (config && config->prealloc_buffer_size)
++	if (config->prealloc_buffer_size)
+ 		prealloc_buffer_size = config->prealloc_buffer_size;
+ 	else
+ 		prealloc_buffer_size = prealloc_buffer_size_kbytes * 1024;
+ 
+-	if (config && config->pcm_hardware && config->pcm_hardware->buffer_bytes_max)
++	if (config->pcm_hardware && config->pcm_hardware->buffer_bytes_max)
+ 		max_buffer_size = config->pcm_hardware->buffer_bytes_max;
+ 	else
+ 		max_buffer_size = SIZE_MAX;
+@@ -254,7 +241,7 @@ static int dmaengine_pcm_new(struct snd_soc_component *component,
+ 		if (!substream)
+ 			continue;
+ 
+-		if (!pcm->chan[i] && config && config->chan_names[i])
++		if (!pcm->chan[i] && config->chan_names[i])
+ 			pcm->chan[i] = dma_request_slave_channel(dev,
+ 				config->chan_names[i]);
+ 
+@@ -367,10 +354,10 @@ static int dmaengine_pcm_request_chan_of(struct dmaengine_pcm *pcm,
+ 	struct dma_chan *chan;
+ 
+ 	if ((pcm->flags & SND_DMAENGINE_PCM_FLAG_NO_DT) || (!dev->of_node &&
+-	    !(config && config->dma_dev && config->dma_dev->of_node)))
++	    !(config->dma_dev && config->dma_dev->of_node)))
+ 		return 0;
+ 
+-	if (config && config->dma_dev) {
++	if (config->dma_dev) {
+ 		/*
+ 		 * If this warning is seen, it probably means that your Linux
+ 		 * device structure does not match your HW device structure.
+@@ -387,7 +374,7 @@ static int dmaengine_pcm_request_chan_of(struct dmaengine_pcm *pcm,
+ 			name = "rx-tx";
+ 		else
+ 			name = dmaengine_pcm_dma_channel_names[i];
+-		if (config && config->chan_names[i])
++		if (config->chan_names[i])
+ 			name = config->chan_names[i];
+ 		chan = dma_request_chan(dev, name);
+ 		if (IS_ERR(chan)) {
+@@ -425,6 +412,10 @@ static void dmaengine_pcm_release_chan(struct dmaengine_pcm *pcm)
+ 	}
+ }
+ 
++static const struct snd_dmaengine_pcm_config snd_dmaengine_pcm_default_config = {
++	.prepare_slave_config = snd_dmaengine_pcm_prepare_slave_config,
++};
 +
- /* CS43130 registers addresses */
- /* all reg address is shifted by a byte for control byte to be LSB */
- #define CS43130_FIRSTREG	0x010000
-@@ -372,97 +374,96 @@ enum cs43130_dai_id {
- };
+ /**
+  * snd_dmaengine_pcm_register - Register a dmaengine based PCM device
+  * @dev: The parent device for the PCM device
+@@ -445,6 +436,8 @@ int snd_dmaengine_pcm_register(struct device *dev,
+ #ifdef CONFIG_DEBUG_FS
+ 	pcm->component.debugfs_prefix = "dma";
+ #endif
++	if (!config)
++		config = &snd_dmaengine_pcm_default_config;
+ 	pcm->config = config;
+ 	pcm->flags = flags;
  
- struct cs43130_clk_gen {
--	unsigned int	mclk_int;
--	int		fs;
--	u16		den;
--	u16		num;
-+	unsigned int		mclk_int;
-+	int			fs;
-+	struct u16_fract	v;
- };
+@@ -452,7 +445,7 @@ int snd_dmaengine_pcm_register(struct device *dev,
+ 	if (ret)
+ 		goto err_free_dma;
  
- /* frm_size = 16 */
- static const struct cs43130_clk_gen cs43130_16_clk_gen[] = {
--	{22579200,	32000,		441,		10,},
--	{22579200,	44100,		32,		1,},
--	{22579200,	48000,		147,		5,},
--	{22579200,	88200,		16,		1,},
--	{22579200,	96000,		147,		10,},
--	{22579200,	176400,		8,		1,},
--	{22579200,	192000,		147,		20,},
--	{22579200,	352800,		4,		1,},
--	{22579200,	384000,		147,		40,},
--	{24576000,	32000,		48,		1,},
--	{24576000,	44100,		5120,		147,},
--	{24576000,	48000,		32,		1,},
--	{24576000,	88200,		2560,		147,},
--	{24576000,	96000,		16,		1,},
--	{24576000,	176400,		1280,		147,},
--	{24576000,	192000,		8,		1,},
--	{24576000,	352800,		640,		147,},
--	{24576000,	384000,		4,		1,},
-+	{ 22579200,	32000,		.v = { 441,	10, }, },
-+	{ 22579200,	44100,		.v = { 32,	1, }, },
-+	{ 22579200,	48000,		.v = { 147,	5, }, },
-+	{ 22579200,	88200,		.v = { 16,	1, }, },
-+	{ 22579200,	96000,		.v = { 147,	10, }, },
-+	{ 22579200,	176400,		.v = { 8,	1, }, },
-+	{ 22579200,	192000,		.v = { 147,	20, }, },
-+	{ 22579200,	352800,		.v = { 4,	1, }, },
-+	{ 22579200,	384000,		.v = { 147,	40, }, },
-+	{ 24576000,	32000,		.v = { 48,	1, }, },
-+	{ 24576000,	44100,		.v = { 5120,	147, }, },
-+	{ 24576000,	48000,		.v = { 32,	1, }, },
-+	{ 24576000,	88200,		.v = { 2560,	147, }, },
-+	{ 24576000,	96000,		.v = { 16,	1, }, },
-+	{ 24576000,	176400,		.v = { 1280,	147, }, },
-+	{ 24576000,	192000,		.v = { 8,	1, }, },
-+	{ 24576000,	352800,		.v = { 640,	147, }, },
-+	{ 24576000,	384000,		.v = { 4,	1, }, },
- };
- 
- /* frm_size = 32 */
- static const struct cs43130_clk_gen cs43130_32_clk_gen[] = {
--	{22579200,	32000,		441,		20,},
--	{22579200,	44100,		16,		1,},
--	{22579200,	48000,		147,		10,},
--	{22579200,	88200,		8,		1,},
--	{22579200,	96000,		147,		20,},
--	{22579200,	176400,		4,		1,},
--	{22579200,	192000,		147,		40,},
--	{22579200,	352800,		2,		1,},
--	{22579200,	384000,		147,		80,},
--	{24576000,	32000,		24,		1,},
--	{24576000,	44100,		2560,		147,},
--	{24576000,	48000,		16,		1,},
--	{24576000,	88200,		1280,		147,},
--	{24576000,	96000,		8,		1,},
--	{24576000,	176400,		640,		147,},
--	{24576000,	192000,		4,		1,},
--	{24576000,	352800,		320,		147,},
--	{24576000,	384000,		2,		1,},
-+	{ 22579200,	32000,		.v = { 441,	20, }, },
-+	{ 22579200,	44100,		.v = { 16,	1, }, },
-+	{ 22579200,	48000,		.v = { 147,	10, }, },
-+	{ 22579200,	88200,		.v = { 8,	1, }, },
-+	{ 22579200,	96000,		.v = { 147,	20, }, },
-+	{ 22579200,	176400,		.v = { 4,	1, }, },
-+	{ 22579200,	192000,		.v = { 147,	40, }, },
-+	{ 22579200,	352800,		.v = { 2,	1, }, },
-+	{ 22579200,	384000,		.v = { 147,	80, }, },
-+	{ 24576000,	32000,		.v = { 24,	1, }, },
-+	{ 24576000,	44100,		.v = { 2560,	147, }, },
-+	{ 24576000,	48000,		.v = { 16,	1, }, },
-+	{ 24576000,	88200,		.v = { 1280,	147, }, },
-+	{ 24576000,	96000,		.v = { 8,	1, }, },
-+	{ 24576000,	176400,		.v = { 640,	147, }, },
-+	{ 24576000,	192000,		.v = { 4,	1, }, },
-+	{ 24576000,	352800,		.v = { 320,	147, }, },
-+	{ 24576000,	384000,		.v = { 2,	1, }, },
- };
- 
- /* frm_size = 48 */
- static const struct cs43130_clk_gen cs43130_48_clk_gen[] = {
--	{22579200,	32000,		147,		100,},
--	{22579200,	44100,		32,		3,},
--	{22579200,	48000,		49,		5,},
--	{22579200,	88200,		16,		3,},
--	{22579200,	96000,		49,		10,},
--	{22579200,	176400,		8,		3,},
--	{22579200,	192000,		49,		20,},
--	{22579200,	352800,		4,		3,},
--	{22579200,	384000,		49,		40,},
--	{24576000,	32000,		16,		1,},
--	{24576000,	44100,		5120,		441,},
--	{24576000,	48000,		32,		3,},
--	{24576000,	88200,		2560,		441,},
--	{24576000,	96000,		16,		3,},
--	{24576000,	176400,		1280,		441,},
--	{24576000,	192000,		8,		3,},
--	{24576000,	352800,		640,		441,},
--	{24576000,	384000,		4,		3,},
-+	{ 22579200,	32000,		.v = { 147,	100, }, },
-+	{ 22579200,	44100,		.v = { 32,	3, }, },
-+	{ 22579200,	48000,		.v = { 49,	5, }, },
-+	{ 22579200,	88200,		.v = { 16,	3, }, },
-+	{ 22579200,	96000,		.v = { 49,	10, }, },
-+	{ 22579200,	176400,		.v = { 8,	3, }, },
-+	{ 22579200,	192000,		.v = { 49,	20, }, },
-+	{ 22579200,	352800,		.v = { 4,	3, }, },
-+	{ 22579200,	384000,		.v = { 49,	40, }, },
-+	{ 24576000,	32000,		.v = { 16,	1, }, },
-+	{ 24576000,	44100,		.v = { 5120,	441, }, },
-+	{ 24576000,	48000,		.v = { 32,	3, }, },
-+	{ 24576000,	88200,		.v = { 2560,	441, }, },
-+	{ 24576000,	96000,		.v = { 16,	3, }, },
-+	{ 24576000,	176400,		.v = { 1280,	441, }, },
-+	{ 24576000,	192000,		.v = { 8,	3, }, },
-+	{ 24576000,	352800,		.v = { 640,	441, }, },
-+	{ 24576000,	384000,		.v = { 4,	3, }, },
- };
- 
- /* frm_size = 64 */
- static const struct cs43130_clk_gen cs43130_64_clk_gen[] = {
--	{22579200,	32000,		441,		40,},
--	{22579200,	44100,		8,		1,},
--	{22579200,	48000,		147,		20,},
--	{22579200,	88200,		4,		1,},
--	{22579200,	96000,		147,		40,},
--	{22579200,	176400,		2,		1,},
--	{22579200,	192000,		147,		80,},
--	{22579200,	352800,		1,		1,},
--	{24576000,	32000,		12,		1,},
--	{24576000,	44100,		1280,		147,},
--	{24576000,	48000,		8,		1,},
--	{24576000,	88200,		640,		147,},
--	{24576000,	96000,		4,		1,},
--	{24576000,	176400,		320,		147,},
--	{24576000,	192000,		2,		1,},
--	{24576000,	352800,		160,		147,},
--	{24576000,	384000,		1,		1,},
-+	{ 22579200,	32000,		.v = { 441,	40, }, },
-+	{ 22579200,	44100,		.v = { 8,	1, }, },
-+	{ 22579200,	48000,		.v = { 147,	20, }, },
-+	{ 22579200,	88200,		.v = { 4,	1, }, },
-+	{ 22579200,	96000,		.v = { 147,	40, }, },
-+	{ 22579200,	176400,		.v = { 2,	1, }, },
-+	{ 22579200,	192000,		.v = { 147,	80, }, },
-+	{ 22579200,	352800,		.v = { 1,	1, }, },
-+	{ 24576000,	32000,		.v = { 12,	1, }, },
-+	{ 24576000,	44100,		.v = { 1280,	147, }, },
-+	{ 24576000,	48000,		.v = { 8,	1, }, },
-+	{ 24576000,	88200,		.v = { 640,	147, }, },
-+	{ 24576000,	96000,		.v = { 4,	1, }, },
-+	{ 24576000,	176400,		.v = { 320,	147, }, },
-+	{ 24576000,	192000,		.v = { 2,	1, }, },
-+	{ 24576000,	352800,		.v = { 160,	147, }, },
-+	{ 24576000,	384000,		.v = { 1,	1, }, },
- };
- 
- struct cs43130_bitwidth_map {
+-	if (config && config->process)
++	if (config->process)
+ 		driver = &dmaengine_pcm_component_process;
+ 	else
+ 		driver = &dmaengine_pcm_component;
 -- 
-2.35.1
+2.30.2
 

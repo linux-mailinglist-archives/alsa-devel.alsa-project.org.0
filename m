@@ -2,69 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3587A517014
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 May 2022 15:14:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5A4F517129
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 May 2022 16:03:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 927D715E5;
-	Mon,  2 May 2022 15:13:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 927D715E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 467BC161E;
+	Mon,  2 May 2022 16:02:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 467BC161E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651497289;
-	bh=i3sODOZ2hKY4Hg4AtT00iOazNEgIIhoNw/ZsA8dg1z0=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ixhSEANw71AXxJNhXt1BuOi5hLtm2wd6dyI+IjTvfoQs3AOt4bqBGWW1wX+B55j/Y
-	 bwUyb+IkwP3suq5ejTFTy+KU4jKVbG210fwwvlSbNRbY+fFmUkIF2A9rmuIOmo1DLj
-	 Gcq0MzjHXYADWlRCCPjpHi7qbqX7Onv0jBDjVWCU=
+	s=default; t=1651500182;
+	bh=DvDIwV3CmqjYSR4SOb9akGSwBgrd14Hct48y1doOBbM=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=DDWj3FB4WYg6CP4P9gPGfzuxA3qq/AwJjZRae2GE79JS+Via5cMW1cUAfvIgW+O3i
+	 0OYnDpwT1bt/MyzRZ7QDVUTjcy42d4I/LtEwZSDMpYrMiLvlFfxsPlNUZKPd0Izy1j
+	 PhrDk8VCKdCyZ5E/owHwk99X3j0HBcG7u31bmWU4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EAAF7F80129;
-	Mon,  2 May 2022 15:13:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BF34BF80129;
+	Mon,  2 May 2022 16:02:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 637A8F80245; Mon,  2 May 2022 15:13:48 +0200 (CEST)
+ id BBC64F8027C; Mon,  2 May 2022 16:02:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_FILL_THIS_FORM_SHORT,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 345FCF800D2
- for <alsa-devel@alsa-project.org>; Mon,  2 May 2022 15:13:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 345FCF800D2
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <sha@pengutronix.de>)
- id 1nlVru-0000l5-7Q; Mon, 02 May 2022 15:13:38 +0200
-Received: from [2a0a:edc0:0:1101:1d::28] (helo=dude02.red.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <sha@pengutronix.de>)
- id 1nlVru-006XlI-C6; Mon, 02 May 2022 15:13:36 +0200
-Received: from sha by dude02.red.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <sha@pengutronix.de>)
- id 1nlVrs-00AvZi-7q; Mon, 02 May 2022 15:13:36 +0200
-From: Sascha Hauer <s.hauer@pengutronix.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ASoC: soc-generic-dmaengine-pcm: Use default config when none
- is given
-Date: Mon,  2 May 2022 15:13:35 +0200
-Message-Id: <20220502131335.2604158-1-s.hauer@pengutronix.de>
-X-Mailer: git-send-email 2.30.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8780BF80129
+ for <alsa-devel@alsa-project.org>; Mon,  2 May 2022 16:02:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8780BF80129
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="DfnYgx/o"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1651500124; x=1683036124;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=DvDIwV3CmqjYSR4SOb9akGSwBgrd14Hct48y1doOBbM=;
+ b=DfnYgx/oxMcB5cluUwYmGEX3bDnreUHnruCAAhLF87MrXcvUsASCuJHH
+ DjV8lp6yuw6PBlpYA2JCsrp/WsRJSYDLNnS41wyh7BSKoznA5wbeHrKCa
+ NMmjjH99x2UkxPucHrSbaoqwLyK9hQJJ26zpUuJaCOdLb7SY16jbVdccw
+ HtCVrOKATYE+RCSYnuIgltwYtg47SkswlFvVTbd9rDbSWekrq9B9Y7Mhg
+ cu+WQKMbdbi38mTEeCBsL1dXXhwEVKnBgHEBHgFnOktPZLzcr7Ir1x0Dt
+ c3via0XWbusfYQx/RnGc1tThdLjWocCOF57Tv1pvoKdKW45fRdn1ByFSY Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10334"; a="330206730"
+X-IronPort-AV: E=Sophos;i="5.91,192,1647327600"; d="scan'208";a="330206730"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 May 2022 07:01:46 -0700
+X-IronPort-AV: E=Sophos;i="5.91,192,1647327600"; d="scan'208";a="561742733"
+Received: from sushilsu-mobl1.amr.corp.intel.com (HELO [10.251.9.25])
+ ([10.251.9.25])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 May 2022 07:01:45 -0700
+Message-ID: <3b5f69bc-e7e9-b3f0-7ebb-bd66590474f3@linux.intel.com>
+Date: Mon, 2 May 2022 08:53:40 -0500
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.5.0
+Subject: Re: [PATCH 06/14] ASoC: Intel: avs: Coredump and recovery flow
+Content-Language: en-US
+To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org, 
+ broonie@kernel.org
+References: <20220426172346.3508411-1-cezary.rojewski@intel.com>
+ <20220426172346.3508411-7-cezary.rojewski@intel.com>
+ <d80075c7-3658-52e0-b09f-35182961d5df@linux.intel.com>
+ <f20f3d72-8f5a-1878-c1fa-49dafce784d7@intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <f20f3d72-8f5a-1878-c1fa-49dafce784d7@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: sha@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Cc: Sascha Hauer <s.hauer@pengutronix.de>, Mark Brown <broonie@kernel.org>,
- Lars-Peter Clausen <lars@metafoo.de>, kernel@pengutronix.de
+Cc: upstream@semihalf.com, harshapriya.n@intel.com, rad@semihalf.com,
+ tiwai@suse.com, hdegoede@redhat.com, amadeuszx.slawinski@linux.intel.com,
+ cujomalainey@chromium.org, lma@semihalf.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,168 +97,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-snd_dmaengine_pcm_register() can be passed a NULL pointer for the config
-which means that the we have to test for pcm->config being non NULL
-before accessing it. Make the code more straight forward by providing a
-default config when none is passed. With this pcm->config is never NULL
-and we can skip all the if (pcm->config) tests.
 
-Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
----
- sound/soc/soc-generic-dmaengine-pcm.c | 57 ++++++++++++---------------
- 1 file changed, 25 insertions(+), 32 deletions(-)
+>>> +
+>>> +    /* forcibly shutdown all cores */
+>>> +    core_mask = GENMASK(adev->hw_cfg.dsp_cores - 1, 0);
+>>> +    avs_dsp_core_disable(adev, core_mask);
+>>> +
+>>> +    /* attempt dsp reboot */
+>>> +    ret = avs_dsp_boot_firmware(adev, true);
+>>> +    if (ret < 0)
+>>> +        dev_err(adev->dev, "dsp reboot failed: %d\n", ret);
+>>> +
+>>> +    pm_runtime_mark_last_busy(adev->dev);
+>>> +    pm_runtime_enable(adev->dev);
+>>> +    pm_request_autosuspend(adev->dev);
+>>
+>> there are zero users of this routine in the entire sound/ tree, can you clarify why this is needed or what you are trying to do?
+> 
+> 
+> Unsure which routine you question here. I'll assume it's pm_request_autosuspend().
+> 
+> pm_request_audiosuspend() is being used to queue suspend once recovery completes. Recovery takes time and during that time all communication attempts with DSP will yield -EPERM. PM is also blocked for the device with pm_runtime_disable(), performed before scheduling the recovery work. Once recovery completes we do not just unblock the PM as that would cause immediate suspend. Instead, we "refresh" the *last busy* status and queue the suspend operation.
 
-diff --git a/sound/soc/soc-generic-dmaengine-pcm.c b/sound/soc/soc-generic-dmaengine-pcm.c
-index 285441d6aeed4..87858462bba99 100644
---- a/sound/soc/soc-generic-dmaengine-pcm.c
-+++ b/sound/soc/soc-generic-dmaengine-pcm.c
-@@ -79,29 +79,19 @@ static int dmaengine_pcm_hw_params(struct snd_soc_component *component,
- {
- 	struct dmaengine_pcm *pcm = soc_component_to_pcm(component);
- 	struct dma_chan *chan = snd_dmaengine_pcm_get_chan(substream);
--	int (*prepare_slave_config)(struct snd_pcm_substream *substream,
--			struct snd_pcm_hw_params *params,
--			struct dma_slave_config *slave_config);
- 	struct dma_slave_config slave_config;
-+	int ret;
- 
--	memset(&slave_config, 0, sizeof(slave_config));
--
--	if (!pcm->config)
--		prepare_slave_config = snd_dmaengine_pcm_prepare_slave_config;
--	else
--		prepare_slave_config = pcm->config->prepare_slave_config;
-+	if (!pcm->config->prepare_slave_config)
-+		return 0;
- 
--	if (prepare_slave_config) {
--		int ret = prepare_slave_config(substream, params, &slave_config);
--		if (ret)
--			return ret;
-+	memset(&slave_config, 0, sizeof(slave_config));
- 
--		ret = dmaengine_slave_config(chan, &slave_config);
--		if (ret)
--			return ret;
--	}
-+	ret = pcm->config->prepare_slave_config(substream, params, &slave_config);
-+	if (ret)
-+		return ret;
- 
--	return 0;
-+	return dmaengine_slave_config(chan, &slave_config);
- }
- 
- static int
-@@ -121,7 +111,7 @@ dmaengine_pcm_set_runtime_hwparams(struct snd_soc_component *component,
- 		return -EINVAL;
- 	}
- 
--	if (pcm->config && pcm->config->pcm_hardware)
-+	if (pcm->config->pcm_hardware)
- 		return snd_soc_set_runtime_hwparams(substream,
- 				pcm->config->pcm_hardware);
- 
-@@ -188,7 +178,6 @@ static struct dma_chan *dmaengine_pcm_compat_request_channel(
- {
- 	struct dmaengine_pcm *pcm = soc_component_to_pcm(component);
- 	struct snd_dmaengine_dai_dma_data *dma_data;
--	dma_filter_fn fn = NULL;
- 
- 	if (rtd->num_cpus > 1) {
- 		dev_err(rtd->dev,
-@@ -201,13 +190,11 @@ static struct dma_chan *dmaengine_pcm_compat_request_channel(
- 	if ((pcm->flags & SND_DMAENGINE_PCM_FLAG_HALF_DUPLEX) && pcm->chan[0])
- 		return pcm->chan[0];
- 
--	if (pcm->config && pcm->config->compat_request_channel)
-+	if (pcm->config->compat_request_channel)
- 		return pcm->config->compat_request_channel(rtd, substream);
- 
--	if (pcm->config)
--		fn = pcm->config->compat_filter_fn;
--
--	return snd_dmaengine_pcm_request_channel(fn, dma_data->filter_data);
-+	return snd_dmaengine_pcm_request_channel(pcm->config->compat_filter_fn,
-+						 dma_data->filter_data);
- }
- 
- static bool dmaengine_pcm_can_report_residue(struct device *dev,
-@@ -239,12 +226,12 @@ static int dmaengine_pcm_new(struct snd_soc_component *component,
- 	size_t max_buffer_size;
- 	unsigned int i;
- 
--	if (config && config->prealloc_buffer_size)
-+	if (config->prealloc_buffer_size)
- 		prealloc_buffer_size = config->prealloc_buffer_size;
- 	else
- 		prealloc_buffer_size = prealloc_buffer_size_kbytes * 1024;
- 
--	if (config && config->pcm_hardware && config->pcm_hardware->buffer_bytes_max)
-+	if (config->pcm_hardware && config->pcm_hardware->buffer_bytes_max)
- 		max_buffer_size = config->pcm_hardware->buffer_bytes_max;
- 	else
- 		max_buffer_size = SIZE_MAX;
-@@ -254,7 +241,7 @@ static int dmaengine_pcm_new(struct snd_soc_component *component,
- 		if (!substream)
- 			continue;
- 
--		if (!pcm->chan[i] && config && config->chan_names[i])
-+		if (!pcm->chan[i] && config->chan_names[i])
- 			pcm->chan[i] = dma_request_slave_channel(dev,
- 				config->chan_names[i]);
- 
-@@ -367,10 +354,10 @@ static int dmaengine_pcm_request_chan_of(struct dmaengine_pcm *pcm,
- 	struct dma_chan *chan;
- 
- 	if ((pcm->flags & SND_DMAENGINE_PCM_FLAG_NO_DT) || (!dev->of_node &&
--	    !(config && config->dma_dev && config->dma_dev->of_node)))
-+	    !(config->dma_dev && config->dma_dev->of_node)))
- 		return 0;
- 
--	if (config && config->dma_dev) {
-+	if (config->dma_dev) {
- 		/*
- 		 * If this warning is seen, it probably means that your Linux
- 		 * device structure does not match your HW device structure.
-@@ -387,7 +374,7 @@ static int dmaengine_pcm_request_chan_of(struct dmaengine_pcm *pcm,
- 			name = "rx-tx";
- 		else
- 			name = dmaengine_pcm_dma_channel_names[i];
--		if (config && config->chan_names[i])
-+		if (config->chan_names[i])
- 			name = config->chan_names[i];
- 		chan = dma_request_chan(dev, name);
- 		if (IS_ERR(chan)) {
-@@ -425,6 +412,10 @@ static void dmaengine_pcm_release_chan(struct dmaengine_pcm *pcm)
- 	}
- }
- 
-+static const struct snd_dmaengine_pcm_config snd_dmaengine_pcm_default_config = {
-+	.prepare_slave_config = snd_dmaengine_pcm_prepare_slave_config,
-+};
-+
- /**
-  * snd_dmaengine_pcm_register - Register a dmaengine based PCM device
-  * @dev: The parent device for the PCM device
-@@ -445,6 +436,8 @@ int snd_dmaengine_pcm_register(struct device *dev,
- #ifdef CONFIG_DEBUG_FS
- 	pcm->component.debugfs_prefix = "dma";
- #endif
-+	if (!config)
-+		config = &snd_dmaengine_pcm_default_config;
- 	pcm->config = config;
- 	pcm->flags = flags;
- 
-@@ -452,7 +445,7 @@ int snd_dmaengine_pcm_register(struct device *dev,
- 	if (ret)
- 		goto err_free_dma;
- 
--	if (config && config->process)
-+	if (config->process)
- 		driver = &dmaengine_pcm_component_process;
- 	else
- 		driver = &dmaengine_pcm_component;
--- 
-2.30.2
+But since you already have autosuspend enabled, why would you need to explicitly queue a suspend operation? What happens if that last call is omitted, is there actually a functional difference?
 
+Not objecting if that's required, but since no one else used it so far I wonder if we missed something or if this is overkill.

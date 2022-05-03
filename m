@@ -2,95 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1616F5177BD
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 May 2022 22:07:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6846B517FE0
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 May 2022 10:40:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6BA171FA;
-	Mon,  2 May 2022 22:07:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6BA171FA
+	by alsa0.perex.cz (Postfix) with ESMTPS id D5010843;
+	Tue,  3 May 2022 10:39:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5010843
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651522076;
-	bh=DN3Xgl4wQ77CfwOQ5gWkXLSlvNlO/kT0WQ14TNQWZ28=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1651567210;
+	bh=eIQQvCZEwukJEi8q99oHoh3BgDr4V6rwzByFYGTPUNk=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TovehJhFyISNW7bhZK29BBLN916gc7NQtrGHX03FKctpIOjXdLgfOuZm8TmW/nHvi
-	 sQbB2gCc/3Ds/bOxQcM5bXJzz6FAnIxmHuhrDZrfMWjD8am0xrLb/inBnzSH4B1dNt
-	 qm4IpMfh46zDsaW0A0YnsudkkTCyTDHQ9AvBRkcE=
+	b=UoVldDG/MNNXImZBvAfOX6Cp6IOIhCJKt1OWyx7E7YOXNmrtX8feVn+Tl6pZYa5Zn
+	 kEET0Io1WjI2hvJe9G132fPPXb3yPoBWV39TWgRaNt8AjQrUDxXxNPghnBBXNjTcB5
+	 1qfYwa9AJghlWR0mAEVy7r62IjQWHVeKdrC2/XbA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CF59BF80249;
-	Mon,  2 May 2022 22:06:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4E22BF8025E;
+	Tue,  3 May 2022 10:39:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 68E03F80245; Mon,  2 May 2022 22:06:56 +0200 (CEST)
+ id 175E1F80129; Tue,  3 May 2022 10:39:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- USER_IN_DEF_DKIM_WL autolearn=disabled version=3.4.0
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [IPv6:2a00:1450:4864:20::62c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
+ [64.147.123.20])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7F43FF800D2
- for <alsa-devel@alsa-project.org>; Mon,  2 May 2022 22:06:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F43FF800D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 58750F80129
+ for <alsa-devel@alsa-project.org>; Tue,  3 May 2022 10:39:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58750F80129
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="Zd4/eIFj"
-Received: by mail-ej1-x62c.google.com with SMTP id n10so12326099ejk.5
- for <alsa-devel@alsa-project.org>; Mon, 02 May 2022 13:06:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=DN3Xgl4wQ77CfwOQ5gWkXLSlvNlO/kT0WQ14TNQWZ28=;
- b=Zd4/eIFjGcLEPqHZ7WmQgge9BoYJjb6Ti0GAeIYOIV/CMZEb3NJJBXFMzgc/4No+P9
- t+zEtg4ab//2AmkYkMyRXACc+7XM6sut30TkiijIUMWUwoBlU3R366PgejhEU1L16EMc
- aWEn8ciT4sdADmEATL3u+ZHhKtjjVv+odTUhXeSNB2frDbdgqoQDlvk6MeJq3X/6yrVp
- Z8r9l7LYIOGSzUVOGgeKyhNSxONVMSN9NgP+L9pzfismnV9opc8G5d0XM8Mo9VW5eG68
- m6L0rPMqpVjTdCPbAYtomr4oxxTODmwK0e7I+fkN3DgNwkrVgc+p43DWJYs9mJyc8YMZ
- 9U0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=DN3Xgl4wQ77CfwOQ5gWkXLSlvNlO/kT0WQ14TNQWZ28=;
- b=fGdJIKY+5YTvScMVPVa9/uSPC/jawNdyxAX0i4yXDw5pGy2k3ugiMOIA4F0uGH3D9a
- 5GLgDuQm//sCEIlCXHInpaUIqMhqSQO0o9ehMsETgpk66lZo6zedxMD7AAb9aBfmA5YN
- TMpHKnuyC9FkVyyaeLUj7h4wRdoM56/YYtdP0SWI9C1aY2uDyQFCM/DhPJM/heHisUQ0
- +aIap7gjbxEGpMQS42jDhawJ8RzPjeT3MpXsmZnuNXYI0sYFeLSPyTYbeFu7/ejo1Wyl
- yvoGjVIL4OXWyYSbeg5jBv8fV3nltqGyDmq9K3dML9E/qZveNNMagQNFW/kxotQv5j+8
- RTbw==
-X-Gm-Message-State: AOAM53366fP/SR8cJUddBGIG9+XDiUxksqmYNDtcgbnLxkD3kukT39on
- 8srHkY3WNIu/s13AKJDFg+yG8ra631zoU6YOQep/LQ==
-X-Google-Smtp-Source: ABdhPJxifpkZzedGTGC5L2Yk2C+3FI/f0S875DILEjbi/rYUiYb53FQuV1Hm3WIN46/H2p664NY1f1SjZETXAbdExik=
-X-Received: by 2002:a17:907:8693:b0:6f4:82c:822f with SMTP id
- qa19-20020a170907869300b006f4082c822fmr12472412ejc.651.1651522006874; Mon, 02
- May 2022 13:06:46 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
+ header.b="CDf/p+7u"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="c0gNCcsB"
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.west.internal (Postfix) with ESMTP id A79C732009F3;
+ Tue,  3 May 2022 04:38:57 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Tue, 03 May 2022 04:38:58 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
+ :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:sender:subject
+ :subject:to:to; s=fm3; t=1651567137; x=1651653537; bh=BzAECZIEHC
+ c0MWNfVYa4bChSwxuC5HSH+DCEkLNcaNM=; b=CDf/p+7ulMxSnPaS/Fsq4RY9u7
+ EFFOSKyyilt4W7gLiMnXK8IasANlvZdhrEElFG2IpdqxqtTOiea5ajZ0smItnWjz
+ HBXQhSIfA678dmO750PHfFXv7GPB645kWm2wFthLuOA+6MB/rV3kaauqahsFqLK7
+ dAfonHkIt9TSkkd+958T4ZM7R0ti0NXJ7qvQ1BhC9qwcM4DuLjTuEvG5IFn2iv93
+ Moko+fQZgstF76TS4xEBFThoxBuZKsV1eOI9RR3kcwwyRc8H3msu7HTld4oba/7e
+ 8u7L0+ZHi1YGbJ13tdOfg/eXkp3lvkCThEQRJAXEZpjXAskeR/4yYwLbQfPw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:date:date:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1651567137; x=
+ 1651653537; bh=BzAECZIEHCc0MWNfVYa4bChSwxuC5HSH+DCEkLNcaNM=; b=c
+ 0gNCcsBOndSK74KDP3QyeWMqPZMnZzbKJ+ts34mmKlHpEgovc8zgwu0fjx8c325R
+ o7JYWern9ApalkHN9+cGgWkN/lcz5B0IuGUCwG0601MYl7+kJP0kYS7Pl5vkqOMY
+ 5Bn2Ww8zIUmjsQnGBMRbJFPqGyvBMj56T/9zVBRvrg8L++i35i1+6X9BaBcGl9ns
+ 7cOtDUH9stxSAlV6zDI12azeUng5Q8yP7W+GVAqzRwci0tmu+sWVoM7xTcTooYLA
+ bTOQqjgEb0CXp9hxumDL3YdYjGB+0ACj5U+qzDIx+unjH3hHb+IjBM0goQORxZvO
+ DXU9ld1colPzuDwx1HlUA==
+X-ME-Sender: <xms:H-pwYvdDq3Zazof8DVN0DqZEWW2gHPMb7Uf9tqbAdWDs4MozIF5kdQ>
+ <xme:H-pwYlP2pYetacNmvUdxYdTl2uP1M_-yXU2v7LPtJRIKM8N73DnTyh1SUUJAknAYQ
+ Yq5IhokigyF8sx8VVc>
+X-ME-Received: <xmr:H-pwYojL3OKgZkTpuh-tktW3b5Uws5yGPC0BTyDczMDESLhvFEGp5JVs9sz2GCM6JMma0IEND4383q-p4UGZs7MfYV-eZTo1IPmNn0g>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrvdejgddtiecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpeffhffvvefukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeforgigihhm
+ vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
+ htvghrnhepteefffefgfektdefgfeludfgtdejfeejvddttdekteeiffejvdfgheehfffh
+ vedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmh
+ grgihimhgvsegtvghrnhhordhtvggthh
+X-ME-Proxy: <xmx:H-pwYg9FIs0ySLv8K8nMSOoiMaCq9HC5fQIdAe0XKmek8m3lhHMjJw>
+ <xmx:H-pwYrulugmwWxw_jEBgeqsixVvYmH0bWiKk0xBRUWsaXAtloGKWDA>
+ <xmx:H-pwYvEuqUhkzJFQjIdx4OUH2sVeP-PG6J0LS9TZ8NZ_zsaELThMRA>
+ <xmx:IepwYhCm9cSYl5sG7umuIA0n7KsIHZgXOgKDSGvFUdnLskqj95Wzdw>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 3 May 2022 04:38:54 -0400 (EDT)
+Date: Tue, 3 May 2022 10:38:52 +0200
+From: Maxime Ripard <maxime@cerno.tech>
+To: Sugar Zhang <sugar.zhang@rock-chips.com>
+Subject: Re: [PATCH v2] ASoC: hdmi-codec: Add option for ELD bypass
+Message-ID: <20220503083852.be2aihvkd3gestdw@houat>
+References: <20220430134006.v2.1.Ide2a04ad0c123cc6990a63632e6f9bb7d7f9be13@changeid>
 MIME-Version: 1.0
-References: <d9c3fed4-de6a-2cd8-acb6-7f3d2ad46b70@linux.intel.com>
- <CAOReqxg9Y0_S5jqati4O+GT0C_yR7agBZYK79O996MQAk3HmDQ@mail.gmail.com>
- <29c1bfee-2f0f-e211-1ce7-ac377be03e11@linux.intel.com>
-In-Reply-To: <29c1bfee-2f0f-e211-1ce7-ac377be03e11@linux.intel.com>
-From: Curtis Malainey <cujomalainey@google.com>
-Date: Mon, 2 May 2022 13:06:35 -0700
-Message-ID: <CAOReqxjWXs=moAN-WdZL=8rNFW+MMg_uisJdq3yvfzSkRBoiDQ@mail.gmail.com>
-Subject: Re: ASoC component/card relationship
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="vsmb6pic4bsb7zjz"
+Content-Disposition: inline
+In-Reply-To: <20220430134006.v2.1.Ide2a04ad0c123cc6990a63632e6f9bb7d7f9be13@changeid>
+Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
+ alsa-devel@alsa-project.org,
  Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>,
- =?UTF-8?B?QW1hZGV1c3ogU8WCYXdpxYRza2k=?= <amadeuszx.slawinski@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, broonie@kernel.org,
+ Dmitry Osipenko <digetx@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,92 +120,110 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, May 2, 2022 at 8:06 AM Pierre-Louis Bossart
-<pierre-louis.bossart@linux.intel.com> wrote:
->
->
->
-> On 4/29/22 17:32, Curtis Malainey wrote:
-> > On Fri, Apr 29, 2022 at 2:55 PM Pierre-Louis Bossart
-> > <pierre-louis.bossart@linux.intel.com> wrote:
-> >>
-> >> Hi,
-> >> In the existing ASoC code, there is a fixed mapping between ASoC card =
-and component. A component relies on a ->card pointer that is set during th=
-e probe. A component cannot be used by or "bound to" more than one card [1]
-> >>
-> >> This has interesting impacts on how a codec or DSP driver need to be i=
-mplemented.
-> >>
-> >> In the AVS series posted this week, multiple components are registered=
- by the DSP driver, following an interface-based split. There's in addition=
- a second-level split, where the logic is pushed further: the DSP driver pa=
-rtitions the SSP DAIs in different set of 'dai_driver's used by different c=
-omponents, which are in turn used by different cards. What is done in these=
- patches is not wrong, and is probably the only solution to support a real-=
-world platform with the existing ASoC code, but are the framework assumptio=
-ns correct? In this example, the board-level information on which interface=
- is used for what functionality trickles down to the lowest level of the DS=
-P driver implementation.
-> >>
-> >> I believe this breaks to some extent the 'clean' split between platfor=
-m and machine driver(s), and it's not quite aligned with the usual notion o=
-f register/probe used across frameworks, be it for drivers/clocks/you name =
-it.
-> >>
-> >> A similar case could happen in a codec driver, if independent function=
-ality such as headset and amplifier support was exposed by separate cards, =
-that would in turn mandate that the codec driver exposed N components, each=
- handling different functionality but the same type of DAI.
-> >>
-> >> An alternative approach would be that the DSP driver exposes all the p=
-ossible DAIs that can be used, and the binding is refined to allow for more=
- flexibility. I think it's really the individual DAI that cannot be used by=
- more than one card.
-> >
-> > Would it also be logical to expose the DAIs on the codecs
-> > independently or should this be validated on a case by case basis?
->
-> Not following the question, sorry.
 
-If we are considering helping divide the boundary between DAIs and
-components, just curious if there is any gain on codecs with more than
-1 DAI.
+--vsmb6pic4bsb7zjz
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-E.g. rt5677 has 6 DAIs, just pondering if it's possible (or even
-useful) to do this on the codec side as well. So in theory a single
-codec could be part of 2 cards.
+Hi,
 
->
-> >> I figured I would ask on this mailing list if
-> >>
-> >> a) I am not mistaken on the component/card relationship and
-> >>
-> >
-> > Just trying to think of a reason why this would not be true. Are we
-> > aware of platforms that have configuration relationships across DAIs?
-> > E.g. they use a single clock and must be configured together, so
-> > splitting them might cause them to be in sync? Otherwise I agree, if
-> > DAIs can be handled independently then I don't see why we should tie
-> > them together.
->
-> There are restrictions on most platforms, but those restrictions should b=
-e expressed with modeling of clocks and serialization when accessing regist=
-ers if required. Splitting the DAIs in different components to expose diffe=
-rent cards to userspace without modeling such dependencies is a sure fail i=
-ndeed. It's also an assured fail even if the DAIs are exposed in a single c=
-omponent and used in a single card. One example would be our very own Intel=
- SSP, if you try to configure a shared MCLK with different settings that wi=
-ll quickly go South.
->
-> >
-> > Curtis
-> >
-> >> b) if this is by design, or if we want to clarify what a component is =
-and what its restrictions might be.
-> >>
-> >> Thanks for your feedback/comments
-> >> -Pierre
-> >>
-> >> [1] https://elixir.bootlin.com/linux/latest/source/sound/soc/soc-core.=
-c#L1364
+On Sat, Apr 30, 2022 at 01:41:18PM +0800, Sugar Zhang wrote:
+> This patch allow users to enable "ELD Bypass" who don't
+> care anything from EDID Link Data.
+>=20
+> Currently, this driver gets ELD(from EDID) to constraint
+> channels and rates.
+>=20
+> Unfortunately, EDID is not always valid, maybe caused by
+> the fragile HDMI port or cable, in this situation, the max
+> features are limited to 48kHz stereo.
+>=20
+> So, add this option to allow user to select the manual way
+> to output audio as expected. such as multi-channels LPCM(7.1),
+> or HBR bitstream for these sink devices.
+>=20
+> Signed-off-by: Sugar Zhang <sugar.zhang@rock-chips.com>
+
+I think some more documentation is needed there to describe how it's
+going to be used.
+
+Like, you mention that it's relevant when the EDID is not valid. But if
+the EDID is valid, is bypass still allowed or not?
+
+> ---
+>=20
+> Changes in v2:
+> - Use MACRO SOC_SINGLE_BOOL_EXT to simplify code.
+>   Fix event_missing checked by mixer-test.
+>   Add suffix "Switch" for "ELD Bypass".
+>=20
+>  sound/soc/codecs/hdmi-codec.c | 32 ++++++++++++++++++++++++++++++--
+>  1 file changed, 30 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/sound/soc/codecs/hdmi-codec.c b/sound/soc/codecs/hdmi-codec.c
+> index b07607a..be46fbd 100644
+> --- a/sound/soc/codecs/hdmi-codec.c
+> +++ b/sound/soc/codecs/hdmi-codec.c
+> @@ -275,6 +275,7 @@ struct hdmi_codec_priv {
+>  	unsigned int chmap_idx;
+>  	struct mutex lock;
+>  	bool busy;
+> +	bool eld_bypass;
+>  	struct snd_soc_jack *jack;
+>  	unsigned int jack_status;
+>  	u8 iec_status[AES_IEC958_STATUS_SIZE];
+> @@ -427,6 +428,31 @@ static int hdmi_codec_iec958_mask_get(struct snd_kco=
+ntrol *kcontrol,
+>  	return 0;
+>  }
+> =20
+> +static int hdmi_codec_eld_bypass_get(struct snd_kcontrol *kcontrol,
+> +				     struct snd_ctl_elem_value *ucontrol)
+> +{
+> +	struct snd_soc_component *component =3D snd_kcontrol_chip(kcontrol);
+> +	struct hdmi_codec_priv *hcp =3D snd_soc_component_get_drvdata(component=
+);
+> +
+> +	ucontrol->value.integer.value[0] =3D hcp->eld_bypass;
+> +
+> +	return 0;
+> +}
+> +
+> +static int hdmi_codec_eld_bypass_put(struct snd_kcontrol *kcontrol,
+> +				     struct snd_ctl_elem_value *ucontrol)
+> +{
+> +	struct snd_soc_component *component =3D snd_kcontrol_chip(kcontrol);
+> +	struct hdmi_codec_priv *hcp =3D snd_soc_component_get_drvdata(component=
+);
+> +
+> +	if (hcp->eld_bypass =3D=3D ucontrol->value.integer.value[0])
+> +		return 0;
+> +
+> +	hcp->eld_bypass =3D ucontrol->value.integer.value[0];
+> +
+> +	return 1;
+> +}
+
+If the ELD bypass is set, how does it affect the hdmi_codec_params being
+passed to the codec?
+
+Also, what is being returned to the userspace by hdmi_eld_ctl_get once
+the bypass is enabled?
+
+And shouldn't we call get_eld when we remove the bypass?
+
+Maxime
+
+--vsmb6pic4bsb7zjz
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYnDqHAAKCRDj7w1vZxhR
+xYFvAQC7m4KBlm36tbwsjZTfWnJesyZYJ5lan8/tRFKlZRiidwD/QD7WXOeCP25C
+zFR2E3NRujtrrAzaMkv3nHKGNcZWsQw=
+=QLIB
+-----END PGP SIGNATURE-----
+
+--vsmb6pic4bsb7zjz--

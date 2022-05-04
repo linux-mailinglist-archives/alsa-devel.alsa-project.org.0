@@ -2,86 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7887051A140
-	for <lists+alsa-devel@lfdr.de>; Wed,  4 May 2022 15:46:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E660151A190
+	for <lists+alsa-devel@lfdr.de>; Wed,  4 May 2022 15:57:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 06F94868;
-	Wed,  4 May 2022 15:45:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 06F94868
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8BE37852;
+	Wed,  4 May 2022 15:56:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8BE37852
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651671991;
-	bh=CZQc/0yyhrJzGFjg69rjPB+L86QiM/wRJm5XFtu1Xrw=;
+	s=default; t=1651672668;
+	bh=T/1E3em51QUFFq9iQG655nlvHWObdZ2zmITmAWj9tLg=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=rOtyYVE/2caLq+aHrZOSvHtdsJ/TtKimxpfFafJrdR+jUksDsaCeUxeZLHm/mJAky
-	 BYRzqRzzMECQDnil5/0CAtVJR79KQM/lkns1nbERj92kONqtexkzW4vFVQDt21Y2Hy
-	 3HFVGLv893xzduqd8dnBOxGoRExGw2Q9KHZBqAEU=
+	b=gWbs1DfAH7AIua5agO6y9cgzgRQYggA8D7X84z0Fz0g0OBcSKJkEanYD4OW6S7IBz
+	 9Ntcc0vzvH+sxGoPn/iPrwoJgD2884Y1OzXMDzRJSBrepnhrr2iH0kmHKGJbZq13Ix
+	 cdI0ghK3PpWfwcC/Mf6hiIg8GEeUwI/lOFHFv6y4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6FAEDF800BF;
-	Wed,  4 May 2022 15:45:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E9828F80167;
+	Wed,  4 May 2022 15:56:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6CAF0F80163; Wed,  4 May 2022 15:45:30 +0200 (CEST)
+ id 60FE3F80163; Wed,  4 May 2022 15:56:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 208ECF800D3
- for <alsa-devel@alsa-project.org>; Wed,  4 May 2022 15:45:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 208ECF800D3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9F4BFF800BF
+ for <alsa-devel@alsa-project.org>; Wed,  4 May 2022 15:56:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F4BFF800BF
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="RJsc4oRl"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 2446Xnu6007611;
- Wed, 4 May 2022 08:45:19 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=PODMain02222019;
- bh=MN5TT9CQ8+yVmb53jcb5CFCZCHuh7HK/uEBXED7+fWk=;
- b=RJsc4oRl+DUWdor/CxpIqFEOP/a/Q9f9sv0WL7opgGvqMgNowrlQZMpfHessAeLFW0Yl
- LUGWE3g+/IT2f+3+aIuZHTPHvEmj7vihBTk9aDelwIIOqQUOcuqB65xRdRXsrQYt2vi3
- 5a/3t92BLmZlZaAmXO3/bKa60LFi+gd7N433k8ppA83tK8kehMiT+QKHunHesWtr+vAC
- Gqwo5WTUGTZNzuUOCAeRlzCvDCwoc4UNiNGDzHbgFQzadX339DMIXyQgr68t4p7Dqvuh
- MJMISOsaoa4Svw17YLeispmfi1tO7CUpdbG5vCYwEB4ciPszckmJDfeJ/mXa6MMcTqwI ew== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3fs2h2d0m2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Wed, 04 May 2022 08:45:19 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Wed, 4 May
- 2022 14:45:17 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.24 via
- Frontend Transport; Wed, 4 May 2022 14:45:17 +0100
-Received: from debianA11184.ad.cirrus.com (debianA11184.ad.cirrus.com
- [198.90.251.83])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 9770E459;
- Wed,  4 May 2022 13:45:17 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: <broonie@kernel.org>
-Subject: [PATCH] ASoC: cs35l45: Enable BOOST
-Date: Wed, 4 May 2022 14:44:58 +0100
-Message-ID: <20220504134458.283780-1-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.30.2
+ dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
+ header.b="OWNrtXVy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1651672605; x=1683208605;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=HXCIqbaLh6yrEEal7IAfU/afzOMo3j4i26wJisWHsoQ=;
+ b=OWNrtXVyRkmm/hfMnsHYcwx3jCg/UW7k863E3w9A8kO2znreWdzsJTq0
+ qEVGNEgHD1Y6Pp6HLEkK6kbvYe1W+W6yVP/z8owf6pW8Gu7bCgo4m5jjf
+ whKzxfe+xpb6XFNLQ3MThn6RXM7dNKoRvJpLYsS3E2S+FZa0M26OHEjxn E=;
+Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 04 May 2022 06:56:40 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 May 2022 06:56:40 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Wed, 4 May 2022 06:56:39 -0700
+Received: from hu-srivasam-hyd.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Wed, 4 May 2022 06:56:33 -0700
+From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+To: <agross@kernel.org>, <bjorn.andersson@linaro.org>, <lgirdwood@gmail.com>, 
+ <broonie@kernel.org>, <robh+dt@kernel.org>, <quic_plai@quicinc.com>,
+ <bgoswami@quicinc.com>, <perex@perex.cz>, <tiwai@suse.com>,
+ <srinivas.kandagatla@linaro.org>, <quic_rohkumar@quicinc.com>,
+ <linux-arm-msm@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <swboyd@chromium.org>, <judyhsiao@chromium.org>, Linus Walleij
+ <linus.walleij@linaro.org>, <linux-gpio@vger.kernel.org>
+Subject: [PATCH 0/2] Add pinctrl support adsp based platforms
+Date: Wed, 4 May 2022 19:26:18 +0530
+Message-ID: <1651672580-18952-1-git-send-email-quic_srivasam@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: 8C-RSCtKC9PVrPRpfHsO7bFrFnx844U2
-X-Proofpoint-GUID: 8C-RSCtKC9PVrPRpfHsO7bFrFnx844U2
-X-Proofpoint-Spam-Reason: safe
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Cc: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,30 +96,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Do not disable the boost converter during probe. The silicon
-contains functional default tunings so the boost converter can
-be left at the chip default enabled state.
+This patch set is to add pinctrl support adsp enabled sc7280 platforms.
 
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
----
- sound/soc/codecs/cs35l45.c | 4 ----
- 1 file changed, 4 deletions(-)
+Srinivasa Rao Mandadapu (2):
+  dt-bindings: pinctrl: qcom: sc7280: Add compatible string for adsp
+    based platforms
+  pinctrl: qcom: sc7280: Add lpi pinctrl variant data structure for adsp
+    based targets
 
-diff --git a/sound/soc/codecs/cs35l45.c b/sound/soc/codecs/cs35l45.c
-index 86daa2574388..2367c1a4c10e 100644
---- a/sound/soc/codecs/cs35l45.c
-+++ b/sound/soc/codecs/cs35l45.c
-@@ -587,10 +587,6 @@ static int cs35l45_initialize(struct cs35l45_private *cs35l45)
- 		return ret;
- 	}
- 
--	/* Default to boost bypass */
--	regmap_update_bits(cs35l45->regmap, CS35L45_BLOCK_ENABLES, CS35L45_BST_EN_MASK,
--			   CS35L45_BST_DISABLE_FET_ON << CS35L45_BST_EN_SHIFT);
--
- 	ret = cs35l45_apply_property_config(cs35l45);
- 	if (ret < 0)
- 		return ret;
+ .../bindings/pinctrl/qcom,sc7280-lpass-lpi-pinctrl.yaml    |  4 +++-
+ drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c            | 14 ++++++++++++++
+ 2 files changed, 17 insertions(+), 1 deletion(-)
+
 -- 
-2.30.2
+2.7.4
 

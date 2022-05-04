@@ -2,88 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD9F1519C12
-	for <lists+alsa-devel@lfdr.de>; Wed,  4 May 2022 11:42:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA9C8519CE9
+	for <lists+alsa-devel@lfdr.de>; Wed,  4 May 2022 12:29:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 56D3783B;
-	Wed,  4 May 2022 11:41:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 56D3783B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6A145843;
+	Wed,  4 May 2022 12:28:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A145843
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651657337;
-	bh=sDQH4JA42UCFkdyS9i1y+kp64G0RxQnvwnuwju4uDLc=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=QWCm2u9v10dxD5xyKRFFMR7gk1SW7QOjGKjQp7VDaCPvFhGVVgLDHKqzpH2beDDwN
-	 rXFuZawkDSqovr4Xwcl6UIFvylSx8fPSlKKPxLSufCPe8QbSXwiveqgnmqCVkbGLUt
-	 gKmS3fGEFHn1PcNZKL6Tk+hu6nXiVgfO+xFLKTU0=
+	s=default; t=1651660165;
+	bh=Zrz9YcxXd/3poJYPmGb3xZOTZn6aFvekakisNlv7INc=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=cfvtdQREfmQVIAgiYxko4GFiQtlGMsV8Ze34zjostBVxcFipqmOBxagkHWrpAUVOf
+	 HH6yKDiJuRcIhHvCMFfr/o/sqHVFR4zwFf1SiKGD5v5Q8FtaPMSGOCWuLnVpPkxmV4
+	 4E9+zTFzDHRltCXbA9jtVxG+jnJy7twqng9/UZCA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C042BF800BF;
-	Wed,  4 May 2022 11:41:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CF83FF800BF;
+	Wed,  4 May 2022 12:28:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 38B17F80163; Wed,  4 May 2022 11:41:16 +0200 (CEST)
+ id 2CCDDF80163; Wed,  4 May 2022 12:28:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B07A3F80129
- for <alsa-devel@alsa-project.org>; Wed,  4 May 2022 11:41:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B07A3F80129
+ by alsa1.perex.cz (Postfix) with ESMTPS id ACD1BF800BF
+ for <alsa-devel@alsa-project.org>; Wed,  4 May 2022 12:28:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ACD1BF800BF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="P1lolH/r"
+ header.b="Getms20+"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1651657273; x=1683193273;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=sDQH4JA42UCFkdyS9i1y+kp64G0RxQnvwnuwju4uDLc=;
- b=P1lolH/rzLpPep/7AbTbMgP394ukyx+d804W3enEqSnz1MWJLvi1z7s4
- DXB865BywEvKEOMLWNDRBAkuKuBcDYzDDT96Fi5PjN52ihmxWlCHbTw5E
- yrRjsXmbLRmGTrJOjBTJooZjHcTJRNTt8UkPHEBDIq8LaheFFZOlbUE1c
- TcLEgR3ZOu8kSSuSdyK0xpJyY79HGcJJM9sdfHsjoVnMWUSU75b0SDOVP
- krrdkcC2UkuNJLTvynCU4nuwXFyRylApzswR9QSlnGmgIRlURc4Hx5O51
- pN7TDlmdzn8+fN7GhzzG9UlnHhfxS38Uboabs9rmAj5J3PliPt9E/PkX7 A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10336"; a="354151888"
-X-IronPort-AV: E=Sophos;i="5.91,197,1647327600"; d="scan'208";a="354151888"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 May 2022 02:41:08 -0700
-X-IronPort-AV: E=Sophos;i="5.91,197,1647327600"; d="scan'208";a="734320948"
-Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.241.121])
- ([10.99.241.121])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 May 2022 02:41:05 -0700
-Message-ID: <26235767-cc5a-8f9b-b0f9-f48fc4a082b8@linux.intel.com>
-Date: Wed, 4 May 2022 11:41:02 +0200
+ t=1651660096; x=1683196096;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=Zrz9YcxXd/3poJYPmGb3xZOTZn6aFvekakisNlv7INc=;
+ b=Getms20+TSwlDeljGX0drkDYXIAzP9pbSXDgjZ68lTCmwYJ9WWo12o4B
+ ulmwubIao4i1/fzlFAbz3Ej41920K69r3ZGU8Gna+m2RgeEdknkIlMLva
+ wDkZayvnoPXMzG0jDKmtMfzk0KLcXrJWmH4cJXIs7WqN3fm30trflgzaK
+ LmYv3vBp1h1Sh/sINjoasni3yte3IBimAkbCA7yK2XUxSU6XS9dnwTW3O
+ tTb/p5JaAiLjPrMHoWAkC5tEeBUH1eRi7GODes21culKqJTD3aJYmgs2+
+ vo7DWRMglwPsMMGxiUV6QnJFeI3VgGfXWLmd+q6F5KkI2EhFGr1WGCF7F A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10336"; a="248263905"
+X-IronPort-AV: E=Sophos;i="5.91,197,1647327600"; d="scan'208";a="248263905"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 May 2022 03:28:10 -0700
+X-IronPort-AV: E=Sophos;i="5.91,197,1647327600"; d="scan'208";a="536768385"
+Received: from bstach-mobl1.ger.corp.intel.com (HELO
+ pujfalus-desk.ger.corp.intel.com) ([10.251.219.140])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 May 2022 03:28:08 -0700
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: lgirdwood@gmail.com, broonie@kernel.org,
+ pierre-louis.bossart@linux.intel.com
+Subject: [PATCH] ASoC: SOF: ipc3: Remove the ipc3-ops.h header file
+Date: Wed,  4 May 2022 13:28:31 +0300
+Message-Id: <20220504102831.10071-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.36.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.1
-Subject: Re: [PATCH 10/14] ASoC: Intel: avs: Machine board registration
-Content-Language: en-US
-To: Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org, broonie@kernel.org
-References: <20220426172346.3508411-1-cezary.rojewski@intel.com>
- <20220426172346.3508411-11-cezary.rojewski@intel.com>
- <2cda9e60-483b-6866-7ad5-787e43c25824@linux.intel.com>
- <f1607df1-a8de-f26c-fbdb-be4bfba899eb@intel.com>
-From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <f1607df1-a8de-f26c-fbdb-be4bfba899eb@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Cc: upstream@semihalf.com, harshapriya.n@intel.com, rad@semihalf.com,
- tiwai@suse.com, hdegoede@redhat.com, cujomalainey@chromium.org,
- lma@semihalf.com
+Cc: daniel.baluta@nxp.com, alsa-devel@alsa-project.org,
+ yung-chuan.liao@linux.intel.com, ranjani.sridharan@linux.intel.com,
+ kai.vehmanen@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,52 +88,162 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 4/29/2022 4:01 PM, Cezary Rojewski wrote:
+Only the main IPC ops struct should be visible outside of IPC3 code to make
+sure that the code is correctly abstracted.
 
->>> +static struct snd_soc_acpi_mach *dmi_match_quirk(void *arg)
->>> +{
->>> +    struct snd_soc_acpi_mach *mach = arg;
->>> +    const struct dmi_system_id *dmi_id;
->>> +    struct dmi_system_id *dmi_table;
->>> +
->>> +    if (mach->quirk_data == NULL)
->>> +        return mach;
->>> +
->>> +    dmi_table = (struct dmi_system_id *)mach->quirk_data;
->>> +
->>> +    dmi_id = dmi_first_match(dmi_table);
->>> +    if (!dmi_id)
->>> +        return NULL;
->>> +
->>> +    return mach;
->>> +}
->>> +
->>> +#define AVS_SSP(x)        (BIT(x))
->>> +#define AVS_SSP_RANGE(a, b)    (GENMASK(b, a))
->>> +
->>> +/* supported I2S board codec configurations */
->>> +static struct snd_soc_acpi_mach avs_skl_i2s_machines[] = {
->>> +    {
->>> +        .id = "INT343A",
->>> +        .drv_name = "avs_rt286",
->>> +        .link_mask = AVS_SSP(0),
->>
->> I've told this before, 'link_mask' was introduced for *SoundWire*. 
->> Please do not overload existing concepts and use this instead:
->>
->> @i2s_link_mask: I2S/TDM links enabled on the board
-> 
-> 
-> Noooo :( Sad panda is sad.
-> 
-> 'link_mask' is such a wonderful name as it matches naming used in our 
-> specs - which call BE side 'LINK'.
-> 
-> If it's a must then yes, we will resign from using 'link_mask'.
-> 
+Instead of keeping the ipc3-ops.h with only the high level ops struct
+declaration, put the ipc3_ops to sof-priv.h and move all other ops struct
+declaration into ipc3-priv.h
 
-I'll just note that header kernel doc for link_mask says:
-" * @link_mask: describes required board layout, e.g. for SoundWire."
-I would say there is no assumption that it is SDW only, so we could also 
-argue that if it is it should be named sdw_link_mask and comment be 
-fixed to remove "e.g." ;)
+New IPC implementation should follow this route: the main IPC ops should be
+declared in sof-priv.h and no other IPC version related header be used
+for generic code.
+
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+---
+ sound/soc/sof/ipc.c           |  1 -
+ sound/soc/sof/ipc3-control.c  |  2 +-
+ sound/soc/sof/ipc3-loader.c   |  1 -
+ sound/soc/sof/ipc3-ops.h      | 21 ---------------------
+ sound/soc/sof/ipc3-pcm.c      |  2 +-
+ sound/soc/sof/ipc3-priv.h     |  3 +++
+ sound/soc/sof/ipc3-topology.c |  2 +-
+ sound/soc/sof/ipc3.c          |  1 -
+ sound/soc/sof/sof-priv.h      |  3 +++
+ 9 files changed, 9 insertions(+), 27 deletions(-)
+ delete mode 100644 sound/soc/sof/ipc3-ops.h
+
+diff --git a/sound/soc/sof/ipc.c b/sound/soc/sof/ipc.c
+index a6ec4b5a4923..41f3a217be5d 100644
+--- a/sound/soc/sof/ipc.c
++++ b/sound/soc/sof/ipc.c
+@@ -17,7 +17,6 @@
+ #include "sof-priv.h"
+ #include "sof-audio.h"
+ #include "ops.h"
+-#include "ipc3-ops.h"
+ 
+ /**
+  * sof_ipc_send_msg - generic function to prepare and send one IPC message
+diff --git a/sound/soc/sof/ipc3-control.c b/sound/soc/sof/ipc3-control.c
+index 4347adcc6543..3fdc0d854e65 100644
+--- a/sound/soc/sof/ipc3-control.c
++++ b/sound/soc/sof/ipc3-control.c
+@@ -9,7 +9,7 @@
+ 
+ #include "sof-priv.h"
+ #include "sof-audio.h"
+-#include "ipc3-ops.h"
++#include "ipc3-priv.h"
+ 
+ /* IPC set()/get() for kcontrols. */
+ static int sof_ipc3_set_get_kcontrol_data(struct snd_sof_control *scontrol, bool set)
+diff --git a/sound/soc/sof/ipc3-loader.c b/sound/soc/sof/ipc3-loader.c
+index 14158c52a2b7..f3c741b49519 100644
+--- a/sound/soc/sof/ipc3-loader.c
++++ b/sound/soc/sof/ipc3-loader.c
+@@ -9,7 +9,6 @@
+ #include "sof-priv.h"
+ #include "sof-audio.h"
+ #include "ipc3-priv.h"
+-#include "ipc3-ops.h"
+ #include "ops.h"
+ 
+ static int ipc3_fw_ext_man_get_version(struct snd_sof_dev *sdev,
+diff --git a/sound/soc/sof/ipc3-ops.h b/sound/soc/sof/ipc3-ops.h
+deleted file mode 100644
+index a4784626a3d7..000000000000
+--- a/sound/soc/sof/ipc3-ops.h
++++ /dev/null
+@@ -1,21 +0,0 @@
+-/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause) */
+-/*
+- * This file is provided under a dual BSD/GPLv2 license.  When using or
+- * redistributing this file, you may do so under either license.
+- *
+- * Copyright(c) 2021 Intel Corporation. All rights reserved.
+- *
+- * Author: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+- */
+-
+-#ifndef __SOUND_SOC_SOF_IPC3_OPS_H
+-#define __SOUND_SOC_SOF_IPC3_OPS_H
+-
+-#include "sof-priv.h"
+-
+-extern const struct sof_ipc_tplg_ops ipc3_tplg_ops;
+-extern const struct sof_ipc_ops ipc3_ops;
+-extern const struct sof_ipc_tplg_control_ops tplg_ipc3_control_ops;
+-extern const struct sof_ipc_pcm_ops ipc3_pcm_ops;
+-
+-#endif
+diff --git a/sound/soc/sof/ipc3-pcm.c b/sound/soc/sof/ipc3-pcm.c
+index d7b6c67b2180..c8774a891d6f 100644
+--- a/sound/soc/sof/ipc3-pcm.c
++++ b/sound/soc/sof/ipc3-pcm.c
+@@ -8,7 +8,7 @@
+ //
+ 
+ #include <sound/pcm_params.h>
+-#include "ipc3-ops.h"
++#include "ipc3-priv.h"
+ #include "ops.h"
+ #include "sof-priv.h"
+ #include "sof-audio.h"
+diff --git a/sound/soc/sof/ipc3-priv.h b/sound/soc/sof/ipc3-priv.h
+index a9b9201508a5..82f9d0cbfb93 100644
+--- a/sound/soc/sof/ipc3-priv.h
++++ b/sound/soc/sof/ipc3-priv.h
+@@ -12,6 +12,9 @@
+ #include "sof-priv.h"
+ 
+ /* IPC3 specific ops */
++extern const struct sof_ipc_pcm_ops ipc3_pcm_ops;
++extern const struct sof_ipc_tplg_ops ipc3_tplg_ops;
++extern const struct sof_ipc_tplg_control_ops tplg_ipc3_control_ops;
+ extern const struct sof_ipc_fw_loader_ops ipc3_loader_ops;
+ 
+ /* helpers for fw_ready and ext_manifest parsing */
+diff --git a/sound/soc/sof/ipc3-topology.c b/sound/soc/sof/ipc3-topology.c
+index 220ab6c6803f..043554d7cb4a 100644
+--- a/sound/soc/sof/ipc3-topology.c
++++ b/sound/soc/sof/ipc3-topology.c
+@@ -11,7 +11,7 @@
+ #include <sound/pcm_params.h>
+ #include "sof-priv.h"
+ #include "sof-audio.h"
+-#include "ipc3-ops.h"
++#include "ipc3-priv.h"
+ #include "ops.h"
+ 
+ /* Full volume for default values */
+diff --git a/sound/soc/sof/ipc3.c b/sound/soc/sof/ipc3.c
+index efcd201597fa..a8ffc4f99565 100644
+--- a/sound/soc/sof/ipc3.c
++++ b/sound/soc/sof/ipc3.c
+@@ -12,7 +12,6 @@
+ #include "sof-priv.h"
+ #include "sof-audio.h"
+ #include "ipc3-priv.h"
+-#include "ipc3-ops.h"
+ #include "ops.h"
+ 
+ typedef void (*ipc3_rx_callback)(struct snd_sof_dev *sdev, void *msg_buf);
+diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
+index a1141ea8d907..4801849cb2ab 100644
+--- a/sound/soc/sof/sof-priv.h
++++ b/sound/soc/sof/sof-priv.h
+@@ -763,4 +763,7 @@ static inline int sof_resume_clients(struct snd_sof_dev *sdev)
+ }
+ #endif /* CONFIG_SND_SOC_SOF_CLIENT */
+ 
++/* Main ops for IPC implementations */
++extern const struct sof_ipc_ops ipc3_ops;
++
+ #endif
+-- 
+2.36.0
+

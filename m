@@ -2,79 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 707D551B9A9
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 May 2022 10:09:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7391C51BA04
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 May 2022 10:17:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 065C717C9;
-	Thu,  5 May 2022 10:08:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 065C717C9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0E4B717C6;
+	Thu,  5 May 2022 10:17:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E4B717C6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651738173;
-	bh=Sx0JTutas4/a5URHaHdUEVftBTpjpG3kAugSQyvFlOk=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1651738673;
+	bh=cGWwklpQkCbQpz/HU1S+4X+6G5rnxwr8QiiXlAHSHOc=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aMLZfxVqREWwulYKqmLr1TNtvwYERd2wfHfODK4mIl3f8nV1cMFmFjcaLNjVVLWpD
-	 aCxBYj1aBEY+u9OQNpZmKARpzmO9JlVVzuo6KlrSbI026a7CrMR8zaKyS8KSELWmPi
-	 S1BUcvbyOPzqFJwXVjYQblGJWtipbew1msu+Pd44=
+	b=APjvLUITxEvpovFsmdMcAXFcL5HUew791Ptn+Ajyl6bz7/mvQjmnnaKqosfsnVI/8
+	 FUAaYjsY6vVRBcvWqFtaIJZq1N4E8yHZHSuP3u/qfOYvjfo3KP8PKLB/h1ffFkbNAa
+	 2lbkydZUmdEiuijYAQ0JhaeOfrqJ3EXlpwO+17N8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D0DD2F8049C;
-	Thu,  5 May 2022 10:08:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 74893F804B3;
+	Thu,  5 May 2022 10:16:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2F3A1F8016B; Thu,  5 May 2022 10:08:32 +0200 (CEST)
+ id 8C0D0F8016A; Thu,  5 May 2022 10:16:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EB9FFF800D3
- for <alsa-devel@alsa-project.org>; Thu,  5 May 2022 10:08:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB9FFF800D3
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 65AB4F8016A
+ for <alsa-devel@alsa-project.org>; Thu,  5 May 2022 10:16:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65AB4F8016A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
- header.b="LQP40dxF"
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: kholk11) with ESMTPSA id E73021F44D6A
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1651738103;
- bh=Sx0JTutas4/a5URHaHdUEVftBTpjpG3kAugSQyvFlOk=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=LQP40dxFDRXce8lfztccxf30KUdLwEI7Biw7WJFTVQgsdDbNckjKld2YhLoBNGUFK
- 6oiSh0nR9Xfnfbzk/jr6ze4TO3H0+DqXEUSKRQPakdjJeaG4ckhTKy9NBwbOVYL7Rz
- 75B5Sarx4ocMBfhtUMYwULroMzHxA1GU5xiW71rPLvmdS8+Nb3IVHiMdvyuR1N54lA
- 8CKd8fB/xfvNwcgZqG6z1VjuSIdQFmHsVfj3TRNZlUY4/F4ra07cYNlwfAXCukg8J5
- X4Obi7f66sRUcI/xgAb4Y3SaJM2Yu8CnQ9wkG3c5C6d0oOM60j5N3/znbWeNql2KFQ
- K5ftZZVV6WFrw==
-Message-ID: <4826c824-40ce-5726-ed95-5be069233ca7@collabora.com>
-Date: Thu, 5 May 2022 10:08:20 +0200
+ dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com
+ header.b="aeJosLBG"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id F05971F898;
+ Thu,  5 May 2022 08:16:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1651738605; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=+hTaiTIyePP0FUFQBbLbCUhke4bQBarxkCj3G5VB5K4=;
+ b=aeJosLBGzoVaAdiBDdxPfy+Uo/uCh2Mz1gdkHFZtuDdt1P0s9kB1QomOQe8wM6fslfYUBC
+ RlMnuBh33GsFIs0C9YK7GDs7Z+Gm8tpGQ1DQOA+gHhvbmMKL7LFdvX9OlSdw93QKPlZLUp
+ 8H2PS6IrRiOqk7Kx3GL5Kyojzya3M3w=
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B495913B11;
+ Thu,  5 May 2022 08:16:45 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id OOBiKu2Hc2K1BwAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 05 May 2022 08:16:45 +0000
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 08/21] xen/sound: switch xen_snd_front to use
+ INVALID_GRANT_REF
+Date: Thu,  5 May 2022 10:16:27 +0200
+Message-Id: <20220505081640.17425-9-jgross@suse.com>
+X-Mailer: git-send-email 2.35.3
+In-Reply-To: <20220505081640.17425-1-jgross@suse.com>
+References: <20220505081640.17425-1-jgross@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH 1/3] ASoC: dt-bindings: mediatek: mt8192: Add i2s-share
- properties
-Content-Language: en-US
-To: =?UTF-8?B?TsOtY29sYXMgRi4gUi4gQS4gUHJhZG8=?= <nfraprado@collabora.com>,
- Mark Brown <broonie@kernel.org>
-References: <20220429203039.2207848-1-nfraprado@collabora.com>
- <20220429203039.2207848-2-nfraprado@collabora.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20220429203039.2207848-2-nfraprado@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>, Jiaxin Yu <jiaxin.yu@mediatek.com>,
- linux-kernel@vger.kernel.org, Shane Chien <shane.chien@mediatek.com>,
- Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Matthias Brugger <matthias.bgg@gmail.com>, kernel@collabora.com,
- linux-arm-kernel@lists.infradead.org
+Cc: Juergen Gross <jgross@suse.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,53 +94,57 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Il 29/04/22 22:30, Nícolas F. R. A. Prado ha scritto:
-> The Mediatek AFE PCM controller for MT8192 allows sharing of an I2S bus
-> between two busses. Add a pattern for these properties in the
-> dt-binding.
-> 
-> Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
-> ---
-> 
->   Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml | 5 +++++
->   1 file changed, 5 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml b/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
-> index 7a25bc9b8060..5b03c8dbf318 100644
-> --- a/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
-> +++ b/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
-> @@ -54,6 +54,11 @@ properties:
->         - const: aud_infra_clk
->         - const: aud_infra_26m_clk
->   
-> +patternProperties:
-> +  "^i2s[0-35-9]-share$":
-> +    description: Name of the I2S bus that is shared with this bus
-> +    pattern: "^I2S[0-35-9]$"
-> +
->   required:
->     - compatible
->     - interrupts
-> 
+Instead of using a private macro for an invalid grant reference use
+the common one.
 
-The only other way of doing this would be to complicate this in the driver
-so that we can do something like
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ sound/xen/xen_snd_front_evtchnl.c | 4 ++--
+ sound/xen/xen_snd_front_evtchnl.h | 9 ---------
+ 2 files changed, 2 insertions(+), 11 deletions(-)
 
-"i2s-share = <0 2>";  instead of  i2s0-share = "I2S2";
+diff --git a/sound/xen/xen_snd_front_evtchnl.c b/sound/xen/xen_snd_front_evtchnl.c
+index ecbc294fc59a..3e21369c8216 100644
+--- a/sound/xen/xen_snd_front_evtchnl.c
++++ b/sound/xen/xen_snd_front_evtchnl.c
+@@ -167,7 +167,7 @@ static void evtchnl_free(struct xen_snd_front_info *front_info,
+ 		xenbus_free_evtchn(front_info->xb_dev, channel->port);
+ 
+ 	/* End access and free the page. */
+-	if (channel->gref != GRANT_INVALID_REF)
++	if (channel->gref != INVALID_GRANT_REF)
+ 		gnttab_end_foreign_access(channel->gref, page);
+ 	else
+ 		free_page(page);
+@@ -207,7 +207,7 @@ static int evtchnl_alloc(struct xen_snd_front_info *front_info, int index,
+ 	channel->index = index;
+ 	channel->front_info = front_info;
+ 	channel->state = EVTCHNL_STATE_DISCONNECTED;
+-	channel->gref = GRANT_INVALID_REF;
++	channel->gref = INVALID_GRANT_REF;
+ 	page = get_zeroed_page(GFP_KERNEL);
+ 	if (!page) {
+ 		ret = -ENOMEM;
+diff --git a/sound/xen/xen_snd_front_evtchnl.h b/sound/xen/xen_snd_front_evtchnl.h
+index cbe51fd1ec15..3675fba70564 100644
+--- a/sound/xen/xen_snd_front_evtchnl.h
++++ b/sound/xen/xen_snd_front_evtchnl.h
+@@ -15,15 +15,6 @@
+ 
+ struct xen_snd_front_info;
+ 
+-#ifndef GRANT_INVALID_REF
+-/*
+- * FIXME: usage of grant reference 0 as invalid grant reference:
+- * grant reference 0 is valid, but never exposed to a PV driver,
+- * because of the fact it is already in use/reserved by the PV console.
+- */
+-#define GRANT_INVALID_REF	0
+-#endif
+-
+ /* Timeout in ms to wait for backend to respond. */
+ #define VSND_WAIT_BACK_MS	3000
+ 
+-- 
+2.35.3
 
-...and I don't think that this would be any more straightforward than the
-provided way.
-
-There's an improvement that we can do to that pattern description though,
-which would be explaining that declaring 'i2s0-share = "I2S2"' means that
-I2S2's data pin will be used as DATA-OUT, while i2s0 is DATA-IN.
-
-Another thing that comes to mind here is that this is a MediaTek specific
-property and *not* a generic one, which means that both the driver and
-this binding should be fixed to get a "mediatek," prefix, so, this property
-should - in reality - be "mediatek,i2s[0-35-9]-share" instead.
-
-I think that everyone agrees about that, but let's see what the others say.
-
-Cheers,
-Angelo

@@ -2,189 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 907B751C2E7
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 May 2022 16:48:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B42551C341
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 May 2022 17:02:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 27E8017F4;
-	Thu,  5 May 2022 16:47:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27E8017F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0E6691777;
+	Thu,  5 May 2022 17:01:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E6691777
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651762115;
-	bh=MCJ7uiC5xwsC+tmnEtqtzhLDdZjHSuSpZSz3eteHGew=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1651762964;
+	bh=UUh4IAYvnUeRl0+FGz9aUqMk1V1C/5Mv1s6gce1m4PY=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rcOlqHND41RnMrfgumRiCmJYev6O9UyMqVRobhXlQVGhVf30LLdPvAI0wRBfRb7mm
-	 VXVUwh+6bBv2kkI1A5RasdAhXrdrKWPeTYnashdjKOFVxSaTEkQweILVhEtuNkbtA7
-	 jN/q1eT64vuWIVcnvB/A+N3h/w1Zbdzh4WgqDtRQ=
+	b=GvZX0hrgxs+fN4Jcu4Jl/m66+MKr27RTLVKKWOGVTHAuV4MGBsXnhE30doBdg1rAR
+	 tmY2bXfXH9v0ohb56ph4l0MxY6RrP9/QCHHM+cOCoI84Z8K4Pr688V5ttLMPFDCR01
+	 4FMEn8AFSSDAaxUm6UaHTijoBvGh+ToKJ9pSyOxY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8AB4DF800BF;
-	Thu,  5 May 2022 16:47:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7B1D2F8049C;
+	Thu,  5 May 2022 17:01:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 34EB5F8016B; Thu,  5 May 2022 16:47:35 +0200 (CEST)
+ id 5FB02F8016B; Thu,  5 May 2022 17:01:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
- [68.232.154.123])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 495A9F800D3
+ for <alsa-devel@alsa-project.org>; Thu,  5 May 2022 17:01:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 495A9F800D3
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="S8Y4NKxo"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 420B8F800D3
- for <alsa-devel@alsa-project.org>; Thu,  5 May 2022 16:47:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 420B8F800D3
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com
- header.b="CRP3hXgq"; 
- dkim=pass (1024-bit key) header.d=microchiptechnology.onmicrosoft.com
- header.i=@microchiptechnology.onmicrosoft.com header.b="FSSiQ59V"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
- t=1651762049; x=1683298049;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=MCJ7uiC5xwsC+tmnEtqtzhLDdZjHSuSpZSz3eteHGew=;
- b=CRP3hXgqQ8YZN+Umk/gjZ57TypY6j/vPumY0qzfuMjoL/xWDehNe/pjw
- 6A5PfBGKsRvv4L4MA3Gm0clRj6PEejhHiRLpXEwAjVpUBNBscftJq8rWo
- 3CJ9VAecJxhe/88i65h01Tu5T9tvNxhblzVlI8sSVPOxjJeSn4dxxQ+jJ
- BFD/aXQb4142pzcczQkbUJ9w4mahIDqu9uX4MrIAmNRAmjcS3O0J5dG3r
- 1/G2eJPE2qVY6ynMaONVFD3MW0zyXM7chtELpQByiRy8kZDGl4J4DrzAj
- N/ndye4JGsIoeIsDUth50EvPQa7g82hBEzwKD4uvg2QTn3QP2b4wbYDXG Q==;
-X-IronPort-AV: E=Sophos;i="5.91,201,1647327600"; d="scan'208";a="154937663"
-Received: from smtpout.microchip.com (HELO email.microchip.com)
- ([198.175.253.82])
- by esa4.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 05 May 2022 07:47:19 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.17; Thu, 5 May 2022 07:47:19 -0700
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com (10.10.215.89) by
- email.microchip.com (10.10.87.71) with Microsoft SMTP Server
- (version=TLS1_2, 
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17 via Frontend
- Transport; Thu, 5 May 2022 07:47:18 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lRCiqNcqRYQ9+6PGpYwk9uVECp/Nomdiad/FMOlHC7OBtINwfBrT4LDIfWJaKIyXGee63XKPuWXBdOppLsxSwYipx0c5htFIo7Uiqmh9gNUcrFcugHrFddvN7hyjjSlUiz2A5ut86G8cT4Etx9gHegPRXd10aYMhKpd6fJOOTQ9uPcVTaMcpFRnyjZ613B4jNFYyOm1bvsa2IjeH+4VSOZQ3oOTIKup+VOZPEaSlYuxAf7prN3F8URjkjM3tV8BkVXGGWVuzqnjlVCuLoprnQr8wy98++Xi1kzEMG5TmCZzgQV2+y2D68Qte1bhpXrv9NXWeV9DO1HKR8lGBLwR8cw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MCJ7uiC5xwsC+tmnEtqtzhLDdZjHSuSpZSz3eteHGew=;
- b=g0Mneq0j6o8FvrJQ6HLGRDW8479ugMaVNYavzOYcwWCZLUXfGcOra3noniWBjfHD9ON9884YjtcBRI17X/jfcnzrhrK9I25fkm88dEl2q9fJqRXzO5sKmGypRZsHS34eMvLx2A75q8l97kXMj/lCVb7S1mQWkuTLhlkLga3i17eVJPALhpJ+Ii5aPgsvusG9QpIlnufV5htVMPd8B0FhAYJ+Xgbs3Iq/chh0dX5XPvn+08zx3z8BV8mdioMBXoyg1J3X2OXLIujNGwREb4XzcMU0MtezS9CADkisGXA0+EsOn2a0lOnR09KC+8QZuW6mzG1kR78zjImE5nLsRaRcaQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=microchip.com; dmarc=pass action=none
- header.from=microchip.com; dkim=pass header.d=microchip.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=microchiptechnology.onmicrosoft.com;
- s=selector2-microchiptechnology-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MCJ7uiC5xwsC+tmnEtqtzhLDdZjHSuSpZSz3eteHGew=;
- b=FSSiQ59VtrXYvKxcp+0+aftHbyaRQHaPUyaO6eOinhNaIZGho+ptO33PZuItxJIsbjD0D8L8eh/Ce0qkkTrh8GioMJgDm4nYAVN4R1Qx1RBaBfpMno6nokH7HrV5zm6OFjpETupflOJ73C5+DZZmwmjpvaXlLlMUWF6FMljlAAA=
-Received: from MW4PR11MB5936.namprd11.prod.outlook.com (2603:10b6:303:16b::11)
- by BY5PR11MB4165.namprd11.prod.outlook.com (2603:10b6:a03:18c::26)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.24; Thu, 5 May
- 2022 14:47:04 +0000
-Received: from MW4PR11MB5936.namprd11.prod.outlook.com
- ([fe80::3c24:30c4:ee81:9f1c]) by MW4PR11MB5936.namprd11.prod.outlook.com
- ([fe80::3c24:30c4:ee81:9f1c%2]) with mapi id 15.20.5186.028; Thu, 5 May 2022
- 14:47:04 +0000
-From: <Codrin.Ciubotariu@microchip.com>
-To: <Nicolas.Ferre@microchip.com>, <alsa-devel@alsa-project.org>,
- <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [PATCH v3 6/6] ARM: configs: at91: sama7_defconfig: add MCHP PDMC
- and DMIC drivers
-Thread-Topic: [PATCH v3 6/6] ARM: configs: at91: sama7_defconfig: add MCHP
+ by ams.source.kernel.org (Postfix) with ESMTPS id A1783B82D82;
+ Thu,  5 May 2022 15:01:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14047C385A4;
+ Thu,  5 May 2022 15:01:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1651762894;
+ bh=UUh4IAYvnUeRl0+FGz9aUqMk1V1C/5Mv1s6gce1m4PY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=S8Y4NKxoe5tibidDLQ1YsIqidmaB/VrEldK+Y9cbMH5jS/+MM5rgrPY10yHnZuKpA
+ Vx9PHYyx0ctjGVYN0AW2U+dj9sQF9nYeW19rmlBAaro91ZcvrnCEvQGSa4AOhWe4F+
+ AORKwgkynESpVtUsLkKVDuj91k0fG9nqnFkW+X74VADC85jI/SoExoUCj45dBUkPpw
+ Xi936/6T6rBsBBkB/rBLDpE8NcvgzDUFSfZGqCKN4nIruGHpACikgCGzflWOu6DwGI
+ kpfzOf2U/DAZwBv3TrR1gbINOSQxTB6NUvESyu3p4jsN3Y180ej0joxdrI7Y7frWDd
+ SCwA7xo4UFLIw==
+Date: Thu, 5 May 2022 16:01:28 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Codrin.Ciubotariu@microchip.com
+Subject: Re: [PATCH v3 6/6] ARM: configs: at91: sama7_defconfig: add MCHP
  PDMC and DMIC drivers
-Thread-Index: AQHYMh4rISj+T8AMLkuRkvsVTHdSE60QrC8AgAANi4A=
-Date: Thu, 5 May 2022 14:47:04 +0000
-Message-ID: <77c2b348-b7a6-458d-21b6-68c54efc317f@microchip.com>
+Message-ID: <YnPmyEujwByeFDdp@sirena.org.uk>
 References: <20220307122202.2251639-1-codrin.ciubotariu@microchip.com>
  <20220307122202.2251639-7-codrin.ciubotariu@microchip.com>
  <d84e0e48-cf35-ae1a-e384-067d361457ba@microchip.com>
-In-Reply-To: <d84e0e48-cf35-ae1a-e384-067d361457ba@microchip.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=microchip.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 79ccd753-dddf-4b9c-7700-08da2ea61ef1
-x-ms-traffictypediagnostic: BY5PR11MB4165:EE_
-x-microsoft-antispam-prvs: <BY5PR11MB41651CFC826BEF65C64189A3E7C29@BY5PR11MB4165.namprd11.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: hH45HwC4OXYJoOy5ARIkF/CdSXLnMhjVp2PtdfsKvIPgJFFMsnohBCfmouOm95Bk5dnIeJSC2ycUuQG5FVxeI3z68kPonXOLdDvsaVmVeVicnmYNA95oCDhE1GQIs/L2THHPD+FtaKCx/NDFTbsciwWKB4BTbA5RamP3Pc80zpFvkZ+UliErJ0e6pk1MK70Y77gXq3ZsdEbMzuMv19V3IcX1oJpECigN0WPVayeVCeZb5Hz2pVoQ595T2nc6pWzMgzTDjiztUi8w/Bla7YxAhwcXf+RiwzkEP/HNKKhpsQcJGo6OVwn8u8C8o1ux/NncRC4qnauSDayGo1+g7NXaYrkcSggH+LYa54n/wyjXCSblYdeUUbcSvKl/RMCf63fxY08zVzRx62+a20nR0q0Z9B3ef3aJ+TWv+j6mFjqNhpWx9Rkruc3xvN+L7v8Lmjs/72lTSEj2rQpedQRrPcWyIIhgwDiIxOufJT4uiSvrmeembtP82XdtBQgWfCo5FwtMQsiwYR/Un3V+5T8lUtK6CZOJ9ok40xIIw5jKOfekyES1DIEMi/ah81Flx0b9Wc4xMDOEP7M+ungQl9m+KFW05ylriAWHH/kwjfSw78I+O9eZ20O1azsdLIQR77DUitkssf8bMsq0yeuMggWMAm1zHK7i5pctS0ciGQvHs/o4/Rr5cvX6Oc8L2/hvWe990j9RcxjsbEEDses1vCU2jC+QAllEYL+BEdqgq5/SPfUX+GsbrILjGs4ZTxXtCL9xMlw8tUAwlOYHr5Udd+UPasz1RA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR11MB5936.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(366004)(316002)(36756003)(71200400001)(2906002)(5660300002)(2616005)(6486002)(38070700005)(8936002)(38100700002)(110136005)(54906003)(508600001)(91956017)(66476007)(66446008)(4326008)(66946007)(66556008)(76116006)(8676002)(31686004)(6506007)(53546011)(86362001)(64756008)(122000001)(186003)(6512007)(31696002)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 2
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?TUQ5OVd2QjJRekRSbGdvUEpIc2tKZ0haZm5rNzZTNHE0TGxnYisydXgvWmQx?=
- =?utf-8?B?UEI3QVBqdWVLZEE4VHkxSmRhblljMTBZTGZwM1FpaDU2K0JNbndENWU2UzJu?=
- =?utf-8?B?YmdROGNSczBnbUlENWpGWFdCWnZ4N0ZmZzdTOTF5dnFYdlhyUEVrT1NYOU1P?=
- =?utf-8?B?WGpELzhqczVGQWM2OXVEQnVWb09FcnpPaE83aENhclphL1pXbHRZUGdLc2xM?=
- =?utf-8?B?UDlwMjlJN0gwV2llcEF0dk5TbkFaamozbDdMUmJqUjd0SkZDcWd0YUVVNDhZ?=
- =?utf-8?B?RGdid0VBYmFjd2VnbVdpb3p3Zmh6M2NGKyt2aXYrY0FSVHdJSjVRazlCb2JF?=
- =?utf-8?B?L2lsK3Q5VEtORHM4TS9adTJYWVE0aStMVUZOZFVHT3FRcFJNd3JqUjJKeHFB?=
- =?utf-8?B?bFg3ZXRWSEdmNHBhbW5aMGxZMUhDYlhQSW85ZGE3NFZjTG9QaHNEMGw1WTV5?=
- =?utf-8?B?aHZ4S0hkNjczeDFURFBTWkJZNCtzdlBnTDFzRGtnM0dGQkFneGp6UlQ3TXJZ?=
- =?utf-8?B?OEVGWHJCOUcxRStPUGxOSGh5ZEhIYk1zUnNSQTJrNVhzVVJZSGQ4YVNkbWJp?=
- =?utf-8?B?U1BBV2g1VlN3V1ZLRTlVVmp5RmpRM2UvMGNLeDh6cjM3ckNKWXA3cmZzc3hy?=
- =?utf-8?B?aHozbVN0dnRVbzBxVFRXMXhzaU5IeFpoTHlMTzhKbEpmVU5Jb01Kdjc3TDV2?=
- =?utf-8?B?THFxZnQxa2JoUEhkcHorYWFmVHV4bEswcjVvNWdEek1rSnpRUVRhUG9BQmhp?=
- =?utf-8?B?SnpnTEdacVc2dWFaT0VEZlpxbExMQXBUSnptSm5DaFQxcGcyT054M3U1YXd6?=
- =?utf-8?B?S3RJSUZlYUZ3TTFJaXlJYlZXbzlMZUt2ME9hU1BJdHp5QjJ5bGZTMndlY1RC?=
- =?utf-8?B?U29GU0dlM01mbWo1ZzVZYzNYdFNmR0lHR0R2dFpRMmdqRWpNVE9vQ015VG1Y?=
- =?utf-8?B?aTJ5akV3NkZIcFpHNEoxa2s4SzJyL3JZekVONzBmcUJLRTZDQVBka3R0bHNJ?=
- =?utf-8?B?L213NGFaK2x5TjFDQmFkVlUraXo1WGttY3pRakdmUmRoK0JJdWtBVzh4Z0dG?=
- =?utf-8?B?MjYzNUJCSmpOb3MxTCtMc0RGaDdSeWZnbHl5Uzl6QWpiRkZoSk51RWtPOS9t?=
- =?utf-8?B?SE1RNVpIblFTMjJWN0NrYXkxVWdEaXRRYnBGRWhOUmpIWTRDbWVtUkpRWEl5?=
- =?utf-8?B?UE52dDRPREgxOEJNVTFlNE1jdkxqSmFQWTlxS094WENQZ2Y0MUorbkpaTnJX?=
- =?utf-8?B?Y2VNc0ZJYlVuaExwYkRnK2NqQnZFeEJ6cndSNWlRSC9IRHhFNWU0czYzVytp?=
- =?utf-8?B?alQyM05xMExUZzdkM0dVeFA0RGV4UHp4cWpKSkVGRlVhVUh1RmlyVHVUZjNH?=
- =?utf-8?B?TmZVMzN1Ty9RZU54cHkzM3pMbWhtOC9zajdnL1p6UVFRWldOdFU3TlRORXIw?=
- =?utf-8?B?RlB5aE1ZSXZsM2FUM2RpZXVtc0dyN3hSeXpuVDlITUlkOGNibWpraEZ5ekh2?=
- =?utf-8?B?NzZwSFI4RzhQV3VxKzJKNklTZGdkZUhkM2IxRE9iSDN0d3hoY0QvM29qclJs?=
- =?utf-8?B?MGxvN3pGZ01PR0U0WXgvVCtHWEJlRm9XTFdXSzdUaXNMaFoxTHQyWmNaYUQr?=
- =?utf-8?B?d2IyMThyV3FOOXRsVk1zZVc2bmJoWEdDRzU0TmtoZVlMQlZXcFBDNzZtRlpl?=
- =?utf-8?B?b2xJc2NIYlZPN0tPaTZ1UTZNR2ZubUJUWTRzTWxFNEdhTTJPdjdzbWlDd01Q?=
- =?utf-8?B?dmFjdnE4ZGJXZ3lzZUdob3JzSjM4WjB2N3NJSlVqeUlXaVVyL2R5NWJNYlVL?=
- =?utf-8?B?RmdOdCsxUWJQcnVZUHBOa0NDcXdWT0U5V1ZFZjQvQ2JFZTFIakN0UnhoZDkv?=
- =?utf-8?B?aW8xVUluUnFJTXRKOUdYU0o3TGFIVHp6NkRuSTlDdWFvNzNVd3BOYWdmOUVO?=
- =?utf-8?B?d0ozc0haOVg5RkwxZjRLeW9nTjh6OWRVN0JkbytoR0lEcWpmT29wMG1lbEVX?=
- =?utf-8?B?dzdRRXhxRml6SFNiRjdybHdHQksvRFNNSkdVV0EzN0M5TWtrcUF3YkxvZlJR?=
- =?utf-8?B?dkVKRW9FTy9CdnZmL0lCRE9pOFloZWZnSE13cEkvdk53RC9yOXo3VmRwQ2Jw?=
- =?utf-8?B?ejRFbE55STVUU1lCZ2ZLZnBwMnF3amdsYW9jek5QZTlQZEJsdkxjNkRGVWE1?=
- =?utf-8?B?TW9kQm1rOFJuNzZ5a25kUEZBRzNSUGVTL0hycElXOFhJakVsZmRuZno1YUtO?=
- =?utf-8?B?U1UrVGZGSW44c1JoY2FDUHg0RzlWZzJHdDZidWNqbElFUTlzMzNJOE5MakdJ?=
- =?utf-8?B?VDkxT0JVSTUweGVqTGdHTEh2ZWFUM0ZXRzJ5ZThGQWdYWlM2dDdBNFdNdm1R?=
- =?utf-8?Q?lH4Tss+W2NBwhSEswSB2JBovIQhS7Vh9GbZuEYIGPz9kQ?=
-x-ms-exchange-antispam-messagedata-1: DmeSfaB0bg2OkgOoXFc9ATHJQEaxjiJ+Xwk=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <D89D3F722AA73C4BA7092D74330E1007@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
+ <77c2b348-b7a6-458d-21b6-68c54efc317f@microchip.com>
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR11MB5936.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 79ccd753-dddf-4b9c-7700-08da2ea61ef1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 May 2022 14:47:04.4311 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3f4057f3-b418-4d4e-ba84-d55b4e897d88
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: qBcmgtLWVDDxHxBv4beGkspqIHmwmdNYofIyZo7TekRQHP8V3Rfvq9Ls1IrNYNe8OuqGxCJlxZkqEn3Jgak7PWWKPBVN8E/r+XIU/LVMOeo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR11MB4165
-Cc: broonie@kernel.org, lars@metafoo.de, tiwai@suse.com, robh+dt@kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="V6OcCftqYTAkRMmU"
+Content-Disposition: inline
+In-Reply-To: <77c2b348-b7a6-458d-21b6-68c54efc317f@microchip.com>
+X-Cookie: Real programs don't eat cache.
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, lars@metafoo.de,
+ tiwai@suse.com, Nicolas.Ferre@microchip.com, linux-kernel@vger.kernel.org,
+ robh+dt@kernel.org, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -200,34 +92,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gMDUuMDUuMjAyMiAxNjo1OCwgTmljb2xhcyBGZXJyZSB3cm90ZToNCj4gT24gMDcvMDMvMjAy
-MiBhdCAxMzoyMiwgQ29kcmluIENpdWJvdGFyaXUgd3JvdGU6DQo+PiBFbmFibGUgZHJpdmVycyBu
-ZWVkZWQgZm9yIE1pY3JvY2hpcCdzIFBETUMgYW5kIFBETSBtaWNyb3Bob25lcy4NCj4+DQo+PiBT
-aWduZWQtb2ZmLWJ5OiBDb2RyaW4gQ2l1Ym90YXJpdSA8Y29kcmluLmNpdWJvdGFyaXVAbWljcm9j
-aGlwLmNvbT4NCj4+IC0tLQ0KPj4NCj4+IENoYW5nZXMgaW4gdjIsdjM6DQo+PiDCoCAtIG5vbmU7
-DQo+Pg0KPj4gwqAgYXJjaC9hcm0vY29uZmlncy9zYW1hN19kZWZjb25maWcgfCAyICsrDQo+PiDC
-oCAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspDQo+Pg0KPj4gZGlmZiAtLWdpdCBhL2Fy
-Y2gvYXJtL2NvbmZpZ3Mvc2FtYTdfZGVmY29uZmlnIA0KPj4gYi9hcmNoL2FybS9jb25maWdzL3Nh
-bWE3X2RlZmNvbmZpZw0KPj4gaW5kZXggMDM2ODA2OGUwNGQ5Li5iYzI5YmFkYWI4OTAgMTAwNjQ0
-DQo+PiAtLS0gYS9hcmNoL2FybS9jb25maWdzL3NhbWE3X2RlZmNvbmZpZw0KPj4gKysrIGIvYXJj
-aC9hcm0vY29uZmlncy9zYW1hN19kZWZjb25maWcNCj4+IEBAIC0xMzgsNiArMTM4LDggQEAgQ09O
-RklHX1NORF9TT0NfTUlLUk9FX1BST1RPPW0NCj4+IMKgIENPTkZJR19TTkRfTUNIUF9TT0NfSTJT
-X01DQz15DQo+PiDCoCBDT05GSUdfU05EX01DSFBfU09DX1NQRElGVFg9eQ0KPj4gwqAgQ09ORklH
-X1NORF9NQ0hQX1NPQ19TUERJRlJYPXkNCj4+ICtDT05GSUdfU05EX01DSFBfU09DX1BETUM9eQ0K
-Pj4gK0NPTkZJR19TTkRfU09DX0RNSUM9eQ0KPiANCj4gSSdtIGZpbmUgd2l0aCB0aGF0LCBidXQg
-SSBzZWUgdGhhdCBzb21lIEtjb25maWcgZW50cmllcyAic2VsZWN0IiB0aGlzIA0KPiBTTkRfU09D
-X0RNSUMgZGlyZWN0bHkgKGFtZCwgaW50ZWwsIG1lZGlhdGVrLCBzdG0pLg0KPiBJZiBpdCdzIGFi
-c29sdXRlbHkgbmVlZGVkIGZvciBQRE1DIHRvIHdvcmssIHdoYXQgYWJvdXQgZG9pbmcgdGhlIHNh
-bWUgYXMgDQo+IGl0IHdvdWxkIHByZXZlbnQgc29tZSBicm9rZW4gY29uZmlndXJhdGlvbnM/DQoN
-ClRoZSBvbmx5IHdheSBpdCBtYWtlcyBzZW5zZSB0byBtZSB0byBoYXZlIHRoaXMgZHJpdmVyIHNl
-bGVjdGVkIHNvbWV3aGVyZSANCmlzIGluIGEgc291bmQgY2FyZCBkcml2ZXIsIHVzZWQgZm9yIGEg
-c3BlY2lmaWMgYm9hcmQsIHdoaWNoIHdlIGtub3cgaXQgDQpoYXMgUERNIG1pY3JvcGhvbmVzLiBT
-aW5jZSwgZm9yIG5vdywgd2UgdXNlIHRoZSBzaW1wbGUgc291bmQgY2FyZCBmb3IgDQpvdXIgYXVk
-aW8gaW50ZXJmYWNlcywgd2UgaGF2ZSBubyBwbGFjZSB0byBhZGQgdGhpcyBzZWxlY3QuDQpUaGUg
-cmVhc29uIEkgZG8gbm90IGxpa2UgdG8gYWRkIHRoaXMgc2VsZWN0IHVuZGVyIHRoZSBjb250cm9s
-bGVyIGRyaXZlciwgDQphcyBzb21lIG9mIHRoZSB2ZW5kb3JzIGRpZCwgaXMgYmVjYXVzZSwgaW4g
-dGhlIGZ1dHVyZSwgd2UgbWlnaHQgaGF2ZSANCmRpZmZlcmVudCBQRE0gbWljcm9waG9uZXMgdGhh
-dCBtaWdodCBub3Qgd29yayB3aXRoIFNORF9TT0NfRE1JQyBhbmQgDQptaWdodCBuZWVkIGEgZGlm
-ZmVyZW50IGRyaXZlci4NCkkgZG9uJ3QgaGF2ZSBhIHN0cm9uZyBvcGluaW9uIG9uIHRoaXMuIElm
-IHlvdSB0aGluayBJIGFtIG92ZXJ0aGlua2luZywgDQpwbGVhc2UgbGV0IG1lIGtub3cgYW5kIEkg
-d2lsbCBjaGFuZ2UgdGhpcy4NCg0KQmVzdCByZWdhcmRzLA0KQ29kcmluDQo=
+
+--V6OcCftqYTAkRMmU
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, May 05, 2022 at 02:47:04PM +0000, Codrin.Ciubotariu@microchip.com w=
+rote:
+> On 05.05.2022 16:58, Nicolas Ferre wrote:
+
+> > I'm fine with that, but I see that some Kconfig entries "select" this=
+=20
+> > SND_SOC_DMIC directly (amd, intel, mediatek, stm).
+> > If it's absolutely needed for PDMC to work, what about doing the same a=
+s=20
+> > it would prevent some broken configurations?
+
+> The only way it makes sense to me to have this driver selected somewhere=
+=20
+> is in a sound card driver, used for a specific board, which we know it=20
+> has PDM microphones. Since, for now, we use the simple sound card for=20
+> our audio interfaces, we have no place to add this select.
+> The reason I do not like to add this select under the controller driver,=
+=20
+> as some of the vendors did, is because, in the future, we might have=20
+> different PDM microphones that might not work with SND_SOC_DMIC and=20
+> might need a different driver.
+> I don't have a strong opinion on this. If you think I am overthinking,=20
+> please let me know and I will change this.
+
+It's unlikely but possible that there could be some other device
+connected (eg, you could have a DSP or something that generates PDM
+output).  If the driver doesn't directly instantiate the DMIC itself
+then it's probably reasonable for it to be user controllable if the DMIC
+driver is there.
+
+--V6OcCftqYTAkRMmU
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJz5scACgkQJNaLcl1U
+h9BoAQf/RxATTm9oBfzFYiQDmMZnY6nSvVtROk9XiCIp4BRvt4ezstNodFEGlLKQ
+fWhTWfMmr7rGF9Syj1Zb6W/2Fahc/R04bml6dXcDHBKeW5a9Tnslg4U0brWHd2oT
+SeE9ZVLQzoFgUcCh6DrwxpYIkfbPrZwrBS0YNHHgjw3LAc2voYJiNm8njcOXop9i
++kpz1RZs60mULxSPGoNOr/9HNfNc2H3lZcSG6ZkdjkiXMJ4TjedzB5YpaOFGrYLN
+hCy9jHw/mzCFq9EnV8ubaTI05RFwIusQd0doLtRxlgrrS94+mwNqHggZLnFK95Z/
+BnnQHFiY+49FUwRU4NPZhfcFayakzQ==
+=TVpY
+-----END PGP SIGNATURE-----
+
+--V6OcCftqYTAkRMmU--

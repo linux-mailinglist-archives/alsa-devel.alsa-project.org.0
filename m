@@ -2,92 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0889D51B5C4
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 May 2022 04:22:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 018D451B6E1
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 May 2022 06:00:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9858C1775;
-	Thu,  5 May 2022 04:21:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9858C1775
+	by alsa0.perex.cz (Postfix) with ESMTPS id F3602179B;
+	Thu,  5 May 2022 06:00:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F3602179B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651717336;
-	bh=JHDOPDqk5fQDuz5QUmzjko5Ozg8PJ4/6UhJD27gjOso=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=O1CCe2jOiOVOt6F0y0/uMNrOSDI4fuU0mgrY8rJreyJJqHLTVzqdjR+IExd4UunOu
-	 BtmYt2SBjR8xhn0VAt3jvOV9ubr+0fgSI8bj7X6u3SeB7AyaiLXVcbp04DPu1OJTg1
-	 SoWWbG9XKblnAdtNadAOZAqwxx41k7e5JzOWtpmo=
+	s=default; t=1651723255;
+	bh=lmEfsT2w2r7tgbGw1nBlr42ZCZMn3JbQH4Ts1as214M=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=vjUD8Z5b2zKCsvWFZbdwD7PAWKU0SrC/2tDsvYWA9dVUQm1bLjlh/kSXbxqbUiYH7
+	 HH3LlbFKdzHn5bQ1xyWEshpEDX7EXof8pUOzA0E9j9vFknDikxu4LXzm5PcFGP7jXA
+	 Ggux/83B7IoLr7H/f4jRobxDd2NB+FcX9izp7hgI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F1757F8049C;
-	Thu,  5 May 2022 04:21:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 50F3AF800BF;
+	Thu,  5 May 2022 05:59:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 07366F8016B; Thu,  5 May 2022 04:21:16 +0200 (CEST)
+ id D0529F8016B; Thu,  5 May 2022 05:59:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com
- [IPv6:2607:f8b0:4864:20::1033])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp-relay-internal-0.canonical.com
+ (smtp-relay-internal-0.canonical.com [185.125.188.122])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9D8CEF800D3
- for <alsa-devel@alsa-project.org>; Thu,  5 May 2022 04:21:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D8CEF800D3
+ by alsa1.perex.cz (Postfix) with ESMTPS id D69D3F800BF
+ for <alsa-devel@alsa-project.org>; Thu,  5 May 2022 05:59:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D69D3F800BF
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="nsnFguKB"
-Received: by mail-pj1-x1033.google.com with SMTP id
- qe3-20020a17090b4f8300b001dc24e4da73so4755788pjb.1
- for <alsa-devel@alsa-project.org>; Wed, 04 May 2022 19:21:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=L29beijmOBItkkHFe0zAs3en1lXL5wQ+ii6bOfyDx3w=;
- b=nsnFguKB2NLOrLnOrTZKwKhFp50jdrWPHzz6A8Y+5pjtxjvPbb9s1WBIppo7QlrXwD
- avUxyjTz7indRQhqjLDUmu5sbkeimM/DVnwNPjRFQOXQzD8aaKPOkVkeCvP8B8mZEkaj
- F1ND3RyphXaRjQ5/g1sRfVdm5zcnNIcYt3ZIjaojw42cxY6/Q3RWG9gTLu3oxxU6slK8
- T8xm3Tg8V2VUvIZRh42HUHHIif1w/NVb5o8IdFMkup7DhZYTmK8qYxOc1xBTQXnRqU35
- 5G8Pu/PGDRyWDOiio8KEnZ4go+wl4QSM0pcwsxXDE80Et4U0lz2ccrxcP5oPvy5i2jHs
- dxBQ==
+ dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
+ header.b="p0yTvBJr"
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
+ [209.85.216.72])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id E6F243F6FD
+ for <alsa-devel@alsa-project.org>; Thu,  5 May 2022 03:59:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1651723179;
+ bh=tHBXCEpcvE3FUcO2qJsnS05zkLtGUpvJDlRzIJIAxmo=;
+ h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+ In-Reply-To:Content-Type;
+ b=p0yTvBJroZ/HuWla2wPlUWr0DNsOanxQ/04nB70vzpPkeoHZKdlUXOHIRv0bV4mwL
+ RqV5PkzdBbxf0APD/elWVOt1EgIUcPCfNbwbEY17Npiq8PqopOt/cfVXe71dnH+fN+
+ h8jArlmY2lfw7o8bWKuRau+KT+YQ4iq6TN+wL3XLK64dcpNjLBda2dgKeCr9EN9N4t
+ cpzp7G97a35XbDOQ0Dk0c164Bw8X6/TGwf8pxdtdY1SdIENciXWsJJQ/F4GeegcNIw
+ jNt6AZDiftUPWbZyJh3C8K4yR4xlZ7yd6DdYYeCmWfC+ZN7vGGOnRNFoCX8xoAq3h5
+ qi9a+jpqRrZYA==
+Received: by mail-pj1-f72.google.com with SMTP id
+ w3-20020a17090ac98300b001b8b914e91aso1640315pjt.0
+ for <alsa-devel@alsa-project.org>; Wed, 04 May 2022 20:59:39 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=L29beijmOBItkkHFe0zAs3en1lXL5wQ+ii6bOfyDx3w=;
- b=Spg0/eBusDkqHtls6T77FscI8dQvf0VN/UAkCmpDpq6Q1txsxEfI8188DmB+4ysrqr
- WQOf5lYsiZz+mxhOae76LugIOYg3bLiRPLgtg85kwmD8KTrW3FJk7E5jl/80KG4U32ve
- cim79+YCcZNTgIdMw1rC7XzvHFGYNbikckKtObgOo0atxb95jHghwx0ArI4/bWqTssDe
- ueuLzJ3rrX5jxLVfB+vqNF4k1X8zK9EYhx+VMKEg8nhEqGaxyOB8o62F9atrEYce3Hud
- n/6QzUk10moKQQj3srO9KMbmEs175pDuf3RgPLgON6wYqByouvxyc7OoHnBtzCbEGZRo
- 9YtQ==
-X-Gm-Message-State: AOAM530EY8F2/5vX4pTVI60JdRf3p+YrtBzczXchY3l2/LKZuHdUb1Hw
- adGBwO82eZnHqVU0KgRqbzA=
-X-Google-Smtp-Source: ABdhPJwnuY6Oc5ajFtJMUAPrBiE+7/kofVgYm1v0VyH9aYzBuzJEFEQA5gUvaeQyUiPKz/3ZOWN8Dw==
-X-Received: by 2002:a17:902:c2d5:b0:15e:d84a:b24a with SMTP id
- c21-20020a170902c2d500b0015ed84ab24amr916063pla.69.1651717267153; 
- Wed, 04 May 2022 19:21:07 -0700 (PDT)
-Received: from localhost.localdomain ([193.203.214.57])
- by smtp.gmail.com with ESMTPSA id
- 28-20020a17090a1a5c00b001cd4989ff41sm235507pjl.8.2022.05.04.19.21.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 May 2022 19:21:06 -0700 (PDT)
-From: cgel.zte@gmail.com
-X-Google-Original-From: chi.minghao@zte.com.cn
-To: lgirdwood@gmail.com
-Subject: [PATCH] ASoC: pcm186x: simplify the return expression of
- pcm186x_power_off()
-Date: Thu,  5 May 2022 02:21:02 +0000
-Message-Id: <20220505022102.54650-1-chi.minghao@zte.com.cn>
-X-Mailer: git-send-email 2.25.1
+ bh=tHBXCEpcvE3FUcO2qJsnS05zkLtGUpvJDlRzIJIAxmo=;
+ b=0kTECyMSVzRzfkvjlxWJG4tOEkz8rWmz2nuvIb/LNs2MGpfOjuOjGBVm4rE3XN9MJX
+ W41FrXz7Jq4DdX95X7WjMhtkliOpnCdiyOxxneilqgcn3Vb2wCARAHBuT7P0NcDaKutg
+ u8xtXTexnIrF81oLwiBywzg9KEqC3m85WjLrIO5KURD8iGZoN1ILvHPANyeQVa1b6yp1
+ 4hRFMSm4qU4hMP3dq86GyU79XDthFkud+vLLQlMmYkdj4ntLTiGtTS0MbVLVlKguMvi2
+ FuFO2wpSBb8UQ5+gSGbQfV/DoH1K4AMWXmgb1WszIWNh65Rfa5BF8WwkZIXg6y9y8ffd
+ qY3w==
+X-Gm-Message-State: AOAM532En2CfGkmb8xpeYAAI7shiABpnnGUCp+InDMmivRLVB8F+ktur
+ VZOI7LaegEsA19yIlTN9XAuBxey7/JabH/dGVJG7W5PnO6HrmjpnTeTwQbyP24PplZFBFYZkKio
+ KyyUpeTrXDe8fCyDCK8Fn0RbWnLF6mc3oArJEjRnX
+X-Received: by 2002:a17:902:cf0f:b0:15a:24e0:d9b0 with SMTP id
+ i15-20020a170902cf0f00b0015a24e0d9b0mr25320127plg.42.1651723178519; 
+ Wed, 04 May 2022 20:59:38 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJw82gsr0PpaFQdwd8j/stSV+YDDfhbUCXqlhmGf94ePNM8YZXcOkPEx+bfep4SF537NhgOtsQ==
+X-Received: by 2002:a17:902:cf0f:b0:15a:24e0:d9b0 with SMTP id
+ i15-20020a170902cf0f00b0015a24e0d9b0mr25320082plg.42.1651723177947; 
+ Wed, 04 May 2022 20:59:37 -0700 (PDT)
+Received: from [10.102.97.125] (118-163-61-247.hinet-ip.hinet.net.
+ [118.163.61.247]) by smtp.gmail.com with ESMTPSA id
+ s6-20020a170902ea0600b0015e8d4eb2d5sm277509plg.287.2022.05.04.20.59.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 04 May 2022 20:59:37 -0700 (PDT)
+Message-ID: <bb0801fa-3007-b837-17f4-f729c6473253@canonical.com>
+Date: Thu, 5 May 2022 11:59:34 +0800
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Subject: Re: [PATCH v1 3/3] ALSA: hda/cs8409: Support manual mode detection
+ for CS42L42
+Content-Language: en-US
+To: Stefan Binding <sbinding@opensource.cirrus.com>,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+References: <20220504161236.2490532-1-sbinding@opensource.cirrus.com>
+ <20220504161236.2490532-4-sbinding@opensource.cirrus.com>
+From: Chris Chiu <chris.chiu@canonical.com>
+In-Reply-To: <20220504161236.2490532-4-sbinding@opensource.cirrus.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
- linux-kernel@vger.kernel.org, Minghao Chi <chi.minghao@zte.com.cn>,
- Zeal Robot <zealci@zte.com.cn>
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,42 +123,271 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Minghao Chi <chi.minghao@zte.com.cn>
 
-Simplify the return expression.
+On 2022/5/5 00:12, Stefan Binding wrote:
+> For Jack detection on CS42L42, detection is normally done using
+> "auto" mode, which automatically detects what type of jack is
+> connected to the device. However, some headsets are not
+> automatically detected, and as such and alternative detection
+> method "manual mode" can be used to detect these headsets.
+>
+> Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
+> ---
 
-Reported-by: Zeal Robot <zealci@zte.com.cn>
-Signed-off-by: Minghao Chi <chi.minghao@zte.com.cn>
----
- sound/soc/codecs/pcm186x.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
-
-diff --git a/sound/soc/codecs/pcm186x.c b/sound/soc/codecs/pcm186x.c
-index 2c78dccb3f62..fda9d7ee3fe6 100644
---- a/sound/soc/codecs/pcm186x.c
-+++ b/sound/soc/codecs/pcm186x.c
-@@ -534,19 +534,14 @@ static int pcm186x_power_on(struct snd_soc_component *component)
- static int pcm186x_power_off(struct snd_soc_component *component)
- {
- 	struct pcm186x_priv *priv = snd_soc_component_get_drvdata(component);
--	int ret;
- 
- 	snd_soc_component_update_bits(component, PCM186X_POWER_CTRL,
- 			    PCM186X_PWR_CTRL_PWRDN, PCM186X_PWR_CTRL_PWRDN);
- 
- 	regcache_cache_only(priv->regmap, true);
- 
--	ret = regulator_bulk_disable(ARRAY_SIZE(priv->supplies),
-+	return regulator_bulk_disable(ARRAY_SIZE(priv->supplies),
- 				     priv->supplies);
--	if (ret)
--		return ret;
--
--	return 0;
- }
- 
- static int pcm186x_set_bias_level(struct snd_soc_component *component,
--- 
-2.25.1
+Tested-by: Chris Chiu <chris.chiu@canonical.com>
 
 
+>   sound/pci/hda/patch_cs8409-tables.c |   3 -
+>   sound/pci/hda/patch_cs8409.c        | 159 +++++++++++++++++++++++-----
+>   sound/pci/hda/patch_cs8409.h        |   1 -
+>   3 files changed, 132 insertions(+), 31 deletions(-)
+>
+> diff --git a/sound/pci/hda/patch_cs8409-tables.c b/sound/pci/hda/patch_cs8409-tables.c
+> index a7ee489e6aec..0d11b24a1317 100644
+> --- a/sound/pci/hda/patch_cs8409-tables.c
+> +++ b/sound/pci/hda/patch_cs8409-tables.c
+> @@ -252,7 +252,6 @@ struct sub_codec cs8409_cs42l42_codec = {
+>   	.init_seq_num = ARRAY_SIZE(cs42l42_init_reg_seq),
+>   	.hp_jack_in = 0,
+>   	.mic_jack_in = 0,
+> -	.force_status_change = 1,
+>   	.paged = 1,
+>   	.suspended = 1,
+>   	.no_type_dect = 0,
+> @@ -444,7 +443,6 @@ struct sub_codec dolphin_cs42l42_0 = {
+>   	.init_seq_num = ARRAY_SIZE(dolphin_c0_init_reg_seq),
+>   	.hp_jack_in = 0,
+>   	.mic_jack_in = 0,
+> -	.force_status_change = 1,
+>   	.paged = 1,
+>   	.suspended = 1,
+>   	.no_type_dect = 0,
+> @@ -458,7 +456,6 @@ struct sub_codec dolphin_cs42l42_1 = {
+>   	.init_seq_num = ARRAY_SIZE(dolphin_c1_init_reg_seq),
+>   	.hp_jack_in = 0,
+>   	.mic_jack_in = 0,
+> -	.force_status_change = 1,
+>   	.paged = 1,
+>   	.suspended = 1,
+>   	.no_type_dect = 1,
+> diff --git a/sound/pci/hda/patch_cs8409.c b/sound/pci/hda/patch_cs8409.c
+> index d35d124bf3dc..c3a8b04c71d8 100644
+> --- a/sound/pci/hda/patch_cs8409.c
+> +++ b/sound/pci/hda/patch_cs8409.c
+> @@ -634,38 +634,128 @@ static void cs42l42_run_jack_detect(struct sub_codec *cs42l42)
+>   	cs8409_i2c_write(cs42l42, CS42L42_HSDET_CTL2, 0xc0);
+>   }
+>   
+> -static int cs42l42_handle_tip_sense(struct sub_codec *cs42l42, unsigned int reg_ts_status)
+> +static int cs42l42_manual_hs_det(struct sub_codec *cs42l42)
+>   {
+> -	int status_changed = cs42l42->force_status_change;
+> +	unsigned int hs_det_status;
+> +	unsigned int hs_det_comp1;
+> +	unsigned int hs_det_comp2;
+> +	unsigned int hs_det_sw;
+> +	unsigned int hs_type;
+> +
+> +	/* Set hs detect to manual, active mode */
+> +	cs8409_i2c_write(cs42l42, CS42L42_HSDET_CTL2,
+> +			 (1 << CS42L42_HSDET_CTRL_SHIFT) |
+> +			 (0 << CS42L42_HSDET_SET_SHIFT) |
+> +			 (0 << CS42L42_HSBIAS_REF_SHIFT) |
+> +			 (0 << CS42L42_HSDET_AUTO_TIME_SHIFT));
+> +
+> +	/* Configure HS DET comparator reference levels. */
+> +	cs8409_i2c_write(cs42l42, CS42L42_HSDET_CTL1,
+> +			 (CS42L42_HSDET_COMP1_LVL_VAL << CS42L42_HSDET_COMP1_LVL_SHIFT) |
+> +			 (CS42L42_HSDET_COMP2_LVL_VAL << CS42L42_HSDET_COMP2_LVL_SHIFT));
+> +
+> +	/* Open the SW_HSB_HS3 switch and close SW_HSB_HS4 for a Type 1 headset. */
+> +	cs8409_i2c_write(cs42l42, CS42L42_HS_SWITCH_CTL, CS42L42_HSDET_SW_COMP1);
+> +
+> +	msleep(100);
+> +
+> +	hs_det_status = cs8409_i2c_read(cs42l42, CS42L42_HS_DET_STATUS);
+> +
+> +	hs_det_comp1 = (hs_det_status & CS42L42_HSDET_COMP1_OUT_MASK) >>
+> +			CS42L42_HSDET_COMP1_OUT_SHIFT;
+> +	hs_det_comp2 = (hs_det_status & CS42L42_HSDET_COMP2_OUT_MASK) >>
+> +			CS42L42_HSDET_COMP2_OUT_SHIFT;
+> +
+> +	/* Close the SW_HSB_HS3 switch for a Type 2 headset. */
+> +	cs8409_i2c_write(cs42l42, CS42L42_HS_SWITCH_CTL, CS42L42_HSDET_SW_COMP2);
+>   
+> -	cs42l42->force_status_change = 0;
+> +	msleep(100);
+> +
+> +	hs_det_status = cs8409_i2c_read(cs42l42, CS42L42_HS_DET_STATUS);
+> +
+> +	hs_det_comp1 |= ((hs_det_status & CS42L42_HSDET_COMP1_OUT_MASK) >>
+> +			CS42L42_HSDET_COMP1_OUT_SHIFT) << 1;
+> +	hs_det_comp2 |= ((hs_det_status & CS42L42_HSDET_COMP2_OUT_MASK) >>
+> +			CS42L42_HSDET_COMP2_OUT_SHIFT) << 1;
+> +
+> +	/* Use Comparator 1 with 1.25V Threshold. */
+> +	switch (hs_det_comp1) {
+> +	case CS42L42_HSDET_COMP_TYPE1:
+> +		hs_type = CS42L42_PLUG_CTIA;
+> +		hs_det_sw = CS42L42_HSDET_SW_TYPE1;
+> +		break;
+> +	case CS42L42_HSDET_COMP_TYPE2:
+> +		hs_type = CS42L42_PLUG_OMTP;
+> +		hs_det_sw = CS42L42_HSDET_SW_TYPE2;
+> +		break;
+> +	default:
+> +		/* Fallback to Comparator 2 with 1.75V Threshold. */
+> +		switch (hs_det_comp2) {
+> +		case CS42L42_HSDET_COMP_TYPE1:
+> +			hs_type = CS42L42_PLUG_CTIA;
+> +			hs_det_sw = CS42L42_HSDET_SW_TYPE1;
+> +			break;
+> +		case CS42L42_HSDET_COMP_TYPE2:
+> +			hs_type = CS42L42_PLUG_OMTP;
+> +			hs_det_sw = CS42L42_HSDET_SW_TYPE2;
+> +			break;
+> +		case CS42L42_HSDET_COMP_TYPE3:
+> +			hs_type = CS42L42_PLUG_HEADPHONE;
+> +			hs_det_sw = CS42L42_HSDET_SW_TYPE3;
+> +			break;
+> +		default:
+> +			hs_type = CS42L42_PLUG_INVALID;
+> +			hs_det_sw = CS42L42_HSDET_SW_TYPE4;
+> +			break;
+> +		}
+> +	}
+> +
+> +	/* Set Switches */
+> +	cs8409_i2c_write(cs42l42, CS42L42_HS_SWITCH_CTL, hs_det_sw);
+> +
+> +	/* Set HSDET mode to Manual—Disabled */
+> +	cs8409_i2c_write(cs42l42, CS42L42_HSDET_CTL2,
+> +			 (0 << CS42L42_HSDET_CTRL_SHIFT) |
+> +			 (0 << CS42L42_HSDET_SET_SHIFT) |
+> +			 (0 << CS42L42_HSBIAS_REF_SHIFT) |
+> +			 (0 << CS42L42_HSDET_AUTO_TIME_SHIFT));
+> +
+> +	/* Configure HS DET comparator reference levels. */
+> +	cs8409_i2c_write(cs42l42, CS42L42_HSDET_CTL1,
+> +			 (CS42L42_HSDET_COMP1_LVL_DEFAULT << CS42L42_HSDET_COMP1_LVL_SHIFT) |
+> +			 (CS42L42_HSDET_COMP2_LVL_DEFAULT << CS42L42_HSDET_COMP2_LVL_SHIFT));
+> +
+> +	return hs_type;
+> +}
+> +
+> +static int cs42l42_handle_tip_sense(struct sub_codec *cs42l42, unsigned int reg_ts_status)
+> +{
+> +	int status_changed = 0;
+>   
+>   	/* TIP_SENSE INSERT/REMOVE */
+>   	switch (reg_ts_status) {
+>   	case CS42L42_TS_PLUG:
+> -		if (!cs42l42->hp_jack_in) {
+> -			if (cs42l42->no_type_dect) {
+> -				status_changed = 1;
+> -				cs42l42->hp_jack_in = 1;
+> -				cs42l42->mic_jack_in = 0;
+> -			} else {
+> -				cs42l42_run_jack_detect(cs42l42);
+> -			}
+> +		if (cs42l42->no_type_dect) {
+> +			status_changed = 1;
+> +			cs42l42->hp_jack_in = 1;
+> +			cs42l42->mic_jack_in = 0;
+> +		} else {
+> +			cs42l42_run_jack_detect(cs42l42);
+>   		}
+>   		break;
+>   
+>   	case CS42L42_TS_UNPLUG:
+> -		if (cs42l42->hp_jack_in || cs42l42->mic_jack_in) {
+> -			status_changed = 1;
+> -			cs42l42->hp_jack_in = 0;
+> -			cs42l42->mic_jack_in = 0;
+> -		}
+> +		status_changed = 1;
+> +		cs42l42->hp_jack_in = 0;
+> +		cs42l42->mic_jack_in = 0;
+>   		break;
+>   	default:
+>   		/* jack in transition */
+>   		break;
+>   	}
+>   
+> +	codec_dbg(cs42l42->codec, "Tip Sense Detection: (%d)\n", reg_ts_status);
+> +
+>   	return status_changed;
+>   }
+>   
+> @@ -698,24 +788,40 @@ static int cs42l42_jack_unsol_event(struct sub_codec *cs42l42)
+>   
+>   		type = (reg_hs_status & CS42L42_HSDET_TYPE_MASK) >> CS42L42_HSDET_TYPE_SHIFT;
+>   
+> +		/* Configure the HSDET mode. */
+> +		cs8409_i2c_write(cs42l42, CS42L42_HSDET_CTL2, 0x80);
+> +
+>   		if (cs42l42->no_type_dect) {
+>   			status_changed = cs42l42_handle_tip_sense(cs42l42, current_plug_status);
+> -		} else if (type == CS42L42_PLUG_INVALID) {
+> -			/* Type CS42L42_PLUG_INVALID not supported	*/
+> -			status_changed = cs42l42_handle_tip_sense(cs42l42, CS42L42_TS_UNPLUG);
+>   		} else {
+> -			if (!cs42l42->hp_jack_in) {
+> -				status_changed = 1;
+> -				cs42l42->hp_jack_in = 1;
+> +			if (type == CS42L42_PLUG_INVALID || type == CS42L42_PLUG_HEADPHONE) {
+> +				codec_dbg(cs42l42->codec,
+> +					  "Auto detect value not valid (%d), running manual det\n",
+> +					  type);
+> +				type = cs42l42_manual_hs_det(cs42l42);
+>   			}
+> -			/* type = CS42L42_PLUG_HEADPHONE has no mic */
+> -			if ((!cs42l42->mic_jack_in) && (type != CS42L42_PLUG_HEADPHONE)) {
+> +
+> +			switch (type) {
+> +			case CS42L42_PLUG_CTIA:
+> +			case CS42L42_PLUG_OMTP:
+>   				status_changed = 1;
+> +				cs42l42->hp_jack_in = 1;
+>   				cs42l42->mic_jack_in = 1;
+> +				break;
+> +			case CS42L42_PLUG_HEADPHONE:
+> +				status_changed = 1;
+> +				cs42l42->hp_jack_in = 1;
+> +				cs42l42->mic_jack_in = 0;
+> +				break;
+> +			default:
+> +				status_changed = 1;
+> +				cs42l42->hp_jack_in = 0;
+> +				cs42l42->mic_jack_in = 0;
+> +				break;
+>   			}
+> +			codec_dbg(cs42l42->codec, "Detection done (%d)\n", type);
+>   		}
+> -		/* Configure the HSDET mode. */
+> -		cs8409_i2c_write(cs42l42, CS42L42_HSDET_CTL2, 0x80);
+> +
+>   		/* Enable the HPOUT ground clamp and configure the HP pull-down */
+>   		cs8409_i2c_write(cs42l42, CS42L42_DAC_CTL2, 0x02);
+>   		/* Re-Enable Tip Sense Interrupt */
+> @@ -803,7 +909,6 @@ static void cs42l42_suspend(struct sub_codec *cs42l42)
+>   	cs42l42->last_page = 0;
+>   	cs42l42->hp_jack_in = 0;
+>   	cs42l42->mic_jack_in = 0;
+> -	cs42l42->force_status_change = 1;
+>   
+>   	/* Put CS42L42 into Reset */
+>   	gpio_data = snd_hda_codec_read(codec, CS8409_PIN_AFG, 0, AC_VERB_GET_GPIO_DATA, 0);
+> diff --git a/sound/pci/hda/patch_cs8409.h b/sound/pci/hda/patch_cs8409.h
+> index 988259f8a940..ebf473a3f109 100644
+> --- a/sound/pci/hda/patch_cs8409.h
+> +++ b/sound/pci/hda/patch_cs8409.h
+> @@ -304,7 +304,6 @@ struct sub_codec {
+>   
+>   	unsigned int hp_jack_in:1;
+>   	unsigned int mic_jack_in:1;
+> -	unsigned int force_status_change:1;
+>   	unsigned int suspended:1;
+>   	unsigned int paged:1;
+>   	unsigned int last_page;
+>

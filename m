@@ -2,86 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1310D51B5B3
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 May 2022 04:15:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B76051B5B9
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 May 2022 04:18:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 905021704;
-	Thu,  5 May 2022 04:14:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 905021704
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2746D175C;
+	Thu,  5 May 2022 04:17:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2746D175C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651716908;
-	bh=03xKb0I5hVrM4a/WrMThNhrl+Req19Cfb9Wi1fu08xk=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Ae9BGOSUX9qcF+brZuH3pR4/FKD9S2XG46GpVYZl6ITdsNxa6/nlo4oDVBtgAD8v2
-	 StyBUR1VeKCyZbFuRLGQtH9xt4ziolxGP3LrWdm14ZXl7rRhrdSvzbIbhErhtng1Mf
-	 1JNcoJJu+aams5LAtOjx1WvJkY0MFz/KvayvIgnQ=
+	s=default; t=1651717127;
+	bh=pDRiol8HdU9MYObE/heLrp0oG11aAs0Md6oT0FLEQEw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Zqb8SwS+gHyOlcfFd0+Hf2D3DlTq1gRRWiKCDW4TDu/kJVGReEUIL/Pz+agm1s0d7
+	 d1LlUJHAOxQQ79qIds0iDg/M9pWa2oMVB/Ciq3EutXp5HAqZ1rTazEZvLe0BZJvEao
+	 shpEhVducv7FPF0NkuwgW3g9cZZ+9QIu9uk8LCH4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 092DBF8049C;
-	Thu,  5 May 2022 04:14:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 904D9F8049C;
+	Thu,  5 May 2022 04:17:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CD3C4F8016B; Thu,  5 May 2022 04:14:05 +0200 (CEST)
+ id D8621F8016B; Thu,  5 May 2022 04:17:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
+ [IPv6:2607:f8b0:4864:20::631])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E9F88F800F0
- for <alsa-devel@alsa-project.org>; Thu,  5 May 2022 04:13:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9F88F800F0
-X-UUID: eaa920a7b9914c7fa8bde4e0efc6f109-20220505
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.4, REQID:6cfe91a2-dde4-4508-8ff0-da5df5c84a55, OB:0,
- LO
- B:0,IP:0,URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,RULE:Release_Ham,ACTI
- ON:release,TS:0
-X-CID-META: VersionHash:faefae9, CLOUDID:0dbc9ab2-56b5-4c9e-8d83-0070b288eb6a,
- C
- OID:IGNORED,Recheck:0,SF:nil,TC:nil,Content:0,EDM:-3,File:nil,QS:0,BEC:nil
-X-UUID: eaa920a7b9914c7fa8bde4e0efc6f109-20220505
-Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by
- mailgw01.mediatek.com (envelope-from <jiaxin.yu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 1533016179; Thu, 05 May 2022 10:13:44 +0800
-Received: from mtkcas10.mediatek.inc (172.21.101.39) by
- mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.792.3; 
- Thu, 5 May 2022 10:13:43 +0800
-Received: from mhfsdcap04 (10.17.3.154) by mtkcas10.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Thu, 5 May 2022 10:13:41 +0800
-Message-ID: <97d295bf950ea3dbccbcaa7f5a60ccc7bc0b1cab.camel@mediatek.com>
-Subject: Re: [PATCH 1/3] ASoC: dt-bindings: mediatek: mt8192: Add i2s-share
- properties
-From: Jiaxin Yu <jiaxin.yu@mediatek.com>
-To: Rob Herring <robh@kernel.org>, "=?ISO-8859-1?Q?N=EDcolas?= F. R. A.	Prado"
- <nfraprado@collabora.com>
-Date: Thu, 5 May 2022 10:13:42 +0800
-In-Reply-To: <YnLkYKmJ0TJ8uyjC@robh.at.kernel.org>
-References: <20220429203039.2207848-1-nfraprado@collabora.com>
- <20220429203039.2207848-2-nfraprado@collabora.com>
- <YnLkYKmJ0TJ8uyjC@robh.at.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9412DF800F0
+ for <alsa-devel@alsa-project.org>; Thu,  5 May 2022 04:17:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9412DF800F0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="GC3/Rj8I"
+Received: by mail-pl1-x631.google.com with SMTP id j14so3119239plx.3
+ for <alsa-devel@alsa-project.org>; Wed, 04 May 2022 19:17:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=F2nk/ssfCB0vTWyS6vaFNqXTpQUVylAvicTxU2kBcY8=;
+ b=GC3/Rj8Izk85qe05Uvsum7tPpxVZtjLFcopo+A3fa8s/5loDut8y7iWCNEvjQme2WX
+ EnmOc60vVyj8KiLzODlQ6vIc4N7UR5ztYnrnKC9I8VbRAiJLxxdpXtLE606l781T9l20
+ 5ecROuPBCMlPt4JR4HtdNs0QLHYVKSVgVoXNGT04VLTisI7byfTH4z95mpUs4rapUc9Q
+ 7aVMqa30ajkIpZ0g8BWQ7GjsJw8TipMOzn8T31rxkIqUD9anJ4X5bjAEbEiwRXyCq0Na
+ azH+2woprSkwLESH9c3T2/k+xULIgJgKTh82lSDmEPV4jrXQzQ/iYZ6OFAaITkSOCqnk
+ O+6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=F2nk/ssfCB0vTWyS6vaFNqXTpQUVylAvicTxU2kBcY8=;
+ b=LyY93TOI9dSWtyPUxQau0fa4d2mAHTBTwCgWE3Q7UezTkbPGWtYKesV6LFsuTcKHWg
+ fMLczjIrI1Vl4QdeANXIajdC2GLpTJ7hUUwTaG5zfMORzsP2hcHHq0Mqdpq+kuk47vH7
+ EMJaObV/6DO+3kWfWuCg4+0TcIoCeQ6D8O9N/FVVw7hccC69XCHgzceKPXQD2ZpM8/Sb
+ SVo+hZRPmDewIDSERpYwhtxS8A8OqrwGan7AZS0ptDcd+x4z6+PGcttnc4Rd8BdpGWQi
+ CMXosQRqdrV0q7FSQ5lgxlvjX1si9De5o0kreWj3QBzm33aGJbKGt3sl88m/Y2NXxkwM
+ qsmg==
+X-Gm-Message-State: AOAM530Rm1xqJ1QXgBn6XwgABMrnQmSARmShsr6AF1nFxp0sUeDH9YFP
+ xl+zs/wQ6cCQPiCbZ2qT9LI=
+X-Google-Smtp-Source: ABdhPJxIK9x8R05f9RBILPM4SBRiuoNiqtGSovQy5pR4hh+ZgLz2hy5Ac/8ilHaiMumxaeKAEigllw==
+X-Received: by 2002:a17:902:bf45:b0:15c:df47:3d6 with SMTP id
+ u5-20020a170902bf4500b0015cdf4703d6mr24385071pls.58.1651717057904; 
+ Wed, 04 May 2022 19:17:37 -0700 (PDT)
+Received: from localhost.localdomain ([193.203.214.57])
+ by smtp.gmail.com with ESMTPSA id
+ f19-20020a63dc53000000b003c14af50631sm60468pgj.73.2022.05.04.19.17.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 04 May 2022 19:17:37 -0700 (PDT)
+From: cgel.zte@gmail.com
+X-Google-Original-From: chi.minghao@zte.com.cn
+To: lgirdwood@gmail.com
+Subject: [PATCH] ASoC: uniphier: simplify the return expression of
+ uniphier_aio_compr_set_params()
+Date: Thu,  5 May 2022 02:17:33 +0000
+Message-Id: <20220505021733.54275-1-chi.minghao@zte.com.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-MTK: N
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Shane Chien <shane.chien@mediatek.com>, Mark Brown <broonie@kernel.org>,
- linux-mediatek@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Matthias Brugger <matthias.bgg@gmail.com>, kernel@collabora.com,
- linux-arm-kernel@lists.infradead.org, AngeloGioacchino
- Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: alsa-devel@alsa-project.org, Zeal Robot <zealci@zte.com.cn>,
+ linux-kernel@vger.kernel.org, Minghao Chi <chi.minghao@zte.com.cn>,
+ broonie@kernel.org, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,54 +102,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 2022-05-04 at 15:38 -0500, Rob Herring wrote:
-> On Fri, Apr 29, 2022 at 04:30:37PM -0400, Nícolas F. R. A. Prado
-> wrote:
-> > The Mediatek AFE PCM controller for MT8192 allows sharing of an I2S
-> > bus
-> > between two busses. Add a pattern for these properties in the
-> > dt-binding.
-> > 
-> > Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
-> > 
-> > ---
-> > 
-> >  Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml | 5
-> > +++++
-> >  1 file changed, 5 insertions(+)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/sound/mt8192-afe-
-> > pcm.yaml b/Documentation/devicetree/bindings/sound/mt8192-afe-
-> > pcm.yaml
-> > index 7a25bc9b8060..5b03c8dbf318 100644
-> > --- a/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
-> > +++ b/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
-> > @@ -54,6 +54,11 @@ properties:
-> >        - const: aud_infra_clk
-> >        - const: aud_infra_26m_clk
-> >  
-> > +patternProperties:
-> > +  "^i2s[0-35-9]-share$":
-> > +    description: Name of the I2S bus that is shared with this bus
-> > +    pattern: "^I2S[0-35-9]$"
-> 
-> Why not a phandle to the the other bus? That would be the DT way to
-> do 
-> it. But I'm not sure I really understand who is sharing what here.
-> 
-I can explain the usage of this property. The I2S interface of MT8192
-only have 3 pins [bit clock/ frame clock/ data in(or out)]. So if we
-want use them as normal I2S that has 4 pins [bit clock/ frame clock/
-data in/ data out], we need to combine two MT8192 I2S interface to use.
-But we need to specify whose clock they use. E.g. "i2s9-share =
-"I2S8"".
+From: Minghao Chi <chi.minghao@zte.com.cn>
 
-> > +
-> >  required:
-> >    - compatible
-> >    - interrupts
-> > -- 
-> > 2.36.0
-> > 
-> > 
+Simplify the return expression.
+
+Reported-by: Zeal Robot <zealci@zte.com.cn>
+Signed-off-by: Minghao Chi <chi.minghao@zte.com.cn>
+---
+ sound/soc/uniphier/aio-compress.c | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
+
+diff --git a/sound/soc/uniphier/aio-compress.c b/sound/soc/uniphier/aio-compress.c
+index 0f76bc601ca9..7d1492c15b57 100644
+--- a/sound/soc/uniphier/aio-compress.c
++++ b/sound/soc/uniphier/aio-compress.c
+@@ -139,7 +139,6 @@ static int uniphier_aio_compr_set_params(struct snd_soc_component *component,
+ 	struct uniphier_aio *aio = uniphier_priv(asoc_rtd_to_cpu(rtd, 0));
+ 	struct uniphier_aio_sub *sub = &aio->sub[cstream->direction];
+ 	struct device *dev = &aio->chip->pdev->dev;
+-	int ret;
+ 
+ 	if (params->codec.id != SND_AUDIOCODEC_IEC61937) {
+ 		dev_err(dev, "Codec ID is not supported(%d)\n",
+@@ -161,11 +160,7 @@ static int uniphier_aio_compr_set_params(struct snd_soc_component *component,
+ 	aio_port_reset(sub);
+ 	aio_src_reset(sub);
+ 
+-	ret = uniphier_aio_compr_prepare(component, cstream);
+-	if (ret)
+-		return ret;
+-
+-	return 0;
++	return uniphier_aio_compr_prepare(component, cstream);
+ }
+ 
+ static int uniphier_aio_compr_hw_free(struct snd_soc_component *component,
+-- 
+2.25.1
+
 

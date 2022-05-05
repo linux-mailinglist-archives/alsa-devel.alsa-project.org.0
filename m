@@ -2,74 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6ACD51C39F
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 May 2022 17:13:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC60751C3A0
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 May 2022 17:14:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 902A71828;
-	Thu,  5 May 2022 17:13:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 902A71828
+	by alsa0.perex.cz (Postfix) with ESMTPS id 904AA17F7;
+	Thu,  5 May 2022 17:13:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 904AA17F7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651763635;
-	bh=0D7MU0dHkdxGOE7RXexlR/iR0tAYQw8+ivhRWjMp3FA=;
+	s=default; t=1651763651;
+	bh=3e8AnhyMxsNI7aG3d0fNwDUXubyauqM5LEVk5obqnJg=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bkBe2R+whhjeko8T3ZGGMk00b2VFF8sxijMzhMc4JQGoWUo6JhJbfRCJ2CMab45aH
-	 cwe7GaU1UVaA6G7zp18Y0kujZkpRK/BbTIKh71y2qmQV6XTFQ35vAcuUA4qq5F1bJV
-	 7URb2Dd1LdizKphxsdVRMdHeWccICP75zqbYYakk=
+	b=mfnURICP84WND+huMwanaNh8nk125jci13FRWMOjJRYZOEe4KgGd+8cN0G4Gf5GzJ
+	 a1FJNgmJHSaVR2cqTxFQIUjzE7U6yyXFa9GZRXtN2SFT0u4BImTAjtdLnYSZWKSL0w
+	 uGojUBgg6vuBAY1bgPC4pvXD7LvYtKiazzO7mdto=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F2348F8050F;
-	Thu,  5 May 2022 17:12:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 77814F80516;
+	Thu,  5 May 2022 17:12:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9E923F8050F; Thu,  5 May 2022 17:12:21 +0200 (CEST)
+ id C6370F80508; Thu,  5 May 2022 17:12:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5CC62F804CF
- for <alsa-devel@alsa-project.org>; Thu,  5 May 2022 17:12:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5CC62F804CF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 57CDCF80506
+ for <alsa-devel@alsa-project.org>; Thu,  5 May 2022 17:12:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57CDCF80506
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="agnsg3TY"
+ header.b="B1+rdYLG"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id A7D4FB82DB5;
- Thu,  5 May 2022 15:12:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D23BC385AF;
- Thu,  5 May 2022 15:12:11 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 2AAB1B82DC0;
+ Thu,  5 May 2022 15:12:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9A62C385AE;
+ Thu,  5 May 2022 15:12:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1651763533;
- bh=0D7MU0dHkdxGOE7RXexlR/iR0tAYQw8+ivhRWjMp3FA=;
+ s=k20201202; t=1651763536;
+ bh=3e8AnhyMxsNI7aG3d0fNwDUXubyauqM5LEVk5obqnJg=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=agnsg3TYnwpX6aPG9clT2R2gXSbQqDEzIxmBhg26tkwdUNDbOZNE36zATNUWDZQ2o
- 7vRcwxtXNheKa7AfP1EH7J3TNuHB6FbnbZ3BqIsKWlStqbmviwNnJ6mgvItQvdVE5Z
- VHTEitiQq2SGquRDA3E7RYjzqFP5VmKmZbItMRVpp/rh8/wDjRJ0GP3fdSFsQBAvNX
- DGrUtguzIspgflva/h4TvNF2u/Mzfgm1g+qOXVduyW5gQmENDXnPeegYIzmlWNLoai
- iaxAyDL8/+lN9+1gLHmAjE4M3ODJDfe8Pr0HE5NhTaBI3WIChrDAs1nPTTrj4RbtUi
- /esxfEI2tDc9g==
+ b=B1+rdYLG3W/F3Wn+TOVjQ44oy8Q8CLez7i2MElJyJmuvP9l5JI98EEDVM6sVPyq37
+ SISW/ZUvluNE4GK/0FqaHzDNkzoKmoM4OMok6kwAPYh+FsWNVE+MaiUDF3BUfCTL6i
+ BjPriQllpRRH3km/Dt+IoJHKD9om9DSAnm/DJKD9JGCruQ6WbeO9EYKpdk8GKuUBjG
+ U9rsrueQn242Vz//uo4nx1Q0jdOTMTb+TFY2KBL1433Kao338GoEcSKmbY2XXHDvsq
+ VTx0TfRvG/KdmXgC78COHdx9JAPHgAwcY6UUbcLvouez6tNGgCkD9GhEUbv6gEC9kW
+ iFc9WHWyy3EpQ==
 From: Mark Brown <broonie@kernel.org>
-To: j-luthra@ti.com, peter.ujfalusi@gmail.com
-In-Reply-To: <20220505111226.29217-1-j-luthra@ti.com>
-References: <20220505111226.29217-1-j-luthra@ti.com>
-Subject: Re: [PATCH v2 RESEND] ASoC: ti: davinci-mcasp: Add dma-type for bcdma
-Message-Id: <165176353126.543130.13376348569850557799.b4-ty@kernel.org>
-Date: Thu, 05 May 2022 16:12:11 +0100
+To: lgirdwood@gmail.com, rander.wang@intel.com, peter.ujfalusi@linux.intel.com,
+ pierre-louis.bossart@linux.intel.com, yung-chuan.liao@linux.intel.com
+In-Reply-To: <20220505094818.10346-1-peter.ujfalusi@linux.intel.com>
+References: <20220505094818.10346-1-peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH 0/3] ASoC: SOF: IPC4: Introduce message handling
+ functionality
+Message-Id: <165176353361.543130.8301108227391416521.b4-ty@kernel.org>
+Date: Thu, 05 May 2022 16:12:13 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: j-choudhary@ti.com, alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- tiwai@suse.com, linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, daniel.baluta@nxp.com,
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,12 +86,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 5 May 2022 16:42:26 +0530, Jai Luthra wrote:
-> From: Jayesh Choudhary <j-choudhary@ti.com>
+On Thu, 5 May 2022 12:48:15 +0300, Peter Ujfalusi wrote:
+> The series adds the basic IPC4 message handling code, implementing the ipc
+> callbacks.
+> Due to the difference between IPC3 and IPC4 messaging we need to introduce new
+> message container for IPC4, but the SOF internal callbacks and structures can be
+> kept as they were and leaving it for the IPC specific code to handle the
+> differences.
 > 
-> Set DMA type for ti-bcdma controller for AM62-SK.
-> 
-> 
+> [...]
 
 Applied to
 
@@ -98,8 +102,12 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: ti: davinci-mcasp: Add dma-type for bcdma
-      commit: ea706e5604e6d68ec7ec7243f0af0b569045e925
+[1/3] ASoC: SOF: Add rx_data pointer to snd_sof_ipc_msg struct
+      commit: 84c2dca3c3d4b8e011a2536fc7aaf2a2bdc77972
+[2/3] ASoC: SOF: Add initial header file for ipc4
+      commit: ed85a6e6fe7c01faff4504af9d5569e8ba417999
+[3/3] ASoC: SOF: ipc4: Add support for mandatory message handling functionality
+      commit: ceb89acc4dc8f071f63f8d64442c7a5d768e4c9d
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,101 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F287851D6D6
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 May 2022 13:40:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F43951D872
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 May 2022 15:03:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8FA3D176C;
-	Fri,  6 May 2022 13:39:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FA3D176C
+	by alsa0.perex.cz (Postfix) with ESMTPS id EE8D817B6;
+	Fri,  6 May 2022 15:02:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EE8D817B6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651837241;
-	bh=wVPIGd+idgNahQWNuvYs77aIB5HQzXLLG3Hsw/27/L4=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=oQYs1RhbxqJ5n2ScJxYrC++f/JqNdwtxo84OarWXlLeOWk12y9WHERTOABhmQNhZP
-	 Qj27xWgaxTglUR9VbQMB7DZOwyGHFjD2DVOTFPCNIGuuteECX+8YQKOQDRp4RnuTkS
-	 rSWzqZWQzGqb2z4rSV70ltjqn3hVmlWai9BMAnzg=
+	s=default; t=1651842224;
+	bh=ua5WUAk4SvN6NFdP2dXgBvX6rexyiQmiwxILcwTbKRs=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Zx4aTul21cHW8wJ/6sJ5GfjpgjONG9heWkMPMUlL6IN4iCx1euIhlAvuklm6D6Sr8
+	 gN7egrMJYs+MossfAKnh8Rcs5P98LFZMK4GQhFZ1K0gxRpo3vdV2PTUP9VIPlMN9B8
+	 2pu2glIfpwdkUDlR1uSwQiOqxigo3QsraJWPuJ24=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 16FAFF80171;
-	Fri,  6 May 2022 13:39:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 35FAEF800E3;
+	Fri,  6 May 2022 15:02:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2E823F8014B; Fri,  6 May 2022 13:39:42 +0200 (CEST)
+ id DA906F8014B; Fri,  6 May 2022 15:02:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9997CF800F0
- for <alsa-devel@alsa-project.org>; Fri,  6 May 2022 13:39:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9997CF800F0
-X-UUID: 5cf4482705974597a43805780b255883-20220506
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.4, REQID:637941b4-cb86-4741-bcbd-b1ead3e81090, OB:0,
- LO
- B:0,IP:0,URL:0,TC:0,Content:0,EDM:0,RT:0,SF:45,FILE:0,RULE:Release_Ham,ACT
- ION:release,TS:45
-X-CID-INFO: VERSION:1.1.4, REQID:637941b4-cb86-4741-bcbd-b1ead3e81090, OB:0,
- LOB:
- 0,IP:0,URL:0,TC:0,Content:0,EDM:0,RT:0,SF:45,FILE:0,RULE:Release_Ham,ACTIO
- N:release,TS:45
-X-CID-META: VersionHash:faefae9, CLOUDID:806b7816-2e53-443e-b81a-655c13977218,
- C
- OID:IGNORED,Recheck:0,SF:28|17|19|48,TC:nil,Content:0,EDM:-3,File:nil,QS:0
- ,BEC:nil
-X-UUID: 5cf4482705974597a43805780b255883-20220506
-Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw02.mediatek.com
- (envelope-from <tinghan.shen@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 1297254437; Fri, 06 May 2022 19:39:25 +0800
-Received: from mtkcas10.mediatek.inc (172.21.101.39) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.2.792.15; Fri, 6 May 2022 19:39:24 +0800
-Received: from mtksdccf07 (172.21.84.99) by mtkcas10.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Fri, 6 May 2022 19:39:24 +0800
-Message-ID: <ef0c621760d63c28ad97d4b7e8bef34660ea079c.camel@mediatek.com>
-Subject: Re: [RESEND PATCH v7 1/1] firmware: mediatek: add adsp ipc protocol
- interface
-From: Tinghan Shen <tinghan.shen@mediatek.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Date: Fri, 6 May 2022 19:39:24 +0800
-In-Reply-To: <YnQ9h6k0yFN8f+Ui@kroah.com>
-References: <20220505053048.13804-1-tinghan.shen@mediatek.com>
- <20220505053048.13804-2-tinghan.shen@mediatek.com>
- <YnQ9h6k0yFN8f+Ui@kroah.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+ by alsa1.perex.cz (Postfix) with ESMTPS id 26E87F800D3
+ for <alsa-devel@alsa-project.org>; Fri,  6 May 2022 15:02:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26E87F800D3
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="hKEUUDB+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1651842148; x=1683378148;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=ua5WUAk4SvN6NFdP2dXgBvX6rexyiQmiwxILcwTbKRs=;
+ b=hKEUUDB+nbfwe3SVhen/0bk7aUQIimNCp/GeO7XO662AOvAJ6oLBLRzu
+ iV0pJLEJa3ruafpSlJT8IeWfdtXg1FoZ7D8yM+WvKIdwp4TkDOzTmGkWl
+ TSvFp9ADNJjUgwxiRUzjTnJfLJebV5jFZZO13v2/F9AjkkKA/NBpBU7/s
+ 0/2LpJT6SqUOa6z/NBCJ1+szVJdwjFenlstoq5HKmGpr38WxQrT6R5V8k
+ LZHCibZUlyAZi4XleGYLDBae965BdaRyJEVc3tzrc3oywcgFwV9VQJsvV
+ FZwsSJyd71NTX+PPoseXQ/Jw+w4oZJ2u8Cnd2FEo5fzamyCMWecwbYfiy w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10338"; a="268604170"
+X-IronPort-AV: E=Sophos;i="5.91,203,1647327600"; d="scan'208";a="268604170"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2022 06:02:10 -0700
+X-IronPort-AV: E=Sophos;i="5.91,203,1647327600"; d="scan'208";a="585963836"
+Received: from oelagadx-mobl2.ger.corp.intel.com (HELO
+ pujfalus-desk.ger.corp.intel.com) ([10.252.61.230])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2022 06:02:07 -0700
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: lgirdwood@gmail.com, broonie@kernel.org,
+ pierre-louis.bossart@linux.intel.com, yung-chuan.liao@linux.intel.com,
+ rander.wang@intel.com
+Subject: [PATCH] ASoC: SOF: trace: The dtrace is only available with SOF_IPC
+Date: Fri,  6 May 2022 16:02:29 +0300
+Message-Id: <20220506130229.23354-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.36.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-MTK: N
-Cc: alsa-devel@alsa-project.org, Allen-KH Cheng <allen-kh.cheng@mediatek.com>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Project_Global_Chrome_Upstream_Group@mediatek.com,
- Tzung-Bi Shih <tzungbi@google.com>, Cristian
- Marussi <cristian.marussi@arm.com>, Michal Suchanek <msuchanek@suse.de>,
- Arnd Bergmann <arnd@arndb.de>, Sudeep Holla <sudeep.holla@arm.com>,
- Simon Trimmer <simont@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>,
- John
- Stultz <john.stultz@linaro.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Borislav Petkov <bp@suse.de>, linux-kernel@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>, YC Hung <yc.hung@mediatek.com>,
- linux-mediatek@lists.infradead.org,
- Curtis Malainey <cujomalainey@chromium.org>,
- Etienne Carriere <etienne.carriere@linaro.org>
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, daniel.baluta@nxp.com,
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,155 +88,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Greg,
+Currently the dtrace only supported with SOF_IPC.
 
-On Thu, 2022-05-05 at 23:11 +0200, Greg Kroah-Hartman wrote:
-> On Thu, May 05, 2022 at 01:30:48PM +0800, Tinghan Shen wrote:
-> > From: TingHan Shen <tinghan.shen@mediatek.com>
-> > 
-> > Some of mediatek processors contain
-> > the Tensilica HiFix DSP for audio processing.
-> > 
-> > The communication between Host CPU and DSP firmware is
-> > taking place using a shared memory area for message passing.
-> > 
-> > ADSP IPC protocol offers (send/recv) interfaces using
-> > mediatek-mailbox APIs.
-> > 
-> > We use two mbox channels to implement a request-reply protocol.
-> > 
-> > Signed-off-by: Allen-KH Cheng <allen-kh.cheng@mediatek.com>
-> > Signed-off-by: TingHan Shen <tinghan.shen@mediatek.com>
-> > Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> > Reviewed-by: Curtis Malainey <cujomalainey@chromium.org>
-> > Reviewed-by: Tzung-Bi Shih <tzungbi@google.com>
-> > Reviewed-by: YC Hung <yc.hung@mediatek.com>
-> > Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> > ---
-> >  drivers/firmware/Kconfig                      |   1 +
-> >  drivers/firmware/Makefile                     |   1 +
-> >  drivers/firmware/mediatek/Kconfig             |   9 +
-> >  drivers/firmware/mediatek/Makefile            |   2 +
-> >  drivers/firmware/mediatek/mtk-adsp-ipc.c      | 161 ++++++++++++++++++
-> >  .../linux/firmware/mediatek/mtk-adsp-ipc.h    |  65 +++++++
-> >  6 files changed, 239 insertions(+)
-> >  create mode 100644 drivers/firmware/mediatek/Kconfig
-> >  create mode 100644 drivers/firmware/mediatek/Makefile
-> >  create mode 100644 drivers/firmware/mediatek/mtk-adsp-ipc.c
-> >  create mode 100644 include/linux/firmware/mediatek/mtk-adsp-ipc.h
-> > 
-> > diff --git a/drivers/firmware/Kconfig b/drivers/firmware/Kconfig
-> > index d65964996e8d..c4d149b28944 100644
-> > --- a/drivers/firmware/Kconfig
-> > +++ b/drivers/firmware/Kconfig
-> > @@ -300,6 +300,7 @@ source "drivers/firmware/cirrus/Kconfig"
-> >  source "drivers/firmware/google/Kconfig"
-> >  source "drivers/firmware/efi/Kconfig"
-> >  source "drivers/firmware/imx/Kconfig"
-> > +source "drivers/firmware/mediatek/Kconfig"
-> >  source "drivers/firmware/meson/Kconfig"
-> >  source "drivers/firmware/psci/Kconfig"
-> >  source "drivers/firmware/smccc/Kconfig"
-> > diff --git a/drivers/firmware/Makefile b/drivers/firmware/Makefile
-> > index 4e58cb474a68..88fbdc110100 100644
-> > --- a/drivers/firmware/Makefile
-> > +++ b/drivers/firmware/Makefile
-> > @@ -34,6 +34,7 @@ obj-$(CONFIG_GOOGLE_FIRMWARE)	+= google/
-> >  obj-$(CONFIG_EFI)		+= efi/
-> >  obj-$(CONFIG_UEFI_CPER)		+= efi/
-> >  obj-y				+= imx/
-> > +obj-y				+= mediatek/
-> >  obj-y				+= psci/
-> >  obj-y				+= smccc/
-> >  obj-y				+= tegra/
-> > diff --git a/drivers/firmware/mediatek/Kconfig b/drivers/firmware/mediatek/Kconfig
-> > new file mode 100644
-> > index 000000000000..6d1e580b967b
-> > --- /dev/null
-> > +++ b/drivers/firmware/mediatek/Kconfig
-> > @@ -0,0 +1,9 @@
-> > +# SPDX-License-Identifier: GPL-2.0-only
-> > +config MTK_ADSP_IPC
-> > +	tristate "MTK ADSP IPC Protocol driver"
-> > +	depends on MTK_ADSP_MBOX
-> > +	help
-> > +	  Say yes here to add support for the MediaTek ADSP IPC
-> > +	  between host AP (Linux) and the firmware running on ADSP.
-> > +	  ADSP exists on some mtk processors.
-> > +	  Client might use shared memory to exchange information with ADSP side.
-> > diff --git a/drivers/firmware/mediatek/Makefile b/drivers/firmware/mediatek/Makefile
-> > new file mode 100644
-> > index 000000000000..4e840b65650d
-> > --- /dev/null
-> > +++ b/drivers/firmware/mediatek/Makefile
-> > @@ -0,0 +1,2 @@
-> > +# SPDX-License-Identifier: GPL-2.0
-> > +obj-$(CONFIG_MTK_ADSP_IPC)		+= mtk-adsp-ipc.o
-> > diff --git a/drivers/firmware/mediatek/mtk-adsp-ipc.c b/drivers/firmware/mediatek/mtk-adsp-ipc.c
-> > new file mode 100644
-> > index 000000000000..87cee61dbf32
-> > --- /dev/null
-> > +++ b/drivers/firmware/mediatek/mtk-adsp-ipc.c
-> > @@ -0,0 +1,161 @@
-> > +// SPDX-License-Identifier: GPL-2.0
-> > +/*
-> > + * Copyright (c) 2022 MediaTek Corporation. All rights reserved.
-> > + * Author: Allen-KH Cheng <allen-kh.cheng@mediatek.com>
-> > + */
-> > +
-> > +#include <linux/firmware/mediatek/mtk-adsp-ipc.h>
-> > +#include <linux/kernel.h>
-> > +#include <linux/mailbox_client.h>
-> > +#include <linux/module.h>
-> > +#include <linux/of_platform.h>
-> > +#include <linux/platform_device.h>
-> > +#include <linux/slab.h>
-> > +
-> > +/*
-> > + * mtk_adsp_ipc_send - send ipc cmd to MTK ADSP
-> > + *
-> > + * @ipc: ADSP IPC handle
-> > + * @idx: index of the mailbox channel
-> > + * @msg: IPC cmd (reply or request)
-> > + *
-> > + * Returns zero for success from mbox_send_message
-> > + * negative value for error
-> > + */
-> > +int mtk_adsp_ipc_send(struct mtk_adsp_ipc *ipc, unsigned int idx, uint32_t msg)
-> > +{
-> > +	struct mtk_adsp_chan *adsp_chan;
-> > +	int ret;
-> > +
-> > +	if (idx >= MTK_ADSP_MBOX_NUM)
-> > +		return -EINVAL;
-> > +
-> > +	adsp_chan = &ipc->chans[idx];
-> > +	ret = mbox_send_message(adsp_chan->ch, &msg);
-> > +	if (ret < 0)
-> > +		return ret;
-> > +
-> > +	/*
-> > +	 * mbox_send_message returns non-negative value on success,
-> > +	 * return zero for success
-> > +	 */
-> > +	return 0;
-> 
-> You already said this up in the function comments, no need to duplicate
-> it again.
-> 
-> > +}
-> > +EXPORT_SYMBOL(mtk_adsp_ipc_send);
-> 
-> EXPORT_SYMBOL_GPL()?  I have to ask, sorry.
-> 
-> thanks,
-> 
-> greg k-h
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Reviewed-by: Rander Wang <rander.wang@intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+---
+Hi,
 
-I'll update these parts in next version.
-Thank you!
+I have pending series to rework the whole tracing support to allow different
+tracing solutions to be plugged in for different IPC versions.
 
+It is going to be sent at later time, until then we need to make sure that the
+current dtrace is not used with IPC4.
 
-Best regards,
-TingHan
+Regards,
+Peter
+
+ sound/soc/sof/trace.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/sound/soc/sof/trace.c b/sound/soc/sof/trace.c
+index ba6361b5d64b..5d171bf8a5ea 100644
+--- a/sound/soc/sof/trace.c
++++ b/sound/soc/sof/trace.c
+@@ -457,6 +457,10 @@ int snd_sof_init_trace(struct snd_sof_dev *sdev)
+ {
+ 	int ret;
+ 
++	/* dtrace is only supported with SOF_IPC */
++	if (sdev->pdata->ipc_type != SOF_IPC)
++		sdev->dtrace_is_supported = false;
++
+ 	if (!sdev->dtrace_is_supported)
+ 		return 0;
+ 
+-- 
+2.36.0
 

@@ -2,90 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEFF251DB02
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 May 2022 16:45:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36D7551DB80
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 May 2022 17:04:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 578A3183B;
-	Fri,  6 May 2022 16:44:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 578A3183B
+	by alsa0.perex.cz (Postfix) with ESMTPS id C85351867;
+	Fri,  6 May 2022 17:03:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C85351867
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651848343;
-	bh=7aJAoD9AyHjyWnmcBZur7tHarZHb5rZOK1BGCn5ZYe8=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1651849448;
+	bh=6TnTTuiRAb+S2cr8w34zjNv3M0cTTz23RMZWWoKyB2w=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=So5gFY6qWkMQp215i2AwvHyotggsj9bHfuRucSk6VxubzigHnr7bnWNQKzUm+sLI1
-	 KFVOuEmCCMY+AQZjBAjI361bWbCBhOOtFR0EyGkQxN3U4BD3rQmK9kMXCWcmzViJEh
-	 e/ZRQq2QKMBt3wmN+TnA7g3e0/nmcB9CCbi8jRH4=
+	b=GChsERyxNjnWiNYpCw54Y7AlOFrUjijFGWBKwUwWuY3Y1wQp7LAohUwLc28iAeCsb
+	 2kYplhvcW9AiaIA53bioVTbbZlfXkx6UsJgPmJfex/rn9CtlVxdVORABP10eUFyBkU
+	 tJMMVMXCoK/Y+ha2atqHDoIvME/BelRxpnDRMTPM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C311EF80171;
-	Fri,  6 May 2022 16:44:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CC2AAF80510;
+	Fri,  6 May 2022 17:02:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A0EDAF8014B; Fri,  6 May 2022 16:44:42 +0200 (CEST)
+ id E1C62F800D3; Fri,  6 May 2022 17:02:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=2.0 required=5.0 tests=PRX_BODY_30,RDNS_NONE,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B6E87F800E3
- for <alsa-devel@alsa-project.org>; Fri,  6 May 2022 16:44:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6E87F800E3
-X-UUID: ac51c7546f844c78bb582eaf6b6d5eed-20220506
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.4, REQID:d056bac4-58f8-475e-8c50-f6724f5579b2, OB:0,
- LO
- B:0,IP:0,URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,RULE:Release_Ham,ACTI
- ON:release,TS:0
-X-CID-META: VersionHash:faefae9, CLOUDID:503fdcb2-56b5-4c9e-8d83-0070b288eb6a,
- C
- OID:IGNORED,Recheck:0,SF:nil,TC:nil,Content:0,EDM:-3,File:nil,QS:0,BEC:nil
-X-UUID: ac51c7546f844c78bb582eaf6b6d5eed-20220506
-Received: from mtkexhb01.mediatek.inc [(172.21.101.102)] by
- mailgw02.mediatek.com (envelope-from <jiaxin.yu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 252527924; Fri, 06 May 2022 22:44:25 +0800
-Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
- mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.792.3; 
- Fri, 6 May 2022 22:44:24 +0800
-Received: from mhfsdcap04 (10.17.3.154) by mtkmbs11n2.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.792.3 via Frontend
- Transport; Fri, 6 May 2022 22:44:23 +0800
-Message-ID: <21a51ce08e44d325e0682409e181f178b2689517.camel@mediatek.com>
-Subject: Re: [PATCH 1/3] ASoC: dt-bindings: mediatek: mt8192: Add i2s-share
- properties
-From: Jiaxin Yu <jiaxin.yu@mediatek.com>
-To: "=?ISO-8859-1?Q?N=EDcolas?= F. R. A. Prado" <nfraprado@collabora.com>
-Date: Fri, 6 May 2022 22:44:23 +0800
-In-Reply-To: <20220506140959.ldy32lyf5jbkkqj2@notapiano>
-References: <20220429203039.2207848-1-nfraprado@collabora.com>
- <20220429203039.2207848-2-nfraprado@collabora.com>
- <4826c824-40ce-5726-ed95-5be069233ca7@collabora.com>
- <cbf2fcbae25408b95875278eb37e829bf4671430.camel@mediatek.com>
- <d1c548bb-8a36-79bf-498d-c909bf7e7679@collabora.com>
- <20220505162537.byiwfe2ghomxhezl@notapiano>
- <559a1e189613484b8528dc4eaf19099e9162fcc6.camel@mediatek.com>
- <20220506140959.ldy32lyf5jbkkqj2@notapiano>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+ by alsa1.perex.cz (Postfix) with ESMTPS id 37FD4F800D3
+ for <alsa-devel@alsa-project.org>; Fri,  6 May 2022 17:02:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37FD4F800D3
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="mU6edXlG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1651849361; x=1683385361;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=6TnTTuiRAb+S2cr8w34zjNv3M0cTTz23RMZWWoKyB2w=;
+ b=mU6edXlGFiem2xpuS27I+kgPyWkxdU2lzZFUL4uFqV4PQEyD1cq7Hnpm
+ RMIvc21vrzOZHlks2HafKjtaUrgixZIhKQ50dE2W3x6EyDk2QeL66csZP
+ NfgBbUMgslHIAX5SSk8pgcfBVTWf1cncW6kywdUesbk3tQC4mT8fiUgZy
+ D68l9gglsUX5kFBjcYeV1afyK3pUop+yOb0XbuaTeC1xzY6tEgB51X3zI
+ Ondu952LmFK60UnosO4DJPazrxAKO2/HQ0ZtmLlyXA0hcp4E6FlHPRbZr
+ yYf099T6LeAZvu+djQDnpBl1gasm63EwwNmR8sOkgXIGeYU+HmvHEM/u6 w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10339"; a="255972916"
+X-IronPort-AV: E=Sophos;i="5.91,203,1647327600"; d="scan'208";a="255972916"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2022 08:02:29 -0700
+X-IronPort-AV: E=Sophos;i="5.91,203,1647327600"; d="scan'208";a="654729261"
+Received: from ysomasun-mobl1.amr.corp.intel.com (HELO [10.209.0.67])
+ ([10.209.0.67])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2022 08:02:25 -0700
+Message-ID: <2849fc32-83b8-4727-0aea-aa20b4d3557a@linux.intel.com>
+Date: Fri, 6 May 2022 09:56:55 -0500
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.5.0
+Subject: Re: [PATCH 02/14] ASoC: codecs: Add HD-Audio codec driver
+Content-Language: en-US
+To: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Mark Brown <broonie@kernel.org>
+References: <20220427081902.3525183-1-cezary.rojewski@intel.com>
+ <20220427081902.3525183-3-cezary.rojewski@intel.com>
+ <7bc3a92e-8bd1-c1d0-5610-af40dbb8fb7a@linux.intel.com>
+ <YnUev8Rs42xLLE6Z@sirena.org.uk>
+ <4a808f4c-83fc-747d-1536-d276138e57b8@intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <4a808f4c-83fc-747d-1536-d276138e57b8@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-MTK: N
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- linux-kernel@vger.kernel.org, Shane Chien <shane.chien@mediatek.com>,
- Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Matthias Brugger <matthias.bgg@gmail.com>, kernel@collabora.com,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: alsa-devel@alsa-project.org, upstream@semihalf.com,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, harshapriya.n@intel.com,
+ rad@semihalf.com, tiwai@suse.com, hdegoede@redhat.com,
+ amadeuszx.slawinski@linux.intel.com, cujomalainey@chromium.org,
+ lma@semihalf.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,241 +100,91 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 2022-05-06 at 10:09 -0400, Nícolas F. R. A. Prado wrote:
-> On Fri, May 06, 2022 at 01:45:24PM +0800, Jiaxin Yu wrote:
-> > On Thu, 2022-05-05 at 12:25 -0400, Nícolas F. R. A. Prado wrote:
-> > > > 
-> > > On Thu, May 05, 2022 at 10:52:45AM +0200, AngeloGioacchino Del
-> > > Regno
-> > > wrote:
-> > > > Il 05/05/22 10:48, Jiaxin Yu ha scritto:
-> > > > > On Thu, 2022-05-05 at 10:08 +0200, AngeloGioacchino Del Regno
-> > > > > wrote:
-> > > > > > Il 29/04/22 22:30, Nícolas F. R. A. Prado ha scritto:
-> > > > > > > The Mediatek AFE PCM controller for MT8192 allows sharing
-> > > > > > > of
-> > > > > > > an I2S
-> > > > > > > bus
-> > > > > > > between two busses. Add a pattern for these properties in
-> > > > > > > the
-> > > > > > > dt-binding.
-> > > > > > > 
-> > > > > > > Signed-off-by: Nícolas F. R. A. Prado <
-> > > > > > > nfraprado@collabora.com>
-> > > > > > > ---
-> > > > > > > 
-> > > > > > >    Documentation/devicetree/bindings/sound/mt8192-afe-
-> > > > > > > pcm.yaml | 5
-> > > > > > > +++++
-> > > > > > >    1 file changed, 5 insertions(+)
-> > > > > > > 
-> > > > > > > diff --git
-> > > > > > > a/Documentation/devicetree/bindings/sound/mt8192-
-> > > > > > > afe-
-> > > > > > > pcm.yaml
-> > > > > > > b/Documentation/devicetree/bindings/sound/mt8192-
-> > > > > > > afe-
-> > > > > > > pcm.yaml
-> > > > > > > index 7a25bc9b8060..5b03c8dbf318 100644
-> > > > > > > --- a/Documentation/devicetree/bindings/sound/mt8192-afe-
-> > > > > > > pcm.yaml
-> > > > > > > +++ b/Documentation/devicetree/bindings/sound/mt8192-afe-
-> > > > > > > pcm.yaml
-> > > > > > > @@ -54,6 +54,11 @@ properties:
-> > > > > > >          - const: aud_infra_clk
-> > > > > > >          - const: aud_infra_26m_clk
-> > > > > > > +patternProperties:
-> > > > > > > +  "^i2s[0-35-9]-share$":
-> > > > > > > +    description: Name of the I2S bus that is shared with
-> > > > > > > this bus
-> > > > > > > +    pattern: "^I2S[0-35-9]$"
-> > > > > > > +
-> > > > > > >    required:
-> > > > > > >      - compatible
-> > > > > > >      - interrupts
-> > > > > > > 
-> > > > > > 
-> > > > > > The only other way of doing this would be to complicate
-> > > > > > this in
-> > > > > > the
-> > > > > > driver
-> > > > > > so that we can do something like
-> > > > > > 
-> > > > > > "i2s-share = <0 2>";  instead of  i2s0-share = "I2S2";
-> > > > > > 
-> > > > > > ...and I don't think that this would be any more
-> > > > > > straightforward than
-> > > > > > the
-> > > > > > provided way.
-> > > > > > 
-> > > > > > There's an improvement that we can do to that pattern
-> > > > > > description
-> > > > > > though,
-> > > > > > which would be explaining that declaring 'i2s0-share =
-> > > > > > "I2S2"'
-> > > > > > means
-> > > > > > that
-> > > > > > I2S2's data pin will be used as DATA-OUT, while i2s0 is
-> > > > > > DATA-
-> > > > > > IN.
-> > > > > > 
-> > > > > > Another thing that comes to mind here is that this is a
-> > > > > > MediaTek
-> > > > > > specific
-> > > > > > property and *not* a generic one, which means that both the
-> > > > > > driver
-> > > > > > and
-> > > > > > this binding should be fixed to get a "mediatek," prefix,
-> > > > > > so,
-> > > > > > this
-> > > > > > property
-> > > > > > should - in reality - be "mediatek,i2s[0-35-9]-share"
-> > > > > > instead.
-> > > > > > 
-> > > > > > I think that everyone agrees about that, but let's see what
-> > > > > > the
-> > > > > > others say.
-> > > > > > 
-> > > > > > Cheers,
-> > > > > > Angelo
-> > > > > 
-> > > > > Hi Angelo,
-> > > > > 
-> > > > > 'i2s0-share = "I2S2"' means that if we want use I2S0, there
-> > > > > need
-> > > > > open
-> > > > > I2S2 to provide clock. Conversely, if we want to use I2S2, we
-> > > > > don't
-> > > > > need to open I2S0. However, MediaTek I2S0 and I2S2 hardware
-> > > > > are
-> > > > > generally designed as input. So usually we use 'i2s0-share =
-> > > > > "I2S1"'.
-> > > > > Even numbers represent input, odd numbers represent output.
-> > > > > 
-> > > > > Yes, I think adding the "mediatek," prefix is the right way
-> > > > > to
-> > > > > define a
-> > > > > non-generic property.
-> > > > > 
-> > > 
-> > > Hi Jiaxin,
-> > > 
-> > > thank you for the insights.
-> > > 
-> > > > 
-> > > > Hello Jiaxin,
-> > > > 
-> > > > if I get this correctly, i2s0-share = "I2S2" would be
-> > > > *invalid*...
-> > > > as you
-> > > > just explained, i2sX, where:
-> > > > 
-> > > > X = even number -> always DATA IN
-> > > > X = odd number  -> always DATA OUT
-> > > > 
-> > > > ...this means that the dt-binding needs a pattern to specify
-> > > > that
-> > > > only odd
-> > > > can be assigned to only even.
-> > > 
-> > > So, the situation seems different at least on mt8192-asurada-
-> > > spherion.
-> > > Here, I2S8 is used for the headset microphone and I2S9 for the
-> > > headset audio.
-> > > Even for input and odd for output agree with Jiaxin's
-> > > description.
-> > > However, the
-> > > input bus seems to be the main one, that is, disabling I2S8:
-> > > 
-> > > 	amixer cset name='UL2_CH1 I2S8_CH1' 0
-> > > 	amixer cset name='UL2_CH2 I2S8_CH2' 0
-> > > 
-> > > not only disables the microphone but also the audio on the
-> > > headset.
-> > > If I add 
-> > > 
-> > > 	i2s9-share = "I2S8";
-> > > 
-> > > on the DT, then everything works, I can disable I2S8 without
-> > > impacting the
-> > > headset audio. So the pattern for the property on this platform
-> > > is
-> > > the opposite
-> > > that Jiaxin mentioned. This tells me that we should keep the
-> > > binding
-> > > more
-> > > generic (not assume where odds and evens go). I will still apply
-> > > the
-> > > other
-> > > suggestions mentioned though.
-> > > 
-> > > Thanks,
-> > > Nícolas
-> > > 
-> > 
-> > Hi Nícolas,
-> > 
-> > From software point, I2S8 and I2S9 belong to different hardware, so
-> > if
-> > you turn off I2S8 with CMD1, of course it will not affect I2S9.
-> > 
-> > CMD1:
-> > amixer cset name='UL2_CH1 I2S8_CH1' 0
-> > amixer cset name='UL2_CH2 I2S8_CH2' 0
-> > 
-> > Frome hardware point, I2S9 will use(share) I2S8's clock. If we
-> > don't
-> > want the user to perceive this, the driver need to help do
-> > something.
-> > So this property 'i2s9-share = "I2S8";' will be added to inform the
-> > driver.
-> 
-> Hi Jiaxin,
-> 
-> yes, that's what I figured. What I was saying is that for the
-> binding, your
-> example was
-> 
-> i2s0-share = "I2S1"
->    ^ even,input  ^ odd,output
-> 
-> while on mt8192-asurada-spherion the use case is
-> 
-> i2s9-share = "I2S8";
->    ^ odd,output  ^ even,input
-> 
-> So Angelo's idea to require in the dt-binding that the left side is
-> always even
-> (input) and the right side always odd (based on your example),
-> wouldn't work for
-> my use case.
-> 
-> Basically it's a question of whether the input always shares the
-> clock from an
-> output (your example), or if output always shares the clock from an
-> input (my
-> use case), or if both are valid. I'm taking from this that both are
-> valid, so I
-> won't add any such restriction in the dt-binding in the following
-> version, but
-> do let me know if this is not the case.
-> 
-> Thanks,
-> Nícolas
 
-Hi Nícolas,
 
-Yes, you are right. They completely depend on which set of I2S clock
-are used on the platform hardware.
+On 5/6/22 08:39, Cezary Rojewski wrote:
+> On 2022-05-06 3:12 PM, Mark Brown wrote:
+>> On Wed, Apr 27, 2022 at 10:47:12AM -0500, Pierre-Louis Bossart wrote:
+>>> On 4/27/22 03:18, Cezary Rojewski wrote:
+>>
+>>>> Add generic ASoC equivalent of ALSA HD-Audio codec. This codec is
+>>>> designed to follow HDA_DEV_LEGACY convention. Driver wrapps existing
+>>>> hda_codec.c handlers to prevent code duplication within the newly added
+>>
+>>> I am surprised the explanations don't even mention the existence of
+>>> hdac_hda.c
+>>
+>>> I thought the series was about adding machine drivers, but this
+>>> also adds code on the sound/soc/codecs/ side which I didn't see
+>>> coming.
+>>
+>>> I am not qualified to review this part of the code, I just
+>>> wonder about duplication of functionality.
+>>
+>>> At the very least an explanation on why you decided to NOT use
+>>> hdac_hda.c would be useful to reviewers and maintainers.
+>>
+>> Right, why the duplication here?  Can't we fix or extend the
+>> existing code to do whatever it's not currently doing which
+>> compels reimplementation?
+> 
+> Sorry for the late response, did not realize there is an unanswered
+> comment here.
+> 
+> So, the rough list goes as:
+> - hdac_hda.c hardcodes codec capabilities rather than aligning with what
+> sound/pci/hda/ code does
+> - merges HDMI (i.e. Intel i915 audio component) and HDA DAIs together
+> whereas these are two separate devices
+> - because of above, implements custom search/matching mechanism for PCM/DAI
+> - cont. because of above, its header hosts private data struct,
+> unnecessary complication
+> - follows HDA_DEV_ASOC convention rather than HDA_DEV_LEGACY causing
+> misalignments between sound/pci/hda and sound/soc/ behaviour
+> - has basic PM runtime support and does not survive scenarios where
+> resume/suspend + denylist + rmmod/modprobe are mixed together or invoked
+> in unordered fashion between this module and several others in the audio
+> stack
+> 
+> My suggestion is different: have all HD-Audio ASoC users switch to this
+> implementation when possible and remove the existing code along with
+> skylake-driver.
 
- i2s9-share = "I2S8"
- ==> The I2S8 and the I2S9 combine into one set of standard I2S, and
-use I2S8's clock.
+I am not against change and will agree that HDaudio support is far from
+perfect, but it's been released for multiple generations from dozens of
+OEMs and mostly works. All the issues reported to us are related to
+codec configurations that also don't work with the legacy HDaudio
+driver, DMIC configurations, CSME authentication or system hangs that
+have not been root-caused [1]. HDaudio/ASoC interfaces are not on our
+radar as problematic.
 
- i2s8-share = "I2S9"
- ==> The I2S8 and the I2S9 combine into one set of standard I2S, and
-use I2S9's clock.
+Disrupting basic HDaudio support to do things better has to be handled
+with extreme caution and a ton of testing involving distro maintainers
+and community members, so we are talking about an opt-in transition, not
+an immediate switch. We've done a similar transition in the past to stop
+using a dedicated hdac_hdmi.c codec, see all references to the
+'use_common_hdmi' parameter in the SOF code. That transition seems to go
+exactly against your second point above on HDMI and HDA being different
+devices, so this could be an interesting debate.
 
-Best Regards,
-Jiaxin Yu
+Changes to the HDAudio/ASoC support would need to be handled with a
+separate patchset anyways, and the SOF side changes done after we are
+finished with the IPC4 and MeteorLake upstreaming. No one in our team
+has any bandwidth to help with reviews or tests on this topic at the moment.
 
+I will also re-state that the removal of the skylake driver can only
+happen after a long period of deprecation, when firmware and topologies
+have been picked by distributions and all users are known to have
+switched, so it's very likely that any alignment between "all HD-Audio
+ASoC users" mentioned above does include the Skylake driver, doesn't it?
+
+So to circle back: is there anything preventing the use of the existing
+hdac_hda.c codec in this "ASoC: Intel: avs: Machine boards and HDA codec
+support" series and can the HDaudio codec change be done "later" in a
+more organized way?
+
+Thanks!
+-Pierre
+
+[1]
+https://github.com/thesofproject/linux/issues?q=is%3Aissue+is%3Aopen+label%3ACommunity+-label%3A%22codec+ES8336%22

@@ -2,89 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DD9451DC88
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 May 2022 17:48:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3FC351DDA1
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 May 2022 18:30:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CD1AC1841;
-	Fri,  6 May 2022 17:47:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD1AC1841
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4D75A184C;
+	Fri,  6 May 2022 18:29:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D75A184C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651852101;
-	bh=m6NchDWC26O6ucu/OhX53UgFgZQ5Nzjejk20v+5/WOo=;
+	s=default; t=1651854615;
+	bh=vDNROlLZAA4ZSpk03g8p1Y947qtXsNhpnuVKUqbLCR0=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CPRk0PD+2IW+KuKWuSdjojO+Wj/uzWwHaWRp5C2HX2+0fFUuogyjR4ePmcV8rL3S9
-	 sNV4VJwSGGTZElEONF1XX7MiBkGD8o7UR1qqmc/Ebxo8n3A5evuVzR4aCTLEAWzTtN
-	 R+ccmJPPTHWYXL55YYRpoWFZXjr4er5PtM3Ns1LE=
+	b=Wo/lkyOBO9TdLqI1t+Rx/Usv4zJykuI+/H8eu1l69HerXROPyO1kWP9IxXmrZ65Bv
+	 0VSjaES/FUpnSk8ydWjCHSHfskG8h2ncMJG+5KbaPef5AwznhMQ7NsoAbesG0kJvt8
+	 MjpYr16K40npqdi/u7p+OlY148IAVqP1OKPLyQRI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 39F54F80171;
-	Fri,  6 May 2022 17:47:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A6BD0F80171;
+	Fri,  6 May 2022 18:29:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B10DDF8014B; Fri,  6 May 2022 17:47:20 +0200 (CEST)
+ id 53486F8014B; Fri,  6 May 2022 18:29:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6A108F800F0
- for <alsa-devel@alsa-project.org>; Fri,  6 May 2022 17:47:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A108F800F0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 06CA0F800D3
+ for <alsa-devel@alsa-project.org>; Fri,  6 May 2022 18:29:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06CA0F800D3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="E8lIWnzV"
+ header.b="MKqIwmF4"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1651852038; x=1683388038;
+ t=1651854550; x=1683390550;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=m6NchDWC26O6ucu/OhX53UgFgZQ5Nzjejk20v+5/WOo=;
- b=E8lIWnzVIgu4U029pG+ZuSLaF2TIXJC6vh4jT8LjdwjsHOV4MJQ6Pnt3
- tsqX5Jf9nAuMr4VIeDYQciJY+D8bIoOMRpilVn5hTUOBRRpHTa+epi6Yk
- azsd7rGU/IA9QI3JXFAxuTkdVWWSzo0Wk8kayx2sJIYiavCuCyHvrcbvQ
- vgG/nVqr6xpL+rAKYeDpSTOgM0UicfjfQeyd9lQlG6F0h4j9xC8OeCFz6
- orcfDGNdTcdDA2FzAztGICViqSmYReKcoVezaPw70gOpNjNKNvIXQucV3
- np1mw0zyCQZ7lEd5ofNB5Q2Pk0dfZjdkHbPQam+9ftIHTlFpanrt4kZSL Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10339"; a="329046590"
-X-IronPort-AV: E=Sophos;i="5.91,203,1647327600"; d="scan'208";a="329046590"
+ bh=vDNROlLZAA4ZSpk03g8p1Y947qtXsNhpnuVKUqbLCR0=;
+ b=MKqIwmF4lteR89lRAxoPS0+plKRaLfvXVR1josdVlg0rulUrP7h+Iep6
+ l0A0B7liiSX4nmHa/d8Ook1FkSw75OsfRuivg4SRzN+ZEBggCN9uEgESr
+ BB76YDq4RiMfSbfuipklUPDQTDD6MMoKrg3xQGJEsQrFTu0bj0zs+RgG9
+ v3nFUmH1BFHhOVYbC4hlyHJtWeQlUnrQk/w2KDwtmMjapQOXJw1Bx1BlA
+ gFSJFO30BJfDT2BXP8w6K015XKzUsaNRglYJV5rUy4WUFVK0fW3ZZRkVI
+ QBWm28OV81GI1htr+DIROux4zi7w5ukTsC4RvkrGCF9gGrGMjrBJWP4VG g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10339"; a="268120053"
+X-IronPort-AV: E=Sophos;i="5.91,203,1647327600"; d="scan'208";a="268120053"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2022 08:47:08 -0700
-X-IronPort-AV: E=Sophos;i="5.91,203,1647327600"; d="scan'208";a="654744694"
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2022 09:17:08 -0700
+X-IronPort-AV: E=Sophos;i="5.91,203,1647327600"; d="scan'208";a="654754530"
 Received: from ysomasun-mobl1.amr.corp.intel.com (HELO [10.209.0.67])
  ([10.209.0.67])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2022 08:47:07 -0700
-Message-ID: <c642d518-3ccd-8c11-ec96-aa1286288499@linux.intel.com>
-Date: Fri, 6 May 2022 10:47:06 -0500
+ 06 May 2022 09:17:06 -0700
+Message-ID: <53557182-a2c5-a280-8887-bdb8a71dfd94@linux.intel.com>
+Date: Fri, 6 May 2022 11:17:05 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Firefox/91.0 Thunderbird/91.5.0
-Subject: Re: [PATCH 01/14] ASoC: Intel: avs: Account for libraries when
- booting basefw
+Subject: Re: [PATCH 02/14] ASoC: codecs: Add HD-Audio codec driver
 Content-Language: en-US
-To: Piotr Maziarz <piotrx.maziarz@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
- broonie@kernel.org
-References: <20220426172346.3508411-1-cezary.rojewski@intel.com>
- <20220426172346.3508411-2-cezary.rojewski@intel.com>
- <9854d2e1-63da-2377-3fd1-120adfb4d381@linux.intel.com>
- <4ba8b812-2b67-5dd4-2774-f7a94e2d3cc1@intel.com>
- <f14701db-94fa-ba3f-87fc-dc91177abff7@linux.intel.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Mark Brown <broonie@kernel.org>
+References: <20220427081902.3525183-1-cezary.rojewski@intel.com>
+ <20220427081902.3525183-3-cezary.rojewski@intel.com>
+ <7bc3a92e-8bd1-c1d0-5610-af40dbb8fb7a@linux.intel.com>
+ <YnUev8Rs42xLLE6Z@sirena.org.uk>
+ <4a808f4c-83fc-747d-1536-d276138e57b8@intel.com>
+ <2849fc32-83b8-4727-0aea-aa20b4d3557a@linux.intel.com>
+ <28e7b768-dfa4-eca4-9d7a-5e8c6f54bc27@intel.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <f14701db-94fa-ba3f-87fc-dc91177abff7@linux.intel.com>
+In-Reply-To: <28e7b768-dfa4-eca4-9d7a-5e8c6f54bc27@intel.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: upstream@semihalf.com, harshapriya.n@intel.com, rad@semihalf.com,
- tiwai@suse.com, hdegoede@redhat.com, amadeuszx.slawinski@linux.intel.com,
- cujomalainey@chromium.org, lma@semihalf.com
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, upstream@semihalf.com,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, harshapriya.n@intel.com,
+ rad@semihalf.com, tiwai@suse.com, hdegoede@redhat.com,
+ amadeuszx.slawinski@linux.intel.com, cujomalainey@chromium.org,
+ lma@semihalf.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,45 +103,103 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
->>>>   +int avs_dsp_load_libraries(struct avs_dev *adev, struct
->>>> avs_tplg_library *libs, u32 num_libs)
->>>> +{
->>>> +    int start, id, i = 0;
->>>> +    int ret;
->>>> +
->>>> +    /* Calculate the id to assign for the next lib. */
->>>> +    for (id = 0; id < adev->fw_cfg.max_libs_count; id++)
->>>> +        if (adev->lib_names[id][0] == '\0')
->>>> +            break;
->>>> +    if (id + num_libs >= adev->fw_cfg.max_libs_count)
->>>> +        return -EINVAL;
->>>
->>> use ida_alloc_max() ?
->>
->>
->> After reading this one couple of times I'm keen to agree that IDA
->> should have been used for library ID allocation and a at the same
->> time, surprised it has't done that already. Till now we used IDA
->> 'only' when allocating pipeline IDs and module instance IDs. Pipeline
->> allocation is good comparison here - makes use of ida_alloc_max()
->> already - library one should follow.
->>
->> This finding is much appreciated, Pierre.
+
+On 5/6/22 10:28, Cezary Rojewski wrote:
+> On 2022-05-06 4:56 PM, Pierre-Louis Bossart wrote:
+>> On 5/6/22 08:39, Cezary Rojewski wrote:
 > 
-> I think that using ida here is a bit of an overkill. Ida works fine when
-> there can be both id allocation and freeing and that's how it work with
-> pipelines and modules IDs in avs. However there is no mechanism for
-> unloading libraries in cAVS firmware, therefore ida would be used here
-> only to increase the ID, so it needlessly complicates the code while not
-> giving much of a benefit. Also our approach to check if we can load all
-> libraries before the loop makes it problematic with ida because we would
-> need to allocate an id at start and calculate if all libs would fit and
-> then either free it instantly or complicate the loop to use id allocated
-> before. Therefore I suggest to leave this code unchanged. I've synced
-> with Cezary on this and provided explanation convinced him too.
+> ...
+> 
+>>> Sorry for the late response, did not realize there is an unanswered
+>>> comment here.
+>>>
+>>> So, the rough list goes as:
+>>> - hdac_hda.c hardcodes codec capabilities rather than aligning with what
+>>> sound/pci/hda/ code does
+>>> - merges HDMI (i.e. Intel i915 audio component) and HDA DAIs together
+>>> whereas these are two separate devices
+>>> - because of above, implements custom search/matching mechanism for
+>>> PCM/DAI
+>>> - cont. because of above, its header hosts private data struct,
+>>> unnecessary complication
+>>> - follows HDA_DEV_ASOC convention rather than HDA_DEV_LEGACY causing
+>>> misalignments between sound/pci/hda and sound/soc/ behaviour
+>>> - has basic PM runtime support and does not survive scenarios where
+>>> resume/suspend + denylist + rmmod/modprobe are mixed together or invoked
+>>> in unordered fashion between this module and several others in the audio
+>>> stack
+>>>
+>>> My suggestion is different: have all HD-Audio ASoC users switch to this
+>>> implementation when possible and remove the existing code along with
+>>> skylake-driver.
+>>
+>> I am not against change and will agree that HDaudio support is far from
+>> perfect, but it's been released for multiple generations from dozens of
+>> OEMs and mostly works. All the issues reported to us are related to
+>> codec configurations that also don't work with the legacy HDaudio
+>> driver, DMIC configurations, CSME authentication or system hangs that
+>> have not been root-caused [1]. HDaudio/ASoC interfaces are not on our
+>> radar as problematic.
+> 
+> 
+> That's why aligning with sound/pci/hda behavior is better for both, ALSA
+> and ASoC users -> one place to fix the problems, both clients happy.
+> 
+>> Disrupting basic HDaudio support to do things better has to be handled
+>> with extreme caution and a ton of testing involving distro maintainers
+>> and community members, so we are talking about an opt-in transition, not
+>> an immediate switch. We've done a similar transition in the past to stop
+>> using a dedicated hdac_hdmi.c codec, see all references to the
+>> 'use_common_hdmi' parameter in the SOF code. That transition seems to go
+>> exactly against your second point above on HDMI and HDA being different
+>> devices, so this could be an interesting debate.
+>>
+>> Changes to the HDAudio/ASoC support would need to be handled with a
+>> separate patchset anyways, and the SOF side changes done after we are
+>> finished with the IPC4 and MeteorLake upstreaming. No one in our team
+>> has any bandwidth to help with reviews or tests on this topic at the
+>> moment.
+> 
+> 
+> Agree. This won't be forced on anyone and that's why separate
+> implementation needed to be provided. There is too much to cover if we
+> were to refactor hdac_hda.c
+> 
+>> I will also re-state that the removal of the skylake driver can only
+>> happen after a long period of deprecation, when firmware and topologies
+>> have been picked by distributions and all users are known to have
+>> switched, so it's very likely that any alignment between "all HD-Audio
+>> ASoC users" mentioned above does include the Skylake driver, doesn't it?
+> 
+> 
+> Nah, I don't believe we need to be saving skylake-driver here. By "all
+> HD-Audio ASoC users" I meant sof-driver as it isn't going anywhere -
+> what cannot be said about the skylake-driver :)
+> 
+>> So to circle back: is there anything preventing the use of the existing
+>> hdac_hda.c codec in this "ASoC: Intel: avs: Machine boards and HDA codec
+>> support" series and can the HDaudio codec change be done "later" in a
+>> more organized way?
+> 
+> 
+> Yeah, all the pm scenarios will fail when paired with the avs-driver.
+> The expectations are different. We'd have to fix probe() and remove()
+> (and related) sequences for the hdac_hda.c, and given that its users did
+> not notice prompts further problems with the refactor. This is very
+> similar to the skylake-driver vs avs-driver case. We could have applied
+> ~300 patches we had internally that prepare skylake-driver to be
+> re-modeled and then apply patchsets which look more or less like the
+> avs-driver series instead of providing a parallel driver.
+> 
+> But the reality shows that such approach applies too much pressure on
+> the reviewers and leaves no fallback option for the end users if
+> anything fails along the way.
 
-That's fine, you should however capture this design decision with a
-comment or a clarification in the commit message. "libraries" mean
-different things to different people, and it's hard to review without
-context.
+I will stop commenting here to let others chime in, I don't have the
+background to provide useful technical feedback on this complicated
+HDaudio/ASoC interface.
 
+I am however concerned about the lack of long-term plans and confusion
+coming having 3 different ways of dealing with HDaudio codecs on the
+same hardware platform (legacy, ASoC/SOF-Skylake, ASoC-AVS). 2 was
+already bad, I don't see how 3 is better?

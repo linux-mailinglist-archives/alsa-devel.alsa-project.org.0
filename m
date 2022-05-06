@@ -2,91 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75BD451D0E2
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 May 2022 07:46:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93AE851D1BA
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 May 2022 08:56:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0ACB717B5;
-	Fri,  6 May 2022 07:46:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0ACB717B5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2138E1749;
+	Fri,  6 May 2022 08:55:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2138E1749
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651816010;
-	bh=CRzv72Q2jp8ydrw8faqbi3bddl/w8Z5sMbmXnkrqS08=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1651820188;
+	bh=6XPvu8eu/MGLbFd/78Oy2npbD8iNL8BK81pJa3mmCYs=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=selztlcq2MvfLBqidW1ccM69vJ78zuSZPDFNAIZhzo4gFX80X5wvtn/GpeFhye9Ny
-	 H2CvBtZ/EndO4myHhHQreIwCyF8PqVedkHahq7Mrphmllfz7UhUPy/l4Xr9/sBThjc
-	 E0yTx+Xi67Vzx1X3FhlakAL+u9khCzctMxNazQlQ=
+	b=i4fgMT6IQFuDR6F3xzezzX49hKUvX24erixaqKFGJc/aSqHbrCUK59JZqZXmouqrI
+	 thz3/TDMD4IrpyQ66+4jvhAPrtZX7mEvzJn9Qceoh7U4w3ySMZ1bV7XpoAegUtOgM4
+	 UmFyM1COrXLx/fD9m3SCO1yl/AQCW/RgJj1/NXjg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5F30DF800E3;
-	Fri,  6 May 2022 07:45:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 845CDF80171;
+	Fri,  6 May 2022 08:55:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 95270F8014B; Fri,  6 May 2022 07:45:47 +0200 (CEST)
+ id 3AA8DF800F0; Fri,  6 May 2022 08:55:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BF050F800E3
- for <alsa-devel@alsa-project.org>; Fri,  6 May 2022 07:45:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF050F800E3
-X-UUID: e4f81d8e1d9c4eef92bb575f724971fd-20220506
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.4, REQID:16b711ea-c820-44a0-a1c3-3cd2ab4b618b, OB:0,
- LO
- B:0,IP:0,URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,RULE:Release_Ham,ACTI
- ON:release,TS:0
-X-CID-META: VersionHash:faefae9, CLOUDID:b5656916-2e53-443e-b81a-655c13977218,
- C
- OID:IGNORED,Recheck:0,SF:nil,TC:nil,Content:0,EDM:-3,File:nil,QS:0,BEC:nil
-X-UUID: e4f81d8e1d9c4eef92bb575f724971fd-20220506
-Received: from mtkexhb01.mediatek.inc [(172.21.101.102)] by
- mailgw02.mediatek.com (envelope-from <jiaxin.yu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 62907079; Fri, 06 May 2022 13:45:28 +0800
-Received: from mtkmbs07n1.mediatek.inc (172.21.101.16) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.2.792.15; Fri, 6 May 2022 13:45:27 +0800
-Received: from mtkcas10.mediatek.inc (172.21.101.39) by
- mtkmbs07n1.mediatek.inc (172.21.101.16) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Fri, 6 May 2022 13:45:27 +0800
-Received: from mhfsdcap04 (10.17.3.154) by mtkcas10.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Fri, 6 May 2022 13:45:24 +0800
-Message-ID: <559a1e189613484b8528dc4eaf19099e9162fcc6.camel@mediatek.com>
-Subject: Re: [PATCH 1/3] ASoC: dt-bindings: mediatek: mt8192: Add i2s-share
- properties
-From: Jiaxin Yu <jiaxin.yu@mediatek.com>
-To: "=?ISO-8859-1?Q?N=EDcolas?= F. R. A. Prado" <nfraprado@collabora.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Date: Fri, 6 May 2022 13:45:24 +0800
-In-Reply-To: <20220505162537.byiwfe2ghomxhezl@notapiano>
-References: <20220429203039.2207848-1-nfraprado@collabora.com>
- <20220429203039.2207848-2-nfraprado@collabora.com>
- <4826c824-40ce-5726-ed95-5be069233ca7@collabora.com>
- <cbf2fcbae25408b95875278eb37e829bf4671430.camel@mediatek.com>
- <d1c548bb-8a36-79bf-498d-c909bf7e7679@collabora.com>
- <20220505162537.byiwfe2ghomxhezl@notapiano>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1E2B3F800F0
+ for <alsa-devel@alsa-project.org>; Fri,  6 May 2022 08:55:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E2B3F800F0
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1nmrmX-0000sR-Qk; Fri, 06 May 2022 08:49:41 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1nmrmO-000egL-IQ; Fri, 06 May 2022 08:49:31 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1nmrmM-007tsw-Dy; Fri, 06 May 2022 08:49:30 +0200
+Date: Fri, 6 May 2022 08:49:27 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: lizhe <sensor1010@163.com>
+Subject: Re: [PATCH] kernel/drivers: Remove redundant driver match function
+Message-ID: <20220506064927.7y7a422jqbse22fr@pengutronix.de>
+References: <20220506045952.136290-1-sensor1010@163.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MTK: N
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Shane Chien <shane.chien@mediatek.com>, Rob
- Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org, Krzysztof
- Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Matthias Brugger <matthias.bgg@gmail.com>, kernel@collabora.com,
- linux-arm-kernel@lists.infradead.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="o5fzikc3dnjeidfk"
+Content-Disposition: inline
+In-Reply-To: <20220506045952.136290-1-sensor1010@163.com>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org, target-devel@vger.kernel.org,
+ srinivas.kandagatla@linaro.org, zbr@ioremap.net, agordeev@linux.ibm.com,
+ lee.jones@linaro.org, linux-s390@vger.kernel.org, bvanassche@acm.org,
+ linux-scsi@vger.kernel.org, pasic@linux.ibm.com, wens@csie.org,
+ borntraeger@linux.ibm.com, jejb@linux.ibm.com, jjherne@linux.ibm.com,
+ gor@linux.ibm.com, hca@linux.ibm.com, linux-m68k@lists.linux-m68k.org,
+ freude@linux.ibm.com, hare@suse.de, dan.j.williams@intel.com,
+ akrowiak@linux.ibm.com, martin.petersen@oracle.com, fthain@linux-m68k.org,
+ tiwai@suse.com, linux-kernel@vger.kernel.org, svens@linux.ibm.com,
+ colin.king@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,177 +90,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 2022-05-05 at 12:25 -0400, Nícolas F. R. A. Prado wrote:
-> > 
 
-> On Thu, May 05, 2022 at 10:52:45AM +0200, AngeloGioacchino Del Regno
-> wrote:
-> > Il 05/05/22 10:48, Jiaxin Yu ha scritto:
-> > > On Thu, 2022-05-05 at 10:08 +0200, AngeloGioacchino Del Regno
-> > > wrote:
-> > > > Il 29/04/22 22:30, Nícolas F. R. A. Prado ha scritto:
-> > > > > The Mediatek AFE PCM controller for MT8192 allows sharing of
-> > > > > an I2S
-> > > > > bus
-> > > > > between two busses. Add a pattern for these properties in the
-> > > > > dt-binding.
-> > > > > 
-> > > > > Signed-off-by: Nícolas F. R. A. Prado <
-> > > > > nfraprado@collabora.com>
-> > > > > ---
-> > > > > 
-> > > > >    Documentation/devicetree/bindings/sound/mt8192-afe-
-> > > > > pcm.yaml | 5
-> > > > > +++++
-> > > > >    1 file changed, 5 insertions(+)
-> > > > > 
-> > > > > diff --git a/Documentation/devicetree/bindings/sound/mt8192-
-> > > > > afe-
-> > > > > pcm.yaml b/Documentation/devicetree/bindings/sound/mt8192-
-> > > > > afe-
-> > > > > pcm.yaml
-> > > > > index 7a25bc9b8060..5b03c8dbf318 100644
-> > > > > --- a/Documentation/devicetree/bindings/sound/mt8192-afe-
-> > > > > pcm.yaml
-> > > > > +++ b/Documentation/devicetree/bindings/sound/mt8192-afe-
-> > > > > pcm.yaml
-> > > > > @@ -54,6 +54,11 @@ properties:
-> > > > >          - const: aud_infra_clk
-> > > > >          - const: aud_infra_26m_clk
-> > > > > +patternProperties:
-> > > > > +  "^i2s[0-35-9]-share$":
-> > > > > +    description: Name of the I2S bus that is shared with
-> > > > > this bus
-> > > > > +    pattern: "^I2S[0-35-9]$"
-> > > > > +
-> > > > >    required:
-> > > > >      - compatible
-> > > > >      - interrupts
-> > > > > 
-> > > > 
-> > > > The only other way of doing this would be to complicate this in
-> > > > the
-> > > > driver
-> > > > so that we can do something like
-> > > > 
-> > > > "i2s-share = <0 2>";  instead of  i2s0-share = "I2S2";
-> > > > 
-> > > > ...and I don't think that this would be any more
-> > > > straightforward than
-> > > > the
-> > > > provided way.
-> > > > 
-> > > > There's an improvement that we can do to that pattern
-> > > > description
-> > > > though,
-> > > > which would be explaining that declaring 'i2s0-share = "I2S2"'
-> > > > means
-> > > > that
-> > > > I2S2's data pin will be used as DATA-OUT, while i2s0 is DATA-
-> > > > IN.
-> > > > 
-> > > > Another thing that comes to mind here is that this is a
-> > > > MediaTek
-> > > > specific
-> > > > property and *not* a generic one, which means that both the
-> > > > driver
-> > > > and
-> > > > this binding should be fixed to get a "mediatek," prefix, so,
-> > > > this
-> > > > property
-> > > > should - in reality - be "mediatek,i2s[0-35-9]-share" instead.
-> > > > 
-> > > > I think that everyone agrees about that, but let's see what the
-> > > > others say.
-> > > > 
-> > > > Cheers,
-> > > > Angelo
-> > > 
-> > > Hi Angelo,
-> > > 
-> > > 'i2s0-share = "I2S2"' means that if we want use I2S0, there need
-> > > open
-> > > I2S2 to provide clock. Conversely, if we want to use I2S2, we
-> > > don't
-> > > need to open I2S0. However, MediaTek I2S0 and I2S2 hardware are
-> > > generally designed as input. So usually we use 'i2s0-share =
-> > > "I2S1"'.
-> > > Even numbers represent input, odd numbers represent output.
-> > > 
-> > > Yes, I think adding the "mediatek," prefix is the right way to
-> > > define a
-> > > non-generic property.
-> > > 
-> 
-> Hi Jiaxin,
-> 
-> thank you for the insights.
-> 
-> > 
-> > Hello Jiaxin,
-> > 
-> > if I get this correctly, i2s0-share = "I2S2" would be *invalid*...
-> > as you
-> > just explained, i2sX, where:
-> > 
-> > X = even number -> always DATA IN
-> > X = odd number  -> always DATA OUT
-> > 
-> > ...this means that the dt-binding needs a pattern to specify that
-> > only odd
-> > can be assigned to only even.
-> 
-> So, the situation seems different at least on mt8192-asurada-
-> spherion.
-> Here, I2S8 is used for the headset microphone and I2S9 for the
-> headset audio.
-> Even for input and odd for output agree with Jiaxin's description.
-> However, the
-> input bus seems to be the main one, that is, disabling I2S8:
-> 
-> 	amixer cset name='UL2_CH1 I2S8_CH1' 0
-> 	amixer cset name='UL2_CH2 I2S8_CH2' 0
-> 
-> not only disables the microphone but also the audio on the headset.
-> If I add 
-> 
-> 	i2s9-share = "I2S8";
-> 
-> on the DT, then everything works, I can disable I2S8 without
-> impacting the
-> headset audio. So the pattern for the property on this platform is
-> the opposite
-> that Jiaxin mentioned. This tells me that we should keep the binding
-> more
-> generic (not assume where odds and evens go). I will still apply the
-> other
-> suggestions mentioned though.
-> 
-> Thanks,
-> Nícolas
-> 
-Hi Nícolas,
+--o5fzikc3dnjeidfk
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-From software point, I2S8 and I2S9 belong to different hardware, so if
-you turn off I2S8 with CMD1, of course it will not affect I2S9.
+Hello,
 
-CMD1:
-amixer cset name='UL2_CH1 I2S8_CH1' 0
-amixer cset name='UL2_CH2 I2S8_CH2' 0
+On Thu, May 05, 2022 at 09:59:52PM -0700, lizhe wrote:
+> If there is no driver match function, the driver core assumes that each
+> candidate pair (driver, device) matches, see driver_match_device().
+>=20
+> Signed-off-by: lizhe <sensor1010@163.com>
 
-Frome hardware point, I2S9 will use(share) I2S8's clock. If we don't
-want the user to perceive this, the driver need to help do something.
-So this property 'i2s9-share = "I2S8";' will be added to inform the
-driver.
+Reviewed-by: Uwe Kleine-K=F6nig <u.kleine-koenig.org>
 
-Best Regards,
-Jiaxin Yu
+Side note: While looking through this patch I was surprised to see there
+are two different busses for ac97: sound/ac97/bus.c + sound/ac97_bus.c .
+It seems the duplication exists since 2017.
 
-> > Nicolas, take note! :-) :-)
-> > 
-> > Thanks,
-> > Angelo
-> > 
-> > To unsubscribe, send mail to 
-> > kernel-unsubscribe@lists.collabora.co.uk.
+Best regards
+Uwe
 
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--o5fzikc3dnjeidfk
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmJ0xPQACgkQwfwUeK3K
+7Ak9lwf+LvgkLmWcst9CMzoJ2w5AdNZjtnWS36MvuyEFgHUH2e6lrfReaAAj9LGp
+1EPinO6S6UBPvzVTbTVcduAlnaWER3O6XDIiS1b0Z2NOchX6AHUfHjQzckmL7ZU6
+6W3P8jmVsNgbwmD2NXh98qjpmKMnmw56AjbBfYKSM1jWGookg2NUKkvN5175wSnQ
+FNAIVdMaTspMZKRJU8bhkXSCARu9oAYn88U3QFUsgfzRK4KZu3UfqU75+QZjAzE3
+q7A4nOBFl0GHZUE/kQMPWdYm1OgPbvxaDYz2DmWN+7Dqc+0HkUUYYeATdYs8OUO0
+SBdhfXzll9P8xFZvdeusA+8B6DgGYg==
+=nsQs
+-----END PGP SIGNATURE-----
+
+--o5fzikc3dnjeidfk--

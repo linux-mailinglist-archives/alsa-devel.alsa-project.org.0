@@ -2,65 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4373E51CEFF
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 May 2022 04:27:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0568651CF24
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 May 2022 04:58:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CC233175F;
-	Fri,  6 May 2022 04:27:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC233175F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 93418183A;
+	Fri,  6 May 2022 04:58:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 93418183A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651804073;
-	bh=zl+vQjWcJ+cFOvEq4fLlMAP4WpudUVa259IUi8TJyOI=;
+	s=default; t=1651805937;
+	bh=K82sd0QdihiTRy0qOlPEEnK/DK4+XvMs8LHZXINQ6ZI=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=bpI6uDak3VFLjBOu2Pn5xN3nXiw3dupZSoHTOrg/of15dDYeyKlDWumUXbha/zidc
-	 zmr8NSkOMtuB6yMWqAyF8Wd3a5LTcvaxsdDqqeVOz8d02s3zyyrvyDWyB1iTkJxE50
-	 NjhguZemtwj1ldwrtaPmhFVn8Sb2ysrk7VCocgQ4=
+	b=YoAKQkKPwBokRGuYUoVjfabRnUUE57TMiW/R3d3h1qpHOLTyvlnlY0cTrRfq4/1Z/
+	 EnstoJ0NB8Re9shVqsVOg4P5aXA/FnRnW4yy5gIIVwqGScsYEBy+fCw6ebPuQSoFv5
+	 Eu4mgzKUwhdp+NZaewMexn8y6Mzs0cTpSmocJKU4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 52305F800D3;
-	Fri,  6 May 2022 04:26:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0C87DF80171;
+	Fri,  6 May 2022 04:57:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B4C41F8012F; Fri,  6 May 2022 04:26:52 +0200 (CEST)
+ id 0A5A9F8014B; Fri,  6 May 2022 04:57:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,
  T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
+Received: from mail-m17657.qiye.163.com (mail-m17657.qiye.163.com
+ [59.111.176.57])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5A310F800D3
- for <alsa-devel@alsa-project.org>; Fri,  6 May 2022 04:26:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A310F800D3
-Received: from canpemm500007.china.huawei.com (unknown [172.30.72.54])
- by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4KvZ854dLhzNkTG;
- Fri,  6 May 2022 10:21:57 +0800 (CST)
-Received: from localhost (10.174.179.215) by canpemm500007.china.huawei.com
- (7.192.104.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Fri, 6 May
- 2022 10:26:39 +0800
-From: YueHaibing <yuehaibing@huawei.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>, <matthias.bgg@gmail.com>, <tzungbi@google.com>,
- <angelogioacchino.delregno@collabora.com>, <trevor.wu@mediatek.com>
-Subject: [PATCH -next] ASoC: mediatek: mt8195: Fix build warning without
- CONFIG_OF
-Date: Fri, 6 May 2022 10:26:38 +0800
-Message-ID: <20220506022638.15864-1-yuehaibing@huawei.com>
-X-Mailer: git-send-email 2.10.2.windows.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 293AFF800D3
+ for <alsa-devel@alsa-project.org>; Fri,  6 May 2022 04:57:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 293AFF800D3
+Received: from book-Convertible.. (unknown [171.83.5.166])
+ by mail-m17657.qiye.163.com (Hmail) with ESMTPA id E3BE4280687;
+ Fri,  6 May 2022 10:57:39 +0800 (CST)
+From: bo liu <bo.liu@senarytech.com>
+To: tiwai@suse.com,
+	perex@perex.cz
+Subject: [PATCH] add a new hda codec SN6140
+Date: Fri,  6 May 2022 10:57:35 +0800
+Message-Id: <20220506025735.17731-1-bo.liu@senarytech.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.174.179.215]
-X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
- canpemm500007.china.huawei.com (7.192.104.62)
-X-CFilter-Loop: Reflected
-Cc: YueHaibing <yuehaibing@huawei.com>, alsa-devel@alsa-project.org,
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
+X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZCBgUCR5ZQVlLVUtZV1
+ kWDxoPAgseWUFZKDYvK1lXWShZQUhPN1dZLVlBSVdZDwkaFQgSH1lBWUMfH09WSxhOSB8aHkkYSk
+ oeVRMBExYaEhckFA4PWVdZFhoPEhUdFFlBWU9LSFVKSktISkNVS1kG
+X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6Nyo6Kxw5DT05MggoGDQMLAod
+ MUMaCThVSlVKTU5KQ0tOQ01LT0JKVTMWGhIXVRkUVRcSDjsIHhUaCQIPHhgTVRgUFkVZV1kSC1lB
+ WUpMSlVDSFVOVUpNTVlXWQgBWUFKTUpPNwY+
+X-HM-Tid: 0a80974d30f3da03kuwse3be4280687
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ bo liu <bo.liu@senarytech.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,44 +72,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-sound/soc/mediatek/mt8195/mt8195-mt6359.c:1639:32: warning: ‘mt8195_mt6359_max98390_rt5682_card’ defined but not used [-Wunused-variable]
- 1639 | static struct mt8195_card_data mt8195_mt6359_max98390_rt5682_card = {
-      |                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-sound/soc/mediatek/mt8195/mt8195-mt6359.c:1634:32: warning: ‘mt8195_mt6359_rt1011_rt5682_card’ defined but not used [-Wunused-variable]
- 1634 | static struct mt8195_card_data mt8195_mt6359_rt1011_rt5682_card = {
-      |                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-sound/soc/mediatek/mt8195/mt8195-mt6359.c:1629:32: warning: ‘mt8195_mt6359_rt1019_rt5682_card’ defined but not used [-Wunused-variable]
- 1629 | static struct mt8195_card_data mt8195_mt6359_rt1019_rt5682_card = {
-      |                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The current kernel does not support the SN6140 codec chip.
+Add the SN6140 codec configuration item to kernel.
 
-These variables is only used with CONFIG_OF, move it into the ifdef block.
-
-Fixes: 86a6b9c9dfff ("ASoC: mediatek: mt8195: add machine support for max98390 and rt5682")
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+Signed-off-by: bo liu <bo.liu@senarytech.com>
 ---
- sound/soc/mediatek/mt8195/mt8195-mt6359.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/pci/hda/patch_conexant.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/mediatek/mt8195/mt8195-mt6359.c b/sound/soc/mediatek/mt8195/mt8195-mt6359.c
-index 3e32fe801b3c..f90675f14d60 100644
---- a/sound/soc/mediatek/mt8195/mt8195-mt6359.c
-+++ b/sound/soc/mediatek/mt8195/mt8195-mt6359.c
-@@ -1626,6 +1626,7 @@ static int mt8195_mt6359_dev_probe(struct platform_device *pdev)
- 	return ret;
- }
+diff --git a/sound/pci/hda/patch_conexant.c b/sound/pci/hda/patch_conexant.c
+index 0515137a75b0..aa360a0af284 100644
+--- a/sound/pci/hda/patch_conexant.c
++++ b/sound/pci/hda/patch_conexant.c
+@@ -1105,6 +1105,7 @@ static int patch_conexant_auto(struct hda_codec *codec)
  
-+#ifdef CONFIG_OF
- static struct mt8195_card_data mt8195_mt6359_rt1019_rt5682_card = {
- 	.name = "mt8195_r1019_5682",
- 	.quirk = RT1019_SPEAKER_AMP_PRESENT,
-@@ -1641,7 +1642,6 @@ static struct mt8195_card_data mt8195_mt6359_max98390_rt5682_card = {
- 	.quirk = MAX98390_SPEAKER_AMP_PRESENT,
- };
- 
--#ifdef CONFIG_OF
- static const struct of_device_id mt8195_mt6359_dt_match[] = {
- 	{
- 		.compatible = "mediatek,mt8195_mt6359_rt1019_rt5682",
+ static const struct hda_device_id snd_hda_id_conexant[] = {
+ 	HDA_CODEC_ENTRY(0x14f11f86, "CX8070", patch_conexant_auto),
++	HDA_CODEC_ENTRY(0x14f11f87, "SN6140", patch_conexant_auto),
+ 	HDA_CODEC_ENTRY(0x14f12008, "CX8200", patch_conexant_auto),
+ 	HDA_CODEC_ENTRY(0x14f120d0, "CX11970", patch_conexant_auto),
+ 	HDA_CODEC_ENTRY(0x14f15045, "CX20549 (Venice)", patch_conexant_auto),
 -- 
-2.17.1
+2.34.1
 

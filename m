@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 195D651D929
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 May 2022 15:29:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F34CF51D920
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 May 2022 15:28:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B06011845;
-	Fri,  6 May 2022 15:28:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B06011845
+	by alsa0.perex.cz (Postfix) with ESMTPS id 943AE180D;
+	Fri,  6 May 2022 15:27:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 943AE180D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651843739;
-	bh=/Pdal9RU5tC2GH2TCscjt8n2KqTBGqMIAUIDOy9HIYM=;
+	s=default; t=1651843722;
+	bh=QUPrONxRj5sKJn9TAlZi2ATo395H8YXBRGtmK1hMq0Y=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DR8Df/SrcH0IZSAfxdd9jRgZr0dO2SVb6f5gqpbzwYyqsGNcR3LU0JVOJmkkzH/Jv
-	 DxEajRCS0kxRUlng0bBpjrsgEDSI2KZuQRg59Yc6Qx9MZ4yCrSW+wnHfnMJu/lpsKk
-	 ABpnlu1zn14Q0F7i5RiAbrBEid6yT7uH9UPg19hM=
+	b=f1+4MKGiRLj3EHhReDXfyu08lskrqZshm10f+eFz3T5kWAML3Ccz1AJby5dHKLQYc
+	 +9ws29x59giIRSGxfwcXCk6KL9Lw3H15ooo+57tTYL4/hb9MGpegfNgPVsRWjGUr5G
+	 mf2CDe9B1SgZC+NdJs3FfATqZr40pIiqjUc4YONw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6C500F80528;
-	Fri,  6 May 2022 15:26:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E0637F80511;
+	Fri,  6 May 2022 15:26:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 203AFF8025C; Fri,  6 May 2022 15:26:49 +0200 (CEST)
+ id 1DE9BF80508; Fri,  6 May 2022 15:26:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,42 +34,42 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 92846F8014B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1F083F800E3
  for <alsa-devel@alsa-project.org>; Fri,  6 May 2022 15:26:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92846F8014B
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F083F800E3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="kXcxE2c3"
+ header.b="HOIjZNoQ"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1651843600; x=1683379600;
+ t=1651843599; x=1683379599;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=/Pdal9RU5tC2GH2TCscjt8n2KqTBGqMIAUIDOy9HIYM=;
- b=kXcxE2c3tp0SUpMQY/+84NjVv9zo30VImUCc1pdKyJz/8E21GfiAqZe3
- +AjHCxsOekdRiutnlIKVH5qMtJXL/vQTnOalGXd+19lQn5isuzJAghvD7
- Nh/vKZ188O3j+G99EeZxCPApdLVG0O4v/EXECY2CnYpApoME3CkxmMQoG
- lsvG3tKMTHGU+LEB8ogamV02dROQ1eksM+1JGzJWrUeEhVyXEuVhaCm03
- IOZN9onIg+OEYd2FfX/zeBqaZkxaRB49X8IXXzotuHS+uwFhpv6CY5yoI
- mjqo06WQPs8894IQOC9N5/GAHsUtgbK2xeqo5aqLfSFZalKxO9B7k+3xO g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10339"; a="293672798"
-X-IronPort-AV: E=Sophos;i="5.91,203,1647327600"; d="scan'208";a="293672798"
+ bh=QUPrONxRj5sKJn9TAlZi2ATo395H8YXBRGtmK1hMq0Y=;
+ b=HOIjZNoQH1w9wM3s6Ct3jGKBB1YCZaXA+K4iqOUj7Rwi2vyUVpYnUa87
+ hn24HaEGrfNuWwQx7OT9IVWEEZQQllUKMrmqUjlFxmU+mxJEwKprEjaW5
+ QSdmDGS2Ltc73Y9krW9LSuMq4GPxjfgtQY5FTuw56BEauAZclPeTyabn5
+ uOD8bQrCKY34hQ9cQhRNvBiFoFOE/IJRC44VIe2C8nkaOb0jkCw3dK2Ri
+ g4geYZ4/kviM8FVJyOO2e6tYUPJ52rOOlvme/DUsplbYjd1xIxHqUGIzH
+ KC8XxW8zLJ2uTHePoCUb7//NSTavi/TpLmRFqggpQVntGxfgkpwUKv6oN g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10339"; a="293672803"
+X-IronPort-AV: E=Sophos;i="5.91,203,1647327600"; d="scan'208";a="293672803"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2022 06:26:33 -0700
-X-IronPort-AV: E=Sophos;i="5.91,203,1647327600"; d="scan'208";a="585971575"
+ 06 May 2022 06:26:36 -0700
+X-IronPort-AV: E=Sophos;i="5.91,203,1647327600"; d="scan'208";a="585971589"
 Received: from oelagadx-mobl2.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.252.61.230])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2022 06:26:30 -0700
+ 06 May 2022 06:26:33 -0700
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com, broonie@kernel.org,
  pierre-louis.bossart@linux.intel.com, yung-chuan.liao@linux.intel.com,
  rander.wang@intel.com
-Subject: [PATCH 2/8] ASoC: SOF: ipc-msg-injector: Query the maximum IPC
+Subject: [PATCH 3/8] ASoC: SOF: sof-client-probes: Query the maximum IPC
  payload size
-Date: Fri,  6 May 2022 16:26:41 +0300
-Message-Id: <20220506132647.18690-3-peter.ujfalusi@linux.intel.com>
+Date: Fri,  6 May 2022 16:26:42 +0300
+Message-Id: <20220506132647.18690-4-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.36.0
 In-Reply-To: <20220506132647.18690-1-peter.ujfalusi@linux.intel.com>
 References: <20220506132647.18690-1-peter.ujfalusi@linux.intel.com>
@@ -100,53 +100,36 @@ Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- sound/soc/sof/sof-client-ipc-msg-injector.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+ sound/soc/sof/sof-client-probes.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/sof/sof-client-ipc-msg-injector.c b/sound/soc/sof/sof-client-ipc-msg-injector.c
-index c711981187aa..19bb6212cb56 100644
---- a/sound/soc/sof/sof-client-ipc-msg-injector.c
-+++ b/sound/soc/sof/sof-client-ipc-msg-injector.c
-@@ -22,6 +22,7 @@
+diff --git a/sound/soc/sof/sof-client-probes.c b/sound/soc/sof/sof-client-probes.c
+index c4c6e03c8133..34e6bd356e71 100644
+--- a/sound/soc/sof/sof-client-probes.c
++++ b/sound/soc/sof/sof-client-probes.c
+@@ -132,6 +132,7 @@ static int sof_probes_deinit(struct sof_client_dev *cdev)
+ static int sof_probes_info(struct sof_client_dev *cdev, unsigned int cmd,
+ 			   void **params, size_t *num_params)
+ {
++	size_t max_msg_size = sof_client_get_ipc_max_payload_size(cdev);
+ 	struct sof_ipc_probe_info_params msg = {{{0}}};
+ 	struct sof_ipc_probe_info_params *reply;
+ 	size_t bytes;
+@@ -140,13 +141,13 @@ static int sof_probes_info(struct sof_client_dev *cdev, unsigned int cmd,
+ 	*params = NULL;
+ 	*num_params = 0;
  
- struct sof_msg_inject_priv {
- 	struct dentry *dfs_file;
-+	size_t max_msg_size;
- 
- 	void *tx_buffer;
- 	void *rx_buffer;
-@@ -78,7 +79,7 @@ static ssize_t sof_msg_inject_dfs_write(struct file *file, const char __user *bu
- 	if (*ppos)
- 		return 0;
- 
--	size = simple_write_to_buffer(priv->tx_buffer, SOF_IPC_MSG_MAX_SIZE,
-+	size = simple_write_to_buffer(priv->tx_buffer, priv->max_msg_size,
- 				      ppos, buffer, count);
- 	if (size != count)
- 		return size > 0 ? -EFAULT : size;
-@@ -90,9 +91,9 @@ static ssize_t sof_msg_inject_dfs_write(struct file *file, const char __user *bu
- 	}
- 
- 	/* send the message */
--	memset(priv->rx_buffer, 0, SOF_IPC_MSG_MAX_SIZE);
-+	memset(priv->rx_buffer, 0, priv->max_msg_size);
- 	ret = sof_client_ipc_tx_message(cdev, priv->tx_buffer, priv->rx_buffer,
--					SOF_IPC_MSG_MAX_SIZE);
-+					priv->max_msg_size);
- 	pm_runtime_mark_last_busy(dev);
- 	err = pm_runtime_put_autosuspend(dev);
- 	if (err < 0)
-@@ -135,8 +136,9 @@ static int sof_msg_inject_probe(struct auxiliary_device *auxdev,
- 	if (!priv)
+-	reply = kzalloc(SOF_IPC_MSG_MAX_SIZE, GFP_KERNEL);
++	reply = kzalloc(max_msg_size, GFP_KERNEL);
+ 	if (!reply)
  		return -ENOMEM;
+ 	msg.rhdr.hdr.size = sizeof(msg);
+ 	msg.rhdr.hdr.cmd = SOF_IPC_GLB_PROBE | cmd;
  
--	priv->tx_buffer = devm_kmalloc(dev, SOF_IPC_MSG_MAX_SIZE, GFP_KERNEL);
--	priv->rx_buffer = devm_kzalloc(dev, SOF_IPC_MSG_MAX_SIZE, GFP_KERNEL);
-+	priv->max_msg_size = sof_client_get_ipc_max_payload_size(cdev);
-+	priv->tx_buffer = devm_kmalloc(dev, priv->max_msg_size, GFP_KERNEL);
-+	priv->rx_buffer = devm_kzalloc(dev, priv->max_msg_size, GFP_KERNEL);
- 	if (!priv->tx_buffer || !priv->rx_buffer)
- 		return -ENOMEM;
+-	ret = sof_client_ipc_tx_message(cdev, &msg, reply, SOF_IPC_MSG_MAX_SIZE);
++	ret = sof_client_ipc_tx_message(cdev, &msg, reply, max_msg_size);
+ 	if (ret < 0 || reply->rhdr.error < 0)
+ 		goto exit;
  
 -- 
 2.36.0

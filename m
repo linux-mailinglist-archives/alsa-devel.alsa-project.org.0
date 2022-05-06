@@ -2,91 +2,113 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D86B51D3A9
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 May 2022 10:48:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F19C51D3DC
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 May 2022 10:58:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A3E7C1798;
-	Fri,  6 May 2022 10:47:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3E7C1798
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2D894D8;
+	Fri,  6 May 2022 10:57:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D894D8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651826903;
-	bh=s/u0tZSe/yWSdBaOwaYYvxnafqZCurxUicPttcZw//Q=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=hg3BzpkZSfsHXLUfo3UXaukA0UaTJenHfbsRIqKXNeR8YvmI1V7BPPMqgLbpLvq+I
-	 VU+R4zBZOu3GET4t2nkKV3f6Z6fjOZVjahGxIMkHUhBk6Ppqnw34nBrzmxxCcyI6Eq
-	 y/Q+YYJbxr4SSOmUpH2cnh0BkuYI7x0LFReYuo1M=
+	s=default; t=1651827488;
+	bh=hyVJTklAHqe/9S1DigdKhIPCbcwh6StQg4cMU9x6Qbk=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=XyKa2aGIOoR4xCUNXajSWJN/cf3UvCbgo2gsYrVbyMAJ5kkLA7kJ8/9Px1V3DU1LL
+	 SZq7FeK3/IbAQXyOMBPTCJkFFb04Y7tr1elTjxHvqPNLa6sbdemmEAuzeJfydDmmbk
+	 3E1s8rOlgBPvqPBdGLBzEVTOestx3mvt+8tmXh2M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2E9FAF800E3;
-	Fri,  6 May 2022 10:47:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AB8FCF80171;
+	Fri,  6 May 2022 10:57:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E260CF8014B; Fri,  6 May 2022 10:47:21 +0200 (CEST)
+ id 2AEFDF8014B; Fri,  6 May 2022 10:57:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ DKIM_VALID_AU,SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [IPv6:2a00:1450:4864:20::42a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 20C8EF800F0
- for <alsa-devel@alsa-project.org>; Fri,  6 May 2022 10:47:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20C8EF800F0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 16396F800F0
+ for <alsa-devel@alsa-project.org>; Fri,  6 May 2022 10:56:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 16396F800F0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="IMscpR8P"
-Received: by mail-wr1-x42a.google.com with SMTP id e2so9082374wrh.7
- for <alsa-devel@alsa-project.org>; Fri, 06 May 2022 01:47:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=7LQd7iQdqQi625fScqqUgHbyBnZ+6vFhX41p9tiKGP0=;
- b=IMscpR8PfJpHILzYcvylriVA5ovdlSmxZrGEyN8QyRyGkOIt2J2TgzSLvmKypmI5NW
- ro/p3Mou7emqGjRj/MS2mserpj9t5GFyhxt3wz6C0usU9tF9ynFSS5gcILBENYBIG4V3
- pjukkVG2qOCKx7MLAtwcgew8GJF+xHexsU2B9QRja11CqGmRCiUF+DmN7jljGh0uimSF
- pDBctRlBEpWvlKE6JDMsbNO+MsSCimMP3nsQVWIe7JzmUHgCgQRf2HA1igkX1zKOprQt
- j+adMdy+mNLIPOijwOxn6jIgfBDKWIamR7pPW+8iq0vQyh2HQXo959bVD9QDWDMVSSMx
- i9Hw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=7LQd7iQdqQi625fScqqUgHbyBnZ+6vFhX41p9tiKGP0=;
- b=wC2Kx9gppzjFWdVhFqXT+FPed0fxcZPzIY+hxdwgrMAdVXspyJUMMVOFghGQ7S++Y0
- KzRe6+sjdtmlYyLmS8wDX1vdUU81n6q8K9ZVV2KjNTJ4Rf6s+ktoKu+f6mpCDozI6fkv
- 38JXL9FP5K7Qim7lYn5WeciDMYS0RMrYqkKa9Gk2HUV+M84lR9eM3W1UdziMXEOCkJWk
- PybVZR6d20VvdH5KCgH+DMxcDdXH4yQKTe6c2thFi165J2rs+8AoYN5QFJudR99zHQux
- +DpD+KwBWXm6aC5wtPcQST5Vlkrm57Cs2fhhXx5ydk5euGbJcnjOgo/3xJ/5NMbnLzO/
- 3ImQ==
-X-Gm-Message-State: AOAM530+kC6QTnHZ1E6UGVPWUA91ahp3I8eyfFAfkrX6iHeiKkBwnBgh
- JNOnI+M2vqkVECH7wib/0kKw3g==
-X-Google-Smtp-Source: ABdhPJx4WNtOGpGgOD2ShjcgQm2jF+xPxTjiXdlFjdV8rdMqU7AYWO6RI//SkfzYV9xgRDf/GROpyQ==
-X-Received: by 2002:a5d:6345:0:b0:20a:d69f:8126 with SMTP id
- b5-20020a5d6345000000b0020ad69f8126mr1775273wrw.276.1651826833431; 
- Fri, 06 May 2022 01:47:13 -0700 (PDT)
-Received: from srini-hackbox.lan
- (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.gmail.com with ESMTPSA id
- o9-20020a5d62c9000000b0020c5253d903sm3071349wrv.79.2022.05.06.01.47.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 06 May 2022 01:47:12 -0700 (PDT)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: vkoul@kernel.org
-Subject: [PATCH v2] soundwire: qcom: adjust autoenumeration timeout
-Date: Fri,  6 May 2022 09:47:05 +0100
-Message-Id: <20220506084705.18525-1-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.21.0
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="DPeE7dXS"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="qJZmW+pF"
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.nyi.internal (Postfix) with ESMTP id 9141E5C0108;
+ Fri,  6 May 2022 04:56:56 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute5.internal (MEProxy); Fri, 06 May 2022 04:56:56 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=cc:cc:content-type:date:date:from:from:in-reply-to
+ :in-reply-to:message-id:mime-version:references:reply-to:sender
+ :subject:subject:to:to; s=fm1; t=1651827416; x=1651913816; bh=4A
+ yOrRhydfq0OVaMxtVGCJIkc/Ld52zdmZn5K+SoUtE=; b=DPeE7dXSOlySZ46suy
+ x64lGvA9qiuNq7jT2B53sm332JkBKlzlvbPzbs26/EyDDQQ8N4JhY2HM0sHafER+
+ ggmv7Zt2IrmBX+uih3bGTAJ6xheXR9ZntNscH3lV9VSZ/smgfWVOeZ8hzyXxRq9H
+ 3URuiGQ+iSkHO2HrVrPng6LINS81kJSVFXlnGSXwa0kBs4aHsuqCcWTAqzyyBXT8
+ JnQC/DNTjYTrLzaN7jWQ9IEnfZ23jxE5l7ihYNw/F6b6RZvfjQEPBFpHR5rGHD45
+ enIQILZ8/uuMKZ5RrQAAwWw9DR7BxxofheaxYd0U9qhdDrREhFNAXwGaXyMscqWT
+ qkFg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:date:date:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1651827416; x=
+ 1651913816; bh=4AyOrRhydfq0OVaMxtVGCJIkc/Ld52zdmZn5K+SoUtE=; b=q
+ JZmW+pF5nXaozzm/29hA9QIJtfPJSfAJsUmKnoLZ3OcTA9uC4qoVa8tCT/vnlsvL
+ OevPydGfIA40ubVjgdRKPJM2A4H9OqqpHh6x6NPBUjWoK86Q6GwjMcVuFYHC6kmF
+ 0FZWFH9tHqYw2+fsjP+//54hamIIBGkqkwBBCE4glxcBR6kJBFy9sLVtRPO7IRxv
+ PS3xKIITQdB2ZG8wE4T7sZffjvTs+zLSCeH/HuuOh/9MueKQPxOefT+GOXfBihwU
+ RM22g2WHj6u7cm5wLx/ZAa8nl2ySfysoxJQGySixSL7byiy7hVA0S9lVmOVLpE4l
+ Llr6xjQTANGo+++lWxidg==
+X-ME-Sender: <xms:2OJ0YvjJETarfqtzrMjQuqoRsOABkCEwC1qDKdcwZBd5zftUtYHbow>
+ <xme:2OJ0YsDqnYk7RhKE48xoa-TeP0cQCystyY_jFUbsc1zds8h5NTmnJGApuzn4t-bQe
+ eYEHi7pJdLaJZwBqEM>
+X-ME-Received: <xmr:2OJ0YvHLhVmY_kRVlkk8SCQK_XrfhswFFHU6zXKP4LF9O_XY8-ooPrFT77ksTaa7xB8m4_pPutELKH-eCrWVLcpilr61qmfe>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeefgddtkecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenog
+ fuuhhsphgvtghtffhomhgrihhnucdlgeelmdenucfjughrpeffhffvvefukfhfgggtuggj
+ sehttdertddttddvnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqd
+ htrghkrghshhhisehsrghkrghmohgttghhihdrjhhpqeenucggtffrrghtthgvrhhnpefg
+ hfdvjeffuddtheeugeekffdtjeelueefveelkeejjedvhfdvffdtvdefieegfeenucffoh
+ hmrghinhepghhithhhuhgsrdhiohenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgr
+ mhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjhhp
+X-ME-Proxy: <xmx:2OJ0YsTHQZhQoe7CZ92FC8rcMYXDYWBOUIJx1k2cAqG-zB1apco6hg>
+ <xmx:2OJ0Yszqb0o-w3LBH0cuKuE0YpsKKkOMR-BzoePZ3OkS6J5UPz0clQ>
+ <xmx:2OJ0Yi7dkBs88UITSmig7iaMiLJKHVqcWkSWh0qCd3YukbGZaob3TQ>
+ <xmx:2OJ0YpqHODLLPCdfUva5zNrJvfkyLt5VIDfoKoC2913Ve7xG-gsNVA>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 6 May 2022 04:56:55 -0400 (EDT)
+Date: Fri, 6 May 2022 17:56:52 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: Request for setup of new repositories
+Message-ID: <YnTi1Hs1KgkhmlEr@workstation>
+Mail-Followup-To: Jaroslav Kysela <perex@perex.cz>,
+ alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>
+References: <YmagC3V3t0k84k9A@workstation>
+ <7d90c47a-ce1a-d9d7-ba8a-e794f20487cb@perex.cz>
+ <YmfZxmfv5dfgdYG1@workstation> <YmtNgqfFREYKZM6t@workstation>
+ <YnO4A43EUdnG0b7n@workstation>
+ <14235475-bd6b-4b86-61f4-8c2aa7f95838@perex.cz>
+ <b6e986d0-b594-4543-ae63-e08e88ad3418@www.fastmail.com>
+ <2a0398c4-7d13-39c6-872e-1b802564c231@perex.cz>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- pierre-louis.bossart@linux.intel.com,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, bard.liao@intel.com,
- Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2a0398c4-7d13-39c6-872e-1b802564c231@perex.cz>
+Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,37 +124,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Currently timeout for autoenumeration during probe and bus reset is set to
-2 secs which is really a big value. This can have an adverse effect on
-boot time if the slave device is not ready/reset.
-This was the case with wcd938x which was not reset yet but we spent 2
-secs waiting in the soundwire controller probe. Reduce this time to
-1/10 of Hz which should be good enough time to finish autoenumeration
-if any slaves are available on the bus.
+On Thu, May 05, 2022 at 02:59:06PM +0200, Jaroslav Kysela wrote:
+> On 05. 05. 22 14:49, Takashi Sakamoto wrote:
+> 
+> > Besides, please fix the URL in "about" information of libhinawa repository.
+> > You probable see a wheel icon in right side of top page. When clicking it,
+> > you can see "website" field has "https://takaswie.github.io/libhinawa-docs/".
+> > Please replace it with "https://alsa-project.github.io/libhinawa-docs/".
+> 
+> Done.
+> 
+> 				Jaroslav
 
-Reported-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
----
+Thanks!
 
-Changes since v1:
-	replaced HZ/10 with 100 as suggested by Pierre
-
- drivers/soundwire/qcom.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-index 7367aa88b8ac..d6111f69d320 100644
---- a/drivers/soundwire/qcom.c
-+++ b/drivers/soundwire/qcom.c
-@@ -105,7 +105,7 @@
- 
- #define SWRM_SPECIAL_CMD_ID	0xF
- #define MAX_FREQ_NUM		1
--#define TIMEOUT_MS		(2 * HZ)
-+#define TIMEOUT_MS		100
- #define QCOM_SWRM_MAX_RD_LEN	0x1
- #define QCOM_SDW_MAX_PORTS	14
- #define DEFAULT_CLK_FREQ	9600000
--- 
-2.21.0
-
+Takashi Sakamoto

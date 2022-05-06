@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 566C851D6D1
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 May 2022 13:38:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F287851D6D6
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 May 2022 13:40:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D88BE17DC;
-	Fri,  6 May 2022 13:37:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D88BE17DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8FA3D176C;
+	Fri,  6 May 2022 13:39:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FA3D176C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651837107;
-	bh=CDDh2KSbrnqeeQjBcQ0pCAaNluEpPzLAeE50CYhH0nc=;
+	s=default; t=1651837241;
+	bh=wVPIGd+idgNahQWNuvYs77aIB5HQzXLLG3Hsw/27/L4=;
 	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gvI5LvREGcmRepNNZZXN4Iuji+lF1R/IqmhlwuyyjgRMmuC4EZIqT/bPgBRa1FgoW
-	 kb8PvdtlkPVyn3PStswxGjqQfNRb6Vi8mYRBX1SdJWO/MOL9E0cVAM0oYduCeoCpAr
-	 SMJ2Flbouwu//17Z19g8BNLVpLbs4Lf7l76HyxZc=
+	b=oQYs1RhbxqJ5n2ScJxYrC++f/JqNdwtxo84OarWXlLeOWk12y9WHERTOABhmQNhZP
+	 Qj27xWgaxTglUR9VbQMB7DZOwyGHFjD2DVOTFPCNIGuuteECX+8YQKOQDRp4RnuTkS
+	 rSWzqZWQzGqb2z4rSV70ltjqn3hVmlWai9BMAnzg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 41081F80171;
-	Fri,  6 May 2022 13:37:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 16FAFF80171;
+	Fri,  6 May 2022 13:39:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9637BF8014B; Fri,  6 May 2022 13:37:26 +0200 (CEST)
+ id 2E823F8014B; Fri,  6 May 2022 13:39:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
@@ -34,40 +34,45 @@ X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
 Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EECADF800F0
- for <alsa-devel@alsa-project.org>; Fri,  6 May 2022 13:37:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EECADF800F0
-X-UUID: 5038d43519b74feca2815c150857bef6-20220506
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9997CF800F0
+ for <alsa-devel@alsa-project.org>; Fri,  6 May 2022 13:39:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9997CF800F0
+X-UUID: 5cf4482705974597a43805780b255883-20220506
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.4, REQID:616086b7-229f-4795-9c2d-512db55b2b67, OB:0,
+X-CID-O-INFO: VERSION:1.1.4, REQID:637941b4-cb86-4741-bcbd-b1ead3e81090, OB:0,
  LO
- B:0,IP:0,URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,RULE:Release_Ham,ACTI
- ON:release,TS:0
-X-CID-META: VersionHash:faefae9, CLOUDID:470ad8b2-56b5-4c9e-8d83-0070b288eb6a,
+ B:0,IP:0,URL:0,TC:0,Content:0,EDM:0,RT:0,SF:45,FILE:0,RULE:Release_Ham,ACT
+ ION:release,TS:45
+X-CID-INFO: VERSION:1.1.4, REQID:637941b4-cb86-4741-bcbd-b1ead3e81090, OB:0,
+ LOB:
+ 0,IP:0,URL:0,TC:0,Content:0,EDM:0,RT:0,SF:45,FILE:0,RULE:Release_Ham,ACTIO
+ N:release,TS:45
+X-CID-META: VersionHash:faefae9, CLOUDID:806b7816-2e53-443e-b81a-655c13977218,
  C
- OID:IGNORED,Recheck:0,SF:nil,TC:nil,Content:0,EDM:-3,File:nil,QS:0,BEC:nil
-X-UUID: 5038d43519b74feca2815c150857bef6-20220506
-Received: from mtkexhb02.mediatek.inc [(172.21.101.103)] by
- mailgw02.mediatek.com (envelope-from <tinghan.shen@mediatek.com>)
+ OID:IGNORED,Recheck:0,SF:28|17|19|48,TC:nil,Content:0,EDM:-3,File:nil,QS:0
+ ,BEC:nil
+X-UUID: 5cf4482705974597a43805780b255883-20220506
+Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw02.mediatek.com
+ (envelope-from <tinghan.shen@mediatek.com>)
  (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 987445387; Fri, 06 May 2022 19:37:09 +0800
+ with ESMTP id 1297254437; Fri, 06 May 2022 19:39:25 +0800
 Received: from mtkcas10.mediatek.inc (172.21.101.39) by
  mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.2.792.15; Fri, 6 May 2022 19:37:07 +0800
+ 15.2.792.15; Fri, 6 May 2022 19:39:24 +0800
 Received: from mtksdccf07 (172.21.84.99) by mtkcas10.mediatek.inc
  (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Fri, 6 May 2022 19:37:07 +0800
-Message-ID: <fc564f68194b5cc668bb9e7a88cc097d38c9b128.camel@mediatek.com>
+ Transport; Fri, 6 May 2022 19:39:24 +0800
+Message-ID: <ef0c621760d63c28ad97d4b7e8bef34660ea079c.camel@mediatek.com>
 Subject: Re: [RESEND PATCH v7 1/1] firmware: mediatek: add adsp ipc protocol
  interface
 From: Tinghan Shen <tinghan.shen@mediatek.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Date: Fri, 6 May 2022 19:37:07 +0800
-In-Reply-To: <YnQ9UzeyMTkmyGgD@kroah.com>
+Date: Fri, 6 May 2022 19:39:24 +0800
+In-Reply-To: <YnQ9h6k0yFN8f+Ui@kroah.com>
 References: <20220505053048.13804-1-tinghan.shen@mediatek.com>
  <20220505053048.13804-2-tinghan.shen@mediatek.com>
- <YnQ9UzeyMTkmyGgD@kroah.com>
+ <YnQ9h6k0yFN8f+Ui@kroah.com>
 Content-Type: text/plain; charset="UTF-8"
 X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
 MIME-Version: 1.0
@@ -109,9 +114,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 Hi Greg,
 
-Thanks for your review.
-
-On Thu, 2022-05-05 at 23:10 +0200, Greg Kroah-Hartman wrote:
+On Thu, 2022-05-05 at 23:11 +0200, Greg Kroah-Hartman wrote:
 > On Thu, May 05, 2022 at 01:30:48PM +0800, Tinghan Shen wrote:
 > > From: TingHan Shen <tinghan.shen@mediatek.com>
 > > 
@@ -145,30 +148,119 @@ On Thu, 2022-05-05 at 23:10 +0200, Greg Kroah-Hartman wrote:
 > >  create mode 100644 drivers/firmware/mediatek/Makefile
 > >  create mode 100644 drivers/firmware/mediatek/mtk-adsp-ipc.c
 > >  create mode 100644 include/linux/firmware/mediatek/mtk-adsp-ipc.h
+> > 
+> > diff --git a/drivers/firmware/Kconfig b/drivers/firmware/Kconfig
+> > index d65964996e8d..c4d149b28944 100644
+> > --- a/drivers/firmware/Kconfig
+> > +++ b/drivers/firmware/Kconfig
+> > @@ -300,6 +300,7 @@ source "drivers/firmware/cirrus/Kconfig"
+> >  source "drivers/firmware/google/Kconfig"
+> >  source "drivers/firmware/efi/Kconfig"
+> >  source "drivers/firmware/imx/Kconfig"
+> > +source "drivers/firmware/mediatek/Kconfig"
+> >  source "drivers/firmware/meson/Kconfig"
+> >  source "drivers/firmware/psci/Kconfig"
+> >  source "drivers/firmware/smccc/Kconfig"
+> > diff --git a/drivers/firmware/Makefile b/drivers/firmware/Makefile
+> > index 4e58cb474a68..88fbdc110100 100644
+> > --- a/drivers/firmware/Makefile
+> > +++ b/drivers/firmware/Makefile
+> > @@ -34,6 +34,7 @@ obj-$(CONFIG_GOOGLE_FIRMWARE)	+= google/
+> >  obj-$(CONFIG_EFI)		+= efi/
+> >  obj-$(CONFIG_UEFI_CPER)		+= efi/
+> >  obj-y				+= imx/
+> > +obj-y				+= mediatek/
+> >  obj-y				+= psci/
+> >  obj-y				+= smccc/
+> >  obj-y				+= tegra/
+> > diff --git a/drivers/firmware/mediatek/Kconfig b/drivers/firmware/mediatek/Kconfig
+> > new file mode 100644
+> > index 000000000000..6d1e580b967b
+> > --- /dev/null
+> > +++ b/drivers/firmware/mediatek/Kconfig
+> > @@ -0,0 +1,9 @@
+> > +# SPDX-License-Identifier: GPL-2.0-only
+> > +config MTK_ADSP_IPC
+> > +	tristate "MTK ADSP IPC Protocol driver"
+> > +	depends on MTK_ADSP_MBOX
+> > +	help
+> > +	  Say yes here to add support for the MediaTek ADSP IPC
+> > +	  between host AP (Linux) and the firmware running on ADSP.
+> > +	  ADSP exists on some mtk processors.
+> > +	  Client might use shared memory to exchange information with ADSP side.
+> > diff --git a/drivers/firmware/mediatek/Makefile b/drivers/firmware/mediatek/Makefile
+> > new file mode 100644
+> > index 000000000000..4e840b65650d
+> > --- /dev/null
+> > +++ b/drivers/firmware/mediatek/Makefile
+> > @@ -0,0 +1,2 @@
+> > +# SPDX-License-Identifier: GPL-2.0
+> > +obj-$(CONFIG_MTK_ADSP_IPC)		+= mtk-adsp-ipc.o
+> > diff --git a/drivers/firmware/mediatek/mtk-adsp-ipc.c b/drivers/firmware/mediatek/mtk-adsp-ipc.c
+> > new file mode 100644
+> > index 000000000000..87cee61dbf32
+> > --- /dev/null
+> > +++ b/drivers/firmware/mediatek/mtk-adsp-ipc.c
+> > @@ -0,0 +1,161 @@
+> > +// SPDX-License-Identifier: GPL-2.0
+> > +/*
+> > + * Copyright (c) 2022 MediaTek Corporation. All rights reserved.
+> > + * Author: Allen-KH Cheng <allen-kh.cheng@mediatek.com>
+> > + */
+> > +
+> > +#include <linux/firmware/mediatek/mtk-adsp-ipc.h>
+> > +#include <linux/kernel.h>
+> > +#include <linux/mailbox_client.h>
+> > +#include <linux/module.h>
+> > +#include <linux/of_platform.h>
+> > +#include <linux/platform_device.h>
+> > +#include <linux/slab.h>
+> > +
+> > +/*
+> > + * mtk_adsp_ipc_send - send ipc cmd to MTK ADSP
+> > + *
+> > + * @ipc: ADSP IPC handle
+> > + * @idx: index of the mailbox channel
+> > + * @msg: IPC cmd (reply or request)
+> > + *
+> > + * Returns zero for success from mbox_send_message
+> > + * negative value for error
+> > + */
+> > +int mtk_adsp_ipc_send(struct mtk_adsp_ipc *ipc, unsigned int idx, uint32_t msg)
+> > +{
+> > +	struct mtk_adsp_chan *adsp_chan;
+> > +	int ret;
+> > +
+> > +	if (idx >= MTK_ADSP_MBOX_NUM)
+> > +		return -EINVAL;
+> > +
+> > +	adsp_chan = &ipc->chans[idx];
+> > +	ret = mbox_send_message(adsp_chan->ch, &msg);
+> > +	if (ret < 0)
+> > +		return ret;
+> > +
+> > +	/*
+> > +	 * mbox_send_message returns non-negative value on success,
+> > +	 * return zero for success
+> > +	 */
+> > +	return 0;
 > 
-> Why do you have a .h file, and export symbols in your .c file, yet you
-> have no user of these symbols or header file?
+> You already said this up in the function comments, no need to duplicate
+> it again.
 > 
-> Without a user, we can not take this, sorry.
-
-MediaTek have adsp client drivers on 2 chips that use symbols from this module.
-We were planned to upstream them after Linux community accept this module.
-I will add those client drivers in next version.
-
+> > +}
+> > +EXPORT_SYMBOL(mtk_adsp_ipc_send);
 > 
-> This should just be one single .c file.
-> 
-> Also, why a whole subdirectory for just one .c file?
-
-Ok, I'll move the souce out and remove this subdirectory in next version.
-Thank you very much.
-
-Best regards,
-TingHan
-
+> EXPORT_SYMBOL_GPL()?  I have to ask, sorry.
 > 
 > thanks,
 > 
 > greg k-h
 
+I'll update these parts in next version.
+Thank you!
+
+
+Best regards,
+TingHan
 

@@ -2,80 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43E2151D88E
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 May 2022 15:13:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF1A551D91C
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 May 2022 15:28:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D426517E0;
-	Fri,  6 May 2022 15:12:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D426517E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5D4AD17EC;
+	Fri,  6 May 2022 15:27:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D4AD17EC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1651842821;
-	bh=Z4VQ1ErZuEWJoaRAFl/6I2PdBArhJPm8vMKue0pYS2U=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=dgRWtERsEnn34TzNMcCx/ARGUtm7BcYDYcSXBmozx3emh3PtQzB6iswyzlX91ek6u
-	 v8rBS5GM+D4VWgV7sYbV2lY7G9xMdqo6Vhrkjvb1FUiucvUbK0ndJZKJCo1VoZGGc3
-	 hQD47JYgDTlaTuI0euy9dzhH78NDBSRLcJQq55Rw=
+	s=default; t=1651843696;
+	bh=St3pjYJCptFZg+sqb5RrNtN/QKh6uPFDxt+2I/i2wbg=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=sYuOiYoJc13zsJcMM8rqzt+//9+NjQtqm/7hMaUKPEoF2C7S1jS9dxxMXLgKF8Yq0
+	 eHaDhkjbgynLt+yz0lyDdAvgmaWjG/+iOPyVVcovm+2pGxBydA+vKwCtByDO7qw+Pv
+	 NiAGAZ7kxScPVXTq5UkcEgJutkha1ajvkkHAeivQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 544B8F80171;
-	Fri,  6 May 2022 15:12:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A6A94F800F0;
+	Fri,  6 May 2022 15:26:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 83014F8014B; Fri,  6 May 2022 15:12:41 +0200 (CEST)
+ id A5AF3F80508; Fri,  6 May 2022 15:26:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 64890F800E3
- for <alsa-devel@alsa-project.org>; Fri,  6 May 2022 15:12:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64890F800E3
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="lK35KQpH"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 02E2061F38;
- Fri,  6 May 2022 13:12:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2837C385A9;
- Fri,  6 May 2022 13:12:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1651842755;
- bh=Z4VQ1ErZuEWJoaRAFl/6I2PdBArhJPm8vMKue0pYS2U=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=lK35KQpHmGG14FWep0OCLcKvpqOigIseXbWFXPDOVDVR3jHuqdtCULlkslvUwVt0k
- lQR5BiEDwtvJXc6Gjhy9o9FJWgbON62YF6QCI7ugfRqQ6WrDYBIrxo66rOicGqlGlu
- Y7+BXBgPWSG3f/Skfq+oKUzVt90vAK3av7bDPoyQm+VJW3qJqmLthFxUjDGNmRqoIU
- woEB2wxDQN1q3XmjKfk0YzNj/2d/G1ec3f7EpVKarSwFEvdfoa/YaTOpEOpPsQryth
- /bChJ1AkWohQJoMArbGxsgs7twTB4GVRwImZZazKPFaaZQBgVs0jxkkmiJdX9Tpgwv
- QKlAkjTqfXfwA==
-Date: Fri, 6 May 2022 14:12:31 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 02/14] ASoC: codecs: Add HD-Audio codec driver
-Message-ID: <YnUev8Rs42xLLE6Z@sirena.org.uk>
-References: <20220427081902.3525183-1-cezary.rojewski@intel.com>
- <20220427081902.3525183-3-cezary.rojewski@intel.com>
- <7bc3a92e-8bd1-c1d0-5610-af40dbb8fb7a@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 79F2BF800F0
+ for <alsa-devel@alsa-project.org>; Fri,  6 May 2022 15:26:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79F2BF800F0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="lKblsAuF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1651843594; x=1683379594;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=St3pjYJCptFZg+sqb5RrNtN/QKh6uPFDxt+2I/i2wbg=;
+ b=lKblsAuFV2nfhqosc5AaeSN4XmtahNkDnCR38ojQRpjvjYU/jO64LUKV
+ TWFzNDbdcUePfAUUIEgKwaBNK9/BHfIVIxWWg6ZhoMXHCyEw7SwmwDj2u
+ sKXkOrwQQsv5erexpbHoliqYA9wv9nuaz1snINyq3/3j0DHdMtGme6QG6
+ TgjTy31sxRsgoYPr6JOtceWLDCOK5DxzwfkFndzsnUzvI1q5QXGrdn7Rc
+ DRVYA8XMl35Kx8RQzPECBFbOo8K7/66F2bVfSYYsqo1Kou1xBt6RXbMzU
+ 4KYIvXiIx3rQ9K68is1o757Dg9KWZSk5TeSFtyg+kCPVMmOzxgUaD+4Bt A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10339"; a="293672780"
+X-IronPort-AV: E=Sophos;i="5.91,203,1647327600"; d="scan'208";a="293672780"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2022 06:26:28 -0700
+X-IronPort-AV: E=Sophos;i="5.91,203,1647327600"; d="scan'208";a="585971550"
+Received: from oelagadx-mobl2.ger.corp.intel.com (HELO
+ pujfalus-desk.ger.corp.intel.com) ([10.252.61.230])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2022 06:26:24 -0700
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: lgirdwood@gmail.com, broonie@kernel.org,
+ pierre-louis.bossart@linux.intel.com, yung-chuan.liao@linux.intel.com,
+ rander.wang@intel.com
+Subject: [PATCH 0/8] ASoC: SOF: sof-client: Update for different IPC versions
+Date: Fri,  6 May 2022 16:26:39 +0300
+Message-Id: <20220506132647.18690-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.36.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="ZSV2pc7In/uUfPMj"
-Content-Disposition: inline
-In-Reply-To: <7bc3a92e-8bd1-c1d0-5610-af40dbb8fb7a@linux.intel.com>
-X-Cookie: <Culus-> libc6 is not essential :|
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, rad@semihalf.com,
- upstream@semihalf.com, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- harshapriya.n@intel.com, tiwai@suse.com, alsa-devel@alsa-project.org,
- hdegoede@redhat.com, amadeuszx.slawinski@linux.intel.com,
- cujomalainey@chromium.org, lma@semihalf.com
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, daniel.baluta@nxp.com,
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,47 +87,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi,
 
---ZSV2pc7In/uUfPMj
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+The current IPC client infrastructure can only be used with IPC3.
+This series carries updates for the core side of the client support to handle
+IPC4 messages and updates the ipc message injector to be usable with IPC4.
 
-On Wed, Apr 27, 2022 at 10:47:12AM -0500, Pierre-Louis Bossart wrote:
-> On 4/27/22 03:18, Cezary Rojewski wrote:
+The IPC flood test is only supported by SOF_IPC (IPC3), we are not going to
+create the aux device for it at all if the firmware is using IPC4.
 
-> > Add generic ASoC equivalent of ALSA HD-Audio codec. This codec is
-> > designed to follow HDA_DEV_LEGACY convention. Driver wrapps existing
-> > hda_codec.c handlers to prevent code duplication within the newly added
+Regards,
+Peter
+---
+Peter Ujfalusi (8):
+  ASoC: SOF: sof-client: Add API to get the maximum IPC payload size
+  ASoC: SOF: ipc-msg-injector: Query the maximum IPC payload size
+  ASoC: SOF: sof-client-probes: Query the maximum IPC payload size
+  ASoC: SOF: sof-client: Add API to get the ipc_type
+  ASoC: SOF: sof-client: Add support IPC4 message sending
+  ASoC: SOF: ipc-msg-injector: Separate the message sending
+  ASoC: SOF: ipc-msg-injector: Add support for IPC4 messages
+  ASoC: SOF: sof-client: IPC flood test can only work with SOF_IPC
 
-> I am surprised the explanations don't even mention the existence of hdac_hda.c
+ sound/soc/sof/sof-client-ipc-msg-injector.c | 181 ++++++++++++++++++--
+ sound/soc/sof/sof-client-probes.c           |   5 +-
+ sound/soc/sof/sof-client.c                  |  66 ++++++-
+ sound/soc/sof/sof-client.h                  |   2 +
+ 4 files changed, 227 insertions(+), 27 deletions(-)
 
-> I thought the series was about adding machine drivers, but this
-> also adds code on the sound/soc/codecs/ side which I didn't see
-> coming.
+-- 
+2.36.0
 
-> I am not qualified to review this part of the code, I just
-> wonder about duplication of functionality.
-
-> At the very least an explanation on why you decided to NOT use
-> hdac_hda.c would be useful to reviewers and maintainers.
-
-Right, why the duplication here?  Can't we fix or extend the
-existing code to do whatever it's not currently doing which
-compels reimplementation?
-
---ZSV2pc7In/uUfPMj
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJ1Hr4ACgkQJNaLcl1U
-h9A2gAf/UjhT15dfZI5vIAveeggqy0vhUIKDQaHfDBr2+rmS0hJFfJxLBq/LWhYo
-8KU+BFsD+xdG6xBqe8oTY1gcx/8fqNelUdBoaAyCHwkNguWYOdfsKtkqQ27up3Kc
-Y562uqJoKdLLlp5myKukSJdOKrbpVrnVyZhbEH8fFRZ+XQwTJXVQoAXQWMz0UMZV
-wnnS0f0hi3c7NxSGMa6a7sUyVAm8TmFOE6GFBLSfdPSPVhnfp0wVoDejWfu6cGV+
-AbUipCMybpfj2KJw3eQv1XN0Rh3YbPCnmvnsPfnRCWxwwTFRW6FTN9aElWHGJvA4
-EVcbjdwjNdMOSJfCuBQqmrsZGBC58Q==
-=tgND
------END PGP SIGNATURE-----
-
---ZSV2pc7In/uUfPMj--

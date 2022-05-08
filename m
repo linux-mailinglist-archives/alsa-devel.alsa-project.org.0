@@ -2,83 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B912051EC59
-	for <lists+alsa-devel@lfdr.de>; Sun,  8 May 2022 11:12:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A196B51EC5F
+	for <lists+alsa-devel@lfdr.de>; Sun,  8 May 2022 11:13:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C61E3188A;
-	Sun,  8 May 2022 11:11:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C61E3188A
+	by alsa0.perex.cz (Postfix) with ESMTPS id BADB01887;
+	Sun,  8 May 2022 11:12:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BADB01887
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652001131;
-	bh=f9VN40cYqYoYc1+eFPgOTnr1N7WgpJVS6+elZTH4bw0=;
+	s=default; t=1652001219;
+	bh=h+DluKZhOMKhkSS28gW4nto13ROMAMGMwYvwU9eT6rw=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dZ0KI8zIW/Rca3B4mvN3ZB1sVNCupumeGhPk1HJA7xNOUzXaVjrVP5vUK1RJYe7AI
-	 VoUJBtQoKUzKibGcgkLVqNkbvkpCcP+mftzNJ1oGVlvuvixSnpmtCW4LLGWp3cyyCA
-	 8wokLAEBANOXT3ar4XjzmFY0v6jTGLdokfIe10KI=
+	b=FKmuDXepoGzUfn5DvzqkRNIylrA+xe8A9YY5jOKKYhrZnwZNYm6kX1d+Y9hy06ZLF
+	 l38ettlGi7NkHK3l49+H5/VQ5f/1BOCwCvUWWa2EprYw5VBctV8S3++uXOMajhViK9
+	 LIXS/IZ7NSOqFj7eWA20f1An4OEm7nL1BxWfHVsE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5CEA3F80279;
-	Sun,  8 May 2022 11:11:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1DAF9F80159;
+	Sun,  8 May 2022 11:12:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 54274F800D3; Sun,  8 May 2022 11:11:19 +0200 (CEST)
+ id 6595EF800E8; Sun,  8 May 2022 11:12:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AF929F800E8
- for <alsa-devel@alsa-project.org>; Sun,  8 May 2022 11:11:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF929F800E8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 39CE4F800E8
+ for <alsa-devel@alsa-project.org>; Sun,  8 May 2022 11:12:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39CE4F800E8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="kkT7CCy/"; 
+ header.b="PAZa9+1b"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="CCmfS9bk"
+ header.b="GVQEgXkV"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 504361F94E;
- Sun,  8 May 2022 09:11:13 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 1AD4E21B9F;
+ Sun,  8 May 2022 09:12:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1652001073; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1652001157; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=2utLszVOX1va5kwC4Bhl/oahyyYjhEmmhysyvWRmi08=;
- b=kkT7CCy/jg/Zfk+LWkO9m8oycjdgnuDsT+UfJU9Yp0PtuXlMfb5aoJbbQch733UTG+qi0f
- lYSVc77uv6gflvMXUNnJE5cYTjFsS6fsbzIOftASbPW4VGldQ9Tqfmrhe6q2FAkru07ZIt
- GXHlmi+WajS4CD7yDUIZ4RNWta++q4k=
+ bh=WQY87UgjKYIPQ5Dhcq0qkZHV0d3OK36n5GobGu7sgCE=;
+ b=PAZa9+1bA74OQ7M+q7VM6eIehdvCoKyCACcthmxNJq7HOrA8sIaSnrPNdzqDe9DIC/KDRH
+ l1rgiroy72SHNFiw+bqVfdQHjj19GQgJiju+gcT3r6SQOPwG7+zFg2vNdtqzQ/aUBCocDl
+ Vks+UffIfB5YQj3OTjP5cP7enB6Z/9g=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1652001073;
+ s=susede2_ed25519; t=1652001157;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=2utLszVOX1va5kwC4Bhl/oahyyYjhEmmhysyvWRmi08=;
- b=CCmfS9bk3y21RXSbTTZIbzVf7sIoDEaREDL3/wR+CrNhvnMO3hOEV8FYhQ8/mdD+Ip9N0C
- PGMGjdg6zvjzqvDQ==
+ bh=WQY87UgjKYIPQ5Dhcq0qkZHV0d3OK36n5GobGu7sgCE=;
+ b=GVQEgXkVFBPjZ3RFfiEXB2MCeRPy9+SfGNp0H2p0rqZiko1XegbbfLOTydsJlyQOhCB6p4
+ 9jgPUcycEiAStmDw==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 3D15C2C141;
- Sun,  8 May 2022 09:11:13 +0000 (UTC)
-Date: Sun, 08 May 2022 11:11:13 +0200
-Message-ID: <s5hzgjsmlse.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 0995B2C141;
+ Sun,  8 May 2022 09:12:37 +0000 (UTC)
+Date: Sun, 08 May 2022 11:12:37 +0200
+Message-ID: <s5hy1zcmlq2.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Randy Dunlap <rdunlap@infradead.org>
-Subject: Re: [PATCH] ALSA: hda - fix unused Realtek function when PM is not
- enabled
-In-Reply-To: <20220430193318.29024-1-rdunlap@infradead.org>
-References: <20220430193318.29024-1-rdunlap@infradead.org>
+To: Gabriele Mazzotta <gabriele.mzt@gmail.com>
+Subject: Re: [PATCH v2] ALSA: hda/realtek: Add quirk for Dell Latitude 7520
+In-Reply-To: <20220501124237.4667-1-gabriele.mzt@gmail.com>
+References: <20220426101359.37794-1-gabriele.mzt@gmail.com>
+ <20220501124237.4667-1-gabriele.mzt@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- kernel test robot <lkp@intel.com>
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,22 +93,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 30 Apr 2022 21:33:18 +0200,
-Randy Dunlap wrote:
+On Sun, 01 May 2022 14:42:37 +0200,
+Gabriele Mazzotta wrote:
 > 
-> When CONFIG_PM is not enabled, alc_shutup() is not needed,
-> so move it inside the #ifdef CONFIG_PM guard.
-> Also drop some contiguous #endif / #ifdef CONFIG_PM for simplicity.
+> The driver is currently using ALC269_FIXUP_DELL4_MIC_NO_PRESENCE for
+> the Latitude 7520, but this fixup chain has some issues:
 > 
-> Fixes this build warning:
-> sound/pci/hda/patch_realtek.c:886:20: warning: unused function 'alc_shutup'
+>  - The internal mic is really loud and the recorded audio is distorted
+>    at "standard" audio levels.
 > 
-> Fixes: 08c189f2c552 ("ALSA: hda - Use generic parser codes for Realtek driver")
-> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-> Reported-by: kernel test robot <lkp@intel.com>
-> Cc: Takashi Iwai <tiwai@suse.de>
-> Cc: Jaroslav Kysela <perex@perex.cz>
-> Cc: alsa-devel@alsa-project.org
+>  - There are pop noises at system startup and when plugging/unplugging
+>    headphone jacks.
+> 
+> BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=215885
+> Signed-off-by: Gabriele Mazzotta <gabriele.mzt@gmail.com>
 
 Thanks, applied now.
 

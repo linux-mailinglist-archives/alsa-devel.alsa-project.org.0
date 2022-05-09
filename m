@@ -2,76 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC5EF520648
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 May 2022 22:59:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 918AE520687
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 May 2022 23:14:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8207016E2;
-	Mon,  9 May 2022 22:59:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8207016E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 249AA16E3;
+	Mon,  9 May 2022 23:13:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 249AA16E3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652129999;
-	bh=j+wdfrc3FXi43X0VkODadFay6bg9FKNBstYCTMpecA8=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=UBYuykUv9IMA8TpaIvBhgP/s36jPmc9k5s0zGROaKz3EnakBdbVXAYUoR4ONo/ztT
-	 ZYNzwCX94tQG6ZyhDlhjQzh18c7ooLIx4OHHC2r5ba6omcc8N+2dch2ESmPyINn0QK
-	 rpsg5K9Fi8XRE23NWiij/leiilJqmTNx5CjU11+8=
+	s=default; t=1652130876;
+	bh=/HNj4vbFe+rbGCIOvT0X4rdEp6WvFWKGhMhMgUZ7V6g=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=NuZYbsZziwBXTPl0134iepUkamutQ4Pew8N571/yX4NQq0FagrwRAGe6KjV3KphV3
+	 JuXUIzpN2deExwE2MGyJFBie7UFFNSRQAgoisGXydR9lmwjRPcvIwY+yAhXiM7QjUG
+	 cXQcUuBxwGdVTD027nZZyL4F1Tv4Mz9sF2nZoR+M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DBD73F80269;
-	Mon,  9 May 2022 22:59:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8559DF80269;
+	Mon,  9 May 2022 23:13:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4B32EF8025D; Mon,  9 May 2022 22:58:59 +0200 (CEST)
+ id 019D5F8025D; Mon,  9 May 2022 23:13:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0AFF7F800D3
- for <alsa-devel@alsa-project.org>; Mon,  9 May 2022 22:58:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0AFF7F800D3
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 82C43F800D3
+ for <alsa-devel@alsa-project.org>; Mon,  9 May 2022 23:13:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82C43F800D3
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
- header.b="U74Ljn72"
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: nfraprado) with ESMTPSA id 564EA1F42F48
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1652129932;
- bh=j+wdfrc3FXi43X0VkODadFay6bg9FKNBstYCTMpecA8=;
- h=From:To:Cc:Subject:Date:From;
- b=U74Ljn728Csp+ET2xThho9d1REqGnsswajm8GHfb67k2/RQZQWrjH38iHELrF44Nj
- xjNY6xlKH4B+68AQjDzJ4U9UXWZJZvRQXVg+CE577q+KjYL03FmMa/3TLtBWPFbaJc
- CZtRlFSbP4P6LvKc4+03hk9wBfEX4V83iyBOVw4o1AuuX92sETE6/YrYOK5HC+RLse
- usJnlXHQmatb4Tr1cmtTPqJ7rXIY3//R6J9m5ZXiAvwzZW6PwC2awkxQcnstozW5iT
- i1yFHZ/MGA/PZzO3rWICOJ8hBGFEU41lmBA6aSosZ+mnNFsx4iQ1oOlQOIjrv9EE/V
- Tc+X6cFr8gC1Q==
-From: =?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
- <nfraprado@collabora.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: [PATCH v2] ASoC: dt-bindings: mediatek: mt8192: Add i2s-share
- properties
-Date: Mon,  9 May 2022 16:58:47 -0400
-Message-Id: <20220509205847.607076-1-nfraprado@collabora.com>
-X-Mailer: git-send-email 2.36.0
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="fF7Eqyzz"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8B26261702;
+ Mon,  9 May 2022 21:13:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27A66C385BB;
+ Mon,  9 May 2022 21:13:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1652130808;
+ bh=/HNj4vbFe+rbGCIOvT0X4rdEp6WvFWKGhMhMgUZ7V6g=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=fF7EqyzzOgJozMR47JWEeiU3x5UILq3oH6cAxfugjNEuxqX5U22vu92xHiVbwJzrv
+ 9jfrDFAxWf9QRAfu8mk0Uy6aRR8G20N0Wb9TJZm81PUdOlU1goXSB70f2kwhQbUIFM
+ 4cM/dcLNoK4h9GVLzEj73mrExixbxF6x27IjgYjE/Kbrw3xjjnReage1PYj9TkslD/
+ AKZkGCwyHXWicGZ1AuZWJ4Q72V4/AV3zMysbeUjwqHgChv1kLIa4DVMwk4wTBxH4uW
+ 508sbIlxNSSg8HK6vjptDSjgPD9hL60LQqjVESSrnoHRIWrEFxgKzm9ue9spY/Lr7k
+ gpMpFIIbVaJhg==
+From: Mark Brown <broonie@kernel.org>
+To: lgirdwood@gmail.com, yung-chuan.liao@linux.intel.com,
+ pierre-louis.bossart@linux.intel.com, peter.ujfalusi@linux.intel.com,
+ rander.wang@intel.com
+In-Reply-To: <20220506132647.18690-1-peter.ujfalusi@linux.intel.com>
+References: <20220506132647.18690-1-peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH 0/8] ASoC: SOF: sof-client: Update for different IPC
+ versions
+Message-Id: <165213080684.1980311.14671784909471716067.b4-ty@kernel.org>
+Date: Mon, 09 May 2022 22:13:26 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- =?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
- <nfraprado@collabora.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Jiaxin Yu <jiaxin.yu@mediatek.com>, linux-kernel@vger.kernel.org,
- Shane Chien <shane.chien@mediatek.com>, Rob Herring <robh+dt@kernel.org>,
- linux-mediatek@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Matthias Brugger <matthias.bgg@gmail.com>, kernel@collabora.com,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: alsa-devel@alsa-project.org, daniel.baluta@nxp.com,
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,60 +87,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The Mediatek AFE PCM controller for MT8192 allows two I2S interfaces to
-share the same clock and act as a single interface with both input and
-output. Add patterns for these properties in the dt-binding. The
-property is split into two patterns in order to allow all valid
-interface pairings.
+On Fri, 6 May 2022 16:26:39 +0300, Peter Ujfalusi wrote:
+> The current IPC client infrastructure can only be used with IPC3.
+> This series carries updates for the core side of the client support to handle
+> IPC4 messages and updates the ipc message injector to be usable with IPC4.
+> 
+> The IPC flood test is only supported by SOF_IPC (IPC3), we are not going to
+> create the aux device for it at all if the firmware is using IPC4.
+> 
+> [...]
 
-Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
+Applied to
 
----
-The series from v1 of this patch was merged although some changes were
-still needed in this patch, so the v1 of this patch was reverted [1] and
-this standalone commit addresses the feedback from v1 and readds the
-property.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-[1] https://lore.kernel.org/all/20220509185625.580811-1-nfraprado@collabora.com
+Thanks!
 
-v1: https://lore.kernel.org/all/20220429203039.2207848-2-nfraprado@collabora.com/
+[1/8] ASoC: SOF: sof-client: Add API to get the maximum IPC payload size
+      commit: a669ec5f4bc485a56b2f379e7c7197a810872cc1
+[2/8] ASoC: SOF: ipc-msg-injector: Query the maximum IPC payload size
+      commit: ef368c3347fe79a4193317b130b02064801920d7
+[3/8] ASoC: SOF: sof-client-probes: Query the maximum IPC payload size
+      commit: a1e5bbc8ea6ae6e0fa1bd42f2ef810b13d9ec066
+[4/8] ASoC: SOF: sof-client: Add API to get the ipc_type
+      commit: cdf8233d2cd2e55c8bc409e5b4fbdb181a1dea2b
+[5/8] ASoC: SOF: sof-client: Add support IPC4 message sending
+      commit: 100c9374318f881c3083573af9dc76afa229fd23
+[6/8] ASoC: SOF: ipc-msg-injector: Separate the message sending
+      commit: a9aa3381e404abae3dd8c37b7c845415b56f0305
+[7/8] ASoC: SOF: ipc-msg-injector: Add support for IPC4 messages
+      commit: 066c67624d8ca2a2465690d4a7b7f52b880e9925
+[8/8] ASoC: SOF: sof-client: IPC flood test can only work with SOF_IPC
+      commit: 5889ccdd094ac32ee52851fc9eccd124897daf2b
 
-Changes in v2:
-- Added "mediatek," prefix to property
-- Rewrote and added more information to property description
-- Split into two patterns to validate that output-input pairings are
-  done
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
- .../bindings/sound/mt8192-afe-pcm.yaml           | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-diff --git a/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml b/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
-index 7a25bc9b8060..2abf43c6c2c3 100644
---- a/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
-+++ b/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
-@@ -54,6 +54,22 @@ properties:
-       - const: aud_infra_clk
-       - const: aud_infra_26m_clk
- 
-+patternProperties:
-+  "^mediatek,i2s[13579]-share$":
-+    description:
-+      Each I2S interface has a single data line, input if its index is even or
-+      output if the index is odd. An input and an output I2S interface can be
-+      used together as if they were a single I2S interface with both input and
-+      output data lines by sharing the same clock. This property represents this
-+      pairing. The value should be the name of the interface whose clock is
-+      used, and the property name the other interface that depends on this
-+      clock.
-+    pattern: "^I2S[0268]$"
-+
-+  "^mediatek,i2s[0268]-share$":
-+    description: Same as above.
-+    pattern: "^I2S[13579]$"
-+
- required:
-   - compatible
-   - interrupts
--- 
-2.36.0
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

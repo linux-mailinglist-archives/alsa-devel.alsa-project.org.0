@@ -2,75 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 253065204B9
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 May 2022 20:48:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04D965204CD
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 May 2022 20:57:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AA2FF16C6;
-	Mon,  9 May 2022 20:47:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA2FF16C6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8489C16C0;
+	Mon,  9 May 2022 20:56:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8489C16C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652122103;
-	bh=p7HuNEoLVAfJ9j3uyjrKWwmQvfEfC4JfRx5T9daNFa0=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=vmZuV2tHe6XX59FBF6ICxgLTrybAHfFeGZdkx1XhZ5DKcTrOkOPRujoA9/26j/KCv
-	 CO5t0HvPmsJCwszdkXWMyI7HLEbyE7A5ju8fS/QafOawlcKovbin4drtOiiNjEjwHD
-	 4UwYf/YVLq2ApxnNW0v66+0uL+Y2F+OyE1vbxgaE=
+	s=default; t=1652122657;
+	bh=ZLYs6CI7s8Jj8EeHsrXSw3oRF8/mCUSKeayVDMKYyPg=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=CAZImMtBSGQFllMPWa4Aa/Oj/+FCT+95MtPgD3N3ChTWjf1yBn0jhBDODj9psqWBv
+	 CxUcGYeZeCdyw3QxNLV+NTsYJc483xbD5jmSOLGzTCLcFGDZC3LSw8vqDtXzfxiM+y
+	 gy+kEWMDaPu4TMSRjPKMOpxNmMcS9eEeREsXRLcA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2A413F80269;
-	Mon,  9 May 2022 20:47:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 08B25F80269;
+	Mon,  9 May 2022 20:56:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AFA17F80237; Mon,  9 May 2022 20:47:22 +0200 (CEST)
+ id A22AAF8011C; Mon,  9 May 2022 20:56:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 47580F8011C
- for <alsa-devel@alsa-project.org>; Mon,  9 May 2022 20:47:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47580F8011C
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 79BE1F8011C
+ for <alsa-devel@alsa-project.org>; Mon,  9 May 2022 20:56:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79BE1F8011C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="EL4GDAP1"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 5AB19B810EA;
- Mon,  9 May 2022 18:47:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34E7AC385B6;
- Mon,  9 May 2022 18:47:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1652122038;
- bh=p7HuNEoLVAfJ9j3uyjrKWwmQvfEfC4JfRx5T9daNFa0=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=EL4GDAP1iF89mPzheQj9VmI5CRQMXXCv/D2nAwkCgBlp9YJqlPzZWm6EU7eViwm/h
- nPe9/sl+/MrUSP3fOA0tU9CnJ/FWKBj5Eu4DgvS2DmOCQtvTLcEpZEmfkyKMLxPklz
- Xag3WdHgutkk5HJTafYoYq6aid3oi4c8kTNzA++vwNj6sMCuj/psoW8ZfgrJVij4m8
- 9BAg6nEgDGgte6njuD8kykbTZCDFfUy6RttEnsq5Ei0eggbbfbKZP030JCjJS/I0In
- dllGdPba00PJVcXpOdppwuPP1QoSRQm8PWFsLXU2wyGj+gErK32ShaSYcRbQ2LihOO
- PhlgMo/A/dPCw==
-From: Mark Brown <broonie@kernel.org>
-To: codrin.ciubotariu@microchip.com, broonie@kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>
-In-Reply-To: <20220506130349.451452-1-broonie@kernel.org>
-References: <20220506130349.451452-1-broonie@kernel.org>
-Subject: Re: [PATCH] ASoC: sam9g20_wm8731: Use dev_err_probe() for
- snd_soc_register_card()
-Message-Id: <165212203694.1274938.11416951870088105385.b4-ty@kernel.org>
-Date: Mon, 09 May 2022 19:47:16 +0100
+ dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
+ header.b="HJiXLwHH"
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: nfraprado) with ESMTPSA id B58901F44049
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1652122590;
+ bh=ZLYs6CI7s8Jj8EeHsrXSw3oRF8/mCUSKeayVDMKYyPg=;
+ h=From:To:Cc:Subject:Date:From;
+ b=HJiXLwHH5YEw2s3HHpeH4aPABH0EI2Upl5k26VzT/j4d5Pyx5F75JtEBDK4qU/Wwi
+ UuMqI0weAy9luNMb7N1ZL3BxlwAYAJ7xwABSgHk/GIJ9aChTjiZqZP3z/+YJQYCW2K
+ +vsBYYr1BxTJ8qu2KhjAOfsOHl3OUck2aUdZsLa8wDs2CFTfolSH6SctvjcXGnQNF3
+ q3thmdZaq9qwWlbqPoH/yyHmJo+PwRfEzUpVpajC8CPKP4EjAkabUMIrX3K4V4yGym
+ Dk2Guf3NbgXDSmrbsd79FcJLM3rU7hMUZNxVPRRGmfgCpvQZFuapCqYoFeeaAlWNRZ
+ Hia2Y5fzdMpSQ==
+From: =?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
+ <nfraprado@collabora.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: [PATCH] Revert "ASoC: dt-bindings: mediatek: mt8192: Add i2s-share
+ properties"
+Date: Mon,  9 May 2022 14:56:25 -0400
+Message-Id: <20220509185625.580811-1-nfraprado@collabora.com>
+X-Mailer: git-send-email 2.36.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ =?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
+ <nfraprado@collabora.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jiaxin Yu <jiaxin.yu@mediatek.com>, linux-kernel@vger.kernel.org,
+ Shane Chien <shane.chien@mediatek.com>, Rob Herring <robh+dt@kernel.org>,
+ linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, kernel@collabora.com,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,36 +86,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 6 May 2022 14:03:49 +0100, Mark Brown wrote:
-> Log the error code when snd_soc_regster_card() fails, but fold in the
-> silencing of deferred probe errors.
-> 
-> 
+This reverts commit e056cf4341ae3f856f1e38da02b27cb04de4c69b. The commit
+was merged while the property name and definition were still being
+discussed. Revert the commit for now and a follow up commit will re-add
+the property after it is further discussed and reviewed.
 
-Applied to
+Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+---
 
-Thanks!
+ Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml | 5 -----
+ 1 file changed, 5 deletions(-)
 
-[1/1] ASoC: sam9g20_wm8731: Use dev_err_probe() for snd_soc_register_card()
-      commit: 29f4078f777fed4cb47695b284938fbfd80f990e
+diff --git a/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml b/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
+index 5b03c8dbf318..7a25bc9b8060 100644
+--- a/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
++++ b/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
+@@ -54,11 +54,6 @@ properties:
+       - const: aud_infra_clk
+       - const: aud_infra_26m_clk
+ 
+-patternProperties:
+-  "^i2s[0-35-9]-share$":
+-    description: Name of the I2S bus that is shared with this bus
+-    pattern: "^I2S[0-35-9]$"
+-
+ required:
+   - compatible
+   - interrupts
+-- 
+2.36.0
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

@@ -2,83 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2266651F734
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 May 2022 10:48:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9B1651F73F
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 May 2022 10:50:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AAB9E18A5;
-	Mon,  9 May 2022 10:47:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AAB9E18A5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 88B9118AF;
+	Mon,  9 May 2022 10:49:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 88B9118AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652086098;
-	bh=qmm8uDZxzmRU99yue69TwUrWEdO2HXNsgg/x+JJ7BvQ=;
+	s=default; t=1652086218;
+	bh=wtRWJ7HfwBVFcUTYY1H+j3EFBYm6dguIrCVDwf2FjQQ=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eDqUzHWroQvazumPRtC4MCH0f1i/pj7UpTKwnD33S0rTpZ+/f1/GekigYTP9dBejW
-	 gbqAwMMgkPKXb9difbdUMvrxfPJ9u/esyCrhKZ48bO10VUztYeo2AEO45+KXK17X//
-	 t0jYclS4+0bdWn1Pi6dRKzHKkfx5lsg9AgvUbdMk=
+	b=tYJKkftbk//AdrYzd+rTQrLZZV1edaM5IY7NRRNuCB2OM6gh8XH+cRoNi8zuI1uee
+	 uj+CH0BrsGReBxBIWI9EX1KWVshhaVkvh89o1JwwmWd7nYbTj1bBf2q4cTAomsa28J
+	 PfSRSrAYi07x/sN5wy24Ye03354+g1vis6WQtQNY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2623FF8014C;
-	Mon,  9 May 2022 10:47:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0E8C0F8050F;
+	Mon,  9 May 2022 10:48:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D1128F8014C; Mon,  9 May 2022 10:47:10 +0200 (CEST)
+ id DE772F8050F; Mon,  9 May 2022 10:48:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_13,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5F04DF8014C
- for <alsa-devel@alsa-project.org>; Mon,  9 May 2022 10:47:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F04DF8014C
+ by alsa1.perex.cz (Postfix) with ESMTPS id C850EF8025D
+ for <alsa-devel@alsa-project.org>; Mon,  9 May 2022 10:48:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C850EF8025D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="CVmD/lXH"; 
+ header.b="Az8Vv25U"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="cmTrod8U"
+ header.b="psk9Bisx"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 032B71FA06;
- Mon,  9 May 2022 08:47:08 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 348B01FA06;
+ Mon,  9 May 2022 08:48:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1652086028; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1652086123; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Se7uPlOHSIZCXjRaPGhfUC+SZL9VD4Ssg1Lc02/gjjI=;
- b=CVmD/lXHLlNLR7j4RMNpik3VbN5dqLjpgUyW+iLXgpHnAJ4xc1mq+rMAitW4L/aROdv36e
- Xe77cIP86FDxH2nUBd8/EC1qihwAahJlQ80A4TPbiv0AsRVlnNsT+RAAXGgYNPW6j5DvBd
- L0tnPuS7AcDQVzL2BfGw0ek8McO6HaA=
+ bh=XREMqynW/xsoTG/Ro19s3qT72KUQkPR/IVuvheXTmgs=;
+ b=Az8Vv25UR5pgLI3x7A3tQ3wA+W6gRjvAqDYJmNBCl18nRpnjNFCcDak0ZtVc0565FP9mZB
+ xtfaTtIDMMJ0npgI+GH7mZE3ehFa3rsPT+c+NF41oFulz9GG7020zYqunmWbKrTsCQX4os
+ Dkw9JwgPL42mICBRSORsVcBxSe6OT48=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1652086028;
+ s=susede2_ed25519; t=1652086123;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Se7uPlOHSIZCXjRaPGhfUC+SZL9VD4Ssg1Lc02/gjjI=;
- b=cmTrod8Uusz1b9BAk5WqbwfJbJFUKtJjPAARQ4yuYbjwC2cbIEz4+ULfM8wF9ZYUQLYMYv
- it7YzFoixRMYL/Dw==
+ bh=XREMqynW/xsoTG/Ro19s3qT72KUQkPR/IVuvheXTmgs=;
+ b=psk9BisxVfaRzk4GKoEoS7EfF3uiiHK6RSy6OvYqOMsCg0/Ou5oUk5t1gsjKaJiRuiR9s5
+ LnQGk5XRfr701QDg==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id E88392C141;
- Mon,  9 May 2022 08:47:07 +0000 (UTC)
-Date: Mon, 09 May 2022 10:47:07 +0200
-Message-ID: <s5hfsljm6t0.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 097F72C141;
+ Mon,  9 May 2022 08:48:41 +0000 (UTC)
+Date: Mon, 09 May 2022 10:48:41 +0200
+Message-ID: <s5hee13m6qe.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Stefan Binding <sbinding@opensource.cirrus.com>
-Subject: Re: [PATCH v1 0/3] Add Manual Mode Jack Detection for CS42L42 in HDA
-In-Reply-To: <20220504161236.2490532-1-sbinding@opensource.cirrus.com>
-References: <20220504161236.2490532-1-sbinding@opensource.cirrus.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Subject: Re: [PATCH v5 2/2] ALSA: hda - identify when audio is provided by a
+ video driver
+In-Reply-To: <4a0f0e351941201d00b2cd8e2157d3b0181dc19e.1651348913.git.mchehab@kernel.org>
+References: <cover.1651348913.git.mchehab@kernel.org>
+ <4a0f0e351941201d00b2cd8e2157d3b0181dc19e.1651348913.git.mchehab@kernel.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org, mauro.chehab@linux.intel.com,
+ David Airlie <airlied@linux.ie>, Greg KH <gregkh@linuxfoundation.org>,
+ intel-gfx@lists.freedesktop.org, Lucas De Marchi <lucas.demarchi@intel.com>,
+ Takashi Iwai <tiwai@suse.com>, dri-devel@lists.freedesktop.org,
+ Kai Vehmanen <kai.vehmanen@intel.com>, Luis Chamberlain <mcgrof@kernel.org>,
+ linux-modules@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ linux-kernel@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,27 +101,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 04 May 2022 18:12:33 +0200,
-Stefan Binding wrote:
+On Sat, 30 Apr 2022 22:04:55 +0200,
+Mauro Carvalho Chehab wrote:
 > 
-> CS42L42 supports automatic type detection, to determine headset type,
-> or headphones. However, automatic type detection does not always work
-> correctly. To improve detection accuracy, manual mode detection can be
-> run. This is already done in the ASoC version of the CS42L42 driver,
-> and this chain adds the same support into the HDA version.
+> On some devices, the hda driver needs to hook into a video driver,
+> in order to be able to properly access the audio hardware and/or
+> the power management function.
 > 
-> In addition, to better align the ASoC and HDA drivers, the ASoC header
-> file has been moved into the general sound includes, which allows both
-> ASoC and HDA to have access to the header.
-> This improves the maintainability of the HDA driver, and makes it
-> easier to port fixes/features from CS42L42 ASoC to HDA.
+> That's the case of several snd_hda_intel devices that depends on
+> i915 driver.
 > 
-> Stefan Binding (3):
->   ASoC: cs42l42: Move CS42L42 register descriptions to general include
->   ALSA: hda/cs8409: Use general cs42l42 include in cs8409 hda driver
->   ALSA: hda/cs8409: Support manual mode detection for CS42L42
+> Ensure that a proper reference between the snd-hda driver needing
+> such binding is shown at /proc/modules, in order to allow userspace
+> to know about such binding.
+> 
+> Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 
-Applied all three patches now.  Thanks.
+Maybe I was too late to the game (just back from vacation), but FWIW:
 
+Reviewed-by: Takashi Iwai <tiwai@suse.de>
+
+
+thanks,
 
 Takashi

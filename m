@@ -2,82 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80E6C51F6ED
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 May 2022 10:44:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2266651F734
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 May 2022 10:48:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1445D189E;
-	Mon,  9 May 2022 10:43:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1445D189E
+	by alsa0.perex.cz (Postfix) with ESMTPS id AAB9E18A5;
+	Mon,  9 May 2022 10:47:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AAB9E18A5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652085853;
-	bh=hal3Sv3BK3F0FWX68f4RRzDQbympgVjZtt4vsvc217Q=;
+	s=default; t=1652086098;
+	bh=qmm8uDZxzmRU99yue69TwUrWEdO2HXNsgg/x+JJ7BvQ=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=C/wxApfLSzfUfUBx0cbXXrX1B4BUqy8RaFKuEmjbdedgDryT3ftfsaDQrcL4tbS2b
-	 8DAUHeRBpTEtE9Y1Cv/6m6K0shda2vv4sneOqYJ7qCsli+yOFEC+/bCC2CfelAoA68
-	 JnrwAMCu4Uo/Q/cAYRXLchf3HSyRB9Oz4CoH7DRQ=
+	b=eDqUzHWroQvazumPRtC4MCH0f1i/pj7UpTKwnD33S0rTpZ+/f1/GekigYTP9dBejW
+	 gbqAwMMgkPKXb9difbdUMvrxfPJ9u/esyCrhKZ48bO10VUztYeo2AEO45+KXK17X//
+	 t0jYclS4+0bdWn1Pi6dRKzHKkfx5lsg9AgvUbdMk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7E2FDF80269;
-	Mon,  9 May 2022 10:43:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2623FF8014C;
+	Mon,  9 May 2022 10:47:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6B305F8025D; Mon,  9 May 2022 10:43:12 +0200 (CEST)
+ id D1128F8014C; Mon,  9 May 2022 10:47:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 162F7F8014C
- for <alsa-devel@alsa-project.org>; Mon,  9 May 2022 10:43:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 162F7F8014C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5F04DF8014C
+ for <alsa-devel@alsa-project.org>; Mon,  9 May 2022 10:47:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F04DF8014C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="ITLzDwzn"; 
+ header.b="CVmD/lXH"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="buLvgq0U"
+ header.b="cmTrod8U"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id A957A21BA8;
- Mon,  9 May 2022 08:43:07 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 032B71FA06;
+ Mon,  9 May 2022 08:47:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1652085787; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1652086028; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=4fP40eSvF34iHipeWPs64su+UfsOQc7xa/5u//Nm++E=;
- b=ITLzDwznAxOYPqTy41JoGTKG+v0edPIP0By/fktrWFAshuA+WpFlpj3+R0WIPT81rTEHyL
- MMUDVuMYXOHKET57pu4W4RZjo1xwwlvSm0heY5ZIHeSuBiTHGk398aNQnDZqVEv/gg3hUs
- uTOomNZImpQR8nsTwDxCnXkbjWNBA1o=
+ bh=Se7uPlOHSIZCXjRaPGhfUC+SZL9VD4Ssg1Lc02/gjjI=;
+ b=CVmD/lXHLlNLR7j4RMNpik3VbN5dqLjpgUyW+iLXgpHnAJ4xc1mq+rMAitW4L/aROdv36e
+ Xe77cIP86FDxH2nUBd8/EC1qihwAahJlQ80A4TPbiv0AsRVlnNsT+RAAXGgYNPW6j5DvBd
+ L0tnPuS7AcDQVzL2BfGw0ek8McO6HaA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1652085787;
+ s=susede2_ed25519; t=1652086028;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=4fP40eSvF34iHipeWPs64su+UfsOQc7xa/5u//Nm++E=;
- b=buLvgq0UIGTEf49offxL6DOTTL+OwyuyXDtvho47b5RpYigc9W0x9/gOe5gG/MKc0Qm4mS
- cG4JvaBIOElIlWDg==
+ bh=Se7uPlOHSIZCXjRaPGhfUC+SZL9VD4Ssg1Lc02/gjjI=;
+ b=cmTrod8Uusz1b9BAk5WqbwfJbJFUKtJjPAARQ4yuYbjwC2cbIEz4+ULfM8wF9ZYUQLYMYv
+ it7YzFoixRMYL/Dw==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 90DF82C141;
- Mon,  9 May 2022 08:43:07 +0000 (UTC)
-Date: Mon, 09 May 2022 10:43:07 +0200
-Message-ID: <s5hh75zm6zo.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id E88392C141;
+ Mon,  9 May 2022 08:47:07 +0000 (UTC)
+Date: Mon, 09 May 2022 10:47:07 +0200
+Message-ID: <s5hfsljm6t0.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Colin Ian King <colin.i.king@gmail.com>
-Subject: Re: [PATCH] ALSA: hdsp: remove redundant assignment to pointer kctl
-In-Reply-To: <20220508212819.59188-1-colin.i.king@gmail.com>
-References: <20220508212819.59188-1-colin.i.king@gmail.com>
+To: Stefan Binding <sbinding@opensource.cirrus.com>
+Subject: Re: [PATCH v1 0/3] Add Manual Mode Jack Detection for CS42L42 in HDA
+In-Reply-To: <20220504161236.2490532-1-sbinding@opensource.cirrus.com>
+References: <20220504161236.2490532-1-sbinding@opensource.cirrus.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- kernel-janitors@vger.kernel.org, Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,21 +94,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 08 May 2022 23:28:19 +0200,
-Colin Ian King wrote:
+On Wed, 04 May 2022 18:12:33 +0200,
+Stefan Binding wrote:
 > 
-> Pointer kctl is being assigned a value that is not being read, buf
-> is being re-assigned later. The assignment is redundant and can be
-> removed.
+> CS42L42 supports automatic type detection, to determine headset type,
+> or headphones. However, automatic type detection does not always work
+> correctly. To improve detection accuracy, manual mode detection can be
+> run. This is already done in the ASoC version of the CS42L42 driver,
+> and this chain adds the same support into the HDA version.
 > 
-> Cleans up clang scan build warning:
-> sound/pci/rme9652/hdsp.c:3317:28: warning: Although the value stored
-> to 'kctl' is used in the enclosing expression, the value is never
-> actually read from 'kctl' [deadcode.DeadStores]
+> In addition, to better align the ASoC and HDA drivers, the ASoC header
+> file has been moved into the general sound includes, which allows both
+> ASoC and HDA to have access to the header.
+> This improves the maintainability of the HDA driver, and makes it
+> easier to port fixes/features from CS42L42 ASoC to HDA.
 > 
-> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+> Stefan Binding (3):
+>   ASoC: cs42l42: Move CS42L42 register descriptions to general include
+>   ALSA: hda/cs8409: Use general cs42l42 include in cs8409 hda driver
+>   ALSA: hda/cs8409: Support manual mode detection for CS42L42
 
-Thanks, applied.
+Applied all three patches now.  Thanks.
 
 
 Takashi

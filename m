@@ -2,105 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86D2B520026
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 May 2022 16:44:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D8B2520093
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 May 2022 17:00:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0E6A918F0;
-	Mon,  9 May 2022 16:43:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E6A918F0
+	by alsa0.perex.cz (Postfix) with ESMTPS id B635718B4;
+	Mon,  9 May 2022 16:59:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B635718B4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652107449;
-	bh=dwPPmUdvHEjbM52KQWy7j+NxN/3vjyco2EN6clFwnco=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=pqkuUVVd+13rZk5v6X425KTaTVNSLkFgcaouvj76MmxckFCG/1kJVt431xk/DMVkg
-	 pb6OEFiSAo5kobzHkq7Svwa6GfG3BN1GDOhSLOPbcJ/Fr3CedL4Adv+63ohSClbpD8
-	 aAiC9L8l5dE7VUlro0Dojg7KT1ZjS6pWg4UTUxog=
+	s=default; t=1652108447;
+	bh=WMaIrBbx8kkLgbDRbabF45hRXIuo7xhWwUqf0RX8+rE=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=KBiaL8wDU9bGV9cGHiOeFBe2d1v2IquUoaX5bTHmq6Xqy4wbOE2A01l35fVubKFcZ
+	 8TWx2FjteLzV59Zg8LF2lQqEbFQvHmpwa0nT3Plr6/JaZ2HfjfAgI/U+34g9/Ko4g0
+	 aW6H9x/AAJoMVJT5iwhlnuwp0NC/8gBxx9Hk+i/k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EBF35F804A9;
-	Mon,  9 May 2022 16:42:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 30B7BF80237;
+	Mon,  9 May 2022 16:59:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A8244F8047B; Mon,  9 May 2022 16:42:40 +0200 (CEST)
+ id C2A3BF802E3; Mon,  9 May 2022 16:59:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [IPv6:2a00:1450:4864:20::32c])
+Received: from mail-io1-xd36.google.com (mail-io1-xd36.google.com
+ [IPv6:2607:f8b0:4864:20::d36])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AB1D9F8014C
- for <alsa-devel@alsa-project.org>; Mon,  9 May 2022 16:42:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB1D9F8014C
+ by alsa1.perex.cz (Postfix) with ESMTPS id DE274F800D3
+ for <alsa-devel@alsa-project.org>; Mon,  9 May 2022 16:59:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE274F800D3
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="vUy+W4dI"
-Received: by mail-wm1-x32c.google.com with SMTP id
- k126-20020a1ca184000000b003943fd07180so8403791wme.3
- for <alsa-devel@alsa-project.org>; Mon, 09 May 2022 07:42:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=QqShHkKgDFizDmpmSSdmDrX/sfeJAiBTI970sTvj+Bk=;
- b=vUy+W4dIB/CP4YqBPfl7YXr3TPoHkkXMM47VvBAqP/P1bbeTv4auv5JpEO6P39GtZm
- bsQxBjNyr4BTyuFajqyQj/5iiJXQHSSq1vLW78v2crhgsZw7Aa6oXTgSYFzYJlfQtayt
- WWoI7y3gP2Oe9lNHwYCzvDmVAx4DJ/J6rXmdLnAkugqYE5ogUCPFXFf10SHfx2Luq0J4
- JZHqC7UkLdH4Qvcr4DtfA9ICf47joRUk8ZEG0n0derS73v0seQdqQ8pPvN+4jtbxxT3i
- rBlHR+Joh2mFZEWpealWjPEjyD7SeQOJhzZ1gf80hJQyTybFOVr0abLFbYecgfkogYVG
- h69w==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="dabwonrx"
+Received: by mail-io1-xd36.google.com with SMTP id h85so15574763iof.12
+ for <alsa-devel@alsa-project.org>; Mon, 09 May 2022 07:59:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=ZBWK8wEtyr3Z+BKeKhTzRy0e8y5LPeZaKSAOhM39sxY=;
+ b=dabwonrxBvREcvRmh8BKjyxddQgAgZ315FC7yvcivNt2pI9Im7qk0GE9KVz+g+WDI2
+ W9ogHxk50GBdSiADYTabQAKJX6n43XsDExJC6eaPdhV3fl+exZsAKteiLLAE0iAb9XWC
+ l5TdA8H1G5K1XcQSTk+9xVPhM/IBkBZ2TtIuClLkeq/aWaqY+dIpPXvQ8zsKGJZipt4a
+ M6fe6gY4TO2BUt4UMQsKHNr0gkVemrO07dDl1VcTDZsQFk2miX12Sqi6o+zW+QTXaLP8
+ mOXPWyL/tNDR9MGHmOBZwh2I/FpSRo4R2/BTQ6mKX4GB1RIzKmn7Rss5NDVMNsqTJg7h
+ hBzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=QqShHkKgDFizDmpmSSdmDrX/sfeJAiBTI970sTvj+Bk=;
- b=KG3I2klMHDL5zh75Ry/MnnIDgxRqY4OeSQ8ZQ90fvTuebcNaxvNVCJu2kHXEpzbg0x
- gkoe/p61z/03nOMr5P7G4SBH4n5nD6u9GZIJJpVHJ+WgvqTmBuL0o0X4+q9FROZ+IfZs
- xjn2MkC/FtwW9t4HHu+EOAnADNKAzJLtT9w15+0d6lAxt0KQ7BlT64tRf7Gm07W3w7LO
- UwjqvilhWjzeErduJRXruy5gS3n+bwxpIqtq1qLhDlLOcs/4XDIUY6eYsY6O/QOaKCSp
- RGvLnR/aIHNq4ptBKVAQP5TomKaJviCQX5H/UATN0zCZSb/Q5zdOBE3ZrIiJOUkiJTaC
- kDqA==
-X-Gm-Message-State: AOAM533YIiwbL1vfFEs4tDFi8fQarR6GjYy52aOPKW1C33gk20b8BAjD
- lhatOo04App4AfMQavWvZV136Q==
-X-Google-Smtp-Source: ABdhPJxsUsgm5c1MnmnJGYS6LLodO6fR2/kEd6o3eu0aWtFgK9hd1itoxZfX0/O+ZDNhqZshbeCK2g==
-X-Received: by 2002:a05:600c:3b99:b0:394:70a0:12e3 with SMTP id
- n25-20020a05600c3b9900b0039470a012e3mr16461461wms.120.1652107355673; 
- Mon, 09 May 2022 07:42:35 -0700 (PDT)
-Received: from [192.168.86.34]
- (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.googlemail.com with ESMTPSA id
- 7-20020a05600c230700b003942a244edbsm14842645wmo.32.2022.05.09.07.42.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 09 May 2022 07:42:35 -0700 (PDT)
-Message-ID: <b127f25f-51ea-f5d1-baef-9a0f026a2e05@linaro.org>
-Date: Mon, 9 May 2022 15:42:33 +0100
+ bh=ZBWK8wEtyr3Z+BKeKhTzRy0e8y5LPeZaKSAOhM39sxY=;
+ b=FZVli6o45VkTv7qJ12IpXm1un8ZDb5bUdGhtLJboKdQjLIj16qDVktIxYMRHgGRI54
+ qSN1mffDrKSsDHKeQAVpPmk6h8KWWUvUXlibjwVoT+vAZ1fd5cIkzEucXVgvsCSB+cZO
+ svnsBgp7t3NiZkzkQeVoYaBHneWaX/uB3F15tR8KmqpiM7uKhEhPT7GztxFneZrjIEpy
+ ftiIgsU4mzFnbIhhkSfkLTe4HTc7MeDWbDcoPtFX3Bmn/PI/2bBel6VZPh0HPiSl9r5t
+ PdV3uZMUUE4SGNjFtDqTVRKUeK1TWOhE+uaSIzXCLXv2PFClsBah8KE45Gk8C7l00PP0
+ J+Fw==
+X-Gm-Message-State: AOAM531MksmEstid2BLBd0vHv+6e1YPcbE68DL3pfGoscn+CqYMTkngo
+ 87kw4M1boVlE/J7KwhJqSmw=
+X-Google-Smtp-Source: ABdhPJxMA3QH7S6K4X/siM5hUPpJ1ohmB1mimy04z0Pxe/zc+KqEKDH9Fe83DZ1DWUwR302jkE11xQ==
+X-Received: by 2002:a6b:ca44:0:b0:657:b54a:5c53 with SMTP id
+ a65-20020a6bca44000000b00657b54a5c53mr6545149iog.108.1652108381502; 
+ Mon, 09 May 2022 07:59:41 -0700 (PDT)
+Received: from localhost.localdomain (cpe-65-29-252-111.wi.res.rr.com.
+ [65.29.252.111]) by smtp.gmail.com with ESMTPSA id
+ p18-20020a02b892000000b0032b3a7817c1sm3664414jam.133.2022.05.09.07.59.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 09 May 2022 07:59:41 -0700 (PDT)
+From: Daniel Kaehn <kaehndan@gmail.com>
+To: tiwai@suse.com,
+	robh@kernel.org
+Subject: [PATCH v7 0/2] Add generic serial MIDI driver using serial bus API
+Date: Mon,  9 May 2022 09:59:31 -0500
+Message-Id: <20220509145933.1161526-1-kaehndan@gmail.com>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH v2] soundwire: qcom: adjust autoenumeration timeout
-Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- vkoul@kernel.org
-References: <20220506084705.18525-1-srinivas.kandagatla@linaro.org>
- <725af523-d144-e373-e09b-fb48b3afb9ed@linux.intel.com>
- <8643d266-7108-2440-43e1-c51b829ba481@linaro.org>
- <d9646029-29b1-d71b-d1f5-b33267888e3c@linux.intel.com>
- <fd355232-c5e3-ba1b-801d-526ee6f04946@linaro.org>
- <97cd6566-e686-e1f2-fe91-4b4ba9d95f12@linux.intel.com>
- <d17db27d-ad1b-f52c-50e9-4aab78ae0ff0@linaro.org>
- <0d645ee0-a54f-d9b4-9392-06ea1c37b29a@linux.intel.com>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <0d645ee0-a54f-d9b4-9392-06ea1c37b29a@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- bard.liao@intel.com, Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+Content-Transfer-Encoding: 8bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Daniel Kaehn <kaehndan@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,31 +100,87 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Generic serial MIDI driver adding support for using serial devices
+compatible with the serial bus as raw MIDI devices, allowing using
+additional serial devices not compatible with the existing
+serial-u16550 driver. Supports only setting standard serial baudrates on
+the underlying serial device; however, the underlying serial device can
+be configured so that a requested 38.4 kBaud is actually the standard MIDI
+31.25 kBaud. Supports DeviceTree configuration.
+
+Changes in v7:
+- Separate examples in dt-binding to remove need to specify unit name
+    (fixing dt_binding_check error)
+
+Changes in v6:    
+- Change compatible "serialmidi" -> serial-midi" 
+- Default current-speed to 38400 (closest baud to MIDI standard speed) 
+- Appropriately stop reading or writing MIDI if input or output
+    _trigger() is called with a parameter of zero, respectively 
+- Zero out corresponding triggered state on close to ensure input and
+    output closing results in the serial port being closed 
+- Fix order of operations in _probe() 
+- Remove "DEBUG" literal from debug messages
+- Remove unused dt-parsing patch checking for existence of node
+- Whitespace / tabbing fixes / improvements
+
+Changes in v5:
+- Reword description in dt-binding for clarity
+- Change 'speed' dt property to standard 'current-speed'
+- Move MIDI output loop onto workqueue (since this could loop quite a while,
+    if ALSA provides a continuous stream of bytes)
+- Add tx_state bit flags to snd_serial_generic struct
+- Safegard critical section in tx_work with atomic bit ops on tx_state
+- Switch operations on filemode to use atomic bit ops
+
+Changes in v4:
+- Fix regressed typo - Correct 3.84 kBaud -> 38.4 kBaud in DT & Kconfig
+  (sorry about spam - noticed after sending v3 and didn't want to let
+  the error sit around for too long)
+
+Changes in v3:
+- Replace use of snd_printk() with dev_* alternatives
+- Removed unnecessary initialization of err variables
+- Replaced instances of `== SERIAL_MODE_NOT_OPENED` with zero check
+- Loop on output_write to completely fill output buffer if data available
+- Depend on CONFIG_OF in Kconfig
+- Replace use of devm_kzalloc() with extra_size allocation in snd_devm_card_new()
+- Use module_serdev_device_driver() instead of module_init() and module_exit(0)
+
+Changes in v2:
+- Fix 'snd_serial_generic_write_wakeup' missing static keyword 
+- Correct 3.125 kBaud > 31.25 kBaud in documentation for MIDI         
 
 
-On 09/05/2022 15:36, Pierre-Louis Bossart wrote:
-> 
->>>> Even if enumeration timeout, we will not access the registers because
->>>> the ASoC codec is not registered yet from WCD938x component master.
->>>
->>> What happens when the codec is registered then? the autoenumeration
->> Codec is only registered after reset and when both TX and RX components
->> are probed.
->>
->>> still didn't complete, so what prevents the read/writes from failing
->>> then?
->> If codec is reset and registered and for some reason autoenum took more
->> than 100ms which will be hw bug then :-).
->> In this case register read/writes will fail.
-> 
-> Does this reset result in the 'bus reset' in the SoundWire sence and
-> restart hence the autoenumeration?
-The reset am referring here is codec reset gpio line. on reset device 
-will show up on the bus which should trigger an autoenumeration.
+The need for this driver arose from a project using a Raspberry Pi4 which
+needed to receive and send raw MIDI with low latency. The pl011 UART
+used is not compatible with the existing serial MIDI driver made for
+u16550-style devices. Using a userspace program such as ttymidi to feed
+input from the TTY device to a virtual ALSA MIDI device was functional,
+but not ideal.
 
-> 
-> It looks like you have a race between different components and starting
-> the bus before it's needed, no?WCD938x is bit of a odd hw configuration, that is why we are using 
-Component framework for this codec. This does ensure most part of it.
+I am not sure if a MIDI driver needing the mentioned 'hack' to clock
+38.4 kBaud down to the standard MIDI baud is permissible in the mainline
+kernel, but am submitting nevertheless in case it is useful. To my knowledge,
+it doesn't seem that there would be any way for this driver to manually
+configure a serial port to 31.25 kBaud using the serial bus API (please 
+correct me f I'm wrong). In my use case, I am actually configuring one port
+to run at 115.2 kBaud for faster communication with a custom onboard MIDI controller.
 
---srini
+Daniel Kaehn (2):
+  dt-bindings: sound: Add generic serial MIDI device
+  Add generic serial MIDI driver using serial bus API
+
+ .../bindings/sound/serial-midi.yaml           |  51 +++
+ sound/drivers/Kconfig                         |  18 +
+ sound/drivers/Makefile                        |   2 +
+ sound/drivers/serial-generic.c                | 374 ++++++++++++++++++
+ 4 files changed, 445 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/serial-midi.yaml
+ create mode 100644 sound/drivers/serial-generic.c
+
+
+base-commit: c5eb0a61238dd6faf37f58c9ce61c9980aaffd7a
+-- 
+2.33.0
+

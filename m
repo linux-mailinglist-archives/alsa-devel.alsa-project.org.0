@@ -2,80 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A520F520357
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 May 2022 19:11:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CE0052036F
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 May 2022 19:18:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3024618A2;
-	Mon,  9 May 2022 19:10:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3024618A2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 181F318F5;
+	Mon,  9 May 2022 19:18:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 181F318F5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652116302;
-	bh=QgakIGbWNo3zLFi+HTo83Ju8g3nsMS29DGatcZR6tRc=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1652116731;
+	bh=/vK4hUOw5XVzRCz9/q9BHaDHH7etX4k7UQOvk8DgWS8=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HxkSOa5P6wMe8aCesDEV+rPOmeHjgEyIwahIzXkM2gDlJ+NZt0UBOm/7B7Ddvkjeo
-	 R8Mof6RcxD67FyNwm3C1OkC3qxF0NQsASqgqlYKmHbdLzfuzXoHG8t96XgtFvPUzxU
-	 yC7ujIIBNNC8obr8fZbPKvD2c+Z5wsg9q4vayayI=
+	b=o+6I4yqVWk+RU21o7sFhrrOLyBqVhwughYbi5N95d5ZC+gqnmnM+BYaMdJixdZk65
+	 ZoZV7rWu+04FDdxVulR7onehaS5LMaFodtmHAumrV1cGJmc901QRK02CyfXPGcoai3
+	 XVd3knxkF2Rcyrvla68CZM4KWFQmhIERpGxQJ5gg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 561C0F80517;
-	Mon,  9 May 2022 19:10:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 77DDAF800D3;
+	Mon,  9 May 2022 19:17:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CB7B8F80516; Mon,  9 May 2022 19:10:02 +0200 (CEST)
+ id 456CDF8025D; Mon,  9 May 2022 19:17:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id D3818F800D3
+ for <alsa-devel@alsa-project.org>; Mon,  9 May 2022 19:17:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3818F800D3
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="gCsrO0C+"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 060BDF804FF
- for <alsa-devel@alsa-project.org>; Mon,  9 May 2022 19:09:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 060BDF804FF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="SkoFR2Se"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1652116197; x=1683652197;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=QgakIGbWNo3zLFi+HTo83Ju8g3nsMS29DGatcZR6tRc=;
- b=SkoFR2SewEMnjkqV6wHtlFc1uT4R09NhUKwxuVtojYrc1t9+E87chnP+
- JWaRS1Z5YADfSb8+m+y5CMy56/KxDqeuZ4gIhuLZbrm96i6kAKCeo8dRr
- JIzu1Lsg73QZqLCpdsf+D/G0ZIT17gSthNTFmM9fecN5/RxLsLwEmIzWF
- xrQTjxw/+yIBMFrtepoYzFTKd7oOCa+t3vxwmeJvcwKs9+x6oNJl6i7sH
- bzhzClTf1sAkVGgYRGFgec5ce1mklIUgtFdpU6Y0zJjypPLV0FgDPMbLf
- S3hBrxzI9GLmFBGV8k+OsmJzD0hcOlmoSH0r1SlmX+pAgynlupsxNCwbe Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10342"; a="266701904"
-X-IronPort-AV: E=Sophos;i="5.91,211,1647327600"; d="scan'208";a="266701904"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 May 2022 10:09:32 -0700
-X-IronPort-AV: E=Sophos;i="5.91,211,1647327600"; d="scan'208";a="592909326"
-Received: from mkarkhan-mobl.amr.corp.intel.com (HELO
- pbossart-mobl3.amr.corp.intel.com) ([10.209.61.140])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 May 2022 10:09:31 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 3/3] ASoC: Intel: sof_ssp_amp: enable capture stream from
- cs35l41
-Date: Mon,  9 May 2022 12:09:22 -0500
-Message-Id: <20220509170922.54868-4-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20220509170922.54868-1-pierre-louis.bossart@linux.intel.com>
-References: <20220509170922.54868-1-pierre-louis.bossart@linux.intel.com>
+ by ams.source.kernel.org (Postfix) with ESMTPS id 675B6B81160;
+ Mon,  9 May 2022 17:17:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4641CC385B2;
+ Mon,  9 May 2022 17:17:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1652116665;
+ bh=/vK4hUOw5XVzRCz9/q9BHaDHH7etX4k7UQOvk8DgWS8=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=gCsrO0C+bYZ/fHs1oJCf4AMGfTrJSzwOMuhCfjt/XmGRTrgzPIR+B6p9NmeMLZLCD
+ 4LudReQE+eKCtnC9S7sQ3LZ3xJwwh9xwHEUCqWGLixZsWJR/WwX9nfkEjBGwSQ4Cx4
+ Wwo3bqP0R3R45UaLPOeLY4um28DSZm8LC7AA2kU3pPnxayOW3zvdRnXQGWLW5Rjrm2
+ PwLjzvdU67ApymHm6qL8R0fes/Bhkw73qWkujPLE0gIVrVfxA6XYzo/ZfE02zriWpa
+ vMKnO8zadPBp46V5WSXYRGii3ty1lYnyuehqGWxEcWlbY/YAZ1tRRR4RxaSYWHkVUY
+ IcChFz6cpW/mw==
+From: Mark Brown <broonie@kernel.org>
+To: nfraprado@collabora.com
+In-Reply-To: <20220429203039.2207848-1-nfraprado@collabora.com>
+References: <20220429203039.2207848-1-nfraprado@collabora.com>
+Subject: Re: [PATCH 0/3] Add missing dt-binding properties for audio
+ components on mt8192-asurada
+Message-Id: <165211666198.1065748.1151009730882312510.b4-ty@kernel.org>
+Date: Mon, 09 May 2022 18:17:41 +0100
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, broonie@kernel.org,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Brent Lu <brent.lu@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, tzungbi@google.com,
+ linux-kernel@vger.kernel.org, jiaxin.yu@mediatek.com, lgirdwood@gmail.com,
+ shane.chien@mediatek.com, robh+dt@kernel.org,
+ linux-mediatek@lists.infradead.org, krzysztof.kozlowski+dt@linaro.org,
+ matthias.bgg@gmail.com, kernel@collabora.com,
+ linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,32 +90,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Brent Lu <brent.lu@intel.com>
+On Fri, 29 Apr 2022 16:30:36 -0400, Nícolas F. R. A. Prado wrote:
+> These patches add properties that were missing on the dt-bindings of the
+> audio components used by mt8192-asurada. Namely the i2s-share
+> properties for the sound platform and the #sound-dai-cells on the
+> rt1015p and rt5682 codecs when they're referenced by the machine sound
+> node.
+> 
+> 
+> [...]
 
-Enable capture stream of the cs35l41 dai link to support feedback
-stream from amplifier.
+Applied to
 
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Signed-off-by: Brent Lu <brent.lu@intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- sound/soc/intel/boards/sof_ssp_amp.c | 3 +++
- 1 file changed, 3 insertions(+)
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-diff --git a/sound/soc/intel/boards/sof_ssp_amp.c b/sound/soc/intel/boards/sof_ssp_amp.c
-index 675ade8187b65..4a762e002ac75 100644
---- a/sound/soc/intel/boards/sof_ssp_amp.c
-+++ b/sound/soc/intel/boards/sof_ssp_amp.c
-@@ -258,6 +258,9 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
- 		sof_rt1308_dai_link(&links[id]);
- 	} else if (sof_ssp_amp_quirk & SOF_CS35L41_SPEAKER_AMP_PRESENT) {
- 		cs35l41_set_dai_link(&links[id]);
-+
-+		/* feedback from amplifier */
-+		links[id].dpcm_capture = 1;
- 	}
- 	links[id].platforms = platform_component;
- 	links[id].num_platforms = ARRAY_SIZE(platform_component);
--- 
-2.30.2
+Thanks!
 
+[1/3] ASoC: dt-bindings: mediatek: mt8192: Add i2s-share properties
+      commit: e056cf4341ae3f856f1e38da02b27cb04de4c69b
+[2/3] ASoC: dt-bindings: rt1015p: Add #sound-dai-cells
+      commit: 2f45536587e53a7a22024e12fbe97ef13598e623
+[3/3] ASoC: dt-bindings: rt5682: Add #sound-dai-cells
+      commit: 0adccaf1eac91a2c2ee6a54a6de042affe9860f4
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

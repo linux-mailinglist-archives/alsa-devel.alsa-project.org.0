@@ -2,76 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 918AE520687
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 May 2022 23:14:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D87895206EB
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 May 2022 23:49:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 249AA16E3;
-	Mon,  9 May 2022 23:13:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 249AA16E3
+	by alsa0.perex.cz (Postfix) with ESMTPS id A14CE16F3;
+	Mon,  9 May 2022 23:48:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A14CE16F3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652130876;
-	bh=/HNj4vbFe+rbGCIOvT0X4rdEp6WvFWKGhMhMgUZ7V6g=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=NuZYbsZziwBXTPl0134iepUkamutQ4Pew8N571/yX4NQq0FagrwRAGe6KjV3KphV3
-	 JuXUIzpN2deExwE2MGyJFBie7UFFNSRQAgoisGXydR9lmwjRPcvIwY+yAhXiM7QjUG
-	 cXQcUuBxwGdVTD027nZZyL4F1Tv4Mz9sF2nZoR+M=
+	s=default; t=1652132940;
+	bh=1op06+rmEJ0598CWsI6qwXjDwA90Uujh1HlQXpzE0j8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=neNoQacS/49YgnBYX9VHQKiUatN51jt/8NqxVzYrmcuM8PI2/laISq5ZUQs6ddZ17
+	 iPA5HfV7JZOfJfqtj7gTtNkf/C4FPIxNLosgnrkt2Gth3ZFVT6eV4oYJY2UcGKhyG9
+	 FUoCRnFw7TcPBhIHmGuE4Twb82LHw+dlfpyddgtw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8559DF80269;
-	Mon,  9 May 2022 23:13:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E2F2BF80269;
+	Mon,  9 May 2022 23:47:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 019D5F8025D; Mon,  9 May 2022 23:13:34 +0200 (CEST)
+ id 82C3AF8053B; Mon,  9 May 2022 23:47:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 82C43F800D3
- for <alsa-devel@alsa-project.org>; Mon,  9 May 2022 23:13:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82C43F800D3
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="fF7Eqyzz"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8B26261702;
- Mon,  9 May 2022 21:13:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27A66C385BB;
- Mon,  9 May 2022 21:13:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1652130808;
- bh=/HNj4vbFe+rbGCIOvT0X4rdEp6WvFWKGhMhMgUZ7V6g=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=fF7EqyzzOgJozMR47JWEeiU3x5UILq3oH6cAxfugjNEuxqX5U22vu92xHiVbwJzrv
- 9jfrDFAxWf9QRAfu8mk0Uy6aRR8G20N0Wb9TJZm81PUdOlU1goXSB70f2kwhQbUIFM
- 4cM/dcLNoK4h9GVLzEj73mrExixbxF6x27IjgYjE/Kbrw3xjjnReage1PYj9TkslD/
- AKZkGCwyHXWicGZ1AuZWJ4Q72V4/AV3zMysbeUjwqHgChv1kLIa4DVMwk4wTBxH4uW
- 508sbIlxNSSg8HK6vjptDSjgPD9hL60LQqjVESSrnoHRIWrEFxgKzm9ue9spY/Lr7k
- gpMpFIIbVaJhg==
-From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, yung-chuan.liao@linux.intel.com,
- pierre-louis.bossart@linux.intel.com, peter.ujfalusi@linux.intel.com,
- rander.wang@intel.com
-In-Reply-To: <20220506132647.18690-1-peter.ujfalusi@linux.intel.com>
-References: <20220506132647.18690-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH 0/8] ASoC: SOF: sof-client: Update for different IPC
- versions
-Message-Id: <165213080684.1980311.14671784909471716067.b4-ty@kernel.org>
-Date: Mon, 09 May 2022 22:13:26 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 695F9F8011C
+ for <alsa-devel@alsa-project.org>; Mon,  9 May 2022 23:47:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 695F9F8011C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="ASUaHiwx"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 249BF6xW021606;
+ Mon, 9 May 2022 16:47:06 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=wv8+QckcwCW0+iJWkfQ3/LiVm57j6JlAwVvbJJ14h5o=;
+ b=ASUaHiwxMJM1v7qA7BW4vWHZ+kpPtF06oFm8HBoRoBZqxbKFnFMRWTqDOwyOUVbxzqPJ
+ YIAt8VS75Jr1xECNQA/AG2brRvqY4PIuhjxGdn9XBsyRdZtsSB9NVq/b9VdXGADxI68g
+ ZhBaGViaehtaO5aHyAsiezB8IeyPzc91tN4S+8fZy770eKvJd/5NFmI14oMn9lpPkCRo
+ +emx+Up8gacvjuwYhYHDfY0vi+5GlIDDFj+itggyumDfTlYR5ilANM8ok+SUrGfURLJp
+ +wQs7B3jf1oJ0jmJKDLaehKRoA2S4SDDTV0gs+eAt9MPml8DgG/p7PoBVH3UqV59Y7Pi Nw== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3fwp613jer-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Mon, 09 May 2022 16:47:05 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Mon, 9 May
+ 2022 22:47:03 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.24 via
+ Frontend Transport; Mon, 9 May 2022 22:47:03 +0100
+Received: from vitaly-Legion-7-16ACHg6.ad.cirrus.com (unknown [198.90.238.55])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 8C5E6475;
+ Mon,  9 May 2022 21:47:03 +0000 (UTC)
+From: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Mark
+ Brown <broonie@kernel.org>
+Subject: [PATCH v2 00/26] *ALSA: hda: cirrus: Add initial DSP support and
+ firmware loading
+Date: Mon, 9 May 2022 22:46:37 +0100
+Message-ID: <20220509214703.4482-1-vitalyr@opensource.cirrus.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, daniel.baluta@nxp.com,
- ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com
+Content-Type: text/plain
+X-Proofpoint-GUID: 9e8ieyieqRYNvKwSuWjrMuRO7ENOeqAI
+X-Proofpoint-ORIG-GUID: 9e8ieyieqRYNvKwSuWjrMuRO7ENOeqAI
+X-Proofpoint-Spam-Reason: safe
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,54 +97,83 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 6 May 2022 16:26:39 +0300, Peter Ujfalusi wrote:
-> The current IPC client infrastructure can only be used with IPC3.
-> This series carries updates for the core side of the client support to handle
-> IPC4 messages and updates the ipc message injector to be usable with IPC4.
-> 
-> The IPC flood test is only supported by SOF_IPC (IPC3), we are not going to
-> create the aux device for it at all if the firmware is using IPC4.
-> 
-> [...]
+The CS35L41 Amplifier contains a DSP, capable of running firmware.
+The firmware can run algorithms such as Speaker Protection, to ensure
+that playback at high gains do not harm the speakers.
+Adding support for CS35L41 firmware into the CS35L41 HDA driver also
+allows us to support several extra features, such as hiberation 
+and interrupts.
 
-Applied to
+The chain adds support in stages:
+- General fixes to improve generalization and code re-use inside
+  the CS35L41 HDA driver.
+- Add support for interrupts into the driver, which is required
+  for complete support of the firmware.
+- Refactor ASoC CS35L41 code which deals with firmware to allow
+  for code re-use inside the CS35L41 HDA driver.
+- Add support for loading firmware and tuning files from file system,
+  and creating alsa controls to control it.
+- Support firmware load paths for different hardware systems.
+- Support suspend/resume in the driver when using firmware. The firmware
+  supports hibernation, which allows the CS35L41 to drop into a low
+  power mode during suspend.
+- Support the ability to unload firmware, swap and reload the firmware.
+  This is to allow different firmware to run during calibration.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+The intended use-case is to load the firmware once on boot, and the driver
+autmatically tries to load the firmware after it binds to the HDA driver.
+This behaviour can be switched off using a kconfig, if desired.
 
-Thanks!
+Stefan Binding (25):
+  ALSA: hda: cs35l41: Fix error in spi cs35l41 hda driver name
+  ALSA: hda: cs35l41: Set Speaker Position for CLSA0100 Laptop
+  ALSA: hda: cs35l41: Remove Set Channel Map api from binding
+  ALSA: hda: cs35l41: Add Support for Interrupts
+  ALSA: hda: cs35l41: Enable GPIO2 Interrupt for CLSA0100 laptops
+  ASoC: cs35l41: Move cs35l41_set_cspl_mbox_cmd to shared code
+  ASoC: cs35l41: Move cs35l41 fs errata into shared code
+  ASoC: cs35l41: Move cs_dsp config struct into shared code
+  ALSA: hda: cs35l41: Add Amp Name based on channel and index
+  ALSA: hda: hda_cs_dsp_ctl: Add Library to support CS_DSP ALSA controls
+  ALSA: hda: hda_cs_dsp_ctl: Add apis to write the controls directly
+  ALSA: hda: cs35l41: Save codec object inside component struct
+  ALSA: hda: cs35l41: Save Subsystem ID inside CS35L41 Driver
+  ALSA: hda: cs35l41: Support reading subsystem id from ACPI
+  ALSA: hda: cs35l41: Support multiple load paths for firmware
+  ALSA: hda: cs35l41: Support Speaker ID for laptops
+  ASoC: cs35l41: Move cs35l41 exit hibernate function into shared code
+  ASoC: cs35l41: Do not print error when waking from hibernation
+  ASoC: cs35l41: Add common cs35l41 enter hibernate function
+  ALSA: hda: cs35l41: Support Hibernation during Suspend
+  ALSA: hda: cs35l41: Read Speaker Calibration data from UEFI variables
+  ALSA: hda: hda_cs_dsp_ctl: Add fw id strings
+  ALSA: hda: cs35l41: Add defaulted values into dsp bypass config
+    sequence
+  ALSA: hda: cs35l41: Support Firmware switching and reloading
+  ALSA: hda: cs35l41: Add kernel config to disable firmware autoload
 
-[1/8] ASoC: SOF: sof-client: Add API to get the maximum IPC payload size
-      commit: a669ec5f4bc485a56b2f379e7c7197a810872cc1
-[2/8] ASoC: SOF: ipc-msg-injector: Query the maximum IPC payload size
-      commit: ef368c3347fe79a4193317b130b02064801920d7
-[3/8] ASoC: SOF: sof-client-probes: Query the maximum IPC payload size
-      commit: a1e5bbc8ea6ae6e0fa1bd42f2ef810b13d9ec066
-[4/8] ASoC: SOF: sof-client: Add API to get the ipc_type
-      commit: cdf8233d2cd2e55c8bc409e5b4fbdb181a1dea2b
-[5/8] ASoC: SOF: sof-client: Add support IPC4 message sending
-      commit: 100c9374318f881c3083573af9dc76afa229fd23
-[6/8] ASoC: SOF: ipc-msg-injector: Separate the message sending
-      commit: a9aa3381e404abae3dd8c37b7c845415b56f0305
-[7/8] ASoC: SOF: ipc-msg-injector: Add support for IPC4 messages
-      commit: 066c67624d8ca2a2465690d4a7b7f52b880e9925
-[8/8] ASoC: SOF: sof-client: IPC flood test can only work with SOF_IPC
-      commit: 5889ccdd094ac32ee52851fc9eccd124897daf2b
+Vitaly Rodionov (1):
+  ALSA: hda: cs35l41: Add initial DSP support and firmware loading
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+ MAINTAINERS                     |   1 +
+ include/sound/cs35l41.h         |  84 +++
+ sound/pci/hda/Kconfig           |  17 +
+ sound/pci/hda/Makefile          |   2 +
+ sound/pci/hda/cs35l41_hda.c     | 954 +++++++++++++++++++++++++++++++-
+ sound/pci/hda/cs35l41_hda.h     |  41 ++
+ sound/pci/hda/cs35l41_hda_i2c.c |   1 +
+ sound/pci/hda/cs35l41_hda_spi.c |   3 +-
+ sound/pci/hda/hda_component.h   |   6 +-
+ sound/pci/hda/hda_cs_dsp_ctl.c  | 424 ++++++++++++++
+ sound/pci/hda/hda_cs_dsp_ctl.h  |  40 ++
+ sound/pci/hda/patch_realtek.c   |  81 +--
+ sound/soc/codecs/cs35l41-lib.c  | 193 +++++++
+ sound/soc/codecs/cs35l41.c      | 186 +------
+ sound/soc/codecs/cs35l41.h      |  18 -
+ 15 files changed, 1797 insertions(+), 254 deletions(-)
+ create mode 100644 sound/pci/hda/hda_cs_dsp_ctl.c
+ create mode 100644 sound/pci/hda/hda_cs_dsp_ctl.h
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+-- 
+2.34.1
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

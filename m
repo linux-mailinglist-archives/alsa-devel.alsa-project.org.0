@@ -2,75 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04D965204CD
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 May 2022 20:57:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A62225204CE
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 May 2022 20:58:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8489C16C0;
-	Mon,  9 May 2022 20:56:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8489C16C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3881F16C3;
+	Mon,  9 May 2022 20:58:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3881F16C3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652122657;
-	bh=ZLYs6CI7s8Jj8EeHsrXSw3oRF8/mCUSKeayVDMKYyPg=;
+	s=default; t=1652122732;
+	bh=BQmdy4euCVu84oLWGyIOABUrNN0LpGizFTgwvqUNuLA=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=CAZImMtBSGQFllMPWa4Aa/Oj/+FCT+95MtPgD3N3ChTWjf1yBn0jhBDODj9psqWBv
-	 CxUcGYeZeCdyw3QxNLV+NTsYJc483xbD5jmSOLGzTCLcFGDZC3LSw8vqDtXzfxiM+y
-	 gy+kEWMDaPu4TMSRjPKMOpxNmMcS9eEeREsXRLcA=
+	b=X5UyD63VLAafLWMI+V9PFVcE/6lPi4ZB9vmoXowu9hhg5oaGdFpYoGT+aIN/i47o7
+	 ga+22fCSXwIXJ00pA39AeJYILPj3ajuPx42cGI0fUReDDI8bm09IQEqc911zDorVBr
+	 OqtqJ924Snr876sCHwywQLHogP9D9fOg9Abcnw3Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 08B25F80269;
-	Mon,  9 May 2022 20:56:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B5303F80269;
+	Mon,  9 May 2022 20:57:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A22AAF8011C; Mon,  9 May 2022 20:56:37 +0200 (CEST)
+ id 9E20AF8025D; Mon,  9 May 2022 20:57:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 79BE1F8011C
- for <alsa-devel@alsa-project.org>; Mon,  9 May 2022 20:56:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79BE1F8011C
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A0CD5F8011C
+ for <alsa-devel@alsa-project.org>; Mon,  9 May 2022 20:57:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0CD5F8011C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
- header.b="HJiXLwHH"
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: nfraprado) with ESMTPSA id B58901F44049
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1652122590;
- bh=ZLYs6CI7s8Jj8EeHsrXSw3oRF8/mCUSKeayVDMKYyPg=;
- h=From:To:Cc:Subject:Date:From;
- b=HJiXLwHH5YEw2s3HHpeH4aPABH0EI2Upl5k26VzT/j4d5Pyx5F75JtEBDK4qU/Wwi
- UuMqI0weAy9luNMb7N1ZL3BxlwAYAJ7xwABSgHk/GIJ9aChTjiZqZP3z/+YJQYCW2K
- +vsBYYr1BxTJ8qu2KhjAOfsOHl3OUck2aUdZsLa8wDs2CFTfolSH6SctvjcXGnQNF3
- q3thmdZaq9qwWlbqPoH/yyHmJo+PwRfEzUpVpajC8CPKP4EjAkabUMIrX3K4V4yGym
- Dk2Guf3NbgXDSmrbsd79FcJLM3rU7hMUZNxVPRRGmfgCpvQZFuapCqYoFeeaAlWNRZ
- Hia2Y5fzdMpSQ==
-From: =?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
- <nfraprado@collabora.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: [PATCH] Revert "ASoC: dt-bindings: mediatek: mt8192: Add i2s-share
- properties"
-Date: Mon,  9 May 2022 14:56:25 -0400
-Message-Id: <20220509185625.580811-1-nfraprado@collabora.com>
-X-Mailer: git-send-email 2.36.0
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="fGnrMi7x"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1652122665; x=1683658665;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=BQmdy4euCVu84oLWGyIOABUrNN0LpGizFTgwvqUNuLA=;
+ b=fGnrMi7xJpzYXSo6Hq83BZKZ4TD/LPxF5NOA3BogPxYNKGL97tHl2XN6
+ vCL8bmEyyF50DMiuYo0vIQwurVJErLzICQB9pFVNWt9U7cbdGqZX5OaFO
+ FgYfRoYc0pqr8/lt1i23TQ8wvjHCVd13WcuNrxlj5gQmUNhvtnQnYVxZX
+ 9jX/fQCgK1PxSQ1SUkLyhZASDvNBVwR2uX2Q/TIb3/KK6A0E+XUlY+cyD
+ G+DMjKcavQdtmDymu86+KlNP5kXaU49LDmvTduE82ZTHy/Mb/AUtqnIB5
+ SyDGef42z79UeCApHUyTtaI/Xriux6ZyH/8hMonn4i1ymLPQhpKKnBXsq w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10342"; a="355569847"
+X-IronPort-AV: E=Sophos;i="5.91,212,1647327600"; d="scan'208";a="355569847"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 May 2022 11:57:39 -0700
+X-IronPort-AV: E=Sophos;i="5.91,212,1647327600"; d="scan'208";a="894493722"
+Received: from djmuller-mobl.amr.corp.intel.com (HELO
+ pbossart-mobl3.amr.corp.intel.com) ([10.212.167.174])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 May 2022 11:57:39 -0700
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: codecs: rt715-sdca: remove useless assignment of ops
+Date: Mon,  9 May 2022 13:57:29 -0500
+Message-Id: <20220509185729.59884-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- =?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
- <nfraprado@collabora.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Jiaxin Yu <jiaxin.yu@mediatek.com>, linux-kernel@vger.kernel.org,
- Shane Chien <shane.chien@mediatek.com>, Rob Herring <robh+dt@kernel.org>,
- linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, kernel@collabora.com,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: tiwai@suse.de, broonie@kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,34 +86,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This reverts commit e056cf4341ae3f856f1e38da02b27cb04de4c69b. The commit
-was merged while the property name and definition were still being
-discussed. Revert the commit for now and a follow up commit will re-add
-the property after it is further discussed and reviewed.
+The ops are already part of the 'struct sdw_driver', it's unclear why
+this was copied into the 'slave' structure - no other driver does so.
 
-Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
-
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
+ sound/soc/codecs/rt715-sdca-sdw.c | 2 --
+ 1 file changed, 2 deletions(-)
 
- Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml | 5 -----
- 1 file changed, 5 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml b/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
-index 5b03c8dbf318..7a25bc9b8060 100644
---- a/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
-+++ b/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
-@@ -54,11 +54,6 @@ properties:
-       - const: aud_infra_clk
-       - const: aud_infra_26m_clk
+diff --git a/sound/soc/codecs/rt715-sdca-sdw.c b/sound/soc/codecs/rt715-sdca-sdw.c
+index a5c673f43d824..0ecd2948f7aa7 100644
+--- a/sound/soc/codecs/rt715-sdca-sdw.c
++++ b/sound/soc/codecs/rt715-sdca-sdw.c
+@@ -181,8 +181,6 @@ static int rt715_sdca_sdw_probe(struct sdw_slave *slave,
+ {
+ 	struct regmap *mbq_regmap, *regmap;
  
--patternProperties:
--  "^i2s[0-35-9]-share$":
--    description: Name of the I2S bus that is shared with this bus
--    pattern: "^I2S[0-35-9]$"
+-	slave->ops = &rt715_sdca_slave_ops;
 -
- required:
-   - compatible
-   - interrupts
+ 	/* Regmap Initialization */
+ 	mbq_regmap = devm_regmap_init_sdw_mbq(slave, &rt715_sdca_mbq_regmap);
+ 	if (IS_ERR(mbq_regmap))
 -- 
-2.36.0
+2.30.2
 

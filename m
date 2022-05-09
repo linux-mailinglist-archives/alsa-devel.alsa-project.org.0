@@ -2,75 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1DA251FC46
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 May 2022 14:12:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0342851FC5A
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 May 2022 14:12:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3C6D918CA;
-	Mon,  9 May 2022 14:11:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C6D918CA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8FD6218DD;
+	Mon,  9 May 2022 14:12:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FD6218DD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652098347;
-	bh=WqEYfTtuozBNA5qrjR/G5GyXUn5xxE8msXTGh3lZLoI=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=paeBHmKivJX0zekI7c0eDkrMB9HwEX4ReO/77kXfshgkX42XGfJP81LXjLymjPFW1
-	 nHiOX++EPmsZ/Nj7UFSzvUluguUUChPWWNPaOwd5PiRiw7cvwDi8UpokicSdKzxCZK
-	 D5moEV6U1iULzLjrgQ3+6ruBtx3/9p2Fz/6xRz1k=
+	s=default; t=1652098378;
+	bh=VbPh6mRdGjQDsMFyGe0Cb6Spbdh6LVTG4V6bxyqtnPk=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=IxrbtV5U+ryaoH1Pq7y3WA/NHRh1sMsEf/BQ8uhqtChQQMep5Y1/3S2AFm8lhCPKa
+	 dT26K85qTnIhOm5EsHjEmYBdnlVWX//JZUF13LsjMh33JabgWdVWj6RapEjLlMFBdB
+	 //4mh2V0zMF36HwXaX3cSKkAGpAN4fMxfLDlow7E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AF06AF800D3;
-	Mon,  9 May 2022 14:11:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C5DE2F80511;
+	Mon,  9 May 2022 14:12:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AB700F80269; Mon,  9 May 2022 14:11:26 +0200 (CEST)
+ id 5BB49F80510; Mon,  9 May 2022 14:12:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from phobos.denx.de (phobos.denx.de
- [IPv6:2a01:238:438b:c500:173d:9f52:ddab:ee01])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 62BEFF800D3
- for <alsa-devel@alsa-project.org>; Mon,  9 May 2022 14:11:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62BEFF800D3
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=denx.de header.i=@denx.de
- header.b="Sw6BYO5b"
-Received: from localhost.localdomain (85-222-111-42.dynamic.chello.pl
- [85.222.111.42])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- (Authenticated sender: lukma@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 4F1C483A79;
- Mon,  9 May 2022 14:11:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1652098279;
- bh=IVzAp6mLcI5fjIjVSE0UrbrRh7utWQXvE4kL+Mmi6mg=;
- h=From:To:Cc:Subject:Date:From;
- b=Sw6BYO5bLJuvXdSDJyowlWgLu5sQkCcAUtk27KOyW/VgZH+YDRs7sfzGEkQ6xn70/
- wcyDtPEYcxZBpJqbCHw5L2RLAZDO+2T4OF9RBOzo3gC8+aulshR8BxHj82/YHLShan
- hp7EADvCeRp8J1oGiZ+NpGLWRJrxPrEYiL9uS7Mx0X9/eQHHcCWR/m0Ik8TSHx9NWn
- TIf/4ohapp35wP3VW+BQdQnGeC/JUE3D5grlvtm2kTacsJTGwykaO2RVQldiSt5Pc/
- Q+reqQ7uHZ3GVFNtNBEPSyIKcOfYaiQm/c2y8evsZx8NC08aVyyuJH/b9FRqB+A/zi
- VfKsX0yFlp6qQ==
-From: Lukasz Majewski <lukma@denx.de>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>
-Subject: [PATCH 1/2] ASoC: wm8940: add devicetree support
-Date: Mon,  9 May 2022 14:10:55 +0200
-Message-Id: <20220509121055.31103-1-lukma@denx.de>
-X-Mailer: git-send-email 2.20.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 48428F8014C
+ for <alsa-devel@alsa-project.org>; Mon,  9 May 2022 14:11:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48428F8014C
+Received: from canpemm500007.china.huawei.com (unknown [172.30.72.57])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4Kxg250Jr4zGphW;
+ Mon,  9 May 2022 20:09:01 +0800 (CST)
+Received: from [10.174.179.215] (10.174.179.215) by
+ canpemm500007.china.huawei.com (7.192.104.62) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.24; Mon, 9 May 2022 20:11:47 +0800
+Subject: Re: [PATCH v2] ASoC: mediatek: mt8195: Fix build warning without
+ CONFIG_OF
+To: Mark Brown <broonie@kernel.org>
+References: <20220507021424.12180-1-yuehaibing@huawei.com>
+ <YnkAAx3VAXCMFOTn@sirena.org.uk>
+From: YueHaibing <yuehaibing@huawei.com>
+Message-ID: <3ba32c96-eec3-61a0-aece-d161d8db24ac@huawei.com>
+Date: Mon, 9 May 2022 20:11:46 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
+In-Reply-To: <YnkAAx3VAXCMFOTn@sirena.org.uk>
+Content-Type: text/plain; charset="utf-8"
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: clamav-milter 0.103.5 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Lukasz Majewski <lukma@denx.de>
+X-Originating-IP: [10.174.179.215]
+X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
+ canpemm500007.china.huawei.com (7.192.104.62)
+X-CFilter-Loop: Reflected
+Cc: alsa-devel@alsa-project.org, arnd@arndb.de, linux-kernel@vger.kernel.org,
+ tiwai@suse.com, lgirdwood@gmail.com, tzungbi@google.com,
+ linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
+ matthias.bgg@gmail.com, linux-arm-kernel@lists.infradead.org,
+ angelogioacchino.delregno@collabora.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,50 +82,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This adds devicetree support to the wm8940 codec driver.
-With a DT-based kernel, there is no board-specific setting
-to select the driver so allow it to be manually chosen.
+On 2022/5/9 19:50, Mark Brown wrote:
+> On Sat, May 07, 2022 at 10:14:24AM +0800, YueHaibing wrote:
+>> sound/soc/mediatek/mt8195/mt8195-mt6359.c:1639:32: warning: ‘mt8195_mt6359_max98390_rt5682_card’ defined but not used [-Wunused-variable]
+>>  1639 | static struct mt8195_card_data mt8195_mt6359_max98390_rt5682_card = {
+>>       |                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> 
+> This doesn't apply against current code, please check and resend (it
+> looks like you have additional patches in your tree, am doesn't know the
+> base SHA1s?).
 
-Signed-off-by: Lukasz Majewski <lukma@denx.de>
----
- sound/soc/codecs/Kconfig  | 2 +-
- sound/soc/codecs/wm8940.c | 7 +++++++
- 2 files changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index f46a22660103..5120b15139bc 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -1811,7 +1811,7 @@ config SND_SOC_WM8904
- 	depends on I2C
- 
- config SND_SOC_WM8940
--	tristate
-+	tristate "Wolfson Microelectronics WM8940 codec"
- 	depends on I2C
- 
- config SND_SOC_WM8955
-diff --git a/sound/soc/codecs/wm8940.c b/sound/soc/codecs/wm8940.c
-index 440d048ef0c0..8615a55f84dd 100644
---- a/sound/soc/codecs/wm8940.c
-+++ b/sound/soc/codecs/wm8940.c
-@@ -779,9 +779,16 @@ static const struct i2c_device_id wm8940_i2c_id[] = {
- };
- MODULE_DEVICE_TABLE(i2c, wm8940_i2c_id);
- 
-+static const struct of_device_id wm8940_of_match[] = {
-+	{ .compatible = "wlf,wm8940", },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, wm8940_of_match);
-+
- static struct i2c_driver wm8940_i2c_driver = {
- 	.driver = {
- 		.name = "wm8940",
-+		.of_match_table = wm8940_of_match,
- 	},
- 	.probe =    wm8940_i2c_probe,
- 	.id_table = wm8940_i2c_id,
--- 
-2.35.1
-
+Sorry, will rebase on next-20220509 ab
+> 

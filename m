@@ -2,71 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D002451F755
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 May 2022 10:54:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12C1D51F745
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 May 2022 10:51:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 63E2018B2;
-	Mon,  9 May 2022 10:53:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63E2018B2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 985ED18E3;
+	Mon,  9 May 2022 10:50:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 985ED18E3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652086460;
-	bh=v9Oy3M6qVpi9RQ+ICLK4FNOi8eIZA530mpjwNEP1pZY=;
+	s=default; t=1652086297;
+	bh=KJGRpht/OLf43Jc0/e9jNetyueHwjrsTWxUS2sSOdME=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OyjnCiTRnezHRBzryMo8m7KiCWze5VBPmlrg3zfelwxoL6CPlUxb6V7dDysrtk+NJ
-	 KRbORVVUXMuldvzZwnMIDw0GDWUdbulXWhF3NoQfHoSNfMgbel06kjciA9wzKOIhFK
-	 VjQhGt9MW2EIkA1lWUImBJs8EDuFeuRUVty+FxaM=
+	b=fM8z1wyEOlzk3AX8Ouki+7mPBYBo7XToAnYPH4uPn18l61lpPKLS0N0EtupUN3rzB
+	 Wn1bff08oZKLPt4OM3MJsRaEX8OZetIoL0DJ3fFFwyS1VRXFqLOC/G8v+N+ADjzids
+	 0bdzS6pK15INlyw/7nJw+LVwioQdPx5cvTny9T/w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 272C5F80519;
-	Mon,  9 May 2022 10:49:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8CC37F8053D;
+	Mon,  9 May 2022 10:49:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5FA91F805B6; Mon,  9 May 2022 10:49:47 +0200 (CEST)
+ id 1E309F80533; Mon,  9 May 2022 10:49:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4476BF80269
- for <alsa-devel@alsa-project.org>; Mon,  9 May 2022 10:48:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4476BF80269
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6944CF80533
+ for <alsa-devel@alsa-project.org>; Mon,  9 May 2022 10:48:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6944CF80533
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="njcGHG6v"
+ header.b="Cd43sCSf"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1652086129; x=1683622129;
+ t=1652086139; x=1683622139;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=v9Oy3M6qVpi9RQ+ICLK4FNOi8eIZA530mpjwNEP1pZY=;
- b=njcGHG6vBWPfe6Z2KgszCr2NkSzuLBqdlfL64wZ9cJUfklj3nkyxkEPP
- x6HZ/tKyo1DGHXgIDNCbW4BKGNAKt/v+5q2I2tBasaqzpTqHwteIEyBcD
- aJI4V3KAIbfNoaxvMpgUqJqqtS0QJWZPQbmV9D3KmUHJczXMSnEOcFagn
- YZMw0SCQEAz8pG8FTUUpjuqFEoMli6yaWngQF70YXQKspljklCrGo1QuF
- U3dyRit5XEns1r1tRPzTJuMIqn4LXaCgCJCuQFpd/aa/tSLF3VTpzRrOd
- RzAJiUg91lsOYjpalxl5TLEGk3aLyeU81LIsn/mIvpcPdGzxaUVm7tHu6 Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10341"; a="294208527"
-X-IronPort-AV: E=Sophos;i="5.91,210,1647327600"; d="scan'208";a="294208527"
+ bh=KJGRpht/OLf43Jc0/e9jNetyueHwjrsTWxUS2sSOdME=;
+ b=Cd43sCSfdKpes96cy3K85FK3DodAgtftkGomN0rh4j2hDqVKueE4QLb9
+ v/e9r0X6c7nnFukiZ7ZC8LzOjX3703TH+Sbd+poVQkdL6xYLA+QA4DdAI
+ mQ5wFrA/VQ7mdtnByhjATlvNxQIgLfRncZO1CC0RGIBHPhvBVd7bzmQYT
+ g4jOlNz54OPL+enNsCTSuJAi1BT5d5TY8olJ4oOLjYDhD9xu5y+PUxxMM
+ wOMte+0Mx3EuQPcavwrV6oVM3l9mdPoErUzouIDtKAoUTP9XPV+7Pnehb
+ vm3ZzPAzFQxPlUNU7IG03FwHULkwHE9L9tRThkNWACpUTQSLHxPce0qBt A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10341"; a="294208538"
+X-IronPort-AV: E=Sophos;i="5.91,210,1647327600"; d="scan'208";a="294208538"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 May 2022 01:48:46 -0700
+ 09 May 2022 01:48:50 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,210,1647327600"; d="scan'208";a="738068247"
+X-IronPort-AV: E=Sophos;i="5.91,210,1647327600"; d="scan'208";a="738068270"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by orsmga005.jf.intel.com with ESMTP; 09 May 2022 01:48:43 -0700
+ by orsmga005.jf.intel.com with ESMTP; 09 May 2022 01:48:46 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Subject: [PATCH v2 04/15] ASoC: Intel: avs: non-HDA PCM BE operations
-Date: Mon,  9 May 2022 10:58:10 +0200
-Message-Id: <20220509085821.3852259-5-cezary.rojewski@intel.com>
+Subject: [PATCH v2 05/15] ASoC: Intel: avs: HDA PCM BE operations
+Date: Mon,  9 May 2022 10:58:11 +0200
+Message-Id: <20220509085821.3852259-6-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220509085821.3852259-1-cezary.rojewski@intel.com>
 References: <20220509085821.3852259-1-cezary.rojewski@intel.com>
@@ -93,125 +93,153 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-DMIC and I2S interfaces differ in DMA operations from the HDAudio
-interface. With that in mind, implement all DAI operations to handle
-non-HDA BE interfaces.
+HDA streaming in DSP world means enlisting HDAudio links as BE
+interfaces. Another difference when compared to its DMIC and I2S friends
+is lack of NHLT blob usage - no additional hardware configuration is
+needed.
 
-To prevent code duplication in newly added code, I2S platform
-registering is dynamic - makes use of specified port_mask and TDMs
-array to populate as many DAIs as required.
+Similarly to I2S component, HDA populates its DAIs dynamically, here by
+the means of codec->pcm_list_head. Allows for cutting the number of soc
+components required to support the interface.
 
 Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/intel/avs/avs.h |   4 +
- sound/soc/intel/avs/pcm.c | 222 +++++++++++++++++++++++++++++++++++++-
- 2 files changed, 225 insertions(+), 1 deletion(-)
+ sound/soc/intel/avs/avs.h |   1 +
+ sound/soc/intel/avs/pcm.c | 349 ++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 350 insertions(+)
 
 diff --git a/sound/soc/intel/avs/avs.h b/sound/soc/intel/avs/avs.h
-index 14b4a780a91c..b4fd67fac17d 100644
+index b4fd67fac17d..e628f78d1864 100644
 --- a/sound/soc/intel/avs/avs.h
 +++ b/sound/soc/intel/avs/avs.h
-@@ -270,4 +270,8 @@ struct avs_soc_component {
+@@ -273,5 +273,6 @@ extern const struct snd_soc_dai_ops avs_dai_fe_ops;
+ int avs_dmic_platform_register(struct avs_dev *adev, const char *name);
+ int avs_i2s_platform_register(struct avs_dev *adev, const char *name, unsigned long port_mask,
+ 			      unsigned long *tdms);
++int avs_hda_platform_register(struct avs_dev *adev, const char *name);
  
- extern const struct snd_soc_dai_ops avs_dai_fe_ops;
- 
-+int avs_dmic_platform_register(struct avs_dev *adev, const char *name);
-+int avs_i2s_platform_register(struct avs_dev *adev, const char *name, unsigned long port_mask,
-+			      unsigned long *tdms);
-+
  #endif /* __SOUND_SOC_INTEL_AVS_H */
 diff --git a/sound/soc/intel/avs/pcm.c b/sound/soc/intel/avs/pcm.c
-index 9d01ed37c11e..079fa19f7d7b 100644
+index 079fa19f7d7b..668f533578a6 100644
 --- a/sound/soc/intel/avs/pcm.c
 +++ b/sound/soc/intel/avs/pcm.c
-@@ -112,6 +112,23 @@ static int avs_dai_hw_params(struct snd_pcm_substream *substream,
- 	return 0;
- }
+@@ -245,6 +245,155 @@ static const struct snd_soc_dai_ops avs_dai_nonhda_be_ops = {
+ 	.trigger = avs_dai_nonhda_be_trigger,
+ };
  
-+static int avs_dai_be_hw_params(struct snd_pcm_substream *substream,
-+				struct snd_pcm_hw_params *be_hw_params, struct snd_soc_dai *dai,
-+				int dma_id)
-+{
-+	struct snd_pcm_hw_params *fe_hw_params = NULL;
-+	struct snd_soc_pcm_runtime *fe, *be;
-+	struct snd_soc_dpcm *dpcm;
-+
-+	be = asoc_substream_to_rtd(substream);
-+	for_each_dpcm_fe(be, substream->stream, dpcm) {
-+		fe = dpcm->fe;
-+		fe_hw_params = &fe->dpcm[substream->stream].hw_params;
-+	}
-+
-+	return avs_dai_hw_params(substream, fe_hw_params, be_hw_params, dai, dma_id);
-+}
-+
- static int avs_dai_prepare(struct avs_dev *adev, struct snd_pcm_substream *substream,
- 			   struct snd_soc_dai *dai)
- {
-@@ -134,6 +151,100 @@ static int avs_dai_prepare(struct avs_dev *adev, struct snd_pcm_substream *subst
- 	return ret;
- }
- 
-+static int avs_dai_nonhda_be_startup(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
++static int avs_dai_hda_be_startup(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
 +{
 +	return avs_dai_startup(substream, dai, false);
 +}
 +
-+static void avs_dai_nonhda_be_shutdown(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
++static void avs_dai_hda_be_shutdown(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
 +{
-+	struct avs_dma_data *data;
-+
-+	data = snd_soc_dai_get_dma_data(dai, substream);
-+
-+	snd_soc_dai_set_dma_data(dai, substream, NULL);
-+	kfree(data);
++	return avs_dai_nonhda_be_shutdown(substream, dai);
 +}
 +
-+static int avs_dai_nonhda_be_hw_params(struct snd_pcm_substream *substream,
-+				       struct snd_pcm_hw_params *hw_params, struct snd_soc_dai *dai)
++static int avs_dai_hda_be_hw_params(struct snd_pcm_substream *substream,
++				    struct snd_pcm_hw_params *hw_params, struct snd_soc_dai *dai)
 +{
 +	struct avs_dma_data *data;
++	struct hdac_ext_stream *link_stream;
 +
 +	data = snd_soc_dai_get_dma_data(dai, substream);
 +	if (data->path)
 +		return 0;
 +
-+	/* Actual port-id comes from topology. */
-+	return avs_dai_be_hw_params(substream, hw_params, dai, 0);
++	link_stream = substream->runtime->private_data;
++
++	return avs_dai_be_hw_params(substream, hw_params, dai,
++				    hdac_stream(link_stream)->stream_tag - 1);
 +}
 +
-+static int avs_dai_nonhda_be_hw_free(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
++static int avs_dai_hda_be_hw_free(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
 +{
 +	struct avs_dma_data *data;
++	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
++	struct hdac_ext_stream *link_stream;
++	struct hdac_ext_link *link;
++	struct hda_codec *codec;
 +
 +	dev_dbg(dai->dev, "%s: %s\n", __func__, dai->name);
 +
 +	data = snd_soc_dai_get_dma_data(dai, substream);
-+	if (data->path) {
-+		avs_path_free(data->path);
-+		data->path = NULL;
-+	}
++	if (!data->path)
++		return 0;
++
++	link_stream = substream->runtime->private_data;
++	link_stream->link_prepared = false;
++	avs_path_free(data->path);
++	data->path = NULL;
++
++	/* clear link <-> stream mapping */
++	codec = dev_to_hda_codec(asoc_rtd_to_codec(rtd, 0)->dev);
++	link = snd_hdac_ext_bus_link_at(&codec->bus->core, codec->core.addr);
++	if (!link)
++		return -EINVAL;
++
++	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
++		snd_hdac_ext_link_clear_stream_id(link, hdac_stream(link_stream)->stream_tag);
 +
 +	return 0;
 +}
 +
-+static int avs_dai_nonhda_be_prepare(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
++static int avs_dai_hda_be_prepare(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
 +{
-+	return avs_dai_prepare(to_avs_dev(dai->dev), substream, dai);
++	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
++	struct snd_pcm_runtime *runtime = substream->runtime;
++	struct hdac_ext_stream *link_stream = runtime->private_data;
++	struct hdac_ext_link *link;
++	struct hda_codec *codec;
++	struct hdac_bus *bus;
++	unsigned int format_val;
++	int ret;
++
++	if (link_stream->link_prepared)
++		return 0;
++
++	codec = dev_to_hda_codec(asoc_rtd_to_codec(rtd, 0)->dev);
++	bus = &codec->bus->core;
++	format_val = snd_hdac_calc_stream_format(runtime->rate, runtime->channels, runtime->format,
++						 runtime->sample_bits, 0);
++
++	snd_hdac_ext_stream_decouple(bus, link_stream, true);
++	snd_hdac_ext_link_stream_reset(link_stream);
++	snd_hdac_ext_link_stream_setup(link_stream, format_val);
++
++	link = snd_hdac_ext_bus_link_at(bus, codec->core.addr);
++	if (!link)
++		return -EINVAL;
++
++	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
++		snd_hdac_ext_link_set_stream_id(link, hdac_stream(link_stream)->stream_tag);
++
++	ret = avs_dai_prepare(to_avs_dev(dai->dev), substream, dai);
++	if (ret)
++		return ret;
++
++	link_stream->link_prepared = true;
++	return 0;
 +}
 +
-+static int avs_dai_nonhda_be_trigger(struct snd_pcm_substream *substream, int cmd,
-+				     struct snd_soc_dai *dai)
++static int avs_dai_hda_be_trigger(struct snd_pcm_substream *substream, int cmd,
++				  struct snd_soc_dai *dai)
 +{
++	struct hdac_ext_stream *link_stream;
 +	struct avs_dma_data *data;
 +	int ret = 0;
 +
++	dev_dbg(dai->dev, "entry %s cmd=%d\n", __func__, cmd);
++
 +	data = snd_soc_dai_get_dma_data(dai, substream);
++	link_stream = substream->runtime->private_data;
 +
 +	switch (cmd) {
 +	case SNDRV_PCM_TRIGGER_START:
 +	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
++		snd_hdac_ext_link_stream_start(link_stream);
++
 +		ret = avs_path_run(data->path, AVS_TPLG_TRIGGER_AUTO);
 +		if (ret < 0)
 +			dev_err(dai->dev, "run BE path failed: %d\n", ret);
@@ -222,6 +250,8 @@ index 9d01ed37c11e..079fa19f7d7b 100644
 +		ret = avs_path_pause(data->path);
 +		if (ret < 0)
 +			dev_err(dai->dev, "pause BE path failed: %d\n", ret);
++
++		snd_hdac_ext_link_stream_clear(link_stream);
 +
 +		if (cmd == SNDRV_PCM_TRIGGER_STOP) {
 +			ret = avs_path_reset(data->path);
@@ -238,69 +268,30 @@ index 9d01ed37c11e..079fa19f7d7b 100644
 +	return ret;
 +}
 +
-+static const struct snd_soc_dai_ops avs_dai_nonhda_be_ops = {
-+	.startup = avs_dai_nonhda_be_startup,
-+	.shutdown = avs_dai_nonhda_be_shutdown,
-+	.hw_params = avs_dai_nonhda_be_hw_params,
-+	.hw_free = avs_dai_nonhda_be_hw_free,
-+	.prepare = avs_dai_nonhda_be_prepare,
-+	.trigger = avs_dai_nonhda_be_trigger,
++static const struct snd_soc_dai_ops avs_dai_hda_be_ops = {
++	.startup = avs_dai_hda_be_startup,
++	.shutdown = avs_dai_hda_be_shutdown,
++	.hw_params = avs_dai_hda_be_hw_params,
++	.hw_free = avs_dai_hda_be_hw_free,
++	.prepare = avs_dai_hda_be_prepare,
++	.trigger = avs_dai_hda_be_trigger,
 +};
 +
  static const unsigned int rates[] = {
  	8000, 11025, 12000, 16000,
  	22050, 24000, 32000, 44100,
-@@ -589,7 +700,6 @@ static const struct snd_soc_component_driver avs_component_driver = {
- 	.non_legacy_dai_naming	= true,
- };
- 
--__maybe_unused
- static int avs_soc_component_register(struct device *dev, const char *name,
- 				      const struct snd_soc_component_driver *drv,
- 				      struct snd_soc_dai_driver *cpu_dais, int num_cpu_dais)
-@@ -611,3 +721,113 @@ static int avs_soc_component_register(struct device *dev, const char *name,
- 
- 	return snd_soc_add_component(&acomp->base, cpu_dais, num_cpu_dais);
+@@ -831,3 +980,203 @@ int avs_i2s_platform_register(struct avs_dev *adev, const char *name, unsigned l
+ plat_register:
+ 	return avs_soc_component_register(adev->dev, name, &avs_component_driver, cpus, cpu_count);
  }
 +
-+static struct snd_soc_dai_driver dmic_cpu_dais[] = {
-+{
-+	.name = "DMIC Pin",
-+	.ops = &avs_dai_nonhda_be_ops,
-+	.capture = {
-+		.stream_name	= "DMIC Rx",
-+		.channels_min	= 1,
-+		.channels_max	= 4,
-+		.rates		= SNDRV_PCM_RATE_16000 | SNDRV_PCM_RATE_48000,
-+		.formats	= SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE,
-+	},
-+},
-+{
-+	.name = "DMIC WoV Pin",
-+	.ops = &avs_dai_nonhda_be_ops,
-+	.capture = {
-+		.stream_name	= "DMIC WoV Rx",
-+		.channels_min	= 1,
-+		.channels_max	= 4,
-+		.rates		= SNDRV_PCM_RATE_16000,
-+		.formats	= SNDRV_PCM_FMTBIT_S16_LE,
-+	},
-+},
-+};
-+
-+int avs_dmic_platform_register(struct avs_dev *adev, const char *name)
-+{
-+	return avs_soc_component_register(adev->dev, name, &avs_component_driver, dmic_cpu_dais,
-+					  ARRAY_SIZE(dmic_cpu_dais));
-+}
-+
-+static const struct snd_soc_dai_driver i2s_dai_template = {
-+	.ops = &avs_dai_nonhda_be_ops,
++/* HD-Audio CPU DAI template */
++static const struct snd_soc_dai_driver hda_cpu_dai = {
++	.ops = &avs_dai_hda_be_ops,
 +	.playback = {
 +		.channels_min	= 1,
 +		.channels_max	= 8,
-+		.rates		= SNDRV_PCM_RATE_8000_192000 |
-+				  SNDRV_PCM_RATE_KNOT,
++		.rates		= SNDRV_PCM_RATE_8000_192000,
 +		.formats	= SNDRV_PCM_FMTBIT_S16_LE |
 +				  SNDRV_PCM_FMTBIT_S24_LE |
 +				  SNDRV_PCM_FMTBIT_S32_LE,
@@ -308,69 +299,190 @@ index 9d01ed37c11e..079fa19f7d7b 100644
 +	.capture = {
 +		.channels_min	= 1,
 +		.channels_max	= 8,
-+		.rates		= SNDRV_PCM_RATE_8000_192000 |
-+				  SNDRV_PCM_RATE_KNOT,
++		.rates		= SNDRV_PCM_RATE_8000_192000,
 +		.formats	= SNDRV_PCM_FMTBIT_S16_LE |
 +				  SNDRV_PCM_FMTBIT_S24_LE |
 +				  SNDRV_PCM_FMTBIT_S32_LE,
 +	},
 +};
 +
-+int avs_i2s_platform_register(struct avs_dev *adev, const char *name, unsigned long port_mask,
-+			      unsigned long *tdms)
++static void avs_component_hda_unregister_dais(struct snd_soc_component *component)
 +{
-+	struct snd_soc_dai_driver *cpus, *dai;
-+	size_t ssp_count, cpu_count;
-+	int i, j;
++	struct snd_soc_acpi_mach *mach;
++	struct snd_soc_dai *dai, *save;
++	struct hda_codec *codec;
++	char name[32];
 +
-+	ssp_count = adev->hw_cfg.i2s_caps.ctrl_count;
-+	cpu_count = hweight_long(port_mask);
-+	if (tdms)
-+		for_each_set_bit(i, &port_mask, ssp_count)
-+			cpu_count += hweight_long(tdms[i]);
++	mach = dev_get_platdata(component->card->dev);
++	codec = mach->pdata;
++	sprintf(name, "%s-cpu", dev_name(&codec->core.dev));
 +
-+	cpus = devm_kzalloc(adev->dev, sizeof(*cpus) * cpu_count, GFP_KERNEL);
-+	if (!cpus)
++	for_each_component_dais_safe(component, dai, save) {
++		if (!strstr(dai->driver->name, name))
++			continue;
++
++		if (dai->playback_widget)
++			snd_soc_dapm_free_widget(dai->playback_widget);
++		if (dai->capture_widget)
++			snd_soc_dapm_free_widget(dai->capture_widget);
++		snd_soc_unregister_dai(dai);
++	}
++}
++
++static int avs_component_hda_probe(struct snd_soc_component *component)
++{
++	struct snd_soc_dapm_context *dapm;
++	struct snd_soc_dai_driver *dais;
++	struct snd_soc_acpi_mach *mach;
++	struct hda_codec *codec;
++	struct hda_pcm *pcm;
++	const char *cname;
++	int pcm_count = 0, ret, i;
++
++	mach = dev_get_platdata(component->card->dev);
++	if (!mach)
++		return -EINVAL;
++
++	codec = mach->pdata;
++	if (list_empty(&codec->pcm_list_head))
++		return -EINVAL;
++	list_for_each_entry(pcm, &codec->pcm_list_head, list)
++		pcm_count++;
++
++	dais = devm_kcalloc(component->dev, pcm_count, sizeof(*dais),
++			    GFP_KERNEL);
++	if (!dais)
 +		return -ENOMEM;
 +
-+	dai = cpus;
-+	for_each_set_bit(i, &port_mask, ssp_count) {
-+		memcpy(dai, &i2s_dai_template, sizeof(*dai));
++	cname = dev_name(&codec->core.dev);
++	dapm = snd_soc_component_get_dapm(component);
++	pcm = list_first_entry(&codec->pcm_list_head, struct hda_pcm, list);
 +
-+		dai->name =
-+			devm_kasprintf(adev->dev, GFP_KERNEL, "SSP%d Pin", i);
-+		dai->playback.stream_name =
-+			devm_kasprintf(adev->dev, GFP_KERNEL, "ssp%d Tx", i);
-+		dai->capture.stream_name =
-+			devm_kasprintf(adev->dev, GFP_KERNEL, "ssp%d Rx", i);
++	for (i = 0; i < pcm_count; i++, pcm = list_next_entry(pcm, list)) {
++		struct snd_soc_dai *dai;
 +
-+		if (!dai->name || !dai->playback.stream_name || !dai->capture.stream_name)
-+			return -ENOMEM;
-+		dai++;
-+	}
++		memcpy(&dais[i], &hda_cpu_dai, sizeof(*dais));
++		dais[i].id = i;
++		dais[i].name = devm_kasprintf(component->dev, GFP_KERNEL,
++					      "%s-cpu%d", cname, i);
++		if (!dais[i].name) {
++			ret = -ENOMEM;
++			goto exit;
++		}
 +
-+	if (!tdms)
-+		goto plat_register;
++		if (pcm->stream[0].substreams) {
++			dais[i].playback.stream_name =
++				devm_kasprintf(component->dev, GFP_KERNEL,
++					       "%s-cpu%d Tx", cname, i);
++			if (!dais[i].playback.stream_name) {
++				ret = -ENOMEM;
++				goto exit;
++			}
++		}
 +
-+	for_each_set_bit(i, &port_mask, ssp_count) {
-+		for_each_set_bit(j, &tdms[i], ssp_count) {
-+			memcpy(dai, &i2s_dai_template, sizeof(*dai));
++		if (pcm->stream[1].substreams) {
++			dais[i].capture.stream_name =
++				devm_kasprintf(component->dev, GFP_KERNEL,
++					       "%s-cpu%d Rx", cname, i);
++			if (!dais[i].capture.stream_name) {
++				ret = -ENOMEM;
++				goto exit;
++			}
++		}
 +
-+			dai->name =
-+				devm_kasprintf(adev->dev, GFP_KERNEL, "SSP%d:%d Pin", i, j);
-+			dai->playback.stream_name =
-+				devm_kasprintf(adev->dev, GFP_KERNEL, "ssp%d:%d Tx", i, j);
-+			dai->capture.stream_name =
-+				devm_kasprintf(adev->dev, GFP_KERNEL, "ssp%d:%d Rx", i, j);
++		dai = snd_soc_register_dai(component, &dais[i], false);
++		if (!dai) {
++			dev_err(component->dev, "register dai for %s failed\n",
++				pcm->name);
++			ret = -EINVAL;
++			goto exit;
++		}
 +
-+			if (!dai->name || !dai->playback.stream_name || !dai->capture.stream_name)
-+				return -ENOMEM;
-+			dai++;
++		ret = snd_soc_dapm_new_dai_widgets(dapm, dai);
++		if (ret < 0) {
++			dev_err(component->dev, "create widgets failed: %d\n",
++				ret);
++			goto exit;
 +		}
 +	}
 +
-+plat_register:
-+	return avs_soc_component_register(adev->dev, name, &avs_component_driver, cpus, cpu_count);
++	ret = avs_component_probe(component);
++exit:
++	if (ret)
++		avs_component_hda_unregister_dais(component);
++
++	return ret;
++}
++
++static void avs_component_hda_remove(struct snd_soc_component *component)
++{
++	avs_component_hda_unregister_dais(component);
++	avs_component_remove(component);
++}
++
++static int avs_component_hda_open(struct snd_soc_component *component,
++				  struct snd_pcm_substream *substream)
++{
++	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
++	struct hdac_ext_stream *link_stream;
++	struct hda_codec *codec;
++
++	/* only BE DAI links are handled here */
++	if (!rtd->dai_link->no_pcm)
++		return avs_component_open(component, substream);
++
++	codec = dev_to_hda_codec(asoc_rtd_to_codec(rtd, 0)->dev);
++	link_stream = snd_hdac_ext_stream_assign(&codec->bus->core, substream,
++					     HDAC_EXT_STREAM_TYPE_LINK);
++	if (!link_stream)
++		return -EBUSY;
++
++	substream->runtime->private_data = link_stream;
++	return 0;
++}
++
++static int avs_component_hda_close(struct snd_soc_component *component,
++				   struct snd_pcm_substream *substream)
++{
++	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
++	struct hdac_ext_stream *link_stream;
++
++	/* only BE DAI links are handled here */
++	if (!rtd->dai_link->no_pcm)
++		return 0;
++
++	link_stream = substream->runtime->private_data;
++	snd_hdac_ext_stream_release(link_stream, HDAC_EXT_STREAM_TYPE_LINK);
++	substream->runtime->private_data = NULL;
++
++	return 0;
++}
++
++static const struct snd_soc_component_driver avs_hda_component_driver = {
++	.name			= "avs-hda-pcm",
++	.probe			= avs_component_hda_probe,
++	.remove			= avs_component_hda_remove,
++	.open			= avs_component_hda_open,
++	.close			= avs_component_hda_close,
++	.pointer		= avs_component_pointer,
++	.mmap			= avs_component_mmap,
++	.pcm_construct		= avs_component_construct,
++	/*
++	 * hda platform component's probe() is dependent on
++	 * codec->pcm_list_head, it needs to be initialized after codec
++	 * component. remove_order is here for completeness sake
++	 */
++	.probe_order		= SND_SOC_COMP_ORDER_LATE,
++	.remove_order		= SND_SOC_COMP_ORDER_EARLY,
++	.module_get_upon_open	= 1,
++	.topology_name_prefix	= "intel/avs",
++	.non_legacy_dai_naming	= true,
++};
++
++int avs_hda_platform_register(struct avs_dev *adev, const char *name)
++{
++	return avs_soc_component_register(adev->dev, name,
++					  &avs_hda_component_driver, NULL, 0);
 +}
 -- 
 2.25.1

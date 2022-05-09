@@ -2,75 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D1C052015F
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 May 2022 17:46:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FDAD520160
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 May 2022 17:47:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B83DF1900;
-	Mon,  9 May 2022 17:45:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B83DF1900
+	by alsa0.perex.cz (Postfix) with ESMTPS id 956EB1721;
+	Mon,  9 May 2022 17:46:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 956EB1721
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652111207;
-	bh=b+0bTNxvxsgDQNXw7Vjz5YHZ8VLG91q1lL5GmMMGn2M=;
+	s=default; t=1652111240;
+	bh=CrQ0/ckWEfkQpNpOlG4urFcVG9MU01f9luLgk3xayCw=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GDiSSiX46JB3aF0vuCUtFQI613ZwaoQDY2lzfqn+izvF4EzvyRHYnpVuf5z6FMJaj
-	 GfANdFcYxR80/Bsams9fIXufGmJ+j1adkQyck0ScHtcsqoKdZYVmX7LCXoEnt32dkp
-	 M4rpvXWquO4SQYwMkgUZdpU5gHYlQvVAaeeMaHGQ=
+	b=MyOU5B+Lkucqy/2Xn4AddTgQLE6MEbQ5GtdNHW6+WxBHC8hmlKAc5Hd+ugbojeH9w
+	 kCwDzLezfNkmHWTW+E1d9rSp0N0qVFEJWgDRxdQuillqUAjqr8w5DRg+/fx7i/okkn
+	 kxccoxr6KzmDdFBbSb5aLG+5IE3lAc6g4EzgrHA8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 20CCFF800D3;
-	Mon,  9 May 2022 17:45:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 52D1BF80508;
+	Mon,  9 May 2022 17:45:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 73D88F80269; Mon,  9 May 2022 17:45:47 +0200 (CEST)
+ id 1FCC8F804A9; Mon,  9 May 2022 17:45:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3B903F800D3
- for <alsa-devel@alsa-project.org>; Mon,  9 May 2022 17:45:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B903F800D3
+ by alsa1.perex.cz (Postfix) with ESMTPS id E2F29F8014C
+ for <alsa-devel@alsa-project.org>; Mon,  9 May 2022 17:45:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2F29F8014C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="s+x9C0GG"
+ header.b="IN9glv31"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 741E0B8172F;
- Mon,  9 May 2022 15:45:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D25F9C385B1;
- Mon,  9 May 2022 15:45:37 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTPS id D38A4CE19A2;
+ Mon,  9 May 2022 15:45:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFB82C385B2;
+ Mon,  9 May 2022 15:45:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1652111139;
- bh=b+0bTNxvxsgDQNXw7Vjz5YHZ8VLG91q1lL5GmMMGn2M=;
+ s=k20201202; t=1652111141;
+ bh=CrQ0/ckWEfkQpNpOlG4urFcVG9MU01f9luLgk3xayCw=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=s+x9C0GGh4n8hjY6+DdrcoFVtXDfvVE3eSUlgBZRcq6dDybjYiZ9on7NpDX7xH6Av
- 47Q4RRrDlU7mayUQX3MbIcHWvO0pp/UgNRlly0ocFP8DU8dxpoEzH5dTh1g9PZ+QBa
- aPBjPJmRwQk8decE0QWsM4HJY5pDPlENEgxuN7Mp760I2QXWdOFOU0jZN7VVEvjcg3
- 9ILHZX78SPM5E3TMiCKryWDVJmI/fZhvIF3v0SVeMKmRNhg6IEzwb8pxz+I4ns0+jV
- 7i0iTFTqjKQRdOp3pSzV3LurduMJV0VIsYFk+5yf29X9Q8sgJljYJ6B2WIBEUBvrOK
- lP/4KEkI3/QUA==
+ b=IN9glv31dJR7fqENxy/LCDLC2pYcHK+AF0DM3+q+KDWhAym3fbo0tp048BRPR/IHt
+ 1TMwlaey9GDbWC+x7VVcNY99YleePiKoD8PkeGX1VzKCGKh1ArehVAbgobMumRROQC
+ eozZYfroUnnA4I21SZKXRcbAURT+cUGD3Na3rJW8UjnN+7HnTdbGAHUh6uSA+r4NFj
+ 5L5nTQt+LPFkjOSNmeREoFMhUUFXh1z3IC+yKdItaKvZKj2gR7P66FaePUZz6crOtC
+ 7PMKpPN/VjoqI0qxGAMWpUkKFQ8V/NQXiHhj2hnKONLzo5D7kp3rWmH11ZUCvh/Ju0
+ dFR0iJvOhATdQ==
 From: Mark Brown <broonie@kernel.org>
 To: lgirdwood@gmail.com, cgel.zte@gmail.com
-In-Reply-To: <20220505021733.54275-1-chi.minghao@zte.com.cn>
-References: <20220505021733.54275-1-chi.minghao@zte.com.cn>
-Subject: Re: [PATCH] ASoC: uniphier: simplify the return expression of
- uniphier_aio_compr_set_params()
-Message-Id: <165211113755.774487.2751485031602325886.b4-ty@kernel.org>
-Date: Mon, 09 May 2022 16:45:37 +0100
+In-Reply-To: <20220505021808.54337-1-chi.minghao@zte.com.cn>
+References: <20220505021808.54337-1-chi.minghao@zte.com.cn>
+Subject: Re: [PATCH] ASoC: mediatek: simplify the return expression of
+ mtk_dai_pcm_prepare()
+Message-Id: <165211113943.774487.12508036435286420554.b4-ty@kernel.org>
+Date: Mon, 09 May 2022 16:45:39 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: zealci@zte.com.cn, alsa-devel@alsa-project.org,
- linux-arm-kernel@lists.infradead.org, chi.minghao@zte.com.cn,
- linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, zealci@zte.com.cn,
+ linux-kernel@vger.kernel.org, chi.minghao@zte.com.cn,
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,7 +86,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 5 May 2022 02:17:33 +0000, cgel.zte@gmail.com wrote:
+On Thu, 5 May 2022 02:18:08 +0000, cgel.zte@gmail.com wrote:
 > From: Minghao Chi <chi.minghao@zte.com.cn>
 > 
 > Simplify the return expression.
@@ -99,8 +99,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: uniphier: simplify the return expression of uniphier_aio_compr_set_params()
-      commit: ef1258a7820d99cc7999cafbd8ea78a24559ff12
+[1/1] ASoC: mediatek: simplify the return expression of mtk_dai_pcm_prepare()
+      commit: 74eaa8126f50e52a19f055eed002cc76cf3122dc
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,78 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5A97520606
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 May 2022 22:39:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC5EF520648
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 May 2022 22:59:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 220AC16E1;
-	Mon,  9 May 2022 22:39:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 220AC16E1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8207016E2;
+	Mon,  9 May 2022 22:59:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8207016E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652128792;
-	bh=5TjOLfZUDyL7nRyao1L/iBSRk9RJFTU+SSSLF19iQ50=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=WzrIUrtrhSX+xy9DJopszBkXT0f8q6bNyCs3N3g8Wv5STLvGEGbkQPhRZpnBj/Xks
-	 Wri6dox97uNrY5/WwV4Rbad8SJILYKOsP8ZZpuy0SzhlurPoVf/SI6IbqSYLR2Uu74
-	 gfIX5vp5WqyQRIBjW/oqTUqew9YDI+0tVfznwGko=
+	s=default; t=1652129999;
+	bh=j+wdfrc3FXi43X0VkODadFay6bg9FKNBstYCTMpecA8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=UBYuykUv9IMA8TpaIvBhgP/s36jPmc9k5s0zGROaKz3EnakBdbVXAYUoR4ONo/ztT
+	 ZYNzwCX94tQG6ZyhDlhjQzh18c7ooLIx4OHHC2r5ba6omcc8N+2dch2ESmPyINn0QK
+	 rpsg5K9Fi8XRE23NWiij/leiilJqmTNx5CjU11+8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7600AF80269;
-	Mon,  9 May 2022 22:38:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DBD73F80269;
+	Mon,  9 May 2022 22:59:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DF153F8025D; Mon,  9 May 2022 22:38:51 +0200 (CEST)
+ id 4B32EF8025D; Mon,  9 May 2022 22:58:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D0671F8011C
- for <alsa-devel@alsa-project.org>; Mon,  9 May 2022 22:38:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0671F8011C
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0AFF7F800D3
+ for <alsa-devel@alsa-project.org>; Mon,  9 May 2022 22:58:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0AFF7F800D3
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="MSu8yd2G"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=sVDi3ZkthDWhU24EgtzN+wCLFG3z5NXVqbnb7DL7KRg=; b=MSu8yd2G1QdsEetiBeGz/X3MKM
- 95MHBpcDUIVbe77heF3/WbEV+39tM/Gth0iTVQ2YXNQSdpZ+hLuwy5Yvfg7qNvoqE/FD0fnND5y1D
- Nd0OqoHaem/jn+UyniR/gmp+kRo7GS5JczmtEIpjDS6/1+W944dyqpLsL0ypUb1o7ACx8eItUzN7T
- nv6i0CJCp4GhlzodxwzbvAzpMNrIjGnUWW/ZesZkCeSyuC64rOwnmNFd+ct2DEfYGIZFuYk+NgrVq
- 6++7eT9mQ3pukrjrCDRBhq/MXjqgdfKATRraJkN+m9zX4Eww8OKfegheqNNEkVj16ohJN9pddjl9w
- Cx/4S4MQ==;
-Received: from mcgrof by bombadil.infradead.org with local (Exim 4.94.2 #2
- (Red Hat Linux)) id 1noA9F-00GBdr-0y; Mon, 09 May 2022 20:38:29 +0000
-Date: Mon, 9 May 2022 13:38:28 -0700
-From: Luis Chamberlain <mcgrof@kernel.org>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Subject: Re: [PATCH v6 0/4] Let userspace know when snd-hda-intel needs i915
-Message-ID: <Ynl7xGy+a9MYjXi1@bombadil.infradead.org>
-References: <cover.1652113087.git.mchehab@kernel.org>
+ dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
+ header.b="U74Ljn72"
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: nfraprado) with ESMTPSA id 564EA1F42F48
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1652129932;
+ bh=j+wdfrc3FXi43X0VkODadFay6bg9FKNBstYCTMpecA8=;
+ h=From:To:Cc:Subject:Date:From;
+ b=U74Ljn728Csp+ET2xThho9d1REqGnsswajm8GHfb67k2/RQZQWrjH38iHELrF44Nj
+ xjNY6xlKH4B+68AQjDzJ4U9UXWZJZvRQXVg+CE577q+KjYL03FmMa/3TLtBWPFbaJc
+ CZtRlFSbP4P6LvKc4+03hk9wBfEX4V83iyBOVw4o1AuuX92sETE6/YrYOK5HC+RLse
+ usJnlXHQmatb4Tr1cmtTPqJ7rXIY3//R6J9m5ZXiAvwzZW6PwC2awkxQcnstozW5iT
+ i1yFHZ/MGA/PZzO3rWICOJ8hBGFEU41lmBA6aSosZ+mnNFsx4iQ1oOlQOIjrv9EE/V
+ Tc+X6cFr8gC1Q==
+From: =?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
+ <nfraprado@collabora.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: [PATCH v2] ASoC: dt-bindings: mediatek: mt8192: Add i2s-share
+ properties
+Date: Mon,  9 May 2022 16:58:47 -0400
+Message-Id: <20220509205847.607076-1-nfraprado@collabora.com>
+X-Mailer: git-send-email 2.36.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1652113087.git.mchehab@kernel.org>
-Cc: mauro.chehab@linux.intel.com, Richard Weinberger <richard@nod.at>,
- alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@intel.com>,
- Greg KH <gregkh@linuxfoundation.org>, intel-gfx@lists.freedesktop.org,
- Lucas De Marchi <lucas.demarchi@intel.com>, Takashi Iwai <tiwai@suse.com>,
- dri-devel@lists.freedesktop.org, Vignesh Raghavendra <vigneshr@ti.com>,
- David Airlie <airlied@linux.ie>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- linux-modules@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- Miquel Raynal <miquel.raynal@bootlin.com>, linux-mtd@lists.infradead.org,
- linux-kernel@vger.kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ =?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
+ <nfraprado@collabora.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jiaxin Yu <jiaxin.yu@mediatek.com>, linux-kernel@vger.kernel.org,
+ Shane Chien <shane.chien@mediatek.com>, Rob Herring <robh+dt@kernel.org>,
+ linux-mediatek@lists.infradead.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>, kernel@collabora.com,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,16 +87,60 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, May 09, 2022 at 06:23:35PM +0200, Mauro Carvalho Chehab wrote:
-> Currently, kernel/module annotates module dependencies when
-> request_symbol is used, but it doesn't cover more complex inter-driver
-> dependencies that are subsystem and/or driver-specific.
-> 
+The Mediatek AFE PCM controller for MT8192 allows two I2S interfaces to
+share the same clock and act as a single interface with both input and
+output. Add patterns for these properties in the dt-binding. The
+property is split into two patterns in order to allow all valid
+interface pairings.
 
-At this pount v5.18-rc7 is out and so it is too late to soak this
-in for the proper level of testing I'd like to see for modules-next.
-So I can review this after the next merge window. I'd want to beat
-the hell out of this and if possible I'd like to see if we can have
-some test coverage for the intended goal and how to break it.
+Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
 
-  Luis
+---
+The series from v1 of this patch was merged although some changes were
+still needed in this patch, so the v1 of this patch was reverted [1] and
+this standalone commit addresses the feedback from v1 and readds the
+property.
+
+[1] https://lore.kernel.org/all/20220509185625.580811-1-nfraprado@collabora.com
+
+v1: https://lore.kernel.org/all/20220429203039.2207848-2-nfraprado@collabora.com/
+
+Changes in v2:
+- Added "mediatek," prefix to property
+- Rewrote and added more information to property description
+- Split into two patterns to validate that output-input pairings are
+  done
+
+ .../bindings/sound/mt8192-afe-pcm.yaml           | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml b/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
+index 7a25bc9b8060..2abf43c6c2c3 100644
+--- a/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
++++ b/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
+@@ -54,6 +54,22 @@ properties:
+       - const: aud_infra_clk
+       - const: aud_infra_26m_clk
+ 
++patternProperties:
++  "^mediatek,i2s[13579]-share$":
++    description:
++      Each I2S interface has a single data line, input if its index is even or
++      output if the index is odd. An input and an output I2S interface can be
++      used together as if they were a single I2S interface with both input and
++      output data lines by sharing the same clock. This property represents this
++      pairing. The value should be the name of the interface whose clock is
++      used, and the property name the other interface that depends on this
++      clock.
++    pattern: "^I2S[0268]$"
++
++  "^mediatek,i2s[0268]-share$":
++    description: Same as above.
++    pattern: "^I2S[13579]$"
++
+ required:
+   - compatible
+   - interrupts
+-- 
+2.36.0
+

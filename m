@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74CBB51F749
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 May 2022 10:52:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AEDE51F74A
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 May 2022 10:53:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0287018B9;
-	Mon,  9 May 2022 10:52:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0287018B9
+	by alsa0.perex.cz (Postfix) with ESMTPS id E009618CC;
+	Mon,  9 May 2022 10:52:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E009618CC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652086370;
-	bh=C9Oh5+lW1ZfBYQOcKBVt3Zk92BwH+lt7un5xECooK9M=;
+	s=default; t=1652086389;
+	bh=nU9Ix74+Uy/wuj61E47oVeJirDfeeBySe8RNUDfB+yw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DYoF1IrqfWiamHrENDTKakZfxIKpzBiW1f5nj3CX7Icye1Fzks8Ii1L5SIW+B/ZO4
-	 dkwDULrrjfBTbJlnkPoP8Uul7Fr+Lyd4NTDNbuIV4fnI4KLSLU2j5hSkdpqtoIG1tZ
-	 IJgamKO/PXCC7meu6QpAEjCdJVwTlS2uwOh9G5qI=
+	b=fqsQhp3RktvYY/pViRqFXVVUFv3TkcN2YXmOrZaQ/W1AZio/vfYbXeXPOdEcT1x+X
+	 teLroMbNDjc1tDaX7+OKMRfgibEFqjB5Bk/93/JBLBx0yo9dnY5ujiuYlHJfB3Ymas
+	 YPQDFb/44K4SZVgLHQ6/FYVoQrlRxskdC5PHFQfQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 38885F80579;
-	Mon,  9 May 2022 10:49:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D049FF8014C;
+	Mon,  9 May 2022 10:49:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 87CC8F80568; Mon,  9 May 2022 10:49:18 +0200 (CEST)
+ id 74B33F80571; Mon,  9 May 2022 10:49:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AB40EF80548
- for <alsa-devel@alsa-project.org>; Mon,  9 May 2022 10:49:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB40EF80548
+ by alsa1.perex.cz (Postfix) with ESMTPS id AFCB0F8055C
+ for <alsa-devel@alsa-project.org>; Mon,  9 May 2022 10:49:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AFCB0F8055C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="SBpsRPiT"
+ header.b="BXgWf7Tt"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1652086155; x=1683622155;
+ t=1652086157; x=1683622157;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=C9Oh5+lW1ZfBYQOcKBVt3Zk92BwH+lt7un5xECooK9M=;
- b=SBpsRPiTTbtv1Xsw12LrGlqJpco6Eo+I1RiKERWMv0Na3rG2g9aXm7Xc
- ZolJyh4eT296lkTQB1nG1U+V98eGPqa8Rqoomw0mpVFlQ9eL2z53KWy7g
- 1EmJGV6EydHMKxeZK2Vjo2O8fJbREqF3mt6XvXR0GKeoFJ9KoVQ1beKaC
- obs5mu+eRW8cDWwNC13b85NomoYLyIFcdQjKd0E4GrHQ3pFA6mpmao+2v
- GRzqppXVpgrRI2PRmFNRCiYUFoYgPvWIGmcGemh/rDpaGaFzk51T4F+YV
- xUGYH7KuKlh4hddM78/cCeX9rJz2MtjkJS9WaDy/B3AtP9E5prLdFESci g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10341"; a="294208621"
-X-IronPort-AV: E=Sophos;i="5.91,210,1647327600"; d="scan'208";a="294208621"
+ bh=nU9Ix74+Uy/wuj61E47oVeJirDfeeBySe8RNUDfB+yw=;
+ b=BXgWf7TtYwKTs6tZNotV87jmSt2Di9emPv+yLnKf3fahvJPQvP6SoW6H
+ 9o8sokC4FUskKLf6xwgSmhOiN2/UwKLoGicJ2xcflu5gwL2QUwaOR3PLL
+ SoXwGhNAYqg7pnCs3CI9v2oy8kP2WHjfLrrCsKX11oaibQaH+bW+U2Wsf
+ kLBFIIEUb6WsKTV9rXpG87/O8BardzIjb8uiEdmT8QReVXZdwhnxoEhKY
+ MiRf4stCUYFG+Eo46EVruPY++vmB2uXRhzbken9k2/g6PDLkeay/mb+NT
+ yXqNGgo5Om7xwYkAfK+x4RDAnIwerWwlefiHL3eFzh4NjTiuOcY6SDuRS w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10341"; a="294208628"
+X-IronPort-AV: E=Sophos;i="5.91,210,1647327600"; d="scan'208";a="294208628"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 May 2022 01:49:12 -0700
+ 09 May 2022 01:49:16 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,210,1647327600"; d="scan'208";a="738068473"
+X-IronPort-AV: E=Sophos;i="5.91,210,1647327600"; d="scan'208";a="738068497"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by orsmga005.jf.intel.com with ESMTP; 09 May 2022 01:49:08 -0700
+ by orsmga005.jf.intel.com with ESMTP; 09 May 2022 01:49:12 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Subject: [PATCH v2 11/15] ASoC: Intel: avs: Machine board registration
-Date: Mon,  9 May 2022 10:58:17 +0200
-Message-Id: <20220509085821.3852259-12-cezary.rojewski@intel.com>
+Subject: [PATCH v2 12/15] ASoC: Intel: avs: PCI driver implementation
+Date: Mon,  9 May 2022 10:58:18 +0200
+Message-Id: <20220509085821.3852259-13-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220509085821.3852259-1-cezary.rojewski@intel.com>
 References: <20220509085821.3852259-1-cezary.rojewski@intel.com>
@@ -93,565 +93,602 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-AVS driver operates with granular audio card division in mind.
-Super-card approach (e.g.: I2S, DMIC and HDA DAIs combined) is
-deprecated in favour of individual cards - one per each device. This
-provides necessary dynamism, especially for configurations with number
-of codecs present and makes it easier to survive auxiliary devices
-failures - one card failing to probe does not prevent others from
-succeeding.
-
-All boards spawned by AVS are unregistered on ->remove(). This includes
-dummy codecs such as DMIC.
-
-As all machine boards found in sound/soc/intel/boards are irreversibly
-tied to 'super-card' approach, new boards are going to be introduced.
-This temporarily increases number of boards available under /intel
-directory until skylake-driver becomes deprecated and removed.
+HD-Audio bus is a PCI device. Add all functions necessary to probe such
+device along with its removal sequence. Behaviour implemented for all
+standard operations is similar to existing solutions: sound/pci/hda and
+sound/soc/intel/skylake.
 
 Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/intel/avs/Makefile          |   2 +-
- sound/soc/intel/avs/avs.h             |   3 +
- sound/soc/intel/avs/board_selection.c | 501 ++++++++++++++++++++++++++
- 3 files changed, 505 insertions(+), 1 deletion(-)
- create mode 100644 sound/soc/intel/avs/board_selection.c
+ include/sound/intel-dsp-config.h |   3 +-
+ sound/soc/intel/Kconfig          |   1 +
+ sound/soc/intel/avs/avs.h        |   1 +
+ sound/soc/intel/avs/core.c       | 494 +++++++++++++++++++++++++++++++
+ sound/soc/intel/avs/dsp.c        |   3 -
+ sound/soc/intel/avs/registers.h  |   1 +
+ 6 files changed, 499 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/intel/avs/Makefile b/sound/soc/intel/avs/Makefile
-index 38285e73e75d..592d4dc02c56 100644
---- a/sound/soc/intel/avs/Makefile
-+++ b/sound/soc/intel/avs/Makefile
-@@ -1,7 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-only
+diff --git a/include/sound/intel-dsp-config.h b/include/sound/intel-dsp-config.h
+index d4609077c258..34c975910574 100644
+--- a/include/sound/intel-dsp-config.h
++++ b/include/sound/intel-dsp-config.h
+@@ -15,7 +15,8 @@ enum {
+ 	SND_INTEL_DSP_DRIVER_LEGACY,
+ 	SND_INTEL_DSP_DRIVER_SST,
+ 	SND_INTEL_DSP_DRIVER_SOF,
+-	SND_INTEL_DSP_DRIVER_LAST = SND_INTEL_DSP_DRIVER_SOF
++	SND_INTEL_DSP_DRIVER_AVS,
++	SND_INTEL_DSP_DRIVER_LAST = SND_INTEL_DSP_DRIVER_AVS
+ };
  
- snd-soc-avs-objs := dsp.o ipc.o messages.o utils.o core.o loader.o \
--		    topology.o path.o pcm.o
-+		    topology.o path.o pcm.o board_selection.o
- snd-soc-avs-objs += cldma.o
- 
- snd-soc-avs-objs += trace.o
+ #if IS_ENABLED(CONFIG_SND_INTEL_DSP_CONFIG)
+diff --git a/sound/soc/intel/Kconfig b/sound/soc/intel/Kconfig
+index 1aaf9bdf721c..7c85d1bb9c12 100644
+--- a/sound/soc/intel/Kconfig
++++ b/sound/soc/intel/Kconfig
+@@ -216,6 +216,7 @@ config SND_SOC_INTEL_AVS
+ 	depends on COMMON_CLK
+ 	select SND_SOC_ACPI if ACPI
+ 	select SND_SOC_TOPOLOGY
++	select SND_HDA
+ 	select SND_HDA_EXT_CORE
+ 	select SND_HDA_DSP_LOADER
+ 	select SND_INTEL_DSP_CONFIG
 diff --git a/sound/soc/intel/avs/avs.h b/sound/soc/intel/avs/avs.h
-index 583f46d5a9bc..92e8d647b3f9 100644
+index 92e8d647b3f9..7e175ee4cd03 100644
 --- a/sound/soc/intel/avs/avs.h
 +++ b/sound/soc/intel/avs/avs.h
-@@ -310,6 +310,9 @@ int avs_i2s_platform_register(struct avs_dev *adev, const char *name, unsigned l
- 			      unsigned long *tdms);
- int avs_hda_platform_register(struct avs_dev *adev, const char *name);
+@@ -126,6 +126,7 @@ struct avs_dev {
+ 	char **lib_names;
  
-+int avs_register_all_boards(struct avs_dev *adev);
-+void avs_unregister_all_boards(struct avs_dev *adev);
-+
- /* Firmware tracing helpers */
+ 	struct completion fw_ready;
++	struct work_struct probe_work;
  
- unsigned int __kfifo_fromio_locked(struct kfifo *fifo, const void __iomem *src, unsigned int len,
-diff --git a/sound/soc/intel/avs/board_selection.c b/sound/soc/intel/avs/board_selection.c
-new file mode 100644
-index 000000000000..80cb0164678a
---- /dev/null
-+++ b/sound/soc/intel/avs/board_selection.c
-@@ -0,0 +1,501 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+//
-+// Copyright(c) 2021-2022 Intel Corporation. All rights reserved.
-+//
-+// Authors: Cezary Rojewski <cezary.rojewski@intel.com>
-+//          Amadeusz Slawinski <amadeuszx.slawinski@linux.intel.com>
-+//
-+
-+#include <linux/acpi.h>
+ 	struct nhlt_acpi_table *nhlt;
+ 	struct list_head comp_list;
+diff --git a/sound/soc/intel/avs/core.c b/sound/soc/intel/avs/core.c
+index a4d063d12fec..3f51809b97c7 100644
+--- a/sound/soc/intel/avs/core.c
++++ b/sound/soc/intel/avs/core.c
+@@ -14,9 +14,17 @@
+ // foundation of this driver
+ //
+ 
 +#include <linux/module.h>
-+#include <linux/dmi.h>
-+#include <linux/pci.h>
-+#include <linux/platform_device.h>
+ #include <linux/pci.h>
 +#include <sound/hda_codec.h>
++#include <sound/hda_i915.h>
 +#include <sound/hda_register.h>
+ #include <sound/hdaudio.h>
++#include <sound/hdaudio_ext.h>
++#include <sound/intel-dsp-config.h>
 +#include <sound/intel-nhlt.h>
-+#include <sound/soc-acpi.h>
-+#include <sound/soc-component.h>
-+#include "avs.h"
+ #include "avs.h"
++#include "cldma.h"
+ 
+ static void
+ avs_hda_update_config_dword(struct hdac_bus *bus, u32 reg, u32 mask, u32 value)
+@@ -59,3 +67,489 @@ void avs_hda_l1sen_enable(struct avs_dev *adev, bool enable)
+ 	value = enable ? AZX_VS_EM2_L1SEN : 0;
+ 	snd_hdac_chip_updatel(&adev->base.core, VS_EM2, AZX_VS_EM2_L1SEN, value);
+ }
 +
-+static bool i2s_test;
-+module_param(i2s_test, bool, 0444);
-+MODULE_PARM_DESC(i2s_test, "Probe I2S test-board and skip all other I2S boards");
-+
-+static const struct dmi_system_id kbl_dmi_table[] = {
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Intel Corporation"),
-+			DMI_MATCH(DMI_BOARD_NAME, "Skylake Y LPDDR3 RVP3"),
-+		},
-+	},
-+	{}
-+};
-+
-+static const struct dmi_system_id kblr_dmi_table[] = {
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Intel Corporation"),
-+			DMI_MATCH(DMI_BOARD_NAME, "Kabylake R DDR4 RVP"),
-+		},
-+	},
-+	{}
-+};
-+
-+static struct snd_soc_acpi_mach *dmi_match_quirk(void *arg)
++static int avs_hdac_bus_init_streams(struct hdac_bus *bus)
 +{
-+	struct snd_soc_acpi_mach *mach = arg;
-+	const struct dmi_system_id *dmi_id;
-+	struct dmi_system_id *dmi_table;
++	unsigned int cp_streams, pb_streams;
++	unsigned int gcap;
 +
-+	if (mach->quirk_data == NULL)
-+		return mach;
++	gcap = snd_hdac_chip_readw(bus, GCAP);
++	cp_streams = (gcap >> 8) & 0x0F;
++	pb_streams = (gcap >> 12) & 0x0F;
++	bus->num_streams = cp_streams + pb_streams;
 +
-+	dmi_table = (struct dmi_system_id *)mach->quirk_data;
++	snd_hdac_ext_stream_init_all(bus, 0, cp_streams, SNDRV_PCM_STREAM_CAPTURE);
++	snd_hdac_ext_stream_init_all(bus, cp_streams, pb_streams, SNDRV_PCM_STREAM_PLAYBACK);
 +
-+	dmi_id = dmi_first_match(dmi_table);
-+	if (!dmi_id)
-+		return NULL;
-+
-+	return mach;
++	return snd_hdac_bus_alloc_stream_pages(bus);
 +}
 +
-+#define AVS_SSP(x)		(BIT(x))
-+#define AVS_SSP_RANGE(a, b)	(GENMASK(b, a))
-+
-+/* supported I2S board codec configurations */
-+static struct snd_soc_acpi_mach avs_skl_i2s_machines[] = {
-+	{
-+		.id = "INT343A",
-+		.drv_name = "avs_rt286",
-+		.mach_params = {
-+			.i2s_link_mask = AVS_SSP(0),
-+		},
-+		.tplg_filename = "rt286-tplg.bin",
-+	},
-+	{
-+		.id = "10508825",
-+		.drv_name = "avs_nau8825",
-+		.mach_params = {
-+			.i2s_link_mask = AVS_SSP(1),
-+		},
-+		.tplg_filename = "nau8825-tplg.bin",
-+	},
-+	{
-+		.id = "INT343B",
-+		.drv_name = "avs_ssm4567",
-+		.mach_params = {
-+			.i2s_link_mask = AVS_SSP(0),
-+		},
-+		.tplg_filename = "ssm4567-tplg.bin",
-+	},
-+	{
-+		.id = "MX98357A",
-+		.drv_name = "avs_max98357a",
-+		.mach_params = {
-+			.i2s_link_mask = AVS_SSP(0),
-+		},
-+		.tplg_filename = "max98357a-tplg.bin",
-+	},
-+	{},
-+};
-+
-+static struct snd_soc_acpi_mach avs_kbl_i2s_machines[] = {
-+	{
-+		.id = "INT343A",
-+		.drv_name = "avs_rt286",
-+		.mach_params = {
-+			.i2s_link_mask = AVS_SSP(0),
-+		},
-+		.quirk_data = &kbl_dmi_table,
-+		.machine_quirk = dmi_match_quirk,
-+		.tplg_filename = "rt286-tplg.bin",
-+	},
-+	{
-+		.id = "INT343A",
-+		.drv_name = "avs_rt298",
-+		.mach_params = {
-+			.i2s_link_mask = AVS_SSP(0),
-+		},
-+		.quirk_data = &kblr_dmi_table,
-+		.machine_quirk = dmi_match_quirk,
-+		.tplg_filename = "rt298-tplg.bin",
-+	},
-+	{
-+		.id = "MX98373",
-+		.drv_name = "avs_max98373",
-+		.mach_params = {
-+			.i2s_link_mask = AVS_SSP(0),
-+		},
-+		.tplg_filename = "max98373-tplg.bin",
-+	},
-+	{
-+		.id = "DLGS7219",
-+		.drv_name = "avs_da7219",
-+		.mach_params = {
-+			.i2s_link_mask = AVS_SSP(1),
-+		},
-+		.tplg_filename = "da7219-tplg.bin",
-+	},
-+	{},
-+};
-+
-+static struct snd_soc_acpi_mach avs_apl_i2s_machines[] = {
-+	{
-+		.id = "INT343A",
-+		.drv_name = "avs_rt298",
-+		.mach_params = {
-+			.i2s_link_mask = AVS_SSP(5),
-+		},
-+		.tplg_filename = "rt298-tplg.bin",
-+	},
-+	{
-+		.id = "INT34C3",
-+		.drv_name = "avs_tdf8532",
-+		.mach_params = {
-+			.i2s_link_mask = AVS_SSP_RANGE(0, 5),
-+		},
-+		.pdata = (unsigned long[]){ 0, 0, 0x14, 0, 0, 0 }, /* SSP2 TDMs */
-+		.tplg_filename = "tdf8532-tplg.bin",
-+	},
-+	{
-+		.id = "MX98357A",
-+		.drv_name = "avs_max98357a",
-+		.mach_params = {
-+			.i2s_link_mask = AVS_SSP(5),
-+		},
-+		.tplg_filename = "max98357a-tplg.bin",
-+	},
-+	{
-+		.id = "DLGS7219",
-+		.drv_name = "avs_da7219",
-+		.mach_params = {
-+			.i2s_link_mask = AVS_SSP(1),
-+		},
-+		.tplg_filename = "da7219-tplg.bin",
-+	},
-+	{},
-+};
-+
-+static struct snd_soc_acpi_mach avs_gml_i2s_machines[] = {
-+	{
-+		.id = "INT343A",
-+		.drv_name = "avs_rt298",
-+		.mach_params = {
-+			.i2s_link_mask = AVS_SSP(2),
-+		},
-+		.tplg_filename = "rt298-tplg.bin",
-+	},
-+	{},
-+};
-+
-+static struct snd_soc_acpi_mach avs_test_i2s_machines[] = {
-+	{
-+		.drv_name = "avs_i2s_test",
-+		.mach_params = {
-+			.i2s_link_mask = AVS_SSP(0),
-+		},
-+		.tplg_filename = "i2s-test-tplg.bin",
-+	},
-+	{
-+		.drv_name = "avs_i2s_test",
-+		.mach_params = {
-+			.i2s_link_mask = AVS_SSP(1),
-+		},
-+		.tplg_filename = "i2s-test-tplg.bin",
-+	},
-+	{
-+		.drv_name = "avs_i2s_test",
-+		.mach_params = {
-+			.i2s_link_mask = AVS_SSP(2),
-+		},
-+		.tplg_filename = "i2s-test-tplg.bin",
-+	},
-+	{
-+		.drv_name = "avs_i2s_test",
-+		.mach_params = {
-+			.i2s_link_mask = AVS_SSP(3),
-+		},
-+		.tplg_filename = "i2s-test-tplg.bin",
-+	},
-+	{
-+		.drv_name = "avs_i2s_test",
-+		.mach_params = {
-+			.i2s_link_mask = AVS_SSP(4),
-+		},
-+		.tplg_filename = "i2s-test-tplg.bin",
-+	},
-+	{
-+		.drv_name = "avs_i2s_test",
-+		.mach_params = {
-+			.i2s_link_mask = AVS_SSP(5),
-+		},
-+		.tplg_filename = "i2s-test-tplg.bin",
-+	},
-+	/* no NULL terminator, as we depend on ARRAY SIZE due to .id == NULL */
-+};
-+
-+struct avs_acpi_boards {
-+	int id;
-+	struct snd_soc_acpi_mach *machs;
-+};
-+
-+#define AVS_MACH_ENTRY(_id, _mach) \
-+	{ .id = (_id), .machs = (_mach), }
-+
-+/* supported I2S boards per platform */
-+static const struct avs_acpi_boards i2s_boards[] = {
-+	AVS_MACH_ENTRY(0x9d70, avs_skl_i2s_machines), /* SKL */
-+	AVS_MACH_ENTRY(0x9d71, avs_kbl_i2s_machines), /* KBL */
-+	AVS_MACH_ENTRY(0x5a98, avs_apl_i2s_machines), /* APL */
-+	AVS_MACH_ENTRY(0x3198, avs_gml_i2s_machines), /* GML */
-+	{},
-+};
-+
-+static const struct avs_acpi_boards *avs_get_i2s_boards(struct avs_dev *adev)
++static bool avs_hdac_bus_init_chip(struct hdac_bus *bus, bool full_reset)
 +{
-+	int id, i;
++	struct hdac_ext_link *hlink;
++	bool ret;
 +
-+	id = adev->base.pci->device;
-+	for (i = 0; i < ARRAY_SIZE(i2s_boards); i++)
-+		if (i2s_boards[i].id == id)
-+			return &i2s_boards[i];
-+	return NULL;
++	avs_hdac_clock_gating_enable(bus, false);
++	ret = snd_hdac_bus_init_chip(bus, full_reset);
++
++	/* Reset stream-to-link mapping */
++	list_for_each_entry(hlink, &bus->hlink_list, list)
++		writel(0, hlink->ml_addr + AZX_REG_ML_LOSIDV);
++
++	avs_hdac_clock_gating_enable(bus, true);
++
++	/* Set DUM bit to address incorrect position reporting for capture
++	 * streams. In order to do so, CTRL needs to be out of reset state
++	 */
++	snd_hdac_chip_updatel(bus, VS_EM2, AZX_VS_EM2_DUM, AZX_VS_EM2_DUM);
++
++	return ret;
 +}
 +
-+/* platform devices owned by AVS audio are removed with this hook */
-+static void board_pdev_unregister(void *data)
++static int probe_codec(struct hdac_bus *bus, int addr)
 +{
-+	platform_device_unregister(data);
-+}
-+
-+static int avs_register_dmic_board(struct avs_dev *adev)
-+{
-+	struct platform_device *codec, *board;
-+	struct snd_soc_acpi_mach mach = {{0}};
++	struct hda_codec *codec;
++	unsigned int cmd = (addr << 28) | (AC_NODE_ROOT << 20) |
++			   (AC_VERB_PARAMETERS << 8) | AC_PAR_VENDOR_ID;
++	unsigned int res = -1;
 +	int ret;
 +
-+	if (!adev->nhlt ||
-+	    !intel_nhlt_has_endpoint_type(adev->nhlt, NHLT_LINK_DMIC)) {
-+		dev_dbg(adev->dev, "no DMIC endpoints present\n");
-+		return 0;
-+	}
++	mutex_lock(&bus->cmd_mutex);
++	snd_hdac_bus_send_cmd(bus, cmd);
++	snd_hdac_bus_get_response(bus, addr, &res);
++	mutex_unlock(&bus->cmd_mutex);
++	if (res == -1)
++		return -EIO;
 +
-+	codec = platform_device_register_simple("dmic-codec", PLATFORM_DEVID_NONE, NULL, 0);
++	dev_dbg(bus->dev, "codec #%d probed OK: 0x%x\n", addr, res);
++
++	codec = snd_hda_codec_device_init(to_hda_bus(bus), addr, "hdaudioB%dD%d", bus->idx, addr);
 +	if (IS_ERR(codec)) {
-+		dev_err(adev->dev, "dmic codec register failed\n");
++		dev_err(bus->dev, "init codec failed: %ld\n", PTR_ERR(codec));
 +		return PTR_ERR(codec);
 +	}
++	/*
++	 * Allow avs_core suspend by forcing suspended state on all
++	 * of its codec child devices. Component interested in
++	 * dealing with hda codecs directly takes pm responsibilities
++	 */
++	pm_runtime_set_suspended(hda_codec_dev(codec));
 +
-+	ret = devm_add_action(adev->dev, board_pdev_unregister, codec);
++	/* configure effectively creates new ASoC component */
++	ret = snd_hda_codec_configure(codec);
 +	if (ret < 0) {
-+		platform_device_unregister(codec);
-+		return ret;
-+	}
-+
-+	ret = avs_dmic_platform_register(adev, "dmic-platform");
-+	if (ret < 0)
-+		return ret;
-+
-+	mach.tplg_filename = "dmic-tplg.bin";
-+	mach.mach_params.platform = "dmic-platform";
-+
-+	board = platform_device_register_data(NULL, "avs_dmic", PLATFORM_DEVID_NONE,
-+					(const void *)&mach, sizeof(mach));
-+	if (IS_ERR(board)) {
-+		dev_err(adev->dev, "dmic board register failed\n");
-+		return PTR_ERR(board);
-+	}
-+
-+	ret = devm_add_action(adev->dev, board_pdev_unregister, board);
-+	if (ret < 0) {
-+		platform_device_unregister(board);
++		dev_err(bus->dev, "failed to config codec %d\n", ret);
 +		return ret;
 +	}
 +
 +	return 0;
 +}
 +
-+static int avs_register_i2s_board(struct avs_dev *adev, struct snd_soc_acpi_mach *mach)
++static void avs_hdac_bus_probe_codecs(struct hdac_bus *bus)
 +{
-+	struct platform_device *board;
-+	int num_ssps;
-+	char *name;
-+	int ret;
++	int c;
 +
-+	num_ssps = adev->hw_cfg.i2s_caps.ctrl_count;
-+	if (fls(mach->mach_params.i2s_link_mask) > num_ssps) {
-+		dev_err(adev->dev, "Platform supports %d SSPs but board %s requires SSP%ld\n",
-+			num_ssps, mach->drv_name, __fls(mach->mach_params.i2s_link_mask));
-+		return -ENODEV;
-+	}
-+
-+	name = devm_kasprintf(adev->dev, GFP_KERNEL, "%s.%d-platform", mach->drv_name,
-+			      mach->mach_params.i2s_link_mask);
-+	if (!name)
-+		return -ENOMEM;
-+
-+	ret = avs_i2s_platform_register(adev, name, mach->mach_params.i2s_link_mask, mach->pdata);
-+	if (ret < 0)
-+		return ret;
-+
-+	mach->mach_params.platform = name;
-+
-+	board = platform_device_register_data(NULL, mach->drv_name, mach->mach_params.i2s_link_mask,
-+					      (const void *)mach, sizeof(*mach));
-+	if (IS_ERR(board)) {
-+		dev_err(adev->dev, "ssp board register failed\n");
-+		return PTR_ERR(board);
-+	}
-+
-+	ret = devm_add_action(adev->dev, board_pdev_unregister, board);
-+	if (ret < 0) {
-+		platform_device_unregister(board);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int avs_register_i2s_boards(struct avs_dev *adev)
-+{
-+	const struct avs_acpi_boards *boards;
-+	struct snd_soc_acpi_mach *mach;
-+	int ret;
-+
-+	if (!adev->nhlt || !intel_nhlt_has_endpoint_type(adev->nhlt, NHLT_LINK_SSP)) {
-+		dev_dbg(adev->dev, "no I2S endpoints present\n");
-+		return 0;
-+	}
-+
-+	if (i2s_test) {
-+		int i, num_ssps;
-+
-+		num_ssps = adev->hw_cfg.i2s_caps.ctrl_count;
-+		/* constrain just in case FW says there can be more SSPs than possible */
-+		num_ssps = min_t(int, ARRAY_SIZE(avs_test_i2s_machines), num_ssps);
-+
-+		mach = avs_test_i2s_machines;
-+
-+		for (i = 0; i < num_ssps; i++) {
-+			ret = avs_register_i2s_board(adev, &mach[i]);
-+			if (ret < 0)
-+				dev_warn(adev->dev, "register i2s %s failed: %d\n", mach->drv_name,
-+					 ret);
-+		}
-+		return 0;
-+	}
-+
-+	boards = avs_get_i2s_boards(adev);
-+	if (!boards) {
-+		dev_dbg(adev->dev, "no I2S endpoints supported\n");
-+		return 0;
-+	}
-+
-+	for (mach = boards->machs; mach->id[0]; mach++) {
-+		if (!acpi_dev_present(mach->id, NULL, -1))
++	/* First try to probe all given codec slots */
++	for (c = 0; c < HDA_MAX_CODECS; c++) {
++		if (!(bus->codec_mask & BIT(c)))
 +			continue;
 +
-+		if (mach->machine_quirk)
-+			if (!mach->machine_quirk(mach))
-+				continue;
++		if (!probe_codec(bus, c))
++			/* success, continue probing */
++			continue;
 +
-+		ret = avs_register_i2s_board(adev, mach);
-+		if (ret < 0)
-+			dev_warn(adev->dev, "register i2s %s failed: %d\n", mach->drv_name, ret);
++		/*
++		 * Some BIOSen give you wrong codec addresses
++		 * that don't exist
++		 */
++		dev_warn(bus->dev, "Codec #%d probe error; disabling it...\n", c);
++		bus->codec_mask &= ~BIT(c);
++		/*
++		 * More badly, accessing to a non-existing
++		 * codec often screws up the controller bus,
++		 * and disturbs the further communications.
++		 * Thus if an error occurs during probing,
++		 * better to reset the controller bus to get
++		 * back to the sanity state.
++		 */
++		snd_hdac_bus_stop_chip(bus);
++		avs_hdac_bus_init_chip(bus, true);
 +	}
-+
-+	return 0;
 +}
 +
-+static int avs_register_hda_board(struct avs_dev *adev, struct hda_codec *codec)
++static void avs_hda_probe_work(struct work_struct *work)
 +{
-+	struct snd_soc_acpi_mach mach = {{0}};
-+	struct platform_device *board;
-+	struct hdac_device *hdev = &codec->core;
-+	char *pname;
-+	int ret, id;
++	struct avs_dev *adev = container_of(work, struct avs_dev, probe_work);
++	struct hdac_bus *bus = &adev->base.core;
++	struct hdac_ext_link *hlink;
++	int ret;
 +
-+	pname = devm_kasprintf(adev->dev, GFP_KERNEL, "%s-platform", dev_name(&hdev->dev));
-+	if (!pname)
-+		return -ENOMEM;
++	pm_runtime_set_active(bus->dev); /* clear runtime_error flag */
 +
-+	ret = avs_hda_platform_register(adev, pname);
++	ret = snd_hdac_i915_init(bus);
 +	if (ret < 0)
-+		return ret;
++		dev_info(bus->dev, "i915 init unsuccessful: %d\n", ret);
 +
-+	mach.pdata = codec;
-+	mach.mach_params.platform = pname;
-+	mach.tplg_filename = devm_kasprintf(adev->dev, GFP_KERNEL, "hda-%08x-tplg.bin",
-+					    hdev->vendor_id);
-+	if (!mach.tplg_filename)
-+		return -ENOMEM;
++	snd_hdac_display_power(bus, HDA_CODEC_IDX_CONTROLLER, true);
++	avs_hdac_bus_init_chip(bus, true);
++	avs_hdac_bus_probe_codecs(bus);
++	snd_hdac_display_power(bus, HDA_CODEC_IDX_CONTROLLER, false);
 +
-+	id = adev->base.core.idx * HDA_MAX_CODECS + hdev->addr;
-+	board = platform_device_register_data(NULL, "avs_hdaudio", id, (const void *)&mach,
-+					      sizeof(mach));
-+	if (IS_ERR(board)) {
-+		dev_err(adev->dev, "hda board register failed\n");
-+		return PTR_ERR(board);
-+	}
++	/* with all codecs probed, links can be powered down */
++	list_for_each_entry(hlink, &bus->hlink_list, list)
++		snd_hdac_ext_bus_link_put(bus, hlink);
 +
-+	ret = devm_add_action(adev->dev, board_pdev_unregister, board);
-+	if (ret < 0) {
-+		platform_device_unregister(board);
-+		return ret;
-+	}
++	snd_hdac_ext_bus_ppcap_enable(bus, true);
++	snd_hdac_ext_bus_ppcap_int_enable(bus, true);
 +
-+	return 0;
++	ret = avs_dsp_first_boot_firmware(adev);
++	if (ret < 0)
++		return;
++
++	adev->nhlt = intel_nhlt_init(adev->dev);
++	if (!adev->nhlt)
++		dev_info(bus->dev, "platform has no NHLT\n");
++
++	avs_register_all_boards(adev);
++
++	/* configure PM */
++	pm_runtime_set_autosuspend_delay(bus->dev, 2000);
++	pm_runtime_use_autosuspend(bus->dev);
++	pm_runtime_mark_last_busy(bus->dev);
++	pm_runtime_put_autosuspend(bus->dev);
++	pm_runtime_allow(bus->dev);
 +}
 +
-+static int avs_register_hda_boards(struct avs_dev *adev)
++static void hdac_stream_update_pos(struct hdac_stream *stream, u64 buffer_size)
++{
++	u64 prev_pos, pos, num_bytes;
++
++	div64_u64_rem(stream->curr_pos, buffer_size, &prev_pos);
++	pos = snd_hdac_stream_get_pos_posbuf(stream);
++
++	if (pos < prev_pos)
++		num_bytes = (buffer_size - prev_pos) +  pos;
++	else
++		num_bytes = pos - prev_pos;
++
++	stream->curr_pos += num_bytes;
++}
++
++/* called from IRQ */
++static void hdac_update_stream(struct hdac_bus *bus, struct hdac_stream *stream)
++{
++	if (stream->substream) {
++		snd_pcm_period_elapsed(stream->substream);
++	} else if (stream->cstream) {
++		u64 buffer_size = stream->cstream->runtime->buffer_size;
++
++		hdac_stream_update_pos(stream, buffer_size);
++		snd_compr_fragment_elapsed(stream->cstream);
++	}
++}
++
++static irqreturn_t hdac_bus_irq_handler(int irq, void *context)
++{
++	struct hdac_bus *bus = context;
++	u32 mask, int_enable;
++	u32 status;
++	int ret = IRQ_NONE;
++
++	if (!pm_runtime_active(bus->dev))
++		return ret;
++
++	spin_lock(&bus->reg_lock);
++
++	status = snd_hdac_chip_readl(bus, INTSTS);
++	if (status == 0 || status == UINT_MAX) {
++		spin_unlock(&bus->reg_lock);
++		return ret;
++	}
++
++	/* clear rirb int */
++	status = snd_hdac_chip_readb(bus, RIRBSTS);
++	if (status & RIRB_INT_MASK) {
++		if (status & RIRB_INT_RESPONSE)
++			snd_hdac_bus_update_rirb(bus);
++		snd_hdac_chip_writeb(bus, RIRBSTS, RIRB_INT_MASK);
++	}
++
++	mask = (0x1 << bus->num_streams) - 1;
++
++	status = snd_hdac_chip_readl(bus, INTSTS);
++	status &= mask;
++	if (status) {
++		/* Disable stream interrupts; Re-enable in bottom half */
++		int_enable = snd_hdac_chip_readl(bus, INTCTL);
++		snd_hdac_chip_writel(bus, INTCTL, (int_enable & (~mask)));
++		ret = IRQ_WAKE_THREAD;
++	} else {
++		ret = IRQ_HANDLED;
++	}
++
++	spin_unlock(&bus->reg_lock);
++	return ret;
++}
++
++static irqreturn_t hdac_bus_irq_thread(int irq, void *context)
++{
++	struct hdac_bus *bus = context;
++	u32 status;
++	u32 int_enable;
++	u32 mask;
++	unsigned long flags;
++
++	status = snd_hdac_chip_readl(bus, INTSTS);
++
++	snd_hdac_bus_handle_stream_irq(bus, status, hdac_update_stream);
++
++	/* Re-enable stream interrupts */
++	mask = (0x1 << bus->num_streams) - 1;
++	spin_lock_irqsave(&bus->reg_lock, flags);
++	int_enable = snd_hdac_chip_readl(bus, INTCTL);
++	snd_hdac_chip_writel(bus, INTCTL, (int_enable | mask));
++	spin_unlock_irqrestore(&bus->reg_lock, flags);
++
++	return IRQ_HANDLED;
++}
++
++static int avs_hdac_acquire_irq(struct avs_dev *adev)
 +{
 +	struct hdac_bus *bus = &adev->base.core;
-+	struct hdac_device *hdev;
++	struct pci_dev *pci = to_pci_dev(bus->dev);
 +	int ret;
 +
-+	if (!bus->num_codecs) {
-+		dev_dbg(adev->dev, "no HDA endpoints present\n");
-+		return 0;
++	/* request one and check that we only got one interrupt */
++	ret = pci_alloc_irq_vectors(pci, 1, 1, PCI_IRQ_MSI | PCI_IRQ_LEGACY);
++	if (ret != 1) {
++		dev_err(adev->dev, "Failed to allocate IRQ vector: %d\n", ret);
++		return ret;
 +	}
 +
-+	list_for_each_entry(hdev, &bus->codec_list, list) {
-+		struct hda_codec *codec;
-+
-+		codec = dev_to_hda_codec(&hdev->dev);
-+
-+		ret = avs_register_hda_board(adev, codec);
-+		if (ret < 0)
-+			dev_warn(adev->dev, "register hda-%08x failed: %d\n",
-+				 codec->core.vendor_id, ret);
++	ret = pci_request_irq(pci, 0, hdac_bus_irq_handler, hdac_bus_irq_thread, bus,
++			      KBUILD_MODNAME);
++	if (ret < 0) {
++		dev_err(adev->dev, "Failed to request stream IRQ handler: %d\n", ret);
++		goto free_vector;
 +	}
++
++	ret = pci_request_irq(pci, 0, avs_dsp_irq_handler, avs_dsp_irq_thread, adev,
++			      KBUILD_MODNAME);
++	if (ret < 0) {
++		dev_err(adev->dev, "Failed to request IPC IRQ handler: %d\n", ret);
++		goto free_stream_irq;
++	}
++
++	return 0;
++
++free_stream_irq:
++	pci_free_irq(pci, 0, bus);
++free_vector:
++	pci_free_irq_vectors(pci);
++	return ret;
++}
++
++static int avs_bus_init(struct avs_dev *adev, struct pci_dev *pci, const struct pci_device_id *id)
++{
++	struct hda_bus *bus = &adev->base;
++	struct avs_ipc *ipc;
++	struct device *dev = &pci->dev;
++	int ret;
++
++	ret = snd_hdac_ext_bus_init(&bus->core, dev, NULL, NULL);
++	if (ret < 0)
++		return ret;
++
++	bus->core.use_posbuf = 1;
++	bus->core.bdl_pos_adj = 0;
++	bus->core.sync_write = 1;
++	bus->pci = pci;
++	bus->mixer_assigned = -1;
++	mutex_init(&bus->prepare_mutex);
++
++	ipc = devm_kzalloc(dev, sizeof(*ipc), GFP_KERNEL);
++	if (!ipc)
++		return -ENOMEM;
++	ret = avs_ipc_init(ipc, dev);
++	if (ret < 0)
++		return ret;
++
++	adev->dev = dev;
++	adev->spec = (const struct avs_spec *)id->driver_data;
++	adev->ipc = ipc;
++	adev->hw_cfg.dsp_cores = hweight_long(AVS_MAIN_CORE_MASK);
++	INIT_WORK(&adev->probe_work, avs_hda_probe_work);
++	INIT_LIST_HEAD(&adev->comp_list);
++	INIT_LIST_HEAD(&adev->path_list);
++	INIT_LIST_HEAD(&adev->fw_list);
++	init_completion(&adev->fw_ready);
++	spin_lock_init(&adev->path_list_lock);
++	mutex_init(&adev->modres_mutex);
++	mutex_init(&adev->comp_list_mutex);
++	mutex_init(&adev->path_mutex);
 +
 +	return 0;
 +}
 +
-+int avs_register_all_boards(struct avs_dev *adev)
++static int avs_pci_probe(struct pci_dev *pci, const struct pci_device_id *id)
 +{
++	struct hdac_bus *bus;
++	struct avs_dev *adev;
++	struct device *dev = &pci->dev;
 +	int ret;
 +
-+	ret = avs_register_dmic_board(adev);
-+	if (ret < 0)
-+		dev_warn(adev->dev, "enumerate DMIC endpoints failed: %d\n",
-+			 ret);
++	ret = snd_intel_dsp_driver_probe(pci);
++	if (ret != SND_INTEL_DSP_DRIVER_ANY && ret != SND_INTEL_DSP_DRIVER_AVS)
++		return -ENODEV;
 +
-+	ret = avs_register_i2s_boards(adev);
++	ret = pcim_enable_device(pci);
 +	if (ret < 0)
-+		dev_warn(adev->dev, "enumerate I2S endpoints failed: %d\n",
-+			 ret);
++		return ret;
 +
-+	ret = avs_register_hda_boards(adev);
++	adev = devm_kzalloc(dev, sizeof(*adev), GFP_KERNEL);
++	if (!adev)
++		return -ENOMEM;
++	ret = avs_bus_init(adev, pci, id);
++	if (ret < 0) {
++		dev_err(dev, "failed to init avs bus: %d\n", ret);
++		return ret;
++	}
++
++	ret = pci_request_regions(pci, "AVS HDAudio");
 +	if (ret < 0)
-+		dev_warn(adev->dev, "enumerate HDA endpoints failed: %d\n",
-+			 ret);
++		return ret;
++
++	bus = &adev->base.core;
++	bus->addr = pci_resource_start(pci, 0);
++	bus->remap_addr = pci_ioremap_bar(pci, 0);
++	if (!bus->remap_addr) {
++		dev_err(bus->dev, "ioremap error\n");
++		ret = -ENXIO;
++		goto err_remap_bar0;
++	}
++
++	adev->dsp_ba = pci_ioremap_bar(pci, 4);
++	if (!adev->dsp_ba) {
++		dev_err(bus->dev, "ioremap error\n");
++		ret = -ENXIO;
++		goto err_remap_bar4;
++	}
++
++	snd_hdac_bus_parse_capabilities(bus);
++	if (bus->mlcap)
++		snd_hdac_ext_bus_get_ml_capabilities(bus);
++
++	if (!dma_set_mask(dev, DMA_BIT_MASK(64))) {
++		dma_set_coherent_mask(dev, DMA_BIT_MASK(64));
++	} else {
++		dma_set_mask(dev, DMA_BIT_MASK(32));
++		dma_set_coherent_mask(dev, DMA_BIT_MASK(32));
++	}
++
++	ret = avs_hdac_bus_init_streams(bus);
++	if (ret < 0) {
++		dev_err(dev, "failed to init streams: %d\n", ret);
++		goto err_init_streams;
++	}
++
++	ret = avs_hdac_acquire_irq(adev);
++	if (ret < 0) {
++		dev_err(bus->dev, "failed to acquire irq: %d\n", ret);
++		goto err_acquire_irq;
++	}
++
++	pci_set_master(pci);
++	pci_set_drvdata(pci, bus);
++	device_disable_async_suspend(dev);
++
++	schedule_work(&adev->probe_work);
 +
 +	return 0;
++
++err_acquire_irq:
++	snd_hdac_bus_free_stream_pages(bus);
++	snd_hdac_stream_free_all(bus);
++err_init_streams:
++	iounmap(adev->dsp_ba);
++err_remap_bar4:
++	iounmap(bus->remap_addr);
++err_remap_bar0:
++	pci_release_regions(pci);
++	return ret;
 +}
 +
-+void avs_unregister_all_boards(struct avs_dev *adev)
++static void avs_pci_remove(struct pci_dev *pci)
 +{
-+	snd_soc_unregister_component(adev->dev);
++	struct hdac_device *hdev, *save;
++	struct hdac_bus *bus = pci_get_drvdata(pci);
++	struct avs_dev *adev = hdac_to_avs(bus);
++
++	cancel_work_sync(&adev->probe_work);
++	avs_ipc_block(adev->ipc);
++
++	avs_unregister_all_boards(adev);
++
++	if (adev->nhlt)
++		intel_nhlt_free(adev->nhlt);
++
++	if (avs_platattr_test(adev, CLDMA))
++		hda_cldma_free(&code_loader);
++
++	snd_hdac_stop_streams_and_chip(bus);
++	avs_dsp_op(adev, int_control, false);
++	snd_hdac_ext_bus_ppcap_int_enable(bus, false);
++
++	/* it is safe to remove all codecs from the system now */
++	list_for_each_entry_safe(hdev, save, &bus->codec_list, list)
++		snd_hda_codec_unregister(hdac_to_hda_codec(hdev));
++
++	snd_hdac_bus_free_stream_pages(bus);
++	snd_hdac_stream_free_all(bus);
++	/* reverse ml_capabilities */
++	snd_hdac_link_free_all(bus);
++	snd_hdac_ext_bus_exit(bus);
++
++	avs_dsp_core_disable(adev, GENMASK(adev->hw_cfg.dsp_cores - 1, 0));
++	snd_hdac_ext_bus_ppcap_enable(bus, false);
++
++	/* snd_hdac_stop_streams_and_chip does that already? */
++	snd_hdac_bus_stop_chip(bus);
++	snd_hdac_display_power(bus, HDA_CODEC_IDX_CONTROLLER, false);
++	if (bus->audio_component)
++		snd_hdac_i915_exit(bus);
++
++	avs_module_info_free(adev);
++	pci_free_irq(pci, 0, adev);
++	pci_free_irq(pci, 0, bus);
++	pci_free_irq_vectors(pci);
++	iounmap(bus->remap_addr);
++	iounmap(adev->dsp_ba);
++	pci_release_regions(pci);
++
++	/* Firmware is not needed anymore */
++	avs_release_firmwares(adev);
++
++	/* pm_runtime_forbid() can rpm_resume() which we do not want */
++	pm_runtime_disable(&pci->dev);
++	pm_runtime_forbid(&pci->dev);
++	pm_runtime_enable(&pci->dev);
++	pm_runtime_get_noresume(&pci->dev);
 +}
++
++static const struct pci_device_id avs_ids[] = {
++	{ 0 }
++};
++MODULE_DEVICE_TABLE(pci, avs_ids);
++
++static struct pci_driver avs_pci_driver = {
++	.name = KBUILD_MODNAME,
++	.id_table = avs_ids,
++	.probe = avs_pci_probe,
++	.remove = avs_pci_remove,
++};
++module_pci_driver(avs_pci_driver);
++
++MODULE_AUTHOR("Cezary Rojewski <cezary.rojewski@intel.com>");
++MODULE_AUTHOR("Amadeusz Slawinski <amadeuszx.slawinski@linux.intel.com>");
++MODULE_DESCRIPTION("Intel cAVS sound driver");
++MODULE_LICENSE("GPL");
+diff --git a/sound/soc/intel/avs/dsp.c b/sound/soc/intel/avs/dsp.c
+index 8f111250c5b1..06d2f7af520f 100644
+--- a/sound/soc/intel/avs/dsp.c
++++ b/sound/soc/intel/avs/dsp.c
+@@ -6,7 +6,6 @@
+ //          Amadeusz Slawinski <amadeuszx.slawinski@linux.intel.com>
+ //
+ 
+-#include <linux/module.h>
+ #include <sound/hdaudio_ext.h>
+ #include "avs.h"
+ #include "registers.h"
+@@ -322,5 +321,3 @@ int avs_dsp_delete_pipeline(struct avs_dev *adev, u8 instance_id)
+ 	ida_free(&adev->ppl_ida, instance_id);
+ 	return ret;
+ }
+-
+-MODULE_LICENSE("GPL");
+diff --git a/sound/soc/intel/avs/registers.h b/sound/soc/intel/avs/registers.h
+index f951d3441cdf..b2100dc630e4 100644
+--- a/sound/soc/intel/avs/registers.h
++++ b/sound/soc/intel/avs/registers.h
+@@ -14,6 +14,7 @@
+ #define AZX_PGCTL_LSRMD_MASK		BIT(4)
+ #define AZX_CGCTL_MISCBDCGE_MASK	BIT(6)
+ #define AZX_VS_EM2_L1SEN		BIT(13)
++#define AZX_VS_EM2_DUM			BIT(23)
+ 
+ /* Intel HD Audio General DSP Registers */
+ #define AVS_ADSP_GEN_BASE		0x0
 -- 
 2.25.1
 

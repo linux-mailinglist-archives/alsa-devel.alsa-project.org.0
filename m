@@ -2,86 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EA0B51F75B
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 May 2022 10:54:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACDBB51F75D
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 May 2022 10:56:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2455E1932;
-	Mon,  9 May 2022 10:54:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2455E1932
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4BBF11909;
+	Mon,  9 May 2022 10:55:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BBF11909
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652086490;
-	bh=+EEAmDVcmIgjTm/dYTCx2Uy77YgF5GkRkEjo/tB7kzs=;
+	s=default; t=1652086598;
+	bh=FvO4Dfb5q9/QygraG89XZqHvhkc2o5Lt+V1c4F4zPrw=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Hlb9YxOOaiUx6m0rFyOTYsiZK9ec7vAhupkbvh4/fGgplMN6hUDYJWUrv2q5hZvup
-	 AdepmI3RDTHBSON+tLlteX2q2J8HHNihIy2GqO+68zUWBRrq/1hhdtU1jmQA0OVo57
-	 5lDhsvZMkeeddISUKAwld7LibnuqIb+9+8hAF9Oc=
+	b=WLK/m0PGRzPYyxAr9zG47nYVNWS4ylwdNF+5YL6VqUQDrIIxVN9vwPyKfGDZY30cG
+	 uKlizX87xEr2631CqtuyEhnuj8k61fah2HYD3ZVR2xCA9ZzWU59letOHdLKid+Ck0w
+	 2O/Lswhh3GAIOOwZzeaxGWo1p3xgVWlPj6ReUDaw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1667AF80508;
-	Mon,  9 May 2022 10:53:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C89B1F802E3;
+	Mon,  9 May 2022 10:55:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CB88CF8047B; Mon,  9 May 2022 10:53:37 +0200 (CEST)
+ id 6D660F80237; Mon,  9 May 2022 10:55:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 61B0BF802E3
- for <alsa-devel@alsa-project.org>; Mon,  9 May 2022 10:53:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61B0BF802E3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0D571F8011C
+ for <alsa-devel@alsa-project.org>; Mon,  9 May 2022 10:55:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D571F8011C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="A34L+qWn"; 
+ header.b="yVlkIMdu"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="UKYq4/y/"
+ header.b="FS0EAieX"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 9125E21B3D;
- Mon,  9 May 2022 08:53:33 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id A848C21C37;
+ Mon,  9 May 2022 08:55:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1652086413; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1652086535; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=dfcvUUdqksgvYc8rVDLHC5DOBo/kU2XO+VX1eeG4aV8=;
- b=A34L+qWnS4KTuUIJIOdn/Oy0lRYM0k4tu6TprpUGGmO4q2IG6PgANqhT26b8ERa1UPxmL3
- +i1ltyuQDR6b3JXdcEzOXVh1KYWhR2Zwt+tTJHHP3RNo/us6IFdzvOCkW7gcDMpTyzgCvx
- xJwG93EwlvMl01wRmSewhq2A5QaBHXU=
+ bh=f0uG0/LlBEZjwhlgsnXOomtG9yPrEuDKrL/p6a5J2T0=;
+ b=yVlkIMdu8rvzJj0osrT5qts+Cj4LFP94lv3xO6YpspYSAA9bPHf6VJuYdAhs28bqMNz7mM
+ MTDlBG7I9d+ABPvXFoI5mVj4XFbGXr9cQeeB5umpQEKMOq60QXSg9fzNgOtLQR+4kKTXHA
+ ov2JaCDJThB45GkHTi9xo6I5KglmtRI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1652086413;
+ s=susede2_ed25519; t=1652086535;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=dfcvUUdqksgvYc8rVDLHC5DOBo/kU2XO+VX1eeG4aV8=;
- b=UKYq4/y/oVRFARjOiTG0UlZFJ7CNosy5fO4czqcNJLtcbGcYGz4OJwlbgEGhzVQm3iPfhB
- Fx+12pZoeT2rmkDQ==
+ bh=f0uG0/LlBEZjwhlgsnXOomtG9yPrEuDKrL/p6a5J2T0=;
+ b=FS0EAieXafQi1Su9OWsZ6uMdTVMpc/kgRaqmR2zf3QO1Pvkg0k/b8CIAPjVA/VpD1MbIUT
+ m5oyfnzjH7NfqSCg==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 79C5C2C141;
- Mon,  9 May 2022 08:53:33 +0000 (UTC)
-Date: Mon, 09 May 2022 10:53:33 +0200
-Message-ID: <s5hczgnm6ia.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 9E72E2C141;
+ Mon,  9 May 2022 08:55:35 +0000 (UTC)
+Date: Mon, 09 May 2022 10:55:35 +0200
+Message-ID: <s5hbkw7m6ew.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Niklas Schnelle <schnelle@linux.ibm.com>
-Subject: Re: [RFC v2 31/39] sound: add HAS_IOPORT dependencies
-In-Reply-To: <20220429135108.2781579-57-schnelle@linux.ibm.com>
-References: <20220429135108.2781579-1-schnelle@linux.ibm.com>
- <20220429135108.2781579-57-schnelle@linux.ibm.com>
+To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+Subject: Re: [PATCH 00/26] ALSA: hda: cirrus: Add initial DSP support and
+ firmware loading
+In-Reply-To: <YmljEm6jUr3Odsv9@sirena.org.uk>
+References: <20220427150720.9194-1-vitalyr@opensource.cirrus.com>
+ <YmljEm6jUr3Odsv9@sirena.org.uk>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: linux-arch@vger.kernel.org, Arnd Bergmann <arnd@kernel.org>,
- "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- Arnd Bergmann <arnd@arndb.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
  Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- linux-pci@vger.kernel.org
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,58 +96,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 29 Apr 2022 15:50:54 +0200,
-Niklas Schnelle wrote:
+On Wed, 27 Apr 2022 17:36:50 +0200,
+Mark Brown wrote:
 > 
-> In a future patch HAS_IOPORT=n will result in inb()/outb() and friends
-> not being declared. We thus need to add HAS_IOPORT as dependency for
-> those drivers using them. For SND_OPL3_LIB this adds its first
-> dependency so drivers currently selecting it unconditionally need to
-> depend on it instead.
+> On Wed, Apr 27, 2022 at 04:06:54PM +0100, Vitaly Rodionov wrote:
+> > The CS35L41 Amplifier contains a DSP, capable of running firmware.
+> > The firmware can run algorithms such as Speaker Protection, to ensure
+> > that playback at high gains do not harm the speakers.
+> > Adding support for CS35L41 firmware into the CS35L41 HDA driver also
+> > allows us to support several extra features, such as hiberation 
+> > and interrupts.
 > 
-> Co-developed-by: Arnd Bergmann <arnd@kernel.org>
-> Signed-off-by: Niklas Schnelle <schnelle@linux.ibm.com>
-> ---
->  sound/drivers/Kconfig |  5 ++++
->  sound/isa/Kconfig     | 44 ++++++++++++++---------------
->  sound/pci/Kconfig     | 64 +++++++++++++++++++++++++++++--------------
->  3 files changed, 70 insertions(+), 43 deletions(-)
-> 
-> diff --git a/sound/drivers/Kconfig b/sound/drivers/Kconfig
-> index ca4cdf666f82..4d250e619786 100644
-> --- a/sound/drivers/Kconfig
-> +++ b/sound/drivers/Kconfig
-> @@ -1,10 +1,12 @@
->  # SPDX-License-Identifier: GPL-2.0-only
->  config SND_MPU401_UART
->  	tristate
-> +	depends on HAS_IOPORT
->  	select SND_RAWMIDI
->  
->  config SND_OPL3_LIB
->  	tristate
-> +	depends on HAS_IOPPORT
->  	select SND_TIMER
->  	select SND_HWDEP
->  	select SND_SEQ_DEVICE if SND_SEQUENCER != n
+> There's a bunch of changes for this driver in the ASoC tree, it looks
+> like the bits that touch ASoC will need basing off those.
 
-Both of those are the items to be reverse-selected, so cannot fulfill
-the dependency with depends-on.  That is, the items that select those
-should have the dependency on HAS_IOPORT instead.
-
-That is, a change like below:
-
-> --- a/sound/isa/Kconfig
-> +++ b/sound/isa/Kconfig
-> @@ -31,7 +31,7 @@ if SND_ISA
->  
->  config SND_ADLIB
->  	tristate "AdLib FM card"
-> -	select SND_OPL3_LIB
-> +	depends on SND_OPL3_LIB
-
-... won't work.  CONFIG_SND_OPL3_LIB is not enabled by itself but only
-to be selected.
+How is the situation for the time being?
+I've been off in the last weeks, so couldn't follow the whole
+thread.
 
 
 thanks,

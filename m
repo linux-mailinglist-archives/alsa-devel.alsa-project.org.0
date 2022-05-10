@@ -2,88 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 749ED521EF0
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 May 2022 17:35:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BE1F521EF4
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 May 2022 17:35:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1CBDE18A9;
-	Tue, 10 May 2022 17:34:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1CBDE18A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id E0DD217AA;
+	Tue, 10 May 2022 17:34:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E0DD217AA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652196902;
-	bh=IEFQ4uu4doLwCszEybaGPuLWzh4l9a1rfb+746ODxRU=;
+	s=default; t=1652196918;
+	bh=6YiaQ1CeXTlQscNsDXtuzavEqbdvobXJtY79krsVXU4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=U2ZIgGNmLaTaYQH1rAvLY3PG/bCDZrvIAhytMPoulN3x9dtQW1Sju6YHGPsf2196n
-	 6PKrxhuu3oKh+Pi1AszcFX0k2Sn+zq++A7tZ3p+HpdsyI5U4KfIW2iEGFpHICvp5v7
-	 NA0k5pF6s96TdMYvXEFQ/fcwQAG1BoJlhqSBjon0=
+	b=hegKzrsiveZhdF19lIox+T91VLG6UgGmxY5F/9oB53VGWJhrmejkt6N3gc3LVWIwq
+	 xE+MMx3oFYiUXcGRNKpQCz1bfMlQIxbhG/RFbdZksdfn4VLpH4s1WWo85lqYptexDP
+	 1jEsT5l+1LACkyn1Wm+E+EekpEnO46NdJb0COhXs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B02C5F80510;
-	Tue, 10 May 2022 17:33:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5FCDFF80517;
+	Tue, 10 May 2022 17:33:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3F3B5F804FF; Tue, 10 May 2022 17:33:31 +0200 (CEST)
+ id 8BE5EF80516; Tue, 10 May 2022 17:33:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
  SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
- [IPv6:2607:f8b0:4864:20::62c])
+Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com
+ [IPv6:2607:f8b0:4864:20::435])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AFE25F804FF
- for <alsa-devel@alsa-project.org>; Tue, 10 May 2022 17:33:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AFE25F804FF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1F9F4F804BD
+ for <alsa-devel@alsa-project.org>; Tue, 10 May 2022 17:33:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F9F4F804BD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="hlIhyjXW"
-Received: by mail-pl1-x62c.google.com with SMTP id q18so4123684pln.12
- for <alsa-devel@alsa-project.org>; Tue, 10 May 2022 08:33:28 -0700 (PDT)
+ header.b="QvY4Ezq+"
+Received: by mail-pf1-x435.google.com with SMTP id d25so15246877pfo.10
+ for <alsa-devel@alsa-project.org>; Tue, 10 May 2022 08:33:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=eag9/N12Mu3KYJJ0B0WDBdKQD2EGzDc2Cj2dmt69sIg=;
- b=hlIhyjXWWaS429dekFzsxpoSrs74VJmufWGmWV5tWMWylXvaSzSNiV8KwCOJCJl/ms
- 5lbySympGAvbFfBejHNe6TUiO8nLo944xo9TetryJDHFoNW1CJ6DqnyFORYry4nd86QB
- OtqaS3H4VNJoR7k1pLVLtc46D3wHeTIp50VOuCZdQYksAwdjKdu1uddenfl+8+/oe0nK
- YfCSxtVHXQDP1BZMTP4/zxV3ObVeZkmYfe9kmg43VpNd9v2sdxTyCDMWMCSqhP8jUk1F
- +FvfwoIdU0wwxnS9G8SWQNXjAjVvpDfTRT/2ZApNxpAAdnWZIkEsAyiM5DMReiwzC8we
- 8lbQ==
+ bh=XUdUcfiagybpsQd1lg5V2fMeg0EXQcI6829QJGv7lks=;
+ b=QvY4Ezq+fW8krO2OWe5Wx3kco/r+crV5eM0nwCM02Ofn4Qg7Qa2uUWgmNMxQvf5GzW
+ 3CzrriRzkyIZP7KTfQXKpPH9KBtIOOG+se2tgtqH2+kiz+C3iWntyhUedg7hWyIz8SVn
+ CR5CehLZ40IueILzP+w0dBR9okD5t4jqeBp1EDIFQ/5nNqsRQGQ8VEAiTzcqzyxV7lYh
+ MVfjVZJGo2NFi/rVHK8xAmFW/go+ywwLx8oT3BCVmYdwYXrhT4+aO9JMjp8b5ZjkemnO
+ MDvf3sHPZt94kiWUkzQ2CB5ZDwFdU1ioPbjUkZBZrd41klzat64x5r/Ow1WM8drWNvBR
+ zffw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=eag9/N12Mu3KYJJ0B0WDBdKQD2EGzDc2Cj2dmt69sIg=;
- b=IOjZ19HjXJt5PeSiz0fdHfwrkxiPNoqaPEKI/2LFIo05HSQ2g0yZMlECbYRsjGHBbR
- J13zG9ej92h5zxj3kOLfOmQHl+95so8LL4/DLCUUSyi3rpdxsA/3RqXjCPnv7cqH1buG
- Xf0CISYK2O7rarRVM3Aaf3+CsHWaIuPemupyf3YmAHGxgtRtjr5h644qNg+bkygsexWg
- j615+cSlyxmZYNYlnH/itamzCX4SfC65geeoi4xbZggWOocz5M2WJDONzYfNigD+S4Ls
- 7fJp9FD7qgJkc7+bmYwujeOoT0pnPy2HOLhJR1DmWsD853ieWX8EZiJm1CpeS3hIqr6x
- Mr0Q==
-X-Gm-Message-State: AOAM533LvZUPvs+e1Ndl9pLtGSzhN9By+1QeGMfq0pYr5wVoYe4K9c1m
- slj48J0PxjVgXunkkNtzwgyXP8C+2952yXc=
-X-Google-Smtp-Source: ABdhPJxFNiE/WgSKaJPA7RFpU5aiK16uBpllXCpM3cyKm0NYEOM3FXJtOGT7rNWzr+Vz36Pu6iKMpQ==
-X-Received: by 2002:a17:902:edc7:b0:15b:4196:1957 with SMTP id
- q7-20020a170902edc700b0015b41961957mr20688090plk.161.1652196806644; 
- Tue, 10 May 2022 08:33:26 -0700 (PDT)
+ bh=XUdUcfiagybpsQd1lg5V2fMeg0EXQcI6829QJGv7lks=;
+ b=0ZSxHdwK9NtmOx439y3+8+XyJLzn9quLIBjA/vfvyr+sKCew1jVEnfSJYo/iAmI82i
+ 2kbmfxYBIAUu8zpCU9lJnxpb88hYa3DHjD9496huyS8HCXYmMYVwQy3O4Xxrz7mh58Lx
+ Yb6jJUxedC1YpwaDHx21N8sZ9EjEt3ix/PmRBmPDCTZSXTRAyC03GILWbxDD/T9DLSFT
+ gXHrdt7sYAff/zDCJJN5V6DjAgjf/bG6sKUbEWVc8Ztlg9UdD2UJqw1pO+l2rmJaFEuj
+ ojl1Se+keslhJgrLi/2MTMdiDDJG3KMdvzoLDOrRr85iW2DCzR+twNpcEZsJSeUmrlFk
+ f+7w==
+X-Gm-Message-State: AOAM531TPxB7g8NMb+7/wQFORqao1XEbAuKpJO4A8nP2CRn+ralIwfR9
+ ZDAO+2J9hywmHnOd9ZuaJA==
+X-Google-Smtp-Source: ABdhPJz6N6qu89EDF0qEJaevMwCr86YbRgvjBFpTUFU7LzuQoM3gKa7lp4Q1bFnsxtUTB5NhIbzAfg==
+X-Received: by 2002:a62:d0c5:0:b0:50d:a467:3cc8 with SMTP id
+ p188-20020a62d0c5000000b0050da4673cc8mr21129069pfg.81.1652196814749; 
+ Tue, 10 May 2022 08:33:34 -0700 (PDT)
 Received: from localhost.localdomain ([144.202.91.207])
  by smtp.gmail.com with ESMTPSA id
- cd10-20020a056a00420a00b0050dc76281d0sm11104248pfb.170.2022.05.10.08.33.19
+ cd10-20020a056a00420a00b0050dc76281d0sm11104248pfb.170.2022.05.10.08.33.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 May 2022 08:33:26 -0700 (PDT)
+ Tue, 10 May 2022 08:33:34 -0700 (PDT)
 From: Zheyu Ma <zheyuma97@gmail.com>
 To: james.schulman@cirrus.com, david.rhodes@cirrus.com,
  tanureal@opensource.cirrus.com, rf@opensource.cirrus.com,
  lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
  oder_chiou@realtek.com
-Subject: [PATCH 2/6] ASoC: cs35l36: Fix the error handling of
- cs35l36_i2c_probe()
-Date: Tue, 10 May 2022 23:32:47 +0800
-Message-Id: <20220510153251.1741210-3-zheyuma97@gmail.com>
+Subject: [PATCH 3/6] ASoC: rt5645: Fix the error handling of rt5645_i2c_probe()
+Date: Tue, 10 May 2022 23:32:48 +0800
+Message-Id: <20220510153251.1741210-4-zheyuma97@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220510153251.1741210-1-zheyuma97@gmail.com>
 References: <20220510153251.1741210-1-zheyuma97@gmail.com>
@@ -106,26 +105,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The driver should goto label 'err' when failing at regmap_read().
+After enabling the regulator, The driver should disable the regulator
+when failing at probing.
 
 Signed-off-by: Zheyu Ma <zheyuma97@gmail.com>
 ---
- sound/soc/codecs/cs35l36.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/codecs/rt5645.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/codecs/cs35l36.c b/sound/soc/codecs/cs35l36.c
-index cc5e80222916..920190daa4d1 100644
---- a/sound/soc/codecs/cs35l36.c
-+++ b/sound/soc/codecs/cs35l36.c
-@@ -1803,7 +1803,7 @@ static int cs35l36_i2c_probe(struct i2c_client *i2c_client)
- 	if (ret < 0) {
- 		dev_err(&i2c_client->dev, "Failed to read otp_id Register %d\n",
+diff --git a/sound/soc/codecs/rt5645.c b/sound/soc/codecs/rt5645.c
+index 1518eb7e9201..ccdea234a3ba 100644
+--- a/sound/soc/codecs/rt5645.c
++++ b/sound/soc/codecs/rt5645.c
+@@ -3943,7 +3943,7 @@ static int rt5645_i2c_probe(struct i2c_client *i2c)
+ 		ret = PTR_ERR(regmap);
+ 		dev_err(&i2c->dev, "Failed to allocate temp register map: %d\n",
  			ret);
 -		return ret;
-+		goto err;
++		goto err_enable;
  	}
  
- 	if ((l37_id_reg & CS35L36_OTP_REV_MASK) == CS35L36_OTP_REV_L37)
+ 	/*
+@@ -3974,7 +3974,7 @@ static int rt5645_i2c_probe(struct i2c_client *i2c)
+ 		ret = PTR_ERR(rt5645->regmap);
+ 		dev_err(&i2c->dev, "Failed to allocate register map: %d\n",
+ 			ret);
+-		return ret;
++		goto err_enable;
+ 	}
+ 
+ 	regmap_write(rt5645->regmap, RT5645_RESET, 0);
 -- 
 2.25.1
 

@@ -2,82 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63D60521F95
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 May 2022 17:47:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9C0E521F98
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 May 2022 17:48:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EFB7E1924;
-	Tue, 10 May 2022 17:46:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFB7E1924
+	by alsa0.perex.cz (Postfix) with ESMTPS id 768A9193C;
+	Tue, 10 May 2022 17:47:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 768A9193C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652197635;
-	bh=omJeBGX28SkPxdoJonDoRUB1KOVyZzromm7NoJwczQ8=;
+	s=default; t=1652197685;
+	bh=+m4xr2VstQvfmpmlbh/Hzx8ERJ0r2on0tJLdU5O4+6U=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PyaVOEOTMGUcVJ47bptPGDd6sqguCkHGJuf7Ez3qTWr7fYNiXEnWhrq1nLgFyIisd
-	 JOort93iGd6V5YYX+FEym+BdBvovjD2TjhF4kKev9k4BJj4esM4aPId3J+7/wHrfI0
-	 ppePvwn7VfrbqX3fhMHQN5y/1OlBTlSmBFGlxyVc=
+	b=BJWCvdtX8mSFJCworwGtDLzmZaSd89ybqnS9gprWAe3kcuhgvJ2hOjrgmM4CEAsoT
+	 dJ9GboqjeFV+S6ya2M/8Pn0BokDUEoF1Q/Y0dbFlULvnOU4HLZDXEr9cH7EM4Lb8yO
+	 +aGVaW+S3/vRSmwAogxsd0u131zz0O9O3GRI1aHc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EA6F4F80538;
-	Tue, 10 May 2022 17:44:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1228AF80240;
+	Tue, 10 May 2022 17:45:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2E8F8F8051A; Tue, 10 May 2022 17:44:55 +0200 (CEST)
+ id 453D3F80240; Tue, 10 May 2022 17:45:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C705EF80534;
- Tue, 10 May 2022 17:44:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C705EF80534
+ by alsa1.perex.cz (Postfix) with ESMTPS id AD5CCF804BB
+ for <alsa-devel@alsa-project.org>; Tue, 10 May 2022 17:45:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD5CCF804BB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="X+vLc2Sn"
+ header.b="C+AYDTtG"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9C07161414;
- Tue, 10 May 2022 15:44:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 166FBC385C2;
- Tue, 10 May 2022 15:44:44 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 5952561329;
+ Tue, 10 May 2022 15:45:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAA43C385C2;
+ Tue, 10 May 2022 15:45:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1652197485;
- bh=omJeBGX28SkPxdoJonDoRUB1KOVyZzromm7NoJwczQ8=;
+ s=k20201202; t=1652197517;
+ bh=+m4xr2VstQvfmpmlbh/Hzx8ERJ0r2on0tJLdU5O4+6U=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=X+vLc2SnRJ9/PlweEuVBgJ8bVaVAIS3/+Pn2pJ2dCdVru/VPNmcxHOXoBIM+boCSy
- mfmsZAXjmsWj+I0FuDtpcLS9ztg9i9FGKcs5nthhwfs2G/YBnLstDWIRdx9dn8bHvX
- 6cFA/RFJyYzbJ118mfh1KLleu2KaA4c6x8AoKv4QuZ7R2VQyYRsToYYIKbs6mSdoYo
- RlYr2jvXDTYpfyl2imKLuyGMeeo79oI6clKgXgiBM4uHSS312Fg9uZOUwt4ZJ+b4Qn
- +xzyPFyggUKrNjhyMhk+nBO+zlQZPKBMaRVcN6X2MOp0j8kj1ULUzrXL6mEi8mtQf0
- bkp9MQ1j96OjQ==
+ b=C+AYDTtGfc6NI6/rRcZetALBPs3cQsacGkCe8eQOFc3nNjzE3K1u1sR6Wf2r1eMSQ
+ DOKiy51xa6N8fB6GnIGfpdepRuY6MNcQXeqhhhrCNGYHnJzVGjXIGUsAmYmoIAn24C
+ hO9adxcLXRxL86B8cRV3Pbm9DEromxKJd+vdGvtUmyEELAed2Pu4CSGlpl0qVEfbmt
+ LkFrBAKgccQwRwA9Sl8eYNlIPeWtEHv1joqXwkHk2X1dH+uXZ/yGcGqg/Rk2juSh8B
+ id97JSjchfuAFQRAphq/bxFleM48YP+7Z689ufYAQ6BslRdHaKLChnx7eSVoW8tC6n
+ 48plY8Yb5RKwA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 08/19] ASoC: SOF: Fix NULL pointer exception in
- sof_pci_probe callback
-Date: Tue, 10 May 2022 11:44:18 -0400
-Message-Id: <20220510154429.153677-8-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 2/9] ASoC: max98090: Reject invalid values in
+ custom control put()
+Date: Tue, 10 May 2022 11:45:05 -0400
+Message-Id: <20220510154512.153945-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220510154429.153677-1-sashal@kernel.org>
-References: <20220510154429.153677-1-sashal@kernel.org>
+In-Reply-To: <20220510154512.153945-1-sashal@kernel.org>
+References: <20220510154512.153945-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
- Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>, tiwai@suse.com,
- lgirdwood@gmail.com, Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, daniel.baluta@nxp.com,
- sound-open-firmware@alsa-project.org
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com, tiwai@suse.com,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,49 +89,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
+From: Mark Brown <broonie@kernel.org>
 
-[ Upstream commit c61711c1c95791850be48dd65a1d72eb34ba719f ]
+[ Upstream commit 2fbe467bcbfc760a08f08475eea6bbd4c2874319 ]
 
-We are accessing "desc->ops" in sof_pci_probe without checking "desc"
-pointer. This results in NULL pointer exception if pci_id->driver_data
-i.e desc pointer isn't defined in sof device probe:
+The max98090 driver has a custom put function for some controls which can
+only be updated in certain circumstances which makes no effort to validate
+that input is suitable for the control, allowing out of spec values to be
+written to the hardware and presented to userspace. Fix this by returning
+an error when invalid values are written.
 
-BUG: kernel NULL pointer dereference, address: 0000000000000060
-PGD 0 P4D 0
-Oops: 0000 [#1] PREEMPT SMP NOPTI
-RIP: 0010:sof_pci_probe+0x1e/0x17f [snd_sof_pci]
-Code: Unable to access opcode bytes at RIP 0xffffffffc043dff4.
-RSP: 0018:ffffac4b03b9b8d8 EFLAGS: 00010246
-
-Add NULL pointer check for sof_dev_desc pointer to avoid such exception.
-
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Signed-off-by: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20220426183357.102155-1-pierre-louis.bossart@linux.intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Link: https://lore.kernel.org/r/20220420193454.2647908-1-broonie@kernel.org
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/sof/sof-pci-dev.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ sound/soc/codecs/max98090.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/sound/soc/sof/sof-pci-dev.c b/sound/soc/sof/sof-pci-dev.c
-index bc9e70765678..b773289c928d 100644
---- a/sound/soc/sof/sof-pci-dev.c
-+++ b/sound/soc/sof/sof-pci-dev.c
-@@ -129,6 +129,11 @@ int sof_pci_probe(struct pci_dev *pci, const struct pci_device_id *pci_id)
+diff --git a/sound/soc/codecs/max98090.c b/sound/soc/codecs/max98090.c
+index 945a79e4f3eb..779845e3a9e3 100644
+--- a/sound/soc/codecs/max98090.c
++++ b/sound/soc/codecs/max98090.c
+@@ -413,6 +413,9 @@ static int max98090_put_enab_tlv(struct snd_kcontrol *kcontrol,
  
- 	dev_dbg(&pci->dev, "PCI DSP detected");
+ 	val = (val >> mc->shift) & mask;
  
-+	if (!desc) {
-+		dev_err(dev, "error: no matching PCI descriptor\n");
-+		return -ENODEV;
-+	}
++	if (sel < 0 || sel > mc->max)
++		return -EINVAL;
 +
- 	if (!desc->ops) {
- 		dev_err(dev, "error: no matching PCI descriptor ops\n");
- 		return -ENODEV;
+ 	*select = sel;
+ 
+ 	/* Setting a volume is only valid if it is already On */
 -- 
 2.35.1
 

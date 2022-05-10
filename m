@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15256521631
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 May 2022 15:02:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 396C052162D
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 May 2022 15:01:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B5E69857;
-	Tue, 10 May 2022 15:01:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B5E69857
+	by alsa0.perex.cz (Postfix) with ESMTPS id 88984164E;
+	Tue, 10 May 2022 15:00:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 88984164E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652187732;
-	bh=4aegVx1bOMbLneDfROhebeBKe1d5jbRdV2Z+Zar+nNI=;
+	s=default; t=1652187700;
+	bh=qiNUFofEKQvjLpQ/+eiLIB1OUhf4l/Ig7oEN2oOkq30=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EOLC+UroUnd3IBVfmoTYUsJUWbeE8m4IEOkwNytCtLFwG+Wff2J58ylQKZpgL3A9m
-	 kUQXcTnCuD1Dh9b0O/DEqwUhU/mvriQ3M33nN3zpc9noz5ocVYc+Y6Pfo2eYZPF6EH
-	 clqM/YNVEfku0ZJ0hORzyBneNJIQtmpwMCIBEX8Y=
+	b=Yvlpfi7uJEjOLGfDwIJ63hcpGncW49Nwn2XLNMruH2mh8ND46zmFpBBUmujKoN2vv
+	 ZJWHvu7U7LM5z9N4JTaZdWxJp+bbjpYX/SoFQGVIQZBOs73UW57L6PaCGQWejHmjdu
+	 fqLaFaTIJbvcD9Soxr5N4F1MW7564Q+mLezGFRw0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 96B5DF80153;
-	Tue, 10 May 2022 15:00:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2CE5DF801F5;
+	Tue, 10 May 2022 15:00:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4E672F8050F; Tue, 10 May 2022 15:00:50 +0200 (CEST)
+ id B3FE3F801F5; Tue, 10 May 2022 15:00:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,41 +34,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D998AF80153
- for <alsa-devel@alsa-project.org>; Tue, 10 May 2022 15:00:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D998AF80153
+ by alsa1.perex.cz (Postfix) with ESMTPS id 26042F8014C
+ for <alsa-devel@alsa-project.org>; Tue, 10 May 2022 15:00:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26042F8014C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ryn/8gTl"
+ header.b="h4CYoTib"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id C398E61405;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D8767614BD;
+ Tue, 10 May 2022 13:00:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FB51C385C6;
  Tue, 10 May 2022 13:00:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0DF0C385A6;
- Tue, 10 May 2022 13:00:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1652187641;
- bh=4aegVx1bOMbLneDfROhebeBKe1d5jbRdV2Z+Zar+nNI=;
+ s=k20201202; t=1652187642;
+ bh=qiNUFofEKQvjLpQ/+eiLIB1OUhf4l/Ig7oEN2oOkq30=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=ryn/8gTlGyzSBiHX7d023CICVL2MkYdLHKt+8cgyidnnTBre2caYVMd63vhG+q7Ud
- /SOTwoXmTsoZg4F2buLSYAnsz1jlrYlPkDMkDhGpB8Qhna418/PtS7aytkpKBRSOAQ
- KOm2VXzevc5NKSYfhgIoerpoCzx26nRY4mEMv+1eB83r6NHD0B+fsI28xBdjoe9huC
- oYZWctMEVmTJrhaGaBz3eweuSbhi0ZRnogujPN4nCeYrSrsfYaaxfo5XBCA+msdDiI
- E3MWMP51H6fcIq4sNBFdI04S16Ac55g+ctjcQ8GKUcvd/9kVpjRg0bc4o4W5LsbBHV
- JOsedRqsWuISA==
+ b=h4CYoTibCsRvp1hm8gTOmaO9ksXYpEuFjdzE4SHvBZvlJqJf2gN7Ye9xyj+jvN1Mc
+ dvyJ0bKTGHTFdaWTVEf6x5z/TjdWJtw2ty/yqatjhNiAiuhRJPu68ue0a9q8dYoAqj
+ xzqUaigZQXk+z6bwWfPaROOqniUA0ZABBczKN4bySKNMakNVUQz6O28ByhSUvBerKQ
+ aConbB7auaL5ETDSD4DnYS4Ij9Li//EfLg5EFFgFmyyjxVC/cir7L8D4PXeqe6dL5M
+ KqdMW89w0lqdtgDraORXTfqZycYEOtOzTkP6469mfkqfGSkwmprE5zHGOOgfFMUGBa
+ TG9VXNe2Ouk7A==
 From: Mark Brown <broonie@kernel.org>
-To: tiwai@suse.com, zheyuma97@gmail.com, lgirdwood@gmail.com, perex@perex.cz
-In-Reply-To: <20220509085925.1548328-1-zheyuma97@gmail.com>
-References: <20220509085925.1548328-1-zheyuma97@gmail.com>
-Subject: Re: [PATCH] ASoC: tlv320adcx140: Register a callback to disable the
- regulator_disable
-Message-Id: <165218763970.65921.14217933077833683707.b4-ty@kernel.org>
-Date: Tue, 10 May 2022 14:00:39 +0100
+To: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com
+In-Reply-To: <20220509185729.59884-1-pierre-louis.bossart@linux.intel.com>
+References: <20220509185729.59884-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ASoC: codecs: rt715-sdca: remove useless assignment of ops
+Message-Id: <165218764138.65921.1373938687406294328.b4-ty@kernel.org>
+Date: Tue, 10 May 2022 14:00:41 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Cc: tiwai@suse.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,9 +83,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 9 May 2022 16:59:25 +0800, Zheyu Ma wrote:
-> The driver should register a callback that will deal with the disabling
-> when it fails to probe.
+On Mon, 9 May 2022 13:57:29 -0500, Pierre-Louis Bossart wrote:
+> The ops are already part of the 'struct sdw_driver', it's unclear why
+> this was copied into the 'slave' structure - no other driver does so.
 > 
 > 
 
@@ -96,8 +95,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: tlv320adcx140: Register a callback to disable the regulator_disable
-      commit: e1c9f68aa23a8bf98e956e92e61293ef51bd6282
+[1/1] ASoC: codecs: rt715-sdca: remove useless assignment of ops
+      commit: 5118da41c7594ccf4e64003bf325ffcefb3da6e3
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

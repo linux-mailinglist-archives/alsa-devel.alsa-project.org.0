@@ -2,182 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6ACF5521362
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 May 2022 13:15:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70A0352135D
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 May 2022 13:14:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 06A4D17D6;
-	Tue, 10 May 2022 13:14:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 06A4D17D6
+	by alsa0.perex.cz (Postfix) with ESMTPS id ED368173C;
+	Tue, 10 May 2022 13:14:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED368173C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652181326;
-	bh=Gx4haH9zw2HfPhgdjr92r9/kobWFMqn0SxjdEgExGeA=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1652181293;
+	bh=yY35YDk9RI0PBtv75HOzfwiJh95q25x5cV9WWHxl4EE=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EuJO7DbP64s4T9aKGK3oxjLpYE1Lt2JA2ovtQFWIexGMBSJCIvw22oBcpCwOPxHvo
-	 TTUZUrK6Pnho31SRjZv5y+chKgtMzDHRL67c//cf5mZS1nAD32SrcD1VgmRUg0+QJB
-	 ni9KwGdmnjqon1ag24DTleNzBZQP7lCJiQznL14g=
+	b=snzpbe4R38FwqwzTyk6TmMFGdUFo9Ti1RYHDgysO7TRm41Hrg7YJT4vYrfSXSo5cN
+	 JT5uCTGKWUP/WGB9HyboPCXWpEKORFXvZuB6aKjuRFQZfW03IKIJdERbvfM8lFSWNr
+	 eNcOrrR1bWQSGTwRcFkEzSzfH8x7LuOHZZQPCrxU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4388EF804BD;
-	Tue, 10 May 2022 13:14:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 26599F801F5;
+	Tue, 10 May 2022 13:13:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3E244F804BD; Tue, 10 May 2022 13:13:59 +0200 (CEST)
+ id DE8B8F8019D; Tue, 10 May 2022 13:13:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id F4100F8011C
+ for <alsa-devel@alsa-project.org>; Tue, 10 May 2022 13:13:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F4100F8011C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="qCo58HqP"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 69880F80116
- for <alsa-devel@alsa-project.org>; Tue, 10 May 2022 13:13:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69880F80116
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="MxxCSxmj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1652181233; x=1683717233;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=Gx4haH9zw2HfPhgdjr92r9/kobWFMqn0SxjdEgExGeA=;
- b=MxxCSxmjXQ5n5ShHn9q9Ignty2myRh1aoK5wN3q6bKnPO3IeIKXCN06/
- bAffqS+Au5y1N68UhOcPJGRZz0OQsyXz3tKza1tXc50mFZtT6zC9e3bgC
- aL8jIeljhR0c6TcZhCMlStjlg7LuVGg/b6Ki6OQotDMqsw9oXdJHR5LTi
- Mr8bJDTqONcvHSS0Y4ZyP0RFL+nBEjs9mE2KzXele0OcYjbS7w/13eGch
- PS10Ow1xuV9Gl+j4yCIXEMFPuCe/oeGb+aBSmcJRb6iOTzvMgQfA32lpO
- fKyZyQAWwBBklxbH6VsCfDvSMxT8/yExTCuDKAI7wFNMyyQKJDWldaGsJ A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10342"; a="268181153"
-X-IronPort-AV: E=Sophos;i="5.91,214,1647327600"; d="scan'208";a="268181153"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 May 2022 04:13:34 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,214,1647327600"; d="scan'208";a="565598672"
-Received: from orsmsx603.amr.corp.intel.com ([10.22.229.16])
- by orsmga007.jf.intel.com with ESMTP; 10 May 2022 04:13:33 -0700
-Received: from orsmsx605.amr.corp.intel.com (10.22.229.18) by
- ORSMSX603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27; Tue, 10 May 2022 04:13:33 -0700
-Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
- orsmsx605.amr.corp.intel.com (10.22.229.18) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27 via Frontend Transport; Tue, 10 May 2022 04:13:33 -0700
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com (104.47.70.103)
- by edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2308.27; Tue, 10 May 2022 04:12:57 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Y45LipYA4N61kjSxVh6T6mV4LpBldQMYQnLnXYV6EAqibSx7EGSJjI+YWEST+IF5Ye8F5kFQ00XbvcJWo6Lr1oShBPGpPorTknGCpE+lnQQ/XzMDgq0jVlDyI2b5WODp/dYHzgTP4cLKLU3ghWzBrYjuiAyYR8Umsv22c73vR2ke9zuskfFS6Oqgc09xXuEOT0TBuX2d3AWFhT54tLIJvB9HVPChwv2v0xybpwd6LgroYZuRp6ImDUQQeGgY6of+G3BxTNlmv7zLKIGOqWEAEkRhJ7cdesAxiSOVXSGxJTiaL3W6xgewbw5542CInPqGgGR2icELRFIM91YzEBTGiQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EU10gbaLvZJFZ08p9HTGmeHPzfvaix0UEBiKW3r4VmQ=;
- b=aAnnIc0EMiGkOkGZM5Un2iUaV8IFEg+S2O5PDPXlsLGwriQTYwpAh7v+JttZ/zquo2L4kRMbWpviMKzChCnSudCdRtWZQ55kV++epuZpE+vDRoAY79Ug85yNI6AG2zpOqk4kt1ltJSfJA6riIULSNCIX9I4LVlIrMcoAlKZGkjV1QMm4GG1u1LZD5TWc6LUW78EE48DUQJQoFR5narzYCBUEFOkre4hbYwWc7t8M9i43KXRtfGa1aACl05G3X3GLzB4Om2CDD6e3zxBApGNVLLWtX6V3q+77fiLvPIPVuT9i+KZn+rBq3rRLzrg+VGdzhPUSk7Go+A2gkmZW0NosxQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB6375.namprd11.prod.outlook.com (2603:10b6:8:c9::21) by
- DM6PR11MB4297.namprd11.prod.outlook.com (2603:10b6:5:14e::29) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5227.22; Tue, 10 May 2022 11:12:56 +0000
-Received: from DS0PR11MB6375.namprd11.prod.outlook.com
- ([fe80::7910:3e1e:c6db:8b41]) by DS0PR11MB6375.namprd11.prod.outlook.com
- ([fe80::7910:3e1e:c6db:8b41%6]) with mapi id 15.20.5227.023; Tue, 10 May 2022
- 11:12:55 +0000
-Message-ID: <d5966845-f2b7-f949-a992-f05ef59fa628@intel.com>
-Date: Tue, 10 May 2022 13:12:48 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.9.0
-Subject: Re: [PATCH 05/14] ASoC: Intel: avs: Add ssp-test machine board
-Content-Language: en-US
-To: <alsa-devel@alsa-project.org>, <broonie@kernel.org>
-References: <20220427081902.3525183-1-cezary.rojewski@intel.com>
- <20220427081902.3525183-6-cezary.rojewski@intel.com>
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-In-Reply-To: <20220427081902.3525183-6-cezary.rojewski@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO2P265CA0114.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:c::30) To DS0PR11MB6375.namprd11.prod.outlook.com
- (2603:10b6:8:c9::21)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 9C717618A3;
+ Tue, 10 May 2022 11:13:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13DBFC385C6;
+ Tue, 10 May 2022 11:13:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1652181222;
+ bh=yY35YDk9RI0PBtv75HOzfwiJh95q25x5cV9WWHxl4EE=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=qCo58HqPanRTwnk/T8AsGRSAJIXwBMYOzPGekrW8HFKapMQdZ51y7Gfu22/f3wDa8
+ YX8TsrAV8HG/6acmRSOif8EW7PuQ3PCbQoeSoTrkndGaLXxSMem7CHz/w0dA1Lbe+3
+ 5m3n7UJDTqx1xaaCF2UagutMu8hHD72qqfqvaSM44l11B2STki1A7KCMxh9IYGx9L0
+ Q8erj5tt71wLZJM6ywAg4tVqUjFA0Trhgz0MQHOnSOhHjIkWwPNwiF6+NfY1jO24EZ
+ 8tXGXDToprqOFL/2RtaeVd2ab0dNXc8dKIScOuqRuCzcQyMwBEbpNK3KlqmmMm1qCd
+ 89Cx3RByetuxA==
+From: Mark Brown <broonie@kernel.org>
+To: ckeepax@opensource.cirrus.com
+In-Reply-To: <20220504170905.332415-1-ckeepax@opensource.cirrus.com>
+References: <20220504170905.332415-1-ckeepax@opensource.cirrus.com>
+Subject: Re: [PATCH 00/38] Clean up usage of the endianness flag
+Message-Id: <165218121671.43065.13246450134508582073.b4-ty@kernel.org>
+Date: Tue, 10 May 2022 12:13:36 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f606dd07-4d04-4ca1-526b-08da32760872
-X-MS-TrafficTypeDiagnostic: DM6PR11MB4297:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR11MB42974D0D51003B22E90054E7E3C99@DM6PR11MB4297.namprd11.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: tcZXkSJb1PzWumq2DLrPfTRTovabDajmSjwSWQ+VsJDD8YURYBq0OBWsogpcSYBg7fuGXsEQ/74U2tWaaVFLrJepJxgyD98oKPjFMzScdCQDgVvO5+clpCCmpysZeRW2b12uWLhMjZgImzknVBZj/UOBCs7Mq3kndynhR/uXTq7Gj/ikMhr0hoeN/kU1r2m0OsnwwWipl00p5yUZ9NIrBlBwVFejCUorMKKLXE2pJmmNAIBA7/cCRsE5JWkSRTlTjg9o8SjT33CNk2p5OeGvAgzQXHAGqOUr90WE8BlliW0KmA9A70imkVvqXzc5oBSi3OZ5k304Ka5tQEAw5k5QcTdLXUC9ohUHJev2blYlfnFB7kVAumM/gINwca8GH9CC5hfF3NxFexBVTGhxR33Q0J7eII3C59fblz1TNhSIm3atbUKzKNytR+VOm0XtVsqLXSFyFCx0SDZHX4rEF0xRk1blT94HlHRZHqB+FHgsNMRn4ATH6l2oD3bxu32W3r2TNzVB8jNPfWEHN404sCg3khlAj1DEMiBviRbBgAG1mfbqkECjFPxzmgXvcAnAmbc9qFaiZgD7sclV/KIFtOYsQvQXusm4itPiiO1Ij0gO+iV070atawF8NdBINt+dHysgCJTua8tBsoPNUd2ZcP0J3TNrJ6XpjEs4dDTI95z1SEleaiVNzYeg6OHT9dVcanpSfmGnoP8NjT8FIjGdLEjldn0O30fhczNN6QSru/lq9Bc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR11MB6375.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(366004)(66476007)(66556008)(6512007)(8936002)(53546011)(26005)(38100700002)(4326008)(31696002)(66946007)(86362001)(8676002)(6486002)(7416002)(44832011)(5660300002)(4744005)(508600001)(2906002)(2616005)(6506007)(6666004)(316002)(36756003)(82960400001)(186003)(31686004)(43740500002)(45980500001);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K2lTWGR1WS9GMDI4d0pEck5RK2ozYWo5clF5Q3lyZDJSTGRsRDRGb0x5VDRS?=
- =?utf-8?B?K3NDekF6aFl4eE04aTcyei9xdXVoeklPRHhxcUJ3eDlaaFlvUDkxK25MWXRY?=
- =?utf-8?B?RmhTQVkvOHZIUzN5eGdBWVNjNTBrbU91KzVNWmdMZ2tzd3pNandaU2ZXWCs3?=
- =?utf-8?B?MnVNWFk0cHRXdVdLRm1RWkdzbHRiYUpOOTlKZzJmRWlLWGp4eFlCOHdPNVc0?=
- =?utf-8?B?VW1SWHI4QWEvZVhPLzJ3NTErWUJNR3IvUWZNdDg1K2dYQzVhaUNDZUVUbHoy?=
- =?utf-8?B?N3duSFNwVEZlalY2TVltM3FGeUk3Zk8rREhQUStKQ3pRdnNvRG9CR1NZQmtr?=
- =?utf-8?B?dlJaY0ZySFNtbFdaTnowZWJnNjVvQnorRDRQc1ZJOXRySVNHTG1NRUdQd05S?=
- =?utf-8?B?Skp0OS9SckpDbElJN1ZHVWZZQ1JGQ3gxVWZGNmdpcXZ5ZDZmdEVSNU9kak01?=
- =?utf-8?B?TjlLeGtEQ3dkZ2hRSC83T2NsRXNWVFQ1OC9sV205d2NqcUg0T1Z3UjhpQWZC?=
- =?utf-8?B?a1ZuNHMvNVhDZGFEbXFSazFYMHJlWEtvdHUrQklLdW01MGF2SjFRYXJBU2h6?=
- =?utf-8?B?M1lJL2c3QzZPdUhvc1N4NFZNVG04ZE9wVS9rWUhpWTJYTE9hK2VLYkQ3alRM?=
- =?utf-8?B?YkMyS3ZNU2ZIYXh3RHgrZVZzakxHaFZNbzdJWFpvbDZ0czFVWU40TDVoRDM3?=
- =?utf-8?B?RDlSWVVLdFJlNGY3blRYTWZ4T3EyajFXL0h6a3JGMTQ4eDlNbWhBWHpMWnRS?=
- =?utf-8?B?a3FPQWl2Z0VTMVV1akw3RzAzUmhKWHJxTDFVdjAzMkdVbklCNDk3T2xBSWxz?=
- =?utf-8?B?MSs4czJjWWN0TFg2Q2NJMGV5YWZMTzU5cHJvbklEU1A0L1R6TGxMblhhVUhk?=
- =?utf-8?B?SS96aGJ1Z3NjM2wxQVVUMUpXaElzRG9jU2ZET2Njc0cvVjUxQk80eWVkTC93?=
- =?utf-8?B?RXpSbFBrTjlNVi9WMHBRV2d6SzhlYXhSbGk1RkdYNHBFbHpNTFJmS1JKNGpi?=
- =?utf-8?B?ckpScjdHWDhOK0JrTjc5RllLbUZ6ZkZmQjZ1UU1abkppNVVTN1MydUZ5T0xD?=
- =?utf-8?B?NFlXZ0FJMDQxUU9BUlN2VlREd3NiMUNMc0kvaGloUHpvejJja0lueDBNUXFa?=
- =?utf-8?B?R24yVGdGaHR6d3B3MkkxbzZ3aEVnUkRzNkZUaVJRa0lHZDMydG9VaENQS0ND?=
- =?utf-8?B?TnFMWFZkcUo4SitoRnZHZHVXVkZENU5tSm9CVHhkQkRBRjcyNGJBTTdhZmwy?=
- =?utf-8?B?MmF0WWZlSUlkT21ndXJIWWllREN6UEMzcmJMTDVBNXF1MFNDa25XbDBBOEFp?=
- =?utf-8?B?MG56ZmFoWFcvVmRmTHlGemxXWVYyU0lreFZITHlnVWxsMHRpQ0J3WCtsOEZv?=
- =?utf-8?B?VERKbDVtL01tUjZSeHVOcnNzSllnMnBSQUpsd1V1cWtUSWk0RUkzeDFCZFN4?=
- =?utf-8?B?ZHVST0lXN2ZJOCtOcDJCaW1mTVhJcVRFdlFNcHlPbmVOT25vL2czN1kwcjRY?=
- =?utf-8?B?bG03eEpnWG9YR2xvd0cyTzB3dTVmd3hyeGpuRnJCSjhQbDB3dzgxSFYwam9o?=
- =?utf-8?B?Q3RtU0Q1cFFWZDJtY1BUdS84Y3hwemVzcU9KcHlFRTNBV0c2aGpEeVJrMnZU?=
- =?utf-8?B?aGM3TmZoeFU1Z2Iya3JVdGhhR29jS0FMY1NoYllJTmxPNmFkdXFUYUJzdGM5?=
- =?utf-8?B?UzV2MWZkZjJkK01LZHNhZW8yVTU3MDJkcTU3Y3NxQ0pDeDRCd01KM2twekll?=
- =?utf-8?B?YXltQnBLM05XSk01WXlhWVNmdi9pakY1NzZYRHI2clE3VVp3aHVtaThJYmpO?=
- =?utf-8?B?ZitwNjcwbjhTa3BjSEFEOHQ0TjQ3MWVSUkR0dFpaSkRVTVJqSzMxekVsVE1U?=
- =?utf-8?B?QUE4N2lPV0lnZWk5c01BdmFhSm54U2JON1NWU05RcmJUUlgvUGJDMVkrUXh3?=
- =?utf-8?B?WDBtdW5GVzJkS0tySzkxcXg4blBucE1BYkN0SjdrWXY5NnhsRjJwdGhaVDJN?=
- =?utf-8?B?cDNTRVZXdm1VTWdqU0tvcGo0YllUWWRnK3NUaC9GMGtTbnlSRXFLVlNsK2NP?=
- =?utf-8?B?TGJSVUs1aXIzbkFxelNqVVpJTlhuRVdYSFNLK29RcVF0VUtJQW9TeTJVQk1X?=
- =?utf-8?B?cHNpWmtTMVc2NFVpU2JmUUNiejdjRkR2MUJvQ1FQalZjMHNkckFac1pISS8x?=
- =?utf-8?B?Q3REYmU0NGtiZDhDVHVubUxIZmRtTVZsRGM3amlJbHFBMUxnRitQYVpzQ0VQ?=
- =?utf-8?B?RW1iR01DblArcTE5L0lLTTJScERkbEQrT241d2JTUVNjNUhNWGZyUjFBdFlM?=
- =?utf-8?B?WG9xNk9HVFpYMVViTlY4RVNLRWFrUm1RcFc1cG1Sd1hMSlJhU0RYbmtUay9F?=
- =?utf-8?Q?n3TraGoJCdBKvyTo=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: f606dd07-4d04-4ca1-526b-08da32760872
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB6375.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 May 2022 11:12:55.7304 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mhQk5TQTe1wTUQhTGA/1yBuhiRf+0hTeZCywCCWhBQzNAaFb01P7CjgWju4FyBsPk8+2ur1U5ihmo5DehPE+Ou+Ta1tUdDZLTKe6+989cKo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR11MB4297
-X-OriginatorOrg: intel.com
-Cc: upstream@semihalf.com, harshapriya.n@intel.com, rad@semihalf.com,
- pierre-louis.bossart@linux.intel.com, tiwai@suse.com, hdegoede@redhat.com,
- amadeuszx.slawinski@linux.intel.com, cujomalainey@chromium.org,
- lma@semihalf.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: steven.eckhoff.opensource@gmail.com, chrome-platform@lists.linux.dev,
+ alsa-devel@alsa-project.org, lars@metafoo.de,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, tzungbi@google.com,
+ patches@opensource.cirrus.com, lgirdwood@gmail.com, jiaxin.yu@mediatek.com,
+ kmarinushkin@birdec.com, oder_chiou@realtek.com,
+ linux-mediatek@lists.infradead.org, alexandre.belloni@bootlin.com,
+ matthias.bgg@gmail.com, srinivas.kandagatla@linaro.org,
+ codrin.ciubotariu@microchip.com, bleung@chromium.org, cychiang@chromium.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -193,24 +91,118 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2022-04-27 10:18 AM, Cezary Rojewski wrote:
-> Allow for testing audio streaming over I2S interface through SSP-test
-> board. No actual codec is needed here as board is intended for SSP
-> loopback scenarios only. One playback and one capture endpoint is
-> exposed per SSP port.
+On Wed, 4 May 2022 18:08:27 +0100, Charles Keepax wrote:
+> Before componentisation any part registered as a CODEC would have
+> automatically supported both little and big endian, ie. the core
+> would duplicate any supported LE or BE PCM format to support the other
+> endian as well. As componentisation removed the distinction between
+> CODEC drivers and platform drivers, a flag was added to specify
+> if this behaviour is required for a particular component. However,
+> as most systems tend to use little endian the absence of the flag
+> is rarely noticed. Also the naming of the flag "endianness" is a
+> little unobvious as to if it should be applied to a particular
+> component.
 > 
-> Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
-> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
-> ---
->   sound/soc/intel/avs/boards/Kconfig    |   6 +
->   sound/soc/intel/avs/boards/Makefile   |   2 +
->   sound/soc/intel/avs/boards/ssp_test.c | 178 ++++++++++++++++++++++++++
->   3 files changed, 186 insertions(+)
->   create mode 100644 sound/soc/intel/avs/boards/ssp_test.c
+> [...]
 
-I'll send v2 later today that renames this board from ssp_test to 
-i2s_test - so it matches naming convention used for all other boards.
+Applied to
 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Regards,
-Czarek
+Thanks!
+
+[01/38] ASoC: soc-component: Add comment for the endianness flag
+        commit: 5c832efdbf8651e2800a0169a870786bd85ee230
+[02/38] ASoC: atmel-pdmic: Remove endianness flag on pdmic component
+        commit: 52857c3baa0e5ddeba7b2c84e56bb71c9674e048
+[03/38] ASoC: atmel-classd: Remove endianness flag on class d component
+        commit: 0104d52a6a69b06b0e8167f7c1247e8c76aca070
+[04/38] ASoC: cs4270: Remove redundant big endian formats
+        commit: 99a4b91ae967d22158d3f4d4f9564ac63295930e
+[05/38] ASoC: cs42l51: Remove redundant big endian formats
+        commit: 2bf1e87b9338e8986f78b675a201f7f02a3c43d5
+[06/38] ASoC: cs4349: Remove redundant big endian formats
+        commit: 8a85e2fca6476968f8558163b95c2df38930e523
+[07/38] ASoC: hdmi-codec: Remove redundant big endian formats
+        commit: 6edfed8f2cce012e87277c8a1786a2de7d5cae35
+[08/38] ASoC: sta32x: Remove redundant big endian formats
+        commit: a9b5bef89a68ec45ec198e2d316cd8b9b9bf6655
+[09/38] ASoC: sta350: Remove redundant big endian formats
+        commit: 2ac5b98284b3744514dcf75909a3bb3c3d5ab7d4
+[10/38] ASoC: hdac_hda: Add endianness flag in snd_soc_component_driver
+        commit: 1324cd8d14f06ff933c825ca5a51139604bc6b97
+[11/38] ASoC: max98504: Add endianness flag in snd_soc_component_driver
+        commit: a0556e3ad0c40359d5fa3dc72de14ad2efb9dfda
+[12/38] ASoC: adau1372: Add endianness flag in snd_soc_component_driver
+        commit: ac6f26c18f2d231e4006b2f12e0e46aeb6430cbb
+[13/38] ASoC: cs4234: Add endianness flag in snd_soc_component_driver
+        commit: de88ca441a3066668cae62741a52042f0273d364
+[14/38] ASoC: cs35l41: Add endianness flag in snd_soc_component_driver
+        commit: f0688b567fb88ba7636e87a5daed8a175275aa2e
+[15/38] ASoC: cx2072x: Add endianness flag in snd_soc_component_driver
+        commit: 1c3cbc1dacecdb427b693992f1a05b5837b33a70
+[16/38] ASoC: lochnagar: Add endianness flag in snd_soc_component_driver
+        commit: ba7328f31cd508964cf2a0b62edfb0b8339c1e77
+[17/38] ASoC: mt6351: Add endianness flag in snd_soc_component_driver
+        commit: 39723d3493edd60ed41f9891391d4335b65547b9
+[18/38] ASoC: mt6358: Add endianness flag in snd_soc_component_driver
+        commit: a5f956e221e92a0e93f036651cdab80a2eb6bb18
+[19/38] ASoC: mt6359: Add endianness flag in snd_soc_component_driver
+        commit: d990af7422761fa58713e2f56664f7c8c2bf6383
+[20/38] ASoC: mt6660: Add endianness flag in snd_soc_component_driver
+        commit: 8044910bc28e06e0dc0194f160118e00964d8b6a
+[21/38] ASoC: pcm3060: Add endianness flag in snd_soc_component_driver
+        commit: f0488349c1183a3a524434958d909f38628e1d4b
+[22/38] ASoC: rt1019: Add endianness flag in snd_soc_component_driver
+        commit: 3816069538d54a9c45345f45b569bb2e42846561
+[23/38] ASoC: rt9120: Add endianness flag in snd_soc_component_driver
+        commit: 80827c123f2a5f5e0fbcc6cb33b102666acec08e
+[24/38] ASoC: tlv320adc3xxx: Add endianness flag in snd_soc_component_driver
+        commit: f5e0084b5beed00f11fb7cd1e90b8b91fcd06e9f
+[25/38] ASoC: tscs454: Add endianness flag in snd_soc_component_driver
+        commit: ff69ec96b87dccb3a29edef8cec5d4fefbbc2055
+[26/38] ASoC: cros_ec_codec: Add endianness flag in i2s_rx_component_driver
+        commit: cfacadbdca23f1a8d9c5db2a8f1bb3c6a1dd4dd8
+[27/38] ASoC: wcd934x: Add endianness flag in snd_soc_component_driver
+        commit: 6b1b1579aa9879bbf729f75c386cb3c932b1f5b3
+[28/38] ASoC: wcd9335: Add endianness flag in snd_soc_component_driver
+        commit: e230b1b1819f2941b8b31174a3839388641920f8
+[29/38] ASoC: rt700: Add endianness flag in snd_soc_component_driver
+        commit: 4982fc1def317febc74398e839dab2a4059692fa
+[30/38] ASoC: rt711: Add endianness flag in snd_soc_component_driver
+        commit: 33f06beac3ade10834a82ad4105dcd91d4b00d61
+[31/38] ASoC: rt711-sdca: Add endianness flag in snd_soc_component_driver
+        commit: 3e50a5001055d79c04ea1c79fe4b4ff937a3339c
+[32/38] ASoC: rt715: Add endianness flag in snd_soc_component_driver
+        commit: 1a6750123b5d2f05200fb55633b32c81c840f681
+[33/38] ASoC: rt715-sdca: Add endianness flag in snd_soc_component_driver
+        commit: e8f4ddcb33de9b1eaf74d150234a2cd07dddcfad
+[34/38] ASoC: rt1308-sdw: Add endianness flag in snd_soc_component_driver
+        commit: 9b536b34693c8ab9caf0612bf4fdbc09fd51f126
+[35/38] ASoC: rt1316-sdw: Add endianness flag in snd_soc_component_driver
+        commit: 7fb6f48351c896fc6c18f9d3e7b0b4fb689e73cb
+[36/38] ASoC: wcd938x: Add endianness flag in snd_soc_component_driver
+        commit: ff7f9aa523d1699663cbeec4b0e69aaeab5e6bba
+[37/38] ASoC: wsa881x: Add endianness flag in snd_soc_component_driver
+        commit: 96bc59d097047a8a013cb77b2a1215cc4877fa96
+[38/38] ASoC: sdw-mockup: Add endianness flag in snd_soc_component_driver
+        commit: e2d61f6255a26a09d4fe2458fa93a33a71db1024
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

@@ -2,94 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E2005230B7
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 May 2022 12:33:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C2515232BB
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 May 2022 14:15:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1F11E1798;
-	Wed, 11 May 2022 12:32:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F11E1798
+	by alsa0.perex.cz (Postfix) with ESMTPS id E1C8A18BF;
+	Wed, 11 May 2022 14:15:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1C8A18BF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652265217;
-	bh=diBqFc+BoWzAr/VmLH7dKrLdPRQvzkNUrCN5zzOorr4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=C2z+khqA1DnFZMVRnWdu8yIxftdoBmhtVl0Z8MceHQgX4kjN1bDETeIOWwKyXz/ap
-	 XAPsIU08VQBsW/HGCn/4Idsfr/p2I7iZAZlrkzXMZnHGhrcNAhh3YnS4rMsKf94k8/
-	 RaUtBPAJkTSCGXRtai1IlL/hQaEudSAXBuZ05Lk4=
+	s=default; t=1652271359;
+	bh=sKLSP2OqzvoJexN5vhbAfJZX1o4VhDPz7T6brdFfj8c=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=SLvxKpLFqIbDBuTSKkn2GYdxrcxP/QZ0TAIOvLZUne4nFB+aozBO/yJS9MtgmpnoI
+	 Zzsh3ZFVo7ENArTO3uQiWGAO16KU+9xeVmLj61TjtrEpQVVf3DaRPDj2e82+9nE0mp
+	 FW1VThVHYyUcsEqaMYLoefqXIxYEi6I2EtiJ24Ak=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 88B99F80212;
-	Wed, 11 May 2022 12:32:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 696ACF80116;
+	Wed, 11 May 2022 14:15:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 53741F8015B; Wed, 11 May 2022 12:32:37 +0200 (CEST)
+ id 8A4EBF8011C; Tue, 10 May 2022 16:45:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [IPv6:2a00:1450:4864:20::62b])
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [IPv6:2a00:1450:4864:20::632])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2E94BF8011C
- for <alsa-devel@alsa-project.org>; Wed, 11 May 2022 12:32:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E94BF8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id F41AAF8011C
+ for <alsa-devel@alsa-project.org>; Tue, 10 May 2022 16:45:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F41AAF8011C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="j7v8dV+o"
-Received: by mail-ej1-x62b.google.com with SMTP id l18so3105926ejc.7
- for <alsa-devel@alsa-project.org>; Wed, 11 May 2022 03:32:33 -0700 (PDT)
+ header.b="Pvlrqisa"
+Received: by mail-ej1-x632.google.com with SMTP id l18so33397635ejc.7
+ for <alsa-devel@alsa-project.org>; Tue, 10 May 2022 07:45:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=diBqFc+BoWzAr/VmLH7dKrLdPRQvzkNUrCN5zzOorr4=;
- b=j7v8dV+of4JcYw6oQpjfYDg+/AhDGlh8rWDyVb4dNZFpWwCXA/ba7PSzuOc073fq5C
- CkbxcaE8TIYaP/pepZuL48hr/m1y4+28nijoEjmbwdqh6cKWZ9DJnWqZNJdkIV7JUYyK
- K+adh0jDs6KRrHOvq2jskXIux2qU/jq084T6hmNIBFHJD1Kdjv3EQgIogmZypxSboneH
- u24R/YdKD1LA+I5Zm3gwoh4EXivmzYiVlM1C6kwKzu3sEDV7G/8qbNQlrgM+GuoAmdEE
- TrmZCR0vnIxqBgF7fdIt1N9tzj894I735RdxUya0xlE6QJTIBqjtLCBvRhw/nG5KNTUv
- 2ZWw==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=c+hsJzreaFfLVPyymmLrJkbyzmNJnJu0qYLtB9ahG6I=;
+ b=Pvlrqisa1HswCwseRK15nENZEWQjoMc6spitn2A60Toeq2u4wyRG+3D8kZNYnnyuDY
+ 9B9drOlmdCDl44n0mlLh/ePzcVnHgzvsmA62fzw4U5HS0e3OpUiHr5zEOTf0wTBqLx2w
+ npSUuQ19m0y2UrlY2sVD7f3VanQHN3FNAsHvhJmswelBFq0dnTJlrsZbePKQ2cdDwxKn
+ FFs+aWCv83G8Vx7PImReftM1vgLqU6Hf0GElXyWqNRvaVy2Nw3uZU9EyNWrmLOsmfzA8
+ U7NVEoxvhVTyYIegJb4iGIid9ZrGAmZGpm5Ubn4q+d+baPRupiqJotuFWPgCnzIpllWA
+ ZQ3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=diBqFc+BoWzAr/VmLH7dKrLdPRQvzkNUrCN5zzOorr4=;
- b=clWSk8X+BZcXCUTf4Kl07tN+05AQn0wdT1HcGIhru8qXBDmj6XdIlYhPiGTq+N2XgP
- Irt39yVcm5NWEia795fbNSKygBUv0+DMxXc/QHC/gigW7JxD64vHQkCqAFggBP3LIVxe
- w2spD2pKCO/CMEdzpQNcvvl3D3YVM6vd7m93KV0cTaKO32EN/6Wwq0n2rZ+vZO906wO8
- yrpNszWzIu+MTqGFQ9NZw5Z+hGgfbqrrwyjt3uB/0zhQB9TIB9qLgYhIAV2LwoSh/Enr
- UzNR/2e0NPZ88u6+QBZhkp1GAgVYExOemuuHjRze3Ve/sGxnso+HQ57tic3F9c/crApG
- HdqA==
-X-Gm-Message-State: AOAM5330ZFsbF5X9z/nSPK4roaNo8rE0HEyX7Bn5rhWFX0YFl9M9r/46
- qXIMCH2p8ztaMAbxTg++Mzf8T9n/UBpV6ny7lk4=
-X-Google-Smtp-Source: ABdhPJw6yj7TxbR0Hf9m7Lwxgm0Ky888mXXjlZZAf43y7eUMo7ah+68FM66Xr2uyLeand054/IqjszNELkdzUOz42E0=
-X-Received: by 2002:a17:906:c14b:b0:6f8:e6bb:f8d5 with SMTP id
- dp11-20020a170906c14b00b006f8e6bbf8d5mr16921243ejc.4.1652265151596; Wed, 11
- May 2022 03:32:31 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=c+hsJzreaFfLVPyymmLrJkbyzmNJnJu0qYLtB9ahG6I=;
+ b=Ki5fkHKaT1Vji7eX2dZO9aiWypwChSMubkI2A7lyEUkB8iHnA8OvyW5v+EMddrcFJ0
+ B9FljiZyOtQEYXiDuGnzlrQtReJTtrgA5DJgDqCd4GGY2Ho17g9LagM5OlbAE7VtYLcN
+ Lsq7flWjBQKIdVrSR3dlKo9eaEvlT5E+J9ePyHcgjU/lRL7NRl2O6Bd7nA47UGIKgtIP
+ BH3jadOSGOYjk/aCtE8B7ip2+KW9rFwl8qCF1cLrSVCpPs2BkVo3OukF3u87DOvrrFDq
+ gh4Z2RagXeOYKk/0RnK26q5LAGvKm1EDLhOlMRK8LV8Q8u/7SE8eB2zdQmt6mmafppsZ
+ Jdwg==
+X-Gm-Message-State: AOAM533T8bjW9JQfUpI+QXZfPFZXgXgOdA8yFskY9gN8jGjpwL1Rt5TE
+ xm1/gdyPTCgyaU5EcXSNKXA=
+X-Google-Smtp-Source: ABdhPJzbwex+ryg9LpRDhemVltmdQwfI6oaKvTEX7Dp179Go73CpJYXZYcOYN8rQYQA8rk/O4g1ujw==
+X-Received: by 2002:a17:907:6d1f:b0:6fc:309f:8363 with SMTP id
+ sa31-20020a1709076d1f00b006fc309f8363mr3370782ejc.655.1652193920050; 
+ Tue, 10 May 2022 07:45:20 -0700 (PDT)
+Received: from localhost.localdomain (89-38-99-188.hosted-by-worldstream.net.
+ [89.38.99.188]) by smtp.gmail.com with ESMTPSA id
+ z16-20020a170906241000b006fb6d9d25bfsm829652eja.22.2022.05.10.07.45.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 10 May 2022 07:45:19 -0700 (PDT)
+From: Yassine Oudjana <yassine.oudjana@gmail.com>
+X-Google-Original-From: Yassine Oudjana <y.oudjana@protonmail.com>
+To: Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: [RFC PATCH 0/2] Make qcom-ngd-ctrl not wait indefinitely for already
+ booted ADSP
+Date: Tue, 10 May 2022 18:42:17 +0400
+Message-Id: <20220510144219.806391-1-y.oudjana@protonmail.com>
+X-Mailer: git-send-email 2.36.0
 MIME-Version: 1.0
-References: <20220511065803.3957-1-linmq006@gmail.com>
-In-Reply-To: <20220511065803.3957-1-linmq006@gmail.com>
-From: Fabio Estevam <festevam@gmail.com>
-Date: Wed, 11 May 2022 07:32:19 -0300
-Message-ID: <CAOMZO5AqKNg36_OBntqzpF6sYFitCMMJZP-KwFpYftJ76fdDsA@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: fsl: Fix refcount leak in imx_sgtl5000_probe
-To: Miaoqian Lin <linmq006@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
- linux-kernel <linux-kernel@vger.kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Nicolin Chen <nicoleotsuka@gmail.com>, Mark Brown <broonie@kernel.org>,
- NXP Linux Team <linux-imx@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Shengjiu Wang <shengjiu.wang@gmail.com>,
- Richard Zhao <richard.zhao@linaro.org>,
- "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 11 May 2022 14:14:58 +0200
+Cc: alsa-devel@alsa-project.org, Yassine Oudjana <y.oudjana@protonmail.com>,
+ linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Yassine Oudjana <yassine.oudjana@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,15 +106,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, May 11, 2022 at 3:58 AM Miaoqian Lin <linmq006@gmail.com> wrote:
->
-> of_find_i2c_device_by_node() takes a reference,
-> In error paths, we should call put_device() to drop
-> the reference to aviod refount leak.
+Commit a899d324863a3 ("slimbus: qcom-ngd-ctrl: add Sub System Restart support")
+made qcom-ngd-ctrl wait for ADSP to become ready before starting to do its work.
+Due to how the SSR notifications currently work though, if qcom-ngd-ctrl probes
+after ADSP boots and becomes ready, it never receives a QCOM_SSR_AFTER_POWERUP
+event notification and keeps waiting indefinitely, making SLIMbus never come up.
 
-s/aviod refount/avoid refcount
+This series makes qcom_register_ssr_notifier call the notifier_call of the newly
+registered notifier block with the last SSR event received from the remoteproc,
+basically reporting the event that qcom-ngd-ctrl missed by registering late,
+stopping it from waiting for an event that has already happened.
 
-> Fixes: 81e8e4926167 ("ASoC: fsl: add sgtl5000 clock support for imx-sgtl5000")
-> Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
+I'm not sure if this approach would have any unwanted consequences in other
+drivers relying on SSR events however, hence I'm sending this as a RFC. This
+can also be considered a bug report, so if anyone has a better fix then I'd
+appreciate it getting applied instead of this one.
 
-Reviewed-by: Fabio Estevam <festevam@gmail.com>
+The second patch is a general fix that became necessary after the first patch,
+and should likely be applied anyway.
+
+Yassine Oudjana (2):
+  remoteproc: qcom: Report last event on SSR notifier registration
+  slimbus: qcom-ngd-ctrl: Initialize ngd_up_work before it can be
+    scheduled
+
+ drivers/remoteproc/qcom_common.c | 17 +++++++++++++----
+ drivers/slimbus/qcom-ngd-ctrl.c  |  3 ++-
+ 2 files changed, 15 insertions(+), 5 deletions(-)
+
+-- 
+2.36.0
+

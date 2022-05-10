@@ -2,77 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A72C52201C
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 May 2022 17:51:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABC5B522042
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 May 2022 17:55:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ED9F81A2D;
-	Tue, 10 May 2022 17:50:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED9F81A2D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 51BBE1914;
+	Tue, 10 May 2022 17:54:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51BBE1914
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652197881;
-	bh=VkPH2GOgvW0jX6lgRUV/1Nazd4OVVZfSwSr6lOBKaK0=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1652198118;
+	bh=ZMJtlVMCpq17Ynkk2xQ42l9ZsYEIT9QA94kBz1coANw=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UfFHH6EQBFFzcmIxFMqWzBbk6WwnQHv6YT8+2lnUP1SPTCB5MKVh3C7/nCVRNmDqE
-	 pAkkQxfQHE4RB/ssQQq3IYJrWawU9K6KD0O/lGKUxtaUr4q7k62dwRBjxmOsRENl5G
-	 VrLh0eTSrf6mbjde1WZ9EFDk+80VPIcpHn06bwYI=
+	b=h1lp8YAwXMfxiSXVhHI299qo+cEWsCVpDyYVc+MdT8iptP7Z1kGFlvQJhvKd/VKea
+	 Jfg59lBx9sBunGxp1Bkixpl2VosXmQOD9jwKlduwkOOTLMWJoWWF5nqbypgBR9IKPE
+	 UWkgucgvdF0riur5Rhb7n5BrqdL6qu6CIlQBxBgo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C03E4F80587;
-	Tue, 10 May 2022 17:47:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C9EABF801F5;
+	Tue, 10 May 2022 17:54:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B882EF80571; Tue, 10 May 2022 17:47:28 +0200 (CEST)
+ id 94D8BF8011C; Tue, 10 May 2022 17:54:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3386AF804BD
- for <alsa-devel@alsa-project.org>; Tue, 10 May 2022 17:47:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3386AF804BD
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="k8NLdEb2"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 30CAC615A5;
- Tue, 10 May 2022 15:47:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 930CDC385CA;
- Tue, 10 May 2022 15:47:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1652197644;
- bh=VkPH2GOgvW0jX6lgRUV/1Nazd4OVVZfSwSr6lOBKaK0=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=k8NLdEb2E0vcTYvsF06xL3UVwBgm3KZzsHeviUijVncaqO8IgG7fS6dTQb/FC6o9f
- DVPi8hh9RnBsmpznGQ348ShOA75/hm0Bel4HSSfsW/ai61K2ZJqiB2B1PnOA4d7dM/
- CeTczPFV4wP6Jv7z37E14o3KVGRAbw7PuM8CcfK6N/RtuijO6d1IkYgHwPd2x8fcMk
- hNY8Ue2Pq5fjEEMqdkhNKAmwY8YuV+RCfGnbwWKh8ykWAAxObxrM/z4twSlEOwPhR2
- +fFwPwyQqab0hObEPGzozQz3/AobyB0Awekj+5ikoTsRL4vCwX/w4dNV0bDO5uWYu0
- MVkuY0qRV+/lQ==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.9 4/4] ASoC: ops: Validate input values in
- snd_soc_put_volsw_range()
-Date: Tue, 10 May 2022 11:47:03 -0400
-Message-Id: <20220510154704.154362-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220510154704.154362-1-sashal@kernel.org>
-References: <20220510154704.154362-1-sashal@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id F1918F8011C
+ for <alsa-devel@alsa-project.org>; Tue, 10 May 2022 17:54:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1918F8011C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="cbrcgnB9"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24A5iU1j032715;
+ Tue, 10 May 2022 10:54:13 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=7lL6RqLJPGkynsQSaxGyq69dVR1T6FKpL+niMCkLJEI=;
+ b=cbrcgnB9KDqiP36nY+qFxvWIGpmPcJLYe5BSRSSwxxFnjirJnVj1QE+XKLINQVoLr5jn
+ CgvUD+9F89BkaRTzfgFPWBDvdoh2LJJO+AQPSyUL54XuWbcujdwWZiRq/eBAesa8ADqM
+ Z9iP8LkAlks9A2wAQDmXLZ3fa84pPJwwrZ4EDCFsGZ17Gh+MK511vZHOQIuIfMHuo1QA
+ RvZgAP+ZsPk6PtNAo+WeayvYMr7IwxkKgUUmctAkNk/9nhNQ9Hp8SNURBPXZeb2cvlyk
+ Zuadv06vGz9DFPIyNJAROmLnVduvabzxMLdyRvI63T58yqH7Jq6G5Yi/KdHcjERbdrEM vw== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3fwp6152s3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Tue, 10 May 2022 10:54:13 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Tue, 10 May
+ 2022 16:54:11 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.24 via
+ Frontend Transport; Tue, 10 May 2022 16:54:11 +0100
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 04C4CB10;
+ Tue, 10 May 2022 15:54:11 +0000 (UTC)
+Date: Tue, 10 May 2022 15:54:11 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Zheyu Ma <zheyuma97@gmail.com>
+Subject: Re: [PATCH 1/6] ASoC: cs42l52: Fix the error handling of
+ cs42l56_i2c_probe()
+Message-ID: <20220510155410.GC38351@ediswmail.ad.cirrus.com>
+References: <20220510153251.1741210-1-zheyuma97@gmail.com>
+ <20220510153251.1741210-2-zheyuma97@gmail.com>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- tiwai@suse.com, lgirdwood@gmail.com, Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20220510153251.1741210-2-zheyuma97@gmail.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: CRXABebgtt9svhTLF867E-nijdpNEqoH
+X-Proofpoint-ORIG-GUID: CRXABebgtt9svhTLF867E-nijdpNEqoH
+X-Proofpoint-Spam-Reason: safe
+Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org,
+ tanureal@opensource.cirrus.com, patches@opensource.cirrus.com, tiwai@suse.com,
+ lgirdwood@gmail.com, david.rhodes@cirrus.com, rf@opensource.cirrus.com,
+ broonie@kernel.org, james.schulman@cirrus.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,58 +102,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Mark Brown <broonie@kernel.org>
+On Tue, May 10, 2022 at 11:32:46PM +0800, Zheyu Ma wrote:
+> The driver should goto label 'err_enable' when failing at regmap_read().
+> 
+> Signed-off-by: Zheyu Ma <zheyuma97@gmail.com>
+> ---
+>  sound/soc/codecs/cs42l56.c | 2 +-
 
-[ Upstream commit aa22125c57f9e577f0a667e4fa07fc3fa8ca1e60 ]
+Patch looks good but the subject line says cs42l52 instead of 56.
 
-Check that values written via snd_soc_put_volsw_range() are
-within the range advertised by the control, ensuring that we
-don't write out of spec values to the hardware.
-
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Link: https://lore.kernel.org/r/20220423131239.3375261-1-broonie@kernel.org
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/soc/soc-ops.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
-
-diff --git a/sound/soc/soc-ops.c b/sound/soc/soc-ops.c
-index 74968ddee49f..90ba5521c189 100644
---- a/sound/soc/soc-ops.c
-+++ b/sound/soc/soc-ops.c
-@@ -528,7 +528,15 @@ int snd_soc_put_volsw_range(struct snd_kcontrol *kcontrol,
- 	unsigned int mask = (1 << fls(max)) - 1;
- 	unsigned int invert = mc->invert;
- 	unsigned int val, val_mask;
--	int err, ret;
-+	int err, ret, tmp;
-+
-+	tmp = ucontrol->value.integer.value[0];
-+	if (tmp < 0)
-+		return -EINVAL;
-+	if (mc->platform_max && tmp > mc->platform_max)
-+		return -EINVAL;
-+	if (tmp > mc->max - mc->min + 1)
-+		return -EINVAL;
- 
- 	if (invert)
- 		val = (max - ucontrol->value.integer.value[0]) & mask;
-@@ -543,6 +551,14 @@ int snd_soc_put_volsw_range(struct snd_kcontrol *kcontrol,
- 	ret = err;
- 
- 	if (snd_soc_volsw_is_stereo(mc)) {
-+		tmp = ucontrol->value.integer.value[1];
-+		if (tmp < 0)
-+			return -EINVAL;
-+		if (mc->platform_max && tmp > mc->platform_max)
-+			return -EINVAL;
-+		if (tmp > mc->max - mc->min + 1)
-+			return -EINVAL;
-+
- 		if (invert)
- 			val = (max - ucontrol->value.integer.value[1]) & mask;
- 		else
--- 
-2.35.1
-
+Thanks,
+Charles

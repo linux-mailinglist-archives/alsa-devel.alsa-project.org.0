@@ -2,75 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5CAE521363
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 May 2022 13:15:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 580675213E1
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 May 2022 13:34:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2F35817F6;
-	Tue, 10 May 2022 13:14:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F35817F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5C0711707;
+	Tue, 10 May 2022 13:33:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C0711707
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652181336;
-	bh=1lnw92tFFloxyz+SRQlzXfqNdO+aQowWyIOa52kNAoo=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1652182474;
+	bh=ZAWLbAkZYWiN88dtJ5gxkyBwowKlhRJppEaDB8zssaQ=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aDPa5rFY434t+YS6258GflqkdVViqiFrvN732Tg+HRcuvBBsreTDWs6F1WaFYPOEg
-	 v581srWskX0ExiGLejr3A8IFMzzu0URvkJ2NVc3FNLCLFyvDCLsgSP4EsIP+2vpYGc
-	 SgPe+vpatyBqN8Jb0u44UWMb85x0h5yhCTcahEPc=
+	b=OMQ4utvOgkgpfo0cTu62m2WZ0LoHYqi4bTAQ4CEjH5r9NOFq7XDamoiNwBy2GZGEC
+	 YshOJDoDo1nUo/OnEYN8oXnHXUi7wHmc/mE8dpKgKKucPjlBwCWiXuQINAVgqOojXb
+	 iwFheQh7f1JC0CQG04H2prd8TRIIGpmBgh+LS5TA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0F8E9F80510;
-	Tue, 10 May 2022 13:14:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9610EF801F5;
+	Tue, 10 May 2022 13:33:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 21089F804BB; Tue, 10 May 2022 13:14:00 +0200 (CEST)
+ id 8111EF80116; Tue, 10 May 2022 13:33:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E9EEDF8011C
- for <alsa-devel@alsa-project.org>; Tue, 10 May 2022 13:13:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9EEDF8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2A3C8F8011C
+ for <alsa-devel@alsa-project.org>; Tue, 10 May 2022 13:33:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A3C8F8011C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Pl5hgu98"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dkim=pass (2048-bit key) header.d=denx.de header.i=@denx.de
+ header.b="H8XhQxHa"
+Received: from ktm (85-222-111-42.dynamic.chello.pl [85.222.111.42])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id CFEBBB81B16;
- Tue, 10 May 2022 11:13:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AC27C385C2;
- Tue, 10 May 2022 11:13:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1652181234;
- bh=1lnw92tFFloxyz+SRQlzXfqNdO+aQowWyIOa52kNAoo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Pl5hgu98j7yQeST24Yw4a4Bnxroe3JtiVCx0s5ijY3lMBTK3zMSbd14egmddDqkWz
- pe6fbHPnicg0Nq2GGjXrz+gX9lbor8lwTH3KLDekNnHR9SkJfEOBF6c8dQXj2Txkl0
- qCqAjjQc17dScfL9n2ZHLfFqVXKLWAnJk2BKVx1OMRCf5yGgOWbrp2Ezyo5XkBZDGt
- HWEtfQkv9QX4wixm6/g+f8PK0FED8Bcc5T6zUaDcusv7VbePcwncqwZNH+moOl1Yla
- 2WDYcbT6CyD87Cooq+GL8A0TNvEfOpSVLDZ9qQeS6CfYVq9NCRz/JJygAhqOz6EY6I
- P/y4PBWpfmPjg==
-Date: Tue, 10 May 2022 12:13:48 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Lukasz Majewski <lukma@denx.de>
+ (Authenticated sender: lukma@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id 5C5D184245;
+ Tue, 10 May 2022 13:33:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1652182406;
+ bh=ZFo927e5FInTbURE9yWoxLxrY0CAVoAwYdbjul31wsM=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=H8XhQxHadPKetSG5ktZXFJgUXytoZ5rqH6ZHBXorAJO0s8MoZtrJMmbXcQNeAqNEt
+ S1RbjPuGi0mFIFfxvRYP1cJS7YW1yElGv/eLV+qQyDFrT4K33kBLvkVf7pBj0ih0BY
+ KEnSYGC7iDiUq3skG5oIdaUr120T1XSigkUVJS68vsfPsq6+jCIxfnnM/2AxHGRrqF
+ DOlO26ax2r9Hiw9JeQoyQ2GwL4epK8j/4bPA6Pz9AOWBKZiNxvUpPalcQrCHCw0JT9
+ Uqhr0dzaqTGsBFxvFQxAH5sptt5cKDA20rbxUcRb6rYEIy+kzz2S5mE0RDjY8KNSZy
+ wlixoikveI2GQ==
+Date: Tue, 10 May 2022 13:33:20 +0200
+From: Lukasz Majewski <lukma@denx.de>
+To: Mark Brown <broonie@kernel.org>
 Subject: Re: [PATCH 1/2] ASoC: wm8940: add devicetree support
-Message-ID: <YnpI7CTiXzCYn918@sirena.org.uk>
+Message-ID: <20220510133320.52f1f934@ktm>
+In-Reply-To: <YnpI7CTiXzCYn918@sirena.org.uk>
 References: <20220509121055.31103-1-lukma@denx.de>
  <YnkxIe1nVUiKNmdq@sirena.org.uk> <20220510092438.528ef474@ktm>
+ <YnpI7CTiXzCYn918@sirena.org.uk>
+Organization: denx.de
+X-Mailer: Claws Mail 3.18.0 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="qAf9JxhdA/2u1K62"
-Content-Disposition: inline
-In-Reply-To: <20220510092438.528ef474@ktm>
-X-Cookie: I've read SEVEN MILLION books!!
+ boundary="Sig_/CzcUOznd1uIj3ksgQ3evhl3"; protocol="application/pgp-signature"
+X-Virus-Scanned: clamav-milter 0.103.5 at phobos.denx.de
+X-Virus-Status: Clean
 Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
  patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
  Takashi Iwai <tiwai@suse.com>
@@ -89,41 +90,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+--Sig_/CzcUOznd1uIj3ksgQ3evhl3
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
---qAf9JxhdA/2u1K62
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Hi Mark,
 
-On Tue, May 10, 2022 at 09:24:38AM +0200, Lukasz Majewski wrote:
-> > On Mon, May 09, 2022 at 02:10:55PM +0200, Lukasz Majewski wrote:
+> On Tue, May 10, 2022 at 09:24:38AM +0200, Lukasz Majewski wrote:
+> > > On Mon, May 09, 2022 at 02:10:55PM +0200, Lukasz Majewski wrote: =20
+>=20
+> > > > This adds devicetree support to the wm8940 codec driver.
+> > > > With a DT-based kernel, there is no board-specific setting
+> > > > to select the driver so allow it to be manually chosen. =20
+>=20
+> > > You need to provide a binding document for any new bindings you
+> > > add in code. =20
+>=20
+> > The second patch in this series adds proper *.yaml file to Linux
+> > source tree. =20
+>=20
+> You didn't send the patches as a series, you sent two separate threads
+> so they got totally separated in my inbox.  I did eventually connect
+> them.
 
-> > > This adds devicetree support to the wm8940 codec driver.
-> > > With a DT-based kernel, there is no board-specific setting
-> > > to select the driver so allow it to be manually chosen.
+Thanks :-)
 
-> > You need to provide a binding document for any new bindings you add in
-> > code.
 
-> The second patch in this series adds proper *.yaml file to Linux source
-> tree.
+Best regards,
 
-You didn't send the patches as a series, you sent two separate threads
-so they got totally separated in my inbox.  I did eventually connect
-them.
+Lukasz Majewski
 
---qAf9JxhdA/2u1K62
-Content-Type: application/pgp-signature; name="signature.asc"
+--
+
+DENX Software Engineering GmbH,      Managing Director: Wolfgang Denk
+HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
+Phone: (+49)-8142-66989-59 Fax: (+49)-8142-66989-80 Email: lukma@denx.de
+
+--Sig_/CzcUOznd1uIj3ksgQ3evhl3
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJ6SOsACgkQJNaLcl1U
-h9Bpsgf9HulPrkkCBhalLtUuryJIf4qV7x1Y04CyPnGjl9Ho8sS9mNtiwG6Czlo0
-+2f1GImlUw9xZWtHGEcjralJLVOsCXfr5vEtFsGTKhFclWa7zgwvyAEW4362zW51
-BU+u1iZxL3/BHfKS5zk8+VztfDA7EkkRkIFgzl3b4e6yIUQZdW0BHn4qKFR98NVH
-cVqsLpjo1xhwmsk+3NvzL6YBP4mBXadd+XiwW0BJ8X2PCtV9AIvqIy8+Eg+AHONL
-yxVFnpM4Z4qHh9XZ/k2MOztDeLAdtowN13JGEcjVCDW/JOkNBrqNQLtnPNRtHUOd
-sPFGLyuiYVFwUoSRouldnuTpbfZdrQ==
-=WRQT
+iQEzBAEBCgAdFiEEgAyFJ+N6uu6+XupJAR8vZIA0zr0FAmJ6TYAACgkQAR8vZIA0
+zr16Mwf7BLc80ZONSnv7u0SrL/p6P7EKRzUbTFz3niaxGTph6E38ggtVgyNhm0L3
+ll229or66g9c3e2zjkccHaWLceyrn6nladyy1oczecQSrJLYazBmzjSJZkJO9tMG
+4N/ofOslQzJ5mlIrYTEZu8gVSNdl0k52Vxu1aHXHaf5sfRYLbwVc/wkrd1zvxg9T
+MqCXmJuYXA78bGTfqVeW8HP3jbmtHVBM3nq2S2ujW6ucT/ZzNThyTPr2g+ZnT7kc
+dG2s+lNla5+l38z4ABLxtBYO/r90fYiYz0V0ht38sYRkuvbRbayjxHxacXjUaU5M
+KHNRLUNSr3yy9dnA2Yb/1z1yP+gAkQ==
+=3UW/
 -----END PGP SIGNATURE-----
 
---qAf9JxhdA/2u1K62--
+--Sig_/CzcUOznd1uIj3ksgQ3evhl3--

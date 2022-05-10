@@ -2,65 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7E51521594
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 May 2022 14:37:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A4A3521610
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 May 2022 14:55:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4B3B818BC;
-	Tue, 10 May 2022 14:36:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B3B818BC
+	by alsa0.perex.cz (Postfix) with ESMTPS id EFB2D18CD;
+	Tue, 10 May 2022 14:54:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFB2D18CD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652186250;
-	bh=iGrh3x9E6sUmB6tnzbcYcszUco/kIjV0qYTR4hQiU/Q=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=AZzM+u0xXLJ+brUxwEUXTTjumvescR6kBNQO3ocFrnyv1D0sy+Axd1aodEjHN+wqi
-	 afX8zOhUlKSLAAEMkQCdAuVmCSS+RG/3eFGu5KDLilwdVxvtXb277GiW+sl02BpClL
-	 1q0CalO8gUX1jylPx8JK6z5Mg5Der2DaC+oQACBs=
+	s=default; t=1652187319;
+	bh=4PivaWWi4aEx+cxNzcxek9VaB+oZC2dWimjoWJP0lEo=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=vZdXwoPsK97BeQgrNvjSkaX5y1k+cz8/RlNfCyllwJpzVJNlNdB7nUGSksHaMUe7g
+	 s157weV16NIj9PItwWEbtXaaosUyD1Q/N7Ega89FJ1A3J9j/2Xb0mG4dl8yFTcayZy
+	 6WG225mKmKuenEV7thTNws5fxTCdZqibbIyfqPfE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C89A7F801F5;
-	Tue, 10 May 2022 14:36:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6DA1BF8011C;
+	Tue, 10 May 2022 14:54:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 988AEF8019D; Tue, 10 May 2022 14:36:30 +0200 (CEST)
+ id 2EEF5F8019D; Tue, 10 May 2022 14:54:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3FD0DF8011C
- for <alsa-devel@alsa-project.org>; Tue, 10 May 2022 14:36:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3FD0DF8011C
-Received: from dggpemm500021.china.huawei.com (unknown [172.30.72.56])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4KyHZW5WFyzhYty;
- Tue, 10 May 2022 20:35:47 +0800 (CST)
-Received: from dggpemm500007.china.huawei.com (7.185.36.183) by
- dggpemm500021.china.huawei.com (7.185.36.109) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.24; Tue, 10 May 2022 20:36:15 +0800
-Received: from huawei.com (10.175.103.91) by dggpemm500007.china.huawei.com
- (7.185.36.183) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Tue, 10 May
- 2022 20:36:14 +0800
-From: Yang Yingliang <yangyingliang@huawei.com>
-To: <linux-kernel@vger.kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH -next] ASoC: samsung: spdif: remove unnecessary check of
- mem_res
-Date: Tue, 10 May 2022 20:47:49 +0800
-Message-ID: <20220510124749.2663874-1-yangyingliang@huawei.com>
-X-Mailer: git-send-email 2.25.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id D03AEF8014C
+ for <alsa-devel@alsa-project.org>; Tue, 10 May 2022 14:54:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D03AEF8014C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="prHSrTuY"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 97B1BB81D2F;
+ Tue, 10 May 2022 12:54:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65B65C385C6;
+ Tue, 10 May 2022 12:54:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1652187254;
+ bh=4PivaWWi4aEx+cxNzcxek9VaB+oZC2dWimjoWJP0lEo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=prHSrTuY6SWToZk1S1G9KfEht4wO8o9B6JcZav7Jczb+IsjukMdEwDYWRiBweoJo8
+ YPhv3WJ1ivSV9Ogg4OcHvox5ZIRJH30+2bDQB5YyCux8FxtykmT03WlZkrzuOUXtCp
+ vlUJ5lmdEl2wieeeXEHobRBBpA1RnOcCP6+5aW7Q37uVoam18/1b3cKjLjuMOY6n4c
+ i/tel7fHiiz8zoiek7/ffgOHy3MZXEcARJ8reaQn1vMzUlQLazBW8RCa+yT3sjX4/3
+ LOl/gKSoeIXiKB/pAEGmp4EsC1zoT0a9mUAoiqfKvktbfb9yzYrDsMroI2eIiti8c+
+ HuoPtieR/WPrw==
+Date: Tue, 10 May 2022 13:54:08 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+Subject: Re: [PATCH 1/2] ASoC: fsl_micfil: Add support for i.MX8MPlus
+Message-ID: <YnpgcAVzADHoCUgI@sirena.org.uk>
+References: <1652087663-1908-1-git-send-email-shengjiu.wang@nxp.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.175.103.91]
-X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
- dggpemm500007.china.huawei.com (7.185.36.183)
-X-CFilter-Loop: Reflected
-Cc: krzysztof.kozlowski@linaro.org, broonie@kernel.org, lgirdwood@gmail.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="2Z522tNyah4CHNrF"
+Content-Disposition: inline
+In-Reply-To: <1652087663-1908-1-git-send-email-shengjiu.wang@nxp.com>
+X-Cookie: I've read SEVEN MILLION books!!
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linuxppc-dev@lists.ozlabs.org, Xiubo.Lee@gmail.com, festevam@gmail.com,
+ tiwai@suse.com, lgirdwood@gmail.com, nicoleotsuka@gmail.com,
+ robh+dt@kernel.org, krzk+dt@kernel.org, shengjiu.wang@gmail.com,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,28 +90,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The resource is checked in probe function, so there is
-no need do this check in remove function.
 
-Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
----
- sound/soc/samsung/spdif.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+--2Z522tNyah4CHNrF
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/sound/soc/samsung/spdif.c b/sound/soc/samsung/spdif.c
-index 226c359892e9..47b6d19e43ff 100644
---- a/sound/soc/samsung/spdif.c
-+++ b/sound/soc/samsung/spdif.c
-@@ -467,8 +467,7 @@ static int spdif_remove(struct platform_device *pdev)
- 	iounmap(spdif->regs);
- 
- 	mem_res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	if (mem_res)
--		release_mem_region(mem_res->start, resource_size(mem_res));
-+	release_mem_region(mem_res->start, resource_size(mem_res));
- 
- 	clk_disable_unprepare(spdif->sclk);
- 	clk_disable_unprepare(spdif->pclk);
--- 
-2.25.1
+On Mon, May 09, 2022 at 05:14:22PM +0800, Shengjiu Wang wrote:
+> On i.MX8Plus there are two updates for micfil module.
+>=20
+> One is that the output format is S32_LE, only the 24 more
+> significative bits have information, the other bits are always
+> zero. Add 'formats' variable in soc data to distinguish the
+> format on different platform.
 
+You can set sig_bits to say that only the top 24 bits are meaningful,
+though I'm not sure many userspace applications pay any attention.
+
+--2Z522tNyah4CHNrF
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJ6YG8ACgkQJNaLcl1U
+h9AAZAf9FIpl1VBhFVT54/Bc818gjoAdE0BtGCj8hJx+BkHhVZrP/j/zQDPMsSwm
+MicGHeGYNhAOFvKVkSFNg+9bZkho8sFtnlEaJfZ/JqFob5427lAlk4fr1EcfqU8f
+1ICz//JQzP6UAXI9UpI/JlqdBRHbW9OmMiQiVCtoGSPV4ReuXP4vQTvW6nSdFeXS
+yJaa7rvTSHn92leRXDek3XAxGEuci7VJ/zvFFxbO9wPLXGEj6VkMqSSaJ+an2Rgy
+bfB4kztha4PQsEPWaMZxYkbxwiLTNIDKYNMRkUWc43OpxCF6+hu5jimP18vRToGl
+25szXXQxFjmC9ojtkMeYsNeOQBqYPw==
+=M2n0
+-----END PGP SIGNATURE-----
+
+--2Z522tNyah4CHNrF--

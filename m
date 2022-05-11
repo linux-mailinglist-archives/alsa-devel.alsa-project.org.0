@@ -2,84 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A01F8523485
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 May 2022 15:42:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC25A5234AD
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 May 2022 15:50:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 185EC1A9E;
-	Wed, 11 May 2022 15:42:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 185EC1A9E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6780C1699;
+	Wed, 11 May 2022 15:49:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6780C1699
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652276573;
-	bh=xCLq4P62dOmCH/gliIQuPnOEc//g8IiuXtbDqw2c+TY=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1652277019;
+	bh=oMOZUlmKPYRv5kVoL2GiGymRnoHN9B7AyHF6LiKdx1A=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mNwxup6izq94zNR3h9tzWhlpmLb1/duxBYCEydZFi6EU1N/ctCgmonQWzJjaLtUow
-	 fHqEOOByErmfg9telRO1GO/2jlcRwB56C/Z4WyQ4DNaHID4P+HrbYuQcAlX2mHgcpd
-	 e5skulRKaoU/13YmWjK208/Mjiwh93cfpNDqSLqc=
+	b=ic3FmiqDtsCdgKhCsS7gU1Abl3OFQ8QS/I8x73NXeYIXsh9jP7+x8VnWjx7nP306C
+	 Mi/LBr0hPNrr7I0d+JQKKQWrJUgw2M0ZjSauBARHosPc3Ki8sJ0uSlJkvawKIxqGjB
+	 mgwwefWcO3xcjLBYU8jItOzILxlTvecH+NZPCOhY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B58C5F800BB;
-	Wed, 11 May 2022 15:42:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CFF98F80212;
+	Wed, 11 May 2022 15:49:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F06EBF8050F; Wed, 11 May 2022 15:41:58 +0200 (CEST)
+ id 93D7DF8015B; Wed, 11 May 2022 15:49:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6BA1BF800BB
- for <alsa-devel@alsa-project.org>; Wed, 11 May 2022 15:41:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BA1BF800BB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6B4AEF8011C
+ for <alsa-devel@alsa-project.org>; Wed, 11 May 2022 15:49:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B4AEF8011C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ALHSHLFW"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id DBC2461CCE;
- Wed, 11 May 2022 13:41:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65904C34115;
- Wed, 11 May 2022 13:41:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1652276511;
- bh=xCLq4P62dOmCH/gliIQuPnOEc//g8IiuXtbDqw2c+TY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ALHSHLFW6yf/TIwgli2FvLjDSzjMv/o2myVyRYMGB+fhNHOmh0glljcaB2Van+dXK
- NB+lK3jG8pLPuQytTmWbgQ5Yc/tfz1T3/rSJnfH8Mm45VRStGbVfO5jTKz9eUd2GWz
- qXOhH5XNfthMOMqgsowbcbHthOw9R04jaLeG0f/+gflRGmywHg1reuZUarAkRk4Sz3
- vArqIoOFZMcHxTNrO/Cz/RwDJZb+d8EOS6XmrAbRcw1V/Wl4xPyHBjcca5i1sW9vf7
- 1XGubLDktKMYdKu7OWLZPVKwW6MOBTUicdyCbHZAxJAvtuI17kcbjjC4sh9X7AiZ4X
- BdZ7iu+u7aiAA==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>
-Subject: [PATCH 2/2] ASoC: ops: Check bounds for second channel in
- snd_soc_put_volsw_sx()
-Date: Wed, 11 May 2022 14:41:37 +0100
-Message-Id: <20220511134137.169575-2-broonie@kernel.org>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20220511134137.169575-1-broonie@kernel.org>
-References: <20220511134137.169575-1-broonie@kernel.org>
-MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=889; h=from:subject;
- bh=xCLq4P62dOmCH/gliIQuPnOEc//g8IiuXtbDqw2c+TY=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBie7uHXMN8+vS3NpVjll+sw5qrycOLn+SpdcaCuEaR
- zQQoWiOJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCYnu7hwAKCRAk1otyXVSH0CloCA
- CEBm6pAIsMpuJLWBR2qyLLYF3gR/d+/LP4o9S3jVv+aZU3o9AWAelait6Eh/qJV5PIXP8yDeYAApON
- PT+hH4je7tDqXt+qm6shcva7ZbxYmAOWo/D+bOxOYkW3TmrbqH0KOUgY2l52i8qvA+7tPYjrQq/8HP
- 1ErV5CFhg2K/GCKOMyE/UnlRFWAfrhTvWOvA9vdyDjGf6pm3+nwIWO5skDP6rga3Sqx+aZ6sCsfC/H
- Ejfpov072HdVlfIpO8h/p7l+jfSpo1D2JwIsqnLj3nbTZbg19sgpw9bZjbLVL2YPKeGqRF4UXe16dt
- vZhzvgngMUghl5sYONOi8LtvWyM2Ku
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="vrJvzxgZ"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="f/JJKWyq"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id E4A221F381;
+ Wed, 11 May 2022 13:49:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1652276952; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ZwOv2TzvacFcBTLytW6vmWJoaiSk9tGV0LvPRFw3NuM=;
+ b=vrJvzxgZc7X+9iKbOR4anZiPSkfy0A0nr9fEQhE0w26GobPi6Bom0WfciUsusUAH5Y02+e
+ WuwpWLV2hKv6+6bTUYVMz+ivyOWMrII6jVaxCB6FHOw9UaPS4qp/LfpYrrGgoq+GvfQ5Nf
+ XdjdYQQO3CoTChXfiVNim6kPzfnt+Xs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1652276952;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ZwOv2TzvacFcBTLytW6vmWJoaiSk9tGV0LvPRFw3NuM=;
+ b=f/JJKWyquNxMbXSjH9VgiRwyNl3JOuhT347KAGm4M++KgbrUHuhM+eM7ipkOJdk5451Mi9
+ fSVq/PSGo2z0u7CQ==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id D76662C141;
+ Wed, 11 May 2022 13:49:12 +0000 (UTC)
+Date: Wed, 11 May 2022 15:49:12 +0200
+Message-ID: <s5hzgjofacn.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+Subject: Re: [PATCH v2 10/26] ALSA: hda: hda_cs_dsp_ctl: Add Library to
+ support CS_DSP ALSA controls
+In-Reply-To: <20220509214703.4482-11-vitalyr@opensource.cirrus.com>
+References: <20220509214703.4482-1-vitalyr@opensource.cirrus.com>
+ <20220509214703.4482-11-vitalyr@opensource.cirrus.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ Stefan Binding <sbinding@opensource.cirrus.com>,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,32 +97,506 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The bounds checks in snd_soc_put_volsw_sx() are only being applied to the
-first channel, meaning it is possible to write out of bounds values to the
-second channel in stereo controls. Add appropriate checks.
+On Mon, 09 May 2022 23:46:47 +0200,
+Vitaly Rodionov wrote:
+> 
+> From: Stefan Binding <sbinding@opensource.cirrus.com>
+> 
+> The cs35l41 part contains a DSP which is able to run firmware.
+> The cs_dsp library can be used to control the DSP.
+> These controls can be exposed to userspace using ALSA controls.
+> This library adds apis to be able to interface between
+> cs_dsp and hda drivers and expose the relevant controls as
+> ALSA controls.
 
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/soc-ops.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+Hmm, quite lots of things aren't explained here.
 
-diff --git a/sound/soc/soc-ops.c b/sound/soc/soc-ops.c
-index 1ac7e2ce31a1..7cac26a64e0c 100644
---- a/sound/soc/soc-ops.c
-+++ b/sound/soc/soc-ops.c
-@@ -451,6 +451,12 @@ int snd_soc_put_volsw_sx(struct snd_kcontrol *kcontrol,
- 
- 		val_mask = mask << rshift;
- 		val2 = (ucontrol->value.integer.value[1] + min) & mask;
-+
-+		if (mc->platform_max && val2 > mc->platform_max)
-+			return -EINVAL;
-+		if (val2 > max)
-+			return -EINVAL;
-+
- 		val2 = val2 << rshift;
- 
- 		err = snd_soc_component_update_bits(component, reg2, val_mask,
--- 
-2.30.2
+First off, as far as I see, the control elements that are implemented
+in this patch are pretty unique, they don't follow the standard way.
+Admittedly, ASoC core (ab)uses the TLV read/write for the arbitrary
+data bytes, and this seems following that instead.  If so, it needs
+more clear explanation in the comments add/or commit logs.
 
+Second, hda_cs_dsp_control_add() and _remove() functions do the
+addition and the removal asynchronously with a dedicated work.  It's
+fragile as an API, and even no clarification is given why it's done
+so.
+
+
+thanks,
+
+Takashi
+
+> 
+> Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
+> Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+> ---
+>  MAINTAINERS                    |   1 +
+>  sound/pci/hda/Kconfig          |   4 +
+>  sound/pci/hda/Makefile         |   2 +
+>  sound/pci/hda/hda_cs_dsp_ctl.c | 364 +++++++++++++++++++++++++++++++++
+>  sound/pci/hda/hda_cs_dsp_ctl.h |  34 +++
+>  5 files changed, 405 insertions(+)
+>  create mode 100644 sound/pci/hda/hda_cs_dsp_ctl.c
+>  create mode 100644 sound/pci/hda/hda_cs_dsp_ctl.h
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index f57e6d38a542..b7e4d2a0ef41 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -4713,6 +4713,7 @@ S:	Maintained
+>  F:	Documentation/devicetree/bindings/sound/cirrus,cs*
+>  F:	include/dt-bindings/sound/cs*
+>  F:	sound/pci/hda/cs*
+> +F:	sound/pci/hda/hda_cs_dsp_ctl.*
+>  F:	sound/soc/codecs/cs*
+>  
+>  CIRRUS LOGIC DSP FIRMWARE DRIVER
+> diff --git a/sound/pci/hda/Kconfig b/sound/pci/hda/Kconfig
+> index 79ade4787d95..d1fd6cf82beb 100644
+> --- a/sound/pci/hda/Kconfig
+> +++ b/sound/pci/hda/Kconfig
+> @@ -94,6 +94,10 @@ config SND_HDA_PATCH_LOADER
+>  config SND_HDA_SCODEC_CS35L41
+>  	tristate
+>  
+> +config SND_HDA_CS_DSP_CONTROLS
+> +	tristate
+> +	depends on CS_DSP
+> +
+>  config SND_HDA_SCODEC_CS35L41_I2C
+>  	tristate "Build CS35L41 HD-audio side codec support for I2C Bus"
+>  	depends on I2C
+> diff --git a/sound/pci/hda/Makefile b/sound/pci/hda/Makefile
+> index 3e7bc608d45f..00d306104484 100644
+> --- a/sound/pci/hda/Makefile
+> +++ b/sound/pci/hda/Makefile
+> @@ -31,6 +31,7 @@ snd-hda-codec-hdmi-objs :=	patch_hdmi.o hda_eld.o
+>  snd-hda-scodec-cs35l41-objs :=		cs35l41_hda.o
+>  snd-hda-scodec-cs35l41-i2c-objs :=	cs35l41_hda_i2c.o
+>  snd-hda-scodec-cs35l41-spi-objs :=	cs35l41_hda_spi.o
+> +snd-hda-cs-dsp-ctls-objs :=		hda_cs_dsp_ctl.o
+>  
+>  # common driver
+>  obj-$(CONFIG_SND_HDA) := snd-hda-codec.o
+> @@ -54,6 +55,7 @@ obj-$(CONFIG_SND_HDA_CODEC_HDMI) += snd-hda-codec-hdmi.o
+>  obj-$(CONFIG_SND_HDA_SCODEC_CS35L41) += snd-hda-scodec-cs35l41.o
+>  obj-$(CONFIG_SND_HDA_SCODEC_CS35L41_I2C) += snd-hda-scodec-cs35l41-i2c.o
+>  obj-$(CONFIG_SND_HDA_SCODEC_CS35L41_SPI) += snd-hda-scodec-cs35l41-spi.o
+> +obj-$(CONFIG_SND_HDA_CS_DSP_CONTROLS) += snd-hda-cs-dsp-ctls.o
+>  
+>  # this must be the last entry after codec drivers;
+>  # otherwise the codec patches won't be hooked before the PCI probe
+> diff --git a/sound/pci/hda/hda_cs_dsp_ctl.c b/sound/pci/hda/hda_cs_dsp_ctl.c
+> new file mode 100644
+> index 000000000000..e94740c5557a
+> --- /dev/null
+> +++ b/sound/pci/hda/hda_cs_dsp_ctl.c
+> @@ -0,0 +1,364 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +//
+> +// HDA DSP ALSA Control Driver
+> +//
+> +// Copyright 2022 Cirrus Logic, Inc.
+> +//
+> +// Author: Stefan Binding <sbinding@opensource.cirrus.com>
+> +
+> +#include <linux/module.h>
+> +#include <sound/soc.h>
+> +#include <linux/firmware/cirrus/cs_dsp.h>
+> +#include <linux/firmware/cirrus/wmfw.h>
+> +#include "hda_cs_dsp_ctl.h"
+> +
+> +struct hda_cs_dsp_coeff_ctl {
+> +	const char *name;
+> +	struct cs_dsp_coeff_ctl *cs_ctl;
+> +	struct snd_card *card;
+> +	struct soc_bytes_ext bytes_ext;
+> +	struct work_struct add_work;
+> +	struct work_struct remove_work;
+> +};
+> +
+> +static const char * const hda_cs_dsp_fw_text[HDA_CS_DSP_NUM_FW] = {
+> +	[HDA_CS_DSP_FW_SPK_PROT] = "Prot",
+> +	[HDA_CS_DSP_FW_SPK_CALI] = "Cali",
+> +	[HDA_CS_DSP_FW_SPK_DIAG] = "Diag",
+> +	[HDA_CS_DSP_FW_MISC] =     "Misc",
+> +};
+> +
+> +static inline struct hda_cs_dsp_coeff_ctl *bytes_ext_to_ctl(struct soc_bytes_ext *ext)
+> +{
+> +	return container_of(ext, struct hda_cs_dsp_coeff_ctl, bytes_ext);
+> +}
+> +
+> +static int hda_cs_dsp_coeff_info(struct snd_kcontrol *kctl, struct snd_ctl_elem_info *uinfo)
+> +{
+> +	struct soc_bytes_ext *bytes_ext =
+> +		(struct soc_bytes_ext *)kctl->private_value;
+> +	struct hda_cs_dsp_coeff_ctl *ctl = bytes_ext_to_ctl(bytes_ext);
+> +	struct cs_dsp_coeff_ctl *cs_ctl = ctl->cs_ctl;
+> +
+> +	switch (cs_ctl->type) {
+> +	case WMFW_CTL_TYPE_ACKED:
+> +		uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
+> +		uinfo->value.integer.min = CS_DSP_ACKED_CTL_MIN_VALUE;
+> +		uinfo->value.integer.max = CS_DSP_ACKED_CTL_MAX_VALUE;
+> +		uinfo->value.integer.step = 1;
+> +		uinfo->count = 1;
+> +		break;
+> +	default:
+> +		uinfo->type = SNDRV_CTL_ELEM_TYPE_BYTES;
+> +		uinfo->count = cs_ctl->len;
+> +		break;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int hda_cs_dsp_coeff_put(struct snd_kcontrol *kctl, struct snd_ctl_elem_value *ucontrol)
+> +{
+> +	struct soc_bytes_ext *bytes_ext =
+> +		(struct soc_bytes_ext *)kctl->private_value;
+> +	struct hda_cs_dsp_coeff_ctl *ctl = bytes_ext_to_ctl(bytes_ext);
+> +	struct cs_dsp_coeff_ctl *cs_ctl = ctl->cs_ctl;
+> +	char *p = ucontrol->value.bytes.data;
+> +	int ret = 0;
+> +
+> +	mutex_lock(&cs_ctl->dsp->pwr_lock);
+> +	ret = cs_dsp_coeff_write_ctrl(cs_ctl, 0, p, cs_ctl->len);
+> +	mutex_unlock(&cs_ctl->dsp->pwr_lock);
+> +
+> +	return ret;
+> +}
+> +
+> +static int hda_cs_dsp_coeff_tlv_put(struct snd_kcontrol *kctl,
+> +				    const unsigned int __user *bytes, unsigned int size)
+> +{
+> +	struct soc_bytes_ext *bytes_ext =
+> +		(struct soc_bytes_ext *)kctl->private_value;
+> +	struct hda_cs_dsp_coeff_ctl *ctl = bytes_ext_to_ctl(bytes_ext);
+> +	struct cs_dsp_coeff_ctl *cs_ctl = ctl->cs_ctl;
+> +	int ret = 0;
+> +
+> +	mutex_lock(&cs_ctl->dsp->pwr_lock);
+> +
+> +	if (copy_from_user(cs_ctl->cache, bytes, size))
+> +		ret = -EFAULT;
+> +	else
+> +		ret = cs_dsp_coeff_write_ctrl(cs_ctl, 0, cs_ctl->cache, size);
+> +
+> +	mutex_unlock(&cs_ctl->dsp->pwr_lock);
+> +
+> +	return ret;
+> +}
+> +
+> +static int hda_cs_dsp_coeff_put_acked(struct snd_kcontrol *kctl,
+> +				      struct snd_ctl_elem_value *ucontrol)
+> +{
+> +	struct soc_bytes_ext *bytes_ext =
+> +		(struct soc_bytes_ext *)kctl->private_value;
+> +	struct hda_cs_dsp_coeff_ctl *ctl = bytes_ext_to_ctl(bytes_ext);
+> +	struct cs_dsp_coeff_ctl *cs_ctl = ctl->cs_ctl;
+> +	unsigned int val = ucontrol->value.integer.value[0];
+> +	int ret;
+> +
+> +	if (val == 0)
+> +		return 0;	/* 0 means no event */
+> +
+> +	mutex_lock(&cs_ctl->dsp->pwr_lock);
+> +
+> +	if (cs_ctl->enabled)
+> +		ret = cs_dsp_coeff_write_acked_control(cs_ctl, val);
+> +	else
+> +		ret = -EPERM;
+> +
+> +	mutex_unlock(&cs_ctl->dsp->pwr_lock);
+> +
+> +	return ret;
+> +}
+> +
+> +static int hda_cs_dsp_coeff_get(struct snd_kcontrol *kctl, struct snd_ctl_elem_value *ucontrol)
+> +{
+> +	struct soc_bytes_ext *bytes_ext =
+> +		(struct soc_bytes_ext *)kctl->private_value;
+> +	struct hda_cs_dsp_coeff_ctl *ctl = bytes_ext_to_ctl(bytes_ext);
+> +	struct cs_dsp_coeff_ctl *cs_ctl = ctl->cs_ctl;
+> +	char *p = ucontrol->value.bytes.data;
+> +	int ret;
+> +
+> +	mutex_lock(&cs_ctl->dsp->pwr_lock);
+> +	ret = cs_dsp_coeff_read_ctrl(cs_ctl, 0, p, cs_ctl->len);
+> +	mutex_unlock(&cs_ctl->dsp->pwr_lock);
+> +
+> +	return ret;
+> +}
+> +
+> +static int hda_cs_dsp_coeff_tlv_get(struct snd_kcontrol *kctl,
+> +				    unsigned int __user *bytes, unsigned int size)
+> +{
+> +	struct soc_bytes_ext *bytes_ext =
+> +		(struct soc_bytes_ext *)kctl->private_value;
+> +	struct hda_cs_dsp_coeff_ctl *ctl = bytes_ext_to_ctl(bytes_ext);
+> +	struct cs_dsp_coeff_ctl *cs_ctl = ctl->cs_ctl;
+> +	int ret = 0;
+> +
+> +	mutex_lock(&cs_ctl->dsp->pwr_lock);
+> +
+> +	ret = cs_dsp_coeff_read_ctrl(cs_ctl, 0, cs_ctl->cache, size);
+> +
+> +	if (!ret && copy_to_user(bytes, cs_ctl->cache, size))
+> +		ret = -EFAULT;
+> +
+> +	mutex_unlock(&cs_ctl->dsp->pwr_lock);
+> +
+> +	return ret;
+> +}
+> +
+> +static int hda_cs_dsp_coeff_get_acked(struct snd_kcontrol *kcontrol,
+> +				      struct snd_ctl_elem_value *ucontrol)
+> +{
+> +	/*
+> +	 * Although it's not useful to read an acked control, we must satisfy
+> +	 * user-side assumptions that all controls are readable and that a
+> +	 * write of the same value should be filtered out (it's valid to send
+> +	 * the same event number again to the firmware). We therefore return 0,
+> +	 * meaning "no event" so valid event numbers will always be a change
+> +	 */
+> +	ucontrol->value.integer.value[0] = 0;
+> +
+> +	return 0;
+> +}
+> +#define ADSP_MAX_STD_CTRL_SIZE               512
+> +
+> +static unsigned int wmfw_convert_flags(unsigned int in, unsigned int len)
+> +{
+> +	unsigned int out, rd, wr, vol;
+> +
+> +	if (len > ADSP_MAX_STD_CTRL_SIZE) {
+> +		rd = SNDRV_CTL_ELEM_ACCESS_TLV_READ;
+> +		wr = SNDRV_CTL_ELEM_ACCESS_TLV_WRITE;
+> +		vol = SNDRV_CTL_ELEM_ACCESS_VOLATILE;
+> +
+> +		out = SNDRV_CTL_ELEM_ACCESS_TLV_CALLBACK;
+> +	} else {
+> +		rd = SNDRV_CTL_ELEM_ACCESS_READ;
+> +		wr = SNDRV_CTL_ELEM_ACCESS_WRITE;
+> +		vol = SNDRV_CTL_ELEM_ACCESS_VOLATILE;
+> +
+> +		out = 0;
+> +	}
+> +
+> +	if (in) {
+> +		out |= rd;
+> +		if (in & WMFW_CTL_FLAG_WRITEABLE)
+> +			out |= wr;
+> +		if (in & WMFW_CTL_FLAG_VOLATILE)
+> +			out |= vol;
+> +	} else {
+> +		out |= rd | wr | vol;
+> +	}
+> +
+> +	return out;
+> +}
+> +
+> +static void hda_cs_dsp_ctl_add_work(struct work_struct *work)
+> +{
+> +	struct hda_cs_dsp_coeff_ctl *ctl = container_of(work,
+> +							struct hda_cs_dsp_coeff_ctl,
+> +							add_work);
+> +	struct cs_dsp_coeff_ctl *cs_ctl = ctl->cs_ctl;
+> +	struct snd_kcontrol_new *kcontrol;
+> +
+> +	kcontrol = kzalloc(sizeof(*kcontrol), GFP_KERNEL);
+> +	if (!kcontrol)
+> +		return;
+> +
+> +	kcontrol->name = ctl->name;
+> +	kcontrol->info = hda_cs_dsp_coeff_info;
+> +	kcontrol->iface = SNDRV_CTL_ELEM_IFACE_MIXER;
+> +	kcontrol->tlv.c = snd_soc_bytes_tlv_callback;
+> +	kcontrol->private_value = (unsigned long)&ctl->bytes_ext;
+> +	kcontrol->access = wmfw_convert_flags(cs_ctl->flags, cs_ctl->len);
+> +
+> +	switch (cs_ctl->type) {
+> +	case WMFW_CTL_TYPE_ACKED:
+> +		kcontrol->get = hda_cs_dsp_coeff_get_acked;
+> +		kcontrol->put = hda_cs_dsp_coeff_put_acked;
+> +		break;
+> +	default:
+> +		if (kcontrol->access & SNDRV_CTL_ELEM_ACCESS_TLV_CALLBACK) {
+> +			ctl->bytes_ext.max = cs_ctl->len;
+> +			ctl->bytes_ext.get = hda_cs_dsp_coeff_tlv_get;
+> +			ctl->bytes_ext.put = hda_cs_dsp_coeff_tlv_put;
+> +		} else {
+> +			kcontrol->get = hda_cs_dsp_coeff_get;
+> +			kcontrol->put = hda_cs_dsp_coeff_put;
+> +		}
+> +		break;
+> +	}
+> +
+> +	if (snd_ctl_add(ctl->card, snd_ctl_new1(kcontrol, NULL)))
+> +		dev_err(cs_ctl->dsp->dev, "Failed to add KControl: %s\n", kcontrol->name);
+> +	else
+> +		dev_dbg(cs_ctl->dsp->dev, "Added KControl: %s\n", kcontrol->name);
+> +
+> +	kfree(kcontrol);
+> +}
+> +
+> +int hda_cs_dsp_control_add(struct cs_dsp_coeff_ctl *cs_ctl, struct hda_cs_dsp_ctl_info *info)
+> +{
+> +	struct cs_dsp *cs_dsp = cs_ctl->dsp;
+> +	char name[SNDRV_CTL_ELEM_ID_NAME_MAXLEN];
+> +	struct hda_cs_dsp_coeff_ctl *ctl;
+> +	const char *region_name;
+> +	int ret;
+> +
+> +	if (cs_ctl->flags & WMFW_CTL_FLAG_SYS) {
+> +		dev_dbg(cs_dsp->dev, "cs_ctl->flags = WMFW_CTL_FLAG_SYS\n");
+> +		return 0;
+> +	}
+> +
+> +	region_name = cs_dsp_mem_region_name(cs_ctl->alg_region.type);
+> +	if (!region_name) {
+> +		dev_err(cs_dsp->dev, "Unknown region type: %d\n", cs_ctl->alg_region.type);
+> +		return -EINVAL;
+> +	}
+> +
+> +	switch (cs_dsp->fw_ver) {
+> +	case 0:
+> +	case 1:
+> +		ret = scnprintf(name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN,
+> +				"%s %s %s %x", info->amp_name, cs_dsp->name, region_name,
+> +				cs_ctl->alg_region.alg);
+> +		break;
+> +	case 2:
+> +		ret = scnprintf(name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN,
+> +				"%s %s%c %.12s %x", info->amp_name, cs_dsp->name, *region_name,
+> +				hda_cs_dsp_fw_text[info->fw_type], cs_ctl->alg_region.alg);
+> +		break;
+> +	default:
+> +		ret = scnprintf(name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN,
+> +				"%s %s %.12s %x", info->amp_name, cs_dsp->name,
+> +				hda_cs_dsp_fw_text[info->fw_type], cs_ctl->alg_region.alg);
+> +		break;
+> +	}
+> +
+> +	if (cs_ctl->subname) {
+> +		int avail = SNDRV_CTL_ELEM_ID_NAME_MAXLEN - ret - 2;
+> +		int skip = 0;
+> +
+> +		/* Truncate the subname from the start if it is too long */
+> +		if (cs_ctl->subname_len > avail)
+> +			skip = cs_ctl->subname_len - avail;
+> +
+> +		snprintf(name + ret, SNDRV_CTL_ELEM_ID_NAME_MAXLEN - ret,
+> +			 " %.*s", cs_ctl->subname_len - skip, cs_ctl->subname + skip);
+> +	}
+> +
+> +	ctl = kzalloc(sizeof(*ctl), GFP_KERNEL);
+> +	if (!ctl)
+> +		return -ENOMEM;
+> +	ctl->cs_ctl = cs_ctl;
+> +	ctl->card = info->card;
+> +
+> +	ctl->name = kmemdup(name, strlen(name) + 1, GFP_KERNEL);
+> +	if (!ctl->name) {
+> +		ret = -ENOMEM;
+> +		dev_err(cs_dsp->dev, "Cannot save ctl name\n");
+> +		goto err_ctl;
+> +	}
+> +
+> +	cs_ctl->priv = ctl;
+> +
+> +	INIT_WORK(&ctl->add_work, hda_cs_dsp_ctl_add_work);
+> +	schedule_work(&ctl->add_work);
+> +
+> +	return 0;
+> +
+> +err_ctl:
+> +	dev_err(cs_dsp->dev, "Error adding control: %s\n", name);
+> +	kfree(ctl);
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL_NS_GPL(hda_cs_dsp_control_add, SND_HDA_CS_DSP_CONTROLS);
+> +
+> +int hda_cs_dsp_remove_kcontrol(struct snd_card *card, const char *name)
+> +{
+> +	struct snd_kcontrol *kctl;
+> +
+> +	list_for_each_entry(kctl, &card->controls, list)
+> +		if (!strncmp(kctl->id.name, name, sizeof(kctl->id.name)))
+> +			return snd_ctl_remove_id(card, &kctl->id);
+> +
+> +	return -EINVAL;
+> +}
+> +EXPORT_SYMBOL_NS_GPL(hda_cs_dsp_remove_kcontrol, SND_HDA_CS_DSP_CONTROLS);
+> +
+> +static void hda_cs_dsp_ctl_del_work(struct work_struct *work)
+> +{
+> +	struct hda_cs_dsp_coeff_ctl *ctl = container_of(work,
+> +							struct hda_cs_dsp_coeff_ctl,
+> +							remove_work);
+> +
+> +	cancel_work_sync(&ctl->add_work);
+> +
+> +	hda_cs_dsp_remove_kcontrol(ctl->card, ctl->name);
+> +
+> +	kfree(ctl->name);
+> +	kfree(ctl);
+> +}
+> +
+> +void hda_cs_dsp_control_remove(struct cs_dsp_coeff_ctl *cs_ctl)
+> +{
+> +	struct hda_cs_dsp_coeff_ctl *ctl = cs_ctl->priv;
+> +
+> +	INIT_WORK(&ctl->remove_work, hda_cs_dsp_ctl_del_work);
+> +	schedule_work(&ctl->remove_work);
+> +}
+> +EXPORT_SYMBOL_NS_GPL(hda_cs_dsp_control_remove, SND_HDA_CS_DSP_CONTROLS);
+> +
+> +MODULE_DESCRIPTION("CS_DSP ALSA Control HDA Library");
+> +MODULE_AUTHOR("Stefan Binding, <sbinding@opensource.cirrus.com>");
+> +MODULE_LICENSE("GPL");
+> diff --git a/sound/pci/hda/hda_cs_dsp_ctl.h b/sound/pci/hda/hda_cs_dsp_ctl.h
+> new file mode 100644
+> index 000000000000..3c90312b45d6
+> --- /dev/null
+> +++ b/sound/pci/hda/hda_cs_dsp_ctl.h
+> @@ -0,0 +1,34 @@
+> +/* SPDX-License-Identifier: GPL-2.0
+> + *
+> + * HDA DSP ALSA Control Driver
+> + *
+> + * Copyright 2022 Cirrus Logic, Inc.
+> + *
+> + * Author: Stefan Binding <sbinding@opensource.cirrus.com>
+> + */
+> +
+> +#ifndef __HDA_CS_DSP_CTL_H__
+> +#define __HDA_CS_DSP_CTL_H__
+> +
+> +#include <sound/soc.h>
+> +#include <linux/firmware/cirrus/cs_dsp.h>
+> +
+> +enum hda_cs_dsp_fw_id {
+> +	HDA_CS_DSP_FW_SPK_PROT,
+> +	HDA_CS_DSP_FW_SPK_CALI,
+> +	HDA_CS_DSP_FW_SPK_DIAG,
+> +	HDA_CS_DSP_FW_MISC,
+> +	HDA_CS_DSP_NUM_FW
+> +};
+> +
+> +struct hda_cs_dsp_ctl_info {
+> +	struct snd_card *card;
+> +	enum hda_cs_dsp_fw_id fw_type;
+> +	const char *amp_name;
+> +};
+> +
+> +int hda_cs_dsp_control_add(struct cs_dsp_coeff_ctl *cs_ctl, struct hda_cs_dsp_ctl_info *info);
+> +void hda_cs_dsp_control_remove(struct cs_dsp_coeff_ctl *cs_ctl);
+> +int hda_cs_dsp_remove_kcontrol(struct snd_card *card, const char *name);
+> +
+> +#endif /*__HDA_CS_DSP_CTL_H__*/
+> -- 
+> 2.34.1
+> 

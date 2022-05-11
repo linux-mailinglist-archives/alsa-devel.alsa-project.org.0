@@ -2,89 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0B375234FD
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 May 2022 16:04:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7123C523513
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 May 2022 16:10:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 62E3C1A74;
-	Wed, 11 May 2022 16:03:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62E3C1A74
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0938F17DA;
+	Wed, 11 May 2022 16:09:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0938F17DA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652277884;
-	bh=T8ct8MaxuAq9oRdiITvm+NoWseyVHyvo8hOAG6x7BvU=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1652278223;
+	bh=8I33R8C8CzdnEvbYxQQn0dbChlfzwaRQtsOF5InHNbs=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=h+ueGYwhGU0IO7cZfzKhwLfHbQVaS6iXB139sLD+HIQIiLlFPl/16FNUc4OB8Jhhw
-	 gvCrBqkCTD6qjHU+xLLxc5f0+WkfXeW8/xi4F8NojwOEVSfymu09nstV03wfH4eeea
-	 EPq6XLD3C7XLnVe/2rWC7eq3REI+3bxr2ViENesg=
+	b=IwohgAlmE/iH++gylEYlZbkEDkVWc9FbCZKEKk1pCBdOa0o5N5ALDdMcwprW/Znc5
+	 z/BhheEEsNPwcE5K6kgxeNe2rDuTi6bhGzI0j76IhImISnIMVhbuasna4LWoTq2j4t
+	 JJ17iWt1c2RlsD8td494mRbb8f7s4ell3SCIkhj4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0B5B3F8015B;
-	Wed, 11 May 2022 16:03:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 84E6DF800BB;
+	Wed, 11 May 2022 16:09:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8C307F804B2; Wed, 11 May 2022 16:03:44 +0200 (CEST)
+ id 71AB2F8015B; Wed, 11 May 2022 16:09:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,PRX_BODYSUB_13,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 468C6F80137
- for <alsa-devel@alsa-project.org>; Wed, 11 May 2022 16:03:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 468C6F80137
+ by alsa1.perex.cz (Postfix) with ESMTPS id 67652F800BB
+ for <alsa-devel@alsa-project.org>; Wed, 11 May 2022 16:09:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67652F800BB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="ODkAOJgr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1652277820; x=1683813820;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=T8ct8MaxuAq9oRdiITvm+NoWseyVHyvo8hOAG6x7BvU=;
- b=ODkAOJgrYFgQjf/XDYbNya0HbfDRqvRdgacnMw5NlCmo2dqsRT4MoJn8
- pKvzLRAMb8U86E3PJ2+hywHFsrxF7geCZ8iab1Z644R7ysNGzLNs5cbKb
- OZaI/aNqIyGbc56PZY9Manu7l7CU/x34gYpLnhObQidqmEe9Fo6n6NA3n
- riWk5f6FAzWdBkkdHX+xcKQTbTtrQGf85tanMyEsOzLOq5vO8++TBThZc
- JXsFfoG2u8Ow/HpGkpQvxRgsFEtVSPZm7a4GQpCPX6SqT+P8F3O7ilxHc
- xf3nBWF1IHFtVTB8/T4qs1B3xXzSM1vGs+kMUt306Q7VgL+IhO4Lw0CL8 Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10343"; a="268542761"
-X-IronPort-AV: E=Sophos;i="5.91,217,1647327600"; d="scan'208";a="268542761"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2022 07:03:01 -0700
-X-IronPort-AV: E=Sophos;i="5.91,217,1647327600"; d="scan'208";a="658171262"
-Received: from naydenov-mobl.amr.corp.intel.com (HELO [10.209.48.198])
- ([10.209.48.198])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2022 07:02:59 -0700
-Message-ID: <a71c4a2c-06f9-faa7-07ee-783ee7f136ec@linux.intel.com>
-Date: Wed, 11 May 2022 09:02:58 -0500
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.5.0
-Subject: Re: [PATCH] [v2] ASoC: Intel: sof_cs42l42: adding support for ADL
- configuration and BT offload audio
-Content-Language: en-US
-To: Terry Chen <terry_chen@wistron.corp-partner.google.com>
-References: <20220510104829.1466968-1-terry_chen@wistron.corp-partner.google.com>
- <190c9add-7fa4-8e76-bfcb-43d30f22f8d9@linux.intel.com>
- <CAMmR3bFad5ODKYUCg8Tp8GVk__AdaQHcpLnRmFyAGXu8Wpycog@mail.gmail.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <CAMmR3bFad5ODKYUCg8Tp8GVk__AdaQHcpLnRmFyAGXu8Wpycog@mail.gmail.com>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="ZREBSIxB"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="ZUS8H9+F"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id E48EB21C33;
+ Wed, 11 May 2022 14:09:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1652278156; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=UW2GdRmJAnrhWiyCmp8j1OoOQeEqRLEmI9WIKtzeJdY=;
+ b=ZREBSIxBlMvMsrhwAgm8m76z1CTpbdK2vHFXqDo0x2e/ZfI7QMuTwfqRuFo2xmNYUFmvz9
+ k3dq75TKBMDzw6qH/gSvN9au73SO10U6sxrhQN/9yWmaQ9PmiFKgxdYIW8FLAiIwFOOGbj
+ e8X8alsWstOkdfD0YrvwMfHbQ2TAtA0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1652278156;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=UW2GdRmJAnrhWiyCmp8j1OoOQeEqRLEmI9WIKtzeJdY=;
+ b=ZUS8H9+FQ0oA+z/SdaDba7j2c18aAsh5gz/jo0CPFGnRjFZhJsgLA4s8ZmnUMKAAznNk8A
+ c3po3peuLT0XxnBw==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 87D212C141;
+ Wed, 11 May 2022 14:09:16 +0000 (UTC)
+Date: Wed, 11 May 2022 16:09:16 +0200
+Message-ID: <s5hv8ucf9f7.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Werner Sembach <wse@tuxedocomputers.com>
+Subject: Re: [PATCH] ALSA: hda/intel: Add quirk for TongFang devices with pop
+ noise
+In-Reply-To: <71fadca3-7750-2fc0-c04a-f05ab4e85112@tuxedocomputers.com>
+References: <20220511133828.13724-1-wse@tuxedocomputers.com>
+ <s5h35hggpao.wl-tiwai@suse.de>
+ <71fadca3-7750-2fc0-c04a-f05ab4e85112@tuxedocomputers.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, casey.g.bowman@intel.com,
- kai.vehmanen@linux.intel.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
- yang.jie@linux.intel.com, cezary.rojewski@intel.com,
- Mark Hsieh <mark_hsieh@wistron.corp-partner.google.com>,
- liam.r.girdwood@linux.intel.com, Mac Chiang <mac.chiang@intel.com>,
- broonie@kernel.org, Sean Paul <seanpaul@chromium.org>,
- cujomalainey@chromium.org, brent.lu@intel.com, vamshi.krishna.gopal@intel.com
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ kai.vehmanen@linux.intel.com, imre.deak@intel.com, tiwai@suse.com,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,59 +100,57 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 5/11/22 01:33, Terry Chen wrote:
-> Hi Pierre-Louis
+On Wed, 11 May 2022 15:58:03 +0200,
+Werner Sembach wrote:
 > 
->> @@ -522,6 +578,14 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
->>                               goto devm_err;
->>                       }
->>                       break;
->> +             case LINK_BT:
->> +                     ret = create_bt_offload_dai_links(dev, links, cpus, &id, ssp_bt);
->> +                     if (ret < 0) {
->> +                             dev_err(dev, "fail to create bt offload dai links, ret %d\n",
->> +                                     ret);
+> Am 11.05.22 um 15:41 schrieb Takashi Iwai:
+> > On Wed, 11 May 2022 15:38:28 +0200,
+> > Werner Sembach wrote:
+> >> When audio stops playing and sometimes when it starts playing, there is an
+> >> audible "pop" noise when using headphones on most Tongfang GMxMxxx,
+> >> GKxNxxx, GMxZxxx, GMxTxxx, and GMxAxxx devices.
+> >>
+> >> Disabling power saving for the Realtek codec fixes this noise. Presumably
+> >> it is triggered on some power event in the audio circuit.
+> >>
+> >> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+> >> Cc: stable@vger.kernel.org
+> > Usually this denylist is a last resort if any other methods never
+> > helped.  Is it the case?
 > 
-> For this point, we just follow Intel member to write for this coding
-> style. The other component also was the same style.
-
-the magic of copy-paste, eh? Please update this, thanks.
-
->     > @@ -384,6 +384,14 @@ struct snd_soc_acpi_mach
->     snd_soc_acpi_intel_adl_machines[] = {
->     >               .sof_fw_filename = "sof-adl.ri",
->     >               .sof_tplg_filename = "sof-adl-cs35l41.tplg",
->     >       },
->     > +     {
->     > +             .id = "10134242",
->     > +             .drv_name = "adl_mx98360a_cs4242",
->     > +             .machine_quirk = snd_soc_acpi_codec_list,
->     > +             .quirk_data = &adl_max98360a_amp,
->     > +             .sof_fw_filename = "sof-adl.ri",
+> I also tried setting codec->power_save_node = 0; in a patch_realtek.c quirk.
 > 
->     This  also was the same style with others.
-
-No, it's not a matter of style but rather that this field was *REMOVED*,
-this cannot possibly compile.
-
-see commit a6264056b39ee ("ASoC: soc-acpi: remove sof_fw_filename
-")
-
-If you had submitted this patch through the SOF tree, you would have
-seen a compilation error.
-
+> static void alc274_fixup_pop_noise(struct hda_codec *codec, const struct
+> hda_fixup *fix, int action)
+> {
+>        codec->power_save_node = 0;
+> }
 > 
->     > +             .sof_tplg_filename = "sof-adl-max98360a-rt5682.tplg",
-> 
->     Why would you refer to a topology that uses a different codec?
-> 
-> 
->  Because Intel college use the same naming style for the same audio codec.
+> That initially seemed to work, but when I tested it again a day later
+> after a fresh install, it didn't anymore. I don't know what is
+> different. On the install before, I did some debugging with boot
+> parameters and other stuff, cant reproduce anymore what exactly.
 
-It's bad practice to use the same topology name for different platforms
-based on different codecs. One evolution of the topology would impact an
-unrelated platform. Please use a symlink or duplicate the topology with
-a different name, this is not future-proof and will be problematic for
-releases.
+power_save_node is already 0 as default for patch_alc269(), so it must
+be irrelevant.
+
+> I took the line from alc274_fixup_bind_dacs which fixes the pop noise
+> when applied to the devices, but does a lot of random other stuff too
+> not meant for the device.
+
+It's only one thing, there are tons of different fixes :)
+alc274_fixup_bind_dacs() rather specifies the routing so that the
+speaker is connected to the preferred DAC.
+
+Many click noises come from the default pin shut-up behavior.  You
+can disable it or change it in other way.  Also, setting
+auto_mute_via_amp may influence on such behavior (that is included in
+alc274_fixup_bind_dacs()).
+
+Note that many quirks can be enabled even without compiling but via
+the codec patch loading (using hints).
+
+
+thanks,
+
+Takashi

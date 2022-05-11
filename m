@@ -2,86 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21AD9523E71
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 May 2022 22:08:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07D2B523EFD
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 May 2022 22:36:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A02961AA2;
-	Wed, 11 May 2022 22:07:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A02961AA2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 84B40185A;
+	Wed, 11 May 2022 22:35:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84B40185A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652299724;
-	bh=p1YYXl+yTi1DWtmId54tKAQpdz8+AHZrDsEKCg5NNqI=;
-	h=Date:Subject:From:To:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=gn0NMfH9ALZNugU9IK7di+YBZeE5tWiBL+5pTTxxIUX/taMSOhxmkBi9gkzNNa1NJ
-	 ybbnmEEzSEYqsgPAzAsDIPddLX95P2qlx7+3/TpE/388etjsua2k9mYyHtCeVp9vco
-	 6Gq7/udAYnyw0GlrA46dMV445Gp7Hqyst8LIEmro=
+	s=default; t=1652301394;
+	bh=bsCWBuvXbfvvP7iOm8bJpBo8FuMxy4v6P4MCN9xnyeU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=oVsky95it5mCwr7YhrlOPHyrv5xZmADg16cZpvAdfr3kESOYfX70rqJlDIGetrDBH
+	 txNMZRgHn7AnBaKkPxDvHCNkXQyva6DvlFv3s1sfzqsL/RSqRvvX6jQdeCqBdLH8X5
+	 wBZeGDDfofq3HQSq64a9Itb3op3HhcN28jkhc5No=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0732EF800BB;
-	Wed, 11 May 2022 22:07:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 01FC5F80212;
+	Wed, 11 May 2022 22:35:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8E97BF8015B; Wed, 11 May 2022 22:07:44 +0200 (CEST)
+ id 93531F8015B; Wed, 11 May 2022 22:35:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from 1.mo560.mail-out.ovh.net (1.mo560.mail-out.ovh.net
+ [46.105.63.121])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 34258F800BB
- for <alsa-devel@alsa-project.org>; Wed, 11 May 2022 22:07:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34258F800BB
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="hAfrj9f0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1652299662; x=1683835662;
- h=message-id:date:mime-version:subject:from:to:cc:
- references:in-reply-to:content-transfer-encoding;
- bh=p1YYXl+yTi1DWtmId54tKAQpdz8+AHZrDsEKCg5NNqI=;
- b=hAfrj9f0CkOX7keGALJZqJQnr2ZDjbEi8altAas3rUIW/kRASWVWX3IV
- nrXFh8fGi1OPHvJp9dTnSjOiXzsV4MlJX09AhoaYIXCl4akK5jLaoBmXj
- pfBQ4gO8uwFZzeh4vriOz099oKLe5Wif5ta6kovq0pOhDvNc6cIuho0NT
- PMdYQoK1C4f8ZaKdCN3aXPrjQsdH/8aGZRogmXpn2ko1hp5nE5Lbp/92m
- /+otHeucZm4Dou8I6FR26QsjGb2prz3X9dV0ikoB/bEF04Y6uB3cUK7JJ
- xHQwltRVyq+aYm5x4ObPmW63emXtwsdebdzJ0ClA0uT3gRYh5IOcf5Fe3 w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10344"; a="332839239"
-X-IronPort-AV: E=Sophos;i="5.91,218,1647327600"; d="scan'208";a="332839239"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2022 13:07:36 -0700
-X-IronPort-AV: E=Sophos;i="5.91,218,1647327600"; d="scan'208";a="711629310"
-Received: from tssurap-mobl1.amr.corp.intel.com (HELO [10.255.229.68])
- ([10.255.229.68])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2022 13:07:35 -0700
-Message-ID: <69a3eaf4-0ad6-ffbf-f5be-d6fdc880276f@linux.intel.com>
-Date: Wed, 11 May 2022 15:07:34 -0500
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.5.0
-Subject: Re: kismet: WARNING: unmet direct dependencies detected for
- SND_SOC_MAX98357A when selected by SND_SOC_INTEL_SOF_CS42L42_MACH
-Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: kernel test robot <yujie.liu@intel.com>, Brent Lu <brent.lu@intel.com>
-References: <202205110550.80rLRw2L-lkp@intel.com>
- <cc9905dd-5b66-d01e-491c-64c18198d208@intel.com>
- <dfae72f1-0ee0-cf22-0fd7-5465209fb8b0@linux.intel.com>
-In-Reply-To: <dfae72f1-0ee0-cf22-0fd7-5465209fb8b0@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- kbuild-all@lists.01.org, paul@pgazz.com, fazilyildiran@gmail.com,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Mark Brown <broonie@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id EEF2DF8011C
+ for <alsa-devel@alsa-project.org>; Wed, 11 May 2022 22:35:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EEF2DF8011C
+Received: from player692.ha.ovh.net (unknown [10.111.172.95])
+ by mo560.mail-out.ovh.net (Postfix) with ESMTP id 1C8622456D
+ for <alsa-devel@alsa-project.org>; Wed, 11 May 2022 20:35:23 +0000 (UTC)
+Received: from mesotic.com (82-65-23-224.subs.proxad.net [82.65.23.224])
+ (Authenticated sender: dylan.laduranty@mesotic.com)
+ by player692.ha.ovh.net (Postfix) with ESMTPSA id 578312A3FFBDC;
+ Wed, 11 May 2022 20:35:21 +0000 (UTC)
+Authentication-Results: garm.ovh; auth=pass
+ (GARM-97G002d3272099-fb29-4faa-8bff-f386b69a6c6f,
+ AB54D804199BD57AB129510AC6BBCDD3D18116C0)
+ smtp.auth=dylan.laduranty@mesotic.com
+X-OVh-ClientIp: 82.65.23.224
+From: Dylan Laduranty <dylan.laduranty@mesotic.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: ADAU7118: add bindings for managing pins drive strength
+Date: Wed, 11 May 2022 22:34:10 +0200
+Message-Id: <20220511203410.8723-1-dylan.laduranty@mesotic.com>
+X-Mailer: git-send-email 2.17.1
+X-Ovh-Tracer-Id: 2164824049892904140
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: 0
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvfedrgeehgddugeekucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucenucfjughrpefhvfevufffkffosedttdertdertddtnecuhfhrohhmpeffhihlrghnucfnrgguuhhrrghnthihuceougihlhgrnhdrlhgrughurhgrnhhthiesmhgvshhothhitgdrtghomheqnecuggftrfgrthhtvghrnheptedvhfffvddtjedtheevhfdvteevfeelkefgvdekfeetfefftdfggfefjeeltedunecukfhppedtrddtrddtrddtpdekvddrieehrddvfedrvddvgeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphhouhhtpdhhvghlohepphhlrgihvghrieelvddrhhgrrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpeguhihlrghnrdhlrgguuhhrrghnthihsehmvghsohhtihgtrdgtohhmpdhnsggprhgtphhtthhopedupdhrtghpthhtoheprghlshgrqdguvghvvghlsegrlhhsrgdqphhrohhjvggtthdrohhrgh
+Cc: Dylan Laduranty <dylan.laduranty@mesotic.com>, nuno.sa@analog.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,53 +74,160 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+This allows users to change SDATA and both PDM clocks pins drive strength during device probing according to their need.
 
->>>> kismet: WARNING: unmet direct dependencies detected for
->> SND_SOC_MAX98357A when selected by SND_SOC_INTEL_SOF_CS42L42_MACH
->>
->>    WARNING: unmet direct dependencies detected for SND_SOC_MAX98357A
->>      Depends on [n]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] &&
->> GPIOLIB [=n]
->>      Selected by [y]:
->>      - SND_SOC_INTEL_SOF_CS42L42_MACH [=y] && SOUND [=y] && !UML && SND
->> [=y] && SND_SOC [=y] && SND_SOC_INTEL_MACH [=y] && (SND_SOC_SOF_HDA_LINK
->> [=y] || SND_SOC_SOF_BAYTRAIL [=n]) && I2C [=y] && ACPI [=y] &&
->> SND_HDA_CODEC_HDMI [=y] && SND_SOC_SOF_HDA_AUDIO_CODEC [=y] &&
->> (MFD_INTEL_LPSS [=y] || COMPILE_TEST [=n])
-> 
-> I can reproduce this, but I question the hard dependency on GPIOLIB in
-> the amplifier Kconfig:
-> 
-> 	max98357a->sdmode = devm_gpiod_get_optional(&pdev->dev,
-> 				"sdmode", GPIOD_OUT_LOW);
-> 
-> If the gpio is optional, max98357a.c should build and compile without
-> GPIOLIB, no?
+Update yaml documentation accordingly.
 
-The warning goes away with the patch suggested in
-https://github.com/thesofproject/linux/pull/3646
+Signed-off-by: Dylan Laduranty <dylan.laduranty@mesotic.com>
+---
+ .../bindings/sound/adi,adau7118.yaml          | 24 +++++++
+ sound/soc/codecs/adau7118.c                   | 62 +++++++++++++++++--
+ 2 files changed, 82 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-
-index b106e55170904..8536773548090 100644
-
---- a/sound/soc/codecs/Kconfig
-
-+++ b/sound/soc/codecs/Kconfig
-
-@@ -986,7 +986,6 @@ config SND_SOC_MAX98095
-
-
-
- config SND_SOC_MAX98357A
-
-        tristate "Maxim MAX98357A CODEC"
-
--       depends on GPIOLIB
-
-
-
- config SND_SOC_MAX98371
-
-        tristate
+diff --git a/Documentation/devicetree/bindings/sound/adi,adau7118.yaml b/Documentation/devicetree/bindings/sound/adi,adau7118.yaml
+index fb78967ee17b..71e8a9ff2edf 100644
+--- a/Documentation/devicetree/bindings/sound/adi,adau7118.yaml
++++ b/Documentation/devicetree/bindings/sound/adi,adau7118.yaml
+@@ -51,6 +51,27 @@ properties:
+       maximum: 1
+     default: [0, 0, 1, 1]
+ 
++  adi,pdm-clk0-ds:
++    description: |
++      This property set the drive strength of PDM CLK0 output pad.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum: [3, 2, 1, 0]
++    default: 2
++
++  adi,pdm-clk1-ds:
++    description: |
++      This property set the drive strength of PDM CLK1 output pad.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum: [3, 2, 1, 0]
++    default: 2
++
++  adi,sdata-ds:
++    description: |
++      This property set the drive strength of SDATA output pad.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum: [3, 2, 1, 0]
++    default: 2
++
+ required:
+   - "#sound-dai-cells"
+   - compatible
+@@ -73,6 +94,9 @@ examples:
+                 dvdd-supply = <&supply>;
+                 adi,pdm-clk-map = <1 1 0 0>;
+                 adi,decimation-ratio = <16>;
++                adi,pdm-clk0-ds = <3>;
++                adi,pdm-clk1-ds = <3>;
++                adi,sdata-ds = <3>;
+         };
+     };
+ 
+diff --git a/sound/soc/codecs/adau7118.c b/sound/soc/codecs/adau7118.c
+index 841229dcbca1..18c1f246f911 100644
+--- a/sound/soc/codecs/adau7118.c
++++ b/sound/soc/codecs/adau7118.c
+@@ -29,6 +29,12 @@
+ 				FIELD_PREP(ADAU7118_LRCLK_BCLK_POL_MASK, x)
+ #define ADAU7118_SPT_SLOT_MASK		GENMASK(7, 4)
+ #define ADAU7118_SPT_SLOT(x)		FIELD_PREP(ADAU7118_SPT_SLOT_MASK, x)
++#define ADAU7118_DS_PDM_CLK0_MASK	GENMASK(1, 0)
++#define ADAU7118_DS_PDM_CLK0(x)		FIELD_PREP(ADAU7118_DS_PDM_CLK0_MASK, x)
++#define ADAU7118_DS_PDM_CLK1_MASK	GENMASK(3, 2)
++#define ADAU7118_DS_PDM_CLK1(x)		FIELD_PREP(ADAU7118_DS_PDM_CLK1_MASK, x)
++#define ADAU7118_DS_SDATA_MASK		GENMASK(5, 4)
++#define ADAU7118_DS_SDATA(x)		FIELD_PREP(ADAU7118_DS_SDATA_MASK, x)
+ #define ADAU7118_FULL_SOFT_R_MASK	BIT(1)
+ #define ADAU7118_FULL_SOFT_R(x)		FIELD_PREP(ADAU7118_FULL_SOFT_R_MASK, x)
+ 
+@@ -489,7 +495,7 @@ static int adau7118_regulator_setup(struct adau7118_data *st)
+ static int adau7118_parset_dt(const struct adau7118_data *st)
+ {
+ 	int ret;
+-	u32 dec_ratio = 0;
++	u32 val32 = 0;
+ 	/* 4 inputs */
+ 	u32 clk_map[4], regval;
+ 
+@@ -497,9 +503,9 @@ static int adau7118_parset_dt(const struct adau7118_data *st)
+ 		return 0;
+ 
+ 	ret = device_property_read_u32(st->dev, "adi,decimation-ratio",
+-				       &dec_ratio);
++				       &val32);
+ 	if (!ret) {
+-		switch (dec_ratio) {
++		switch (val32) {
+ 		case 64:
+ 			regval = ADAU7118_DEC_RATIO(0);
+ 			break;
+@@ -510,7 +516,7 @@ static int adau7118_parset_dt(const struct adau7118_data *st)
+ 			regval = ADAU7118_DEC_RATIO(2);
+ 			break;
+ 		default:
+-			dev_err(st->dev, "Invalid dec ratio: %u", dec_ratio);
++			dev_err(st->dev, "Invalid dec ratio: %u", val32);
+ 			return -EINVAL;
+ 		}
+ 
+@@ -537,6 +543,54 @@ static int adau7118_parset_dt(const struct adau7118_data *st)
+ 			return ret;
+ 	}
+ 
++	ret = device_property_read_u32(st->dev, "adi,pdm-clk0-ds",
++					&val32);
++	if (!ret) {
++		if (val32 > 3) {
++			dev_err(st->dev, "Invalid pdm-clk0-ds: %u", val32);
++			return -EINVAL;
++		}
++
++		ret = regmap_update_bits(st->map,
++					ADAU7118_REG_DRIVE_STRENGTH,
++					ADAU7118_DS_PDM_CLK0_MASK,
++					ADAU7118_DS_PDM_CLK0(val32));
++		if (ret)
++			return ret;
++	}
++
++	ret = device_property_read_u32(st->dev, "adi,pdm-clk1-ds",
++					&val32);
++	if (!ret) {
++		if (val32 > 3) {
++			dev_err(st->dev, "Invalid pdm-clk1-ds: %u", val32);
++			return -EINVAL;
++		}
++
++		ret = regmap_update_bits(st->map,
++					ADAU7118_REG_DRIVE_STRENGTH,
++					ADAU7118_DS_PDM_CLK1_MASK,
++					ADAU7118_DS_PDM_CLK1(val32));
++		if (ret)
++			return ret;
++	}
++
++	ret = device_property_read_u32(st->dev, "adi,sdata-ds",
++					&val32);
++	if (!ret) {
++		if (val32 > 3) {
++			dev_err(st->dev, "Invalid sdata-ds: %u", val32);
++			return -EINVAL;
++		}
++
++		ret = regmap_update_bits(st->map,
++					ADAU7118_REG_DRIVE_STRENGTH,
++					ADAU7118_DS_SDATA_MASK,
++					ADAU7118_DS_SDATA(val32));
++		if (ret)
++			return ret;
++	}
++
+ 	return 0;
+ }
+ 
+-- 
+2.17.1
 

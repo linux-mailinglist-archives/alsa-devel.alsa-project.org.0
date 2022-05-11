@@ -2,82 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67DDD5234E5
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 May 2022 16:00:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30F875234F5
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 May 2022 16:03:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D89D318FF;
-	Wed, 11 May 2022 16:00:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D89D318FF
+	by alsa0.perex.cz (Postfix) with ESMTPS id BA5BD19FD;
+	Wed, 11 May 2022 16:02:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA5BD19FD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652277651;
-	bh=vK1kRsag3lSgeoS9hZDo+H/P8T8MGCziBz2HS8Ai4kA=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1652277823;
+	bh=iyE8n9SksPurxnZbqkT2A6Xma+hyTFWKc249F6za/2w=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fXEaIFKdktFQq1jOE+dAfROoRP0plFTLKqXbdirl8mvrIb/RNU6gDk2lA3vgTTZbi
-	 rjyZ0OlKms0b27rQ5RV6v9031cvwe8VDk4MwHz2gnmaJ22y0/e5HXurPntzm40C9Xm
-	 qIJlRZeEx/+HeYr0A89pxxvk+adcPFT/f8yK+9KM=
+	b=vQkv04zfIk6GTt/hgfGHliaVUNyGG0XD2aJG6xBMEypw0wf7R1huE5RsyErwDk0lh
+	 aLd+20U2pfEmwYERtiMfoEMDrujKsPjJa0Dg4XdpNZYoEBeLjyHjlPH1T0mQx2JqM0
+	 UCwP05Dg9/Rx85AqPPm1QO3ENb3oIiJ8mKNoo8JU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6AF5BF8011C;
-	Wed, 11 May 2022 15:59:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3D6CEF8011C;
+	Wed, 11 May 2022 16:02:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 42645F8015B; Wed, 11 May 2022 15:59:51 +0200 (CEST)
+ id 509B9F8015B; Wed, 11 May 2022 16:02:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3C9FEF8011C
- for <alsa-devel@alsa-project.org>; Wed, 11 May 2022 15:59:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C9FEF8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id BD24BF800BB
+ for <alsa-devel@alsa-project.org>; Wed, 11 May 2022 16:02:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD24BF800BB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="iKyMbKi+"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="qdHT3wGt"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id AA3EA1F8FD;
- Wed, 11 May 2022 13:59:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1652277584; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=3IAuAdLAPrRap/1eVwSZb/4jgOT/frXDQVoc9rv4dmI=;
- b=iKyMbKi+HIoyQn3/gc5uST6kKagIFOdcEKS5cCeDwhpdPCHzJsKqbDs+dDYM/V0U78hwbq
- oiFPNy/yiIxuyEHJRwh2EUBpfkH8tM14ZurgDjlZsuIxwiwhduO1AQ7XsoiHkQGa8iiLno
- NXJzZ3fWuut5Br7aXs/YBQVY7hSircQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1652277584;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=3IAuAdLAPrRap/1eVwSZb/4jgOT/frXDQVoc9rv4dmI=;
- b=qdHT3wGt1rqVtNBBPvkn4p2w/msL6mqNltosNblfKNfq3Q4vRFsyeqeeTG+wqjzhSgZWqY
- bBQmerEuv/nMCqDg==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 9FEAC2C141;
- Wed, 11 May 2022 13:59:44 +0000 (UTC)
-Date: Wed, 11 May 2022 15:59:44 +0200
-Message-ID: <s5hwnesf9v3.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="JmeWk3lg"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24BC4ek3000496;
+ Wed, 11 May 2022 09:02:20 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=oIxr/xC1n5ZyDjdj6EgfIBAjcz3pjH99gFXnfJtabgA=;
+ b=JmeWk3lg7MAKH29m11cseAUiFwvLI0tgjRC9VNYkYwmnRwaypR1VugdmR50cWK8pyi6N
+ OwQAfqB2NCoF7afyFy+icRbUDEq9qfFr1tm6eivk4vCuy3Z3ZtYqUya/lmeOkiM1FWWq
+ 137QxGcAzyZgWY4wCRIVPqHCnfsHI1S4JjP9T/My5egM/MSRX/9U9eJ8xMR4XGA3nvz9
+ Xk+UYSreB19bbgFXjm2uFpsKDCFzGOh2Q1tIbxajrIA/X10ntzK0E/08giyFrHkiynDT
+ 7SgbhG8XA4AFwTD+BFJR4GbJLXmKqg6YIyIGeDXIoExVEAhKIBkeRfxYe1w0kr/etHgI uw== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3fwp616pdm-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Wed, 11 May 2022 09:02:19 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Wed, 11 May
+ 2022 15:02:17 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.24 via
+ Frontend Transport; Wed, 11 May 2022 15:02:17 +0100
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 7ECE8B10;
+ Wed, 11 May 2022 14:02:17 +0000 (UTC)
+Date: Wed, 11 May 2022 14:02:17 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
 To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-Subject: Re: [PATCH v2 26/26] ALSA: hda: cs35l41: Add kernel config to disable
- firmware autoload
-In-Reply-To: <20220509214703.4482-27-vitalyr@opensource.cirrus.com>
+Subject: Re: [PATCH v2 10/26] ALSA: hda: hda_cs_dsp_ctl: Add Library to
+ support CS_DSP ALSA controls
+Message-ID: <20220511140217.GI38351@ediswmail.ad.cirrus.com>
 References: <20220509214703.4482-1-vitalyr@opensource.cirrus.com>
- <20220509214703.4482-27-vitalyr@opensource.cirrus.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
+ <20220509214703.4482-11-vitalyr@opensource.cirrus.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20220509214703.4482-11-vitalyr@opensource.cirrus.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: 03tfxSSWisQ6hehUnsU3Ci8UZPqmpEfz
+X-Proofpoint-ORIG-GUID: 03tfxSSWisQ6hehUnsU3Ci8UZPqmpEfz
+X-Proofpoint-Spam-Reason: safe
 Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
  Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
  Stefan Binding <sbinding@opensource.cirrus.com>,
@@ -97,71 +103,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 09 May 2022 23:47:03 +0200,
-Vitaly Rodionov wrote:
-> 
+On Mon, May 09, 2022 at 10:46:47PM +0100, Vitaly Rodionov wrote:
 > From: Stefan Binding <sbinding@opensource.cirrus.com>
 > 
-> By default, the driver will automatically load DSP firmware
-> for the amps, if available. Adding this option allows the
-> autoload to be optional, which allows for different configurations.
-
-Shouldn't this be rather a runtime option instead of a build-time
-kconfig?
-
-
-thanks,
-
-Takashi
-
+> The cs35l41 part contains a DSP which is able to run firmware.
+> The cs_dsp library can be used to control the DSP.
+> These controls can be exposed to userspace using ALSA controls.
+> This library adds apis to be able to interface between
+> cs_dsp and hda drivers and expose the relevant controls as
+> ALSA controls.
+> 
 > Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
 > Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
 > ---
->  sound/pci/hda/Kconfig       |  7 +++++++
->  sound/pci/hda/cs35l41_hda.c | 12 +++++++-----
->  2 files changed, 14 insertions(+), 5 deletions(-)
-> 
-> diff --git a/sound/pci/hda/Kconfig b/sound/pci/hda/Kconfig
-> index 1c378cca5dac..c4282dec4dd4 100644
-> --- a/sound/pci/hda/Kconfig
-> +++ b/sound/pci/hda/Kconfig
-> @@ -94,6 +94,13 @@ config SND_HDA_PATCH_LOADER
->  config SND_HDA_SCODEC_CS35L41
->  	tristate
->  
-> +config SND_HDA_SCODEC_CS35L41_DISABLE_FIRMWARE_AUTOSTART
-> +	bool "Prevent CS35L41 from starting firmware on boot"
-> +	depends on SND_HDA_SCODEC_CS35L41
-> +	help
-> +	  Say Y here to prevent the CS35L41 HDA driver from loading DSP
-> +	  Firmware at boot
+> +static int hda_cs_dsp_coeff_info(struct snd_kcontrol *kctl, struct snd_ctl_elem_info *uinfo)
+> +{
+> +	struct soc_bytes_ext *bytes_ext =
+> +		(struct soc_bytes_ext *)kctl->private_value;
+> +	struct hda_cs_dsp_coeff_ctl *ctl = bytes_ext_to_ctl(bytes_ext);
+> +	struct cs_dsp_coeff_ctl *cs_ctl = ctl->cs_ctl;
 > +
->  config SND_HDA_CS_DSP_CONTROLS
->  	tristate
->  	depends on CS_DSP
-> diff --git a/sound/pci/hda/cs35l41_hda.c b/sound/pci/hda/cs35l41_hda.c
-> index 70e5354e3950..8b9e966145b5 100644
-> --- a/sound/pci/hda/cs35l41_hda.c
-> +++ b/sound/pci/hda/cs35l41_hda.c
-> @@ -773,11 +773,13 @@ static int cs35l41_hda_bind(struct device *dev, struct device *master, void *mas
->  
->  	cs35l41->firmware_type = HDA_CS_DSP_FW_SPK_PROT;
->  
-> -	cs35l41->request_fw_load = true;
-> -	mutex_lock(&cs35l41->fw_mutex);
-> -	if (cs35l41_smart_amp(cs35l41) < 0)
-> -		dev_warn(cs35l41->dev, "Cannot Run Firmware, reverting to dsp bypass...\n");
-> -	mutex_unlock(&cs35l41->fw_mutex);
-> +	if (!IS_ENABLED(CONFIG_SND_HDA_SCODEC_CS35L41_DISABLE_FIRMWARE_AUTOSTART)) {
-> +		cs35l41->request_fw_load = true;
-> +		mutex_lock(&cs35l41->fw_mutex);
-> +		if (cs35l41_smart_amp(cs35l41) < 0)
-> +			dev_warn(cs35l41->dev, "Cannot Run Firmware, reverting to dsp bypass...\n");
-> +		mutex_unlock(&cs35l41->fw_mutex);
+> +	switch (cs_ctl->type) {
+> +	case WMFW_CTL_TYPE_ACKED:
+> +		uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
+> +		uinfo->value.integer.min = CS_DSP_ACKED_CTL_MIN_VALUE;
+> +		uinfo->value.integer.max = CS_DSP_ACKED_CTL_MAX_VALUE;
+> +		uinfo->value.integer.step = 1;
+> +		uinfo->count = 1;
+> +		break;
+
+With the ACKED controls as well as the TLVs it would be worth
+verifing if any of the relevant firmwares actually require these,
+if we are going to duplicate a bunch of the wm_adsp code into HDA
+lets duplicate only exactly what we need.
+
+> +	switch (cs_dsp->fw_ver) {
+> +	case 0:
+> +	case 1:
+> +		ret = scnprintf(name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN,
+> +				"%s %s %s %x", info->amp_name, cs_dsp->name, region_name,
+> +				cs_ctl->alg_region.alg);
+> +		break;
+> +	case 2:
+> +		ret = scnprintf(name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN,
+> +				"%s %s%c %.12s %x", info->amp_name, cs_dsp->name, *region_name,
+> +				hda_cs_dsp_fw_text[info->fw_type], cs_ctl->alg_region.alg);
+> +		break;
+> +	default:
+> +		ret = scnprintf(name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN,
+> +				"%s %s %.12s %x", info->amp_name, cs_dsp->name,
+> +				hda_cs_dsp_fw_text[info->fw_type], cs_ctl->alg_region.alg);
+> +		break;
 > +	}
->  
->  	cs35l41_create_controls(cs35l41);
->  
-> -- 
-> 2.34.1
-> 
+
+Do we actually need to support all the historical fw_versions?
+ADSP does since CODECs using it have been around forever, but I
+would suggest it is quite like this stuff only needs to support
+the latest version.
+
+Thanks,
+Charles

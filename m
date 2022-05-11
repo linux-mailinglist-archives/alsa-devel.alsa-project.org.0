@@ -2,89 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5C735228A7
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 May 2022 03:09:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F75F5228FC
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 May 2022 03:31:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 56CA618C8;
-	Wed, 11 May 2022 03:08:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 56CA618C8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 06ED118C4;
+	Wed, 11 May 2022 03:30:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 06ED118C4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652231340;
-	bh=xrRQ0GJWq+66VCJpymvn0aMnpd4ABWaXmFU4EHXbdrg=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ZIbavtIYoRk7IcTZjr7FU2vheyKDoPvZ31zQG+hCx5xtn9euMfDK8QxG/34Cdi/QW
-	 zpvr/ei9a9MLt/wuJItKOvA781awbAhJPw2ECt19WZX6aI6Ua8DXANPCRuWs9Sqnr3
-	 lNTNGHs2SBbgI7cqRMx/ZguB0mg4os9RZ1USyCCo=
+	s=default; t=1652232704;
+	bh=UW71ROxh/GRIENA4xUhIZy4ExcjISc8wvAjEj5jPNTE=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=vmpDpDYCMEsMConWcZ2qB52C1FpmLkxnmsM4RkPm6w7B201VqSgX+DJlGzZZzoeu1
+	 Lh0pPd3abSLva73M9OHYRVdAOESQqB+ZbFkpUMshWtsvyrp17E0woR7AZNy825Vvxk
+	 7VJTTPPrDYNajknN+3nDoEcigiky41qxqN/0yJpQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C360FF801F5;
-	Wed, 11 May 2022 03:08:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7B1E0F800BB;
+	Wed, 11 May 2022 03:30:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 74F8DF8019D; Wed, 11 May 2022 03:07:59 +0200 (CEST)
+ id D9DFEF8015B; Wed, 11 May 2022 03:30:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-il1-x131.google.com (mail-il1-x131.google.com
- [IPv6:2607:f8b0:4864:20::131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B01DEF80116
- for <alsa-devel@alsa-project.org>; Wed, 11 May 2022 03:07:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B01DEF80116
+ by alsa1.perex.cz (Postfix) with ESMTPS id A1DF0F80116
+ for <alsa-devel@alsa-project.org>; Wed, 11 May 2022 03:30:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1DF0F80116
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=howett-net.20210112.gappssmtp.com
- header.i=@howett-net.20210112.gappssmtp.com header.b="LIEre7zy"
-Received: by mail-il1-x131.google.com with SMTP id j12so424480ila.12
- for <alsa-devel@alsa-project.org>; Tue, 10 May 2022 18:07:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=howett-net.20210112.gappssmtp.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=HKDzgb7pX+8jdkJlU9jvaZ8AoRxWNdGhkJfVlXnpRsg=;
- b=LIEre7zyDoYEWVUarZq6FHOB/DFNLVDkTcdFAanAgP0v/z90hxZDp/iiiifBDSmtir
- I+jgkHMBdorWmBgVkcQDdO3+ZZ+YWJfPQJ6vOif9BWlrTftuPl3axUZNYbq/gXurxjAA
- UvFaSMK7ITl6CO2xtTLn+CkpLH/YTIIsfbd4J3G+RwssI/EZ6652uaY1CHcDTVs81Jo+
- genasjfqV8DQT4UhxumUcxzjDTZFU1mjA6EC9bXVoc+eGMn+F2UMmyaLsWXERAjej7rL
- qlaBG/mxKLzLIYhtzPC5qXllbkzIZOhCNg/VKR/7J5h87EzPkiEe5OlL+R0357adaGE/
- TcXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=HKDzgb7pX+8jdkJlU9jvaZ8AoRxWNdGhkJfVlXnpRsg=;
- b=nohv8/Zx0kuhQL3izdT8JHzCA9C+ThIbwRS9a/Ex3jZ8q+4AzwxTqGoFo7s2a6Lx+F
- dDtSoDYBuEwBAXJG21/N3mvq/hEddJT8jpFB3EYOTHmmun72PJcQOtJeQA+ICU6/2dTC
- rOnYC9t4YnSKh4Y/wHC3syUWiIt0HvCfeVANx4kn70vDefHFw3frQlKB5YlitPlC0WDD
- nv33pMK/EIdtiHn93RgR6c14frvKjDUkOUC2UGjNcZ+T7bZoZrrvQZ2FFe4PoZAquZWj
- OIK8PTg9as/UCilElNwdcZG9FwvI4243RIyhvG9tdNoOJ4VPGDN5Shliu+LSMNr35t6Y
- jI9w==
-X-Gm-Message-State: AOAM533s1rd+8EunfTqeohSy3o+q+UQ7SvSrug8ogNomrzzS/gngSTBo
- RS9xfGhgcJERQ54SAgfJntkOktXGb22kIWAq
-X-Google-Smtp-Source: ABdhPJyimDsFW/z5X4qQsJpr8Uew0CKfoUgYdr4965M9kvE2Bk0HMz5fJz7x2J3J/Y5wlRu05lB5gg==
-X-Received: by 2002:a05:6e02:17c6:b0:2cd:f999:3dd with SMTP id
- z6-20020a056e0217c600b002cdf99903ddmr10768806ilu.318.1652231266036; 
- Tue, 10 May 2022 18:07:46 -0700 (PDT)
-Received: from rigel.delfino.n.howett.net
- (99-107-94-179.lightspeed.stlsmo.sbcglobal.net. [99.107.94.179])
- by smtp.googlemail.com with ESMTPSA id
- q13-20020a6bd20d000000b0065a47e16f4bsm237870iob.29.2022.05.10.18.07.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 May 2022 18:07:45 -0700 (PDT)
-From: "Dustin L. Howett" <dustin@howett.net>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v2] ALSA: hda/realtek: Add quirk for the Framework Laptop
-Date: Tue, 10 May 2022 20:07:59 -0500
-Message-Id: <20220511010759.3554-1-dustin@howett.net>
-X-Mailer: git-send-email 2.36.0
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="SQO6Unh3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1652232638; x=1683768638;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=UW71ROxh/GRIENA4xUhIZy4ExcjISc8wvAjEj5jPNTE=;
+ b=SQO6Unh39z1zSJU/jHW1rz6/Pg/qHWUNoGcabeu37ofuIw4uOKuv/oxv
+ FkXJ3SUPCsITY2A7t1zoJj1zaqwddBeFZai4rli8s+YNZoo0oad9Rrje2
+ IXWFlqhbvWpLClQ6lLFg3mLDU4StvfMGbEwwy073CnGCMxqEX49uw4uDD
+ LiP1zy5W9catpeAGfKXHzhfn96+VGClLA3wLqoEg39TCay0RcBZtseNJF
+ OhbSasiz7YT4ctCW7mSgQmSRKGnoRcF9A8BrFrRL5V56v2VZHsvxC0mHM
+ sbMxFNcXtvEFdKVuS6soNK6VCat4JeqMk6WQL94BYyEOB9QI2Xk3v1KT9 A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10343"; a="330148021"
+X-IronPort-AV: E=Sophos;i="5.91,215,1647327600"; d="scan'208";a="330148021"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 May 2022 18:30:32 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.91,215,1647327600"; d="scan'208";a="738988213"
+Received: from lkp-server01.sh.intel.com (HELO 5056e131ad90) ([10.239.97.150])
+ by orsmga005.jf.intel.com with ESMTP; 10 May 2022 18:30:30 -0700
+Received: from kbuild by 5056e131ad90 with local (Exim 4.95)
+ (envelope-from <lkp@intel.com>) id 1nobBN-000IZB-CU;
+ Wed, 11 May 2022 01:30:29 +0000
+Date: Wed, 11 May 2022 09:29:39 +0800
+From: kernel test robot <lkp@intel.com>
+To: Stefan Binding <sbinding@opensource.cirrus.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: Re: [PATCH v1 1/3] ALSA: hda/cs8409: Support new Odin Variants
+Message-ID: <202205110948.6wfXVVvs-lkp@intel.com>
+References: <20220510161701.851260-2-sbinding@opensource.cirrus.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: "Dustin L. Howett" <dustin@howett.net>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220510161701.851260-2-sbinding@opensource.cirrus.com>
+Cc: alsa-devel@alsa-project.org, kbuild-all@lists.01.org,
+ patches@opensource.cirrus.com, llvm@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Stefan Binding <sbinding@opensource.cirrus.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,65 +93,96 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Some board revisions of the Framework Laptop have an ALC295 with a
-disconnected or faulty headset mic presence detect.
+Hi Stefan,
 
-The "dell-headset-multi" fixup addresses this issue, but also enables an
-inoperative "Headphone Mic" input device whenever a headset is
-connected.
+Thank you for the patch! Perhaps something to improve:
 
-Adding a new quirk chain specific to the Framework Laptop resolves this
-issue. The one introduced here is based on the System76 "no headphone
-mic" quirk chain.
+[auto build test WARNING on tiwai-sound/for-next]
+[also build test WARNING on v5.18-rc6 next-20220510]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch]
 
-The VID:PID f111:0001 have been allocated to Framework Computer for this
-board revision.
+url:    https://github.com/intel-lab-lkp/linux/commits/Stefan-Binding/ALSA-hda-cs8409-Add-support-for-Odin-Laptop-Variants/20220511-001936
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
+config: i386-randconfig-c001-20220509 (https://download.01.org/0day-ci/archive/20220511/202205110948.6wfXVVvs-lkp@intel.com/config)
+compiler: clang version 15.0.0 (https://github.com/llvm/llvm-project 18dd123c56754edf62c7042dcf23185c3727610f)
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/e834cdf9c71c45212904ba82b5b7e49d45810deb
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Stefan-Binding/ALSA-hda-cs8409-Add-support-for-Odin-Laptop-Variants/20220511-001936
+        git checkout e834cdf9c71c45212904ba82b5b7e49d45810deb
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=i386 SHELL=/bin/bash sound/pci/hda/
 
-Revision history:
-- v2: Moved to a custom quirk chain to suppress the "Headphone Mic"
-  pincfg.
+If you fix the issue, kindly add following tag as appropriate
+Reported-by: kernel test robot <lkp@intel.com>
 
-Signed-off-by: Dustin L. Howett <dustin@howett.net>
----
- sound/pci/hda/patch_realtek.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+All warnings (new ones prefixed by >>):
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 4c0c593f3c0a..e00e6d2038a1 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -7012,6 +7012,7 @@ enum {
- 	ALC245_FIXUP_CS35L41_SPI_4,
- 	ALC245_FIXUP_CS35L41_SPI_4_HP_GPIO_LED,
- 	ALC285_FIXUP_HP_SPEAKERS_MICMUTE_LED,
-+	ALC295_FIXUP_FRAMEWORK_LAPTOP_MIC_NO_PRESENCE,
- };
- 
- static const struct hda_fixup alc269_fixups[] = {
-@@ -8806,6 +8807,15 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.chained = true,
- 		.chain_id = ALC285_FIXUP_HP_MUTE_LED,
- 	},
-+	[ALC295_FIXUP_FRAMEWORK_LAPTOP_MIC_NO_PRESENCE] = {
-+		.type = HDA_FIXUP_PINS,
-+		.v.pins = (const struct hda_pintbl[]) {
-+			{ 0x19, 0x02a1112c }, /* use as headset mic, without its own jack detect */
-+			{ }
-+		},
-+		.chained = true,
-+		.chain_id = ALC269_FIXUP_HEADSET_MODE_NO_HP_MIC
-+	},
- };
- 
- static const struct snd_pci_quirk alc269_fixup_tbl[] = {
-@@ -9294,6 +9304,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x8086, 0x2074, "Intel NUC 8", ALC233_FIXUP_INTEL_NUC8_DMIC),
- 	SND_PCI_QUIRK(0x8086, 0x2080, "Intel NUC 8 Rugged", ALC256_FIXUP_INTEL_NUC8_RUGGED),
- 	SND_PCI_QUIRK(0x8086, 0x2081, "Intel NUC 10", ALC256_FIXUP_INTEL_NUC10),
-+	SND_PCI_QUIRK(0xf111, 0x0001, "Framework Laptop", ALC295_FIXUP_FRAMEWORK_LAPTOP_MIC_NO_PRESENCE),
- 
- #if 0
- 	/* Below is a quirk table taken from the old code.
+>> sound/pci/hda/patch_cs8409.c:1033:2: warning: unannotated fall-through between switch labels [-Wimplicit-fallthrough]
+           default:
+           ^
+   sound/pci/hda/patch_cs8409.c:1033:2: note: insert 'break;' to avoid fall-through
+           default:
+           ^
+           break; 
+   1 warning generated.
+
+
+vim +1033 sound/pci/hda/patch_cs8409.c
+
+8c70461bbb83cf Lucas Tanure   2021-08-11   996  
+8c70461bbb83cf Lucas Tanure   2021-08-11   997  /* Vendor specific HW configuration
+8c70461bbb83cf Lucas Tanure   2021-08-11   998   * PLL, ASP, I2C, SPI, GPIOs, DMIC etc...
+8c70461bbb83cf Lucas Tanure   2021-08-11   999   */
+8c70461bbb83cf Lucas Tanure   2021-08-11  1000  static void cs8409_cs42l42_hw_init(struct hda_codec *codec)
+8c70461bbb83cf Lucas Tanure   2021-08-11  1001  {
+8c70461bbb83cf Lucas Tanure   2021-08-11  1002  	const struct cs8409_cir_param *seq = cs8409_cs42l42_hw_cfg;
+8c70461bbb83cf Lucas Tanure   2021-08-11  1003  	const struct cs8409_cir_param *seq_bullseye = cs8409_cs42l42_bullseye_atn;
+8c70461bbb83cf Lucas Tanure   2021-08-11  1004  	struct cs8409_spec *spec = codec->spec;
+24f7ac3d3b6b70 Lucas Tanure   2021-08-11  1005  	struct sub_codec *cs42l42 = spec->scodecs[CS8409_CODEC0];
+8c70461bbb83cf Lucas Tanure   2021-08-11  1006  
+8c70461bbb83cf Lucas Tanure   2021-08-11  1007  	if (spec->gpio_mask) {
+ccff0064a7ce8e Stefan Binding 2021-08-11  1008  		snd_hda_codec_write(codec, CS8409_PIN_AFG, 0, AC_VERB_SET_GPIO_MASK,
+ccff0064a7ce8e Stefan Binding 2021-08-11  1009  			spec->gpio_mask);
+ccff0064a7ce8e Stefan Binding 2021-08-11  1010  		snd_hda_codec_write(codec, CS8409_PIN_AFG, 0, AC_VERB_SET_GPIO_DIRECTION,
+ccff0064a7ce8e Stefan Binding 2021-08-11  1011  			spec->gpio_dir);
+ccff0064a7ce8e Stefan Binding 2021-08-11  1012  		snd_hda_codec_write(codec, CS8409_PIN_AFG, 0, AC_VERB_SET_GPIO_DATA,
+ccff0064a7ce8e Stefan Binding 2021-08-11  1013  			spec->gpio_data);
+8c70461bbb83cf Lucas Tanure   2021-08-11  1014  	}
+8c70461bbb83cf Lucas Tanure   2021-08-11  1015  
+8c70461bbb83cf Lucas Tanure   2021-08-11  1016  	for (; seq->nid; seq++)
+8c70461bbb83cf Lucas Tanure   2021-08-11  1017  		cs8409_vendor_coef_set(codec, seq->cir, seq->coeff);
+8c70461bbb83cf Lucas Tanure   2021-08-11  1018  
+24f7ac3d3b6b70 Lucas Tanure   2021-08-11  1019  	if (codec->fixup_id == CS8409_BULLSEYE) {
+8c70461bbb83cf Lucas Tanure   2021-08-11  1020  		for (; seq_bullseye->nid; seq_bullseye++)
+8c70461bbb83cf Lucas Tanure   2021-08-11  1021  			cs8409_vendor_coef_set(codec, seq_bullseye->cir, seq_bullseye->coeff);
+24f7ac3d3b6b70 Lucas Tanure   2021-08-11  1022  	}
+8c70461bbb83cf Lucas Tanure   2021-08-11  1023  
+6581a045d54c6a Stefan Binding 2022-03-28  1024  	switch (codec->fixup_id) {
+6581a045d54c6a Stefan Binding 2022-03-28  1025  	case CS8409_CYBORG:
+6581a045d54c6a Stefan Binding 2022-03-28  1026  	case CS8409_WARLOCK_MLK_DUAL_MIC:
+8c70461bbb83cf Lucas Tanure   2021-08-11  1027  		/* DMIC1_MO=00b, DMIC1/2_SR=1 */
+8a7724535bacbb Stefan Binding 2022-03-28  1028  		cs8409_vendor_coef_set(codec, CS8409_DMIC_CFG, 0x0003);
+6581a045d54c6a Stefan Binding 2022-03-28  1029  		break;
+e834cdf9c71c45 Stefan Binding 2022-05-10  1030  	case CS8409_ODIN:
+e834cdf9c71c45 Stefan Binding 2022-05-10  1031  		/* ASP1/2_xxx_EN=1, ASP1/2_MCLK_EN=0, DMIC1_SCL_EN=0 */
+e834cdf9c71c45 Stefan Binding 2022-05-10  1032  		cs8409_vendor_coef_set(codec, CS8409_PAD_CFG_SLW_RATE_CTRL, 0xfc00);
+6581a045d54c6a Stefan Binding 2022-03-28 @1033  	default:
+6581a045d54c6a Stefan Binding 2022-03-28  1034  		break;
+6581a045d54c6a Stefan Binding 2022-03-28  1035  	}
+8c70461bbb83cf Lucas Tanure   2021-08-11  1036  
+24f7ac3d3b6b70 Lucas Tanure   2021-08-11  1037  	cs42l42_resume(cs42l42);
+8c70461bbb83cf Lucas Tanure   2021-08-11  1038  
+8c70461bbb83cf Lucas Tanure   2021-08-11  1039  	/* Enable Unsolicited Response */
+8c70461bbb83cf Lucas Tanure   2021-08-11  1040  	cs8409_enable_ur(codec, 1);
+8c70461bbb83cf Lucas Tanure   2021-08-11  1041  }
+8c70461bbb83cf Lucas Tanure   2021-08-11  1042  
+
 -- 
-2.36.0
-
+0-DAY CI Kernel Test Service
+https://01.org/lkp

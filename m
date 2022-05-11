@@ -2,89 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7123C523513
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 May 2022 16:10:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D54D1523578
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 May 2022 16:29:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0938F17DA;
-	Wed, 11 May 2022 16:09:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0938F17DA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 620C11A7D;
+	Wed, 11 May 2022 16:28:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 620C11A7D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652278223;
-	bh=8I33R8C8CzdnEvbYxQQn0dbChlfzwaRQtsOF5InHNbs=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1652279352;
+	bh=I9vGeFJi5v7ksxvFEo5+MO2yt1A/jE0rU1SS+JkUmtQ=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IwohgAlmE/iH++gylEYlZbkEDkVWc9FbCZKEKk1pCBdOa0o5N5ALDdMcwprW/Znc5
-	 z/BhheEEsNPwcE5K6kgxeNe2rDuTi6bhGzI0j76IhImISnIMVhbuasna4LWoTq2j4t
-	 JJ17iWt1c2RlsD8td494mRbb8f7s4ell3SCIkhj4=
+	b=YXqJKG/3aDgZLKXs79BtK/0KYxo+u9wwGtWJB0lBrwhWecxaho7uA60aJ1bwUJ6Em
+	 yNTmA4n8WsESxPwtB7efjCCiaZv95xee80On7K13XM2dSPqepXNesb5rmXyXodRDOe
+	 HJs9qR8DWN/mPAXef8A7OOT771IPVrMIM5d/bGb0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 84E6DF800BB;
-	Wed, 11 May 2022 16:09:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D0DA9F80116;
+	Wed, 11 May 2022 16:28:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 71AB2F8015B; Wed, 11 May 2022 16:09:23 +0200 (CEST)
+ id 73A9DF8015B; Wed, 11 May 2022 16:28:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com
+ [209.85.160.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 67652F800BB
- for <alsa-devel@alsa-project.org>; Wed, 11 May 2022 16:09:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67652F800BB
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="ZREBSIxB"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="ZUS8H9+F"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id E48EB21C33;
- Wed, 11 May 2022 14:09:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1652278156; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=UW2GdRmJAnrhWiyCmp8j1OoOQeEqRLEmI9WIKtzeJdY=;
- b=ZREBSIxBlMvMsrhwAgm8m76z1CTpbdK2vHFXqDo0x2e/ZfI7QMuTwfqRuFo2xmNYUFmvz9
- k3dq75TKBMDzw6qH/gSvN9au73SO10U6sxrhQN/9yWmaQ9PmiFKgxdYIW8FLAiIwFOOGbj
- e8X8alsWstOkdfD0YrvwMfHbQ2TAtA0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1652278156;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=UW2GdRmJAnrhWiyCmp8j1OoOQeEqRLEmI9WIKtzeJdY=;
- b=ZUS8H9+FQ0oA+z/SdaDba7j2c18aAsh5gz/jo0CPFGnRjFZhJsgLA4s8ZmnUMKAAznNk8A
- c3po3peuLT0XxnBw==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 87D212C141;
- Wed, 11 May 2022 14:09:16 +0000 (UTC)
-Date: Wed, 11 May 2022 16:09:16 +0200
-Message-ID: <s5hv8ucf9f7.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Werner Sembach <wse@tuxedocomputers.com>
-Subject: Re: [PATCH] ALSA: hda/intel: Add quirk for TongFang devices with pop
- noise
-In-Reply-To: <71fadca3-7750-2fc0-c04a-f05ab4e85112@tuxedocomputers.com>
-References: <20220511133828.13724-1-wse@tuxedocomputers.com>
- <s5h35hggpao.wl-tiwai@suse.de>
- <71fadca3-7750-2fc0-c04a-f05ab4e85112@tuxedocomputers.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- kai.vehmanen@linux.intel.com, imre.deak@intel.com, tiwai@suse.com,
- linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 84F28F80116
+ for <alsa-devel@alsa-project.org>; Wed, 11 May 2022 16:28:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84F28F80116
+Received: by mail-oa1-f43.google.com with SMTP id
+ 586e51a60fabf-e93bbb54f9so2965368fac.12
+ for <alsa-devel@alsa-project.org>; Wed, 11 May 2022 07:28:06 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=l5hfI95nGKptfm8+V5D6k5JgCAeWViIYLBqO5SQ8AOg=;
+ b=V0tTRBtbGobpwSwBcAWAc44okMmOkW63Ciq9zQFvs61j2CQ+ZAnmcHGm+S3o2RIG4e
+ /4wLs3e8mlEGbDbQsLc5q4jgdnTwFNalCDDfYKxvdxvDNR8wXY7mwPqK7WAhP7fIq4wG
+ nMPV0noAzkp1LS0XQhEqqOuoUWKkRR63hnAckQAmmK9XkABCxYzgXIP0qjK7oJzm8eWK
+ Hj8lbRAnFLxHlRVkSHzznL4KVmmTglIK5jsVsXeNbtOr7OTekBVm/PKd8MyWaLURuwAb
+ AMkeKKrPhjpBMDwsvHPp6nOJLtdeCFPwnxtqCqAll+ltZBZWv0NW6akvp2SAurvVTkm0
+ F2TQ==
+X-Gm-Message-State: AOAM531gVTdrlnaytcZDZexSXhJNcOFrQ5zNFtd26AOu0Qgb09WiQhz5
+ 7a2vkvFxgZX/J4dCWXmVOg==
+X-Google-Smtp-Source: ABdhPJwx6Qb8tL87ntfzUHzEzTkhI+b4g11lzmWoqGBuzVTYMC1eKnagTBy0+lyWuayExf/sakpdXw==
+X-Received: by 2002:a05:6870:14d6:b0:ed:ed86:9040 with SMTP id
+ l22-20020a05687014d600b000eded869040mr2918700oab.199.1652279282580; 
+ Wed, 11 May 2022 07:28:02 -0700 (PDT)
+Received: from robh.at.kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ j18-20020a4a9452000000b0035eb4e5a6c3sm967857ooi.25.2022.05.11.07.28.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 May 2022 07:28:02 -0700 (PDT)
+Received: (nullmailer pid 259228 invoked by uid 1000);
+ Wed, 11 May 2022 14:28:01 -0000
+Date: Wed, 11 May 2022 09:28:01 -0500
+From: Rob Herring <robh@kernel.org>
+To: Daniel Kaehn <kaehndan@gmail.com>
+Subject: Re: [PATCH v7 2/2] Add generic serial MIDI driver using serial bus API
+Message-ID: <20220511142801.GA236225-robh@kernel.org>
+References: <20220509145933.1161526-1-kaehndan@gmail.com>
+ <20220509145933.1161526-3-kaehndan@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220509145933.1161526-3-kaehndan@gmail.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,57 +92,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 11 May 2022 15:58:03 +0200,
-Werner Sembach wrote:
+On Mon, May 09, 2022 at 09:59:33AM -0500, Daniel Kaehn wrote:
+> Generic serial MIDI driver adding support for using serial devices
+> compatible with the serial bus as raw MIDI devices, allowing using
+> additional serial devices not compatible with the existing
+> serial-u16550 driver. Supports only setting standard serial baudrates on
+> the underlying serial device; however, the underlying serial device can
+> be configured so that a requested 38.4 kBaud is actually the standard MIDI
+> 31.25 kBaud. Supports DeviceTree configuration.
 > 
-> Am 11.05.22 um 15:41 schrieb Takashi Iwai:
-> > On Wed, 11 May 2022 15:38:28 +0200,
-> > Werner Sembach wrote:
-> >> When audio stops playing and sometimes when it starts playing, there is an
-> >> audible "pop" noise when using headphones on most Tongfang GMxMxxx,
-> >> GKxNxxx, GMxZxxx, GMxTxxx, and GMxAxxx devices.
-> >>
-> >> Disabling power saving for the Realtek codec fixes this noise. Presumably
-> >> it is triggered on some power event in the audio circuit.
-> >>
-> >> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
-> >> Cc: stable@vger.kernel.org
-> > Usually this denylist is a last resort if any other methods never
-> > helped.  Is it the case?
-> 
-> I also tried setting codec->power_save_node = 0; in a patch_realtek.c quirk.
-> 
-> static void alc274_fixup_pop_noise(struct hda_codec *codec, const struct
-> hda_fixup *fix, int action)
-> {
->        codec->power_save_node = 0;
-> }
-> 
-> That initially seemed to work, but when I tested it again a day later
-> after a fresh install, it didn't anymore. I don't know what is
-> different. On the install before, I did some debugging with boot
-> parameters and other stuff, cant reproduce anymore what exactly.
+> Signed-off-by: Daniel Kaehn <kaehndan@gmail.com>
+> ---
+>  sound/drivers/Kconfig          |  18 ++
+>  sound/drivers/Makefile         |   2 +
+>  sound/drivers/serial-generic.c | 374 +++++++++++++++++++++++++++++++++
+>  3 files changed, 394 insertions(+)
+>  create mode 100644 sound/drivers/serial-generic.c
 
-power_save_node is already 0 as default for patch_alc269(), so it must
-be irrelevant.
-
-> I took the line from alc274_fixup_bind_dacs which fixes the pop noise
-> when applied to the devices, but does a lot of random other stuff too
-> not meant for the device.
-
-It's only one thing, there are tons of different fixes :)
-alc274_fixup_bind_dacs() rather specifies the routing so that the
-speaker is connected to the preferred DAC.
-
-Many click noises come from the default pin shut-up behavior.  You
-can disable it or change it in other way.  Also, setting
-auto_mute_via_amp may influence on such behavior (that is included in
-alc274_fixup_bind_dacs()).
-
-Note that many quirks can be enabled even without compiling but via
-the codec patch loading (using hints).
-
-
-thanks,
-
-Takashi
+Reviewed-by: Rob Herring <robh@kernel.org>

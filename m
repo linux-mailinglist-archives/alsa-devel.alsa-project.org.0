@@ -2,85 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C09F522D3C
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 May 2022 09:26:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D2E9522DBA
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 May 2022 09:56:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0CF921935;
-	Wed, 11 May 2022 09:25:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0CF921935
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0DD69168E;
+	Wed, 11 May 2022 09:55:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DD69168E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652253969;
-	bh=qVjJiGlDZi6/Ps+c4pVNkuvZfcSa+GYgh+MDWU6RG7g=;
+	s=default; t=1652255800;
+	bh=kSNrQ3Q0Inp6jk0rRgBdF0ipipaLyoxNh0F8zY2jlOU=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=ECt+ViGT9qYjkbMAkEquRudsizNLLRwAV3IeFL6Fsq4MswEwhCtupRst+A+xLaBAn
-	 1iww7CacZ2rRLSLa5AC6fU08U+yv0AX/sLV3D2knu8FfT3HAhhzThdn5zsQxZMs9KD
-	 ZXCKNRV3KUCnIZUi6Vx7AfsZPz8UYaPOZ69HbIh0=
+	b=R45fFz98yQHEoCMPqZOxtpNk5WnKOv1EAcA4hfTNvs/imGjGTwxxZfBgZSQMnS+S+
+	 vJYZvtj7G4e0FeDcCAdzbnuOUba8tnwN9moD31c0+3JTo1DmVr1FQsAX8dSHmyOfJq
+	 x0fu7wM/DY1vAP/61Wh98mpoVMbyMW8A9BnE255k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6FE83F8015B;
-	Wed, 11 May 2022 09:25:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8AE71F80212;
+	Wed, 11 May 2022 09:55:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D8A7EF800BB; Wed, 11 May 2022 09:25:07 +0200 (CEST)
+ id 55DC9F8015B; Wed, 11 May 2022 09:55:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-pj1-x102c.google.com (mail-pj1-x102c.google.com
- [IPv6:2607:f8b0:4864:20::102c])
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com
+ [IPv6:2607:f8b0:4864:20::62e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7E2D0F800BB
- for <alsa-devel@alsa-project.org>; Wed, 11 May 2022 09:24:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E2D0F800BB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 35FEAF8011C
+ for <alsa-devel@alsa-project.org>; Wed, 11 May 2022 09:55:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35FEAF8011C
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key)
  header.d=wistron-corp-partner-google-com.20210112.gappssmtp.com
  header.i=@wistron-corp-partner-google-com.20210112.gappssmtp.com
- header.b="xC0arxvo"
-Received: by mail-pj1-x102c.google.com with SMTP id fv2so1420022pjb.4
- for <alsa-devel@alsa-project.org>; Wed, 11 May 2022 00:24:56 -0700 (PDT)
+ header.b="sFBcYvws"
+Received: by mail-pl1-x62e.google.com with SMTP id j14so1129601plx.3
+ for <alsa-devel@alsa-project.org>; Wed, 11 May 2022 00:55:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=wistron-corp-partner-google-com.20210112.gappssmtp.com; s=20210112;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=YWD+ACXg38K9u7piKYWYExVMU3NMWQlJXnTgRiS2mDI=;
- b=xC0arxvoqiwkOhm4v/bkrp0TOkxs/VjhlPOMEfuXlARO6D/drw0SzxiKAKJcIilNQV
- +Sm7N1zEszpGzHpIaafvu4V9lKExsi7GTklSLZ4JTBnv3xepjjIMuaQBe0896iQEKUBb
- KUP9FVH63QRaTc4qSJVii6rGO7PohgOjSN5lbB/QRdYtbVgPSSjQNJhwyyBjdlmx57qq
- MTFaoCx1ycpPqcgQsD/Hg5AtFOVSw5SusqDCWuB+E6RT75ahWTI578VOJzZow5DVk3l2
- P8Pf8e4dwjnrrtw6Y/Vkfpc/zNa7RpO+GSr12eoX/XVpUS9JXVVfRI/kRBCtnYKLvM6V
- ICXQ==
+ bh=g7gDnW0XSqikMUlMZPgjhyW8BpXJpmKZKb9FEE4UL+c=;
+ b=sFBcYvwsb1SAhyTA9KooIqeZamTb5k25SJeG4T96QyIVXnGFSq7MaH8YQ/QWyhL8kW
+ ySAUGhMt1dkcDhpys4dbjaURIjltDuMIiMD5JL9CMBUePFRl8cLnc7LuDIi7IaC1Il+6
+ xgO07aePuZfFhY5u1zSO+1jSK4fDWxBFW2e5G733CBYd19U0BztbmC3MjIA3aV9Sez0d
+ jRHb9GW8VchISJuPbaWNh+uEhHIpn6+G3mi7tyXBmYsKMM/NU6QTew+3qYwEge8BRddK
+ MPklW1QvVyQ2r6eBGicGjBIJPMruBYpCZ9gdqA5dTndDlnN/8m2rBuNmy8JOAqIAkrRw
+ ssPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=YWD+ACXg38K9u7piKYWYExVMU3NMWQlJXnTgRiS2mDI=;
- b=k31TUuCafNHbqVQ0dl53b+7kG1wWLbZptYOzMZwvFN7vmUPkUPDeUK+ReHQlpnw381
- eP+CzfcCPS19aDrbJy0HFFnzTChVimBSe5loFISj5k64bq7vpcAgcpwI5FpEeuKpEFZR
- pKHDlOqUzqBAjBWalIGq3KTbNQm6H0v6ElVIKVKfFCBQbUewB16aZd/9zfKj6gMUSvOG
- 2bVEu74oOBxcLr34X3dg4HpRgQa1HRLMUcI42du3mGesAAY0o+WeGHo0MO9XKVRu6Mks
- 4tHUAcCY/ADvqiRHo6CQ4QcDfh0bi+X946k9A7pZF2dM9o8AluYRiQXdVTQXOwy/0/iL
- syUg==
-X-Gm-Message-State: AOAM533Gr59x3ac0+kiMx+0zMisZ+Het6cqH8xYXI0YfY8Z862Am/bve
- bv0aoMHE5JY3lAEOMZvdEBL0Gb047ft1zg==
-X-Google-Smtp-Source: ABdhPJzBLaYHrJNCi2EeJaKI81CK7uoM8EUAxSAaiin1pLnAYtbRvyIDUA0gAyYPMRT2H8/LF6u1ew==
-X-Received: by 2002:a17:90b:3649:b0:1db:a201:5373 with SMTP id
- nh9-20020a17090b364900b001dba2015373mr3884968pjb.175.1652253894350; 
- Wed, 11 May 2022 00:24:54 -0700 (PDT)
-Received: from localhost.localdomain ([2402:7500:478:2175:24af:45cd:6fbb:ecd2])
+ bh=g7gDnW0XSqikMUlMZPgjhyW8BpXJpmKZKb9FEE4UL+c=;
+ b=jPEWbbrg4cZu4EQfOmYNu09t75CYiEpquYGC+CKlVBDpWHGzhxznYwNS8wf0bM6v6T
+ p3NiHiCDzKfTK6S74SrU6t3/4psuxW8exok/+dk2kif5jhW6FwKMG2oevQxPvDb1/suX
+ eOme1Tif/6NPHCMgutys390n7H8w2GDPNmumH7MPPINUpHD40HgsfJpSLW9LyCaBZ9E8
+ 5PSRjeJkQfbe8OWMGTb8mVZ09cjn3SJFVCb/BBt+bh6STf+JPs/YOr+9bNe5qgoSbvvy
+ 1iQqdrzGZXmdZO8jL/Z5vHx+kqKNp5D0cj/lzbbxN1MXaMB2wJVSO9DjrNAFufLFeEG5
+ G2mQ==
+X-Gm-Message-State: AOAM5311dLYg1x+3jVNhgND+7GFquSRvrNPmWM+u5176UJGJVd050Aa1
+ Qqj4Vc5I6QnGyPQf7HD9E+V3o+h4wh4CTQ==
+X-Google-Smtp-Source: ABdhPJyx5oh9Y0wWD4Cn4kNmbCeZxqZuiUsSYPhBYC4yp3eB4rT4FEUDo+FMvWv0PXgE8wpRKh0Mdw==
+X-Received: by 2002:a17:90a:a82:b0:1da:3763:5cf5 with SMTP id
+ 2-20020a17090a0a8200b001da37635cf5mr4041161pjw.55.1652255731522; 
+ Wed, 11 May 2022 00:55:31 -0700 (PDT)
+Received: from localhost.localdomain ([2402:7500:478:2175:da2c:5d1f:57bd:6e64])
  by smtp.gmail.com with ESMTPSA id
- g16-20020aa79dd0000000b0050dc76281aasm832838pfq.132.2022.05.11.00.24.49
+ n38-20020a056a000d6600b0050dc7628197sm911765pfv.113.2022.05.11.00.55.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 May 2022 00:24:53 -0700 (PDT)
+ Wed, 11 May 2022 00:55:31 -0700 (PDT)
 From: Terry Chen <terry_chen@wistron.corp-partner.google.com>
 To: alsa-devel@alsa-project.org
-Subject: [v4] ASoC: Intel: sof_cs42l42: adding support for ADL configuration
+Subject: [v5] ASoC: Intel: sof_cs42l42: adding support for ADL configuration
  and BT offload audio
-Date: Wed, 11 May 2022 15:24:45 +0800
-Message-Id: <20220511072445.1762482-1-terry_chen@wistron.corp-partner.google.com>
+Date: Wed, 11 May 2022 15:55:22 +0800
+Message-Id: <20220511075522.1764114-1-terry_chen@wistron.corp-partner.google.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -114,12 +114,12 @@ port but we reserve the flexibility to assign the port number in macro.
 
 Signed-off-by: Terry Chen <terry_chen@wistron.corp-partner.google.com>
 ---
- sound/soc/intel/boards/sof_cs42l42.c          | 88 ++++++++++++++++++-
- .../intel/common/soc-acpi-intel-adl-match.c   |  8 ++
- 2 files changed, 92 insertions(+), 4 deletions(-)
+ sound/soc/intel/boards/sof_cs42l42.c          | 92 ++++++++++++++++++-
+ .../intel/common/soc-acpi-intel-adl-match.c   |  7 ++
+ 2 files changed, 95 insertions(+), 4 deletions(-)
 
 diff --git a/sound/soc/intel/boards/sof_cs42l42.c b/sound/soc/intel/boards/sof_cs42l42.c
-index ce78c18798876..4ac4f51c7c115 100644
+index ce78c18798876..442f13de6cd55 100644
 --- a/sound/soc/intel/boards/sof_cs42l42.c
 +++ b/sound/soc/intel/boards/sof_cs42l42.c
 @@ -41,8 +41,13 @@
@@ -160,7 +160,7 @@ index ce78c18798876..4ac4f51c7c115 100644
  static int create_spk_amp_dai_links(struct device *dev,
  				    struct snd_soc_dai_link *links,
  				    struct snd_soc_dai_link_component *cpus,
-@@ -467,9 +480,52 @@ static int create_hdmi_dai_links(struct device *dev,
+@@ -467,9 +480,56 @@ static int create_hdmi_dai_links(struct device *dev,
  	return -ENOMEM;
  }
  
@@ -177,8 +177,10 @@ index ce78c18798876..4ac4f51c7c115 100644
 +
 +	links[*id].name = devm_kasprintf(dev, GFP_KERNEL, "SSP%d-BT",
 +					 ssp_bt);
-+	if (!links[*id].name)
++	if (!links[*id].name) {
++		ret = -ENOMEM;
 +		goto devm_err;
++	}
 +
 +	links[*id].id = *id;
 +	links[*id].codecs = dummy_component;
@@ -195,15 +197,17 @@ index ce78c18798876..4ac4f51c7c115 100644
 +	links[*id].cpus->dai_name = devm_kasprintf(dev, GFP_KERNEL,
 +						   "SSP%d Pin",
 +						   ssp_bt);
-+	if (!links[*id].cpus->dai_name)
++	if (!links[*id].cpus->dai_name) {
++		ret = -ENOMEM;
 +		goto devm_err;
++	}
 +
 +	(*id)++;
 +
 +	return 0;
 +
 +devm_err:
-+	return ret;
++	return -ENOMEM;
 +}
 +
  static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
@@ -213,7 +217,7 @@ index ce78c18798876..4ac4f51c7c115 100644
  							  int dmic_be_num,
  							  int hdmi_num)
  {
-@@ -522,6 +578,14 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
+@@ -522,6 +582,14 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
  				goto devm_err;
  			}
  			break;
@@ -228,7 +232,7 @@ index ce78c18798876..4ac4f51c7c115 100644
  		case LINK_NONE:
  			/* caught here if it's not used as terminator in macro */
  		default:
-@@ -543,7 +607,7 @@ static int sof_audio_probe(struct platform_device *pdev)
+@@ -543,7 +611,7 @@ static int sof_audio_probe(struct platform_device *pdev)
  	struct snd_soc_acpi_mach *mach;
  	struct sof_card_private *ctx;
  	int dmic_be_num, hdmi_num;
@@ -237,7 +241,7 @@ index ce78c18798876..4ac4f51c7c115 100644
  
  	ctx = devm_kzalloc(&pdev->dev, sizeof(*ctx), GFP_KERNEL);
  	if (!ctx)
-@@ -568,6 +632,9 @@ static int sof_audio_probe(struct platform_device *pdev)
+@@ -568,6 +636,9 @@ static int sof_audio_probe(struct platform_device *pdev)
  
  	dev_dbg(&pdev->dev, "sof_cs42l42_quirk = %lx\n", sof_cs42l42_quirk);
  
@@ -247,7 +251,7 @@ index ce78c18798876..4ac4f51c7c115 100644
  	ssp_amp = (sof_cs42l42_quirk & SOF_CS42L42_SSP_AMP_MASK) >>
  			SOF_CS42L42_SSP_AMP_SHIFT;
  
-@@ -578,9 +645,11 @@ static int sof_audio_probe(struct platform_device *pdev)
+@@ -578,9 +649,11 @@ static int sof_audio_probe(struct platform_device *pdev)
  
  	if (sof_cs42l42_quirk & SOF_SPEAKER_AMP_PRESENT)
  		sof_audio_card_cs42l42.num_links++;
@@ -260,7 +264,7 @@ index ce78c18798876..4ac4f51c7c115 100644
  	if (!dai_links)
  		return -ENOMEM;
  
-@@ -621,6 +690,17 @@ static const struct platform_device_id board_ids[] = {
+@@ -621,6 +694,17 @@ static const struct platform_device_id board_ids[] = {
  					SOF_CS42L42_SSP_AMP(1)) |
  					SOF_CS42L42_DAILINK(LINK_HP, LINK_DMIC, LINK_HDMI, LINK_SPK, LINK_NONE),
  	},
@@ -279,10 +283,10 @@ index ce78c18798876..4ac4f51c7c115 100644
  };
  MODULE_DEVICE_TABLE(platform, board_ids);
 diff --git a/sound/soc/intel/common/soc-acpi-intel-adl-match.c b/sound/soc/intel/common/soc-acpi-intel-adl-match.c
-index 7c8cd00457f81..3f40519250a90 100644
+index 7c8cd00457f81..311adeb3afbc4 100644
 --- a/sound/soc/intel/common/soc-acpi-intel-adl-match.c
 +++ b/sound/soc/intel/common/soc-acpi-intel-adl-match.c
-@@ -384,6 +384,14 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_machines[] = {
+@@ -384,6 +384,13 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_machines[] = {
  		.sof_fw_filename = "sof-adl.ri",
  		.sof_tplg_filename = "sof-adl-cs35l41.tplg",
  	},
@@ -291,7 +295,6 @@ index 7c8cd00457f81..3f40519250a90 100644
 +		.drv_name = "adl_mx98360a_cs4242",
 +		.machine_quirk = snd_soc_acpi_codec_list,
 +		.quirk_data = &adl_max98360a_amp,
-+		.sof_fw_filename = "sof-adl.ri",
 +		.sof_tplg_filename = "sof-adl-max98360a-rt5682.tplg",
 +	},
  	{},

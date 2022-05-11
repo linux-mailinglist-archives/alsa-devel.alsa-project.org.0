@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8F6752388F
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 May 2022 18:18:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89FFC523890
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 May 2022 18:18:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 617311945;
-	Wed, 11 May 2022 18:17:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 617311945
+	by alsa0.perex.cz (Postfix) with ESMTPS id 142271A9F;
+	Wed, 11 May 2022 18:17:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 142271A9F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652285903;
-	bh=d93WwvJubQ2N41PxngcDdyYjMtiWtysAuhtYXoDWN88=;
+	s=default; t=1652285916;
+	bh=i2SWXd3REYMa4e4UpBttQqc31p7hQst4Xr7rUPas8xU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KvXeU05ALZT1JZ86SmZFBF0/9Ok8YL1vlrSETTDHQ2mQpegLKED+gC7nZoZtXMseT
-	 33BogHdu0wmZyp19ltg+54YfzwhHdUOFLmKw9COIqhvxnCDv1mDbjTJmZrANtufcO1
-	 wkcsF/xHtjTzCkxxdYQ8xU9odVWaOLLGuOZMe3/I=
+	b=uiFPaE1sIfKBMhA/0KO3euSqHzEPMsU9jFZigatX7kGUq/G/xtaTFFKO7XT2OovPX
+	 1TvlTMsn3Xvphf1SkOtDby1GVHypks/iU4aHJZEjL3TkPpnjrVMOFbYrIMLLn78eBX
+	 tyY+9XwhxgWi+Lf8geL2iYtVCtC6IbUITOUO/axQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE997F800BB;
-	Wed, 11 May 2022 18:15:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3CFC5F80511;
+	Wed, 11 May 2022 18:15:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D4E99F800BB; Wed, 11 May 2022 18:15:34 +0200 (CEST)
+ id D75FFF80511; Wed, 11 May 2022 18:15:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EA585F800BB
- for <alsa-devel@alsa-project.org>; Wed, 11 May 2022 18:15:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA585F800BB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3B37AF80511
+ for <alsa-devel@alsa-project.org>; Wed, 11 May 2022 18:15:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B37AF80511
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="DNyS16Ji"
+ header.b="INIx1VpC"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1652285729; x=1683821729;
+ t=1652285741; x=1683821741;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=d93WwvJubQ2N41PxngcDdyYjMtiWtysAuhtYXoDWN88=;
- b=DNyS16JiV+O30nTCI8LbPfUbbQd75gaKXEG75MnbAaoLf7JK0piIccec
- GkpQ1tvqV2j41+PoCyJDSPyiq9a/wJ6zhJOj0C0TfcNvaRQzU35r+V46L
- WHH0eNIFLB7yTAuQ1HnYoIgkHcDlBWTJSB2YJ3pGU/eQUMpoJFq7w7f0H
- 5cj34PN9cw/KJWA6qipgiHaDdcxpYvpHpM4pIXWpo8ezuqiBeADOrNsPC
- MWSvcXMowbzFDmj8PR2oI5ZQdjCKEbzixC04z+xQYE87/msCfZ/a0lug/
- PXcSAJ9euGanccPjeUOs3pwea07EIlRqcxuQS2xUR9mU7ZC93lARp5NFz w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10344"; a="269680115"
-X-IronPort-AV: E=Sophos;i="5.91,217,1647327600"; d="scan'208";a="269680115"
+ bh=i2SWXd3REYMa4e4UpBttQqc31p7hQst4Xr7rUPas8xU=;
+ b=INIx1VpCIjByyHEM42gqfwQlV0Qe1jjng5y87JDstf0go63KfRtJFISa
+ ncPJlB6XlCYQY8fKfqmwWFXswiBsypKH40ffKCxTWxobnQOduVNRHKia4
+ TIO2NOlh+q4/IhpT+4PoeOSvVv5Osds+wi8t9APxypAdqaptEuoN0ndDm
+ j7xVukvhwQcD21u0d5AO/ESg82eCDfjFWwetk0vXhSEaYwAYM9TJgqEYh
+ w10srHxXKWNlflGFtLoOiiKBI5HMPt8ivVqE1Wm+VveV3pQZ3j72VIajL
+ FTA/aEg3zSsIm2clWsFypTa8sBw+c8p5a287i9miCcl4pB+nxzt2M/AMa g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10344"; a="269680142"
+X-IronPort-AV: E=Sophos;i="5.91,217,1647327600"; d="scan'208";a="269680142"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2022 09:14:59 -0700
+ 11 May 2022 09:15:03 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,217,1647327600"; d="scan'208";a="594209823"
+X-IronPort-AV: E=Sophos;i="5.91,217,1647327600"; d="scan'208";a="594209904"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by orsmga008.jf.intel.com with ESMTP; 11 May 2022 09:14:55 -0700
+ by orsmga008.jf.intel.com with ESMTP; 11 May 2022 09:14:59 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Subject: [PATCH v2 09/14] ASoC: Intel: avs: Add rt5682 machine board
-Date: Wed, 11 May 2022 18:23:58 +0200
-Message-Id: <20220511162403.3987658-10-cezary.rojewski@intel.com>
+Subject: [PATCH v2 10/14] ASoC: Intel: avs: Add nau8825 machine board
+Date: Wed, 11 May 2022 18:23:59 +0200
+Message-Id: <20220511162403.3987658-11-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220511162403.3987658-1-cezary.rojewski@intel.com>
 References: <20220511162403.3987658-1-cezary.rojewski@intel.com>
@@ -93,60 +93,66 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-To support AVS-rt5682 configuration add machine board connecting AVS
-platform component driver with rt5682 codec one.
+To support AVS-nau8825 configuration add machine board connecting AVS
+platform component driver with nau8825 codec one.
 
 Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/intel/avs/boards/Kconfig  |  10 +
- sound/soc/intel/avs/boards/Makefile |   2 +
- sound/soc/intel/avs/boards/rt5682.c | 340 ++++++++++++++++++++++++++++
- 3 files changed, 352 insertions(+)
- create mode 100644 sound/soc/intel/avs/boards/rt5682.c
+ sound/soc/intel/avs/boards/Kconfig   |  11 +
+ sound/soc/intel/avs/boards/Makefile  |   2 +
+ sound/soc/intel/avs/boards/nau8825.c | 353 +++++++++++++++++++++++++++
+ 3 files changed, 366 insertions(+)
+ create mode 100644 sound/soc/intel/avs/boards/nau8825.c
 
 diff --git a/sound/soc/intel/avs/boards/Kconfig b/sound/soc/intel/avs/boards/Kconfig
-index b4dc2b02097d..767eae57be57 100644
+index 767eae57be57..6bf8fa1924a2 100644
 --- a/sound/soc/intel/avs/boards/Kconfig
 +++ b/sound/soc/intel/avs/boards/Kconfig
-@@ -56,4 +56,14 @@ config SND_SOC_INTEL_AVS_MACH_RT298
- 	   Say Y or m if you have such a device. This is a recommended option.
- 	   If unsure select "N".
+@@ -26,6 +26,17 @@ config SND_SOC_INTEL_AVS_MACH_I2S_TEST
+ 	   This adds support for I2S test-board which can be used to verify
+ 	   transfer over I2S interface with SSP loopback scenarios.
  
-+config SND_SOC_INTEL_AVS_MACH_RT5682
-+	tristate "rt5682 in I2S mode"
++config SND_SOC_INTEL_AVS_MACH_NAU8825
++	tristate "nau8825 I2S board"
 +	depends on I2C
 +	depends on MFD_INTEL_LPSS || COMPILE_TEST
-+	select SND_SOC_RT5682_I2C
++	select SND_SOC_NAU8825
 +	help
-+	   This adds support for ASoC machine driver with RT5682 I2S audio codec.
++	   This adds support for ASoC machine driver with NAU8825 I2S audio codec.
++	   It is meant to be used with AVS driver.
 +	   Say Y or m if you have such a device. This is a recommended option.
 +	   If unsure select "N".
 +
- endmenu
+ config SND_SOC_INTEL_AVS_MACH_RT274
+ 	tristate "rt274 in I2S mode"
+ 	depends on I2C
 diff --git a/sound/soc/intel/avs/boards/Makefile b/sound/soc/intel/avs/boards/Makefile
-index 0fd664694c8c..fd49bd2a5876 100644
+index fd49bd2a5876..9ac14b269f56 100644
 --- a/sound/soc/intel/avs/boards/Makefile
 +++ b/sound/soc/intel/avs/boards/Makefile
-@@ -6,6 +6,7 @@ snd-soc-avs-i2s-test-objs := i2s_test.o
+@@ -3,6 +3,7 @@
+ snd-soc-avs-dmic-objs := dmic.o
+ snd-soc-avs-hdaudio-objs := hdaudio.o
+ snd-soc-avs-i2s-test-objs := i2s_test.o
++snd-soc-avs-nau8825-objs := nau8825.o
  snd-soc-avs-rt274-objs := rt274.o
  snd-soc-avs-rt286-objs := rt286.o
  snd-soc-avs-rt298-objs := rt298.o
-+snd-soc-avs-rt5682-objs := rt5682.o
- 
+@@ -11,6 +12,7 @@ snd-soc-avs-rt5682-objs := rt5682.o
  obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_DMIC) += snd-soc-avs-dmic.o
  obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_HDAUDIO) += snd-soc-avs-hdaudio.o
-@@ -13,3 +14,4 @@ obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_i2s_TEST) += snd-soc-avs-i2s-test.o
+ obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_i2s_TEST) += snd-soc-avs-i2s-test.o
++obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_NAU8825) += snd-soc-avs-nau8825.o
  obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_RT274) += snd-soc-avs-rt274.o
  obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_RT286) += snd-soc-avs-rt286.o
  obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_RT298) += snd-soc-avs-rt298.o
-+obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_RT5682) += snd-soc-avs-rt5682.o
-diff --git a/sound/soc/intel/avs/boards/rt5682.c b/sound/soc/intel/avs/boards/rt5682.c
+diff --git a/sound/soc/intel/avs/boards/nau8825.c b/sound/soc/intel/avs/boards/nau8825.c
 new file mode 100644
-index 000000000000..01f9b9f0c12b
+index 000000000000..f76909e9f990
 --- /dev/null
-+++ b/sound/soc/intel/avs/boards/rt5682.c
-@@ -0,0 +1,340 @@
++++ b/sound/soc/intel/avs/boards/nau8825.c
+@@ -0,0 +1,353 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +//
 +// Copyright(c) 2021-2022 Intel Corporation. All rights reserved.
@@ -155,9 +161,6 @@ index 000000000000..01f9b9f0c12b
 +//          Amadeusz Slawinski <amadeuszx.slawinski@linux.intel.com>
 +//
 +
-+#include <linux/clk.h>
-+#include <linux/dmi.h>
-+#include <linux/i2c.h>
 +#include <linux/input.h>
 +#include <linux/module.h>
 +#include <linux/platform_device.h>
@@ -165,48 +168,36 @@ index 000000000000..01f9b9f0c12b
 +#include <sound/jack.h>
 +#include <sound/pcm.h>
 +#include <sound/pcm_params.h>
-+#include <sound/rt5682.h>
 +#include <sound/soc.h>
 +#include <sound/soc-acpi.h>
-+#include "../../common/soc-intel-quirks.h"
-+#include "../../../codecs/rt5682.h"
++#include "../../../codecs/nau8825.h"
 +
-+#define AVS_RT5682_SSP_CODEC(quirk)	((quirk) & GENMASK(2, 0))
-+#define AVS_RT5682_SSP_CODEC_MASK	(GENMASK(2, 0))
-+#define AVS_RT5682_MCLK_EN		BIT(3)
-+#define AVS_RT5682_MCLK_24MHZ		BIT(4)
++#define SKL_NUVOTON_CODEC_DAI	"nau8825-hifi"
 +
-+/* Default: MCLK on, MCLK 19.2M, SSP0 */
-+static unsigned long avs_rt5682_quirk = AVS_RT5682_MCLK_EN | AVS_RT5682_SSP_CODEC(0);
-+
-+static int avs_rt5682_quirk_cb(const struct dmi_system_id *id)
++static int
++avs_nau8825_clock_control(struct snd_soc_dapm_widget *w, struct snd_kcontrol *control, int event)
 +{
-+	avs_rt5682_quirk = (unsigned long)id->driver_data;
-+	return 1;
-+}
++	struct snd_soc_dapm_context *dapm = w->dapm;
++	struct snd_soc_card *card = dapm->card;
++	struct snd_soc_dai *codec_dai;
++	int ret;
 +
-+static const struct dmi_system_id avs_rt5682_quirk_table[] = {
-+	{
-+		.callback = avs_rt5682_quirk_cb,
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Intel Corporation"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "WhiskeyLake Client"),
-+		},
-+		.driver_data = (void *)(AVS_RT5682_MCLK_EN |
-+					AVS_RT5682_MCLK_24MHZ |
-+					AVS_RT5682_SSP_CODEC(1)),
-+	},
-+	{
-+		.callback = avs_rt5682_quirk_cb,
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Intel Corporation"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Ice Lake Client"),
-+		},
-+		.driver_data = (void *)(AVS_RT5682_MCLK_EN |
-+					AVS_RT5682_SSP_CODEC(0)),
-+	},
-+	{}
-+};
++	codec_dai = snd_soc_card_get_codec_dai(card, SKL_NUVOTON_CODEC_DAI);
++	if (!codec_dai) {
++		dev_err(card->dev, "Codec dai not found\n");
++		return -EINVAL;
++	}
++
++	if (!SND_SOC_DAPM_EVENT_ON(event)) {
++		ret = snd_soc_dai_set_sysclk(codec_dai, NAU8825_CLK_INTERNAL, 0, SND_SOC_CLOCK_IN);
++		if (ret < 0) {
++			dev_err(card->dev, "set sysclk err = %d\n", ret);
++			return ret;
++		}
++	}
++
++	return 0;
++}
 +
 +static const struct snd_kcontrol_new card_controls[] = {
 +	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
@@ -216,100 +207,123 @@ index 000000000000..01f9b9f0c12b
 +static const struct snd_soc_dapm_widget card_widgets[] = {
 +	SND_SOC_DAPM_HP("Headphone Jack", NULL),
 +	SND_SOC_DAPM_MIC("Headset Mic", NULL),
++	SND_SOC_DAPM_SUPPLY("Platform Clock", SND_SOC_NOPM, 0, 0, avs_nau8825_clock_control,
++			    SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
 +};
 +
 +static const struct snd_soc_dapm_route card_base_routes[] = {
-+	/* HP jack connectors - unknown if we have jack detect */
 +	{ "Headphone Jack", NULL, "HPOL" },
 +	{ "Headphone Jack", NULL, "HPOR" },
 +
-+	/* other jacks */
-+	{ "IN1P", NULL, "Headset Mic" },
++	{ "MIC", NULL, "Headset Mic" },
++
++	{ "Headphone Jack", NULL, "Platform Clock" },
++	{ "Headset Mic", NULL, "Platform Clock" },
 +};
 +
-+static int avs_rt5682_codec_init(struct snd_soc_pcm_runtime *runtime)
++static struct snd_soc_jack_pin card_headset_pins[] = {
++	{
++		.pin = "Headphone Jack",
++		.mask = SND_JACK_HEADPHONE,
++	},
++	{
++		.pin = "Headset Mic",
++		.mask = SND_JACK_MICROPHONE,
++	},
++};
++
++static int avs_nau8825_codec_init(struct snd_soc_pcm_runtime *runtime)
 +{
-+	struct snd_soc_component *component = asoc_rtd_to_codec(runtime, 0)->component;
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(runtime, 0);
++	struct snd_soc_component *component = codec_dai->component;
++	struct snd_soc_jack_pin *pins;
 +	struct snd_soc_jack *jack;
 +	struct snd_soc_card *card = runtime->card;
-+	int ret;
++	int num_pins, ret;
 +
 +	jack = snd_soc_card_get_drvdata(card);
++	num_pins = ARRAY_SIZE(card_headset_pins);
 +
-+	/* Need to enable ASRC function for 24MHz mclk rate */
-+	if ((avs_rt5682_quirk & AVS_RT5682_MCLK_EN) &&
-+	    (avs_rt5682_quirk & AVS_RT5682_MCLK_24MHZ)) {
-+		rt5682_sel_asrc_clk_src(component, RT5682_DA_STEREO1_FILTER |
-+					RT5682_AD_STEREO1_FILTER, RT5682_CLK_SEL_I2S1_ASRC);
-+	}
++	pins = devm_kmemdup(card->dev, card_headset_pins, sizeof(*pins) * num_pins, GFP_KERNEL);
++	if (!pins)
++		return -ENOMEM;
 +
 +	/*
-+	 * Headset buttons map to the google Reference headset.
-+	 * These can be configured by userspace.
++	 * 4 buttons here map to the google Reference headset.
++	 * The use of these buttons can be decided by the user space.
 +	 */
-+	ret = snd_soc_card_jack_new(card, "Headset", SND_JACK_HEADSET | SND_JACK_BTN_0 |
-+				    SND_JACK_BTN_1 | SND_JACK_BTN_2 | SND_JACK_BTN_3, jack);
-+	if (ret) {
-+		dev_err(card->dev, "Headset Jack creation failed: %d\n", ret);
++	ret = snd_soc_card_jack_new_pins(card, "Headset", SND_JACK_HEADSET | SND_JACK_BTN_0 |
++					 SND_JACK_BTN_1 | SND_JACK_BTN_2 | SND_JACK_BTN_3,
++					 jack, pins, num_pins);
++	if (ret)
 +		return ret;
-+	}
 +
 +	snd_jack_set_key(jack->jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
 +	snd_jack_set_key(jack->jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
 +	snd_jack_set_key(jack->jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
 +	snd_jack_set_key(jack->jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
 +
-+	ret = snd_soc_component_set_jack(component, jack, NULL);
-+	if (ret) {
-+		dev_err(card->dev, "Headset Jack call-back failed: %d\n", ret);
-+		return ret;
-+	}
-+
-+	return 0;
-+};
-+
-+static int
-+avs_rt5682_hw_params(struct snd_pcm_substream *substream, struct snd_pcm_hw_params *params)
-+{
-+	struct snd_soc_pcm_runtime *runtime = asoc_substream_to_rtd(substream);
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(runtime, 0);
-+	int clk_id, clk_freq;
-+	int pll_out, ret;
-+
-+	if (avs_rt5682_quirk & AVS_RT5682_MCLK_EN) {
-+		clk_id = RT5682_PLL1_S_MCLK;
-+		if (avs_rt5682_quirk & AVS_RT5682_MCLK_24MHZ)
-+			clk_freq = 24000000;
-+		else
-+			clk_freq = 19200000;
-+	} else {
-+		clk_id = RT5682_PLL1_S_BCLK1;
-+		clk_freq = params_rate(params) * 50;
-+	}
-+
-+	pll_out = params_rate(params) * 512;
-+
-+	ret = snd_soc_dai_set_pll(codec_dai, 0, clk_id, clk_freq, pll_out);
-+	if (ret < 0)
-+		dev_err(runtime->dev, "snd_soc_dai_set_pll err = %d\n", ret);
-+
-+	/* Configure sysclk for codec */
-+	ret = snd_soc_dai_set_sysclk(codec_dai, RT5682_SCLK_S_PLL1, pll_out, SND_SOC_CLOCK_IN);
-+	if (ret < 0)
-+		dev_err(runtime->dev, "snd_soc_dai_set_sysclk err = %d\n", ret);
-+
-+	/* slot_width should equal or large than data length, set them be the same */
-+	ret = snd_soc_dai_set_tdm_slot(codec_dai, 0x0, 0x0, 2, params_width(params));
-+	if (ret < 0) {
-+		dev_err(runtime->dev, "set TDM slot err:%d\n", ret);
-+		return ret;
-+	}
++	//snd_soc_component_set_jack(component, jack, NULL);
++	// TODO: Fix nau8825 codec to use .set_jack, like everyone else
++	nau8825_enable_jack_detect(component, jack);
 +
 +	return 0;
 +}
 +
-+static const struct snd_soc_ops avs_rt5682_ops = {
-+	.hw_params = avs_rt5682_hw_params,
++static int
++avs_nau8825_be_fixup(struct snd_soc_pcm_runtime *runtime, struct snd_pcm_hw_params *params)
++{
++	struct snd_interval *rate, *channels;
++	struct snd_mask *fmt;
++
++	rate = hw_param_interval(params, SNDRV_PCM_HW_PARAM_RATE);
++	channels = hw_param_interval(params, SNDRV_PCM_HW_PARAM_CHANNELS);
++	fmt = hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT);
++
++	/* The ADSP will convert the FE rate to 48k, stereo */
++	rate->min = rate->max = 48000;
++	channels->min = channels->max = 2;
++
++	/* set SSP to 24 bit */
++	snd_mask_none(fmt);
++	snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S24_LE);
++
++	return 0;
++}
++
++static int avs_nau8825_trigger(struct snd_pcm_substream *substream, int cmd)
++{
++	struct snd_pcm_runtime *runtime = substream->runtime;
++	struct snd_soc_pcm_runtime *rtm = asoc_substream_to_rtd(substream);
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtm, 0);
++	int ret = 0;
++
++	switch (cmd) {
++	case SNDRV_PCM_TRIGGER_START:
++		ret = snd_soc_dai_set_sysclk(codec_dai, NAU8825_CLK_FLL_FS, 0, SND_SOC_CLOCK_IN);
++		if (ret < 0) {
++			dev_err(codec_dai->dev, "can't set FS clock %d\n", ret);
++			break;
++		}
++
++		ret = snd_soc_dai_set_pll(codec_dai, 0, 0, runtime->rate, runtime->rate * 256);
++		if (ret < 0)
++			dev_err(codec_dai->dev, "can't set FLL: %d\n", ret);
++		break;
++
++	case SNDRV_PCM_TRIGGER_RESUME:
++		ret = snd_soc_dai_set_pll(codec_dai, 0, 0, runtime->rate, runtime->rate * 256);
++		if (ret < 0)
++			dev_err(codec_dai->dev, "can't set FLL: %d\n", ret);
++		break;
++	}
++
++	return ret;
++}
++
++
++static const struct snd_soc_ops avs_nau8825_ops = {
++	.trigger = avs_nau8825_trigger,
 +};
 +
 +static int avs_create_dai_link(struct device *dev, const char *platform_name, int ssp_port,
@@ -332,8 +346,8 @@ index 000000000000..01f9b9f0c12b
 +		return -ENOMEM;
 +
 +	dl->cpus->dai_name = devm_kasprintf(dev, GFP_KERNEL, "SSP%d Pin", ssp_port);
-+	dl->codecs->name = devm_kasprintf(dev, GFP_KERNEL, "i2c-10EC5682:00");
-+	dl->codecs->dai_name = devm_kasprintf(dev, GFP_KERNEL, "rt5682-aif1");
++	dl->codecs->name = devm_kasprintf(dev, GFP_KERNEL, "i2c-10508825:00");
++	dl->codecs->dai_name = devm_kasprintf(dev, GFP_KERNEL, SKL_NUVOTON_CODEC_DAI);
 +	if (!dl->cpus->dai_name || !dl->codecs->name || !dl->codecs->dai_name)
 +		return -ENOMEM;
 +
@@ -342,8 +356,10 @@ index 000000000000..01f9b9f0c12b
 +	dl->platforms = platform;
 +	dl->num_platforms = 1;
 +	dl->id = 0;
-+	dl->init = avs_rt5682_codec_init;
-+	dl->ops = &avs_rt5682_ops;
++	dl->dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBS_CFS;
++	dl->init = avs_nau8825_codec_init;
++	dl->be_hw_params_fixup = avs_nau8825_be_fixup;
++	dl->ops = &avs_nau8825_ops;
 +	dl->nonatomic = 1;
 +	dl->no_pcm = 1;
 +	dl->dpcm_capture = 1;
@@ -369,14 +385,14 @@ index 000000000000..01f9b9f0c12b
 +	memcpy(dr, card_base_routes, num_base * sizeof(*dr));
 +
 +	idx = num_base;
-+	dr[idx].sink = devm_kasprintf(dev, GFP_KERNEL, "AIF1 Playback");
++	dr[idx].sink = devm_kasprintf(dev, GFP_KERNEL, "Playback");
 +	dr[idx].source = devm_kasprintf(dev, GFP_KERNEL, "ssp%d Tx", ssp_port);
 +	if (!dr[idx].sink || !dr[idx].source)
 +		return -ENOMEM;
 +
 +	idx++;
 +	dr[idx].sink = devm_kasprintf(dev, GFP_KERNEL, "ssp%d Rx", ssp_port);
-+	dr[idx].source = devm_kasprintf(dev, GFP_KERNEL, "AIF1 Capture");
++	dr[idx].source = devm_kasprintf(dev, GFP_KERNEL, "Capture");
 +	if (!dr[idx].sink || !dr[idx].source)
 +		return -ENOMEM;
 +
@@ -407,12 +423,22 @@ index 000000000000..01f9b9f0c12b
 +
 +static int avs_card_resume_post(struct snd_soc_card *card)
 +{
++	struct snd_soc_dai *codec_dai = snd_soc_card_get_codec_dai(card, SKL_NUVOTON_CODEC_DAI);
 +	struct snd_soc_jack *jack = snd_soc_card_get_drvdata(card);
++
++	if (!codec_dai) {
++		dev_err(card->dev, "Codec dai not found\n");
++		return -EINVAL;
++	}
++
++	if (codec_dai->stream_active[SNDRV_PCM_STREAM_PLAYBACK] &&
++	    codec_dai->playback_widget->active)
++		snd_soc_dai_set_sysclk(codec_dai, NAU8825_CLK_FLL_FS, 0, SND_SOC_CLOCK_IN);
 +
 +	return avs_card_set_jack(card, jack);
 +}
 +
-+static int avs_rt5682_probe(struct platform_device *pdev)
++static int avs_nau8825_probe(struct platform_device *pdev)
 +{
 +	struct snd_soc_dapm_route *routes;
 +	struct snd_soc_dai_link *dai_link;
@@ -422,12 +448,6 @@ index 000000000000..01f9b9f0c12b
 +	struct device *dev = &pdev->dev;
 +	const char *pname;
 +	int num_routes, ssp_port, ret;
-+
-+	if (pdev->id_entry && pdev->id_entry->driver_data)
-+		avs_rt5682_quirk = (unsigned long)pdev->id_entry->driver_data;
-+
-+	dmi_check_system(avs_rt5682_quirk_table);
-+	dev_dbg(dev, "avs_rt5682_quirk = %lx\n", avs_rt5682_quirk);
 +
 +	mach = dev_get_platdata(dev);
 +	pname = mach->mach_params.platform;
@@ -450,7 +470,7 @@ index 000000000000..01f9b9f0c12b
 +	if (!jack || !card)
 +		return -ENOMEM;
 +
-+	card->name = "avs_rt5682";
++	card->name = "avs_nau8825";
 +	card->dev = dev;
 +	card->owner = THIS_MODULE;
 +	card->remove = avs_card_remove;
@@ -474,19 +494,18 @@ index 000000000000..01f9b9f0c12b
 +	return devm_snd_soc_register_card(dev, card);
 +}
 +
-+static struct platform_driver avs_rt5682_driver = {
-+	.probe = avs_rt5682_probe,
++static struct platform_driver avs_nau8825_driver = {
++	.probe = avs_nau8825_probe,
 +	.driver = {
-+		.name = "avs_rt5682",
++		.name = "avs_nau8825",
 +		.pm = &snd_soc_pm_ops,
 +	},
 +};
 +
-+module_platform_driver(avs_rt5682_driver)
++module_platform_driver(avs_nau8825_driver)
 +
-+MODULE_AUTHOR("Cezary Rojewski <cezary.rojewski@intel.com>");
 +MODULE_LICENSE("GPL");
-+MODULE_ALIAS("platform:avs_rt5682");
++MODULE_ALIAS("platform:avs_nau8825");
 -- 
 2.25.1
 

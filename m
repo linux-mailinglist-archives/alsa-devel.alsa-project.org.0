@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89FFC523890
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 May 2022 18:18:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8859523893
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 May 2022 18:18:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 142271A9F;
-	Wed, 11 May 2022 18:17:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 142271A9F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4AB9E1AA4;
+	Wed, 11 May 2022 18:18:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4AB9E1AA4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652285916;
-	bh=i2SWXd3REYMa4e4UpBttQqc31p7hQst4Xr7rUPas8xU=;
+	s=default; t=1652285939;
+	bh=sfW4zahXisHiUnH1F9pP32tKkrakywMEYH7spAvyQ5o=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uiFPaE1sIfKBMhA/0KO3euSqHzEPMsU9jFZigatX7kGUq/G/xtaTFFKO7XT2OovPX
-	 1TvlTMsn3Xvphf1SkOtDby1GVHypks/iU4aHJZEjL3TkPpnjrVMOFbYrIMLLn78eBX
-	 tyY+9XwhxgWi+Lf8geL2iYtVCtC6IbUITOUO/axQ=
+	b=Do6CqLTyjNfIVIUAkxaZANGQr2IrE9Z3aANB4Qb32Uvof+mai0D0hK3ZBAw5f4ZFr
+	 a5Hvah1rjntitsOUEEJJsZxZYlZqwkcUUeixLn0YRlQedr0iZGNTsMEIIJHZWPQwlx
+	 0vUm0LnluM5ur3/VtYvxR3B5MAHFwtZRBp42gOd0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3CFC5F80511;
-	Wed, 11 May 2022 18:15:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6D893F8051A;
+	Wed, 11 May 2022 18:15:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D75FFF80511; Wed, 11 May 2022 18:15:43 +0200 (CEST)
+ id 292FDF80568; Wed, 11 May 2022 18:15:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3B37AF80511
- for <alsa-devel@alsa-project.org>; Wed, 11 May 2022 18:15:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B37AF80511
+ by alsa1.perex.cz (Postfix) with ESMTPS id 02519F8051A
+ for <alsa-devel@alsa-project.org>; Wed, 11 May 2022 18:15:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02519F8051A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="INIx1VpC"
+ header.b="dK+IWN4v"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1652285741; x=1683821741;
+ t=1652285746; x=1683821746;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=i2SWXd3REYMa4e4UpBttQqc31p7hQst4Xr7rUPas8xU=;
- b=INIx1VpCIjByyHEM42gqfwQlV0Qe1jjng5y87JDstf0go63KfRtJFISa
- ncPJlB6XlCYQY8fKfqmwWFXswiBsypKH40ffKCxTWxobnQOduVNRHKia4
- TIO2NOlh+q4/IhpT+4PoeOSvVv5Osds+wi8t9APxypAdqaptEuoN0ndDm
- j7xVukvhwQcD21u0d5AO/ESg82eCDfjFWwetk0vXhSEaYwAYM9TJgqEYh
- w10srHxXKWNlflGFtLoOiiKBI5HMPt8ivVqE1Wm+VveV3pQZ3j72VIajL
- FTA/aEg3zSsIm2clWsFypTa8sBw+c8p5a287i9miCcl4pB+nxzt2M/AMa g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10344"; a="269680142"
-X-IronPort-AV: E=Sophos;i="5.91,217,1647327600"; d="scan'208";a="269680142"
+ bh=sfW4zahXisHiUnH1F9pP32tKkrakywMEYH7spAvyQ5o=;
+ b=dK+IWN4v45Ed4GyhD6VaSvilLRrKtEQpEIPDkJhZ/bQ05IKWrDdI8cg5
+ CF9JRTOImoKQ8ApfWwJwSsEm6Kj7dIqJ1OERL3I1Y9hLLRjmbPx3C/BBZ
+ DtZe+GRBeBl6mcGbHiRcSxifBvZVfXVNZ298PFmgYsal9B57yLieze7SC
+ qvfckKlEzW6RNdnBzIUCLP5hUQ3ZdElgCjHy7Kkh0Et27+FH3PBpJVAW9
+ aHWkRYkT53Pk47r+tOS6Z5eWvderKtEUbH0ilwVG72R5SETmSCG97vdlG
+ omzbsEzV4/lHo5ik37h/EnSpUSvRaFGPVX8pHhn9nCdTYj/QjTYAWmtEz A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10344"; a="269680186"
+X-IronPort-AV: E=Sophos;i="5.91,217,1647327600"; d="scan'208";a="269680186"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2022 09:15:03 -0700
+ 11 May 2022 09:15:07 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,217,1647327600"; d="scan'208";a="594209904"
+X-IronPort-AV: E=Sophos;i="5.91,217,1647327600"; d="scan'208";a="594210026"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by orsmga008.jf.intel.com with ESMTP; 11 May 2022 09:14:59 -0700
+ by orsmga008.jf.intel.com with ESMTP; 11 May 2022 09:15:03 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Subject: [PATCH v2 10/14] ASoC: Intel: avs: Add nau8825 machine board
-Date: Wed, 11 May 2022 18:23:59 +0200
-Message-Id: <20220511162403.3987658-11-cezary.rojewski@intel.com>
+Subject: [PATCH v2 11/14] ASoC: Intel: avs: Add ssm4567 machine board
+Date: Wed, 11 May 2022 18:24:00 +0200
+Message-Id: <20220511162403.3987658-12-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220511162403.3987658-1-cezary.rojewski@intel.com>
 References: <20220511162403.3987658-1-cezary.rojewski@intel.com>
@@ -93,66 +93,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-To support AVS-nau8825 configuration add machine board connecting AVS
-platform component driver with nau8825 codec one.
+To support AVS-ssm4567 configuration add machine board connecting AVS
+platform component driver with ssm4567 codec one.
 
 Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/intel/avs/boards/Kconfig   |  11 +
+ sound/soc/intel/avs/boards/Kconfig   |  11 ++
  sound/soc/intel/avs/boards/Makefile  |   2 +
- sound/soc/intel/avs/boards/nau8825.c | 353 +++++++++++++++++++++++++++
- 3 files changed, 366 insertions(+)
- create mode 100644 sound/soc/intel/avs/boards/nau8825.c
+ sound/soc/intel/avs/boards/ssm4567.c | 271 +++++++++++++++++++++++++++
+ 3 files changed, 284 insertions(+)
+ create mode 100644 sound/soc/intel/avs/boards/ssm4567.c
 
 diff --git a/sound/soc/intel/avs/boards/Kconfig b/sound/soc/intel/avs/boards/Kconfig
-index 767eae57be57..6bf8fa1924a2 100644
+index 6bf8fa1924a2..7020e7bf196e 100644
 --- a/sound/soc/intel/avs/boards/Kconfig
 +++ b/sound/soc/intel/avs/boards/Kconfig
-@@ -26,6 +26,17 @@ config SND_SOC_INTEL_AVS_MACH_I2S_TEST
- 	   This adds support for I2S test-board which can be used to verify
- 	   transfer over I2S interface with SSP loopback scenarios.
+@@ -77,4 +77,15 @@ config SND_SOC_INTEL_AVS_MACH_RT5682
+ 	   Say Y or m if you have such a device. This is a recommended option.
+ 	   If unsure select "N".
  
-+config SND_SOC_INTEL_AVS_MACH_NAU8825
-+	tristate "nau8825 I2S board"
++config SND_SOC_INTEL_AVS_MACH_SSM4567
++	tristate "ssm4567 I2S board"
 +	depends on I2C
 +	depends on MFD_INTEL_LPSS || COMPILE_TEST
-+	select SND_SOC_NAU8825
++	select SND_SOC_SSM4567
 +	help
-+	   This adds support for ASoC machine driver with NAU8825 I2S audio codec.
++	   This adds support for ASoC machine driver with SSM4567 I2S audio codec.
 +	   It is meant to be used with AVS driver.
 +	   Say Y or m if you have such a device. This is a recommended option.
 +	   If unsure select "N".
 +
- config SND_SOC_INTEL_AVS_MACH_RT274
- 	tristate "rt274 in I2S mode"
- 	depends on I2C
+ endmenu
 diff --git a/sound/soc/intel/avs/boards/Makefile b/sound/soc/intel/avs/boards/Makefile
-index fd49bd2a5876..9ac14b269f56 100644
+index 9ac14b269f56..ea67fc711d9d 100644
 --- a/sound/soc/intel/avs/boards/Makefile
 +++ b/sound/soc/intel/avs/boards/Makefile
-@@ -3,6 +3,7 @@
- snd-soc-avs-dmic-objs := dmic.o
- snd-soc-avs-hdaudio-objs := hdaudio.o
- snd-soc-avs-i2s-test-objs := i2s_test.o
-+snd-soc-avs-nau8825-objs := nau8825.o
- snd-soc-avs-rt274-objs := rt274.o
+@@ -8,6 +8,7 @@ snd-soc-avs-rt274-objs := rt274.o
  snd-soc-avs-rt286-objs := rt286.o
  snd-soc-avs-rt298-objs := rt298.o
-@@ -11,6 +12,7 @@ snd-soc-avs-rt5682-objs := rt5682.o
+ snd-soc-avs-rt5682-objs := rt5682.o
++snd-soc-avs-ssm4567-objs := ssm4567.o
+ 
  obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_DMIC) += snd-soc-avs-dmic.o
  obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_HDAUDIO) += snd-soc-avs-hdaudio.o
- obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_i2s_TEST) += snd-soc-avs-i2s-test.o
-+obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_NAU8825) += snd-soc-avs-nau8825.o
- obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_RT274) += snd-soc-avs-rt274.o
+@@ -17,3 +18,4 @@ obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_RT274) += snd-soc-avs-rt274.o
  obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_RT286) += snd-soc-avs-rt286.o
  obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_RT298) += snd-soc-avs-rt298.o
-diff --git a/sound/soc/intel/avs/boards/nau8825.c b/sound/soc/intel/avs/boards/nau8825.c
+ obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_RT5682) += snd-soc-avs-rt5682.o
++obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_SSM4567) += snd-soc-avs-ssm4567.o
+diff --git a/sound/soc/intel/avs/boards/ssm4567.c b/sound/soc/intel/avs/boards/ssm4567.c
 new file mode 100644
-index 000000000000..f76909e9f990
+index 000000000000..9f84c8ab3447
 --- /dev/null
-+++ b/sound/soc/intel/avs/boards/nau8825.c
-@@ -0,0 +1,353 @@
++++ b/sound/soc/intel/avs/boards/ssm4567.c
+@@ -0,0 +1,271 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +//
 +// Copyright(c) 2021-2022 Intel Corporation. All rights reserved.
@@ -161,11 +156,9 @@ index 000000000000..f76909e9f990
 +//          Amadeusz Slawinski <amadeuszx.slawinski@linux.intel.com>
 +//
 +
-+#include <linux/input.h>
 +#include <linux/module.h>
 +#include <linux/platform_device.h>
 +#include <sound/core.h>
-+#include <sound/jack.h>
 +#include <sound/pcm.h>
 +#include <sound/pcm_params.h>
 +#include <sound/soc.h>
@@ -173,9 +166,26 @@ index 000000000000..f76909e9f990
 +#include "../../../codecs/nau8825.h"
 +
 +#define SKL_NUVOTON_CODEC_DAI	"nau8825-hifi"
++#define SKL_SSM_CODEC_DAI	"ssm4567-hifi"
++
++static struct snd_soc_codec_conf card_codec_conf[] = {
++	{
++		.dlc = COMP_CODEC_CONF("i2c-INT343B:00"),
++		.name_prefix = "Left",
++	},
++	{
++		.dlc = COMP_CODEC_CONF("i2c-INT343B:01"),
++		.name_prefix = "Right",
++	},
++};
++
++static const struct snd_kcontrol_new card_controls[] = {
++	SOC_DAPM_PIN_SWITCH("Left Speaker"),
++	SOC_DAPM_PIN_SWITCH("Right Speaker"),
++};
 +
 +static int
-+avs_nau8825_clock_control(struct snd_soc_dapm_widget *w, struct snd_kcontrol *control, int event)
++platform_clock_control(struct snd_soc_dapm_widget *w, struct snd_kcontrol *control, int event)
 +{
 +	struct snd_soc_dapm_context *dapm = w->dapm;
 +	struct snd_soc_card *card = dapm->card;
@@ -188,90 +198,53 @@ index 000000000000..f76909e9f990
 +		return -EINVAL;
 +	}
 +
-+	if (!SND_SOC_DAPM_EVENT_ON(event)) {
-+		ret = snd_soc_dai_set_sysclk(codec_dai, NAU8825_CLK_INTERNAL, 0, SND_SOC_CLOCK_IN);
-+		if (ret < 0) {
++	if (SND_SOC_DAPM_EVENT_ON(event)) {
++		ret = snd_soc_dai_set_sysclk(codec_dai, NAU8825_CLK_MCLK, 24000000,
++					     SND_SOC_CLOCK_IN);
++		if (ret < 0)
 +			dev_err(card->dev, "set sysclk err = %d\n", ret);
-+			return ret;
-+		}
++	} else {
++		ret = snd_soc_dai_set_sysclk(codec_dai, NAU8825_CLK_INTERNAL, 0, SND_SOC_CLOCK_IN);
++		if (ret < 0)
++			dev_err(card->dev, "set sysclk err = %d\n", ret);
 +	}
 +
-+	return 0;
++	return ret;
 +}
 +
-+static const struct snd_kcontrol_new card_controls[] = {
-+	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
-+	SOC_DAPM_PIN_SWITCH("Headset Mic"),
-+};
-+
 +static const struct snd_soc_dapm_widget card_widgets[] = {
-+	SND_SOC_DAPM_HP("Headphone Jack", NULL),
-+	SND_SOC_DAPM_MIC("Headset Mic", NULL),
-+	SND_SOC_DAPM_SUPPLY("Platform Clock", SND_SOC_NOPM, 0, 0, avs_nau8825_clock_control,
++	SND_SOC_DAPM_SPK("Left Speaker", NULL),
++	SND_SOC_DAPM_SPK("Right Speaker", NULL),
++	SND_SOC_DAPM_SPK("DP1", NULL),
++	SND_SOC_DAPM_SPK("DP2", NULL),
++	SND_SOC_DAPM_SUPPLY("Platform Clock", SND_SOC_NOPM, 0, 0, platform_clock_control,
 +			    SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
 +};
 +
 +static const struct snd_soc_dapm_route card_base_routes[] = {
-+	{ "Headphone Jack", NULL, "HPOL" },
-+	{ "Headphone Jack", NULL, "HPOR" },
-+
-+	{ "MIC", NULL, "Headset Mic" },
-+
-+	{ "Headphone Jack", NULL, "Platform Clock" },
-+	{ "Headset Mic", NULL, "Platform Clock" },
++	{"Left Speaker", NULL, "Left OUT"},
++	{"Right Speaker", NULL, "Right OUT"},
 +};
 +
-+static struct snd_soc_jack_pin card_headset_pins[] = {
-+	{
-+		.pin = "Headphone Jack",
-+		.mask = SND_JACK_HEADPHONE,
-+	},
-+	{
-+		.pin = "Headset Mic",
-+		.mask = SND_JACK_MICROPHONE,
-+	},
-+};
-+
-+static int avs_nau8825_codec_init(struct snd_soc_pcm_runtime *runtime)
++static int avs_ssm4567_codec_init(struct snd_soc_pcm_runtime *runtime)
 +{
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(runtime, 0);
-+	struct snd_soc_component *component = codec_dai->component;
-+	struct snd_soc_jack_pin *pins;
-+	struct snd_soc_jack *jack;
-+	struct snd_soc_card *card = runtime->card;
-+	int num_pins, ret;
++	int ret;
 +
-+	jack = snd_soc_card_get_drvdata(card);
-+	num_pins = ARRAY_SIZE(card_headset_pins);
-+
-+	pins = devm_kmemdup(card->dev, card_headset_pins, sizeof(*pins) * num_pins, GFP_KERNEL);
-+	if (!pins)
-+		return -ENOMEM;
-+
-+	/*
-+	 * 4 buttons here map to the google Reference headset.
-+	 * The use of these buttons can be decided by the user space.
-+	 */
-+	ret = snd_soc_card_jack_new_pins(card, "Headset", SND_JACK_HEADSET | SND_JACK_BTN_0 |
-+					 SND_JACK_BTN_1 | SND_JACK_BTN_2 | SND_JACK_BTN_3,
-+					 jack, pins, num_pins);
-+	if (ret)
++	/* Slot 1 for left */
++	ret = snd_soc_dai_set_tdm_slot(asoc_rtd_to_codec(runtime, 0), 0x01, 0x01, 2, 48);
++	if (ret < 0)
 +		return ret;
 +
-+	snd_jack_set_key(jack->jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
-+	snd_jack_set_key(jack->jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
-+	snd_jack_set_key(jack->jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
-+	snd_jack_set_key(jack->jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
-+
-+	//snd_soc_component_set_jack(component, jack, NULL);
-+	// TODO: Fix nau8825 codec to use .set_jack, like everyone else
-+	nau8825_enable_jack_detect(component, jack);
++	/* Slot 2 for right */
++	ret = snd_soc_dai_set_tdm_slot(asoc_rtd_to_codec(runtime, 1), 0x02, 0x02, 2, 48);
++	if (ret < 0)
++		return ret;
 +
 +	return 0;
 +}
 +
 +static int
-+avs_nau8825_be_fixup(struct snd_soc_pcm_runtime *runtime, struct snd_pcm_hw_params *params)
++avs_ssm4567_be_fixup(struct snd_soc_pcm_runtime *runrime, struct snd_pcm_hw_params *params)
 +{
 +	struct snd_interval *rate, *channels;
 +	struct snd_mask *fmt;
@@ -280,51 +253,15 @@ index 000000000000..f76909e9f990
 +	channels = hw_param_interval(params, SNDRV_PCM_HW_PARAM_CHANNELS);
 +	fmt = hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT);
 +
-+	/* The ADSP will convert the FE rate to 48k, stereo */
++	/* The ADSP will covert the FE rate to 48k, stereo */
 +	rate->min = rate->max = 48000;
 +	channels->min = channels->max = 2;
 +
-+	/* set SSP to 24 bit */
++	/* set SSP0 to 24 bit */
 +	snd_mask_none(fmt);
 +	snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S24_LE);
-+
 +	return 0;
 +}
-+
-+static int avs_nau8825_trigger(struct snd_pcm_substream *substream, int cmd)
-+{
-+	struct snd_pcm_runtime *runtime = substream->runtime;
-+	struct snd_soc_pcm_runtime *rtm = asoc_substream_to_rtd(substream);
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtm, 0);
-+	int ret = 0;
-+
-+	switch (cmd) {
-+	case SNDRV_PCM_TRIGGER_START:
-+		ret = snd_soc_dai_set_sysclk(codec_dai, NAU8825_CLK_FLL_FS, 0, SND_SOC_CLOCK_IN);
-+		if (ret < 0) {
-+			dev_err(codec_dai->dev, "can't set FS clock %d\n", ret);
-+			break;
-+		}
-+
-+		ret = snd_soc_dai_set_pll(codec_dai, 0, 0, runtime->rate, runtime->rate * 256);
-+		if (ret < 0)
-+			dev_err(codec_dai->dev, "can't set FLL: %d\n", ret);
-+		break;
-+
-+	case SNDRV_PCM_TRIGGER_RESUME:
-+		ret = snd_soc_dai_set_pll(codec_dai, 0, 0, runtime->rate, runtime->rate * 256);
-+		if (ret < 0)
-+			dev_err(codec_dai->dev, "can't set FLL: %d\n", ret);
-+		break;
-+	}
-+
-+	return ret;
-+}
-+
-+
-+static const struct snd_soc_ops avs_nau8825_ops = {
-+	.trigger = avs_nau8825_trigger,
-+};
 +
 +static int avs_create_dai_link(struct device *dev, const char *platform_name, int ssp_port,
 +			       struct snd_soc_dai_link **dai_link)
@@ -341,29 +278,32 @@ index 000000000000..f76909e9f990
 +
 +	dl->name = devm_kasprintf(dev, GFP_KERNEL, "SSP%d-Codec", ssp_port);
 +	dl->cpus = devm_kzalloc(dev, sizeof(*dl->cpus), GFP_KERNEL);
-+	dl->codecs = devm_kzalloc(dev, sizeof(*dl->codecs), GFP_KERNEL);
++	dl->codecs = devm_kzalloc(dev, sizeof(*dl->codecs) * 2, GFP_KERNEL);
 +	if (!dl->name || !dl->cpus || !dl->codecs)
 +		return -ENOMEM;
 +
 +	dl->cpus->dai_name = devm_kasprintf(dev, GFP_KERNEL, "SSP%d Pin", ssp_port);
-+	dl->codecs->name = devm_kasprintf(dev, GFP_KERNEL, "i2c-10508825:00");
-+	dl->codecs->dai_name = devm_kasprintf(dev, GFP_KERNEL, SKL_NUVOTON_CODEC_DAI);
-+	if (!dl->cpus->dai_name || !dl->codecs->name || !dl->codecs->dai_name)
++	dl->codecs[0].name = devm_kasprintf(dev, GFP_KERNEL, "i2c-INT343B:00");
++	dl->codecs[0].dai_name = devm_kasprintf(dev, GFP_KERNEL, "ssm4567-hifi");
++	dl->codecs[1].name = devm_kasprintf(dev, GFP_KERNEL, "i2c-INT343B:01");
++	dl->codecs[1].dai_name = devm_kasprintf(dev, GFP_KERNEL, "ssm4567-hifi");
++	if (!dl->cpus->dai_name || !dl->codecs[0].name || !dl->codecs[0].dai_name ||
++	    !dl->codecs[1].name || !dl->codecs[1].dai_name)
 +		return -ENOMEM;
 +
 +	dl->num_cpus = 1;
-+	dl->num_codecs = 1;
++	dl->num_codecs = 2;
 +	dl->platforms = platform;
 +	dl->num_platforms = 1;
 +	dl->id = 0;
-+	dl->dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBS_CFS;
-+	dl->init = avs_nau8825_codec_init;
-+	dl->be_hw_params_fixup = avs_nau8825_be_fixup;
-+	dl->ops = &avs_nau8825_ops;
++	dl->dai_fmt = SND_SOC_DAIFMT_DSP_A | SND_SOC_DAIFMT_IB_NF | SND_SOC_DAIFMT_CBS_CFS;
++	dl->init = avs_ssm4567_codec_init;
++	dl->be_hw_params_fixup = avs_ssm4567_be_fixup;
 +	dl->nonatomic = 1;
 +	dl->no_pcm = 1;
 +	dl->dpcm_capture = 1;
 +	dl->dpcm_playback = 1;
++	dl->ignore_pmdown_time = 1;
 +
 +	*dai_link = dl;
 +
@@ -375,7 +315,7 @@ index 000000000000..f76909e9f990
 +{
 +	struct snd_soc_dapm_route *dr;
 +	const int num_base = ARRAY_SIZE(card_base_routes);
-+	const int num_dr = num_base + 2;
++	const int num_dr = num_base + 4;
 +	int idx;
 +
 +	dr = devm_kcalloc(dev, num_dr, sizeof(*dr), GFP_KERNEL);
@@ -385,14 +325,26 @@ index 000000000000..f76909e9f990
 +	memcpy(dr, card_base_routes, num_base * sizeof(*dr));
 +
 +	idx = num_base;
-+	dr[idx].sink = devm_kasprintf(dev, GFP_KERNEL, "Playback");
++	dr[idx].sink = devm_kasprintf(dev, GFP_KERNEL, "Left Playback");
++	dr[idx].source = devm_kasprintf(dev, GFP_KERNEL, "ssp%d Tx", ssp_port);
++	if (!dr[idx].sink || !dr[idx].source)
++		return -ENOMEM;
++
++	idx++;
++	dr[idx].sink = devm_kasprintf(dev, GFP_KERNEL, "Right Playback");
 +	dr[idx].source = devm_kasprintf(dev, GFP_KERNEL, "ssp%d Tx", ssp_port);
 +	if (!dr[idx].sink || !dr[idx].source)
 +		return -ENOMEM;
 +
 +	idx++;
 +	dr[idx].sink = devm_kasprintf(dev, GFP_KERNEL, "ssp%d Rx", ssp_port);
-+	dr[idx].source = devm_kasprintf(dev, GFP_KERNEL, "Capture");
++	dr[idx].source = devm_kasprintf(dev, GFP_KERNEL, "Left Capture Sense");
++	if (!dr[idx].sink || !dr[idx].source)
++		return -ENOMEM;
++
++	idx++;
++	dr[idx].sink = devm_kasprintf(dev, GFP_KERNEL, "ssp%d Rx", ssp_port);
++	dr[idx].source = devm_kasprintf(dev, GFP_KERNEL, "Right Capture Sense");
 +	if (!dr[idx].sink || !dr[idx].source)
 +		return -ENOMEM;
 +
@@ -402,49 +354,12 @@ index 000000000000..f76909e9f990
 +	return 0;
 +}
 +
-+static int avs_card_set_jack(struct snd_soc_card *card, struct snd_soc_jack *jack)
-+{
-+	struct snd_soc_component *component;
-+
-+	for_each_card_components(card, component)
-+		snd_soc_component_set_jack(component, jack, NULL);
-+	return 0;
-+}
-+
-+static int avs_card_remove(struct snd_soc_card *card)
-+{
-+	return avs_card_set_jack(card, NULL);
-+}
-+
-+static int avs_card_suspend_pre(struct snd_soc_card *card)
-+{
-+	return avs_card_set_jack(card, NULL);
-+}
-+
-+static int avs_card_resume_post(struct snd_soc_card *card)
-+{
-+	struct snd_soc_dai *codec_dai = snd_soc_card_get_codec_dai(card, SKL_NUVOTON_CODEC_DAI);
-+	struct snd_soc_jack *jack = snd_soc_card_get_drvdata(card);
-+
-+	if (!codec_dai) {
-+		dev_err(card->dev, "Codec dai not found\n");
-+		return -EINVAL;
-+	}
-+
-+	if (codec_dai->stream_active[SNDRV_PCM_STREAM_PLAYBACK] &&
-+	    codec_dai->playback_widget->active)
-+		snd_soc_dai_set_sysclk(codec_dai, NAU8825_CLK_FLL_FS, 0, SND_SOC_CLOCK_IN);
-+
-+	return avs_card_set_jack(card, jack);
-+}
-+
-+static int avs_nau8825_probe(struct platform_device *pdev)
++static int avs_ssm4567_probe(struct platform_device *pdev)
 +{
 +	struct snd_soc_dapm_route *routes;
 +	struct snd_soc_dai_link *dai_link;
 +	struct snd_soc_acpi_mach *mach;
 +	struct snd_soc_card *card;
-+	struct snd_soc_jack *jack;
 +	struct device *dev = &pdev->dev;
 +	const char *pname;
 +	int num_routes, ssp_port, ret;
@@ -465,19 +380,17 @@ index 000000000000..f76909e9f990
 +		return ret;
 +	}
 +
-+	jack = devm_kzalloc(dev, sizeof(*jack), GFP_KERNEL);
 +	card = devm_kzalloc(dev, sizeof(*card), GFP_KERNEL);
-+	if (!jack || !card)
++	if (!card)
 +		return -ENOMEM;
 +
-+	card->name = "avs_nau8825";
++	card->name = "avs_ssm4567-adi";
 +	card->dev = dev;
 +	card->owner = THIS_MODULE;
-+	card->remove = avs_card_remove;
-+	card->suspend_pre = avs_card_suspend_pre;
-+	card->resume_post = avs_card_resume_post;
 +	card->dai_link = dai_link;
 +	card->num_links = 1;
++	card->codec_conf = card_codec_conf;
++	card->num_configs = ARRAY_SIZE(card_codec_conf);
 +	card->controls = card_controls;
 +	card->num_controls = ARRAY_SIZE(card_controls);
 +	card->dapm_widgets = card_widgets;
@@ -485,7 +398,7 @@ index 000000000000..f76909e9f990
 +	card->dapm_routes = routes;
 +	card->num_dapm_routes = num_routes;
 +	card->fully_routed = true;
-+	snd_soc_card_set_drvdata(card, jack);
++	card->disable_route_checks = true;
 +
 +	ret = snd_soc_fixup_dai_links_platform_name(card, pname);
 +	if (ret)
@@ -494,18 +407,18 @@ index 000000000000..f76909e9f990
 +	return devm_snd_soc_register_card(dev, card);
 +}
 +
-+static struct platform_driver avs_nau8825_driver = {
-+	.probe = avs_nau8825_probe,
++static struct platform_driver avs_ssm4567_driver = {
++	.probe = avs_ssm4567_probe,
 +	.driver = {
-+		.name = "avs_nau8825",
++		.name = "avs_ssm4567",
 +		.pm = &snd_soc_pm_ops,
 +	},
 +};
 +
-+module_platform_driver(avs_nau8825_driver)
++module_platform_driver(avs_ssm4567_driver)
 +
 +MODULE_LICENSE("GPL");
-+MODULE_ALIAS("platform:avs_nau8825");
++MODULE_ALIAS("platform:avs_ssm4567");
 -- 
 2.25.1
 

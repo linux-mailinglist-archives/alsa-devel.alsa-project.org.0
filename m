@@ -2,89 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3363F522100
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 May 2022 18:18:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5C735228A7
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 May 2022 03:09:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CB1F71921;
-	Tue, 10 May 2022 18:17:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB1F71921
+	by alsa0.perex.cz (Postfix) with ESMTPS id 56CA618C8;
+	Wed, 11 May 2022 03:08:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 56CA618C8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652199527;
-	bh=DkA7E8H+Q3Q5xt43U43baOuMqVZ0rI0i8MA64asRsHU=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=GWuhoLQ3Rx7jg6D93OvSUxS1lDsI6F7WFIkssyyr7PUjs7vWytDTKJyGihi7ELqMU
-	 SGTTl7mcHhE7km8igi0iJXRVoROTIevAj2nlMtWJwWu1aePXy7SYfZaHJOgT6O0ldf
-	 lFQFouhFa6TdHNEqtwdgItSr7q/Vp6EsEeMnkVOw=
+	s=default; t=1652231340;
+	bh=xrRQ0GJWq+66VCJpymvn0aMnpd4ABWaXmFU4EHXbdrg=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ZIbavtIYoRk7IcTZjr7FU2vheyKDoPvZ31zQG+hCx5xtn9euMfDK8QxG/34Cdi/QW
+	 zpvr/ei9a9MLt/wuJItKOvA781awbAhJPw2ECt19WZX6aI6Ua8DXANPCRuWs9Sqnr3
+	 lNTNGHs2SBbgI7cqRMx/ZguB0mg4os9RZ1USyCCo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7C809F80508;
-	Tue, 10 May 2022 18:17:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C360FF801F5;
+	Wed, 11 May 2022 03:08:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4A633F80508; Tue, 10 May 2022 18:17:17 +0200 (CEST)
+ id 74F8DF8019D; Wed, 11 May 2022 03:07:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-il1-x131.google.com (mail-il1-x131.google.com
+ [IPv6:2607:f8b0:4864:20::131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 22BD2F8011C
- for <alsa-devel@alsa-project.org>; Tue, 10 May 2022 18:17:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22BD2F8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id B01DEF80116
+ for <alsa-devel@alsa-project.org>; Wed, 11 May 2022 03:07:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B01DEF80116
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="lujU0anK"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24A5TVph021012;
- Tue, 10 May 2022 11:17:09 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=PODMain02222019;
- bh=MAF4HrjBnpXjwWhSzT2Z6EFEzR5KeFyp/09dN8HFm18=;
- b=lujU0anKAJesYNHZ4SGqbWzKAImsZeHwIZNEJjlKEUyBRDKztCxzTwOy7wtUy2gIAEq4
- 96ze3xk8zfxCJG4UpWY4fDinoCcDQ5y2Z9XuGFnydqctRgGwICB2nrVVoBbCaajNYkKI
- gI53ijTdfZGHfkX7OAzWTrsfJwRdY3mSduYO8icbO73yYxt49hf+LPWR73Nt0OtLzHHH
- +Q3Z2mgRTQlEABDGJrIh+ODbpSlOZMLlssecjxwyOpHlUIEkTR7yI4Ne038tzIOgHvzM
- HZ/ujx24eh26fEBoXnusJEdiGYQHwdMavTHu8wNSmz2uQOWVfZUhryfdSdtfUStMgl+P kA== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3fwn6nvk88-3
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Tue, 10 May 2022 11:17:09 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Tue, 10 May
- 2022 17:17:07 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.24 via
- Frontend Transport; Tue, 10 May 2022 17:17:07 +0100
-Received: from sbinding-cirrus-dsktp.ad.cirrus.com (unknown [198.90.238.24])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 1E42AB10;
- Tue, 10 May 2022 16:17:07 +0000 (UTC)
-From: Stefan Binding <sbinding@opensource.cirrus.com>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v1 3/3] ALSA: hda/cs8409: Add Speaker Playback Switch for
- Warlock
-Date: Tue, 10 May 2022 17:17:01 +0100
-Message-ID: <20220510161701.851260-4-sbinding@opensource.cirrus.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220510161701.851260-1-sbinding@opensource.cirrus.com>
-References: <20220510161701.851260-1-sbinding@opensource.cirrus.com>
+ dkim=pass (2048-bit key) header.d=howett-net.20210112.gappssmtp.com
+ header.i=@howett-net.20210112.gappssmtp.com header.b="LIEre7zy"
+Received: by mail-il1-x131.google.com with SMTP id j12so424480ila.12
+ for <alsa-devel@alsa-project.org>; Tue, 10 May 2022 18:07:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=howett-net.20210112.gappssmtp.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=HKDzgb7pX+8jdkJlU9jvaZ8AoRxWNdGhkJfVlXnpRsg=;
+ b=LIEre7zyDoYEWVUarZq6FHOB/DFNLVDkTcdFAanAgP0v/z90hxZDp/iiiifBDSmtir
+ I+jgkHMBdorWmBgVkcQDdO3+ZZ+YWJfPQJ6vOif9BWlrTftuPl3axUZNYbq/gXurxjAA
+ UvFaSMK7ITl6CO2xtTLn+CkpLH/YTIIsfbd4J3G+RwssI/EZ6652uaY1CHcDTVs81Jo+
+ genasjfqV8DQT4UhxumUcxzjDTZFU1mjA6EC9bXVoc+eGMn+F2UMmyaLsWXERAjej7rL
+ qlaBG/mxKLzLIYhtzPC5qXllbkzIZOhCNg/VKR/7J5h87EzPkiEe5OlL+R0357adaGE/
+ TcXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=HKDzgb7pX+8jdkJlU9jvaZ8AoRxWNdGhkJfVlXnpRsg=;
+ b=nohv8/Zx0kuhQL3izdT8JHzCA9C+ThIbwRS9a/Ex3jZ8q+4AzwxTqGoFo7s2a6Lx+F
+ dDtSoDYBuEwBAXJG21/N3mvq/hEddJT8jpFB3EYOTHmmun72PJcQOtJeQA+ICU6/2dTC
+ rOnYC9t4YnSKh4Y/wHC3syUWiIt0HvCfeVANx4kn70vDefHFw3frQlKB5YlitPlC0WDD
+ nv33pMK/EIdtiHn93RgR6c14frvKjDUkOUC2UGjNcZ+T7bZoZrrvQZ2FFe4PoZAquZWj
+ OIK8PTg9as/UCilElNwdcZG9FwvI4243RIyhvG9tdNoOJ4VPGDN5Shliu+LSMNr35t6Y
+ jI9w==
+X-Gm-Message-State: AOAM533s1rd+8EunfTqeohSy3o+q+UQ7SvSrug8ogNomrzzS/gngSTBo
+ RS9xfGhgcJERQ54SAgfJntkOktXGb22kIWAq
+X-Google-Smtp-Source: ABdhPJyimDsFW/z5X4qQsJpr8Uew0CKfoUgYdr4965M9kvE2Bk0HMz5fJz7x2J3J/Y5wlRu05lB5gg==
+X-Received: by 2002:a05:6e02:17c6:b0:2cd:f999:3dd with SMTP id
+ z6-20020a056e0217c600b002cdf99903ddmr10768806ilu.318.1652231266036; 
+ Tue, 10 May 2022 18:07:46 -0700 (PDT)
+Received: from rigel.delfino.n.howett.net
+ (99-107-94-179.lightspeed.stlsmo.sbcglobal.net. [99.107.94.179])
+ by smtp.googlemail.com with ESMTPSA id
+ q13-20020a6bd20d000000b0065a47e16f4bsm237870iob.29.2022.05.10.18.07.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 10 May 2022 18:07:45 -0700 (PDT)
+From: "Dustin L. Howett" <dustin@howett.net>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v2] ALSA: hda/realtek: Add quirk for the Framework Laptop
+Date: Tue, 10 May 2022 20:07:59 -0500
+Message-Id: <20220511010759.3554-1-dustin@howett.net>
+X-Mailer: git-send-email 2.36.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: 8FixfZNXj90yNy0dxbUA2yYotHVd0tk1
-X-Proofpoint-GUID: 8FixfZNXj90yNy0dxbUA2yYotHVd0tk1
-X-Proofpoint-Spam-Reason: safe
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Stefan Binding <sbinding@opensource.cirrus.com>
+Cc: "Dustin L. Howett" <dustin@howett.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,48 +100,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add support for a Speaker Playback Switch, which disables
-the Amp connected to cs8409. The Switch is not added
-automatically because cs8409 does not have an output amp
-for the speaker NID.
+Some board revisions of the Framework Laptop have an ALC295 with a
+disconnected or faulty headset mic presence detect.
 
-Note: This switch uses a different GPIO to Cyborg/Odin variants
+The "dell-headset-multi" fixup addresses this issue, but also enables an
+inoperative "Headphone Mic" input device whenever a headset is
+connected.
 
-Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
+Adding a new quirk chain specific to the Framework Laptop resolves this
+issue. The one introduced here is based on the System76 "no headphone
+mic" quirk chain.
+
+The VID:PID f111:0001 have been allocated to Framework Computer for this
+board revision.
+
+Revision history:
+- v2: Moved to a custom quirk chain to suppress the "Headphone Mic"
+  pincfg.
+
+Signed-off-by: Dustin L. Howett <dustin@howett.net>
 ---
- sound/pci/hda/patch_cs8409.c | 2 ++
- sound/pci/hda/patch_cs8409.h | 1 +
- 2 files changed, 3 insertions(+)
+ sound/pci/hda/patch_realtek.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/sound/pci/hda/patch_cs8409.c b/sound/pci/hda/patch_cs8409.c
-index f682769667e3..95b33a983e9e 100644
---- a/sound/pci/hda/patch_cs8409.c
-+++ b/sound/pci/hda/patch_cs8409.c
-@@ -1167,10 +1167,12 @@ void cs8409_cs42l42_fixups(struct hda_codec *codec, const struct hda_fixup *fix,
- 		case CS8409_WARLOCK_MLK:
- 		case CS8409_WARLOCK_MLK_DUAL_MIC:
- 			spec->scodecs[CS8409_CODEC0]->full_scale_vol = CS42L42_FULL_SCALE_VOL_0DB;
-+			spec->speaker_pdn_gpio = CS8409_WARLOCK_SPEAKER_PDN;
- 			break;
- 		default:
- 			spec->scodecs[CS8409_CODEC0]->full_scale_vol =
- 				CS42L42_FULL_SCALE_VOL_MINUS6DB;
-+			spec->speaker_pdn_gpio = CS8409_WARLOCK_SPEAKER_PDN;
- 			break;
- 		}
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 4c0c593f3c0a..e00e6d2038a1 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -7012,6 +7012,7 @@ enum {
+ 	ALC245_FIXUP_CS35L41_SPI_4,
+ 	ALC245_FIXUP_CS35L41_SPI_4_HP_GPIO_LED,
+ 	ALC285_FIXUP_HP_SPEAKERS_MICMUTE_LED,
++	ALC295_FIXUP_FRAMEWORK_LAPTOP_MIC_NO_PRESENCE,
+ };
  
-diff --git a/sound/pci/hda/patch_cs8409.h b/sound/pci/hda/patch_cs8409.h
-index 630a7a2de51f..260388a6256c 100644
---- a/sound/pci/hda/patch_cs8409.h
-+++ b/sound/pci/hda/patch_cs8409.h
-@@ -239,6 +239,7 @@ enum cs8409_coefficient_index_registers {
- #define CS8409_CS42L42_RESET			GENMASK(5, 5) /* CS8409_GPIO5 */
- #define CS8409_CS42L42_INT			GENMASK(4, 4) /* CS8409_GPIO4 */
- #define CS8409_CYBORG_SPEAKER_PDN		GENMASK(2, 2) /* CS8409_GPIO2 */
-+#define CS8409_WARLOCK_SPEAKER_PDN		GENMASK(1, 1) /* CS8409_GPIO1 */
- #define CS8409_CS42L42_HP_PIN_NID		CS8409_PIN_ASP1_TRANSMITTER_A
- #define CS8409_CS42L42_SPK_PIN_NID		CS8409_PIN_ASP2_TRANSMITTER_A
- #define CS8409_CS42L42_AMIC_PIN_NID		CS8409_PIN_ASP1_RECEIVER_A
+ static const struct hda_fixup alc269_fixups[] = {
+@@ -8806,6 +8807,15 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.chained = true,
+ 		.chain_id = ALC285_FIXUP_HP_MUTE_LED,
+ 	},
++	[ALC295_FIXUP_FRAMEWORK_LAPTOP_MIC_NO_PRESENCE] = {
++		.type = HDA_FIXUP_PINS,
++		.v.pins = (const struct hda_pintbl[]) {
++			{ 0x19, 0x02a1112c }, /* use as headset mic, without its own jack detect */
++			{ }
++		},
++		.chained = true,
++		.chain_id = ALC269_FIXUP_HEADSET_MODE_NO_HP_MIC
++	},
+ };
+ 
+ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+@@ -9294,6 +9304,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x8086, 0x2074, "Intel NUC 8", ALC233_FIXUP_INTEL_NUC8_DMIC),
+ 	SND_PCI_QUIRK(0x8086, 0x2080, "Intel NUC 8 Rugged", ALC256_FIXUP_INTEL_NUC8_RUGGED),
+ 	SND_PCI_QUIRK(0x8086, 0x2081, "Intel NUC 10", ALC256_FIXUP_INTEL_NUC10),
++	SND_PCI_QUIRK(0xf111, 0x0001, "Framework Laptop", ALC295_FIXUP_FRAMEWORK_LAPTOP_MIC_NO_PRESENCE),
+ 
+ #if 0
+ 	/* Below is a quirk table taken from the old code.
 -- 
-2.25.1
+2.36.0
 

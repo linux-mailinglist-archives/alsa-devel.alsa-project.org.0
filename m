@@ -2,96 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6004522941
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 May 2022 03:56:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EF37522BAD
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 May 2022 07:29:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3EA72164F;
-	Wed, 11 May 2022 03:55:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3EA72164F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0FE8418B7;
+	Wed, 11 May 2022 07:28:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FE8418B7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652234203;
-	bh=PgvpHHOHwsmJCNnJ4zapiqEpdpjOxYaAR0Cuw6A8sxU=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Ld4uAIkG7daPgPBr9uIi5t6mItcWOugk2XHlScr4d63nhOkFoql+X4pz4XzLzsTEq
-	 kd83uCsnCCyaoFRjLDaKoCwzCVWaPQVb5tUoCAX4TjZSMFku7Dtb8M8qb+I3VHlqwK
-	 qSY0lAtMv/ZHe4OAbUE/dGhF8zwVd8bOBTDxfNSo=
+	s=default; t=1652246940;
+	bh=+Kx52d97Z/dqGnLQl9g7RRQF7KwtVSMYN8w0WAJKPJQ=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=IqaZS2bi+p+cSQN1rDVotrZCKS1pqwYLHumd0u3rT1IwxHu8J3VxhL7LEA8AFjCth
+	 0cBgxdPgDnjTOwQ1FWv1EcYNg/6kH/46PDmKZp4WWz8IGLdbnscAcI56/FThFJMvlw
+	 4KhGBFGik4RczgoauzQueCBaFDlupZEzGyTFsCtc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A58E6F80212;
-	Wed, 11 May 2022 03:55:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 75E43F80212;
+	Wed, 11 May 2022 07:28:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 683B9F8015B; Wed, 11 May 2022 03:55:41 +0200 (CEST)
+ id 8FA08F8015B; Wed, 11 May 2022 07:27:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
  SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-pj1-x1034.google.com (mail-pj1-x1034.google.com
- [IPv6:2607:f8b0:4864:20::1034])
+Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
+ [IPv6:2607:f8b0:4864:20::102e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B99B8F80116
- for <alsa-devel@alsa-project.org>; Wed, 11 May 2022 03:55:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B99B8F80116
+ by alsa1.perex.cz (Postfix) with ESMTPS id D67EEF80116
+ for <alsa-devel@alsa-project.org>; Wed, 11 May 2022 07:27:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D67EEF80116
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Yf0OpUrx"
-Received: by mail-pj1-x1034.google.com with SMTP id
- iq2-20020a17090afb4200b001d93cf33ae9so3523232pjb.5
- for <alsa-devel@alsa-project.org>; Tue, 10 May 2022 18:55:37 -0700 (PDT)
+ header.b="pZ7INeRK"
+Received: by mail-pj1-x102e.google.com with SMTP id o69so1198525pjo.3
+ for <alsa-devel@alsa-project.org>; Tue, 10 May 2022 22:27:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=2ba9RlsMQZXWIx36Z7u38zcXmSCVXQjEy1o7bWz6s8w=;
- b=Yf0OpUrx+nfUoeezT84Ho8jYoJAtvR8bMUSrPF3q+WTRu6Ojay2B4dj6RtDYjvaror
- vetcXq+m1RFeUa2gXq0i8ncujVkNNI5wScGQZ+j5D8fsb5aeLgzfnl4eRVK5S8cPRRtv
- m2cck0UeO9+0JSlBuQxaTFfxD20DXCW/FzuKwWD4cNp8w8HtZIMS4jX/sWjjTE6yb2Qr
- e9VRzGOsNBuBOJ5I4gCg8KX0Ff5oXJ65u5xRBJpYerfPiyXjaNfNH3KQD+ZEC48GjlgI
- 0ek7wC2HHcwTIgOMmqGkhoq6/i1lme5dq07X39Xm9TyjLxaxIP7a/rQN4UlBb9F4EwEw
- 8YHw==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=xhdm254L1jYhgvQgbJzDhHX/1k7BNUYa5TibU3+NCCw=;
+ b=pZ7INeRKE7ikbL0Wp1J2nkeg5H+ixeNlVyt8PYCddh2qShvjPh+hek64IhQ72pjYiI
+ 7emBeRFo+ZBiSd6HXcaXOmhC+lL3WiJqfw6jXaPXvYjcjTJk8+EAcrW7nBNknBW8MamG
+ y3IM79TAD97U/nTxtEo9yvf5XYzIF4gzw+u7IgzhoT3ceHSuOUOwpuYMb/KzCmOlru5l
+ 9aNHlqiUqt3TaR84XMjujDYI71Svp937IGTCm9Oiuv+bXoeSRUiGHWiNMlWtcPUtFmKD
+ BYh9nNVtPT2zfyA8wsUHIo3lHKyxQV33wgLC9Voh85/bQ8qPt9QSI43AUrUeQuBnwwSu
+ gbdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=2ba9RlsMQZXWIx36Z7u38zcXmSCVXQjEy1o7bWz6s8w=;
- b=x5P01yUpyJDUEiRwqTgolRyKi1Ewplix8Nzjt5+I5NZiXR/hJ3MVRLBdhQ2easNyfE
- loGmjoa45tt95Ah6kCv9dvP3BrmQWQSSBHZWQwTWoqV2idWTjc2OYS4Y1USXVJk8PZh6
- jrjqnFfI5NHOANUCakyAaX5ljOofzg2vce+EZQeuGPMVp/2nKGBBLeRVH5cLQiMT6gph
- eGQclcLZVulVdH5SY7kV0NKUp/NM1A5ILP0doCNoyFWGyK2j6g+/t9ySaSxogTSzICex
- XdOXKlDjUVwo61u94Yvhi84tx1oA4E6tEuF/lRig4/oq0ii16hkpZPbWc0AeDnPmi/nU
- 1VAw==
-X-Gm-Message-State: AOAM531dz8NO5kkq8OPAd8mrzg2gfJwBSJnMcYceQirF9rQfG2Gd8yAw
- r5R85CpCQOGdW30sts9EtA==
-X-Google-Smtp-Source: ABdhPJxoDtoqqDlHuOkZKONoO7zzvmWFvWXx00E4kWjd9G64OYb3ea98eE0UH2enSRVwLWVdAFpW5Q==
-X-Received: by 2002:a17:902:fe01:b0:15e:e178:e2e3 with SMTP id
- g1-20020a170902fe0100b0015ee178e2e3mr22853345plj.40.1652234134968; 
- Tue, 10 May 2022 18:55:34 -0700 (PDT)
-Received: from localhost.localdomain ([144.202.91.207])
- by smtp.gmail.com with ESMTPSA id
- f12-20020aa79d8c000000b0050dc76281f2sm207807pfq.204.2022.05.10.18.55.27
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=xhdm254L1jYhgvQgbJzDhHX/1k7BNUYa5TibU3+NCCw=;
+ b=JgKRZFQMpK8Cfl+hbIzDbMxWKRfaa5fo6hLUvQbvy49wJIXZL7pO+50s3ZPMQjwhfS
+ xLNfNOhrFMuPvAg0kpsrI+zkbUhz6yYK3LWd0SazBZrINCDiu/Dc7AKMFcBBQWem0zhF
+ 2BGmej5RWjhV9SpJheL41yAgFNQkMTN2OiNwToIQ5Fh9ZpaC6jUwqZ/IBDkhE6WIl5Lu
+ i7WbaE1oy8NXlWiD1KhkkMn5XChqNsGiqrVYRx4Eze5X+Zx+gWFDDgwtv8IbJgiB7NmF
+ D+0VV9NaHLoqBiEM/DAu4DlWQJp1DmhS32c/F0pIWsKhoSK+90ZqHFgLF2A0wL0nwgH+
+ /wmg==
+X-Gm-Message-State: AOAM533RGpLT9ZKFrPUhaFiZe4imVHFoKhzqRt7Fyg4XUzl0LAwD35g2
+ q+RrZ6N2E4IjJHM24M3RuLM=
+X-Google-Smtp-Source: ABdhPJxp27enUzauf894HfT9NP3kw4axhqglDt0NeLn5w5FytMmzOkolsl2i+qdZja+aIx6uEVmDBQ==
+X-Received: by 2002:a17:902:7fc2:b0:153:3c90:17b9 with SMTP id
+ t2-20020a1709027fc200b001533c9017b9mr24081383plb.61.1652246872324; 
+ Tue, 10 May 2022 22:27:52 -0700 (PDT)
+Received: from localhost.localdomain ([202.120.234.246])
+ by smtp.googlemail.com with ESMTPSA id
+ s12-20020a170902c64c00b0015e8d4eb2e6sm588632pls.304.2022.05.10.22.27.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 May 2022 18:55:34 -0700 (PDT)
-From: Zheyu Ma <zheyuma97@gmail.com>
-To: james.schulman@cirrus.com, david.rhodes@cirrus.com,
- tanureal@opensource.cirrus.com, rf@opensource.cirrus.com,
- lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- ckeepax@opensource.cirrus.com, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, linux-kernel@vger.kernel.org
-Subject: [PATCH v2] ASoC: cs42l56: Fix the error handling of
- cs42l56_i2c_probe()
-Date: Wed, 11 May 2022 09:55:14 +0800
-Message-Id: <20220511015514.1777923-1-zheyuma97@gmail.com>
+ Tue, 10 May 2022 22:27:51 -0700 (PDT)
+From: Miaoqian Lin <linmq006@gmail.com>
+To: Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ NXP Linux Team <linux-imx@nxp.com>, Ye Guojin <ye.guojin@zte.com.cn>,
+ alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: imx-hdmi: Fix refcount leak in imx_hdmi_probe
+Date: Wed, 11 May 2022 09:27:40 +0400
+Message-Id: <20220511052740.46903-1-linmq006@gmail.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220510155410.GC38351@ediswmail.ad.cirrus.com>
-References: <20220510155410.GC38351@ediswmail.ad.cirrus.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: Zheyu Ma <zheyuma97@gmail.com>
+Cc: linmq006@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,29 +106,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The driver should goto label 'err_enable' when failing at regmap_read().
+of_find_device_by_node() takes reference, we should use put_device()
+to release it. when devm_kzalloc() fails, it doesn't have a
+put_device(), it will cause refcount leak.
+Add missing put_device() to fix this.
 
-Signed-off-by: Zheyu Ma <zheyuma97@gmail.com>
+Fixes: 6a5f850aa83a ("ASoC: fsl: Add imx-hdmi machine driver")
+Fixes: f670b274f7f6 ("ASoC: imx-hdmi: add put_device() after of_find_device_by_node()")
+Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
 ---
-Changes in v2:
-    - Fix the typo in the subject
----
- sound/soc/codecs/cs42l56.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/fsl/imx-hdmi.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/codecs/cs42l56.c b/sound/soc/codecs/cs42l56.c
-index 2c4e09b43199..dc23007336c5 100644
---- a/sound/soc/codecs/cs42l56.c
-+++ b/sound/soc/codecs/cs42l56.c
-@@ -1245,7 +1245,7 @@ static int cs42l56_i2c_probe(struct i2c_client *i2c_client)
- 	ret = regmap_read(cs42l56->regmap, CS42L56_CHIP_ID_1, &reg);
- 	if (ret) {
- 		dev_err(&i2c_client->dev, "Failed to read chip ID: %d\n", ret);
--		return ret;
-+		goto err_enable;
+diff --git a/sound/soc/fsl/imx-hdmi.c b/sound/soc/fsl/imx-hdmi.c
+index 929f69b758af..ec149dc73938 100644
+--- a/sound/soc/fsl/imx-hdmi.c
++++ b/sound/soc/fsl/imx-hdmi.c
+@@ -126,6 +126,7 @@ static int imx_hdmi_probe(struct platform_device *pdev)
+ 	data = devm_kzalloc(&pdev->dev, sizeof(*data), GFP_KERNEL);
+ 	if (!data) {
+ 		ret = -ENOMEM;
++		put_device(&cpu_pdev->dev);
+ 		goto fail;
  	}
  
- 	devid = reg & CS42L56_CHIP_ID_MASK;
 -- 
 2.25.1
 

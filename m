@@ -2,75 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E01A525478
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 May 2022 20:09:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 047F052547F
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 May 2022 20:11:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D1ED51AD1;
-	Thu, 12 May 2022 20:09:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1ED51AD1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 92A971AC5;
+	Thu, 12 May 2022 20:10:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92A971AC5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652378991;
-	bh=kmKK7agYZ5eq7QQOxTKMvD9R0gQEUDCU9gHMvoJiVTA=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=o+lZULh8ERwaBxjg9PVi3VjXFdSGtuMh9ACxmwd2E4lqqpbyrwwTMxbmioq31jwtu
-	 uiE/jWHlVQRTRrpVpmwkJ/IO0tmqN0pFmluQno0ZiZDUSR4/yqSESvndwVOB1Afe8p
-	 J/XUAcp43k25YPguxX8AlpJ1pAVy+t6YO0qf4WTI=
+	s=default; t=1652379066;
+	bh=lnzILpdh2K8lGWVaQPF3fcRFvtUVSxBJPnRKUuK178o=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=nFTkGjSU4oRxJZTZUD1j/96VYdfJU53G5Tx4X2xxX8SJOpBfqKchOv6b/ZzrNnpGh
+	 DVlw21tbRMettwivrP7NfumZUb+dE4C5JiWD82KSaOqKS8a+Ia9UiQP3GDbiSAT8f3
+	 wr/PxowD17Wjq8QEGAbSi2fxfTvtuds6E5fimzCo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 57219F800BB;
-	Thu, 12 May 2022 20:08:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1CB13F80249;
+	Thu, 12 May 2022 20:10:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 386FAF80245; Thu, 12 May 2022 20:08:51 +0200 (CEST)
+ id BCA54F8010B; Thu, 12 May 2022 20:10:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from srv6.fidu.org (srv6.fidu.org [159.69.62.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3151AF800BB
- for <alsa-devel@alsa-project.org>; Thu, 12 May 2022 20:08:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3151AF800BB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 36EF7F8010B
+ for <alsa-devel@alsa-project.org>; Thu, 12 May 2022 20:10:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36EF7F8010B
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=tuxedocomputers.com
+ header.i=@tuxedocomputers.com header.b="V9vBq+2A"
 Received: from localhost (localhost.localdomain [127.0.0.1])
- by srv6.fidu.org (Postfix) with ESMTP id 995D9C800A0;
- Thu, 12 May 2022 20:08:43 +0200 (CEST)
+ by srv6.fidu.org (Postfix) with ESMTP id B7584C800A0;
+ Thu, 12 May 2022 20:09:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=
+ tuxedocomputers.com; h=content-transfer-encoding:mime-version
+ :x-mailer:message-id:date:date:subject:subject:from:from; s=
+ default; t=1652378999; x=1654193400; bh=lnzILpdh2K8lGWVaQPF3fcRF
+ vtUVSxBJPnRKUuK178o=; b=V9vBq+2AoWAORWo09hcDuIxXZ2KL8nvT/vS28wQ1
+ gbqzm5HsslAad7b7vFdOySu/UK/LrRBOkWi1EIID+Rk6wsJZ9lZgt77deuD5dOsA
+ jXIKjag/acvjqqnIpagdDJeYR8qURO3+DawvndbSD9L0p10zjac5a2V1xs+g332B
+ hbw=
 X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
 Received: from srv6.fidu.org ([127.0.0.1])
- by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10024)
- with LMTP id VtnO0W-gAp6B; Thu, 12 May 2022 20:08:43 +0200 (CEST)
-Received: from [192.168.176.111] (host-88-217-226-44.customer.m-online.net
- [88.217.226.44])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
+ by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10026)
+ with LMTP id njhnehTx8C5h; Thu, 12 May 2022 20:09:59 +0200 (CEST)
+Received: from wsembach-tuxedo.fritz.box
+ (host-212-18-30-247.customer.m-online.net [212.18.30.247])
  (Authenticated sender: wse@tuxedocomputers.com)
- by srv6.fidu.org (Postfix) with ESMTPSA id 10D9FC8009E;
- Thu, 12 May 2022 20:08:42 +0200 (CEST)
-Message-ID: <a9a88617-101c-739c-fecd-5925e5f5085c@tuxedocomputers.com>
-Date: Thu, 12 May 2022 20:08:41 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.1
-Subject: Re: [PATCH] ALSA: hda/intel: Add quirk for TongFang devices with pop
- noise
-Content-Language: en-US
-To: Takashi Iwai <tiwai@suse.de>
-References: <20220511133828.13724-1-wse@tuxedocomputers.com>
- <s5h35hggpao.wl-tiwai@suse.de>
- <71fadca3-7750-2fc0-c04a-f05ab4e85112@tuxedocomputers.com>
- <s5hv8ucf9f7.wl-tiwai@suse.de>
+ by srv6.fidu.org (Postfix) with ESMTPA id 1615BC8009E;
+ Thu, 12 May 2022 20:09:59 +0200 (CEST)
 From: Werner Sembach <wse@tuxedocomputers.com>
-In-Reply-To: <s5hv8ucf9f7.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=UTF-8
+To: perex@perex.cz, tiwai@suse.com, kai.vehmanen@linux.intel.com,
+ pierre-louis.bossart@linux.intel.com, imre.deak@intel.com,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2] ALSA: hda/realtek: Add quirk for TongFang devices with pop
+ noise
+Date: Thu, 12 May 2022 20:09:56 +0200
+Message-Id: <20220512180956.281804-1-wse@tuxedocomputers.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- kai.vehmanen@linux.intel.com, imre.deak@intel.com, tiwai@suse.com,
- linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,63 +85,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+When audio stops playing there is an audible "pop"-noise when using
+headphones on the TongFang GMxMRxx, GKxNRxx, GMxZGxx, GMxTGxx and GMxAGxx.
 
-Am 11.05.22 um 16:09 schrieb Takashi Iwai:
-> On Wed, 11 May 2022 15:58:03 +0200,
-> Werner Sembach wrote:
->> Am 11.05.22 um 15:41 schrieb Takashi Iwai:
->>> On Wed, 11 May 2022 15:38:28 +0200,
->>> Werner Sembach wrote:
->>>> When audio stops playing and sometimes when it starts playing, there is an
->>>> audible "pop" noise when using headphones on most Tongfang GMxMxxx,
->>>> GKxNxxx, GMxZxxx, GMxTxxx, and GMxAxxx devices.
->>>>
->>>> Disabling power saving for the Realtek codec fixes this noise. Presumably
->>>> it is triggered on some power event in the audio circuit.
->>>>
->>>> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
->>>> Cc: stable@vger.kernel.org
->>> Usually this denylist is a last resort if any other methods never
->>> helped.  Is it the case?
->> I also tried setting codec->power_save_node = 0; in a patch_realtek.c quirk.
->>
->> static void alc274_fixup_pop_noise(struct hda_codec *codec, const struct
->> hda_fixup *fix, int action)
->> {
->>        codec->power_save_node = 0;
->> }
->>
->> That initially seemed to work, but when I tested it again a day later
->> after a fresh install, it didn't anymore. I don't know what is
->> different. On the install before, I did some debugging with boot
->> parameters and other stuff, cant reproduce anymore what exactly.
-> power_save_node is already 0 as default for patch_alc269(), so it must
-> be irrelevant.
->
->> I took the line from alc274_fixup_bind_dacs which fixes the pop noise
->> when applied to the devices, but does a lot of random other stuff too
->> not meant for the device.
-> It's only one thing, there are tons of different fixes :)
-> alc274_fixup_bind_dacs() rather specifies the routing so that the
-> speaker is connected to the preferred DAC.
->
-> Many click noises come from the default pin shut-up behavior.  You
-> can disable it or change it in other way.  Also, setting
-> auto_mute_via_amp may influence on such behavior (that is included in
-> alc274_fixup_bind_dacs()).
->
-> Note that many quirks can be enabled even without compiling but via
-> the codec patch loading (using hints).
->
->
-> thanks,
->
-> Takashi
+This quirk fixes this mostly.
 
-Found a quirk in patch_realtek.c with the same effect as the
-power_save=0 and 2 more affected subsystem ids. Patch send as v2.
+Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+Cc: stable@vger.kernel.org
+---
+ sound/pci/hda/patch_realtek.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-Kind Regards,
-
-Werner
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index cf531c1efa132..8003bf7441d6d 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -9290,6 +9290,14 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1c06, 0x2013, "Lemote A1802", ALC269_FIXUP_LEMOTE_A1802),
+ 	SND_PCI_QUIRK(0x1c06, 0x2015, "Lemote A190X", ALC269_FIXUP_LEMOTE_A190X),
+ 	SND_PCI_QUIRK(0x1d05, 0x1132, "TongFang PHxTxX1", ALC256_FIXUP_SET_COEF_DEFAULTS),
++	SND_PCI_QUIRK(0x1d05, 0x1096, "TongFang GMxMRxx", ALC269_FIXUP_NO_SHUTUP),
++	SND_PCI_QUIRK(0x1d05, 0x1100, "TongFang GKxNRxx", ALC269_FIXUP_NO_SHUTUP),
++	SND_PCI_QUIRK(0x1d05, 0x1111, "TongFang GMxZGxx", ALC269_FIXUP_NO_SHUTUP),
++	SND_PCI_QUIRK(0x1d05, 0x1119, "TongFang GMxZGxx", ALC269_FIXUP_NO_SHUTUP),
++	SND_PCI_QUIRK(0x1d05, 0x1129, "TongFang GMxZGxx", ALC269_FIXUP_NO_SHUTUP),
++	SND_PCI_QUIRK(0x1d05, 0x1147, "TongFang GMxTGxx", ALC269_FIXUP_NO_SHUTUP),
++	SND_PCI_QUIRK(0x1d05, 0x115c, "TongFang GMxTGxx", ALC269_FIXUP_NO_SHUTUP),
++	SND_PCI_QUIRK(0x1d05, 0x121b, "TongFang GMxAGxx", ALC269_FIXUP_NO_SHUTUP),
+ 	SND_PCI_QUIRK(0x1d72, 0x1602, "RedmiBook", ALC255_FIXUP_XIAOMI_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x1d72, 0x1701, "XiaomiNotebook Pro", ALC298_FIXUP_DELL1_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1d72, 0x1901, "RedmiBook 14", ALC256_FIXUP_ASUS_HEADSET_MIC),
+-- 
+2.25.1
 

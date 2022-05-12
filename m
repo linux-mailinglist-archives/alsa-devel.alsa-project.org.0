@@ -2,90 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C485F527F28
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 May 2022 10:05:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CC01527F2A
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 May 2022 10:05:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3C20C1697;
-	Mon, 16 May 2022 10:04:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C20C1697
+	by alsa0.perex.cz (Postfix) with ESMTPS id 186581695;
+	Mon, 16 May 2022 10:05:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 186581695
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652688326;
-	bh=pN65gQJ10OF32RZKO8EWFjPhG23Ifbr/m0Il5f4ZdLI=;
+	s=default; t=1652688352;
+	bh=q2aOuBVACHY3Q8rOIAmJ2CuubNI59OwnZ8aRB36j+Yo=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=u+C0AQ5RZ7ZBN/Uv4E3PqfzXBSB3yGjf7LZ0vaF1KmBwYvLStzv94sE0Y8fGKZeiT
-	 T3HrX/kyaI45pnMsHCBtQaaFlPMQHqaVfB8hu0DLUe6WW099LiP9nhyUFKj/UBC5ln
-	 hx3hwIFj7jocrRN+q5VuEENDql2ahqfj/0iHQULk=
+	b=FwSm76eY0yUHhtUDoltEdJPmCHpgBc9/3shbuED7aD3FCGfMPltRVzcqpXcmRfp9H
+	 LA1HhuqlHVvQiC0zcem/NVHvxRwtiLkNsWC3izdiPKtgYhBeEvlfAZp3qCbOmil+2b
+	 J/H1XfXpJtst2bTEE7K9uHqQFhM004DMtMQYQYiI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F1444F801D5;
-	Mon, 16 May 2022 10:03:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EEC89F80520;
+	Mon, 16 May 2022 10:03:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 73A4EF80245; Thu, 12 May 2022 09:44:13 +0200 (CEST)
+ id 041B5F8027C; Thu, 12 May 2022 10:22:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [IPv6:2a00:1450:4864:20::533])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A6830F8011C
- for <alsa-devel@alsa-project.org>; Thu, 12 May 2022 09:44:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6830F8011C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amarulasolutions.com
- header.i=@amarulasolutions.com header.b="DiruNwr0"
-Received: by mail-ed1-x533.google.com with SMTP id z19so5202353edx.9
- for <alsa-devel@alsa-project.org>; Thu, 12 May 2022 00:44:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=DrDbGhLo7XaClO51j9YJvUywtHQ0+/I5lMy5wJbGhKc=;
- b=DiruNwr0imBp+10H53dtlHhIGwryjAwAWWCxLchPrV+5Ds5esyMWKjS3HAq8f4h/7O
- VZ8MmEQaRkIYQ8sFGjoZL7WHBNcERhJ9n5ZHJMUFreePm93eQoOr4FDrKr4sWpp1fB4N
- paupObkAaW1R41KdMj35taLnJ2UhWNnuoOsss=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=DrDbGhLo7XaClO51j9YJvUywtHQ0+/I5lMy5wJbGhKc=;
- b=i703VjgXAQSvWZFZvMSpKuBf5Sf2CQ//vnNZ0/k3BuiVLCEzCAH4JUgk1XMSpFFS7d
- mjXXTrmu8nRZhqXVijZwWQsvZgDPY/UMBS69yloHj4lAtfZl6U+6I23QShIOg0ua4l6q
- fNHpX9/nYMJ15E3Kmrc1qyaWpFcaXm3yK3WjwOspLM1v7go4EUqzmAzW18Rj7zCdF1nZ
- E7jaP7iFb/sT+F9sKSKK2xnmWPhDJJLJ4Xpy48f07eVS/dySREMfMScZQESQT/PGhUol
- QZlzxu5syVkXAEjb7U/U861EAaxN4/Hj38qyOg7fJtwKR8lnb03evZuCcL2TadLkgalU
- HNOw==
-X-Gm-Message-State: AOAM5316PoFGEXVx6SSQRwVBOeYb/ENPLviSv13/7alL9Y/na6+EYnBb
- T9dmuKa0cQ1Wimnt+SXULQCLmIYKKDQHuw==
-X-Google-Smtp-Source: ABdhPJx58tfL7OheWyZCoXsZi7LTgs1k6P5QALJf6eVDOoqqZCFTxJOEZzC3/cKaG5YF/CTWwcEUwg==
-X-Received: by 2002:a05:6402:4241:b0:428:177b:5fd with SMTP id
- g1-20020a056402424100b00428177b05fdmr32950480edb.193.1652341444209; 
- Thu, 12 May 2022 00:44:04 -0700 (PDT)
-Received: from tom-ThinkPad-T14s-Gen-2i.station
- (net-188-217-59-245.cust.vodafonedsl.it. [188.217.59.245])
- by smtp.gmail.com with ESMTPSA id
- cm10-20020a0564020c8a00b0042617ba63c0sm2192721edb.74.2022.05.12.00.44.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 May 2022 00:44:03 -0700 (PDT)
-From: Tommaso Merciai <tommaso.merciai@amarulasolutions.com>
-To: 
-Subject: [PATCH] ASoC: max98088: add support for reg_4a_cfg_bypass reg
-Date: Thu, 12 May 2022 09:43:58 +0200
-Message-Id: <20220512074359.446999-1-tommaso.merciai@amarulasolutions.com>
-X-Mailer: git-send-email 2.25.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8A323F800BB;
+ Thu, 12 May 2022 10:22:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A323F800BB
+X-UUID: 90d3dfc74d1842c08b15073111d62dcb-20220512
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.4, REQID:e1679bf6-5a71-4ce3-9ffd-b4a20cda3f19, OB:0,
+ LO
+ B:0,IP:0,URL:0,TC:0,Content:-20,EDM:0,RT:0,SF:0,FILE:0,RULE:Release_Ham,AC
+ TION:release,TS:-20
+X-CID-META: VersionHash:faefae9, CLOUDID:4b200aa7-eab7-4b74-a74d-5359964535a9,
+ C
+ OID:IGNORED,Recheck:0,SF:nil,TC:nil,Content:0,EDM:-3,File:nil,QS:0,BEC:nil
+X-UUID: 90d3dfc74d1842c08b15073111d62dcb-20220512
+Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by
+ mailgw01.mediatek.com (envelope-from <tinghan.shen@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 567945416; Thu, 12 May 2022 16:22:28 +0800
+Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
+ mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.792.3; 
+ Thu, 12 May 2022 16:22:26 +0800
+Received: from mtksdccf07.mediatek.inc (172.21.84.99) by
+ mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.792.3 via Frontend Transport; Thu, 12 May 2022 16:22:26 +0800
+From: Tinghan Shen <tinghan.shen@mediatek.com>
+To: Matthias Brugger <matthias.bgg@gmail.com>, Pierre-Louis Bossart
+ <pierre-louis.bossart@linux.intel.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, Kai Vehmanen
+ <kai.vehmanen@linux.intel.com>, Daniel Baluta <daniel.baluta@nxp.com>, Mark
+ Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
+ <tiwai@suse.com>, Javier Martinez Canillas <javierm@redhat.com>, Thomas
+ Zimmermann <tzimmermann@suse.de>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Sudeep Holla
+ <sudeep.holla@arm.com>, Michal Suchanek <msuchanek@suse.de>, Shuai Xue
+ <xueshuai@linux.alibaba.com>, Simon Trimmer <simont@opensource.cirrus.com>,
+ Cristian Marussi <cristian.marussi@arm.com>, TingHan Shen
+ <tinghan.shen@mediatek.com>, Arnd Bergmann <arnd@arndb.de>, Borislav Petkov
+ <bp@suse.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, John Stultz
+ <john.stultz@linaro.org>, Curtis Malainey <cujomalainey@chromium.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Allen-KH Cheng <allen-kh.cheng@mediatek.com>, YC Hung <yc.hung@mediatek.com>, 
+ Tzung-Bi Shih <tzungbi@google.com>, Yang Yingliang
+ <yangyingliang@huawei.com>, Geert Uytterhoeven <geert+renesas@glider.be>,
+ =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+Subject: [PATCH v9 0/3] firmware: mtk: add adsp ipc protocol for SOF
+Date: Thu, 12 May 2022 16:22:12 +0800
+Message-ID: <20220512082215.3018-1-tinghan.shen@mediatek.com>
+X-Mailer: git-send-email 2.18.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
 X-Mailman-Approved-At: Mon, 16 May 2022 10:03:51 +0200
-Cc: alsa-devel@alsa-project.org, linux-amarula@amarulasolutions.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- tommaso.merciai@amarulasolutions.com, Mark Brown <broonie@kernel.org>,
- linuxfancy@googlegroups.com, linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Project_Global_Chrome_Upstream_Group@mediatek.com,
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,32 +103,73 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add mixer controls support for M98088_REG_4A_CFG_BYPASS register
+This patch provides mediatek adsp ipc support for SOF.
+ADSP IPC protocol offers (send/recv) interfaces using
+mediatek-mailbox APIs.
 
-References:
- - https://datasheets.maximintegrated.com/en/ds/MAX98089.pdf p71, p113
+This patch was tested and confirmed to work with SOF fw on 
+MT8195 cherry board and MT8186 krabby board.
 
-Signed-off-by: Tommaso Merciai <tommaso.merciai@amarulasolutions.com>
----
- sound/soc/codecs/max98088.c | 5 +++++
- 1 file changed, 5 insertions(+)
+changes since v8:
+- fix patchset 2 and 3.
+  move "depends on MTK_ADSP_IPC" from SND_SOC_SOF_MTK_COMMON
+  to SND_SOC_SOF_MT8195/MT8186 to prevent generating wrong
+  config.
 
-diff --git a/sound/soc/codecs/max98088.c b/sound/soc/codecs/max98088.c
-index 429717d4ac5a..f8ec2f164e08 100644
---- a/sound/soc/codecs/max98088.c
-+++ b/sound/soc/codecs/max98088.c
-@@ -486,6 +486,11 @@ static const struct snd_kcontrol_new max98088_snd_controls[] = {
-        SOC_SINGLE("EQ1 Switch", M98088_REG_49_CFG_LEVEL, 0, 1, 0),
-        SOC_SINGLE("EQ2 Switch", M98088_REG_49_CFG_LEVEL, 1, 1, 0),
- 
-+       SOC_SINGLE("SPK Bypass Switch", M98088_REG_4A_CFG_BYPASS, 0, 1, 0),
-+       SOC_SINGLE("REC Bypass Switch", M98088_REG_4A_CFG_BYPASS, 1, 1, 0),
-+       SOC_SINGLE("MIC2 Bypass Switch", M98088_REG_4A_CFG_BYPASS, 4, 1, 0),
-+       SOC_SINGLE("INA Bypass Switch", M98088_REG_4A_CFG_BYPASS, 7, 1, 0),
-+
-        SOC_ENUM("EX Limiter Mode", max98088_exmode_enum),
-        SOC_ENUM("EX Limiter Threshold", max98088_ex_thresh_enum),
- 
+changes since v7:
+- rebase to linux-next/next-22020504
+- use EXPORT_SYMBOL_GPL instead of EXPORT_SYMBOL in mtk-adsp-ipc.c 
+- move mtk-adsp-ipc.c out from driver/firmware/mediatek
+- add user of mtk-adsp-ipc.h in patchset 2 and 3.
+
+changes since v6:
+- rebase to matthias.bgg/linux.git, v5.18-next/soc
+- Prefer "GPL" over "GPL v2" for MODULE_LICENSE
+
+changes since v5:
+- fix WARNING: modpost: missing MODULE_LICENSE() in drivers/mailbox
+  /mtk-adsp-mailbox.o. Add MODULE_LICENSE in the last line.
+- Due to WARNING: Missing or malformed SPDX-License-Identifier tag
+  in line 1 in checkpatch, we don't remove SPDX-License in line 1.
+
+changes since v4:
+- add error message for wrong mbox chan
+
+changes since v3:
+- rebase on v5.16-rc8
+- update reviewers
+
+changes since v2:
+- add out tag for two memory free phases
+
+changes since v1:
+- add comments for mtk_adsp_ipc_send and mtk_adsp_ipc_recv
+- remove useless MODULE_LICENSE
+- change label name to out_free
+
+
+Allen-KH Cheng (1):
+  ASoC: SOF: mediatek: Add ipc support for mt8195
+
+TingHan Shen (1):
+  firmware: mediatek: add adsp ipc protocol interface
+
+Tinghan Shen (1):
+  ASoC: SOF: mediatek: Add mt8186 ipc support
+
+ drivers/firmware/Kconfig                      |   9 +
+ drivers/firmware/Makefile                     |   1 +
+ drivers/firmware/mtk-adsp-ipc.c               | 157 ++++++++++++++++++
+ .../linux/firmware/mediatek/mtk-adsp-ipc.h    |  65 ++++++++
+ sound/soc/sof/mediatek/Kconfig                |   2 +
+ sound/soc/sof/mediatek/adsp_helper.h          |  12 +-
+ sound/soc/sof/mediatek/mt8186/mt8186-loader.c |   5 +
+ sound/soc/sof/mediatek/mt8186/mt8186.c        | 141 ++++++++++++++++
+ sound/soc/sof/mediatek/mt8195/mt8195.c        | 138 ++++++++++++++-
+ 9 files changed, 519 insertions(+), 11 deletions(-)
+ create mode 100644 drivers/firmware/mtk-adsp-ipc.c
+ create mode 100644 include/linux/firmware/mediatek/mtk-adsp-ipc.h
+
 -- 
-2.25.1
+2.18.0
 

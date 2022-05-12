@@ -2,83 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 676E152497F
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 May 2022 11:54:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B75852498B
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 May 2022 11:56:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0253F1934;
-	Thu, 12 May 2022 11:53:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0253F1934
+	by alsa0.perex.cz (Postfix) with ESMTPS id C4F6F193A;
+	Thu, 12 May 2022 11:55:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4F6F193A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652349249;
-	bh=PHkQuvH0Ft7z9jNE8l4KOiEM2q9IBohvHN0fmnK2IKo=;
+	s=default; t=1652349365;
+	bh=OIK0kZYBM7Gz/GythPSJ1p0v/c/x6YG4hX0YyPqJpIw=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VbFvqDLilI3f8cmKwm5ZrjpkDc7aUfuE8zVxwItvDXAV+nl70mOdWWGwsoYSUPCwv
-	 d+b2wOrYNQKOmp1pcJbugQLwqqOdPUkHzXWGMEluszFOJpi/2BSNYeI2tfp/VfEViP
-	 GWvsgME2yR7FttEci5PqQstx7+iPJ7onbexa7soo=
+	b=QDlunKkeAb6q7woY5+k37A8FMpSUwsr5CujUGEVVVjnG4yllPf8DtzZPLGDUD7s+m
+	 cP3rgC92FArVCe5QjvmFbyecr+heUG7yc95PDAs8AspLHqjJxufd1cAlTxAXAbZpZG
+	 t6fAjKWdV1oSBkYYKBRDKbDpQBfePixz2tO5K8dE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5CA00F800BB;
-	Thu, 12 May 2022 11:53:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 48128F800BB;
+	Thu, 12 May 2022 11:55:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E1BCFF80245; Thu, 12 May 2022 11:53:07 +0200 (CEST)
+ id C567CF800BB; Thu, 12 May 2022 11:55:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 51860F8010B
- for <alsa-devel@alsa-project.org>; Thu, 12 May 2022 11:53:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51860F8010B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 220D2F800BB
+ for <alsa-devel@alsa-project.org>; Thu, 12 May 2022 11:55:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 220D2F800BB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="W2S2DyHm"; 
+ header.b="TH7Xk7G6"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="XbXqxlRd"
+ header.b="M+u7rlAR"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 5A15421CCA;
- Thu, 12 May 2022 09:53:03 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id AA1AB1F8C9;
+ Thu, 12 May 2022 09:55:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1652349183; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1652349302; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=E+265XDH+a9dp/umHdLdFd5jPCSP089vIPe0/HrdmYM=;
- b=W2S2DyHm3vGDiVxCNqjhVQpMIjBX3+UfUol57qDFDntweGUdxqwBjmOZIiHNPn3t4XZwML
- 9LPLZwiX/wgAm/aUr3j2ITuvTADyRaE80A0ys4P9+BbMT8UnELhDijiRIByr67M5U6mUeQ
- kHQnL5Ajm+R8W0GxTlVxZZxTyRMaY4I=
+ bh=mvsLWkdnsom47iYa6LwFEPqruONRlnQhyPnRuMzFJOA=;
+ b=TH7Xk7G6VUrJaS08AkqlmKz3kC22fNGKCMTsbChPc0UZP2qQUQU6m5Gf5GXJiWqUKG6MvE
+ tNhSC/chvXIkE7xUiNq3QCwU3tepyILE6jWuq3PW52Do8hCUW0EL5siwH80xHydg2iPMQl
+ BFbvh92BusmQeyZjGYcNQG37aKE1YXs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1652349183;
+ s=susede2_ed25519; t=1652349302;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=E+265XDH+a9dp/umHdLdFd5jPCSP089vIPe0/HrdmYM=;
- b=XbXqxlRdTaQp7KnsZsIpi3OMJzZsri9Enk+JjTPJFoaihldxlK0P46OCQ6f/QY8kWGDxgK
- RKtigpJl9ynLTEBQ==
+ bh=mvsLWkdnsom47iYa6LwFEPqruONRlnQhyPnRuMzFJOA=;
+ b=M+u7rlARL2l5kjfm3Qx4O5UVSpUFet4OtNqc4mTWf1Shc+0yqADvOk9eEjRbM1g3sffZ3H
+ cqeRR+pPJcsft+DA==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 318852C141;
- Thu, 12 May 2022 09:53:03 +0000 (UTC)
-Date: Thu, 12 May 2022 11:53:03 +0200
-Message-ID: <s5hv8ubdqm8.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 9E8662C141;
+ Thu, 12 May 2022 09:55:02 +0000 (UTC)
+Date: Thu, 12 May 2022 11:55:02 +0200
+Message-ID: <s5htu9vdqix.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Stefan Binding <sbinding@opensource.cirrus.com>
-Subject: Re: [PATCH v2 0/3] ALSA: hda/cs8409: Add support for Odin Laptop
- Variants
-In-Reply-To: <20220511100207.1268321-1-sbinding@opensource.cirrus.com>
-References: <20220511100207.1268321-1-sbinding@opensource.cirrus.com>
+To: Daniel Kaehn <kaehndan@gmail.com>
+Subject: Re: [PATCH v7 0/2] Add generic serial MIDI driver using serial bus API
+In-Reply-To: <20220509145933.1161526-1-kaehndan@gmail.com>
+References: <20220509145933.1161526-1-kaehndan@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>
+Cc: robh@kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com,
+ devicetree@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,25 +93,83 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 11 May 2022 12:02:04 +0200,
-Stefan Binding wrote:
+On Mon, 09 May 2022 16:59:31 +0200,
+Daniel Kaehn wrote:
 > 
-> Add support for new Odin Laptop Variants into CS8409 HDA Driver.
+> Generic serial MIDI driver adding support for using serial devices
+> compatible with the serial bus as raw MIDI devices, allowing using
+> additional serial devices not compatible with the existing
+> serial-u16550 driver. Supports only setting standard serial baudrates on
+> the underlying serial device; however, the underlying serial device can
+> be configured so that a requested 38.4 kBaud is actually the standard MIDI
+> 31.25 kBaud. Supports DeviceTree configuration.
 > 
-> Since these laptops require Speaker Playback Switch, support must be added into
-> CS8409 HDA driver. Since CS8409 does not have amplifier parameters for the NID
-> associated with the speaker, the HDA driver does not add the switch
-> automatically, so the driver needs to add this support manually.
+> Changes in v7:
+> - Separate examples in dt-binding to remove need to specify unit name
+>     (fixing dt_binding_check error)
 > 
-> changes since v1:
-> - add missing break in switch statement
+> Changes in v6:    
+> - Change compatible "serialmidi" -> serial-midi" 
+> - Default current-speed to 38400 (closest baud to MIDI standard speed) 
+> - Appropriately stop reading or writing MIDI if input or output
+>     _trigger() is called with a parameter of zero, respectively 
+> - Zero out corresponding triggered state on close to ensure input and
+>     output closing results in the serial port being closed 
+> - Fix order of operations in _probe() 
+> - Remove "DEBUG" literal from debug messages
+> - Remove unused dt-parsing patch checking for existence of node
+> - Whitespace / tabbing fixes / improvements
 > 
-> Stefan Binding (3):
->   ALSA: hda/cs8409: Support new Odin Variants
->   ALSA: hda/cs8409: Add Speaker Playback Switch for Cyborg
->   ALSA: hda/cs8409: Add Speaker Playback Switch for Warlock
+> Changes in v5:
+> - Reword description in dt-binding for clarity
+> - Change 'speed' dt property to standard 'current-speed'
+> - Move MIDI output loop onto workqueue (since this could loop quite a while,
+>     if ALSA provides a continuous stream of bytes)
+> - Add tx_state bit flags to snd_serial_generic struct
+> - Safegard critical section in tx_work with atomic bit ops on tx_state
+> - Switch operations on filemode to use atomic bit ops
+> 
+> Changes in v4:
+> - Fix regressed typo - Correct 3.84 kBaud -> 38.4 kBaud in DT & Kconfig
+>   (sorry about spam - noticed after sending v3 and didn't want to let
+>   the error sit around for too long)
+> 
+> Changes in v3:
+> - Replace use of snd_printk() with dev_* alternatives
+> - Removed unnecessary initialization of err variables
+> - Replaced instances of `== SERIAL_MODE_NOT_OPENED` with zero check
+> - Loop on output_write to completely fill output buffer if data available
+> - Depend on CONFIG_OF in Kconfig
+> - Replace use of devm_kzalloc() with extra_size allocation in snd_devm_card_new()
+> - Use module_serdev_device_driver() instead of module_init() and module_exit(0)
+> 
+> Changes in v2:
+> - Fix 'snd_serial_generic_write_wakeup' missing static keyword 
+> - Correct 3.125 kBaud > 31.25 kBaud in documentation for MIDI         
+> 
+> 
+> The need for this driver arose from a project using a Raspberry Pi4 which
+> needed to receive and send raw MIDI with low latency. The pl011 UART
+> used is not compatible with the existing serial MIDI driver made for
+> u16550-style devices. Using a userspace program such as ttymidi to feed
+> input from the TTY device to a virtual ALSA MIDI device was functional,
+> but not ideal.
+> 
+> I am not sure if a MIDI driver needing the mentioned 'hack' to clock
+> 38.4 kBaud down to the standard MIDI baud is permissible in the mainline
+> kernel, but am submitting nevertheless in case it is useful. To my knowledge,
+> it doesn't seem that there would be any way for this driver to manually
+> configure a serial port to 31.25 kBaud using the serial bus API (please 
+> correct me f I'm wrong). In my use case, I am actually configuring one port
+> to run at 115.2 kBaud for faster communication with a custom onboard MIDI controller.
+> 
+> Daniel Kaehn (2):
+>   dt-bindings: sound: Add generic serial MIDI device
+>   Add generic serial MIDI driver using serial bus API
 
-Applied all three patches now.  Thanks.
+Now applied both patches to for-next branch.
 
+
+thanks,
 
 Takashi

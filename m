@@ -2,64 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B11E15247E8
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 May 2022 10:30:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 676E152497F
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 May 2022 11:54:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 38E0C1A48;
-	Thu, 12 May 2022 10:29:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 38E0C1A48
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0253F1934;
+	Thu, 12 May 2022 11:53:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0253F1934
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652344226;
-	bh=9CXjnw4fL3P9l+5zSSZqFuT76TVftdEh/S4g8aI2nNQ=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=mAowSJQnQkQNgSo66/X16EI3qHvxL6v13l85ABr6TJHQV/uALECF9VfMWR7Cd/xYJ
-	 ij7Yesy6oQqQUN5Ngi5OXNh4oKJwWUa8QmUmOyLEVKp9RfyL/V0yutWFZLCyqxVWgL
-	 iBJ34Qcuq2kLTGeANFCSz0mP34S+lkTo8WhGo31s=
+	s=default; t=1652349249;
+	bh=PHkQuvH0Ft7z9jNE8l4KOiEM2q9IBohvHN0fmnK2IKo=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=VbFvqDLilI3f8cmKwm5ZrjpkDc7aUfuE8zVxwItvDXAV+nl70mOdWWGwsoYSUPCwv
+	 d+b2wOrYNQKOmp1pcJbugQLwqqOdPUkHzXWGMEluszFOJpi/2BSNYeI2tfp/VfEViP
+	 GWvsgME2yR7FttEci5PqQstx7+iPJ7onbexa7soo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C0CD1F8011C;
-	Thu, 12 May 2022 10:29:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5CA00F800BB;
+	Thu, 12 May 2022 11:53:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6DB71F80245; Thu, 12 May 2022 10:29:24 +0200 (CEST)
+ id E1BCFF80245; Thu, 12 May 2022 11:53:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C3DB1F8011C
- for <alsa-devel@alsa-project.org>; Thu, 12 May 2022 10:29:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3DB1F8011C
-Received: from dggpemm500023.china.huawei.com (unknown [172.30.72.54])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4KzQ0Y5r0XzgZ0D;
- Thu, 12 May 2022 16:28:45 +0800 (CST)
-Received: from dggpemm500007.china.huawei.com (7.185.36.183) by
- dggpemm500023.china.huawei.com (7.185.36.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.24; Thu, 12 May 2022 16:29:03 +0800
-Received: from huawei.com (10.175.103.91) by dggpemm500007.china.huawei.com
- (7.185.36.183) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Thu, 12 May
- 2022 16:29:02 +0800
-From: Yang Yingliang <yangyingliang@huawei.com>
-To: <linux-kernel@vger.kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH -next] ALSA: ppc: tumbler: use for_each_child_of_node() macro
-Date: Thu, 12 May 2022 16:40:30 +0800
-Message-ID: <20220512084030.1673970-1-yangyingliang@huawei.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.175.103.91]
-X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
- dggpemm500007.china.huawei.com (7.185.36.183)
-X-CFilter-Loop: Reflected
-Cc: tiwai@suse.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 51860F8010B
+ for <alsa-devel@alsa-project.org>; Thu, 12 May 2022 11:53:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51860F8010B
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="W2S2DyHm"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="XbXqxlRd"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 5A15421CCA;
+ Thu, 12 May 2022 09:53:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1652349183; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=E+265XDH+a9dp/umHdLdFd5jPCSP089vIPe0/HrdmYM=;
+ b=W2S2DyHm3vGDiVxCNqjhVQpMIjBX3+UfUol57qDFDntweGUdxqwBjmOZIiHNPn3t4XZwML
+ 9LPLZwiX/wgAm/aUr3j2ITuvTADyRaE80A0ys4P9+BbMT8UnELhDijiRIByr67M5U6mUeQ
+ kHQnL5Ajm+R8W0GxTlVxZZxTyRMaY4I=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1652349183;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=E+265XDH+a9dp/umHdLdFd5jPCSP089vIPe0/HrdmYM=;
+ b=XbXqxlRdTaQp7KnsZsIpi3OMJzZsri9Enk+JjTPJFoaihldxlK0P46OCQ6f/QY8kWGDxgK
+ RKtigpJl9ynLTEBQ==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 318852C141;
+ Thu, 12 May 2022 09:53:03 +0000 (UTC)
+Date: Thu, 12 May 2022 11:53:03 +0200
+Message-ID: <s5hv8ubdqm8.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Stefan Binding <sbinding@opensource.cirrus.com>
+Subject: Re: [PATCH v2 0/3] ALSA: hda/cs8409: Add support for Odin Laptop
+ Variants
+In-Reply-To: <20220511100207.1268321-1-sbinding@opensource.cirrus.com>
+References: <20220511100207.1268321-1-sbinding@opensource.cirrus.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,27 +94,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Use for_each_child_of_node() macro instead of open coding it.
+On Wed, 11 May 2022 12:02:04 +0200,
+Stefan Binding wrote:
+> 
+> Add support for new Odin Laptop Variants into CS8409 HDA Driver.
+> 
+> Since these laptops require Speaker Playback Switch, support must be added into
+> CS8409 HDA driver. Since CS8409 does not have amplifier parameters for the NID
+> associated with the speaker, the HDA driver does not add the switch
+> automatically, so the driver needs to add this support manually.
+> 
+> changes since v1:
+> - add missing break in switch statement
+> 
+> Stefan Binding (3):
+>   ALSA: hda/cs8409: Support new Odin Variants
+>   ALSA: hda/cs8409: Add Speaker Playback Switch for Cyborg
+>   ALSA: hda/cs8409: Add Speaker Playback Switch for Warlock
 
-Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
----
- sound/ppc/tumbler.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+Applied all three patches now.  Thanks.
 
-diff --git a/sound/ppc/tumbler.c b/sound/ppc/tumbler.c
-index c65e74d7cd0a..c7e150f82bcc 100644
---- a/sound/ppc/tumbler.c
-+++ b/sound/ppc/tumbler.c
-@@ -1060,8 +1060,7 @@ static struct device_node *find_audio_device(const char *name)
- 	if (! gpiop)
- 		return NULL;
-   
--	for (np = of_get_next_child(gpiop, NULL); np;
--			np = of_get_next_child(gpiop, np)) {
-+	for_each_child_of_node(gpiop, np) {
- 		const char *property = of_get_property(np, "audio-gpio", NULL);
- 		if (property && strcmp(property, name) == 0)
- 			break;
--- 
-2.25.1
 
+Takashi

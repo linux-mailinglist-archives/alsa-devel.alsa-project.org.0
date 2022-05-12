@@ -2,63 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 408E5525591
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 May 2022 21:15:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01502525594
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 May 2022 21:16:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C8E831AD3;
-	Thu, 12 May 2022 21:14:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8E831AD3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 98DC01AE3;
+	Thu, 12 May 2022 21:15:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98DC01AE3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652382940;
-	bh=DdhhLOFPZig1VU2iZKKY292fvAuM6yP8UHuXeREmE70=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=W3um+rZ6O8fUuSS9jShP6FFnb9DZwjIhtiEx0ze6gcNAOu4UNcWyAjHvZ18EhdbcX
-	 2vVX2RREMUStIKr15NNBa1xM2MTWOZudm2BVupRkD0O52fIJvcpN0qOsKNowgllbvp
-	 NNUW4zz4dgUpuo01l8vMQIFAOGxbrhDlNIO2CbZ4=
+	s=default; t=1652382972;
+	bh=vdWNAVi0ghDacevEaPZsVyey1+m4P2AeNO5Sv6H/WF8=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=HHRJRK34SZXfbguGQNhJrARLGl/fofbNYwkfVMha0KZYj+KNR9OS1b2hk+HPe+SMk
+	 4OJGCdy6BvD07GowTsbRB6hLzHe5WZYqejVff5IkkFRxeN0mIaytl5Hi/tqd8MqkIR
+	 IJeC11z348wOr5B/HgJuRvrvlTBv2T0BQ0CppthE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 214B8F80254;
-	Thu, 12 May 2022 21:14:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D44BDF80511;
+	Thu, 12 May 2022 21:14:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 56BF9F80245; Thu, 12 May 2022 21:14:38 +0200 (CEST)
+ id 48D79F8050F; Thu, 12 May 2022 21:14:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from 11.mo561.mail-out.ovh.net (11.mo561.mail-out.ovh.net
- [87.98.184.158])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from 5.mo561.mail-out.ovh.net (5.mo561.mail-out.ovh.net
+ [87.98.178.36])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1EEFFF8011C
- for <alsa-devel@alsa-project.org>; Thu, 12 May 2022 21:14:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1EEFFF8011C
-Received: from player691.ha.ovh.net (unknown [10.109.138.174])
- by mo561.mail-out.ovh.net (Postfix) with ESMTP id 34F19244D3
- for <alsa-devel@alsa-project.org>; Thu, 12 May 2022 19:14:29 +0000 (UTC)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1A9EBF8010B
+ for <alsa-devel@alsa-project.org>; Thu, 12 May 2022 21:14:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A9EBF8010B
+Received: from player691.ha.ovh.net (unknown [10.108.20.113])
+ by mo561.mail-out.ovh.net (Postfix) with ESMTP id 5111E2485F
+ for <alsa-devel@alsa-project.org>; Thu, 12 May 2022 19:14:36 +0000 (UTC)
 Received: from mesotic.com (82-65-23-224.subs.proxad.net [82.65.23.224])
  (Authenticated sender: dylan.laduranty@mesotic.com)
- by player691.ha.ovh.net (Postfix) with ESMTPSA id A18D62A832EF5;
- Thu, 12 May 2022 19:14:26 +0000 (UTC)
+ by player691.ha.ovh.net (Postfix) with ESMTPSA id 1C6F32A832F0C;
+ Thu, 12 May 2022 19:14:33 +0000 (UTC)
 Authentication-Results: garm.ovh; auth=pass
- (GARM-104R005e3ab9ef5-d3e5-4fca-9458-7b69d4340694,
+ (GARM-104R0050a86a382-aa0d-4168-b945-97230eabdd68,
  22B69E6227CD80ADC50F3962316E1959FFA6139C)
  smtp.auth=dylan.laduranty@mesotic.com
 X-OVh-ClientIp: 82.65.23.224
 From: Dylan Laduranty <dylan.laduranty@mesotic.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 1/2 v2] ASoC: ADAU7118: add bindings for managing pins drive
+Subject: [PATCH 2/2] dt-bindings: ADAU7118: add new entries for pins drive
  strength
-Date: Thu, 12 May 2022 21:13:51 +0200
-Message-Id: <20220512191352.15602-1-dylan.laduranty@mesotic.com>
+Date: Thu, 12 May 2022 21:13:52 +0200
+Message-Id: <20220512191352.15602-2-dylan.laduranty@mesotic.com>
 X-Mailer: git-send-email 2.17.1
-X-Ovh-Tracer-Id: 6670956952226483404
+In-Reply-To: <20220512191352.15602-1-dylan.laduranty@mesotic.com>
+References: <20220512191352.15602-1-dylan.laduranty@mesotic.com>
+X-Ovh-Tracer-Id: 6673208749986729164
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: 0
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvfedrgeejgddufedvucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucenucfjughrpefhvfevufffkffosedttdertdertddtnecuhfhrohhmpeffhihlrghnucfnrgguuhhrrghnthihuceougihlhgrnhdrlhgrughurhgrnhhthiesmhgvshhothhitgdrtghomheqnecuggftrfgrthhtvghrnheptedvhfffvddtjedtheevhfdvteevfeelkefgvdekfeetfefftdfggfefjeeltedunecukfhppedtrddtrddtrddtpdekvddrieehrddvfedrvddvgeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphhouhhtpdhhvghlohepphhlrgihvghrieeluddrhhgrrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpeguhihlrghnrdhlrgguuhhrrghnthihsehmvghsohhtihgtrdgtohhmpdhnsggprhgtphhtthhopedupdhrtghpthhtoheprghlshgrqdguvghvvghlsegrlhhsrgdqphhrohhjvggtthdrohhrgh
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvfedrgeejgddufedvucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucenucfjughrpefhvfevufffkffojghfsedttdertdertddtnecuhfhrohhmpeffhihlrghnucfnrgguuhhrrghnthihuceougihlhgrnhdrlhgrughurhgrnhhthiesmhgvshhothhitgdrtghomheqnecuggftrfgrthhtvghrnhepgeejgeejtdfhlefgkeegkeeihfevleduleettedufeehkeektdehgffhkeduvdfgnecukfhppedtrddtrddtrddtpdekvddrieehrddvfedrvddvgeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphhouhhtpdhhvghlohepphhlrgihvghrieeluddrhhgrrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpeguhihlrghnrdhlrgguuhhrrghnthihsehmvghsohhtihgtrdgtohhmpdhnsggprhgtphhtthhopedupdhrtghpthhtoheprghlshgrqdguvghvvghlsegrlhhsrgdqphhrohhjvggtthdrohhrgh
 Cc: Dylan Laduranty <dylan.laduranty@mesotic.com>, nuno.sa@analog.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -75,117 +78,71 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This allows users to change SDATA and both PDM clocks pins drive strength during device probing according to their need.
-
 Signed-off-by: Dylan Laduranty <dylan.laduranty@mesotic.com>
 ---
 
-Changes since v1: split new bindings and documentation into separate patches
+Changes since v1:
+Add description values table per new entries
 
- sound/soc/codecs/adau7118.c | 62 ++++++++++++++++++++++++++++++++++---
- 1 file changed, 58 insertions(+), 4 deletions(-)
+ .../bindings/sound/adi,adau7118.yaml          | 39 +++++++++++++++++++
+ 1 file changed, 39 insertions(+)
 
-diff --git a/sound/soc/codecs/adau7118.c b/sound/soc/codecs/adau7118.c
-index 841229dcbca1..18c1f246f911 100644
---- a/sound/soc/codecs/adau7118.c
-+++ b/sound/soc/codecs/adau7118.c
-@@ -29,6 +29,12 @@
- 				FIELD_PREP(ADAU7118_LRCLK_BCLK_POL_MASK, x)
- #define ADAU7118_SPT_SLOT_MASK		GENMASK(7, 4)
- #define ADAU7118_SPT_SLOT(x)		FIELD_PREP(ADAU7118_SPT_SLOT_MASK, x)
-+#define ADAU7118_DS_PDM_CLK0_MASK	GENMASK(1, 0)
-+#define ADAU7118_DS_PDM_CLK0(x)		FIELD_PREP(ADAU7118_DS_PDM_CLK0_MASK, x)
-+#define ADAU7118_DS_PDM_CLK1_MASK	GENMASK(3, 2)
-+#define ADAU7118_DS_PDM_CLK1(x)		FIELD_PREP(ADAU7118_DS_PDM_CLK1_MASK, x)
-+#define ADAU7118_DS_SDATA_MASK		GENMASK(5, 4)
-+#define ADAU7118_DS_SDATA(x)		FIELD_PREP(ADAU7118_DS_SDATA_MASK, x)
- #define ADAU7118_FULL_SOFT_R_MASK	BIT(1)
- #define ADAU7118_FULL_SOFT_R(x)		FIELD_PREP(ADAU7118_FULL_SOFT_R_MASK, x)
+diff --git a/Documentation/devicetree/bindings/sound/adi,adau7118.yaml b/Documentation/devicetree/bindings/sound/adi,adau7118.yaml
+index fb78967ee17b..226693ebd446 100644
+--- a/Documentation/devicetree/bindings/sound/adi,adau7118.yaml
++++ b/Documentation/devicetree/bindings/sound/adi,adau7118.yaml
+@@ -51,6 +51,42 @@ properties:
+       maximum: 1
+     default: [0, 0, 1, 1]
  
-@@ -489,7 +495,7 @@ static int adau7118_regulator_setup(struct adau7118_data *st)
- static int adau7118_parset_dt(const struct adau7118_data *st)
- {
- 	int ret;
--	u32 dec_ratio = 0;
-+	u32 val32 = 0;
- 	/* 4 inputs */
- 	u32 clk_map[4], regval;
- 
-@@ -497,9 +503,9 @@ static int adau7118_parset_dt(const struct adau7118_data *st)
- 		return 0;
- 
- 	ret = device_property_read_u32(st->dev, "adi,decimation-ratio",
--				       &dec_ratio);
-+				       &val32);
- 	if (!ret) {
--		switch (dec_ratio) {
-+		switch (val32) {
- 		case 64:
- 			regval = ADAU7118_DEC_RATIO(0);
- 			break;
-@@ -510,7 +516,7 @@ static int adau7118_parset_dt(const struct adau7118_data *st)
- 			regval = ADAU7118_DEC_RATIO(2);
- 			break;
- 		default:
--			dev_err(st->dev, "Invalid dec ratio: %u", dec_ratio);
-+			dev_err(st->dev, "Invalid dec ratio: %u", val32);
- 			return -EINVAL;
- 		}
- 
-@@ -537,6 +543,54 @@ static int adau7118_parset_dt(const struct adau7118_data *st)
- 			return ret;
- 	}
- 
-+	ret = device_property_read_u32(st->dev, "adi,pdm-clk0-ds",
-+					&val32);
-+	if (!ret) {
-+		if (val32 > 3) {
-+			dev_err(st->dev, "Invalid pdm-clk0-ds: %u", val32);
-+			return -EINVAL;
-+		}
++  adi,pdm-clk0-ds:
++    description: |
++      This property set the drive strength of PDM CLK0 output pad.
++      Possible values are: 0, 1, 2, 3 as per the following table:
++      0 = 2.5 mA / 3.3V
++      1 =   5 mA / 3.3V
++      2 =  10 mA / 3.3V
++      3 =  25 mA / 3.3V
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum: [3, 2, 1, 0]
++    default: 2
 +
-+		ret = regmap_update_bits(st->map,
-+					ADAU7118_REG_DRIVE_STRENGTH,
-+					ADAU7118_DS_PDM_CLK0_MASK,
-+					ADAU7118_DS_PDM_CLK0(val32));
-+		if (ret)
-+			return ret;
-+	}
++  adi,pdm-clk1-ds:
++    description: |
++      This property set the drive strength of PDM CLK1 output pad.
++      Possible values are: 0, 1, 2, 3 as per the following table:
++      0 = 2.5 mA / 3.3V
++      1 =   5 mA / 3.3V
++      2 =  10 mA / 3.3V
++      3 =  25 mA / 3.3V
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum: [3, 2, 1, 0]
++    default: 2
 +
-+	ret = device_property_read_u32(st->dev, "adi,pdm-clk1-ds",
-+					&val32);
-+	if (!ret) {
-+		if (val32 > 3) {
-+			dev_err(st->dev, "Invalid pdm-clk1-ds: %u", val32);
-+			return -EINVAL;
-+		}
++  adi,sdata-ds:
++    description: |
++      This property set the drive strength of SDATA output pad.
++      Possible values are: 0, 1, 2, 3 as per the following table:
++      0 = 2.5 mA / 3.3V
++      1 =   5 mA / 3.3V
++      2 =  10 mA / 3.3V
++      3 =  25 mA / 3.3V
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum: [3, 2, 1, 0]
++    default: 2
 +
-+		ret = regmap_update_bits(st->map,
-+					ADAU7118_REG_DRIVE_STRENGTH,
-+					ADAU7118_DS_PDM_CLK1_MASK,
-+					ADAU7118_DS_PDM_CLK1(val32));
-+		if (ret)
-+			return ret;
-+	}
-+
-+	ret = device_property_read_u32(st->dev, "adi,sdata-ds",
-+					&val32);
-+	if (!ret) {
-+		if (val32 > 3) {
-+			dev_err(st->dev, "Invalid sdata-ds: %u", val32);
-+			return -EINVAL;
-+		}
-+
-+		ret = regmap_update_bits(st->map,
-+					ADAU7118_REG_DRIVE_STRENGTH,
-+					ADAU7118_DS_SDATA_MASK,
-+					ADAU7118_DS_SDATA(val32));
-+		if (ret)
-+			return ret;
-+	}
-+
- 	return 0;
- }
+ required:
+   - "#sound-dai-cells"
+   - compatible
+@@ -73,6 +109,9 @@ examples:
+                 dvdd-supply = <&supply>;
+                 adi,pdm-clk-map = <1 1 0 0>;
+                 adi,decimation-ratio = <16>;
++                adi,pdm-clk0-ds = <3>;
++                adi,pdm-clk1-ds = <3>;
++                adi,sdata-ds = <3>;
+         };
+     };
  
 -- 
 2.17.1

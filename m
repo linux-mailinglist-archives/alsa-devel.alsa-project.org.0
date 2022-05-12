@@ -2,82 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B75852498B
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 May 2022 11:56:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EA36524A0E
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 May 2022 12:13:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C4F6F193A;
-	Thu, 12 May 2022 11:55:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4F6F193A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 087E51941;
+	Thu, 12 May 2022 12:12:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 087E51941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652349365;
-	bh=OIK0kZYBM7Gz/GythPSJ1p0v/c/x6YG4hX0YyPqJpIw=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1652350394;
+	bh=Oey5BXGPbf1OugkOQQFP+E2qKsEx1HsDDiLcia9Q0nQ=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QDlunKkeAb6q7woY5+k37A8FMpSUwsr5CujUGEVVVjnG4yllPf8DtzZPLGDUD7s+m
-	 cP3rgC92FArVCe5QjvmFbyecr+heUG7yc95PDAs8AspLHqjJxufd1cAlTxAXAbZpZG
-	 t6fAjKWdV1oSBkYYKBRDKbDpQBfePixz2tO5K8dE=
+	b=XYzqOZ0E/2S3wkbvcAmSoFEncPkHZKei0NVoHCljAvDrTrePrLqtsnU0//Sj74MSv
+	 o0FrwEivQLvND3hMlnmh7wWI53ZQkvQqPkU/2OVso6/6avmEoG63zgI4DuL7Mxeti8
+	 EpWRUAD2sQz34BfKy4fv8jnSdL28U/uCOxzbDecE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 48128F800BB;
-	Thu, 12 May 2022 11:55:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 551D3F800BB;
+	Thu, 12 May 2022 12:12:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C567CF800BB; Thu, 12 May 2022 11:55:05 +0200 (CEST)
+ id 93AEEF8010B; Thu, 12 May 2022 12:12:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 220D2F800BB
- for <alsa-devel@alsa-project.org>; Thu, 12 May 2022 11:55:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 220D2F800BB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 148F4F8010B
+ for <alsa-devel@alsa-project.org>; Thu, 12 May 2022 12:12:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 148F4F8010B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="TH7Xk7G6"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="M+u7rlAR"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id AA1AB1F8C9;
- Thu, 12 May 2022 09:55:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1652349302; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=mvsLWkdnsom47iYa6LwFEPqruONRlnQhyPnRuMzFJOA=;
- b=TH7Xk7G6VUrJaS08AkqlmKz3kC22fNGKCMTsbChPc0UZP2qQUQU6m5Gf5GXJiWqUKG6MvE
- tNhSC/chvXIkE7xUiNq3QCwU3tepyILE6jWuq3PW52Do8hCUW0EL5siwH80xHydg2iPMQl
- BFbvh92BusmQeyZjGYcNQG37aKE1YXs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1652349302;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=mvsLWkdnsom47iYa6LwFEPqruONRlnQhyPnRuMzFJOA=;
- b=M+u7rlARL2l5kjfm3Qx4O5UVSpUFet4OtNqc4mTWf1Shc+0yqADvOk9eEjRbM1g3sffZ3H
- cqeRR+pPJcsft+DA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 9E8662C141;
- Thu, 12 May 2022 09:55:02 +0000 (UTC)
-Date: Thu, 12 May 2022 11:55:02 +0200
-Message-ID: <s5htu9vdqix.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Daniel Kaehn <kaehndan@gmail.com>
-Subject: Re: [PATCH v7 0/2] Add generic serial MIDI driver using serial bus API
-In-Reply-To: <20220509145933.1161526-1-kaehndan@gmail.com>
-References: <20220509145933.1161526-1-kaehndan@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: robh@kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com,
- devicetree@vger.kernel.org
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="CA554f/a"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 75DC361BAD;
+ Thu, 12 May 2022 10:12:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6A62C385B8;
+ Thu, 12 May 2022 10:12:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1652350327;
+ bh=Oey5BXGPbf1OugkOQQFP+E2qKsEx1HsDDiLcia9Q0nQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=CA554f/a0F6olDd5UTIsirFcM+zB4aDqr5WhbIvwyyXkhDo/cP78AtprtqRVcB6SE
+ t8nV4m7RGgGWftGkF68aDKcbMf5U/OZc5CNeVrEk9Z3o54apQCf174PtjBWlgXcCiL
+ bSq7MWVkthCDAb8M3WaF5NHejiC1jI+HBi4nCTGXJt3yndCr75vh20YZS8jOznoZLX
+ DaSxGg7VBWrJ5ANPRN8L62JZ3ZnGZ0oGXLOVF1H0JmSLzknEtPAgRskKVAI2jvMFtj
+ d6h/AbatCH6+SGyMzGXnMLvXQZco74bNhdsPrCcFex72baicEk+xGqD84Jq3Ad7lkt
+ 8mQ5TQC7dpVrQ==
+Date: Thu, 12 May 2022 11:12:02 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Tommaso Merciai <tommaso.merciai@amarulasolutions.com>
+Subject: Re: [PATCH] ASoC: max98088: add support for reg_4a_cfg_bypass reg
+Message-ID: <YnzdcubW7m+CwnvN@sirena.org.uk>
+References: <20220512074359.446999-1-tommaso.merciai@amarulasolutions.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="Rk/8LQJNy9MPTC4G"
+Content-Disposition: inline
+In-Reply-To: <20220512074359.446999-1-tommaso.merciai@amarulasolutions.com>
+X-Cookie: Oh, wow!  Look at the moon!
+Cc: alsa-devel@alsa-project.org, linux-amarula@amarulasolutions.com,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linuxfancy@googlegroups.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,83 +88,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 09 May 2022 16:59:31 +0200,
-Daniel Kaehn wrote:
-> 
-> Generic serial MIDI driver adding support for using serial devices
-> compatible with the serial bus as raw MIDI devices, allowing using
-> additional serial devices not compatible with the existing
-> serial-u16550 driver. Supports only setting standard serial baudrates on
-> the underlying serial device; however, the underlying serial device can
-> be configured so that a requested 38.4 kBaud is actually the standard MIDI
-> 31.25 kBaud. Supports DeviceTree configuration.
-> 
-> Changes in v7:
-> - Separate examples in dt-binding to remove need to specify unit name
->     (fixing dt_binding_check error)
-> 
-> Changes in v6:    
-> - Change compatible "serialmidi" -> serial-midi" 
-> - Default current-speed to 38400 (closest baud to MIDI standard speed) 
-> - Appropriately stop reading or writing MIDI if input or output
->     _trigger() is called with a parameter of zero, respectively 
-> - Zero out corresponding triggered state on close to ensure input and
->     output closing results in the serial port being closed 
-> - Fix order of operations in _probe() 
-> - Remove "DEBUG" literal from debug messages
-> - Remove unused dt-parsing patch checking for existence of node
-> - Whitespace / tabbing fixes / improvements
-> 
-> Changes in v5:
-> - Reword description in dt-binding for clarity
-> - Change 'speed' dt property to standard 'current-speed'
-> - Move MIDI output loop onto workqueue (since this could loop quite a while,
->     if ALSA provides a continuous stream of bytes)
-> - Add tx_state bit flags to snd_serial_generic struct
-> - Safegard critical section in tx_work with atomic bit ops on tx_state
-> - Switch operations on filemode to use atomic bit ops
-> 
-> Changes in v4:
-> - Fix regressed typo - Correct 3.84 kBaud -> 38.4 kBaud in DT & Kconfig
->   (sorry about spam - noticed after sending v3 and didn't want to let
->   the error sit around for too long)
-> 
-> Changes in v3:
-> - Replace use of snd_printk() with dev_* alternatives
-> - Removed unnecessary initialization of err variables
-> - Replaced instances of `== SERIAL_MODE_NOT_OPENED` with zero check
-> - Loop on output_write to completely fill output buffer if data available
-> - Depend on CONFIG_OF in Kconfig
-> - Replace use of devm_kzalloc() with extra_size allocation in snd_devm_card_new()
-> - Use module_serdev_device_driver() instead of module_init() and module_exit(0)
-> 
-> Changes in v2:
-> - Fix 'snd_serial_generic_write_wakeup' missing static keyword 
-> - Correct 3.125 kBaud > 31.25 kBaud in documentation for MIDI         
-> 
-> 
-> The need for this driver arose from a project using a Raspberry Pi4 which
-> needed to receive and send raw MIDI with low latency. The pl011 UART
-> used is not compatible with the existing serial MIDI driver made for
-> u16550-style devices. Using a userspace program such as ttymidi to feed
-> input from the TTY device to a virtual ALSA MIDI device was functional,
-> but not ideal.
-> 
-> I am not sure if a MIDI driver needing the mentioned 'hack' to clock
-> 38.4 kBaud down to the standard MIDI baud is permissible in the mainline
-> kernel, but am submitting nevertheless in case it is useful. To my knowledge,
-> it doesn't seem that there would be any way for this driver to manually
-> configure a serial port to 31.25 kBaud using the serial bus API (please 
-> correct me f I'm wrong). In my use case, I am actually configuring one port
-> to run at 115.2 kBaud for faster communication with a custom onboard MIDI controller.
-> 
-> Daniel Kaehn (2):
->   dt-bindings: sound: Add generic serial MIDI device
->   Add generic serial MIDI driver using serial bus API
 
-Now applied both patches to for-next branch.
+--Rk/8LQJNy9MPTC4G
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+On Thu, May 12, 2022 at 09:43:58AM +0200, Tommaso Merciai wrote:
 
-thanks,
+> Add mixer controls support for M98088_REG_4A_CFG_BYPASS register
 
-Takashi
+> +++ b/sound/soc/codecs/max98088.c
+> @@ -486,6 +486,11 @@ static const struct snd_kcontrol_new max98088_snd_co=
+ntrols[] =3D {
+>         SOC_SINGLE("EQ1 Switch", M98088_REG_49_CFG_LEVEL, 0, 1, 0),
+>         SOC_SINGLE("EQ2 Switch", M98088_REG_49_CFG_LEVEL, 1, 1, 0),
+> =20
+> +       SOC_SINGLE("SPK Bypass Switch", M98088_REG_4A_CFG_BYPASS, 0, 1, 0=
+),
+> +       SOC_SINGLE("REC Bypass Switch", M98088_REG_4A_CFG_BYPASS, 1, 1, 0=
+),
+> +       SOC_SINGLE("MIC2 Bypass Switch", M98088_REG_4A_CFG_BYPASS, 4, 1, =
+0),
+> +       SOC_SINGLE("INA Bypass Switch", M98088_REG_4A_CFG_BYPASS, 7, 1, 0=
+),
+
+These look like they should be DAPM controls since they're controlling
+audio routing but they're being added as regular controls.
+
+--Rk/8LQJNy9MPTC4G
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJ83XEACgkQJNaLcl1U
+h9B8ngf+PqafSiaHQZbAhE4xWyxrNCZE8LZdLVxT4EoKR0laiFWL/7SXyI7tdfRl
+KK9c0GvCubb9MbNPl3lhFmsPutwnNGpfZmG9JQt3DNcPuyyubB9AJAxq2QUQkIPr
+buGHa5C3sFvBgWK7s/tkbSiZRvAYDCYlNZULXD27e8l02qUUK/H5QH9ZB+6EM+j5
+n/y4IGIU8FfioDS52UQE11f/lEaRG/arItQ8QYbdBEKOInA+Vm3eCu54j+nLknjr
+zBnkr+920iw3UdzBNIasCDnzF2oW5W5tMGWvZEDT8QuQnwGDVuRvkajAylFn+PkE
+BbRJ2CENvy9DMpzy5+Wg4RJVTUTuuA==
+=emk8
+-----END PGP SIGNATURE-----
+
+--Rk/8LQJNy9MPTC4G--

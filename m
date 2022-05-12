@@ -2,77 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 633855252A4
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 May 2022 18:33:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66F2952546F
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 May 2022 20:07:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F2BF41AD7;
-	Thu, 12 May 2022 18:32:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2BF41AD7
+	by alsa0.perex.cz (Postfix) with ESMTPS id EDD7E1ACD;
+	Thu, 12 May 2022 20:06:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EDD7E1ACD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652373226;
-	bh=h9Kzf5/SsxRvY1gZjEU/igSn6fpGqPvspFpuVtnK7kg=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1652378833;
+	bh=83vUfm3ZikxPpHjFp109l55fFYJKEUuIno5M1ZN/WrI=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LbhDQWb0duqjaZy73vEHfscVoNsYdNAPHsFGZLUwUdK6D9oWOK9vj+CNgLvgz9dZN
-	 uloJH5FnWHZKHLbwLtLrqrL/w4vRLF9jpe9zoFvDG4VjZuusO/XDieDeH2etYt0VB3
-	 UJvcZxw+oV5eSoNm8dkA/Ix2OBJif/2TOIrwoU08=
+	b=HPu8XKLEkba/RqecdF6BZkkIxwISwU9L01vUZzSZOdUl6oSCpvlbpiGIyi5H7c8rV
+	 WbT2CyKZw4WKWchDAungzJnUSiSfCb+hL92fwZaQoCg5PzKSq6GpqZtjZZgOXhK2R7
+	 03qRRFLV+LDaC2ycgRHL8J/O142cVJDUXeDduTow=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 179CCF80510;
-	Thu, 12 May 2022 18:32:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 66E88F80154;
+	Thu, 12 May 2022 20:06:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 09CA6F80254; Thu, 12 May 2022 18:32:01 +0200 (CEST)
+ id C06CDF80245; Thu, 12 May 2022 20:06:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 54743F80254;
- Thu, 12 May 2022 18:31:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54743F80254
+ by alsa1.perex.cz (Postfix) with ESMTPS id 34537F800BB
+ for <alsa-devel@alsa-project.org>; Thu, 12 May 2022 20:06:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34537F800BB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="rTvb2kyn"
+ header.b="RvsSdlLp"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9D8AE61FD7;
- Thu, 12 May 2022 16:31:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF14DC385B8;
- Thu, 12 May 2022 16:31:52 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id DD6D9B82A74;
+ Thu, 12 May 2022 18:06:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFAFCC385B8;
+ Thu, 12 May 2022 18:06:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1652373115;
- bh=h9Kzf5/SsxRvY1gZjEU/igSn6fpGqPvspFpuVtnK7kg=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=rTvb2kyn7eb/9ukf8eciK2lLPwcjnxvnLxM9dpZrft3IfljA2cbtJluyjuT1n1jMH
- Vs5Z4tv+Rd2RZrxL7VXxSkWZ4BaBTUlRRlSE5dG4xrPlZDH5cbEYevBxXMCyayeVBR
- oNUTzQbIH59naXSQ6qj7RePOy56WOl9xIpp34+pKlUKS1sp1GCAHunQUjRI/PBidi7
- k+Hv3ggAN//z0IzCVH8Job6hYYLQWQcKYjS+otsDnTMTx5gI4hoaAHeMlFK3oWoEY+
- BwC2p8UaLodULQvI4znXS1LHvZqvdXSKPGJu8379wV0PW19mYGDNgIIgiLd6xSBQ8x
- 46WYRbHyyoYew==
+ s=k20201202; t=1652378766;
+ bh=83vUfm3ZikxPpHjFp109l55fFYJKEUuIno5M1ZN/WrI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=RvsSdlLp6edX0R2ymP2p1B++RKmfgzVI6zVB2AdeTG1rSpp4vvMhO0Cq94XCEGVM7
+ 16IEtXt/01gClQBGV8Yn5+i8dAEpiFsN7tZJavAXUGX6AlTlfyDBnZRDhg35eoHRJ5
+ NfEqF0JIIwUD8pM+j/wKSTh5DIjZeK7cts2G0lsfg0MeO4yPaekwQUpAPhVkEo9wR/
+ aXwAVrMgZ2wOzWtCOMyITv+arL8VkuUz35htwm+6HAgjZWdGZVEj5+Ahnq+BM5jwqP
+ LwLbU0ccs1QgIC7fMymciBOHCnhyFyWd+XItpdaHrClNx98N2U5p/wl2VrL/YRRSHl
+ 49o5I8CXtqYyw==
+Date: Thu, 12 May 2022 19:06:01 +0100
 From: Mark Brown <broonie@kernel.org>
-To: pierre-louis.bossart@linux.intel.com, kai.vehmanen@linux.intel.com,
- ranjani.sridharan@linux.intel.com, tiwai@suse.com, zhengbin13@huawei.com,
- linux-kernel@vger.kernel.org, daniel.baluta@nxp.com,
- alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- sound-open-firmware@alsa-project.org, perex@perex.cz
-In-Reply-To: <20220512013728.4128903-1-zhengbin13@huawei.com>
-References: <20220512013728.4128903-1-zhengbin13@huawei.com>
-Subject: Re: [PATCH -next] ASoC: SOF: amd: add missing
- platform_device_unregister in acp_pci_rn_probe
-Message-Id: <165237311250.1053236.5667344558272155246.b4-ty@kernel.org>
-Date: Thu, 12 May 2022 17:31:52 +0100
+To: V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
+Subject: Re: [PATCH 1/2] Revert "ASoC: amd: acp: Set gpio_spkr_en to None for
+ max speaker amplifer in machine driver"
+Message-ID: <Yn1MiX/Ie3SJg733@sirena.org.uk>
+References: <20220512154023.1185311-1-Vsujithkumar.Reddy@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: gaochao49@huawei.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="XRdbk5RIeb/De7+r"
+Content-Disposition: inline
+In-Reply-To: <20220512154023.1185311-1-Vsujithkumar.Reddy@amd.com>
+X-Cookie: Oh, wow!  Look at the moon!
+Cc: alsa-devel@alsa-project.org, Sunil-kumar.Dommati@amd.com,
+ Basavaraj.Hiregoudar@amd.com, ajitkumar.pandey@amd.com,
+ Vijendar.Mukunda@amd.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,36 +88,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 12 May 2022 09:37:28 +0800, Zheng Bin wrote:
-> acp_pci_rn_probe misses a call platform_device_unregister in error path,
-> this patch fixes that.
-> 
-> 
 
-Applied to
+--XRdbk5RIeb/De7+r
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Thu, May 12, 2022 at 09:10:22PM +0530, V sujith kumar Reddy wrote:
+> RT1019 codec has two ways of controlling the en_spkr.
+> one way is controlling through gpio pin method the another way is through=
+ codec register update.
+>=20
+> Now Speaker enable/disable is controlled  through register update in BIOS.
+> So this patch reverse gpio logic, which is no longer in use.
 
-Thanks!
+Surely this needs to be keyed off BIOS version otherwise we'll break
+things for systems where the user hasn't updated their BIOS?
 
-[1/1] ASoC: SOF: amd: add missing platform_device_unregister in acp_pci_rn_probe
-      commit: cbcab8cd737c74c20195c31d647e19f7cb49c9b8
+Please submit patches using subject lines reflecting the style for the
+subsystem, this makes it easier for people to identify relevant patches.
+Look at what existing commits in the area you're changing are doing and
+make sure your subject lines visually resemble what they're doing.
+There's no need to resubmit to fix this alone.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+--XRdbk5RIeb/De7+r
+Content-Type: application/pgp-signature; name="signature.asc"
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+-----BEGIN PGP SIGNATURE-----
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJ9TIgACgkQJNaLcl1U
+h9CLpQf+Lhj94+VvxLgNWw1WXO8prMykqoePk0vwe0mGpV/LE7ggzbAq4vyGqvU7
+usn/3CHfVhy21WDvU3MTl9Jwm/NclV2SgfYePB9ALJ1mPhJLvBnqOViNfVv8L54G
+3chRQbgVvjVMKbsdV/8xRX/xkVT/pHnrCCQSwOBVV72fcKXqd+3SWi3/5AZKfwE4
+nSL+JiYWtI6kMpoXsIyPN8XhXFm6UnMDKRNMLeHj+WYgLw6SS5rl63xzyE6erapL
+Uknw1G7nY8mrT4K7V29m38Yru0WMKaDXpIqZyJE14NZcZ+uKoeMK7uJCAenxdyGp
+p7mYwOP05Mvnfnyxe7zsdIj6IYRv4w==
+=FzUd
+-----END PGP SIGNATURE-----
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+--XRdbk5RIeb/De7+r--

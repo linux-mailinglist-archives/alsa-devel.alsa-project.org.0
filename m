@@ -2,78 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B965D524ADA
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 May 2022 12:54:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 853D0524B31
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 May 2022 13:14:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4583718D8;
-	Thu, 12 May 2022 12:53:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4583718D8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 198341813;
+	Thu, 12 May 2022 13:13:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 198341813
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652352858;
-	bh=LCPGdta7p+6aXKFPfhnyvHZTQKRdcvBKmz+5TOPyuVc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=vNKGiUX+7PQAXHlGxWgBYKc8TEhgoeKn9/ZmlT04Roiz/XBXXsYw5nyYpFZx6Cq9l
-	 tCrjshH/n+GXKYZBi3cL21nx45qEnvIvKK/rxWgU460T3rGp4WkcE3AcCPjJOoCDi6
-	 Zrlo8ARjTj6Hn1sip0mM0D1sPEBNgFLAJJWy7GsY=
+	s=default; t=1652354089;
+	bh=q04d+jmNMnk7ULsUl1WXDV2r6WtI22zlROXQ2Ij+rVE=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Yf1cXMbONbKhQvLmOGovtwg4oTQvJwEPzn2/gP+MtGC14C9AxIznutXU0bQMOZBYX
+	 Q98Xte7RkYJsGzKsXSDmcSQc4PKnT9XLhONXolRqXMRVqHXEQQNalp1Zw1XvsEvBz4
+	 i83HgZOJmLTeAcRgtY9kkGDpsEsvTySnwhrD6utU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A9CC9F8011C;
-	Thu, 12 May 2022 12:53:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8F8B4F80154;
+	Thu, 12 May 2022 13:13:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B364FF80245; Thu, 12 May 2022 12:53:17 +0200 (CEST)
+ id 484C9F80245; Thu, 12 May 2022 13:13:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-pf1-x433.google.com (mail-pf1-x433.google.com
+ [IPv6:2607:f8b0:4864:20::433])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 57363F8011C
- for <alsa-devel@alsa-project.org>; Thu, 12 May 2022 12:53:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57363F8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6CB7BF8010B
+ for <alsa-devel@alsa-project.org>; Thu, 12 May 2022 13:13:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6CB7BF8010B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="gAd2qfIU"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id AC8B561DD0;
- Thu, 12 May 2022 10:53:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6243FC385CB;
- Thu, 12 May 2022 10:53:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1652352792;
- bh=LCPGdta7p+6aXKFPfhnyvHZTQKRdcvBKmz+5TOPyuVc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=gAd2qfIUiXBmaRgfEgtCQahrXW6XIgCGFsV21I2lVUtQGFTbzaAM09z4NYekEmOsm
- /L29phErbXupFGBYVkRPJ5dFWNctHOxu3lToissjFtRnJpksDOCFnb3+7tP9NzMo75
- rRT4Kg8v21UZTibd+gQjZVC0Dud9qQUXslFFYFnztzr0TawxejiX+773/CtPnqh2OO
- 9IHNikr53Yom2cEsp59d3gepLYO3njzn1fTadKSjbVtFFwV86UMntXVvaH4LDydwJ3
- A8ZWebclliFzSI8SS0NqlGidLU1Aj8X2F7fIx7bzMs3JVx2tEK7P/DC3kM58wy+ptG
- KhirY3FY/8psA==
-Date: Thu, 12 May 2022 11:53:07 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Tommaso Merciai <tommaso.merciai@amarulasolutions.com>
-Subject: Re: [PATCH] ASoC: max98088: add support for reg_4a_cfg_bypass reg
-Message-ID: <YnznExLDOvRpXNVh@sirena.org.uk>
-References: <20220512074359.446999-1-tommaso.merciai@amarulasolutions.com>
- <YnzdcubW7m+CwnvN@sirena.org.uk>
- <20220512104642.GD649073@tom-ThinkPad-T14s-Gen-2i>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="TWkDoQms"
+Received: by mail-pf1-x433.google.com with SMTP id x52so4462244pfu.11
+ for <alsa-devel@alsa-project.org>; Thu, 12 May 2022 04:13:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=3SloLfFU8a1Q2HMNHKnLwbt6pwT6BUy9sQ/8OgycCqI=;
+ b=TWkDoQms83WKpuzTNBdzKvhoODw/n2DKAB8PkH+WiozWmeNSuyjVm2KbSvtlMzMYCU
+ 5AfE9yC2bc67wnsu2Z8Vv8u3Af/Zzx8mURws2tXG8nDAjzY6OYZb425+fGXR8DRY6LPV
+ arSq90SoYNx+KnlokAVjO1vz4A8Wz87mIQWyEvLOI0UCBfKL3NQt1u4ln6YGym9EIWej
+ ZiFRbwxPQChV0Bb8ZVLe4FQO06jNZD9Af123ar9N0qMbNk8LMocN60z3oQCYCpzAJx63
+ imffSCEagiv0jJexube7LgHVJAdDYLcQEPa9aMbEngNzcN1tzHa0Q3mPlseKS7bfJkgZ
+ X4BQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=3SloLfFU8a1Q2HMNHKnLwbt6pwT6BUy9sQ/8OgycCqI=;
+ b=bJgD5fdzek34uMKX0c1f5c97g+3vfKTBjpOhuiJgHWuYiSVNeAjsnVFLhqvZg9r7Sq
+ inIrRR3b4hGgNqmFoQE3EYQU91zOyJpSE3iWoTgcpHzVAY3AOdTaiAecqiqyCeQTf8Ji
+ lvtGuPj23qyzeGLV3gi/iSS5c3mbgHLoJ1g+SpzdaT6sNuvTaU/Uskh5uinXzNYvNIc1
+ nDn0F/QkB4Nyts7/79xwCa9aisIzxpgU1FDFpUstM0yX2qiXEGzX2+Ws3RLlJ9xehx/b
+ wRtnZuAkt0se6P0oAUW2036yQf3YTuPJ6Hzkq/Rq7YcRyiXy7eDsvhfl8nRKiOVG40qc
+ 22eQ==
+X-Gm-Message-State: AOAM530D8vP8deXaf+C1SvHNGGuwrqAaIZ+ZY6CC2PFcBYPSglxuaMvR
+ bc1EX6eDihOA6vS2H6ik4Jk=
+X-Google-Smtp-Source: ABdhPJy/350N6jJC6Z1dMu9/mg4+Nu0BAcptLFnUjKHPNCWQopVS3tO4EUk5mkrlt09q3p5haIZgow==
+X-Received: by 2002:a05:6a00:b87:b0:510:5e02:79f1 with SMTP id
+ g7-20020a056a000b8700b005105e0279f1mr29558222pfj.80.1652354019644; 
+ Thu, 12 May 2022 04:13:39 -0700 (PDT)
+Received: from localhost.localdomain ([202.120.234.246])
+ by smtp.googlemail.com with ESMTPSA id
+ c3-20020a170902724300b0015e8d4eb20esm3605859pll.88.2022.05.12.04.13.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 May 2022 04:13:39 -0700 (PDT)
+From: Miaoqian Lin <linmq006@gmail.com>
+To: Peter Ujfalusi <peter.ujfalusi@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: ti: j721e-evm: Fix refcount leak in j721e_soc_probe_*
+Date: Thu, 12 May 2022 15:13:30 +0400
+Message-Id: <20220512111331.44774-1-linmq006@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="CKVB2CjTPqpFtP1S"
-Content-Disposition: inline
-In-Reply-To: <20220512104642.GD649073@tom-ThinkPad-T14s-Gen-2i>
-X-Cookie: Oh, wow!  Look at the moon!
-Cc: alsa-devel@alsa-project.org, linux-amarula@amarulasolutions.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linuxfancy@googlegroups.com, linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+Cc: linmq006@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,44 +101,127 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+of_parse_phandle() returns a node pointer with refcount
+incremented, we should use of_node_put() on it when not needed anymore.
+Add missing of_node_put() to avoid refcount leak.
 
---CKVB2CjTPqpFtP1S
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Fixes: 6748d0559059 ("ASoC: ti: Add custom machine driver for j721e EVM (CPB and IVI)")
+Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
+---
+ sound/soc/ti/j721e-evm.c | 44 ++++++++++++++++++++++++++++++----------
+ 1 file changed, 33 insertions(+), 11 deletions(-)
 
-On Thu, May 12, 2022 at 12:46:42PM +0200, Tommaso Merciai wrote:
-> On Thu, May 12, 2022 at 11:12:02AM +0100, Mark Brown wrote:
+diff --git a/sound/soc/ti/j721e-evm.c b/sound/soc/ti/j721e-evm.c
+index 4077e15ec48b..6a969874c927 100644
+--- a/sound/soc/ti/j721e-evm.c
++++ b/sound/soc/ti/j721e-evm.c
+@@ -630,17 +630,18 @@ static int j721e_soc_probe_cpb(struct j721e_priv *priv, int *link_idx,
+ 	codec_node = of_parse_phandle(node, "ti,cpb-codec", 0);
+ 	if (!codec_node) {
+ 		dev_err(priv->dev, "CPB codec node is not provided\n");
+-		return -EINVAL;
++		ret = -EINVAL;
++		goto put_dai_node;
+ 	}
+ 
+ 	domain = &priv->audio_domains[J721E_AUDIO_DOMAIN_CPB];
+ 	ret = j721e_get_clocks(priv->dev, &domain->codec, "cpb-codec-scki");
+ 	if (ret)
+-		return ret;
++		goto put_codec_node;
+ 
+ 	ret = j721e_get_clocks(priv->dev, &domain->mcasp, "cpb-mcasp-auxclk");
+ 	if (ret)
+-		return ret;
++		goto put_codec_node;
+ 
+ 	/*
+ 	 * Common Processor Board, two links
+@@ -650,8 +651,10 @@ static int j721e_soc_probe_cpb(struct j721e_priv *priv, int *link_idx,
+ 	comp_count = 6;
+ 	compnent = devm_kzalloc(priv->dev, comp_count * sizeof(*compnent),
+ 				GFP_KERNEL);
+-	if (!compnent)
+-		return -ENOMEM;
++	if (!compnent) {
++		ret = -ENOMEM;
++		goto put_codec_node;
++	}
+ 
+ 	comp_idx = 0;
+ 	priv->dai_links[*link_idx].cpus = &compnent[comp_idx++];
+@@ -702,6 +705,12 @@ static int j721e_soc_probe_cpb(struct j721e_priv *priv, int *link_idx,
+ 	(*conf_idx)++;
+ 
+ 	return 0;
++
++put_codec_node:
++	of_node_put(codec_node);
++put_dai_node:
++	of_node_put(dai_node);
++	return ret;
+ }
+ 
+ static int j721e_soc_probe_ivi(struct j721e_priv *priv, int *link_idx,
+@@ -726,23 +735,25 @@ static int j721e_soc_probe_ivi(struct j721e_priv *priv, int *link_idx,
+ 	codeca_node = of_parse_phandle(node, "ti,ivi-codec-a", 0);
+ 	if (!codeca_node) {
+ 		dev_err(priv->dev, "IVI codec-a node is not provided\n");
+-		return -EINVAL;
++		ret = -EINVAL;
++		goto put_dai_node;
+ 	}
+ 
+ 	codecb_node = of_parse_phandle(node, "ti,ivi-codec-b", 0);
+ 	if (!codecb_node) {
+ 		dev_warn(priv->dev, "IVI codec-b node is not provided\n");
+-		return 0;
++		ret = 0;
++		goto put_codeca_node;
+ 	}
+ 
+ 	domain = &priv->audio_domains[J721E_AUDIO_DOMAIN_IVI];
+ 	ret = j721e_get_clocks(priv->dev, &domain->codec, "ivi-codec-scki");
+ 	if (ret)
+-		return ret;
++		goto put_codecb_node;
+ 
+ 	ret = j721e_get_clocks(priv->dev, &domain->mcasp, "ivi-mcasp-auxclk");
+ 	if (ret)
+-		return ret;
++		goto put_codecb_node;
+ 
+ 	/*
+ 	 * IVI extension, two links
+@@ -754,8 +765,10 @@ static int j721e_soc_probe_ivi(struct j721e_priv *priv, int *link_idx,
+ 	comp_count = 8;
+ 	compnent = devm_kzalloc(priv->dev, comp_count * sizeof(*compnent),
+ 				GFP_KERNEL);
+-	if (!compnent)
+-		return -ENOMEM;
++	if (!compnent) {
++		ret = -ENOMEM;
++		goto put_codecb_node;
++	}
+ 
+ 	comp_idx = 0;
+ 	priv->dai_links[*link_idx].cpus = &compnent[comp_idx++];
+@@ -816,6 +829,15 @@ static int j721e_soc_probe_ivi(struct j721e_priv *priv, int *link_idx,
+ 	(*conf_idx)++;
+ 
+ 	return 0;
++
++
++put_codecb_node:
++	of_node_put(codecb_node);
++put_codeca_node:
++	of_node_put(codeca_node);
++put_dai_node:
++	of_node_put(dai_node);
++	return ret;
+ }
+ 
+ static int j721e_soc_probe(struct platform_device *pdev)
+-- 
+2.25.1
 
-> > These look like they should be DAPM controls since they're controlling
-> > audio routing but they're being added as regular controls.
-
-> Sorry again. You suggest to create a new structure for these entries,
-> for example:
-
-> /* Out Bypass mixer switch */
-> static const struct snd_kcontrol_new max98088_out_bypass_mixer_controls[] = {
->        SOC_DAPM_SINGLE("INA Switch", M98088_REG_4A_CFG_BYPASS, 7, 1, 0),
->        SOC_DAPM_SINGLE("MIC2 Switch", M98088_REG_4A_CFG_BYPASS, 4, 1, 0),
->        SOC_DAPM_SINGLE("REC Switch", M98088_REG_4A_CFG_BYPASS, 1, 1, 0),
->        SOC_DAPM_SINGLE("SPK Switch", M98088_REG_4A_CFG_BYPASS, 0, 1, 0),
-> };
-
-If that's how they fit into the routing for the device, yes - you'd need
-to define the bypass mixer as well and set up appropraite routes.
-
---CKVB2CjTPqpFtP1S
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmJ85xIACgkQJNaLcl1U
-h9DvDwf/e+ofKzwgZXoBDaBr7aGL0BNyy6uJeFn8xgNBBkoMYpIVAOtd/mjeCq59
-iJnxneFalVb7PAaICPVnVHiMmhM99HdY+PHzexxB/Ep0edkqvyvKzto0It8agD2i
-FUw/1u/JG60D1NWq7csC/aGzWEdznAat+unlmdMUmNpG+gM+gQyJmvUbLMmD2fAS
-pUo9WARMg+63ufOfpYSkKKnHcZD4NlBW/QM3yxt6PcOCDxOufmdg0YbWzFEnSgZe
-5/gTDDJQ5fORpmV/qlT5kYudiGjmNuG9fZOjd2Uu3Qx8cgrYXI0jRlOIlRsI0UP/
-M4V/w2MBcHZgULbvfttopdB4/Gj9hQ==
-=MmmH
------END PGP SIGNATURE-----
-
---CKVB2CjTPqpFtP1S--

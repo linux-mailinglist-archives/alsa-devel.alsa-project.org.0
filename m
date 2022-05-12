@@ -2,92 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35446524465
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 May 2022 06:39:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8ADE8524478
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 May 2022 06:47:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B72DD193B;
-	Thu, 12 May 2022 06:38:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B72DD193B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 20C0D1A5F;
+	Thu, 12 May 2022 06:46:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 20C0D1A5F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652330389;
-	bh=Ne0k6j4b2Yrrxec+DtVh+mShOwGUQe6Y7G1fKBvUrPA=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=LzzMBoDsoNvGoXf7DpkViEWjQKyl9inp2INJKdGHq7rb6e+bcyfQpOG0+W3Nm9FVa
-	 aHfdB6qT9QfXKOIZSE6O3QHiWWv9OW3EJ48iv1wcWef4u1pTd4HfcnkjgClN9ruXPc
-	 9GQxHd3trZcarwxUD3gMAe04zVNzj6Z2SEjzabJc=
+	s=default; t=1652330841;
+	bh=WknkTJ0paq5rZ6uDN0mLPKhj0sET5smcWr7emDkbkAM=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=LV9V5v1cJgI2reZF4FzsCulruDIuDpjZ6oO4lYZXOqe0/EqpkOrJP5fgquix7X2ro
+	 fqHHycMaZUUm0l/SXbxE87gTpWwm9olYeEDQeltB7+0desIeqzvhD/S7Fn5jziO60s
+	 09a7+8SGlwFYZiPILFvC0LUBMjw+eW000yL0om7o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 33E31F80249;
-	Thu, 12 May 2022 06:38:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9E39EF80249;
+	Thu, 12 May 2022 06:46:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2258FF8010B; Thu, 12 May 2022 06:38:48 +0200 (CEST)
+ id 7FC2AF80245; Thu, 12 May 2022 06:46:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com
- [IPv6:2607:f8b0:4864:20::1030])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6BA50F8010B
- for <alsa-devel@alsa-project.org>; Thu, 12 May 2022 06:38:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BA50F8010B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="ndNUfPvV"
-Received: by mail-pj1-x1030.google.com with SMTP id iq10so4124209pjb.0
- for <alsa-devel@alsa-project.org>; Wed, 11 May 2022 21:38:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=qeatecpI5VBsmshnC6au00bIeak7l+cm/LdiNwjT/c0=;
- b=ndNUfPvViUWmtHv/CwYTGkFHMtGEOJ8yY5z5NK+5vl7ANwwIpU/KiLEnlBjaT/AFVX
- thndiuRJZy5kMs6BnRW7N1Xc7Einl3HPYGHoYa2mWJqsi+B5RkyMKwGFprJ+NYeiuLth
- Rpz8h11jpfxHuiyQw05812e2fT2Rl6i02d7lwQaC07tva+Trzy4lioTO6YKC+yQd7Iq4
- sViqW+VLFl9eM+4GPuVH9wL4S64LbBsHSLOHkQa62KQ5r0Gsf69xoe/yfRSNQf6JJlIp
- qO8xSBC0K/gJUoPSL4TejJPtehuSQ7lpZIMxTkTkwPQLMWXNd2/4dI8hpHw+y+8bbJ2V
- VvJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=qeatecpI5VBsmshnC6au00bIeak7l+cm/LdiNwjT/c0=;
- b=uEk2U3wIlNP/1JjoDy8aZ9jxKG2GScyPRBJkM9+tKncujV1doSl8E+R7OU1BtFbinV
- 0FSOtzOS1gssSbi5JxYNiXSen/Z5ZZ0B+JqzDuhK+ChMzglA37lEmEhG4xdoLYnwyn+r
- U5v0CRtum3MwI4568uTqVSwCXPWJwjZ4RRUGAMn/cplsSlf63iEsrUak9gdCS2jwCkk0
- K5yp5svyT9hyJE7VpzToJh/8Bzt6Z2x+ITQPbXh4YT5TvKQ/bL0o/xjBS3hGSy3t2XMh
- 4tm/BDWHGPrm/KjoFyLFV7nIRxLBj4AFmKNh3Q3/W+fFuP8PeAfLq1X1AoMpF/zHG2qv
- TshQ==
-X-Gm-Message-State: AOAM532EQ84Wjo7k6lJhEiW543YM9acP5oNwwc+iH6STq79n+AhabdgH
- hok+/E893IBahBnz7ZvCHXI=
-X-Google-Smtp-Source: ABdhPJxAVJ1FIYvRsnYjOBa/CyoO2jvWFCUmu+eGDJ0Ftz3NpcBnK2gsn0/MPoUBnks7zZsYB7vK3g==
-X-Received: by 2002:a17:90b:1d03:b0:1dc:f0d0:f165 with SMTP id
- on3-20020a17090b1d0300b001dcf0d0f165mr8963314pjb.25.1652330318461; 
- Wed, 11 May 2022 21:38:38 -0700 (PDT)
-Received: from localhost.localdomain ([202.120.234.246])
- by smtp.googlemail.com with ESMTPSA id
- j35-20020a634a63000000b003c18ab7389asm759665pgl.36.2022.05.11.21.38.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 May 2022 21:38:38 -0700 (PDT)
-From: Miaoqian Lin <linmq006@gmail.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Jonathan Bakker <xc-racer2@live.ca>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: samsung: Fix refcount leak in aries_audio_probe
-Date: Thu, 12 May 2022 08:38:28 +0400
-Message-Id: <20220512043828.496-1-linmq006@gmail.com>
-X-Mailer: git-send-email 2.25.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0FDF1F8011C
+ for <alsa-devel@alsa-project.org>; Thu, 12 May 2022 06:46:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0FDF1F8011C
+Received: from kwepemi100006.china.huawei.com (unknown [172.30.72.54])
+ by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4KzJy860tgzCsXP;
+ Thu, 12 May 2022 12:41:20 +0800 (CST)
+Received: from kwepemm600005.china.huawei.com (7.193.23.191) by
+ kwepemi100006.china.huawei.com (7.221.188.165) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.24; Thu, 12 May 2022 12:46:09 +0800
+Received: from [10.67.109.54] (10.67.109.54) by kwepemm600005.china.huawei.com
+ (7.193.23.191) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Thu, 12 May
+ 2022 12:46:08 +0800
+Subject: Re: [PATCH -next 1/2] ASoC: max98396: Fix build error for implicit
+ function declaration
+To: Mark Brown <broonie@kernel.org>
+References: <20220511012348.94288-1-tanghui20@huawei.com>
+ <20220511012348.94288-2-tanghui20@huawei.com>
+ <YnumrRUSkVCPONdl@sirena.org.uk>
+From: Hui Tang <tanghui20@huawei.com>
+Message-ID: <f84cbd0a-0a9e-fd72-b319-dfca8c19ce64@huawei.com>
+Date: Thu, 12 May 2022 12:46:08 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:45.0) Gecko/20100101
+ Thunderbird/45.7.1
 MIME-Version: 1.0
+In-Reply-To: <YnumrRUSkVCPONdl@sirena.org.uk>
+Content-Type: text/plain; charset="utf-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-Cc: linmq006@gmail.com
+X-Originating-IP: [10.67.109.54]
+X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
+ kwepemm600005.china.huawei.com (7.193.23.191)
+X-CFilter-Loop: Reflected
+Cc: alsa-devel@alsa-project.org, steve@sk2.org, linux-kernel@vger.kernel.org,
+ tiwai@suse.com, lgirdwood@gmail.com, ricardw@axis.com,
+ ryan.lee.analog@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,33 +84,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-of_parse_phandle() returns a node pointer with refcount
-incremented, we should use of_node_put() on it when done.
-If extcon_find_edev_by_node() fails, it doesn't call of_node_put()
-Calling of_node_put() after extcon_find_edev_by_node() to fix this.
 
-Fixes: 7a3a7671fa6c ("ASoC: samsung: Add driver for Aries boards")
-Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
----
- sound/soc/samsung/aries_wm8994.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/samsung/aries_wm8994.c b/sound/soc/samsung/aries_wm8994.c
-index 5265e546b124..83acbe57b248 100644
---- a/sound/soc/samsung/aries_wm8994.c
-+++ b/sound/soc/samsung/aries_wm8994.c
-@@ -585,10 +585,10 @@ static int aries_audio_probe(struct platform_device *pdev)
- 
- 	extcon_np = of_parse_phandle(np, "extcon", 0);
- 	priv->usb_extcon = extcon_find_edev_by_node(extcon_np);
-+	of_node_put(extcon_np);
- 	if (IS_ERR(priv->usb_extcon))
- 		return dev_err_probe(dev, PTR_ERR(priv->usb_extcon),
- 				     "Failed to get extcon device");
--	of_node_put(extcon_np);
- 
- 	priv->adc = devm_iio_channel_get(dev, "headset-detect");
- 	if (IS_ERR(priv->adc))
--- 
-2.25.1
+On 2022/5/11 20:06, Mark Brown wrote:
+> On Wed, May 11, 2022 at 09:23:47AM +0800, Hui Tang wrote:
+>
+>>                          devm_regulator_get_optional
+>> sound/soc/codecs/max98396.c:1556:23: error: ‘GPIOD_OUT_HIGH’ undeclared (first use in this function); did you mean ‘GPIOF_INIT_HIGH’?
+>>               "reset", GPIOD_OUT_HIGH);
+>>                        ^~~~~~~~~~~~~~
+>>                        GPIOF_INIT_HIGH
+>> sound/soc/codecs/max98396.c:1556:23: note: each undeclared identifier is reported only once for each function it appears in
+>> sound/soc/codecs/max98396.c:1565:3: error: implicit declaration of function ‘gpiod_set_value_cansleep’; did you mean ‘gpio_set_value_cansleep’? [-Werror=implicit-function-declaration]
+>>    gpiod_set_value_cansleep(max98396->reset_gpio, 0);
+>>    ^~~~~~~~~~~~~~~~~~~~~~~~
+>>    gpio_set_value_cansleep
+>> cc1: all warnings being treated as errors
+>>
+>> Add depend on GPIOLIB for 'config SND_SOC_MAX98396'
+>
+> No, these issues are missing headers not dependencies.  In general
+> gpiolib stubs out so drivers can optionally use GPIO functionality.
+>
 
+Ok, I will do that
+
+thank you

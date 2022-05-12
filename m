@@ -2,82 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64B1F527F21
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 May 2022 10:04:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61DB3527F3E
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 May 2022 10:07:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C3995D8;
-	Mon, 16 May 2022 10:04:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C3995D8
+	by alsa0.perex.cz (Postfix) with ESMTPS id D1AB716B4;
+	Mon, 16 May 2022 10:06:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1AB716B4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652688292;
-	bh=tHRod8Mb/dNdpaU9bJxoRk0gP+S4QZJwBCDRVa3SBEE=;
+	s=default; t=1652688467;
+	bh=VeVyUvmxoOFmzXNUz/g3HkPs9hpoXxrOUEKKGcc0BL8=;
 	h=From:In-Reply-To:References:To:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qQIjWr6NsZJ+3P1ThjKSuoFd/bPH/xuX6K8N9vW32ypv7m6o5aeefeSEw6f459zLy
-	 e9UmNS+6WxQTNBYc5L6kWqRP8SBu5BxdD/TM9PWanD4GCQHCmRaPPVqy0T3ZC3YiWP
-	 3MVflHbzGFfkItaHbTVEwt8cHaUtiBTLMuNFLAek=
+	b=KcFALSAYGzQNJgRKD6cimVRL7s8oVcrAI630GRzPekHGS2xhwGPnJp7vGJEwAm8qt
+	 lRdxwNRRZCd/z7LnGrKOrzMBk6HhrZoIJPd3wOBOlUfcgW+8dhlHPIJu9xY1ZkxiHh
+	 FXnd7NcSZ87knKCGVWx8mW1bQPqMvGGLtNoniBwg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E37AF80171;
-	Mon, 16 May 2022 10:03:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 28C8EF80548;
+	Mon, 16 May 2022 10:04:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 19D77F80245; Thu, 12 May 2022 23:41:40 +0200 (CEST)
+ id E430BF8010B; Thu, 12 May 2022 23:47:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1FE49F8010B
- for <alsa-devel@alsa-project.org>; Thu, 12 May 2022 23:41:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1FE49F8010B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 925E4F8011C
+ for <alsa-devel@alsa-project.org>; Thu, 12 May 2022 23:47:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 925E4F8011C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="VsZCGTaO"
+ header.b="PJ+AYPyj"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1652391693;
+ s=mimecast20190719; t=1652392071;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=YX4qZOz+9WbIDFanSGeueshT1smpwyQHiwCB0mvZIgg=;
- b=VsZCGTaOehKMe9DAN5vRKReHDpdASjDneVj6I7appexMgKL42ejf9XhVfOGpyF/1WJB0U9
- vFeWAv3oyl5x8xP9tbErqG2z/Qr55hy/rVWhFZ1gRLk5GqsZ/ZdkPYI8tO+jp9frCaKSpo
- M9BatbtU/r0TFrnT+lACJvPbipibMEY=
+ bh=YWzVrdFw3n8EH2Ce8k4daz33bBf83epcMdzHAJNT8tE=;
+ b=PJ+AYPyj8pLd2Z53EbADYFV5StVYRn6S6jED85CI2KX0LlZFLoUwWpJgqxLVR1cCp1TA7w
+ Ee+yFuIUie++p0yEbE/jlRz3u/BKcr+QXYIEz+i/gmydFs8giFyA8SPefd+tYPxjE25Y4f
+ XVAG82zZg9XBaQNlBcyJxcIQAVNriuI=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-472-4ZGPbZ3WPveqDfw1Mo23Iw-1; Thu, 12 May 2022 17:41:25 -0400
-X-MC-Unique: 4ZGPbZ3WPveqDfw1Mo23Iw-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+ us-mta-617-5OOQlTWmO8OywdczpC-m7w-1; Thu, 12 May 2022 17:47:47 -0400
+X-MC-Unique: 5OOQlTWmO8OywdczpC-m7w-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E8EC4801E80;
- Thu, 12 May 2022 21:41:22 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DD3DD811E80;
+ Thu, 12 May 2022 21:47:45 +0000 (UTC)
 Received: from warthog.procyon.org.uk (unknown [10.33.37.67])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 0E2C7416156;
- Thu, 12 May 2022 21:41:05 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id A13B84010E23;
+ Thu, 12 May 2022 21:47:31 +0000 (UTC)
 Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
  Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
  Kingdom.
  Registered in England and Wales under Company Registration No. 3798903
 From: David Howells <dhowells@redhat.com>
-In-Reply-To: <20220504014440.3697851-20-keescook@chromium.org>
-References: <20220504014440.3697851-20-keescook@chromium.org>
- <20220504014440.3697851-1-keescook@chromium.org>
+In-Reply-To: <20220504014440.3697851-1-keescook@chromium.org>
+References: <20220504014440.3697851-1-keescook@chromium.org>
 To: Kees Cook <keescook@chromium.org>
-Subject: Re: [PATCH 19/32] afs: Use mem_to_flex_dup() with struct afs_acl
+Subject: Re: [PATCH 00/32] Introduce flexible array struct memcpy() helpers
 MIME-Version: 1.0
-Date: Thu, 12 May 2022 22:41:05 +0100
-Message-ID: <898803.1652391665@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+Date: Thu, 12 May 2022 22:47:31 +0100
+Message-ID: <899235.1652392051@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 Authentication-Results: relay.mimecast.com;
  auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dhowells@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -112,11 +111,10 @@ Cc: Vincenzo Frascino <vincenzo.frascino@arm.com>,
  linux-arm-msm@vger.kernel.org, Muchun Song <songmuchun@bytedance.com>,
  Boris Ostrovsky <boris.ostrovsky@oracle.com>,
  linux-arm-kernel@lists.infradead.org, Daniel Axtens <dja@axtens.net>,
- Chris Zankel <chris@zankel.net>,
- "Gustavo A . R . Silva" <gustavoars@kernel.org>,
- Jarkko Sakkinen <jarkko@kernel.org>, linux-integrity@vger.kernel.org,
- Cong Wang <cong.wang@bytedance.com>, David Gow <davidgow@google.com>,
- Tom Rix <trix@redhat.com>, Alexei Starovoitov <ast@kernel.org>,
+ Chris Zankel <chris@zankel.net>, Jarkko Sakkinen <jarkko@kernel.org>,
+ linux-integrity@vger.kernel.org, Cong Wang <cong.wang@bytedance.com>,
+ David Gow <davidgow@google.com>, Tom Rix <trix@redhat.com>,
+ Alexei Starovoitov <ast@kernel.org>,
  Nuno =?utf-8?Q?S=C3=A1?= <nuno.sa@analog.com>,
  Luca Coelho <luciano.coelho@intel.com>, linux-hardening@vger.kernel.org,
  Marc Dionne <marc.dionne@auristor.com>, Frank Rowand <frowand.list@gmail.com>,
@@ -178,50 +176,23 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 Kees Cook <keescook@chromium.org> wrote:
 
->  struct afs_acl {
-> -	u32	size;
-> -	u8	data[];
-> +	DECLARE_FLEX_ARRAY_ELEMENTS_COUNT(u32, size);
-> +	DECLARE_FLEX_ARRAY_ELEMENTS(u8, data);
->  };
+> I'm happy to also point out that the conversions (patches 5+) are actually
+> a net reduction in lines of code:
+>  49 files changed, 154 insertions(+), 244 deletions(-)
 
-Oof...  That's really quite unpleasant syntax.  Is it not possible to have
-mem_to_flex_dup() and friends work without that?  You are telling them the
-fields they have to fill in.
+That doesn't mean that it's actually code that's clearer to read.  I would say
+that it's actually less clear.  In a bunch of places, you've done something
+like:
 
-> +	struct afs_acl *acl = NULL;
->  
-> -	acl = kmalloc(sizeof(*acl) + size, GFP_KERNEL);
-> -	if (!acl) {
-> +	if (mem_to_flex_dup(&acl, buffer, size, GFP_KERNEL)) {
+-	e = kmalloc(...);
+-	if (!e)
++	if (__mem_to_flex_dup(&e, ...))
 
-Please don't do that.  Either do:
+The problem is that, to me at least, it looks like:
 
-	acl = mem_to_flex_dup(buffer, size, GFP_KERNEL);
-	if (!acl)
-
-or:
-
-	acl = mem_to_flex_dup(buffer, size, GFP_KERNEL);
-	if (IS_ERR(acl))
-
-Please especially don't make it that an apparent 'true' return indicates an
-error.  If you absolutely must return the acl pointer through the argument
-list (presumably because it's actually a macro), make it return false on
-failure:
-
-	if (!mem_to_flex_dup(&acl, buffer, size, GFP_KERNEL))
-
-or return and explicitly check for an error code:
-
-	if (mem_to_flex_dup(&acl, buffer, size, GFP_KERNEL) < 0)
-
-or:
-
-	ret = mem_to_flex_dup(&acl, buffer, size, GFP_KERNEL);
-	if (ret < 0)
-
-(or use != 0 rather than < 0)
+-	e = kmalloc(...);
+-	if (kmalloc failed)
++	if (__mem_to_flex_dup(&e, ...) succeeded)
 
 David
 

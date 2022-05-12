@@ -2,73 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D324652529D
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 May 2022 18:32:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C47675252A1
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 May 2022 18:33:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 642DB1ACB;
-	Thu, 12 May 2022 18:32:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 642DB1ACB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5C3F71AC6;
+	Thu, 12 May 2022 18:32:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C3F71AC6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652373177;
-	bh=CJZwb1Sl9HBHmIsu2oe8lFHpjv+lfimn6XeZUXqaKd4=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1652373211;
+	bh=xh0dzvzjouPjkfWDaavilhb4zB9wsz2ZUVj1FOb1X4Q=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tGQ0e3n9jlYyBNNXS+ONPvzz8Gc5FpUDZS5hUIKmRyKuuB3yJS/U0SoX4O98DWFeI
-	 5xbW9FIdsHXLVzP+e7p9dTSFBvk3jLhnN3G3eZWitLuUhs0Sbh0wZDd8KvlLvctLtC
-	 nfXNmIcxCme034k8o3abUa6BUDei3xXva9S6lBMI=
+	b=UeJILnfYnFdiQMABUCHEgWvbXOYKiZBIzq8BuN7l58SoiqOK18PPQPK5b0+J24kEg
+	 Hqops6XUfhzBBcwH8ix59R28P12q0SOCBqFiR/AkIqppX5IHn3R8UiroLig9uY0fZB
+	 bcXxqr5yhFibiqNdE5Jm5yPzQdljPL4GRV9NCeWc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B6868F8011C;
-	Thu, 12 May 2022 18:31:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 51B3AF80245;
+	Thu, 12 May 2022 18:32:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8BC51F80245; Thu, 12 May 2022 18:31:56 +0200 (CEST)
+ id 43FCCF80245; Thu, 12 May 2022 18:31:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 03385F8010B
- for <alsa-devel@alsa-project.org>; Thu, 12 May 2022 18:31:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03385F8010B
+ by alsa1.perex.cz (Postfix) with ESMTPS id D2534F8011C
+ for <alsa-devel@alsa-project.org>; Thu, 12 May 2022 18:31:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2534F8011C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="VqMmtopV"
+ header.b="h73JvsOL"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 68080B829B3;
- Thu, 12 May 2022 16:31:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A0B1C385B8;
- Thu, 12 May 2022 16:31:49 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id DEF1D61FB4;
+ Thu, 12 May 2022 16:31:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 841E7C34100;
+ Thu, 12 May 2022 16:31:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1652373110;
- bh=CJZwb1Sl9HBHmIsu2oe8lFHpjv+lfimn6XeZUXqaKd4=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=VqMmtopVWZuz56Zfo8/VkhdA/bBAbN+G8HmSzJ7n9ldG3NihkOEeu6NT2YA69ZBaj
- NTXJTOftaXCtM3kIIrW1+Qq2Qb6SOeNfYBhv2zmdmbZ0aSZcDxxqEutQg6s+PUwrN3
- +tvzKB7DPaY9aNWRJeJhS4qrc0BjPcOpFVBni9DsQ/R+HFjKm+8rGWUaZONqxoA/BX
- Ow1ve0a57BR+wQQAC4XZQk8jA3buGCH/HVLuqc3zTt9TQjJvEVwpFTDr9j5WicYEW2
- SAmlo8Eru3hJ+tmgCh3W7hLWZHjxjbHpheGTJQXZWNgK3xqBZKMn2vPl19vC8Eq8e0
- dBFx76EtHay1g==
+ s=k20201202; t=1652373112;
+ bh=xh0dzvzjouPjkfWDaavilhb4zB9wsz2ZUVj1FOb1X4Q=;
+ h=From:To:In-Reply-To:References:Subject:Date:From;
+ b=h73JvsOLfTfwsA0mGsIfgLLc0a2lK2kMgdDflt+e/UFhtrn6msq+/4nz8OyqyxU8/
+ dW5dndF7q+MbSPg479IG8fb2jyArWU30mEsVHZjRW72JE+RbbDp6wBPeWUKtX0Rj+s
+ pxK+/r0wuKp4+0sSeZQxmcgYqRAddwCvb9EWqsWNxra6wXqXwG+7HyiYnZycZGaLiv
+ 5gWOnASCPSVFPSx1o7+SG5POZMjqWPozfeBDpANCO/cNIfLE0tjowuuzyexh/rEno0
+ jCwHkavFEW/SH7Ua0mgvzPK7ySxIqK7DmeJBGI92ub7sg/8SCXMxtGyEEZzMe3Fwxi
+ 6ExAVwM2iFZfA==
 From: Mark Brown <broonie@kernel.org>
-To: ranjani.sridharan@linux.intel.com, alsa-devel@alsa-project.org
-In-Reply-To: <20220511171648.1622993-1-ranjani.sridharan@linux.intel.com>
-References: <20220511171648.1622993-1-ranjani.sridharan@linux.intel.com>
-Subject: Re: [PATCH 0/5] ASoC: SOF: Add IPC4 FW loader support
-Message-Id: <165237310907.1053236.13076909214868441868.b4-ty@kernel.org>
-Date: Thu, 12 May 2022 17:31:49 +0100
+To: linmq006@gmail.com, Takashi Iwai <tiwai@suse.com>, lgirdwood@gmail.com,
+ krzysztof.kozlowski@linaro.org, linux-kernel@vger.kernel.org,
+ s.nawrocki@samsung.com, alsa-devel@alsa-project.org, xc-racer2@live.ca,
+ perex@perex.cz
+In-Reply-To: <20220512043828.496-1-linmq006@gmail.com>
+References: <20220512043828.496-1-linmq006@gmail.com>
+Subject: Re: [PATCH] ASoC: samsung: Fix refcount leak in aries_audio_probe
+Message-Id: <165237311026.1053236.8801361926991753274.b4-ty@kernel.org>
+Date: Thu, 12 May 2022 17:31:50 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,18 +86,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 11 May 2022 10:16:43 -0700, Ranjani Sridharan wrote:
-> The patches in this series add support for FW loading for IPC4 in the SOF
-> driver.
+On Thu, 12 May 2022 08:38:28 +0400, Miaoqian Lin wrote:
+> of_parse_phandle() returns a node pointer with refcount
+> incremented, we should use of_node_put() on it when done.
+> If extcon_find_edev_by_node() fails, it doesn't call of_node_put()
+> Calling of_node_put() after extcon_find_edev_by_node() to fix this.
 > 
-> Ranjani Sridharan (5):
->   ASoC: SOF: Intel: HDA: Set IPC4-specific DSP ops for CaVS platforms
->   ASoC: SOF: Add IPC4 private header
->   ASoC: SOF: Add header for IPC4 manifest
->   ASoC: SOF: IPC4: Add FW loader ops
->   ASoC: SOF: Intel: HDA: Set up sof_ipc4_fw_data for IPC4
 > 
-> [...]
 
 Applied to
 
@@ -103,16 +100,8 @@ Applied to
 
 Thanks!
 
-[1/5] ASoC: SOF: Intel: HDA: Set IPC4-specific DSP ops for CaVS platforms
-      commit: e3105c0ccc3e706584030159b6fde54cab2f8aef
-[2/5] ASoC: SOF: Add IPC4 private header
-      commit: 0af829041d3f8e8f585f5692884d9c7402e7794d
-[3/5] ASoC: SOF: Add header for IPC4 manifest
-      commit: 71cb8ad1a78043ca0eec1686bdd2e65143943b78
-[4/5] ASoC: SOF: IPC4: Add FW loader ops
-      commit: c62ff366b3c9984dbc30ab032540d1167acdda32
-[5/5] ASoC: SOF: Intel: HDA: Set up sof_ipc4_fw_data for IPC4
-      commit: a4cfdebdfe62e276f7626eb55b859fe16dcc28ef
+[1/1] ASoC: samsung: Fix refcount leak in aries_audio_probe
+      commit: bf4a9b2467b775717d0e9034ad916888e19713a3
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

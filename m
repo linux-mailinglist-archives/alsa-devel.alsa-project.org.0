@@ -2,83 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97FC5527F2D
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 May 2022 10:06:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B7F8527F2F
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 May 2022 10:06:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1A07216B0;
-	Mon, 16 May 2022 10:05:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A07216B0
+	by alsa0.perex.cz (Postfix) with ESMTPS id E3E4E1698;
+	Mon, 16 May 2022 10:06:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3E4E1698
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652688401;
-	bh=k0u+HRBkeRd+OVLZbZUTkf9bFGQwyccJ9MtC+QpTjvE=;
+	s=default; t=1652688419;
+	bh=S4kptFH3ECMANIJ/7YyPdcrjdsdCqdXki4MAwxo9MJU=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=flcKqY/jIDDx/EYX0NohfS/OdTlqxihkG+SW31Kyh7HQ7gVzM1mW6FZf+nzD+TC5t
-	 jqaEDLlLRem9hTrKcnHZDBduVVD3oYXeuWRqnF6ENvF9LcE1Y+v2FbrtBAzOJ1Yi3J
-	 zokZwM1UicQdVPYrN+A1sV9FSJ44kSRHONEqENzQ=
+	b=JZwcoHeKNutHSV8h881qi0e4tMoxxOStz3s10RT/ZRoWiC0k73DVUjWg1S1qCdefq
+	 gV8mXf6BTIYg/LDk5RuVEaW7dGcySTYxQPU7n0y2o91iGwJqXYLXmX4hggkwvcuUQN
+	 50xKvIVLnM5Ij1AgasTMVyOUIBdSGLC0+B7/7sPc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D7C02F80535;
-	Mon, 16 May 2022 10:03:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6C253F80536;
+	Mon, 16 May 2022 10:03:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 15E5FF80245; Thu, 12 May 2022 12:31:46 +0200 (CEST)
+ id 05750F800BB; Thu, 12 May 2022 12:46:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [IPv6:2a00:1450:4864:20::62f])
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [IPv6:2a00:1450:4864:20::634])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 29EFBF800BB
- for <alsa-devel@alsa-project.org>; Thu, 12 May 2022 12:31:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29EFBF800BB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7E645F800BB
+ for <alsa-devel@alsa-project.org>; Thu, 12 May 2022 12:46:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E645F800BB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=amarulasolutions.com
- header.i=@amarulasolutions.com header.b="n3ojiDL8"
-Received: by mail-ej1-x62f.google.com with SMTP id i19so9250710eja.11
- for <alsa-devel@alsa-project.org>; Thu, 12 May 2022 03:31:37 -0700 (PDT)
+ header.i=@amarulasolutions.com header.b="exBhr0fe"
+Received: by mail-ej1-x634.google.com with SMTP id ch13so9313589ejb.12
+ for <alsa-devel@alsa-project.org>; Thu, 12 May 2022 03:46:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amarulasolutions.com; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to;
- bh=5MXfcUrY9hOKURYsbrGhzUx93Mf/JygzWXuJTExiX6A=;
- b=n3ojiDL8X/Z3JJpHeZ3KpwcIDtMK9lk+zxRPqOmiw9++VRYDa6HJvSv85Dym9DjNz3
- vpLDn0kYSFCR9bYfcJJrSI+uNVEyPOt0o1tTX7zrbYh0nDoYjdbHZx3Vg8Dgp0W7FnYC
- EAdWgVwLRyYTVlgCxl6Do4Hm0cuSFtuywRt2U=
+ bh=mUztazuSyDgxN4IJuGsokHY/xl1xmIQV403RgKJ0d1A=;
+ b=exBhr0feoHxv67tzko0LaAbgsRFgF+WeYOI16AQIEIEA+ahzVeV229CoWiQggBp59T
+ HEQyurCaR6bbN3aFuckPLTxXF4rXreefHMr4uH8ds8t+qctxW1Mtui6o3phQUsXB74j3
+ q4Oc66AA9bzAfEhIFg1tjII/FI/mqUvxxmDeM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=5MXfcUrY9hOKURYsbrGhzUx93Mf/JygzWXuJTExiX6A=;
- b=z8Jukd2kpG05GXLtEko4bMcs56c+ak5yMB41WxrvNeTOgymtYvGoCIOTZm0iQRuwUN
- Hzzu4+KLxJ+YTrU9z41Ugm//15HUFsZ+LiByWUA/nZV6IqdPi3OPJpDBb94T9jzyHz7H
- tMGRQhzu2t8MYOI1MJT5P+SGqIBDs/uQEubPmSufHFsO6k4ou03ZWuRkRQNCmLCzEl0j
- dsPaUjDhHJ3+1B7HWCzuYzCMc4X3CX5rtwPB5KsBD1TRFoXIW7f4hFYzQi4D/+i52zcR
- vV7BxlxnE7NV+Ltp1ur1Qwvh5u2NAFcPGvQmdhAeuHAinNaE1HwBBKw79zje25JvNVwB
- Fk7A==
-X-Gm-Message-State: AOAM531jl6Sm0VTddVfAqMCLF55Z8lAe0Fmq/p55Wdk1mhg8qFueKlnP
- t/ZkiLcmiOCcW6aIxlcfj3LwHg==
-X-Google-Smtp-Source: ABdhPJw3/7SDvQibZnzyAqVT3zem9hMR5ZS5pek6KBOHUgS3MH78W6+hF3SfMcrkHz6sUmfeCF/nXg==
-X-Received: by 2002:a17:907:960d:b0:6f4:3b68:8d55 with SMTP id
- gb13-20020a170907960d00b006f43b688d55mr29150808ejc.105.1652351495343; 
- Thu, 12 May 2022 03:31:35 -0700 (PDT)
+ bh=mUztazuSyDgxN4IJuGsokHY/xl1xmIQV403RgKJ0d1A=;
+ b=drlTwWkKkt7JbvxEbCesXiWz7MMnTRUrJl1ox04v1JQu8wH6PGwtUulQ/rFiAi6Gll
+ WI9KNYo3EVMTgP+6o28HRZpS4ES5Ob2CpcJusj/ZUldt89K7fL74cf+iO4qdKGytvV7S
+ sYI06+y4rZYc+eKVlC+n5rq4Q0edbaWI/Ztvh/cR4zQxGZkuuLidl/Iroq+NhLUxIQUs
+ US7t8PWrrBjmcIQdIRZk5tcAy79aJeGrdUe0lWqF2iGOtMFwOXBA6q0aUXQdjFL6hSUm
+ dfk/fy2P0snd8iFNhJE/NTqu40DZ5wNYVyxxUWEf/mf8d7exiZqowtl4CsA3afNbyAez
+ fxFA==
+X-Gm-Message-State: AOAM531dsJW8l1sDUPIcbm8uv1AgdoMgvap6kJq/doQ+OGb0MUK05dEU
+ PlsCk5G4V16+l2oUSaWWnRV9tQ==
+X-Google-Smtp-Source: ABdhPJysw+usrrjuAJ6WRTiu4TkZhjhOXkvdySgQAijN5gZxaVp50vUZYfUmATW2TmsDLvWo7vy+ww==
+X-Received: by 2002:a17:906:58d4:b0:6f4:cebd:c4b with SMTP id
+ e20-20020a17090658d400b006f4cebd0c4bmr28988010ejs.492.1652352405476; 
+ Thu, 12 May 2022 03:46:45 -0700 (PDT)
 Received: from tom-ThinkPad-T14s-Gen-2i
  (net-188-217-59-245.cust.vodafonedsl.it. [188.217.59.245])
  by smtp.gmail.com with ESMTPSA id
- n9-20020aa7c789000000b0042617ba63cbsm2370277eds.85.2022.05.12.03.31.34
+ sa3-20020a170906eda300b006f3ef214ddasm1961028ejb.64.2022.05.12.03.46.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 May 2022 03:31:35 -0700 (PDT)
-Date: Thu, 12 May 2022 12:31:32 +0200
+ Thu, 12 May 2022 03:46:45 -0700 (PDT)
+Date: Thu, 12 May 2022 12:46:42 +0200
 From: Tommaso Merciai <tommaso.merciai@amarulasolutions.com>
 To: Mark Brown <broonie@kernel.org>
 Subject: Re: [PATCH] ASoC: max98088: add support for reg_4a_cfg_bypass reg
-Message-ID: <20220512103132.GC649073@tom-ThinkPad-T14s-Gen-2i>
+Message-ID: <20220512104642.GD649073@tom-ThinkPad-T14s-Gen-2i>
 References: <20220512074359.446999-1-tommaso.merciai@amarulasolutions.com>
  <YnzdcubW7m+CwnvN@sirena.org.uk>
 MIME-Version: 1.0
@@ -123,8 +123,20 @@ On Thu, May 12, 2022 at 11:12:02AM +0100, Mark Brown wrote:
 > audio routing but they're being added as regular controls.
 
 Hi Mark,
-Thanks for the review, I'll send v2.
+Sorry again. You suggest to create a new structure for these entries,
+for example:
 
+/* Out Bypass mixer switch */
+static const struct snd_kcontrol_new max98088_out_bypass_mixer_controls[] = {
+       SOC_DAPM_SINGLE("INA Switch", M98088_REG_4A_CFG_BYPASS, 7, 1, 0),
+       SOC_DAPM_SINGLE("MIC2 Switch", M98088_REG_4A_CFG_BYPASS, 4, 1, 0),
+       SOC_DAPM_SINGLE("REC Switch", M98088_REG_4A_CFG_BYPASS, 1, 1, 0),
+       SOC_DAPM_SINGLE("SPK Switch", M98088_REG_4A_CFG_BYPASS, 0, 1, 0),
+};
+
+Let me know.
+
+Thanks in advance.
 Tommaso
 
 -- 

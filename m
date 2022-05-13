@@ -2,97 +2,163 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77B38527F41
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 May 2022 10:08:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D476B527F42
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 May 2022 10:08:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E3FB41693;
-	Mon, 16 May 2022 10:07:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3FB41693
+	by alsa0.perex.cz (Postfix) with ESMTPS id 436A016C0;
+	Mon, 16 May 2022 10:07:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 436A016C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652688498;
-	bh=gd6Mw0Sx2oUiF3i//WT8McGTf3vVhdaTzUHJgP0PZlM=;
+	s=default; t=1652688512;
+	bh=wijg9IXzkSNOSqfO+HlfwAs8IikOpL6SEETBzoU0u0M=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Fom7wR3N1ogYqul/78X4rtW0Wxf0jLRAGhxOpvj98bgax7mKv8OXJ9jfZalCKk0W3
-	 e3MEur7i3HiAbUK9iu7EBiBDdLxQK+u1H+Uaz3TC04t2eKdSRHj58r3kThCs31f9Qy
-	 44dw8oFrNfuXDZRZFQv6pA7P4SJHB/+/CDlAzKEE=
+	b=W51WbptCJEXb33Vt+8WFL58MYxlWxFSiDJ+3IZ/uiz5jlBfoQKXWEi1GIDmEJclNE
+	 ASnIZyFWVlNfW1dqj+EPuj0GCeHzr6SvHam2EfotPMGHBbkfbw+/d1K5e7ACGupTbz
+	 La/rW+GbJe703l1ucZVTm6wJhFe8XhzFCyz5yOH4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5F47EF80559;
-	Mon, 16 May 2022 10:04:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 00A12F80567;
+	Mon, 16 May 2022 10:04:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 99650F80236; Fri, 13 May 2022 17:21:06 +0200 (CEST)
+ id 3606BF80236; Fri, 13 May 2022 17:44:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [IPv6:2a00:1450:4864:20::52e])
+Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com
+ [IPv6:2607:f8b0:4864:20::1030])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 40614F800E9
- for <alsa-devel@alsa-project.org>; Fri, 13 May 2022 17:20:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40614F800E9
+ by alsa1.perex.cz (Postfix) with ESMTPS id C6FF0F800BB
+ for <alsa-devel@alsa-project.org>; Fri, 13 May 2022 17:44:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6FF0F800BB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amarulasolutions.com
- header.i=@amarulasolutions.com header.b="bg30amuY"
-Received: by mail-ed1-x52e.google.com with SMTP id p18so10354184edr.7
- for <alsa-devel@alsa-project.org>; Fri, 13 May 2022 08:20:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google;
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="SjhK1c9Q"
+Received: by mail-pj1-x1030.google.com with SMTP id
+ qe3-20020a17090b4f8300b001dc24e4da73so8103995pjb.1
+ for <alsa-devel@alsa-project.org>; Fri, 13 May 2022 08:44:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to;
- bh=KDglamaHwWNFsJjMH8n4M899cYov2fck92ehvXsUuIU=;
- b=bg30amuYU6wYV2P5qNbOJwBy+IHyuJBCdFy8NHgLEKqZRlbttCeGVB6vZTCxzmmzks
- TI65tZFse17Bg3FTztLPHu1C8djT/1uvA8rpdFOEs5aIVqnyD3DmRbMX/7rUU3ibecKW
- Ihf3tG7TXQU2aUXnBa5zDS+4psPozMmTmWNO8=
+ bh=ptf+f5eGDE5JGEu9b++jcke6m+bu7vV+b5hUvmlYQQo=;
+ b=SjhK1c9Qotr1qDOqwKlBj3Rw1mlIdcXMiMnONLsDWXIlWQego7JtnDd+2u8lNhcb5o
+ VntS/+cGhwP5NiXqFa0xo4Eurcd+QW1c6ntV0GvlsEyq5axRcQY1ctFnycyCWVGns4We
+ RoLfLtxqMSNKYzeck8DbrFFmqTXggtzGcj49k=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=KDglamaHwWNFsJjMH8n4M899cYov2fck92ehvXsUuIU=;
- b=HU0X22OgGY8gPZYTL2T0VyLlt3C8SAw2wOvhtLCRsFTz02xfRWiCKrv9yBBmu6uDyA
- d3ML/RlDUNMpD1aGXOayGSflfjX5S1UH0lnRKGfz8gXH0PDI1Bc2EhEoBUxVvh8t6aw3
- PKCmhEMdUAuw9ActeQhgWDjXSybRjHR8wBbsM4MCG3euc9Q9f8z2c7UYCvdOefafGwxh
- isuWeMH2tN+NPUuyXifZJQsBr2wYzBjQR0jZs2YPT37yUrLEcbW1ZnR+A7V/nXCo/gHy
- k1BvGZSoeGo0azW981JkOImAXI7XzR76WJJT+AabHQGgjEAeLvSoQlNsE7DJMZCdv2xC
- /UaQ==
-X-Gm-Message-State: AOAM5307I8/BjU0NIk3W7mZX0KZJXFF/OQVClMSjIVX+uewFtOrie4t3
- wIyeT6Tq8zE1c3SKZOYOEGebZw==
-X-Google-Smtp-Source: ABdhPJz5SIuwEhnGjOo1CpkBxiFz+zWBgcGI917RzqTFj2OLAcaJYHvW9ENjZfahkvxrAN9gCxWmGQ==
-X-Received: by 2002:a05:6402:5190:b0:427:df4a:19d9 with SMTP id
- q16-20020a056402519000b00427df4a19d9mr41598107edd.384.1652455258470; 
- Fri, 13 May 2022 08:20:58 -0700 (PDT)
-Received: from tom-ThinkPad-T14s-Gen-2i
- (net-188-217-59-245.cust.vodafonedsl.it. [188.217.59.245])
+ bh=ptf+f5eGDE5JGEu9b++jcke6m+bu7vV+b5hUvmlYQQo=;
+ b=hUl38D+NQL2UZ2ej5DBZBE3wPlaLK2jxP8F5QiJbiVuOfkV8lbEOhaRt2gcP7O6gM6
+ GhMSOhXQsT9vPZGZMFbS2OO2XkxYD94nKsV6U6vM1iKDhtGgQW6Hzfa9qHyNBUQx4iQ3
+ S0iixQZWvDbsDVGR5KZNsnfxpkv9mXgspM5vOhpcerax9jxq2nwPWL+XxSZGjeieJ9iw
+ eIR5gnue/TwwlWwTA4qFYmId8x5uIPr68U1ua5kjOT/WchrHgjSGXaoqc65iwOegfbPo
+ AVt6NntZj5wsY8e0C2BQ7EQCtiwfj7CjwWKhfb8ujOmaADE/4jGGns9Zawrj3/BqLxQB
+ E+qg==
+X-Gm-Message-State: AOAM532iGOHsMA50xD7mK2m2aYJSzpB1lHf2EJ6gg+jCrer2JjcA4UcC
+ wBXVDJmzI+adou7iy2vVWoQ/gA==
+X-Google-Smtp-Source: ABdhPJwKWyFPp/e6/OxJaMzRJbUJenN2vVdfxMV19RMNu0PbxIXvhd1LGMNiGkcAEcynl0KZaC0esg==
+X-Received: by 2002:a17:903:2343:b0:15e:9faa:e968 with SMTP id
+ c3-20020a170903234300b0015e9faae968mr5340063plh.58.1652456678018; 
+ Fri, 13 May 2022 08:44:38 -0700 (PDT)
+Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
  by smtp.gmail.com with ESMTPSA id
- el10-20020a170907284a00b006f3ef214e2csm873386ejc.146.2022.05.13.08.20.57
+ ca8-20020a17090af30800b001dd01a5be02sm3742050pjb.41.2022.05.13.08.44.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 May 2022 08:20:58 -0700 (PDT)
-Date: Fri, 13 May 2022 17:20:55 +0200
-From: Tommaso Merciai <tommaso.merciai@amarulasolutions.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH] ASoC: max98088: add support for reg_4a_cfg_bypass reg
-Message-ID: <20220513152055.GI649073@tom-ThinkPad-T14s-Gen-2i>
-References: <20220512074359.446999-1-tommaso.merciai@amarulasolutions.com>
- <YnzdcubW7m+CwnvN@sirena.org.uk>
- <20220512104642.GD649073@tom-ThinkPad-T14s-Gen-2i>
- <YnznExLDOvRpXNVh@sirena.org.uk>
- <20220512110959.GF649073@tom-ThinkPad-T14s-Gen-2i>
- <YnztJxdSFau6SYC5@sirena.org.uk>
+ Fri, 13 May 2022 08:44:37 -0700 (PDT)
+Date: Fri, 13 May 2022 08:44:33 -0700
+From: Kees Cook <keescook@chromium.org>
+To: David Howells <dhowells@redhat.com>
+Subject: Re: [PATCH 19/32] afs: Use mem_to_flex_dup() with struct afs_acl
+Message-ID: <202205130841.686F21B64@keescook>
+References: <20220504014440.3697851-20-keescook@chromium.org>
+ <20220504014440.3697851-1-keescook@chromium.org>
+ <898803.1652391665@warthog.procyon.org.uk>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <YnztJxdSFau6SYC5@sirena.org.uk>
+In-Reply-To: <898803.1652391665@warthog.procyon.org.uk>
 X-Mailman-Approved-At: Mon, 16 May 2022 10:03:52 +0200
-Cc: alsa-devel@alsa-project.org, linux-amarula@amarulasolutions.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linuxfancy@googlegroups.com, linux-kernel@vger.kernel.org
+Cc: Vincenzo Frascino <vincenzo.frascino@arm.com>,
+ Christian Lamparter <chunkeey@googlemail.com>, Eli Cohen <elic@nvidia.com>,
+ "K. Y. Srinivasan" <kys@microsoft.com>, Louis Peens <louis.peens@corigine.com>,
+ Wei Liu <wei.liu@kernel.org>, Hulk Robot <hulkci@huawei.com>,
+ James Morris <jmorris@namei.org>, xen-devel@lists.xenproject.org,
+ Guenter Roeck <linux@roeck-us.net>, Arend van Spriel <aspriel@gmail.com>,
+ Al Viro <viro@zeniv.linux.org.uk>, Kuniyuki Iwashima <kuniyu@amazon.co.jp>,
+ Christian Brauner <brauner@kernel.org>,
+ Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org, John Keeping <john@metanate.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Andrew Morton <akpm@linux-foundation.org>, alsa-devel@alsa-project.org,
+ Nick Desaulniers <ndesaulniers@google.com>, Mimi Zohar <zohar@linux.ibm.com>,
+ Max Filippov <jcmvbkbc@gmail.com>, Eric Dumazet <edumazet@google.com>,
+ keyrings@vger.kernel.org, Gregory Greenman <gregory.greenman@intel.com>,
+ Francis Laniel <laniel_francis@privacyrequired.com>,
+ Lars-Peter Clausen <lars@metafoo.de>,
+ Stephen Hemminger <sthemmin@microsoft.com>,
+ Bradley Grove <linuxdrivers@attotech.com>, Leon Romanovsky <leon@kernel.org>,
+ Udipto Goswami <quic_ugoswami@quicinc.com>, linux-xtensa@linux-xtensa.org,
+ Baowen Zheng <baowen.zheng@corigine.com>,
+ Johannes Berg <johannes.berg@intel.com>, selinux@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, Muchun Song <songmuchun@bytedance.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ linux-arm-kernel@lists.infradead.org, Daniel Axtens <dja@axtens.net>,
+ Chris Zankel <chris@zankel.net>,
+ "Gustavo A . R . Silva" <gustavoars@kernel.org>,
+ Jarkko Sakkinen <jarkko@kernel.org>, linux-integrity@vger.kernel.org,
+ Cong Wang <cong.wang@bytedance.com>, David Gow <davidgow@google.com>,
+ Tom Rix <trix@redhat.com>, Alexei Starovoitov <ast@kernel.org>,
+ Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Luca Coelho <luciano.coelho@intel.com>, linux-hardening@vger.kernel.org,
+ Marc Dionne <marc.dionne@auristor.com>, Frank Rowand <frowand.list@gmail.com>,
+ linux-afs@lists.infradead.org, Andrew Gabbasov <andrew_gabbasov@mentor.com>,
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
+ linux-rdma@vger.kernel.org, Dexuan Cui <decui@microsoft.com>,
+ Simon Horman <simon.horman@corigine.com>, Paolo Abeni <pabeni@redhat.com>,
+ "Serge E. Hallyn" <serge@hallyn.com>, Jens Axboe <axboe@kernel.dk>,
+ Xiu Jianfeng <xiujianfeng@huawei.com>, Marcel Holtmann <marcel@holtmann.org>,
+ Yang Yingliang <yangyingliang@huawei.com>,
+ Hante Meuleman <hante.meuleman@broadcom.com>,
+ Nathan Chancellor <nathan@kernel.org>, Paul Moore <paul@paul-moore.com>,
+ Mark Brown <broonie@kernel.org>, Eric Paris <eparis@parisplace.org>,
+ Dan Williams <dan.j.williams@intel.com>,
+ Tadeusz Struk <tadeusz.struk@linaro.org>,
+ Christian =?iso-8859-1?Q?G=F6ttsche?= <cgzones@googlemail.com>,
+ Franky Lin <franky.lin@broadcom.com>, Felipe Balbi <balbi@kernel.org>,
+ Keith Packard <keithp@keithp.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Stefan Richter <stefanr@s5r6.in-berlin.de>,
+ "David S. Miller" <davem@davemloft.net>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, llvm@lists.linux.dev,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, wcn36xx@lists.infradead.org,
+ Eugeniu Rosca <erosca@de.adit-jv.com>, Lee Jones <lee.jones@linaro.org>,
+ Steffen Klassert <steffen.klassert@secunet.com>,
+ linux1394-devel@lists.sourceforge.net,
+ Herbert Xu <herbert@gondor.apana.org.au>, linux-scsi@vger.kernel.org,
+ Russell King <linux@armlinux.org.uk>, Jason Gunthorpe <jgg@ziepe.ca>,
+ SHA-cyfmac-dev-list@infineon.com, Andy Gross <agross@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Andy Lavr <andy.lavr@gmail.com>,
+ "James E.J. Bottomley" <jejb@linux.ibm.com>, devicetree@vger.kernel.org,
+ Johan Hedberg <johan.hedberg@gmail.com>, linux-hyperv@vger.kernel.org,
+ Kalle Valo <kvalo@kernel.org>, Rich Felker <dalias@aerifal.cx>,
+ Rob Herring <robh+dt@kernel.org>,
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>, kunit-dev@googlegroups.com,
+ Juergen Gross <jgross@suse.com>, brcm80211-dev-list.pdl@broadcom.com,
+ Loic Poulain <loic.poulain@linaro.org>, netdev@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, linux-bluetooth@vger.kernel.org,
+ linux-security-module@vger.kernel.org,
+ Johannes Berg <johannes@sipsolutions.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,84 +174,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, May 12, 2022 at 12:19:03PM +0100, Mark Brown wrote:
-> On Thu, May 12, 2022 at 01:09:59PM +0200, Tommaso Merciai wrote:
-> > On Thu, May 12, 2022 at 11:53:07AM +0100, Mark Brown wrote:
-> > > On Thu, May 12, 2022 at 12:46:42PM +0200, Tommaso Merciai wrote:
-> > > > On Thu, May 12, 2022 at 11:12:02AM +0100, Mark Brown wrote:
+On Thu, May 12, 2022 at 10:41:05PM +0100, David Howells wrote:
 > 
-> > > > > These look like they should be DAPM controls since they're controlling
-> > > > > audio routing but they're being added as regular controls.
+> Kees Cook <keescook@chromium.org> wrote:
 > 
-> > > > Sorry again. You suggest to create a new structure for these entries,
-> > > > for example:
+> >  struct afs_acl {
+> > -	u32	size;
+> > -	u8	data[];
+> > +	DECLARE_FLEX_ARRAY_ELEMENTS_COUNT(u32, size);
+> > +	DECLARE_FLEX_ARRAY_ELEMENTS(u8, data);
+> >  };
 > 
-> > > If that's how they fit into the routing for the device, yes - you'd need
-> > > to define the bypass mixer as well and set up appropraite routes.
+> Oof...  That's really quite unpleasant syntax.  Is it not possible to have
+> mem_to_flex_dup() and friends work without that?  You are telling them the
+> fields they have to fill in.
+
+Other threads discussed this too. I'm hoping to have something more
+flexible (pardon the pun) in v2.
+
+> [...]
+> or:
 > 
-> > I added this reg as regular controls because this reg is pretty generic
-> > as you can see this controll bypass of some output, not all. 
-> > What do you think about?
+> 	ret = mem_to_flex_dup(&acl, buffer, size, GFP_KERNEL);
+> 	if (ret < 0)
 > 
-> That sounds exactly like a DAPM control, please make them DAPM controls.
+> (or use != 0 rather than < 0)
 
-Hi Mark,
-Sorry again, but I'm quite new on alsa subsystem. I need an help on figuring out
-on how to implements your solution. From what you suggest I got that I need to create
-a bypass mixer for every switch (4 -> SPK, REC, MIC2, INA):
-
-/* Out Mixer SPK */
-static const struct snd_kcontrol_new max98088_output_bypass_spk_mixer_controls[] = {
-       SOC_DAPM_SINGLE("SPK Bypass Switch", M98088_REG_4A_CFG_BYPASS, 0, 1, 0),
-};
-
-/* Out Mixer REC */
-static const struct snd_kcontrol_new max98088_output_bypass_rec_mixer_controls[] = {
-       SOC_DAPM_SINGLE("REC Bypass Switch", M98088_REG_4A_CFG_BYPASS, 1, 1, 0),
-};
-
-/* Out Mixer MIC */
-static const struct snd_kcontrol_new max98088_output_bypass_mic_mixer_controls[] = {
-       SOC_DAPM_SINGLE("MIC2 Bypass Switch", M98088_REG_4A_CFG_BYPASS, 4, 1, 0),
-};
-
-/* Out Mixer INA */
-static const struct snd_kcontrol_new max98088_output_bypass_ina_mixer_controls[] = {
-       SOC_DAPM_SINGLE("INA Bypass Switch", M98088_REG_4A_CFG_BYPASS, 7, 1, 0),
-};
-
-After that, I need to route the new control mixers on the switch:
-
- {"Out Mixer SPK", "SPK Bypass Switch", "RECN"},
- {"Out Mixer REC", "REC Bypass Switch", "RECP"},
- {"Out Mixer MIC", "MIC2 Bypass Switch", "MIC1"},
- {"Out Mixer INA", "INA Bypass Switch", "INA"},
-
-Then route the bypass switch to the new output:
-
- {"SPKL", NULL, "SPK Bypass Switch"},
- {"RECN", NULL, "REC Bypass Switch"},
- {"MIC2", NULL, "MIC2 Bypass Switch"},
- {"MIC1", NULL, "INA Bypass Switch"},
-
-I'm in the right way? What do you think about?
-Can you point me a similar bypass switch into the kernel to take as reference?
-Thanks in advance
-
-Regards,
-Tommmaso
-
-
-
+Sure, I can make the tests more explicit. The kerndoc, etc all shows it's
+using < 0 for errors.
 
 -- 
-Tommaso Merciai
-Embedded Linux Engineer
-tommaso.merciai@amarulasolutions.com
-__________________________________
-
-Amarula Solutions SRL
-Via Le Canevare 30, 31100 Treviso, Veneto, IT
-T. +39 042 243 5310
-info@amarulasolutions.com
-www.amarulasolutions.com
+Kees Cook

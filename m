@@ -2,67 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01502525594
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 May 2022 21:16:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7A3E525B75
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 May 2022 08:25:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 98DC01AE3;
-	Thu, 12 May 2022 21:15:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98DC01AE3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3AF291AC4;
+	Fri, 13 May 2022 08:24:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3AF291AC4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652382972;
-	bh=vdWNAVi0ghDacevEaPZsVyey1+m4P2AeNO5Sv6H/WF8=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1652423119;
+	bh=8kUqv+JqNE/d8OhWkSmeC2w5V/n0RRQU74qWqIyauPA=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HHRJRK34SZXfbguGQNhJrARLGl/fofbNYwkfVMha0KZYj+KNR9OS1b2hk+HPe+SMk
-	 4OJGCdy6BvD07GowTsbRB6hLzHe5WZYqejVff5IkkFRxeN0mIaytl5Hi/tqd8MqkIR
-	 IJeC11z348wOr5B/HgJuRvrvlTBv2T0BQ0CppthE=
+	b=HfAZXyzVqQXc1bkiUPqGfS8TqbGrV18K+ndZmpEfmXy5qS57YtRWsl36LiktyV3u/
+	 gXsTVgrCyOZxiEn867/ZrCs1lT24dJG/860KmRry7iZnxDaTZ8VkLT1aeLfjd/lNbA
+	 C3NCWRJm7IRD+ckGBH1iTDW3uDVosT0AabRUyPvY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D44BDF80511;
-	Thu, 12 May 2022 21:14:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5CF8FF8025E;
+	Fri, 13 May 2022 08:24:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 48D79F8050F; Thu, 12 May 2022 21:14:45 +0200 (CEST)
+ id 643A3F80236; Fri, 13 May 2022 08:24:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from 5.mo561.mail-out.ovh.net (5.mo561.mail-out.ovh.net
- [87.98.178.36])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1A9EBF8010B
- for <alsa-devel@alsa-project.org>; Thu, 12 May 2022 21:14:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A9EBF8010B
-Received: from player691.ha.ovh.net (unknown [10.108.20.113])
- by mo561.mail-out.ovh.net (Postfix) with ESMTP id 5111E2485F
- for <alsa-devel@alsa-project.org>; Thu, 12 May 2022 19:14:36 +0000 (UTC)
-Received: from mesotic.com (82-65-23-224.subs.proxad.net [82.65.23.224])
- (Authenticated sender: dylan.laduranty@mesotic.com)
- by player691.ha.ovh.net (Postfix) with ESMTPSA id 1C6F32A832F0C;
- Thu, 12 May 2022 19:14:33 +0000 (UTC)
-Authentication-Results: garm.ovh; auth=pass
- (GARM-104R0050a86a382-aa0d-4168-b945-97230eabdd68,
- 22B69E6227CD80ADC50F3962316E1959FFA6139C)
- smtp.auth=dylan.laduranty@mesotic.com
-X-OVh-ClientIp: 82.65.23.224
-From: Dylan Laduranty <dylan.laduranty@mesotic.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 2/2] dt-bindings: ADAU7118: add new entries for pins drive
- strength
-Date: Thu, 12 May 2022 21:13:52 +0200
-Message-Id: <20220512191352.15602-2-dylan.laduranty@mesotic.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20220512191352.15602-1-dylan.laduranty@mesotic.com>
-References: <20220512191352.15602-1-dylan.laduranty@mesotic.com>
-X-Ovh-Tracer-Id: 6673208749986729164
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: 0
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvfedrgeejgddufedvucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucenucfjughrpefhvfevufffkffojghfsedttdertdertddtnecuhfhrohhmpeffhihlrghnucfnrgguuhhrrghnthihuceougihlhgrnhdrlhgrughurhgrnhhthiesmhgvshhothhitgdrtghomheqnecuggftrfgrthhtvghrnhepgeejgeejtdfhlefgkeegkeeihfevleduleettedufeehkeektdehgffhkeduvdfgnecukfhppedtrddtrddtrddtpdekvddrieehrddvfedrvddvgeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphhouhhtpdhhvghlohepphhlrgihvghrieeluddrhhgrrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpeguhihlrghnrdhlrgguuhhrrghnthihsehmvghsohhtihgtrdgtohhmpdhnsggprhgtphhtthhopedupdhrtghpthhtoheprghlshgrqdguvghvvghlsegrlhhsrgdqphhrohhjvggtthdrohhrgh
-Cc: Dylan Laduranty <dylan.laduranty@mesotic.com>, nuno.sa@analog.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id B74CFF80083
+ for <alsa-devel@alsa-project.org>; Fri, 13 May 2022 08:24:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B74CFF80083
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="gXU9cSSw"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="iTE029J9"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 149D621ABB;
+ Fri, 13 May 2022 06:24:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1652423049; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=N7rXMfQbLsXfHJPruIxmUvAiOrPwGhvnNEokdMVcbcs=;
+ b=gXU9cSSwHNNoWYlBexQK7CyRefoVArsPN33pqE/OjvzH2oSzDoxuDxbq5VJmfyL5zxG1Xd
+ 29alTnrBo//KeBu0W9locFW63b1YPcHoskmhBNC/P5LIYv9W6QhQC9l7BgJwm49j5jZmbm
+ 67XRGhEZE+R+/kTYKD+hjoxzQ17jsII=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1652423049;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=N7rXMfQbLsXfHJPruIxmUvAiOrPwGhvnNEokdMVcbcs=;
+ b=iTE029J9WH3+lVUeVoWAYvMjiSW2ESroOBAWERzVYt/2luuOtiOax3xR+Y4/qIUD+Qqiu2
+ qB0Fk2RcCzr3nHAw==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 987E82C141;
+ Fri, 13 May 2022 06:24:08 +0000 (UTC)
+Date: Fri, 13 May 2022 08:24:08 +0200
+Message-ID: <s5hfslec5mf.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Werner Sembach <wse@tuxedocomputers.com>
+Subject: Re: [PATCH v2] ALSA: hda/realtek: Add quirk for TongFang devices with
+ pop noise
+In-Reply-To: <20220512180956.281804-1-wse@tuxedocomputers.com>
+References: <20220512180956.281804-1-wse@tuxedocomputers.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
+ linux-kernel@vger.kernel.org, imre.deak@intel.com,
+ pierre-louis.bossart@linux.intel.com, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,72 +95,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Signed-off-by: Dylan Laduranty <dylan.laduranty@mesotic.com>
----
+On Thu, 12 May 2022 20:09:56 +0200,
+Werner Sembach wrote:
+> 
+> When audio stops playing there is an audible "pop"-noise when using
+> headphones on the TongFang GMxMRxx, GKxNRxx, GMxZGxx, GMxTGxx and GMxAGxx.
+> 
+> This quirk fixes this mostly.
+> 
+> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+> Cc: stable@vger.kernel.org
 
-Changes since v1:
-Add description values table per new entries
+Thanks, applied now.
 
- .../bindings/sound/adi,adau7118.yaml          | 39 +++++++++++++++++++
- 1 file changed, 39 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/sound/adi,adau7118.yaml b/Documentation/devicetree/bindings/sound/adi,adau7118.yaml
-index fb78967ee17b..226693ebd446 100644
---- a/Documentation/devicetree/bindings/sound/adi,adau7118.yaml
-+++ b/Documentation/devicetree/bindings/sound/adi,adau7118.yaml
-@@ -51,6 +51,42 @@ properties:
-       maximum: 1
-     default: [0, 0, 1, 1]
- 
-+  adi,pdm-clk0-ds:
-+    description: |
-+      This property set the drive strength of PDM CLK0 output pad.
-+      Possible values are: 0, 1, 2, 3 as per the following table:
-+      0 = 2.5 mA / 3.3V
-+      1 =   5 mA / 3.3V
-+      2 =  10 mA / 3.3V
-+      3 =  25 mA / 3.3V
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum: [3, 2, 1, 0]
-+    default: 2
-+
-+  adi,pdm-clk1-ds:
-+    description: |
-+      This property set the drive strength of PDM CLK1 output pad.
-+      Possible values are: 0, 1, 2, 3 as per the following table:
-+      0 = 2.5 mA / 3.3V
-+      1 =   5 mA / 3.3V
-+      2 =  10 mA / 3.3V
-+      3 =  25 mA / 3.3V
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum: [3, 2, 1, 0]
-+    default: 2
-+
-+  adi,sdata-ds:
-+    description: |
-+      This property set the drive strength of SDATA output pad.
-+      Possible values are: 0, 1, 2, 3 as per the following table:
-+      0 = 2.5 mA / 3.3V
-+      1 =   5 mA / 3.3V
-+      2 =  10 mA / 3.3V
-+      3 =  25 mA / 3.3V
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum: [3, 2, 1, 0]
-+    default: 2
-+
- required:
-   - "#sound-dai-cells"
-   - compatible
-@@ -73,6 +109,9 @@ examples:
-                 dvdd-supply = <&supply>;
-                 adi,pdm-clk-map = <1 1 0 0>;
-                 adi,decimation-ratio = <16>;
-+                adi,pdm-clk0-ds = <3>;
-+                adi,pdm-clk1-ds = <3>;
-+                adi,sdata-ds = <3>;
-         };
-     };
- 
--- 
-2.17.1
-
+Takashi

@@ -2,95 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E061052A2B8
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 May 2022 15:08:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A652352A2BA
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 May 2022 15:08:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 817B3E0E;
-	Tue, 17 May 2022 15:07:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 817B3E0E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 96A5015E0;
+	Tue, 17 May 2022 15:07:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 96A5015E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652792916;
-	bh=+7qse9sknZ9I3v9Dz/gVbCd+6CC4fL+4nom7gSG0SaM=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=EZgYsVns9HWrA02BZ31ScOWUE9iBOxS6WJafhTasR+j1YxrYsvQ93ghQTgtG6Il6x
-	 voPMXwSRLN7hKCIn2YnEZ2hUK3f7zatEYPnYoaKh57++CmMQdWU2ml8nWNZJPy2ZXd
-	 wo+5ey/jypNM6lc52EaP3CFW7ZjDT/ABW464R7CE=
+	s=default; t=1652792926;
+	bh=GMAsGP5N+04yLBnWdi+wagIxEoCorFMEM+proBrI8lc=;
+	h=Date:To:References:Subject:In-Reply-To:From:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=gkwoePT3UuOX0ng55U08IRSO9HRJwoHlqB8uDASE1dZvO/vt7QHUUrycRiufpkVOn
+	 Ql9D7hCyofUdAc50zwlxYxmSVBj892uUcd0BdNmCTZYmDYRpLWeocZmSD9Yf+nGTeb
+	 0keWprj6++saivB3xdZfCzBysA5r+E3dj+MroyDc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 38C8BF80519;
-	Tue, 17 May 2022 15:07:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 463A0F8051C;
+	Tue, 17 May 2022 15:07:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C1522F800D8; Mon, 16 May 2022 18:59:16 +0200 (CEST)
+ id E01B8F8014B; Tue, 17 May 2022 01:53:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
- [IPv6:2607:f8b0:4864:20::32f])
+ DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [IPv6:2a00:1450:4864:20::52e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 66002F800F8
- for <alsa-devel@alsa-project.org>; Mon, 16 May 2022 18:59:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66002F800F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 75579F8012C
+ for <alsa-devel@alsa-project.org>; Tue, 17 May 2022 01:53:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75579F8012C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="xNCEcWiO"
-Received: by mail-ot1-x32f.google.com with SMTP id
- m15-20020a9d608f000000b00606a788887aso10458546otj.0
- for <alsa-devel@alsa-project.org>; Mon, 16 May 2022 09:59:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=SVSiugKnf8wJOdqfsw/q25vFSKAj+trMZCib/b4SHsE=;
- b=xNCEcWiOUolnZIhOk9qAhe8FtKNTtG4QDT4fXmc/QcMlaIRHGYz4A8S+a4ZjvML9/U
- hN5zefWJ7NGp/7Xp7QcDmQBoh8TdCJy/JaCya1YhOyC80YJ6/MAahbaiUScy5TEqisNF
- Sr2iVxyK2WaSKhjWP24w4DlZ/KBux/9tlZrYQFQTET5qgcfs1PKjhP5F9HNb/WbVebre
- vyxNKYUcDEUCYbHj0MxbqZoLtGEeJYK0kZhcbFaJG2N8zCDXo790bDns7NNe3bJ25vgJ
- ZM26/1iZSZP39BGtEA4JZM44t8/QvfyOyAOng2wGnv2z1DNsb3TTcMoz0JWFNV1tCwA0
- Vy5Q==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="h9sz0Fc4"
+Received: by mail-ed1-x52e.google.com with SMTP id g12so5006964edq.4
+ for <alsa-devel@alsa-project.org>; Mon, 16 May 2022 16:53:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:to:cc:references:subject
+ :content-language:in-reply-to:from:content-transfer-encoding;
+ bh=faSFFFCYgfZhm7yFYiEZrr+4wyXWLD1FhtB7m1b/5Ns=;
+ b=h9sz0Fc4Xny9nOcmF7rpJGLVKhQcaT4iVe4oKE1ton9uhzWzSwGPufhVXFqmN2ng/k
+ 7xePaGh0MY1MdkVtVoP1ZYbWz8TkpxcPniTX3et02AN0FHKQ53p0rIaqUXLi+A3bs0AJ
+ jYMKFdYF1DOg6HNu4z7RBbEAQF5tly+3RzGFPC4cFLxjUoDLKezKrvKkF46ng0DEvgx9
+ +iiGUwZ0OfFV4AVFnfYF9N0d5Ig6I+O4mh4shh5h5HztJTIv8ByDocC9VVP1Nt9F2jLt
+ DF5YenWlxGdMqqCgAK2gCb+dMpTywSAc2CLSSuNODxF7vR1Jca9JT5hNWKKrtbMQvVkt
+ /JzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:to:cc
+ :references:subject:content-language:in-reply-to:from
  :content-transfer-encoding;
- bh=SVSiugKnf8wJOdqfsw/q25vFSKAj+trMZCib/b4SHsE=;
- b=kLaCIVL4re7aif5jNzEqdujB6WTeYCTu+KKbivSoxxaYD0lFd1X2q0+j5C8KGL35AO
- 2ddScW5h8S+PKOXBHEtTF65ciAtQ+Spazqgw2iTioYteW8QbKinKAh6Mu0dBiVJ1kMW9
- qK6r+5KWXQk1CaT9drdT2iN6AP8Y++SyI7Pnee4r0M/h/CXM8lvfYFX4XGmipbKe5vRn
- r5BZgMerqYRPGGurqI1KC5yIfQOgYls1EZk1UtsS2+ipogez8Plx5A6+aA7+A36BPtRD
- YYanD5YOLjYUAW5aFlkfJVPcYKJ81kbrjtwbJWiI5Vkwm4d1+S6xM1kCW5oRfFchazIh
- Tesg==
-X-Gm-Message-State: AOAM530o0XFmNtHL8JVfFcD/iG63Ee2l3CqTVe+dQrRztfulsA04C8FX
- Qo2phhWvLkS4dG55OfgzkcwHFL5QmURZktsgo2E=
-X-Google-Smtp-Source: ABdhPJzQ7BmCCqxGUIZGnvyc1mw1E81cQoTtZL9xm0IeZZSKzJzyHwgpPQy3DEs0+x5z6lGJSN1KAw==
-X-Received: by 2002:a9d:24e7:0:b0:606:56ad:91bb with SMTP id
- z94-20020a9d24e7000000b0060656ad91bbmr6614249ota.40.1652720348007; 
- Mon, 16 May 2022 09:59:08 -0700 (PDT)
-Received: from winterfell.papolivre.org (winterfell.papolivre.org.
- [198.58.116.17]) by smtp.gmail.com with ESMTPSA id
- ep36-20020a056870a9a400b000e686d1387bsm5966536oab.21.2022.05.16.09.59.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 May 2022 09:59:07 -0700 (PDT)
-Received: from localhost (unknown
- [IPv6:2804:14d:7224:81d8:1a5f:b39d:3db4:59e8])
- by winterfell.papolivre.org (Postfix) with ESMTPSA id C9C911F296;
- Mon, 16 May 2022 13:59:06 -0300 (-03)
-From: Antonio Terceiro <antonio.terceiro@linaro.org>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Mark Brown <broonie@kernel.org>, Shuah Khan <shuah@kernel.org>
-Subject: [PATCH] kselftest: alsa: handle cross compilation
-Date: Mon, 16 May 2022 13:58:56 -0300
-Message-Id: <20220516165856.401452-1-antonio.terceiro@linaro.org>
-X-Mailer: git-send-email 2.35.1
+ bh=faSFFFCYgfZhm7yFYiEZrr+4wyXWLD1FhtB7m1b/5Ns=;
+ b=RgKPxP+FrsFvipIns5hq9/ZFqePvP3Guiclu2Rf9eUx9sVbbC5B2nZ/KMDFNFjp0OE
+ t9AF4m6nwF7X8Ev5pg8HXrCmenqZPHJBLBU1wwIGMp/D2jc3Ft5Tu4yitiy6mxMdMPNy
+ TLvdDZBVhE3VCUVnfPnukBBR2E9MBbzWOOLd/Ftvo//vILwnev5bCBtVA2bdEOJjbO3u
+ ogDGTDP8lSz8/R7ecaIC8P07R+eAsPXi+jurQ1TwdiN/6F/fO/6r5bGanyAajuTtzEif
+ S9No1dOTvKVLX+2Dp6iCqyfAHd1Z/2Syc/h0c0+zp5tgAKi3cZrAfnOfA0h0dZFumVAE
+ TcQQ==
+X-Gm-Message-State: AOAM533Ui1b2AVdQYOClDXVtMRKM+0Br46GV+yZMbvRtj3USkzU82FEu
+ H21pJX6SB6V3Blyk4EIFSAk=
+X-Google-Smtp-Source: ABdhPJwb/F4Y7l6ajled1hbWRATI/4fqkYMtJ7Rcb8EMEf8glJfqC9e5d3kCq6FVUQ7GLXu2fA2UiQ==
+X-Received: by 2002:a05:6402:206f:b0:42a:a8c1:1637 with SMTP id
+ bd15-20020a056402206f00b0042aa8c11637mr11040288edb.302.1652745206545; 
+ Mon, 16 May 2022 16:53:26 -0700 (PDT)
+Received: from [192.168.1.110] ([178.233.88.73])
+ by smtp.gmail.com with ESMTPSA id
+ u2-20020aa7db82000000b0042617ba63a7sm5906624edt.49.2022.05.16.16.53.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 16 May 2022 16:53:25 -0700 (PDT)
+Message-ID: <c2163c71-2f71-9011-3966-baeab8e8dc8f@gmail.com>
+Date: Tue, 17 May 2022 02:53:47 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
+To: marex@denx.de
+References: <ee74ed25-cd10-1047-9700-7546c7ee7052@denx.de>
+Subject: Re: [PATCH] ASoC: ops: Shift tested values in snd_soc_put_volsw() by
+ +min
+Content-Language: en-US
+In-Reply-To: <ee74ed25-cd10-1047-9700-7546c7ee7052@denx.de>
+From: "Tan N." <tannayir@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 17 May 2022 15:07:02 +0200
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, broonie@kernel.org,
+ alexandre.torgue@st.com, stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,34 +108,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Calling just `pkg-config` is adequate for native builds, but finding the
-foreign libraries with pkg-config needs pkg-config to be called via its
-architecture-specific wrapper. This works in Debian, where there is a
-corresponding *-pkg-config wrapper script for each enabled foreign
-architecture, just like there are *-gcc, *-ld.
+The same changes that are applied to the snd_soc_put_volsw should also 
+be applied
+to the volsw_sx and xr_sx put callback functions.
 
-Signed-off-by: Antonio Terceiro <antonio.terceiro@linaro.org>
----
- tools/testing/selftests/alsa/Makefile | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Most of the Qualcomm codecs set the volume levels of controls like this
+-- SOC_SINGLE_SX_TLV("IIR1 INP1 Volume", LPASS_CDC_IIR1_GAIN_B1_CTL, 0,  
+-84, 40, digital_gain) --
+which causes the values from the caller to be rejected incorrectly on 
+the put callback function.
 
-diff --git a/tools/testing/selftests/alsa/Makefile b/tools/testing/selftests/alsa/Makefile
-index f64d9090426d..f5675b3c929d 100644
---- a/tools/testing/selftests/alsa/Makefile
-+++ b/tools/testing/selftests/alsa/Makefile
-@@ -1,8 +1,10 @@
- # SPDX-License-Identifier: GPL-2.0
- #
- 
--CFLAGS += $(shell pkg-config --cflags alsa)
--LDLIBS += $(shell pkg-config --libs alsa)
-+PKG_CONFIG ?= $(CROSS_COMPILE)pkg-config
-+
-+CFLAGS += $(shell $(PKG_CONFIG) --cflags alsa)
-+LDLIBS += $(shell $(PKG_CONFIG) --libs alsa)
- 
- TEST_GEN_PROGS := mixer-test
- 
--- 
-2.35.1
-
+It took me a lot of time to debug this but because those two functions 
+aren't changed
+in this patch, it creates an issue where some Android phones have extremely
+high amplification on the sidetone mixer during calls which in turn causes
+a feedback loop because the kernel can't set the correct level on the 
+controls.

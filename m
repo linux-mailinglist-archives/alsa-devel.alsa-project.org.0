@@ -2,61 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46C1C5283E4
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 May 2022 14:10:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 987CF5287E2
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 May 2022 17:03:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ADB201652;
-	Mon, 16 May 2022 14:09:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ADB201652
+	by alsa0.perex.cz (Postfix) with ESMTPS id 095411E2;
+	Mon, 16 May 2022 17:02:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 095411E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652703033;
-	bh=481t56R/EG2IQx2fP0HHlQHWNqg8zsu/2HEzZXZrZ8U=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=LZJQ0Ub4+e3YjenVfD5HqEjYYe6jkHi9te+LDI5XsutXBwZxY7opWDuST3x0/qlo8
-	 auquQSt7Uc35pyv9dnPnwXxYdIXS17saUU8LNr2Wr62niSQlisunsNehwMVsqX5Fc8
-	 9n0O0xJ3P7dtnvYGOX74jArvZU0EDEBdbxmHebnE=
+	s=default; t=1652713423;
+	bh=BrYg+P0E76QFC+K+QlgC5bvnhhpGso5mTlZran5yFn0=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=q9G678ZDpciBBJle7qXmjpxFKy/bMD99lhoJDhJZ8cKkl0JajQ8KHbleWYGBZ1T58
+	 8RD8kNOTPo/BDQyjrIHXkLemYAvbEk9XvQtL7fJPdc4nShAUvzRfFesK9/MbGqWRAv
+	 lV4BrMXnWoLG7KFKKkAINBTXu1jREVPO57/g+Cr8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 128FFF80171;
-	Mon, 16 May 2022 14:09:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 719CFF80171;
+	Mon, 16 May 2022 17:02:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 906B6F8014B; Mon, 16 May 2022 14:09:33 +0200 (CEST)
+ id AD4B4F8014B; Mon, 16 May 2022 17:02:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4B30CF800D8
- for <alsa-devel@alsa-project.org>; Mon, 16 May 2022 14:09:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B30CF800D8
-Received: from canpemm500007.china.huawei.com (unknown [172.30.72.55])
- by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4L1ybc0P3ZzCsYk;
- Mon, 16 May 2022 20:04:28 +0800 (CST)
-Received: from localhost (10.174.179.215) by canpemm500007.china.huawei.com
- (7.192.104.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Mon, 16 May
- 2022 20:09:20 +0800
-From: YueHaibing <yuehaibing@huawei.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>, <quic_srivasam@quicinc.com>, <quic_potturu@quicinc.com>
-Subject: [PATCH -next] ASoC: codecs: lpass: Fix passing zero to 'PTR_ERR'
-Date: Mon, 16 May 2022 20:09:09 +0800
-Message-ID: <20220516120909.36356-1-yuehaibing@huawei.com>
-X-Mailer: git-send-email 2.10.2.windows.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 03DF2F8012C
+ for <alsa-devel@alsa-project.org>; Mon, 16 May 2022 17:02:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03DF2F8012C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="GVy9NZlx"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by sin.source.kernel.org (Postfix) with ESMTPS id BA4C6CE1407;
+ Mon, 16 May 2022 15:02:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A06E2C385AA;
+ Mon, 16 May 2022 15:02:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1652713355;
+ bh=BrYg+P0E76QFC+K+QlgC5bvnhhpGso5mTlZran5yFn0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=GVy9NZlxVi2S7kRNO3iFcEM/OKeHQmnKzyHXYl1CpDZh5ap4dSxopYPEQuxJRCL8p
+ Lc74BM+vfewteyA1lUiFR3IR6+BwiyYjIXGtvzr2PDUY3QNWB95aWxAf3/eWS6eoVo
+ +9+RnxHJ/logeTxspYuP8Py6CL2MxNLo+8NGQsHroOd2Hs6eDmcTvgQuHPYl4QrSpg
+ UJX68Z8B73ov64eyl6wXZFIPjaMCoh2JZS3RWVfHZh3gy2oJjIRpT+kwG4aW91zveg
+ x30jmjRu2uIdX4D9zhGOEdXjDKxdRcRLF1Om+4zT41XCvA83Jj4iwYPebx60ewnCSw
+ qTSNrzanBQmjQ==
+Date: Mon, 16 May 2022 16:02:30 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Siddh Raman Pant <siddhpant.gh@gmail.com>
+Subject: Re: [PATCH] selftests: alsa: Better error messages
+Message-ID: <YoJnhulbKk49rZsw@sirena.org.uk>
+References: <8598037d-0e24-9bc1-3f2c-a2751ec8e871@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.174.179.215]
-X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
- canpemm500007.china.huawei.com (7.192.104.62)
-X-CFilter-Loop: Reflected
-Cc: alsa-devel@alsa-project.org, YueHaibing <yuehaibing@huawei.com>,
- linux-kernel@vger.kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="cH4kqHwkCNRl3JMX"
+Content-Disposition: inline
+In-Reply-To: <8598037d-0e24-9bc1-3f2c-a2751ec8e871@gmail.com>
+X-Cookie: May be too intense for some viewers.
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, linux-kselftest@vger.kernel.org,
+ Shuah Khan <skhan@linuxfoundation.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,41 +88,76 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-sound/soc/codecs/lpass-macro-common.c:28 lpass_macro_pds_init() warn: passing zero to 'PTR_ERR'
-sound/soc/codecs/lpass-macro-common.c:38 lpass_macro_pds_init() warn: passing zero to 'PTR_ERR'
-sound/soc/codecs/lpass-macro-common.c:54 lpass_macro_pds_init() warn: passing zero to 'ERR_PTR'
 
-dev_pm_domain_attach_by_name() may return NULL, set 'ret' as
--ENODATA to fix this warning.
+--cH4kqHwkCNRl3JMX
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Fixes: 1a8ee4cf8418 ("ASoC: codecs: Fix error handling in power domain init and exit handlers")
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
----
- sound/soc/codecs/lpass-macro-common.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+On Fri, May 13, 2022 at 07:10:57PM +0530, Siddh Raman Pant wrote:
 
-diff --git a/sound/soc/codecs/lpass-macro-common.c b/sound/soc/codecs/lpass-macro-common.c
-index 3c661fd61173..1b9082d237c1 100644
---- a/sound/soc/codecs/lpass-macro-common.c
-+++ b/sound/soc/codecs/lpass-macro-common.c
-@@ -25,7 +25,7 @@ struct lpass_macro *lpass_macro_pds_init(struct device *dev)
- 
- 	l_pds->macro_pd = dev_pm_domain_attach_by_name(dev, "macro");
- 	if (IS_ERR_OR_NULL(l_pds->macro_pd)) {
--		ret = PTR_ERR(l_pds->macro_pd);
-+		ret = l_pds->macro_pd ? PTR_ERR(l_pds->macro_pd) : -ENODATA;
- 		goto macro_err;
- 	}
- 
-@@ -35,7 +35,7 @@ struct lpass_macro *lpass_macro_pds_init(struct device *dev)
- 
- 	l_pds->dcodec_pd = dev_pm_domain_attach_by_name(dev, "dcodec");
- 	if (IS_ERR_OR_NULL(l_pds->dcodec_pd)) {
--		ret = PTR_ERR(l_pds->dcodec_pd);
-+		ret = l_pds->dcodec_pd ? PTR_ERR(l_pds->dcodec_pd) : -ENODATA;
- 		goto dcodec_err;
- 	}
- 
--- 
-2.17.1
+> This allows for potentially better machine-parsing due to an
+> expected / fixed format. Also because of eyecandy reasons.
 
+As I said in reply to Takashi's mail I'm not convinced about all the
+changes in here, a lot of it's really bikesheddy at the best of times
+and to be honest there's more here that I don't like than do.  The
+changes aren't entirely consistent in the final style either so
+presumably not great if there is any machine parsing going on.  It'd be
+much better to split this up into separate commits for separate changes,
+that'd be a lot easier to review if nothing else.
+
+>  	if (err < 0) {
+> -		ksft_print_msg("Unable to parse custom alsa-lib configuration: %s\n",
+> +		ksft_print_msg("Unable to parse custom alsa-lib configuration (%s)\n",
+>  			       snd_strerror(err));
+
+I'm really unconvinced that replacing : with () is helping either people
+or machines - the form we have at the minute is probably more common for
+command line tools?
+
+> -				ksft_print_msg("%s getting info for %d\n",
+> -					       snd_strerror(err),
+> -					       ctl_data->name);
+> +				ksft_print_msg("%s : %s while getting info\n",
+> +					       ctl_data->name, snd_strerror(err));
+
+Why add the space before the : here?  That really is not idiomatic for
+Unix stuff, or just natural language.
+
+> @@ -542,11 +541,12 @@ static bool show_mismatch(struct ctl_data *ctl, int=
+ index,
+>  		/*
+>  		 * NOTE: The volatile attribute means that the hardware
+>  		 * can voluntarily change the state of control element
+> -		 * independent of any operation by software. =20
+> +		 * independent of any operation by software.
+>  		 */
+
+This should definitely be a separate commit.
+
+>  		bool is_volatile =3D snd_ctl_elem_info_is_volatile(ctl->info);
+> -		ksft_print_msg("%s.%d expected %lld but read %lld, is_volatile %d\n",
+> -			       ctl->name, index, expected_int, read_int, is_volatile);
+> +		ksft_print_msg("%s.%d : Expected %lld, but read %lld (%s)\n",
+> +			       ctl->name, index, expected_int, read_int,
+> +			       (is_volatile ? "Volatile" : "Non-volatile"));
+
+I don't understand the comma here?
+
+--cH4kqHwkCNRl3JMX
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmKCZ4UACgkQJNaLcl1U
+h9CEbgf9Eps4RQf5GwgggebMWvlsEDS4AHT1wMUSZOns3d44DpU8Em6Fg9BHGF19
+Y8qy5envpJ30adNWBZNS+hH/Cr1mzHsP4CXYxADNBTMLDvwHAT7v0xDThc5lGNhi
+TjMNxnYssD4uk5vwqEDjfukpqQ8ee2U5Mteysg3nNfvUK0Y4Ty7rLU11wHPdpsib
+iuwVlm56PbJwhJz/++DDj5JfAQKz+7K5ZMWmTYNyf4flwB2UyWdueeKknrNh7HrK
+etvB6eYnOddvoP1fLzsZxFWE6Kamk2Fb7UPfdmc9HX26XhvrSpQlre5e+Otbs9Ft
+cLadxKCsaQ6kn9eKdRiwUQwfDNvXEg==
+=9XeY
+-----END PGP SIGNATURE-----
+
+--cH4kqHwkCNRl3JMX--

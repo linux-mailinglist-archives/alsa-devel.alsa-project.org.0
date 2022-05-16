@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B33A8528161
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 May 2022 12:04:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C04B528165
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 May 2022 12:04:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 35AAC1680;
-	Mon, 16 May 2022 12:03:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 35AAC1680
+	by alsa0.perex.cz (Postfix) with ESMTPS id C17B01689;
+	Mon, 16 May 2022 12:03:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C17B01689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652695452;
-	bh=xZtV5nbjDISRteSMT5pjAAgirv49avg7vuS4c5N9XOQ=;
+	s=default; t=1652695482;
+	bh=mluHiTKkmDFnTU1VSdTVyC2ZrgC7RNDVIK/Le7w2em8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JoGb07XQq59hWc4FTCBllOYIkiL95gtDugOF87zyDpwGu8ScPPkuSk12ecX/U5+8o
-	 hThfNIXvd9GVawQNx8OZxAxmKoxV/HChGIXVqtlxEbFVP/agJGBIAxlsZGCRot6BL8
-	 wkw5CSqVI5UQJdAttjGKw2JIe2Ijtgv7oeJD/JdM=
+	b=kx+++ftbXJXiAQNImECGjWkdfg7CaaYVyF5ynqTfaZIerR+L8oFEo2lNUBCaGzQIW
+	 dNIttV2L4yA3x5zyzw/9pFjYyVZVGQD67Oa34lo7F4sHYXoAxr/V4fLZFVkzCBCTVj
+	 DKxxymAYQgKq+pZVuyNPPHqbtfYXw/HL/WSvvOQ8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 97094F801D5;
-	Mon, 16 May 2022 12:02:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9573DF8051C;
+	Mon, 16 May 2022 12:02:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 17252F80528; Mon, 16 May 2022 12:02:16 +0200 (CEST)
+ id ED547F8052F; Mon, 16 May 2022 12:02:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6753DF8051B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 11028F80171
  for <alsa-devel@alsa-project.org>; Mon, 16 May 2022 12:02:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6753DF8051B
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11028F80171
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="IhlIqjOC"
+ header.b="Cd/COmCE"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1652695328; x=1684231328;
+ t=1652695329; x=1684231329;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=xZtV5nbjDISRteSMT5pjAAgirv49avg7vuS4c5N9XOQ=;
- b=IhlIqjOCYQJQCfIY/X32rny+KY3N0DzVT+7rR+0l1zjoZ8myvEAE3QYo
- YgducDZWR1WMGcRNy7884ycytXeMnefxkUacuTpZsVTOnLKmjMiRSoHTy
- eDM8HMEHHCZzE3WrSB9Vv+p4stMowF8qb8cme70gFVlO2zheV3uzTbXOn
- r5hz6da5aY8chILHFJSxos3YiNjzQom3JvbEGKWhKZemKffgx00au0EBr
- eQCEymrp//tJN2+NXlo6tsFxr0pQW67OG8THb4+tZ4RwGYnPQt/+2AdpL
- ddSmawcdvYrHzRvvqZw7OU7VAOZ7sV4VLKYkbGxpAPzaZCaRRoV1hi+uT A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10348"; a="333846308"
-X-IronPort-AV: E=Sophos;i="5.91,229,1647327600"; d="scan'208";a="333846308"
+ bh=mluHiTKkmDFnTU1VSdTVyC2ZrgC7RNDVIK/Le7w2em8=;
+ b=Cd/COmCE90s0SA42rVSLJ+uEsPO/9p7RV9c4D4rdNYLlm5USNWED0GQF
+ 7yVIwzdo/7UFfSQiHwQUkONbPGcB3OtI1zt5kSkzv0hmjoTN1QtdPG46Y
+ txBg0x1C7jYxb0aVpcUNQaOx2BbW7ejRhgdr7iPoyedXGLdGyK6XHWRrT
+ DHvSv/l0PKsyHlrQnC0iwEKIY19v0VBRNrLXriw4zRxenbhKAAN7L9RGt
+ Uvtktp4/Xo1aqfFKFkP4wMbe9y5zv/uK62ZHL4pUfG2DmlPtJRtwTRxkJ
+ ccjBET9zHdTID6QoMLpCR8Iv4uolKETTCl2H/occ0pVgh9sJxKe4pIbIn Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10348"; a="333846317"
+X-IronPort-AV: E=Sophos;i="5.91,229,1647327600"; d="scan'208";a="333846317"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 May 2022 03:02:02 -0700
+ 16 May 2022 03:02:05 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,229,1647327600"; d="scan'208";a="522382610"
+X-IronPort-AV: E=Sophos;i="5.91,229,1647327600"; d="scan'208";a="522382626"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by orsmga003.jf.intel.com with ESMTP; 16 May 2022 03:01:59 -0700
+ by orsmga003.jf.intel.com with ESMTP; 16 May 2022 03:02:02 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Subject: [PATCH v3 06/15] ASoC: Intel: avs: Coredump and recovery flow
-Date: Mon, 16 May 2022 12:11:07 +0200
-Message-Id: <20220516101116.190192-7-cezary.rojewski@intel.com>
+Subject: [PATCH v3 07/15] ASoC: Intel: avs: Prepare for firmware tracing
+Date: Mon, 16 May 2022 12:11:08 +0200
+Message-Id: <20220516101116.190192-8-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220516101116.190192-1-cezary.rojewski@intel.com>
 References: <20220516101116.190192-1-cezary.rojewski@intel.com>
@@ -92,226 +92,269 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In rare occasions, under stress conditions or hardware malfunction, DSP
-firmware may fail. Software is notified about such situation with
-EXCEPTION_CAUGHT notification. IPC timeout is also counted as critical
-device failure. More often than not, driver can recover from such
-situations by performing full reset: killing and restarting ADSP.
+Firmware provides its own debug functionality. While coredump is one of
+these, traces are the main area of interest. kfifo is enlisted to cache
+log data that is being pumped to driver through SRAM. Separate DSP
+operations are declared as actual feature implementation differs between
+firmware generations.
+
+As log gathering involves usage of IPCs, add all necessary: ENABLE_LOGS
+and SYSTEM_TIME.
 
 Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/intel/Kconfig        |  1 +
- sound/soc/intel/avs/avs.h      |  4 ++
- sound/soc/intel/avs/ipc.c      | 97 +++++++++++++++++++++++++++++++++-
- sound/soc/intel/avs/messages.h |  5 ++
- 4 files changed, 105 insertions(+), 2 deletions(-)
+ sound/soc/intel/avs/avs.h       | 32 ++++++++++++++++++++++++++++++++
+ sound/soc/intel/avs/ipc.c       |  5 +++++
+ sound/soc/intel/avs/messages.c  | 31 +++++++++++++++++++++++++++++++
+ sound/soc/intel/avs/messages.h  | 21 +++++++++++++++++++++
+ sound/soc/intel/avs/registers.h |  1 +
+ sound/soc/intel/avs/utils.c     | 23 +++++++++++++++++++++++
+ 6 files changed, 113 insertions(+)
 
-diff --git a/sound/soc/intel/Kconfig b/sound/soc/intel/Kconfig
-index 039b45a4a799..1aaf9bdf721c 100644
---- a/sound/soc/intel/Kconfig
-+++ b/sound/soc/intel/Kconfig
-@@ -219,6 +219,7 @@ config SND_SOC_INTEL_AVS
- 	select SND_HDA_EXT_CORE
- 	select SND_HDA_DSP_LOADER
- 	select SND_INTEL_DSP_CONFIG
-+	select WANT_DEV_COREDUMP
- 	help
- 	  Enable support for Intel(R) cAVS 1.5 platforms with DSP
- 	  capabilities. This includes Skylake, Kabylake, Amberlake and
 diff --git a/sound/soc/intel/avs/avs.h b/sound/soc/intel/avs/avs.h
-index e628f78d1864..9096f6c3d598 100644
+index 9096f6c3d598..263ceb39d25d 100644
 --- a/sound/soc/intel/avs/avs.h
 +++ b/sound/soc/intel/avs/avs.h
-@@ -42,6 +42,7 @@ struct avs_dsp_ops {
+@@ -11,6 +11,7 @@
+ 
+ #include <linux/device.h>
+ #include <linux/firmware.h>
++#include <linux/kfifo.h>
+ #include <sound/hda_codec.h>
+ #include <sound/hda_register.h>
+ #include <sound/soc-component.h>
+@@ -42,6 +43,10 @@ struct avs_dsp_ops {
  	int (* const load_basefw)(struct avs_dev *, struct firmware *);
  	int (* const load_lib)(struct avs_dev *, struct firmware *, u32);
  	int (* const transfer_mods)(struct avs_dev *, bool, struct avs_module_entry *, u32);
-+	int (* const coredump)(struct avs_dev *, union avs_notify_msg *);
++	int (* const enable_logs)(struct avs_dev *, enum avs_log_enable, u32, u32, unsigned long,
++				  u32 *);
++	int (* const log_buffer_offset)(struct avs_dev *, u32);
++	int (* const log_buffer_status)(struct avs_dev *, union avs_notify_msg *);
+ 	int (* const coredump)(struct avs_dev *, union avs_notify_msg *);
  };
  
- #define avs_dsp_op(adev, op, ...) \
-@@ -164,12 +165,15 @@ struct avs_ipc {
- 	struct avs_ipc_msg rx;
- 	u32 default_timeout_ms;
- 	bool ready;
-+	atomic_t recovering;
+@@ -75,6 +80,16 @@ struct avs_fw_entry {
+ 	struct list_head node;
+ };
  
- 	bool rx_completed;
- 	spinlock_t rx_lock;
- 	struct mutex msg_mutex;
- 	struct completion done_completion;
- 	struct completion busy_completion;
++struct avs_debug {
++	struct kfifo trace_fifo;
++	spinlock_t fifo_lock;	/* serialize I/O for trace_fifo */
++	spinlock_t trace_lock;	/* serialize debug window I/O between each LOG_BUFFER_STATUS */
++	wait_queue_head_t trace_waitq;
++	u32 aging_timer_period;
++	u32 fifo_full_timer_period;
++	u32 logged_resources;	/* context dependent: core or library */
++};
 +
-+	struct work_struct recovery_work;
+ /*
+  * struct avs_dev - Intel HD-Audio driver data
+  *
+@@ -115,6 +130,8 @@ struct avs_dev {
+ 	struct list_head path_list;
+ 	spinlock_t path_list_lock;
+ 	struct mutex path_mutex;
++
++	struct avs_debug dbg;
  };
  
- #define AVS_EIPC	EREMOTEIO
+ /* from hda_bus to avs_dev */
+@@ -279,4 +296,19 @@ int avs_i2s_platform_register(struct avs_dev *adev, const char *name, unsigned l
+ 			      unsigned long *tdms);
+ int avs_hda_platform_register(struct avs_dev *adev, const char *name);
+ 
++/* Firmware tracing helpers */
++
++unsigned int __kfifo_fromio_locked(struct kfifo *fifo, const void __iomem *src, unsigned int len,
++				   spinlock_t *lock);
++
++#define avs_log_buffer_size(adev) \
++	((adev)->fw_cfg.trace_log_bytes / (adev)->hw_cfg.dsp_cores)
++
++#define avs_log_buffer_addr(adev, core) \
++({ \
++	s32 __offset = avs_dsp_op(adev, log_buffer_offset, core); \
++	(__offset < 0) ? NULL : \
++			 (avs_sram_addr(adev, AVS_DEBUG_WINDOW) + __offset); \
++})
++
+ #endif /* __SOUND_SOC_INTEL_AVS_H */
 diff --git a/sound/soc/intel/avs/ipc.c b/sound/soc/intel/avs/ipc.c
-index 68aaf01edbf2..98cdc05071fb 100644
+index 98cdc05071fb..feb900ba1db9 100644
 --- a/sound/soc/intel/avs/ipc.c
 +++ b/sound/soc/intel/avs/ipc.c
-@@ -14,6 +14,89 @@
- 
- #define AVS_IPC_TIMEOUT_MS	300
- 
-+static void avs_dsp_recovery(struct avs_dev *adev)
-+{
-+	struct avs_soc_component *acomp;
-+	unsigned int core_mask;
-+	int ret;
-+
-+	mutex_lock(&adev->comp_list_mutex);
-+	/* disconnect all running streams */
-+	list_for_each_entry(acomp, &adev->comp_list, node) {
-+		struct snd_soc_pcm_runtime *rtd;
-+		struct snd_soc_card *card;
-+
-+		card = acomp->base.card;
-+		if (!card)
-+			continue;
-+
-+		for_each_card_rtds(card, rtd) {
-+			struct snd_pcm *pcm;
-+			int dir;
-+
-+			pcm = rtd->pcm;
-+			if (!pcm || rtd->dai_link->no_pcm)
-+				continue;
-+
-+			for_each_pcm_streams(dir) {
-+				struct snd_pcm_substream *substream;
-+
-+				substream = pcm->streams[dir].substream;
-+				if (!substream || !substream->runtime)
-+					continue;
-+
-+				snd_pcm_stop(substream, SNDRV_PCM_STATE_DISCONNECTED);
-+			}
-+		}
-+	}
-+	mutex_unlock(&adev->comp_list_mutex);
-+
-+	/* forcibly shutdown all cores */
-+	core_mask = GENMASK(adev->hw_cfg.dsp_cores - 1, 0);
-+	avs_dsp_core_disable(adev, core_mask);
-+
-+	/* attempt dsp reboot */
-+	ret = avs_dsp_boot_firmware(adev, true);
-+	if (ret < 0)
-+		dev_err(adev->dev, "dsp reboot failed: %d\n", ret);
-+
-+	pm_runtime_mark_last_busy(adev->dev);
-+	pm_runtime_enable(adev->dev);
-+	pm_request_autosuspend(adev->dev);
-+
-+	atomic_set(&adev->ipc->recovering, 0);
-+}
-+
-+static void avs_dsp_recovery_work(struct work_struct *work)
-+{
-+	struct avs_ipc *ipc = container_of(work, struct avs_ipc, recovery_work);
-+
-+	avs_dsp_recovery(to_avs_dev(ipc->dev));
-+}
-+
-+static void avs_dsp_exception_caught(struct avs_dev *adev, union avs_notify_msg *msg)
-+{
-+	struct avs_ipc *ipc = adev->ipc;
-+
-+	/* Account for the double-exception case. */
-+	ipc->ready = false;
-+
-+	if (!atomic_add_unless(&ipc->recovering, 1, 1)) {
-+		dev_err(adev->dev, "dsp recovery is already in progress\n");
-+		return;
-+	}
-+
-+	dev_crit(adev->dev, "communication severed, rebooting dsp..\n");
-+
-+	/* Re-enabled on recovery completion. */
-+	pm_runtime_disable(adev->dev);
-+
-+	/* Process received notification. */
-+	avs_dsp_op(adev, coredump, msg);
-+
-+	schedule_work(&ipc->recovery_work);
-+}
-+
- static void avs_dsp_receive_rx(struct avs_dev *adev, u64 header)
- {
- 	struct avs_ipc *ipc = adev->ipc;
-@@ -57,6 +140,9 @@ static void avs_dsp_process_notification(struct avs_dev *adev, u64 header)
+@@ -140,6 +140,7 @@ static void avs_dsp_process_notification(struct avs_dev *adev, u64 header)
  		data_size = sizeof(struct avs_notify_res_data);
  		break;
  
-+	case AVS_NOTIFY_EXCEPTION_CAUGHT:
-+		break;
-+
- 	case AVS_NOTIFY_MODULE_EVENT:
- 		/* To know the total payload size, header needs to be read first. */
- 		memcpy_fromio(&mod_data, avs_uplink_addr(adev), sizeof(mod_data));
-@@ -84,6 +170,10 @@ static void avs_dsp_process_notification(struct avs_dev *adev, u64 header)
++	case AVS_NOTIFY_LOG_BUFFER_STATUS:
+ 	case AVS_NOTIFY_EXCEPTION_CAUGHT:
+ 		break;
+ 
+@@ -170,6 +171,10 @@ static void avs_dsp_process_notification(struct avs_dev *adev, u64 header)
  		complete(&adev->fw_ready);
  		break;
  
-+	case AVS_NOTIFY_EXCEPTION_CAUGHT:
-+		avs_dsp_exception_caught(adev, &msg);
++	case AVS_NOTIFY_LOG_BUFFER_STATUS:
++		avs_dsp_op(adev, log_buffer_status, &msg);
 +		break;
 +
- 	default:
+ 	case AVS_NOTIFY_EXCEPTION_CAUGHT:
+ 		avs_dsp_exception_caught(adev, &msg);
  		break;
- 	}
-@@ -278,9 +368,10 @@ static int avs_dsp_do_send_msg(struct avs_dev *adev, struct avs_ipc_msg *request
- 	ret = avs_ipc_wait_busy_completion(ipc, timeout);
- 	if (ret) {
- 		if (ret == -ETIMEDOUT) {
--			dev_crit(adev->dev, "communication severed: %d, rebooting dsp..\n", ret);
-+			union avs_notify_msg msg = AVS_NOTIFICATION(EXCEPTION_CAUGHT);
- 
--			avs_ipc_block(ipc);
-+			/* Same treatment as on exception, just stack_dump=0. */
-+			avs_dsp_exception_caught(adev, &msg);
- 		}
- 		goto exit;
- 	}
-@@ -368,6 +459,7 @@ int avs_ipc_init(struct avs_ipc *ipc, struct device *dev)
- 	ipc->dev = dev;
- 	ipc->ready = false;
- 	ipc->default_timeout_ms = AVS_IPC_TIMEOUT_MS;
-+	INIT_WORK(&ipc->recovery_work, avs_dsp_recovery_work);
- 	init_completion(&ipc->done_completion);
- 	init_completion(&ipc->busy_completion);
- 	spin_lock_init(&ipc->rx_lock);
-@@ -379,4 +471,5 @@ int avs_ipc_init(struct avs_ipc *ipc, struct device *dev)
- void avs_ipc_block(struct avs_ipc *ipc)
- {
- 	ipc->ready = false;
-+	cancel_work_sync(&ipc->recovery_work);
+diff --git a/sound/soc/intel/avs/messages.c b/sound/soc/intel/avs/messages.c
+index 004da166a943..3da33150aabf 100644
+--- a/sound/soc/intel/avs/messages.c
++++ b/sound/soc/intel/avs/messages.c
+@@ -677,6 +677,37 @@ int avs_ipc_get_modules_info(struct avs_dev *adev, struct avs_mods_info **info)
+ 	return 0;
  }
+ 
++int avs_ipc_set_enable_logs(struct avs_dev *adev, u8 *log_info, size_t size)
++{
++	int ret;
++
++	ret = avs_ipc_set_large_config(adev, AVS_BASEFW_MOD_ID, AVS_BASEFW_INST_ID,
++				       AVS_BASEFW_ENABLE_LOGS, log_info, size);
++	if (ret)
++		dev_err(adev->dev, "enable logs failed: %d\n", ret);
++
++	return ret;
++}
++
++int avs_ipc_set_system_time(struct avs_dev *adev)
++{
++	struct avs_sys_time sys_time;
++	int ret;
++	u64 us;
++
++	/* firmware expects UTC time in micro seconds */
++	us = ktime_to_us(ktime_get());
++	sys_time.val_l = us & UINT_MAX;
++	sys_time.val_u = us >> 32;
++
++	ret = avs_ipc_set_large_config(adev, AVS_BASEFW_MOD_ID, AVS_BASEFW_INST_ID,
++				       AVS_BASEFW_SYSTEM_TIME, (u8 *)&sys_time, sizeof(sys_time));
++	if (ret)
++		dev_err(adev->dev, "set system time failed: %d\n", ret);
++
++	return ret;
++}
++
+ int avs_ipc_copier_set_sink_format(struct avs_dev *adev, u16 module_id,
+ 				   u8 instance_id, u32 sink_id,
+ 				   const struct avs_audio_format *src_fmt,
 diff --git a/sound/soc/intel/avs/messages.h b/sound/soc/intel/avs/messages.h
-index 0395dd7150eb..94875a153124 100644
+index 94875a153124..257482e160bc 100644
 --- a/sound/soc/intel/avs/messages.h
 +++ b/sound/soc/intel/avs/messages.h
-@@ -187,6 +187,7 @@ enum avs_notify_msg_type {
+@@ -186,6 +186,7 @@ union avs_reply_msg {
+ enum avs_notify_msg_type {
  	AVS_NOTIFY_PHRASE_DETECTED = 4,
  	AVS_NOTIFY_RESOURCE_EVENT = 5,
++	AVS_NOTIFY_LOG_BUFFER_STATUS = 6,
  	AVS_NOTIFY_FW_READY = 8,
-+	AVS_NOTIFY_EXCEPTION_CAUGHT = 10,
+ 	AVS_NOTIFY_EXCEPTION_CAUGHT = 10,
  	AVS_NOTIFY_MODULE_EVENT = 12,
- };
- 
-@@ -205,6 +206,10 @@ union avs_notify_msg {
+@@ -203,6 +204,10 @@ union avs_notify_msg {
+ 				u32 msg_direction:1;
+ 				u32 msg_target:1;
+ 			};
++			struct {
++				u16 rsvd:12;
++				u16 core:4;
++			} log;
  		};
  		union {
  			u32 val;
-+			struct {
-+				u32 core_id:2;
-+				u32 stack_dump_size:16;
-+			} coredump;
- 		} ext;
- 	};
- } __packed;
+@@ -329,12 +334,21 @@ int avs_ipc_set_d0ix(struct avs_dev *adev, bool enable_pg, bool streaming);
+ #define AVS_BASEFW_INST_ID	0
+ 
+ enum avs_basefw_runtime_param {
++	AVS_BASEFW_ENABLE_LOGS = 6,
+ 	AVS_BASEFW_FIRMWARE_CONFIG = 7,
+ 	AVS_BASEFW_HARDWARE_CONFIG = 8,
+ 	AVS_BASEFW_MODULES_INFO = 9,
+ 	AVS_BASEFW_LIBRARIES_INFO = 16,
++	AVS_BASEFW_SYSTEM_TIME = 20,
++};
++
++enum avs_log_enable {
++	AVS_LOG_DISABLE = 0,
++	AVS_LOG_ENABLE = 1
+ };
+ 
++int avs_ipc_set_enable_logs(struct avs_dev *adev, u8 *log_info, size_t size);
++
+ struct avs_fw_version {
+ 	u16 major;
+ 	u16 minor;
+@@ -502,6 +516,13 @@ static inline bool avs_module_entry_is_loaded(struct avs_module_entry *mentry)
+ 
+ int avs_ipc_get_modules_info(struct avs_dev *adev, struct avs_mods_info **info);
+ 
++struct avs_sys_time {
++	u32 val_l;
++	u32 val_u;
++} __packed;
++
++int avs_ipc_set_system_time(struct avs_dev *adev);
++
+ /* Module configuration */
+ 
+ #define AVS_MIXIN_MOD_UUID \
+diff --git a/sound/soc/intel/avs/registers.h b/sound/soc/intel/avs/registers.h
+index 3fd02389ed2b..f951d3441cdf 100644
+--- a/sound/soc/intel/avs/registers.h
++++ b/sound/soc/intel/avs/registers.h
+@@ -58,6 +58,7 @@
+ #define AVS_UPLINK_WINDOW		AVS_FW_REGS_WINDOW
+ /* HOST -> DSP communication window */
+ #define AVS_DOWNLINK_WINDOW		1
++#define AVS_DEBUG_WINDOW		2
+ 
+ /* registry I/O helpers */
+ #define avs_sram_offset(adev, window_idx) \
+diff --git a/sound/soc/intel/avs/utils.c b/sound/soc/intel/avs/utils.c
+index 6473e3ae4c6e..13611dee9787 100644
+--- a/sound/soc/intel/avs/utils.c
++++ b/sound/soc/intel/avs/utils.c
+@@ -7,6 +7,7 @@
+ //
+ 
+ #include <linux/firmware.h>
++#include <linux/kfifo.h>
+ #include <linux/slab.h>
+ #include "avs.h"
+ #include "messages.h"
+@@ -299,3 +300,25 @@ void avs_release_firmwares(struct avs_dev *adev)
+ 		kfree(entry);
+ 	}
+ }
++
++unsigned int __kfifo_fromio_locked(struct kfifo *fifo, const void __iomem *src, unsigned int len,
++				   spinlock_t *lock)
++{
++	struct __kfifo *__fifo = &fifo->kfifo;
++	unsigned long flags;
++	unsigned int l, off;
++
++	spin_lock_irqsave(lock, flags);
++	len = min(len, kfifo_avail(fifo));
++	off = __fifo->in & __fifo->mask;
++	l = min(len, kfifo_size(fifo) - off);
++
++	memcpy_fromio(__fifo->data + off, src, l);
++	memcpy_fromio(__fifo->data, src + l, len - l);
++	/* Make sure data copied from SRAM is visible to all CPUs. */
++	smp_mb();
++	__fifo->in += len;
++	spin_unlock_irqrestore(lock, flags);
++
++	return len;
++}
 -- 
 2.25.1
 

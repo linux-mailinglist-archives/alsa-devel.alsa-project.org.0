@@ -2,88 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AE97527EC4
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 May 2022 09:45:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C0F8527ED2
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 May 2022 09:50:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A55C81695;
-	Mon, 16 May 2022 09:44:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A55C81695
+	by alsa0.perex.cz (Postfix) with ESMTPS id A2C531684;
+	Mon, 16 May 2022 09:49:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2C531684
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652687102;
-	bh=waTr6WB3MKbDwUwWxx83gQr3xYb1ubiiY0aRu5n8Hk4=;
+	s=default; t=1652687408;
+	bh=Xwu5acODOiHNWfVy99DfcM4GqSB73Z9MJmNKnsYgqcc=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NFPWfB095Ve5Codgbezp73DCEZqZuAEz1PRqqKpx5rbSZhMapN7n8dsdUPxpfRBLC
-	 tz6XRB8jLfnXKH3HxAw01VDUtapm4BifY6tAMUWQA3njvbAh2k8Z3Q6eN6EuLrKUO9
-	 s+jAUcj6z6CgTQJcjZ+Hn50B1AqZ41fnGjPndIwM=
+	b=bgVasavdLpu79TPNCjjnAzfZuVxTz5Iljo5mnLOwwqVntS8quydArpQoJk74QPbG9
+	 A/64qTLJ+H6nlBTViLIdEBQ5o9U7hhjEPOJE/vCEZ0shcp07thUQQxfIKCE34stdQg
+	 UfSVcKevvuwvlvmyAeSjpx3gmJ43A/K0QggrG9cE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0FB8CF800D8;
-	Mon, 16 May 2022 09:44:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1ABF7F80171;
+	Mon, 16 May 2022 09:49:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BBCC8F8014B; Mon, 16 May 2022 09:44:02 +0200 (CEST)
+ id 272D5F8014B; Mon, 16 May 2022 09:49:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5CA98F800D8
- for <alsa-devel@alsa-project.org>; Mon, 16 May 2022 09:43:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5CA98F800D8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1B630F800D8
+ for <alsa-devel@alsa-project.org>; Mon, 16 May 2022 09:49:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B630F800D8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="BrjXr+sz"; 
+ header.b="MVKBLLVJ"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="QwbSGwuy"
+ header.b="fZxyJvYS"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id C2D5B21B49;
- Mon, 16 May 2022 07:43:55 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 843DC1FB1D;
+ Mon, 16 May 2022 07:49:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1652687035; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1652687344; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=KaNoTPvq+cdMQ64tgkHR/Rr59SqJYGviHcgzR10l/JA=;
- b=BrjXr+sztJBBXyjjEMP3ZxsHZudB2NoXOkEHQ7fR/ZoS/K9ygDdMWJA1W8DLw5in/9dCC5
- cNr/M5GnmcQ7SSN2A1Om0z051BgBb+jrAKIlewgYpfBpzHMvA/EsYuXH777cUryT/3LECI
- fAfrwvTwrwP7ocNCDkMirdI5LnOPSho=
+ bh=FHfbjQvmgeHMVCppWrjk3qvoQCSGOOt7FMv3LUPp5v0=;
+ b=MVKBLLVJCiC63Oqw+aIw04HPqFriHhogPGQN02LxTvKsLo+RV7rKYkNYR/cEQbBx7mgco+
+ Xed3hNrt+2eZlt4ZJLvNH7YboXFjSpGAg7bixKE4aJvbGr2/1VWVVJ6ipyzN9qu+clazWn
+ +uAxYy/mESrfdJnF3ljv8y8NuSw6Yv8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1652687035;
+ s=susede2_ed25519; t=1652687344;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=KaNoTPvq+cdMQ64tgkHR/Rr59SqJYGviHcgzR10l/JA=;
- b=QwbSGwuyPY8E5s+IU04u7bzlrmrKeku8RXHKXGiksskrZ749wJxyrtmmTipaXsCpwXDwSa
- dOmQ0hq1WHEZt7Bg==
+ bh=FHfbjQvmgeHMVCppWrjk3qvoQCSGOOt7FMv3LUPp5v0=;
+ b=fZxyJvYSDpa3bvNa/nG5l+Zz8b+36hHsOOf+fNzeIzNiQgoNoK0M+YkFLf9CTJpGvl655y
+ vglPOogyDqFjdQAw==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 349FB2C141;
- Mon, 16 May 2022 07:43:55 +0000 (UTC)
-Date: Mon, 16 May 2022 09:43:55 +0200
-Message-ID: <s5h4k1pc478.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 746822C142;
+ Mon, 16 May 2022 07:49:04 +0000 (UTC)
+Date: Mon, 16 May 2022 09:49:04 +0200
+Message-ID: <s5h35h9c3yn.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Andy Chi <andy.chi@canonical.com>
-Subject: Re: [PATCH] ALSA: hda/realtek: fix right sounds and mute/micmute LEDs
- for HP machine
-In-Reply-To: <20220513121648.28584-1-andy.chi@canonical.com>
-References: <20220513121648.28584-1-andy.chi@canonical.com>
+To: Siddh Raman Pant <siddhpant.gh@gmail.com>
+Subject: Re: [PATCH] selftests: alsa: Better error messages
+In-Reply-To: <8598037d-0e24-9bc1-3f2c-a2751ec8e871@gmail.com>
+References: <8598037d-0e24-9bc1-3f2c-a2751ec8e871@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Kailang Yang <kailang@realtek.com>,
- Lucas Tanure <tanureal@opensource.cirrus.com>,
- Jeremy Szu <jeremy.szu@canonical.com>, linux-kernel@vger.kernel.org,
- Elia Devito <eliadevito@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Werner Sembach <wse@tuxedocomputers.com>,
- Kai-Heng Feng <kai.heng.feng@canonical.com>,
- Cameron Berkenpas <cam@neo-zeon.de>, Yong Wu <yong.wu@mediatek.com>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
+ linux-kselftest@vger.kernel.org, Shuah Khan <skhan@linuxfoundation.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,15 +94,412 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 13 May 2022 14:16:45 +0200,
-Andy Chi wrote:
+On Fri, 13 May 2022 15:40:57 +0200,
+Siddh Raman Pant wrote:
 > 
-> * The HP EliteBook 630 is using ALC236 codec which used 0x02 to control mute LED
->   and 0x01 to control micmute LED. Therefore, add a quirk to make it works.
+> This allows for potentially better machine-parsing due to an
+> expected / fixed format. Also because of eyecandy reasons.
 > 
-> Signed-off-by: Andy Chi <andy.chi@canonical.com>
+> Whenever possible, errors will start with the name of the
+> offending card/control, separated by the error with colons.
+> 
+> Whenever there is a description of an error given, the generated
+> error string from snd_strerror will be (mostly) enclosed in
+> parentheses at the end.
+> 
+> Clarity of error messages have been (hopefully) improved.
+> 
+> Signed-off-by: Siddh Raman Pant <siddhpant.gh@gmail.com>
 
-Thanks, applied now.
+Thanks for the patch.
 
+But, honestly speaking, I'm not sure whether it worth.
+Although it's possibly a bit more consistent over all texts, I
+don't see significant improvement by this change.
+
+But I'm fine to apply it, so keep this pending and would like to
+hear from others.
+
+
+thanks,
 
 Takashi
+
+> ---
+>  tools/testing/selftests/alsa/mixer-test.c | 94 +++++++++++------------
+>  1 file changed, 47 insertions(+), 47 deletions(-)
+> 
+> diff --git a/tools/testing/selftests/alsa/mixer-test.c b/tools/testing/selftests/alsa/mixer-test.c
+> index a38b89c28..4719b12a5 100644
+> --- a/tools/testing/selftests/alsa/mixer-test.c
+> +++ b/tools/testing/selftests/alsa/mixer-test.c
+> @@ -114,7 +114,7 @@ static void find_controls(void)
+>  
+>  	err = snd_config_load_string(&config, alsa_config, strlen(alsa_config));
+>  	if (err < 0) {
+> -		ksft_print_msg("Unable to parse custom alsa-lib configuration: %s\n",
+> +		ksft_print_msg("Unable to parse custom alsa-lib configuration (%s)\n",
+>  			       snd_strerror(err));
+>  		ksft_exit_fail();
+>  	}
+> @@ -128,7 +128,7 @@ static void find_controls(void)
+>  
+>  		err = snd_ctl_open_lconf(&card_data->handle, name, 0, config);
+>  		if (err < 0) {
+> -			ksft_print_msg("Failed to get hctl for card %d: %s\n",
+> +			ksft_print_msg("Card %d: Failed to get hctl (%s)\n",
+>  				       card, snd_strerror(err));
+>  			goto next_card;
+>  		}
+> @@ -177,9 +177,8 @@ static void find_controls(void)
+>  			err = snd_ctl_elem_info(card_data->handle,
+>  						ctl_data->info);
+>  			if (err < 0) {
+> -				ksft_print_msg("%s getting info for %d\n",
+> -					       snd_strerror(err),
+> -					       ctl_data->name);
+> +				ksft_print_msg("%s : %s while getting info\n",
+> +					       ctl_data->name, snd_strerror(err));
+>  			}
+>  
+>  			snd_ctl_elem_value_set_id(ctl_data->def_val,
+> @@ -192,20 +191,20 @@ static void find_controls(void)
+>  		/* Set up for events */
+>  		err = snd_ctl_subscribe_events(card_data->handle, true);
+>  		if (err < 0) {
+> -			ksft_exit_fail_msg("snd_ctl_subscribe_events() failed for card %d: %d\n",
+> +			ksft_exit_fail_msg("Card %d : snd_ctl_subscribe_events() failed (%d)\n",
+>  					   card, err);
+>  		}
+>  
+>  		err = snd_ctl_poll_descriptors_count(card_data->handle);
+>  		if (err != 1) {
+> -			ksft_exit_fail_msg("Unexpected descriptor count %d for card %d\n",
+> -					   err, card);
+> +			ksft_exit_fail_msg("Card %d : Unexpected descriptor count %d\n",
+> +					   card, err);
+>  		}
+>  
+>  		err = snd_ctl_poll_descriptors(card_data->handle,
+>  					       &card_data->pollfd, 1);
+>  		if (err != 1) {
+> -			ksft_exit_fail_msg("snd_ctl_poll_descriptors() failed for %d\n",
+> +			ksft_exit_fail_msg("Card %d : snd_ctl_poll_descriptors() failed (%d)\n",
+>  				       card, err);
+>  		}
+>  
+> @@ -236,8 +235,8 @@ static int wait_for_event(struct ctl_data *ctl, int timeout)
+>  	do {
+>  		err = poll(&(ctl->card->pollfd), 1, timeout);
+>  		if (err < 0) {
+> -			ksft_print_msg("poll() failed for %s: %s (%d)\n",
+> -				       ctl->name, strerror(errno), errno);
+> +			ksft_print_msg("%s : poll() failed (%d - %s)\n",
+> +				       ctl->name, errno, strerror(errno));
+>  			return -1;
+>  		}
+>  		/* Timeout */
+> @@ -248,12 +247,12 @@ static int wait_for_event(struct ctl_data *ctl, int timeout)
+>  						       &(ctl->card->pollfd),
+>  						       1, &revents);
+>  		if (err < 0) {
+> -			ksft_print_msg("snd_ctl_poll_descriptors_revents() failed for %s: %d\n",
+> +			ksft_print_msg("%s : snd_ctl_poll_descriptors_revents() failed (%d)\n",
+>  				       ctl->name, err);
+>  			return err;
+>  		}
+>  		if (revents & POLLERR) {
+> -			ksft_print_msg("snd_ctl_poll_descriptors_revents() reported POLLERR for %s\n",
+> +			ksft_print_msg("%s : snd_ctl_poll_descriptors_revents() reported POLLERR\n",
+>  				       ctl->name);
+>  			return -1;
+>  		}
+> @@ -265,7 +264,7 @@ static int wait_for_event(struct ctl_data *ctl, int timeout)
+>  
+>  		err = snd_ctl_read(ctl->card->handle, event);
+>  		if (err < 0) {
+> -			ksft_print_msg("snd_ctl_read() failed for %s: %d\n",
+> +			ksft_print_msg("%s : snd_ctl_read() failed (%d)\n",
+>  			       ctl->name, err);
+>  			return err;
+>  		}
+> @@ -283,7 +282,7 @@ static int wait_for_event(struct ctl_data *ctl, int timeout)
+>  		}
+>  
+>  		if ((mask & SND_CTL_EVENT_MASK_REMOVE) == SND_CTL_EVENT_MASK_REMOVE) {
+> -			ksft_print_msg("Removal event for %s\n",
+> +			ksft_print_msg("%s : Removal event\n",
+>  				       ctl->name);
+>  			return -1;
+>  		}
+> @@ -301,7 +300,7 @@ static bool ctl_value_index_valid(struct ctl_data *ctl,
+>  
+>  	switch (snd_ctl_elem_info_get_type(ctl->info)) {
+>  	case SND_CTL_ELEM_TYPE_NONE:
+> -		ksft_print_msg("%s.%d Invalid control type NONE\n",
+> +		ksft_print_msg("%s.%d : Invalid control type NONE\n",
+>  			       ctl->name, index);
+>  		return false;
+>  
+> @@ -312,7 +311,7 @@ static bool ctl_value_index_valid(struct ctl_data *ctl,
+>  		case 1:
+>  			break;
+>  		default:
+> -			ksft_print_msg("%s.%d Invalid boolean value %ld\n",
+> +			ksft_print_msg("%s.%d : Invalid boolean value %ld\n",
+>  				       ctl->name, index, int_val);
+>  			return false;
+>  		}
+> @@ -322,14 +321,14 @@ static bool ctl_value_index_valid(struct ctl_data *ctl,
+>  		int_val = snd_ctl_elem_value_get_integer(val, index);
+>  
+>  		if (int_val < snd_ctl_elem_info_get_min(ctl->info)) {
+> -			ksft_print_msg("%s.%d value %ld less than minimum %ld\n",
+> +			ksft_print_msg("%s.%d : Value %ld is less than the minimum (%ld)\n",
+>  				       ctl->name, index, int_val,
+>  				       snd_ctl_elem_info_get_min(ctl->info));
+>  			return false;
+>  		}
+>  
+>  		if (int_val > snd_ctl_elem_info_get_max(ctl->info)) {
+> -			ksft_print_msg("%s.%d value %ld more than maximum %ld\n",
+> +			ksft_print_msg("%s.%d : Value %ld is more than the maximum (%ld)\n",
+>  				       ctl->name, index, int_val,
+>  				       snd_ctl_elem_info_get_max(ctl->info));
+>  			return false;
+> @@ -339,7 +338,7 @@ static bool ctl_value_index_valid(struct ctl_data *ctl,
+>  		if (snd_ctl_elem_info_get_step(ctl->info) &&
+>  		    (int_val - snd_ctl_elem_info_get_min(ctl->info) %
+>  		     snd_ctl_elem_info_get_step(ctl->info))) {
+> -			ksft_print_msg("%s.%d value %ld invalid for step %ld minimum %ld\n",
+> +			ksft_print_msg("%s.%d : Value %ld is invalid for step %ld, minimum %ld\n",
+>  				       ctl->name, index, int_val,
+>  				       snd_ctl_elem_info_get_step(ctl->info),
+>  				       snd_ctl_elem_info_get_min(ctl->info));
+> @@ -351,14 +350,14 @@ static bool ctl_value_index_valid(struct ctl_data *ctl,
+>  		int64_val = snd_ctl_elem_value_get_integer64(val, index);
+>  
+>  		if (int64_val < snd_ctl_elem_info_get_min64(ctl->info)) {
+> -			ksft_print_msg("%s.%d value %lld less than minimum %lld\n",
+> +			ksft_print_msg("%s.%d : Value %lld is less than the minimum (%lld)\n",
+>  				       ctl->name, index, int64_val,
+>  				       snd_ctl_elem_info_get_min64(ctl->info));
+>  			return false;
+>  		}
+>  
+>  		if (int64_val > snd_ctl_elem_info_get_max64(ctl->info)) {
+> -			ksft_print_msg("%s.%d value %lld more than maximum %lld\n",
+> +			ksft_print_msg("%s.%d : Value %lld is more than the maximum (%lld)\n",
+>  				       ctl->name, index, int64_val,
+>  				       snd_ctl_elem_info_get_max(ctl->info));
+>  			return false;
+> @@ -368,7 +367,7 @@ static bool ctl_value_index_valid(struct ctl_data *ctl,
+>  		if (snd_ctl_elem_info_get_step64(ctl->info) &&
+>  		    (int64_val - snd_ctl_elem_info_get_min64(ctl->info)) %
+>  		    snd_ctl_elem_info_get_step64(ctl->info)) {
+> -			ksft_print_msg("%s.%d value %lld invalid for step %lld minimum %lld\n",
+> +			ksft_print_msg("%s.%d : Value %lld is invalid for step %lld, minimum %lld\n",
+>  				       ctl->name, index, int64_val,
+>  				       snd_ctl_elem_info_get_step64(ctl->info),
+>  				       snd_ctl_elem_info_get_min64(ctl->info));
+> @@ -380,13 +379,13 @@ static bool ctl_value_index_valid(struct ctl_data *ctl,
+>  		int_val = snd_ctl_elem_value_get_enumerated(val, index);
+>  
+>  		if (int_val < 0) {
+> -			ksft_print_msg("%s.%d negative value %ld for enumeration\n",
+> +			ksft_print_msg("%s.%d : Negative value %ld for enumeration\n",
+>  				       ctl->name, index, int_val);
+>  			return false;
+>  		}
+>  
+>  		if (int_val >= snd_ctl_elem_info_get_items(ctl->info)) {
+> -			ksft_print_msg("%s.%d value %ld more than item count %ld\n",
+> +			ksft_print_msg("%s.%d : Value %ld is more than item count (%ld)\n",
+>  				       ctl->name, index, int_val,
+>  				       snd_ctl_elem_info_get_items(ctl->info));
+>  			return false;
+> @@ -427,7 +426,7 @@ static void test_ctl_get_value(struct ctl_data *ctl)
+>  
+>  	/* If the control is turned off let's be polite */
+>  	if (snd_ctl_elem_info_is_inactive(ctl->info)) {
+> -		ksft_print_msg("%s is inactive\n", ctl->name);
+> +		ksft_print_msg("%s : Inactive\n", ctl->name);
+>  		ksft_test_result_skip("get_value.%d.%d\n",
+>  				      ctl->card->card, ctl->elem);
+>  		return;
+> @@ -435,7 +434,7 @@ static void test_ctl_get_value(struct ctl_data *ctl)
+>  
+>  	/* Can't test reading on an unreadable control */
+>  	if (!snd_ctl_elem_info_is_readable(ctl->info)) {
+> -		ksft_print_msg("%s is not readable\n", ctl->name);
+> +		ksft_print_msg("%s : Not readable\n", ctl->name);
+>  		ksft_test_result_skip("get_value.%d.%d\n",
+>  				      ctl->card->card, ctl->elem);
+>  		return;
+> @@ -443,7 +442,7 @@ static void test_ctl_get_value(struct ctl_data *ctl)
+>  
+>  	err = snd_ctl_elem_read(ctl->card->handle, ctl->def_val);
+>  	if (err < 0) {
+> -		ksft_print_msg("snd_ctl_elem_read() failed: %s\n",
+> +		ksft_print_msg("snd_ctl_elem_read() failed (%s)\n",
+>  			       snd_strerror(err));
+>  		goto out;
+>  	}
+> @@ -474,7 +473,7 @@ static void test_ctl_name(struct ctl_data *ctl)
+>  	/* Only boolean controls should end in Switch */
+>  	if (strend(ctl->name, " Switch")) {
+>  		if (snd_ctl_elem_info_get_type(ctl->info) != SND_CTL_ELEM_TYPE_BOOLEAN) {
+> -			ksft_print_msg("%d.%d %s ends in Switch but is not boolean\n",
+> +			ksft_print_msg("%d.%d %s : Not a boolean, but name ends in Switch\n",
+>  				       ctl->card->card, ctl->elem, ctl->name);
+>  			name_ok = false;
+>  		}
+> @@ -484,7 +483,7 @@ static void test_ctl_name(struct ctl_data *ctl)
+>  	if (snd_ctl_elem_info_get_type(ctl->info) == SND_CTL_ELEM_TYPE_BOOLEAN &&
+>  	    snd_ctl_elem_info_is_writable(ctl->info)) {
+>  		if (!strend(ctl->name, " Switch")) {
+> -			ksft_print_msg("%d.%d %s is a writeable boolean but not a Switch\n",
+> +			ksft_print_msg("%d.%d %s : Not a Switch despite being a writeable boolean\n",
+>  				       ctl->card->card, ctl->elem, ctl->name);
+>  			name_ok = false;
+>  		}
+> @@ -542,11 +541,12 @@ static bool show_mismatch(struct ctl_data *ctl, int index,
+>  		/*
+>  		 * NOTE: The volatile attribute means that the hardware
+>  		 * can voluntarily change the state of control element
+> -		 * independent of any operation by software.  
+> +		 * independent of any operation by software.
+>  		 */
+>  		bool is_volatile = snd_ctl_elem_info_is_volatile(ctl->info);
+> -		ksft_print_msg("%s.%d expected %lld but read %lld, is_volatile %d\n",
+> -			       ctl->name, index, expected_int, read_int, is_volatile);
+> +		ksft_print_msg("%s.%d : Expected %lld, but read %lld (%s)\n",
+> +			       ctl->name, index, expected_int, read_int,
+> +			       (is_volatile ? "Volatile" : "Non-volatile"));
+>  		return !is_volatile;
+>  	} else {
+>  		return false;
+> @@ -590,7 +590,7 @@ static int write_and_verify(struct ctl_data *ctl,
+>  
+>  		err = snd_ctl_elem_read(ctl->card->handle, initial_val);
+>  		if (err < 0) {
+> -			ksft_print_msg("snd_ctl_elem_read() failed: %s\n",
+> +			ksft_print_msg("snd_ctl_elem_read() failed (%s)\n",
+>  				       snd_strerror(err));
+>  			return err;
+>  		}
+> @@ -602,7 +602,7 @@ static int write_and_verify(struct ctl_data *ctl,
+>  	 */
+>  	err = snd_ctl_elem_write(ctl->card->handle, w_val);
+>  	if (err < 0 && !error_expected) {
+> -		ksft_print_msg("snd_ctl_elem_write() failed: %s\n",
+> +		ksft_print_msg("snd_ctl_elem_write() failed (%s)\n",
+>  			       snd_strerror(err));
+>  		return err;
+>  	}
+> @@ -615,7 +615,7 @@ static int write_and_verify(struct ctl_data *ctl,
+>  
+>  	err = snd_ctl_elem_read(ctl->card->handle, read_val);
+>  	if (err < 0) {
+> -		ksft_print_msg("snd_ctl_elem_read() failed: %s\n",
+> +		ksft_print_msg("snd_ctl_elem_read() failed (%s)\n",
+>  			       snd_strerror(err));
+>  		return err;
+>  	}
+> @@ -631,13 +631,13 @@ static int write_and_verify(struct ctl_data *ctl,
+>  		err = wait_for_event(ctl, 0);
+>  		if (snd_ctl_elem_value_compare(initial_val, read_val)) {
+>  			if (err < 1) {
+> -				ksft_print_msg("No event generated for %s\n",
+> +				ksft_print_msg("%s : No event generated\n",
+>  					       ctl->name);
+>  				ctl->event_missing++;
+>  			}
+>  		} else {
+>  			if (err != 0) {
+> -				ksft_print_msg("Spurious event generated for %s\n",
+> +				ksft_print_msg("%s : Spurious event generated\n",
+>  					       ctl->name);
+>  				ctl->event_spurious++;
+>  			}
+> @@ -658,7 +658,7 @@ static int write_and_verify(struct ctl_data *ctl,
+>  			mismatch_shown = true;
+>  
+>  	if (!mismatch_shown)
+> -		ksft_print_msg("%s read and written values differ\n",
+> +		ksft_print_msg("%s : Read and written values differ\n",
+>  			       ctl->name);
+>  
+>  	return -1;
+> @@ -674,14 +674,14 @@ static void test_ctl_write_default(struct ctl_data *ctl)
+>  
+>  	/* If the control is turned off let's be polite */
+>  	if (snd_ctl_elem_info_is_inactive(ctl->info)) {
+> -		ksft_print_msg("%s is inactive\n", ctl->name);
+> +		ksft_print_msg("%s : Inactive\n", ctl->name);
+>  		ksft_test_result_skip("write_default.%d.%d\n",
+>  				      ctl->card->card, ctl->elem);
+>  		return;
+>  	}
+>  
+>  	if (!snd_ctl_elem_info_is_writable(ctl->info)) {
+> -		ksft_print_msg("%s is not writeable\n", ctl->name);
+> +		ksft_print_msg("%s : Not writeable\n", ctl->name);
+>  		ksft_test_result_skip("write_default.%d.%d\n",
+>  				      ctl->card->card, ctl->elem);
+>  		return;
+> @@ -689,7 +689,7 @@ static void test_ctl_write_default(struct ctl_data *ctl)
+>  
+>  	/* No idea what the default was for unreadable controls */
+>  	if (!snd_ctl_elem_info_is_readable(ctl->info)) {
+> -		ksft_print_msg("%s couldn't read default\n", ctl->name);
+> +		ksft_print_msg("%s : Couldn't read default\n", ctl->name);
+>  		ksft_test_result_skip("write_default.%d.%d\n",
+>  				      ctl->card->card, ctl->elem);
+>  		return;
+> @@ -808,14 +808,14 @@ static void test_ctl_write_valid(struct ctl_data *ctl)
+>  
+>  	/* If the control is turned off let's be polite */
+>  	if (snd_ctl_elem_info_is_inactive(ctl->info)) {
+> -		ksft_print_msg("%s is inactive\n", ctl->name);
+> +		ksft_print_msg("%s : Inactive\n", ctl->name);
+>  		ksft_test_result_skip("write_valid.%d.%d\n",
+>  				      ctl->card->card, ctl->elem);
+>  		return;
+>  	}
+>  
+>  	if (!snd_ctl_elem_info_is_writable(ctl->info)) {
+> -		ksft_print_msg("%s is not writeable\n", ctl->name);
+> +		ksft_print_msg("%s : Not writeable\n", ctl->name);
+>  		ksft_test_result_skip("write_valid.%d.%d\n",
+>  				      ctl->card->card, ctl->elem);
+>  		return;
+> @@ -868,7 +868,7 @@ static bool test_ctl_write_invalid_value(struct ctl_data *ctl,
+>  	/* ...but some devices will clamp to an in range value */
+>  	err = snd_ctl_elem_read(ctl->card->handle, val);
+>  	if (err < 0) {
+> -		ksft_print_msg("%s failed to read: %s\n",
+> +		ksft_print_msg("%s : Failed to read (%s)\n",
+>  			       ctl->name, snd_strerror(err));
+>  		return true;
+>  	}
+> @@ -1026,14 +1026,14 @@ static void test_ctl_write_invalid(struct ctl_data *ctl)
+>  
+>  	/* If the control is turned off let's be polite */
+>  	if (snd_ctl_elem_info_is_inactive(ctl->info)) {
+> -		ksft_print_msg("%s is inactive\n", ctl->name);
+> +		ksft_print_msg("%s : Inactive\n", ctl->name);
+>  		ksft_test_result_skip("write_invalid.%d.%d\n",
+>  				      ctl->card->card, ctl->elem);
+>  		return;
+>  	}
+>  
+>  	if (!snd_ctl_elem_info_is_writable(ctl->info)) {
+> -		ksft_print_msg("%s is not writeable\n", ctl->name);
+> +		ksft_print_msg("%s : Not writeable\n", ctl->name);
+>  		ksft_test_result_skip("write_invalid.%d.%d\n",
+>  				      ctl->card->card, ctl->elem);
+>  		return;
+> -- 
+> 2.35.1
+> 

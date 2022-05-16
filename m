@@ -2,69 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84D5C52A2B3
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 May 2022 15:08:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E061052A2B8
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 May 2022 15:08:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 17B00E11;
-	Tue, 17 May 2022 15:07:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17B00E11
+	by alsa0.perex.cz (Postfix) with ESMTPS id 817B3E0E;
+	Tue, 17 May 2022 15:07:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 817B3E0E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652792883;
-	bh=HfRHYZnbjP9fJ8Dz+6CAZkBVZhqBso8iXvElPtDtodM=;
+	s=default; t=1652792916;
+	bh=+7qse9sknZ9I3v9Dz/gVbCd+6CC4fL+4nom7gSG0SaM=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=qPYOZujH4nj0bj3JHPCc/L1cq2Fejg9B8lYvG1dQehdywKtuZZ7QczTvQ8dwrGJHk
-	 22s7OdKPpWCoMjrMZqmikgogrzcjLwJRYwhSS7dortcZr4+GihygSoZwBtylSlCveO
-	 vJgfL6e+bObXrz6erRURSmz24wUCZOQISKJSj0xU=
+	b=EZgYsVns9HWrA02BZ31ScOWUE9iBOxS6WJafhTasR+j1YxrYsvQ93ghQTgtG6Il6x
+	 voPMXwSRLN7hKCIn2YnEZ2hUK3f7zatEYPnYoaKh57++CmMQdWU2ml8nWNZJPy2ZXd
+	 wo+5ey/jypNM6lc52EaP3CFW7ZjDT/ABW464R7CE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7B4A2F80310;
-	Tue, 17 May 2022 15:07:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 38C8BF80519;
+	Tue, 17 May 2022 15:07:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7ABCAF8014B; Mon, 16 May 2022 11:21:03 +0200 (CEST)
+ id C1522F800D8; Mon, 16 May 2022 18:59:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from zju.edu.cn (mail.zju.edu.cn [61.164.42.155])
- by alsa1.perex.cz (Postfix) with ESMTP id B2868F800D8
- for <alsa-devel@alsa-project.org>; Mon, 16 May 2022 11:20:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2868F800D8
-Received: from localhost.localdomain (unknown [10.12.77.33])
- by mail-app3 (Coremail) with SMTP id cC_KCgB3X7pxF4JiqsxRAA--.14583S4;
- Mon, 16 May 2022 17:20:50 +0800 (CST)
-From: Lin Ma <linma@zju.edu.cn>
-To: oder_chiou@realtek.com, lgirdwood@gmail.com, broonie@kernel.org,
- perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v0] ASoC: rt5645: Fix errorenous cleanup order
-Date: Mon, 16 May 2022 17:20:35 +0800
-Message-Id: <20220516092035.28283-1-linma@zju.edu.cn>
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
+ [IPv6:2607:f8b0:4864:20::32f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 66002F800F8
+ for <alsa-devel@alsa-project.org>; Mon, 16 May 2022 18:59:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66002F800F8
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="xNCEcWiO"
+Received: by mail-ot1-x32f.google.com with SMTP id
+ m15-20020a9d608f000000b00606a788887aso10458546otj.0
+ for <alsa-devel@alsa-project.org>; Mon, 16 May 2022 09:59:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=SVSiugKnf8wJOdqfsw/q25vFSKAj+trMZCib/b4SHsE=;
+ b=xNCEcWiOUolnZIhOk9qAhe8FtKNTtG4QDT4fXmc/QcMlaIRHGYz4A8S+a4ZjvML9/U
+ hN5zefWJ7NGp/7Xp7QcDmQBoh8TdCJy/JaCya1YhOyC80YJ6/MAahbaiUScy5TEqisNF
+ Sr2iVxyK2WaSKhjWP24w4DlZ/KBux/9tlZrYQFQTET5qgcfs1PKjhP5F9HNb/WbVebre
+ vyxNKYUcDEUCYbHj0MxbqZoLtGEeJYK0kZhcbFaJG2N8zCDXo790bDns7NNe3bJ25vgJ
+ ZM26/1iZSZP39BGtEA4JZM44t8/QvfyOyAOng2wGnv2z1DNsb3TTcMoz0JWFNV1tCwA0
+ Vy5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=SVSiugKnf8wJOdqfsw/q25vFSKAj+trMZCib/b4SHsE=;
+ b=kLaCIVL4re7aif5jNzEqdujB6WTeYCTu+KKbivSoxxaYD0lFd1X2q0+j5C8KGL35AO
+ 2ddScW5h8S+PKOXBHEtTF65ciAtQ+Spazqgw2iTioYteW8QbKinKAh6Mu0dBiVJ1kMW9
+ qK6r+5KWXQk1CaT9drdT2iN6AP8Y++SyI7Pnee4r0M/h/CXM8lvfYFX4XGmipbKe5vRn
+ r5BZgMerqYRPGGurqI1KC5yIfQOgYls1EZk1UtsS2+ipogez8Plx5A6+aA7+A36BPtRD
+ YYanD5YOLjYUAW5aFlkfJVPcYKJ81kbrjtwbJWiI5Vkwm4d1+S6xM1kCW5oRfFchazIh
+ Tesg==
+X-Gm-Message-State: AOAM530o0XFmNtHL8JVfFcD/iG63Ee2l3CqTVe+dQrRztfulsA04C8FX
+ Qo2phhWvLkS4dG55OfgzkcwHFL5QmURZktsgo2E=
+X-Google-Smtp-Source: ABdhPJzQ7BmCCqxGUIZGnvyc1mw1E81cQoTtZL9xm0IeZZSKzJzyHwgpPQy3DEs0+x5z6lGJSN1KAw==
+X-Received: by 2002:a9d:24e7:0:b0:606:56ad:91bb with SMTP id
+ z94-20020a9d24e7000000b0060656ad91bbmr6614249ota.40.1652720348007; 
+ Mon, 16 May 2022 09:59:08 -0700 (PDT)
+Received: from winterfell.papolivre.org (winterfell.papolivre.org.
+ [198.58.116.17]) by smtp.gmail.com with ESMTPSA id
+ ep36-20020a056870a9a400b000e686d1387bsm5966536oab.21.2022.05.16.09.59.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 16 May 2022 09:59:07 -0700 (PDT)
+Received: from localhost (unknown
+ [IPv6:2804:14d:7224:81d8:1a5f:b39d:3db4:59e8])
+ by winterfell.papolivre.org (Postfix) with ESMTPSA id C9C911F296;
+ Mon, 16 May 2022 13:59:06 -0300 (-03)
+From: Antonio Terceiro <antonio.terceiro@linaro.org>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Mark Brown <broonie@kernel.org>, Shuah Khan <shuah@kernel.org>
+Subject: [PATCH] kselftest: alsa: handle cross compilation
+Date: Mon, 16 May 2022 13:58:56 -0300
+Message-Id: <20220516165856.401452-1-antonio.terceiro@linaro.org>
 X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: cC_KCgB3X7pxF4JiqsxRAA--.14583S4
-X-Coremail-Antispam: 1UD129KBjvJXoW7tF4kuryfZFyDWFW5Cw4fuFg_yoW8XFWrpr
- Z8WFy3J34Utay29F1qqr4qqF1rGr95XrW3Gr1xta12yw1rXr1rWFy5GF109FWjqrWkCanx
- ZFZ7Z3yfZr98CaUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUk21xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
- w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
- IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVWxJr0_GcWl84ACjcxK6I8E
- 87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c
- 8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_
- Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwI
- xGrwACjI8F5VA0II8E6IAqYI8I648v4I1l42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxF
- aVAv8VW8uw4UJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr
- 4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxG
- rwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8Jw
- CI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2
- z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjfUoOJ5UUUUU
-X-CM-SenderInfo: qtrwiiyqvtljo62m3hxhgxhubq/
 X-Mailman-Approved-At: Tue, 17 May 2022 15:07:02 +0200
-Cc: Lin Ma <linma@zju.edu.cn>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,43 +106,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There is a logic error when removing rt5645 device as the function
-rt5645_i2c_remove() first cancel the &rt5645->jack_detect_work and
-delete the &rt5645->btn_check_timer latter. However, since the timer
-handler rt5645_btn_check_callback() will re-queue the jack_detect_work,
-this cleanup order is buggy.
+Calling just `pkg-config` is adequate for native builds, but finding the
+foreign libraries with pkg-config needs pkg-config to be called via its
+architecture-specific wrapper. This works in Debian, where there is a
+corresponding *-pkg-config wrapper script for each enabled foreign
+architecture, just like there are *-gcc, *-ld.
 
-That is, once the del_timer_sync in rt5645_i2c_remove is concurrently
-run with the rt5645_btn_check_callback, the canceled jack_detect_work
-will be rescheduled again, leading to possible use-after-free.
-
-This patch fix the issue by placing the del_timer_sync function before
-the cancel_delayed_work_sync.
-
-Signed-off-by: Lin Ma <linma@zju.edu.cn>
+Signed-off-by: Antonio Terceiro <antonio.terceiro@linaro.org>
 ---
- sound/soc/codecs/rt5645.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ tools/testing/selftests/alsa/Makefile | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/codecs/rt5645.c b/sound/soc/codecs/rt5645.c
-index 197c56047947..71a8990ba548 100644
---- a/sound/soc/codecs/rt5645.c
-+++ b/sound/soc/codecs/rt5645.c
-@@ -4154,9 +4154,14 @@ static int rt5645_i2c_remove(struct i2c_client *i2c)
- 	if (i2c->irq)
- 		free_irq(i2c->irq, rt5645);
+diff --git a/tools/testing/selftests/alsa/Makefile b/tools/testing/selftests/alsa/Makefile
+index f64d9090426d..f5675b3c929d 100644
+--- a/tools/testing/selftests/alsa/Makefile
++++ b/tools/testing/selftests/alsa/Makefile
+@@ -1,8 +1,10 @@
+ # SPDX-License-Identifier: GPL-2.0
+ #
  
-+	/*
-+	 * Since the rt5645_btn_check_callback() can queue jack_detect_work,
-+	 * the timer need to be delted first
-+	 */
-+	del_timer_sync(&rt5645->btn_check_timer);
+-CFLAGS += $(shell pkg-config --cflags alsa)
+-LDLIBS += $(shell pkg-config --libs alsa)
++PKG_CONFIG ?= $(CROSS_COMPILE)pkg-config
 +
- 	cancel_delayed_work_sync(&rt5645->jack_detect_work);
- 	cancel_delayed_work_sync(&rt5645->rcclock_work);
--	del_timer_sync(&rt5645->btn_check_timer);
++CFLAGS += $(shell $(PKG_CONFIG) --cflags alsa)
++LDLIBS += $(shell $(PKG_CONFIG) --libs alsa)
  
- 	regulator_bulk_disable(ARRAY_SIZE(rt5645->supplies), rt5645->supplies);
+ TEST_GEN_PROGS := mixer-test
  
 -- 
 2.35.1

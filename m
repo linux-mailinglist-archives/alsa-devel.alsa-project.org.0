@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D02352815C
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 May 2022 12:03:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E080B528168
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 May 2022 12:05:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1F5781698;
-	Mon, 16 May 2022 12:03:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F5781698
+	by alsa0.perex.cz (Postfix) with ESMTPS id 457C3168C;
+	Mon, 16 May 2022 12:04:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 457C3168C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652695430;
-	bh=UfWoqjovAsvkF1aDl8+a1rc//CdOXx1jcRS3x45mYKU=;
+	s=default; t=1652695513;
+	bh=KS5EzSsrJx+RkNzfJ7dno8fMoJihQEeBSQ/MjQpJfNw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jHSCwY1JE3nikPMgnsGsGmDVuGESBMJw/MtfX1VUqRDSnfIbw+0B2E7B8elnXmgMH
-	 IUcoNkqhZA5T4tg9oDQXu0BPW027ik/H3vuvMLatcbziOFrlLwANv4gcCW145GFCY7
-	 sbssKwF3QN2Zq3ULXlozCfhu1+IoT2viuwxYE+Mw=
+	b=enZJMDg6rOZDg3XciWoGU9aTfD7WM24hNpGuBW7lcrgFHseAJDA3wHH3oczjHjwwb
+	 NEqybY4d+E4Q9C+y8UXymj3fzdNKszY0cdbB4eCUFrRjeDKc9pNPyIJBsxUANCeFO5
+	 RhTEDEtnt+FEifU9WJdI59DXjtgYfNeQhV3/rHqU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 55F99F80526;
-	Mon, 16 May 2022 12:02:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3BBC9F80542;
+	Mon, 16 May 2022 12:02:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F3386F8051D; Mon, 16 May 2022 12:02:10 +0200 (CEST)
+ id 2BF52F80171; Mon, 16 May 2022 12:02:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 46A30F8014B
- for <alsa-devel@alsa-project.org>; Mon, 16 May 2022 12:02:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46A30F8014B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 73949F8012F
+ for <alsa-devel@alsa-project.org>; Mon, 16 May 2022 12:02:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73949F8012F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="R3/v3a4N"
+ header.b="TMqmRR9g"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1652695325; x=1684231325;
+ t=1652695326; x=1684231326;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=UfWoqjovAsvkF1aDl8+a1rc//CdOXx1jcRS3x45mYKU=;
- b=R3/v3a4Nr+H09v7+5fppO9hazOmTIktCHF2oknpf/xy/TeUQEx7OLwDq
- eUVH8qaceUKZfMkT31dyqf13P9GQdBb3oGyg6AEp5lM4Zd93xZoJpwB/e
- jMoJ0NSe06V1+4a2Y5qLNiYg+XgLvJUDs9p6y7Q+dihjXcQJl4LGNYXxy
- E8OHnu0x1Yy1ONvRaGQODWFz90QGlbB9AVoTqzwpY82X/K6lhdBs8hv5P
- RtjrOPN3bDsE24fUUK7jwePKGohh0I2YmPSnVB9KhTZKfO1EnKvleOzZY
- gA7gSuDpCBJ5KCVIOJfB9+QDE7K9TJ7VqOQjLV4+5Q6OLRlpnEtPsp/Hl g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10348"; a="333846277"
-X-IronPort-AV: E=Sophos;i="5.91,229,1647327600"; d="scan'208";a="333846277"
+ bh=KS5EzSsrJx+RkNzfJ7dno8fMoJihQEeBSQ/MjQpJfNw=;
+ b=TMqmRR9gKXp0pCMdmKkapCrCjSkMgl1FNPaxtuMmF49svdrrRMzYBqWY
+ Tg38cWs4XSI9qj312DnlNyl7SgzTCiSZoedOWAGTPwKE0Mr/xgKOf2zVr
+ l9gXT0uAJ2p4sOVomi2AORVLAFQTJq9Pk6rCxPuEaDKRhFDEDRQuOJ6GL
+ 2l+TJYkBxgF7yWRW8BaC1p9Rja2xCYsPCDk7bPNFL1TUHD0BDkXkxzygU
+ 3o9Tk66E3T5C2KdwIQx29tJBSJfndDlgPAw+7ZwXdCJiU0CQVfcy3Hjx4
+ BkqgO6mMuOfLuDkyly5ROGQSnsvzAAofG/+i3oobJbOAXa3F6vahZXTYB g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10348"; a="333846282"
+X-IronPort-AV: E=Sophos;i="5.91,229,1647327600"; d="scan'208";a="333846282"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 May 2022 03:01:50 -0700
+ 16 May 2022 03:01:53 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,229,1647327600"; d="scan'208";a="522382535"
+X-IronPort-AV: E=Sophos;i="5.91,229,1647327600"; d="scan'208";a="522382548"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by orsmga003.jf.intel.com with ESMTP; 16 May 2022 03:01:47 -0700
+ by orsmga003.jf.intel.com with ESMTP; 16 May 2022 03:01:50 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Subject: [PATCH v3 02/15] ASoC: Intel: avs: Generic soc component driver
-Date: Mon, 16 May 2022 12:11:03 +0200
-Message-Id: <20220516101116.190192-3-cezary.rojewski@intel.com>
+Subject: [PATCH v3 03/15] ASoC: Intel: avs: Generic PCM FE operations
+Date: Mon, 16 May 2022 12:11:04 +0200
+Message-Id: <20220516101116.190192-4-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220516101116.190192-1-cezary.rojewski@intel.com>
 References: <20220516101116.190192-1-cezary.rojewski@intel.com>
@@ -92,333 +92,387 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Prepare for concrete PCM operations over HDA, DMIC and I2S interfaces by
-providing generic soc component implementation. Interface-specific
-components re-use this code as majority of flow is shared.
+Each stream in AVS is represented by FE and BE domain. FE path stands
+for HOST part of the stream while BE stands for LINK (hardware) one.
+While BE portion is interface specific, FE is not. Handle all standard
+DAI operations to implement FE part of the stream.
 
 Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- include/sound/soc-acpi.h     |   2 +
- sound/soc/intel/avs/Makefile |   2 +-
- sound/soc/intel/avs/pcm.c    | 275 +++++++++++++++++++++++++++++++++++
- 3 files changed, 278 insertions(+), 1 deletion(-)
- create mode 100644 sound/soc/intel/avs/pcm.c
+ sound/soc/intel/avs/pcm.c      | 338 +++++++++++++++++++++++++++++++++
+ sound/soc/intel/avs/topology.c |   2 -
+ 2 files changed, 338 insertions(+), 2 deletions(-)
 
-diff --git a/include/sound/soc-acpi.h b/include/sound/soc-acpi.h
-index d33cf8df14b1..b38fd25c5729 100644
---- a/include/sound/soc-acpi.h
-+++ b/include/sound/soc-acpi.h
-@@ -156,6 +156,7 @@ struct snd_soc_acpi_link_adr {
-  * @links: array of link _ADR descriptors, null terminated.
-  * @drv_name: machine driver name
-  * @fw_filename: firmware file name. Used when SOF is not enabled.
-+ * @tplg_filename: topology file name. Used when SOF is not enabled.
-  * @board: board name
-  * @machine_quirk: pointer to quirk, usually based on DMI information when
-  * ACPI ID alone is not sufficient, wrong or misleading
-@@ -174,6 +175,7 @@ struct snd_soc_acpi_mach {
- 	const struct snd_soc_acpi_link_adr *links;
- 	const char *drv_name;
- 	const char *fw_filename;
-+	const char *tplg_filename;
- 	const char *board;
- 	struct snd_soc_acpi_mach * (*machine_quirk)(void *arg);
- 	const void *quirk_data;
-diff --git a/sound/soc/intel/avs/Makefile b/sound/soc/intel/avs/Makefile
-index 952f51977656..62b3581d6cdb 100644
---- a/sound/soc/intel/avs/Makefile
-+++ b/sound/soc/intel/avs/Makefile
-@@ -1,7 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-only
- 
- snd-soc-avs-objs := dsp.o ipc.o messages.o utils.o core.o loader.o \
--		    topology.o path.o
-+		    topology.o path.o pcm.o
- snd-soc-avs-objs += cldma.o
- 
- obj-$(CONFIG_SND_SOC_INTEL_AVS) += snd-soc-avs.o
 diff --git a/sound/soc/intel/avs/pcm.c b/sound/soc/intel/avs/pcm.c
-new file mode 100644
-index 000000000000..cda2ec6f5da3
---- /dev/null
+index cda2ec6f5da3..9d01ed37c11e 100644
+--- a/sound/soc/intel/avs/pcm.c
 +++ b/sound/soc/intel/avs/pcm.c
-@@ -0,0 +1,275 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+//
-+// Copyright(c) 2021-2022 Intel Corporation. All rights reserved.
-+//
-+// Authors: Cezary Rojewski <cezary.rojewski@intel.com>
-+//          Amadeusz Slawinski <amadeuszx.slawinski@linux.intel.com>
-+//
-+
-+#include <linux/debugfs.h>
-+#include <linux/device.h>
-+#include <sound/hda_register.h>
-+#include <sound/hdaudio_ext.h>
-+#include <sound/soc-acpi.h>
-+#include <sound/soc-acpi-intel-match.h>
-+#include <sound/soc-component.h>
-+#include "avs.h"
-+#include "path.h"
-+#include "topology.h"
-+
-+struct avs_dma_data {
-+	struct avs_tplg_path_template *template;
-+	struct avs_path *path;
-+	/*
-+	 * link stream is stored within substream's runtime
-+	 * private_data to fulfill the needs of codec BE path
-+	 *
-+	 * host stream assigned
-+	 */
-+	struct hdac_ext_stream *host_stream;
-+};
-+
-+static ssize_t topology_name_read(struct file *file, char __user *user_buf, size_t count,
-+				  loff_t *ppos)
+@@ -10,6 +10,7 @@
+ #include <linux/device.h>
+ #include <sound/hda_register.h>
+ #include <sound/hdaudio_ext.h>
++#include <sound/pcm_params.h>
+ #include <sound/soc-acpi.h>
+ #include <sound/soc-acpi-intel-match.h>
+ #include <sound/soc-component.h>
+@@ -29,6 +30,343 @@ struct avs_dma_data {
+ 	struct hdac_ext_stream *host_stream;
+ };
+ 
++static struct avs_tplg_path_template *
++avs_dai_find_path_template(struct snd_soc_dai *dai, bool is_fe, int direction)
 +{
-+	struct snd_soc_component *component = file->private_data;
-+	struct snd_soc_card *card = component->card;
-+	struct snd_soc_acpi_mach *mach = dev_get_platdata(card->dev);
-+	char buf[64];
-+	size_t len;
++	struct snd_soc_dapm_widget *dw;
++	struct snd_soc_dapm_path *dp;
++	enum snd_soc_dapm_direction dir;
 +
-+	len = snprintf(buf, sizeof(buf), "%s/%s\n", component->driver->topology_name_prefix,
-+		       mach->tplg_filename);
-+
-+	return simple_read_from_buffer(user_buf, count, ppos, buf, len);
-+}
-+
-+static const struct file_operations topology_name_fops = {
-+	.open = simple_open,
-+	.read = topology_name_read,
-+	.llseek = default_llseek,
-+};
-+
-+static int avs_component_load_libraries(struct avs_soc_component *acomp)
-+{
-+	struct avs_tplg *tplg = acomp->tplg;
-+	struct avs_dev *adev = to_avs_dev(acomp->base.dev);
-+	int ret;
-+
-+	if (!tplg->num_libs)
-+		return 0;
-+
-+	/* Parent device may be asleep and library loading involves IPCs. */
-+	ret = pm_runtime_resume_and_get(adev->dev);
-+	if (ret < 0)
-+		return ret;
-+
-+	avs_hda_clock_gating_enable(adev, false);
-+	avs_hda_l1sen_enable(adev, false);
-+
-+	ret = avs_dsp_load_libraries(adev, tplg->libs, tplg->num_libs);
-+
-+	avs_hda_l1sen_enable(adev, true);
-+	avs_hda_clock_gating_enable(adev, true);
-+
-+	if (!ret)
-+		ret = avs_module_info_init(adev, false);
-+
-+	pm_runtime_mark_last_busy(adev->dev);
-+	pm_runtime_put_autosuspend(adev->dev);
-+
-+	return ret;
-+}
-+
-+static int avs_component_probe(struct snd_soc_component *component)
-+{
-+	struct snd_soc_card *card = component->card;
-+	struct snd_soc_acpi_mach *mach;
-+	struct avs_soc_component *acomp;
-+	struct avs_dev *adev;
-+	char *filename;
-+	int ret;
-+
-+	dev_dbg(card->dev, "probing %s card %s\n", component->name, card->name);
-+	mach = dev_get_platdata(card->dev);
-+	acomp = to_avs_soc_component(component);
-+	adev = to_avs_dev(component->dev);
-+
-+	acomp->tplg = avs_tplg_new(component);
-+	if (!acomp->tplg)
-+		return -ENOMEM;
-+
-+	if (!mach->tplg_filename)
-+		goto finalize;
-+
-+	/* Load specified topology and create debugfs for it. */
-+	filename = kasprintf(GFP_KERNEL, "%s/%s", component->driver->topology_name_prefix,
-+			     mach->tplg_filename);
-+	if (!filename)
-+		return -ENOMEM;
-+
-+	ret = avs_load_topology(component, filename);
-+	kfree(filename);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = avs_component_load_libraries(acomp);
-+	if (ret < 0) {
-+		dev_err(card->dev, "libraries loading failed: %d\n", ret);
-+		goto err_load_libs;
++	if (direction == SNDRV_PCM_STREAM_CAPTURE) {
++		dw = dai->capture_widget;
++		dir = is_fe ? SND_SOC_DAPM_DIR_OUT : SND_SOC_DAPM_DIR_IN;
++	} else {
++		dw = dai->playback_widget;
++		dir = is_fe ? SND_SOC_DAPM_DIR_IN : SND_SOC_DAPM_DIR_OUT;
 +	}
 +
-+finalize:
-+	debugfs_create_file("topology_name", 0444, component->debugfs_root, component,
-+			    &topology_name_fops);
++	dp = list_first_entry_or_null(&dw->edges[dir], typeof(*dp), list_node[dir]);
++	if (!dp)
++		return NULL;
 +
-+	mutex_lock(&adev->comp_list_mutex);
-+	list_add_tail(&acomp->node, &adev->comp_list);
-+	mutex_unlock(&adev->comp_list_mutex);
++	/* Get the other widget, with actual path template data */
++	dw = (dp->source == dw) ? dp->sink : dp->source;
++
++	return dw->priv;
++}
++
++static int avs_dai_startup(struct snd_pcm_substream *substream, struct snd_soc_dai *dai, bool is_fe)
++{
++	struct avs_tplg_path_template *template;
++	struct avs_dma_data *data;
++
++	template = avs_dai_find_path_template(dai, is_fe, substream->stream);
++	if (!template) {
++		dev_err(dai->dev, "no %s path for dai %s, invalid tplg?\n",
++			snd_pcm_stream_str(substream), dai->name);
++		return -EINVAL;
++	}
++
++	data = kzalloc(sizeof(*data), GFP_KERNEL);
++	if (!data)
++		return -ENOMEM;
++
++	data->template = template;
++	snd_soc_dai_set_dma_data(dai, substream, data);
 +
 +	return 0;
++}
 +
-+err_load_libs:
-+	avs_remove_topology(component);
++static int avs_dai_hw_params(struct snd_pcm_substream *substream,
++			     struct snd_pcm_hw_params *fe_hw_params,
++			     struct snd_pcm_hw_params *be_hw_params, struct snd_soc_dai *dai,
++			     int dma_id)
++{
++	struct avs_dma_data *data;
++	struct avs_path *path;
++	struct avs_dev *adev = to_avs_dev(dai->dev);
++	int ret;
++
++	data = snd_soc_dai_get_dma_data(dai, substream);
++
++	dev_dbg(dai->dev, "%s FE hw_params str %p rtd %p",
++		__func__, substream, substream->runtime);
++	dev_dbg(dai->dev, "rate %d chn %d vbd %d bd %d\n",
++		params_rate(fe_hw_params), params_channels(fe_hw_params),
++		params_width(fe_hw_params), params_physical_width(fe_hw_params));
++
++	dev_dbg(dai->dev, "%s BE hw_params str %p rtd %p",
++		__func__, substream, substream->runtime);
++	dev_dbg(dai->dev, "rate %d chn %d vbd %d bd %d\n",
++		params_rate(be_hw_params), params_channels(be_hw_params),
++		params_width(be_hw_params), params_physical_width(be_hw_params));
++
++	path = avs_path_create(adev, dma_id, data->template, fe_hw_params, be_hw_params);
++	if (IS_ERR(path)) {
++		ret = PTR_ERR(path);
++		dev_err(dai->dev, "create path failed: %d\n", ret);
++		return ret;
++	}
++
++	data->path = path;
++	return 0;
++}
++
++static int avs_dai_prepare(struct avs_dev *adev, struct snd_pcm_substream *substream,
++			   struct snd_soc_dai *dai)
++{
++	struct avs_dma_data *data;
++	int ret;
++
++	data = snd_soc_dai_get_dma_data(dai, substream);
++	if (!data->path)
++		return 0;
++
++	ret = avs_path_reset(data->path);
++	if (ret < 0) {
++		dev_err(dai->dev, "reset path failed: %d\n", ret);
++		return ret;
++	}
++
++	ret = avs_path_pause(data->path);
++	if (ret < 0)
++		dev_err(dai->dev, "pause path failed: %d\n", ret);
 +	return ret;
 +}
 +
-+static void avs_component_remove(struct snd_soc_component *component)
++static const unsigned int rates[] = {
++	8000, 11025, 12000, 16000,
++	22050, 24000, 32000, 44100,
++	48000, 64000, 88200, 96000,
++	128000, 176400, 192000,
++};
++
++static const struct snd_pcm_hw_constraint_list hw_rates = {
++	.count = ARRAY_SIZE(rates),
++	.list = rates,
++	.mask = 0,
++};
++
++static int avs_dai_fe_startup(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
 +{
-+	struct avs_soc_component *acomp = to_avs_soc_component(component);
-+	struct snd_soc_acpi_mach *mach;
-+	struct avs_dev *adev = to_avs_dev(component->dev);
++	struct snd_pcm_runtime *runtime = substream->runtime;
++	struct avs_dma_data *data;
++	struct avs_dev *adev = to_avs_dev(dai->dev);
++	struct hdac_bus *bus = &adev->base.core;
++	struct hdac_ext_stream *host_stream;
 +	int ret;
 +
-+	mach = dev_get_platdata(component->card->dev);
++	ret = avs_dai_startup(substream, dai, true);
++	if (ret)
++		return ret;
 +
-+	mutex_lock(&adev->comp_list_mutex);
-+	list_del(&acomp->node);
-+	mutex_unlock(&adev->comp_list_mutex);
++	data = snd_soc_dai_get_dma_data(dai, substream);
 +
-+	if (mach->tplg_filename) {
-+		ret = avs_remove_topology(component);
-+		if (ret < 0)
-+			dev_err(component->dev, "unload topology failed: %d\n", ret);
++	host_stream = snd_hdac_ext_stream_assign(bus, substream, HDAC_EXT_STREAM_TYPE_HOST);
++	if (!host_stream) {
++		kfree(data);
++		return -EBUSY;
 +	}
++
++	data->host_stream = host_stream;
++	snd_pcm_hw_constraint_integer(runtime, SNDRV_PCM_HW_PARAM_PERIODS);
++	/* avoid wrap-around with wall-clock */
++	snd_pcm_hw_constraint_minmax(runtime, SNDRV_PCM_HW_PARAM_BUFFER_TIME, 20, 178000000);
++	snd_pcm_hw_constraint_list(runtime, 0, SNDRV_PCM_HW_PARAM_RATE, &hw_rates);
++	snd_pcm_set_sync(substream);
++
++	dev_dbg(dai->dev, "%s fe STARTUP tag %d str %p",
++		__func__, hdac_stream(host_stream)->stream_tag, substream);
++
++	return 0;
 +}
 +
-+static int avs_component_open(struct snd_soc_component *component,
-+			      struct snd_pcm_substream *substream)
++static void avs_dai_fe_shutdown(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
 +{
-+	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
-+	struct snd_pcm_hardware hwparams;
++	struct avs_dma_data *data;
 +
-+	/* only FE DAI links are handled here */
-+	if (rtd->dai_link->no_pcm)
-+		return 0;
++	data = snd_soc_dai_get_dma_data(dai, substream);
 +
-+	hwparams.info = SNDRV_PCM_INFO_MMAP |
-+			SNDRV_PCM_INFO_MMAP_VALID |
-+			SNDRV_PCM_INFO_INTERLEAVED |
-+			SNDRV_PCM_INFO_PAUSE |
-+			SNDRV_PCM_INFO_NO_PERIOD_WAKEUP;
-+
-+	hwparams.formats = SNDRV_PCM_FMTBIT_S16_LE |
-+			   SNDRV_PCM_FMTBIT_S24_LE |
-+			   SNDRV_PCM_FMTBIT_S32_LE;
-+	hwparams.period_bytes_min = 128;
-+	hwparams.period_bytes_max = AZX_MAX_BUF_SIZE / 2;
-+	hwparams.periods_min = 2;
-+	hwparams.periods_max = AZX_MAX_FRAG;
-+	hwparams.buffer_bytes_max = AZX_MAX_BUF_SIZE;
-+	hwparams.fifo_size = 0;
-+
-+	return snd_soc_set_runtime_hwparams(substream, &hwparams);
++	snd_soc_dai_set_dma_data(dai, substream, NULL);
++	snd_hdac_ext_stream_release(data->host_stream, HDAC_EXT_STREAM_TYPE_HOST);
++	kfree(data);
 +}
 +
-+static unsigned int avs_hda_stream_dpib_read(struct hdac_ext_stream *stream)
++static int avs_dai_fe_hw_params(struct snd_pcm_substream *substream,
++				struct snd_pcm_hw_params *hw_params, struct snd_soc_dai *dai)
 +{
-+	return readl(hdac_stream(stream)->bus->remap_addr + AZX_REG_VS_SDXDPIB_XBASE +
-+		     (AZX_REG_VS_SDXDPIB_XINTERVAL * hdac_stream(stream)->index));
-+}
-+
-+static snd_pcm_uframes_t
-+avs_component_pointer(struct snd_soc_component *component, struct snd_pcm_substream *substream)
-+{
-+	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
++	struct snd_pcm_hw_params *be_hw_params = NULL;
++	struct snd_soc_pcm_runtime *fe, *be;
++	struct snd_soc_dpcm *dpcm;
 +	struct avs_dma_data *data;
 +	struct hdac_ext_stream *host_stream;
-+	unsigned int pos;
++	int ret;
 +
-+	data = snd_soc_dai_get_dma_data(asoc_rtd_to_cpu(rtd, 0), substream);
-+	if (!data->host_stream)
++	data = snd_soc_dai_get_dma_data(dai, substream);
++	if (data->path)
 +		return 0;
 +
 +	host_stream = data->host_stream;
-+	pos = avs_hda_stream_dpib_read(host_stream);
 +
-+	if (pos >= hdac_stream(host_stream)->bufsize)
-+		pos = 0;
++	hdac_stream(host_stream)->bufsize = 0;
++	hdac_stream(host_stream)->period_bytes = 0;
++	hdac_stream(host_stream)->format_val = 0;
 +
-+	return bytes_to_frames(substream->runtime, pos);
-+}
++	fe = asoc_substream_to_rtd(substream);
++	for_each_dpcm_be(fe, substream->stream, dpcm) {
++		be = dpcm->be;
++		be_hw_params = &be->dpcm[substream->stream].hw_params;
++	}
 +
-+static int avs_component_mmap(struct snd_soc_component *component,
-+			      struct snd_pcm_substream *substream,
-+			      struct vm_area_struct *vma)
-+{
-+	return snd_pcm_lib_default_mmap(substream, vma);
-+}
++	ret = avs_dai_hw_params(substream, hw_params, be_hw_params, dai,
++				hdac_stream(host_stream)->stream_tag - 1);
++	if (ret)
++		goto create_err;
 +
-+#define MAX_PREALLOC_SIZE	(32 * 1024 * 1024)
-+
-+static int avs_component_construct(struct snd_soc_component *component,
-+				   struct snd_soc_pcm_runtime *rtd)
-+{
-+	struct snd_soc_dai *dai = asoc_rtd_to_cpu(rtd, 0);
-+	struct snd_pcm *pcm = rtd->pcm;
-+
-+	if (dai->driver->playback.channels_min)
-+		snd_pcm_set_managed_buffer(pcm->streams[SNDRV_PCM_STREAM_PLAYBACK].substream,
-+					   SNDRV_DMA_TYPE_DEV_SG, component->dev, 0,
-+					   MAX_PREALLOC_SIZE);
-+
-+	if (dai->driver->capture.channels_min)
-+		snd_pcm_set_managed_buffer(pcm->streams[SNDRV_PCM_STREAM_CAPTURE].substream,
-+					   SNDRV_DMA_TYPE_DEV_SG, component->dev, 0,
-+					   MAX_PREALLOC_SIZE);
++	ret = avs_path_bind(data->path);
++	if (ret < 0) {
++		dev_err(dai->dev, "bind FE <-> BE failed: %d\n", ret);
++		goto bind_err;
++	}
 +
 +	return 0;
++
++bind_err:
++	avs_path_free(data->path);
++	data->path = NULL;
++create_err:
++	snd_pcm_lib_free_pages(substream);
++	return ret;
 +}
 +
-+static const struct snd_soc_component_driver avs_component_driver = {
-+	.name			= "avs-pcm",
-+	.probe			= avs_component_probe,
-+	.remove			= avs_component_remove,
-+	.open			= avs_component_open,
-+	.pointer		= avs_component_pointer,
-+	.mmap			= avs_component_mmap,
-+	.pcm_construct		= avs_component_construct,
-+	.module_get_upon_open	= 1, /* increment refcount when a pcm is opened */
-+	.topology_name_prefix	= "intel/avs",
-+	.non_legacy_dai_naming	= true,
-+};
-+
-+__maybe_unused
-+static int avs_soc_component_register(struct device *dev, const char *name,
-+				      const struct snd_soc_component_driver *drv,
-+				      struct snd_soc_dai_driver *cpu_dais, int num_cpu_dais)
++static int avs_dai_fe_hw_free(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
 +{
-+	struct avs_soc_component *acomp;
++	struct avs_dma_data *data;
++	struct hdac_ext_stream *host_stream;
 +	int ret;
 +
-+	acomp = devm_kzalloc(dev, sizeof(*acomp), GFP_KERNEL);
-+	if (!acomp)
-+		return -ENOMEM;
++	dev_dbg(dai->dev, "%s fe HW_FREE str %p rtd %p",
++		__func__, substream, substream->runtime);
 +
-+	ret = snd_soc_component_initialize(&acomp->base, drv, dev);
++	data = snd_soc_dai_get_dma_data(dai, substream);
++	if (!data->path)
++		return 0;
++
++	host_stream = data->host_stream;
++
++	ret = avs_path_unbind(data->path);
++	if (ret < 0)
++		dev_err(dai->dev, "unbind FE <-> BE failed: %d\n", ret);
++
++	avs_path_free(data->path);
++	data->path = NULL;
++	snd_hdac_stream_cleanup(hdac_stream(host_stream));
++	hdac_stream(host_stream)->prepared = false;
++
++	ret = snd_pcm_lib_free_pages(substream);
++	if (ret < 0)
++		dev_dbg(dai->dev, "Failed to free pages!\n");
++
++	return ret;
++}
++
++static int avs_dai_fe_prepare(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
++{
++	struct snd_pcm_runtime *runtime = substream->runtime;
++	struct avs_dma_data *data;
++	struct avs_dev *adev = to_avs_dev(dai->dev);
++	struct hdac_ext_stream *host_stream;
++	struct hdac_bus *bus;
++	unsigned int format_val;
++	int ret;
++
++	data = snd_soc_dai_get_dma_data(dai, substream);
++	host_stream = data->host_stream;
++
++	if (hdac_stream(host_stream)->prepared)
++		return 0;
++
++	bus = hdac_stream(host_stream)->bus;
++	snd_hdac_ext_stream_decouple(bus, data->host_stream, true);
++	snd_hdac_stream_reset(hdac_stream(host_stream));
++
++	format_val = snd_hdac_calc_stream_format(runtime->rate, runtime->channels, runtime->format,
++						 runtime->sample_bits, 0);
++
++	ret = snd_hdac_stream_set_params(hdac_stream(host_stream), format_val);
 +	if (ret < 0)
 +		return ret;
 +
-+	/* force name change after ASoC is done with its init */
-+	acomp->base.name = name;
-+	INIT_LIST_HEAD(&acomp->node);
++	ret = snd_hdac_stream_setup(hdac_stream(host_stream));
++	if (ret < 0)
++		return ret;
 +
-+	return snd_soc_add_component(&acomp->base, cpu_dais, num_cpu_dais);
++	ret = avs_dai_prepare(adev, substream, dai);
++	if (ret)
++		return ret;
++
++	hdac_stream(host_stream)->prepared = true;
++	return 0;
 +}
++
++static int avs_dai_fe_trigger(struct snd_pcm_substream *substream, int cmd, struct snd_soc_dai *dai)
++{
++	struct avs_dma_data *data;
++	struct hdac_ext_stream *host_stream;
++	struct hdac_bus *bus;
++	unsigned long flags;
++	int ret = 0;
++
++	data = snd_soc_dai_get_dma_data(dai, substream);
++	host_stream = data->host_stream;
++	bus = hdac_stream(host_stream)->bus;
++
++	switch (cmd) {
++	case SNDRV_PCM_TRIGGER_START:
++	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
++		spin_lock_irqsave(&bus->reg_lock, flags);
++		snd_hdac_stream_start(hdac_stream(host_stream), true);
++		spin_unlock_irqrestore(&bus->reg_lock, flags);
++
++		ret = avs_path_run(data->path, AVS_TPLG_TRIGGER_AUTO);
++		if (ret < 0)
++			dev_err(dai->dev, "run FE path failed: %d\n", ret);
++		break;
++
++	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
++	case SNDRV_PCM_TRIGGER_STOP:
++		ret = avs_path_pause(data->path);
++		if (ret < 0)
++			dev_err(dai->dev, "pause FE path failed: %d\n", ret);
++
++		spin_lock_irqsave(&bus->reg_lock, flags);
++		snd_hdac_stream_stop(hdac_stream(host_stream));
++		spin_unlock_irqrestore(&bus->reg_lock, flags);
++
++		if (cmd == SNDRV_PCM_TRIGGER_STOP) {
++			ret = avs_path_reset(data->path);
++			if (ret < 0)
++				dev_err(dai->dev, "reset FE path failed: %d\n", ret);
++		}
++		break;
++
++	default:
++		ret = -EINVAL;
++		break;
++	}
++
++	return ret;
++}
++
++const struct snd_soc_dai_ops avs_dai_fe_ops = {
++	.startup = avs_dai_fe_startup,
++	.shutdown = avs_dai_fe_shutdown,
++	.hw_params = avs_dai_fe_hw_params,
++	.hw_free = avs_dai_fe_hw_free,
++	.prepare = avs_dai_fe_prepare,
++	.trigger = avs_dai_fe_trigger,
++};
++
+ static ssize_t topology_name_read(struct file *file, char __user *user_buf, size_t count,
+ 				  loff_t *ppos)
+ {
+diff --git a/sound/soc/intel/avs/topology.c b/sound/soc/intel/avs/topology.c
+index d3fd5e145ee1..4ea799658ed9 100644
+--- a/sound/soc/intel/avs/topology.c
++++ b/sound/soc/intel/avs/topology.c
+@@ -15,8 +15,6 @@
+ #include "avs.h"
+ #include "topology.h"
+ 
+-const struct snd_soc_dai_ops avs_dai_fe_ops;
+-
+ /* Get pointer to vendor array at the specified offset. */
+ #define avs_tplg_vendor_array_at(array, offset) \
+ 	((struct snd_soc_tplg_vendor_array *)((u8 *)array + offset))
 -- 
 2.25.1
 

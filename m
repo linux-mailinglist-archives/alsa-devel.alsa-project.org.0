@@ -2,77 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C7A3528C65
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 May 2022 19:53:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0880A528D70
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 May 2022 20:51:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1899215C3;
-	Mon, 16 May 2022 19:52:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1899215C3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 75748886;
+	Mon, 16 May 2022 20:50:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 75748886
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652723611;
-	bh=V6OYfbvl7Gf5jRVgQc6Zwaa10DLCSHKSqD/KiJIBun4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1652727072;
+	bh=ICyyCZApWdhGb/nQaOOr4pQFtm5qum1oD5r4vgzEa/Q=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SJORG2VgX+Sv/aGXTEKbe/7/sRnaWqo1Eh/Tv7c9mgxQnZTweo2zJpnNB21PofXmQ
-	 bS/D6Lh6qqmy27lhr5yMDi7qwGSqlzIEdH/cguKE9gS6wGozmKJzCnxIPHTkRR4tt6
-	 Kky8v3Z58WAJd9uEF4uKS6y2uY4ZZOjcgBk9ag/0=
+	b=YdM1pTw+iPsw7IiPAAsx44nWCkyZ5VpEImY8O+pGmHDpVbqluFDrPGY92VfaIE2Uh
+	 +wEo5/I/p0jVGBqmLI4RebR6a1LetY72FbZ7TZx9X4RemT3zw/YGsDxHpotUDGoGNx
+	 uqyE3FW/aAFoJcDKNxy7eYpK1Vce/YuKf9KkyZnI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6FA35F80171;
-	Mon, 16 May 2022 19:52:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C9FDCF8012C;
+	Mon, 16 May 2022 20:50:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6950DF800D8; Mon, 16 May 2022 19:52:30 +0200 (CEST)
+ id 39BFCF8014B; Mon, 16 May 2022 20:50:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
+ [IPv6:2607:f8b0:4864:20::636])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 07122F800D8
- for <alsa-devel@alsa-project.org>; Mon, 16 May 2022 19:52:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07122F800D8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 74B37F8012C
+ for <alsa-devel@alsa-project.org>; Mon, 16 May 2022 20:50:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74B37F8012C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="DrLKI83o"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id DC947612D6;
- Mon, 16 May 2022 17:52:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9ABBC385AA;
- Mon, 16 May 2022 17:52:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1652723544;
- bh=V6OYfbvl7Gf5jRVgQc6Zwaa10DLCSHKSqD/KiJIBun4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=DrLKI83o0O+3SLQ8Gd81gugSBsgEJvkW8r3IjFj5jvZs5WCQDZfv/oLy+9iLWMBAA
- ST7cF7XRRy1j0sDB1lcG5oQNRF1qn+BlWsPbbX+tGDg2LlZgLUYD5DO5QIW5motEkt
- O4bCAPKqgFSG8lgRmtrzcx+yH8utQ8M1D+dVS4b/e0xKaySz+glNSsFNn+13W1SLbZ
- NxuW+x1iGowuDgoKi916FnXIwCBjSyJE5c8GLizqXT+8t0QeBTBAIin6X/4/8U/QLD
- DBEoq9ZKUehrdGDUXgn2g7aIdShs8JIQO7yCUf5aw7iz7vSxydrmg2JdtxAMN0Fa69
- RuRNZuvafwzfQ==
-Date: Mon, 16 May 2022 18:52:19 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Antonio Terceiro <antonio.terceiro@linaro.org>
-Subject: Re: [PATCH] kselftest: alsa: handle cross compilation
-Message-ID: <YoKPU/QbrkuJPlnx@sirena.org.uk>
-References: <20220516165856.401452-1-antonio.terceiro@linaro.org>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="Hd0Yorn0"
+Received: by mail-pl1-x636.google.com with SMTP id i1so15301280plg.7
+ for <alsa-devel@alsa-project.org>; Mon, 16 May 2022 11:50:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=ogFgPpVvtLABZGqhLzO7aVIGrK84/NfIlVnDOzWwbx8=;
+ b=Hd0Yorn0RW/CYIBNSer8vE7Dkgu4vN8r5CmeQz/yRlhWDVzomT7yKboUIDrEYN8r6H
+ fuPXEADzXBCgJBnKMFjASpP31MlP4WKde1RvxkWhfeiwZwed/VkEkOSpUY78oPDAx5nH
+ vnXswqBP3oQ4laULsL4AVvrMiF3woZrNQwOx+zT0oiiwiKi4t0Uzv7sKv6Qy0AoSTLOz
+ j2BtRCNMtIEmnpzHMK8SHi8OLI10I9r0kB9r9g5yrrgNoLUhbZbrQ5WI5GAkpI7ePLtv
+ ZEL7VVNDuTcYRffrLhc/kRD+xGfSvzZi5PMixafVOTRpY2A1sBZEKfnYkZHyLf5QqNuG
+ loPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=ogFgPpVvtLABZGqhLzO7aVIGrK84/NfIlVnDOzWwbx8=;
+ b=tsZAMmv+vuPMzLg53aA+BBtgrWCWdnyshIJ2x2qb64NZitQh4Lyl0mwTbNvcWCGSBn
+ DlYpZO6WI2c3wypTGDBc4Xqvzjbvjk9+E4OZnqd+OZ5Ftp+0t9HJdKmJzaVCc8wk9w3x
+ 4mHt3z6XB2QBRPi5c0nQ3TeU08vm1RqHAaCMcLybocRUBgd9ls5KjqZQD5/IjYwVXoHG
+ gkWLoVhiHjFHNymTcrhvhg+12yJlkvK2DTf5qzQNERu9tnr1teYv1nWSAjGs7HeGiNe+
+ INYjK1oUoTqr/U4zETF2zaNsQVSeYDADfkNyXM/t157we+a/8RHYPeENP88IVRQSD+J4
+ VC3Q==
+X-Gm-Message-State: AOAM533nZgvoeFD10kcYou3p051Uvl4EMoHuMeNPpzqpTEa4lHzVopk7
+ MVJ0c9N+jifAgHFRBaQB5oI=
+X-Google-Smtp-Source: ABdhPJwJWStGtq2F73tDt655k7SukiNeC417jxnY4Q7eSvMJW6/+8fSvzNv6EKJ51TvR0GUJcSrMHw==
+X-Received: by 2002:a17:90b:4f91:b0:1cd:3a73:3a5d with SMTP id
+ qe17-20020a17090b4f9100b001cd3a733a5dmr20801877pjb.98.1652727007097; 
+ Mon, 16 May 2022 11:50:07 -0700 (PDT)
+Received: from [192.168.0.107] ([103.86.19.192])
+ by smtp.gmail.com with ESMTPSA id
+ h20-20020aa786d4000000b0050dc76281a5sm7289062pfo.127.2022.05.16.11.50.03
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 16 May 2022 11:50:06 -0700 (PDT)
+Message-ID: <3f2e9cb6-9b3a-5054-34a8-7c7e1c77a15a@gmail.com>
+Date: Tue, 17 May 2022 00:20:01 +0530
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="l68LM0N6va3Ya2h5"
-Content-Disposition: inline
-In-Reply-To: <20220516165856.401452-1-antonio.terceiro@linaro.org>
-X-Cookie: May be too intense for some viewers.
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, linux-kselftest@vger.kernel.org,
- Shuah Khan <shuah@kernel.org>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Subject: Re: [PATCH] selftests: alsa: Better error messages
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>
+References: <8598037d-0e24-9bc1-3f2c-a2751ec8e871@gmail.com>
+ <YoJnhulbKk49rZsw@sirena.org.uk>
+From: Siddh Raman Pant <siddhpant.gh@gmail.com>
+In-Reply-To: <YoJnhulbKk49rZsw@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, Shuah Khan <skhan@linuxfoundation.org>,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,34 +107,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Thank you very much, Takashi, and Mark, for reviewing the patch. Helps me getting
+the hang of kernel development coding styles and conventions while starting out.
 
---l68LM0N6va3Ya2h5
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+The particular motivation for this was that this test tends to potentially
+generate a very long list of warnings/errors.
 
-On Mon, May 16, 2022 at 01:58:56PM -0300, Antonio Terceiro wrote:
-> Calling just `pkg-config` is adequate for native builds, but finding the
-> foreign libraries with pkg-config needs pkg-config to be called via its
-> architecture-specific wrapper. This works in Debian, where there is a
-> corresponding *-pkg-config wrapper script for each enabled foreign
-> architecture, just like there are *-gcc, *-ld.
+On Mon, May 16, 2022 At 20:32:30 +0530, Mark Brown wrote:
+>>  	if (err < 0) {
+>> -		ksft_print_msg("Unable to parse custom alsa-lib configuration: %s\n",
+>> +		ksft_print_msg("Unable to parse custom alsa-lib configuration (%s)\n",
+>>  			       snd_strerror(err));
+> 
+> I'm really unconvinced that replacing : with () is helping either people
+> or machines - the form we have at the minute is probably more common for
+> command line tools?
 
-Why does this only apply to the ALSA selftests?  There's a bunch of
-kselftests that use unadorned pkg-config calls.
+The intent was to separate card and error with the colon. While it may not affect
+parsing, you are right, the colon separator is seemingly the standard. Apologies.
 
---l68LM0N6va3Ya2h5
-Content-Type: application/pgp-signature; name="signature.asc"
+> Why add the space before the : here?  That really is not idiomatic for
+> Unix stuff, or just natural language.
+> ...
+> This should definitely be a separate commit.
 
------BEGIN PGP SIGNATURE-----
+You are right. Again, apologies for this.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmKCj1IACgkQJNaLcl1U
-h9DcoAf+LVpPlFZWQHDWJ58ZynWUjK/xxuF/HWxAsfbguUHtJNjWrCUgsLI3ipJJ
-/dF3BjpNo4wqsC+6DO5DW+aYiUgzOKC9MhY14A0DQPnbmLSmOhmfhDgycXSyiawq
-qF6Xj9UX9shFYAYi5A6TnULsxnhAc07vDbj7VgTwmNOpNm4d/8/2ksWReJJi0/Ab
-7gnnRE4xV0sqVBg1XQxAarGT3aNu8JBnhwHnr5gEuLAUyrql57+9dIGCJfngtDxY
-BB1lgJBTrW8Z8duAmb2JU+9SbmFoeQUawQAxPEJOG2PebDDJsovTNCu8gmrV52fn
-+7+y33ypsIRzVF+/WvbVh4JE32YDxA==
-=NDzX
------END PGP SIGNATURE-----
+>>  		bool is_volatile = snd_ctl_elem_info_is_volatile(ctl->info);
+>> -		ksft_print_msg("%s.%d expected %lld but read %lld, is_volatile %d\n",
+>> -			       ctl->name, index, expected_int, read_int, is_volatile);
+>> +		ksft_print_msg("%s.%d : Expected %lld, but read %lld (%s)\n",
+>> +			       ctl->name, index, expected_int, read_int,
+>> +			       (is_volatile ? "Volatile" : "Non-volatile"));
+> 
+> I don't understand the comma here?
 
---l68LM0N6va3Ya2h5--
+Those are independent clauses, hence used a comma. Looking back, the "but" can probably
+be removed here for brevity.
+
+
+Please let me know if there are any other things which bugs you, and whether or not
+should I send a v2 with the issues addressed.
+
+Thanks for the reviews,
+Siddh

@@ -2,134 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D08652898F
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 May 2022 18:07:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59E57528A3A
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 May 2022 18:25:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E8F31165E;
-	Mon, 16 May 2022 18:07:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8F31165E
+	by alsa0.perex.cz (Postfix) with ESMTPS id C9CFE1CF;
+	Mon, 16 May 2022 18:24:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9CFE1CF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652717278;
-	bh=glyqMxwyux1V5SU0ixhFDYioJgk/Ls0JaVOygtxDLoE=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1652718310;
+	bh=l9lGChT2Audl1bzg8dG+0fqxAUhLyJ3KMgxT25HLskg=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LUi+qmYc7Nw7JpnAMbKN+e1FS1l00bf2bNxuQtMLkdzCEoa1PBMbeoZ6Ikx4oxrhw
-	 u99aNNRjj3evRz7pbXigaBUZmuewGACPEm2drtqxQYGM1vR1QkzqFruwHQzUwD8oHo
-	 ATRarwfhWrdwuiOx4DukIIVucZBBshMWrPolQGgM=
+	b=DFp7IGhar77JFTFu/N5q1WBWTJl8L+ccGzJiWTmtqbaPALx7kF8nqdfzRFmGnBzYq
+	 iwlhP0dEi+fSo2u6anFwBpRq19brw8fnH15620hfY7NUmsGkCfUSaMhXS3NyE31/3s
+	 I4AmdCUOGjefVUFKnrAgjP5POxDF6HtwZvtpbylo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5DA55F8027D;
-	Mon, 16 May 2022 18:06:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 347CCF800D8;
+	Mon, 16 May 2022 18:24:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5EA02F8025C; Mon, 16 May 2022 18:06:57 +0200 (CEST)
+ id 38D82F8014B; Mon, 16 May 2022 18:24:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam07on20601.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eb2::601])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 47A00F80171
- for <alsa-devel@alsa-project.org>; Mon, 16 May 2022 18:06:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47A00F80171
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
- header.b="OzQNqrcu"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nZoSdS8SJQh+xX7TPtNZDFCDLKbTIlIDsktQWZkG2tqpk7OAj6U9FcOkRy3/04yHH5Qmwng6silZ+wo8y9XBWeqndhok4P7mJvgrQqn73KorlW9aYA6xOwTH1DQUK2OvVrLN1rs7IWiVw9JwCMCz9qmgfWpnEFqFTpTa0vkBV5kZMBF7QaXx2E2JiCSaSVP6ig9nlP6woFh90CoRsBYvyDuI1vew9e2BxA3rJCivx7Eagaf47JACaDohSbEhtflQrd72s/mCWsrJ/+CLS6OSg+pLAZO8u/jaoVKNMwSkzuPAxw9J6nWMC3ObzBuLmNTP0YIvGQwIqRi82QB9UzFcjQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sRtpiGBzjPMhd/hrbF9i2h1jt8EG6AeCyS4bF0tS3dg=;
- b=njfKb3Jc11gioljkJ9XYslcIyl6KWZ2fmKjHHS9hs9jutZjDHtNz+dqk1V99pbFqkiuR4ZCIVLvKO2RcDIFoMzzwf+wiu8RHpuzLsBFr3EHReNcjDeA4UBAhVLIoxuWWMlkmvfp9HWb6pvF/LmSaekHGbcu5a4YYhjUbWTZMvtOZxVoNkqqBnH+NSo/E3jPhHVCU1g5DOYDlMPn2om1pv7U34mlotuc1aznlvY5CEQxeBwmr7f0jLPg5fuxLrerkGk/WwPPToCRHiLcDFnkmwcPFZmuJJeP9CKOGaAvAfcWkBRPJpxmJdwHqUXAK6c/r31Xu6+OMMyiV7FdcBBcUUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sRtpiGBzjPMhd/hrbF9i2h1jt8EG6AeCyS4bF0tS3dg=;
- b=OzQNqrcuOH+lqITTCSpeZnKxGxRh7eSsg0rgne4bBzjxColeHfS1EY8M4scgr1ClxoNPAYr8oLHJesqXMX9ocPPZX7P+e1F4YPzNtbwYSDpZ3GuEJ/lQE+C1/T6JDxvsYH84Ik0TOlTuh1cTn1xiBeSa5fnwSR5tCFDU3g4RByg=
-Received: from MWH0EPF00056D17.namprd21.prod.outlook.com
- (2603:10b6:30f:fff2:0:1:0:1b) by BN8PR12MB2930.namprd12.prod.outlook.com
- (2603:10b6:408:69::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5250.13; Mon, 16 May
- 2022 16:06:34 +0000
-Received: from CO1NAM11FT042.eop-nam11.prod.protection.outlook.com
- (2a01:111:f400:7eab::206) by MWH0EPF00056D17.outlook.office365.com
- (2603:1036:d20::b) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5293.3 via Frontend
- Transport; Mon, 16 May 2022 16:06:34 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT042.mail.protection.outlook.com (10.13.174.250) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5250.13 via Frontend Transport; Mon, 16 May 2022 16:06:33 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Mon, 16 May
- 2022 11:06:32 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
- (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Mon, 16 May
- 2022 09:06:32 -0700
-Received: from sof-System-Product-Name.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.24
- via Frontend Transport; Mon, 16 May 2022 11:06:23 -0500
-From: V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
-To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH v2 2/2] Revert "ASoC: amd: acp: Power on/off the speaker
- enable gpio pin based on DAPM callback."
-Date: Mon, 16 May 2022 21:36:10 +0530
-Message-ID: <20220516160619.17832-2-Vsujithkumar.Reddy@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220516160619.17832-1-Vsujithkumar.Reddy@amd.com>
-References: <20220516160619.17832-1-Vsujithkumar.Reddy@amd.com>
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 2FE27F800D8
+ for <alsa-devel@alsa-project.org>; Mon, 16 May 2022 18:24:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2FE27F800D8
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4acf4f43-9148-48d8-d144-08da37560c60
-X-MS-TrafficTypeDiagnostic: BN8PR12MB2930:EE_
-X-Microsoft-Antispam-PRVS: <BN8PR12MB29301ED240AA474A71484CFD92CF9@BN8PR12MB2930.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: OBXsjYOtg66lwjh7QYVW6n8ykTWIUIelGIsnULtMJLhpRrXq1f6Dh5+He5RJXBuArYbF4p8Y0uFT8Uk9CxUzUHl2yKrZhCrZck6UdG3EXxQeCQjyf29D1HZU/rmtipLxMESHxRTHb1gm3caC4yTZAVpgDlOSfQs86VqK0D/2wh/3wilh4su+XAHBgMkBSJqJDBoikJtSyEe1zL4lxStWJAmdiyV9FbK/4RArCh0QicIcf0cW1YlsaPYZdXaBWD51pHLDBK41ooC6EEBhVOQetLtPRB4xwgJxkqDag8aTDkwEWTIZJlaY3Ue1BpAM/HHA93168VDx2Vc2ALijP+rw65FWJlbG+VS452ocQx7L/umRjS4Pnl1k8a6BvIWmHdnE/a24zXDVCtOtNeb+E+IVHIFFuVosdmT2Eadd6OMBVdbqYdkw6lveHfwMe0FR4TPHXiMoAwKdd1i+dkSVuDSI1YmmwZaRzlGQURrvVigFyJjvTnO+4VOo2ydc5ODle9ny6Em+hoGMdN6OULlcZGBDi96FE6N3NhwR0BO2rwKa/TK6+UeUH1aa1NSmtOZyvhA1GXbMCy6rQ5iKOfrAxGn5lX+mYtKeHn6oHTXYZ2FNCEkCGaDix+w7D3VqduWvVRZAGR+MCqmtczZq44CEiP063fRlyQWphUy8WCsg71k4eS1429EknwKnyFMESPAEvGsD6D2zqyza+elE9vD/dGLJtXN/TcSGnxTEe3SgUR09M+4=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(86362001)(81166007)(70206006)(4326008)(26005)(8676002)(70586007)(8936002)(508600001)(1076003)(7696005)(356005)(186003)(336012)(7416002)(5660300002)(36860700001)(2906002)(54906003)(6666004)(2616005)(316002)(36756003)(83380400001)(47076005)(426003)(82310400005)(40460700003)(110136005)(461764006)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 May 2022 16:06:33.8858 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4acf4f43-9148-48d8-d144-08da37560c60
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT042.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB2930
-Cc: Sunil-kumar.Dommati@amd.com, Geert Uytterhoeven <geert+renesas@glider.be>,
- Ajit Kumar
- Pandey <AjitKumar.Pandey@amd.com>, open list <linux-kernel@vger.kernel.org>,
- Basavaraj.Hiregoudar@amd.com, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Jia-Ju Bai <baijiaju1990@gmail.com>,
- Arnd Bergmann <arnd@arndb.de>, Akihiko Odaki <akihiko.odaki@gmail.com>,
- Vijendar.Mukunda@amd.com, V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1652718246566613913-webhooks-bot@alsa-project.org>
+References: <1652718246566613913-webhooks-bot@alsa-project.org>
+Subject: Complete support for "Pro" USB multichannel cards
+Message-Id: <20220516162410.38D82F8014B@alsa1.perex.cz>
+Date: Mon, 16 May 2022 18:24:10 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -145,259 +59,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-ASoC: amd : acp : Set Speaker enable/disable pin through rt1019 codec driver.
+alsa-project/alsa-ucm-conf issue #154 was opened from perexg:
 
-RT1019 codec has two ways of controlling the en_spkr.
-one way is controlling through gpio pin method the another way is through codec register update through driver.
+- [x] channel split using alsa-lib
+- [ ] channel split inside app
+- [ ] channel split hide the specific configs (alsa-lib, app side support)
+- [x] mixer control remap using alsa-lib
+- [ ] simplify the mixer control remap
 
-Now Speaker enable/disable is controlled  through codec register updated by codec driver.
-This patch reverts gpio logic.
-
-This reverts commit 5c5f08f7fc0bee9a1bc3fbdcb7a21cfd0648ab14.
-
-Signed-off-by: V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
----
- sound/soc/amd/acp/Kconfig           |  6 +++---
- sound/soc/amd/acp/acp-legacy-mach.c | 21 +++------------------
- sound/soc/amd/acp/acp-mach-common.c | 25 -------------------------
- sound/soc/amd/acp/acp-mach.h        | 10 +---------
- sound/soc/amd/acp/acp-sof-mach.c    | 21 +++------------------
- 5 files changed, 10 insertions(+), 73 deletions(-)
-
-diff --git a/sound/soc/amd/acp/Kconfig b/sound/soc/amd/acp/Kconfig
-index 626e4a5cb06a..9dae2719084c 100644
---- a/sound/soc/amd/acp/Kconfig
-+++ b/sound/soc/amd/acp/Kconfig
-@@ -42,7 +42,7 @@ config SND_AMD_ASOC_RENOIR
- 
- config SND_SOC_AMD_MACH_COMMON
- 	tristate
--	depends on X86 && PCI && I2C && GPIOLIB
-+	depends on X86 && PCI && I2C
- 	select CLK_FIXED_FCH
- 	select SND_SOC_RT5682_I2C
- 	select SND_SOC_DMIC
-@@ -54,14 +54,14 @@ config SND_SOC_AMD_MACH_COMMON
- 
- config SND_SOC_AMD_LEGACY_MACH
- 	tristate "AMD Legacy Machine Driver Support"
--	depends on X86 && PCI && I2C && GPIOLIB
-+	depends on X86 && PCI && I2C
- 	select SND_SOC_AMD_MACH_COMMON
- 	help
- 	  This option enables legacy sound card support for ACP audio.
- 
- config SND_SOC_AMD_SOF_MACH
- 	tristate "AMD SOF Machine Driver Support"
--	depends on X86 && PCI && I2C && GPIOLIB
-+	depends on X86 && PCI && I2C
- 	select SND_SOC_AMD_MACH_COMMON
- 	help
- 	  This option enables SOF sound card support for ACP audio.
-diff --git a/sound/soc/amd/acp/acp-legacy-mach.c b/sound/soc/amd/acp/acp-legacy-mach.c
-index 442d5644e0f3..7f04a048ca3a 100644
---- a/sound/soc/amd/acp/acp-legacy-mach.c
-+++ b/sound/soc/amd/acp/acp-legacy-mach.c
-@@ -27,7 +27,6 @@ static struct acp_card_drvdata rt5682_rt1019_data = {
- 	.hs_codec_id = RT5682,
- 	.amp_codec_id = RT1019,
- 	.dmic_codec_id = DMIC,
--	.gpio_spkr_en = EN_SPKR_GPIO_GB,
- };
- 
- static struct acp_card_drvdata rt5682s_max_data = {
-@@ -37,7 +36,6 @@ static struct acp_card_drvdata rt5682s_max_data = {
- 	.hs_codec_id = RT5682S,
- 	.amp_codec_id = MAX98360A,
- 	.dmic_codec_id = DMIC,
--	.gpio_spkr_en = EN_SPKR_GPIO_NONE,
- };
- 
- static struct acp_card_drvdata rt5682s_rt1019_data = {
-@@ -47,7 +45,6 @@ static struct acp_card_drvdata rt5682s_rt1019_data = {
- 	.hs_codec_id = RT5682S,
- 	.amp_codec_id = RT1019,
- 	.dmic_codec_id = DMIC,
--	.gpio_spkr_en = EN_SPKR_GPIO_NONE,
- };
- 
- static const struct snd_kcontrol_new acp_controls[] = {
-@@ -62,16 +59,15 @@ static const struct snd_kcontrol_new acp_controls[] = {
- static const struct snd_soc_dapm_widget acp_widgets[] = {
- 	SND_SOC_DAPM_HP("Headphone Jack", NULL),
- 	SND_SOC_DAPM_MIC("Headset Mic", NULL),
--	SND_SOC_DAPM_SPK("Spk", event_spkr_handler),
--	SND_SOC_DAPM_SPK("Left Spk", event_spkr_handler),
--	SND_SOC_DAPM_SPK("Right Spk", event_spkr_handler),
-+	SND_SOC_DAPM_SPK("Spk", NULL),
-+	SND_SOC_DAPM_SPK("Left Spk", NULL),
-+	SND_SOC_DAPM_SPK("Right Spk", NULL),
- };
- 
- static int acp_asoc_probe(struct platform_device *pdev)
- {
- 	struct snd_soc_card *card = NULL;
- 	struct device *dev = &pdev->dev;
--	unsigned int spkr_gpio;
- 	int ret;
- 
- 	if (!pdev->id_entry)
-@@ -89,20 +85,9 @@ static int acp_asoc_probe(struct platform_device *pdev)
- 	card->controls = acp_controls;
- 	card->num_controls = ARRAY_SIZE(acp_controls);
- 	card->drvdata = (struct acp_card_drvdata *)pdev->id_entry->driver_data;
--	spkr_gpio = ((struct acp_card_drvdata *)(card->drvdata))->gpio_spkr_en;
- 
- 	acp_legacy_dai_links_create(card);
- 
--	if (gpio_is_valid(spkr_gpio)) {
--		ret = devm_gpio_request(dev, spkr_gpio, "spkren");
--		if (ret) {
--			dev_err(dev, "(%s) gpio request failed: %d\n",
--				__func__, ret);
--			return ret;
--		}
--		gpio_direction_output(spkr_gpio, 0);
--	}
--
- 	ret = devm_snd_soc_register_card(&pdev->dev, card);
- 	if (ret) {
- 		dev_err(&pdev->dev,
-diff --git a/sound/soc/amd/acp/acp-mach-common.c b/sound/soc/amd/acp/acp-mach-common.c
-index 51adb8f3f83e..6ae454bf60af 100644
---- a/sound/soc/amd/acp/acp-mach-common.c
-+++ b/sound/soc/amd/acp/acp-mach-common.c
-@@ -71,31 +71,6 @@ static const struct snd_soc_dapm_route rt5682_map[] = {
- 	{ "IN1P", NULL, "Headset Mic" },
- };
- 
--int event_spkr_handler(struct snd_soc_dapm_widget *w,
--			struct snd_kcontrol *k, int event)
--{
--	struct snd_soc_dapm_context *dapm = w->dapm;
--	struct snd_soc_card *card = dapm->card;
--	struct acp_card_drvdata *drvdata = snd_soc_card_get_drvdata(card);
--
--	if (!gpio_is_valid(drvdata->gpio_spkr_en))
--		return 0;
--
--	switch (event) {
--	case SND_SOC_DAPM_POST_PMU:
--		gpio_set_value(drvdata->gpio_spkr_en, 1);
--		break;
--	case SND_SOC_DAPM_PRE_PMD:
--		gpio_set_value(drvdata->gpio_spkr_en, 0);
--		break;
--	default:
--		dev_warn(card->dev, "%s invalid setting\n", __func__);
--		break;
--	}
--	return 0;
--}
--EXPORT_SYMBOL_NS_GPL(event_spkr_handler, SND_SOC_AMD_MACH);
--
- /* Define card ops for RT5682 CODEC */
- static int acp_card_rt5682_init(struct snd_soc_pcm_runtime *rtd)
- {
-diff --git a/sound/soc/amd/acp/acp-mach.h b/sound/soc/amd/acp/acp-mach.h
-index fd6299844ebe..5dc47cfbff10 100644
---- a/sound/soc/amd/acp/acp-mach.h
-+++ b/sound/soc/amd/acp/acp-mach.h
-@@ -17,12 +17,6 @@
- #include <linux/input.h>
- #include <linux/module.h>
- #include <sound/soc.h>
--#include <linux/gpio.h>
--#include <linux/gpio/consumer.h>
--
--#define EN_SPKR_GPIO_GB                0x11F
--#define EN_SPKR_GPIO_NK                0x146
--#define EN_SPKR_GPIO_NONE      -EINVAL
- 
- enum be_id {
- 	HEADSET_BE_ID = 0,
-@@ -55,11 +49,9 @@ struct acp_card_drvdata {
- 	unsigned int dai_fmt;
- 	struct clk *wclk;
- 	struct clk *bclk;
--	unsigned int gpio_spkr_en;
- };
- 
- int acp_sofdsp_dai_links_create(struct snd_soc_card *card);
- int acp_legacy_dai_links_create(struct snd_soc_card *card);
--int event_spkr_handler(struct snd_soc_dapm_widget *w,
--			struct snd_kcontrol *k, int event);
-+
- #endif
-diff --git a/sound/soc/amd/acp/acp-sof-mach.c b/sound/soc/amd/acp/acp-sof-mach.c
-index 8243765d490f..d1531cdab110 100644
---- a/sound/soc/amd/acp/acp-sof-mach.c
-+++ b/sound/soc/amd/acp/acp-sof-mach.c
-@@ -27,7 +27,6 @@ static struct acp_card_drvdata sof_rt5682_rt1019_data = {
- 	.hs_codec_id = RT5682,
- 	.amp_codec_id = RT1019,
- 	.dmic_codec_id = DMIC,
--	.gpio_spkr_en = EN_SPKR_GPIO_GB,
- };
- 
- static struct acp_card_drvdata sof_rt5682_max_data = {
-@@ -37,7 +36,6 @@ static struct acp_card_drvdata sof_rt5682_max_data = {
- 	.hs_codec_id = RT5682,
- 	.amp_codec_id = MAX98360A,
- 	.dmic_codec_id = DMIC,
--	.gpio_spkr_en = EN_SPKR_GPIO_NK,
- };
- 
- static struct acp_card_drvdata sof_rt5682s_rt1019_data = {
-@@ -56,7 +54,6 @@ static struct acp_card_drvdata sof_rt5682s_max_data = {
- 	.hs_codec_id = RT5682S,
- 	.amp_codec_id = MAX98360A,
- 	.dmic_codec_id = DMIC,
--	.gpio_spkr_en = EN_SPKR_GPIO_NK,
- };
- 
- static const struct snd_kcontrol_new acp_controls[] = {
-@@ -70,16 +67,15 @@ static const struct snd_kcontrol_new acp_controls[] = {
- static const struct snd_soc_dapm_widget acp_widgets[] = {
- 	SND_SOC_DAPM_HP("Headphone Jack", NULL),
- 	SND_SOC_DAPM_MIC("Headset Mic", NULL),
--	SND_SOC_DAPM_SPK("Spk", event_spkr_handler),
--	SND_SOC_DAPM_SPK("Left Spk", event_spkr_handler),
--	SND_SOC_DAPM_SPK("Right Spk", event_spkr_handler),
-+	SND_SOC_DAPM_SPK("Spk", NULL),
-+	SND_SOC_DAPM_SPK("Left Spk", NULL),
-+	SND_SOC_DAPM_SPK("Right Spk", NULL),
- };
- 
- static int acp_sof_probe(struct platform_device *pdev)
- {
- 	struct snd_soc_card *card = NULL;
- 	struct device *dev = &pdev->dev;
--	unsigned int spkr_gpio;
- 	int ret;
- 
- 	if (!pdev->id_entry)
-@@ -97,20 +93,9 @@ static int acp_sof_probe(struct platform_device *pdev)
- 	card->controls = acp_controls;
- 	card->num_controls = ARRAY_SIZE(acp_controls);
- 	card->drvdata = (struct acp_card_drvdata *)pdev->id_entry->driver_data;
--	spkr_gpio = ((struct acp_card_drvdata *)(card->drvdata))->gpio_spkr_en;
- 
- 	acp_sofdsp_dai_links_create(card);
- 
--	if (gpio_is_valid(spkr_gpio)) {
--		ret = devm_gpio_request(dev, spkr_gpio, "spkren");
--		if (ret) {
--			dev_err(dev, "(%s) gpio request failed: %d\n",
--				__func__, ret);
--			return ret;
--		}
--		gpio_direction_output(spkr_gpio, 0);
--	}
--
- 	ret = devm_snd_soc_register_card(&pdev->dev, card);
- 	if (ret) {
- 		dev_err(&pdev->dev,
--- 
-2.25.1
-
+Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/154
+Repository URL: https://github.com/alsa-project/alsa-ucm-conf

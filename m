@@ -2,73 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E71F52A789
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 May 2022 18:01:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20E0452A78A
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 May 2022 18:01:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A9CEB84B;
-	Tue, 17 May 2022 18:00:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9CEB84B
+	by alsa0.perex.cz (Postfix) with ESMTPS id F097AAE9;
+	Tue, 17 May 2022 18:00:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F097AAE9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652803265;
-	bh=08NTWlKTLL/ySrOLD30F5ebihc/QzFElhJVbO/68nUI=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1652803276;
+	bh=HhBecZ0/0C++sVEsHjpIv1pbIB0KELfp5GVr+V5tmag=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=audcUH240tyf6fXCr/6u8Wj4GwYWxKnT/0Ux7DE4bnjpObzsqvVJPGS7lTuueZwef
-	 O9NHwk3e/r6ZQS5XVNBTJYMCoHz6u6ez0KO9DztvD2XmnfHEdsuD3VKPgghxPQ0OWg
-	 SyMpni1VeE+UgGlplVAkfcAq3oGiJ5ZJgP/rrlNA=
+	b=mawJnCkb/wrr7obtqaTYNvZ2s+B70/JvykTQ8VYuzJKcDL4Jxil5lbEziIyhIwIl5
+	 +6N3vw8+HTr7VrM2bRpZjMc8DqazHEPK+O57Tv/y78Y49Gtr2F+E6UCBJFNmOLh/sR
+	 A4lVp+q9LJLQ2XOLQ4DARCANlHGTdwJMvp0mUZK0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 71B9AF80519;
-	Tue, 17 May 2022 17:59:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 70830F8051F;
+	Tue, 17 May 2022 17:59:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4E81CF804BC; Tue, 17 May 2022 17:59:35 +0200 (CEST)
+ id 6D539F80423; Tue, 17 May 2022 17:59:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A615FF802DB
- for <alsa-devel@alsa-project.org>; Tue, 17 May 2022 17:59:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A615FF802DB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6C2EFF801D8
+ for <alsa-devel@alsa-project.org>; Tue, 17 May 2022 17:59:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C2EFF801D8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="U85CSE5G"
+ header.b="DxItctP5"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 29D9161222;
- Tue, 17 May 2022 15:59:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87413C385B8;
- Tue, 17 May 2022 15:59:27 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id B6E7EB81AB2;
+ Tue, 17 May 2022 15:59:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DB2FC34116;
+ Tue, 17 May 2022 15:59:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1652803168;
- bh=08NTWlKTLL/ySrOLD30F5ebihc/QzFElhJVbO/68nUI=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=U85CSE5G7zDMakU3IRQ3iuEtM/ry+bqa7pCk1+EkOXsXVY/AVxRo93FuHiXc0xOf+
- bEfkQ/9PHujR7RzQ4Ohm9W+xNqFvQ5E9+MXCCZFZxh6iJ0VLyHjQnxg4deuH6OHdz7
- s8ZE1uByg41KVGEaZIZZvmKcrPSwsVVVKSp6gMveWL6DK5lWFoYNxk3EQQYcfGSywf
- +o1sqelQMRxZfuLoM/EJkrlbeHTtMk+ig74/d5kUIm1sKFgPwK0Cx2U2FTs7dpojzx
- B58yhL+GOgeqDPkfQ6jl7OFWO32porS/O67259v/mx4Vcujrle+OkPhfpUpcVtj3dG
- 8kFOiwIr9et5w==
+ s=k20201202; t=1652803170;
+ bh=HhBecZ0/0C++sVEsHjpIv1pbIB0KELfp5GVr+V5tmag=;
+ h=From:To:In-Reply-To:References:Subject:Date:From;
+ b=DxItctP5gYRBhGRnJYuIlPvB+JbtsBMJ0TnVwULf86ngLiQ9TJRpgqOb2Zomc8zxE
+ bveWrVURMhsqD4oLrADLkO6FEOlXltAniwgUzlo/L+ythhY07hNVYlbZXtRl88Hmi1
+ 0Pd0m4zMBzvzGomRuwdm4x8EtTBJ217AhJ7MHaForkNM3yGuFtlC/Av61OFIhGpNpt
+ 9nQoaJt5JXRfS3tRqe3q4QXEYnPN0lByjdL4aDXhUhXk2l3zFiI31b+qtJX63UVMwv
+ ccaOnO3vgwGpfx/i6HNcxL84ki9IGEmSuF7B9RNTcs5jdeYbxzYuqb2JxCzwHJFL0m
+ hx2bRbcsIMTOg==
 From: Mark Brown <broonie@kernel.org>
-To: ckeepax@opensource.cirrus.com
-In-Reply-To: <20220513090532.1450944-1-ckeepax@opensource.cirrus.com>
-References: <20220513090532.1450944-1-ckeepax@opensource.cirrus.com>
-Subject: Re: [PATCH 1/3] ASoC: core: Correct spelling fliped -> flipped
-Message-Id: <165280316727.1635268.6228020122879142845.b4-ty@kernel.org>
-Date: Tue, 17 May 2022 16:59:27 +0100
+To: linma@zju.edu.cn, tiwai@suse.com, oder_chiou@realtek.com,
+ alsa-devel@alsa-project.org, lgirdwood@gmail.com, perex@perex.cz,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20220516092035.28283-1-linma@zju.edu.cn>
+References: <20220516092035.28283-1-linma@zju.edu.cn>
+Subject: Re: [PATCH v0] ASoC: rt5645: Fix errorenous cleanup order
+Message-Id: <165280316877.1635268.8412157029649432133.b4-ty@kernel.org>
+Date: Tue, 17 May 2022 16:59:28 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,9 +85,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 13 May 2022 10:05:30 +0100, Charles Keepax wrote:
+On Mon, 16 May 2022 17:20:35 +0800, Lin Ma wrote:
+> There is a logic error when removing rt5645 device as the function
+> rt5645_i2c_remove() first cancel the &rt5645->jack_detect_work and
+> delete the &rt5645->btn_check_timer latter. However, since the timer
+> handler rt5645_btn_check_callback() will re-queue the jack_detect_work,
+> this cleanup order is buggy.
 > 
-
+> That is, once the del_timer_sync in rt5645_i2c_remove is concurrently
+> run with the rt5645_btn_check_callback, the canceled jack_detect_work
+> will be rescheduled again, leading to possible use-after-free.
+> 
+> [...]
 
 Applied to
 
@@ -94,12 +104,8 @@ Applied to
 
 Thanks!
 
-[1/3] ASoC: core: Correct spelling fliped -> flipped
-      commit: 64c917d1cfd70ff827c9ea37277a97762ea372d4
-[2/3] ASoC: core: Pass legacy_dai_naming flag directly
-      commit: 8c8a0f01c7c52f9037b6859ff5234ea5acf572d6
-[3/3] ASoC: soc-component: Update handling to component delays
-      commit: 232213bd73bbb381b05b729829fdb5d00e0a8fdf
+[1/1] ASoC: rt5645: Fix errorenous cleanup order
+      commit: 2def44d3aec59e38d2701c568d65540783f90f2f
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

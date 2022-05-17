@@ -2,100 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D39352E981
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 May 2022 11:58:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 840FE52EAE2
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 May 2022 13:34:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 98D7C172C;
-	Fri, 20 May 2022 11:57:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98D7C172C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1DF1F172B;
+	Fri, 20 May 2022 13:33:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1DF1F172B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653040686;
-	bh=HC8j50IOQxMEPHmZdnEVos6iA1pNgClwqH5wkKKaCTo=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1653046452;
+	bh=qB+Y2b64SyCD76/3XYAEBdye3lfRy7RB0EKRB7eIy44=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MrsYAATZMPKMxZ4DIq2pINBNvGJYtCKxOtuD0f1rR345pvhGEPA4ljIg9u27GjUmf
-	 Pt21sfROEBuiUTXETcU7lnGB1WqALekrFPit7pr308ddAmKOMRM8hQEF0mTrDP6li8
-	 zIS2MkjS9sO7n0hJwjpEvKJnchZDbGmI4JSCz3I4=
+	b=p2aBeyN5l73XYUZsD+G1pq3YsMfJwO8BDciP07JuuBXcDSeA32Ka3pgIv+51uCBY7
+	 Iz0wjy5y7jLwKWnSOlRtDv7mFgZiv0Zt8bYyeLwY+s3LuDsf+kKCxedMcTBaFgccGz
+	 ymG2QyVRDMmBYQJY/tZysAuafVVwhtcdhvxTx9Uc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0F60FF801F5;
-	Fri, 20 May 2022 11:57:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A7FD8F801F5;
+	Fri, 20 May 2022 13:33:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 98D1AF8019D; Fri, 20 May 2022 11:57:05 +0200 (CEST)
+ id 718B5F800F5; Tue, 17 May 2022 17:59:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id D82C5F800F5;
+ Tue, 17 May 2022 17:59:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D82C5F800F5
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Ic77Vldu"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5BEBEF800D2
- for <alsa-devel@alsa-project.org>; Fri, 20 May 2022 11:56:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BEBEF800D2
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="OZjWqUg2"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24K5UCw9026795;
- Fri, 20 May 2022 04:56:56 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=OE6raZbucX9LQfP+TUClB+u691iV9kBCVX1IaiFUTRE=;
- b=OZjWqUg2GB9AJ9JqFusRILLr+RJoWNaMdCe9RA8DZ3zC+BqhasJKotr9r087ufLn2CfT
- ImDGP7AQdM1dEhMs05cuGKULUV2UMVhWKhwv1lv9aIYxP58hsADDle5oYJD73+1i/5E/
- DJ4PIeWt9ouGrMRIwpVZYIv2N+Hl3NLhwUKoEL7upZzJBlhj+H8WMUIA+0c0utHrFXib
- 6St0njUEwySoagUHdfOhKQMIhve6czUMiuHZthPtAEsJdIL2UVkqXmo+S/ET4vQeKKCR
- eK2EWlTLp4WJJ/WhIR7yVYO0bDmrZEz1nQCC+kwy9kogs86oLbScSXA9l5o3Xs/ta2/U LQ== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3g28upg5ms-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Fri, 20 May 2022 04:56:55 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Fri, 20 May
- 2022 10:56:54 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.24 via
- Frontend Transport; Fri, 20 May 2022 10:56:54 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 42FB3476;
- Fri, 20 May 2022 09:56:54 +0000 (UTC)
-Date: Fri, 20 May 2022 09:56:54 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Samuel Holland <samuel@sholland.org>
-Subject: Re: [PATCH 22/56] ASoC: sunxi: Update to use set_fmt_new callback
-Message-ID: <20220520095654.GK38351@ediswmail.ad.cirrus.com>
-References: <20220519154318.2153729-1-ckeepax@opensource.cirrus.com>
- <20220519154318.2153729-23-ckeepax@opensource.cirrus.com>
- <948d5418-44ca-2e60-0c1c-0b16f315feba@sholland.org>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id C211960EC7;
+ Tue, 17 May 2022 15:59:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EF9AC385B8;
+ Tue, 17 May 2022 15:59:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1652803165;
+ bh=qB+Y2b64SyCD76/3XYAEBdye3lfRy7RB0EKRB7eIy44=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=Ic77VlduGWC/bBx4kKkKWri6PpIr+WNQkfPakgMeHzOYKy/3leM0YedDNBvNKlxCD
+ otWAQX0IiJfU+Wv52iV+tqz/8Scfzy+wn90H09iQ6aHMq/5xfRkAQdjTWu/3FQ60OA
+ NE1TeWbfVRjKp6Clclo+taeyj9mzoHZ/mYJ+ygbLq/hPhiddlJftI8a6/tK2uJhSMH
+ ICMD1PCKO4WuSEPs+2muB6YeZlDylFHoqHFPQKpeghUGK+KCmqcbAr8f3LFkwyRRnV
+ kOk0b550GvXmG3KUmVgwz0ngaIjb6xnj8l1DGqMUt4bBIKBRlqQPKGFCRVROvSEtEy
+ //2+hgNIPKTFg==
+From: Mark Brown <broonie@kernel.org>
+To: cujomalainey@chromium.org, tinghan.shen@mediatek.com,
+ john.stultz@linaro.org, javierm@redhat.com, cristian.marussi@arm.com,
+ peter.ujfalusi@linux.intel.com, pierre-louis.bossart@linux.intel.com,
+ geert+renesas@glider.be, yc.hung@mediatek.com, tzimmermann@suse.de,
+ lgirdwood@gmail.com, perex@perex.cz, kai.vehmanen@linux.intel.com,
+ tzungbi@google.com, bp@suse.de, ranjani.sridharan@linux.intel.com,
+ bjorn.andersson@linaro.org, gregkh@linuxfoundation.org, tiwai@suse.com,
+ Arnd Bergmann <arnd@arndb.de>, simont@opensource.cirrus.com,
+ daniel.baluta@nxp.com, xueshuai@linux.alibaba.com, msuchanek@suse.de,
+ yangyingliang@huawei.com, sudeep.holla@arm.com, allen-kh.cheng@mediatek.com,
+ matthias.bgg@gmail.com, daniel.vetter@ffwll.ch,
+ angelogioacchino.delregno@collabora.com
+In-Reply-To: <20220512082215.3018-1-tinghan.shen@mediatek.com>
+References: <20220512082215.3018-1-tinghan.shen@mediatek.com>
+Subject: Re: [PATCH v9 0/3] firmware: mtk: add adsp ipc protocol for SOF
+Message-Id: <165280315828.1635268.5394864574806411839.b4-ty@kernel.org>
+Date: Tue, 17 May 2022 16:59:18 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <948d5418-44ca-2e60-0c1c-0b16f315feba@sholland.org>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: 0o2bd6ilE3N_-d0xNvYBerQp3pGSYvGE
-X-Proofpoint-ORIG-GUID: 0o2bd6ilE3N_-d0xNvYBerQp3pGSYvGE
-X-Proofpoint-Spam-Reason: safe
-Cc: cezary.rojewski@intel.com, heiko@sntech.de,
- kuninori.morimoto.gx@renesas.com, alsa-devel@alsa-project.org,
- nicolas.ferre@microchip.com, srinivas.kandagatla@linaro.org,
- peter.ujfalusi@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- jbrunet@baylibre.com, pierre-louis.bossart@linux.intel.com, krzk@kernel.org,
- linux-rockchip@lists.infradead.org, linux-imx@nxp.com,
- linux-mips@vger.kernel.org, linux-sunxi@lists.linux.dev,
- linux-xtensa@linux-xtensa.org, nsaenz@kernel.org, broonie@kernel.org,
- linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-omap@vger.kernel.org,
- patches@opensource.cirrus.com, lgirdwood@gmail.com, jarkko.nikula@bitmer.com,
- kernel@pengutronix.de, shawnguo@kernel.org, daniel@zonque.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Fri, 20 May 2022 13:33:12 +0200
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Project_Global_Chrome_Upstream_Group@mediatek.com,
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,36 +99,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, May 19, 2022 at 06:40:11PM -0500, Samuel Holland wrote:
-> On 5/19/22 10:42 AM, Charles Keepax wrote:
-> > As part of updating the core to directly tell drivers if they are clock
-> > provider or consumer update these CPU side drivers to use the new direct
-> > callback.
-> > 
-> > Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-> > ---
-> >  sound/soc/sunxi/sun4i-i2s.c   | 20 ++++++++++----------
-> >  sound/soc/sunxi/sun8i-codec.c |  8 ++++----
-> >  2 files changed, 14 insertions(+), 14 deletions(-)
-> > diff --git a/sound/soc/sunxi/sun8i-codec.c b/sound/soc/sunxi/sun8i-codec.c
-> > index 0bea2162f68d9..6e9ef948d6621 100644
-> > --- a/sound/soc/sunxi/sun8i-codec.c
-> > +++ b/sound/soc/sunxi/sun8i-codec.c
-> > @@ -286,11 +286,11 @@ static int sun8i_codec_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
-> >  	u32 dsp_format, format, invert, value;
-> >  
-> >  	/* clock masters */
-> > -	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
-> > -	case SND_SOC_DAIFMT_CBS_CFS: /* Codec slave, DAI master */
-> > +	switch (fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) {
-> > +	case SND_SOC_DAIFMT_BP_FP: /* Codec slave, DAI master */
+On Thu, 12 May 2022 16:22:12 +0800, Tinghan Shen wrote:
+> This patch provides mediatek adsp ipc support for SOF.
+> ADSP IPC protocol offers (send/recv) interfaces using
+> mediatek-mailbox APIs.
 > 
-> This is a codec driver, and it is only ever used on the codec end of a link, so
-> I would not expect it to be changed.
+> This patch was tested and confirmed to work with SOF fw on
+> MT8195 cherry board and MT8186 krabby board.
 > 
+> [...]
 
-Thanks for spotting that, silly mistake on my part. Will fix for
-a rev 2.
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/3] firmware: mediatek: Add adsp ipc protocol interface
+      commit: 9db69df4bdd37eb1f65b6931ee067fb15b9a4d5c
+[2/3] ASoC: SOF: mediatek: Add ipc support for mt8195
+      commit: aea9350108ed1627f8610c93de44578162b3ee91
+[3/3] ASoC: SOF: mediatek: Add mt8186 ipc support
+      commit: e0100bfd383c7d994d2e957e85ca56a5fe5a3f43
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
 Thanks,
-Charles
+Mark

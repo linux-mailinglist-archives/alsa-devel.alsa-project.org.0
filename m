@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C44DE52A78E
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 May 2022 18:01:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 698FB52A78F
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 May 2022 18:02:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 62A3B15CA;
-	Tue, 17 May 2022 18:00:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62A3B15CA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 07E0E84B;
+	Tue, 17 May 2022 18:01:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 07E0E84B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652803308;
-	bh=b+oHipmTddyUCEfLTe547iUSxup2tDJx6tkGs3EkcXY=;
+	s=default; t=1652803328;
+	bh=ZV7cT0G8CUsxr13OFtkykb/tHOu5gBkiJsZlXDxuZ2w=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ovow+mbHpl/kpFtCCwcNzWyw3BaNWH1tO3Y9LmM7Uk9fstINbcYm9ImMkDarzlamy
-	 8tiDrbuNcjrb1k5vE2HU3n+xq+Jc64AnVEW79bFe2G80c+ujm4gC0bVkxyCLxykqsx
-	 zQXF1EMU8hk7NeBgHbC4vOquZjWWuJfwt8i9EcJ0=
+	b=sMF8xdpOch1q5Q2dN2CH/KBmdh3fWTVXF9a8GuPETLZftvFhNplQOGFTNmbqfYI6/
+	 lSl1pemeqILBiLBlWQ9Yqo+UpKXyEN2CBajpf7gVVaa8uGUGWBT0DOGe3qMHKHc4OJ
+	 nBrmpDNDuMFDg/cS28TFQaaAx6Vj34kQw+Gvm7Xc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5848FF8052E;
-	Tue, 17 May 2022 17:59:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A537AF8053B;
+	Tue, 17 May 2022 17:59:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6BAD5F80524; Tue, 17 May 2022 17:59:39 +0200 (CEST)
+ id E20C9F8052E; Tue, 17 May 2022 17:59:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,41 +35,43 @@ Received: from ams.source.kernel.org (ams.source.kernel.org
  [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E1438F8051C
- for <alsa-devel@alsa-project.org>; Tue, 17 May 2022 17:59:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1438F8051C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8095AF80527
+ for <alsa-devel@alsa-project.org>; Tue, 17 May 2022 17:59:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8095AF80527
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Kb6Fevdu"
+ header.b="XEJsmO0W"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 40010B81AB1;
- Tue, 17 May 2022 15:59:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85CB5C34116;
- Tue, 17 May 2022 15:59:33 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 30B6EB81AB4;
+ Tue, 17 May 2022 15:59:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6825CC34117;
+ Tue, 17 May 2022 15:59:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1652803175;
- bh=b+oHipmTddyUCEfLTe547iUSxup2tDJx6tkGs3EkcXY=;
+ s=k20201202; t=1652803177;
+ bh=ZV7cT0G8CUsxr13OFtkykb/tHOu5gBkiJsZlXDxuZ2w=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Kb6FevduQQnc1BDygTI2jCYW67vnYL3xn6yXj2HsklomkzAxOo3vLaCowVAMKt/wG
- coVoWx/1r5nCedFjxgHUgmQ+w27+RQx8ed4EOPQZaxUedoEe9kYDBqBpmP/PnYz2SP
- 6vH+vb/hzz3Rd/i23twIenU/wFnKwrXnn7tC+jQo2YswCSZ35mlf5WWsg98k40yGiE
- RHjrbg1PZ25E6GxWOnFT+G5r4nIdBalCCQ51E/GO7CA6ZTe6TuZmRb/EPrgGKIYwTt
- GsyS0shiFBoU4BR2XZKokD2gNfIK+9qc07I7osDz5XnEa3IY1auUCWFj8e/4XNqV3Y
- xR9v48lqFyRyw==
+ b=XEJsmO0Wb8O6fqXj6nPeO7bMW84/dRJ5d9ky3HMKXCaFV3t5AGhXV2QYpMZ5M4K9f
+ RoEQWO9gCiwCE+S0RpaXwIiW08q5Fi84cqMyZXNgEPLMnLQMfHovRntsgxzFHmtzXD
+ 61tfv+5ZGkyuu3gHlHT8hd2//T6KmvT/OtBzzY1BHuzvvtYz75eaUzMh8ix2K4NA8c
+ MZzQUi4GoqAyw1grFZ9ggGUuzZQjsF7M9v5sUTdZBACNks6hT0svIE2QOQlZwC02KT
+ 6u2QPYM9Q3DfudRwLJfvnGvHNJpNcF9hX09tB2rXzyHJvPlS4MlVjuqmU+6fh51xVV
+ RE6FSDWVVXZtA==
 From: Mark Brown <broonie@kernel.org>
-To: tiwai@suse.com, Vijendar.Mukunda@amd.com, lgirdwood@gmail.com,
- perex@perex.cz, yuehaibing@huawei.com
-In-Reply-To: <20220514023806.34768-1-yuehaibing@huawei.com>
-References: <20220514023806.34768-1-yuehaibing@huawei.com>
-Subject: Re: [PATCH -next] ASoC: amd: vangogh: Remove duplicate include files
-Message-Id: <165280317326.1635268.6024055141505339683.b4-ty@kernel.org>
-Date: Tue, 17 May 2022 16:59:33 +0100
+To: pierre-louis.bossart@linux.intel.com, dan.carpenter@oracle.com,
+ peter.ujfalusi@linux.intel.com, lgirdwood@gmail.com
+In-Reply-To: <20220516092442.17027-1-peter.ujfalusi@linux.intel.com>
+References: <20220516092442.17027-1-peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: ipc-msg-injector: Cap the rmaining to count in
+ IPC4 mode
+Message-Id: <165280317514.1635268.11611256133355625839.b4-ty@kernel.org>
+Date: Tue, 17 May 2022 16:59:35 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, daniel.baluta@nxp.com,
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,10 +87,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 14 May 2022 10:38:06 +0800, YueHaibing wrote:
-> Remove duplicated includes.
+On Mon, 16 May 2022 12:24:42 +0300, Peter Ujfalusi wrote:
+> If user space provides smaller buffer than the IPC4 reply then it is
+> possible that we corrupt user space memory since the IPC4 dfs_read function
+> is not using the count directly in copy_to_user() due to the nature of
+> an IPC4 message.
 > 
+> Cap the remaining counter to make sure that we are not writing too much to
+> the user space provided buffer.
 > 
+> [...]
 
 Applied to
 
@@ -96,8 +104,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: amd: vangogh: Remove duplicate include files
-      commit: d91835655cc9047f8b5c40530791bd3bc020f1bd
+[1/1] ASoC: SOF: ipc-msg-injector: Cap the rmaining to count in IPC4 mode
+      commit: c5003f08fe671fb1f18bca07e589c5cffeccbc9b
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,53 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E17D52DAEA
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 May 2022 19:11:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCA2252DB50
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 May 2022 19:30:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D43C116FB;
-	Thu, 19 May 2022 19:10:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D43C116FB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 536531750;
+	Thu, 19 May 2022 19:29:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 536531750
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652980290;
-	bh=egoYKR4vr8CKpHoKDJBKtrQDW1fdVWPv/xn5gzjvNkY=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=dYgSx5VwdomayYmxrks2klmzqZb2vGc62R1ZMz55+xIIADIFcOnB2Gm3iakWvUx+2
-	 lezPb/Lv9cI/tPo75BDo0bnfj9BLwX/wWO8gIHHfCOIZSBwEZYdieR9FF4hh+ImFYr
-	 yhJh/wEtQ9du94JUQqFNISM7SXmUE6du0sX6cmaY=
+	s=default; t=1652981438;
+	bh=pAMdh9/R3I7a/8+4GVZ2KD6esehSzWVgjc9kd7I5PqU=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=iO1HEMrNq7XszYuQfPC3v2R+PVlVwYFsnKnfn2GoaDk0AC0kHrt53/H8xGVbzq7cN
+	 /UIo/dnRze5Kbi9IEHrW5g3aT0hubBc2WF/u0NhGr5vrjblOu9d+L6OaGTPHEGr4Y/
+	 49mPdrvO6nkOKvPXJiB4J04DZ609DBnbUpHplSeA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4CE3EF80269;
-	Thu, 19 May 2022 19:10:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C0DEDF80109;
+	Thu, 19 May 2022 19:29:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 46FDBF8025D; Thu, 19 May 2022 19:10:31 +0200 (CEST)
+ id C6E45F8025D; Thu, 19 May 2022 19:29:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.84])
- (using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 437A8F800F0
- for <alsa-devel@alsa-project.org>; Thu, 19 May 2022 19:10:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 437A8F800F0
-Received: from hednb3.intra.ispras.ru (unknown [10.10.2.52])
- by mail.ispras.ru (Postfix) with ESMTPSA id 1E21240755F2;
- Thu, 19 May 2022 17:10:21 +0000 (UTC)
-From: Alexey Khoroshilov <khoroshilov@ispras.ru>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>
-Subject: [PATCH] ASoC: max98090: Remove unneeded check in
+ by alsa1.perex.cz (Postfix) with ESMTPS id F13E9F80109
+ for <alsa-devel@alsa-project.org>; Thu, 19 May 2022 19:29:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F13E9F80109
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="VHrPdJdb"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8EE766181A;
+ Thu, 19 May 2022 17:29:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74195C385AA;
+ Thu, 19 May 2022 17:29:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1652981371;
+ bh=pAMdh9/R3I7a/8+4GVZ2KD6esehSzWVgjc9kd7I5PqU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=VHrPdJdbdIZO3JP5Q3lP0hUqu40Hg2ms4yr+tw4ezT/HzL5HljDMDohamaVFnHmW3
+ 4aeolGM02T04HW4Op7oAM7PhXbduMT1PBnN5IuDVjWGcHtauNHdLCM4l3KkRVdEAVG
+ sX7QhlFbzzS2qIIwLBM52tXJwIhMohlU+NB9p5rgaJ5au1imsNrM1Fixpwn8/l0CFF
+ 5/4GV4xmfc5KBq/9k1ijtY3J0ZJNMbdGgLipWdioD7yUYzdpUaO0E45Dlvb7E0KMIC
+ U8cCmcTZI/FKtzZJgl8xWth3hzks0+XA+vApne++BQJcyRmDion/oWoIwrSZ0GVAuo
+ kHUf7UGaEz+tA==
+Date: Thu, 19 May 2022 18:29:26 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Alexey Khoroshilov <khoroshilov@ispras.ru>
+Subject: Re: [PATCH] ASoC: max98090: Remove unneeded check in
  max98090_put_enab_tlv()
-Date: Thu, 19 May 2022 20:10:12 +0300
-Message-Id: <1652980212-21473-1-git-send-email-khoroshilov@ispras.ru>
-X-Mailer: git-send-email 2.7.4
+Message-ID: <YoZ+dmprwb5Ohto3@sirena.org.uk>
+References: <1652980212-21473-1-git-send-email-khoroshilov@ispras.ru>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="ppdkrA27TUG4wtEx"
+Content-Disposition: inline
+In-Reply-To: <1652980212-21473-1-git-send-email-khoroshilov@ispras.ru>
+X-Cookie: Some restrictions may apply.
 Cc: ldv-project@linuxtesting.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Alexey Khoroshilov <khoroshilov@ispras.ru>
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,29 +88,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Variable sel is of unsigned int type, so sel < 0 is not required.
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
+--ppdkrA27TUG4wtEx
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Alexey Khoroshilov <khoroshilov@ispras.ru>
-Fixes: 2fbe467bcbfc ("ASoC: max98090: Reject invalid values in custom control put()")
----
- sound/soc/codecs/max98090.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On Thu, May 19, 2022 at 08:10:12PM +0300, Alexey Khoroshilov wrote:
+> Variable sel is of unsigned int type, so sel < 0 is not required.
+>=20
+> Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
-diff --git a/sound/soc/codecs/max98090.c b/sound/soc/codecs/max98090.c
-index 62b41ca050a2..c535a8496bf1 100644
---- a/sound/soc/codecs/max98090.c
-+++ b/sound/soc/codecs/max98090.c
-@@ -413,7 +413,7 @@ static int max98090_put_enab_tlv(struct snd_kcontrol *kcontrol,
- 
- 	val = (val >> mc->shift) & mask;
- 
--	if (sel < 0 || sel > mc->max)
-+	if (sel > mc->max)
- 		return -EINVAL;
- 
- 	*select = sel;
--- 
-2.7.4
+>  	val =3D (val >> mc->shift) & mask;
+> =20
+> -	if (sel < 0 || sel > mc->max)
+> +	if (sel > mc->max)
 
+The check needs to be moved, not removed.  The userspace ABI allows
+passing in of negative values.
+
+--ppdkrA27TUG4wtEx
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmKGfnUACgkQJNaLcl1U
+h9At4Qf+Klf++o6ghreVouOuu6V81GODduKtt5M/lMTy6+q3iCORLhZxKFplkCVh
+6bQ88I9fwm4GRJXG6SsVKqyRG/HEAJKM2batDPlkZHi2KjX0u48WfFY67vMIzNpc
+MFkOkI2L94dm2PdkcVWXKROeEWdJHRl55Oz3NZNfM9ggYd2H0P1ddwtGIe82xAQW
+pwVuJWEkstrqvilKcwp2HcQzEko4tm3u6MoN8/H+TZsc7c/zEvSY3OxAv9wFnoD1
+1geFeHG8YlycJcnTc0zEEGFhaRDBvoqYTWqQLevlnxJx9GPMmNI1zlm4JsPhqZiE
+Z4AhXYOoxW8ySeRdopqDlftSHTrqEA==
+=HHuh
+-----END PGP SIGNATURE-----
+
+--ppdkrA27TUG4wtEx--

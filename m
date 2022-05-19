@@ -2,78 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B0A952D9AC
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 May 2022 18:00:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E17D52DAEA
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 May 2022 19:11:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E617317F2;
-	Thu, 19 May 2022 17:59:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E617317F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id D43C116FB;
+	Thu, 19 May 2022 19:10:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D43C116FB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652976046;
-	bh=dc2x7Fl07K42fV9l0A7KIo576nGWt2FICQLI1JJWCCs=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=F1cE37OvEPEOG0FBYbxahDdJzslYQxnDZNibgN7qmBcYrg/7T2e6cHmVvp+1Szhei
-	 71BjQ7Q5x//wtCsoFgQg+Jh9Ne2v4uDKJegPsEe9k87aMlD7OLC9OVT4eH+4AEX/x0
-	 C8GwdW9YVpXgP2WHsAyUQycQleoVrEqThv2XFosw=
+	s=default; t=1652980290;
+	bh=egoYKR4vr8CKpHoKDJBKtrQDW1fdVWPv/xn5gzjvNkY=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=dYgSx5VwdomayYmxrks2klmzqZb2vGc62R1ZMz55+xIIADIFcOnB2Gm3iakWvUx+2
+	 lezPb/Lv9cI/tPo75BDo0bnfj9BLwX/wWO8gIHHfCOIZSBwEZYdieR9FF4hh+ImFYr
+	 yhJh/wEtQ9du94JUQqFNISM7SXmUE6du0sX6cmaY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 81EEEF80269;
-	Thu, 19 May 2022 17:48:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4CE3EF80269;
+	Thu, 19 May 2022 19:10:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C77DDF80525; Thu, 19 May 2022 17:48:10 +0200 (CEST)
+ id 46FDBF8025D; Thu, 19 May 2022 19:10:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.84])
+ (using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 73147F800F0
- for <alsa-devel@alsa-project.org>; Thu, 19 May 2022 17:48:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73147F800F0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="lAfFPiUH"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 600ED61C16;
- Thu, 19 May 2022 15:48:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACFDEC34113;
- Thu, 19 May 2022 15:48:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1652975282;
- bh=dc2x7Fl07K42fV9l0A7KIo576nGWt2FICQLI1JJWCCs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=lAfFPiUHAmJKOfkCF2wspMU4fHZ5ohRLrb5ElL//IFd1DLosUQBVmJSEqVp5P0PJG
- p9KwMbYN6AjgqaK4yg8JoDUxf+gSUh5UTRJcXIYiflRmFrQYYlEWEsfPZ7Sbr2DMcm
- Yr7BkxkwkiINKRYbEEvi6bSljGJjAdL5ql+ANPNedtTO6xY8gLUhwhREsuKYdoA8iu
- hYBdsV/UpgxbOjqXJErQ1WzRiYWwd6F8ymKF8naUlwl9KrCPeKSp3a2LwSZSBYGjv0
- YuXPtdC0ksSP3GQB9pbnyB+12GpoEwB/Pxgc0399HYaxDzUh6/E+M50TjTMo0ptVaB
- IRR3FtU6rYRrQ==
-Date: Thu, 19 May 2022 16:47:58 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Tan =?utf-8?B?TmF5xLFy?= <tannayir@gmail.com>
-Subject: Re: [PATCH] ASoC: ops: Fix the bounds checking in
- snd_soc_put_volsw_sx and snd_soc_put_xr_sx
-Message-ID: <YoZmrhYJPu8Gy/sb@sirena.org.uk>
-References: <fde0dc8a-a861-3c8e-1316-cfa81affc19e@gmail.com>
- <YoThkxU9Q2cDrq4v@sirena.org.uk>
- <5a0e9339-5bdc-3e05-08f4-9137ebeb5ce5@gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="GU+gfGMqKvoMOtu/"
-Content-Disposition: inline
-In-Reply-To: <5a0e9339-5bdc-3e05-08f4-9137ebeb5ce5@gmail.com>
-X-Cookie: Some restrictions may apply.
-Cc: Marek Vasut <marex@denx.de>, alsa-devel@alsa-project.org,
- stable@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 437A8F800F0
+ for <alsa-devel@alsa-project.org>; Thu, 19 May 2022 19:10:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 437A8F800F0
+Received: from hednb3.intra.ispras.ru (unknown [10.10.2.52])
+ by mail.ispras.ru (Postfix) with ESMTPSA id 1E21240755F2;
+ Thu, 19 May 2022 17:10:21 +0000 (UTC)
+From: Alexey Khoroshilov <khoroshilov@ispras.ru>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>
+Subject: [PATCH] ASoC: max98090: Remove unneeded check in
+ max98090_put_enab_tlv()
+Date: Thu, 19 May 2022 20:10:12 +0300
+Message-Id: <1652980212-21473-1-git-send-email-khoroshilov@ispras.ru>
+X-Mailer: git-send-email 2.7.4
+Cc: ldv-project@linuxtesting.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Alexey Khoroshilov <khoroshilov@ispras.ru>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,92 +64,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Variable sel is of unsigned int type, so sel < 0 is not required.
 
---GU+gfGMqKvoMOtu/
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
-On Thu, May 19, 2022 at 02:56:34AM +0300, Tan Nay=C4=B1r wrote:
-> For a control defined like this:
-> -- SOC_SINGLE_S8_TLV("IIR0 INP0 Volume",
-> WCD934X_CDC_SIDETONE_IIR0_IIR_GAIN_B1_CTL, -84, 40, digital_gain) --
-> This is what the snd_soc_info_volsw_sx reports:
-> $mc->platform_max:40, $mc->max:40, $mc->min:-84,
-> $uinfo->value.integer.max:40, $uinfo->value.integer.min:0
+Signed-off-by: Alexey Khoroshilov <khoroshilov@ispras.ru>
+Fixes: 2fbe467bcbfc ("ASoC: max98090: Reject invalid values in custom control put()")
+---
+ sound/soc/codecs/max98090.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-OK, so anything setting a value outside of 0..40 was buggy.  Note that
-we've not changed the info() code at all here, snd_soc_info_volsw()
-subtracts min and then snd_soc_volsw_sx() adds it back on so what we end
-up with is whatever max was set to reported as the maximum to userspace,
-with the userpace minimum hard coded to zero meaning the range the
-control has is 0..max.
+diff --git a/sound/soc/codecs/max98090.c b/sound/soc/codecs/max98090.c
+index 62b41ca050a2..c535a8496bf1 100644
+--- a/sound/soc/codecs/max98090.c
++++ b/sound/soc/codecs/max98090.c
+@@ -413,7 +413,7 @@ static int max98090_put_enab_tlv(struct snd_kcontrol *kcontrol,
+ 
+ 	val = (val >> mc->shift) & mask;
+ 
+-	if (sel < 0 || sel > mc->max)
++	if (sel > mc->max)
+ 		return -EINVAL;
+ 
+ 	*select = sel;
+-- 
+2.7.4
 
-> So the min and max fields inside the $mc are the same in snd_soc_put_vols=
-w_sx
-> so this means that the code without my patch has an incorrect check.
-
-The check is enforcing the constraint we advertised to userspace, which
-should be all that any well written userpace application has accessed
-(though I appreciate that due to lack of bounds checking in the ALSA
-core it's been possible to do so).
-
-> Is the $mc->platform_max supposed to be set to the number of steps
-> as opposed to the maximum value?
-
-It is hard to understand why one would set platform_max in the above
-situation other than to limit to -44, however there *is* a lot of
-confusion in the code since in the generic function it gets substituted
-in like a register value.
-
-> Also the snd_soc_put_volsw_sx still checks the value from userspace
-> which has a range of 0 to 124 against the maximum of the signed range
-> which is from -84 to 40 regardless of the patches below.
-
-> 65c7d020fbee8 ("ASoC: Update the Max value of integer controls.")
-> https://git.codelinaro.org/clo/la/kernel/msm-4.9/-/commit/65c7d020fbee807=
-0f33072291c32eef7584a56d4
-
-That looks confused since it makes the interpretation of platform_max
-depend on if the control has a negative bottom for the range which isn't
-going to help with maintainability...
-
-> 0d873de90eb16 ("ASoC: sound: soc: fix incorrect max value")
-> https://git.codelinaro.org/clo/la/kernel/msm-4.9/-/commit/0d873de90eb16e3=
-af499eb87da1ed14440b788d5
-
-=2E..which I guess is why that bit of the change is reverted in this
-commit, though that then has two different interpretations of
-platform_max depending on if the control is an integer control for some
-reason I can't fathom.  These two would need to be squashed together for
-upstreaming, but note that these controls were added by and are used by
-non-Qualcomm people (see 34198710f55b5 ASoC: Add info callback for
-SX_TLV controls), and note the comment in there about the max being set
-to the number of levels rather than a value, so I'm concerned about
-other users here, the code doesn't look as self consistent as it should
-be.
-
-I think these controls need a separate, clearly written, info() callback
-rather than trying to bodge on the side of the main one.  That would
-help a lot with working out if the put() is consistent with it.  We
-probably also need an audit of all the existing users to try to figure
-out what they think they're doing and what, if anything, it's consistent
-with.  Your patch is clearly not consistent with the info() callback as
-it stands if nothing else.
-
---GU+gfGMqKvoMOtu/
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmKGZq0ACgkQJNaLcl1U
-h9CtKgf8C4rURwEk/xo0IsuefLFqn44IhlUuVmm2IWzZP0gSIuzFr4T6PqLcLQ2W
-aaO/lVChnrKGSZsiZswZ7uYniJT7Ahxq+W/y+PVlPTXF68t95/zVUfW21FkecB09
-2F6/dSQ6bi1iUl2xgwKjv1UK+sl7fAg162fgqk6ihqSxECsI5yphIKWu7cOe3GF3
-1ND8KBJppKW+6Qo5mmTy2rYght3MbyWNiqjNpjudq7LL8rI3/3gRPR9IDVtKTS+L
-GCgn5fDGkZNqZWj/YYlpW6E2tRFNKoEq7m2QkWcX9HhReT2E5Gj0DwxePocBTu6q
-eG3Yutc/lOwby16Kw9UEXzVqOoTNiA==
-=VJmt
------END PGP SIGNATURE-----
-
---GU+gfGMqKvoMOtu/--

@@ -2,89 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D76552DC02
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 May 2022 19:53:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3D8852DC05
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 May 2022 19:54:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D629A182D;
-	Thu, 19 May 2022 19:53:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D629A182D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5D1571831;
+	Thu, 19 May 2022 19:53:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D1571831
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652982833;
-	bh=i5DYB/d7iOcYHx+CO0QXIOXGHh7yLbrt9461MOnzKlU=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1652982856;
+	bh=B2kzj5sN8O2TnTpQLQG4+I3RUEEMnuN8jnc0ayhrlRk=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gv1BlCqKHpD5ENTm0JFskByZgs+yrmhWh35JfnWEuXDyxj6vbBpWm84bcyYQhZ0aB
-	 zD/ca0i8PDRMpNznnriQDMA6lw+U8xtCU9DNCvMhnIL8Nbq/XpMhLz8SA9Vv9qy0ZL
-	 2j/VGkhId97zBgq7wy1qJfEqZHHfp6PWfuwrge2Y=
+	b=FTP5OPQnOPidjjvlCrxmtr4m8lXzhXTDZDcmFTnkkY43m6WE3G5HfF9962VzF6ji1
+	 gtllqG8up7dtS1tL0Nexg5RRQtqqSAlShutYfpOlbhhguRYaqtvn3GN34ZS4N4tf8I
+	 G22ZqN9+i30eiuM9BOQlk7L/sTMXmPum6O5K+z2Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE1D2F805C1;
-	Thu, 19 May 2022 19:48:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1FBD9F804A9;
+	Thu, 19 May 2022 19:50:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 73E45F80570; Thu, 19 May 2022 19:48:19 +0200 (CEST)
+ id A9458F80526; Thu, 19 May 2022 19:49:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C05CFF8025D
- for <alsa-devel@alsa-project.org>; Thu, 19 May 2022 19:48:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C05CFF8025D
+ by alsa1.perex.cz (Postfix) with ESMTPS id F1401F80237
+ for <alsa-devel@alsa-project.org>; Thu, 19 May 2022 19:49:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1401F80237
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="SqrJe/6t"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24J66mcZ012194;
- Thu, 19 May 2022 12:47:59 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=PODMain02222019;
- bh=cpKA7D3u60Un0Q7jaRk6044JdqC+LVcgSD1wYGWQh3U=;
- b=SqrJe/6t3mCfdPAhoyNtZaf7TguwmlWXArwWaOUmQL62Uf/qDTwUkPOPOWb00r8rKahn
- AS/fI+ZRyF/jYCb89xoXP2aFWkutaH99fzB6nJf4XL5/56yYU8eAn9y7T7xT6SuuZF3p
- sKG/l927Z2MN/f5OCYtz9cRElq+kV9ST1O/UjGfgWC/JdkbtUONftEY7TmZIAw5vBivn
- fS2kYbsMjOM6Congsc2ks9FT/2NMO81rLvjJ5gxusYJz05vEM2IkkJbuwtRSbaQm8nzQ
- pCtIeFqFtqQBrRrbiHztOgPLaqPB5GrPv20689ZsuCbuuKuRUEWvhaO9hiYNt40v8/Lu qQ== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3g28upfavr-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 19 May 2022 12:47:59 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Thu, 19 May
- 2022 18:47:57 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.24 via
- Frontend Transport; Thu, 19 May 2022 18:47:57 +0100
-Received: from vitaly-Legion-7-16ACHg6.ad.cirrus.com (unknown [198.90.238.59])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 2F299476;
- Thu, 19 May 2022 17:47:57 +0000 (UTC)
-From: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Mark
- Brown <broonie@kernel.org>
-Subject: [PATCH v3 17/17] ALSA: hda: cs35l41: Add module parameter to control
- firmware load
-Date: Thu, 19 May 2022 18:47:49 +0100
-Message-ID: <20220519174749.15459-18-vitalyr@opensource.cirrus.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220519174749.15459-1-vitalyr@opensource.cirrus.com>
-References: <20220519174749.15459-1-vitalyr@opensource.cirrus.com>
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="XXVcf3U7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1652982594; x=1684518594;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=B2kzj5sN8O2TnTpQLQG4+I3RUEEMnuN8jnc0ayhrlRk=;
+ b=XXVcf3U7hSVJpMMDKxVJar9GAhA10v51pOqjV84Qgvx7UdKzid9r75AT
+ yyR55cEGTzIZ0QKOq44eZItHcQ/94iP/2xkuFefD0F/3DBJ67jENwBILc
+ ReGfdJXCQNPHVAjYb3+znwjmneyZFIwAGHT9roc57Iw2T7Nq5ihDB5ld9
+ 0K+tDjhoyZ36sxjJUedExZFqqTtPajRFbW/vM2BxnvA67SRBCoOjBUMjg
+ 4Q/Ra3tPRXtYoE1YkDiobFuqWtO5/+lvL7wrtzTl2grO8H/gQyh7m3Gjy
+ 5+08vgik1lk7H4i8XOWvcV9bOBSFER7GKrgy9KSN/FfYWRCob2TtR4HZY g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10352"; a="252815148"
+X-IronPort-AV: E=Sophos;i="5.91,237,1647327600"; d="scan'208";a="252815148"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 May 2022 10:49:47 -0700
+X-IronPort-AV: E=Sophos;i="5.91,237,1647327600"; d="scan'208";a="639912650"
+Received: from vrgokulr-mobl1.amr.corp.intel.com (HELO [10.251.4.170])
+ ([10.251.4.170])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 May 2022 10:49:46 -0700
+Message-ID: <d14fddd9-20f9-fe7e-6c12-b5a57c6855da@linux.intel.com>
+Date: Thu, 19 May 2022 12:49:45 -0500
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: 3hbDY2jHkOjnuYNYeRimszsI8YEz0aBO
-X-Proofpoint-ORIG-GUID: 3hbDY2jHkOjnuYNYeRimszsI8YEz0aBO
-X-Proofpoint-Spam-Reason: safe
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Stefan Binding <sbinding@opensource.cirrus.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.5.0
+Subject: Re: [PATCH] ASoC: max98090: Remove unneeded check in
+ max98090_put_enab_tlv()
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>, Alexey Khoroshilov <khoroshilov@ispras.ru>
+References: <1652980212-21473-1-git-send-email-khoroshilov@ispras.ru>
+ <YoZ+dmprwb5Ohto3@sirena.org.uk>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <YoZ+dmprwb5Ohto3@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: ldv-project@linuxtesting.org, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,60 +95,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Stefan Binding <sbinding@opensource.cirrus.com>
 
-By default, the driver will automatically load DSP firmware
-for the amps, if available. Adding this option allows the
-autoload to be optional, which allows for different configurations.
 
-Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
-Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
----
+On 5/19/22 12:29, Mark Brown wrote:
+> On Thu, May 19, 2022 at 08:10:12PM +0300, Alexey Khoroshilov wrote:
+>> Variable sel is of unsigned int type, so sel < 0 is not required.
+>>
+>> Found by Linux Verification Center (linuxtesting.org) with SVACE.
+> 
+>>  	val = (val >> mc->shift) & mask;
+>>  
+>> -	if (sel < 0 || sel > mc->max)
+>> +	if (sel > mc->max)
+> 
+> The check needs to be moved, not removed.  The userspace ABI allows
+> passing in of negative values.
 
-Changes since v2:
- - Added module paramter to control firmware loading
- 
- sound/pci/hda/cs35l41_hda.c | 20 +++++++++++++++-----
- 1 file changed, 15 insertions(+), 5 deletions(-)
+I was about to send the same cleanup, cppcheck reports the same issue
+with a useless test.
 
-diff --git a/sound/pci/hda/cs35l41_hda.c b/sound/pci/hda/cs35l41_hda.c
-index 06abd03e2996..8aea09870bc2 100644
---- a/sound/pci/hda/cs35l41_hda.c
-+++ b/sound/pci/hda/cs35l41_hda.c
-@@ -30,6 +30,11 @@
- #define CAL_R_DSP_CTL_TYPE		5
- #define CAL_R_DSP_CTL_ALG		205
- 
-+static bool firmware_autostart = 1;
-+module_param(firmware_autostart, bool, 0444);
-+MODULE_PARM_DESC(firmware_autostart, "Allow automatic firmware download on boot"
-+			     "(0=Disable, 1=Enable) (default=1); ");
-+
- static const struct reg_sequence cs35l41_hda_config[] = {
- 	{ CS35L41_PLL_CLK_CTRL,		0x00000430 }, // 3072000Hz, BCLK Input, PLL_REFCLK_EN = 1
- 	{ CS35L41_DSP_CLK_CTRL,		0x00000003 }, // DSP CLK EN
-@@ -779,11 +784,16 @@ static int cs35l41_hda_bind(struct device *dev, struct device *master, void *mas
- 
- 	cs35l41->firmware_type = HDA_CS_DSP_FW_SPK_PROT;
- 
--	cs35l41->request_fw_load = true;
--	mutex_lock(&cs35l41->fw_mutex);
--	if (cs35l41_smart_amp(cs35l41) < 0)
--		dev_warn(cs35l41->dev, "Cannot Run Firmware, reverting to dsp bypass...\n");
--	mutex_unlock(&cs35l41->fw_mutex);
-+	if (firmware_autostart) {
-+		dev_dbg(cs35l41->dev, "Firmware Autostart.\n");
-+		cs35l41->request_fw_load = true;
-+		mutex_lock(&cs35l41->fw_mutex);
-+		if (cs35l41_smart_amp(cs35l41) < 0)
-+			dev_warn(cs35l41->dev, "Cannot Run Firmware, reverting to dsp bypass...\n");
-+		mutex_unlock(&cs35l41->fw_mutex);
-+	} else {
-+		dev_dbg(cs35l41->dev, "Firmware Autostart is disabled.\n");
-+	}
- 
- 	cs35l41_create_controls(cs35l41);
- 
--- 
-2.34.1
-
+The problem is that the values coming from userspace are cast to unsigned...

@@ -2,106 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1DDE52DCBF
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 May 2022 20:28:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A22552DCFB
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 May 2022 20:45:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 153F017B5;
-	Thu, 19 May 2022 20:27:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 153F017B5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 23B731750;
+	Thu, 19 May 2022 20:44:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 23B731750
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652984912;
-	bh=um9hBCS1sjmR/E4tIKoPD3SzO6zmiNPcqGx+ETpjirE=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1652985910;
+	bh=R6wPRFuxi1lyRSKNjtJtOfNrBIGNiVRk0AM8VBBZpvQ=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tZNz/cB762Npr/KynbFs2Wto+wdC0Na6k0tDSjLLcCrAoJrawL1gCoP4P8enbD2dO
-	 s823eH7Oxdbbl7MUrecnDRZ+OxEhO5L/qfXkqFhZJ7++UvIj9AX7xcnrthw+KMvu+m
-	 Q9pHctCEPDSC07HaUnYHfmOxOspOA1XeCFTJq9wg=
+	b=n9HISQ/be74g7q66ZzrwTxLvOIN5MtmDjiU5PVh8yTrBFIsWPGRCbDfRGCfZ/63TV
+	 lnWZjKUjdWj4lotkAyIVEZKJ0vGV7SDeAWsnHmTI4aEArf4+VY0B3WUcmylo/NPrkn
+	 u4KYzHxr7vhE7hnj2LxREkUqT2jZXxdibPWovtdM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 75E48F80269;
-	Thu, 19 May 2022 20:27:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8C445F80269;
+	Thu, 19 May 2022 20:44:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 05D4DF8025D; Thu, 19 May 2022 20:27:33 +0200 (CEST)
+ id 1B863F800D1; Thu, 19 May 2022 20:44:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=NICE_REPLY_A,PRX_BODY_30,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.84])
- (using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6716DF800D1
- for <alsa-devel@alsa-project.org>; Thu, 19 May 2022 20:27:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6716DF800D1
-Received: from [10.10.2.52] (unknown [10.10.2.52])
- by mail.ispras.ru (Postfix) with ESMTPSA id 2D4D040755E1;
- Thu, 19 May 2022 18:27:26 +0000 (UTC)
-Subject: Re: [PATCH] ASoC: max98090: Remove unneeded check in
- max98090_put_enab_tlv()
-To: Mark Brown <broonie@kernel.org>
-References: <1652980212-21473-1-git-send-email-khoroshilov@ispras.ru>
- <YoZ+dmprwb5Ohto3@sirena.org.uk>
- <fd58c07c-488e-1c90-a755-194f714bbe45@ispras.ru>
- <YoaEXWGEY4s14je+@sirena.org.uk>
-From: Alexey Khoroshilov <khoroshilov@ispras.ru>
-Autocrypt: addr=khoroshilov@ispras.ru; prefer-encrypt=mutual; keydata=
- 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
- kK2E04Fb+Zk1eJvHYRc=
-Message-ID: <ce6853a9-6789-f151-3193-59b7dd73bd27@ispras.ru>
-Date: Thu, 19 May 2022 21:27:25 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5A9AEF800D1
+ for <alsa-devel@alsa-project.org>; Thu, 19 May 2022 20:44:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A9AEF800D1
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="Bawshkgo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1652985847; x=1684521847;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=R6wPRFuxi1lyRSKNjtJtOfNrBIGNiVRk0AM8VBBZpvQ=;
+ b=BawshkgoJNJu0nXpghc/sTmlgrVeWsujM+MMc7Lgaxr+GhHHEEGW+LhV
+ YpgRbu2TFVlyva1WeNG3bxXpMHI3CN6SmRbPOmPC20z+KEa/npXJG5c/0
+ cJ2KWaR45dmu2wNWliY2GI9dSJAwa4n/jOWEgzRI22nvtHBksYuWQatXS
+ JbOM37rgHcvbI9ZH2Xb55jWWtBLuLLLCkwJEq67HIiPFWV8QytRGTGd+y
+ utKyFYYqulrfPWDt2OBIyHqlO9BDtx2HrnSVk9pNzYgw7S/KCvkJ8amFL
+ t7f45Bc/r2VN53YujTVO7bgzTyZoUVTDTFtaIVChrQUZzHAMzJgBpNc05 w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10352"; a="252842775"
+X-IronPort-AV: E=Sophos;i="5.91,237,1647327600"; d="scan'208";a="252842775"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 May 2022 11:44:01 -0700
+X-IronPort-AV: E=Sophos;i="5.91,237,1647327600"; d="scan'208";a="639936525"
+Received: from vrgokulr-mobl1.amr.corp.intel.com (HELO [10.251.4.170])
+ ([10.251.4.170])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 May 2022 11:43:56 -0700
+Message-ID: <935f76f2-c4cf-d66f-e1e1-8acf5a643f92@linux.intel.com>
+Date: Thu, 19 May 2022 13:43:55 -0500
 MIME-Version: 1.0
-In-Reply-To: <YoaEXWGEY4s14je+@sirena.org.uk>
-Content-Type: text/plain; charset=windows-1252
-Content-Language: ru-RU
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.5.0
+Subject: Re: [PATCH 00/56] Specify clock provider directly to CPU DAIs
+Content-Language: en-US
+To: Charles Keepax <ckeepax@opensource.cirrus.com>, broonie@kernel.org
+References: <20220519154318.2153729-1-ckeepax@opensource.cirrus.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20220519154318.2153729-1-ckeepax@opensource.cirrus.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Cc: ldv-project@linuxtesting.org, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>
+Cc: cezary.rojewski@intel.com, heiko@sntech.de,
+ kuninori.morimoto.gx@renesas.com, alsa-devel@alsa-project.org,
+ nicolas.ferre@microchip.com, srinivas.kandagatla@linaro.org,
+ peter.ujfalusi@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ jbrunet@baylibre.com, krzk@kernel.org, linux-rockchip@lists.infradead.org,
+ linux-imx@nxp.com, linux-mips@vger.kernel.org, linux-sunxi@lists.linux.dev,
+ linux-xtensa@linux-xtensa.org, nsaenz@kernel.org,
+ linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, linux-omap@vger.kernel.org,
+ patches@opensource.cirrus.com, lgirdwood@gmail.com, daniel@zonque.org,
+ kernel@pengutronix.de, shawnguo@kernel.org, jarkko.nikula@bitmer.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -117,59 +101,178 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 19.05.2022 20:54, Mark Brown wrote:
-> On Thu, May 19, 2022 at 08:49:48PM +0300, Alexey Khoroshilov wrote:
->> On 19.05.2022 20:29, Mark Brown wrote:
->>> On Thu, May 19, 2022 at 08:10:12PM +0300, Alexey Khoroshilov wrote:
+
+
+On 5/19/22 10:42, Charles Keepax wrote:
+> Currently the set_fmt callback always passes clock provider/consumer
+> with respect to the CODEC. This made sense when the framework was
+> directly broken down into platforms and CODECs. However, as things
+> are now broken down into components which can be connected as either
+> the CPU or CODEC side of a DAI link it simplifies things if each
+> side of the link is just told if it is provider or consumer of the
+> clocks. Making this change allows us to remove one of the last parts
+> of the ASoC core that needs to know if a driver is a CODEC driver,
+> where it flips the clock format specifier if a CODEC driver is used on
+> the CPU side of a DAI link, as well as just being conceptually more
+> consistent with componentisation.
 > 
->>>> -	if (sel < 0 || sel > mc->max)
->>>> +	if (sel > mc->max)
+> The basic idea of this patch chain is to change the set_fmt callback
+> from specifying if the CODEC is provider/consumer into directly
+> specifying if the component is provider/consumer. To do this we add
+> some new defines, and then to preserve bisectability, the migration is
+> done by adding a new callback, converting over all existing CPU side
+> drivers, converting the core, and then finally reverting back to the
+> old callback.
 > 
->>> The check needs to be moved, not removed.  The userspace ABI allows
->>> passing in of negative values.
+> Converting the platform drivers makes sense as the existing defines
+> are from the perspective of the CODEC and there are more CODEC drivers
+> than platform drivers.
 > 
->> Would (sel > mc->max) be enough in this case anyway?
+> Obviously a fair amount of this patch chain I was only able to build
+> test, so any testing that can be done would be greatly appreciated.
+
+All good for the SOF CI (small subset tested for Intel platforms).
+
+https://github.com/thesofproject/linux/pull/3660
+
 > 
-> Oh, the check won't be working properly - it's just that like I say the
-> fix is to move rather than remove it so it's operating on the signed
-> value.
+> Thanks,
+> Charles
 > 
-
-Do you mean something like this?
-
-static int max98090_put_enab_tlv(struct snd_kcontrol *kcontrol,
-				struct snd_ctl_elem_value *ucontrol)
-{
-	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
-	struct max98090_priv *max98090 = snd_soc_component_get_drvdata(component);
-	struct soc_mixer_control *mc =
-		(struct soc_mixer_control *)kcontrol->private_value;
-	unsigned int mask = (1 << fls(mc->max)) - 1;
--       unsigned int sel = ucontrol->value.integer.value[0];
-+       int sel_unchecked = ucontrol->value.integer.value[0];
-+       unsigned int sel;
-	unsigned int val = snd_soc_component_read(component, mc->reg);
-	unsigned int *select;
-
-	switch (mc->reg) {
-	case M98090_REG_MIC1_INPUT_LEVEL:
-		select = &(max98090->pa1en);
-		break;
-	case M98090_REG_MIC2_INPUT_LEVEL:
-		select = &(max98090->pa2en);
-		break;
-	case M98090_REG_ADC_SIDETONE:
-		select = &(max98090->sidetone);
-		break;
-	default:
-		return -EINVAL;
-	}
-
-	val = (val >> mc->shift) & mask;
-
--       if (sel < 0 || sel > mc->max)
-+       if (sel_unchecked < 0 || sel_unchecked > mc->max)
-                return -EINVAL;
-+       sel = sel_unchecked;
-
-	*select = sel;
+> Charles Keepax (56):
+>   ASoC: core: Add set_fmt_new callback that directly specifies provider
+>   ASoC: amd: vangogh: Update to use set_fmt_new callback
+>   ASoC: atmel: Update to use set_fmt_new callback
+>   ASoC: au1x: Update to use set_fmt_new callback
+>   ASoC: bcm: Update to use set_fmt_new callback
+>   ASoC: ep93xx: Update to use set_fmt_new callback
+>   ASoC: dwc: Update to use set_fmt_new callback
+>   ASoC: fsl: Update to use set_fmt_new callback
+>   ASoC: hisilicon: Update to use set_fmt_new callback
+>   ASoC: img: Update to use set_fmt_new callback
+>   ASoC: Intel: Update to use set_fmt_new callback
+>   ASoC: js4740-i2s: Update to use set_fmt_new callback
+>   ASoC: mediatek: Update to use set_fmt_new callback
+>   ASoC: meson: Update to use set_fmt_new callback
+>   ASoC: mxs-saif: Update to use set_fmt_new callback
+>   ASoC: pxa: Update to use set_fmt_new callback
+>   ASoC: qcom: Update to use set_fmt_new callback
+>   ASoC: rockchip: Update to use set_fmt_new callback
+>   ASoC: samsung: Update to use set_fmt_new callback
+>   ASoC: sh: Update to use set_fmt_new callback
+>   ASoC: stm: Update to use set_fmt_new callback
+>   ASoC: sunxi: Update to use set_fmt_new callback
+>   ASoC: tegra: Update to use set_fmt_new callback
+>   ASoC: test-component: Update to use set_fmt_new callback
+>   ASoC: ti: Update to use set_fmt_new callback
+>   ASoC: ux500: Update to use set_fmt_new callback
+>   ASoC: xtensa: Update to use set_fmt_new callback
+>   ASoC: core: Always send the CPU DAI a direct clock specifier
+>   ASoC: amd: vangogh: Rename set_fmt_new back to set_fmt
+>   ASoC: atmel: Rename set_fmt_new back to set_fmt
+>   ASoC: au1x: Rename set_fmt_new back to set_fmt
+>   ASoC: bcm: Rename set_fmt_new back to set_fmt
+>   ASoC: ep93xx: Rename set_fmt_new back to set_fmt
+>   ASoC: dwc: Rename set_fmt_new back to set_fmt
+>   ASoC: fsl: Rename set_fmt_new back to set_fmt
+>   ASoC: hisilicon: Rename set_fmt_new back to set_fmt
+>   ASoC: img: Rename set_fmt_new back to set_fmt
+>   ASoC: Intel: Rename set_fmt_new back to set_fmt
+>   ASoC: jz4740-i2s: Rename set_fmt_new back to set_fmt
+>   ASoC: mediatek: Rename set_fmt_new back to set_fmt
+>   ASoC: meson: Rename set_fmt_new back to set_fmt
+>   ASoC: mxs-saif: Rename set_fmt_new back to set_fmt
+>   ASoC: pxa: Rename set_fmt_new back to set_fmt
+>   ASoC: qcom: Rename set_fmt_new back to set_fmt
+>   ASoC: rockchip: Rename set_fmt_new back to set_fmt
+>   ASoC: samsung: Rename set_fmt_new back to set_fmt
+>   ASoC: sh: Rename set_fmt_new back to set_fmt
+>   ASoC: stm: Rename set_fmt_new back to set_fmt
+>   ASoC: sunxi: Rename set_fmt_new back to set_fmt
+>   ASoC: tegra: Rename set_fmt_new back to set_fmt
+>   ASoC: test-component: Rename set_fmt_new back to set_fmt
+>   ASoC: ti: Rename set_fmt_new back to set_fmt
+>   ASoC: ux500: Rename set_fmt_new back to set_fmt
+>   ASoC: xtensa: Rename set_fmt_new back to set_fmt
+>   ASoC: soc-dai: Remove set_fmt_new callback
+>   ASoC: simple-card-utils: Move snd_soc_component_is_codec to be local
+> 
+>  include/sound/soc-component.h                |  5 ---
+>  include/sound/soc-dai.h                      |  6 ++++
+>  sound/soc/amd/vangogh/acp5x-i2s.c            |  4 +--
+>  sound/soc/atmel/atmel-i2s.c                  |  4 +--
+>  sound/soc/atmel/atmel_ssc_dai.c              | 18 +++++-----
+>  sound/soc/atmel/mchp-i2s-mcc.c               |  8 ++---
+>  sound/soc/atmel/mchp-pdmc.c                  |  4 +--
+>  sound/soc/au1x/i2sc.c                        |  2 +-
+>  sound/soc/au1x/psc-i2s.c                     |  4 +--
+>  sound/soc/bcm/bcm2835-i2s.c                  | 20 +++++------
+>  sound/soc/bcm/cygnus-ssp.c                   |  4 +--
+>  sound/soc/cirrus/ep93xx-i2s.c                |  4 +--
+>  sound/soc/dwc/dwc-i2s.c                      |  8 ++---
+>  sound/soc/fsl/fsl_audmix.c                   |  6 ++--
+>  sound/soc/fsl/fsl_esai.c                     |  8 ++---
+>  sound/soc/fsl/fsl_mqs.c                      |  2 +-
+>  sound/soc/fsl/fsl_sai.c                      |  8 ++---
+>  sound/soc/fsl/fsl_ssi.c                      | 22 ++++++------
+>  sound/soc/fsl/imx-audmix.c                   |  4 +--
+>  sound/soc/fsl/imx-card.c                     |  2 +-
+>  sound/soc/generic/simple-card-utils.c        |  7 +++-
+>  sound/soc/generic/test-component.c           | 18 +++++-----
+>  sound/soc/hisilicon/hi6210-i2s.c             | 18 +++++-----
+>  sound/soc/img/img-i2s-in.c                   |  4 +--
+>  sound/soc/img/img-i2s-out.c                  |  6 ++--
+>  sound/soc/intel/atom/sst-atom-controls.c     |  4 +--
+>  sound/soc/intel/boards/bytcht_cx2072x.c      |  2 +-
+>  sound/soc/intel/boards/bytcht_da7213.c       |  2 +-
+>  sound/soc/intel/boards/bytcht_es8316.c       |  2 +-
+>  sound/soc/intel/boards/bytcht_nocodec.c      |  2 +-
+>  sound/soc/intel/boards/bytcr_rt5640.c        |  2 +-
+>  sound/soc/intel/boards/bytcr_rt5651.c        |  2 +-
+>  sound/soc/intel/boards/bytcr_wm5102.c        |  2 +-
+>  sound/soc/intel/boards/cht_bsw_max98090_ti.c |  3 +-
+>  sound/soc/intel/boards/cht_bsw_rt5645.c      |  6 ++--
+>  sound/soc/intel/boards/cht_bsw_rt5672.c      |  2 +-
+>  sound/soc/intel/keembay/kmb_platform.c       |  4 +--
+>  sound/soc/jz4740/jz4740-i2s.c                | 10 +++---
+>  sound/soc/mediatek/mt8195/mt8195-dai-etdm.c  |  6 ++--
+>  sound/soc/mediatek/mt8195/mt8195-dai-pcm.c   |  6 ++--
+>  sound/soc/meson/aiu-encoder-i2s.c            |  2 +-
+>  sound/soc/meson/axg-tdm-interface.c          | 14 ++++----
+>  sound/soc/mxs/mxs-saif.c                     |  4 +--
+>  sound/soc/pxa/magician.c                     |  8 ++---
+>  sound/soc/pxa/mmp-sspa.c                     |  6 ++--
+>  sound/soc/pxa/pxa-ssp.c                      | 22 ++++++------
+>  sound/soc/pxa/pxa2xx-i2s.c                   |  6 ++--
+>  sound/soc/qcom/apq8016_sbc.c                 |  2 +-
+>  sound/soc/qcom/qdsp6/audioreach.c            |  4 +--
+>  sound/soc/qcom/qdsp6/q6afe.c                 |  6 ++--
+>  sound/soc/qcom/sc7180.c                      |  2 +-
+>  sound/soc/qcom/sdm845.c                      |  6 ++--
+>  sound/soc/qcom/sm8250.c                      |  4 +--
+>  sound/soc/rockchip/rockchip_i2s.c            |  6 ++--
+>  sound/soc/rockchip/rockchip_i2s_tdm.c        |  6 ++--
+>  sound/soc/samsung/i2s.c                      |  6 ++--
+>  sound/soc/samsung/pcm.c                      |  4 +--
+>  sound/soc/samsung/s3c-i2s-v2.c               |  6 ++--
+>  sound/soc/samsung/s3c24xx-i2s.c              |  6 ++--
+>  sound/soc/sh/fsi.c                           |  6 ++--
+>  sound/soc/sh/rcar/core.c                     |  4 +--
+>  sound/soc/sh/rz-ssi.c                        |  2 +-
+>  sound/soc/sh/ssi.c                           | 10 +++---
+>  sound/soc/soc-core.c                         | 14 ++------
+>  sound/soc/soc-dai.c                          |  3 +-
+>  sound/soc/stm/stm32_i2s.c                    |  8 ++---
+>  sound/soc/stm/stm32_sai_sub.c                |  8 ++---
+>  sound/soc/sunxi/sun4i-i2s.c                  | 18 +++++-----
+>  sound/soc/sunxi/sun8i-codec.c                |  6 ++--
+>  sound/soc/tegra/tegra20_i2s.c                |  6 ++--
+>  sound/soc/tegra/tegra210_i2s.c               |  6 ++--
+>  sound/soc/tegra/tegra30_i2s.c                |  6 ++--
+>  sound/soc/ti/davinci-i2s.c                   | 32 ++++++++---------
+>  sound/soc/ti/davinci-mcasp.c                 | 10 +++---
+>  sound/soc/ti/omap-mcbsp.c                    | 12 +++----
+>  sound/soc/ux500/ux500_msp_dai.c              | 36 ++++++++++----------
+>  sound/soc/xtensa/xtfpga-i2s.c                |  4 +--
+>  77 files changed, 279 insertions(+), 283 deletions(-)
+> 

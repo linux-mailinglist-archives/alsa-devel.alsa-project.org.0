@@ -2,80 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B6D852DB7D
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 May 2022 19:41:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73AE952DBB5
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 May 2022 19:48:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F3394174C;
-	Thu, 19 May 2022 19:40:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F3394174C
+	by alsa0.perex.cz (Postfix) with ESMTPS id EE1661753;
+	Thu, 19 May 2022 19:48:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EE1661753
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1652982080;
-	bh=i/bU0bfDloHPKyvRxaGvTgWbXFe6z6JQWAGN/Vhk5Pc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=CM0RcubjCge41BRyTzQ4j95xUT4MXK+Qc4AU3Ip0087K1PQDFvYvBVZnnPFA5/7bq
-	 ShHjlTy6XQZITQfa2+/sRa6wsFxROYGlV/DHSpbrTbwskUHb8aeN7LuruKvu5GCVaj
-	 IpZwgs1yNIggpTZoZGUhnkW6JamIBZJZpJdMNdk4=
+	s=default; t=1652982538;
+	bh=BNOFMSKV6528zHqoIYR8PlKWBKp+M2m5LXG2y1EYoNo=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=kq7aHIpXbOvGp0d82lLCJwaIUFlgrhKcPqban5X+92kMNCWaOd7FHhW7tuXDAGYp8
+	 cVE4NrPjBrJ/GTwHbz2o7xMRrsaYHSgm8wMUW7dO44tnJkIkd4Xoum6fcuu5agcPvS
+	 k9KLSvm2sJ6JEibjdSg0uUOyRTkvQbJrOyXg7w7M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 72634F80269;
-	Thu, 19 May 2022 19:40:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C968DF8051F;
+	Thu, 19 May 2022 19:48:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 518A5F8025D; Thu, 19 May 2022 19:40:21 +0200 (CEST)
+ id 646DEF8047B; Thu, 19 May 2022 19:47:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ED1A9F800F0
- for <alsa-devel@alsa-project.org>; Thu, 19 May 2022 19:40:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED1A9F800F0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="dYCOpnXo"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D58D66187D;
- Thu, 19 May 2022 17:40:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34FE1C385AA;
- Thu, 19 May 2022 17:40:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1652982015;
- bh=i/bU0bfDloHPKyvRxaGvTgWbXFe6z6JQWAGN/Vhk5Pc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=dYCOpnXonTOfbFrdBJXmWTXnceJ1NnUiYoMMrqYMLyx6p0mcgHx+HL0vo0uj3chWc
- QHUAhqTuYbHGquSQEmorV6HW2ryh0cafLQyNUV/izbDSihgLlTHn1+FWINl0lM9K+E
- 4DPCncvaZ1Ms5uHtVp/0kLGnyG7V/SJG8i9+d3Qt3wppTRRfR8qhQ9ckQswZzx0xwU
- bbKS5eTxGO6XzSMXCF9PurXELsoX/kMEtfIgXXFx5Nts3sFnUTGSWtPUyMTtPK7Kjg
- 8zIq61piE8HgJ8G290KIDTFO89v2Cm4OW9uejsaNwydpYHlvfP6zvetlhxO1Hhvx8p
- ik2i5vAvRAUXA==
-Date: Thu, 19 May 2022 18:40:06 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH 1/6] ASoC: tegra: Add binding doc for OPE module
-Message-ID: <YoaA9ob5CRxyA+fD@sirena.org.uk>
-References: <1652895372-29885-1-git-send-email-spujar@nvidia.com>
- <1652895372-29885-2-git-send-email-spujar@nvidia.com>
- <049173a1-0fa6-510b-9169-ebe869b8a3b3@linaro.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5C5A5F80109
+ for <alsa-devel@alsa-project.org>; Thu, 19 May 2022 19:47:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C5A5F80109
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="P5ELS7/+"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24J6k199002261;
+ Thu, 19 May 2022 12:47:51 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=Y2bZbQwNJd5XN/R64Pc1H68R3iQp3pEvSWmJz64T6OY=;
+ b=P5ELS7/+4p3AamCRqrbzYtNiDlY2u0YZQmdPR/0VpToEK3t+fOt4lAlYykeYoHXdwRDS
+ SCgElkcZbF3pZZnRkUSPpaH37HdikL2Ai9IDC6lyjFzywzuGxHYFy6ohTcRulnU8sKdC
+ nbGYDTRf97IxvdXtiSnaXDVZ3Az9wXUtAzgBCbVrV8HbQ9P8GzpB6iydell5igpVha4b
+ Sa7ywZaqzmQdfyxJ4JJRjnhjGTwJf9d30ZfBn/oN9xJsHWWTbvcV7ZS1sDnuxuIj9jvI
+ aCWCpEIbHfFOFM7m1XtQrmkEMFMpiKtqKGYM/UvLoHOZWgQSUEjaBO6ByBFOhLOjvls0 oA== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3g29u37ted-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Thu, 19 May 2022 12:47:51 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Thu, 19 May
+ 2022 18:47:49 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.24 via
+ Frontend Transport; Thu, 19 May 2022 18:47:49 +0100
+Received: from vitaly-Legion-7-16ACHg6.ad.cirrus.com (unknown [198.90.238.59])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 461AE458;
+ Thu, 19 May 2022 17:47:49 +0000 (UTC)
+From: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Mark
+ Brown <broonie@kernel.org>
+Subject: [PATCH v3 00/17] ALSA: hda: cirrus: Add initial DSP support and
+ firmware loading
+Date: Thu, 19 May 2022 18:47:32 +0100
+Message-ID: <20220519174749.15459-1-vitalyr@opensource.cirrus.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="xjIce6nHQZ0dcLVK"
-Content-Disposition: inline
-In-Reply-To: <049173a1-0fa6-510b-9169-ebe869b8a3b3@linaro.org>
-X-Cookie: Some restrictions may apply.
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- catalin.marinas@arm.com, Sameer Pujar <spujar@nvidia.com>, tiwai@suse.com,
- robh+dt@kernel.org, thierry.reding@gmail.com,
- linux-arm-kernel@lists.infradead.org, krzysztof.kozlowski+dt@linaro.org,
- linux-tegra@vger.kernel.org, jonathanh@nvidia.com, will@kernel.org,
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-GUID: w-g9FgRtZy4b1E3mun2IdCBLGmjpnUcR
+X-Proofpoint-ORIG-GUID: w-g9FgRtZy4b1E3mun2IdCBLGmjpnUcR
+X-Proofpoint-Spam-Reason: safe
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -92,36 +97,73 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The CS35L41 Amplifier contains a DSP, capable of running firmware.
+The firmware can run algorithms such as Speaker Protection, to ensure
+that playback at high gains do not harm the speakers.
+Adding support for CS35L41 firmware into the CS35L41 HDA driver also
+allows us to support several extra features, such as hiberation 
+and interrupts.
 
---xjIce6nHQZ0dcLVK
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+The chain adds support in stages:
+- General fixes to improve generalization and code re-use inside
+  the CS35L41 HDA driver.
+- Add support for interrupts into the driver, which is required
+  for complete support of the firmware.
+- Refactor ASoC CS35L41 code which deals with firmware to allow
+  for code re-use inside the CS35L41 HDA driver.
+- Add support for loading firmware and tuning files from file system,
+  and creating alsa controls to control it.
+- Support firmware load paths for different hardware systems.
+- Support suspend/resume in the driver when using firmware. The firmware
+  supports hibernation, which allows the CS35L41 to drop into a low
+  power mode during suspend.
+- Support the ability to unload firmware, swap and reload the firmware.
+  This is to allow different firmware to run during calibration.
 
-On Thu, May 19, 2022 at 01:40:54PM +0200, Krzysztof Kozlowski wrote:
-> On 18/05/2022 19:36, Sameer Pujar wrote:
+The intended use-case is to load the firmware once on boot, and the driver
+autmatically tries to load the firmware after it binds to the HDA driver.
+This behaviour can be switched off using a kconfig, if desired.
 
-> > +title: Tegra210 MBDRC Device Tree Bindings
+Stefan Binding (16):
+  ALSA: hda: hda_cs_dsp_ctl: Add Library to support CS_DSP ALSA controls
+  ALSA: hda: hda_cs_dsp_ctl: Add apis to write the controls directly
+  ALSA: hda: cs35l41: Save codec object inside component struct
+  ALSA: hda: cs35l41: Save Subsystem ID inside CS35L41 Driver
+  ALSA: hda: cs35l41: Support reading subsystem id from ACPI
+  ALSA: hda: cs35l41: Support multiple load paths for firmware
+  ALSA: hda: cs35l41: Support Speaker ID for laptops
+  ASoC: cs35l41: Move cs35l41 exit hibernate function into shared code
+  ASoC: cs35l41: Do not print error when waking from hibernation
+  ASoC: cs35l41: Add common cs35l41 enter hibernate function
+  ALSA: hda: cs35l41: Support Hibernation during Suspend
+  ALSA: hda: cs35l41: Read Speaker Calibration data from UEFI variables
+  ALSA: hda: hda_cs_dsp_ctl: Add fw id strings
+  ALSA: hda: cs35l41: Add defaulted values into dsp bypass config
+    sequence
+  ALSA: hda: cs35l41: Support Firmware switching and reloading
+  ALSA: hda: cs35l41: Add module parameter to control firmware load
 
-> s/Device Tree Bindings//
+Vitaly Rodionov (1):
+  ALSA: hda: cs35l41: Add initial DSP support and firmware loading
 
-> and then you have enough space to de-acronym this MBDRC.
+ MAINTAINERS                     |   1 +
+ include/sound/cs35l41.h         |   7 +
+ sound/pci/hda/Kconfig           |   8 +
+ sound/pci/hda/Makefile          |   2 +
+ sound/pci/hda/cs35l41_hda.c     | 815 +++++++++++++++++++++++++++++++-
+ sound/pci/hda/cs35l41_hda.h     |  37 ++
+ sound/pci/hda/cs35l41_hda_i2c.c |   1 +
+ sound/pci/hda/cs35l41_hda_spi.c |   1 +
+ sound/pci/hda/hda_component.h   |   4 +
+ sound/pci/hda/hda_cs_dsp_ctl.c  | 302 ++++++++++++
+ sound/pci/hda/hda_cs_dsp_ctl.h  |  40 ++
+ sound/pci/hda/patch_realtek.c   |  27 +-
+ sound/soc/codecs/cs35l41-lib.c  |  82 +++-
+ sound/soc/codecs/cs35l41.c      |  71 +--
+ 14 files changed, 1324 insertions(+), 74 deletions(-)
+ create mode 100644 sound/pci/hda/hda_cs_dsp_ctl.c
+ create mode 100644 sound/pci/hda/hda_cs_dsp_ctl.h
 
-I suspect people rarely expand the acronym when referring to this device
-so it's probably clearer the way it is.
+-- 
+2.34.1
 
---xjIce6nHQZ0dcLVK
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmKGgPUACgkQJNaLcl1U
-h9CIUQf+J47qRJ1T/hXpo2PrxjE+DAy/H24LMvtJ0gv6tuwLslEqSPmvNnX5AQ8H
-XredwBG+ouBdkkVKEx+kVbnClXuFSrGX3YxzBTxcHsbOXUGgvIbYSoKaDloX+N1H
-v1nVvsh1/6viUNyeS8W8sRjQtDSP8mE3GtyWnoTt59Xmrg39ub/QekuPfNBOeXaR
-/uyMAFxZKmLaM+VnQKHXHXJgdeRbwWXjnZNTnz8ncGcs/Augj/dJoaHRaOArirDw
-2kWSvFv/hxoJWI0tKtq6F2uI1Dk2CODyHCaDcyEuclATNmqH48SVFqwVyBDxA639
-6WOmhU7cAmme7vmLkJ+Q3NhA8Gd5Cg==
-=T8z4
------END PGP SIGNATURE-----
-
---xjIce6nHQZ0dcLVK--

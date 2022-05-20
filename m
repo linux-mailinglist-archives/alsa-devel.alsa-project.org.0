@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A52F452E6A7
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 May 2022 09:56:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E833852E6DA
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 May 2022 10:01:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 480391720;
-	Fri, 20 May 2022 09:55:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 480391720
+	by alsa0.perex.cz (Postfix) with ESMTPS id 85BD916B5;
+	Fri, 20 May 2022 10:00:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85BD916B5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653033381;
-	bh=tWilQW7Phe+kiskLmTc9Q5jPffbPCUJIQGn8QikW9fU=;
+	s=default; t=1653033688;
+	bh=BNhFbqn75SZjOLAjT8wFWKFcIMqwznG0G3VjD27H2T0=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HHsewI2H+b7Hg/A+TBjWqEx6Fso7oV6uku1aXwwbTbjV9nPa4Ns6EX5801h9AnuvE
-	 5fDPzdd2mlx2Q+uNQSWLFOe1z7vDmnKBBZWZF4yUs+8InlZHWCYgBZhIaE9U98jwEC
-	 uwJHB1dr9eegH3hzL11JlFrb0Nuuhu03PaENIpVs=
+	b=vVSdtzKcMMEPIenrbPRQvz4FvjXT1z4AR7xy3BESWgmhvrZfXne4/WYOErTsVeW0h
+	 RtowiuPL1qPVTrYngeaOUSPGbgi28sp6cFPSirbIgjQzQKKFpQ4tFIjzLza6VHJDOO
+	 EdGFqkPO/z8KngUpuS+2n9NPpGgcvIAignXGfcCM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A0767F801F5;
-	Fri, 20 May 2022 09:55:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 01B0DF801F5;
+	Fri, 20 May 2022 10:00:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B2345F8019D; Fri, 20 May 2022 09:55:20 +0200 (CEST)
+ id 652F9F8019D; Fri, 20 May 2022 10:00:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,46 +34,45 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 980C1F800F0
- for <alsa-devel@alsa-project.org>; Fri, 20 May 2022 09:55:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 980C1F800F0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 78825F80109
+ for <alsa-devel@alsa-project.org>; Fri, 20 May 2022 10:00:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78825F80109
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="m0pD9hTC"; 
+ header.b="c8aF8z94"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="u6MaCjnY"
+ header.b="e5fyizbY"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id ED2461F9A2;
- Fri, 20 May 2022 07:55:13 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 5E2C41F894;
+ Fri, 20 May 2022 08:00:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1653033313; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1653033618; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=1e0cBZJ+4c9MhkTY/RLvyFL4APFdawq6AOt2sFnrDHQ=;
- b=m0pD9hTCZsIiQULBDWo3pYq4wC6qo9ZbmEPr8o4k+XM5RRZo19BdHgi6/5t3LpEopb4Vrv
- +swlm9nFKSgLNNHb8Sk5y1wVWPTzj8ACs+cwkQEIXh1U1xetXOoDk130BC+UoAN16zJjiF
- 2uTnUDQQF8wVSrh3AorKye7sE91bgjQ=
+ bh=kMKh/Uy0Fns4/DVHh6qKhq/hSbzRGo3igA2tqZ9EFDk=;
+ b=c8aF8z9411V6NZY1bfOQpBZUqrNA0TtQggHEsriTXMomPg3VrgKzxBi1qmba5LP+2GDu7N
+ 9ZDIlIIwgm3g7vY4pqprmwTu20syL/4HiH1Qz5C8P4w6sXgA+ZmLSaNEkeA2lmTaTYsCeB
+ 7A+9HcqURLGSvpzwSXaL2SL5mq6YDVk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1653033313;
+ s=susede2_ed25519; t=1653033618;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=1e0cBZJ+4c9MhkTY/RLvyFL4APFdawq6AOt2sFnrDHQ=;
- b=u6MaCjnY2DHQQdwG9CK4vkVsjJyXpqGl5gzaX1RMeE1MhIItLl6rFaPWYuhycLgbtDVRIZ
- zf1wokZNR0yyvYCg==
+ bh=kMKh/Uy0Fns4/DVHh6qKhq/hSbzRGo3igA2tqZ9EFDk=;
+ b=e5fyizbYQmJwGI/73KkgRbu2+OWQo0fz9mPNBt7gd1hB6k+eq4mVf2cEqAG+mrkV9W6dy+
+ 50JyoEMNSeS85CCw==
 Received: from valkyrie.site.suse.de (unknown [10.163.18.242])
- by relay2.suse.de (Postfix) with ESMTP id C66902C141;
- Fri, 20 May 2022 07:55:13 +0000 (UTC)
-Date: Fri, 20 May 2022 09:55:13 +0200
-Message-ID: <87o7zsr63i.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 2F3C02C141;
+ Fri, 20 May 2022 08:00:18 +0000 (UTC)
+Date: Fri, 20 May 2022 10:00:18 +0200
+Message-ID: <87mtfcr5v1.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-Subject: Re: [PATCH v3 01/17] ALSA: hda: hda_cs_dsp_ctl: Add Library to
- support CS_DSP ALSA controls
-In-Reply-To: <87pmk8r6bl.wl-tiwai@suse.de>
+Subject: Re: [PATCH v3 04/17] ALSA: hda: cs35l41: Add initial DSP support and
+ firmware loading
+In-Reply-To: <20220519174749.15459-5-vitalyr@opensource.cirrus.com>
 References: <20220519174749.15459-1-vitalyr@opensource.cirrus.com>
- <20220519174749.15459-2-vitalyr@opensource.cirrus.com>
- <87pmk8r6bl.wl-tiwai@suse.de>
+ <20220519174749.15459-5-vitalyr@opensource.cirrus.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?ISO-2022-JP-2?B?R29qGyQoRCtXGyhC?=) APEL/10.8 Emacs/27
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -81,8 +80,7 @@ MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
 Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
  Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- Stefan Binding <sbinding@opensource.cirrus.com>,
- Mark Brown <broonie@kernel.org>
+ Mark Brown <broonie@kernel.org>, Vitaly Rodionov <vitaly.rodionov@cirrus.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,42 +96,22 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 20 May 2022 09:50:22 +0200,
-Takashi Iwai wrote:
+On Thu, 19 May 2022 19:47:36 +0200,
+Vitaly Rodionov wrote:
 > 
-> On Thu, 19 May 2022 19:47:33 +0200,
-> Vitaly Rodionov wrote:
-> On Thu, 19 May 2022 19:47:33 +0200,
-> Vitaly Rodionov wrote:
-> > 
-> > From: Stefan Binding <sbinding@opensource.cirrus.com>
-> > 
-> > The cs35l41 part contains a DSP which is able to run firmware.
-> > The cs_dsp library can be used to control the DSP.
-> > These controls can be exposed to userspace using ALSA controls.
-> > This library adds apis to be able to interface between
-> > cs_dsp and hda drivers and expose the relevant controls as
-> > ALSA controls.
-> > 
-> > The apis to add and remove the controls start new threads when
-> > adding/removing controls since it is possible that setting an ALSA
-> > control would end up calling this api, which would then deadlock.
+> From: Vitaly Rodionov <vitaly.rodionov@cirrus.com>
 > 
-> Well, I still don't understand why the addition/deletion itself has to
-> be in a work.  As far as I see, it's simple calls of snd_ctl_add() and
-> snd_ctl_remove_id().
+> This patch adds support for the CS35L41 DSP.
+> The DSP allows for extra features, such as running
+> speaker protection algorithms and hibernations.
 > 
-> And, if the problem is that you're calling snd_ctl_add() from another
-> control callback, it's rather the problem of the caller's side, not
-> here.  IOW, the async implementation should be rather in the caller 
-> side.
+> To utilize these features, the driver must load
+> firmware into the DSP, as well as various tuning
+> files which allow for cusomtization for specific
+> models.
 
-Also, the description about the newly added controls is missing.
-It looks like a really special (non-standard) control that uses TLV
-for other purposes, and this must be mentioned somewhere.
-
-And, I wonder what happens with alsactl store/restore with those
-controls.  Are TLV contents properly parsed there?
+Wouldn't this sequence be required after S3/S4 resume?
+I thought cs35l41_hda_bind() is called only at the first binding.
 
 
 thanks,

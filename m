@@ -2,102 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A67252F126
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 May 2022 18:56:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D49B52F136
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 May 2022 18:59:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0395F1735;
-	Fri, 20 May 2022 18:56:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0395F1735
+	by alsa0.perex.cz (Postfix) with ESMTPS id F27A81718;
+	Fri, 20 May 2022 18:59:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F27A81718
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653065812;
-	bh=gr574qUgcbq3MCtPgynzNKObQz8m2bTmWuCGKzHJ8oE=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=M3oIiTDEh8NmmbwExYtJeR9pVBsBKEcoXd/YgHJRDmmu9xRPWdffavuM56OAoe+99
-	 kQrDM8NuoaCZpFWMv8XvC5h1V2lWWMeYY3uwpXwSMiSoIpytVMT/IaUIZQtWIB2xl8
-	 3O42E973WVvnXgu2jm4+Cp/S01SJu3it9s5wXRVc=
+	s=default; t=1653065996;
+	bh=5eW7QW59k/M62V1+P9ocVaObYnldsVstjJ4/K3L5dqc=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=vVrl9wLaxTcU/nDWQO2KRYaLP0yBwhM1YnOFMwzOwhszwoZMYj4AMcNEDqwl+QQ6x
+	 yr1OSjpLS85wWcVuID1uWpcGSLSFLtZJK2GHhW9Rl3VzwELPbhgGBZ7rZ86RGAefLp
+	 SAC3tWVLiEWNotvaScZ63q/e0NiQCJoOVrLCd8UQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 63F03F801F5;
-	Fri, 20 May 2022 18:55:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 62782F80240;
+	Fri, 20 May 2022 18:58:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 62A54F8019D; Fri, 20 May 2022 18:55:51 +0200 (CEST)
+ id 0E601F8019D; Fri, 20 May 2022 18:58:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
- [IPv6:2607:f8b0:4864:20::636])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6CCDBF800D2
- for <alsa-devel@alsa-project.org>; Fri, 20 May 2022 18:55:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6CCDBF800D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9FEE2F800D2
+ for <alsa-devel@alsa-project.org>; Fri, 20 May 2022 18:58:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9FEE2F800D2
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="chMw8Bbd"
-Received: by mail-pl1-x636.google.com with SMTP id m1so7844953plx.3
- for <alsa-devel@alsa-project.org>; Fri, 20 May 2022 09:55:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=HImf2kaCG91lzQHnr8MRW3BphKAYkvqBRRs5ES2/Au0=;
- b=chMw8BbdMENO44Ex7To5iiOLh8gVzvLkcdwXIkjZhtLgjDmcw6bvH3pKV81xXyD1RT
- jaO2BDd6Ba12cdcRMcQWeQ3eTZhPw5pkToFSdosBNAEAA3xd7hoJfdOKEysEHf/EH7Gx
- PCTLhPtYCs/oxN3hQZ5CVWyNtXZRzsmr/2/UA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=HImf2kaCG91lzQHnr8MRW3BphKAYkvqBRRs5ES2/Au0=;
- b=3PhPT1dIoxZiUW3R50W6JCf21fVd3VfRpRoVroDFw7Q4b9sBaqbcHKjX5uj0M9bzhp
- cntEAevU/V90qwHBMo20lk62LKSvqB7Exjnd7CEo/scICAY4Ybo5qqqluNdNoGEDPJQj
- SRYRoC5MTvlNx8VqTG2LQwICs1eTPWz31PREL1+5EwFqNH7X4Oea7dyWxY23RdnSaOua
- AIKCzTJ/zyjcPDuGieT6DHzGt8ujh3/63dbQ6X2H6JL/Jxfo82VIKvzHOOsewFPHnc7Z
- 0ONyRWJelP9vW8N19B6SeWgR+WhP3Q070MWIjhsRwJya/wD54DckswQKpr5TMdzJky4v
- 2yzg==
-X-Gm-Message-State: AOAM533FKJXLy+WPZrJlxKE1++Hy/KHt828u1x1RVUNHCw9Jdj51E0jn
- KbUjpycOYPAWqeaVL0p0io4LAwbTVF+RyA==
-X-Google-Smtp-Source: ABdhPJyPX/wiqqe3vp3/13uQvnlQZbUyGzIpvrkBOpe/APiP2oAzWvzYFRxJefLrl44crd3enNc2Lw==
-X-Received: by 2002:a17:90b:4b83:b0:1df:6862:fa9d with SMTP id
- lr3-20020a17090b4b8300b001df6862fa9dmr12702530pjb.32.1653065741654; 
- Fri, 20 May 2022 09:55:41 -0700 (PDT)
-Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
- by smtp.gmail.com with ESMTPSA id
- bw1-20020a17090af60100b001dc37aef4ffsm2080789pjb.48.2022.05.20.09.55.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 May 2022 09:55:41 -0700 (PDT)
-From: Kees Cook <keescook@chromium.org>
-To: Jaroslav Kysela <perex@perex.cz>
-Subject: [PATCH] ALSA: lola: Bounds check loop iterator against streams array
- size
-Date: Fri, 20 May 2022 09:55:37 -0700
-Message-Id: <20220520165537.2139826-1-keescook@chromium.org>
-X-Mailer: git-send-email 2.32.0
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="TocdB2ce"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id CAD8EB82CBC;
+ Fri, 20 May 2022 16:58:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76EB1C385A9;
+ Fri, 20 May 2022 16:58:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1653065929;
+ bh=5eW7QW59k/M62V1+P9ocVaObYnldsVstjJ4/K3L5dqc=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=TocdB2ceOiF73aMPdSHwUUZ8UhLMU/VXazy389x+96TL3S5HUtLfY807DySBe3efm
+ DaAUWPaN7O8hruWxI3ID0tMK1JIPC18+lLcK3qjqlslk9cenIj+pgSHlzZLDklKqsE
+ MftpcUJ8a8zh3uZjwoY7iGpC2l7coydIORrrj8OoPAntLLn/3tt4Rib1h+vyc2jO86
+ 055bL9vVRnURti/ZEwinype4DWPV2WizR7+GEm38OXAz0AL8ehlzP+iLYgQ0h5kviC
+ 2a/jH++md5ZYM2gtXrd1EmocY8Dx20gPkMHtGh92PlBnJKmUgaDqvMENDHenosvtl7
+ b/mrP4AsKeW4Q==
+From: Mark Brown <broonie@kernel.org>
+To: peter.ujfalusi@linux.intel.com, lgirdwood@gmail.com,
+ pierre-louis.bossart@linux.intel.com, AjitKumar.Pandey@amd.com,
+ daniel.baluta@nxp.com
+In-Reply-To: <20220516104711.26115-1-peter.ujfalusi@linux.intel.com>
+References: <20220516104711.26115-1-peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH 0/8] ASoC: SOF: Introduce generic (in)firmware tracing
+ infrastructure
+Message-Id: <165306592720.462688.5698887121075841093.b4-ty@kernel.org>
+Date: Fri, 20 May 2022 17:58:47 +0100
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1649; h=from:subject;
- bh=gr574qUgcbq3MCtPgynzNKObQz8m2bTmWuCGKzHJ8oE=;
- b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBih8gIIXIPk/P0F6PPAXfjj2YPCN4RrUGeVlJhNe5p
- dtIzbUCJAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCYofICAAKCRCJcvTf3G3AJmiTD/
- wLZy4PXZmSaQfadLpeAOF1dQZVsrfP59bq6c3hU+T8kHRdZW3c7TalWO8SX+bZ//+7SVTcdJ3UJR4U
- 5yQufY2Hu5aZ3SzEZieTedw2HeRQjSksM6BY86lsk7nCMQHsz1bv8ju2mh5JfscBmPxV8bCob83Wwc
- C3b38caQpgXXyLfO+4JnhaEdR/g+uSOpjCrr5pg2ibM3Yi+Ks51nX9fCaSnoDSJNVMv0ohoKHAYufC
- 6Vy4KR5vmxqVQ04jKa6PvDUR6UWAMvY0HKqln8l4KCKO8Hk06Ehrr7JRssAxU08EXO1rdscVF2pNrX
- bko77kiex8R3J9GV2TvBRQDTc/ddYj+4wHdETAY/8Hd9S2lTQL6Iq+fgpLIPbas35gzm3xnpbBsdaO
- 9j7QdWUXkSV85wipNjvYUpG2gQbi5cxtPr1CL4ejvZPUZs9L5TDQynWjmB2W6o29Ez8y08iCxy7Idv
- RcJhkyvvKw3vmG6ICncm8U2+yYyDIUywrft0CWriC3QZU9k90wdCdG310wVJEdfslQbXf8UgG3Hdbg
- quCgwW81cCh+SUGBw3NLNcOGx7VGJiQxvUMy9zKjVf4yuYbTSFpBNyhlLJM64JPCqxjTPw3iEIJ+Fx
- 37ZyhnaW3/JAHRauPrgsKEEXoGT+jBZuCVfVRqe4eAn8MomlRYNQkFyb//NA==
-X-Developer-Key: i=keescook@chromium.org; a=openpgp;
- fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-hardening@vger.kernel.org, Kees Cook <keescook@chromium.org>,
- Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org, ranjani.sridharan@linux.intel.com,
+ kai.vehmanen@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,41 +88,57 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-GCC 12 sees that it's technically possible for num_streams to be larger
-than ARRAY_SIZE(pcm->streams). Bounds-check the iterator.
+On Mon, 16 May 2022 13:47:03 +0300, Peter Ujfalusi wrote:
+> SOF is using dma-trace (or dtrace) as a firmware tracing method, which is only
+> supported with IPC3 and it is not applicable for IPC4.
+> 
+> Currently the dtrace is 'open managed' regardless of IPC version (we do force
+> disable it for IPC4, but the dtrace calls remain in place).
+> 
+> From the kernel point of view there are only few ops that needs to be exposed
+> by the firmware tracing support and everything else is IPC private, should not
+> be known by the core.
+> 
+> [...]
 
-../sound/pci/lola/lola_pcm.c: In function 'lola_pcm_update':
-../sound/pci/lola/lola_pcm.c:567:64: warning: array subscript [0, 31] is outside array bounds of 'struct lola_stream[16]' [-Warray-bounds]
-  567 |                         struct lola_stream *str = &pcm->streams[i];
-      |                                                    ~~~~~~~~~~~~^~~
-In file included from ../sound/pci/lola/lola_pcm.c:15:
-../sound/pci/lola/lola.h:307:28: note: while referencing 'streams'
-  307 |         struct lola_stream streams[MAX_STREAM_COUNT];
-      |                            ^~~~~~~
+Applied to
 
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>
-Cc: alsa-devel@alsa-project.org
-Signed-off-by: Kees Cook <keescook@chromium.org>
----
- sound/pci/lola/lola_pcm.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-diff --git a/sound/pci/lola/lola_pcm.c b/sound/pci/lola/lola_pcm.c
-index 738ec987000a..32193fae978d 100644
---- a/sound/pci/lola/lola_pcm.c
-+++ b/sound/pci/lola/lola_pcm.c
-@@ -561,8 +561,9 @@ static snd_pcm_uframes_t lola_pcm_pointer(struct snd_pcm_substream *substream)
- void lola_pcm_update(struct lola *chip, struct lola_pcm *pcm, unsigned int bits)
- {
- 	int i;
-+	u8 num_streams = min_t(u8, pcm->num_streams, ARRAY_SIZE(pcm->streams));
- 
--	for (i = 0; bits && i < pcm->num_streams; i++) {
-+	for (i = 0; bits && i < num_streams; i++) {
- 		if (bits & (1 << i)) {
- 			struct lola_stream *str = &pcm->streams[i];
- 			if (str->substream && str->running)
--- 
-2.32.0
+Thanks!
 
+[1/8] ASoC: SOF: Introduce IPC independent ops for firmware tracing support
+      commit: 0cfbaee21fcbf131f02c475dbc15f8a18ee621bc
+[2/8] ASoC: SOF: Rename dtrace_is_supported flag to fw_trace_is_supported
+      commit: 25b17da691f3c1a7cc433f864fd4845998a5a37a
+[3/8] ASoC: SOF: Clone the trace code to ipc3-dtrace as fw_tracing implementation
+      commit: 671e0b90051ec19e83c12501905734fb808b944e
+[4/8] ASoC: SOF: Switch to IPC generic firmware tracing
+      commit: 1dedbe4f223cac603e871d91133b9aa3136fbc21
+[5/8] ASoC: SOF: ipc3-dtrace: Move host ops wrappers from generic header to private
+      commit: b69979a1ec2d9347a43bf0ebdad2c1eb23447ca6
+[6/8] ASoC: SOF: Modify the host trace_init parameter list to include dmab
+      commit: 4b49cbd1e7ebe4b000a7eedc4f910488da62c055
+[7/8] ASoC: SOF: Introduce opaque storage of private data for firmware tracing
+      commit: 08341b27bd2ee3c79265ef7925b3bc68a1790ab9
+[8/8] ASoC: SOF: ipc3-dtrace: Move dtrace related variables local from sof_dev
+      commit: 0683532999ab3890f44f832cd47feee9e2374c22
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

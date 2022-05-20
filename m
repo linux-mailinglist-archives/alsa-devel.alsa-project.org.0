@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EF7A52EAA5
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 May 2022 13:21:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1022452EAA3
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 May 2022 13:20:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1AFBF1728;
-	Fri, 20 May 2022 13:20:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1AFBF1728
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9ACBA1758;
+	Fri, 20 May 2022 13:19:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9ACBA1758
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653045682;
-	bh=5eKqLMOdZtjukCQAuo4Z/Gy+jeKCAi4xtVHmgrj5cgg=;
+	s=default; t=1653045641;
+	bh=8fut9JzJYxNLGDgXqNqvjdjqVOf5PzcnA1tSy99j53M=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ab/lrSlpr4pcjZamyMFA3djLrR+bEnFefBZe5ZqghvzMnAocMmjMMHtD9jzvhG1oH
-	 4L0Q73Vw8Cn/7GAND0kBjJm4trV+IISNwZ/0iXqnSppFxry07+SiE0Jk4oKdJACh46
-	 iQEzz+Al8WwImRYjQg4d61IUD+p56zQElNyO4UbU=
+	b=PD63UgIUZLz7o8cs8Zp60DLID12Adp0oyx0MxkqtHDjnY9mTnWn2+qGMR1iF/k+2U
+	 HJ6+/h3wpzUtR8NkwvCBW53dh2Zqc23NB2ebXSiWJlmnV67COm5jLPj/ECQmxrvNIG
+	 2mFsMDatUOvcRWE4DeFJB/S62fQU3S0v5XRubEbk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C15B4F80534;
-	Fri, 20 May 2022 13:18:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E3BFCF8051F;
+	Fri, 20 May 2022 13:18:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1EB64F80526; Fri, 20 May 2022 13:18:52 +0200 (CEST)
+ id 83568F80520; Fri, 20 May 2022 13:18:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,42 +35,40 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B58D5F80519
- for <alsa-devel@alsa-project.org>; Fri, 20 May 2022 13:18:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B58D5F80519
+ by alsa1.perex.cz (Postfix) with ESMTPS id 84A0CF80519
+ for <alsa-devel@alsa-project.org>; Fri, 20 May 2022 13:18:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84A0CF80519
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="vP+WVx1M"
+ header.b="TSfCWZcz"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 993F561CD1;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id CD6F861DC2;
+ Fri, 20 May 2022 11:18:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78082C34113;
  Fri, 20 May 2022 11:18:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEE79C34117;
- Fri, 20 May 2022 11:18:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1653045523;
- bh=5eKqLMOdZtjukCQAuo4Z/Gy+jeKCAi4xtVHmgrj5cgg=;
+ s=k20201202; t=1653045524;
+ bh=8fut9JzJYxNLGDgXqNqvjdjqVOf5PzcnA1tSy99j53M=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=vP+WVx1MjIb6BNh8H6jwWU5TKkur/1WliBndJHz/RSV5gsNFtkN8NOUzneQM/irn4
- NQKW6JVHgxl7Yaayzjmxkoe5YODatQmTfehpptfz/Ft9HaUNe1Sf1l7SO7FI3aXHMi
- 3lBRApxbOtqE7OMPCafAPMkk06y9ln5rT9ntj3DZwVKnRChW5zCocoKTPs+yKuMnIl
- fgO/txet7EOr6GgSGBad/D5yKpV6cgmcsSBD47dub8vnv/fqBY7RalnZ9noF4r9qP+
- KcBtjqtkiRsbRMxFewQUAwgW0zMRhx9wTHwOBtmcExt3856ycvan5quDjeOWdhxNrZ
- JeAGASdeoBsQg==
+ b=TSfCWZczSs8IpkVlMLlX/SNVZs2B5/nmDn8nYxyBPA/4OIJvc2qwftb2PuNIG1vlT
+ zwfMGn0gs8m0RJ9KfejCYrWSPaLJzCNAQJoF86PpnVLYM0Ltzzhu/jrx1ppUwBqMXl
+ FhV/J0T5H4F7LgIsImNEcyqgqs0LKn4RP0VFxCaaUIWyAqqk/4BsR5+6Anthd98iH5
+ qwmKlh+PBkXJ8QrtHNAu7yGrTc/DEu8sF0y5vYcvqfxq5hx1ch4b7OVqMkGRtV+E40
+ CuqXKRdj61RUjEGSOG+8CcInbg8SgVODV34PJPi/pn8BwmUSL+tvzaEBnicAJUxjXB
+ GlLyZUYPMK8uw==
 From: Mark Brown <broonie@kernel.org>
 To: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org
-In-Reply-To: <20220517173715.468894-1-pierre-louis.bossart@linux.intel.com>
-References: <20220517173715.468894-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH RESEND] ASoC: SOF: sof-client-ipc-flood-test: use
- pm_runtime_resume_and_get()
-Message-Id: <165304552169.45439.8283908201602877006.b4-ty@kernel.org>
-Date: Fri, 20 May 2022 12:18:41 +0100
+In-Reply-To: <20220517173109.468568-1-pierre-louis.bossart@linux.intel.com>
+References: <20220517173109.468568-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 0/2] ASoC: SOF: mediatek: add debug dump
+Message-Id: <165304552320.45439.13190111170352860473.b4-ty@kernel.org>
+Date: Fri, 20 May 2022 12:18:43 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, peter.ujfalusi@linux.intel.com,
- yung-chuan.liao@linux.intel.com
+Cc: tiwai@suse.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,13 +84,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 17 May 2022 12:37:15 -0500, Pierre-Louis Bossart wrote:
-> Use pm_runtime_resume_and_get() to replace the pm_runtime_get_sync() and
-> pm_runtime_put_noidle() pattern.
+On Tue, 17 May 2022 12:31:07 -0500, Pierre-Louis Bossart wrote:
+> YC Hung (2):
+>   ASoC: SOF: mediatek: Add mediatek common debug dump
+>   ASoC: SOF: mediatek: Add mt8195 debug dump
 > 
-> No functional changes.
+> sound/soc/sof/mediatek/Makefile          |  1 +
+>  sound/soc/sof/mediatek/mt8195/mt8195.c   | 29 ++++++++
+>  sound/soc/sof/mediatek/mtk-adsp-common.c | 84 ++++++++++++++++++++++++
+>  sound/soc/sof/mediatek/mtk-adsp-common.h | 10 +++
+>  4 files changed, 124 insertions(+)
+>  create mode 100644 sound/soc/sof/mediatek/mtk-adsp-common.c
+>  create mode 100644 sound/soc/sof/mediatek/mtk-adsp-common.h
 > 
-> 
+> [...]
 
 Applied to
 
@@ -100,8 +105,10 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: SOF: sof-client-ipc-flood-test: use pm_runtime_resume_and_get()
-      commit: b1378b259c0c0300cf62dd7117bf550edce0f9cc
+[1/2] ASoC: SOF: mediatek: Add mediatek common debug dump
+      commit: 698c1e99a0a3b883a629159ae47fa41778209258
+[2/2] ASoC: SOF: mediatek: Add mt8195 debug dump
+      commit: 3a054f90e95500387cc871f5a04ad91def1664ed
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

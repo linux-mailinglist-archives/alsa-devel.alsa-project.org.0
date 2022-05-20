@@ -2,77 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E833852E6DA
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 May 2022 10:01:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9EA652E6E2
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 May 2022 10:03:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 85BD916B5;
-	Fri, 20 May 2022 10:00:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85BD916B5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 86C57172B;
+	Fri, 20 May 2022 10:03:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86C57172B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653033688;
-	bh=BNhFbqn75SZjOLAjT8wFWKFcIMqwznG0G3VjD27H2T0=;
+	s=default; t=1653033830;
+	bh=6ztkeEZNbry2Qi99SpMsOagul4IAoh0IrRz+rwxc7c4=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vVSdtzKcMMEPIenrbPRQvz4FvjXT1z4AR7xy3BESWgmhvrZfXne4/WYOErTsVeW0h
-	 RtowiuPL1qPVTrYngeaOUSPGbgi28sp6cFPSirbIgjQzQKKFpQ4tFIjzLza6VHJDOO
-	 EdGFqkPO/z8KngUpuS+2n9NPpGgcvIAignXGfcCM=
+	b=NrVpxTw5vH8+cBlfoZV74nHnYZUH83WGSfe9EEBQ3YrALrChRpeSSmNza0MyRcZJs
+	 BFLPrgxkX93sxZhbUnFiy6lWipC6X9LmDtElJ4nsb8lM1QTzg4E3ZNOdOmIaKAV/Yi
+	 GkQMN4QcRLfnE07+pvuciu2Ch0V03y8T2z5d8GGY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 01B0DF801F5;
-	Fri, 20 May 2022 10:00:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 04C80F80109;
+	Fri, 20 May 2022 10:02:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 652F9F8019D; Fri, 20 May 2022 10:00:28 +0200 (CEST)
+ id 5BC12F8019D; Fri, 20 May 2022 10:02:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 78825F80109
- for <alsa-devel@alsa-project.org>; Fri, 20 May 2022 10:00:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78825F80109
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3E535F800F0
+ for <alsa-devel@alsa-project.org>; Fri, 20 May 2022 10:02:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E535F800F0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="c8aF8z94"; 
+ header.b="xcESGwPy"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="e5fyizbY"
+ header.b="2vqju6Sy"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 5E2C41F894;
- Fri, 20 May 2022 08:00:18 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id B82A521C96;
+ Fri, 20 May 2022 08:02:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1653033618; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1653033761; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=kMKh/Uy0Fns4/DVHh6qKhq/hSbzRGo3igA2tqZ9EFDk=;
- b=c8aF8z9411V6NZY1bfOQpBZUqrNA0TtQggHEsriTXMomPg3VrgKzxBi1qmba5LP+2GDu7N
- 9ZDIlIIwgm3g7vY4pqprmwTu20syL/4HiH1Qz5C8P4w6sXgA+ZmLSaNEkeA2lmTaTYsCeB
- 7A+9HcqURLGSvpzwSXaL2SL5mq6YDVk=
+ bh=4dyUHFa2rIcc2e9oqlM5k+EFPG8cyRAb8yrunmcF9hY=;
+ b=xcESGwPy0Oxm8ptaMYTeQ1ZUtWS7igSONK/J1gei8hDXK5TxtVUMbHlvSvUQ+VvfdqjA2z
+ b5FRJvkFB8kjiGesex4wRf1LZb0OpJuZ8tIJiyI7Dh4D24rchxdyQ0GVUDjJbelPcZAgkq
+ TgGHfcbTnCwHe4b1mpnZVhzT8xDLkKY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1653033618;
+ s=susede2_ed25519; t=1653033761;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=kMKh/Uy0Fns4/DVHh6qKhq/hSbzRGo3igA2tqZ9EFDk=;
- b=e5fyizbYQmJwGI/73KkgRbu2+OWQo0fz9mPNBt7gd1hB6k+eq4mVf2cEqAG+mrkV9W6dy+
- 50JyoEMNSeS85CCw==
+ bh=4dyUHFa2rIcc2e9oqlM5k+EFPG8cyRAb8yrunmcF9hY=;
+ b=2vqju6SyMmmrV/hF8pQp+vdFfGjAiivQJBMAbq4l/eQLpLOq0D/Alfa8fDgCzc+RUuwSwr
+ 9cJguiVGdFSpsiBg==
 Received: from valkyrie.site.suse.de (unknown [10.163.18.242])
- by relay2.suse.de (Postfix) with ESMTP id 2F3C02C141;
- Fri, 20 May 2022 08:00:18 +0000 (UTC)
-Date: Fri, 20 May 2022 10:00:18 +0200
-Message-ID: <87mtfcr5v1.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 8ED052C141;
+ Fri, 20 May 2022 08:02:41 +0000 (UTC)
+Date: Fri, 20 May 2022 10:02:41 +0200
+Message-ID: <87leuwr5r2.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
 Subject: Re: [PATCH v3 04/17] ALSA: hda: cs35l41: Add initial DSP support and
  firmware loading
-In-Reply-To: <20220519174749.15459-5-vitalyr@opensource.cirrus.com>
+In-Reply-To: <87mtfcr5v1.wl-tiwai@suse.de>
 References: <20220519174749.15459-1-vitalyr@opensource.cirrus.com>
  <20220519174749.15459-5-vitalyr@opensource.cirrus.com>
+ <87mtfcr5v1.wl-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?ISO-2022-JP-2?B?R29qGyQoRCtXGyhC?=) APEL/10.8 Emacs/27
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -96,24 +97,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 19 May 2022 19:47:36 +0200,
-Vitaly Rodionov wrote:
+On Fri, 20 May 2022 10:00:18 +0200,
+Takashi Iwai wrote:
 > 
-> From: Vitaly Rodionov <vitaly.rodionov@cirrus.com>
+> On Thu, 19 May 2022 19:47:36 +0200,
+> Vitaly Rodionov wrote:
+> > 
+> > From: Vitaly Rodionov <vitaly.rodionov@cirrus.com>
+> > 
+> > This patch adds support for the CS35L41 DSP.
+> > The DSP allows for extra features, such as running
+> > speaker protection algorithms and hibernations.
+> > 
+> > To utilize these features, the driver must load
+> > firmware into the DSP, as well as various tuning
+> > files which allow for cusomtization for specific
+> > models.
 > 
-> This patch adds support for the CS35L41 DSP.
-> The DSP allows for extra features, such as running
-> speaker protection algorithms and hibernations.
-> 
-> To utilize these features, the driver must load
-> firmware into the DSP, as well as various tuning
-> files which allow for cusomtization for specific
-> models.
+> Wouldn't this sequence be required after S3/S4 resume?
+> I thought cs35l41_hda_bind() is called only at the first binding.
 
-Wouldn't this sequence be required after S3/S4 resume?
-I thought cs35l41_hda_bind() is called only at the first binding.
+OK, I see that the later patches in the series are about hibernation.
+It might be good to mention that in this patch, though.
 
-
-thanks,
 
 Takashi

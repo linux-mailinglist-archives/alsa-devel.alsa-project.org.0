@@ -2,83 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CDC352EDA7
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 May 2022 15:59:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A97B52EE5B
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 May 2022 16:42:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E6720172C;
-	Fri, 20 May 2022 15:58:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6720172C
+	by alsa0.perex.cz (Postfix) with ESMTPS id EECA31726;
+	Fri, 20 May 2022 16:41:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EECA31726
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653055146;
-	bh=8EpgGp73lszRCHe+ALVlGHBcYp18RdxmZLceyE6uv8A=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=SWb0PLrzWINDB68r4flM5YahmgJiJ2eOduNnwWil2O/1KlqTd5ZM69QPJL8hVLFKW
-	 KUpOCIwThPN2wzdBsXB/JunMDWSKVHJGfoKNCOI5/ZJKVGAqccmI0bqNun7H3sKiiX
-	 AGzlE3lAu+0qgwHt/Eshu8bS9njntXTjhkyIkT7A=
+	s=default; t=1653057724;
+	bh=QnszhtvhouVRGGtJ1BImAOgQzjjpIeBfd01w+p8YnwU=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=k9GqiPPDR9FG+uE4JdpABwmNDg+da7XMbrpsDlUjJGim1CtCeeg545W92yhwx1oGt
+	 cP55EjDI47JN8x68lVa8+fItN/ea26HjlK4BNgihcpIxZsvqnFd3fCa0KbUE6CRe6E
+	 nkyzuVYLwtx3IHUyxcEkSNFZ3zfUtcqKsuYNliPU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 66E78F801F5;
-	Fri, 20 May 2022 15:58:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5AB74F800F0;
+	Fri, 20 May 2022 16:41:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C6E8EF8019D; Fri, 20 May 2022 15:58:04 +0200 (CEST)
+ id 63361F8019D; Fri, 20 May 2022 16:41:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D1241F800F0
- for <alsa-devel@alsa-project.org>; Fri, 20 May 2022 15:57:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1241F800F0
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1ns38X-0005Dr-Iv; Fri, 20 May 2022 15:57:49 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1ns38X-003Ukz-3Y; Fri, 20 May 2022 15:57:47 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1ns38V-00AykV-1E; Fri, 20 May 2022 15:57:47 +0200
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: James Schulman <james.schulman@cirrus.com>,
- David Rhodes <david.rhodes@cirrus.com>,
- Lucas Tanure <tanureal@opensource.cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-Subject: [PATCH] ASoC: cs35l45: Make bmc150_magn_remove() return void
-Date: Fri, 20 May 2022 15:57:40 +0200
-Message-Id: <20220520135740.770801-1-u.kleine-koenig@pengutronix.de>
-X-Mailer: git-send-email 2.35.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 421F5F80109
+ for <alsa-devel@alsa-project.org>; Fri, 20 May 2022 16:40:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 421F5F80109
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="CfMKxuAB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1653057657; x=1684593657;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=QnszhtvhouVRGGtJ1BImAOgQzjjpIeBfd01w+p8YnwU=;
+ b=CfMKxuABVBcJpVcaDToUeaJK2RX+JulCj4BrWYMydBdjt/z57pB9ckbV
+ FTaYc7flh4AsXPB59VhVxZi0FbqyEVxOQLxvfp3j/4r9xuMIwJZLqCpBg
+ kpIvI2iDra4W2eAT+0PRFDEXNvUyimcs7jiCaSyBeusPhN7r4LuEbZZwx
+ KKWD5qIIzs88cIiqF+2BDhXgmS5FrCQrcGuNLUZckDF0f6Rs/Bbo/h4Ye
+ SlP6LFJ5LRzC/2w5tFY/r0pHRAUs9EEScXWH0/bomHdh5Vyvb1fJWP8Dk
+ hhO/rxMprIYxPplZBsawfsdRIQOZMmH3QRmeTgjF5wPlXEvKVArOHyL21 g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10353"; a="254681907"
+X-IronPort-AV: E=Sophos;i="5.91,239,1647327600"; d="scan'208";a="254681907"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 May 2022 07:40:53 -0700
+X-IronPort-AV: E=Sophos;i="5.91,239,1647327600"; d="scan'208";a="599251940"
+Received: from vphopper-mobl.amr.corp.intel.com (HELO [10.252.133.54])
+ ([10.252.133.54])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 May 2022 07:40:52 -0700
+Message-ID: <9fb8fad5-74f7-f6ae-95e0-f1c181532a71@linux.intel.com>
+Date: Fri, 20 May 2022 09:24:02 -0500
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.5.0
+Subject: Re: [PATCH] ASoC: rt1308-sdw: add the default value of register 0xc320
+Content-Language: en-US
+To: shumingf@realtek.com, broonie@kernel.org, lgirdwood@gmail.com
+References: <20220520090205.25857-1-shumingf@realtek.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20220520090205.25857-1-shumingf@realtek.com>
 Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2359; h=from:subject;
- bh=8EpgGp73lszRCHe+ALVlGHBcYp18RdxmZLceyE6uv8A=;
- b=owEBbQGS/pANAwAKAcH8FHityuwJAcsmYgBih55QaPfQOvodZZCuVpj9yYxxaYS7gJ36uPwkshT7
- qewQu5yJATMEAAEKAB0WIQR+cioWkBis/z50pAvB/BR4rcrsCQUCYoeeUAAKCRDB/BR4rcrsCRFpB/
- 4/ciB/26VuYXzYMjoaVe5NU3K81sGenhkNKqd4nO0RtOAY2HstwGwi8GV56IcIb3Ka8L1lKk1LgCHh
- 0ZUvNwyJ7QWVID9Q+RWMYUCPRe4JUqqhjIOvO3UHnZz0HFKmyvZ/O2sok225VeeGLUwDlgr7tz5AUD
- FWLXZrmaJYFKkrUfbjQz1T8GE1bmaVFbAcnZ7oWGK6vkYoOMufoNlrir4rGQTF4g4I5jrx6KQKqHOs
- GWtEfYI2Ut7lrcaGko7CNEDSK4cnkkj/CB//tvcqpHFcyWXrO66J5m/sCtHqTMCU8Y6wP6xpbRHqtV
- RK7p6rJO5Z7/IlFXetF6utWyu1Lgtz
-X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
- fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- kernel@pengutronix.de
+Content-Transfer-Encoding: 7bit
+Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
+ lars@metafoo.de, derek.fang@realtek.com, flove@realtek.com,
+ bard.liao@intel.com, pierre-louis.bossart@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,70 +93,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-cs35l45_remove() always returns zero. Make it return no value which
-makes it easier to see in the callers that there is no error to handle.
 
-Also the return value of i2c driver remove callbacks is ignored anyway.
-This prepares making i2c remove callbacks return void, too.
 
-Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
----
- sound/soc/codecs/cs35l45-i2c.c | 4 +++-
- sound/soc/codecs/cs35l45.c     | 4 +---
- sound/soc/codecs/cs35l45.h     | 2 +-
- 3 files changed, 5 insertions(+), 5 deletions(-)
+On 5/20/22 04:02, shumingf@realtek.com wrote:
+> From: Shuming Fan <shumingf@realtek.com>
+> 
+> The driver missed the default value of register 0xc320.
+> This patch adds that default value to avoid the error messages
+> when the driver went to suspend mode already.
+> 
+> BugLink: https://github.com/thesofproject/linux/issues/3651
+> Signed-off-by: Shuming Fan <shumingf@realtek.com>
 
-diff --git a/sound/soc/codecs/cs35l45-i2c.c b/sound/soc/codecs/cs35l45-i2c.c
-index 18ebf1e14b91..53a57320d0ab 100644
---- a/sound/soc/codecs/cs35l45-i2c.c
-+++ b/sound/soc/codecs/cs35l45-i2c.c
-@@ -40,7 +40,9 @@ static int cs35l45_i2c_remove(struct i2c_client *client)
- {
- 	struct cs35l45_private *cs35l45 = i2c_get_clientdata(client);
- 
--	return cs35l45_remove(cs35l45);
-+	cs35l45_remove(cs35l45);
-+
-+	return 0;
- }
- 
- static const struct of_device_id cs35l45_of_match[] = {
-diff --git a/sound/soc/codecs/cs35l45.c b/sound/soc/codecs/cs35l45.c
-index 7822626d3693..64a3abe14010 100644
---- a/sound/soc/codecs/cs35l45.c
-+++ b/sound/soc/codecs/cs35l45.c
-@@ -669,7 +669,7 @@ int cs35l45_probe(struct cs35l45_private *cs35l45)
- }
- EXPORT_SYMBOL_GPL(cs35l45_probe);
- 
--int cs35l45_remove(struct cs35l45_private *cs35l45)
-+void cs35l45_remove(struct cs35l45_private *cs35l45)
- {
- 	pm_runtime_disable(cs35l45->dev);
- 
-@@ -677,8 +677,6 @@ int cs35l45_remove(struct cs35l45_private *cs35l45)
- 	regulator_disable(cs35l45->vdd_a);
- 	/* VDD_BATT must be the last to power-off */
- 	regulator_disable(cs35l45->vdd_batt);
--
--	return 0;
- }
- EXPORT_SYMBOL_GPL(cs35l45_remove);
- 
-diff --git a/sound/soc/codecs/cs35l45.h b/sound/soc/codecs/cs35l45.h
-index 4e266d19cd1c..680891bcfce9 100644
---- a/sound/soc/codecs/cs35l45.h
-+++ b/sound/soc/codecs/cs35l45.h
-@@ -212,6 +212,6 @@ extern const struct regmap_config cs35l45_spi_regmap;
- int cs35l45_apply_patch(struct cs35l45_private *cs43l45);
- unsigned int cs35l45_get_clk_freq_id(unsigned int freq);
- int cs35l45_probe(struct cs35l45_private *cs35l45);
--int cs35l45_remove(struct cs35l45_private *cs35l45);
-+void cs35l45_remove(struct cs35l45_private *cs35l45);
- 
- #endif /* CS35L45_H */
+Tested-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-base-commit: 0d463d016000d68d7e982720b5e4380b2d83409a
--- 
-2.35.1
-
+> ---
+>  sound/soc/codecs/rt1308-sdw.h | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/sound/soc/codecs/rt1308-sdw.h b/sound/soc/codecs/rt1308-sdw.h
+> index c5ce75666dcc..6668e19d85d4 100644
+> --- a/sound/soc/codecs/rt1308-sdw.h
+> +++ b/sound/soc/codecs/rt1308-sdw.h
+> @@ -140,6 +140,7 @@ static const struct reg_default rt1308_reg_defaults[] = {
+>  	{ 0x3008, 0x02 },
+>  	{ 0x300a, 0x00 },
+>  	{ 0xc003 | (RT1308_DAC_SET << 4), 0x00 },
+> +	{ 0xc000 | (RT1308_POWER << 4), 0x00 },
+>  	{ 0xc001 | (RT1308_POWER << 4), 0x00 },
+>  	{ 0xc002 | (RT1308_POWER << 4), 0x00 },
+>  };

@@ -2,99 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75D0352E9DC
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 May 2022 12:25:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F05BB52EA9F
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 May 2022 13:19:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0652B1741;
-	Fri, 20 May 2022 12:25:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0652B1741
+	by alsa0.perex.cz (Postfix) with ESMTPS id 85060173B;
+	Fri, 20 May 2022 13:18:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85060173B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653042354;
-	bh=Ctcih0AxGGxU/GpcGZz5CZ8rkyHC/3xFQsqauWCyEHk=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1653045582;
+	bh=K/HrRMv6djwUaET7IYhl0udvj25T3d8ReiyZWFxaTSs=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=O45vxmrTnvsQY1Ec1XQ6CgMsq72Q0NlJGn6RiFlNR9tEBw/IEp23xQ7LDqDzUVtcv
-	 mXmbQBjTjki6piI8S8Zmg/oF0hHS4SrvqkEwm9tmw0zSYB+UozpDBfrm+il4ei+uRi
-	 UnpEyhqk0nyIvQ0LocucCFjNnyIqNbpPkMmhFXBQ=
+	b=RhmGZ6ESSkG0hOT/J+nVQOEJMFeJxNpsf0MxTcbGq6tlohPbo3kLyr248V5UZykVL
+	 oZNTfGD4n07HXLGK73iX4T9MpOqw8oeQBV4DzCUm6/PTe+5bo3KWtsx3NsKA2bhT8V
+	 wY08gO6sB3t5ATArCqTN1+pmwL6R3S/MORDI+tec=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 637BDF801F5;
-	Fri, 20 May 2022 12:24:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EC652F801F5;
+	Fri, 20 May 2022 13:18:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DD328F8019D; Fri, 20 May 2022 12:24:53 +0200 (CEST)
+ id 37A3DF8019D; Fri, 20 May 2022 13:18:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id B23CBF800D2
+ for <alsa-devel@alsa-project.org>; Fri, 20 May 2022 13:18:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B23CBF800D2
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="WGRk3hmf"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3D5C0F800D2
- for <alsa-devel@alsa-project.org>; Fri, 20 May 2022 12:24:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D5C0F800D2
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="E3MDFwXs"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24K5UCxB026795;
- Fri, 20 May 2022 05:24:49 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=WSOvhMBIg+CnexC+Y8X+ZG7BYMkoKeetiZYSiJmE0cw=;
- b=E3MDFwXsbJRiBaE4OT2ai+JBwbYdqbCNDnTM5WTrjlOXZlrikeuJ1tiL+m5bGqsZo03j
- hZNgysmRG2QNG9jfqt9CJyU1HKdQikMi9FpVUiaR7mHeBwbTedb07Mex56RR9EocUbFP
- vjQtPAGfK1wk5RM/9IUs9D/tVUYW0yOqIgk1qYoeQRhBJEla3nFqJiatKvzERFcXHqSI
- Q+/Hno0xMo5/BjF4Kn3iHQ0QMOXFJX9/9GuLbAmIRVv9J84ewdgkmDjMuNAiVSG2dbUO
- otHvJplf8L8ZVHcLm7hZgWu0kIHYmP+5RyytltwUsoK/TaAybqvdQMM8AE7gkhiA4klo dQ== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3g28upg6de-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Fri, 20 May 2022 05:24:48 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Fri, 20 May
- 2022 11:24:47 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.24 via
- Frontend Transport; Fri, 20 May 2022 11:24:47 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 20F84458;
- Fri, 20 May 2022 10:24:47 +0000 (UTC)
-Date: Fri, 20 May 2022 10:24:47 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH 56/56] ASoC: simple-card-utils: Move
- snd_soc_component_is_codec to be local
-Message-ID: <20220520102447.GL38351@ediswmail.ad.cirrus.com>
-References: <20220519154318.2153729-1-ckeepax@opensource.cirrus.com>
- <20220519154318.2153729-57-ckeepax@opensource.cirrus.com>
- <87czg98193.wl-kuninori.morimoto.gx@renesas.com>
+ by ams.source.kernel.org (Postfix) with ESMTPS id E6F2FB82AEB;
+ Fri, 20 May 2022 11:18:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D978C385A9;
+ Fri, 20 May 2022 11:18:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1653045517;
+ bh=K/HrRMv6djwUaET7IYhl0udvj25T3d8ReiyZWFxaTSs=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=WGRk3hmfSkiDeLWCnz04H8B+sSLqBguOtwl2KpvZ8sObiAf4zRt6NchEBkzwIxltu
+ 0ClkpwW/38zpvxVUGzZZO+Q2ZfsRXedvVEJ+74UvyDYlrD1swomyIt7DAfoh0n9pgX
+ bU2oqJoRBmBJ4TxVjtNewW6hM0fCiaot0xp4diFf0s4KIZeFiHS0C9Vbubj6wyVeyl
+ W2rTDoXDNAwIrUewLeMwdRx5vTuF+vNIf3XhSlrrl9mvO+tIz0uum5FkAfbppvRFlW
+ XQJjJ3YOA5bVtWC3Uadk8JrvebbeUblJ5wtgOoR+almQA7Nkl4l5vWiKD9WZg4hxJM
+ /PRkoLwcYpDcA==
+From: Mark Brown <broonie@kernel.org>
+To: perex@perex.cz, tiwai@suse.com, quic_srivasam@quicinc.com,
+ quic_potturu@quicinc.com, lgirdwood@gmail.com, yuehaibing@huawei.com
+In-Reply-To: <20220516120909.36356-1-yuehaibing@huawei.com>
+References: <20220516120909.36356-1-yuehaibing@huawei.com>
+Subject: Re: [PATCH -next] ASoC: codecs: lpass: Fix passing zero to 'PTR_ERR'
+Message-Id: <165304551581.45439.10887051635570767512.b4-ty@kernel.org>
+Date: Fri, 20 May 2022 12:18:35 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <87czg98193.wl-kuninori.morimoto.gx@renesas.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: EewLKkNvojqM2gQAbwrh9EQ5fKjwiv7u
-X-Proofpoint-ORIG-GUID: EewLKkNvojqM2gQAbwrh9EQ5fKjwiv7u
-X-Proofpoint-Spam-Reason: safe
-Cc: cezary.rojewski@intel.com, heiko@sntech.de, alsa-devel@alsa-project.org,
- nicolas.ferre@microchip.com, srinivas.kandagatla@linaro.org,
- peter.ujfalusi@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- jbrunet@baylibre.com, pierre-louis.bossart@linux.intel.com, krzk@kernel.org,
- linux-rockchip@lists.infradead.org, linux-imx@nxp.com,
- linux-mips@vger.kernel.org, linux-sunxi@lists.linux.dev,
- linux-xtensa@linux-xtensa.org, nsaenz@kernel.org, broonie@kernel.org,
- linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-omap@vger.kernel.org,
- patches@opensource.cirrus.com, lgirdwood@gmail.com, daniel@zonque.org,
- kernel@pengutronix.de, shawnguo@kernel.org, jarkko.nikula@bitmer.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,65 +84,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, May 20, 2022 at 01:02:33AM +0000, Kuninori Morimoto wrote:
+On Mon, 16 May 2022 20:09:09 +0800, YueHaibing wrote:
+> sound/soc/codecs/lpass-macro-common.c:28 lpass_macro_pds_init() warn: passing zero to 'PTR_ERR'
+> sound/soc/codecs/lpass-macro-common.c:38 lpass_macro_pds_init() warn: passing zero to 'PTR_ERR'
+> sound/soc/codecs/lpass-macro-common.c:54 lpass_macro_pds_init() warn: passing zero to 'ERR_PTR'
 > 
-> Hi
+> dev_pm_domain_attach_by_name() may return NULL, set 'ret' as
+> -ENODATA to fix this warning.
 > 
-> This is not related to this patch, but...
-> 
-> > -static inline int snd_soc_component_is_codec(struct snd_soc_component *component)
-> > -{
-> > -	return component->driver->non_legacy_dai_naming;
-> > -}
-> (snip)
-> > +static inline int asoc_simple_component_is_codec(struct snd_soc_component *component)
-> > +{
-> > +	return component->driver->endianness;
-> > +}
-> 
-> I have added "endianness" "non_legacy_dai_naming" to component
-> when convert old "Codec style" into current "Component style".
-> All codec needs to have these 2.
-> 
-> 	69941bab7c7aeaa7bf7e84397e294c17f0b7c6df
-> 	("ASoC: snd_soc_component_driver has non_legacy_dai_naming")
-> 
-> 	273d778ef38a8861f880e9df5799029dc82bd55d
-> 	("ASoC: snd_soc_component_driver has endianness")
-> 
-> The reason why I didn't use "codec" was that try to keep
-> original style as much as possible.
-> But it seems this is good time to use "codec" for it ?
-> I think the code will be more understandable.
-> 
-> -	.endianness
-> -	.non_legacy_dai_naming
-> +	.is_codec
+> [...]
 
-Yeah I considered this but it didn't really feel like the right
-way to go to me. Firstly, at this stage we almost certainly need
-to keep the endianness and non_legacy_dai_naming flags, there are
-corner cases when endianness probably shouldn't be applied to CODECs
-(as noted in my endianness series), and there are platform drivers
-that use non_legacy_dai_naming.
+Applied to
 
-We could add an is_codec flag along side the other two. But it
-means a whole extra flag and means the the core is still requiring
-a concept of what is a CODEC driver, which really we want to get
-rid of as part of componentisation.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-My thinking was that, whilst making this function local to the
-driver isn't perfect, simple card will be used with simple CODECs
-that are likely to exist on a standard audio bus, and thus have
-endianness and the newer graph cards don't require specific
-identification of what is a CODEC driver. So it probably works as
-a solution for now.
+Thanks!
 
-> 
-> Thank you for your help !!
+[1/1] ASoC: codecs: lpass: Fix passing zero to 'PTR_ERR'
+      commit: 81e7b165c45e94188ae8f1134b57f27d1f35452f
 
-Absolutely no problem, thank you for all the work you have done
-on this over the years.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
 Thanks,
-Charles
+Mark

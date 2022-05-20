@@ -2,106 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C8C052E539
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 May 2022 08:46:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EAD152E55E
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 May 2022 08:52:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C8F1C1749;
-	Fri, 20 May 2022 08:45:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8F1C1749
+	by alsa0.perex.cz (Postfix) with ESMTPS id 20C0B172B;
+	Fri, 20 May 2022 08:51:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 20C0B172B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653029186;
-	bh=7Mr5REDjIQbStTsPG0GJXWTg1VHXRdrD7uE6szZSh4U=;
+	s=default; t=1653029563;
+	bh=mn0lLJGXjyDPcC2FCBVLlbwbaPUhgL53Zvc0ZBoUKBY=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JhotGbai38txjunWrHT3i9kNSigPN4QPHte0SBduTVhT9XQxQH3XouyE2dL42mqsi
-	 WnAFQYRDjFz3AGoPKbhcqWg+SrZr0XpRxj8Pk4vZ5Ksbxy6AoeNs751MNGDHvzNEeD
-	 pWCXPGha6a9/CA6rni2MVyJGqOVgBTkYLRDHBzGs=
+	b=vFGYKUmAabo3+P38auWSXi8FZb8APJcqjfs4zzJfX9o6Go5B+K46+BWcBw9VjoZJ3
+	 GQNbYxjsIcdYxpLCU170XF3VFgWt7Fgf15UVEhgH/ctdzc8SgDNj4rwYugHeE/sd0J
+	 Phnmq2TByTZWN6w4gvTW37g8Q8gGqKEgfxWiZc8g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2A3BDF800D2;
-	Fri, 20 May 2022 08:45:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7A9F8F801F5;
+	Fri, 20 May 2022 08:51:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3BFEEF8019D; Fri, 20 May 2022 08:45:26 +0200 (CEST)
+ id 8D98FF8019D; Fri, 20 May 2022 08:51:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [IPv6:2a00:1450:4864:20::22e])
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 54979F800D2
- for <alsa-devel@alsa-project.org>; Fri, 20 May 2022 08:45:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54979F800D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id C79B4F80109
+ for <alsa-devel@alsa-project.org>; Fri, 20 May 2022 08:51:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C79B4F80109
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="O6glMIfz"
-Received: by mail-lj1-x22e.google.com with SMTP id m6so8641985ljb.2
- for <alsa-devel@alsa-project.org>; Thu, 19 May 2022 23:45:18 -0700 (PDT)
+ header.b="mOoGc9M7"
+Received: by mail-lf1-x132.google.com with SMTP id v8so10787877lfd.8
+ for <alsa-devel@alsa-project.org>; Thu, 19 May 2022 23:51:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=AnEwnvhKln/QqudtDrsLeq9rcJ9ha/C6wjXnDVo990k=;
- b=O6glMIfzZPcKFuiAIfpgKl4vPS6f/5kKRDEsCZ51jhpn2nvRMnbXG5g+EDHeE904nP
- t7HS+b/93itLD8AaEQHAOU/xrWjqGgTNAbPH9jakVpgMQTIhKd99kpg+p8rnNvdIqwdN
- 6qoJ6hv6rNLvwFxEXHoFISEMQCRvxYIVNP2Tdx5gjSpfV8JASem8ZyxogIrKo+3noZeo
- On3nePrDC2RBv0fxVZnC2PEjR3MvP9xqKuaD0jO5YVuhsa36Q52R9it54/UTpAk0vFOu
- oN03MNBdr3Uh7nMtz9gRp/Uo5idHLu4wjadR99H/ArdkjYBw/HcmyNp38tQ7XXACXvAn
- 7LxQ==
+ bh=2sD0n6yJXGuDhEewc3lorHaqBnUR099vPCJ5WEpCDzU=;
+ b=mOoGc9M7MZgxeaun4PGlBRo4C1JXBlLpYBpB0L6MScXAzAz4CQjEupqeEEiqIWVtoS
+ yzsod5WBURL9tjzxFjdaKzclp79TQIts7pzJufezPjonrPmOg2kLST6Yz5yk0poAdEkv
+ 1FokQMf2YtyUEt6qDRhGfKp0jAmlbIhEPE0Y9yp1BlWPZddAsy6avCDFyvojQByppw3U
+ YZdF+69jR6WSNT6qja7BKlhcm6UOQBYfk6GgCQMdG/v+I34ZPzvjSe2msGn5TGD8lKrK
+ CkEzOdKtdYsHqPbRhaDRxiJDH5hUlWVIVsUbCi9Mslb5JOHLhOU32ArxKxPNHc/7iUZR
+ xWpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=AnEwnvhKln/QqudtDrsLeq9rcJ9ha/C6wjXnDVo990k=;
- b=5LAuaIEfMovXy8/zrD0gxu0dBGpAX/gxi979NPQbmnuO77W0zOok5J3WzCw5DZgKZm
- xhZtSQKMIZyewePuBYwHnpyMtOyPicrLSILsMUFhVXmOETRhB3xisGv1Opy4EWNgYJaq
- lcz94WHj2+yBF3mPiePI36xpn3Ddm3AOwLZaOHLaqIRSxoYa1YmYDYmqN+nmpMmgb8oe
- R5DAsoFM1VMRlC2HV8Ro7HLGvj6yTqcdH+l99ztQesKyGNIG0LSxHTugnVvjATDOXb5+
- XWOhvR25IAFjol3/xoLdTFjRa2Wk+1LBnghp4GsM9uCpOZ6FZ976swTCocxiaS44orab
- wTaA==
-X-Gm-Message-State: AOAM533Fy+FxvKgZ2Jf8jYM67ISU0LT8N5m7Nx94bvfc4FZyBjxPRBkH
- GDrOdZt2Sfb9+xnTR5f+39Vv8g==
-X-Google-Smtp-Source: ABdhPJxU0QeXD6emlDZWLebUbtElcVEEa6zD5/lvXQQQBtACmvvZZjPEOav+NOjy2nN8XnxEigbRJQ==
-X-Received: by 2002:a05:651c:158b:b0:250:a056:7e48 with SMTP id
- h11-20020a05651c158b00b00250a0567e48mr4800506ljq.64.1653029116920; 
- Thu, 19 May 2022 23:45:16 -0700 (PDT)
+ bh=2sD0n6yJXGuDhEewc3lorHaqBnUR099vPCJ5WEpCDzU=;
+ b=SKA6njpA8vP232PGTxiReuF+neWqxCRpkKqjQZyBwmurYszJGm5/dw9tIFGJbKQrBE
+ tji7q8OY+79GcbYfUJU7JMdfb7XOqjOR624ZqqUEHx5C8rvtBBKdcbMDdJonZIXUfrim
+ E7+iWsyz4PlZncOzaU+xh46KZzGDQpxCm4UOUoDw3Ft9nGds4FEVl6YaJ1lxXHi0/0UE
+ wipcje+QYtrroBNra6LjL8mAKUsxKqLciDXeiATYZnoquHw+hn6ESuiqjAQn+u1Yhp/A
+ pAttlowhs9FSpEkNRd8sVg6ZwqDyxdL2n3UBQyGDGRXa25sF8iNRbJIWtjA83kb0D68I
+ C9/A==
+X-Gm-Message-State: AOAM5304fPOwyJPvPjFDEcZvtQkCINFFbZOZQ8pMdBNSSud4O+nyeYDM
+ G1UMw/kkjgSca7VqZXfFxNt0IA==
+X-Google-Smtp-Source: ABdhPJzaGbv04buuDHGp4NLG8WTmLEncJfxtJuLSgfyJWSMt4wxUrF1jnVPHvL9DO/40kuanoOGM6w==
+X-Received: by 2002:a05:6512:398c:b0:473:ab45:1f7c with SMTP id
+ j12-20020a056512398c00b00473ab451f7cmr5937130lfu.341.1653029492370; 
+ Thu, 19 May 2022 23:51:32 -0700 (PDT)
 Received: from [192.168.0.17] (78-11-189-27.static.ip.netia.com.pl.
  [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
- y22-20020a2e95d6000000b0024f3d1dae8esm197255ljh.22.2022.05.19.23.45.15
+ g23-20020a2e9e57000000b0024f3d1daebbsm192250ljk.67.2022.05.19.23.51.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 19 May 2022 23:45:16 -0700 (PDT)
-Message-ID: <cab52964-31d5-a545-9856-b298d3cd3c84@linaro.org>
-Date: Fri, 20 May 2022 08:45:14 +0200
+ Thu, 19 May 2022 23:51:31 -0700 (PDT)
+Message-ID: <a0eed04a-1380-d96a-a406-217f053354b9@linaro.org>
+Date: Fri, 20 May 2022 08:51:30 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.8.1
-Subject: Re: [PATCH 46/56] ASoC: samsung: Rename set_fmt_new back to set_fmt
+Subject: Re: [PATCH 1/6] ASoC: tegra: Add binding doc for OPE module
 Content-Language: en-US
-To: Charles Keepax <ckeepax@opensource.cirrus.com>, broonie@kernel.org
-References: <20220519154318.2153729-1-ckeepax@opensource.cirrus.com>
- <20220519154318.2153729-47-ckeepax@opensource.cirrus.com>
+To: Sameer Pujar <spujar@nvidia.com>, broonie@kernel.org, robh+dt@kernel.org, 
+ krzysztof.kozlowski+dt@linaro.org, thierry.reding@gmail.com,
+ catalin.marinas@arm.com, will@kernel.org, perex@perex.cz, tiwai@suse.com
+References: <1652895372-29885-1-git-send-email-spujar@nvidia.com>
+ <1652895372-29885-2-git-send-email-spujar@nvidia.com>
+ <049173a1-0fa6-510b-9169-ebe869b8a3b3@linaro.org>
+ <90680cfb-c611-63cd-ab5f-5afb86c91cec@nvidia.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220519154318.2153729-47-ckeepax@opensource.cirrus.com>
+In-Reply-To: <90680cfb-c611-63cd-ab5f-5afb86c91cec@nvidia.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Cc: cezary.rojewski@intel.com, heiko@sntech.de,
- kuninori.morimoto.gx@renesas.com, alsa-devel@alsa-project.org,
- nicolas.ferre@microchip.com, srinivas.kandagatla@linaro.org,
- peter.ujfalusi@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- jbrunet@baylibre.com, pierre-louis.bossart@linux.intel.com,
- linux-rockchip@lists.infradead.org, linux-imx@nxp.com,
- linux-mips@vger.kernel.org, linux-sunxi@lists.linux.dev,
- linux-xtensa@linux-xtensa.org, nsaenz@kernel.org,
- linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-omap@vger.kernel.org,
- patches@opensource.cirrus.com, lgirdwood@gmail.com, daniel@zonque.org,
- kernel@pengutronix.de, shawnguo@kernel.org, jarkko.nikula@bitmer.com
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, jonathanh@nvidia.com,
+ linux-tegra@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -117,15 +112,116 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 19/05/2022 17:43, Charles Keepax wrote:
-> Now the core has been migrated across to the new direct clock
-> specification we can move the drivers back to the normal set_fmt
-> callback.
+On 20/05/2022 06:19, Sameer Pujar wrote:
+> Thanks Krzysztof for review.
 > 
-> Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+> 
+> On 19-05-2022 17:10, Krzysztof Kozlowski wrote:
+>> On 18/05/2022 19:36, Sameer Pujar wrote:
+>>> +description: |
+>>> +  The Multi Band Dynamic Range Compressor (MBDRC) is part of Output
+>>> +  Processing Engine (OPE) which interfaces with Audio Hub (AHUB) via
+>>> +  Audio Client Interface (ACIF). MBDRC can be used as a traditional
+>>> +  single full band or a dual band or a multi band dynamic processor.
+>>> +
+>>> +maintainers:
+>>> +  - Jon Hunter <jonathanh@nvidia.com>
+>>> +  - Mohan Kumar <mkumard@nvidia.com>
+>>> +  - Sameer Pujar <spujar@nvidia.com>
+>>> +
+>>> +properties:
+>>> +  $nodename:
+>>> +    pattern: "^mbdrc@[0-9a-f]*$"
+>> Why? We enforce only generic names in shared schemas and this is neither
+>> shared schema nor is it generic name.
+> 
+> Idea was to keep these node names consistent across DT files and parent 
+> node can allow a given list of child nodes with strict checks. Does name 
+> like "dynamic-range-compressor@xxx"
 
+The checks are not coming from device node name, but from matching
+schema to compatible. Why do you need consistent names across DTS files?
+They should be anyway generic but what happens if they differ?
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Additionally, the parent schema enforces nodes of children, so if this
+is included in other schema, then the change is pointless.
+
+I propose to drop it, unless it is a shared schema for many different
+vendors.
+
+>>
+>>> +
+>>> +  compatible:
+>>> +    oneOf:
+>>> +      - const: nvidia,tegra210-mbdrc
+>>> +      - items:
+>>> +          - enum:
+>>> +              - nvidia,tegra234-mbdrc
+>>> +              - nvidia,tegra194-mbdrc
+>>> +              - nvidia,tegra186-mbdrc
+>>> +          - const: nvidia,tegra210-mbdrc
+>>> +
+>>> +  reg:
+>>> +    maxItems: 1
+>>> +
+>>> +required:
+>>> +  - compatible
+>>> +  - reg
+>>> +
+>>> +additionalProperties: false
+>>> +
+>>> +examples:
+>>> +  - |
+>>> +
+>> No need for space
+> 
+> will remove
+> 
+> 
+>>> +
+>>> +  compatible:
+>>> +    oneOf:
+>>> +      - const: nvidia,tegra210-ope
+>>> +      - items:
+>>> +          - enum:
+>>> +              - nvidia,tegra234-ope
+>>> +              - nvidia,tegra194-ope
+>>> +              - nvidia,tegra186-ope
+>>> +          - const: nvidia,tegra210-ope
+>>> +
+>>> +  reg:
+>>> +    maxItems: 1
+>>> +
+>>> +  "#address-cells":
+>>> +    const: 1
+>>> +
+>>> +  "#size-cells":
+>>> +    const: 1
+>>> +
+>>> +  ranges: true
+>>> +
+>>> +  sound-name-prefix:
+>>> +    pattern: "^OPE[1-9]$"
+>>> +
+>>> +  ports:
+>>> +    $ref: /schemas/graph.yaml#/properties/ports
+>>> +    properties:
+>>> +      port@0:
+>>> +        $ref: audio-graph-port.yaml#
+>>> +        unevaluatedProperties: false
+>>> +        description: |
+>> No need for |
+> 
+> will remove.
+> 
+> 
+>>
+>>> +    ope@702d8000 {
+>> I would suggest generic node name, if it is possible.
+> 
+> May be "processing-engine@xxx" ?
+
+Sure.
 
 
 Best regards,

@@ -2,92 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2DDC52EE73
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 May 2022 16:48:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B634152EFEA
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 May 2022 18:03:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8CC631726;
-	Fri, 20 May 2022 16:48:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CC631726
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4E0611725;
+	Fri, 20 May 2022 18:02:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E0611725
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653058131;
-	bh=b68KXZUVu3SGTjjSrhCuTzEkz35nIBb7ammXL0RBaws=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=p6dTmYPRez0IIzO7a31MPQVvOJODAjvSVLHCbE3KCIrYQqaPaX3yAO4EDvL/CaD0L
-	 3o27NWIwde/b/MDxygQossMnwTNzZZPTp37e/yn6/J01O5IUclyG+vwg1S+9Zr+rza
-	 hKDQqk3SRbrpw+IWymICXYbD3FbMWmvqrZb/IgwU=
+	s=default; t=1653062581;
+	bh=rM6VKiymD49vXeV5sbZ3ChUDuhFRJdqQsvx2KfDg0Kw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=O5ONJ467kawT9NadxlvIHVqE4RYlx7Ne5Zrj1pKIs/bEIDdcZ827e1VlXjQIYQXlx
+	 1LfAT6LI1AuuGMoIXWTV1oJKQkzVKkn+0EYqFuwDvDBnjXQ5Pj88SSJXN9aoAO7InE
+	 uNpOTH1k+JZySwHeMegX26QHN2+VDS6+clhLnajo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 12765F800F0;
-	Fri, 20 May 2022 16:47:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AB836F801F5;
+	Fri, 20 May 2022 18:02:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1FB51F8019D; Fri, 20 May 2022 16:47:51 +0200 (CEST)
+ id E337EF8019D; Fri, 20 May 2022 18:02:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7BD9BF800F0
+ for <alsa-devel@alsa-project.org>; Fri, 20 May 2022 18:01:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7BD9BF800F0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Q0fpGkIG"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E5897F800F0
- for <alsa-devel@alsa-project.org>; Fri, 20 May 2022 16:47:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5897F800F0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="Zl8ng1Sh"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24KAsMns029811;
- Fri, 20 May 2022 09:47:40 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- content-transfer-encoding : in-reply-to; s=PODMain02222019;
- bh=9G7MacAVgc3hVWA+1VLb4m7aeMTgVwtgmSsPxNyBxcU=;
- b=Zl8ng1Sh/2bSTr+nS2/DTojLx5Y2oLAejwr+UpHdffWyYJWceIWdcXqupo+NM32DemJl
- BqpCI1ly31o3ic/0WxxwBYyAVTrgHQdnuCmfTrUMaGN0Zz1bJgOXdClmzAzL/979odN0
- i4k3EMaJ1oP7ejxl2G6BZd45vKuXLk6S7iU7z87vtjo7ciZ5ZpgUanugvrb6qcuQIfER
- ogkQSDwRGHMnw9BMUdr3Mg1HCJbkFU/lfxeXbUmvgtJWzxEQFlIxFR7hOqI7r7ypt3QO
- lV47EgVe7dnA78H1WwJ2Znj9X+SiADoaL+IKzAhUacgjIYLfHookksUzmylGDvHNNbv9 tA== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3g28upgh9d-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Fri, 20 May 2022 09:47:39 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Fri, 20 May
- 2022 15:47:38 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.24 via
- Frontend Transport; Fri, 20 May 2022 15:47:38 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 5887A11D1;
- Fri, 20 May 2022 14:47:38 +0000 (UTC)
-Date: Fri, 20 May 2022 14:47:38 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-Subject: Re: [PATCH] ASoC: cs35l45: Make bmc150_magn_remove() return void
-Message-ID: <20220520144738.GM38351@ediswmail.ad.cirrus.com>
-References: <20220520135740.770801-1-u.kleine-koenig@pengutronix.de>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220520135740.770801-1-u.kleine-koenig@pengutronix.de>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: 97VwuyJ1trIla8lCMrkqG70btkD_-3d1
-X-Proofpoint-ORIG-GUID: 97VwuyJ1trIla8lCMrkqG70btkD_-3d1
-X-Proofpoint-Spam-Reason: safe
-Cc: alsa-devel@alsa-project.org, Lucas Tanure <tanureal@opensource.cirrus.com>,
- patches@opensource.cirrus.com, Liam Girdwood <lgirdwood@gmail.com>,
- David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>,
- kernel@pengutronix.de, James Schulman <james.schulman@cirrus.com>
+ by ams.source.kernel.org (Postfix) with ESMTPS id B4AE8B82892;
+ Fri, 20 May 2022 16:01:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D171FC385A9;
+ Fri, 20 May 2022 16:01:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1653062515;
+ bh=rM6VKiymD49vXeV5sbZ3ChUDuhFRJdqQsvx2KfDg0Kw=;
+ h=From:To:Cc:Subject:Date:From;
+ b=Q0fpGkIGkk1PrN1yfD/CTMXkXk4C5H00QxytoHAdl5/SHIInNGofGBc/whn4cmlBc
+ InqoOA8yf/qb3ab6N/dsUSAbA5vSStYL3Pp2lMBv1VNbPpIMlArevcyVOs4yhBMbNx
+ vvYDWPibjPIfQ2J89L0QwBmQvTHq/dEfMnLSpvX0Kv0Fa5LtUro2s6zr46yP1GSZMg
+ XfItZDTH3BT7bOIWPiLEoQAh2UhCY5W+e69SDNazdlAh8cMN6nv6pkkU2xhtOAqxTQ
+ /yOcN49U20e/hslMVdPb5X0Cb+KhB9afKUGCRpqBJlQQyYQEzAVrM+1vzOy88Oti5J
+ wNNn0aNLEzdcw==
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: [GIT PULL] ASoC fixes for v5.18-rc7
+Date: Fri, 20 May 2022 17:01:40 +0100
+Message-Id: <20220520160154.D171FC385A9@smtp.kernel.org>
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,18 +78,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, May 20, 2022 at 03:57:40PM +0200, Uwe Kleine-König wrote:
-> cs35l45_remove() always returns zero. Make it return no value which
-> makes it easier to see in the callers that there is no error to handle.
-> 
-> Also the return value of i2c driver remove callbacks is ignored anyway.
-> This prepares making i2c remove callbacks return void, too.
-> 
-> Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
-> ---
+The following changes since commit 5e02fb590e83684f63217f93a9cdeabd6a925f9c:
 
-The subject line needs fixed up but otherwise I think the patch
-looks good.
+  ASoC: cs35l41: Fix DSP mbox start command and global enable order (2022-03-07 13:12:38 +0000)
 
-Thanks,
-Charles
+are available in the Git repository at:
+
+  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v5.18-rc7
+
+for you to fetch changes up to 353bb6a5f2ac495f289b7c7a528c7d134c9a8ec4:
+
+  ASoC: wm_adsp: Compressed stream DSP memory structs should be __packed (2022-03-09 17:50:26 +0000)
+
+----------------------------------------------------------------
+ASoC: Fix for v5.17
+
+This is rather late and at this point I'm expecting it to get merged in
+the merge window rather than as a fix but if we get a -rc8 it's a small,
+driver specific fix which should be fine to send.
+
+----------------------------------------------------------------
+Simon Trimmer (1):
+      ASoC: wm_adsp: Compressed stream DSP memory structs should be __packed
+
+ sound/soc/codecs/wm_adsp.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)

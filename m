@@ -2,85 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C62952E836
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 May 2022 11:03:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D39352E981
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 May 2022 11:58:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0B5D51713;
-	Fri, 20 May 2022 11:02:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B5D51713
+	by alsa0.perex.cz (Postfix) with ESMTPS id 98D7C172C;
+	Fri, 20 May 2022 11:57:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98D7C172C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653037410;
-	bh=po4yNwPx8D+gdgjAqFmoUpWyTwFfzvh2zEhcwU2Vf5Y=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=c3izKsBy9zT8Z/5H9LmG6lYWQHUzBAJUrxechBfZsfI+/z/qSTrm67KO+YqOt4Ru+
-	 cE6vTrAjYmLyzpZVwQJBamF2IMPZgkuGwj4mpGT2o5OzSUgLFexUVpS1iGCcu/dI4M
-	 Sc4KGkcvBbuiHeie+sZeIJhuIGylhlWEDeXDRid0=
+	s=default; t=1653040686;
+	bh=HC8j50IOQxMEPHmZdnEVos6iA1pNgClwqH5wkKKaCTo=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=MrsYAATZMPKMxZ4DIq2pINBNvGJYtCKxOtuD0f1rR345pvhGEPA4ljIg9u27GjUmf
+	 Pt21sfROEBuiUTXETcU7lnGB1WqALekrFPit7pr308ddAmKOMRM8hQEF0mTrDP6li8
+	 zIS2MkjS9sO7n0hJwjpEvKJnchZDbGmI4JSCz3I4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6A3C8F801F5;
-	Fri, 20 May 2022 11:02:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0F60FF801F5;
+	Fri, 20 May 2022 11:57:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D9249F8019D; Fri, 20 May 2022 11:02:29 +0200 (CEST)
+ id 98D1AF8019D; Fri, 20 May 2022 11:57:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 789E9F800D2
- for <alsa-devel@alsa-project.org>; Fri, 20 May 2022 11:02:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 789E9F800D2
-Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 24K92BfvC021512,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
- by rtits2.realtek.com.tw (8.15.2/2.71/5.88) with ESMTPS id 24K92BfvC021512
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5BEBEF800D2
+ for <alsa-devel@alsa-project.org>; Fri, 20 May 2022 11:56:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BEBEF800D2
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="OZjWqUg2"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24K5UCw9026795;
+ Fri, 20 May 2022 04:56:56 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=OE6raZbucX9LQfP+TUClB+u691iV9kBCVX1IaiFUTRE=;
+ b=OZjWqUg2GB9AJ9JqFusRILLr+RJoWNaMdCe9RA8DZ3zC+BqhasJKotr9r087ufLn2CfT
+ ImDGP7AQdM1dEhMs05cuGKULUV2UMVhWKhwv1lv9aIYxP58hsADDle5oYJD73+1i/5E/
+ DJ4PIeWt9ouGrMRIwpVZYIv2N+Hl3NLhwUKoEL7upZzJBlhj+H8WMUIA+0c0utHrFXib
+ 6St0njUEwySoagUHdfOhKQMIhve6czUMiuHZthPtAEsJdIL2UVkqXmo+S/ET4vQeKKCR
+ eK2EWlTLp4WJJ/WhIR7yVYO0bDmrZEz1nQCC+kwy9kogs86oLbScSXA9l5o3Xs/ta2/U LQ== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3g28upg5ms-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Fri, 20 May 2022 17:02:11 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.28; Fri, 20 May 2022 17:02:11 +0800
-Received: from localhost.localdomain (172.22.102.1) by
- RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27; Fri, 20 May 2022 17:02:10 +0800
-From: <shumingf@realtek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-Subject: [PATCH] ASoC: rt1308-sdw: add the default value of register 0xc320
-Date: Fri, 20 May 2022 17:02:05 +0800
-Message-ID: <20220520090205.25857-1-shumingf@realtek.com>
-X-Mailer: git-send-email 2.35.3
+ Fri, 20 May 2022 04:56:55 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Fri, 20 May
+ 2022 10:56:54 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.24 via
+ Frontend Transport; Fri, 20 May 2022 10:56:54 +0100
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 42FB3476;
+ Fri, 20 May 2022 09:56:54 +0000 (UTC)
+Date: Fri, 20 May 2022 09:56:54 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Samuel Holland <samuel@sholland.org>
+Subject: Re: [PATCH 22/56] ASoC: sunxi: Update to use set_fmt_new callback
+Message-ID: <20220520095654.GK38351@ediswmail.ad.cirrus.com>
+References: <20220519154318.2153729-1-ckeepax@opensource.cirrus.com>
+ <20220519154318.2153729-23-ckeepax@opensource.cirrus.com>
+ <948d5418-44ca-2e60-0c1c-0b16f315feba@sholland.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [172.22.102.1]
-X-ClientProxiedBy: RTEXH36504.realtek.com.tw (172.21.6.27) To
- RTEXMBS01.realtek.com.tw (172.21.6.94)
-X-KSE-ServerInfo: RTEXMBS01.realtek.com.tw, 9
-X-KSE-AntiSpam-Interceptor-Info: trusted connection
-X-KSE-Antiphishing-Info: Clean
-X-KSE-Antiphishing-ScanningType: Deterministic
-X-KSE-Antiphishing-Method: None
-X-KSE-Antiphishing-Bases: 05/20/2022 08:47:00
-X-KSE-AttachmentFiltering-Interceptor-Info: no applicable attachment filtering
- rules found
-X-KSE-Antivirus-Interceptor-Info: scan successful
-X-KSE-Antivirus-Info: =?big5?B?Q2xlYW4sIGJhc2VzOiAyMDIyLzUvMjAgpFekyCAwNzoyNzowMA==?=
-X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
-X-KSE-ServerInfo: RTEXH36505.realtek.com.tw, 9
-X-KSE-Attachment-Filter-Triggered-Rules: Clean
-X-KSE-Attachment-Filter-Triggered-Filters: Clean
-X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
- lars@metafoo.de, derek.fang@realtek.com, bard.liao@intel.com,
- Shuming Fan <shumingf@realtek.com>, flove@realtek.com,
- pierre-louis.bossart@intel.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <948d5418-44ca-2e60-0c1c-0b16f315feba@sholland.org>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: 0o2bd6ilE3N_-d0xNvYBerQp3pGSYvGE
+X-Proofpoint-ORIG-GUID: 0o2bd6ilE3N_-d0xNvYBerQp3pGSYvGE
+X-Proofpoint-Spam-Reason: safe
+Cc: cezary.rojewski@intel.com, heiko@sntech.de,
+ kuninori.morimoto.gx@renesas.com, alsa-devel@alsa-project.org,
+ nicolas.ferre@microchip.com, srinivas.kandagatla@linaro.org,
+ peter.ujfalusi@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ jbrunet@baylibre.com, pierre-louis.bossart@linux.intel.com, krzk@kernel.org,
+ linux-rockchip@lists.infradead.org, linux-imx@nxp.com,
+ linux-mips@vger.kernel.org, linux-sunxi@lists.linux.dev,
+ linux-xtensa@linux-xtensa.org, nsaenz@kernel.org, broonie@kernel.org,
+ linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, linux-omap@vger.kernel.org,
+ patches@opensource.cirrus.com, lgirdwood@gmail.com, jarkko.nikula@bitmer.com,
+ kernel@pengutronix.de, shawnguo@kernel.org, daniel@zonque.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,30 +111,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Shuming Fan <shumingf@realtek.com>
+On Thu, May 19, 2022 at 06:40:11PM -0500, Samuel Holland wrote:
+> On 5/19/22 10:42 AM, Charles Keepax wrote:
+> > As part of updating the core to directly tell drivers if they are clock
+> > provider or consumer update these CPU side drivers to use the new direct
+> > callback.
+> > 
+> > Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+> > ---
+> >  sound/soc/sunxi/sun4i-i2s.c   | 20 ++++++++++----------
+> >  sound/soc/sunxi/sun8i-codec.c |  8 ++++----
+> >  2 files changed, 14 insertions(+), 14 deletions(-)
+> > diff --git a/sound/soc/sunxi/sun8i-codec.c b/sound/soc/sunxi/sun8i-codec.c
+> > index 0bea2162f68d9..6e9ef948d6621 100644
+> > --- a/sound/soc/sunxi/sun8i-codec.c
+> > +++ b/sound/soc/sunxi/sun8i-codec.c
+> > @@ -286,11 +286,11 @@ static int sun8i_codec_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+> >  	u32 dsp_format, format, invert, value;
+> >  
+> >  	/* clock masters */
+> > -	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
+> > -	case SND_SOC_DAIFMT_CBS_CFS: /* Codec slave, DAI master */
+> > +	switch (fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) {
+> > +	case SND_SOC_DAIFMT_BP_FP: /* Codec slave, DAI master */
+> 
+> This is a codec driver, and it is only ever used on the codec end of a link, so
+> I would not expect it to be changed.
+> 
 
-The driver missed the default value of register 0xc320.
-This patch adds that default value to avoid the error messages
-when the driver went to suspend mode already.
+Thanks for spotting that, silly mistake on my part. Will fix for
+a rev 2.
 
-BugLink: https://github.com/thesofproject/linux/issues/3651
-Signed-off-by: Shuming Fan <shumingf@realtek.com>
----
- sound/soc/codecs/rt1308-sdw.h | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/sound/soc/codecs/rt1308-sdw.h b/sound/soc/codecs/rt1308-sdw.h
-index c5ce75666dcc..6668e19d85d4 100644
---- a/sound/soc/codecs/rt1308-sdw.h
-+++ b/sound/soc/codecs/rt1308-sdw.h
-@@ -140,6 +140,7 @@ static const struct reg_default rt1308_reg_defaults[] = {
- 	{ 0x3008, 0x02 },
- 	{ 0x300a, 0x00 },
- 	{ 0xc003 | (RT1308_DAC_SET << 4), 0x00 },
-+	{ 0xc000 | (RT1308_POWER << 4), 0x00 },
- 	{ 0xc001 | (RT1308_POWER << 4), 0x00 },
- 	{ 0xc002 | (RT1308_POWER << 4), 0x00 },
- };
--- 
-2.35.3
-
+Thanks,
+Charles

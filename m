@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9EA652E6E2
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 May 2022 10:03:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FB4B52E6F4
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 May 2022 10:09:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 86C57172B;
-	Fri, 20 May 2022 10:03:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86C57172B
+	by alsa0.perex.cz (Postfix) with ESMTPS id DFF16173B;
+	Fri, 20 May 2022 10:08:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DFF16173B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653033830;
-	bh=6ztkeEZNbry2Qi99SpMsOagul4IAoh0IrRz+rwxc7c4=;
+	s=default; t=1653034164;
+	bh=KHW/1Xy7i8E2K18cGIjwRSGFyYnQ+RvbROc42BKZJAk=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NrVpxTw5vH8+cBlfoZV74nHnYZUH83WGSfe9EEBQ3YrALrChRpeSSmNza0MyRcZJs
-	 BFLPrgxkX93sxZhbUnFiy6lWipC6X9LmDtElJ4nsb8lM1QTzg4E3ZNOdOmIaKAV/Yi
-	 GkQMN4QcRLfnE07+pvuciu2Ch0V03y8T2z5d8GGY=
+	b=eXpNmlvN0naf5cfQ7VPKZblzw9dCZjqTDMconvk2xp4n3jcAaxrzxhKRcxRzFesbj
+	 5ffnj03uYNS4wIsryEsNuLf48/OwZiM0dW2fgUonbX9WhfK6HCKTGAm1vrMcnIEur4
+	 l14puB9TUIUSmcgcTgTa7ZPrAYDsnF1NoryIHSPc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 04C80F80109;
-	Fri, 20 May 2022 10:02:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 40601F800F0;
+	Fri, 20 May 2022 10:08:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5BC12F8019D; Fri, 20 May 2022 10:02:50 +0200 (CEST)
+ id DD229F8019D; Fri, 20 May 2022 10:08:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,46 +34,45 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3E535F800F0
- for <alsa-devel@alsa-project.org>; Fri, 20 May 2022 10:02:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E535F800F0
+ by alsa1.perex.cz (Postfix) with ESMTPS id CA50FF80109
+ for <alsa-devel@alsa-project.org>; Fri, 20 May 2022 10:08:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA50FF80109
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="xcESGwPy"; 
+ header.b="xCkBp2WG"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="2vqju6Sy"
+ header.b="RFDTc3FC"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id B82A521C96;
- Fri, 20 May 2022 08:02:41 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 57DAB21B90;
+ Fri, 20 May 2022 08:08:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1653033761; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1653034097; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=4dyUHFa2rIcc2e9oqlM5k+EFPG8cyRAb8yrunmcF9hY=;
- b=xcESGwPy0Oxm8ptaMYTeQ1ZUtWS7igSONK/J1gei8hDXK5TxtVUMbHlvSvUQ+VvfdqjA2z
- b5FRJvkFB8kjiGesex4wRf1LZb0OpJuZ8tIJiyI7Dh4D24rchxdyQ0GVUDjJbelPcZAgkq
- TgGHfcbTnCwHe4b1mpnZVhzT8xDLkKY=
+ bh=6aisJkQZmyWcJEYqaOIOicZJw3B1l30ihxIGmoJY4Yo=;
+ b=xCkBp2WGW0DK9jDiTCoKo35Z1JeC3ANr8QlKto6Ea/VQl3T5Kcf+1jJeCY0906JTOqu2Mr
+ QsxcCyBr/UvVxim1OwnhezDwOmt4KcX3JN/mwUbVbMxl5wT3TwJyAfduuxBDDe8Ikeo1Nt
+ F3D10d1Til30mUop0ZF5Oc8/I+BtiTg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1653033761;
+ s=susede2_ed25519; t=1653034097;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=4dyUHFa2rIcc2e9oqlM5k+EFPG8cyRAb8yrunmcF9hY=;
- b=2vqju6SyMmmrV/hF8pQp+vdFfGjAiivQJBMAbq4l/eQLpLOq0D/Alfa8fDgCzc+RUuwSwr
- 9cJguiVGdFSpsiBg==
+ bh=6aisJkQZmyWcJEYqaOIOicZJw3B1l30ihxIGmoJY4Yo=;
+ b=RFDTc3FCID6ziAt/dntQrqJxWNTG5n29QEzx98MGavv6doCwmZm6VSmToVJyGz4WvJQTr8
+ 7pcGfL0zdihXuHBA==
 Received: from valkyrie.site.suse.de (unknown [10.163.18.242])
- by relay2.suse.de (Postfix) with ESMTP id 8ED052C141;
- Fri, 20 May 2022 08:02:41 +0000 (UTC)
-Date: Fri, 20 May 2022 10:02:41 +0200
-Message-ID: <87leuwr5r2.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 49F972C141;
+ Fri, 20 May 2022 08:08:16 +0000 (UTC)
+Date: Fri, 20 May 2022 10:08:16 +0200
+Message-ID: <87k0agr5hr.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-Subject: Re: [PATCH v3 04/17] ALSA: hda: cs35l41: Add initial DSP support and
- firmware loading
-In-Reply-To: <87mtfcr5v1.wl-tiwai@suse.de>
+Subject: Re: [PATCH v3 16/17] ALSA: hda: cs35l41: Support Firmware switching
+ and reloading
+In-Reply-To: <20220519174749.15459-17-vitalyr@opensource.cirrus.com>
 References: <20220519174749.15459-1-vitalyr@opensource.cirrus.com>
- <20220519174749.15459-5-vitalyr@opensource.cirrus.com>
- <87mtfcr5v1.wl-tiwai@suse.de>
+ <20220519174749.15459-17-vitalyr@opensource.cirrus.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?ISO-2022-JP-2?B?R29qGyQoRCtXGyhC?=) APEL/10.8 Emacs/27
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -81,7 +80,8 @@ MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
 Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
  Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Vitaly Rodionov <vitaly.rodionov@cirrus.com>
+ Stefan Binding <sbinding@opensource.cirrus.com>,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,28 +97,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 20 May 2022 10:00:18 +0200,
-Takashi Iwai wrote:
+On Thu, 19 May 2022 19:47:48 +0200,
+Vitaly Rodionov wrote:
 > 
-> On Thu, 19 May 2022 19:47:36 +0200,
-> Vitaly Rodionov wrote:
-> > 
-> > From: Vitaly Rodionov <vitaly.rodionov@cirrus.com>
-> > 
-> > This patch adds support for the CS35L41 DSP.
-> > The DSP allows for extra features, such as running
-> > speaker protection algorithms and hibernations.
-> > 
-> > To utilize these features, the driver must load
-> > firmware into the DSP, as well as various tuning
-> > files which allow for cusomtization for specific
-> > models.
+> From: Stefan Binding <sbinding@opensource.cirrus.com>
 > 
-> Wouldn't this sequence be required after S3/S4 resume?
-> I thought cs35l41_hda_bind() is called only at the first binding.
+> This is required to support CS35L41 calibration.
+> 
+> By default, speaker protection firmware will be loaded, if
+> available. However, different firmware is required to run
+> the calibration sequence, so it is necessary to add support
+> to be able to unload, switch and reload firmware.
+> 
+> This patch adds 2 ALSA Controls for each amp:
+> "DSP1 Firmware Load"
+> "DSP1 Firmware Type"
+> 
+> "DSP1 Firmware Load" can be used to unload and
+> load the firmware.
+> "DSP1 Firmware Type"  can be used to switch the
+> target firmware to be loaded by "DSP1 Firmware Load"
 
-OK, I see that the later patches in the series are about hibernation.
-It might be good to mention that in this patch, though.
+Hmm.  This essentially means that you can execute the firmware load
+and the whole DSP init / removal just by changing this control element
+value, right?  The end-effect is too strong, IMO.  The control element
+is available to all users who can access the sound device, and any
+malicious program may change it randomly thousands times per second.
+That is, it can easily lead to some weird issue, I'm afraid.
 
+
+thanks,
 
 Takashi

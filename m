@@ -2,86 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FB4B52E6F4
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 May 2022 10:09:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C62952E836
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 May 2022 11:03:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DFF16173B;
-	Fri, 20 May 2022 10:08:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DFF16173B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0B5D51713;
+	Fri, 20 May 2022 11:02:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B5D51713
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653034164;
-	bh=KHW/1Xy7i8E2K18cGIjwRSGFyYnQ+RvbROc42BKZJAk=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=eXpNmlvN0naf5cfQ7VPKZblzw9dCZjqTDMconvk2xp4n3jcAaxrzxhKRcxRzFesbj
-	 5ffnj03uYNS4wIsryEsNuLf48/OwZiM0dW2fgUonbX9WhfK6HCKTGAm1vrMcnIEur4
-	 l14puB9TUIUSmcgcTgTa7ZPrAYDsnF1NoryIHSPc=
+	s=default; t=1653037410;
+	bh=po4yNwPx8D+gdgjAqFmoUpWyTwFfzvh2zEhcwU2Vf5Y=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=c3izKsBy9zT8Z/5H9LmG6lYWQHUzBAJUrxechBfZsfI+/z/qSTrm67KO+YqOt4Ru+
+	 cE6vTrAjYmLyzpZVwQJBamF2IMPZgkuGwj4mpGT2o5OzSUgLFexUVpS1iGCcu/dI4M
+	 Sc4KGkcvBbuiHeie+sZeIJhuIGylhlWEDeXDRid0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 40601F800F0;
-	Fri, 20 May 2022 10:08:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6A3C8F801F5;
+	Fri, 20 May 2022 11:02:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DD229F8019D; Fri, 20 May 2022 10:08:23 +0200 (CEST)
+ id D9249F8019D; Fri, 20 May 2022 11:02:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CA50FF80109
- for <alsa-devel@alsa-project.org>; Fri, 20 May 2022 10:08:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA50FF80109
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="xCkBp2WG"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="RFDTc3FC"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 57DAB21B90;
- Fri, 20 May 2022 08:08:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1653034097; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=6aisJkQZmyWcJEYqaOIOicZJw3B1l30ihxIGmoJY4Yo=;
- b=xCkBp2WGW0DK9jDiTCoKo35Z1JeC3ANr8QlKto6Ea/VQl3T5Kcf+1jJeCY0906JTOqu2Mr
- QsxcCyBr/UvVxim1OwnhezDwOmt4KcX3JN/mwUbVbMxl5wT3TwJyAfduuxBDDe8Ikeo1Nt
- F3D10d1Til30mUop0ZF5Oc8/I+BtiTg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1653034097;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=6aisJkQZmyWcJEYqaOIOicZJw3B1l30ihxIGmoJY4Yo=;
- b=RFDTc3FCID6ziAt/dntQrqJxWNTG5n29QEzx98MGavv6doCwmZm6VSmToVJyGz4WvJQTr8
- 7pcGfL0zdihXuHBA==
-Received: from valkyrie.site.suse.de (unknown [10.163.18.242])
- by relay2.suse.de (Postfix) with ESMTP id 49F972C141;
- Fri, 20 May 2022 08:08:16 +0000 (UTC)
-Date: Fri, 20 May 2022 10:08:16 +0200
-Message-ID: <87k0agr5hr.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-Subject: Re: [PATCH v3 16/17] ALSA: hda: cs35l41: Support Firmware switching
- and reloading
-In-Reply-To: <20220519174749.15459-17-vitalyr@opensource.cirrus.com>
-References: <20220519174749.15459-1-vitalyr@opensource.cirrus.com>
- <20220519174749.15459-17-vitalyr@opensource.cirrus.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?ISO-2022-JP-2?B?R29qGyQoRCtXGyhC?=) APEL/10.8 Emacs/27
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- Stefan Binding <sbinding@opensource.cirrus.com>,
- Mark Brown <broonie@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 789E9F800D2
+ for <alsa-devel@alsa-project.org>; Fri, 20 May 2022 11:02:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 789E9F800D2
+Authenticated-By: 
+X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 24K92BfvC021512,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
+ by rtits2.realtek.com.tw (8.15.2/2.71/5.88) with ESMTPS id 24K92BfvC021512
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Fri, 20 May 2022 17:02:11 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.28; Fri, 20 May 2022 17:02:11 +0800
+Received: from localhost.localdomain (172.22.102.1) by
+ RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.27; Fri, 20 May 2022 17:02:10 +0800
+From: <shumingf@realtek.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>
+Subject: [PATCH] ASoC: rt1308-sdw: add the default value of register 0xc320
+Date: Fri, 20 May 2022 17:02:05 +0800
+Message-ID: <20220520090205.25857-1-shumingf@realtek.com>
+X-Mailer: git-send-email 2.35.3
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [172.22.102.1]
+X-ClientProxiedBy: RTEXH36504.realtek.com.tw (172.21.6.27) To
+ RTEXMBS01.realtek.com.tw (172.21.6.94)
+X-KSE-ServerInfo: RTEXMBS01.realtek.com.tw, 9
+X-KSE-AntiSpam-Interceptor-Info: trusted connection
+X-KSE-Antiphishing-Info: Clean
+X-KSE-Antiphishing-ScanningType: Deterministic
+X-KSE-Antiphishing-Method: None
+X-KSE-Antiphishing-Bases: 05/20/2022 08:47:00
+X-KSE-AttachmentFiltering-Interceptor-Info: no applicable attachment filtering
+ rules found
+X-KSE-Antivirus-Interceptor-Info: scan successful
+X-KSE-Antivirus-Info: =?big5?B?Q2xlYW4sIGJhc2VzOiAyMDIyLzUvMjAgpFekyCAwNzoyNzowMA==?=
+X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
+X-KSE-ServerInfo: RTEXH36505.realtek.com.tw, 9
+X-KSE-Attachment-Filter-Triggered-Rules: Clean
+X-KSE-Attachment-Filter-Triggered-Filters: Clean
+X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
+Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
+ lars@metafoo.de, derek.fang@realtek.com, bard.liao@intel.com,
+ Shuming Fan <shumingf@realtek.com>, flove@realtek.com,
+ pierre-louis.bossart@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,35 +96,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 19 May 2022 19:47:48 +0200,
-Vitaly Rodionov wrote:
-> 
-> From: Stefan Binding <sbinding@opensource.cirrus.com>
-> 
-> This is required to support CS35L41 calibration.
-> 
-> By default, speaker protection firmware will be loaded, if
-> available. However, different firmware is required to run
-> the calibration sequence, so it is necessary to add support
-> to be able to unload, switch and reload firmware.
-> 
-> This patch adds 2 ALSA Controls for each amp:
-> "DSP1 Firmware Load"
-> "DSP1 Firmware Type"
-> 
-> "DSP1 Firmware Load" can be used to unload and
-> load the firmware.
-> "DSP1 Firmware Type"  can be used to switch the
-> target firmware to be loaded by "DSP1 Firmware Load"
+From: Shuming Fan <shumingf@realtek.com>
 
-Hmm.  This essentially means that you can execute the firmware load
-and the whole DSP init / removal just by changing this control element
-value, right?  The end-effect is too strong, IMO.  The control element
-is available to all users who can access the sound device, and any
-malicious program may change it randomly thousands times per second.
-That is, it can easily lead to some weird issue, I'm afraid.
+The driver missed the default value of register 0xc320.
+This patch adds that default value to avoid the error messages
+when the driver went to suspend mode already.
 
+BugLink: https://github.com/thesofproject/linux/issues/3651
+Signed-off-by: Shuming Fan <shumingf@realtek.com>
+---
+ sound/soc/codecs/rt1308-sdw.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-thanks,
+diff --git a/sound/soc/codecs/rt1308-sdw.h b/sound/soc/codecs/rt1308-sdw.h
+index c5ce75666dcc..6668e19d85d4 100644
+--- a/sound/soc/codecs/rt1308-sdw.h
++++ b/sound/soc/codecs/rt1308-sdw.h
+@@ -140,6 +140,7 @@ static const struct reg_default rt1308_reg_defaults[] = {
+ 	{ 0x3008, 0x02 },
+ 	{ 0x300a, 0x00 },
+ 	{ 0xc003 | (RT1308_DAC_SET << 4), 0x00 },
++	{ 0xc000 | (RT1308_POWER << 4), 0x00 },
+ 	{ 0xc001 | (RT1308_POWER << 4), 0x00 },
+ 	{ 0xc002 | (RT1308_POWER << 4), 0x00 },
+ };
+-- 
+2.35.3
 
-Takashi

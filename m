@@ -2,85 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 185AA52EC6A
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 May 2022 14:43:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E03AB52ED57
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 May 2022 15:40:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8D3E6173D;
-	Fri, 20 May 2022 14:42:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D3E6173D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 77A73172C;
+	Fri, 20 May 2022 15:39:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 77A73172C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653050583;
-	bh=YTSPkgizOL4W7LCBZDtItpCzMG0NI7atPraoBzO31lE=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1653054014;
+	bh=c8bdH+ZyGQ9wFeRf7kztaXyIa6B6zyqyMyLH+enVaLA=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CjdKfZkdsA5jPUISwEFLqQyVSh0YilUEYMn1XK9viPmBmLck9dE7J41f5nwyONwCW
-	 UDMKCsTNgfcX5Jdq60DaDTIoG0eArywvL0t5h9T2vwvi00rSwLGt8FZngXT3H2+mhQ
-	 2S0GBQ+tRKKtebGuStJCL53Wldhxw8JzQbnikydA=
+	b=XvPdvd5bg9kwsb8JuVbcQ/ctByJ/xHaPMicNhyYXuIv82mhjlrjvRST1ao6QGftrT
+	 Xxu9SQqcSiQvIyO15j7W1lAyMvgRVAcJnnPTZH8aw/xDkTBGYedgkERixSxDrb+OEq
+	 oLn78xnl7R23PjXn205ap7Xp2mTYMi3RQDzUB40M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0C4CBF800F0;
-	Fri, 20 May 2022 14:42:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DECD0F800F0;
+	Fri, 20 May 2022 15:39:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A9A02F8019D; Fri, 20 May 2022 14:42:02 +0200 (CEST)
+ id 30B00F8019D; Fri, 20 May 2022 15:39:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [IPv6:2a00:1450:4864:20::534])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 04257F80109
- for <alsa-devel@alsa-project.org>; Fri, 20 May 2022 14:41:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04257F80109
+ by alsa1.perex.cz (Postfix) with ESMTPS id EC41AF800F0
+ for <alsa-devel@alsa-project.org>; Fri, 20 May 2022 15:39:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC41AF800F0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Bs9TH57J"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 3D65C60A52;
- Fri, 20 May 2022 12:41:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1601DC385A9;
- Fri, 20 May 2022 12:41:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1653050516;
- bh=YTSPkgizOL4W7LCBZDtItpCzMG0NI7atPraoBzO31lE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Bs9TH57JxrUxnFTqhxwoioJG4z9M8pwS8Oe3EmUEQerc2sYvLs1JNdvDtYJJ5+IDz
- qV0QYbgsN/VLqxq9JPwed6ss1Zk4D3hM/G1BxaHK7IS3BhGYbi4GCGcr3C3QriAzUF
- vG0Qvkx7aB5Pfnrw491KrbxiS3+IA0NLy07QRjz2vZUcwvVVJZUWydIPo5CdQ/WiCd
- FqPrUCOJ5G5F42fqq+7hB2coKDXB4PpVbJIZzYUD8XkluuPmIUtOVu65Zr2429LzSY
- 7NWuMW/VLaekuh6CGLiuERrvR+JrD5I1948xhUm+N7z50AG5fBLY+yjlkj0V1i8OpS
- eW+f8GIomXBkA==
-Date: Fri, 20 May 2022 13:41:49 +0100
-From: Mark Brown <broonie@kernel.org>
-To: V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
-Subject: Re: [PATCH v2 1/2] ASoC: amd: acp: Add support for nau8825 and
- max98360 card
-Message-ID: <YoeMjUJjOzDTOtbM@sirena.org.uk>
-References: <20220519055522.1613813-1-Vsujithkumar.Reddy@amd.com>
- <20220519055522.1613813-2-Vsujithkumar.Reddy@amd.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="dbdCdy78"
+Received: by mail-ed1-x534.google.com with SMTP id s3so10817133edr.9
+ for <alsa-devel@alsa-project.org>; Fri, 20 May 2022 06:39:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=/vZ5EIynCj28UhpMo2WaUDTGXgrMDD6ssuzpbKQFTrE=;
+ b=dbdCdy787bi5RG1nfo93JEf7fRSGqgvdGgWbhi5+jiM2gZq411FflPdY9L2o3Sz097
+ XA9SzdoyvFOw4oNvCmxQtifumEL2ucGkRJdht2gKQbj9YVfuffNrO+QPvuuZxjrqoS0F
+ NfU67GWBYzEpstGDy844RVUmfAl7HNRGvf/LwT4rnlN6DngXc2ZKIaPbBdhEQ53EpZ4s
+ ITsYoJPxw+STd6rZ1MhtfXgofir7SDd7Ohuuh33FWGAKbBMX+xkiGJYwBkluf7rb/Tbk
+ 3LkMR2KGcBuBeRhqmlx3nsng24xG35IMWoTed7v6OpPZiYpWbvZKUFT3MZVg1KYI/Bnh
+ bK1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=/vZ5EIynCj28UhpMo2WaUDTGXgrMDD6ssuzpbKQFTrE=;
+ b=P+3ST/OpzjQAvoLRuaJedhjUrw47tJV3Xz49grGZ5MH4h6a5hkxtA90O523egiTxIl
+ s1C82DiW6APWzuyyA5Dpie8juLNDO05MtamOliLtGqID9awjdEYf8ybkourYzuy+8nHr
+ RxADDTGeNucl3qro9F9f/VTCW7Xr/2wXjnPigVG5g4SWY2S5mnQhvsTuartwRdmzWI78
+ sE4OklxSKBn0qES+xaXeKfqF6Fsfgshf1xTa6wV+D76a9sxkrKgVZEn5vb+xuY0vwJtl
+ BqSR5nh9I7t4FCKoPJs1tU+ZA291wu63U6SyShHqyxP1knDuESOH4Uvs5TWYSOzUEbQz
+ uMAg==
+X-Gm-Message-State: AOAM531Fc+IcTMDrsHllIeCKVnd0u0irgQAzilckpS+NH9W9Tti46nuk
+ 5lbT02uk9CkKtTsaKzpgGtc=
+X-Google-Smtp-Source: ABdhPJzB4dDO6rQGcvP8GfFmFaDFqb3hZ0xhEwmOtYMgE32gUNPAUosh+C78GjzIs6waR9fAZFTMtw==
+X-Received: by 2002:a05:6402:3488:b0:427:b4ec:991b with SMTP id
+ v8-20020a056402348800b00427b4ec991bmr10869813edc.319.1653053945963; 
+ Fri, 20 May 2022 06:39:05 -0700 (PDT)
+Received: from archbook.localnet (84-72-105-84.dclient.hispeed.ch.
+ [84.72.105.84]) by smtp.gmail.com with ESMTPSA id
+ b2-20020aa7df82000000b0042abfe32ac8sm4225152edy.30.2022.05.20.06.39.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 20 May 2022 06:39:05 -0700 (PDT)
+From: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
+To: broonie@kernel.org, Charles Keepax <ckeepax@opensource.cirrus.com>
+Subject: Re: [PATCH 18/56] ASoC: rockchip: Update to use set_fmt_new callback
+Date: Fri, 20 May 2022 15:39:03 +0200
+Message-ID: <4375965.enAZpblka2@archbook>
+In-Reply-To: <20220519154318.2153729-19-ckeepax@opensource.cirrus.com>
+References: <20220519154318.2153729-1-ckeepax@opensource.cirrus.com>
+ <20220519154318.2153729-19-ckeepax@opensource.cirrus.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="T2P481YcpmerEUHv"
-Content-Disposition: inline
-In-Reply-To: <20220519055522.1613813-2-Vsujithkumar.Reddy@amd.com>
-X-Cookie: Driver does not carry cash.
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org, Sunil-kumar.Dommati@amd.com,
- Geert Uytterhoeven <geert+renesas@glider.be>, ajitkumar.pandey@amd.com,
- Kai Vehmanen <kai.vehmanen@intel.com>,
- open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Jia-Ju Bai <baijiaju1990@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
- Akihiko Odaki <akihiko.odaki@gmail.com>, Vijendar.Mukunda@amd.com,
- Daniel Baluta <daniel.baluta@nxp.com>, Bard Liao <bard.liao@intel.com>
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: cezary.rojewski@intel.com, heiko@sntech.de,
+ kuninori.morimoto.gx@renesas.com, alsa-devel@alsa-project.org,
+ nicolas.ferre@microchip.com, srinivas.kandagatla@linaro.org,
+ peter.ujfalusi@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ jbrunet@baylibre.com, pierre-louis.bossart@linux.intel.com, krzk@kernel.org,
+ linux-rockchip@lists.infradead.org, linux-imx@nxp.com,
+ linux-mips@vger.kernel.org, linux-sunxi@lists.linux.dev,
+ linux-xtensa@linux-xtensa.org, nsaenz@kernel.org,
+ linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, linux-omap@vger.kernel.org,
+ patches@opensource.cirrus.com, lgirdwood@gmail.com, daniel@zonque.org,
+ kernel@pengutronix.de, shawnguo@kernel.org, jarkko.nikula@bitmer.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,70 +113,88 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Donnerstag, 19. Mai 2022 17:42:40 CEST Charles Keepax wrote:
+> As part of updating the core to directly tell drivers if they are clock
+> provider or consumer update these CPU side drivers to use the new direct
+> callback.
+> 
+> Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+> ---
+>  sound/soc/rockchip/rockchip_i2s.c     | 8 ++++----
+>  sound/soc/rockchip/rockchip_i2s_tdm.c | 8 ++++----
+>  2 files changed, 8 insertions(+), 8 deletions(-)
+> 
+> diff --git a/sound/soc/rockchip/rockchip_i2s.c b/sound/soc/rockchip/rockchip_i2s.c
+> index 4ce5d25793875..0a66c7df323dc 100644
+> --- a/sound/soc/rockchip/rockchip_i2s.c
+> +++ b/sound/soc/rockchip/rockchip_i2s.c
+> @@ -199,13 +199,13 @@ static int rockchip_i2s_set_fmt(struct snd_soc_dai *cpu_dai,
+>  
+>  	pm_runtime_get_sync(cpu_dai->dev);
+>  	mask = I2S_CKR_MSS_MASK;
+> -	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
+> -	case SND_SOC_DAIFMT_CBS_CFS:
+> +	switch (fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) {
+> +	case SND_SOC_DAIFMT_BP_FP:
+>  		/* Set source clock in Master mode */
+>  		val = I2S_CKR_MSS_MASTER;
+>  		i2s->is_master_mode = true;
+>  		break;
+> -	case SND_SOC_DAIFMT_CBM_CFM:
+> +	case SND_SOC_DAIFMT_BC_FC:
+>  		val = I2S_CKR_MSS_SLAVE;
+>  		i2s->is_master_mode = false;
+>  		break;
+> @@ -486,7 +486,7 @@ static const struct snd_soc_dai_ops rockchip_i2s_dai_ops = {
+>  	.hw_params = rockchip_i2s_hw_params,
+>  	.set_bclk_ratio	= rockchip_i2s_set_bclk_ratio,
+>  	.set_sysclk = rockchip_i2s_set_sysclk,
+> -	.set_fmt = rockchip_i2s_set_fmt,
+> +	.set_fmt_new = rockchip_i2s_set_fmt,
+>  	.trigger = rockchip_i2s_trigger,
+>  };
+>  
+> diff --git a/sound/soc/rockchip/rockchip_i2s_tdm.c b/sound/soc/rockchip/rockchip_i2s_tdm.c
+> index 98700e75b82a1..c90afccdae362 100644
+> --- a/sound/soc/rockchip/rockchip_i2s_tdm.c
+> +++ b/sound/soc/rockchip/rockchip_i2s_tdm.c
+> @@ -411,12 +411,12 @@ static int rockchip_i2s_tdm_set_fmt(struct snd_soc_dai *cpu_dai,
+>  	}
+>  
+>  	mask = I2S_CKR_MSS_MASK;
+> -	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
+> -	case SND_SOC_DAIFMT_CBC_CFC:
+> +	switch (fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) {
+> +	case SND_SOC_DAIFMT_BP_FP:
+>  		val = I2S_CKR_MSS_MASTER;
+>  		i2s_tdm->is_master_mode = true;
+>  		break;
+> -	case SND_SOC_DAIFMT_CBP_CFP:
+> +	case SND_SOC_DAIFMT_BC_FC:
+>  		val = I2S_CKR_MSS_SLAVE;
+>  		i2s_tdm->is_master_mode = false;
+>  		break;
+> @@ -1113,7 +1113,7 @@ static const struct snd_soc_dai_ops rockchip_i2s_tdm_dai_ops = {
+>  	.hw_params = rockchip_i2s_tdm_hw_params,
+>  	.set_bclk_ratio	= rockchip_i2s_tdm_set_bclk_ratio,
+>  	.set_sysclk = rockchip_i2s_tdm_set_sysclk,
+> -	.set_fmt = rockchip_i2s_tdm_set_fmt,
+> +	.set_fmt_new = rockchip_i2s_tdm_set_fmt,
+>  	.set_tdm_slot = rockchip_dai_tdm_slot,
+>  	.trigger = rockchip_i2s_tdm_trigger,
+>  };
+> 
 
---T2P481YcpmerEUHv
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Please run ./scripts/get_maintainer.pl against the individual patches so
+that I'm included in the recipients of the e-mail as well.
 
-On Thu, May 19, 2022 at 11:25:21AM +0530, V sujith kumar Reddy wrote:
-> We have new platform with nau8825 as a primary codec and max98360 as an
-> amp codec. Add machine struct to register sof audio based sound card
-> on such Chrome machine.
+Anyway, for the i2s-tdm parts:
 
-This breaks an x86 allmodconfig build:
+Tested-by: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
 
-/build/stage/linux/sound/soc/amd/acp/acp-mach-common.c: In function =E2=80=
-=98acp_card_nau8825_init=E2=80=99:
-/build/stage/linux/sound/soc/amd/acp/acp-mach-common.c:479:15: error: too m=
-any arguments to function =E2=80=98snd_soc_card_jack_new=E2=80=99
-  479 |         ret =3D snd_soc_card_jack_new(card, "Headset Jack",
-      |               ^~~~~~~~~~~~~~~~~~~~~
-In file included from /build/stage/linux/include/sound/soc.h:1362,
-                 from /build/stage/linux/sound/soc/amd/acp/acp-mach-common.=
-c:20:
-/build/stage/linux/include/sound/soc-card.h:18:5: note: declared here
-   18 | int snd_soc_card_jack_new(struct snd_soc_card *card, const char *id=
-, int type,
-      |     ^~~~~~~~~~~~~~~~~~~~~
-make[5]: *** [/build/stage/linux/scripts/Makefile.build:288: sound/soc/amd/=
-acp/acp-mach-common.o] Error 1
-make[5]: Target '__build' not remade because of errors.
-make[4]: *** [/build/stage/linux/scripts/Makefile.build:550: sound/soc/amd/=
-acp] Error 2
-make[4]: Target '__build' not remade because of errors.
-make[3]: *** [/build/stage/linux/scripts/Makefile.build:550: sound/soc/amd]=
- Error 2
-make[3]: Target '__build' not remade because of errors.
-make[2]: *** [/build/stage/linux/scripts/Makefile.build:550: sound/soc] Err=
-or 2
-make[2]: Target '__build' not remade because of errors.
-make[1]: *** [/build/stage/linux/Makefile:1834: sound] Error 2
-make[1]: Target '__all' not remade because of errors.
-make: *** [Makefile:219: __sub-make] Error 2
-make: Target '__all' not remade because of errors.
-make --silent --keep-going --jobs=3D14 O=3D/tmp/build-work INSTALL_MOD_STRI=
-P=3D1 INSTALL_MOD_PATH=3D/tmp/build-work/modinstall ARCH=3Dx86_64 CROSS_COM=
-PILE=3Dx86_64-linux-gnu- modules_install
-sed: can't read modules.order: No such file or directory
-make[1]: *** [/build/stage/linux/Makefile:1467: __modinst_pre] Error 2
-make[1]: Target 'modules_install' not remade because of errors.
-make: *** [Makefile:219: __sub-make] Error 2
-make: Target 'modules_install' not remade because of errors.
+Tested on a RK3566 connected to an RK817 codec.
 
---T2P481YcpmerEUHv
-Content-Type: application/pgp-signature; name="signature.asc"
+Regards,
+Nicolas Frattaroli
 
------BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmKHjIwACgkQJNaLcl1U
-h9DS7Af+NaA0kEk6Pz/LFvpVhZ8s9UWwsne4neS/3i1TgAbX+/D/grVXyXB+bgl6
-b2ETIdiJSDR/eYGPfYKOZSooH6O1luCEuNMnH3uTUS5eFX37PaWXGTw7/cOIsLIy
-TV1L0jMYwVeKx1yfqbevmq04KE82PAgVSmo1BAUcmwt+sQpsLI34PQBmEEj1zzLd
-nYY1wMWkQnRV7LUqfwCR+XgAC40OMoPB4sO7rPfuUDQdrG3mc3/3bllkkWJ0Nala
-VkfKxZVkU+WapPyE9JB2tc/u4FVlzJJtX/k23KypZT9WDKb4BQd8qWOxIYVr9sNI
-JsIeFJUA0I9kN81ATYMfqowtTyOSjQ==
-=jmOi
------END PGP SIGNATURE-----
-
---T2P481YcpmerEUHv--

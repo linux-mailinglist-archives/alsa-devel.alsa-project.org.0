@@ -2,102 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E03AB52ED57
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 May 2022 15:40:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CDC352EDA7
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 May 2022 15:59:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 77A73172C;
-	Fri, 20 May 2022 15:39:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 77A73172C
+	by alsa0.perex.cz (Postfix) with ESMTPS id E6720172C;
+	Fri, 20 May 2022 15:58:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6720172C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653054014;
-	bh=c8bdH+ZyGQ9wFeRf7kztaXyIa6B6zyqyMyLH+enVaLA=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=XvPdvd5bg9kwsb8JuVbcQ/ctByJ/xHaPMicNhyYXuIv82mhjlrjvRST1ao6QGftrT
-	 Xxu9SQqcSiQvIyO15j7W1lAyMvgRVAcJnnPTZH8aw/xDkTBGYedgkERixSxDrb+OEq
-	 oLn78xnl7R23PjXn205ap7Xp2mTYMi3RQDzUB40M=
+	s=default; t=1653055146;
+	bh=8EpgGp73lszRCHe+ALVlGHBcYp18RdxmZLceyE6uv8A=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=SWb0PLrzWINDB68r4flM5YahmgJiJ2eOduNnwWil2O/1KlqTd5ZM69QPJL8hVLFKW
+	 KUpOCIwThPN2wzdBsXB/JunMDWSKVHJGfoKNCOI5/ZJKVGAqccmI0bqNun7H3sKiiX
+	 AGzlE3lAu+0qgwHt/Eshu8bS9njntXTjhkyIkT7A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DECD0F800F0;
-	Fri, 20 May 2022 15:39:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 66E78F801F5;
+	Fri, 20 May 2022 15:58:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 30B00F8019D; Fri, 20 May 2022 15:39:14 +0200 (CEST)
+ id C6E8EF8019D; Fri, 20 May 2022 15:58:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [IPv6:2a00:1450:4864:20::534])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EC41AF800F0
- for <alsa-devel@alsa-project.org>; Fri, 20 May 2022 15:39:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC41AF800F0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="dbdCdy78"
-Received: by mail-ed1-x534.google.com with SMTP id s3so10817133edr.9
- for <alsa-devel@alsa-project.org>; Fri, 20 May 2022 06:39:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=/vZ5EIynCj28UhpMo2WaUDTGXgrMDD6ssuzpbKQFTrE=;
- b=dbdCdy787bi5RG1nfo93JEf7fRSGqgvdGgWbhi5+jiM2gZq411FflPdY9L2o3Sz097
- XA9SzdoyvFOw4oNvCmxQtifumEL2ucGkRJdht2gKQbj9YVfuffNrO+QPvuuZxjrqoS0F
- NfU67GWBYzEpstGDy844RVUmfAl7HNRGvf/LwT4rnlN6DngXc2ZKIaPbBdhEQ53EpZ4s
- ITsYoJPxw+STd6rZ1MhtfXgofir7SDd7Ohuuh33FWGAKbBMX+xkiGJYwBkluf7rb/Tbk
- 3LkMR2KGcBuBeRhqmlx3nsng24xG35IMWoTed7v6OpPZiYpWbvZKUFT3MZVg1KYI/Bnh
- bK1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=/vZ5EIynCj28UhpMo2WaUDTGXgrMDD6ssuzpbKQFTrE=;
- b=P+3ST/OpzjQAvoLRuaJedhjUrw47tJV3Xz49grGZ5MH4h6a5hkxtA90O523egiTxIl
- s1C82DiW6APWzuyyA5Dpie8juLNDO05MtamOliLtGqID9awjdEYf8ybkourYzuy+8nHr
- RxADDTGeNucl3qro9F9f/VTCW7Xr/2wXjnPigVG5g4SWY2S5mnQhvsTuartwRdmzWI78
- sE4OklxSKBn0qES+xaXeKfqF6Fsfgshf1xTa6wV+D76a9sxkrKgVZEn5vb+xuY0vwJtl
- BqSR5nh9I7t4FCKoPJs1tU+ZA291wu63U6SyShHqyxP1knDuESOH4Uvs5TWYSOzUEbQz
- uMAg==
-X-Gm-Message-State: AOAM531Fc+IcTMDrsHllIeCKVnd0u0irgQAzilckpS+NH9W9Tti46nuk
- 5lbT02uk9CkKtTsaKzpgGtc=
-X-Google-Smtp-Source: ABdhPJzB4dDO6rQGcvP8GfFmFaDFqb3hZ0xhEwmOtYMgE32gUNPAUosh+C78GjzIs6waR9fAZFTMtw==
-X-Received: by 2002:a05:6402:3488:b0:427:b4ec:991b with SMTP id
- v8-20020a056402348800b00427b4ec991bmr10869813edc.319.1653053945963; 
- Fri, 20 May 2022 06:39:05 -0700 (PDT)
-Received: from archbook.localnet (84-72-105-84.dclient.hispeed.ch.
- [84.72.105.84]) by smtp.gmail.com with ESMTPSA id
- b2-20020aa7df82000000b0042abfe32ac8sm4225152edy.30.2022.05.20.06.39.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 May 2022 06:39:05 -0700 (PDT)
-From: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
-To: broonie@kernel.org, Charles Keepax <ckeepax@opensource.cirrus.com>
-Subject: Re: [PATCH 18/56] ASoC: rockchip: Update to use set_fmt_new callback
-Date: Fri, 20 May 2022 15:39:03 +0200
-Message-ID: <4375965.enAZpblka2@archbook>
-In-Reply-To: <20220519154318.2153729-19-ckeepax@opensource.cirrus.com>
-References: <20220519154318.2153729-1-ckeepax@opensource.cirrus.com>
- <20220519154318.2153729-19-ckeepax@opensource.cirrus.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id D1241F800F0
+ for <alsa-devel@alsa-project.org>; Fri, 20 May 2022 15:57:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1241F800F0
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1ns38X-0005Dr-Iv; Fri, 20 May 2022 15:57:49 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1ns38X-003Ukz-3Y; Fri, 20 May 2022 15:57:47 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1ns38V-00AykV-1E; Fri, 20 May 2022 15:57:47 +0200
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: James Schulman <james.schulman@cirrus.com>,
+ David Rhodes <david.rhodes@cirrus.com>,
+ Lucas Tanure <tanureal@opensource.cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+Subject: [PATCH] ASoC: cs35l45: Make bmc150_magn_remove() return void
+Date: Fri, 20 May 2022 15:57:40 +0200
+Message-Id: <20220520135740.770801-1-u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-Cc: cezary.rojewski@intel.com, heiko@sntech.de,
- kuninori.morimoto.gx@renesas.com, alsa-devel@alsa-project.org,
- nicolas.ferre@microchip.com, srinivas.kandagatla@linaro.org,
- peter.ujfalusi@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- jbrunet@baylibre.com, pierre-louis.bossart@linux.intel.com, krzk@kernel.org,
- linux-rockchip@lists.infradead.org, linux-imx@nxp.com,
- linux-mips@vger.kernel.org, linux-sunxi@lists.linux.dev,
- linux-xtensa@linux-xtensa.org, nsaenz@kernel.org,
- linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-omap@vger.kernel.org,
- patches@opensource.cirrus.com, lgirdwood@gmail.com, daniel@zonque.org,
- kernel@pengutronix.de, shawnguo@kernel.org, jarkko.nikula@bitmer.com
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2359; h=from:subject;
+ bh=8EpgGp73lszRCHe+ALVlGHBcYp18RdxmZLceyE6uv8A=;
+ b=owEBbQGS/pANAwAKAcH8FHityuwJAcsmYgBih55QaPfQOvodZZCuVpj9yYxxaYS7gJ36uPwkshT7
+ qewQu5yJATMEAAEKAB0WIQR+cioWkBis/z50pAvB/BR4rcrsCQUCYoeeUAAKCRDB/BR4rcrsCRFpB/
+ 4/ciB/26VuYXzYMjoaVe5NU3K81sGenhkNKqd4nO0RtOAY2HstwGwi8GV56IcIb3Ka8L1lKk1LgCHh
+ 0ZUvNwyJ7QWVID9Q+RWMYUCPRe4JUqqhjIOvO3UHnZz0HFKmyvZ/O2sok225VeeGLUwDlgr7tz5AUD
+ FWLXZrmaJYFKkrUfbjQz1T8GE1bmaVFbAcnZ7oWGK6vkYoOMufoNlrir4rGQTF4g4I5jrx6KQKqHOs
+ GWtEfYI2Ut7lrcaGko7CNEDSK4cnkkj/CB//tvcqpHFcyWXrO66J5m/sCtHqTMCU8Y6wP6xpbRHqtV
+ RK7p6rJO5Z7/IlFXetF6utWyu1Lgtz
+X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ kernel@pengutronix.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,88 +94,70 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Donnerstag, 19. Mai 2022 17:42:40 CEST Charles Keepax wrote:
-> As part of updating the core to directly tell drivers if they are clock
-> provider or consumer update these CPU side drivers to use the new direct
-> callback.
-> 
-> Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-> ---
->  sound/soc/rockchip/rockchip_i2s.c     | 8 ++++----
->  sound/soc/rockchip/rockchip_i2s_tdm.c | 8 ++++----
->  2 files changed, 8 insertions(+), 8 deletions(-)
-> 
-> diff --git a/sound/soc/rockchip/rockchip_i2s.c b/sound/soc/rockchip/rockchip_i2s.c
-> index 4ce5d25793875..0a66c7df323dc 100644
-> --- a/sound/soc/rockchip/rockchip_i2s.c
-> +++ b/sound/soc/rockchip/rockchip_i2s.c
-> @@ -199,13 +199,13 @@ static int rockchip_i2s_set_fmt(struct snd_soc_dai *cpu_dai,
->  
->  	pm_runtime_get_sync(cpu_dai->dev);
->  	mask = I2S_CKR_MSS_MASK;
-> -	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
-> -	case SND_SOC_DAIFMT_CBS_CFS:
-> +	switch (fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) {
-> +	case SND_SOC_DAIFMT_BP_FP:
->  		/* Set source clock in Master mode */
->  		val = I2S_CKR_MSS_MASTER;
->  		i2s->is_master_mode = true;
->  		break;
-> -	case SND_SOC_DAIFMT_CBM_CFM:
-> +	case SND_SOC_DAIFMT_BC_FC:
->  		val = I2S_CKR_MSS_SLAVE;
->  		i2s->is_master_mode = false;
->  		break;
-> @@ -486,7 +486,7 @@ static const struct snd_soc_dai_ops rockchip_i2s_dai_ops = {
->  	.hw_params = rockchip_i2s_hw_params,
->  	.set_bclk_ratio	= rockchip_i2s_set_bclk_ratio,
->  	.set_sysclk = rockchip_i2s_set_sysclk,
-> -	.set_fmt = rockchip_i2s_set_fmt,
-> +	.set_fmt_new = rockchip_i2s_set_fmt,
->  	.trigger = rockchip_i2s_trigger,
->  };
->  
-> diff --git a/sound/soc/rockchip/rockchip_i2s_tdm.c b/sound/soc/rockchip/rockchip_i2s_tdm.c
-> index 98700e75b82a1..c90afccdae362 100644
-> --- a/sound/soc/rockchip/rockchip_i2s_tdm.c
-> +++ b/sound/soc/rockchip/rockchip_i2s_tdm.c
-> @@ -411,12 +411,12 @@ static int rockchip_i2s_tdm_set_fmt(struct snd_soc_dai *cpu_dai,
->  	}
->  
->  	mask = I2S_CKR_MSS_MASK;
-> -	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
-> -	case SND_SOC_DAIFMT_CBC_CFC:
-> +	switch (fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) {
-> +	case SND_SOC_DAIFMT_BP_FP:
->  		val = I2S_CKR_MSS_MASTER;
->  		i2s_tdm->is_master_mode = true;
->  		break;
-> -	case SND_SOC_DAIFMT_CBP_CFP:
-> +	case SND_SOC_DAIFMT_BC_FC:
->  		val = I2S_CKR_MSS_SLAVE;
->  		i2s_tdm->is_master_mode = false;
->  		break;
-> @@ -1113,7 +1113,7 @@ static const struct snd_soc_dai_ops rockchip_i2s_tdm_dai_ops = {
->  	.hw_params = rockchip_i2s_tdm_hw_params,
->  	.set_bclk_ratio	= rockchip_i2s_tdm_set_bclk_ratio,
->  	.set_sysclk = rockchip_i2s_tdm_set_sysclk,
-> -	.set_fmt = rockchip_i2s_tdm_set_fmt,
-> +	.set_fmt_new = rockchip_i2s_tdm_set_fmt,
->  	.set_tdm_slot = rockchip_dai_tdm_slot,
->  	.trigger = rockchip_i2s_tdm_trigger,
->  };
-> 
+cs35l45_remove() always returns zero. Make it return no value which
+makes it easier to see in the callers that there is no error to handle.
 
-Please run ./scripts/get_maintainer.pl against the individual patches so
-that I'm included in the recipients of the e-mail as well.
+Also the return value of i2c driver remove callbacks is ignored anyway.
+This prepares making i2c remove callbacks return void, too.
 
-Anyway, for the i2s-tdm parts:
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+---
+ sound/soc/codecs/cs35l45-i2c.c | 4 +++-
+ sound/soc/codecs/cs35l45.c     | 4 +---
+ sound/soc/codecs/cs35l45.h     | 2 +-
+ 3 files changed, 5 insertions(+), 5 deletions(-)
 
-Tested-by: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
+diff --git a/sound/soc/codecs/cs35l45-i2c.c b/sound/soc/codecs/cs35l45-i2c.c
+index 18ebf1e14b91..53a57320d0ab 100644
+--- a/sound/soc/codecs/cs35l45-i2c.c
++++ b/sound/soc/codecs/cs35l45-i2c.c
+@@ -40,7 +40,9 @@ static int cs35l45_i2c_remove(struct i2c_client *client)
+ {
+ 	struct cs35l45_private *cs35l45 = i2c_get_clientdata(client);
+ 
+-	return cs35l45_remove(cs35l45);
++	cs35l45_remove(cs35l45);
++
++	return 0;
+ }
+ 
+ static const struct of_device_id cs35l45_of_match[] = {
+diff --git a/sound/soc/codecs/cs35l45.c b/sound/soc/codecs/cs35l45.c
+index 7822626d3693..64a3abe14010 100644
+--- a/sound/soc/codecs/cs35l45.c
++++ b/sound/soc/codecs/cs35l45.c
+@@ -669,7 +669,7 @@ int cs35l45_probe(struct cs35l45_private *cs35l45)
+ }
+ EXPORT_SYMBOL_GPL(cs35l45_probe);
+ 
+-int cs35l45_remove(struct cs35l45_private *cs35l45)
++void cs35l45_remove(struct cs35l45_private *cs35l45)
+ {
+ 	pm_runtime_disable(cs35l45->dev);
+ 
+@@ -677,8 +677,6 @@ int cs35l45_remove(struct cs35l45_private *cs35l45)
+ 	regulator_disable(cs35l45->vdd_a);
+ 	/* VDD_BATT must be the last to power-off */
+ 	regulator_disable(cs35l45->vdd_batt);
+-
+-	return 0;
+ }
+ EXPORT_SYMBOL_GPL(cs35l45_remove);
+ 
+diff --git a/sound/soc/codecs/cs35l45.h b/sound/soc/codecs/cs35l45.h
+index 4e266d19cd1c..680891bcfce9 100644
+--- a/sound/soc/codecs/cs35l45.h
++++ b/sound/soc/codecs/cs35l45.h
+@@ -212,6 +212,6 @@ extern const struct regmap_config cs35l45_spi_regmap;
+ int cs35l45_apply_patch(struct cs35l45_private *cs43l45);
+ unsigned int cs35l45_get_clk_freq_id(unsigned int freq);
+ int cs35l45_probe(struct cs35l45_private *cs35l45);
+-int cs35l45_remove(struct cs35l45_private *cs35l45);
++void cs35l45_remove(struct cs35l45_private *cs35l45);
+ 
+ #endif /* CS35L45_H */
 
-Tested on a RK3566 connected to an RK817 codec.
-
-Regards,
-Nicolas Frattaroli
-
+base-commit: 0d463d016000d68d7e982720b5e4380b2d83409a
+-- 
+2.35.1
 

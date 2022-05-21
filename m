@@ -2,81 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CB9B52FAB6
-	for <lists+alsa-devel@lfdr.de>; Sat, 21 May 2022 12:40:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D941F52FB14
+	for <lists+alsa-devel@lfdr.de>; Sat, 21 May 2022 13:13:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BE5EF16F7;
-	Sat, 21 May 2022 12:39:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE5EF16F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6712416F4;
+	Sat, 21 May 2022 13:12:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6712416F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653129640;
-	bh=QsjF1pujAO7MW8EcVnv8ig3u9KTbk6Bjmk/88oc81u4=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=dku80X3n0JXbYdRosmG5nw8WPqfkqjVm5TjwP2IzfhJC9dnXho5KjysaqSEzBN6sg
-	 XnI88fRfu+yRf570LqEhwodsTKLraIB0qokmI5k9Hf65zEeaC8h821CnZLIe0FlBRY
-	 R23TWlce1XpnGlFbh+zH+a1KMicwTgQTV3nNRS+M=
+	s=default; t=1653131580;
+	bh=11BiF6EYX5nzO1yMu02l5yDY4w/nY+Cl+vjZ9UJPR+8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=H2gbo419Eh5wGPEj39iBs4q6Vxv78SneC96f5o1Bfm34BuL0gAZMBLQQEN4j/yhJ4
+	 5fiXWo0kFA0tpjGsKENheYqUfiLm55OlBtmezbSRfNqi1MeS/El+ut31qSQwdE9ojB
+	 9GrXj5mU0ktpp95oisVxwihWz/DNJA56NaxorpAg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 31F39F800D2;
-	Sat, 21 May 2022 12:39:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D0A94F804B2;
+	Sat, 21 May 2022 13:12:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 26C28F8015B; Sat, 21 May 2022 12:39:41 +0200 (CEST)
+ id 1E445F8015B; Sat, 21 May 2022 13:12:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail3-relais-sop.national.inria.fr
+ (mail3-relais-sop.national.inria.fr [192.134.164.104])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B26EFF80105
- for <alsa-devel@alsa-project.org>; Sat, 21 May 2022 12:39:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B26EFF80105
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0BBEFF800D2
+ for <alsa-devel@alsa-project.org>; Sat, 21 May 2022 13:11:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0BBEFF800D2
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="RQOeM8Er"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="AdTlD9HC"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 1A26921B90;
- Sat, 21 May 2022 10:39:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1653129578; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ReXa6gekTyDvKdLnc790nEALr3l/XMJezrJSp6WQ/7Y=;
- b=RQOeM8ErFMBO3DR3mRApbm31xG01uOIhCEY32IvMVEPBwx1ZSCOEa06BperXH9ArbxiCXf
- exqQRwzX/4E0IlSI+Ajl5iUOQE/vXHwwek/qH4zQwWZ6W8A70PUksgjghzi30KbGUc3Hr4
- /ruvNopBOXP4OcLpKTnx/X1ANh6s0sk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1653129578;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ReXa6gekTyDvKdLnc790nEALr3l/XMJezrJSp6WQ/7Y=;
- b=AdTlD9HCMmXpZB6TM8QsiozR1Dx2mYVu5xkePhVimqlOadXWE7u6gA2byiBgKWqegUa27F
- VCrTDCJOL3qZL6BA==
-Received: from valkyrie.site.suse.de (unknown [10.163.18.242])
- by relay2.suse.de (Postfix) with ESMTP id 083A02C141;
- Sat, 21 May 2022 10:39:38 +0000 (UTC)
-Date: Sat, 21 May 2022 12:39:36 +0200
-Message-ID: <87o7zrnp93.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Edward Matijevic <motolav@gmail.com>
-Subject: Re: [PATCH] ALSA: ctxfi: Add SB046x PCI ID
-In-Reply-To: <cae7d1a4-8bd9-7dfe-7427-db7e766f7272@gmail.com>
-References: <cae7d1a4-8bd9-7dfe-7427-db7e766f7272@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?ISO-2022-JP-2?B?R29qGyQoRCtXGyhC?=) APEL/10.8 Emacs/27
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org
+ dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr
+ header.b="bd/cjqYi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inria.fr; s=dc;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=9rNZC50FyEC3dXd4iqi0InhhNWKvB2/su8ouG+co16E=;
+ b=bd/cjqYiC7Bpgo62xWS12uKdKNP05etKAoBX4HEHrh6AbJxy6pt3L14+
+ 700iUlRgpcJiaXNjeM7VkG1xdAD1n5NpD8enQH1dFJ+YKiCW/TG24im4B
+ wHzJdtqGZ3nJ+JcjrM+dU3IzEPeBlqGEIRTSWWBRz5OhDMttAdNPNDjT/ c=;
+Authentication-Results: mail3-relais-sop.national.inria.fr;
+ dkim=none (message not signed) header.i=none;
+ spf=SoftFail smtp.mailfrom=Julia.Lawall@inria.fr;
+ dmarc=fail (p=none dis=none) d=inria.fr
+X-IronPort-AV: E=Sophos;i="5.91,242,1647298800"; d="scan'208";a="14727885"
+Received: from i80.paris.inria.fr (HELO i80.paris.inria.fr.) ([128.93.90.48])
+ by mail3-relais-sop.national.inria.fr with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 May 2022 13:11:52 +0200
+From: Julia Lawall <Julia.Lawall@inria.fr>
+To: Jaya Kumar <jayakumar.alsa@gmail.com>
+Subject: [PATCH] ALSA: cs5535audio: fix typo in comment
+Date: Sat, 21 May 2022 13:10:11 +0200
+Message-Id: <20220521111145.81697-1-Julia.Lawall@inria.fr>
+X-Mailer: git-send-email 2.20.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ kernel-janitors@vger.kernel.org, Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,65 +80,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 21 May 2022 06:45:15 +0200,
-Edward Matijevic wrote:
-> 
-> Adds the PCI ID for X-Fi cards sold under the Platnum and XtremeMusic names
-> 
-> Before: snd_ctxfi 0000:05:05.0: chip 20K1 model Unknown (1102:0021) is found
-> After: snd_ctxfi 0000:05:05.0: chip 20K1 model SB046x (1102:0021) is found
-> 
-> Signed-off-by: Edward Matijevic <motolav@gmail.com>
+Spelling mistake (triple letters) in comment.
+Detected with the help of Coccinelle.
 
-Does / did everything work as expected?  The model field influence on
-a few device-specific setups such as the GPIO initial value, ADC and
-DAC selections, not only the name string.
+Signed-off-by: Julia Lawall <Julia.Lawall@inria.fr>
 
+---
+ sound/pci/cs5535audio/cs5535audio_pcm.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-thanks,
+diff --git a/sound/pci/cs5535audio/cs5535audio_pcm.c b/sound/pci/cs5535audio/cs5535audio_pcm.c
+index 5ff10fec7b90..0db24cc4d916 100644
+--- a/sound/pci/cs5535audio/cs5535audio_pcm.c
++++ b/sound/pci/cs5535audio/cs5535audio_pcm.c
+@@ -129,7 +129,7 @@ static int cs5535audio_build_dma_packets(struct cs5535audio *cs5535au,
+ 		return 0;
+ 
+ 	/* the u32 cast is okay because in snd*create we successfully told
+-   	   pci alloc that we're only 32 bit capable so the uppper will be 0 */
++	   pci alloc that we're only 32 bit capable so the upper will be 0 */
+ 	addr = (u32) substream->runtime->dma_addr;
+ 	desc_addr = (u32) dma->desc_buf.addr;
+ 	for (i = 0; i < periods; i++) {
 
-Takashi
-
-> ---
->  sound/pci/ctxfi/ctatc.c      | 2 ++
->  sound/pci/ctxfi/cthardware.h | 3 ++-
->  2 files changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/sound/pci/ctxfi/ctatc.c b/sound/pci/ctxfi/ctatc.c
-> index 78f35e88aed6..fbdb8a3d5b8e 100644
-> --- a/sound/pci/ctxfi/ctatc.c
-> +++ b/sound/pci/ctxfi/ctatc.c
-> @@ -36,6 +36,7 @@
->  			    | ((IEC958_AES3_CON_FS_48000) << 24))
->  
->  static const struct snd_pci_quirk subsys_20k1_list[] = {
-> +	SND_PCI_QUIRK(PCI_VENDOR_ID_CREATIVE, 0x0021, "SB046x", CTSB046X),
->  	SND_PCI_QUIRK(PCI_VENDOR_ID_CREATIVE, 0x0022, "SB055x", CTSB055X),
->  	SND_PCI_QUIRK(PCI_VENDOR_ID_CREATIVE, 0x002f, "SB055x", CTSB055X),
->  	SND_PCI_QUIRK(PCI_VENDOR_ID_CREATIVE, 0x0029, "SB073x", CTSB073X),
-> @@ -64,6 +65,7 @@ static const struct snd_pci_quirk subsys_20k2_list[] = {
->  
->  static const char *ct_subsys_name[NUM_CTCARDS] = {
->  	/* 20k1 models */
-> +	[CTSB046X]	= "SB046x",
->  	[CTSB055X]	= "SB055x",
->  	[CTSB073X]	= "SB073x",
->  	[CTUAA]		= "UAA",
-> diff --git a/sound/pci/ctxfi/cthardware.h b/sound/pci/ctxfi/cthardware.h
-> index f406b626a28c..2875cec83b8f 100644
-> --- a/sound/pci/ctxfi/cthardware.h
-> +++ b/sound/pci/ctxfi/cthardware.h
-> @@ -26,8 +26,9 @@ enum CHIPTYP {
->  
->  enum CTCARDS {
->  	/* 20k1 models */
-> +	CTSB046X,
-> +	CT20K1_MODEL_FIRST = CTSB046X,
->  	CTSB055X,
-> -	CT20K1_MODEL_FIRST = CTSB055X,
->  	CTSB073X,
->  	CTUAA,
->  	CT20K1_UNKNOWN,
-> -- 
-> 2.36.1
-> 

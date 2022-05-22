@@ -2,112 +2,148 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62A98533ED8
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 May 2022 16:10:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A58F533EDC
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 May 2022 16:10:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 06E1916CA;
-	Wed, 25 May 2022 16:09:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 06E1916CA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 98D4416FC;
+	Wed, 25 May 2022 16:10:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98D4416FC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653487839;
-	bh=zCJgPnmqqbUP9L/MvDY+tUJO/N47fepN+MusoyXAs3Y=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=FlcWFmmPqtt47e5+n1wcwJXFG4TRHeqUpak7kW5xYOaCLMURqiW+8iw9x2frqJMfB
-	 FF+oPcu5DgBDAW4SCizq9VBLjG9i3XLCrDl+kc4x6xgcn1aZoDYKwaoFTunVBuIYUl
-	 5B7S25i2uF+4fKHUe/Dy/2+TEkUXUfAqC6rDZl4s=
+	s=default; t=1653487856;
+	bh=iqFVv4Tm2thw92Ne73pdKx2kiRpvaQNsrBuC2btBPlE=;
+	h=Date:To:From:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=lkFTdqEH4nTyfsiDdRDBjTxhZXVhYxsEdatIO0vU9wgTMzVy5EQUDp7VJ8IQEE2CC
+	 +J8TefokQlaevaGUCQo7TJb729C6/kKfpmW8ymBCvOIQvFAlTf6Ohl/9hACrIIR4N3
+	 Gt/NKgqgWDjL+YE4NgogQ8YC8ANdOh1EjBlrgdMg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3181AF80520;
+	by alsa1.perex.cz (Postfix) with ESMTP id AE1B5F80524;
 	Wed, 25 May 2022 16:08:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1588BF8015B; Sat, 21 May 2022 17:03:52 +0200 (CEST)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ id 3BEBEF80238; Sun, 22 May 2022 20:55:32 +0200 (CEST)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2070e.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe59::70e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 66F3FF800D2
- for <alsa-devel@alsa-project.org>; Sat, 21 May 2022 17:03:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66F3FF800D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0DAB2F800CB
+ for <alsa-devel@alsa-project.org>; Sun, 22 May 2022 20:55:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0DAB2F800CB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="y5RaZjFH"
-Received: by mail-lf1-x12c.google.com with SMTP id v8so16826203lfd.8
- for <alsa-devel@alsa-project.org>; Sat, 21 May 2022 08:03:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=4qCtL0+bm+n7u/HXMR/ejdT6S5mFrpV8yho83BhRO5s=;
- b=y5RaZjFHrW8w0QDRcNsylDIFb53EJ2po4JTV2FpNAdkAYoZdu1qF5axrhsPQuGATng
- IRhb46WEpzowjRCtShPff9kYW6hHmeuNWcNUVWWram5Vsu13pwjOphSj50HlavWfE75o
- fl8HJqVUjSx8QbwUjbHsCAWiX5BauC0NO2ZKYDPS4ebr9JVbKM3hZESP+xBd6W4RKh33
- MjPK1gRmYo1vuibvD7RGvzYvB0fQWdgtoSLYcw2VHu54BnbEvJcolLEa1EoGN8BAPKCL
- xL8v5PmCr8qaYJ68UOqWoeB4NePuVP6tv4mkCntQBpW2qZmf/QlRL9lcpkc3pjzue05U
- zOAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=4qCtL0+bm+n7u/HXMR/ejdT6S5mFrpV8yho83BhRO5s=;
- b=pcI+GJxNUyqo3Wv1zXdYK/0HJDTxF8CJEKkcdV9LQXbdKWSMxByx6N36A8rww15DKX
- BXwNbzDlUPKYp3bHzwvfnhOY3/lhnROwF3/msxTEAHSrSjfD6fS3B4a6HgGoxZdUacqC
- efvw+o68J1nU9NxHKPpZjU9u6LzhxgjMt0/wIZ32BS+1sVjh2Odt6ybL2zplMKbzLSGl
- gwbWXaR6+gc8KTcfIQkf1jT9yuhNtnLMSJg6ZNf1boCWpuiIUfgecvg810evWQ5tJch4
- /aufNcUgbzjO0n8Y9d2wpOA3UcmpaxX472jxkr+7pUvieAEbylmrjTGYGgN1mE1w3pDS
- E14Q==
-X-Gm-Message-State: AOAM531dbFV9/hzyd2TcQ5SJ6MP1kLQB2oAVmGRZupCo08ZgJfxj19zJ
- S7SF2aBf45y2rF3fHGqtIPuZrg==
-X-Google-Smtp-Source: ABdhPJxtHDtDb6cleVJCc0ulh0XswzEKTSNzq7RDBh7mwPl4obmqj7ZYfKIcfiHfX3+2J00L6fmtSQ==
-X-Received: by 2002:ac2:4f0c:0:b0:477:cb8e:bd8b with SMTP id
- k12-20020ac24f0c000000b00477cb8ebd8bmr5791149lfr.209.1653145423865; 
- Sat, 21 May 2022 08:03:43 -0700 (PDT)
-Received: from [192.168.0.17] (78-11-189-27.static.ip.netia.com.pl.
- [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
- p20-20020ac24ed4000000b0047255d210easm1087910lfr.25.2022.05.21.08.03.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 21 May 2022 08:03:43 -0700 (PDT)
-Message-ID: <6ae55a29-0b29-f53c-c9bd-fae929f3caf7@linaro.org>
-Date: Sat, 21 May 2022 17:03:41 +0200
-MIME-Version: 1.0
+ dkim=pass (1024-bit key) header.d=WallaWallaUniversity.onmicrosoft.com
+ header.i=@WallaWallaUniversity.onmicrosoft.com header.b="Wf7FcZ4t"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=aI+z4XJsEMalh3qA3ATt2QT5pXCytqfO2jQdyuZTZXBzqAvuIWggAAiL5dv116G77iKg7B2TrpQ0oWAUdo4ceLkXdd3Nozk5qChIQcRtgCN3kaOUT2liLoFfpCAnbCOGV9HAqfkJEA9ID6txHTQqteWxlMgZ0s09itwYa+0i2XlIrrItoAf6oF/xNUCz+/cFF44iomdhvxZfN9SRldhf0phrzzo/NgHa/oqY/XknNI7KkTT/X2tQR9yAraXAs7IP31cpa2QlWza0ZkDMnYa2WONX7GFxYMQvEq/fUaHtEhLtAz0PAbaEjfGWePnpeITlkFlYAq6skOO9mK29gJI/cw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xo+aVQ0Fv4MdK2FoNEbCEqq/VSwojB53g13o8ffscGs=;
+ b=dSRXAo6cj8PgHNDXZfGbGKe26RL8u+eqw/tV7gqwh8t7TOJHPd91KqFActfvCQjOCvJ6gpTJ0/7Tuw6d1vPsw1BSpZiEL0NmAbtWTB/rfHnaPTRwSjnvW2q5Et+7GXahKzZW3I/QcUpMZXPLQufAuYrcfv/QslHQvXEEWWz6M1wuz1iRF1i2+XEaBRexBB8gtXVzBUESEuJAm1jSAVRmGMxHRjynen+yAtZt8VjLz/aMECVzhlJXcConHCejB/Yur/rCUlr7TS2wLhBktgPFDbGkNka23U62YAEmlESacnqurMcaWqIEHIS2tqoqMEDOdDQTeEHKXrqmCPue7zdGZQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=wallawalla.edu; dmarc=pass action=none
+ header.from=wallawalla.edu; dkim=pass header.d=wallawalla.edu; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=WallaWallaUniversity.onmicrosoft.com;
+ s=selector2-WallaWallaUniversity-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xo+aVQ0Fv4MdK2FoNEbCEqq/VSwojB53g13o8ffscGs=;
+ b=Wf7FcZ4tquaOsx9YR9I2cn/5au67JM0XJykP2/Kg7WGBqyqXd0Pr8ebG/sK0rEBc4AAbE5GVP+8iIgU7eGRKnMMLdW9lk5ifCdUq2yVx0bRCIqLnxMuaC/ouIG6yDmOkILd35qou78cU3Ilj/J1oqgU3JzFfpLwX7ZYWDXadH0s=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=wallawalla.edu;
+Received: from MW4PR07MB8681.namprd07.prod.outlook.com (2603:10b6:303:106::13)
+ by DM6PR07MB5228.namprd07.prod.outlook.com (2603:10b6:5:1e::26) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.15; Sun, 22 May
+ 2022 18:55:21 +0000
+Received: from MW4PR07MB8681.namprd07.prod.outlook.com
+ ([fe80::583e:91d7:6aee:6485]) by MW4PR07MB8681.namprd07.prod.outlook.com
+ ([fe80::583e:91d7:6aee:6485%9]) with mapi id 15.20.5273.022; Sun, 22 May 2022
+ 18:55:21 +0000
+Message-ID: <69d458d9-b7cf-4a46-ea97-5b1969c820ac@wallawalla.edu>
+Date: Sun, 22 May 2022 11:55:08 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.1
-Subject: Re: [PATCH] dt-bindings: Fix properties without any type
+ Thunderbird/91.9.1
+To: alsa-devel@alsa-project.org
 Content-Language: en-US
-To: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
- Linus Walleij <linus.walleij@linaro.org>, Bartosz Golaszewski
- <brgl@bgdev.pl>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Peter Rosin <peda@axentia.se>,
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Kalle Valo <kvalo@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Sebastian Reichel <sre@kernel.org>,
- Matt Mackall <mpm@selenic.com>, Herbert Xu <herbert@gondor.apana.org.au>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Mark Brown <broonie@kernel.org>, Maxime Ripard <mripard@kernel.org>
-References: <20220519211411.2200720-1-robh@kernel.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220519211411.2200720-1-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Rob Frohne <rob.frohne@wallawalla.edu>
+Subject: Is it possible to set the CM6533 so it has 96 kHz sample rate on
+ capture and 48 kHz for playback using ALSA?
+Organization: Walla Walla University
+X-ClientProxiedBy: MW4PR03CA0354.namprd03.prod.outlook.com
+ (2603:10b6:303:dc::29) To MW4PR07MB8681.namprd07.prod.outlook.com
+ (2603:10b6:303:106::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 0303b71a-59d6-4fca-3180-08da3c249ead
+X-MS-TrafficTypeDiagnostic: DM6PR07MB5228:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR07MB52288530E3CE7D797C178F79E9D59@DM6PR07MB5228.namprd07.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 6EVI9y3fMEVFIhO1lPJy2x6b22jHeTVSaXcHityjZiqx37kx3REKbCNpnwLvgrdW/kzRrNrprU9sWXnvtA2ea2wsQJLFlTaiApcI6nbpBXpbmseh6zwWUk1U0y7fGxDVdLWSg4ltngJBTmxBKWcfq4Iy3mQdX5DqrTUvoVG9FU7KT0hOquAuzV3yNUDcZrqec2n0OwSVbHu4h3/qhRPEB4ROqS/P5THWSSH9C+2YuFgc9CKYyo+aAPfJepb+hrfBuEcokPn75Unq8psTg9+kNucpHjo/irotrHKTKIWk4FO3Y6lXa0uZ/BEJH0SRP4Gq8QUp9HCEFZds4rSCeSDeaCgpGbh+3ehX3kkbF3EzQ3FIWnSsFHtcNyMvxegndNLEm/5AaZFG3fPcYJlLObfJQj0XuZwSC7B0ZhveTcaV4lAvnWy6uu7f7wDe4Ilc3LjtkGyk97yMu0BQWzrhzv/V+xVKVcDgyLdxC4nw9OGdO7UxV9XOopVZCKC3qs2krDwpeiQQ55HbYV5aUamuc1qayNENGHvB4xjmZLepqOVtvkoi6tGGurSGeI4mCDng4eYKufQeRd+rpUcj1VdpUHAej9EEt9GLLVW9Wd5B2K5H+/Jt6jKqX4+9blV/vUxa4agLHiKXwgQb7OBkbfVAwl9IHE9tDZL0blliEPkVgijMk95E3Q59OiRWanb9/QP4BJQaIDCib1ulObRlgaHOyRePuQenWM7NcWUW2IptfyV7fLreLIQnkkyOeURJnbNH5pjyvVFiQAJKwckbJiracYWHzzhhS4K+YBFztfK3JM8CpMm1GPXJ44FIwpRSqeWtda8k
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4PR07MB8681.namprd07.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(83380400001)(36916002)(52116002)(6666004)(2616005)(40140700001)(6512007)(26005)(6486002)(186003)(38350700002)(38100700002)(33964004)(6506007)(508600001)(166002)(21480400003)(2906002)(21615005)(31696002)(75432002)(36756003)(31686004)(86362001)(8676002)(316002)(66476007)(66556008)(66946007)(6916009)(44832011)(786003)(5660300002)(28085005)(8936002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U0RQbkhFdkM4VyszbnVCQ0F0b2dyZDRXdi9EZHZBY0U2eUFIYkxManByaUxJ?=
+ =?utf-8?B?UmlnQW9GT1VjRG1pZU55RmhCNy9NT1lvSm50VVczamRla3NwWURCUUUyVjdM?=
+ =?utf-8?B?U3FybmxRUzhCYmJGN0tOcm14NjFzN3A5enRISTJkd0pRTXFYaVIzUUZjZ1hp?=
+ =?utf-8?B?OWU3SnNUV3FXU2lSZTJORTdsaVVVcFA3Ny9XMXgvQnFLdEZESFZEY3g1ZkIv?=
+ =?utf-8?B?alg4QVNIRGZya290ZXB2aWRtQ3RjTnUvRGlLMElvNkJZUzVzTkNBL1F0ZmNB?=
+ =?utf-8?B?VU43dkVuOTBiRDAwellkYUxTSXk5L0dvTGgwS1FDNkkyTmlOSEZOalJmNWVi?=
+ =?utf-8?B?Zy9tcHhrdUgwdWZWNDFmd0FoT2VWUGJVSzcxQ0FETDV2Tll3OVMxdWtyMW5a?=
+ =?utf-8?B?OXBhUDFEZlB0NXFVdUFSR2d0Z2swd1dhKzZodzFWV3RyTjZnT2Vyc1pwZlZj?=
+ =?utf-8?B?VFMrNXYxZkIwRFlYY3ppMXdzRThOdWhlVjlublNZTEFGamRmN0tJV2FJay9E?=
+ =?utf-8?B?VkNLM2pIWUVmWlM1WTVqdTg4dmZCQTEwYlhlSU1nWmw1M1E1RjF4emF0Sjg1?=
+ =?utf-8?B?SlViYVJxemliSmQvNFJMeE5ldU5EREhvSk5lWmRHZFpEbTBocW5ySTZhSURY?=
+ =?utf-8?B?TEl4bzdnYUROTFJNazVHcEJLMWpSdUQrTHR5bkNXcmFEOUdLenlzaDlwZmdo?=
+ =?utf-8?B?YmI5NXZSY0w2ZTUrZWZqT0tjRXZ2L3dSTENwaWQyZ1ZFRU9iNnR6aEhNSjF4?=
+ =?utf-8?B?OXlVOWhaL29hWDRYTExURXNOZk5QcjgyT1B4clF3NUlmdFRPSEFIU3pCY0VZ?=
+ =?utf-8?B?SlVpT3ZjNU9CWXlzOENZbm5aMzE0UVZmbHdlRjZxRFBNNXZTa0xGMyswT0t0?=
+ =?utf-8?B?Z3l5ZHBQS2pKNUFaenlSTEI4M29PZW4ySW1xdndIMVMvSk5laU9nb1ZGaU5v?=
+ =?utf-8?B?anlNeWxvZ1oxYmlHOURFdXdvbXFHYmpCditRdUM4Q0RGc0REdW5JNFVqVXhu?=
+ =?utf-8?B?ZmlLckMxZUw3Y1M4MGZkdTRLbFRPWlN2emRKMUdCdUtUZ256ajVWYUdmVFlY?=
+ =?utf-8?B?bnhUVitTK2VYNkVrN0wveHYwb05WUHh0a2w1Uy9PMEcxUmNFVDZYTDd6bVJs?=
+ =?utf-8?B?d2pRVURTUkk3OHdDZ2MrNVQ1ejhNOEt6S0kzU1pvamxCZ050aWxVNWJ0eVJU?=
+ =?utf-8?B?cFEyWUF4bDJFSVdGMm9MczMxUmppMGpmekFOdlgxMFR3VjVEMnVSdkZHUTRl?=
+ =?utf-8?B?TjZFRktHbTNReWFubzdhVWdqYXEzSzFjVjdLL3Uyd2FhOWxTKzBkQy9RRVNt?=
+ =?utf-8?B?WVA2aFJ1YXF6a1pMRmpSUFlGRVNGSCtoMHptdTl0dm1FUjJaVzlrVEZNZDZF?=
+ =?utf-8?B?UUZQQlNsY09LTHB2NEpsRVdMVFBqZFU4R1p0ZG9TRFVqQkxTL2tjdVNVdnZO?=
+ =?utf-8?B?MmpZTUgzV2hUSyt4NTVQSTVJb0hGM2JvNkV6TUpQMlh0KzFab2JsaHFqaS81?=
+ =?utf-8?B?dWdWZXpmN0ZFTDJTcGdvbjhQSlhHQXBWdVRzRERNQlJyRDU2OUtya2ZhbExV?=
+ =?utf-8?B?dm05SXdOS1pCdm1ZRVFOVjR4VUJJVk9FdEhaZUtJakFDdTRSWS9DTzB3RkRq?=
+ =?utf-8?B?VGZkM0JtVHphbTZQWEo5a2FKajhWUFpCWmdabzJIR3A5OFpPZXVTNWNTcGRQ?=
+ =?utf-8?B?VXloVkdyYzZ1aXRiSmQwQy9wb0pVNWdBd01hK1A0dWVwNU9Seit6VmJSVmJT?=
+ =?utf-8?B?Q2FzL0lKUUVMdTRVSlMvSFFCV0VBc0dSUUZxT2JVUVd3elU4UGlVQzQvYkJi?=
+ =?utf-8?B?WHpzd3VDeFdkcUIvYXQyY2JaZTFSUS8rOG1MUWFvM2YyZXZJdE9PcEhBSVlw?=
+ =?utf-8?B?ZmhtazdxbWFTbDhiR3IzVU1GaldIcC9COHdHcVBvY0wyeFpnMms1Mlc5MUlr?=
+ =?utf-8?B?R050aWdqK0YxaldSd3laVFpxbmFEdXh4THlXWEw4K2NHYjNOaG1GSGJUSFFi?=
+ =?utf-8?B?RE1ubzl4Um9PMUtDQ0phSUZZS1AxYTNsbjFPUWxyUk5JdnVnekJZSHF5NENv?=
+ =?utf-8?B?bUlqR2VNYStwUG4vZTY2RHRyZmtheUsvbGhCOFd4NGt1bzl6U1oyR3ZtYmRZ?=
+ =?utf-8?B?Tm56cW5aWWFEVFRGb1VMano5TXludmVxWGIva2prMG01dGtnOGpPNzZWNVdi?=
+ =?utf-8?B?ZmpNMnh4Q0pqQWgzOHdlMXc1ampxL2hvbzFnanhGVkRQb2FQblBGSmY5U1Bm?=
+ =?utf-8?B?WXliYkU5c1lQRjlYaFpHVkhjekNVNDRENzFkQ1NnWDJjdnRiMXYxaDVyekxL?=
+ =?utf-8?B?Wk1hZWxnUDlNWUEyRmdCaFVXWjBJL2Z3YkRnTm13MWxYcmhOUVpINW5YSHk5?=
+ =?utf-8?Q?QFA3svLsNqiLKPFc=3D?=
+X-OriginatorOrg: wallawalla.edu
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0303b71a-59d6-4fca-3180-08da3c249ead
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR07MB8681.namprd07.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 May 2022 18:55:21.2187 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: d958f048-e431-4277-9c8d-ebfb75e7aa64
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: A30UAsgULoeBQd7jx8zDcaxUYZzunNLr+2Xs09kBdlTX09OZyuAEsYUGAP4DH94ScJmIr3urhxamO/CevvW0FnmeDv0lgjTpznFhmC2lFyM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR07MB5228
 X-Mailman-Approved-At: Wed, 25 May 2022 16:08:39 +0200
-Cc: chrome-platform@lists.linux.dev, alsa-devel@alsa-project.org,
- linux-pm@vger.kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-gpio@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -123,184 +159,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 19/05/2022 23:14, Rob Herring wrote:
-> Now that the schema tools can extract type information for all
-> properties (in order to decode dtb files), finding properties missing
-> any type definition is fairly trivial though not yet automated.
-> 
-> Fix the various property schemas which are missing a type. Most of these
-> tend to be device specific properties which don't have a vendor prefix.
-> A vendor prefix is how we normally ensure a type is defined.
-> 
-> Signed-off-by: Rob Herring <robh@kernel.org>
-> ---
->  .../arm/hisilicon/controller/hip04-bootwrapper.yaml       | 5 +++--
->  .../bindings/display/bridge/toshiba,tc358768.yaml         | 1 +
->  .../devicetree/bindings/display/panel/panel-timing.yaml   | 5 +++++
->  .../bindings/display/panel/raydium,rm67191.yaml           | 1 +
->  .../bindings/display/panel/samsung,s6e8aa0.yaml           | 1 +
->  .../devicetree/bindings/gpio/fairchild,74hc595.yaml       | 1 +
->  .../devicetree/bindings/input/google,cros-ec-keyb.yaml    | 1 +
->  .../devicetree/bindings/input/matrix-keymap.yaml          | 4 ++++
->  Documentation/devicetree/bindings/media/i2c/adv7604.yaml  | 3 ++-
->  Documentation/devicetree/bindings/mux/reg-mux.yaml        | 8 ++++++--
->  Documentation/devicetree/bindings/net/cdns,macb.yaml      | 1 +
->  Documentation/devicetree/bindings/net/ingenic,mac.yaml    | 1 +
->  .../devicetree/bindings/net/ti,davinci-mdio.yaml          | 1 +
->  .../devicetree/bindings/net/wireless/ti,wlcore.yaml       | 2 ++
->  .../devicetree/bindings/pci/snps,dw-pcie-ep.yaml          | 6 ++++--
->  Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml   | 2 ++
->  .../devicetree/bindings/pinctrl/canaan,k210-fpioa.yaml    | 2 ++
->  Documentation/devicetree/bindings/power/avs/qcom,cpr.yaml | 1 +
->  .../devicetree/bindings/power/supply/battery.yaml         | 7 ++++++-
->  .../devicetree/bindings/power/supply/charger-manager.yaml | 1 +
->  Documentation/devicetree/bindings/rng/st,stm32-rng.yaml   | 1 +
->  Documentation/devicetree/bindings/serial/8250.yaml        | 1 +
->  .../devicetree/bindings/sound/audio-graph-card2.yaml      | 3 +++
->  .../devicetree/bindings/sound/imx-audio-hdmi.yaml         | 3 +++
->  Documentation/devicetree/bindings/usb/smsc,usb3503.yaml   | 1 +
->  25 files changed, 55 insertions(+), 8 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/arm/hisilicon/controller/hip04-bootwrapper.yaml b/Documentation/devicetree/bindings/arm/hisilicon/controller/hip04-bootwrapper.yaml
-> index 7378159e61df..483caf0ce25b 100644
-> --- a/Documentation/devicetree/bindings/arm/hisilicon/controller/hip04-bootwrapper.yaml
-> +++ b/Documentation/devicetree/bindings/arm/hisilicon/controller/hip04-bootwrapper.yaml
-> @@ -17,14 +17,15 @@ properties:
->        - const: hisilicon,hip04-bootwrapper
->  
->    boot-method:
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
->      description: |
->        Address and size of boot method.
->        [0]: bootwrapper physical address
->        [1]: bootwrapper size
->        [2]: relocation physical address
->        [3]: relocation size
-> -    minItems: 1
-> -    maxItems: 2
-> +    minItems: 2
-> +    maxItems: 4
->  
->  required:
->    - compatible
-> diff --git a/Documentation/devicetree/bindings/display/bridge/toshiba,tc358768.yaml b/Documentation/devicetree/bindings/display/bridge/toshiba,tc358768.yaml
-> index 3bd670b8e5cd..0b6f5bef120f 100644
-> --- a/Documentation/devicetree/bindings/display/bridge/toshiba,tc358768.yaml
-> +++ b/Documentation/devicetree/bindings/display/bridge/toshiba,tc358768.yaml
-> @@ -58,6 +58,7 @@ properties:
->  
->              properties:
->                data-lines:
-> +                $ref: /schemas/types.yaml#/definitions/uint32
->                  enum: [ 16, 18, 24 ]
->  
->        port@1:
-> diff --git a/Documentation/devicetree/bindings/display/panel/panel-timing.yaml b/Documentation/devicetree/bindings/display/panel/panel-timing.yaml
-> index 7749de95ee40..229e3b36ee29 100644
-> --- a/Documentation/devicetree/bindings/display/panel/panel-timing.yaml
-> +++ b/Documentation/devicetree/bindings/display/panel/panel-timing.yaml
-> @@ -146,6 +146,7 @@ properties:
->        Horizontal sync pulse.
->        0 selects active low, 1 selects active high.
->        If omitted then it is not used by the hardware
-> +    $ref: /schemas/types.yaml#/definitions/uint32
->      enum: [0, 1]
->  
->    vsync-active:
-> @@ -153,6 +154,7 @@ properties:
->        Vertical sync pulse.
->        0 selects active low, 1 selects active high.
->        If omitted then it is not used by the hardware
-> +    $ref: /schemas/types.yaml#/definitions/uint32
->      enum: [0, 1]
->  
->    de-active:
-> @@ -160,6 +162,7 @@ properties:
->        Data enable.
->        0 selects active low, 1 selects active high.
->        If omitted then it is not used by the hardware
-> +    $ref: /schemas/types.yaml#/definitions/uint32
->      enum: [0, 1]
->  
->    pixelclk-active:
-> @@ -169,6 +172,7 @@ properties:
->        sample data on rising edge.
->        Use 1 to drive pixel data on rising edge and
->        sample data on falling edge
-> +    $ref: /schemas/types.yaml#/definitions/uint32
->      enum: [0, 1]
->  
->    syncclk-active:
-> @@ -179,6 +183,7 @@ properties:
->        sample sync on rising edge of pixel clock.
->        Use 1 to drive sync on rising edge and
->        sample sync on falling edge of pixel clock
-> +    $ref: /schemas/types.yaml#/definitions/uint32
->      enum: [0, 1]
->  
->    interlaced:
-> diff --git a/Documentation/devicetree/bindings/display/panel/raydium,rm67191.yaml b/Documentation/devicetree/bindings/display/panel/raydium,rm67191.yaml
-> index 745dd247c409..617aa8c8c03a 100644
-> --- a/Documentation/devicetree/bindings/display/panel/raydium,rm67191.yaml
-> +++ b/Documentation/devicetree/bindings/display/panel/raydium,rm67191.yaml
-> @@ -24,6 +24,7 @@ properties:
->  
->    dsi-lanes:
->      description: Number of DSI lanes to be used must be <3> or <4>
-> +    $ref: /schemas/types.yaml#/definitions/uint32
->      enum: [3, 4]
->  
->    v3p3-supply:
-> diff --git a/Documentation/devicetree/bindings/display/panel/samsung,s6e8aa0.yaml b/Documentation/devicetree/bindings/display/panel/samsung,s6e8aa0.yaml
-> index ca959451557e..1cdc91b3439f 100644
-> --- a/Documentation/devicetree/bindings/display/panel/samsung,s6e8aa0.yaml
-> +++ b/Documentation/devicetree/bindings/display/panel/samsung,s6e8aa0.yaml
-> @@ -36,6 +36,7 @@ properties:
->  
->    init-delay:
->      description: delay after initialization sequence [ms]
-> +    $ref: /schemas/types.yaml#/definitions/uint32
->  
->    panel-width-mm:
->      description: physical panel width [mm]
-> diff --git a/Documentation/devicetree/bindings/gpio/fairchild,74hc595.yaml b/Documentation/devicetree/bindings/gpio/fairchild,74hc595.yaml
-> index 5fe19fa5f67c..a99e7842ca17 100644
-> --- a/Documentation/devicetree/bindings/gpio/fairchild,74hc595.yaml
-> +++ b/Documentation/devicetree/bindings/gpio/fairchild,74hc595.yaml
-> @@ -26,6 +26,7 @@ properties:
->      const: 2
->  
->    registers-number:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
->      description: Number of daisy-chained shift registers
->  
->    enable-gpios:
-> diff --git a/Documentation/devicetree/bindings/input/google,cros-ec-keyb.yaml b/Documentation/devicetree/bindings/input/google,cros-ec-keyb.yaml
-> index e8f137abb03c..aa61fe64be63 100644
-> --- a/Documentation/devicetree/bindings/input/google,cros-ec-keyb.yaml
-> +++ b/Documentation/devicetree/bindings/input/google,cros-ec-keyb.yaml
-> @@ -31,6 +31,7 @@ properties:
->      type: boolean
->  
->    function-row-physmap:
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
->      minItems: 1
->      maxItems: 15
->      description: |
-> diff --git a/Documentation/devicetree/bindings/input/matrix-keymap.yaml b/Documentation/devicetree/bindings/input/matrix-keymap.yaml
-> index 6699d5e32dca..9f703bb51e12 100644
-> --- a/Documentation/devicetree/bindings/input/matrix-keymap.yaml
-> +++ b/Documentation/devicetree/bindings/input/matrix-keymap.yaml
-> @@ -27,6 +27,10 @@ properties:
->        column and linux key-code. The 32-bit big endian cell is packed as:
->            row << 24 | column << 16 | key-code
->  
-> +  linux,no-autorepeat:
-> +    type: boolean
-> +    description: Disable keyrepeat
+Hi All,
 
-This should be rather a separate patch - it's documenting a missing
-property, not only a type.
+I found this thread 
+<https://www.alsa-project.org/pipermail/alsa-devel/2017-November/127289.html> 
+on the list that explains why I cannot get 96 kHz sampling with the 
+C-media CM6533.  Reading the datasheet 
+<cid:part1.yl7hLKYg.W0fZhG6J@wallawalla.edu> it is tempting to think the 
+mode I need for my class QSD SDR receiver project, (96 kHz sample rate 
+on capture and 48 kHz for playback could be selected perhaps by ALSA in 
+the HID interface). Is this possible to do with ALSA somehow?
 
-Best regards,
-Krzysztof
+The sound cards I purchased for my class on Amazon from Syba, used to 
+use Via VT1620a codecs, but now have been redesigned to use the C-media 
+CM6533, and these have the limitation that will not allow 96 kHz 
+sampling on both capture and playback.  I need to change the present 
+setting (96 kHz playback, 48 kHz capture) to the opposite.  Page 7 of 
+the datasheet has a note about this.
+
+Thanks,
+
+Rob
+
+-- 
+Rob Frohne, PhD, PE
+Professor
+EF Cross School of Engineering
+Walla Walla University
+100 SW 4th Street
+College Place, WA 99324
+(509) 527-2075

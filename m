@@ -2,73 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76AC053153C
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 May 2022 19:26:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4ECDF53153E
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 May 2022 19:27:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E16A2AEA;
-	Mon, 23 May 2022 19:26:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E16A2AEA
+	by alsa0.perex.cz (Postfix) with ESMTPS id E5C3F1752;
+	Mon, 23 May 2022 19:26:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5C3F1752
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653326819;
-	bh=KfZyEZ50W08Vd9FA1iteyipx9RBSkm/JonM4Uu4wCfQ=;
+	s=default; t=1653326852;
+	bh=dh+fAnKS8WI2flC692OoPZ+G9PyKzBI6qdryJjOK4yQ=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vjD7aeZq86sESqswXeyMxmWGk9p8P4REhvYG1MvmxGLjYtXCmRQAOVHozDwwnB5CG
-	 +dnKjx4jeAZvi6dBxNUMYivqY1RftAxy7IHdtcJE/bGnsQ3mtH3TL3rQW1O5u3/v6L
-	 ruC9WSSL+KTzLR7glkLMcmYCxT1bcY06KvMV7M7Q=
+	b=tUgIAv96ZkOqyBJbhM9kOqxN9vSzyFXRRD/mCUZ1ZJDUAwJjtp4u8DzMeRAeuTKXY
+	 mR9ZL4JUT6+XH4x8iH/JkCDfn9pbEUoxA6jkXdKUxvG/icsCMBvwmjkhB0u4sZnTFj
+	 R9JH1JTBdrQ8aqRqZMG4Jt0B+5xIcNDgWxx4MqtM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 57972F80272;
-	Mon, 23 May 2022 19:26:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ED392F804D0;
+	Mon, 23 May 2022 19:26:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1D21BF80236; Mon, 23 May 2022 19:25:58 +0200 (CEST)
+ id AB7EFF80236; Mon, 23 May 2022 19:26:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DA92AF800E3
- for <alsa-devel@alsa-project.org>; Mon, 23 May 2022 19:25:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA92AF800E3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 39C61F8025E
+ for <alsa-devel@alsa-project.org>; Mon, 23 May 2022 19:25:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39C61F8025E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="h5deFnDA"
+ header.b="SNB/lAD3"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 1CEBFB81201;
- Mon, 23 May 2022 17:25:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAF00C385A9;
- Mon, 23 May 2022 17:25:52 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A3395611D1;
+ Mon, 23 May 2022 17:25:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D7D2C34116;
+ Mon, 23 May 2022 17:25:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1653326753;
- bh=KfZyEZ50W08Vd9FA1iteyipx9RBSkm/JonM4Uu4wCfQ=;
+ s=k20201202; t=1653326756;
+ bh=dh+fAnKS8WI2flC692OoPZ+G9PyKzBI6qdryJjOK4yQ=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=h5deFnDA46dP6Iv9Tc6qKmq+/efjbau6furgkYN9jpQ8lXVroSfGW7Ii1uOHS/yX8
- zZTa7QKDDk/K6FTor1hsP2mhhIGst+I5njJ+Vx2NrCutJQWmRKpxOXY/cRVEDNY/ri
- GYC2QsPmis69dsuyuuC/EOKYRwS1QXGt8qTdn4/sC5NE6EXFtHRWcs5FFJkX+09zTb
- 8s2wzvtFzQPad6fG7g11GevAHoXbFnlkE8VulE7kiGXNpDa7pZ7CPkSbTIyCxXr5XN
- /WzrXsSamE7VULpv/TN2rna/ohCncxLVaKv2/TWl/RuWGFiQf/CGRiO/ri2uRPlZ7L
- iDXXIFMscEHpA==
+ b=SNB/lAD3U3bfcbSAR6YCwn69/9c7U6PhIVPDgyDiIAomqxgdDZGAYA56IR3NfTHAp
+ yV/d4aKVwc/vf6shLn0B4YQNS34p4LRUoNosg7+m38wgYO2RIxHBkc1e6KUUui6Xlx
+ eXCwXGyaAZrC8pu9HCIJnzId3g+TG+blUKS2akJCBWwG9OsfW5U6Vc8QLJZnr50ymh
+ UKNFnOwuPsv3oivbZ53kX6e+Emhih1XL5sKKjTi9zuyXX7mB6yiuzzQddjKQ5vKpSq
+ NsRN9J7/WUPxrZDY4jqXgg5+XtqsPC31S6DiTTNvacHFJWujiH9yQk+d5zDwEewg8b
+ BmGPTe+Yg7SNw==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com
-In-Reply-To: <20220520210615.607229-1-pierre-louis.bossart@linux.intel.com>
-References: <20220520210615.607229-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH] ASoC: soc-pcm: fix BE transition for TRIGGER_START
-Message-Id: <165332675255.2124944.10877512911286086803.b4-ty@kernel.org>
-Date: Mon, 23 May 2022 18:25:52 +0100
+To: festevam@gmail.com, alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ nicoleotsuka@gmail.com, perex@perex.cz, shengjiu.wang@gmail.com,
+ Xiubo.Lee@gmail.com, tiwai@suse.com, shengjiu.wang@nxp.com
+In-Reply-To: <1653284661-18964-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1653284661-18964-1-git-send-email-shengjiu.wang@nxp.com>
+Subject: Re: [PATCH] ASoC: fsl_sai: Fix FSL_SAI_xDR/xFR definition
+Message-Id: <165332675410.2124944.12107532437710717569.b4-ty@kernel.org>
+Date: Mon, 23 May 2022 18:25:54 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, peter.ujfalusi@linux.intel.com,
- yung-chuan.liao@linux.intel.com
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,21 +85,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 20 May 2022 16:06:15 -0500, Pierre-Louis Bossart wrote:
-> A obvious editing mistake caught with a cppcheck warning
+On Mon, 23 May 2022 13:44:21 +0800, Shengjiu Wang wrote:
+> There are multiple xDR and xFR registers, the index is
+> from 0 to 7. FSL_SAI_xDR and FSL_SAI_xFR is abandoned,
+> replace them with FSL_SAI_xDR0 and FSL_SAI_xFR0.
 > 
-> sound/soc/soc-pcm.c:2132:8: style: Variable 'ret' is reassigned a
-> value before the old one has been used. [redundantAssignment]
->    ret = soc_pcm_trigger(be_substream, cmd);
->        ^
-> sound/soc/soc-pcm.c:2126:9: note: ret is assigned
->     ret = soc_pcm_trigger(be_substream,
->         ^
-> sound/soc/soc-pcm.c:2129:9: note: ret is assigned
->     ret = soc_pcm_trigger(be_substream,
->         ^
 > 
-> [...]
 
 Applied to
 
@@ -106,8 +98,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: soc-pcm: fix BE transition for TRIGGER_START
-      commit: f4d6aca0c80f09f4c780136a64ee039560a2c39b
+[1/1] ASoC: fsl_sai: Fix FSL_SAI_xDR/xFR definition
+      commit: e4dd748dc87cf431af7b3954963be0d9f6150217
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

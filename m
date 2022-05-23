@@ -2,134 +2,156 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E5C4531101
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 May 2022 15:25:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 807C5531107
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 May 2022 15:29:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8E24A16EB;
-	Mon, 23 May 2022 15:24:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E24A16EB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 16E431718;
+	Mon, 23 May 2022 15:28:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16E431718
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653312324;
-	bh=oROY0WOZtGa/XGtd0GYfUav/6ah1mcQCFDdyi7UCW7w=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1653312587;
+	bh=i0RUf96P94ttFQKKZ/SwOoaskDg7c/bQmcJRoWRpitI=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZETKEB7ykAaW6z9e7T70EBnNySegKkZL6Jq9dmeXklDwmrnkqNkAJtNIQPEAQaAaL
-	 L6wzq5XjQtWBWikejWMQoJccR+WHHhF3qB85Yl7ujsTcwBjBGZ6w3jkMZ8lZ3KulbT
-	 pfdL/Je4LBsL38hEx8dDE85RZxqCdvzhSOMclhic=
+	b=Y9gcdyX3D4XPrl9rCgEM6D/+dyYNFlbjzToRyOYVlh7HhrPlkAiiO5Qu777bsL05/
+	 QUspe893/gWWC11Gc3mPaYvGDFYdzVLYLOoSK3WyODdXlhVMJzK0ViNvdQx0Kabh8G
+	 5S3rntJCY3zP0MAastMzYPaJBkK8FbePoWE3Sm4Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A9B74F8051B;
-	Mon, 23 May 2022 15:24:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 65A42F8025E;
+	Mon, 23 May 2022 15:28:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EDED7F80518; Mon, 23 May 2022 15:24:28 +0200 (CEST)
+ id 8064CF80236; Mon, 23 May 2022 15:28:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2060e.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe59::60e])
+ DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2060c.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5b::60c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D4C18F80236
- for <alsa-devel@alsa-project.org>; Mon, 23 May 2022 15:24:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4C18F80236
+ by alsa1.perex.cz (Postfix) with ESMTPS id D94E3F800CB
+ for <alsa-devel@alsa-project.org>; Mon, 23 May 2022 15:28:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D94E3F800CB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
- header.b="vREyyGV5"
+ header.b="uc+yAFJy"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cTx+zeGrg+ogD24In7u+kL8NyDMrJxZJNUNTsJRgKoQL+mOMYNGX+/v+O6mWaYBfLZv32CLmsqDPME/n0J8QEVxJjNH2FGOerSL2WyA64y8YUl1O1XoUhSwtLNygajbpI0KBWv6mcfkqyfRTkISDg+URECMBOCWNfcSeJosf2To0dunV12wr4DtBTEhHytlP4UEqIp5c4uymd4XhrP8sNpjGGz1S8z/XVFX+FQr4HPbchlTDspC9Yb0RXaEl7oS7W0dM00EOeJfNUk3/D4rxhtp6PBFB79xF417Zu1XYae657IE+W1bAiL7qRg6Lo00qQHf0wBPTULvZDhXruBKg9Q==
+ b=BUISYHbhr0LfWzu3ZnidzLavUMySQMK50rh2KK2UR7zm8653CpUVVWqRj6+k4cinYyccYa6UM71S7a8PZ0gK8APL0DeHLoTPk8oFJH00p497qZi2hBZsK9g9ltepxLgwYFt14PlXA72os6qMfxRNUFf6TWpZywwQVRO62F4Hyqrb8ErnyvORJ26gYgPcHm3ufPm0nfHkmynzJqUBn0/JpE/2QIh40NUPo3OnR/RaE7qd6m1dIA1LCOaOUU9CG051QCujqcwIvl+V5MVpo0Miye1NrJPe5GzOFZ/WRnWcxzPF73PvOoc6NUhUmKNMw7UrVDmGh8rgQZlJbocNN9vnEQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gB7usY6TY5aC8uwECWtZHncAfD9SlJF44hol320T66k=;
- b=XstdDDwecwsPjXAGIynVpgRAJc7n+VMSUOBd+iLOi3wufw70VCKffI2Lwo4Lk50ZRWVYBPwsnPYTBLZYjhiYEFzxgpP2/HUz/D4PIqpMw9wXOjoWsSvz0cjqAzIddnPr4AzgjlvTusp50Lg/6nyY6FA3Az9laJwVcCUV7r+0WdV7x/c7MWiBLyZTbRXzu79wWKP/MyZHZLcsXz2Hu1cvTPgwD4Z/VD7BG0GR/ACD0c04GolLh9wfwLCJpEeoESA/v89Y6XhIc51ecPXLkfu1xAnpbLl16UqI/5v6iAkrZauITeErkgyfbKGBTqjhiqAwcDfKu3s71dJ0OBFYKuz7VA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
+ bh=IrbsJAov31+/QU52eK32gRw0HvYpBrmuJ7dFfqgMEug=;
+ b=fjZ0ognoUccN5esotxJ0lz0N6hAyR5X7UEHjD2/fJxYWhv6cqw0vEdP4z+pR/nU2jeX/k99kHFkpPRZEbkbAPvoY3l1pm5M3/nz4zxaoy0DAhh4SWpxIeSKvfINIExJakYtfuTQrMpRuHU8zKUY8IhF9CO+knxKv3Za5IuoVD6GBK6CCJHuiFU7OpM0VuMDGoyUaqHIIN57eW/6Phf17HfO/IacwcdJOY9Vq4AgaNiObUYRsd+ZeZ8QK6FFl4ZptyMCb1TeNxihnzFI8c5agZP9vniobW39ztDoaihFfj57mp72drWP/BCySsPIJBaV+uMDlE1CD80l1hBfBLMnBhQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gB7usY6TY5aC8uwECWtZHncAfD9SlJF44hol320T66k=;
- b=vREyyGV56tMOzPEApSkinuWjkA56ooemUjTdYxcmyennUhJYxsy/7kSxpepsuVrrlyqc1e7EC89pXsItN/Tesxhy5EyUUBnJKc3eulahv3OAqN2jsOO6HNbY/kIy4+BujnK58913RF/aPHr/NoO+FXc+Vm/C15fDXtZbkx5iiXE=
-Received: from DM5PR04CA0029.namprd04.prod.outlook.com (2603:10b6:3:12b::15)
- by BN6PR12MB1618.namprd12.prod.outlook.com (2603:10b6:405:b::21) with
+ bh=IrbsJAov31+/QU52eK32gRw0HvYpBrmuJ7dFfqgMEug=;
+ b=uc+yAFJy1lGKZA2/vMCcDiK7g5expORU6K1W6+H0WCpoqNtdUE064zlDnx7KIxEGYW47SUFjyVpT9GbkLFoK1jybwTwyPm59BUgU8iuoLDezJUntLd+h2mY8SLwEkVW+edD1mc2oOnJi+q6uRnye75fFcjxVvuz+mU7Rw/FCKlw=
+Received: from DM6PR12MB4171.namprd12.prod.outlook.com (2603:10b6:5:21f::18)
+ by MWHPR12MB1200.namprd12.prod.outlook.com (2603:10b6:300:9::8) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.14; Mon, 23 May
- 2022 13:24:17 +0000
-Received: from DM6NAM11FT018.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:12b:cafe::53) by DM5PR04CA0029.outlook.office365.com
- (2603:10b6:3:12b::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.19 via Frontend
- Transport; Mon, 23 May 2022 13:24:17 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT018.mail.protection.outlook.com (10.13.172.110) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5273.14 via Frontend Transport; Mon, 23 May 2022 13:24:17 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Mon, 23 May
- 2022 08:24:16 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Mon, 23 May
- 2022 06:24:16 -0700
-Received: from sof-System-Product-Name.amd.com (10.180.168.240) by
- SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.24
- via Frontend Transport; Mon, 23 May 2022 08:24:06 -0500
-From: V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
-To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH v3 2/2] ASoC: amd: acp: Add support for rt5682s and rt1019
- card with hs instance
-Date: Mon, 23 May 2022 18:53:53 +0530
-Message-ID: <20220523132353.1767614-3-Vsujithkumar.Reddy@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220523132353.1767614-1-Vsujithkumar.Reddy@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.17; Mon, 23 May
+ 2022 13:28:32 +0000
+Received: from DM6PR12MB4171.namprd12.prod.outlook.com
+ ([fe80::e5c4:675:d32a:a949]) by DM6PR12MB4171.namprd12.prod.outlook.com
+ ([fe80::e5c4:675:d32a:a949%8]) with mapi id 15.20.5273.023; Mon, 23 May 2022
+ 13:28:30 +0000
+From: "Reddy, V sujith kumar" <Vsujithkumar.Reddy@amd.com>
+To: "broonie@kernel.org" <broonie@kernel.org>, "alsa-devel@alsa-project.org"
+ <alsa-devel@alsa-project.org>
+Subject: Re: [PATCH v3 0/2] Add Machine driver support for nau8825, max98560
+ and rt5682s,rt1019
+Thread-Topic: [PATCH v3 0/2] Add Machine driver support for nau8825, max98560
+ and rt5682s,rt1019
+Thread-Index: AQHYbqhLMkxpHN+sLEegGeP2l9pTSa0sdHT5
+Date: Mon, 23 May 2022 13:28:29 +0000
+Message-ID: <DM6PR12MB4171799F238BCB72590BB10A92D49@DM6PR12MB4171.namprd12.prod.outlook.com>
 References: <20220523132353.1767614-1-Vsujithkumar.Reddy@amd.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f783a5a2-9533-47e9-c788-08da3cbf89cc
-X-MS-TrafficTypeDiagnostic: BN6PR12MB1618:EE_
-X-Microsoft-Antispam-PRVS: <BN6PR12MB1618C4D35FE942121F7B01E592D49@BN6PR12MB1618.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: MGscB1nBbgvoS/NDOlaQ6aIBn/VGzstZ0dCy1Gms944Xl9m/gzfZscgrWJH8w70Fh9iO3nNlmaxi2OrbwA7bSFtC93AsKHCKe/5NMHh5alypMue7wVftTUxhjZX3L/WsxHIe9Fh3RgaXFDuFRoD+84whmKZ1kYqW7lsXNrmQnHVKrHx/nnPI2Ue8tU7jEflIUpjTMn1yGMo02gTr7cs8zDyi5E0DYe2Whgt6ZicFfQNGXfc9gtZ6H8nowiwlJ01HHm4QA6lciDyiyR8ev/XBEr8eAk9yoNy7nUNNYb3RhbnSYni+4NA3gr7xC4bOMWOw2cUCUzrttLqlb1mJdtZlDjY5Uby2WYhnBj+k/rRffbtesjd4mA9jp13uwqwNI7i4zbid/y50YvBnDPGLLdTPDinMVKdNSO0x7c9J5+O7oANq8AHDbDxVjZGp6bhxYzayMHlE34dUyx/W7se53VKqwJOXB6/PXHIkx7uCnG4A+/lqWBDV35dkd7F8DAWOix+kijVlD8iFQAlQ/c5Ort4oMbkiUAY5khFK2QdZM7YoPFBg21Q+AY441HwLihze4rM8IzGrw01I5YTBMZ555QMfatB/t5vPLHU4T3PwMiXBMXjxh8pYzOH0JAIdyPzsO0Xu/+XPmuIQJ5pskW2hIRdpKRb4kwYOtqv19An9FlmpW3G3jQeKMhWSf+ftkbIfAkiyUmK6o8cIECPMP5PC7Ta04w==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(40460700003)(356005)(81166007)(1076003)(70206006)(70586007)(6666004)(26005)(4326008)(8676002)(2616005)(86362001)(7416002)(8936002)(5660300002)(7696005)(336012)(54906003)(110136005)(36860700001)(316002)(82310400005)(186003)(83380400001)(508600001)(36756003)(47076005)(426003)(2906002)(36900700001);
+In-Reply-To: <20220523132353.1767614-1-Vsujithkumar.Reddy@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-05-23T13:28:28.852Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard; 
+suggested_attachment_session_id: 39a72ac3-ef0f-9b1b-63c7-d00cedffbecc
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: a791db45-165b-43aa-466d-08da3cc02015
+x-ms-traffictypediagnostic: MWHPR12MB1200:EE_
+x-microsoft-antispam-prvs: <MWHPR12MB12008C40148C3C58DB401EE592D49@MWHPR12MB1200.namprd12.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: ODWXCFG89uGdVFmJGNcyykqFRFd4XPgBq9wNYMPPxyBLO5njPHA/Zw1iBuXreR65FQC2nuTAaXJCk4MoAUAk0utNj0sIYV+Hi6WNKwqPsZHMtu24pz0kteIcFH1kIkY5mLDJMzqq5Iuuwr/BnpKST02gcSgy69BgbasTUR4ETeB6njdsma0qiwZHmU8oqtBH6xRmk8OwTFgboPM5h2puG3o089HA/Cwlx1Y/p2TWNAlsy/CDfkhRV0fqJj827eV8s0TwmR0iQGbDKbsSSms7FkAJYF3fXyh4EseQfDAgFuXEax9Yr46TjwFx8IlD7SMlLpfK0SYL6yNhpjNvVShRoZfbpbWiV8g1dZSoIdeRsU2KbP5KC56+4OAJs84F+DVaUsHpCJLK2gKw5Krd0606tgr+FXyvR0q1+qxLgqcxESAqcPM2/3WMwIxIjoKhKtMo0YG/CYgrN2Pay0ITRJkIJIOgfjeJ3QJQ6Avj9Ux99lT1ts1LzRjaLYIMMD7RIUYEWx0ZfMa+BpQUzvKMSOiK0TESS6CCW95OX4eOSi7rnHRxL0C4lN18tEz8bf9PiIUzA1IxFFmtejx6ABvf+T9XVMD5Yhy8AA1nWw+qfSVjFzvXliw0xnM098KxVJ2ABE70GXepuTZMIjBHkr2bDQkqROsCcGq2ceq9vCyg36QzX1Cs3AdcuQdTD2W6V/aywfo/vMDqztRzVcR6KBLJ4UNdR4z7v160WquPDVXeoQyFrV2GFVrbthDxt0y0cV1GU24px/7ag+vGQoZ5BGHjfKFWilpErw1Hgd77XDm394IFqZRAW2zM5a/GVzF/npf9xjg5xsdkkuh19eTmwTzKSN6hhw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4171.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(2906002)(55016003)(122000001)(508600001)(33656002)(83380400001)(7696005)(5660300002)(54906003)(110136005)(38100700002)(38070700005)(52536014)(316002)(8936002)(53546011)(76116006)(66946007)(66556008)(66476007)(66446008)(64756008)(4326008)(8676002)(91956017)(9686003)(26005)(19627405001)(86362001)(6506007)(71200400001)(186003);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?Windows-1252?Q?SsysCMW+MkObffovhORUoJ0siXCb7OrLZGdAlPfDbblwRoH8OauMXIkT?=
+ =?Windows-1252?Q?V6kwmBlUgyyynJOByb/BuwIinfyvjn9cw1mmm8TgNsl11kr7deK5Kh7/?=
+ =?Windows-1252?Q?TX+HPHAAaSZovXQn6X+V06db1WbR+88dPIbroclhqXJZexKRFseQfebs?=
+ =?Windows-1252?Q?eru6VkZL1q6SO3PQyQkjBnI5YqEb39SHmUfMQz7yYRqX7pCMTo204T7S?=
+ =?Windows-1252?Q?Za4xJe9nvt2vlLk3vN9Bc2w5SkI1xbZ8PBSwF/wwKQU0kJFUUvzfARna?=
+ =?Windows-1252?Q?mil5nCWRF0GuBWqPELoc3p1DxZko0XahsvG3gg+NOHoBuUA+I4c/vF4q?=
+ =?Windows-1252?Q?3HzDkXn3V7/ZyMz1McHFYrJnIwswmpo6sR1AgvU0xzgHot15fMjE/fY9?=
+ =?Windows-1252?Q?4bYb2Ip/bBTUwy9p6QODaUyyPVKpeDDYPI8PNOKweIdZrnjYwZZSt6zc?=
+ =?Windows-1252?Q?MJWhyIehkFqq0SjLkzO6EoI+QVQqk0sEDrwiTixY+KfZb6Z9kdRpJQn5?=
+ =?Windows-1252?Q?fCT9jCYioK0LjT1Y9CcsYuUa4mHHLTHyfNxroxzVdYbyVDjdxpmZEbo+?=
+ =?Windows-1252?Q?sgktRTKgkMwTZUMTsKr9g4inryH5itLZkNSOQwaiMvT4k4KQHqAgJciz?=
+ =?Windows-1252?Q?rZhuWc7+O2sTN7mKIun/fJzOBu/M7Gx6OZAZHSMk6j3a/stSnHOHFH7o?=
+ =?Windows-1252?Q?1N91P2IrERfwhHzsza2RZA3O3u0pQmmVm0N1jDDanqbR8bzDQ/VD7ZMW?=
+ =?Windows-1252?Q?2tC0v/KBzwJS5yftLAJOtLOpaCPIx+Y0Ts3k4vyXgAZgXz7I+N/E+3Yz?=
+ =?Windows-1252?Q?Ss3nXor3aY32nrU83hnhOsgaOORM4K1IaCgVkglbZ5BMDKaBL9RwZh/e?=
+ =?Windows-1252?Q?LobjcBuK7PSFuxNF1mbnzpTUBCrHWYcQkLazHWJ0zbYDCq+jHexiW9Dp?=
+ =?Windows-1252?Q?JcamnGNZAupT84jET8XevDa1LkOoKZXGYqx07GEgk0L+t5LlWS09yyKE?=
+ =?Windows-1252?Q?1q7qHNMQhDFeK5q/0/2Wv95wC1mJlSD3hygY+YABWyt7kDT+s5Ww5741?=
+ =?Windows-1252?Q?xp8/BxwSHdQ6iiGLWpaUFDNqrd6rWMztLizK8il8mbdRYGs7nmboap4t?=
+ =?Windows-1252?Q?yW9v1gUWZsB2y7GQ22JoOHMV5XiOssBJLRIx9gbZUTkmgD1qyDurMolP?=
+ =?Windows-1252?Q?LlygeOWXdHWuOlgtf1FsTsohavBtr43E4YxLaDUGJn6ZOAe+/Jwy4qHe?=
+ =?Windows-1252?Q?1wAesuNfYoBGgFBtoMYj7PdLO1somTMfAxA30jVhWsI/IOJ992ZDE9Sx?=
+ =?Windows-1252?Q?G2qiIl/hckgBig5RcCFWLrUVRpDoFSBOiJywLq4Xu+dWczN+VYeja2yj?=
+ =?Windows-1252?Q?1DtjdQJV+0gN0JotTvDINQerJwFTblqPflh3SulYCJmXtg6Bkro9YX+u?=
+ =?Windows-1252?Q?cas2uCMxseV9LIGOjpa2HAwhxVNyugKAmddLks4kx+POq2UFfeS6YUJV?=
+ =?Windows-1252?Q?YA5EzurE/2ZkbCWEI5KMVJp5GtuIVXxzW+UeKzOVZpASi2+2a8rJP+s6?=
+ =?Windows-1252?Q?/hmjJrE7EHRvICsCjS8ZlKHaPFjDYi7osvoW9GUUJZhtRhW6BUOx+OIW?=
+ =?Windows-1252?Q?ZkBtjd7XSHLD3Bjif3s5M0ICyD6sTo2dyexeIhUR2/xiPjdWE5c+KHzq?=
+ =?Windows-1252?Q?ncOaLVQFswDuWTTuQHErO4InXtdTfpMc8L+ZLzntzu2ugBOQ+EzKeBwF?=
+ =?Windows-1252?Q?WlZtxAioGgrXESFad/fBZ9xIOstgXlijotJj1ZFcC9aAGuaDRe5q3MrP?=
+ =?Windows-1252?Q?ySs/OaJVsKOsV9XGAVgda4p1/it99HOjWdreO0JsCu+TMX90?=
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 May 2022 13:24:17.3571 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f783a5a2-9533-47e9-c788-08da3cbf89cc
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT018.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1618
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Sunil-kumar.Dommati@amd.com, Ajit Kumar
- Pandey <AjitKumar.Pandey@amd.com>, Kai Vehmanen <kai.vehmanen@intel.com>,
- open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Jia-Ju Bai <baijiaju1990@gmail.com>, Akihiko Odaki <akihiko.odaki@gmail.com>,
- Vijendar.Mukunda@amd.com, V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4171.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a791db45-165b-43aa-466d-08da3cc02015
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 May 2022 13:28:29.5842 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Fcm6JNzBHhSuQZ2schueqKrbgPjGg9oe6C0fR3HdOZoNjf2H8/TB/6q/fJNRkn2j
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1200
+Content-Type: text/plain; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: "Hiregoudar, Basavaraj" <Basavaraj.Hiregoudar@amd.com>, "Dommati,
+ Sunil-kumar" <Sunil-kumar.Dommati@amd.com>, "Pandey,
+ Ajit Kumar" <AjitKumar.Pandey@amd.com>, "Mukunda,
+ Vijendar" <Vijendar.Mukunda@amd.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -145,214 +167,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-We have new platform with rt5682s as a primary codec and rt1019 as an
-amp codec. Add machine struct to register sof audio based sound card
-on such Chrome machine.
+[AMD Official Use Only - General]
 
-Here we are configuring as a soc mclk master and codec slave.
 
-Signed-off-by: V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
----
- sound/soc/amd/acp-config.c          |  9 ++++
- sound/soc/amd/acp/acp-mach-common.c | 69 ++++++++++++++++++++++++-----
- sound/soc/amd/acp/acp-sof-mach.c    | 15 +++++++
- 3 files changed, 82 insertions(+), 11 deletions(-)
 
-diff --git a/sound/soc/amd/acp-config.c b/sound/soc/amd/acp-config.c
-index f73c187fee03..5c7b51b2ecfb 100644
---- a/sound/soc/amd/acp-config.c
-+++ b/sound/soc/amd/acp-config.c
-@@ -147,6 +147,15 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_rmb_sof_machines[] = {
- 		.fw_filename = "sof-rmb.ri",
- 		.sof_tplg_filename = "sof-acp-rmb.tplg",
- 	},
-+	{
-+		.id = "RTL5682",
-+		.drv_name = "rt5682s-hs-rt1019",
-+		.pdata = (void *)&acp_quirk_data,
-+		.machine_quirk = snd_soc_acpi_codec_list,
-+		.quirk_data = &amp_rt1019,
-+		.fw_filename = "sof-rmb.ri",
-+		.sof_tplg_filename = "sof-acp-rmb.tplg",
-+	},
- 	{},
- };
- EXPORT_SYMBOL(snd_soc_acpi_amd_rmb_sof_machines);
-diff --git a/sound/soc/amd/acp/acp-mach-common.c b/sound/soc/amd/acp/acp-mach-common.c
-index 4f5cfa26c58d..1ce0e0080515 100644
---- a/sound/soc/amd/acp/acp-mach-common.c
-+++ b/sound/soc/amd/acp/acp-mach-common.c
-@@ -148,10 +148,15 @@ static int acp_card_hs_startup(struct snd_pcm_substream *substream)
- 	struct snd_soc_card *card = rtd->card;
- 	struct acp_card_drvdata *drvdata = card->drvdata;
- 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
--	int ret;
-+	unsigned int fmt = 0;
-+	int ret = 0;
- 
--	ret =  snd_soc_dai_set_fmt(codec_dai, SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
--				   | SND_SOC_DAIFMT_CBP_CFP);
-+	if (drvdata->soc_mclk)
-+		fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBC_CFC;
-+	else
-+		fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBP_CFP;
-+
-+	ret =  snd_soc_dai_set_fmt(codec_dai, fmt);
- 	if (ret < 0) {
- 		dev_err(rtd->card->dev, "Failed to set dai fmt: %d\n", ret);
- 		return ret;
-@@ -162,10 +167,13 @@ static int acp_card_hs_startup(struct snd_pcm_substream *substream)
- 				      &constraints_channels);
- 	snd_pcm_hw_constraint_list(runtime, 0, SNDRV_PCM_HW_PARAM_RATE,
- 				      &constraints_rates);
--
--	ret = acp_clk_enable(drvdata);
--	if (ret < 0)
--		dev_err(rtd->card->dev, "Failed to enable HS clk: %d\n", ret);
-+	if (!drvdata->soc_mclk) {
-+		ret = acp_clk_enable(drvdata);
-+		if (ret < 0) {
-+			dev_err(rtd->card->dev, "Failed to enable HS clk: %d\n", ret);
-+			return ret;
-+		}
-+	}
- 
- 	return ret;
- }
-@@ -201,6 +209,7 @@ static int acp_card_rt5682s_init(struct snd_soc_pcm_runtime *rtd)
- 	struct acp_card_drvdata *drvdata = card->drvdata;
- 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 	struct snd_soc_component *component = codec_dai->component;
-+	unsigned int fmt;
- 	int ret;
- 
- 	dev_info(rtd->dev, "codec dai name = %s\n", codec_dai->name);
-@@ -208,8 +217,12 @@ static int acp_card_rt5682s_init(struct snd_soc_pcm_runtime *rtd)
- 	if (drvdata->hs_codec_id != RT5682S)
- 		return -EINVAL;
- 
--	ret =  snd_soc_dai_set_fmt(codec_dai, SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
--				   | SND_SOC_DAIFMT_CBP_CFP);
-+	if (drvdata->soc_mclk)
-+		fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBC_CFC;
-+	else
-+		fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBP_CFP;
-+
-+	ret =  snd_soc_dai_set_fmt(codec_dai, fmt);
- 	if (ret < 0) {
- 		dev_err(rtd->card->dev, "Failed to set dai fmt: %d\n", ret);
- 		return ret;
-@@ -236,8 +249,10 @@ static int acp_card_rt5682s_init(struct snd_soc_pcm_runtime *rtd)
- 		return ret;
- 	}
- 
--	drvdata->wclk = clk_get(component->dev, "rt5682-dai-wclk");
--	drvdata->bclk = clk_get(component->dev, "rt5682-dai-bclk");
-+	if (!drvdata->soc_mclk) {
-+		drvdata->wclk = clk_get(component->dev, "rt5682-dai-wclk");
-+		drvdata->bclk = clk_get(component->dev, "rt5682-dai-bclk");
-+	}
- 
- 	ret = snd_soc_card_jack_new(card, "Headset Jack",
- 				    SND_JACK_HEADSET | SND_JACK_LINEOUT |
-@@ -298,6 +313,9 @@ static const struct snd_soc_ops acp_card_dmic_ops = {
- SND_SOC_DAILINK_DEF(rt1019,
- 	DAILINK_COMP_ARRAY(COMP_CODEC("i2c-10EC1019:00", "rt1019-aif"),
- 			  COMP_CODEC("i2c-10EC1019:01", "rt1019-aif")));
-+SND_SOC_DAILINK_DEF(rt1019_1,
-+		    DAILINK_COMP_ARRAY(COMP_CODEC("i2c-10EC1019:02", "rt1019-aif"),
-+		    COMP_CODEC("i2c-10EC1019:01", "rt1019-aif")));
- 
- static const struct snd_soc_dapm_route rt1019_map_lr[] = {
- 	{ "Left Spk", NULL, "Left SPO" },
-@@ -315,6 +333,17 @@ static struct snd_soc_codec_conf rt1019_conf[] = {
- 	},
- };
- 
-+static struct snd_soc_codec_conf rt1019_1_conf[] = {
-+	{
-+		.dlc = COMP_CODEC_CONF("i2c-10EC1019:02"),
-+		.name_prefix = "Left",
-+	},
-+	{
-+		.dlc = COMP_CODEC_CONF("i2c-10EC1019:01"),
-+		.name_prefix = "Right",
-+	},
-+};
-+
- static int acp_card_rt1019_init(struct snd_soc_pcm_runtime *rtd)
- {
- 	struct snd_soc_card *card = rtd->card;
-@@ -618,6 +647,12 @@ int acp_sofdsp_dai_links_create(struct snd_soc_card *card)
- 			links[i].init = acp_card_nau8825_init;
- 			links[i].ops = &acp_card_nau8825_ops;
- 		}
-+		if (drv_data->hs_codec_id == RT5682S) {
-+			links[i].codecs = rt5682s;
-+			links[i].num_codecs = ARRAY_SIZE(rt5682s);
-+			links[i].init = acp_card_rt5682s_init;
-+			links[i].ops = &acp_card_rt5682s_ops;
-+		}
- 		i++;
- 	}
- 
-@@ -674,6 +709,18 @@ int acp_sofdsp_dai_links_create(struct snd_soc_card *card)
- 			links[i].ops = &acp_card_maxim_ops;
- 			links[i].init = acp_card_maxim_init;
- 		}
-+		if (drv_data->amp_codec_id == RT1019) {
-+			links[i].codecs = rt1019;
-+			links[i].num_codecs = ARRAY_SIZE(rt1019);
-+			links[i].ops = &acp_card_rt1019_ops;
-+			links[i].init = acp_card_rt1019_init;
-+			card->codec_conf = rt1019_conf;
-+			card->num_configs = ARRAY_SIZE(rt1019_conf);
-+			links[i].codecs = rt1019_1;
-+			links[i].num_codecs = ARRAY_SIZE(rt1019_1);
-+			card->codec_conf = rt1019_1_conf;
-+			card->num_configs = ARRAY_SIZE(rt1019_1_conf);
-+		}
- 		i++;
- 	}
- 
-diff --git a/sound/soc/amd/acp/acp-sof-mach.c b/sound/soc/amd/acp/acp-sof-mach.c
-index adbae809f2aa..f19f064a7527 100644
---- a/sound/soc/amd/acp/acp-sof-mach.c
-+++ b/sound/soc/amd/acp/acp-sof-mach.c
-@@ -66,6 +66,16 @@ static struct acp_card_drvdata sof_nau8825_data = {
- 	.soc_mclk = true,
- };
- 
-+static struct acp_card_drvdata sof_rt5682s_hs_rt1019_data = {
-+	.hs_cpu_id = I2S_HS,
-+	.amp_cpu_id = I2S_HS,
-+	.dmic_cpu_id = DMIC,
-+	.hs_codec_id = RT5682S,
-+	.amp_codec_id = RT1019,
-+	.dmic_codec_id = DMIC,
-+	.soc_mclk = true,
-+};
-+
- static const struct snd_kcontrol_new acp_controls[] = {
- 	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
- 	SOC_DAPM_PIN_SWITCH("Headset Mic"),
-@@ -138,6 +148,10 @@ static const struct platform_device_id board_ids[] = {
- 		.name = "nau8825-max",
- 		.driver_data = (kernel_ulong_t)&sof_nau8825_data
- 	},
-+	{
-+		.name = "rt5682s-hs-rt1019",
-+		.driver_data = (kernel_ulong_t)&sof_rt5682s_hs_rt1019_data
-+	},
- 	{ }
- };
- static struct platform_driver acp_asoc_audio = {
-@@ -158,4 +172,5 @@ MODULE_ALIAS("platform:rt5682-max");
- MODULE_ALIAS("platform:rt5682s-max");
- MODULE_ALIAS("platform:rt5682s-rt1019");
- MODULE_ALIAS("platform:nau8825-max");
-+MODULE_ALIAS("platform:rt5682s-hs-rt1019");
- MODULE_LICENSE("GPL v2");
--- 
+________________________________
+From: V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
+Sent: Monday, May 23, 2022 6:53 PM
+To: broonie@kernel.org <broonie@kernel.org>; alsa-devel@alsa-project.org <a=
+lsa-devel@alsa-project.org>
+Cc: Mukunda, Vijendar <Vijendar.Mukunda@amd.com>; Hiregoudar, Basavaraj <Ba=
+savaraj.Hiregoudar@amd.com>; Dommati, Sunil-kumar <Sunil-kumar.Dommati@amd.=
+com>; Pandey, Ajit Kumar <AjitKumar.Pandey@amd.com>; Reddy, V sujith kumar =
+<Vsujithkumar.Reddy@amd.com>
+Subject: [PATCH v3 0/2] Add Machine driver support for nau8825, max98560 an=
+d rt5682s,rt1019
+
+This patch set depends on:
+        --gpio patch
+        --https://patchwork.kernel.org/project/alsa-devel/patch/20220516160=
+619.17832-1-Vsujithkumar.Reddy@amd.com/
+        --https://patchwork.kernel.org/project/alsa-devel/patch/20220516160=
+619.17832-2-Vsujithkumar.Reddy@amd.com/
+
+Resolved  compilation error:
+
+/build/stage/linux/sound/soc/amd/acp/acp-mach-common.c: In function =91acp_=
+card_nau8825_init=92:
+/build/stage/linux/sound/soc/amd/acp/acp-mach-common.c:479:15: error: too m=
+any arguments to function =91snd_soc_card_jack_new=92
+  479 |         ret =3D snd_soc_card_jack_new(card, "Headset Jack",
+      |               ^~~~~~~~~~~~~~~~~~~~~
+In file included from /build/stage/linux/include/sound/soc.h:1362,
+                 from /build/stage/linux/sound/soc/amd/acp/acp-mach-common.=
+c:20:
+/build/stage/linux/include/sound/soc-card.h:18:5: note: declared here
+   18 | int snd_soc_card_jack_new(struct snd_soc_card *card, const char *id=
+, int type
+
+
+>>>Resolved compilation error and pushed v3 patchset
+V sujith kumar Reddy (2):
+  ASoC: amd: acp: Add support for nau8825 and max98360 card
+  ASoC: amd: acp: Add support for rt5682s and rt1019 card with hs
+    instance
+
+ sound/soc/amd/acp-config.c          |  30 ++++
+ sound/soc/amd/acp/Kconfig           |   1 +
+ sound/soc/amd/acp/acp-mach-common.c | 235 ++++++++++++++++++++++++++--
+ sound/soc/amd/acp/acp-mach.h        |   3 +
+ sound/soc/amd/acp/acp-sof-mach.c    |  30 ++++
+ sound/soc/amd/mach-config.h         |   1 +
+ 6 files changed, 283 insertions(+), 17 deletions(-)
+
+--
 2.25.1
 

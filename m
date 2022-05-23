@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 643CF53110C
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 May 2022 15:30:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A46C053110A
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 May 2022 15:30:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0A1F0170D;
-	Mon, 23 May 2022 15:29:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A1F0170D
+	by alsa0.perex.cz (Postfix) with ESMTPS id AB0EB174D;
+	Mon, 23 May 2022 15:29:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB0EB174D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653312645;
-	bh=izJoIE741fu7Mqp6vqRlrCd0vEgdJGll1nwhk3jL204=;
+	s=default; t=1653312630;
+	bh=nEeQqOHdk0a4+K5H0YK7XzUMkGY6pTdrV24LeVhtcOM=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=P/LWKcEFw1sK3RubHgRKgmma0yoAUPxeR6IG9VkqmA3+TMVBlvHLQzkQzztC4Uzvn
-	 izLHFL4IxmaXkOQIuG7WDxSKl65wwgmwicJ+NfWOamZA/cM6E4EoBzWkCwdkkU+y8h
-	 3SZGMTw618vSog/37h2FHY7V6GcsEc56SOrswrQg=
+	b=IvMa0JUMfkMvytFFIfp39dRRmdAnOxId2+sQAtRa8rKAek368W79V44u3rp7trdyy
+	 wKUDq4J0/foZkrErjog1l3BuDG3cBieWRkU4eUNTb4SkKfzzU79kwJDDmUUaZM9VdP
+	 SfO5LHYTyPx3DsOfc6bEurXoXj6aNp4Y7kNK25m8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8AA9F80534;
-	Mon, 23 May 2022 15:29:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AB091F80525;
+	Mon, 23 May 2022 15:29:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B5514F80524; Mon, 23 May 2022 15:29:18 +0200 (CEST)
+ id E995FF80525; Mon, 23 May 2022 15:29:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
@@ -34,41 +34,45 @@ X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
 Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 13434F80272
- for <alsa-devel@alsa-project.org>; Mon, 23 May 2022 15:29:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13434F80272
-X-UUID: 5f9fe1ffabaa415b8a361d8b25dc9659-20220523
+ by alsa1.perex.cz (Postfix) with ESMTPS id 59B93F80516
+ for <alsa-devel@alsa-project.org>; Mon, 23 May 2022 15:29:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59B93F80516
+X-UUID: d4e9978ea85149af8d6a3abeb5faa235-20220523
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.5, REQID:372e7d74-1206-4479-abc6-c5fb17fb3f2f, OB:10,
+X-CID-O-INFO: VERSION:1.1.5, REQID:5428ac39-a016-4c1f-9093-faf04978cf49, OB:10,
  L
- OB:10,IP:0,URL:0,TC:0,Content:0,EDM:0,RT:0,SF:95,FILE:0,RULE:Release_Ham,A
- CTION:release,TS:95
-X-CID-INFO: VERSION:1.1.5, REQID:372e7d74-1206-4479-abc6-c5fb17fb3f2f, OB:10,
+ OB:0,IP:0,URL:0,TC:0,Content:0,EDM:0,RT:0,SF:95,FILE:0,RULE:Release_Ham,AC
+ TION:release,TS:95
+X-CID-INFO: VERSION:1.1.5, REQID:5428ac39-a016-4c1f-9093-faf04978cf49, OB:10,
  LOB
- :10,IP:0,URL:0,TC:0,Content:0,EDM:0,RT:0,SF:95,FILE:0,RULE:Spam_GS981B3D,A
- CTION:quarantine,TS:95
-X-CID-META: VersionHash:2a19b09, CLOUDID:04f93de3-edbf-4bd4-8a34-dfc5f7bb086d,
+ :0,IP:0,URL:0,TC:0,Content:0,EDM:0,RT:0,SF:95,FILE:0,RULE:Spam_GS981B3D,AC
+ TION:quarantine,TS:95
+X-CID-META: VersionHash:2a19b09, CLOUDID:0ff14d7a-5ef6-470b-96c9-bdb8ced32786,
  C
- OID:d3526e3325c0,Recheck:0,SF:28|17|19|48,TC:nil,Content:0,EDM:-3,IP:nil,U
+ OID:9f25652f1a1f,Recheck:0,SF:28|17|19|48,TC:nil,Content:0,EDM:-3,IP:nil,U
  RL:0,File:nil,QS:0,BEC:nil
-X-UUID: 5f9fe1ffabaa415b8a361d8b25dc9659-20220523
+X-UUID: d4e9978ea85149af8d6a3abeb5faa235-20220523
 Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw02.mediatek.com
  (envelope-from <jiaxin.yu@mediatek.com>)
  (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 261552496; Mon, 23 May 2022 21:29:03 +0800
-Received: from mtkcas10.mediatek.inc (172.21.101.39) by
- mtkmbs11n1.mediatek.inc (172.21.101.185) with Microsoft SMTP Server
+ with ESMTP id 970035668; Mon, 23 May 2022 21:29:04 +0800
+Received: from mtkmbs07n1.mediatek.inc (172.21.101.16) by
+ mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.792.3; 
- Mon, 23 May 2022 21:29:01 +0800
+ Mon, 23 May 2022 21:29:03 +0800
+Received: from mtkcas10.mediatek.inc (172.21.101.39) by
+ mtkmbs07n1.mediatek.inc (172.21.101.16) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.2; Mon, 23 May 2022 21:29:03 +0800
 Received: from localhost.localdomain (10.17.3.154) by mtkcas10.mediatek.inc
  (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Mon, 23 May 2022 21:29:01 +0800
+ Transport; Mon, 23 May 2022 21:29:02 +0800
 From: Jiaxin Yu <jiaxin.yu@mediatek.com>
 To: <broonie@kernel.org>, <robh+dt@kernel.org>,
  <angelogioacchino.delregno@collabora.com>
-Subject: [PATCH v5 01/20] ASoC: mediatek: mt6366: support for mt6366 codec
-Date: Mon, 23 May 2022 21:28:39 +0800
-Message-ID: <20220523132858.22166-2-jiaxin.yu@mediatek.com>
+Subject: [PATCH v5 02/20] dt-bindings: mediatek: mt6358: add new compatible
+ for using mt6366
+Date: Mon, 23 May 2022 21:28:40 +0800
+Message-ID: <20220523132858.22166-3-jiaxin.yu@mediatek.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220523132858.22166-1-jiaxin.yu@mediatek.com>
 References: <20220523132858.22166-1-jiaxin.yu@mediatek.com>
@@ -77,7 +81,8 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-MTK: N
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Jiaxin Yu <jiaxin.yu@mediatek.com>,
+ Rob Herring <robh@kernel.org>, linux-kernel@vger.kernel.org,
+ Jiaxin Yu <jiaxin.yu@mediatek.com>,
  Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
  linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
  matthias.bgg@gmail.com, aaronyu@google.com, julianbraha@gmail.com,
@@ -97,27 +102,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Mt6366 is a new version of mt6358, and they are same about audio part.
-So we can reuse the driver of mt6358 that add a new compatible string
-inside of the mt6358 driver.
+Add new compatible string "mediatek,mt6366-sound" for using mt6366.
 
 Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
+Acked-by: Rob Herring <robh@kernel.org>
 ---
- sound/soc/codecs/mt6358.c | 1 +
- 1 file changed, 1 insertion(+)
+ Documentation/devicetree/bindings/sound/mt6358.txt | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/mt6358.c b/sound/soc/codecs/mt6358.c
-index 9b263a9a669d..1fdd2f8cf877 100644
---- a/sound/soc/codecs/mt6358.c
-+++ b/sound/soc/codecs/mt6358.c
-@@ -2477,6 +2477,7 @@ static int mt6358_platform_driver_probe(struct platform_device *pdev)
+diff --git a/Documentation/devicetree/bindings/sound/mt6358.txt b/Documentation/devicetree/bindings/sound/mt6358.txt
+index 59a73ffdf1d3..fbe9e55c68f5 100644
+--- a/Documentation/devicetree/bindings/sound/mt6358.txt
++++ b/Documentation/devicetree/bindings/sound/mt6358.txt
+@@ -7,7 +7,9 @@ Must be a child node of PMIC wrapper.
  
- static const struct of_device_id mt6358_of_match[] = {
- 	{.compatible = "mediatek,mt6358-sound",},
-+	{.compatible = "mediatek,mt6366-sound",},
- 	{}
- };
- MODULE_DEVICE_TABLE(of, mt6358_of_match);
+ Required properties:
+ 
+-- compatible : "mediatek,mt6358-sound".
++- compatible - "string" - One of:
++    "mediatek,mt6358-sound"
++    "mediatek,mt6366-sound"
+ - Avdd-supply : power source of AVDD
+ 
+ Optional properties:
 -- 
 2.18.0
 

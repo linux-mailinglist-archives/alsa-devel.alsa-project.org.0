@@ -2,79 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECFA3532583
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 May 2022 10:39:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 006FC5325DA
+	for <lists+alsa-devel@lfdr.de>; Tue, 24 May 2022 10:59:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8F915163A;
-	Tue, 24 May 2022 10:39:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F915163A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8EF881709;
+	Tue, 24 May 2022 10:58:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EF881709
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653381594;
-	bh=aZmYk6+eppTKV/ij8ArI13IEMWwpvXjDGoItqBk0NuE=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=bN2KkNPjmE8QRqtU+G1UBYHjLWelHaMPAQYgTxGOBPno6wt6iG6uUI5hsIQipVd4n
-	 RVGeuL0+pDiF9qF59Oy5cE82Num17V9+2ADEQTxwSRd7Y9clJKCR9i29yy7Bl96tky
-	 EHBX6W5J5YZxPKrR54dmfvL2SGZvfavavS9RNhCs=
+	s=default; t=1653382755;
+	bh=jA+86ogMSNSqscd+A3yknUaKOUj5/IB8cX3qtK/8rG0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=aScI+Zh3C/ZlMSmWZKCkKcVDYgrPOBYuThqFNefq9wRBWsyM+rIE+KUXB/NCmaPWY
+	 P6K146FsZtyog6AQYHRhQtcaJ7mp9TfPKN7xBOcPenhlJjvUiVwcDoSf03oSK6UD3i
+	 sPCwX+NJEN9Q/bchRxrgEyLrIMzJsQ/D+TlqGhhg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DA836F80100;
-	Tue, 24 May 2022 10:38:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E56B9F800E3;
+	Tue, 24 May 2022 10:58:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 851C3F804D1; Tue, 24 May 2022 10:38:53 +0200 (CEST)
+ id E369DF804D1; Tue, 24 May 2022 10:58:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from smtp-relay-canonical-1.canonical.com
- (smtp-relay-canonical-1.canonical.com [185.125.188.121])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: **
+X-Spam-Status: No, score=3.0 required=5.0 tests=PRX_APP_ATTACH, SPF_HELO_NONE, 
+ SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D0D63F800E3
- for <alsa-devel@alsa-project.org>; Tue, 24 May 2022 10:38:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0D63F800E3
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
- header.b="XDO/GA5K"
-Received: from [192.168.0.109] (unknown [123.112.66.143])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id E26D5417A5; 
- Tue, 24 May 2022 08:38:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1653381527;
- bh=VNR4eScLfrmFR4iOgTNL30qgCPsrORbgtxEB2ypnmxI=;
- h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
- In-Reply-To:Content-Type;
- b=XDO/GA5KlEWQalItcedHn9I9veQh/Pu8ny5oIKm3CKrKZeSnRAQBLo4x+qEloelJu
- rmg2mPrxtVxyFGIovTsC0p7ixD8E7LxvQApXFiNsWOOhm26q4EIZm2Qc3ldQElGYDI
- wokiol/dSN82uCnmDOPUFEzkBR0q3FGeWBLO1OpPNND2x1+W6D8P7cqC+/ce4TO5++
- pmv2+h8W0R5hkK+TLMZSU5fzfDad++NFwB60Yp0GEliEqDWigKHBW0psKJDpo98VMD
- 81u1vCfgpGKHIXOMj+3HiILeFG7SeylgAltNI9Cw6Em4mXum9iT36+jhApWiUVQQew
- Yn0CLkjwI0pcA==
-Message-ID: <d756972a-d010-7e9c-9dcf-f26ae6edc16c@canonical.com>
-Date: Tue, 24 May 2022 16:38:38 +0800
+ by alsa1.perex.cz (Postfix) with ESMTPS id D65D6F800E3
+ for <alsa-devel@alsa-project.org>; Tue, 24 May 2022 10:58:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D65D6F800E3
+Authenticated-By: 
+X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 24O8w3Hg9028805,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
+ by rtits2.realtek.com.tw (8.15.2/2.71/5.88) with ESMTPS id 24O8w3Hg9028805
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Tue, 24 May 2022 16:58:03 +0800
+Received: from RTEXDAG01.realtek.com.tw (172.21.6.100) by
+ RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.28; Tue, 24 May 2022 16:58:03 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXDAG01.realtek.com.tw (172.21.6.100) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.27; Tue, 24 May 2022 16:58:03 +0800
+Received: from RTEXMBS01.realtek.com.tw ([fe80::754e:2219:bbef:d0cd]) by
+ RTEXMBS01.realtek.com.tw ([fe80::754e:2219:bbef:d0cd%5]) with mapi id
+ 15.01.2308.027; Tue, 24 May 2022 16:58:03 +0800
+From: Kailang <kailang@realtek.com>
+To: "Takashi Iwai (tiwai@suse.de)" <tiwai@suse.de>
+Subject: Add new type for ALC245
+Thread-Topic: Add new type for ALC245
+Thread-Index: AdhvTF9xNtUj6e/rQD69V1fvT29tMQ==
+Date: Tue, 24 May 2022 08:58:02 +0000
+Message-ID: <cef26a7cd3d146eb96a3994ce79e34d2@realtek.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator: 
+x-originating-ip: [172.22.102.99]
+x-kse-serverinfo: RTEXDAG01.realtek.com.tw, 9
+x-kse-attachmentfiltering-interceptor-info: no applicable attachment filtering
+ rules found
+x-kse-antivirus-interceptor-info: scan successful
+x-kse-antivirus-info: =?us-ascii?Q?Clean,_bases:_2022/5/24_=3F=3F_06:14:00?=
+x-kse-bulkmessagesfiltering-scan-result: protection disabled
+Content-Type: multipart/mixed;
+ boundary="_002_cef26a7cd3d146eb96a3994ce79e34d2realtekcom_"
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH] ASoC: nau8822: choose the best master clock prescalar
-Content-Language: en-US
-To: David Lin <ctlin0.linux@gmail.com>, alsa-devel@alsa-project.org,
- broonie@kernel.org
-References: <20220524033309.30289-1-hui.wang@canonical.com>
- <9e1eb15c-ca3a-dc04-1f8d-4ea71e32cce8@gmail.com>
-From: Hui Wang <hui.wang@canonical.com>
-In-Reply-To: <9e1eb15c-ca3a-dc04-1f8d-4ea71e32cce8@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Cc: wtli@nuvoton.com, YHCHuang@nuvoton.com, SJLIN0@nuvoton.com,
- kchsu0@nuvoton.com, David Lin <CTLIN0@nuvoton.com>
+X-KSE-ServerInfo: RTEXH36505.realtek.com.tw, 9
+X-KSE-Attachment-Filter-Triggered-Rules: Clean
+X-KSE-Attachment-Filter-Triggered-Filters: Clean
+X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
+Cc: " \(alsa-devel@alsa-project.org\)" <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,48 +94,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+--_002_cef26a7cd3d146eb96a3994ce79e34d2realtekcom_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On 5/24/22 16:07, David Lin wrote:
-> On 2022/5/24 上午 11:33, Hui Wang wrote:
->> We have an imx6sx EVB with the codec nau8822, when playing the audio
->> with 48k sample rate, the audio sounds distorted and obviously faster
->>
-<snip>
->> -            div = i;
->>           }
->>           dev_dbg(component->dev, "master clock prescaler %x for fs 
->> %d\n",
->>               div, rate);
->
-> Regarding to your environment with input MCLK is 24 MHz, I think you 
-> should enable PLL for the internal process of codec.
->
-> So you should do the following calls/operations:
->
-Thanks for your suggestion. In our case, we use the simple-card as the 
-machine driver, the simple-card hard-codes the 2nd parameter of 
-snd_soc_dai_set_sysclk() to 0, and we don't plan to write a new machine 
-driver since sound quality is pretty good if setting to 46875Hz.
+Hi Takashi,
 
-So according to your experience, does the new algorithm bring any side 
-effect or break existing platforms? If so, we have to write a new 
-machine driver (that is a big effort).
+Attach patch will add new codec type for ALC245.
 
-Thanks,
+BR,
+Kailang
 
-Hui.
+--_002_cef26a7cd3d146eb96a3994ce79e34d2realtekcom_
+Content-Type: application/octet-stream; name="0000-add-type-alc245.patch"
+Content-Description: 0000-add-type-alc245.patch
+Content-Disposition: attachment; filename="0000-add-type-alc245.patch";
+	size=1744; creation-date="Tue, 24 May 2022 08:24:25 GMT";
+	modification-date="Tue, 24 May 2022 08:28:00 GMT"
+Content-Transfer-Encoding: base64
 
-> //PLL
->     ret = snd_soc_dai_set_sysclk(codec_dai, NAU8822_CLK_PLL,
->                       24000000, SND_SOC_CLOCK_IN);
->     if (ret < 0 )
->         dev_err(card->dev, "failed to set codec sysclk: %d\n", ret);
->
->     ret = snd_soc_dai_set_pll(codec_dai, 0, 0,
->                   24000000, 256 * params_rate(params));
->     if (ret < 0 )
->
->         dev_err(card->dev, "failed to set codec pll: %d\n", ret);
->
-> David
->
+RnJvbSBkZmMyOTc3YzcxZGE3ZTQyMjMwNzIyMmQxZTRhZDAzM2MyYTAwYjRmIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBrYWlsYW5nIDxrYWlsYW5nQHJlYWx0ZWsuY29tPgpEYXRlOiBU
+dWUsIDI0IE1heSAyMDIyIDE2OjE0OjA0ICswODAwClN1YmplY3Q6IFtQQVRDSF0gQUxTQTogaGRh
+L3JlYWx0ZWsgLSBBZGQgbmV3IHR5cGUgZm9yIEFMQzI0NQoKQWRkIG5ldyB0eXBlIGZvciBBTEMy
+NDUuCgpTaWduZWQtb2ZmLWJ5OiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CmRp
+ZmYgLS1naXQgYS9zb3VuZC9wY2kvaGRhL3BhdGNoX3JlYWx0ZWsuYyBiL3NvdW5kL3BjaS9oZGEv
+cGF0Y2hfcmVhbHRlay5jCmluZGV4IDhhM2UyZmU0MjEwNi4uMzMzNGVjMDIxMzMyIDEwMDY0NAot
+LS0gYS9zb3VuZC9wY2kvaGRhL3BhdGNoX3JlYWx0ZWsuYworKysgYi9zb3VuZC9wY2kvaGRhL3Bh
+dGNoX3JlYWx0ZWsuYwpAQCAtMzA0OCw2ICszMDQ4LDcgQEAgZW51bSB7CiAJQUxDMjY5X1RZUEVf
+QUxDMjU3LAogCUFMQzI2OV9UWVBFX0FMQzIxNSwKIAlBTEMyNjlfVFlQRV9BTEMyMjUsCisJQUxD
+MjY5X1RZUEVfQUxDMjQ1LAogCUFMQzI2OV9UWVBFX0FMQzI4NywKIAlBTEMyNjlfVFlQRV9BTEMy
+OTQsCiAJQUxDMjY5X1RZUEVfQUxDMzAwLApAQCAtMzA4NSw2ICszMDg2LDcgQEAgc3RhdGljIGlu
+dCBhbGMyNjlfcGFyc2VfYXV0b19jb25maWcoc3RydWN0IGhkYV9jb2RlYyAqY29kZWMpCiAJY2Fz
+ZSBBTEMyNjlfVFlQRV9BTEMyNTc6CiAJY2FzZSBBTEMyNjlfVFlQRV9BTEMyMTU6CiAJY2FzZSBB
+TEMyNjlfVFlQRV9BTEMyMjU6CisJY2FzZSBBTEMyNjlfVFlQRV9BTEMyNDU6CiAJY2FzZSBBTEMy
+NjlfVFlQRV9BTEMyODc6CiAJY2FzZSBBTEMyNjlfVFlQRV9BTEMyOTQ6CiAJY2FzZSBBTEMyNjlf
+VFlQRV9BTEMzMDA6CkBAIC0zNjEyLDcgKzM2MTQsOCBAQCBzdGF0aWMgdm9pZCBhbGMyMjVfaW5p
+dChzdHJ1Y3QgaGRhX2NvZGVjICpjb2RlYykKIAloZGFfbmlkX3QgaHBfcGluID0gYWxjX2dldF9o
+cF9waW4oc3BlYyk7CiAJYm9vbCBocDFfcGluX3NlbnNlLCBocDJfcGluX3NlbnNlOwogCi0JaWYg
+KHNwZWMtPmNvZGVjX3ZhcmlhbnQgIT0gQUxDMjY5X1RZUEVfQUxDMjg3KQorCWlmIChzcGVjLT5j
+b2RlY192YXJpYW50ICE9IEFMQzI2OV9UWVBFX0FMQzI4NyAmJgorCQlzcGVjLT5jb2RlY192YXJp
+YW50ICE9IEFMQzI2OV9UWVBFX0FMQzI0NSkKIAkJLyogcmVxdWlyZWQgb25seSBhdCBib290IG9y
+IFMzIGFuZCBTNCByZXN1bWUgdGltZSAqLwogCQlpZiAoIXNwZWMtPmRvbmVfaHBfaW5pdCB8fAog
+CQkJaXNfczNfcmVzdW1lKGNvZGVjKSB8fApAQCAtOTY4MCw3ICs5NjgzLDEwIEBAIHN0YXRpYyBp
+bnQgcGF0Y2hfYWxjMjY5KHN0cnVjdCBoZGFfY29kZWMgKmNvZGVjKQogCWNhc2UgMHgxMGVjMDI0
+NToKIAljYXNlIDB4MTBlYzAyODU6CiAJY2FzZSAweDEwZWMwMjg5OgotCQlzcGVjLT5jb2RlY192
+YXJpYW50ID0gQUxDMjY5X1RZUEVfQUxDMjE1OworCQlpZiAoYWxjX2dldF9jb2VmMChjb2RlYykg
+JiAweDAwMTApCisJCQlzcGVjLT5jb2RlY192YXJpYW50ID0gQUxDMjY5X1RZUEVfQUxDMjQ1Owor
+CQllbHNlCisJCQlzcGVjLT5jb2RlY192YXJpYW50ID0gQUxDMjY5X1RZUEVfQUxDMjE1OwogCQlz
+cGVjLT5zaHV0dXAgPSBhbGMyMjVfc2h1dHVwOwogCQlzcGVjLT5pbml0X2hvb2sgPSBhbGMyMjVf
+aW5pdDsKIAkJc3BlYy0+Z2VuLm1peGVyX25pZCA9IDA7Cg==
+
+--_002_cef26a7cd3d146eb96a3994ce79e34d2realtekcom_--

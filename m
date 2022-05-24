@@ -2,98 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99192532772
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 May 2022 12:23:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F324D532836
+	for <lists+alsa-devel@lfdr.de>; Tue, 24 May 2022 12:51:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2E5FF16F6;
-	Tue, 24 May 2022 12:23:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E5FF16F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8D5CF1722;
+	Tue, 24 May 2022 12:50:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D5CF1722
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653387837;
-	bh=5Io/h6/VRakQKRMUKEOhnbpXGR19NxU9zFWTsMzvSAs=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1653389466;
+	bh=SIakgLuuWXWIrFqkP2n/5qLlXhdfmJ4IUDuNV2G7+d0=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Pj+361F+nQMKOoVt9Yj3m1Mb00Or65eP8vxIcp+2DiKI4bLlGG2DiXOK7+loLfBxq
-	 9AEHKQ1YBo9jIoFOju9lXqOulr+3EKvcQWT3mW3/FoTv58NgP1qgf0YeO05ENRkXrK
-	 sHjuXfeItLZL6F72zSMGvw1EoMULI1L914p2Sxvk=
+	b=V7Z0g8t4gKGJPwVliNWO4hHdqbyfjDbUyLittV1Vjr2NGR7S1Rtp173+SIVUJ6MzD
+	 CEcnlLxhVc5kyFTJqgWjFc/gf5YT5/J4pD/fRp2CBaZZa5bWbnLWMdulXVK76hMsVE
+	 kvoPdjIHUj/On0lJEofOdvsYeHZPewDXQaC67wjg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8DA24F804CC;
-	Tue, 24 May 2022 12:22:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0D4D6F804D6;
+	Tue, 24 May 2022 12:50:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5133DF80116; Tue, 24 May 2022 12:22:57 +0200 (CEST)
+ id 31E0CF80100; Tue, 24 May 2022 12:50:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pg1-x52e.google.com (mail-pg1-x52e.google.com
- [IPv6:2607:f8b0:4864:20::52e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C1BCBF80116
- for <alsa-devel@alsa-project.org>; Tue, 24 May 2022 12:22:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1BCBF80116
+ by alsa1.perex.cz (Postfix) with ESMTPS id 64434F80100
+ for <alsa-devel@alsa-project.org>; Tue, 24 May 2022 12:49:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64434F80100
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="dhOslRkx"
-Received: by mail-pg1-x52e.google.com with SMTP id r71so15998303pgr.0
- for <alsa-devel@alsa-project.org>; Tue, 24 May 2022 03:22:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=FHkvj96lD5L4+5KYVz6itu6tz7E4LTR2tAbmmQhX7mE=;
- b=dhOslRkxYURc7RMJyr2WAHRIvGAWig0pwq3hG1ZupXU/nJ2IjcmsSYXSfcj2cwaJHk
- sot8cxZps3bSHg6qvy7A8CV5sbcOLUu8Tg0nDEHtxS0JrE9s1+xlfp/atH0TJCYDMseY
- WQDlpCHreNhWAUuJv+3nbct5T+t+xLtL/bht7K1h+7YenFc3LXkNfiP3RZhdKqYADcH0
- GfB2CXI27EwPt99RxmkxMaaDkPmKNITBfmcwMs8KE7GFWsAlVfDc9zFmAl0+ScjnS5Ge
- YvZ8Za+mEbCh4tvwThBvzgG+WFYgJqfrGE6ca6DEqh39N6DuO1M5Jbf0qS1PnkKNs08o
- Jxbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=FHkvj96lD5L4+5KYVz6itu6tz7E4LTR2tAbmmQhX7mE=;
- b=eDsVYvxNdBIuxBwc/dj0Y4g0RE8fgijaQEKMkIq62kxQ7xwpNMI4lEgWhz7Gft9nEM
- R2uycw9I/zYGWZjT+WXfj2C2x471lyijPN9bM2EKjAj2DhtqIIeqV+HtaZp65jq+Em62
- g6QntX2Z0ziuwMdNbqpU7hcYrQwAj48gV0EjFe38ovxfRADDqSche9NE1vlkT9u3YKgq
- kpCoMBBq2SDhDd9uWRkYRaEjxwSTGbXUQohXyvZYAFJR/GF0etBVTBh8DSL9sarIa5yG
- IuCZp7hn5ChIbb6Mf8fD22sNBjSy5Md/aDgJ6vzwqu55whmpWwNKN0cxkuSIgi7mrQeK
- CpMw==
-X-Gm-Message-State: AOAM530r1xDlErV85ZIl9OnYHUGjRycT/l8T8gwC+YqIMbnLbGNejPT9
- xaL71AZ5DqGvmjyCBue0DP4=
-X-Google-Smtp-Source: ABdhPJzcLlejIs2QmD5uJE08BYtmOh2ZkR5oJYFKzYj1fixpXsIrBDEdbZMVVU9NM067C1aEPrUUug==
-X-Received: by 2002:a65:558d:0:b0:3f5:f26d:f420 with SMTP id
- j13-20020a65558d000000b003f5f26df420mr24000303pgs.434.1653387763918; 
- Tue, 24 May 2022 03:22:43 -0700 (PDT)
-Received: from [192.168.0.103] (39-13-101-104.adsl.fetnet.net. [39.13.101.104])
- by smtp.gmail.com with ESMTPSA id
- p42-20020a056a0026ea00b00518bbe1794bsm2163484pfw.76.2022.05.24.03.22.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 May 2022 03:22:43 -0700 (PDT)
-Message-ID: <bf52d764-ae62-921f-bfdd-503c42e4a85f@gmail.com>
-Date: Tue, 24 May 2022 18:22:38 +0800
+ dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
+ header.b="ClJ5sTo4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1653389404; x=1684925404;
+ h=message-id:date:mime-version:subject:to:references:from:
+ in-reply-to:content-transfer-encoding;
+ bh=Tk/huaI+Brj6VolyTS3vaRaaffgo18jJiY/piQh5zVQ=;
+ b=ClJ5sTo4m2A5hRPme9Ltg9wpJyGZkQJLuHUEkXMb1S1JAWE8gWmTb6qG
+ bCXdlekmV6gtt5cQw+v24ml5fQz9d+FklWCSa4lVgHICiqWopZa9uhC2u
+ 9fBk8WazriQyPrVzjj3QEexYb1ZevOkMNCoAYVTCOq+6p4RoOrkj4dPU5 w=;
+Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 24 May 2022 03:49:56 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 May 2022 03:49:56 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Tue, 24 May 2022 03:49:55 -0700
+Received: from [10.216.5.195] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Tue, 24 May
+ 2022 03:49:49 -0700
+Message-ID: <51b8aca1-e038-4907-e973-ebdbebaf9b28@quicinc.com>
+Date: Tue, 24 May 2022 16:19:47 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.2.0
-Subject: Re: [PATCH] ASoC: nau8822: choose the best master clock prescalar
+ Thunderbird/91.6.1
+Subject: Re: [PATCH v2] ASoC: qcom: soundwire: Add support for controlling
+ audio CGCR from HLOS
 Content-Language: en-US
-To: Hui Wang <hui.wang@canonical.com>, alsa-devel@alsa-project.org,
- broonie@kernel.org
-References: <20220524033309.30289-1-hui.wang@canonical.com>
- <9e1eb15c-ca3a-dc04-1f8d-4ea71e32cce8@gmail.com>
- <d756972a-d010-7e9c-9dcf-f26ae6edc16c@canonical.com>
-From: David Lin <ctlin0.linux@gmail.com>
-In-Reply-To: <d756972a-d010-7e9c-9dcf-f26ae6edc16c@canonical.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Cc: wtli@nuvoton.com, YHCHuang@nuvoton.com, SJLIN0@nuvoton.com,
- kchsu0@nuvoton.com, David Lin <CTLIN0@nuvoton.com>
+To: Stephen Boyd <swboyd@chromium.org>, <agross@kernel.org>,
+ <alsa-devel@alsa-project.org>, <bgoswami@quicinc.com>,
+ <bjorn.andersson@linaro.org>, <broonie@kernel.org>,
+ <devicetree@vger.kernel.org>, <judyhsiao@chromium.org>,
+ <lgirdwood@gmail.com>, <linux-arm-msm@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <perex@perex.cz>, <quic_plai@quicinc.com>,
+ <quic_rohkumar@quicinc.com>, <robh+dt@kernel.org>,
+ <srinivas.kandagatla@linaro.org>, <tiwai@suse.com>, <vkoul@kernel.org>
+References: <1652877755-25120-1-git-send-email-quic_srivasam@quicinc.com>
+ <CAE-0n53g9rWks+euk5KHBzmJNEB3xLbJzMgCxN52DO5x+9-Wgg@mail.gmail.com>
+From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+Organization: Qualcomm
+In-Reply-To: <CAE-0n53g9rWks+euk5KHBzmJNEB3xLbJzMgCxN52DO5x+9-Wgg@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,60 +105,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2022/5/24 下午 04:38, Hui Wang wrote:
+
+On 5/21/2022 8:43 AM, Stephen Boyd wrote:
+Thanks for your time Stephen!!!
+> Quoting Srinivasa Rao Mandadapu (2022-05-18 05:42:35)
+>> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+>> index da1ad7e..445e481 100644
+>> --- a/drivers/soundwire/qcom.c
+>> +++ b/drivers/soundwire/qcom.c
+>> @@ -1333,6 +1337,10 @@ static int qcom_swrm_probe(struct platform_device *pdev)
+>>          ctrl->bus.compute_params = &qcom_swrm_compute_params;
+>>          ctrl->bus.clk_stop_timeout = 300;
+>>
+>> +       ctrl->audio_cgcr = devm_reset_control_get_exclusive(dev, "swr_audio_cgcr");
+>> +       if (IS_ERR(ctrl->audio_cgcr))
+>> +               dev_err(dev, "Failed to get audio_cgcr reset required for soundwire-v1.6.0\n");
+> Why is there no return on error here? Is the reset optional?
+Yes it's optional. For older platforms this is not required.
 >
-> On 5/24/22 16:07, David Lin wrote:
->> On 2022/5/24 上午 11:33, Hui Wang wrote:
->>> We have an imx6sx EVB with the codec nau8822, when playing the audio
->>> with 48k sample rate, the audio sounds distorted and obviously faster
->>>
-> <snip>
->>> -            div = i;
->>>           }
->>>           dev_dbg(component->dev, "master clock prescaler %x for fs 
->>> %d\n",
->>>               div, rate);
->>
->> Regarding to your environment with input MCLK is 24 MHz, I think you 
->> should enable PLL for the internal process of codec.
->>
->> So you should do the following calls/operations:
->>
-> Thanks for your suggestion. In our case, we use the simple-card as the 
-> machine driver, the simple-card hard-codes the 2nd parameter of 
-> snd_soc_dai_set_sysclk() to 0, and we don't plan to write a new 
-> machine driver since sound quality is pretty good if setting to 46875Hz.
->
-> So according to your experience, does the new algorithm bring any side 
-> effect or break existing platforms? If so, we have to write a new 
-> machine driver (that is a big effort).
->
-> Thanks,
->
-> Hui.
->
-Even you can hear better sound quality than original, it don't still 
-have better performance(THD+N) than MCLK is 256FS. Generally,  we will 
-suggest the below that for customer support.
-1. Check dts description from simple-card about the value of mclk-fs is 
-256? The reason is nau8822 codec just support 256FS. Besides, the I.MX 
-EVB should be with flexible clock generation.
-2. Based on the flexible clock generation, you should input 12.288Mhz as 
-MCLK, so the simple-card is suitable for your case with low effort.
-3. If your MCLK is always 24MHz, PLL enable is preferred as previous 
-mention. One is to implement/porting a machine driver, the other is to 
-revise asoc_simple_hw_params callback function from simple-card-utils.c.
->> //PLL
->>     ret = snd_soc_dai_set_sysclk(codec_dai, NAU8822_CLK_PLL,
->>                       24000000, SND_SOC_CLOCK_IN);
->>     if (ret < 0 )
->>         dev_err(card->dev, "failed to set codec sysclk: %d\n", ret);
->>
->>     ret = snd_soc_dai_set_pll(codec_dai, 0, 0,
->>                   24000000, 256 * params_rate(params));
->>     if (ret < 0 )
->>
->>         dev_err(card->dev, "failed to set codec pll: %d\n", ret);
->>
->> David
->>
+>> +
+>>          ret = qcom_swrm_get_port_config(ctrl);
+>>          if (ret)
+>>                  goto err_clk;

@@ -2,69 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86267532E1D
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 May 2022 18:01:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99A56532E26
+	for <lists+alsa-devel@lfdr.de>; Tue, 24 May 2022 18:01:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2375E1715;
-	Tue, 24 May 2022 18:00:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2375E1715
+	by alsa0.perex.cz (Postfix) with ESMTPS id D16041728;
+	Tue, 24 May 2022 18:00:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D16041728
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653408075;
-	bh=SnMXS8KshPQ2ZE1w7Fbsl9Bsv4BSvelq1coS+At5urA=;
+	s=default; t=1653408085;
+	bh=jN+1HIsiA3bRhuPvFKVuv5fZquiqYbHfsKIPAUjrDbU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=P1ISE95aCVGFw8K3M5TfrUfmz7U+vSj9sGVyisZlgrVYenVnFdxJ9oWzftjFfFPIp
-	 A37HAkrdQJ5vFgOa4UBbj/O+IqCQJkpwCnt+VPdh1lO8hWT/pFLJjwtcmcxPsn7OYF
-	 k17e7Dgp4B+NhnTFfomxtCBBuK4dSwZCe2WAXNQI=
+	b=me3jdiguKhfornBtZyf+Is4npnQsGGNsTGBz71i+8HXrWo8aOwSOHosfE1Dc/pgWR
+	 aTAG1SyS6xSUQu9GOlR9jA5PZa1GGXZt8Q/53a5vLGPfinPjgXNIdcj0qG2muLe3zr
+	 f1GNXYyVSfrZyXPITufaNA4AsuFqP3zY7rwFolfA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 26E6BF80516;
-	Tue, 24 May 2022 17:59:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B0DF3F804CC;
+	Tue, 24 May 2022 17:59:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9D4D8F804FD; Tue, 24 May 2022 17:59:47 +0200 (CEST)
+ id 4F5E9F8051B; Tue, 24 May 2022 17:59:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3E323F80116
- for <alsa-devel@alsa-project.org>; Tue, 24 May 2022 17:59:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E323F80116
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6387DF804D1
+ for <alsa-devel@alsa-project.org>; Tue, 24 May 2022 17:59:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6387DF804D1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="XxrVf4Gs"
+ header.b="ManMZzIA"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 5AE57B819DC;
- Tue, 24 May 2022 15:59:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37660C34118;
- Tue, 24 May 2022 15:59:35 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id BAD31B81A2E;
+ Tue, 24 May 2022 15:59:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B21DC34113;
+ Tue, 24 May 2022 15:59:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1653407977;
- bh=SnMXS8KshPQ2ZE1w7Fbsl9Bsv4BSvelq1coS+At5urA=;
+ s=k20201202; t=1653407981;
+ bh=jN+1HIsiA3bRhuPvFKVuv5fZquiqYbHfsKIPAUjrDbU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=XxrVf4GsYz2qO8yktRR9fZKfW1/wA6JtOp2NKy88SWb8VcY5qeV5tJRvPZqE4P0FF
- DTkEz1ppqxQM6DJRjE2k842ZO50HJ15VL9HJ/DRmt70RcTvuAPa8aE+9KQyXi7DsCc
- od/ORH/9kLEFLdCjitprb+wkLDLDRFmyRLppb9JRpSlbdfnuVQMJTE+t+GIuF7RyKC
- 7SuYaHTvFtfiiSO+iDDC3hpIzHpVsylacRPor1/1mxInyOcJkAmY3v9snlnr6NDj6a
- LW2phMRHViXOFNzE0E2ESLQVoPaRIH1rScoOUoFxnU7jgrBFYFSYZY3Tdw58RRk8Jc
- r3375DAbR4iQA==
+ b=ManMZzIA6Ikh7C3injz4DLATRPTGi8MAIMz0K+5JW+lnlbOXf5QnY3wHnJTZjkLBX
+ 8mmsJnX1RV1jjaWAkx0ACmFOg3WPIZH1I5MiD01ELbjgamt7yOQBelHFH62IN2iB9y
+ sYwF93E3V+kGR3Ayyc3XXW5iPAXZoQy+h1s557iifPx6YQ7fZOYWW9F4mx2CU60vXs
+ dQ2DhO9XkhOsfVlKxOFil1mx7qas7o2x6tRePGOxe/t4nGMy+MtyJ68gkdsBWLYpxJ
+ bH9/6wSWeNq3nP0M8qqS3efLCaKKLoMwOtCcVzZi1HBp7S2Q8KoqOoMPNX/TsN27UY
+ e+5hmydhDVvZQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.17 02/12] ALSA: hda/realtek: Add quirk for Dell
- Latitude 7520
-Date: Tue, 24 May 2022 11:59:16 -0400
-Message-Id: <20220524155929.826793-2-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.17 03/12] ALSA: hda/realtek: Add quirk for the
+ Framework Laptop
+Date: Tue, 24 May 2022 11:59:17 -0400
+Message-Id: <20220524155929.826793-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220524155929.826793-1-sashal@kernel.org>
 References: <20220524155929.826793-1-sashal@kernel.org>
@@ -74,7 +73,7 @@ X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
  kailang@realtek.com, tanureal@opensource.cirrus.com, jeremy.szu@canonical.com,
- Takashi Iwai <tiwai@suse.de>, Gabriele Mazzotta <gabriele.mzt@gmail.com>,
+ Takashi Iwai <tiwai@suse.de>, "Dustin L. Howett" <dustin@howett.net>,
  tiwai@suse.com, wse@tuxedocomputers.com, kai.heng.feng@canonical.com,
  andy.chi@canonical.com, cam@neo-zeon.de, yong.wu@mediatek.com
 X-BeenThere: alsa-devel@alsa-project.org
@@ -92,103 +91,72 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Gabriele Mazzotta <gabriele.mzt@gmail.com>
+From: "Dustin L. Howett" <dustin@howett.net>
 
-[ Upstream commit 1efcdd9c1f34f5a6590bc9ac5471e562fb011386 ]
+[ Upstream commit 309d7363ca3d9fcdb92ff2d958be14d7e8707f68 ]
 
-The driver is currently using ALC269_FIXUP_DELL4_MIC_NO_PRESENCE for
-the Latitude 7520, but this fixup chain has some issues:
+Some board revisions of the Framework Laptop have an ALC295 with a
+disconnected or faulty headset mic presence detect.
 
- - The internal mic is really loud and the recorded audio is distorted
-   at "standard" audio levels.
+The "dell-headset-multi" fixup addresses this issue, but also enables an
+inoperative "Headphone Mic" input device whenever a headset is
+connected.
 
- - There are pop noises at system startup and when plugging/unplugging
-   headphone jacks.
+Adding a new quirk chain specific to the Framework Laptop resolves this
+issue. The one introduced here is based on the System76 "no headphone
+mic" quirk chain.
 
-BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=215885
-Signed-off-by: Gabriele Mazzotta <gabriele.mzt@gmail.com>
-Link: https://lore.kernel.org/r/20220501124237.4667-1-gabriele.mzt@gmail.com
+The VID:PID f111:0001 have been allocated to Framework Computer for this
+board revision.
+
+Revision history:
+- v2: Moved to a custom quirk chain to suppress the "Headphone Mic"
+  pincfg.
+
+Signed-off-by: Dustin L. Howett <dustin@howett.net>
+Link: https://lore.kernel.org/r/20220511010759.3554-1-dustin@howett.net
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/pci/hda/patch_realtek.c | 43 +++++++++++++++++++++++++++++++++++
- 1 file changed, 43 insertions(+)
+ sound/pci/hda/patch_realtek.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
 diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 51c54cf0f312..8425eadf6873 100644
+index 8425eadf6873..18af98d18b6e 100644
 --- a/sound/pci/hda/patch_realtek.c
 +++ b/sound/pci/hda/patch_realtek.c
-@@ -6775,6 +6775,41 @@ static void alc256_fixup_mic_no_presence_and_resume(struct hda_codec *codec,
- 	}
- }
+@@ -7038,6 +7038,7 @@ enum {
+ 	ALC287_FIXUP_LEGION_16ACHG6,
+ 	ALC287_FIXUP_CS35L41_I2C_2,
+ 	ALC285_FIXUP_HP_SPEAKERS_MICMUTE_LED,
++	ALC295_FIXUP_FRAMEWORK_LAPTOP_MIC_NO_PRESENCE,
+ };
  
-+static void alc_fixup_dell4_mic_no_presence_quiet(struct hda_codec *codec,
-+						  const struct hda_fixup *fix,
-+						  int action)
-+{
-+	struct alc_spec *spec = codec->spec;
-+	struct hda_input_mux *imux = &spec->gen.input_mux;
-+	int i;
-+
-+	alc269_fixup_limit_int_mic_boost(codec, fix, action);
-+
-+	switch (action) {
-+	case HDA_FIXUP_ACT_PRE_PROBE:
-+		/**
-+		 * Set the vref of pin 0x19 (Headset Mic) and pin 0x1b (Headphone Mic)
-+		 * to Hi-Z to avoid pop noises at startup and when plugging and
-+		 * unplugging headphones.
-+		 */
-+		snd_hda_codec_set_pin_target(codec, 0x19, PIN_VREFHIZ);
-+		snd_hda_codec_set_pin_target(codec, 0x1b, PIN_VREFHIZ);
-+		break;
-+	case HDA_FIXUP_ACT_PROBE:
-+		/**
-+		 * Make the internal mic (0x12) the default input source to
-+		 * prevent pop noises on cold boot.
-+		 */
-+		for (i = 0; i < imux->num_items; i++) {
-+			if (spec->gen.imux_pins[i] == 0x12) {
-+				spec->gen.cur_mux[0] = i;
-+				break;
-+			}
-+		}
-+		break;
-+	}
-+}
-+
- enum {
- 	ALC269_FIXUP_GPIO2,
- 	ALC269_FIXUP_SONY_VAIO,
-@@ -6816,6 +6851,7 @@ enum {
- 	ALC269_FIXUP_DELL2_MIC_NO_PRESENCE,
- 	ALC269_FIXUP_DELL3_MIC_NO_PRESENCE,
- 	ALC269_FIXUP_DELL4_MIC_NO_PRESENCE,
-+	ALC269_FIXUP_DELL4_MIC_NO_PRESENCE_QUIET,
- 	ALC269_FIXUP_HEADSET_MODE,
- 	ALC269_FIXUP_HEADSET_MODE_NO_HP_MIC,
- 	ALC269_FIXUP_ASPIRE_HEADSET_MIC,
-@@ -8772,6 +8808,12 @@ static const struct hda_fixup alc269_fixups[] = {
+ static const struct hda_fixup alc269_fixups[] = {
+@@ -8814,6 +8815,15 @@ static const struct hda_fixup alc269_fixups[] = {
  		.chained = true,
- 		.chain_id = ALC285_FIXUP_HP_MUTE_LED,
+ 		.chain_id = ALC269_FIXUP_DELL4_MIC_NO_PRESENCE,
  	},
-+	[ALC269_FIXUP_DELL4_MIC_NO_PRESENCE_QUIET] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc_fixup_dell4_mic_no_presence_quiet,
++	[ALC295_FIXUP_FRAMEWORK_LAPTOP_MIC_NO_PRESENCE] = {
++		.type = HDA_FIXUP_PINS,
++		.v.pins = (const struct hda_pintbl[]) {
++			{ 0x19, 0x02a1112c }, /* use as headset mic, without its own jack detect */
++			{ }
++		},
 +		.chained = true,
-+		.chain_id = ALC269_FIXUP_DELL4_MIC_NO_PRESENCE,
++		.chain_id = ALC269_FIXUP_HEADSET_MODE_NO_HP_MIC
 +	},
  };
  
  static const struct snd_pci_quirk alc269_fixup_tbl[] = {
-@@ -8862,6 +8904,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1028, 0x09bf, "Dell Precision", ALC233_FIXUP_ASUS_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1028, 0x0a2e, "Dell", ALC236_FIXUP_DELL_AIO_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1028, 0x0a30, "Dell", ALC236_FIXUP_DELL_AIO_HEADSET_MIC),
-+	SND_PCI_QUIRK(0x1028, 0x0a38, "Dell Latitude 7520", ALC269_FIXUP_DELL4_MIC_NO_PRESENCE_QUIET),
- 	SND_PCI_QUIRK(0x1028, 0x0a58, "Dell", ALC255_FIXUP_DELL_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1028, 0x0a61, "Dell XPS 15 9510", ALC289_FIXUP_DUAL_SPK),
- 	SND_PCI_QUIRK(0x1028, 0x0a62, "Dell Precision 5560", ALC289_FIXUP_DUAL_SPK),
+@@ -9286,6 +9296,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x8086, 0x2074, "Intel NUC 8", ALC233_FIXUP_INTEL_NUC8_DMIC),
+ 	SND_PCI_QUIRK(0x8086, 0x2080, "Intel NUC 8 Rugged", ALC256_FIXUP_INTEL_NUC8_RUGGED),
+ 	SND_PCI_QUIRK(0x8086, 0x2081, "Intel NUC 10", ALC256_FIXUP_INTEL_NUC10),
++	SND_PCI_QUIRK(0xf111, 0x0001, "Framework Laptop", ALC295_FIXUP_FRAMEWORK_LAPTOP_MIC_NO_PRESENCE),
+ 
+ #if 0
+ 	/* Below is a quirk table taken from the old code.
 -- 
 2.35.1
 

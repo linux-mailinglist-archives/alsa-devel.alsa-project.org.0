@@ -2,73 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98B1C532056
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 May 2022 03:44:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E2745321A4
+	for <lists+alsa-devel@lfdr.de>; Tue, 24 May 2022 05:39:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 258141711;
-	Tue, 24 May 2022 03:44:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 258141711
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8A24E170F;
+	Tue, 24 May 2022 05:38:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A24E170F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653356695;
-	bh=XiaYsLurM9WQWXCt7I8btl9NhHIChxoEFcXVSL/SFPI=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Ih/zwN+rJojDRB0o+W/Bx2PM5SwE4JaM1XzJ6Bkw2n2572GU+VUAxjFvabJhpwBqQ
-	 AGZ3GlOR00HIZq/PIfV43xnGNecsZ+0T+UNRNMoEayKBdmhoHxvyVzZbLv33pz49eX
-	 4eRP8b4rHaKhaSCa9hePgj2/TPDYdt+NVRdqARN4=
+	s=default; t=1653363542;
+	bh=8rKy9tZUG+CMft2I8WxU/qQDmhaMbYbshZIrLQjUOlQ=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=cNjrIQLD8tlcS8xMgbBiBB7c6X2PVW6Ie/X7kicn/Ffa9wM9Nh9ft4zIpfm3t9nzV
+	 oePffPvOGbnrG43eAMNL4FaD6qHTOXCLcEzU5i/TgL2JwhFtna/2b+48iLCUhEwcXU
+	 AOKa1VN9Wrq0P1yOzAs6GItcqZU6E8P4SLhyTdXw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 849F5F804D6;
-	Tue, 24 May 2022 03:43:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CF3CCF80100;
+	Tue, 24 May 2022 05:38:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6AA86F804D1; Tue, 24 May 2022 03:43:53 +0200 (CEST)
+ id 3FE41F804D1; Tue, 24 May 2022 05:38:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=HTML_MESSAGE,NICE_REPLY_A,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com
- [221.176.66.80])
- by alsa1.perex.cz (Postfix) with ESMTP id 32254F800E3
- for <alsa-devel@alsa-project.org>; Tue, 24 May 2022 03:43:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32254F800E3
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG: 00000000
-Received: from spf.mail.chinamobile.com (unknown[172.16.121.89])
- by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee8628c384d905-e977c;
- Tue, 24 May 2022 09:43:43 +0800 (CST)
-X-RM-TRANSID: 2ee8628c384d905-e977c
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG: 00000000
-Received: from [192.168.26.114] (unknown[10.42.68.12])
- by rmsmtp-syy-appsvrnew05-12026 (RichMail) with SMTP id 2efa628c384394f-9b02a; 
- Tue, 24 May 2022 09:43:42 +0800 (CST)
-X-RM-TRANSID: 2efa628c384394f-9b02a
-Subject: Re: [PATCH] ASoC: stm32: sai: Use of_device_get_match_data()
- tosimplify code
-To: Mark Brown <broonie@kernel.org>,
- Olivier MOYSAN <olivier.moysan@foss.st.com>
-References: <20220519124235.21100-1-tangbin@cmss.chinamobile.com>
- <69d5cef3-57c0-9bc7-a83b-a85ef1c4cf29@foss.st.com>
- <YovZAf4S0XphBsco@sirena.org.uk>
-From: tangbin <tangbin@cmss.chinamobile.com>
-Message-ID: <3fb8d7f8-4506-3b28-22cb-863bda1f21c8@cmss.chinamobile.com>
-Date: Tue, 24 May 2022 09:44:21 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-relay-canonical-0.canonical.com
+ (smtp-relay-canonical-0.canonical.com [185.125.188.120])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 990B4F80116
+ for <alsa-devel@alsa-project.org>; Tue, 24 May 2022 05:37:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 990B4F80116
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
+ header.b="EIDUp/cg"
+Received: from localhost.localdomain (unknown [123.112.66.143])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 709AC3F5FD; 
+ Tue, 24 May 2022 03:35:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1653363466;
+ bh=kOL31z7joF/UIYtldke0mOiwgPQmglUcJ4XqzlfHdJw=;
+ h=From:To:Cc:Subject:Date:Message-Id:MIME-Version;
+ b=EIDUp/cgJPpuxVUge6XTyDWjaz16B11hXs553SpDSaJtAC02IpNVJ2o52swetP/ka
+ 1EkOVCsvZQ8Ho1gOJu/uo0jWVFLCaGa1vWrqX9pKWYapg/qOCrE/hvkx3VcgQMtwUk
+ 7Et7mWN1fGG7/ZiXy2JhsqTSny1Nd4w4+AVFtUwFZ2ME1YEsEbHaRhyyfPoVWh2d7Q
+ ypiaIN9VOl0e6oL2c0QvKkJPBTGHr7H7ej8qIxKg9cZfFpJrLVr/W8jliUoFT68wxj
+ lJtHLgJavuuRIAUZGcNU+QammGmFDMU8uwVU1m/x0jNB7tl7zcCnAID/9nWkX02l77
+ lcpb7uHlJeVuQ==
+From: Hui Wang <hui.wang@canonical.com>
+To: alsa-devel@alsa-project.org,
+	broonie@kernel.org
+Subject: [PATCH] ASoC: nau8822: choose the best master clock prescalar
+Date: Tue, 24 May 2022 11:33:09 +0800
+Message-Id: <20220524033309.30289-1-hui.wang@canonical.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <YovZAf4S0XphBsco@sirena.org.uk>
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, alexandre.torgue@foss.st.com, tiwai@suse.com,
- mcoquelin.stm32@gmail.com, arnaud.pouliquen@foss.st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Cc: wtli@nuvoton.com, kchsu0@nuvoton.com, ctlin0@nuvoton.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,47 +81,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Mark & Olivier：
+We have an imx6sx EVB with the codec nau8822, when playing the audio
+with 48k sample rate, the audio sounds distorted and obviously faster
+than expected.
 
-On 2022/5/24 2:57, Mark Brown wrote:
-> On Mon, May 23, 2022 at 03:28:48PM +0200, Olivier MOYSAN wrote:
->
->> The current patch requires a change in the driver.
->> Either changing STM_SAI_x_ID enums, or replacing data by a struct.
->> For instance:
->> struct stm32_sai_comp_data {
->> 	unsigned int id;
->> }
->> struct stm32_sai_comp_data stm32_sai_comp_data_a = {
->> 	.id = STM_SAI_A_ID;
->> }
->> struct of_device_id stm32_sai_sub_ids[] = {
->> 	.data = &stm32_sai_comp_data_a},
->> }
-> Either approach works for me (or a revert for that matter).
+The codec input MCLK is 24000000Hz on our board, if the target sample
+rate is 48000Hz, with the current algorithm, the computed prescalar
+will result in 62500Hz, with the patched algorithm, the sample rate
+will be 46875Hz which is nearer the target sample rate.
 
-     Thanks for your advice, I was thoughtless.
+And for other sample rate like 44100, 22050, 11025 or 8000, the
+patched algorithm has no difference with the current algorithm, they
+will generate the same prescalar and the same sample rate.
 
-     I think change the date of STM_SAI_x_ID maybe simple. But if we 
-don't change the id,
+Signed-off-by: Hui Wang <hui.wang@canonical.com>
+---
+ sound/soc/codecs/nau8822.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-what about add a "#define" like the line 47:
-
-#define STM_SAI_IS_SUB(x) ((x)->id == STM_SAI_A_ID || (x)->id == 
-STM_SAI_B_ID)
-
-then in the judgement, wu use:
-
-     sai->id = (uintptr_t)of_device_get_match_data(&pdev->dev);
-
-     if (!STM_SAI_IS_SUB(sai))
-
-             return -EINVAL;
-
-
-if you think that's ok, I will send patch v2 for you .
-
-Thanks
-
-Tang Bin
+diff --git a/sound/soc/codecs/nau8822.c b/sound/soc/codecs/nau8822.c
+index 66bbd8f4f1ad..b67fdf64ddab 100644
+--- a/sound/soc/codecs/nau8822.c
++++ b/sound/soc/codecs/nau8822.c
+@@ -668,21 +668,24 @@ static int nau8822_config_clkdiv(struct snd_soc_dai *dai, int div, int rate)
+ 	struct snd_soc_component *component = dai->component;
+ 	struct nau8822 *nau8822 = snd_soc_component_get_drvdata(component);
+ 	struct nau8822_pll *pll = &nau8822->pll;
++	int diff = INT_MAX;
+ 	int i, sclk, imclk;
+ 
+ 	switch (nau8822->div_id) {
+ 	case NAU8822_CLK_MCLK:
+ 		/* Configure the master clock prescaler div to make system
+ 		 * clock to approximate the internal master clock (IMCLK);
+-		 * and large or equal to IMCLK.
++		 * and find the nearest value to IMCLK.
+ 		 */
+ 		div = 0;
+ 		imclk = rate * 256;
+ 		for (i = 1; i < ARRAY_SIZE(nau8822_mclk_scaler); i++) {
+ 			sclk = (nau8822->sysclk * 10) /	nau8822_mclk_scaler[i];
+-			if (sclk < imclk)
++			if (abs(sclk - imclk) < diff) {
++				diff = abs(sclk - imclk);
++				div =  i;
++			} else
+ 				break;
+-			div = i;
+ 		}
+ 		dev_dbg(component->dev, "master clock prescaler %x for fs %d\n",
+ 			div, rate);
+-- 
+2.25.1
 

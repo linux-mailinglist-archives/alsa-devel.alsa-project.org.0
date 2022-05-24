@@ -2,138 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 263F2532234
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 May 2022 06:41:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1B5E5322AB
+	for <lists+alsa-devel@lfdr.de>; Tue, 24 May 2022 07:56:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A6EB8170C;
-	Tue, 24 May 2022 06:40:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6EB8170C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 70D3A170F;
+	Tue, 24 May 2022 07:55:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70D3A170F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653367296;
-	bh=YWKkqMoU+Lc7IQR5PsQj8YftDRCJzlJScYYAt3QodoY=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Y7cOg4Jaf4t709uNtJrRwDr23fQ/Sq67SJmr+CfmcEHIQBmUn0h7EnZk4veL08ZVX
-	 pBoZR1o9m5nflz49MEBNrMzfSUGZ7LdQBC+Me1cYB0sWiJNAgY9cpecB07gR3PIIib
-	 TgulLWBjvGR+fk9+U1J/UsbNDGbj2df/x6S7VqwQ=
+	s=default; t=1653371796;
+	bh=+hQA/CQ0mPnHsKEr3QiTLIFu0iLOXr59kyw+mFPHWFM=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=EYoM3gi3I50r/pFy2AWAkStKAqCOQAaLv85PCPSHgsf3W1lSmkkXY+Gdsd1BUPdmY
+	 1RphcR/kWvJ1Cq4c+MEQ7MdmN8hTmn4t+AfXaetAGwkxPzg9APfY+MTqeLtHxVklDP
+	 c5+eHQDpuno/xQ+vjACPEcQU3lEQ5Fuu1EbdFpTg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2F908F800E3;
-	Tue, 24 May 2022 06:40:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 025DFF800E3;
+	Tue, 24 May 2022 07:55:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9081CF800E3; Tue, 24 May 2022 06:40:35 +0200 (CEST)
+ id 38B08F800E3; Tue, 24 May 2022 07:55:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.9 required=5.0 tests=AC_FROM_MANY_DOTS, DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from JPN01-TYC-obe.outbound.protection.outlook.com
- (mail-tycjpn01on20713.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:7010::713])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pf1-x429.google.com (mail-pf1-x429.google.com
+ [IPv6:2607:f8b0:4864:20::429])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 97EA0F800E3
- for <alsa-devel@alsa-project.org>; Tue, 24 May 2022 06:40:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97EA0F800E3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 05CAEF800E3
+ for <alsa-devel@alsa-project.org>; Tue, 24 May 2022 07:54:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 05CAEF800E3
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com
- header.b="ZsdEOuB1"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jKNDSCA5r3SMBLDdkO92VF41ciDYAxtGZTbNd7ngTK0uPGpkWhyozTh1NEpNFdOt4waMI8ejMJCg0aY0iwUyMoM59Pl+NOA/OvxdrgKhVo6/XyOCqDnp3qdEIruYsdB57aOP9PFMcwY6t9Fs6rBfY7B67VF5n/Wf7rd++DszGDpOQfUlfEmP5iZgWVipQLIkmoZ/D/TFIBSxelRKquWACBGy7PaXBpZq+Ek+VMHofIC3/Y4PKT60GoNqQKmWwCtq/n0s7LpZ0kHxCfBXAk8/Etnk/58Ev6T67Zg3BK4kDi8EZieUzTGvwfdXkrWLvzgm+SSYjJX80AwAWbWKzIv+dA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1eo9j0X4BTr1MHglECi0JFpb7rougk2kitQNOI2QK1I=;
- b=G3sMTbbju0qduDaIGBTc2aWlAKlPtp2QY7IgbEF4nRA7DL0o44j2sy0g/F+nm7ksAkHjJPUf3sWat5vlU7wdnsa9FdAnBgrs8pTQJEteoV1OaYM4mHW+Y3hKtTzds0htCf3yyisaOtdstvkZAxEiuKq8DVINef1oN4P26uC8azLUHFRhA8xY+ffouupTPqKPorCRw/TCWVrDWFTfszE5dafk3AQOaOC1jUD+xQplZtKvpl0FLFQDDQ3xBnl8xeUHp++yX1w8mreyd2A6YzipVz0/sOKo7Cc41THc9NPR5Irlok0dx+O0I0mGvOijRxUmuzwh+Bu5YQA8r6+YgblJBQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1eo9j0X4BTr1MHglECi0JFpb7rougk2kitQNOI2QK1I=;
- b=ZsdEOuB167mtLhY3HrI345iZi/Dz2emBTJao606TUZGrNRfOcCxtW0e+hwOPxW5Bx+30LdhAR3L7JpiJZtiwKI+/7299T2lvNtO57dCRU9vvAOjGMIlloRBL81AkydkgsdiWP2WQc1AracmWRYB360X+X9cmqUU57RJ1ICShGZc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
- by TY2PR01MB4027.jpnprd01.prod.outlook.com (2603:1096:404:db::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.18; Tue, 24 May
- 2022 04:40:24 +0000
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::f4d9:ee3d:e07b:171a]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::f4d9:ee3d:e07b:171a%8]) with mapi id 15.20.5273.023; Tue, 24 May 2022
- 04:40:24 +0000
-Message-ID: <87fskz5yrr.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: About Cleanup ASoC
-User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
-Content-Type: text/plain; charset=US-ASCII
-Date: Tue, 24 May 2022 04:40:24 +0000
-X-ClientProxiedBy: TY2PR06CA0047.apcprd06.prod.outlook.com
- (2603:1096:404:2e::35) To OS3PR01MB8426.jpnprd01.prod.outlook.com
- (2603:1096:604:194::10)
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="aP/auRN/"
+Received: by mail-pf1-x429.google.com with SMTP id v11so15557478pff.6
+ for <alsa-devel@alsa-project.org>; Mon, 23 May 2022 22:54:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=zZc7ffNX1WVL2una21e5i5WcOXkncWOaFTmkhoy5+RM=;
+ b=aP/auRN/HRIiNKk9/qN7aAnbIDZBP4H8vHDAdoC2tEj+VHZjbqhGGKXlgDUA5MEzdC
+ H1Mn8/pwaCEfT/vWWdr5+aYiW1vhcQ3uh9VRnwuVtfyUB6gXwPSTGOWh8HwTPHxdGkn2
+ BN9gyhHYUvQtCWIKhWVD275DjqPDbEZ0VHHxCx9d+1bEtJDo5pyUJYPL3KOzoOugWklI
+ qDyAU11bSaKMzN1lo8R+q2qK6yI3NTBsT8mHeiKgnbOqLk3qdIXrhbVUqbT1jWUo5wSy
+ jZPvfXsVz9yfx+O877nzaOJ8jI/R2Hmfr+kEjQE/YZfNGbpbtJPHFGfYELe62AwyIdY8
+ R9Jw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=zZc7ffNX1WVL2una21e5i5WcOXkncWOaFTmkhoy5+RM=;
+ b=TcMKD28tZ8Wl3H08geow/YOxFodxyJ6yilSdyY9rRUyLClwaSFL6ZYoQ6UWxTa/BHB
+ H6xkt/clP1ejLViC9ZfoLKawavv5jM18JcGm/vnhwM/I3aMaKKgJfqgPUtOnVTE+vBLZ
+ w0UtV6fT8fOV994mnsrznPScAwZW65Df0SeKqpq28EC+F+4foGqLXgUK+mesEOVXer6D
+ 2C063gMoOG/bvg1iaCXPmYWh+utr0Z8HmRFjcCDBZdaVJTJV0iyE/hRsbpsgMbbvq5MN
+ ZJZel5i60PlQXEz1z2d/KpMwO/WzMyxkoSLMgh0ftNwU2NPJSAIZISc33AqEwdeKOMZg
+ sqPw==
+X-Gm-Message-State: AOAM533bzae5WH/yJwNt/oclV1N2Lf5Ba8wjgeakjnN0fcs7reF7R6o4
+ aQkSEvrC+hzAFbVbL4pGEY8=
+X-Google-Smtp-Source: ABdhPJwmNwcIYIS29Cd1T9co2OKwFjIB5lRQB58zKCih40WJbfV3H6Nt3dWbf1FZGv+sHBaMyZvgJA==
+X-Received: by 2002:a63:5f45:0:b0:3fa:b2be:fa8d with SMTP id
+ t66-20020a635f45000000b003fab2befa8dmr775650pgb.573.1653371685681; 
+ Mon, 23 May 2022 22:54:45 -0700 (PDT)
+Received: from [192.168.66.3] (p912131-ipoe.ipoe.ocn.ne.jp. [153.243.13.130])
+ by smtp.gmail.com with ESMTPSA id
+ jf11-20020a170903268b00b0015e8d4eb225sm6159813plb.111.2022.05.23.22.54.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 23 May 2022 22:54:45 -0700 (PDT)
+Message-ID: <f54fc0be-5172-f518-4a78-b765e34bfaca@gmail.com>
+Date: Tue, 24 May 2022 14:54:39 +0900
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ea8b1f86-0ec3-4204-e9c6-08da3d3f84a5
-X-MS-TrafficTypeDiagnostic: TY2PR01MB4027:EE_
-X-Microsoft-Antispam-PRVS: <TY2PR01MB40278DBF72093BDED2821F2AD4D79@TY2PR01MB4027.jpnprd01.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: sbT14jMikjYwRMRhkqRH/YlEXKtmuIn4qzOiWnGW6QioGLRmbMENf7TnjLjix/GiYKnJ4yTcWZqgOGThkzNtMkq4JxUdXRYNRk6L9/2blQbn0C5UJxk70THit6m7CcDM8nlYJXMbzfS8YKuWEhVqtF+z/nmUrb6gngQiXbQUe5xa1X/jtPfEkns/ltiafdf/KeiwwUeVl7jxW3w6UIjlzr4F3G8dUhyTtGiHG+XgXK0TXBFCUrYi57RFUjEyxQHXNqBFsf5IK5v+Y/XDMhPt6HDay/1PAyHwNMHNd5mQdL8CXwcdPl7l6G+OCmJwUNWMMI5RpxtRjw9hVDIVMYK9YbEQA/t9fuDGvXTMtg7X0HeqfMySHMAbSgm/oFvg7Y80pWxcggWsJk+ZpKO8YBjKIE3lzuy06qWD9VnrMg0Q8sAnEmFKjiH1lGrNeNkeQDweWzCnAaSTbZm6fx+MySaxggVsIWri/mAOofIM9u+6pmWK6dGp3kAyZRjnyImf9MB0zm4d8+iJpZEa5bkssZYJx7eRTXFk/ySQnjwlG54aPQONeb/YvN9UZSq17KIoFRRPidamYnjoluK+9w7fsl9u+ReVG8LnvQZwV8Glr5jeh6uiphZTw1tG1aSVrolHPIEObvw1tKvK5QVi/ysdY/x2qhqk31ozcIRTgsnbC+p9vQTQBnbohhDkbX6IZD0YX/F4xVQvucx79STCMTdckV+4O6Z/RDWeQiiJhIoO3KKoO/s=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:OS3PR01MB8426.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(6512007)(52116002)(5660300002)(6486002)(38350700002)(26005)(36756003)(38100700002)(508600001)(2616005)(6916009)(54906003)(8936002)(4326008)(86362001)(186003)(316002)(2906002)(7116003)(66946007)(3480700007)(83380400001)(66556008)(6506007)(66476007)(8676002)(21314003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?3XMcejPFbfrjHS0T3CyZlGRJDhMVPHHf/rWmD3FSZZWV4U2faLeVEfDRcdF9?=
- =?us-ascii?Q?HdRFnvyGovClENq3YOJOGJRLnR1bc/uX5d9OfAmqa8G0YQkFb+IcY+CdY2nR?=
- =?us-ascii?Q?5j5OsSTIPHqJur3Dk0Ye4jKOj9XHhAyr7lKI3j3W5jHkv9OuofupL7aUb7ag?=
- =?us-ascii?Q?C7U4sB0lrdOH/Bu/TGGeEVbmaZ+ct+wMhXxL8LL7QLaZLOexnzrXtSUyxp8R?=
- =?us-ascii?Q?yOTzuY2e7LGQ9uxwt2J8NUxs1RoWV6Z4uWGJkMBr22NqxsBqp6Q0/O8fFTDT?=
- =?us-ascii?Q?SL9dFxX5UA5qpcVYaEHRs0jxZOiHeR5fSQEa4fnsWVq7yuN/Td3zv/Sa96B7?=
- =?us-ascii?Q?ttfAArCaonem65OX58UpaFhKwK8RKbdaE4+2fC/X86Gs0N8v5iYlPJGIkFUv?=
- =?us-ascii?Q?LEGW3Mvcd3NkcS18tyAmp7iD0fzyjivmAbv6vZ6KEx823PKvjVSpXxgkRRwQ?=
- =?us-ascii?Q?YmfKfktBDVIcI85oVwB20YnY6iFa7wJKIgrMNPXMV0k6prsqQq95nMnM7Hjd?=
- =?us-ascii?Q?7Wu8eS1eJzyoGe7l7x3FWjqgw/Si5U8smmTzRbqQMfycMFlbiGUtXTpZ+67Q?=
- =?us-ascii?Q?DHf37iZEnJa96/BFCK+a3fTE961i+U9n5mPm+fuH3tvfySxuWs7ateQYYiEo?=
- =?us-ascii?Q?oVsf/p2uP6RWqMuXfwvqxY/+bT5Sd7bN2y1HxnuJ0VtZhIfJZ2HVWN0TMwcM?=
- =?us-ascii?Q?hhBrajVixTX6T/BZRmFQyVb3j3ajw7ULt6RiswAi6tnArL/jaPlL811UqWyJ?=
- =?us-ascii?Q?mOL4kLcGEk981hLdBEC+V3VEVH6irFPtFsml1f5WqzZQiLrHAqja8EgSGgYk?=
- =?us-ascii?Q?8QxHGZXOGuUA7QC2Mfbx5kjTOfoC4FBny0JjWjnmvGULegMKFQGsyoryclJf?=
- =?us-ascii?Q?jv3hSqePLCx7IkIp/pHqLSwB2ai0Spn2iJ/Tcs7ywjywz0aIUENPxtG6e5Ap?=
- =?us-ascii?Q?jWmj9AzwchBeCXE5g6FARHUAyqU2Y6HfZjcCOvO/7uVSjso88dx5lpsWBHSm?=
- =?us-ascii?Q?Q8yi7fg3+erGnDZvaJv6252ZbqVumPtEct1T/VKh0pJbloePlrN7GxpTOD5v?=
- =?us-ascii?Q?8BNxTFZKEBSBCzFwSMWBpJFQg7GqDBrtL1uCnV4pS7SmKUvdCKX5FSdYS99D?=
- =?us-ascii?Q?pM1Tdosbj+I4yk4TzHwbEntWO/73OuWcxjOEZ0jGR1mi2jEekvb1hr0aS/YI?=
- =?us-ascii?Q?U+VwgLVUOHdya2tvvi353nEQhJyDlRrSX1camzTfeyb2hH8nG1mC8AFXYwFs?=
- =?us-ascii?Q?IsFg2UNPL/CMvHynch5SjPPUXSJ2vCn8dglsMHkw3LeOiJ7jr312Wsdjxive?=
- =?us-ascii?Q?nfEWYvTC1oamgn3NMF09FYTr5x08RfqCtJvOcw+HDO6CcoSHfXiqLGSHDy0O?=
- =?us-ascii?Q?77FlFot2rBZT7aupWoUy7JeV3YFFl1Ruk5reSC4f+43n0qBdKYlC6EDjn1Lw?=
- =?us-ascii?Q?Cs2C8FiUdfrD93LnIzhhHF5Pvo79WF8JJTIlhRyMKFBnQRbkBfTDqeLhfXPr?=
- =?us-ascii?Q?zxnmqRUsnjyKn/BMrcs/hqGxJDWWIXjjJzZYbVrWH5UWCkOMAd1ou8mWoCJd?=
- =?us-ascii?Q?aTMbKNvo6gohF9gtXcNOW1sHmW49DoIXsg9/oxyyz8pFJa65NvLRNdrbxd2q?=
- =?us-ascii?Q?FgyZsk0n9L6Q+hy8eYlpUf4b5CABB0koq9lrZQ+f2QG1zk33xZIXSz8Xlz2u?=
- =?us-ascii?Q?e5krFsi3ix9Lv5GfgF/bmlnhzADgdd7I0ugkomgl3bvCaaXctV4HDUAsoYVw?=
- =?us-ascii?Q?SDbCEkRiIgFUNINq9pNZfpHTJ2iO7GhCpqp179cp15lsPRHnF3kK?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea8b1f86-0ec3-4204-e9c6-08da3d3f84a5
-X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 May 2022 04:40:24.5139 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9O7xN78Xui+1K58zAcjfxqaQ5MMqpAh4PWD0rw/001SQC8mvqGQUG/EhiqQNupZIupUhESwBepUkLe6xauw5riHfN/grshDUJjUZH3XIxV3DneEn2vseA1yBVRUk2G6/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY2PR01MB4027
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Linux-ALSA <alsa-devel@alsa-project.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux aarch64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
+Subject: Re: [PATCH v3 1/2] ASoC: amd: acp: Add support for nau8825 and
+ max98360 card
+Content-Language: en-US
+To: V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>, broonie@kernel.org,
+ alsa-devel@alsa-project.org
+References: <20220523132353.1767614-1-Vsujithkumar.Reddy@amd.com>
+ <20220523132353.1767614-2-Vsujithkumar.Reddy@amd.com>
+From: Akihiko Odaki <akihiko.odaki@gmail.com>
+In-Reply-To: <20220523132353.1767614-2-Vsujithkumar.Reddy@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Sunil-kumar.Dommati@amd.com, Geert Uytterhoeven <geert+renesas@glider.be>,
+ ajitkumar.pandey@amd.com, Kai Vehmanen <kai.vehmanen@intel.com>,
+ open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jia-Ju Bai <baijiaju1990@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
+ Vijendar.Mukunda@amd.com, Daniel Baluta <daniel.baluta@nxp.com>,
+ Bard Liao <bard.liao@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -149,77 +115,373 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On 2022/05/23 22:23, V sujith kumar Reddy wrote:
+> We have new platform with nau8825 as a primary codec and max98360 as an
+> amp codec. Add machine struct to register sof audio based sound card
+> on such Chrome machine.
+> 
+> Signed-off-by: V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
+> ---
+>   sound/soc/amd/acp-config.c          |  21 ++++
+>   sound/soc/amd/acp/Kconfig           |   1 +
+>   sound/soc/amd/acp/acp-mach-common.c | 166 +++++++++++++++++++++++++++-
+>   sound/soc/amd/acp/acp-mach.h        |   3 +
+>   sound/soc/amd/acp/acp-sof-mach.c    |  15 +++
+>   sound/soc/amd/mach-config.h         |   1 +
+>   6 files changed, 201 insertions(+), 6 deletions(-)
+> 
+> diff --git a/sound/soc/amd/acp-config.c b/sound/soc/amd/acp-config.c
+> index 5cbc82eca4c9..f73c187fee03 100644
+> --- a/sound/soc/amd/acp-config.c
+> +++ b/sound/soc/amd/acp-config.c
+> @@ -130,4 +130,25 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_sof_machines[] = {
+>   };
+>   EXPORT_SYMBOL(snd_soc_acpi_amd_sof_machines);
+>   
+> +struct snd_soc_acpi_mach snd_soc_acpi_amd_rmb_sof_machines[] = {
+> +	{
+> +		.id = "AMDI1019",
+> +		.drv_name = "rmb-dsp",
+> +		.pdata = (void *)&acp_quirk_data,
+> +		.fw_filename = "sof-rmb.ri",
+> +		.sof_tplg_filename = "sof-acp-rmb.tplg",
+> +	},
+> +	{
+> +		.id = "10508825",
+> +		.drv_name = "nau8825-max",
+> +		.pdata = (void *)&acp_quirk_data,
+> +		.machine_quirk = snd_soc_acpi_codec_list,
+> +		.quirk_data = &amp_max,
+> +		.fw_filename = "sof-rmb.ri",
+> +		.sof_tplg_filename = "sof-acp-rmb.tplg",
+> +	},
+> +	{},
+> +};
+> +EXPORT_SYMBOL(snd_soc_acpi_amd_rmb_sof_machines);
+> +
+>   MODULE_LICENSE("Dual BSD/GPL");
+> diff --git a/sound/soc/amd/acp/Kconfig b/sound/soc/amd/acp/Kconfig
+> index 9dae2719084c..7e56d2644105 100644
+> --- a/sound/soc/amd/acp/Kconfig
+> +++ b/sound/soc/amd/acp/Kconfig
+> @@ -49,6 +49,7 @@ config SND_SOC_AMD_MACH_COMMON
+>   	select SND_SOC_RT1019
+>   	select SND_SOC_MAX98357A
+>   	select SND_SOC_RT5682S
+> +	select SND_SOC_NAU8825
+>   	help
+>   	  This option enables common Machine driver module for ACP.
+>   
+> diff --git a/sound/soc/amd/acp/acp-mach-common.c b/sound/soc/amd/acp/acp-mach-common.c
+> index 6ae454bf60af..4f5cfa26c58d 100644
+> --- a/sound/soc/amd/acp/acp-mach-common.c
+> +++ b/sound/soc/amd/acp/acp-mach-common.c
+> @@ -24,6 +24,7 @@
+>   #include "../../codecs/rt5682.h"
+>   #include "../../codecs/rt1019.h"
+>   #include "../../codecs/rt5682s.h"
+> +#include "../../codecs/nau8825.h"
+>   #include "acp-mach.h"
+>   
+>   #define PCO_PLAT_CLK 48000000
+> @@ -175,7 +176,8 @@ static void acp_card_shutdown(struct snd_pcm_substream *substream)
+>   	struct snd_soc_card *card = rtd->card;
+>   	struct acp_card_drvdata *drvdata = card->drvdata;
+>   
+> -	clk_disable_unprepare(drvdata->wclk);
+> +	if (!drvdata->soc_mclk)
+> +		clk_disable_unprepare(drvdata->wclk);
+>   }
+>   
+>   static const struct snd_soc_ops acp_card_rt5682_ops = {
+> @@ -363,7 +365,7 @@ static int acp_card_amp_startup(struct snd_pcm_substream *substream)
+>   	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+>   	struct snd_soc_card *card = rtd->card;
+>   	struct acp_card_drvdata *drvdata = card->drvdata;
+> -	int ret;
+> +	int ret = 0;
+>   
+>   	runtime->hw.channels_max = DUAL_CHANNEL;
+>   	snd_pcm_hw_constraint_list(runtime, 0, SNDRV_PCM_HW_PARAM_CHANNELS,
+> @@ -371,10 +373,13 @@ static int acp_card_amp_startup(struct snd_pcm_substream *substream)
+>   	snd_pcm_hw_constraint_list(runtime, 0, SNDRV_PCM_HW_PARAM_RATE,
+>   				      &constraints_rates);
+>   
+> -	ret = acp_clk_enable(drvdata);
+> -	if (ret < 0)
+> -		dev_err(rtd->card->dev, "Failed to enable AMP clk: %d\n", ret);
+> -
+> +	if (!drvdata->soc_mclk) {
+> +		ret = acp_clk_enable(drvdata);
+> +		if (ret < 0) {
+> +			dev_err(rtd->card->dev, "Failed to enable AMP clk: %d\n", ret);
+> +			return ret;
+> +		}
+> +	}
+>   	return ret;
+>   }
+>   
+> @@ -409,6 +414,104 @@ static const struct snd_soc_ops acp_card_maxim_ops = {
+>   	.shutdown = acp_card_shutdown,
+>   };
+>   
+> +/* Declare nau8825 codec components */
+> +SND_SOC_DAILINK_DEF(nau8825,
+> +		    DAILINK_COMP_ARRAY(COMP_CODEC("i2c-10508825:00", "nau8825-hifi")));
+> +
+> +static const struct snd_soc_dapm_route nau8825_map[] = {
+> +	{ "Headphone Jack", NULL, "HPOL" },
+> +	{ "Headphone Jack", NULL, "HPOR" },
+> +};
+> +
+> +static int acp_card_nau8825_init(struct snd_soc_pcm_runtime *rtd)
+> +{
+> +	struct snd_soc_card *card = rtd->card;
+> +	struct acp_card_drvdata *drvdata = card->drvdata;
+> +	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+> +	struct snd_soc_component *component = codec_dai->component;
+> +	unsigned int fmt;
+> +	int ret;
+> +
+> +	dev_info(rtd->dev, "codec dai name = %s\n", codec_dai->name);
+> +
+> +	if (drvdata->hs_codec_id != NAU8825)
+> +		return -EINVAL;
+> +
+> +	if (drvdata->soc_mclk)
+> +		fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBC_CFC;
+> +	else
+> +		fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBP_CFP;
+> +
+> +	ret =  snd_soc_dai_set_fmt(codec_dai, fmt);
+> +	if (ret < 0) {
+> +		dev_err(rtd->card->dev, "Failed to set dai fmt: %d\n", ret);
+> +		return ret;
+> +	}
+> +	ret = snd_soc_card_jack_new_pins(card, "Headset Jack",
+> +					 SND_JACK_HEADSET | SND_JACK_LINEOUT |
+> +					 SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+> +					 SND_JACK_BTN_2 | SND_JACK_BTN_3,
+> +					 &pco_jack, NULL, 0);
 
-Hi ASoC
-Cc Mark, Pierre-Louis, Cezary
+Here, snd_soc_card_jack_new() should be used instead. Please refer 
+comments in sound/soc/soc-card.c for differences between those two 
+functions.
 
-I have very interesting to clean up ASoC.
-I think it is still very complex, thus, non flexible.
-I'm thinking that we want to cleanup...
+Regards,
+Akihiko Odaki
 
-	- Component with multi Card connection
-	- fixed playback vs capture
-	- fixed CPU vs Codec
-	- DPCM connection vs normal connection
+> +	if (ret) {
+> +		dev_err(card->dev, "HP jack creation failed %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	snd_jack_set_key(pco_jack.jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
+> +	snd_jack_set_key(pco_jack.jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
+> +	snd_jack_set_key(pco_jack.jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
+> +	snd_jack_set_key(pco_jack.jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
+> +
+> +	ret = snd_soc_component_set_jack(component, &pco_jack, NULL);
+> +	if (ret) {
+> +		dev_err(rtd->dev, "Headset Jack call-back failed: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	return snd_soc_dapm_add_routes(&rtd->card->dapm, nau8825_map, ARRAY_SIZE(nau8825_map));
+> +}
+> +
+> +static int acp_nau8825_hw_params(struct snd_pcm_substream *substream,
+> +				 struct snd_pcm_hw_params *params)
+> +{
+> +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+> +	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+> +	int ret;
+> +
+> +	ret = snd_soc_dai_set_sysclk(codec_dai, NAU8825_CLK_FLL_FS,
+> +				     (48000 * 256), SND_SOC_CLOCK_IN);
+> +	if (ret < 0)
+> +		dev_err(rtd->dev, "snd_soc_dai_set_sysclk err = %d\n", ret);
+> +
+> +	ret = snd_soc_dai_set_pll(codec_dai, 0, 0, params_rate(params),
+> +				  params_rate(params) * 256);
+> +	if (ret < 0) {
+> +		dev_err(rtd->dev, "can't set FLL: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+> +static int acp_nau8825_startup(struct snd_pcm_substream *substream)
+> +{
+> +	struct snd_pcm_runtime *runtime = substream->runtime;
+> +
+> +	runtime->hw.channels_max = 2;
+> +	snd_pcm_hw_constraint_list(runtime, 0, SNDRV_PCM_HW_PARAM_CHANNELS,
+> +				   &constraints_channels);
+> +
+> +	runtime->hw.formats = SNDRV_PCM_FMTBIT_S16_LE;
+> +	snd_pcm_hw_constraint_list(runtime, 0,
+> +				   SNDRV_PCM_HW_PARAM_RATE, &constraints_rates);
+> +	return 0;
+> +}
+> +
+> +static const struct snd_soc_ops acp_card_nau8825_ops = {
+> +	.startup =  acp_nau8825_startup,
+> +	.hw_params = acp_nau8825_hw_params,
+> +};
+> +
+>   /* Declare DMIC codec components */
+>   SND_SOC_DAILINK_DEF(dmic_codec,
+>   		DAILINK_COMP_ARRAY(COMP_CODEC("dmic-codec", "dmic-hifi")));
+> @@ -437,6 +540,8 @@ SND_SOC_DAILINK_DEF(i2s_sp,
+>   	DAILINK_COMP_ARRAY(COMP_CPU("acp-i2s-sp")));
+>   SND_SOC_DAILINK_DEF(sof_sp,
+>   	DAILINK_COMP_ARRAY(COMP_CPU("acp-sof-sp")));
+> +SND_SOC_DAILINK_DEF(sof_hs,
+> +		    DAILINK_COMP_ARRAY(COMP_CPU("acp-sof-hs")));
+>   SND_SOC_DAILINK_DEF(sof_dmic,
+>   	DAILINK_COMP_ARRAY(COMP_CPU("acp-sof-dmic")));
+>   SND_SOC_DAILINK_DEF(pdm_dmic,
+> @@ -491,6 +596,31 @@ int acp_sofdsp_dai_links_create(struct snd_soc_card *card)
+>   		i++;
+>   	}
+>   
+> +	if (drv_data->hs_cpu_id == I2S_HS) {
+> +		links[i].name = "acp-headset-codec";
+> +		links[i].id = HEADSET_BE_ID;
+> +		links[i].cpus = sof_hs;
+> +		links[i].num_cpus = ARRAY_SIZE(sof_hs);
+> +		links[i].platforms = sof_component;
+> +		links[i].num_platforms = ARRAY_SIZE(sof_component);
+> +		links[i].dpcm_playback = 1;
+> +		links[i].dpcm_capture = 1;
+> +		links[i].nonatomic = true;
+> +		links[i].no_pcm = 1;
+> +		if (!drv_data->hs_codec_id) {
+> +			/* Use dummy codec if codec id not specified */
+> +			links[i].codecs = dummy_codec;
+> +			links[i].num_codecs = ARRAY_SIZE(dummy_codec);
+> +		}
+> +		if (drv_data->hs_codec_id == NAU8825) {
+> +			links[i].codecs = nau8825;
+> +			links[i].num_codecs = ARRAY_SIZE(nau8825);
+> +			links[i].init = acp_card_nau8825_init;
+> +			links[i].ops = &acp_card_nau8825_ops;
+> +		}
+> +		i++;
+> +	}
+> +
+>   	if (drv_data->amp_cpu_id == I2S_SP) {
+>   		links[i].name = "acp-amp-codec";
+>   		links[i].id = AMP_BE_ID;
+> @@ -523,6 +653,30 @@ int acp_sofdsp_dai_links_create(struct snd_soc_card *card)
+>   		i++;
+>   	}
+>   
+> +	if (drv_data->amp_cpu_id == I2S_HS) {
+> +		links[i].name = "acp-amp-codec";
+> +		links[i].id = AMP_BE_ID;
+> +		links[i].cpus = sof_hs;
+> +		links[i].num_cpus = ARRAY_SIZE(sof_hs);
+> +		links[i].platforms = sof_component;
+> +		links[i].num_platforms = ARRAY_SIZE(sof_component);
+> +		links[i].dpcm_playback = 1;
+> +		links[i].nonatomic = true;
+> +		links[i].no_pcm = 1;
+> +		if (!drv_data->amp_codec_id) {
+> +			/* Use dummy codec if codec id not specified */
+> +			links[i].codecs = dummy_codec;
+> +			links[i].num_codecs = ARRAY_SIZE(dummy_codec);
+> +		}
+> +		if (drv_data->amp_codec_id == MAX98360A) {
+> +			links[i].codecs = max98360a;
+> +			links[i].num_codecs = ARRAY_SIZE(max98360a);
+> +			links[i].ops = &acp_card_maxim_ops;
+> +			links[i].init = acp_card_maxim_init;
+> +		}
+> +		i++;
+> +	}
+> +
+>   	if (drv_data->dmic_cpu_id == DMIC) {
+>   		links[i].name = "acp-dmic-codec";
+>   		links[i].id = DMIC_BE_ID;
+> diff --git a/sound/soc/amd/acp/acp-mach.h b/sound/soc/amd/acp/acp-mach.h
+> index 5dc47cfbff10..c95ee1c52eb1 100644
+> --- a/sound/soc/amd/acp/acp-mach.h
+> +++ b/sound/soc/amd/acp/acp-mach.h
+> @@ -26,6 +26,7 @@ enum be_id {
+>   
+>   enum cpu_endpoints {
+>   	NONE = 0,
+> +	I2S_HS,
+>   	I2S_SP,
+>   	I2S_BT,
+>   	DMIC,
+> @@ -37,6 +38,7 @@ enum codec_endpoints {
+>   	RT1019,
+>   	MAX98360A,
+>   	RT5682S,
+> +	NAU8825,
+>   };
+>   
+>   struct acp_card_drvdata {
+> @@ -49,6 +51,7 @@ struct acp_card_drvdata {
+>   	unsigned int dai_fmt;
+>   	struct clk *wclk;
+>   	struct clk *bclk;
+> +	bool soc_mclk;
+>   };
+>   
+>   int acp_sofdsp_dai_links_create(struct snd_soc_card *card);
+> diff --git a/sound/soc/amd/acp/acp-sof-mach.c b/sound/soc/amd/acp/acp-sof-mach.c
+> index d1531cdab110..adbae809f2aa 100644
+> --- a/sound/soc/amd/acp/acp-sof-mach.c
+> +++ b/sound/soc/amd/acp/acp-sof-mach.c
+> @@ -56,6 +56,16 @@ static struct acp_card_drvdata sof_rt5682s_max_data = {
+>   	.dmic_codec_id = DMIC,
+>   };
+>   
+> +static struct acp_card_drvdata sof_nau8825_data = {
+> +	.hs_cpu_id = I2S_HS,
+> +	.amp_cpu_id = I2S_HS,
+> +	.dmic_cpu_id = DMIC,
+> +	.hs_codec_id = NAU8825,
+> +	.amp_codec_id = MAX98360A,
+> +	.dmic_codec_id = DMIC,
+> +	.soc_mclk = true,
+> +};
+> +
+>   static const struct snd_kcontrol_new acp_controls[] = {
+>   	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
+>   	SOC_DAPM_PIN_SWITCH("Headset Mic"),
+> @@ -124,6 +134,10 @@ static const struct platform_device_id board_ids[] = {
+>   		.name = "rt5682s-rt1019",
+>   		.driver_data = (kernel_ulong_t)&sof_rt5682s_rt1019_data
+>   	},
+> +	{
+> +		.name = "nau8825-max",
+> +		.driver_data = (kernel_ulong_t)&sof_nau8825_data
+> +	},
+>   	{ }
+>   };
+>   static struct platform_driver acp_asoc_audio = {
+> @@ -143,4 +157,5 @@ MODULE_ALIAS("platform:rt5682-rt1019");
+>   MODULE_ALIAS("platform:rt5682-max");
+>   MODULE_ALIAS("platform:rt5682s-max");
+>   MODULE_ALIAS("platform:rt5682s-rt1019");
+> +MODULE_ALIAS("platform:nau8825-max");
+>   MODULE_LICENSE("GPL v2");
+> diff --git a/sound/soc/amd/mach-config.h b/sound/soc/amd/mach-config.h
+> index 0a54567a2841..7b4c625da40d 100644
+> --- a/sound/soc/amd/mach-config.h
+> +++ b/sound/soc/amd/mach-config.h
+> @@ -19,6 +19,7 @@
+>   #define ACP_PCI_DEV_ID			0x15E2
+>   
+>   extern struct snd_soc_acpi_mach snd_soc_acpi_amd_sof_machines[];
+> +extern struct snd_soc_acpi_mach snd_soc_acpi_amd_rmb_sof_machines[];
+>   
+>   struct config_entry {
+>   	u32 flags;
 
-About first topic,
-I guess the biggest reason why we have limitation is
-its connections. Text based image is a little bit difficult,
-but if my understanding was correct, current connections are...
-
-
-	card <-> rtd <-> rtd <-> rtd <-> ...
-	 |        |
-	 +--------|-----+---------------+-----------+ (A)
-	          |     |               |           |
-	          +-> component ->  component -> component -> ...
-		  |    (CPU)         (Codec)     (Platform)
-		  |    |      |      |      |
-	          +-> dai -> dai -> dai -> dai -> ...
-
-Card has "component list", and Component has pointer to Card (A).
-This makes the limitation which blocking multiple Card connections, I think.
-
-One note here is that "Platform" doesn't have "DAI".
-
-So if rtd have something other connector list, let's say "ep" list here for now,
-instead of "dai", and remove Card <-> Component connection,
-I think the connection can be simple, and the issue can be gone,
-but what do you think ?
-
-	card <-> rtd <-> rtd <-> rtd <-> ...
-	          |
-		  |   dai    dai    dai    dai
-		  |    |      |      |      |
-	          +--> ep --> ep --> ep -> ep -> ep -> ...
-	               |      |      |      |     |
-	              component     component   component
-		       (CPU)         (Codec)    (Platform)
-
-Here, ep is like this
-
-	struct rtd_entry_point {
-		struct list_head list;  // list for rtd
-		struct struct snd_soc_pcm_runtime *rtd;
-		struct snd_soc_component *component;
-		struct snd_soc_dai *dai;
-	};
-
-Current for_each_xxx() can be like this
-
-	for_each_rtd_components()  = for_each_rtd_ep() + ep_to_component()
-	for_each_rtd_dais()        = for_each_rtd_ep() + ep_to_dai()
-	for_each_card_components() = for_each_card_rtds() + for_each_rtd_components()
-
-I guess Component can have multiple Card connection on this idea,
-but what do you think ?
-
-Maybe I'm misunderstanding and/or missing something, because ASoC
-is complex enough :)
-Please let me know if I was misunderstanding or missing.
-
-Thank you for your help !!
-
-Best regards
----
-Kuninori Morimoto

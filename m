@@ -2,82 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8A9A533EE2
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 May 2022 16:11:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E935532532
+	for <lists+alsa-devel@lfdr.de>; Tue, 24 May 2022 10:24:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8427D16F6;
-	Wed, 25 May 2022 16:10:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8427D16F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2C64216E4;
+	Tue, 24 May 2022 10:23:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C64216E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653487905;
-	bh=d4U1akJ30immRjUp+EMs18BTfYEpfiNrMRaUuPh7mU0=;
+	s=default; t=1653380685;
+	bh=7nZCH0meapQJuvt1hFIr4C2Muy5vmwV4miK44qp7qL8=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AwLdaHzzCxh6+JpAX9aeGojp2+kjWrtYS6brJ0/cV+kMnJh7Htv4OOVrLuK40L2AA
-	 +LAl9M8Az9idK0XwZDsFShSbqWHfqAPyCNmk/1q4fdNGcRrA+/Nx/rb7SKHKH0f15U
-	 pXOJ/uz9OAYpkVIHJZVq6veP0P4SmhAIPJuZu1SI=
+	b=X+GVgY/Jl6ObdnuEJB4HysFxEaiQJ8iwOj+JqZ1Y2PHt2RwoWYc/AuLKeWUxGmCXs
+	 R7X+7IibcdJsC6Q2epN5iq4X+xZmNntsC20ZzYNzCLVIObqjPWqWSPndH5HZyrLk2x
+	 1FfX5G5vmi+oBcpku/Ok4+iyUmmJwP6zSeJ9r7W8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 58BA5F80539;
-	Wed, 25 May 2022 16:08:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7939BF804D6;
+	Tue, 24 May 2022 10:23:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ED861F804D1; Tue, 24 May 2022 10:08:08 +0200 (CEST)
+ id C1BEBF804D1; Tue, 24 May 2022 10:23:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,
  T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pf1-x42b.google.com (mail-pf1-x42b.google.com
- [IPv6:2607:f8b0:4864:20::42b])
+Received: from mail-pj1-x102f.google.com (mail-pj1-x102f.google.com
+ [IPv6:2607:f8b0:4864:20::102f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B64E3F800E3
- for <alsa-devel@alsa-project.org>; Tue, 24 May 2022 10:07:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B64E3F800E3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 706D0F80116
+ for <alsa-devel@alsa-project.org>; Tue, 24 May 2022 10:23:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 706D0F80116
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="LMaffPBD"
-Received: by mail-pf1-x42b.google.com with SMTP id v11so15798392pff.6
- for <alsa-devel@alsa-project.org>; Tue, 24 May 2022 01:07:59 -0700 (PDT)
+ header.b="Hjfi/bsx"
+Received: by mail-pj1-x102f.google.com with SMTP id l14so16171598pjk.2
+ for <alsa-devel@alsa-project.org>; Tue, 24 May 2022 01:23:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=X3gS5w+yc+z8mlTwEJOM2B4Sxx9AktXCC3K5ZpOXIhU=;
- b=LMaffPBDwHynYXsfxp+uCT7ohVDVNK9Vjs4bhDm9AOuDGFs1AZjRzpTfbTHYnIK+ov
- NVzcFXBqxc6/ndYU6V5V8TL9xCsb8vTurdkl8Q/hg388qUY47UAwuivzPGNH/oS+p4mN
- FAr68T+aJBM07iAYphiomYFOzvcQRyA8nR1Kw2HrDr/4TRvrm3CxlerBSdlDHWFT0opk
- W1GaFiGzPkSkhsA6IYL9stCD9SfwYDh1Bhb0gLByES1+Z4T0pA982bmY9gdW//BcRzrb
- Tut5TXnn9f65K9kadu07Uk9U2UHRZAK2om4Sj/1loI2Tr7TG8OnyzB1Ch+r3z8ullmoe
- ad5A==
+ bh=+larJ7nq7JK1vyPKnLdToeIWpVaeV3SSZmGzzK3NxpU=;
+ b=Hjfi/bsxpvtOj5ibIxW7QV1UXNWXZ3j+WPxFX0ax8ZrUh0RPs8QC568O0UgD6G6Ogv
+ ndcIE6gyBNkd0AbcPeQo7ScE2ML8q6Ro4ETRTJK0nTutbhAKuns2SGVmzM35SkVopLqG
+ cYHxvWq8lFsPR/kL3rDy7sbWniskvBbLORHiJYR+k4xiXwOthoFShLZYIajUenHHNabI
+ DQhHkAFOrqq9FeW7Nh/v38P3r6+1VS35jhsUaDuKakx4MmNeLuY4iaEfLUv+ggUKbCDb
+ aY7FI4GzWD1A2zPiFimAgMUbL4LQiSGDUXk6D7EHX99W2g5VXF5bayJPKONnaO6OrAls
+ iiXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=X3gS5w+yc+z8mlTwEJOM2B4Sxx9AktXCC3K5ZpOXIhU=;
- b=fjAlLx3jaaQYa7DCB4evQ2LS+JCia5l229A+vBwUIMuj8/Lk7pcsV1n1suIf6ezINP
- a77jMqocsZNGxd0Wb2I+jeknEt1pX6BbQPAedIdsn8DTXB5/NqXdIaH/PKAWvoLAPWMS
- RIGXN9ZVU9E8IKJWVlBB70kqmaNle2rzC1/4ayR6sUklK0aZUZbcVVlLxEkSPXi87sNl
- LRdC0WGOcUhGMQiB1sa4nvmN+DzL6QUpW4GwtLdTXfu+oL5b00ibGxfmvf+Z3upvHvg1
- Nf9JbzT3GMWe622xd6bVw/xRVhVhiNo9rqKDYQ9TwdylnKmMTbco3PYbKasjcOv32AKm
- YiOQ==
-X-Gm-Message-State: AOAM533QUw0zbV+4sWF/5ZAtKozI3yv9GMzXO2+Ev7JjbKdWgzUwUjVr
- aFKT7WIdhL01BK/4EymggLU=
-X-Google-Smtp-Source: ABdhPJyPFNp8GhXOQqfZfybfGeEG25WGMp64GBhgC3/kKfvSDRePWJoSXuUO+u2BzEymVjz0xoZCGQ==
-X-Received: by 2002:a65:6854:0:b0:3fa:ad92:15f0 with SMTP id
- q20-20020a656854000000b003faad9215f0mr1573022pgt.12.1653379677215; 
- Tue, 24 May 2022 01:07:57 -0700 (PDT)
+ bh=+larJ7nq7JK1vyPKnLdToeIWpVaeV3SSZmGzzK3NxpU=;
+ b=iRHowjr0DRV9fwiMfRiFTi1nmtrdgsjMeLPBYvCWyVbp+wrrO0TO2KoV9pCXPBZ7MQ
+ 4zSigcXKzULI+sAtFP5/JqvLGVpr/GoJqa+Xfh45ISKVK2m80eDgU0KyRtA8xTzVvxvN
+ fklGAAN+X0cQIE9HXlXBbgG4NPN9hQfqwO5m4ewbf0bRpD1zDntv7c6oLC/STwZ9A+9G
+ 0+oyYGMmbO/zb1YxczRK3vKmuidWePNUC2rvILkFQTndL2lRCtF8SkUvnbnLUTUHGyl1
+ gy2KPFaBz7FzxYaA6gK2urL1rdRO3xO2K0ta0kYzjCPvgo4fdzMsAvSil/J90InUr2UG
+ WU+A==
+X-Gm-Message-State: AOAM532cJvcBBI7Qt28kOMzHsY2+mOKvTRwWTz92OYsSrnoNFqeg7iBW
+ E6pPRxt602BhalcvKrBQkIs=
+X-Google-Smtp-Source: ABdhPJx4xKspBjYM5xB7VxKTTQRn3YEwEqw+GFtULeIlQz+atvFBcYlqUBtJQqjFwCf15MlnwXTXkA==
+X-Received: by 2002:a17:902:e2d2:b0:161:a6d8:3a0e with SMTP id
+ l18-20020a170902e2d200b00161a6d83a0emr25833910plc.79.1653380613721; 
+ Tue, 24 May 2022 01:23:33 -0700 (PDT)
 Received: from [192.168.0.103] (39-13-101-104.adsl.fetnet.net. [39.13.101.104])
  by smtp.gmail.com with ESMTPSA id
- n6-20020a17090a928600b001df82551cf2sm1016181pjo.44.2022.05.24.01.07.54
+ q1-20020a17090a938100b001d960eaed66sm1082449pjo.42.2022.05.24.01.23.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 May 2022 01:07:56 -0700 (PDT)
-Message-ID: <9e1eb15c-ca3a-dc04-1f8d-4ea71e32cce8@gmail.com>
-Date: Tue, 24 May 2022 16:07:53 +0800
+ Tue, 24 May 2022 01:23:33 -0700 (PDT)
+Message-ID: <f64b1172-d9e8-e1ed-f90b-722147c213e2@gmail.com>
+Date: Tue, 24 May 2022 16:23:29 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.2.0
@@ -90,9 +90,8 @@ From: David Lin <ctlin0.linux@gmail.com>
 In-Reply-To: <20220524033309.30289-1-hui.wang@canonical.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 25 May 2022 16:08:39 +0200
-Cc: wtli@nuvoton.com, YHCHuang@nuvoton.com, SJLIN0@nuvoton.com,
- kchsu0@nuvoton.com, David Lin <CTLIN0@nuvoton.com>
+Cc: wtli@nuvoton.com, David Lin <CTLIN0@nuvoton.com>, SJLIN0@nuvoton.com,
+ kchsu0@nuvoton.com, YHCHuang@nuvoton.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -159,11 +158,10 @@ On 2022/5/24 上午 11:33, Hui Wang wrote:
 >   		}
 >   		dev_dbg(component->dev, "master clock prescaler %x for fs %d\n",
 >   			div, rate);
-
 Regarding to your environment with input MCLK is 24 MHz, I think you 
 should enable PLL for the internal process of codec.
 
-So you should do the following calls/operations:
+So you should do the following calls/operations from machine driver.
 
 //PLL
      ret = snd_soc_dai_set_sysclk(codec_dai, NAU8822_CLK_PLL,
@@ -178,4 +176,3 @@ So you should do the following calls/operations:
          dev_err(card->dev, "failed to set codec pll: %d\n", ret);
 
 David
-

@@ -2,72 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86C7353238C
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 May 2022 08:59:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8A9A533EE2
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 May 2022 16:11:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 008BA170D;
-	Tue, 24 May 2022 08:58:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 008BA170D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8427D16F6;
+	Wed, 25 May 2022 16:10:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8427D16F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653375551;
-	bh=bR5XYZ1TIW0DM+kp6paqmkwUTlt8FhoMef4qy6qncvE=;
+	s=default; t=1653487905;
+	bh=d4U1akJ30immRjUp+EMs18BTfYEpfiNrMRaUuPh7mU0=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VQp+MM1oD/WEnoOIjaIAkey0FG5+3wGOwTVCIx7t5dPq/qP4pU6qGcPzvMk/S+k/C
-	 sIw5jbpl63b7EoZsM/89RMhVDg4Gkb7DtBGrlwr3TxIzZlsQsAyaxgMfCagkipnxCH
-	 VN9wuSZmt1Yk2zMtcckHfYejhVZO3RUSnz/ATr2A=
+	b=AwLdaHzzCxh6+JpAX9aeGojp2+kjWrtYS6brJ0/cV+kMnJh7Htv4OOVrLuK40L2AA
+	 +LAl9M8Az9idK0XwZDsFShSbqWHfqAPyCNmk/1q4fdNGcRrA+/Nx/rb7SKHKH0f15U
+	 pXOJ/uz9OAYpkVIHJZVq6veP0P4SmhAIPJuZu1SI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A1A8F804D6;
-	Tue, 24 May 2022 08:58:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 58BA5F80539;
+	Wed, 25 May 2022 16:08:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 397C2F804D1; Tue, 24 May 2022 08:58:09 +0200 (CEST)
+ id ED861F804D1; Tue, 24 May 2022 10:08:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.7 required=5.0 tests=FORGED_SPF_HELO,
- KHOP_HELO_FCRDNS,NICE_REPLY_A,PRX_BODY_32,SPF_HELO_PASS,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from relay3.hostedemail.com (smtprelay0011.hostedemail.com
- [216.40.44.11])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pf1-x42b.google.com (mail-pf1-x42b.google.com
+ [IPv6:2607:f8b0:4864:20::42b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 59BA6F80100
- for <alsa-devel@alsa-project.org>; Tue, 24 May 2022 08:58:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59BA6F80100
-Received: from omf02.hostedemail.com (a10.router.float.18 [10.200.18.1])
- by unirelay07.hostedemail.com (Postfix) with ESMTP id 9297C2144C;
- Tue, 24 May 2022 06:58:00 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: dag@bakke.com) by
- omf02.hostedemail.com (Postfix) with ESMTPA id 9DB7E8000E; 
- Tue, 24 May 2022 06:57:59 +0000 (UTC)
-Content-Type: multipart/mixed; boundary="------------5UnzxD6I5rfSFesscZ1jwNeL"
-Message-ID: <8f06189e-6305-853d-f925-9b183d087988@bakke.com>
-Date: Tue, 24 May 2022 08:58:30 +0200
+ by alsa1.perex.cz (Postfix) with ESMTPS id B64E3F800E3
+ for <alsa-devel@alsa-project.org>; Tue, 24 May 2022 10:07:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B64E3F800E3
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="LMaffPBD"
+Received: by mail-pf1-x42b.google.com with SMTP id v11so15798392pff.6
+ for <alsa-devel@alsa-project.org>; Tue, 24 May 2022 01:07:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=X3gS5w+yc+z8mlTwEJOM2B4Sxx9AktXCC3K5ZpOXIhU=;
+ b=LMaffPBDwHynYXsfxp+uCT7ohVDVNK9Vjs4bhDm9AOuDGFs1AZjRzpTfbTHYnIK+ov
+ NVzcFXBqxc6/ndYU6V5V8TL9xCsb8vTurdkl8Q/hg388qUY47UAwuivzPGNH/oS+p4mN
+ FAr68T+aJBM07iAYphiomYFOzvcQRyA8nR1Kw2HrDr/4TRvrm3CxlerBSdlDHWFT0opk
+ W1GaFiGzPkSkhsA6IYL9stCD9SfwYDh1Bhb0gLByES1+Z4T0pA982bmY9gdW//BcRzrb
+ Tut5TXnn9f65K9kadu07Uk9U2UHRZAK2om4Sj/1loI2Tr7TG8OnyzB1Ch+r3z8ullmoe
+ ad5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=X3gS5w+yc+z8mlTwEJOM2B4Sxx9AktXCC3K5ZpOXIhU=;
+ b=fjAlLx3jaaQYa7DCB4evQ2LS+JCia5l229A+vBwUIMuj8/Lk7pcsV1n1suIf6ezINP
+ a77jMqocsZNGxd0Wb2I+jeknEt1pX6BbQPAedIdsn8DTXB5/NqXdIaH/PKAWvoLAPWMS
+ RIGXN9ZVU9E8IKJWVlBB70kqmaNle2rzC1/4ayR6sUklK0aZUZbcVVlLxEkSPXi87sNl
+ LRdC0WGOcUhGMQiB1sa4nvmN+DzL6QUpW4GwtLdTXfu+oL5b00ibGxfmvf+Z3upvHvg1
+ Nf9JbzT3GMWe622xd6bVw/xRVhVhiNo9rqKDYQ9TwdylnKmMTbco3PYbKasjcOv32AKm
+ YiOQ==
+X-Gm-Message-State: AOAM533QUw0zbV+4sWF/5ZAtKozI3yv9GMzXO2+Ev7JjbKdWgzUwUjVr
+ aFKT7WIdhL01BK/4EymggLU=
+X-Google-Smtp-Source: ABdhPJyPFNp8GhXOQqfZfybfGeEG25WGMp64GBhgC3/kKfvSDRePWJoSXuUO+u2BzEymVjz0xoZCGQ==
+X-Received: by 2002:a65:6854:0:b0:3fa:ad92:15f0 with SMTP id
+ q20-20020a656854000000b003faad9215f0mr1573022pgt.12.1653379677215; 
+ Tue, 24 May 2022 01:07:57 -0700 (PDT)
+Received: from [192.168.0.103] (39-13-101-104.adsl.fetnet.net. [39.13.101.104])
+ by smtp.gmail.com with ESMTPSA id
+ n6-20020a17090a928600b001df82551cf2sm1016181pjo.44.2022.05.24.01.07.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 24 May 2022 01:07:56 -0700 (PDT)
+Message-ID: <9e1eb15c-ca3a-dc04-1f8d-4ea71e32cce8@gmail.com>
+Date: Tue, 24 May 2022 16:07:53 +0800
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.1
-Subject: Re: [PATCH] Enable SPDIF output on Intel Hades Canyon
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.2.0
+Subject: Re: [PATCH] ASoC: nau8822: choose the best master clock prescalar
 Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
-References: <5d5924ee-a52a-04f0-5080-2b8d91bce5ba@bakke.com>
- <3526166d-15ce-5260-200e-5c1650388956@linux.intel.com>
- <091a2af3-ff49-97b7-faa5-4527fb70d758@bakke.com>
- <5224aed8-02ed-6cac-50bd-999404324c65@linux.intel.com>
-From: Dag B <dag@bakke.com>
-In-Reply-To: <5224aed8-02ed-6cac-50bd-999404324c65@linux.intel.com>
-X-Rspamd-Server: rspamout07
-X-Rspamd-Queue-Id: 9DB7E8000E
-X-Stat-Signature: ushjwb9n1trrcjfoacpf11ub3qwxqntn
-X-Session-Marker: 6461674062616B6B652E636F6D
-X-Session-ID: U2FsdGVkX1/miPp62u1DYbuSNdQkqJ1m9m1xNS4Pwds=
-X-HE-Tag: 1653375479-165486
-Cc: tiwai@suse.com
+To: Hui Wang <hui.wang@canonical.com>, alsa-devel@alsa-project.org,
+ broonie@kernel.org
+References: <20220524033309.30289-1-hui.wang@canonical.com>
+From: David Lin <ctlin0.linux@gmail.com>
+In-Reply-To: <20220524033309.30289-1-hui.wang@canonical.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 25 May 2022 16:08:39 +0200
+Cc: wtli@nuvoton.com, YHCHuang@nuvoton.com, SJLIN0@nuvoton.com,
+ kchsu0@nuvoton.com, David Lin <CTLIN0@nuvoton.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,177 +108,74 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This is a multi-part message in MIME format.
---------------5UnzxD6I5rfSFesscZ1jwNeL
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-On 23.05.2022 23:53, Pierre-Louis Bossart wrote:
-
+On 2022/5/24 上午 11:33, Hui Wang wrote:
+> We have an imx6sx EVB with the codec nau8822, when playing the audio
+> with 48k sample rate, the audio sounds distorted and obviously faster
+> than expected.
 >
-> On 5/23/22 16:29, Dag B wrote:
->> On 23.05.2022 22:30, Pierre-Louis Bossart wrote:
->>> On 5/23/22 15:20, Dag B wrote:
->>>> Without the attached patch, the s/pdif output on the Hades Canyon NUC
->>>> does not work.
->>>>
->>>> "Well known" issue, less known fix. As far as I can tell, there is no
->>>> risk of any averse side-effects. But a bonus fix is enabling on-wire
->>>> headset microphone, by chaining the right 'model' choice for the
->>>> hardware.
->>>>
->>>> If I should Cc: someone directly for this patch to be picked up, please
->>>> let me know.
->>>>
->>>>
->>>> I have been running with this patch for half a year or so.
->>>>
->>>> Patch passes checkpatch.pl
->>>>
->>>> Patch is based on what 'cyber4o' posted on the insanelymac forum [1].
->>>> All the glory to this person, any error is likely mine.
->>> Thanks for the patch.
->>>
->>> You would need a Signed-off-by tag for this patch, and CC: Takashi
->>> (added)
->>>
->>> +    [ALC700_FIXUP_NUC_SPDIF] = {
->>>
->>> Maybe use HC_NUC, there are multiple versions of those devices?
->>>
->>> +        .type = HDA_FIXUP_FUNC,
->>> +        .v.func = alc700_fixup_nuc_spdif,
->>>
->>> alc700_fixup_hc_nuc_spdif ?
->>>
->>> +        .chained = true,
->>> +        .chain_id = ALC269_FIXUP_DELL1_MIC_NO_PRESENCE,
->>>
->>> that chain_id doesn't seem quite right?
->>>
->> Thank you for reviewing this. I have made adjustments as suggested.
->> Revised patch attached.
->>   
->> The chain_id may appear odd, I can assure you that it does the job. I
->> picked up the suggestion from the excellent Arch Linux wiki:
->>
->> https://wiki.archlinux.org/title/Intel_NUC#Hades_Canyon_NUC_-_No_External_Microphones
-> Parts of my comment was the reference to ALC269 when this is an ALC700,
-> but it seems the two parts are identical if I understand this
-> definition well:	
+> The codec input MCLK is 24000000Hz on our board, if the target sample
+> rate is 48000Hz, with the current algorithm, the computed prescalar
+> will result in 62500Hz, with the patched algorithm, the sample rate
+> will be 46875Hz which is nearer the target sample rate.
 >
-> ALC269_TYPE_ALC700,
+> And for other sample rate like 44100, 22050, 11025 or 8000, the
+> patched algorithm has no difference with the current algorithm, they
+> will generate the same prescalar and the same sample rate.
 >
-> The other point was the reference to Dell when this isn't a Dell
-> platform. ALC269_FIXUP_DELL1_MIC_NO_PRESENCE may do the job but so far
-> it's only used for Dell platforms, so it's a bit confusing.
-
-Actually, it is already used for Skull Canyon. So there is precedence.   :-)
-
+> Signed-off-by: Hui Wang <hui.wang@canonical.com>
+> ---
+>   sound/soc/codecs/nau8822.c | 9 ++++++---
+>   1 file changed, 6 insertions(+), 3 deletions(-)
 >
->> So my patch equates to:
->>
->> a) creating a fixup for enabling spdif
->>
->> and
->>
->> b) making the new "model=nuc-hc" equate to the spdif fix +
->> "model=dell-headset-multi"
->>
->> I hope this is acceptable. As stated, I have used this solution for half
->> a year or so.
->>
->> |Signed-off-by: Dag Bakke <dag@bakke.com>|
-> usually this comes inside the patch with a git commit title and message.
+> diff --git a/sound/soc/codecs/nau8822.c b/sound/soc/codecs/nau8822.c
+> index 66bbd8f4f1ad..b67fdf64ddab 100644
+> --- a/sound/soc/codecs/nau8822.c
+> +++ b/sound/soc/codecs/nau8822.c
+> @@ -668,21 +668,24 @@ static int nau8822_config_clkdiv(struct snd_soc_dai *dai, int div, int rate)
+>   	struct snd_soc_component *component = dai->component;
+>   	struct nau8822 *nau8822 = snd_soc_component_get_drvdata(component);
+>   	struct nau8822_pll *pll = &nau8822->pll;
+> +	int diff = INT_MAX;
+>   	int i, sclk, imclk;
+>   
+>   	switch (nau8822->div_id) {
+>   	case NAU8822_CLK_MCLK:
+>   		/* Configure the master clock prescaler div to make system
+>   		 * clock to approximate the internal master clock (IMCLK);
+> -		 * and large or equal to IMCLK.
+> +		 * and find the nearest value to IMCLK.
+>   		 */
+>   		div = 0;
+>   		imclk = rate * 256;
+>   		for (i = 1; i < ARRAY_SIZE(nau8822_mclk_scaler); i++) {
+>   			sclk = (nau8822->sysclk * 10) /	nau8822_mclk_scaler[i];
+> -			if (sclk < imclk)
+> +			if (abs(sclk - imclk) < diff) {
+> +				diff = abs(sclk - imclk);
+> +				div =  i;
+> +			} else
+>   				break;
+> -			div = i;
+>   		}
+>   		dev_dbg(component->dev, "master clock prescaler %x for fs %d\n",
+>   			div, rate);
 
-Better now?
+Regarding to your environment with input MCLK is 24 MHz, I think you 
+should enable PLL for the internal process of codec.
 
+So you should do the following calls/operations:
 
+//PLL
+     ret = snd_soc_dai_set_sysclk(codec_dai, NAU8822_CLK_PLL,
+                       24000000, SND_SOC_CLOCK_IN);
+     if (ret < 0 )
+         dev_err(card->dev, "failed to set codec sysclk: %d\n", ret);
 
->
->> Dag B
->>
->>
->>
->>>> Some other users with issues: [2] [3]
->>>>
->>>>
->>>> Dag Bakke
->>>>
->>>>
->>>> [1]
->>>> https://www.insanelymac.com/forum/topic/339291-guide-hac-mini-osx-mojave-on-intel-hades-canyon-nuc8i7hvknuc8i7hnk/page/8/
->>>>
->>>>
->>>>
->>>> 2]https://bbs.archlinux.org/viewtopic.php?id=270917
->>>>
->>>> [3]
->>>> https://www.reddit.com/r/intelnuc/comments/9ft9x8/any_linux_users_got_the_spdif_toslink_to_work_on/
->>>>
->>>>
->>>>
->>>>
---------------5UnzxD6I5rfSFesscZ1jwNeL
-Content-Type: text/x-patch; charset=UTF-8; name="patch_realtek.c.diff"
-Content-Disposition: attachment; filename="patch_realtek.c.diff"
-Content-Transfer-Encoding: base64
+     ret = snd_soc_dai_set_pll(codec_dai, 0, 0,
+                   24000000, 256 * params_rate(params));
+     if (ret < 0 )
 
-RnJvbSBmZTU2MmUzOTFiNTIyZGNhMDlmMDBhNWY4YzI4MGFiNDMxMzZlZjFmIE1vbiBTZXAg
-MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBEYWcgQiA8ZGFnQGJha2tlLmNvbT4KRGF0ZTogVHVl
-LCAyNCBNYXkgMjAyMiAwODozODo0MiArMDIwMApTdWJqZWN0OiBbUEFUQ0hdIEVuYWJsZSBJ
-bnRlbCBIYWRlcyBDYW55b24gU1BESUYKClNpZ25lZC1vZmYtYnk6IERhZyBCIDxkYWdAYmFr
-a2UuY29tPgotLS0KIHNvdW5kL3BjaS9oZGEvcGF0Y2hfcmVhbHRlay5jIHwgMTcgKysrKysr
-KysrKysrKysrKy0KIDEgZmlsZSBjaGFuZ2VkLCAxNiBpbnNlcnRpb25zKCspLCAxIGRlbGV0
-aW9uKC0pCgpkaWZmIC0tZ2l0IGEvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMgYi9z
-b3VuZC9wY2kvaGRhL3BhdGNoX3JlYWx0ZWsuYwppbmRleCBhZDI5MmRmN2Q4MDUuLmNkNmEy
-Y2I0YzM4MSAxMDA2NDQKLS0tIGEvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMKKysr
-IGIvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMKQEAgLTQ3NTIsNiArNDc1MiwxMiBA
-QCBzdGF0aWMgdm9pZCBhbGMyODBfZml4dXBfaHBfZ3BpbzJfbWljX2hvdGtleShzdHJ1Y3Qg
-aGRhX2NvZGVjICpjb2RlYywKIAl9CiB9CiAKK3N0YXRpYyB2b2lkIGFsYzcwMF9maXh1cF9o
-Y19udWNfc3BkaWYoc3RydWN0IGhkYV9jb2RlYyAqY29kZWMsCisJCQkJY29uc3Qgc3RydWN0
-IGhkYV9maXh1cCAqZml4LCBpbnQgYWN0aW9uKQoreworCXNuZF9oZGFfb3ZlcnJpZGVfd2Nh
-cHMoY29kZWMsIDB4NiwgMHg2MTEpOworfQorCiAvKiBMaW5lMiA9IG1pYyBtdXRlIGhvdGtl
-eQogICogR1BJTzIgPSBtaWMgbXV0ZSBMRUQKICAqLwpAQCAtNTc5Miw3ICs1Nzk4LDcgQEAg
-c3RhdGljIHZvaWQgYWxjX2ZpeHVwX2hlYWRzZXRfbW9kZV9hbGMyNTVfbm9faHBfbWljKHN0
-cnVjdCBoZGFfY29kZWMgKmNvZGVjLAogCQlzdHJ1Y3QgYWxjX3NwZWMgKnNwZWMgPSBjb2Rl
-Yy0+c3BlYzsKIAkJc3BlYy0+cGFyc2VfZmxhZ3MgfD0gSERBX1BJTkNGR19IRUFEU0VUX01J
-QzsKIAkJYWxjMjU1X3NldF9kZWZhdWx0X2phY2tfdHlwZShjb2RlYyk7Ci0JfSAKKwl9CiAJ
-ZWxzZQogCQlhbGNfZml4dXBfaGVhZHNldF9tb2RlKGNvZGVjLCBmaXgsIGFjdGlvbik7CiB9
-CkBAIC02OTM5LDYgKzY5NDUsNyBAQCBlbnVtIHsKIAlBTEMyMjVfRklYVVBfREVMTF9XWVNF
-X01JQ19OT19QUkVTRU5DRSwKIAlBTEMyMjVfRklYVVBfUzNfUE9QX05PSVNFLAogCUFMQzcw
-MF9GSVhVUF9JTlRFTF9SRUZFUkVOQ0UsCisJQUxDNzAwX0ZJWFVQX0hDX05VQ19TUERJRiwK
-IAlBTEMyNzRfRklYVVBfREVMTF9CSU5EX0RBQ1MsCiAJQUxDMjc0X0ZJWFVQX0RFTExfQUlP
-X0xJTkVPVVRfVkVSQiwKIAlBTEMyOThfRklYVVBfVFBUNDcwX0RPQ0tfRklYLApAQCAtNzI2
-MCw2ICs3MjY3LDEyIEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgaGRhX2ZpeHVwIGFsYzI2OV9m
-aXh1cHNbXSA9IHsKIAkJLmNoYWluZWQgPSB0cnVlLAogCQkuY2hhaW5faWQgPSBBTEMyNjlf
-RklYVVBfVEhJTktQQURfQUNQSSwKIAl9LAorCVtBTEM3MDBfRklYVVBfSENfTlVDX1NQRElG
-XSA9IHsKKwkJLnR5cGUgPSBIREFfRklYVVBfRlVOQywKKwkJLnYuZnVuYyA9IGFsYzcwMF9m
-aXh1cF9oY19udWNfc3BkaWYsCisJCS5jaGFpbmVkID0gdHJ1ZSwKKwkJLmNoYWluX2lkID0g
-QUxDMjY5X0ZJWFVQX0RFTEwxX01JQ19OT19QUkVTRU5DRSwKKwl9LAogCVtBTEMyNjlfRklY
-VVBfREVMTDFfTUlDX05PX1BSRVNFTkNFXSA9IHsKIAkJLnR5cGUgPSBIREFfRklYVVBfUElO
-UywKIAkJLnYucGlucyA9IChjb25zdCBzdHJ1Y3QgaGRhX3BpbnRibFtdKSB7CkBAIC05MTU5
-LDYgKzkxNzIsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IHNuZF9wY2lfcXVpcmsgYWxjMjY5
-X2ZpeHVwX3RibFtdID0gewogCVNORF9QQ0lfUVVJUksoMHgxMGNmLCAweDE3NTcsICJMaWZl
-Ym9vayBFNzUyIiwgQUxDMjY5X0ZJWFVQX0xJRkVCT09LX0hQX1BJTiksCiAJU05EX1BDSV9R
-VUlSSygweDEwY2YsIDB4MTg0NSwgIkxpZmVib29rIFU5MDQiLCBBTEMyNjlfRklYVVBfTElG
-RUJPT0tfRVhUTUlDKSwKIAlTTkRfUENJX1FVSVJLKDB4MTBlYywgMHgxMGYyLCAiSW50ZWwg
-UmVmZXJlbmNlIGJvYXJkIiwgQUxDNzAwX0ZJWFVQX0lOVEVMX1JFRkVSRU5DRSksCisJU05E
-X1BDSV9RVUlSSygweDEwZWMsIDB4MjA3MywgIkludGVsIE5VQzggSGFkZXMgQ2FueW9uIiwg
-QUxDNzAwX0ZJWFVQX0hDX05VQ19TUERJRiksCiAJU05EX1BDSV9RVUlSSygweDEwZWMsIDB4
-MTE4YywgIk1lZGlvbiBFRTQyNTQgTUQ2MjEwMCIsIEFMQzI1Nl9GSVhVUF9NRURJT05fSEVB
-RFNFVF9OT19QUkVTRU5DRSksCiAJU05EX1BDSV9RVUlSSygweDEwZWMsIDB4MTIzMCwgIklu
-dGVsIFJlZmVyZW5jZSBib2FyZCIsIEFMQzI5NV9GSVhVUF9DSFJPTUVfQk9PSyksCiAJU05E
-X1BDSV9RVUlSSygweDEwZWMsIDB4MTI1MiwgIkludGVsIFJlZmVyZW5jZSBib2FyZCIsIEFM
-QzI5NV9GSVhVUF9DSFJPTUVfQk9PSyksCkBAIC05NDQ1LDYgKzk0NTksNyBAQCBzdGF0aWMg
-Y29uc3Qgc3RydWN0IGhkYV9tb2RlbF9maXh1cCBhbGMyNjlfZml4dXBfbW9kZWxzW10gPSB7
-CiAJey5pZCA9IEFMQzI5OF9GSVhVUF9UUFQ0NzBfRE9DSywgLm5hbWUgPSAidHB0NDcwLWRv
-Y2sifSwKIAl7LmlkID0gQUxDMjMzX0ZJWFVQX0xFTk9WT19NVUxUSV9DT0RFQ1MsIC5uYW1l
-ID0gImR1YWwtY29kZWNzIn0sCiAJey5pZCA9IEFMQzcwMF9GSVhVUF9JTlRFTF9SRUZFUkVO
-Q0UsIC5uYW1lID0gImFsYzcwMC1yZWYifSwKKwl7LmlkID0gQUxDNzAwX0ZJWFVQX0hDX05V
-Q19TUERJRiwgLm5hbWUgPSAibnVjLWhjIn0sCiAJey5pZCA9IEFMQzI2OV9GSVhVUF9TT05Z
-X1ZBSU8sIC5uYW1lID0gInZhaW8ifSwKIAl7LmlkID0gQUxDMjY5X0ZJWFVQX0RFTExfTTEw
-MVosIC5uYW1lID0gImRlbGwtbTEwMXoifSwKIAl7LmlkID0gQUxDMjY5X0ZJWFVQX0FTVVNf
-RzczSlcsIC5uYW1lID0gImFzdXMtZzczancifSwKLS0gCjIuMzUuMQoK
+         dev_err(card->dev, "failed to set codec pll: %d\n", ret);
 
---------------5UnzxD6I5rfSFesscZ1jwNeL--
+David
+

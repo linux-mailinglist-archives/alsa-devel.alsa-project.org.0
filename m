@@ -2,83 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C96CF533D6C
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 May 2022 15:13:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9BED533D83
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 May 2022 15:17:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 21B401680;
-	Wed, 25 May 2022 15:12:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21B401680
+	by alsa0.perex.cz (Postfix) with ESMTPS id 61E1815E0;
+	Wed, 25 May 2022 15:16:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 61E1815E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653484392;
-	bh=gLKK4YYYbrMvlvQfse5pxVlplbrBmT9u2AAcIunxPIE=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1653484666;
+	bh=yLQHgohVzC0hSafvqbsYJYUITiphArhfcY9mthgTOUE=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=l2ExFd1boEop+N2meDxebTW4gbINajXzKh2oRsvyTdnXBxML6q/i49q2DM0CbLgfP
-	 xzd2QuFi8ABusQMo9BC62MCE075Hiki0R34EFWvFid9dwiV6xTyW4k2mAs+x+gJQFM
-	 3uqp5g2LlN+FQ94FVuj4Itwr5PfCuiDxXVbCWAJc=
+	b=K6EArbQQ/Spe3qeK28tVCVUArzYE2mosB/DusZuGgmEzGFD12vor2FMYaHXiCBy/S
+	 MAlS1rsFbCwD7hEqjiclSZmqxotvEdCrISGCioXBr0pA64SYHFOtvKRozZKRcxAJ5I
+	 F7edI5sJGK8rtbAYV5Hd6NUZ86sAQRxn/fk8PfzQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8FDB3F801EC;
-	Wed, 25 May 2022 15:12:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CD421F80518;
+	Wed, 25 May 2022 15:16:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 21B70F8016D; Wed, 25 May 2022 15:12:12 +0200 (CEST)
+ id 85352F80224; Wed, 25 May 2022 15:16:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1D7B9F800D0
- for <alsa-devel@alsa-project.org>; Wed, 25 May 2022 15:12:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D7B9F800D0
+ by alsa1.perex.cz (Postfix) with ESMTPS id BC904F80100
+ for <alsa-devel@alsa-project.org>; Wed, 25 May 2022 15:16:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC904F80100
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="i25oXxFx"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="HsqMGU4D"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 41F481F918;
- Wed, 25 May 2022 13:12:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1653484325; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=GlAsVjUz7tvek1CF+qpKw60D6+ZC4W6oi32PGTmb77g=;
- b=i25oXxFx7ufi9DXpeJ106aoCvtPl89QMPOrahruOayl0uym1thf9rH26YYdtmzUtfP1uqF
- p6Yiup5AsBXmQmiqvqi6t3pzOJlvQrfPsnzEe6cyhvumS+JTB9Ph8zeAVWcBHrki45oiGr
- dNuwVib2j8krnUnFEuBKUAKc2d9MYGg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1653484325;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=GlAsVjUz7tvek1CF+qpKw60D6+ZC4W6oi32PGTmb77g=;
- b=HsqMGU4DigyH1NXbyLVtrenq1Di+ZXebIUJDyntwuNKNy3gOKTk/4EAyRZIvI0trxFRjaV
- 9kE7AJD/71YfoKAg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 292BF13ADF;
- Wed, 25 May 2022 13:12:05 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id vjtjCSUrjmL5RgAAMHmgww
- (envelope-from <tiwai@suse.de>); Wed, 25 May 2022 13:12:05 +0000
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: usb-audio: Cancel pending work at closing a MIDI
- substream
-Date: Wed, 25 May 2022 15:12:03 +0200
-Message-Id: <20220525131203.11299-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.35.3
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="AMNaEG9m"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24PCRmjB022096;
+ Wed, 25 May 2022 08:16:41 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=KzGnX4o3rxzKk8e5rJEpItof3vxjdDFIZNENx0iAmH0=;
+ b=AMNaEG9mTux0fwOCJg7aRGLJ7Z8TjQbx4dPPbAE5B4BM2JE0iaUrPJyAx26HQB9a2rqo
+ q5NMNqMwqqu5TDwV5nFo7rtLhRgkkAAzjTBmkVSVHHJKOxujY8pLEeEX3OReSYJ4HHsl
+ i3XNgZhkJnEk7StogH9D5YM5Mx3IFsCPMoCR+vhPZTh1JhPez6KdKCmDy5jyeHSnPyJS
+ F1tHvi83G1GpjsmqN/hJPmqDGtC+xNj3my0qKElH4Sb4dkW1+Skq5qP6Gj6GbtTfEc0/
+ HUquQ0keSPxBMsa4nSmRHoKeel0/qELoavmGc+5sU3wSSwJPVVkI//bL/6HCipDwjkmt jw== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3g93u20we6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Wed, 25 May 2022 08:16:40 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Wed, 25 May
+ 2022 14:16:39 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.24 via
+ Frontend Transport; Wed, 25 May 2022 14:16:39 +0100
+Received: from vitaly-Legion-7-16ACHg6.ad.cirrus.com (unknown [198.90.238.233])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id DF654468;
+ Wed, 25 May 2022 13:16:38 +0000 (UTC)
+From: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Mark
+ Brown <broonie@kernel.org>
+Subject: [PATCH v4 00/17] ALSA: hda: cirrus: Add initial DSP support and
+ firmware loading
+Date: Wed, 25 May 2022 14:16:21 +0100
+Message-ID: <20220525131638.5512-1-vitalyr@opensource.cirrus.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: czuJpGm6HxWly4rDC-QM_V0F6iEfWZ49
+X-Proofpoint-GUID: czuJpGm6HxWly4rDC-QM_V0F6iEfWZ49
+X-Proofpoint-Spam-Reason: safe
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,33 +97,72 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-At closing a USB MIDI output substream, there might be still a pending
-work, which would eventually access the rawmidi runtime object that is
-being released.  For fixing the race, make sure to cancel the pending
-work at closing.
+The CS35L41 Amplifier contains a DSP, capable of running firmware.
+The firmware can run algorithms such as Speaker Protection, to ensure
+that playback at high gains do not harm the speakers.
+Adding support for CS35L41 firmware into the CS35L41 HDA driver also
+allows us to support several extra features, such as hiberation 
+and interrupts.
 
-Reported-by: syzbot+6912c9592caca7ca0e7d@syzkaller.appspotmail.com
-Cc: <stable@vger.kernel.org>
-Link: https://lore.kernel.org/r/000000000000e7e75005dfd07cf6@google.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/usb/midi.c | 3 +++
- 1 file changed, 3 insertions(+)
+The chain adds support in stages:
+- General fixes to improve generalization and code re-use inside
+  the CS35L41 HDA driver.
+- Add support for interrupts into the driver, which is required
+  for complete support of the firmware.
+- Refactor ASoC CS35L41 code which deals with firmware to allow
+  for code re-use inside the CS35L41 HDA driver.
+- Add support for loading firmware and tuning files from file system,
+  and creating alsa controls to control it.
+- Support firmware load paths for different hardware systems.
+- Support suspend/resume in the driver when using firmware. The firmware
+  supports hibernation, which allows the CS35L41 to drop into a low
+  power mode during suspend.
+- Support the ability to unload firmware, swap and reload the firmware.
+  This is to allow different firmware to run during calibration.
 
-diff --git a/sound/usb/midi.c b/sound/usb/midi.c
-index 7c6ca2b433a5..344fbeadf161 100644
---- a/sound/usb/midi.c
-+++ b/sound/usb/midi.c
-@@ -1145,6 +1145,9 @@ static int snd_usbmidi_output_open(struct snd_rawmidi_substream *substream)
- 
- static int snd_usbmidi_output_close(struct snd_rawmidi_substream *substream)
- {
-+	struct usbmidi_out_port *port = substream->runtime->private_data;
-+
-+	cancel_work_sync(&port->ep->work);
- 	return substream_open(substream, 0, 0);
- }
- 
+The intended use-case is to load the firmware once on boot, and the driver
+autmatically tries to load the firmware after it binds to the HDA driver.
+This behaviour can be switched off using a kconfig, if desired.
+Stefan Binding (16):
+  ALSA: hda: hda_cs_dsp_ctl: Add Library to support CS_DSP ALSA controls
+  ALSA: hda: hda_cs_dsp_ctl: Add apis to write the controls directly
+  ALSA: hda: cs35l41: Save codec object inside component struct
+  ALSA: hda: cs35l41: Save Subsystem ID inside CS35L41 Driver
+  ALSA: hda: cs35l41: Support reading subsystem id from ACPI
+  ALSA: hda: cs35l41: Support multiple load paths for firmware
+  ALSA: hda: cs35l41: Support Speaker ID for laptops
+  ASoC: cs35l41: Move cs35l41 exit hibernate function into shared code
+  ASoC: cs35l41: Do not print error when waking from hibernation
+  ASoC: cs35l41: Add common cs35l41 enter hibernate function
+  ALSA: hda: cs35l41: Support Hibernation during Suspend
+  ALSA: hda: cs35l41: Read Speaker Calibration data from UEFI variables
+  ALSA: hda: hda_cs_dsp_ctl: Add fw id strings
+  ALSA: hda: cs35l41: Add defaulted values into dsp bypass config
+    sequence
+  ALSA: hda: cs35l41: Support Firmware switching and reloading
+  ALSA: hda: cs35l41: Add module parameter to control firmware load
+
+Vitaly Rodionov (1):
+  ALSA: hda: cs35l41: Add initial DSP support and firmware loading
+
+ MAINTAINERS                     |   1 +
+ include/sound/cs35l41.h         |   7 +
+ sound/pci/hda/Kconfig           |   8 +
+ sound/pci/hda/Makefile          |   2 +
+ sound/pci/hda/cs35l41_hda.c     | 853 +++++++++++++++++++++++++++++++-
+ sound/pci/hda/cs35l41_hda.h     |  37 ++
+ sound/pci/hda/cs35l41_hda_i2c.c |   1 +
+ sound/pci/hda/cs35l41_hda_spi.c |   1 +
+ sound/pci/hda/hda_component.h   |   4 +
+ sound/pci/hda/hda_cs_dsp_ctl.c  | 302 +++++++++++
+ sound/pci/hda/hda_cs_dsp_ctl.h  |  40 ++
+ sound/pci/hda/patch_realtek.c   |  27 +-
+ sound/soc/codecs/cs35l41-lib.c  |  82 ++-
+ sound/soc/codecs/cs35l41.c      |  71 +--
+ 14 files changed, 1362 insertions(+), 74 deletions(-)
+ create mode 100644 sound/pci/hda/hda_cs_dsp_ctl.c
+ create mode 100644 sound/pci/hda/hda_cs_dsp_ctl.h
+
 -- 
-2.35.3
+2.34.1
 

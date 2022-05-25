@@ -2,143 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E2BF533591
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 May 2022 05:04:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C0AE5335DF
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 May 2022 05:35:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E916C1669;
-	Wed, 25 May 2022 05:03:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E916C1669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 093161669;
+	Wed, 25 May 2022 05:34:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 093161669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653447851;
-	bh=YzBXzP6q7Z6v6+xtbDR+JBlrCLLudmA0dOouHICzjb4=;
-	h=From:To:Subject:In-Reply-To:References:Date:Cc:List-Id:
+	s=default; t=1653449732;
+	bh=O5ShUL04Y8DYfFz2oqQlJX455CbkAwJDwJrIXEBxlsg=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AYg2pkvCMdWy6r9bfIQwdxBJhVRvoww9KVwf4KAml0ot7EbU70YNRlUHndzZvkcbq
-	 bj/grmhqQ48dErd7wyJ2FV7m58IkIQDdeAlCpmMmFie6E3PXDIWZmJSHCyFIM+bLSF
-	 Er3jPr78r2PjGvkH9tEVKAKQol1AebomTGxv8xCs=
+	b=qKZ7RWHmetg8KLDSzkT3MPl32Eg1AkL9WJ0v2gBJ9zdqJXOtF9qAepd0nl174ozda
+	 5aYrruY8Wt+p5MC/8II3CYnRBVHuxPw8IxWxhPIhuy923xUhfPHKYeZt7Lox8THBRX
+	 O7MsuyX0p4rKvVjXHHYK+DD/sZuvzu9OVfgtxCpg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5AD40F80169;
-	Wed, 25 May 2022 05:03:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6780EF801EC;
+	Wed, 25 May 2022 05:34:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B5EB1F8016D; Wed, 25 May 2022 05:03:09 +0200 (CEST)
+ id 8733CF8016D; Wed, 25 May 2022 05:34:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from JPN01-OS0-obe.outbound.protection.outlook.com
- (mail-os0jpn01on20708.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:700c::708])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from smtp-relay-canonical-0.canonical.com
+ (smtp-relay-canonical-0.canonical.com [185.125.188.120])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6B0E6F80116
- for <alsa-devel@alsa-project.org>; Wed, 25 May 2022 05:02:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B0E6F80116
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7F30CF80116
+ for <alsa-devel@alsa-project.org>; Wed, 25 May 2022 05:34:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F30CF80116
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com
- header.b="nGVwfF5g"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BdT+If89gAGKlmxrYTCmneqvCCDtTmmcrlDlY378s20HNaF8UOHHd2xAoLg5CJPkNsK+vLafsEEFpAHOrmpxmQdO4P3GkukRebvgjMmxf/fK2T/baawZ29oDOB0LVGx+Cl6xCU477ABQMBFfvcS2T8gcOwGSp57LmhbI+DB4jHNeAKjrJgRNmyapcKTG1RGAP8HDlDED+bS64lly6BOjNX+bdY1j2nzouubgZO0hGK4lUwNRfK6C1zOj2mXpRpbfW4IitfiJQDpkP4G8BU73XrEk0QZ7S/9GNm0hpTfWWCeWSHeJ0MyZcecBrI3iy1rSY1TR6jvjJAl4cEsVu86noA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j1QLKvHILWFQfHModAmcdGghubl4WnpLIy70wBT3JuU=;
- b=FpkY13SNGQFlf8Z1Qu+h0vrT0JOAZNJ3ohf7uRm2WDY2OTpfZYAEXjcEkCTjU1eSA3qE0DCWg5uufC37x4s799neS+P6ax6l7iFFU+YZlNcexYZV/DiL4mApaAt1kwflaJSuPgubLcufw627Z0+f3D1Oaj3S0Ab8fusPGerh6FJd2Jd62xuDxQrOefwITeEvMcGIwOukbURB3HoaMSTQ0r5dMYhFwk2bqvngOW3mbELnSxlykkI0TeArpGb1WgqzAPLdp86tmc3fo7pe5KHwp+VTyujxgrzQvy7WBmcfMK4F/O10Otx3iHWFEVr8aUPZhalxI7XbNmck7z7RhGjrXg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j1QLKvHILWFQfHModAmcdGghubl4WnpLIy70wBT3JuU=;
- b=nGVwfF5gdM4QsAAHvqR+NMpt5ZOC1bLHrqGa/dFMeGQHZDAo1OZZetIyGfijuxu5UgrgbJqoV/r3mZBg2KJARMP/60kXQM+awzp20pQ2IuTpHQC2MniQN2JB+4HjJYiRKZupJ0lTPPQ+uF+CMZwzQKca7Ti+PDxX+U0agQtBj9Q=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
- by TYAPR01MB4381.jpnprd01.prod.outlook.com (2603:1096:404:12b::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5293.13; Wed, 25 May
- 2022 03:02:53 +0000
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::f4d9:ee3d:e07b:171a]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::f4d9:ee3d:e07b:171a%8]) with mapi id 15.20.5273.023; Wed, 25 May 2022
- 03:02:52 +0000
-Message-ID: <878rqqco0z.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: About Cleanup ASoC
-In-Reply-To: <5a6e4f90-7b61-376e-8f50-35f2a7dcf8c5@linux.intel.com>
-References: <87fskz5yrr.wl-kuninori.morimoto.gx@renesas.com>
- <YozcfjgvFfQa/HxS@sirena.org.uk>
- <41033b5b-5bde-10a2-70e8-aa7482992235@intel.com>
- <5a6e4f90-7b61-376e-8f50-35f2a7dcf8c5@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
-Content-Type: text/plain; charset=US-ASCII
-Date: Wed, 25 May 2022 03:02:52 +0000
-X-ClientProxiedBy: TYAPR01CA0117.jpnprd01.prod.outlook.com
- (2603:1096:404:2a::33) To OS3PR01MB8426.jpnprd01.prod.outlook.com
- (2603:1096:604:194::10)
+ dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
+ header.b="H0nsJLXO"
+Received: from [192.168.0.109] (unknown [123.112.66.143])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id BC7EA3F33E; 
+ Wed, 25 May 2022 03:34:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1653449662;
+ bh=u7zU8VENwMpjZRwoc3dPmw0LIYj0IDwKJSS1j18/2Bc=;
+ h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+ In-Reply-To:Content-Type;
+ b=H0nsJLXOLXXEzabxR41q2366P+RLmSBXYHvjxop25wUe0neUZT9SVn4BY/0SWkRs9
+ miywFGQTmSFcSz9NyTDvRIZQZVdivdWo7pWeXf1BOVLnQOoGWLRNWafDf3fdeDYQ9i
+ Q7/dtHrmyA5hpdrSnhkIYOx334VVcaBnY5OE4QmKIPRYnm5LglmWheyV9vocQVWryJ
+ GWaNZUCZmnu1yKJ60HNvskjx1HcBTfmKQxV/Axnp2sd34nSwpTMKnj5mq1x/SA815m
+ tdF9WtpDipk3OT2zaTAN2Qk71q2JO87uOlGqZKKh2vu2xuKJ7o793Z+uYVtxqbYsJh
+ lo3KjvSmn5m8A==
+Message-ID: <f91bb93f-9129-fa1b-b939-fe521e726d42@canonical.com>
+Date: Wed, 25 May 2022 11:34:10 +0800
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 635edafd-7856-46be-38bf-08da3dfb0f0b
-X-MS-TrafficTypeDiagnostic: TYAPR01MB4381:EE_
-X-Microsoft-Antispam-PRVS: <TYAPR01MB4381999475BEBDC6123F4F53D4D69@TYAPR01MB4381.jpnprd01.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: EPOwXRlujbOaqkjzW48oqAAsJ/6V4ge5HNT0rejdYE0yzvYZhklWotyzBD6j3ib5tW2BnrqkZofu6NGuvCL2jA3O834h/zPhGjIHkdUJB67ODX74V/oeh1mcpkPddD3jlho7OIdX1RbwMN7BySRILTrJyd/9VjsZQa3R0MtE0aKSHT2Zk0LCH3CYG71B8icY4B9b26Xe2cLngcHu2sLSRzJdvwas7T261aepcbDlF4xwQTyp2r8sL7mzm5gNyEcVR+PeMNvyNekermunDLqUw4V7/Y8bQX3XGvfMfAHOLkTWqfArKuLQ9kWppBPndPQni2d9LxnC48EJ0B+sUEyVudmhDdk3d4dsLtIbh/+u0z7MlHEAfyXPNoMgeNNxTSKuYl4h/ivPX4S6cLTx/z///Ry+HaQjtEayfxmSwmfLnRnLhrBG1yvO7t3c5XLpcDn4QLaVKMh5qfTP/awKSaUvNq3XWPNMTnDc/6QvvjoQSqjNyRD0tAAyVrmFNYg4vjxnwGXPxo/vyfMl8JPlNgTg+pNw3ZF3NY1yWU6WohXDPCINQdVwCy0VKN9W+19VbaxkSJ5yq7x93c1f/qvpjpHRYED7+ZrM7sLx9ANTvnyYKZS7c13zoYDuv3xQ+qundB94jYLhjv6Y+akUG4oMBTQM3iB+5SuEOV7D3m3QRFowJg1CTLxcszSaBasaTMf0F46FIs4PhqdxjoM8TCyROuHstA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:OS3PR01MB8426.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(66556008)(66946007)(8676002)(66476007)(4326008)(83380400001)(36756003)(7116003)(2906002)(26005)(6512007)(186003)(86362001)(52116002)(6506007)(6486002)(508600001)(2616005)(8936002)(5660300002)(54906003)(3480700007)(316002)(38350700002)(38100700002)(6916009);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?KR2L0IUmfSCYKIk8BmSSF+1557yjgaMXTrAaNzKR8ntK8cHcOKqb4BWGo5gX?=
- =?us-ascii?Q?wADrut2/URf4CcO4ZqIo1KUjOgGTw6jWyDoCapmj3Umzz/NtvPGxn+JdU377?=
- =?us-ascii?Q?IcXRmnDIvlONC4K68vOoHYtvH2MmtIdM8U/Zb+YFGzeBWnX2DtJHdc+f0ntK?=
- =?us-ascii?Q?PLp6hrXOrx7JUrT/v3YTwjta/fKADtcQGiHW5TTfL9LEHdusbbAQcccvhHxh?=
- =?us-ascii?Q?eTMzQ75GoXejuMbgqjU6O4XsH2U6RoRmS7zedBtKDqxCKyzACIiTIlL0zm51?=
- =?us-ascii?Q?294B0psGXZWWkv9U+S0L9Zcsxbp7Uq3aMlVXaOYSGomtXJqW31hPNdE7VLC7?=
- =?us-ascii?Q?dEGOo2AcfU7Fuzw8NbmkyaulIQAnJCQbYYXjHgBXehPQpyTed/Y+lykKSU7k?=
- =?us-ascii?Q?36BO4SFIhobg8oigIe17zjWbxlh8R5BOzopOxUFAqKctnMvvtjMBAVVkoIWZ?=
- =?us-ascii?Q?tux/7L9bM7UmxEgSRem04hWZvqp2ZH4GmvH0TcsiE/aHZ+gcPPP15TqFKcDn?=
- =?us-ascii?Q?WyXdU3iD/Mxeg94V78QTPoIpPS2c12ilBp/SmTLhq+t2ne3NlIvAiQcvFTA9?=
- =?us-ascii?Q?bAv9GHlD9A/ydOYe/qxEMz6pIfEoJD+bssLrcp6fAW+PVZ+U+iB5Z4l4nVIC?=
- =?us-ascii?Q?yXlAEl0rcsBD/vcvRafYa1JfgVJxZxf3VqSdnUrTEQXZqXvdfMwMY88wKa9J?=
- =?us-ascii?Q?l2EjddyRurze/YFTu3Z6EOlGNdyMPFeJ7jI7iSeJOCPODpP7NLUuz6jd3INT?=
- =?us-ascii?Q?Az0es47MQRI0rklFnhW7OFLjAQlV8+ke8gOuImZrM6z5RQNfSvaeqmDMLmFQ?=
- =?us-ascii?Q?gtgHpV+QC6EHlN/47WRVZPnSU82Gj66Bso6xAtXokO3fWCkewdmreIN//xxA?=
- =?us-ascii?Q?niF17m9CcEqH0smEZSKPOUMgUWG3nUIu4Zy/H5f/WCaEq4qZf91XHJRmlxGc?=
- =?us-ascii?Q?CDJiI+Y4Uz4fa9Ms8LET3OYM5rw1b+lOPQ8zc+HrrRnLA/4D2sK5lfiEcOr9?=
- =?us-ascii?Q?5IsLtTeaIekdel8f0ps/E7wZcgjWrVgwbKAgaoBUnwfAIbV/3Rtj6siMpMkT?=
- =?us-ascii?Q?hR70We31nGiRCvGn9loeXCAPjB6KRkdyaTJ7Eo5iw1wkYdt1lPabY2T3p1OG?=
- =?us-ascii?Q?FUhhJwadB2LNy0TdsZSqOuIwjI2utKdt+mXMwX+EP1pq0o3yR/Ku97I98NOa?=
- =?us-ascii?Q?qf2/iUfmTRvXUfX5RuLr4eFDWS6IW5z45wIuScOKccKPb+mjnR9MRpYfSuu8?=
- =?us-ascii?Q?OwEJQgGEhbJNVUzermPQFK6XXJnsHFald0wedlMaI6ub/4DrRJ1kkP6vh39L?=
- =?us-ascii?Q?MBmHLb0ze9bXe5ITekWmOUU0QpRQrc1MdY2pVMyv1KV+vnAzjenqeJeaBZzi?=
- =?us-ascii?Q?ClQIGzA3RXpmQf3bhkgHeVAdy6mdJXN0TTdkXJQBVyIbBwtq74E3CA2/oosr?=
- =?us-ascii?Q?2H87T4Eui1AaKu4tFdn5smlx7YGVj+Azh1f51kjKewkMBUHhVMslfmly5YsI?=
- =?us-ascii?Q?BbBVhWs/6//Fx02zAHnntouidbCDJsaeVWJM6qzR1zw8Mc0aefx7v3+Pdn6/?=
- =?us-ascii?Q?sqWqNoX4JbqVFuAm9SjsK3r9SZw2AUh+tWdHPBA6UPK51NRlEvMb2e3GeDEZ?=
- =?us-ascii?Q?IZvlbvN8Z+cd67AxPb4iznvuypy0eU4uwHaOkUFhTY1v7ocsy0OLmuWJLvDZ?=
- =?us-ascii?Q?VKCJc0pNTxFDFxToKvY4AwDxR1O+kjzwGtgG+FDrXq9ihjdIPuBFkL4eVZ6c?=
- =?us-ascii?Q?fr+ML2KpbAJ/6cLEaw5K7Z43qItAklwnlE/I8g1JXFluoL4eEo1z?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 635edafd-7856-46be-38bf-08da3dfb0f0b
-X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2022 03:02:52.9369 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IbWIsWnNC2fQUsQN+NUhN2fysqnTbCd6nJehHoXJ9zn35BuQki+9StZjO+6w6I270kEcJTyRPtdb7zImFlwO5tBdxYe/svrkmpgV6fpP9cGyiCsnK8pYYpKcxL7NzmLt
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYAPR01MB4381
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Mark Brown <broonie@kernel.org>, Linux-ALSA <alsa-devel@alsa-project.org>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH] ASoC: nau8822: choose the best master clock prescalar
+Content-Language: en-US
+To: David Lin <ctlin0.linux@gmail.com>, alsa-devel@alsa-project.org,
+ broonie@kernel.org
+References: <20220524033309.30289-1-hui.wang@canonical.com>
+ <9e1eb15c-ca3a-dc04-1f8d-4ea71e32cce8@gmail.com>
+ <d756972a-d010-7e9c-9dcf-f26ae6edc16c@canonical.com>
+ <bf52d764-ae62-921f-bfdd-503c42e4a85f@gmail.com>
+From: Hui Wang <hui.wang@canonical.com>
+In-Reply-To: <bf52d764-ae62-921f-bfdd-503c42e4a85f@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Cc: wtli@nuvoton.com, YHCHuang@nuvoton.com, SJLIN0@nuvoton.com,
+ kchsu0@nuvoton.com, David Lin <CTLIN0@nuvoton.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -155,38 +93,65 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-Hi Mark, Cezary, Pierre-Louis.
+On 5/24/22 18:22, David Lin wrote:
+> On 2022/5/24 下午 04:38, Hui Wang wrote:
+>>
+>> On 5/24/22 16:07, David Lin wrote:
+>>> On 2022/5/24 上午 11:33, Hui Wang wrote:
+>>>> We have an imx6sx EVB with the codec nau8822, when playing the audio
+>>>> with 48k sample rate, the audio sounds distorted and obviously faster
+>>>>
+>> <snip>
+>>>> -            div = i;
+>>>>           }
+>>>>           dev_dbg(component->dev, "master clock prescaler %x for fs 
+>>>> %d\n",
+>>>>               div, rate);
+>>>
+>>> Regarding to your environment with input MCLK is 24 MHz, I think you 
+>>> should enable PLL for the internal process of codec.
+>>>
+>>> So you should do the following calls/operations:
+>>>
+>> Thanks for your suggestion. In our case, we use the simple-card as 
+>> the machine driver, the simple-card hard-codes the 2nd parameter of 
+>> snd_soc_dai_set_sysclk() to 0, and we don't plan to write a new 
+>> machine driver since sound quality is pretty good if setting to 46875Hz.
+>>
+>> So according to your experience, does the new algorithm bring any 
+>> side effect or break existing platforms? If so, we have to write a 
+>> new machine driver (that is a big effort).
+>>
+>> Thanks,
+>>
+>> Hui.
+>>
+> Even you can hear better sound quality than original, it don't still 
+> have better performance(THD+N) than MCLK is 256FS. Generally,  we will 
+> suggest the below that for customer support.
+> 1. Check dts description from simple-card about the value of mclk-fs 
+> is 256? The reason is nau8822 codec just support 256FS. Besides, the 
+> I.MX EVB should be with flexible clock generation.
+> 2. Based on the flexible clock generation, you should input 12.288Mhz 
+> as MCLK, so the simple-card is suitable for your case with low effort.
+> 3. If your MCLK is always 24MHz, PLL enable is preferred as previous 
+> mention. One is to implement/porting a machine driver, the other is to 
+> revise asoc_simple_hw_params callback function from simple-card-utils.c.
 
-Thank you for your feedbacks.
+OK, got it. Thanks.
 
-> > It seems explanation of design of the avs-driver had some shortcomings.
-> > The AVS people (like me) are to blame for this :S
-> > 
-> > The exact opposite is true - we do not want 1:N component:card relation.
 
-OK, thanks, nice to know.
-Sorry to my misunderstanding, my brain was biased.
-
-> If you have any data connection or loopbacks between cards, or shared
-> clocks, then you have DAPM events that are interesting to propagate.
-> Power management is not 'simple' or even 'simpler' to me.
-
-Yes, I agree about this.
-
-> I am not saying having multiple cards is a bad idea, just that there are
-> a number of technical opens with strong implications on the
-> implementation and scaling.
-
-Thanks.
-
-My basic idea is step-by-step small refactoring can remove limitation
-and/or add expansion.
-I don't want to have big change of course,
-and I'm not thinking that we can create "perfect solution"
-at the beginning.
-
-Thank you for your help !!
-
-Best regards
----
-Kuninori Morimoto
+>>> //PLL
+>>>     ret = snd_soc_dai_set_sysclk(codec_dai, NAU8822_CLK_PLL,
+>>>                       24000000, SND_SOC_CLOCK_IN);
+>>>     if (ret < 0 )
+>>>         dev_err(card->dev, "failed to set codec sysclk: %d\n", ret);
+>>>
+>>>     ret = snd_soc_dai_set_pll(codec_dai, 0, 0,
+>>>                   24000000, 256 * params_rate(params));
+>>>     if (ret < 0 )
+>>>
+>>>         dev_err(card->dev, "failed to set codec pll: %d\n", ret);
+>>>
+>>> David
+>>>

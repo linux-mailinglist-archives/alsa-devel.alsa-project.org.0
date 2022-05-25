@@ -2,76 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 257E953455F
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 May 2022 22:55:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D23C534578
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 May 2022 23:01:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B7BE416B2;
-	Wed, 25 May 2022 22:54:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7BE416B2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1FCE516A5;
+	Wed, 25 May 2022 23:00:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1FCE516A5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653512099;
-	bh=JayclhC6KF2KjXxwe9UBTJau5WIH16YxRj272sxRyX8=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=m8JBsvXQSgcdfdFK70OTBuD0Jnc3DXkJfVpbYHD/quIDAVOi7CfRV5Ly5c2t2/Dyq
-	 MLZQyhF3YRviYDg5/jQ4fqB2N+ap9kWs5Ur2FEW/BYqkRZsrOGKMUatbVhbwkl7eRq
-	 3z22PIbLqoarYv92pLeLJqyhiZ1dYfK//KrqSpXM=
+	s=default; t=1653512465;
+	bh=yzAy7uVOrWy2btbv/yATT3NHgIH0p/5Z2fvXVXuY4dQ=;
+	h=From:Date:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=a4Yjw2egiYGHc0Lox8wqyldlrM/ZAF2u7hhb+yubAovTxbCO25XKZbnfZ5R0jd2aV
+	 uZB6yVk065lcb6G2dEh/HcHZ6BTsrfLh584OhtELtKofzkOICGMsqtG0XzF2dT7osY
+	 JL4egeKHiZx6QOiwIQSNilUEkXaJJ2y26GZyfFPU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1E9AAF801EC;
-	Wed, 25 May 2022 22:54:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 75533F80116;
+	Wed, 25 May 2022 23:00:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 04DACF8016D; Wed, 25 May 2022 22:54:00 +0200 (CEST)
+ id E6703F8016D; Wed, 25 May 2022 23:00:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DD30BF80116
- for <alsa-devel@alsa-project.org>; Wed, 25 May 2022 22:53:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD30BF80116
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mail-qk1-x72b.google.com (mail-qk1-x72b.google.com
+ [IPv6:2607:f8b0:4864:20::72b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id EA11CF80116
+ for <alsa-devel@alsa-project.org>; Wed, 25 May 2022 23:00:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA11CF80116
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
- header.b="ECuo2A5B"
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: nfraprado) with ESMTPSA id 841561F4268A
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1653512032;
- bh=JayclhC6KF2KjXxwe9UBTJau5WIH16YxRj272sxRyX8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ECuo2A5BML0Z5RO9YZdLhFbyvNvnUVwNVOyHg+CvMtoF/sCu8w2tvmgQSxaMXYNq6
- ZGz/CqMZ7nR48ovPBo2M6Tios2gZJ+M1ey3WbNkCLGyhidE7jpFTNMKY5MuY+eFXRD
- mjyK9h4+UAm0Mmo5ki9DLv8EjE48UjMr6y8Nx2Sn7dKGt/BFFny9xpciqkcIZQFOLd
- /uqm/Y/LSF9Zt0ju9E6yTlgWBdZYPA+Q8X8CdD2wSHdR0C6TLD3L7eXrAhNMt+tdie
- JFL0AEJYHcpu75Fadb+8WGX7WaY3YRCHrF7HFJ86OPYdlG1hKhF6ZNwHIvkVq/yWk3
- fMz/Lp2SS8m6Q==
-Date: Wed, 25 May 2022 16:53:46 -0400
-From: =?utf-8?B?TsOtY29sYXMgRi4gUi4gQS4=?= Prado <nfraprado@collabora.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH v2] ASoC: dt-bindings: mediatek: mt8192: Add i2s-share
- properties
-Message-ID: <20220525205346.6ik67nduv3zexl4p@notapiano>
-References: <20220509205847.607076-1-nfraprado@collabora.com>
+ dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com
+ header.b="ZU6yZxcz"
+Received: by mail-qk1-x72b.google.com with SMTP id x65so14270910qke.2
+ for <alsa-devel@alsa-project.org>; Wed, 25 May 2022 14:00:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=konsulko.com; s=google;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=yzAy7uVOrWy2btbv/yATT3NHgIH0p/5Z2fvXVXuY4dQ=;
+ b=ZU6yZxczWcDhn90IcgteaTCE6Er/+tqZZ8iBw+pqR6b1czxIdnRKLA54QAFKkxNx22
+ PzUQIWOKsVSCmVacFn2Wy5tx4XqwdyDwFLJB7EzS5Mli39kF0ltKZ9Py1b3IF1Rc8ok9
+ I3gTnWP/pwLEsF+UJajL65OCG3tKisHHyKieg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=yzAy7uVOrWy2btbv/yATT3NHgIH0p/5Z2fvXVXuY4dQ=;
+ b=TDkXd8AyXi/fXfaOVOJrqzF5gwnHhSbLtQb8OZu/8cKjfodeQ2gxrel1uv3jKaR1v6
+ pHe92VjF4gFCCbhkRyRKrsiGJmM6AreGVyPv7pFbeZpNnfa1s8UyIveZfoNWed+4+zry
+ +85vvP2o/M1t90FmMFw3967THkeErDewsvRb0cAPw39CjXnErBcmmWWq/ktAEikJAYB7
+ IbLR9kmL/dkJm65joySesAUIB+6TlRKBmuuw+TGKLtWseHApe2bFlxFnsBAFw3OaJ3CX
+ 6tEKWSnhRJHbkZvy6qeMwUv6P6GcqgTzi4zjKuZhMbRcomIK4iT5LIvfQy3ac2pNzSOX
+ cYdg==
+X-Gm-Message-State: AOAM531AyEfIZqd3Y52wZpfDyOPvrB4jNU9rxADKnbAnIpGqsqCZFJJc
+ 3bT+tn1O5J8AldtjJT1lcY1dMGvvxUOkqBNSBfXozr+cQTiztA==
+X-Google-Smtp-Source: ABdhPJyGyNtzV/wUqStpeK/CMlDHIP40Mx07THSuZ7Qsty0bq8Lt8KvyKpBWsnsy0N0LfhyaqDw6VHxpX6ZeCt+9MQw=
+X-Received: by 2002:a05:620a:2992:b0:6a0:94d2:2e5c with SMTP id
+ r18-20020a05620a299200b006a094d22e5cmr21521242qkp.62.1653512399282; Wed, 25
+ May 2022 13:59:59 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220509205847.607076-1-nfraprado@collabora.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>, Jiaxin Yu <jiaxin.yu@mediatek.com>,
- linux-kernel@vger.kernel.org, Shane Chien <shane.chien@mediatek.com>,
- Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Matthias Brugger <matthias.bgg@gmail.com>, kernel@collabora.com,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+From: Michael Welling <michael.welling@konsulko.com>
+Date: Wed, 25 May 2022 13:59:48 -0700
+Message-ID: <CAMM3KADDNMD0X6q_vPbe8xLgzJ3Unguhz29Xk5cwnwaD2YmwRQ@mail.gmail.com>
+Subject: Enabling fsl_sai MCLK before codec probe
+To: alsa-devel@alsa-project.org
+Content-Type: text/plain; charset="UTF-8"
+Cc: Nicolin Chen <nicoleotsuka@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Timur Tabi <timur@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,35 +88,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, May 09, 2022 at 04:58:47PM -0400, Nícolas F. R. A. Prado wrote:
-> The Mediatek AFE PCM controller for MT8192 allows two I2S interfaces to
-> share the same clock and act as a single interface with both input and
-> output. Add patterns for these properties in the dt-binding. The
-> property is split into two patterns in order to allow all valid
-> interface pairings.
-> 
-> Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
-> 
-> ---
-> The series from v1 of this patch was merged although some changes were
-> still needed in this patch, so the v1 of this patch was reverted [1] and
-> this standalone commit addresses the feedback from v1 and readds the
-> property.
-> 
-> [1] https://lore.kernel.org/all/20220509185625.580811-1-nfraprado@collabora.com
-> 
-> v1: https://lore.kernel.org/all/20220429203039.2207848-2-nfraprado@collabora.com/
-> 
-> Changes in v2:
-> - Added "mediatek," prefix to property
-> - Rewrote and added more information to property description
-> - Split into two patterns to validate that output-input pairings are
->   done
-> 
->  .../bindings/sound/mt8192-afe-pcm.yaml           | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
+So I have a tricky race condition that comes up with hardware that
+combines imx8 with a pcm1681 codec. The pcm1681 requires that MCLK be
+enabled for 65536 cycles before accessing the I2C management port.
 
-Gentle ping on this one. Any feedback for v2?
+The imx8 sai driver on the other hand does not start the built in MCLK
+until a confluence of events that is not triggered until just before
+streaming starts which is too late.
 
-Thanks,
-Nícolas
+Is there a clean way to start the imx8 sai MCLK before the codec probe occurs?
+Or have it started and delayed during the codec probe before it tries
+to access i2c?
+
+We have a working solution but it is a bit overreaching and adds a
+callback function to the snd_soc_dai_ops struct to start the clock,
+and adds the code to the fsl_sai.c to toggle the appropriate bits in
+the SoC sai driver to make a clock appear and registers to the new
+function callback.
+
+Then the simple-card was amended to add the appropriate enabling
+through the new callback such that the clock is on long enough before
+the codec is probed.
+
+There was some suggestion of caching the i2c registers until the clock
+is enabled but this would be difficult given the clock is not started
+until streaming starts and we don't want to stream until the codec is
+initialized.
+
+I am looking for a solution that is minimal and robust.
+
+Any pointers would be greatly appreciated.

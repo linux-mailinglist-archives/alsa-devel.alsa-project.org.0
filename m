@@ -2,74 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01B9D53376C
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 May 2022 09:36:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D8E6533A58
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 May 2022 12:00:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8D8A7163F;
-	Wed, 25 May 2022 09:35:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D8A7163F
+	by alsa0.perex.cz (Postfix) with ESMTPS id E3BBB1660;
+	Wed, 25 May 2022 11:59:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3BBB1660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653464197;
-	bh=I+gP2fgpMad/HzGG5gzm4bfoDh1wNh5Wf5cP2c/AJEY=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1653472841;
+	bh=Mh1nSl6WJ8LJu4xj2T5ewIoTYUb7slkafvam6+3FQNo=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LNo3RsTfP0BimO25bB4lr6WdfYy3bkhU4gsBqvO07BoMtVorex64NCyf2Xmu670+S
-	 HDHm3j53YmGM/UnU5XA8wmQdgcI8vxAuIO7AaIjY6yoFNz2n366tVlBzDM7glymHUv
-	 +i4wTxGmKsfPJzb1PTk4WcpPkwegoEFFYrPvy128=
+	b=sYdqTsOwWLmGzVM9yRbjtrfK4RnlYnI2uhh0oZhWhTAGhZkdoPFvNxDeBhZIw4Tb/
+	 93nnVoIqjMivY826td1NCSh+d+jSx2XZHDQ7CGcoHujQyY0reoq04wEh5SlbWmA+a/
+	 l+ZvF8S7NTe16T+pxFINhys6EGMLMzJsCbdK0Wvk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EDB2FF80100;
-	Wed, 25 May 2022 09:35:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 54948F80100;
+	Wed, 25 May 2022 11:59:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 636FEF8016D; Wed, 25 May 2022 09:35:36 +0200 (CEST)
+ id AC92DF80116; Wed, 25 May 2022 11:59:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from cmccmta1.chinamobile.com (cmccmta1.chinamobile.com
- [221.176.66.79])
- by alsa1.perex.cz (Postfix) with ESMTP id 69E5AF80116
- for <alsa-devel@alsa-project.org>; Wed, 25 May 2022 09:35:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69E5AF80116
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG: 00000000
-Received: from spf.mail.chinamobile.com (unknown[172.16.121.3])
- by rmmx-syy-dmz-app04-12004 (RichMail) with SMTP id 2ee4628ddc3e020-0383c;
- Wed, 25 May 2022 15:35:27 +0800 (CST)
-X-RM-TRANSID: 2ee4628ddc3e020-0383c
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG: 00000000
-Received: from [192.168.26.114] (unknown[10.42.68.12])
- by rmsmtp-syy-appsvr02-12002 (RichMail) with SMTP id 2ee2628ddc3e16d-c8e67;
- Wed, 25 May 2022 15:35:27 +0800 (CST)
-X-RM-TRANSID: 2ee2628ddc3e16d-c8e67
-Subject: Re: [PATCH] ASoC: stm32: sai: Use
- of_device_get_match_data()tosimplify code
-To: Olivier MOYSAN <olivier.moysan@foss.st.com>,
- Mark Brown <broonie@kernel.org>
-References: <20220519124235.21100-1-tangbin@cmss.chinamobile.com>
- <69d5cef3-57c0-9bc7-a83b-a85ef1c4cf29@foss.st.com>
- <YovZAf4S0XphBsco@sirena.org.uk>
- <3fb8d7f8-4506-3b28-22cb-863bda1f21c8@cmss.chinamobile.com>
- <d5ab354a-eb10-d31c-d55e-46a4c4d1a4ce@foss.st.com>
-From: tangbin <tangbin@cmss.chinamobile.com>
-Message-ID: <cd375914-a3e6-37c7-4a16-551937006f92@cmss.chinamobile.com>
-Date: Wed, 25 May 2022 15:36:13 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3873EF80116
+ for <alsa-devel@alsa-project.org>; Wed, 25 May 2022 11:59:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3873EF80116
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="ocif9DCK"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24P7t8Ev013744;
+ Wed, 25 May 2022 04:59:32 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ content-transfer-encoding : in-reply-to; s=PODMain02222019;
+ bh=Wu6xqJQ5HBDrW935bDYRhJqL/NEwWcUrslwqDjFR3Cs=;
+ b=ocif9DCKxlw9JvycZiAI8XHjlyrvCzzvc5GBwe/MI/3DBi1Yug3U6jief/C/IZcK0GAu
+ 92s9PDoWX/+lME0V47d0GjdeoCxNH4+1zMCFxl/UEpttwZkBhJlL9lv8h+BIIKO4yF1a
+ KGk8juOkQe5+zpuEAkDtsOYt0XFgQcGWlVOP+T4oGv31jRuJ/EDMzozdNaMaJ2IyKb+0
+ kcw3bnowk8bWdoYstaMSFxgvcMofdfDkyLfn6ntmUBPnyxytWzJmIbUmWWDTCoY7ozNK
+ Ot/V46ZS+/G3PknnUQ62iUY0msihqsnQs7CmSENQTaFmtsVR0nknNLsy4taeDGyPEwdM LQ== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3g93u20qy4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Wed, 25 May 2022 04:59:31 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Wed, 25 May
+ 2022 10:59:30 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.24 via
+ Frontend Transport; Wed, 25 May 2022 10:59:30 +0100
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 488F511D1;
+ Wed, 25 May 2022 09:59:18 +0000 (UTC)
+Date: Wed, 25 May 2022 09:59:18 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
+Subject: Re: [PATCH v2] ASoC: cs35l45: Make cs35l45_remove() return void
+Message-ID: <20220525095918.GN38351@ediswmail.ad.cirrus.com>
+References: <20220520144738.GM38351@ediswmail.ad.cirrus.com>
+ <20220520173349.774366-1-u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
-In-Reply-To: <d5ab354a-eb10-d31c-d55e-46a4c4d1a4ce@foss.st.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, alexandre.torgue@foss.st.com, tiwai@suse.com,
- mcoquelin.stm32@gmail.com, arnaud.pouliquen@foss.st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+In-Reply-To: <20220520173349.774366-1-u.kleine-koenig@pengutronix.de>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-ORIG-GUID: 6f-68QPUPNXzgFHqgfX06OXhzHy40Ay9
+X-Proofpoint-GUID: 6f-68QPUPNXzgFHqgfX06OXhzHy40Ay9
+X-Proofpoint-Spam-Reason: safe
+Cc: alsa-devel@alsa-project.org, Lucas Tanure <tanureal@opensource.cirrus.com>,
+ patches@opensource.cirrus.com, Liam Girdwood <lgirdwood@gmail.com>,
+ David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>,
+ kernel@pengutronix.de, James Schulman <james.schulman@cirrus.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,81 +104,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Olivier：
+On Fri, May 20, 2022 at 07:33:49PM +0200, Uwe Kleine-K�nig wrote:
+> cs35l45_remove() always returns zero. Make it return no value which
+> makes it easier to see in the callers that there is no error to handle.
+> 
+> Also the return value of i2c driver remove callbacks is ignored anyway.
+> This prepares making i2c remove callbacks return void, too.
+> 
+> Signed-off-by: Uwe Kleine-K�nig <u.kleine-koenig@pengutronix.de>
+> ---
 
-On 2022/5/24 22:30, Olivier MOYSAN wrote:
-> Hi Tang,
->
-> On 5/24/22 03:44, tangbin wrote:
->> Hi Mark & Olivier：
->>
->> On 2022/5/24 2:57, Mark Brown wrote:
->>> On Mon, May 23, 2022 at 03:28:48PM +0200, Olivier MOYSAN wrote:
->>>
->>>> The current patch requires a change in the driver.
->>>> Either changing STM_SAI_x_ID enums, or replacing data by a struct.
->>>> For instance:
->>>> struct stm32_sai_comp_data {
->>>>     unsigned int id;
->>>> }
->>>> struct stm32_sai_comp_data stm32_sai_comp_data_a = {
->>>>     .id = STM_SAI_A_ID;
->>>> }
->>>> struct of_device_id stm32_sai_sub_ids[] = {
->>>>     .data = &stm32_sai_comp_data_a},
->>>> }
->>> Either approach works for me (or a revert for that matter).
->>
->>      Thanks for your advice, I was thoughtless.
->>
->>      I think change the date of STM_SAI_x_ID maybe simple. But if we 
->> don't change the id,
->>
->> what about add a "#define" like the line 47:
->>
->> #define STM_SAI_IS_SUB(x) ((x)->id == STM_SAI_A_ID || (x)->id == 
->> STM_SAI_B_ID)
->>
->> then in the judgement, wu use:
->>
->>      sai->id = (uintptr_t)of_device_get_match_data(&pdev->dev);
->>
->>      if (!STM_SAI_IS_SUB(sai))
->>
->>              return -EINVAL;
->>
->>
->> if you think that's ok, I will send patch v2 for you .
->>
->
-> If we allow null value in STM_SAI_IS_SUB(sai) check, we can miss real 
-> NULL pointer error from of_device_get_match_data().
->
-> The simplest way is to change STM_SAI_x_ID enums I think.
-> But honnestly, I feel more comfortable to let the driver unchanged.
->
-Oh，you are right, I am sorry.
+Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-Please forget this patch, I'm sorry to have wasted your time.
-
-But I saw some codes is useless in the line 48 & line 49, I think we can 
-remove it.
-
-If you think so, I will send this patch for you.
-
-
-Thanks
-
-Tang Bin
-
-
-> BRs
-> Olivier
->
->> Thanks
->>
->> Tang Bin
->>
->>
-
-
+Thanks,
+Charles

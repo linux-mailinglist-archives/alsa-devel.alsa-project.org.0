@@ -2,83 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (unknown [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB71F533C86
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 May 2022 14:21:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0F02533CAF
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 May 2022 14:31:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 510C3166D;
-	Wed, 25 May 2022 14:20:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 510C3166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3F3691607;
+	Wed, 25 May 2022 14:30:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F3691607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653481290;
-	bh=dHCpC52q14UKeud9YYZvpWEYHzyxCxY5z/moKkOrj4U=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=CF3u4KoXuKmZ2Zv7BXo3D1hA1Z7U/T5bwuHj07BWwd0hvk3jTCsN5tnXumS13/uIe
-	 E0Vgzp6ri/gDkDr0iR01Ac7LMFmsnSkTHB21H4P81kvKIXw3Or6iA252apy33hHdrR
-	 bPo0er6ooJ4nGPHL9GHqbjAWgCppgFIHrApTOksc=
+	s=default; t=1653481881;
+	bh=3uocaVIHsPj/lmM3zXrwynXAvlfKLTYbPpHZZ/HLPrM=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=rzhX1rouYpv9aGpyxP1mkIHIYLxSkpV517gfCcmYNBj0XXxqVryIOk1njFhioTFNV
+	 hsNU7NpoeOsNwtXjV80vDpDHRWpE/kkikFLe8oI6Cw8n08aiv3L64URrN3RmfgZ29P
+	 +ztR8D2QHM8v5lc1z1FCHJCrwuT/4evw1Qbutzq0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B1415F800D0;
-	Wed, 25 May 2022 14:20:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AAF2EF801EC;
+	Wed, 25 May 2022 14:30:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 53151F8016D; Wed, 25 May 2022 14:20:30 +0200 (CEST)
+ id E7340F8016D; Wed, 25 May 2022 14:30:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5CECFF800D0
- for <alsa-devel@alsa-project.org>; Wed, 25 May 2022 14:20:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5CECFF800D0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8EFE1F80169
+ for <alsa-devel@alsa-project.org>; Wed, 25 May 2022 14:30:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8EFE1F80169
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="eKj6l1us"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="qGF8pq61"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id ACB61219B4;
- Wed, 25 May 2022 12:20:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1653481220; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=HRexfksyf77MhnIbGs8694HZUXelGxKSy8Y1D65x/vc=;
- b=eKj6l1useC8R72Jb55hZaLhmbtLOZZJ0NtxYwMP2n+/dCl9TdQmLWkLPFqoiDr1hMFQ7L1
- HZzmci1T1CcUTmTKh72Esw8+2iFHrxWx12xkdGGcaCG7j7CXTJN1Au/6XkRnfuziiOTFrz
- OMFOBuWJEKfeQodr7Ux8GZuoEdlwmeE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1653481220;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=HRexfksyf77MhnIbGs8694HZUXelGxKSy8Y1D65x/vc=;
- b=qGF8pq61k5Wkyd7HZrkiP3raoapSPNy1EIgF7RgxV47CjdQhcheoOvsDaFdMSRFiPHnZqj
- VTH12Lslrt+SANBQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8A17B13487;
- Wed, 25 May 2022 12:20:20 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id VRYGIQQfjmL4KwAAMHmgww
- (envelope-from <tiwai@suse.de>); Wed, 25 May 2022 12:20:20 +0000
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: usb-audio: Add mixer mapping for Gigabyte B450/550 Mobos
-Date: Wed, 25 May 2022 14:20:18 +0200
-Message-Id: <20220525122018.3299-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.35.3
+ dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com
+ header.b="jCDdo5yi"
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24PCK9qm022732;
+ Wed, 25 May 2022 14:30:16 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=bPVKOjeRLgXhCaHSGPSwKkUnur7RswwoIBP9rTXhPjQ=;
+ b=jCDdo5yiVDPtLuDw4vitdYjaky4ixEwyDDa//s/LwSA+o1NuoKVKs6DK6TKzVxFvkmtP
+ qWpzv0rUNCdU6bZssDznIsZHKp5EycQgTe7D6UhvUJdzcx7Poi2hV7O/XlfGPgLfzMex
+ HjzSmEBK3RnQpxj7hkHKUIh8McLyh3Vh0GAZIqGBQr1QfLI8RR5iiNkYptBQlB2EY3g3
+ xH/iPLzvbApkgc1+lKG6lapfF/tfdZe38lKZDmzUMU7CmAfPpHlNu0z6TyATDdr94yTx
+ OhIKgeRRtqE4nPAgszg/iQCiJXs6zDzy99XQoP7SeUgxWJ0lO+kOddgLxGk1ls1StD4D +A== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3g93v864rq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 25 May 2022 14:30:16 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id EEDD9100034;
+ Wed, 25 May 2022 14:30:14 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A28FE229A8D;
+ Wed, 25 May 2022 14:30:14 +0200 (CEST)
+Received: from [10.211.12.178] (10.75.127.47) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Wed, 25 May
+ 2022 14:30:13 +0200
+Message-ID: <b346eb00-fde1-2dc0-e6e3-09dbf1359c20@foss.st.com>
+Date: Wed, 25 May 2022 14:30:13 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Subject: Re: [PATCH] ASoC: stm32: sai: Use
+ of_device_get_match_data()tosimplify code
+Content-Language: en-US
+To: tangbin <tangbin@cmss.chinamobile.com>, Mark Brown <broonie@kernel.org>
+References: <20220519124235.21100-1-tangbin@cmss.chinamobile.com>
+ <69d5cef3-57c0-9bc7-a83b-a85ef1c4cf29@foss.st.com>
+ <YovZAf4S0XphBsco@sirena.org.uk>
+ <3fb8d7f8-4506-3b28-22cb-863bda1f21c8@cmss.chinamobile.com>
+ <d5ab354a-eb10-d31c-d55e-46a4c4d1a4ce@foss.st.com>
+ <cd375914-a3e6-37c7-4a16-551937006f92@cmss.chinamobile.com>
+From: Olivier MOYSAN <olivier.moysan@foss.st.com>
+In-Reply-To: <cd375914-a3e6-37c7-4a16-551937006f92@cmss.chinamobile.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-Cc: Brock Szuszczewicz <brock@system76.com>
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.874,Hydra:6.0.486,FMLib:17.11.64.514
+ definitions=2022-05-25_03,2022-05-25_02,2022-02-23_01
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, alexandre.torgue@foss.st.com, tiwai@suse.com,
+ mcoquelin.stm32@gmail.com, arnaud.pouliquen@foss.st.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,65 +112,92 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch implements a static mapping for Gigabyte B450/550 Mobos so
-that the mixer elements appear reasonably and jack detections work
-properly.
+Hi Tang,
 
-Reported-and-tested-by: Brock Szuszczewicz <brock@system76.com>
-BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=215988
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/usb/mixer_maps.c | 30 ++++++++++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
+On 5/25/22 09:36, tangbin wrote:
+> Hi Olivier：
+> 
+> On 2022/5/24 22:30, Olivier MOYSAN wrote:
+>> Hi Tang,
+>>
+>> On 5/24/22 03:44, tangbin wrote:
+>>> Hi Mark & Olivier：
+>>>
+>>> On 2022/5/24 2:57, Mark Brown wrote:
+>>>> On Mon, May 23, 2022 at 03:28:48PM +0200, Olivier MOYSAN wrote:
+>>>>
+>>>>> The current patch requires a change in the driver.
+>>>>> Either changing STM_SAI_x_ID enums, or replacing data by a struct.
+>>>>> For instance:
+>>>>> struct stm32_sai_comp_data {
+>>>>>     unsigned int id;
+>>>>> }
+>>>>> struct stm32_sai_comp_data stm32_sai_comp_data_a = {
+>>>>>     .id = STM_SAI_A_ID;
+>>>>> }
+>>>>> struct of_device_id stm32_sai_sub_ids[] = {
+>>>>>     .data = &stm32_sai_comp_data_a},
+>>>>> }
+>>>> Either approach works for me (or a revert for that matter).
+>>>
+>>>      Thanks for your advice, I was thoughtless.
+>>>
+>>>      I think change the date of STM_SAI_x_ID maybe simple. But if we 
+>>> don't change the id,
+>>>
+>>> what about add a "#define" like the line 47:
+>>>
+>>> #define STM_SAI_IS_SUB(x) ((x)->id == STM_SAI_A_ID || (x)->id == 
+>>> STM_SAI_B_ID)
+>>>
+>>> then in the judgement, wu use:
+>>>
+>>>      sai->id = (uintptr_t)of_device_get_match_data(&pdev->dev);
+>>>
+>>>      if (!STM_SAI_IS_SUB(sai))
+>>>
+>>>              return -EINVAL;
+>>>
+>>>
+>>> if you think that's ok, I will send patch v2 for you .
+>>>
+>>
+>> If we allow null value in STM_SAI_IS_SUB(sai) check, we can miss real 
+>> NULL pointer error from of_device_get_match_data().
+>>
+>> The simplest way is to change STM_SAI_x_ID enums I think.
+>> But honnestly, I feel more comfortable to let the driver unchanged.
+>>
+> Oh，you are right, I am sorry.
+> 
+> Please forget this patch, I'm sorry to have wasted your time.
+> 
+> But I saw some codes is useless in the line 48 & line 49, I think we can 
+> remove it.
+> 
 
-diff --git a/sound/usb/mixer_maps.c b/sound/usb/mixer_maps.c
-index 7ef7a8abcc2b..3c795675f048 100644
---- a/sound/usb/mixer_maps.c
-+++ b/sound/usb/mixer_maps.c
-@@ -439,6 +439,31 @@ static const struct usbmix_name_map msi_mpg_x570s_carbon_max_wifi_alc4080_map[]
- 	{}
- };
- 
-+/* Gigabyte B450/550 Mobo */
-+static const struct usbmix_name_map gigabyte_b450_map[] = {
-+	{ 24, NULL },			/* OT, IEC958?, disabled */
-+	{ 21, "Speaker" },		/* OT */
-+	{ 29, "Speaker Playback" },	/* FU */
-+	{ 22, "Headphone" },		/* OT */
-+	{ 30, "Headphone Playback" },	/* FU */
-+	{ 11, "Line" },			/* IT */
-+	{ 27, "Line Capture" },		/* FU */
-+	{ 12, "Mic" },			/* IT */
-+	{ 28, "Mic Capture" },		/* FU */
-+	{ 9, "Front Mic" },		/* IT */
-+	{ 25, "Front Mic Capture" },	/* FU */
-+	{}
-+};
-+
-+static const struct usbmix_connector_map gigabyte_b450_connector_map[] = {
-+	{ 13, 21 },	/* Speaker */
-+	{ 14, 22 },	/* Headphone */
-+	{ 19, 11 },	/* Line */
-+	{ 20, 12 },	/* Mic */
-+	{ 17, 9 },	/* Front Mic */
-+	{}
-+};
-+
- /*
-  * Control map entries
-  */
-@@ -581,6 +606,11 @@ static const struct usbmix_ctl_map usbmix_ctl_maps[] = {
- 		.map = trx40_mobo_map,
- 		.connector_map = trx40_mobo_connector_map,
- 	},
-+	{	/* Gigabyte B450/550 Mobo */
-+		.id = USB_ID(0x0414, 0xa00d),
-+		.map = gigabyte_b450_map,
-+		.connector_map = gigabyte_b450_connector_map,
-+	},
- 	{	/* ASUS ROG Zenith II */
- 		.id = USB_ID(0x0b05, 0x1916),
- 		.map = asus_rog_map,
--- 
-2.35.3
+Yes, these two defines are no more useful.
+Feel free to send a cleanup patch.
 
+BRs
+
+Olivier
+
+> If you think so, I will send this patch for you.
+> 
+> 
+> Thanks
+> 
+> Tang Bin
+> 
+> 
+>> BRs
+>> Olivier
+>>
+>>> Thanks
+>>>
+>>> Tang Bin
+>>>
+>>>
+> 
+> 

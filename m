@@ -2,81 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7ADFD5352D8
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 May 2022 19:45:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEF9A53534D
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 May 2022 20:22:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 113641716;
-	Thu, 26 May 2022 19:45:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 113641716
+	by alsa0.perex.cz (Postfix) with ESMTPS id 47179169A;
+	Thu, 26 May 2022 20:22:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 47179169A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653587151;
-	bh=Z6Psciftp7RG/YX/WH7ayCaEWc97FgoyLfc6zzuQPdk=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=gWfpqJXvwLblaG/mgozs3Fha3j0ytovHPa6MwKXVVZXbR1YTqaoTbrAaN31p0HPl+
-	 M5LXC5GCxyoILtHICBp8w6S/pZKojj0ApokBhue0aOveZfeL+jsNl5EVYBdd12VBPN
-	 1rgCThYT4aB1MPsClJY4wIerbdqK4vR5YkMWmTjo=
+	s=default; t=1653589373;
+	bh=C4Gr5XQIWHNuxXK7asBxR86f7UJp9pljfpdTJsZ86C4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=r1E7/+csIv07saJs08/ohCK/4vumslXmXbRBLPIaZzjNpaTQQxCEcOeq9mefNUxZ2
+	 ucnqxFefohtiVIPZviGWH9HBoLvglR3H+0qqg+x6B+l0tHaFSuEJ4PXri8sF9vN4jh
+	 b363ZeeniM5mTh6/mkXBXgw7xK4we3PVCZubuGk4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7C675F8007E;
-	Thu, 26 May 2022 19:44:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A54D8F80171;
+	Thu, 26 May 2022 20:21:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4F172F8014B; Thu, 26 May 2022 19:44:51 +0200 (CEST)
+ id 7EC34F80100; Thu, 26 May 2022 20:21:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-qt1-x835.google.com (mail-qt1-x835.google.com
+ [IPv6:2607:f8b0:4864:20::835])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 803B6F8007E
- for <alsa-devel@alsa-project.org>; Thu, 26 May 2022 19:44:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 803B6F8007E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1828CF80100
+ for <alsa-devel@alsa-project.org>; Thu, 26 May 2022 20:21:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1828CF80100
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="iTwlLQXL"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 335C961018;
- Thu, 26 May 2022 17:44:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23624C34116;
- Thu, 26 May 2022 17:44:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1653587084;
- bh=Z6Psciftp7RG/YX/WH7ayCaEWc97FgoyLfc6zzuQPdk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=iTwlLQXLCcxIdHYJARhbd+yJCx1eEMvlXUH1nsQWLI6tnyWW3mhE9I0pT/M6jRzMH
- 854t9cS+7YVJgPYIfmbU0xC4J1J2eBnvaDggwIQGRYPqn8wmmG6ynr+2D4uMqHpsTo
- A9mWSrC7msaggVlxE/7/xklFJRwpUyOjmBP8qtms/9bg+C7YpsqpiOwjq/Pzt14/xK
- U0hJZlO65tpKRWQNHqH/9+YtAf0FjkmhSoz7/VWWEKiOqpNnNxxXo4G3ceSzLq6YzY
- KmQZBCfSfSLzIJ9wu8mreRYCPpDEPb7mYjPPZ0ymc5mP9u5PGlHX+xsnJ2gwnhjUlF
- vxaag4Y1XbZ9A==
-Date: Thu, 26 May 2022 18:44:38 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Guenter Roeck <linux@roeck-us.net>
-Subject: Re: [PATCH v3 11/15] ASoC: Intel: avs: Machine board registration
-Message-ID: <Yo+8hvwhvdx7tNGI@sirena.org.uk>
-References: <20220516101116.190192-1-cezary.rojewski@intel.com>
- <20220516101116.190192-12-cezary.rojewski@intel.com>
- <20220526162443.GA60418@roeck-us.net>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="ZZUJiu/r"
+Received: by mail-qt1-x835.google.com with SMTP id p8so2599828qtx.9
+ for <alsa-devel@alsa-project.org>; Thu, 26 May 2022 11:21:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=/wvru1v94Z3LpfaUeEixaS62JjWjiVp1HvAWwWWK5xg=;
+ b=ZZUJiu/rOG/YOu2+5oV05xYD3LBrN4nPp3juCeQHXDJ+SCSC77GJj5kNHEbuK2/KFU
+ MXfIOq87Rg8b7sNLtnqSwlOBDvMJjxQnoMQ9arUiZlI3KmGxno7GEaaHNKmlJKRXBWXD
+ IuDnx6aL7dPX1/5kwyQyfqYF27IwKmMUdOkKlJG7FBXivK+ymwCDuyA71nXK859rImrq
+ Cy9jJGwAOpeKSWLklDkUjACh5gLxgv1jclMgXZVZ/Ia2Esn8WeeNN2GV9pN+K9+3NgCz
+ SM1TvNeTc5H4Ki+9Ukd4pgj9Zwb1EoB8ZLsfyaoYnE0/S5YEBB11TMF3bPgbs07tSMBQ
+ AS7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=/wvru1v94Z3LpfaUeEixaS62JjWjiVp1HvAWwWWK5xg=;
+ b=HoPmPtuYWPh3reilz+R9kaUcHDQoNL9UkefER4IY30JzCvmhYJrB30fLqgskHuPh4J
+ 2WqQnSSIxTvjkVkg520SonrZiw2j8FRuMUuT+Nv9MDR69rNEICXP8/NbJmT/10vOlJMS
+ ry6qZdxtmD7MpJey+JbrAQo18VJ1cIukIzWILZGTcBz2RPCK6axcEbIAYIK/9XpUyUjm
+ ZxTUEd4vZyVAbWNRjj5C6nYURaJJe/YlJgRzR4P1G3qFPfVeC0xwdclU12CNIX8Pyfgs
+ IYq4bTJ1HPA/98TNcyC+FG3wELHmt+fH//TqthR/sgnjKVKtLlH0ZaG6y7c048y1z+oD
+ VmJg==
+X-Gm-Message-State: AOAM533Rr35fMYct5Y+k4ljNd7rDuC9j+QnXlJFefw9+oxBte2Ip3OGs
+ uZKkoIHHFuEdE/m3Vjg9JCvU6I8tQB8=
+X-Google-Smtp-Source: ABdhPJz6KfaUIhhaiWIH+q2OcHNSg6YVhoH0ms+eBOB/eGyVnd1i5HBvYIonid4BZbj0kpvhB+QHbg==
+X-Received: by 2002:ac8:5750:0:b0:2f9:410b:7101 with SMTP id
+ 16-20020ac85750000000b002f9410b7101mr12262760qtx.291.1653589307429; 
+ Thu, 26 May 2022 11:21:47 -0700 (PDT)
+Received: from aford-OptiPlex-7050.logicpd.com ([174.46.170.158])
+ by smtp.gmail.com with ESMTPSA id
+ s22-20020a05622a1a9600b002f39b99f69fsm1395859qtc.57.2022.05.26.11.21.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 26 May 2022 11:21:46 -0700 (PDT)
+From: Adam Ford <aford173@gmail.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: wm8962: Fix suspend while playing music
+Date: Thu, 26 May 2022 13:21:28 -0500
+Message-Id: <20220526182129.538472-1-aford173@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="eeSbvHgJqt4kZcho"
-Content-Disposition: inline
-In-Reply-To: <20220526162443.GA60418@roeck-us.net>
-X-Cookie: Money is the root of all wealth.
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, upstream@semihalf.com,
- alsa-devel@alsa-project.org, rad@semihalf.com, tiwai@suse.com,
- pierre-louis.bossart@linux.intel.com, hdegoede@redhat.com,
- amadeuszx.slawinski@linux.intel.com, cujomalainey@chromium.org,
- lma@semihalf.com
+Content-Transfer-Encoding: 8bit
+Cc: aford@beaconembedded.com, Geert Uytterhoeven <geert+renesas@glider.be>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ "open list:WOLFSON MICROELECTRONICS DRIVERS" <patches@opensource.cirrus.com>,
+ Takashi Iwai <tiwai@suse.com>, Minghao Chi <chi.minghao@zte.com.cn>,
+ Mark Brown <broonie@kernel.org>, Stephen Kitt <steve@sk2.org>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>, Adam Ford <aford173@gmail.com>,
+ open list <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,40 +104,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+If the audio CODEC is playing sound when the system is suspended,
+it can be left in a state which throws the following error:
 
---eeSbvHgJqt4kZcho
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+wm8962 3-001a: ASoC: error at soc_component_read_no_lock on wm8962.3-001a: -16
 
-On Thu, May 26, 2022 at 09:24:43AM -0700, Guenter Roeck wrote:
-> On Mon, May 16, 2022 at 12:11:12PM +0200, Cezary Rojewski wrote:
+Once this error has occurred, the audio will not work again until rebooted.
 
-> > +	if (fls(mach->mach_params.i2s_link_mask) > num_ssps) {
-> > +		dev_err(adev->dev, "Platform supports %d SSPs but board %s requires SSP%ld\n",
+Fix this by configuring SET_SYSTEM_SLEEP_PM_OPS.
 
->    sound/soc/intel/avs/board_selection.c: In function 'avs_register_i2s_board':
-> >> sound/soc/intel/avs/board_selection.c:328:36: warning: format '%ld' expects argument of type 'long int', but argument 5 has type 'int' [-Wformat=]
->      328 |                 dev_err(adev->dev, "Platform supports %d SSPs but board %s requires SSP%ld\n",
->                                                                                                   ^^^
-> Reported by 0-day but still made it into mainline.
+Signed-off-by: Adam Ford <aford173@gmail.com>
 
-FWIW given how hard the 0-day reports have become to read I'd not rely
-on people paying attention to things that are clearly pure build
-coverage based off a 0-day report alone.
+diff --git a/sound/soc/codecs/wm8962.c b/sound/soc/codecs/wm8962.c
+index 34cd5a2a997c..5cca89364280 100644
+--- a/sound/soc/codecs/wm8962.c
++++ b/sound/soc/codecs/wm8962.c
+@@ -3868,6 +3868,7 @@ static int wm8962_runtime_suspend(struct device *dev)
+ #endif
+ 
+ static const struct dev_pm_ops wm8962_pm = {
++	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
+ 	SET_RUNTIME_PM_OPS(wm8962_runtime_suspend, wm8962_runtime_resume, NULL)
+ };
+ 
+-- 
+2.25.1
 
---eeSbvHgJqt4kZcho
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmKPvIUACgkQJNaLcl1U
-h9DMZgf/Qdwe2pvnu+6wQk5eIAxPt0Tmh0g4ZNXHdHrmNgWJxDCUvxcyxbwWDKzM
-klDpRmJJZYWAHwOgK34mQXwS8alcQpQSCcCm34fyJP4Qyg61m/wHqpiHLcja5Utc
-8MTwT4YqxlekfxF0rtnvETbG7bJH8u+h/WAYjLctXNusTZxfA9mbo45QsAQqAK6B
-282LBb9fFBZFePlYQwDiwN6TrHZLD890GMCi2P3KMGnYfAXsycmSjJrk/bsymbvH
-MT27fy4X1FlCTTeAst6yAYBagGPZZtOQeIwx6NQM/r/QcxNBumtjgPQgPZqIgNMI
-JmjPOMXa2ZB4Qw8BME2g9Mi8jyW4jA==
-=NSJ1
------END PGP SIGNATURE-----
-
---eeSbvHgJqt4kZcho--

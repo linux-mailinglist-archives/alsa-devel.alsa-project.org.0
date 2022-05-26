@@ -2,79 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06FE5535012
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 May 2022 15:36:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC2F5535026
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 May 2022 15:44:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AA25D1709;
-	Thu, 26 May 2022 15:35:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA25D1709
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5D14316BE;
+	Thu, 26 May 2022 15:43:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D14316BE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653572209;
-	bh=eCL+lz/DTl78RitlPsWn+zYo7CVntKFVBjTAXADe22U=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Nu8CH0GrZz3kXKPQCx4PmBEyzdqsl+ozyX5uYR30rTWdj77S4C+v7o0BFO9oNnGIL
-	 ZFU9rxJa9yo8ZN+g3rKQZMtY8bH6fkVjgh13yLrju4M28Ku8sUgYrni14ene0lfUrw
-	 yHUbwQKFm++xg1/ieKN9RO1+uSmJsCEH0hihLQLg=
+	s=default; t=1653572654;
+	bh=zED2qHEjuHZ0K+j/TYWFXzmk1LRvenwFgNIdTXAHTcE=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=B4im7EwPo3YXFcoCkAR9qE30RW+QcbepXC5DZVM25m6pztm4PbO1QiPTal8V7auzt
+	 BmtuUpUO+5QugcbBQk8StOECp6VAuhpCLBZtRsrOq7Ha8AsCdVLXMbmdzP6oiNKDJo
+	 VyAppzJIMSTI/dK/ghDyO8Ytk7XXKlVdGdbhXoKI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 087DBF8027D;
-	Thu, 26 May 2022 15:35:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C49A3F80171;
+	Thu, 26 May 2022 15:43:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7F49EF8025C; Thu, 26 May 2022 15:35:50 +0200 (CEST)
+ id 67B73F8014B; Thu, 26 May 2022 15:43:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 697D9F80171
- for <alsa-devel@alsa-project.org>; Thu, 26 May 2022 15:35:44 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id BDAF9A0046;
- Thu, 26 May 2022 15:35:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz BDAF9A0046
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1653572143; bh=dLGgahsDMPTwe5ZYMvO+GM+Fx3PNAynNJASWgoSCbSg=;
- h=Date:Subject:To:References:Cc:From:In-Reply-To:From;
- b=FBQmK9Wmm4KmxKkUU21n3EKAEL/ECEJWC81ZvBO2j8F+914SDEcjOSJzQ6COyqjym
- I1FWkmwQb9M9pmcxtxHnkRrruuiIAlGHXjqeVK3OGJCR8k1JPDSB2SEUjRBZcEoHrP
- FlOsSB0Y6/tkeJEf6Qh4yw6aVdJHdFWFJ9mX+9to=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Thu, 26 May 2022 15:35:40 +0200 (CEST)
-Message-ID: <edd3a849-13eb-9a21-963e-f8cc8deffe47@perex.cz>
-Date: Thu, 26 May 2022 15:35:40 +0200
+ by alsa1.perex.cz (Postfix) with ESMTPS id 696E3F80100
+ for <alsa-devel@alsa-project.org>; Thu, 26 May 2022 15:43:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 696E3F80100
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1nuDlU-0006dn-La; Thu, 26 May 2022 15:43:00 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1nuDlV-004gY4-2P; Thu, 26 May 2022 15:42:59 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1nuDlS-00CG3V-WF; Thu, 26 May 2022 15:42:59 +0200
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>
+Subject: [PATCH] ASoC: ak4642: Drop no-op remove function
+Date: Thu, 26 May 2022 15:42:39 +0200
+Message-Id: <20220526134239.1593877-1-u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Subject: Re: Request for setup of new repositories
-Content-Language: en-US
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-References: <7d90c47a-ce1a-d9d7-ba8a-e794f20487cb@perex.cz>
- <YmfZxmfv5dfgdYG1@workstation> <YmtNgqfFREYKZM6t@workstation>
- <YnO4A43EUdnG0b7n@workstation>
- <14235475-bd6b-4b86-61f4-8c2aa7f95838@perex.cz>
- <b6e986d0-b594-4543-ae63-e08e88ad3418@www.fastmail.com>
- <YozAmQFZ3LhqQoZN@workstation>
- <afd7c233-39c5-b73f-75c7-728a8abbd434@perex.cz>
- <Yo2JcNT9rQ0xw0+Q@workstation>
- <ef0ab4a6-ed6e-51e5-ffd8-397aa3e289ab@perex.cz>
- <Yo95YGyUSSBOipM2@workstation>
-From: Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <Yo95YGyUSSBOipM2@workstation>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: Takashi Iwai <tiwai@suse.de>,
- ALSA development <alsa-devel@alsa-project.org>
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=965; h=from:subject;
+ bh=zED2qHEjuHZ0K+j/TYWFXzmk1LRvenwFgNIdTXAHTcE=;
+ b=owEBbQGS/pANAwAKAcH8FHityuwJAcsmYgBij4PL7qcEFAvKEAW8IT1wwxUDiARd3Rtu1qh8iqKt
+ 1KxaxxyJATMEAAEKAB0WIQR+cioWkBis/z50pAvB/BR4rcrsCQUCYo+DywAKCRDB/BR4rcrsCZgbCA
+ CV5BZ3Evn/8E91wB/KT1jglCODL/iNZL1VfQ3bOEmCmCTuZGXWnX20tCo6pzHvEx6Kousckpiybc3o
+ 8CJ8z8L9G/c/GnTLy54sn9M412u/2nh4ZcJ+gdkzxvkHRvXGkLmQZANTrI2VCoCP1uezu/vJ3Jdlqp
+ SvQA8kLtU1Q0vywZGw3XY4Nmaz6Ffs+PRvQj8w7mPXwz3W5sDNNWArZaVe+QokDNLEQkvtBqtiKKFu
+ WWzsCeFXmzViwuCsVIuY0hK9XkhuxqRD7ZNZvs1QoeR29FOJe9cDPVamrXuiKNdetybcNt/2Pt5yDt
+ /CL7kcmyJ9nS9SIztgh+KCoMdpBPd8
+X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
+ kernel@pengutronix.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,72 +91,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 26. 05. 22 14:58, Takashi Sakamoto wrote:
-> Hi,
-> 
-> On Wed, May 25, 2022 at 08:37:37AM +0200, Jaroslav Kysela wrote:
->> On 25. 05. 22 3:42, Takashi Sakamoto wrote:
->>> Thanks for the suggestion. Indeed, we can choose the way to put
->>> documentation to specific branch in the repository. I've already
->>> investigated the way then had complexed feeling.
->>>
->>> ...To be honest, I'd like to avoid it, as much as possible, in a point
->>> of the essential concept in source control management. The branching
->>> idea forces to put several histories disconnected each other into one
->>> repository. It's surely available technically, however I feel sort of
->>> awkward somehow.
->>>
->>> (I think I'm enough conservative when using tools. I feel something
->>> shooting myself in the foot when doing it. It perhaps comes from my
->>> experience under UNIX-like environment...)
->>>
->>> The separated common repository for documents had room for integration of
->>> documentation. For example, I can put library documentations as well as
->>> overview page for included software such like Rust crates. It's flexible
->>> and logical in a view of top level of software stack.
->>
->> It's fine for me. The gobject-introspection-docs is created now.
-> 
-> Great. I pushed some documents except for index page:
-> 
->   * https://github.com/alsa-project/gobject-introspection-docs
-> 
-> Later I'd like to use Jekyll backend of github pages[1]. Would I ask you
-> to grant my privilege in the repository so that I can add configuration
-> for it? I think the same privilege set in libhinawa-docs is enough.
+A remove callback that just returns 0 is equivalent to no callback at all
+as can be seen in i2c_device_remove(). So simplify accordingly.
 
-It seems that it's just a configuration file which is stored in the 
-repository, so the standard github pages setup should be sufficient.
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+---
+ sound/soc/codecs/ak4613.c | 6 ------
+ 1 file changed, 6 deletions(-)
 
-Anyway, I made you as maintainer of this gobject-introspection-docs repo, so 
-you should do more changes in it, if you like.
+diff --git a/sound/soc/codecs/ak4613.c b/sound/soc/codecs/ak4613.c
+index 034195c83bd7..20a85a81b2ad 100644
+--- a/sound/soc/codecs/ak4613.c
++++ b/sound/soc/codecs/ak4613.c
+@@ -684,18 +684,12 @@ static int ak4613_i2c_probe(struct i2c_client *i2c,
+ 				      &ak4613_dai, 1);
+ }
+ 
+-static int ak4613_i2c_remove(struct i2c_client *client)
+-{
+-	return 0;
+-}
+-
+ static struct i2c_driver ak4613_i2c_driver = {
+ 	.driver = {
+ 		.name = "ak4613-codec",
+ 		.of_match_table = ak4613_of_match,
+ 	},
+ 	.probe		= ak4613_i2c_probe,
+-	.remove		= ak4613_i2c_remove,
+ 	.id_table	= ak4613_i2c_id,
+ };
+ 
 
-> Additionally, please archive below old documentation repositories? I've
-> already configure them to publish redirect pages. I hear that github
-> pages service still publish pages for archived repositories.
-> 
->   * https://github.com/alsa-project/libhinawa-docs/
->   * https://github.com/alsa-project/libhitaki-doc/
->   * https://github.com/alsa-project/alsa-gobject-docs/
-> 
-> And it's helpful to change page URL in 'About' section of right pane.
-> (I think it's good to remove it for convenience.)
-> 
->   * https://github.com/alsa-project/libhinawa/
-> 
-> Today I release new releases for libhinawa and libhitaki. Thanks for
-> your help.
-> 
->   * https://github.com/alsa-project/libhitaki/releases/tag/v0.1.0
->   * https://github.com/alsa-project/libhinawa/releases/tag/2.5.0
-> 
-> [1] https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/about-github-pages-and-jekyll
-> [2] https://github.com/alsa-project/libhinawa-docs/
-
-I've tried to follow all instructions. If something is missing, please, ping me.
-
-					Jaroslav
-
+base-commit: 4b0986a3613c92f4ec1bdc7f60ec66fea135991f
 -- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+2.36.1
+

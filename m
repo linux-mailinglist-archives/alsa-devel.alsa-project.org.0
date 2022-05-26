@@ -2,93 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEF9A53534D
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 May 2022 20:22:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AA01535358
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 May 2022 20:32:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 47179169A;
-	Thu, 26 May 2022 20:22:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 47179169A
+	by alsa0.perex.cz (Postfix) with ESMTPS id CCE671686;
+	Thu, 26 May 2022 20:31:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CCE671686
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653589373;
-	bh=C4Gr5XQIWHNuxXK7asBxR86f7UJp9pljfpdTJsZ86C4=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=r1E7/+csIv07saJs08/ohCK/4vumslXmXbRBLPIaZzjNpaTQQxCEcOeq9mefNUxZ2
-	 ucnqxFefohtiVIPZviGWH9HBoLvglR3H+0qqg+x6B+l0tHaFSuEJ4PXri8sF9vN4jh
-	 b363ZeeniM5mTh6/mkXBXgw7xK4we3PVCZubuGk4=
+	s=default; t=1653589950;
+	bh=sQ0PhzqEwWl1eOGC2iQSwjyIDLxlpV5KM/s8Awt7wUk=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=A4OMew7LG91P2xvKdrM/I0twv0UdnTv+R6lbvCGXqX2CGdUZ2M4jeNGLQGTfmbmft
+	 dD7YEecBbVZ6NpE3hrgmWU7I+Gt4sCIKw+I+IhH6mb9Zvh8dOz3NPgNCvz2Vd0XrYd
+	 fRiEbyFhoZ6mg5hfu39jwV5ApM7iK3PHiRHHYAP8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A54D8F80171;
-	Thu, 26 May 2022 20:21:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4FEB2F800D0;
+	Thu, 26 May 2022 20:31:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7EC34F80100; Thu, 26 May 2022 20:21:52 +0200 (CEST)
+ id 5478EF8014B; Thu, 26 May 2022 20:31:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-qt1-x835.google.com (mail-qt1-x835.google.com
- [IPv6:2607:f8b0:4864:20::835])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1828CF80100
- for <alsa-devel@alsa-project.org>; Thu, 26 May 2022 20:21:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1828CF80100
+ by alsa1.perex.cz (Postfix) with ESMTPS id F0799F80100
+ for <alsa-devel@alsa-project.org>; Thu, 26 May 2022 20:31:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0799F80100
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="ZZUJiu/r"
-Received: by mail-qt1-x835.google.com with SMTP id p8so2599828qtx.9
- for <alsa-devel@alsa-project.org>; Thu, 26 May 2022 11:21:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=/wvru1v94Z3LpfaUeEixaS62JjWjiVp1HvAWwWWK5xg=;
- b=ZZUJiu/rOG/YOu2+5oV05xYD3LBrN4nPp3juCeQHXDJ+SCSC77GJj5kNHEbuK2/KFU
- MXfIOq87Rg8b7sNLtnqSwlOBDvMJjxQnoMQ9arUiZlI3KmGxno7GEaaHNKmlJKRXBWXD
- IuDnx6aL7dPX1/5kwyQyfqYF27IwKmMUdOkKlJG7FBXivK+ymwCDuyA71nXK859rImrq
- Cy9jJGwAOpeKSWLklDkUjACh5gLxgv1jclMgXZVZ/Ia2Esn8WeeNN2GV9pN+K9+3NgCz
- SM1TvNeTc5H4Ki+9Ukd4pgj9Zwb1EoB8ZLsfyaoYnE0/S5YEBB11TMF3bPgbs07tSMBQ
- AS7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=/wvru1v94Z3LpfaUeEixaS62JjWjiVp1HvAWwWWK5xg=;
- b=HoPmPtuYWPh3reilz+R9kaUcHDQoNL9UkefER4IY30JzCvmhYJrB30fLqgskHuPh4J
- 2WqQnSSIxTvjkVkg520SonrZiw2j8FRuMUuT+Nv9MDR69rNEICXP8/NbJmT/10vOlJMS
- ry6qZdxtmD7MpJey+JbrAQo18VJ1cIukIzWILZGTcBz2RPCK6axcEbIAYIK/9XpUyUjm
- ZxTUEd4vZyVAbWNRjj5C6nYURaJJe/YlJgRzR4P1G3qFPfVeC0xwdclU12CNIX8Pyfgs
- IYq4bTJ1HPA/98TNcyC+FG3wELHmt+fH//TqthR/sgnjKVKtLlH0ZaG6y7c048y1z+oD
- VmJg==
-X-Gm-Message-State: AOAM533Rr35fMYct5Y+k4ljNd7rDuC9j+QnXlJFefw9+oxBte2Ip3OGs
- uZKkoIHHFuEdE/m3Vjg9JCvU6I8tQB8=
-X-Google-Smtp-Source: ABdhPJz6KfaUIhhaiWIH+q2OcHNSg6YVhoH0ms+eBOB/eGyVnd1i5HBvYIonid4BZbj0kpvhB+QHbg==
-X-Received: by 2002:ac8:5750:0:b0:2f9:410b:7101 with SMTP id
- 16-20020ac85750000000b002f9410b7101mr12262760qtx.291.1653589307429; 
- Thu, 26 May 2022 11:21:47 -0700 (PDT)
-Received: from aford-OptiPlex-7050.logicpd.com ([174.46.170.158])
- by smtp.gmail.com with ESMTPSA id
- s22-20020a05622a1a9600b002f39b99f69fsm1395859qtc.57.2022.05.26.11.21.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 May 2022 11:21:46 -0700 (PDT)
-From: Adam Ford <aford173@gmail.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ASoC: wm8962: Fix suspend while playing music
-Date: Thu, 26 May 2022 13:21:28 -0500
-Message-Id: <20220526182129.538472-1-aford173@gmail.com>
-X-Mailer: git-send-email 2.25.1
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="BgV5Rl1H"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8E6836170D;
+ Thu, 26 May 2022 18:31:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA1A2C385A9;
+ Thu, 26 May 2022 18:31:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1653589885;
+ bh=sQ0PhzqEwWl1eOGC2iQSwjyIDLxlpV5KM/s8Awt7wUk=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=BgV5Rl1Hrvbq1x2BU1zyPQiE6WiJTglM5eYHQv7FMs+qoznuD/Bup7q/+AC5UiQIG
+ pmpP/+Il9X1+yDqwSXDntpt2QIlc/ykZXS/dDFlZ2d2B1WU7LjrYMwYOLZN4qQLeRJ
+ wLF5nsfTu9K/SQqIHkxsm+UAFiPMFKdNHwgTPPJlSMU6J0dPHQzA0o127TN0fPwJKQ
+ ggUeq1yniEPNjKYdZukMq9ljBZ7RxjBU2WsHcaMKMo6gIXNY9Zrs0fd1Evtx4UqQXW
+ bWeMS7tNr/wWE2pWRLgrD8oB2mGYhuJu9OcSe9Db5C/Xs0tt7gQMGO9pE+SrijB2fM
+ 6+E26M+MaEjNg==
+From: Mark Brown <broonie@kernel.org>
+To: alsa-devel@alsa-project.org, CTLIN0@nuvoton.com
+In-Reply-To: <20220526121301.1819541-1-CTLIN0@nuvoton.com>
+References: <20220526121301.1819541-1-CTLIN0@nuvoton.com>
+Subject: Re: [PATCH] ASoC: Intel: common: fix typo for tplg naming
+Message-Id: <165358988346.3218972.14197938083427381484.b4-ty@kernel.org>
+Date: Thu, 26 May 2022 19:31:23 +0100
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: aford@beaconembedded.com, Geert Uytterhoeven <geert+renesas@glider.be>,
- Liam Girdwood <lgirdwood@gmail.com>,
- "open list:WOLFSON MICROELECTRONICS DRIVERS" <patches@opensource.cirrus.com>,
- Takashi Iwai <tiwai@suse.com>, Minghao Chi <chi.minghao@zte.com.cn>,
- Mark Brown <broonie@kernel.org>, Stephen Kitt <steve@sk2.org>,
- Charles Keepax <ckeepax@opensource.cirrus.com>, Adam Ford <aford173@gmail.com>,
- open list <linux-kernel@vger.kernel.org>
+Cc: ctlin0.linux@gmail.com, WTLI@nuvoton.com, SJLIN0@nuvoton.com,
+ KCHSU0@nuvoton.com, pierre-louis.bossart@linux.intel.com,
+ liam.r.girdwood@linux.intel.com, YHCHuang@nuvoton.com, mac.chiang@intel.com,
+ vamshi.krishna.gopal@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,29 +86,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If the audio CODEC is playing sound when the system is suspended,
-it can be left in a state which throws the following error:
+On Thu, 26 May 2022 20:13:02 +0800, David Lin wrote:
+> Correct typo form sof-adl-mx98360a-nau8825.tplg to
+> sof-adl-max98360a-nau8825.tplg. The reason is tplg naming without naming
+> limitaion of length. It will be consistency with sof topology generation.
+> 
+> 
 
-wm8962 3-001a: ASoC: error at soc_component_read_no_lock on wm8962.3-001a: -16
+Applied to
 
-Once this error has occurred, the audio will not work again until rebooted.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Fix this by configuring SET_SYSTEM_SLEEP_PM_OPS.
+Thanks!
 
-Signed-off-by: Adam Ford <aford173@gmail.com>
+[1/1] ASoC: Intel: common: fix typo for tplg naming
+      commit: 5fa66f29937eb806997a4d1d3edd360ef4e93db9
 
-diff --git a/sound/soc/codecs/wm8962.c b/sound/soc/codecs/wm8962.c
-index 34cd5a2a997c..5cca89364280 100644
---- a/sound/soc/codecs/wm8962.c
-+++ b/sound/soc/codecs/wm8962.c
-@@ -3868,6 +3868,7 @@ static int wm8962_runtime_suspend(struct device *dev)
- #endif
- 
- static const struct dev_pm_ops wm8962_pm = {
-+	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
- 	SET_RUNTIME_PM_OPS(wm8962_runtime_suspend, wm8962_runtime_resume, NULL)
- };
- 
--- 
-2.25.1
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

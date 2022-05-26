@@ -2,92 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97DC1534C9A
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 May 2022 11:38:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D8A3534CE1
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 May 2022 11:58:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3F62016B8;
-	Thu, 26 May 2022 11:37:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F62016B8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 09A7016D1;
+	Thu, 26 May 2022 11:57:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09A7016D1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653557886;
-	bh=tB7NeBTUa+Shd3ec5r7epS7MhjQgtiQP1FQtys9Iavk=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1653559126;
+	bh=jyA/7RWAV9Y0Oq627zy9yw/ca5pcu7WYJ2a7t9DaETU=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=G2D7z2BpiHlu8y0FepDAG6/sOn723ktrGJ3OYx0QWaFTAHSJYiURwyrFrWkWheV4d
-	 EDaFtN+9Ue6Z8cwa7AxK2/EgR9mrT1JYi0jXIhrT2v39xAnv/qeiN94S63n84UtZ8C
-	 ZCCLfgA0LawYrgNL5GUaLhwhEFokISIVUFJz7+zI=
+	b=BCHv11JyMvRQ7Y0lANosFG796rXHWkcLiWHFORr3MntdeLj137AIN1oOiRcIoY0YQ
+	 LjvVb8RVqkyL08b/Um1BR89EstKmKIkUA/c/Z0+cF+4OXOQajXsr3e6QoJ57Co9EG8
+	 obBQCe7PrHTQTZZQ024rmSm3+dvumybY8hXZ92gk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A1668F80171;
-	Thu, 26 May 2022 11:37:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5D3C2F80171;
+	Thu, 26 May 2022 11:57:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B822DF8014B; Thu, 26 May 2022 11:37:06 +0200 (CEST)
+ id 16943F8007E; Thu, 26 May 2022 11:57:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 161AFF8007E
- for <alsa-devel@alsa-project.org>; Thu, 26 May 2022 11:37:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 161AFF8007E
+ by alsa1.perex.cz (Postfix) with ESMTPS id B3A6DF8007E
+ for <alsa-devel@alsa-project.org>; Thu, 26 May 2022 11:57:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3A6DF8007E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="j0zzhnXE"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24Q6j4ns023965;
- Thu, 26 May 2022 04:37:02 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=eSj5zYBwY24mn9xJf93mfFhpP1TsbEug8hBnh0nGbcc=;
- b=j0zzhnXEsv1m8eSSGYXxYPPtoHyurf0GReMgc+8IjaYONiQkak2mSCUdD18yW4aQui9Z
- TwpcTdvQCSCCijysz0fhqknAFj8NdDsW9lQ8POktI6T+m66CJQgfSlDeM9H6EYvfw4r/
- YR/JeaVQWr+73FqHZK1mCZ5t3QAccHRfbuEWz67Fjy7h+xc4My+6gWlfXsmzw/aKgu7G
- CnFh2IGxefeCHxuPu+Q3ylTsQurPdY5RF4q8Swm1fl1AAZCNig3c1GGa0SKkFFTQqRAP
- KS7pRPSegOEM2C2T0K5Ce+meLMDPC4nWjpuFCNGRGpKEI2s+S5WCdF5lziVFxmutwkoG jQ== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3g93u4j0ye-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 26 May 2022 04:37:01 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Thu, 26 May
- 2022 10:36:59 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.24 via
- Frontend Transport; Thu, 26 May 2022 10:36:59 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 8B89D46C;
- Thu, 26 May 2022 09:36:58 +0000 (UTC)
-Date: Thu, 26 May 2022 09:36:58 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-Subject: Re: [PATCH v4 02/17] ALSA: hda: hda_cs_dsp_ctl: Add apis to write
- the controls directly
-Message-ID: <20220526093658.GQ38351@ediswmail.ad.cirrus.com>
-References: <20220525131638.5512-1-vitalyr@opensource.cirrus.com>
- <20220525131638.5512-3-vitalyr@opensource.cirrus.com>
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="VVCfNfTp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1653559064; x=1685095064;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=jyA/7RWAV9Y0Oq627zy9yw/ca5pcu7WYJ2a7t9DaETU=;
+ b=VVCfNfTpO7+09ExSVC9fQXbH1Hbrl+99TEbhtH9IdGl8tG27c65wggRJ
+ 2AzpxCfGMW0jsrsRopa43pueu/UaJjsbxgmvOfDlqMO2ZDAw5FCMwf2DE
+ 6tSAfLbXBREEvPP4pWZPOmWhyEpPXncAjC2HvNvBEbxStwdEnrQayUKBd
+ cliw7hhDANT3TgYaet6iij249cfRdpCCMh3FQNA9tQ20VbZOR5S6tJkRm
+ yfdB6/2M5BYM3nw0n1cs1SDzA7Z6FfQKnbOhEp9VaC44TnV6Bb+tC0re0
+ 6ubvCpNIJsn2d/k93c0733HijJ0VLRMRW9YJdPXg5pbcRjD6R20RYOnIw Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10358"; a="360493853"
+X-IronPort-AV: E=Sophos;i="5.91,252,1647327600"; d="scan'208";a="360493853"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 May 2022 02:57:40 -0700
+X-IronPort-AV: E=Sophos;i="5.91,252,1647327600"; d="scan'208";a="602963984"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.249.251])
+ ([10.99.249.251])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 May 2022 02:57:39 -0700
+Message-ID: <021e4cc3-f67e-865f-0d8b-5b07fce97623@linux.intel.com>
+Date: Thu, 26 May 2022 11:57:26 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20220525131638.5512-3-vitalyr@opensource.cirrus.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-ORIG-GUID: ZCILVYNVKLxwKbQshogZsWwivpOiURe4
-X-Proofpoint-GUID: ZCILVYNVKLxwKbQshogZsWwivpOiURe4
-X-Proofpoint-Spam-Reason: safe
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- Stefan Binding <sbinding@opensource.cirrus.com>,
- Mark Brown <broonie@kernel.org>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: About Cleanup ASoC
+Content-Language: en-US
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+References: <87fskz5yrr.wl-kuninori.morimoto.gx@renesas.com>
+ <db3b90d3-d356-9a2a-7411-ccf487b25416@linux.intel.com>
+ <a5e3c40c-ea84-c2c4-54f9-70b4c509567e@intel.com>
+ <87a6b6cofh.wl-kuninori.morimoto.gx@renesas.com>
+ <349ddb89-6f1e-f087-2399-795cf82b92b3@linux.intel.com>
+ <87ilptqbvx.wl-kuninori.morimoto.gx@renesas.com>
+From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <87ilptqbvx.wl-kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Mark Brown <broonie@kernel.org>, Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,89 +99,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, May 25, 2022 at 02:16:23PM +0100, Vitaly Rodionov wrote:
-> From: Stefan Binding <sbinding@opensource.cirrus.com>
+On 5/26/2022 4:13 AM, Kuninori Morimoto wrote:
 > 
-> DSP controls are exposed as ALSA controls, however,
-> some of these controls are required to be accessed by
-> the driver. Add apis which allow read/write of these
-> controls. The write api will also notify the ALSA control
-> on value change.
+> Hi Pierre-Louis
 > 
-> Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
-> Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-> ---
+> Thank you for your feedback
 > 
-> Changes since v2:
->  - No change
+>>> 	+-- basic board --------+
+>>> 	|+--------+             |
+>>> 	|| CPU ch0| <--> CodecA |
+>>> 	||     ch1| <-+         |
+>>> 	|+--------+   |         |
+>>> 	+-------------|---------+
+>>>
+>>> 	+-- expansion board ----+
+>>> 	|             |         |
+>>> 	|             +-> CodecB|
+>>> 	+-----------------------+
+> (snip)
+>>> I'm not sure how to count the Card, but
+>>> "basic     board sound" is 1st card,
+>>> "expansion board sound" is 2nd card for us in intuitively.
+> (snip)
+>> did you mean 'channels' or 'streams'?
+> (snip)
+>> If however the 'ch0' and 'ch1' can be independent content then this
+>> configuration would make sense indeed, and it would be quite similar to
+>> the ideas on the Intel side.
 > 
->  sound/pci/hda/hda_cs_dsp_ctl.c | 52 ++++++++++++++++++++++++++++++++++
->  sound/pci/hda/hda_cs_dsp_ctl.h |  4 +++
->  2 files changed, 56 insertions(+)
-> 
-> diff --git a/sound/pci/hda/hda_cs_dsp_ctl.c b/sound/pci/hda/hda_cs_dsp_ctl.c
-> index 46df48ff2ae1..3b837d000a00 100644
-> --- a/sound/pci/hda/hda_cs_dsp_ctl.c
-> +++ b/sound/pci/hda/hda_cs_dsp_ctl.c
-> @@ -237,6 +237,58 @@ void hda_cs_dsp_control_remove(struct cs_dsp_coeff_ctl *cs_ctl)
->  }
->  EXPORT_SYMBOL_NS_GPL(hda_cs_dsp_control_remove, SND_HDA_CS_DSP_CONTROLS);
->  
-> +int hda_cs_dsp_write_ctl(struct cs_dsp *dsp, const char *name, int type,
-> +			 unsigned int alg, void *buf, size_t len)
-> +{
-> +	struct cs_dsp_coeff_ctl *cs_ctl;
-> +	struct hda_cs_dsp_coeff_ctl *ctl;
-> +	struct snd_kcontrol *kctl;
-> +	int ret;
-> +
-> +	cs_ctl = cs_dsp_get_ctl(dsp, name, type, alg);
-> +	if (!cs_ctl)
-> +		return -EINVAL;
-> +
-> +	ctl = cs_ctl->priv;
-> +
-> +	if (len > cs_ctl->len)
-> +		return -EINVAL;
+> These are independent sounds.
+> It is working for us if we merge these into one Cards, but...
+> I'm OK and will do nothing if no one want to have multi Card connection.
+> but I'm happy to work for it if someone needs it.
 
-Is it just me or are these length check unnecessary? I realise
-they are also in the wm_adsp code you are copying, but it looks
-to me like they are redundant in both cases, cs_dsp_coeff_*_ctrl
-appears to do a length check itself.
+Well, this sounds like what we did in avs, namely we split cards 
+separately based on endpoint. Main driver decides what endpoints to 
+expose, based on ACPI detection and ACPI match rules, see [1]. For 
+example in our model it is possible to have 2 separate i2s codecs 
+connected and each having its own card. From avs driver we expose 
+snd_soc_dai_driver with 2 streams (playback and capture), see [2] and 
+then tell machine driver to just connect them to codec [3] - look for 
+"SSP%d Pin", "ssp%d Tx" and "ssp%d Rx". Connections between "ssp%d 
+Tx"/"ssp%d Rx" and userspace FE are handled by topology in our case, but 
+should be easy to expose without it, if you don't use topologies.
 
-> +
-> +	ret = cs_dsp_coeff_write_ctrl(cs_ctl, 0, buf, len);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (cs_ctl->flags & WMFW_CTL_FLAG_SYS)
-> +		return 0;
-> +
-> +	list_for_each_entry(kctl, &ctl->card->controls, list)
-> +		if (!strncmp(kctl->id.name, ctl->name, sizeof(kctl->id.name))) {
-> +			snd_ctl_notify(ctl->card, SNDRV_CTL_EVENT_MASK_VALUE, &kctl->id);
-> +			return 0;
-> +		}
-> +
-> +	dev_warn(dsp->dev, "Cannot find Control for %s\n", name);
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_NS_GPL(hda_cs_dsp_write_ctl, SND_HDA_CS_DSP_CONTROLS);
-> +
-> +int hda_cs_dsp_read_ctl(struct cs_dsp *dsp, const char *name, int type,
-> +			unsigned int alg, void *buf, size_t len)
-> +{
-> +	struct cs_dsp_coeff_ctl *cs_ctl;
-> +
-> +	cs_ctl = cs_dsp_get_ctl(dsp, name, type, alg);
-> +	if (!cs_ctl)
-> +		return -EINVAL;
-> +
-> +	if (len > cs_ctl->len)
-> +		return -EINVAL;
 
-ditto.
-
-Thanks,
-Charles
+[1] 
+https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git/tree/sound/soc/intel/avs/board_selection.c
+[2] 
+https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git/tree/sound/soc/intel/avs/pcm.c#n946
+[3] 
+https://lore.kernel.org/alsa-devel/20220511162403.3987658-8-cezary.rojewski@intel.com/T/#u

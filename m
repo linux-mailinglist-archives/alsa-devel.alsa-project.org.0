@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE6F55354AE
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 May 2022 22:41:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A26075354BF
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 May 2022 22:42:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 537E316C0;
-	Thu, 26 May 2022 22:40:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 537E316C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4565E16D9;
+	Thu, 26 May 2022 22:42:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4565E16D9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653597692;
-	bh=hW6lCYGXht4qVLz4UbJdRpyOxnzxCaN+x7Ow3h2Sz0Q=;
+	s=default; t=1653597778;
+	bh=EsxoeHI3099IUDvh7F2JLm2lGbKRkyLS/8OvdE8lYBw=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=Zpzu5yuhsQkP4MLJmHtswEZYUjyCPj5eghNxD9KuhmpHjY05Jx6/4cWSMYwufLlBm
-	 LOnJG1eyMbhUh5QaGx0N98UZxrSvdLjzZ8rwtpOYJ5FNj4/R8wRcDSRYU7f2g9ypS1
-	 zpmGuECT+9PkgTTO5n5elnlCqZRcMvNBfXAcDEuk=
+	b=mq3ZGpDveeRb7ixoD1TzJgKOBdE5E5DkIh2H2rsceAmvpi0pnpOjBivQIHosec7XT
+	 5QohOK1fNlZ1n89+JwS2jqysV9foW/PPQxlFOG9kg42TG0E4Ei/mW+pFx+q6XX7UMb
+	 SgI2VdbjED/yOYfTdLAfNI+KaJhFMrpTEvmtuE9I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D3FA2F800D0;
-	Thu, 26 May 2022 22:40:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B5A28F80171;
+	Thu, 26 May 2022 22:42:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BE0CAF8014B; Thu, 26 May 2022 22:40:32 +0200 (CEST)
+ id 88AA6F8014B; Thu, 26 May 2022 22:41:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,40 +33,39 @@ Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
  [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E1252F800D0
- for <alsa-devel@alsa-project.org>; Thu, 26 May 2022 22:40:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1252F800D0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7CC9FF80100
+ for <alsa-devel@alsa-project.org>; Thu, 26 May 2022 22:41:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CC9FF80100
 Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
  by metis.ext.pengutronix.de with esmtps
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <ukl@pengutronix.de>)
- id 1nuKHQ-0007b4-2C; Thu, 26 May 2022 22:40:24 +0200
+ id 1nuKIp-000871-0y; Thu, 26 May 2022 22:41:51 +0200
 Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
  by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
  (envelope-from <ukl@pengutronix.de>)
- id 1nuKHQ-004k0e-9a; Thu, 26 May 2022 22:40:22 +0200
+ id 1nuKIp-004k0r-KC; Thu, 26 May 2022 22:41:50 +0200
 Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
  (envelope-from <ukl@pengutronix.de>)
- id 1nuKHO-00CKUe-BW; Thu, 26 May 2022 22:40:22 +0200
+ id 1nuKIn-00CKUn-Na; Thu, 26 May 2022 22:41:49 +0200
 From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: M R Swami Reddy <mr.swami.reddy@ti.com>,
- Vishwas A Deshpande <vishwas.a.deshpande@ti.com>,
+To: Support Opensource <support.opensource@diasemi.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-Subject: [PATCH] ASoC: lm49453: Drop no-op remove function
-Date: Thu, 26 May 2022 22:40:16 +0200
-Message-Id: <20220526204016.1724630-1-u.kleine-koenig@pengutronix.de>
+Subject: [PATCH] ASoC: da7219: Drop no-op remove function
+Date: Thu, 26 May 2022 22:41:45 +0200
+Message-Id: <20220526204145.1725323-1-u.kleine-koenig@pengutronix.de>
 X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1008; h=from:subject;
- bh=hW6lCYGXht4qVLz4UbJdRpyOxnzxCaN+x7Ow3h2Sz0Q=;
- b=owEBbQGS/pANAwAKAcH8FHityuwJAcsmYgBij+Wt3rURHF/V0NsQe+gDdQxRPoQMP4ovIHT7Sg8w
- M00dGX6JATMEAAEKAB0WIQR+cioWkBis/z50pAvB/BR4rcrsCQUCYo/lrQAKCRDB/BR4rcrsCQH1B/
- 9IPf62pjq806fClNpNp5TpMWVMqNU9E+CfSbhFBc7ut1e5fLvqp0GZ/nHNnbgrHcdwYm5KXaAGW5nI
- BQSx8ir3I/rvo82/2MPvzb4cTVJCgdbnwZYliL92XoLH0ly7CReSwOK8UEz0EFuu6czFM2prW3XAwK
- r2w5hk0soR2vXAr/g7n7CYvi4C8BJoYl7FuG+WippIfOWT3dyjLAwN4B5b/pfj2aUFnEt30hX8iCF6
- HTm5LqyaYAbuKvUs0+L9zYdxhg+k7bSF1SReZ5fc6uuujC1n0l5PBXI3IPkh+meWgzhxarq9xKkdWc
- lTNf7jZrz1HFTwZCKFyPfYtBmcEfYs
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1025; h=from:subject;
+ bh=EsxoeHI3099IUDvh7F2JLm2lGbKRkyLS/8OvdE8lYBw=;
+ b=owEBbQGS/pANAwAKAcH8FHityuwJAcsmYgBij+YD70mw1g/bmtXbQUmFXgBjfgEDWiAyAElcch0D
+ ENzRCQaJATMEAAEKAB0WIQR+cioWkBis/z50pAvB/BR4rcrsCQUCYo/mAwAKCRDB/BR4rcrsCT9JB/
+ 9C7NDJGufR9N6dy+jp85aBjnN560fn0V+O7ph6X2VFrZLz+IbhVKYRJi4M1haReUL4XrhUaEJKQtnT
+ J8OsHa3sJy6lNr839V6e6i7pb4mdhGcs0nEW2TKEQLnHw7rrz7x8oW66/UfWpmg/4r3VZp8XX3ba9c
+ sArEIrjiqbPrDSUeNHgutIAwtTMr5OPufYb0CzMiYnfR2KZDvBgWHhAHX0MqWDrd3KTF2iixaCwYQ1
+ KvMC3FkSDXLVm9q4CdpEr/9H2e+kANjawJnGm6CP685Bd1+lvQJKndYUIKYdE6nD8BtuwC7y2ylj69
+ xYHHeJHbFQ6EMvFcPpEflSGNTv+n8m
 X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
  fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
@@ -96,31 +95,31 @@ as can be seen in i2c_device_remove(). So simplify accordingly.
 
 Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 ---
- sound/soc/codecs/lm49453.c | 6 ------
+ sound/soc/codecs/da7219.c | 6 ------
  1 file changed, 6 deletions(-)
 
-diff --git a/sound/soc/codecs/lm49453.c b/sound/soc/codecs/lm49453.c
-index 973d781b4b6a..86cead5022c0 100644
---- a/sound/soc/codecs/lm49453.c
-+++ b/sound/soc/codecs/lm49453.c
-@@ -1443,11 +1443,6 @@ static int lm49453_i2c_probe(struct i2c_client *i2c,
+diff --git a/sound/soc/codecs/da7219.c b/sound/soc/codecs/da7219.c
+index c7493549a9a5..7df18a2c36b9 100644
+--- a/sound/soc/codecs/da7219.c
++++ b/sound/soc/codecs/da7219.c
+@@ -2694,11 +2694,6 @@ static int da7219_i2c_probe(struct i2c_client *i2c,
  	return ret;
  }
  
--static int lm49453_i2c_remove(struct i2c_client *client)
+-static int da7219_i2c_remove(struct i2c_client *client)
 -{
 -	return 0;
 -}
 -
- static const struct i2c_device_id lm49453_i2c_id[] = {
- 	{ "lm49453", 0 },
+ static const struct i2c_device_id da7219_i2c_id[] = {
+ 	{ "da7219", },
  	{ }
-@@ -1459,7 +1454,6 @@ static struct i2c_driver lm49453_i2c_driver = {
- 		.name = "lm49453",
+@@ -2712,7 +2707,6 @@ static struct i2c_driver da7219_i2c_driver = {
+ 		.acpi_match_table = ACPI_PTR(da7219_acpi_match),
  	},
- 	.probe = lm49453_i2c_probe,
--	.remove = lm49453_i2c_remove,
- 	.id_table = lm49453_i2c_id,
+ 	.probe		= da7219_i2c_probe,
+-	.remove		= da7219_i2c_remove,
+ 	.id_table	= da7219_i2c_id,
  };
  
 

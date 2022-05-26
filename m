@@ -2,89 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94DFE5347D0
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 May 2022 03:07:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 472AA5347FC
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 May 2022 03:18:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F186916B2;
-	Thu, 26 May 2022 03:06:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F186916B2
+	by alsa0.perex.cz (Postfix) with ESMTPS id DDD55167E;
+	Thu, 26 May 2022 03:17:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDD55167E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653527223;
-	bh=lsIdVFoKBwdr8MmxGmwsOqXhHPeXiTrLGR8HhuCcFOw=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=bx3t+PCKdSqB+f+lvYSRAFmENhEAXgTegw4hK9mSWNlI01hnEi5VtyGzOCHA24T5/
-	 W56Pa5z5vWuYC60dFm7KD+BY3UfSLvGB6xdUCBaKbl4purAIe8fBe/Ram59VQ3EjoZ
-	 V/65ADpwIqo8vdYThy7jhWjyFpTH9FEx5OqjSqms=
+	s=default; t=1653527889;
+	bh=nvIw2yvXAXp9LLolLyLCoYZhIE01Syu84FDSMVeY+fY=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Xm+h7U9VOdEcnYFOouaTWt8IPHQApWfmNd9BM01KNogyHCCoMt88IcHpHrJ2KqvKm
+	 dNKZSeezh4qgKc6wzl7axF1BCKfDdNQtbwOQ0HyEW0zegPKD4trD0KKO9ajsB6oeU/
+	 nLZx4WsjT/W5aZijRHejGAOMLhJ/Hj1bJ0uWvvZI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 65B4CF801EC;
-	Thu, 26 May 2022 03:06:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 495EEF801EC;
+	Thu, 26 May 2022 03:17:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 85F47F80169; Thu, 26 May 2022 03:06:02 +0200 (CEST)
+ id C9EE7F8016D; Thu, 26 May 2022 03:17:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
- [IPv6:2607:f8b0:4864:20::22e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from casper.infradead.org (casper.infradead.org
+ [IPv6:2001:8b0:10b:1236::1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2B070F80116
- for <alsa-devel@alsa-project.org>; Thu, 26 May 2022 03:05:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B070F80116
+ by alsa1.perex.cz (Postfix) with ESMTPS id 542AAF800D0
+ for <alsa-devel@alsa-project.org>; Thu, 26 May 2022 03:17:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 542AAF800D0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="GmFwa5to"
-Received: by mail-oi1-x22e.google.com with SMTP id r68so531712oie.12
- for <alsa-devel@alsa-project.org>; Wed, 25 May 2022 18:05:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Q6BIrUW7aokYWl+qRvM/xMt7zksnM8IWxexWiiS4vSs=;
- b=GmFwa5tozLv5xHUwBAL0dqqPoL4zpzeFGfTDDdqfncOEB9N0QPrkiTEOOpyeY5A83e
- nDc79M5ovmu08sVHkl86m+0PoTjqefMwbso4cqEABGsUg+VpLVpWCYJadS5N2YH7LoIC
- rdqMdQScN8mkJQaV9AlsYbaQ2iv1BmwdYoO4P3ArHFHcvgSBXk+Us16PezrZLT0vwBnQ
- 0csfIrPWtebkx16PBWHnUPQs4Tlta5pZPwXnooSFknfsQ3uiB4JoDAwNIf7Mc+CV/xDq
- 3GNJTmMIS2jM4VPpIDDVOiVTH3zkNULXmAettAOx+aGeYksZGgpLjTpEbW+PJPGY9WGQ
- c4gw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Q6BIrUW7aokYWl+qRvM/xMt7zksnM8IWxexWiiS4vSs=;
- b=XTaNRPsGWl0ynSOO0xmd4zHrSKxRjJZ/Kl0SoBSsFCXV8cmlJR/3mvaFZNiuP8B8HW
- qaTL6Ahkizjpkytbj8w5hk6BfykDjy3dbdJehqgzCBD68lTHuZR6oUC8zfOUIdK7a42k
- aol2xlexpG6BB9M1QSbGLAndFkyzIZVlP2plVIaHZBOf1cKNyK8gD5851AqDWjMPUEuH
- t/qfrtTPmRNatf2xz21PzPU4Gd5KuqWWLRmQ0XOo8bQ6+Xjsz346QlQhWFupU1thR57B
- pe1KKIRlXD5i4Lflbm1Z2ezcU6JvwQGJ/0gqNU7BLIeIqiCdYIvg1ChVPOThazl/mbGe
- NOZg==
-X-Gm-Message-State: AOAM53101OEYttLoG4s0DtHjAZpF/Orzz/miLoeSxBkh9EdUHZPRmeVg
- K76tWscyEFw4cpv5nYVQSKU=
-X-Google-Smtp-Source: ABdhPJxkUHZaDkprlhtovHOJ67rjkL+BpfKx/2PFSlfCbAc8cwM7YPENiXEKErvaq4eTmYqj9uDR6Q==
-X-Received: by 2002:a05:6808:130b:b0:326:d1ff:b56f with SMTP id
- y11-20020a056808130b00b00326d1ffb56fmr6790966oiv.222.1653527149873; 
- Wed, 25 May 2022 18:05:49 -0700 (PDT)
-Received: from localhost.localdomain ([2804:14c:485:4b69:8e74:fc8e:b11f:9d42])
- by smtp.gmail.com with ESMTPSA id
- be27-20020a056808219b00b00325cda1ff87sm183205oib.6.2022.05.25.18.05.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 May 2022 18:05:49 -0700 (PDT)
-From: Fabio Estevam <festevam@gmail.com>
-To: broonie@kernel.org
-Subject: [PATCH] ASoC: imx-audmux: Silence a clang warning
-Date: Wed, 25 May 2022 22:05:43 -0300
-Message-Id: <20220526010543.1164793-1-festevam@gmail.com>
-X-Mailer: git-send-email 2.25.1
+ dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
+ header.b="FU/B4l/8"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=qYg8IKyL/r8f2Vg1ESuYjuOnE5g2jafpU06hhSyNUpw=; b=FU/B4l/86GX2mfAVzdnOZlet7o
+ 4YIMhkZpbCoSmgTvSZ+0srZ6BwOG40pWCCMj19qhaZ7LyhuSaw2+YdDV5a6+88avQFq2cWdQHfPWr
+ byuXc0vT/MGU7fDuPvzVefIP3U6jrYIpaAmCNdJioEzp88SsKae4gtRxxjsbwJwKjR30fWyrk6jS+
+ 6N+w+qBIVJaEKMA2SIN/QJXQZdAFNIwoALKz9JWYzo9WKGMkqQ+rWdT359dIGkZ8Sy1ZcS2tNgQxZ
+ uFqnsZqHJyvAVlUVWnv0GfWFHqg8A7Yfpa485ULCi1tDMGcQd2T2bgnhjP4//0FFa8Q9P8q43x6cS
+ bXqNJBtA==;
+Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
+ Hat Linux)) id 1nu278-000pxs-VA; Thu, 26 May 2022 01:16:35 +0000
+Date: Thu, 26 May 2022 02:16:34 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [linux-next:master] BUILD REGRESSION
+ 8cb8311e95e3bb58bd84d6350365f14a718faa6d
+Message-ID: <Yo7U8kglHlcvQ0Ri@casper.infradead.org>
+References: <628ea118.wJYf60YnZco0hs9o%lkp@intel.com>
+ <20220525145056.953631743a4c494aabf000dc@linux-foundation.org>
+ <F0E25DFF-8256-48FF-8B88-C0E3730A3E5E@jrtc27.com>
+ <20220525152006.e87d3fa50aca58fdc1b43b6a@linux-foundation.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: nathan@kernel.org, Fabio Estevam <festevam@gmail.com>,
- alsa-devel@alsa-project.org, shengjiu.wang@gmail.com,
- kernel test robot <lkp@intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220525152006.e87d3fa50aca58fdc1b43b6a@linux-foundation.org>
+Cc: linux-fbdev@vger.kernel.org, kernel test robot <lkp@intel.com>,
+ kvm@vger.kernel.org, linux-rdma@vger.kernel.org, netdev@vger.kernel.org,
+ linux-staging@lists.linux.dev, alsa-devel@alsa-project.org,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linux-mm@kvack.org, amd-gfx@lists.freedesktop.org, linux-pci@vger.kernel.org,
+ linux-riscv@lists.infradead.org, linux-omap@vger.kernel.org,
+ Jessica Clarke <jrtc27@jrtc27.com>, bpf@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-parport@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,31 +90,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Change the of_device_get_match_data() cast to (uintptr_t)
-to silence the following clang warning:
+On Wed, May 25, 2022 at 03:20:06PM -0700, Andrew Morton wrote:
+> On Wed, 25 May 2022 23:07:35 +0100 Jessica Clarke <jrtc27@jrtc27.com> wrote:
+> 
+> > This is i386, so an unsigned long is 32-bit, but i_blocks is a blkcnt_t
+> > i.e. a u64, which makes the shift without a cast of the LHS fishy.
+> 
+> Ah, of course, thanks.  I remember 32 bits ;)
+> 
+> --- a/mm/shmem.c~mm-shmemc-suppress-shift-warning
+> +++ a/mm/shmem.c
+> @@ -1945,7 +1945,7 @@ alloc_nohuge:
+>  
+>  	spin_lock_irq(&info->lock);
+>  	info->alloced += folio_nr_pages(folio);
+> -	inode->i_blocks += BLOCKS_PER_PAGE << folio_order(folio);
+> +	inode->i_blocks += (blkcnt_t)BLOCKS_PER_PAGE << folio_order(folio);
 
-sound/soc/fsl/imx-audmux.c:301:16: warning: cast to smaller integer type 'enum imx_audmux_type' from 'const void *' [-Wvoid-pointer-to-enum-cast]
+Bizarre this started showing up now.  The recent patch was:
 
-Reported-by: kernel test robot <lkp@intel.com>
-Fixes: 6a8b8b582db1 ("ASoC: imx-audmux: Remove unused .id_table")
-Signed-off-by: Fabio Estevam <festevam@gmail.com>
----
- sound/soc/fsl/imx-audmux.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+-       info->alloced += compound_nr(page);
+-       inode->i_blocks += BLOCKS_PER_PAGE << compound_order(page);
++       info->alloced += folio_nr_pages(folio);
++       inode->i_blocks += BLOCKS_PER_PAGE << folio_order(folio);
 
-diff --git a/sound/soc/fsl/imx-audmux.c b/sound/soc/fsl/imx-audmux.c
-index dfa05d40b276..a8e5e0f57faf 100644
---- a/sound/soc/fsl/imx-audmux.c
-+++ b/sound/soc/fsl/imx-audmux.c
-@@ -298,7 +298,7 @@ static int imx_audmux_probe(struct platform_device *pdev)
- 		audmux_clk = NULL;
- 	}
- 
--	audmux_type = (enum imx_audmux_type)of_device_get_match_data(&pdev->dev);
-+	audmux_type = (uintptr_t)of_device_get_match_data(&pdev->dev);
- 
- 	switch (audmux_type) {
- 	case IMX31_AUDMUX:
--- 
-2.25.1
+so it could tell that compound_order() was small, but folio_order()
+might be large?
 
+Silencing the warning is a good thing, but folio_order() can (at the
+moment) be at most 9 on i386, so it isn't actually going to be
+larger than 4096.

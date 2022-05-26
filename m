@@ -2,103 +2,162 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 526D8534A7D
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 May 2022 08:50:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A2AF534AC1
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 May 2022 09:24:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C9A1516B2;
-	Thu, 26 May 2022 08:50:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9A1516B2
+	by alsa0.perex.cz (Postfix) with ESMTPS id AE11516A9;
+	Thu, 26 May 2022 09:23:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE11516A9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653547850;
-	bh=uLBWAR8xNoJgAaP922SpRkwBqZhEqK+GU46KswVcoiE=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1653549865;
+	bh=gTRIrivmTiZCIlMBsLpQ2xVHf8I5OOjoxwVqqlOB3SA=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hSAhcn99Yc0gkgrXwQtj9HDdlraHa17cAtqMmZ//yHaRjLzitK0EEgEA2+I7F2dgF
-	 m1/gTpDHD7fKQmbLEx2HwtJ3jkE6kWzhoT7sjQ9IvaVCs9b5lWOkYuFFwxE/A1MQO0
-	 nc5zmQRjWMKUifSYeW896xjq6u09lyk+Px+j+3rk=
+	b=nv/NnNonpiwOWg/2NRr1/sT+eLsAzYnXn4U9vhBGme1eV1J8VSWz4NTzyz/VG4hQ1
+	 goRYBP4TeFhGOakdyTK9Lqe0P/n6HPUck3Ew3VFt7jTEGhDChO0ALyGOMkEwIK98D7
+	 n3AG4FYphvFguy7gzanhrbnb1/XN+hzM3DnEEPnw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 38455F80171;
-	Thu, 26 May 2022 08:49:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 18C00F8007E;
+	Thu, 26 May 2022 09:23:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B3100F8007E; Thu, 26 May 2022 08:49:50 +0200 (CEST)
+ id 2C275F8014B; Thu, 26 May 2022 09:23:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [IPv6:2a00:1450:4864:20::534])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,HTML_MESSAGE,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2061c.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5a::61c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AB8E4F8007E
- for <alsa-devel@alsa-project.org>; Thu, 26 May 2022 08:49:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB8E4F8007E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3C63DF800D0
+ for <alsa-devel@alsa-project.org>; Thu, 26 May 2022 09:23:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C63DF800D0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="lZ0UFWMJ"
-Received: by mail-ed1-x534.google.com with SMTP id o28so697879edi.1
- for <alsa-devel@alsa-project.org>; Wed, 25 May 2022 23:49:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=7Bp9SA/1hFvtEI6hsrX+GVTXLacAaxb75saSLRSbPUs=;
- b=lZ0UFWMJZR/ScahCDhnrsdiqEMBsXhaUmxwPQYz8kGSkmNB/cfqAcxnwTVkp9xj0aE
- lsCoXp+eBgAG94q60rWQbm2Ev46NKSs7L0YuVDnsOuzPOSZw4gGFoRmjwrwitLfc/Q1u
- th3CE0lwu0KKph3kbzIli9VSAOxfe3FBTYhkQfWCArBTLj/bSslh3I5HWo53/4LUlp2Y
- EFr6Ux9jj1yIdsZLQ2Z0OF4eeKYkdllzrL3pr3b5ZFiR05utU1Q22S/gN01NaCibu8uA
- QiX4cooIXHCpWZc2KVRtRA0YzG91KtsCjTK6OcNFkVXfJD9Gs0VagoIP14zE/x1qcvgX
- f50Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=7Bp9SA/1hFvtEI6hsrX+GVTXLacAaxb75saSLRSbPUs=;
- b=FtGUVurdWaNr6Ik/2SbX9F1cl+aN2T9TP6gzL8MT7YrYCq1klDVVaaUFZ63R3vQ4Xx
- 0j8x59KeJJroLJBcuXh0QcPvq56DXhNIm2rhNZtGXudtp4M0f8+3db/WCV2qH6EVpPHd
- jB0GmNQ5sk69MxzgNN+uGPti11K8bRtZPewMMp+YSQNCsq2fyQeSfDPXJ0kk1v0lumYt
- /brWwocQEbt1NnaT36KOdbSuEZVEcqTWc2A6FIQrDkn6vdvDPQ1URoaOhTpAa90V0qYk
- xr40IH439X8CQKsIWE1apL3sT8K+YOVKQK4Zws+y3mE/meh/kHPKXiRb4MlnEOD+KYtG
- sGWw==
-X-Gm-Message-State: AOAM532c9FDpS+UNxOcwGVoIMtcBTPLThz+nNV9hxyWVMzYIlp1eYMuw
- ldOeVhzt48E1ORcz4DAybRlxPQ==
-X-Google-Smtp-Source: ABdhPJwr6AzAilZdcZEXaEVY/WvgakJfBGOFvOc7ZLnxseNZb9svTt9d2Rn3vt0YkLTvjnYO5aqOqg==
-X-Received: by 2002:aa7:c4d0:0:b0:42a:ce47:e9c5 with SMTP id
- p16-20020aa7c4d0000000b0042ace47e9c5mr37950139edr.224.1653547781831; 
- Wed, 25 May 2022 23:49:41 -0700 (PDT)
-Received: from [192.168.0.177] (xdsl-188-155-176-92.adslplus.ch.
- [188.155.176.92]) by smtp.gmail.com with ESMTPSA id
- kq21-20020a170906abd500b006f3ef214e0csm225570ejb.114.2022.05.25.23.49.40
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 May 2022 23:49:41 -0700 (PDT)
-Message-ID: <e8d854c0-e2a5-2382-4b54-c5e879170324@linaro.org>
-Date: Thu, 26 May 2022 08:49:39 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH v2] ASoC: dt-bindings: mediatek: mt8192: Add i2s-share
- properties
+ dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
+ header.b="SIqcQL0r"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XqC4hgb3YLTuOrsHPASz0Q2nQfNBt270xe9MmJJz9g94kda/Qa8ptPnyqYF+ID0Z+Vy2661pC9+N0x3JWQVOS2BiD1a/rSHIHPlIK0K94fgHm64qewPQ21TaUxxkjxrkoP7TkOCX70XNsPXMlVVOzq3cWKa03NJHCVNytsMQWkIYWzdDngaDr4kRzGCfvwKnuQ//SlsunqhRBJDA/yg3Lj04jmeVCgODWDPrIp1TN/CJ+b8MNl05JQRTKe8SHQeKR9rxCkIdbq+IF4KLf37IcK2PrLuZn+4UAwKsJXEE5bGoPM7ZIOmYvHTwsxZVb7L8KLl+dOUrnzPwZgDMUNzBlw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OEV4aXvuwL4VhkPPY+pl3i0dEsGpAndS/pJ4BBTwWnY=;
+ b=QFQMZnMsrdaRpUQMW89Cptid2gW4z2OWlmNC2Nno23NsIPzUpP4TbKdYdjy56qBe3pUG3tjFCQpf4j57e4IiSbURwqMlBis4QHbrEj9QNTc+eW9xzngxi2Wz0aT/Ei/G7uMNTQYJrI4hidv/fi9xanMV5Wz66q+uaubme1DXbFE0JN/OMo6zsJP35HbA9yl+XFjrvlTGGL6KljJsEg6fbEb0ZMdgIswtWgyt2CWbdAISriDvHd22irgw6GKe6U3PdsMc/ocgTrmz8WDFBcesimgnYli8gaDyv4x6jyCUzpQ/HS/TD9a7SadTtLiV3/Way8XtjIpTaJfoH/lPlVSx1w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OEV4aXvuwL4VhkPPY+pl3i0dEsGpAndS/pJ4BBTwWnY=;
+ b=SIqcQL0rw/zfb+Wn74ycdQIeNkw0Z6inVwL0jqMUKCvqVFfs2i+sih8oCAYwDSam6HiL0SpRTvf3ivLeMbzx6UV8bKA6/b24W1m7tuyWkPmB7cUxeljgRNIrwra5i7P+btqfzuRMb+VAEY/IBxtkfC7U2q99IHrCVrofYrVIKw8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4171.namprd12.prod.outlook.com (2603:10b6:5:21f::18)
+ by BY5PR12MB4967.namprd12.prod.outlook.com (2603:10b6:a03:1de::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.16; Thu, 26 May
+ 2022 07:23:16 +0000
+Received: from DM6PR12MB4171.namprd12.prod.outlook.com
+ ([fe80::e5c4:675:d32a:a949]) by DM6PR12MB4171.namprd12.prod.outlook.com
+ ([fe80::e5c4:675:d32a:a949%7]) with mapi id 15.20.5293.013; Thu, 26 May 2022
+ 07:23:15 +0000
+Subject: Re: [PATCH v4 1/2] ASoC: amd: acp: Add support for nau8825 and
+ max98360 card
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ broonie@kernel.org, alsa-devel@alsa-project.org
+References: <20220525203415.2227914-1-Vsujithkumar.Reddy@amd.com>
+ <20220525203415.2227914-2-Vsujithkumar.Reddy@amd.com>
+ <895302ec-f9e5-2b6a-835a-08e73ef8ace3@linux.intel.com>
+From: "Reddy, V sujith kumar" <vsujithkumar.reddy@amd.com>
+Message-ID: <f7239bab-5af3-ad7d-db3e-1bd6e1eb30d9@amd.com>
+Date: Thu, 26 May 2022 12:53:02 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
+In-Reply-To: <895302ec-f9e5-2b6a-835a-08e73ef8ace3@linux.intel.com>
 Content-Language: en-US
-To: =?UTF-8?B?TsOtY29sYXMgRi4gUi4gQS4gUHJhZG8=?= <nfraprado@collabora.com>,
- Mark Brown <broonie@kernel.org>
-References: <20220509205847.607076-1-nfraprado@collabora.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220509205847.607076-1-nfraprado@collabora.com>
-Content-Type: text/plain; charset=UTF-8
+X-ClientProxiedBy: PN3PR01CA0020.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:97::16) To DM6PR12MB4171.namprd12.prod.outlook.com
+ (2603:10b6:5:21f::18)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: d45438ec-e966-4f97-e512-08da3ee899a1
+X-MS-TrafficTypeDiagnostic: BY5PR12MB4967:EE_
+X-Microsoft-Antispam-PRVS: <BY5PR12MB4967163EDC3572F2C594AD6292D99@BY5PR12MB4967.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: UkypLd8wSktpUXBTHpMEDaWef2zurePTCvT1aB2SNjHt928s48QMlTHkkvBo5LVnL16lUzXh8DcO56zug+8NNvW4ErufpwILxEagQaiZqOFGydlWiV7LfHFn0XtefCcOm8M+fIFGYBFLFpbl8iSMqsrsdtPWTs/p+rVKDEy9GueA4sToTc58mSYkIVDDno06yjwh+41MdE0SyqEdfORxloFAjuYD0/hv1O1PZ9MyCA1Vtm/yJaEz4/8DByBPoBdkcPHtVVbNtDxlEKY2FnCu0RLw8O8u5BcOUEmKCYei2/Yyg5iVuoTzFMEyK5OYZx2udTV060S6UHmMi6HXGJ+3dTwgSY3h1lx1KD+bQjIPsP90yo/0KCHzaePI0ZVwh8mPxtvDAbnCXkp4/KV1ZUE9unqR2DlxEaP5yOOhc/Jwc9UI3fSVO9uGm5nkps+qX5MRmXpf3OW1CG5AOu4A1ZU2bmf/6YIpZ51SnE4+BD0OvebJqAe2LrNizELjsHNhYgZvsSGD7KAoZ6YGBtTJvPx3f8R2FiWBXHlpuHJY42IoHDvebouMkZYn10fvzcSnpqCuo6+CWCix/Qn3TY2Ai2WAG8kiIfAeBrdoRt2iYNa+fiWldT1+2/Vgvgv4vPLB8vpB8v6Qm7b/DcywKdhyMOaX9jcG+seWrOLAR53BatvBQNJyvxSEn+ME/ve23CSGy6YtjTfwG8C4SJ1pmmcnFOL4u9Y93CG2I3EdilnGi5zPmoE=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4171.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(7416002)(8936002)(5660300002)(83380400001)(6666004)(86362001)(31696002)(6512007)(508600001)(26005)(33964004)(53546011)(6486002)(2616005)(6506007)(4326008)(2906002)(186003)(54906003)(316002)(8676002)(36756003)(66476007)(66556008)(66946007)(31686004)(38100700002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OGdadW9BdUs3bkh3L1NTbVhwVm1CNXphdVV3aTF3NjhXMVNlbGtJWTljWUtR?=
+ =?utf-8?B?VlhobzhST2twVVg1SkpNSDBHRHJ4VW5VcXdqd2d5MnRhNUNaQTZEUTN4RXhS?=
+ =?utf-8?B?R1RjZEw1dFNEM1ZqVGlUN2pkQ1NVVlU2eVJHUURiWGVmYUhFK2dCSlptaURT?=
+ =?utf-8?B?ZmVNTVdKcWlvVmJ1U2pWZUFQSysxeEFraGZFV0JvbDhZRjErMVhQVHJ5eVdE?=
+ =?utf-8?B?L3dQT3FBL0lOVjRaV2Y0OWJSUTJQVGlKRGZrK3JSdzZhTGV5TjZKeHFHTi9l?=
+ =?utf-8?B?ZHZMSVc1d2djNmdCR25jbmxPdWg2VUt2TExNZ3RETEplRmNGazJEencwVTNY?=
+ =?utf-8?B?ZUZGYlNQTytRNnhiWWVvQk9UYjR2WkZmb29FNFlDTThXVlpzbCtPZHpITVNn?=
+ =?utf-8?B?UlFFb2puK3lVWm9jcTdBa0tKV1VnSUdFTmFWRjRtUmRWSDZmdzNuL3J1VE10?=
+ =?utf-8?B?NlR5NFA2OU8vWXovRFczc2NXN2d0SHB2dnRIOVVzNUVVUXJSalYwZG83dFNM?=
+ =?utf-8?B?OGJZdmVTNGk2dnJOOHIwc0tmSW9teWYybGFrNzZSdFJXblNWTzFpMWVJeGN3?=
+ =?utf-8?B?anFVUWM1dTB6Y0pZMk9nWEZGWm9lNE5GdXRNa05sZXd0bWxqWXVYWHVoNUJI?=
+ =?utf-8?B?eVY0REVUZjdZRE04cGN2WUVxajBQYWNUTG9kZnZRMTZtcklUamZxMk50Q0do?=
+ =?utf-8?B?UG5SdzYxWmNRVWdIcGd4TXU1VUJDRXU2bGs3SlVZN3Z0dktIYlArQVN3Smh3?=
+ =?utf-8?B?S2ErZzI4b2QyYlFHTHpDN0dzWFU3enFCUUcwajlySXVPVCtTYTk0YjdLYnVC?=
+ =?utf-8?B?MWNHeXBtekQvNXM5R2EvSGdyczJZMTRiVSs2UERvMGphQldjSjBWUkdGSmp0?=
+ =?utf-8?B?UmtqczIzN3pqZTdEMVdUQnUyLzR6aVd6Z1BkWEl1OVZnZzhIV0V3aEdvaHpL?=
+ =?utf-8?B?WE1MZzhBclRaK1FoeDVDUmVJK2tNTDRjY2ZTblhxdGtUR2JTaVVtRXpBL2Nt?=
+ =?utf-8?B?S3dIbFFMYWx0NTNCeEYydmZrU2E3Ry9kQkp6UU1YcVIyTWRxR1NVVWpGTG03?=
+ =?utf-8?B?cGdMTHh2Z1FKN0RHNUd1M1hES1VRajFYVHB5aFNyQmNGbW8xMk5GSkVWbjg4?=
+ =?utf-8?B?Y3ZkS3FiQTZtWjhBOHppMUJGeEVqY0pqREFWcklYWkFsK1p3dGx3dG9rbEpy?=
+ =?utf-8?B?dklLQ0Fzd2dvdkEvZjlIamZ6R1VEWXdxNTNCSU04d0hEeWVmZTBtOExwQXJV?=
+ =?utf-8?B?UGxCQ0loM2hDSHpjZDBsNnVadG5Cd1NhNkhnSVZvWGQ3UUd6OFVPWXh0Z3V0?=
+ =?utf-8?B?NzVyanlpK2xBYWNWYkdxeGdMeFQvNDEvcmZGTE04T3BVTDBFa2xxMXlHelk0?=
+ =?utf-8?B?dG0wcTN3TVY4MnBJOVY5NnREa3h2S2w4anduak9nZGNYT013M21ZT1NmQU1v?=
+ =?utf-8?B?ZW92Q01jVlF5S25zUzdNQ3pSeDFheXBsd2ZOWTVhc2Z0S3Bsdy9OU2pZNlhH?=
+ =?utf-8?B?SXpHWDM1MjhQNFMwZDNqWTRiTXNFOUUzYkRQUjZ5Sit0bXNFNkZtbjFuZjRF?=
+ =?utf-8?B?Skt5KzAzNVowVWRrYWlaMkZNZXJ2RE9SQXRmWUdWeTlkczdNcXJXbEZLbFY4?=
+ =?utf-8?B?U3ZQS0duY1ZxNU5oM09NREVRMzZEWGhOSlpFUEQya3NHSnFsS3JUQ1ovVFZW?=
+ =?utf-8?B?cUNpOC9BUmpMQ2d1Y3c4R1FESTU1VXRFdEc3R0RaU0Zra1F1NFNTbmtodDdB?=
+ =?utf-8?B?RVBaclNFR25NbStyb2JZNnpyLzNjN3NXNVVrMjdSdlROaktwK2JRQlA1bzlx?=
+ =?utf-8?B?cmJUY09WbktCbXJFaGhBUnByU0huK0s2NW0xV1Vkcjc1VFl0SE5BMXpxRWtX?=
+ =?utf-8?B?L1JnelpTZUx1Q0RxU1Rrd2hkY0hLT01xSkE5VVE0M2ZQcnJ4ZlZWYmhPRnFE?=
+ =?utf-8?B?MjUrdGxKenpRWGlCMlNiTm0yMkliUjNpSmJuYWIxOG5Nc3kzNjhLMVlUY211?=
+ =?utf-8?B?ajVReGoza2VIbnd5MWlNc0trWWNXS081Mk9nSUpKcGR4NlFiUWx3MERkNnly?=
+ =?utf-8?B?VkEyTGRSWkxHcFBwSitFSldBd0hOQkFiWFhiQnNoTWh5Y0JoeHJhNEdSdUo1?=
+ =?utf-8?B?MzdpQ2xKbDE4b1krdWVyNjZ5ZFRGVDA4eHNCNElMSllaK0FrSGsydEtxNm8x?=
+ =?utf-8?B?QTVIWTVLZ2kwdDQ3MUpSVWhnQjRrWk8vdEpta1R2Unp0bmRja2prV2Y0cFBx?=
+ =?utf-8?B?L0ZtcUloSlNCenJvcnQ2ZmYxeEExck5rTFU2UWpPUm12NEVzR3hjUTdqNjN4?=
+ =?utf-8?B?U1NsMWpzNXJmOStXdHBMVVcramNuNE5LbDRla0N2V1B6eFZUR3pqUT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d45438ec-e966-4f97-e512-08da3ee899a1
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4171.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2022 07:23:15.8455 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uPZjDP+eb7RgzLfbWrSB2fmab6yplfahgxSIsuGRPY1kqtkmM0UffUkd0qEEHaYZ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4967
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>, Jiaxin Yu <jiaxin.yu@mediatek.com>,
- linux-kernel@vger.kernel.org, Shane Chien <shane.chien@mediatek.com>,
- Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Matthias Brugger <matthias.bgg@gmail.com>, kernel@collabora.com,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: Sunil-kumar.Dommati@amd.com, Geert Uytterhoeven <geert+renesas@glider.be>,
+ ajitkumar.pandey@amd.com, Kai Vehmanen <kai.vehmanen@intel.com>,
+ open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jia-Ju Bai <baijiaju1990@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Akihiko Odaki <akihiko.odaki@gmail.com>, Vijendar.Mukunda@amd.com,
+ Daniel Baluta <daniel.baluta@nxp.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,62 +173,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 09/05/2022 22:58, Nícolas F. R. A. Prado wrote:
-> The Mediatek AFE PCM controller for MT8192 allows two I2S interfaces to
-> share the same clock and act as a single interface with both input and
-> output. Add patterns for these properties in the dt-binding. The
-> property is split into two patterns in order to allow all valid
-> interface pairings.
-> 
-> Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
-> 
-> ---
-> The series from v1 of this patch was merged although some changes were
-> still needed in this patch, so the v1 of this patch was reverted [1] and
-> this standalone commit addresses the feedback from v1 and readds the
-> property.
-> 
-> [1] https://lore.kernel.org/all/20220509185625.580811-1-nfraprado@collabora.com
-> 
-> v1: https://lore.kernel.org/all/20220429203039.2207848-2-nfraprado@collabora.com/
-> 
-> Changes in v2:
-> - Added "mediatek," prefix to property
-> - Rewrote and added more information to property description
-> - Split into two patterns to validate that output-input pairings are
->   done
-> 
->  .../bindings/sound/mt8192-afe-pcm.yaml           | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml b/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
-> index 7a25bc9b8060..2abf43c6c2c3 100644
-> --- a/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
-> +++ b/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
-> @@ -54,6 +54,22 @@ properties:
->        - const: aud_infra_clk
->        - const: aud_infra_26m_clk
->  
-> +patternProperties:
-> +  "^mediatek,i2s[13579]-share$":
-> +    description:
-> +      Each I2S interface has a single data line, input if its index is even or
-> +      output if the index is odd. An input and an output I2S interface can be
-> +      used together as if they were a single I2S interface with both input and
-> +      output data lines by sharing the same clock. This property represents this
-> +      pairing. The value should be the name of the interface whose clock is
-> +      used, and the property name the other interface that depends on this
-> +      clock.
-> +    pattern: "^I2S[0268]$"
-> +
-> +  "^mediatek,i2s[0268]-share$":
-> +    description: Same as above.
-> +    pattern: "^I2S[13579]$"
 
-Rob's question is still valid - why these are not phandles?
-
-In any case you miss $ref.
-
-
-Best regards,
-Krzysztof
+On 5/26/2022 2:55 AM, Pierre-Louis Bossart wrote:
+>> +struct snd_soc_acpi_mach snd_soc_acpi_amd_rmb_sof_machines[] = {
+>> +     {
+>> +             .id = "AMDI1019",
+>> +             .drv_name = "rmb-dsp",
+>> +             .pdata = &acp_quirk_data,
+>> +             .fw_filename = "sof-rmb.ri",
+>> +             .sof_tplg_filename = "sof-acp-rmb.tplg",
+>> +     },
+>> +     {
+>> +             .id = "10508825",
+>> +             .drv_name = "nau8825-max",
+>> +             .pdata = &acp_quirk_data,
+>> +             .machine_quirk = snd_soc_acpi_codec_list,
+>> +             .quirk_data = &amp_max,
+>> +             .fw_filename = "sof-rmb.ri",
+>> +             .sof_tplg_filename = "sof-acp-rmb.tplg",
+> this looks rather odd, you have two entries in the table that point to
+> the exact same pair of firmware and topology files. This is either
+> intentional and missing a comment, or a copy-paste mistake, or some of
+> these fields are not required.
+This is intentional only ,will update this once platforms are confirmed, 
+will add  comments
+>
+>> -     clk_disable_unprepare(drvdata->wclk);
+>> +     if (!drvdata->soc_mclk)
+>> +             clk_disable_unprepare(drvdata->wclk);
+>>   }
+> mclk and wclk are different concepts usually.
+Our intention here we don't want to enable /disable wclk(clock) when soc 
+is a clock master.
+>
+>
+>>   struct acp_card_drvdata {
+>> @@ -49,6 +51,7 @@ struct acp_card_drvdata {
+>>        unsigned int dai_fmt;
+>>        struct clk *wclk;
+>>        struct clk *bclk;
+>> +     bool soc_mclk;
+> I wonder if soc_mclk means 'soc_clock_provider' ?
+yes
+> it looks like a configuration instead of a real/physical clock?
+yes ,its just a flag to know whether soc is in a clock master mode or not.

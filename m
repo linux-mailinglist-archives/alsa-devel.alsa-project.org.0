@@ -2,75 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AA01535358
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 May 2022 20:32:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E928F535495
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 May 2022 22:38:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CCE671686;
-	Thu, 26 May 2022 20:31:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CCE671686
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7C88716D9;
+	Thu, 26 May 2022 22:37:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C88716D9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653589950;
-	bh=sQ0PhzqEwWl1eOGC2iQSwjyIDLxlpV5KM/s8Awt7wUk=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=A4OMew7LG91P2xvKdrM/I0twv0UdnTv+R6lbvCGXqX2CGdUZ2M4jeNGLQGTfmbmft
-	 dD7YEecBbVZ6NpE3hrgmWU7I+Gt4sCIKw+I+IhH6mb9Zvh8dOz3NPgNCvz2Vd0XrYd
-	 fRiEbyFhoZ6mg5hfu39jwV5ApM7iK3PHiRHHYAP8=
+	s=default; t=1653597510;
+	bh=Pq+jjfWCaQr5KhD5MiJO3Lizm9ynyq5MOXyMLddvwYU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=m24qNKqUXH9QgjW0HUm40lg2cUsqpqKL+DghseogYGvB6iCCPVVJBoUOCvmH1N36H
+	 bSQNghNjdTQrtXCTv/LI/O2S/Ea9IfdYnGUdcevt6hr6ewvsqaJRPOEVDwkrDS5Pzn
+	 7COCiCc2J1QSK5L1YOOauCVAZD+YdcfCvwVv17qk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4FEB2F800D0;
-	Thu, 26 May 2022 20:31:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DE744F80171;
+	Thu, 26 May 2022 22:37:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5478EF8014B; Thu, 26 May 2022 20:31:31 +0200 (CEST)
+ id 189DBF8014B; Thu, 26 May 2022 22:37:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F0799F80100
- for <alsa-devel@alsa-project.org>; Thu, 26 May 2022 20:31:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0799F80100
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="BgV5Rl1H"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8E6836170D;
- Thu, 26 May 2022 18:31:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA1A2C385A9;
- Thu, 26 May 2022 18:31:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1653589885;
- bh=sQ0PhzqEwWl1eOGC2iQSwjyIDLxlpV5KM/s8Awt7wUk=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=BgV5Rl1Hrvbq1x2BU1zyPQiE6WiJTglM5eYHQv7FMs+qoznuD/Bup7q/+AC5UiQIG
- pmpP/+Il9X1+yDqwSXDntpt2QIlc/ykZXS/dDFlZ2d2B1WU7LjrYMwYOLZN4qQLeRJ
- wLF5nsfTu9K/SQqIHkxsm+UAFiPMFKdNHwgTPPJlSMU6J0dPHQzA0o127TN0fPwJKQ
- ggUeq1yniEPNjKYdZukMq9ljBZ7RxjBU2WsHcaMKMo6gIXNY9Zrs0fd1Evtx4UqQXW
- bWeMS7tNr/wWE2pWRLgrD8oB2mGYhuJu9OcSe9Db5C/Xs0tt7gQMGO9pE+SrijB2fM
- 6+E26M+MaEjNg==
-From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, CTLIN0@nuvoton.com
-In-Reply-To: <20220526121301.1819541-1-CTLIN0@nuvoton.com>
-References: <20220526121301.1819541-1-CTLIN0@nuvoton.com>
-Subject: Re: [PATCH] ASoC: Intel: common: fix typo for tplg naming
-Message-Id: <165358988346.3218972.14197938083427381484.b4-ty@kernel.org>
-Date: Thu, 26 May 2022 19:31:23 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1587CF80100
+ for <alsa-devel@alsa-project.org>; Thu, 26 May 2022 22:37:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1587CF80100
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1nuKEU-0007B2-1g; Thu, 26 May 2022 22:37:22 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1nuKET-004k0C-SY; Thu, 26 May 2022 22:37:20 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1nuKER-00CKU5-UY; Thu, 26 May 2022 22:37:19 +0200
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Support Opensource <support.opensource@diasemi.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+Subject: [PATCH] ASoC: da732x: Drop no-op remove function
+Date: Thu, 26 May 2022 22:37:08 +0200
+Message-Id: <20220526203708.1723898-1-u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=995; h=from:subject;
+ bh=Pq+jjfWCaQr5KhD5MiJO3Lizm9ynyq5MOXyMLddvwYU=;
+ b=owEBbQGS/pANAwAKAcH8FHityuwJAcsmYgBij+Tx8S4/CnSTo6c9zi7m8gaFmcvbLLzlzT59XPyh
+ k/jYy2eJATMEAAEKAB0WIQR+cioWkBis/z50pAvB/BR4rcrsCQUCYo/k8QAKCRDB/BR4rcrsCbg1B/
+ 9yMO/8sgySxxOHIEFaYgEJx/5ZGoXWBsO5NmQ1eZm/ibgCbvRyuxUHr60DUNqP1Ae2NRc6xiCJWxTK
+ YTkl2BHH9VLGMNjHTtE385YRf/Ht5q8luXs4BX6wp5azOpgJs8Lt2tK//CG8GzNjKoW2Bw23hP57Ge
+ pX4UkDqmYTwT4VszhQRJEm4Yh0TZibIX5yzBS5Fg9/bCwrlTCk1GvNcLS/H0fGu6Qrlfc8ZK+8IDAp
+ xzpZpCZgY7kLi1eEEkslyCCMdwirTy+SvGb5BC+noY2MWJBl/WODJ/a1mhR1XkGdKMWm8IdBQc3qOF
+ 52H/CpquYdL0lDK/rnTkCzyGtbcSW8
+X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
-Cc: ctlin0.linux@gmail.com, WTLI@nuvoton.com, SJLIN0@nuvoton.com,
- KCHSU0@nuvoton.com, pierre-louis.bossart@linux.intel.com,
- liam.r.girdwood@linux.intel.com, YHCHuang@nuvoton.com, mac.chiang@intel.com,
- vamshi.krishna.gopal@intel.com
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org, kernel@pengutronix.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,37 +90,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 26 May 2022 20:13:02 +0800, David Lin wrote:
-> Correct typo form sof-adl-mx98360a-nau8825.tplg to
-> sof-adl-max98360a-nau8825.tplg. The reason is tplg naming without naming
-> limitaion of length. It will be consistency with sof topology generation.
-> 
-> 
+A remove callback that just returns 0 is equivalent to no callback at all
+as can be seen in i2c_device_remove(). So simplify accordingly.
 
-Applied to
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+---
+ sound/soc/codecs/da732x.c | 6 ------
+ 1 file changed, 6 deletions(-)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+diff --git a/sound/soc/codecs/da732x.c b/sound/soc/codecs/da732x.c
+index 42d6a3fc3af5..267936015cb8 100644
+--- a/sound/soc/codecs/da732x.c
++++ b/sound/soc/codecs/da732x.c
+@@ -1547,11 +1547,6 @@ static int da732x_i2c_probe(struct i2c_client *i2c,
+ 	return ret;
+ }
+ 
+-static int da732x_i2c_remove(struct i2c_client *client)
+-{
+-	return 0;
+-}
+-
+ static const struct i2c_device_id da732x_i2c_id[] = {
+ 	{ "da7320", 0},
+ 	{ }
+@@ -1563,7 +1558,6 @@ static struct i2c_driver da732x_i2c_driver = {
+ 		.name	= "da7320",
+ 	},
+ 	.probe		= da732x_i2c_probe,
+-	.remove		= da732x_i2c_remove,
+ 	.id_table	= da732x_i2c_id,
+ };
+ 
 
-Thanks!
+base-commit: 4b0986a3613c92f4ec1bdc7f60ec66fea135991f
+-- 
+2.36.1
 
-[1/1] ASoC: Intel: common: fix typo for tplg naming
-      commit: 5fa66f29937eb806997a4d1d3edd360ef4e93db9
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

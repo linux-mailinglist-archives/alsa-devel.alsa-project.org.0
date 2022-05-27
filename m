@@ -2,88 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBE0E536452
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 May 2022 16:51:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFC10536455
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 May 2022 16:52:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6F8101743;
-	Fri, 27 May 2022 16:50:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F8101743
+	by alsa0.perex.cz (Postfix) with ESMTPS id 90F031753;
+	Fri, 27 May 2022 16:51:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90F031753
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653663088;
-	bh=CXzVc290N4138A0bDHCwpQxgMT/D64jeIG41KEe39qY=;
+	s=default; t=1653663161;
+	bh=p/vxkgNntXV/SflLSUKmzx7lfVgCjDPcsYnW7NXUlu0=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=G9RPgEzfTrQ9HBl46QpRCVLq+bYMHdsTl/Y2ek6ftYKyQMkfJizEIvrO9SqM6M69B
-	 88DMlJEBtEepXV3Tw4V3PWlokLPk4jZZvM6sSVi4MzF62dYd7nBfoAhRv7t1+iyIPG
-	 T/ZFpGK/r1onkB2lSpApV/Ms2KB1XzCOBTgm3aUU=
+	b=EgBK2MTtRO+nWjSmceJBHw5CSsGJTf83kICEbePyxqOxu0o2CSzn8dZ5OSe4a42ml
+	 oAxahSRD07M3ms0FgwvY2a7Th+iaBFLNlosiguxha5SbID9UzlOzcpZSRFTLO2YJSW
+	 8hDq7oq/eCSRrhLgomn0qeQZdXKCcFPw0DCIZ8lA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DBFDFF80310;
-	Fri, 27 May 2022 16:50:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2B0AFF801D8;
+	Fri, 27 May 2022 16:51:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A4830F800EB; Fri, 27 May 2022 16:50:28 +0200 (CEST)
+ id D7413F800D0; Fri, 27 May 2022 16:51:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_94,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 93E06F800EB
- for <alsa-devel@alsa-project.org>; Fri, 27 May 2022 16:50:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93E06F800EB
+ by alsa1.perex.cz (Postfix) with ESMTPS id E38F6F800D0
+ for <alsa-devel@alsa-project.org>; Fri, 27 May 2022 16:51:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E38F6F800D0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="hmTs4g+o"; 
+ header.b="A8kl/eO5"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="HQmLfZ0g"
+ header.b="orfHM51n"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 06E22219B6;
- Fri, 27 May 2022 14:50:22 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5EA0921AFD;
+ Fri, 27 May 2022 14:51:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1653663022; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1653663103; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=XdNARyYZ5CIXSUFay1lCp2NHAF121SDba05Bq+24liw=;
- b=hmTs4g+ovS5YIFFHv1+dZd2gC3fJvcU/sjvtbU/5va/03hFbqzCsiM8kEZ75XRhM4SNOYt
- pox1L8BsWXiu5asV2qmwITGJizZxqWClLTPY60Li5Kr0wDIxK3IAHgD6IJRjHRqbSDFTmM
- Z1LFRfL8Vqu7ZrQ7jAGvxXNHjItqn+c=
+ bh=n46FQVGtfeHfuyAXg6CjoH7gjZz/cLZVcUcbBLPOX0Q=;
+ b=A8kl/eO5ygfb6iMHV44YpbKgond2/reRNNZ6dzGWVrf+oMCcESEOuMY4JdhgbAep9a2n+A
+ NIcd36VCrqkNTNV7sRhGjigJNuc2I5Me4iRWfDXOkV4gbKxLfq8Y1Q6RZjeWrTvB9Wc2Em
+ QzBJXRAB8kusPX82Rt70TdXS0wHGI20=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1653663022;
+ s=susede2_ed25519; t=1653663103;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=XdNARyYZ5CIXSUFay1lCp2NHAF121SDba05Bq+24liw=;
- b=HQmLfZ0gwP0Cpmw8/9H0G1n23B8JFA7/f1/TxbFfK7uUYbLNAKY7JiJuYrufflKsaJXGsQ
- SMyWc6x9ym/eK1Dw==
+ bh=n46FQVGtfeHfuyAXg6CjoH7gjZz/cLZVcUcbBLPOX0Q=;
+ b=orfHM51n+6W2FV0zc0MsPDPpxnvQdc2eC+M20VWVVfpL+JA+7ljm8pWTdKjpw2JgYItdri
+ Uup+ZkOj2U3uTRBw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CE14A13A84;
- Fri, 27 May 2022 14:50:21 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3AD3D13A84;
+ Fri, 27 May 2022 14:51:43 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id R6pqMS3lkGLGbAAAMHmgww
- (envelope-from <tiwai@suse.de>); Fri, 27 May 2022 14:50:21 +0000
-Date: Fri, 27 May 2022 16:50:21 +0200
-Message-ID: <87czfz113m.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id rkCXDX/lkGJVbQAAMHmgww
+ (envelope-from <tiwai@suse.de>); Fri, 27 May 2022 14:51:43 +0000
+Date: Fri, 27 May 2022 16:51:42 +0200
+Message-ID: <87bkvj111d.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Dag B <dag@bakke.com>
 Subject: Re: [PATCH] Enable SPDIF output on Intel Hades Canyon
-In-Reply-To: <8f06189e-6305-853d-f925-9b183d087988@bakke.com>
+In-Reply-To: <87czfz113m.wl-tiwai@suse.de>
 References: <5d5924ee-a52a-04f0-5080-2b8d91bce5ba@bakke.com>
  <3526166d-15ce-5260-200e-5c1650388956@linux.intel.com>
  <091a2af3-ff49-97b7-faa5-4527fb70d758@bakke.com>
  <5224aed8-02ed-6cac-50bd-999404324c65@linux.intel.com>
  <8f06189e-6305-853d-f925-9b183d087988@bakke.com>
+ <87czfz113m.wl-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
@@ -104,74 +105,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 24 May 2022 08:58:30 +0200,
-Dag B wrote:
-> From fe562e391b522dca09f00a5f8c280ab43136ef1f Mon Sep 17 00:00:00 2001
-> From: Dag B <dag@bakke.com>
-> Date: Tue, 24 May 2022 08:38:42 +0200
-> Subject: [PATCH] Enable Intel Hades Canyon SPDIF
+On Fri, 27 May 2022 16:50:21 +0200,
+Takashi Iwai wrote:
 > 
-> Signed-off-by: Dag B <dag@bakke.com>
-
-Please give more description, especially why this patch is needed and
-what actually does.
-
-About the code change:
-
-
-> ---
->  sound/pci/hda/patch_realtek.c | 17 ++++++++++++++++-
->  1 file changed, 16 insertions(+), 1 deletion(-)
+> On Tue, 24 May 2022 08:58:30 +0200,
+> Dag B wrote:
+> > From fe562e391b522dca09f00a5f8c280ab43136ef1f Mon Sep 17 00:00:00 2001
+> > From: Dag B <dag@bakke.com>
+> > Date: Tue, 24 May 2022 08:38:42 +0200
+> > Subject: [PATCH] Enable Intel Hades Canyon SPDIF
+> > 
+> > Signed-off-by: Dag B <dag@bakke.com>
 > 
-> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-> index ad292df7d805..cd6a2cb4c381 100644
-> --- a/sound/pci/hda/patch_realtek.c
-> +++ b/sound/pci/hda/patch_realtek.c
-> @@ -4752,6 +4752,12 @@ static void alc280_fixup_hp_gpio2_mic_hotkey(struct hda_codec *codec,
->  	}
->  }
->  
-> +static void alc700_fixup_hc_nuc_spdif(struct hda_codec *codec,
-> +				const struct hda_fixup *fix, int action)
-> +{
-> +	snd_hda_override_wcaps(codec, 0x6, 0x611);
+> Please give more description, especially why this patch is needed and
+> what actually does.
 
-Better to be the values with AC_WCAP_*.
-
-
-> @@ -5792,7 +5798,7 @@ static void alc_fixup_headset_mode_alc255_no_hp_mic(struct hda_codec *codec,
->  		struct alc_spec *spec = codec->spec;
->  		spec->parse_flags |= HDA_PINCFG_HEADSET_MIC;
->  		alc255_set_default_jack_type(codec);
-> -	} 
-> +	}
->  	else
->  		alc_fixup_headset_mode(codec, fix, action);
->  }
-
-Avoid unnecessary changes like this.
-
-
-> @@ -9159,6 +9172,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
->  	SND_PCI_QUIRK(0x10cf, 0x1757, "Lifebook E752", ALC269_FIXUP_LIFEBOOK_HP_PIN),
->  	SND_PCI_QUIRK(0x10cf, 0x1845, "Lifebook U904", ALC269_FIXUP_LIFEBOOK_EXTMIC),
->  	SND_PCI_QUIRK(0x10ec, 0x10f2, "Intel Reference board", ALC700_FIXUP_INTEL_REFERENCE),
-> +	SND_PCI_QUIRK(0x10ec, 0x2073, "Intel NUC8 Hades Canyon", ALC700_FIXUP_HC_NUC_SPDIF),
-
-So this is about the generic ID (with Realtek vendor-id).
-It's most likely OK, as such an ID is used only for some reference
-board or such, but it should be mentioned in the changelog.
-
-> @@ -9445,6 +9459,7 @@ static const struct hda_model_fixup alc269_fixup_models[] = {
->  	{.id = ALC298_FIXUP_TPT470_DOCK, .name = "tpt470-dock"},
->  	{.id = ALC233_FIXUP_LENOVO_MULTI_CODECS, .name = "dual-codecs"},
->  	{.id = ALC700_FIXUP_INTEL_REFERENCE, .name = "alc700-ref"},
-> +	{.id = ALC700_FIXUP_HC_NUC_SPDIF, .name = "nuc-hc"},
-
-Ditto, better to mention the available model name in the changelog,
-too.
-
-Once after all those are fixed / improved, please resubmit the patch.
+One more thing: the Signed-off-by line must contain the full name.
+It's a legal requirement.
 
 
 thanks,

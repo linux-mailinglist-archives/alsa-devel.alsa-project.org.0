@@ -2,85 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C3A45363C8
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 May 2022 16:11:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBE0E536452
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 May 2022 16:51:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DDBE31744;
-	Fri, 27 May 2022 16:10:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDBE31744
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6F8101743;
+	Fri, 27 May 2022 16:50:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F8101743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653660699;
-	bh=T8727jJRGS8scztoe9DcxXmYMvvKyiSnrzziJBt2gn4=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Js89gHt7vVTtyhOrt3EwWbIgCYJJKL0fE2nHKjUfipUMwn5zIs1fv/s+gV0kYDiMJ
-	 PmdyS+E26FE8Ifa4Zx5eNdnYfu2GMe+7Gs+SmGwsK9FeJgn2kCMptuu20FAlh9iNuA
-	 J4IYK4/LE0j1y76nfMpkpzvK3X4l7Pinq4d5SsIk=
+	s=default; t=1653663088;
+	bh=CXzVc290N4138A0bDHCwpQxgMT/D64jeIG41KEe39qY=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=G9RPgEzfTrQ9HBl46QpRCVLq+bYMHdsTl/Y2ek6ftYKyQMkfJizEIvrO9SqM6M69B
+	 88DMlJEBtEepXV3Tw4V3PWlokLPk4jZZvM6sSVi4MzF62dYd7nBfoAhRv7t1+iyIPG
+	 T/ZFpGK/r1onkB2lSpApV/Ms2KB1XzCOBTgm3aUU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3FA33F801D8;
-	Fri, 27 May 2022 16:10:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DBFDFF80310;
+	Fri, 27 May 2022 16:50:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 05D24F802DB; Fri, 27 May 2022 16:10:39 +0200 (CEST)
+ id A4830F800EB; Fri, 27 May 2022 16:50:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 798FDF800EB
- for <alsa-devel@alsa-project.org>; Fri, 27 May 2022 16:10:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 798FDF800EB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 93E06F800EB
+ for <alsa-devel@alsa-project.org>; Fri, 27 May 2022 16:50:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93E06F800EB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="kjwwwaqO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1653660634; x=1685196634;
- h=from:to:cc:subject:date:message-id:mime-version;
- bh=zrOnonnYzvbvqMmiuYsUJQsY0khKR0Hr8tK0MxSCaGU=;
- b=kjwwwaqODseX2tPDz91bZya2VvwiZW4j9Nr2icRjB12zp3c7g8KM5TLl
- TEie2hzd6zZRc9rP1nuTlEjTcEeDE3u1/Pb6mAJNTdtQ8/83PVD3XNzI9
- vSoXMLv5o/APLiKIhYy62V2F+XYBlcvaUNj2tL/ZmD48xjZJvm5wn2iI4 A=;
-Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 27 May 2022 07:10:29 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 May 2022 07:10:28 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Fri, 27 May 2022 07:10:27 -0700
-Received: from hu-srivasam-hyd.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Fri, 27 May 2022 07:10:21 -0700
-From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-To: <agross@kernel.org>, <bjorn.andersson@linaro.org>, <lgirdwood@gmail.com>, 
- <broonie@kernel.org>, <robh+dt@kernel.org>, <quic_plai@quicinc.com>,
- <bgoswami@quicinc.com>, <perex@perex.cz>, <tiwai@suse.com>,
- <srinivas.kandagatla@linaro.org>, <quic_rohkumar@quicinc.com>,
- <linux-arm-msm@vger.kernel.org>, <alsa-devel@alsa-project.org>,
- <linux-kernel@vger.kernel.org>, <swboyd@chromium.org>,
- <judyhsiao@chromium.org>, <devicetree@vger.kernel.org>
-Subject: [PATCH] ASoC: qcom: lpass-platform: Update VMA access permissions in
- mmap callback
-Date: Fri, 27 May 2022 19:40:08 +0530
-Message-ID: <1653660608-27245-1-git-send-email-quic_srivasam@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Cc: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="hmTs4g+o"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="HQmLfZ0g"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 06E22219B6;
+ Fri, 27 May 2022 14:50:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1653663022; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=XdNARyYZ5CIXSUFay1lCp2NHAF121SDba05Bq+24liw=;
+ b=hmTs4g+ovS5YIFFHv1+dZd2gC3fJvcU/sjvtbU/5va/03hFbqzCsiM8kEZ75XRhM4SNOYt
+ pox1L8BsWXiu5asV2qmwITGJizZxqWClLTPY60Li5Kr0wDIxK3IAHgD6IJRjHRqbSDFTmM
+ Z1LFRfL8Vqu7ZrQ7jAGvxXNHjItqn+c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1653663022;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=XdNARyYZ5CIXSUFay1lCp2NHAF121SDba05Bq+24liw=;
+ b=HQmLfZ0gwP0Cpmw8/9H0G1n23B8JFA7/f1/TxbFfK7uUYbLNAKY7JiJuYrufflKsaJXGsQ
+ SMyWc6x9ym/eK1Dw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CE14A13A84;
+ Fri, 27 May 2022 14:50:21 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id R6pqMS3lkGLGbAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Fri, 27 May 2022 14:50:21 +0000
+Date: Fri, 27 May 2022 16:50:21 +0200
+Message-ID: <87czfz113m.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Dag B <dag@bakke.com>
+Subject: Re: [PATCH] Enable SPDIF output on Intel Hades Canyon
+In-Reply-To: <8f06189e-6305-853d-f925-9b183d087988@bakke.com>
+References: <5d5924ee-a52a-04f0-5080-2b8d91bce5ba@bakke.com>
+ <3526166d-15ce-5260-200e-5c1650388956@linux.intel.com>
+ <091a2af3-ff49-97b7-faa5-4527fb70d758@bakke.com>
+ <5224aed8-02ed-6cac-50bd-999404324c65@linux.intel.com>
+ <8f06189e-6305-853d-f925-9b183d087988@bakke.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,29 +104,76 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Replace page protection permissions from noncashed to writecombine,
-in lpass codec DMA path mmp callabck, to support 64 bit chromeOS.
-Avoid SIGBUS error in userspace caused by noncached permissions in
-64 bit chromeOS.
+On Tue, 24 May 2022 08:58:30 +0200,
+Dag B wrote:
+> From fe562e391b522dca09f00a5f8c280ab43136ef1f Mon Sep 17 00:00:00 2001
+> From: Dag B <dag@bakke.com>
+> Date: Tue, 24 May 2022 08:38:42 +0200
+> Subject: [PATCH] Enable Intel Hades Canyon SPDIF
+> 
+> Signed-off-by: Dag B <dag@bakke.com>
 
-Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
----
- sound/soc/qcom/lpass-platform.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Please give more description, especially why this patch is needed and
+what actually does.
 
-diff --git a/sound/soc/qcom/lpass-platform.c b/sound/soc/qcom/lpass-platform.c
-index f03a7ae..b41ab7a 100644
---- a/sound/soc/qcom/lpass-platform.c
-+++ b/sound/soc/qcom/lpass-platform.c
-@@ -898,7 +898,7 @@ static int lpass_platform_cdc_dma_mmap(struct snd_pcm_substream *substream,
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	unsigned long size, offset;
- 
--	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
-+	vma->vm_page_prot = pgprot_writecombine(vma->vm_page_prot);
- 	size = vma->vm_end - vma->vm_start;
- 	offset = vma->vm_pgoff << PAGE_SHIFT;
- 	return io_remap_pfn_range(vma, vma->vm_start,
--- 
-2.7.4
+About the code change:
 
+
+> ---
+>  sound/pci/hda/patch_realtek.c | 17 ++++++++++++++++-
+>  1 file changed, 16 insertions(+), 1 deletion(-)
+> 
+> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+> index ad292df7d805..cd6a2cb4c381 100644
+> --- a/sound/pci/hda/patch_realtek.c
+> +++ b/sound/pci/hda/patch_realtek.c
+> @@ -4752,6 +4752,12 @@ static void alc280_fixup_hp_gpio2_mic_hotkey(struct hda_codec *codec,
+>  	}
+>  }
+>  
+> +static void alc700_fixup_hc_nuc_spdif(struct hda_codec *codec,
+> +				const struct hda_fixup *fix, int action)
+> +{
+> +	snd_hda_override_wcaps(codec, 0x6, 0x611);
+
+Better to be the values with AC_WCAP_*.
+
+
+> @@ -5792,7 +5798,7 @@ static void alc_fixup_headset_mode_alc255_no_hp_mic(struct hda_codec *codec,
+>  		struct alc_spec *spec = codec->spec;
+>  		spec->parse_flags |= HDA_PINCFG_HEADSET_MIC;
+>  		alc255_set_default_jack_type(codec);
+> -	} 
+> +	}
+>  	else
+>  		alc_fixup_headset_mode(codec, fix, action);
+>  }
+
+Avoid unnecessary changes like this.
+
+
+> @@ -9159,6 +9172,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+>  	SND_PCI_QUIRK(0x10cf, 0x1757, "Lifebook E752", ALC269_FIXUP_LIFEBOOK_HP_PIN),
+>  	SND_PCI_QUIRK(0x10cf, 0x1845, "Lifebook U904", ALC269_FIXUP_LIFEBOOK_EXTMIC),
+>  	SND_PCI_QUIRK(0x10ec, 0x10f2, "Intel Reference board", ALC700_FIXUP_INTEL_REFERENCE),
+> +	SND_PCI_QUIRK(0x10ec, 0x2073, "Intel NUC8 Hades Canyon", ALC700_FIXUP_HC_NUC_SPDIF),
+
+So this is about the generic ID (with Realtek vendor-id).
+It's most likely OK, as such an ID is used only for some reference
+board or such, but it should be mentioned in the changelog.
+
+> @@ -9445,6 +9459,7 @@ static const struct hda_model_fixup alc269_fixup_models[] = {
+>  	{.id = ALC298_FIXUP_TPT470_DOCK, .name = "tpt470-dock"},
+>  	{.id = ALC233_FIXUP_LENOVO_MULTI_CODECS, .name = "dual-codecs"},
+>  	{.id = ALC700_FIXUP_INTEL_REFERENCE, .name = "alc700-ref"},
+> +	{.id = ALC700_FIXUP_HC_NUC_SPDIF, .name = "nuc-hc"},
+
+Ditto, better to mention the available model name in the changelog,
+too.
+
+Once after all those are fixed / improved, please resubmit the patch.
+
+
+thanks,
+
+Takashi

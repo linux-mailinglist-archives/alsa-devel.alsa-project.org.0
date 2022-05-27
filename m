@@ -2,64 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 540965364AF
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 May 2022 17:31:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C3A45363C8
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 May 2022 16:11:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F34E6175F;
-	Fri, 27 May 2022 17:30:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F34E6175F
+	by alsa0.perex.cz (Postfix) with ESMTPS id DDBE31744;
+	Fri, 27 May 2022 16:10:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDBE31744
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653665466;
-	bh=MeaMHZSNWiYX7NmLTVIADdApsvo48kFbfH7Q4zDfd4A=;
+	s=default; t=1653660699;
+	bh=T8727jJRGS8scztoe9DcxXmYMvvKyiSnrzziJBt2gn4=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=B5K94/xqn+tXa12r0J8ZxMS50/dOQeJQudvv9o626AQnOZED5iSIhWTruf0+QpbjR
-	 f2Hp22Qot+inc2vCmdTr5+MputTzFuMrMsf7xMFQCO9RutmDx5mNnE8bYtmpi1uj8X
-	 q8We92DlhiBm5Jw4MYBy+WS+oBqTWRd2orozpfYs=
+	b=Js89gHt7vVTtyhOrt3EwWbIgCYJJKL0fE2nHKjUfipUMwn5zIs1fv/s+gV0kYDiMJ
+	 PmdyS+E26FE8Ifa4Zx5eNdnYfu2GMe+7Gs+SmGwsK9FeJgn2kCMptuu20FAlh9iNuA
+	 J4IYK4/LE0j1y76nfMpkpzvK3X4l7Pinq4d5SsIk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0D63BF8052E;
-	Fri, 27 May 2022 17:28:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3FA33F801D8;
+	Fri, 27 May 2022 16:10:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 63948F802DB; Fri, 27 May 2022 14:12:22 +0200 (CEST)
+ id 05D24F802DB; Fri, 27 May 2022 16:10:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from smtpbg.qq.com (smtpbg138.qq.com [106.55.201.18])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 85FA5F800D0
- for <alsa-devel@alsa-project.org>; Fri, 27 May 2022 14:12:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85FA5F800D0
-X-QQ-mid: bizesmtp74t1653653517tiv7vzps
-Received: from localhost.localdomain ( [182.148.13.40])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Fri, 27 May 2022 20:11:40 +0800 (CST)
-X-QQ-SSF: 01000000002000B0G000000A0000000
-X-QQ-FEAT: RKCwGdK8Yfi2eFJ32OTXHJX7Mf5yNB5Ebft1FvL5LJRKtQWC4ZGmyFAmQ0teK
- 3lfRqetO0rebxgVX0jLKj8ICp3PiK4KesjiP6RTztZRjzc65a+muY5yOsdZI3TY404toRI3
- n5bFIYdbXgaHn+BLAFDFXdmpSDnMgiHYwer4O2ectEhEH/N3awrvJ9jR3of30tzDLcqOxYy
- SZBFgOBLPM6N9rbK1842vr8JrMaC3NcshCiwTMki5IPVqdFQ8ccZGsUn+k7NktrLlloyvrT
- MX836PLxb6HnusVvvNIZHT5q31BojLMlwfyWBnjXqQxXoJUy5ROUfVf093VONsFxiebQXGm
- 18PK4KI5DzNJgloBAo=
-X-QQ-GoodBg: 0
-From: Xiang wangx <wangxiang@cdjrlc.com>
-To: perex@perex.cz
-Subject: [PATCH] ALSA: hda/via: Delete does not require return
-Date: Fri, 27 May 2022 20:10:59 +0800
-Message-Id: <20220527121059.25221-1-wangxiang@cdjrlc.com>
-X-Mailer: git-send-email 2.36.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 798FDF800EB
+ for <alsa-devel@alsa-project.org>; Fri, 27 May 2022 16:10:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 798FDF800EB
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
+ header.b="kjwwwaqO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1653660634; x=1685196634;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=zrOnonnYzvbvqMmiuYsUJQsY0khKR0Hr8tK0MxSCaGU=;
+ b=kjwwwaqODseX2tPDz91bZya2VvwiZW4j9Nr2icRjB12zp3c7g8KM5TLl
+ TEie2hzd6zZRc9rP1nuTlEjTcEeDE3u1/Pb6mAJNTdtQ8/83PVD3XNzI9
+ vSoXMLv5o/APLiKIhYy62V2F+XYBlcvaUNj2tL/ZmD48xjZJvm5wn2iI4 A=;
+Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 27 May 2022 07:10:29 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 May 2022 07:10:28 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Fri, 27 May 2022 07:10:27 -0700
+Received: from hu-srivasam-hyd.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Fri, 27 May 2022 07:10:21 -0700
+From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+To: <agross@kernel.org>, <bjorn.andersson@linaro.org>, <lgirdwood@gmail.com>, 
+ <broonie@kernel.org>, <robh+dt@kernel.org>, <quic_plai@quicinc.com>,
+ <bgoswami@quicinc.com>, <perex@perex.cz>, <tiwai@suse.com>,
+ <srinivas.kandagatla@linaro.org>, <quic_rohkumar@quicinc.com>,
+ <linux-arm-msm@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+ <linux-kernel@vger.kernel.org>, <swboyd@chromium.org>,
+ <judyhsiao@chromium.org>, <devicetree@vger.kernel.org>
+Subject: [PATCH] ASoC: qcom: lpass-platform: Update VMA access permissions in
+ mmap callback
+Date: Fri, 27 May 2022 19:40:08 +0530
+Message-ID: <1653660608-27245-1-git-send-email-quic_srivasam@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:cdjrlc.com:qybgspam:qybgspam10
-X-Mailman-Approved-At: Fri, 27 May 2022 17:28:30 +0200
-Cc: alsa-devel@alsa-project.org, Xiang wangx <wangxiang@cdjrlc.com>,
- tiwai@suse.com, linux-kernel@vger.kernel.org
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Cc: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,26 +96,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Void function return statements are not generally useful.
+Replace page protection permissions from noncashed to writecombine,
+in lpass codec DMA path mmp callabck, to support 64 bit chromeOS.
+Avoid SIGBUS error in userspace caused by noncached permissions in
+64 bit chromeOS.
 
-Signed-off-by: Xiang wangx <wangxiang@cdjrlc.com>
+Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 ---
- sound/pci/hda/patch_via.c | 2 --
- 1 file changed, 2 deletions(-)
+ sound/soc/qcom/lpass-platform.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/pci/hda/patch_via.c b/sound/pci/hda/patch_via.c
-index 773a136161f1..a05304f340df 100644
---- a/sound/pci/hda/patch_via.c
-+++ b/sound/pci/hda/patch_via.c
-@@ -449,8 +449,6 @@ static void vt1708_set_pinconfig_connect(struct hda_codec *codec, hda_nid_t nid)
- 		def_conf = def_conf & (~(AC_JACK_PORT_BOTH << 30));
- 		snd_hda_codec_set_pincfg(codec, nid, def_conf);
- 	}
--
--	return;
- }
+diff --git a/sound/soc/qcom/lpass-platform.c b/sound/soc/qcom/lpass-platform.c
+index f03a7ae..b41ab7a 100644
+--- a/sound/soc/qcom/lpass-platform.c
++++ b/sound/soc/qcom/lpass-platform.c
+@@ -898,7 +898,7 @@ static int lpass_platform_cdc_dma_mmap(struct snd_pcm_substream *substream,
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	unsigned long size, offset;
  
- static int vt1708_jack_detect_get(struct snd_kcontrol *kcontrol,
+-	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
++	vma->vm_page_prot = pgprot_writecombine(vma->vm_page_prot);
+ 	size = vma->vm_end - vma->vm_start;
+ 	offset = vma->vm_pgoff << PAGE_SHIFT;
+ 	return io_remap_pfn_range(vma, vma->vm_start,
 -- 
-2.36.1
+2.7.4
 

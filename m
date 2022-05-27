@@ -2,94 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFC10536455
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 May 2022 16:52:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2204B536467
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 May 2022 16:58:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 90F031753;
-	Fri, 27 May 2022 16:51:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90F031753
+	by alsa0.perex.cz (Postfix) with ESMTPS id ABB771753;
+	Fri, 27 May 2022 16:57:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ABB771753
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653663161;
-	bh=p/vxkgNntXV/SflLSUKmzx7lfVgCjDPcsYnW7NXUlu0=;
+	s=default; t=1653663483;
+	bh=CnzFb8XQWbMJpNzucYirP6lrtBAfT8052drGDSjSHTI=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EgBK2MTtRO+nWjSmceJBHw5CSsGJTf83kICEbePyxqOxu0o2CSzn8dZ5OSe4a42ml
-	 oAxahSRD07M3ms0FgwvY2a7Th+iaBFLNlosiguxha5SbID9UzlOzcpZSRFTLO2YJSW
-	 8hDq7oq/eCSRrhLgomn0qeQZdXKCcFPw0DCIZ8lA=
+	b=u/WUhql2wIpqDhWZhC7uqE3BwKRMk4ltzGRX/D0IMbigqJlXBpzikbH4Vq5cfAA1y
+	 J0nvoIBJb476Ye49iaKj2hSNhq3VQFw+S8Yfx0x7pfwGlkMHLvgpRhg1AWfJ2YqMj/
+	 tdB994SeQ8hkPms+gKS2EcQrLvFzGJTy2ugf5h28=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2B0AFF801D8;
-	Fri, 27 May 2022 16:51:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3952FF801D8;
+	Fri, 27 May 2022 16:57:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D7413F800D0; Fri, 27 May 2022 16:51:49 +0200 (CEST)
+ id 66853F802DB; Fri, 27 May 2022 16:57:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_94,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E38F6F800D0
- for <alsa-devel@alsa-project.org>; Fri, 27 May 2022 16:51:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E38F6F800D0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 49FA0F800D0
+ for <alsa-devel@alsa-project.org>; Fri, 27 May 2022 16:56:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49FA0F800D0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="A8kl/eO5"; 
+ header.b="PPyNolny"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="orfHM51n"
+ header.b="zTUNqwAl"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 5EA0921AFD;
- Fri, 27 May 2022 14:51:43 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id C385B21AF6;
+ Fri, 27 May 2022 14:56:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1653663103; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1653663418; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=n46FQVGtfeHfuyAXg6CjoH7gjZz/cLZVcUcbBLPOX0Q=;
- b=A8kl/eO5ygfb6iMHV44YpbKgond2/reRNNZ6dzGWVrf+oMCcESEOuMY4JdhgbAep9a2n+A
- NIcd36VCrqkNTNV7sRhGjigJNuc2I5Me4iRWfDXOkV4gbKxLfq8Y1Q6RZjeWrTvB9Wc2Em
- QzBJXRAB8kusPX82Rt70TdXS0wHGI20=
+ bh=vRmKSqlo9+jA7jKJmpkhAgXBjaSAzKxJ1eeRk5W/iU4=;
+ b=PPyNolnyia9ipkw/QP2MEPNTNdMfizPv1MWTwKTlUw/xnp+GfK3dRk3EVKjUPLS+CFUNAq
+ zMTS3TMnQdZ9uttrVxpF7F1dY/zYvgWmjhyf0J43P4xZrzZjJg8VxN5F5VarNdJZzxWPDA
+ 1dtXgRSfBFO6QGXWgoYhMPBndmBmx3g=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1653663103;
+ s=susede2_ed25519; t=1653663418;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=n46FQVGtfeHfuyAXg6CjoH7gjZz/cLZVcUcbBLPOX0Q=;
- b=orfHM51n+6W2FV0zc0MsPDPpxnvQdc2eC+M20VWVVfpL+JA+7ljm8pWTdKjpw2JgYItdri
- Uup+ZkOj2U3uTRBw==
+ bh=vRmKSqlo9+jA7jKJmpkhAgXBjaSAzKxJ1eeRk5W/iU4=;
+ b=zTUNqwAl5KC0+i8ASHvUpTx4vWtJFNMbFPCW5XK73gzxlV8tCewUs2AqKad57+mw6B3nnm
+ 0Dx6RxVNfDCgP8BA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3AD3D13A84;
- Fri, 27 May 2022 14:51:43 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A452513A84;
+ Fri, 27 May 2022 14:56:58 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id rkCXDX/lkGJVbQAAMHmgww
- (envelope-from <tiwai@suse.de>); Fri, 27 May 2022 14:51:43 +0000
-Date: Fri, 27 May 2022 16:51:42 +0200
-Message-ID: <87bkvj111d.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id OqRcJ7rmkGKubwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Fri, 27 May 2022 14:56:58 +0000
+Date: Fri, 27 May 2022 16:56:58 +0200
+Message-ID: <87a6b310sl.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Dag B <dag@bakke.com>
-Subject: Re: [PATCH] Enable SPDIF output on Intel Hades Canyon
-In-Reply-To: <87czfz113m.wl-tiwai@suse.de>
-References: <5d5924ee-a52a-04f0-5080-2b8d91bce5ba@bakke.com>
- <3526166d-15ce-5260-200e-5c1650388956@linux.intel.com>
- <091a2af3-ff49-97b7-faa5-4527fb70d758@bakke.com>
- <5224aed8-02ed-6cac-50bd-999404324c65@linux.intel.com>
- <8f06189e-6305-853d-f925-9b183d087988@bakke.com>
- <87czfz113m.wl-tiwai@suse.de>
+To: Rik van der Kemp <rik@upto11.nl>
+Subject: Re: [Patch] ALSA: hda/realtek: Enable 4-speaker output for Dell XPS
+ 15 9520 laptop
+In-Reply-To: <181056a137b.d14baf90133058.8425453735588429828@upto11.nl>
+References: <181056a137b.d14baf90133058.8425453735588429828@upto11.nl>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.com
+Cc: alsa-devel <alsa-devel@alsa-project.org>, Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,25 +100,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 27 May 2022 16:50:21 +0200,
-Takashi Iwai wrote:
+On Fri, 27 May 2022 14:07:26 +0200,
+Rik van der Kemp wrote:
 > 
-> On Tue, 24 May 2022 08:58:30 +0200,
-> Dag B wrote:
-> > From fe562e391b522dca09f00a5f8c280ab43136ef1f Mon Sep 17 00:00:00 2001
-> > From: Dag B <dag@bakke.com>
-> > Date: Tue, 24 May 2022 08:38:42 +0200
-> > Subject: [PATCH] Enable Intel Hades Canyon SPDIF
-> > 
-> > Signed-off-by: Dag B <dag@bakke.com>
+> The 2022-model XPS 15 appears to use the same 4-speakers-on-ALC289 audio setup as the Dell XPS 15 9510, so requires the same quirk to enable woofer output. Tested on my own 9520. 
 > 
-> Please give more description, especially why this patch is needed and
-> what actually does.
+> Signed-off-by: Rik van der Kemp <rik@upto11.nl>
 
-One more thing: the Signed-off-by line must contain the full name.
-It's a legal requirement.
+Thanks, applied now.
+I moved the entry to the right position (in PCI SSID order).
 
-
-thanks,
 
 Takashi

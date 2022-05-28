@@ -2,78 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB379536757
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 May 2022 21:06:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CB8A536B88
+	for <lists+alsa-devel@lfdr.de>; Sat, 28 May 2022 10:00:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 070C1174C;
-	Fri, 27 May 2022 21:06:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 070C1174C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 97A52182D;
+	Sat, 28 May 2022 09:59:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 97A52182D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653678419;
-	bh=xy2v0UW9OxkQlEpRbg1MC88ziJi3bs138+XfVpOrkC8=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=iGt/tkiS9h5aYqbUvLKhEhjuE8sgj2/3Xk6zokKWx6fzqtihdwjWZtnvs5B9oEF9M
-	 4XJro8brC+9Da4WE1MzFxrghGY8rm/3CSRFvtHXLURuyZdihgrRfTqtBiSbVzFJwlv
-	 V4kgp6caEXyAl30WGoanY0iDBECxx8+1t9pRk0CU=
+	s=default; t=1653724843;
+	bh=T8XSks9iAm2nfA19M+5tvgvY/Jznz8+ZpSjfLLmaWC8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Lom0rQQMyubXIPPh3YOdfW3MgcB6opb4X5p/qTDJQZyBpSJPNEQ/olzIfh2fj6tjZ
+	 pn57/xyQBJ7nsj4fAO4yhpWT+kb4p4X7i94VytLXU6cYdeqOweIZvV6oBv2tlfpmoe
+	 VD7KtVMBcOcSHKmpioDsIfBewj8RYbwR1lX579ac=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 79739F800D0;
-	Fri, 27 May 2022 21:06:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 06F58F802DB;
+	Sat, 28 May 2022 09:59:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6047EF802DB; Fri, 27 May 2022 21:05:59 +0200 (CEST)
+ id 2437EF80279; Sat, 28 May 2022 09:59:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E60C2F80100
- for <alsa-devel@alsa-project.org>; Fri, 27 May 2022 21:05:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E60C2F80100
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
- header.b="mmjaRwBZ"
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: nfraprado) with ESMTPSA id 6F81D1F464B2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1653678348;
- bh=xy2v0UW9OxkQlEpRbg1MC88ziJi3bs138+XfVpOrkC8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=mmjaRwBZTXfnPJGc8bg4toaoo7Nyy0vzqi4EoQOeXyw9L35qvzztiaTKc8D+3NEUo
- kayJ4EY33oK3oAtrBrOS3xa++5ygl8StkJe0nOsqV/dlMCv6kE7PzCWHRFLNnJzgso
- 8GoqNYPkUfFT7ERTn3CO/vwimAsB3k6g/JBpKfALGev0HUY3dP3wUid8ss7xdZvham
- py+/vV1fyzp7V/dx21pD7ADBHmbgZdS05Ve6cgbkDn8SLaeo+rWBgX7DaMKlyNsj4q
- Vii7d9CB0XHlSckHEZBCSUBzrJfH82zot9PVCF+ZLll5iy2uzMFYbHnI0hxOQ4YXXX
- nsKgtruVhfFNg==
-Date: Fri, 27 May 2022 15:05:42 -0400
-From: =?utf-8?B?TsOtY29sYXMgRi4gUi4gQS4=?= Prado <nfraprado@collabora.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH v2] ASoC: dt-bindings: mediatek: mt8192: Add i2s-share
- properties
-Message-ID: <20220527190542.4jckyflvtkq4n7ie@notapiano>
-References: <20220509205847.607076-1-nfraprado@collabora.com>
- <e8d854c0-e2a5-2382-4b54-c5e879170324@linaro.org>
+X-Spam-Status: No, score=0.2 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from smtp.smtpout.orange.fr (smtp04.smtpout.orange.fr
+ [80.12.242.126])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id E0955F80124
+ for <alsa-devel@alsa-project.org>; Sat, 28 May 2022 09:59:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0955F80124
+Received: from pop-os.home ([90.11.191.102]) by smtp.orange.fr with ESMTPA
+ id urMBnT8ApIaWOurMCnw1Bl; Sat, 28 May 2022 09:59:33 +0200
+X-ME-Helo: pop-os.home
+X-ME-Auth: YWZlNiIxYWMyZDliZWIzOTcwYTEyYzlhMmU3ZiQ1M2U2MzfzZDfyZTMxZTBkMTYyNDBjNDJlZmQ3ZQ==
+X-ME-Date: Sat, 28 May 2022 09:59:33 +0200
+X-ME-IP: 90.11.191.102
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+To: tglx@linutronix.de, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH] ASoC: ux500: Remove some leftover from the "Replace GPLv2
+ boilerplate/reference with SPDX" rules
+Date: Sat, 28 May 2022 09:59:22 +0200
+Message-Id: <84d94977c57deee9e85249f18394ebf8d72497bc.1653724723.git.christophe.jaillet@wanadoo.fr>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <e8d854c0-e2a5-2382-4b54-c5e879170324@linaro.org>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Shane Chien <shane.chien@mediatek.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Jiaxin Yu <jiaxin.yu@mediatek.com>, linux-kernel@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
- linux-mediatek@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Matthias Brugger <matthias.bgg@gmail.com>, kernel@collabora.com,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,82 +71,140 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, May 26, 2022 at 08:49:39AM +0200, Krzysztof Kozlowski wrote:
-> On 09/05/2022 22:58, Nícolas F. R. A. Prado wrote:
-> > The Mediatek AFE PCM controller for MT8192 allows two I2S interfaces to
-> > share the same clock and act as a single interface with both input and
-> > output. Add patterns for these properties in the dt-binding. The
-> > property is split into two patterns in order to allow all valid
-> > interface pairings.
-> > 
-> > Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
-> > 
-> > ---
-> > The series from v1 of this patch was merged although some changes were
-> > still needed in this patch, so the v1 of this patch was reverted [1] and
-> > this standalone commit addresses the feedback from v1 and readds the
-> > property.
-> > 
-> > [1] https://lore.kernel.org/all/20220509185625.580811-1-nfraprado@collabora.com
-> > 
-> > v1: https://lore.kernel.org/all/20220429203039.2207848-2-nfraprado@collabora.com/
-> > 
-> > Changes in v2:
-> > - Added "mediatek," prefix to property
-> > - Rewrote and added more information to property description
-> > - Split into two patterns to validate that output-input pairings are
-> >   done
-> > 
-> >  .../bindings/sound/mt8192-afe-pcm.yaml           | 16 ++++++++++++++++
-> >  1 file changed, 16 insertions(+)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml b/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
-> > index 7a25bc9b8060..2abf43c6c2c3 100644
-> > --- a/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
-> > +++ b/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
-> > @@ -54,6 +54,22 @@ properties:
-> >        - const: aud_infra_clk
-> >        - const: aud_infra_26m_clk
-> >  
-> > +patternProperties:
-> > +  "^mediatek,i2s[13579]-share$":
-> > +    description:
-> > +      Each I2S interface has a single data line, input if its index is even or
-> > +      output if the index is odd. An input and an output I2S interface can be
-> > +      used together as if they were a single I2S interface with both input and
-> > +      output data lines by sharing the same clock. This property represents this
-> > +      pairing. The value should be the name of the interface whose clock is
-> > +      used, and the property name the other interface that depends on this
-> > +      clock.
-> > +    pattern: "^I2S[0268]$"
-> > +
-> > +  "^mediatek,i2s[0268]-share$":
-> > +    description: Same as above.
-> > +    pattern: "^I2S[13579]$"
-> 
-> Rob's question is still valid - why these are not phandles?
+The "Replace GPLv2 boilerplate/reference with SPDX" has left some empty
+"License terms" paragraphs.
+Remove them as well.
 
-So, instead of having
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+---
+ sound/soc/ux500/mop500.c        | 2 --
+ sound/soc/ux500/mop500_ab8500.c | 2 --
+ sound/soc/ux500/mop500_ab8500.h | 2 --
+ sound/soc/ux500/ux500_msp_dai.c | 2 --
+ sound/soc/ux500/ux500_msp_dai.h | 2 --
+ sound/soc/ux500/ux500_msp_i2s.c | 2 --
+ sound/soc/ux500/ux500_msp_i2s.h | 2 --
+ sound/soc/ux500/ux500_pcm.c     | 2 --
+ sound/soc/ux500/ux500_pcm.h     | 2 --
+ 9 files changed, 18 deletions(-)
 
-	i2s9-share = "I2S8";
+diff --git a/sound/soc/ux500/mop500.c b/sound/soc/ux500/mop500.c
+index 4f41bb0ab2b0..fdd55d772b8e 100644
+--- a/sound/soc/ux500/mop500.c
++++ b/sound/soc/ux500/mop500.c
+@@ -4,8 +4,6 @@
+  *
+  * Author: Ola Lilja (ola.o.lilja@stericsson.com)
+  *         for ST-Ericsson.
+- *
+- * License terms:
+  */
+ 
+ #include <asm/mach-types.h>
+diff --git a/sound/soc/ux500/mop500_ab8500.c b/sound/soc/ux500/mop500_ab8500.c
+index 1ea1729984a9..e5e73a2bd9fe 100644
+--- a/sound/soc/ux500/mop500_ab8500.c
++++ b/sound/soc/ux500/mop500_ab8500.c
+@@ -5,8 +5,6 @@
+  * Author: Ola Lilja <ola.o.lilja@stericsson.com>,
+  *         Kristoffer Karlsson <kristoffer.karlsson@stericsson.com>
+  *         for ST-Ericsson.
+- *
+- * License terms:
+  */
+ 
+ #include <linux/module.h>
+diff --git a/sound/soc/ux500/mop500_ab8500.h b/sound/soc/ux500/mop500_ab8500.h
+index 087ef246d87d..98de80a9cc4f 100644
+--- a/sound/soc/ux500/mop500_ab8500.h
++++ b/sound/soc/ux500/mop500_ab8500.h
+@@ -4,8 +4,6 @@
+  *
+  * Author: Ola Lilja <ola.o.lilja@stericsson.com>
+  *         for ST-Ericsson.
+- *
+- * License terms:
+  */
+ 
+ #ifndef MOP500_AB8500_H
+diff --git a/sound/soc/ux500/ux500_msp_dai.c b/sound/soc/ux500/ux500_msp_dai.c
+index 21052378a32e..56532b62faf3 100644
+--- a/sound/soc/ux500/ux500_msp_dai.c
++++ b/sound/soc/ux500/ux500_msp_dai.c
+@@ -5,8 +5,6 @@
+  * Author: Ola Lilja <ola.o.lilja@stericsson.com>,
+  *         Roger Nilsson <roger.xr.nilsson@stericsson.com>
+  *         for ST-Ericsson.
+- *
+- * License terms:
+  */
+ 
+ #include <linux/module.h>
+diff --git a/sound/soc/ux500/ux500_msp_dai.h b/sound/soc/ux500/ux500_msp_dai.h
+index fcd4b26f5d2d..30bf70838196 100644
+--- a/sound/soc/ux500/ux500_msp_dai.h
++++ b/sound/soc/ux500/ux500_msp_dai.h
+@@ -5,8 +5,6 @@
+  * Author: Ola Lilja <ola.o.lilja@stericsson.com>,
+  *         Roger Nilsson <roger.xr.nilsson@stericsson.com>
+  *         for ST-Ericsson.
+- *
+- * License terms:
+  */
+ 
+ #ifndef UX500_msp_dai_H
+diff --git a/sound/soc/ux500/ux500_msp_i2s.c b/sound/soc/ux500/ux500_msp_i2s.c
+index fd0b88bb7921..d113411a19f8 100644
+--- a/sound/soc/ux500/ux500_msp_i2s.c
++++ b/sound/soc/ux500/ux500_msp_i2s.c
+@@ -6,8 +6,6 @@
+  *         Roger Nilsson <roger.xr.nilsson@stericsson.com>,
+  *         Sandeep Kaushik <sandeep.kaushik@st.com>
+  *         for ST-Ericsson.
+- *
+- * License terms:
+  */
+ 
+ #include <linux/module.h>
+diff --git a/sound/soc/ux500/ux500_msp_i2s.h b/sound/soc/ux500/ux500_msp_i2s.h
+index 756b3973af9a..d45b5e2831cc 100644
+--- a/sound/soc/ux500/ux500_msp_i2s.h
++++ b/sound/soc/ux500/ux500_msp_i2s.h
+@@ -4,8 +4,6 @@
+  *
+  * Author: Ola Lilja <ola.o.lilja@stericsson.com>,
+  *         for ST-Ericsson.
+- *
+- * License terms:
+  */
+ 
+ 
+diff --git a/sound/soc/ux500/ux500_pcm.c b/sound/soc/ux500/ux500_pcm.c
+index 18191084b8b8..d3802e5ef196 100644
+--- a/sound/soc/ux500/ux500_pcm.c
++++ b/sound/soc/ux500/ux500_pcm.c
+@@ -5,8 +5,6 @@
+  * Author: Ola Lilja <ola.o.lilja@stericsson.com>,
+  *         Roger Nilsson <roger.xr.nilsson@stericsson.com>
+  *         for ST-Ericsson.
+- *
+- * License terms:
+  */
+ 
+ #include <asm/page.h>
+diff --git a/sound/soc/ux500/ux500_pcm.h b/sound/soc/ux500/ux500_pcm.h
+index ff3ef7223db6..bd4348ebf9a1 100644
+--- a/sound/soc/ux500/ux500_pcm.h
++++ b/sound/soc/ux500/ux500_pcm.h
+@@ -5,8 +5,6 @@
+  * Author: Ola Lilja <ola.o.lilja@stericsson.com>,
+  *         Roger Nilsson <roger.xr.nilsson@stericsson.com>
+  *         for ST-Ericsson.
+- *
+- * License terms:
+  */
+ #ifndef UX500_PCM_H
+ #define UX500_PCM_H
+-- 
+2.34.1
 
-on the DT, you want us to have something like this:
-
-        afe_i2s8: mediatek,i2s8 { };
-
-        mediatek,i2s9 {
-          mediatek,share-clock = <&afe_i2s8>;
-        };
-
-Or do you mean something else?
-
-It seems like a lot more syntax to express the same thing (and the empty node
-seems awkward), but if that's the DT way, I can change it no problem.
-
-> 
-> In any case you miss $ref.
-
-Indeed, sorry, I'll add it in next version.
-
-Thanks,
-Nícolas

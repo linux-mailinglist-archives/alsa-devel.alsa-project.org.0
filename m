@@ -2,67 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63D3C536FCC
-	for <lists+alsa-devel@lfdr.de>; Sun, 29 May 2022 07:49:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 877DC536FD6
+	for <lists+alsa-devel@lfdr.de>; Sun, 29 May 2022 08:06:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E2AEF18A8;
-	Sun, 29 May 2022 07:49:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2AEF18A8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 26D2318DC;
+	Sun, 29 May 2022 08:05:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26D2318DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653803391;
-	bh=V3PV9farmqViHBpIT0WtBAVLi4xinN2jhvewYSsvhDQ=;
+	s=default; t=1653804392;
+	bh=2Pp4RfRSiZFFeBldeG/sWA8r5tNyuW5QfKXZin9/xNM=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iCIkgBo1fJNIqcXqEaK+jicO/0O42T1bLqVomJBT7/9OfFXB6Scdd4MsQegA8t7JZ
-	 oQHk0BRO53sZ2trf2vtccuQ0VfWH4DPBvfR9WhXItf0WY0foG7HEkdNX9ExAW+FcGg
-	 yfgQuNNjcDxeWPsy+PmAUvPCnIGo+sxL5ntpX42Y=
+	b=FGzEsvJt6gAWcpS/Cs4H8x2xxAuYoGCxkLcGMhnzTcXUSkpvxmBYw7OPaSlT6sEET
+	 Z2f0dMdnAQamrAzdVCqs9K+WqVWOZww5MdipXGZwcadAiooR6r8gbwHKWfgMH4kKdW
+	 yICjVUElNCqWNRVjbNzgvUd0r5Gyzf8KRa3G3U4s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4E0F2F800DE;
-	Sun, 29 May 2022 07:48:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9D13BF8010B;
+	Sun, 29 May 2022 08:05:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E1CD7F8024C; Sun, 29 May 2022 07:48:50 +0200 (CEST)
+ id 56777F8024C; Sun, 29 May 2022 08:05:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
 Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
  [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AD17DF800DE
- for <alsa-devel@alsa-project.org>; Sun, 29 May 2022 07:48:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD17DF800DE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 54EBFF8010B
+ for <alsa-devel@alsa-project.org>; Sun, 29 May 2022 08:05:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54EBFF8010B
 Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
  by metis.ext.pengutronix.de with esmtps
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <ukl@pengutronix.de>)
- id 1nvBmt-0003MX-Id; Sun, 29 May 2022 07:48:27 +0200
+ id 1nvC37-0005FG-O6; Sun, 29 May 2022 08:05:13 +0200
 Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
  by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
  (envelope-from <ukl@pengutronix.de>)
- id 1nvBmm-005CW9-LR; Sun, 29 May 2022 07:48:19 +0200
+ id 1nvC30-005CXz-Vi; Sun, 29 May 2022 08:05:05 +0200
 Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
  (envelope-from <ukl@pengutronix.de>)
- id 1nvBmk-00Cobx-M9; Sun, 29 May 2022 07:48:18 +0200
-Date: Sun, 29 May 2022 07:48:07 +0200
+ id 1nvC2z-00Coe8-2E; Sun, 29 May 2022 08:05:05 +0200
+Date: Sun, 29 May 2022 08:05:03 +0200
 From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
 To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH v3 11/15] ASoC: Intel: avs: Machine board registration
-Message-ID: <20220529054807.uuqpsnt3w6dwlzuj@pengutronix.de>
+Subject: [PATCH] ASoC: Intel: avs: Fix build error on arc, m68k and sparc
+Message-ID: <20220529060503.av7cahnu3knhnord@pengutronix.de>
 References: <20220516101116.190192-1-cezary.rojewski@intel.com>
  <20220516101116.190192-12-cezary.rojewski@intel.com>
  <20220526162443.GA60418@roeck-us.net>
  <Yo+8hvwhvdx7tNGI@sirena.org.uk>
+ <20220529054807.uuqpsnt3w6dwlzuj@pengutronix.de>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="nq7jzhs2oztkhuc2"
+ protocol="application/pgp-signature"; boundary="2eqnaaipl3lapl35"
 Content-Disposition: inline
-In-Reply-To: <Yo+8hvwhvdx7tNGI@sirena.org.uk>
+In-Reply-To: <20220529054807.uuqpsnt3w6dwlzuj@pengutronix.de>
 X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
 X-SA-Exim-Mail-From: ukl@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
@@ -89,55 +90,33 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---nq7jzhs2oztkhuc2
+--2eqnaaipl3lapl35
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hello Mark,
+On some platforms (i.e. arc, m68k and sparc) __fls returns an int (while
+on most platforms it returns an unsigned long). This triggers a format
+warning on these few platforms as the driver uses %ld to print a warning.
 
-On Thu, May 26, 2022 at 06:44:38PM +0100, Mark Brown wrote:
-> On Thu, May 26, 2022 at 09:24:43AM -0700, Guenter Roeck wrote:
-> > On Mon, May 16, 2022 at 12:11:12PM +0200, Cezary Rojewski wrote:
->=20
-> > > +	if (fls(mach->mach_params.i2s_link_mask) > num_ssps) {
-> > > +		dev_err(adev->dev, "Platform supports %d SSPs but board %s require=
-s SSP%ld\n",
->=20
-> >    sound/soc/intel/avs/board_selection.c: In function 'avs_register_i2s=
-_board':
-> > >> sound/soc/intel/avs/board_selection.c:328:36: warning: format '%ld' =
-expects argument of type 'long int', but argument 5 has type 'int' [-Wforma=
-t=3D]
-> >      328 |                 dev_err(adev->dev, "Platform supports %d SSP=
-s but board %s requires SSP%ld\n",
-> >                                                                        =
-                           ^^^
-> > Reported by 0-day but still made it into mainline.
->=20
-> FWIW given how hard the 0-day reports have become to read I'd not rely
-> on people paying attention to things that are clearly pure build
-> coverage based off a 0-day report alone.
+Replace it by fls (and %d) which returns an int everywhere and which is
+already used in the if condition triggering the warning.
 
-I'm unsure if I understand your sentiment correctly. Are you saying it
-doesn't matter if a patch breaks the build on some arch using a
-randconfig?
+Fixes: beed983621fb ("ASoC: Intel: avs: Machine board registration")
+Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
+---
+Hello again
 
-My position is: The commit under discussion (i.e. beed983621fb ("ASoC:
-Intel: avs: Machine board registration")) breaks an allmodconfig build
-on all platforms where __fls doesn't return a long int (i.e. arc, m68k,
-and sparc). This actively hurts people who do build tests using
-allmodconfig (or allyesconfig) for their patch series (e.g. me).
+On Sun, May 29, 2022 at 07:48:18AM +0200, Uwe Kleine-K=F6nig wrote:
+> Tell me if you don't want to squash this into beed983621fb and prefer a
+> formal patch.
 
-I agree that some reports by the 0-day bot are hard to parse. But still,
-if there is a build problem someone should look into that. If you (with
-your maintainer hat on) don't have the resource to do that, that's IMHO
-fine. But I'd wish you'd push back on the patch submitter in that case
-and don't apply the patch until the problem is resolved. If this is a
-corner case randconfig issue, applying might be fine despite the build
-error but breaking allmodconfig on 3 archs is bad.
+I just realized this isn't a problem in next only any more, but the
+commit is already in Linus Torvald's tree. So I guess this isn't fixed
+by a fixup of said commit and here comes a proper patch.
 
-The fix would be=20
+ sound/soc/intel/avs/board_selection.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/sound/soc/intel/avs/board_selection.c b/sound/soc/intel/avs/bo=
 ard_selection.c
@@ -158,32 +137,28 @@ d\n",
  		return -ENODEV;
  	}
 =20
-which uses fls instead of __fls (as is done in the test triggering the
-error). The former returns an int on all platforms.
 
-Tell me if you don't want to squash this into beed983621fb and prefer a
-formal patch.
-
-Best regards
-Uwe
+base-commit: beed983621fbdfd291e6e3a0cdc4d10517e60af8
+--=20
+2.36.1
 
 --=20
 Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
 Industrial Linux Solutions                 | https://www.pengutronix.de/ |
 
---nq7jzhs2oztkhuc2
+--2eqnaaipl3lapl35
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmKTCQ0ACgkQwfwUeK3K
-7AmlOwf/RzQqWUGyVyl0g37Il66LFUEYoAR3iHZAynG+dtIZLmhySCzzVyEERIBo
-8sEL/1rv6MAAU1wgoMJTqJax9i7YBWaCMgIPKUvmjTHieFWlxHABOqgOtrA3WUG9
-4oFIb7ouPDKDy/xKXay6LdJ3bWVDh0H8ecxQJJQF5GR0MGq2trGCv/FYed/FVa3v
-VyAiQLIk4kddn/e6A8syF/cKn35bMh2b+864L0JMFryX/qEfN3EW0JflWDVjqsn9
-eU33mAkwW6iaYNcq1bgLsjiFdSVKgBVGsSV5snHr8UOEswLrZE+cQIAWtr0PzK1g
-0/DAb+LvZVYZrV6RfvK9hF8eohdlfw==
-=ENS4
+iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmKTDQwACgkQwfwUeK3K
+7Angvwf9GvXsD9wzUFoXu5qYRWfBrMl8YDhQQERueJl/VMg4Y3/zxv+gFvbwb1Nn
+O3aNyONk3MKwYMFW2xgE2MIgl4+/uKmgnukGtM839ojI7Z5wPRSnxobiX2qHb3ev
+MprS+k1p9sAnYRO5wnItept03MO//YUstGv8VsC6DTae6+XxeBQLz+akMzDX+vFz
+B6pCUtG98vtaaEwaX7Zfej4lZeVSYe8w/TPgR/H3Y+jDcMtpFUbpKaQpUOwPzWhS
+vnpSVthjDqnkqrZoiBkE2ClcPYWzsKde2qiNYpBJUcXEAT5ZceQ9AtYAIEQoKjsT
+n0GQzQs4Fm/EmYo+thDx823uXUO8Hw==
+=TAeh
 -----END PGP SIGNATURE-----
 
---nq7jzhs2oztkhuc2--
+--2eqnaaipl3lapl35--

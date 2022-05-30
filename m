@@ -2,78 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34A7A537E3B
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 May 2022 15:54:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8C08537E68
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 May 2022 16:09:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B23D31FA9;
-	Mon, 30 May 2022 15:53:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B23D31FA9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4F4891F05;
+	Mon, 30 May 2022 16:08:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F4891F05
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653918842;
-	bh=FUexYxaRsvee6a4Kuwpw9ly8fry/guwfgp+ZPHLQiCg=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1653919775;
+	bh=6yJwH0Qtege0fuuWHs7JPfABW5rmIkEq/jLLe+CmRzo=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eW6EdDIeRVYqr49m7cUibFGj4M+dkvLWoaCrM55+wW7pgulvfnZ84pMiuacY595ga
-	 D7RvdHYCjmDy25nf6mxbdgG1epVRUcMfCytLVGau+Pdypzu8vJPpqGCZVys1jLsvIo
-	 16w2jm3PA+KCbFnve9emIOc8myfPANJCZiwsOENM=
+	b=WvPJNgDavQHpZfbE/zDbiRKlGdqgj0DNCWX0Gx+WgPQTXNYlP+UVKB9tiaoW/2690
+	 3O2nXA+Fz0DhoYZFaDuWy9MYgwH1zYz6oOzRI9qrT9d85crLRB5bRiETaThmF4flmr
+	 WdEOggymh7uzr/F1WcqqiNToiF5Zw+mpiVcAE8Ow=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B331CF800DE;
-	Mon, 30 May 2022 15:53:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AC0A5F800E5;
+	Mon, 30 May 2022 16:08:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 002B9F804EC; Mon, 30 May 2022 15:53:07 +0200 (CEST)
+ id 349D7F8012F; Mon, 30 May 2022 16:08:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B77E7F800DE
- for <alsa-devel@alsa-project.org>; Mon, 30 May 2022 15:53:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B77E7F800DE
+ by alsa1.perex.cz (Postfix) with ESMTPS id D84EBF800DE
+ for <alsa-devel@alsa-project.org>; Mon, 30 May 2022 16:08:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D84EBF800DE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="OQvM+maz"
+ header.b="r1f3GrY9"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 7003960EC3;
- Mon, 30 May 2022 13:53:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7AB7C3411F;
- Mon, 30 May 2022 13:53:01 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D037461164;
+ Mon, 30 May 2022 14:08:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9A30C385B8;
+ Mon, 30 May 2022 14:08:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1653918782;
- bh=FUexYxaRsvee6a4Kuwpw9ly8fry/guwfgp+ZPHLQiCg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=OQvM+mazQQMInayt9PCUkuRFPwlLHV8tJAxWd6UgLnA5NVbiZzroijUarxZITNYXu
- pzUWkTghG0DrXWrUEUESV8KiNLlQQSmveEov7cTW7h4/yMnOMgTbTiBI47xMPkSwpb
- A3vLvXMgUFpPjfYS/mIDAkMzUCCFUQ34MBM+TIzbajyNvkSXYDH99OyQTMCkDLD5kC
- sTI40m9ThAnxTeBWdG+SyKaF9QyOJhJHnmTWk24fWSKbqZr0c3FRLJf7MUjcWDmPKG
- CoEllIhd5zlYYkuJmP0b8K/YcLKK7+/AEnruFIse2pI6ZdsVtEsca+url7G6Z/fFh7
- jWA+jY9kHwfMg==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.9 20/24] ASoC: rt5645: Fix errorenous cleanup order
-Date: Mon, 30 May 2022 09:52:07 -0400
-Message-Id: <20220530135211.1937674-20-sashal@kernel.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220530135211.1937674-1-sashal@kernel.org>
-References: <20220530135211.1937674-1-sashal@kernel.org>
+ s=k20201202; t=1653919708;
+ bh=6yJwH0Qtege0fuuWHs7JPfABW5rmIkEq/jLLe+CmRzo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=r1f3GrY9+U+HeLvwqqAKYP47U7iTcvJBrSMMllVaow2UUZ+KwaXx7nfmbYfSOY8Gm
+ bYI+O9PH8zJG8ZpiPx8D+0f7PHTVLcZy8f1MvJSE69hEUj/DDwJNQJ220qZLXcc0TC
+ 4KI9PuOvrXZ+IFgYpITnyUsz5jPtJuOt+l3pYwijdU3Q4rU9D4DrkycjQY3I+SL482
+ m9LWu9tnV0kW/K3g1hAwbwTvDJTA0Qu2LTE/Nm0XHhAWtjyFbhhAIY2evZMApO5XJp
+ 8oevlYAcegECpNW4jF3AuBUgIY1g2aoR0DCLR6B3nXsDQjrofMhc/Ob2AnpETV2/ym
+ +I1MolQBkhjVg==
+Date: Mon, 30 May 2022 16:08:24 +0200
+From: Mark Brown <broonie@kernel.org>
+To: Raghu Bankapur <quic_rbankapu@quicinc.com>
+Subject: Re: [PATCH V0 0/1] asoc: msm: use hashtable to check kcontrol
+Message-ID: <YpTP2JOlCiYb3lBf@sirena.org.uk>
+References: <cover.1653813866.git.quic_rbankapu@quicinc.com>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, oder_chiou@realtek.com,
- alsa-devel@alsa-project.org, tiwai@suse.com, lgirdwood@gmail.com,
- Mark Brown <broonie@kernel.org>, Lin Ma <linma@zju.edu.cn>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="aIU0NN+cmsmUm//m"
+Content-Disposition: inline
+In-Reply-To: <cover.1653813866.git.quic_rbankapu@quicinc.com>
+X-Cookie: May your camel be as swift as the wind.
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Krishna Jha <quic_kkishorj@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,48 +88,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Lin Ma <linma@zju.edu.cn>
 
-[ Upstream commit 2def44d3aec59e38d2701c568d65540783f90f2f ]
+--aIU0NN+cmsmUm//m
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-There is a logic error when removing rt5645 device as the function
-rt5645_i2c_remove() first cancel the &rt5645->jack_detect_work and
-delete the &rt5645->btn_check_timer latter. However, since the timer
-handler rt5645_btn_check_callback() will re-queue the jack_detect_work,
-this cleanup order is buggy.
+On Sun, May 29, 2022 at 02:20:08PM +0530, Raghu Bankapur wrote:
+> use hashtabe instead of linear list to check kcontrol before
+> adding them for improving early audio KPI.
 
-That is, once the del_timer_sync in rt5645_i2c_remove is concurrently
-run with the rt5645_btn_check_callback, the canceled jack_detect_work
-will be rescheduled again, leading to possible use-after-free.
+Please don't send cover letters for single patches, if there is anything
+that needs saying put it in the changelog of the patch or after the ---
+if it's administrative stuff.  This reduces mail volume and ensures that=20
+any important information is recorded in the changelog rather than being
+lost.=20
 
-This patch fix the issue by placing the del_timer_sync function before
-the cancel_delayed_work_sync.
+--aIU0NN+cmsmUm//m
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Signed-off-by: Lin Ma <linma@zju.edu.cn>
-Link: https://lore.kernel.org/r/20220516092035.28283-1-linma@zju.edu.cn
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/soc/codecs/rt5645.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+-----BEGIN PGP SIGNATURE-----
 
-diff --git a/sound/soc/codecs/rt5645.c b/sound/soc/codecs/rt5645.c
-index 1ac96ef9ee20..703b26ec4e15 100644
---- a/sound/soc/codecs/rt5645.c
-+++ b/sound/soc/codecs/rt5645.c
-@@ -3878,6 +3878,12 @@ static int rt5645_i2c_remove(struct i2c_client *i2c)
- 	if (i2c->irq)
- 		free_irq(i2c->irq, rt5645);
- 
-+	/*
-+	 * Since the rt5645_btn_check_callback() can queue jack_detect_work,
-+	 * the timer need to be delted first
-+	 */
-+	del_timer_sync(&rt5645->btn_check_timer);
-+
- 	cancel_delayed_work_sync(&rt5645->jack_detect_work);
- 	cancel_delayed_work_sync(&rt5645->rcclock_work);
- 
--- 
-2.35.1
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmKUz9IACgkQJNaLcl1U
+h9ChTQf/duQmG7wg4bgtA5ruZ3mBY8YxW6zE2kB6eqkK00oVcl8BC5+DLbJMf3JT
+cRJrInl97+FLPrAe5+IsILEucvqReiz/Vh90tjpFYD4MP70CCyufAP5eSuyvWaw0
+737IcMy/8iopHT07ME/Q4phDk016xu0G4Iz7AJOiW9ksELBo7RRvvE/HgtB1ePRM
+EpWJzYamz2MYdWgWudkfEoEkHKIN+Lh/i7h+EmqoW1+cKqqzejVIBxkxi7C8ZAZT
+CPKhmiamN/+xb9UlTTz1vOaswdNcr6/SJFVKNNCvubKzcMh1KTiYNuoHJVu9EWy/
+b5Lx/nYA6OgE8CCdZ97av2i4n+CEng==
+=ggfw
+-----END PGP SIGNATURE-----
 
+--aIU0NN+cmsmUm//m--

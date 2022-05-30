@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AC5D5373D0
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 May 2022 06:05:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B3085373D1
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 May 2022 06:06:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EE37B1A7C;
-	Mon, 30 May 2022 06:04:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EE37B1A7C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7C89C1A94;
+	Mon, 30 May 2022 06:05:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C89C1A94
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653883550;
-	bh=hUIGj+66Z3KjpRGTlRHfZTYIZpZ4igAuWcOXL7FUkOg=;
+	s=default; t=1653883561;
+	bh=foSEQ447PdQ7UyaBwe3cQe1epqjFZBhabVOzvbeJiEU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZntPW9vqPaBDqKbjWFijbGxEDbQ1bs53ECpg28jXuv8RLfgxog481Tk3NP/ScY8yz
-	 GB4+kbF+R4XBkir9D9i8RPh08S/8QbCLbgLhDkrUzKSInBRZQrnKdNvgGFovoAcJci
-	 B0QGYIhwpClmLm4v5DA5NDi5XDOKx0gXVWJ1YsPY=
+	b=LJ4JDnepaWPmp7EDtqu+dEw96Xn4y8M3XP4xp6oqjt33rZ0hAmCAmOqLppiDOxXPV
+	 dhgO+ChyUCp5PaF4FEMFSlzBuFD6yrw9lWhdei667xmzQ7zRLdTf8E0c84A2ZAi+fE
+	 47eSQ5TruR10kh1zkR+ZICXdJtI5nBz0ZygkQPhk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 67D53F804BD;
-	Mon, 30 May 2022 06:04:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E5415F8051C;
+	Mon, 30 May 2022 06:04:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B2920F804BD; Mon, 30 May 2022 06:04:24 +0200 (CEST)
+ id 1933AF804EC; Mon, 30 May 2022 06:04:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,35 +35,35 @@ Received: from smtp-relay-canonical-1.canonical.com
  (smtp-relay-canonical-1.canonical.com [185.125.188.121])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 93B5CF8012F
- for <alsa-devel@alsa-project.org>; Mon, 30 May 2022 06:04:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93B5CF8012F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 53011F800E5
+ for <alsa-devel@alsa-project.org>; Mon, 30 May 2022 06:04:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53011F800E5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
- header.b="mg/n9n0n"
+ header.b="XSlJ7nf/"
 Received: from localhost.localdomain (unknown [123.112.66.143])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 85FA13FC16; 
- Mon, 30 May 2022 04:04:13 +0000 (UTC)
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id C93AF3FC19; 
+ Mon, 30 May 2022 04:04:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1653883456;
- bh=plMwnpl19DuYbav737Lp2hVSLzeRs7TO06F1lmJhPk0=;
+ s=20210705; t=1653883459;
+ bh=hklZN1F9pJS+R8QlUQPioN9l4TfwzLaov3Ekgb+TEv4=;
  h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
  MIME-Version;
- b=mg/n9n0nPd3jAIza4rPmqFM8Ei6nOj91cmiQaWVCV1eloSh8CywfYyJ1pi5W0GMnM
- MaNSMIJaDw0/xEh2ZwqTIQqP7CME7oUipup+JAY2rSEiVZFgNxodhiZ8XvKWMJQJ1c
- UXs65i+SPIJOBZiBdMzCiatEfMSHLPAOQiA7JZt9lfBATiuqegQaCtJqGkzyqUjL5B
- ghzhw1xMzFUa89tb7C2mlw6kGA3OtBv/HeyyDWvY967Z4oNQqBzDHgjP6fTMfD/BGF
- mLHL4facBz2lZw3/kVYn6vG2By+du2ki9VszojCYs7hdN6bxXGtB3K6Qf3oGnsaV8a
- MBCNMvxWKkbTw==
+ b=XSlJ7nf/HkNFIE5IbuIJ6BKMupYJ4/oQroIIcTIpCsL233JaGydzcYbIKVzlkwKV0
+ w4kpZ5R2DLobRzGqZUVh0TIupUEA/aq0/X98kfImiPkEyHjQ7rzvk6B0oi5LnI2WHL
+ ylNmYQXbeqzeJdKjR0J20tDyq/ll2K3x0ClzkwkGZdc91KdQzfO16b8+UA5t7nLwfQ
+ AlLPlRrC7pHlulOiGTGBpIU4HGWMgErsMK9vlqGoM4QOdYK5D62qJP0gSldkQDFCpO
+ VUgW+nfV8koh6K6RgheEN/Ch/ENIBGP2ZDmUMois85FKZuStc99zn6ToUh2RoKC/Bp
+ WYc+nhOfDDlnQ==
 From: Hui Wang <hui.wang@canonical.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Subject: [PATCH 1/2] ASoC: nau8822: Add operation for internal PLL off and on
-Date: Mon, 30 May 2022 12:01:50 +0800
-Message-Id: <20220530040151.95221-2-hui.wang@canonical.com>
+Subject: [PATCH 2/2] ASoC: nau8822: Disable internal PLL if freq_out is zero
+Date: Mon, 30 May 2022 12:01:51 +0800
+Message-Id: <20220530040151.95221-3-hui.wang@canonical.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220530040151.95221-1-hui.wang@canonical.com>
 References: <20220530040151.95221-1-hui.wang@canonical.com>
@@ -86,63 +86,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-We tried to enable the audio on an imx6sx EVB with the codec nau8822,
-after setting the internal PLL fractional parameters, the audio still
-couldn't work and the there was no sdma irq at all.
+After finishing the playback or recording, the machine driver might
+call snd_soc_dai_set_pll(codec, pll_id, 0, 0, 0) to stop the internal
+PLL, but with the codec driver nau8822, it will print error as below:
+ nau8822 0-001a: Unsupported input clock 0
+ fsl-asoc-card sound-nau8822: failed to stop FLL: -22
 
-After checking with the section "8.1.1 Phase Locked Loop (PLL) Design
-Example" of "NAU88C22 Datasheet Rev 0.6", we found we need to
-turn off the PLL before programming fractional parameters and turn on
-the PLL after programming.
-
-After this change, the audio driver could record and play sound and
-the sdma's irq is triggered when playing or recording.
+Refer to the function wm8962_set_fll() in the codec driver wm8962, if
+the freq_out is zero, turn off the internal PLL and return 0.
 
 Cc: David Lin <ctlin0@nuvoton.com>
 Cc: John Hsu <kchsu0@nuvoton.com>
 Cc: Seven Li <wtli@nuvoton.com>
 Signed-off-by: Hui Wang <hui.wang@canonical.com>
 ---
- sound/soc/codecs/nau8822.c | 4 ++++
- sound/soc/codecs/nau8822.h | 3 +++
- 2 files changed, 7 insertions(+)
+ sound/soc/codecs/nau8822.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
 diff --git a/sound/soc/codecs/nau8822.c b/sound/soc/codecs/nau8822.c
-index 58123390c7a3..b436e532993d 100644
+index b436e532993d..4d3720c69f91 100644
 --- a/sound/soc/codecs/nau8822.c
 +++ b/sound/soc/codecs/nau8822.c
-@@ -740,6 +740,8 @@ static int nau8822_set_pll(struct snd_soc_dai *dai, int pll_id, int source,
- 		pll_param->pll_int, pll_param->pll_frac,
- 		pll_param->mclk_scaler, pll_param->pre_factor);
+@@ -726,6 +726,13 @@ static int nau8822_set_pll(struct snd_soc_dai *dai, int pll_id, int source,
+ 	struct nau8822_pll *pll_param = &nau8822->pll;
+ 	int ret, fs;
  
-+	snd_soc_component_update_bits(component,
-+		NAU8822_REG_POWER_MANAGEMENT_1, NAU8822_PLL_EN_MASK, NAU8822_PLL_OFF);
- 	snd_soc_component_update_bits(component,
- 		NAU8822_REG_PLL_N, NAU8822_PLLMCLK_DIV2 | NAU8822_PLLN_MASK,
- 		(pll_param->pre_factor ? NAU8822_PLLMCLK_DIV2 : 0) |
-@@ -757,6 +759,8 @@ static int nau8822_set_pll(struct snd_soc_dai *dai, int pll_id, int source,
- 		pll_param->mclk_scaler << NAU8822_MCLKSEL_SFT);
- 	snd_soc_component_update_bits(component,
- 		NAU8822_REG_CLOCKING, NAU8822_CLKM_MASK, NAU8822_CLKM_PLL);
-+	snd_soc_component_update_bits(component,
-+		NAU8822_REG_POWER_MANAGEMENT_1, NAU8822_PLL_EN_MASK, NAU8822_PLL_ON);
++	if (freq_out == 0) {
++		dev_dbg(component->dev, "PLL disabled\n");
++		snd_soc_component_update_bits(component,
++			NAU8822_REG_POWER_MANAGEMENT_1, NAU8822_PLL_EN_MASK, NAU8822_PLL_OFF);
++		return 0;
++	}
++
+ 	fs = freq_out / 256;
  
- 	return 0;
- }
-diff --git a/sound/soc/codecs/nau8822.h b/sound/soc/codecs/nau8822.h
-index 489191ff187e..b45d42c15de6 100644
---- a/sound/soc/codecs/nau8822.h
-+++ b/sound/soc/codecs/nau8822.h
-@@ -90,6 +90,9 @@
- #define NAU8822_REFIMP_3K			0x3
- #define NAU8822_IOBUF_EN			(0x1 << 2)
- #define NAU8822_ABIAS_EN			(0x1 << 3)
-+#define NAU8822_PLL_EN_MASK			(0x1 << 5)
-+#define NAU8822_PLL_ON				(0x1 << 5)
-+#define NAU8822_PLL_OFF				(0x0 << 5)
- 
- /* NAU8822_REG_AUDIO_INTERFACE (0x4) */
- #define NAU8822_AIFMT_MASK			(0x3 << 3)
+ 	ret = nau8822_calc_pll(freq_in, fs, pll_param);
 -- 
 2.25.1
 

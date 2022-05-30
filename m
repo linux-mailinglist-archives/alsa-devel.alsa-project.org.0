@@ -2,69 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E428537BBC
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 May 2022 15:28:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2B6A537BF4
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 May 2022 15:28:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF78E1B05;
-	Mon, 30 May 2022 15:27:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF78E1B05
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7CDFC1B0B;
+	Mon, 30 May 2022 15:28:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7CDFC1B0B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653917291;
-	bh=lYHN3M9R/cWlaC8P7t69WHiCUtqTwEPDM2IyLMD+e50=;
+	s=default; t=1653917330;
+	bh=laup2rznz3Il/ZJtnKku7FRUlcG86YxUDSIH8CKkm2E=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mbfh7LehJD3VkHOLjaztw6a/zkHT1KKlHiBYfsbAtMfsfN8+/BmmBxS8DNMyy307F
-	 nVQNpsBj8N4aKpPwCjXtp+xG0OHpowigtUwX0LvrQhfuo1BYqIlPC8f4yIRET/w6Oj
-	 BJPsjG9MKY6zvY4OYvJisRqCkp1HpuEk8RZEiEIw=
+	b=k5BgGzYCa/zV7XLd0j6GFVGr+k5mA3Ru7vImJPvK2Pq9hqnWAi4bsLdPe6xZXiFKr
+	 9cZucNMDy0U2uQlUJgRBAgyEoRo0VhCSJPKDAwV7axB0Z7SRCbJz5tBRc9hjgi9WQC
+	 +BjU22QKnwFy2G/y/iNi0i09L4BASfonDvsawmkQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 85935F800DE;
-	Mon, 30 May 2022 15:27:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 26C82F804BD;
+	Mon, 30 May 2022 15:28:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DF2DBF8012F; Mon, 30 May 2022 15:27:18 +0200 (CEST)
+ id C91FCF804B4; Mon, 30 May 2022 15:27:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 98D0CF8019D
- for <alsa-devel@alsa-project.org>; Mon, 30 May 2022 15:27:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98D0CF8019D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 86AE8F8012F
+ for <alsa-devel@alsa-project.org>; Mon, 30 May 2022 15:27:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86AE8F8012F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="IaaSqpow"
+ header.b="Rbi443Zt"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A6E2260ECB;
- Mon, 30 May 2022 13:27:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C671C36AE3;
- Mon, 30 May 2022 13:27:09 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id BF68AB80DA7;
+ Mon, 30 May 2022 13:27:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 994CEC3411C;
+ Mon, 30 May 2022 13:27:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1653917231;
- bh=lYHN3M9R/cWlaC8P7t69WHiCUtqTwEPDM2IyLMD+e50=;
+ s=k20201202; t=1653917274;
+ bh=laup2rznz3Il/ZJtnKku7FRUlcG86YxUDSIH8CKkm2E=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=IaaSqpowAjRUYcKt+LL2VT34HU/uXqNEWJVXL1WP8V3uth690uVx62QCICLkojkZZ
- WVFMzjmvlQCnEJQ82YKaN5yADT3fbxC19O20D19EmhwFd0sljuG82sATNWBIgjd5DW
- O+93XWSqtNjPvBqBX0oFBWqvboVyWbGGUugJJXtp24igvDpGPFElmaRGQnnFFcOZGm
- x+Zch73KFX+fKosa/9W90TZUeQwcHk+UHwAr+m/u5hoZJ5bFk22TUhdbaR8KL4kpHY
- slwlT6krBWzQPRJzj3vPGiYL6Adaf8NItKGitkPM/AdndY1joqz5le3bzi4Q4qKHUQ
- VwCksP5kA/G2w==
+ b=Rbi443Zthh3CYE6N9Tef0yFfAD889eFh8hC56Mu9ut1zowhvTWqPywso8qG5XxYxx
+ BXX4k9icXgJ9Ajp+5U2Mx5AiwiajE6Zscm1n/Gmg/QElRNoqzzA6DhT+70uP8vhLPE
+ t9eAtDLiaJUNrHRw/sTTbIzLUPxh9WnVqY8GxV68TdXHmqVvlNd7IjD4aQhE2PKmLA
+ fbMETP8yPEYy8UU54MaScPWuQBjZeAhqIPyXjHjuFrAbIScnaMlth9wa5amJimncAa
+ li2tCBItkmMZcHEouJbFv2ZcYz5gA/59plnIo0jtO36pxFFkS9ebihFtSSEMgfZWGA
+ xmtIhmn40LteQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.18 064/159] ASoC: Intel: bytcr_rt5640: Add quirk for
- the HP Pro Tablet 408
-Date: Mon, 30 May 2022 09:22:49 -0400
-Message-Id: <20220530132425.1929512-64-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.18 078/159] ASoC: dapm: Don't fold register value
+ changes into notifications
+Date: Mon, 30 May 2022 09:23:03 -0400
+Message-Id: <20220530132425.1929512-78-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220530132425.1929512-1-sashal@kernel.org>
 References: <20220530132425.1929512-1-sashal@kernel.org>
@@ -72,12 +71,8 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, cezary.rojewski@intel.com,
- alsa-devel@alsa-project.org, tiwai@suse.com, yang.jie@linux.intel.com,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- liam.r.girdwood@linux.intel.com, Hans de Goede <hdegoede@redhat.com>,
- Mark Brown <broonie@kernel.org>, akihiko.odaki@gmail.com,
- andriy.shevchenko@linux.intel.com, peter.ujfalusi@linux.intel.com
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ tiwai@suse.com, lgirdwood@gmail.com, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,50 +88,49 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Hans de Goede <hdegoede@redhat.com>
+From: Mark Brown <broonie@kernel.org>
 
-[ Upstream commit ce216cfa84a4e1c23b105e652c550bdeaac9e922 ]
+[ Upstream commit ad685980469b9f9b99d4d6ea05f4cb8f57cb2234 ]
 
-Add a quirk for the HP Pro Tablet 408, this BYTCR tablet has no CHAN
-package in its ACPI tables and uses SSP0-AIF1 rather then SSP0-AIF2 which
-is the default for BYTCR devices.
+DAPM tracks and reports the value presented to the user from DAPM controls
+separately to the register value, these may diverge during initialisation
+or when an autodisable control is in use.
 
-It also uses DMIC1 for the internal mic rather then the default IN3
-and it uses JD2 rather then the default JD1 for jack-detect.
+When writing DAPM controls we currently report that a change has occurred
+if either the DAPM value or the value stored in the register has changed,
+meaning that if the two are out of sync we may appear to report a spurious
+event to userspace. Since we use this folded in value for nothing other
+than the value reported to userspace simply drop the folding in of the
+register change.
 
-BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=211485
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20220427134918.527381-1-hdegoede@redhat.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Link: https://lore.kernel.org/r/20220428161833.3690050-1-broonie@kernel.org
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/intel/boards/bytcr_rt5640.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ sound/soc/soc-dapm.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
-index d76a505052fb..f81ae742faa7 100644
---- a/sound/soc/intel/boards/bytcr_rt5640.c
-+++ b/sound/soc/intel/boards/bytcr_rt5640.c
-@@ -773,6 +773,18 @@ static const struct dmi_system_id byt_rt5640_quirk_table[] = {
- 					BYT_RT5640_OVCD_SF_0P75 |
- 					BYT_RT5640_MCLK_EN),
- 	},
-+	{	/* HP Pro Tablet 408 */
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Hewlett-Packard"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "HP Pro Tablet 408"),
-+		},
-+		.driver_data = (void *)(BYT_RT5640_DMIC1_MAP |
-+					BYT_RT5640_JD_SRC_JD2_IN4N |
-+					BYT_RT5640_OVCD_TH_1500UA |
-+					BYT_RT5640_OVCD_SF_0P75 |
-+					BYT_RT5640_SSP0_AIF1 |
-+					BYT_RT5640_MCLK_EN),
-+	},
- 	{	/* HP Stream 7 */
- 		.matches = {
- 			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Hewlett-Packard"),
+diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
+index ca917a849c42..869c76506b66 100644
+--- a/sound/soc/soc-dapm.c
++++ b/sound/soc/soc-dapm.c
+@@ -3437,7 +3437,6 @@ int snd_soc_dapm_put_volsw(struct snd_kcontrol *kcontrol,
+ 			update.val = val;
+ 			card->update = &update;
+ 		}
+-		change |= reg_change;
+ 
+ 		ret = soc_dapm_mixer_update_power(card, kcontrol, connect,
+ 						  rconnect);
+@@ -3539,7 +3538,6 @@ int snd_soc_dapm_put_enum_double(struct snd_kcontrol *kcontrol,
+ 			update.val = val;
+ 			card->update = &update;
+ 		}
+-		change |= reg_change;
+ 
+ 		ret = soc_dapm_mux_update_power(card, kcontrol, item[0], e);
+ 
 -- 
 2.35.1
 

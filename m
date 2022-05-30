@@ -2,78 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E01E25383CC
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 May 2022 17:01:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A98A453852B
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 May 2022 17:43:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2EEA61DF9;
-	Mon, 30 May 2022 17:00:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EEA61DF9
+	by alsa0.perex.cz (Postfix) with ESMTPS id EDFA81F5E;
+	Mon, 30 May 2022 17:43:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EDFA81F5E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653922892;
-	bh=uj+z1qlEESMX82meHdMbnNvB6nczjKH+bsATTtquwzM=;
+	s=default; t=1653925437;
+	bh=oUIGuRs6+k7bvWFP0sdBmNmBYlGFaJ/cOXSBqo9C/tk=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Z5fWLwuaGsicSDKlcQhNoRagUlZDe4ISWLOtq2nEheQnyTmsjKDU0oxrJt647mKd+
-	 f5dSyLEOmd+fZAp00eRBCh+A7p0kh6kJuerRsAOAUe/KaU1sMfkpvermBhUEQSq499
-	 0VkdIOqldMN7oCdpAhoL0ATeKDUURpEwJwEupYCo=
+	b=tDiYcH3K1t6XfDk7aFc6ocC1ttmHxj3n9fiTXrdhHDhI17YJQpcaW5DIt7pjnLuX9
+	 263YJhQMYTRCkYM7nXQ3LV4QsjfceTOvAxUO5gvvP4jvCbWyHRXSlIVl2wKL/bNPPY
+	 4S8hQ/izEbhDLcI9xnMCk1R0eNlTE4Bh6/OvOoVc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9F2D1F801F5;
-	Mon, 30 May 2022 17:00:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4DAD2F801F5;
+	Mon, 30 May 2022 17:42:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 001F7F8019D; Mon, 30 May 2022 17:00:30 +0200 (CEST)
+ id 18593F8019D; Mon, 30 May 2022 17:42:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9DC01F80124
- for <alsa-devel@alsa-project.org>; Mon, 30 May 2022 17:00:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9DC01F80124
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ENuUBbhU"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 0B63860FB5;
- Mon, 30 May 2022 15:00:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 167C9C385B8;
- Mon, 30 May 2022 15:00:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1653922823;
- bh=uj+z1qlEESMX82meHdMbnNvB6nczjKH+bsATTtquwzM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ENuUBbhUzPFE1vwSZKGt3KRtegFJj4WqaXVVoBpXfdKRDojn8jM5ECil7/Ad8feD6
- xlvVixaDwXTH5quw54JgAnL3eQ8WxgmCtndqOvXzoMYXqwc7xc2QGqhgW7V3D5yZ3D
- hZwXOYtDPPU9tpB/JCiv29ZxcRgIyARoqzwZNDbhe05ecQQyLhLVM4KR+AhfvgBEU5
- 7J119/42LdErd79frKsf5O9eivp9Fa7m1NAjbzQfVnh5OTwrGojIRxgGVLKNt3Rhb+
- /8Xq9z//XwTvC/WiCwHDF4fNfe2eQ6+4yPSN4b/81EGqh3nzilC+Z4I43r4RrVp+bp
- 0A6hghXIvUlqw==
-Date: Mon, 30 May 2022 17:00:20 +0200
-From: Mark Brown <broonie@kernel.org>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-Subject: Re: [PATCH] ASoC: da7219: Drop no-op remove function
-Message-ID: <YpTcBL2UoI8sSiUb@sirena.org.uk>
-References: <20220526204145.1725323-1-u.kleine-koenig@pengutronix.de>
- <20220530083616.xggbphc7ip7h2jr7@pengutronix.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id D3804F80124
+ for <alsa-devel@alsa-project.org>; Mon, 30 May 2022 17:42:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3804F80124
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="EaW6SU16"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24UCWckK031719;
+ Mon, 30 May 2022 10:42:43 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=11pjfbwnqjvFmqlfNXE5HUVDU57yELpFdGSoDPUvib0=;
+ b=EaW6SU162fEQ3FQZQS8yM52QevUSykbIP7szsvIQrEb/gSmowud+PoSL3ncvInveHswo
+ zqoyxta/V876bobfonBUffqiM92yxSrSgbSAVK+x5zgwWmrQ+ehAVswLe9vFI/USQAv7
+ AJFek2WDrQIAQOsYpCpklQ7cJl/YVbATj+FzzdvuydibWNAbLpICwbYLGEAcnyDgkPCC
+ L9iRCmtLp1Dk1pB1n8ABXbkhpgm6Od4dYbWX7vRi+1FGzYFjqTVgRT+Nh03xCqr/qsOk
+ Y1AL8AJF47tD+eX31FVcD68vBv8CArCnZRFlqxvVMrWq33Xg0MB47KqNE1BBmdjKZ4uo 8w== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3gbh51hvjb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Mon, 30 May 2022 10:42:43 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 30 May
+ 2022 16:42:40 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.28 via
+ Frontend Transport; Mon, 30 May 2022 16:42:40 +0100
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id A46BF11D1;
+ Mon, 30 May 2022 15:42:40 +0000 (UTC)
+Date: Mon, 30 May 2022 15:42:40 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH AUTOSEL 5.18 089/159] ASoC: tscs454: Add endianness flag
+ in snd_soc_component_driver
+Message-ID: <20220530154240.GW38351@ediswmail.ad.cirrus.com>
+References: <20220530132425.1929512-1-sashal@kernel.org>
+ <20220530132425.1929512-89-sashal@kernel.org>
+ <YpTSkjYKAZLcOykC@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="/gzjXMKDVbbvy6Sj"
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <20220530083616.xggbphc7ip7h2jr7@pengutronix.de>
-X-Cookie: May your camel be as swift as the wind.
-Cc: alsa-devel@alsa-project.org,
- Support Opensource <support.opensource@diasemi.com>, kernel@pengutronix.de,
- Liam Girdwood <lgirdwood@gmail.com>
+In-Reply-To: <YpTSkjYKAZLcOykC@sirena.org.uk>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: 4OiTsCAEN3KNyoBVMCYlj_vrrrXL9qyJ
+X-Proofpoint-ORIG-GUID: 4OiTsCAEN3KNyoBVMCYlj_vrrrXL9qyJ
+X-Proofpoint-Spam-Reason: safe
+Cc: Sasha Levin <sashal@kernel.org>, steven.eckhoff.opensource@gmail.com,
+ alsa-devel@alsa-project.org, lgirdwood@gmail.com, tiwai@suse.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,39 +103,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Mon, May 30, 2022 at 04:20:02PM +0200, Mark Brown wrote:
+> On Mon, May 30, 2022 at 09:23:14AM -0400, Sasha Levin wrote:
+> > From: Charles Keepax <ckeepax@opensource.cirrus.com>
+> > 
+> > [ Upstream commit ff69ec96b87dccb3a29edef8cec5d4fefbbc2055 ]
+> > 
+> > The endianness flag is used on the CODEC side to specify an
+> > ambivalence to endian, typically because it is lost over the hardware
+> > link. This device receives audio over an I2S DAI and as such should
+> > have endianness applied.
+> > 
+> > A fixup is also required to use the width directly rather than relying
+> > on the format in hw_params, now both little and big endian would be
+> > supported. It is worth noting this changes the behaviour of S24_LE to
+> > use a word length of 24 rather than 32. This would appear to be a
+> > correction since the fact S24_LE is stored as 32 bits should not be
+> > presented over the bus.
+> 
+> This series of commits doesn't feel like a good idea for stable,
+> it will probably be safe but it's effectively new feature stuff
+> so out of scope and there's some possibility we might uncover
+> some bug which might've been being masked.
 
---/gzjXMKDVbbvy6Sj
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Strongly agree here, no need to back port these to stable.
 
-On Mon, May 30, 2022 at 10:36:16AM +0200, Uwe Kleine-K=F6nig wrote:
-
-> This patch conflicts with 89be5dc60d67 ("ASoC: da[79]*: use simple i2c
-> probe function"), the trivial(?) conflict resolution is:
-
-> Please tell me if I should resend the patch rebased to
-> sound.git/for-next (or 5.19-rc1 once that's out). The same applies to:
->=20
-> 	ASoC: lm49453: Drop no-op remove function
-> 	ASoC: da732x: Drop no-op remove function
-> 	ASoC: ak4642: Drop no-op remove function
-
-It'd be really handy if you could resend please.
-
---/gzjXMKDVbbvy6Sj
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmKU3AMACgkQJNaLcl1U
-h9DbdQf/fgzFrwb4QpFwxoZ4KiNFLfJ0pMpSblzvY1QlNv58cvV6NYoVRpAYedeP
-mjHFLrb7RTUnNVeXkEZBJdpb/QY36km2IzmxaJqAogu66suysDYc7uALLxhQP24v
-1vVtl2q9j8n+aVRIbcBlMzXmlkdEgQLl7Rqxq19VR2isHKLrONllBiiyO6WKHk/q
-yrRgfV4fnZqncI+QswGubwtsmPoY3RUaoopBLi/crzPkod2tAttaFpE9PGCdwhYQ
-eYx5/K0+dHPBVRxeehwWvH2ithhr7tDDXDabcLX69BY68950DJrEPy+WzTNfCC51
-Urb+gg6Bzz/wKQZGmtpy2HXueriM5g==
-=knGb
------END PGP SIGNATURE-----
-
---/gzjXMKDVbbvy6Sj--
+Thanks,
+Charles

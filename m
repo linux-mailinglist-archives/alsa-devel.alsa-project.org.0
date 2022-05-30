@@ -2,68 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7352B537BFD
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 May 2022 15:29:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E2C9537C05
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 May 2022 15:30:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 091D21B18;
-	Mon, 30 May 2022 15:28:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 091D21B18
+	by alsa0.perex.cz (Postfix) with ESMTPS id 758171B26;
+	Mon, 30 May 2022 15:29:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 758171B26
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653917381;
-	bh=yWcmRdVyi+FWys7GZ9HWj6oxRlxBcBG6kQKuSmRN7nY=;
+	s=default; t=1653917405;
+	bh=+u2Yt/xw2sPo6EAVrtuFDGeht+dJf7/yaSqLvJi8jeA=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qEB7zbvnxPbaWNcVVVQmGBcxE1dMIMVpsL582+shD4Ucy425YeZsUPsLhkIOM6S/C
-	 Jz9TtSBvlGZ2X7VOENgZpoBrpZ5RUmJXlU2craT8j3DWAACZvHOpNO1bLE0ZeBy9aw
-	 HJIFb33TFQZfRJ9PeFmT3bgeD8j1VBDV8Q/jW0jg=
+	b=HhgHYyxxbmh7ocuTX85qDn9ejwpFqxfi6MJHv6AE8P/9thzx41HFWl9fcyZUuVuBL
+	 VRcXXUulmw8yU1wA+ZbO5q61zXEj+kQnfQyWusbZAoP/n4VMzQoUUBfEaHQBOEKS6W
+	 4cs4SLgrfjtLB2pA/zkMLGzs3Q8lIN+03dvhtlnE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A3B5F8051F;
-	Mon, 30 May 2022 15:28:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 19B2CF800DE;
+	Mon, 30 May 2022 15:29:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B5937F804EC; Mon, 30 May 2022 15:28:45 +0200 (CEST)
+ id 828D7F801F5; Mon, 30 May 2022 15:29:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 84C81F804EC
- for <alsa-devel@alsa-project.org>; Mon, 30 May 2022 15:28:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84C81F804EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9A1B5F800DE;
+ Mon, 30 May 2022 15:29:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A1B5F800DE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="MbNB4qr/"
+ header.b="AO/wEyi8"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2453E60EC3;
- Mon, 30 May 2022 13:28:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07F55C385B8;
- Mon, 30 May 2022 13:28:35 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id C1187B80D84;
+ Mon, 30 May 2022 13:29:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D88F5C36AE3;
+ Mon, 30 May 2022 13:29:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1653917317;
- bh=yWcmRdVyi+FWys7GZ9HWj6oxRlxBcBG6kQKuSmRN7nY=;
+ s=k20201202; t=1653917343;
+ bh=+u2Yt/xw2sPo6EAVrtuFDGeht+dJf7/yaSqLvJi8jeA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=MbNB4qr/P6przBXEvy6yEWNy1KJI51RZMiPTZ7oqOlSN+NISgv1IoHAorhXld4YoB
- G2mv5rj4BJXQKq/ZItAJU+ML/MTgrs1wqb/5ZOocpLXaQU4jOYJtO+O+IaFrfnYkQ2
- J54ZNSI8BBM13mmESHP01L4uUgqyV3TnRLqffUIKnM9pBl7s64J8WLPpTSmErm0FZH
- VdKd2u0JMAGnwR0gT93PMBhL4zaz/5tUYsciN6cCYXjyycTgaEulI9R6Cwhhhy0od8
- ygRTasqqDhtOBB4unqwYkXNYSTas7SqDivs0N4zumyiY1JGmSLgcRipo3W/zgDXM8L
- BGn27ldQbd2MA==
+ b=AO/wEyi808gEYCmqtnYNeOxSK8//WZeOSquzCiZaj7ETF/F++sTlLvn179hVTWOyS
+ 4kkq1SDPgJmiM9tluIm/D2pBUb3Y7jWUTA2zGIRzl2MllKjNyoy2NsLwx4cjzAl440
+ BTkg8yPJscoIadM18/+BbBUCsszONxZy81Z0M5lEkRKv4z3/OE22rgTmGCQ/zF1bpi
+ zW/ctjLlf+VnnHpryutVBA5XWtW3m9y8rF9omBXU3PSUD2YmI5bOxMXggh2f/FI43p
+ APpeLAqPMBWw+ZRAeH+hhTkxNAB0ehLWE0/+yttebx4JEe8O7NAahOgFGY4Yv9ZyCc
+ bq9jvwUdWISNA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.18 091/159] ASoC: Intel: sof_ssp_amp: fix no DMIC BE
- Link on Chromebooks
-Date: Mon, 30 May 2022 09:23:16 -0400
-Message-Id: <20220530132425.1929512-91-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.18 102/159] ASoC: SOF: amd: add missing
+ platform_device_unregister in acp_pci_rn_probe
+Date: Mon, 30 May 2022 09:23:27 -0400
+Message-Id: <20220530132425.1929512-102-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220530132425.1929512-1-sashal@kernel.org>
 References: <20220530132425.1929512-1-sashal@kernel.org>
@@ -71,12 +71,13 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, cezary.rojewski@intel.com,
- alsa-devel@alsa-project.org, tiwai@suse.com, yang.jie@linux.intel.com,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- liam.r.girdwood@linux.intel.com, Mark Brown <broonie@kernel.org>,
- ranjani.sridharan@linux.intel.com, akihiko.odaki@gmail.com,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Brent Lu <brent.lu@intel.com>
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ AjitKumar.Pandey@amd.com, kai.vehmanen@linux.intel.com, lgirdwood@gmail.com,
+ rander.wang@intel.com, yung-chuan.liao@linux.intel.com, tiwai@suse.com,
+ peter.ujfalusi@linux.intel.com, ranjani.sridharan@linux.intel.com,
+ pierre-louis.bossart@linux.intel.com, Zheng Bin <zhengbin13@huawei.com>,
+ Mark Brown <broonie@kernel.org>, daniel.baluta@nxp.com,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,73 +93,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Brent Lu <brent.lu@intel.com>
+From: Zheng Bin <zhengbin13@huawei.com>
 
-[ Upstream commit d1c808765deb2bcd35d827402ed4d75d068aae18 ]
+[ Upstream commit cbcab8cd737c74c20195c31d647e19f7cb49c9b8 ]
 
-The SOF topology supports 2 BE Links(dmic01 and dmic16k) and each
-link supports up to four DMICs. However, Chromebook does not implement
-ACPI NHLT table so the mach->mach_params.dmic_num is always zero. We
-add a quirk so machine driver knows it's running on a Chromebook and
-need to create BE Links for DMIC.
+acp_pci_rn_probe misses a call platform_device_unregister in error path,
+this patch fixes that.
 
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Signed-off-by: Brent Lu <brent.lu@intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20220509170922.54868-3-pierre-louis.bossart@linux.intel.com
+Signed-off-by: Zheng Bin <zhengbin13@huawei.com>
+Link: https://lore.kernel.org/r/20220512013728.4128903-1-zhengbin13@huawei.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/intel/boards/sof_ssp_amp.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+ sound/soc/sof/amd/pci-rn.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/intel/boards/sof_ssp_amp.c b/sound/soc/intel/boards/sof_ssp_amp.c
-index 88530e9de543..ef70c6f27fe1 100644
---- a/sound/soc/intel/boards/sof_ssp_amp.c
-+++ b/sound/soc/intel/boards/sof_ssp_amp.c
-@@ -9,6 +9,7 @@
- 
- #include <linux/acpi.h>
- #include <linux/delay.h>
-+#include <linux/dmi.h>
- #include <linux/module.h>
- #include <linux/platform_device.h>
- #include <sound/core.h>
-@@ -78,6 +79,16 @@ struct sof_card_private {
- 	bool idisp_codec;
- };
- 
-+static const struct dmi_system_id chromebook_platforms[] = {
-+	{
-+		.ident = "Google Chromebooks",
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Google"),
-+		}
-+	},
-+	{},
-+};
-+
- static const struct snd_soc_dapm_widget sof_ssp_amp_dapm_widgets[] = {
- 	SND_SOC_DAPM_MIC("SoC DMIC", NULL),
- };
-@@ -371,7 +382,7 @@ static int sof_ssp_amp_probe(struct platform_device *pdev)
- 	struct snd_soc_dai_link *dai_links;
- 	struct snd_soc_acpi_mach *mach;
- 	struct sof_card_private *ctx;
--	int dmic_be_num, hdmi_num = 0;
-+	int dmic_be_num = 0, hdmi_num = 0;
- 	int ret, ssp_codec;
- 
- 	ctx = devm_kzalloc(&pdev->dev, sizeof(*ctx), GFP_KERNEL);
-@@ -383,7 +394,8 @@ static int sof_ssp_amp_probe(struct platform_device *pdev)
- 
- 	mach = pdev->dev.platform_data;
- 
--	dmic_be_num = mach->mach_params.dmic_num;
-+	if (dmi_check_system(chromebook_platforms) || mach->mach_params.dmic_num > 0)
-+		dmic_be_num = 2;
- 
- 	ssp_codec = sof_ssp_amp_quirk & SOF_AMPLIFIER_SSP_MASK;
+diff --git a/sound/soc/sof/amd/pci-rn.c b/sound/soc/sof/amd/pci-rn.c
+index 392ffbdf6417..d809d151a38c 100644
+--- a/sound/soc/sof/amd/pci-rn.c
++++ b/sound/soc/sof/amd/pci-rn.c
+@@ -93,6 +93,7 @@ static int acp_pci_rn_probe(struct pci_dev *pci, const struct pci_device_id *pci
+ 	res = devm_kzalloc(&pci->dev, sizeof(struct resource) * ARRAY_SIZE(renoir_res), GFP_KERNEL);
+ 	if (!res) {
+ 		sof_pci_remove(pci);
++		platform_device_unregister(dmic_dev);
+ 		return -ENOMEM;
+ 	}
  
 -- 
 2.35.1

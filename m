@@ -2,98 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25BCF53795B
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 May 2022 12:46:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0ED56537971
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 May 2022 12:51:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9AC111A74;
-	Mon, 30 May 2022 12:45:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9AC111A74
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9CA6C1A9B;
+	Mon, 30 May 2022 12:50:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CA6C1A9B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653907572;
-	bh=UMEk+mnjJRjEyS+FjKihUSpKDzCVQNQ7/lTjvKuJHqo=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1653907874;
+	bh=WG3J+FVW69LkcqPJ5RYn2QVonnoVvfKzb9JaKyNZScs=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=H/snB+g6FonuR3yFbM2LRVyWTYQNFvGRqiTG2RqjjYxfHtUZg58IhWZHV58+JdJUD
-	 nQpTIqlZ+4K1IUMr4F5wDSUNm/7puZlj8Vuq2OU/JcN0OUvDJseEkJztaprYo9OT5R
-	 7/4BC5Cm/IuGBwaOti78cJ7uFcjH4FsqRVWWjFEk=
+	b=NEWOfgmkOG4vyj/1n6IREQxpxz/7Kkakb4Uxy0hc5zZh+RazuOVCYdftmLyJ6+Ykj
+	 h9YThWrEolN4jBsFr97zT45yK/PAzqjobHdDWzl6Dfi9r/6GhCjny9TCUXegMYK891
+	 uu6CDfELzL1O/eEhUuScZs8+rUrsplzgm5wjeTtY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1AA2BF801F5;
-	Mon, 30 May 2022 12:45:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1BBF6F801F5;
+	Mon, 30 May 2022 12:50:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AD9C0F8019D; Mon, 30 May 2022 12:45:13 +0200 (CEST)
+ id AC4BEF8019D; Mon, 30 May 2022 12:50:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6F9F9F800E5
- for <alsa-devel@alsa-project.org>; Mon, 30 May 2022 12:45:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F9F9F800E5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="SaslVQ8q"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="/wSTltsA"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 537F221B50;
- Mon, 30 May 2022 10:45:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1653907509; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=BE55qxSMS0UTxraTXVwJDW4YqxLCR/urdAJrBe0gCjw=;
- b=SaslVQ8qqTXREhp2ONr5sZIADkyLY7VBzO/FdeerZHCfkYsNKTiqRQVeM+bYuLXRvUnvA/
- bDuFdy25BMZnb5I5Ifls1U9/2hd2ZbfsA7WGkVMHR/JOi7pRFbJ7h0Z1ocv8yYD+Fq8p4z
- y7c+xLY2VDfOod3G4oWWQuqUqhBTS0I=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1653907509;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=BE55qxSMS0UTxraTXVwJDW4YqxLCR/urdAJrBe0gCjw=;
- b=/wSTltsAeifd2pgyDzeqdXh8CFgtineg0dz9gyhR7VoUAXN1GkeblyC9SCmj093gg4gzK5
- 5yE5Wj516Wyv+hBw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 27EF013AFD;
- Mon, 30 May 2022 10:45:09 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id G+3rCDWglGKvWgAAMHmgww
- (envelope-from <tiwai@suse.de>); Mon, 30 May 2022 10:45:09 +0000
-Date: Mon, 30 May 2022 12:45:08 +0200
-Message-ID: <871qwbxpsb.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Subject: Re: [PATCH v4 00/17] ALSA: hda: cirrus: Add initial DSP support and
- firmware loading
-In-Reply-To: <20220530103415.GU38351@ediswmail.ad.cirrus.com>
-References: <20220525131638.5512-1-vitalyr@opensource.cirrus.com>
- <871qwf0x8t.wl-tiwai@suse.de>
- <20220530090846.GS38351@ediswmail.ad.cirrus.com>
- <87czfvxtsc.wl-tiwai@suse.de>
- <20220530093639.GT38351@ediswmail.ad.cirrus.com>
- <87a6azxr7h.wl-tiwai@suse.de>
- <20220530103415.GU38351@ediswmail.ad.cirrus.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org,
- Vitaly Rodionov <vitalyr@opensource.cirrus.com>, patches@opensource.cirrus.com,
- Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
- linux-kernel@vger.kernel.org
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 52076F800E5
+ for <alsa-devel@alsa-project.org>; Mon, 30 May 2022 12:50:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52076F800E5
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub pull_request - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1653907811198823929-webhooks-bot@alsa-project.org>
+References: <1653907811198823929-webhooks-bot@alsa-project.org>
+Subject: [PATCH 00/15] rewrite public API according to convention of GNOME
+ project
+Message-Id: <20220530105014.AC4BEF8019D@alsa1.perex.cz>
+Date: Mon, 30 May 2022 12:50:14 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,49 +60,70 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 30 May 2022 12:34:15 +0200,
-Charles Keepax wrote:
-> 
-> On Mon, May 30, 2022 at 12:14:26PM +0200, Takashi Iwai wrote:
-> > On Mon, 30 May 2022 11:36:39 +0200,
-> > Charles Keepax wrote:
-> > > On Mon, May 30, 2022 at 11:18:43AM +0200, Takashi Iwai wrote:
-> > > > On Mon, 30 May 2022 11:08:46 +0200,
-> > > > Charles Keepax wrote:
-> > > > > On Fri, May 27, 2022 at 06:13:38PM +0200, Takashi Iwai wrote:
-> > > > > > On Wed, 25 May 2022 15:16:21 +0200,
-> > > > > > Vitaly Rodionov wrote:
-> > > Yeah that should be what is happening here. Although it looks
-> > > like this code might be removing all the controls if the firmware
-> > > is unloaded. I will discuss that with the guys, we normal just
-> > > disable the controls on the wm_adsp stuff.
-> > 
-> > OK, that sounds good.  Basically my concern came up from the code
-> > snippet doing asynchronous addition/removal via work.  This showed
-> > some yellow signal, as such a pattern doesn't appear in the normal
-> > implementation.  If this is (still) really necessary, it has to be
-> > clarified as an exception.
-> > 
-> 
-> Hm... ok we will think about that. I think that part will
-> probably still be necessary. Because there is an ALSA control
-> that selects the firmware, then it is necesarry to defer creating
-> the controls to some work, since you are already holding the
-> lock.
+alsa-project/alsa-gobject pull request #70 was opened from takaswie:
 
-Well, if an ALSA control can trigger the firmware loading, that's
-already fragile.  A firmware loading is a heavy task, which should
-happen only at probing and/or resuming in general.  Do we have other
-drivers doing the f/w loading triggered by a kctl...?
+In GNOME convention for throw function which has an argument of GError to report failure, the function is programmed to return value of gboolean type to report whether the argument is filled with instance of GError. On the other hand, I wrote the throw functions to return nothing (void).
 
-> I guess we could look at adding locked versions of the add
-> control functions as well if that might be preferred?
+This patchset rewrite public API according to it. Unfortunately, it brings loss of backward compatibility.
 
-If the patterns of additional kctls (specific for firmware?) are
-fixed, we may create all such kctls beforehand and let them inactive
-unless the corresponding firmware is really loaded, too.
+```
+Takashi Sakamoto (15):
+  ctl: remove useless exposed symbols
+  timer: user-instance: fix closure marshaller for event signal
+  ctl: query: rewrite public API to return gboolean according to GNOME convention
+  ctl: card: rewrite public API to return gboolean according to GNOME convention
+  ctl: elem_info: rewrite public API to return gboolean according to GNOME convention
+  rawmidi: query: rewrite public API to return gboolean according to GNOME convention
+  rawmidi: stream_pair: rewrite public API to return gboolean according to GNOME convention
+  hwdep: query: rewrite public API to return gboolean according to GNOME convention
+  timer: query: rewrite public API to return gboolean according to GNOME convention
+  timer: user_instance: rewrite public API to return gboolean according to GNOME convention
+  timer: instance-params: rewrite public API to return gboolean according to GNOME convention
+  seq: query: rewrite public API to return gboolean according to GNOME convention
+  seq: user_client: rewrite public API to return gboolean according to GNOME convention
+  seq: client_info: rewrite public API to return gboolean according to GNOME convention
+  seq: event_cntr: rewrite public API to return gboolean according to GNOME convention
 
+ samples/ctl                 |  21 +-
+ samples/hwdep               |   8 +-
+ samples/rawmidi             |  14 +-
+ samples/seq                 |  37 +-
+ samples/timer               |   9 +-
+ src/ctl/alsactl.map         |  73 ++--
+ src/ctl/card.c              | 322 +++++++++-------
+ src/ctl/card.h              |  82 ++---
+ src/ctl/elem-info.c         |  84 +++--
+ src/ctl/elem-info.h         |  12 +-
+ src/ctl/query.c             |  59 ++-
+ src/ctl/query.h             |   8 +-
+ src/hwdep/alsahwdep.map     |  13 +-
+ src/hwdep/query.c           |  64 ++--
+ src/hwdep/query.h           |  17 +-
+ src/rawmidi/alsarawmidi.map |  37 +-
+ src/rawmidi/privates.h      |   2 +-
+ src/rawmidi/query.c         |  96 +++--
+ src/rawmidi/query.h         |  37 +-
+ src/rawmidi/stream-pair.c   | 163 +++++----
+ src/rawmidi/stream-pair.h   |  31 +-
+ src/seq/alsaseq.map         |  98 ++---
+ src/seq/client-info.c       |  38 +-
+ src/seq/client-info.h       |  16 +-
+ src/seq/event-cntr.c        | 711 +++++++++++++++++++++---------------
+ src/seq/event-cntr.h        | 203 +++++-----
+ src/seq/query.c             | 298 +++++++++------
+ src/seq/query.h             |  46 +--
+ src/seq/user-client.c       | 413 +++++++++++++--------
+ src/seq/user-client.h       | 140 +++----
+ src/timer/alsatimer.map     |  44 ++-
+ src/timer/instance-params.c |  30 +-
+ src/timer/instance-params.h |   4 +-
+ src/timer/query.c           | 163 ++++++---
+ src/timer/query.h           |  23 +-
+ src/timer/user-instance.c   | 192 ++++++----
+ src/timer/user-instance.h   |  43 +--
+ 37 files changed, 2117 insertions(+), 1534 deletions(-)
+```
 
-thanks,
-
-Takashi
+Request URL   : https://github.com/alsa-project/alsa-gobject/pull/70
+Patch URL     : https://github.com/alsa-project/alsa-gobject/pull/70.patch
+Repository URL: https://github.com/alsa-project/alsa-gobject

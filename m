@@ -2,100 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 018D5537993
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 May 2022 13:09:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 844DF5379F2
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 May 2022 13:33:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 819E71AF4;
-	Mon, 30 May 2022 13:08:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 819E71AF4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1D62F1A6A;
+	Mon, 30 May 2022 13:32:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D62F1A6A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653908939;
-	bh=ZQtWOURmbvsJpnWSfj90ElLFq0wpYnulJXb7iqL7WCo=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1653910393;
+	bh=BCA9GHDRuUdk9xWK3DLQKtUv2RXOVskzfwKOMXN5Oa8=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ARnCsHf0Bt19RcMPrfGGn3zFE4KHDMr1GU+fGwYjqYw3YIC/OAKdyWdpacR0xs3Cl
-	 kENqhtJSZ45wsUyW2/wSeP8S6X7d80RndhhRNVqTyuxla+UdqP/J9JlYKDuCS4WDiv
-	 AU5pqyWJID0GGUcbU6vF4WhlVgIXbmyWIxXhY8GU=
+	b=pZ11f9UILVP/qVxxlfVDW6OrnFLIqeBswykpJyXIi+WmpoUW2zkocH5yP9j/bn/K5
+	 ThH02unsqh1gYFKKnLtDitS3vzuIwC99bFFJqWNnudG5BI287hVe4bab/hSvgFBV21
+	 oG0ZwD8Z1rsIeKHqSy4yxX+C2nnXHstE1fvJuDW0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EEADBF801F5;
-	Mon, 30 May 2022 13:08:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8B4E9F801F5;
+	Mon, 30 May 2022 13:32:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 79CE4F8019D; Mon, 30 May 2022 13:08:00 +0200 (CEST)
+ id 5FAF1F8019D; Mon, 30 May 2022 13:32:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 29D43F80124
+ for <alsa-devel@alsa-project.org>; Mon, 30 May 2022 13:32:06 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 3ABDBA0047;
+ Mon, 30 May 2022 13:32:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 3ABDBA0047
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1653910326; bh=zjOHNt523dbFOX2xDzHhluv4/0kMV+wexiBuakxIphQ=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=ZJHLT1qARbd3f64k2TMFvhtn40n0feo6CMHuh2hvI+YggpDXWOsuPKN2+X79dbEt2
+ xheVPxLuXhBZj8PQfCENcoXrDVozMqKt6dYFncRRVDZGt94BglqOqAQnl+Pp5/9rCJ
+ 7xc4sC62joPZ/9Pb00HUqKy9kaQR1HpGdSklKrZU=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 38643F800DE
- for <alsa-devel@alsa-project.org>; Mon, 30 May 2022 13:07:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38643F800DE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="pJjRJdr0"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="xV2Nux3W"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 311FE21B3A;
- Mon, 30 May 2022 11:07:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1653908876; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=p0MKv9MLeereOpdqp4/ju4WfXJfIR9HPdAiJse/OPeU=;
- b=pJjRJdr08h1S9f955jW068pEFv3RTUqlwfYZLqDC3hACmeWr3MliwdbgAGxZsBJMQfRSJh
- 2qo/Lxd4xZsUwg24ZSi8cGGciBTgeBAmhn36sxeTVrfwFaTKjaeBQjbeZ3VLo0vLoUK+VJ
- JioQlDEC2JXfXYMhLzZDgmRCwB+hJhg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1653908876;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=p0MKv9MLeereOpdqp4/ju4WfXJfIR9HPdAiJse/OPeU=;
- b=xV2Nux3WDIJaiuvAgWNYozyQyEOPOFxaVsOFqn0WS4uS99hWx1Ra48XUlmETIPqn7RQg+R
- zAs1v3wTUHo1q6DQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F349413AFD;
- Mon, 30 May 2022 11:07:55 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id +k16OoullGIyZwAAMHmgww
- (envelope-from <tiwai@suse.de>); Mon, 30 May 2022 11:07:55 +0000
-Date: Mon, 30 May 2022 13:07:55 +0200
-Message-ID: <87wne3wa5w.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Subject: Re: [PATCH v4 00/17] ALSA: hda: cirrus: Add initial DSP support and
- firmware loading
-In-Reply-To: <20220530105329.GV38351@ediswmail.ad.cirrus.com>
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Mon, 30 May 2022 13:31:59 +0200 (CEST)
+Message-ID: <dd0817a9-16f9-a08f-fcde-97788de445d3@perex.cz>
+Date: Mon, 30 May 2022 13:31:58 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
+Subject: Re: [PATCH v4 16/17] ALSA: hda: cs35l41: Support Firmware switching
+ and reloading
+Content-Language: en-US
+To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>,
+ Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>
 References: <20220525131638.5512-1-vitalyr@opensource.cirrus.com>
- <871qwf0x8t.wl-tiwai@suse.de>
- <20220530090846.GS38351@ediswmail.ad.cirrus.com>
- <87czfvxtsc.wl-tiwai@suse.de>
- <20220530093639.GT38351@ediswmail.ad.cirrus.com>
- <87a6azxr7h.wl-tiwai@suse.de>
- <20220530103415.GU38351@ediswmail.ad.cirrus.com>
- <871qwbxpsb.wl-tiwai@suse.de>
- <20220530105329.GV38351@ediswmail.ad.cirrus.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org,
- Vitaly Rodionov <vitalyr@opensource.cirrus.com>, patches@opensource.cirrus.com,
- Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
- linux-kernel@vger.kernel.org
+ <20220525131638.5512-17-vitalyr@opensource.cirrus.com>
+From: Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <20220525131638.5512-17-vitalyr@opensource.cirrus.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Stefan Binding <sbinding@opensource.cirrus.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,46 +84,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 30 May 2022 12:53:29 +0200,
-Charles Keepax wrote:
-> 
-> On Mon, May 30, 2022 at 12:45:08PM +0200, Takashi Iwai wrote:
-> > On Mon, 30 May 2022 12:34:15 +0200,
-> > Charles Keepax wrote:
-> > Well, if an ALSA control can trigger the firmware loading, that's
-> > already fragile.  A firmware loading is a heavy task, which should
-> > happen only at probing and/or resuming in general.  Do we have other
-> > drivers doing the f/w loading triggered by a kctl...?
-> > 
-> > > I guess we could look at adding locked versions of the add
-> > > control functions as well if that might be preferred?
-> > 
-> > If the patterns of additional kctls (specific for firmware?) are
-> > fixed, we may create all such kctls beforehand and let them inactive
-> > unless the corresponding firmware is really loaded, too.
-> > 
-> 
-> I am afraid we do, basically all the Wolfson/Cirrus audio devices
-> allow you to select the firmware through a kctl. The patterns of
-> controls are specific to the firmwares, so we can't really create
-> them ahead of time. One could maybe look at changing when the
-> firmwares are loaded, such as attempting to load all possible
-> firmwares on boot or something but its a fairly sizable change
-> that isn't without some side effects.
+On 25. 05. 22 15:16, Vitaly Rodionov wrote:
 
-The call of request_firmawre() itself can be pretty lengthy (e.g. it
-may hold until user-space process uploads the firmware if the fallback
-mode is enabled), and it implies that the request_firmware() call
-doesn't fit well as the operation to be done in a kctl put callback.
-So, even if we accept the firmware loading behavior via kctl as-is,
-the whole procedure should be async in work instead; namely, not only
-kctl creation/deletion but both request_firmware() + post-process
-should be done in the work.
+> This patch adds 2 ALSA Controls for each amp:
+> "DSP1 Firmware Load"
+> "DSP1 Firmware Type"
 
-And yet moreover, we'll need to consider some way for protecting
-against DoS-like behavior by frequent kctl changes.
+...
 
+> +	struct snd_kcontrol_new fw_type_ctl = {
+> +		.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
+> +		.info = cs35l41_fw_type_ctl_info,
+> +		.get = cs35l41_fw_type_ctl_get,
+> +		.put = cs35l41_fw_type_ctl_put,
+> +	};
+> +	struct snd_kcontrol_new fw_load_ctl = {
+> +		.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
+> +		.info = snd_ctl_boolean_mono_info,
+> +		.get = cs35l41_fw_load_ctl_get,
+> +		.put = cs35l41_fw_load_ctl_put,
+> +	};
 
-thanks,
+I don't think that those controls should be SNDRV_CTL_ELEM_IFACE_MIXER type. 
+The SNDRV_CTL_ELEM_IFACE_CARD seems more appropriate (service controls for the 
+sound card).
 
-Takashi
+						Jaroslav
+
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

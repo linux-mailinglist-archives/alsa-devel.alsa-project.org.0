@@ -2,101 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FE76537472
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 May 2022 08:48:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C98B95375AC
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 May 2022 09:43:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0892618D1;
-	Mon, 30 May 2022 08:47:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0892618D1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5BA151ACC;
+	Mon, 30 May 2022 09:42:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5BA151ACC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653893303;
-	bh=vN3XM4Tk3zozSM4iUABa+ICVlHq6njWVhLE3VQLIARk=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1653896604;
+	bh=HDo/aWAOKpHP3170EqxS35VIvpkpAfPdFJ5y9Y8xfjk=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BOmUwo6FpjJbKdRZApc/tRpePsCEzBR0EnTUQO/lC1BggOswwsUncHT+O+1wWoTMU
-	 YIJRyWlU3MrZUysQ3wyRc2TGNWz8tOu2DGEx016u/t8UesiqT8chX65bUHMbFoJ86I
-	 k6b0IOtk9qdI7hQmarCP4ECkQipG9gZMaEUdfoDI=
+	b=hoE/Bj9yu3aMGZ7vplQwxuZuCycHpAPR7vrA4Rce9SyYgdmvntnIfghqgdgV2b1fW
+	 Ix9bncjwt60mhqz5w/3we5dUzDlDGX3zbs8elJh4Y/sXXrTCQmjJn9S0bAI/2CZNUJ
+	 8qZtzllejaXRiGCq04xlhKVKb7sNGG+59oUVC550=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6FDE3F801F5;
-	Mon, 30 May 2022 08:47:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B7774F8012F;
+	Mon, 30 May 2022 09:42:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AFE8FF8019D; Mon, 30 May 2022 08:47:23 +0200 (CEST)
+ id 88FA5F8019D; Mon, 30 May 2022 09:42:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [IPv6:2a00:1450:4864:20::634])
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [IPv6:2a00:1450:4864:20::534])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 511A6F800DE
- for <alsa-devel@alsa-project.org>; Mon, 30 May 2022 08:47:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 511A6F800DE
+ by alsa1.perex.cz (Postfix) with ESMTPS id D3A1DF800DE
+ for <alsa-devel@alsa-project.org>; Mon, 30 May 2022 09:42:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3A1DF800DE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="IKtAyacl"
-Received: by mail-ej1-x634.google.com with SMTP id gh17so18904031ejc.6
- for <alsa-devel@alsa-project.org>; Sun, 29 May 2022 23:47:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=xrqwB2lGToCBc+n6yqgpAq/qwvJrPGHrojmotRDLsjc=;
- b=IKtAyaclv+/udvM4J1zeyH39xL8DS2lor2+PCVpwyLvM8oa/ONWMY8HwrpoASrocHn
- HwbzPjz/cFil7MUweoTBV2wGpvHjq8BesQwmCVE3OEFurYL2s5mlP0JklIjmn7SMA42A
- YIOcQvTvQedjzTmlbqpZgpFME4pIQPJGhtb1t9wnIt+62g3xCUUPBH5WyJ3RE8O/PyM4
- rbBwjnsgusdAnWyBXhgNK+DrJMfuvb2y2R+VwnO/98oxKdCrbLbmF4RjplmSSEXaf9Le
- gpG0WFhnyknCCoz0NStiVkltHsk8j/FWMU21QluswTJxrlh2ELLz4rGA3NwBLIflplBi
- QcQg==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="nPGSDOs/"
+Received: by mail-ed1-x534.google.com with SMTP id t5so12384085edc.2
+ for <alsa-devel@alsa-project.org>; Mon, 30 May 2022 00:42:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=hfKG4YWK0/wF8JKckFHhogrN1Uspikw4VVSzOBOiZQs=;
+ b=nPGSDOs/5FdLND1ypnker0BsT+k7E7bv6TdT4ZdNBPkH7MsnjruPykKv0SZXIF/jNv
+ kx6YmAJDmpO4Nh8wbwsc1jKjSqisZYjKdSX3bL1TBqct6ziFgzEP1NfGPNcRtNKl5Lts
+ xcLeui3Jl2Iq+mLKp+WbGt2Y6Iriz/NbdrJrANZzv4fX41uAnP0hvZadOrgZSJBNt2WN
+ qqC3dmAy4vuC24MQDq5hZ+SyS9d9enWpyVX1iQkd31v4QaBTXGrz9y8x0hbrT8O9RwQG
+ yxC3uj+ytcd1VVQBVVlAmL81HnYbjEI/qg4Gng4MchGjaxHOhkXi6312xBJGWoRGGbHN
+ GYSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=xrqwB2lGToCBc+n6yqgpAq/qwvJrPGHrojmotRDLsjc=;
- b=nV6BkHbiAoINJkqh/cVY4sT3UNBhpNN9Rb7+wxEDkAT/g96vQhTVQqq4iNhibu7jtF
- n/9pLihhYFXbTq5pBG4eZtCh4GYuGloGAND1aajOqZCwuDukettnwRyqvkNsEuKt3kiD
- dJg7nSaStHXPHfVtjRwi2tasZusZmlJ+X7pJN5Cv9RpiwwtEfPm3SB98UMrrz4q450LP
- QBlRYLKTumBHIWzfeZpxuNF7d4nYuX13D83rEbY61TuE46QwIEX3a1CjBzBRkcJa0lES
- CWQ0T0Z627BCwODaLcnIZ0GU9ax6wEp8p8fxEQJdsWHQdHx7lLXW7F4opHYkB917VVGJ
- cKpQ==
-X-Gm-Message-State: AOAM5329c+gVz2nihYpctcnz2KeZ9XHNsZBpF86tSXxO4V4YFpmntpWN
- 6hKdnwh/ODC4I116WbYFB0Mj8g==
-X-Google-Smtp-Source: ABdhPJxZjFdYQDaVPyTg6JpwNiieMtj79Gp3rSb2rXFI/eDktSp6zcMdBjr7J6dYdib+0gbBXfr6Sw==
-X-Received: by 2002:a17:907:7ea2:b0:6fe:d945:7fe with SMTP id
- qb34-20020a1709077ea200b006fed94507femr28896841ejc.228.1653893234983; 
- Sun, 29 May 2022 23:47:14 -0700 (PDT)
-Received: from [192.168.0.179] (xdsl-188-155-176-92.adslplus.ch.
- [188.155.176.92]) by smtp.gmail.com with ESMTPSA id
- kx17-20020a170907775100b006feded0fa87sm3682213ejc.218.2022.05.29.23.47.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 29 May 2022 23:47:14 -0700 (PDT)
-Message-ID: <f284612d-c511-9a31-3e0a-e4fb1cc77c6e@linaro.org>
-Date: Mon, 30 May 2022 08:47:13 +0200
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=hfKG4YWK0/wF8JKckFHhogrN1Uspikw4VVSzOBOiZQs=;
+ b=NOi3KA8QXx4I/W3AMeI/Um1h1iu79o0L7mWG/FdGqKw4p3UIzUyjI+979XjlkXk8ho
+ yhazKbiMt08zDuGA/mSiVMx18va7ffQTflmi/69e2/I3W06XZ1fSexAFMggfUsMT8106
+ KONmJcuR9fGUQmYY6Syvzw0NIg58t7lgmsYDdkjvPRdRQMETUbMovVgB26SpFTHbIo/R
+ FXSSHPe8FAsq6bCxcKgiWe307AuCHpwVHzQMuUFBleJN2u/Ql7nbMU/RfxkBZTG1Yx7s
+ sdFCdNgkGT+ooOXvCYwsXTVFnyDPiFfF8gUOdHSGdIDPCx7PguG1YRrFqQpuI0WUP31K
+ M5wA==
+X-Gm-Message-State: AOAM530jnrv8OuOWY9V3LNCxy/I0F0FSH6oRIc6/L+mWhkARdqSjxwXD
+ he6w8d7VqoHuG6QQ/nv4ZsLhdKCKWBt3GRzm
+X-Google-Smtp-Source: ABdhPJwqovQExkbkxPWrSxPyXA9KL9bw91tu3ooAFG/n8Qxt/g9ubvu7yewtRPUTtwTrPfTjoLX2mQ==
+X-Received: by 2002:aa7:dc09:0:b0:42a:aadd:8e71 with SMTP id
+ b9-20020aa7dc09000000b0042aaadd8e71mr57204773edu.41.1653896537958; 
+ Mon, 30 May 2022 00:42:17 -0700 (PDT)
+Received: from marios-pc.home.mlevogiannis.gr
+ (194.219.107.43.dsl.dyn.forthnet.gr. [194.219.107.43])
+ by smtp.gmail.com with ESMTPSA id
+ z1-20020a1709060ac100b006f3ef214de1sm3709693ejf.71.2022.05.30.00.42.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 30 May 2022 00:42:17 -0700 (PDT)
+From: Marios Levogiannis <marios.levogiannis@gmail.com>
+To: Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH] ALSA: hda/realtek - Fix microphone noise on ASUS TUF
+ B550M-PLUS
+Date: Mon, 30 May 2022 10:41:31 +0300
+Message-Id: <20220530074131.12258-1-marios.levogiannis@gmail.com>
+X-Mailer: git-send-email 2.36.1
+In-Reply-To: <87r14by1xi.wl-tiwai@suse.de>
+References: <87r14by1xi.wl-tiwai@suse.de>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH v2 1/6] ASoC: tegra: Add binding doc for OPE module
-Content-Language: en-US
-To: Sameer Pujar <spujar@nvidia.com>, broonie@kernel.org, robh+dt@kernel.org, 
- krzysztof.kozlowski+dt@linaro.org, thierry.reding@gmail.com,
- catalin.marinas@arm.com, will@kernel.org, perex@perex.cz, tiwai@suse.com
-References: <1653647172-2569-1-git-send-email-spujar@nvidia.com>
- <1653647172-2569-2-git-send-email-spujar@nvidia.com>
- <149fbcfe-b62c-63a9-6c38-100d493788c3@linaro.org>
- <df57de4e-770d-7331-89e5-a2404fb42f96@nvidia.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <df57de4e-770d-7331-89e5-a2404fb42f96@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, jonathanh@nvidia.com,
- linux-tegra@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org,
+ Marios Levogiannis <marios.levogiannis@gmail.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,24 +105,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 30/05/2022 06:21, Sameer Pujar wrote:
->>> --- /dev/null
->>> +++ b/Documentation/devicetree/bindings/sound/nvidia,tegra210-mbdrc.yaml
->>> @@ -0,0 +1,47 @@
->>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->>> +%YAML 1.2
->>> +---
->>> +$id: http://devicetree.org/schemas/sound/nvidia,tegra210-mbdrc.yaml#
->>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>> +
->>> +title: Tegra210 MBDRC Device Tree Bindings
->> Previous comments - s/Device Tree Bindings//
->>   -  still applies. Please do not ignore it.
-> 
-> I did not ignore this. There was a comment from Mark on this earlier (v1) and I did not see further reply from you. I thought you were OK with the way it is. So if you are saying acronym part is OK and just to remove "Device Tree Bindings" I can send a v3 for this.
+Set microphone pins 0x18 (rear) and 0x19 (front) to VREF_50 to fix the
+microphone noise on ASUS TUF B550M-PLUS which uses the ALCS1200A codec.
+The initial value was VREF_80.
 
-Yes, acronym is okay. Just remove the "Device Tree Bindings".
+The same issue is also present on Windows using both the default Windows
+driver and all tested Realtek drivers before version 6.0.9049.1. Comparing
+Realtek driver 6.0.9049.1 (the first one without the microphone noise) to
+Realtek driver 6.0.9047.1 (the last one with the microphone noise)
+revealed that the fix is the result of setting pins 0x18 and 0x19 to
+VREF_50.
 
+This fix may also work for other boards that have been reported to have
+the same microphone issue and use the ALC1150 and ALCS1200A codecs, since
+these codecs are similar and the fix in the Realtek driver on Windows is
+common for both. However, it is currently enabled only for ASUS TUF
+B550M-PLUS as this is the only board that could be tested.
 
-Best regards,
-Krzysztof
+Signed-off-by: Marios Levogiannis <marios.levogiannis@gmail.com>
+---
+ sound/pci/hda/patch_realtek.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 89d610afa..f3ad454b3 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -1981,6 +1981,7 @@ enum {
+ 	ALC1220_FIXUP_CLEVO_PB51ED_PINS,
+ 	ALC887_FIXUP_ASUS_AUDIO,
+ 	ALC887_FIXUP_ASUS_HMIC,
++	ALCS1200A_FIXUP_MIC_VREF,
+ };
+ 
+ static void alc889_fixup_coef(struct hda_codec *codec,
+@@ -2526,6 +2527,14 @@ static const struct hda_fixup alc882_fixups[] = {
+ 		.chained = true,
+ 		.chain_id = ALC887_FIXUP_ASUS_AUDIO,
+ 	},
++	[ALCS1200A_FIXUP_MIC_VREF] = {
++		.type = HDA_FIXUP_PINCTLS,
++		.v.pins = (const struct hda_pintbl[]) {
++			{ 0x18, PIN_VREF50 }, /* rear mic */
++			{ 0x19, PIN_VREF50 }, /* front mic */
++			{}
++		}
++	},
+ };
+ 
+ static const struct snd_pci_quirk alc882_fixup_tbl[] = {
+@@ -2563,6 +2572,7 @@ static const struct snd_pci_quirk alc882_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1043, 0x835f, "Asus Eee 1601", ALC888_FIXUP_EEE1601),
+ 	SND_PCI_QUIRK(0x1043, 0x84bc, "ASUS ET2700", ALC887_FIXUP_ASUS_BASS),
+ 	SND_PCI_QUIRK(0x1043, 0x8691, "ASUS ROG Ranger VIII", ALC882_FIXUP_GPIO3),
++	SND_PCI_QUIRK(0x1043, 0x8797, "ASUS TUF B550M-PLUS", ALCS1200A_FIXUP_MIC_VREF),
+ 	SND_PCI_QUIRK(0x104d, 0x9043, "Sony Vaio VGC-LN51JGB", ALC882_FIXUP_NO_PRIMARY_HP),
+ 	SND_PCI_QUIRK(0x104d, 0x9044, "Sony VAIO AiO", ALC882_FIXUP_NO_PRIMARY_HP),
+ 	SND_PCI_QUIRK(0x104d, 0x9047, "Sony Vaio TT", ALC889_FIXUP_VAIO_TT),
+-- 
+2.36.1
+

@@ -2,69 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E53B537E20
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 May 2022 15:51:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 754A9537E22
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 May 2022 15:51:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2D3DB1F66;
-	Mon, 30 May 2022 15:50:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D3DB1F66
+	by alsa0.perex.cz (Postfix) with ESMTPS id D6DEE1F6A;
+	Mon, 30 May 2022 15:50:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6DEE1F6A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653918675;
-	bh=SCrb2B54rfJkpjKpDTRTPDuM7Oj8CekCHGji+4OOpcY=;
+	s=default; t=1653918681;
+	bh=QeQg3hA5x9OrSaQpUJVXP7E9MxhSc4xird1zk6F7M0k=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nlxlqjDLGnomnKHP14bJxxo/ax3Qe3CCemjskXD3IQtqJyUzpCrXzlpeKeok/z5N9
-	 WUFv0/XuiRbzJB5c/6QHQMsiRvldzMMQpq4daDcMSdlU4O3vqdWP6iF6L91FaeDMyF
-	 MFfQESvRLF/Gk01zthCLOMQGW5UizIGB5jXkwBrA=
+	b=EKXOnWykms3jEmwjtLQdmIuu5aYNMJvV9Ch6b0ZGo81DCB3He6AeVhSlMytnS7AAL
+	 MssBtWicOX8zUWdxBZKW2x4U4Bd3zipflptJY+j6Hv239rJK/vd6tOvMGukaVU7ikA
+	 b5teV+qNenSZq2iy2NJmQobRrG0shcTeh6h7999M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CC57DF8051B;
-	Mon, 30 May 2022 15:50:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A5ABCF804BD;
+	Mon, 30 May 2022 15:50:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E5DB8F804EC; Mon, 30 May 2022 15:50:21 +0200 (CEST)
+ id 8C955F800E5; Mon, 30 May 2022 15:50:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9173EF800E5
- for <alsa-devel@alsa-project.org>; Mon, 30 May 2022 15:50:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9173EF800E5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 43B3DF800E5
+ for <alsa-devel@alsa-project.org>; Mon, 30 May 2022 15:50:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43B3DF800E5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="NsMFRLyo"
+ header.b="BpI/862Z"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A433360FDC;
- Mon, 30 May 2022 13:50:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38E6AC385B8;
- Mon, 30 May 2022 13:50:16 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D453660FA9;
+ Mon, 30 May 2022 13:50:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 327B5C36AE9;
+ Mon, 30 May 2022 13:50:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1653918617;
- bh=SCrb2B54rfJkpjKpDTRTPDuM7Oj8CekCHGji+4OOpcY=;
+ s=k20201202; t=1653918620;
+ bh=QeQg3hA5x9OrSaQpUJVXP7E9MxhSc4xird1zk6F7M0k=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=NsMFRLyo1Qect7ulrMmijtkxv4nO++QD+xCTuUjOPmifuLWBopFdiuL3kwugO78lb
- BCKChI/h0Up/qYcc9TqfFzMTzU4W7ETA18CTd1SYMCLpYindnGTSF+rTRzC/34t7Uo
- 7UTdp5prRBpvIL8+h18t3Gb82MIOWvsr6Wu4tQELEOg3guCDQzagILPBdX0h6sEOjB
- 682wJrQSjwzbNDMYQqDcjLTNSUSP/di8ela/OHrBhqAka4nAPzrXeXkiyCHdqusHFV
- aQPwegYxsGfLtciVJkrDNTiOM39agkxNoawM7b5evjH7vS/SoOGmqXHcrIJ1bhgBMh
- Vet1T45TJVk0w==
+ b=BpI/862ZwQOLrjKUCdYWOU5X9XKFtZrI5Ik/9/E5v+e3isiVGFtMQxcq3K21+L/hj
+ 4g+OWiQZB+adQBc0ekdBF71sKetI07vXcJXd5CfgOHuuN6ExKdC94J5zN4stxvEvq7
+ LeoFsxn8WZhOqXX3gCYukylyKlfi/kC6vwDoRcF3k8IhsKUK3P3XyX3KhuFV0QNluL
+ +hYwb+aJwXOPkr9ka3dHqBxymFnhv6PBVwpSOM57hY5Jrv0EMNL8HfonxASuyAcWCZ
+ pqbSFO7R16DNHq9MYqrjzWsXPMMFBulMlo8VZQSdUGvQGcp7MwwYEOwzqUOKhXzVv/
+ yqeVz6tvVaVKA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.19 21/38] ASoC: dapm: Don't fold register value
- changes into notifications
-Date: Mon, 30 May 2022 09:49:07 -0400
-Message-Id: <20220530134924.1936816-21-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 23/38] ASoC: tscs454: Add endianness flag in
+ snd_soc_component_driver
+Date: Mon, 30 May 2022 09:49:09 -0400
+Message-Id: <20220530134924.1936816-23-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220530134924.1936816-1-sashal@kernel.org>
 References: <20220530134924.1936816-1-sashal@kernel.org>
@@ -72,7 +72,8 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+Cc: Sasha Levin <sashal@kernel.org>, steven.eckhoff.opensource@gmail.com,
+ alsa-devel@alsa-project.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
  tiwai@suse.com, lgirdwood@gmail.com, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -89,49 +90,66 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Mark Brown <broonie@kernel.org>
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-[ Upstream commit ad685980469b9f9b99d4d6ea05f4cb8f57cb2234 ]
+[ Upstream commit ff69ec96b87dccb3a29edef8cec5d4fefbbc2055 ]
 
-DAPM tracks and reports the value presented to the user from DAPM controls
-separately to the register value, these may diverge during initialisation
-or when an autodisable control is in use.
+The endianness flag is used on the CODEC side to specify an
+ambivalence to endian, typically because it is lost over the hardware
+link. This device receives audio over an I2S DAI and as such should
+have endianness applied.
 
-When writing DAPM controls we currently report that a change has occurred
-if either the DAPM value or the value stored in the register has changed,
-meaning that if the two are out of sync we may appear to report a spurious
-event to userspace. Since we use this folded in value for nothing other
-than the value reported to userspace simply drop the folding in of the
-register change.
+A fixup is also required to use the width directly rather than relying
+on the format in hw_params, now both little and big endian would be
+supported. It is worth noting this changes the behaviour of S24_LE to
+use a word length of 24 rather than 32. This would appear to be a
+correction since the fact S24_LE is stored as 32 bits should not be
+presented over the bus.
 
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Link: https://lore.kernel.org/r/20220428161833.3690050-1-broonie@kernel.org
+Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Link: https://lore.kernel.org/r/20220504170905.332415-26-ckeepax@opensource.cirrus.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/soc-dapm.c | 2 --
- 1 file changed, 2 deletions(-)
+ sound/soc/codecs/tscs454.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
-index af9f28dd957d..4d70e6bc2c12 100644
---- a/sound/soc/soc-dapm.c
-+++ b/sound/soc/soc-dapm.c
-@@ -3302,7 +3302,6 @@ int snd_soc_dapm_put_volsw(struct snd_kcontrol *kcontrol,
- 			update.val = val;
- 			card->update = &update;
- 		}
--		change |= reg_change;
+diff --git a/sound/soc/codecs/tscs454.c b/sound/soc/codecs/tscs454.c
+index ff85a0bf6170..00a90ccd6566 100644
+--- a/sound/soc/codecs/tscs454.c
++++ b/sound/soc/codecs/tscs454.c
+@@ -3129,18 +3129,17 @@ static int set_aif_sample_format(struct snd_soc_component *component,
+ 	unsigned int width;
+ 	int ret;
  
- 		ret = soc_dapm_mixer_update_power(card, kcontrol, connect,
- 						  rconnect);
-@@ -3408,7 +3407,6 @@ int snd_soc_dapm_put_enum_double(struct snd_kcontrol *kcontrol,
- 			update.val = val;
- 			card->update = &update;
- 		}
--		change |= reg_change;
+-	switch (format) {
+-	case SNDRV_PCM_FORMAT_S16_LE:
++	switch (snd_pcm_format_width(format)) {
++	case 16:
+ 		width = FV_WL_16;
+ 		break;
+-	case SNDRV_PCM_FORMAT_S20_3LE:
++	case 20:
+ 		width = FV_WL_20;
+ 		break;
+-	case SNDRV_PCM_FORMAT_S24_3LE:
++	case 24:
+ 		width = FV_WL_24;
+ 		break;
+-	case SNDRV_PCM_FORMAT_S24_LE:
+-	case SNDRV_PCM_FORMAT_S32_LE:
++	case 32:
+ 		width = FV_WL_32;
+ 		break;
+ 	default:
+@@ -3338,6 +3337,7 @@ static const struct snd_soc_component_driver soc_component_dev_tscs454 = {
+ 	.num_dapm_routes = ARRAY_SIZE(tscs454_intercon),
+ 	.controls =	tscs454_snd_controls,
+ 	.num_controls = ARRAY_SIZE(tscs454_snd_controls),
++	.endianness = 1,
+ };
  
- 		ret = soc_dapm_mux_update_power(card, kcontrol, item[0], e);
- 
+ #define TSCS454_RATES SNDRV_PCM_RATE_8000_96000
 -- 
 2.35.1
 

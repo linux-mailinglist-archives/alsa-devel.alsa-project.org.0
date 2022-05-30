@@ -2,84 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E0E7537CBC
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 May 2022 15:38:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5C5A537CBF
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 May 2022 15:40:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AC3D41E81;
-	Mon, 30 May 2022 15:37:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC3D41E81
+	by alsa0.perex.cz (Postfix) with ESMTPS id 525591DAD;
+	Mon, 30 May 2022 15:39:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 525591DAD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653917927;
-	bh=4c4aEuU/cvjom0M16ArwJiuqMUd3ut2aEY2KHB7piac=;
+	s=default; t=1653918037;
+	bh=GTHiEG6Fbnv6d3nL/QXh9DsjWVX96eO95njhrpvwukM=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BWWdQOgyIySau4cUpt8na00oAcVVSHDUIkQ9bstfCUOdb6J3bo/9Eztfpn0g1H+Rt
-	 XgsTBsLmDu5jQzHaeR80FjJBSmBFHHwh1V/yGM8kQxwLIpml7cySTdSMsTFVHf4QtS
-	 L9+dn7JJwzdqrfE993y9np1qSK65/cKgPfldz2a8=
+	b=gd1TvF7HDaMbYwsITBAn6vAmzJG692cXsrSFDjyDzUujTEmJdRudi6Kbp86I6GVRq
+	 Sj4e5vd2u8qK00qGAEQqM8dSdIcYU+a67UU6YN/OI/7FoWp1ra0Uzb0mhlz6v2Tpky
+	 Ethm2syfC+oF7zalULVp4Zi6Oh3lwSma26Oo9uoY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2FFCDF8019D;
-	Mon, 30 May 2022 15:37:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DEDE4F8019D;
+	Mon, 30 May 2022 15:39:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D69B9F804EC; Mon, 30 May 2022 15:37:45 +0200 (CEST)
+ id 2E3D4F8012F; Mon, 30 May 2022 15:39:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 849DEF8019D
- for <alsa-devel@alsa-project.org>; Mon, 30 May 2022 15:37:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 849DEF8019D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 35D88F800DE
+ for <alsa-devel@alsa-project.org>; Mon, 30 May 2022 15:39:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35D88F800DE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="JOSndnlf"
+ header.b="Nuwz0usf"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id E1E74B80DAD;
- Mon, 30 May 2022 13:37:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BCFCC36AE3;
- Mon, 30 May 2022 13:37:39 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D433860E01;
+ Mon, 30 May 2022 13:39:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53C8FC385B8;
+ Mon, 30 May 2022 13:39:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1653917861;
- bh=4c4aEuU/cvjom0M16ArwJiuqMUd3ut2aEY2KHB7piac=;
+ s=k20201202; t=1653917967;
+ bh=GTHiEG6Fbnv6d3nL/QXh9DsjWVX96eO95njhrpvwukM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=JOSndnlfSa0qI1uRMK67pVc4vhAbFSnD70z8U3kyl/2ALk79mdQcIRvA4aodM3gY+
- 2aSpeT/eGCi/tLlDavoB1z6p2o33bTSKHOgLss3g4SmpEHuVZPyhzAmGnvMii5BxYy
- Xw30SyjtHj1o1ohCAj3+JPlz8nFHJHgYQoFtyTUi6N8adOlWaYQ7kRX2Exddyrzc3H
- pLe11FY7p7+Lk+co0SlQhP2fa63pX965+iMpnBrubXpmaA3LYYcsvJ/31mINlza0sv
- az7ZiKsCUbAxh4rSBAg/EK1KtEFOJ1WjeM2SPCdwGW6poC28LCQd1b4a+y2M3I0P1g
- WMlKEeWfsyF7w==
+ b=Nuwz0usf8oVgkWRNMKAqSrQ9JEvsuh2EF0qAU3cpDtd/ESQfRK3rm6pf4a1e+BRLs
+ YptJBORCGFbby3mUofZkwwQZsd12Evc/YUud5f4TQB4VTJDaYWPA3hSBhXAMVYnE2b
+ wmavF4tvSDsX3xlJZrglT9zod4ZR8wTCznSgj83g2LGceWtLLsgpb9u+1iOJqWUdsD
+ GacZ99cOQEljlhmYxmPzB79WKx2TA07s6NQuD5rlNa88cUAUPJEb0EX+zqnx9ipqeW
+ ZcC/dSuLB2PPtq949tqCKY+QR7sWgkOFBf+ThE71jZUFQJT4HLam0zpNi0xlwYY5I2
+ ghjuFU1+rC7Ww==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.17 119/135] ASoC: rt1015p: remove dependency on
- GPIOLIB
-Date: Mon, 30 May 2022 09:31:17 -0400
-Message-Id: <20220530133133.1931716-119-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 020/109] ALSA: jack: Access input_dev under mutex
+Date: Mon, 30 May 2022 09:36:56 -0400
+Message-Id: <20220530133825.1933431-20-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220530133133.1931716-1-sashal@kernel.org>
-References: <20220530133133.1931716-1-sashal@kernel.org>
+In-Reply-To: <20220530133825.1933431-1-sashal@kernel.org>
+References: <20220530133825.1933431-1-sashal@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- kernel test robot <yujie.liu@intel.com>, tanureal@opensource.cirrus.com,
- hdegoede@redhat.com, tiwai@suse.com,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- lgirdwood@gmail.com, cy_huang@richtek.com, Mark Brown <broonie@kernel.org>,
- srinivas.kandagatla@linaro.org, pbrobinson@gmail.com,
- ckeepax@opensource.cirrus.com, james.schulman@cirrus.com,
- =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+Cc: Sasha Levin <sashal@kernel.org>,
+ Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.de>, tiwai@suse.com,
+ =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>, xkernel.wang@foxmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,54 +92,152 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+From: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 
-[ Upstream commit b390c25c6757b9d56cecdfbf6d55f15fc89a6386 ]
+[ Upstream commit 1b6a6fc5280e97559287b61eade2d4b363e836f2 ]
 
-commit dcc2c012c7691 ("ASoC: Fix gpiolib dependencies") removed a
-series of unnecessary dependencies on GPIOLIB when the gpio was
-optional.
+It is possible when using ASoC that input_dev is unregistered while
+calling snd_jack_report, which causes NULL pointer dereference.
+In order to prevent this serialize access to input_dev using mutex lock.
 
-A similar simplification seems valid for rt1015p, so remove the
-dependency as well. This will avoid the following warning
-
-  WARNING: unmet direct dependencies detected for SND_SOC_RT1015P
-
-     Depends on [n]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] &&
-     GPIOLIB [=n]
-
-     Selected by [y]:
-
-     - SND_SOC_INTEL_SOF_RT5682_MACH [=y] && SOUND [=y] && !UML && SND
-       [=y] && SND_SOC [=y] && SND_SOC_INTEL_MACH [=y] &&
-       (SND_SOC_SOF_HDA_LINK [=y] || SND_SOC_SOF_BAYTRAIL [=n]) && I2C
-       [=y] && ACPI [=y] && (SND_HDA_CODEC_HDMI [=y] &&
-       SND_SOC_SOF_HDA_AUDIO_CODEC [=y] && (MFD_INTEL_LPSS [=y] ||
-       COMPILE_TEST [=y]) || SND_SOC_SOF_BAYTRAIL [=n] &&
-       (X86_INTEL_LPSS [=n] || COMPILE_TEST [=y]))
-
-Reported-by: kernel test robot <yujie.liu@intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Link: https://lore.kernel.org/r/20220517172647.468244-3-pierre-louis.bossart@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
+Link: https://lore.kernel.org/r/20220412091628.3056922-1-amadeuszx.slawinski@linux.intel.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/Kconfig | 1 -
- 1 file changed, 1 deletion(-)
+ include/sound/jack.h |  1 +
+ sound/core/jack.c    | 34 +++++++++++++++++++++++++++-------
+ 2 files changed, 28 insertions(+), 7 deletions(-)
 
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index a8c6c2bfd5a7..3496403004ac 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -1202,7 +1202,6 @@ config SND_SOC_RT1015
+diff --git a/include/sound/jack.h b/include/sound/jack.h
+index 1181f536557e..1ed90e2109e9 100644
+--- a/include/sound/jack.h
++++ b/include/sound/jack.h
+@@ -62,6 +62,7 @@ struct snd_jack {
+ 	const char *id;
+ #ifdef CONFIG_SND_JACK_INPUT_DEV
+ 	struct input_dev *input_dev;
++	struct mutex input_dev_lock;
+ 	int registered;
+ 	int type;
+ 	char name[100];
+diff --git a/sound/core/jack.c b/sound/core/jack.c
+index d1e3055f2b6a..88493cc31914 100644
+--- a/sound/core/jack.c
++++ b/sound/core/jack.c
+@@ -42,8 +42,11 @@ static int snd_jack_dev_disconnect(struct snd_device *device)
+ #ifdef CONFIG_SND_JACK_INPUT_DEV
+ 	struct snd_jack *jack = device->device_data;
  
- config SND_SOC_RT1015P
- 	tristate
--	depends on GPIOLIB
+-	if (!jack->input_dev)
++	mutex_lock(&jack->input_dev_lock);
++	if (!jack->input_dev) {
++		mutex_unlock(&jack->input_dev_lock);
+ 		return 0;
++	}
  
- config SND_SOC_RT1019
- 	tristate
+ 	/* If the input device is registered with the input subsystem
+ 	 * then we need to use a different deallocator. */
+@@ -52,6 +55,7 @@ static int snd_jack_dev_disconnect(struct snd_device *device)
+ 	else
+ 		input_free_device(jack->input_dev);
+ 	jack->input_dev = NULL;
++	mutex_unlock(&jack->input_dev_lock);
+ #endif /* CONFIG_SND_JACK_INPUT_DEV */
+ 	return 0;
+ }
+@@ -90,8 +94,11 @@ static int snd_jack_dev_register(struct snd_device *device)
+ 	snprintf(jack->name, sizeof(jack->name), "%s %s",
+ 		 card->shortname, jack->id);
+ 
+-	if (!jack->input_dev)
++	mutex_lock(&jack->input_dev_lock);
++	if (!jack->input_dev) {
++		mutex_unlock(&jack->input_dev_lock);
+ 		return 0;
++	}
+ 
+ 	jack->input_dev->name = jack->name;
+ 
+@@ -116,6 +123,7 @@ static int snd_jack_dev_register(struct snd_device *device)
+ 	if (err == 0)
+ 		jack->registered = 1;
+ 
++	mutex_unlock(&jack->input_dev_lock);
+ 	return err;
+ }
+ #endif /* CONFIG_SND_JACK_INPUT_DEV */
+@@ -517,9 +525,11 @@ int snd_jack_new(struct snd_card *card, const char *id, int type,
+ 		return -ENOMEM;
+ 	}
+ 
+-	/* don't creat input device for phantom jack */
+-	if (!phantom_jack) {
+ #ifdef CONFIG_SND_JACK_INPUT_DEV
++	mutex_init(&jack->input_dev_lock);
++
++	/* don't create input device for phantom jack */
++	if (!phantom_jack) {
+ 		int i;
+ 
+ 		jack->input_dev = input_allocate_device();
+@@ -537,8 +547,8 @@ int snd_jack_new(struct snd_card *card, const char *id, int type,
+ 				input_set_capability(jack->input_dev, EV_SW,
+ 						     jack_switch_types[i]);
+ 
+-#endif /* CONFIG_SND_JACK_INPUT_DEV */
+ 	}
++#endif /* CONFIG_SND_JACK_INPUT_DEV */
+ 
+ 	err = snd_device_new(card, SNDRV_DEV_JACK, jack, &ops);
+ 	if (err < 0)
+@@ -578,10 +588,14 @@ EXPORT_SYMBOL(snd_jack_new);
+ void snd_jack_set_parent(struct snd_jack *jack, struct device *parent)
+ {
+ 	WARN_ON(jack->registered);
+-	if (!jack->input_dev)
++	mutex_lock(&jack->input_dev_lock);
++	if (!jack->input_dev) {
++		mutex_unlock(&jack->input_dev_lock);
+ 		return;
++	}
+ 
+ 	jack->input_dev->dev.parent = parent;
++	mutex_unlock(&jack->input_dev_lock);
+ }
+ EXPORT_SYMBOL(snd_jack_set_parent);
+ 
+@@ -629,6 +643,8 @@ EXPORT_SYMBOL(snd_jack_set_key);
+ 
+ /**
+  * snd_jack_report - Report the current status of a jack
++ * Note: This function uses mutexes and should be called from a
++ * context which can sleep (such as a workqueue).
+  *
+  * @jack:   The jack to report status for
+  * @status: The current status of the jack
+@@ -654,8 +670,11 @@ void snd_jack_report(struct snd_jack *jack, int status)
+ 					     status & jack_kctl->mask_bits);
+ 
+ #ifdef CONFIG_SND_JACK_INPUT_DEV
+-	if (!jack->input_dev)
++	mutex_lock(&jack->input_dev_lock);
++	if (!jack->input_dev) {
++		mutex_unlock(&jack->input_dev_lock);
+ 		return;
++	}
+ 
+ 	for (i = 0; i < ARRAY_SIZE(jack->key); i++) {
+ 		int testbit = ((SND_JACK_BTN_0 >> i) & ~mask_bits);
+@@ -675,6 +694,7 @@ void snd_jack_report(struct snd_jack *jack, int status)
+ 	}
+ 
+ 	input_sync(jack->input_dev);
++	mutex_unlock(&jack->input_dev_lock);
+ #endif /* CONFIG_SND_JACK_INPUT_DEV */
+ }
+ EXPORT_SYMBOL(snd_jack_report);
 -- 
 2.35.1
 

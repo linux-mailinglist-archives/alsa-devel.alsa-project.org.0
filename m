@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60939537C94
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 May 2022 15:34:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64577537C95
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 May 2022 15:34:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D3AE91B54;
-	Mon, 30 May 2022 15:33:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3AE91B54
+	by alsa0.perex.cz (Postfix) with ESMTPS id 02DC31B5C;
+	Mon, 30 May 2022 15:33:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 02DC31B5C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653917659;
-	bh=e4rQjDbcX7pYuLi/MagzF5WQm9G9+qVy7DrNZMANN00=;
+	s=default; t=1653917669;
+	bh=z4wDMbAV2RS1G7aP/5ULZccvzCp/6WBnP3rMRzqLcME=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iZULnREtX7ImIWGgKc61Xe+bkCN8bifoArEmm6A40lTHW4+rIJWouBZjaOJfhG8fu
-	 Vsl+va2Z2LK6nQ8ItRMKwK7ZTE1VElaRA8QCP0KaQFI+HmHkwq1/EKue96TmU+NR6o
-	 38nKup3lqwplwqripkyKFe79fXZhiil3b2lqYKM8=
+	b=KRP5b58aaEgBNzPW8eMCMc8RcEt5Ad7myvc2kOYAwgpWcJrthz7ShSbBPbVbedawB
+	 raCguXoH4LqPtsRIa4/Qvmyn6bRZJdSdWN/QvdQkBxLQBlaH4u6o7Z9Ie05UBbspIu
+	 pfDGEIKAQzDaMeWR25xeCcAEZd+4/dHTQGMOW300=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4CE2FF804B4;
-	Mon, 30 May 2022 15:33:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DC32BF8051C;
+	Mon, 30 May 2022 15:33:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D365AF80240; Mon, 30 May 2022 15:33:26 +0200 (CEST)
+ id 703B2F8051B; Mon, 30 May 2022 15:33:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,36 +34,36 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E533EF8019D
- for <alsa-devel@alsa-project.org>; Mon, 30 May 2022 15:33:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E533EF8019D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 79088F800E5
+ for <alsa-devel@alsa-project.org>; Mon, 30 May 2022 15:33:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79088F800E5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="oRh/fMSr"
+ header.b="Q+MZad5l"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D774960DD5;
- Mon, 30 May 2022 13:33:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAD8CC36AE3;
- Mon, 30 May 2022 13:33:09 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 4AF5060F82;
+ Mon, 30 May 2022 13:33:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBA77C385B8;
+ Mon, 30 May 2022 13:33:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1653917591;
- bh=e4rQjDbcX7pYuLi/MagzF5WQm9G9+qVy7DrNZMANN00=;
+ s=k20201202; t=1653917605;
+ bh=z4wDMbAV2RS1G7aP/5ULZccvzCp/6WBnP3rMRzqLcME=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=oRh/fMSrchS7dnBG73vbAqG6hOOBSVgSaeOjQIqJPSC5mwcxtGUaQHs1usNvWDmHE
- VPPAkRIJd3sDy6tHzB2vCqaNPBS5HploltdQ793BmaCbtBMzbWtIclrUtvbnRiI57O
- +vSjDmVd9ihXoqTp3m/q7fr0TI+MWb7ouCTjb0eyboxAJhwAcyG7+KGXqKWlpxvZVs
- +ij9y+qmk1mqNgYzBgttxwtYF9J1kN7su6IS4JdPtmwwdU3yj61hrI4UcGcPuJiUQl
- pRQA2skljixfcjEBfBcI2z2i860KWYb0PJ+GCEKH04Mmk85w+hjeMHhOBvcWfTKsci
- dvz8t03cmHYcw==
+ b=Q+MZad5lPl/jweepPl602UJCbQtBYIbIq9HmLMTPpAUnOKuMbf3uxrw7p3uqIEI7z
+ EaRHHpiyWdLe5cSzxmy2Biij3C6fXwDjCs+illHA36B7l8PuIkOcU8Xz8iCXUCJac9
+ Ron6H65itMRWDAZgh0QNzJlUJ4OhlpSpJ3wzaJ1DvzIcSJwp2ENTler8G23AptVHTX
+ /V1H7fK0vw8F+lC41gUuBG0v4Mp1mj8Qd8ZsIBRqJMFCKbvMmSjxiD1twVqj8qYfGa
+ uOScYPByOL+8dKOrDxTQGHszqtdJzN9Tadha8S5rgi0JuITjjMhEsf8WG0lKRXEZcG
+ IKKQ7k8568WNw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.17 036/135] ASoC: rsnd: care default case on
- rsnd_ssiu_busif_err_status_clear()
-Date: Mon, 30 May 2022 09:29:54 -0400
-Message-Id: <20220530133133.1931716-36-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.17 037/135] ASoC: rsnd: care return value from
+ rsnd_node_fixed_index()
+Date: Mon, 30 May 2022 09:29:55 -0400
+Message-Id: <20220530133133.1931716-37-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220530133133.1931716-1-sashal@kernel.org>
 References: <20220530133133.1931716-1-sashal@kernel.org>
@@ -74,8 +74,9 @@ Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
  kernel test robot <lkp@intel.com>,
  Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, tiwai@suse.com,
- lgirdwood@gmail.com, Mark Brown <broonie@kernel.org>, colin.king@intel.com,
- Dan Carpenter <dan.carpenter@oracle.com>
+ lgirdwood@gmail.com, wsa+renesas@sang-engineering.com,
+ Mark Brown <broonie@kernel.org>, christophe.jaillet@wanadoo.fr,
+ colin.king@intel.com, Dan Carpenter <dan.carpenter@oracle.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,51 +94,206 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-[ Upstream commit b1384d4c95088d01f4266237faabf165d3d605fc ]
+[ Upstream commit d09a7db431c65aaa8303eb456439d1831ca2e6b4 ]
 
-commit cfb7b8bf1e2d66 ("ASoC: rsnd: tidyup
-rsnd_ssiu_busif_err_status_clear()") merged duplicate code, but it didn't
-care about default case, and causes smatch warnings.
+Renesas Sound is very complex, and thus it needs to use
+rsnd_node_fixed_index() to know enabled pin index.
 
-smatch warnings:
-sound/soc/sh/rcar/ssiu.c:112 rsnd_ssiu_busif_err_status_clear() \
-	error: uninitialized symbol 'offset'.
-sound/soc/sh/rcar/ssiu.c:114 rsnd_ssiu_busif_err_status_clear() \
-	error: uninitialized symbol 'shift'.
+It returns error if strange pin was selected,
+but some codes didn't check it.
 
-This patch cares it.
+This patch 1) indicates error message, 2) check return
+value.
 
 Reported-by: kernel test robot <lkp@intel.com>
 Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/87r15rgn6p.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/87pmlbgn5t.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/sh/rcar/ssiu.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ sound/soc/sh/rcar/core.c | 15 ++++++++++-----
+ sound/soc/sh/rcar/dma.c  |  9 ++++++++-
+ sound/soc/sh/rcar/rsnd.h |  2 +-
+ sound/soc/sh/rcar/src.c  |  7 ++++++-
+ sound/soc/sh/rcar/ssi.c  | 14 ++++++++++++--
+ sound/soc/sh/rcar/ssiu.c |  7 ++++++-
+ 6 files changed, 43 insertions(+), 11 deletions(-)
 
-diff --git a/sound/soc/sh/rcar/ssiu.c b/sound/soc/sh/rcar/ssiu.c
-index 0d8f97633dd2..138f95dd9f4a 100644
---- a/sound/soc/sh/rcar/ssiu.c
-+++ b/sound/soc/sh/rcar/ssiu.c
-@@ -102,6 +102,8 @@ bool rsnd_ssiu_busif_err_status_clear(struct rsnd_mod *mod)
- 		shift  = 1;
- 		offset = 1;
- 		break;
-+	default:
-+		goto out;
+diff --git a/sound/soc/sh/rcar/core.c b/sound/soc/sh/rcar/core.c
+index 6a8fe0da7670..af8ef2a27d34 100644
+--- a/sound/soc/sh/rcar/core.c
++++ b/sound/soc/sh/rcar/core.c
+@@ -1159,6 +1159,7 @@ void rsnd_parse_connect_common(struct rsnd_dai *rdai, char *name,
+ 		struct device_node *capture)
+ {
+ 	struct rsnd_priv *priv = rsnd_rdai_to_priv(rdai);
++	struct device *dev = rsnd_priv_to_dev(priv);
+ 	struct device_node *np;
+ 	int i;
+ 
+@@ -1169,7 +1170,11 @@ void rsnd_parse_connect_common(struct rsnd_dai *rdai, char *name,
+ 	for_each_child_of_node(node, np) {
+ 		struct rsnd_mod *mod;
+ 
+-		i = rsnd_node_fixed_index(np, name, i);
++		i = rsnd_node_fixed_index(dev, np, name, i);
++		if (i < 0) {
++			of_node_put(np);
++			break;
++		}
+ 
+ 		mod = mod_get(priv, i);
+ 
+@@ -1183,7 +1188,7 @@ void rsnd_parse_connect_common(struct rsnd_dai *rdai, char *name,
+ 	of_node_put(node);
+ }
+ 
+-int rsnd_node_fixed_index(struct device_node *node, char *name, int idx)
++int rsnd_node_fixed_index(struct device *dev, struct device_node *node, char *name, int idx)
+ {
+ 	char node_name[16];
+ 
+@@ -1210,6 +1215,8 @@ int rsnd_node_fixed_index(struct device_node *node, char *name, int idx)
+ 			return idx;
  	}
  
- 	for (i = 0; i < 4; i++) {
-@@ -120,7 +122,7 @@ bool rsnd_ssiu_busif_err_status_clear(struct rsnd_mod *mod)
- 		}
- 		rsnd_mod_write(mod, reg, val);
- 	}
--
-+out:
- 	return error;
++	dev_err(dev, "strange node numbering (%s)",
++		of_node_full_name(node));
+ 	return -EINVAL;
  }
+ 
+@@ -1221,10 +1228,8 @@ int rsnd_node_count(struct rsnd_priv *priv, struct device_node *node, char *name
+ 
+ 	i = 0;
+ 	for_each_child_of_node(node, np) {
+-		i = rsnd_node_fixed_index(np, name, i);
++		i = rsnd_node_fixed_index(dev, np, name, i);
+ 		if (i < 0) {
+-			dev_err(dev, "strange node numbering (%s)",
+-				of_node_full_name(node));
+ 			of_node_put(np);
+ 			return 0;
+ 		}
+diff --git a/sound/soc/sh/rcar/dma.c b/sound/soc/sh/rcar/dma.c
+index 03e0d4eca781..463ab237d7bd 100644
+--- a/sound/soc/sh/rcar/dma.c
++++ b/sound/soc/sh/rcar/dma.c
+@@ -240,12 +240,19 @@ static int rsnd_dmaen_start(struct rsnd_mod *mod,
+ struct dma_chan *rsnd_dma_request_channel(struct device_node *of_node, char *name,
+ 					  struct rsnd_mod *mod, char *x)
+ {
++	struct rsnd_priv *priv = rsnd_mod_to_priv(mod);
++	struct device *dev = rsnd_priv_to_dev(priv);
+ 	struct dma_chan *chan = NULL;
+ 	struct device_node *np;
+ 	int i = 0;
+ 
+ 	for_each_child_of_node(of_node, np) {
+-		i = rsnd_node_fixed_index(np, name, i);
++		i = rsnd_node_fixed_index(dev, np, name, i);
++		if (i < 0) {
++			chan = NULL;
++			of_node_put(np);
++			break;
++		}
+ 
+ 		if (i == rsnd_mod_id_raw(mod) && (!chan))
+ 			chan = of_dma_request_slave_channel(np, x);
+diff --git a/sound/soc/sh/rcar/rsnd.h b/sound/soc/sh/rcar/rsnd.h
+index 6580bab0e229..d9cd190d7e19 100644
+--- a/sound/soc/sh/rcar/rsnd.h
++++ b/sound/soc/sh/rcar/rsnd.h
+@@ -460,7 +460,7 @@ void rsnd_parse_connect_common(struct rsnd_dai *rdai, char *name,
+ 		struct device_node *playback,
+ 		struct device_node *capture);
+ int rsnd_node_count(struct rsnd_priv *priv, struct device_node *node, char *name);
+-int rsnd_node_fixed_index(struct device_node *node, char *name, int idx);
++int rsnd_node_fixed_index(struct device *dev, struct device_node *node, char *name, int idx);
+ 
+ int rsnd_channel_normalization(int chan);
+ #define rsnd_runtime_channel_original(io) \
+diff --git a/sound/soc/sh/rcar/src.c b/sound/soc/sh/rcar/src.c
+index 42a100c6303d..0ea84ae57c6a 100644
+--- a/sound/soc/sh/rcar/src.c
++++ b/sound/soc/sh/rcar/src.c
+@@ -676,7 +676,12 @@ int rsnd_src_probe(struct rsnd_priv *priv)
+ 		if (!of_device_is_available(np))
+ 			goto skip;
+ 
+-		i = rsnd_node_fixed_index(np, SRC_NAME, i);
++		i = rsnd_node_fixed_index(dev, np, SRC_NAME, i);
++		if (i < 0) {
++			ret = -EINVAL;
++			of_node_put(np);
++			goto rsnd_src_probe_done;
++		}
+ 
+ 		src = rsnd_src_get(priv, i);
+ 
+diff --git a/sound/soc/sh/rcar/ssi.c b/sound/soc/sh/rcar/ssi.c
+index 87e606f688d3..43c5e27dc5c8 100644
+--- a/sound/soc/sh/rcar/ssi.c
++++ b/sound/soc/sh/rcar/ssi.c
+@@ -1105,6 +1105,7 @@ void rsnd_parse_connect_ssi(struct rsnd_dai *rdai,
+ 			    struct device_node *capture)
+ {
+ 	struct rsnd_priv *priv = rsnd_rdai_to_priv(rdai);
++	struct device *dev = rsnd_priv_to_dev(priv);
+ 	struct device_node *node;
+ 	struct device_node *np;
+ 	int i;
+@@ -1117,7 +1118,11 @@ void rsnd_parse_connect_ssi(struct rsnd_dai *rdai,
+ 	for_each_child_of_node(node, np) {
+ 		struct rsnd_mod *mod;
+ 
+-		i = rsnd_node_fixed_index(np, SSI_NAME, i);
++		i = rsnd_node_fixed_index(dev, np, SSI_NAME, i);
++		if (i < 0) {
++			of_node_put(np);
++			break;
++		}
+ 
+ 		mod = rsnd_ssi_mod_get(priv, i);
+ 
+@@ -1182,7 +1187,12 @@ int rsnd_ssi_probe(struct rsnd_priv *priv)
+ 		if (!of_device_is_available(np))
+ 			goto skip;
+ 
+-		i = rsnd_node_fixed_index(np, SSI_NAME, i);
++		i = rsnd_node_fixed_index(dev, np, SSI_NAME, i);
++		if (i < 0) {
++			ret = -EINVAL;
++			of_node_put(np);
++			goto rsnd_ssi_probe_done;
++		}
+ 
+ 		ssi = rsnd_ssi_get(priv, i);
+ 
+diff --git a/sound/soc/sh/rcar/ssiu.c b/sound/soc/sh/rcar/ssiu.c
+index 138f95dd9f4a..4b8a63e336c7 100644
+--- a/sound/soc/sh/rcar/ssiu.c
++++ b/sound/soc/sh/rcar/ssiu.c
+@@ -462,6 +462,7 @@ void rsnd_parse_connect_ssiu(struct rsnd_dai *rdai,
+ 			     struct device_node *capture)
+ {
+ 	struct rsnd_priv *priv = rsnd_rdai_to_priv(rdai);
++	struct device *dev = rsnd_priv_to_dev(priv);
+ 	struct device_node *node = rsnd_ssiu_of_node(priv);
+ 	struct rsnd_dai_stream *io_p = &rdai->playback;
+ 	struct rsnd_dai_stream *io_c = &rdai->capture;
+@@ -474,7 +475,11 @@ void rsnd_parse_connect_ssiu(struct rsnd_dai *rdai,
+ 		for_each_child_of_node(node, np) {
+ 			struct rsnd_mod *mod;
+ 
+-			i = rsnd_node_fixed_index(np, SSIU_NAME, i);
++			i = rsnd_node_fixed_index(dev, np, SSIU_NAME, i);
++			if (i < 0) {
++				of_node_put(np);
++				break;
++			}
+ 
+ 			mod = rsnd_ssiu_mod_get(priv, i);
  
 -- 
 2.35.1

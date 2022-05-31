@@ -2,84 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBB60538AB5
-	for <lists+alsa-devel@lfdr.de>; Tue, 31 May 2022 06:48:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97CAB538CA1
+	for <lists+alsa-devel@lfdr.de>; Tue, 31 May 2022 10:19:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EFC9C1FD0;
-	Tue, 31 May 2022 06:47:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFC9C1FD0
+	by alsa0.perex.cz (Postfix) with ESMTPS id EAAAD1EEF;
+	Tue, 31 May 2022 10:18:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EAAAD1EEF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1653972492;
-	bh=Qn+cuAzxBVUymorN0NpF3cWBtZUAaq3foyRv2NhaqB8=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1653985154;
+	bh=fSVEgHaQGJCievYHd/siPU9MrxqftRRsLr4LLyS7pIE=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QWpIQHf54Lw70IudSAlSQh0rhDMlEQ4oBE2h4UjPoxz4JO+tEG5cqlsgOynf0Ibgx
-	 T7v1/8+oABLNi7O87HJrZYMnZFkxXFITFrHJUFMO5xTyJ4cvBryUQurZHzNRbk6GZt
-	 7hfPSHa7pxqHRi9eLp4M6sTkbawRXAD4Z+Hf6qrM=
+	b=gz1vaHv6byowD0oYoNpKwdOZd/9vFNGo6sLOxCcUtavdLB/moABPncmewQAKcWQZD
+	 6bOtSz8V6IXO//UeK7liNaIDLzmQtRREIY/YICzRab5NdVUmeqyBGJLotSb+01CyJD
+	 Vc6JStb2UzdD1KbwUMd4ky67DWR+VBAartm/Mnk8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 53882F8019B;
-	Tue, 31 May 2022 06:47:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6CD02F800DE;
+	Tue, 31 May 2022 10:18:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 95D4BF80161; Tue, 31 May 2022 06:47:11 +0200 (CEST)
+ id 560A2F80161; Tue, 31 May 2022 10:18:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id B4AB1F800DE
+ for <alsa-devel@alsa-project.org>; Tue, 31 May 2022 10:18:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4AB1F800DE
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="e8AAYJgW"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2F429F800DE
- for <alsa-devel@alsa-project.org>; Tue, 31 May 2022 06:47:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F429F800DE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="EdW0jmp3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1653972425; x=1685508425;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=Qn+cuAzxBVUymorN0NpF3cWBtZUAaq3foyRv2NhaqB8=;
- b=EdW0jmp3dyJndhSES5KIHAv7NUt3ztTqSUVI64JjeR5Z0qPrx9CKxA84
- PY/IzYW3Q1Ym1hV+Hk7db8AQJDQ5ZVOZGHJ4HYa+3Gi8Mi6nmoZsXk67Y
- G6IidHZ6MM12fyg2LR2CTcVtRO+8J8CTFE+O4cz+FANfcZwLkPJT6Kv4q
- H/52NHdtvXY2aNFcnBpGhl++LH+uc66od6xk4u1jcTJG+MjHkP9VIfmjn
- utWrLCgK6qRiHWoX5wZWC7BszjKgVvQOtPYN7udGOAvChKpHb8NyB1Tr/
- uL2j2SgShqdU4VCf/EeREgJMghgJ11T+b6sY/ucy9HJ67L1Q2/4SWYRwv w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10363"; a="338177441"
-X-IronPort-AV: E=Sophos;i="5.91,264,1647327600"; d="scan'208";a="338177441"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 May 2022 21:46:59 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,264,1647327600"; d="scan'208";a="679399930"
-Received: from lkp-server01.sh.intel.com (HELO 60dabacc1df6) ([10.239.97.150])
- by fmsmga002.fm.intel.com with ESMTP; 30 May 2022 21:46:56 -0700
-Received: from kbuild by 60dabacc1df6 with local (Exim 4.95)
- (envelope-from <lkp@intel.com>) id 1nvtmR-0002Kc-H9;
- Tue, 31 May 2022 04:46:55 +0000
-Date: Tue, 31 May 2022 12:46:39 +0800
-From: kernel test robot <lkp@intel.com>
-To: Raghu Bankapur <quic_rbankapu@quicinc.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH V0 1/1] asoc: msm: use hashtable to check kcontrol
-Message-ID: <202205311233.abvVh5rg-lkp@intel.com>
-References: <ad55bbd41cc253acb9af6ac068c15dd1545ecd81.1653813866.git.quic_rbankapu@quicinc.com>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0E8C261232;
+ Tue, 31 May 2022 08:18:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B8D3C341CA;
+ Tue, 31 May 2022 08:18:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1653985088;
+ bh=fSVEgHaQGJCievYHd/siPU9MrxqftRRsLr4LLyS7pIE=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=e8AAYJgWyOqcPINHbX51cvc9F2YNxkdwn2HcDd7WPgbW0dK5XJlLPPb18vVmBIH5/
+ xEKw9Uh8hZ0K4/K8i3d6juxZNufcKIErfb9Y0RAv1v6RpZAyYsiLy66/+IFHFvIowy
+ lmh1O2CTB7sAf1RXjYmQO8Fhx82xGX4np+blffUij1w8D6lhp4gUh1b2D/F0RcQTDX
+ /XU88mpNGZzcVowqyQom2hBeybvzYJrcQGkZ5/f4pqtr2u7EHrX1tkdsmKKJVzt2SB
+ dO1naBmegRow+N9JPAukBqOHJZvzN8rJjZYcb8oFCUR5qGLcj2tpJr0PhQkzcd7Bu1
+ dHjjuiLE0ueSw==
+From: Mark Brown <broonie@kernel.org>
+To: tiwai@suse.com, lgirdwood@gmail.com,
+ DLG-Adam.Thomson.Opensource@dm.renesas.com, perex@perex.cz
+In-Reply-To: <cover.1653916368.git.DLG-Adam.Thomson.Opensource@dm.renesas.com>
+References: <cover.1653916368.git.DLG-Adam.Thomson.Opensource@dm.renesas.com>
+Subject: Re: [PATCH 0/2] ASoC: da7219: Small fixes for jack detection and
+ removal
+Message-Id: <165398508710.2913674.18295857798607070807.b4-ty@kernel.org>
+Date: Tue, 31 May 2022 10:18:07 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ad55bbd41cc253acb9af6ac068c15dd1545ecd81.1653813866.git.quic_rbankapu@quicinc.com>
-Cc: llvm@lists.linux.dev, kbuild-all@lists.01.org,
- Krishna Jha <quic_kkishorj@quicinc.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: DLG-Support.Opensource@lm.renesas.com, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,63 +87,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Raghu,
+On Mon, 30 May 2022 13:22:21 +0000, Adam Thomson wrote:
+> This series contains 2 small fixes around the AAD part of DA7219, particularly
+> in relation to jack pole detection on certain active headsets, and tidy up
+> when a jack is removed.
+> 
+> Adam Thomson (2):
+>   ASoC: da7219: Fix pole orientation detection on certain headsets
+>   ASoC: da7219: cancel AAD related work earlier for jack removal
+> 
+> [...]
 
-Thank you for the patch! Perhaps something to improve:
+Applied to
 
-[auto build test WARNING on tiwai-sound/for-next]
-[also build test WARNING on broonie-sound/for-next v5.18 next-20220527]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch]
+   broonie/sound.git for-linus
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Raghu-Bankapur/asoc-msm-use-hashtable-to-check-kcontrol/20220529-165246
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
-config: arm64-randconfig-r036-20220531 (https://download.01.org/0day-ci/archive/20220531/202205311233.abvVh5rg-lkp@intel.com/config)
-compiler: clang version 15.0.0 (https://github.com/llvm/llvm-project c825abd6b0198fb088d9752f556a70705bc99dfd)
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # install arm64 cross compiling tool for clang build
-        # apt-get install binutils-aarch64-linux-gnu
-        # https://github.com/intel-lab-lkp/linux/commit/244d3a3d274761ea83000880d73cc9b0a01b2a4a
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Raghu-Bankapur/asoc-msm-use-hashtable-to-check-kcontrol/20220529-165246
-        git checkout 244d3a3d274761ea83000880d73cc9b0a01b2a4a
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=arm64 SHELL=/bin/bash drivers/clk/mediatek/ sound/core/
+Thanks!
 
-If you fix the issue, kindly add following tag where applicable
-Reported-by: kernel test robot <lkp@intel.com>
+[1/2] ASoC: da7219: Fix pole orientation detection on certain headsets
+      commit: 06f5882122e3faa183d76c4ec2c92f4c38e2c7bb
+[2/2] ASoC: da7219: cancel AAD related work earlier for jack removal
+      commit: 2d969e8f35b1849a43156029a7a6e2943b89d0c0
 
-All warnings (new ones prefixed by >>):
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
->> sound/core/control.c:375:14: warning: no previous prototype for function 'snd_ctl_strtoint' [-Wmissing-prototypes]
-   unsigned int snd_ctl_strtoint(const char *s)
-                ^
-   sound/core/control.c:375:1: note: declare 'static' if the function is not intended to be used outside of this translation unit
-   unsigned int snd_ctl_strtoint(const char *s)
-   ^
-   static 
-   1 warning generated.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-vim +/snd_ctl_strtoint +375 sound/core/control.c
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-   373	
-   374	/* Used to convert the string into int value -- BKDRHash */
- > 375	unsigned int snd_ctl_strtoint(const char *s)
-   376	{
-   377		unsigned int res = 0;
-   378	
-   379		while (*s)
-   380			res = (res << 5) - res + (*s++);
-   381	
-   382		return (res & 0x7FFFFFFF);
-   383	}
-   384	
-
--- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+Thanks,
+Mark

@@ -2,84 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B00795393BE
-	for <lists+alsa-devel@lfdr.de>; Tue, 31 May 2022 17:16:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D65865393BB
+	for <lists+alsa-devel@lfdr.de>; Tue, 31 May 2022 17:14:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0590C205C;
-	Tue, 31 May 2022 17:15:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0590C205C
+	by alsa0.perex.cz (Postfix) with ESMTPS id C54A32018;
+	Tue, 31 May 2022 17:14:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C54A32018
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654010201;
-	bh=KzVObEc7Veab/GZreg6FyOROGy7YjFcSKS2Z9DBNJis=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=OjkxqHECrTZLpbcCAm1/FzgxRVVxnFFLnCE+y/u2GxbuZEDSxhA17uy4Gw3mMuVTa
-	 eBTnRE0Z0t4TXwxhiqPuZ8pgJDjCZ46OwiM4R9A2dZcjpOeNH/wN5knvngqDKM2nra
-	 MNoMBH4ypMpB9KF0zyto/HhMVtfwk/pUBYz/5SAk=
+	s=default; t=1654010095;
+	bh=RmwCycR3WFlIwfKXA5dP2eyhQAV6Zi3YQ1p6a5oR4A4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=PrSSdG3ciydTcqxAZyc+ONjDSNbZBZWKSqyAYNOqQ0nrUq5m06+z9n4v16O1QE5pB
+	 awT50wXP8NO6LOJA5QEYO/sd4UKasUmilzBhppRJN3rJeICdRJ78IMkuIkmNJIjiWh
+	 GZZDKAdAVQabHgkgiu1sLVjr9GD8cIU+4ymypGhI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AECCEF80524;
-	Tue, 31 May 2022 17:15:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 40F79F80516;
+	Tue, 31 May 2022 17:13:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 24C17F8019B; Tue, 31 May 2022 17:15:05 +0200 (CEST)
+ id 2781EF8051C; Tue, 31 May 2022 17:13:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7ACDDF80516
+ for <alsa-devel@alsa-project.org>; Tue, 31 May 2022 17:13:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7ACDDF80516
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="X3PA433j"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 84F9FF8019B
- for <alsa-devel@alsa-project.org>; Tue, 31 May 2022 17:14:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84F9FF8019B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="HB0No7rI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1654010099; x=1685546099;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=KzVObEc7Veab/GZreg6FyOROGy7YjFcSKS2Z9DBNJis=;
- b=HB0No7rIHULS+0bi4CSBwE5nzo+CIv1isgjNfy/FiSNjRdS/9i896wZQ
- sY2tuvNknLym7xy4AQ1szZWisbUg0Jx/bU9GNJ2L4lZPXaMS9a8bfbsu1
- pkcoDRGYhwOPp/nUWoJrElPqAmanZWKOV8WdN4WkKUxhVgAs82EESvu7j
- s42x+K7EsbJ8DV9j5pkrR1zXrmbfTOmlRnEk2roL+3u//TGG757QJIlIn
- PBFqWSVXYfQkmIcV2PQ6W+COma4/nlqBWcarfTv6qwiyg9zrsC9r9aq+F
- o5gW8E1yrfl8SeMTnfwKOdM8dRxq+u1vrTG7avePHyG8re++dpb+PM5sD Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10364"; a="275369519"
-X-IronPort-AV: E=Sophos;i="5.91,265,1647327600"; d="scan'208";a="275369519"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 May 2022 08:11:13 -0700
-X-IronPort-AV: E=Sophos;i="5.91,265,1647327600"; d="scan'208";a="720349516"
-Received: from kmoorti-mobl.amr.corp.intel.com (HELO [10.212.153.18])
- ([10.212.153.18])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 May 2022 08:11:12 -0700
-Message-ID: <8a8a6bd9-aabf-6f27-0422-a47b01556276@linux.intel.com>
-Date: Tue, 31 May 2022 09:51:36 -0500
+ by ams.source.kernel.org (Postfix) with ESMTPS id 97555B81168;
+ Tue, 31 May 2022 15:13:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5AFCC385A9;
+ Tue, 31 May 2022 15:13:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1654010027;
+ bh=RmwCycR3WFlIwfKXA5dP2eyhQAV6Zi3YQ1p6a5oR4A4=;
+ h=From:To:Cc:Subject:Date:From;
+ b=X3PA433joT0XoLzFfVKPaRF8uiK6lH7oPvAiWsVJSbUkaJ338U46HfNfa6wvPSBoc
+ 9BFJ8wv5W6TuiXYJ0ZOx94kdXyuHp36rpenrEj3vsXZR9FKZJaDoUOqa9UD+EjCYZn
+ E8agMwIgYf1kMsyIIiQ5e8NqsOzhmXSxzLUwOHzxkzkXq/bU+g9ccEyd/JnRMJhYLe
+ zxFq/gW1GLU4/W+KbTqVNT/38VapH1Ira3EqMtx4WKXEqmS5B3xt0MqjXWsq0OfH6b
+ mI6HyScAbgqeHkKTY4TzPd7QzlcjHcOCsI8HpoTYiEndNVuqjz60k7S/ETsTNOn/74
+ ryT/wtvNVP0qw==
+From: Mark Brown <broonie@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Shuah Khan <shuah@kernel.org>
+Subject: [PATCH] selftests: alsa: Handle pkg-config failure more gracefully
+Date: Tue, 31 May 2022 17:13:37 +0200
+Message-Id: <20220531151337.2933810-1-broonie@kernel.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.5.0
-Subject: Re: [PATCH] ASoC: Intel: cirrus-common: fix incorrect channel mapping
-Content-Language: en-US
-To: Brent Lu <brent.lu@intel.com>, alsa-devel@alsa-project.org
-References: <20220530125421.885236-1-brent.lu@intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20220530125421.885236-1-brent.lu@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, linux-kernel@vger.kernel.org,
- Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, xliu <xiang.liu@cirrus.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=894; h=from:subject;
+ bh=RmwCycR3WFlIwfKXA5dP2eyhQAV6Zi3YQ1p6a5oR4A4=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBiljBBCCHKDUduv/2nquVo28cAVN51XaTXqgU+Tu7q
+ X2OsG86JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCYpYwQQAKCRAk1otyXVSH0CpYB/
+ 9QBZ+2ZEym7LVf16fGuCDWbOBtahBrHoM+mSrEzpsYPimoy6iMkBxy/QJFqhxCb2xGWP45mEHieKBc
+ enOaemDT17QIJDWAvqZIBr+zIKviE5ongTuvxqacPnR8MdUCdTEl0ZSKo98GGLR2ExVI+6p9iXdf5N
+ cIrkK5CmajuEYHxkq2qlG9bWC/FzXTB5n3tp4E4tqyzrVMfRkPyDfj88I1LWtM9R6L+OgexgCgscse
+ 9h+eJ/PQBjaHLKCf7RkF3IMAwZq/lF03RsolwPbWGsHtND94ZzHLRgt2HfWtFmCG2z2t0FErL4tKpr
+ jJ69pgWBSi8QzAqFwVR5QDADPmIeOt
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ linux-kselftest@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,58 +94,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Follow the pattern used by other selftests like memfd and fall back on the
+standard toolchain options to build with a system installed alsa-lib if
+we don't get anything from pkg-config. This reduces our build dependencies
+a bit in the common case while still allowing use of pkg-config in case
+there is a need for it.
 
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ tools/testing/selftests/alsa/Makefile | 3 +++
+ 1 file changed, 3 insertions(+)
 
-On 5/30/22 07:54, Brent Lu wrote:
-> From: xliu <xiang.liu@cirrus.com>
-> 
-> The default mapping of ASPRX1 Slot is left channel. Map the slots of
-> right amplifiers (WR and TR) to right channel.
-> 
-> Signed-off-by: xliu <xiang.liu@cirrus.com>
-> Signed-off-by: Brent Lu <brent.lu@intel.com>
-> ---
->  sound/soc/intel/boards/sof_cirrus_common.c | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
-> 
-> diff --git a/sound/soc/intel/boards/sof_cirrus_common.c b/sound/soc/intel/boards/sof_cirrus_common.c
-> index e71d74ec1b0b..64ca0e3991dc 100644
-> --- a/sound/soc/intel/boards/sof_cirrus_common.c
-> +++ b/sound/soc/intel/boards/sof_cirrus_common.c
-> @@ -107,6 +107,7 @@ static int cs35l41_hw_params(struct snd_pcm_substream *substream,
->  	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
->  	struct snd_soc_dai *codec_dai;
->  	int clk_freq, i, ret;
-> +	int rx_ch[2] = {1, 0};
+diff --git a/tools/testing/selftests/alsa/Makefile b/tools/testing/selftests/alsa/Makefile
+index f64d9090426d..fd8ddce2b1a6 100644
+--- a/tools/testing/selftests/alsa/Makefile
++++ b/tools/testing/selftests/alsa/Makefile
+@@ -3,6 +3,9 @@
+ 
+ CFLAGS += $(shell pkg-config --cflags alsa)
+ LDLIBS += $(shell pkg-config --libs alsa)
++ifeq ($(LDLIBS),)
++LDLIBS += -lasound
++endif
+ 
+ TEST_GEN_PROGS := mixer-test
+ 
+-- 
+2.30.2
 
-Should this be 'const'?
-
-I am also not clear on the mapping, how does this select the right
-channel? This selects slot0 and the left channel, what am I missing?
-
-
->  
->  	clk_freq = sof_dai_get_bclk(rtd); /* BCLK freq */
->  
-> @@ -134,6 +135,17 @@ static int cs35l41_hw_params(struct snd_pcm_substream *substream,
->  				ret);
->  			return ret;
->  		}
-> +
-> +		/* Setup for R channel Slot: WR and TR */
-> +		if (i % 2) {
-> +			ret = snd_soc_dai_set_channel_map(codec_dai, 0, NULL,
-> +							  ARRAY_SIZE(rx_ch), rx_ch);
-> +			if (ret < 0) {
-> +				dev_err(codec_dai->dev, "fail to set channel map, ret %d\n",
-> +					ret);
-> +				return ret;
-> +			}
-> +		}
-
-Should we do this loop for the left channels as well to have an explicit
-setting?
-
->  	}
->  
->  	return 0;

@@ -2,73 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D28F353A538
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Jun 2022 14:40:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6A3853A591
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Jun 2022 14:58:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 80BD4170A;
-	Wed,  1 Jun 2022 14:39:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 80BD4170A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5BBC91705;
+	Wed,  1 Jun 2022 14:57:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5BBC91705
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654087238;
-	bh=gR+lFZDnf1dnocWxYK3aI9jqbAWCRD4RCO7Ob7HKy2w=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1654088317;
+	bh=BHduJM/WBiCY8PzdzB//xszvCtbXjWdWZLr/lCNQZ+I=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ep4euiW9AUE6Fg6Z77eOcIW0Ar4C/XEDhzZT3ah/XFwhFm9C/KsmbkshF+QCT4xEp
-	 QDVGkV3DUPOi6lWDfDbu7h9918oIU0X7lMyaLHVgdHfaphy15bI3HHVcc5qdETvk7Q
-	 7+bEEGNjCw+9f0HzJjBoCyInz9qAWM/O5iF3I+SM=
+	b=I3u/DXvQdjdjjcNZI9pWamJFnIefaaDobCYMRZo5jiVsCjQKol4RCabGRUy+xIznv
+	 IS5kM1guS8Y4yS0ePp6wSxb+lLb/xhQnraTxwN7YhTxOv7cgk9oGou51txdhM4rgwW
+	 WpVVL5Ze+/Azg9Ogkr0FD3nf6xCnM0rIs77Pvyjs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 46EFBF8049C;
-	Wed,  1 Jun 2022 14:39:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CE088F8025A;
+	Wed,  1 Jun 2022 14:57:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BB988F80482; Wed,  1 Jun 2022 14:39:10 +0200 (CEST)
+ id CC86BF80238; Wed,  1 Jun 2022 14:57:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 589DCF8019B
- for <alsa-devel@alsa-project.org>; Wed,  1 Jun 2022 14:39:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 589DCF8019B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 61C76F800BD
+ for <alsa-devel@alsa-project.org>; Wed,  1 Jun 2022 14:57:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61C76F800BD
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="E+9B9Idp"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 0F5E3614D2;
- Wed,  1 Jun 2022 12:39:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1554CC3411D;
- Wed,  1 Jun 2022 12:39:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1654087143;
- bh=gR+lFZDnf1dnocWxYK3aI9jqbAWCRD4RCO7Ob7HKy2w=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=E+9B9IdpO4se2dzEvW0qdL5pBMJi4mX3KZasxXlRYbErMvNgv5wW/tIqB5jSEfhS4
- KaJnM4WwLWzkofadzE+/hFyD0cmwJeevtnWCtRT+EZQJhBubILWqlJISkZbudAsxyv
- JkYB65kWVynSblgqDmM95T4zLTDU2qvJ9eTRFPv80ch8eB/3SW1ElgbyNLTnADJF4W
- hFGAAqdVnSQdOp65nLbevatfZCaT0tCKgNK8Ym3vKbB76OW04APPBzMCOe2si4RMwS
- tptT1mopG00HwfNzE1+Eq6wn6fceYl89fQ8CX6Hlb0kjgIG6onzIGTSyQlzKbDCE8v
- M+TVa2bAOQxDw==
-From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, hui.wang@canonical.com
-In-Reply-To: <20220530040151.95221-1-hui.wang@canonical.com>
-References: <20220530040151.95221-1-hui.wang@canonical.com>
-Subject: Re: (subset) [PATCH 0/2] Switch to use internal PLL for iMCLK
-Message-Id: <165408714183.3032499.11457698420353367654.b4-ty@kernel.org>
-Date: Wed, 01 Jun 2022 14:39:01 +0200
+ dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
+ header.b="jq6XlM5P"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1654088256; x=1685624256;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=S9uisrdptfIPDkvI5rpbWpdm1zkgyzUYHlOlidzA01w=;
+ b=jq6XlM5P+hSwjTYk31w2DiStghmiH6HPwk2l9sJbKpG2/MDQjHFUlHfV
+ lNH/EMZOUsAwuZDU4MTw6mUg9zoduRCdoUNv5+z6flJV1p3Qqf2DP5jVU
+ 4wHjlAJbRmULG4J5WSGwlayKu1B33LPoyj2+FnYZ2KIqMWvNsnNpT7qh0 o=;
+Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 01 Jun 2022 05:57:28 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jun 2022 05:57:28 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Wed, 1 Jun 2022 05:57:28 -0700
+Received: from [10.216.6.145] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Wed, 1 Jun 2022
+ 05:57:22 -0700
+Message-ID: <7c74868d-624b-c18e-b377-026e70813fcc@quicinc.com>
+Date: Wed, 1 Jun 2022 18:27:18 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.1
+Subject: Re: [PATCH v2] ASoC: qcom: soundwire: Add support for controlling
+ audio CGCR from HLOS
+Content-Language: en-US
+To: Matthias Kaehlcke <mka@chromium.org>
+References: <1652877755-25120-1-git-send-email-quic_srivasam@quicinc.com>
+ <CAE-0n53g9rWks+euk5KHBzmJNEB3xLbJzMgCxN52DO5x+9-Wgg@mail.gmail.com>
+ <51b8aca1-e038-4907-e973-ebdbebaf9b28@quicinc.com>
+ <YpaXZ6KfApGebkBy@google.com>
+From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+Organization: Qualcomm
+In-Reply-To: <YpaXZ6KfApGebkBy@google.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-Cc: wtli@nuvoton.com, kchsu0@nuvoton.com, ctlin0@nuvoton.com,
- ctlin0.linux@gmail.com
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ quic_rohkumar@quicinc.com, linux-arm-msm@vger.kernel.org, broonie@kernel.org,
+ tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org,
+ bjorn.andersson@linaro.org, vkoul@kernel.org, agross@kernel.org,
+ srinivas.kandagatla@linaro.org, bgoswami@quicinc.com, quic_plai@quicinc.com,
+ Stephen Boyd <swboyd@chromium.org>, judyhsiao@chromium.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,40 +107,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 30 May 2022 12:01:49 +0800, Hui Wang wrote:
-> Taking your advice and try to enable internal PLL to get a more
-> accurate sample rate. And I also changed the fsl-asoc-card.c to support
-> the nau8822 codec, now the sound quality is pretty good on my imx6sx
-> EVB.
-> 
-> Please help take a look at these 2 patches on codec driver.
-> 
-> [...]
 
-Applied to
+On 6/1/2022 4:02 AM, Matthias Kaehlcke wrote:
+Thanks for Your Time Matthias!!!
+> On Tue, May 24, 2022 at 04:19:47PM +0530, Srinivasa Rao Mandadapu wrote:
+>> On 5/21/2022 8:43 AM, Stephen Boyd wrote:
+>> Thanks for your time Stephen!!!
+>>> Quoting Srinivasa Rao Mandadapu (2022-05-18 05:42:35)
+>>>> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+>>>> index da1ad7e..445e481 100644
+>>>> --- a/drivers/soundwire/qcom.c
+>>>> +++ b/drivers/soundwire/qcom.c
+>>>> @@ -1333,6 +1337,10 @@ static int qcom_swrm_probe(struct platform_device *pdev)
+>>>>           ctrl->bus.compute_params = &qcom_swrm_compute_params;
+>>>>           ctrl->bus.clk_stop_timeout = 300;
+>>>>
+>>>> +       ctrl->audio_cgcr = devm_reset_control_get_exclusive(dev, "swr_audio_cgcr");
+>>>> +       if (IS_ERR(ctrl->audio_cgcr))
+>>>> +               dev_err(dev, "Failed to get audio_cgcr reset required for soundwire-v1.6.0\n");
+>>> Why is there no return on error here? Is the reset optional?
+>> Yes it's optional. For older platforms this is not required.
+> If it's optional then either there should be no error message, or the
+> error message should only be logged when the version is >= 1.6.0. There
+> are few things worse than a kernel log riddled with misleading error
+> messages.
 
-   broonie/sound.git for-linus
+In that case, it can be done like below. Kindly let me know your opinion 
+on this.
 
-Thanks!
+if (ctrl->version >= 0x01060000) {
+     ctrl->audio_cgcr = devm_reset_control_get_exclusive(dev, 
+"swr_audio_cgcr");
+         if (IS_ERR(ctrl->audio_cgcr)) {
+             dev_err(dev, "Failed to get audio_cgcr reset required for 
+soundwire-v1.6.0\n");
+             ret = PTR_ERR(ctrl->audio_cgcr);
+             goto err_clk;
+         }
+     }
 
-[1/2] ASoC: nau8822: Add operation for internal PLL off and on
-      commit: aeca8a3295022bcec46697f16e098140423d8463
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

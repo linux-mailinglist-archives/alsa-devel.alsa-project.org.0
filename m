@@ -2,101 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E22BB53AB32
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Jun 2022 18:44:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2ACF53AB61
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Jun 2022 18:56:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 650FF16EE;
-	Wed,  1 Jun 2022 18:43:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 650FF16EE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 44C8D16F6;
+	Wed,  1 Jun 2022 18:55:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44C8D16F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654101880;
-	bh=yyLnNvzJcswusAwm9Iy4JDnpuYJVfnraaQGCq/X4F2E=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1654102576;
+	bh=U1y1OHEyLck5q5R6ya4mYQrl2vyQOeLItOKDDKrDVH8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JsmLxLmlfo1KuHNVPPHKJW+VI/uzoQZ7tjDjoSD/gZJQacRjFvYZLP0gHI9vuwIbr
-	 bT7FlsIfPAYsjHCJTMBNDOiV3Awe9J3ufSnITRyr6qzsNfY43k3ScV5VXL1nxMoE5B
-	 d2RFVbsUTyk1iSb14YmlGtBZDlbmxqNHL/GYxv7M=
+	b=if0Ej8C9Hkj0SNjuPkgZB+GDiecWi69sJV0aDypjXkh19pSp9bFZcNzGs5tGg1Lcr
+	 qS0zQ4PAKfoOsKqpZzvSqYCko/bT5a+e1i7gWpqhTzbbziNteXllt7k//mqGJzFuSk
+	 j/u+2PHKgJJ4/z5MPbPa/oUTqKP7HaGBTuTHOdA8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D4838F800BD;
-	Wed,  1 Jun 2022 18:43:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B46C4F8025A;
+	Wed,  1 Jun 2022 18:55:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B7D25F800BD; Wed,  1 Jun 2022 18:43:40 +0200 (CEST)
+ id 18C0AF80149; Wed,  1 Jun 2022 18:55:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-x529.google.com (mail-pg1-x529.google.com
+ [IPv6:2607:f8b0:4864:20::529])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E2564F800BD
- for <alsa-devel@alsa-project.org>; Wed,  1 Jun 2022 18:43:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2564F800BD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6B18BF80149
+ for <alsa-devel@alsa-project.org>; Wed,  1 Jun 2022 18:55:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B18BF80149
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="L/kkIbLb"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 251GD9Lw013228;
- Wed, 1 Jun 2022 11:43:34 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=PODMain02222019;
- bh=8JmM4oK3zicQ8AMY1tUoSEXJdzasmZmWSpyRHYe8enQ=;
- b=L/kkIbLbtQIJ9I3vWKhAjHezDOGVZt98MukU62+rhBBualRcZCwWiIlRqZfrsTtTw0lw
- /W+foEYWfxZdhLCAiFmWdY1zR3+w0V7pNHMjXIAiSZooa9lZ3p9XtA3vJjZ9JBoVd/og
- Y/cPbJm9eyr+vLNi6SAxlSGYFPo/Vqrtrd3fL+Guxs7lGvsgSAUHrOq84Qm/IuNfXfSr
- U0LSgcwbIAOkhtcOp4drdmXJJKy7zYUKKEOVsZsnQ+KAoylQdJNpC6iyTEmN//XUuawu
- v2uXwx0HcP9DfStB08JC3VIRHytazXi+ysiKxnbySjJEm/fNhlJ8qh1KYkMjUj3eNT3a cw== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3gbh51mgy9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Wed, 01 Jun 2022 11:43:33 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 1 Jun
- 2022 17:43:31 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.28 via
- Frontend Transport; Wed, 1 Jun 2022 17:43:31 +0100
-Received: from [198.61.65.68] (unknown [198.61.65.68])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 70941458;
- Wed,  1 Jun 2022 16:43:31 +0000 (UTC)
-Message-ID: <008e3188-f35d-4323-08ea-de5f3a88333a@opensource.cirrus.com>
-Date: Wed, 1 Jun 2022 17:43:31 +0100
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="FlZ/UGKx"
+Received: by mail-pg1-x529.google.com with SMTP id i185so2438515pge.4
+ for <alsa-devel@alsa-project.org>; Wed, 01 Jun 2022 09:55:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=bbckhJ9XlY3Nme+BPmiObgn0CQAdmt4CSl1wsZbSeV0=;
+ b=FlZ/UGKxH5AQlCmDo/sE5CPr5JuOqd2r8n9Vi5nbW1KX/GjkV3/Gtn9S6TTaVs+TdM
+ ev3zTuRFx8UNm1OCV/PSOOXMWgc36pGrvvKLw4PUY5kjp2WqC0RFVWZ4l7jKZrwRiVPL
+ xaKITrvINKY1yyebYI+wZbnZ5O/vaFszXS5xc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=bbckhJ9XlY3Nme+BPmiObgn0CQAdmt4CSl1wsZbSeV0=;
+ b=Q78rDVAHTZDA+Vdvldo96pkUjkm+7+kmcyATY6QIklo9NgpG2nNOXUaO9E0GVz91Zo
+ QrtsKINvewWxwS+bGLIFIHmn2Y6ZvpcZmSP/6yDHAmmq5pkl6kYI39xkGnDoB0xkXpga
+ haTYY3ozurndMdJoQkTe+++7HFcZ9zBhOWdLTC0NMrgBD42cj8tNUIfKMii7UylLumgh
+ SgJi8W+LaLFV503X1rjwy0xlnz4efdP0M90KEdUnNlm17OBfEvNwBTuRUR7YOhgR7y96
+ dSV7UvW3a/Bsf6gX8XfRb+LsrGNfe7/ul3ZEKGZWX3UZ0zsqmzheY5vEm5vQBvHjLgV1
+ tzJg==
+X-Gm-Message-State: AOAM530JCsP3MaGOMIl3Pv+XDpQwi0YTk+f4Aax5WYKRa4COnAgkY6kL
+ Al0szYCvoxa18pwQw21En8jSkA==
+X-Google-Smtp-Source: ABdhPJxvz006k4bCcMabU3sUioYhsFPS+sODZatl7Pq8O6MVnYLQ0t5SXSDd6s81fwyeDL690piJlw==
+X-Received: by 2002:a05:6a00:168a:b0:4f7:e161:83cd with SMTP id
+ k10-20020a056a00168a00b004f7e16183cdmr577037pfc.56.1654102511801; 
+ Wed, 01 Jun 2022 09:55:11 -0700 (PDT)
+Received: from localhost ([2620:15c:11a:202:e69e:f483:e751:7c7c])
+ by smtp.gmail.com with UTF8SMTPSA id
+ g10-20020a63e60a000000b003fab08e09e9sm1563351pgh.67.2022.06.01.09.55.10
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 01 Jun 2022 09:55:11 -0700 (PDT)
+Date: Wed, 1 Jun 2022 09:55:09 -0700
+From: Matthias Kaehlcke <mka@chromium.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: Re: [PATCH v2] ASoC: qcom: soundwire: Add support for controlling
+ audio CGCR from HLOS
+Message-ID: <YpeZ7TdHK20xiLz9@google.com>
+References: <1652877755-25120-1-git-send-email-quic_srivasam@quicinc.com>
+ <CAE-0n53g9rWks+euk5KHBzmJNEB3xLbJzMgCxN52DO5x+9-Wgg@mail.gmail.com>
+ <51b8aca1-e038-4907-e973-ebdbebaf9b28@quicinc.com>
+ <YpaXZ6KfApGebkBy@google.com>
+ <7c74868d-624b-c18e-b377-026e70813fcc@quicinc.com>
+ <1ec64a99-cfcf-c903-935b-d1bb0617c284@linaro.org>
+ <61c151e2-c44c-3b84-9fed-a83abef83c17@quicinc.com>
+ <2a520eaf-c1de-aa91-3029-83f5469cdbb0@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Subject: Re: [PATCH v4 00/17] ALSA: hda: cirrus: Add initial DSP support and
- firmware loading
-Content-Language: en-US
-To: Takashi Iwai <tiwai@suse.de>, Charles Keepax
- <ckeepax@opensource.cirrus.com>
-References: <20220525131638.5512-1-vitalyr@opensource.cirrus.com>
- <871qwf0x8t.wl-tiwai@suse.de>
- <20220530090846.GS38351@ediswmail.ad.cirrus.com>
- <87czfvxtsc.wl-tiwai@suse.de>
- <20220530093639.GT38351@ediswmail.ad.cirrus.com>
- <87a6azxr7h.wl-tiwai@suse.de>
- <20220530103415.GU38351@ediswmail.ad.cirrus.com>
- <871qwbxpsb.wl-tiwai@suse.de>
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-In-Reply-To: <871qwbxpsb.wl-tiwai@suse.de>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: MOD9ZZq_-P5NvfVDB-krZ1iJyKdTnsB4
-X-Proofpoint-ORIG-GUID: MOD9ZZq_-P5NvfVDB-krZ1iJyKdTnsB4
-X-Proofpoint-Spam-Reason: safe
-Cc: alsa-devel@alsa-project.org,
- Vitaly Rodionov <vitalyr@opensource.cirrus.com>, patches@opensource.cirrus.com,
- Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2a520eaf-c1de-aa91-3029-83f5469cdbb0@linaro.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ quic_rohkumar@quicinc.com, linux-arm-msm@vger.kernel.org, broonie@kernel.org,
+ tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org,
+ Stephen Boyd <swboyd@chromium.org>, vkoul@kernel.org, agross@kernel.org,
+ bgoswami@quicinc.com, quic_plai@quicinc.com, bjorn.andersson@linaro.org,
+ judyhsiao@chromium.org, linux-kernel@vger.kernel.org,
+ Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,48 +114,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 30/05/2022 11:45, Takashi Iwai wrote:
-> On Mon, 30 May 2022 12:34:15 +0200,
-> Charles Keepax wrote:
->>
->> On Mon, May 30, 2022 at 12:14:26PM +0200, Takashi Iwai wrote:
->>> On Mon, 30 May 2022 11:36:39 +0200,
->>> Charles Keepax wrote:
->>>> On Mon, May 30, 2022 at 11:18:43AM +0200, Takashi Iwai wrote:
->>>>> On Mon, 30 May 2022 11:08:46 +0200,
->>>>> Charles Keepax wrote:
->>>>>> On Fri, May 27, 2022 at 06:13:38PM +0200, Takashi Iwai wrote:
->>>>>>> On Wed, 25 May 2022 15:16:21 +0200,
->>>>>>> Vitaly Rodionov wrote:
->>>> Yeah that should be what is happening here. Although it looks
->>>> like this code might be removing all the controls if the firmware
->>>> is unloaded. I will discuss that with the guys, we normal just
->>>> disable the controls on the wm_adsp stuff.
->>>
->>> OK, that sounds good.  Basically my concern came up from the code
->>> snippet doing asynchronous addition/removal via work.  This showed
->>> some yellow signal, as such a pattern doesn't appear in the normal
->>> implementation.  If this is (still) really necessary, it has to be
->>> clarified as an exception.
->>>
->>
->> Hm... ok we will think about that. I think that part will
->> probably still be necessary. Because there is an ALSA control
->> that selects the firmware, then it is necesarry to defer creating
->> the controls to some work, since you are already holding the
->> lock.
+On Wed, Jun 01, 2022 at 02:42:30PM +0100, Srinivas Kandagatla wrote:
 > 
-> Well, if an ALSA control can trigger the firmware loading, that's
-> already fragile.  A firmware loading is a heavy task, which should
-> happen only at probing and/or resuming in general.  Do we have other
-> drivers doing the f/w loading triggered by a kctl...?
 > 
+> On 01/06/2022 14:15, Srinivasa Rao Mandadapu wrote:
+> > > > > > > > +       ctrl->audio_cgcr =
+> > > > > > > > devm_reset_control_get_exclusive(dev,
+> > > > > > > > "swr_audio_cgcr");
+> > > > > > > > +       if (IS_ERR(ctrl->audio_cgcr))
+> > > > > > > > +               dev_err(dev, "Failed to get
+> > > > > > > > audio_cgcr reset required for
+> > > > > > > > soundwire-v1.6.0\n");
+> > > > > > > Why is there no return on error here? Is the reset optional?
+> > > > > > Yes it's optional. For older platforms this is not required.
+> > > > > If it's optional then either there should be no error message, or the
+> > > > > error message should only be logged when the version is >= 1.6.0. There
+> > > > > are few things worse than a kernel log riddled with misleading error
+> > > > > messages.
+> > > > 
+> > > > In that case, it can be done like below. Kindly let me know your
+> > > > opinion on this.
+> > > > 
+> > > > if (ctrl->version >= 0x01060000) {
+> > > 
+> > > This is not true 1.7+ variants do not require anything as such.
+> > 
+> > I think it applies for all upcoming versions as Qualcomm Hardware team.
+> > Here is the not from HW Team.
+> 
+> Am testing sm8450 which has 1.7.0 and it does not require/have such control.
+> 
+> I dont understand what is the issue in adding a flag to
+> struct qcom_swrm_data.
+> 
+> This should give finer control rather than matching anything > 1.6.
 
-On Wolfson/Cirrus codecs the firmware isn't to "make the chip work".
-The DSP is programmable to allow for additional audio processing
-algorithms. Which algorithm you need depends on the audio use case(s)
-you are running, and can change as you change use-case. Many of the
-codecs don't have enough DSP memory to hold all possible algorithms.
-Which is why the firmware load has always been triggered from ALSA
-controls in the ASoC code. It's not something that can be loaded
-once in probe().
+I agree, a flag seems a suitable option.

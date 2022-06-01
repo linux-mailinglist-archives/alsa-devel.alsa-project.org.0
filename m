@@ -2,109 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 585C253A619
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Jun 2022 15:43:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A94B53A65F
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Jun 2022 15:53:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D5CB31701;
-	Wed,  1 Jun 2022 15:42:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5CB31701
+	by alsa0.perex.cz (Postfix) with ESMTPS id AC7F1170D;
+	Wed,  1 Jun 2022 15:52:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC7F1170D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654091015;
-	bh=fv22tQG8X7hiVrbGkd50uv+wLJ4CBjtSpoEAuFDCYnI=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1654091614;
+	bh=ysGPMCEE6zTrrAwWhMonkdrC5EuSx87LJP4/nYS+s1I=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FKhQYBea4zAkjrMlMWeEy7q6c3m7cUdNGIREm5V0n6abkvEPU/dNff493od2lHBN8
-	 yPDu80Jqpdl/C/AQpkEaoQOAWeWpz1OVplQWjXYJDtHsNPwgIrv4xLrniPPfC8n1oC
-	 g3DWFJs8mQ7gMd2A7aureUsZg2RgyVk6HHYqEXv4=
+	b=naSIbMOiapx9Rq4yVCAyJg0Ax4DlVVVnrQPmrZEFQY33rhkyupzsgaACnbH4CYtHZ
+	 4W/BBxzvNZCcFfzsZhLuN35IlMmRvfukhKs/88P1akRDJhsjGMJ9DuH8oKyX079KZL
+	 gnUGbGURHbIS+TOchmFNLdJ8dymgbpgzJgkHSZA4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 40005F80238;
-	Wed,  1 Jun 2022 15:42:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1F884F80238;
+	Wed,  1 Jun 2022 15:52:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 18DC6F8019B; Wed,  1 Jun 2022 15:42:37 +0200 (CEST)
+ id 17E02F8019B; Wed,  1 Jun 2022 15:52:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 75E3AF800BD
- for <alsa-devel@alsa-project.org>; Wed,  1 Jun 2022 15:42:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75E3AF800BD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 81B8FF80089
+ for <alsa-devel@alsa-project.org>; Wed,  1 Jun 2022 15:52:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81B8FF80089
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="vkNdWZIn"
-Received: by mail-wr1-x42d.google.com with SMTP id u3so2433595wrg.3
- for <alsa-devel@alsa-project.org>; Wed, 01 Jun 2022 06:42:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=0GytTj9uVTzJjxEXvcs09ax+kKcNDhJOHsmTGe+kH8w=;
- b=vkNdWZInZ7+8GlW7lJ8mbeICVbcaP8DQoN8ZodMXz63//NHmpWtnr9eII0esKGgrJ7
- XZYBnkrr/L3WwHZ8NWSVcJnc0y8O0CKd/oiv2XSilDkMaPN5i8KVJRKsC/hPW24GHylB
- 54AL2z6qZj0V3FbKgFf+vjfTlrH8rXmrt1f7q9DazKENMR+nluo+ffa+1nO4G5bQ7sSc
- v2M78eXcOhW+t4BcTtF+Bxy/0iWu1NsuO0my9VSoIk+281lWAsZo28aNYazzWoN5si3Z
- pzuXUwv/h9Iqp9KRhqZRzgiHF9iW4Z9pvq8vLWzBaE61/yL/BNOcVhI8MTRK33xydOlV
- d1zA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=0GytTj9uVTzJjxEXvcs09ax+kKcNDhJOHsmTGe+kH8w=;
- b=Hxfhi+hxBV4mYxPNIKjrpMvHX+CUs3CpcFis6YymlC2dhMiMGt0Dmuxw3fjO/eMZgE
- OGvpCm7mMa5gq26ufZm/T9uWFmERHH+U7mtzYYX2HCo4JZa48Dq5Qg+542saAcBw3n4d
- wbbbs9oMzXi89nT8oc2uwkiuQqUZzYJ/TMPPKs+8fv5/G8Bp9z4ralSsOw89QsodsbVB
- csQLWLxGct94u7i/jPtH+AJ124eDdkNQqHBt7LYTux588oF/AW/YBsXJFai6xuv53rS+
- M+xyIN/a20nu3SdzFPdH3tGkTVPEe9008vKNzzxwWwGBz3kIY75y2OxPlC1j7ybl0SlS
- 15hA==
-X-Gm-Message-State: AOAM531quNRT/YIEn3Q9q+0gH8ONL+0rgV3FhsWp1hdkKTEVQge6iO77
- 8rMUb3l/3xI4fJl1tEaEbnhB3g==
-X-Google-Smtp-Source: ABdhPJw0w+np9l1PjYluSYsyZUX4C+fqmoxAweXAcsxF3ASzI26AfWihFIw/6vfhS7xpLk/6VmugwQ==
-X-Received: by 2002:adf:f789:0:b0:210:3534:636c with SMTP id
- q9-20020adff789000000b002103534636cmr12231263wrp.273.1654090952330; 
- Wed, 01 Jun 2022 06:42:32 -0700 (PDT)
-Received: from [192.168.86.34]
- (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.googlemail.com with ESMTPSA id
- j26-20020a05600c1c1a00b003973e27b789sm7304163wms.27.2022.06.01.06.42.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 01 Jun 2022 06:42:31 -0700 (PDT)
-Message-ID: <2a520eaf-c1de-aa91-3029-83f5469cdbb0@linaro.org>
-Date: Wed, 1 Jun 2022 14:42:30 +0100
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="SY4xLlgw"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 248E8615BF;
+ Wed,  1 Jun 2022 13:52:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD7E7C385A5;
+ Wed,  1 Jun 2022 13:52:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1654091550;
+ bh=ysGPMCEE6zTrrAwWhMonkdrC5EuSx87LJP4/nYS+s1I=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=SY4xLlgwdKS1BYyhrIPkkk3tfdAYRB8+khQCVCQR/8NGqJa1y+g6zTw8iwN7KfHkt
+ dor9ROPxn+gC41ux6gj6b5SbTok9vmvDIxf3woPopYpsEuF4YivCT42veeVokVclP/
+ 0YYiBGORwMAYcMujIK0dqSF4W1IBA71HbdVHWYhykyk24jg4N5sRqTlDMBWQQToDOB
+ EvRnZvPQ4GFK6vJdhoK+RSNGO0mp9pwE72T27LKJ5wi6uQllJyv5OTUdhyDJARbq//
+ 5hfZ1qCuR32xzTCeCEOJ870C3GnsnLCqVhMfSGSkitgqnucPDB1zCK7SFotlpMnfXY
+ aamniYLNElBOQ==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH AUTOSEL 5.18 06/49] ASoC: amd: Add driver data to acp6x
+ machine driver
+Date: Wed,  1 Jun 2022 09:51:30 -0400
+Message-Id: <20220601135214.2002647-6-sashal@kernel.org>
+X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220601135214.2002647-1-sashal@kernel.org>
+References: <20220601135214.2002647-1-sashal@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH v2] ASoC: qcom: soundwire: Add support for controlling
- audio CGCR from HLOS
-Content-Language: en-US
-To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>,
- Matthias Kaehlcke <mka@chromium.org>
-References: <1652877755-25120-1-git-send-email-quic_srivasam@quicinc.com>
- <CAE-0n53g9rWks+euk5KHBzmJNEB3xLbJzMgCxN52DO5x+9-Wgg@mail.gmail.com>
- <51b8aca1-e038-4907-e973-ebdbebaf9b28@quicinc.com>
- <YpaXZ6KfApGebkBy@google.com>
- <7c74868d-624b-c18e-b377-026e70813fcc@quicinc.com>
- <1ec64a99-cfcf-c903-935b-d1bb0617c284@linaro.org>
- <61c151e2-c44c-3b84-9fed-a83abef83c17@quicinc.com>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <61c151e2-c44c-3b84-9fed-a83abef83c17@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-stable: review
+X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- quic_rohkumar@quicinc.com, linux-arm-msm@vger.kernel.org, broonie@kernel.org,
- tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org,
- bjorn.andersson@linaro.org, vkoul@kernel.org, agross@kernel.org,
- bgoswami@quicinc.com, quic_plai@quicinc.com,
- Stephen Boyd <swboyd@chromium.org>, judyhsiao@chromium.org,
- linux-kernel@vger.kernel.org
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, tiwai@suse.com, Mark Brown <broonie@kernel.org>,
+ Mario Limonciello <mario.limonciello@amd.com>, Vijendar.Mukunda@amd.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -120,38 +89,182 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+From: Mario Limonciello <mario.limonciello@amd.com>
 
+[ Upstream commit e521f087780d07731e8c950f2f34d08358c86bc9 ]
 
-On 01/06/2022 14:15, Srinivasa Rao Mandadapu wrote:
->>>>>>> +       ctrl->audio_cgcr = devm_reset_control_get_exclusive(dev, 
->>>>>>> "swr_audio_cgcr");
->>>>>>> +       if (IS_ERR(ctrl->audio_cgcr))
->>>>>>> +               dev_err(dev, "Failed to get audio_cgcr reset 
->>>>>>> required for soundwire-v1.6.0\n");
->>>>>> Why is there no return on error here? Is the reset optional?
->>>>> Yes it's optional. For older platforms this is not required.
->>>> If it's optional then either there should be no error message, or the
->>>> error message should only be logged when the version is >= 1.6.0. There
->>>> are few things worse than a kernel log riddled with misleading error
->>>> messages.
->>>
->>> In that case, it can be done like below. Kindly let me know your 
->>> opinion on this.
->>>
->>> if (ctrl->version >= 0x01060000) {
->>
->> This is not true 1.7+ variants do not require anything as such.
-> 
-> I think it applies for all upcoming versions as Qualcomm Hardware team. 
-> Here is the not from HW Team.
+Currently all of the quirked systems use the same card and so the
+DMI quirk list doesn't contain driver data.
 
-Am testing sm8450 which has 1.7.0 and it does not require/have such control.
+Add driver data to these quirks and then check the data was present
+or not.  This will allow potentially setting quirks for systems with
+faulty firmware that claims to have a DMIC but doesn't really.
 
-I dont understand what is the issue in adding a flag to
-struct qcom_swrm_data.
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Link: https://lore.kernel.org/r/20220411134532.13538-2-mario.limonciello@amd.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/soc/amd/yc/acp6x-mach.c | 29 +++++++++++++++++++++++++----
+ 1 file changed, 25 insertions(+), 4 deletions(-)
 
-This should give finer control rather than matching anything > 1.6.
+diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
+index 9a767f47b89f..959b70e8baf2 100644
+--- a/sound/soc/amd/yc/acp6x-mach.c
++++ b/sound/soc/amd/yc/acp6x-mach.c
+@@ -45,108 +45,126 @@ static struct snd_soc_card acp6x_card = {
+ 
+ static const struct dmi_system_id yc_acp_quirk_table[] = {
+ 	{
++		.driver_data = &acp6x_card,
+ 		.matches = {
+ 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "21D2"),
+ 		}
+ 	},
+ 	{
++		.driver_data = &acp6x_card,
+ 		.matches = {
+ 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "21D3"),
+ 		}
+ 	},
+ 	{
++		.driver_data = &acp6x_card,
+ 		.matches = {
+ 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "21D4"),
+ 		}
+ 	},
+ 	{
++		.driver_data = &acp6x_card,
+ 		.matches = {
+ 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "21D5"),
+ 		}
+ 	},
+ 	{
++		.driver_data = &acp6x_card,
+ 		.matches = {
+ 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "21CF"),
+ 		}
+ 	},
+ 	{
++		.driver_data = &acp6x_card,
+ 		.matches = {
+ 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "21CG"),
+ 		}
+ 	},
+ 	{
++		.driver_data = &acp6x_card,
+ 		.matches = {
+ 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "21CQ"),
+ 		}
+ 	},
+ 	{
++		.driver_data = &acp6x_card,
+ 		.matches = {
+ 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "21CR"),
+ 		}
+ 	},
+ 	{
++		.driver_data = &acp6x_card,
+ 		.matches = {
+ 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "21AW"),
+ 		}
+ 	},
+ 	{
++		.driver_data = &acp6x_card,
+ 		.matches = {
+ 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "21AX"),
+ 		}
+ 	},
+ 	{
++		.driver_data = &acp6x_card,
+ 		.matches = {
+ 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "21BN"),
+ 		}
+ 	},
+ 	{
++		.driver_data = &acp6x_card,
+ 		.matches = {
+ 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "21BQ"),
+ 		}
+ 	},
+ 	{
++		.driver_data = &acp6x_card,
+ 		.matches = {
+ 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "21CH"),
+ 		}
+ 	},
+ 	{
++		.driver_data = &acp6x_card,
+ 		.matches = {
+ 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "21CJ"),
+ 		}
+ 	},
+ 	{
++		.driver_data = &acp6x_card,
+ 		.matches = {
+ 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "21CK"),
+ 		}
+ 	},
+ 	{
++		.driver_data = &acp6x_card,
+ 		.matches = {
+ 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "21CL"),
+ 		}
+ 	},
+ 	{
++		.driver_data = &acp6x_card,
+ 		.matches = {
+ 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "21D8"),
+ 		}
+ 	},
+ 	{
++		.driver_data = &acp6x_card,
+ 		.matches = {
+ 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "21D9"),
+@@ -157,18 +175,21 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
+ 
+ static int acp6x_probe(struct platform_device *pdev)
+ {
++	const struct dmi_system_id *dmi_id;
+ 	struct acp6x_pdm *machine = NULL;
+ 	struct snd_soc_card *card;
+ 	int ret;
+-	const struct dmi_system_id *dmi_id;
+ 
++	/* check for any DMI overrides */
+ 	dmi_id = dmi_first_match(yc_acp_quirk_table);
+-	if (!dmi_id)
++	if (dmi_id)
++		platform_set_drvdata(pdev, dmi_id->driver_data);
++
++	card = platform_get_drvdata(pdev);
++	if (!card)
+ 		return -ENODEV;
+-	card = &acp6x_card;
+ 	acp6x_card.dev = &pdev->dev;
+ 
+-	platform_set_drvdata(pdev, card);
+ 	snd_soc_card_set_drvdata(card, machine);
+ 	ret = devm_snd_soc_register_card(&pdev->dev, card);
+ 	if (ret) {
+-- 
+2.35.1
 
-
---srini
-> 

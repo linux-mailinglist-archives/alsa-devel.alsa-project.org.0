@@ -2,100 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCF3853AD2C
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Jun 2022 21:14:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CD1453AD4B
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Jun 2022 21:48:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 515171720;
-	Wed,  1 Jun 2022 21:14:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 515171720
+	by alsa0.perex.cz (Postfix) with ESMTPS id B84AE16B0;
+	Wed,  1 Jun 2022 21:47:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B84AE16B0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654110899;
-	bh=zyzF3F7JC1BIMwfU3iCzCwHcM32zHxqiEVe/c/Rh2Gw=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1654112918;
+	bh=ib5pzAGnPK+jTLf7OnMaQjZFhvd6esBlNJlscVhq9ek=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KFVTiJSQMsMGC2GP7mxkYbChY/BcJqGLl3aEu29PtmIXmRt7pTAFvYkl9bkJRlz5K
-	 TkM+Isc1VID2OZxxavyDNavTttuwdloxJOotBCvaGzv184iHQDSoq3BWAOJf/wv448
-	 IDLVa6ewAek1E3R4Jace4zXG6ljSJEBJ0n8zpe/w=
+	b=Ukfgriq6uf10GLFixF6VU2sTigXU8T41uDE9Lz/CEw6UFvJQsktS6+aP9koAzQYGa
+	 0zMzHiyKTl1lGU3zvy4fbJzAlTPsmB0yxpAECRH/svVritswb8btoZROYuUh4dxljz
+	 LMvzBR5SwQoh6yLt6KYf9GqTPnqg6eGxC88Qn+H4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A3A36F8025A;
-	Wed,  1 Jun 2022 21:14:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 11193F80271;
+	Wed,  1 Jun 2022 21:47:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 598C1F80238; Wed,  1 Jun 2022 21:13:59 +0200 (CEST)
+ id 5223BF8025A; Wed,  1 Jun 2022 21:47:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 007EEF800BD
- for <alsa-devel@alsa-project.org>; Wed,  1 Jun 2022 21:13:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 007EEF800BD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5CEA9F800BD
+ for <alsa-devel@alsa-project.org>; Wed,  1 Jun 2022 21:47:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5CEA9F800BD
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="eJWfOQDF"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="vlxyTuTt"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 19D251F93D;
- Wed,  1 Jun 2022 19:13:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1654110836; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=a9u5hPonEj/nYbaH7KqEil1yX8WxZg/sHH0JzVEX0BA=;
- b=eJWfOQDFbje58Pvln7Hd8ShUzOVhrTKrqwXaSOxBSiC0DO+NSkUpdFOHooDD7pCwI3mB5A
- /XeFPtQNE1COwDVA9WjuZuFOsjCqr9247l9RkcwE23TEhe7at1wvck2+p4ak44jzv5woGM
- hYmBbN7ngTTPfiOau0OUGGeYDNH+SxU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1654110836;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=a9u5hPonEj/nYbaH7KqEil1yX8WxZg/sHH0JzVEX0BA=;
- b=vlxyTuTtVr+kbwBfCwGIfyk6VP7yVYURsb4cSA52VWdDlhJCfKg5DTmBIYcZlq2n6mguVd
- pNmYzqXgm6SIVaAA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CCA9613A8F;
- Wed,  1 Jun 2022 19:13:55 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id GhPeMHO6l2IGDgAAMHmgww
- (envelope-from <tiwai@suse.de>); Wed, 01 Jun 2022 19:13:55 +0000
-Date: Wed, 01 Jun 2022 21:13:55 +0200
-Message-ID: <87mtewyz64.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Subject: Re: [PATCH v4 00/17] ALSA: hda: cirrus: Add initial DSP support and
- firmware loading
-In-Reply-To: <008e3188-f35d-4323-08ea-de5f3a88333a@opensource.cirrus.com>
-References: <20220525131638.5512-1-vitalyr@opensource.cirrus.com>
- <871qwf0x8t.wl-tiwai@suse.de>
- <20220530090846.GS38351@ediswmail.ad.cirrus.com>
- <87czfvxtsc.wl-tiwai@suse.de>
- <20220530093639.GT38351@ediswmail.ad.cirrus.com>
- <87a6azxr7h.wl-tiwai@suse.de>
- <20220530103415.GU38351@ediswmail.ad.cirrus.com>
- <871qwbxpsb.wl-tiwai@suse.de>
- <008e3188-f35d-4323-08ea-de5f3a88333a@opensource.cirrus.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
- Vitaly Rodionov <vitalyr@opensource.cirrus.com>, patches@opensource.cirrus.com,
- Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
- linux-kernel@vger.kernel.org
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="MbT4qBeU"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 251GD6D0018026;
+ Wed, 1 Jun 2022 14:47:32 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=PODMain02222019;
+ bh=ymwJqyNipN5Q/+6v3BPxPTrBW4cB2OAjXCqHfLwe68c=;
+ b=MbT4qBeULVD+J9bwqSYtLc0QwOoRutYl1WcTy9r1taCyCO4fk4HfWJ/E5FJeoD+9KYqJ
+ Xtrqs6v2PSy10+rZ0aoKxEgrJcORlfA4/jH7IoI4tAFDM1eGquvO86KHrowfnLKtWe/r
+ tt2NSNdRx1RkFyFKR3tzp/8GruDFebCZ5dkC4dDaWoK3IkutBnf4Hhr6pVNbGzbVyyZw
+ EqpivHqalIlalNfvhdfUJT+2oyzgvrz2TiDhanJLkXFG60bwIYFQ6JgYIJ98g37LwKBO
+ E6hJYUlJmhbjY5mbsMkEhNLz7RF7S1V7NEapNkjSmpWWZUwvUNaVt5a765jZHqLWmABW MA== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3gbg5nmqv9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Wed, 01 Jun 2022 14:47:31 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 1 Jun
+ 2022 20:47:30 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.28 via
+ Frontend Transport; Wed, 1 Jun 2022 20:47:30 +0100
+Received: from [141.131.206.39] (david-linux.ad.cirrus.com [141.131.206.39])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id E23CA459;
+ Wed,  1 Jun 2022 19:47:28 +0000 (UTC)
+Message-ID: <1cd55249-d793-9bb9-e01d-b994676f0253@cirrus.com>
+Date: Wed, 1 Jun 2022 14:47:28 -0500
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: Semantics for _SX controls
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>, =?UTF-8?Q?Tan_Nay=c4=b1r?=
+ <tannayir@gmail.com>, Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@codeaurora.org>, Richard Fitzgerald
+ <rf@opensource.cirrus.com>, Lucas Tanure <tanureal@opensource.cirrus.com>,
+ James Schulman <james.schulman@cirrus.com>, Charles Keepax
+ <ckeepax@opensource.cirrus.com>
+References: <YpeElAslQxfajbdq@sirena.org.uk>
+From: David Rhodes <david.rhodes@cirrus.com>
+In-Reply-To: <YpeElAslQxfajbdq@sirena.org.uk>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: MppotlWYpQ9YYDYyZ7-0YsQa1zEgp3sn
+X-Proofpoint-GUID: MppotlWYpQ9YYDYyZ7-0YsQa1zEgp3sn
+X-Proofpoint-Spam-Reason: safe
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,63 +105,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 01 Jun 2022 18:43:31 +0200,
-Richard Fitzgerald wrote:
+On 6/1/22 10:24, Mark Brown wrote:
+> For the Cirrus case 34198710f55b5f ("ASoC: Add info callback for
+> SX_TLV controls") says that the intended semantic is
 > 
-> On 30/05/2022 11:45, Takashi Iwai wrote:
-> > On Mon, 30 May 2022 12:34:15 +0200,
-> > Charles Keepax wrote:
-> >> 
-> >> On Mon, May 30, 2022 at 12:14:26PM +0200, Takashi Iwai wrote:
-> >>> On Mon, 30 May 2022 11:36:39 +0200,
-> >>> Charles Keepax wrote:
-> >>>> On Mon, May 30, 2022 at 11:18:43AM +0200, Takashi Iwai wrote:
-> >>>>> On Mon, 30 May 2022 11:08:46 +0200,
-> >>>>> Charles Keepax wrote:
-> >>>>>> On Fri, May 27, 2022 at 06:13:38PM +0200, Takashi Iwai wrote:
-> >>>>>>> On Wed, 25 May 2022 15:16:21 +0200,
-> >>>>>>> Vitaly Rodionov wrote:
-> >>>> Yeah that should be what is happening here. Although it looks
-> >>>> like this code might be removing all the controls if the firmware
-> >>>> is unloaded. I will discuss that with the guys, we normal just
-> >>>> disable the controls on the wm_adsp stuff.
-> >>> 
-> >>> OK, that sounds good.  Basically my concern came up from the code
-> >>> snippet doing asynchronous addition/removal via work.  This showed
-> >>> some yellow signal, as such a pattern doesn't appear in the normal
-> >>> implementation.  If this is (still) really necessary, it has to be
-> >>> clarified as an exception.
-> >>> 
-> >> 
-> >> Hm... ok we will think about that. I think that part will
-> >> probably still be necessary. Because there is an ALSA control
-> >> that selects the firmware, then it is necesarry to defer creating
-> >> the controls to some work, since you are already holding the
-> >> lock.
-> > 
-> > Well, if an ALSA control can trigger the firmware loading, that's
-> > already fragile.  A firmware loading is a heavy task, which should
-> > happen only at probing and/or resuming in general.  Do we have other
-> > drivers doing the f/w loading triggered by a kctl...?
-> > 
+>      Currently every CODEC implementing these controls specifies the minimum
+>      as the non-zero value for the minimum and the maximum as the number of
+>      gain settings available.
 > 
-> On Wolfson/Cirrus codecs the firmware isn't to "make the chip work".
-> The DSP is programmable to allow for additional audio processing
-> algorithms. Which algorithm you need depends on the audio use case(s)
-> you are running, and can change as you change use-case. Many of the
-> codecs don't have enough DSP memory to hold all possible algorithms.
-> Which is why the firmware load has always been triggered from ALSA
-> controls in the ASoC code. It's not something that can be loaded
-> once in probe().
+> which was from Charles at Cirrus so hopefully that's the semantic
+> used by Cirrus drivers.
 
-But it's still a question whether such an easily triggerable interface
-should be used for a heavy procedure like the DSP firmware load.
-e.g. calling the standard request_firmware() API directly from a
-control callback doesn't sound like a good idea at all.  The similar
-argument is applied to the dynamic addition/removal of other controls
-followed by a kctl callback.
+The Cirrus parts have volume fields with a signed value. Typically this 
+is a large negative attenuation and a smaller amount of gain (-102dB / 
++12dB for example). The goal for the control is to map this to a 
+continuous range and in a way that understands the signed bit field.
 
+ From my review, all of the Cirrus drivers are providing the minimum and 
+number of gain settings to SOC_SINGLE_SX_TLV as Charles described, with 
+the exception of cs53l30. The cs53l30 driver uses the minimum (negative) 
+and maximum (positive) values of the bit field.
 
-thanks,
+At the very least, cs53l30 should be patched. For the other drivers, 
+using a macro that is more explicit about the signed bit field and 
+removes the max/#-steps confusion would be an improvement. Something 
+similar to SOC_DOUBLE_R_S_TLV could work.
 
-Takashi
+Thanks,
+David

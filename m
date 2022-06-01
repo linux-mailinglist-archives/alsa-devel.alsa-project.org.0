@@ -2,69 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A54453A6B7
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Jun 2022 15:55:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 702B253A6C1
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Jun 2022 15:56:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E51BD170E;
-	Wed,  1 Jun 2022 15:54:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E51BD170E
+	by alsa0.perex.cz (Postfix) with ESMTPS id A68DD171F;
+	Wed,  1 Jun 2022 15:55:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A68DD171F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654091742;
-	bh=ysGPMCEE6zTrrAwWhMonkdrC5EuSx87LJP4/nYS+s1I=;
+	s=default; t=1654091767;
+	bh=FsnhM5PT/E5Fpk+dkdwL4mlsa9gXKVZzJ8yZXv4wNXk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RNWSEtMfgh+btMaTS3qDVOIFRr6Hi20yKddjD6pjWfdDH7j19+Pr3ixCcU7j205ro
-	 n2HhsISaMVb4+YWvlth3dGqWhMyUauMJcLw1oVJgH0HA/ZuyYsHJeV7lJzYIwVCsGK
-	 oBBBL+5yE8RT1GNyXLC8tH6ryD6pVjVSpi0ukb50=
+	b=nnthcn/AtDj2GfU152cGMkyvqK3lC047QYyuUYMjrynunMz57vp5Fe4ki1Q1sgobF
+	 5lNl5KuGTXY7M8Fdw+Yc70RDayh1fIZuPWRLOuea+H+1vPSFCOI/W0/Q9qZBprmsXq
+	 dX9Ze5tereFp7RPe9oQHW4Gxhpo1hURTuVM3UdRg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E79AF800BD;
-	Wed,  1 Jun 2022 15:54:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 20DD3F80271;
+	Wed,  1 Jun 2022 15:55:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C5456F8019B; Wed,  1 Jun 2022 15:54:42 +0200 (CEST)
+ id 3B21CF80482; Wed,  1 Jun 2022 15:55:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 89A47F800BD
- for <alsa-devel@alsa-project.org>; Wed,  1 Jun 2022 15:54:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89A47F800BD
+ by alsa1.perex.cz (Postfix) with ESMTPS id C5A12F80089
+ for <alsa-devel@alsa-project.org>; Wed,  1 Jun 2022 15:54:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5A12F80089
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="oytYFRzq"
+ header.b="HHrLug/W"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 0E22D615D3;
- Wed,  1 Jun 2022 13:54:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAFC9C36AF8;
- Wed,  1 Jun 2022 13:54:33 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 476F0615BF;
+ Wed,  1 Jun 2022 13:54:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE08DC34119;
+ Wed,  1 Jun 2022 13:54:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1654091674;
- bh=ysGPMCEE6zTrrAwWhMonkdrC5EuSx87LJP4/nYS+s1I=;
+ s=k20201202; t=1654091698;
+ bh=FsnhM5PT/E5Fpk+dkdwL4mlsa9gXKVZzJ8yZXv4wNXk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=oytYFRzq5R4OuWbwLD5cdAmY7s3jXvTMTVUK6jm+/sk4Lq0ZLPGDzbt0exCu3qKFJ
- 9gNq/ZjOyluK6HnpXyCZSiLDL3qvHd4gt1UxaJTDIjoMTLqDY/+BDytb3Z4qDX9U+9
- Xxakqu2IKEc/2WMzcQ3j8+NA5/RxlSGFSMtYkVfLagKx2iXt3/sv/ugCyNK2jenf8g
- sz+X4ZE4iHAMDNWWpJEJqRGcoy9biQNcyG9gHfnbGPZq+aIUv6eOJGVZnD+3jOlLNS
- r00d3q77O8L9eoUmpRwbMmVx3c1p14FKe8ZXiuLHKdwP8KFqZIfDzVXUWYHqolt3tM
- v6hIz3OyNuanw==
+ b=HHrLug/WjjWmFbZW2IMsROUlhuYuwXtUgKrGbt9/0Jji/5kXhwAbP80esShA314wt
+ wfKGqNgezz57vh7S59yBHFVxvL1OcxniI91Wl5KX+hF3kw9GjH2g4UlZZbZ+N7KeOe
+ ioZFhJMyQQuxERRccZeooGYA7e5+wDbN35WciR38eDGasp38JNtRh2MA9tCFXBEldf
+ 4P9U5OaDYSQFa1uQ3tuOIuGhJNxiFMTHn6lRS2fsLtNEhWfZqsAwIz3Agp7WbPz9z9
+ 2E+cLw+utgQJDCGOVlwlY4QT4LhmG0BxjQyvuimKD7vt8qyKxkHNLbyt/q0Ebwz4a+
+ UPBSxDvF72z/Q==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.17 06/48] ASoC: amd: Add driver data to acp6x
- machine driver
-Date: Wed,  1 Jun 2022 09:53:39 -0400
-Message-Id: <20220601135421.2003328-6-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.17 16/48] ALSA: usb-audio: Add quirk bits for
+ enabling/disabling generic implicit fb
+Date: Wed,  1 Jun 2022 09:53:49 -0400
+Message-Id: <20220601135421.2003328-16-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220601135421.2003328-1-sashal@kernel.org>
 References: <20220601135421.2003328-1-sashal@kernel.org>
@@ -72,9 +71,9 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, tiwai@suse.com, Mark Brown <broonie@kernel.org>,
- Mario Limonciello <mario.limonciello@amd.com>, Vijendar.Mukunda@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org, bp@suse.de,
+ corbet@lwn.net, Takashi Iwai <tiwai@suse.de>, linux-doc@vger.kernel.org,
+ tiwai@suse.com, geraldogabriel@gmail.com, matteomartelli3@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,182 +89,93 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Mario Limonciello <mario.limonciello@amd.com>
+From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit e521f087780d07731e8c950f2f34d08358c86bc9 ]
+[ Upstream commit 0f1f7a6661394fe4a53db254c346d6aa2dd64397 ]
 
-Currently all of the quirked systems use the same card and so the
-DMI quirk list doesn't contain driver data.
+For making easier to test, add the new quirk_flags bits 17 and 18 to
+enable and disable the generic implicit feedback mode.  The bit 17 is
+equivalent with implicit_fb=1 option, applying the generic implicit
+feedback sync mode.  OTOH, the bit 18 disables the implicit fb mode
+forcibly.
 
-Add driver data to these quirks and then check the data was present
-or not.  This will allow potentially setting quirks for systems with
-faulty firmware that claims to have a DMIC but doesn't really.
-
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-Link: https://lore.kernel.org/r/20220411134532.13538-2-mario.limonciello@amd.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Link: https://lore.kernel.org/r/20220421064101.12456-1-tiwai@suse.de
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/amd/yc/acp6x-mach.c | 29 +++++++++++++++++++++++++----
- 1 file changed, 25 insertions(+), 4 deletions(-)
+ Documentation/sound/alsa-configuration.rst | 4 +++-
+ sound/usb/implicit.c                       | 5 ++++-
+ sound/usb/usbaudio.h                       | 6 ++++++
+ 3 files changed, 13 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
-index 9a767f47b89f..959b70e8baf2 100644
---- a/sound/soc/amd/yc/acp6x-mach.c
-+++ b/sound/soc/amd/yc/acp6x-mach.c
-@@ -45,108 +45,126 @@ static struct snd_soc_card acp6x_card = {
+diff --git a/Documentation/sound/alsa-configuration.rst b/Documentation/sound/alsa-configuration.rst
+index 34888d4fc4a8..21ab5e6f7062 100644
+--- a/Documentation/sound/alsa-configuration.rst
++++ b/Documentation/sound/alsa-configuration.rst
+@@ -2246,7 +2246,7 @@ implicit_fb
+     Apply the generic implicit feedback sync mode.  When this is set
+     and the playback stream sync mode is ASYNC, the driver tries to
+     tie an adjacent ASYNC capture stream as the implicit feedback
+-    source.
++    source.  This is equivalent with quirk_flags bit 17.
+ use_vmalloc
+     Use vmalloc() for allocations of the PCM buffers (default: yes).
+     For architectures with non-coherent memory like ARM or MIPS, the
+@@ -2288,6 +2288,8 @@ quirk_flags
+         * bit 14: Ignore errors for mixer access
+         * bit 15: Support generic DSD raw U32_BE format
+         * bit 16: Set up the interface at first like UAC1
++        * bit 17: Apply the generic implicit feedback sync mode
++        * bit 18: Don't apply implicit feedback sync mode
  
- static const struct dmi_system_id yc_acp_quirk_table[] = {
- 	{
-+		.driver_data = &acp6x_card,
- 		.matches = {
- 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
- 			DMI_MATCH(DMI_PRODUCT_NAME, "21D2"),
- 		}
- 	},
- 	{
-+		.driver_data = &acp6x_card,
- 		.matches = {
- 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
- 			DMI_MATCH(DMI_PRODUCT_NAME, "21D3"),
- 		}
- 	},
- 	{
-+		.driver_data = &acp6x_card,
- 		.matches = {
- 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
- 			DMI_MATCH(DMI_PRODUCT_NAME, "21D4"),
- 		}
- 	},
- 	{
-+		.driver_data = &acp6x_card,
- 		.matches = {
- 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
- 			DMI_MATCH(DMI_PRODUCT_NAME, "21D5"),
- 		}
- 	},
- 	{
-+		.driver_data = &acp6x_card,
- 		.matches = {
- 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
- 			DMI_MATCH(DMI_PRODUCT_NAME, "21CF"),
- 		}
- 	},
- 	{
-+		.driver_data = &acp6x_card,
- 		.matches = {
- 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
- 			DMI_MATCH(DMI_PRODUCT_NAME, "21CG"),
- 		}
- 	},
- 	{
-+		.driver_data = &acp6x_card,
- 		.matches = {
- 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
- 			DMI_MATCH(DMI_PRODUCT_NAME, "21CQ"),
- 		}
- 	},
- 	{
-+		.driver_data = &acp6x_card,
- 		.matches = {
- 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
- 			DMI_MATCH(DMI_PRODUCT_NAME, "21CR"),
- 		}
- 	},
- 	{
-+		.driver_data = &acp6x_card,
- 		.matches = {
- 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
- 			DMI_MATCH(DMI_PRODUCT_NAME, "21AW"),
- 		}
- 	},
- 	{
-+		.driver_data = &acp6x_card,
- 		.matches = {
- 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
- 			DMI_MATCH(DMI_PRODUCT_NAME, "21AX"),
- 		}
- 	},
- 	{
-+		.driver_data = &acp6x_card,
- 		.matches = {
- 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
- 			DMI_MATCH(DMI_PRODUCT_NAME, "21BN"),
- 		}
- 	},
- 	{
-+		.driver_data = &acp6x_card,
- 		.matches = {
- 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
- 			DMI_MATCH(DMI_PRODUCT_NAME, "21BQ"),
- 		}
- 	},
- 	{
-+		.driver_data = &acp6x_card,
- 		.matches = {
- 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
- 			DMI_MATCH(DMI_PRODUCT_NAME, "21CH"),
- 		}
- 	},
- 	{
-+		.driver_data = &acp6x_card,
- 		.matches = {
- 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
- 			DMI_MATCH(DMI_PRODUCT_NAME, "21CJ"),
- 		}
- 	},
- 	{
-+		.driver_data = &acp6x_card,
- 		.matches = {
- 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
- 			DMI_MATCH(DMI_PRODUCT_NAME, "21CK"),
- 		}
- 	},
- 	{
-+		.driver_data = &acp6x_card,
- 		.matches = {
- 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
- 			DMI_MATCH(DMI_PRODUCT_NAME, "21CL"),
- 		}
- 	},
- 	{
-+		.driver_data = &acp6x_card,
- 		.matches = {
- 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
- 			DMI_MATCH(DMI_PRODUCT_NAME, "21D8"),
- 		}
- 	},
- 	{
-+		.driver_data = &acp6x_card,
- 		.matches = {
- 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
- 			DMI_MATCH(DMI_PRODUCT_NAME, "21D9"),
-@@ -157,18 +175,21 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
+ This module supports multiple devices, autoprobe and hotplugging.
  
- static int acp6x_probe(struct platform_device *pdev)
+diff --git a/sound/usb/implicit.c b/sound/usb/implicit.c
+index 2d444ec74202..1fd087128538 100644
+--- a/sound/usb/implicit.c
++++ b/sound/usb/implicit.c
+@@ -350,7 +350,8 @@ static int audioformat_implicit_fb_quirk(struct snd_usb_audio *chip,
+ 	}
+ 
+ 	/* Try the generic implicit fb if available */
+-	if (chip->generic_implicit_fb)
++	if (chip->generic_implicit_fb ||
++	    (chip->quirk_flags & QUIRK_FLAG_GENERIC_IMPLICIT_FB))
+ 		return add_generic_implicit_fb(chip, fmt, alts);
+ 
+ 	/* No quirk */
+@@ -387,6 +388,8 @@ int snd_usb_parse_implicit_fb_quirk(struct snd_usb_audio *chip,
+ 				    struct audioformat *fmt,
+ 				    struct usb_host_interface *alts)
  {
-+	const struct dmi_system_id *dmi_id;
- 	struct acp6x_pdm *machine = NULL;
- 	struct snd_soc_card *card;
- 	int ret;
--	const struct dmi_system_id *dmi_id;
++	if (chip->quirk_flags & QUIRK_FLAG_SKIP_IMPLICIT_FB)
++		return 0;
+ 	if (fmt->endpoint & USB_DIR_IN)
+ 		return audioformat_capture_quirk(chip, fmt, alts);
+ 	else
+diff --git a/sound/usb/usbaudio.h b/sound/usb/usbaudio.h
+index b8359a0aa008..044cd7ab27cb 100644
+--- a/sound/usb/usbaudio.h
++++ b/sound/usb/usbaudio.h
+@@ -164,6 +164,10 @@ extern bool snd_usb_skip_validation;
+  *  Support generic DSD raw U32_BE format
+  * QUIRK_FLAG_SET_IFACE_FIRST:
+  *  Set up the interface at first like UAC1
++ * QUIRK_FLAG_GENERIC_IMPLICIT_FB
++ *  Apply the generic implicit feedback sync mode (same as implicit_fb=1 option)
++ * QUIRK_FLAG_SKIP_IMPLICIT_FB
++ *  Don't apply implicit feedback sync mode
+  */
  
-+	/* check for any DMI overrides */
- 	dmi_id = dmi_first_match(yc_acp_quirk_table);
--	if (!dmi_id)
-+	if (dmi_id)
-+		platform_set_drvdata(pdev, dmi_id->driver_data);
-+
-+	card = platform_get_drvdata(pdev);
-+	if (!card)
- 		return -ENODEV;
--	card = &acp6x_card;
- 	acp6x_card.dev = &pdev->dev;
+ #define QUIRK_FLAG_GET_SAMPLE_RATE	(1U << 0)
+@@ -183,5 +187,7 @@ extern bool snd_usb_skip_validation;
+ #define QUIRK_FLAG_IGNORE_CTL_ERROR	(1U << 14)
+ #define QUIRK_FLAG_DSD_RAW		(1U << 15)
+ #define QUIRK_FLAG_SET_IFACE_FIRST	(1U << 16)
++#define QUIRK_FLAG_GENERIC_IMPLICIT_FB	(1U << 17)
++#define QUIRK_FLAG_SKIP_IMPLICIT_FB	(1U << 18)
  
--	platform_set_drvdata(pdev, card);
- 	snd_soc_card_set_drvdata(card, machine);
- 	ret = devm_snd_soc_register_card(&pdev->dev, card);
- 	if (ret) {
+ #endif /* __USBAUDIO_H */
 -- 
 2.35.1
 

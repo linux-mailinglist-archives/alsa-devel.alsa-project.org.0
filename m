@@ -2,95 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43C2253B0E7
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jun 2022 03:14:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E4FC53B1A6
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jun 2022 04:13:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A3BDD1742;
-	Thu,  2 Jun 2022 03:13:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3BDD1742
+	by alsa0.perex.cz (Postfix) with ESMTPS id 95E161749;
+	Thu,  2 Jun 2022 04:12:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95E161749
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654132488;
-	bh=x6I/YcnTZrzE2wRONymaNEL4lnGh1OjK0huds9FMF1A=;
-	h=In-Reply-To:References:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1654136005;
+	bh=zfWnBsCpphEUOAd/bMtH899shOhmko7wvrzUwJJZjvY=;
+	h=Date:Subject:From:To:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=R57RqrMfT0l78lckxshEnDfozbpQfPFRFhXSt21oaOC1tMDtpcJvu4C0c0KmYRcui
-	 4IfgT4I1Q01mqe0IRecFJGR0DvxKBkWKOXeIvvC1yUh7qx1KTQ6szSPOYTr2Bj/isx
-	 LkWyKGzQrq+JgrpSKFDQMzT2DoOKoh5IfKUqdaAY=
+	b=jJLhafnUEbJHb+Eks7MqFV3K0VD4BPzRk+1bKddBQAJ0JkS2wro/PoM/zkfmWyNqx
+	 hleRjhrjBaooHxphvd0NANtn6jP4a/zluPMeefD8s+hJG2NMQkfJKeFvrqnbsg+/p0
+	 AgBex4AqVv8M81IV+uwY8wRWmECCL/vX/H7j3MqE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0E13CF800BD;
-	Thu,  2 Jun 2022 03:13:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ECE22F80149;
+	Thu,  2 Jun 2022 04:12:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3AF2AF800BD; Thu,  2 Jun 2022 03:13:50 +0200 (CEST)
+ id CB2D3F80236; Thu,  2 Jun 2022 04:12:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
- [IPv6:2607:f8b0:4864:20::335])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp-relay-canonical-0.canonical.com
+ (smtp-relay-canonical-0.canonical.com [185.125.188.120])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C7CCFF800BD
- for <alsa-devel@alsa-project.org>; Thu,  2 Jun 2022 03:13:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7CCFF800BD
+ by alsa1.perex.cz (Postfix) with ESMTPS id E40C7F80124
+ for <alsa-devel@alsa-project.org>; Thu,  2 Jun 2022 04:12:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E40C7F80124
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="hz8L42GZ"
-Received: by mail-ot1-x335.google.com with SMTP id
- e11-20020a9d6e0b000000b0060afcbafa80so2453009otr.3
- for <alsa-devel@alsa-project.org>; Wed, 01 Jun 2022 18:13:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=Rm+nlWHmtK3hCgXCMXiJ7jm13/nhGeNK572RFA6RE68=;
- b=hz8L42GZ3MjrJT8zQvbU0Gjdz6YpJMtgCtl4dpGSC964xc2evT/CnKhIY1JHh4LWjp
- +LM+FyszkciMtKhP7Zam1U3H6f3j/LPYW7SODR25bKL72QneSpkZ1S1ScDH1mE8dYPw8
- w3fwww6eOnrGvo4dZ5RvKgo8dO+U0i5wU5/Ms=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=Rm+nlWHmtK3hCgXCMXiJ7jm13/nhGeNK572RFA6RE68=;
- b=2yPyceuURcipIqcYANlmsdBn+rfRplV7yzJi7+VZ/CprCZUmdrEiCPB4Q9FbWHUGD0
- 3mdaq8NuhSeejgmUGAjdFvzvBAZ9aibD3Vu8dns+cl7nDSWQA6LO08h6A0o294HOmF7+
- UDROlEi9F+CLOvsHSd4P4ZxLOojacgYPjnMP/USvgon04bJyL4vuv4WBjCRa8YLHk2Md
- Jk96yu0Im90Gcz6nKAdVhj59ySB8ItyzY0S8IXORTYauv1W3/ztGsR3I9eq66XfqqSDq
- tpQdFFiLdcu5wdh+AFFiapaL8mlRp2NTOGkBhaQ7tuOu7a2kNmZ4TZvx9oRWOFVhzbIi
- aBYg==
-X-Gm-Message-State: AOAM531sM+AfbqE/0LG9pY8X1ehabWn8pdua9sIDEvJFsoNjGXK2c7kE
- YR7DWOxt+9xtLof8Uao7+4MXDKz9mXtDcwtULOUrfQ==
-X-Google-Smtp-Source: ABdhPJy3LJfihXvgizpO9YOYl97KB0keIbmS8UgdFCl7rKBWuosnrAafB55EO8lfmUfiw5usvkSZMT4lK7UtFaOPPIg=
-X-Received: by 2002:a9d:63cd:0:b0:606:9e7f:79f8 with SMTP id
- e13-20020a9d63cd000000b006069e7f79f8mr1153603otl.77.1654132421005; Wed, 01
- Jun 2022 18:13:41 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 1 Jun 2022 18:13:40 -0700
+ dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
+ header.b="Wz0UvIBt"
+Received: from [192.168.0.109] (unknown [123.112.66.143])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id C74943F10B; 
+ Thu,  2 Jun 2022 02:12:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1654135937;
+ bh=yDM/Dexw2A3CpIrWAR2wuVCIZtw6z04gxUCdUmDTxqA=;
+ h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+ In-Reply-To:Content-Type;
+ b=Wz0UvIBtistwWUeTfPhoOUwppYkDokQS691pmhXU0fYjBhbtvwl5a1sOQemk43+an
+ klkYiQ/+w1VSHILL9d8coVaXEtOO3iXfQjC4JUY/xDTkl2MdZ3zPVO+iI7asKXFVwZ
+ kjq0TcszL0FfVc0tQa42bBOaDdP+I0z0vQb2N5bWuaN+hLAlx3Y07DOabSNnh0/ZeY
+ ggkNuQM1vfPD2CjHHB2KRHlk+bU6+mF7zAEMP1aYEvNVuFlSNFAUSU2TwQUTzWTBfG
+ ZQUVhgB+zMrb8uZAx0ZDzx+D9SsbWJ3+ON/UWMJdGoYRU8a9ThPopDJMBJcHC5DU4j
+ rRbRQpNwUVoxw==
+Message-ID: <db674fa6-37cc-9dc6-ed87-f9fee681db9a@canonical.com>
+Date: Thu, 2 Jun 2022 10:12:06 +0800
 MIME-Version: 1.0
-In-Reply-To: <1654079415-26217-2-git-send-email-quic_srivasam@quicinc.com>
-References: <1654079415-26217-1-git-send-email-quic_srivasam@quicinc.com>
- <1654079415-26217-2-git-send-email-quic_srivasam@quicinc.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Wed, 1 Jun 2022 18:13:40 -0700
-Message-ID: <CAE-0n50nfwZPdSS7Vw9FiV+Shfn9-bX44hfLq5ey9DBsAy0y4g@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] dt-bindings: pinctrl: qcom: sc7280: Add compatible
- string for adsp based platforms
-To: Linus Walleij <linus.walleij@linaro.org>, 
- Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>, agross@kernel.org,
- alsa-devel@alsa-project.org, 
- bgoswami@quicinc.com, bjorn.andersson@linaro.org, broonie@kernel.org, 
- devicetree@vger.kernel.org, judyhsiao@chromium.org, lgirdwood@gmail.com, 
- linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
- linux-kernel@vger.kernel.org, perex@perex.cz, quic_plai@quicinc.com, 
- quic_rohkumar@quicinc.com, robh+dt@kernel.org, srinivas.kandagatla@linaro.org, 
- tiwai@suse.com
-Content-Type: text/plain; charset="UTF-8"
-Cc: Venkata Prasad Potturu <quic_potturu@quicinc.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH 2/2] ASoC: nau8822: Disable internal PLL if freq_out is
+ zero
+Content-Language: en-US
+From: Hui Wang <hui.wang@canonical.com>
+To: alsa-devel@alsa-project.org, broonie@kernel.org
+References: <20220530040151.95221-1-hui.wang@canonical.com>
+ <20220530040151.95221-3-hui.wang@canonical.com>
+In-Reply-To: <20220530040151.95221-3-hui.wang@canonical.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: wtli@nuvoton.com, ctlin0@nuvoton.com, kchsu0@nuvoton.com,
+ ctlin0.linux@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,36 +90,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Quoting Srinivasa Rao Mandadapu (2022-06-01 03:30:14)
-> Add compatible string to support adsp enabled sc7280 platforms.
+Hi Mark,
+
+I saw you merged the [PATCH 1/2], the [PATCH 2/2] is also needed. Please 
+take a look.
+
+Thanks,
+
+Hui.
+
+On 5/30/22 12:01, Hui Wang wrote:
+> After finishing the playback or recording, the machine driver might
+> call snd_soc_dai_set_pll(codec, pll_id, 0, 0, 0) to stop the internal
+> PLL, but with the codec driver nau8822, it will print error as below:
+>   nau8822 0-001a: Unsupported input clock 0
+>   fsl-asoc-card sound-nau8822: failed to stop FLL: -22
 >
-> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-> Co-developed-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
-> Signed-off-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
-> Acked-by: Rob Herring <robh@kernel.org>
+> Refer to the function wm8962_set_fll() in the codec driver wm8962, if
+> the freq_out is zero, turn off the internal PLL and return 0.
+>
+> Cc: David Lin <ctlin0@nuvoton.com>
+> Cc: John Hsu <kchsu0@nuvoton.com>
+> Cc: Seven Li <wtli@nuvoton.com>
+> Signed-off-by: Hui Wang <hui.wang@canonical.com>
 > ---
->  .../devicetree/bindings/pinctrl/qcom,sc7280-lpass-lpi-pinctrl.yaml    | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
+>   sound/soc/codecs/nau8822.c | 7 +++++++
+>   1 file changed, 7 insertions(+)
 >
-> diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,sc7280-lpass-lpi-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,sc7280-lpass-lpi-pinctrl.yaml
-> index d32ee32..53c2c59 100644
-> --- a/Documentation/devicetree/bindings/pinctrl/qcom,sc7280-lpass-lpi-pinctrl.yaml
-> +++ b/Documentation/devicetree/bindings/pinctrl/qcom,sc7280-lpass-lpi-pinctrl.yaml
-> @@ -17,7 +17,9 @@ description: |
->
->  properties:
->    compatible:
-> -    const: qcom,sc7280-lpass-lpi-pinctrl
-> +    enum:
-> +      - qcom,sc7280-lpass-lpi-pinctrl
-> +      - qcom,sc7280-lpass-adsp-lpi-pinctrl
-
-Can you confirm that this is the same hardware (i.e. same reg property)
-but just a different compatible string used to convey that the device is
-using "adsp" mode or not? If so, this looks to be a common pattern for
-the audio hardware here, where we have two "views" of the hardware, one
-for adsp mode and one for not adsp mode. I guess the not adsp mode is
-called "adsp bypass"?
-
-Is that right? Why are we conveying this information via the compatible
-string?
+> diff --git a/sound/soc/codecs/nau8822.c b/sound/soc/codecs/nau8822.c
+> index b436e532993d..4d3720c69f91 100644
+> --- a/sound/soc/codecs/nau8822.c
+> +++ b/sound/soc/codecs/nau8822.c
+> @@ -726,6 +726,13 @@ static int nau8822_set_pll(struct snd_soc_dai *dai, int pll_id, int source,
+>   	struct nau8822_pll *pll_param = &nau8822->pll;
+>   	int ret, fs;
+>   
+> +	if (freq_out == 0) {
+> +		dev_dbg(component->dev, "PLL disabled\n");
+> +		snd_soc_component_update_bits(component,
+> +			NAU8822_REG_POWER_MANAGEMENT_1, NAU8822_PLL_EN_MASK, NAU8822_PLL_OFF);
+> +		return 0;
+> +	}
+> +
+>   	fs = freq_out / 256;
+>   
+>   	ret = nau8822_calc_pll(freq_in, fs, pll_param);

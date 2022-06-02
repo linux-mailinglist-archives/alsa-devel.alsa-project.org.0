@@ -2,89 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37CC353BC7F
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jun 2022 18:27:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D60AA53C8D8
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jun 2022 12:38:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C5AD91779;
-	Thu,  2 Jun 2022 18:26:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C5AD91779
+	by alsa0.perex.cz (Postfix) with ESMTPS id 73F34181C;
+	Fri,  3 Jun 2022 12:37:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 73F34181C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654187242;
-	bh=rK0L9OJSzBpeiVRweSLD5D7cdODXp/Kyr9NyLp9HIGI=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=PKZE0n6DOAYNEMWyD5whhYYUd1Sez8AUdZ51NUb7/YWwAUNLe/sEzuNHjg0vn0TnG
-	 tJKAs+HAUi3XjAjNtgAjM4+qDkOW2H3DcFymL09gDRABP6Kn+OPgGZ97UGWeBjQphN
-	 N5+rOhEq+COVIwcsaC04TRWWJCzMgak46909K6A4=
+	s=default; t=1654252712;
+	bh=lBR0PHCKTdFhrwXW+SXi2bkwp02US299GMkeMSQkacM=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=cb37X+Izhrk/8njr+bpKNpm+QFfF9w4ddmr9iJMhVImrLdHqcoadLk71L8/YG1S2i
+	 b8qp7JucKD51mMOfJ5OUarpuLNb9PV4VNxJJALUHUtsmYcL26o9WZRQK4lsRVWmNWq
+	 UsRZxPdHZHkq0HAth6Z1YaSRTbWDXUGIcUedeaE4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 40429F80124;
-	Thu,  2 Jun 2022 18:26:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E387CF80524;
+	Fri,  3 Jun 2022 12:37:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A6663F80158; Thu,  2 Jun 2022 18:26:23 +0200 (CEST)
+ id 53646F80236; Thu,  2 Jun 2022 18:45:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.shift-gmbh.com (mail.shift-gmbh.com [85.10.195.145])
+ (using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8549AF80124
- for <alsa-devel@alsa-project.org>; Thu,  2 Jun 2022 18:26:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8549AF80124
+ by alsa1.perex.cz (Postfix) with ESMTPS id 156A7F80124
+ for <alsa-devel@alsa-project.org>; Thu,  2 Jun 2022 18:45:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 156A7F80124
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="JrDBUjZt"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 252CI99E012512;
- Thu, 2 Jun 2022 11:26:13 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=qn1gfqBoO5d2fKkeeyGV1AMqQmX/dZMtsX87CkcVAjA=;
- b=JrDBUjZtVIUEJKuDjMjT7oE42KSGNuP5U5kY+T7VA9xtgZnpxcmNmLJBtfXsffqTYpBZ
- S4E6fMhCJhUrb9mkSCz7nOFVUo5Xj6mptnc4/X1gcmC+k7ErLVCT2qSNAba3E5Zdjau8
- gpAdxDdb2J4Nwtdqa3LKF6b0CVCpzyxh/UB4llI2unkFZYvY2dOCFQj7uI/tg1KwM3mI
- I1eDXYvJD3LnmMmoiT5QSOzrpbUo/av4etCS3f3MVX2O87tIvT0gob4Lf51SCkj1paVT
- K4Dwf2Ax2DupZFRTOiKu2eJXgjsbDJLmE4VyhsWC7jEqamRoCGhpVr1XF4HnhOIF6xnl PQ== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3gbh51nq6j-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 02 Jun 2022 11:26:13 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 2 Jun
- 2022 17:26:11 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.28 via
- Frontend Transport; Thu, 2 Jun 2022 17:26:11 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 1CFBA459;
- Thu,  2 Jun 2022 16:26:11 +0000 (UTC)
-Date: Thu, 2 Jun 2022 16:26:11 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH] ASoC: ops: Clarify snd_soc_info_volsw_sx()
-Message-ID: <20220602162611.GX38351@ediswmail.ad.cirrus.com>
-References: <20220602092921.3302713-1-broonie@kernel.org>
+ dkim=pass (2048-bit key) header.d=shiftphones.com header.i=@shiftphones.com
+ header.b="b4JM09k7"
+From: Alexander Martinz <amartinz@shiftphones.com>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shiftphones.com;
+ s=2018; t=1654188331;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=EtLUtGgtzmMn/jbekYRhgMbH2I3kcpmuGEIvnJpeso0=;
+ b=b4JM09k7nFCSVq0T51RJbyb2fTAuM5XtI3WD+QMJwNzcS5nVhCZ5NiWjxFyxT2x068LG85
+ jWwCTMycoDmu1v3tSHXq3UE4X5AOLKIGRxPxiZBHZygfD5HoN4xGdreaOSSC0ljoeYw6mA
+ qyorhrGR+M6x4g5qoOHJzNCQLM/pyvQF9i5ABm7gl7Ig/KizYeTMKSs4O/sZRbXNLZd0AW
+ KNAQgjIbPJdVKdCwe9GrI3AQy+8YOcrlbQdjQIaiNQlM5Ygc2ovzjdeInwfA4qqpUWThGl
+ G628nuK0mmtsW2H5+nGQZLDxBjPqRmWPJWZ53sGXiu9CvVxahMo1KbewQ2zZww==
+To: ~postmarketos/upstreaming@lists.sr.ht
+Subject: [PATCH 1/2] ASoC: codecs: tfa989x: Add support for tfa9890
+Date: Thu,  2 Jun 2022 18:45:03 +0200
+Message-Id: <20220602164504.261361-1-amartinz@shiftphones.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20220602092921.3302713-1-broonie@kernel.org>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: V5y8CAFruo2wIvtliFeboUo5y0sr-How
-X-Proofpoint-ORIG-GUID: V5y8CAFruo2wIvtliFeboUo5y0sr-How
-X-Proofpoint-Spam-Reason: safe
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, David Rhodes <david.rhodes@cirrus.com>
+Content-Transfer-Encoding: 8bit
+Authentication-Results: ORIGINATING;
+ auth=pass smtp.auth=amartinz@shiftphones.com
+ smtp.mailfrom=amartinz@shiftphones.com
+X-Mailman-Approved-At: Fri, 03 Jun 2022 12:37:02 +0200
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Stephan Gerhold <stephan@gerhold.net>, Dylan Van Assche <me@dylanvanassche.be>,
+ Alexander Martinz <amartinz@shiftphones.com>, linux-kernel@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Caleb Connolly <caleb@connolly.tech>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ phone-devel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,22 +84,80 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Jun 02, 2022 at 11:29:20AM +0200, Mark Brown wrote:
-> Currently snd_soc_info_volsw_sx() is implemented indirectly, wrapping
-> snd_soc_info_volsw() and modifying the values it sets up rather than
-> directly setting up the values reported to userspace. This makes it much
-> harder to follow what the intended behaviour of these controls is. Let's
-> rewrite the function to be self contained with a clarifying comment at the
-> top in an effort to help maintainability.
-> 
-> Signed-off-by: Mark Brown <broonie@kernel.org>
-> ---
+The initialization sequence is taken from the version provided
+by the supplier [1].
 
-Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+This allows speakers using the TFA9890 amplifier to work, which are
+used by various mobile phones such as the SHIFT6mq.
 
-I didn't quite get around to testing this today but I will
-hopefully find a quick minute to test tomorrow/over the weekend.
-That said it looks good to me.
+[1]: https://source.codeaurora.org/external/mas/tfa98xx/tree/src/tfa_init.c?id=d2cd12931fbc48df988b62931fb9960d4e9dc05d#n1827
 
-Thanks,
-Charles
+Signed-off-by: Alexander Martinz <amartinz@shiftphones.com>
+---
+ sound/soc/codecs/tfa989x.c | 30 ++++++++++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
+
+diff --git a/sound/soc/codecs/tfa989x.c b/sound/soc/codecs/tfa989x.c
+index dc86852752c5..8ab2656de750 100644
+--- a/sound/soc/codecs/tfa989x.c
++++ b/sound/soc/codecs/tfa989x.c
+@@ -40,12 +40,14 @@
+ #define TFA989X_I2S_SEL_REG		0x0a
+ #define TFA989X_I2S_SEL_REG_SPKR_MSK	GENMASK(10, 9)	/* speaker impedance */
+ #define TFA989X_I2S_SEL_REG_DCFG_MSK	GENMASK(14, 11)	/* DCDC compensation */
++#define TFA989X_HIDE_UNHIDE_KEY	0x40
+ #define TFA989X_PWM_CONTROL		0x41
+ #define TFA989X_CURRENTSENSE1		0x46
+ #define TFA989X_CURRENTSENSE2		0x47
+ #define TFA989X_CURRENTSENSE3		0x48
+ #define TFA989X_CURRENTSENSE4		0x49
+ 
++#define TFA9890_REVISION		0x80
+ #define TFA9895_REVISION		0x12
+ #define TFA9897_REVISION		0x97
+ 
+@@ -188,6 +190,33 @@ static struct snd_soc_dai_driver tfa989x_dai = {
+ 	.ops = &tfa989x_dai_ops,
+ };
+ 
++static int tfa9890_init(struct regmap *regmap)
++{
++	int ret;
++
++	/* unhide keys to allow updating them */
++	ret = regmap_write(regmap, TFA989X_HIDE_UNHIDE_KEY, 0x5a6b);
++	if (ret)
++		return ret;
++
++	/* update PLL registers */
++	ret = regmap_set_bits(regmap, 0x59, 0x3);
++	if (ret)
++		return ret;
++
++	/* hide keys again */
++	ret = regmap_write(regmap, TFA989X_HIDE_UNHIDE_KEY, 0x0000);
++	if (ret)
++		return ret;
++
++	return regmap_write(regmap, TFA989X_CURRENTSENSE2, 0x7BE1);
++}
++
++static const struct tfa989x_rev tfa9890_rev = {
++	.rev	= TFA9890_REVISION,
++	.init	= tfa9890_init,
++};
++
+ static const struct reg_sequence tfa9895_reg_init[] = {
+ 	/* some other registers must be set for optimal amplifier behaviour */
+ 	{ TFA989X_BAT_PROT, 0x13ab },
+@@ -376,6 +405,7 @@ static int tfa989x_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct of_device_id tfa989x_of_match[] = {
++	{ .compatible = "nxp,tfa9890", .data = &tfa9890_rev },
+ 	{ .compatible = "nxp,tfa9895", .data = &tfa9895_rev },
+ 	{ .compatible = "nxp,tfa9897", .data = &tfa9897_rev },
+ 	{ }
+-- 
+2.36.1
+

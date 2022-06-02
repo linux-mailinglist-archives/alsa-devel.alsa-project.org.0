@@ -2,80 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9342E53BA38
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jun 2022 15:57:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF6EB53BA37
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jun 2022 15:56:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3E12217CC;
-	Thu,  2 Jun 2022 15:56:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E12217CC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6620417A5;
+	Thu,  2 Jun 2022 15:56:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6620417A5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654178229;
-	bh=8mtQAJrIEjtHGBDCgoCCiRJJcw6/xBU7GFilFnU4ESQ=;
+	s=default; t=1654178212;
+	bh=HSjYW/Ue569WZ3BuYB2cymAs33fXhPkQX6QyYPRA2nc=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=s9Vb4nx3oiqEF1+ZQMxYCyFbtedBKJklDZaG7fQtQ/LK0Dj2InB6CA6TovgQQ78oI
-	 K7mnm6eAs3kOjIknU1ebh01ioRt/ohFxT0h8OqK7MxfAAsVPY08lfvWVtyrvQoB33A
-	 Jw1FQm4kOV+IxMkPdO1LwM+oFLn5FIMaJMjeEGCc=
+	b=Bg8XCpS0JfoHBTn27cXTh0MwkIlf41oJHbVjpBSxPfocMapSLsV5uJT/Nfllcy2Up
+	 cdemEEBzjzDvffxCKeOV7x5p98Rcx6fxYu430te9M5zivVJKJRvEUx1i5mzgzmdqHO
+	 L8CiRVLeG9mQEGJbYLcqvK0rJoZgS1He8D0ZuvTQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 011FBF80566;
-	Thu,  2 Jun 2022 15:53:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9D6E6F8055B;
+	Thu,  2 Jun 2022 15:53:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7C5C6F80553; Thu,  2 Jun 2022 15:53:39 +0200 (CEST)
+ id 91FE7F80548; Thu,  2 Jun 2022 15:53:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B926CF80539
+ by alsa1.perex.cz (Postfix) with ESMTPS id 93D0EF80542
  for <alsa-devel@alsa-project.org>; Thu,  2 Jun 2022 15:53:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B926CF80539
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93D0EF80542
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="N5PYZx5u"
+ header.b="mxqPna7T"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2D887617D7;
- Thu,  2 Jun 2022 13:53:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC13DC385A5;
- Thu,  2 Jun 2022 13:53:31 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 0049AB81ED6;
+ Thu,  2 Jun 2022 13:53:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F01ADC34119;
+ Thu,  2 Jun 2022 13:53:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1654178012;
- bh=8mtQAJrIEjtHGBDCgoCCiRJJcw6/xBU7GFilFnU4ESQ=;
+ s=k20201202; t=1654178013;
+ bh=HSjYW/Ue569WZ3BuYB2cymAs33fXhPkQX6QyYPRA2nc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=N5PYZx5uIm1MEJpBUnEeP7WGh+XDheBVjEKChddgDQOIQDXUrqDTTTO+YvOCHu1SF
- vjai/mno3PQhCpUozISk/6MtZPhRjA1lJHvArM4ZYRUhxdf/XGjqVBFVZFupFWEpSj
- Il0NgKv1ehehEjwjJI5uYCjL5q1xUJ0Ua1j2o6hC9Oc14+RHv3O3cobmBn44vveX+r
- JeyeVHiKQMN3nNdROhEvQXPvUN0Itl5PrMgMOFQbjxpktQVE40eIZ8AdbO1ykBXgk3
- 51e95diYwLbtY3kwRPA3qDmFdq4C9ethQi1aneSaXysYQhaQhOEe2Sx0Hdf6WJTQBD
- HUA79poVqOZqw==
+ b=mxqPna7Tk+OWBmVTip1ZboSRJmT8tz+CisPboc2h3tep4CsrfW36vceYwd24uwzRI
+ lhosDe/5dheBcbby5KvxjYx7SzHdpiI1ey9hbhc4Ru4d1h3OIDfr9/KZWGFEC9+8gd
+ 0R//KW0yFgGnT+XkUqldl3RfbQKAkybDdLUphbIIa/Jol3MmjLWxXXLQvqSqXC8VII
+ lzsEnXzvevgSHOcoit+V6lHlSZWRR+ETcryFf7+jO21KBiDgHejSunTuAWOFDyj1ES
+ o5YqYrLH8HqAjVF8WfMeth3f+KJ5llUPCe1Q5PwAiJ2gWU8Gz96F2cY52ZvYEyNPo+
+ 4U8Z3iQtkrplQ==
 From: Mark Brown <broonie@kernel.org>
 To: Liam Girdwood <lgirdwood@gmail.com>
-Subject: [PATCH 09/20] ASoC: tas5086: Use modern ASoC DAI format terminology
-Date: Thu,  2 Jun 2022 15:53:05 +0200
-Message-Id: <20220602135316.3554400-10-broonie@kernel.org>
+Subject: [PATCH 10/20] ASoC: tas5720: Use modern ASoC DAI format terminology
+Date: Thu,  2 Jun 2022 15:53:06 +0200
+Message-Id: <20220602135316.3554400-11-broonie@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220602135316.3554400-1-broonie@kernel.org>
 References: <20220602135316.3554400-1-broonie@kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=927; h=from:subject;
- bh=8mtQAJrIEjtHGBDCgoCCiRJJcw6/xBU7GFilFnU4ESQ=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBimMCVKKvgw2zxc59AqTTeO+6U52K3aDXnEyFgBQSc
- 4vRJbCyJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCYpjAlQAKCRAk1otyXVSH0Jz9B/
- 9Nv66oIPbEhjBFOrQZgFt8m6URL2hSWYZqiO3LzesmhyE4p0UjR7QiKD1CrpQLhf6UENsPM0/N5ey1
- 0AFH+XZHXuG2LYCNNkPNbviG6fB490JWPsVdhJGuiHZgVA/k/67+wt5twIIC5wNsiT+mP139m3SRJd
- /cljTbC6vI+8M846siW5rpLJRqkW8wZJi9KNuSayhdy261p7+kPFOqyrk/H0qp7/FVVR0bhqnKk7Lb
- KouTmlMIb9TKSLE4cp0gn7XaUwk/BjC6jiK0tdHGv2N5LNHzN2uNsibyubEKYOcSMsccY+wmxvfEUJ
- VAQshEN+1WcegSGCTjmTf4flVGZk8W
+X-Developer-Signature: v=1; a=openpgp-sha256; l=908; h=from:subject;
+ bh=HSjYW/Ue569WZ3BuYB2cymAs33fXhPkQX6QyYPRA2nc=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBimMCWL3aatMLfzNHABfhVrKY4Hy6BtQPG2SgyZ6+9
+ aelBKT+JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCYpjAlgAKCRAk1otyXVSH0M+gB/
+ 4v4VuAmbKpNOaI78oBnovSzDjcKxyqhovjCki08rdNgFJo9c/rcCfsR27fEOuBMHHAWXIZRzQyA0rR
+ uawuG2zwNH32t9G+KHd7DaQRx/nS6Rh89+1NwtxVgjuM/RYgYF04kh2dpQ2mX7jABoT9oDVrfxP0vH
+ iIlCay6joNcJbKt9ZwUB8BTmcslsQpPh+TCXi3fuIqkHk2nI+e+M/zTssZ7Ald28ExaubAlKdv9+Ld
+ Jf+p7R4yaQJeo6Y9Y2snwpNCRt+tnLNt7ki+icvJrBhEz4Z+33qFXiYl65jYLB5U2Zxdc65IjCFLI/
+ PPg+OPNj66Q/aN9C/MIEO3Z8eKe+Lf
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 Content-Transfer-Encoding: 8bit
@@ -96,26 +95,28 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 As part of moving to remove the old style defines for the bus clocks update
-the tas5086 driver to use more modern terminology for clocking.
+the tas5720 driver to use more modern terminology for clocking.
 
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/tas5086.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/codecs/tas5720.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/codecs/tas5086.c b/sound/soc/codecs/tas5086.c
-index 5c0df3cd4832..05b57bb1aea0 100644
---- a/sound/soc/codecs/tas5086.c
-+++ b/sound/soc/codecs/tas5086.c
-@@ -318,7 +318,7 @@ static int tas5086_set_dai_fmt(struct snd_soc_dai *codec_dai,
- 	struct tas5086_private *priv = snd_soc_component_get_drvdata(component);
+diff --git a/sound/soc/codecs/tas5720.c b/sound/soc/codecs/tas5720.c
+index 17034abef568..2ee06a95f3e4 100644
+--- a/sound/soc/codecs/tas5720.c
++++ b/sound/soc/codecs/tas5720.c
+@@ -89,8 +89,8 @@ static int tas5720_set_dai_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+ 	u8 serial_format;
+ 	int ret;
  
- 	/* The TAS5086 can only be slave to all clocks */
--	if ((format & SND_SOC_DAIFMT_MASTER_MASK) != SND_SOC_DAIFMT_CBS_CFS) {
-+	if ((format & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) != SND_SOC_DAIFMT_CBC_CFC) {
- 		dev_err(component->dev, "Invalid clocking mode\n");
+-	if ((fmt & SND_SOC_DAIFMT_MASTER_MASK) != SND_SOC_DAIFMT_CBS_CFS) {
+-		dev_vdbg(component->dev, "DAI Format master is not found\n");
++	if ((fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) != SND_SOC_DAIFMT_CBC_CFC) {
++		dev_vdbg(component->dev, "DAI clocking invalid\n");
  		return -EINVAL;
  	}
+ 
 -- 
 2.30.2
 

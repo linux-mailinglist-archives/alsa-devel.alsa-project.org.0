@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CB4153BA3B
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jun 2022 15:57:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 791BA53BA47
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jun 2022 15:58:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A274F179B;
-	Thu,  2 Jun 2022 15:56:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A274F179B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1D79817EB;
+	Thu,  2 Jun 2022 15:57:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D79817EB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654178259;
-	bh=slnjXFuQx2CxmCeXUAaXzm782cOCmjgTLMmaLTkUwYM=;
+	s=default; t=1654178291;
+	bh=NeDYffPh1grI/6GxifzALRBVAir/zapwQauikcKJtp0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XS4vDPv9uPQIfU62VK6mnpUYLdITDpAJhqQmQTI22VXGYvJTfieOsNAs1qUkr00xZ
-	 EgQ8CUT1nvNuf2n8WDoLBKFUS1207k9YKElTAT4/yBTQa9ieZvZ4IxjabxQa7mp5Jg
-	 3frfHui25hoi041Zc3SCC0MWd5t8+uTwo3Zzqm1Q=
+	b=N+hgAg5mjYxAgKtuKX+Ho5q278n647LYxBgc3t8Te/nzTyxBa+HRerB3PFS+sxaCQ
+	 E5eJRzP5B97BjPSQ7ifS25PoFZwClL43VTg7XP9LUsTq3VcoUpKJ9xdRWk70LKzUnT
+	 hNQhDzwz0ASzOOsGy9bX2IhoG5zNwYSAWtDanO64=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2FB30F80588;
-	Thu,  2 Jun 2022 15:53:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7097EF805A9;
+	Thu,  2 Jun 2022 15:53:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A963EF80566; Thu,  2 Jun 2022 15:53:41 +0200 (CEST)
+ id 76965F8056F; Thu,  2 Jun 2022 15:53:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,47 +35,48 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CBD3BF80551
- for <alsa-devel@alsa-project.org>; Thu,  2 Jun 2022 15:53:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBD3BF80551
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0B4F4F80558
+ for <alsa-devel@alsa-project.org>; Thu,  2 Jun 2022 15:53:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B4F4F80558
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="pWd9dWn3"
+ header.b="sg1s6+uL"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6736E617D6;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 80A86617CF;
+ Thu,  2 Jun 2022 13:53:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3703FC3411A;
  Thu,  2 Jun 2022 13:53:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2288BC385A5;
- Thu,  2 Jun 2022 13:53:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1654178015;
- bh=slnjXFuQx2CxmCeXUAaXzm782cOCmjgTLMmaLTkUwYM=;
+ s=k20201202; t=1654178016;
+ bh=NeDYffPh1grI/6GxifzALRBVAir/zapwQauikcKJtp0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=pWd9dWn30mtzJg0sydIPAW0HQ3O2aTvtH57NuRJe+qmKVeqIrJnAQGIsafHLl4lSY
- w4UFoV8IrwIVKQusMiuRkB4QVm+kJLcyPBVJLMjpcxENpbis4LC1KO0/jVumKxTE60
- TehH8sG8sfY2y2dbm+zpugmpeG9Fsk6nthz52gvQ+z/Z4UIv33mW2KBbS2TG2MY6aO
- MAw2nFGnv6qm4TSRBdmwi4RvVEINm+71vFB2EYXJ07JRzmm0U+iy6c7Ur0LirMrU/B
- ndqMxaYJpOQcLNXT9UvmZdNXMSCldNIXd2IfmUQgsGmvrSKZ5oNXo0hCsCvixNIKTr
- lOusAi7LQV4hg==
+ b=sg1s6+uL3QxKYafWeXClbIFYXxM4NnPjyop2n2TLlzVZzfGtxwBnTec3yf0IZS5Ys
+ D7JysXO0Qa4C3wMeC4p3GR0RrwWL3wg2knoTrs5bMsI+a8h0gItsya45Sj7xk1t6WX
+ pItzEjV+aownmO0qSRWfpYBKeLJ1oQaX3Mv52iF5iLIf6sgWrF2s1N1Lg6/rOIhjFi
+ W4SKtKz8VEOovLJW2l80I3sZIRFmjw6z5cBROs2jP2h1ydwNKmCVHNYlhMWuUHyVvp
+ zZXq2GIU5FipWDXjyp3+lmzdZkmEwtqZo++fPakC6bk1Xb30NdzrdDeLjFRHVYeewN
+ tCG+UtfEXeT1w==
 From: Mark Brown <broonie@kernel.org>
 To: Liam Girdwood <lgirdwood@gmail.com>
-Subject: [PATCH 12/20] ASoC: uda1334: Use modern ASoC DAI format terminology
-Date: Thu,  2 Jun 2022 15:53:08 +0200
-Message-Id: <20220602135316.3554400-13-broonie@kernel.org>
+Subject: [PATCH 13/20] ASoC: tlv320adc3xxx: Use modern ASoC DAI format
+ terminology
+Date: Thu,  2 Jun 2022 15:53:09 +0200
+Message-Id: <20220602135316.3554400-14-broonie@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220602135316.3554400-1-broonie@kernel.org>
 References: <20220602135316.3554400-1-broonie@kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=880; h=from:subject;
- bh=slnjXFuQx2CxmCeXUAaXzm782cOCmjgTLMmaLTkUwYM=;
- b=owGbwMvMwMWocq27KDak/QLjabUkhqQZB6YH6q8t+d++ObPwfdZ0uWvzdRhzChzbuE85F51d4SZ/
- RHN5J6MxCwMjF4OsmCLL2mcZq9LDJbbOfzT/FcwgViaQKQxcnAIwkRBr9n/WrXaTWywCuY089I+LKx
- 7+wZ/JpS7VvnxK0PSn/Z9sriyS0sj3df8puV98orbrjmT/2+xFUUfkrkgncF4KEZm+10Gy51O/zK6J
- sl7eaf0+fMtdeJU9tV/eWJgz2dbJ+qGjYmuu2x8uNWFrwzMVmxY90JH52mjIY/i/dfekGad8nbUOv8
- tz5djP32ii77ehuGaeq7XPQ5cvi5eWyYk+aLSvkXI4MeXUFjNdxdOpx+SE/wr35q/XC5+50yX14g89
- 2d+yeTwbXRKzAw/c0Pgfan1Y5LPoDuN5B3j7o39fF3xxvSBqdVvqP6kef4e03Ebr51YmZ27s2LTvyq
- UlrEuZL6+fE3fctdst9NFk0+/SAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=898; h=from:subject;
+ bh=NeDYffPh1grI/6GxifzALRBVAir/zapwQauikcKJtp0=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBimMCYAZ6ethlwl9fJSNdo2ntdXIFOBUxFQJzm+4GM
+ 6FX8rWiJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCYpjAmAAKCRAk1otyXVSH0ER5B/
+ 9pr4Heer+JYNUXfLtygJynyM9gqYH4OmONDKFUIzKZbtugugH2NX9kIHkVvw+5BFmOGW3gvmjD5R+p
+ PC/nVgF4W1/JL/UeGKV+2oLvduOkZttUw+SwSpt0LNkPIlSe8lbig2L3KXjgSigUYDMpRXvsbPxXyI
+ 0Mmlj6Xk0iv+trYDc3ubvLE6x5SrZd8aFKxbdpI2SP6fZERK6E0/CS0umNXqpOF4OjXjHR6IZH9yyF
+ Tz3WXjUB4TxWDCkMw6pydLsTq3b6oMJwg0Cp7MT/J10Gcqmevmf0oR6YXzIEZ8/hg6NPfOrKY4EDwx
+ 8lSeBBsBlt2sMImDe4ZR8h1+o8+ATd
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 Content-Transfer-Encoding: 8bit
@@ -96,26 +97,27 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 As part of moving to remove the old style defines for the bus clocks update
-the uda1334 driver to use more modern terminology for clocking.
+the tlv320aic3xxx driver to use more modern terminology for clocking.
 
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/uda1334.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/codecs/tlv320adc3xxx.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/sound/soc/codecs/uda1334.c b/sound/soc/codecs/uda1334.c
-index 8670a2a05a56..9d5ed34e5420 100644
---- a/sound/soc/codecs/uda1334.c
-+++ b/sound/soc/codecs/uda1334.c
-@@ -169,7 +169,7 @@ static int uda1334_set_dai_sysclk(struct snd_soc_dai *codec_dai,
- static int uda1334_set_fmt(struct snd_soc_dai *codec_dai, unsigned int fmt)
- {
- 	fmt &= (SND_SOC_DAIFMT_FORMAT_MASK | SND_SOC_DAIFMT_INV_MASK |
--		SND_SOC_DAIFMT_MASTER_MASK);
-+		SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK);
+diff --git a/sound/soc/codecs/tlv320adc3xxx.c b/sound/soc/codecs/tlv320adc3xxx.c
+index 9176885bfc39..ab2c613ac0a0 100644
+--- a/sound/soc/codecs/tlv320adc3xxx.c
++++ b/sound/soc/codecs/tlv320adc3xxx.c
+@@ -1255,8 +1255,7 @@ static int adc3xxx_set_dai_fmt(struct snd_soc_dai *codec_dai, unsigned int fmt)
+ 	int master = 0;
+ 	int ret;
  
- 	if (fmt != (SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
- 		    SND_SOC_DAIFMT_CBC_CFC)) {
+-	/* set master/slave audio interface */
+-	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
++	switch (fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) {
+ 	case SND_SOC_DAIFMT_CBP_CFP:
+ 		master = 1;
+ 		clkdir = ADC3XXX_BCLK_MASTER | ADC3XXX_WCLK_MASTER;
 -- 
 2.30.2
 

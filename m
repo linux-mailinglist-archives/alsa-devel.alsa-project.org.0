@@ -2,85 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D5BD53BA55
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jun 2022 15:59:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4A7053BA5C
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jun 2022 16:00:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2023F1758;
-	Thu,  2 Jun 2022 15:59:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2023F1758
+	by alsa0.perex.cz (Postfix) with ESMTPS id 87EC91785;
+	Thu,  2 Jun 2022 15:59:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 87EC91785
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654178391;
-	bh=uPk8icP4bARsrrVE4s+cg0Z/KWet4VBYf1FxuTnTIJU=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=iiJiiH7kebFxBPVPqIE5yDzy78WPZOO9VyrANYoUOWkrGkXbGnaHLaUuDUI0vZuvf
-	 F8umidYtezitPqbh/4jDDCsu7MwFjaDxeHB7mjAD55r6ZEHujuCRo8srGeVbwj/K4l
-	 CxxMET3KQxmZ9nNWDcY/adNfqcOLfR+lsMfqDXhY=
+	s=default; t=1654178427;
+	bh=uOwNYbOInNeH7er3n7+1lBokyIeBy+L3vOymfZhD1Ww=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=DZzLPN1yVV/XNT5MWvoRsLLgf0GeDl1wupkIvfTsqLfk9WHuA0Jq/PlfuUOOHYu4O
+	 tlc7zFRFaqVr5XhMY20mqUc2ilPhy77Zlxf3/hgPQy3WbxxX98//lOQa6XtmtuiQdp
+	 GVr9Z9c9fwLSk0KsKs1EXTxjwZMP+y/vN6MUwoEc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E42EFF805CA;
-	Thu,  2 Jun 2022 15:53:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B4881F80525;
+	Thu,  2 Jun 2022 15:58:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 595ADF805C2; Thu,  2 Jun 2022 15:53:50 +0200 (CEST)
+ id A22F5F80272; Thu,  2 Jun 2022 15:58:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DFC6BF8057C
- for <alsa-devel@alsa-project.org>; Thu,  2 Jun 2022 15:53:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFC6BF8057C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="SUHt5n4J"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 76B82617D7;
- Thu,  2 Jun 2022 13:53:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 330F1C3411E;
- Thu,  2 Jun 2022 13:53:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1654178024;
- bh=uPk8icP4bARsrrVE4s+cg0Z/KWet4VBYf1FxuTnTIJU=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=SUHt5n4JcGJFbTGbZDOL9oH3T5ngvwSipyLhJUbcfJy2MAG/Hhala3zsRMlhzAu8h
- 1oWucn/AOGaUb7gOluZGIYIlC8VMw+VPcYXlpoxeZsDUUM9UBmCOOEZhokmL0vU0of
- +IfxWEXb90L4faiwkdd8TDda2l3rrRbeqwzcGgEG++2lrrnM3ljIphQwBSQl2FznN6
- mXJsmgla8h8LJLPpa8jBvb2rRNfxBCM6PEObDCgZJb+Df6eKAhINwvVPm7GkZm/jo1
- DO6yYSUTobl14tqD76GVhr6+ioVMa0knmHmorxyIZAiG4kcJnMO1bvJvXmnhIk82oE
- MBUQADJQ1v9LQ==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>
-Subject: [PATCH 20/20] ASoC: tlv320dac3x: Use modern ASoC DAI format
- terminology
-Date: Thu,  2 Jun 2022 15:53:16 +0200
-Message-Id: <20220602135316.3554400-21-broonie@kernel.org>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20220602135316.3554400-1-broonie@kernel.org>
-References: <20220602135316.3554400-1-broonie@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2C814F80149;
+ Thu,  2 Jun 2022 15:58:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C814F80149
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="C/1m/ApB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1654178286; x=1685714286;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=uOwNYbOInNeH7er3n7+1lBokyIeBy+L3vOymfZhD1Ww=;
+ b=C/1m/ApBx6Mq72/2Yv8xOjAHVfRblOdbWfRv6XEvNcpyKhWK20P4hUCT
+ 3y+vOKy5MPU16HPzZD5YWz6hubB0BGUus4A9Uj9ZopJPgKcQBVO2NfbO0
+ axeYEIFX/YQnYe8+VXC2J+AwbTyBkkKWLlyfZDRxhzKiZ9N/cj/jdZ6jg
+ fM+Q57CDHwRGnGpSRF+vF5v7BLYX2bAZBADrN6dvEXFvLHa5vKMOXqHTX
+ 5W+55PODamqRa0u0RDfCRjoBmQFNDMe8+VhLrGxmDkXSzCWt0TSjGGR6/
+ CeR/M0PtW9IEQ55l3bnl9d1+ix4oO8fbUUFAnfcQfYC0HcCyF6JFt76Vh A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10365"; a="336612795"
+X-IronPort-AV: E=Sophos;i="5.91,271,1647327600"; d="scan'208";a="336612795"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jun 2022 06:57:58 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.91,271,1647327600"; d="scan'208";a="646007960"
+Received: from dev2.igk.intel.com ([10.237.148.94])
+ by fmsmga004.fm.intel.com with ESMTP; 02 Jun 2022 06:57:56 -0700
+From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+To: Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH] ASoC: SOF: Fix potential NULL pointer dereference
+Date: Thu,  2 Jun 2022 15:57:57 +0200
+Message-Id: <20220602135757.3335351-1-amadeuszx.slawinski@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1367; h=from:subject;
- bh=uPk8icP4bARsrrVE4s+cg0Z/KWet4VBYf1FxuTnTIJU=;
- b=owGbwMvMwMWocq27KDak/QLjabUkhqQZB+Y23gnMNC0oP1TVXy7St2FplVfM45Tp3QWnC+Xii77F
- CzN2MhqzMDByMciKKbKsfZaxKj1cYuv8R/NfwQxiZQKZwsDFKQATWe7J/ldWmHf93m7OJKdPPULZbh
- MZv2xYLdx01KR2v9atepeS2GfcBVdWSj3fasXmvC6ZLyvKLti4oOrgo6en8zKamp9LveBO563PmuBp
- ekHw05+gkilis59rpumdFz6QnX1BNW0pT/5B9hTmPIfKWxsztzEovb6rprmnXsneksUldatRIEOc4x
- 2jwmUO3o7Ll124E/ey7LWU9dIfwjYzdfWOLJupdODElAbxyepSFUKiNh/VX3DYezu0/lsT/7Jc6Txj
- /A4lmw0OS9jiDZjkDnF7GuibLTgYvPFSKcsrXbkXjIEib6VPy3hZxb958XLJQ0m1X57PwhY3TCnb8X
- vLST/uRY87IhpTVlV/+rPQW/0MAA==
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>, Daniel Baluta <daniel.baluta@nxp.com>,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,40 +93,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-As part of moving to remove the old style defines for the bus clocks update
-the tlv320dac3x driver to use more modern terminology for clocking.
+Cleanup path for sof_prepare_widgets_in_path() should check if unprepare
+callback exists before calling it, instead it checks if it does not
+exist. Fix the check.
 
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Fixes: 370014c8197a ("ASoC: SOF: Add a prepare op to IPC topology widget ops")
+Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 ---
- sound/soc/codecs/tlv320dac33.c | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
+ sound/soc/sof/sof-audio.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/tlv320dac33.c b/sound/soc/codecs/tlv320dac33.c
-index 66f1d1cd6cf0..371026eb8f41 100644
---- a/sound/soc/codecs/tlv320dac33.c
-+++ b/sound/soc/codecs/tlv320dac33.c
-@@ -1317,16 +1317,14 @@ static int dac33_set_dai_fmt(struct snd_soc_dai *codec_dai,
- 
- 	aictrl_a = dac33_read_reg_cache(component, DAC33_SER_AUDIOIF_CTRL_A);
- 	aictrl_b = dac33_read_reg_cache(component, DAC33_SER_AUDIOIF_CTRL_B);
--	/* set master/slave audio interface */
--	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
--	case SND_SOC_DAIFMT_CBM_CFM:
--		/* Codec Master */
-+
-+	switch (fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) {
-+	case SND_SOC_DAIFMT_CBP_CFP:
- 		aictrl_a |= (DAC33_MSBCLK | DAC33_MSWCLK);
- 		break;
--	case SND_SOC_DAIFMT_CBS_CFS:
--		/* Codec Slave */
-+	case SND_SOC_DAIFMT_CBC_CFC:
- 		if (dac33->fifo_mode) {
--			dev_err(component->dev, "FIFO mode requires master mode\n");
-+			dev_err(component->dev, "FIFO mode requires provider mode\n");
- 			return -EINVAL;
- 		} else
- 			aictrl_a &= ~(DAC33_MSBCLK | DAC33_MSWCLK);
+diff --git a/sound/soc/sof/sof-audio.c b/sound/soc/sof/sof-audio.c
+index cd41d0599cef..789d0a1f1a77 100644
+--- a/sound/soc/sof/sof-audio.c
++++ b/sound/soc/sof/sof-audio.c
+@@ -323,7 +323,7 @@ sof_prepare_widgets_in_path(struct snd_sof_dev *sdev, struct snd_soc_dapm_widget
+ 			p->walking = false;
+ 			if (ret < 0) {
+ 				/* unprepare the source widget */
+-				if (!widget_ops[widget->id].ipc_unprepare && swidget->prepared) {
++				if (widget_ops[widget->id].ipc_unprepare && swidget->prepared) {
+ 					widget_ops[widget->id].ipc_unprepare(swidget);
+ 					swidget->prepared = false;
+ 				}
 -- 
-2.30.2
+2.25.1
 

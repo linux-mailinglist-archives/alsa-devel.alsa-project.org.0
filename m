@@ -2,87 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8A6C53B9E7
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jun 2022 15:36:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5061453BA24
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jun 2022 15:54:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C40791768;
-	Thu,  2 Jun 2022 15:36:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C40791768
+	by alsa0.perex.cz (Postfix) with ESMTPS id DDB301786;
+	Thu,  2 Jun 2022 15:53:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDB301786
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654177016;
-	bh=zxMHYDMz92Hrcrjy/V8ShyfcM9HVnEeVEetLof/G7bM=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=O2lW3ApChdr+uI39pZrzM9tLy7NZt6ByumdRU+2Vu/ShKuy0mECDM5MnYrnOSibOu
-	 LUhzF+rz/vR2viEvk72W/RNSXlUMCQlmePV+j6uaDHf8JxagWAJSS/x8I+zNOv8eWU
-	 6KuMU1rkmttOCHN2NNtviFTXlXJ4bc9bhaanVE7w=
+	s=default; t=1654178066;
+	bh=myMnK53wIxC72d8WfULcq/fr0E5gGkGkdh3A4K8lvHE=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=O/vlWQH/mvjAV3rLCEwQDfMhD3grEc4Ywh+rGfxRBkZ0CVkUaylkRwQ7C+F0EwWMO
+	 VuM23FBbnQQWE3sfQwqdl8VKKFuxHo/dE9l3Qvs4Qj+x6vIlOAQRNJKj4VfBZw82Q+
+	 YqNwKsiUq4hFpIA+LxABRTaiuOqnvWhD+acXmj3I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 652ABF80272;
-	Thu,  2 Jun 2022 15:36:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 51F21F80425;
+	Thu,  2 Jun 2022 15:53:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 55F0EF80149; Thu,  2 Jun 2022 15:36:04 +0200 (CEST)
+ id 5F135F8025E; Thu,  2 Jun 2022 15:53:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com
- [209.85.167.178])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2DA1CF80149
- for <alsa-devel@alsa-project.org>; Thu,  2 Jun 2022 15:35:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DA1CF80149
-Received: by mail-oi1-f178.google.com with SMTP id k187so6573924oif.1
- for <alsa-devel@alsa-project.org>; Thu, 02 Jun 2022 06:35:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=1e7vrj+7vWIZv19NYkOjmP4n2WgkFN1YBD1LvqayGbs=;
- b=ocQRiMQIhDnKZC+g1SGR+vDeIj803XyIJx4cBLPSPXMfc4w/wPrpUMOrrUCQFzWthQ
- 2X7TTyUZyHV8Nlsvwkb7TUTpTPvC9dkRmEF3jVybrbPyZ7SXt7j6F2JAbXvraGnnyPfq
- Bq1kzfggost7sBYg9IrQdAKbv7Yjdjk7jS5Rxw6BlOb9B4yhDq0PEvgv155Jb1lX6x2g
- FMVh8mJzCCH44q4Aoc1h4YEc5qzbopirnmmb2hOdkDUTKlDMj91pcGPfq7f9RXkVYDzH
- nPJ90Y+nTRsJ5WFooUdYEZ0aNZmbGD3pVNX/Y+wPxMVeDNZ5qjqoJrPXFPy5KOrdq97S
- SWTw==
-X-Gm-Message-State: AOAM531fZaLgZ0N43TyTchJA5hIHdbpArv3Qe0VyegTq2nzoV9vdN5Xb
- 9FGcNdhR4FObssvwzZE8/g==
-X-Google-Smtp-Source: ABdhPJw6a8FuQ9JaLsqEzJHEmn2bKk+7WmqtRJ9dxbKbk2AHD0Zmxl5oga/5I8UwAGxardvLDEfNEg==
-X-Received: by 2002:a05:6808:bd1:b0:32e:431c:2c4f with SMTP id
- o17-20020a0568080bd100b0032e431c2c4fmr737749oik.269.1654176956472; 
- Thu, 02 Jun 2022 06:35:56 -0700 (PDT)
-Received: from robh.at.kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- l16-20020a056820031000b0040ed6225457sm2196143ooe.47.2022.06.02.06.35.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Jun 2022 06:35:56 -0700 (PDT)
-Received: (nullmailer pid 2162006 invoked by uid 1000);
- Thu, 02 Jun 2022 13:35:55 -0000
-Date: Thu, 2 Jun 2022 08:35:55 -0500
-From: Rob Herring <robh@kernel.org>
-To: Jiaxin Yu <jiaxin.yu@mediatek.com>
-Subject: Re: [PATCH v5 20/20] dt-bindings: mediatek: mt8186: add
- mt8186-mt6366-rt1019-rt5682s document
-Message-ID: <20220602133555.GA2161972-robh@kernel.org>
-References: <20220523132858.22166-1-jiaxin.yu@mediatek.com>
- <20220523132858.22166-21-jiaxin.yu@mediatek.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 05164F80149
+ for <alsa-devel@alsa-project.org>; Thu,  2 Jun 2022 15:53:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 05164F80149
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="jopC93Me"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 022D2B81ED6;
+ Thu,  2 Jun 2022 13:53:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 121A8C385A5;
+ Thu,  2 Jun 2022 13:53:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1654178002;
+ bh=myMnK53wIxC72d8WfULcq/fr0E5gGkGkdh3A4K8lvHE=;
+ h=From:To:Cc:Subject:Date:From;
+ b=jopC93Meqsgz4W+q4xzQVZF4QFz//Q5/jRRTzolOHJn1w7YcTWAcWOqyBJjlAFZgw
+ LXcKfPsWSqmZPAsfXCTpCjFexyhTRv42q2eULcHCZkIUSaphKZnwahH3AOMYRZxxGp
+ 7+mXAvaes/xhorHf5iVkah8jB1xB0UyEEXxa1hrxgPZH4YWDaAzqtHg+PkbG6R7qe4
+ f8mZsoeB22kSB1BvKi8sDZ3XTMdDqiz6BtcKFxAui05WDJbe4aICWyaM5fSkmmAfW9
+ MyM1Tg0PoLNepW5U3H57By3aS8nGfPqTWNjUOnKXcooVT4FLSRJQulg+cDYaGUwdgY
+ keK8ThD27Q7Yw==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>
+Subject: [PATCH 00/20] ASoC: DAI clocking terminology modernisation
+Date: Thu,  2 Jun 2022 15:52:56 +0200
+Message-Id: <20220602135316.3554400-1-broonie@kernel.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220523132858.22166-21-jiaxin.yu@mediatek.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, robh+dt@kernel.org,
- Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
- broonie@kernel.org, linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
- matthias.bgg@gmail.com, aaronyu@google.com, julianbraha@gmail.com,
- linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2363; h=from:subject;
+ bh=myMnK53wIxC72d8WfULcq/fr0E5gGkGkdh3A4K8lvHE=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBimMCOoiRftIOTmIn92BE1E1O+6tExc26Id0Q65aCv
+ NXm7iUWJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCYpjAjgAKCRAk1otyXVSH0D0wB/
+ 4pKUJc4eoEwcUEnUZ9yWGVC3DsoM9ptoVki1gNgp4B4Bspcnv3UDukCQ9IfgZzoLmNQKUAg0VWnyqZ
+ mKaw4SDMcqqHxr6eriPIbzPRf46d0Nd6792HEM7ub6gperujsO9xO7M6OF6JH3suhclh3+nDO5ScXh
+ 2l3j6P4q3KmMAFMsrndLGT/T+guKTeynDMaExV9d0bXHN7E5osvJhyzCJfBvnrtbjtkVIFB6AapOTW
+ EKhYntv7uOAB7dSKmh5jShSy0WZcVss/YQYSmFXPDgj/kXpzKQZRYUInwoVu3GY1+kFvoyaNWjVfG7
+ eCLouJmk9qeKM+5zjZeZXGILMrYJoe
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,14 +91,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 23 May 2022 21:28:58 +0800, Jiaxin Yu wrote:
-> Add document for mt8186 board with mt6366, rt1019 and rt5682s.
-> 
-> Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
-> ---
->  .../sound/mt8186-mt6366-rt1019-rt5682s.yaml   | 75 +++++++++++++++++++
->  1 file changed, 75 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml
-> 
+Update the last batch of CODEC drivers without specific
+maintainers to use the new defines for DAI clocking.
 
-Acked-by: Rob Herring <robh@kernel.org>
+Mark Brown (20):
+  ASoC: cx2072x: Use modern ASoC DAI format terminology
+  ASoC: max98090: Use modern ASoC DAI format terminology
+  ASoC: rk3328: Use modern ASoC DAI format terminology
+  ASoC: sta32x: Use modern ASoC DAI format terminology
+  ASoC: sta350: Use modern ASoC DAI format terminology
+  ASoC: sti-sas: Use modern ASoC DAI format terminology
+  ASoC: tas2552: Use modern ASoC DAI format terminology
+  ASoC: tas2770: Use modern ASoC DAI format terminology
+  ASoC: tas5086: Use modern ASoC DAI format terminology
+  ASoC: tas5720: Use modern ASoC DAI format terminology
+  ASoC: tas6424: Use modern ASoC DAI format terminology
+  ASoC: uda1334: Use modern ASoC DAI format terminology
+  ASoC: tlv320adc3xxx: Use modern ASoC DAI format terminology
+  ASoC: tlv320adcx140: Use modern ASoC DAI format terminology
+  ASoC: tlv320aic23: Use modern ASoC DAI format terminology
+  ASoC: tlv320aic26: Use modern ASoC DAI format terminology
+  ASoC: tlv320aic31xx: Use modern ASoC DAI format terminology
+  ASoC: tlv320aic32x4: Use modern ASoC DAI format terminology
+  ASoC: tlv320aic33: Use modern ASoC DAI format terminology
+  ASoC: tlv320dac3x: Use modern ASoC DAI format terminology
+
+ sound/soc/codecs/cx2072x.c       | 17 +++++++----------
+ sound/soc/codecs/max98090.c      | 12 +++++-------
+ sound/soc/codecs/rk3328_codec.c  |  6 +++---
+ sound/soc/codecs/sta32x.c        |  4 ++--
+ sound/soc/codecs/sta350.c        |  4 ++--
+ sound/soc/codecs/sti-sas.c       |  6 +++---
+ sound/soc/codecs/tas2552.c       | 10 +++++-----
+ sound/soc/codecs/tas2770.c       |  6 +++---
+ sound/soc/codecs/tas5086.c       |  2 +-
+ sound/soc/codecs/tas5720.c       |  4 ++--
+ sound/soc/codecs/tas6424.c       |  6 +++---
+ sound/soc/codecs/tlv320adc3xxx.c |  3 +--
+ sound/soc/codecs/tlv320adcx140.c | 10 ++++------
+ sound/soc/codecs/tlv320aic23.c   |  7 +++----
+ sound/soc/codecs/tlv320aic26.c   | 13 ++++++-------
+ sound/soc/codecs/tlv320aic31xx.c | 19 +++++++++----------
+ sound/soc/codecs/tlv320aic32x4.c |  9 ++++-----
+ sound/soc/codecs/tlv320aic3x.c   | 11 +++++------
+ sound/soc/codecs/tlv320dac33.c   | 12 +++++-------
+ sound/soc/codecs/uda1334.c       |  2 +-
+ 20 files changed, 74 insertions(+), 89 deletions(-)
+
+-- 
+2.30.2
+

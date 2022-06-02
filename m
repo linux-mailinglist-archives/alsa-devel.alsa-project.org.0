@@ -2,85 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4DFD53BAA1
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jun 2022 16:24:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A46FA53BACF
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jun 2022 16:33:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 41FBE17AD;
-	Thu,  2 Jun 2022 16:23:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 41FBE17AD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 40A8717A5;
+	Thu,  2 Jun 2022 16:33:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40A8717A5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654179856;
-	bh=10tdVqNXMtoaGj37cG5xipixchrN/gTHN1SNied7ehI=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1654180433;
+	bh=GR6ytAulf9Bnx4T/vaky7I5J05Rd2e2aa8JDjrXPmjg=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aXjc66lTZF2H1O8SkdOZbEjXYOx/Em1UeL0X3NeaV1X9bYDF7qEG5eyaIyETeNhCo
-	 Zx7v85wdqa6Tqu9Tw9rFfqvVWA4upL89CJOW3HAKNzzrN1GAgbkFpxMr3QmiYBf2FS
-	 rmzI5In4+P/GdPTZUxuFNj/Yy1fWyThaxXiAkdJ0=
+	b=NLapr8h6QHkLxuwYYGpA5YNYW92NelMssZOAyAmXtvdiIIvz3vbmOBTK615CV43gv
+	 4dS0LDpXg2uV1mXVF1aX+ZzKYNx2zWo6E/ic6oR3si0nCKB2wDl6UAdY386tufRzbW
+	 r/SVlsFye2rzjgDeYjWs9nyR/DNvPvZc6WNoq600=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9F388F80272;
-	Thu,  2 Jun 2022 16:23:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9E73F80158;
+	Thu,  2 Jun 2022 16:32:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2D20CF8025E; Thu,  2 Jun 2022 16:23:17 +0200 (CEST)
+ id C1628F80149; Thu,  2 Jun 2022 16:32:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com
+ [209.85.167.172])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 42F35F80124
- for <alsa-devel@alsa-project.org>; Thu,  2 Jun 2022 16:23:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42F35F80124
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="RgGbHEco"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1654179791; x=1685715791;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=10tdVqNXMtoaGj37cG5xipixchrN/gTHN1SNied7ehI=;
- b=RgGbHEcozHwAc1ustZRg1PrKqDG17JI64aEXHXpV0zUqTVYUC+2dRSnL
- 5/+O0b1s2cTu1MtGJVwT45WMI66bfRX1Fpx7WvSIZvzba3+SrxzsaJ4kx
- rh5z/CvMJr9x1bV3SxXxOwXmeU8vZJOFu14ROjL8wLS4CNhDamlcZTRYl
- 1yotVP/lNwYCZEKGOqBid7BnxkuuP8roMq954zcub55zNlrcyQ6eP3eD9
- 7cwX1kaTiak5nddEiKhTEHGaMEo3q/+bc6QbHr4Vwy3AAPWQIfR0mZBQt
- Cr70+WqPnUSmceVu/qOjAni6JJdtNrJk7hQz3un7YW306umcB9wlYBLDz Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10365"; a="263599819"
-X-IronPort-AV: E=Sophos;i="5.91,271,1647327600"; d="scan'208";a="263599819"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jun 2022 07:23:07 -0700
-X-IronPort-AV: E=Sophos;i="5.91,271,1647327600"; d="scan'208";a="905008802"
-Received: from dvnguye2-mobl.amr.corp.intel.com (HELO [10.251.7.96])
- ([10.251.7.96])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jun 2022 07:23:05 -0700
-Message-ID: <53e13af2-d279-372c-0b5b-fdf3277e0231@linux.intel.com>
-Date: Thu, 2 Jun 2022 09:13:52 -0500
+ by alsa1.perex.cz (Postfix) with ESMTPS id ACAE1F80149
+ for <alsa-devel@alsa-project.org>; Thu,  2 Jun 2022 16:32:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ACAE1F80149
+Received: by mail-oi1-f172.google.com with SMTP id i66so6705595oia.11
+ for <alsa-devel@alsa-project.org>; Thu, 02 Jun 2022 07:32:48 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=+XaxE4rPLjVoV9JRTROBnf5ZLA1J4kOTKBNPishDofY=;
+ b=TFWWlmEt385qnuHfAyCR1TtX5qzvLC4AiTInY3acpdRiFxCrsONzUZMniNR0BHtLuX
+ SQ84IE12VL6ZG74k54nSES44B+/TjvhcwUGrlvW+KNY0bJxuz+M1TMsc3hdn1fOUhC8c
+ 6Xk9Zl5sWMcA6w9a0b2IHIJ35w/0hlmz+nYh7/STOqoJWEiu3AG3Nu31RshKI5MtgJRa
+ y4dwh8rJ6jUsHRphL8INrVnJK3gxG0awamFyP0DcT3aNEOuwGnPItEhL7ELEBNiJE5Yy
+ n5b24RmRn8NJHbCdwM5yL4UlZLJXOq51gb/3+qD5BLidlI3WVUtShwUlDwzRMPjrW7yO
+ ax4A==
+X-Gm-Message-State: AOAM531CvPZTNtKQiEmaPSDPasFc6AD2FfS4KcRhiFpAu7h0DXn3XGqL
+ 4w4psnSU1qcKHWj8zfFm+A==
+X-Google-Smtp-Source: ABdhPJyWiiAKe/UbWmNUNQ/FQ+S2DMuUIpmbFtfNXN9RGhS3gWjfztpwD6ap26gWXzQPR8y2FqhZwA==
+X-Received: by 2002:a05:6808:17a8:b0:327:9efa:cf1a with SMTP id
+ bg40-20020a05680817a800b003279efacf1amr17612095oib.81.1654180366543; 
+ Thu, 02 Jun 2022 07:32:46 -0700 (PDT)
+Received: from robh.at.kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ k13-20020a54470d000000b0032603df9d24sm2232704oik.47.2022.06.02.07.32.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 02 Jun 2022 07:32:46 -0700 (PDT)
+Received: (nullmailer pid 2261171 invoked by uid 1000);
+ Thu, 02 Jun 2022 14:32:45 -0000
+Date: Thu, 2 Jun 2022 09:32:45 -0500
+From: Rob Herring <robh@kernel.org>
+To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+Subject: Re: [PATCH 1/2] ASoC: dt-bindings: lpass-cpu: Update external mclck0
+ name
+Message-ID: <20220602143245.GA2256965-robh@kernel.org>
+References: <1654169206-12255-1-git-send-email-quic_srivasam@quicinc.com>
+ <1654169206-12255-2-git-send-email-quic_srivasam@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.9.1
-Subject: Re: [PATCH v2] ASoC: Intel: cirrus-common: fix incorrect channel
- mapping
-Content-Language: en-US
-To: Brent Lu <brent.lu@intel.com>, alsa-devel@alsa-project.org
-References: <20220602051922.1232457-1-brent.lu@intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20220602051922.1232457-1-brent.lu@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Jie Yang <yang.jie@linux.intel.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, xliu <xiang.liu@cirrus.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1654169206-12255-2-git-send-email-quic_srivasam@quicinc.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ quic_rohkumar@quicinc.com, linux-arm-msm@vger.kernel.org, swboyd@chromium.org,
+ tiwai@suse.com, agross@kernel.org, lgirdwood@gmail.com, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, bgoswami@quicinc.com, quic_plai@quicinc.com,
+ bjorn.andersson@linaro.org, judyhsiao@chromium.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,101 +98,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, Jun 02, 2022 at 04:56:45PM +0530, Srinivasa Rao Mandadapu wrote:
+> Update "audio_cc_ext_mclk0" name to "core_cc_ext_mclk0",
+> as MI2S mclk is being used is from lpass core cc.
 
+This is safe to change breaking the ABI because ...
 
-On 6/2/22 00:19, Brent Lu wrote:
-> From: xliu <xiang.liu@cirrus.com>
+Names are supposed to be local to the module, not based on their source. 
+
 > 
-> The default mapping of ASPRX1 (DAC source) is slot 0. Change the slot
-> mapping of right amplifiers (WR and TR) to slot 1 to receive right
-> channel data. Also update the ACPI instance ID mapping according to HW
-> configuration.
-> 
-> Signed-off-by: xliu <xiang.liu@cirrus.com>
-> Signed-off-by: Brent Lu <brent.lu@intel.com>
-
-This v2 looks much better and self-explanatory. Thanks!
-
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-
+> Fixes: 98b7630a583f ("ASoC: dt-bindings: lpass-cpu: Update clocks and power domain names for sc7280 platform")
+> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 > ---
->  sound/soc/intel/boards/sof_cirrus_common.c | 40 +++++++++++++++++++---
->  1 file changed, 36 insertions(+), 4 deletions(-)
+>  Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/sound/soc/intel/boards/sof_cirrus_common.c b/sound/soc/intel/boards/sof_cirrus_common.c
-> index e71d74ec1b0b..f4192df962d6 100644
-> --- a/sound/soc/intel/boards/sof_cirrus_common.c
-> +++ b/sound/soc/intel/boards/sof_cirrus_common.c
-> @@ -54,22 +54,29 @@ static struct snd_soc_dai_link_component cs35l41_components[] = {
->  	},
->  };
->  
-> +/*
-> + * Mapping between ACPI instance id and speaker position.
-> + *
-> + * Four speakers:
-> + *         0: Tweeter left, 1: Woofer left
-> + *         2: Tweeter right, 3: Woofer right
-> + */
->  static struct snd_soc_codec_conf cs35l41_codec_conf[] = {
->  	{
->  		.dlc = COMP_CODEC_CONF(CS35L41_DEV0_NAME),
-> -		.name_prefix = "WL",
-> +		.name_prefix = "TL",
->  	},
->  	{
->  		.dlc = COMP_CODEC_CONF(CS35L41_DEV1_NAME),
-> -		.name_prefix = "WR",
-> +		.name_prefix = "WL",
->  	},
->  	{
->  		.dlc = COMP_CODEC_CONF(CS35L41_DEV2_NAME),
-> -		.name_prefix = "TL",
-> +		.name_prefix = "TR",
->  	},
->  	{
->  		.dlc = COMP_CODEC_CONF(CS35L41_DEV3_NAME),
-> -		.name_prefix = "TR",
-> +		.name_prefix = "WR",
->  	},
->  };
->  
-> @@ -101,6 +108,21 @@ static int cs35l41_init(struct snd_soc_pcm_runtime *rtd)
->  	return ret;
->  }
->  
-> +/*
-> + * Channel map:
-> + *
-> + * TL/WL: ASPRX1 on slot 0, ASPRX2 on slot 1 (default)
-> + * TR/WR: ASPRX1 on slot 1, ASPRX2 on slot 0
-> + */
-> +static const struct {
-> +	unsigned int rx[2];
-> +} cs35l41_channel_map[] = {
-> +	{.rx = {0, 1}}, /* TL */
-> +	{.rx = {0, 1}}, /* WL */
-> +	{.rx = {1, 0}}, /* TR */
-> +	{.rx = {1, 0}}, /* WR */
-> +};
-> +
->  static int cs35l41_hw_params(struct snd_pcm_substream *substream,
->  			     struct snd_pcm_hw_params *params)
->  {
-> @@ -134,6 +156,16 @@ static int cs35l41_hw_params(struct snd_pcm_substream *substream,
->  				ret);
->  			return ret;
->  		}
-> +
-> +		/* setup channel map */
-> +		ret = snd_soc_dai_set_channel_map(codec_dai, 0, NULL,
-> +						  ARRAY_SIZE(cs35l41_channel_map[i].rx),
-> +						  (unsigned int *)cs35l41_channel_map[i].rx);
-> +		if (ret < 0) {
-> +			dev_err(codec_dai->dev, "fail to set channel map, ret %d\n",
-> +				ret);
-> +			return ret;
-> +		}
->  	}
->  
->  	return 0;
+> diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+> index e9a5330..8438ef77 100644
+> --- a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+> +++ b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+> @@ -195,7 +195,7 @@ allOf:
+>            oneOf:
+>              - items:   #for I2S
+>                  - const: aon_cc_audio_hm_h
+> -                - const: audio_cc_ext_mclk0
+> +                - const: core_cc_ext_mclk0
+>                  - const: core_cc_sysnoc_mport_core
+>                  - const: core_cc_ext_if0_ibit
+>                  - const: core_cc_ext_if1_ibit
+> -- 
+> 2.7.4
+> 
+> 

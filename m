@@ -2,78 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D042C53B2EE
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jun 2022 07:24:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBC5053B434
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jun 2022 09:16:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DCBF4173C;
-	Thu,  2 Jun 2022 07:23:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DCBF4173C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1AF73172F;
+	Thu,  2 Jun 2022 09:15:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1AF73172F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654147486;
-	bh=R7muiVv/9fpCE6xhaxI4/K+31SjhHgOvwPjMsc4fiJo=;
+	s=default; t=1654154166;
+	bh=iNUOHukEyxvKur6zUyzxFqUGRKfnGRkMm0Ug5+gEvj4=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=lYtNSRM+T60+XiRy2h4gEhKg0ZYy8Qt5x5W/YAWWwGI3Qd15Ow/lEvWvbI+hiaT+U
-	 dJcopndc8vXxVo+lU1qQnfjrAU6czmcOfGmeclgIYJgUevwfVMxIptirkxgd2zXth3
-	 Wao/f4DLMynRKxX2FBfNH5mJZYcR2MklatrqK1nw=
+	b=fepKGze1WWCmXcLJb3G8M2jk+kjD+zr0rLoEBC/IPDpaqv+8JT8y4BX9aeuVMsEFF
+	 JAxtdEQ3UAHqcWuXQqXn0OLrOzcFmOlEscgGKWYT4+5+vethrB3Uu3RtXwGdYpNWlH
+	 rDy0CgHiwQXNqYF1a68DuAVQDFtfdZyi8lcMCPSA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 939D0F8025E;
-	Thu,  2 Jun 2022 07:23:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 77D2DF8025E;
+	Thu,  2 Jun 2022 09:15:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CEA9FF80236; Thu,  2 Jun 2022 07:23:45 +0200 (CEST)
+ id 69AD5F80236; Thu,  2 Jun 2022 09:15:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
+ [IPv6:2607:f8b0:4864:20::633])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A819CF80089
- for <alsa-devel@alsa-project.org>; Thu,  2 Jun 2022 07:23:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A819CF80089
+ by alsa1.perex.cz (Postfix) with ESMTPS id CC872F80089
+ for <alsa-devel@alsa-project.org>; Thu,  2 Jun 2022 09:14:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC872F80089
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="g4pPatsO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1654147419; x=1685683419;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=R7muiVv/9fpCE6xhaxI4/K+31SjhHgOvwPjMsc4fiJo=;
- b=g4pPatsODWqxjJ7yfwR9XbCOMBWFO5z2yXiqZGqAfuVmRxdRPaZ5AMgT
- vZW+BSs6HcIThv6u2ByTIiZS/npzZ9qFM9szQYPkg5zyqHKPddzySkKFy
- F29B70jAdDCZFPDBZwlqEtHAl0qw1jLfnWbn7s0KSlpMjIa6P6UtX65oe
- jBifxcbcUlFfX9lC9hK+1VOMN4z1f+jG4Ba2DGu/4IJkjj4E68ykhihMT
- hkrS9WLpNV2whkBv1MXt5pbAIgLZisTZyBo5BdBAK0r8VL9/Q2On/DelT
- R8jDqR3ZJOouAdxTBgE4PZyZvJAU/fEhaN7MfBsgbNBnoxm6OJtqlyHTj Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10365"; a="263464526"
-X-IronPort-AV: E=Sophos;i="5.91,270,1647327600"; d="scan'208";a="263464526"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2022 22:23:33 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,270,1647327600"; d="scan'208";a="563136430"
-Received: from brentlu-brix.itwn.intel.com ([10.5.253.25])
- by orsmga002.jf.intel.com with ESMTP; 01 Jun 2022 22:23:31 -0700
-From: Brent Lu <brent.lu@intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v2] ASoC: Intel: cirrus-common: fix incorrect channel mapping
-Date: Thu,  2 Jun 2022 13:19:22 +0800
-Message-Id: <20220602051922.1232457-1-brent.lu@intel.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="kjIm42IQ"
+Received: by mail-pl1-x633.google.com with SMTP id w3so3779452plp.13
+ for <alsa-devel@alsa-project.org>; Thu, 02 Jun 2022 00:14:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=T86Xkl4zAQRDqlX+Sbg7KzV+2Znm3kmGhJEJ2gH5oPs=;
+ b=kjIm42IQKm9p8crvtuLlXRMrgIPGHqf/cbX5Jp1nkyGBMxpECnqZ5tNw4G30RPSxSl
+ ihT2VakbiG/ZXL6SWwJp0zuQ7kQ8ePWf8/YKs4gc0Fj5aAxPTjQzdgDFlI52vn/qTfxY
+ cjAU9JiqpoH+7H2BLO9XA48OAW57jwI7UKzmewXbkmcjWWnVmYin3Mh8utHbnOGfqaBo
+ cD1jkJAmTugEOEEctTHVa+GoP0iAFf3DXCI9k5QRDWt42VAAe/Gcz7HYnjFTIvdHH2NQ
+ D8R/hTPIsSDjcxWOgyKWl6jTZpX27yZUh6IbNcbzODpP3uB4O/YQ/UO2LD9O63doGyfL
+ vvaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=T86Xkl4zAQRDqlX+Sbg7KzV+2Znm3kmGhJEJ2gH5oPs=;
+ b=ar6UbbsPQV0amln8EUnYKvkPwFMotBe04ep8rt2HVxens5yQlMcVPeey4+t3leNAll
+ 2IWKLupTQ7lqQRWle4hBkWuYvjalIlRucHAbHhK+tXnSoNu4XdXsxoQ9Xft90eVuKVVl
+ eBnvWvhr6LH14J/k3VvmYqe/3d0Qs5E/2qH3joNgvKkHjUsaG9XWXgbd1QT1UzdtMlFh
+ BK5OjPT2ciYB+/Y7w23cBA1XSwz8EZJindiyTlRKRGBsQHBHLaoPu6p84V4wOa/OnwDD
+ 7d/O9e/KHAN094T0uElYEJPTJC2Kb/+Tun+z7PxDJ5K7il8EGYbvur85b5l6uHSKsDDl
+ qp5A==
+X-Gm-Message-State: AOAM533hX6nuFEZv4GvxoXElIT12Gl2xxoQiu4F60Q3mEryVydvKJYYn
+ 8wEDjH3+a3/KLo3kvFG1ic0=
+X-Google-Smtp-Source: ABdhPJwZZAKpu/HC9yA8XNgWRXb+XzH/3iyXB2zHZjMV/93ih8NOdK4sZduf3oXx1JZX6HglGbpQ6A==
+X-Received: by 2002:a17:902:f60c:b0:156:82c9:e44b with SMTP id
+ n12-20020a170902f60c00b0015682c9e44bmr3519920plg.106.1654154093526; 
+ Thu, 02 Jun 2022 00:14:53 -0700 (PDT)
+Received: from localhost.localdomain ([193.203.214.57])
+ by smtp.gmail.com with ESMTPSA id
+ p23-20020a1709027ed700b00163cb0a8392sm2674737plb.168.2022.06.02.00.14.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 02 Jun 2022 00:14:52 -0700 (PDT)
+From: cgel.zte@gmail.com
+X-Google-Original-From: chi.minghao@zte.com.cn
+To: shengjiu.wang@gmail.com
+Subject: [PATCH] ASoC: imx-audmux: remove unnecessary check of
+ clk_disable_unprepare
+Date: Thu,  2 Jun 2022 07:14:48 +0000
+Message-Id: <20220602071448.277968-1-chi.minghao@zte.com.cn>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Jie Yang <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, xliu <xiang.liu@cirrus.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Brent Lu <brent.lu@intel.com>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Xiubo.Lee@gmail.com, linuxppc-dev@lists.ozlabs.org,
+ Zeal Robot <zealci@zte.com.cn>, lgirdwood@gmail.com,
+ Minghao Chi <chi.minghao@zte.com.cn>, nicoleotsuka@gmail.com,
+ broonie@kernel.org, festevam@gmail.com, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,96 +104,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: xliu <xiang.liu@cirrus.com>
+From: Minghao Chi <chi.minghao@zte.com.cn>
 
-The default mapping of ASPRX1 (DAC source) is slot 0. Change the slot
-mapping of right amplifiers (WR and TR) to slot 1 to receive right
-channel data. Also update the ACPI instance ID mapping according to HW
-configuration.
+Because clk_disable_unprepare already checked NULL clock
+parameter, so the additional checks are unnecessary, just remove them.
 
-Signed-off-by: xliu <xiang.liu@cirrus.com>
-Signed-off-by: Brent Lu <brent.lu@intel.com>
+Reported-by: Zeal Robot <zealci@zte.com.cn>
+Signed-off-by: Minghao Chi <chi.minghao@zte.com.cn>
 ---
- sound/soc/intel/boards/sof_cirrus_common.c | 40 +++++++++++++++++++---
- 1 file changed, 36 insertions(+), 4 deletions(-)
+ sound/soc/fsl/imx-audmux.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/intel/boards/sof_cirrus_common.c b/sound/soc/intel/boards/sof_cirrus_common.c
-index e71d74ec1b0b..f4192df962d6 100644
---- a/sound/soc/intel/boards/sof_cirrus_common.c
-+++ b/sound/soc/intel/boards/sof_cirrus_common.c
-@@ -54,22 +54,29 @@ static struct snd_soc_dai_link_component cs35l41_components[] = {
- 	},
- };
+diff --git a/sound/soc/fsl/imx-audmux.c b/sound/soc/fsl/imx-audmux.c
+index dfa05d40b276..f434fa7decc1 100644
+--- a/sound/soc/fsl/imx-audmux.c
++++ b/sound/soc/fsl/imx-audmux.c
+@@ -71,8 +71,7 @@ static ssize_t audmux_read_file(struct file *file, char __user *user_buf,
+ 	ptcr = readl(audmux_base + IMX_AUDMUX_V2_PTCR(port));
+ 	pdcr = readl(audmux_base + IMX_AUDMUX_V2_PDCR(port));
  
-+/*
-+ * Mapping between ACPI instance id and speaker position.
-+ *
-+ * Four speakers:
-+ *         0: Tweeter left, 1: Woofer left
-+ *         2: Tweeter right, 3: Woofer right
-+ */
- static struct snd_soc_codec_conf cs35l41_codec_conf[] = {
- 	{
- 		.dlc = COMP_CODEC_CONF(CS35L41_DEV0_NAME),
--		.name_prefix = "WL",
-+		.name_prefix = "TL",
- 	},
- 	{
- 		.dlc = COMP_CODEC_CONF(CS35L41_DEV1_NAME),
--		.name_prefix = "WR",
-+		.name_prefix = "WL",
- 	},
- 	{
- 		.dlc = COMP_CODEC_CONF(CS35L41_DEV2_NAME),
--		.name_prefix = "TL",
-+		.name_prefix = "TR",
- 	},
- 	{
- 		.dlc = COMP_CODEC_CONF(CS35L41_DEV3_NAME),
--		.name_prefix = "TR",
-+		.name_prefix = "WR",
- 	},
- };
+-	if (audmux_clk)
+-		clk_disable_unprepare(audmux_clk);
++	clk_disable_unprepare(audmux_clk);
  
-@@ -101,6 +108,21 @@ static int cs35l41_init(struct snd_soc_pcm_runtime *rtd)
- 	return ret;
- }
+ 	buf = kmalloc(PAGE_SIZE, GFP_KERNEL);
+ 	if (!buf)
+@@ -218,8 +217,7 @@ int imx_audmux_v2_configure_port(unsigned int port, unsigned int ptcr,
+ 	writel(ptcr, audmux_base + IMX_AUDMUX_V2_PTCR(port));
+ 	writel(pdcr, audmux_base + IMX_AUDMUX_V2_PDCR(port));
  
-+/*
-+ * Channel map:
-+ *
-+ * TL/WL: ASPRX1 on slot 0, ASPRX2 on slot 1 (default)
-+ * TR/WR: ASPRX1 on slot 1, ASPRX2 on slot 0
-+ */
-+static const struct {
-+	unsigned int rx[2];
-+} cs35l41_channel_map[] = {
-+	{.rx = {0, 1}}, /* TL */
-+	{.rx = {0, 1}}, /* WL */
-+	{.rx = {1, 0}}, /* TR */
-+	{.rx = {1, 0}}, /* WR */
-+};
-+
- static int cs35l41_hw_params(struct snd_pcm_substream *substream,
- 			     struct snd_pcm_hw_params *params)
- {
-@@ -134,6 +156,16 @@ static int cs35l41_hw_params(struct snd_pcm_substream *substream,
- 				ret);
- 			return ret;
- 		}
-+
-+		/* setup channel map */
-+		ret = snd_soc_dai_set_channel_map(codec_dai, 0, NULL,
-+						  ARRAY_SIZE(cs35l41_channel_map[i].rx),
-+						  (unsigned int *)cs35l41_channel_map[i].rx);
-+		if (ret < 0) {
-+			dev_err(codec_dai->dev, "fail to set channel map, ret %d\n",
-+				ret);
-+			return ret;
-+		}
- 	}
+-	if (audmux_clk)
+-		clk_disable_unprepare(audmux_clk);
++	clk_disable_unprepare(audmux_clk);
  
  	return 0;
+ }
 -- 
 2.25.1
+
 

@@ -2,48 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 459FA53B699
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jun 2022 12:09:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFAD553B6EE
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jun 2022 12:21:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DE7B6173A;
-	Thu,  2 Jun 2022 12:08:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE7B6173A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 806B8171F;
+	Thu,  2 Jun 2022 12:20:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 806B8171F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654164539;
-	bh=kKRgMFkAcrOCwy0OIAu0DsgSEAF0xJnNKwKV277U+yY=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Pl9zHOhWUeWHOsPrN0+YoQylOoidScd1jpPKwZR7C2L1CVkf/4J2ZVrzEw2yon/D5
-	 DNLhek1muJwH9Ya7PPyfxxv8eA+opBCaYvWhJvhmU10/cNqC2SLtNlzXAY61tGmujf
-	 CFUmQp4v3SYPAX/DYsBjox+8NpJQl2y4oipEVML0=
+	s=default; t=1654165297;
+	bh=25dY6dIPPsLBbC/xd5nLYIYa2hLQHsQM2iX88QOHxBg=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=vl8u0Z0S4IjZZXfpxX/UiHhc3hlQQ5zQSNwDpZkTBZxbIYFNZZWLgHCjFxb47ZORk
+	 9KEip98bp+ecTfZ4rdcmto4WPomNGJzvm+ziKzjeaABhjSBQl0gjOxEBhR1RtpEUXg
+	 FnXGqBBRuYDccr+c4B5DbDfnmOjJm6k5y31D1zBI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 10C91F804AB;
-	Thu,  2 Jun 2022 12:07:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EF486F8025E;
+	Thu,  2 Jun 2022 12:20:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F0004F80425; Thu,  2 Jun 2022 12:07:32 +0200 (CEST)
+ id D740FF80236; Thu,  2 Jun 2022 12:20:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 9EDECF80272
- for <alsa-devel@alsa-project.org>; Thu,  2 Jun 2022 12:07:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9EDECF80272
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6DB65F80124
+ for <alsa-devel@alsa-project.org>; Thu,  2 Jun 2022 12:20:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DB65F80124
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="pm6vLr4D"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by sin.source.kernel.org (Postfix) with ESMTPS id D0F78CE1FBF;
+ Thu,  2 Jun 2022 10:20:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51E97C385A5;
+ Thu,  2 Jun 2022 10:20:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1654165230;
+ bh=25dY6dIPPsLBbC/xd5nLYIYa2hLQHsQM2iX88QOHxBg=;
+ h=From:To:Cc:Subject:Date:From;
+ b=pm6vLr4D8PHXGkAVdipIjpek+q7kkHsdQbS68XFD8HG3KYM8paxhOi9bvAlZ9GTki
+ 6xT0jCM+fVRrSY2GVzMBDz/SUfMXi6WwW9s78cUqEC3KRn9aV6zBo6ZOSuBJCyEyEe
+ IZbp/dG3f8VFyZ4legG+1CMppvO+tSnVoSNBBkzGEVT7Rkc397NNt9NJY3nuXJNKsE
+ ZLfEiaxPQmADCKn53tAhsV/frlKnxFmDNWWICCHLjITojOF42Vb/IfltG5u2EADAt8
+ 4hXCicxI0Ki3/OkUqWN2+2ZM7u0tVPQp4K2JYIbtUukBEe/OG1/Gs5qvbxNNgQD1Oe
+ zXRjHLvXitvwg==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>
+Subject: [PATCH] ASoC: ops: Remove unneeded delay.h inclusion
+Date: Thu,  2 Jun 2022 12:18:33 +0200
+Message-Id: <20220602101833.3481641-1-broonie@kernel.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1654164450440290928-webhooks-bot@alsa-project.org>
-References: <1654164450440290928-webhooks-bot@alsa-project.org>
-Subject: [PATCH 0/3] hwdep: define interface for hwdep device
-Message-Id: <20220602100732.F0004F80425@alsa1.perex.cz>
-Date: Thu,  2 Jun 2022 12:07:32 +0200 (CEST)
+X-Developer-Signature: v=1; a=openpgp-sha256; l=566; h=from:subject;
+ bh=25dY6dIPPsLBbC/xd5nLYIYa2hLQHsQM2iX88QOHxBg=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBimIyHZbVjCfAu1NFM/xvRxitpxVNMGD5dAzKg6Gpv
+ 4e9Q78aJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCYpiMhwAKCRAk1otyXVSH0BxnB/
+ 93gciJNobH7/zycLLyyD+1sgvb017SwJmPbEtC9UAb+cUoUtnejIIKeU1+uqqQ5bglA5MMBn3kPP30
+ wTC5fyGRVzCvXkm2RU7exchXWcA6+8irKuvS/s/TGJn4v/g56H3xpxC64tGA7+VjTGwEIa4k2I3XXm
+ 5Hw/iPFtbXSjLchlkTzMVviW4IAZ4cyD443VUcP2f/7iIzBGV/xmTUgkPteS6JBUMR557piqBLLsk2
+ j2TB+izNMhB/eS7chyM9UEp4TqUwMFKPk2gQsmZMWxwIXWZBsKrDvb4AlofpjXWyqAmOBAdQjnkIuo
+ QbEYi5sMJ6vpavHF8SJ//v4u9fTV6h
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,30 +92,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-gobject pull request #73 was edited from takaswie:
+The ops code does not do any sleeps or delays so does not need delay.h.
 
-The protocol in ALSA HwDep character device has common feature to each device. It's suitable for userspace implementation to have GObject interface for such features.
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/soc-ops.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-This patchset adds the interface. The implementation of interface should have four methods; open, get_protocol_version, get_device_info, and create_source. Additionally, it should emit handle-disconnection signal when detecting ENODEV error in the interation of source. It requires to notify userspace application since the application should release character device immediately.
+diff --git a/sound/soc/soc-ops.c b/sound/soc/soc-ops.c
+index 0d373435ceb8..2d39370ddeca 100644
+--- a/sound/soc/soc-ops.c
++++ b/sound/soc/soc-ops.c
+@@ -14,7 +14,6 @@
+ #include <linux/module.h>
+ #include <linux/moduleparam.h>
+ #include <linux/init.h>
+-#include <linux/delay.h>
+ #include <linux/pm.h>
+ #include <linux/bitops.h>
+ #include <linux/ctype.h>
+-- 
+2.30.2
 
-```
-Takashi Sakamoto (3):
-  hwdep: use explicit value for iface type enumeration
-  hwdep: device-common: add interface for common feature of ALSA HwDep device
-  hwdep: add error domain for implementators of DeviceCommon interface
-
- src/hwdep/alsahwdep-enum-types.h |  89 +++++++++-------
- src/hwdep/alsahwdep.h            |   2 +
- src/hwdep/alsahwdep.map          |  10 ++
- src/hwdep/device-common.c        | 178 +++++++++++++++++++++++++++++++
- src/hwdep/device-common.h        | 106 ++++++++++++++++++
- src/hwdep/meson.build            |   2 +
- tests/alsahwdep-enums            |  10 ++
- 7 files changed, 356 insertions(+), 41 deletions(-)
- create mode 100644 src/hwdep/device-common.c
- create mode 100644 src/hwdep/device-common.h
-```
-
-Request URL   : https://github.com/alsa-project/alsa-gobject/pull/73
-Patch URL     : https://github.com/alsa-project/alsa-gobject/pull/73.patch
-Repository URL: https://github.com/alsa-project/alsa-gobject

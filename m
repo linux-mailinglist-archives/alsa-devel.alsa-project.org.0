@@ -2,78 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61C5B53B541
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jun 2022 10:40:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1038653B558
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jun 2022 10:46:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 95AB5173E;
-	Thu,  2 Jun 2022 10:40:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95AB5173E
+	by alsa0.perex.cz (Postfix) with ESMTPS id A5B6B1741;
+	Thu,  2 Jun 2022 10:45:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5B6B1741
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654159252;
-	bh=U1aWVLGU5Nbklsewh81srxz3J8Pp8xG+AVTOKsKeYuk=;
+	s=default; t=1654159564;
+	bh=0h2Sm/0Z2dpAMlCpmJN2KxDi24zphL1biGO/AhqrQQY=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JkYFmGD1ldy7q+e8H0NsjDkiQFKKooa0rgY1rQprDXapAPyoUPG9KlDqFY31HmfED
-	 CiFw+2PNxgk8J9PjUjmeSA0gihZvs58dNyMxME6d613qXAc9sgirb+ivny7ZlwGOb/
-	 Xqv7FsZ4VqrWxs3N7KFRwXeLJH/7dI6kwrPkRrbQ=
+	b=Bw0XNVvBR50LvS9SJFYa5UZkNnzeNr4Gxm23xUQ3gXwJjtA7ba9T3/+ehobScmf2k
+	 8CHqI4pa3Rl8HYguEt8KEmd6mJayjkXc9vvotDGsD8Mh0ONtVFqBt9Yukeav5growm
+	 B2w97ItS3b1foizSsPtYwdPH6ZDk3nHWRU8gz/u4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 056E6F80149;
-	Thu,  2 Jun 2022 10:39:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 18CF0F8025E;
+	Thu,  2 Jun 2022 10:45:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DDA5FF80236; Thu,  2 Jun 2022 10:39:53 +0200 (CEST)
+ id 14D87F80236; Thu,  2 Jun 2022 10:45:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3C159F80149
- for <alsa-devel@alsa-project.org>; Thu,  2 Jun 2022 10:39:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C159F80149
+ by alsa1.perex.cz (Postfix) with ESMTPS id B14CCF80149
+ for <alsa-devel@alsa-project.org>; Thu,  2 Jun 2022 10:45:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B14CCF80149
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="C6d4R9hx"
+ header.b="E0bNzj+q"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id B0A5160E71;
- Thu,  2 Jun 2022 08:39:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5FD1C385A5;
- Thu,  2 Jun 2022 08:39:43 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 4AFF7B81E95;
+ Thu,  2 Jun 2022 08:45:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2A2AC385A5;
+ Thu,  2 Jun 2022 08:44:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1654159184;
- bh=U1aWVLGU5Nbklsewh81srxz3J8Pp8xG+AVTOKsKeYuk=;
+ s=k20201202; t=1654159500;
+ bh=0h2Sm/0Z2dpAMlCpmJN2KxDi24zphL1biGO/AhqrQQY=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=C6d4R9hxryibnqn9zpBsSjFzFApKcoIytLnmSbwK5wl2u3ksO4aRUIPFKRH8wNFJ8
- Ala7rgLn8yBoZpHRQCc1Rx/R4fkxjkI3x7X6flgiiYxDwv4E1pfAXawbBs+V0tl3w8
- CffCzOwxavKSpyD9FCALn8okLWZEBYhhkYg1sGsZLl3Pm9mWQQJQwUOeCISJwcdNJW
- UY6bLHQD0iVG6qbA8WgX0i6NH8g3ePJAu5UwZ38EJ78CjxifXLt2IdEtiGuGG+IwYO
- mXQuX3Q366QuAmwRZw9YzFHuhq4uOeUWA/U/zT/55nlKxE/eCnwHuWu877gEaSuoSw
- y1QFeS0JiJJeQ==
-Date: Thu, 2 Jun 2022 10:39:41 +0200
+ b=E0bNzj+q/H+8foQaTpuqWkCxi2+FY+7whY9JgrLY560mshnPP4X7EqtE6Srwdpwld
+ nEEm9rW56tdyoSUxqzpHqXUiJ6ihn+tulH4vN0Yp3PnZVYn5InUJ+X8bJ3ueWNo7p/
+ oMVS9SYs6tNRN6RpzrgWp3sQoZmiIedFVHH4i56ZJK8iyB6g3SA6aYFGr4gPMeff76
+ 7YTNnUphWuinTSO02imtCSFd9AMqv2YS40bcIjioKMsoIqv538gmKEiBKaFeNrkxu2
+ gtGF77OCCkW71moIJ7/dlHPmy5ya5QjRLVEAWeQEuponOcAgkcxDccjpzed44cY7Ky
+ vnNxsjKYQasXQ==
+Date: Thu, 2 Jun 2022 10:44:57 +0200
 From: Mark Brown <broonie@kernel.org>
-To: Hui Wang <hui.wang@canonical.com>
-Subject: Re: [PATCH 2/2] ASoC: nau8822: Disable internal PLL if freq_out is
- zero
-Message-ID: <Yph3TT+EHN+CyrD3@sirena.org.uk>
-References: <20220530040151.95221-1-hui.wang@canonical.com>
- <20220530040151.95221-3-hui.wang@canonical.com>
- <db674fa6-37cc-9dc6-ed87-f9fee681db9a@canonical.com>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: Re: Semantics for _SX controls
+Message-ID: <Yph4ideoluyk+mHP@sirena.org.uk>
+References: <YpeElAslQxfajbdq@sirena.org.uk>
+ <6adf0ba3-485e-fc73-7f86-6a063a373b68@linaro.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="q9wJ6YnUFQapy5xo"
+ protocol="application/pgp-signature"; boundary="pXl/mX5Vv+8kl4YI"
 Content-Disposition: inline
-In-Reply-To: <db674fa6-37cc-9dc6-ed87-f9fee681db9a@canonical.com>
+In-Reply-To: <6adf0ba3-485e-fc73-7f86-6a063a373b68@linaro.org>
 X-Cookie: May your camel be as swift as the wind.
-Cc: wtli@nuvoton.com, ctlin0@nuvoton.com, alsa-devel@alsa-project.org,
- kchsu0@nuvoton.com, ctlin0.linux@gmail.com
+Cc: alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Lucas Tanure <tanureal@opensource.cirrus.com>, patches@opensource.cirrus.com,
+ James Schulman <james.schulman@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Tan =?utf-8?B?TmF5xLFy?= <tannayir@gmail.com>,
+ David Rhodes <david.rhodes@cirrus.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,33 +94,39 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---q9wJ6YnUFQapy5xo
+--pXl/mX5Vv+8kl4YI
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jun 02, 2022 at 10:12:06AM +0800, Hui Wang wrote:
-> Hi Mark,
->=20
-> I saw you merged the [PATCH 1/2], the [PATCH 2/2] is also needed. Please
-> take a look.
+On Wed, Jun 01, 2022 at 06:14:47PM +0100, Srinivas Kandagatla wrote:
 
-Patch 2 isn't a bug fix, it's a new feature so will need to wait
-until after the merge window.
+> From Qualcomm codecs side of it usage of SOC_SINGLE_SX_TLV should be moved
+> to SOC_SINGLE_S8_TLV() in sound/soc/codecs/msm8916-wcd-digital.c and
+> sound/soc/codecs/wcd9335.c. using SOC_SINGLE_SX_TLV() will result in
+> incorrect volume settings.
 
---q9wJ6YnUFQapy5xo
+> All of these gains have signed 7th bit in 8 bit register with gain range
+> from -84dB to +40dB in 1dB steps.
+
+> Other WCD Codecs seems to have done correctly using S8_TLV.
+
+> I can send a patch to fix these.
+
+Sounds good, thanks for checking.
+
+--pXl/mX5Vv+8kl4YI
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmKYd00ACgkQJNaLcl1U
-h9ABeQf9Fs1iubK8ezfrOqfQtMq5JW5ePQibABlzKb5nRMlBt+cnX3L96muMNTTc
-snb3vWoivX6O4DSM3cvNWU64peGEBVHOIl4shpB7lOZRGzd43XbpybVzF7VbeuVF
-LN13nGQfps7c9GW7ortZR4FUBgeFPnBYhBUMl4UahBhHWcAqT6NzAP3+JFd1ggve
-PJqWV2TpN8uzyrwskHIxQ9arDWUzM+cFsoAUdTl3a80Yx3B5Kb9dI3CAtWaeijXK
-6301cnFi1bDIWJVKQse4S4GY7yxqj9RbQ75npZsO/hAk6rW8hQdDWzdRHtUaQWgf
-1Ig1OvvHz7OoQGSjvC+di7IuP1wvIg==
-=XEBY
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmKYeIkACgkQJNaLcl1U
+h9D0kAf7Bg2NsQtVVcdvktyi7p/k+RSyIOoLJ3/TbY9T9SWiivRXbWwc4c+eLzXg
+xn6HSJTESseQtGLiDM840TsRT7QmvLa+p8uxqStTmn6D2bsdA/85pn2XR34w79zi
+pKJhM7PlkDUwfb0iQF+JIjo1YI9fRhaM/+3kAQ5ycjMwtoq8bH5IhVuZx8ZN/6Nm
+boyTQVNX1dHlIycCr8YKAFNrQo4Amq8R6aDB4+bPke/MdIAA+ZnqpENgYgb9GGrj
+TEwXKJF8aqy7rOx471e7KJ1AFVtzfpw8xjS6lfNCC7eA45cEr5ENnN14wHL/8tjY
+D7VEjR7njW1hZjtkpCY/nx8zboCQ8g==
+=W7xh
 -----END PGP SIGNATURE-----
 
---q9wJ6YnUFQapy5xo--
+--pXl/mX5Vv+8kl4YI--

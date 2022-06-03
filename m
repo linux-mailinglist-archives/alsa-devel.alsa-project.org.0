@@ -2,94 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C89153C906
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jun 2022 13:04:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5853353C940
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jun 2022 13:26:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B7C7F1845;
-	Fri,  3 Jun 2022 13:03:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7C7F1845
+	by alsa0.perex.cz (Postfix) with ESMTPS id DDB1D184D;
+	Fri,  3 Jun 2022 13:25:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDB1D184D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654254284;
-	bh=aanQiDurE4JnyjF2jrSlI7odjGaiAuc86SEd7yiBWIg=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=LnBhCwjT6ReMc9uT/RqI7nzXWuSys02gDK9KCTpL9av0KrTTm6hF7wqbrSLBpHQuZ
-	 JE1WMbAXNdRPXe3Qy4r+wSQ1W7h4dWWfoMlh/PbC4da8hiV7ffEHuuK1tMdO8kMv3P
-	 SFRfKFlPgj/S7US3pC+9IOaJ64eqwHJlZojzVGFk=
+	s=default; t=1654255579;
+	bh=PtFx4CP7Dbct9j0ZbHft1wgWykXSFo4tAyTm8pMLPuA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=oo6E02siaBVxNlDf+5yd7FKyFzXovS5LIQ9w6AwIVChIIxa+RwBwOYwFjHHfvf73V
+	 doiCuMuLHEjCmoFlJ5mvL594GpjaLFpJInuyBbvJT0f4pcI38HkYdryjvGVDvArTWN
+	 vCiNC1DDcBxMZXPXsdV6pLQ4i21Kefz2gF+ge4qY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 73E3FF804D1;
-	Fri,  3 Jun 2022 13:03:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3F22FF80089;
+	Fri,  3 Jun 2022 13:25:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 726ADF804CC; Fri,  3 Jun 2022 13:03:38 +0200 (CEST)
+ id D4C20F804CC; Fri,  3 Jun 2022 13:25:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 88CB6F800F5
- for <alsa-devel@alsa-project.org>; Fri,  3 Jun 2022 13:03:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88CB6F800F5
+ by alsa1.perex.cz (Postfix) with ESMTPS id E8CC4F80089
+ for <alsa-devel@alsa-project.org>; Fri,  3 Jun 2022 13:25:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8CC4F80089
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="MftGxfJ+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1654254216; x=1685790216;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=KBAKvX9/GNCNqNjkKFmolG/8gDtP8L5C5SntjrMrokk=;
- b=MftGxfJ+G9CXam6WivL5XcnI05j7tyBOjjJOluh1Oyoc6YcZsy4VdXHW
- h2aEjReQBYWxVAGD/kLwuUsw1Cjp8HslIoP6+yPvueNDOhA20Qi5BVBTF
- lKdgi81jmMR5g1U8qVND6x6+HIbaN8PKjps0dt8azRAuu7XY88XyxItkd 0=;
-Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
- by alexa-out.qualcomm.com with ESMTP; 03 Jun 2022 04:03:23 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg08-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2022 04:03:22 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Fri, 3 Jun 2022 04:03:21 -0700
-Received: from [10.216.32.198] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Fri, 3 Jun 2022
- 04:03:15 -0700
-Message-ID: <a2b7de25-55a4-7d31-2787-be6d0ccf9500@quicinc.com>
-Date: Fri, 3 Jun 2022 16:33:12 +0530
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="gSsffAIl"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id C37DEB815D8;
+ Fri,  3 Jun 2022 11:25:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7448C385A9;
+ Fri,  3 Jun 2022 11:25:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1654255513;
+ bh=PtFx4CP7Dbct9j0ZbHft1wgWykXSFo4tAyTm8pMLPuA=;
+ h=From:To:Cc:Subject:Date:From;
+ b=gSsffAIlRk7+NcvYqDlcrPXRLeWQVlIL5fXX/NC7izvYAZkCEF1nd/hfHtB2GWh4b
+ xMzBFUzB9Ql8NGT1Py7V2zFZlIn2q4MdruK0WB966FLouh7sQmgLjMylnak6tuShf2
+ rX1oc4XjSRluTNVQmi2PgayBiWQZ7OyznOwAaAYGcRU7UceguIiPhugvcRBqYIkeup
+ uPA+X9+7zYZ4W7PTyKgCNI49D23uLE4n/v4JUQI6+ulMvvDY+v3aM8Ua94vX36C+Nz
+ CmyktLWHDn7+noH4MKd60zOcXlzxNPjRiaqrg1sDjzbNJ3hkIw6AaKt2jnlRvG0Kpj
+ Gwu+Sx1sDaLdg==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>
+Subject: [PATCH] ASoC: ops: Don't modify the driver's plaform_max when reading
+ state
+Date: Fri,  3 Jun 2022 13:25:08 +0200
+Message-Id: <20220603112508.3856519-1-broonie@kernel.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.1
-Subject: Re: [PATCH v2 2/2] pinctrl: qcom: sc7280: Add lpi pinctrl variant
- data for adsp based targets
-Content-Language: en-US
-To: Linus Walleij <linus.walleij@linaro.org>
-References: <1654079415-26217-1-git-send-email-quic_srivasam@quicinc.com>
- <1654079415-26217-3-git-send-email-quic_srivasam@quicinc.com>
- <CACRpkdYQW7WByaGoSFKT91OwRao_jJdCAbL0pUuj3vdS6TdkQg@mail.gmail.com>
-From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Organization: Qualcomm
-In-Reply-To: <CACRpkdYQW7WByaGoSFKT91OwRao_jJdCAbL0pUuj3vdS6TdkQg@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- quic_rohkumar@quicinc.com, Venkata Prasad Potturu <quic_potturu@quicinc.com>,
- linux-arm-msm@vger.kernel.org, swboyd@chromium.org, tiwai@suse.com,
- agross@kernel.org, robh+dt@kernel.org, lgirdwood@gmail.com,
- linux-gpio@vger.kernel.org, broonie@kernel.org, srinivas.kandagatla@linaro.org,
- bgoswami@quicinc.com, quic_plai@quicinc.com, bjorn.andersson@linaro.org,
- judyhsiao@chromium.org, linux-kernel@vger.kernel.org
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2026; h=from:subject;
+ bh=PtFx4CP7Dbct9j0ZbHft1wgWykXSFo4tAyTm8pMLPuA=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBime+A1LXRX6JzF5rxf4o3Cn801gb8E873pNrsJo7N
+ F+0KbbaJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCYpnvgAAKCRAk1otyXVSH0EVjB/
+ kBf4X2hPYefIK7PP9+LMxDa6Xxx/QKJuvp550B3ZEreS533SFNj1HiNrEIeOarGSdks24Q0XTXUHYq
+ 5tJwIbbM8bt/3KHo2JU5kVXE+UhS2x8KeQVeZPdAqWK2pEEY0BSsHZmovC0r10ubS5ZDrVTBug+RlO
+ eihCwcEa3sOGNWCglW2pd/qa6tjIHvl5RFnxaOQ8aRGhxxJvyI+l5nPSuwU0IOfR6UOXuRV+anGWDC
+ wnIOGfY/fDH7wE9hrNf//pvVrUm4vmOw6U7n1PHUzZV75Qd/UD/zaTKNbTmMR6YQ+VJohNZ7Wj1iLM
+ YbLRLmkG8dFGiagFvhFb5TZtNmuCvF
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,84 +93,57 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Currently snd_soc_info_volsw() will set a platform_max based on the limit
+the control has if one is not already set. This isn't really great, we
+shouldn't be modifying the passed in driver data especially in a path like
+this which may not ever be executed or where we may execute other callbacks
+before this one. Instead make this function leave the data unchanged, and
+clarify things a bit by referring to max rather than platform_max within
+the function. platform_max is now applied as a limit after working out the
+natural maximum value for the control.
 
-On 6/3/2022 3:58 PM, Linus Walleij wrote:
-Thanks for Your time and valuable inputs Linus!!!
-> On Wed, Jun 1, 2022 at 12:30 PM Srinivasa Rao Mandadapu
-> <quic_srivasam@quicinc.com> wrote:
->
-> So one way to just use a propert and avoid more compatible strings:
->
->> Add compatible string and lpi pinctrl variant data structure for adsp
->> enabled sc7280 platforms.
->> This variant data structure rnd compatible name required for
->> distingushing ADSP based platforms and ADSP bypass platforms.
->> In case of ADSP enabled platforms, where audio is routed through ADSP
->> macro and decodec GDSC Switches are triggered as clocks by pinctrl
->> driver and ADSP firmware controls them. So It's mandatory to enable
->> them in ADSP based solutions.
->> In case of ADSP bypass platforms clock voting is optional as these macro
->> and dcodec GDSC switches are maintained as power domains and operated from
->> lpass clock drivers.
->>
->> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
->> Co-developed-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
->> Signed-off-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
->> ---
->>   drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c | 14 ++++++++++++++
->>   1 file changed, 14 insertions(+)
->>
->> diff --git a/drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c b/drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c
->> index 2add9a4..c9e85d9 100644
->> --- a/drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c
->> +++ b/drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c
->> @@ -134,6 +134,16 @@ static const struct lpi_function sc7280_functions[] = {
->>          LPI_FUNCTION(wsa_swr_data),
->>   };
->>
->> +static const struct lpi_pinctrl_variant_data sc7280_adsp_lpi_data = {
-> Remove static and export this struct in drivers/pinctrl/qcom/pinctrl-lpass-lpi.h
-We can remove entire data structure if my below approach is okay.
->
->> +       .pins = sc7280_lpi_pins,
->> +       .npins = ARRAY_SIZE(sc7280_lpi_pins),
->> +       .groups = sc7280_groups,
->> +       .ngroups = ARRAY_SIZE(sc7280_groups),
->> +       .functions = sc7280_functions,
->> +       .nfunctions = ARRAY_SIZE(sc7280_functions),
->> +       .is_clk_optional = false,
->> +};
->>
->>
->>   static const struct lpi_pinctrl_variant_data sc7280_lpi_data = {
->>          .pins = sc7280_lpi_pins,
->>          .npins = ARRAY_SIZE(sc7280_lpi_pins),
->> @@ -149,6 +159,10 @@ static const struct of_device_id lpi_pinctrl_of_match[] = {
->>                 .compatible = "qcom,sc7280-lpass-lpi-pinctrl",
->>                 .data = &sc7280_lpi_data,
->>          },
->> +       {
->> +               .compatible = "qcom,sc7280-lpass-adsp-lpi-pinctrl",
->> +               .data = &sc7280_adsp_lpi_data,
->> +       },
-> Drop this and instead add some code in the probe()
-> in drivers/pinctrl/qcom/pinctrl-lpass-lpi.c
-> lines:
->
-> if (of_device_is_compatible(np, "qcom,sc7280-lpass-lpi-pinctrl") &&
-> of_property_read_bool(np, "qcom,adsp-mode))
->       data = &sc7280_adsp_lpi_data;
+This means that platform_max is no longer treated as a direct register
+value for controls were min is non-zero. The put() callbacks already
+validate on this basis, and there do not appear to be any in tree users
+that would be affected.
 
-Here, only diff between ADSP and ADSP bypass variant dats is 
-"is_clk_optional" field.
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/soc-ops.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-So we can keep something like this. Kindly suggest, if it's not making 
-sense.
+diff --git a/sound/soc/soc-ops.c b/sound/soc/soc-ops.c
+index 2d39370ddeca..93e72a016b4d 100644
+--- a/sound/soc/soc-ops.c
++++ b/sound/soc/soc-ops.c
+@@ -176,20 +176,21 @@ int snd_soc_info_volsw(struct snd_kcontrol *kcontrol,
+ {
+ 	struct soc_mixer_control *mc =
+ 		(struct soc_mixer_control *)kcontrol->private_value;
+-	int platform_max;
++	int max;
+ 
+-	if (!mc->platform_max)
+-		mc->platform_max = mc->max;
+-	platform_max = mc->platform_max;
++	max = uinfo->value.integer.max = mc->max - mc->min;
++	if (mc->platform_max && mc->platform_max < max)
++		max = mc->platform_max;
+ 
+-	if (platform_max == 1 && !strstr(kcontrol->id.name, " Volume"))
++	if (max == 1 && !strstr(kcontrol->id.name, " Volume"))
+ 		uinfo->type = SNDRV_CTL_ELEM_TYPE_BOOLEAN;
+ 	else
+ 		uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
+ 
+ 	uinfo->count = snd_soc_volsw_is_stereo(mc) ? 2 : 1;
+ 	uinfo->value.integer.min = 0;
+-	uinfo->value.integer.max = platform_max - mc->min;
++	uinfo->value.integer.max = max;
++
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(snd_soc_info_volsw);
+-- 
+2.30.2
 
-if (of_device_is_compatible(np, "qcom,sc7280-lpass-lpi-pinctrl") &&
-of_property_read_bool(np, "qcom,adsp-mode))
-      data->is_clk_optional = false;
-
->
-> Yours,
-> Linus Walleij

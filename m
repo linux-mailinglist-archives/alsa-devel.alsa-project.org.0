@@ -2,92 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5352453C8A9
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jun 2022 12:30:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81F9E53C8D1
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jun 2022 12:36:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DA7641828;
-	Fri,  3 Jun 2022 12:29:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA7641828
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1F102182B;
+	Fri,  3 Jun 2022 12:35:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F102182B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654252205;
-	bh=cGXWUL92tqdMlZDb0H6gx9tDyxt5ghMcJ/4xNTpSTbA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Kbbg01zAWJR+KG3/h5PjEcYHTa8keqU+dqrA+fVqfmckmbsTzW07X37PtxXMVZ5OV
-	 IR/+p1LZqZjUEcHbd4/kO/4s+AfM/O+yYHs1KVCylrUBgk3GIdy7wbx/YINDwsh1l/
-	 3kTVBw3SvYY/v/hM0vmHqRxmyzH/DaLslD7daVP8=
+	s=default; t=1654252605;
+	bh=nJ8sR/7uNfDFxKQtPiKZF1Cb0Sh5pkP764KwxqOHpm4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=TH7ImPKS34popoY7cNziNOF3vI2Mmi7hy8nrVp1ABOy1/WlSDGA8Pp9Xtp0V1pNtN
+	 EAfutSqKUMCMIMFHg5pp9DG9QxE4XAb+gH8oCO1HEsIHcqM1FnXFTPjwdbrfurOBob
+	 j6h8yaq/USsTZg8j3xWZBiDA1zXyntrLz6xK7zVM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4CCB2F804D1;
-	Fri,  3 Jun 2022 12:29:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7D0D4F804D1;
+	Fri,  3 Jun 2022 12:35:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A15D9F804CC; Fri,  3 Jun 2022 12:29:05 +0200 (CEST)
+ id C5EE5F804CC; Fri,  3 Jun 2022 12:35:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-yw1-x112f.google.com (mail-yw1-x112f.google.com
- [IPv6:2607:f8b0:4864:20::112f])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CE01CF80124
- for <alsa-devel@alsa-project.org>; Fri,  3 Jun 2022 12:28:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE01CF80124
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3F8C6F800F5
+ for <alsa-devel@alsa-project.org>; Fri,  3 Jun 2022 12:35:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F8C6F800F5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="oG7zOFP1"
-Received: by mail-yw1-x112f.google.com with SMTP id
- 00721157ae682-30c1b401711so77838477b3.2
- for <alsa-devel@alsa-project.org>; Fri, 03 Jun 2022 03:28:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=dC0gx01b2aNajXfhT3RxUnH0OHK3FMPo/gpngxGlMwo=;
- b=oG7zOFP1DbQh6Bo8e9Qpq/xhX0tcm0Z686SDBT7H504JhHxqE3dnOrHBJ6SB/2HSK4
- twuSJO1lPcK5rLD3Hh+gKG0l3jtSoA8EYExYCLiyANJoCWRY1XSu31iiJqtN8JeP4jR5
- KeCcRWNG8k0cKAwK+B8C+LiKyAUIyY35Rc2HDoJNL490sEJzAybFKJGosi2vB+5kM2fb
- CkFMly+sSSmDyfTmzvsm3PvJr8kwCzkRW05trOUye05ZR8AscObGzjpJwvBL/YOzAVbN
- 0mw8bc8FHPkItci37uxaWwIcZPeZfUqrdb+ftP4a7ZovA0miQgbeVm9d2jAyuRTdKt0d
- Do2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=dC0gx01b2aNajXfhT3RxUnH0OHK3FMPo/gpngxGlMwo=;
- b=i7uTuYCLciiynKTca8/psLVTfge8LeQHC0XGs5r77qHoBbVRJYjDu0aMmEpItdaqjX
- zGFNdLoLZAMN9KIuMFxxWvks9Kdx4l2gi6GEKMP19yieqLrNLRILJ5jOI4kkOVM8rKR4
- AQokjZsDgR2Q+178wNbXLVCi0LtZaAGpRIivHbO+64aNEnXlX1/0bSRj6Df7odK/weTM
- PRtI6BTjH4J47WsTP00Yf+TgnqxCHvw6KE7guAKMwVcujPHVTx+RRtJIuLBL4BLAuf7M
- MJm0TOnhLnBbQNZYZ70aMWZKgXNFTMeYW+s6fno5X1o+KKbOzf5ikwXjO1r6VENe1KG3
- azMA==
-X-Gm-Message-State: AOAM530d0ZrxpCK0AabcL7x86h89QFEFsaeuWrnV8XUnQleZnjptE0T9
- BXolSzAc6UbWmYoT8aQ9Id4FMJCnq6Dw1KdT0/6H5w==
-X-Google-Smtp-Source: ABdhPJxdb0406KtQA0ekY0TlTv81qQUxI5O/FyeeUoVHX8/Ot2ByU9RnuJwh7E4wA3eNsSCbGkhyW44rUkeitrBqRsM=
-X-Received: by 2002:a0d:e246:0:b0:30c:5e77:7104 with SMTP id
- l67-20020a0de246000000b0030c5e777104mr10997642ywe.448.1654252136425; Fri, 03
- Jun 2022 03:28:56 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="YTf0Eeea"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 5B498CE230F;
+ Fri,  3 Jun 2022 10:35:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70271C385A9;
+ Fri,  3 Jun 2022 10:35:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1654252538;
+ bh=nJ8sR/7uNfDFxKQtPiKZF1Cb0Sh5pkP764KwxqOHpm4=;
+ h=From:To:Cc:Subject:Date:From;
+ b=YTf0Eeeadte/qeMtG8c29mBf0K+xqx9992VweHcSzuQDxr0PYhdfvXtFGJuMsL4bS
+ +lfCObzsLtQm6u/zr3bufoAaXnz8kyXZYSYUr/+gjgC21CoNbvCJAEgdR8MxK00CjS
+ GLGXsiXD/ozqxXWC6TIN5ZHSR2v7jvZVjRpMbpzNdabxDbUlx+1210fR/jokQ6tqFd
+ trZRpau85SaWUkIrdKCwUvIkLdg8uglxApHtOofJ/hlp9IgWKV+ofKSVi5suxf1WRD
+ y5+ix3gC/AXmjY3Yf9Mzv6vrYRwGNSxdaARopx/NkjmrahNANf+lSypU47miKW6XCx
+ 7+kjHQLDf8UcQ==
+From: Mark Brown <broonie@kernel.org>
+To: Hui Wang <hui.wang@canonical.com>, wtli@nuvoton.com, kchsu0@nuvoton.com,
+ ctlin0@nuvoton.com, David Lin <ctlin0.linux@gmail.com>
+Subject: [PATCH] ASoC: nau8822: Don't reconfigure PLL to the same values
+Date: Fri,  3 Jun 2022 12:35:30 +0200
+Message-Id: <20220603103530.3844527-1-broonie@kernel.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-References: <1654079415-26217-1-git-send-email-quic_srivasam@quicinc.com>
- <1654079415-26217-3-git-send-email-quic_srivasam@quicinc.com>
-In-Reply-To: <1654079415-26217-3-git-send-email-quic_srivasam@quicinc.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Fri, 3 Jun 2022 12:28:45 +0200
-Message-ID: <CACRpkdYQW7WByaGoSFKT91OwRao_jJdCAbL0pUuj3vdS6TdkQg@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] pinctrl: qcom: sc7280: Add lpi pinctrl variant
- data for adsp based targets
-To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- quic_rohkumar@quicinc.com, Venkata Prasad Potturu <quic_potturu@quicinc.com>,
- linux-arm-msm@vger.kernel.org, swboyd@chromium.org, tiwai@suse.com,
- agross@kernel.org, robh+dt@kernel.org, lgirdwood@gmail.com,
- linux-gpio@vger.kernel.org, broonie@kernel.org, srinivas.kandagatla@linaro.org,
- bgoswami@quicinc.com, quic_plai@quicinc.com, bjorn.andersson@linaro.org,
- judyhsiao@chromium.org, linux-kernel@vger.kernel.org
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1663; h=from:subject;
+ bh=nJ8sR/7uNfDFxKQtPiKZF1Cb0Sh5pkP764KwxqOHpm4=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBimeOibQS1ww8oXIf7y+g6PNrFLrlGC60Z5r5rhNaq
+ c4C8VoCJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCYpnjogAKCRAk1otyXVSH0M4XB/
+ 4i5G4+NEkaPX33JnfISMZ5eBRnMMXoD2LP95cuzdG7DQLkcNz9+hHsxb5Llxw9Xo74uET8tAxWxdWU
+ EbNsU8VPNzJnCFamv5RhD/6qh00aiIc9nvd2CcUN6e6KOXVy4D6T/H8bR/yxVU+h7UPayQmVVBHd3T
+ ev58SX6nLy5AXLLHdmYZrTcqMD9bCY8tNqmjI5oPbxlMWlPMHcZkmOFVlU9VwxGwO27hWolA9qJY8+
+ +T7qV4FQztT7nQitU8NvX0o7paLgPp9mQjllg3E6seIBdmmCtTQvuq85sZwf8E/1y6tV9WDpSa8qRO
+ tZBjeXNARTRgPzr0wGfMAh6IiKRkSt
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,71 +93,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jun 1, 2022 at 12:30 PM Srinivasa Rao Mandadapu
-<quic_srivasam@quicinc.com> wrote:
+When we configure the PLL record the input and output frequency, then if we
+get asked to configure the same values again just skip reprogramming the
+hardware. This makes things a bit easier to use for machine drivers since
+it means they don't need to keep track of if they've programmed the PLL
+so much.
 
-So one way to just use a propert and avoid more compatible strings:
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/codecs/nau8822.c | 7 +++++++
+ sound/soc/codecs/nau8822.h | 2 ++
+ 2 files changed, 9 insertions(+)
 
-> Add compatible string and lpi pinctrl variant data structure for adsp
-> enabled sc7280 platforms.
-> This variant data structure rnd compatible name required for
-> distingushing ADSP based platforms and ADSP bypass platforms.
-> In case of ADSP enabled platforms, where audio is routed through ADSP
-> macro and decodec GDSC Switches are triggered as clocks by pinctrl
-> driver and ADSP firmware controls them. So It's mandatory to enable
-> them in ADSP based solutions.
-> In case of ADSP bypass platforms clock voting is optional as these macro
-> and dcodec GDSC switches are maintained as power domains and operated from
-> lpass clock drivers.
->
-> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-> Co-developed-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
-> Signed-off-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
-> ---
->  drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
->
-> diff --git a/drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c b/drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c
-> index 2add9a4..c9e85d9 100644
-> --- a/drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c
-> +++ b/drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c
-> @@ -134,6 +134,16 @@ static const struct lpi_function sc7280_functions[] = {
->         LPI_FUNCTION(wsa_swr_data),
->  };
->
-> +static const struct lpi_pinctrl_variant_data sc7280_adsp_lpi_data = {
+diff --git a/sound/soc/codecs/nau8822.c b/sound/soc/codecs/nau8822.c
+index 08f6c56dc387..f4f68b549e1a 100644
+--- a/sound/soc/codecs/nau8822.c
++++ b/sound/soc/codecs/nau8822.c
+@@ -726,6 +726,10 @@ static int nau8822_set_pll(struct snd_soc_dai *dai, int pll_id, int source,
+ 	struct nau8822_pll *pll_param = &nau8822->pll;
+ 	int ret, fs;
+ 
++	if (freq_in == pll_param->freq_in &&
++	    freq_out == pll_param->freq_out)
++		return 0;
++
+ 	fs = freq_out / 256;
+ 
+ 	ret = nau8822_calc_pll(freq_in, fs, pll_param);
+@@ -762,6 +766,9 @@ static int nau8822_set_pll(struct snd_soc_dai *dai, int pll_id, int source,
+ 	snd_soc_component_update_bits(component,
+ 		NAU8822_REG_POWER_MANAGEMENT_1, NAU8822_PLL_EN_MASK, NAU8822_PLL_ON);
+ 
++	pll_param->freq_in = freq_in;
++	pll_param->freq_out = freq_out;
++
+ 	return 0;
+ }
+ 
+diff --git a/sound/soc/codecs/nau8822.h b/sound/soc/codecs/nau8822.h
+index b45d42c15de6..547ec057f853 100644
+--- a/sound/soc/codecs/nau8822.h
++++ b/sound/soc/codecs/nau8822.h
+@@ -198,6 +198,8 @@ struct nau8822_pll {
+ 	int mclk_scaler;
+ 	int pll_frac;
+ 	int pll_int;
++	int freq_in;
++	int freq_out;
+ };
+ 
+ /* Codec Private Data */
+-- 
+2.30.2
 
-Remove static and export this struct in drivers/pinctrl/qcom/pinctrl-lpass-lpi.h
-
-> +       .pins = sc7280_lpi_pins,
-> +       .npins = ARRAY_SIZE(sc7280_lpi_pins),
-> +       .groups = sc7280_groups,
-> +       .ngroups = ARRAY_SIZE(sc7280_groups),
-> +       .functions = sc7280_functions,
-> +       .nfunctions = ARRAY_SIZE(sc7280_functions),
-> +       .is_clk_optional = false,
-> +};
-
-
->  static const struct lpi_pinctrl_variant_data sc7280_lpi_data = {
->         .pins = sc7280_lpi_pins,
->         .npins = ARRAY_SIZE(sc7280_lpi_pins),
-> @@ -149,6 +159,10 @@ static const struct of_device_id lpi_pinctrl_of_match[] = {
->                .compatible = "qcom,sc7280-lpass-lpi-pinctrl",
->                .data = &sc7280_lpi_data,
->         },
-> +       {
-> +               .compatible = "qcom,sc7280-lpass-adsp-lpi-pinctrl",
-> +               .data = &sc7280_adsp_lpi_data,
-> +       },
-
-Drop this and instead add some code in the probe()
-in drivers/pinctrl/qcom/pinctrl-lpass-lpi.c
-lines:
-
-if (of_device_is_compatible(np, "qcom,sc7280-lpass-lpi-pinctrl") &&
-of_property_read_bool(np, "qcom,adsp-mode))
-     data = &sc7280_adsp_lpi_data;
-
-Yours,
-Linus Walleij

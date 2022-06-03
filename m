@@ -2,91 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C34A53C6CB
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jun 2022 10:14:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D93353C6F6
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jun 2022 10:35:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D62BD181A;
-	Fri,  3 Jun 2022 10:13:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D62BD181A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9D0971825;
+	Fri,  3 Jun 2022 10:34:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D0971825
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654244064;
-	bh=abnWwKkqq5PYGVK9R3FoNtS+jhsGrPxYlz2qgr4e6nU=;
+	s=default; t=1654245337;
+	bh=8xIel8/P5Fg4ePmT2ommOE5dF83zo/NaMDjiim69N/Q=;
 	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=k/1BY8pZQu9zoJSDUYmr1v/GLp1nsoAo6H27uBUkwfXiIn2NdrQCUodNgaljbDKdW
-	 HNQY28vHL2h7AH0RGn+8ZQcxIDtx24NrgFPjeF6JXFb4ky1xFjYB1Wt9jqCWsAV5nj
-	 lTAz2xRHSaWHLvdegaGnWwbU9Du1myR2JVzrc2Go=
+	b=pDhfyVknyt+PCJcNCMwXw6HyRA5URBFwtvKE72fzW+Huv3nkohNr6T46V+VKs1DUN
+	 NH3GwguxWLV0N1otOHJTP0769T6S01WnBMj8PCCZGfkomflGBMxMDRzRU2JyGelQMB
+	 ao+0QvJ424PLb7TcvEyAddq9z9ZRDuswSJkTp2yE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 54D8BF80124;
-	Fri,  3 Jun 2022 10:13:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F1326F800F5;
+	Fri,  3 Jun 2022 10:34:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E3CC1F804CC; Fri,  3 Jun 2022 10:13:25 +0200 (CEST)
+ id 31B47F804CC; Fri,  3 Jun 2022 10:34:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
  SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-pf1-x436.google.com (mail-pf1-x436.google.com
- [IPv6:2607:f8b0:4864:20::436])
+Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
+ [IPv6:2607:f8b0:4864:20::636])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DCB15F80124
- for <alsa-devel@alsa-project.org>; Fri,  3 Jun 2022 10:13:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DCB15F80124
+ by alsa1.perex.cz (Postfix) with ESMTPS id 10BACF800F5
+ for <alsa-devel@alsa-project.org>; Fri,  3 Jun 2022 10:34:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10BACF800F5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="bCedhaJN"
-Received: by mail-pf1-x436.google.com with SMTP id e11so6671604pfj.5
- for <alsa-devel@alsa-project.org>; Fri, 03 Jun 2022 01:13:21 -0700 (PDT)
+ header.b="hx9nlXm+"
+Received: by mail-pl1-x636.google.com with SMTP id o6so1307751plg.2
+ for <alsa-devel@alsa-project.org>; Fri, 03 Jun 2022 01:34:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=jJndwsNGJ35YpfT/6ZKzsPH00jUacPeRpJYnOHA8axY=;
- b=bCedhaJN+3BeY6a2bO0Sz6Cv+ieP/MqSu7rAmZaMfRV0u23z583tS5kcCsjcjlAbyg
- jW/S0/2riIakoh/gVc3nfWbOy9RS2cS56xFtDgTF4S4IFLoC7XIxBK1qQtDCYr1tFE1r
- Zq9SR8HzQfqaEYKZ1J+maSu0J0YxsMpOeNWqf1j4UxNGvi/NV7CFcxpstn4XHvB1odjN
- Tr3b5SNo1uQ3GhnHixh80GE2mNPrvXzs9MwTKVOLWLKtJ8NPvmQrJQPbHj8nNgVokgaL
- pJbrDWYC5kFIGL1jyWU59WagyhGwEHlOVgEVYQIChRG5/PwDfovy4efBiSR/iLBCmE9o
- X85A==
+ bh=GpfF8ItPMk0VJbbfMj/WC62xrovcB2QttagaUM4KJ38=;
+ b=hx9nlXm+saSHa0qlQPDeVf9Evb9JKM3WDBSe/Mibf0IxM42umtirmqRX1DYDq9SePl
+ Ee+zwR7LTa6mfdGdKNrLO++/HcpuzfJU5qcYnaBqCqy9tPJc9ZOMDI9uF92+Xi+rWDpf
+ tU3ysW+XZ2xPe3SqAvyHX9btz9ou+ZwGqhCxQuGDhc2NrMQXH4UVJISjH5yrP7pQCFmt
+ LdweHKNZwj9FwGZKLsc0ShA03be9Ok31txrcHV6dyxliOrh8VDHZjotcuo06d9Qjst4X
+ ECtzZWJU5jmNsk8eNh9sKDu5PZ1xXDLVi31/FppMY5b61Chhl9ckWdtuzKAdDEAMS0BV
+ 2WqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=jJndwsNGJ35YpfT/6ZKzsPH00jUacPeRpJYnOHA8axY=;
- b=ieTUoY/+IHVKS3QdvU3wlBqEwJ9dVg0r23LHqXtfzs0lGppNTclywgHc0sXpdDA+2F
- 9vhgYB0h9ShswifvfT78Op0meGiQg3cAIH0Mnvj72/xN/2yMbNISs5DwCN4uXWQTl8+/
- YLcO2RTCfup9W4UiLdfsFRykesXixrL/2JIEK32z7K230jRzp74nFhMpP5dwkMlMX5rX
- Dg9WMWU6mFtaZwcZ4PHDpSijCXWd+LHKPk5rJdZKrcNkMiOFLXjiag9BbLVRgDhDUU5d
- d7xX83Le5VnhioffU3eZBq7nVzZlrksTRkzzGp76vv9fpXYbg7lZs9LlSh8OcXxED59K
- qDdA==
-X-Gm-Message-State: AOAM533bMVeGgFkWE22koq28wETCRrN1KYmdsGQWuGIjK6N8hmVfGWdq
- wWPoKQ0LG3pFWKNR8AMlrK8=
-X-Google-Smtp-Source: ABdhPJzLhSSgE1fP7Y2/aGP4aExAqPKXsnEkw1E0WB57GnC/qOzY/ZO6hIqB9pDe+P7Zrd5CDEqevw==
-X-Received: by 2002:a62:1744:0:b0:51b:ab76:e8c4 with SMTP id
- 65-20020a621744000000b0051bab76e8c4mr9339294pfx.42.1654243999461; 
- Fri, 03 Jun 2022 01:13:19 -0700 (PDT)
+ bh=GpfF8ItPMk0VJbbfMj/WC62xrovcB2QttagaUM4KJ38=;
+ b=wlV9F39vgqw88/9n41LBklsiyPhNy0tddoXaJ0gjc7dDZRrAnXertqykwiXYs44Q+I
+ gfhHMo+8DswOdt+1Pz9JQ1ioRcPTfYgNUNoQqtQ177n+zDBzksskgT9querXsphiAe0h
+ FaguqH4hBEYY0HhsoaQB9cSyGUf6Rfcn+wb6jB5Y4MUADruNJwsVbMGQVPw8+BU5jlw1
+ YgavVE6x8nmJeEG9B8l0xUPruckzUmmEZ6Rp1fgEFFX6cXXSzt9WhwSnDg4ytiAVStqE
+ BUQMUQTmxz7gCVHy6TbiTCQqd3JLa7vPdOJ4xCE2Y0S3IG1dDz7wd5CACMn8+OjbNE4q
+ RXRQ==
+X-Gm-Message-State: AOAM533oxbY3iAzMa1sfylpw6IxXFJKMlzkm0HEKYbP1Zkj4kBg1O5bf
+ 9qk5MaVdr2z9wG6Rso+MTuc=
+X-Google-Smtp-Source: ABdhPJy42CKbXP1g6HSFgMNfnYKPHDiOSTgrA1jna9XgHfAtjIeZISzUg9TczCGoz/8M5puUSJSJvg==
+X-Received: by 2002:a17:90b:17c6:b0:1e6:8486:b324 with SMTP id
+ me6-20020a17090b17c600b001e68486b324mr8464340pjb.24.1654245269977; 
+ Fri, 03 Jun 2022 01:34:29 -0700 (PDT)
 Received: from localhost.localdomain ([202.120.234.246])
  by smtp.googlemail.com with ESMTPSA id
- g6-20020a170902c38600b00163de9e9342sm4829424plg.17.2022.06.03.01.13.13
+ k5-20020a170902760500b0015e8d4eb2b8sm4809485pll.258.2022.06.03.01.34.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Jun 2022 01:13:18 -0700 (PDT)
+ Fri, 03 Jun 2022 01:34:29 -0700 (PDT)
 From: Miaoqian Lin <linmq006@gmail.com>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
  Matthias Brugger <matthias.bgg@gmail.com>,
- Tzung-Bi Shih <tzungbi@google.com>, Jiaxin Yu <jiaxin.yu@mediatek.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Akihiko Odaki <akihiko.odaki@gmail.com>, Miaoqian Lin <linmq006@gmail.com>,
- alsa-devel@alsa-project.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: mediatek: mt8173-rt5650: Fix refcount leak in
- mt8173_rt5650_dev_probe
-Date: Fri,  3 Jun 2022 12:13:06 +0400
-Message-Id: <20220603081308.1332-1-linmq006@gmail.com>
+ Miaoqian Lin <linmq006@gmail.com>, alsa-devel@alsa-project.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: mt6797-mt6351: Fix refcount leak in
+ mt6797_mt6351_dev_probe
+Date: Fri,  3 Jun 2022 12:34:15 +0400
+Message-Id: <20220603083417.9011-1-linmq006@gmail.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -107,53 +105,38 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 of_parse_phandle() returns a node pointer with refcount
 incremented, we should use of_node_put() on it when not need anymore.
-Fix refcount leak in some error paths.
+Add missing of_node_put() to avoid refcount leak.
 
-Fixes: format:0f83f9296d5c ("ASoC: mediatek: Add machine driver for ALC5650 codec")
+Fixes: format:f0ab0bf250da ("ASoC: add mt6797-mt6351 driver and config option")
 Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
 ---
- sound/soc/mediatek/mt8173/mt8173-rt5650.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ sound/soc/mediatek/mt6797/mt6797-mt6351.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/mediatek/mt8173/mt8173-rt5650.c b/sound/soc/mediatek/mt8173/mt8173-rt5650.c
-index d1c94acb4516..e05f2b0231fe 100644
---- a/sound/soc/mediatek/mt8173/mt8173-rt5650.c
-+++ b/sound/soc/mediatek/mt8173/mt8173-rt5650.c
-@@ -280,7 +280,8 @@ static int mt8173_rt5650_dev_probe(struct platform_device *pdev)
- 	if (!mt8173_rt5650_dais[DAI_LINK_CODEC_I2S].codecs[0].of_node) {
+diff --git a/sound/soc/mediatek/mt6797/mt6797-mt6351.c b/sound/soc/mediatek/mt6797/mt6797-mt6351.c
+index 496f32bcfb5e..d2f6213a6bfc 100644
+--- a/sound/soc/mediatek/mt6797/mt6797-mt6351.c
++++ b/sound/soc/mediatek/mt6797/mt6797-mt6351.c
+@@ -217,7 +217,8 @@ static int mt6797_mt6351_dev_probe(struct platform_device *pdev)
+ 	if (!codec_node) {
  		dev_err(&pdev->dev,
  			"Property 'audio-codec' missing or invalid\n");
 -		return -EINVAL;
 +		ret = -EINVAL;
 +		goto put_platform_node;
  	}
- 	mt8173_rt5650_dais[DAI_LINK_CODEC_I2S].codecs[1].of_node =
- 		mt8173_rt5650_dais[DAI_LINK_CODEC_I2S].codecs[0].of_node;
-@@ -293,7 +294,7 @@ static int mt8173_rt5650_dev_probe(struct platform_device *pdev)
- 			dev_err(&pdev->dev,
- 				"%s codec_capture_dai name fail %d\n",
- 				__func__, ret);
--			return ret;
-+			goto put_platform_node;
- 		}
- 		mt8173_rt5650_dais[DAI_LINK_CODEC_I2S].codecs[1].dai_name =
- 			codec_capture_dai;
-@@ -315,12 +316,14 @@ static int mt8173_rt5650_dev_probe(struct platform_device *pdev)
- 	if (!mt8173_rt5650_dais[DAI_LINK_HDMI_I2S].codecs->of_node) {
- 		dev_err(&pdev->dev,
- 			"Property 'audio-codec' missing or invalid\n");
--		return -EINVAL;
-+		ret = -EINVAL;
-+		goto put_platform_node;
- 	}
- 	card->dev = &pdev->dev;
+ 	for_each_card_prelinks(card, i, dai_link) {
+ 		if (dai_link->codecs->name)
+@@ -230,6 +231,9 @@ static int mt6797_mt6351_dev_probe(struct platform_device *pdev)
+ 		dev_err(&pdev->dev, "%s snd_soc_register_card fail %d\n",
+ 			__func__, ret);
  
- 	ret = devm_snd_soc_register_card(&pdev->dev, card);
- 
++	of_node_put(codec_node);
 +put_platform_node:
- 	of_node_put(platform_node);
++	of_node_put(platform_node);
  	return ret;
  }
+ 
 -- 
 2.25.1
 

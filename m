@@ -2,74 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C45B853C94D
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jun 2022 13:30:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F68653C98D
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jun 2022 13:51:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6629A17F1;
-	Fri,  3 Jun 2022 13:29:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6629A17F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 406701832;
+	Fri,  3 Jun 2022 13:50:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 406701832
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654255811;
-	bh=/oL3L0OBazgj3LDtq29j/fp994lk3tQDa86GHQ4cVEE=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=anU44lVw9eDKE8RYFIP5yHdtuEyiftndpCyNhuWC4E1OsT6DFy13dW4Kim9z3Er7A
-	 h1VlgH0R+YtE3ryPuoGDnLHMrYaM82y6YtZbfjIh/pHxSHnP1UODoiodg2yLt1Q4pY
-	 iE9FjaX1/FL4fQiB3fZDKpDvSeL4rBZSewbQGhEY=
+	s=default; t=1654257075;
+	bh=WHPr2vo2GeVCbfWZi2zHy7fawzKWEhNBqbkiVy2Ufu8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=rpHn6w2r3fKZ4qeMctMtuoV5VEW6lhvYHGJAZFhwem1rwlQtoXDgp1luKKQLuZOFc
+	 EEyoEcyaxX1AiHhURyZ3ipWlB+jzl1qr95gV145CDlYMC7R7MS9HDiWww840y/DbDd
+	 upD71QzLhAf6mH56FtAwKZwT3+pjN79xuIJLibnI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D46C3F804D1;
-	Fri,  3 Jun 2022 13:29:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A2CCDF800F5;
+	Fri,  3 Jun 2022 13:50:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5D5A1F804CC; Fri,  3 Jun 2022 13:29:11 +0200 (CEST)
+ id 2DF57F804CC; Fri,  3 Jun 2022 13:50:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 23D5FF80089
- for <alsa-devel@alsa-project.org>; Fri,  3 Jun 2022 13:29:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23D5FF80089
+ by alsa1.perex.cz (Postfix) with ESMTPS id C4DDFF800F5
+ for <alsa-devel@alsa-project.org>; Fri,  3 Jun 2022 13:50:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4DDFF800F5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="avUZKNn9"
+ header.b="DgG9jRJx"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 702156133B;
- Fri,  3 Jun 2022 11:28:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5E76C34114;
- Fri,  3 Jun 2022 11:28:57 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id DA71CB822D1;
+ Fri,  3 Jun 2022 11:50:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70328C385A9;
+ Fri,  3 Jun 2022 11:50:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1654255738;
- bh=/oL3L0OBazgj3LDtq29j/fp994lk3tQDa86GHQ4cVEE=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=avUZKNn9J7evYn5IHsokkhCD6kgE1eOjXVvCeUk68ZRVKR1INvHnTn1jG5Wt7aWFV
- 8CvMGNIDXVC1WZx+Y8/YoPwEu/5UL4kMNL41AMmOWlocg1vXqKQk1Fmr6nY7f8sU1y
- CGlwOveRtzFmrAxFGW0YNAOIifN7rJKqWmFJGDixQ19WwRbQm7ucFLMsGnsWZfL2nj
- sBLf7TBcvGqKp4f6ATNqWxJhNXb6l2bmH5rn2lS0WxCsJe/9A+Dl7LxXKwTMR7XwJI
- tULxB6AJnhIGdLShrRK+y1gOvcX34oNiHoZOkzALIQQzmkIcG90XBadAdTwE0wrfJO
- COjMh5fxL7T9A==
+ s=k20201202; t=1654257007;
+ bh=WHPr2vo2GeVCbfWZi2zHy7fawzKWEhNBqbkiVy2Ufu8=;
+ h=From:To:Cc:Subject:Date:From;
+ b=DgG9jRJxK+vt7W4q+kWEURW5pK7Y2iywnusSCjzSsh0hTmMjQZ6hYYHhc96WTzu99
+ jCHJfIRm/xe8tNbKOkvEcRvEGkp8PG2QpgPqZ9O3ieWJgJ40c/aELa+YhLj2YD6Pjg
+ 2Cp+faw5MKzikQfDO3q6d/UitVneKI5uAmjWoQcuZLUDWdcZkvl5I22QvZ5qb9sf+f
+ B3WWoSz57lHoOGIO/F2A6ZWmQcfUToX37Fm0u4CorvBYVNzwkd3hOvwc7GYs/oSNJQ
+ +1weQpm3F3o6O4nWE2Uhi4IFgRmEkQX+rspssyeUKtCX978gIPjcJDUSBJUFNOQ1ff
+ AeURb/tYOtEXA==
 From: Mark Brown <broonie@kernel.org>
-To: ckeepax@opensource.cirrus.com
-In-Reply-To: <20220602162119.3393857-1-ckeepax@opensource.cirrus.com>
-References: <20220602162119.3393857-1-ckeepax@opensource.cirrus.com>
-Subject: Re: [PATCH 0/6] Fixup Cirrus SX control usage
-Message-Id: <165425573673.3864268.13153479722172115782.b4-ty@kernel.org>
-Date: Fri, 03 Jun 2022 13:28:56 +0200
+To: Liam Girdwood <lgirdwood@gmail.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Simon Trimmer <simont@opensource.cirrus.com>
+Subject: [PATCH] ASoC: wm_adsp: Fix event generation for wm_adsp_fw_put()
+Date: Fri,  3 Jun 2022 13:50:03 +0200
+Message-Id: <20220603115003.3865834-1-broonie@kernel.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1008; h=from:subject;
+ bh=WHPr2vo2GeVCbfWZi2zHy7fawzKWEhNBqbkiVy2Ufu8=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBimfUtR3726vu3cjHNmYMgt5syn24y4mmCqacfkx68
+ nshKJ4eJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCYpn1LQAKCRAk1otyXVSH0BNOB/
+ 9hdmuwZBC0W6OA0aLcQ57tickrRnd1LQeN93hgNc7fB0lb2hPT6MH/Wk8AQttV6t4bBXPgbXmxjwv3
+ FrYBafroVrxDBsts1ILxIiFriWfQVkjVr53dCpuSRL/MpF6j/923PLPQYMWQ9DbN0vdYKtQZHnJRNg
+ ATyWmCLr/+HcAtkhKJ330kB50NR7URzeNK9ncPf4ud2EFqDxQsr28CdfN2fF+EakzSob3KGgJlg2Be
+ YN8CRBLi+78AW2ja6Fdj8mxx3d/ViTLmfaVzmZX6rXsKukzpqchM5KetyvYjC5gZ19Cdd9J/qd8UCQ
+ iFsD/BnJ/E+fGQiXIiYsOPejvUEfTj
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- lgirdwood@gmail.com, david.rhodes@cirrus.com, james.schulman@cirrus.com,
- linux-kernel@vger.kernel.org
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,52 +94,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 2 Jun 2022 17:21:13 +0100, Charles Keepax wrote:
-> Mostly the usage of the SX controls seems to match the lowest gain
-> value + number of gain levels expected. The one notable exception
-> there being cs53l30 as David noted. However, there are a couple of
-> other places where the minimum value/TLVs are slightly incorrectly
-> specified.
-> 
-> There are two I couldn't quite work out yet, any input on these
-> greatly appreciated:
-> 
-> [...]
+Currently wm_adsp_fw_put() returns 0 rather than 1 when updating the value
+of the control, meaning that no event is generated to userspace. Fix this
+by setting the default return value to 1, the code already exits early with
+a return value of 0 if the value is unchanged.
 
-Applied to
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/codecs/wm_adsp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-   broonie/sound.git for-linus
+diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
+index 7973a75cac05..6d7fd88243aa 100644
+--- a/sound/soc/codecs/wm_adsp.c
++++ b/sound/soc/codecs/wm_adsp.c
+@@ -333,7 +333,7 @@ int wm_adsp_fw_put(struct snd_kcontrol *kcontrol,
+ 	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
+ 	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
+ 	struct wm_adsp *dsp = snd_soc_component_get_drvdata(component);
+-	int ret = 0;
++	int ret = 1;
+ 
+ 	if (ucontrol->value.enumerated.item[0] == dsp[e->shift_l].fw)
+ 		return 0;
+-- 
+2.30.2
 
-Thanks!
-
-[1/6] ASoC: cs42l52: Fix TLV scales for mixer controls
-      commit: 8bf5aabf524eec61013e506f764a0b2652dc5665
-[2/6] ASoC: cs35l36: Update digital volume TLV
-      commit: 5005a2345825eb8346546d99bfe669f73111b5c5
-[3/6] ASoC: cs53l30: Correct number of volume levels on SX controls
-      commit: 7fbd6dd68127927e844912a16741016d432a0737
-[4/6] ASoC: cs42l52: Correct TLV for Bypass Volume
-      commit: 91e90c712fade0b69cdff7cc6512f6099bd18ae5
-[5/6] ASoC: cs42l56: Correct typo in minimum level for SX volume controls
-      commit: a8928ada9b96944cadd8b65d191e33199fd38782
-[6/6] ASoC: cs42l51: Correct minimum value for SX volume control
-      commit: fcb3b5a58926d16d9a338841b74af06d4c29be15
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

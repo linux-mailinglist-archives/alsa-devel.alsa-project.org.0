@@ -2,75 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAA6C53C73A
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jun 2022 11:05:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AB4653C743
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jun 2022 11:10:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E34D41832;
-	Fri,  3 Jun 2022 11:04:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E34D41832
+	by alsa0.perex.cz (Postfix) with ESMTPS id DA597180F;
+	Fri,  3 Jun 2022 11:09:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA597180F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654247102;
-	bh=p/FkswoGjoHDu7PF7z42Dk9Tfcmi9Ut6csQo8Hip+74=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1654247432;
+	bh=2FqBPrUEzmLBZst0xSTmIvl7eeRIdcf32fLYWnchJeM=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=F6JeeErZKnCQCCc09FKu4ZTGA+nJ3yTOlvswt8c3mdMOhUDr3110NXsjw6M1/x3dX
-	 n5sqe2iL9oVZJLx8GUhrh5ZqRj3dSR7CYFN33+sjuPcV3icKTYJ4M+cxFDF24YaaJL
-	 t3tr5o2I0VEuLTEnpItBC7ZN1ZKMCJm4saUCr0DE=
+	b=QVo2+GFMbxZzufldZIgwuLc7S7rcuA7hi7TsPciHC9iJq+Pj+Dhof6+0J3sZL3Djg
+	 CqzlWIWCkqnv5LVEC7Wr/jxgaVuJX8LScSZl7ssXoiPA1xc+23smrifhljB+1atHIy
+	 1zVzbn5y6l5lYnLDPKsxFzkleD+15o+BSjvK0j8k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 45586F804D1;
-	Fri,  3 Jun 2022 11:04:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 45251F804D1;
+	Fri,  3 Jun 2022 11:09:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EC203F804CC; Fri,  3 Jun 2022 11:04:02 +0200 (CEST)
+ id E6B19F80089; Fri,  3 Jun 2022 11:09:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_14,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6276CF80089
- for <alsa-devel@alsa-project.org>; Fri,  3 Jun 2022 11:03:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6276CF80089
+ by alsa1.perex.cz (Postfix) with ESMTPS id 764C4F80089
+ for <alsa-devel@alsa-project.org>; Fri,  3 Jun 2022 11:09:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 764C4F80089
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="kC7lKvQR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1654247038; x=1685783038;
- h=from:to:cc:subject:date:message-id:in-reply-to: references;
- bh=/c7hQ+QU+SR6ACN+gxaQMwgph9j7/3Uzti/cMVLNetk=;
- b=kC7lKvQR72qxFA9TZ6dotklJC8cqJ5PuJTMEG0U/rtcrFn9ZACEuDaqF
- z7PR7ktWUIByMz6IGWVpErHEHUR1TlsGfMkjcitr34KWH3KZV6bFGZtv5
- 0oTgFJK10LtjWLmzCFDbRIAtULuumX6wVC6eOuVM9Kx/D/w8h0jhQFGcQ 8=;
-Received: from ironmsg07-lv.qualcomm.com ([10.47.202.151])
- by alexa-out.qualcomm.com with ESMTP; 03 Jun 2022 02:03:53 -0700
-X-QCInternal: smtphost
-Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131])
- by ironmsg07-lv.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 03 Jun 2022 02:03:52 -0700
-X-QCInternal: smtphost
-Received: from hu-rbankapu-blr.qualcomm.com (HELO
- hu-ub18template-blr.qualcomm.com) ([10.131.39.233])
- by ironmsg02-blr.qualcomm.com with ESMTP; 03 Jun 2022 14:33:43 +0530
-Received: by hu-ub18template-blr.qualcomm.com (Postfix, from userid 4079802)
- id 7AC7C802D96; Fri,  3 Jun 2022 14:33:42 +0530 (+0530)
-From: Raghu Bankapur <quic_rbankapu@quicinc.com>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: [PATCH V1 1/1] asoc: msm: use hashtable to check kcontrol
-Date: Fri,  3 Jun 2022 14:33:38 +0530
-Message-Id: <9a0ec3f261ff80d842f926f747e3d10fbc3f9aa9.1654246653.git.quic_rbankapu@quicinc.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <cover.1654246653.git.quic_rbankapu@quicinc.com>
-References: <cover.1654246653.git.quic_rbankapu@quicinc.com>
-Cc: Krishna Jha <quic_kkishorj@quicinc.com>,
- Raghu Bankapur <quic_rbankapu@quicinc.com>
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="N1T0cNvM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1654247368; x=1685783368;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=2FqBPrUEzmLBZst0xSTmIvl7eeRIdcf32fLYWnchJeM=;
+ b=N1T0cNvMdsQ5FLQ878uYytEDHcmsgPXMvXCti5nsyrKCXXhK9/z/KXeC
+ +LsMutn5yqiAxei8MRDUuxpa9UaWMZBjb5oCJEjLQCm0t/Bw1JFRnpM+j
+ KPWcDK9TtGF1CzUPZ9lTBTvz0Z0Y7tHgVr27kai4vLSU2+z4lCrr/u4o4
+ O3LBMUD0YuNVU90gr4UHjfospALIXj2dksOcKYBenea3vcKrFaLDTLHxh
+ v7ZXVXrXYE87blWLwPKpBTBWOEaTuv/r3r6VzCm2AwjwhoTKSftuU3fRL
+ oM+zAB6HJQ6Xgd9uezzSLAEyox/6tS9VdvC4QSYJxoA+bM5PQfCj1oZmg Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10366"; a="256070954"
+X-IronPort-AV: E=Sophos;i="5.91,274,1647327600"; d="scan'208";a="256070954"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jun 2022 02:09:24 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.91,274,1647327600"; d="scan'208";a="530940913"
+Received: from lkp-server01.sh.intel.com (HELO 60dabacc1df6) ([10.239.97.150])
+ by orsmga003.jf.intel.com with ESMTP; 03 Jun 2022 02:09:23 -0700
+Received: from kbuild by 60dabacc1df6 with local (Exim 4.95)
+ (envelope-from <lkp@intel.com>) id 1nx3J4-000768-Aj;
+ Fri, 03 Jun 2022 09:09:22 +0000
+Date: Fri, 3 Jun 2022 17:08:24 +0800
+From: kernel test robot <lkp@intel.com>
+To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>
+Subject: Re: [PATCH 16/20] ASoC: tlv320aic26: Use modern ASoC DAI format
+ terminology
+Message-ID: <202206031611.NflHL5M6-lkp@intel.com>
+References: <20220602135316.3554400-17-broonie@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220602135316.3554400-17-broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org, llvm@lists.linux.dev, kbuild-all@lists.01.org,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,216 +92,76 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-use hashtabe instead of linear list to check kcontrol before
-adding them for improving early audio KPI.
+Hi Mark,
 
-Change-Id: I7134816736e08e338c0f22a8ae283a0520aa847a
-Signed-off-by: Raghu Bankapur <quic_rbankapu@quicinc.com>
----
- include/sound/control.h |   2 +
- include/sound/core.h    |   5 +-
- sound/core/control.c    | 106 +++++++++++++++++++++++-----------------
- sound/core/init.c       |   1 +
- 4 files changed, 68 insertions(+), 46 deletions(-)
+I love your patch! Yet something to improve:
 
-diff --git a/include/sound/control.h b/include/sound/control.h
-index 985c51a8fb74..e50db5c45114 100644
---- a/include/sound/control.h
-+++ b/include/sound/control.h
-@@ -70,6 +70,8 @@ struct snd_kcontrol_volatile {
- struct snd_kcontrol {
- 	struct list_head list;		/* list of controls */
- 	struct snd_ctl_elem_id id;
-+	struct hlist_node hnode;
-+	unsigned int knametoint;	/* kctl name to uint, hash key value */
- 	unsigned int count;		/* count of same elements */
- 	snd_kcontrol_info_t *info;
- 	snd_kcontrol_get_t *get;
-diff --git a/include/sound/core.h b/include/sound/core.h
-index b7e9b58d3c78..90341d6f1573 100644
---- a/include/sound/core.h
-+++ b/include/sound/core.h
-@@ -14,6 +14,7 @@
- #include <linux/pm.h>			/* pm_message_t */
- #include <linux/stringify.h>
- #include <linux/printk.h>
-+#include <linux/hashtable.h>
- 
- /* number of supported soundcards */
- #ifdef CONFIG_SND_DYNAMIC_MINORS
-@@ -24,6 +25,8 @@
- 
- #define CONFIG_SND_MAJOR	116	/* standard configuration */
- 
-+#define SND_CTL_HASH_TABLE_BITS 14	/* buckets numbers: 1 << 14 */
-+
- /* forward declarations */
- struct pci_dev;
- struct module;
-@@ -103,7 +106,7 @@ struct snd_card {
- 	size_t user_ctl_alloc_size;	// current memory allocation by user controls.
- 	struct list_head controls;	/* all controls for this card */
- 	struct list_head ctl_files;	/* active control files */
--
-+	DECLARE_HASHTABLE(ctl_htable, SND_CTL_HASH_TABLE_BITS);
- 	struct snd_info_entry *proc_root;	/* root for soundcard specific files */
- 	struct proc_dir_entry *proc_root_link;	/* number link to real id */
- 
-diff --git a/sound/core/control.c b/sound/core/control.c
-index a25c0d64d104..e00a02015837 100644
---- a/sound/core/control.c
-+++ b/sound/core/control.c
-@@ -331,43 +331,49 @@ void snd_ctl_free_one(struct snd_kcontrol *kcontrol)
- }
- EXPORT_SYMBOL(snd_ctl_free_one);
- 
--static bool snd_ctl_remove_numid_conflict(struct snd_card *card,
--					  unsigned int count)
-+enum snd_ctl_add_mode {
-+	CTL_ADD_EXCLUSIVE, CTL_REPLACE, CTL_ADD_ON_REPLACE,
-+};
-+
-+char snd_ctl_string[50] = { '\0' };
-+
-+/* Used to convert the string into int value -- BKDRHash */
-+static unsigned int snd_ctl_strtoint(const char *s)
- {
--	struct snd_kcontrol *kctl;
-+	unsigned int res = 0;
- 
--	/* Make sure that the ids assigned to the control do not wrap around */
--	if (card->last_numid >= UINT_MAX - count)
--		card->last_numid = 0;
-+	while (*s)
-+		res = (res << 5) - res + (*s++);
- 
--	list_for_each_entry(kctl, &card->controls, list) {
--		if (kctl->id.numid < card->last_numid + 1 + count &&
--		    kctl->id.numid + kctl->count > card->last_numid + 1) {
--		    	card->last_numid = kctl->id.numid + kctl->count - 1;
--			return true;
--		}
--	}
--	return false;
-+	return (res & 0x7FFFFFFF);
- }
- 
--static int snd_ctl_find_hole(struct snd_card *card, unsigned int count)
-+/**
-+ * snd_ctl_hash_check - Check the duplicate enrty on snd hashtable
-+ * @card: the card instance
-+ * @nametoint: kctl name to uint
-+ *
-+ * Finds the control instance with the given nametoint from the card.
-+ *
-+ * Return: The pointer of the instance if found, or %NULL if not.
-+ *
-+ */
-+static struct snd_kcontrol *snd_ctl_hash_check(struct snd_card *card,
-+				 unsigned int nametoint)
- {
--	unsigned int iter = 100000;
-+	struct snd_kcontrol *kctl = NULL;
- 
--	while (snd_ctl_remove_numid_conflict(card, count)) {
--		if (--iter == 0) {
--			/* this situation is very unlikely */
--			dev_err(card->dev, "unable to allocate new control numid\n");
--			return -ENOMEM;
--		}
-+	if (snd_BUG_ON(!card))
-+		return NULL;
-+
-+	hash_for_each_possible(card->ctl_htable, kctl, hnode, nametoint) {
-+		if (kctl->knametoint != nametoint)
-+			continue;
-+		return kctl;
- 	}
--	return 0;
-+	return NULL;
- }
- 
--enum snd_ctl_add_mode {
--	CTL_ADD_EXCLUSIVE, CTL_REPLACE, CTL_ADD_ON_REPLACE,
--};
--
- /* add/replace a new kcontrol object; call with card->controls_rwsem locked */
- static int __snd_ctl_add_replace(struct snd_card *card,
- 				 struct snd_kcontrol *kcontrol,
-@@ -382,26 +388,34 @@ static int __snd_ctl_add_replace(struct snd_card *card,
- 	if (id.index > UINT_MAX - kcontrol->count)
- 		return -EINVAL;
- 
--	old = snd_ctl_find_id(card, &id);
--	if (!old) {
--		if (mode == CTL_REPLACE)
--			return -EINVAL;
--	} else {
--		if (mode == CTL_ADD_EXCLUSIVE) {
--			dev_err(card->dev,
--				"control %i:%i:%i:%s:%i is already present\n",
--				id.iface, id.device, id.subdevice, id.name,
--				id.index);
--			return -EBUSY;
--		}
-+	snprintf(snd_ctl_string, strlen(kcontrol->id.name) + 6, "%s%d%d%d",
-+		kcontrol->id.name, kcontrol->id.iface, kcontrol->id.device,
-+		kcontrol->id.subdevice);
- 
--		err = snd_ctl_remove(card, old);
--		if (err < 0)
--			return err;
--	}
-+	kcontrol->knametoint = snd_ctl_strtoint(snd_ctl_string);
-+	if (kcontrol->knametoint < 0)
-+		return -EINVAL;
- 
--	if (snd_ctl_find_hole(card, kcontrol->count) < 0)
--		return -ENOMEM;
-+	old = snd_ctl_hash_check(card, kcontrol->knametoint);
-+	if (old) {
-+		old = snd_ctl_find_id(card, &id);
-+		if (!old) {
-+			if (mode == CTL_REPLACE)
-+				return -EINVAL;
-+		} else {
-+			if (mode == CTL_ADD_EXCLUSIVE) {
-+				dev_err(card->dev,
-+					"control %i:%i:%i:%s:%i is already present\n",
-+					id.iface, id.device, id.subdevice, id.name,
-+					id.index);
-+				return -EBUSY;
-+			}
-+
-+			err = snd_ctl_remove(card, old);
-+			if (err < 0)
-+				return err;
-+		}
-+	}
- 
- 	list_add_tail(&kcontrol->list, &card->controls);
- 	card->controls_count += kcontrol->count;
-@@ -411,6 +425,8 @@ static int __snd_ctl_add_replace(struct snd_card *card,
- 	for (idx = 0; idx < kcontrol->count; idx++)
- 		snd_ctl_notify_one(card, SNDRV_CTL_EVENT_MASK_ADD, kcontrol, idx);
- 
-+	hash_add(card->ctl_htable, &kcontrol->hnode, kcontrol->knametoint);
-+
- 	return 0;
- }
- 
-diff --git a/sound/core/init.c b/sound/core/init.c
-index 31ba7024e3ad..24138902e5f2 100644
---- a/sound/core/init.c
-+++ b/sound/core/init.c
-@@ -284,6 +284,7 @@ static int snd_card_init(struct snd_card *card, struct device *parent,
- 	INIT_LIST_HEAD(&card->ctl_files);
- 	spin_lock_init(&card->files_lock);
- 	INIT_LIST_HEAD(&card->files_list);
-+	hash_init(card->ctl_htable);
- 	mutex_init(&card->memory_mutex);
- #ifdef CONFIG_PM
- 	init_waitqueue_head(&card->power_sleep);
+[auto build test ERROR on broonie-sound/for-next]
+[also build test ERROR on v5.18 next-20220603]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Mark-Brown/ASoC-DAI-clocking-terminology-modernisation/20220602-220124
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+config: hexagon-randconfig-r034-20220531 (https://download.01.org/0day-ci/archive/20220603/202206031611.NflHL5M6-lkp@intel.com/config)
+compiler: clang version 15.0.0 (https://github.com/llvm/llvm-project b364c76683f8ef241025a9556300778c07b590c2)
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/dbeb676b530a8a641b9444a092dcab1d5af2a71f
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Mark-Brown/ASoC-DAI-clocking-terminology-modernisation/20220602-220124
+        git checkout dbeb676b530a8a641b9444a092dcab1d5af2a71f
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=hexagon SHELL=/bin/bash sound/soc/codecs/
+
+If you fix the issue, kindly add following tag where applicable
+Reported-by: kernel test robot <lkp@intel.com>
+
+All errors (new ones prefixed by >>):
+
+>> sound/soc/codecs/tlv320aic26.c:365:9: error: no member named 'master' in 'struct aic26'
+           aic26->master = 1;
+           ~~~~~  ^
+   1 error generated.
+
+
+vim +365 sound/soc/codecs/tlv320aic26.c
+
+7fbdeb809050cb Mark Brown        2013-09-25  341  
+f0fba2ad1b6b53 Liam Girdwood     2010-03-17  342  /* ---------------------------------------------------------------------
+f0fba2ad1b6b53 Liam Girdwood     2010-03-17  343   * SPI device portion of driver: probe and release routines and SPI
+f0fba2ad1b6b53 Liam Girdwood     2010-03-17  344   * 				 driver registration.
+f0fba2ad1b6b53 Liam Girdwood     2010-03-17  345   */
+f0fba2ad1b6b53 Liam Girdwood     2010-03-17  346  static int aic26_spi_probe(struct spi_device *spi)
+d8e3bb7385da0b Grant Likely      2008-07-29  347  {
+f0fba2ad1b6b53 Liam Girdwood     2010-03-17  348  	struct aic26 *aic26;
+f0fba2ad1b6b53 Liam Girdwood     2010-03-17  349  	int ret;
+d8e3bb7385da0b Grant Likely      2008-07-29  350  
+f0fba2ad1b6b53 Liam Girdwood     2010-03-17  351  	dev_dbg(&spi->dev, "probing tlv320aic26 spi device\n");
+f0fba2ad1b6b53 Liam Girdwood     2010-03-17  352  
+f0fba2ad1b6b53 Liam Girdwood     2010-03-17  353  	/* Allocate driver data */
+a8163023d29c14 Axel Lin          2011-12-29  354  	aic26 = devm_kzalloc(&spi->dev, sizeof *aic26, GFP_KERNEL);
+f0fba2ad1b6b53 Liam Girdwood     2010-03-17  355  	if (!aic26)
+f0fba2ad1b6b53 Liam Girdwood     2010-03-17  356  		return -ENOMEM;
+f0fba2ad1b6b53 Liam Girdwood     2010-03-17  357  
+7fbdeb809050cb Mark Brown        2013-09-25  358  	aic26->regmap = devm_regmap_init_spi(spi, &aic26_regmap);
+7fbdeb809050cb Mark Brown        2013-09-25  359  	if (IS_ERR(aic26->regmap))
+7fbdeb809050cb Mark Brown        2013-09-25  360  		return PTR_ERR(aic26->regmap);
+7fbdeb809050cb Mark Brown        2013-09-25  361  
+f0fba2ad1b6b53 Liam Girdwood     2010-03-17  362  	/* Initialize the driver data */
+f0fba2ad1b6b53 Liam Girdwood     2010-03-17  363  	aic26->spi = spi;
+f0fba2ad1b6b53 Liam Girdwood     2010-03-17  364  	dev_set_drvdata(&spi->dev, aic26);
+f0fba2ad1b6b53 Liam Girdwood     2010-03-17 @365  	aic26->master = 1;
+f0fba2ad1b6b53 Liam Girdwood     2010-03-17  366  
+1514613a7a4480 Kuninori Morimoto 2018-01-29  367  	ret = devm_snd_soc_register_component(&spi->dev,
+1514613a7a4480 Kuninori Morimoto 2018-01-29  368  			&aic26_soc_component_dev, &aic26_dai, 1);
+f0fba2ad1b6b53 Liam Girdwood     2010-03-17  369  	return ret;
+f0fba2ad1b6b53 Liam Girdwood     2010-03-17  370  }
+f0fba2ad1b6b53 Liam Girdwood     2010-03-17  371  
+
 -- 
-2.17.1
-
+0-DAY CI Kernel Test Service
+https://01.org/lkp

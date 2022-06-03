@@ -2,87 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7742153C7E9
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jun 2022 11:50:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A55853C7FA
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jun 2022 11:56:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F20DF182F;
-	Fri,  3 Jun 2022 11:49:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F20DF182F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 07E041832;
+	Fri,  3 Jun 2022 11:55:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 07E041832
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654249830;
-	bh=dlOLpy+A8O2m4zwqEZZLEk4QfSQQMpvf3qipx/BEfdw=;
+	s=default; t=1654250191;
+	bh=UwskO372PFTyrrmPHCk7777HvXb95NVFBdbAG6eNmhA=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bsNp+vpxf+dGNpWb84OKpvgRoJ2jwUrrnsvYDj1me+MTyM3vjFa/OkOAYxpEyFdzQ
-	 6fi7lj/sq2MjSJ5PWR4hz7e9LxyPLFM77dT8CNmkdFZRmwX1DzOssdgCkX6J/W52Wv
-	 yHQpgvpFKzuncmvOZvjqO8vIlSbJNyl8UwpJxnZ4=
+	b=E0ZE/IQVz79ldtRb5X31gHbN7mq66xm+PxkHK2/Wst1teolN3PhHqGzB/wsYPgcu+
+	 rGFMugVVhkuL5nUKGGZ323pJ15Ptqb9UaVC/ioNAdqYzqkFR0CK6CYxgqZfZLwrHjb
+	 N5EtDYsYRTxskBghOB0stcDwNYwh/ALDQ1omAPSE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 75149F804D1;
-	Fri,  3 Jun 2022 11:49:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4798CF804D1;
+	Fri,  3 Jun 2022 11:55:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 41197F804CC; Fri,  3 Jun 2022 11:49:32 +0200 (CEST)
+ id EFFE4F804CC; Fri,  3 Jun 2022 11:55:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-relay-canonical-1.canonical.com
+ (smtp-relay-canonical-1.canonical.com [185.125.188.121])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B1CE3F80124;
- Fri,  3 Jun 2022 11:49:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1CE3F80124
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8DE5AF80124
+ for <alsa-devel@alsa-project.org>; Fri,  3 Jun 2022 11:55:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8DE5AF80124
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="EImwg0kl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1654249769; x=1685785769;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=dlOLpy+A8O2m4zwqEZZLEk4QfSQQMpvf3qipx/BEfdw=;
- b=EImwg0klK5cxE8q/JG4u6l6nq/34jwxbVzGflbn2eljSD15R0Qfmy9Wy
- bXEgnOJ5CQuZ8jyFvO+nNUIdOsfYJdLE+4tXiPon49t7KBwg2GF/emnyx
- h2EG4At8EXMCSvcMt8DUdcZH5r4ORIZJpqifuRUb0gel8r7YxjDouq+fs
- YXNGGp9tnO69xzFh4tXDe7E9uf2NJ8oVKKl0k6wEpUeFwiXBc4fcalVy4
- XJaNaRQ2/Mq7rn8fyO0fXhGHc3g+LInuofH8YgmX2fYOMDsYJxkL/+Yzs
- uonTsaUOb8GlKkuvWh0uG3DPsygN9hDiLEsXJVFU6HlCERNqwh1rM3N8V A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10366"; a="301586707"
-X-IronPort-AV: E=Sophos;i="5.91,274,1647327600"; d="scan'208";a="301586707"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2022 02:49:23 -0700
-X-IronPort-AV: E=Sophos;i="5.91,274,1647327600"; d="scan'208";a="721689955"
-Received: from nmoazzen-mobl2.amr.corp.intel.com (HELO [10.251.214.119])
- ([10.251.214.119])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2022 02:49:20 -0700
-Message-ID: <0273c0c4-c5f2-7b0b-dc30-19f15ed9df1c@linux.intel.com>
-Date: Fri, 3 Jun 2022 12:49:56 +0300
+ dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
+ header.b="ceU8wkiw"
+Received: from [10.101.195.16] (unknown [10.101.195.16])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 1CD063FBEE; 
+ Fri,  3 Jun 2022 09:55:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1654250126;
+ bh=aYp7zmDeXZt/G1J2K5+EDJYyHuo3Iy8yi4SK4o9fkC8=;
+ h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+ In-Reply-To:Content-Type;
+ b=ceU8wkiwwNHWGAqfG9Y5X8+F1o5prLbN1acovjioyW9+FnhOV/W47NP9DkZWRf7D0
+ /HOVAoNyjg4HKlWkugV49eYlYHIVe+7Ig8rWY0Hmf8z4KjqjSMzuAufBlCUoLbKbPD
+ 3MviCRUI4I2VXYuFKAa86o5Mv5Sr5MAn4Sa+BwE6CTWwXvuctLuE+dgsdSKl+SBjAy
+ /JnLoAl4+SIlXfeJuu1x5OlPK75isCuK6j6oPzNnSy1f76KFCGI9GhCwkVsqTbEkkI
+ SsUatBQo6VH3UboVsGF2EEBm2+Nft3BhmNnhiTIsiZYb7w/X36IejJNAFmnPL7JZs+
+ NPPoJxaWZYzkw==
+Message-ID: <cd69d7e3-6a54-7438-b126-5962a8951ca3@canonical.com>
+Date: Fri, 3 Jun 2022 17:55:18 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.9.1
-Subject: Re: [PATCH 2/2] ASoC: SOF: ipc-msg-injector: Fix reversed if statement
+ Thunderbird/91.9.1
+Subject: Re: [PATCH 1/2] ASoC: nau8822: Add operation for internal PLL off and
+ on
 Content-Language: en-US
-To: Dan Carpenter <dan.carpenter@oracle.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-References: <Yph+T3PpGCdPsEDj@kili>
-From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
-In-Reply-To: <Yph+T3PpGCdPsEDj@kili>
-Content-Type: text/plain; charset=UTF-8
+To: Mark Brown <broonie@kernel.org>
+References: <20220530040151.95221-1-hui.wang@canonical.com>
+ <20220530040151.95221-2-hui.wang@canonical.com>
+ <c492a0f0-779b-6438-6245-3d6f159b48ef@gmail.com>
+ <817ab950-db61-9d48-f51f-41009c8bd23d@canonical.com>
+ <YpiR5ov8X/5yQACT@sirena.org.uk>
+From: Hui Wang <hui.wang@canonical.com>
+In-Reply-To: <YpiR5ov8X/5yQACT@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, kernel-janitors@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- sound-open-firmware@alsa-project.org
+Cc: wtli@nuvoton.com, ctlin0@nuvoton.com, alsa-devel@alsa-project.org,
+ kchsu0@nuvoton.com, David Lin <ctlin0.linux@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,50 +94,29 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+On 6/2/22 18:33, Mark Brown wrote:
+> On Thu, Jun 02, 2022 at 05:57:43PM +0800, Hui Wang wrote:
+>> On 6/2/22 17:24, David Lin wrote:
+>>> On 2022/5/30 下午 12:01, Hui Wang wrote:
+>>> So when the playback/recording starts, the PLL parameters from Reg
+>>> 0x25~0x27 will be always set before Reg 0x1[5] power enable bit(PLLEN).
+>>> When the playback/recording stops, the PLLEN will be disabled.
+>> Thanks for your comment. But it is weird, it doesn't work like you said,
+>> probably need specific route setting in the machine driver level?
+> Is this triggering due to reprogramming the PLL for one direction
+> while the other is already active (eg, starting a capture during
+> a playba
 
-On 02/06/2022 12:09, Dan Carpenter wrote:
-> This if statement is reversed.  In fact, the condition can just be
-> deleted because writing zero bytes is a no-op.
+Yes, it is. With the current machine driver of fsl-asoc-card.c, if 
+starting a capture during a playback or starting a playback during a 
+capture, the codec driver will reprogram PLL parameters while PLL is on.
 
-Wow, you are right. I only tested with a message w/o additional payload.
+And in another case, if the  snd_soc_dai_set_pll() is called in the 
+card->set_bias_level() instead of card_hw_params(), the PLL will keep 
+being off since check_mclk_select_pll() always returns false.
 
-Acked-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Thanks.
 
-> Fixes: 066c67624d8c ("ASoC: SOF: ipc-msg-injector: Add support for IPC4 messages")
-> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
-> ---
->  sound/soc/sof/sof-client-ipc-msg-injector.c | 18 ++++++++----------
->  1 file changed, 8 insertions(+), 10 deletions(-)
-> 
-> diff --git a/sound/soc/sof/sof-client-ipc-msg-injector.c b/sound/soc/sof/sof-client-ipc-msg-injector.c
-> index 030cb97d7713..6bdfa527b7f7 100644
-> --- a/sound/soc/sof/sof-client-ipc-msg-injector.c
-> +++ b/sound/soc/sof/sof-client-ipc-msg-injector.c
-> @@ -200,16 +200,14 @@ static ssize_t sof_msg_inject_ipc4_dfs_write(struct file *file,
->  		return -EFAULT;
->  
->  	count -= size;
-> -	if (!count) {
-> -		/* Copy the payload */
-> -		size = simple_write_to_buffer(ipc4_msg->data_ptr,
-> -					      priv->max_msg_size, ppos, buffer,
-> -					      count);
-> -		if (size < 0)
-> -			return size;
-> -		if (size != count)
-> -			return -EFAULT;
-> -	}
-> +	/* Copy the payload */
-> +	size = simple_write_to_buffer(ipc4_msg->data_ptr,
-> +				      priv->max_msg_size, ppos, buffer,
-> +				      count);
-> +	if (size < 0)
-> +		return size;
-> +	if (size != count)
-> +		return -EFAULT;
->  
->  	ipc4_msg->data_size = count;
->  
 
--- 
-Péter
+
+

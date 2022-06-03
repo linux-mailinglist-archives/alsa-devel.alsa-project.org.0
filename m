@@ -2,132 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39EA453C51C
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jun 2022 08:39:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C34A53C6CB
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jun 2022 10:14:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CA753183E;
-	Fri,  3 Jun 2022 08:38:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA753183E
+	by alsa0.perex.cz (Postfix) with ESMTPS id D62BD181A;
+	Fri,  3 Jun 2022 10:13:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D62BD181A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654238372;
-	bh=hK2APfiSsbAq/Xb76ncN0hYe+Hmfvgc2iK69cOAucS8=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=UC72q7krpmuISYP8UNZBSyAeomBDp1mx3jslV7tmlU1B1jep+uZzrILKT21l/8kRg
-	 v28Gp3713qbPdsielzzNrlsU56tZIX0dUvtZPfJ1vTafnAztahmaKGekx8bp0bhutD
-	 H0tg6g+V+QfV26Za6RMAnelmdYMwkSvH+zhhxwzQ=
+	s=default; t=1654244064;
+	bh=abnWwKkqq5PYGVK9R3FoNtS+jhsGrPxYlz2qgr4e6nU=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=k/1BY8pZQu9zoJSDUYmr1v/GLp1nsoAo6H27uBUkwfXiIn2NdrQCUodNgaljbDKdW
+	 HNQY28vHL2h7AH0RGn+8ZQcxIDtx24NrgFPjeF6JXFb4ky1xFjYB1Wt9jqCWsAV5nj
+	 lTAz2xRHSaWHLvdegaGnWwbU9Du1myR2JVzrc2Go=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 388A5F8055B;
-	Fri,  3 Jun 2022 08:37:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 54D8BF80124;
+	Fri,  3 Jun 2022 10:13:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9B956F8055A; Fri,  3 Jun 2022 08:37:03 +0200 (CEST)
+ id E3CC1F804CC; Fri,  3 Jun 2022 10:13:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2061a.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eae::61a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-pf1-x436.google.com (mail-pf1-x436.google.com
+ [IPv6:2607:f8b0:4864:20::436])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8FF74F80543
- for <alsa-devel@alsa-project.org>; Fri,  3 Jun 2022 08:36:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8FF74F80543
+ by alsa1.perex.cz (Postfix) with ESMTPS id DCB15F80124
+ for <alsa-devel@alsa-project.org>; Fri,  3 Jun 2022 10:13:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DCB15F80124
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com
- header.b="byKQXIi1"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EPkQKXXFSJOIXeRP5p8VW8JDwKjEzDCgQuuphHr7ajBs6SMA+KYk60iNn3NHBQlEBkTBiLaCEnN7KYBfkqatHuRxFHyDqWwpnRusGZcpAA7sYBl+rtcjZdX3IHbH0gkrq4yXcRxJFlfON4HvUb1aPUUP+ma0Q2ENIRVuxr6jCeIizXQ17Ago7LRfLc3XIruyEasLFElW8JrZYWCyH1C763EsRZEPiyVBXv6xkvlX3RP5B+DulMOc5gALow+k6ujZx6Hmvk8nnFWNjp7lz4ETpY/AIGCa14fmUPT8yY9LxqVxoLV328f6JpkWqDL+TVhb81ra+puCUyM6Sx8s9DU/ug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EZ8gkYjQTPE4SOVgYS9rPRHYZwXubcDQdkDVCiW0s7o=;
- b=YErmznFDKxtMGbgKdDCMSwdVwsDGAONwSNKc/w+T0X6OttX2XVWvbt5Twdt2FMhYpw4ml/vz19Nn7jfdR0aGvTFKREOwxFaqzgRVjbnd3vFUBh3I26SJx25rLFfmRRObrt1YVdbsuR2IBsjn+8h1Ic49HEog2K7qkQJYS+4qijnZt7+itzF2evwr2vqfFSrEKyvY8XC+A5t1dlwN7X6a8Gkp5SticYxwJ30MoV8EH5rO5afaWDs6OYAqA5M7EQQQKtbV3wh/KCe5f0QJC1zxjmrEQwb1pgD8xysIevK8pcHrlt7nGXLXOYxHW9HlGyqwCxJk+DNczeqKxrO4jn/1Vw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 12.22.5.234) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EZ8gkYjQTPE4SOVgYS9rPRHYZwXubcDQdkDVCiW0s7o=;
- b=byKQXIi1TWPAi1vLZkpt00/20/QOAjWmDxSu1YHdu3b7QPItqIVtYStwYHb5CvBsjuprOzGzSQRw27ghE5w/0rlL+1YWZTw6a+DC12WTJdMZuXPt+4xfeQ0+BLz3qtEkTGLkckDd3zTjXcys+X7SePPkloRq65e4Q54Vr6nnECoQhJng6+A/V3SCh+wpVeyoi1AAGd6ZAt9VW2RPjWbivRSPUfXMDu8LxhXxwix+iSSXEMqTo+y1MwqRXoPXfwyF0XXNWOCd6bpmm4MHtAypnIm/daXMqZlTc9JHjdDZD/xeQUVk899gNpSL8V//AvgrnJrzrHWzbb2uiWz9F7hoFQ==
-Received: from BN6PR19CA0078.namprd19.prod.outlook.com (2603:10b6:404:133::16)
- by MN2PR12MB4565.namprd12.prod.outlook.com (2603:10b6:208:26b::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.13; Fri, 3 Jun
- 2022 06:36:52 +0000
-Received: from BN8NAM11FT007.eop-nam11.prod.protection.outlook.com
- (2603:10b6:404:133:cafe::af) by BN6PR19CA0078.outlook.office365.com
- (2603:10b6:404:133::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5293.19 via Frontend
- Transport; Fri, 3 Jun 2022 06:36:52 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 12.22.5.234)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 12.22.5.234 as permitted sender) receiver=protection.outlook.com;
- client-ip=12.22.5.234; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (12.22.5.234) by
- BN8NAM11FT007.mail.protection.outlook.com (10.13.177.109) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.20.5314.12 via Frontend Transport; Fri, 3 Jun 2022 06:36:52 +0000
-Received: from rnnvmail205.nvidia.com (10.129.68.10) by DRHQMAIL101.nvidia.com
- (10.27.9.10) with Microsoft SMTP Server (TLS) id 15.0.1497.32;
- Fri, 3 Jun 2022 06:36:51 +0000
-Received: from rnnvmail205.nvidia.com (10.129.68.10) by rnnvmail205.nvidia.com
- (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Thu, 2 Jun 2022
- 23:36:50 -0700
-Received: from audio.nvidia.com (10.127.8.10) by mail.nvidia.com
- (10.129.68.10) with Microsoft SMTP Server id 15.2.986.22 via Frontend
- Transport; Thu, 2 Jun 2022 23:36:46 -0700
-From: Sameer Pujar <spujar@nvidia.com>
-To: <broonie@kernel.org>, <robh+dt@kernel.org>,
- <krzysztof.kozlowski+dt@linaro.org>, <thierry.reding@gmail.com>,
- <catalin.marinas@arm.com>, <will@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>
-Subject: [PATCH v3 6/6] arm64: tegra: Enable OPE on various platforms
-Date: Fri, 3 Jun 2022 12:06:12 +0530
-Message-ID: <1654238172-16293-7-git-send-email-spujar@nvidia.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1654238172-16293-1-git-send-email-spujar@nvidia.com>
-References: <1654238172-16293-1-git-send-email-spujar@nvidia.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="bCedhaJN"
+Received: by mail-pf1-x436.google.com with SMTP id e11so6671604pfj.5
+ for <alsa-devel@alsa-project.org>; Fri, 03 Jun 2022 01:13:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=jJndwsNGJ35YpfT/6ZKzsPH00jUacPeRpJYnOHA8axY=;
+ b=bCedhaJN+3BeY6a2bO0Sz6Cv+ieP/MqSu7rAmZaMfRV0u23z583tS5kcCsjcjlAbyg
+ jW/S0/2riIakoh/gVc3nfWbOy9RS2cS56xFtDgTF4S4IFLoC7XIxBK1qQtDCYr1tFE1r
+ Zq9SR8HzQfqaEYKZ1J+maSu0J0YxsMpOeNWqf1j4UxNGvi/NV7CFcxpstn4XHvB1odjN
+ Tr3b5SNo1uQ3GhnHixh80GE2mNPrvXzs9MwTKVOLWLKtJ8NPvmQrJQPbHj8nNgVokgaL
+ pJbrDWYC5kFIGL1jyWU59WagyhGwEHlOVgEVYQIChRG5/PwDfovy4efBiSR/iLBCmE9o
+ X85A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=jJndwsNGJ35YpfT/6ZKzsPH00jUacPeRpJYnOHA8axY=;
+ b=ieTUoY/+IHVKS3QdvU3wlBqEwJ9dVg0r23LHqXtfzs0lGppNTclywgHc0sXpdDA+2F
+ 9vhgYB0h9ShswifvfT78Op0meGiQg3cAIH0Mnvj72/xN/2yMbNISs5DwCN4uXWQTl8+/
+ YLcO2RTCfup9W4UiLdfsFRykesXixrL/2JIEK32z7K230jRzp74nFhMpP5dwkMlMX5rX
+ Dg9WMWU6mFtaZwcZ4PHDpSijCXWd+LHKPk5rJdZKrcNkMiOFLXjiag9BbLVRgDhDUU5d
+ d7xX83Le5VnhioffU3eZBq7nVzZlrksTRkzzGp76vv9fpXYbg7lZs9LlSh8OcXxED59K
+ qDdA==
+X-Gm-Message-State: AOAM533bMVeGgFkWE22koq28wETCRrN1KYmdsGQWuGIjK6N8hmVfGWdq
+ wWPoKQ0LG3pFWKNR8AMlrK8=
+X-Google-Smtp-Source: ABdhPJzLhSSgE1fP7Y2/aGP4aExAqPKXsnEkw1E0WB57GnC/qOzY/ZO6hIqB9pDe+P7Zrd5CDEqevw==
+X-Received: by 2002:a62:1744:0:b0:51b:ab76:e8c4 with SMTP id
+ 65-20020a621744000000b0051bab76e8c4mr9339294pfx.42.1654243999461; 
+ Fri, 03 Jun 2022 01:13:19 -0700 (PDT)
+Received: from localhost.localdomain ([202.120.234.246])
+ by smtp.googlemail.com with ESMTPSA id
+ g6-20020a170902c38600b00163de9e9342sm4829424plg.17.2022.06.03.01.13.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 03 Jun 2022 01:13:18 -0700 (PDT)
+From: Miaoqian Lin <linmq006@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Tzung-Bi Shih <tzungbi@google.com>, Jiaxin Yu <jiaxin.yu@mediatek.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Akihiko Odaki <akihiko.odaki@gmail.com>, Miaoqian Lin <linmq006@gmail.com>,
+ alsa-devel@alsa-project.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: mediatek: mt8173-rt5650: Fix refcount leak in
+ mt8173_rt5650_dev_probe
+Date: Fri,  3 Jun 2022 12:13:06 +0400
+Message-Id: <20220603081308.1332-1-linmq006@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0846fa38-3318-4c83-5eab-08da452b71fd
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4565:EE_
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4565D4ACBE75EE63E83A5D77A7A19@MN2PR12MB4565.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 17FPnc/L9JOjPiPjkjJVDDwk0tptBynbfa+AmgQeYzmh/Quyzrry+9S7MHbFqhyn6nIjKPjXTEyBjoSQ75jC707DBIE40QXqVMrm75OztKTIUhEnBM/NvNF/As6eiiMUAHBB4nQjqKE9c5Da1rApowPVORuiHEr3/Lox637KBKszApZq3aerTIMESwb6CAqa4h1P7Gyofr/hQO5AXQ2coiYDudD9mGRRr6nvaDl2hfUcBq284iUICKe0AEFLqv9Qv8ubv0zBgPfk2i+th/lZqIT/+Jg4yO39k+v4PEufJYflMRH3N6JiXPFf1/mXirpwU3K1jn9Re2iKgJUzOf1p5jkD5sru71YJvLi6rGIreSdOFZydY/QaQoEW1tcXGuGaA3cN8iWb1rpbpAvbuSgRjfu7H+jloBvCp/NpEvr3tqMl00lMwN+4a4p2SNSfRLZRbxJJOl0tmd6hlj0km7sv50kP7368cYkyqv/7ETnzSWNq4SBP/oEHV9gh2k92Guonl5j0CndZJ9WxjwA5qJKwNIjiYBINCZwRKkmZpOfxtdAiBDVvxoLsGp+F2S/IPoRpiXB2naHstDuhWZXp3dImnEyNqc1/lCZYXTTqnoJD7bsxKCplgZZe2cD1TFPCdlsd530FRcQdF0gIyOp0BlJgNdMjQ0bEtfWssRmBk2bLNu3XqNqtGEQPoJAV9feg5zJsG8QP2p7/kHPpDAhth9SXfw==
-X-Forefront-Antispam-Report: CIP:12.22.5.234; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:InfoNoRecords; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(316002)(36860700001)(4326008)(8676002)(2616005)(186003)(81166007)(70586007)(70206006)(8936002)(36756003)(40460700003)(86362001)(54906003)(110136005)(356005)(82310400005)(30864003)(5660300002)(2906002)(7416002)(47076005)(6666004)(7696005)(508600001)(26005)(107886003)(426003)(336012)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2022 06:36:52.2499 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0846fa38-3318-4c83-5eab-08da452b71fd
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[12.22.5.234];
- Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT007.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4565
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Sameer Pujar <spujar@nvidia.com>, linux-kernel@vger.kernel.org,
- jonathanh@nvidia.com, linux-tegra@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -143,552 +105,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Enable OPE module usage on various Jetson platforms. This can be plugged
-into an audio path using ALSA mixer controls. Add audio-graph-port binding
-to use OPE device with generic audio-graph based sound card.
+of_parse_phandle() returns a node pointer with refcount
+incremented, we should use of_node_put() on it when not need anymore.
+Fix refcount leak in some error paths.
 
-Signed-off-by: Sameer Pujar <spujar@nvidia.com>
+Fixes: format:0f83f9296d5c ("ASoC: mediatek: Add machine driver for ALC5650 codec")
+Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
 ---
- arch/arm64/boot/dts/nvidia/tegra186-p2771-0000.dts | 43 +++++++++++
- arch/arm64/boot/dts/nvidia/tegra194-p2972-0000.dts | 43 +++++++++++
- .../arm64/boot/dts/nvidia/tegra194-p3509-0000.dtsi | 43 +++++++++++
- arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts | 84 ++++++++++++++++++++++
- arch/arm64/boot/dts/nvidia/tegra210-p3450-0000.dts | 84 ++++++++++++++++++++++
- .../dts/nvidia/tegra234-p3737-0000+p3701-0000.dts  | 43 +++++++++++
- 6 files changed, 340 insertions(+)
+ sound/soc/mediatek/mt8173/mt8173-rt5650.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/nvidia/tegra186-p2771-0000.dts b/arch/arm64/boot/dts/nvidia/tegra186-p2771-0000.dts
-index 70737a0..bd18977 100644
---- a/arch/arm64/boot/dts/nvidia/tegra186-p2771-0000.dts
-+++ b/arch/arm64/boot/dts/nvidia/tegra186-p2771-0000.dts
-@@ -915,6 +915,22 @@
- 						remote-endpoint = <&asrc_in7_ep>;
- 					};
- 				};
-+
-+				xbar_ope1_in_port: port@70 {
-+					reg = <0x70>;
-+
-+					xbar_ope1_in_ep: endpoint {
-+						remote-endpoint = <&ope1_cif_in_ep>;
-+					};
-+				};
-+
-+				port@71 {
-+					reg = <0x71>;
-+
-+					xbar_ope1_out_ep: endpoint {
-+						remote-endpoint = <&ope1_cif_out_ep>;
-+					};
-+				};
- 			};
+diff --git a/sound/soc/mediatek/mt8173/mt8173-rt5650.c b/sound/soc/mediatek/mt8173/mt8173-rt5650.c
+index d1c94acb4516..e05f2b0231fe 100644
+--- a/sound/soc/mediatek/mt8173/mt8173-rt5650.c
++++ b/sound/soc/mediatek/mt8173/mt8173-rt5650.c
+@@ -280,7 +280,8 @@ static int mt8173_rt5650_dev_probe(struct platform_device *pdev)
+ 	if (!mt8173_rt5650_dais[DAI_LINK_CODEC_I2S].codecs[0].of_node) {
+ 		dev_err(&pdev->dev,
+ 			"Property 'audio-codec' missing or invalid\n");
+-		return -EINVAL;
++		ret = -EINVAL;
++		goto put_platform_node;
+ 	}
+ 	mt8173_rt5650_dais[DAI_LINK_CODEC_I2S].codecs[1].of_node =
+ 		mt8173_rt5650_dais[DAI_LINK_CODEC_I2S].codecs[0].of_node;
+@@ -293,7 +294,7 @@ static int mt8173_rt5650_dev_probe(struct platform_device *pdev)
+ 			dev_err(&pdev->dev,
+ 				"%s codec_capture_dai name fail %d\n",
+ 				__func__, ret);
+-			return ret;
++			goto put_platform_node;
+ 		}
+ 		mt8173_rt5650_dais[DAI_LINK_CODEC_I2S].codecs[1].dai_name =
+ 			codec_capture_dai;
+@@ -315,12 +316,14 @@ static int mt8173_rt5650_dev_probe(struct platform_device *pdev)
+ 	if (!mt8173_rt5650_dais[DAI_LINK_HDMI_I2S].codecs->of_node) {
+ 		dev_err(&pdev->dev,
+ 			"Property 'audio-codec' missing or invalid\n");
+-		return -EINVAL;
++		ret = -EINVAL;
++		goto put_platform_node;
+ 	}
+ 	card->dev = &pdev->dev;
  
- 			admaif@290f000 {
-@@ -1911,6 +1927,31 @@
- 				};
- 			};
+ 	ret = devm_snd_soc_register_card(&pdev->dev, card);
  
-+			processing-engine@2908000 {
-+				status = "okay";
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					port@0 {
-+						reg = <0x0>;
-+
-+						ope1_cif_in_ep: endpoint {
-+							remote-endpoint = <&xbar_ope1_in_ep>;
-+						};
-+					};
-+
-+					ope1_out_port: port@1 {
-+						reg = <0x1>;
-+
-+						ope1_cif_out_ep: endpoint {
-+							remote-endpoint = <&xbar_ope1_out_ep>;
-+						};
-+					};
-+				};
-+			};
-+
- 			amixer@290bb00 {
- 				status = "okay";
- 
-@@ -2552,6 +2593,7 @@
- 		       <&xbar_asrc_in3_port>, <&xbar_asrc_in4_port>,
- 		       <&xbar_asrc_in5_port>, <&xbar_asrc_in6_port>,
- 		       <&xbar_asrc_in7_port>,
-+		       <&xbar_ope1_in_port>,
- 		       /* HW accelerators */
- 		       <&sfc1_out_port>, <&sfc2_out_port>,
- 		       <&sfc3_out_port>, <&sfc4_out_port>,
-@@ -2571,6 +2613,7 @@
- 		       <&mixer_out5_port>,
- 		       <&asrc_out1_port>, <&asrc_out2_port>, <&asrc_out3_port>,
- 		       <&asrc_out4_port>, <&asrc_out5_port>, <&asrc_out6_port>,
-+		       <&ope1_out_port>,
- 		       /* I/O */
- 		       <&i2s1_port>, <&i2s2_port>, <&i2s3_port>, <&i2s4_port>,
- 		       <&i2s5_port>, <&i2s6_port>, <&dmic1_port>, <&dmic2_port>,
-diff --git a/arch/arm64/boot/dts/nvidia/tegra194-p2972-0000.dts b/arch/arm64/boot/dts/nvidia/tegra194-p2972-0000.dts
-index bce518a..fafd707 100644
---- a/arch/arm64/boot/dts/nvidia/tegra194-p2972-0000.dts
-+++ b/arch/arm64/boot/dts/nvidia/tegra194-p2972-0000.dts
-@@ -868,6 +868,22 @@
- 							remote-endpoint = <&asrc_in7_ep>;
- 						};
- 					};
-+
-+					xbar_ope1_in_port: port@70 {
-+						reg = <0x70>;
-+
-+						xbar_ope1_in_ep: endpoint {
-+							remote-endpoint = <&ope1_cif_in_ep>;
-+						};
-+					};
-+
-+					port@71 {
-+						reg = <0x71>;
-+
-+						xbar_ope1_out_ep: endpoint {
-+							remote-endpoint = <&ope1_cif_out_ep>;
-+						};
-+					};
- 				};
- 
- 				admaif@290f000 {
-@@ -1710,6 +1726,31 @@
- 					};
- 				};
- 
-+				processing-engine@2908000 {
-+					status = "okay";
-+
-+					ports {
-+						#address-cells = <1>;
-+						#size-cells = <0>;
-+
-+						port@0 {
-+							reg = <0x0>;
-+
-+							ope1_cif_in_ep: endpoint {
-+								remote-endpoint = <&xbar_ope1_in_ep>;
-+							};
-+						};
-+
-+						ope1_out_port: port@1 {
-+							reg = <0x1>;
-+
-+							ope1_cif_out_ep: endpoint {
-+								remote-endpoint = <&xbar_ope1_out_ep>;
-+							};
-+						};
-+					};
-+				};
-+
- 				amixer@290bb00 {
- 					status = "okay";
- 
-@@ -2273,6 +2314,7 @@
- 		       <&xbar_asrc_in3_port>, <&xbar_asrc_in4_port>,
- 		       <&xbar_asrc_in5_port>, <&xbar_asrc_in6_port>,
- 		       <&xbar_asrc_in7_port>,
-+		       <&xbar_ope1_in_port>,
- 		       /* HW accelerators */
- 		       <&sfc1_out_port>, <&sfc2_out_port>,
- 		       <&sfc3_out_port>, <&sfc4_out_port>,
-@@ -2291,6 +2333,7 @@
- 		       <&mixer_out4_port>, <&mixer_out5_port>,
- 		       <&asrc_out1_port>, <&asrc_out2_port>, <&asrc_out3_port>,
- 		       <&asrc_out4_port>, <&asrc_out5_port>, <&asrc_out6_port>,
-+		       <&ope1_out_port>,
- 		       /* BE I/O Ports */
- 		       <&i2s1_port>, <&i2s2_port>, <&i2s4_port>, <&i2s6_port>,
- 		       <&dmic3_port>;
-diff --git a/arch/arm64/boot/dts/nvidia/tegra194-p3509-0000.dtsi b/arch/arm64/boot/dts/nvidia/tegra194-p3509-0000.dtsi
-index 7acc32d..4cee935 100644
---- a/arch/arm64/boot/dts/nvidia/tegra194-p3509-0000.dtsi
-+++ b/arch/arm64/boot/dts/nvidia/tegra194-p3509-0000.dtsi
-@@ -878,6 +878,22 @@
- 							remote-endpoint = <&asrc_in7_ep>;
- 						};
- 					};
-+
-+					xbar_ope1_in_port: port@70 {
-+						reg = <0x70>;
-+
-+						xbar_ope1_in_ep: endpoint {
-+							remote-endpoint = <&ope1_cif_in_ep>;
-+						};
-+					};
-+
-+					port@71 {
-+						reg = <0x71>;
-+
-+						xbar_ope1_out_ep: endpoint {
-+							remote-endpoint = <&ope1_cif_out_ep>;
-+						};
-+					};
- 				};
- 
- 				admaif@290f000 {
-@@ -1770,6 +1786,31 @@
- 					};
- 				};
- 
-+				processing-engine@2908000 {
-+					status = "okay";
-+
-+					ports {
-+						#address-cells = <1>;
-+						#size-cells = <0>;
-+
-+						port@0 {
-+							reg = <0x0>;
-+
-+							ope1_cif_in_ep: endpoint {
-+								remote-endpoint = <&xbar_ope1_in_ep>;
-+							};
-+						};
-+
-+						ope1_out_port: port@1 {
-+							reg = <0x1>;
-+
-+							ope1_cif_out_ep: endpoint {
-+								remote-endpoint = <&xbar_ope1_out_ep>;
-+							};
-+						};
-+					};
-+				};
-+
- 				amixer@290bb00 {
- 					status = "okay";
- 
-@@ -2323,6 +2364,7 @@
- 		       <&xbar_asrc_in3_port>, <&xbar_asrc_in4_port>,
- 		       <&xbar_asrc_in5_port>, <&xbar_asrc_in6_port>,
- 		       <&xbar_asrc_in7_port>,
-+		       <&xbar_ope1_in_port>,
- 		       /* HW accelerators */
- 		       <&sfc1_out_port>, <&sfc2_out_port>,
- 		       <&sfc3_out_port>, <&sfc4_out_port>,
-@@ -2342,6 +2384,7 @@
- 		       <&mixer_out5_port>,
- 		       <&asrc_out1_port>, <&asrc_out2_port>, <&asrc_out3_port>,
- 		       <&asrc_out4_port>, <&asrc_out5_port>, <&asrc_out6_port>,
-+		       <&ope1_out_port>,
- 		       /* BE I/O Ports */
- 		       <&i2s3_port>, <&i2s5_port>,
- 		       <&dmic1_port>, <&dmic2_port>, <&dmic4_port>,
-diff --git a/arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts b/arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts
-index 328fbfe..1e26ca9 100644
---- a/arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts
-+++ b/arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts
-@@ -682,6 +682,56 @@
- 				};
- 			};
- 
-+			processing-engine@702d8000 {
-+				status = "okay";
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					port@0 {
-+						reg = <0x0>;
-+
-+						ope1_cif_in_ep: endpoint {
-+							remote-endpoint = <&xbar_ope1_in_ep>;
-+						};
-+					};
-+
-+					ope1_out_port: port@1 {
-+						reg = <0x1>;
-+
-+						ope1_cif_out_ep: endpoint {
-+							remote-endpoint = <&xbar_ope1_out_ep>;
-+						};
-+					};
-+				};
-+			};
-+
-+			processing-engine@702d8400 {
-+				status = "okay";
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					port@0 {
-+						reg = <0x0>;
-+
-+						ope2_cif_in_ep: endpoint {
-+							remote-endpoint = <&xbar_ope2_in_ep>;
-+						};
-+					};
-+
-+					ope2_out_port: port@1 {
-+						reg = <0x1>;
-+
-+						ope2_cif_out_ep: endpoint {
-+							remote-endpoint = <&xbar_ope2_out_ep>;
-+						};
-+					};
-+				};
-+			};
-+
- 			amixer@702dbb00 {
- 				status = "okay";
- 
-@@ -1251,6 +1301,38 @@
- 						remote-endpoint = <&mixer_out5_ep>;
- 					};
- 				};
-+
-+				xbar_ope1_in_port: port@41 {
-+					reg = <0x41>;
-+
-+					xbar_ope1_in_ep: endpoint {
-+						remote-endpoint = <&ope1_cif_in_ep>;
-+					};
-+				};
-+
-+				port@42 {
-+					reg = <0x42>;
-+
-+					xbar_ope1_out_ep: endpoint {
-+						remote-endpoint = <&ope1_cif_out_ep>;
-+					};
-+				};
-+
-+				xbar_ope2_in_port: port@43 {
-+					reg = <0x43>;
-+
-+					xbar_ope2_in_ep: endpoint {
-+						remote-endpoint = <&ope2_cif_in_ep>;
-+					};
-+				};
-+
-+				port@44 {
-+					reg = <0x44>;
-+
-+					xbar_ope2_out_ep: endpoint {
-+						remote-endpoint = <&ope2_cif_out_ep>;
-+					};
-+				};
- 			};
- 		};
- 	};
-@@ -1281,6 +1363,7 @@
- 		       <&xbar_mixer_in5_port>, <&xbar_mixer_in6_port>,
- 		       <&xbar_mixer_in7_port>, <&xbar_mixer_in8_port>,
- 		       <&xbar_mixer_in9_port>, <&xbar_mixer_in10_port>,
-+		       <&xbar_ope1_in_port>, <&xbar_ope2_in_port>,
- 		       /* HW accelerators */
- 		       <&sfc1_out_port>, <&sfc2_out_port>,
- 		       <&sfc3_out_port>, <&sfc4_out_port>,
-@@ -1293,6 +1376,7 @@
- 		       <&mixer_out1_port>, <&mixer_out2_port>,
- 		       <&mixer_out3_port>, <&mixer_out4_port>,
- 		       <&mixer_out5_port>,
-+		       <&ope1_out_port>, <&ope2_out_port>,
- 		       /* I/O DAP Ports */
- 		       <&i2s1_port>, <&i2s2_port>, <&i2s3_port>, <&i2s4_port>,
- 		       <&i2s5_port>, <&dmic1_port>, <&dmic2_port>, <&dmic3_port>;
-diff --git a/arch/arm64/boot/dts/nvidia/tegra210-p3450-0000.dts b/arch/arm64/boot/dts/nvidia/tegra210-p3450-0000.dts
-index 746bd52..749b44c 100644
---- a/arch/arm64/boot/dts/nvidia/tegra210-p3450-0000.dts
-+++ b/arch/arm64/boot/dts/nvidia/tegra210-p3450-0000.dts
-@@ -1074,6 +1074,56 @@
- 				};
- 			};
- 
-+			processing-engine@702d8000 {
-+				status = "okay";
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					port@0 {
-+						reg = <0x0>;
-+
-+						ope1_cif_in_ep: endpoint {
-+							remote-endpoint = <&xbar_ope1_in_ep>;
-+						};
-+					};
-+
-+					ope1_out_port: port@1 {
-+						reg = <0x1>;
-+
-+						ope1_cif_out_ep: endpoint {
-+							remote-endpoint = <&xbar_ope1_out_ep>;
-+						};
-+					};
-+				};
-+			};
-+
-+			processing-engine@702d8400 {
-+				status = "okay";
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					port@0 {
-+						reg = <0x0>;
-+
-+						ope2_cif_in_ep: endpoint {
-+							remote-endpoint = <&xbar_ope2_in_ep>;
-+						};
-+					};
-+
-+					ope2_out_port: port@1 {
-+						reg = <0x1>;
-+
-+						ope2_cif_out_ep: endpoint {
-+							remote-endpoint = <&xbar_ope2_out_ep>;
-+						};
-+					};
-+				};
-+			};
-+
- 			amixer@702dbb00 {
- 				status = "okay";
- 
-@@ -1611,6 +1661,38 @@
- 						remote-endpoint = <&mixer_out5_ep>;
- 					};
- 				};
-+
-+				xbar_ope1_in_port: port@41 {
-+					reg = <0x41>;
-+
-+					xbar_ope1_in_ep: endpoint {
-+						remote-endpoint = <&ope1_cif_in_ep>;
-+					};
-+				};
-+
-+				port@42 {
-+					reg = <0x42>;
-+
-+					xbar_ope1_out_ep: endpoint {
-+						remote-endpoint = <&ope1_cif_out_ep>;
-+					};
-+				};
-+
-+				xbar_ope2_in_port: port@43 {
-+					reg = <0x43>;
-+
-+					xbar_ope2_in_ep: endpoint {
-+						remote-endpoint = <&ope2_cif_in_ep>;
-+					};
-+				};
-+
-+				port@44 {
-+					reg = <0x44>;
-+
-+					xbar_ope2_out_ep: endpoint {
-+						remote-endpoint = <&ope2_cif_out_ep>;
-+					};
-+				};
- 			};
- 		};
- 	};
-@@ -1884,6 +1966,7 @@
- 		       <&xbar_mixer_in5_port>, <&xbar_mixer_in6_port>,
- 		       <&xbar_mixer_in7_port>, <&xbar_mixer_in8_port>,
- 		       <&xbar_mixer_in9_port>, <&xbar_mixer_in10_port>,
-+		       <&xbar_ope1_in_port>, <&xbar_ope2_in_port>,
- 		       /* HW accelerators */
- 		       <&sfc1_out_port>, <&sfc2_out_port>,
- 		       <&sfc3_out_port>, <&sfc4_out_port>,
-@@ -1896,6 +1979,7 @@
- 		       <&mixer_out1_port>, <&mixer_out2_port>,
- 		       <&mixer_out3_port>, <&mixer_out4_port>,
- 		       <&mixer_out5_port>,
-+		       <&ope1_out_port>, <&ope2_out_port>,
- 		       /* I/O DAP Ports */
- 		       <&i2s3_port>, <&i2s4_port>,
- 		       <&dmic1_port>, <&dmic2_port>;
-diff --git a/arch/arm64/boot/dts/nvidia/tegra234-p3737-0000+p3701-0000.dts b/arch/arm64/boot/dts/nvidia/tegra234-p3737-0000+p3701-0000.dts
-index eaf1994..3f6c399 100644
---- a/arch/arm64/boot/dts/nvidia/tegra234-p3737-0000+p3701-0000.dts
-+++ b/arch/arm64/boot/dts/nvidia/tegra234-p3737-0000+p3701-0000.dts
-@@ -867,6 +867,22 @@
- 							remote-endpoint = <&asrc_in7_ep>;
- 						};
- 					};
-+
-+					xbar_ope1_in_port: port@70 {
-+						reg = <0x70>;
-+
-+						xbar_ope1_in_ep: endpoint {
-+							remote-endpoint = <&ope1_cif_in_ep>;
-+						};
-+					};
-+
-+					port@71 {
-+						reg = <0x71>;
-+
-+						xbar_ope1_out_ep: endpoint {
-+							remote-endpoint = <&ope1_cif_out_ep>;
-+						};
-+					};
- 				};
- 
- 				i2s@2901000 {
-@@ -1490,6 +1506,31 @@
- 					};
- 				};
- 
-+				processing-engine@2908000 {
-+					status = "okay";
-+
-+					ports {
-+						#address-cells = <1>;
-+						#size-cells = <0>;
-+
-+						port@0 {
-+							reg = <0x0>;
-+
-+							ope1_cif_in_ep: endpoint {
-+								remote-endpoint = <&xbar_ope1_in_ep>;
-+							};
-+						};
-+
-+						ope1_out_port: port@1 {
-+							reg = <0x1>;
-+
-+							ope1_cif_out_ep: endpoint {
-+								remote-endpoint = <&xbar_ope1_out_ep>;
-+							};
-+						};
-+					};
-+				};
-+
- 				mvc@290a000 {
- 					status = "okay";
- 
-@@ -2044,6 +2085,7 @@
- 		       <&xbar_asrc_in3_port>, <&xbar_asrc_in4_port>,
- 		       <&xbar_asrc_in5_port>, <&xbar_asrc_in6_port>,
- 		       <&xbar_asrc_in7_port>,
-+		       <&xbar_ope1_in_port>,
- 		       /* HW accelerators */
- 		       <&sfc1_out_port>, <&sfc2_out_port>,
- 		       <&sfc3_out_port>, <&sfc4_out_port>,
-@@ -2062,6 +2104,7 @@
- 		       <&mix_out4_port>, <&mix_out5_port>,
- 		       <&asrc_out1_port>, <&asrc_out2_port>, <&asrc_out3_port>,
- 		       <&asrc_out4_port>, <&asrc_out5_port>, <&asrc_out6_port>,
-+		       <&ope1_out_port>,
- 		       /* BE I/O Ports */
- 		       <&i2s1_port>, <&i2s2_port>, <&i2s4_port>, <&i2s6_port>,
- 		       <&dmic3_port>;
++put_platform_node:
+ 	of_node_put(platform_node);
+ 	return ret;
+ }
 -- 
-2.7.4
+2.25.1
 

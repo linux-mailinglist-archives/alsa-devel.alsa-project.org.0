@@ -2,76 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A62A153CCC7
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jun 2022 17:57:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AEC653CD71
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jun 2022 18:45:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 47BB817FD;
-	Fri,  3 Jun 2022 17:56:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 47BB817FD
+	by alsa0.perex.cz (Postfix) with ESMTPS id C83AC185B;
+	Fri,  3 Jun 2022 18:44:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C83AC185B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654271854;
-	bh=do45Ry6X9w4Wqfs8CtgSTjGxfBd0qYD0PrlxAw2iZnk=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1654274735;
+	bh=f/Cc7sfTxvocP+SH0XHZEPEtWLZ45J7whWONN0hiMns=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QFo3qAOjj5kAlCXEcDRSAOtMT8StZZptu6MHcwN7FLehm3VCQlw8ODE76n8X0R7J9
-	 U9S3uAQzYg96lqq2nU9TByBLoXKIo1DHwWpc7NkdeeYDM59e8E0Ast1k5X929Ul2/7
-	 DA7TobiWKi7fnJRtZOxm3ZOLGuSCGQw2hDertA5o=
+	b=ky6HKDNCj3FXNtN+OPsI206mtf4GFLzc7Wj9nraa9tYbnrRr1wZmaYa4AdeXFxEYQ
+	 8OkPuaQ/fG8fFvDF8WUW1wh2fqZ8n13UpGmzPFw1ywx+bzwpaU11ygCvdJ2dTG27Ah
+	 n/90Q3spddoOHMOdxN4aF7HYt3MbPCLD+96VdcIw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9DFB2F80089;
-	Fri,  3 Jun 2022 17:56:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4892CF804C1;
+	Fri,  3 Jun 2022 18:44:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BEE65F804CC; Fri,  3 Jun 2022 17:56:35 +0200 (CEST)
+ id 1E132F804CC; Fri,  3 Jun 2022 18:44:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 96DAEF80089;
- Fri,  3 Jun 2022 17:56:26 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id D6E56A0046;
- Fri,  3 Jun 2022 17:56:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz D6E56A0046
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1654271785; bh=6e9Ct4bSSCSd91ZeU6ZWmWOgS1KC09/SBlahj7U2lTw=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=nBTklufZwp27WvKJu+3dQP86EFobdKdvbwJmMa7048gBsN59UbxaROwIecI2I8Q87
- YyeH1qK6NZ4v2lj6utle0dGuQDfcyI76KcXRVtrqE5zKu3ObSiiguyX1r3iwsZ5i1V
- ULcnB/+YOg2nL/Sh2YkSbqlsR13OCWKp+ccfhL+U=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
+X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ USER_IN_DEF_DKIM_WL autolearn=disabled version=3.4.0
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [IPv6:2a00:1450:4864:20::62e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Fri,  3 Jun 2022 17:56:19 +0200 (CEST)
-Message-ID: <838d6161-5b17-1fd7-d864-9e0f13bf2ef5@perex.cz>
-Date: Fri, 3 Jun 2022 17:56:19 +0200
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A0572F800F5
+ for <alsa-devel@alsa-project.org>; Fri,  3 Jun 2022 18:44:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0572F800F5
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="aZlpQAhe"
+Received: by mail-ej1-x62e.google.com with SMTP id s6so5454720eja.0
+ for <alsa-devel@alsa-project.org>; Fri, 03 Jun 2022 09:44:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=G8r/Lq2iH7lYUmC0qatILVQgk9vw3F/w16dF324mtWQ=;
+ b=aZlpQAhecEI0B2kIC13P6x5Zi7SorObmX+eb4jK0LAIcvjFVxb0rxdh8NWqIqMSb7C
+ Cfi4cEWw9aU39jvI2EkYKPTIqnlf8v2wWuanJWLAdi8Qmt7BGJMMLaktaKXmXK68JJRn
+ bVI93mA/fdSToI5gpY/F2yumxShwPXRk5yjhc/qrABZmgOCPzaEeZv8FA6SYeLNPf4DU
+ VZUBPgyyucalsVPqbohS5zxrscV8lzfGHitArpA+xclaMvrOYh1VW1QzzJRT/r4cwQbh
+ +tzPOLZq7bDdKrXfbELBNy688C6F95mG2j6aIbAvBDK7BmdbMaWS790KVvPP6pUOgSAq
+ sxNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=G8r/Lq2iH7lYUmC0qatILVQgk9vw3F/w16dF324mtWQ=;
+ b=jWktk8eTvtRd0StyMkdRRHbqPw2mY1mHrx6c1vIFFpCMZfuBo5gMcVb6TwyMzto6Ze
+ vSbeIQMnuBXFqvFGnu87w/R1FGHl9YwPLxTA50EoJMwANDzihN0mS2Ghgz5Ileu2D/YP
+ GiDoV+GDM42KxmQolErf6LYVo7RDfHR51y9MZQjulaiue29gG+FWPoqtN+mCXK3lVXS5
+ MfjLbSyjxlRc+EN4tEpvW/HtCBb7gOFROlFpkpbN4VqM6vp7YHUfdEhEs9tchXKYFoDe
+ bNqS+H4ZB7miYQFyWcdbzF9GjJQWu/RJ8wO98CJbxw/a6QUdgnG/fiXgwvZzNu6QQoMK
+ lCog==
+X-Gm-Message-State: AOAM530nqjH/tzK85zNYs66PRFUML1IT/ohjlstTEoRc7pmIma3P84av
+ oAK0PsZXQRuC4v1Oo9Wgshrr7TbgGHa/xBAfGlFdmQ==
+X-Google-Smtp-Source: ABdhPJx7yM9xyk1/nxIev8AjizxzrThcBDzqhNNV9o8uXxQGxlx8Dciv8+BIp9+EOrN+IcDkDlsEmboiXQXOBpz+JKg=
+X-Received: by 2002:a17:907:8689:b0:6fe:e525:ea9c with SMTP id
+ qa9-20020a170907868900b006fee525ea9cmr9489496ejc.720.1654274666765; Fri, 03
+ Jun 2022 09:44:26 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Subject: Re: [Sound-open-firmware] jack detection via input/event on linux
-Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- hede <alsa426@der-he.de>
-References: <d8b21eb11013b6dd1e90e425bd808951@der-he.de>
- <fe472e98-82b8-bba4-364a-930d8616b4e2@perex.cz>
- <31258284cefb38127e84b2d098f8e2aa@der-he.de>
- <cb35ce57-7696-3edb-459a-d2e8557a4748@perex.cz>
- <571618d8-fdd8-eaab-a8e8-c26857e97580@linux.intel.com>
-From: Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <571618d8-fdd8-eaab-a8e8-c26857e97580@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- sound-open-firmware@alsa-project.org
+References: <20220603131043.38907-1-linmq006@gmail.com>
+In-Reply-To: <20220603131043.38907-1-linmq006@gmail.com>
+From: Guenter Roeck <groeck@google.com>
+Date: Fri, 3 Jun 2022 09:44:15 -0700
+Message-ID: <CABXOdTdZNBM=RA_72bL8nua=qajRWD3iKEDi3bai+Aghu1ygJQ@mail.gmail.com>
+Subject: Re: [PATCH v2] ASoC: cros_ec_codec: Fix refcount leak in
+ cros_ec_codec_platform_probe
+To: Miaoqian Lin <linmq006@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+ ALSA development <alsa-devel@alsa-project.org>,
+ chrome-platform@lists.linux.dev, linux-kernel <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Tzung-Bi Shih <tzungbi@google.com>, Mark Brown <broonie@kernel.org>,
+ Guenter Roeck <groeck@chromium.org>, Benson Leung <bleung@chromium.org>,
+ Cheng-Yi Chiang <cychiang@chromium.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,41 +101,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 03. 06. 22 17:48, Pierre-Louis Bossart wrote:
-> [Adding alsa-devel, Mark and Takashi to this thread]
-> 
-> On 6/3/22 08:33, Jaroslav Kysela wrote:
->> On 03. 06. 22 13:17, hede wrote:
->>> Am 03.06.2022 11:34, schrieb Jaroslav Kysela:
->>>> PA/PW use only ALSA controls at the moment - thus you should define
->>>> JackControl as defined in use-case.h. But it seems that the driver
->>>> does not create or publish the ALSA jack control (I see only
->>>> "iface=CARD,name='HDMI/DP,pcm=2 Jack'" jack controls for HDMI).
->>>>
->>>>                      Jaroslav
->>>
->>> Ah, thank you Jaroslav. That's the hint I was searching for atm.
->>> JackDev vs. JackControl. I had a vague guess on this but now you made it
->>> certain.
->>>
->>> Maybe I should take a look into the driver directly.
->>
->> It seems that many ASoC drivers do not create kctls - the argument pins
->> is zero in the snd_soc_card_jack_new() call. The SND_JACK_HEADSET should
->> be remapped to kctl in sound/soc/intel/boards/sof_rt5682.c, too.
-> 
-> Did you mean something like the patch below Jaroslav? If yes, most of
-> the Chromebook machine drivers are missing this remapping. That would
-> also explain why the jack detection didn't work on my GLK test device,
-> despite a UCM file that looked good...
+On Fri, Jun 3, 2022 at 6:11 AM Miaoqian Lin <linmq006@gmail.com> wrote:
+>
+> of_parse_phandle() returns a node pointer with refcount
+> incremented, we should use of_node_put() on it when not need anymore.
+> Add missing of_node_put() to avoid refcount leak.
+>
+> Fixes: b6bc07d4360d ("ASoC: cros_ec_codec: support WoV")
+> Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
 
-Yes, it looks like a way to go. It seems that the drivers were tested only 
-with the CRAS audio server. Note that pulseaudio can be run with the user 
-permissions only - thus the input devices may not be reachable.
+Reviewed-by: Guenter Roeck <groeck@chromium.org>
 
-				Thanks,
-					Jaroslav
-
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+> ---
+> changes in v2:
+> - update Fixes tag
+> v1 Link: https://lore.kernel.org/r/20220602114529.6303-1-linmq006@gmail.com
+> ---
+>  sound/soc/codecs/cros_ec_codec.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/sound/soc/codecs/cros_ec_codec.c b/sound/soc/codecs/cros_ec_codec.c
+> index 8b0a9c788a26..11e7b3f6d410 100644
+> --- a/sound/soc/codecs/cros_ec_codec.c
+> +++ b/sound/soc/codecs/cros_ec_codec.c
+> @@ -995,6 +995,7 @@ static int cros_ec_codec_platform_probe(struct platform_device *pdev)
+>                         dev_dbg(dev, "ap_shm_phys_addr=%#llx len=%#x\n",
+>                                 priv->ap_shm_phys_addr, priv->ap_shm_len);
+>                 }
+> +               of_node_put(node);
+>         }
+>  #endif
+>
+> --
+> 2.25.1
+>

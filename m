@@ -2,85 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8FD253D619
-	for <lists+alsa-devel@lfdr.de>; Sat,  4 Jun 2022 10:24:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DECE53D676
+	for <lists+alsa-devel@lfdr.de>; Sat,  4 Jun 2022 12:54:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3E1CB175F;
-	Sat,  4 Jun 2022 10:23:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E1CB175F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9BF171865;
+	Sat,  4 Jun 2022 12:53:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9BF171865
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654331086;
-	bh=0AaBduRrXcoF0NJ0MYh0cIl2NOWzfp/F7sdL2Z8MCn0=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=csprJS5zjlT77otqGbV2D+uss38cBxFZElEtYZ8EHVbOK3B7KzNIxsL6pF0QXJ9Ug
-	 srWFafzX1enmchZf9Zu3rWJkS3uyhkgDF2Cm1GTi5OZCGW6GIrdcKrNbop3BI7X2lH
-	 5+gzWCVh5em4SU843I/4e8CbU7S13UZ7q9Tk6xz4=
+	s=default; t=1654340039;
+	bh=aQWGVz14tVMgdX2bV3/UpFILqPAYToEPDjNPLV6X1FY=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=nuZ2Fz16GFDen9DCCzq1H3kqVdRM14hLBZvNKz283X4xym48AVW+e9PRx4RpOObst
+	 lEHap1nEjY7hkq3NKKO9mkraerQnGB1lEt6MRV5vh0bLtobcxwZyCB9VWAqGbgqhdU
+	 lOTbjmbc3iQLI05QaZ3CbZF2IAQPkMwvtp7p5B7Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AC0CAF801EC;
-	Sat,  4 Jun 2022 10:23:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 478CDF801EC;
+	Sat,  4 Jun 2022 12:53:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A9145F8016D; Sat,  4 Jun 2022 10:23:46 +0200 (CEST)
+ id 17DA3F8016D; Sat,  4 Jun 2022 12:53:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from smtp-relay-canonical-1.canonical.com
- (smtp-relay-canonical-1.canonical.com [185.125.188.121])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2F925F80089
- for <alsa-devel@alsa-project.org>; Sat,  4 Jun 2022 10:23:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F925F80089
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5D05CF80124
+ for <alsa-devel@alsa-project.org>; Sat,  4 Jun 2022 12:52:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D05CF80124
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
- header.b="p5YD7LlS"
-Received: from [192.168.0.109] (unknown [123.112.66.143])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="rHZfbumU"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id BBA1A3F12B; 
- Sat,  4 Jun 2022 08:23:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1654331016;
- bh=aQvt7Mjm/73yrtUJKZPUj0EaH8bpxfi4gFxjX9P1QCg=;
- h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
- In-Reply-To:Content-Type;
- b=p5YD7LlSulE6nE3KMJnl4ZNCO4RZj/OuiqynMGu6rtCUEAy9Tb7QwNOf1iF+e/zNt
- szd8p4/BvsCQHO7GlwoGTA+p9UapscOfvspBQ/vMLOqaAVSTG2NqVmdwoUaKJhBgaq
- mcBcLTHGBmIScrb08MuNShl4FGcUl2NQ7//6gwvxBOUkVfCRnc700mfDL/M3q3XQNV
- YA0CIGQlLVH2uJkPwGOXhO8tQBYGo5LPCwVb76hL/x3v22+Iy24q+xm6mFZGxk0eGC
- vlGnmuxAJIiceZ5J+I0sGHYdZsHXD/qdLDfXDDka6osZ2QuFb9nDrrbbGaeExrb7kq
- 57e5rYcEjdyyg==
-Message-ID: <087d4274-c744-77f0-287e-0f4fe3b2ad67@canonical.com>
-Date: Sat, 4 Jun 2022 16:23:24 +0800
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 4A2A160A50;
+ Sat,  4 Jun 2022 10:52:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C546EC385B8;
+ Sat,  4 Jun 2022 10:52:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1654339973;
+ bh=aQWGVz14tVMgdX2bV3/UpFILqPAYToEPDjNPLV6X1FY=;
+ h=From:To:Cc:Subject:Date:From;
+ b=rHZfbumUs6Zb6nrLIuPMV+r/znrwoNuooS+3YziSQ+vENkmN6w5iqEaeESr4u788r
+ alh3l20mkVM2QQro6AAW0A39SdSG1oLMq5r4HzMr8UDv2VhpexNqf2/TEW55vDWxEZ
+ RWfgau0E4mV1KrXm4IvE7a8pp5K5wxmAIHj0Bp0YWgp2yNNXJtqLlM6DlsN9To8BAk
+ hB3URf6f+KJih9Zf6PgwuhfJ2TaJe8xJK4/fHyUAMu4pN9hZSxiNhPqxueUtAltO/C
+ OWPtUoCsWvXxyyUEJqYeKkrC0dsEq2OgxOvnhO4RhHCUUKPCbz/ClBNRKhvnI/N2z+
+ TO8Xg20HTkCNw==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>
+Subject: [PATCH] ASoC: ops: Fix off by one in range control validation
+Date: Sat,  4 Jun 2022 11:52:46 +0100
+Message-Id: <20220604105246.4055214-1-broonie@kernel.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH 1/2] ASoC: nau8822: Add operation for internal PLL off and
- on
-Content-Language: en-US
-To: David Lin <ctlin0.linux@gmail.com>, Mark Brown <broonie@kernel.org>
-References: <20220530040151.95221-1-hui.wang@canonical.com>
- <20220530040151.95221-2-hui.wang@canonical.com>
- <c492a0f0-779b-6438-6245-3d6f159b48ef@gmail.com>
- <817ab950-db61-9d48-f51f-41009c8bd23d@canonical.com>
- <YpiR5ov8X/5yQACT@sirena.org.uk>
- <cd69d7e3-6a54-7438-b126-5962a8951ca3@canonical.com>
- <YpneCrGXLYeK9WB5@sirena.org.uk>
- <95d95e72-4230-a1c9-83f5-ed1449164182@gmail.com>
-From: Hui Wang <hui.wang@canonical.com>
-In-Reply-To: <95d95e72-4230-a1c9-83f5-ed1449164182@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1005; h=from:subject;
+ bh=aQWGVz14tVMgdX2bV3/UpFILqPAYToEPDjNPLV6X1FY=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBimy6LDNp0ebSWX6Wle08hLwX2sDK/ccNv0HllhgXp
+ mCBHdiWJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCYpsuiwAKCRAk1otyXVSH0MDTB/
+ 9qTMwUCGLhwV8pF6Q4+7bnSJpPAW0t/t0ATTkHFJ3O4MG+nTtko5S0h3L6I/8+5wm4mdVtZ4C9jTh5
+ s20YTf4ucsaMOALzef4apLTTHy6mDPqZqq04BzT7VKOWwXKAXtTJw6rLt2qqtiMCONUzSnryLiGRQt
+ 31SqVctrl9Nxysmn3bP1qovsm4m5xAXMLWHaBSgpGp8fF7de8wAfe4E/MDd+iQeU5MwkxoUjhnfP0P
+ B/3X498J+J60yc3qrQIKaH53yPuPn45rQwnBDUGFmOzb2dqbr5BkNrCm6EVrOxbUUHxEBpBSIjHWSv
+ gTOrRbXnlaHmEo/L9g16TJNei83WEW
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 Content-Transfer-Encoding: 8bit
-Cc: wtli@nuvoton.com, kchsu0@nuvoton.com, alsa-devel@alsa-project.org,
- ctlin0@nuvoton.com
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,62 +92,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+We currently report that range controls accept a range of 0..(max-min) but
+accept writes in the range 0..(max-min+1). Remove that extra +1.
 
-On 6/3/22 21:26, David Lin wrote:
-> On 2022/6/3 下午 06:10, Mark Brown wrote:
->> On Fri, Jun 03, 2022 at 05:55:18PM +0800, Hui Wang wrote:
->>> On 6/2/22 18:33, Mark Brown wrote:
->>>>> Thanks for your comment. But it is weird, it doesn't work like you 
->>>>> said,
->>>>> probably need specific route setting in the machine driver level?
->>>> Is this triggering due to reprogramming the PLL for one direction
->>>> while the other is already active (eg, starting a capture during
->>>> a playba
->>> Yes, it is. With the current machine driver of fsl-asoc-card.c, if 
->>> starting
->>> a capture during a playback or starting a playback during a capture, 
->>> the
->>> codec driver will reprogram PLL parameters while PLL is on.
->> So your patch fixes that case - note however that you're probably
->> getting an audio glitch in the already active stream while doing
->> this.  I'll send a patch which should improve that shortly. BTW,
->> shouldn't the PLL power be left off if the output frequency is 0?
->
-> Agree Mark's comment.
->
-> By the way, when the platform's dai_link support be_hw_params_fixup 
-> callback, the sample rate will be fixed to same rate, so PLL will not 
-> be also reconfigured during playback and recording at the same time.
->
-Agree with your comment. And the Mark's patch is a better one. After 
-Mark's  patch is merged, I will revert my [1/2 PATCH] if that is not 
-dropped from the Mark's tree.
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/soc-ops.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-And then I will update my [2/2 PATCH] as below since the error of 
-"fsl-asoc-card sound-nau8822: failed to stop FLL: -22" need to be 
-handled and pll_param->freq_in/freq_out need to be cleared. If 
-freq_in/freq_out is not cleared, it is possible that the 
-NAU8822_REG_CLOCKING can't be updated (suppose play sound by PLL -> MCLK 
--> PLL).
+diff --git a/sound/soc/soc-ops.c b/sound/soc/soc-ops.c
+index 93e72a016b4d..e11109dcaa50 100644
+--- a/sound/soc/soc-ops.c
++++ b/sound/soc/soc-ops.c
+@@ -542,7 +542,7 @@ int snd_soc_put_volsw_range(struct snd_kcontrol *kcontrol,
+ 		return -EINVAL;
+ 	if (mc->platform_max && tmp > mc->platform_max)
+ 		return -EINVAL;
+-	if (tmp > mc->max - mc->min + 1)
++	if (tmp > mc->max - mc->min)
+ 		return -EINVAL;
+ 
+ 	if (invert)
+@@ -563,7 +563,7 @@ int snd_soc_put_volsw_range(struct snd_kcontrol *kcontrol,
+ 			return -EINVAL;
+ 		if (mc->platform_max && tmp > mc->platform_max)
+ 			return -EINVAL;
+-		if (tmp > mc->max - mc->min + 1)
++		if (tmp > mc->max - mc->min)
+ 			return -EINVAL;
+ 
+ 		if (invert)
+-- 
+2.30.2
 
-@@ -726,6 +726,13 @@ static int nau8822_set_pll(struct snd_soc_dai *dai, 
-int pll_id, int source,
-         struct nau8822_pll *pll_param = &nau8822->pll;
-         int ret, fs;
-
-+       if (freq_in == 0 || freq_out == 0) {
-+               dev_dbg(component->dev, "PLL disabled\n");
-+               pll_param->freq_in = 0;
-+               pll_param->freq_out = 0;
-+               return 0;
-+       }
-+
-         if (freq_in == pll_param->freq_in &&
-             freq_out == pll_param->freq_out)
-                 return 0;
-
->>> And in another case, if the snd_soc_dai_set_pll() is called in the
->>> card->set_bias_level() instead of card_hw_params(), the PLL will 
->>> keep being
->>> off since check_mclk_select_pll() always returns false.
->> That should be fixable...

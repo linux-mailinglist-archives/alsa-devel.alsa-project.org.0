@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEFE353D7B8
-	for <lists+alsa-devel@lfdr.de>; Sat,  4 Jun 2022 18:22:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A34C553D7BB
+	for <lists+alsa-devel@lfdr.de>; Sat,  4 Jun 2022 18:25:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0F91F18AE;
-	Sat,  4 Jun 2022 18:21:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F91F18AE
+	by alsa0.perex.cz (Postfix) with ESMTPS id ECC0818C2;
+	Sat,  4 Jun 2022 18:24:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ECC0818C2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654359761;
-	bh=ZOugJubG8tJsKttpX1+B5Y7MXw3VzwL4z6jiqZ1NYmE=;
+	s=default; t=1654359917;
+	bh=L4zdy/vZSDUSLVVw8RV0yg76zDFGGIXwDdxh0q3hQ00=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kNBrBazzmSyLWsN6nA4TCWOToWwiUtFeewxqZuUMbrq5IpmNh0qux3Cfq/jlEhGRi
-	 3I8Dr3zxwhSh/lu5I9ffiHk2EXHtHC/9q4ISEk0SvwPD1gR4aOtUCnBNCg5HcQOkp0
-	 02QTjTaxln/qNk2YJ1sjMHWT8tN0ni/N40gWAN2U=
+	b=GcIeVv9hABkPH3Bx/+8LJRCgmGwT4pGIC7aurChnpnDNBCxzNhZTHy+dEzzCN2rY6
+	 cwtVt6+XYvilGuESkyS8Pi8udGiU0pLVBErYliyHBEknr5BqhoUJPfbvoi3pYg0Yzg
+	 50wE3JAL01QozZlEvDhXMJaPdq8YZgKOaZIKHwQc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78DFBF801EC;
-	Sat,  4 Jun 2022 18:21:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7B8C3F80169;
+	Sat,  4 Jun 2022 18:24:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BB010F8016D; Sat,  4 Jun 2022 18:21:41 +0200 (CEST)
+ id F0096F8016D; Sat,  4 Jun 2022 18:24:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 9B2E2F80124
- for <alsa-devel@alsa-project.org>; Sat,  4 Jun 2022 18:21:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B2E2F80124
+ by alsa1.perex.cz (Postfix) with ESMTP id C3F8FF800E8
+ for <alsa-devel@alsa-project.org>; Sat,  4 Jun 2022 18:24:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3F8FF800E8
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
+From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1654359694501735926-webhooks-bot@alsa-project.org>
-References: <1654359694501735926-webhooks-bot@alsa-project.org>
+In-Reply-To: <1654359857600541115-webhooks-bot@alsa-project.org>
+References: <1654359857600541115-webhooks-bot@alsa-project.org>
 Subject: ASUS ROG Maximus Z690 Hero (ALC4082) - No audio from microphone,
  no audio on the front panel
-Message-Id: <20220604162141.BB010F8016D@alsa1.perex.cz>
-Date: Sat,  4 Jun 2022 18:21:41 +0200 (CEST)
+Message-Id: <20220604162423.F0096F8016D@alsa1.perex.cz>
+Date: Sat,  4 Jun 2022 18:24:23 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,7 +61,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-ucm-conf issue #165 was opened from Lastique:
+alsa-project/alsa-ucm-conf issue #165 was edited from Lastique:
 
 I'm having a problem with getting audio from the microphone connected to the rear panel jack. Also, if I connect the headset to the front panel headphone/mic jacks, I get neither audio out or in. My main concern is the rear panel jack though. The motherboard is ASUS ROG Maximus Z690 Hero, ALC4082 USB Audio chipset.
 
@@ -76,6 +76,8 @@ I have tried this:
 There are three devices for the USB Audio card, and there are three volume controls in alsamixer: "Line", "Mic" and "Analog In". The problem is that there is no audio coming from the first two devices (which are presumably "Line" and "Mic"). I can record audio from the third device ("Analog In") when the microphone is connected to Mic jack.
 
 Unfortunately, "Analog In" cannot be selected in PulseAudio for some reason (I created a [bug](https://gitlab.freedesktop.org/pulseaudio/pulseaudio/-/issues/1364) for PA), which means no audio can be recorded.
+
+I also tried to connect the headset to the front panel connectors, but got no audio output nor capture. This is not my intended configuration though, I normally connect the headset to the rear panel.
 
 `arecord` output:
 [arecord.txt](https://github.com/alsa-project/alsa-ucm-conf/files/8838239/arecord.txt)

@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F386153D7BE
-	for <lists+alsa-devel@lfdr.de>; Sat,  4 Jun 2022 18:26:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB6C253D7C1
+	for <lists+alsa-devel@lfdr.de>; Sat,  4 Jun 2022 18:29:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7592518DD;
-	Sat,  4 Jun 2022 18:25:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7592518DD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6641018C4;
+	Sat,  4 Jun 2022 18:28:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6641018C4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654359967;
-	bh=JgC4j47n3FobItWqzf5SJFtu/WIOx1MuP2H9BRuT5NY=;
+	s=default; t=1654360177;
+	bh=brlADAwX30RL/6G7aKgX+QqH/MLoDuqypg0sRnviI/s=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UpT7uioViAAeSOiXqU6HirbAmej8/6YkKXJpefwVr6NEy/5qseJLkSMAkAQRkeUrg
-	 1EuAo3bNJWyhQr0Jxy9Yb2ratbi3mR04hxe+O9/cArTb5svmy8hU0jIEkuAPi+u6FM
-	 h/8UTCPK2JEW4xhhMeCLTljSrPy/R1ZaN6402I7s=
+	b=EcGFo3MqmR0kyjQUAcTRUFyt+YehRYFRPaanVQEFCrqTrtcOU0dZ3KqVzGLGCP4ls
+	 reRhYUKjaL4LjWd8lI4eGPSilGJormtL3WUaUHSVVM/8ddq1AgnuK90cIV0wAUaK4r
+	 ICE0l34kJmi7gpF21uAgGnQmkdn4sxJybQVU9VXY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CBDECF80527;
-	Sat,  4 Jun 2022 18:25:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DE643F801EC;
+	Sat,  4 Jun 2022 18:28:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 75B3AF80526; Sat,  4 Jun 2022 18:25:03 +0200 (CEST)
+ id 8F400F8016D; Sat,  4 Jun 2022 18:28:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id EB0F7F80524
- for <alsa-devel@alsa-project.org>; Sat,  4 Jun 2022 18:24:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB0F7F80524
+ by alsa1.perex.cz (Postfix) with ESMTP id 54E60F800E8
+ for <alsa-devel@alsa-project.org>; Sat,  4 Jun 2022 18:28:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54E60F800E8
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1654359895755600929-webhooks-bot@alsa-project.org>
-References: <1654359895755600929-webhooks-bot@alsa-project.org>
+In-Reply-To: <1654360111754354000-webhooks-bot@alsa-project.org>
+References: <1654360111754354000-webhooks-bot@alsa-project.org>
 Subject: ASUS ROG Maximus Z690 Hero (ALC4082) - No audio from microphone,
  no audio on the front panel
-Message-Id: <20220604162503.75B3AF80526@alsa1.perex.cz>
-Date: Sat,  4 Jun 2022 18:25:03 +0200 (CEST)
+Message-Id: <20220604162838.8F400F8016D@alsa1.perex.cz>
+Date: Sat,  4 Jun 2022 18:28:38 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,7 +82,7 @@ I also tried to connect the headset to the front panel connectors, but got no au
 `arecord` output:
 [arecord.txt](https://github.com/alsa-project/alsa-ucm-conf/files/8838239/arecord.txt)
 `lsusb` output:
-[lsusb.txt](https://github.com/alsa-project/alsa-ucm-conf/files/8838241/lsusb.txt)
+[lsusb.txt](https://github.com/alsa-project/alsa-ucm-conf/files/8838250/lsusb.txt)
 
 This is on Kubuntu 22.04.
 

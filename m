@@ -2,49 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 067DE53DE49
-	for <lists+alsa-devel@lfdr.de>; Sun,  5 Jun 2022 23:09:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6420153DEB4
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Jun 2022 00:45:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E1B4E188F;
-	Sun,  5 Jun 2022 23:08:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1B4E188F
+	by alsa0.perex.cz (Postfix) with ESMTPS id E6655190A;
+	Mon,  6 Jun 2022 00:44:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6655190A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654463361;
-	bh=y3J57NqSbDXLWt/LcUJH8Wq2LhdFATKlXd6oCIS+dUg=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1654469129;
+	bh=W10QYHoI4q5YOWnmyYirMcGbDevOmTVIHghn9ctabh0=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FIp59EGllAB/jHhLXrKBO3tSqzymdvey47y9a62H00E7dusDSMVt1e1yEjkQVGXOd
-	 PgTpNNdeUS76+yomNMdaTXIm02VgyHeJC2ymoXrvyMOctrj9jxifsr1Uv2o3Ib05cz
-	 aHpGjrJNnuFhXPVahz1BAYser3WWEFgpPQvWJ5S8=
+	b=Lhdi1iT6FUVmXT7WryZfPBEshW0sBoUVf4cR8dXitoUgIdfULK91V+p9A8yuPlGUJ
+	 KVC8SOnZaz9mtsiGT+1X3Ii576ZQKvVUptnUtG+H3QZBr2111Eqa9qMBUFiFht0zWG
+	 /250Ok8df4dUBzOQbN5AeBNs7LpAbzqNLD7UC0kM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6AE23F8016C;
-	Sun,  5 Jun 2022 23:08:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 74E3CF80089;
+	Mon,  6 Jun 2022 00:44:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3CCA6F80089; Sun,  5 Jun 2022 23:08:22 +0200 (CEST)
+ id 5FB00F800D3; Mon,  6 Jun 2022 00:44:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.0 required=5.0 tests=MISSING_DATE,MISSING_MID,
- PRX_BODY_13,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+X-Spam-Level: 
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id F1BD0F80116
- for <alsa-devel@alsa-project.org>; Sun,  5 Jun 2022 23:08:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1BD0F80116
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com
+ [209.85.160.172])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2CEE1F800D3
+ for <alsa-devel@alsa-project.org>; Mon,  6 Jun 2022 00:44:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2CEE1F800D3
+Received: by mail-qt1-f172.google.com with SMTP id y15so9340451qtx.4
+ for <alsa-devel@alsa-project.org>; Sun, 05 Jun 2022 15:44:23 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=LFhCaG60xFmD3TWaJ9EwtlMdlcWCG/u3VD55cWqFobw=;
+ b=I3ogirni7ARt3zNL2MVkblt9CH0EXK62nrcOZOk5zN4suYE3WokKKpRG/UxYzQLVI4
+ jwcwuO4X8l4DWSTxpoPfqmRaSzuFyowQJ0YsOOT7l5FZ9LrGuBYsUjXks3gGk+v/cV3t
+ lJFtNnFPlQiFkW1vi94heKfAX3nvqFIWgrWZSGzgNL9n9Z0scnLcWVpjr7ytrJiDLMVL
+ ZMClqQCqs9EM90S2kamEcxMRW/4hRAXDeI1R9e2yvbr1zAqMgFYj03eg5UHUhzXJA9DV
+ uHFzuUmCPz9Txn/bBNZELkGRkG5t+2zhBXED3E5TyDTjgvRfV38IkEahS6+cAHEGCthb
+ lLGg==
+X-Gm-Message-State: AOAM533pV5RKYeGNHTAob9S/G9CbNVkEzZvtCM9Vk9llNFCN82gS6o07
+ 0TZgvV3V2/0pjwTt46KRYQ==
+X-Google-Smtp-Source: ABdhPJx90Inmr2t/uBYqmDG90Ua1+4jBi681xj4Vcuup0kVjJ2rGSOsLoVmjdx/DQucQL+eCEtpJGA==
+X-Received: by 2002:ac8:5e13:0:b0:304:b452:9ec8 with SMTP id
+ h19-20020ac85e13000000b00304b4529ec8mr16434949qtx.356.1654469062534; 
+ Sun, 05 Jun 2022 15:44:22 -0700 (PDT)
+Received: from robh.at.kernel.org ([2607:fb90:1bdb:2e61:f12:452:5315:9c7e])
+ by smtp.gmail.com with ESMTPSA id
+ s2-20020a05620a29c200b006a6a3ce437bsm6158799qkp.27.2022.06.05.15.44.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 05 Jun 2022 15:44:22 -0700 (PDT)
+Received: (nullmailer pid 3665782 invoked by uid 1000);
+ Sun, 05 Jun 2022 22:44:19 -0000
+Date: Sun, 5 Jun 2022 17:44:19 -0500
+From: Rob Herring <robh@kernel.org>
+To: Alexander Martinz <amartinz@shiftphones.com>
+Subject: Re: [PATCH 2/2] ASoC: dt-bindings: nxp,tfa989x: Add tfa9890 support
+Message-ID: <20220605224419.GA3665749-robh@kernel.org>
+References: <20220602164504.261361-1-amartinz@shiftphones.com>
+ <20220602164504.261361-2-amartinz@shiftphones.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1654463295162611961-webhooks-bot@alsa-project.org>
-References: <1654463295162611961-webhooks-bot@alsa-project.org>
-Subject: HDMI audio broken in 1.2.7 for old laptops
-Message-Id: <20220605210822.3CCA6F80089@alsa1.perex.cz>
-Date: Sun,  5 Jun 2022 23:08:22 +0200 (CEST)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220602164504.261361-2-amartinz@shiftphones.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Stephan Gerhold <stephan@gerhold.net>, Dylan Van Assche <me@dylanvanassche.be>,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Caleb Connolly <caleb@connolly.tech>, Mark Brown <broonie@kernel.org>,
+ ~postmarketos/upstreaming@lists.sr.ht,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ phone-devel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,9 +99,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-lib issue #235 was opened from hwpfeil:
+On Thu, 02 Jun 2022 18:45:04 +0200, Alexander Martinz wrote:
+> Document TFA9890 binding for tfa989x.
+> 
+> Signed-off-by: Alexander Martinz <amartinz@shiftphones.com>
+> ---
+>  Documentation/devicetree/bindings/sound/nxp,tfa989x.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+> 
 
-Tag 1.2.7 breaks HDMI audio on HP laptops with AMD A6-5200 APU (video works). No HDMI option in System Settings|Audio Devices, both KDE and XFCE. Reverting to 1.2.6.1 restores the HDMI Audio Device. There should come a time when such dinosaurs are declared obsolete and no longer supported. They can keep running on 1.2.6.1. Not sure if it needs fixing.
-
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/235
-Repository URL: https://github.com/alsa-project/alsa-lib
+Acked-by: Rob Herring <robh@kernel.org>

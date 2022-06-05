@@ -2,83 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A86A753DC9C
-	for <lists+alsa-devel@lfdr.de>; Sun,  5 Jun 2022 17:40:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D659A53DCA5
+	for <lists+alsa-devel@lfdr.de>; Sun,  5 Jun 2022 18:02:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 43C6618F1;
-	Sun,  5 Jun 2022 17:39:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43C6618F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 67EE81926;
+	Sun,  5 Jun 2022 18:01:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67EE81926
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654443642;
-	bh=6hY9gRpUjWKHjJ/A9SAH4/Bd42zGqX34ZSYebkngAI8=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=KZA0KwJBy8IL9vAAv/8f5UqQA3J23VnK0BtHAbNUGSHM1vv9RJ9Reb6WJs/sPPlK8
-	 CEi9nNU8BxpGL+aBNK3H7yx8bAUt5LI2Lo6kmwSIS50rz/Fm24LmeipAUc9ZjbS9uX
-	 yqU+qyHk1aoZDm/1LrlDUThs2RoWXlYdovBCf30w=
+	s=default; t=1654444924;
+	bh=p2rvYINhcy33Y4ywqrw+OJul21tsTbOIlv60AkIcyD8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=iRmQeIOmDzMHWeMbEL+YcxOEpvR55Bo2YrQgz1qxEWizPo8TFaaZyu2okW6MWQgr2
+	 FBlzDEwWoUG9ILScJkZlqc/R1Gxy3yp/AJCSjpg4hjxaGTrNRyizQ4Tqp1vJuC0d7F
+	 8zAs0XqNkI1epiJkSaqfeFZjf4p53yphFd7IwfBI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C6137F8016C;
-	Sun,  5 Jun 2022 17:39:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CE4CEF8016C;
+	Sun,  5 Jun 2022 18:01:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E346EF800D3; Sun,  5 Jun 2022 17:39:42 +0200 (CEST)
+ id B5A5BF80162; Sun,  5 Jun 2022 18:01:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_14,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E547AF800D3
- for <alsa-devel@alsa-project.org>; Sun,  5 Jun 2022 17:39:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E547AF800D3
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1nxsLX-0002W8-2B; Sun, 05 Jun 2022 17:39:19 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1nxsLU-006dEJ-Rs; Sun, 05 Jun 2022 17:39:15 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1nxsLS-00ENhP-QT; Sun, 05 Jun 2022 17:39:14 +0200
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Jie Yang <yang.jie@linux.intel.com>, Mark Brown <broonie@kernel.org>
-Subject: [PATCH] ASoC: Intel: broadwell: Make broadwell_disable_jack() return
- void
-Date: Sun,  5 Jun 2022 17:39:04 +0200
-Message-Id: <20220605153904.26921-1-u.kleine-koenig@pengutronix.de>
-X-Mailer: git-send-email 2.36.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9BAA7F80089
+ for <alsa-devel@alsa-project.org>; Sun,  5 Jun 2022 18:00:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BAA7F80089
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="TOt5bWnG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1654444860; x=1685980860;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=p2rvYINhcy33Y4ywqrw+OJul21tsTbOIlv60AkIcyD8=;
+ b=TOt5bWnG1sJEHKoJZOtMUD3BBQU7eqDOWSEK8RtzTjTwBXgzv3V6Nn0k
+ McWTJXgkH9wl7PbfPf8ZDE+b+R0Cird5mNTDt7C4D764PBfixQ9lZ4ruW
+ vHMPA8gFzr3+R/maf7wi8flRgprtnHcG/uWM/6bvbnK7mfbcfRZaReti0
+ O14G3V4wPdB7sQ1mkoeGpDiP1TRGgGzqUKW1hqH4kbNMTNT0wrY1Wu/n2
+ Yovpl0kmaxUQX5D22CBFEnj4oMCrqrKSN5DSUDb8Zs23WFT9eYdjS5kjt
+ jbEtGq+2m+eCuk7NY4LuTjs0Pv3rb3TNVKMyZcL3bCwdTOYjURxcMBFKL Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10369"; a="337269580"
+X-IronPort-AV: E=Sophos;i="5.91,279,1647327600"; d="scan'208";a="337269580"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jun 2022 09:00:49 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.91,279,1647327600"; d="scan'208";a="554064493"
+Received: from lkp-server01.sh.intel.com (HELO 60dabacc1df6) ([10.239.97.150])
+ by orsmga006.jf.intel.com with ESMTP; 05 Jun 2022 09:00:48 -0700
+Received: from kbuild by 60dabacc1df6 with local (Exim 4.95)
+ (envelope-from <lkp@intel.com>) id 1nxsgJ-000C21-BT;
+ Sun, 05 Jun 2022 16:00:47 +0000
+Date: Mon, 6 Jun 2022 00:00:11 +0800
+From: kernel test robot <lkp@intel.com>
+To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: Re: [PATCH] ASoC: wcd938x: Fix event generation for some controls
+Message-ID: <202206052345.ErWjOII2-lkp@intel.com>
+References: <20220603122526.3914942-1-broonie@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1610; h=from:subject;
- bh=6hY9gRpUjWKHjJ/A9SAH4/Bd42zGqX34ZSYebkngAI8=;
- b=owEBbQGS/pANAwAKAcH8FHityuwJAcsmYgBinM4UbzQW+etNJg8KpfPRlXzGqaPA1oekDxVlFzD7
- M8BisUCJATMEAAEKAB0WIQR+cioWkBis/z50pAvB/BR4rcrsCQUCYpzOFAAKCRDB/BR4rcrsCViuB/
- 44oUvYgrHLE9DeGxy4x9n/AeY3uGa5iCy+rjh6KqySScePqP5akcATWXF9RJ5/ju1khF399mqthQux
- LSgvf/L+uvTn9glTKNEn6DH43aCnVglEhdHm5Hb1dgY0q8mP9Zqj7bWzAWr8WFogEStadOSgAy34+n
- IuMBLjpKBzI1GtKVS8hJruMQ0vrNjwjv86QbIdNgNYrTui4viudhpv2c+fsiC7jXaBhSlg+f19m/o6
- yoTX/EhRBVgdG4L5BAP8fNZqPIWO6n4DV3yIsdm4CukIuexxrY75CnuUO6VvtpkHAU3rc5GdzhAYq5
- zqFB8wUyqQ3oYgax0jZueSZDp0D8XH
-X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
- fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
- kernel@pengutronix.de
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220603122526.3914942-1-broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org, llvm@lists.linux.dev, kbuild-all@lists.01.org,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,60 +92,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-broadwell_disable_jack() returns zero unconditionally. Letting it
-return void instead makes it easier to see in the callers that there is no
-error to handle.
+Hi Mark,
 
-This is a preparation for making platform remove callbacks return void.
+I love your patch! Perhaps something to improve:
 
-Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
----
- sound/soc/intel/boards/broadwell.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+[auto build test WARNING on broonie-sound/for-next]
+[also build test WARNING on v5.18 next-20220603]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch]
 
-diff --git a/sound/soc/intel/boards/broadwell.c b/sound/soc/intel/boards/broadwell.c
-index d37c74fd1a3c..280e84bbe185 100644
---- a/sound/soc/intel/boards/broadwell.c
-+++ b/sound/soc/intel/boards/broadwell.c
-@@ -227,7 +227,7 @@ static struct snd_soc_dai_link broadwell_rt286_dais[] = {
- 	},
- };
- 
--static int broadwell_disable_jack(struct snd_soc_card *card)
-+static void broadwell_disable_jack(struct snd_soc_card *card)
- {
- 	struct snd_soc_component *component;
- 
-@@ -239,13 +239,13 @@ static int broadwell_disable_jack(struct snd_soc_card *card)
- 			break;
- 		}
- 	}
--
--	return 0;
- }
- 
- static int broadwell_suspend(struct snd_soc_card *card)
- {
--	return broadwell_disable_jack(card);
-+	broadwell_disable_jack(card);
-+
-+	return 0;
- }
- 
- static int broadwell_resume(struct snd_soc_card *card){
-@@ -315,7 +315,9 @@ static int broadwell_audio_remove(struct platform_device *pdev)
- {
- 	struct snd_soc_card *card = platform_get_drvdata(pdev);
- 
--	return broadwell_disable_jack(card);
-+	broadwell_disable_jack(card);
-+
-+	return 0;
- }
- 
- static struct platform_driver broadwell_audio = {
+url:    https://github.com/intel-lab-lkp/linux/commits/Mark-Brown/ASoC-wcd938x-Fix-event-generation-for-some-controls/20220605-162848
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+config: x86_64-randconfig-c007 (https://download.01.org/0day-ci/archive/20220605/202206052345.ErWjOII2-lkp@intel.com/config)
+compiler: clang version 15.0.0 (https://github.com/llvm/llvm-project 416a5080d89066029f9889dc23f94de47c2fa895)
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/77b0604d37f40ad0f56da53a9a38ad0de298fa52
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Mark-Brown/ASoC-wcd938x-Fix-event-generation-for-some-controls/20220605-162848
+        git checkout 77b0604d37f40ad0f56da53a9a38ad0de298fa52
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=x86_64 SHELL=/bin/bash sound/soc/codecs/
 
-base-commit: 4b0986a3613c92f4ec1bdc7f60ec66fea135991f
+If you fix the issue, kindly add following tag where applicable
+Reported-by: kernel test robot <lkp@intel.com>
+
+All warnings (new ones prefixed by >>):
+
+>> sound/soc/codecs/wcd938x.c:2546:6: warning: unused variable 'change' [-Wunused-variable]
+           int change;
+               ^
+   1 warning generated.
+
+
+vim +/change +2546 sound/soc/codecs/wcd938x.c
+
+  2540	
+  2541	static int wcd938x_rx_hph_mode_put(struct snd_kcontrol *kcontrol,
+  2542					   struct snd_ctl_elem_value *ucontrol)
+  2543	{
+  2544		struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
+  2545		struct wcd938x_priv *wcd938x = snd_soc_component_get_drvdata(component);
+> 2546		int change;
+  2547	
+  2548		if (wcd938x->hph_mode == ucontrol->value.enumerated.item[0])
+  2549			return 0;
+  2550	
+  2551		wcd938x->hph_mode = ucontrol->value.enumerated.item[0];
+  2552	
+  2553		return 1;
+  2554	}
+  2555	
+
 -- 
-2.36.1
-
+0-DAY CI Kernel Test Service
+https://01.org/lkp

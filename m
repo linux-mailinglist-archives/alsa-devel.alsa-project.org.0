@@ -2,86 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82DC253E572
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Jun 2022 17:26:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC4F853E588
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Jun 2022 17:46:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1EF8E18F1;
-	Mon,  6 Jun 2022 17:26:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1EF8E18F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6B17F1932;
+	Mon,  6 Jun 2022 17:45:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B17F1932
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654529215;
-	bh=n0n0WtLdjHGysi7HQyXylTbROYN14VH5/Fz95ISJfNs=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=lZEcQcaTWxrENK/TjyIkVqhK3gGW8rohYPqvCOZBUYCvEXnJz1JAYs+X9R55zHieX
-	 Ds5PLDkONEbW9KH7nAXU4gzujnY4IEhJPooBHB7VzniZG0+CLpNxpPKKDk0bql0H+T
-	 o3wUZZocjL6jNacxIGoPm6Qx6js4Vdi/Orpf+vHw=
+	s=default; t=1654530373;
+	bh=nXIf4LCHcs+ke0Z4yb3lxqEx9Iiwj8A274WRvZbmJQc=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=JUQQnj2gRelrbSO1FvCQ98eGi7H9IPCCHkibiM2D43tGYMlut0XN5icqHENFO42Ya
+	 W8XYHMMZmQIj0IX3V/LziaH3y4xDQy6fmtmHT7m8GoFlhD83CaJ2l/v40zhT/UEMP5
+	 T8YjgMcPAogS7ai7OpvAMWwqzgbuiCvYiXa93fmg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 84EF9F80310;
-	Mon,  6 Jun 2022 17:25:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CFA6BF80116;
+	Mon,  6 Jun 2022 17:45:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2C559F80310; Mon,  6 Jun 2022 17:25:56 +0200 (CEST)
+ id 2E28BF80423; Mon,  6 Jun 2022 17:45:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from phobos.denx.de (phobos.denx.de
+ [IPv6:2a01:238:438b:c500:173d:9f52:ddab:ee01])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B8414F80116
- for <alsa-devel@alsa-project.org>; Mon,  6 Jun 2022 17:25:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8414F80116
+ by alsa1.perex.cz (Postfix) with ESMTPS id 011A6F80116
+ for <alsa-devel@alsa-project.org>; Mon,  6 Jun 2022 17:45:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 011A6F80116
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="SyRBV2TJ"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dkim=pass (2048-bit key) header.d=denx.de header.i=@denx.de
+ header.b="EldHzQj9"
+Received: from localhost.localdomain (85-222-111-42.dynamic.chello.pl
+ [85.222.111.42])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id B02B861549;
- Mon,  6 Jun 2022 15:25:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25D91C341EE;
- Mon,  6 Jun 2022 15:25:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1654529149;
- bh=n0n0WtLdjHGysi7HQyXylTbROYN14VH5/Fz95ISJfNs=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=SyRBV2TJCk+cQ7Tdrw7NUuwMMWYDrQ2+swwAFUxrhnBVuxYgGXg9DCvfIB6fWOWJw
- OcF4mG0EBO7ZCQMoRLmtmACaUEaF5jTA6TyjUHpThe5/ya+ni4NwynVkN3e1ySBxey
- rni5yMAcAKraS72ibpwoH1EUdlc03pdZRqTZwK7d5KTAh5vZVq1tpBBv910ZRvddfy
- 45t6H0OD4acfBGpQsSAuxeEPS6vchhtVYHvj6lAfYSJAmcQbYFI79DFftY1IqZwZll
- nfdRvrOQwP0WZekD5Jp9Mf9PWn4RQpH0UfU4n72o/DYzLEJ4fdT3Cn74hRW/Bb2IKo
- AZjLb8cHU9FZQ==
-Received: from mchehab by mail.kernel.org with local (Exim 4.95)
- (envelope-from <mchehab@kernel.org>) id 1nyEby-0012Q5-Fh;
- Mon, 06 Jun 2022 16:25:46 +0100
-From: Mauro Carvalho Chehab <mchehab@kernel.org>
-To: Linux Doc Mailing List <linux-doc@vger.kernel.org>,
- Jonathan Corbet <corbet@lwn.net>
-Subject: [PATCH 22/23] ASoC: wm8731: update wlf,wm8731.yaml reference
-Date: Mon,  6 Jun 2022 16:25:44 +0100
-Message-Id: <e56e54fe0ebb1b6e8dd2e245c398190016eb0a34.1654529011.git.mchehab@kernel.org>
-X-Mailer: git-send-email 2.36.1
-In-Reply-To: <cover.1654529011.git.mchehab@kernel.org>
-References: <cover.1654529011.git.mchehab@kernel.org>
+ (Authenticated sender: lukma@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id 8D66D83AF6;
+ Mon,  6 Jun 2022 17:45:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1654530306;
+ bh=AqZOOnLJGuceB2TSU+9Eh0CvtWhy1P7vm+Mht3l7hBE=;
+ h=From:To:Cc:Subject:Date:From;
+ b=EldHzQj9W37KS4B3Zp8Zck7vsRweKlwHZBqX5t6x/0i2aE2k/IrYCAjxSSBNUMM5N
+ IowMxYrBgfQKidisX14n1e1fCmxLgt7gHyvnBmnUvnkOhREPgIzRDGNuQ0XT+plVim
+ O6MctON9jXkVi+OZHzO1QWsoIk1DkD4ysCKE+rpmT2Gf0ZtZvybaJDdy2VWAsWkApa
+ Un388u3mEJ3tosql9AdazMmCw0m4h5zGnfc6lRcXM24aDW6HRmwRk91zGfnw6npLrX
+ oqzto8tBGKVGnLy22ZFLkfqId62VHwf1ZrYwTm7Tx8ylYwdJ02yvZ50F4SKEYgCZxz
+ AUPC+XXFb9nxg==
+From: Lukasz Majewski <lukma@denx.de>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>
+Subject: [PATCH 1/3] ASoC: wm8940: Remove warning when no plat data
+Date: Mon,  6 Jun 2022 17:44:39 +0200
+Message-Id: <20220606154441.20848-1-lukma@denx.de>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>, alsa-devel@alsa-project.org,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
- linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Nicolas Ferre <nicolas.ferre@microchip.com>,
- Mark Brown <broonie@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- linux-arm-kernel@lists.infradead.org
+X-Virus-Scanned: clamav-milter 0.103.5 at phobos.denx.de
+X-Virus-Status: Clean
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ Lukasz Majewski <lukma@denx.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,35 +86,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Changeset 0e336eeaf467 ("ASoC: wm8731: Convert DT bindings to YAML format")
-renamed: Documentation/devicetree/bindings/sound/wm8731.txt
-to: Documentation/devicetree/bindings/sound/wlf,wm8731.yaml.
+The lack of platform data in the contemporary Linux
+shall not be the reason to display warnings to the
+kernel logs.
 
-Update its cross-reference accordingly.
-
-Fixes: 0e336eeaf467 ("ASoC: wm8731: Convert DT bindings to YAML format")
-Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
+Signed-off-by: Lukasz Majewski <lukma@denx.de>
 ---
+ sound/soc/codecs/wm8940.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-To avoid mailbombing on a large number of people, only mailing lists were C/C on the cover.
-See [PATCH 00/23] at: https://lore.kernel.org/all/cover.1654529011.git.mchehab@kernel.org/
-
- .../devicetree/bindings/sound/atmel-sam9x5-wm8731-audio.txt     | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/Documentation/devicetree/bindings/sound/atmel-sam9x5-wm8731-audio.txt b/Documentation/devicetree/bindings/sound/atmel-sam9x5-wm8731-audio.txt
-index 0720857089a7..8facbce53db8 100644
---- a/Documentation/devicetree/bindings/sound/atmel-sam9x5-wm8731-audio.txt
-+++ b/Documentation/devicetree/bindings/sound/atmel-sam9x5-wm8731-audio.txt
-@@ -16,7 +16,7 @@ Board connectors:
-  * Line In Jack
+diff --git a/sound/soc/codecs/wm8940.c b/sound/soc/codecs/wm8940.c
+index 440d048ef0c0..7cea54720436 100644
+--- a/sound/soc/codecs/wm8940.c
++++ b/sound/soc/codecs/wm8940.c
+@@ -709,9 +709,7 @@ static int wm8940_probe(struct snd_soc_component *component)
+ 	if (ret < 0)
+ 		return ret;
  
- wm8731 pins:
--cf Documentation/devicetree/bindings/sound/wm8731.txt
-+cf Documentation/devicetree/bindings/sound/wlf,wm8731.yaml
- 
- Example:
- sound {
+-	if (!pdata)
+-		dev_warn(component->dev, "No platform data supplied\n");
+-	else {
++	if (pdata) {
+ 		reg = snd_soc_component_read(component, WM8940_OUTPUTCTL);
+ 		ret = snd_soc_component_write(component, WM8940_OUTPUTCTL, reg | pdata->vroi);
+ 		if (ret < 0)
 -- 
-2.36.1
+2.20.1
 

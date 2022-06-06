@@ -2,91 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDC9F53DF99
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Jun 2022 04:06:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0C5453DFD4
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Jun 2022 04:49:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 799371A45;
-	Mon,  6 Jun 2022 04:05:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 799371A45
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0FB001865;
+	Mon,  6 Jun 2022 04:48:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FB001865
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654481191;
-	bh=xYcr/9rlGUYd5n5IUwd+f2HGXa5L8vXqjzOtoVkxxgI=;
+	s=default; t=1654483780;
+	bh=ezfIsHfQ2+mtvAp+FAYPUU5UYyRsQZxnxxCIx099qic=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Jgwgfw8DYEDrffuUfcUEsaSaFioOv2zM3FEw5oarTango/9a5kWxJbmxDIZ4LrFWZ
-	 +BwzvHoFeYTwZdMiJs5uTh7PN1XaMuK7uHJ0urXEHIMFi2vBVWUX4PLoljg/OBaJIJ
-	 ZnMNbIE1821RdTmztX8BKzMkNHUQo9BXj6vLdgg0=
+	b=s2crLFIYP93i9jUurgRE6/tqekQ+9wWkrfLDjK1GglBwpkLJ/nzjxvSNDteqyT50A
+	 ZlR6Tpund8IrlhxWUWO4CRmGg8cWDE3N/FJQvA6Vr3VwC04gNtk3w3PkOpM/iY+OFG
+	 3ER10i2RF7inGNREfx0t06XtyuSXIfPCrOSOzKUI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DD234F80109;
-	Mon,  6 Jun 2022 04:05:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7700BF80109;
+	Mon,  6 Jun 2022 04:48:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1FB95F801D8; Mon,  6 Jun 2022 04:05:31 +0200 (CEST)
+ id C6484F801D8; Mon,  6 Jun 2022 04:48:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,
  T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 90CE9F80109
- for <alsa-devel@alsa-project.org>; Mon,  6 Jun 2022 04:05:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90CE9F80109
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0F8A8F80116
+ for <alsa-devel@alsa-project.org>; Mon,  6 Jun 2022 04:48:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F8A8F80116
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="a+vuSOi6"
-Received: by mail-lf1-x132.google.com with SMTP id a15so21144445lfb.9
- for <alsa-devel@alsa-project.org>; Sun, 05 Jun 2022 19:05:23 -0700 (PDT)
+ header.b="YxK8uSmp"
+Received: by mail-lf1-x12f.google.com with SMTP id be31so21248080lfb.10
+ for <alsa-devel@alsa-project.org>; Sun, 05 Jun 2022 19:48:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=usJf20AAKPNtkFpO9IZiGVXBDrUnP/ALbP63KHhfdLQ=;
- b=a+vuSOi68MhI1PKcYt3CMKt9Uf57841GUcl9gCLFK4tfHAJN48nnCmiwniiVs9BuRd
- yVZLjQ2Kr/LDR1XsRn/V22KGLrjUEHH+ZzYFAg/O8jSBgnHWPPFak/0ZzhGp6h8a14x3
- 2HV9wB1P5QXJi9QpbM6nc4o9wKsQc+NUvZSdGTSsYleyR2MdLV/vcPErSZC9yXqqZ01v
- xVBKscWN7yNui6uyk4VDE1KLEOt3PZUkjDphq1o4N5ZDjk3eetObHHVfXgJF3IAEapY7
- QElmOyA0NIFyWqHrxSklUCgxVvhL2tGqDDU6+oGP7ACSFDt6zgNt3fq1XBNo0ZHKkWo4
- Zhsg==
+ :cc; bh=sv6oZK17zG5gvA5QEnVohTQARmrTfyrgFMPCXyJ6Nxc=;
+ b=YxK8uSmp4knvlPLa1cmR9hlwFc95gbYXpVzlMto5nfIcsC3ZLT0aP1aQPf5uv+moXg
+ tWnfGqKYNy1Qr3ZFAy7KEFRkZ50DGvFameg0CeUDWckVcZkU9tV4DxLrjS9XehN50swp
+ HhP3FOlgxpoFah4fMB9z+pg4iYNY2i3dnLOVxfqxyHLetCeMYMKOyWqK0z474Cc9ZNj9
+ w13cN6ZEIrEK1biiTr9DvWz7mRvCRNxRsQmiFF50w6PzHLalu6y+NPNEbUNT4Ng9y3js
+ RqXYg8O43eqRLDmwobIRlJfxHIThWRqndXOThQzJ9yoNie6KDPszi4nfrFjjyDNc0hOB
+ yBnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=usJf20AAKPNtkFpO9IZiGVXBDrUnP/ALbP63KHhfdLQ=;
- b=oxecQNB8yKaWq4yf7se+FHSs/qvFh6rSphX9IHvfLsV5TnPrSM1H0i4VO+cFlgm97U
- y+vP4bDHfjP/nm2gtfzC5YWuE8OYQKrcMO+ISrnHI82zNtrjZ1aY5ly3duR/h9Ldf1+d
- Jw6zv7OqnZZBu5oY0Zv0xQyMaQDzrbDg0AuuPqulaUq6MkBEbbOvKxXOcfkpF0jsuIzN
- Le6pDcrJXvdjPW2ze3hRXXnp716YlpiGasTcBfmEZZ0q03FAnB7BkxJ4swaZOlggWoRA
- Q+R+HhldUquRE6G8XgKnRApFD4JeEtgBPnVmA2mSUnmZXdXYP7CbAPJ0uoed1S+JiASc
- /Hnw==
-X-Gm-Message-State: AOAM531Qvr/0T/stjvNGpwUFLRPZGwcC6RynVvn5ttvf+ffpY5ukoFPM
- rVNp5bKB5dyP0Ulul8Q1MCbMjv9TRWmtyBtJtC4=
-X-Google-Smtp-Source: ABdhPJwBmXnUl2NGPk5lZ8R0xen/iXYV2x5d7WrIVpi6p25LtCkBtFqrb5Op3lqB6XE56tNT16CkC2WEnU654rAl2JY=
-X-Received: by 2002:a19:6445:0:b0:479:141c:cb5b with SMTP id
- b5-20020a196445000000b00479141ccb5bmr11724447lfj.280.1654481121323; Sun, 05
- Jun 2022 19:05:21 -0700 (PDT)
+ bh=sv6oZK17zG5gvA5QEnVohTQARmrTfyrgFMPCXyJ6Nxc=;
+ b=N1srIA8WNNMUdh7Au7zXIZgk5u9qlFW7TiDtwVomyfe4SQPraV9X8KcYnybu7TKGDR
+ 9bHiGbo51ygqgGpa2IhWpFu7QRgO5Do6kHB6cM6P/PaqEhb7BBQwLR485iTFiNeiXw0z
+ OP/qILmSrAYufo743Qhc7mOf7ZECtGRmLCpqFBWzVFLp0Z7lWF15/4QNE/YYWL85mOx/
+ eVAoo6V10SaIcOMtMxqsIjihyLLQ31BN1Yeith1mYXAl8LhdBaB+p80h4ww64nowIFpr
+ siUOTTG/urInziG10ZBGJMR7tJIRiurltlfdZwVD7/sh+ugTxkdGsKTbLZ785NzEkC+i
+ +lng==
+X-Gm-Message-State: AOAM533HAcCTLUqrtFLruEdtdsY0I6J2plJEdfNSi6dBp59YTdqnslRj
+ 8JcoRsU+09XaOOP6uk5K2l0+QYTz4xbZ2z3D/yQ=
+X-Google-Smtp-Source: ABdhPJxguDa9DnaYK7r4Z2SKweViulzegbAUrScOFa7SaHNHi81lzmI5LDHNMrkF0P8kmDDqES8dZzNdIH7nlCCSkng=
+X-Received: by 2002:a05:6512:3e25:b0:478:fd30:7b7c with SMTP id
+ i37-20020a0565123e2500b00478fd307b7cmr19433458lfv.285.1654483710697; Sun, 05
+ Jun 2022 19:48:30 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220602071448.277968-1-chi.minghao@zte.com.cn>
-In-Reply-To: <20220602071448.277968-1-chi.minghao@zte.com.cn>
+References: <20220601092342.3328644-1-m.felsch@pengutronix.de>
+ <20220601092342.3328644-2-m.felsch@pengutronix.de>
+In-Reply-To: <20220601092342.3328644-2-m.felsch@pengutronix.de>
 From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Mon, 6 Jun 2022 10:05:10 +0800
-Message-ID: <CAA+D8ANagLtpLHP7PpqoSEHkNkCg+Xq-j1QNzoL2SWw1ko_r5g@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: imx-audmux: remove unnecessary check of
- clk_disable_unprepare
-To: cgel.zte@gmail.com
+Date: Mon, 6 Jun 2022 10:48:19 +0800
+Message-ID: <CAA+D8AMKt8SH2M_zd-6dYBAb2X=3X1p5V=yW72bXohjBCBh9wg@mail.gmail.com>
+Subject: Re: [PATCH 2/3] ASoC: fsl_sai: convert to dev_err_probe
+To: Marco Felsch <m.felsch@pengutronix.de>
 Content-Type: text/plain; charset="UTF-8"
 X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: alsa-devel@alsa-project.org, linux-kernel <linux-kernel@vger.kernel.org>,
- Xiubo Li <Xiubo.Lee@gmail.com>, linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
- Zeal Robot <zealci@zte.com.cn>, Liam Girdwood <lgirdwood@gmail.com>,
- Minghao Chi <chi.minghao@zte.com.cn>, Nicolin Chen <nicoleotsuka@gmail.com>,
- Mark Brown <broonie@kernel.org>, Fabio Estevam <festevam@gmail.com>,
- "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>
+Cc: alsa-devel@alsa-project.org, Xiubo Li <Xiubo.Lee@gmail.com>,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Sascha Hauer <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,60 +100,113 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Jun 2, 2022 at 3:14 PM <cgel.zte@gmail.com> wrote:
+On Wed, Jun 1, 2022 at 5:23 PM Marco Felsch <m.felsch@pengutronix.de> wrote:
 
-> From: Minghao Chi <chi.minghao@zte.com.cn>
+> Make use of the new macro to get device defered information for free
+> and to cleanup the code a bit. No functional changes.
 >
-> Because clk_disable_unprepare already checked NULL clock
-> parameter, so the additional checks are unnecessary, just remove them.
->
-> Reported-by: Zeal Robot <zealci@zte.com.cn>
-> Signed-off-by: Minghao Chi <chi.minghao@zte.com.cn>
+> Signed-off-by: Marco Felsch <m.felsch@pengutronix.de>
 > ---
->  sound/soc/fsl/imx-audmux.c | 6 ++----
->  1 file changed, 2 insertions(+), 4 deletions(-)
+>  sound/soc/fsl/fsl_sai.c | 33 +++++++++++----------------------
+>  1 file changed, 11 insertions(+), 22 deletions(-)
 >
-> diff --git a/sound/soc/fsl/imx-audmux.c b/sound/soc/fsl/imx-audmux.c
-> index dfa05d40b276..f434fa7decc1 100644
-> --- a/sound/soc/fsl/imx-audmux.c
-> +++ b/sound/soc/fsl/imx-audmux.c
-> @@ -71,8 +71,7 @@ static ssize_t audmux_read_file(struct file *file, char
-> __user *user_buf,
->         ptcr = readl(audmux_base + IMX_AUDMUX_V2_PTCR(port));
->         pdcr = readl(audmux_base + IMX_AUDMUX_V2_PDCR(port));
+> diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
+> index a7637d602f3c..3e54f1f71c1e 100644
+> --- a/sound/soc/fsl/fsl_sai.c
+> +++ b/sound/soc/fsl/fsl_sai.c
+> @@ -1034,21 +1034,15 @@ static int fsl_sai_probe(struct platform_device
+> *pdev)
+>         }
 >
-> -       if (audmux_clk)
-> -               clk_disable_unprepare(audmux_clk);
-> +       clk_disable_unprepare(audmux_clk);
+>         sai->regmap = devm_regmap_init_mmio(dev, base,
+> &fsl_sai_regmap_config);
+> -       if (IS_ERR(sai->regmap)) {
+> -               dev_err(dev, "regmap init failed\n");
+> -               return PTR_ERR(sai->regmap);
+> -       }
+> +       if (IS_ERR(sai->regmap))
+> +               return dev_err_probe(dev, PTR_ERR(sai->regmap), "regmap
+> init failed\n");
+>
+>         sai->bus_clk = devm_clk_get(dev, "bus");
+>         /* Compatible with old DTB cases */
+>         if (IS_ERR(sai->bus_clk) && PTR_ERR(sai->bus_clk) != -EPROBE_DEFER)
+>                 sai->bus_clk = devm_clk_get(dev, "sai");
+> -       if (IS_ERR(sai->bus_clk)) {
+> -               dev_err(dev, "failed to get bus clock: %ld\n",
+> -                               PTR_ERR(sai->bus_clk));
+> -               /* -EPROBE_DEFER */
+> -               return PTR_ERR(sai->bus_clk);
+> -       }
+> +       if (IS_ERR(sai->bus_clk))
+> +               return dev_err_probe(dev, PTR_ERR(sai->bus_clk), "failed
+> to get bus clock\n");
+>
+>         for (i = 1; i < FSL_SAI_MCLK_MAX; i++) {
+>                 sprintf(tmp, "mclk%d", i);
+> @@ -1067,14 +1061,12 @@ static int fsl_sai_probe(struct platform_device
+> *pdev)
+>
+>         irq = platform_get_irq(pdev, 0);
+>         if (irq < 0)
+> -               return irq;
+> +               return dev_err_probe(dev, irq, "failed to get the irq\n");
 >
 
-I think the check of audmux_clk before "clk_prepare_enable"  also
-can be removed?
-
-
-
->         buf = kmalloc(PAGE_SIZE, GFP_KERNEL);
->         if (!buf)
-> @@ -218,8 +217,7 @@ int imx_audmux_v2_configure_port(unsigned int port,
-> unsigned int ptcr,
->         writel(ptcr, audmux_base + IMX_AUDMUX_V2_PTCR(port));
->         writel(pdcr, audmux_base + IMX_AUDMUX_V2_PDCR(port));
->
-> -       if (audmux_clk)
-> -               clk_disable_unprepare(audmux_clk);
-> +       clk_disable_unprepare(audmux_clk);
->
-
-ditto
+This change is not needed,  platform_get_irq() has done the same operation.
 
 best regards
 wang shengjiu
 
 >
->         return 0;
->  }
-> --
-> 2.25.1
+>         ret = devm_request_irq(dev, irq, fsl_sai_isr, IRQF_SHARED,
+>                                np->name, sai);
+> -       if (ret) {
+> -               dev_err(dev, "failed to claim irq %u\n", irq);
+> -               return ret;
+> -       }
+> +       if (ret)
+> +               return dev_err_probe(dev, ret, "failed to claim irq %u\n",
+> irq);
 >
+>         memcpy(&sai->cpu_dai_drv, &fsl_sai_dai_template,
+>                sizeof(fsl_sai_dai_template));
+> @@ -1089,8 +1081,7 @@ static int fsl_sai_probe(struct platform_device
+> *pdev)
+>         if (of_find_property(np, "fsl,sai-synchronous-rx", NULL) &&
+>             of_find_property(np, "fsl,sai-asynchronous", NULL)) {
+>                 /* error out if both synchronous and asynchronous are
+> present */
+> -               dev_err(dev, "invalid binding for synchronous mode\n");
+> -               return -EINVAL;
+> +               return dev_err_probe(dev, -EINVAL, "invalid binding for
+> synchronous mode\n");
+>         }
+>
+>         if (of_find_property(np, "fsl,sai-synchronous-rx", NULL)) {
+> @@ -1109,14 +1100,12 @@ static int fsl_sai_probe(struct platform_device
+> *pdev)
+>         if (of_find_property(np, "fsl,sai-mclk-direction-output", NULL) &&
+>             of_device_is_compatible(np, "fsl,imx6ul-sai")) {
+>                 gpr =
+> syscon_regmap_lookup_by_compatible("fsl,imx6ul-iomuxc-gpr");
+> -               if (IS_ERR(gpr)) {
+> -                       dev_err(dev, "cannot find iomuxc registers\n");
+> -                       return PTR_ERR(gpr);
+> -               }
+> +               if (IS_ERR(gpr))
+> +                       return dev_err_probe(dev, PTR_ERR(gpr), "cannot
+> find iomuxc registers\n");
+>
+>                 index = of_alias_get_id(np, "sai");
+>                 if (index < 0)
+> -                       return index;
+> +                       return dev_err_probe(dev, index, "cannot find sai
+> aliases\n");
+>
+>                 regmap_update_bits(gpr, IOMUXC_GPR1, MCLK_DIR(index),
+>                                    MCLK_DIR(index));
+> --
+> 2.30.2
 >
 >

@@ -2,91 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DFCC53E5A3
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Jun 2022 18:10:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9812253E5AE
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Jun 2022 18:18:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 393BC1A90;
-	Mon,  6 Jun 2022 18:09:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 393BC1A90
+	by alsa0.perex.cz (Postfix) with ESMTPS id 450681A41;
+	Mon,  6 Jun 2022 18:17:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 450681A41
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654531846;
-	bh=N5k6/hRuI9AyJFz7PMaRYfsY/gVcl3HbQQ/8s6zPXAw=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1654532319;
+	bh=cL02EFnsI2kswr/vUjpRPrP2hvEJIYbboXkvokpSilY=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CsWaPGwepoukQm8Trn6UsYpHDIfYvzn+l3xLxLXh4nZJdSt7ogN3praepMdj4pLtO
-	 T6pTHi5GuvhLe1tL4zp1X32FPYV7QrNVUykTRxJ7ZzwfNE0cD5O7YAkPS2THB2MZNV
-	 hYLg9VefmCwGTWNPb6I+t+RXdcCHaHdARHkB87ew=
+	b=QqEN/VaiS6xUCwsGdQdzqPVYc/fTTqUAZQplqeF19jkccR1xMU3z7gkB00wZ/p3yz
+	 jkMtLex48k2K28tvu61W/C2ou6/51/zHEjOvBLxhUU0UEdL7Eidfh6UcY/Cld5VUyt
+	 rKpWWthrgKeW7hU4BjiDpiTN5A8Ijmm5gmDq+Vlo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C9CB8F8052F;
-	Mon,  6 Jun 2022 18:09:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BB720F80310;
+	Mon,  6 Jun 2022 18:17:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E69CBF8051E; Mon,  6 Jun 2022 18:09:22 +0200 (CEST)
+ id 04C43F801D8; Mon,  6 Jun 2022 18:17:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from phobos.denx.de (phobos.denx.de
+ [IPv6:2a01:238:438b:c500:173d:9f52:ddab:ee01])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F2CD8F8051E
- for <alsa-devel@alsa-project.org>; Mon,  6 Jun 2022 18:09:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2CD8F8051E
+ by alsa1.perex.cz (Postfix) with ESMTPS id CCB55F80109
+ for <alsa-devel@alsa-project.org>; Mon,  6 Jun 2022 18:17:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CCB55F80109
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="vDNF3d4r"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="0oUDfonD"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ dkim=pass (2048-bit key) header.d=denx.de header.i=@denx.de
+ header.b="NiP6Zi5T"
+Received: from ktm (85-222-111-42.dynamic.chello.pl [85.222.111.42])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id C781B21B04;
- Mon,  6 Jun 2022 16:09:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1654531753; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=nF1SK7dK9r0pT4UeBKfa7xvQOwIagFDlsVW0Swm1k4A=;
- b=vDNF3d4rlWF2ybYS3CW/kcYnZo0KBStrlupQvRBIWTO8hOZW14ErvZyIlon70V7lbX2CLO
- YByvgTGu7jksHrbEZ2OVJo7Jnsk088FQyvhrmdj83/TiBd2H3z2yCSjGsr+t2A8XA6fIor
- E7hptDY/dQhccyyb74639I0I1osTHMk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1654531753;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=nF1SK7dK9r0pT4UeBKfa7xvQOwIagFDlsVW0Swm1k4A=;
- b=0oUDfonDhgffPkWsZe1Rb+knggMIQ/v8Q7KON9pbObdEDx0vcu34QOzFyCU1KjjuoiUUyN
- FRMi6VX7ombE6KAw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id ABED413A5F;
- Mon,  6 Jun 2022 16:09:13 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id EJVFKakmnmKoAwAAMHmgww
- (envelope-from <tiwai@suse.de>); Mon, 06 Jun 2022 16:09:13 +0000
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 2/2] ALSA: usb-audio: Set up (implicit) sync for Saffire 6
-Date: Mon,  6 Jun 2022 18:09:10 +0200
-Message-Id: <20220606160910.6926-3-tiwai@suse.de>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20220606160910.6926-1-tiwai@suse.de>
-References: <20220606160910.6926-1-tiwai@suse.de>
+ (Authenticated sender: lukma@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id A8732805FE;
+ Mon,  6 Jun 2022 18:17:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1654532252;
+ bh=eP279UjGMMblW/RjkeTp8zITZb3eYCq6RyDyFwrQ+7A=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=NiP6Zi5TLlJAUa34eeVil1qNPMOCzpnJ2vi3EUZ02x+nNIN/wC1eswPRa5LWX82gW
+ xQsAbGE/b5fXwDTAe8gPQkVcLuwqjW9Gu2+njDvtRixFig1jguRVHf2HZer71OcUCm
+ 1mU0ZDBn35HZ0l5fbV4fRuhg+05hRjLKPqYs/RSE5AyyxXDl2PM6ZUE5IO2obcmome
+ 6j1BD5H6cQ7KTSGxiKQNxDUIuYRrvBxmhoX4UWFONLR7cY7kIyI417gU6YVK2B7UQG
+ 5rebzhBycZjddEqwOc5g/y3VcrB4HjpiPN67tizBDgf1F4Td+vzVRPPRIv7rAq9vxC
+ IrUOLctsGkBIg==
+Date: Mon, 6 Jun 2022 18:17:31 +0200
+From: Lukasz Majewski <lukma@denx.de>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH 1/3] ASoC: wm8940: Remove warning when no plat data
+Message-ID: <20220606181731.04b6f771@ktm>
+In-Reply-To: <Yp4iGvGFD9jo4WUP@sirena.org.uk>
+References: <20220606154441.20848-1-lukma@denx.de>
+ <Yp4iGvGFD9jo4WUP@sirena.org.uk>
+Organization: denx.de
+X-Mailer: Claws Mail 3.18.0 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: =?UTF-8?q?Andr=C3=A9=20Kapelrud?= <a.kapelrud@gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ boundary="Sig_/3EtfwSfo=U0Fi_=NClQYqiP"; protocol="application/pgp-signature"
+X-Virus-Scanned: clamav-milter 0.103.5 at phobos.denx.de
+X-Virus-Status: Clean
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,60 +90,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Focusrite Saffire 6 has fixed audioformat quirks with multiple
-endpoints assigned to a single altsetting.  Unfortunately the generic
-parser couldn't detect the sync endpoint correctly as the implicit
-sync due to the missing EP attribute bits.  In the former kernels, it
-used to work somehow casually, but it's been broken for a while after
-the large code change in 5.11.
+--Sig_/3EtfwSfo=U0Fi_=NClQYqiP
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-This patch cures the regression by the following:
-- Allow the static quirk table to provide the sync EP information;
-  we just need to fill the fields and let the generic parser skipping
-  parsing if sync_ep is already set.
-- Add the sync endpoint information to the entry for Saffire 6.
+Hi Mark,
 
-Fixes: 7b0efea4baf0 ("ALSA: usb-audio: Add missing ep_idx in fixed EP quirks")
-Reported-and-tested-by: André Kapelrud <a.kapelrud@gmail.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/usb/pcm.c          | 3 +++
- sound/usb/quirks-table.h | 7 ++++++-
- 2 files changed, 9 insertions(+), 1 deletion(-)
+> On Mon, Jun 06, 2022 at 05:44:39PM +0200, Lukasz Majewski wrote:
+> > The lack of platform data in the contemporary Linux
+> > shall not be the reason to display warnings to the
+> > kernel logs.
+> >=20
+> > Signed-off-by: Lukasz Majewski <lukma@denx.de> =20
+>=20
+> Given that the device requires configuration and doesn't appear to
+> have any other firmware interface support that's rather a strong
+> statement...
 
-diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
-index b0369df53910..e692ae04436a 100644
---- a/sound/usb/pcm.c
-+++ b/sound/usb/pcm.c
-@@ -291,6 +291,9 @@ int snd_usb_audioformat_set_sync_ep(struct snd_usb_audio *chip,
- 	bool is_playback;
- 	int err;
- 
-+	if (fmt->sync_ep)
-+		return 0; /* already set up */
-+
- 	alts = snd_usb_get_host_interface(chip, fmt->iface, fmt->altsetting);
- 	if (!alts)
- 		return 0;
-diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
-index 78eb41b621d6..4f56e1784932 100644
---- a/sound/usb/quirks-table.h
-+++ b/sound/usb/quirks-table.h
-@@ -2658,7 +2658,12 @@ YAMAHA_DEVICE(0x7010, "UB99"),
- 					.nr_rates = 2,
- 					.rate_table = (unsigned int[]) {
- 						44100, 48000
--					}
-+					},
-+					.sync_ep = 0x82,
-+					.sync_iface = 0,
-+					.sync_altsetting = 1,
-+					.sync_ep_idx = 1,
-+					.implicit_fb = 1,
- 				}
- 			},
- 			{
--- 
-2.35.3
+Thanks for the comment :-)
 
+My point is that - similar codec - wm8974 don't display such warnings.
+(this code was not updated/refactored for a quite long time).
+
+Best regards,
+
+Lukasz Majewski
+
+--
+
+DENX Software Engineering GmbH,      Managing Director: Wolfgang Denk
+HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
+Phone: (+49)-8142-66989-59 Fax: (+49)-8142-66989-80 Email: lukma@denx.de
+
+--Sig_/3EtfwSfo=U0Fi_=NClQYqiP
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCgAdFiEEgAyFJ+N6uu6+XupJAR8vZIA0zr0FAmKeKJsACgkQAR8vZIA0
+zr2YUgf/WLcHyS0nmSaNYGAiWqnLDVVXJzE7LDBHx5qszYi5HnaSvEoULIBRkLln
+AbuRhbSM2WaBP2yqDQcm9YXg59zQM9WhCpuw4/Ai5G+8s9yw0vJhw54t+FCK0bqg
+WvtYhHFY7VjdqkzQ7MrnoMLiG7Cjv/ZAy2l7Ba6Fmte/VL6ycMtqGtfz4ZUv0HbU
++YZ9w59YqnD4Uh5RdU47ZtNbTDgnRXilhEUSu6mMGsgeQJoNRYqtfxRva/9hGCgv
+R/IYjUEBFA94mkMMD9NWQ/QteAAyclqrCxnpEFYcfPuR1Y944do5c7eOywep0J+n
+tolWcSNafAhy+/+WL/n2to+BWduxZQ==
+=WLzo
+-----END PGP SIGNATURE-----
+
+--Sig_/3EtfwSfo=U0Fi_=NClQYqiP--

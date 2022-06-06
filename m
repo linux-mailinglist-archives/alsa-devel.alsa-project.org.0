@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE41353F000
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Jun 2022 22:39:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B511153F00D
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Jun 2022 22:40:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 830D11B40;
-	Mon,  6 Jun 2022 22:38:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 830D11B40
+	by alsa0.perex.cz (Postfix) with ESMTPS id 551A21B4F;
+	Mon,  6 Jun 2022 22:40:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 551A21B4F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654547980;
-	bh=FJml6Co9p0cBpNQyBpViSHlJmowpg0qGsTm1UcMkgno=;
+	s=default; t=1654548058;
+	bh=4lsPaO9+MYFlg0SoKShmbAa5ueeozB08ZfFkV1z/D20=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Mp7kJStw2NbXD0kjKXjDqIkiQDaSyYJ2eij2PA6XZ/hNFj0X80tceWE41iCp2NWm6
-	 7ynrPoakNlC5XRjSxO5ZUQQDZF9nsNI5nEdnvqVaSZYMgc7YkJC0MC1FflNOWurQiY
-	 TQw9/cLpF+BpD92j6KMpfJxYXCL0Qk8GTbWaQYbU=
+	b=B64fcBFBcx21Oso3dwcSkJ77bJP8f8nChTrZ2PrVARjndD2PO7ZUxbw4HCL20ZPFf
+	 m7jMR8SyaaCDd8iXZY5NeO1dnwbYmT4VhoXNYDrp8O668A5N4YKRxRv4aJlS9eXOqW
+	 2BUxkPbht1kr64I7NZga0lZ0HoYQQgeceGFDyQy8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 38721F80527;
-	Mon,  6 Jun 2022 22:38:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 96486F80548;
+	Mon,  6 Jun 2022 22:38:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3CF6CF80528; Mon,  6 Jun 2022 22:38:13 +0200 (CEST)
+ id 92401F80535; Mon,  6 Jun 2022 22:38:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 82C2BF80109
- for <alsa-devel@alsa-project.org>; Mon,  6 Jun 2022 22:38:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82C2BF80109
+ by alsa1.perex.cz (Postfix) with ESMTPS id 96A24F80116
+ for <alsa-devel@alsa-project.org>; Mon,  6 Jun 2022 22:38:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96A24F80116
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="Xfo3hquI"
+ header.b="cvfGJkXP"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1654547887; x=1686083887;
+ t=1654547889; x=1686083889;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=FJml6Co9p0cBpNQyBpViSHlJmowpg0qGsTm1UcMkgno=;
- b=Xfo3hquI9q/N7WcyuSO39Vf1+3UTmGEisLWa2Sm4BmlDDL3idEldlVhz
- nm7By4o7KWQpnlewGQpdu2deTFB4H+pIyYkbrjgISrYyGvyVfuxkkFplj
- xKCAwIHzukdf3b46AW6uXaOlphieZljLuARcnkQnO6Ha+k3mRJQEtrVQx
- eB18MPyDB8JDf/x7i6wrXsSPH+ezw7qDuRrjwqLDIdEMUYG5hDomcCVcy
- ATt5P7xjyUHjZfpSRozM0vaxIkBj2ghkAT23voUWzKgqc8MDwfQH8YPED
- tqu9ls29EY7jTgdGqEbqf5l5gORh5TnDc6ZtHQ2rI8W+gkvQ3dnwa85mt Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10370"; a="276730863"
-X-IronPort-AV: E=Sophos;i="5.91,280,1647327600"; d="scan'208";a="276730863"
+ bh=4lsPaO9+MYFlg0SoKShmbAa5ueeozB08ZfFkV1z/D20=;
+ b=cvfGJkXPYqLDTVbAkv45YQzx6uWsjFD4UlctU9hj3IqnfXcRobyBUBBa
+ 03Q6ySiwZJE7BfTbEFKF8vNXqSTm59ppt+eUpmNgb5a5DndXxiyEqwhvx
+ Z5RYZrv0Yge0xTrftPEMgMk7fJXzOvGgqQIpCiFv97NmAGFgvR5iU0RPW
+ OqdH0MZgPe23n/y9aCvdhbi4dP0DSb88y1kckb7dJ2Bc+PGrXnpnkzMfg
+ 6ZkvI3iLDUAvbyny5e9rjLlOiVtaAhexOtdcDDEAr4u+Om3Ru39wtxumQ
+ IHfUsMoyhC4nB4VkxIBZkCQ1z5evfZGFN94n8MTzriMmlIrsPSuA4BINJ A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10370"; a="276730864"
+X-IronPort-AV: E=Sophos;i="5.91,280,1647327600"; d="scan'208";a="276730864"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  06 Jun 2022 13:38:01 -0700
-X-IronPort-AV: E=Sophos;i="5.91,280,1647327600"; d="scan'208";a="647728075"
+X-IronPort-AV: E=Sophos;i="5.91,280,1647327600"; d="scan'208";a="647728080"
 Received: from yantem-mobl9.amr.corp.intel.com (HELO pbossart-mobl3.intel.com)
  ([10.212.24.154])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  06 Jun 2022 13:38:00 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 2/7] ASoC: rt711-sdca-sdw: fix calibrate mutex initialization
-Date: Mon,  6 Jun 2022 15:37:47 -0500
-Message-Id: <20220606203752.144159-3-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 3/7] ASoC: Intel: sof_sdw: handle errors on card registration
+Date: Mon,  6 Jun 2022 15:37:48 -0500
+Message-Id: <20220606203752.144159-4-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220606203752.144159-1-pierre-louis.bossart@linux.intel.com>
 References: <20220606203752.144159-1-pierre-louis.bossart@linux.intel.com>
@@ -90,61 +90,98 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In codec driver bind/unbind test, the following warning is thrown:
+If the card registration fails, typically because of deferred probes,
+the device properties added for headset codecs are not removed, which
+leads to kernel oopses in driver bind/unbind tests.
 
-DEBUG_LOCKS_WARN_ON(lock->magic != lock)
-...
-[  699.182495]  rt711_sdca_jack_init+0x1b/0x1d0 [snd_soc_rt711_sdca]
-[  699.182498]  rt711_sdca_set_jack_detect+0x3b/0x90 [snd_soc_rt711_sdca]
-[  699.182500]  snd_soc_component_set_jack+0x24/0x50 [snd_soc_core]
+We already clean-up the device properties when the card is removed,
+this code can be moved as a helper and called upon card registration
+errors.
 
-A quick check in the code shows that the 'calibrate_mutex' used by
-this driver are not initialized at probe time. Moving the
-initialization to the probe removes the issue.
-
-BugLink: https://github.com/thesofproject/linux/issues/3644
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Rander Wang <rander.wang@intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- sound/soc/codecs/rt711-sdca-sdw.c | 3 +++
- sound/soc/codecs/rt711-sdca.c     | 2 +-
- 2 files changed, 4 insertions(+), 1 deletion(-)
+ sound/soc/intel/boards/sof_sdw.c | 51 ++++++++++++++++++--------------
+ 1 file changed, 29 insertions(+), 22 deletions(-)
 
-diff --git a/sound/soc/codecs/rt711-sdca-sdw.c b/sound/soc/codecs/rt711-sdca-sdw.c
-index c722a2b0041f7..a085b2f530aa1 100644
---- a/sound/soc/codecs/rt711-sdca-sdw.c
-+++ b/sound/soc/codecs/rt711-sdca-sdw.c
-@@ -373,6 +373,9 @@ static int rt711_sdca_sdw_remove(struct sdw_slave *slave)
- 	if (rt711->first_hw_init)
- 		pm_runtime_disable(&slave->dev);
+diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
+index 1f00679b42409..ad826ad82d51a 100644
+--- a/sound/soc/intel/boards/sof_sdw.c
++++ b/sound/soc/intel/boards/sof_sdw.c
+@@ -1398,6 +1398,33 @@ static struct snd_soc_card card_sof_sdw = {
+ 	.late_probe = sof_sdw_card_late_probe,
+ };
  
-+	mutex_destroy(&rt711->calibrate_mutex);
-+	mutex_destroy(&rt711->disable_irq_lock);
++static void mc_dailink_exit_loop(struct snd_soc_card *card)
++{
++	struct snd_soc_dai_link *link;
++	int ret;
++	int i, j;
 +
- 	return 0;
- }
- 
-diff --git a/sound/soc/codecs/rt711-sdca.c b/sound/soc/codecs/rt711-sdca.c
-index 57629c18db384..af73bcb4560a3 100644
---- a/sound/soc/codecs/rt711-sdca.c
-+++ b/sound/soc/codecs/rt711-sdca.c
-@@ -1412,6 +1412,7 @@ int rt711_sdca_init(struct device *dev, struct regmap *regmap,
- 	rt711->regmap = regmap;
- 	rt711->mbq_regmap = mbq_regmap;
- 
-+	mutex_init(&rt711->calibrate_mutex);
- 	mutex_init(&rt711->disable_irq_lock);
- 
- 	/*
-@@ -1550,7 +1551,6 @@ int rt711_sdca_io_init(struct device *dev, struct sdw_slave *slave)
- 			rt711_sdca_jack_detect_handler);
- 		INIT_DELAYED_WORK(&rt711->jack_btn_check_work,
- 			rt711_sdca_btn_check_handler);
--		mutex_init(&rt711->calibrate_mutex);
++	for (i = 0; i < ARRAY_SIZE(codec_info_list); i++) {
++		if (!codec_info_list[i].exit)
++			continue;
++		/*
++		 * We don't need to call .exit function if there is no matched
++		 * dai link found.
++		 */
++		for_each_card_prelinks(card, j, link) {
++			if (!strcmp(link->codecs[0].dai_name,
++				    codec_info_list[i].dai_name)) {
++				ret = codec_info_list[i].exit(card, link);
++				if (ret)
++					dev_warn(card->dev,
++						 "codec exit failed %d\n",
++						 ret);
++				break;
++			}
++		}
++	}
++}
++
+ static int mc_probe(struct platform_device *pdev)
+ {
+ 	struct snd_soc_card *card = &card_sof_sdw;
+@@ -1462,6 +1489,7 @@ static int mc_probe(struct platform_device *pdev)
+ 	ret = devm_snd_soc_register_card(&pdev->dev, card);
+ 	if (ret) {
+ 		dev_err(card->dev, "snd_soc_register_card failed %d\n", ret);
++		mc_dailink_exit_loop(card);
+ 		return ret;
  	}
  
- 	/* calibration */
+@@ -1473,29 +1501,8 @@ static int mc_probe(struct platform_device *pdev)
+ static int mc_remove(struct platform_device *pdev)
+ {
+ 	struct snd_soc_card *card = platform_get_drvdata(pdev);
+-	struct snd_soc_dai_link *link;
+-	int ret;
+-	int i, j;
+ 
+-	for (i = 0; i < ARRAY_SIZE(codec_info_list); i++) {
+-		if (!codec_info_list[i].exit)
+-			continue;
+-		/*
+-		 * We don't need to call .exit function if there is no matched
+-		 * dai link found.
+-		 */
+-		for_each_card_prelinks(card, j, link) {
+-			if (!strcmp(link->codecs[0].dai_name,
+-				    codec_info_list[i].dai_name)) {
+-				ret = codec_info_list[i].exit(card, link);
+-				if (ret)
+-					dev_warn(&pdev->dev,
+-						 "codec exit failed %d\n",
+-						 ret);
+-				break;
+-			}
+-		}
+-	}
++	mc_dailink_exit_loop(card);
+ 
+ 	return 0;
+ }
 -- 
 2.34.1
 

@@ -2,94 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F00853E560
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Jun 2022 17:23:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A85C53F5E6
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jun 2022 08:12:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 28FD918B9;
-	Mon,  6 Jun 2022 17:23:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 28FD918B9
+	by alsa0.perex.cz (Postfix) with ESMTPS id C77B319E7;
+	Tue,  7 Jun 2022 08:11:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C77B319E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654529037;
-	bh=1qVUS/BzihxAe+W87h5OVIov3OzXgna3j6bRi+OLJw4=;
+	s=default; t=1654582321;
+	bh=JJt0IO+HD16nKaMzBkekejjxzH6zJTBr5QCuFRGczGE=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=h12s/TCbCHjaJQ43248GJROFcC9nr3bMOPALDIkNQ3PGMcgo1r3lEy0fL7xbYChE1
-	 D8OeVGWXJw0PdJ5rG83eWA7PAnBLz4LCHjFHNaGJOkmtIeyb0tJ6a3tPHBopX2cUlk
-	 J3xqSvWIgqXIuAWHGOQoqgQuKX2hMp/BmIiEaMCE=
+	b=lL5eRPP1l62AeetWkvp35oKftkZQ141DNpJ+E1PuNOrm0SvCZRqIegVBj8JNDK/oO
+	 SjOBaK6Vwmt97yYrXARyz7h8QuRE38QKLeN1WIHSOHqOJw6Z26K8PrgOf3mrGOSyb5
+	 I8kdChTWVYzw4GXREnIuLuo9DdqIzuujYsosPQaE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 90870F80310;
-	Mon,  6 Jun 2022 17:22:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 14A91F800ED;
+	Tue,  7 Jun 2022 08:10:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 22400F801D8; Mon,  6 Jun 2022 17:22:57 +0200 (CEST)
+ id A9DAEF80109; Mon,  6 Jun 2022 17:25:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [IPv6:2a00:1450:4864:20::635])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E7708F80109
- for <alsa-devel@alsa-project.org>; Mon,  6 Jun 2022 17:22:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7708F80109
+ by alsa1.perex.cz (Postfix) with ESMTPS id 02B08F80109
+ for <alsa-devel@alsa-project.org>; Mon,  6 Jun 2022 17:25:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02B08F80109
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="m09w9gwj"
-Received: by mail-ej1-x635.google.com with SMTP id s12so22420067ejx.3
- for <alsa-devel@alsa-project.org>; Mon, 06 Jun 2022 08:22:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=q+Uwlf6qgJvF453WbwLN1jaXprVYO3wmuZLS2RkkxFs=;
- b=m09w9gwjIR2RAinzDyK8VruLeAVFJvHbrpa+jH7oL4BHaYqSW018C8VDZ5FfT4vyLg
- kNefBfLJHsDLZlV8RkJKC8ykSn5cgqkyB6k4jQdfBwSycSwz2Y4276a5v4F77KXSferg
- ZsKhu1CptfVOlueQ7oisLW6pMvU18Zv1B3k7IZq8sAB2opU8HQ1H2/L2XhGAvkO1NjTC
- mSVFBgdgRwsaDa2j/z3wTMl7LluZzvd7rYgBGxwur8G+FAr0zglFNsEyZlsKhYcP0EWW
- VJlrkvanXxE7DYNxjSJLAFFpi170XqtRM3xZi4myMc9TxZ/3uTlRHveq0na6un/jV+D5
- PavA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=q+Uwlf6qgJvF453WbwLN1jaXprVYO3wmuZLS2RkkxFs=;
- b=CAgl75BXkwB+WKcrLD4yHkUKEqYyJBfj3l45YPZpWsA37J8BGoiizWxRToklehOS9p
- gc3DtChI0ihTbi4jLSZ/G7WBS5sp8qU1XqBatwYDU/mmBxauJ9xxpCX0Xp8S5K6c1Jqt
- 3Bsx4Pl2ncTUDdxOPcE+MI6Vmpn/zrMPPaJ0Qeb6zk6WNw9ypcWt9WMEP0be8yHyjuX1
- UHHxZtmYygU5WiJ8JgTblYDiOp5PtNe5PFHcMBNFy0YbfA0YVVDdJrGvw5TCMP9uiKsw
- yZDQMNR5qU/QGUCafBQbw6Q2ZZH5covvLSZBcbotTfJrmJRkJFPUJbN3M84eI1+fvaWi
- Z6vA==
-X-Gm-Message-State: AOAM533qUpJzrzz9904iOlNjqO8VfBLYHt4sQfHC6aDJs11hzGsymSa3
- VbKPZE2Niry114ZVi5nahS4=
-X-Google-Smtp-Source: ABdhPJwanu3lq40yFMgYXOPYxN6gLx5qlezisxn9fc6ryWKeN9LAGfPx4pY2ol6YBGm4gXEwZyWM9A==
-X-Received: by 2002:a17:907:1c87:b0:6f0:29ea:cc01 with SMTP id
- nb7-20020a1709071c8700b006f029eacc01mr22180895ejc.671.1654528968351; 
- Mon, 06 Jun 2022 08:22:48 -0700 (PDT)
-Received: from localhost.localdomain ([138.199.7.159])
- by smtp.gmail.com with ESMTPSA id
- b3-20020a170906660300b00711aed17047sm2348128ejp.28.2022.06.06.08.22.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Jun 2022 08:22:47 -0700 (PDT)
-From: Yassine Oudjana <yassine.oudjana@gmail.com>
-X-Google-Original-From: Yassine Oudjana <y.oudjana@protonmail.com>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@codeaurora.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH] ASoC: wcd9335: Remove RX channel from old list before adding
- it to a new one
-Date: Mon,  6 Jun 2022 19:22:26 +0400
-Message-Id: <20220606152226.149164-1-y.oudjana@protonmail.com>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="FQvjxVAj"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 84DF061559;
+ Mon,  6 Jun 2022 15:25:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F9A7C341DE;
+ Mon,  6 Jun 2022 15:25:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1654529149;
+ bh=JJt0IO+HD16nKaMzBkekejjxzH6zJTBr5QCuFRGczGE=;
+ h=From:To:Cc:Subject:Date:From;
+ b=FQvjxVAjYkRkMlnXeUbGK/ffXS9EGiIGJB6czmy41m7BUi+gGlw+X1Vu+xVWhr8kL
+ VZmd7RutDKDJkQ6+PNC2k4EBuWcMiwehnWLeUgcaztEFymFfTpyADom9iKEZ2r0U6R
+ 8QTKxcO8tqR2nN17KQ7uaYrNw3fG0aG82GOK9/YW0npuVqsyv4lNhNtBEPuUTmVVIT
+ XOE4wPosVqLjYqBNBMuGPxA5PXF0QCAYswfnxGdyJu5zTk6VkYY/y8ZNnVzT895FLj
+ P6YX/uUQeJAT8yJ01In++Ksk7XfTNpL0aA6OZ6qjgQfLIhLB4De2E2AivHQOnNJprR
+ rbUcjc+xUJibQ==
+Received: from mchehab by mail.kernel.org with local (Exim 4.95)
+ (envelope-from <mchehab@kernel.org>) id 1nyEby-0012On-0x;
+ Mon, 06 Jun 2022 16:25:46 +0100
+From: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Linux Doc Mailing List <linux-doc@vger.kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>
+Subject: [PATCH 00/23] Update Documentation/ cross-references
+Date: Mon,  6 Jun 2022 16:25:22 +0100
+Message-Id: <cover.1654529011.git.mchehab@kernel.org>
 X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- Yassine Oudjana <y.oudjana@protonmail.com>,
- Yassine Oudjana <yassine.oudjana@gmail.com>, linux-kernel@vger.kernel.org
+X-Mailman-Approved-At: Tue, 07 Jun 2022 08:10:18 +0200
+Cc: Ulf Hansson <ulf.hansson@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>,
+ kvm@vger.kernel.org, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>, alsa-devel@alsa-project.org,
+ keyrings@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ "H. Peter Anvin" <hpa@zytor.com>, linux-phy@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, x86@kernel.org,
+ Ingo Molnar <mingo@redhat.com>, Geert Uytterhoeven <geert@linux-m68k.org>,
+ Federico Vaga <federico.vaga@vaga.pv.it>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Guenter Roeck <linux@roeck-us.net>, devicetree@vger.kernel.org,
+ Jean Delvare <jdelvare@suse.com>, linux-pm@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
+ Rob Herring <robh+dt@kernel.org>, Borislav Petkov <bp@alien8.de>,
+ Markus Mayer <mmayer@broadcom.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
+ linux-cachefs@redhat.com, linux-usb@vger.kernel.org, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Jarkko Sakkinen <jarkko@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,39 +106,73 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Yassine Oudjana <y.oudjana@protonmail.com>
+Hi John,
 
-Currently in slim_rx_mux_put, an RX channel gets added to a new list
-even if it is already in one. This can mess up links and make either
-it, the new list head, or both, get linked to the wrong entries.
-This can cause an entry to link to itself which in turn ends up
-making list_for_each_entry in other functions loop infinitely.
-To avoid issues, always remove the RX channel from any list it's in
-before adding it to a new list.
+There were a number of DT binding conversions and other docs change that
+were not updated. Address them, in order to keep the cross-references on
+a sane state.
 
-Signed-off-by: Yassine Oudjana <y.oudjana@protonmail.com>
----
- sound/soc/codecs/wcd9335.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Patch series is against v5.19-rc1 (and applies cleanly on the top of
+today's -next).
 
-diff --git a/sound/soc/codecs/wcd9335.c b/sound/soc/codecs/wcd9335.c
-index 617a36a89dfe..597420679505 100644
---- a/sound/soc/codecs/wcd9335.c
-+++ b/sound/soc/codecs/wcd9335.c
-@@ -1289,9 +1289,12 @@ static int slim_rx_mux_put(struct snd_kcontrol *kc,
- 
- 	wcd->rx_port_value[port_id] = ucontrol->value.enumerated.item[0];
- 
-+	/* Remove channel from any list it's in before adding it to a new one */
-+	list_del_init(&wcd->rx_chs[port_id].list);
-+
- 	switch (wcd->rx_port_value[port_id]) {
- 	case 0:
--		list_del_init(&wcd->rx_chs[port_id].list);
-+		/* Channel already removed from lists. Nothing to do here */
- 		break;
- 	case 1:
- 		list_add_tail(&wcd->rx_chs[port_id].list,
+Mauro Carvalho Chehab (23):
+  dt-bindings: mfd: bd9571mwv: update rohm,bd9571mwv.yaml reference
+  dt-bindings: interrupt-controller: update brcm,l2-intc.yaml reference
+  dt-bindings: arm: update vexpress-config.yaml references
+  dt-bindings: reset: update st,stih407-powerdown.yaml references
+  dt-bindings: mfd: rk808: update rockchip,rk808.yaml reference
+  dt-bindings: mmc: exynos-dw-mshc: update samsung,pinctrl.yaml
+    reference
+  docs: netdev: update maintainer-netdev.rst reference
+  docs: filesystems: update netfs-api.rst reference
+  Documentation: update watch_queue.rst references
+  Documentation: KVM: update s390-pv.rst reference
+  Documentation: KVM: update amd-memory-encryption.rst references
+  Documentation: KVM: update msr.rst reference
+  Documentation: KVM: update s390-diag.rst reference
+  MAINTAINERS: update arm,hdlcd.yaml reference
+  MAINTAINERS: update arm,komeda.yaml reference
+  MAINTAINERS: update arm,malidp.yaml reference
+  MAINTAINERS: update cortina,gemini-ethernet.yaml reference
+  MAINTAINERS: update dongwoon,dw9807-vcm.yaml reference
+  MAINTAINERS: update maxim,max77693.yaml reference
+  MAINTAINERS: update snps,axs10x-reset.yaml reference
+  objtool: update objtool.txt references
+  ASoC: wm8731: update wlf,wm8731.yaml reference
+  arch: m68k: q40: README: drop references to IDE driver
+
+ .../ABI/testing/sysfs-driver-bd9571mwv-regulator   |  2 +-
+ Documentation/admin-guide/kernel-parameters.txt    |  2 +-
+ .../bindings/cpufreq/brcm,stb-avs-cpu-freq.txt     |  2 +-
+ .../devicetree/bindings/hwmon/vexpress.txt         |  2 +-
+ .../devicetree/bindings/mmc/exynos-dw-mshc.txt     |  2 +-
+ .../devicetree/bindings/phy/phy-stih407-usb.txt    |  2 +-
+ .../devicetree/bindings/pinctrl/pinctrl-rk805.txt  |  2 +-
+ .../devicetree/bindings/regulator/vexpress.txt     |  2 +-
+ .../bindings/sound/atmel-sam9x5-wm8731-audio.txt   |  2 +-
+ Documentation/devicetree/bindings/usb/dwc3-st.txt  |  2 +-
+ Documentation/devicetree/bindings/usb/ehci-st.txt  |  2 +-
+ Documentation/devicetree/bindings/usb/ohci-st.txt  |  2 +-
+ Documentation/security/keys/core.rst               |  2 +-
+ Documentation/security/secrets/coco.rst            |  2 +-
+ .../translations/it_IT/networking/netdev-FAQ.rst   |  2 +-
+ Documentation/virt/kvm/api.rst                     |  4 ++--
+ Documentation/virt/kvm/s390/s390-pv-boot.rst       |  2 +-
+ Documentation/virt/kvm/x86/hypercalls.rst          |  2 +-
+ Documentation/x86/orc-unwinder.rst                 |  2 +-
+ MAINTAINERS                                        | 14 +++++++-------
+ arch/m68k/q40/README                               |  4 +---
+ include/linux/fscache.h                            |  2 +-
+ include/linux/objtool.h                            |  2 +-
+ include/linux/watch_queue.h                        |  2 +-
+ init/Kconfig                                       |  2 +-
+ kernel/watch_queue.c                               |  2 +-
+ lib/Kconfig.debug                                  |  2 +-
+ tools/include/linux/objtool.h                      |  2 +-
+ tools/objtool/check.c                              |  2 +-
+ 29 files changed, 36 insertions(+), 38 deletions(-)
+
 -- 
 2.36.1
+
 

@@ -2,91 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40E5F53E3F7
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Jun 2022 11:40:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4228253E402
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Jun 2022 12:11:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D2E2617B4;
-	Mon,  6 Jun 2022 11:39:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D2E2617B4
+	by alsa0.perex.cz (Postfix) with ESMTPS id AD09617F6;
+	Mon,  6 Jun 2022 12:10:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD09617F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654508441;
-	bh=yZ/4ZYaxKHrjomgGxd/1bgY3A9U95j0aVPPumel2UKs=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1654510293;
+	bh=T64VaQ4NySVI0Ut3FbNkz7xULicSf2v5M/56BepBaos=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=b/q3TiVkOy5s0uMHcbAGRfUav+4lWgaU5RhTpniCav5wKWBAHwoFjRtKSe38l6o2j
-	 m+qyTx01L7e9ei0yp06ZYjtdtnVDCjzB3+agmXwh1ZrHVRa6Ef8EnWEGfnWCmZydor
-	 PyxjP3qB7FCObBxEeBct65+KGmf0gV9s90j3fLYw=
+	b=vO9FUQCPycstozcoW7jJp5S+AXXSSbuHJwnIC9pqXCoQeIWJY0dEgRuj5+KupZj3m
+	 u5aDzCSJ3S0rTwcSgpuIur+Thdqbjc+78EveJWui5EoG/usWjc+Aa0XbKRPov4UQUo
+	 t85PUfQmYoR9DjizSZ9AKnj7+sL4O5h+IP5kB1IU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4AEAAF80310;
-	Mon,  6 Jun 2022 11:39:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2D114F80089;
+	Mon,  6 Jun 2022 12:10:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A9CE4F80116; Mon,  6 Jun 2022 11:39:42 +0200 (CEST)
+ id C5409F80116; Mon,  6 Jun 2022 12:10:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [IPv6:2a00:1450:4864:20::434])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9FFC1F80116
- for <alsa-devel@alsa-project.org>; Mon,  6 Jun 2022 11:39:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9FFC1F80116
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4862DF80116
+ for <alsa-devel@alsa-project.org>; Mon,  6 Jun 2022 12:10:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4862DF80116
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="T06xocKS"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 2565f062015762;
- Mon, 6 Jun 2022 04:39:32 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=PODMain02222019;
- bh=Afk/+rnhejZlVvA6y3mlvCOodazyAWEKfurxb2awss8=;
- b=T06xocKSqvjDMQjC8lDVOf51UAnoJSKKCMjqeQiggId9GhQcJwvwlY0O2/wsvDJTdFH8
- 7AuTEyJtxAswwpUaPsKBDs1b4Ulo8gJzbO7ABcldVrMSMIRpfXSJ6vzJ5lbHbvUyHawp
- YcyuW2eUHAAcI8r1E8faXI0+fhqJXe3M3MPnvnU23j99NnYa3SO6aTZWGV9+Kqo4IOfj
- hjmNeF06EmVMmWN+hT8l80yShDG+jUF5h9YkdBJMF3ygSc1RIZ1+gpXhgRYHIjBNTtsy
- xRtDXI/j9ZKSGSp3RsTK7gVDagGZtvRCXW+F9/76KkH9AZQMFqfgnI7pICOVICoAdPOC mg== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3gg3tq1pag-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Mon, 06 Jun 2022 04:39:32 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 6 Jun
- 2022 10:39:30 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.28 via
- Frontend Transport; Mon, 6 Jun 2022 10:39:30 +0100
-Received: from [10.0.2.15] (AUSNPC0LSNW1.ad.cirrus.com [198.90.251.45])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 3BB78475;
- Mon,  6 Jun 2022 09:39:30 +0000 (UTC)
-Subject: Re: [PATCH] ASoC: wm_adsp: Fix event generation for wm_adsp_fw_put()
-To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>, Simon Trimmer
- <simont@opensource.cirrus.com>
-References: <20220603115003.3865834-1-broonie@kernel.org>
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-Message-ID: <18604186-e133-e2c8-6f18-9e1f79305530@opensource.cirrus.com>
-Date: Mon, 6 Jun 2022 10:39:30 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="k+0ldaxs"
+Received: by mail-wr1-x434.google.com with SMTP id t13so19173119wrg.9
+ for <alsa-devel@alsa-project.org>; Mon, 06 Jun 2022 03:10:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :references:from:in-reply-to:content-transfer-encoding;
+ bh=EEtIczXOb290W+pz7uEsvHrOu4FcL6xx1WeEBPLY3Hw=;
+ b=k+0ldaxsPStEdYkYtq1feLWsz9sDXg7qx7pwcgrtt+joqLVBPgMCa3QRHr2WCmXLw3
+ 93vbDgVNXS1/A4pljwJI95bsvtzl8vE6uZIPIKhEvxjmgTaSEKIkstoM9KWI9BoZIKBZ
+ khKu+rjUT+j3UMdbbWNcyaXdVwEJ6EkngIL0UR3C6uaKMXBIUPwXwbLMcdxWQ1RxSL4K
+ hILIo+a0vs8qfcjygC41tTQQLy0Yeyo5z+pMGVggHM0KgW9SlGZcHjbDKAd9Ik0tsk1k
+ Ohb1Jy8s81aMtJBNBZLiew/9C5Rkl5wrkJlHKn1xf3pRSo1YFt92OqrGAqc6hlmdmKgp
+ +RUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=EEtIczXOb290W+pz7uEsvHrOu4FcL6xx1WeEBPLY3Hw=;
+ b=yK6J5K3P0SPLomcj8uJESW5+MpaC7q8joEGUEtzamx0ehLFOHbxapOlDL7lmOsilIl
+ BIx7prefMSvk0/lTV0JJ0nvj19sNiHPZ6So5q+8yJyu0gQODqgnY1Lnon5eJlbdnP5cD
+ LtfcbeYr5RFQDRmabyKXXcKj5OHBeNb/BwNC8hB62mmGhbaIUmEO8qWxdSJCTZwZIuyg
+ eq7w3+q1iXAJK6wn/pxL/0ngA8AYuEtatS7ceHZGsQpxEmkCttKjs6gQf/lbGjsljKCY
+ bgBzxltcYUXdGjgtuPNVmWgtNsNqXVYJZFExwWrPZRKi/Zz8CywXWUFaM8WnMBXvkpaf
+ n9fg==
+X-Gm-Message-State: AOAM531eQlPDM940/wMidUNt5BOT2xtmwU0/nZ0cfc2NYKXqp6WOjCo9
+ DHnFMX31igv1LRO76eITb3XYsw==
+X-Google-Smtp-Source: ABdhPJxM5KE+vxnYfWDTOxBGJUXvolZxgAVtIxd+SN85NugA4dvW6DbnIy3/F1PGAMbEfYS+qGVfhQ==
+X-Received: by 2002:a05:6000:1091:b0:213:b515:f46f with SMTP id
+ y17-20020a056000109100b00213b515f46fmr17644027wrw.632.1654510224309; 
+ Mon, 06 Jun 2022 03:10:24 -0700 (PDT)
+Received: from [192.168.86.238]
+ (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
+ by smtp.googlemail.com with ESMTPSA id
+ b12-20020a5d4b8c000000b0020feb9c44c2sm14955968wrt.20.2022.06.06.03.10.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 06 Jun 2022 03:10:23 -0700 (PDT)
+Message-ID: <a9ce408f-eaea-40db-34be-26e51cbb3515@linaro.org>
+Date: Mon, 6 Jun 2022 11:10:22 +0100
 MIME-Version: 1.0
-In-Reply-To: <20220603115003.3865834-1-broonie@kernel.org>
-Content-Type: text/plain; charset="utf-8"; format=flowed
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH] drivers: slimbus: Directly use ida_alloc()/free()
 Content-Language: en-US
+To: keliu <liuke94@huawei.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+References: <20220527073053.2402630-1-liuke94@huawei.com>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: <20220527073053.2402630-1-liuke94@huawei.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: kLxb4Vm6Qs7dTxCRkV1h1xioHJiXxYXX
-X-Proofpoint-GUID: kLxb4Vm6Qs7dTxCRkV1h1xioHJiXxYXX
-X-Proofpoint-Spam-Reason: safe
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,29 +106,49 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 03/06/2022 12:50, Mark Brown wrote:
-> Currently wm_adsp_fw_put() returns 0 rather than 1 when updating the value
-> of the control, meaning that no event is generated to userspace. Fix this
-> by setting the default return value to 1, the code already exits early with
-> a return value of 0 if the value is unchanged.
+
+
+On 27/05/2022 08:30, keliu wrote:
+> Use ida_alloc()/ida_free() instead of deprecated
+> ida_simple_get()/ida_simple_remove() .
 > 
-> Signed-off-by: Mark Brown <broonie@kernel.org>
+> Signed-off-by: keliu <liuke94@huawei.com>
+
+Applied thanks,
+
+--srini
 > ---
->   sound/soc/codecs/wm_adsp.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+>   drivers/slimbus/core.c | 6 +++---
+>   1 file changed, 3 insertions(+), 3 deletions(-)
 > 
-> diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
-> index 7973a75cac05..6d7fd88243aa 100644
-> --- a/sound/soc/codecs/wm_adsp.c
-> +++ b/sound/soc/codecs/wm_adsp.c
-> @@ -333,7 +333,7 @@ int wm_adsp_fw_put(struct snd_kcontrol *kcontrol,
->   	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
->   	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
->   	struct wm_adsp *dsp = snd_soc_component_get_drvdata(component);
-> -	int ret = 0;
-> +	int ret = 1;
+> diff --git a/drivers/slimbus/core.c b/drivers/slimbus/core.c
+> index 78480e332ab8..219483b79c09 100644
+> --- a/drivers/slimbus/core.c
+> +++ b/drivers/slimbus/core.c
+> @@ -250,7 +250,7 @@ int slim_register_controller(struct slim_controller *ctrl)
+>   {
+>   	int id;
 >   
->   	if (ucontrol->value.enumerated.item[0] == dsp[e->shift_l].fw)
->   		return 0;
-> 
-Reviewed-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+> -	id = ida_simple_get(&ctrl_ida, 0, 0, GFP_KERNEL);
+> +	id = ida_alloc(&ctrl_ida, GFP_KERNEL);
+>   	if (id < 0)
+>   		return id;
+>   
+> @@ -299,7 +299,7 @@ int slim_unregister_controller(struct slim_controller *ctrl)
+>   {
+>   	/* Remove all clients */
+>   	device_for_each_child(ctrl->dev, NULL, slim_ctrl_remove_device);
+> -	ida_simple_remove(&ctrl_ida, ctrl->id);
+> +	ida_free(&ctrl_ida, ctrl->id);
+>   
+>   	return 0;
+>   }
+> @@ -323,7 +323,7 @@ void slim_report_absent(struct slim_device *sbdev)
+>   	sbdev->is_laddr_valid = false;
+>   	mutex_unlock(&ctrl->lock);
+>   	if (!ctrl->get_laddr)
+> -		ida_simple_remove(&ctrl->laddr_ida, sbdev->laddr);
+> +		ida_free(&ctrl->laddr_ida, sbdev->laddr);
+>   	slim_device_update_status(sbdev, SLIM_DEVICE_STATUS_DOWN);
+>   }
+>   EXPORT_SYMBOL_GPL(slim_report_absent);

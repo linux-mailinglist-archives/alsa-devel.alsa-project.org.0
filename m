@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B511153F00D
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Jun 2022 22:40:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 889A353F008
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Jun 2022 22:40:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 551A21B4F;
-	Mon,  6 Jun 2022 22:40:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 551A21B4F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 28AD31B43;
+	Mon,  6 Jun 2022 22:39:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 28AD31B43
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654548058;
-	bh=4lsPaO9+MYFlg0SoKShmbAa5ueeozB08ZfFkV1z/D20=;
+	s=default; t=1654548031;
+	bh=TPqtK5SVm0iqscZHyb+uAD0ftr82r8hCfnbw7lk3XE4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=B64fcBFBcx21Oso3dwcSkJ77bJP8f8nChTrZ2PrVARjndD2PO7ZUxbw4HCL20ZPFf
-	 m7jMR8SyaaCDd8iXZY5NeO1dnwbYmT4VhoXNYDrp8O668A5N4YKRxRv4aJlS9eXOqW
-	 2BUxkPbht1kr64I7NZga0lZ0HoYQQgeceGFDyQy8=
+	b=uMR4oAyh26/exT38hB8SJd+e84MY6wFRe/QVG9tylhRGzmOY8GCAi1JJgCIYLa6tv
+	 f/38im5+GUOT/KTVmC4rs9/LHSMO59yx3Y1vh/i6I5kokYYmfiioQOq2BUbtI7bLxp
+	 pqP5t3T5hPmnE1IFSKd3mFTzF9NcCMbJyqs2YV80=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 96486F80548;
-	Mon,  6 Jun 2022 22:38:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9802EF8053A;
+	Mon,  6 Jun 2022 22:38:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 92401F80535; Mon,  6 Jun 2022 22:38:20 +0200 (CEST)
+ id 6ED54F80533; Mon,  6 Jun 2022 22:38:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 96A24F80116
+ by alsa1.perex.cz (Postfix) with ESMTPS id C8545F804BC
  for <alsa-devel@alsa-project.org>; Mon,  6 Jun 2022 22:38:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96A24F80116
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8545F804BC
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="cvfGJkXP"
+ header.b="SeGGq/N1"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1654547889; x=1686083889;
+ t=1654547890; x=1686083890;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=4lsPaO9+MYFlg0SoKShmbAa5ueeozB08ZfFkV1z/D20=;
- b=cvfGJkXPYqLDTVbAkv45YQzx6uWsjFD4UlctU9hj3IqnfXcRobyBUBBa
- 03Q6ySiwZJE7BfTbEFKF8vNXqSTm59ppt+eUpmNgb5a5DndXxiyEqwhvx
- Z5RYZrv0Yge0xTrftPEMgMk7fJXzOvGgqQIpCiFv97NmAGFgvR5iU0RPW
- OqdH0MZgPe23n/y9aCvdhbi4dP0DSb88y1kckb7dJ2Bc+PGrXnpnkzMfg
- 6ZkvI3iLDUAvbyny5e9rjLlOiVtaAhexOtdcDDEAr4u+Om3Ru39wtxumQ
- IHfUsMoyhC4nB4VkxIBZkCQ1z5evfZGFN94n8MTzriMmlIrsPSuA4BINJ A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10370"; a="276730864"
-X-IronPort-AV: E=Sophos;i="5.91,280,1647327600"; d="scan'208";a="276730864"
+ bh=TPqtK5SVm0iqscZHyb+uAD0ftr82r8hCfnbw7lk3XE4=;
+ b=SeGGq/N1H/CTSWzMuO/zEzIi0JcJv3fbn9Z9J9QrNErynSVuQ2pYaooy
+ WNVLcTzk392Q0ouv5FbCROVMbdZynnjqBO3rsOX1iFO8RcvznWc7P9Kmo
+ ZxuvlMjvaTON3C47n4+xnDOLc8P6WEoIAZlj6poXPqfzH64nkKMiwUGsI
+ 1N9KQhN9o1A3kONEILh3VfA6naSMWVItPsFOOmo0h7BOlJCx/2CrMiOB0
+ ecjAYSsUn+hlkJD/ENVbxrXPtbDYAhYvO+Su+FjVd8CE73DvVZB95XDZI
+ VVdpDlFWIxu9i3fryVs3+x43HS4WHA/uMcHoZpfSFJvNDVtH2JgWac0Ay g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10370"; a="276730865"
+X-IronPort-AV: E=Sophos;i="5.91,280,1647327600"; d="scan'208";a="276730865"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  06 Jun 2022 13:38:01 -0700
-X-IronPort-AV: E=Sophos;i="5.91,280,1647327600"; d="scan'208";a="647728080"
+X-IronPort-AV: E=Sophos;i="5.91,280,1647327600"; d="scan'208";a="647728084"
 Received: from yantem-mobl9.amr.corp.intel.com (HELO pbossart-mobl3.intel.com)
  ([10.212.24.154])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jun 2022 13:38:00 -0700
+ 06 Jun 2022 13:38:01 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 3/7] ASoC: Intel: sof_sdw: handle errors on card registration
-Date: Mon,  6 Jun 2022 15:37:48 -0500
-Message-Id: <20220606203752.144159-4-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 4/7] ASoC: rt711: fix calibrate mutex initialization
+Date: Mon,  6 Jun 2022 15:37:49 -0500
+Message-Id: <20220606203752.144159-5-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220606203752.144159-1-pierre-louis.bossart@linux.intel.com>
 References: <20220606203752.144159-1-pierre-louis.bossart@linux.intel.com>
@@ -90,98 +90,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If the card registration fails, typically because of deferred probes,
-the device properties added for headset codecs are not removed, which
-leads to kernel oopses in driver bind/unbind tests.
-
-We already clean-up the device properties when the card is removed,
-this code can be moved as a helper and called upon card registration
-errors.
+Follow the same flow as rt711-sdca and initialize all mutexes at probe
+time.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Rander Wang <rander.wang@intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- sound/soc/intel/boards/sof_sdw.c | 51 ++++++++++++++++++--------------
- 1 file changed, 29 insertions(+), 22 deletions(-)
+ sound/soc/codecs/rt711-sdw.c | 3 +++
+ sound/soc/codecs/rt711.c     | 2 +-
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
-index 1f00679b42409..ad826ad82d51a 100644
---- a/sound/soc/intel/boards/sof_sdw.c
-+++ b/sound/soc/intel/boards/sof_sdw.c
-@@ -1398,6 +1398,33 @@ static struct snd_soc_card card_sof_sdw = {
- 	.late_probe = sof_sdw_card_late_probe,
- };
+diff --git a/sound/soc/codecs/rt711-sdw.c b/sound/soc/codecs/rt711-sdw.c
+index f49c94baa37c6..4fe68bcf2a7c2 100644
+--- a/sound/soc/codecs/rt711-sdw.c
++++ b/sound/soc/codecs/rt711-sdw.c
+@@ -474,6 +474,9 @@ static int rt711_sdw_remove(struct sdw_slave *slave)
+ 	if (rt711->first_hw_init)
+ 		pm_runtime_disable(&slave->dev);
  
-+static void mc_dailink_exit_loop(struct snd_soc_card *card)
-+{
-+	struct snd_soc_dai_link *link;
-+	int ret;
-+	int i, j;
++	mutex_destroy(&rt711->calibrate_mutex);
++	mutex_destroy(&rt711->disable_irq_lock);
 +
-+	for (i = 0; i < ARRAY_SIZE(codec_info_list); i++) {
-+		if (!codec_info_list[i].exit)
-+			continue;
-+		/*
-+		 * We don't need to call .exit function if there is no matched
-+		 * dai link found.
-+		 */
-+		for_each_card_prelinks(card, j, link) {
-+			if (!strcmp(link->codecs[0].dai_name,
-+				    codec_info_list[i].dai_name)) {
-+				ret = codec_info_list[i].exit(card, link);
-+				if (ret)
-+					dev_warn(card->dev,
-+						 "codec exit failed %d\n",
-+						 ret);
-+				break;
-+			}
-+		}
-+	}
-+}
-+
- static int mc_probe(struct platform_device *pdev)
- {
- 	struct snd_soc_card *card = &card_sof_sdw;
-@@ -1462,6 +1489,7 @@ static int mc_probe(struct platform_device *pdev)
- 	ret = devm_snd_soc_register_card(&pdev->dev, card);
- 	if (ret) {
- 		dev_err(card->dev, "snd_soc_register_card failed %d\n", ret);
-+		mc_dailink_exit_loop(card);
- 		return ret;
- 	}
- 
-@@ -1473,29 +1501,8 @@ static int mc_probe(struct platform_device *pdev)
- static int mc_remove(struct platform_device *pdev)
- {
- 	struct snd_soc_card *card = platform_get_drvdata(pdev);
--	struct snd_soc_dai_link *link;
--	int ret;
--	int i, j;
- 
--	for (i = 0; i < ARRAY_SIZE(codec_info_list); i++) {
--		if (!codec_info_list[i].exit)
--			continue;
--		/*
--		 * We don't need to call .exit function if there is no matched
--		 * dai link found.
--		 */
--		for_each_card_prelinks(card, j, link) {
--			if (!strcmp(link->codecs[0].dai_name,
--				    codec_info_list[i].dai_name)) {
--				ret = codec_info_list[i].exit(card, link);
--				if (ret)
--					dev_warn(&pdev->dev,
--						 "codec exit failed %d\n",
--						 ret);
--				break;
--			}
--		}
--	}
-+	mc_dailink_exit_loop(card);
- 
  	return 0;
  }
+ 
+diff --git a/sound/soc/codecs/rt711.c b/sound/soc/codecs/rt711.c
+index 9838fb4d5b9c0..1e35ba433a7e7 100644
+--- a/sound/soc/codecs/rt711.c
++++ b/sound/soc/codecs/rt711.c
+@@ -1204,6 +1204,7 @@ int rt711_init(struct device *dev, struct regmap *sdw_regmap,
+ 	rt711->sdw_regmap = sdw_regmap;
+ 	rt711->regmap = regmap;
+ 
++	mutex_init(&rt711->calibrate_mutex);
+ 	mutex_init(&rt711->disable_irq_lock);
+ 
+ 	/*
+@@ -1318,7 +1319,6 @@ int rt711_io_init(struct device *dev, struct sdw_slave *slave)
+ 			rt711_jack_detect_handler);
+ 		INIT_DELAYED_WORK(&rt711->jack_btn_check_work,
+ 			rt711_btn_check_handler);
+-		mutex_init(&rt711->calibrate_mutex);
+ 		INIT_WORK(&rt711->calibration_work, rt711_calibration_work);
+ 		schedule_work(&rt711->calibration_work);
+ 	}
 -- 
 2.34.1
 

@@ -2,74 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6335553E5AF
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Jun 2022 18:19:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88EC553E5B2
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Jun 2022 18:26:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 05AEB1A75;
-	Mon,  6 Jun 2022 18:18:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05AEB1A75
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1DB431A7E;
+	Mon,  6 Jun 2022 18:25:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1DB431A7E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654532382;
-	bh=3oCBnEMhW8iOscqIU/v0ccC1Gno4VX5ZfFY5AQN/GQs=;
+	s=default; t=1654532792;
+	bh=6C1ftIq2+/BRnNYkuG6cpMTzXy2fGebCcPyZI8FE7QY=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uEaW3T5YSvpCPP3OZR13xqsaclIOFIECx2oQ2NI0/Gm0GCUMyKlvcAfNbuOmNfDbb
-	 S40X+lICk65gX0YsUTb2Qj1mNQab+GKMbGvsoADhCPJWhFHj2ZvVTfIJITc+cgxWJ0
-	 z7xtAKI3FMxxHKwLD1IhyHlT7mk9AJEomiRzHSBU=
+	b=V2AtTOe1UV/q6DSQ9o+avM+D2x/T868zjKYd+ng3TlQLX48gPftHcnge71+bK1XSy
+	 fZVinkTpVD1K91ICXdBXMY4RoL9+3Q5u9Oi9yBRXeJgW8nmSvj0y0maFytQc1s2X+e
+	 UA/Rg+CtYn7eKQZj6Q3+AZEOoOLSNh0WgzUOSKtg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 88780F801D8;
-	Mon,  6 Jun 2022 18:18:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A37C8F80310;
+	Mon,  6 Jun 2022 18:25:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BA001F8012A; Mon,  6 Jun 2022 18:18:43 +0200 (CEST)
+ id 348D8F801D8; Mon,  6 Jun 2022 18:25:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 45EAEF8012A
- for <alsa-devel@alsa-project.org>; Mon,  6 Jun 2022 18:18:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45EAEF8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id D2A1AF80116
+ for <alsa-devel@alsa-project.org>; Mon,  6 Jun 2022 18:25:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2A1AF80116
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="DOaXzseA"
+ header.b="dT9bzhjn"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id B71F8B81AA1;
- Mon,  6 Jun 2022 16:18:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAD1EC385A9;
- Mon,  6 Jun 2022 16:18:36 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 240CCCE1BEE;
+ Mon,  6 Jun 2022 16:25:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAF35C385A9;
+ Mon,  6 Jun 2022 16:25:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1654532318;
- bh=3oCBnEMhW8iOscqIU/v0ccC1Gno4VX5ZfFY5AQN/GQs=;
+ s=k20201202; t=1654532724;
+ bh=6C1ftIq2+/BRnNYkuG6cpMTzXy2fGebCcPyZI8FE7QY=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=DOaXzseA3IdedKlDd/0SMXSAH2XsHX4047LtvaxgprVkZ5ylLldFVhtYPLNg8vz9m
- F5tlfOrpFSXLtIlvFugShdJZDaeWfjPDjYGLkuuI6HnCYnUd9p3vqEb01M1cumxi6r
- Vp94/VbeioAXEbIrImwBWcY2VPF2TTN+tEeLcfNx2nqcN7ooPVgJVUuBcX+CvFfpnC
- zqOgDZKC/jgC4z8htUqsmPHnaNg71zIxbjHnrnIuCNgHUcQoK7xESnbV5rUTG+iDzU
- GZEjKHVoPV2DBIv292LdXxIyoq3ixFVXvrFEhNPh1tBAe13KkotFQCTOGMChd3/mqg
- WRjq4l6jJp8qg==
-Date: Mon, 6 Jun 2022 17:18:33 +0100
+ b=dT9bzhjnCTxPZn6QGKfd2z5w3YR63nDpB85aUWVor/+qPkxj7euBfWwutI92IpNJo
+ jYzF4WDXCDrYD42/9X7z4ZFjcxw2x+YiyMA1neI0cankclhKPfFFVnBOxx5eYyxEcQ
+ Eriz84kRzcbOKMTUlqh9i9em2Ag5YuV0nWk45McC9Vqtd96giRayypcn71FLM1u27q
+ qk4a8d/ufM6q4/TpojKDoPY1q9RKYaPppcufBW3ByirZNCd/3ib3VCwl+omCNQ/88A
+ m5Kc3ljj7Cpg4unwcImz2B63DKlQxhrLyj2Wz6CKsDW7ULMNGjBaviiZjrmizqphct
+ XlOSo+BFiGSfg==
+Date: Mon, 6 Jun 2022 17:25:19 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Lukasz Majewski <lukma@denx.de>
-Subject: Re: [PATCH 2/3] ASoC: wm8940: Rewrite code to set proper clocks
-Message-ID: <Yp4o2bQammYjv7Kt@sirena.org.uk>
+Subject: Re: [PATCH 3/3] ASoC: wm8940: Mute also the speaker output
+Message-ID: <Yp4qb5jaGYf5qnxt@sirena.org.uk>
 References: <20220606154441.20848-1-lukma@denx.de>
- <20220606154441.20848-2-lukma@denx.de>
+ <20220606154441.20848-3-lukma@denx.de>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="3nyy0JRAQdDxWcrH"
+ protocol="application/pgp-signature"; boundary="vbR2GMX70upG8Py9"
 Content-Disposition: inline
-In-Reply-To: <20220606154441.20848-2-lukma@denx.de>
+In-Reply-To: <20220606154441.20848-3-lukma@denx.de>
 X-Cookie: Bedfellows make strange politicians.
 Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
  patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
@@ -90,46 +90,44 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---3nyy0JRAQdDxWcrH
+--vbR2GMX70upG8Py9
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Mon, Jun 06, 2022 at 05:44:40PM +0200, Lukasz Majewski wrote:
-> Without this change, the wm8940 driver is not working when
-> set_sysclk callback (wm8940_set_dai_sysclk) is called with
-> freqency not listed in the switch clause.
+On Mon, Jun 06, 2022 at 05:44:41PM +0200, Lukasz Majewski wrote:
 
-> This change adjusts this driver to allow non-standard frequency
-> set (just after the boot) being adjusted afterwards by the sound
-> system core code.
+> Without this change the BTL speaker produces some
+> "distortion" noise when test program
+> (speaker-test -t waw) is ended with ctrl+c.
 
-I don't entirely follow the above - in what way might the core adjust
-the clocking, and why would we want to allow the use of invalid clocks?
-Surely that just makes error checking worse.
+> As our design uses speaker outputs to drive BTL speaker,
+> it was necessary to also mute the speaker via the codec
+> internal WM8940_SPKVOL register with setting
+> WM8940_SPKMUTE bit.
 
-> Code in this commit is based on previous change done for wm8974
-> (SHA1: 51b2bb3f2568e6d9d81a001d38b8d70c2ba4af99).
+This will not interact well with both the user visible control of the
+speaker volume via the Speaker Playback Volume control and the analog
+bypass paths that the device has - it'll change the state of the control
+without generating any events, and cut off any bypassed audio that's
+mixed in.
 
-Please include human readable descriptions of things like commits and
-issues being discussed in e-mail in your mails, this makes them much
-easier for humans to read especially when they have no internet access.
-I do frequently catch up on my mail on flights or while otherwise
-travelling so this is even more pressing for me than just being about
-making things a bit easier to read.
+You can probably achieve a similar effect by making the control an
+_AUTODISABLE one which will allow the core to mute the control when it's
+not being used in a way that's not visible to userspace.
 
---3nyy0JRAQdDxWcrH
+--vbR2GMX70upG8Py9
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmKeKNkACgkQJNaLcl1U
-h9CBzwf7Bsk4iYWK7ta6JUCjk6j2ZHCbZQHOMiN6efdBy834xrJCPOHTbaCz3KvO
-Kye4CEAZP8dHX8/L8dHyOFnPlzcDTL2lbSoMJNOA9rP4IUjCGdCBIyPLQ/kzEi4t
-Zcvy/aAB3tiR6rtlHP/3f/B+gqW+2b5vqJ2bjYMLL0QaK4xo8T4OZbUTtxPn+yOc
-Wrm2qJGy1X2PFU+Rtoh/rE5wPyCzvhjW5GzJJ8i111MnFvLsVlfbB0ckZ1+zrYFY
-JiP+ELOKT7USyUFugr3W12oV0RSGMQYa+uDqXSeMwZpos7U1WqbxSuEo3uRldgsB
-gdAfowSaXfq1ayZwfjNAl4WtQWAakQ==
-=RBse
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmKeKm4ACgkQJNaLcl1U
+h9CkDwgAhJX7tOT+yGFzvFc73mwr1jkFi+2f+NgQ5Vz+AFyNn8C7GgMClt6+gXhI
+GuqETDHalU67stNb4ke1NTVdlKM1qI5rdGl20VfY/mFCb+itbR/fE/vxwMHIQSCy
+JY4dpCv2Z3yDKLSjSarJiTWV6dxaJ01tJYp3z3+i2Za9Di4v6K3j2wRayIZcczSt
+sxPdAt/4AL265LDctA6PmI2VCE2wjo3l4YgfInO1bGDpH5gjnZFMdJo3cKHD/Vrs
+JLRuB6A1guLo1oURYQOKLrvpMPRkKoF/XaoNlCA/Tlsd/p0l3Up8sk6zBY8Gr+f0
+uNDYRwQnGcy/KqQT+B6Ytqa2i7pMqw==
+=2p+e
 -----END PGP SIGNATURE-----
 
---3nyy0JRAQdDxWcrH--
+--vbR2GMX70upG8Py9--

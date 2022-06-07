@@ -2,76 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A86B853FEA1
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jun 2022 14:21:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E429353FECD
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jun 2022 14:31:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 46BDA1811;
-	Tue,  7 Jun 2022 14:21:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46BDA1811
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7EB64193C;
+	Tue,  7 Jun 2022 14:31:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7EB64193C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654604519;
-	bh=w2aQJy8XTcqWcZ5VipuId8VpFh1nL10EEwBkOwvPTtQ=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1654605114;
+	bh=VoF4gfXVXyApkw2gudwOCjkTc+NEYoDblUxKR9y0TC0=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lE2zpADTe5FrY9VIbU2lWhmsYmCXDpQCQ8tCohthtFrqawv+4nEshw1VtOoYlP1Eb
-	 8O4IVz+oWrBQecb4uSt/eSCe0cFyB+uxfDjxWNyFv9I7gfO87FfrPHMBoUCFEZkUC1
-	 dpMXleSx73mxGzDm2xPv3LX/bEi3R6bEBMaOpajc=
+	b=PLaeHbj5Lk3VPjpZlY27zGnR7rmywYo94HaWHrRyTxU5/DApQQeUtI9GJYjb/nwfw
+	 fp4h01THWataV7D/NbZTHAQCWwYOCGeWkZf6CElji94XhYu4S0TIvcFDNj/wOOLuhF
+	 DjYarFImlPxRl2NSAuyELoSuoejfG4EjeDg37+Pw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B3012F80248;
-	Tue,  7 Jun 2022 14:21:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0E927F80248;
+	Tue,  7 Jun 2022 14:30:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3C113F80159; Tue,  7 Jun 2022 14:21:00 +0200 (CEST)
+ id B3611F80159; Tue,  7 Jun 2022 14:30:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EA4EDF80116
- for <alsa-devel@alsa-project.org>; Tue,  7 Jun 2022 14:20:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA4EDF80116
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1DC15F80116
+ for <alsa-devel@alsa-project.org>; Tue,  7 Jun 2022 14:30:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1DC15F80116
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="gI6YDL0Y"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dkim=pass (2048-bit key) header.d=denx.de header.i=@denx.de
+ header.b="GXwrN1sn"
+Received: from ktm (85-222-111-42.dynamic.chello.pl [85.222.111.42])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 80B19B81F86;
- Tue,  7 Jun 2022 12:20:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95D0BC34115;
- Tue,  7 Jun 2022 12:20:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1654604455;
- bh=w2aQJy8XTcqWcZ5VipuId8VpFh1nL10EEwBkOwvPTtQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=gI6YDL0YkG7mKXGMOKq+mUybDcF6mtaMPz2d/YmYXxLK7gjJcQ+XVgKLFrlQdEhII
- XNZAn5ZLGk6qOfBUrWW4u+bTVXm9tlCZd95p2CW9TXAh2xIxt1OppGcEoJugBmg3uW
- MUI75PkbvmCjbqliTGFW5adTAuxW3uhug5XqwrzEmvhx7fwKUCFRXUc73dexjn/0MN
- 5/aJI5Xjv9a6/nlVzAJXC2TyrDKfu7ks2ajEcy0aPAckWvqdmH2Phh08Dt2cRFHRvA
- EZooL/vzyEVRobNF/JGwj3u9ieuOuV5vw3iRqzJ21DQzT2dEbm38MAwkONlDdCL2Z7
- cxwfCcgT4R3/Q==
-Date: Tue, 7 Jun 2022 13:20:50 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Lukasz Majewski <lukma@denx.de>
-Subject: Re: [PATCH 2/3] ASoC: wm8940: Rewrite code to set proper clocks
-Message-ID: <Yp9CoibeiXff43//@sirena.org.uk>
+ (Authenticated sender: lukma@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id 3F85884368;
+ Tue,  7 Jun 2022 14:30:47 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1654605047;
+ bh=plnVJhBibFBWng6d8zcZND3hL04tiwjCDBmrnz5NM44=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=GXwrN1snNV07SXVe1eT0XQ/f5lncveP4aVUvUbUkqnWIChHcaJlLQNgNA6z0yU3Dr
+ 19FXk6pAXd8NpDzyy8YpVRhVSStUhEm4lq4CfD50xlgjdX7nT+buqO2gd7u2KGMh+6
+ EofMwzGcMU3Fyb/+g79bndvQY3CsfxEowc7AYhJLxjVGpMJEHGu8ATDn+w70/x9R6f
+ qPLSp7Gx+kgJqAHsisMj6dx0Rgu3MjRV9r2Z9xEFEC5iX3i3xAFgXhEW1Z3v/HUxV4
+ aG1NiaPaUrkr6JG/d8mEDGJi3KyqvsMYPTT7tr4zfOHZ4IDAIL5KsK1CjlOYXwAgC3
+ KcYMijJpR7HBQ==
+Date: Tue, 7 Jun 2022 14:30:39 +0200
+From: Lukasz Majewski <lukma@denx.de>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH 1/3] ASoC: wm8940: Remove warning when no plat data
+Message-ID: <20220607143039.01cdff80@ktm>
+In-Reply-To: <Yp4wzS0aLEo5werI@sirena.org.uk>
 References: <20220606154441.20848-1-lukma@denx.de>
- <20220606154441.20848-2-lukma@denx.de>
- <Yp4o2bQammYjv7Kt@sirena.org.uk> <20220607141309.11ec7503@ktm>
+ <Yp4iGvGFD9jo4WUP@sirena.org.uk> <20220606181731.04b6f771@ktm>
+ <Yp4wzS0aLEo5werI@sirena.org.uk>
+Organization: denx.de
+X-Mailer: Claws Mail 3.18.0 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="oD4aHu7NoJLDSZnJ"
-Content-Disposition: inline
-In-Reply-To: <20220607141309.11ec7503@ktm>
-X-Cookie: Where's SANDY DUNCAN?
+ boundary="Sig_/ZDrERQF4JXuQvzusRTtzOG5"; protocol="application/pgp-signature"
+X-Virus-Scanned: clamav-milter 0.103.5 at phobos.denx.de
+X-Virus-Status: Clean
 Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
  patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
  linux-kernel@vger.kernel.org
@@ -90,49 +90,70 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+--Sig_/ZDrERQF4JXuQvzusRTtzOG5
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
---oD4aHu7NoJLDSZnJ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Hi Mark,
 
-On Tue, Jun 07, 2022 at 02:13:09PM +0200, Lukasz Majewski wrote:
-> > On Mon, Jun 06, 2022 at 05:44:40PM +0200, Lukasz Majewski wrote:
+> On Mon, Jun 06, 2022 at 06:17:31PM +0200, Lukasz Majewski wrote:
+> > > On Mon, Jun 06, 2022 at 05:44:39PM +0200, Lukasz Majewski wrote: =20
+>=20
+> > > > The lack of platform data in the contemporary Linux
+> > > > shall not be the reason to display warnings to the
+> > > > kernel logs. =20
+>=20
+> > > Given that the device requires configuration and doesn't appear to
+> > > have any other firmware interface support that's rather a strong
+> > > statement... =20
+>=20
+> > My point is that - similar codec - wm8974 don't display such
+> > warnings. (this code was not updated/refactored for a quite long
+> > time). =20
+>=20
+> Perhaps those drivers are buggy, or those devices lack this specific
+> configuration that's being adjusted?  The changelog should at least
+> address why the driver was warning about configuration being required
+> but it's safe to ignore that.
 
-> > I don't entirely follow the above - in what way might the core adjust
-> > the clocking, and why would we want to allow the use of invalid
-> > clocks? Surely that just makes error checking worse.
+With v4.4 from which I forward port those changes only the PXA
+'stargate2' mach is using this codec.
 
-> Hmm, it is a bit complicated.
+In this version there is no reference to 'vroi'.
 
-> When I enabed wm8940 support in mainline - the first call to
-> wm8940_set_dai_sysclk (the set_sysclk callback) required mclk = 11997070
-> frequency.
+With newest Linux - there is no reference to this codec (even to any
+DTS file), so we can assume that from at least v4.4 there is no
+reference to platform data for it.
 
-> With the current code [1] the initialization of the codec returns
-> -EINVAL and the codec is not supported in the system:
 
-> asoc-simple-card: probe of sound failed with error -22
+I guess that one can provide the 'vroi' information via DTS nowadays if
+required.
 
-Well, that looks like a bug in either simple-card or it's configuration
-which should be fixed then (you should probably use audio-graph-card for
-new things BTW).  If a machine driver just randomly sets a clock rate
-that the system can't support and doesn't want then that's a problem,
-presuambly it's getting that rate from somewhere.  Note that this is the
-machine driver trying to set a clock rate, not the core.
 
---oD4aHu7NoJLDSZnJ
-Content-Type: application/pgp-signature; name="signature.asc"
+Best regards,
+
+Lukasz Majewski
+
+--
+
+DENX Software Engineering GmbH,      Managing Director: Wolfgang Denk
+HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
+Phone: (+49)-8142-66989-59 Fax: (+49)-8142-66989-80 Email: lukma@denx.de
+
+--Sig_/ZDrERQF4JXuQvzusRTtzOG5
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmKfQqEACgkQJNaLcl1U
-h9CwNQf/SQ1IIya40BCk6cTxfy5APPyLi0PkvOK018oGnfnEu32l/1vb6bVISsbX
-PHvisytP3OCYODHV7aPKS3hOGYdzE6FE7dkh2BNITANR7b/2w+e035IeNDSb5pw6
-VvBQSiOoKGvwiDcwC6qTf7FV7ok0IUAYiEZWs9288QnzfXy8lwEWFujAkEV/hV6q
-nLx9rP0vwtEIAzzqOjtOZyFWDl7XT5+EdlRvxtSQopJzBieIcFuBBJQw9FJdr1Gk
-Z9SrxAwfmyKeIhn5tegWV1NewUHZwaEnK7Vpc/j6LXkuhSBD20ngNMio5bTNy123
-+mcivhXqL5A9VKdjhg1FpAdOWdBAFg==
-=nfuP
+iQEzBAEBCgAdFiEEgAyFJ+N6uu6+XupJAR8vZIA0zr0FAmKfRO8ACgkQAR8vZIA0
+zr2zMQf/b77NogZ5Gk9SrUZ7tnUgQBCQNfeSGNsiTK0z1uHlS6CIcEhTidUfr60h
+NOnlUDG+lYYN6Fyo7qzXVUlQ0ROOXKkvGCeFIwB6yQCb7y0/uZ9s+SozoXq7DjkT
+CN4wA92r6g9B1J1rhcnUH4phPlazhDQifwDPQFxJ0ww7ODCER5tUUqzhE6Gsoplc
+YUG48vjXxzg6Sy5pSKJHwcL7YIGwUTui1e82PVu+IZndAnP+4izheE3joAfhn14k
+Q/F8qnOHH+FbF8FYKenJybVAZxE6JVXA4jY5RYknN65AwHYE8sAnyh2Zp1ckJQf4
+vmu+7wnj4eNUbwGMgDyCyzOsO23I7w==
+=g3pk
 -----END PGP SIGNATURE-----
 
---oD4aHu7NoJLDSZnJ--
+--Sig_/ZDrERQF4JXuQvzusRTtzOG5--

@@ -2,75 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A868E53FC6A
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jun 2022 12:53:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4364853FC73
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jun 2022 12:54:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 49180169A;
-	Tue,  7 Jun 2022 12:52:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49180169A
+	by alsa0.perex.cz (Postfix) with ESMTPS id D74101A94;
+	Tue,  7 Jun 2022 12:53:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D74101A94
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654599228;
-	bh=yC8T59/BRz/X+JQAGI6Qd3OPd0knEKaMRtnGwawWGZ0=;
+	s=default; t=1654599261;
+	bh=emluHOkPwOdLw8g48Pp6E94iAZ6WdkH2R/ZMnEXLDN4=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lQSgYVRYveI9Cl8GBIJsI1X4PDoR4YMDdLE22Jq/WyWSakLgLdja9NF//1U9gybWU
-	 5Wu/cPDxNYsKQT3exIrZKWc8E63sU4FMmSJDdk9QZvf6b1ogY4vgFy9AIrsne8d8sp
-	 4LQu8Yo11stkp4S2Hb3Z+TS81PTAgSXflpfNP8Qo=
+	b=g6PjBlZJ5bvUnhO3HxDds0sl8WLSeDNSJamZ3iHANXNVwHUQo/APJIv9VMOovtUWN
+	 Ao0nUN/AuYGgk6qo0PG+iUWObCb2FvAz879B7JdD2gmMkw3QgX50UAQSg+LT/N9Nj+
+	 NBo6OV91gukdQjyamKmmTEwUa6Lns0SBrPOe4WWU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1D883F805F7;
-	Tue,  7 Jun 2022 12:46:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E6AD9F80604;
+	Tue,  7 Jun 2022 12:46:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8DF57F805F6; Tue,  7 Jun 2022 12:46:22 +0200 (CEST)
+ id 8C8FEF805FD; Tue,  7 Jun 2022 12:46:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B490CF805ED
- for <alsa-devel@alsa-project.org>; Tue,  7 Jun 2022 12:46:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B490CF805ED
+ by alsa1.perex.cz (Postfix) with ESMTPS id DE981F805F2
+ for <alsa-devel@alsa-project.org>; Tue,  7 Jun 2022 12:46:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE981F805F2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ZR9M1HA5"
+ header.b="leVRtPee"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 7435361532;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id CB4FE61555;
+ Tue,  7 Jun 2022 10:46:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B71F0C34115;
  Tue,  7 Jun 2022 10:46:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27D4CC34114;
- Tue,  7 Jun 2022 10:46:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1654598778;
- bh=yC8T59/BRz/X+JQAGI6Qd3OPd0knEKaMRtnGwawWGZ0=;
+ s=k20201202; t=1654598779;
+ bh=emluHOkPwOdLw8g48Pp6E94iAZ6WdkH2R/ZMnEXLDN4=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=ZR9M1HA576G0+38VjdH59zkBtS7IVBu0+sGDgE+T0hGBANC9CdwjgIzCtFCWFpqqS
- i7UVNw+QSu8iIaL3zH8F2/V6QGgQLB8hqJbw2i+3dF+pARUuMd+MWTXj7LMivPV0lV
- T0iWWl0GBhI8hicugm5FwMQQK5HwYyjhJH7txhg2fh0OoVHSXEB7zSCvOUnXTJsCcq
- qvaiNO9iNuW1/FUXE+r7F6HrsHSNGZEGmbUq9UeItxUMRiwR5GGyhDdtiP2ENhat+H
- Ohx+86yp++tUCljsC25Pcnt0HuQIr5UW5hpPOwCKD74MRQuZ4WovsgRwD0hj7PzK19
- 08NimK5PxNlAw==
+ b=leVRtPeeYnr6n+ecJ6sQENmeK3bEuqlU6v+aaQJlupT7CG0TrqN40cPU28qASe+QW
+ MzZ1BDVE7RZpiW0IqLiWSk1gO7lr+1HD+/fhuIv7N+p6P5sEfE3r8EAjD6kmoChh04
+ 3IP2AvQ/AjIdsO/2yS5ckymGTYxcofEnod6wp5rvIHY6/WlBPYJKGPj8avAl5NrDeX
+ nYYbEtyCHglO8g5+bc8Ecc/QclMHtZI4nDsxBeDXERV5rjl28DyBEC8nLMIbJHZvM4
+ nET0OJgNQUWLhiQi23z8vCQih2zPxQnmZybZMa3mGM+enPqdymai9pCQ/Xnue6YCcP
+ 9AGfm1OkYOOqA==
 From: Mark Brown <broonie@kernel.org>
-To: tiwai@suse.com, festevam@gmail.com, nicoleotsuka@gmail.com,
- Xiubo.Lee@gmail.com, shengjiu.wang@nxp.com, lgirdwood@gmail.com,
- shengjiu.wang@gmail.com, perex@perex.cz, alsa-devel@alsa-project.org
-In-Reply-To: <1653966123-28217-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1653966123-28217-1-git-send-email-shengjiu.wang@nxp.com>
-Subject: Re: [PATCH] ASoC: fsl_sai: Add support for i.MX8MN
-Message-Id: <165459877588.301808.14404334130275114401.b4-ty@kernel.org>
-Date: Tue, 07 Jun 2022 11:46:15 +0100
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87o7zflk3n.wl-kuninori.morimoto.gx@renesas.com>
+References: <87o7zflk3n.wl-kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH] ASoC: simple-card-utils: rename
+ asoc_simple_init_dai_link_params() to asoc_simple_init_for_codec2codec()
+Message-Id: <165459877847.301808.3073980786136356007.b4-ty@kernel.org>
+Date: Tue, 07 Jun 2022 11:46:18 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,11 +85,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 31 May 2022 11:02:03 +0800, Shengjiu Wang wrote:
-> The SAI module on i.MX8MN is almost same as i.MX8MP,
-> So reuse same soc data as i.MX8MP.
+On Mon, 30 May 2022 04:28:44 +0000, Kuninori Morimoto wrote:
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 > 
+> commit 95cfc0a0aaf5752071 ("ASoC: simple-card: Add support for
+> codec2codec DAI links") added the function
+> asoc_simple_init_dai_link_params() to initialize dai_link "params".
+> It is very straight naming, but difficult to noticed that it is for
+> Codec2Codec support. Handling Codec2Codec is one of very tricky part
+> on ALSA SoC, thus it is very important to clarify it. This patch
+> renames the function name.
 > 
+> [...]
 
 Applied to
 
@@ -98,8 +104,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: fsl_sai: Add support for i.MX8MN
-      commit: 9688073ee98cb2894d5434fe91dd256383727089
+[1/1] ASoC: simple-card-utils: rename asoc_simple_init_dai_link_params() to asoc_simple_init_for_codec2codec()
+      commit: ff31753fcb061b90bd8c356d5b27a6eb5f8ade15
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

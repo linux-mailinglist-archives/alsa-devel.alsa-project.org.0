@@ -2,73 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 838A153FC13
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jun 2022 12:49:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CAF653FC17
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jun 2022 12:49:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0FE8D1A48;
-	Tue,  7 Jun 2022 12:48:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FE8D1A48
+	by alsa0.perex.cz (Postfix) with ESMTPS id E12071A6B;
+	Tue,  7 Jun 2022 12:48:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E12071A6B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654598976;
-	bh=jrw0fzEva8sabg3UFL74weovmEdX09d/VJrE+o2sNvk=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1654598987;
+	bh=7KeROakQhh0RozS317QXHC+LfNUD+I20gakesbMfS+4=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IM/rA3sHYfUNUaJHjdoKOmvrqW/x0tcUJnSxyYLETFD65NjhNvVu/UZbJ/qi/8oNX
-	 N/dGqmXAk/gYUVauUBEzoT5/ew53bm/Y5vUV5kHGVbLcWCauqaGto83859rt+rbcJ+
-	 0mkwGWtM3MVnFvtwjqYD9DrnvEBbRilpsbPNUa4U=
+	b=K2zc1I8cPW+Qb4H00aYsdgkSd2UifHbm4szme+fU4lj25LEK2+2Q5VsX87/f09heB
+	 I1MsWS9oR1s7v5eQGvBANjM8lLPBGVe3k12Nq1X8EljUHW4/KJhY/AZ5Vc2LXcTEJL
+	 NeFbUBkk4d4apMjeQB/0Jxeh0+Kc8laSwFENgwXw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 126D9F80579;
-	Tue,  7 Jun 2022 12:45:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 87A47F80578;
+	Tue,  7 Jun 2022 12:45:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2A4A4F80571; Tue,  7 Jun 2022 12:45:49 +0200 (CEST)
+ id 5C64FF8057B; Tue,  7 Jun 2022 12:45:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C1DF9F8055B
- for <alsa-devel@alsa-project.org>; Tue,  7 Jun 2022 12:45:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1DF9F8055B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 01F78F80578
+ for <alsa-devel@alsa-project.org>; Tue,  7 Jun 2022 12:45:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01F78F80578
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="m8QAkHya"
+ header.b="OASkSWPB"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 1E6CEB81F05;
- Tue,  7 Jun 2022 10:45:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CA43C34115;
- Tue,  7 Jun 2022 10:45:43 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 7FDBA6156E;
+ Tue,  7 Jun 2022 10:45:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 429D9C34119;
+ Tue,  7 Jun 2022 10:45:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1654598744;
- bh=jrw0fzEva8sabg3UFL74weovmEdX09d/VJrE+o2sNvk=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=m8QAkHyabT+LcT4zDqRNkmKCNs57zhjBU7YI+82RzcK7sJlZzueBPzxrf20dhZJS/
- jivnOUEE3nemXHREfQtWGbf/r7KcM7Qqvt5h+Ct8YOSh/A0nKIglpHKoyzYoWSg82D
- SP9VFimzizDz/+FtKiSm0UkU5UH+tK1BLsZNiidSDjl2sv0NVb9gcxUXH8sMNzn2N2
- Pya1aF0liXVJNFS69V4s66JdXH4on3Bg30TVgVNceMwIQcvPeD9LJXs6RADknuC3MO
- SVZPY8Xf5AygXoW4s+cfkkzSCzaErqz3ALogB5vNU7wTPTxnt1tfG4zUY9e9CEwKor
- XV1YIODq2TJag==
+ s=k20201202; t=1654598747;
+ bh=7KeROakQhh0RozS317QXHC+LfNUD+I20gakesbMfS+4=;
+ h=From:To:In-Reply-To:References:Subject:Date:From;
+ b=OASkSWPBwmPdUP8MgbOJ5BFcCe2vA45UG1zIKgvn93P58gfD34zijkQm+mmSX2Pf9
+ DC+e01U7scfAaEU4Wlk4GV1nAUyaCJwIuVtkAbFh4qkCT0NuqDb7VBWK8a1rMRp/25
+ Dt7E71WfKSe1Whgik5G/2KEf7BxkdsXKPHwWTE0FxFfMpBiik+dWZW2Lg9nlzD9+U5
+ cJQQQVgXlT6Zd9He+1Cut9FRuGD0aGTVicwhYtB1ZZnHC2kgoA/yByiiHvlnaN8tg3
+ M0Vgqy+X5wFcsKdurOZu3Q5iZqZh3ewULDwJitzaY4yY1RqFQkhOk3LNK4Djz9Phxz
+ pYCPbVaW2FLIg==
 From: Mark Brown <broonie@kernel.org>
-To: kchsu0@nuvoton.com, ctlin0.linux@gmail.com, wtli@nuvoton.com,
- broonie@kernel.org, hui.wang@canonical.com, ctlin0@nuvoton.com
-In-Reply-To: <20220603103530.3844527-1-broonie@kernel.org>
-References: <20220603103530.3844527-1-broonie@kernel.org>
-Subject: Re: [PATCH] ASoC: nau8822: Don't reconfigure PLL to the same values
-Message-Id: <165459874309.301808.4525934599551055149.b4-ty@kernel.org>
-Date: Tue, 07 Jun 2022 11:45:43 +0100
+To: linmq006@gmail.com, Liam Girdwood <lgirdwood@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, linux-mediatek@lists.infradead.org,
+ matthias.bgg@gmail.com, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org, Jaroslav Kysela <perex@perex.cz>,
+ linux-arm-kernel@lists.infradead.org
+In-Reply-To: <20220603083417.9011-1-linmq006@gmail.com>
+References: <20220603083417.9011-1-linmq006@gmail.com>
+Subject: Re: [PATCH] ASoC: mt6797-mt6351: Fix refcount leak in
+ mt6797_mt6351_dev_probe
+Message-Id: <165459874498.301808.15369617374937965221.b4-ty@kernel.org>
+Date: Tue, 07 Jun 2022 11:45:44 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,15 +87,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 3 Jun 2022 12:35:30 +0200, Mark Brown wrote:
-> When we configure the PLL record the input and output frequency, then if we
-> get asked to configure the same values again just skip reprogramming the
-> hardware. This makes things a bit easier to use for machine drivers since
-> it means they don't need to keep track of if they've programmed the PLL
-> so much.
+On Fri, 3 Jun 2022 12:34:15 +0400, Miaoqian Lin wrote:
+> of_parse_phandle() returns a node pointer with refcount
+> incremented, we should use of_node_put() on it when not need anymore.
+> Add missing of_node_put() to avoid refcount leak.
 > 
 > 
-> [...]
 
 Applied to
 
@@ -100,8 +100,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: nau8822: Don't reconfigure PLL to the same values
-      commit: 3ae190edc5f6f64f296f8dd15f4b511f529ab402
+[1/1] ASoC: mt6797-mt6351: Fix refcount leak in mt6797_mt6351_dev_probe
+      commit: 7472eb8d7dd12b6b9b1a4f4527719cc9c7f5965f
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

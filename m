@@ -2,79 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC9F953FC55
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jun 2022 12:52:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A7C753FC58
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jun 2022 12:52:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6F15B17D3;
-	Tue,  7 Jun 2022 12:51:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F15B17D3
+	by alsa0.perex.cz (Postfix) with ESMTPS id BD04E1A44;
+	Tue,  7 Jun 2022 12:51:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD04E1A44
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654599131;
-	bh=slxqdGbN2Xkk/KNCkqG0OOK4Kra7MbWR8P3wapvWLsQ=;
+	s=default; t=1654599145;
+	bh=fUWj1cWqPq80cipRk8uUYphKUiT2JJ/NvVIZffcYwZM=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=p9zzEXv1KgkaybaF+F2cbPuzFmRR1ETKOZp8nZGpBasy2a4DH6NrPeBjUu/p0WF8p
-	 ZdudGq9HeJs8BUxy1pGOVxBhEX7rlzcH5Iha8lHw+OSilBt4FXVgXrLtZJ852NNhtQ
-	 64iBxD/XutJpfPfvc2dO/6QXyWCfiIqQssyv54Ec=
+	b=IyKENieni4RtTrT1bjYHOh9ivCx3UNmZ5IhpfEnx7x5fkwBlpUOi9zqo/SPYQbl0e
+	 d0EAVUKR6JXjmYsZOi80Z3ZLBwkEk8/+HVq03Gw5tON6vd8re988IB4CxRZsUvthqD
+	 yLTupBW6bxt1GCjAh3ph9hj9muqO4CirWjftAYAU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3C088F805C2;
-	Tue,  7 Jun 2022 12:46:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B1520F805E3;
+	Tue,  7 Jun 2022 12:46:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 26B32F805DA; Tue,  7 Jun 2022 12:46:09 +0200 (CEST)
+ id 2F0E8F805E6; Tue,  7 Jun 2022 12:46:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9DF01F805C2;
- Tue,  7 Jun 2022 12:46:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9DF01F805C2
+ by alsa1.perex.cz (Postfix) with ESMTPS id C40A9F805DA
+ for <alsa-devel@alsa-project.org>; Tue,  7 Jun 2022 12:46:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C40A9F805DA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="nKgBO2yx"
+ header.b="Wpnhz2pz"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8A4F06156D;
+ by ams.source.kernel.org (Postfix) with ESMTPS id AF581B81EF8;
+ Tue,  7 Jun 2022 10:46:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69D30C3411F;
  Tue,  7 Jun 2022 10:46:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18212C34119;
- Tue,  7 Jun 2022 10:46:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1654598764;
- bh=slxqdGbN2Xkk/KNCkqG0OOK4Kra7MbWR8P3wapvWLsQ=;
+ s=k20201202; t=1654598766;
+ bh=fUWj1cWqPq80cipRk8uUYphKUiT2JJ/NvVIZffcYwZM=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=nKgBO2yxpRTjF0AMMyAvBBPbJPWxIIf/1HNeIl5qjRMTEwgcBjTAEnIzSu1/ANq+l
- G3BFyiLFhfeJaJRY4WRcP3EuQ+GqQOgKw5kwlGz4UuoAGg/sESnti/PQIi2OiZomiq
- obXm8Ho36QZBsOK49idNxRtZwIAnPBiUhpFfVTnutOYnVTdw5BUzNu+lR/XSjG4xzG
- lglnbT/nV9a+AhyPKLgcVHC37XbFY6uAVyDL5MGq60h0ncKeD2yK90qOy/sjzhjeEU
- elhPVuj4acsWTnESDbev9dwTRdYmcm9YFrFV1GdH367y6pFxLovDAW3CI6nK4+cEMJ
- SZ+z1iK4T0iWg==
+ b=Wpnhz2pzpJAMkkf5hX97XA6VF86Yke8jikzPNFKYIaN8VgFr14KLTDcPWkOe0iTye
+ /MgYSYEQfuRf3W9OTW3pSjz67/EJ4eqgb6EXfsdXtlWvx8Smqoy1MV2KU8xWC7HB74
+ dEvlI+8Vfkggqa+RQlAEi+Y82WGnEggMfW+GIhaYWWfa9VW48HlLt/Epy2gFvo6r3t
+ WYfdVgdZaGv+zxlt36B0qq9gWOxF4DxLkeCH2iim4Y0LqFQYDwo6zs85IA9GfnKnSz
+ MfzFeKiZiknqRs1qKqDfpb966yXAFyhMbUsSz/zFhtGI4QPU/NmOGnq3Bvgp1fwRJr
+ Qc1XgpxIE8P/Q==
 From: Mark Brown <broonie@kernel.org>
-To: dan.carpenter@oracle.com, pierre-louis.bossart@linux.intel.com,
- peter.ujfalusi@linux.intel.com
-In-Reply-To: <Yph+Cd+JrfOH0i7z@kili>
-References: <Yph+Cd+JrfOH0i7z@kili>
-Subject: Re: [PATCH 1/2] ASoC: SOF: ipc-msg-injector: Propagate write errors
- correctly
-Message-Id: <165459876081.301808.13605726339122766955.b4-ty@kernel.org>
-Date: Tue, 07 Jun 2022 11:46:00 +0100
+To: tiwai@suse.com, Xiubo.Lee@gmail.com, shengjiu.wang@gmail.com,
+ perex@perex.cz, zhangqilong3@huawei.com
+In-Reply-To: <20220602072024.33236-1-zhangqilong3@huawei.com>
+References: <20220602072024.33236-1-zhangqilong3@huawei.com>
+Subject: Re: [PATCH V4] ASoC: fsl_xcvr:Fix unbalanced pm_runtime_enable in
+ fsl_xcvr_probe
+Message-Id: <165459876415.301808.9458096235617694686.b4-ty@kernel.org>
+Date: Tue, 07 Jun 2022 11:46:04 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
- yung-chuan.liao@linux.intel.com, Takashi Iwai <tiwai@suse.com>,
- kernel-janitors@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
- ranjani.sridharan@linux.intel.com, harshit.m.mogalapalli@oracle.com,
- rander.wang@intel.com, daniel.baluta@nxp.com,
- sound-open-firmware@alsa-project.org
+Cc: nicoleotsuka@gmail.com, linuxppc-dev@lists.ozlabs.org,
+ alsa-devel@alsa-project.org, festevam@gmail.com, lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,13 +86,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 2 Jun 2022 12:08:25 +0300, Dan Carpenter wrote:
-> This code is supposed to propagate errors from simple_write_to_buffer()
-> or return -EFAULT if "size != count".  However "size" needs to be signed
-> for the code to work correctly and the case where "size == 0" is not
-> handled correctly.
+On Thu, 2 Jun 2022 15:20:24 +0800, zhangqilong wrote:
+> a) Add missing pm_runtime_disable() when probe error out. It could
+> avoid pm_runtime implementation complains when removing and probing
+> again the driver.
+> b) Add remove for missing pm_runtime_disable().
 > 
+> Fix:c590fa80b3928 ("ASoC: fsl_xcvr: register platform component before registering cpu dai")
 > 
+> [...]
 
 Applied to
 
@@ -104,10 +102,8 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: SOF: ipc-msg-injector: Propagate write errors correctly
-      commit: d9a251a029f23e79c1ac394bc551ed5d536bc740
-[2/2] ASoC: SOF: ipc-msg-injector: Fix reversed if statement
-      commit: bedc357217e6e09623f6209c891fa8d57a737ac1
+[1/1] ASoC: fsl_xcvr:Fix unbalanced pm_runtime_enable in fsl_xcvr_probe
+      commit: 9c3148dec7d2d40ef727b8789d3e9410ad6d4a1f
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,73 +2,150 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E229E53FC79
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jun 2022 12:54:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F16D853FC7C
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jun 2022 12:55:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7DC0E1A9D;
-	Tue,  7 Jun 2022 12:54:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7DC0E1A9D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8D4321AC2;
+	Tue,  7 Jun 2022 12:54:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D4321AC2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654599292;
-	bh=OaP6dBe0ipQhDdS0OyxXwSYcURl+blulqTINjWPgrNE=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1654599324;
+	bh=p6G3VOtMMHmIOiXe1miDF7Ens34lm/0Xms58zgR9kSk=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ciHrwpPDigPozzJqY8y4VSYuDEc3PsV/zwqDHaNruK1rlx+MO5gykl8gIo3Pg5mgi
-	 +kWEtkxBrdLwIL4ZJKrVDv7Hd+Bh2jPi6MLmLsShUtWJdwNWVZbb5KRC9ulOCvj4S8
-	 O3Z9mEx5lF5ISlKj9rxx2bVIL1pqhlCl4LwI5Zuk=
+	b=a+VNQqhzcyqfzkw3NkqtPvAMv6XwyUZ5KgiXPhLs0giqghYwvkdXMrbNt7sta1CH+
+	 jT3zEwkNqS4Zem+OkRI5qQSckMkoOfNszIW693j0o66uEezbozOaY1aBoy7/35ETGj
+	 PPwOyv6xgUqCHDYfHrP8yNrrYo9PSC0YnGMlR+MI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EB3ABF8060B;
-	Tue,  7 Jun 2022 12:46:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4229DF80527;
+	Tue,  7 Jun 2022 12:49:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C0EBDF8060A; Tue,  7 Jun 2022 12:46:35 +0200 (CEST)
+ id 167A6F800ED; Tue,  7 Jun 2022 12:49:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ DKIM_VALID_AU,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 34DB9F80602
- for <alsa-devel@alsa-project.org>; Tue,  7 Jun 2022 12:46:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34DB9F80602
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="XNfMFvjS"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from JPN01-OS0-obe.outbound.protection.outlook.com
+ (mail-os0jpn01on20703.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:700c::703])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 798DE61556;
- Tue,  7 Jun 2022 10:46:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99A7FC385A5;
- Tue,  7 Jun 2022 10:46:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1654598787;
- bh=OaP6dBe0ipQhDdS0OyxXwSYcURl+blulqTINjWPgrNE=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=XNfMFvjSj/n+E+hVFXm22+HUfdxm1rf37HvCB/fW95pu51bwQ8ALkVVVKZKwlmdYX
- TK0SBupFDfsxFv+RiprQ2M0lVEhemqW23fRtZtf/5Bn515uTEmNn6EnJV8csWEZhOQ
- Cs+L4sv2jWR2LaR1BbC95s+ofW2OQjQzQNQPvC9NGyuKAjZj45lIKKjq49xSc4JSGn
- FZYc+4euWUpdw+yoMPmVRAMejZqkjPVE3hHFkbBlzjUCN6iGnupEiVtTiqPNGVG7DM
- FEuuuV6/oHyh5mtPY6/W9YYVyU4PstQaNSi8qu44kV/StuvK/3qh3dMCYRYMqY+w0B
- I8qmYbH51y8lA==
-From: Mark Brown <broonie@kernel.org>
-To: broonie@kernel.org, Liam Girdwood <lgirdwood@gmail.com>
-In-Reply-To: <20220603123937.4013603-1-broonie@kernel.org>
-References: <20220603123937.4013603-1-broonie@kernel.org>
-Subject: Re: [PATCH] ASoC: es8328: Fix event generation for deemphasis control
-Message-Id: <165459878635.301808.15195636189378527279.b4-ty@kernel.org>
-Date: Tue, 07 Jun 2022 11:46:26 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 16274F800ED
+ for <alsa-devel@alsa-project.org>; Tue,  7 Jun 2022 12:49:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 16274F800ED
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com
+ header.b="s9WRShr0"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=nWPSBdB9RxrMA8Lw7AfOVUEZo59e2mxW4pJmyY4pGdZCDzr1OC57Kpx7msD9KO1Tv9l/M3VnTFWsKyfLNAWA/zVrP+/f3vqNnhxsefNFW7mJd5SSlWhlkm4UbADlAjdKC7Sf/Sh6/XZU/e+0EUdQd4MNRplMK88i13zy1M/GXd7Wejl4P3ELLoam49Pl/vp7Qx5MOwFbqnHiu9gAz78uxBlHZmRnkxAVdwBkRQR2sqDxxFZVmfP1G0NitKteB5g4IWPnJFavFdHKz0NWFT9iMcDJsHyfaRy6CLth7CxfkX1TKcLUzZJJmSJq42ASryJu6361a9F8TVlUbXXHQMomEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Jj7dZD0cAkvORn2yT9pHiAPD6Z3XLBYmOo+K2vy/gjI=;
+ b=CbtxODmneh6l+nO+fvt0BmZHUOt/5P2nWVqBnV4HkMFz4PMH+ffWaeXW6/aKhQyQFTlkWQOi2GCrEi2RVph5b4r5Pg0n5ze7rl6yPTwWZ+hWCoW98DPMAO4L6TqUupyZvYDlVuOrnCIddsv5oSOejKOeP70VCx/WjG0+zQokA8UF529b5Gy3qW85r2DcBBOKUzvjBSA9unFjwxqmJLdX37JR8OHmjTLgi65U/YAWbjaFQdIy+0r7ZW5l6UTP7YOn8ZbDvaVV9dGn2RroXKejeSkru4v82Sc6EhGM4M+qq6rqn/8MOIWJpyC554hQgyj4GsdybXG6UYMKQZkWlJ62XA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Jj7dZD0cAkvORn2yT9pHiAPD6Z3XLBYmOo+K2vy/gjI=;
+ b=s9WRShr0oLBmPwRQXAVJvpYdtJHi0ArID/GTU4qGyHnFJk4pdz54NhJ/HUKUg20o5HWpI7sfBo9tMC9Q7J/cyGzWaNUhl1nwXeXdiIu1rd5zSMUsnddAa+KCGWnPYN/kxaMd1iB8RVeFukyribr+BD0of0ebb3nk1KshDzWCR1M=
+Received: from OS0PR01MB5922.jpnprd01.prod.outlook.com (2603:1096:604:bb::5)
+ by OSAPR01MB3105.jpnprd01.prod.outlook.com (2603:1096:604:5::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.12; Tue, 7 Jun
+ 2022 10:49:23 +0000
+Received: from OS0PR01MB5922.jpnprd01.prod.outlook.com
+ ([fe80::3e:970b:c238:f57]) by OS0PR01MB5922.jpnprd01.prod.outlook.com
+ ([fe80::3e:970b:c238:f57%9]) with mapi id 15.20.5314.019; Tue, 7 Jun 2022
+ 10:49:22 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Mark Brown <broonie@kernel.org>
+Subject: RE: [PATCH] ASoC: dt-bindings: renesas,rz-ssi: Document RZ/G2UL SoC
+Thread-Topic: [PATCH] ASoC: dt-bindings: renesas,rz-ssi: Document RZ/G2UL SoC
+Thread-Index: AQHYVxaFuP5oz6eqt0ObmMSIhSpBsa1ECf/w
+Date: Tue, 7 Jun 2022 10:49:22 +0000
+Message-ID: <OS0PR01MB5922E60C12F1B49A949913A286A59@OS0PR01MB5922.jpnprd01.prod.outlook.com>
+References: <20220423133154.141027-1-biju.das.jz@bp.renesas.com>
+In-Reply-To: <20220423133154.141027-1-biju.das.jz@bp.renesas.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: a6b4c370-697f-48d1-2159-08da487361cf
+x-ms-traffictypediagnostic: OSAPR01MB3105:EE_
+x-microsoft-antispam-prvs: <OSAPR01MB310577DC4F46E5E8FE41A15786A59@OSAPR01MB3105.jpnprd01.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 2dxd/52TPXuQ9ehmlydu1Uwy0UttLNoP1z+Xrocg8FDW8qUYwwV/q0UpX9nBnlMYmDW6lPlUKzJzM3wJuHzSlwbBZij90lMJm0OxwDWxojuKc66LVf4PLjiV1Xywqqj3rEp3jplE9Mr6FfNny3R+kptFP8rqK6ZVq8ATt9OX3pUTQtuCPd1kAIDdupkN3PlspBYVMz9D9cUXWPrj0dhomKcjTAa1NaMfELnhtzG4j6h9+g0SgI/fwlRW8mKg1YlICw8uK7OOB/EdAPVYlfkulPiawvozwgRDCKPjgkZ1oIjwupSisiga+XM0PIMJ7P/yO7T7AreoloqYOI6mYP4n/s6Ec40QK92t2z96gFL8oB6k5MebKx4X1dT5Lajset3vQKx26GFKp6sIYpBHbOI4Z1d3KTBuEUNOa1yAqvbV5TLD2n751YYbxxWm+snHBbYBzuFuoreUHM1ifY4RrVRAvVEaQQ+04QKr0cOvzZxOVXvI8up0tzhclCI2DI/im3VPts5ipfza9R6QO+ziCtEwtmPJHHGP1WoceU7O6BVpzeQntPNxVqimTKY2Wa/bqXb7Xxu6t4bJMiEmknYr+ZtlOyxSIMIyszPsqt+IAjukkbbyuL7PEMCHPHNQsAHZfHs6JNZg9X1m7OTf4XUOTC7HN6BtUy4ZzhhCA+8mLVPoQFFduuzhBODzQ1k1GFOhD6BdzaOYrsk0rswzB6Oz1Pc9rw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:OS0PR01MB5922.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(52536014)(8676002)(5660300002)(38070700005)(122000001)(38100700002)(86362001)(76116006)(4326008)(316002)(110136005)(66446008)(66476007)(186003)(83380400001)(64756008)(33656002)(54906003)(66946007)(66556008)(8936002)(55016003)(71200400001)(9686003)(7696005)(2906002)(6506007)(508600001)(26005);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?groLRwF1ELL6lMHcZyzczLLwKYmbtO65DKqkKZ6DQU3sdp+YSfe3rdc5Y6QA?=
+ =?us-ascii?Q?Q+kuOcZyBNhOoJzDAl6FyrPsMcB1Xtm+BwjdJObPQv3YRUU4jTnTlp5cbX6s?=
+ =?us-ascii?Q?RAZR4kyLS7JtahiQU2N2+fvzxmfkiPCIowKqFbrTPUdB4venPHJJGtpRboWb?=
+ =?us-ascii?Q?VDbQ4Xwk7MGy8sH5Fkq9TaZD5kWPg0iNk56aZ8eLNCD4TwEq0Cw7hS3eZtYC?=
+ =?us-ascii?Q?rBQO8xs2/RaLwY0EjQ2bZsHsH6biPtnc0T9LOFBebAOrxryf9dIhVY4YxLRM?=
+ =?us-ascii?Q?iWVF/dbpirQ2MU+VrWd+5o/qo02+DNMFv2enL8VvumKSL9l3PggI3qxtsCiK?=
+ =?us-ascii?Q?oNObnhmleH3BTKuCvNVlRZuNrugQqe0AF9RnZKh7e0mls1BS8jdYv2b8jdGH?=
+ =?us-ascii?Q?SSVajNKyG6su/ph79lHYemGuxboYkVmoy2oqnIKYJsepm9l/4vsEu3jS2s0b?=
+ =?us-ascii?Q?hQkl0rh7oelHbs3DbM8KzjL2/B1Xz33ymkIjKa/zYUWS1JOFXb4zQTo4phqA?=
+ =?us-ascii?Q?6ijwn7U9Y8FbgnNV6CUXbIJm4ukGcIbYLoP6Z7qSJ+zTvgIjoJzo6DZDoete?=
+ =?us-ascii?Q?QoeNMRmJ0w1NEm5JXfy6+rostfRRWngCX5NFRcT5wh97/MFYwP4N2b9M6lYi?=
+ =?us-ascii?Q?84Hbu7h6842+tGab2ALMpFc3Vmwi1/BS8JJv488pmxMeiJ2b0wB3SWYaMer2?=
+ =?us-ascii?Q?7JJaPTgg1dku0N+/zoO6kmb3nRQrjeuFAtq2/meic0EFnoss3yniFplNP3wA?=
+ =?us-ascii?Q?26pQHfEuI72xRZC3reggKHkd6qydmaF/ttp/ukP0VVr7kvqlayzf5JsTtNiJ?=
+ =?us-ascii?Q?yse1qdel7uAd5oatpWaIal1zQqC5+TyRmQAqhzsYh+nahEBnZ+fV1TaYQfn0?=
+ =?us-ascii?Q?shN6rr551nCZiX9/Aq0F+mTnT5HFcSACmqrVRFEdSy9KcWL53JgTsOdu9loV?=
+ =?us-ascii?Q?sRT9ZBPcdE9o4mk5021DSTVWfUxVEqFpROQPRuD9KGt1nS8R6EwKb5sTC9pn?=
+ =?us-ascii?Q?pz2iKK3Hs5RtWZYNdskKTsYdLsvk+aUmDW3UXYxqK2DKv6nj+X947r7o6iB1?=
+ =?us-ascii?Q?JXDcRtJiPEGX6F6V+1eR9UDcJw0HSlMaxmcoanbT1qdyNoR2yotiB1hFPV1o?=
+ =?us-ascii?Q?w74sd6T2duNVTc8FtbB0aFPFYaoya5hFxONnBkAdruB5DFeVidPNGYDZbkJd?=
+ =?us-ascii?Q?h/giFEHWCGTpeLhkiITOOJm4n4/RCyRFxB639HXZvGYZobH5s5IaYlZS9XnN?=
+ =?us-ascii?Q?TeLLMwmDKjb/rBbjyN+W36SQ+H94gqutut/aidfkpYn0Yi35t6GVEKT7h5hz?=
+ =?us-ascii?Q?+F3O452NxdzNLZk6Uj2+EtIFNzYbK9UZMWIQnjHtMWnpB6a5PYJ3E3xzs9r0?=
+ =?us-ascii?Q?C1eTgS9FreAKHhioXb1moesB2C/8+q+2UPsmOaBH+2TZKwR9MRH/+b4NXus6?=
+ =?us-ascii?Q?P6p4eK0T5WAhI+6Ll1ztp4XaSDXq1VceErYhw1Mj7xXxkuCShSgJE9b41T8b?=
+ =?us-ascii?Q?Xsbg2PuXSZ69KUaCDGc3Ic/DDVcxeoj3kBqPH88KcvLcV4RzOgsDo+v9m8fL?=
+ =?us-ascii?Q?MK9XhtmFKjZxLgX8+ZcPqjW58P8/icReO7P9wmpxv6EsTqzak6MoFJBHrIHb?=
+ =?us-ascii?Q?vqIy8ucdm4MdGslKXW1eySXx9CzW+rHbBLpnDba5O3pY1Ga5IPnvE1SkhW8F?=
+ =?us-ascii?Q?h0qPa+tZ3grGR6tgfxVp6ZuA0qEOuOg8iuGTiQz7nA0zrCCZN5lveKAjJNID?=
+ =?us-ascii?Q?jZ0ZtILKcA6L5VKCLPsh9rjHDORSxfk=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: OS0PR01MB5922.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a6b4c370-697f-48d1-2159-08da487361cf
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Jun 2022 10:49:22.5593 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: tR/JooV4Ok/fyZ80qz1AupCpt7DmcQfx8Q04nlap988oyJZxxLDq56YscNBKlu1sORumin1p7boDeLHhBtGmYsp24XkFiZKMA6pzuhamL5o=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSAPR01MB3105
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Chris Paterson <Chris.Paterson2@renesas.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ Biju Das <biju.das@bp.renesas.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,38 +161,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 3 Jun 2022 14:39:37 +0200, Mark Brown wrote:
-> Currently the put() method for the deemphasis control returns 0 when a new
-> value is written to the control even if the value changed, meaning events
-> are not generated. Fix this, skip the work of updating the value when it is
-> unchanged and then return 1 after having done so.
-> 
-> 
+Hi All,
 
-Applied to
+Gentle ping.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Are we happy with this patch? Please let me know.
 
-Thanks!
+Cheers,
+Biju
 
-[1/1] ASoC: es8328: Fix event generation for deemphasis control
-      commit: 8259610c2ec01c5cbfb61882ae176aabacac9c19
+> Subject: [PATCH] ASoC: dt-bindings: renesas,rz-ssi: Document RZ/G2UL SoC
+>=20
+> Document RZ/G2U2L SSI bindings. RZ/G2UL SSI is identical to one found on
+> the RZ/G2L SoC. No driver changes are required as generic compatible
+> string "renesas,rz-ssi" will be used as a fallback.
+>=20
+> While at it add a '.' at the end of dmas description for the first cell.
+>=20
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+> ---
+>  Documentation/devicetree/bindings/sound/renesas,rz-ssi.yaml | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/sound/renesas,rz-ssi.yaml
+> b/Documentation/devicetree/bindings/sound/renesas,rz-ssi.yaml
+> index 7e8d252f7bca..0d9840375132 100644
+> --- a/Documentation/devicetree/bindings/sound/renesas,rz-ssi.yaml
+> +++ b/Documentation/devicetree/bindings/sound/renesas,rz-ssi.yaml
+> @@ -13,6 +13,7 @@ properties:
+>    compatible:
+>      items:
+>        - enum:
+> +          - renesas,r9a07g043-ssi  # RZ/G2UL
+>            - renesas,r9a07g044-ssi  # RZ/G2{L,LC}
+>            - renesas,r9a07g054-ssi  # RZ/V2L
+>        - const: renesas,rz-ssi
+> @@ -50,7 +51,7 @@ properties:
+>      minItems: 1
+>      maxItems: 2
+>      description:
+> -      The first cell represents a phandle to dmac
+> +      The first cell represents a phandle to dmac.
+>        The second cell specifies the encoded MID/RID values of the SSI
+> port
+>        connected to the DMA client and the slave channel configuration
+>        parameters.
+> --
+> 2.25.1
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

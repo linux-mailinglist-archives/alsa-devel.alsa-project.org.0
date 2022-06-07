@@ -2,75 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04F4853FC1A
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jun 2022 12:50:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD70F53FC1D
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jun 2022 12:50:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 96CB4192F;
-	Tue,  7 Jun 2022 12:49:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 96CB4192F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 677F81923;
+	Tue,  7 Jun 2022 12:49:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 677F81923
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654599010;
-	bh=rDaQ/Y3jfWu1H3Cy/83eSHNsodbTFoBuSmzrNWGOWQs=;
+	s=default; t=1654599044;
+	bh=AxRIcnJX9fW26yyj+ldAClhP+8raYDyMP1J5TheAE7s=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ih9/SkSfcwmGgOF2mMclLpgGnrzCb9AhHfiTiiq3bXWzYVny0IyLPQCmMxf6LIDho
-	 5YwDinbm9hUzz85HgNS3eu80mKDY+2YOxI2VxrbwbWBBbO2XvoYHBa9cWHZ1DHyY5E
-	 hmKGu2NFP1CrKtjCU05CN13e7bDL0qU9e7F4/f80=
+	b=frEOb1qLkJV+nBBNYoIOcG6dvWwJIBsZc3AU7WHBo1+IlqKJfCe0ZLnE2GZECC1Uw
+	 2iwQprRYZVtmOseVNTTglNaBIsOFBVr1n6OTqevq7V73rzNG3CqNAJBINIOHn7EtBD
+	 cCAZaIN2KMinrhdtmp0S/WBWXwmqPg2mj/JTYsEA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EF2E3F805A1;
-	Tue,  7 Jun 2022 12:45:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5C408F805B6;
+	Tue,  7 Jun 2022 12:46:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 37B34F805A8; Tue,  7 Jun 2022 12:45:57 +0200 (CEST)
+ id 8366BF80116; Tue,  7 Jun 2022 12:45:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E1ADFF8059F;
- Tue,  7 Jun 2022 12:45:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1ADFF8059F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 99F7AF805A1
+ for <alsa-devel@alsa-project.org>; Tue,  7 Jun 2022 12:45:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99F7AF805A1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="H7zET4PR"
+ header.b="JmvRdb9a"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A9AA16152A;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 68B8E61558;
+ Tue,  7 Jun 2022 10:45:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDA13C385A5;
  Tue,  7 Jun 2022 10:45:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6FCCC34119;
- Tue,  7 Jun 2022 10:45:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1654598752;
- bh=rDaQ/Y3jfWu1H3Cy/83eSHNsodbTFoBuSmzrNWGOWQs=;
+ s=k20201202; t=1654598753;
+ bh=AxRIcnJX9fW26yyj+ldAClhP+8raYDyMP1J5TheAE7s=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=H7zET4PR1e8M7DIIGnHwCBPE1qlTjKd1CkGbrfof+gcN/Rb7HqNrEvuEWyejZSHEe
- 709jmODZ9Pzwwm5Npm6Ai9bNowqeG5HOcFB6xOOk+rUvr8obvc37+A74GVApGT3fYc
- R4kzmYm7Uf4h9RBk6yRHbpPaM/tqi7DifUCFSj9xs9dh+Kv1SnX/3iS4QVRgTNdSHG
- Rjy3YugAgiUKjnTqIq4/j8m1/DBu20WgYKihoDNEA+CcYVGDKZOyN++Yh8Tw8BHUvi
- etr66Foq4oGkQlIMiQaVTS0f2bpiOmhHbJc6Xp98cLbpe71HlNqS6uJQ48RV9e/eSt
- kJJSryXd+uJCQ==
+ b=JmvRdb9aTcTuiiMN+2eKgM9/x2W0eaFM5fvZyvL9Gai492PJOXX/0yjou/p3KI+3Q
+ LbddzbrBsZXZB/B/6O4VRo/cdpH7N98aT4QxlHc+1A4zQ2WxRRBe9G5sdyEtpRkfq3
+ 2A31DdAwUest7Mz50UNGf3zuNMOOEvmtX86/+G3VjPCr2eJegHlRD+tU0xG7258hqr
+ F01G+ZoC8AuzXHAoxsv2k9HbiN0vd+cu88kR2NZUC0fgL/P55pJl2mVOqYHp2IgiXC
+ quaWtTGHV9ewCH+GtNukJ1OcsZu+K74kuNV5NAm5P+/mG7YfjpdC7ryo2+PDijWWpV
+ //MfPJL7YuqCw==
 From: Mark Brown <broonie@kernel.org>
-To: amadeuszx.slawinski@linux.intel.com, pierre-louis.bossart@linux.intel.com
-In-Reply-To: <20220602135757.3335351-1-amadeuszx.slawinski@linux.intel.com>
-References: <20220602135757.3335351-1-amadeuszx.slawinski@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: Fix potential NULL pointer dereference
-Message-Id: <165459875046.301808.2650890872025754338.b4-ty@kernel.org>
-Date: Tue, 07 Jun 2022 11:45:50 +0100
+To: peda@axentia.se, broonie@kernel.org, Liam Girdwood <lgirdwood@gmail.com>
+In-Reply-To: <20220602131058.3552621-1-broonie@kernel.org>
+References: <20220602131058.3552621-1-broonie@kernel.org>
+Subject: Re: [PATCH] ASoC: tfa9879: Use modern ASoC DAI format terminology
+Message-Id: <165459875269.301808.4543691086218525117.b4-ty@kernel.org>
+Date: Tue, 07 Jun 2022 11:45:52 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- ranjani.sridharan@linux.intel.com, daniel.baluta@nxp.com,
- sound-open-firmware@alsa-project.org
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,10 +84,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 2 Jun 2022 15:57:57 +0200, Amadeusz Sławiński wrote:
-> Cleanup path for sof_prepare_widgets_in_path() should check if unprepare
-> callback exists before calling it, instead it checks if it does not
-> exist. Fix the check.
+On Thu, 2 Jun 2022 15:10:58 +0200, Mark Brown wrote:
+> As part of moving to remove the old style defines for the bus clocks update
+> the tfa9879 driver to use more modern terminology for clocking.
 > 
 > 
 
@@ -99,8 +96,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: SOF: Fix potential NULL pointer dereference
-      commit: 2fe08216fda33bbc1f80133b8fd560ffd094b987
+[1/1] ASoC: tfa9879: Use modern ASoC DAI format terminology
+      commit: 4f8ed19593872b710f27bbc3b7a9ce03310efc57
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

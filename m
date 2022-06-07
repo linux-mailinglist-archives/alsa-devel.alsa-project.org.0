@@ -2,78 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 858AE53FBD4
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jun 2022 12:46:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A521D53FBD8
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jun 2022 12:47:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2FDC71945;
-	Tue,  7 Jun 2022 12:46:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FDC71945
+	by alsa0.perex.cz (Postfix) with ESMTPS id B7A1F19FD;
+	Tue,  7 Jun 2022 12:46:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7A1F19FD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654598814;
-	bh=dWi9pVoSXFMjNQasXg+itxXBUXG1usYFJbMM2nTrsb0=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1654598825;
+	bh=H7439HAhKBiBU5PJ0wEYhH+/aj2uOXs88io1cN6Ww+I=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NUdHaq9tthI+Pwca5GpJU9SXyPpy9JVX2+LN5KUEVwSvKbxLB004T2F/sn32wkF1U
-	 YYukU9VIjdglIhrTOHJMAOpmRWIBvpxY0G4ucRQ67/ggTQDsrGCqpfU/xpAT9H+kqA
-	 aUavMUv6VRqozoN8ROdctG88jMjz+DxnQOMiZQhU=
+	b=lbTPIbjr7RfUfFKcxQ+zDaIzz2z5AVdG7TTmHwb5iIa31+dMw6V2KRG71XWNzn3f2
+	 WSmyuMbaP8tv3+Kb7SwAK8rysJ+KwGj3IYQeO5EPbgRDtE6EnlovZ2Y6l0pYAy4iEA
+	 1sRbZ/9eHSOhwsobHDcmayldHazlOyQACsqseMag=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2FE90F804BC;
-	Tue,  7 Jun 2022 12:45:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C34F8F80527;
+	Tue,  7 Jun 2022 12:45:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 47E5EF804BC; Tue,  7 Jun 2022 12:45:24 +0200 (CEST)
+ id 55EFAF80527; Tue,  7 Jun 2022 12:45:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 990B8F80116
- for <alsa-devel@alsa-project.org>; Tue,  7 Jun 2022 12:45:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 990B8F80116
+ by alsa1.perex.cz (Postfix) with ESMTPS id 83674F804E6
+ for <alsa-devel@alsa-project.org>; Tue,  7 Jun 2022 12:45:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83674F804E6
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="jbbJVJHz"
+ header.b="IZJSFxF3"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2AEF261550;
- Tue,  7 Jun 2022 10:45:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08CDEC385A5;
- Tue,  7 Jun 2022 10:45:15 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 3246E61531;
+ Tue,  7 Jun 2022 10:45:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1780BC3411E;
+ Tue,  7 Jun 2022 10:45:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1654598719;
- bh=dWi9pVoSXFMjNQasXg+itxXBUXG1usYFJbMM2nTrsb0=;
- h=From:To:In-Reply-To:References:Subject:Date:From;
- b=jbbJVJHznc3BWrvL9hvWGW4/IGx4f9ENxcWG7iVdMkdZZkNnISL4d7mjeKfubXrKK
- 8oPtTg3eNzeA68a4oOOg0kkVVwIuIoGXkdZpV/vYd2tSjFtKgITsle39SazOg118Pm
- Mf+eXY4bu7Zxiay+y++FcaKk9OMzuy4ymsYPo4Mu/kSBYEVwMcwZ8CM629Bj061DgT
- sJXD3LI7cYrabxXNs9qSkQb6cbzB/iPlh+YtJCjjEg3M3ZJdi53jIHjOwbpKitXMcg
- MgwAm0rX3ZF8O3d5eZqJiSkjd+X4FVd1U4A+JZiBt2TsmSWZztnAobUsMsc8Ni2+u2
- 4yFlXg4mWM/lQ==
+ s=k20201202; t=1654598722;
+ bh=H7439HAhKBiBU5PJ0wEYhH+/aj2uOXs88io1cN6Ww+I=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=IZJSFxF3NIi3cewoR1VlvJQkQVHSUj3nrlHYEWLewWIaLDLl3OCLisXwJk8+U6N7k
+ xAbXEtMyKf/faeh1lawU5kwfT3E6Wy0rTQ5QERHAt6NVjJ1DdVKsNtwmmB4eXkZumX
+ s0qkSMeKyQbAiOT5ozjwAxPlyPDV7Zg+to24SS0nvp7oex+F10NyB+ax9Vn5ShVvzK
+ Z8te27GrRgIwob/Vi5X2zadr+Q2ACUKhB7gIN56o+pBApMCXIO8IYkSbX8jz5zYd0m
+ MMukOD4clitxdcEa2BeAq79ezlu9vZ9bFljGbxJpy3pQ63EFOdkNheKmQL3yMnzbUJ
+ c5nRjaoG4seVw==
 From: Mark Brown <broonie@kernel.org>
-To: srinivas.kandagatla@linaro.org, bjorn.andersson@linaro.org,
- swboyd@chromium.org, tiwai@suse.com, vkoul@kernel.org,
- linux-arm-msm@vger.kernel.org, agross@kernel.org, quic_plai@quicinc.com,
- bgoswami@quicinc.com, devicetree@vger.kernel.org, judyhsiao@chromium.org,
- robh+dt@kernel.org, lgirdwood@gmail.com, quic_rohkumar@quicinc.com,
- perex@perex.cz, linux-kernel@vger.kernel.org, quic_srivasam@quicinc.com,
- alsa-devel@alsa-project.org
-In-Reply-To: <1652877755-25120-1-git-send-email-quic_srivasam@quicinc.com>
-References: <1652877755-25120-1-git-send-email-quic_srivasam@quicinc.com>
-Subject: Re: [PATCH v2] ASoC: qcom: soundwire: Add support for controlling
- audio CGCR from HLOS
-Message-Id: <165459871566.301808.10281011736457954166.b4-ty@kernel.org>
-Date: Tue, 07 Jun 2022 11:45:15 +0100
+To: olivier.moysan@foss.st.com, Julia.Lawall@inria.fr
+In-Reply-To: <20220521111145.81697-76-Julia.Lawall@inria.fr>
+References: <20220521111145.81697-76-Julia.Lawall@inria.fr>
+Subject: Re: [PATCH] ASoC: stm32: dfsdm: fix typo in comment
+Message-Id: <165459871980.301808.7235614685174421255.b4-ty@kernel.org>
+Date: Tue, 07 Jun 2022 11:45:19 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, kernel-janitors@vger.kernel.org,
+ alexandre.torgue@foss.st.com, Liam Girdwood <lgirdwood@gmail.com>,
+ mcoquelin.stm32@gmail.com, arnaud.pouliquen@foss.st.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,15 +88,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 18 May 2022 18:12:35 +0530, Srinivasa Rao Mandadapu wrote:
-> Add support for controlling soundwire audio CGCR interface using clock
-> framework to make hclk ungating with software. As per new hardware
-> changes, software has to always ungate hclk if soundwire is operational
-> and keep it running. This requirement is for latest LPASS chipsets for
-> RX, TX and WSA path to work.
+On Sat, 21 May 2022 13:11:26 +0200, Julia Lawall wrote:
+> Spelling mistake (triple letters) in comment.
+> Detected with the help of Coccinelle.
 > 
 > 
-> [...]
 
 Applied to
 
@@ -105,8 +100,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: qcom: soundwire: Add support for controlling audio CGCR from HLOS
-      commit: 32882881078bd8f8fae47ff69c102d9e691f5bb9
+[1/1] ASoC: stm32: dfsdm: fix typo in comment
+      commit: 2685d5046962f018b1a155b3eef316562414638b
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

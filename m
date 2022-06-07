@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E263553FC00
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jun 2022 12:48:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FDB353FC0B
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jun 2022 12:48:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 863251949;
-	Tue,  7 Jun 2022 12:47:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 863251949
+	by alsa0.perex.cz (Postfix) with ESMTPS id B16C41A23;
+	Tue,  7 Jun 2022 12:48:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B16C41A23
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654598926;
-	bh=VWwzCqMXrN/G0KyRMlKG4MamL4lgLmSXarbHCk4VCkA=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1654598939;
+	bh=tMS1gG3dXMPWf84lcdBNSw3MxsgI83j5BwdlSZTqOaA=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=chkgqFt1NwEZqjdSRMnA9c/ob7YrIUD12pZfbou5uCTHlzTgVR/xeKEwFpQdqjShu
-	 Hja1ocm8z8iT5zTAU0j9yXa0sZfrTPjSLQJMAWDTivmzUa5AAecjZr2vVtDJVDzZ5p
-	 CgWt2FL/tXpoVpivw6Fa8RKHe0/Ic4ZKKWaFNh+0=
+	b=M8BMgUMniMPXTV7ZqqhMBM/L6FL6klT+n8e/XJjP1e4o3v6PNoggqDlDF00HIGZXs
+	 BZQp+HJeQqGo94P8vwexPSRqHn9vaWHZ0WTxM7ehDgjOVWFaFfwcIPBvgZXQkyiOYh
+	 jNsKiGMCizyFP8xWxGIpKeVEtDly0s5JnkMw0VO8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 88A79F80549;
-	Tue,  7 Jun 2022 12:45:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 056F6F80563;
+	Tue,  7 Jun 2022 12:45:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 49300F80549; Tue,  7 Jun 2022 12:45:42 +0200 (CEST)
+ id 3CB05F8055A; Tue,  7 Jun 2022 12:45:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,41 +34,45 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D0C45F80549
- for <alsa-devel@alsa-project.org>; Tue,  7 Jun 2022 12:45:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0C45F80549
+ by alsa1.perex.cz (Postfix) with ESMTPS id DE40CF8055A
+ for <alsa-devel@alsa-project.org>; Tue,  7 Jun 2022 12:45:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE40CF8055A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="bgS3geV/"
+ header.b="fSj1nLhW"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6254361552;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A3B986152C;
+ Tue,  7 Jun 2022 10:45:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F0A0C385A5;
  Tue,  7 Jun 2022 10:45:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34022C34119;
- Tue,  7 Jun 2022 10:45:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1654598737;
- bh=VWwzCqMXrN/G0KyRMlKG4MamL4lgLmSXarbHCk4VCkA=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=bgS3geV/mOzLet2UKYeM0PnA/8Xmll1Djy9ySD6xUZ+i+sR+WpVZIRkahpn4Mdo3a
- cAVRmDT8n0CigHgEDKNvLHkjsKiyPEfpZpcU8fiFLH7hpICXKUuN7nBOjWWLFad4WN
- vFSY+y9Ps3+fRN5sYJDjizcz4ZzDPaZ5WywyI04soPjf3ZGC7vqha5YhOXLRQ7oXwG
- kV1sr8hQhJBN0TmyFAbM40CAl9smif3NBJN95EVkB6vv1l95KimNOB7a0ZRG4J9pYC
- w8DPldUPG9BzMsBMP7GONGRUZqdsZQjPveFamdbhT+BJa5TdPsWIpRu1tQN5Ym7Qgz
- mH9BBfKjcaFxg==
+ s=k20201202; t=1654598740;
+ bh=tMS1gG3dXMPWf84lcdBNSw3MxsgI83j5BwdlSZTqOaA=;
+ h=From:To:In-Reply-To:References:Subject:Date:From;
+ b=fSj1nLhWMxGdMrbyxQD622Xxcv9d4lhwS3PvmyWltkid6i7b3ugUjtTYNQ9Gc2VqJ
+ 7Nh/qd88jGvpD9J70u5ab46ybKz2OpUxLau3iYDBPrwl1Dj9UWVpld1nrLTgdwBLnt
+ B/Kl3yGmPv/9zut2uRxca/zlmMg8QZf6D9YdhUOtNh73aWRctSII5RstzBKKqZ96vg
+ u/qW2ZDK3NMvLxKL/mrvq/pusJ/s3sdPEVivGeUHDMEk4Ew1XYBdarVjJ/Rlqk+GYy
+ TEqy3U6uNwiq/Y4JXILcrm06XtAp/1852GT+15LJ0aqrYowdrIsQyHPOCffmca/tNe
+ ekQ2oT+q0CgGg==
 From: Mark Brown <broonie@kernel.org>
-To: rdunlap@infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20220605163123.23537-1-rdunlap@infradead.org>
-References: <20220605163123.23537-1-rdunlap@infradead.org>
-Subject: Re: [PATCH] ASoC: max98390: use linux/gpio/consumer.h to fix build
-Message-Id: <165459873591.301808.2566417791038246308.b4-ty@kernel.org>
-Date: Tue, 07 Jun 2022 11:45:35 +0100
+To: cychiang@chromium.org, chrome-platform@lists.linux.dev, linmq006@gmail.com,
+ Liam Girdwood <lgirdwood@gmail.com>, tzungbi@google.com,
+ Takashi Iwai <tiwai@suse.com>, groeck@chromium.org,
+ enric.balletbo@collabora.com, linux-kernel@vger.kernel.org,
+ bleung@chromium.org, Jaroslav Kysela <perex@perex.cz>,
+ alsa-devel@alsa-project.org
+In-Reply-To: <20220603131043.38907-1-linmq006@gmail.com>
+References: <20220603131043.38907-1-linmq006@gmail.com>
+Subject: Re: [PATCH v2] ASoC: cros_ec_codec: Fix refcount leak in
+ cros_ec_codec_platform_probe
+Message-Id: <165459873804.301808.717161588235185866.b4-ty@kernel.org>
+Date: Tue, 07 Jun 2022 11:45:38 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: steve.lee.analog@gmail.com, alsa-devel@alsa-project.org, lkp@intel.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,19 +88,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 5 Jun 2022 09:31:23 -0700, Randy Dunlap wrote:
-> Change the header file to fix build errors in max98390.c:
+On Fri, 3 Jun 2022 17:10:43 +0400, Miaoqian Lin wrote:
+> of_parse_phandle() returns a node pointer with refcount
+> incremented, we should use of_node_put() on it when not need anymore.
+> Add missing of_node_put() to avoid refcount leak.
 > 
-> ../sound/soc/codecs/max98390.c: In function 'max98390_i2c_probe':
-> ../sound/soc/codecs/max98390.c:1076:22: error: implicit declaration of function 'devm_gpiod_get_optional'; did you mean 'devm_regulator_get_optional'? [-Werror=implicit-function-declaration]
->  1076 |         reset_gpio = devm_gpiod_get_optional(&i2c->dev,
-> ../sound/soc/codecs/max98390.c:1077:55: error: 'GPIOD_OUT_HIGH' undeclared (first use in this function); did you mean 'GPIOF_INIT_HIGH'?
->  1077 |                                              "reset", GPIOD_OUT_HIGH);
-> ../sound/soc/codecs/max98390.c:1077:55: note: each undeclared identifier is reported only once for each function it appears in
-> ../sound/soc/codecs/max98390.c:1083:17: error: implicit declaration of function 'gpiod_set_value_cansleep'; did you mean 'gpio_set_value_cansleep'? [-Werror=implicit-function-declaration]
->  1083 |                 gpiod_set_value_cansleep(reset_gpio, 0);
 > 
-> [...]
 
 Applied to
 
@@ -104,8 +101,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: max98390: use linux/gpio/consumer.h to fix build
-      commit: aa7407f807b250eca7697e5fe9a699bc6c2fab71
+[1/1] ASoC: cros_ec_codec: Fix refcount leak in cros_ec_codec_platform_probe
+      commit: 0a034d93ee929a9ea89f3fa5f1d8492435b9ee6e
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,75 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1D2053FC0E
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jun 2022 12:49:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 838A153FC13
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jun 2022 12:49:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6EB991A45;
-	Tue,  7 Jun 2022 12:48:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6EB991A45
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0FE8D1A48;
+	Tue,  7 Jun 2022 12:48:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FE8D1A48
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654598957;
-	bh=fYxNbwPSVr/66WMOgiyAGOorrBlpKFmsqN5lemf2nIM=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1654598976;
+	bh=jrw0fzEva8sabg3UFL74weovmEdX09d/VJrE+o2sNvk=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LmERPq0EsqcFkDrSzux060zU6E/NI0wUXqxzuuAuh+v+Ry9u4uSQdQlCUIcqoaKp5
-	 ln/CImSROHO9CuHT0EuNoEYJCmI52t08Q9EcBtYnaOG5ddetKcWtlZECokGlMhn631
-	 9EKgyRo6x1Lp26XWjqYKGIEyJlPfn4vhJl25huTo=
+	b=IM/rA3sHYfUNUaJHjdoKOmvrqW/x0tcUJnSxyYLETFD65NjhNvVu/UZbJ/qi/8oNX
+	 N/dGqmXAk/gYUVauUBEzoT5/ew53bm/Y5vUV5kHGVbLcWCauqaGto83859rt+rbcJ+
+	 0mkwGWtM3MVnFvtwjqYD9DrnvEBbRilpsbPNUa4U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 926ABF8056F;
-	Tue,  7 Jun 2022 12:45:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 126D9F80579;
+	Tue,  7 Jun 2022 12:45:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5C3B1F80567; Tue,  7 Jun 2022 12:45:47 +0200 (CEST)
+ id 2A4A4F80571; Tue,  7 Jun 2022 12:45:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 21738F80564
- for <alsa-devel@alsa-project.org>; Tue,  7 Jun 2022 12:45:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21738F80564
+ by alsa1.perex.cz (Postfix) with ESMTPS id C1DF9F8055B
+ for <alsa-devel@alsa-project.org>; Tue,  7 Jun 2022 12:45:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1DF9F8055B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="YoA4Ppkd"
+ header.b="m8QAkHya"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 230CDB81F07;
- Tue,  7 Jun 2022 10:45:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BADCC3411F;
- Tue,  7 Jun 2022 10:45:40 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 1E6CEB81F05;
+ Tue,  7 Jun 2022 10:45:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CA43C34115;
+ Tue,  7 Jun 2022 10:45:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1654598742;
- bh=fYxNbwPSVr/66WMOgiyAGOorrBlpKFmsqN5lemf2nIM=;
- h=From:To:In-Reply-To:References:Subject:Date:From;
- b=YoA4Ppkdp8AYFYI0bTkAynYDmgn6Kjb0j8j52AYcOjvg2skP8HrPDqsdk7FRjeXJ4
- 8YuXB1NwYrdz1GjnDaHNjm13NRM9a2v4iBfO0ebsSBuOxL6MeaUE5jLs4vvafmk44E
- Qwx4+Lh5QDoPKqE8IfpWcCnCPjho9CYCEDXj755TdJ8HaJCeuJihXr1S/LVEZXKpb9
- R4GCmR7+/IcGTAv7mee/R9UdWK3mfcXB55l7bV1kfhdzaHN9n2URpyBiDt2I4lARll
- y9/vNDqWBBvfeyuGY1zMKR0TggR9hhjahf7Sn2yms33cZXmLCyNv477dofcxi7PhDq
- PoJGyovBoxX+Q==
+ s=k20201202; t=1654598744;
+ bh=jrw0fzEva8sabg3UFL74weovmEdX09d/VJrE+o2sNvk=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=m8QAkHyabT+LcT4zDqRNkmKCNs57zhjBU7YI+82RzcK7sJlZzueBPzxrf20dhZJS/
+ jivnOUEE3nemXHREfQtWGbf/r7KcM7Qqvt5h+Ct8YOSh/A0nKIglpHKoyzYoWSg82D
+ SP9VFimzizDz/+FtKiSm0UkU5UH+tK1BLsZNiidSDjl2sv0NVb9gcxUXH8sMNzn2N2
+ Pya1aF0liXVJNFS69V4s66JdXH4on3Bg30TVgVNceMwIQcvPeD9LJXs6RADknuC3MO
+ SVZPY8Xf5AygXoW4s+cfkkzSCzaErqz3ALogB5vNU7wTPTxnt1tfG4zUY9e9CEwKor
+ XV1YIODq2TJag==
 From: Mark Brown <broonie@kernel.org>
-To: linmq006@gmail.com, Liam Girdwood <lgirdwood@gmail.com>,
- krzysztof.kozlowski@linaro.org, Takashi Iwai <tiwai@suse.com>,
- s.nawrocki@samsung.com, xc-racer2@live.ca, linux-kernel@vger.kernel.org,
- Jaroslav Kysela <perex@perex.cz>, alsa-devel@alsa-project.org
-In-Reply-To: <20220603130640.37624-1-linmq006@gmail.com>
-References: <20220603130640.37624-1-linmq006@gmail.com>
-Subject: Re: [PATCH v2] ASoC: samsung: Fix error handling in aries_audio_probe
-Message-Id: <165459874083.301808.8944605604871415466.b4-ty@kernel.org>
-Date: Tue, 07 Jun 2022 11:45:40 +0100
+To: kchsu0@nuvoton.com, ctlin0.linux@gmail.com, wtli@nuvoton.com,
+ broonie@kernel.org, hui.wang@canonical.com, ctlin0@nuvoton.com
+In-Reply-To: <20220603103530.3844527-1-broonie@kernel.org>
+References: <20220603103530.3844527-1-broonie@kernel.org>
+Subject: Re: [PATCH] ASoC: nau8822: Don't reconfigure PLL to the same values
+Message-Id: <165459874309.301808.4525934599551055149.b4-ty@kernel.org>
+Date: Tue, 07 Jun 2022 11:45:43 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,13 +84,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 3 Jun 2022 17:06:39 +0400, Miaoqian Lin wrote:
-> of_get_child_by_name() returns a node pointer with refcount
-> incremented, we should use of_node_put() on it when not need anymore.
-> This function is missing of_node_put(cpu) in the error path.
-> Fix this by goto out label. of_node_put() will check NULL pointer.
+On Fri, 3 Jun 2022 12:35:30 +0200, Mark Brown wrote:
+> When we configure the PLL record the input and output frequency, then if we
+> get asked to configure the same values again just skip reprogramming the
+> hardware. This makes things a bit easier to use for machine drivers since
+> it means they don't need to keep track of if they've programmed the PLL
+> so much.
 > 
 > 
+> [...]
 
 Applied to
 
@@ -100,8 +100,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: samsung: Fix error handling in aries_audio_probe
-      commit: 3e2649c5e8643bea0867bb1dd970fedadb0eb7f3
+[1/1] ASoC: nau8822: Don't reconfigure PLL to the same values
+      commit: 3ae190edc5f6f64f296f8dd15f4b511f529ab402
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

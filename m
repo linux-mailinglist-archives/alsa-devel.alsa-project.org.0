@@ -2,77 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A521D53FBD8
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jun 2022 12:47:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEF4653FBDC
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jun 2022 12:47:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B7A1F19FD;
-	Tue,  7 Jun 2022 12:46:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7A1F19FD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 902BB1A42;
+	Tue,  7 Jun 2022 12:46:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 902BB1A42
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654598825;
-	bh=H7439HAhKBiBU5PJ0wEYhH+/aj2uOXs88io1cN6Ww+I=;
+	s=default; t=1654598839;
+	bh=MpaIdGbaKAMBLJfa7jevH3NryJ/FF1rB5km3FqsCypk=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lbTPIbjr7RfUfFKcxQ+zDaIzz2z5AVdG7TTmHwb5iIa31+dMw6V2KRG71XWNzn3f2
-	 WSmyuMbaP8tv3+Kb7SwAK8rysJ+KwGj3IYQeO5EPbgRDtE6EnlovZ2Y6l0pYAy4iEA
-	 1sRbZ/9eHSOhwsobHDcmayldHazlOyQACsqseMag=
+	b=odaeyLbR42SS+PXgtE6pziQHnGDq6oKj0CfHnKDpItG9IgdEp2f01bs8tXwUfGQ4Y
+	 an9yhtLw6KKNDndStDHTRku73XdsqdxLg8/+yA2wa7EC72X2D2PHWtO/l8zvf3cl7+
+	 GXZe8UwoIRW4IZv0co8NbbNwY4qcFpju57udTiro=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C34F8F80527;
-	Tue,  7 Jun 2022 12:45:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 52209F8052E;
+	Tue,  7 Jun 2022 12:45:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 55EFAF80527; Tue,  7 Jun 2022 12:45:28 +0200 (CEST)
+ id 64BFAF80526; Tue,  7 Jun 2022 12:45:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 83674F804E6
- for <alsa-devel@alsa-project.org>; Tue,  7 Jun 2022 12:45:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83674F804E6
+ by alsa1.perex.cz (Postfix) with ESMTPS id 14BF0F80302
+ for <alsa-devel@alsa-project.org>; Tue,  7 Jun 2022 12:45:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14BF0F80302
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="IZJSFxF3"
+ header.b="aWZvLnCX"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 3246E61531;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 34C75B81F01;
+ Tue,  7 Jun 2022 10:45:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FAA3C385A5;
  Tue,  7 Jun 2022 10:45:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1780BC3411E;
- Tue,  7 Jun 2022 10:45:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1654598722;
- bh=H7439HAhKBiBU5PJ0wEYhH+/aj2uOXs88io1cN6Ww+I=;
+ s=k20201202; t=1654598725;
+ bh=MpaIdGbaKAMBLJfa7jevH3NryJ/FF1rB5km3FqsCypk=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=IZJSFxF3NIi3cewoR1VlvJQkQVHSUj3nrlHYEWLewWIaLDLl3OCLisXwJk8+U6N7k
- xAbXEtMyKf/faeh1lawU5kwfT3E6Wy0rTQ5QERHAt6NVjJ1DdVKsNtwmmB4eXkZumX
- s0qkSMeKyQbAiOT5ozjwAxPlyPDV7Zg+to24SS0nvp7oex+F10NyB+ax9Vn5ShVvzK
- Z8te27GrRgIwob/Vi5X2zadr+Q2ACUKhB7gIN56o+pBApMCXIO8IYkSbX8jz5zYd0m
- MMukOD4clitxdcEa2BeAq79ezlu9vZ9bFljGbxJpy3pQ63EFOdkNheKmQL3yMnzbUJ
- c5nRjaoG4seVw==
+ b=aWZvLnCXNcZk7SwWw2ChEM3DWON75dXOgbPugmTAyNwp7ROOhIZxRO2RQSkV2Kqb4
+ uRFokkW1iMplAJjN2TojScugvWjd7nvDluhm+KdNPXmrhB94/P3yFuleLxa3P3ox9K
+ rHLJsD7VPK4xP2E22Y5Jekg1UCqMLSlrcDlJPHAAEQDAYAQJHlQdzAtoBs77T46SKG
+ 7YyWkdty4tRz8t85Jod/xSwFQc04CE5lvdUJ18J+SZo9jhLbb9JV0w8fiB5/Im28pX
+ xuPdtLcr9Rs0XIrpiMUVtcvFHEGGKtkP4xT1IRvpbfd9O9vzycEXIZyYnx8u2F15hI
+ zkGHTj5Zs0Nmg==
 From: Mark Brown <broonie@kernel.org>
-To: olivier.moysan@foss.st.com, Julia.Lawall@inria.fr
-In-Reply-To: <20220521111145.81697-76-Julia.Lawall@inria.fr>
-References: <20220521111145.81697-76-Julia.Lawall@inria.fr>
-Subject: Re: [PATCH] ASoC: stm32: dfsdm: fix typo in comment
-Message-Id: <165459871980.301808.7235614685174421255.b4-ty@kernel.org>
-Date: Tue, 07 Jun 2022 11:45:19 +0100
+To: Julia.Lawall@inria.fr, Liam Girdwood <lgirdwood@gmail.com>
+In-Reply-To: <20220521111145.81697-79-Julia.Lawall@inria.fr>
+References: <20220521111145.81697-79-Julia.Lawall@inria.fr>
+Subject: Re: [PATCH] ASoC: amd: acp: fix typo in comment
+Message-Id: <165459872329.301808.12651579852525968637.b4-ty@kernel.org>
+Date: Tue, 07 Jun 2022 11:45:23 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, kernel-janitors@vger.kernel.org,
- alexandre.torgue@foss.st.com, Liam Girdwood <lgirdwood@gmail.com>,
- mcoquelin.stm32@gmail.com, arnaud.pouliquen@foss.st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,7 +84,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 21 May 2022 13:11:26 +0200, Julia Lawall wrote:
+On Sat, 21 May 2022 13:11:29 +0200, Julia Lawall wrote:
 > Spelling mistake (triple letters) in comment.
 > Detected with the help of Coccinelle.
 > 
@@ -100,8 +96,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: stm32: dfsdm: fix typo in comment
-      commit: 2685d5046962f018b1a155b3eef316562414638b
+[1/1] ASoC: amd: acp: fix typo in comment
+      commit: b661a848a50c0cc3e0b79795c74469d7b50ff4ac
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

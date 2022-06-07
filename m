@@ -2,72 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7801553FC7A
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jun 2022 12:55:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85D7D53FC6E
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jun 2022 12:54:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1F4771A9C;
-	Tue,  7 Jun 2022 12:54:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F4771A9C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1707D1A4C;
+	Tue,  7 Jun 2022 12:53:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1707D1A4C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654599309;
-	bh=sBaYugq1xPFjZqPwbsR8mD4Kd6QBYOF8Y29dQgVIFnI=;
+	s=default; t=1654599248;
+	bh=9+pUEn/bG4fcSHXKfmjMEcgyn72cKoDXq1ZmWQ/qRH8=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=j7mQouPvN9h+GiqnOVKBXB/fI78xUF4fQ2QettiFZssFCTBpRsHajj8eWKjILhRmL
-	 p/P39yYelEfNvq3Y6KdNRSA2XAODTnrh3Ieyv8KxB8RbnjD1t1Y64iIggr3jrqbP1H
-	 ZK4aqKMl0/+KKiPgBPfJ3slMe/RTpJPnILZAdu3M=
+	b=B0Z7mN1eqwTYSxi4MfTUyhmRVPHZTZVD6frWSmERHeL7TekqfGdr8j+3dxu2D/BkN
+	 RFmF0jo6cjPOQ/3gbuykuV40cV13LqaXLWDpTYcovvoJDLiv2ZgSaW5drvd1xN7++b
+	 hShp7unGR7U4aUzTwWLopDLCKkj8MgQ+YMka4sHA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 69CE0F8052F;
-	Tue,  7 Jun 2022 12:46:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 07BECF805FF;
+	Tue,  7 Jun 2022 12:46:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 539F3F8060D; Tue,  7 Jun 2022 12:46:41 +0200 (CEST)
+ id 2AB74F805FE; Tue,  7 Jun 2022 12:46:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 89B4AF805FC
- for <alsa-devel@alsa-project.org>; Tue,  7 Jun 2022 12:46:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89B4AF805FC
+ by alsa1.perex.cz (Postfix) with ESMTPS id E8252F805FF
+ for <alsa-devel@alsa-project.org>; Tue,  7 Jun 2022 12:46:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8252F805FF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="JVBFUfY3"
+ header.b="kex5OYML"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 8E972B81F05;
- Tue,  7 Jun 2022 10:46:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0AA1C34114;
- Tue,  7 Jun 2022 10:46:19 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 89015B81EF1;
+ Tue,  7 Jun 2022 10:46:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC4F9C385A5;
+ Tue,  7 Jun 2022 10:46:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1654598781;
- bh=sBaYugq1xPFjZqPwbsR8mD4Kd6QBYOF8Y29dQgVIFnI=;
+ s=k20201202; t=1654598783;
+ bh=9+pUEn/bG4fcSHXKfmjMEcgyn72cKoDXq1ZmWQ/qRH8=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=JVBFUfY3oP35uoMtrbJHwJUl6atnmUZ7r/majx+Lt7m2x3lavEwY6Y1inlSGqCMii
- EeChp+GadknXLHlYN4zehy6nTZ4TGtf5N8GSnaAr5ol6PBuUKG7stJlFXy/cOZYdSf
- H4mJP1REcjwf41T4IxYR3kQzHiQq1kkD0rRL3hdHsiH5eDVxzxPqKp4+sA6Il6SqjB
- sfQXfejgVNpG8EM0JavqKyqh2yWTWDK//PnvgfG8n2I0QiF3N2Jba9FUh6WXnutf9e
- KP6CGKP4ht5ezYXbIMQJoTNClU2zYbmFqXhpDyljusgcZiX/883aqEzRMzokliiNZH
- YXVoQp3Sf0OjA==
+ b=kex5OYMLDyO2+xhikta2ZmdqKF7VR7MASVYbYxiEvAYLOZlqAI+moQ+gH8k9rRbvx
+ Ww9rDiQYQaZDjkruroSeg/paozDYytCbLOirvesWH75amyelz0s5aFJkwKowQUkwOZ
+ eGRivwx9tttRSZR8/yIYXcryZOrq6lfqySn9kZLdXX3Y/J3QGAJgKAInECVSgVjuxS
+ 19mN2BzJtAjLbB127+lhVoJgdZ1MlVIl9Sd03olb5NoImS5O1Pvce/zADKIes0KYFV
+ Jj2JHbFoXInLzS5sVVogUl2TyO1pCUOx+ML6dMjF8nYeWBKforx488UCE7zNA6Io7l
+ fojxb6C/ICyag==
 From: Mark Brown <broonie@kernel.org>
 To: Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
  tglx@linutronix.de, christophe.jaillet@wanadoo.fr,
  Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <84d94977c57deee9e85249f18394ebf8d72497bc.1653724723.git.christophe.jaillet@wanadoo.fr>
-References: <84d94977c57deee9e85249f18394ebf8d72497bc.1653724723.git.christophe.jaillet@wanadoo.fr>
-Subject: Re: [PATCH] ASoC: ux500: Remove some leftover from the "Replace GPLv2
- boilerplate/reference with SPDX" rules
-Message-Id: <165459877943.301808.15291099978666980985.b4-ty@kernel.org>
-Date: Tue, 07 Jun 2022 11:46:19 +0100
+In-Reply-To: <28c0833d4a11f8f75f385e5aad93c23721b06c7e.1653724847.git.christophe.jaillet@wanadoo.fr>
+References: <28c0833d4a11f8f75f385e5aad93c23721b06c7e.1653724847.git.christophe.jaillet@wanadoo.fr>
+Subject: Re: [PATCH] ASoC: ab8500: Remove some leftover from the "Replace
+ GPLv2 boilerplate/reference with SPDX" rules
+Message-Id: <165459878149.301808.7387374939170024578.b4-ty@kernel.org>
+Date: Tue, 07 Jun 2022 11:46:21 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -88,7 +87,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 28 May 2022 09:59:22 +0200, Christophe JAILLET wrote:
+On Sat, 28 May 2022 10:00:53 +0200, Christophe JAILLET wrote:
 > The "Replace GPLv2 boilerplate/reference with SPDX" has left some empty
 > "License terms" paragraphs.
 > Remove them as well.
@@ -101,8 +100,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: ux500: Remove some leftover from the "Replace GPLv2 boilerplate/reference with SPDX" rules
-      commit: 8466579b63cc9aa957b7b4f273087512f989d2a1
+[1/1] ASoC: ab8500: Remove some leftover from the "Replace GPLv2 boilerplate/reference with SPDX" rules
+      commit: b521e85eefa384a5c31984b1a7e0d71b762c9663
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

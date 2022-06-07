@@ -2,59 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 494985401A7
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jun 2022 16:43:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39B5E54046A
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jun 2022 19:10:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7DE6A18FB;
-	Tue,  7 Jun 2022 16:42:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7DE6A18FB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8F2C9183E;
+	Tue,  7 Jun 2022 19:09:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F2C9183E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654612999;
+	s=default; t=1654621827;
 	bh=9COrypvEUjBs8sX873IcBCnZsx9Yglr0KAJMLX1X9m0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bjp2WJVq2H5D1PuvyuohUbuSTBSqC+9wTtMyttmXjuvGcQQ5Y8A510NaKEzo1Zm45
-	 7lud1PPuJ61ndi7X1uAU0yV10IbKw+mKI80RWzFg/DBd4vrDouM/GtkZHF4IYHhUeJ
-	 Fn4QqHHIdYdta4M2MskFnDwnbk+WC+13zPiulOd4=
+	b=YuTPL914v0vyUV/uN9ICgtjd5dmxfBJJh3ibzmJF2Vh9zWJ56lGJHbzpSrnA4ZxvJ
+	 LKzPXJNw0D6MuyjGkhBCEXFEr5NTYmoRTnkgJwLtuwyl1dln+yEsFLjgl2OJY6AegB
+	 zllbG+h/ggB4zBKPMFMeIcQ82RE3EvJ/pHs4SaV8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0A8FCF80248;
-	Tue,  7 Jun 2022 16:42:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E95B7F80109;
+	Tue,  7 Jun 2022 19:09:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 68904F80159; Tue,  7 Jun 2022 16:42:20 +0200 (CEST)
+ id 73FF3F80159; Tue,  7 Jun 2022 19:09:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
  SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8C24BF80116
- for <alsa-devel@alsa-project.org>; Tue,  7 Jun 2022 16:42:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C24BF80116
-X-UUID: 5bb31a3fcedc4739b35bb2809d78d9ca-20220607
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.5, REQID:feddc2f1-0938-4279-8d2b-6fedfdbac1f9, OB:0,
+ by alsa1.perex.cz (Postfix) with ESMTPS id EB3F1F80109
+ for <alsa-devel@alsa-project.org>; Tue,  7 Jun 2022 19:09:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB3F1F80109
+X-UUID: 0f697eaf3ed74f42a9039f02360e762f-20220608
+X-CID-P-RULE: Spam_GS6885AD
+X-CID-O-INFO: VERSION:1.1.5, REQID:e7a6479f-6ac5-4e77-9812-5b84f9d9307d, OB:0,
  LO
- B:0,IP:0,URL:25,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,RULE:Release_Ham,AC
- TION:release,TS:20
-X-CID-META: VersionHash:2a19b09, CLOUDID:c9c6f5e4-2ba2-4dc1-b6c5-11feb6c769e0,
+ B:0,IP:0,URL:25,TC:0,Content:-5,EDM:0,RT:0,SF:95,FILE:0,RULE:Spam_GS6885AD
+ ,ACTION:quarantine,TS:115
+X-CID-INFO: VERSION:1.1.5, REQID:e7a6479f-6ac5-4e77-9812-5b84f9d9307d, OB:0,
+ LOB:
+ 0,IP:0,URL:25,TC:0,Content:-5,EDM:0,RT:0,SF:95,FILE:0,RULE:Spam_GS981B3D,A
+ CTION:quarantine,TS:115
+X-CID-META: VersionHash:2a19b09, CLOUDID:ea33f9e4-2ba2-4dc1-b6c5-11feb6c769e0,
  C
- OID:IGNORED,Recheck:0,SF:nil,TC:nil,Content:0,EDM:-3,IP:nil,URL:1,File:nil
- ,QS:0,BEC:nil
-X-UUID: 5bb31a3fcedc4739b35bb2809d78d9ca-20220607
-Received: from mtkexhb01.mediatek.inc [(172.21.101.102)] by
- mailgw01.mediatek.com (envelope-from <jiaxin.yu@mediatek.com>)
+ OID:618d0a950468,Recheck:0,SF:28|17|19|48,TC:nil,Content:0,EDM:-3,IP:nil,U
+ RL:1,File:nil,QS:0,BEC:nil
+X-UUID: 0f697eaf3ed74f42a9039f02360e762f-20220608
+Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw02.mediatek.com
+ (envelope-from <jiaxin.yu@mediatek.com>)
  (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 1155364809; Tue, 07 Jun 2022 22:20:53 +0800
-Received: from mtkcas11.mediatek.inc (172.21.101.40) by
- mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.792.3; 
+ with ESMTP id 1957830345; Wed, 08 Jun 2022 01:09:02 +0800
+Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
+ mtkmbs11n1.mediatek.inc (172.21.101.185) with ShadowRedundancy id 15.2.792.3; 
+ Tue, 7 Jun 2022 17:08:59 +0000
+Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
+ mtkmbs11n1.mediatek.inc (172.21.101.185) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.792.3; 
  Tue, 7 Jun 2022 22:20:52 +0800
 Received: from localhost.localdomain (10.17.3.154) by mtkcas11.mediatek.inc
  (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend

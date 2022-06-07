@@ -2,88 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 581CD53FE8A
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jun 2022 14:15:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A86B853FEA1
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jun 2022 14:21:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F3930193D;
-	Tue,  7 Jun 2022 14:14:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F3930193D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 46BDA1811;
+	Tue,  7 Jun 2022 14:21:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46BDA1811
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654604134;
-	bh=1Cx18sxiULd4jDMoa1htmK3eO5CGlZ7iR/Mrq94hW5w=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1654604519;
+	bh=w2aQJy8XTcqWcZ5VipuId8VpFh1nL10EEwBkOwvPTtQ=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IpL4pannJyuNxg5t/InhG+LhbYQdEgoZ05JVoJRks/4TNliqkFHzVUcAKfvQHl/V4
-	 G9XUSr0ZWpR65WNg0gAgraSNqp7qb7Zf0E6KX8IBFDLHsLau1RLFX1+uJ2ttB+cOhh
-	 HY40zY7FA9U4wDu4OawBQMO+RWLSEEBdtlS+Gqn4=
+	b=lE2zpADTe5FrY9VIbU2lWhmsYmCXDpQCQ8tCohthtFrqawv+4nEshw1VtOoYlP1Eb
+	 8O4IVz+oWrBQecb4uSt/eSCe0cFyB+uxfDjxWNyFv9I7gfO87FfrPHMBoUCFEZkUC1
+	 dpMXleSx73mxGzDm2xPv3LX/bEi3R6bEBMaOpajc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 79ACBF8028B;
-	Tue,  7 Jun 2022 14:14:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B3012F80248;
+	Tue,  7 Jun 2022 14:21:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2B049F80248; Tue,  7 Jun 2022 14:14:35 +0200 (CEST)
+ id 3C113F80159; Tue,  7 Jun 2022 14:21:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B600BF80116
- for <alsa-devel@alsa-project.org>; Tue,  7 Jun 2022 14:14:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B600BF80116
+ by alsa1.perex.cz (Postfix) with ESMTPS id EA4EDF80116
+ for <alsa-devel@alsa-project.org>; Tue,  7 Jun 2022 14:20:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA4EDF80116
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="bvzDbGV3"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="Qbtkq1zv"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="gI6YDL0Y"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 2FADB1F964;
- Tue,  7 Jun 2022 12:14:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1654604072; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=IrUqO+otnDEmKibyuzrOz0dENyPQar5lt3SSl+IjhO4=;
- b=bvzDbGV3BqY4hM1MoUlb7dMGgmJRo98ogHqfMYC+2n8Vqe6cF22RJviLK/eIJ+YdNwMDd1
- +v5JmH+JjQ9bkqoCV7i5xL0cEcTlP6Kbo5wD0/6a4V/jKvbidCai4pi1y711mc9SZ20plf
- 5tFWuipqnjD5VXjmIVQ8YDEd4FO6Auc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1654604072;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=IrUqO+otnDEmKibyuzrOz0dENyPQar5lt3SSl+IjhO4=;
- b=Qbtkq1zvZBg0enDdjXdiObDl0eA034Wq+LXt/O2IbpQV5WB+/CNKyjEoY+6+jAd/nA9ieR
- SGVyqWootIujw9BQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0A1A213638;
- Tue,  7 Jun 2022 12:14:32 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id d53UAShBn2JHAwAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 07 Jun 2022 12:14:32 +0000
-Date: Tue, 07 Jun 2022 14:14:31 +0200
-Message-ID: <87tu8wn00o.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [GIT PULL] ASoC fixes for v5.19-rc1
-In-Reply-To: <20220607120649.943D0C341C4@smtp.kernel.org>
-References: <20220607120649.943D0C341C4@smtp.kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
+ by ams.source.kernel.org (Postfix) with ESMTPS id 80B19B81F86;
+ Tue,  7 Jun 2022 12:20:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95D0BC34115;
+ Tue,  7 Jun 2022 12:20:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1654604455;
+ bh=w2aQJy8XTcqWcZ5VipuId8VpFh1nL10EEwBkOwvPTtQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=gI6YDL0YkG7mKXGMOKq+mUybDcF6mtaMPz2d/YmYXxLK7gjJcQ+XVgKLFrlQdEhII
+ XNZAn5ZLGk6qOfBUrWW4u+bTVXm9tlCZd95p2CW9TXAh2xIxt1OppGcEoJugBmg3uW
+ MUI75PkbvmCjbqliTGFW5adTAuxW3uhug5XqwrzEmvhx7fwKUCFRXUc73dexjn/0MN
+ 5/aJI5Xjv9a6/nlVzAJXC2TyrDKfu7ks2ajEcy0aPAckWvqdmH2Phh08Dt2cRFHRvA
+ EZooL/vzyEVRobNF/JGwj3u9ieuOuV5vw3iRqzJ21DQzT2dEbm38MAwkONlDdCL2Z7
+ cxwfCcgT4R3/Q==
+Date: Tue, 7 Jun 2022 13:20:50 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Lukasz Majewski <lukma@denx.de>
+Subject: Re: [PATCH 2/3] ASoC: wm8940: Rewrite code to set proper clocks
+Message-ID: <Yp9CoibeiXff43//@sirena.org.uk>
+References: <20220606154441.20848-1-lukma@denx.de>
+ <20220606154441.20848-2-lukma@denx.de>
+ <Yp4o2bQammYjv7Kt@sirena.org.uk> <20220607141309.11ec7503@ktm>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="oD4aHu7NoJLDSZnJ"
+Content-Disposition: inline
+In-Reply-To: <20220607141309.11ec7503@ktm>
+X-Cookie: Where's SANDY DUNCAN?
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,29 +90,49 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 07 Jun 2022 14:06:41 +0200,
-Mark Brown wrote:
-> 
-> The following changes since commit ab0925ab728163b854ea17da09e299254a86076e:
-> 
->   ASoC: da7219: Small fixes for jack detection and removal (2022-05-31 10:16:59 +0200)
-> 
-> are available in the Git repository at:
-> 
->   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v5.19-rc1
-> 
-> for you to fetch changes up to 2abdf9f80019e8244d3806ed0e1c9f725e50b452:
-> 
->   ASoC: wm_adsp: Fix event generation for wm_adsp_fw_put() (2022-06-06 12:31:28 +0100)
-> 
-> ----------------------------------------------------------------
-> ASoC: Fixes for v5.19
-> 
-> A few more fixes for v5.19 which came in during the second half of the
-> merge window, again nothing that's really remarkable outside of the
-> individual drivers.
 
-Thanks, pulled now.
+--oD4aHu7NoJLDSZnJ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
+On Tue, Jun 07, 2022 at 02:13:09PM +0200, Lukasz Majewski wrote:
+> > On Mon, Jun 06, 2022 at 05:44:40PM +0200, Lukasz Majewski wrote:
 
-Takashi
+> > I don't entirely follow the above - in what way might the core adjust
+> > the clocking, and why would we want to allow the use of invalid
+> > clocks? Surely that just makes error checking worse.
+
+> Hmm, it is a bit complicated.
+
+> When I enabed wm8940 support in mainline - the first call to
+> wm8940_set_dai_sysclk (the set_sysclk callback) required mclk = 11997070
+> frequency.
+
+> With the current code [1] the initialization of the codec returns
+> -EINVAL and the codec is not supported in the system:
+
+> asoc-simple-card: probe of sound failed with error -22
+
+Well, that looks like a bug in either simple-card or it's configuration
+which should be fixed then (you should probably use audio-graph-card for
+new things BTW).  If a machine driver just randomly sets a clock rate
+that the system can't support and doesn't want then that's a problem,
+presuambly it's getting that rate from somewhere.  Note that this is the
+machine driver trying to set a clock rate, not the core.
+
+--oD4aHu7NoJLDSZnJ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmKfQqEACgkQJNaLcl1U
+h9CwNQf/SQ1IIya40BCk6cTxfy5APPyLi0PkvOK018oGnfnEu32l/1vb6bVISsbX
+PHvisytP3OCYODHV7aPKS3hOGYdzE6FE7dkh2BNITANR7b/2w+e035IeNDSb5pw6
+VvBQSiOoKGvwiDcwC6qTf7FV7ok0IUAYiEZWs9288QnzfXy8lwEWFujAkEV/hV6q
+nLx9rP0vwtEIAzzqOjtOZyFWDl7XT5+EdlRvxtSQopJzBieIcFuBBJQw9FJdr1Gk
+Z9SrxAwfmyKeIhn5tegWV1NewUHZwaEnK7Vpc/j6LXkuhSBD20ngNMio5bTNy123
++mcivhXqL5A9VKdjhg1FpAdOWdBAFg==
+=nfuP
+-----END PGP SIGNATURE-----
+
+--oD4aHu7NoJLDSZnJ--

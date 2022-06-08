@@ -2,73 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D6B654318A
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jun 2022 15:37:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56AE154321A
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jun 2022 16:02:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1B89318AC;
-	Wed,  8 Jun 2022 15:36:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B89318AC
+	by alsa0.perex.cz (Postfix) with ESMTPS id E20DC1898;
+	Wed,  8 Jun 2022 16:01:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E20DC1898
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654695432;
-	bh=U9vmyHt85vN3sCyWmKsu5sYz8hIEMAHVCv64ZatqnPc=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=V/7vJcepTCX1tStK5Drg7Q+mXJPiCO9KfNTY8dBKFfMIHyiNqNq/PTntSYZEt9CPM
-	 t9iJv6G4ne++NX/g35IwqLPr24hXSB6EdVFGwo/bVgnO3pURWAaYC3RCITvEH7EQ1L
-	 56w6Rl5cSnd3HfnFsseeBcZPXchZPnVS/Uu7r0LE=
+	s=default; t=1654696947;
+	bh=BpDN2kiN686svf//ATLLr+JfKLlUS/fQbwAmK6CRz/E=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=a5OW8PgvNRX2kIWeMQB9qIq6N7KtTi2ZpJz1QqvqXc5bL5P25pS8eYp1Ffo7GPfk0
+	 LlQ2ZXLJVrUANbuJ614axwH+wAYiCAvIruN3Ntt4UtrVai9uWjURZbogTtkEOTW/+f
+	 6MdFMCFenWaosQ56GPRpkOWhm7LlLYgR+gscBCTw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1E8BBF80520;
-	Wed,  8 Jun 2022 15:35:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 555A0F8026A;
+	Wed,  8 Jun 2022 16:01:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7E5A5F80526; Wed,  8 Jun 2022 15:35:35 +0200 (CEST)
+ id 298FCF80245; Wed,  8 Jun 2022 16:01:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
+ [64.147.123.19])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 486F3F800C7
- for <alsa-devel@alsa-project.org>; Wed,  8 Jun 2022 15:35:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 486F3F800C7
+ by alsa1.perex.cz (Postfix) with ESMTPS id C6322F80245
+ for <alsa-devel@alsa-project.org>; Wed,  8 Jun 2022 16:01:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6322F80245
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="NpwOo9cb"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 880C761AC4;
- Wed,  8 Jun 2022 13:35:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B229C3411F;
- Wed,  8 Jun 2022 13:35:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1654695325;
- bh=U9vmyHt85vN3sCyWmKsu5sYz8hIEMAHVCv64ZatqnPc=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=NpwOo9cb9O/8g4klzQN46b0IYNqra7Fwlgrzlye5JHVUUONWg8KDgw5mqO3S1W39Z
- lmOjtJR1DLQmFURkgP1bExihg6eohMROn2Vtg5Q5O3+ysItAgL5FZi4+4tfZq5GB4Y
- ILo+AEXAathcrxQHthdZxFjeTl6Y0KdSDGWbCpL/dfKLoYg6k0NDywrbsAl8/QdeTI
- Z79zxa0xERS0fqFU9SV4YIi0nvYABQ1Lk55DSM0pbXANpVq4mdYrFLytzKQXzICnsC
- pTqu4TQPhORt7ajvYzvQDwh8oz5PpgU4fHH6yerWUAbI6WTNnUiTJRjpO77w4s0sRy
- uqtUQox3EPGWQ==
-From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87h74v29f7.wl-kuninori.morimoto.gx@renesas.com>
-References: <87h74v29f7.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH] ASoC: ak4613: cares Simple-Audio-Card case for TDM
-Message-Id: <165469532489.615471.10019728812817999193.b4-ty@kernel.org>
-Date: Wed, 08 Jun 2022 14:35:24 +0100
+ dkim=pass (2048-bit key) header.d=system76.com header.i=@system76.com
+ header.b="hdfJPJHy"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="mZG7PIBv"
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.west.internal (Postfix) with ESMTP id 64AF5320055E;
+ Wed,  8 Jun 2022 10:01:14 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute5.internal (MEProxy); Wed, 08 Jun 2022 10:01:14 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=system76.com; h=
+ cc:cc:content-transfer-encoding:date:date:from:from:in-reply-to
+ :message-id:mime-version:reply-to:sender:subject:subject:to:to;
+ s=fm2; t=1654696873; x=1654783273; bh=TR1Mc8jC62WZY8Rk7AWB89PGs
+ X3GoiT9VJEbOuJgRz0=; b=hdfJPJHy+MDPMRyAPTynC7nwwFx4Ilo/ammS7evN5
+ oIRtmxhV4F1UBpcFnRRhShnMitZ3zI39SCf1bkhQnFxiOR5ClraXwM433iGtBhHe
+ VIUDeKOGblkxA/bbhfZSZxAq/5oIlZLnlNYZCzw+NjEeaB+iciRnROacllXLNwfE
+ NCxoQ/kNBcf77zWMFUKGNt+LtorRn1AnFjqz3oNkJuB10Ys1jSKfDWZwi1IZ7FNw
+ p81FGjsk9uw6TgaqdbNNd4wLEGKnjJntLB+6Yy6bbKZUY5uu3Dvzrq5fiBPWTTYF
+ jmxp5IrH2fJAiHGLO77QKENlfRJod5iL71QNsgR4/KRPg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
+ :feedback-id:feedback-id:from:from:in-reply-to:message-id
+ :mime-version:reply-to:sender:subject:subject:to:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+ 1654696873; x=1654783273; bh=TR1Mc8jC62WZY8Rk7AWB89PGsX3GoiT9VJE
+ bOuJgRz0=; b=mZG7PIBvuu+z8BTZVQDIcBV/xm1d90Hy/fvdE0gySDvPAoXs18w
+ 1qpBxuxlsYR2uR38jSrccFnupgvQiWa/ySGbhjXQuGU3C/u3O+ldr95ZIiBAtZKw
+ Qs/REjlFi/tgo/Tal+3KGjuXc8AGgD3olkB6s5rpvRSaxQzQ9rzjWA69yaXGoRun
+ vv6OAQ6sf2b7bTf6X8s2YY9JtqzAEwQNU17wpw5gCgiMK4K6igWNDbFK2yCkyDe4
+ S2dBAitxPForPJ3NJSGwE9hF9uoCrJQnTCbR3XwrStuaPTmMTsTkKuh4i6yOjN8K
+ 4HADaIpQGnap5Wiqqi52hX2FF1QIUL0kXBA==
+X-ME-Sender: <xms:qaugYqKHFjQvuW81O5en8hSK7agS59uY5Ix2GmleVRShfElFP0jkww>
+ <xme:qaugYiJowTiJyfcSVi3diBI495HmCPimARjrO92BdgQEI0zjMzDCSJISc1N4bymO1
+ AK48lXBKiI6r7cdpg>
+X-ME-Received: <xmr:qaugYqs6oGAzfpXF-FmHqc1akvlEUOiQ1XDFetY4RisEOGk4AzWI4eS0>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedruddtjedgieelucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhephffvvefufffkofgggfestdekredtredttdenucfhrhhomhepvfhimhcuvehr
+ rgiffhhorhguuceothgtrhgrfihfohhrugesshihshhtvghmjeeirdgtohhmqeenucggtf
+ frrghtthgvrhhnpeekgfetfedviedvhffftdffgfeifffhteeguddukeeifeeuuedtleef
+ tdevueehfeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhroh
+ hmpehttghrrgiffhhorhgusehshihsthgvmhejiedrtghomh
+X-ME-Proxy: <xmx:qaugYvYIdr13STsMLUZIty9XXSDEBo4dP4CXi7tkC4eG6yb4caHLeA>
+ <xmx:qaugYhaZWor-xSCSGYLRR0fI1oynaPOTF9VGvy0pqKY3E_ZiU7jlTg>
+ <xmx:qaugYrCOSwOF6QHbbYYwdNpAyECGcPomL0A7KuM4_eIriSkbUE-0lQ>
+ <xmx:qaugYglzu6EAkB4uzBgir1y3OER8MwkhNU0eGd_rbRggKkhW3K1tXQ>
+Feedback-ID: i1761444e:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 8 Jun 2022 10:01:12 -0400 (EDT)
+From: Tim Crawford <tcrawford@system76.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: hda/realtek: Add quirk for HP Dev One
+Date: Wed,  8 Jun 2022 08:01:11 -0600
+Message-Id: <20220608140111.23170-1-tcrawford@system76.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, geert+renesas@glider.be
+Cc: tiwai@suse.de, productdev@system76.com, Jeremy Soller <jeremy@system76.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,40 +112,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 8 Jun 2022 02:09:16 +0000, Kuninori Morimoto wrote:
-> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> 
-> Renesas is the only user of ak4613 on upstream for now, and
-> commit f28dbaa958fbd8 ("ASoC: ak4613: add TDM256 support")
-> added TDM256 support. Renesas tested part of it, because of
-> board connection.
-> 
-> [...]
+From: Jeremy Soller <jeremy@system76.com>
 
-Applied to
+Enables the audio mute LEDs and limits the mic boost to avoid picking up
+noise.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Signed-off-by: Jeremy Soller <jeremy@system76.com>
+Signed-off-by: Tim Crawford <tcrawford@system76.com>
+---
+ sound/pci/hda/patch_realtek.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Thanks!
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 7170e086f166..b0f954118e72 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -9071,6 +9071,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x103c, 0x89c3, "Zbook Studio G9", ALC245_FIXUP_CS35L41_SPI_4_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x89c6, "Zbook Fury 17 G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x89ca, "HP", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
++	SND_PCI_QUIRK(0x103c, 0x8a78, "HP Dev One", ALC285_FIXUP_HP_LIMIT_INT_MIC_BOOST),
+ 	SND_PCI_QUIRK(0x1043, 0x103e, "ASUS X540SA", ALC256_FIXUP_ASUS_MIC),
+ 	SND_PCI_QUIRK(0x1043, 0x103f, "ASUS TX300", ALC282_FIXUP_ASUS_TX300),
+ 	SND_PCI_QUIRK(0x1043, 0x106d, "Asus K53BE", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
+-- 
+2.35.3
 
-[1/1] ASoC: ak4613: cares Simple-Audio-Card case for TDM
-      commit: ec3ad554b956d5dbefa1962c419f164ba223e6b3
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

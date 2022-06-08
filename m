@@ -2,68 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D00E542783
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jun 2022 09:06:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1801C542787
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jun 2022 09:07:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DC6C817C6;
-	Wed,  8 Jun 2022 09:06:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC6C817C6
+	by alsa0.perex.cz (Postfix) with ESMTPS id BA94A17D1;
+	Wed,  8 Jun 2022 09:06:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA94A17D1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654672010;
-	bh=iD1og6wGVa7pdC39jlF+yWqeYb6WxlHAIv+r0zIjWpQ=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=FhzNWDoVuaGpr5V0/IruzBgbUpS/pOX44O26fKPxRNGrOzdxAPPgfVV7GQsG03vgv
-	 KNybiTXeZW5PNPEl6rxgduaB1FIth098nPwaKgGLBEyR3COtp1oSlLCOwiKfQqjdkh
-	 pHqcizfH/YmUFPLOCPFkOVq4AyXF6FKn6U4cH3lQ=
+	s=default; t=1654672042;
+	bh=KtaYcbhakyitK9nPBYaB6CoOsmH2Hhx8neovDELn9QY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=sEcyVgE/qy+5wTd5D1yBckjiVCW+aR8JLFk4tImifT8T8BjJVBLahVwhCKpWbYTYN
+	 ZRh86uos4KkHco4rr5EhDwQT1Qg85QUawveYtXScpVilcK/RafS/13W2GJd6IiGPOa
+	 iUXcBFf1D2F+AU+Z799ZN5EwW/5Yc7EIrwhaEnZQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3C974F8026A;
-	Wed,  8 Jun 2022 09:05:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D57D5F804AE;
+	Wed,  8 Jun 2022 09:06:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 91004F80118; Wed,  8 Jun 2022 09:05:51 +0200 (CEST)
+ id 1BA76F804A9; Wed,  8 Jun 2022 09:06:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,SPF_HELO_NONE,
  SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from smtpproxy21.qq.com (smtpbg704.qq.com [203.205.195.105])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com
+ [209.85.222.179])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C3B2FF80118
- for <alsa-devel@alsa-project.org>; Wed,  8 Jun 2022 09:05:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3B2FF80118
-X-QQ-mid: bizesmtp76t1654671930tcqh2wch
-Received: from localhost.localdomain ( [113.57.152.160])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Wed, 08 Jun 2022 15:05:29 +0800 (CST)
-X-QQ-SSF: 01400000002000B0I000B00A0000000
-X-QQ-FEAT: Lg5IqoGaTUj+Jv1EON9RGjqiv08mFbfEn3gIo2fJsUawWGDYA4lbJRDncNbtv
- UxTBCsinV/qZSjo8ykrzPYCRg2HKMD4bFyIoCGvjocGkNpGqKLlmqoY1aIm6faNK8Gz24TZ
- jg4sXduMjZa8cpVJ4tXnKGLyUz3zu0ovxYX6IC+tuF8ykgVUWJzOiwokWpBz2w2alWaoUC4
- jKyHR+yTFls/8hu2gaBhrQhHSPeboYr4j5jnJPhvW6n4V0qX1OGaRsJ6iXZjGIXyW9Ys96K
- KZAqW1dtJu3sMSkrG+OtPaTfZIH6r4Fk5d+YG/9rDQwxLO0FiNIKxsy8Ks5b/MVYwXKFQCp
- OfR0OyL6hNZtwvpmG2v0NclCv4to7SwqRF0pyiY
-X-QQ-GoodBg: 2
-From: huangwenhui <huangwenhuia@uniontech.com>
-To: tiwai@suse.com,
-	perex@perex.cz
-Subject: [PATCH v3] ALSA: hda/realtek - Add HW8326 support
-Date: Wed,  8 Jun 2022 15:05:27 +0800
-Message-Id: <20220608070527.14824-1-huangwenhuia@uniontech.com>
-X-Mailer: git-send-email 2.20.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 36588F8024C
+ for <alsa-devel@alsa-project.org>; Wed,  8 Jun 2022 09:05:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36588F8024C
+Received: by mail-qk1-f179.google.com with SMTP id k6so11856520qkf.4
+ for <alsa-devel@alsa-project.org>; Wed, 08 Jun 2022 00:05:59 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=F6vympKirtV/UYcPI8BombCLRkOe1GzzfEo8DO0cCHM=;
+ b=3qfIK4Ktc9wWpoiRcUpd2VFSG/La65BvX1RZDcJGIS29F2XgDt0SLtvwjkM4nUQDRu
+ Lymztl5YloPOWx/WLBgNX+keu+q9FkLEosoco3xvwHm5jiJMihhN0QlwlvOvaswWPu8t
+ VFmFCz5MTDJq8mMPqHWPtfP6lyaDnO3U3+YlMmykvgDW+8HAt1LIOqLlUE69TMGk5lT8
+ myhrqZ3/mUKCPyBLIKTvNM7kgcgFv38xKPocWRsXEe7MoG94L4WSa0dZsQG9xIOvm3rK
+ t49HZ8I+mVVOBAbX+O4bqyM9C5qKQSfJzKyvRK3YgjvwfV5MHnDNpgLkZZrFziMQ2QVS
+ dPiA==
+X-Gm-Message-State: AOAM532TUrSVIs+zp7AgEcPXUH2V7stD26hSaohJXF5trv43EXKDHVXa
+ dhJjK7InJhvo2zHDX4GawKK4xfWQT/RLrg==
+X-Google-Smtp-Source: ABdhPJywaZECB5Gh6K+21Mos/X09C9IPKeQ2RmqCjl/++0hBM5zVTuXCUSj3lzb9dCoRWvF2Wlt6BQ==
+X-Received: by 2002:a37:9ad4:0:b0:6a6:a7d3:56a2 with SMTP id
+ c203-20020a379ad4000000b006a6a7d356a2mr15329342qke.274.1654671957567; 
+ Wed, 08 Jun 2022 00:05:57 -0700 (PDT)
+Received: from mail-yb1-f175.google.com (mail-yb1-f175.google.com.
+ [209.85.219.175]) by smtp.gmail.com with ESMTPSA id
+ h22-20020ac87456000000b00304de7561a8sm9907525qtr.27.2022.06.08.00.05.57
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 08 Jun 2022 00:05:57 -0700 (PDT)
+Received: by mail-yb1-f175.google.com with SMTP id g201so7136124ybf.12
+ for <alsa-devel@alsa-project.org>; Wed, 08 Jun 2022 00:05:57 -0700 (PDT)
+X-Received: by 2002:a05:6902:120e:b0:634:6f29:6b84 with SMTP id
+ s14-20020a056902120e00b006346f296b84mr34496689ybu.604.1654671957151; Wed, 08
+ Jun 2022 00:05:57 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign3
-X-QQ-Bgrelay: 1
-Cc: alsa-devel@alsa-project.org, kailang@realtek.com,
- tanureal@opensource.cirrus.com, jeremy.szu@canonical.com,
- linux-kernel@vger.kernel.org, wse@tuxedocomputers.com,
- huangwenhui <huangwenhuia@uniontech.com>, hui.wang@canonical.com,
- sami@loone.fi, cam@neo-zeon.de
+References: <87h74v29f7.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87h74v29f7.wl-kuninori.morimoto.gx@renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 8 Jun 2022 09:05:46 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVUGkMTkUFLnpz8b1WA+Oq7M1BrrAX2jLW14QCncpie1g@mail.gmail.com>
+Message-ID: <CAMuHMdVUGkMTkUFLnpz8b1WA+Oq7M1BrrAX2jLW14QCncpie1g@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: ak4613: cares Simple-Audio-Card case for TDM
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
+ Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,145 +95,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Added the support of new Huawei codec HW8326. The HW8326 is developed
-by Huawei with Realtek's IP Core, and it's compatible with ALC256.
+Hi Morimoto-san,
 
-Signed-off-by: huangwenhui <huangwenhuia@uniontech.com>
----
- sound/hda/hdac_device.c       |  1 +
- sound/pci/hda/patch_realtek.c | 14 ++++++++++++++
- 2 files changed, 15 insertions(+)
+On Wed, Jun 8, 2022 at 4:13 AM Kuninori Morimoto
+<kuninori.morimoto.gx@renesas.com> wrote:
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+>
+> Renesas is the only user of ak4613 on upstream for now, and
+> commit f28dbaa958fbd8 ("ASoC: ak4613: add TDM256 support")
+> added TDM256 support. Renesas tested part of it, because of
+> board connection.
+>
+> It was assuming ak4613 is probed via Audio-Graph-Card, but it
+> might be probed via Simple-Audio-Card either.
+> It will indicates WARNING in such case. This patch fixup it.
+>
+> Reported-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-diff --git a/sound/hda/hdac_device.c b/sound/hda/hdac_device.c
-index 3e9e9ac804f6..775474f00141 100644
---- a/sound/hda/hdac_device.c
-+++ b/sound/hda/hdac_device.c
-@@ -651,6 +651,7 @@ static const struct hda_vendor_id hda_vendor_ids[] = {
- 	{ 0x1095, "Silicon Image" },
- 	{ 0x10de, "Nvidia" },
- 	{ 0x10ec, "Realtek" },
-+	{ 0x19e5, "Huawei" },
- 	{ 0x1102, "Creative" },
- 	{ 0x1106, "VIA" },
- 	{ 0x111d, "IDT" },
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index f3ad454b3fbf..cd1281691767 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -443,6 +443,7 @@ static void alc_fill_eapd_coef(struct hda_codec *codec)
- 	case 0x10ec0245:
- 	case 0x10ec0255:
- 	case 0x10ec0256:
-+	case 0x19e58326:
- 	case 0x10ec0257:
- 	case 0x10ec0282:
- 	case 0x10ec0283:
-@@ -580,6 +581,7 @@ static void alc_shutup_pins(struct hda_codec *codec)
- 	switch (codec->core.vendor_id) {
- 	case 0x10ec0236:
- 	case 0x10ec0256:
-+	case 0x19e58326:
- 	case 0x10ec0283:
- 	case 0x10ec0286:
- 	case 0x10ec0288:
-@@ -3247,6 +3249,7 @@ static void alc_disable_headset_jack_key(struct hda_codec *codec)
- 	case 0x10ec0230:
- 	case 0x10ec0236:
- 	case 0x10ec0256:
-+	case 0x19e58326:
- 		alc_write_coef_idx(codec, 0x48, 0x0);
- 		alc_update_coef_idx(codec, 0x49, 0x0045, 0x0);
- 		break;
-@@ -3275,6 +3278,7 @@ static void alc_enable_headset_jack_key(struct hda_codec *codec)
- 	case 0x10ec0230:
- 	case 0x10ec0236:
- 	case 0x10ec0256:
-+	case 0x19e58326:
- 		alc_write_coef_idx(codec, 0x48, 0xd011);
- 		alc_update_coef_idx(codec, 0x49, 0x007f, 0x0045);
- 		break;
-@@ -4910,6 +4914,7 @@ static void alc_headset_mode_unplugged(struct hda_codec *codec)
- 	case 0x10ec0230:
- 	case 0x10ec0236:
- 	case 0x10ec0256:
-+	case 0x19e58326:
- 		alc_process_coef_fw(codec, coef0256);
- 		break;
- 	case 0x10ec0234:
-@@ -5025,6 +5030,7 @@ static void alc_headset_mode_mic_in(struct hda_codec *codec, hda_nid_t hp_pin,
- 	case 0x10ec0230:
- 	case 0x10ec0236:
- 	case 0x10ec0256:
-+	case 0x19e58326:
- 		alc_write_coef_idx(codec, 0x45, 0xc489);
- 		snd_hda_set_pin_ctl_cache(codec, hp_pin, 0);
- 		alc_process_coef_fw(codec, coef0256);
-@@ -5175,6 +5181,7 @@ static void alc_headset_mode_default(struct hda_codec *codec)
- 	case 0x10ec0230:
- 	case 0x10ec0236:
- 	case 0x10ec0256:
-+	case 0x19e58326:
- 		alc_write_coef_idx(codec, 0x1b, 0x0e4b);
- 		alc_write_coef_idx(codec, 0x45, 0xc089);
- 		msleep(50);
-@@ -5274,6 +5281,7 @@ static void alc_headset_mode_ctia(struct hda_codec *codec)
- 	case 0x10ec0230:
- 	case 0x10ec0236:
- 	case 0x10ec0256:
-+	case 0x19e58326:
- 		alc_process_coef_fw(codec, coef0256);
- 		break;
- 	case 0x10ec0234:
-@@ -5388,6 +5396,7 @@ static void alc_headset_mode_omtp(struct hda_codec *codec)
- 	case 0x10ec0230:
- 	case 0x10ec0236:
- 	case 0x10ec0256:
-+	case 0x19e58326:
- 		alc_process_coef_fw(codec, coef0256);
- 		break;
- 	case 0x10ec0234:
-@@ -5489,6 +5498,7 @@ static void alc_determine_headset_type(struct hda_codec *codec)
- 	case 0x10ec0230:
- 	case 0x10ec0236:
- 	case 0x10ec0256:
-+	case 0x19e58326:
- 		alc_write_coef_idx(codec, 0x1b, 0x0e4b);
- 		alc_write_coef_idx(codec, 0x06, 0x6104);
- 		alc_write_coefex_idx(codec, 0x57, 0x3, 0x09a3);
-@@ -5783,6 +5793,7 @@ static void alc255_set_default_jack_type(struct hda_codec *codec)
- 	case 0x10ec0230:
- 	case 0x10ec0236:
- 	case 0x10ec0256:
-+	case 0x19e58326:
- 		alc_process_coef_fw(codec, alc256fw);
- 		break;
- 	}
-@@ -6385,6 +6396,7 @@ static void alc_combo_jack_hp_jd_restart(struct hda_codec *codec)
- 	case 0x10ec0236:
- 	case 0x10ec0255:
- 	case 0x10ec0256:
-+	case 0x19e58326:
- 		alc_update_coef_idx(codec, 0x1b, 0x8000, 1 << 15); /* Reset HP JD */
- 		alc_update_coef_idx(codec, 0x1b, 0x8000, 0 << 15);
- 		break;
-@@ -10095,6 +10107,7 @@ static int patch_alc269(struct hda_codec *codec)
- 	case 0x10ec0230:
- 	case 0x10ec0236:
- 	case 0x10ec0256:
-+	case 0x19e58326:
- 		spec->codec_variant = ALC269_TYPE_ALC256;
- 		spec->shutup = alc256_shutup;
- 		spec->init_hook = alc256_init;
-@@ -11545,6 +11558,7 @@ static const struct hda_device_id snd_hda_id_realtek[] = {
- 	HDA_CODEC_ENTRY(0x10ec0b00, "ALCS1200A", patch_alc882),
- 	HDA_CODEC_ENTRY(0x10ec1168, "ALC1220", patch_alc882),
- 	HDA_CODEC_ENTRY(0x10ec1220, "ALC1220", patch_alc882),
-+	HDA_CODEC_ENTRY(0x19e58326, "HW8326", patch_alc269),
- 	{} /* terminator */
- };
- MODULE_DEVICE_TABLE(hdaudio, snd_hda_id_realtek);
--- 
-2.20.1
+Thank you, this fixes the WARNING splat on Ebisu-4D.
+Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
+Gr{oetje,eeting}s,
 
+                        Geert
 
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds

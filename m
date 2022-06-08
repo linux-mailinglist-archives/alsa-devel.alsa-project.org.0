@@ -2,91 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 865A3543CE3
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jun 2022 21:30:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4115B543DBB
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jun 2022 22:47:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B52381B42;
-	Wed,  8 Jun 2022 21:29:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B52381B42
+	by alsa0.perex.cz (Postfix) with ESMTPS id 274DB1DF9;
+	Wed,  8 Jun 2022 22:46:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 274DB1DF9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654716615;
-	bh=qSi67Jj5m/A/4YOXRjTerjXtUIk91lX75yTzE+K4d8w=;
-	h=In-Reply-To:References:From:Date:Subject:To:List-Id:
+	s=default; t=1654721257;
+	bh=VRhhu9ajunTB2Jx0vvHFFqmQHOkemsXwtxpkKIgAyvU=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HxMGGNQ1zNlmFgNqoCeFceg2I2KM+fTxybxsa8/04wj3xIRGhpxDBP1Emg7LIYJkr
-	 EtWR/H/bdQDgEIe237yQGhp3JEx89eT3SDaqKUbVx032tjiW4jRnZu/Vs3mMt4CyvQ
-	 BxuE0dzi+Hd0/MC2wHvKgbSX1VxXiBYsPrT/y0KE=
+	b=WTgBLoroxg7lisOWn4G1En4eNtPiTddDGm+IziqMeCCi0WYW1wgr67dAKbC+ZNt9A
+	 B1MOp6k+l2siwOfGe26YOs4h2dYcWf5pXAcYS/3hnEJHyFi1sEXZa6mi6yu28vA2Rk
+	 ZPhBsPbDRalca+xorUBSUZCmmxTXIwQKUs6TQmco=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DE3EBF8026A;
-	Wed,  8 Jun 2022 21:29:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 581C6F8026A;
+	Wed,  8 Jun 2022 22:46:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B8A6BF8024C; Wed,  8 Jun 2022 21:29:14 +0200 (CEST)
+ id 8A803F8026A; Wed,  8 Jun 2022 22:46:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-oa1-x36.google.com (mail-oa1-x36.google.com
- [IPv6:2001:4860:4864:20::36])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0CB32F80116
- for <alsa-devel@alsa-project.org>; Wed,  8 Jun 2022 21:29:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0CB32F80116
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1780FF80118
+ for <alsa-devel@alsa-project.org>; Wed,  8 Jun 2022 22:46:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1780FF80118
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="Hd5jcwos"
-Received: by mail-oa1-x36.google.com with SMTP id
- 586e51a60fabf-f2cbceefb8so28450568fac.11
- for <alsa-devel@alsa-project.org>; Wed, 08 Jun 2022 12:29:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to; bh=5vvwrgdknn1K9gJFkCVHoS1UOMpaiXh3dfNKyE3vHCA=;
- b=Hd5jcwosS+DHrHrSRvsp1DiAbCxUrFWV4Ys2JHKBdh4xlpDyW7BhzoIfKfDx5gjQXM
- 1mW+SikjxugwKvDlj4Tgp4hFCUdMfAORPCneDm8IwpDuvRUsynDdRTIVK3kwSK3+KRHw
- 5rMCTq+XO6A0kbgcSWlQN+lUXklGV8Tcp6KxI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to;
- bh=5vvwrgdknn1K9gJFkCVHoS1UOMpaiXh3dfNKyE3vHCA=;
- b=cdL/gjUyqbrH5LpCytKde6tzbpiXFJ73iz9N/Vxq64fAl6xT/vXjMZwLk5SqJWBKlF
- 3Fq2pqSmB1wKZbb/MT1zha2aQHPVeRzjVrHOBQ/bKJeCpoLDJX2vUZEa1ytIGMKdQpAy
- oG8KtKn74TF3V7PIlWiPVLgkAtZGNpDv879GqOYWYNEMgqah88lfKFhXWrVjsUsxPH5X
- PzpbqzfgjWl7qAF8nW1NERVsBRrr/5cYLGH70GoXZsmWJyBlsADgzWYLiZYQzVVpHb+x
- eaNM2m7ytFlojaEknJ7FLz8CEdSP56CA0egXDNScIKgCeAn/Zuyqj70BctLA6uW8Mf61
- Wfug==
-X-Gm-Message-State: AOAM532h3HH5Q19MV5tpIYUN9ldEUM2yUpoZk7tkmu8KiTWTHXEEbr+o
- EHZOe2T4jJY4/6u/s7RVb6vRCQdfKrz3L6AzOK3A6Q==
-X-Google-Smtp-Source: ABdhPJwfbQOhuoavwnKuPwNYfxx7ThIu71YX1w2/3eSgITORUdWupWunN82u7ED3ykn9MRwPBeCHP/wkwS4CsJQhctI=
-X-Received: by 2002:a05:6870:240d:b0:f1:b878:e97c with SMTP id
- n13-20020a056870240d00b000f1b878e97cmr3169953oap.193.1654716544865; Wed, 08
- Jun 2022 12:29:04 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 8 Jun 2022 12:29:04 -0700
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="CyRadPHN"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 81A2A61CDB;
+ Wed,  8 Jun 2022 20:46:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC211C34116;
+ Wed,  8 Jun 2022 20:46:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1654721190;
+ bh=VRhhu9ajunTB2Jx0vvHFFqmQHOkemsXwtxpkKIgAyvU=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=CyRadPHNy9qJDKi909xbwJHRtHy9LOPH1UB/XMc4YIkIoxj5GPLO4+jXZ5k0GDyPG
+ jUTR5qxBF/ixGEDHDMCIfF1yM5KllXhXse9Zktz0nHDxheMS1cIpEyfxX9yj0+ZaeO
+ kc8oWsL74MoSdJcqY+chAg2Jkg3qE1BPYXQnD5rRWERQsMK75RjFl9Wv0m4VQSOcso
+ MJ6xIKSE0+tQJz79yqrs7jIPqIIdT/OY9shzL3ClwkV/6Uxa4u5oABW0+otiDPpagu
+ a0sce2j99mYvQCVNBgbsbsTFPs/ezvJ1el/zguUqdeR24bfEO8lspctJNhhhY5RNr6
+ Bb7ygD5dmSniw==
+From: Mark Brown <broonie@kernel.org>
+To: festevam@gmail.com, shengjiu.wang@gmail.com, alsa-devel@alsa-project.org,
+ Xiubo.Lee@gmail.com, lgirdwood@gmail.com, shengjiu.wang@nxp.com,
+ nicoleotsuka@gmail.com, perex@perex.cz, tiwai@suse.com
+In-Reply-To: <1652963808-14515-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1652963808-14515-1-git-send-email-shengjiu.wang@nxp.com>
+Subject: Re: [PATCH] ASoC: fsl_sai: Enable MCTL_MCLK_EN bit for master mode
+Message-Id: <165472118853.3018072.13972119584766008524.b4-ty@kernel.org>
+Date: Wed, 08 Jun 2022 21:46:28 +0100
 MIME-Version: 1.0
-In-Reply-To: <1654696929-20205-3-git-send-email-quic_srivasam@quicinc.com>
-References: <1654696929-20205-1-git-send-email-quic_srivasam@quicinc.com>
- <1654696929-20205-3-git-send-email-quic_srivasam@quicinc.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Wed, 8 Jun 2022 12:29:04 -0700
-Message-ID: <CAE-0n53EY1eKqnVLhU__e7t63BbVoKz++6aijOpEw0k5Cxa8-w@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] ASoC: qcom: soundwire: Add software clock gating
- requirement check
-To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>, agross@kernel.org, 
- alsa-devel@alsa-project.org, bgoswami@quicinc.com, bjorn.andersson@linaro.org, 
- broonie@kernel.org, devicetree@vger.kernel.org, judyhsiao@chromium.org, 
- lgirdwood@gmail.com, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, perex@perex.cz, quic_plai@quicinc.com, 
- quic_rohkumar@quicinc.com, robh+dt@kernel.org, srinivas.kandagatla@linaro.org, 
- tiwai@suse.com, vkoul@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,47 +86,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Quoting Srinivasa Rao Mandadapu (2022-06-08 07:02:09)
-> Validate software clock gating required or not and do software
-> clock gating on hclk if soundwire is operational and keep it
-> running by adding flag in private dat structure.
-> This is to avoid conflict between older architectures,
-> where software clock gating is not required and on latest
-> architectues, where software clock gating is mandatory.
+On Thu, 19 May 2022 20:36:48 +0800, Shengjiu Wang wrote:
+> On i.MX8MM, the MCTL_MCLK_EN bit it is not only the gate
+> for MCLK output to PAD, but also the gate bit between
+> root clock and SAI module, So it is need to be enabled
+> for master mode, otherwise there is no bclk generated.
+> 
+> 
 
-This talks about software clock gating but the code is getting a reset
-and asserting it. Is that because the power on reset value of the clock
-gating is to have hardware clock gating disabled, but some earlier code
-is enabling hardware clock gating?
+Applied to
 
->
-> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-> Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> ---
->  drivers/soundwire/qcom.c | 27 ++++++++++++++++++++-------
->  1 file changed, 20 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-> index 38c3bf5..ebd7479 100644
-> --- a/drivers/soundwire/qcom.c
-> +++ b/drivers/soundwire/qcom.c
-> @@ -659,7 +665,8 @@ static int qcom_swrm_init(struct qcom_swrm_ctrl *ctrl)
->         val = FIELD_PREP(SWRM_MCP_FRAME_CTRL_BANK_ROW_CTRL_BMSK, ctrl->rows_index);
->         val |= FIELD_PREP(SWRM_MCP_FRAME_CTRL_BANK_COL_CTRL_BMSK, ctrl->cols_index);
->
-> -       reset_control_reset(ctrl->audio_cgcr);
-> +       if (ctrl->audio_cgcr)
-> +               reset_control_reset(ctrl->audio_cgcr);
->
->         ctrl->reg_write(ctrl, SWRM_MCP_FRAME_CTRL_BANK_ADDR(0), val);
->
-> @@ -1494,7 +1506,8 @@ static int __maybe_unused swrm_runtime_resume(struct device *dev)
->                 qcom_swrm_get_device_status(ctrl);
->                 sdw_handle_slave_status(&ctrl->bus, ctrl->status);
->         } else {
-> -               reset_control_reset(ctrl->audio_cgcr);
-> +               if (ctrl->audio_cgcr)
-> +                       reset_control_reset(ctrl->audio_cgcr);
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-reset_control_reset() is a no-op if the pointer is NULL so the if
-condition is not necessary in the above two statements.
+Thanks!
+
+[1/1] ASoC: fsl_sai: Enable MCTL_MCLK_EN bit for master mode
+      commit: ff87d619ac180444db297f043962a5c325ded47b
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

@@ -2,80 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F7E85446DA
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jun 2022 11:01:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D00B5449E0
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jun 2022 13:20:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9FBD61F55;
-	Thu,  9 Jun 2022 11:00:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9FBD61F55
+	by alsa0.perex.cz (Postfix) with ESMTPS id 828EC1F5E;
+	Thu,  9 Jun 2022 13:19:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 828EC1F5E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654765291;
-	bh=HOcPOmel0iDl4N8LHrdunpSE1jq8fjx5VN8kBqXwwNE=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=htmFwK3GUmDx4A3QD/RssfWT9etMZ4uZgDbc31OdpXj3lhJwbQG61WEJkf+IDjifz
-	 N2tHAe5t2M2Yl/DX5VJuNnBm+sy/FT7ndJupJGcowxYGt2Xb2L1k6VVGUffxK1L8jb
-	 D9DslJUXTcQw+/1M4AgiV79iZLC3whlRvSuhdfTo=
+	s=default; t=1654773615;
+	bh=/epniUhUp7WinZQteRsRkPLofu4G5oOc7t7Asra2waQ=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=IRQTUkWkrVJXR4VS0c83o8nyHyCv1NMsDm/fv0AT3Jhcb2J8gTRLxNGSJnX29oDON
+	 D4iSqBKBSNoSOCXF4D9m8k29kN3QjbbgPEwLH7RqhGkSTfwjgDQYMQ/op2qSCc7nZX
+	 +M8iUEKiKGn4FGiTumKC2ESmFRGlyqqgB3RMxduo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 51731F80536;
-	Thu,  9 Jun 2022 10:59:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C65D1F80240;
+	Thu,  9 Jun 2022 13:19:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E5996F801F5; Thu,  9 Jun 2022 10:59:36 +0200 (CEST)
+ id 75529F8019D; Thu,  9 Jun 2022 13:19:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [IPv6:2a00:1450:4864:20::32c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BE4F9F801F5
- for <alsa-devel@alsa-project.org>; Thu,  9 Jun 2022 10:59:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE4F9F801F5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 040AFF800E9
+ for <alsa-devel@alsa-project.org>; Thu,  9 Jun 2022 13:19:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 040AFF800E9
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="Hgc4F0LG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1654765172; x=1686301172;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=HOcPOmel0iDl4N8LHrdunpSE1jq8fjx5VN8kBqXwwNE=;
- b=Hgc4F0LGdqY46OFyBGvygvjdeMhNslBof/Am0BpgKom3Czu2vz3P+6Wq
- 3wi53rKqDYUCCvEZ24YUCQrqbLvEjrTVsWwqQrkwomCHCfFkF7t9GgsHb
- zWVAcowjJHym36E2HhJ2ICyZwyC0vjBocekyfW2SNl1GvtBNuZ9KyvWLs
- eIXSEt/KoFNQDS4EksoMzr4oMrh/AcnP0x8fBnfJ5lJIstwXjq+6O0g0O
- VktCZXkTipBi9uZJVCW97dYA53/Eo406TFImYxMfAmNvR1Gw7HUlkKCB3
- SqQq5CpdjdNNLEMg6elbE2jPVWv+oyZ0A0Zvmz5egySaZTDH8qGRF+Bs9 g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10372"; a="274732406"
-X-IronPort-AV: E=Sophos;i="5.91,287,1647327600"; d="scan'208";a="274732406"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2022 01:59:23 -0700
-X-IronPort-AV: E=Sophos;i="5.91,287,1647327600"; d="scan'208";a="637369173"
-Received: from ekoledex-mobl1.ger.corp.intel.com (HELO
- pujfalus-desk.ger.corp.intel.com) ([10.252.58.94])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2022 01:59:21 -0700
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com, broonie@kernel.org,
- pierre-louis.bossart@linux.intel.com
-Subject: [PATCH 3/3] ASoC: SOF: Intel: hda-loader: Clarify the cl_dsp_init()
- flow
-Date: Thu,  9 Jun 2022 11:59:49 +0300
-Message-Id: <20220609085949.29062-4-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.36.1
-In-Reply-To: <20220609085949.29062-1-peter.ujfalusi@linux.intel.com>
-References: <20220609085949.29062-1-peter.ujfalusi@linux.intel.com>
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="v7+74RRA"
+Received: by mail-wm1-x32c.google.com with SMTP id
+ m39-20020a05600c3b2700b0039c511ebbacso5737227wms.3
+ for <alsa-devel@alsa-project.org>; Thu, 09 Jun 2022 04:19:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=PqMs3a5YintB0gVdU2B3xyiVVe9JXV55Eno0UBh+s+0=;
+ b=v7+74RRAbyju487rK4ntR27tiHtCsewTc/zp5hlgHR3kJcOJnCNRWY5VFBd9G/K6Wz
+ D1TjizVKFmdemSS28zrviDlHkf4azNLJjsrHE9wOsKtrneN11Qpca/bFltFZLSzBMMrm
+ TREmJFHSjwRwbFSQfpKIFI7SjddVQOWjpMWFe9pBsZWVQbg+kGWFDyGGghEotOKt2P4Y
+ SAYviRvOAWEZddl5Cha1N4GCPKN372GcbKgCiau2Ai2A80QfwJdgR2OdD93STz3DwgH+
+ NGDocMYB/8afYFTP3XQJms6YL4ADQfQ1digdSdAYi/wPbZ/G6OZjETxOM+iaS33aXteF
+ osHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=PqMs3a5YintB0gVdU2B3xyiVVe9JXV55Eno0UBh+s+0=;
+ b=ieKMVPDAyj07TYgbK4U5FGpmdUwJJkSKByNQ4sqEPQ4p0pD26tAr/S4+SSRqsofq1V
+ FLbmm/R2fAD9naq6V9g0JW4M68nPxBRG0JjUmJxc0IqQpT9pYiXaUmVYfLyDCCSeXZbm
+ EOBkTr2m9+/t0wFnTcqe0giIw0XQAxjBAwsT5E+1Ln2B8Sa3hWDh4GhX8U4jrr2oJE4L
+ 22pLtQVfN1i6odKiJAB9+AT6RSC/gyWvEskVpmq2VKLRgrBZOVRlj6IaZNNpZGheX9Hn
+ biPZ5nqkpZ2QrFI3ZlVPuuxMpEXqzdBQ8cop/80Pi2+B7cSonBknqKuuSbg2dSsl8DoA
+ RFcQ==
+X-Gm-Message-State: AOAM533P1CPhxVRlBSTOsTOisV6xoCiuaClmss3QFIZmGcGz704Ao0zA
+ sO0/zUlOChBpcS9D2gJhY4dS5w==
+X-Google-Smtp-Source: ABdhPJxeAaHpJ6zWscdJmwG7nQ9B4mr0a9rMgXVUoFV3ix4rZgEznulAJ6Mf1aChGhdcn90NgSZDvg==
+X-Received: by 2002:a05:600c:3386:b0:39c:5b81:af9e with SMTP id
+ o6-20020a05600c338600b0039c5b81af9emr2826341wmp.2.1654773549938; 
+ Thu, 09 Jun 2022 04:19:09 -0700 (PDT)
+Received: from srini-hackbase.lan
+ (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
+ by smtp.gmail.com with ESMTPSA id
+ o22-20020a1c7516000000b003942a244ed1sm26477850wmc.22.2022.06.09.04.19.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 09 Jun 2022 04:19:09 -0700 (PDT)
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+To: broonie@kernel.org
+Subject: [PATCH 0/2] ASoC: codecs: qualcomm move gain to S8_TLV
+Date: Thu,  9 Jun 2022 12:18:59 +0100
+Message-Id: <20220609111901.318047-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, yung-chuan.liao@linux.intel.com,
- ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, tiwai@suse.com,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,45 +102,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Update the comment for the cl_dsp_init() to clarify what is done by the
-function and use the chip->init_core_mask instead of BIT(0) when
-unstalling/running the init core.
+Move all the digital and IIR gains form using SX_TLV to S8_TLV,
+these gains are actually 8 bit gains with 7th signed bit and
+ranges from -84dB to +40dB
 
-Complements: 2a68ff846164 ("ASoC: SOF: Intel: hda: Revisit IMR boot sequence")
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
----
- sound/soc/sof/intel/hda-loader.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Tested on DB410c with Headset playback
 
-diff --git a/sound/soc/sof/intel/hda-loader.c b/sound/soc/sof/intel/hda-loader.c
-index 103e62bcfa82..d3ec5996a9a3 100644
---- a/sound/soc/sof/intel/hda-loader.c
-+++ b/sound/soc/sof/intel/hda-loader.c
-@@ -95,9 +95,9 @@ struct hdac_ext_stream *hda_cl_stream_prepare(struct snd_sof_dev *sdev, unsigned
- }
- 
- /*
-- * first boot sequence has some extra steps. core 0 waits for power
-- * status on core 1, so power up core 1 also momentarily, keep it in
-- * reset/stall and then turn it off
-+ * first boot sequence has some extra steps.
-+ * power on all host managed cores and only unstall/run the boot core to boot the
-+ * DSP then turn off all non boot cores (if any) is powered on.
-  */
- static int cl_dsp_init(struct snd_sof_dev *sdev, int stream_tag, bool imr_boot)
- {
-@@ -127,7 +127,7 @@ static int cl_dsp_init(struct snd_sof_dev *sdev, int stream_tag, bool imr_boot)
- 	snd_sof_dsp_write(sdev, HDA_DSP_BAR, chip->ipc_req, ipc_hdr);
- 
- 	/* step 3: unset core 0 reset state & unstall/run core 0 */
--	ret = hda_dsp_core_run(sdev, BIT(0));
-+	ret = hda_dsp_core_run(sdev, chip->init_core_mask);
- 	if (ret < 0) {
- 		if (hda->boot_iteration == HDA_FW_BOOT_ATTEMPTS)
- 			dev_err(sdev->dev,
+Thanks,
+Srini
+
+Srinivas Kandagatla (2):
+  ASoC: codecs: msm8916-wcd-digital: move gains from SX_TLV to S8_TLV
+  ASoC: codecs: wcd9335: move gains from SX_TLV to S8_TLV
+
+ sound/soc/codecs/msm8916-wcd-digital.c | 46 +++++++--------
+ sound/soc/codecs/wcd9335.c             | 81 ++++++++++++--------------
+ 2 files changed, 59 insertions(+), 68 deletions(-)
+
 -- 
-2.36.1
+2.25.1
 

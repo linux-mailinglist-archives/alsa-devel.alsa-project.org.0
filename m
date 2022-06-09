@@ -2,83 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E1A2545C71
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jun 2022 08:42:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AA64545C72
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jun 2022 08:42:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 134E91F8E;
-	Fri, 10 Jun 2022 08:41:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 134E91F8E
+	by alsa0.perex.cz (Postfix) with ESMTPS id AD4711E84;
+	Fri, 10 Jun 2022 08:41:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD4711E84
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654843339;
-	bh=hC1rLhkHeCTCuDIYo33WVQJymSeOhItLSB3n5+EaIbg=;
+	s=default; t=1654843353;
+	bh=YmnQmx0dlzflXivlNhp/Ycmw6waFmKpktyHcN3MNZb0=;
 	h=Date:In-Reply-To:References:Subject:From:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sAlMAQ8+nVVMdTQ/w71hhnLVPYvjLD8re0dk9Aj3X3caNv49Gw6CB5WoE+VYChJUK
-	 W7B/XevebM7pzMwy7o1qDHffbYF8KwFOpslOza5njU65Nu9GtN9SDLeqYtumqpkn64
-	 ujP4ZiKUzeMFYSfBb9Vk//DoNboHMnOJ4+Bt333U=
+	b=NRshJ7Uzj5exTYq95CQbw5E0sYhQx4lK7x3Fc97ZWftAXAJ/ywaj459xeNfEIyZk/
+	 mOv/FMxcg69FCB75kQLXYeR3vE0kKt7udS1XpRCI5KdutRO1GBTyv8wE/XiO24M+S2
+	 HTbE/an2Y+c780nlpBwvtSxspbBfhOoywG9Nbxw8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 389BDF80579;
+	by alsa1.perex.cz (Postfix) with ESMTP id B1630F80589;
 	Fri, 10 Jun 2022 08:37:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 58C2AF801F5; Fri, 10 Jun 2022 00:21:33 +0200 (CEST)
+ id AC587F801F5; Fri, 10 Jun 2022 00:21:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU, SPF_HELO_NONE, SPF_NONE, T_SCC_BODY_TEXT_LINE,
  USER_IN_DEF_DKIM_WL autolearn=disabled version=3.4.0
-Received: from mail-pl1-x64a.google.com (mail-pl1-x64a.google.com
- [IPv6:2607:f8b0:4864:20::64a])
+Received: from mail-yw1-x1149.google.com (mail-yw1-x1149.google.com
+ [IPv6:2607:f8b0:4864:20::1149])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 19C75F800C7
- for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 00:21:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 19C75F800C7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1ED90F800E9
+ for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 00:21:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1ED90F800E9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="i42901GY"
-Received: by mail-pl1-x64a.google.com with SMTP id
- p2-20020a170902e74200b00164081f682cso13401558plf.16
- for <alsa-devel@alsa-project.org>; Thu, 09 Jun 2022 15:21:29 -0700 (PDT)
+ header.b="E9tSuZ6h"
+Received: by mail-yw1-x1149.google.com with SMTP id
+ 00721157ae682-30974094b5cso213546767b3.20
+ for <alsa-devel@alsa-project.org>; Thu, 09 Jun 2022 15:21:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
  h=date:in-reply-to:message-id:mime-version:references:subject:from:to
- :cc; bh=+JW2n6LLjgkLeZpu0VrK7uVIniA8Omo9w9YQRrZ1ImQ=;
- b=i42901GYNhaxsHQ0DOGoOky9iCPlDaMMKrye+1S6wrdYfiDoHAZcC7HTQX/ufq8JDc
- FtLJH8ibG+4hcwJncrABH5MINqNlaiBQcg6AiUjnTwqlf664IuYPp0tvgNpDNS6s/GjQ
- Wjh2TOa/isNuXc04yhOdZrj9wIAtXkGMKkDBH370v2doh3glFP/6lvE9gZpbXECpN/zv
- UStKebGupQmmTtj2yMjnHwJiwJi/peKu25pYf9NTE11Ch6upWSa6FAa3CkIKEN5+Emo5
- 3UDTgqdqaohZKI3Gp3XYmJjjv1YwnDPf8AUi3y1kFAWlFzS3PLERdXTH2sKpk0ltR6ij
- /vAw==
+ :cc; bh=yboyFArx2lHvBt01l8NpldAEI3xLVVvkRY3YCO31PQs=;
+ b=E9tSuZ6hKkd5R9UrAClvzMvLuSapw21MRvFh9K5m/Q4W/Ne6NP2WMWfSPzasz8wKZX
+ Mng11d6Obxtbq83lWoSaFsdBiVCu3gb6X9dNoHMi3E7qOKWwZUm9cJAU6WOY5s+S4WcD
+ k0KWGk2jmTkZOAqD94Ix96O/6kgOmQ/r+QpHomefwKvJ5cV0MNofmxceF2lXxoFWF6gg
+ j5Cs7IkuMhKv2Pf+5++JwO5hcoMx6SP3if8FmA4NjIla9U/uK2//v1BfU0Tfe7AV8KrT
+ Ey/sE8DleSJieRPHEDBL1hPn4naIWW02H/aWpnYArbukY4zZLmv4GV2t/e5g12dM+Qzj
+ ZcQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:in-reply-to:message-id:mime-version
  :references:subject:from:to:cc;
- bh=+JW2n6LLjgkLeZpu0VrK7uVIniA8Omo9w9YQRrZ1ImQ=;
- b=ojNlP0UpC75I8Sw5ST2+D1/7SByCguyZXWn+hRFyGKcrdMURkqImNWv0WPbvhXb9Du
- f2xp0iw8LbqQ/OjXfbbWHkRgDbJidzIQiTnLKUsRHDCbj3pK7VQy5xTkEyJ1ldWb01wF
- UswoFASbVlvCVHm0hcQUOyuUMCC78FDhTHrcxu3i5+47MfNxJmloVNw5TnB8T5rS5ZNr
- xnvuAAXJtG1oieyr7dNQbPCQsyKuZkI5ByaZAi9BMuqqRMAptt9kFUhRPT1scDhtKko2
- Iq4xCvEIeoefRNmgTBKLOKz3GDwaWQhThU+5w+0NVk6VUlYP295/YZd+CGWPlbVSaqyj
- pDMg==
-X-Gm-Message-State: AOAM533r/jzU5TaFPhWNROa7etRQ4FiRBxt7X7ThC7U5dMbfgHGmXiUl
- qBg1ys76pDMiNCOcgRiQHHBn7M6x
-X-Google-Smtp-Source: ABdhPJxwIiVK0GwVN12g3ZMNH56OyPQzBgCjPEweYrbMYHqEsJdgXTONzisCGHUJLebHzTiLq5Vb6Q5FXg==
+ bh=yboyFArx2lHvBt01l8NpldAEI3xLVVvkRY3YCO31PQs=;
+ b=pm/9H/+F7ULV1gwZ19BHi4HIhb8MXVDXjyOkkY1L+OfvlFl7m9CACOt/PHzDB2kbf1
+ sgT67ehF8jAortSv1ZxF96LVQxqekqjcKirpe+tBSaYPhVrTSD0MJYONhNlsek2pmHu/
+ dsKAMP8k9Jx/nd5A4XfEeV4iN0L7awCAjWlSjFpmde+EKg+29XZVRJS0Qf8Nua/yf2TS
+ u9x9n+VdoiJkv1jZd/VqooBshnOK0anJGmX7aD7IjZWp5E15Xd29niDurBc1vBhaiQt1
+ xnRmi+dYUqSmeqcZVk60wLTwVw0BwKvI4G6WAyDmgAP2clWT+oc7cOB44xvHx4f7p3C6
+ PkPQ==
+X-Gm-Message-State: AOAM532WR/U+9Ye/UWQm9kfycH/UGUBcy84yCDmiiQlniLxoIOOPktuL
+ WWg/RTOK7P5SqyTixR65F+95V7DH
+X-Google-Smtp-Source: ABdhPJzx/fiV7355Fpicwsezz0b2tB8XbCEkcbb8KPwyuPviI/0AOw7BwG+AXnNZJgmFqRPAiS2WX3p4fQ==
 X-Received: from fawn.c.googlers.com ([fda3:e722:ac3:cc00:7f:e700:c0a8:5795])
- (user=morbo job=sendgmr) by 2002:a63:409:0:b0:3fd:77f0:9a75 with
+ (user=morbo job=sendgmr) by 2002:a81:c248:0:b0:313:3c2c:89cd with
  SMTP id
- 9-20020a630409000000b003fd77f09a75mr25262295pge.149.1654813287223; Thu, 09
- Jun 2022 15:21:27 -0700 (PDT)
-Date: Thu,  9 Jun 2022 22:16:30 +0000
+ t8-20020a81c248000000b003133c2c89cdmr17003210ywg.175.1654813309307; Thu, 09
+ Jun 2022 15:21:49 -0700 (PDT)
+Date: Thu,  9 Jun 2022 22:16:31 +0000
 In-Reply-To: <20220609221702.347522-1-morbo@google.com>
-Message-Id: <20220609221702.347522-12-morbo@google.com>
+Message-Id: <20220609221702.347522-13-morbo@google.com>
 Mime-Version: 1.0
 References: <20220609221702.347522-1-morbo@google.com>
 X-Mailer: git-send-email 2.36.1.476.g0c4daa206d-goog
-Subject: [PATCH 11/12] ALSA: control: use correct format characters
+Subject: [PATCH 12/12] netfilter: conntrack: use correct format characters
 From: Bill Wendling <morbo@google.com>
 To: isanbard@gmail.com
 Content-Type: text/plain; charset="UTF-8"
@@ -123,31 +123,31 @@ From: Bill Wendling <isanbard@gmail.com>
 
 When compiling with -Wformat, clang emits the following warnings:
 
-sound/core/control.c:2062:24: error: format string is not a string literal (potentially insecure) [-Werror,-Wformat-security]
-        return request_module(module_name);
-                              ^~~~~~~~~~~
+net/netfilter/nf_conntrack_helper.c:168:18: error: format string is not a string literal (potentially insecure) [-Werror,-Wformat-security]
+                request_module(mod_name);
+                               ^~~~~~~~
 
 Use a string literal for the format string.
 
 Link: https://github.com/ClangBuiltLinux/linux/issues/378
 Signed-off-by: Bill Wendling <isanbard@gmail.com>
 ---
- sound/core/control.c | 2 +-
+ net/netfilter/nf_conntrack_helper.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/core/control.c b/sound/core/control.c
-index a25c0d64d104..a1778137147d 100644
---- a/sound/core/control.c
-+++ b/sound/core/control.c
-@@ -2059,7 +2059,7 @@ int snd_ctl_request_layer(const char *module_name)
- 	up_read(&snd_ctl_layer_rwsem);
- 	if (lops)
- 		return 0;
--	return request_module(module_name);
-+	return request_module("%s", module_name);
- }
- EXPORT_SYMBOL_GPL(snd_ctl_request_layer);
+diff --git a/net/netfilter/nf_conntrack_helper.c b/net/netfilter/nf_conntrack_helper.c
+index c12a87ebc3ee..1e0424d37abc 100644
+--- a/net/netfilter/nf_conntrack_helper.c
++++ b/net/netfilter/nf_conntrack_helper.c
+@@ -165,7 +165,7 @@ nf_nat_helper_try_module_get(const char *name, u16 l3num, u8 protonum)
+ 	if (!nat) {
+ 		snprintf(mod_name, sizeof(mod_name), "%s", h->nat_mod_name);
+ 		rcu_read_unlock();
+-		request_module(mod_name);
++		request_module("%s", mod_name);
  
+ 		rcu_read_lock();
+ 		nat = nf_conntrack_nat_helper_find(mod_name);
 -- 
 2.36.1.255.ge46751e96f-goog
 

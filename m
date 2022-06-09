@@ -2,93 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEABA5454A2
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jun 2022 21:09:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7156F545535
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jun 2022 21:58:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5B6DE1F2C;
-	Thu,  9 Jun 2022 21:09:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B6DE1F2C
+	by alsa0.perex.cz (Postfix) with ESMTPS id BB7131AD1;
+	Thu,  9 Jun 2022 21:57:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB7131AD1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654801794;
-	bh=c38Un+y998cp1mk//MudRgxdikF4s6RsjatPEg81vl0=;
+	s=default; t=1654804716;
+	bh=gSO+qLuc8qtp/wzgQmhNQ7+NJ91g5Pot6Tsh7n4NrQg=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UGtEtte8DMJbnsVpBFSoVIgBFDfjrKy3/L5qHkUxD4Qaib1j5r88F3xqCgP9AyU2n
-	 8RpevwxYVt+sELZjFAjYiXGO3VHpgn8FjGmpuDNafGZaQe3PemVDiAOGkFC33s5ViU
-	 +vwQ3ON4iwyJiVUCHplCTppBGi1bpctrpLMra4DU=
+	b=g/VhFSzA6v+0zTDXFP+rOk+qANZbSBdn0BPF0qPHrEjU+MK8uqu2vlkmi92GBhTwO
+	 Ue91ediErf+Ic5lqc59QzQK0sOT1u3bOfoHUaqYHVCxMz9/OqnErfFAttDg9KlGUtt
+	 pE5sNzmh+C+fcQAB9Bd+3R/LAnm2RUjg134uQ9Qw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C1362F80240;
-	Thu,  9 Jun 2022 21:08:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3368BF80240;
+	Thu,  9 Jun 2022 21:57:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 254F3F801F5; Thu,  9 Jun 2022 21:08:55 +0200 (CEST)
+ id 95F37F801F5; Thu,  9 Jun 2022 21:57:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8E3C1F800E9
- for <alsa-devel@alsa-project.org>; Thu,  9 Jun 2022 21:08:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E3C1F800E9
+ by alsa1.perex.cz (Postfix) with ESMTPS id BC205F800C7
+ for <alsa-devel@alsa-project.org>; Thu,  9 Jun 2022 21:57:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC205F800C7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="H3Qoglo+"
+ header.b="npiE0C3V"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1654801729; x=1686337729;
+ t=1654804650; x=1686340650;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=c38Un+y998cp1mk//MudRgxdikF4s6RsjatPEg81vl0=;
- b=H3Qoglo+T7FQNLYnsLIqAKdCpEwjKlKJyt4krwRjwGYhL82a7PUpMrhn
- VhVMRz8+vIS5Mjd6hZp4iC5t3EKPtCn3bpQbmjqlOWYsH27DohGCwO07s
- XmGy8r5A50adKKy7a3BaGKnCEIiabz4ASe9UJe49gwKhhHD8oPvpGg4pY
- aVKb1EFIa3es7+yoCdRh5tIHHB+jv7iHpsfhwdR6wMj3ewslOfPlmNAKI
- 5I2TNp0K3lzTlDoDNED4Za1bySymAz5BNa+pl1ys43wtXIE08dNilXP5V
- FoyDXP1kv9OqZk1cU7B3jwDif47/3W2laphonL3y52BLH2vgPCq0mhzH5 A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10373"; a="278533565"
-X-IronPort-AV: E=Sophos;i="5.91,287,1647327600"; d="scan'208";a="278533565"
+ bh=gSO+qLuc8qtp/wzgQmhNQ7+NJ91g5Pot6Tsh7n4NrQg=;
+ b=npiE0C3Vj33tUvn0GiyNNuBGxkxU4HeblkkP9smTAkkde/oyobwvgNRj
+ c/hwNRFHyN40ab8W7udyclXRC+EO/cWnoDcFTfboPAS1ozJ2p8bzJWtLb
+ pqcoQhqz3qI2hCpaPlSjmvtb349MtTjCcv0LnIUrLxKeaPWr5vaH6GVPv
+ BMVlENzHUF3bOPcHq9RH5MxjYjmjhTOYJRKBo4MzKAUvviBvjWPpeLs6t
+ saWPTa8k4P4Vt5/Q7bQUX67EXt27x67rJ3x+F05aJgGSjiMdFXjmlaUNr
+ ga/A1M/Fq5Bxo3cPTTKQPG+KzOJGuNeFymQI/7k/QbkzBBP/r6NmzvteP w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10373"; a="277429861"
+X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="277429861"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2022 12:08:14 -0700
-X-IronPort-AV: E=Sophos;i="5.91,287,1647327600"; d="scan'208";a="585751984"
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jun 2022 12:57:20 -0700
+X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="585777224"
 Received: from jeremywe-mobl3.amr.corp.intel.com (HELO [10.209.173.145])
  ([10.209.173.145])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2022 12:08:12 -0700
-Message-ID: <a7ec7867-453c-f22d-ed1c-b793a5351837@linux.intel.com>
-Date: Thu, 9 Jun 2022 14:08:11 -0500
+ 09 Jun 2022 12:57:19 -0700
+Message-ID: <af6d9ad3-eca9-9721-4fc0-055752e3b6da@linux.intel.com>
+Date: Thu, 9 Jun 2022 14:57:19 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Firefox/91.0 Thunderbird/91.9.1
-Subject: Re: [PATCH v1 14/16] soundwire: Use acpi_dev_for_each_child()
+Subject: Re: [PATCH v2 02/14] ASoC: Intel: avs: Add topology parsing
+ infrastructure
 Content-Language: en-US
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-References: <1843211.tdWV9SEqCh@kreacher> <5296779.Sb9uPGUboI@kreacher>
- <63d7f3ed-b5a9-c869-5d25-a33a1d4e63c8@linux.intel.com>
- <CAJZ5v0i7xtjrEOXgKiWP5St8OZoiZ4qq+gL62BFrmv-qpeaG_w@mail.gmail.com>
- <7652ddab-53a5-ac8e-33f5-d25527acb1a6@linux.intel.com>
- <CAJZ5v0jR1_tO_t90UKQFjYfyE+vOoToJSMCfZ8y37voaYO=wJQ@mail.gmail.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org, 
+ broonie@kernel.org
+References: <20220331135246.993089-1-cezary.rojewski@intel.com>
+ <20220331135246.993089-3-cezary.rojewski@intel.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <CAJZ5v0jR1_tO_t90UKQFjYfyE+vOoToJSMCfZ8y37voaYO=wJQ@mail.gmail.com>
+In-Reply-To: <20220331135246.993089-3-cezary.rojewski@intel.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>, Linux PM <linux-pm@vger.kernel.org>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- "Rafael J. Wysocki" <rjw@rjwysocki.net>, LKML <linux-kernel@vger.kernel.org>,
- Linux ACPI <linux-acpi@vger.kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Hans de Goede <hdegoede@redhat.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+Content-Transfer-Encoding: 8bit
+Cc: upstream@semihalf.com, harshapriya.n@intel.com, rad@semihalf.com,
+ tiwai@suse.com, hdegoede@redhat.com, amadeuszx.slawinski@linux.intel.com,
+ cujomalainey@chromium.org, lma@semihalf.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,25 +97,90 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+> +static int
+> +avs_parse_uuid_token(struct snd_soc_component *comp, void *elem, void *object, u32 offset)
+> +{
+> +	struct snd_soc_tplg_vendor_value_elem *tuple = elem;
+> +	guid_t *val = (guid_t *)((u8 *)object + offset);
+> +
+> +	guid_copy((guid_t *)val, (const guid_t *)&tuple->value);
+> +
+> +	return 0;
+> +}
 
-On 6/9/22 12:35, Rafael J. Wysocki wrote:
-> On Thu, Jun 9, 2022 at 6:21 PM Pierre-Louis Bossart
-> <pierre-louis.bossart@linux.intel.com> wrote:
->>
->>
->>>> Shouldn't the return of sdw_acpi_find_one() be trapped, e.g. with
->>>>
->>>> return acpi_dev_for_each_child(parent, sdw_acpi_find_one, bus);
->>>
->>> Sure, I'll do that.  Thanks!
->>
->> I also added this EXPORT_SYMBOL to work-around link errors, not sure if
->> this is in your tree already?
-> 
-> One of the previous patches in the series is adding the export.
+Cezary and Amadeusz, could you please look into this 'make W=1' error?
 
-ok. I ran a bunch of tests with those two changes, so feel free to take
-my tags:
+make allmodconfig
+make sound/soc/intel/avs/ W=1
 
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Tested-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+  GEN     Makefile
+
+  CALL    /data/pbossart/ktest/work/scripts/checksyscalls.sh
+
+  CALL    /data/pbossart/ktest/work/scripts/atomic/check-atomics.sh
+
+  DESCEND objtool
+
+  CC [M]  sound/soc/intel/avs/topology.o
+
+In file included from /data/pbossart/ktest/work/include/linux/string.h:253,
+
+                 from /data/pbossart/ktest/work/include/linux/bitmap.h:11,
+
+                 from /data/pbossart/ktest/work/include/linux/cpumask.h:12,
+
+                 from
+/data/pbossart/ktest/work/arch/x86/include/asm/cpumask.h:5,
+
+                 from
+/data/pbossart/ktest/work/arch/x86/include/asm/msr.h:11,
+
+                 from
+/data/pbossart/ktest/work/arch/x86/include/asm/processor.h:22,
+
+                 from
+/data/pbossart/ktest/work/arch/x86/include/asm/cpufeature.h:5,
+
+                 from
+/data/pbossart/ktest/work/arch/x86/include/asm/thread_info.h:53,
+
+                 from
+/data/pbossart/ktest/work/include/linux/thread_info.h:60,
+
+                 from
+/data/pbossart/ktest/work/arch/x86/include/asm/preempt.h:7,
+
+                 from /data/pbossart/ktest/work/include/linux/preempt.h:78,
+
+                 from /data/pbossart/ktest/work/include/linux/spinlock.h:55,
+
+                 from /data/pbossart/ktest/work/include/linux/mmzone.h:8,
+
+                 from /data/pbossart/ktest/work/include/linux/gfp.h:6,
+
+                 from /data/pbossart/ktest/work/include/linux/firmware.h:7,
+
+                 from
+/data/pbossart/ktest/work/sound/soc/intel/avs/topology.c:9:
+
+In function ‘fortify_memcpy_chk’,
+
+    inlined from ‘guid_copy’ at
+/data/pbossart/ktest/work/include/linux/uuid.h:43:2,
+
+    inlined from ‘avs_parse_uuid_token’ at
+/data/pbossart/ktest/work/sound/soc/intel/avs/topology.c:134:2:
+
+/data/pbossart/ktest/work/include/linux/fortify-string.h:352:25: error:
+call to ‘__read_overflow2_field’ declared with attribute warning:
+detected read beyond size of field (2nd parameter); maybe use
+struct_group()? [-Werror=attribute-warning]
+
+  352 |                         __read_overflow2_field(q_size_field, size);
+
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+cc1: all warnings being treated as errors
+
+
+

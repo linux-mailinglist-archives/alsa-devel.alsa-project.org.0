@@ -2,83 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 038C2545C6E
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jun 2022 08:41:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE9BB545C6F
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jun 2022 08:41:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9BC6F1EEA;
-	Fri, 10 Jun 2022 08:40:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9BC6F1EEA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 202CB1F8B;
+	Fri, 10 Jun 2022 08:40:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 202CB1F8B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654843293;
-	bh=gEdmg7UT13r2FJiEnPr67MFCzYOvV0JNu5LQhrIdOMs=;
+	s=default; t=1654843306;
+	bh=hCMtL+HgTQHC6tfTZNCcHAj64WiLtRw7+ba0x7aSBmU=;
 	h=Date:In-Reply-To:References:Subject:From:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JzsS/cP5B9KNL5NRkpurkdYiuQUcPy3weXhQGwCqniozfIOhkujd6KTA7IJTzkbnN
-	 Qfxe1Fs6hF74isDCOJOEbAquh3VoXhXlAzHY+SmBUnneZF4Iaick2sy7k6o+GWb+Hs
-	 ytI934YxPULXUH5+U8IHc+ofMvDpB6tSsvZ57/fk=
+	b=mvyx27ON5vir96K5si8C5g3O5W3F2nPhuOeYgICbO/mF3TAfjRW+PLkBHabjs2l0C
+	 zKHGQVj7Z0KwoDcjRwATnM3G9hdfWys2R+3Wd4HfMtRcamrNYsSWZUr+Cor5gHBWLc
+	 ffG6UqbIJfdOEpV11U7MGxwtlu3La65TJKnEZ0FU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1CEEFF80563;
+	by alsa1.perex.cz (Postfix) with ESMTP id C85E8F80568;
 	Fri, 10 Jun 2022 08:37:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 63BD8F800C7; Fri, 10 Jun 2022 00:20:30 +0200 (CEST)
+ id 42826F801F5; Fri, 10 Jun 2022 00:20:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU, SPF_HELO_NONE, SPF_NONE, T_SCC_BODY_TEXT_LINE,
  USER_IN_DEF_DKIM_WL autolearn=disabled version=3.4.0
-Received: from mail-pg1-x549.google.com (mail-pg1-x549.google.com
- [IPv6:2607:f8b0:4864:20::549])
+Received: from mail-pf1-x44a.google.com (mail-pf1-x44a.google.com
+ [IPv6:2607:f8b0:4864:20::44a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E20DAF800C7
- for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 00:20:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E20DAF800C7
+ by alsa1.perex.cz (Postfix) with ESMTPS id C1F7FF800E9
+ for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 00:20:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1F7FF800E9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="NA8rGIzS"
-Received: by mail-pg1-x549.google.com with SMTP id
- y63-20020a638a42000000b003fd47b6f280so8515170pgd.12
- for <alsa-devel@alsa-project.org>; Thu, 09 Jun 2022 15:20:20 -0700 (PDT)
+ header.b="oZfJo/SX"
+Received: by mail-pf1-x44a.google.com with SMTP id
+ p123-20020a625b81000000b0051c31cc75dfso5136609pfb.5
+ for <alsa-devel@alsa-project.org>; Thu, 09 Jun 2022 15:20:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
  h=date:in-reply-to:message-id:mime-version:references:subject:from:to
- :cc; bh=dB/VRnBqrla/uo3hQxagOMwn8rw3rKKNrg8KvvIMmrs=;
- b=NA8rGIzS2Lo/FSyJFJSopJzo3vj2qG+W/JBu2Td+wh8lNm3aGHNFbCPALJTDiKY3VZ
- BXYoT+Ww8rgiNjDcWDo8JWEIvIa789ch4uJ/akkx61GHrCbS4UYTLU+WBzXi0U6zqFg6
- WETSd0zF9UD0yrUhECgMgO4+3B7vaNDE5q4OxsAILit4vZz26MEF5lP7eGpObNUfQYZP
- qWyriCnElNMS5dBnlp4ECfJw4cwUWsda0JPVGIsCkMRh996FjTM9tl6X5Bjcl49Ex3bX
- 056kN/4A+KMGFsvjat6Zhxnibo6NVJe0KQfbbqHffKzcdpAaOGAQ/5H1gcLRSIgsdnQd
- eZOg==
+ :cc; bh=25alQ5NbvDA/tAT/crdGxszOxkEet+uV+RiKp6teCtQ=;
+ b=oZfJo/SXd3Qwc4Nv44GXKhWDAFTO95PgXKfM9e9BiPA93gnZilAa51s/ZcMgeZyQDX
+ bdQWpsU2Iq0YRK8nhoojrl6Ovztg/h1fX8YAfPzB2dwLHljaWKbdC8Mk4yXY/4KToKYJ
+ ovK2hyHWLN7o69TaNinVFAZmPIf4qo8PHxZBtzNCHZvyhMz5aDyGPm8IzfmTRY3xhkY5
+ HV52VK6dmyAZeje85nLNYwU1K6dOCF/suK14Mfn4D1Y16vY/jjL7/9lAyFEiDPQ1QSGP
+ J6zMvdrdFc5DFPuif5nPyA2QWjOTwZ7NUnTVPFwq/IivldY6hoaIhzn4fUtrg8kNe7N/
+ zK6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:in-reply-to:message-id:mime-version
  :references:subject:from:to:cc;
- bh=dB/VRnBqrla/uo3hQxagOMwn8rw3rKKNrg8KvvIMmrs=;
- b=vbugsQRohqZOGhXkTMDRMsd/A1ztIBR/Fq5Eqd/oVJ7Vz2HJ/SXPAOyy7npghI8s2Q
- NRIzYr1MI2fD1P9hcu98/J1Rpzih1vq0AyoV9ug8bG3sMFebdqzdvHbaHraGTYvfWfkF
- triTDbunKT4lwpwJJeulWCC7HPmbPeh2imMVEov2EozjAuKMx2M+cXAYA/CPyM5Qc+PR
- OxwBqorNLmwNTWUdy7v06uQPW41KG4bNkX78DOn9G8oYPoUEwaXCuL1jbSpSnca74c2P
- wDMT+yihrF9D9/1JQekVwyW6nYJNn/noztrpqmkfB6A7DhHcaXnWAgrgPKKASRlze01E
- zcxg==
-X-Gm-Message-State: AOAM5318rX7HhIBOHEzbKMzLcEXmfy7eWwNEYpJXKO9D4VeNTMJbIJ25
- YeY9Hgj+PCR6N0OYfH4T5ultC0Lo
-X-Google-Smtp-Source: ABdhPJye2mFQrzIepKAqLUDnC7IYTgWuIi+7I2qa8DRzQUgLX+2gR0oj+bp3uxnl8nOmUO9s5APs/msqoQ==
+ bh=25alQ5NbvDA/tAT/crdGxszOxkEet+uV+RiKp6teCtQ=;
+ b=67+rs6jMRdLCtGVZNYb9ZRxj/BwZjmpKTyzv3P6DYif+GHK9xc/f9t3zN7ECQIbPtB
+ LGK+wX38FZGwJTQb5x3V/eneCflL4GwoZStPTZVkFEQnEjfmdGYzI+X60rOiCP7opirZ
+ qrF3XBvUzvCHeSnN06ioSABOSZNjiSqHAn+s5x6YjNcy89ExkFotHLsUHocEoDXJOHZv
+ oRJ3resDhGWXb3vHiy/Njq62BNfJdrnW8aJEk5o5sEq1smTfsQ+SA873gGV6+++4uCwA
+ ZTDkiWVZ8dR0Z+nKrpQWD/fTsfS1CmbwHMRt/TFPhR/4TmXYCk3Rh+AT9a9b50gKSuUV
+ Kv7Q==
+X-Gm-Message-State: AOAM5339EZEgSnl0ZDF1ZA4Dvan89EVpmlSvLA+Or12tOJCkJ7ERcBGY
+ LPY9ZnVpCD1VvI3cpH0uzCDhAgVK
+X-Google-Smtp-Source: ABdhPJw9W1H1jWw/58e5xPpEUFA37qKciU2RFZ0YGfr9UAt18WH9PywE6TBxCqfkRuUXpq4m2jNc2xi7ug==
 X-Received: from fawn.c.googlers.com ([fda3:e722:ac3:cc00:7f:e700:c0a8:5795])
- (user=morbo job=sendgmr) by 2002:a62:e919:0:b0:51e:7b6e:5a3b with
- SMTP id
- j25-20020a62e919000000b0051e7b6e5a3bmr1529888pfh.78.1654813218119; Thu, 09
- Jun 2022 15:20:18 -0700 (PDT)
-Date: Thu,  9 Jun 2022 22:16:27 +0000
+ (user=morbo job=sendgmr) by 2002:a17:902:cf06:b0:161:53b6:474d
+ with SMTP id
+ i6-20020a170902cf0600b0016153b6474dmr41957402plg.63.1654813240658; Thu, 09
+ Jun 2022 15:20:40 -0700 (PDT)
+Date: Thu,  9 Jun 2022 22:16:28 +0000
 In-Reply-To: <20220609221702.347522-1-morbo@google.com>
-Message-Id: <20220609221702.347522-9-morbo@google.com>
+Message-Id: <20220609221702.347522-10-morbo@google.com>
 Mime-Version: 1.0
 References: <20220609221702.347522-1-morbo@google.com>
 X-Mailer: git-send-email 2.36.1.476.g0c4daa206d-goog
-Subject: [PATCH 08/12] cdrom: use correct format characters
+Subject: [PATCH 09/12] ALSA: seq: use correct format characters
 From: Bill Wendling <morbo@google.com>
 To: isanbard@gmail.com
 Content-Type: text/plain; charset="UTF-8"
@@ -123,31 +123,31 @@ From: Bill Wendling <isanbard@gmail.com>
 
 When compiling with -Wformat, clang emits the following warnings:
 
-drivers/cdrom/cdrom.c:3454:48: error: format string is not a string literal (potentially insecure) [-Werror,-Wformat-security]
-        ret = scnprintf(info + *pos, max_size - *pos, header);
-                                                      ^~~~~~
+sound/core/seq/seq_clientmgr.c:2414:22: error: format string is not a string literal (potentially insecure) [-Werror,-Wformat-security]
+        snd_iprintf(buffer, msg);
+                            ^~~
 
 Use a string literal for the format string.
 
 Link: https://github.com/ClangBuiltLinux/linux/issues/378
 Signed-off-by: Bill Wendling <isanbard@gmail.com>
 ---
- drivers/cdrom/cdrom.c | 2 +-
+ sound/core/seq/seq_clientmgr.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/cdrom/cdrom.c b/drivers/cdrom/cdrom.c
-index 416f723a2dbb..52b40120c76e 100644
---- a/drivers/cdrom/cdrom.c
-+++ b/drivers/cdrom/cdrom.c
-@@ -3451,7 +3451,7 @@ static int cdrom_print_info(const char *header, int val, char *info,
- 	struct cdrom_device_info *cdi;
- 	int ret;
- 
--	ret = scnprintf(info + *pos, max_size - *pos, header);
-+	ret = scnprintf(info + *pos, max_size - *pos, "%s", header);
- 	if (!ret)
- 		return 1;
- 
+diff --git a/sound/core/seq/seq_clientmgr.c b/sound/core/seq/seq_clientmgr.c
+index 2e9d695d336c..2340f3e14eeb 100644
+--- a/sound/core/seq/seq_clientmgr.c
++++ b/sound/core/seq/seq_clientmgr.c
+@@ -2411,7 +2411,7 @@ static void snd_seq_info_dump_subscribers(struct snd_info_buffer *buffer,
+ 		up_read(&group->list_mutex);
+ 		return;
+ 	}
+-	snd_iprintf(buffer, msg);
++	snd_iprintf(buffer, "%s", msg);
+ 	list_for_each(p, &group->list_head) {
+ 		if (is_src)
+ 			s = list_entry(p, struct snd_seq_subscribers, src_list);
 -- 
 2.36.1.255.ge46751e96f-goog
 

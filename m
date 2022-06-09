@@ -2,76 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 618D65450C1
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jun 2022 17:26:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D8EE5450CE
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jun 2022 17:28:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0D9A61A43;
-	Thu,  9 Jun 2022 17:25:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D9A61A43
+	by alsa0.perex.cz (Postfix) with ESMTPS id 258C51A48;
+	Thu,  9 Jun 2022 17:27:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 258C51A48
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654788389;
-	bh=5sybBosVy4SqQ4BF1dypok5zPYfglVVIvP0ZEo7T5c0=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1654788503;
+	bh=hPtJud8BiAXj6uEdDt92IpGY5Sn/zNgPovCSluT9MOU=;
+	h=Subject:From:In-Reply-To:Date:References:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kgJLIcjeCJgGQ3RuPKVn1qIbUMHt3TUlhpantkCqkQCkT7NNgCwC5QRwV66eVFO+v
-	 3Qw++OUfuksvTAwP9NINZUAeYwNiNoUOJIoMt6C2vJFY9SzcpwDVduzs8aUlgW1zqI
-	 L+t9gqIn6EkwZpn4zJG09r+GP+80JgoIC5J9BjQU=
+	b=p3bPVsB+fTTKUvsiftPppWtqR+PWRiPbW30MNbyXzTObF9azwlFx987IJXcoT2d/5
+	 1kPhW7FAv8Dhme4w3skVsmrPlYA4IS8tCbdVPYP2J1wfwxShRwLwTf23tzpA00hwEv
+	 5plFukH4A/GZJaBGjovVEp72yTvRnjGHq3aMBmWg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4C974F804B4;
-	Thu,  9 Jun 2022 17:25:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 950B0F801F5;
+	Thu,  9 Jun 2022 17:27:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 306D7F8012F; Thu,  9 Jun 2022 17:25:28 +0200 (CEST)
+ id A7185F8019D; Thu,  9 Jun 2022 17:27:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E390CF800E9
- for <alsa-devel@alsa-project.org>; Thu,  9 Jun 2022 17:25:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E390CF800E9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="oFCUSJo/"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from hutie.ust.cz (hutie.ust.cz [185.8.165.127])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id B7971B82DE6;
- Thu,  9 Jun 2022 15:25:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2087BC34114;
- Thu,  9 Jun 2022 15:25:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1654788319;
- bh=5sybBosVy4SqQ4BF1dypok5zPYfglVVIvP0ZEo7T5c0=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=oFCUSJo/RoToNkrrfvV0ott7cOQGeX7821ft5Z0YVApEeZEEcmXjk/1VeckSNuqI4
- VLda+99aIXK0/n+GXYcxp9vqCbIT9iWiYaZdchJJ/yTVDoEsCy92AQvgIw8Cqoe3FE
- 8ZsU9iUSWUvJaYXoDLDsvo+taYRh8Vzh3DL1tDEZrQ9aPqiMgRhq9PLSBbKMdrao78
- I5gaagJYb4l4ZNiGzO/pFttogyV2qQYjJavngq4nN7g3KKmnZQzOYRWOI6bvb8kG4a
- /NClaVwzxNB7JMNMDC7LteCffBhnfxbJTQJM0dWPxwwF1Kxk3bSJFhwtmXy5KdA253
- VhjDGbSCIK91A==
-From: Mark Brown <broonie@kernel.org>
-To: pierre-louis.bossart@linux.intel.com, peter.ujfalusi@linux.intel.com,
- lgirdwood@gmail.com
-In-Reply-To: <20220609085949.29062-1-peter.ujfalusi@linux.intel.com>
-References: <20220609085949.29062-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH 0/3] ASoC: SOF: Intel: Fix IMR boot race caused by early
- core booting
-Message-Id: <165478831783.1133084.13258585087552216099.b4-ty@kernel.org>
-Date: Thu, 09 Jun 2022 16:25:17 +0100
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, yung-chuan.liao@linux.intel.com,
- ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id E3E78F800E9
+ for <alsa-devel@alsa-project.org>; Thu,  9 Jun 2022 17:27:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3E78F800E9
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=cutebit.org header.i=@cutebit.org
+ header.b="N2XIV2T7"
+Content-Type: text/plain;
+	charset=utf-8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cutebit.org; s=mail;
+ t=1654788433; bh=tALHUrTOMSE2jyi1V2Vz4netgKaq9LwC6aSHlEUoNCQ=;
+ h=Subject:From:In-Reply-To:Date:Cc:References:To;
+ b=N2XIV2T7wzMQm8Zsocz031ygN/7fCfeKvkIJIfo7sFoe5ROn34/ORCn1pzggJdOQf
+ hg60OOlz9D+EuA2Knk9b1qFrtn6/zSDrXarDHfHqmwaeHdo8vfJllnnh5INpeE6SXJ
+ rZzElq51cuoAyHVf/Hnkt/un+Bz+L6RhXR2imqfI=
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3696.80.82.1.1\))
+Subject: Re: [RFC PATCH v2 5/5] ASoC: apple: Add macaudio machine driver
+From: =?utf-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>
+In-Reply-To: <YqIOwrRN8rPUF7Y8@sirena.org.uk>
+Date: Thu, 9 Jun 2022 17:27:12 +0200
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <7F1B2324-4376-4776-BA6D-FBC8892F10C2@cutebit.org>
+References: <20220606191910.16580-1-povik+lin@cutebit.org>
+ <20220606191910.16580-6-povik+lin@cutebit.org>
+ <YqH2uCgaedf0HQPE@sirena.org.uk>
+ <8961DDD2-93FF-4A18-BCA2-90FCE298F517@cutebit.org>
+ <YqIOwrRN8rPUF7Y8@sirena.org.uk>
+To: Mark Brown <broonie@kernel.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Sven Peter <sven@svenpeter.dev>, linux-kernel@vger.kernel.org,
+ Hector Martin <marcan@marcan.st>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ asahi@lists.linux.dev, Mark Kettenis <kettenis@openbsd.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,45 +82,85 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 9 Jun 2022 11:59:46 +0300, Peter Ujfalusi wrote:
-> After the revisited IMR sequence patch
-> 2a68ff846164 ("ASoC: SOF: Intel: hda: Revisit IMR boot sequence")
-> 
-> we have started to see random boot issues manifesting in ghost reply messages from
-> the DSP for a never sent message.
-> It turned out that an earlier commit:
-> d416519982cb ("ASoC: SOF: hda: don't use the core op for power up/power down")
-> 
-> [...]
 
-Applied to
+> On 9. 6. 2022, at 17:16, Mark Brown <broonie@kernel.org> wrote:
+>=20
+> On Thu, Jun 09, 2022 at 04:09:57PM +0200, Martin Povi=C5=A1er wrote:
+>>> On 9. 6. 2022, at 15:33, Mark Brown <broonie@kernel.org> wrote:
+>=20
+>>>> +		/*
+>>>> +		 * Primary FE
+>>>> +		 *
+>>>> +		 * The mclk/fs ratio at 64 for the primary frontend is =
+important
+>>>> +		 * to ensure that the headphones codec's idea of left =
+and right
+>>>> +		 * in a stereo stream over I2S fits in nicely with =
+everyone else's.
+>>>> +		 * (This is until the headphones codec's driver supports
+>>>> +		 * set_tdm_slot.)
+>>>> +		 *
+>>>> +		 * The low mclk/fs ratio precludes transmitting more =
+than two
+>>>> +		 * channels over I2S, but that's okay since there is the =
+secondary
+>>>> +		 * FE for speaker arrays anyway.
+>>>> +		 */
+>>>> +		.mclk_fs =3D 64,
+>>>> +	},
+>=20
+>>> This seems weird - it looks like it's confusing MCLK and the bit =
+clock
+>>> for the audio bus.  These are two different clocks.  Note that it's =
+very
+>>> common for devices to require a higher MCLK/fs ratio to deliver the =
+best
+>>> audio performance, 256fs is standard.
+>=20
+>> On these machines we are not producing any other clock for the codecs
+>> besides the bit clock, so I am using MCLK interchangeably for it. (It =
+is
+>> what the sample rate is derived from after all.)
+>=20
+> Please don't do this, you're just making everything needlessly hard to
+> understand by using standard terminology inappropriately and there's a
+> risk of breakage further down the line with drivers implementing the
+> standard ops.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+OK
 
-Thanks!
+>> One of the codec drivers this is to be used with (cs42l42) expects to =
+be
+>> given the I2S bit clock with
+>=20
+>>  snd_soc_dai_set_sysclk(dai, 0, mclk, SND_SOC_CLOCK_IN);
+>=20
+> That's very, very non-standard...
+>=20
+>> I can rename mclk to bclk in all of the code to make it clearer =
+maybe.
+>> Also the platform driver can take the bit clock value from =
+set_bclk_ratio,
+>> instead of set_sysclk from where it takes it now. The cs42l42 driver =
+I can
+>> patch too to accept set_bclk_ratio.
+>=20
+> ...indeed, set_bclk_ratio() is a better interface for setting the bclk
+> ratio - the CODEC driver should really be doing that as well.
 
-[1/3] ASoC: SOF: Intel: hda-dsp: Expose hda_dsp_core_power_up()
-      commit: 537b4a0c8b9490d762e70c0ecec38144c83d0c37
-[2/3] ASoC: SOF: Intel: hda-loader: Make sure that the fw load sequence is followed
-      commit: fcb3c775f7073410965ce9414ddb2a1f339c502b
-[3/3] ASoC: SOF: Intel: hda-loader: Clarify the cl_dsp_init() flow
-      commit: 4643e10a17e549467420aaeeb35c9b3480716618
+OK, adding that to my TODOs.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+>>> This shouldn't be open coded in a driver, please factor it out into =
+the
+>>> core so we've got an API for "set limit X on control Y" then call =
+that.
+>=20
+>> There=E2=80=99s already snd_soc_limit_volume, but it takes a fixed =
+control name.
+>> Can I extend it to understand patterns beginning with a wildcard, =
+like
+>> '* Amp Gain Volume=E2=80=99?
+>=20
+> Or add a new call that does that.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+OK

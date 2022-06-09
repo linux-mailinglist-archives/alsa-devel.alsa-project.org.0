@@ -2,62 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DA9E544DED
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jun 2022 15:43:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37A9A544E71
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jun 2022 16:11:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DEB581B17;
-	Thu,  9 Jun 2022 15:42:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DEB581B17
+	by alsa0.perex.cz (Postfix) with ESMTPS id BB0A716E7;
+	Thu,  9 Jun 2022 16:10:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB0A716E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654782198;
-	bh=nFW2ZWwNUBv1LAW8g6pRiauMNWamOwC17MQ/HanEDlk=;
+	s=default; t=1654783864;
+	bh=mXQ1NcCQrAgNufXr+YJABTx6gnfTj4ymaYgUSbpqY1A=;
 	h=Subject:From:In-Reply-To:Date:References:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JpIGaViPSgqeZJtK6f+ZfqdTu1sPczb/jt8rlMm6i69+QEcq7PS4+xQDfwgHLLBzq
-	 o0rleEXO32piaA+2vTzDLBIk/hptQS8qqybOiRfNoQoP8UvziGTdh7I3k8nP19WhD9
-	 y2+lGeKwyh2wgBGmDi/sycBeGGjV1/LggvtBa7zo=
+	b=Nn1bJF9HabEldELiWxVYfiO+toTDvorlvKsaBRj7GzkLCv6gf/r//Fpw3uVtWgBaf
+	 1aSpHFd9hwNSw+y0X1lhzHItI2t7xYvd+dWWvucl+vjXToP49ho7W1ubm9PPUvQhhD
+	 m8M3YAd3Sm0TWORZx1oOB4nyC/dj1U5BZyCiReqY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F08BAF804BD;
-	Thu,  9 Jun 2022 15:42:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 22BC5F80116;
+	Thu,  9 Jun 2022 16:10:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1B473F800C7; Thu,  9 Jun 2022 15:42:14 +0200 (CEST)
+ id 4CF99F8019D; Thu,  9 Jun 2022 16:10:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from hutie.ust.cz (hutie.ust.cz [185.8.165.127])
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from hutie.ust.cz (unknown [IPv6:2a03:3b40:fe:f0::1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 99B30F800C7
- for <alsa-devel@alsa-project.org>; Thu,  9 Jun 2022 15:42:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99B30F800C7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4CC88F80116
+ for <alsa-devel@alsa-project.org>; Thu,  9 Jun 2022 16:09:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4CC88F80116
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=cutebit.org header.i=@cutebit.org
- header.b="IMMgtCRp"
+ header.b="XgcTXKYM"
 Content-Type: text/plain;
 	charset=utf-8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cutebit.org; s=mail;
- t=1654782130; bh=tvrYkSFFBhOsiav8I6p+1rTRBiUVpZlVK8alorHDY7A=;
+ t=1654783798; bh=jHH7bIr15k6Wcan9xWpb2RIAAbwJZGEkdGwUmeH+pik=;
  h=Subject:From:In-Reply-To:Date:Cc:References:To;
- b=IMMgtCRpisiNaxxnvTT3evMSU1zXtF+eiWPSRNvyKpmyEasVNFhUxwP3qX6Af4JPV
- vrTi9PGPbLDxuZag7Ffa/annlnguM8rRVOJ/mpeUlwn2GhgdNx7811x0hiWGwnQE9p
- UjrD+4wbtRU9z4FP/gmW2Ws4vOQ7KieXgsSh97DE=
+ b=XgcTXKYMtUhTeQO6Ro1EGyNKeIdpm0Get6FyG9/ernuBm5uxzfpY+RZ9qbFfzUG1G
+ nMiPvNPkxTi2YsD4gN8kt2FdsXeBxGW8VWayv/7YVxVlJvWox68X2g88mudvm7kW4o
+ c6vIcj42mzRKd6BBqt19kf6BscBM7EdFKysHPiD8=
 Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3696.80.82.1.1\))
 Subject: Re: [RFC PATCH v2 5/5] ASoC: apple: Add macaudio machine driver
 From: =?utf-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>
-In-Reply-To: <YqHylN3xba9XFrF8@sirena.org.uk>
-Date: Thu, 9 Jun 2022 15:42:09 +0200
+In-Reply-To: <YqH2uCgaedf0HQPE@sirena.org.uk>
+Date: Thu, 9 Jun 2022 16:09:57 +0200
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <0E611F13-96E3-41FD-9550-F900B2EFB00A@cutebit.org>
+Message-Id: <8961DDD2-93FF-4A18-BCA2-90FCE298F517@cutebit.org>
 References: <20220606191910.16580-1-povik+lin@cutebit.org>
  <20220606191910.16580-6-povik+lin@cutebit.org>
- <YqHylN3xba9XFrF8@sirena.org.uk>
+ <YqH2uCgaedf0HQPE@sirena.org.uk>
 To: Mark Brown <broonie@kernel.org>
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  Sven Peter <sven@svenpeter.dev>, linux-kernel@vger.kernel.org,
@@ -81,108 +81,123 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-> On 9. 6. 2022, at 15:16, Mark Brown <broonie@kernel.org> wrote:
+> On 9. 6. 2022, at 15:33, Mark Brown <broonie@kernel.org> wrote:
 >=20
 > On Mon, Jun 06, 2022 at 09:19:10PM +0200, Martin Povi=C5=A1er wrote:
 >=20
->> + *  =E2=94=8C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=90       =
-=E2=94=8C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=96=
-=BA =E2=94=8C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=90     =
-=E2=94=8C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=90
->> + *  =E2=94=82 Primary  =E2=94=9C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=A4                 =E2=94=82 Mux =E2=94=82 =
-=E2=94=80=E2=94=80=E2=96=BA =E2=94=82 Speakers =E2=94=82
->> + *  =E2=94=94=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=98       =E2=94=82    =
-=E2=94=8C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=96=BA =E2=94=94=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=98     =E2=94=94=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=98
->> + *                =E2=94=8C=E2=94=80=E2=94=80=E2=94=80 =E2=94=82 =
-=E2=94=80=E2=94=80=E2=94=80=E2=94=98             =E2=96=B2
->> + *  =E2=94=8C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=90  =E2=94=82    =E2=94=82       =
-           =E2=94=82
->> + *  =E2=94=82Secondary =E2=94=9C=E2=94=80=E2=94=80=E2=94=98    =E2=94=82=
-     =E2=94=8C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=B4=E2=94=90
->> + *  =E2=94=94=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=98       =
-=E2=94=9C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=96=BA=E2=94=82Plug-in =
-Demux=E2=94=82
->> + *                     =E2=94=82     =
-=E2=94=94=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=AC=E2=94=98
->> + *                     =E2=94=82                  =E2=94=82
->> + *                     =E2=94=82                  =E2=96=BC
->> + *                     =E2=94=82                 =
-=E2=94=8C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=90     =
-=E2=94=8C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=90
->> + *                     =
-=E2=94=94=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=96=
-=BA =E2=94=82 Mux =E2=94=82 =E2=94=80=E2=94=80=E2=96=BA =E2=94=82Headphone=
-s=E2=94=82
->> + *                                       =E2=94=94=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=98     =
-=E2=94=94=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=98
+>> +		/*
+>> +		 * Primary FE
+>> +		 *
+>> +		 * The mclk/fs ratio at 64 for the primary frontend is =
+important
+>> +		 * to ensure that the headphones codec's idea of left =
+and right
+>> +		 * in a stereo stream over I2S fits in nicely with =
+everyone else's.
+>> +		 * (This is until the headphones codec's driver supports
+>> +		 * set_tdm_slot.)
+>> +		 *
+>> +		 * The low mclk/fs ratio precludes transmitting more =
+than two
+>> +		 * channels over I2S, but that's okay since there is the =
+secondary
+>> +		 * FE for speaker arrays anyway.
+>> +		 */
+>> +		.mclk_fs =3D 64,
+>> +	},
 >=20
-> As far as I can tell this demux is entirely software based - why not
-> just expose the routing control to userspace and let it handle
-> switching (which I suspect may be more featureful than what's
-> implemented here)?
+> This seems weird - it looks like it's confusing MCLK and the bit clock
+> for the audio bus.  These are two different clocks.  Note that it's =
+very
+> common for devices to require a higher MCLK/fs ratio to deliver the =
+best
+> audio performance, 256fs is standard.
 
-Well, userspace should have the other two muxes at its disposal to
-implement any routing/switching it wishes -- but in addition we are
-also offering letting kernel take care of the switching, by pointing
-the muxes to the demux.
+On these machines we are not producing any other clock for the codecs
+besides the bit clock, so I am using MCLK interchangeably for it. (It is
+what the sample rate is derived from after all.)
 
-I assume (but I don=E2=80=99t know the extent of what=E2=80=99s possible =
-with UCM files),
-that this will be of some value to users running plain ALSA with no
-sound server.
+One of the codec drivers this is to be used with (cs42l42) expects to be
+given the I2S bit clock with
 
->> +static int macaudio_jack_event(struct notifier_block *nb, unsigned =
-long event,
->> +                               void *data)
+  snd_soc_dai_set_sysclk(dai, 0, mclk, SND_SOC_CLOCK_IN);
+
+I can rename mclk to bclk in all of the code to make it clearer maybe.
+Also the platform driver can take the bit clock value from =
+set_bclk_ratio,
+instead of set_sysclk from where it takes it now. The cs42l42 driver I =
+can
+patch too to accept set_bclk_ratio.
+
+>> +	{
+>> +		/*
+>> +		 * Secondary FE
+>> +		 *
+>> +		 * Here we want frames plenty long to be able to drive =
+all
+>> +		 * those fancy speaker arrays.
+>> +		 */
+>> +		.mclk_fs =3D 256,
+>> +	}
+>=20
+> Same thing here - this is at least confusing MCLK and the bit clock.
+>=20
+>> +static bool macaudio_match_kctl_name(const char *pattern, const char =
+*name)
 >> +{
->> +       struct snd_soc_jack *jack =3D data;
->> +       struct macaudio_snd_data *ma =3D =
-snd_soc_card_get_drvdata(jack->card);
+>> +	if (pattern[0] =3D=3D '*') {
+>> +		int namelen, patternlen;
 >> +
->> +       ma->jack_plugin_state =3D !!event;
+>> +		pattern++;
+>> +		if (pattern[0] =3D=3D ' ')
+>> +			pattern++;
 >> +
->> +       if (!ma->plugin_demux_kcontrol)
->> +               return 0;
+>> +		namelen =3D strlen(name);
+>> +		patternlen =3D strlen(pattern);
 >> +
->> +       snd_soc_dapm_mux_update_power(&ma->card.dapm, =
-ma->plugin_demux_kcontrol,
->> +                                     ma->jack_plugin_state,
->> +                                     (struct soc_enum *) =
-&macaudio_plugin_demux_enum, NULL);
+>> +		if (namelen > patternlen)
+>> +			name +=3D (namelen - patternlen);
+>> +	}
 >> +
->> +       return 0;
+>> +	return !strcmp(name, pattern);
+>> +}
+>> +
+>> +static int macaudio_limit_volume(struct snd_soc_card *card,
+>> +				 const char *pattern, int max)
+>> +{
+>> +	struct snd_kcontrol *kctl;
+>> +	struct soc_mixer_control *mc;
+>> +	int found =3D 0;
+>> +
+>> +	list_for_each_entry(kctl, &card->snd_card->controls, list) {
+>> +		if (!macaudio_match_kctl_name(pattern, kctl->id.name))
+>> +			continue;
+>> +
+>> +		found++;
+>> +		dev_dbg(card->dev, "limiting volume on '%s'\n", =
+kctl->id.name);
+>> +
+>> +		/*
+>> +		 * TODO: This doesn't decrease the volume if it's =
+already
+>> +		 * above the limit!
+>> +		 */
+>> +		mc =3D (struct soc_mixer_control *)kctl->private_value;
+>> +		if (max <=3D mc->max)
+>> +			mc->platform_max =3D max;
+>> +
+>> +	}
+>> +
+>> +	return found;
 >> +}
 >=20
-> This should be integrated with the core jack detection stuff in
-> soc-jack.c and/or the core stuff that's wrapping - that way you'll
-> ensure that events are generated and status readable via all the
-> interfaces userspace might be looking for.  The ASoC stuff also has =
-some
-> DAPM integration for turning on/off outputs which might DTRT for you =
-if
-> you do need it in kernel.
-
-Aren=E2=80=99t all the right events to userspace generated already by =
+> This shouldn't be open coded in a driver, please factor it out into =
 the
-codec calling snd_soc_jack_report?
+> core so we've got an API for "set limit X on control Y" then call =
+that.
 
-I looked at the existing DAPM integration but I couldn=E2=80=99t figure =
-out
-how to switch the demux with it.
+There=E2=80=99s already snd_soc_limit_volume, but it takes a fixed =
+control name.
+Can I extend it to understand patterns beginning with a wildcard, like
+'* Amp Gain Volume=E2=80=99?
 

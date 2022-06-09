@@ -2,72 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 125ED5441F4
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jun 2022 05:31:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F8575441EC
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jun 2022 05:30:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 73173200F;
-	Thu,  9 Jun 2022 05:30:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 73173200F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 14B6B1FF2;
+	Thu,  9 Jun 2022 05:29:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14B6B1FF2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654745502;
-	bh=OwMqO5qYXuwwqtDPuaaXxPiB4AO+BT3PNka7zZiUegc=;
+	s=default; t=1654745404;
+	bh=W8f0kYRtjHBgJoVVyL+K9FYRrpeXMAMm/6D8H0ce1/o=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=m09JyNBPsbRwizS85KqIvrWmSC6cjch+0T4vlyYdL+NADHwT6E1omqp+gD2F9P3LV
-	 RQv6aDWnKhznOMdkBnNBJJoIKrjx0NM6ijHP3Coo4sBf2fdWzpcTS9gPqyDUkfhtQe
-	 KDVoempBF2DpUp36pRqH/ZEATCWoeCHNCGmm51ww=
+	b=i8J4JWPBVc5eUI2p7/l7kkNhB/mnAvDjUI1NlRhwYldME2a1gi8jVpqqKz0654hpy
+	 +QjyOii8Wso8Sdu1KeylqD4wJxd++S0IFMPJRqkMCIgzS6pANWdj82jo1qxQ+BICFp
+	 dk9FKSTYFh9V6jtMU/A0YvcEgd4q8TVnKIQ/E78w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E362F805B2;
-	Thu,  9 Jun 2022 05:27:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6D8EDF80579;
+	Thu,  9 Jun 2022 05:27:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 436E3F80520; Thu,  9 Jun 2022 05:27:38 +0200 (CEST)
+ id D3DE7F8052D; Thu,  9 Jun 2022 05:27:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D738EF80520
- for <alsa-devel@alsa-project.org>; Thu,  9 Jun 2022 05:27:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D738EF80520
+ by alsa1.perex.cz (Postfix) with ESMTPS id 94F10F8052D
+ for <alsa-devel@alsa-project.org>; Thu,  9 Jun 2022 05:27:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94F10F8052D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="oA6f1D6U"
+ header.b="GSP6LPga"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1654745236; x=1686281236;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=OwMqO5qYXuwwqtDPuaaXxPiB4AO+BT3PNka7zZiUegc=;
- b=oA6f1D6U309k1lEzbGRNiRt2GRwAwHJ1VSBuumnZ5UJ9uvZavmXRJyo1
- 8E5NOO9LJ597Gzk2Cx3YEfyUGPekojHWzYDteLRg5XnU7+L75jimtjjS5
- pm4XQw0HJ2OqIHl4kXlidEiKx3GGe4jdIxj91l0p/QI0pI69LJ6uv1m8v
- w81fVg2evE+VigicARlfsn0IAEFVRA0vFNlLgsfwRqJVxLB3RPGd/81YU
- xDVDwkfi7W1N0fRe2jr3KJvHa+ByIKJRYtPqZSeyOmYMLRHFaDMJQ8o7f
- ZYJPa5cKfXL1kwhT6+1hLaJFmKRK30S/gpwCtugu12Kv9ZNZzt7ZVJblT g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10372"; a="341219556"
-X-IronPort-AV: E=Sophos;i="5.91,287,1647327600"; d="scan'208";a="341219556"
+ bh=W8f0kYRtjHBgJoVVyL+K9FYRrpeXMAMm/6D8H0ce1/o=;
+ b=GSP6LPgauWVAlxjTjuEljSGsqQcSeDEKjuTDMjurhb9UrqjZBCxQoMUG
+ o1RqydoCo+gScsAjGus4Y/ES3ryzlaYvtptoC71JLe17A46pzdkYOvjCF
+ HczzqKehF17PpWMKVLYASm8hULRNxFaNldUS1qzss3/nZ7J8LqtwTNyQF
+ j78iwF8T6iClc6K3OlFKsO63P5yFntS2rFCdMefgxy1jrx0PivXuDRWNy
+ KmWy29dm+ZZSpx4/EA+vU6QlzqvY5LlKThkGzhVX4jbv6ZkDK805nZPgP
+ y4SJ6S4orYxYD7weSWUvE/HaWuYQjTfz2CWAwX2bX7d7RJz8cOQj/8yCe A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10372"; a="341219558"
+X-IronPort-AV: E=Sophos;i="5.91,287,1647327600"; d="scan'208";a="341219558"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  08 Jun 2022 20:26:59 -0700
-X-IronPort-AV: E=Sophos;i="5.91,287,1647327600"; d="scan'208";a="585260238"
+X-IronPort-AV: E=Sophos;i="5.91,287,1647327600"; d="scan'208";a="585260241"
 Received: from mandalag-mobl.amr.corp.intel.com (HELO
  rsridh2-mobl1.localdomain) ([10.254.38.40])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  08 Jun 2022 20:26:59 -0700
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 08/23] ASoC: SOF: ipc4-topology: Add support for parsing mixer
- widgets
-Date: Wed,  8 Jun 2022 20:26:28 -0700
-Message-Id: <20220609032643.916882-9-ranjani.sridharan@linux.intel.com>
+Subject: [PATCH 09/23] ASoC: SOF: ipc4-topology: Add control_setup op
+Date: Wed,  8 Jun 2022 20:26:29 -0700
+Message-Id: <20220609032643.916882-10-ranjani.sridharan@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220609032643.916882-1-ranjani.sridharan@linux.intel.com>
 References: <20220609032643.916882-1-ranjani.sridharan@linux.intel.com>
@@ -77,7 +76,7 @@ Content-Transfer-Encoding: 8bit
 Cc: tiwai@suse.de, Bard Liao <yung-chuan.liao@linux.intel.com>,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- broonie@kernel.org, Paul Olaru <paul.olaru@oss.nxp.com>,
+ broonie@kernel.org,
  =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
  Rander Wang <rander.wang@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
@@ -95,9 +94,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add support for parsing and preparing mixer type widgets. Define the
-token ID's and the associated token arrays needed to parse these
-widgets.
+Define the control_setup op for IPC4 topology IPC ops to handle the
+volume kcontrol types. Support for other kcontrol types will be added in
+the follow up patches.
 
 Co-developed-by: Rander Wang <rander.wang@linux.intel.com>
 Signed-off-by: Rander Wang <rander.wang@linux.intel.com>
@@ -106,133 +105,83 @@ Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Paul Olaru <paul.olaru@oss.nxp.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 ---
- sound/soc/sof/ipc4-topology.c | 68 +++++++++++++++++++++++++++++++++++
- sound/soc/sof/ipc4-topology.h | 12 +++++++
- 2 files changed, 80 insertions(+)
+ sound/soc/sof/ipc4-topology.c | 49 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 49 insertions(+)
 
 diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
-index 30549573bd34..35457fe4edd9 100644
+index 35457fe4edd9..0c36b7cb6e79 100644
 --- a/sound/soc/sof/ipc4-topology.c
 +++ b/sound/soc/sof/ipc4-topology.c
-@@ -624,6 +624,35 @@ static int sof_ipc4_widget_setup_comp_pga(struct snd_sof_widget *swidget)
- 	return ret;
- }
+@@ -15,6 +15,8 @@
+ #include "ipc4-topology.h"
+ #include "ops.h"
  
-+static int sof_ipc4_widget_setup_comp_mixer(struct snd_sof_widget *swidget)
-+{
-+	struct snd_soc_component *scomp = swidget->scomp;
-+	struct sof_ipc4_mixer *mixer;
-+	int ret;
++#define SOF_IPC4_GAIN_PARAM_ID  0
 +
-+	dev_dbg(scomp->dev, "Updating IPC structure for %s\n", swidget->widget->name);
-+
-+	mixer = kzalloc(sizeof(*mixer), GFP_KERNEL);
-+	if (!mixer)
-+		return -ENOMEM;
-+
-+	swidget->private = mixer;
-+
-+	/* The out_audio_fmt in topology is ignored as it is not required to be sent to the FW */
-+	ret = sof_ipc4_get_audio_fmt(scomp, swidget, &mixer->available_fmt, false);
-+	if (ret)
-+		goto err;
-+
-+	ret = sof_ipc4_widget_setup_msg(swidget, &mixer->msg);
-+	if (ret)
-+		goto err;
-+
-+	return 0;
-+err:
-+	kfree(mixer);
-+	return ret;
-+}
-+
- static void
- sof_ipc4_update_pipeline_mem_usage(struct snd_sof_dev *sdev, struct snd_sof_widget *swidget,
- 				   struct sof_ipc4_base_module_cfg *base_config)
-@@ -974,6 +1003,33 @@ static int sof_ipc4_prepare_gain_module(struct snd_sof_widget *swidget,
+ static const struct sof_topology_token ipc4_sched_tokens[] = {
+ 	{SOF_TKN_SCHED_LP_MODE, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
+ 		offsetof(struct sof_ipc4_pipeline, lp_mode)}
+@@ -1030,6 +1032,52 @@ static int sof_ipc4_prepare_mixer_module(struct snd_sof_widget *swidget,
  	return sof_ipc4_widget_assign_instance_id(sdev, swidget);
  }
  
-+static int sof_ipc4_prepare_mixer_module(struct snd_sof_widget *swidget,
-+					 struct snd_pcm_hw_params *fe_params,
-+					 struct snd_sof_platform_stream_params *platform_params,
-+					 struct snd_pcm_hw_params *pipeline_params, int dir)
++static int sof_ipc4_control_load_volume(struct snd_sof_dev *sdev, struct snd_sof_control *scontrol)
 +{
-+	struct snd_soc_component *scomp = swidget->scomp;
-+	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
-+	struct sof_ipc4_mixer *mixer = swidget->private;
-+	int ret;
++	struct sof_ipc4_control_data *control_data;
++	struct sof_ipc4_msg *msg;
++	int i;
 +
-+	/* only 32bit is supported by mixer */
-+	mixer->available_fmt.ref_audio_fmt = &mixer->available_fmt.base_config->audio_fmt;
++	scontrol->size = struct_size(control_data, chanv, scontrol->num_channels);
 +
-+	/* output format is not required to be sent to the FW for mixer */
-+	ret = sof_ipc4_init_audio_fmt(sdev, swidget, &mixer->base_config,
-+				      NULL, pipeline_params, &mixer->available_fmt,
-+				      sizeof(mixer->base_config));
-+	if (ret < 0)
-+		return ret;
++	/* scontrol->ipc_control_data will be freed in sof_control_unload */
++	scontrol->ipc_control_data = kzalloc(scontrol->size, GFP_KERNEL);
++	if (!scontrol->ipc_control_data)
++		return -ENOMEM;
 +
-+	/* update pipeline memory usage */
-+	sof_ipc4_update_pipeline_mem_usage(sdev, swidget, &mixer->base_config);
++	control_data = scontrol->ipc_control_data;
++	control_data->index = scontrol->index;
 +
-+	/* assign instance ID */
-+	return sof_ipc4_widget_assign_instance_id(sdev, swidget);
++	msg = &control_data->msg;
++	msg->primary = SOF_IPC4_MSG_TYPE_SET(SOF_IPC4_MOD_LARGE_CONFIG_SET);
++	msg->primary |= SOF_IPC4_MSG_DIR(SOF_IPC4_MSG_REQUEST);
++	msg->primary |= SOF_IPC4_MSG_TARGET(SOF_IPC4_MODULE_MSG);
++
++	msg->extension = SOF_IPC4_MOD_EXT_MSG_PARAM_ID(SOF_IPC4_GAIN_PARAM_ID);
++
++	/* set default volume values to 0dB in control */
++	for (i = 0; i < scontrol->num_channels; i++) {
++		control_data->chanv[i].channel = i;
++		control_data->chanv[i].value = SOF_IPC4_VOL_ZERO_DB;
++	}
++
++	return 0;
++}
++
++static int sof_ipc4_control_setup(struct snd_sof_dev *sdev, struct snd_sof_control *scontrol)
++{
++	switch (scontrol->info_type) {
++	case SND_SOC_TPLG_CTL_VOLSW:
++	case SND_SOC_TPLG_CTL_VOLSW_SX:
++	case SND_SOC_TPLG_CTL_VOLSW_XR_SX:
++		return sof_ipc4_control_load_volume(sdev, scontrol);
++	default:
++		break;
++	}
++
++	return 0;
 +}
 +
  static enum sof_tokens host_token_list[] = {
  	SOF_COMP_TOKENS,
  	SOF_AUDIO_FMT_NUM_TOKENS,
-@@ -1011,6 +1067,14 @@ static enum sof_tokens pga_token_list[] = {
- 	SOF_COMP_EXT_TOKENS,
- };
- 
-+static enum sof_tokens mixer_token_list[] = {
-+	SOF_COMP_TOKENS,
-+	SOF_AUDIO_FMT_NUM_TOKENS,
-+	SOF_IN_AUDIO_FORMAT_TOKENS,
-+	SOF_AUDIO_FORMAT_BUFFER_SIZE_TOKENS,
-+	SOF_COMP_EXT_TOKENS,
-+};
-+
- static const struct sof_ipc_tplg_widget_ops tplg_ipc4_widget_ops[SND_SOC_DAPM_TYPE_COUNT] = {
- 	[snd_soc_dapm_aif_in] =  {sof_ipc4_widget_setup_pcm, sof_ipc4_widget_free_comp_pcm,
- 				  host_token_list, ARRAY_SIZE(host_token_list), NULL,
-@@ -1035,6 +1099,10 @@ static const struct sof_ipc_tplg_widget_ops tplg_ipc4_widget_ops[SND_SOC_DAPM_TY
- 			      pga_token_list, ARRAY_SIZE(pga_token_list), NULL,
- 			      sof_ipc4_prepare_gain_module,
- 			      sof_ipc4_unprepare_generic_module},
-+	[snd_soc_dapm_mixer] = {sof_ipc4_widget_setup_comp_mixer, sof_ipc4_widget_free_comp,
-+				mixer_token_list, ARRAY_SIZE(mixer_token_list),
-+				NULL, sof_ipc4_prepare_mixer_module,
-+				sof_ipc4_unprepare_generic_module},
- };
- 
+@@ -1108,4 +1156,5 @@ static const struct sof_ipc_tplg_widget_ops tplg_ipc4_widget_ops[SND_SOC_DAPM_TY
  const struct sof_ipc_tplg_ops ipc4_tplg_ops = {
-diff --git a/sound/soc/sof/ipc4-topology.h b/sound/soc/sof/ipc4-topology.h
-index 060123826db4..eebf46b24430 100644
---- a/sound/soc/sof/ipc4-topology.h
-+++ b/sound/soc/sof/ipc4-topology.h
-@@ -188,4 +188,16 @@ struct sof_ipc4_gain {
- 	struct sof_ipc4_msg msg;
+ 	.widget = tplg_ipc4_widget_ops,
+ 	.token_list = ipc4_token_list,
++	.control_setup = sof_ipc4_control_setup,
  };
- 
-+/**
-+ * struct sof_ipc4_mixer - mixer config data
-+ * @base_config: IPC base config data
-+ * @available_fmt: Available audio format
-+ * @msg: IPC4 message struct containing header and data info
-+ */
-+struct sof_ipc4_mixer {
-+	struct sof_ipc4_base_module_cfg base_config;
-+	struct sof_ipc4_available_audio_format available_fmt;
-+	struct sof_ipc4_msg msg;
-+};
-+
- #endif
 -- 
 2.25.1
 

@@ -2,73 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA55E5451BE
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jun 2022 18:20:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E729E5451C6
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jun 2022 18:22:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7B8201ACE;
-	Thu,  9 Jun 2022 18:19:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B8201ACE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8458A1AD3;
+	Thu,  9 Jun 2022 18:21:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8458A1AD3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654791648;
-	bh=Sw9swtcCuFzGTOEPhnQSoBscJC7KnU093sQPpzBUduw=;
-	h=Subject:From:In-Reply-To:Date:References:To:Cc:List-Id:
+	s=default; t=1654791767;
+	bh=0CsSwkvejVm3bVTO7Azc2brKlKE9Yji53qGgFJwL8DY=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BbOTvaH5lMNb5Wd+ADY+BM/U9NdNvRW+vbRS2Q8A9DXuaWUu6RudcaCHnRdfedEup
-	 32fYwSduXIa5uWaUuA+h7upfHF2fldEReN51qY/C+mKRiIRd15YcJbNiav3OmiIVw4
-	 XQY8OM/0/deaCYGfyidRgQJDrGsq1QHp6+il/wOs=
+	b=SL7LadYRvEEDHXvWdCnokTR0+DPSvJe98vABPx9Pja5tW3uW1fjlb/hy12k6aoUJ+
+	 uc8gLj1RjpYVgjbqZGLctLYaOMVJ/LRsa1CWGp184Im79U7HcEj+wILvVv7NIuGOWB
+	 C4QzGtc3vkkQEcDDcQ93twSNF/54x7tY4n3Swc74=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DD0CBF80240;
-	Thu,  9 Jun 2022 18:19:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1C945F80240;
+	Thu,  9 Jun 2022 18:21:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EB84DF801F5; Thu,  9 Jun 2022 18:19:47 +0200 (CEST)
+ id 694D7F800E9; Thu,  9 Jun 2022 18:21:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODYSUB_10,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from hutie.ust.cz (hutie.ust.cz [185.8.165.127])
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8743DF80116
- for <alsa-devel@alsa-project.org>; Thu,  9 Jun 2022 18:19:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8743DF80116
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0490CF800E9
+ for <alsa-devel@alsa-project.org>; Thu,  9 Jun 2022 18:21:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0490CF800E9
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=cutebit.org header.i=@cutebit.org
- header.b="kd2Riq/F"
-Content-Type: text/plain;
-	charset=utf-8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cutebit.org; s=mail;
- t=1654791578; bh=4oG/+gfqOkTh35XvvWAtX5REN3FZwalZARzou9YHdB4=;
- h=Subject:From:In-Reply-To:Date:Cc:References:To;
- b=kd2Riq/FkSbvoJq2jjAf5MBgfp6q/RYP7eGUCErvWm+Pc0yqe6Br5pbsGU0kyhXou
- WDPbyTDjTow1Pf4Hs2LDNl7nBheIGLZdcovSs/jTdg8aYrDrO4ZaXPckBS7BU/FGVE
- A83JrJ3SU+rSCE3/BmHsI4XgoBLjxwceApHMXgZ0=
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3696.80.82.1.1\))
-Subject: Re: [RFC PATCH v2 5/5] ASoC: apple: Add macaudio machine driver
-From: =?utf-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>
-In-Reply-To: <YqIWtzphzVGmbIOe@sirena.org.uk>
-Date: Thu, 9 Jun 2022 18:19:37 +0200
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <4DA6EE04-D23B-437B-8FBA-9223EAA71219@cutebit.org>
-References: <20220606191910.16580-1-povik+lin@cutebit.org>
- <20220606191910.16580-6-povik+lin@cutebit.org>
- <YqHylN3xba9XFrF8@sirena.org.uk>
- <0E611F13-96E3-41FD-9550-F900B2EFB00A@cutebit.org>
- <YqILv21K+tZ00Qhx@sirena.org.uk>
- <2A0422B8-8367-457E-A146-730F7C3DE66B@cutebit.org>
- <YqIWtzphzVGmbIOe@sirena.org.uk>
-To: Mark Brown <broonie@kernel.org>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Sven Peter <sven@svenpeter.dev>, linux-kernel@vger.kernel.org,
- Hector Martin <marcan@marcan.st>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- asahi@lists.linux.dev, Mark Kettenis <kettenis@openbsd.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="bp+rtrcL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1654791700; x=1686327700;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=0CsSwkvejVm3bVTO7Azc2brKlKE9Yji53qGgFJwL8DY=;
+ b=bp+rtrcLWDG7LW4u4K18RCYpn0Bqomj1UxSCwQj9zw7BNnSUJRVludIP
+ vsXp3QNOE24Li8JafPc+2ah52RB97X8D83ujfBs8Umx9232WnUqqV05js
+ f1vNHB27yTijYVRsIfxrHzFylfCP1JdIl5JJfYAODXYsPW30LAGNLxhDv
+ BgNjfW8dlqlBnvcRBwYpO44tt5/vIIzKgVenPHMQaH5TW2MC49dzqDYhy
+ dRDUyXJAiFeSDqnlGwYbNYcxeKgB4Qhf5VeMixkqZf2yZeJWAg6k+lyS7
+ 7qY+JeuFrhzlYGfyApP1lxVv1F9AViagyGXmqaWX39iXGHR4NDha3yTBM A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10373"; a="302708257"
+X-IronPort-AV: E=Sophos;i="5.91,287,1647327600"; d="scan'208";a="302708257"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jun 2022 09:21:34 -0700
+X-IronPort-AV: E=Sophos;i="5.91,287,1647327600"; d="scan'208";a="585661484"
+Received: from jeremywe-mobl3.amr.corp.intel.com (HELO [10.209.173.145])
+ ([10.209.173.145])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jun 2022 09:21:33 -0700
+Message-ID: <7652ddab-53a5-ac8e-33f5-d25527acb1a6@linux.intel.com>
+Date: Thu, 9 Jun 2022 11:21:32 -0500
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.9.1
+Subject: Re: [PATCH v1 14/16] soundwire: Use acpi_dev_for_each_child()
+Content-Language: en-US
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+References: <1843211.tdWV9SEqCh@kreacher> <5296779.Sb9uPGUboI@kreacher>
+ <63d7f3ed-b5a9-c869-5d25-a33a1d4e63c8@linux.intel.com>
+ <CAJZ5v0i7xtjrEOXgKiWP5St8OZoiZ4qq+gL62BFrmv-qpeaG_w@mail.gmail.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <CAJZ5v0i7xtjrEOXgKiWP5St8OZoiZ4qq+gL62BFrmv-qpeaG_w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, Linux PM <linux-pm@vger.kernel.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ "Rafael J. Wysocki" <rjw@rjwysocki.net>, LKML <linux-kernel@vger.kernel.org>,
+ Linux ACPI <linux-acpi@vger.kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Hans de Goede <hdegoede@redhat.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,74 +103,32 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-> On 9. 6. 2022, at 17:50, Mark Brown <broonie@kernel.org> wrote:
->=20
-> On Thu, Jun 09, 2022 at 05:24:49PM +0200, Martin Povi=C5=A1er wrote:
->>> On 9. 6. 2022, at 17:03, Mark Brown <broonie@kernel.org> wrote:
->=20
-> Why is this off list?
+>> Shouldn't the return of sdw_acpi_find_one() be trapped, e.g. with
+>>
+>> return acpi_dev_for_each_child(parent, sdw_acpi_find_one, bus);
+> 
+> Sure, I'll do that.  Thanks!
 
-By accident, added the CC list back with this reply (hopefully it
-still attaches to the thread when people receive it).
+I also added this EXPORT_SYMBOL to work-around link errors, not sure if
+this is in your tree already?
 
->>> That's basically no userspaces at this point TBH.  I'm not convinced
->>> it's a good idea to be adding custom code for that use case.
->>=20
->> FWIW I know of at least one user of the WIP audio support on Macs who
->> would welcome this feature. My preference is to keep it in, but in
->> the end I guess it=E2=80=99s your call.
->=20
-> I'd rather not have this open coded in individual drivers, we already
-> have an unfortunate abundance of jack detection interfaces.  If we're
-> going to add anything I'd rather it were in core code and TBH I'm
-> struggling to be enthusiastic.
+diff --git a/drivers/acpi/bus.c b/drivers/acpi/bus.c
 
-Noted.
+index 86fa61a21826c..ade6259c19af6 100644
 
-> Can you say anything more about the use case?
+--- a/drivers/acpi/bus.c
 
-I can restate: The alleged use case is running userspace without sound
-server, but having playback switch transparently between speakers and
-headphones even mid-stream based on jack detection.
++++ b/drivers/acpi/bus.c
 
->>>> I looked at the existing DAPM integration but I couldn=E2=80=99t =
-figure out
->>>> how to switch the demux with it.
->=20
->>> Yes, it won't do that.  If you can't stream the same audio to both =
-then
->>> you'd need something else.
->=20
->> I don=E2=80=99t understand what=E2=80=99s meant by streaming the same =
-audio here.
->=20
-> Playing one audio stream from the host which appears on both speakers
-> and headphones - I don't know what the mixing and muxing capabilities =
-of
-> the hardware are.
->=20
->> Taking a guess: The existing DAPM integration can enable the =
-headphones
->> path based on jack being plugged in, but it can=E2=80=99t disable the =
-speakers
->> path like the demux does?
->=20
-> No, that works perfectly fine - you can enable or disable pins =
-depending
-> on the jack state.
+@@ -1113,6 +1113,7 @@ int acpi_dev_for_each_child(struct acpi_device *adev,
 
-Ah, I peeked into soc-jack.c. What about this then: If I understand what
-pins represent, they would be at the remote end of the DAPM paths. So if
-for the speakers I add something like
 
-   Headphones Codec Out =E2=80=94> Jack pin
 
-                       +--> Always-on pin
-                       |
-   Speaker Amp Out -> Mux
-                       |
-                       +--> Jack inverted pin
+        return device_for_each_child(&adev->dev, &adwc,
+acpi_dev_for_one_check);
 
-and let userspace control the mux, it would in effect support the same
-use cases as what I attempted in the code so far. Sounds somewhat right?
+ }
+
++EXPORT_SYMBOL_GPL(acpi_dev_for_each_child);
+
 

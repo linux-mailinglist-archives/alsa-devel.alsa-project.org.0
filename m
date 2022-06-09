@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0A26544DDC
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jun 2022 15:39:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FCEB544DDE
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jun 2022 15:39:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7297A1B02;
-	Thu,  9 Jun 2022 15:38:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7297A1B02
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8F61E1AD0;
+	Thu,  9 Jun 2022 15:38:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F61E1AD0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654781953;
-	bh=poLrk9IFRHmbL3RulVGopYSkf6CWGhy+nxAHKExBmyo=;
+	s=default; t=1654781971;
+	bh=OyfIkd1NAxDWdbHeK+79uCuF8wIkWKh2q8RH4+BP8Io=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JeaZKHUzyr9AQd3CHNz+4WfrY5jGD9MjCH6cbQ5P5XETDLgO0QGnX6mNEdTlLHJ34
-	 TePoBk3iBhuW0wW97x07/lYUHSE+gr5xiae8hoQ2gAA8NZnFiPyeCBB9dyj/sAdANs
-	 4LM/a8+iV1i6whxP29fZkZusUbGzD8tshYapr4Xo=
+	b=rqLMlhy0JCugpXT/StaojV1RbMMNr10rzKWmucsVUrnkRy61GNoytGGzbQcGbQJLD
+	 Y9NVu+OMCIagtIAe7+l+2mnTFX+7zlJ6cgmuwlQI+Zh5EK2fIqh9G4Yqbc2U19FqYO
+	 QfwwcpxQpHPV1KsrxDO9ejnLKd4jzULy5beqWews=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AD2B6F8055A;
-	Thu,  9 Jun 2022 15:36:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2732FF80571;
+	Thu,  9 Jun 2022 15:36:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B9561F80542; Thu,  9 Jun 2022 15:36:00 +0200 (CEST)
+ id 85B19F80557; Thu,  9 Jun 2022 15:36:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F408DF8053A
- for <alsa-devel@alsa-project.org>; Thu,  9 Jun 2022 15:35:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F408DF8053A
+ by alsa1.perex.cz (Postfix) with ESMTPS id EB6E7F80535
+ for <alsa-devel@alsa-project.org>; Thu,  9 Jun 2022 15:35:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB6E7F80535
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="SaOzQo5s"
+ header.b="cV6QsbmL"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1654781758; x=1686317758;
+ t=1654781760; x=1686317760;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=poLrk9IFRHmbL3RulVGopYSkf6CWGhy+nxAHKExBmyo=;
- b=SaOzQo5s+iHOgNBewAe6XSmorhozSc91Xk9DTXiwgcJhp5tnPswINFZm
- YDpwgXik/IlkubknwKCjOmz9rAjYC/dxoWfKDfzSf13Q9QgBWWYZq1Zz4
- fTL5Qv0ElV8FGAhYzOoMvNgLAf0YanChdRqQE6CB0mhUNQ3rqrNf43hb8
- CK7+6qT8qK2wls3qGO1WSKH3JAd94O11NOylkdUodnrc4j6Xdm1j1TUSR
- X/US4V8UbwfVslmdpUck2wbI61ybypy0FbX5niFjgaTh3Sb2/GBRquh25
- 3U+jG9uAD4DGWAar94YDcA85T+vm80BPZWolV3p49fpMRt8jwNfhfIXgY Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10373"; a="266061415"
-X-IronPort-AV: E=Sophos;i="5.91,287,1647327600"; d="scan'208";a="266061415"
+ bh=OyfIkd1NAxDWdbHeK+79uCuF8wIkWKh2q8RH4+BP8Io=;
+ b=cV6QsbmLglIiFNFDjcXqpgqfgE+ZYcAl5e8SN5PftS+izAdCsx0PMPXY
+ uUHec4EgnuucJnoAt/CnIkQhmnk1iHMXBtGsvZzLFP/90uGw8ABtGD4iL
+ 2yxqADlGjfocgM19dtOePdu8zKLZcvzoDa1/dPu29y9Q5R6lF5W3ERBlb
+ TC31POdLVCtQf487TnoWO2t0Q3InLUJtctLwf2K4vYBeJ5ZafXskvXa3L
+ Y/s4azRa1X3kyFrlrF1TJN/kZZTDt5NxfZf9pdITXCo7ZddpyQlhnil0l
+ ongDMRTqg4oRzNg7CP5BRhqvlooWuBgjquu1EsYBuAnFOYpzPFKoonzWI g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10373"; a="266061418"
+X-IronPort-AV: E=Sophos;i="5.91,287,1647327600"; d="scan'208";a="266061418"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2022 06:35:56 -0700
+ 09 Jun 2022 06:35:58 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,287,1647327600"; d="scan'208";a="683966176"
+X-IronPort-AV: E=Sophos;i="5.91,287,1647327600"; d="scan'208";a="683966187"
 Received: from dev2 (HELO DEV2.igk.intel.com) ([10.237.148.94])
- by fmsmga002.fm.intel.com with ESMTP; 09 Jun 2022 06:35:54 -0700
+ by fmsmga002.fm.intel.com with ESMTP; 09 Jun 2022 06:35:56 -0700
 From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
  <amadeuszx.slawinski@linux.intel.com>
 To: Oder Chiou <oder_chiou@realtek.com>,
 	Mark Brown <broonie@kernel.org>
-Subject: [PATCH 08/11] ASoC: codecs: rt286: Enable irq only when needed
-Date: Thu,  9 Jun 2022 15:35:38 +0200
-Message-Id: <20220609133541.3984886-9-amadeuszx.slawinski@linux.intel.com>
+Subject: [PATCH 09/11] ASoC: codecs: rt298: Enable irq only when needed
+Date: Thu,  9 Jun 2022 15:35:39 +0200
+Message-Id: <20220609133541.3984886-10-amadeuszx.slawinski@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220609133541.3984886-1-amadeuszx.slawinski@linux.intel.com>
 References: <20220609133541.3984886-1-amadeuszx.slawinski@linux.intel.com>
@@ -100,13 +100,13 @@ then, similarly disable it when jack detection is being disabled.
 Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/codecs/rt286.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ sound/soc/codecs/rt298.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/sound/soc/codecs/rt286.c b/sound/soc/codecs/rt286.c
-index 02a41c915776..6384b4cb9eaf 100644
---- a/sound/soc/codecs/rt286.c
-+++ b/sound/soc/codecs/rt286.c
+diff --git a/sound/soc/codecs/rt298.c b/sound/soc/codecs/rt298.c
+index 078810f2ec7b..3c13b6dc3be9 100644
+--- a/sound/soc/codecs/rt298.c
++++ b/sound/soc/codecs/rt298.c
 @@ -16,6 +16,7 @@
  #include <linux/spi/spi.h>
  #include <linux/dmi.h>
@@ -115,30 +115,31 @@ index 02a41c915776..6384b4cb9eaf 100644
  #include <sound/core.h>
  #include <sound/pcm.h>
  #include <sound/pcm_params.h>
-@@ -324,11 +325,14 @@ static int rt286_mic_detect(struct snd_soc_component *component,
- 		if (rt286->jack->status & SND_JACK_HEADPHONE)
- 			snd_soc_dapm_force_enable_pin(dapm, "LDO1");
- 		regmap_update_bits(rt286->regmap, RT286_IRQ_CTRL, 0x2, 0x2);
-+		enable_irq(rt286->i2c->irq);
-+
- 		/* Send an initial empty report */
- 		snd_soc_jack_report(rt286->jack, rt286->jack->status,
- 			SND_JACK_MICROPHONE | SND_JACK_HEADPHONE);
- 	} else {
- 		/* disable IRQ */
-+		disable_irq(rt286->i2c->irq);
- 		regmap_update_bits(rt286->regmap, RT286_IRQ_CTRL, 0x2, 0x0);
- 		snd_soc_dapm_disable_pin(dapm, "LDO1");
- 	}
-@@ -951,6 +955,9 @@ static int rt286_probe(struct snd_soc_component *component)
- 	INIT_DELAYED_WORK(&rt286->jack_detect_work, rt286_jack_detect_work);
+@@ -337,6 +338,7 @@ static int rt298_mic_detect(struct snd_soc_component *component,
  
- 	if (rt286->i2c->irq) {
-+		/* irq will be enabled in rt286_mic_detect */
-+		irq_set_status_flags(rt286->i2c->irq, IRQ_NOAUTOEN);
+ 	/* If jack in NULL, disable HS jack */
+ 	if (!jack) {
++		disable_irq(rt298->i2c->irq);
+ 		regmap_update_bits(rt298->regmap, RT298_IRQ_CTRL, 0x2, 0x0);
+ 		dapm = snd_soc_component_get_dapm(component);
+ 		snd_soc_dapm_disable_pin(dapm, "LDO1");
+@@ -346,6 +348,7 @@ static int rt298_mic_detect(struct snd_soc_component *component,
+ 
+ 	rt298->jack = jack;
+ 	regmap_update_bits(rt298->regmap, RT298_IRQ_CTRL, 0x2, 0x2);
++	enable_irq(rt298->i2c->irq);
+ 
+ 	rt298_jack_detect(rt298, &hp, &mic);
+ 	if (hp)
+@@ -1015,6 +1018,9 @@ static int rt298_probe(struct snd_soc_component *component)
+ 	INIT_DELAYED_WORK(&rt298->jack_detect_work, rt298_jack_detect_work);
+ 
+ 	if (rt298->i2c->irq) {
++		/* irq will be enabled in rt298_mic_detect */
++		irq_set_status_flags(rt298->i2c->irq, IRQ_NOAUTOEN);
 +
- 		ret = request_threaded_irq(rt286->i2c->irq, NULL, rt286_irq,
- 					   IRQF_TRIGGER_HIGH | IRQF_ONESHOT, "rt286", rt286);
+ 		ret = request_threaded_irq(rt298->i2c->irq, NULL, rt298_irq,
+ 					   IRQF_TRIGGER_HIGH | IRQF_ONESHOT, "rt298", rt298);
  		if (ret) {
 -- 
 2.25.1

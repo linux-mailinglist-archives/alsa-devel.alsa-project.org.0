@@ -2,89 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85088544B40
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jun 2022 14:04:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CE8C544C32
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jun 2022 14:35:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E14DA1E76;
-	Thu,  9 Jun 2022 14:04:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E14DA1E76
+	by alsa0.perex.cz (Postfix) with ESMTPS id D49901A8F;
+	Thu,  9 Jun 2022 14:34:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D49901A8F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654776293;
-	bh=HRQupDTNPz745cMlmwkntrSZwButwijYw9NTo8gTjT8=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1654778119;
+	bh=8FAuejtVivSwygGx9dQCgmcvz64Gm3mug+UmU23znSQ=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZivViT5cCNMKx/uNiOMQuLVH3S2BOiT32dKKbIJVo6pWFCNvGREbDnppFZHA2k/Vz
-	 qU+BXDIffQM4dW6HjHjtszbv3dUtOnhEzlvRG/gGpBZzzClCWJ/rnMzPnbjyaZfipD
-	 pY58DbPZrtmsfeQJuGMZg4sN7rJ/mP4RE7Bb02RY=
+	b=h9FfUYT70aDh4nqFdeR4iH72+WryqpHQ1PKpCL2YxUKzZqspA2ffON19xCSyNOEij
+	 hS7Es8/ZbhFo5olJdcsy67rlpXG97mjxHXIM5j74wgxzgBVxJHCOEe913XkOSPt71R
+	 HgcQYCfKrOrdl2QQJtgK3KR8arKNy9NhODzAyWu8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0047FF80537;
-	Thu,  9 Jun 2022 14:02:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A7ABF80116;
+	Thu,  9 Jun 2022 14:34:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 027A5F80520; Thu,  9 Jun 2022 14:02:35 +0200 (CEST)
+ id 1A231F8019D; Thu,  9 Jun 2022 14:34:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B7435F8012F
- for <alsa-devel@alsa-project.org>; Thu,  9 Jun 2022 14:02:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7435F8012F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4A94AF800E9
+ for <alsa-devel@alsa-project.org>; Thu,  9 Jun 2022 14:34:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A94AF800E9
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="AYSLwlre"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="56f79OUm"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="iTG6DVOY"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 707171FE32;
- Thu,  9 Jun 2022 12:02:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1654776143; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=W2NePM+nF30nM/n+MK0SudoqQgDRL+Il7brK5N3UnzY=;
- b=AYSLwlre4Lrkcia5pb/Qk9JdNEBUG7MXrZHW4q25WE7fmPBIMPv1DNd7uVaMvAXyi1saAi
- 2kVz3efXadBfbZoSgXUbpMOGq243Z/vFktJ3NrjLwe04zUJyPwmAhmq9asezN9d6jbzEq+
- lwV1L/i9PQul5+sqQVd/uwFvaPkmfxM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1654776143;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=W2NePM+nF30nM/n+MK0SudoqQgDRL+Il7brK5N3UnzY=;
- b=56f79OUm0UkT/qOr5kojG5mr6tpxtvj1OKFGrwIbNLXxih5P2jAyquP0RSBIJ/fi2SkIIw
- CwCfHI+yi7lND8Dg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3B9F513A8C;
- Thu,  9 Jun 2022 12:02:23 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id OK5IDU/hoWL1MAAAMHmgww
- (envelope-from <tiwai@suse.de>); Thu, 09 Jun 2022 12:02:23 +0000
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 4/4] ALSA: control: Add input validation
-Date: Thu,  9 Jun 2022 14:02:19 +0200
-Message-Id: <20220609120219.3937-5-tiwai@suse.de>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20220609120219.3937-1-tiwai@suse.de>
-References: <20220609120219.3937-1-tiwai@suse.de>
+ by ams.source.kernel.org (Postfix) with ESMTPS id 47094B82D85;
+ Thu,  9 Jun 2022 12:34:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5502EC34114;
+ Thu,  9 Jun 2022 12:34:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1654778053;
+ bh=8FAuejtVivSwygGx9dQCgmcvz64Gm3mug+UmU23znSQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=iTG6DVOYR2tESXLnuPzLMfjpn791/C4fdVOQ9DVnwPH1SGrd1t/HajT9FcXwIotaz
+ jQOz1nBaXfoET++jK1nqSrl+yyLCDmtZCeS48RQfOINYKdG0JXpOJW2c5KGLNRT7JM
+ oVXEwG2v3rumfoszmZhF1eZhqsett7l6A6IIqt9uVAHdxa7ZByQJt609S8jZzaRbO3
+ 85hCYG4o95I81Am9IM/rfDgmMSgTXKsAik7+0eRbVgyE7BmoNbnZ6+ZEedBba+YFiX
+ hnHCsXJUezdwtIi+rR8C+44gK0jIOMjOeFTbncls5l8YpyoBHwQmSYhduZjrQcmN09
+ n04pRviD1rDNA==
+Date: Thu, 9 Jun 2022 13:34:04 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Sascha Hauer <sha@pengutronix.de>
+Subject: Re: Audio mem2mem devices aka asymmetric sample rate converters
+Message-ID: <YqHovCKDT6eK0YKp@sirena.org.uk>
+References: <20220602112106.GO2387@pengutronix.de>
+ <Ypit14mY/Tx8pgK2@sirena.org.uk>
+ <20220608092802.GV1615@pengutronix.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="mZapuudDPElcdLsM"
+Content-Disposition: inline
+In-Reply-To: <20220608092802.GV1615@pengutronix.de>
+X-Cookie: Space is limited.
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,168 +88,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch adds a new feature to enable the validation of input data
-to control elements in the ALSA core side.  When
-CONFIG_SND_CTL_INPUT_VALIDATION is set, ALSA core verifies whether the
-each input value via control API is in the defined ranges, also checks
-whether it's aligned to the defined steps.  If an invalid value is
-detected, ALSA core returns -EINVAL error immediately without passing
-further to the driver's callback.  So this is a kind of hardening for
-(badly written) drivers that have no proper error checks, at the cost
-of a slight performance overhead.
 
-Technically seen, this reuses a part of the existing validation code
-for CONFIG_SND_CTL_DEBUG case with a slight modification to suppress
-error prints for the input validation.
+--mZapuudDPElcdLsM
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/core/Kconfig   | 10 +++++++
- sound/core/control.c | 69 +++++++++++++++++++++++++++++++-------------
- 2 files changed, 59 insertions(+), 20 deletions(-)
+On Wed, Jun 08, 2022 at 11:28:02AM +0200, Sascha Hauer wrote:
+> On Thu, Jun 02, 2022 at 02:32:23PM +0200, Mark Brown wrote:
 
-diff --git a/sound/core/Kconfig b/sound/core/Kconfig
-index 5bd8c93931b2..11d44dfda7ce 100644
---- a/sound/core/Kconfig
-+++ b/sound/core/Kconfig
-@@ -178,6 +178,16 @@ config SND_PCM_XRUN_DEBUG
- 	  sound clicking when system is loaded, it may help to determine
- 	  the process or driver which causes the scheduling gaps.
- 
-+config SND_CTL_INPUT_VALIDATION
-+	bool "Validate input data to control API"
-+	help
-+	  Say Y to enable the additional validation for the input data to
-+	  each control element, including the value range checks.
-+	  An error is returned from ALSA core for invalid inputs without
-+	  passing to the driver.  This is a kind of hardening for drivers
-+	  that have no proper error checks, at the cost of a slight
-+	  performance overhead.
-+
- config SND_CTL_DEBUG
- 	bool "Enable debugging feature for control API"
- 	depends on SND_DEBUG
-diff --git a/sound/core/control.c b/sound/core/control.c
-index 339d420fb9f7..b5bbdabca353 100644
---- a/sound/core/control.c
-+++ b/sound/core/control.c
-@@ -871,7 +871,7 @@ static void fill_remaining_elem_value(struct snd_ctl_elem_value *control,
- static int sanity_check_int_value(struct snd_card *card,
- 				  const struct snd_ctl_elem_value *control,
- 				  const struct snd_ctl_elem_info *info,
--				  int i)
-+				  int i, bool print_error)
- {
- 	long long lval, lmin, lmax, lstep;
- 	u64 rem;
-@@ -905,21 +905,23 @@ static int sanity_check_int_value(struct snd_card *card,
- 	}
- 
- 	if (lval < lmin || lval > lmax) {
--		dev_err(card->dev,
--			"control %i:%i:%i:%s:%i: value out of range %lld (%lld/%lld) at count %i\n",
--			control->id.iface, control->id.device,
--			control->id.subdevice, control->id.name,
--			control->id.index, lval, lmin, lmax, i);
-+		if (print_error)
-+			dev_err(card->dev,
-+				"control %i:%i:%i:%s:%i: value out of range %lld (%lld/%lld) at count %i\n",
-+				control->id.iface, control->id.device,
-+				control->id.subdevice, control->id.name,
-+				control->id.index, lval, lmin, lmax, i);
- 		return -EINVAL;
- 	}
- 	if (lstep) {
- 		div64_u64_rem(lval, lstep, &rem);
- 		if (rem) {
--			dev_err(card->dev,
--				"control %i:%i:%i:%s:%i: unaligned value %lld (step %lld) at count %i\n",
--				control->id.iface, control->id.device,
--				control->id.subdevice, control->id.name,
--				control->id.index, lval, lstep, i);
-+			if (print_error)
-+				dev_err(card->dev,
-+					"control %i:%i:%i:%s:%i: unaligned value %lld (step %lld) at count %i\n",
-+					control->id.iface, control->id.device,
-+					control->id.subdevice, control->id.name,
-+					control->id.index, lval, lstep, i);
- 			return -EINVAL;
- 		}
- 	}
-@@ -927,15 +929,13 @@ static int sanity_check_int_value(struct snd_card *card,
- 	return 0;
- }
- 
--/* perform sanity checks to the given snd_ctl_elem_value object */
--static int sanity_check_elem_value(struct snd_card *card,
--				   const struct snd_ctl_elem_value *control,
--				   const struct snd_ctl_elem_info *info,
--				   u32 pattern)
-+/* check whether the all input values are valid for the given elem value */
-+static int sanity_check_input_values(struct snd_card *card,
-+				     const struct snd_ctl_elem_value *control,
-+				     const struct snd_ctl_elem_info *info,
-+				     bool print_error)
- {
--	size_t offset;
--	int i, ret = 0;
--	u32 *p;
-+	int i, ret;
- 
- 	switch (info->type) {
- 	case SNDRV_CTL_ELEM_TYPE_BOOLEAN:
-@@ -943,7 +943,8 @@ static int sanity_check_elem_value(struct snd_card *card,
- 	case SNDRV_CTL_ELEM_TYPE_INTEGER64:
- 	case SNDRV_CTL_ELEM_TYPE_ENUMERATED:
- 		for (i = 0; i < info->count; i++) {
--			ret = sanity_check_int_value(card, control, info, i);
-+			ret = sanity_check_int_value(card, control, info, i,
-+						     print_error);
- 			if (ret < 0)
- 				return ret;
- 		}
-@@ -952,6 +953,23 @@ static int sanity_check_elem_value(struct snd_card *card,
- 		break;
- 	}
- 
-+	return 0;
-+}
-+
-+/* perform sanity checks to the given snd_ctl_elem_value object */
-+static int sanity_check_elem_value(struct snd_card *card,
-+				   const struct snd_ctl_elem_value *control,
-+				   const struct snd_ctl_elem_info *info,
-+				   u32 pattern)
-+{
-+	size_t offset;
-+	int ret;
-+	u32 *p;
-+
-+	ret = sanity_check_input_values(card, control, info, true);
-+	if (ret < 0)
-+		return ret;
-+
- 	/* check whether the remaining area kept untouched */
- 	offset = value_sizes[info->type] * info->count;
- 	offset = DIV_ROUND_UP(offset, sizeof(u32));
-@@ -1138,6 +1156,17 @@ static int snd_ctl_elem_write(struct snd_card *card, struct snd_ctl_file *file,
- 
- 	snd_ctl_build_ioff(&control->id, kctl, index_offset);
- 	result = snd_power_ref_and_wait(card);
-+	/* validate input values */
-+	if (IS_ENABLED(CONFIG_SND_CTL_INPUT_VALIDATION) && !result) {
-+		struct snd_ctl_elem_info info;
-+
-+		memset(&info, 0, sizeof(info));
-+		info.id = control->id;
-+		result = __snd_ctl_elem_info(card, kctl, &info, NULL);
-+		if (!result)
-+			result = sanity_check_input_values(card, control, &info,
-+							   false);
-+	}
- 	if (!result)
- 		result = kctl->put(kctl, control);
- 	snd_power_unref(card);
--- 
-2.35.3
+> > If you search for talks from Lars-Peter Clausen at ELC-E you
+> > should find some good overviews of the general direction.
 
+> You likely mean https://www.youtube.com/watch?v=6oQF2TzCYtQ. That indeed
+> gives a good overview where we are and where we want to go.
+
+Yup, that's the one.
+
+> > In theory right now you should implement the ASRC as a component
+> > driver.  You can then set it up as a standalone card if you want
+> > to, or integrate into a custom card as you do now.
+
+> Thanks for your input. I'll see how far I get.
+
+Good luck!  :P
+
+--mZapuudDPElcdLsM
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmKh6LwACgkQJNaLcl1U
+h9AWNAf/a92bm89G5rk+HSZugZw80AdpOEbmvegrELs7G7Py/KKkp74f7XTuVgmv
+A8J+3IW2VVLQPWuRPAL51F3OBKNcmKlqVay6+TtjaF5gIiyAlhY7ynl0fY4YXv0V
+cuRqdi1TbG5v/aHgmNE48tw28hYDHpgnBm20ziI55Yrxpk5z2TrRgTc6QjFkHB08
+oomjV7iChQg2gbSd5sOHV2qL7/zvGNhL/mc+xzDefy/AxDUElgkcr0O0nRzF7dw2
+WKlE9CAMtQXtLTO2RN23emUSu1Baj0WNutaO+pRJu3y1OQ+79DNKAKhzLv0k8WzT
+EtcAwt/lXmC+IiLEqeh4zuqbW0ioSQ==
+=aonh
+-----END PGP SIGNATURE-----
+
+--mZapuudDPElcdLsM--

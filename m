@@ -2,89 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69F56544F24
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jun 2022 16:32:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EDD7544FEE
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jun 2022 16:56:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CE48A1B67;
-	Thu,  9 Jun 2022 16:31:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE48A1B67
+	by alsa0.perex.cz (Postfix) with ESMTPS id A5CBC193D;
+	Thu,  9 Jun 2022 16:55:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5CBC193D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654785143;
-	bh=b+yAlR0BRblNoECJtAyeQLM6q9tEITgDOzTj0oLf4xY=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1654786575;
+	bh=AOpvTt54PuE89iqQ4kJmFjW8Pgnd73ja/e1F4g3SwNs=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=P4wjASPrxIiJtpCxNfVohcvYYpirmdIMWfrHPthK9NH/Jzs5+4GY7NAIxDlnBqL8C
-	 71xWc/CPk3qINfF6Mi6xI00ERMj0PnXXne5hAs8M04jm9bMODT4XMvIqVrHFwDtz/K
-	 QYI8IM9dWgXSsKxildjjhaglNT7trFvTQtAY9ORA=
+	b=fl/CwHBcQrljzWBIuK1yRDFQIvBETe0FqS15kRVi9U5CBgMPM8DjztOKIpFLc5M+e
+	 Vud4KRLYalBd+Q1IOj3oNBOOoZss868RfskqewKmZoJb2T03mDaIHfMhGcaGOfY5XD
+	 rZxu5vLZ8kij3+JWW0z2aEUIVqPOUghD25VYO1jw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CCEB7F80529;
-	Thu,  9 Jun 2022 16:31:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0D909F801F5;
+	Thu,  9 Jun 2022 16:55:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BD3E4F80528; Thu,  9 Jun 2022 16:30:59 +0200 (CEST)
+ id 0E6A2F8019D; Thu,  9 Jun 2022 16:55:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 85809F804BD
- for <alsa-devel@alsa-project.org>; Thu,  9 Jun 2022 16:30:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85809F804BD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8F987F800C7
+ for <alsa-devel@alsa-project.org>; Thu,  9 Jun 2022 16:55:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F987F800C7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="FAuQCcIM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1654785057; x=1686321057;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version;
- bh=KcVpOMqtcK0GLgko7LK59DZwvEdtoQYB3VprnfPBpDI=;
- b=FAuQCcIMMuFLXV8n8Ne1yOA/NmxqDSavoR8D4ceAQX3hCmB+XQJjJR9j
- fI10MD79j9AxHW/XfjSZV2JUhBpStcz+qV16EYSdLL5HWNHmAloQFEvGO
- 2Tnv6FE4asokqBlBe5zJKbnvxwslMeVdGMIzatsycqS25N13qypkk+IOI 8=;
-Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 09 Jun 2022 07:30:56 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2022 07:30:56 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Thu, 9 Jun 2022 07:30:55 -0700
-Received: from hu-srivasam-hyd.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Thu, 9 Jun 2022 07:30:49 -0700
-From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-To: <agross@kernel.org>, <bjorn.andersson@linaro.org>, <lgirdwood@gmail.com>, 
- <broonie@kernel.org>, <robh+dt@kernel.org>, <quic_plai@quicinc.com>,
- <bgoswami@quicinc.com>, <perex@perex.cz>, <tiwai@suse.com>,
- <srinivas.kandagatla@linaro.org>, <quic_rohkumar@quicinc.com>,
- <linux-arm-msm@vger.kernel.org>, <alsa-devel@alsa-project.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <swboyd@chromium.org>, <judyhsiao@chromium.org>, <vkoul@kernel.org>
-Subject: [PATCH v4 2/2] ASoC: qcom: soundwire: Enable software clock gating
- requirement flag
-Date: Thu, 9 Jun 2022 20:00:23 +0530
-Message-ID: <1654785023-1667-3-git-send-email-quic_srivasam@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1654785023-1667-1-git-send-email-quic_srivasam@quicinc.com>
-References: <1654785023-1667-1-git-send-email-quic_srivasam@quicinc.com>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="ejWLBQry"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 57EB761D9D;
+ Thu,  9 Jun 2022 14:55:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3741EC34114;
+ Thu,  9 Jun 2022 14:55:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1654786504;
+ bh=AOpvTt54PuE89iqQ4kJmFjW8Pgnd73ja/e1F4g3SwNs=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ejWLBQryQkA8YsegAT4heDiZLrWlayXzh5iGbuSSt8zvKlMlJ0f1kNoPjf8t+4CHe
+ qz3+OYiO0yu9aq8y6LPCXnMoH1a1+d6dlJJkOmoWSnDjcSpkkgE5x2fEHfNndh/QXW
+ fl4lTvk2s1eg/VI7VwjAnOsdrI6/Vx2JQEYqlWXx25M6wOgLKcb0qxafQVoMtSpoR6
+ 7izsHQXJy5rdpEIobznEHW03Y2uUTHDiZpIlj4uJwz/67mH09E4/gMN+7FNjlik+t8
+ cNE0VF+1y4V46M1L2yy4xVXai4tqeodS5fZ7We91HjEVl9WdhPcRBy/dPNh/bs6uMf
+ HiNaq8IRVYy4w==
+Date: Thu, 9 Jun 2022 15:55:00 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Amadeusz =?utf-8?B?U8WCYXdpxYRza2k=?= <amadeuszx.slawinski@linux.intel.com>
+Subject: Re: [PATCH 11/11] ASoC: codecs: rt298: Fix jack detection
+Message-ID: <YqIJxPFwwsbAPJ14@sirena.org.uk>
+References: <20220609133541.3984886-1-amadeuszx.slawinski@linux.intel.com>
+ <20220609133541.3984886-12-amadeuszx.slawinski@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Cc: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="NiWV1fROEGmrnV65"
+Content-Disposition: inline
+In-Reply-To: <20220609133541.3984886-12-amadeuszx.slawinski@linux.intel.com>
+X-Cookie: Space is limited.
+Cc: Oder Chiou <oder_chiou@realtek.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,41 +90,68 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Enable software clock gating flag in private data for SC7280
-based platforms, which are soundwire 1.6.0 version based.
 
-Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
----
- drivers/soundwire/qcom.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+--NiWV1fROEGmrnV65
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-index 8e163da..b1bdf17 100644
---- a/drivers/soundwire/qcom.c
-+++ b/drivers/soundwire/qcom.c
-@@ -194,6 +194,12 @@ static const struct qcom_swrm_data swrm_v1_5_data = {
- 	.default_cols = 16,
- };
- 
-+static const struct qcom_swrm_data swrm_v1_6_data = {
-+	.default_rows = 50,
-+	.default_cols = 16,
-+	.sw_clk_gate_required = true,
-+};
-+
- #define to_qcom_sdw(b)	container_of(b, struct qcom_swrm_ctrl, bus)
- 
- static int qcom_swrm_ahb_reg_read(struct qcom_swrm_ctrl *ctrl, int reg,
-@@ -1564,7 +1570,7 @@ static const struct dev_pm_ops swrm_dev_pm_ops = {
- static const struct of_device_id qcom_swrm_of_match[] = {
- 	{ .compatible = "qcom,soundwire-v1.3.0", .data = &swrm_v1_3_data },
- 	{ .compatible = "qcom,soundwire-v1.5.1", .data = &swrm_v1_5_data },
--	{ .compatible = "qcom,soundwire-v1.6.0", .data = &swrm_v1_5_data },
-+	{ .compatible = "qcom,soundwire-v1.6.0", .data = &swrm_v1_6_data },
- 	{/* sentinel */},
- };
- 
--- 
-2.7.4
+On Thu, Jun 09, 2022 at 03:35:41PM +0200, Amadeusz S=C5=82awi=C5=84ski wrot=
+e:
+> On our RVP platforms using rt298 with combojack we've seen issues with
+> controls being in incorrect state after suspend/resume cycle. This is
+> caused by codec driver not setting pins to correct state and causing
+> codec suspend method to not be called. Which on resume caused codec
+> registers to be in undefined state. Fix this by setting pins correctly
+> in jack detect function.
 
+Again fixes should go before cleanups.  Could you be more specific about
+what was wrong with the existing code and how this fixes it? =20
+
+>  static int rt298_mic_detect(struct snd_soc_component *component,
+>  			    struct snd_soc_jack *jack, void *data)
+>  {
+> +	struct snd_soc_dapm_context *dapm =3D snd_soc_component_get_dapm(compon=
+ent);
+>  	struct rt298_priv *rt298 =3D snd_soc_component_get_drvdata(component);
+> -	struct snd_soc_dapm_context *dapm;
+> -	bool hp =3D false;
+> -	bool mic =3D false;
+> -	int status =3D 0;
+> =20
+>  	rt298->jack =3D jack;
+> =20
+> -	/* If jack in NULL, disable HS jack */
+> -	if (!jack) {
+> +	if (jack) {
+> +		/* enable IRQ */
+> +		if (rt298->jack->status & SND_JACK_HEADPHONE)
+> +			snd_soc_dapm_force_enable_pin(dapm, "LDO1");
+> +		if (rt298->jack->status & SND_JACK_MICROPHONE) {
+> +			snd_soc_dapm_force_enable_pin(dapm, "HV");
+> +			snd_soc_dapm_force_enable_pin(dapm, "VREF");
+> +		}
+> +		regmap_update_bits(rt298->regmap, RT298_IRQ_CTRL, 0x2, 0x2);
+> +		enable_irq(rt298->i2c->irq);
+> +		snd_soc_jack_report(rt298->jack, rt298->jack->status,
+> +				    SND_JACK_MICROPHONE | SND_JACK_HEADPHONE);
+
+It looks rt298_jack_detect() already forces the pins on?  It's not clear
+to me what the relationship between this code and the existing code is.
+
+--NiWV1fROEGmrnV65
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmKiCcMACgkQJNaLcl1U
+h9C2Xwf+Mnr+dmbspVzPcjR6Hk5riTTuwtYA9+50NnSJcOJj81xc5kToWeHXFsQ5
+caBTnivGkcGg7K+3NnMFax+OO/FFxP5LHev3Jlt51AyksfDjvPl8mfY6u6S2cHwD
+qayVUI3oqfhq+PENab1L8lpucXC7OymzYL7Ol3mQhy/SEEz0ct6RfAA3HQL5v90D
+mWVhrcv6du/vCshSp4I1wW+6gjX/WtvwwmUA+5VA0k+DyRnRJnsHksfbH1zgLoOc
+Oyja0y9qwGDz0uJAMNynu78yjAHpxIxWbcLNrlwW/YEdIWb/5VP3FygLWh9DKmvW
+8IIsoRtzBdHLBrfJ0yYuUrUmbrGF6Q==
+=zCkW
+-----END PGP SIGNATURE-----
+
+--NiWV1fROEGmrnV65--

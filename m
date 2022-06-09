@@ -2,85 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7156F545535
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jun 2022 21:58:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF2E4545547
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jun 2022 22:04:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BB7131AD1;
-	Thu,  9 Jun 2022 21:57:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB7131AD1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 52E491EE6;
+	Thu,  9 Jun 2022 22:03:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 52E491EE6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654804716;
-	bh=gSO+qLuc8qtp/wzgQmhNQ7+NJ91g5Pot6Tsh7n4NrQg=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1654805068;
+	bh=omCqmKBYKKmVs6TAU+LiZ3tp3LFpOsYTSOZ+VCJdL9M=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=g/VhFSzA6v+0zTDXFP+rOk+qANZbSBdn0BPF0qPHrEjU+MK8uqu2vlkmi92GBhTwO
-	 Ue91ediErf+Ic5lqc59QzQK0sOT1u3bOfoHUaqYHVCxMz9/OqnErfFAttDg9KlGUtt
-	 pE5sNzmh+C+fcQAB9Bd+3R/LAnm2RUjg134uQ9Qw=
+	b=pZU/bkn6HRdWLdF9gpjHEApviPexGlNDBINzxQpKb1RFdYWBg532uDXrz5+ksjKrZ
+	 mbYOcfB2XX2z4JHiisBWw9IeGHCr6q+kzclsJ3GdedY7jfDuf6jKAczbrEPrHhRA05
+	 armD6A1q8SRtSopuXCsoQfuF8mStwP/ulDaK6Z9U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3368BF80240;
-	Thu,  9 Jun 2022 21:57:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C714CF80240;
+	Thu,  9 Jun 2022 22:03:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 95F37F801F5; Thu,  9 Jun 2022 21:57:35 +0200 (CEST)
+ id D4E5DF801F5; Thu,  9 Jun 2022 22:03:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-io1-f54.google.com (mail-io1-f54.google.com
+ [209.85.166.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BC205F800C7
- for <alsa-devel@alsa-project.org>; Thu,  9 Jun 2022 21:57:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC205F800C7
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="npiE0C3V"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1654804650; x=1686340650;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=gSO+qLuc8qtp/wzgQmhNQ7+NJ91g5Pot6Tsh7n4NrQg=;
- b=npiE0C3Vj33tUvn0GiyNNuBGxkxU4HeblkkP9smTAkkde/oyobwvgNRj
- c/hwNRFHyN40ab8W7udyclXRC+EO/cWnoDcFTfboPAS1ozJ2p8bzJWtLb
- pqcoQhqz3qI2hCpaPlSjmvtb349MtTjCcv0LnIUrLxKeaPWr5vaH6GVPv
- BMVlENzHUF3bOPcHq9RH5MxjYjmjhTOYJRKBo4MzKAUvviBvjWPpeLs6t
- saWPTa8k4P4Vt5/Q7bQUX67EXt27x67rJ3x+F05aJgGSjiMdFXjmlaUNr
- ga/A1M/Fq5Bxo3cPTTKQPG+KzOJGuNeFymQI/7k/QbkzBBP/r6NmzvteP w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10373"; a="277429861"
-X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="277429861"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2022 12:57:20 -0700
-X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="585777224"
-Received: from jeremywe-mobl3.amr.corp.intel.com (HELO [10.209.173.145])
- ([10.209.173.145])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2022 12:57:19 -0700
-Message-ID: <af6d9ad3-eca9-9721-4fc0-055752e3b6da@linux.intel.com>
-Date: Thu, 9 Jun 2022 14:57:19 -0500
+ by alsa1.perex.cz (Postfix) with ESMTPS id D71D2F800C7
+ for <alsa-devel@alsa-project.org>; Thu,  9 Jun 2022 22:03:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D71D2F800C7
+Received: by mail-io1-f54.google.com with SMTP id p69so4488696iod.0
+ for <alsa-devel@alsa-project.org>; Thu, 09 Jun 2022 13:03:19 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=YIBDdnaZYLksYYYPf5RgtDeURkWNaVlTx9hps6JOyrA=;
+ b=UOzp72S9tzj66DB51pgIfDhdzHzWDe8c7F//6s4JXoZzgg1eFfydXDc9qfiqRG9/j2
+ r1IMKmB03y2yBWYHK7iF5B4ChCoBKy4Lp76i3zWYFERrs6/U66uH60h0r4o9UPsYjfd4
+ CQPohqx6aX3TMIe/U793BHII8a8BYDq1G1LlshYo/LSlssd64uvIGfkLpvDFKUiKd+y6
+ 5SbD+sQrLHb2BDgB3gltT0gfUlFRm3z+MwsFVWhfN9teLwsF1RaG0SXdt3UCOMQ9LqiN
+ D+vhJvsCeAweiSD4AnN5Bcpy0b8H8nZowvj0R8XiaXR7tKGwNbGBBkd5R0TuHehgzH6h
+ UKsQ==
+X-Gm-Message-State: AOAM530/yjI3Xz31+3ObxIW4s7UlOtTo836BfLc/U7GU23zPIZ4wzVCc
+ jEvYqaAi0TjYQjoRky4C/A==
+X-Google-Smtp-Source: ABdhPJy0vfyMpwM45x4ogND18CT2vn+ZjeUa7zjShMYEiRxo1t+KyCiUektlzUYCaCXcm2mJGqeGzA==
+X-Received: by 2002:a05:6602:2a48:b0:669:3d64:c53b with SMTP id
+ k8-20020a0566022a4800b006693d64c53bmr13824103iov.77.1654804997929; 
+ Thu, 09 Jun 2022 13:03:17 -0700 (PDT)
+Received: from robh.at.kernel.org ([64.188.179.251])
+ by smtp.gmail.com with ESMTPSA id
+ a18-20020a6b6d12000000b0066938e02579sm7471108iod.38.2022.06.09.13.03.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 09 Jun 2022 13:03:17 -0700 (PDT)
+Received: (nullmailer pid 12357 invoked by uid 1000);
+ Thu, 09 Jun 2022 20:03:16 -0000
+Date: Thu, 9 Jun 2022 14:03:16 -0600
+From: Rob Herring <robh@kernel.org>
+To: Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>
+Subject: Re: [RFC PATCH v2 2/5] dt-bindings: sound: Add Apple Macs sound
+ peripherals
+Message-ID: <20220609200316.GA4097800-robh@kernel.org>
+References: <20220606191910.16580-1-povik+lin@cutebit.org>
+ <20220606191910.16580-3-povik+lin@cutebit.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.9.1
-Subject: Re: [PATCH v2 02/14] ASoC: Intel: avs: Add topology parsing
- infrastructure
-Content-Language: en-US
-To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org, 
- broonie@kernel.org
-References: <20220331135246.993089-1-cezary.rojewski@intel.com>
- <20220331135246.993089-3-cezary.rojewski@intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20220331135246.993089-3-cezary.rojewski@intel.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Cc: upstream@semihalf.com, harshapriya.n@intel.com, rad@semihalf.com,
- tiwai@suse.com, hdegoede@redhat.com, amadeuszx.slawinski@linux.intel.com,
- cujomalainey@chromium.org, lma@semihalf.com
+In-Reply-To: <20220606191910.16580-3-povik+lin@cutebit.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Sven Peter <sven@svenpeter.dev>, linux-kernel@vger.kernel.org,
+ Hector Martin <marcan@marcan.st>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ asahi@lists.linux.dev, Mark Kettenis <kettenis@openbsd.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,91 +100,203 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-> +static int
-> +avs_parse_uuid_token(struct snd_soc_component *comp, void *elem, void *object, u32 offset)
-> +{
-> +	struct snd_soc_tplg_vendor_value_elem *tuple = elem;
-> +	guid_t *val = (guid_t *)((u8 *)object + offset);
+On Mon, Jun 06, 2022 at 09:19:07PM +0200, Martin Povišer wrote:
+> Add binding for Apple Silicon Macs' machine-level integration of sound
+> peripherals.
+> 
+> Signed-off-by: Martin Povišer <povik+lin@cutebit.org>
+> ---
+>  .../bindings/sound/apple,macaudio.yaml        | 157 ++++++++++++++++++
+>  1 file changed, 157 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/apple,macaudio.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/apple,macaudio.yaml b/Documentation/devicetree/bindings/sound/apple,macaudio.yaml
+> new file mode 100644
+> index 000000000000..f7c12697beab
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/apple,macaudio.yaml
+> @@ -0,0 +1,157 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/apple,macaudio.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +	guid_copy((guid_t *)val, (const guid_t *)&tuple->value);
+> +title: Apple Silicon Macs integrated sound peripherals
 > +
-> +	return 0;
-> +}
+> +description: |
+> +  This binding represents the overall machine-level integration of sound
+> +  peripherals on 'Apple Silicon' machines by Apple.
+> +
+> +maintainers:
+> +  - Martin Povišer <povik+lin@cutebit.org>
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - enum:
+> +          - apple,j274-macaudio
+> +          - apple,j293-macaudio
+> +          - apple,j314-macaudio
+> +      - const: apple,macaudio
+> +
+> +  "#address-cells":
+> +    const: 1
+> +
+> +  "#size-cells":
+> +    const: 0
+> +
+> +  model:
+> +    description: |
 
-Cezary and Amadeusz, could you please look into this 'make W=1' error?
+Don't need '|' if there's no formatting to preserve.
 
-make allmodconfig
-make sound/soc/intel/avs/ W=1
+> +      Model name for presentation to users
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +
+> +patternProperties:
+> +  "^dai-link(@[0-9a-f]+)?$":
+> +    description: |
+> +      Node for each sound peripheral such as the speaker array, headphones jack,
+> +      or microphone.
+> +    type: object
 
-  GEN     Makefile
+blank line
 
-  CALL    /data/pbossart/ktest/work/scripts/checksyscalls.sh
+> +    properties:
+> +      reg:
+> +        maxItems: 1
+> +
+> +      link-name:
+> +        description: |
+> +          Name for the peripheral, expecting 'Speaker' or 'Speakers' if this is
+> +          the speaker array.
+> +        $ref: /schemas/types.yaml#/definitions/string
+> +
+> +      cpu:
+> +        type: object
 
-  CALL    /data/pbossart/ktest/work/scripts/atomic/check-atomics.sh
+           additionalProperties: false
 
-  DESCEND objtool
+blank line before properties.
 
-  CC [M]  sound/soc/intel/avs/topology.o
+> +        properties:
+> +          sound-dai:
+> +            description: |
+> +              DAI list with CPU-side I2S ports involved in this peripheral.
+> +            minItems: 1
+> +            maxItems: 2
 
-In file included from /data/pbossart/ktest/work/include/linux/string.h:253,
+blank line
 
-                 from /data/pbossart/ktest/work/include/linux/bitmap.h:11,
+> +        required:
+> +          - sound-dai
+> +
+> +      codec:
+> +        type: object
 
-                 from /data/pbossart/ktest/work/include/linux/cpumask.h:12,
+blank line
 
-                 from
-/data/pbossart/ktest/work/arch/x86/include/asm/cpumask.h:5,
+> +        properties:
+> +          sound-dai:
+> +            description: |
+> +              DAI list with the CODEC-side DAIs connected to the above CPU-side
+> +              DAIs and involved in this sound peripheral.
+> +
+> +              The list is in left/right order if applicable. If there are more
+> +              than one CPU-side DAIs (there can be two), the CODECs must be
+> +              listed first those connected to the first CPU, then those
+> +              connected to the second.
+> +
+> +              In addition, on some machines with many speaker codecs, the CODECs
+> +              are listed in this fixed order:
+> +
+> +              J293: Left Front, Left Rear, Right Front, Right Rear
+> +              J314: Left Woofer 1, Left Tweeter, Left Woofer 2,
+> +                    Right Woofer 1, Right Tweeter, Right Woofer 2
+> +            minItems: 1
+> +            maxItems: 8
 
-                 from
-/data/pbossart/ktest/work/arch/x86/include/asm/msr.h:11,
+blank line
 
-                 from
-/data/pbossart/ktest/work/arch/x86/include/asm/processor.h:22,
+> +        required:
+> +          - sound-dai
+> +
+> +    required:
+> +      - reg
+> +      - cpu
+> +      - codec
+> +
+> +    additionalProperties: false
 
-                 from
-/data/pbossart/ktest/work/arch/x86/include/asm/cpufeature.h:5,
+I prefer this to be above 'properties' in the indented cases. 
 
-                 from
-/data/pbossart/ktest/work/arch/x86/include/asm/thread_info.h:53,
-
-                 from
-/data/pbossart/ktest/work/include/linux/thread_info.h:60,
-
-                 from
-/data/pbossart/ktest/work/arch/x86/include/asm/preempt.h:7,
-
-                 from /data/pbossart/ktest/work/include/linux/preempt.h:78,
-
-                 from /data/pbossart/ktest/work/include/linux/spinlock.h:55,
-
-                 from /data/pbossart/ktest/work/include/linux/mmzone.h:8,
-
-                 from /data/pbossart/ktest/work/include/linux/gfp.h:6,
-
-                 from /data/pbossart/ktest/work/include/linux/firmware.h:7,
-
-                 from
-/data/pbossart/ktest/work/sound/soc/intel/avs/topology.c:9:
-
-In function ‘fortify_memcpy_chk’,
-
-    inlined from ‘guid_copy’ at
-/data/pbossart/ktest/work/include/linux/uuid.h:43:2,
-
-    inlined from ‘avs_parse_uuid_token’ at
-/data/pbossart/ktest/work/sound/soc/intel/avs/topology.c:134:2:
-
-/data/pbossart/ktest/work/include/linux/fortify-string.h:352:25: error:
-call to ‘__read_overflow2_field’ declared with attribute warning:
-detected read beyond size of field (2nd parameter); maybe use
-struct_group()? [-Werror=attribute-warning]
-
-  352 |                         __read_overflow2_field(q_size_field, size);
-
-      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-cc1: all warnings being treated as errors
-
-
-
+> +
+> +required:
+> +  - compatible
+> +  - model
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    mca: mca@9b600000 {
+> +      compatible = "apple,t6000-mca", "apple,mca";
+> +      reg = <0x9b600000 0x10000>,
+> +            <0x9b500000 0x20000>;
+> +
+> +      clocks = <&nco 0>, <&nco 1>, <&nco 2>, <&nco 3>;
+> +      power-domains = <&ps_audio_p>, <&ps_mca0>, <&ps_mca1>,
+> +                      <&ps_mca2>, <&ps_mca3>;
+> +      dmas = <&admac 0>, <&admac 1>, <&admac 2>, <&admac 3>,
+> +             <&admac 4>, <&admac 5>, <&admac 6>, <&admac 7>,
+> +             <&admac 8>, <&admac 9>, <&admac 10>, <&admac 11>,
+> +             <&admac 12>, <&admac 13>, <&admac 14>, <&admac 15>;
+> +      dma-names = "tx0a", "rx0a", "tx0b", "rx0b",
+> +                  "tx1a", "rx1a", "tx1b", "rx1b",
+> +                  "tx2a", "rx2a", "tx2b", "rx2b",
+> +                  "tx3a", "rx3a", "tx3b", "rx3b";
+> +
+> +      #sound-dai-cells = <1>;
+> +    };
+> +
+> +    sound {
+> +      compatible = "apple,j314-macaudio", "apple,macaudio";
+> +      model = "MacBook Pro J314 integrated audio";
+> +
+> +      #address-cells = <1>;
+> +      #size-cells = <0>;
+> +
+> +      dai-link@0 {
+> +        reg = <0>;
+> +        link-name = "Speakers";
+> +
+> +        cpu {
+> +          sound-dai = <&mca 0>, <&mca 1>;
+> +        };
+> +        codec {
+> +          sound-dai = <&speaker_left_woof1>,
+> +                      <&speaker_left_tweet>,
+> +                      <&speaker_left_woof2>,
+> +                      <&speaker_right_woof1>,
+> +                      <&speaker_right_tweet>,
+> +                      <&speaker_right_woof2>;
+> +        };
+> +      };
+> +
+> +      dai-link@1 {
+> +        reg = <1>;
+> +        link-name = "Headphones Jack";
+> +
+> +        cpu {
+> +          sound-dai = <&mca 2>;
+> +        };
+> +        codec {
+> +          sound-dai = <&jack_codec>;
+> +        };
+> +      };
+> +    };
+> -- 
+> 2.33.0
+> 
+> 

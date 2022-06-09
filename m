@@ -2,83 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DD6A545C70
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jun 2022 08:42:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E1A2545C71
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jun 2022 08:42:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CF5B12070;
-	Fri, 10 Jun 2022 08:41:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CF5B12070
+	by alsa0.perex.cz (Postfix) with ESMTPS id 134E91F8E;
+	Fri, 10 Jun 2022 08:41:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 134E91F8E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654843321;
-	bh=+g/rZ3qeDrK4A48IdvTYtN45u6GFX7MLAEaD6jQLlvc=;
+	s=default; t=1654843339;
+	bh=hC1rLhkHeCTCuDIYo33WVQJymSeOhItLSB3n5+EaIbg=;
 	h=Date:In-Reply-To:References:Subject:From:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XeAnMGwZXzPABlZJSVBar9YW6BjYVbEV6iiih7XdwxDCt3TDlDf5FIvuTHgXBRfNR
-	 sqLTUAwPUB7A9OIZuaTgErOeEx/i4qh+xi4ZNTgqWM/McVY/dccRx+tgemCWG9uct0
-	 uwgRSkqm6KazMjJun/McTXlLavd7kMDi67XwlaBg=
+	b=sAlMAQ8+nVVMdTQ/w71hhnLVPYvjLD8re0dk9Aj3X3caNv49Gw6CB5WoE+VYChJUK
+	 W7B/XevebM7pzMwy7o1qDHffbYF8KwFOpslOza5njU65Nu9GtN9SDLeqYtumqpkn64
+	 ujP4ZiKUzeMFYSfBb9Vk//DoNboHMnOJ4+Bt333U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7D7A7F80578;
-	Fri, 10 Jun 2022 08:37:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 389BDF80579;
+	Fri, 10 Jun 2022 08:37:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E7FF5F801F5; Fri, 10 Jun 2022 00:21:07 +0200 (CEST)
+ id 58C2AF801F5; Fri, 10 Jun 2022 00:21:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU, SPF_HELO_NONE, SPF_NONE, T_SCC_BODY_TEXT_LINE,
  USER_IN_DEF_DKIM_WL autolearn=disabled version=3.4.0
-Received: from mail-yb1-xb49.google.com (mail-yb1-xb49.google.com
- [IPv6:2607:f8b0:4864:20::b49])
+Received: from mail-pl1-x64a.google.com (mail-pl1-x64a.google.com
+ [IPv6:2607:f8b0:4864:20::64a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CF115F800E9
- for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 00:21:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF115F800E9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 19C75F800C7
+ for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 00:21:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 19C75F800C7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="rIM31hja"
-Received: by mail-yb1-xb49.google.com with SMTP id
- b11-20020a5b008b000000b00624ea481d55so21424250ybp.19
- for <alsa-devel@alsa-project.org>; Thu, 09 Jun 2022 15:21:04 -0700 (PDT)
+ header.b="i42901GY"
+Received: by mail-pl1-x64a.google.com with SMTP id
+ p2-20020a170902e74200b00164081f682cso13401558plf.16
+ for <alsa-devel@alsa-project.org>; Thu, 09 Jun 2022 15:21:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
  h=date:in-reply-to:message-id:mime-version:references:subject:from:to
- :cc; bh=v4Xn62a8gwv09PX197f2KX5K6c68JUg+Unaoh5Rs3zU=;
- b=rIM31hja6TacLFy83ekGaYY6NocbE3+qp06k1AYSWqT3YCOM3vKnexoLoVRg3/QFrC
- NK6lDPMraatUaGV4ysDVq7Ma73A8ej30mShvcnMynXPj4q1s4HwLXHsyE5NReacxVqEF
- SN/r5DNjRMP1h9Yx1PS5+t5PqoRBJ1DmF1KeRqex3FpyMoNRbYlXt2tQwLA6Cftv+3aS
- xU6s22QmO1Pl1Kwrbe6vsMz+d3Z4FRfHNfEK9twj222QTX3BVZNBOKgun1MV8xBDAQQA
- +IscNJZzBGaDfdE3Gg++zvAyvxAsnUQ0EJis1knVDwKv7m2aWEOPArINp5NiPyNi+Z2n
- h4Ig==
+ :cc; bh=+JW2n6LLjgkLeZpu0VrK7uVIniA8Omo9w9YQRrZ1ImQ=;
+ b=i42901GYNhaxsHQ0DOGoOky9iCPlDaMMKrye+1S6wrdYfiDoHAZcC7HTQX/ufq8JDc
+ FtLJH8ibG+4hcwJncrABH5MINqNlaiBQcg6AiUjnTwqlf664IuYPp0tvgNpDNS6s/GjQ
+ Wjh2TOa/isNuXc04yhOdZrj9wIAtXkGMKkDBH370v2doh3glFP/6lvE9gZpbXECpN/zv
+ UStKebGupQmmTtj2yMjnHwJiwJi/peKu25pYf9NTE11Ch6upWSa6FAa3CkIKEN5+Emo5
+ 3UDTgqdqaohZKI3Gp3XYmJjjv1YwnDPf8AUi3y1kFAWlFzS3PLERdXTH2sKpk0ltR6ij
+ /vAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:in-reply-to:message-id:mime-version
  :references:subject:from:to:cc;
- bh=v4Xn62a8gwv09PX197f2KX5K6c68JUg+Unaoh5Rs3zU=;
- b=pEmJQp+xQZIAWOnmvaR4hFE2RTKJQ7jJU7H884SyxKgHOIuGqWFx+7DY78ZvvzO0oX
- Y+ng20ho8dr60+MS7Sop6v9H0rMhA4ZTpKvkYXW59r+8E+hBO4bHu0cJgP47Kx/BUSGJ
- KzvgZEo0jLG+brOXGFnUxe2LD4Sy0Qvif4EIk+gMsvCkppFTqpEjXeuOv4HMFYJ1mL5i
- cftiAtBu4eze4ierJoXxFfpbAUMVdWHvQNpjeGFEX3zMPoNlOYFKTBTD5mRWpcQLOPc4
- GDSXFILo/Jhg5CCnqS8I40TWxyIq+3dAMMF/6443Auu12xCcwJCcquXr/KNMfiUgc9ZW
- UMwg==
-X-Gm-Message-State: AOAM530zEijO/LFWC3kgWMRlNWQrvsV2npXOkjs7sniPbUvD+2GbKkBn
- AcKgizGZ8sm4wsZ3sF+vzHj0I6hq
-X-Google-Smtp-Source: ABdhPJwSDxouzP8D6734EA8fpYrXSwixl1FJKKaGzKk8Ee6TEpQt79esVExDoO3PJGM+WWqOyJq6+ArWEg==
+ bh=+JW2n6LLjgkLeZpu0VrK7uVIniA8Omo9w9YQRrZ1ImQ=;
+ b=ojNlP0UpC75I8Sw5ST2+D1/7SByCguyZXWn+hRFyGKcrdMURkqImNWv0WPbvhXb9Du
+ f2xp0iw8LbqQ/OjXfbbWHkRgDbJidzIQiTnLKUsRHDCbj3pK7VQy5xTkEyJ1ldWb01wF
+ UswoFASbVlvCVHm0hcQUOyuUMCC78FDhTHrcxu3i5+47MfNxJmloVNw5TnB8T5rS5ZNr
+ xnvuAAXJtG1oieyr7dNQbPCQsyKuZkI5ByaZAi9BMuqqRMAptt9kFUhRPT1scDhtKko2
+ Iq4xCvEIeoefRNmgTBKLOKz3GDwaWQhThU+5w+0NVk6VUlYP295/YZd+CGWPlbVSaqyj
+ pDMg==
+X-Gm-Message-State: AOAM533r/jzU5TaFPhWNROa7etRQ4FiRBxt7X7ThC7U5dMbfgHGmXiUl
+ qBg1ys76pDMiNCOcgRiQHHBn7M6x
+X-Google-Smtp-Source: ABdhPJxwIiVK0GwVN12g3ZMNH56OyPQzBgCjPEweYrbMYHqEsJdgXTONzisCGHUJLebHzTiLq5Vb6Q5FXg==
 X-Received: from fawn.c.googlers.com ([fda3:e722:ac3:cc00:7f:e700:c0a8:5795])
- (user=morbo job=sendgmr) by 2002:a25:76d5:0:b0:663:ad77:8d48 with
+ (user=morbo job=sendgmr) by 2002:a63:409:0:b0:3fd:77f0:9a75 with
  SMTP id
- r204-20020a2576d5000000b00663ad778d48mr18678005ybc.633.1654813262959; Thu, 09
- Jun 2022 15:21:02 -0700 (PDT)
-Date: Thu,  9 Jun 2022 22:16:29 +0000
+ 9-20020a630409000000b003fd77f09a75mr25262295pge.149.1654813287223; Thu, 09
+ Jun 2022 15:21:27 -0700 (PDT)
+Date: Thu,  9 Jun 2022 22:16:30 +0000
 In-Reply-To: <20220609221702.347522-1-morbo@google.com>
-Message-Id: <20220609221702.347522-11-morbo@google.com>
+Message-Id: <20220609221702.347522-12-morbo@google.com>
 Mime-Version: 1.0
 References: <20220609221702.347522-1-morbo@google.com>
 X-Mailer: git-send-email 2.36.1.476.g0c4daa206d-goog
-Subject: [PATCH 10/12] ALSA: seq: use correct format characters
+Subject: [PATCH 11/12] ALSA: control: use correct format characters
 From: Bill Wendling <morbo@google.com>
 To: isanbard@gmail.com
 Content-Type: text/plain; charset="UTF-8"
@@ -123,31 +123,31 @@ From: Bill Wendling <isanbard@gmail.com>
 
 When compiling with -Wformat, clang emits the following warnings:
 
-sound/core/sound.c:79:17: error: format string is not a string literal (potentially insecure) [-Werror,-Wformat-security]
-        request_module(str);
-                       ^~~
+sound/core/control.c:2062:24: error: format string is not a string literal (potentially insecure) [-Werror,-Wformat-security]
+        return request_module(module_name);
+                              ^~~~~~~~~~~
 
 Use a string literal for the format string.
 
 Link: https://github.com/ClangBuiltLinux/linux/issues/378
 Signed-off-by: Bill Wendling <isanbard@gmail.com>
 ---
- sound/core/sound.c | 2 +-
+ sound/core/control.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/core/sound.c b/sound/core/sound.c
-index df5571d98629..7866f29621bf 100644
---- a/sound/core/sound.c
-+++ b/sound/core/sound.c
-@@ -76,7 +76,7 @@ static void snd_request_other(int minor)
- 	case SNDRV_MINOR_TIMER:		str = "snd-timer";	break;
- 	default:			return;
- 	}
--	request_module(str);
-+	request_module("%s", str);
+diff --git a/sound/core/control.c b/sound/core/control.c
+index a25c0d64d104..a1778137147d 100644
+--- a/sound/core/control.c
++++ b/sound/core/control.c
+@@ -2059,7 +2059,7 @@ int snd_ctl_request_layer(const char *module_name)
+ 	up_read(&snd_ctl_layer_rwsem);
+ 	if (lops)
+ 		return 0;
+-	return request_module(module_name);
++	return request_module("%s", module_name);
  }
+ EXPORT_SYMBOL_GPL(snd_ctl_request_layer);
  
- #endif	/* modular kernel */
 -- 
 2.36.1.255.ge46751e96f-goog
 

@@ -2,82 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7A155451AF
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jun 2022 18:14:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA55E5451BE
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jun 2022 18:20:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4EEED1AC9;
-	Thu,  9 Jun 2022 18:13:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4EEED1AC9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7B8201ACE;
+	Thu,  9 Jun 2022 18:19:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B8201ACE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654791271;
-	bh=EYCV9KXWa67qHXTbHuOyzbjwN2oWzDnG3cGXK7zFHZY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1654791648;
+	bh=Sw9swtcCuFzGTOEPhnQSoBscJC7KnU093sQPpzBUduw=;
+	h=Subject:From:In-Reply-To:Date:References:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IOxpzime0904rvs9lVKSFGb3Pe3X6RD9Zietexs0c/xFdi4d+hgiBwRPHz2soL8Xp
-	 NIVV/erksLBO/Dgp6d84CZsCGoB+3WmVgbWfOBgpeNFGEQWIXbC8XpSYR8Yt7nggS0
-	 ePuP9MAiHMcrtKL2vdg6xzyfKMFuC4aR/x4HW64I=
+	b=BbOTvaH5lMNb5Wd+ADY+BM/U9NdNvRW+vbRS2Q8A9DXuaWUu6RudcaCHnRdfedEup
+	 32fYwSduXIa5uWaUuA+h7upfHF2fldEReN51qY/C+mKRiIRd15YcJbNiav3OmiIVw4
+	 XQY8OM/0/deaCYGfyidRgQJDrGsq1QHp6+il/wOs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BD2BCF80240;
-	Thu,  9 Jun 2022 18:13:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DD0CBF80240;
+	Thu,  9 Jun 2022 18:19:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5804FF800E9; Thu,  9 Jun 2022 18:13:30 +0200 (CEST)
+ id EB84DF801F5; Thu,  9 Jun 2022 18:19:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com
- [209.85.128.172])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODYSUB_10,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from hutie.ust.cz (hutie.ust.cz [185.8.165.127])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 25910F800E9
- for <alsa-devel@alsa-project.org>; Thu,  9 Jun 2022 18:13:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25910F800E9
-Received: by mail-yw1-f172.google.com with SMTP id
- 00721157ae682-30c2f288f13so246181267b3.7
- for <alsa-devel@alsa-project.org>; Thu, 09 Jun 2022 09:13:23 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=gkr4kpyjyxhytcYi9ZJbG4/P8VjvDKac01TatzKEEwk=;
- b=rC7D9dCzudCmn5I7EA8FTFycVPNlwC3taoR6rS9BKapV7vZhU7zNUyX1OI16NtTchg
- cPJyEvDvYgiYh1kgcoQK3cQ0ZISEJrapWuzXTtEiLmlU6xjhfaKB6xynPja1bv9YTlun
- gI6T7pkL+finx5/6A/2JgAFPkmA+7Apxl6aL9B4XIGMiAl6eZW+/z0ERMCa8aAcr1F7v
- 2DpuPRaOlGDYkQPvLSYTmD2NKevrwx0tA0V1pBBz5ea5jFw+eYLsf2WfFotGV3D0lvg8
- /27EjXa9VEfLQAHHcgYaQAgVdzgGXDC501HDYr2gL97bYdFrRRXvQgWmpZMCHr/mAncM
- KIlA==
-X-Gm-Message-State: AOAM532ydYC4oluKv77TQh7jA9i3JvCfs3t3WBCG1Y5eVq8T2ATmdkNS
- uwL8qGWuaNuhsk9Sq2o41QFL/kmXN3FXCzIf/k4=
-X-Google-Smtp-Source: ABdhPJwSGkzpfsEK18MU6vMMd4SUuG5LxBOhyOXdJeWtJgk0AEJ/f4LOGlEeVAomvMsvJWoPBt+27hqVj1/fRtw+MGY=
-X-Received: by 2002:a0d:c442:0:b0:2fe:beab:1fef with SMTP id
- g63-20020a0dc442000000b002febeab1fefmr44227485ywd.196.1654791202217; Thu, 09
- Jun 2022 09:13:22 -0700 (PDT)
-MIME-Version: 1.0
-References: <1843211.tdWV9SEqCh@kreacher> <5296779.Sb9uPGUboI@kreacher>
- <63d7f3ed-b5a9-c869-5d25-a33a1d4e63c8@linux.intel.com>
-In-Reply-To: <63d7f3ed-b5a9-c869-5d25-a33a1d4e63c8@linux.intel.com>
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Thu, 9 Jun 2022 18:13:11 +0200
-Message-ID: <CAJZ5v0i7xtjrEOXgKiWP5St8OZoiZ4qq+gL62BFrmv-qpeaG_w@mail.gmail.com>
-Subject: Re: [PATCH v1 14/16] soundwire: Use acpi_dev_for_each_child()
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>, Linux PM <linux-pm@vger.kernel.org>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- "Rafael J. Wysocki" <rjw@rjwysocki.net>, LKML <linux-kernel@vger.kernel.org>,
- Linux ACPI <linux-acpi@vger.kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Hans de Goede <hdegoede@redhat.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8743DF80116
+ for <alsa-devel@alsa-project.org>; Thu,  9 Jun 2022 18:19:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8743DF80116
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=cutebit.org header.i=@cutebit.org
+ header.b="kd2Riq/F"
+Content-Type: text/plain;
+	charset=utf-8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cutebit.org; s=mail;
+ t=1654791578; bh=4oG/+gfqOkTh35XvvWAtX5REN3FZwalZARzou9YHdB4=;
+ h=Subject:From:In-Reply-To:Date:Cc:References:To;
+ b=kd2Riq/FkSbvoJq2jjAf5MBgfp6q/RYP7eGUCErvWm+Pc0yqe6Br5pbsGU0kyhXou
+ WDPbyTDjTow1Pf4Hs2LDNl7nBheIGLZdcovSs/jTdg8aYrDrO4ZaXPckBS7BU/FGVE
+ A83JrJ3SU+rSCE3/BmHsI4XgoBLjxwceApHMXgZ0=
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3696.80.82.1.1\))
+Subject: Re: [RFC PATCH v2 5/5] ASoC: apple: Add macaudio machine driver
+From: =?utf-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>
+In-Reply-To: <YqIWtzphzVGmbIOe@sirena.org.uk>
+Date: Thu, 9 Jun 2022 18:19:37 +0200
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <4DA6EE04-D23B-437B-8FBA-9223EAA71219@cutebit.org>
+References: <20220606191910.16580-1-povik+lin@cutebit.org>
+ <20220606191910.16580-6-povik+lin@cutebit.org>
+ <YqHylN3xba9XFrF8@sirena.org.uk>
+ <0E611F13-96E3-41FD-9550-F900B2EFB00A@cutebit.org>
+ <YqILv21K+tZ00Qhx@sirena.org.uk>
+ <2A0422B8-8367-457E-A146-730F7C3DE66B@cutebit.org>
+ <YqIWtzphzVGmbIOe@sirena.org.uk>
+To: Mark Brown <broonie@kernel.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Sven Peter <sven@svenpeter.dev>, linux-kernel@vger.kernel.org,
+ Hector Martin <marcan@marcan.st>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ asahi@lists.linux.dev, Mark Kettenis <kettenis@openbsd.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,148 +84,75 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Jun 9, 2022 at 5:23 PM Pierre-Louis Bossart
-<pierre-louis.bossart@linux.intel.com> wrote:
->
-> Thanks Rafael. This looks mostly good but I have a doubt on the error
-> handling, see below.
->
-> > +static int sdw_acpi_check_duplicate(struct acpi_device *adev, void *data)
-> > +{
-> > +     struct sdw_acpi_child_walk_data *cwd = data;
-> > +     struct sdw_bus *bus = cwd->bus;
-> > +     struct sdw_slave_id id;
-> > +
-> > +     if (adev == cwd->adev)
-> > +             return 0;
-> > +
-> > +     if (!find_slave(bus, adev, &id))
-> > +             return 0;
-> > +
-> > +     if (cwd->id.sdw_version != id.sdw_version || cwd->id.mfg_id != id.mfg_id ||
-> > +         cwd->id.part_id != id.part_id || cwd->id.class_id != id.class_id)
-> > +             return 0;
-> > +
-> > +     if (cwd->id.unique_id != id.unique_id) {
-> > +             dev_dbg(bus->dev,
-> > +                     "Valid unique IDs 0x%x 0x%x for Slave mfg_id 0x%04x, part_id 0x%04x\n",
-> > +                     cwd->id.unique_id, id.unique_id, cwd->id.mfg_id,
-> > +                     cwd->id.part_id);
-> > +             cwd->ignore_unique_id = false;
-> > +             return 0;
-> > +     }
-> > +
-> > +     dev_err(bus->dev,
-> > +             "Invalid unique IDs 0x%x 0x%x for Slave mfg_id 0x%04x, part_id 0x%04x\n",
-> > +             cwd->id.unique_id, id.unique_id, cwd->id.mfg_id, cwd->id.part_id);
-> > +     return -ENODEV;
->
-> if this error happens, I would guess it's reported ....
->
-> > +}
-> > +
-> > +static int sdw_acpi_find_one(struct acpi_device *adev, void *data)
-> > +{
-> > +     struct sdw_bus *bus = data;
-> > +     struct sdw_acpi_child_walk_data cwd = {
-> > +             .bus = bus,
-> > +             .adev = adev,
-> > +             .ignore_unique_id = true,
-> > +     };
-> > +     int ret;
-> > +
-> > +     if (!find_slave(bus, adev, &cwd.id))
-> > +             return 0;
-> > +
-> > +     /* Brute-force O(N^2) search for duplicates. */
-> > +     ret = acpi_dev_for_each_child(ACPI_COMPANION(bus->dev),
-> > +                                   sdw_acpi_check_duplicate, &cwd);
-> > +     if (ret)
-> > +             return ret;
->
-> ... here, but I don't see this being propagated further...
->
-> > +
-> > +     if (cwd.ignore_unique_id)
-> > +             cwd.id.unique_id = SDW_IGNORED_UNIQUE_ID;
-> > +
-> > +     /* Ignore errors and continue. */
-> > +     sdw_slave_add(bus, &cwd.id, acpi_fwnode_handle(adev));
-> > +     return 0;
-> > +}
-> > +
-> >  /*
-> >   * sdw_acpi_find_slaves() - Find Slave devices in Master ACPI node
-> >   * @bus: SDW bus instance
-> > @@ -135,8 +200,7 @@ static bool find_slave(struct sdw_bus *b
-> >   */
-> >  int sdw_acpi_find_slaves(struct sdw_bus *bus)
-> >  {
-> > -     struct acpi_device *adev, *parent;
-> > -     struct acpi_device *adev2, *parent2;
-> > +     struct acpi_device *parent;
-> >
-> >       parent = ACPI_COMPANION(bus->dev);
-> >       if (!parent) {
-> > @@ -144,52 +208,7 @@ int sdw_acpi_find_slaves(struct sdw_bus
-> >               return -ENODEV;
-> >       }
-> >
-> > -     list_for_each_entry(adev, &parent->children, node) {
-> > -             struct sdw_slave_id id;
-> > -             struct sdw_slave_id id2;
-> > -             bool ignore_unique_id = true;
-> > -
-> > -             if (!find_slave(bus, adev, &id))
-> > -                     continue;
-> > -
-> > -             /* brute-force O(N^2) search for duplicates */
-> > -             parent2 = parent;
-> > -             list_for_each_entry(adev2, &parent2->children, node) {
-> > -
-> > -                     if (adev == adev2)
-> > -                             continue;
-> > -
-> > -                     if (!find_slave(bus, adev2, &id2))
-> > -                             continue;
-> > -
-> > -                     if (id.sdw_version != id2.sdw_version ||
-> > -                         id.mfg_id != id2.mfg_id ||
-> > -                         id.part_id != id2.part_id ||
-> > -                         id.class_id != id2.class_id)
-> > -                             continue;
-> > -
-> > -                     if (id.unique_id != id2.unique_id) {
-> > -                             dev_dbg(bus->dev,
-> > -                                     "Valid unique IDs 0x%x 0x%x for Slave mfg_id 0x%04x, part_id 0x%04x\n",
-> > -                                     id.unique_id, id2.unique_id, id.mfg_id, id.part_id);
-> > -                             ignore_unique_id = false;
-> > -                     } else {
-> > -                             dev_err(bus->dev,
-> > -                                     "Invalid unique IDs 0x%x 0x%x for Slave mfg_id 0x%04x, part_id 0x%04x\n",
-> > -                                     id.unique_id, id2.unique_id, id.mfg_id, id.part_id);
-> > -                             return -ENODEV;
-> > -                     }
-> > -             }
-> > -
-> > -             if (ignore_unique_id)
-> > -                     id.unique_id = SDW_IGNORED_UNIQUE_ID;
-> > -
-> > -             /*
-> > -              * don't error check for sdw_slave_add as we want to continue
-> > -              * adding Slaves
-> > -              */
-> > -             sdw_slave_add(bus, &id, acpi_fwnode_handle(adev));
-> > -     }
-> > +     acpi_dev_for_each_child(parent, sdw_acpi_find_one, bus);
->
-> ... here?
->
-> It looks like a change in the error handling flow where
-> sdw_acpi_find_slaves() is now returning 0 (success) always?
->
-> Shouldn't the return of sdw_acpi_find_one() be trapped, e.g. with
->
-> return acpi_dev_for_each_child(parent, sdw_acpi_find_one, bus);
 
-Sure, I'll do that.  Thanks!
+> On 9. 6. 2022, at 17:50, Mark Brown <broonie@kernel.org> wrote:
+>=20
+> On Thu, Jun 09, 2022 at 05:24:49PM +0200, Martin Povi=C5=A1er wrote:
+>>> On 9. 6. 2022, at 17:03, Mark Brown <broonie@kernel.org> wrote:
+>=20
+> Why is this off list?
+
+By accident, added the CC list back with this reply (hopefully it
+still attaches to the thread when people receive it).
+
+>>> That's basically no userspaces at this point TBH.  I'm not convinced
+>>> it's a good idea to be adding custom code for that use case.
+>>=20
+>> FWIW I know of at least one user of the WIP audio support on Macs who
+>> would welcome this feature. My preference is to keep it in, but in
+>> the end I guess it=E2=80=99s your call.
+>=20
+> I'd rather not have this open coded in individual drivers, we already
+> have an unfortunate abundance of jack detection interfaces.  If we're
+> going to add anything I'd rather it were in core code and TBH I'm
+> struggling to be enthusiastic.
+
+Noted.
+
+> Can you say anything more about the use case?
+
+I can restate: The alleged use case is running userspace without sound
+server, but having playback switch transparently between speakers and
+headphones even mid-stream based on jack detection.
+
+>>>> I looked at the existing DAPM integration but I couldn=E2=80=99t =
+figure out
+>>>> how to switch the demux with it.
+>=20
+>>> Yes, it won't do that.  If you can't stream the same audio to both =
+then
+>>> you'd need something else.
+>=20
+>> I don=E2=80=99t understand what=E2=80=99s meant by streaming the same =
+audio here.
+>=20
+> Playing one audio stream from the host which appears on both speakers
+> and headphones - I don't know what the mixing and muxing capabilities =
+of
+> the hardware are.
+>=20
+>> Taking a guess: The existing DAPM integration can enable the =
+headphones
+>> path based on jack being plugged in, but it can=E2=80=99t disable the =
+speakers
+>> path like the demux does?
+>=20
+> No, that works perfectly fine - you can enable or disable pins =
+depending
+> on the jack state.
+
+Ah, I peeked into soc-jack.c. What about this then: If I understand what
+pins represent, they would be at the remote end of the DAPM paths. So if
+for the speakers I add something like
+
+   Headphones Codec Out =E2=80=94> Jack pin
+
+                       +--> Always-on pin
+                       |
+   Speaker Amp Out -> Mux
+                       |
+                       +--> Jack inverted pin
+
+and let userspace control the mux, it would in effect support the same
+use cases as what I attempted in the code so far. Sounds somewhat right?
+

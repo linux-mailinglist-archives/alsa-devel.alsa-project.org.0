@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAD395441EF
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jun 2022 05:30:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 612D25441F1
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jun 2022 05:30:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2D8631FF6;
-	Thu,  9 Jun 2022 05:29:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D8631FF6
+	by alsa0.perex.cz (Postfix) with ESMTPS id B9B3C201F;
+	Thu,  9 Jun 2022 05:30:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9B3C201F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654745435;
-	bh=Fe9/sdIZlBX9WRfeu6H3/svHftYk8QUcBTaxc1q5eIk=;
+	s=default; t=1654745456;
+	bh=YzQO5LQL20SvEyLqs0cYymJYkH26JElERs9B3uuEJLg=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=smX0Rx+8MmhTLTMit6ww4ngogRDY22y6Z2aP1eitES5ofbtX4RcXfMdOwzN4vsBZU
-	 30O22tPpcqK2j6NxiElsapAZWxGZTB/2Hnwe1f59Q+FplcKu2kZKeVWuXLJcmSDovt
-	 g/hwxzxBfQ5pRbOC7K/LKScqZOtfK7Xg/88uBp78=
+	b=cb0tXjN9viJ1BptoqGyxtvdunXOIdzoaDeITX8m+9hwiLHyZpqpVbzHOSSIE2O2Fk
+	 TmG1JbNWBX/szvPichh7Fc6ceP0yPfKKCBioJYXqnyvc3tuf3SQsjh1aQVqrbFqigh
+	 uVALO/4vJAsZZPmuUIW0q7kJezGt//2nI2aaDbSE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2D378F80588;
-	Thu,  9 Jun 2022 05:27:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 90AC0F805AE;
+	Thu,  9 Jun 2022 05:27:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 044FAF80588; Thu,  9 Jun 2022 05:27:31 +0200 (CEST)
+ id CE681F80587; Thu,  9 Jun 2022 05:27:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,50 +34,51 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5726CF8052F
+ by alsa1.perex.cz (Postfix) with ESMTPS id DB678F80536
  for <alsa-devel@alsa-project.org>; Thu,  9 Jun 2022 05:27:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5726CF8052F
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB678F80536
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="eEzIisxJ"
+ header.b="nBDs7U8q"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1654745238; x=1686281238;
+ t=1654745239; x=1686281239;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Fe9/sdIZlBX9WRfeu6H3/svHftYk8QUcBTaxc1q5eIk=;
- b=eEzIisxJIHYRjDzMsgpS3cmcmU6rtxC9JiwjfNTg06URQJoc8Pl6axWr
- LV3LI19B2Q75WfOBUe3po0FIsREov7bWpIwQ8yX7FCLicne5GsbwBMsOV
- ms0ykg3UPTgT+SQowjqEh/bCj+6gRtj8ZumaOp33KzvOv+5KpW7hv82Fl
- okDe/nbSd/LkHLliZivbdCDqN/NT4qiHW5ZKHNFe40tXtWSbOSAO7OVM8
- 8Gdd3Hemv26PXbt79Um2d3VieMsGb3hHnhRvzWbkeJp444SxTDWgwPpI+
- gB0dwaNtpe/1x7/E0clIG9Lc7D2UaGjhRWNnen8Ds2oMapCdv6juIJwLz w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10372"; a="341219560"
-X-IronPort-AV: E=Sophos;i="5.91,287,1647327600"; d="scan'208";a="341219560"
+ bh=YzQO5LQL20SvEyLqs0cYymJYkH26JElERs9B3uuEJLg=;
+ b=nBDs7U8qSR72KZyphsg15j0l5GhJvqWQX0es5d2NtXwC9zCZeG5oX1cB
+ 4nfJUBaMQjhAfEOx9gXzRFDcV3IN1l3D4Kci4WCFiU5rPYnDdfifRp3rh
+ y3MQ8B84EKEQiWfp04rYfnUJxSL2qGdxRIlH5GlUoGKuEJvaC/ezbtEcE
+ 17oYT2Iea4zfTXCiovuzuPw4got1HO859CRtglpPUIWN/2O5Dx6OCNzND
+ zpn5WLXj7OboKoJb2MR3xlm/sLKltmsPaRxq67a5M6+4kKL1Y7pAy2mtf
+ mBizVdDC4djzjOqaKTOds2x0rdsgxTT6iEqD0K5xbh9CWkNwZcUDINGSx Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10372"; a="341219561"
+X-IronPort-AV: E=Sophos;i="5.91,287,1647327600"; d="scan'208";a="341219561"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jun 2022 20:26:59 -0700
-X-IronPort-AV: E=Sophos;i="5.91,287,1647327600"; d="scan'208";a="585260243"
+ 08 Jun 2022 20:27:00 -0700
+X-IronPort-AV: E=Sophos;i="5.91,287,1647327600"; d="scan'208";a="585260244"
 Received: from mandalag-mobl.amr.corp.intel.com (HELO
  rsridh2-mobl1.localdomain) ([10.254.38.40])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  08 Jun 2022 20:26:59 -0700
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 11/23] ASoC: SOF: IPC4: Add pcm ops
-Date: Wed,  8 Jun 2022 20:26:31 -0700
-Message-Id: <20220609032643.916882-12-ranjani.sridharan@linux.intel.com>
+Subject: [PATCH 12/23] ASoC: SOF: ipc4-topology: Add widget_setup/widget_free
+ ops
+Date: Wed,  8 Jun 2022 20:26:32 -0700
+Message-Id: <20220609032643.916882-13-ranjani.sridharan@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220609032643.916882-1-ranjani.sridharan@linux.intel.com>
 References: <20220609032643.916882-1-ranjani.sridharan@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- broonie@kernel.org, Yaochun Hung <yc.hung@mediatek.com>,
+Cc: tiwai@suse.de,
  =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, broonie@kernel.org,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
  Rander Wang <rander.wang@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -94,293 +95,158 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Define and set the PCM ops for IPC4.
+Define and set the widget_setup/widget_free ops for IPC4.
 
 Co-developed-by: Rander Wang <rander.wang@linux.intel.com>
 Signed-off-by: Rander Wang <rander.wang@linux.intel.com>
 Co-developed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Yaochun Hung <yc.hung@mediatek.com>
-Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 ---
- sound/soc/sof/Makefile    |   2 +-
- sound/soc/sof/ipc4-pcm.c  | 229 ++++++++++++++++++++++++++++++++++++++
- sound/soc/sof/ipc4-priv.h |   1 +
- sound/soc/sof/ipc4.c      |   1 +
- 4 files changed, 232 insertions(+), 1 deletion(-)
- create mode 100644 sound/soc/sof/ipc4-pcm.c
+ sound/soc/sof/ipc4-topology.c | 123 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 123 insertions(+)
 
-diff --git a/sound/soc/sof/Makefile b/sound/soc/sof/Makefile
-index 1e15937f2bde..2fa8088707a8 100644
---- a/sound/soc/sof/Makefile
-+++ b/sound/soc/sof/Makefile
-@@ -4,7 +4,7 @@ snd-sof-objs := core.o ops.o loader.o ipc.o pcm.o pm.o debug.o topology.o\
- 		control.o trace.o iomem-utils.o sof-audio.o stream-ipc.o\
- 		ipc3-topology.o ipc3-control.o ipc3.o ipc3-pcm.o ipc3-loader.o\
- 		ipc3-dtrace.o\
--		ipc4.o ipc4-loader.o ipc4-topology.o ipc4-control.o
-+		ipc4.o ipc4-loader.o ipc4-topology.o ipc4-control.o ipc4-pcm.o
- ifneq ($(CONFIG_SND_SOC_SOF_CLIENT),)
- snd-sof-objs += sof-client.o
- endif
-diff --git a/sound/soc/sof/ipc4-pcm.c b/sound/soc/sof/ipc4-pcm.c
-new file mode 100644
-index 000000000000..7a56fba8f1d9
---- /dev/null
-+++ b/sound/soc/sof/ipc4-pcm.c
-@@ -0,0 +1,229 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
-+//
-+// This file is provided under a dual BSD/GPLv2 license.  When using or
-+// redistributing this file, you may do so under either license.
-+//
-+// Copyright(c) 2022 Intel Corporation. All rights reserved.
-+//
-+
-+#include <sound/pcm_params.h>
-+#include <sound/sof/ipc4/header.h>
-+#include "sof-audio.h"
-+#include "sof-priv.h"
-+#include "ipc4-priv.h"
-+#include "ipc4-topology.h"
-+
-+static int sof_ipc4_set_pipeline_state(struct snd_sof_dev *sdev, u32 id, u32 state)
+diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
+index 3cebd6fe7cd1..44f65b8b526a 100644
+--- a/sound/soc/sof/ipc4-topology.c
++++ b/sound/soc/sof/ipc4-topology.c
+@@ -1078,6 +1078,127 @@ static int sof_ipc4_control_setup(struct snd_sof_dev *sdev, struct snd_sof_contr
+ 	return 0;
+ }
+ 
++static int sof_ipc4_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget *swidget)
 +{
-+	struct sof_ipc4_msg msg = {{ 0 }};
-+	u32 primary;
++	struct snd_sof_widget *pipe_widget = swidget->pipe_widget;
++	struct sof_ipc4_pipeline *pipeline;
++	struct sof_ipc4_msg *msg;
++	void *ipc_data = NULL;
++	u32 ipc_size = 0;
++	int ret;
 +
-+	dev_dbg(sdev->dev, "ipc4 set pipeline %d state %d", id, state);
++	dev_dbg(sdev->dev, "Create widget %s instance %d - pipe %d - core %d\n",
++		swidget->widget->name, swidget->instance_id, swidget->pipeline_id, swidget->core);
 +
-+	primary = state;
-+	primary |= SOF_IPC4_GLB_PIPE_STATE_ID(id);
-+	primary |= SOF_IPC4_MSG_TYPE_SET(SOF_IPC4_GLB_SET_PIPELINE_STATE);
-+	primary |= SOF_IPC4_MSG_DIR(SOF_IPC4_MSG_REQUEST);
-+	primary |= SOF_IPC4_MSG_TARGET(SOF_IPC4_FW_GEN_MSG);
++	switch (swidget->id) {
++	case snd_soc_dapm_scheduler:
++		pipeline = swidget->private;
 +
-+	msg.primary = primary;
++		dev_dbg(sdev->dev, "pipeline: %d memory pages: %d\n", swidget->pipeline_id,
++			pipeline->mem_usage);
 +
-+	return sof_ipc_tx_message(sdev->ipc, &msg, 0, NULL, 0);
++		msg = &pipeline->msg;
++		msg->primary |= pipeline->mem_usage;
++		break;
++	case snd_soc_dapm_aif_in:
++	case snd_soc_dapm_aif_out:
++	{
++		struct sof_ipc4_copier *ipc4_copier = swidget->private;
++
++		ipc_size = ipc4_copier->ipc_config_size;
++		ipc_data = ipc4_copier->ipc_config_data;
++
++		msg = &ipc4_copier->msg;
++		break;
++	}
++	case snd_soc_dapm_dai_in:
++	case snd_soc_dapm_dai_out:
++	{
++		struct snd_sof_dai *dai = swidget->private;
++		struct sof_ipc4_copier *ipc4_copier = dai->private;
++
++		ipc_size = ipc4_copier->ipc_config_size;
++		ipc_data = ipc4_copier->ipc_config_data;
++
++		msg = &ipc4_copier->msg;
++		break;
++	}
++	case snd_soc_dapm_pga:
++	{
++		struct sof_ipc4_gain *gain = swidget->private;
++
++		ipc_size = sizeof(struct sof_ipc4_base_module_cfg) +
++			   sizeof(struct sof_ipc4_gain_data);
++		ipc_data = gain;
++
++		msg = &gain->msg;
++		break;
++	}
++	case snd_soc_dapm_mixer:
++	{
++		struct sof_ipc4_mixer *mixer = swidget->private;
++
++		ipc_size = sizeof(mixer->base_config);
++		ipc_data = &mixer->base_config;
++
++		msg = &mixer->msg;
++		break;
++	}
++	default:
++		dev_err(sdev->dev, "widget type %d not supported", swidget->id);
++		return -EINVAL;
++	}
++
++	if (swidget->id != snd_soc_dapm_scheduler) {
++		pipeline = pipe_widget->private;
++		msg->primary &= ~SOF_IPC4_MOD_INSTANCE_MASK;
++		msg->primary |= SOF_IPC4_MOD_INSTANCE(swidget->instance_id);
++
++		msg->extension &= ~SOF_IPC4_MOD_EXT_PARAM_SIZE_MASK;
++		msg->extension |= ipc_size >> 2;
++		msg->extension &= ~SOF_IPC4_MOD_EXT_DOMAIN_MASK;
++		msg->extension |= SOF_IPC4_MOD_EXT_DOMAIN(pipeline->lp_mode);
++	}
++
++	msg->data_size = ipc_size;
++	msg->data_ptr = ipc_data;
++
++	ret = sof_ipc_tx_message(sdev->ipc, msg, ipc_size, NULL, 0);
++	if (ret < 0)
++		dev_err(sdev->dev, "failed to create module %s\n", swidget->widget->name);
++
++	return ret;
 +}
 +
-+static int sof_ipc4_trigger_pipelines(struct snd_soc_component *component,
-+				      struct snd_pcm_substream *substream, int state)
++static int sof_ipc4_widget_free(struct snd_sof_dev *sdev, struct snd_sof_widget *swidget)
 +{
-+	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(component);
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-+	struct snd_sof_widget *pipeline_widget;
-+	struct snd_soc_dapm_widget_list *list;
-+	struct snd_soc_dapm_widget *widget;
-+	struct sof_ipc4_pipeline *pipeline;
-+	struct snd_sof_widget *swidget;
-+	struct snd_sof_pcm *spcm;
 +	int ret = 0;
-+	int num_widgets;
 +
-+	spcm = snd_sof_find_spcm_dai(component, rtd);
-+	if (!spcm)
-+		return -EINVAL;
++	/* freeing a pipeline frees all the widgets associated with it */
++	if (swidget->id == snd_soc_dapm_scheduler) {
++		struct sof_ipc4_pipeline *pipeline = swidget->private;
++		struct sof_ipc4_msg msg = {{ 0 }};
++		u32 header;
 +
-+	list = spcm->stream[substream->stream].list;
++		header = SOF_IPC4_GLB_PIPE_INSTANCE_ID(swidget->pipeline_id);
++		header |= SOF_IPC4_MSG_TYPE_SET(SOF_IPC4_GLB_DELETE_PIPELINE);
++		header |= SOF_IPC4_MSG_DIR(SOF_IPC4_MSG_REQUEST);
++		header |= SOF_IPC4_MSG_TARGET(SOF_IPC4_FW_GEN_MSG);
 +
-+	for_each_dapm_widgets(list, num_widgets, widget) {
-+		swidget = widget->dobj.private;
++		msg.primary = header;
 +
-+		if (!swidget)
-+			continue;
++		ret = sof_ipc_tx_message(sdev->ipc, &msg, 0, NULL, 0);
++		if (ret < 0)
++			dev_err(sdev->dev, "failed to free pipeline widget %s\n",
++				swidget->widget->name);
 +
-+		/*
-+		 * set pipeline state for both FE and BE pipelines for RUNNING state.
-+		 * For PAUSE/RESET, set the pipeline state only for the FE pipeline.
-+		 */
-+		switch (state) {
-+		case SOF_IPC4_PIPE_PAUSED:
-+		case SOF_IPC4_PIPE_RESET:
-+			if (!WIDGET_IS_AIF(swidget->id))
-+				continue;
-+			break;
-+		default:
-+			break;
-+		}
-+
-+		/* find pipeline widget for the pipeline that this widget belongs to */
-+		pipeline_widget = swidget->pipe_widget;
-+		pipeline = (struct sof_ipc4_pipeline *)pipeline_widget->private;
-+
-+		if (pipeline->state == state)
-+			continue;
-+
-+		/* first set the pipeline to PAUSED state */
-+		if (pipeline->state != SOF_IPC4_PIPE_PAUSED) {
-+			ret = sof_ipc4_set_pipeline_state(sdev, swidget->pipeline_id,
-+							  SOF_IPC4_PIPE_PAUSED);
-+			if (ret < 0) {
-+				dev_err(sdev->dev, "failed to pause pipeline %d\n",
-+					swidget->pipeline_id);
-+				return ret;
-+			}
-+		}
-+
-+		pipeline->state = SOF_IPC4_PIPE_PAUSED;
-+
-+		if (pipeline->state == state)
-+			continue;
-+
-+		/* then set the final state */
-+		ret = sof_ipc4_set_pipeline_state(sdev, swidget->pipeline_id, state);
-+		if (ret < 0) {
-+			dev_err(sdev->dev, "failed to set state %d for pipeline %d\n",
-+				state, swidget->pipeline_id);
-+			break;
-+		}
-+
-+		pipeline->state = state;
++		pipeline->mem_usage = 0;
++		pipeline->state = SOF_IPC4_PIPE_UNINITIALIZED;
 +	}
 +
 +	return ret;
 +}
 +
-+static int sof_ipc4_pcm_trigger(struct snd_soc_component *component,
-+				struct snd_pcm_substream *substream, int cmd)
-+{
-+	int state;
-+
-+	/* determine the pipeline state */
-+	switch (cmd) {
-+	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-+		state = SOF_IPC4_PIPE_PAUSED;
-+		break;
-+	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-+	case SNDRV_PCM_TRIGGER_RESUME:
-+	case SNDRV_PCM_TRIGGER_START:
-+		state = SOF_IPC4_PIPE_RUNNING;
-+		break;
-+	case SNDRV_PCM_TRIGGER_SUSPEND:
-+	case SNDRV_PCM_TRIGGER_STOP:
-+		state = SOF_IPC4_PIPE_PAUSED;
-+		break;
-+	default:
-+		dev_err(component->dev, "%s: unhandled trigger cmd %d\n", __func__, cmd);
-+		return -EINVAL;
-+	}
-+
-+	/* set the pipeline state */
-+	return sof_ipc4_trigger_pipelines(component, substream, state);
-+}
-+
-+static int sof_ipc4_pcm_hw_free(struct snd_soc_component *component,
-+				struct snd_pcm_substream *substream)
-+{
-+	return sof_ipc4_trigger_pipelines(component, substream, SOF_IPC4_PIPE_RESET);
-+}
-+
-+static void ipc4_ssp_dai_config_pcm_params_match(struct snd_sof_dev *sdev, const char *link_name,
-+						 struct snd_pcm_hw_params *params)
-+{
-+	struct snd_sof_dai_link *slink;
-+	struct snd_sof_dai *dai;
-+	bool dai_link_found = false;
-+	int i;
-+
-+	list_for_each_entry(slink, &sdev->dai_link_list, list) {
-+		if (!strcmp(slink->link->name, link_name)) {
-+			dai_link_found = true;
-+			break;
-+		}
-+	}
-+
-+	if (!dai_link_found)
-+		return;
-+
-+	for (i = 0; i < slink->num_hw_configs; i++) {
-+		struct snd_soc_tplg_hw_config *hw_config = &slink->hw_configs[i];
-+
-+		if (params_rate(params) == le32_to_cpu(hw_config->fsync_rate)) {
-+			/* set current config for all DAI's with matching name */
-+			list_for_each_entry(dai, &sdev->dai_list, list)
-+				if (!strcmp(slink->link->name, dai->name))
-+					dai->current_config = le32_to_cpu(hw_config->id);
-+			break;
-+		}
-+	}
-+}
-+
-+static int sof_ipc4_pcm_dai_link_fixup(struct snd_soc_pcm_runtime *rtd,
-+				       struct snd_pcm_hw_params *params)
-+{
-+	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, SOF_AUDIO_PCM_DRV_NAME);
-+	struct snd_sof_dai *dai = snd_sof_find_dai(component, rtd->dai_link->name);
-+	struct snd_mask *fmt = hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT);
-+	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(component);
-+	struct sof_ipc4_copier *ipc4_copier;
-+	struct snd_soc_dpcm *dpcm;
-+
-+	if (!dai) {
-+		dev_err(component->dev, "%s: No DAI found with name %s\n", __func__,
-+			rtd->dai_link->name);
-+		return -EINVAL;
-+	}
-+
-+	ipc4_copier = dai->private;
-+	if (!ipc4_copier) {
-+		dev_err(component->dev, "%s: No private data found for DAI %s\n",
-+			__func__, rtd->dai_link->name);
-+		return -EINVAL;
-+	}
-+
-+	/* always set BE format to 32-bits for both playback and capture */
-+	snd_mask_none(fmt);
-+	snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S32_LE);
-+
-+	/*
-+	 * Set trigger order for capture to SND_SOC_DPCM_TRIGGER_PRE. This is required
-+	 * to ensure that the BE DAI pipeline gets stopped/suspended before the FE DAI
-+	 * pipeline gets triggered and the pipeline widgets are freed.
-+	 */
-+	for_each_dpcm_fe(rtd, SNDRV_PCM_STREAM_CAPTURE, dpcm) {
-+		struct snd_soc_pcm_runtime *fe = dpcm->fe;
-+
-+		fe->dai_link->trigger[SNDRV_PCM_STREAM_CAPTURE] = SND_SOC_DPCM_TRIGGER_PRE;
-+	}
-+
-+	switch (ipc4_copier->dai_type) {
-+	case SOF_DAI_INTEL_SSP:
-+		ipc4_ssp_dai_config_pcm_params_match(sdev, (char *)rtd->dai_link->name, params);
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
-+const struct sof_ipc_pcm_ops ipc4_pcm_ops = {
-+	.trigger = sof_ipc4_pcm_trigger,
-+	.hw_free = sof_ipc4_pcm_hw_free,
-+	.dai_link_fixup = sof_ipc4_pcm_dai_link_fixup,
-+};
-diff --git a/sound/soc/sof/ipc4-priv.h b/sound/soc/sof/ipc4-priv.h
-index d0b110811aeb..e4381a74516c 100644
---- a/sound/soc/sof/ipc4-priv.h
-+++ b/sound/soc/sof/ipc4-priv.h
-@@ -42,5 +42,6 @@ struct sof_ipc4_fw_module {
- extern const struct sof_ipc_fw_loader_ops ipc4_loader_ops;
- extern const struct sof_ipc_tplg_ops ipc4_tplg_ops;
- extern const struct sof_ipc_tplg_control_ops tplg_ipc4_control_ops;
-+extern const struct sof_ipc_pcm_ops ipc4_pcm_ops;
- 
- #endif
-diff --git a/sound/soc/sof/ipc4.c b/sound/soc/sof/ipc4.c
-index be677a33882d..700069e759c4 100644
---- a/sound/soc/sof/ipc4.c
-+++ b/sound/soc/sof/ipc4.c
-@@ -604,4 +604,5 @@ const struct sof_ipc_ops ipc4_ops = {
- 	.get_reply = sof_ipc4_get_reply,
- 	.fw_loader = &ipc4_loader_ops,
- 	.tplg = &ipc4_tplg_ops,
-+	.pcm = &ipc4_pcm_ops,
+ static enum sof_tokens host_token_list[] = {
+ 	SOF_COMP_TOKENS,
+ 	SOF_AUDIO_FMT_NUM_TOKENS,
+@@ -1158,4 +1279,6 @@ const struct sof_ipc_tplg_ops ipc4_tplg_ops = {
+ 	.token_list = ipc4_token_list,
+ 	.control_setup = sof_ipc4_control_setup,
+ 	.control = &tplg_ipc4_control_ops,
++	.widget_setup = sof_ipc4_widget_setup,
++	.widget_free = sof_ipc4_widget_free,
  };
 -- 
 2.25.1

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A78525441E5
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jun 2022 05:29:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49DB75441E4
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jun 2022 05:28:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 19D622003;
-	Thu,  9 Jun 2022 05:28:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19D622003
+	by alsa0.perex.cz (Postfix) with ESMTPS id A44ED1FFC;
+	Thu,  9 Jun 2022 05:28:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A44ED1FFC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654745351;
-	bh=Fq6rcPvz1skCdsVPqDsNbGIAvnRPA8T0jg/5nrPi42g=;
+	s=default; t=1654745333;
+	bh=AW4e9RGYfSH4Ykc5DraY7PgxCkzgH9/Jq3UiDZQxvZA=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fHVSZ9VoYQgUGnTQEW5TIGsUAio5jBie4klLIfWJZqqS2DJ78vMolI1kHBalstw13
-	 drmMwiuLeFtHkOzOWYJCAzCPa5WUb/K9cuo6TVJ0AvDHMgMpIHoA23F/JIuGgZDX1G
-	 Vu/iRjJmY4ZLakCFLhr+lcwUbp5OmVwaWtxhOvFs=
+	b=ZYWzTuphgS0Rr2U1JTmIxpKSgkoU0YIvgB0NkyLjJHgEStVPlyCvlM9g14t5afYnr
+	 mNauKuEqPFlB0A4I24XWqkZwFzpA9pnIV1mto1J/0iARWDKpA770m7ypeKBE/KAb+W
+	 MNmANmq9s4a2ERDLJVWwBKBYqJEDy2LAM9A6DCu4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7F229F80548;
-	Thu,  9 Jun 2022 05:27:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5AC1EF80535;
+	Thu,  9 Jun 2022 05:27:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 849C9F80539; Thu,  9 Jun 2022 05:27:19 +0200 (CEST)
+ id B76ABF8052E; Thu,  9 Jun 2022 05:27:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,40 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6A2DEF804B4
- for <alsa-devel@alsa-project.org>; Thu,  9 Jun 2022 05:27:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A2DEF804B4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0C4C5F801F5
+ for <alsa-devel@alsa-project.org>; Thu,  9 Jun 2022 05:27:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C4C5F801F5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="DZbiuO5m"
+ header.b="X4z4+Oe0"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1654745232; x=1686281232;
+ t=1654745231; x=1686281231;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Fq6rcPvz1skCdsVPqDsNbGIAvnRPA8T0jg/5nrPi42g=;
- b=DZbiuO5mwa3p3ISMmv4feNcFnrJUsKLV2TXw8iwdoMlVYT5MryIj3SKW
- V9Jv1StG07FpeVI4D89QvQi1NcWweovK4WxDIsQBMKcKgQgEQ6MTIafY2
- MTYWH43x6hb4nq09ISryytmLukPSuz3iQUEr45zx36O/7DcPV72uRtjnH
- wuYUshbkh7NzerSCaBr1w3zMhkN8w+IbqoxNCPCplHLMstQbpzvXp/zOy
- HwquSunzgieRm2NSSuYJVdAdp3bD6mDxRa6BINSzq6rLF9r9xn7PnYULA
- Mk4o0exkrEE6a7tiBMJZXatiWNYqdb1ZcTzspMNEXCHbuiTrIsbdcS5CI Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10372"; a="341219547"
-X-IronPort-AV: E=Sophos;i="5.91,287,1647327600"; d="scan'208";a="341219547"
+ bh=AW4e9RGYfSH4Ykc5DraY7PgxCkzgH9/Jq3UiDZQxvZA=;
+ b=X4z4+Oe0yogu/Nwjcyrj6lIcUe2EsH1KUn1hc+KDFQn8k+/BHVCgB+7e
+ N34QBz2EWd0H1nNlqrDPpgt8u+WINHPWS6VxicerSfOgJqOJ8nmYXIR+Y
+ v45UpAzjRRc6iiFb+j20Yy1yJk9n/lqw/2R1tE9j/aOohM6+baluSqiUK
+ uc7zLaeZOAHFrYtQkP5M5UrlRrfpN6XHof8JHPCoUS+7eccHjhlN9zHnz
+ qxBjkVfzw7mZQ9Jot+hwkrdPFGLpen+AWFo/E2pshFZdgenpDq+r4gAze
+ A3Hy1z5XUQ+LeES8clEaW5+FYnfXrDCQu64csq+RWFIk3mZu3ZsACc5u/ Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10372"; a="341219549"
+X-IronPort-AV: E=Sophos;i="5.91,287,1647327600"; d="scan'208";a="341219549"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  08 Jun 2022 20:26:58 -0700
-X-IronPort-AV: E=Sophos;i="5.91,287,1647327600"; d="scan'208";a="585260228"
+X-IronPort-AV: E=Sophos;i="5.91,287,1647327600"; d="scan'208";a="585260229"
 Received: from mandalag-mobl.amr.corp.intel.com (HELO
  rsridh2-mobl1.localdomain) ([10.254.38.40])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  08 Jun 2022 20:26:58 -0700
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 02/23] ASoC: SOF: IPC4: Introduce topology ops
-Date: Wed,  8 Jun 2022 20:26:22 -0700
-Message-Id: <20220609032643.916882-3-ranjani.sridharan@linux.intel.com>
+Subject: [PATCH 03/23] ASoC: SOF: ipc4-topology: Add support for parsing
+ AIF_IN/AIF_OUT widgets
+Date: Wed,  8 Jun 2022 20:26:23 -0700
+Message-Id: <20220609032643.916882-4-ranjani.sridharan@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220609032643.916882-1-ranjani.sridharan@linux.intel.com>
 References: <20220609032643.916882-1-ranjani.sridharan@linux.intel.com>
@@ -94,9 +95,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Introduce the topology ops for IPC4. Set the widget_ops and token_list
-for parsing the scheduler type widget. Support for other widget types
-will be added in the follow up patches.
+Add support for parsing AIF_IN/AIF_OUT type widgets in IPC4. Add all the
+new required token ID's for parsing these widgets to the list of tokens in
+enum sof_tokens and the definitions of the token arrays corresponding to
+each of the token ID's.
+
+Also, upgrade the sof_widget_parse_tokens() function in the common
+topology parser to be able to parse multiple sets of tokens for the
+audio format and copier gateway config tokens.
 
 Co-developed-by: Rander Wang <rander.wang@linux.intel.com>
 Signed-off-by: Rander Wang <rander.wang@linux.intel.com>
@@ -105,196 +111,648 @@ Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Paul Olaru <paul.olaru@oss.nxp.com>
 ---
- sound/soc/sof/Makefile        |   2 +-
- sound/soc/sof/ipc4-priv.h     |   1 +
- sound/soc/sof/ipc4-topology.c | 102 ++++++++++++++++++++++++++++++++++
- sound/soc/sof/ipc4-topology.h |  30 ++++++++++
- sound/soc/sof/ipc4.c          |   1 +
- 5 files changed, 135 insertions(+), 1 deletion(-)
- create mode 100644 sound/soc/sof/ipc4-topology.c
- create mode 100644 sound/soc/sof/ipc4-topology.h
+ sound/soc/sof/ipc4-topology.c | 370 ++++++++++++++++++++++++++++++++++
+ sound/soc/sof/ipc4-topology.h |  83 ++++++++
+ sound/soc/sof/sof-audio.h     |   7 +
+ sound/soc/sof/topology.c      |  69 +++++--
+ 4 files changed, 511 insertions(+), 18 deletions(-)
 
-diff --git a/sound/soc/sof/Makefile b/sound/soc/sof/Makefile
-index 92b5e83601be..73524fadb3ce 100644
---- a/sound/soc/sof/Makefile
-+++ b/sound/soc/sof/Makefile
-@@ -4,7 +4,7 @@ snd-sof-objs := core.o ops.o loader.o ipc.o pcm.o pm.o debug.o topology.o\
- 		control.o trace.o iomem-utils.o sof-audio.o stream-ipc.o\
- 		ipc3-topology.o ipc3-control.o ipc3.o ipc3-pcm.o ipc3-loader.o\
- 		ipc3-dtrace.o\
--		ipc4.o ipc4-loader.o
-+		ipc4.o ipc4-loader.o ipc4-topology.o
- ifneq ($(CONFIG_SND_SOC_SOF_CLIENT),)
- snd-sof-objs += sof-client.o
- endif
-diff --git a/sound/soc/sof/ipc4-priv.h b/sound/soc/sof/ipc4-priv.h
-index 2b71d5675933..5388b888fefa 100644
---- a/sound/soc/sof/ipc4-priv.h
-+++ b/sound/soc/sof/ipc4-priv.h
-@@ -40,5 +40,6 @@ struct sof_ipc4_fw_module {
+diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
+index bccf576c8edd..559148f5644c 100644
+--- a/sound/soc/sof/ipc4-topology.c
++++ b/sound/soc/sof/ipc4-topology.c
+@@ -25,17 +25,370 @@ static const struct sof_topology_token pipeline_tokens[] = {
+ 		offsetof(struct snd_sof_widget, dynamic_pipeline_widget)},
  };
  
- extern const struct sof_ipc_fw_loader_ops ipc4_loader_ops;
-+extern const struct sof_ipc_tplg_ops ipc4_tplg_ops;
++static const struct sof_topology_token ipc4_comp_tokens[] = {
++	{SOF_TKN_COMP_CPC, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
++		offsetof(struct sof_ipc4_base_module_cfg, cpc)},
++	{SOF_TKN_COMP_IS_PAGES, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
++		offsetof(struct sof_ipc4_base_module_cfg, is_pages)},
++};
++
++static const struct sof_topology_token ipc4_audio_format_buffer_size_tokens[] = {
++	{SOF_TKN_CAVS_AUDIO_FORMAT_IBS, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
++		offsetof(struct sof_ipc4_base_module_cfg, ibs)},
++	{SOF_TKN_CAVS_AUDIO_FORMAT_OBS, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
++		offsetof(struct sof_ipc4_base_module_cfg, obs)},
++};
++
++static const struct sof_topology_token ipc4_in_audio_format_tokens[] = {
++	{SOF_TKN_CAVS_AUDIO_FORMAT_IN_RATE, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
++		offsetof(struct sof_ipc4_audio_format, sampling_frequency)},
++	{SOF_TKN_CAVS_AUDIO_FORMAT_IN_BIT_DEPTH, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
++		offsetof(struct sof_ipc4_audio_format, bit_depth)},
++	{SOF_TKN_CAVS_AUDIO_FORMAT_IN_CH_MAP, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
++		offsetof(struct sof_ipc4_audio_format, ch_map)},
++	{SOF_TKN_CAVS_AUDIO_FORMAT_IN_CH_CFG, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
++		offsetof(struct sof_ipc4_audio_format, ch_cfg)},
++	{SOF_TKN_CAVS_AUDIO_FORMAT_IN_INTERLEAVING_STYLE, SND_SOC_TPLG_TUPLE_TYPE_WORD,
++		get_token_u32, offsetof(struct sof_ipc4_audio_format, interleaving_style)},
++	{SOF_TKN_CAVS_AUDIO_FORMAT_IN_FMT_CFG, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
++		offsetof(struct sof_ipc4_audio_format, fmt_cfg)},
++};
++
++static const struct sof_topology_token ipc4_out_audio_format_tokens[] = {
++	{SOF_TKN_CAVS_AUDIO_FORMAT_OUT_RATE, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
++		offsetof(struct sof_ipc4_audio_format, sampling_frequency)},
++	{SOF_TKN_CAVS_AUDIO_FORMAT_OUT_BIT_DEPTH, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
++		offsetof(struct sof_ipc4_audio_format, bit_depth)},
++	{SOF_TKN_CAVS_AUDIO_FORMAT_OUT_CH_MAP, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
++		offsetof(struct sof_ipc4_audio_format, ch_map)},
++	{SOF_TKN_CAVS_AUDIO_FORMAT_OUT_CH_CFG, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
++		offsetof(struct sof_ipc4_audio_format, ch_cfg)},
++	{SOF_TKN_CAVS_AUDIO_FORMAT_OUT_INTERLEAVING_STYLE, SND_SOC_TPLG_TUPLE_TYPE_WORD,
++		get_token_u32, offsetof(struct sof_ipc4_audio_format, interleaving_style)},
++	{SOF_TKN_CAVS_AUDIO_FORMAT_OUT_FMT_CFG, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
++		offsetof(struct sof_ipc4_audio_format, fmt_cfg)},
++};
++
++static const struct sof_topology_token ipc4_copier_gateway_cfg_tokens[] = {
++	{SOF_TKN_CAVS_AUDIO_FORMAT_DMA_BUFFER_SIZE, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32, 0},
++};
++
++static const struct sof_topology_token ipc4_copier_tokens[] = {
++	{SOF_TKN_INTEL_COPIER_NODE_TYPE, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32, 0},
++};
++
++static const struct sof_topology_token ipc4_audio_fmt_num_tokens[] = {
++	{SOF_TKN_COMP_NUM_AUDIO_FORMATS, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
++		0},
++};
++
++/* Component extended tokens */
++static const struct sof_topology_token comp_ext_tokens[] = {
++	{SOF_TKN_COMP_UUID, SND_SOC_TPLG_TUPLE_TYPE_UUID, get_token_uuid,
++		offsetof(struct snd_sof_widget, uuid)},
++};
++
+ static const struct sof_token_info ipc4_token_list[SOF_TOKEN_COUNT] = {
+ 	[SOF_PIPELINE_TOKENS] = {"Pipeline tokens", pipeline_tokens, ARRAY_SIZE(pipeline_tokens)},
+ 	[SOF_SCHED_TOKENS] = {"Scheduler tokens", ipc4_sched_tokens,
+ 		ARRAY_SIZE(ipc4_sched_tokens)},
++	[SOF_COMP_EXT_TOKENS] = {"Comp extended tokens", comp_ext_tokens,
++		ARRAY_SIZE(comp_ext_tokens)},
++	[SOF_COMP_TOKENS] = {"IPC4 Component tokens",
++		ipc4_comp_tokens, ARRAY_SIZE(ipc4_comp_tokens)},
++	[SOF_IN_AUDIO_FORMAT_TOKENS] = {"IPC4 Input Audio format tokens",
++		ipc4_in_audio_format_tokens, ARRAY_SIZE(ipc4_in_audio_format_tokens)},
++	[SOF_OUT_AUDIO_FORMAT_TOKENS] = {"IPC4 Output Audio format tokens",
++		ipc4_out_audio_format_tokens, ARRAY_SIZE(ipc4_out_audio_format_tokens)},
++	[SOF_AUDIO_FORMAT_BUFFER_SIZE_TOKENS] = {"IPC4 Audio format buffer size tokens",
++		ipc4_audio_format_buffer_size_tokens,
++		ARRAY_SIZE(ipc4_audio_format_buffer_size_tokens)},
++	[SOF_COPIER_GATEWAY_CFG_TOKENS] = {"IPC4 Copier gateway config tokens",
++		ipc4_copier_gateway_cfg_tokens, ARRAY_SIZE(ipc4_copier_gateway_cfg_tokens)},
++	[SOF_COPIER_TOKENS] = {"IPC4 Copier tokens", ipc4_copier_tokens,
++		ARRAY_SIZE(ipc4_copier_tokens)},
++	[SOF_AUDIO_FMT_NUM_TOKENS] = {"IPC4 Audio format number tokens",
++		ipc4_audio_fmt_num_tokens, ARRAY_SIZE(ipc4_audio_fmt_num_tokens)},
+ };
  
- #endif
-diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
-new file mode 100644
-index 000000000000..bccf576c8edd
---- /dev/null
-+++ b/sound/soc/sof/ipc4-topology.c
-@@ -0,0 +1,102 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
-+//
-+// This file is provided under a dual BSD/GPLv2 license.  When using or
-+// redistributing this file, you may do so under either license.
-+//
-+// Copyright(c) 2022 Intel Corporation. All rights reserved.
-+//
-+//
-+#include <uapi/sound/sof/tokens.h>
-+#include <sound/pcm_params.h>
-+#include <sound/sof/ext_manifest4.h>
-+#include "sof-priv.h"
-+#include "sof-audio.h"
-+#include "ipc4-priv.h"
-+#include "ipc4-topology.h"
-+#include "ops.h"
-+
-+static const struct sof_topology_token ipc4_sched_tokens[] = {
-+	{SOF_TKN_SCHED_LP_MODE, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
-+		offsetof(struct sof_ipc4_pipeline, lp_mode)}
-+};
-+
-+static const struct sof_topology_token pipeline_tokens[] = {
-+	{SOF_TKN_SCHED_DYNAMIC_PIPELINE, SND_SOC_TPLG_TUPLE_TYPE_BOOL, get_token_u16,
-+		offsetof(struct snd_sof_widget, dynamic_pipeline_widget)},
-+};
-+
-+static const struct sof_token_info ipc4_token_list[SOF_TOKEN_COUNT] = {
-+	[SOF_PIPELINE_TOKENS] = {"Pipeline tokens", pipeline_tokens, ARRAY_SIZE(pipeline_tokens)},
-+	[SOF_SCHED_TOKENS] = {"Scheduler tokens", ipc4_sched_tokens,
-+		ARRAY_SIZE(ipc4_sched_tokens)},
-+};
-+
-+static void sof_ipc4_widget_free_comp(struct snd_sof_widget *swidget)
++static void sof_ipc4_dbg_audio_format(struct device *dev,
++				      struct sof_ipc4_audio_format *format,
++				      size_t object_size, int num_format)
 +{
-+	kfree(swidget->private);
++	struct sof_ipc4_audio_format *fmt;
++	void *ptr = format;
++	int i;
++
++	for (i = 0; i < num_format; i++, ptr = (u8 *)ptr + object_size) {
++		fmt = ptr;
++		dev_dbg(dev,
++			" #%d: %uKHz, %ubit (ch_map %#x ch_cfg %u interleaving_style %u fmt_cfg %#x)\n",
++			i, fmt->sampling_frequency, fmt->bit_depth, fmt->ch_map,
++			fmt->ch_cfg, fmt->interleaving_style, fmt->fmt_cfg);
++	}
 +}
 +
-+static int sof_ipc4_widget_setup_comp_pipeline(struct snd_sof_widget *swidget)
++/**
++ * sof_ipc4_get_audio_fmt - get available audio formats from swidget->tuples
++ * @scomp: pointer to pointer to SOC component
++ * @swidget: pointer to struct snd_sof_widget containing tuples
++ * @available_fmt: pointer to struct sof_ipc4_available_audio_format being filling in
++ * @has_out_format: true if available_fmt contains output format
++ *
++ * Return: 0 if successful
++ */
++static int sof_ipc4_get_audio_fmt(struct snd_soc_component *scomp,
++				  struct snd_sof_widget *swidget,
++				  struct sof_ipc4_available_audio_format *available_fmt,
++				  bool has_out_format)
 +{
-+	struct snd_soc_component *scomp = swidget->scomp;
-+	struct sof_ipc4_pipeline *pipeline;
-+	int ret;
++	struct sof_ipc4_base_module_cfg *base_config;
++	struct sof_ipc4_audio_format *out_format;
++	int audio_fmt_num = 0;
++	int ret, i;
 +
-+	pipeline = kzalloc(sizeof(*pipeline), GFP_KERNEL);
-+	if (!pipeline)
++	ret = sof_update_ipc_object(scomp, &audio_fmt_num,
++				    SOF_AUDIO_FMT_NUM_TOKENS, swidget->tuples,
++				    swidget->num_tuples, sizeof(audio_fmt_num), 1);
++	if (ret || audio_fmt_num <= 0) {
++		dev_err(scomp->dev, "Invalid number of audio formats: %d\n", audio_fmt_num);
++		return -EINVAL;
++	}
++	available_fmt->audio_fmt_num = audio_fmt_num;
++
++	dev_dbg(scomp->dev, "Number of audio formats: %d\n", available_fmt->audio_fmt_num);
++
++	base_config = kcalloc(available_fmt->audio_fmt_num, sizeof(*base_config), GFP_KERNEL);
++	if (!base_config)
 +		return -ENOMEM;
 +
-+	ret = sof_update_ipc_object(scomp, pipeline, SOF_SCHED_TOKENS, swidget->tuples,
-+				    swidget->num_tuples, sizeof(*pipeline), 1);
-+	if (ret) {
-+		dev_err(scomp->dev, "parsing scheduler tokens failed\n");
-+		goto err;
++	/* set cpc and is_pages for all base_cfg */
++	for (i = 0; i < available_fmt->audio_fmt_num; i++) {
++		ret = sof_update_ipc_object(scomp, &base_config[i],
++					    SOF_COMP_TOKENS, swidget->tuples,
++					    swidget->num_tuples, sizeof(*base_config), 1);
++		if (ret) {
++			dev_err(scomp->dev, "parse comp tokens failed %d\n", ret);
++			goto err_in;
++		}
 +	}
 +
-+	/* parse one set of pipeline tokens */
-+	ret = sof_update_ipc_object(scomp, swidget, SOF_PIPELINE_TOKENS, swidget->tuples,
-+				    swidget->num_tuples, sizeof(*swidget), 1);
++	/* copy the ibs/obs for each base_cfg */
++	ret = sof_update_ipc_object(scomp, base_config,
++				    SOF_AUDIO_FORMAT_BUFFER_SIZE_TOKENS, swidget->tuples,
++				    swidget->num_tuples, sizeof(*base_config),
++				    available_fmt->audio_fmt_num);
 +	if (ret) {
-+		dev_err(scomp->dev, "parsing pipeline tokens failed\n");
-+		goto err;
++		dev_err(scomp->dev, "parse buffer size tokens failed %d\n", ret);
++		goto err_in;
 +	}
 +
-+	/* TODO: Get priority from topology */
-+	pipeline->priority = 0;
++	for (i = 0; i < available_fmt->audio_fmt_num; i++)
++		dev_dbg(scomp->dev, "%d: ibs: %d obs: %d cpc: %d is_pages: %d\n", i,
++			base_config[i].ibs, base_config[i].obs,
++			base_config[i].cpc, base_config[i].is_pages);
 +
-+	dev_dbg(scomp->dev, "pipeline '%s': id %d pri %d lp mode %d\n",
-+		swidget->widget->name, swidget->pipeline_id,
-+		pipeline->priority, pipeline->lp_mode);
++	ret = sof_update_ipc_object(scomp, &base_config->audio_fmt,
++				    SOF_IN_AUDIO_FORMAT_TOKENS, swidget->tuples,
++				    swidget->num_tuples, sizeof(*base_config),
++				    available_fmt->audio_fmt_num);
++	if (ret) {
++		dev_err(scomp->dev, "parse base_config audio_fmt tokens failed %d\n", ret);
++		goto err_in;
++	}
 +
-+	swidget->private = pipeline;
++	dev_dbg(scomp->dev, "Get input audio formats for %s\n", swidget->widget->name);
++	sof_ipc4_dbg_audio_format(scomp->dev, &base_config->audio_fmt,
++				  sizeof(*base_config),
++				  available_fmt->audio_fmt_num);
 +
-+	pipeline->msg.primary = SOF_IPC4_GLB_PIPE_PRIORITY(pipeline->priority);
-+	pipeline->msg.primary |= SOF_IPC4_GLB_PIPE_INSTANCE_ID(swidget->pipeline_id);
-+	pipeline->msg.primary |= SOF_IPC4_MSG_TYPE_SET(SOF_IPC4_GLB_CREATE_PIPELINE);
-+	pipeline->msg.primary |= SOF_IPC4_MSG_DIR(SOF_IPC4_MSG_REQUEST);
-+	pipeline->msg.primary |= SOF_IPC4_MSG_TARGET(SOF_IPC4_FW_GEN_MSG);
++	available_fmt->base_config = base_config;
 +
-+	pipeline->msg.extension = pipeline->lp_mode;
-+	pipeline->state = SOF_IPC4_PIPE_UNINITIALIZED;
++	if (!has_out_format)
++		return 0;
++
++	out_format = kcalloc(available_fmt->audio_fmt_num, sizeof(*out_format), GFP_KERNEL);
++	if (!out_format) {
++		ret = -ENOMEM;
++		goto err_in;
++	}
++
++	ret = sof_update_ipc_object(scomp, out_format,
++				    SOF_OUT_AUDIO_FORMAT_TOKENS, swidget->tuples,
++				    swidget->num_tuples, sizeof(*out_format),
++				    available_fmt->audio_fmt_num);
++
++	if (ret) {
++		dev_err(scomp->dev, "parse output audio_fmt tokens failed\n");
++		goto err_out;
++	}
++
++	available_fmt->out_audio_fmt = out_format;
++	dev_dbg(scomp->dev, "Get output audio formats for %s\n", swidget->widget->name);
++	sof_ipc4_dbg_audio_format(scomp->dev, out_format, sizeof(*out_format),
++				  available_fmt->audio_fmt_num);
 +
 +	return 0;
-+err:
-+	kfree(pipeline);
++
++err_out:
++	kfree(out_format);
++err_in:
++	kfree(base_config);
++
 +	return ret;
 +}
 +
-+static enum sof_tokens pipeline_token_list[] = {
-+	SOF_SCHED_TOKENS,
-+	SOF_PIPELINE_TOKENS,
+ static void sof_ipc4_widget_free_comp(struct snd_sof_widget *swidget)
+ {
+ 	kfree(swidget->private);
+ }
+ 
++static int sof_ipc4_widget_set_module_info(struct snd_sof_widget *swidget)
++{
++	struct snd_soc_component *scomp = swidget->scomp;
++	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
++	struct sof_ipc4_fw_data *ipc4_data = sdev->private;
++	struct sof_ipc4_fw_module *fw_modules = ipc4_data->fw_modules;
++	int i;
++
++	if (!fw_modules) {
++		dev_err(sdev->dev, "no fw_module information\n");
++		return -EINVAL;
++	}
++
++	/* set module info */
++	for (i = 0; i < ipc4_data->num_fw_modules; i++) {
++		if (guid_equal(&swidget->uuid, &fw_modules[i].man4_module_entry.uuid)) {
++			swidget->module_info = &fw_modules[i];
++			return 0;
++		}
++	}
++
++	dev_err(sdev->dev, "failed to find module info for widget %s with UUID %pUL\n",
++		swidget->widget->name, &swidget->uuid);
++	return -EINVAL;
++}
++
++static int sof_ipc4_widget_setup_msg(struct snd_sof_widget *swidget, struct sof_ipc4_msg *msg)
++{
++	struct sof_ipc4_fw_module *fw_module;
++	int ret;
++
++	ret = sof_ipc4_widget_set_module_info(swidget);
++	if (ret)
++		return ret;
++
++	fw_module = swidget->module_info;
++
++	msg->primary = fw_module->man4_module_entry.id;
++	msg->primary |= SOF_IPC4_MSG_TYPE_SET(SOF_IPC4_MOD_INIT_INSTANCE);
++	msg->primary |= SOF_IPC4_MSG_DIR(SOF_IPC4_MSG_REQUEST);
++	msg->primary |= SOF_IPC4_MSG_TARGET(SOF_IPC4_MODULE_MSG);
++
++	msg->extension = SOF_IPC4_MOD_EXT_PPL_ID(swidget->pipeline_id);
++	msg->extension |= SOF_IPC4_MOD_EXT_CORE_ID(swidget->core);
++
++	return 0;
++}
++
++static int sof_ipc4_widget_setup_pcm(struct snd_sof_widget *swidget)
++{
++	struct sof_ipc4_available_audio_format *available_fmt;
++	struct snd_soc_component *scomp = swidget->scomp;
++	struct sof_ipc4_copier *ipc4_copier;
++	int node_type = 0;
++	int ret, i;
++
++	ipc4_copier = kzalloc(sizeof(*ipc4_copier), GFP_KERNEL);
++	if (!ipc4_copier)
++		return -ENOMEM;
++
++	swidget->private = ipc4_copier;
++	available_fmt = &ipc4_copier->available_fmt;
++
++	dev_dbg(scomp->dev, "Updating IPC structure for %s\n", swidget->widget->name);
++
++	ret = sof_ipc4_get_audio_fmt(scomp, swidget, available_fmt, true);
++	if (ret)
++		goto free_copier;
++
++	available_fmt->dma_buffer_size = kcalloc(available_fmt->audio_fmt_num, sizeof(u32),
++						 GFP_KERNEL);
++	if (!available_fmt->dma_buffer_size) {
++		ret = -ENOMEM;
++		goto free_copier;
++	}
++
++	ret = sof_update_ipc_object(scomp, available_fmt->dma_buffer_size,
++				    SOF_COPIER_GATEWAY_CFG_TOKENS, swidget->tuples,
++				    swidget->num_tuples, sizeof(u32),
++				    available_fmt->audio_fmt_num);
++	if (ret) {
++		dev_err(scomp->dev, "Failed to parse dma buffer size in audio format for %s\n",
++			swidget->widget->name);
++		goto err;
++	}
++
++	dev_dbg(scomp->dev, "dma buffer size:\n");
++	for (i = 0; i < available_fmt->audio_fmt_num; i++)
++		dev_dbg(scomp->dev, "%d: %u\n", i,
++			available_fmt->dma_buffer_size[i]);
++
++	ret = sof_update_ipc_object(scomp, &node_type,
++				    SOF_COPIER_TOKENS, swidget->tuples,
++				    swidget->num_tuples, sizeof(node_type), 1);
++
++	if (ret) {
++		dev_err(scomp->dev, "parse host copier node type token failed %d\n",
++			ret);
++		goto err;
++	}
++	dev_dbg(scomp->dev, "host copier '%s' node_type %u\n", swidget->widget->name, node_type);
++
++	ipc4_copier->data.gtw_cfg.node_id = SOF_IPC4_NODE_TYPE(node_type);
++	ipc4_copier->gtw_attr = kzalloc(sizeof(*ipc4_copier->gtw_attr), GFP_KERNEL);
++	if (!ipc4_copier->gtw_attr) {
++		ret = -ENOMEM;
++		goto err;
++	}
++
++	ipc4_copier->copier_config = (uint32_t *)ipc4_copier->gtw_attr;
++	ipc4_copier->data.gtw_cfg.config_length =
++		sizeof(struct sof_ipc4_gtw_attributes) >> 2;
++
++	/* set up module info and message header */
++	ret = sof_ipc4_widget_setup_msg(swidget, &ipc4_copier->msg);
++	if (ret)
++		goto free_gtw_attr;
++
++	return 0;
++
++free_gtw_attr:
++	kfree(ipc4_copier->gtw_attr);
++err:
++	kfree(available_fmt->dma_buffer_size);
++free_copier:
++	kfree(ipc4_copier);
++	return ret;
++}
++
++static void sof_ipc4_widget_free_comp_pcm(struct snd_sof_widget *swidget)
++{
++	struct sof_ipc4_copier *ipc4_copier = swidget->private;
++	struct sof_ipc4_available_audio_format *available_fmt;
++
++	if (!ipc4_copier)
++		return;
++
++	available_fmt = &ipc4_copier->available_fmt;
++	kfree(available_fmt->dma_buffer_size);
++	kfree(available_fmt->base_config);
++	kfree(available_fmt->out_audio_fmt);
++	kfree(ipc4_copier->gtw_attr);
++	kfree(ipc4_copier);
++	swidget->private = NULL;
++}
++
+ static int sof_ipc4_widget_setup_comp_pipeline(struct snd_sof_widget *swidget)
+ {
+ 	struct snd_soc_component *scomp = swidget->scomp;
+@@ -85,12 +438,29 @@ static int sof_ipc4_widget_setup_comp_pipeline(struct snd_sof_widget *swidget)
+ 	return ret;
+ }
+ 
++static enum sof_tokens host_token_list[] = {
++	SOF_COMP_TOKENS,
++	SOF_AUDIO_FMT_NUM_TOKENS,
++	SOF_AUDIO_FORMAT_BUFFER_SIZE_TOKENS,
++	SOF_IN_AUDIO_FORMAT_TOKENS,
++	SOF_OUT_AUDIO_FORMAT_TOKENS,
++	SOF_COPIER_GATEWAY_CFG_TOKENS,
++	SOF_COPIER_TOKENS,
++	SOF_COMP_EXT_TOKENS,
 +};
 +
-+static const struct sof_ipc_tplg_widget_ops tplg_ipc4_widget_ops[SND_SOC_DAPM_TYPE_COUNT] = {
-+	[snd_soc_dapm_scheduler] = {sof_ipc4_widget_setup_comp_pipeline, sof_ipc4_widget_free_comp,
-+				    pipeline_token_list, ARRAY_SIZE(pipeline_token_list), NULL,
-+				    NULL, NULL},
-+};
-+
-+const struct sof_ipc_tplg_ops ipc4_tplg_ops = {
-+	.widget = tplg_ipc4_widget_ops,
-+	.token_list = ipc4_token_list,
-+};
+ static enum sof_tokens pipeline_token_list[] = {
+ 	SOF_SCHED_TOKENS,
+ 	SOF_PIPELINE_TOKENS,
+ };
+ 
+ static const struct sof_ipc_tplg_widget_ops tplg_ipc4_widget_ops[SND_SOC_DAPM_TYPE_COUNT] = {
++	[snd_soc_dapm_aif_in] =  {sof_ipc4_widget_setup_pcm, sof_ipc4_widget_free_comp_pcm,
++				  host_token_list, ARRAY_SIZE(host_token_list), NULL,
++				  NULL, NULL},
++	[snd_soc_dapm_aif_out] = {sof_ipc4_widget_setup_pcm, sof_ipc4_widget_free_comp_pcm,
++				  host_token_list, ARRAY_SIZE(host_token_list), NULL,
++				  NULL, NULL},
+ 	[snd_soc_dapm_scheduler] = {sof_ipc4_widget_setup_comp_pipeline, sof_ipc4_widget_free_comp,
+ 				    pipeline_token_list, ARRAY_SIZE(pipeline_token_list), NULL,
+ 				    NULL, NULL},
 diff --git a/sound/soc/sof/ipc4-topology.h b/sound/soc/sof/ipc4-topology.h
-new file mode 100644
-index 000000000000..0e9be2b2d8a1
---- /dev/null
+index 0e9be2b2d8a1..f4f62dda63a3 100644
+--- a/sound/soc/sof/ipc4-topology.h
 +++ b/sound/soc/sof/ipc4-topology.h
-@@ -0,0 +1,30 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause) */
-+/*
-+ * This file is provided under a dual BSD/GPLv2 license.  When using or
-+ * redistributing this file, you may do so under either license.
-+ *
-+ * Copyright(c) 2022 Intel Corporation. All rights reserved.
+@@ -11,6 +11,8 @@
+ 
+ #include <sound/sof/ipc4/header.h>
+ 
++#define SOF_IPC4_NODE_TYPE(x)  ((x) << 8)
++
+ /**
+  * struct sof_ipc4_pipeline - pipeline config data
+  * @priority: Priority of this pipeline
+@@ -27,4 +29,85 @@ struct sof_ipc4_pipeline {
+ 	struct sof_ipc4_msg msg;
+ };
+ 
++/**
++ * struct sof_ipc4_available_audio_format - Available audio formats
++ * @base_config: Available base config
++ * @out_audio_fmt: Available output audio format
++ * @ref_audio_fmt: Reference audio format to match runtime audio format
++ * @dma_buffer_size: Available Gateway DMA buffer size (in bytes)
++ * @audio_fmt_num: Number of available audio formats
 + */
-+
-+#ifndef __INCLUDE_SOUND_SOF_IPC4_TOPOLOGY_H__
-+#define __INCLUDE_SOUND_SOF_IPC4_TOPOLOGY_H__
-+
-+#include <sound/sof/ipc4/header.h>
++struct sof_ipc4_available_audio_format {
++	struct sof_ipc4_base_module_cfg *base_config;
++	struct sof_ipc4_audio_format *out_audio_fmt;
++	struct sof_ipc4_audio_format *ref_audio_fmt;
++	u32 *dma_buffer_size;
++	int audio_fmt_num;
++};
 +
 +/**
-+ * struct sof_ipc4_pipeline - pipeline config data
-+ * @priority: Priority of this pipeline
-+ * @lp_mode: Low power mode
-+ * @mem_usage: Memory usage
-+ * @state: Pipeline state
-+ * @msg: message structure for pipeline
++ * struct sof_copier_gateway_cfg - IPC gateway configuration
++ * @node_id: ID of Gateway Node
++ * @dma_buffer_size: Preferred Gateway DMA buffer size (in bytes)
++ * @config_length: Length of gateway node configuration blob specified in #config_data
++ * config_data: Gateway node configuration blob
 + */
-+struct sof_ipc4_pipeline {
-+	uint32_t priority;
-+	uint32_t lp_mode;
-+	uint32_t mem_usage;
-+	int state;
-+	struct sof_ipc4_msg msg;
++struct sof_copier_gateway_cfg {
++	uint32_t node_id;
++	uint32_t dma_buffer_size;
++	uint32_t config_length;
++	uint32_t config_data[];
 +};
 +
-+#endif
-diff --git a/sound/soc/sof/ipc4.c b/sound/soc/sof/ipc4.c
-index 658802c86685..be677a33882d 100644
---- a/sound/soc/sof/ipc4.c
-+++ b/sound/soc/sof/ipc4.c
-@@ -603,4 +603,5 @@ const struct sof_ipc_ops ipc4_ops = {
- 	.set_get_data = sof_ipc4_set_get_data,
- 	.get_reply = sof_ipc4_get_reply,
- 	.fw_loader = &ipc4_loader_ops,
-+	.tplg = &ipc4_tplg_ops,
- };
++/**
++ * struct sof_ipc4_copier_data - IPC data for copier
++ * @base_config: Base configuration including input audio format
++ * @out_format: Output audio format
++ * @copier_feature_mask: Copier feature mask
++ * @gtw_cfg: Gateway configuration
++ */
++struct sof_ipc4_copier_data {
++	struct sof_ipc4_base_module_cfg base_config;
++	struct sof_ipc4_audio_format out_format;
++	uint32_t copier_feature_mask;
++	struct sof_copier_gateway_cfg gtw_cfg;
++};
++
++/**
++ * struct sof_ipc4_gtw_attributes: Gateway attributes
++ * @lp_buffer_alloc: Gateway data requested in low power memory
++ * @alloc_from_reg_file: Gateway data requested in register file memory
++ * @rsvd: reserved for future use
++ */
++struct sof_ipc4_gtw_attributes {
++	uint32_t lp_buffer_alloc : 1;
++	uint32_t alloc_from_reg_file : 1;
++	uint32_t rsvd : 30;
++};
++
++/**
++ * struct sof_ipc4_copier - copier config data
++ * @data: IPC copier data
++ * @copier_config: Copier + blob
++ * @ipc_config_size: Size of copier_config
++ * @available_fmt: Available audio format
++ * @frame_fmt: frame format
++ * @msg: message structure for copier
++ * @gtw_attr: Gateway attributes for copier blob
++ * @dai_type: DAI type
++ * @dai_index: DAI index
++ */
++struct sof_ipc4_copier {
++	struct sof_ipc4_copier_data data;
++	u32 *copier_config;
++	uint32_t ipc_config_size;
++	void *ipc_config_data;
++	struct sof_ipc4_available_audio_format available_fmt;
++	u32 frame_fmt;
++	struct sof_ipc4_msg msg;
++	struct sof_ipc4_gtw_attributes *gtw_attr;
++	u32 dai_type;
++	int dai_index;
++};
++
+ #endif
+diff --git a/sound/soc/sof/sof-audio.h b/sound/soc/sof/sof-audio.h
+index 27cc5fb642e5..c38b4bdd685a 100644
+--- a/sound/soc/sof/sof-audio.h
++++ b/sound/soc/sof/sof-audio.h
+@@ -225,6 +225,13 @@ enum sof_tokens {
+ 	SOF_AFE_TOKENS,
+ 	SOF_CORE_TOKENS,
+ 	SOF_COMP_EXT_TOKENS,
++	SOF_IN_AUDIO_FORMAT_TOKENS,
++	SOF_OUT_AUDIO_FORMAT_TOKENS,
++	SOF_AUDIO_FORMAT_BUFFER_SIZE_TOKENS,
++	SOF_COPIER_GATEWAY_CFG_TOKENS,
++	SOF_COPIER_TOKENS,
++	SOF_AUDIO_FMT_NUM_TOKENS,
++	SOF_COPIER_FORMAT_TOKENS,
+ 
+ 	/* this should be the last */
+ 	SOF_TOKEN_COUNT,
+diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
+index b1fcab7ce48e..606dbca94246 100644
+--- a/sound/soc/sof/topology.c
++++ b/sound/soc/sof/topology.c
+@@ -1141,6 +1141,21 @@ static int spcm_bind(struct snd_soc_component *scomp, struct snd_sof_pcm *spcm,
+ 	return 0;
+ }
+ 
++static int sof_get_token_value(u32 token_id, struct snd_sof_tuple *tuples, int num_tuples)
++{
++	int i;
++
++	if (!tuples)
++		return -EINVAL;
++
++	for (i = 0; i < num_tuples; i++) {
++		if (tuples[i].token == token_id)
++			return tuples[i].value.v;
++	}
++
++	return -EINVAL;
++}
++
+ static int sof_widget_parse_tokens(struct snd_soc_component *scomp, struct snd_sof_widget *swidget,
+ 				   struct snd_soc_tplg_dapm_widget *tw,
+ 				   enum sof_tokens *object_token_list, int count)
+@@ -1168,6 +1183,8 @@ static int sof_widget_parse_tokens(struct snd_soc_component *scomp, struct snd_s
+ 
+ 	/* parse token list for widget */
+ 	for (i = 0; i < count; i++) {
++		int num_sets = 1;
++
+ 		if (object_token_list[i] >= SOF_TOKEN_COUNT) {
+ 			dev_err(scomp->dev, "Invalid token id %d for widget %s\n",
+ 				object_token_list[i], swidget->widget->name);
+@@ -1175,8 +1192,9 @@ static int sof_widget_parse_tokens(struct snd_soc_component *scomp, struct snd_s
+ 			goto err;
+ 		}
+ 
+-		/* parse and save UUID in swidget */
+-		if (object_token_list[i] == SOF_COMP_EXT_TOKENS) {
++		switch (object_token_list[i]) {
++		case SOF_COMP_EXT_TOKENS:
++			/* parse and save UUID in swidget */
+ 			ret = sof_parse_tokens(scomp, swidget,
+ 					       token_list[object_token_list[i]].tokens,
+ 					       token_list[object_token_list[i]].count,
+@@ -1189,11 +1207,41 @@ static int sof_widget_parse_tokens(struct snd_soc_component *scomp, struct snd_s
+ 			}
+ 
+ 			continue;
++		case SOF_IN_AUDIO_FORMAT_TOKENS:
++		case SOF_OUT_AUDIO_FORMAT_TOKENS:
++		case SOF_COPIER_GATEWAY_CFG_TOKENS:
++		case SOF_AUDIO_FORMAT_BUFFER_SIZE_TOKENS:
++			num_sets = sof_get_token_value(SOF_TKN_COMP_NUM_AUDIO_FORMATS,
++						       swidget->tuples, swidget->num_tuples);
++
++			if (num_sets < 0) {
++				dev_err(sdev->dev, "Invalid audio format count for %s\n",
++					swidget->widget->name);
++				ret = num_sets;
++				goto err;
++			}
++
++			if (num_sets > 1) {
++				struct snd_sof_tuple *new_tuples;
++
++				num_tuples += token_list[object_token_list[i]].count * num_sets;
++				new_tuples = krealloc(swidget->tuples,
++						      sizeof(*new_tuples) * num_tuples, GFP_KERNEL);
++				if (!new_tuples) {
++					ret = -ENOMEM;
++					goto err;
++				}
++
++				swidget->tuples = new_tuples;
++			}
++			break;
++		default:
++			break;
+ 		}
+ 
+ 		/* copy one set of tuples per token ID into swidget->tuples */
+ 		ret = sof_copy_tuples(sdev, private->array, le32_to_cpu(private->size),
+-				      object_token_list[i], 1, swidget->tuples,
++				      object_token_list[i], num_sets, swidget->tuples,
+ 				      num_tuples, &swidget->num_tuples);
+ 		if (ret < 0) {
+ 			dev_err(scomp->dev, "Failed parsing %s for widget %s err: %d\n",
+@@ -1208,21 +1256,6 @@ static int sof_widget_parse_tokens(struct snd_soc_component *scomp, struct snd_s
+ 	return ret;
+ }
+ 
+-static int sof_get_token_value(u32 token_id, struct snd_sof_tuple *tuples, int num_tuples)
+-{
+-	int i;
+-
+-	if (!tuples)
+-		return -EINVAL;
+-
+-	for (i = 0; i < num_tuples; i++) {
+-		if (tuples[i].token == token_id)
+-			return tuples[i].value.v;
+-	}
+-
+-	return -EINVAL;
+-}
+-
+ /* external widget init - used for any driver specific init */
+ static int sof_widget_ready(struct snd_soc_component *scomp, int index,
+ 			    struct snd_soc_dapm_widget *w,
 -- 
 2.25.1
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E0E6544DD4
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jun 2022 15:37:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF251544DD5
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jun 2022 15:38:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D5E6B1ACC;
-	Thu,  9 Jun 2022 15:37:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5E6B1ACC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6CF5D1AD3;
+	Thu,  9 Jun 2022 15:37:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6CF5D1AD3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654781871;
-	bh=bDAlvYHEeUUAeWe8+rnRMO2QQto1n8rp+2xEHobkNOQ=;
+	s=default; t=1654781891;
+	bh=LdtGmqYHx6gWjJZNFLVe4g7UugnDo1JHioUOoTNWkAI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=F2Cl8u5MUQk4ENE5qwvYFLDfAmRJEZqHlZZbeDWyUDJyW1ta76plgvLLR+m5hwsID
-	 kxcDXHP2T3btwR8TW7rR8c8kztN3gEXazdwJRqz8g3r+R9DDga39X538x+ifWkai12
-	 3F6xAav50LlTJcksgWSuF1TxULss93Q+2+MoRkwg=
+	b=UMC0NJmAoM2r0t8WEDjfr7EDaK/BQH6hapzbcsG59/KxFT6abDxxt1pA0diQEmyA1
+	 VaP2xURutcPgaBI4KB7gmejfd+XJwOHN/fkTxjf9IJdK43UzJc9XohrCe5iPJfVyET
+	 IKxlJ1qlZxa7rhhQDv7q+anqnGJgLO4uxBBFhQWs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 91757F80539;
-	Thu,  9 Jun 2022 15:35:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 68B4FF8053B;
+	Thu,  9 Jun 2022 15:36:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B0722F8052D; Thu,  9 Jun 2022 15:35:54 +0200 (CEST)
+ id 8510AF80538; Thu,  9 Jun 2022 15:35:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0BEC6F800C7
- for <alsa-devel@alsa-project.org>; Thu,  9 Jun 2022 15:35:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0BEC6F800C7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2D8B5F8051E
+ for <alsa-devel@alsa-project.org>; Thu,  9 Jun 2022 15:35:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D8B5F8051E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="mTnhd/RD"
+ header.b="kG9CEOlX"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1654781748; x=1686317748;
+ t=1654781751; x=1686317751;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=bDAlvYHEeUUAeWe8+rnRMO2QQto1n8rp+2xEHobkNOQ=;
- b=mTnhd/RDWufWyWsgGAWEaMJBqDZuUE0SmpXwnXqRNg5OaLE7MS5oO++O
- eQYxbyd1sNar9s3A+GWjO0hIvMiZCmsYNeHUkUeEFQrgX/Ew/47Y6T9ZB
- Yzr3dhlvgD/SmdFoCAHUCdHT6R0txGYOCn5R6yF0lCHa+4pM5UJ+/VuAr
- 40wv2Li2SLbQMkEHXtXgrMt8XbB4qAQs81HDbxHJamyhfoaSw1Y6LBN6n
- O89Dw0oJ9Idw2wr47QMqxOCKlUEvrASdiTX9O5Rmg0B3bKSiKlwS7CaQY
- ZSAItARIIPgtxuusnTt/aRl7GNAiAaEs4fgHSS6dJp9fBAyl9VEHULOVc Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10373"; a="266061392"
-X-IronPort-AV: E=Sophos;i="5.91,287,1647327600"; d="scan'208";a="266061392"
+ bh=LdtGmqYHx6gWjJZNFLVe4g7UugnDo1JHioUOoTNWkAI=;
+ b=kG9CEOlXCopFOJvHUNpzaISJTQBox0jd3PHhQM48cFE4Iargw4zeezQV
+ 05VTIKlx+2GAUZ7ah3YHevu7Xxbu5WKYgdNpLMa4PArXo3LdVXdrhJsMz
+ CpIiaSe11mTEDqjsCPUzexldGmvrQEz+tSc84zHCInYzi3j+RU/bFb57T
+ rbmZg0qMxG61BSSSefRQ8sJdZ5EaG4q6aD0PZ9H4iqZS3tJyuFluMgGpC
+ AbL8POGo/8euuOkpCuE6canF5b6YfqK/Q3Z6ls7v9aTOgOFCsnUdSgolS
+ L6mYhmM+XiJrWUP5/snxjdekGKUL+vQF8TL6ppT2F5YcJyR20b9+oCkVT g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10373"; a="266061396"
+X-IronPort-AV: E=Sophos;i="5.91,287,1647327600"; d="scan'208";a="266061396"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2022 06:35:46 -0700
+ 09 Jun 2022 06:35:48 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,287,1647327600"; d="scan'208";a="683966151"
+X-IronPort-AV: E=Sophos;i="5.91,287,1647327600"; d="scan'208";a="683966156"
 Received: from dev2 (HELO DEV2.igk.intel.com) ([10.237.148.94])
- by fmsmga002.fm.intel.com with ESMTP; 09 Jun 2022 06:35:44 -0700
+ by fmsmga002.fm.intel.com with ESMTP; 09 Jun 2022 06:35:46 -0700
 From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
  <amadeuszx.slawinski@linux.intel.com>
 To: Oder Chiou <oder_chiou@realtek.com>,
 	Mark Brown <broonie@kernel.org>
-Subject: [PATCH 03/11] ASoC: codecs: rt298: Reorganize jack detect handling
-Date: Thu,  9 Jun 2022 15:35:33 +0200
-Message-Id: <20220609133541.3984886-4-amadeuszx.slawinski@linux.intel.com>
+Subject: [PATCH 04/11] ASoC: codecs: rt274: Move irq registration and cleanup
+Date: Thu,  9 Jun 2022 15:35:34 +0200
+Message-Id: <20220609133541.3984886-5-amadeuszx.slawinski@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220609133541.3984886-1-amadeuszx.slawinski@linux.intel.com>
 References: <20220609133541.3984886-1-amadeuszx.slawinski@linux.intel.com>
@@ -94,93 +94,102 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Cezary Rojewski <cezary.rojewski@intel.com>
+Currently irq is registered when i2c driver is loaded, it is unnecessary
+when component is unused. Initialize irq only when we probe ASoC
+component.
 
-Clean up in order to use and expose .set_jack callback.
-
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/codecs/rt298.c           | 17 ++++++-----------
- sound/soc/codecs/rt298.h           |  2 --
- sound/soc/intel/boards/bxt_rt298.c |  2 +-
- 3 files changed, 7 insertions(+), 14 deletions(-)
+ sound/soc/codecs/rt274.c | 44 ++++++++++++++++------------------------
+ 1 file changed, 18 insertions(+), 26 deletions(-)
 
-diff --git a/sound/soc/codecs/rt298.c b/sound/soc/codecs/rt298.c
-index c291786dc82d..1a27e5e63289 100644
---- a/sound/soc/codecs/rt298.c
-+++ b/sound/soc/codecs/rt298.c
-@@ -326,7 +326,8 @@ static void rt298_jack_detect_work(struct work_struct *work)
- 		SND_JACK_MICROPHONE | SND_JACK_HEADPHONE);
- }
- 
--int rt298_mic_detect(struct snd_soc_component *component, struct snd_soc_jack *jack)
-+static int rt298_mic_detect(struct snd_soc_component *component,
-+			    struct snd_soc_jack *jack, void *data)
+diff --git a/sound/soc/codecs/rt274.c b/sound/soc/codecs/rt274.c
+index a5615e94ec7d..144a6f775c21 100644
+--- a/sound/soc/codecs/rt274.c
++++ b/sound/soc/codecs/rt274.c
+@@ -978,13 +978,22 @@ static irqreturn_t rt274_irq(int irq, void *data)
+ static int rt274_probe(struct snd_soc_component *component)
  {
- 	struct rt298_priv *rt298 = snd_soc_component_get_drvdata(component);
- 	struct snd_soc_dapm_context *dapm;
-@@ -358,7 +359,6 @@ int rt298_mic_detect(struct snd_soc_component *component, struct snd_soc_jack *j
+ 	struct rt274_priv *rt274 = snd_soc_component_get_drvdata(component);
++	int ret;
  
+ 	rt274->component = component;
+ 	INIT_DELAYED_WORK(&rt274->jack_detect_work, rt274_jack_detect_work);
+ 
+-	if (rt274->i2c->irq)
+-		schedule_delayed_work(&rt274->jack_detect_work,
+-				      msecs_to_jiffies(1250));
++	if (rt274->i2c->irq) {
++		ret = request_threaded_irq(rt274->i2c->irq, NULL, rt274_irq,
++					   IRQF_TRIGGER_HIGH | IRQF_ONESHOT, "rt274", rt274);
++		if (ret) {
++			dev_err(&rt274->i2c->dev, "Failed to reguest IRQ: %d\n", ret);
++			return ret;
++		}
++
++		schedule_delayed_work(&rt274->jack_detect_work, msecs_to_jiffies(1250));
++	}
++
  	return 0;
  }
--EXPORT_SYMBOL_GPL(rt298_mic_detect);
  
- static int is_mclk_mode(struct snd_soc_dapm_widget *source,
- 			 struct snd_soc_dapm_widget *sink)
-@@ -1011,17 +1011,11 @@ static int rt298_probe(struct snd_soc_component *component)
- 	struct rt298_priv *rt298 = snd_soc_component_get_drvdata(component);
+@@ -992,7 +1001,12 @@ static void rt274_remove(struct snd_soc_component *component)
+ {
+ 	struct rt274_priv *rt274 = snd_soc_component_get_drvdata(component);
  
- 	rt298->component = component;
-+	INIT_DELAYED_WORK(&rt298->jack_detect_work, rt298_jack_detect_work);
+-	cancel_delayed_work_sync(&rt274->jack_detect_work);
++	if (rt274->i2c->irq) {
++		cancel_delayed_work_sync(&rt274->jack_detect_work);
++
++		disable_irq(rt274->i2c->irq);
++		free_irq(rt274->i2c->irq, rt274);
++	}
+ }
  
--	if (rt298->i2c->irq) {
--		regmap_update_bits(rt298->regmap,
--					RT298_IRQ_CTRL, 0x2, 0x2);
--
--		INIT_DELAYED_WORK(&rt298->jack_detect_work,
--					rt298_jack_detect_work);
-+	if (rt298->i2c->irq)
- 		schedule_delayed_work(&rt298->jack_detect_work,
--					msecs_to_jiffies(1250));
+ #ifdef CONFIG_PM
+@@ -1187,16 +1201,6 @@ static int rt274_i2c_probe(struct i2c_client *i2c)
+ 	regmap_write(rt274->regmap, RT274_UNSOLICITED_HP_OUT, 0x81);
+ 	regmap_write(rt274->regmap, RT274_UNSOLICITED_MIC, 0x82);
+ 
+-	if (rt274->i2c->irq) {
+-		ret = request_threaded_irq(rt274->i2c->irq, NULL, rt274_irq,
+-			IRQF_TRIGGER_HIGH | IRQF_ONESHOT, "rt274", rt274);
+-		if (ret != 0) {
+-			dev_err(&i2c->dev,
+-				"Failed to reguest IRQ: %d\n", ret);
+-			return ret;
+-		}
 -	}
 -
-+				      msecs_to_jiffies(1250));
- 	return 0;
+ 	ret = devm_snd_soc_register_component(&i2c->dev,
+ 				     &soc_component_dev_rt274,
+ 				     rt274_dai, ARRAY_SIZE(rt274_dai));
+@@ -1204,17 +1208,6 @@ static int rt274_i2c_probe(struct i2c_client *i2c)
+ 	return ret;
  }
  
-@@ -1120,6 +1114,7 @@ static const struct snd_soc_component_driver soc_component_dev_rt298 = {
- 	.suspend		= rt298_suspend,
- 	.resume			= rt298_resume,
- 	.set_bias_level		= rt298_set_bias_level,
-+	.set_jack		= rt298_mic_detect,
- 	.controls		= rt298_snd_controls,
- 	.num_controls		= ARRAY_SIZE(rt298_snd_controls),
- 	.dapm_widgets		= rt298_dapm_widgets,
-diff --git a/sound/soc/codecs/rt298.h b/sound/soc/codecs/rt298.h
-index ed2b8fd87f4c..f1be9c135401 100644
---- a/sound/soc/codecs/rt298.h
-+++ b/sound/soc/codecs/rt298.h
-@@ -207,7 +207,5 @@ enum {
- 	RT298_AIFS,
- };
- 
--int rt298_mic_detect(struct snd_soc_component *component, struct snd_soc_jack *jack);
+-static int rt274_i2c_remove(struct i2c_client *i2c)
+-{
+-	struct rt274_priv *rt274 = i2c_get_clientdata(i2c);
 -
- #endif /* __RT298_H__ */
- 
-diff --git a/sound/soc/intel/boards/bxt_rt298.c b/sound/soc/intel/boards/bxt_rt298.c
-index 75995d17597d..4bd93c3ba377 100644
---- a/sound/soc/intel/boards/bxt_rt298.c
-+++ b/sound/soc/intel/boards/bxt_rt298.c
-@@ -176,7 +176,7 @@ static int broxton_rt298_codec_init(struct snd_soc_pcm_runtime *rtd)
- 	if (ret)
- 		return ret;
- 
--	rt298_mic_detect(component, &broxton_headset);
-+	snd_soc_component_set_jack(component, &broxton_headset, NULL);
- 
- 	snd_soc_dapm_ignore_suspend(&rtd->card->dapm, "SoC DMIC");
+-	if (i2c->irq)
+-		free_irq(i2c->irq, rt274);
+-
+-	return 0;
+-}
+-
+-
+ static struct i2c_driver rt274_i2c_driver = {
+ 	.driver = {
+ 		   .name = "rt274",
+@@ -1224,7 +1217,6 @@ static struct i2c_driver rt274_i2c_driver = {
+ #endif
+ 		   },
+ 	.probe_new = rt274_i2c_probe,
+-	.remove = rt274_i2c_remove,
+ 	.id_table = rt274_i2c_id,
+ };
  
 -- 
 2.25.1

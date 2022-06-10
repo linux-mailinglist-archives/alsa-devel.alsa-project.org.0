@@ -2,81 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15583546692
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jun 2022 14:26:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE6FD546698
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jun 2022 14:27:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0B9351B0B;
-	Fri, 10 Jun 2022 14:25:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B9351B0B
+	by alsa0.perex.cz (Postfix) with ESMTPS id D18B71B0E;
+	Fri, 10 Jun 2022 14:26:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D18B71B0E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654863985;
-	bh=c4gbRETkeNLzPUskI3vvk9q8WCCJ6b3wr/ztpqvVsCU=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=d9KOWXIui42jX51/Q5kifCQqCLt7bx99TpZ2xe0iDtK7fADFsVt6xwVx6wwR1AxlL
-	 ZiL2vv/g4HAVLi6HS0UVzkzdOvUJ2SjZdQP3G50HpNGczqQmxZhqIHwSz3hdpgvzVw
-	 VHsWHN/oT4H6GA1Yof/tsPCTaKU27yFYav/H486M=
+	s=default; t=1654864028;
+	bh=9lkw50oB2H5wn6PJf5Qa0p0gV8WF4XY1M2R/93Lgijw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=eRAFNtPYiUWHGikcK3LKEaC8S8aCX1lUQArs/KUKl4TIJMmKiyNgNi6zH+0Cdu7ZL
+	 pNMgXrT8GHXaa18aS8AQdIB8JFvDPc7hR6afLBxAFfvx5NzF3xtLV2JBwvSjAFEy4w
+	 F1fUjHKcQA7ztDXb3V9kZFgAnYccWRbq4kF8AE2g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4C5BEF804D8;
-	Fri, 10 Jun 2022 14:25:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 71F70F80526;
+	Fri, 10 Jun 2022 14:26:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8A738F800E5; Fri, 10 Jun 2022 14:25:31 +0200 (CEST)
+ id 57A30F804D2; Fri, 10 Jun 2022 14:26:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 91462F800E5
- for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 14:25:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91462F800E5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="GOaKitbi"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 942DD62191;
- Fri, 10 Jun 2022 12:25:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70F26C34114;
- Fri, 10 Jun 2022 12:25:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1654863925;
- bh=c4gbRETkeNLzPUskI3vvk9q8WCCJ6b3wr/ztpqvVsCU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=GOaKitbilbN4ZXIbpYOTarrxbSeZz4cuVQhVNReRYXQN3y6kILTbelOMyTF0Eu+VJ
- Q79JdK/aVBdRrrq3c/9o0lwcsQSwPcgX760GBbt3xhBwGa5HvkHnB5wDbHaY/89uXW
- LIxqkAA/JBAUkmXSiRYTQv0SJbOOgcqTK8zeYEek2x4GPSCbjsM9kGCn6rK4YqOYX+
- xMnjoz7nNR9fMxPKggqYTu9qLrATilRKaxtjhbMko2IjOGCOa6ME+a6BGmV7a2MCWC
- 0iHJXRBHHNpUC1zaJCvNwzx8gyl2XL27UySrguTDBpyZpteGsI7jVCc8KebjQg5ZPL
- 9JLK7lQGRwkOQ==
-Date: Fri, 10 Jun 2022 13:25:20 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Amadeusz =?utf-8?B?U8WCYXdpxYRza2k=?= <amadeuszx.slawinski@linux.intel.com>
-Subject: Re: [PATCH 11/11] ASoC: codecs: rt298: Fix jack detection
-Message-ID: <YqM4ME38kp8D2+F8@sirena.org.uk>
-References: <20220609133541.3984886-1-amadeuszx.slawinski@linux.intel.com>
- <20220609133541.3984886-12-amadeuszx.slawinski@linux.intel.com>
- <YqIJxPFwwsbAPJ14@sirena.org.uk>
- <7a13211b-524c-f92e-8c80-a03660cdfd01@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id EC175F804D2
+ for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 14:26:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC175F804D2
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="JWApyysn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1654863974; x=1686399974;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=9lkw50oB2H5wn6PJf5Qa0p0gV8WF4XY1M2R/93Lgijw=;
+ b=JWApyysnEjy0HdWCtl2VPCyQWcNMDLzM0EiyAbnsS+AD+qQs1rmykXJM
+ KJFx+DCO4l8jp1RvzSjGxAANk4AKduhW0tHoaM85RXdsGaKp3KgDy7cJA
+ nFtX1ZNJFOsLAVW/wTtcogzVo2c9LK7X/3IigYRzU55hcYI1mZQKc79QF
+ OMzk+pbsyErNWZNUSal/CcjHEXByY8mgqzHBdWb38kObJvKtszlshxifw
+ gC+3OwvarPO4g58vQHedPWBV1Gqf4HbkGZgNHLQY7gI2DKiiUwp9xw+mZ
+ nNtCxNDZ5v4W4EDJS/gsvns6P/N1BPQEKK/I0xY+FGBr2lnJMgzJdwxV/ g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10373"; a="278414307"
+X-IronPort-AV: E=Sophos;i="5.91,290,1647327600"; d="scan'208";a="278414307"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jun 2022 05:26:08 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.91,290,1647327600"; d="scan'208";a="684517808"
+Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
+ by fmsmga002.fm.intel.com with ESMTP; 10 Jun 2022 05:26:06 -0700
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+To: alsa-devel@alsa-project.org,
+	broonie@kernel.org
+Subject: [PATCH 00/17] ASoC: Intel: haswell and broadwell boards update
+Date: Fri, 10 Jun 2022 14:36:10 +0200
+Message-Id: <20220610123627.1339985-1-cezary.rojewski@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="oY1fEDU7w2pLa2+F"
-Content-Disposition: inline
-In-Reply-To: <7a13211b-524c-f92e-8c80-a03660cdfd01@linux.intel.com>
-X-Cookie: Teachers have class.
-Cc: Oder Chiou <oder_chiou@realtek.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ pierre-louis.bossart@linux.intel.com, tiwai@suse.com, hdegoede@redhat.com,
+ amadeuszx.slawinski@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,48 +88,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+A number of patches improving overall quality and readability of
+haswell.c and broadwell.c source files found in sound/soc/intel/boards.
+Both files are first renamed and only then actual changes are being
+incrementally added. The respective names are: hsw_rt5640 and bdw_rt286
+to match the pattern found in more recent boards.
 
---oY1fEDU7w2pLa2+F
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Most patches bring no functional change - the more impactful patches at
+are placed the end:
 
-On Fri, Jun 10, 2022 at 11:46:19AM +0200, Amadeusz S=C5=82awi=C5=84ski wrot=
-e:
-> On 6/9/2022 4:55 PM, Mark Brown wrote:
+Refactor of suspend/resume flow for the bdw_rt286 board by dropping
+dev->remove() in favour of card->remove() and adjust jack handling to
+reduce code size slightly by implementing card_set_jack().
 
-> > It looks rt298_jack_detect() already forces the pins on?  It's not clear
-> > to me what the relationship between this code and the existing code is.
+The last patch is removing of FE DAI ops. Given the existence of
+platform FE DAI capabilities (either static declaration or through
+topology file), this code is redundant.
 
-> This aligns the code to be similar to other two rt2xx drivers and fixes a
-> problem on our side.
+Cezary Rojewski (17):
+  ASoC: Intel: Rename haswell source file to hsw_rt5640
+  ASoC: Intel: hsw_rt5640: Reword prefixes of all driver members
+  ASoC: Intel: hsw_rt5640: Reword driver name
+  ASoC: Intel: hsw_rt5640: Update code indentation
+  ASoC: Intel: hsw_rt5640: Update file comments
+  ASoC: Intel: hsw_rt5640: Improve probe() function quality
+  ASoC: Intel: hsw_rt5640: Improve hw_params() debug-ability
+  ASoC: Intel: Rename broadwell source file to bdw_rt286
+  ASoC: Intel: bdw_rt286: Reword prefixes of all driver members
+  ASoC: Intel: bdw_rt286: Reword driver name
+  ASoC: Intel: bdw_rt286: Update code indentation
+  ASoC: Intel: bdw_rt286: Update file comments
+  ASoC: Intel: bdw_rt286: Improve probe() function quality
+  ASoC: Intel: bdw_rt286: Improve hw_params() debug-ability
+  ASoC: Intel: bdw_rt286: Improve codec_init() quality
+  ASoC: Intel: bdw_rt286: Refactor suspend/resume
+  ASoC: Intel: bdw_rt286: Remove FE DAI ops
 
-> Original code doesn't reach rt298_jack_detect() when jack =3D=3D NULL, so=
- it
-> never disables those pins in this case.
+ sound/soc/intel/boards/Kconfig                |   4 +-
+ sound/soc/intel/boards/Makefile               |   4 +-
+ sound/soc/intel/boards/bdw_rt286.c            | 257 +++++++++++++
+ sound/soc/intel/boards/broadwell.c            | 338 ------------------
+ sound/soc/intel/boards/haswell.c              | 202 -----------
+ sound/soc/intel/boards/hsw_rt5640.c           | 176 +++++++++
+ .../common/soc-acpi-intel-hsw-bdw-match.c     |   6 +-
+ 7 files changed, 440 insertions(+), 547 deletions(-)
+ create mode 100644 sound/soc/intel/boards/bdw_rt286.c
+ delete mode 100644 sound/soc/intel/boards/broadwell.c
+ delete mode 100644 sound/soc/intel/boards/haswell.c
+ create mode 100644 sound/soc/intel/boards/hsw_rt5640.c
 
-> I could probably fix this by moving rt298_jack_detect() call, but as driv=
-ers
-> for rt2xx codecs are quite similar to each other I opted to fix the issue=
- by
-> minimizing the differences between them.
+-- 
+2.25.1
 
-It would be good to at least clarify what's going on in the changelog -
-it's not really clear what exactly the problem is or how this fixes it.
-
---oY1fEDU7w2pLa2+F
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmKjOC8ACgkQJNaLcl1U
-h9AGWQf/VO6qiooQXPzw8LPIHtdHcmNKVg+S09DL/i3Q19RoOT0N/VWEwxyFqBKT
-9MyAhet8C+A8qaPojsZYi0vrzXWLZSkFQt5LqS2yb2iIWv5kP9M4BzgSAaYd8aGJ
-sQO9KbWg5ODAn13p4kWGdvvPN8i6YRTg695GG7QeAyPAavvZW1O/V8Lfeda9sKl6
-uLq492J8XPInh4GutXVC/0IdbhAW9svVLezDBPOKGr4TKHFDkmhPQs/9MvvsmpAC
-WoWz8gFX/YAtPGb05heXV0oYK6dN1LUNbDeDqvUIEMpBVyrQe+IzBGwRfDRgTsmY
-hgFF6REdMD6k6VmKbbbMxxYQGtJm4Q==
-=7CPn
------END PGP SIGNATURE-----
-
---oY1fEDU7w2pLa2+F--

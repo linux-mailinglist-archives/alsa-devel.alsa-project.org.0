@@ -2,79 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72470546D09
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jun 2022 21:11:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69C87546DAC
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jun 2022 21:54:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C8661A42;
-	Fri, 10 Jun 2022 21:10:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C8661A42
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8F58718AA;
+	Fri, 10 Jun 2022 21:53:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F58718AA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654888280;
-	bh=cgPWrZH+Vp/ZsOt1KxDsP38j88nIRs5QGVyQbw4SGd0=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=HD8ZhITst/eKNpJapoZ7rRKNZXSbCDFoVF29yJs8U7pDxVO8+RP0rOn7P8VDcMJx4
-	 xcDes0AQK8DC+Ga3DteveNIXYGTugPlUhCmNPCEgz4MsIUk5D0kcWasVG7BpD1nf4A
-	 VncM7Kdn3ktapnhsyHJu/ocZk51NPnryTgbT+WRo=
+	s=default; t=1654890844;
+	bh=F2fRn3a3rhDagwezWwy4538nMwRfGCub9eEIYPlJaUg=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=TAsh2mss1bF9YDkjQVq9j4ROtaP+7GxJBh9uDiYeySP7bSZs++cW1/7I1+oWoqRkh
+	 31K+7R64p2mpJIs6w2OGA1nc5TJb9KmSDCDj/7c15/lGXM/awk66gmcbXisXqyk1yq
+	 3BCErSxZsJcqAs9M9YSNjhCTYkbTgXYI0NP1U4k0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 699B8F804D8;
-	Fri, 10 Jun 2022 21:10:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D4C2BF804D8;
+	Fri, 10 Jun 2022 21:53:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C793CF804D2; Fri, 10 Jun 2022 21:10:17 +0200 (CEST)
+ id B568EF800DF; Fri, 10 Jun 2022 21:53:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [IPv6:2a00:1450:4864:20::329])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3708CF800E5
- for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 21:10:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3708CF800E5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2CE07F800DF
+ for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 21:52:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2CE07F800DF
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="rKYIYIsw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1654888210; x=1686424210;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=/6gzHtB1xLwyi5VfMRs3ROaVhmZ8nPMCJI4IxPVkTTk=;
- b=rKYIYIswnkShk6NZNViFud0Kc0uZiyJ0rhYpjlp3JtJswpt9t2F/6/fi
- qL68F3C5eDTOJPso5XOyRCunNYMVOnaqoNcqYUj5NbMKX4PCL8KfaP/mj
- oaoqFZacWCFgw1nFpaY43ye4WqD1qLZJiTjwCkJuKJH7Sj/pkU671tXom E=;
-Received: from ironmsg07-lv.qualcomm.com ([10.47.202.151])
- by alexa-out.qualcomm.com with ESMTP; 10 Jun 2022 12:10:04 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg07-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2022 12:09:48 -0700
-Received: from nalasex01c.na.qualcomm.com (10.47.97.35) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Fri, 10 Jun 2022 12:09:48 -0700
-Received: from plai-linux.qualcomm.com (10.80.80.8) by
- nalasex01c.na.qualcomm.com (10.47.97.35) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Fri, 10 Jun 2022 12:09:47 -0700
-From: Patrick Lai <quic_plai@quicinc.com>
-To: <tiwai@suse.com>
-Subject: [PATCH] ALSA: pcm: add 24KHz sample rate definition
-Date: Fri, 10 Jun 2022 12:09:31 -0700
-Message-ID: <20220610190931.24760-1-quic_plai@quicinc.com>
-X-Mailer: git-send-email 2.36.1
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="VFre5QqF"
+Received: by mail-wm1-x329.google.com with SMTP id
+ r187-20020a1c44c4000000b0039c76434147so1625779wma.1
+ for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 12:52:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :references:from:in-reply-to:content-transfer-encoding;
+ bh=/0seJj7vutXMisqi25YbC/BlVcmbiGDjG4jipxqxReo=;
+ b=VFre5QqFlIlGENzelDzmUJOiheZWLY1JoEfaXQVUp03TC5OyhQ0ntZuxLQEbTNb1nI
+ fZ77oE2MANgxD9i4a+OG/UMCw/nXPHHqaMOFIoC4TykgPW4PhLMOi5wWTtpljPBdjnpR
+ KXH7emFO02shqEjX2tYrQfNFiFlRCpPjXdioNwa/7QFfw2YdLuLjJEjyHKcYdy5bQPaY
+ Q74EgOC28ix3FxjkDeA/ZJFMW/F2ftQiTpB+up5jC65umBvutgiviDcZfXlWCHwd1wbp
+ Wu42XjbBl1rdm1jHloojb5ZtGu8ZXX0go2pD5gbMSQ5o2jHwKwraEy919Hq7I979v9E5
+ DoNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=/0seJj7vutXMisqi25YbC/BlVcmbiGDjG4jipxqxReo=;
+ b=GWQcrUEaB2Rt7akzi9Ff6+muCFc3W9LXR8pOzZalC7LZrdgedREgBORPm9pPlaK3RW
+ Apq85c9McHG/bmrc8a7CqDG0UgoIRMbe46GIRCobTOrMT0f3wXHvbIbR7BMbTg+YS3n/
+ KKBq8gpI3ogQPsxYf5vV96ghBhjZ30/0cpdjjVwd1Cnr5VvC3bUX5PMgn5UCdRnQ60p5
+ U1K6o0uhMEFanrxzFus+dPe42lotYgiVtSwokVedwDKQjfhoOXgZaD+cs5f/cdBpn/7d
+ /TVNkkYPho+cmG/PvXgGVsWcDMzp1ZcopXY8XQuwXpn4KaWDGHnfy6mO5yXMbeBQXxPb
+ QL/Q==
+X-Gm-Message-State: AOAM530b9ekLzMmar0bgOqdAfUY2/shBmww4WQi1BfUhgSb5CiGF1dah
+ kEOwAr6UhXavKxa0n9gjd+dN7A==
+X-Google-Smtp-Source: ABdhPJwlVgYEJ4hq/w7bJ1jcGdQfLjStMZWUjC+0iWkoeA/KWncZxa3J5xGCX5dZ/sQBCQE9dWBZGQ==
+X-Received: by 2002:a05:600c:3516:b0:39c:8091:31b6 with SMTP id
+ h22-20020a05600c351600b0039c809131b6mr1308386wmq.164.1654890778440; 
+ Fri, 10 Jun 2022 12:52:58 -0700 (PDT)
+Received: from [192.168.0.203] (xdsl-188-155-176-92.adslplus.ch.
+ [188.155.176.92]) by smtp.gmail.com with ESMTPSA id
+ f2-20020adfb602000000b002185c6dc5b1sm273167wre.108.2022.06.10.12.52.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 10 Jun 2022 12:52:57 -0700 (PDT)
+Message-ID: <bb4ab218-3461-9afb-ecba-5c9e87f6acfc@linaro.org>
+Date: Fri, 10 Jun 2022 21:52:55 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Subject: Re: [PATCH] ASoC: samsung: i2s: Check before clk_unregister() not
+ needed
+Content-Language: en-US
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Yihao Han <hanyihao@vivo.com>, Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+References: <20220527065412.3677-1-hanyihao@vivo.com>
+ <2bcf706b-10d5-9369-ff8a-2a3263f9fa70@linaro.org>
+ <d53ad0e2-e32d-1b46-b626-e82b44230704@wanadoo.fr>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <d53ad0e2-e32d-1b46-b626-e82b44230704@wanadoo.fr>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01c.na.qualcomm.com (10.47.97.35)
-Cc: Patrick Lai <quic_plai@quicinc.com>, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,75 +112,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add 24KHz sample rate definition as some hardware
-can support 24KHz sample rate PCM data
+On 10/06/2022 18:15, Christophe JAILLET wrote:
+> Le 29/05/2022 à 10:06, Krzysztof Kozlowski a écrit :
+>> On 27/05/2022 08:54, Yihao Han wrote:
+>>> clk_unregister() already checks the clk ptr using
+>>> !clk || WARN_ON_ONCE(IS_ERR(clk)) so there is no need to check it
+>>> again before calling it.
+>>>
+>>
+>> No, this explanation does not make sense. clk_unregister() warns and
+>> this code is not equivalent.
+>>
+>>
+>>
+>> Best regards,
+>> Krzysztof
+>>
+> 
+> Hi,
+> 
+> Moreover, as pointed out by greg in [1] on some plateform the assertion 
+> in the commit description is wrong. His message is about clk_disable() 
+> but, IIUC, it makes sense for clk_unregister() as well. See [2] on the 
+> sh plateform.
+> 
 
-Signed-off-by: Patrick Lai <quic_plai@quicinc.com>
----
- include/sound/pcm.h     | 24 +++++++++++++-----------
- sound/core/pcm_native.c |  4 ++--
- 2 files changed, 15 insertions(+), 13 deletions(-)
+Yes, this is true as well, although does not have the practical impact
+on this driver as it uses platforms with common clock framework.
 
-diff --git a/include/sound/pcm.h b/include/sound/pcm.h
-index 6b99310b5b88..a761a4459091 100644
---- a/include/sound/pcm.h
-+++ b/include/sound/pcm.h
-@@ -111,23 +111,25 @@ struct snd_pcm_ops {
- #define SNDRV_PCM_RATE_11025		(1<<2)		/* 11025Hz */
- #define SNDRV_PCM_RATE_16000		(1<<3)		/* 16000Hz */
- #define SNDRV_PCM_RATE_22050		(1<<4)		/* 22050Hz */
--#define SNDRV_PCM_RATE_32000		(1<<5)		/* 32000Hz */
--#define SNDRV_PCM_RATE_44100		(1<<6)		/* 44100Hz */
--#define SNDRV_PCM_RATE_48000		(1<<7)		/* 48000Hz */
--#define SNDRV_PCM_RATE_64000		(1<<8)		/* 64000Hz */
--#define SNDRV_PCM_RATE_88200		(1<<9)		/* 88200Hz */
--#define SNDRV_PCM_RATE_96000		(1<<10)		/* 96000Hz */
--#define SNDRV_PCM_RATE_176400		(1<<11)		/* 176400Hz */
--#define SNDRV_PCM_RATE_192000		(1<<12)		/* 192000Hz */
--#define SNDRV_PCM_RATE_352800		(1<<13)		/* 352800Hz */
--#define SNDRV_PCM_RATE_384000		(1<<14)		/* 384000Hz */
-+#define SNDDV_PCM_RATE_24000		(1<<5)		/* 24000Hz */
-+#define SNDRV_PCM_RATE_32000		(1<<6)		/* 32000Hz */
-+#define SNDRV_PCM_RATE_44100		(1<<7)		/* 44100Hz */
-+#define SNDRV_PCM_RATE_48000		(1<<8)		/* 48000Hz */
-+#define SNDRV_PCM_RATE_64000		(1<<9)		/* 64000Hz */
-+#define SNDRV_PCM_RATE_88200		(1<<10)		/* 88200Hz */
-+#define SNDRV_PCM_RATE_96000		(1<<11)		/* 96000Hz */
-+#define SNDRV_PCM_RATE_176400		(1<<12)		/* 176400Hz */
-+#define SNDRV_PCM_RATE_192000		(1<<13)		/* 192000Hz */
-+#define SNDRV_PCM_RATE_352800		(1<<14)		/* 352800Hz */
-+#define SNDRV_PCM_RATE_384000		(1<<15)		/* 384000Hz */
- 
- #define SNDRV_PCM_RATE_CONTINUOUS	(1<<30)		/* continuous range */
- #define SNDRV_PCM_RATE_KNOT		(1<<31)		/* supports more non-continuos rates */
- 
- #define SNDRV_PCM_RATE_8000_44100	(SNDRV_PCM_RATE_8000|SNDRV_PCM_RATE_11025|\
- 					 SNDRV_PCM_RATE_16000|SNDRV_PCM_RATE_22050|\
--					 SNDRV_PCM_RATE_32000|SNDRV_PCM_RATE_44100)
-+					 SNDRV_PCM_RATE_24000|SNDRV_PCM_RATE_32000|\
-+					 SNDRV_PCM_RATE_44100)
- #define SNDRV_PCM_RATE_8000_48000	(SNDRV_PCM_RATE_8000_44100|SNDRV_PCM_RATE_48000)
- #define SNDRV_PCM_RATE_8000_96000	(SNDRV_PCM_RATE_8000_48000|SNDRV_PCM_RATE_64000|\
- 					 SNDRV_PCM_RATE_88200|SNDRV_PCM_RATE_96000)
-diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index 4adaee62ef33..72e3eab09518 100644
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -2442,12 +2442,12 @@ static int snd_pcm_hw_rule_sample_bits(struct snd_pcm_hw_params *params,
- 	return snd_interval_refine(hw_param_interval(params, rule->var), &t);
- }
- 
--#if SNDRV_PCM_RATE_5512 != 1 << 0 || SNDRV_PCM_RATE_192000 != 1 << 12
-+#if SNDRV_PCM_RATE_5512 != 1 << 0 || SNDRV_PCM_RATE_192000 != 1 << 13
- #error "Change this table"
- #endif
- 
- static const unsigned int rates[] = {
--	5512, 8000, 11025, 16000, 22050, 32000, 44100,
-+	5512, 8000, 11025, 16000, 22050, 24000, 32000, 44100,
- 	48000, 64000, 88200, 96000, 176400, 192000, 352800, 384000
- };
- 
--- 
-2.36.1
 
+Best regards,
+Krzysztof

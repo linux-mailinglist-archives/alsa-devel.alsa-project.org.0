@@ -2,80 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A19495463F7
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jun 2022 12:39:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C3115465FD
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jun 2022 13:49:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 320E61AAF;
-	Fri, 10 Jun 2022 12:38:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 320E61AAF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 032FA17F0;
+	Fri, 10 Jun 2022 13:48:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 032FA17F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654857559;
-	bh=1sSMdOjlL12ZEAViwInbwrCK9hHGwi1zWwKZdCR2xP0=;
+	s=default; t=1654861762;
+	bh=Oa42FrDX9SAL3GgVXXJClDSCVxDWXe2Bxa0EkqA/4Vg=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=C5pebSB2iWtp5NrzTbegM3pwNTOWu01GjTOhjvnbhx8MCCjRW2RL+f6maUSQTR+mA
-	 gQXNmsaZR8K86jMNowaZiUCArQ0U4lkcTVTiAy0rxFz4CwNIRZsUDuvsy9Z+GJlNpE
-	 PPB8Rwr37/zUw6z2Zi+OvgJUZVc0Vk9cwLSMFIjk=
+	b=vDeFDPjHsR3whx0wpFHr4QdPGhDAij7vOnA3Fvrl3vNmEKzmiHCng+UZWG1c8pQqQ
+	 3jIrjn+9DAUUI2Aup2LI1yCT3uP0iHXUDrSskG2e5g05Lw3Fk7QitZDOXLobNKipxV
+	 Pj/IoFgWS9zTYE3Na+5ud1dL9xnlc5+vpM4wWEaI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A2838F804D8;
-	Fri, 10 Jun 2022 12:38:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 05716F804D8;
+	Fri, 10 Jun 2022 13:48:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 76889F804D2; Fri, 10 Jun 2022 12:38:18 +0200 (CEST)
+ id 50264F804D2; Fri, 10 Jun 2022 13:48:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2B8BDF800E5
- for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 12:38:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B8BDF800E5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 850ECF800DF
+ for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 13:48:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 850ECF800DF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="GN66HSLw"
+ header.b="I1xzeGYv"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 033E0B833F8;
- Fri, 10 Jun 2022 10:38:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25979C3411E;
- Fri, 10 Jun 2022 10:38:11 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8D47762126;
+ Fri, 10 Jun 2022 11:48:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64432C34114;
+ Fri, 10 Jun 2022 11:48:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1654857493;
- bh=1sSMdOjlL12ZEAViwInbwrCK9hHGwi1zWwKZdCR2xP0=;
+ s=k20201202; t=1654861694;
+ bh=Oa42FrDX9SAL3GgVXXJClDSCVxDWXe2Bxa0EkqA/4Vg=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=GN66HSLwef8gfMJIOdbA5ardC70LawEh2UO+swTxD+PFwAfIBOmkZjJv0T4judqaU
- JWo+4Je9QCiY7g3aJyhLXoOL5v9rhNpzOssQN8vECZ1BtFukSDSVQDGa59GcTicKQi
- Lgox+yr/U/S9m8iWdPwG2ZTXRqehmx5VU1N030wr3asKPOQ8Le0IeJR4hAw00Y698f
- GU/zuV1ZAls7sis0BpKsfzj4CgYa8mwgNcav9UE6Dv53gGu+znmHJkVSc0WMcUtUlG
- g1ORphxQ5NgKvvIcf2XwqKvxaHWvgNPCh8hl2kWFbCi2UWd+f99yRDZGP8Ly8p63+4
- vbQG4Eb+9jp+w==
-Date: Fri, 10 Jun 2022 11:38:08 +0100
+ b=I1xzeGYvoPCBu/ecVmTQwZn+lwurLiLyJmitLb7wERxfmympx7BU0Ur68VBWbAGku
+ Z3sWYZKggLE55kmjB+qCDbQTa6BOGbXuarpImfyKCqxCmMGxuBn4MMGm5JzEz+/uP8
+ Nhcpb1wpb4yvqTfdJuV5WCjnFnJNT3rAUfEfAAQXKt9O/Kfz5EgWz+VZ7VDDFTNly/
+ su+w4rjSUhkBYJWI+36Xx1iy2CWV9TQH5ANbb8Wq6J/fgbh1oBCUCyia6i0nfxvFgI
+ ijgNiFwmQmasZLBMK8aq05UlN1X79fTM7Z1xY07IVISG7W3USUubCfHqIhb8GBE0MR
+ 4U4e35Rm9H8yQ==
+Date: Fri, 10 Jun 2022 12:48:08 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Amadeusz =?utf-8?B?U8WCYXdpxYRza2k=?= <amadeuszx.slawinski@linux.intel.com>
-Subject: Re: [PATCH 07/11] ASoC: codecs: rt274: Enable irq only when needed
-Message-ID: <YqMfEHp1qaPs2+PL@sirena.org.uk>
-References: <20220609133541.3984886-1-amadeuszx.slawinski@linux.intel.com>
- <20220609133541.3984886-8-amadeuszx.slawinski@linux.intel.com>
- <YqIBRGNAOfxPJjc+@sirena.org.uk>
- <4ac15ba3-1f20-5361-1941-2687962ce454@linux.intel.com>
+To: Lukasz Majewski <lukma@denx.de>
+Subject: Re: [PATCH 3/3] ASoC: wm8940: Mute also the speaker output
+Message-ID: <YqMveGXbwMhLeo4M@sirena.org.uk>
+References: <20220606154441.20848-1-lukma@denx.de>
+ <20220606154441.20848-3-lukma@denx.de>
+ <Yp4qb5jaGYf5qnxt@sirena.org.uk> <20220610112331.4dcc183b@ktm>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="q0fkFI9z45t098O+"
+ protocol="application/pgp-signature"; boundary="kPV9gyCZ3tfx091g"
 Content-Disposition: inline
-In-Reply-To: <4ac15ba3-1f20-5361-1941-2687962ce454@linux.intel.com>
+In-Reply-To: <20220610112331.4dcc183b@ktm>
 X-Cookie: Teachers have class.
-Cc: Oder Chiou <oder_chiou@realtek.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,54 +90,90 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---q0fkFI9z45t098O+
-Content-Type: text/plain; charset=utf-8
+--kPV9gyCZ3tfx091g
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jun 10, 2022 at 11:33:34AM +0200, Amadeusz S=C5=82awi=C5=84ski wrot=
-e:
-> On 6/9/2022 4:18 PM, Mark Brown wrote:
-> > On Thu, Jun 09, 2022 at 03:35:37PM +0200, Amadeusz S=C5=82awi=C5=84ski =
-wrote:
-> > > Interrupt is only needed when jack detection is enabled, so enable it
-> > > then, similarly disable it when jack detection is being disabled.
+On Fri, Jun 10, 2022 at 11:23:31AM +0200, Lukasz Majewski wrote:
+> > On Mon, Jun 06, 2022 at 05:44:41PM +0200, Lukasz Majewski wrote:
 
-> > >   	if (jack =3D=3D NULL) {
-> > >   		/* Disable jack detection */
-> > > +		disable_irq(rt274->i2c->irq);
+> > > Without this change the BTL speaker produces some
+> > > "distortion" noise when test program
+> > > (speaker-test -t waw) is ended with ctrl+c. =20
 
-> > There is absolutely no need to do this, it'll interfere with any sharing
-> > of the interrupt and if the interrupt isn't firing then there is no cost
-> > to having the interrupt registered.
+> > > As our design uses speaker outputs to drive BTL speaker,
+> > > it was necessary to also mute the speaker via the codec
+> > > internal WM8940_SPKVOL register with setting
+> > > WM8940_SPKMUTE bit. =20
 
-> > The driver could use some cleanup of the interrupt handler, it currently
-> > unconditionally clears anything that fires and reports IRQ_HANDLED but
-> > should only report IRQ_HANDLED if there was anything from the device.
-> > Practically speaking it shouldn't make much difference unless there's
-> > spurious interrupts or the interrupt gets shared.
+> > This will not interact well with both the user visible control of the
+> > speaker volume via the Speaker Playback Volume control and the analog
+> > bypass paths that the device has - it'll change the state of the
+> > control without generating any events, and cut off any bypassed audio
+> > that's mixed in.
 
-> I will recheck this again, but if I remember correctly we may have had
-> problems that codec kept firing interrupts when we unloaded machine board
-> and codec driver kept spamming dmesg due to _dbg message present in irq
-> handler.
+> I'm wondering why it is safe to call DAI's .digital_mute()
+> callback, which explicitly changes state of the "DAC soft mute enable"
+> bit (DACMU) ?
 
-If there's issues there they should be fixed in the interrupt handler -
-the driver should be able to handle the interrupt sensibly either way.
+If there's a user visible control for the same register bit that's a
+bug.  If there's no user visible control for it then there's nothing to
+conflict with.
 
---q0fkFI9z45t098O+
+> And on the other hand it is not correct to just mute the speakers?
+
+No, that's not what we're muting playback for - the digital mute is
+there specifically to deal with issues with host controllers outputing
+noise during startup/teardown.  If there are issues with the speaker
+output then they need to be addressed at that point, especially given
+that the device has bypass paths.
+
+> > You can probably achieve a similar effect by making the control an
+> > _AUTODISABLE one which will allow the core to mute the control when
+> > it's not being used in a way that's not visible to userspace.
+
+> The exact definition for the event, which I'm forcing above:
+
+> SOC_SINGLE("Speaker Playback Switch", WM8940_SPKVOL,  6, 1, 1),
+
+> And there is no SOC_SINGLE_AUTODISABLE() macro available.
+
+That seems solvable?  Though if the issue isn't triggered in connection
+with a DAPM event (which sounds like the case) then it's probably not
+going to help.
+
+> The issue I'm trying to fix:
+
+> - The mclk clock is stopped (after some time) by imx SOC when I end
+>   'speaker-test' program with ctrl+c.
+
+> - When the clock is not provided (after ~1sec) I do hear a single short
+>   noise from speakers.
+
+> - The other solution (which also works) would be to enable clock once
+>   (during probe) and then do not disable it till system is powered
+>   off (yes it is a hack :-) ).
+
+If the issue is triggered by the MCLK being disabled prematurely then
+the simplest fix is probably to wire up the CODEC MCLK to the clock API
+and manage it during set_bias_level() (probably on transition out of and
+into _STANDBY) - that should have a similar effect to leaving it enabled
+all the time.
+
+--kPV9gyCZ3tfx091g
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmKjHxAACgkQJNaLcl1U
-h9AoaAf+J4kqrTExY5qe84RJybpdM1mUOOHvnBZVAWOr/yPlnEQGCOAtK8YVqTDX
-uKn/1p00NYOEQeKDI1IiPuLKT31SCgOi4+0aWI0/iSo4KRkfs7a6JQRSWyYNVSWz
-v8/4DYMdQKLsaxG4vq5Y29SjH+0ayW3zk3KBXc5bUk7rPLRVPc0rdetGKKvmctUZ
-drHcQ98/XvsRg2OAamfls8m/TRWQvNQqNYBAeN+F5M0d7SqDbduGK4yWmhfdJzjQ
-E+tmxJZk5M2E1L+Ec0y5yDItI2FcqarjwqXwqFkVAzEv+X9IonQrkfIqPP0f4O9N
-rxjdwg3vy/HWHh5X/wVLJq1a7JXrNQ==
-=3m2y
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmKjL3cACgkQJNaLcl1U
+h9DwXgf9Eqq0qI5+Aw9AhO+y+X3Rc2s2lb059a1Ftb2g9zunZ5OEQQr5Cf8o4cDP
+N//WRbzdOsY6YWdCTFY0W+8U6ZIA43UZ/Ouce9NJhdBjqDEWgAXvN33Jr43/0umY
+1cQ8acjZEIC6S6DUPMCqpeF14pXIZwROgq/fUHfuO+nQA9t2sM2c2dbd8LsoUiJj
+tcU5CNuWbt1KVvSKmQv4H1tjcvEO+6M+8b28yGtPLPptniUGYxWCQkvbCeDGW5c/
+Bttcy6yX7JL8351r2XEsStUAQJlPFE93i9ljwCTrXgVmGky9cdrSfEchQHAJnh78
+mk18imjyrb1WLLMLHzBsgiGQpSH39A==
+=EJBV
 -----END PGP SIGNATURE-----
 
---q0fkFI9z45t098O+--
+--kPV9gyCZ3tfx091g--

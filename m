@@ -2,76 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9F88546A0A
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jun 2022 18:01:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3726546A04
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jun 2022 18:00:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3FF521A40;
-	Fri, 10 Jun 2022 18:00:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3FF521A40
+	by alsa0.perex.cz (Postfix) with ESMTPS id 56933193D;
+	Fri, 10 Jun 2022 17:59:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 56933193D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654876883;
-	bh=pukN4eqMLDwAfADmCFrP37xeUN5VQo3/IDlxoegqoS4=;
+	s=default; t=1654876847;
+	bh=9UbQKLB/2Crd4lVzXcvXY2iYNGiANULUMGW05bekvD4=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZiumBe5gelffMH2QI+2lnBzWwN4OhcneBKBScrBcYJdBCZVAXFrl+vpjo6HqjUn4y
-	 or6loTyPMv0aHzLxlyHe/EXArv3+AD+wISIckNOU0G1ikv0A7+CbFmh0QKwisaTwZH
-	 KKYEKf0QEPwfFs9DJHH6QktZoo8wz1KLt6M0qKzI=
+	b=uW1AkSINe2RdEes4buViRU3ZQ6d4gvBHoylL3vwyUTPrGeMe/S5ghSNus3Qj4dkIn
+	 IfyGZ8eLNxWqnQadaJ9Xrc7wKh8T2WuyRplWdHM3cUeI3KRQRKd59mw0r9CH60ARoN
+	 YsomuGuFCQeffMofCG90NH7wTGrNRwQGduNL3HKI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5BCBCF80538;
-	Fri, 10 Jun 2022 17:59:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9A100F8052D;
+	Fri, 10 Jun 2022 17:59:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0FC95F800E5; Fri, 10 Jun 2022 17:59:14 +0200 (CEST)
+ id A314FF80520; Fri, 10 Jun 2022 17:59:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3B002F800DF
- for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 17:58:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B002F800DF
+ by alsa1.perex.cz (Postfix) with ESMTPS id D77BAF804D2
+ for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 17:58:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D77BAF804D2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="fWJn0Otz"
+ header.b="fvV1R77Z"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id E21CFB83625;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 37E3F61FDF;
+ Fri, 10 Jun 2022 15:58:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37FC8C34114;
  Fri, 10 Jun 2022 15:58:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26C31C3411B;
- Fri, 10 Jun 2022 15:58:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1654876731;
- bh=pukN4eqMLDwAfADmCFrP37xeUN5VQo3/IDlxoegqoS4=;
+ s=k20201202; t=1654876733;
+ bh=9UbQKLB/2Crd4lVzXcvXY2iYNGiANULUMGW05bekvD4=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=fWJn0OtzebIFM7/P7n1RM4dTqpyVVGYeGa4DzyvrCkYLaR18dVgExyfTy7Kb0gqTh
- cjjI6b8iuUr73n8KH8su64SNubqJUvFE2QhF7yKse8Y0daL8GjPwx29RGXweQZeIw9
- 1upoWOtofQHmN8khipe5wS/6weMsfXq1CzEzNKbzk44velHJcNeFx6ty4GpqFdpUP/
- 1300TIHC/zZOyHdzbg2t1Cq6GdvrFqNfXc+rYRnCIvR9sNcBty5DHMYxj5h+6fpw8d
- rshZg3sB234Du6DQjpUpWgol7FvQfEqhk6VpuTCKIGs6BRB+NeqDXk70EPTlLnGKRB
- ZlVNvhCFlqQDA==
+ b=fvV1R77ZjWdutWTfmPlTOgC2Y/aPEqg7Qmm/Lc80eO9ZXIYTqsMh8ouu0xRwI+IIA
+ /ul/5Kac8jl7lR8kq0Wte1v/RPXN8t5piTjA8lNU9xVxXN/WheXf8FdLp59ugFSlhn
+ Nuo6Ho/u1R1QV20lSN4lttrj75mj3AN2LmCJ1rlt2vLmBz1TSjmmHce4SXkAllq/SU
+ t0Xh60uuoP1iFlgcnG9nJfIUbELFBXnQSybF2c2KR0yjZ63LW7imOl/zn5OoxzQD2Q
+ +9cKLaeVR7XBTNwiurXEqYpR239oSern25OvIBfccCpCQn5NP//xadL5d7FYrw90Uf
+ dKfvwddCKyzuA==
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com,
- peter.ujfalusi@linux.intel.com
-In-Reply-To: <20220610080421.31453-1-peter.ujfalusi@linux.intel.com>
-References: <20220610080421.31453-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: debug: Clarify the IPC timeout handling path
-Message-Id: <165487672987.1755957.712485917798463422.b4-ty@kernel.org>
-Date: Fri, 10 Jun 2022 16:58:49 +0100
+To: amadeuszx.slawinski@linux.intel.com, oder_chiou@realtek.com
+In-Reply-To: <20220609133541.3984886-1-amadeuszx.slawinski@linux.intel.com>
+References: <20220609133541.3984886-1-amadeuszx.slawinski@linux.intel.com>
+Subject: Re: (subset) [PATCH 00/11] ASoC: codecs: Series of fixes for realtek
+ codecs used on RVPs
+Message-Id: <165487673193.1755957.10182060787861198748.b4-ty@kernel.org>
+Date: Fri, 10 Jun 2022 16:58:51 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, daniel.baluta@nxp.com,
- ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
- yc.hung@mediatek.com
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ cezary.rojewski@intel.com, tiwai@suse.com, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,14 +87,22 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 10 Jun 2022 11:04:21 +0300, Peter Ujfalusi wrote:
-> The dmesg log message of "Firmware exception" causes lots of confusion as
-> the snd_sof_handle_fw_exception() is only called in case of an IPC tx
-> timeout, where such a message does not make much sense.
+On Thu, 9 Jun 2022 15:35:30 +0200, Amadeusz Sławiński wrote:
+> Our tests platforms do use realtek codecs, while implementing avs driver
+> and machine boards for it, we identified quite a lot of problems with
+> those codec drivers.
 > 
-> To not limit the snd_sof_handle_fw_exception() handler to just one error
-> case, add a parameter to allow the caller to specify a meaningful message
-> to be printed.
+> This series aims to fix those issues.
+> 
+> Amadeusz Sławiński (8):
+>   ASoC: codecs: rt274: Move irq registration and cleanup
+>   ASoC: codecs: rt286: Move irq registration and cleanup
+>   ASoC: codecs: rt298: Move irq registration and cleanup
+>   ASoC: codecs: rt274: Enable irq only when needed
+>   ASoC: codecs: rt286: Enable irq only when needed
+>   ASoC: codecs: rt298: Enable irq only when needed
+>   ASoC: codecs: rt298: Fix NULL jack in interrupt
+>   ASoC: codecs: rt298: Fix jack detection
 > 
 > [...]
 
@@ -104,8 +112,12 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: SOF: debug: Clarify the IPC timeout handling path
-      commit: 145cb4e7a9ee12326f99948d8980ad258462b6c4
+[01/11] ASoC: codecs: rt274: Always init jack_detect_work
+        commit: a43b4394bb35391b74486a788be6634ed91e221a
+[02/11] ASoC: codecs: rt286: Reorganize jack detect handling
+        commit: 3082afe097cc5d794c28a629f3492a0133ee4891
+[03/11] ASoC: codecs: rt298: Reorganize jack detect handling
+        commit: 1eb73102da280b28bc3899f694e673bf3e4d0afd
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

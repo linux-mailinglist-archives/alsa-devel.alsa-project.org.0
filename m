@@ -2,82 +2,185 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3407546A98
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jun 2022 18:38:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25FE6546BA5
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jun 2022 19:27:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5D47F1ACD;
-	Fri, 10 Jun 2022 18:37:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D47F1ACD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 89A461878;
+	Fri, 10 Jun 2022 19:26:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 89A461878
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654879118;
-	bh=MhZTM4O1XuTX/ZJuo1iJ3jSaLSQYSG34sFN9TIyGN6U=;
+	s=default; t=1654882045;
+	bh=hQWu07vnyp5SF+GgLJ75ytLYEmWUx69bu8PXFlrQEzA=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BN6eB6ifVIx3hr16CB/4g8pCQGscrFY3ZijSXdox/z0KPuLUUiSBaJsMJXbjSUZt8
-	 OqwMiLXiBFxjWURVjaiwoTVCLBY1Sonuhfn0fzf1MelvXOr1RxrcuXeMRkaxMP08NO
-	 Xp1rlejXYhv7w2xH1fC8IYpIDYDKxktsqx1+nN/o=
+	b=W7Z0rIZ1NT+Xefcag6RK5w6TY4n1xd41vyqBTJ7Ltgtunzb9AQ4eviVEZODfOc7a3
+	 dMpSSbw8xHT0c1lHZdGefeK1bW7CFkBh86nXKeUF1VcKYnymtZ8YEF2EAYksxawu8R
+	 6Q6Yp0k7lNziNeltsI/UXGJA+u60nyLrpVsUnIxE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 67C2FF80529;
-	Fri, 10 Jun 2022 18:37:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C1FEAF804D8;
+	Fri, 10 Jun 2022 19:26:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C3EC3F804DA; Fri, 10 Jun 2022 18:37:34 +0200 (CEST)
+ id 20E68F804D2; Fri, 10 Jun 2022 19:26:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 776E6F80529
- for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 18:37:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 776E6F80529
+ by alsa1.perex.cz (Postfix) with ESMTPS id A9108F800DF
+ for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 19:26:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9108F800DF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="RD2huzKx"
+ header.b="c5OgzlaV"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1654879049; x=1686415049;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=MhZTM4O1XuTX/ZJuo1iJ3jSaLSQYSG34sFN9TIyGN6U=;
- b=RD2huzKxGm7aFiADgqGvGOOnPGGSYdLrgIZjcASqQCqz8aqUI8f1WjKx
- 44w0i/jNZnlNieXacCED8DDi+clQ0j8Ore2RXfOk7KTnx0NPE+WOFqQcn
- cvvQ3QcwhNcYFqdSn/K7lXHnk0PTaqgFifGc0Oh0ur42UuxlM3HRfize3
- RxgcBbZPaoq3zy/iNeDJIequLN8+3PZiytjNcaoS6dUrHrJk4XcP8yHNd
- haHwXpR8fVtwHqlwz+J5Kylkn52EUAvfEGIv/xeqwwNGtp8MskMhsdgZK
- VQxBFOoPao9yN5m01hqxpLsX2u93iwDuU0yBeZk5iF/vB/rdFfisYyh2d w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10374"; a="278813335"
-X-IronPort-AV: E=Sophos;i="5.91,290,1647327600"; d="scan'208";a="278813335"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2022 09:37:23 -0700
-X-IronPort-AV: E=Sophos;i="5.91,290,1647327600"; d="scan'208";a="725033065"
-Received: from pljackso-mobl.amr.corp.intel.com (HELO [10.213.190.122])
- ([10.213.190.122])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2022 09:37:23 -0700
-Message-ID: <59f2fd76-ac1e-9fdf-401b-2c09e5be8cc8@linux.intel.com>
-Date: Fri, 10 Jun 2022 11:34:23 -0500
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ t=1654881974; x=1686417974;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=hQWu07vnyp5SF+GgLJ75ytLYEmWUx69bu8PXFlrQEzA=;
+ b=c5OgzlaVlLTkMcgVVTeWb+HToPivHYFh3SiSOcb7cuOo1L/fq/LQ0Uvk
+ ZOPxYzHbgRiXF3PTVkD2UEH7Vy8TbbUnV1Db6BCJUaH9KoVztRAHAOvpo
+ WnsFjGG7b2h9VRD+gDfW2ZbhVy22Ffn0HlwYRu5LtCI/YiMxYTf/JZX8m
+ DMBKN4c7M6GlgkVZ0rOz7bbre7UWyG1mwFblbYhwsNhOnl7M0l6pRaqrE
+ N2+CTOL4B7a7MU8KPkqWAWGpBGl9YO2qYZqBNE41UAAuYGqgvjQEIDtEk
+ FG8njm/TmyzYDcKlVkGgXPErAPp2V4Fsn7P2wjEyT0+UjlDp1UTYwsPmE w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10374"; a="257521261"
+X-IronPort-AV: E=Sophos;i="5.91,291,1647327600"; d="scan'208";a="257521261"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jun 2022 10:26:05 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.91,291,1647327600"; d="scan'208";a="638226960"
+Received: from fmsmsx606.amr.corp.intel.com ([10.18.126.86])
+ by fmsmga008.fm.intel.com with ESMTP; 10 Jun 2022 10:26:05 -0700
+Received: from fmsmsx609.amr.corp.intel.com (10.18.126.89) by
+ fmsmsx606.amr.corp.intel.com (10.18.126.86) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.27; Fri, 10 Jun 2022 10:26:05 -0700
+Received: from fmsmsx606.amr.corp.intel.com (10.18.126.86) by
+ fmsmsx609.amr.corp.intel.com (10.18.126.89) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.27; Fri, 10 Jun 2022 10:26:04 -0700
+Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
+ fmsmsx606.amr.corp.intel.com (10.18.126.86) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.27 via Frontend Transport; Fri, 10 Jun 2022 10:26:04 -0700
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com (104.47.57.175)
+ by edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2308.27; Fri, 10 Jun 2022 10:26:04 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Ga9xqq6BQE6aPXkftckn3Kbs2uy7xJRYIj2+Lb4XybONOOdojCLJpE7pkJslYokSAo4CiwfHsfRM2azb/8uSJz/MEpTmwS7yUGQfh0XcV6HlgZOt6fhkjsFSqkWZTsEQZ33NaKigXahMR2AidUQPuVe+b5iUME/REXVHG4HjpHO8RJN4+fyDZzIu8xy5moLZPnBm828a7I+Fil2s/g2xTVT2DrZTwtAJRbQmTHs7kQwXqrdPnW/8YK2bHqHAg4x1QxQUzH0k1l0tJylrQdPgbuyJtHgXorMsSatl49YmjvP/PQyV8NymVt/bLxUtW59mEC3VJg+34fujW5uBwCVLvw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=f1j12US/91wgXttS8QcztAFmyqlCvaq1zkzndkIxBW0=;
+ b=oNoDRO+8LUKZBx6kFVlEOW+y+uMF8JiF2tTqJifyRlagIwbP6XyaqnOp/6q4ektNtpMEIliNfOHcMTWprKFN28AVHJ4Evkmqxq0Wmf1oiW/c+BKG2b/1qlEgti2insShCYZea+cgz7rkfSPacqNvJ9/wNAkyRTiMhDx4aljLSEqRrbztBztuhN/YHLJRSLh6XQue8bzCfUvSr4pDGgUf3L5GXNVD+3aeid0+B4eIc8b7wQ4CY3Wc8NsyFeO3rU84FfIM2LtE9Bz5sjWIplCUKZoXhv97Fl0pzRpC9glQPPTerdtNbBL9I/lr8T509voP6rkDsQ/8wdiz5DTYlCxW2w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB6375.namprd11.prod.outlook.com (2603:10b6:8:c9::21) by
+ LV2PR11MB6047.namprd11.prod.outlook.com (2603:10b6:408:179::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5332.15; Fri, 10 Jun
+ 2022 17:26:03 +0000
+Received: from DS0PR11MB6375.namprd11.prod.outlook.com
+ ([fe80::1530:7c7a:bfbf:6b9c]) by DS0PR11MB6375.namprd11.prod.outlook.com
+ ([fe80::1530:7c7a:bfbf:6b9c%7]) with mapi id 15.20.5332.014; Fri, 10 Jun 2022
+ 17:26:03 +0000
+Message-ID: <c677bd58-83df-3b73-c14c-0679cb827ce1@intel.com>
+Date: Fri, 10 Jun 2022 19:25:56 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Firefox/91.0 Thunderbird/91.9.1
 Subject: Re: [PATCH 09/17] ASoC: Intel: bdw_rt286: Reword prefixes of all
  driver members
 Content-Language: en-US
-To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org, 
- broonie@kernel.org
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ <alsa-devel@alsa-project.org>, <broonie@kernel.org>
 References: <20220610123627.1339985-1-cezary.rojewski@intel.com>
  <20220610123627.1339985-10-cezary.rojewski@intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20220610123627.1339985-10-cezary.rojewski@intel.com>
-Content-Type: text/plain; charset=UTF-8
+ <59f2fd76-ac1e-9fdf-401b-2c09e5be8cc8@linux.intel.com>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+In-Reply-To: <59f2fd76-ac1e-9fdf-401b-2c09e5be8cc8@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: AS9PR0301CA0031.eurprd03.prod.outlook.com
+ (2603:10a6:20b:469::31) To DS0PR11MB6375.namprd11.prod.outlook.com
+ (2603:10b6:8:c9::21)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 91a0406c-d109-4b52-429a-08da4b064b45
+X-MS-TrafficTypeDiagnostic: LV2PR11MB6047:EE_
+X-Microsoft-Antispam-PRVS: <LV2PR11MB6047D8371B74FCED23139A69E3A69@LV2PR11MB6047.namprd11.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: lzvN7yol47+K9Etqj56u1AfW9B+/BNs/+RSk0MUCIeKs3H0EVyH6fc+tOHUS6Ps5D29gzfJdd+T2PJcqQgOKS3EfE/Fxkq6ig6eRdvdH3OIog284ejNDgrhmTEBnyqUZO2xuLc962zIN394WBiEpzFWn847VJiHHsS5/SsH/EolppI6Z+0Sk6UnGHkwi/cIqj3JymYLJpAUJsZ5E9W7CmSpFafnmMdMqr+YX7lyIeMCILKlOtY8HXflV3gLwkQmEx8aOJLRVhcmwc5udN/l1r+qHKb7WsJoLRVKMLcpSz/G3SpL08Cmk5NZxqYgvsGY3eKFKdrgAZ3Hy0JrH05fyieMLwV0zT0NM2pvX0l5jGZfdXsb3RUsiEzWgqtjIM9Lq/yRyriN0rI5AwYTSfpTwdLjkx8xPGxdhOy2gq/2OPfemnaT6vyXSHHdOjHX92UQuLSbcfqbxPBGDx5VQ9bWkpdZ4YnUU6Et4iqsjH7uPGjwA972I1roG9ZOFhAiMte/zl3sv7ydrqbDENNEK7XpYgJ45JPspfwhXZMIVnGn896po+WS5Zg1iPA/bNyd9AjZEIcMv/tDUyEiApYlWNoHfLYOype3sc6PbBJDAptMMzWdrzYbsFXJ0JBzIKxUvPvxdLBVG+XWRGBkGnifVeLOGwUS+vx2gTckdDB6AmYa8lCkdjCmDOOb1meRZ0p1NaOJI7TSLEUJxhYXDJYmr2R3VC7H5SSVD946lBv0jhmKXGfsw2RvjPYE4+47okDfbjKV+sUUj58hTiLN00Z+T3pGXcQhsSDnykTeYL0ZPwKKQEoNTGs4+BzQaRjli2hzrvGmP
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR11MB6375.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(366004)(6666004)(53546011)(44832011)(4744005)(6506007)(38100700002)(316002)(66946007)(4326008)(31696002)(8676002)(86362001)(66556008)(66476007)(6486002)(5660300002)(508600001)(966005)(82960400001)(8936002)(186003)(2616005)(31686004)(36756003)(83380400001)(66574015)(6512007)(26005)(2906002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N3JCTkNnZnNMZEE1OTBQT0VuYlBQRFdkbGhnRGRzYk5Zek5JSndhYjNMenp0?=
+ =?utf-8?B?amNJVUlham9QNjQrOWdIUWtFN004bmFTdTBXT2ZHSGJJRnllV3RWbmgyK1E3?=
+ =?utf-8?B?UTEvang2eDFZM043VUlaN3R6dUJRQVFTR2hJSkVwem1jNjExYVlhVlZtMExv?=
+ =?utf-8?B?UzhSYXg1aXl4bmlrOFlzMmNRV2FZZVhiZExhSmNFdHplSmp6cStvVk83Z3pa?=
+ =?utf-8?B?OVkzOEtVeHZDVXV0NGh6N1ZUc0N3S2RoeGcydlRWOUVKRng0MUtyeTFyWDNP?=
+ =?utf-8?B?RG9NSjhONlh0OU9LZHNNdUp4WjZETlZxelJDaEFWaStRT242elUwdUVBbjJm?=
+ =?utf-8?B?a1phWEw2UU5BckMvVlJqR25CRHRPcktJRUR1WXFRZFVyaFRaYUtCWHBIUDNH?=
+ =?utf-8?B?NU52djN6UjBqM1JmZ1BybnY2MEQ2YmkwejRWeHdrYmV0MU11YXE3K0dOZDJJ?=
+ =?utf-8?B?ZVRmaWVPVXJBNnVuVldxcUpYZEF0UmpmMzZpa083UTVESjJWVjRmNjQ1YkNC?=
+ =?utf-8?B?NkNJWElmdjBvUEI0R29QM1NTT1FPUkZtclhLQUpYbk9RcFBDMk42Q09HTGV6?=
+ =?utf-8?B?Wk1KazdWNlJEYzFpQWYzaDU4L21VT2RrbEpISzRZbjN2TDJRNDI1eXNBWkNG?=
+ =?utf-8?B?eG5yeGE5UFVnRW5wQ05oVnU2QmtJb2VnNlJtY3BuWmZYTDNIOUoraVRVby9J?=
+ =?utf-8?B?Z3pHMk1PYjBGNlFkblEyajBWcURaandQNUQyQnlGNEoyVmRBZmRvTEpLTHRn?=
+ =?utf-8?B?dHBaZ2hVTmh5TkdxNjlFMTZwRTA0R3Z3TWVIN3R5c1lPeWl3Z2xvUjZ6ZFFY?=
+ =?utf-8?B?Ulg0cE1RZkZWdXlqZ1B5a0NWRDBhNVBoeWFmN3JDQTJZTmJBemxGU0w4c3dL?=
+ =?utf-8?B?VnJqV0tpV21ncjJhclJsM2k4andDendaNHhUdWNPSTBzNk9wMGV0TjRISVhQ?=
+ =?utf-8?B?OUtyOEJzSm11Qm94eGtQU0orTHhtTjdBR3JueUhSNGJ6UTVLR252Z055d2VB?=
+ =?utf-8?B?OEo4Y2RpKzd2Q0Y5NkxGNHNwMUh2UnR4a0tCWk9UYjJnOWRUY3cxdEwyRXc5?=
+ =?utf-8?B?VVdQZWpuaUljeXdiN0lsbUI0SkowbUdpSTlCWDNpMFlaQm4zd3lNRk5kdmhB?=
+ =?utf-8?B?RWxjTDJ4NktKV0xCZmk5VzZBQjA2U1I2SzRLVUJQWnhFaStaQWdKZkczRXV5?=
+ =?utf-8?B?enhiRkRaSHVtRjhpN1gyNmQvbW4xQzlQN29lbkM5c2QyMXdJT3lNZTBGdVFL?=
+ =?utf-8?B?TnQ1eWlrYk1oTk5IcjVoMzdwb1hWc0dDaGRDZWpZbS9UekZlUSs2ZW84QkN4?=
+ =?utf-8?B?OTRETFpHWGpoenR3dnNHcVNwMGhDUmZyaXMzeEx0QkhZcWl3aXZzZmdQNzZP?=
+ =?utf-8?B?TnNGckhvL2xtbk1TcG9ENU5VZUZNSHlLNzJEa2F5b0pXT1pWci8zSlpzTmRT?=
+ =?utf-8?B?SkRGNy8wQjRvUG1lWWdiTkdzaXJmNXArT1lSZXhxWmFHWnJYamk4L3FzQmxp?=
+ =?utf-8?B?L2p2MWpoTDAyNlJXVTJRNFVlNWpIYi9RbXhTbG9xcHZ5REtiZ1F4d0JKUlM1?=
+ =?utf-8?B?dzBZaTZvWHFac0dzKzVVR2N1MVhWVWlMS1EzL0xVZElsdzV6UmlxVDl5VE1q?=
+ =?utf-8?B?STE1djVTajViLzVhL2l1dXBiOTB2ZUdsc3JTSTNXR0lCRkJlVHVwRy9TcExQ?=
+ =?utf-8?B?SkV3eVdTNXlWSWlzM0x0bzVwbkhzSG9vU2M2U3VIaWx6dnRMNjUyY0N5TkFh?=
+ =?utf-8?B?K1hDYXBLUGtpRmV2bCtLazExUWE3Nllsd29BRTVYOC9iamVkdjdxWmR4TGY5?=
+ =?utf-8?B?S0NRM0FpeUxQYlVjY1pTSURVcG4yVDVVNVRRbVFneE1CdElnQm5lYU9laXdJ?=
+ =?utf-8?B?Q0lQYkVoWHNiZ1ludkRWa2lTblNzZWhaT1BqOHlwZDRIN1FHUVNOQWJqQzcx?=
+ =?utf-8?B?K3ZEYkI0ZUdSTnVMbERjZzNjN0lpUG5TOXdTbmdqV0VZSWdFbmRlaGVSdzY1?=
+ =?utf-8?B?SE1POGxWckhWakkwRzJwV21rbXY0UjYyRFRoUTZubzFXMG9IUUY5WnpjOXU1?=
+ =?utf-8?B?bk85Z1ZFd3R3bFNYbkFNVC9DMzhSYzNCWkhjdTZ1Qi8rZk5YclVlS09ENGhM?=
+ =?utf-8?B?djZEZnFCc2M0dThOamRtZTJEdU4wZVFES0NlMkVUQjJENHN2UDFZOHRwUWpT?=
+ =?utf-8?B?R0dqTWg4NDNJNzYzdm1sVyt3TGthNjh0RTNGcVMyM25UbFdrb1E0ZHZTOUln?=
+ =?utf-8?B?MzlXanpTaGM5djFETEM3Q0kwR2xWbjQ1NWZGb1ZHaDdMYmlwZXJ4ejBJKy9p?=
+ =?utf-8?B?elh0MUw4eFVPSXRJSFIxN3kvOHdzNTlySlcvbTR5ZkJ4dms0NjlQNXZUeFRB?=
+ =?utf-8?Q?pOQm6E49y7ASWwQE=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 91a0406c-d109-4b52-429a-08da4b064b45
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB6375.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2022 17:26:03.2469 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: C6qNxgejLO/loWZYLIDbgkLAeWeedTcuhQqVrR59uD18ZxgGm62KtwRpYXhmxJNzRvDSpzeiI8Xz3BvtAOAQU5qgVcsTXAmOrANF/k/A3Yg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR11MB6047
+X-OriginatorOrg: intel.com
 Cc: hdegoede@redhat.com, tiwai@suse.com, amadeuszx.slawinski@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -94,276 +197,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 6/10/22 07:36, Cezary Rojewski wrote:
-> Replace ambiguous 'broadwell_rt286_' prefixes in favour of 'card_',
-> 'link_' and other similar strings to clearly state which object given
-> member implements behavior for.
+On 2022-06-10 6:34 PM, Pierre-Louis Bossart wrote:
+> On 6/10/22 07:36, Cezary Rojewski wrote:
+>> Replace ambiguous 'broadwell_rt286_' prefixes in favour of 'card_',
+>> 'link_' and other similar strings to clearly state which object given
+>> member implements behavior for.
+>>
+>> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+>> Reviewed-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 > 
-> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
-> Reviewed-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+> This doesn't apply or assumes something else was applied already?
 
-This doesn't apply or assumes something else was applied already?
 
-> ---
->  sound/soc/intel/boards/bdw_rt286.c | 96 +++++++++++++++---------------
->  1 file changed, 48 insertions(+), 48 deletions(-)
-> 
-> diff --git a/sound/soc/intel/boards/bdw_rt286.c b/sound/soc/intel/boards/bdw_rt286.c
-> index b29d77dfb281..092bc9a45548 100644
-> --- a/sound/soc/intel/boards/bdw_rt286.c
-> +++ b/sound/soc/intel/boards/bdw_rt286.c
-> @@ -16,9 +16,9 @@
->  
->  #include "../../codecs/rt286.h"
->  
-> -static struct snd_soc_jack broadwell_headset;
-> +static struct snd_soc_jack card_headset;
->  /* Headset jack detection DAPM pins */
-> -static struct snd_soc_jack_pin broadwell_headset_pins[] = {
-> +static struct snd_soc_jack_pin card_headset_pins[] = {
->  	{
->  		.pin = "Mic Jack",
->  		.mask = SND_JACK_MICROPHONE,
-> @@ -29,12 +29,12 @@ static struct snd_soc_jack_pin broadwell_headset_pins[] = {
->  	},
->  };
->  
-> -static const struct snd_kcontrol_new broadwell_controls[] = {
-> +static const struct snd_kcontrol_new card_controls[] = {
->  	SOC_DAPM_PIN_SWITCH("Speaker"),
->  	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
->  };
->  
-> -static const struct snd_soc_dapm_widget broadwell_widgets[] = {
-> +static const struct snd_soc_dapm_widget card_widgets[] = {
->  	SND_SOC_DAPM_HP("Headphone Jack", NULL),
->  	SND_SOC_DAPM_SPK("Speaker", NULL),
->  	SND_SOC_DAPM_MIC("Mic Jack", NULL),
-> @@ -43,7 +43,7 @@ static const struct snd_soc_dapm_widget broadwell_widgets[] = {
->  	SND_SOC_DAPM_LINE("Line Jack", NULL),
->  };
->  
-> -static const struct snd_soc_dapm_route broadwell_rt286_map[] = {
-> +static const struct snd_soc_dapm_route card_routes[] = {
->  
->  	/* speaker */
->  	{"Speaker", NULL, "SPOR"},
-> @@ -65,22 +65,22 @@ static const struct snd_soc_dapm_route broadwell_rt286_map[] = {
->  	{"AIF1 Playback", NULL, "SSP0 CODEC OUT"},
->  };
->  
-> -static int broadwell_rt286_codec_init(struct snd_soc_pcm_runtime *rtd)
-> +static int codec_link_init(struct snd_soc_pcm_runtime *rtd)
->  {
->  	struct snd_soc_component *component = asoc_rtd_to_codec(rtd, 0)->component;
->  	int ret = 0;
->  	ret = snd_soc_card_jack_new_pins(rtd->card, "Headset",
-> -		SND_JACK_HEADSET | SND_JACK_BTN_0, &broadwell_headset,
-> -		broadwell_headset_pins, ARRAY_SIZE(broadwell_headset_pins));
-> +		SND_JACK_HEADSET | SND_JACK_BTN_0, &card_headset,
-> +		card_headset_pins, ARRAY_SIZE(card_headset_pins));
->  	if (ret)
->  		return ret;
->  
-> -	rt286_mic_detect(component, &broadwell_headset);
-> +	rt286_mic_detect(component, &card_headset);
->  	return 0;
->  }
->  
->  
-> -static int broadwell_ssp0_fixup(struct snd_soc_pcm_runtime *rtd,
-> +static int codec_link_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
->  			struct snd_pcm_hw_params *params)
->  {
->  	struct snd_interval *rate = hw_param_interval(params,
-> @@ -97,7 +97,7 @@ static int broadwell_ssp0_fixup(struct snd_soc_pcm_runtime *rtd,
->  	return 0;
->  }
->  
-> -static int broadwell_rt286_hw_params(struct snd_pcm_substream *substream,
-> +static int codec_link_hw_params(struct snd_pcm_substream *substream,
->  	struct snd_pcm_hw_params *params)
->  {
->  	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-> @@ -115,8 +115,8 @@ static int broadwell_rt286_hw_params(struct snd_pcm_substream *substream,
->  	return ret;
->  }
->  
-> -static const struct snd_soc_ops broadwell_rt286_ops = {
-> -	.hw_params = broadwell_rt286_hw_params,
-> +static const struct snd_soc_ops codec_link_ops = {
-> +	.hw_params = codec_link_hw_params,
->  };
->  
->  static const unsigned int channels[] = {
-> @@ -129,7 +129,7 @@ static const struct snd_pcm_hw_constraint_list constraints_channels = {
->  	.mask = 0,
->  };
->  
-> -static int broadwell_fe_startup(struct snd_pcm_substream *substream)
-> +static int bdw_rt286_fe_startup(struct snd_pcm_substream *substream)
->  {
->  	struct snd_pcm_runtime *runtime = substream->runtime;
->  
-> @@ -140,8 +140,8 @@ static int broadwell_fe_startup(struct snd_pcm_substream *substream)
->  					  &constraints_channels);
->  }
->  
-> -static const struct snd_soc_ops broadwell_fe_ops = {
-> -	.startup = broadwell_fe_startup,
-> +static const struct snd_soc_ops bdw_rt286_fe_ops = {
-> +	.startup = bdw_rt286_fe_startup,
->  };
->  
->  SND_SOC_DAILINK_DEF(system,
-> @@ -169,7 +169,7 @@ SND_SOC_DAILINK_DEF(ssp0_port,
->  	    DAILINK_COMP_ARRAY(COMP_CPU("ssp0-port")));
->  
->  /* broadwell digital audio interface glue - connects codec <--> CPU */
-> -static struct snd_soc_dai_link broadwell_rt286_dais[] = {
-> +static struct snd_soc_dai_link card_dai_links[] = {
->  	/* Front End DAI links */
->  	{
->  		.name = "System PCM",
-> @@ -177,7 +177,7 @@ static struct snd_soc_dai_link broadwell_rt286_dais[] = {
->  		.nonatomic = 1,
->  		.dynamic = 1,
->  		.trigger = {SND_SOC_DPCM_TRIGGER_POST, SND_SOC_DPCM_TRIGGER_POST},
-> -		.ops = &broadwell_fe_ops,
-> +		.ops = &bdw_rt286_fe_ops,
->  		.dpcm_playback = 1,
->  		.dpcm_capture = 1,
->  		SND_SOC_DAILINK_REG(system, dummy, platform),
-> @@ -215,12 +215,12 @@ static struct snd_soc_dai_link broadwell_rt286_dais[] = {
->  		.name = "Codec",
->  		.id = 0,
->  		.no_pcm = 1,
-> -		.init = broadwell_rt286_codec_init,
-> +		.init = codec_link_init,
->  		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
->  			SND_SOC_DAIFMT_CBC_CFC,
->  		.ignore_pmdown_time = 1,
-> -		.be_hw_params_fixup = broadwell_ssp0_fixup,
-> -		.ops = &broadwell_rt286_ops,
-> +		.be_hw_params_fixup = codec_link_hw_params_fixup,
-> +		.ops = &codec_link_ops,
->  		.dpcm_playback = 1,
->  		.dpcm_capture = 1,
->  		SND_SOC_DAILINK_REG(ssp0_port, codec, platform),
-> @@ -241,21 +241,21 @@ static void broadwell_disable_jack(struct snd_soc_card *card)
->  	}
->  }
->  
-> -static int broadwell_suspend(struct snd_soc_card *card)
-> +static int card_suspend_pre(struct snd_soc_card *card)
->  {
->  	broadwell_disable_jack(card);
->  
->  	return 0;
->  }
->  
-> -static int broadwell_resume(struct snd_soc_card *card){
-> +static int card_resume_post(struct snd_soc_card *card){
->  	struct snd_soc_component *component;
->  
->  	for_each_card_components(card, component) {
->  		if (!strcmp(component->name, "i2c-INT343A:00")) {
->  
->  			dev_dbg(component->dev, "enabling jack detect for resume.\n");
-> -			rt286_mic_detect(component, &broadwell_headset);
-> +			rt286_mic_detect(component, &card_headset);
->  			break;
->  		}
->  	}
-> @@ -270,48 +270,48 @@ static int broadwell_resume(struct snd_soc_card *card){
->  #define DRIVER_NAME NULL /* card name will be used for driver name */
->  
->  /* broadwell audio machine driver for WPT + RT286S */
-> -static struct snd_soc_card broadwell_rt286 = {
-> +static struct snd_soc_card bdw_rt286_card = {
->  	.owner = THIS_MODULE,
-> -	.dai_link = broadwell_rt286_dais,
-> -	.num_links = ARRAY_SIZE(broadwell_rt286_dais),
-> -	.controls = broadwell_controls,
-> -	.num_controls = ARRAY_SIZE(broadwell_controls),
-> -	.dapm_widgets = broadwell_widgets,
-> -	.num_dapm_widgets = ARRAY_SIZE(broadwell_widgets),
-> -	.dapm_routes = broadwell_rt286_map,
-> -	.num_dapm_routes = ARRAY_SIZE(broadwell_rt286_map),
-> +	.dai_link = card_dai_links,
-> +	.num_links = ARRAY_SIZE(card_dai_links),
-> +	.controls = card_controls,
-> +	.num_controls = ARRAY_SIZE(card_controls),
-> +	.dapm_widgets = card_widgets,
-> +	.num_dapm_widgets = ARRAY_SIZE(card_widgets),
-> +	.dapm_routes = card_routes,
-> +	.num_dapm_routes = ARRAY_SIZE(card_routes),
->  	.fully_routed = true,
-> -	.suspend_pre = broadwell_suspend,
-> -	.resume_post = broadwell_resume,
-> +	.suspend_pre = card_suspend_pre,
-> +	.resume_post = card_resume_post,
->  };
->  
-> -static int broadwell_audio_probe(struct platform_device *pdev)
-> +static int bdw_rt286_probe(struct platform_device *pdev)
->  {
->  	struct snd_soc_acpi_mach *mach;
->  	int ret;
->  
-> -	broadwell_rt286.dev = &pdev->dev;
-> +	bdw_rt286_card.dev = &pdev->dev;
->  
->  	/* override platform name, if required */
->  	mach = pdev->dev.platform_data;
-> -	ret = snd_soc_fixup_dai_links_platform_name(&broadwell_rt286,
-> +	ret = snd_soc_fixup_dai_links_platform_name(&bdw_rt286_card,
->  						    mach->mach_params.platform);
->  	if (ret)
->  		return ret;
->  
->  	/* set card and driver name */
->  	if (snd_soc_acpi_sof_parent(&pdev->dev)) {
-> -		broadwell_rt286.name = SOF_CARD_NAME;
-> -		broadwell_rt286.driver_name = SOF_DRIVER_NAME;
-> +		bdw_rt286_card.name = SOF_CARD_NAME;
-> +		bdw_rt286_card.driver_name = SOF_DRIVER_NAME;
->  	} else {
-> -		broadwell_rt286.name = CARD_NAME;
-> -		broadwell_rt286.driver_name = DRIVER_NAME;
-> +		bdw_rt286_card.name = CARD_NAME;
-> +		bdw_rt286_card.driver_name = DRIVER_NAME;
->  	}
->  
-> -	return devm_snd_soc_register_card(&pdev->dev, &broadwell_rt286);
-> +	return devm_snd_soc_register_card(&pdev->dev, &bdw_rt286_card);
->  }
->  
-> -static int broadwell_audio_remove(struct platform_device *pdev)
-> +static int bdw_rt286_remove(struct platform_device *pdev)
->  {
->  	struct snd_soc_card *card = platform_get_drvdata(pdev);
->  
-> @@ -320,16 +320,16 @@ static int broadwell_audio_remove(struct platform_device *pdev)
->  	return 0;
->  }
->  
-> -static struct platform_driver broadwell_audio = {
-> -	.probe = broadwell_audio_probe,
-> -	.remove = broadwell_audio_remove,
-> +static struct platform_driver bdw_rt286_driver = {
-> +	.probe = bdw_rt286_probe,
-> +	.remove = bdw_rt286_remove,
->  	.driver = {
->  		.name = "broadwell-audio",
->  		.pm = &snd_soc_pm_ops
->  	},
->  };
->  
-> -module_platform_driver(broadwell_audio)
-> +module_platform_driver(bdw_rt286_driver)
->  
->  /* Module information */
->  MODULE_AUTHOR("Liam Girdwood, Xingchao Wang");
+I believe it conflicted with "ASoC: codecs: rt286: Reorganize jack 
+detect handling" [1] as that patch updates the users of 
+rt286_mic_detect(). That patch was just merged to 
+broonie/sound/for-next. Forgotten about those few lines being modified 
+there. Will update in v2.
+
+[1]: 
+https://lore.kernel.org/alsa-devel/20220609133541.3984886-3-amadeuszx.slawinski@linux.intel.com/
+
+
+Regards,
+Czarek

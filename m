@@ -2,89 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF2E4545547
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jun 2022 22:04:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDA3E5459AF
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jun 2022 03:52:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 52E491EE6;
-	Thu,  9 Jun 2022 22:03:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 52E491EE6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9DC3E202A;
+	Fri, 10 Jun 2022 03:51:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9DC3E202A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654805068;
-	bh=omCqmKBYKKmVs6TAU+LiZ3tp3LFpOsYTSOZ+VCJdL9M=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=pZU/bkn6HRdWLdF9gpjHEApviPexGlNDBINzxQpKb1RFdYWBg532uDXrz5+ksjKrZ
-	 mbYOcfB2XX2z4JHiisBWw9IeGHCr6q+kzclsJ3GdedY7jfDuf6jKAczbrEPrHhRA05
-	 armD6A1q8SRtSopuXCsoQfuF8mStwP/ulDaK6Z9U=
+	s=default; t=1654825949;
+	bh=oSdC3O+POFF40bTteE4J5n5uoo0yRjFF5UGT4T/X844=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=o7DmdNQoqkbINoIVMJQ2d8vdVvvp1zXfeQv+JeXxz6VGz2+TxMZpJbBxHsgdxFsKX
+	 a1maLTo2fe77ba6ko1wj5dxAlHcZCzEMRLGE6sfqNciqlYhC8LW2uhmkxzxl2HlYlB
+	 XuylkMzEltigFEqS8eiklCUsUW0N9I2PdOwHgkc8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C714CF80240;
-	Thu,  9 Jun 2022 22:03:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0DCA1F804D8;
+	Fri, 10 Jun 2022 03:51:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D4E5DF801F5; Thu,  9 Jun 2022 22:03:27 +0200 (CEST)
+ id 2AF8FF804D2; Fri, 10 Jun 2022 03:51:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-io1-f54.google.com (mail-io1-f54.google.com
- [209.85.166.54])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D71D2F800C7
- for <alsa-devel@alsa-project.org>; Thu,  9 Jun 2022 22:03:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D71D2F800C7
-Received: by mail-io1-f54.google.com with SMTP id p69so4488696iod.0
- for <alsa-devel@alsa-project.org>; Thu, 09 Jun 2022 13:03:19 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=YIBDdnaZYLksYYYPf5RgtDeURkWNaVlTx9hps6JOyrA=;
- b=UOzp72S9tzj66DB51pgIfDhdzHzWDe8c7F//6s4JXoZzgg1eFfydXDc9qfiqRG9/j2
- r1IMKmB03y2yBWYHK7iF5B4ChCoBKy4Lp76i3zWYFERrs6/U66uH60h0r4o9UPsYjfd4
- CQPohqx6aX3TMIe/U793BHII8a8BYDq1G1LlshYo/LSlssd64uvIGfkLpvDFKUiKd+y6
- 5SbD+sQrLHb2BDgB3gltT0gfUlFRm3z+MwsFVWhfN9teLwsF1RaG0SXdt3UCOMQ9LqiN
- D+vhJvsCeAweiSD4AnN5Bcpy0b8H8nZowvj0R8XiaXR7tKGwNbGBBkd5R0TuHehgzH6h
- UKsQ==
-X-Gm-Message-State: AOAM530/yjI3Xz31+3ObxIW4s7UlOtTo836BfLc/U7GU23zPIZ4wzVCc
- jEvYqaAi0TjYQjoRky4C/A==
-X-Google-Smtp-Source: ABdhPJy0vfyMpwM45x4ogND18CT2vn+ZjeUa7zjShMYEiRxo1t+KyCiUektlzUYCaCXcm2mJGqeGzA==
-X-Received: by 2002:a05:6602:2a48:b0:669:3d64:c53b with SMTP id
- k8-20020a0566022a4800b006693d64c53bmr13824103iov.77.1654804997929; 
- Thu, 09 Jun 2022 13:03:17 -0700 (PDT)
-Received: from robh.at.kernel.org ([64.188.179.251])
- by smtp.gmail.com with ESMTPSA id
- a18-20020a6b6d12000000b0066938e02579sm7471108iod.38.2022.06.09.13.03.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Jun 2022 13:03:17 -0700 (PDT)
-Received: (nullmailer pid 12357 invoked by uid 1000);
- Thu, 09 Jun 2022 20:03:16 -0000
-Date: Thu, 9 Jun 2022 14:03:16 -0600
-From: Rob Herring <robh@kernel.org>
-To: Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>
-Subject: Re: [RFC PATCH v2 2/5] dt-bindings: sound: Add Apple Macs sound
- peripherals
-Message-ID: <20220609200316.GA4097800-robh@kernel.org>
-References: <20220606191910.16580-1-povik+lin@cutebit.org>
- <20220606191910.16580-3-povik+lin@cutebit.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220606191910.16580-3-povik+lin@cutebit.org>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Sven Peter <sven@svenpeter.dev>, linux-kernel@vger.kernel.org,
- Hector Martin <marcan@marcan.st>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- asahi@lists.linux.dev, Mark Kettenis <kettenis@openbsd.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 519A4F800DF
+ for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 03:51:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 519A4F800DF
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="AORq8MbD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1654825884; x=1686361884;
+ h=from:to:cc:subject:date:message-id;
+ bh=oSdC3O+POFF40bTteE4J5n5uoo0yRjFF5UGT4T/X844=;
+ b=AORq8MbDwcXYiqdW/W7ng7mc0S/Np5AMvci5wKQvSnALikbddpcP6AT0
+ 8JZ6y6pJH7FI7tg290Xhfgxw/T1Ec+u+Y9aL2DI4Ra14Uu3McpARIrL6i
+ dJoGZI1YEArZaHhYV37msI9g8S7ZjPPGaLKOjUiJCg2TnnCfovIzjcH3t
+ YC4J6J1vZd8EhAvt1F57m/LrJimVoyERCiQKFgNkF5lCAgPRX+2X1Upmi
+ Q+r123obTp4tRQ0gi+Wz8/ufIghVLB7tgkX2iUm6HEzHcGNU61G8BqyyG
+ MLBAExVp08Zq4aah8yUe3JBDhN3YAyI94gFcmXZXGvGNAl3R0KzNnZ0aO w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10373"; a="277510444"
+X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="277510444"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jun 2022 18:51:17 -0700
+X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="724715862"
+Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jun 2022 18:51:15 -0700
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
+To: alsa-devel@alsa-project.org,
+	vkoul@kernel.org
+Subject: [PATCH] soundwire: bus_type: fix remove and shutdown support
+Date: Fri, 10 Jun 2022 09:51:05 +0800
+Message-Id: <20220610015105.25987-1-yung-chuan.liao@linux.intel.com>
+X-Mailer: git-send-email 2.17.1
+Cc: vinod.koul@linaro.org, gregkh@linuxfoundation.org,
+ pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
+ srinivas.kandagatla@linaro.org, sanyog.r.kale@intel.com, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,203 +84,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Jun 06, 2022 at 09:19:07PM +0200, Martin Povišer wrote:
-> Add binding for Apple Silicon Macs' machine-level integration of sound
-> peripherals.
-> 
-> Signed-off-by: Martin Povišer <povik+lin@cutebit.org>
-> ---
->  .../bindings/sound/apple,macaudio.yaml        | 157 ++++++++++++++++++
->  1 file changed, 157 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/apple,macaudio.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/apple,macaudio.yaml b/Documentation/devicetree/bindings/sound/apple,macaudio.yaml
-> new file mode 100644
-> index 000000000000..f7c12697beab
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/apple,macaudio.yaml
-> @@ -0,0 +1,157 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/apple,macaudio.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Apple Silicon Macs integrated sound peripherals
-> +
-> +description: |
-> +  This binding represents the overall machine-level integration of sound
-> +  peripherals on 'Apple Silicon' machines by Apple.
-> +
-> +maintainers:
-> +  - Martin Povišer <povik+lin@cutebit.org>
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - enum:
-> +          - apple,j274-macaudio
-> +          - apple,j293-macaudio
-> +          - apple,j314-macaudio
-> +      - const: apple,macaudio
-> +
-> +  "#address-cells":
-> +    const: 1
-> +
-> +  "#size-cells":
-> +    const: 0
-> +
-> +  model:
-> +    description: |
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-Don't need '|' if there's no formatting to preserve.
+The bus sdw_drv_remove() and sdw_drv_shutdown() helpers are used
+conditionally, if the driver provides these routines.
 
-> +      Model name for presentation to users
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +
-> +patternProperties:
-> +  "^dai-link(@[0-9a-f]+)?$":
-> +    description: |
-> +      Node for each sound peripheral such as the speaker array, headphones jack,
-> +      or microphone.
-> +    type: object
+These helpers already test if the driver provides a .remove or
+.shutdown callback, so there's no harm in invoking the
+sdw_drv_remove() and sdw_drv_shutdown() unconditionally.
 
-blank line
+In addition, the current code is imbalanced with
+dev_pm_domain_attach() called from sdw_drv_probe(), but
+dev_pm_domain_detach() called from sdw_drv_remove() only if the driver
+provides a .remove callback.
 
-> +    properties:
-> +      reg:
-> +        maxItems: 1
-> +
-> +      link-name:
-> +        description: |
-> +          Name for the peripheral, expecting 'Speaker' or 'Speakers' if this is
-> +          the speaker array.
-> +        $ref: /schemas/types.yaml#/definitions/string
-> +
-> +      cpu:
-> +        type: object
+Fixes: 9251345dca24b ("soundwire: Add SoundWire bus type")
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Rander Wang <rander.wang@intel.com>
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+---
+ drivers/soundwire/bus_type.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
-           additionalProperties: false
+diff --git a/drivers/soundwire/bus_type.c b/drivers/soundwire/bus_type.c
+index 893296f3fe39..b81e04dd3a9f 100644
+--- a/drivers/soundwire/bus_type.c
++++ b/drivers/soundwire/bus_type.c
+@@ -193,12 +193,8 @@ int __sdw_register_driver(struct sdw_driver *drv, struct module *owner)
+ 
+ 	drv->driver.owner = owner;
+ 	drv->driver.probe = sdw_drv_probe;
+-
+-	if (drv->remove)
+-		drv->driver.remove = sdw_drv_remove;
+-
+-	if (drv->shutdown)
+-		drv->driver.shutdown = sdw_drv_shutdown;
++	drv->driver.remove = sdw_drv_remove;
++	drv->driver.shutdown = sdw_drv_shutdown;
+ 
+ 	return driver_register(&drv->driver);
+ }
+-- 
+2.17.1
 
-blank line before properties.
-
-> +        properties:
-> +          sound-dai:
-> +            description: |
-> +              DAI list with CPU-side I2S ports involved in this peripheral.
-> +            minItems: 1
-> +            maxItems: 2
-
-blank line
-
-> +        required:
-> +          - sound-dai
-> +
-> +      codec:
-> +        type: object
-
-blank line
-
-> +        properties:
-> +          sound-dai:
-> +            description: |
-> +              DAI list with the CODEC-side DAIs connected to the above CPU-side
-> +              DAIs and involved in this sound peripheral.
-> +
-> +              The list is in left/right order if applicable. If there are more
-> +              than one CPU-side DAIs (there can be two), the CODECs must be
-> +              listed first those connected to the first CPU, then those
-> +              connected to the second.
-> +
-> +              In addition, on some machines with many speaker codecs, the CODECs
-> +              are listed in this fixed order:
-> +
-> +              J293: Left Front, Left Rear, Right Front, Right Rear
-> +              J314: Left Woofer 1, Left Tweeter, Left Woofer 2,
-> +                    Right Woofer 1, Right Tweeter, Right Woofer 2
-> +            minItems: 1
-> +            maxItems: 8
-
-blank line
-
-> +        required:
-> +          - sound-dai
-> +
-> +    required:
-> +      - reg
-> +      - cpu
-> +      - codec
-> +
-> +    additionalProperties: false
-
-I prefer this to be above 'properties' in the indented cases. 
-
-> +
-> +required:
-> +  - compatible
-> +  - model
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    mca: mca@9b600000 {
-> +      compatible = "apple,t6000-mca", "apple,mca";
-> +      reg = <0x9b600000 0x10000>,
-> +            <0x9b500000 0x20000>;
-> +
-> +      clocks = <&nco 0>, <&nco 1>, <&nco 2>, <&nco 3>;
-> +      power-domains = <&ps_audio_p>, <&ps_mca0>, <&ps_mca1>,
-> +                      <&ps_mca2>, <&ps_mca3>;
-> +      dmas = <&admac 0>, <&admac 1>, <&admac 2>, <&admac 3>,
-> +             <&admac 4>, <&admac 5>, <&admac 6>, <&admac 7>,
-> +             <&admac 8>, <&admac 9>, <&admac 10>, <&admac 11>,
-> +             <&admac 12>, <&admac 13>, <&admac 14>, <&admac 15>;
-> +      dma-names = "tx0a", "rx0a", "tx0b", "rx0b",
-> +                  "tx1a", "rx1a", "tx1b", "rx1b",
-> +                  "tx2a", "rx2a", "tx2b", "rx2b",
-> +                  "tx3a", "rx3a", "tx3b", "rx3b";
-> +
-> +      #sound-dai-cells = <1>;
-> +    };
-> +
-> +    sound {
-> +      compatible = "apple,j314-macaudio", "apple,macaudio";
-> +      model = "MacBook Pro J314 integrated audio";
-> +
-> +      #address-cells = <1>;
-> +      #size-cells = <0>;
-> +
-> +      dai-link@0 {
-> +        reg = <0>;
-> +        link-name = "Speakers";
-> +
-> +        cpu {
-> +          sound-dai = <&mca 0>, <&mca 1>;
-> +        };
-> +        codec {
-> +          sound-dai = <&speaker_left_woof1>,
-> +                      <&speaker_left_tweet>,
-> +                      <&speaker_left_woof2>,
-> +                      <&speaker_right_woof1>,
-> +                      <&speaker_right_tweet>,
-> +                      <&speaker_right_woof2>;
-> +        };
-> +      };
-> +
-> +      dai-link@1 {
-> +        reg = <1>;
-> +        link-name = "Headphones Jack";
-> +
-> +        cpu {
-> +          sound-dai = <&mca 2>;
-> +        };
-> +        codec {
-> +          sound-dai = <&jack_codec>;
-> +        };
-> +      };
-> +    };
-> -- 
-> 2.33.0
-> 
-> 

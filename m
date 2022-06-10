@@ -2,101 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69C87546DAC
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jun 2022 21:54:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82397546E00
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jun 2022 22:05:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8F58718AA;
-	Fri, 10 Jun 2022 21:53:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F58718AA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2EE471925;
+	Fri, 10 Jun 2022 22:04:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EE471925
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654890844;
-	bh=F2fRn3a3rhDagwezWwy4538nMwRfGCub9eEIYPlJaUg=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1654891547;
+	bh=KFz+xiIKNZsoyskzrLLrg36klPP7X8JWEdmEwMz+UH8=;
+	h=In-Reply-To:References:From:Date:Subject:To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TAsh2mss1bF9YDkjQVq9j4ROtaP+7GxJBh9uDiYeySP7bSZs++cW1/7I1+oWoqRkh
-	 31K+7R64p2mpJIs6w2OGA1nc5TJb9KmSDCDj/7c15/lGXM/awk66gmcbXisXqyk1yq
-	 3BCErSxZsJcqAs9M9YSNjhCTYkbTgXYI0NP1U4k0=
+	b=oQs8NVIqEB60QpGwkdNgRO0dxMUz9mS2Fx0dL6+Pdm+qaNdg3rsknM0cfYlfNiLw1
+	 E7PJy+D4II6naf82Ju4M6RY8UXOilGQn+z8fBswccLZkSUUIHNGI6zBlQ8jvDttv2n
+	 sOKjK4sFBCP41jkekx/ADZXhKLfSFiL7u0Rsb/mw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D4C2BF804D8;
-	Fri, 10 Jun 2022 21:53:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7EDC6F804D8;
+	Fri, 10 Jun 2022 22:04:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B568EF800DF; Fri, 10 Jun 2022 21:53:02 +0200 (CEST)
+ id 3CFF8F804D2; Fri, 10 Jun 2022 22:04:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
+Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
+ [IPv6:2607:f8b0:4864:20::22f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2CE07F800DF
- for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 21:52:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2CE07F800DF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7E839F800E5
+ for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 22:04:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E839F800E5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="VFre5QqF"
-Received: by mail-wm1-x329.google.com with SMTP id
- r187-20020a1c44c4000000b0039c76434147so1625779wma.1
- for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 12:52:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :references:from:in-reply-to:content-transfer-encoding;
- bh=/0seJj7vutXMisqi25YbC/BlVcmbiGDjG4jipxqxReo=;
- b=VFre5QqFlIlGENzelDzmUJOiheZWLY1JoEfaXQVUp03TC5OyhQ0ntZuxLQEbTNb1nI
- fZ77oE2MANgxD9i4a+OG/UMCw/nXPHHqaMOFIoC4TykgPW4PhLMOi5wWTtpljPBdjnpR
- KXH7emFO02shqEjX2tYrQfNFiFlRCpPjXdioNwa/7QFfw2YdLuLjJEjyHKcYdy5bQPaY
- Q74EgOC28ix3FxjkDeA/ZJFMW/F2ftQiTpB+up5jC65umBvutgiviDcZfXlWCHwd1wbp
- Wu42XjbBl1rdm1jHloojb5ZtGu8ZXX0go2pD5gbMSQ5o2jHwKwraEy919Hq7I979v9E5
- DoNA==
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="L2f6GdlZ"
+Received: by mail-oi1-x22f.google.com with SMTP id r206so489551oib.8
+ for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 13:04:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to; bh=W6khq/CJ/jK9xDdyCa3D6opio63P/2KRxReDZd/cxiU=;
+ b=L2f6GdlZB9hiNU8S/GkGCil7hfYiQF4xIu0hJbUyR36m4jSLP7Jz9XQMVdA+Bq0rgD
+ JtKfbtpayzVcDX3CtE2Gzr5jVUkCmBFzZJG5rH0xB8/hbZbsAli8Zm9flefmXwV4kxc8
+ 9uH40PA3iZzLPO2GepIiin0N8bXwZJIvC1meE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:references:from:in-reply-to
- :content-transfer-encoding;
- bh=/0seJj7vutXMisqi25YbC/BlVcmbiGDjG4jipxqxReo=;
- b=GWQcrUEaB2Rt7akzi9Ff6+muCFc3W9LXR8pOzZalC7LZrdgedREgBORPm9pPlaK3RW
- Apq85c9McHG/bmrc8a7CqDG0UgoIRMbe46GIRCobTOrMT0f3wXHvbIbR7BMbTg+YS3n/
- KKBq8gpI3ogQPsxYf5vV96ghBhjZ30/0cpdjjVwd1Cnr5VvC3bUX5PMgn5UCdRnQ60p5
- U1K6o0uhMEFanrxzFus+dPe42lotYgiVtSwokVedwDKQjfhoOXgZaD+cs5f/cdBpn/7d
- /TVNkkYPho+cmG/PvXgGVsWcDMzp1ZcopXY8XQuwXpn4KaWDGHnfy6mO5yXMbeBQXxPb
- QL/Q==
-X-Gm-Message-State: AOAM530b9ekLzMmar0bgOqdAfUY2/shBmww4WQi1BfUhgSb5CiGF1dah
- kEOwAr6UhXavKxa0n9gjd+dN7A==
-X-Google-Smtp-Source: ABdhPJwlVgYEJ4hq/w7bJ1jcGdQfLjStMZWUjC+0iWkoeA/KWncZxa3J5xGCX5dZ/sQBCQE9dWBZGQ==
-X-Received: by 2002:a05:600c:3516:b0:39c:8091:31b6 with SMTP id
- h22-20020a05600c351600b0039c809131b6mr1308386wmq.164.1654890778440; 
- Fri, 10 Jun 2022 12:52:58 -0700 (PDT)
-Received: from [192.168.0.203] (xdsl-188-155-176-92.adslplus.ch.
- [188.155.176.92]) by smtp.gmail.com with ESMTPSA id
- f2-20020adfb602000000b002185c6dc5b1sm273167wre.108.2022.06.10.12.52.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 10 Jun 2022 12:52:57 -0700 (PDT)
-Message-ID: <bb4ab218-3461-9afb-ecba-5c9e87f6acfc@linaro.org>
-Date: Fri, 10 Jun 2022 21:52:55 +0200
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to;
+ bh=W6khq/CJ/jK9xDdyCa3D6opio63P/2KRxReDZd/cxiU=;
+ b=ZhxvzoQYXFqlSVQ4/GxbU46fkfhybphc6mgk5JVYY9jp1UtD0MiQlL9+x0+R6Z3qqv
+ WT7sazWN9Z9Q2zd+lPQyHkudccGDYSuv+odoghnGswv1sFt9z+1l9FhrY89rWPkELNE6
+ W3Pw0eS034LN878PaQ0VigczjZtscK73ifAQbBwDjA5CbqbWS2WtaYQhRiH56xQVT1UY
+ AjWAJ78zeC42x4tMBjwWEh5CSou/l3rMT1AQ/TYfBPPnwgSl215cpGacqWq+aD1prxJj
+ 3Km5FjCeOM3zo7KaR8roAG9zQ+nF+eTjls5TsvZedTPSLD2NBvP8Mbuq5DSu2kreLPYp
+ Pf1g==
+X-Gm-Message-State: AOAM530nFKvT6olC9oiTGYwtNqvDpoXrQWihctTJyAr2Z+ig2+sc6M7O
+ olWr24FNXPvzYNorCDZTUCl4hjlXDD93RPx4QLkEdg==
+X-Google-Smtp-Source: ABdhPJwSTDK+pBxm//5P5qx/CDLFe4k+ZU2smS4RLMyknqIy9EX3kH8/LMzqdWgLhly1FkW9ePNj8azaOd9duk3Y/ZE=
+X-Received: by 2002:a05:6808:e87:b0:32e:4789:d2c with SMTP id
+ k7-20020a0568080e8700b0032e47890d2cmr743744oil.193.1654891470062; Fri, 10 Jun
+ 2022 13:04:30 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 10 Jun 2022 13:04:29 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Subject: Re: [PATCH] ASoC: samsung: i2s: Check before clk_unregister() not
- needed
-Content-Language: en-US
-To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Yihao Han <hanyihao@vivo.com>, Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-References: <20220527065412.3677-1-hanyihao@vivo.com>
- <2bcf706b-10d5-9369-ff8a-2a3263f9fa70@linaro.org>
- <d53ad0e2-e32d-1b46-b626-e82b44230704@wanadoo.fr>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <d53ad0e2-e32d-1b46-b626-e82b44230704@wanadoo.fr>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <1654872335-4993-2-git-send-email-quic_srivasam@quicinc.com>
+References: <1654872335-4993-1-git-send-email-quic_srivasam@quicinc.com>
+ <1654872335-4993-2-git-send-email-quic_srivasam@quicinc.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Fri, 10 Jun 2022 13:04:29 -0700
+Message-ID: <CAE-0n53NdTwAO4DY0x7Fy9h4eRVR-3iKnGfqfZ-ggyghfsC9UA@mail.gmail.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: pinctrl: qcom: sc7280: Add boolean
+ param for ADSP bypass platforms
+To: Linus Walleij <linus.walleij@linaro.org>, 
+ Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>, agross@kernel.org,
+ alsa-devel@alsa-project.org, 
+ bgoswami@quicinc.com, bjorn.andersson@linaro.org, broonie@kernel.org, 
+ devicetree@vger.kernel.org, judyhsiao@chromium.org, lgirdwood@gmail.com, 
+ linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, perex@perex.cz, quic_plai@quicinc.com, 
+ quic_rohkumar@quicinc.com, robh+dt@kernel.org, srinivas.kandagatla@linaro.org, 
+ tiwai@suse.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,34 +103,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 10/06/2022 18:15, Christophe JAILLET wrote:
-> Le 29/05/2022 à 10:06, Krzysztof Kozlowski a écrit :
->> On 27/05/2022 08:54, Yihao Han wrote:
->>> clk_unregister() already checks the clk ptr using
->>> !clk || WARN_ON_ONCE(IS_ERR(clk)) so there is no need to check it
->>> again before calling it.
->>>
->>
->> No, this explanation does not make sense. clk_unregister() warns and
->> this code is not equivalent.
->>
->>
->>
->> Best regards,
->> Krzysztof
->>
-> 
-> Hi,
-> 
-> Moreover, as pointed out by greg in [1] on some plateform the assertion 
-> in the commit description is wrong. His message is about clk_disable() 
-> but, IIUC, it makes sense for clk_unregister() as well. See [2] on the 
-> sh plateform.
-> 
+Quoting Srinivasa Rao Mandadapu (2022-06-10 07:45:34)
+> Add boolean param qcom,adsp-bypass-mode to support adsp bypassed sc7280
+> platforms. Which is required to make clock voting as optional for ADSP
+> bypass platforms.
+>
+> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+> ---
+>  .../bindings/pinctrl/qcom,sc7280-lpass-lpi-pinctrl.yaml          | 9 ++++++++-
+>  1 file changed, 8 insertions(+), 1 deletion(-)
+>
+> diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,sc7280-lpass-lpi-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,sc7280-lpass-lpi-pinctrl.yaml
+> index d32ee32..ea9920c 100644
+> --- a/Documentation/devicetree/bindings/pinctrl/qcom,sc7280-lpass-lpi-pinctrl.yaml
+> +++ b/Documentation/devicetree/bindings/pinctrl/qcom,sc7280-lpass-lpi-pinctrl.yaml
+> @@ -17,7 +17,14 @@ description: |
+>
+>  properties:
+>    compatible:
+> -    const: qcom,sc7280-lpass-lpi-pinctrl
+> +    enum:
+> +      - qcom,sc7280-lpass-lpi-pinctrl
 
-Yes, this is true as well, although does not have the practical impact
-on this driver as it uses platforms with common clock framework.
+Drop this part.
 
+> +
+> +  qcom,adsp-bypass-mode:
+> +    description:
+> +      Tells pin controllers want to make clocks optional for ADSP bypass
+> +      targets.
 
-Best regards,
-Krzysztof
+How about "ADSP is in bypass mode"?

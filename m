@@ -2,81 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 529B6546314
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jun 2022 12:04:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1345F54631F
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jun 2022 12:06:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 00A911A28;
-	Fri, 10 Jun 2022 12:03:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 00A911A28
+	by alsa0.perex.cz (Postfix) with ESMTPS id B203F1A43;
+	Fri, 10 Jun 2022 12:05:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B203F1A43
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654855446;
-	bh=4RmeL8OoRvwTRPjcy9R34dIdSFR4j/KUysjnhoDR5tM=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1654855559;
+	bh=aIFIew+Yau01V1IDNrrIlj6EGRJGB0DuPdbXbFjR+Uw=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=up3Jnm+wusxEwsl2tRDhcOXjm+Gsl1BTrMPtNl3e/thm0C/4QaECrV6+COA8AZrOj
-	 NS33MprvlQs++g8mNfTrylz0dKCpTbMf75dVYnxVG8CjJiMQ4lmbq+E7JeuLRBvzKQ
-	 nPeQCE43Jr8+uxZPLjxEzwOKCQZTE/1BKXru51P8=
+	b=llkNMLpe9Gz8pR7Fv1V0/fo8Xr2izBeZHrElgL+bA+vMyjey3/DrQABbn87EhWd2R
+	 +1/uxG+Tk3pPZLljfjd/zACvEf3TNb/RD7YTSxhJPVrUcx0kNJK75jzYz7/69xU4f1
+	 5N/91KKhjrDCkxF0F1OYSCTomTc6hHvkH1GRQiBU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 65ADAF80537;
-	Fri, 10 Jun 2022 12:02:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 423BFF800E5;
+	Fri, 10 Jun 2022 12:05:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2E931F80536; Fri, 10 Jun 2022 12:02:14 +0200 (CEST)
+ id BEACAF804D2; Fri, 10 Jun 2022 12:04:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AC526F804E7
- for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 12:02:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC526F804E7
+ by alsa1.perex.cz (Postfix) with ESMTPS id A9710F800C7
+ for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 12:04:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9710F800C7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
- header.b="MdWfEoWR"
-Received: from [192.168.1.100] (2-237-20-237.ip236.fastwebnet.it
- [2.237.20.237])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (No client certificate requested) (Authenticated sender: kholk11)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id C9780660173B;
- Fri, 10 Jun 2022 11:02:04 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1654855325;
- bh=4RmeL8OoRvwTRPjcy9R34dIdSFR4j/KUysjnhoDR5tM=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=MdWfEoWRLnqD/8GdzQ6y1S1xEOLCa4BxGoMaNEFIGobL2tWvAQi5xrZREl+FcXuJo
- vsWGJJzcnkqZxyhmotmK+fjtHyXsinJtGcprszocVFjJUwlHNkfKCkQ+VGHxc3tLW6
- dTtQvLNLKD3s1WAfFzSdNuHyEGKTsr2cKTE40nNdiX9B28++KpmSBeS6vq5KkZSL/X
- 2khpxy0asninbBhVqIl03LvKYHm7ZIVv8ISgsecO7+O2Bb3fxZStohAxkPsFjrQpaU
- Tr/XV7Jh1GUQ7CPuoY9M4QTdoFsV3LnFl6/TReW+CFpp18xyi8/T4q6j4Do7ib3+nT
- iApa2/7txVaEg==
-Message-ID: <af063ee7-fcd2-c3c8-8889-8d5a34baeb3c@collabora.com>
-Date: Fri, 10 Jun 2022 12:02:01 +0200
+ dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
+ header.b="UlHAciK6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1654855494; x=1686391494;
+ h=message-id:date:mime-version:subject:to:references:from:
+ in-reply-to:content-transfer-encoding;
+ bh=wM8AR7EF4KqQEH54DYTVZVfCtuLjTuQvtuihUj3UHdY=;
+ b=UlHAciK6SnS1vpG2BOkBUvy9dXgecuL+lFJCpsqh48guDuQVFmDsMMmv
+ 8MLB0aiPtyY3Qlwamh+I/BSiYBA+W7kkOoiE+E210ntuaOiFqrVHrXDPs
+ 91p+XizV2vj4GOvzRINpzane5XccJ2kq5p/Kc2d0xcAjC1LTRn6ItbUk4 Q=;
+Received: from unknown (HELO ironmsg03-sd.qualcomm.com) ([10.53.140.143])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 10 Jun 2022 03:04:50 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg03-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jun 2022 03:04:49 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Fri, 10 Jun 2022 03:04:48 -0700
+Received: from [10.216.33.153] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Fri, 10 Jun
+ 2022 03:04:42 -0700
+Message-ID: <70631864-ff95-5c73-64ed-602774eb0de7@quicinc.com>
+Date: Fri, 10 Jun 2022 15:34:39 +0530
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Subject: Re: [PATCH v7 2/8] ASoC: mediatek: mt8186: add platform driver
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.1
+Subject: Re: [PATCH v4 1/2] soundwire: qcom: Add flag for software clock
+ gating check
 Content-Language: en-US
-To: Jiaxin Yu <jiaxin.yu@mediatek.com>, broonie@kernel.org, robh+dt@kernel.org
-References: <20220610082724.29256-1-jiaxin.yu@mediatek.com>
- <20220610082724.29256-3-jiaxin.yu@mediatek.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20220610082724.29256-3-jiaxin.yu@mediatek.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ <agross@kernel.org>, <bjorn.andersson@linaro.org>, <lgirdwood@gmail.com>,
+ <broonie@kernel.org>, <robh+dt@kernel.org>, <quic_plai@quicinc.com>,
+ <bgoswami@quicinc.com>, <perex@perex.cz>, <tiwai@suse.com>,
+ <srinivas.kandagatla@linaro.org>, <quic_rohkumar@quicinc.com>,
+ <linux-arm-msm@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <swboyd@chromium.org>, <judyhsiao@chromium.org>, <vkoul@kernel.org>
+References: <1654785023-1667-1-git-send-email-quic_srivasam@quicinc.com>
+ <1654785023-1667-2-git-send-email-quic_srivasam@quicinc.com>
+ <97757ee1-2525-4e97-855e-da6fb66f01ae@linux.intel.com>
+From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+Organization: Qualcomm
+In-Reply-To: <97757ee1-2525-4e97-855e-da6fb66f01ae@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org,
- Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
- linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
- matthias.bgg@gmail.com, aaronyu@google.com, julianbraha@gmail.com,
- linux-arm-kernel@lists.infradead.org
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,617 +106,68 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Il 10/06/22 10:27, Jiaxin Yu ha scritto:
-> Add mt8186 platform and affiliated driver.
-> 
-> Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
-> ---
->   sound/soc/mediatek/Kconfig                    |   12 +
->   sound/soc/mediatek/Makefile                   |    1 +
->   sound/soc/mediatek/mt8186/Makefile            |   19 +
->   sound/soc/mediatek/mt8186/mt8186-afe-common.h |  235 ++
->   .../soc/mediatek/mt8186/mt8186-afe-control.c  |  261 ++
->   sound/soc/mediatek/mt8186/mt8186-afe-pcm.c    | 3009 +++++++++++++++++
->   6 files changed, 3537 insertions(+)
->   create mode 100644 sound/soc/mediatek/mt8186/Makefile
->   create mode 100644 sound/soc/mediatek/mt8186/mt8186-afe-common.h
->   create mode 100644 sound/soc/mediatek/mt8186/mt8186-afe-control.c
->   create mode 100644 sound/soc/mediatek/mt8186/mt8186-afe-pcm.c
-> 
 
-..snip..
-
-> diff --git a/sound/soc/mediatek/mt8186/mt8186-afe-control.c b/sound/soc/mediatek/mt8186/mt8186-afe-control.c
-> new file mode 100644
-> index 000000000000..2d78212c3c3f
-> --- /dev/null
-> +++ b/sound/soc/mediatek/mt8186/mt8186-afe-control.c
-> @@ -0,0 +1,261 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +//
-> +// MediaTek ALSA SoC Audio Control
-> +//
-> +// Copyright (c) 2022 MediaTek Inc.
-> +// Author: Jiaxin Yu <jiaxin.yu@mediatek.com>
-> +
-> +#include "mt8186-afe-common.h"
-> +#include <linux/pm_runtime.h>
-> +
-
-..snip..
-
-> +
-> +static unsigned int pcm_rate_transform(struct device *dev,
-> +				       unsigned int rate)
-> +{
-> +	switch (rate) {
-> +	case 8000:
-> +		return MTK_AFE_PCM_RATE_8K;
-> +	case 16000:
-> +		return MTK_AFE_PCM_RATE_16K;
-> +	case 32000:
-> +		return MTK_AFE_PCM_RATE_32K;
-> +	case 48000:
-> +		return MTK_AFE_PCM_RATE_48K;
-> +	default:
-> +		dev_info(dev, "%s(), rate %u invalid, use %d!!!\n",
-> +			 __func__,
-> +			 rate, MTK_AFE_PCM_RATE_32K);
-> +		return MTK_AFE_PCM_RATE_32K;
-
-This return statement should go outside of the switch, and that print
-should be a dev_err() instead.
-
-> +	}
-> +}
-> +
-> +unsigned int mt8186_tdm_relatch_rate_transform(struct device *dev,
-> +					       unsigned int rate)
-> +{
-> +	switch (rate) {
-> +	case 8000:
-> +		return MTK_AFE_TDM_RELATCH_RATE_8K;
-> +	case 11025:
-> +		return MTK_AFE_TDM_RELATCH_RATE_11K;
-> +	case 12000:
-> +		return MTK_AFE_TDM_RELATCH_RATE_12K;
-> +	case 16000:
-> +		return MTK_AFE_TDM_RELATCH_RATE_16K;
-> +	case 22050:
-> +		return MTK_AFE_TDM_RELATCH_RATE_22K;
-> +	case 24000:
-> +		return MTK_AFE_TDM_RELATCH_RATE_24K;
-> +	case 32000:
-> +		return MTK_AFE_TDM_RELATCH_RATE_32K;
-> +	case 44100:
-> +		return MTK_AFE_TDM_RELATCH_RATE_44K;
-> +	case 48000:
-> +		return MTK_AFE_TDM_RELATCH_RATE_48K;
-> +	case 88200:
-> +		return MTK_AFE_TDM_RELATCH_RATE_88K;
-> +	case 96000:
-> +		return MTK_AFE_TDM_RELATCH_RATE_96K;
-> +	case 176400:
-> +		return MTK_AFE_TDM_RELATCH_RATE_176K;
-> +	case 192000:
-> +		return MTK_AFE_TDM_RELATCH_RATE_192K;
-> +	case 352800:
-> +		return MTK_AFE_TDM_RELATCH_RATE_352K;
-> +	case 384000:
-> +		return MTK_AFE_TDM_RELATCH_RATE_384K;
-> +	default:
-> +		dev_info(dev, "%s(), rate %u invalid, use %d!!!\n",
-> +			 __func__,
-> +			 rate, MTK_AFE_TDM_RELATCH_RATE_48K);
-> +		return MTK_AFE_TDM_RELATCH_RATE_48K;
-
-Same here.
-
-> +	}
-> +}
-> +
-> +unsigned int mt8186_rate_transform(struct device *dev,
-> +				   unsigned int rate, int aud_blk)
-> +{
-> +	switch (aud_blk) {
-> +	case MT8186_DAI_PCM:
-> +		return pcm_rate_transform(dev, rate);
-> +	case MT8186_DAI_TDM_IN:
-> +		return tdm_rate_transform(dev, rate);
-> +	default:
-> +		return mt8186_general_rate_transform(dev, rate);
-> +	}
-> +}
-> +
-> +int mt8186_dai_set_priv(struct mtk_base_afe *afe, int id,
-> +			int priv_size, const void *priv_data)
-> +{
-> +	struct mt8186_afe_private *afe_priv = afe->platform_priv;
-> +	void *temp_data;
-> +
-> +	temp_data = devm_kzalloc(afe->dev,
-> +				 priv_size,
-> +				 GFP_KERNEL);
-> +	if (!temp_data)
-> +		return -ENOMEM;
-> +
-> +	if (priv_data)
-> +		memcpy(temp_data, priv_data, priv_size);
-> +
-> +	afe_priv->dai_priv[id] = temp_data;
-> +
-> +	return 0;
-> +}
-> diff --git a/sound/soc/mediatek/mt8186/mt8186-afe-pcm.c b/sound/soc/mediatek/mt8186/mt8186-afe-pcm.c
-> new file mode 100644
-> index 000000000000..aaba8627d9e1
-> --- /dev/null
-> +++ b/sound/soc/mediatek/mt8186/mt8186-afe-pcm.c
-> @@ -0,0 +1,3009 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +//
-> +// Mediatek ALSA SoC AFE platform driver for 8186
-> +//
-> +// Copyright (c) 2022 MediaTek Inc.
-> +// Author: Jiaxin Yu <jiaxin.yu@mediatek.com>
-> +
-> +#include <linux/delay.h>
-> +#include <linux/dma-mapping.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/of_address.h>
-> +#include <linux/pm_runtime.h>
-> +#include <linux/reset.h>
-> +#include <sound/soc.h>
-> +
-> +#include "../common/mtk-afe-platform-driver.h"
-> +#include "../common/mtk-afe-fe-dai.h"
-> +
-> +#include "mt8186-afe-common.h"
-> +#include "mt8186-afe-clk.h"
-> +#include "mt8186-afe-gpio.h"
-> +#include "mt8186-interconnection.h"
-> +
-
-..snip..
-
-> +
-> +static int mt8186_fe_hw_free(struct snd_pcm_substream *substream,
-> +			     struct snd_soc_dai *dai)
-> +{
-> +	int ret;
-> +
-> +	ret = mtk_afe_fe_hw_free(substream, dai);
-> +	if (ret)
-> +		goto exit;
-> +
-> +	/* wait for some platform related operation */
-
-This comment says that we should wait for "some platform related operation":
-it's not describing what kind of operation we would wait for... and we are
-not waiting for anything at all and just returning.
-
-Are you implementing this wait mechanism?
-...otherwise, there's no need for that goto at all.
-
-> +exit:
-> +	return ret;
-> +}
-> +
-> +static int mt8186_fe_trigger(struct snd_pcm_substream *substream, int cmd,
-> +			     struct snd_soc_dai *dai)
-> +{
-> +	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-> +	struct snd_pcm_runtime * const runtime = substream->runtime;
-> +	struct mtk_base_afe *afe = snd_soc_dai_get_drvdata(dai);
-> +	struct mt8186_afe_private *afe_priv = afe->platform_priv;
-> +	int id = asoc_rtd_to_cpu(rtd, 0)->id;
-> +	struct mtk_base_afe_memif *memif = &afe->memif[id];
-> +	int irq_id = memif->irq_usage;
-> +	struct mtk_base_afe_irq *irqs = &afe->irqs[irq_id];
-> +	const struct mtk_base_irq_data *irq_data = irqs->irq_data;
-> +	unsigned int counter = runtime->period_size;
-
-You're assigning a value to 'counter' here and you may or may not use it,
-because if we look down there...
-
-> +	unsigned int rate = runtime->rate;
-> +	int fs;
-> +	int ret;
-> +
-> +	dev_dbg(afe->dev, "%s(), %s cmd %d, irq_id %d\n",
-> +		__func__, memif->data->name, cmd, irq_id);
-> +
-> +	switch (cmd) {
-> +	case SNDRV_PCM_TRIGGER_START:
-> +	case SNDRV_PCM_TRIGGER_RESUME:
-> +		ret = mtk_memif_set_enable(afe, id);
-> +		if (ret) {
-> +			dev_err(afe->dev, "%s(), error, id %d, memif enable, ret %d\n",
-> +				__func__, id, ret);
-> +			return ret;
-> +		}
-> +
-> +		/*
-> +		 * for small latency record
-> +		 * ul memif need read some data before irq enable
-> +		 */
-> +		if (substream->stream == SNDRV_PCM_STREAM_CAPTURE &&
-> +		    ((runtime->period_size * 1000) / rate <= 10))
-> +			udelay(300);
-> +
-> +		/* set irq counter */
-> +		if (afe_priv->irq_cnt[id] > 0)
-> +			counter = afe_priv->irq_cnt[id];
-
-...you're reassigning the counter if irq_cnt > 0, so you can as well avoid a
-reassignment if you simply do it like
-
-		if (afe_priv->irq_cnt[id] > 0)
-			counter = afe_priv->irq_cnt[id];
-		else
-			counter = runtime->period_size;
-
-> +
-> +		regmap_update_bits(afe->regmap, irq_data->irq_cnt_reg,
-> +				   irq_data->irq_cnt_maskbit
-> +				   << irq_data->irq_cnt_shift,
-> +				   counter << irq_data->irq_cnt_shift);
-> +
-> +		/* set irq fs */
-> +		fs = afe->irq_fs(substream, runtime->rate);
-> +		if (fs < 0)
-> +			return -EINVAL;
-> +
-> +		regmap_update_bits(afe->regmap, irq_data->irq_fs_reg,
-> +				   irq_data->irq_fs_maskbit
-> +				   << irq_data->irq_fs_shift,
-> +				   fs << irq_data->irq_fs_shift);
-> +
-> +		/* enable interrupt */
-> +		if (runtime->stop_threshold != ~(0U))
-> +			regmap_update_bits(afe->regmap,
-> +					   irq_data->irq_en_reg,
-> +					   1 << irq_data->irq_en_shift,
-> +					   1 << irq_data->irq_en_shift);
-> +		return 0;
-> +	case SNDRV_PCM_TRIGGER_STOP:
-> +	case SNDRV_PCM_TRIGGER_SUSPEND:
-> +		if (afe_priv->xrun_assert[id] > 0) {
-> +			if (substream->stream == SNDRV_PCM_STREAM_CAPTURE) {
-> +				int avail = snd_pcm_capture_avail(runtime);
-> +
-> +				if (avail >= runtime->buffer_size) {
-> +					dev_err(afe->dev, "%s(), id %d, xrun assert\n",
-> +						__func__, id);
-
-You're printing an error here, but not returning an error state related to
-this one at the end of this case... why?
-
-(if this is intended, add a comment in the code explaining the reason)
-
-> +				}
-> +			}
-> +		} > +
-> +		ret = mtk_memif_set_disable(afe, id);
-> +		if (ret)
-> +			dev_err(afe->dev, "%s(), error, id %d, memif enable, ret %d\n",
-> +				__func__, id, ret);
-> +
-> +		/* disable interrupt */
-> +		if (runtime->stop_threshold != ~(0U))
-> +			regmap_update_bits(afe->regmap,
-> +					   irq_data->irq_en_reg,
-> +					   1 << irq_data->irq_en_shift,
-> +					   0 << irq_data->irq_en_shift);
-> +
-> +		/* clear pending IRQ */
-> +		regmap_write(afe->regmap, irq_data->irq_clr_reg,
-> +			     1 << irq_data->irq_clr_shift);
-> +		return ret;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-
-..snip..
-
-> +
-> +static int mt8186_irq_cnt1_set(struct snd_kcontrol *kcontrol,
-> +			       struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *cmpnt = snd_soc_kcontrol_component(kcontrol);
-> +	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(cmpnt);
-> +	struct mt8186_afe_private *afe_priv = afe->platform_priv;
-> +	int memif_num = MT8186_PRIMARY_MEMIF;
-> +	struct mtk_base_afe_memif *memif = &afe->memif[memif_num];
-> +	int irq_id = memif->irq_usage;
-> +	int irq_cnt = afe_priv->irq_cnt[memif_num];
-> +
-> +	dev_dbg(afe->dev, "%s(), irq_id %d, irq_cnt = %d, value = %ld\n",
-> +		__func__, irq_id, irq_cnt, ucontrol->value.integer.value[0]);
-> +
-> +	if (irq_cnt == ucontrol->value.integer.value[0])
-> +		return 0;
-> +
-> +	irq_cnt = ucontrol->value.integer.value[0];
-> +	afe_priv->irq_cnt[memif_num] = irq_cnt;
-> +
-> +	if (pm_runtime_status_suspended(afe->dev) || irq_id < 0) {
-> +		dev_info(afe->dev, "%s(), suspended || irq_id %d, not set\n",
-> +			 __func__, irq_id);
-
-This should probably be a dev_dbg, as that's not supposed to normally happen.
-Besides, since the expected flow for this function is to write to registers,
-I think that for readability purposes it's best to invert this conditional:
-
-	if (!pm_runtime_status_suspended(afe->dev) && irq_id >= 0) {
-		.....
-	} else {
-		dev_dbg(.....)
-	}
-
-> +	} else {
-> +		struct mtk_base_afe_irq *irqs = &afe->irqs[irq_id];
-> +		const struct mtk_base_irq_data *irq_data = irqs->irq_data;
-> +
-> +		regmap_update_bits(afe->regmap, irq_data->irq_cnt_reg,
-> +				   irq_data->irq_cnt_maskbit
-> +				   << irq_data->irq_cnt_shift,
-> +				   irq_cnt << irq_data->irq_cnt_shift);
-> +	}
-> +
-> +	return 1;
-> +}
-> +
-> +static int mt8186_irq_cnt2_get(struct snd_kcontrol *kcontrol,
-> +			       struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *cmpnt = snd_soc_kcontrol_component(kcontrol);
-> +	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(cmpnt);
-> +	struct mt8186_afe_private *afe_priv = afe->platform_priv;
-> +
-> +	ucontrol->value.integer.value[0] =
-> +		afe_priv->irq_cnt[MT8186_RECORD_MEMIF];
-> +
-> +	return 0;
-> +}
-> +
-> +static int mt8186_irq_cnt2_set(struct snd_kcontrol *kcontrol,
-> +			       struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *cmpnt = snd_soc_kcontrol_component(kcontrol);
-> +	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(cmpnt);
-> +	struct mt8186_afe_private *afe_priv = afe->platform_priv;
-> +	int memif_num = MT8186_RECORD_MEMIF;
-> +	struct mtk_base_afe_memif *memif = &afe->memif[memif_num];
-> +	int irq_id = memif->irq_usage;
-> +	int irq_cnt = afe_priv->irq_cnt[memif_num];
-> +
-> +	dev_dbg(afe->dev, "%s(), irq_id %d, irq_cnt = %d, value = %ld\n",
-> +		__func__, irq_id, irq_cnt, ucontrol->value.integer.value[0]);
-> +
-> +	if (irq_cnt == ucontrol->value.integer.value[0])
-> +		return 0;
-> +
-> +	irq_cnt = ucontrol->value.integer.value[0];
-> +	afe_priv->irq_cnt[memif_num] = irq_cnt;
-> +
-> +	if (pm_runtime_status_suspended(afe->dev) || irq_id < 0) {
-> +		dev_info(afe->dev, "%s(), suspended || irq_id %d, not set\n",
-> +			 __func__, irq_id);
-
-same here.
-
-> +	} else {
-> +		struct mtk_base_afe_irq *irqs = &afe->irqs[irq_id];
-> +		const struct mtk_base_irq_data *irq_data = irqs->irq_data;
-> +
-> +		regmap_update_bits(afe->regmap, irq_data->irq_cnt_reg,
-> +				   irq_data->irq_cnt_maskbit
-> +				   << irq_data->irq_cnt_shift,
-> +				   irq_cnt << irq_data->irq_cnt_shift);
-> +	}
-> +
-> +	return 1;
-> +}
-> +
-
-..snip..
-
-> +
-> +static int mt8186_afe_pcm_dev_probe(struct platform_device *pdev)
-> +{
-> +	struct mtk_base_afe *afe;
-> +	struct mt8186_afe_private *afe_priv;
-> +	struct resource *res;
-> +	struct reset_control *rstc;
-> +	struct device *dev = &pdev->dev;
-> +	int i, ret, irq_id;
-> +
-> +	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(34));
-> +	if (ret)
-> +		return ret;
-> +
-> +	afe = devm_kzalloc(dev, sizeof(*afe), GFP_KERNEL);
-> +	if (!afe)
-> +		return -ENOMEM;
-> +	platform_set_drvdata(pdev, afe);
-> +
-> +	afe->platform_priv = devm_kzalloc(dev, sizeof(*afe_priv), GFP_KERNEL);
-> +	if (!afe->platform_priv)
-> +		return -ENOMEM;
-> +
-> +	afe_priv = afe->platform_priv;
-> +	afe->dev = &pdev->dev;
-> +
-> +	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> +	afe->base_addr = devm_ioremap_resource(&pdev->dev, res);
-> +	if (IS_ERR(afe->base_addr))
-> +		return PTR_ERR(afe->base_addr);
-> +
-> +	/* init audio related clock */
-> +	ret = mt8186_init_clock(afe);
-> +	if (ret) {
-> +		dev_err(dev, "init clock error, ret %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	/* init memif */
-> +	afe->memif_32bit_supported = 0;
-> +	afe->memif_size = MT8186_MEMIF_NUM;
-> +	afe->memif = devm_kcalloc(dev, afe->memif_size, sizeof(*afe->memif),
-> +				  GFP_KERNEL);
-> +
-> +	if (!afe->memif)
-> +		return -ENOMEM;
-> +
-> +	for (i = 0; i < afe->memif_size; i++) {
-> +		afe->memif[i].data = &memif_data[i];
-> +		afe->memif[i].irq_usage = memif_irq_usage[i];
-> +		afe->memif[i].const_irq = 1;
-> +	}
-> +
-> +	mutex_init(&afe->irq_alloc_lock);	/* needed when dynamic irq */
-> +
-> +	/* init irq */
-> +	afe->irqs_size = MT8186_IRQ_NUM;
-> +	afe->irqs = devm_kcalloc(dev, afe->irqs_size, sizeof(*afe->irqs),
-> +				 GFP_KERNEL);
-> +
-> +	if (!afe->irqs)
-> +		return -ENOMEM;
-> +
-> +	for (i = 0; i < afe->irqs_size; i++)
-> +		afe->irqs[i].irq_data = &irq_data[i];
-> +
-> +	/* request irq */
-> +	irq_id = platform_get_irq(pdev, 0);
-> +	if (irq_id <= 0)
-> +		return dev_err_probe(dev, irq_id < 0 ? irq_id : -ENXIO,
-> +				     "no irq found");
-> +
-> +	ret = devm_request_irq(dev, irq_id, mt8186_afe_irq_handler,
-> +			       IRQF_TRIGGER_NONE,
-> +			       "Afe_ISR_Handle", (void *)afe);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "could not request_irq for Afe_ISR_Handle\n");
-> +
-> +	ret = enable_irq_wake(irq_id);
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, ret, "enable_irq_wake %d\n", irq_id);
-> +
-> +	/* init sub_dais */
-> +	INIT_LIST_HEAD(&afe->sub_dais);
-> +
-> +	for (i = 0; i < ARRAY_SIZE(dai_register_cbs); i++) {
-> +		ret = dai_register_cbs[i](afe);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret, "dai register i %d fail\n", i);
-> +	}
-> +
-> +	/* init dai_driver and component_driver */
-> +	ret = mtk_afe_combine_sub_dai(afe);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "mtk_afe_combine_sub_dai fail\n");
-> +
-> +	/* reset controller to reset audio regs before regmap cache */
-> +	rstc = devm_reset_control_get_exclusive(dev, "audiosys");
-> +	if (IS_ERR(rstc))
-> +		return dev_err_probe(dev, PTR_ERR(rstc), "could not get audiosys reset\n");
-> +
-> +	ret = reset_control_reset(rstc);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to trigger audio reset\n");
-> +
-> +	/* enable clock for regcache get default value from hw */
-> +	afe_priv->pm_runtime_bypass_reg_ctl = true;
-
-
-> +	pm_runtime_enable(dev);
-
-What about....
-
-	ret = devm_pm_runtime_enable(dev);
-	if (ret)
-		return ret;
-
-	ret = pm_runtime_resume_and_get(dev);
-	if (ret)
-		return dev_err_probe(dev, ret, "failed to resume device\n");
-
-> +	ret = pm_runtime_get_sync(dev);
-> +	if (ret) {
-> +		dev_err(dev, "failed to resume device: %d\n", ret);
-> +		goto err_pm_disable;
-> +	}
-> +
-> +	afe->regmap = devm_regmap_init_mmio(dev, afe->base_addr,
-> +					    &mt8186_afe_regmap_config);
-> +	if (IS_ERR(afe->regmap)) {
-> +		ret = PTR_ERR(afe->regmap);
-> +		goto err_pm_disable;
-> +	}
-> +
-> +	/* others */
-> +	afe->mtk_afe_hardware = &mt8186_afe_hardware;
-> +	afe->memif_fs = mt8186_memif_fs;
-> +	afe->irq_fs = mt8186_irq_fs;
-> +	afe->get_dai_fs = mt8186_get_dai_fs;
-> +	afe->get_memif_pbuf_size = mt8186_get_memif_pbuf_size;
-> +
-> +	afe->runtime_resume = mt8186_afe_runtime_resume;
-> +	afe->runtime_suspend = mt8186_afe_runtime_suspend;
-> +
-> +	/* register platform */
-> +	dev_info(dev, "%s(), devm_snd_soc_register_component\n", __func__);
-
-This should be dev_dbg().
-
-> +
-> +	ret = devm_snd_soc_register_component(dev,
-> +					      &mt8186_afe_component,
-> +					      afe->dai_drivers,
-> +					      afe->num_dai_drivers);
-> +	if (ret) {
-> +		dev_err(dev, "err_dai_component\n");
-> +		goto err_pm_disable;
-> +	}
-> +
-> +	ret = pm_runtime_put_sync(dev);
-> +	if (ret) {
-> +		pm_runtime_get_noresume(dev);
-> +		dev_err(dev, "failed to suspend device: %d\n", ret);
-> +		goto err_pm_disable;
-> +	}
-> +	afe_priv->pm_runtime_bypass_reg_ctl = false;
-> +
-> +	regcache_cache_only(afe->regmap, true);
-> +	regcache_mark_dirty(afe->regmap);
-> +
-> +	return 0;
-> +
-> +err_pm_disable:
-> +	pm_runtime_put_noidle(dev);
-> +	pm_runtime_set_suspended(dev);
-> +	pm_runtime_disable(dev);
-
-...and then, since we're using devm_pm_runtime_enable, this call to
-pm_runtime_disable() can be removed.
-
-> +
-> +	return ret;
-> +}
-> +
-> +static int mt8186_afe_pcm_dev_remove(struct platform_device *pdev)
-> +{
-> +	struct mtk_base_afe *afe = platform_get_drvdata(pdev);
-> +
-> +	pm_runtime_disable(&pdev->dev);
-
-Here too.
-
-
-Regards,
-Angelo
+On 6/9/2022 8:52 PM, Pierre-Louis Bossart wrote:
+Thanks for your time Pierre-Louis!!!
+>
+> On 6/9/22 09:30, Srinivasa Rao Mandadapu wrote:
+>> Validate software clock gating required or not and do software
+>> clock gating on hclk if soundwire is operational and keep it
+>> running by adding flag in private data structure.
+>> This is to avoid conflict between older architectures,
+>> where software clock gating is not required and on latest
+>> architectues, where software clock gating is mandatory.
+> architectures.
+Okay. Will fix it.
+>
+>> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+>> Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+>> ---
+>>   drivers/soundwire/qcom.c | 14 ++++++++++----
+>>   1 file changed, 10 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+>> index a3fccf0..8e163da 100644
+>> --- a/drivers/soundwire/qcom.c
+>> +++ b/drivers/soundwire/qcom.c
+>> @@ -181,6 +181,7 @@ struct qcom_swrm_ctrl {
+>>   struct qcom_swrm_data {
+>>   	u32 default_cols;
+>>   	u32 default_rows;
+>> +	bool sw_clk_gate_required;
+>>   };
+>>   
+>>   static const struct qcom_swrm_data swrm_v1_3_data = {
+>> @@ -1311,6 +1312,15 @@ static int qcom_swrm_probe(struct platform_device *pdev)
+>>   			return PTR_ERR(ctrl->mmio);
+>>   	}
+>>   
+>> +	if (data->sw_clk_gate_required) {
+>> +		ctrl->audio_cgcr = devm_reset_control_get_exclusive(dev, "swr_audio_cgcr");
+>> +		if (IS_ERR(ctrl->audio_cgcr)) {
+> You need to handle the NULL case, devm_reset_control_get_exclusive() can
+> return ERR_OR_NULL
+>
+> https://elixir.bootlin.com/linux/latest/source/drivers/reset/core.c#L1045
+Okay. Will change accordingly.
+>
+>> +			dev_err(dev, "Failed to get cgcr reset ctrl required for SW gating\n");
+>> +			ret = PTR_ERR(ctrl->audio_cgcr);
+>> +			goto err_init;
+>> +		}
+>> +	}
+>> +
+>>   	ctrl->irq = of_irq_get(dev->of_node, 0);
+>>   	if (ctrl->irq < 0) {
+>>   		ret = ctrl->irq;
+>> @@ -1336,10 +1346,6 @@ static int qcom_swrm_probe(struct platform_device *pdev)
+>>   	ctrl->bus.compute_params = &qcom_swrm_compute_params;
+>>   	ctrl->bus.clk_stop_timeout = 300;
+>>   
+>> -	ctrl->audio_cgcr = devm_reset_control_get_exclusive(dev, "swr_audio_cgcr");
+>> -	if (IS_ERR(ctrl->audio_cgcr))
+>> -		dev_err(dev, "Failed to get audio_cgcr reset required for soundwire-v1.6.0\n");
+>> -
+>>   	ret = qcom_swrm_get_port_config(ctrl);
+>>   	if (ret)
+>>   		goto err_clk;

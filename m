@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED178545F58
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jun 2022 10:37:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40C46545F52
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jun 2022 10:37:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9AF931FB5;
-	Fri, 10 Jun 2022 10:36:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9AF931FB5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 22CEA1FC9;
+	Fri, 10 Jun 2022 10:36:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22CEA1FC9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654850247;
-	bh=Ac9RcOALAJHuuz0xIu5r+lShdI1sr34SCBDJUiNzuZI=;
+	s=default; t=1654850228;
+	bh=h/0cKNkrPm1Tx7gyOtfBeNx1LiIa4Zt2WhE3H0JCZC8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Qkqay8o2obZ+sVNGC0rq3u/M2Iu1JGHOcnnU1KZ852MuG12SEmgx72h9lGRkBwtzr
-	 HGlGJr2SupWMkAVDH0jbChoGU9BqwW/2JRtq6mxrr2rxYfHy/QHpDzrSO9vmztOBZQ
-	 LV7Qnu5sdCeXS/WoMh1nYXJAt0yEARXfoi3kgyXE=
+	b=ZXdz84HeA12NvddAP40WiVmDxIT1Fgi0aRHRtmqgnhb7IfaFReKbqCwDXfyKL07L8
+	 iSdWgFOF/aOe8LVmimJVDkN1jS7wQS4fnyolSWZM5gHXhdwDFKIyHkElx2yOrtAQa2
+	 /8LyBhNKEQziF+R5r2kW31pKnNZ1NOlLP8YQDPW4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1D738F80536;
-	Fri, 10 Jun 2022 10:35:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 72D55F8052F;
+	Fri, 10 Jun 2022 10:35:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0CC5DF8053A; Fri, 10 Jun 2022 10:35:34 +0200 (CEST)
+ id 09CD5F8052D; Fri, 10 Jun 2022 10:35:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,41 +34,40 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A31A9F804DA
- for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 10:35:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A31A9F804DA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 58730F800DF
+ for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 10:35:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58730F800DF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="dmSIMO+l"
+ header.b="U3SC6IDW"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1654850126; x=1686386126;
+ t=1654850125; x=1686386125;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Ac9RcOALAJHuuz0xIu5r+lShdI1sr34SCBDJUiNzuZI=;
- b=dmSIMO+lK18kYejPYk8Sp+YCDY5/m3DBKnTGOS/xpwkbSUanCoNCVycj
- V3uVXFB37hl8Sj8egeZG+lMYu56wc+mdiv3Kn4c0fBJGzbaa5DP9zXDl7
- rJP9L6E5sNfqg2VupGY48S8KHN9tvolu6YnWEd/6bCEQih4v6FPqrfB6r
- 2KWXYsB9Xi2VanehG1s5hMjyHjnypl/G0ZvRgxkET3rm0i/L7v9Hdu8IC
- nY13wI9jTlmmJwkrUvEY37GVZ2JpKfRChrqJ3LhussV2N60mxqRdwZm+r
- BLfqTggl9CIqQlO1yKzO2zcQhszgjEa20P0/Wfag4vTVUhSoZgVN3jng5 A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10373"; a="302936604"
-X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="302936604"
+ bh=h/0cKNkrPm1Tx7gyOtfBeNx1LiIa4Zt2WhE3H0JCZC8=;
+ b=U3SC6IDWFoTiN3AFnlEun08l1WEoLfgHOP55czoJHn2xiTrz/lTByNVj
+ YiHjvmVscnFZjT/gaN4ZbQtj5bN1jjBGSEN6nFlYRprADpw2B7N8Q+9t0
+ 9Pnpwf8j9F/7etkMDwmAWZS72IgXUsyoSe0QxV4mVhxHFzRCWphzQT0Zf
+ Wj764I+BBy6Bj13KSZvRdwq11rFz+bX2Qbak3j6UeFm6WroUPUKG89+Dk
+ o7A3oHGGn21/3pkNzzixuckzlf9M4LaPqD2gBBHl9DwtcnUwE2GJmk0ek
+ OIDf0sSp2vpxBHG+2mMu/bxfPkWqFYO8vWG8KC89G5H/JLebyfoDbhnb8 Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10373"; a="302936613"
+X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="302936613"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2022 01:35:20 -0700
-X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="638020836"
+ 10 Jun 2022 01:35:22 -0700
+X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="638020863"
 Received: from nuribebu-mobl.amr.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.251.215.108])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2022 01:35:18 -0700
+ 10 Jun 2022 01:35:20 -0700
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com, broonie@kernel.org,
  pierre-louis.bossart@linux.intel.com
-Subject: [PATCH 2/6] ASoC: SOF: sof_ipc_pm_ops: Add support for DSP core power
- management
-Date: Fri, 10 Jun 2022 11:35:45 +0300
-Message-Id: <20220610083549.16773-3-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 3/6] ASoC: SOF: ipc3: Add set_core_state pm_ops implementation
+Date: Fri, 10 Jun 2022 11:35:46 +0300
+Message-Id: <20220610083549.16773-4-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220610083549.16773-1-peter.ujfalusi@linux.intel.com>
 References: <20220610083549.16773-1-peter.ujfalusi@linux.intel.com>
@@ -91,35 +90,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add a new ops for handling DSP core power state which can be used to tell
-the DSP to turn on/off a core (or to inform it that a core is going to be
-turned on/off if the core is host managed).
+IPC3 uses sof_ipc_pm_core_config message
+(SOF_IPC_GLB_PM_MSG | SOF_IPC_PM_CORE_ENABLE) to enable/disable cores
+managed by the DSP.
+The core state is set via a single bitfield, if the bit is 1 the core
+should be on, if it is 0 then it is off.
 
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/sof-priv.h | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/soc/sof/ipc3.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
-index 58bcb8d6f72b..0544eb6a2322 100644
---- a/sound/soc/sof/sof-priv.h
-+++ b/sound/soc/sof/sof-priv.h
-@@ -378,10 +378,12 @@ struct sof_ipc_fw_tracing_ops {
-  * struct sof_ipc_pm_ops - IPC-specific PM ops
-  * @ctx_save:		Optional function pointer for context save
-  * @ctx_restore:	Optional function pointer for context restore
-+ * @set_core_state:	Optional function pointer for turning on/off a DSP core
-  */
- struct sof_ipc_pm_ops {
- 	int (*ctx_save)(struct snd_sof_dev *sdev);
- 	int (*ctx_restore)(struct snd_sof_dev *sdev);
-+	int (*set_core_state)(struct snd_sof_dev *sdev, int core_idx, bool on);
+diff --git a/sound/soc/sof/ipc3.c b/sound/soc/sof/ipc3.c
+index dff5feaad370..ba81a6c490e9 100644
+--- a/sound/soc/sof/ipc3.c
++++ b/sound/soc/sof/ipc3.c
+@@ -1037,6 +1037,23 @@ static void sof_ipc3_rx_msg(struct snd_sof_dev *sdev)
+ 	ipc3_log_header(sdev->dev, "ipc rx done", hdr.cmd);
+ }
+ 
++static int sof_ipc3_set_core_state(struct snd_sof_dev *sdev, int core_idx, bool on)
++{
++	struct sof_ipc_pm_core_config core_cfg = {
++		.hdr.size = sizeof(core_cfg),
++		.hdr.cmd = SOF_IPC_GLB_PM_MSG | SOF_IPC_PM_CORE_ENABLE,
++	};
++	struct sof_ipc_reply reply;
++
++	if (on)
++		core_cfg.enable_mask = sdev->enabled_cores_mask | BIT(core_idx);
++	else
++		core_cfg.enable_mask = sdev->enabled_cores_mask & ~BIT(core_idx);
++
++	return sof_ipc3_tx_msg(sdev, &core_cfg, sizeof(core_cfg),
++			       &reply, sizeof(reply), false);
++}
++
+ static int sof_ipc3_ctx_ipc(struct snd_sof_dev *sdev, int cmd)
+ {
+ 	struct sof_ipc_pm_ctx pm_ctx = {
+@@ -1063,6 +1080,7 @@ static int sof_ipc3_ctx_restore(struct snd_sof_dev *sdev)
+ static const struct sof_ipc_pm_ops ipc3_pm_ops = {
+ 	.ctx_save = sof_ipc3_ctx_save,
+ 	.ctx_restore = sof_ipc3_ctx_restore,
++	.set_core_state = sof_ipc3_set_core_state,
  };
  
- /**
+ const struct sof_ipc_ops ipc3_ops = {
 -- 
 2.36.1
 

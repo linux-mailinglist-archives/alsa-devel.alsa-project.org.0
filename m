@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4ED4A545E10
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jun 2022 10:02:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7836F545E0F
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jun 2022 10:02:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF79E1EF1;
-	Fri, 10 Jun 2022 10:01:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF79E1EF1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 047191B49;
+	Fri, 10 Jun 2022 10:01:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 047191B49
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654848157;
-	bh=bsjlU4WdaVedTinYzD8yfFZY8yRFASxRB/jOkDQuRsk=;
+	s=default; t=1654848142;
+	bh=35FbUiX/RvhJGqP4E4tIk7etTwYaPumYlFUSKr5vsrg=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tK2Fq7XJYeAdmHuPUSIEUUnooWt3Wl87PU3vAplaVa1Rmb4IDEFcxxIWfjmrqNzTR
-	 buCEsWsWkJaiZwntPL0ssM3Ey5o/IxmBnLtMcClZE52/xWQvZWbVY3icSdszNCflZ/
-	 IPCQaj8MhyLzPaBqGd4vzXRCCNVCtyzJqMnBraVo=
+	b=BMKW/nuDDDi5RlrlNTlLEdUPWtTcsG0WtVr8klX+p5GExFnUX7OotZ/9b3uVsmFHN
+	 eItNmWlRwzjwoTxQUQ16gftxs8h3v7KPzjdoSKBnfeKcKlFCPc8bPoERmK1cCR9dqH
+	 XpZDcRgF87JbB1twBOBecfLixNMa+tHuX9C3c6Qc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 25152F80537;
-	Fri, 10 Jun 2022 10:01:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5257DF80534;
+	Fri, 10 Jun 2022 10:01:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D938BF80536; Fri, 10 Jun 2022 10:01:04 +0200 (CEST)
+ id 11D15F80529; Fri, 10 Jun 2022 10:01:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,41 +34,41 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 354D1F80515
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1DE6CF804E7
  for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 10:00:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 354D1F80515
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1DE6CF804E7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="FPlIg7Xs"
+ header.b="a0HG84PP"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1654848056; x=1686384056;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=bsjlU4WdaVedTinYzD8yfFZY8yRFASxRB/jOkDQuRsk=;
- b=FPlIg7Xs8ICMSqOVISTxkDRiTY6kpAu4ngH/KgU4PqZGkQASkPX1Wlgc
- 3dREK3hf3Omm+Ri1zMj2x8iKC6rM6sZvMPuO5X5TGX5xK1sqmHOwwNVGI
- 9d/+GtgM8rpA6cL7fcLztiGdE9n227Fy1e0rG4fzJJUkKHo2OUTVlIIoE
- X1/K9rH6h8EqnZdSKxqs7ykIVUVq+XnS3AcNnXwXcEDqwJZVpAtr/mNeP
- 5SpeTIjgf9Ph8pqGO7j/4NDDutK9gSMGtQ4c/OIkP7mvSgHJChBvTD04V
- 9lbsOfY6fB58wJ6UrTj7WK04qAR4wfDQwNbN0bgmYeI2bq6RBSJ6aP/zH Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10373"; a="339305566"
-X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="339305566"
+ bh=35FbUiX/RvhJGqP4E4tIk7etTwYaPumYlFUSKr5vsrg=;
+ b=a0HG84PPC9xLk1ul922XM/MdgdFWLDFioPz9XpIFHG4T+5rrKD8wurlH
+ U/p4L5bzrCjlx88WrBqeK4gX1Uo9xOZJ0fmywiMhzoclqjMpRuhCCdjsj
+ B37dKNzIBgRsNHsQWxiQllJgcgGtLbh2gSxhB2yw2+WPnhOtszaWb2+kt
+ BnAh3OMuEyyqrVQLDUavuwNkSVp/LPepGlmPwHgVcTXq0AmycebTG0qK4
+ 7hXnj5XXk6xHU4kXsKs0i6wZauOeFR1VFae/w/kGwUXpJUdLws11DvtBT
+ 8OtK9IaXhq6O2KjN+3zZNQyFxjmla+J8kmA3Z5HKjDF/FwaqsbMTdYth/ Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10373"; a="339305582"
+X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="339305582"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2022 01:00:51 -0700
-X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="638007978"
+ 10 Jun 2022 01:00:54 -0700
+X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="638007989"
 Received: from nuribebu-mobl.amr.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.251.215.108])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2022 01:00:49 -0700
+ 10 Jun 2022 01:00:51 -0700
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com, broonie@kernel.org,
  pierre-louis.bossart@linux.intel.com, daniel.baluta@nxp.com
-Subject: [PATCH 2/3] ASoC: SOF: ipc3-dtrace: Add helper function to update the
- sdev->host_offset
-Date: Fri, 10 Jun 2022 11:01:18 +0300
-Message-Id: <20220610080119.30880-3-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 3/3] ASoC: SOF: ipc3-dtrace: Return from dtrace_read if there
+ is no new data available
+Date: Fri, 10 Jun 2022 11:01:19 +0300
+Message-Id: <20220610080119.30880-4-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220610080119.30880-1-peter.ujfalusi@linux.intel.com>
 References: <20220610080119.30880-1-peter.ujfalusi@linux.intel.com>
@@ -91,75 +91,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-We are using the READ_ONCE() on the debugfs read path for accessing
-sdev->host_offset, but the set is not atomic or protected in any way.
-
-Add a small helper to do the host_offset update and be really paranoid
-about the a possible race in update
+If no new trace data is available then return immediately, there is no
+need to continue with the execution of the trace_read() function.
 
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- sound/soc/sof/ipc3-dtrace.c | 23 ++++++++++++++++++-----
- 1 file changed, 18 insertions(+), 5 deletions(-)
+ sound/soc/sof/ipc3-dtrace.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/sound/soc/sof/ipc3-dtrace.c b/sound/soc/sof/ipc3-dtrace.c
-index 9292ff7ce1e8..1f4d7a98c8fc 100644
+index 1f4d7a98c8fc..f59931d818c1 100644
 --- a/sound/soc/sof/ipc3-dtrace.c
 +++ b/sound/soc/sof/ipc3-dtrace.c
-@@ -252,6 +252,21 @@ static int debugfs_create_trace_filter(struct snd_sof_dev *sdev)
- 	return 0;
- }
+@@ -353,6 +353,10 @@ static ssize_t dfsentry_dtrace_read(struct file *file, char __user *buffer,
+ 		return -EIO;
+ 	}
  
-+static bool sof_dtrace_set_host_offset(struct sof_dtrace_priv *priv, u32 new_offset)
-+{
-+	u32 host_offset = READ_ONCE(priv->host_offset);
++	/* no new trace data */
++	if (!avail)
++		return 0;
 +
-+	if (host_offset != new_offset) {
-+		/* This is a bit paranoid and unlikely that it is needed */
-+		u32 ret = cmpxchg(&priv->host_offset, host_offset, new_offset);
-+
-+		if (ret == host_offset)
-+			return true;
-+	}
-+
-+	return false;
-+}
-+
- static size_t sof_dtrace_avail(struct snd_sof_dev *sdev,
- 			       loff_t pos, size_t buffer_size)
- {
-@@ -368,7 +383,7 @@ static int dfsentry_dtrace_release(struct inode *inode, struct file *file)
- 
- 	/* avoid duplicate traces at next open */
- 	if (priv->dtrace_state != SOF_DTRACE_ENABLED)
--		priv->host_offset = 0;
-+		sof_dtrace_set_host_offset(priv, 0);
- 
- 	return 0;
- }
-@@ -444,7 +459,7 @@ static int ipc3_dtrace_enable(struct snd_sof_dev *sdev)
- 	params.buffer.pages = priv->dma_trace_pages;
- 	params.stream_tag = 0;
- 
--	priv->host_offset = 0;
-+	sof_dtrace_set_host_offset(priv, 0);
- 	priv->dtrace_draining = false;
- 
- 	ret = sof_dtrace_host_init(sdev, &priv->dmatb, &params);
-@@ -559,10 +574,8 @@ int ipc3_dtrace_posn_update(struct snd_sof_dev *sdev,
- 		return 0;
- 
- 	if (trace_pos_update_expected(priv) &&
--	    priv->host_offset != posn->host_offset) {
--		priv->host_offset = posn->host_offset;
-+	    sof_dtrace_set_host_offset(priv, posn->host_offset))
- 		wake_up(&priv->trace_sleep);
--	}
- 
- 	if (posn->overflow != 0)
- 		dev_err(sdev->dev,
+ 	/* make sure count is <= avail */
+ 	if (count > avail)
+ 		count = avail;
 -- 
 2.36.1
 

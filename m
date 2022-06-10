@@ -2,95 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1345F54631F
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jun 2022 12:06:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A19495463F7
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jun 2022 12:39:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B203F1A43;
-	Fri, 10 Jun 2022 12:05:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B203F1A43
+	by alsa0.perex.cz (Postfix) with ESMTPS id 320E61AAF;
+	Fri, 10 Jun 2022 12:38:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 320E61AAF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654855559;
-	bh=aIFIew+Yau01V1IDNrrIlj6EGRJGB0DuPdbXbFjR+Uw=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1654857559;
+	bh=1sSMdOjlL12ZEAViwInbwrCK9hHGwi1zWwKZdCR2xP0=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=llkNMLpe9Gz8pR7Fv1V0/fo8Xr2izBeZHrElgL+bA+vMyjey3/DrQABbn87EhWd2R
-	 +1/uxG+Tk3pPZLljfjd/zACvEf3TNb/RD7YTSxhJPVrUcx0kNJK75jzYz7/69xU4f1
-	 5N/91KKhjrDCkxF0F1OYSCTomTc6hHvkH1GRQiBU=
+	b=C5pebSB2iWtp5NrzTbegM3pwNTOWu01GjTOhjvnbhx8MCCjRW2RL+f6maUSQTR+mA
+	 gQXNmsaZR8K86jMNowaZiUCArQ0U4lkcTVTiAy0rxFz4CwNIRZsUDuvsy9Z+GJlNpE
+	 PPB8Rwr37/zUw6z2Zi+OvgJUZVc0Vk9cwLSMFIjk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 423BFF800E5;
-	Fri, 10 Jun 2022 12:05:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A2838F804D8;
+	Fri, 10 Jun 2022 12:38:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BEACAF804D2; Fri, 10 Jun 2022 12:04:59 +0200 (CEST)
+ id 76889F804D2; Fri, 10 Jun 2022 12:38:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A9710F800C7
- for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 12:04:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9710F800C7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2B8BDF800E5
+ for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 12:38:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B8BDF800E5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="UlHAciK6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1654855494; x=1686391494;
- h=message-id:date:mime-version:subject:to:references:from:
- in-reply-to:content-transfer-encoding;
- bh=wM8AR7EF4KqQEH54DYTVZVfCtuLjTuQvtuihUj3UHdY=;
- b=UlHAciK6SnS1vpG2BOkBUvy9dXgecuL+lFJCpsqh48guDuQVFmDsMMmv
- 8MLB0aiPtyY3Qlwamh+I/BSiYBA+W7kkOoiE+E210ntuaOiFqrVHrXDPs
- 91p+XizV2vj4GOvzRINpzane5XccJ2kq5p/Kc2d0xcAjC1LTRn6ItbUk4 Q=;
-Received: from unknown (HELO ironmsg03-sd.qualcomm.com) ([10.53.140.143])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 10 Jun 2022 03:04:50 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg03-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2022 03:04:49 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Fri, 10 Jun 2022 03:04:48 -0700
-Received: from [10.216.33.153] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Fri, 10 Jun
- 2022 03:04:42 -0700
-Message-ID: <70631864-ff95-5c73-64ed-602774eb0de7@quicinc.com>
-Date: Fri, 10 Jun 2022 15:34:39 +0530
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="GN66HSLw"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 033E0B833F8;
+ Fri, 10 Jun 2022 10:38:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25979C3411E;
+ Fri, 10 Jun 2022 10:38:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1654857493;
+ bh=1sSMdOjlL12ZEAViwInbwrCK9hHGwi1zWwKZdCR2xP0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=GN66HSLwef8gfMJIOdbA5ardC70LawEh2UO+swTxD+PFwAfIBOmkZjJv0T4judqaU
+ JWo+4Je9QCiY7g3aJyhLXoOL5v9rhNpzOssQN8vECZ1BtFukSDSVQDGa59GcTicKQi
+ Lgox+yr/U/S9m8iWdPwG2ZTXRqehmx5VU1N030wr3asKPOQ8Le0IeJR4hAw00Y698f
+ GU/zuV1ZAls7sis0BpKsfzj4CgYa8mwgNcav9UE6Dv53gGu+znmHJkVSc0WMcUtUlG
+ g1ORphxQ5NgKvvIcf2XwqKvxaHWvgNPCh8hl2kWFbCi2UWd+f99yRDZGP8Ly8p63+4
+ vbQG4Eb+9jp+w==
+Date: Fri, 10 Jun 2022 11:38:08 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Amadeusz =?utf-8?B?U8WCYXdpxYRza2k=?= <amadeuszx.slawinski@linux.intel.com>
+Subject: Re: [PATCH 07/11] ASoC: codecs: rt274: Enable irq only when needed
+Message-ID: <YqMfEHp1qaPs2+PL@sirena.org.uk>
+References: <20220609133541.3984886-1-amadeuszx.slawinski@linux.intel.com>
+ <20220609133541.3984886-8-amadeuszx.slawinski@linux.intel.com>
+ <YqIBRGNAOfxPJjc+@sirena.org.uk>
+ <4ac15ba3-1f20-5361-1941-2687962ce454@linux.intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.1
-Subject: Re: [PATCH v4 1/2] soundwire: qcom: Add flag for software clock
- gating check
-Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- <agross@kernel.org>, <bjorn.andersson@linaro.org>, <lgirdwood@gmail.com>,
- <broonie@kernel.org>, <robh+dt@kernel.org>, <quic_plai@quicinc.com>,
- <bgoswami@quicinc.com>, <perex@perex.cz>, <tiwai@suse.com>,
- <srinivas.kandagatla@linaro.org>, <quic_rohkumar@quicinc.com>,
- <linux-arm-msm@vger.kernel.org>, <alsa-devel@alsa-project.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <swboyd@chromium.org>, <judyhsiao@chromium.org>, <vkoul@kernel.org>
-References: <1654785023-1667-1-git-send-email-quic_srivasam@quicinc.com>
- <1654785023-1667-2-git-send-email-quic_srivasam@quicinc.com>
- <97757ee1-2525-4e97-855e-da6fb66f01ae@linux.intel.com>
-From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Organization: Qualcomm
-In-Reply-To: <97757ee1-2525-4e97-855e-da6fb66f01ae@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="q0fkFI9z45t098O+"
+Content-Disposition: inline
+In-Reply-To: <4ac15ba3-1f20-5361-1941-2687962ce454@linux.intel.com>
+X-Cookie: Teachers have class.
+Cc: Oder Chiou <oder_chiou@realtek.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,67 +92,54 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-On 6/9/2022 8:52 PM, Pierre-Louis Bossart wrote:
-Thanks for your time Pierre-Louis!!!
->
-> On 6/9/22 09:30, Srinivasa Rao Mandadapu wrote:
->> Validate software clock gating required or not and do software
->> clock gating on hclk if soundwire is operational and keep it
->> running by adding flag in private data structure.
->> This is to avoid conflict between older architectures,
->> where software clock gating is not required and on latest
->> architectues, where software clock gating is mandatory.
-> architectures.
-Okay. Will fix it.
->
->> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
->> Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
->> ---
->>   drivers/soundwire/qcom.c | 14 ++++++++++----
->>   1 file changed, 10 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
->> index a3fccf0..8e163da 100644
->> --- a/drivers/soundwire/qcom.c
->> +++ b/drivers/soundwire/qcom.c
->> @@ -181,6 +181,7 @@ struct qcom_swrm_ctrl {
->>   struct qcom_swrm_data {
->>   	u32 default_cols;
->>   	u32 default_rows;
->> +	bool sw_clk_gate_required;
->>   };
->>   
->>   static const struct qcom_swrm_data swrm_v1_3_data = {
->> @@ -1311,6 +1312,15 @@ static int qcom_swrm_probe(struct platform_device *pdev)
->>   			return PTR_ERR(ctrl->mmio);
->>   	}
->>   
->> +	if (data->sw_clk_gate_required) {
->> +		ctrl->audio_cgcr = devm_reset_control_get_exclusive(dev, "swr_audio_cgcr");
->> +		if (IS_ERR(ctrl->audio_cgcr)) {
-> You need to handle the NULL case, devm_reset_control_get_exclusive() can
-> return ERR_OR_NULL
->
-> https://elixir.bootlin.com/linux/latest/source/drivers/reset/core.c#L1045
-Okay. Will change accordingly.
->
->> +			dev_err(dev, "Failed to get cgcr reset ctrl required for SW gating\n");
->> +			ret = PTR_ERR(ctrl->audio_cgcr);
->> +			goto err_init;
->> +		}
->> +	}
->> +
->>   	ctrl->irq = of_irq_get(dev->of_node, 0);
->>   	if (ctrl->irq < 0) {
->>   		ret = ctrl->irq;
->> @@ -1336,10 +1346,6 @@ static int qcom_swrm_probe(struct platform_device *pdev)
->>   	ctrl->bus.compute_params = &qcom_swrm_compute_params;
->>   	ctrl->bus.clk_stop_timeout = 300;
->>   
->> -	ctrl->audio_cgcr = devm_reset_control_get_exclusive(dev, "swr_audio_cgcr");
->> -	if (IS_ERR(ctrl->audio_cgcr))
->> -		dev_err(dev, "Failed to get audio_cgcr reset required for soundwire-v1.6.0\n");
->> -
->>   	ret = qcom_swrm_get_port_config(ctrl);
->>   	if (ret)
->>   		goto err_clk;
+--q0fkFI9z45t098O+
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, Jun 10, 2022 at 11:33:34AM +0200, Amadeusz S=C5=82awi=C5=84ski wrot=
+e:
+> On 6/9/2022 4:18 PM, Mark Brown wrote:
+> > On Thu, Jun 09, 2022 at 03:35:37PM +0200, Amadeusz S=C5=82awi=C5=84ski =
+wrote:
+> > > Interrupt is only needed when jack detection is enabled, so enable it
+> > > then, similarly disable it when jack detection is being disabled.
+
+> > >   	if (jack =3D=3D NULL) {
+> > >   		/* Disable jack detection */
+> > > +		disable_irq(rt274->i2c->irq);
+
+> > There is absolutely no need to do this, it'll interfere with any sharing
+> > of the interrupt and if the interrupt isn't firing then there is no cost
+> > to having the interrupt registered.
+
+> > The driver could use some cleanup of the interrupt handler, it currently
+> > unconditionally clears anything that fires and reports IRQ_HANDLED but
+> > should only report IRQ_HANDLED if there was anything from the device.
+> > Practically speaking it shouldn't make much difference unless there's
+> > spurious interrupts or the interrupt gets shared.
+
+> I will recheck this again, but if I remember correctly we may have had
+> problems that codec kept firing interrupts when we unloaded machine board
+> and codec driver kept spamming dmesg due to _dbg message present in irq
+> handler.
+
+If there's issues there they should be fixed in the interrupt handler -
+the driver should be able to handle the interrupt sensibly either way.
+
+--q0fkFI9z45t098O+
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmKjHxAACgkQJNaLcl1U
+h9AoaAf+J4kqrTExY5qe84RJybpdM1mUOOHvnBZVAWOr/yPlnEQGCOAtK8YVqTDX
+uKn/1p00NYOEQeKDI1IiPuLKT31SCgOi4+0aWI0/iSo4KRkfs7a6JQRSWyYNVSWz
+v8/4DYMdQKLsaxG4vq5Y29SjH+0ayW3zk3KBXc5bUk7rPLRVPc0rdetGKKvmctUZ
+drHcQ98/XvsRg2OAamfls8m/TRWQvNQqNYBAeN+F5M0d7SqDbduGK4yWmhfdJzjQ
+E+tmxJZk5M2E1L+Ec0y5yDItI2FcqarjwqXwqFkVAzEv+X9IonQrkfIqPP0f4O9N
+rxjdwg3vy/HWHh5X/wVLJq1a7JXrNQ==
+=3m2y
+-----END PGP SIGNATURE-----
+
+--q0fkFI9z45t098O+--

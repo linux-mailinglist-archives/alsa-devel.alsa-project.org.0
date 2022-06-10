@@ -2,88 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB977545F44
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jun 2022 10:35:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2153C545F4D
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jun 2022 10:36:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4B28B1F8B;
-	Fri, 10 Jun 2022 10:34:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B28B1F8B
+	by alsa0.perex.cz (Postfix) with ESMTPS id B541A1FAB;
+	Fri, 10 Jun 2022 10:35:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B541A1FAB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654850106;
-	bh=hA7J31zbFAL6s6XZH1H59RIlZ/ziPS/q8aAb+vdrvj4=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=PYGO289nKqK9zzayqh086L3TgoYZHG/jjvVdzUlPI8gDs/xBFpDJEksJXbtPJ2QOf
-	 PNZvj6n6lfqHYgYQTZPtZdpAMR5Za460/SYUXr0aaskDd1X+Sn/yFG0RCq42nUVQBA
-	 dKF6p0cEYR0lzgljAAGcOt9YCxPW12v4UU4Mn9SU=
+	s=default; t=1654850184;
+	bh=D9DHe3KvVC27smfngIvo/h6iRgoP2jHO4IYjOTnSOrU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=X1Kae4agrsrrY5U18cAHWDYn9hCPuBx5tpLCdj20Gv8kya+XGZ6PNFZYieXy9cJoY
+	 pPLIcEW/NXofFHR2mJmdglEW7UGMK75nuhSc0XMSEalfqip9f2mT6vLm20xAPgT5qf
+	 spITltjP3dvVPqfIatql26b4j5eL98DL2PJhdyKk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 75657F80529;
-	Fri, 10 Jun 2022 10:33:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3B814F804E7;
+	Fri, 10 Jun 2022 10:35:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 55A2CF804D2; Fri, 10 Jun 2022 10:32:16 +0200 (CEST)
+ id D46EDF800DF; Fri, 10 Jun 2022 10:35:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from a3.inai.de (a3.inai.de [IPv6:2a01:4f8:10b:45d8::f5])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 17F24F800C7
- for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 10:32:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17F24F800C7
-Received: by a3.inai.de (Postfix, from userid 25121)
- id 43D6D5872870F; Fri, 10 Jun 2022 10:32:13 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by a3.inai.de (Postfix) with ESMTP id 4326A60C247DA;
- Fri, 10 Jun 2022 10:32:13 +0200 (CEST)
-Date: Fri, 10 Jun 2022 10:32:13 +0200 (CEST)
-From: Jan Engelhardt <jengelh@inai.de>
-To: David Laight <David.Laight@ACULAB.COM>
-Subject: RE: [PATCH 00/12] Clang -Wformat warning fixes
-In-Reply-To: <01da36bfd13e421aadb2eff661e7a959@AcuMS.aculab.com>
-Message-ID: <o5496n8r-451p-751-3258-97112opns7s8@vanv.qr>
-References: <20220609221702.347522-1-morbo@google.com>
- <20220609152527.4ad7862d4126e276e6f76315@linux-foundation.org>
- <CAGG=3QXDt9AeCQOAp1311POFRSByJru4=Q=oFiQn3u2iZYk2_w@mail.gmail.com>
- <01da36bfd13e421aadb2eff661e7a959@AcuMS.aculab.com>
-User-Agent: Alpine 2.25 (LSU 592 2021-09-18)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 48100F800DF
+ for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 10:35:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48100F800DF
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="K2Ag6ned"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1654850121; x=1686386121;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=D9DHe3KvVC27smfngIvo/h6iRgoP2jHO4IYjOTnSOrU=;
+ b=K2Ag6neds7XlJ7oTISzzf7LYcwvzZgs+UGSedoYPw3r2j+nZKFo52o1A
+ v1I2/cz7NMzBa+3LERLRBSOjE/Qy7uiPR3KgPtfTHEUWi6qDm9DNjme+6
+ yAv60tAmBBwW/WjJBV24PGMoLN+X2W4KxeasCLp8PdFevWKZynAoi6a7e
+ SsxyOWf6Ht9OzoZy08ZncD483CdeJCTgaQFoaA7i3WmEjLIQkr/9d5wLU
+ dF3xZRs81RO7ClCmjbJtDphAt5CSsPNddE9JuN07MomArgQhAxhM9kmMZ
+ fkFyJ3jF4EXYl8sNDMIrI8zCYXK85ky6gF12Xzbi8AjJXNEvHl3Mc8aPZ g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10373"; a="302936590"
+X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="302936590"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jun 2022 01:35:15 -0700
+X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="638020803"
+Received: from nuribebu-mobl.amr.corp.intel.com (HELO
+ pujfalus-desk.ger.corp.intel.com) ([10.251.215.108])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jun 2022 01:35:13 -0700
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: lgirdwood@gmail.com, broonie@kernel.org,
+ pierre-louis.bossart@linux.intel.com
+Subject: [PATCH 0/6] ASoC: SOF: Add support ctx_save with IPC4
+Date: Fri, 10 Jun 2022 11:35:43 +0300
+Message-Id: <20220610083549.16773-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-X-Mailman-Approved-At: Fri, 10 Jun 2022 10:33:22 +0200
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "maintainer:X86 ARCHITECTURE \(32-BIT AND 64-BIT\)" <x86@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- Phillip Potter <phil@philpotter.co.uk>,
- "linux-mm@kvack.org" <linux-mm@kvack.org>, Eric Dumazet <edumazet@google.com>,
- Networking <netdev@vger.kernel.org>, 'Bill Wendling' <morbo@google.com>,
- "H. Peter Anvin" <hpa@zytor.com>, Bill Wendling <isanbard@gmail.com>,
- Daniel Kiper <daniel.kiper@oracle.com>,
- "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
- Jozsef Kadlecsik <kadlec@netfilter.org>,
- ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Tom Rix <trix@redhat.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Pablo Neira Ayuso <pablo@netfilter.org>,
- clang-built-linux <llvm@lists.linux.dev>,
- "coreteam@netfilter.org" <coreteam@netfilter.org>,
- Arnd Bergmann <arnd@arndb.de>, Ross Philipson <ross.philipson@oracle.com>,
- Nathan Chancellor <nathan@kernel.org>, Borislav Petkov <bp@alien8.de>,
- Thomas Gleixner <tglx@linutronix.de>,
- "linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
- Tony Luck <tony.luck@intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Florian Westphal <fw@strlen.de>, Takashi Iwai <tiwai@suse.com>,
- LKML <linux-kernel@vger.kernel.org>,
- "netfilter-devel@vger.kernel.org" <netfilter-devel@vger.kernel.org>,
- Jan Kara <jack@suse.com>, Andrew Morton <akpm@linux-foundation.org>,
- "David S. Miller" <davem@davemloft.net>
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, yung-chuan.liao@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,17 +86,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi,
 
-On Friday 2022-06-10 10:17, David Laight wrote:
->> 
->> Calling a "printf" style function is already insanely expensive. :-) I
->> understand that it's not okay blithely to increase runtime resources
->> simply because it's already slow, but in this case it's worthwhile.
->
->Yep, IMHO definitely should be fixed.
->It is even possible that using "%s" is faster because the printf
->code doesn't have to scan the string for format effectors.
+The context save functionality with IPC4 is triggered by sending a message to
+the firmware about the pending power down of the primary core by the host.
 
-I see no special handling; the vsnprintf function just loops
-over fmt as usual and I see no special casing of fmt by
-e.g. strcmp(fmt, "%s") == 0 to take a shortcut.
+In order to have this functionality implemented in a clean way we need to
+introduce a new IPC level PM ops for core state management and use that instead
+of open coding IPC messages here and there.
+
+The first patch updates the ctx store/ctx_restore documentation to clarify that
+they are optional.
+
+Regards,
+Peter
+---
+Peter Ujfalusi (6):
+  ASoC: SOF: make ctx_store and ctx_restore as optional
+  ASoC: SOF: sof_ipc_pm_ops: Add support for DSP core power management
+  ASoC: SOF: ipc3: Add set_core_state pm_ops implementation
+  ASoC: SOF: ipc4: Add set_core_state pm_ops implementation
+  ASoC: SOF: Intel: Switch to use the generic pm_ops.set_core_state
+  ASoC: SOF: ipc4: implement pm ctx_save callback
+
+ include/sound/sof/ipc4/header.h |  8 +++++++
+ sound/soc/sof/intel/hda-dsp.c   | 15 +++++-------
+ sound/soc/sof/intel/tgl.c       | 30 ++++++++----------------
+ sound/soc/sof/ipc3.c            | 18 +++++++++++++++
+ sound/soc/sof/ipc4.c            | 41 +++++++++++++++++++++++++++++++++
+ sound/soc/sof/sof-priv.h        |  6 +++--
+ 6 files changed, 87 insertions(+), 31 deletions(-)
+
+-- 
+2.36.1
+

@@ -2,77 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41E3D545E20
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jun 2022 10:05:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 303A6545F37
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jun 2022 10:34:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D20A31F19;
-	Fri, 10 Jun 2022 10:04:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D20A31F19
+	by alsa0.perex.cz (Postfix) with ESMTPS id C7404184E;
+	Fri, 10 Jun 2022 10:33:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7404184E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654848299;
-	bh=Y6njyXAkEzvCKA5OoWSOeJB4odNLPQ1pRVzOdGh04GE=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=q9QVYakFQH5lLZ8fPc3VwmrqxR6RP7j7UF7DYiRtaitb013TDBW2aBxEm2CnsdWgX
-	 1sG1hXhqQNOqX5yAdiqDIY0Ut+wltmyNYGb5h4MPSWrnGbf8OmEzUZSCt6Iw/k7vlU
-	 d5Ia75w5s6VGMtXZCg1/YsypYQ/7MytasgmI4wuo=
+	s=default; t=1654850062;
+	bh=EBKC+ZRMXx9oy2lZ4RT5+HL/YdtQZKY0F8s0a5FbJQo=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=XWUgaRi5IpJQ9hy8loWxPDeIv71GJmyoXKtzf5uGbze610aSkW8tyh0NjjGeffxbc
+	 pZfV+j86ytUHDz75lt6vkoyypvtpV62REb+WChI8S/My0+JYBph698svrlnb27Hm5B
+	 8K7vGFp7Wp9eJDuST6k8oyOLG/tjQcCh7HhAuOlc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 58E42F804D8;
-	Fri, 10 Jun 2022 10:04:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 52407F800C7;
+	Fri, 10 Jun 2022 10:33:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 30F8AF804CF; Fri, 10 Jun 2022 10:03:59 +0200 (CEST)
+ id AE845F804D2; Fri, 10 Jun 2022 10:11:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:3::133])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CA56DF800C7
- for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 10:03:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA56DF800C7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3045EF800E5
+ for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 10:11:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3045EF800E5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="IgcsBwxQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1654848234; x=1686384234;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=Y6njyXAkEzvCKA5OoWSOeJB4odNLPQ1pRVzOdGh04GE=;
- b=IgcsBwxQwYOSuaUZzimqp/TZ9toR1ziSRQxbpFAf4yJlA8DozHG0zj9G
- ju9PaybbJa6rxs/mGOg3Ei4a+7H5XOsxWpnRCZ9/Erehfif3ze/dPBAEV
- Nt7UtxqxonjwSBIdvVcyfEOsKGY340MNXXQRwtEp14QYX1WOVlzChMYnk
- WhwT0uru9c2nN4+YKqLwSorUhMNBVDQguTbAneH0S/hpYtgdQU250er3K
- E4urFw0WNbwMTD28zqYzJhKi9AyuhOBpkTaiAudDcYJ392qZDzxWuWV/H
- edZL612LdnWX80foxNIxf2W+pxq637dl+kbfIsPHfGEwGFKR5KwQnQfNg A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10373"; a="275082921"
-X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="275082921"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2022 01:03:49 -0700
-X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="616383386"
-Received: from nuribebu-mobl.amr.corp.intel.com (HELO
- pujfalus-desk.ger.corp.intel.com) ([10.251.215.108])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2022 01:03:45 -0700
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com, broonie@kernel.org,
- pierre-louis.bossart@linux.intel.com
-Subject: [PATCH] ASoC: SOF: debug: Clarify the IPC timeout handling path
-Date: Fri, 10 Jun 2022 11:04:21 +0300
-Message-Id: <20220610080421.31453-1-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.36.1
+ dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
+ header.b="GB5aPyYF"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+ :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=w8J2KWjgjx9J/jKYFe8GjW3jNW9wYeGtv0q5FHV/ys4=; b=GB5aPyYFM6PkAx1k8v49cM2BwJ
+ WcHcAb9jUq2QalpM0aIhDr3+BATD+8EYM+eWrdcimaNJm2xzuBjssr8WpUOHCt60n94XAWc3FLON0
+ Ea9J0QBamM6uWTM+4HzYRBxWYDjskhw+JmLncWTsnFKFqxOWIxsmL4IFLm4L1tdnFjZSI0pPplO8o
+ 9sJxX0TlKZO3aKYVSMxNIiHKcE1/kS+w9R9M0LWGRUAImkmbZyNxVDSII1uFSuj5x0bXfi1yfXOOK
+ c3DmI+O3f6cqKS1/lbJzaDxCojVk8Q1W7xF3ZeNStt9QC+dLwogmOOIHoLpghg/0Ij+XccRx5toAG
+ ilnXeRzQ==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.94.2 #2 (Red
+ Hat Linux)) id 1nzZin-006gfR-MQ; Fri, 10 Jun 2022 08:10:21 +0000
+Date: Fri, 10 Jun 2022 01:10:21 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: Bill Wendling <morbo@google.com>
+Subject: Re: [PATCH 04/12] blk-cgroup: use correct format characters
+Message-ID: <YqL8bTQxrkQjlSBT@infradead.org>
+References: <20220609221702.347522-1-morbo@google.com>
+ <20220609221702.347522-5-morbo@google.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, daniel.baluta@nxp.com,
- ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
- yc.hung@mediatek.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220609221702.347522-5-morbo@google.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ bombadil.infradead.org. See http://www.infradead.org/rpr.html
+X-Mailman-Approved-At: Fri, 10 Jun 2022 10:33:22 +0200
+Cc: alsa-devel@alsa-project.org, x86@kernel.org,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ Phillip Potter <phil@philpotter.co.uk>, linux-mm@kvack.org,
+ Eric Dumazet <edumazet@google.com>, netdev@vger.kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, isanbard@gmail.com,
+ Daniel Kiper <daniel.kiper@oracle.com>,
+ "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+ Jozsef Kadlecsik <kadlec@netfilter.org>, linux-acpi@vger.kernel.org,
+ Ingo Molnar <mingo@redhat.com>, Tom Rix <trix@redhat.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Pablo Neira Ayuso <pablo@netfilter.org>, llvm@lists.linux.dev,
+ coreteam@netfilter.org, Arnd Bergmann <arnd@arndb.de>,
+ Ross Philipson <ross.philipson@oracle.com>,
+ Nathan Chancellor <nathan@kernel.org>, Borislav Petkov <bp@alien8.de>,
+ Thomas Gleixner <tglx@linutronix.de>, linux-edac@vger.kernel.org,
+ Tony Luck <tony.luck@intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Florian Westphal <fw@strlen.de>, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org,
+ Jan Kara <jack@suse.com>, Andrew Morton <akpm@linux-foundation.org>,
+ "David S. Miller" <davem@davemloft.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,73 +104,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The dmesg log message of "Firmware exception" causes lots of confusion as
-the snd_sof_handle_fw_exception() is only called in case of an IPC tx
-timeout, where such a message does not make much sense.
+On Thu, Jun 09, 2022 at 10:16:23PM +0000, Bill Wendling wrote:
+>  	vsnprintf(bdi->dev_name, sizeof(bdi->dev_name), fmt, args);
+> -	dev = device_create(bdi_class, NULL, MKDEV(0, 0), bdi, bdi->dev_name);
+> +	dev = device_create(bdi_class, NULL, MKDEV(0, 0), bdi, "%s", bdi->dev_name);
 
-To not limit the snd_sof_handle_fw_exception() handler to just one error
-case, add a parameter to allow the caller to specify a meaningful message
-to be printed.
-
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Yaochun Hung <yc.hung@mediatek.com>
----
- sound/soc/sof/debug.c    | 5 ++---
- sound/soc/sof/ipc3.c     | 2 +-
- sound/soc/sof/sof-priv.h | 2 +-
- 3 files changed, 4 insertions(+), 5 deletions(-)
-
-diff --git a/sound/soc/sof/debug.c b/sound/soc/sof/debug.c
-index cf1271eb29b2..c5d797e97c02 100644
---- a/sound/soc/sof/debug.c
-+++ b/sound/soc/sof/debug.c
-@@ -428,7 +428,7 @@ static void snd_sof_ipc_dump(struct snd_sof_dev *sdev)
- 	}
- }
- 
--void snd_sof_handle_fw_exception(struct snd_sof_dev *sdev)
-+void snd_sof_handle_fw_exception(struct snd_sof_dev *sdev, const char *msg)
- {
- 	if (IS_ENABLED(CONFIG_SND_SOC_SOF_DEBUG_RETAIN_DSP_CONTEXT) ||
- 	    sof_debug_check_flag(SOF_DBG_RETAIN_CTX)) {
-@@ -441,8 +441,7 @@ void snd_sof_handle_fw_exception(struct snd_sof_dev *sdev)
- 
- 	/* dump vital information to the logs */
- 	snd_sof_ipc_dump(sdev);
--	snd_sof_dsp_dbg_dump(sdev, "Firmware exception",
--			     SOF_DBG_DUMP_REGS | SOF_DBG_DUMP_MBOX);
-+	snd_sof_dsp_dbg_dump(sdev, msg, SOF_DBG_DUMP_REGS | SOF_DBG_DUMP_MBOX);
- 	sof_fw_trace_fw_crashed(sdev);
- }
- EXPORT_SYMBOL(snd_sof_handle_fw_exception);
-diff --git a/sound/soc/sof/ipc3.c b/sound/soc/sof/ipc3.c
-index dff5feaad370..ef8019e009b7 100644
---- a/sound/soc/sof/ipc3.c
-+++ b/sound/soc/sof/ipc3.c
-@@ -290,7 +290,7 @@ static int ipc3_wait_tx_done(struct snd_sof_ipc *ipc, void *reply_data)
- 		dev_err(sdev->dev,
- 			"ipc tx timed out for %#x (msg/reply size: %d/%zu)\n",
- 			hdr->cmd, hdr->size, msg->reply_size);
--		snd_sof_handle_fw_exception(ipc->sdev);
-+		snd_sof_handle_fw_exception(ipc->sdev, "IPC timeout");
- 		ret = -ETIMEDOUT;
- 	} else {
- 		ret = msg->reply_error;
-diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
-index 9d7f53ff9c70..32c152528f1d 100644
---- a/sound/soc/sof/sof-priv.h
-+++ b/sound/soc/sof/sof-priv.h
-@@ -655,7 +655,7 @@ void sof_print_oops_and_stack(struct snd_sof_dev *sdev, const char *level,
- 			      u32 panic_code, u32 tracep_code, void *oops,
- 			      struct sof_ipc_panic_info *panic_info,
- 			      void *stack, size_t stack_words);
--void snd_sof_handle_fw_exception(struct snd_sof_dev *sdev);
-+void snd_sof_handle_fw_exception(struct snd_sof_dev *sdev, const char *msg);
- int snd_sof_dbg_memory_info_init(struct snd_sof_dev *sdev);
- int snd_sof_debugfs_add_region_item_iomem(struct snd_sof_dev *sdev,
- 		enum snd_sof_fw_blk_type blk_type, u32 offset, size_t size,
--- 
-2.36.1
+Please avoid the overly long line.  But given that bdi names aren't user
+input this warning seems to shoot from the hip a bit.
 

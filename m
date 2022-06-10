@@ -2,103 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E7D4545F43
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jun 2022 10:34:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72965545EE0
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jun 2022 10:28:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E24FD1F3A;
-	Fri, 10 Jun 2022 10:34:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E24FD1F3A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0B8A61DFF;
+	Fri, 10 Jun 2022 10:27:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B8A61DFF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1654850095;
-	bh=Cmzo895XhoLN4bZSSXU5wysdfKc004TFkzRnKitkMV4=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=HlhU3wcTE/e6hz8UiMOb5hJw2XdED+N3Xuev2lQ0iTbiYG2eUyYMRSX1Zjhbq0/25
-	 z2BzbZIACV0h6/KrFsHRYk+7XuLp3YsBmyNTH0cUfn1JrVAIhQPrCssN2uxrrcsmYj
-	 eVDZ3rWsZ5IthwF0CXRQ36o1WIMw2q3GQi4hJlS4=
+	s=default; t=1654849724;
+	bh=cI2cxj31d/21r2KZqq6kL8Hl935OxZdV1/AXdBFNB+E=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=m/n4rcEuitOKMtKUIEO593l+poXjFBSkHZZ+5eNO/SZFSZGku1g2mrZlQmY4qnA09
+	 0pvHQAwNI+n53pLmT9h7uBx+iaz7IG1Gri4+PqxdBTeOuK75QwnS7WF4H0bAvRiInU
+	 uoNE2c2iaXydnvLSihnhpjjVazX21Zgqn+VAFzbk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E737EF80520;
-	Fri, 10 Jun 2022 10:33:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9219F80526;
+	Fri, 10 Jun 2022 10:27:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 897FFF804D2; Fri, 10 Jun 2022 10:17:36 +0200 (CEST)
+ id CF758F80520; Fri, 10 Jun 2022 10:27:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from eu-smtp-delivery-151.mimecast.com
- (eu-smtp-delivery-151.mimecast.com [185.58.86.151])
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY autolearn=disabled
+ version=3.4.0
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 35D5EF800C7
- for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 10:17:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35D5EF800C7
-Received: from AcuMS.aculab.com (156.67.243.121 [156.67.243.121]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- uk-mta-187-CJ42ikeuMzOpi7KnFHFl1g-1; Fri, 10 Jun 2022 09:17:28 +0100
-X-MC-Unique: CJ42ikeuMzOpi7KnFHFl1g-1
-Received: from AcuMS.Aculab.com (fd9f:af1c:a25b:0:994c:f5c2:35d6:9b65) by
- AcuMS.aculab.com (fd9f:af1c:a25b:0:994c:f5c2:35d6:9b65) with Microsoft SMTP
- Server (TLS) id 15.0.1497.36; Fri, 10 Jun 2022 09:17:25 +0100
-Received: from AcuMS.Aculab.com ([fe80::994c:f5c2:35d6:9b65]) by
- AcuMS.aculab.com ([fe80::994c:f5c2:35d6:9b65%12]) with mapi id
- 15.00.1497.036; Fri, 10 Jun 2022 09:17:25 +0100
-From: David Laight <David.Laight@ACULAB.COM>
-To: 'Bill Wendling' <morbo@google.com>, Andrew Morton
- <akpm@linux-foundation.org>
-Subject: RE: [PATCH 00/12] Clang -Wformat warning fixes
-Thread-Topic: [PATCH 00/12] Clang -Wformat warning fixes
-Thread-Index: AQHYfFM1C3rJ7kSMAEGkdVTZFYHL+K1ISrPg
-Date: Fri, 10 Jun 2022 08:17:25 +0000
-Message-ID: <01da36bfd13e421aadb2eff661e7a959@AcuMS.aculab.com>
-References: <20220609221702.347522-1-morbo@google.com>
- <20220609152527.4ad7862d4126e276e6f76315@linux-foundation.org>
- <CAGG=3QXDt9AeCQOAp1311POFRSByJru4=Q=oFiQn3u2iZYk2_w@mail.gmail.com>
-In-Reply-To: <CAGG=3QXDt9AeCQOAp1311POFRSByJru4=Q=oFiQn3u2iZYk2_w@mail.gmail.com>
-Accept-Language: en-GB, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.202.205.107]
+ by alsa1.perex.cz (Postfix) with ESMTPS id E56ECF800C7
+ for <alsa-devel@alsa-project.org>; Fri, 10 Jun 2022 10:27:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E56ECF800C7
+X-UUID: 2e1cb47bef79416d8b6bf25739b9fa08-20220610
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.5, REQID:fedc80bb-d6b6-4ed8-a078-ee5faef7b35a, OB:0,
+ LO
+ B:0,IP:0,URL:0,TC:0,Content:-5,EDM:0,RT:0,SF:95,FILE:0,RULE:Release_Ham,AC
+ TION:release,TS:90
+X-CID-INFO: VERSION:1.1.5, REQID:fedc80bb-d6b6-4ed8-a078-ee5faef7b35a, OB:0,
+ LOB:
+ 0,IP:0,URL:0,TC:0,Content:-5,EDM:0,RT:0,SF:95,FILE:0,RULE:Spam_GS981B3D,AC
+ TION:quarantine,TS:90
+X-CID-META: VersionHash:2a19b09, CLOUDID:7477ec7e-c8dc-403a-96e8-6237210dceee,
+ C
+ OID:7f2c70db6cac,Recheck:0,SF:28|17|19|48,TC:nil,Content:0,EDM:-3,IP:nil,U
+ RL:1,File:nil,QS:0,BEC:nil
+X-UUID: 2e1cb47bef79416d8b6bf25739b9fa08-20220610
+Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by
+ mailgw02.mediatek.com (envelope-from <jiaxin.yu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 1144194516; Fri, 10 Jun 2022 16:27:27 +0800
+Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
+ mtkmbs11n1.mediatek.inc (172.21.101.185) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.792.3; 
+ Fri, 10 Jun 2022 16:27:26 +0800
+Received: from localhost.localdomain (10.17.3.154) by mtkmbs11n1.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.2.792.3 via Frontend
+ Transport; Fri, 10 Jun 2022 16:27:25 +0800
+From: Jiaxin Yu <jiaxin.yu@mediatek.com>
+To: <broonie@kernel.org>, <robh+dt@kernel.org>,
+ <angelogioacchino.delregno@collabora.com>
+Subject: [PATCH v7 0/8] ASoC: mediatek: Add support for MT8186 SoC
+Date: Fri, 10 Jun 2022 16:27:16 +0800
+Message-ID: <20220610082724.29256-1-jiaxin.yu@mediatek.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=C51A453 smtp.mailfrom=david.laight@aculab.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: aculab.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: base64
-X-Mailman-Approved-At: Fri, 10 Jun 2022 10:33:22 +0200
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "maintainer:X86 ARCHITECTURE \(32-BIT AND 64-BIT\)" <x86@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- Phillip Potter <phil@philpotter.co.uk>,
- "linux-mm@kvack.org" <linux-mm@kvack.org>, Eric Dumazet <edumazet@google.com>,
- Networking <netdev@vger.kernel.org>, "H. Peter
- Anvin" <hpa@zytor.com>, Bill Wendling <isanbard@gmail.com>,
- Daniel Kiper <daniel.kiper@oracle.com>, "Rafael J.
- Wysocki" <rafael.j.wysocki@intel.com>, Jozsef Kadlecsik <kadlec@netfilter.org>,
- ACPI Devel Maling List <linux-acpi@vger.kernel.org>, Ingo
- Molnar <mingo@redhat.com>, Tom Rix <trix@redhat.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Pablo Neira
- Ayuso <pablo@netfilter.org>, clang-built-linux <llvm@lists.linux.dev>,
- "coreteam@netfilter.org" <coreteam@netfilter.org>,
- Arnd Bergmann <arnd@arndb.de>, Ross Philipson <ross.philipson@oracle.com>,
- Nathan Chancellor <nathan@kernel.org>, Borislav Petkov <bp@alien8.de>,
- Thomas Gleixner <tglx@linutronix.de>,
- "linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
- Tony Luck <tony.luck@intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Florian Westphal <fw@strlen.de>, Takashi Iwai <tiwai@suse.com>,
- LKML <linux-kernel@vger.kernel.org>,
- "netfilter-devel@vger.kernel.org" <netfilter-devel@vger.kernel.org>,
- Jan Kara <jack@suse.com>, "David S. Miller" <davem@davemloft.net>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Jiaxin Yu <jiaxin.yu@mediatek.com>,
+ Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
+ linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
+ matthias.bgg@gmail.com, aaronyu@google.com, julianbraha@gmail.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,35 +94,124 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-RnJvbTogQmlsbCBXZW5kbGluZw0KPiBTZW50OiAwOSBKdW5lIDIwMjIgMjM6NDkNCj4gDQo+IE9u
-IFRodSwgSnVuIDksIDIwMjIgYXQgMzoyNSBQTSBBbmRyZXcgTW9ydG9uIDxha3BtQGxpbnV4LWZv
-dW5kYXRpb24ub3JnPiB3cm90ZToNCj4gPg0KPiA+IE9uIFRodSwgIDkgSnVuIDIwMjIgMjI6MTY6
-MTkgKzAwMDAgQmlsbCBXZW5kbGluZyA8bW9yYm9AZ29vZ2xlLmNvbT4gd3JvdGU6DQo+ID4NCj4g
-PiA+IFRoaXMgcGF0Y2ggc2V0IGZpeGVzIHNvbWUgY2xhbmcgd2FybmluZ3Mgd2hlbiAtV2Zvcm1h
-dCBpcyBlbmFibGVkLg0KPiA+ID4NCj4gPg0KPiA+IHRsZHI6DQo+ID4NCj4gPiAtICAgICAgIHBy
-aW50ayhtc2cpOw0KPiA+ICsgICAgICAgcHJpbnRrKCIlcyIsIG1zZyk7DQo+ID4NCj4gPiB0aGUg
-b25seSByZWFzb24gdG8gbWFrZSB0aGlzIGNoYW5nZSBpcyB3aGVyZSBgbXNnJyBjb3VsZCBjb250
-YWluIGEgYCUnLg0KPiA+IEdlbmVyYWxseSwgaXQgY2FtZSBmcm9tIHVzZXJzcGFjZS4NCj4gDQo+
-IEl0IGhlbHBzIGtlcm5lbCBkZXZlbG9wZXJzIG5vdCBhY2NpZGVudGFsbHkgdG8gaW5zZXJ0IGFu
-IHVuZXNjYXBlZCAnJScNCj4gaW4gdGhlaXIgbWVzc2FnZXMsIHBvdGVudGlhbGx5IGV4cG9zaW5n
-IHRoZWlyIGNvZGUgdG8gYW4gYXR0YWNrDQo+IHZlY3Rvci4NCj4gDQo+ID4gT3RoZXJ3aXNlIHRo
-ZXNlIGNoYW5nZXMgYXJlIGENCj4gPiB1c2VsZXNzIGNvbnN1bWVyIG9mIHJ1bnRpbWUgcmVzb3Vy
-Y2VzLg0KPiANCj4gQ2FsbGluZyBhICJwcmludGYiIHN0eWxlIGZ1bmN0aW9uIGlzIGFscmVhZHkg
-aW5zYW5lbHkgZXhwZW5zaXZlLiA6LSkgSQ0KPiB1bmRlcnN0YW5kIHRoYXQgaXQncyBub3Qgb2th
-eSBibGl0aGVseSB0byBpbmNyZWFzZSBydW50aW1lIHJlc291cmNlcw0KPiBzaW1wbHkgYmVjYXVz
-ZSBpdCdzIGFscmVhZHkgc2xvdywgYnV0IGluIHRoaXMgY2FzZSBpdCdzIHdvcnRod2hpbGUuDQoN
-ClllcCwgSU1ITyBkZWZpbml0ZWx5IHNob3VsZCBiZSBmaXhlZC4NCkl0IGlzIGV2ZW4gcG9zc2li
-bGUgdGhhdCB1c2luZyAiJXMiIGlzIGZhc3RlciBiZWNhdXNlIHRoZSBwcmludGYNCmNvZGUgZG9l
-c24ndCBoYXZlIHRvIHNjYW4gdGhlIHN0cmluZyBmb3IgZm9ybWF0IGVmZmVjdG9ycy4NCg0KPiA+
-IEkgdGhpbmsgaXQgd291bGQgYmUgYmV0dGVyIHRvIHF1aWV0ZW4gY2xhbmcgaW4gc29tZSBmYXNo
-aW9uLg0KPiANCj4gVGhlICJwcmludGsiIGFuZCBzaW1pbGFyIGZ1bmN0aW9ucyBhbGwgaGF2ZSB0
-aGUgIl9fcHJpbnRmIiBhdHRyaWJ1dGUuDQo+IEkgZG9uJ3Qga25vdyBvZiBhIG1vZGlmaWNhdGlv
-biB0byB0aGF0IGF0dHJpYnV0ZSB3aGljaCBjYW4gdHVybiBvZmYNCj4gdGhpcyB0eXBlIG9mIGNo
-ZWNrLg0KDQpBbmQgeW91IHdvdWxkbid0IHdhbnQgdG8gZm9yIHRoZXNlIGNhc2VzLg0KDQpUaGUg
-b25seSBwcm9ibGVtcyBhcmlzZSB3aGVuIHRoZSBmb3JtYXQgaXMgY2FsY3VsYXRlZA0KKG9yIHBh
-c3NlZCBpbiBmcm9tIGEgY2FsbGVyKS4NCkJ1dCB0aGF0IGlzIGxpa2VseSB0byBiZSBkYW5nZXJv
-dXMgLSByZWFkaW5nIGZvcm1hdHMgZnJvbQ0KZmlsZXMgKGVnIGZvciBsYW5ndWFnZSB0cmFuc2xh
-dGlvbikgaXNuJ3QgYSBnb29kIGlkZWEgYXQgYWxsLg0KDQoJRGF2aWQNCg0KLQ0KUmVnaXN0ZXJl
-ZCBBZGRyZXNzIExha2VzaWRlLCBCcmFtbGV5IFJvYWQsIE1vdW50IEZhcm0sIE1pbHRvbiBLZXlu
-ZXMsIE1LMSAxUFQsIFVLDQpSZWdpc3RyYXRpb24gTm86IDEzOTczODYgKFdhbGVzKQ0K
+This series of patches adds support for Mediatek AFE of MT8186 Soc.
+Patches are based on broonie tree "for-next" branch.
+
+Changes since v6:
+  - The Makefile and Kconfig updates are moved into the driver patches so that can
+    keep independence of each patch.
+
+Changes since v5:
+  - fix build error about function snd_soc_card_jack_new that modified by:
+    Link: https://lore.kernel.org/r/20220408041114.6024-1-akihiko.odaki@gmail.com
+  - some have been accepted, details are in the link below:
+    Link: https://lore.kernel.org/all/165459931885.399031.2621579592368573898.b4-ty@kernel.org/
+
+Changes since v4:
+  - [v5 07/20]
+    - remove unsusd controls
+  - [v5 09/20]
+    - correct indent error
+  - [v5 10/20]
+  - [v5 13/20]
+  - [v5 14/20]
+    - fix the return value if the value is different from the previous
+      value in mixer controls
+  - [v5 17/20]
+  - [v5 19/20]
+    - correct the compatible name with '_' instead of '-'
+  - [v5 18/20]
+  - [v5 20/20]
+    - correct the yaml after 'pip3 install dtschema --upgrade'
+
+Changes since v3:
+  - [v4 09/18]
+    - remove DEBUG_COEFF debugging code
+  - [v4 10/18]
+    - simplify the logic of the code
+  - [v4 13/18]
+    - split out the MT6366 bits into mt8186-mt6366-commom.c
+    - fix build error of "error: 'struct dev_pm_info' has no member named 'runtime_error'"
+    - fix bug of adda dai driver
+    - add route for pcm interface channel 2.
+  - [v4 15/18]
+  - [v4 17/18]
+    - commonize the configuration of the codec
+    - move MT6366 common bits into mt8186-mt6366-common.c
+
+Changes since v2:
+  - add a new compatible string "mediatek,mt6366-sound"
+  - modify the log level for simplicity
+  - use dev_err_probe(...) instead of dev_err(...) in dev probe()
+  - optimized the logic of some code
+  - use BIT() and GENMASK() macros to descript the registers
+
+  Thanks for AngeloGioacchino's careful reviews.
+
+Changes since v1:
+  [v2 01/17]
+    - add a new ID to the existing mt6358 codec driver
+  [v2 03/17]
+    - modify log level in DAPM events
+    - use standard numeric control with name ending in Switch
+    - return 1 when the value changed in mixer control's .get callback
+  [v2 05/17]
+    - ending in Switch to the standard on/off controls
+    - change to "HW Gain 1 Volume" and "HW Gain 2 Volume"
+  [v2 09/17]
+    - return an error in the default case rather than just picking one of
+      the behaviours when do .set_fmt
+    - use the new defines that are _PROVIDER_MASK, _DAIFMT_CBP_CFP and
+      _DAIFMT_CBC_CFC
+  [v2 10/17]
+  [v2 11/17]
+    - the clock and gpio are aplit out into separate  patches
+
+  The source file's GPL comment use c++ style, and the header fils's GPL
+  comment use c style. We have added "Switch" after the names of all the
+  controls that just are simple on/off.
+
+Jiaxin Yu (8):
+  dt-bindings: mediatek: mt6358: add new compatible for using mt6366
+  ASoC: mediatek: mt8186: add platform driver
+  ASoC: mediatek: mt8186: add mt8186-mt6366 common driver
+  dt-bindings: mediatek: mt8186: add audio afe document
+  ASoC: mediatek: mt8186: add machine driver with mt6366, da7219 and
+    max98357
+  dt-bindings: mediatek: mt8186: add mt8186-mt6366-da7219-max98357
+    document
+  ASoC: mediatek: mt8186: add machine driver with mt6366, rt1019 and
+    rt5682s
+  dt-bindings: mediatek: mt8186: add mt8186-mt6366-rt1019-rt5682s
+    document
+
+ .../devicetree/bindings/sound/mt6358.txt      |    4 +-
+ .../bindings/sound/mt8186-afe-pcm.yaml        |  175 +
+ .../sound/mt8186-mt6366-da7219-max98357.yaml  |   75 +
+ .../sound/mt8186-mt6366-rt1019-rt5682s.yaml   |   75 +
+ sound/soc/mediatek/Kconfig                    |   44 +
+ sound/soc/mediatek/Makefile                   |    1 +
+ sound/soc/mediatek/mt8186/Makefile            |   22 +
+ sound/soc/mediatek/mt8186/mt8186-afe-common.h |  235 ++
+ .../soc/mediatek/mt8186/mt8186-afe-control.c  |  261 ++
+ sound/soc/mediatek/mt8186/mt8186-afe-pcm.c    | 3009 +++++++++++++++++
+ .../mediatek/mt8186/mt8186-mt6366-common.c    |   59 +
+ .../mediatek/mt8186/mt8186-mt6366-common.h    |   17 +
+ .../mt8186/mt8186-mt6366-da7219-max98357.c    | 1002 ++++++
+ .../mt8186/mt8186-mt6366-rt1019-rt5682s.c     |  978 ++++++
+ 14 files changed, 5956 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/mt8186-afe-pcm.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/mt8186-mt6366-da7219-max98357.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml
+ create mode 100644 sound/soc/mediatek/mt8186/Makefile
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-afe-common.h
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-afe-control.c
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-afe-pcm.c
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-mt6366-common.c
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-mt6366-common.h
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c
+
+-- 
+2.18.0
 

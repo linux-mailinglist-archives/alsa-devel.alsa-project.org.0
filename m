@@ -2,94 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95F6D5484A5
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Jun 2022 12:57:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 725A9548548
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Jun 2022 14:49:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 28B8F1833;
-	Mon, 13 Jun 2022 12:56:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 28B8F1833
+	by alsa0.perex.cz (Postfix) with ESMTPS id C3221183E;
+	Mon, 13 Jun 2022 14:48:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C3221183E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655117829;
-	bh=2+DKnvo3tqbtVmNmw6hKkjBtILOFwa5wq8PBdod2Okw=;
+	s=default; t=1655124586;
+	bh=F+Z/xKS8IJ6c8oqyWurA8RR/4fHWWhqaKxllGYROtwo=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YSJnq0gzA4gDk+qmi6vzfs+ygiJqyl+ek9fyToMWTALRClmqgVLHgIzKFOA/gt8sd
-	 xwmfq7FKYlXy0BBQsqCy9AtEFugeA8kqfW+pJrIUlmithKANHKNzmj5i/dZ1b08940
-	 s7rB51VObjLqebY9u+gU2DmXBj7Jkrr123fMl+s0=
+	b=VuKRnpjtDc/veaVCtT9Vs+jAgbEGQwUyYjr/YOS4NcQm8FgmASsv/XtEjb2fhOTzb
+	 DPyXVNdSrrCeqF1fcZe3d750esA6jTRWs6HMtjZl/Meg+nsyo9hcCNvyakpM2/mJsa
+	 XEkOu6+6ieAjltHq1K0p4c7gC4X2MHRif3fPr8tU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A0877F80139;
-	Mon, 13 Jun 2022 12:56:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 28ACBF80107;
+	Mon, 13 Jun 2022 14:48:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 042A8F80139; Mon, 13 Jun 2022 12:56:07 +0200 (CEST)
+ id 28CC2F804C1; Mon, 13 Jun 2022 14:48:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6ADD6F80139
- for <alsa-devel@alsa-project.org>; Mon, 13 Jun 2022 12:56:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6ADD6F80139
+ by alsa1.perex.cz (Postfix) with ESMTPS id DC100F80107
+ for <alsa-devel@alsa-project.org>; Mon, 13 Jun 2022 14:48:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC100F80107
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="kja+MqvX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1655117765; x=1686653765;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="StndpBpy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1655124522; x=1686660522;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=vbuPPm2ZNkUse/X0oH12l21pmvWvlzFHAvFZQz0hTnA=;
- b=kja+MqvXWqMT8EIo1jdutRgj7dAy5hGuHJEBuksnMTduztkBEPhiPjfz
- c/x5rHolStJBYkNbhQexwzN/v82jc+SvKze2LxgwHMVJnMc0rq9igTXxS
- JmU2BMMQujfMqRF8PNlteXFj/uuGoZ4dtm9+/nwyANVZeD/fN982oAVAC Y=;
-Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 13 Jun 2022 03:56:01 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jun 2022 03:56:00 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Mon, 13 Jun 2022 03:56:00 -0700
-Received: from [10.216.14.138] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Mon, 13 Jun
- 2022 03:55:54 -0700
-Message-ID: <23bb9f5d-85fe-d7a7-d178-1185981f1b89@quicinc.com>
-Date: Mon, 13 Jun 2022 16:25:51 +0530
+ bh=F+Z/xKS8IJ6c8oqyWurA8RR/4fHWWhqaKxllGYROtwo=;
+ b=StndpBpyZ4UlnAIaX9rx1mw9sHPRCPyS6oF7v2Kbcnm1uwLK8ba9ICBh
+ 6fQ/QRc9q3hAYD8rs1kPz3AYlXAEgHLGFrvms6Hdz3QUJDCOgxe5fjOLp
+ oN/ST4fUw7qbOw6Coonb8sMGFRCwTDOY+ivMCXwSPeHYaQv2b52dM80lA
+ hVM2Pb7fheqxxQcj42TtZQwtBLD1Avx5x6ZI4JMyUKH2iODYehsG2ToRj
+ clTF6RD9fEdBR3YMfgiotslW9sCTrUGu+Crvdn3ZZUSkvS58FBks1uxEL
+ lNNckFNrMJhssPPFcBNamuzSXeEOIo7PCNSRb78fyxio3yb4w4oNMXXFl A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10376"; a="278990580"
+X-IronPort-AV: E=Sophos;i="5.91,297,1647327600"; d="scan'208";a="278990580"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jun 2022 05:48:34 -0700
+X-IronPort-AV: E=Sophos;i="5.91,297,1647327600"; d="scan'208";a="910369101"
+Received: from tchuynh1-mobl1.amr.corp.intel.com (HELO [10.212.112.176])
+ ([10.212.112.176])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jun 2022 05:48:33 -0700
+Message-ID: <7328fbb2-06af-99c8-5e7f-9d22f8c4e4f6@linux.intel.com>
+Date: Mon, 13 Jun 2022 07:48:32 -0500
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.1
-Subject: Re: [PATCH 1/2] ASoC: dt-bindings: lpass-cpu: Update external mclck0
- name
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.9.1
+Subject: Re: [PATCH 1/2] soundwire: intel: uniquify debug message
 Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>
-References: <1654169206-12255-1-git-send-email-quic_srivasam@quicinc.com>
- <1654169206-12255-2-git-send-email-quic_srivasam@quicinc.com>
- <20220602143245.GA2256965-robh@kernel.org> <YpjL3X73LyefYjI7@sirena.org.uk>
-From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Organization: Qualcomm
-In-Reply-To: <YpjL3X73LyefYjI7@sirena.org.uk>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+To: Greg KH <gregkh@linuxfoundation.org>
+References: <20220610023537.27223-1-yung-chuan.liao@linux.intel.com>
+ <20220610023537.27223-2-yung-chuan.liao@linux.intel.com>
+ <YqLVwqx9/Pos8T06@kroah.com>
+ <b86e6cbd-3488-a239-d765-cf01bf0d4f70@linux.intel.com>
+ <YqRCKtLGYlRQQ+DU@kroah.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <YqRCKtLGYlRQQ+DU@kroah.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- quic_rohkumar@quicinc.com, linux-arm-msm@vger.kernel.org, swboyd@chromium.org,
- tiwai@suse.com, lgirdwood@gmail.com, agross@kernel.org,
- srinivas.kandagatla@linaro.org, bgoswami@quicinc.com, quic_plai@quicinc.com,
- bjorn.andersson@linaro.org, judyhsiao@chromium.org,
- linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, vinod.koul@linaro.org, tiwai@suse.de,
+ linux-kernel@vger.kernel.org, vkoul@kernel.org, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, sanyog.r.kale@intel.com,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,22 +99,105 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-On 6/2/2022 8:10 PM, Mark Brown wrote:
-Thanks for your time Mark Brown and Rob Herring!!!
-> On Thu, Jun 02, 2022 at 09:32:45AM -0500, Rob Herring wrote:
->> On Thu, Jun 02, 2022 at 04:56:45PM +0530, Srinivasa Rao Mandadapu wrote:
->>> Update "audio_cc_ext_mclk0" name to "core_cc_ext_mclk0",
->>> as MI2S mclk is being used is from lpass core cc.
->> This is safe to change breaking the ABI because ...
-> The driver was only just merged so didn't make it into a full
-> release.
-yes. DTS changes are still in review state.
->
->> Names are supposed to be local to the module, not based on their source.
-> Indeed.
 
-Okay. Will take care next time. As external MCLK is supported from both 
-modules, audio cc and core cc,
+>>>> diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
+>>>> index 505c5ef061e3..808e2f320052 100644
+>>>> --- a/drivers/soundwire/intel.c
+>>>> +++ b/drivers/soundwire/intel.c
+>>>> @@ -1328,8 +1328,8 @@ int intel_link_startup(struct auxiliary_device *auxdev)
+>>>>  
+>>>>  	if (bus->prop.hw_disabled) {
+>>>>  		dev_info(dev,
+>>>> -			 "SoundWire master %d is disabled, ignoring\n",
+>>>> -			 sdw->instance);
+>>>> +			 "%s: SoundWire master %d is disabled, ignoring\n",
+>>>> +			 __func__, sdw->instance);
+>>>
+>>> This is not a debug message, please make it such if you want to have
+>>> __func__  And even then, it's not needed as you can get that from the
+>>> kernel automatically.
+>>
+>> Sorry, I don't understand the feedback at all.
+> 
+> dev_info() is not a way to send debug messages.
+> 
+> If you want this to be only for debugging, use dev_dbg().  And when you
+> use that, you get the __func__ location for free in the output already
+> if you want that.
+> 
+>> This message was added precisely to figure out why the expected
+>> programming sequence was not followed, only to discover that we have
+>> devices with spurious PCI wakes handled below. Without this added
+>> difference with __func__, we wouldn't know if the issue happened during
+>> the expected/regular programming sequence or not.
+> 
+> Perhaps make the text unique then?  Why would an informational message
+> need a function name.  Drivers should be quiet when all is going well.
+> If something is not going well, dev_info() is not the kernel log level
+> to be sending something out at.
 
-for now it's mandatory to change the name to avoid confusion.
+This is not a debug message - unlike all the others. The BIOS and/or the
+user may disable a specific link and it's useful to know.
+
+The intent of __func__ was precisely to make the text unique across all
+cases where we test for hw_disabled, but you have a point that this
+specific info message should be clearer. The text was actually already
+different from the 'disable or not-started' cases, I might have done one
+too many edits in this file. Will fix.
+
+>>>>  		return 0;
+>>>>  	}
+>>>>  
+>>>> @@ -1489,8 +1489,8 @@ int intel_link_process_wakeen_event(struct auxiliary_device *auxdev)
+>>>>  	bus = &sdw->cdns.bus;
+>>>>  
+>>>>  	if (bus->prop.hw_disabled || !sdw->startup_done) {
+>>>> -		dev_dbg(dev, "SoundWire master %d is disabled or not-started, ignoring\n",
+>>>> -			bus->link_id);
+>>>> +		dev_dbg(dev, "%s: SoundWire master %d is disabled or not-started, ignoring\n",
+>>>> +			__func__, bus->link_id);
+>>>>  		return 0;
+>>>>  	}
+>>>>  
+>>>> @@ -1549,8 +1549,8 @@ static int __maybe_unused intel_pm_prepare(struct device *dev)
+>>>>  	int ret;
+>>>>  
+>>>>  	if (bus->prop.hw_disabled || !sdw->startup_done) {
+>>>> -		dev_dbg(dev, "SoundWire master %d is disabled or not-started, ignoring\n",
+>>>> -			bus->link_id);
+>>>> +		dev_dbg(dev, "%s: SoundWire master %d is disabled or not-started, ignoring\n",
+>>>> +			__func__, bus->link_id);
+>>>
+>>> Not needed, it is provided automatically if you ask the kernel for this.
+>>> Same for all other instances in this patch.
+>>
+>> provided how? Your comment is a bit cryptic here.
+> 
+> the dynamic debug code in the kernel already adds the function name
+> where the message was sent from, if you want to know this in userspace.
+> Please read the documentation for details (I think the key is the 'f'
+> flag to be enabled in userspace).
+> 
+> So adding __func__ to dev_dbg() calls are redundant and never needed.
+
+Oh wow, I had no idea - and I am not the only one :-)
+
+Here's what I get with a grep on the kernel code
+
+git grep __func__ | grep dev_dbg | wc -l
+
+3122
+
+
+Doing this for sound/ gives me 356, and that's for single-line logs only.
+
+There's clearly something that was missed by tons of people.
+
+We use an 'sof-dyndbg.conf' file that we provide to users and our CI to
+log what's needed for SOF debug, it's trivial to add a +f option.
+
+options foo dyndbg=+pf
+
+Thanks for the feedback, much appreciated.
+-Pierre
 

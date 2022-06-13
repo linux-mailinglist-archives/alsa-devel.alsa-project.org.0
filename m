@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 725A9548548
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Jun 2022 14:49:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA0565485A0
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Jun 2022 16:04:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C3221183E;
-	Mon, 13 Jun 2022 14:48:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C3221183E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 28396178D;
+	Mon, 13 Jun 2022 16:04:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 28396178D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655124586;
-	bh=F+Z/xKS8IJ6c8oqyWurA8RR/4fHWWhqaKxllGYROtwo=;
+	s=default; t=1655129091;
+	bh=QfkOr+3csJZv8GJH+WA6DnUC6DDMS+jmtfVN1fYNtS4=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VuKRnpjtDc/veaVCtT9Vs+jAgbEGQwUyYjr/YOS4NcQm8FgmASsv/XtEjb2fhOTzb
-	 DPyXVNdSrrCeqF1fcZe3d750esA6jTRWs6HMtjZl/Meg+nsyo9hcCNvyakpM2/mJsa
-	 XEkOu6+6ieAjltHq1K0p4c7gC4X2MHRif3fPr8tU=
+	b=VXCyKX3gWwRSNg5QABMeCS7yy7v+GUQ2tWcuk4+6n66+ChuIKr8OwHiLs5RpQVJYH
+	 K52QW+pxs8kSR5ywsv92rWDed2vI68tzVEYSc9rj2fFEk5zF2dSYWEYcL4VNmikxGl
+	 O+UecmyLDMpPNiRp+14/neNdgSA2NfV34Oasu4+k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 28ACBF80107;
-	Mon, 13 Jun 2022 14:48:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8E475F804CC;
+	Mon, 13 Jun 2022 16:03:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 28CC2F804C1; Mon, 13 Jun 2022 14:48:45 +0200 (CEST)
+ id 1B021F80107; Mon, 13 Jun 2022 16:03:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,55 +34,53 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DC100F80107
- for <alsa-devel@alsa-project.org>; Mon, 13 Jun 2022 14:48:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC100F80107
+ by alsa1.perex.cz (Postfix) with ESMTPS id 457DFF80107
+ for <alsa-devel@alsa-project.org>; Mon, 13 Jun 2022 16:03:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 457DFF80107
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="StndpBpy"
+ header.b="QPPCzsHT"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655124522; x=1686660522;
+ t=1655129021; x=1686665021;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=F+Z/xKS8IJ6c8oqyWurA8RR/4fHWWhqaKxllGYROtwo=;
- b=StndpBpyZ4UlnAIaX9rx1mw9sHPRCPyS6oF7v2Kbcnm1uwLK8ba9ICBh
- 6fQ/QRc9q3hAYD8rs1kPz3AYlXAEgHLGFrvms6Hdz3QUJDCOgxe5fjOLp
- oN/ST4fUw7qbOw6Coonb8sMGFRCwTDOY+ivMCXwSPeHYaQv2b52dM80lA
- hVM2Pb7fheqxxQcj42TtZQwtBLD1Avx5x6ZI4JMyUKH2iODYehsG2ToRj
- clTF6RD9fEdBR3YMfgiotslW9sCTrUGu+Crvdn3ZZUSkvS58FBks1uxEL
- lNNckFNrMJhssPPFcBNamuzSXeEOIo7PCNSRb78fyxio3yb4w4oNMXXFl A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10376"; a="278990580"
-X-IronPort-AV: E=Sophos;i="5.91,297,1647327600"; d="scan'208";a="278990580"
+ bh=QfkOr+3csJZv8GJH+WA6DnUC6DDMS+jmtfVN1fYNtS4=;
+ b=QPPCzsHT/hYjHgq3JRoxu5vmZUZyNTchfU64XwoKwaLOCTQRvMOMJyQ1
+ 86aJZgLwuBT9tnrMdjutWZnRsLv4/l3MolY0akvhQJSPRx/OGuohgNuV3
+ 5YnBoaaCGpQeMVHRDHPcSIJPGkDHzCKRSBkkisnYgZUHf1RjSFhrCQYbJ
+ odpPrZLRcmEgdrG41PAKehEkeD7TJI6V/DO3nM0lhsfGl7v5kcNPuE6xz
+ oZW5wsRwZ9SjStB3koFxfSqpHgtioLER5GlTorbmJYC7uua3Dg9oVjavo
+ QCqTvA54tpQj7oQ0RmplO1J4yDd5IG0LMCcM4HmXhYvQOlwNxLmNkYGo0 g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10376"; a="279011474"
+X-IronPort-AV: E=Sophos;i="5.91,297,1647327600"; d="scan'208";a="279011474"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jun 2022 05:48:34 -0700
-X-IronPort-AV: E=Sophos;i="5.91,297,1647327600"; d="scan'208";a="910369101"
+ 13 Jun 2022 07:03:32 -0700
+X-IronPort-AV: E=Sophos;i="5.91,297,1647327600"; d="scan'208";a="910399846"
 Received: from tchuynh1-mobl1.amr.corp.intel.com (HELO [10.212.112.176])
  ([10.212.112.176])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jun 2022 05:48:33 -0700
-Message-ID: <7328fbb2-06af-99c8-5e7f-9d22f8c4e4f6@linux.intel.com>
-Date: Mon, 13 Jun 2022 07:48:32 -0500
+ 13 Jun 2022 07:03:31 -0700
+Message-ID: <47431e56-9acb-7c7d-307f-83d81956ec5c@linux.intel.com>
+Date: Mon, 13 Jun 2022 08:05:56 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Firefox/91.0 Thunderbird/91.9.1
-Subject: Re: [PATCH 1/2] soundwire: intel: uniquify debug message
+Subject: Re: ACPI REV override for Dell XPS 13 9343
 Content-Language: en-US
-To: Greg KH <gregkh@linuxfoundation.org>
-References: <20220610023537.27223-1-yung-chuan.liao@linux.intel.com>
- <20220610023537.27223-2-yung-chuan.liao@linux.intel.com>
- <YqLVwqx9/Pos8T06@kroah.com>
- <b86e6cbd-3488-a239-d765-cf01bf0d4f70@linux.intel.com>
- <YqRCKtLGYlRQQ+DU@kroah.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Dominik Brodowski <linux@dominikbrodowski.net>,
+ "Wysocki, Rafael J" <rafael.j.wysocki@intel.com>,
+ Mark Brown <broonie@kernel.org>
+References: <29a2ca0f-bc0a-04b0-d0c9-8658359d365c@intel.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <YqRCKtLGYlRQQ+DU@kroah.com>
+In-Reply-To: <29a2ca0f-bc0a-04b0-d0c9-8658359d365c@intel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, vinod.koul@linaro.org, tiwai@suse.de,
- linux-kernel@vger.kernel.org, vkoul@kernel.org, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, sanyog.r.kale@intel.com,
- Bard Liao <yung-chuan.liao@linux.intel.com>, bard.liao@intel.com
+Cc: Hans de Goede <hdegoede@redhat.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,104 +98,29 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
->>>> diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
->>>> index 505c5ef061e3..808e2f320052 100644
->>>> --- a/drivers/soundwire/intel.c
->>>> +++ b/drivers/soundwire/intel.c
->>>> @@ -1328,8 +1328,8 @@ int intel_link_startup(struct auxiliary_device *auxdev)
->>>>  
->>>>  	if (bus->prop.hw_disabled) {
->>>>  		dev_info(dev,
->>>> -			 "SoundWire master %d is disabled, ignoring\n",
->>>> -			 sdw->instance);
->>>> +			 "%s: SoundWire master %d is disabled, ignoring\n",
->>>> +			 __func__, sdw->instance);
->>>
->>> This is not a debug message, please make it such if you want to have
->>> __func__  And even then, it's not needed as you can get that from the
->>> kernel automatically.
->>
->> Sorry, I don't understand the feedback at all.
+On 6/13/22 05:53, Cezary Rojewski wrote:
+> Hello,
 > 
-> dev_info() is not a way to send debug messages.
+> It's been a while since catpt-driver [1] has been introduced to provide
+> full support for Broadwell (BDW) machines with Intel DSP. For BDW, audio
+> devices can make use of DSP only in I2S mode. In 2015 Rafael and Dominik
+> provided quirk [2] for Dell XPS 13 9343. Given the description:
 > 
-> If you want this to be only for debugging, use dev_dbg().  And when you
-> use that, you get the __func__ location for free in the output already
-> if you want that.
+> _For example, based on what ACPI exports as the supported revision, Dell
+> XPS 13 (2015) configures its audio device to either work in HDA mode or
+> in I2S mode, where the former is supposed to be used on Linux until the
+> latter is fully supported (in the kernel as well as in user space)._
 > 
->> This message was added precisely to figure out why the expected
->> programming sequence was not followed, only to discover that we have
->> devices with spurious PCI wakes handled below. Without this added
->> difference with __func__, we wouldn't know if the issue happened during
->> the expected/regular programming sequence or not.
-> 
-> Perhaps make the text unique then?  Why would an informational message
-> need a function name.  Drivers should be quiet when all is going well.
-> If something is not going well, dev_info() is not the kernel log level
-> to be sending something out at.
+> It's clear that such configuration was not fully supported back then. I
+> believe now it is. Perhaps it is time to let the quirk in mention go? By
+> that I mean just the relevant entry, not the ACPI_REV_OVERRIDE_POSSIBLE
+> functionality as a whole.
 
-This is not a debug message - unlike all the others. The BIOS and/or the
-user may disable a specific link and it's useful to know.
+This should be a distribution or power-user decision to enable the I2S
+version IMHO.
 
-The intent of __func__ was precisely to make the text unique across all
-cases where we test for hw_disabled, but you have a point that this
-specific info message should be clearer. The text was actually already
-different from the 'disable or not-started' cases, I might have done one
-too many edits in this file. Will fix.
+There is nothing new in terms of functionality with the I2S version, so
+limited added-value that doesn't offset the added risk due to the
+dependencies on mixer settings that may or may not be installed (UCM, etc).
 
->>>>  		return 0;
->>>>  	}
->>>>  
->>>> @@ -1489,8 +1489,8 @@ int intel_link_process_wakeen_event(struct auxiliary_device *auxdev)
->>>>  	bus = &sdw->cdns.bus;
->>>>  
->>>>  	if (bus->prop.hw_disabled || !sdw->startup_done) {
->>>> -		dev_dbg(dev, "SoundWire master %d is disabled or not-started, ignoring\n",
->>>> -			bus->link_id);
->>>> +		dev_dbg(dev, "%s: SoundWire master %d is disabled or not-started, ignoring\n",
->>>> +			__func__, bus->link_id);
->>>>  		return 0;
->>>>  	}
->>>>  
->>>> @@ -1549,8 +1549,8 @@ static int __maybe_unused intel_pm_prepare(struct device *dev)
->>>>  	int ret;
->>>>  
->>>>  	if (bus->prop.hw_disabled || !sdw->startup_done) {
->>>> -		dev_dbg(dev, "SoundWire master %d is disabled or not-started, ignoring\n",
->>>> -			bus->link_id);
->>>> +		dev_dbg(dev, "%s: SoundWire master %d is disabled or not-started, ignoring\n",
->>>> +			__func__, bus->link_id);
->>>
->>> Not needed, it is provided automatically if you ask the kernel for this.
->>> Same for all other instances in this patch.
->>
->> provided how? Your comment is a bit cryptic here.
-> 
-> the dynamic debug code in the kernel already adds the function name
-> where the message was sent from, if you want to know this in userspace.
-> Please read the documentation for details (I think the key is the 'f'
-> flag to be enabled in userspace).
-> 
-> So adding __func__ to dev_dbg() calls are redundant and never needed.
-
-Oh wow, I had no idea - and I am not the only one :-)
-
-Here's what I get with a grep on the kernel code
-
-git grep __func__ | grep dev_dbg | wc -l
-
-3122
-
-
-Doing this for sound/ gives me 356, and that's for single-line logs only.
-
-There's clearly something that was missed by tons of people.
-
-We use an 'sof-dyndbg.conf' file that we provide to users and our CI to
-log what's needed for SOF debug, it's trivial to add a +f option.
-
-options foo dyndbg=+pf
-
-Thanks for the feedback, much appreciated.
--Pierre
-
+If it ain't broke don't fix it.

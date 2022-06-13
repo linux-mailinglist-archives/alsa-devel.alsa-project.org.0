@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3C8A54829E
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Jun 2022 11:08:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C0B05482A0
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Jun 2022 11:09:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4F6AE185A;
-	Mon, 13 Jun 2022 11:07:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F6AE185A
+	by alsa0.perex.cz (Postfix) with ESMTPS id BAF09185B;
+	Mon, 13 Jun 2022 11:08:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BAF09185B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655111322;
-	bh=2NbET2uuELT2qxeUA6UaI5G3IivOjV6ok7fat1d8OXM=;
+	s=default; t=1655111339;
+	bh=o0Kok7wGPSNdLmm0aDT4JNZdUbDgMsPnAiN9aOQ2AiM=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vaWbyyxFZbhh3CnzFX4G5B5iPrKkwODW0MAyGzkdLvn/mKIrvz+I3aaVmnlkV0ebu
-	 vWLnEkfrgQ+46qSLxuEcVnnCYTVV7i02ehnp6/sHe5aBoDZmgWuiNWPAwAbY1XxFpm
-	 uEAnJ1uM6wOwogZe7tnnPQOA0y0nr0ZhNHs3eyMI=
+	b=u368iDUfKXg3zkWVopcvj8a73Mwn3N3x1KdTm9jY3eSo+vuUP7UPgficMjMPOYgj2
+	 uClVTNiq5EzQEp7sRIQLWuFsWba52TMd/YPuMGAiHhkZgxBQzbfOJXsdRxhi0ygkeM
+	 5AmWcwetI0GT4GkNizAf8BaijkB6FDjHNJQo0mkQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7F952F80557;
-	Mon, 13 Jun 2022 11:05:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 61D91F8055A;
+	Mon, 13 Jun 2022 11:05:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C16B4F8053C; Mon, 13 Jun 2022 11:05:50 +0200 (CEST)
+ id 36FCCF80542; Mon, 13 Jun 2022 11:05:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1DE84F804BB
- for <alsa-devel@alsa-project.org>; Mon, 13 Jun 2022 11:05:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1DE84F804BB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4EE01F8052D
+ for <alsa-devel@alsa-project.org>; Mon, 13 Jun 2022 11:05:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4EE01F8052D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="AUO30pk4"
+ header.b="PaNMnibu"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655111144; x=1686647144;
+ t=1655111146; x=1686647146;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=2NbET2uuELT2qxeUA6UaI5G3IivOjV6ok7fat1d8OXM=;
- b=AUO30pk4x39flPz+o77yOmrSxTrjV8qaZMZn9sbspqd29znT8gY5BtsQ
- bEZAAB5xl+/NVWDuIvsTdIrhkvA3l1nk9GtpsXqUmIo1cQhv9WR0HRzPf
- MZCEGBpQZ4zApf2sif0qgnzD4QoaIbtleMTfRg67fFNpbiMJN9p193fwC
- JBgTx745Somc3EYHbmBOIdFthm7TKJtw0xecIbhahvsWEO3R0hcNnEJl3
- So7FDTjecAyOFxZsIl919nE6uTDoemz8AQveL4H3EidoeriuwaOEg7oS0
- nQRT1IiYGns3GqsuKSp+YtakawoJcgmErxVG74U25R8Tmf9WdzOY5NK14 w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10376"; a="275753845"
-X-IronPort-AV: E=Sophos;i="5.91,296,1647327600"; d="scan'208";a="275753845"
+ bh=o0Kok7wGPSNdLmm0aDT4JNZdUbDgMsPnAiN9aOQ2AiM=;
+ b=PaNMnibund1103XtalAVlo5e+hOoowlf+aPSRY3JNhc5x60R3C2uBrbU
+ 05YTiUcrcXXHgWc1QsW4PEl714qq5ZKFEoAYV1op1JAK7zFJWq5EW4Jzr
+ owX2HjUsvhr2nqqrLMpkqbVLczVbkxbZFTlyme0kAAcIts4S43KyzCSov
+ Ro21TqTW0fPu9Sg+90SDNIzxNOwad/nmCyfFOZdk/HSq01xgcf5GJh7Mp
+ +jvEaBKowN1wI1yzmxyljazW45J1tnCooe+lztYx2QE7In3MaE5KtFhQU
+ L/p8TfXYUiEEeCG+vMwICgW6CTHbX9BYuZqk1dhRblJj7xCUMQL4KVAfi w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10376"; a="275753865"
+X-IronPort-AV: E=Sophos;i="5.91,296,1647327600"; d="scan'208";a="275753865"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jun 2022 02:05:42 -0700
+ 13 Jun 2022 02:05:44 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,296,1647327600"; d="scan'208";a="639625873"
+X-IronPort-AV: E=Sophos;i="5.91,296,1647327600"; d="scan'208";a="639625919"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by fmsmga008.fm.intel.com with ESMTP; 13 Jun 2022 02:05:40 -0700
+ by fmsmga008.fm.intel.com with ESMTP; 13 Jun 2022 02:05:42 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Subject: [PATCH v2 07/17] ASoC: Intel: hsw_rt5640: Improve hw_params()
- debug-ability
-Date: Mon, 13 Jun 2022 11:15:36 +0200
-Message-Id: <20220613091546.1565167-8-cezary.rojewski@intel.com>
+Subject: [PATCH v2 08/17] ASoC: Intel: Rename broadwell source file to
+ bdw_rt286
+Date: Mon, 13 Jun 2022 11:15:37 +0200
+Message-Id: <20220613091546.1565167-9-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220613091546.1565167-1-cezary.rojewski@intel.com>
 References: <20220613091546.1565167-1-cezary.rojewski@intel.com>
@@ -92,27 +92,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Print status if setting sysclk fails.
+Rename source file to drop any ambiguity.
 
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 Reviewed-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 ---
- sound/soc/intel/boards/hsw_rt5640.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/intel/boards/Makefile                     | 2 +-
+ sound/soc/intel/boards/{broadwell.c => bdw_rt286.c} | 0
+ 2 files changed, 1 insertion(+), 1 deletion(-)
+ rename sound/soc/intel/boards/{broadwell.c => bdw_rt286.c} (100%)
 
-diff --git a/sound/soc/intel/boards/hsw_rt5640.c b/sound/soc/intel/boards/hsw_rt5640.c
-index 94f96de0b62a..5e2224f7e986 100644
---- a/sound/soc/intel/boards/hsw_rt5640.c
-+++ b/sound/soc/intel/boards/hsw_rt5640.c
-@@ -53,7 +53,7 @@ static int codec_link_hw_params(struct snd_pcm_substream *substream,
- 
- 	ret = snd_soc_dai_set_sysclk(codec_dai, RT5640_SCLK_S_MCLK, 12288000, SND_SOC_CLOCK_IN);
- 	if (ret < 0) {
--		dev_err(rtd->dev, "can't set codec sysclk configuration\n");
-+		dev_err(rtd->dev, "set codec sysclk failed: %d\n", ret);
- 		return ret;
- 	}
- 
+diff --git a/sound/soc/intel/boards/Makefile b/sound/soc/intel/boards/Makefile
+index e479546a3d4b..eea1e26acfda 100644
+--- a/sound/soc/intel/boards/Makefile
++++ b/sound/soc/intel/boards/Makefile
+@@ -2,7 +2,7 @@
+ snd-soc-sst-haswell-objs := hsw_rt5640.o
+ snd-soc-sst-bdw-rt5650-mach-objs := bdw-rt5650.o
+ snd-soc-sst-bdw-rt5677-mach-objs := bdw-rt5677.o
+-snd-soc-sst-broadwell-objs := broadwell.o
++snd-soc-sst-broadwell-objs := bdw_rt286.o
+ snd-soc-sst-bxt-da7219_max98357a-objs := bxt_da7219_max98357a.o
+ snd-soc-sst-bxt-rt298-objs := bxt_rt298.o
+ snd-soc-sst-sof-pcm512x-objs := sof_pcm512x.o
+diff --git a/sound/soc/intel/boards/broadwell.c b/sound/soc/intel/boards/bdw_rt286.c
+similarity index 100%
+rename from sound/soc/intel/boards/broadwell.c
+rename to sound/soc/intel/boards/bdw_rt286.c
 -- 
 2.25.1
 

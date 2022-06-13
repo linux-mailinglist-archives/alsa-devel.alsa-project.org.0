@@ -2,75 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C4A5548B40
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Jun 2022 18:09:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCEB9548E13
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Jun 2022 18:17:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B4E161786;
-	Mon, 13 Jun 2022 18:08:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B4E161786
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4540B1754;
+	Mon, 13 Jun 2022 18:16:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4540B1754
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655136583;
-	bh=tfjRnPB5emG2L4Jef72rHm8N5OHicWHsvAUn6VvcjmU=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=OJI1jxwicukDFumCzhbi0kL3fizw/3v1YSNyUKHzg9g+FzfFB3PjMFUOMnl0DVYUH
-	 NcmMMWGEiWOs7pqeOuv46Q7ZHcY8DsBLNlB7MhVvKg2weT1Wu+1EWEhAqY/wp5/lda
-	 6X6nN6jej2UAiLBb5Y5nZQ74xh1A5zHY1AcrEDhc=
+	s=default; t=1655137057;
+	bh=sjtJervTZ6yZDBRnrd/C1P0OUfxohUo/Bykqdjnc5/o=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=R+WkHLcoR9fcAsBjspyEsZF7ffcUDyMVo/LRWQa45+STG2rWbFgF3OxhO0y55dWaO
+	 h9Jab3tAXFhlOFdJr18m/sjTGZAwq/0KwQrU/MMaoZp+zb/j6/PkBLMkJWTOO0M+/f
+	 rqqWakkZItZPSWv2tkdTsht0S1K6E/Ay4NCAx3gU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9C2DFF80534;
-	Mon, 13 Jun 2022 18:08:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7C53CF804D6;
+	Mon, 13 Jun 2022 18:16:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0376DF8052D; Mon, 13 Jun 2022 18:08:09 +0200 (CEST)
+ id 2A5D5F804C1; Mon, 13 Jun 2022 18:16:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C7457F804BB
- for <alsa-devel@alsa-project.org>; Mon, 13 Jun 2022 18:07:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7457F804BB
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="l+BRpCEH"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id AD60AB810F1;
- Mon, 13 Jun 2022 16:07:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A25DAC3411C;
- Mon, 13 Jun 2022 16:07:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1655136477;
- bh=tfjRnPB5emG2L4Jef72rHm8N5OHicWHsvAUn6VvcjmU=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=l+BRpCEHp3ZqrvfTlaeybd8XxUuh/8/GU9hy6eiahvhAHgcL/QTzRyoYO8E+R5tqE
- wrpFVFCuARhQpYHkb5Q3zKEoSAdxJxrPuQYh2z1q60zpIMi54eWvaoQE7jUKrpev02
- ffBgOfSEruQveZSVakIoLHFndG78oxdVJno+ePJ1bpTiEhaX4yCW6/MBmN/dmGvcZ7
- uwxh00lYIA6r6kscLMo+gdo0KLjz/rQ3EUZUvjDl0hc4H8CbItrI43i8mxwIAh5Q0i
- ts/PEyjmhyKlRo8i9vsLkEycPp/90b9hUl1omsy+bXOJyfAFz1ASXdVAW7ufEK1MDR
- FdipfA0UvuPHQ==
-From: Mark Brown <broonie@kernel.org>
-To: perex@perex.cz, yassine.oudjana@gmail.com, lgirdwood@gmail.com,
- srinivas.kandagatla@linaro.org, tiwai@suse.com
-In-Reply-To: <20220606152226.149164-1-y.oudjana@protonmail.com>
-References: <20220606152226.149164-1-y.oudjana@protonmail.com>
-Subject: Re: [PATCH] ASoC: wcd9335: Remove RX channel from old list before
- adding it to a new one
-Message-Id: <165513647538.514792.3755540877211595484.b4-ty@kernel.org>
-Date: Mon, 13 Jun 2022 17:07:55 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id E16FCF80139
+ for <alsa-devel@alsa-project.org>; Mon, 13 Jun 2022 18:15:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E16FCF80139
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="NFFik29o"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25DBuxUi006945;
+ Mon, 13 Jun 2022 11:15:55 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=4R4Ym4XA5bDdt/zDB7Y35xb6VBHh26DwvdrgZzMm1m4=;
+ b=NFFik29o2NvZUx2AhujDPn+6BjLnktd3Bb8eKXXHUnu7rvyrxakwxjWipe1RFpIAn8UJ
+ SrDUBCvzuuXVhrjqZNNhyRRAXV3pagYvMHitgSfIzZMkpX6cyt+UyfxmOhtJ70ZwrCns
+ 1n3nFFMXiy9W/vln0kIIwBEyVKjItaSvwe/fLuZzzM0aKZajzPNjkPOX7iC1RRB35sMz
+ E/YOADb3ImA7phkeOaBqHYWO6/mR3ZJCOrXZvNmU43iD+0QKhhnwUkA+iX9fTvNvqQjj
+ 5/cG1DBMeVyFHbrSEZZ+CHPS6qFXLKpKs3xF5t2ESAvtRBMfofhVXNY0evryromRK/dm qg== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3gmqfq24mu-2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Mon, 13 Jun 2022 11:15:55 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 13 Jun
+ 2022 17:15:52 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.28 via
+ Frontend Transport; Mon, 13 Jun 2022 17:15:52 +0100
+Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id C607546C;
+ Mon, 13 Jun 2022 16:15:52 +0000 (UTC)
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: <broonie@kernel.org>, <samuel@sholland.org>
+Subject: [PATCH 1/2] ASoC: sun8i-codec: Partial revert to fix clock specifiers
+Date: Mon, 13 Jun 2022 17:15:51 +0100
+Message-ID: <20220613161552.481337-1-ckeepax@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- y.oudjana@protonmail.com, linux-kernel@vger.kernel.org
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: ufAMjQSTEEIdy2v7qIN3Z_ZuR-cxb2fr
+X-Proofpoint-GUID: ufAMjQSTEEIdy2v7qIN3Z_ZuR-cxb2fr
+X-Proofpoint-Spam-Reason: safe
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ lgirdwood@gmail.com, jernej.skrabec@gmail.com, linux-kernel@vger.kernel.org,
+ wens@csie.org, linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com,
+ linux-sunxi@lists.linux.dev
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,43 +98,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 6 Jun 2022 19:22:26 +0400, Yassine Oudjana wrote:
-> From: Yassine Oudjana <y.oudjana@protonmail.com>
-> 
-> Currently in slim_rx_mux_put, an RX channel gets added to a new list
-> even if it is already in one. This can mess up links and make either
-> it, the new list head, or both, get linked to the wrong entries.
-> This can cause an entry to link to itself which in turn ends up
-> making list_for_each_entry in other functions loop infinitely.
-> To avoid issues, always remove the RX channel from any list it's in
-> before adding it to a new list.
-> 
-> [...]
+Recent updates accidentally updated the clock producer/consumer
+specifiers on this device as part of refactoring the CPU side of the DAI
+links. However, this device sits on the CODEC side and shouldn't have
+been updated. Partially revert the changes keeping the switch to the new
+clock terminology but going back to the CODEC defines.
 
-Applied to
+Fixes: 7cc3965fde74 ("ASoC: sunxi: Update to use set_fmt_new callback")
+Reported-by: Samuel Holland <samuel@sholland.org>
+Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+---
+ sound/soc/sunxi/sun8i-codec.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+diff --git a/sound/soc/sunxi/sun8i-codec.c b/sound/soc/sunxi/sun8i-codec.c
+index 90d74a2d53f38..f797c535f2983 100644
+--- a/sound/soc/sunxi/sun8i-codec.c
++++ b/sound/soc/sunxi/sun8i-codec.c
+@@ -287,10 +287,10 @@ static int sun8i_codec_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+ 
+ 	/* clock masters */
+ 	switch (fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) {
+-	case SND_SOC_DAIFMT_BP_FP: /* Codec slave, DAI master */
++	case SND_SOC_DAIFMT_CBC_CFC: /* Codec slave, DAI master */
+ 		value = 0x1;
+ 		break;
+-	case SND_SOC_DAIFMT_BC_FC: /* Codec Master, DAI slave */
++	case SND_SOC_DAIFMT_CBP_CFP: /* Codec Master, DAI slave */
+ 		value = 0x0;
+ 		break;
+ 	default:
+-- 
+2.30.2
 
-Thanks!
-
-[1/1] ASoC: wcd9335: Remove RX channel from old list before adding it to a new one
-      commit: 7263fc6c71c3a88c17a1ce3565b7b6f378d13878
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

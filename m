@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09237549995
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Jun 2022 19:14:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0FBE5499C9
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Jun 2022 19:22:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6A0FB175E;
-	Mon, 13 Jun 2022 19:13:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A0FB175E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 39D70176E;
+	Mon, 13 Jun 2022 19:21:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39D70176E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655140479;
-	bh=Iavf4KFx8bqx/XdK7Ou3mmwM/3mmQvaTM9KAKq90uYc=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1655140953;
+	bh=awvuHJ3WanfHU+vluSYhtwaUL0847oXiEl8aOFz++RI=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=h2oRZ6MNQLiRrd75LGWBdPraCZaSxl6w5gipa8mbvzDdXFF+HmnDFP/ntvZV4ApqV
-	 qhM1M4R87RlNmiV7AkIg1yLgjtEhTRq6n8AGNdW15VGh8XaD6ujMBZxHUiAKKyp09n
-	 zl+OCup4arBjWByRRTPeenEs3uFllsp8YBk3pOWo=
+	b=mN62lqiPazTH3g4VjTxtn1pm7VG7U7Cro+lBp5jKjErd0JuSl+7NfnBRDGjW24/yr
+	 4KDj6fnzRGLY+ZsfFaz8sMVZyWCmmERWRaq84ORQBPuZsyNaON6H1LJY9C6sSyl23h
+	 Jk5oWcr4aWNieAI09upgQxbU3AzkkMqi1TB0LoiE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E1753F800D8;
-	Mon, 13 Jun 2022 19:13:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A25BFF80107;
+	Mon, 13 Jun 2022 19:21:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 65B66F800D8; Mon, 13 Jun 2022 19:13:38 +0200 (CEST)
+ id E3B8DF804C1; Mon, 13 Jun 2022 19:21:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,45 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E5E8EF800D8
- for <alsa-devel@alsa-project.org>; Mon, 13 Jun 2022 19:13:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5E8EF800D8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 42598F804BB
+ for <alsa-devel@alsa-project.org>; Mon, 13 Jun 2022 19:21:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42598F804BB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="JCevrMDS"
+ dkim=pass (1024-bit key) header.d=linuxfoundation.org
+ header.i=@linuxfoundation.org header.b="jjq7hoiS"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 6C22BB81174;
- Mon, 13 Jun 2022 17:13:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CDFEC3411B;
- Mon, 13 Jun 2022 17:13:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1655140413;
- bh=Iavf4KFx8bqx/XdK7Ou3mmwM/3mmQvaTM9KAKq90uYc=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=JCevrMDSXAWgirXobGJ78qjp6Lhhzu1Twi/j9GdzJZydhi3AlwaGQbr/00eY7pbS+
- 3FKbSzRJudnrTgFCXlp8Vn5oMtUWmjCRnsEAeQeYz8sdbkS/KKJ6K0PqygwoL4vzj2
- Czzq0F0/pAfJessfyjlBUTap1rfdFsk+eDDbhJ2hwCwv65zra0osmps3ukAbaa6Vle
- 5TPZfwzkndCgZAgSymYDanHcpgkBc3tkD4NMDQoQF7TLIP33Wb78SyaV2Py6ps5Bjs
- rg2qvHM+REZ7Klu2yF/QQ2RBhEaqAPKz7zj+tc5WYyowNXGNEvn9IPz3/++ri242g9
- jDBeyXY2sS+Uw==
-From: Mark Brown <broonie@kernel.org>
-To: ranjani.sridharan@linux.intel.com, alsa-devel@alsa-project.org
-In-Reply-To: <20220609032643.916882-1-ranjani.sridharan@linux.intel.com>
-References: <20220609032643.916882-1-ranjani.sridharan@linux.intel.com>
-Subject: Re: [PATCH 00/23] ASoC: SOF: IPC4: Add topology, control and PCM ops
-Message-Id: <165514041222.665766.3914388564305919521.b4-ty@kernel.org>
-Date: Mon, 13 Jun 2022 18:13:32 +0100
+ by ams.source.kernel.org (Postfix) with ESMTPS id B8033B80EA9;
+ Mon, 13 Jun 2022 17:21:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0D63C3411B;
+ Mon, 13 Jun 2022 17:21:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1655140885;
+ bh=awvuHJ3WanfHU+vluSYhtwaUL0847oXiEl8aOFz++RI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=jjq7hoiSQsNd3XQw+AacpDwmcusDCkcHUbdP/HtIvNo+T+pJBJ6bN41S5QZDq8Jq+
+ Gi4o10dNT15pR3iMmYUJVaVwoync0UcWwJ8Uy6U+4h7JpawIsuS4Bz55uKY23nOQvX
+ vmYBMZBQMY5r6XBabY/p+qybbgdH2g35q3bQLvJw=
+Date: Mon, 13 Jun 2022 19:21:22 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 1/2] soundwire: intel: uniquify debug message
+Message-ID: <YqdyErIYYk85NV41@kroah.com>
+References: <20220610023537.27223-1-yung-chuan.liao@linux.intel.com>
+ <20220610023537.27223-2-yung-chuan.liao@linux.intel.com>
+ <YqLVwqx9/Pos8T06@kroah.com>
+ <b86e6cbd-3488-a239-d765-cf01bf0d4f70@linux.intel.com>
+ <YqRCKtLGYlRQQ+DU@kroah.com>
+ <7328fbb2-06af-99c8-5e7f-9d22f8c4e4f6@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7328fbb2-06af-99c8-5e7f-9d22f8c4e4f6@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, vinod.koul@linaro.org, tiwai@suse.de,
+ linux-kernel@vger.kernel.org, vkoul@kernel.org, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, sanyog.r.kale@intel.com,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,84 +88,108 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 8 Jun 2022 20:26:20 -0700, Ranjani Sridharan wrote:
-> This set of patches includes changes to add the topology, control and
-> PCM ops for IPC4. It also includes a couple of patches to set the IPC4
-> BE DAI trigger ops for SSP/DMIC/HDA type DAI's.
+On Mon, Jun 13, 2022 at 07:48:32AM -0500, Pierre-Louis Bossart wrote:
 > 
-> Bard Liao (1):
->   ASoC: SOF: IPC4: add sdw blob
 > 
-> [...]
+> >>>> diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
+> >>>> index 505c5ef061e3..808e2f320052 100644
+> >>>> --- a/drivers/soundwire/intel.c
+> >>>> +++ b/drivers/soundwire/intel.c
+> >>>> @@ -1328,8 +1328,8 @@ int intel_link_startup(struct auxiliary_device *auxdev)
+> >>>>  
+> >>>>  	if (bus->prop.hw_disabled) {
+> >>>>  		dev_info(dev,
+> >>>> -			 "SoundWire master %d is disabled, ignoring\n",
+> >>>> -			 sdw->instance);
+> >>>> +			 "%s: SoundWire master %d is disabled, ignoring\n",
+> >>>> +			 __func__, sdw->instance);
+> >>>
+> >>> This is not a debug message, please make it such if you want to have
+> >>> __func__  And even then, it's not needed as you can get that from the
+> >>> kernel automatically.
+> >>
+> >> Sorry, I don't understand the feedback at all.
+> > 
+> > dev_info() is not a way to send debug messages.
+> > 
+> > If you want this to be only for debugging, use dev_dbg().  And when you
+> > use that, you get the __func__ location for free in the output already
+> > if you want that.
+> > 
+> >> This message was added precisely to figure out why the expected
+> >> programming sequence was not followed, only to discover that we have
+> >> devices with spurious PCI wakes handled below. Without this added
+> >> difference with __func__, we wouldn't know if the issue happened during
+> >> the expected/regular programming sequence or not.
+> > 
+> > Perhaps make the text unique then?  Why would an informational message
+> > need a function name.  Drivers should be quiet when all is going well.
+> > If something is not going well, dev_info() is not the kernel log level
+> > to be sending something out at.
+> 
+> This is not a debug message - unlike all the others. The BIOS and/or the
+> user may disable a specific link and it's useful to know.
 
-Applied to
+Ok, but that's not what your subject and changelog said you were
+modifying here.  Hence my confusion :)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+> The intent of __func__ was precisely to make the text unique across all
+> cases where we test for hw_disabled, but you have a point that this
+> specific info message should be clearer. The text was actually already
+> different from the 'disable or not-started' cases, I might have done one
+> too many edits in this file. Will fix.
+> 
+> >>>>  		return 0;
+> >>>>  	}
+> >>>>  
+> >>>> @@ -1489,8 +1489,8 @@ int intel_link_process_wakeen_event(struct auxiliary_device *auxdev)
+> >>>>  	bus = &sdw->cdns.bus;
+> >>>>  
+> >>>>  	if (bus->prop.hw_disabled || !sdw->startup_done) {
+> >>>> -		dev_dbg(dev, "SoundWire master %d is disabled or not-started, ignoring\n",
+> >>>> -			bus->link_id);
+> >>>> +		dev_dbg(dev, "%s: SoundWire master %d is disabled or not-started, ignoring\n",
+> >>>> +			__func__, bus->link_id);
+> >>>>  		return 0;
+> >>>>  	}
+> >>>>  
+> >>>> @@ -1549,8 +1549,8 @@ static int __maybe_unused intel_pm_prepare(struct device *dev)
+> >>>>  	int ret;
+> >>>>  
+> >>>>  	if (bus->prop.hw_disabled || !sdw->startup_done) {
+> >>>> -		dev_dbg(dev, "SoundWire master %d is disabled or not-started, ignoring\n",
+> >>>> -			bus->link_id);
+> >>>> +		dev_dbg(dev, "%s: SoundWire master %d is disabled or not-started, ignoring\n",
+> >>>> +			__func__, bus->link_id);
+> >>>
+> >>> Not needed, it is provided automatically if you ask the kernel for this.
+> >>> Same for all other instances in this patch.
+> >>
+> >> provided how? Your comment is a bit cryptic here.
+> > 
+> > the dynamic debug code in the kernel already adds the function name
+> > where the message was sent from, if you want to know this in userspace.
+> > Please read the documentation for details (I think the key is the 'f'
+> > flag to be enabled in userspace).
+> > 
+> > So adding __func__ to dev_dbg() calls are redundant and never needed.
+> 
+> Oh wow, I had no idea - and I am not the only one :-)
+> 
+> Here's what I get with a grep on the kernel code
+> 
+> git grep __func__ | grep dev_dbg | wc -l
+> 
+> 3122
+> 
+> 
+> Doing this for sound/ gives me 356, and that's for single-line logs only.
+> 
+> There's clearly something that was missed by tons of people.
 
-Thanks!
+Yes, it's not commonly known so cleanups are always welcome.  Perhaps
+some of those usages predate the feature being added as well.
 
-[01/23] ASoC: SOF: Add topology tokens for IPC4
-        commit: bd10cd5ec54616a488d0bda695f78694ad79f779
-[02/23] ASoC: SOF: IPC4: Introduce topology ops
-        commit: 90e891551fb4949daeb3df20d43e7da838ef89a3
-[03/23] ASoC: SOF: ipc4-topology: Add support for parsing AIF_IN/AIF_OUT widgets
-        commit: 2cabd02b60901f4ceda4daf8c194905259797702
-[04/23] ASoC: SOF: ipc4-topology: Add support for parsing DAI_IN/DAI_OUT widgets
-        commit: abfb536bd116d3148e92bf38255fc0989ca9b7d4
-[05/23] ASoC: SOF: ipc4-topology: Add prepare op for AIF type widgets
-        commit: 904c48c40c66c524df90fb660bdbc514ed802e67
-[06/23] ASoC: SOF: ipc4-topology: Add prepare op for DAI type widgets
-        commit: acf525942077213e9bc00eee8a73af360ab2fc08
-[07/23] ASoC: SOF: ipc4-topology: Add support for parsing and preparing pga widgets
-        commit: 4f838ab2081260119677df3ba94dbbd4f8cb7183
-[08/23] ASoC: SOF: ipc4-topology: Add support for parsing mixer widgets
-        commit: 4d4ba014ac4b3772ed39c15cd2ceacbb071c26f6
-[09/23] ASoC: SOF: ipc4-topology: Add control_setup op
-        commit: d97964f870786389f4c399a507ffa5d1ebf2a9e4
-[10/23] ASoC: SOF: ipc4-topology: Add control IO ops
-        commit: 955e84fc0b6df6cfb95ee6f569be809af49d8287
-[11/23] ASoC: SOF: IPC4: Add pcm ops
-        commit: e75e5db8f8ac5b9d4e8968060822bed4671f22ec
-[12/23] ASoC: SOF: ipc4-topology: Add widget_setup/widget_free ops
-        commit: 6e9257a13c75b2e4fc33477f9de4912fdfae81e1
-[13/23] ASoC: SOF: ipc4-topology: Add route_setup/route_free ops
-        commit: 3acd527089463742a3dd95e274d53c2fdd834716
-[14/23] ASoC: SOF: ipc4-topology: Add the dai_config op
-        commit: acf48a1f76b887f6a63f3c91eedac80b38341c05
-[15/23] ASoC: SOF: ipc4-pcm: Expose sof_ipc4_set_pipeline_state()
-        commit: d0c0d5bf944b13b4e293746eb655f1c2caf67231
-[16/23] ASoC: SOF: IPC4: set the BE DAI ops
-        commit: 4c30004a7c6920c66a08c1aa16481c28202eefd0
-[17/23] ASoC: SOF: Add ops_free
-        commit: bc433fd76faefb8484f5bc653d846043822a2d35
-[18/23] ASoC: SOF: Intel: hda: init NHLT for IPC4
-        commit: 1da51943725f29000ae4d2be3b3b4bf8309d99a2
-[19/23] ASoC: SOF: Add two new structures for topology manifest data
-        commit: 4453d24d10fdd9e40c84673e3eda7701055081ea
-[20/23] ASoC: SOF: Add a new IPC op for parsing topology manifest
-        commit: 323aa1f093e6113f78a8ae808c6c097663d8cb4c
-[21/23] ASoC: SOF: ipc4-topology: Add support for SSP/DMIC DAI's
-        commit: aa84ffb721587d134702a1932f2c8793e8709df4
-[22/23] AsoC: SOF: ipc4-topology: Add dai_get_clk op
-        commit: 9e2b5d33fec938ea2518735f2b66313cab89bb61
-[23/23] ASoC: SOF: IPC4: add sdw blob
-        commit: a45a4d4390b7a562f8edc3518ba6cd2ad17be5bc
+thanks,
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+greg k-h

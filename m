@@ -2,48 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDA72548323
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Jun 2022 11:40:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DF8B5483B8
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Jun 2022 11:49:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 28F2D1758;
-	Mon, 13 Jun 2022 11:39:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 28F2D1758
+	by alsa0.perex.cz (Postfix) with ESMTPS id 952C9174E;
+	Mon, 13 Jun 2022 11:48:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 952C9174E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655113228;
-	bh=f17WY8WdbJdbKnJcuptdfrkdV3G0k9BWWfPTtOnI3+k=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1655113744;
+	bh=lWy1OIfhGmYslVWutuLhOJaoYa1YMjoJfP8ditaMs/U=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ilTCIC5G5RSW2yzeyPnrqmXlIpy9trw5L30QdpRmpzoh36p4Z8pyiE3XLiIE7rMF6
-	 Nl+rtMWyX790a38aOVONySNBfBUTqlhNFBrk0m+pFsxbxlSyj2maEB7ygcFcepCGUk
-	 TPaTgrIdQGekA0ABFOs3XRrumBg+B6SATPGJTSEA=
+	b=MLiefU2KUneZ8Q9/vwAJCf40CPoBnqcCXUCKSzmWlxWlLw1zsjAQ91pDbw0vGRpPR
+	 fBRAQKSafmkr8O7pLO+N53qsfJeLm+5IHegOjAdmvr1NcNujlksqVa/rSGBPdbldOr
+	 T3T5hRtmJA2Osp6Sbeh0tpKmeCTV8Iv4XrNNWuR0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 990CFF804CC;
-	Mon, 13 Jun 2022 11:39:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0E0C2F804CC;
+	Mon, 13 Jun 2022 11:48:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A4402F804C1; Mon, 13 Jun 2022 11:39:26 +0200 (CEST)
+ id 563BAF804C1; Mon, 13 Jun 2022 11:48:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 3EFC0F800D8
- for <alsa-devel@alsa-project.org>; Mon, 13 Jun 2022 11:39:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3EFC0F800D8
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3ECCBF80107
+ for <alsa-devel@alsa-project.org>; Mon, 13 Jun 2022 11:47:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3ECCBF80107
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="AB1boW9d"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25D7bRpY017595;
+ Mon, 13 Jun 2022 04:47:53 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=CRTviHcnTGYQGc17bUWtHNOWPL7Dy+tsuuEXIupdrr4=;
+ b=AB1boW9dAs+Yf9LKm3cYDlA9u3I06+BGsMJFLbKaexcHZujzQyhBBE0tsMWZHWJ5/pk2
+ Yyag1HGoBElpx5OnHF30JfOUa9g36GGrRtvJf8H1/Q9BY+yz/u9t+aL9XqxYrei5xnOs
+ giKpcS9xQ70DzbDl2kRUxUopnvLFhKniuHn4fsycKcT7PipsEbs4vt1wJJx5iiSv9F0l
+ nyIFrdF/LwwXcQTKm7V6Uzs8RHe+wlqHdVRKEyziQ/2tfUXJHhHmO02NGjhNqwYPGa25
+ Q3TAabCTfGg/TVXobLSQVDwCqtFmMjvQA9oYzM0olaJ+nAbQHd7SjQvCcZr2zAy3HGn+ yg== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3gmrf31psy-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Mon, 13 Jun 2022 04:47:53 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 13 Jun
+ 2022 10:47:51 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.28 via
+ Frontend Transport; Mon, 13 Jun 2022 10:47:51 +0100
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 7915B46C;
+ Mon, 13 Jun 2022 09:47:51 +0000 (UTC)
+Date: Mon, 13 Jun 2022 09:47:51 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Subject: Re: [PATCH 22/23] ASoC: wm8731: update wlf,wm8731.yaml reference
+Message-ID: <20220613094751.GZ38351@ediswmail.ad.cirrus.com>
+References: <cover.1654529011.git.mchehab@kernel.org>
+ <e56e54fe0ebb1b6e8dd2e245c398190016eb0a34.1654529011.git.mchehab@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1655113162277198076-webhooks-bot@alsa-project.org>
-References: <1655113162277198076-webhooks-bot@alsa-project.org>
-Subject: ucm2: add ALC4080 ID for Asus Z690-I Gaming Wifi
-Message-Id: <20220613093926.A4402F804C1@alsa1.perex.cz>
-Date: Mon, 13 Jun 2022 11:39:26 +0200 (CEST)
+Content-Disposition: inline
+In-Reply-To: <e56e54fe0ebb1b6e8dd2e245c398190016eb0a34.1654529011.git.mchehab@kernel.org>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: xy_jBaiF63BsDcKqeMRnyVUazqatw_C5
+X-Proofpoint-ORIG-GUID: xy_jBaiF63BsDcKqeMRnyVUazqatw_C5
+X-Proofpoint-Spam-Reason: safe
+Cc: devicetree@vger.kernel.org,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, alsa-devel@alsa-project.org,
+ Jonathan Corbet <corbet@lwn.net>,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+ linux-kernel@vger.kernel.org,
+ Linux Doc Mailing List <linux-doc@vger.kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, Mark Brown <broonie@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,60 +109,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-ucm-conf pull request #169 was opened from brenmous:
+On Mon, Jun 06, 2022 at 04:25:44PM +0100, Mauro Carvalho Chehab wrote:
+> Changeset 0e336eeaf467 ("ASoC: wm8731: Convert DT bindings to YAML format")
+> renamed: Documentation/devicetree/bindings/sound/wm8731.txt
+> to: Documentation/devicetree/bindings/sound/wlf,wm8731.yaml.
+> 
+> Update its cross-reference accordingly.
+> 
+> Fixes: 0e336eeaf467 ("ASoC: wm8731: Convert DT bindings to YAML format")
+> Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
+> ---
 
-```
-inxi -M
-Machine:
-  Type: Desktop System: ASUS product: N/A v: N/A serial: <superuser required>
-  Mobo: ASUSTeK model: ROG STRIX Z690-I GAMING WIFI v: Rev 1.xx
-    serial: <superuser required> UEFI: American Megatrends v: 1403
-    date: 03/30/2022
-```
-```
-aplay -l
-**** List of PLAYBACK Hardware Devices ****
-card 1: HDMI [HDA ATI HDMI], device 3: HDMI 0 [27GL850]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 1: HDMI [HDA ATI HDMI], device 7: HDMI 1 [HDMI 1]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 1: HDMI [HDA ATI HDMI], device 8: HDMI 2 [HDMI 2]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 1: HDMI [HDA ATI HDMI], device 9: HDMI 3 [HDMI 3]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 1: HDMI [HDA ATI HDMI], device 10: HDMI 4 [HDMI 4]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 1: HDMI [HDA ATI HDMI], device 11: HDMI 5 [HDMI 5]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 3: Audio [USB Audio], device 0: USB Audio [USB Audio]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 3: Audio [USB Audio], device 1: USB Audio [USB Audio #1]
-  Subdevices: 0/1
-  Subdevice #0: subdevice #0
-card 3: Audio [USB Audio], device 2: USB Audio [USB Audio #2]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 3: Audio [USB Audio], device 3: USB Audio [USB Audio #3]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-```
-Card 3 is ALC4080
-```
-udevadm info -a -p /sys/class/sound/card3 | grep idVendor -m1
-ATTRS{idVendor}=="0b05"
-udevadm info -a -p /sys/class/sound/card3 | grep idProduct -m1
-ATTRS{idProduct}=="1a20"
-```
+Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-Rear panel line out and front panel headphone now work. Jack detection also working properly. Haven't tested any of the other inputs/outputs as I don't have suitable devices.
-
-Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/169
-Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/169.patch
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf
+Thanks,
+Charles

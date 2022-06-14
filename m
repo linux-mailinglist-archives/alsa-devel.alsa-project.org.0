@@ -2,92 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23BF654B201
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jun 2022 15:08:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4DCA54B211
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jun 2022 15:11:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 87C3217A7;
-	Tue, 14 Jun 2022 15:08:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 87C3217A7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6D4EC1695;
+	Tue, 14 Jun 2022 15:10:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D4EC1695
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655212135;
-	bh=v1jT4QYHtal1M4uq6tlTR2PDjxY2CnqpTGOm4kX4lcg=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=h/QsumzmS+RECsw0golelN1da9thsk2CSrEXJM1EJXPOt0JkAXmX9ksjoFn2FMW9i
-	 I0UkL4qDY+2muGGO0EEmQhKlI3A6qNlySxPKaKATOrkDs3p6Gt0caoQY+YDhAxUTjH
-	 3RTDWQtKfp62pWYhvLHHhXFEbSLwbIsiao0V8L3I=
+	s=default; t=1655212293;
+	bh=7FycEHfTzKBwgZpJkj/ag8+juwwjabNOKC8iC8BVIec=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ZDKphmTB2scDrZwCUhJBRf4WWTDEefsot6FLA49dPcEdqf+3QIRkLWvUOwjBjI8Xr
+	 X81lmm3NnXv1S42rkCmG5732NH7gmkMf29B1rq9JYFIR7sGD/dn2MnFOGp4ujgxfo/
+	 CpxXdeG/VJRFagwOVWSXuwklTQPQagY2o05ivrY4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CD887F80165;
-	Tue, 14 Jun 2022 15:07:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C1BC5F800D8;
+	Tue, 14 Jun 2022 15:10:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 14DEFF80139; Tue, 14 Jun 2022 15:07:54 +0200 (CEST)
+ id 2224EF80139; Tue, 14 Jun 2022 15:10:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C9687F800D8
- for <alsa-devel@alsa-project.org>; Tue, 14 Jun 2022 15:07:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9687F800D8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1AC00F800D8
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jun 2022 15:10:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1AC00F800D8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="nFU85tbC"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="nGmLT9eh"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 3C9C921B2E;
- Tue, 14 Jun 2022 13:07:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1655212067; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=0aw/lt539XKKXxaepRRGF6X5TCusTY6Yl0rCv9i49iA=;
- b=nFU85tbCbcTo5QObwMGSo0ulv7kSuH58Rcb018z8b4Z1WbOHDAdVn29YVgKORy3EAQZYRh
- TBhY6OxzYY1HajuGtTs1QReEGFlstsCZ2xJc8EFCF+q8xkZOW9Fg79UbQ0RrHMgawVcUi7
- RypSxKZjgxuQR1mXyL56DoAEnNhlDi8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1655212067;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=0aw/lt539XKKXxaepRRGF6X5TCusTY6Yl0rCv9i49iA=;
- b=nGmLT9ehMPJcKY8i5tiOnZVoyzuVhwgaaWKtt+uC0UkFg9vzpeWPU33O4kYjgdswVfEp/U
- tDyeINflQ3Rk19Ag==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2823C1361C;
- Tue, 14 Jun 2022 13:07:47 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id vkZDCSOIqGLeHwAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 14 Jun 2022 13:07:47 +0000
-Date: Tue, 14 Jun 2022 15:07:46 +0200
-Message-ID: <87o7yvpf4t.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [PATCH] firewire: cdev: fix potential leak of kernel stack due to
- uninitialized value
-In-Reply-To: <Yqh/bDB+Bvwcjjrh@workstation>
-References: <20220512112037.103142-1-o-takashi@sakamocchi.jp>
- <Yqh/bDB+Bvwcjjrh@workstation>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, stefanr@s5r6.in-berlin.de,
- linux1394-devel@lists.sourceforge.net,
- Dan Carpenter <dan.carpenter@oracle.com>
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="OM+u0In+"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25E7D18Y023629;
+ Tue, 14 Jun 2022 08:10:24 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=YcUpMK2AczftXCxzQom7s5cbS6jwX5ZCnN31VDB+YXM=;
+ b=OM+u0In+DWSJNpSoAeCGjcBQM2oyBYb1RpCvka5UL+zWpyCSr2bdJLyrt3L5JY+Bbpom
+ KDVh06+qEyKceN5O5pQfTnL97gd41swPIys5yjgfadGZLu7IKslMKXE07i0m0VmBAvE1
+ Qj7sNOqmQERXv+/Krt61UQ2Fu8KWIDJI/Sp/GTfOptUKHfcAusC2txe/jqMpvM6Zb4rD
+ KWueGH6k7p3087TFleh0VkOUNLKtAKkoXQNJiq4s5S3VdiJ4U5jNiyX4DGvtXL2MTKlB
+ BaUQULHZK6lAiBsjbeR4/Ys36VOCb8meU5RIXVKHWEIMMkPZJTAyTPt0tZVwOShT5dC3 gw== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3gmqfq357n-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Tue, 14 Jun 2022 08:10:24 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 14 Jun
+ 2022 14:10:22 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.28 via
+ Frontend Transport; Tue, 14 Jun 2022 14:10:22 +0100
+Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id A1A09458;
+ Tue, 14 Jun 2022 13:10:22 +0000 (UTC)
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: <broonie@kernel.org>
+Subject: [PATCH] ASoC: cs35l45: Add endianness flag in snd_soc_component_driver
+Date: Tue, 14 Jun 2022 14:10:22 +0100
+Message-ID: <20220614131022.778057-1-ckeepax@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: aitggsH-mFGMuIZWhiIx_LPwba7ZFrJ5
+X-Proofpoint-GUID: aitggsH-mFGMuIZWhiIx_LPwba7ZFrJ5
+X-Proofpoint-Spam-Reason: safe
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ lgirdwood@gmail.com, david.rhodes@cirrus.com, james.schulman@cirrus.com,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,29 +97,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 14 Jun 2022 14:30:36 +0200,
-Takashi Sakamoto wrote:
-> 
-> Hi Iwai-san,
-> 
-> I have a moderate request to you for the patch which fixes an issue
-> included in v5.19-rc1. If it's applicable and I can borrow your help
-> again, I'd like you to send the patch to mainline via your tree.
+The endianness flag is used on the CODEC side to specify an
+ambivalence to endian, typically because it is lost over the hardware
+link. This device receives audio over an I2S DAI and as such should
+have endianness applied.
 
-Do you have the lore URL I can get a patch from?
+Fixes: 0d463d016000 ("ASoC: cs35l45: Add driver for Cirrus Logic CS35L45 Smart Amp")
+Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+---
+ sound/soc/codecs/cs35l45.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-> If possible, it's preferable to apply additional three patches I
-> respined[1], but it could be optional since not so critical.
-> 
-> [1] https://lore.kernel.org/alsa-devel/20220512111756.103008-1-o-takashi@sakamocchi.jp/
+diff --git a/sound/soc/codecs/cs35l45.c b/sound/soc/codecs/cs35l45.c
+index c94edfce4b720..d15b3b77c7eb0 100644
+--- a/sound/soc/codecs/cs35l45.c
++++ b/sound/soc/codecs/cs35l45.c
+@@ -500,6 +500,8 @@ static const struct snd_soc_component_driver cs35l45_component = {
+ 	.num_controls = ARRAY_SIZE(cs35l45_controls),
+ 
+ 	.name = "cs35l45",
++
++	.endianness = 1,
+ };
+ 
+ static int __maybe_unused cs35l45_runtime_suspend(struct device *dev)
+-- 
+2.30.2
 
-I can merge those, but now looking at the patches, I'm afraid that the
-patch 2 ("firewire: use struct_size over open coded arithmetic") is
-wrong; struct_size() takes the number of elements, and the element
-type is u32, hence you're allocating 4 times large data with that
-patch.
-
-
-thanks,
-
-Takashi

@@ -2,68 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2818354AE15
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jun 2022 12:17:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0E7A54AE40
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jun 2022 12:26:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BFA4817A3;
-	Tue, 14 Jun 2022 12:16:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BFA4817A3
+	by alsa0.perex.cz (Postfix) with ESMTPS id F2AA817F0;
+	Tue, 14 Jun 2022 12:25:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2AA817F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655201824;
-	bh=i/+BQyf/tq05M2c7CaIty9IB0VPDS00xVHoG6wYMBZY=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=uJGrBgMdTSzVIE0uJKPUfxOcFU/JcvCRdu8HLE7TzkuKyEwONn96hNQryt9pbHqFM
-	 Qtob4v59vMWDWQXVbpAhIKasmd37JUZNl0Joujyg/BU/XsynFMWnKAqEyqMe8uvSuB
-	 7RD3BCpMFRWDqHbCI/aW6FbjI8p266dSG/PU3A/4=
+	s=default; t=1655202373;
+	bh=qA9xWVn3AUOfZxfhOprMPBGdr1XvmWBCUKQPSallH0Y=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=IcANemfhspFGJLblO6ZoAU44oXhn3X6NzOB0+ERM7xjNyGRiez6DAfmFDHVYa0Br4
+	 jTVY42br7lv0o2TRtwZp6lZNMwFRRnErBHxfe+LWiVnBtuBReP6arSsdbEcAhX09l7
+	 Y9I8JuECo4AFhPQRAzedEhdKeSOF3QnmVYYJ6y+U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 23200F80165;
-	Tue, 14 Jun 2022 12:16:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 55D8FF80165;
+	Tue, 14 Jun 2022 12:25:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EA365F80139; Tue, 14 Jun 2022 12:15:58 +0200 (CEST)
+ id 1BBCCF80139; Tue, 14 Jun 2022 12:25:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id E0397F800E1
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jun 2022 12:25:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0397F800E1
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="DGbRvEEx"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 117D1F800E1
- for <alsa-devel@alsa-project.org>; Tue, 14 Jun 2022 12:15:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 117D1F800E1
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <sha@pengutronix.de>)
- id 1o13aP-0006TV-Ao; Tue, 14 Jun 2022 12:15:49 +0200
-Received: from [2a0a:edc0:0:1101:1d::28] (helo=dude02.red.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <sha@pengutronix.de>)
- id 1o13aM-000T4k-QL; Tue, 14 Jun 2022 12:15:48 +0200
-Received: from sha by dude02.red.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <sha@pengutronix.de>)
- id 1o13aN-006Xoq-Hm; Tue, 14 Jun 2022 12:15:47 +0200
-From: Sascha Hauer <s.hauer@pengutronix.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ASoC: fsl_asrc_dma: fully initialize structs
-Date: Tue, 14 Jun 2022 12:15:46 +0200
-Message-Id: <20220614101546.1559434-1-s.hauer@pengutronix.de>
-X-Mailer: git-send-email 2.30.2
+ by ams.source.kernel.org (Postfix) with ESMTPS id DE201B8184D;
+ Tue, 14 Jun 2022 10:25:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8D11C3411B;
+ Tue, 14 Jun 2022 10:25:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1655202307;
+ bh=qA9xWVn3AUOfZxfhOprMPBGdr1XvmWBCUKQPSallH0Y=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=DGbRvEExBH84aRP3LsVoe88rb3sKrQrDJjoxsjJUxG+m6/s4Zp1yT0QXwou0ZZVuK
+ 57N8LOHwEwXf6uz0O6ZrgPYZ4CPv1Sld/mUjt4GiUELMyBk7E/CTgnfpByvHA2w5UD
+ TUgtNdMlbDKO0UxlVPSD1oqwSHrKk8JP/n5xsaTzJRowVJB6RmK4fZYVIILpyYhGcZ
+ +hJ7KFui/7hcXr6XyVRtoGWsLlyJFNNN1/AVXvVH+koYyKq6TyrXaIkaw5q6Oyd68o
+ KbrIQja2neTtQpk1folFoQbvO3D/ZX0abdGoU57kNE6UE4lxmo9QjNiQ8FhXsQaypE
+ IWVx6FLZPRDRw==
+From: Mark Brown <broonie@kernel.org>
+To: robh+dt@kernel.org, shengjiu.wang@nxp.com, tiwai@suse.com,
+ alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ shengjiu.wang@gmail.com, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
+ perex@perex.cz, festevam@gmail.com, krzk+dt@kernel.org, lgirdwood@gmail.com
+In-Reply-To: <1654840042-7069-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1654840042-7069-1-git-send-email-shengjiu.wang@nxp.com>
+Subject: Re: [PATCH 1/2] ASoC: dt-bindings: fsl,
+ mqs: Add compatible string for i.MX93 platform
+Message-Id: <165520230461.3607327.1182225062255156973.b4-ty@kernel.org>
+Date: Tue, 14 Jun 2022 11:25:04 +0100
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: sha@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Cc: Fabio Estevam <festevam@gmail.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Shengjiu Wang <shengjiu.wang@gmail.com>, kernel@pengutronix.de,
- Xiubo Li <Xiubo.Lee@gmail.com>
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,38 +87,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The driver uses two statically ininitialized struct dma_slave_config,
-but only one of them is initialized to zero. Initialize config_be to
-zero as well to make sure that no fields are filled with random values.
-Let the compiler do this instead of explicitly calling memset() which
-makes it easier to read.
+On Fri, 10 Jun 2022 13:47:21 +0800, Shengjiu Wang wrote:
+> Add compatible string "fsl,imx93-mqs" for i.MX93 platform
+> 
+> 
 
-Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
----
- sound/soc/fsl/fsl_asrc_dma.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+Applied to
 
-diff --git a/sound/soc/fsl/fsl_asrc_dma.c b/sound/soc/fsl/fsl_asrc_dma.c
-index 5038faf035cba..fec56dbb64e60 100644
---- a/sound/soc/fsl/fsl_asrc_dma.c
-+++ b/sound/soc/fsl/fsl_asrc_dma.c
-@@ -138,7 +138,7 @@ static int fsl_asrc_dma_hw_params(struct snd_soc_component *component,
- 	struct dma_chan *tmp_chan = NULL, *be_chan = NULL;
- 	struct snd_soc_component *component_be = NULL;
- 	struct fsl_asrc *asrc = pair->asrc;
--	struct dma_slave_config config_fe, config_be;
-+	struct dma_slave_config config_fe = {}, config_be = {};
- 	enum asrc_pair_index index = pair->index;
- 	struct device *dev = component->dev;
- 	struct device_node *of_dma_node;
-@@ -181,7 +181,6 @@ static int fsl_asrc_dma_hw_params(struct snd_soc_component *component,
- 		return -EINVAL;
- 	}
- 
--	memset(&config_fe, 0, sizeof(config_fe));
- 	ret = snd_dmaengine_pcm_prepare_slave_config(substream, params, &config_fe);
- 	if (ret) {
- 		dev_err(dev, "failed to prepare DMA config for Front-End\n");
--- 
-2.30.2
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
+Thanks!
+
+[1/2] ASoC: dt-bindings: fsl,mqs: Add compatible string for i.MX93 platform
+      commit: 81ae0635df7de58496def18b0b9333992630b9af
+[2/2] ASoC: fsl_mqs: Add support for i.MX93 platform
+      commit: 047c69a3a9b19f29e021c77a7e9ce79230a342ed
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

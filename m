@@ -2,75 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2318754AE4E
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jun 2022 12:27:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8A8354AE4F
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jun 2022 12:28:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BD9C01856;
-	Tue, 14 Jun 2022 12:27:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD9C01856
+	by alsa0.perex.cz (Postfix) with ESMTPS id 80931185C;
+	Tue, 14 Jun 2022 12:27:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 80931185C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655202477;
-	bh=LNuguHv6a3ygHKbLId8SPEpXPEI0BlVXr4d/sXv+34E=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1655202512;
+	bh=tEUGVPK9ou/rPhLLG+ofC3osZBpvK+ewNOr7NRviHhM=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nd0m4QGLXY2ZoViPp3lGAiJxDMIP2BSxm2JL9fFEHKUSMt8OvQ1P0wqZl7PkuUnjc
-	 youzwmE8rqlonT7T4s11yGs+09nQZUVoVVt+MORJqNkCJd2udi0F/KQyPMgyKFxqM2
-	 MRyVjJnVUs4GwVfMiMMHhY9kl0uLseT6Z40hrL+4=
+	b=JjWWiSVQK2XRUBpu5hMjyVl6TAelOmz9NuAOQi31X8CAkIS8FpQ0GgBJrYwhj+d6T
+	 ZnkyMLavcDRvKHAMrVy7tHlOvMRXFBtBvXZeP/Qm/GQQlI9tIrdzG4kUbSezi4xIJK
+	 iGFkKyFK7/TIePTTlAfyunV+nuE+/C+U0KQavNSo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EE2ABF8053B;
-	Tue, 14 Jun 2022 12:25:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 288CBF80165;
+	Tue, 14 Jun 2022 12:27:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 083D5F80539; Tue, 14 Jun 2022 12:25:26 +0200 (CEST)
+ id 6C380F80165; Tue, 14 Jun 2022 12:27:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C2CA5F80537
- for <alsa-devel@alsa-project.org>; Tue, 14 Jun 2022 12:25:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2CA5F80537
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5B815F80137
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jun 2022 12:27:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B815F80137
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Dt7ywmCb"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="cNx53KGm"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="slERjjyz"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id B0798B817BF;
- Tue, 14 Jun 2022 10:25:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34F0EC3411B;
- Tue, 14 Jun 2022 10:25:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1655202318;
- bh=LNuguHv6a3ygHKbLId8SPEpXPEI0BlVXr4d/sXv+34E=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Dt7ywmCbxWefHYFH/23+oznH63CwSCAy8D//+6XRbBpOEEEe6MONgyMGYMUKtBRD4
- Id6JDgSKWczC9s+Co3HmWgSBdPm82Tr6Ff2BCXLMZD2+N2NZG225rPGKhddnqQP4MX
- ytnqxK5zfiIXwgBNlI1gKaSI3HOe8s8ZLHqZ6P83a9eCjGBIjSxMC4ICpGikMPStfh
- w0YtbGegGTyCWzLSRn8lGNiU63Ckp/M0dC3XEK14RVOqZwPKVYgHWCkPY15HEzOZzU
- EoPWNpat2fP8gof2uuWbLSAFuUweHcHYhIpu7ZBPvWtFvO2A5Kmagbzk2KWSsKOWg/
- usr0HUa9fbzNA==
-From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com,
- peter.ujfalusi@linux.intel.com
-In-Reply-To: <20220614075618.28605-1-peter.ujfalusi@linux.intel.com>
-References: <20220614075618.28605-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: Compile and runtime IPC version selection
-Message-Id: <165520231693.3607327.15875256703939130687.b4-ty@kernel.org>
-Date: Tue, 14 Jun 2022 11:25:16 +0100
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, ranjani.sridharan@linux.intel.com,
- kai.vehmanen@linux.intel.com
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 3CB611F88B;
+ Tue, 14 Jun 2022 10:27:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1655202451; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=V1c4KqI75Xq0osGRVechadykZB657HEVNEGp9LJkIc4=;
+ b=cNx53KGmbn6nMHd5CEj3v2EWhCikpzJh3VqMQc1hTO5UFMHGm5B4Ths0iOlGqMtufajtGr
+ 5wuKcCynC/P55u1CLdVTVZvwMw2pw3tgu5311t6wdH/LJbdM0+X+5K1FyJHAtO8ouOhMgv
+ T7BEy1YZ6KoVS99Cq68AkcKmQplCpYs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1655202451;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=V1c4KqI75Xq0osGRVechadykZB657HEVNEGp9LJkIc4=;
+ b=slERjjyzNG8rnCyJlLq0795WKEpFYxJ9s1V3m5t6d/WuTASmBhlz1COoBbBipKsaK9IMrC
+ prDe3PCPS34p+aDQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 256AA1361C;
+ Tue, 14 Jun 2022 10:27:31 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id Ao3NCJNiqGK4VQAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 14 Jun 2022 10:27:31 +0000
+Date: Tue, 14 Jun 2022 12:27:30 +0200
+Message-ID: <8735g7r14d.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Eugeniu Rosca <erosca@de.adit-jv.com>
+Subject: Re: [PATCH] ALSA: pcm: Test for "silence" field in struct
+ "pcm_format_data"
+In-Reply-To: <20220614095851.GA4199@lxhi-065>
+References: <20220409012655.9399-1-fmdefrancesco@gmail.com>
+ <20220614095851.GA4199@lxhi-065>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, Eugeniu Rosca <roscaeugeniu@gmail.com>,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ syzbot+205eb15961852c2c5974@syzkaller.appspotmail.com,
+ Mark Brown <broonie@kernel.org>, naveenkumar.sunkari@in.bosch.com,
+ "Fabio M. De Francesco" <fmdefrancesco@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,41 +105,68 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 14 Jun 2022 10:56:17 +0300, Peter Ujfalusi wrote:
-> The new IPC4 version is only supported by Intel platforms, iMX, AMD and
-> MediaTek only uses the standard SOF IPC.
-> There is no need for these platforms to build kernel support for IPC4 as
-> it is just dead code for them.
+On Tue, 14 Jun 2022 11:58:51 +0200,
+Eugeniu Rosca wrote:
 > 
-> SND_SOC_SOF_IPC3 and SND_SOC_SOF_INTEL_IPC4 is introduced to allow compile
-> time selection and exclusion of IPC implementations.
+> Hello Fabio, hello All,
 > 
-> [...]
+> On Sa, Apr 09, 2022 at 03:26:55 +0200, Fabio M. De Francesco wrote:
+> > Syzbot reports "KASAN: null-ptr-deref Write in
+> > snd_pcm_format_set_silence".[1]
+> > 
+> > It is due to missing validation of the "silence" field of struct
+> > "pcm_format_data" in "pcm_formats" array.
+> > 
+> > Add a test for valid "pat" and, if it is not so, return -EINVAL.
+> > 
+> > [1] https://lore.kernel.org/lkml/000000000000d188ef05dc2c7279@google.com/
+> > 
+> > Reported-and-tested-by: syzbot+205eb15961852c2c5974@syzkaller.appspotmail.com
+> > Signed-off-by: Fabio M. De Francesco <fmdefrancesco@gmail.com>
+> > ---
+> > 
+> > I wasn't able to figure out the commit for the "Fixes:" tag. If this patch
+> > is good, can someone please help with providing this missing information?
+> > 
+> >  sound/core/pcm_misc.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > 
+> > diff --git a/sound/core/pcm_misc.c b/sound/core/pcm_misc.c
+> > index 4866aed97aac..5588b6a1ee8b 100644
+> > --- a/sound/core/pcm_misc.c
+> > +++ b/sound/core/pcm_misc.c
+> > @@ -433,7 +433,7 @@ int snd_pcm_format_set_silence(snd_pcm_format_t format, void *data, unsigned int
+> >  		return 0;
+> >  	width = pcm_formats[(INT)format].phys; /* physical width */
+> >  	pat = pcm_formats[(INT)format].silence;
+> > -	if (! width)
+> > +	if (!width || !pat)
+> >  		return -EINVAL;
+> >  	/* signed or 1 byte data */
+> >  	if (pcm_formats[(INT)format].signd == 1 || width <= 8) {
+> 
+> JFYI, PVS-Studio 7.19 reports:
+> 
+> sound/core/pcm_misc.c	409	warn	V560 A part of conditional expression is always false: !pat.
+> 
+> I haven't fully validated the finding, but it appears to be legit,
+> since the pointer variable (as opposed to the contents behind the
+> pointer) is always non-null, hence !pat always evaluating to false.
+> 
+> If the above is true, then the patch likely hasn't introduced any
+> regression, but also likely hasn't fixed the original KASAN problem.
+> 
+> Or are there alternative views?
 
-Applied to
+Indeed the fix looks bogus, and maybe better to revert.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Looking at the original syzkaller report again, it points rather to
+the *write* at the address 1, and it means not the source (silence[])
+but the target pointer (data) is invalid; i.e. it's a problem in the
+caller side, likely some race between the OSS temporary buffer removal
+and other operation.
 
-Thanks!
+Thanks for checking this.
 
-[1/1] ASoC: SOF: Compile and runtime IPC version selection
-      commit: 7ed1f83bb4f05fe460984ae49e98d1c1be38fb5f
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Takashi

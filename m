@@ -2,69 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 754C354A415
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jun 2022 04:06:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E12854A419
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jun 2022 04:06:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BB4EC1877;
-	Tue, 14 Jun 2022 04:05:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB4EC1877
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1211A1878;
+	Tue, 14 Jun 2022 04:06:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1211A1878
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655172400;
-	bh=2Z1+VyDmSP217IlxogHI6k4uHyug/J80iBfbbftIv3M=;
+	s=default; t=1655172418;
+	bh=sQibBj59stp4hCGLyB0NmNThh+E78SK0QzT/7J/IQME=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=W2ndWIvCCSAVd78fhYTzUR/kEUK/8ktycOApGNlf1NWVRwI12TF79TAWAD9yFY8Ca
-	 ieqvvWWxsFpLUWTDxEocNurdKjpgf3E/OUnu6+F8rhrFuSKn2gCUBoVw9JQsAQnkaE
-	 +T2H4CVcA16UUEBdn6hP9/XIPv5Ddmb/u0yRdiso=
+	b=WFQ/upYESnHnCyW4WBZAXyPMzUgFXYXaA+0o+NlH/Dn/IBvrMEHR67ma8z+zcFgm9
+	 aBcIL/VgD9ykeaqjB7WKujUKxShLOP1GILPIp1Kk8LHvMBahBY6AOG94092oDZk3yh
+	 nLQH3qmAQ4JK3VFzEMFZ8wEwKsRuCRqXhf2vCI/g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 62622F80535;
-	Tue, 14 Jun 2022 04:05:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4A65BF80536;
+	Tue, 14 Jun 2022 04:05:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E117FF80529; Tue, 14 Jun 2022 04:05:07 +0200 (CEST)
+ id EC604F80529; Tue, 14 Jun 2022 04:05:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C39A4F80217
- for <alsa-devel@alsa-project.org>; Tue, 14 Jun 2022 04:04:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C39A4F80217
+ by alsa1.perex.cz (Postfix) with ESMTPS id B1752F800D8
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jun 2022 04:05:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1752F800D8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="qv5Pzz0R"
+ header.b="KW4HDsY2"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6E29D60AD8;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 694F9B81698;
+ Tue, 14 Jun 2022 02:05:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0034C3411B;
  Tue, 14 Jun 2022 02:04:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4B57C34114;
- Tue, 14 Jun 2022 02:04:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1655172297;
- bh=2Z1+VyDmSP217IlxogHI6k4uHyug/J80iBfbbftIv3M=;
+ s=k20201202; t=1655172298;
+ bh=sQibBj59stp4hCGLyB0NmNThh+E78SK0QzT/7J/IQME=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=qv5Pzz0RvKnbC7m13Kh3aeo/9YE4supSLeENYWHt/cwYjbwwNu5hn7IbecnYDfQIZ
- JSgm8jGmXvasgd2CNNbG3izPrTNUoXrs10kfmZESicz/vJU+xGEHeZR9qfO3Wd+ME3
- UyT413hhr9o3wcXFL6zv4utIhW5tswm0sQDFSs504CmckV+e0m4BXU2NxBwK05XYPV
- oihVK5KuapA7Rnfw/5MUvPECwJYYSeM/+V+lXGdtf+ZKCdJF/RJYQwSMwVv4iwCfPX
- O23rpyvpN+oUb5ty3M0Q06Ns+FJJ+hik11izg6a8A2r+EXVPi02BYkbt+Akxf+RQ9z
- vtXwExcrCvyNg==
+ b=KW4HDsY25f/rN98tKUptgojiVXuebQe3gFYb2GxPguYYiP0xfAQp5vGvejBgFd7yd
+ p65Awq9cdVWNHZy4k9w+94+VwH1CRK6X5KwpFloA50FEbrM9QihaWe/BjuA1rVk43w
+ jWjp3h5gJGjmakmIDDKlWGk+KlzMmJ1VLes+OgVi/OQay3OavdJ4kFwJnUi1RrNs/j
+ kdyhguDYnGJQlDeV8HJceXsj1gQYoYYAajDbfPuxK9t/FdKwt6AXGynxsUD/IPmjS6
+ 5ba6gupRSAVu/uVWWlr44ZAZkFe1AyqdmVsE9hL5FO+uTmqfb7uZskEAgmYZgzW1bw
+ E4Y4r4/0b7RpA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.18 08/47] ASoC: Intel: cirrus-common: fix incorrect
- channel mapping
-Date: Mon, 13 Jun 2022 22:04:01 -0400
-Message-Id: <20220614020441.1098348-8-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.18 09/47] ASoC: cs42l52: Fix TLV scales for mixer
+ controls
+Date: Mon, 13 Jun 2022 22:04:02 -0400
+Message-Id: <20220614020441.1098348-9-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220614020441.1098348-1-sashal@kernel.org>
 References: <20220614020441.1098348-1-sashal@kernel.org>
@@ -72,11 +72,10 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- tiwai@suse.com, lgirdwood@gmail.com,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, xliu <xiang.liu@cirrus.com>,
- Brent Lu <brent.lu@intel.com>
+Cc: Sasha Levin <sashal@kernel.org>, brian.austin@cirrus.com,
+ Charles Keepax <ckeepax@opensource.cirrus.com>, alsa-devel@alsa-project.org,
+ tiwai@suse.com, lgirdwood@gmail.com, Paul.Handrigan@cirrus.com,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,102 +91,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: xliu <xiang.liu@cirrus.com>
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-[ Upstream commit d69a155555c9d57463b788c400f6b452d976bacd ]
+[ Upstream commit 8bf5aabf524eec61013e506f764a0b2652dc5665 ]
 
-The default mapping of ASPRX1 (DAC source) is slot 0. Change the slot
-mapping of right amplifiers (WR and TR) to slot 1 to receive right
-channel data. Also update the ACPI instance ID mapping according to HW
-configuration.
+The datasheet specifies the range of the mixer volumes as between
+-51.5dB and 12dB with a 0.5dB step. Update the TLVs for this.
 
-Signed-off-by: xliu <xiang.liu@cirrus.com>
-Signed-off-by: Brent Lu <brent.lu@intel.com>
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20220602051922.1232457-1-brent.lu@intel.com
+Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Link: https://lore.kernel.org/r/20220602162119.3393857-2-ckeepax@opensource.cirrus.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/intel/boards/sof_cirrus_common.c | 40 +++++++++++++++++++---
- 1 file changed, 36 insertions(+), 4 deletions(-)
+ sound/soc/codecs/cs42l52.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/intel/boards/sof_cirrus_common.c b/sound/soc/intel/boards/sof_cirrus_common.c
-index e71d74ec1b0b..f4192df962d6 100644
---- a/sound/soc/intel/boards/sof_cirrus_common.c
-+++ b/sound/soc/intel/boards/sof_cirrus_common.c
-@@ -54,22 +54,29 @@ static struct snd_soc_dai_link_component cs35l41_components[] = {
- 	},
- };
+diff --git a/sound/soc/codecs/cs42l52.c b/sound/soc/codecs/cs42l52.c
+index 80161151b3f2..785caba3f653 100644
+--- a/sound/soc/codecs/cs42l52.c
++++ b/sound/soc/codecs/cs42l52.c
+@@ -137,7 +137,7 @@ static DECLARE_TLV_DB_SCALE(mic_tlv, 1600, 100, 0);
  
-+/*
-+ * Mapping between ACPI instance id and speaker position.
-+ *
-+ * Four speakers:
-+ *         0: Tweeter left, 1: Woofer left
-+ *         2: Tweeter right, 3: Woofer right
-+ */
- static struct snd_soc_codec_conf cs35l41_codec_conf[] = {
- 	{
- 		.dlc = COMP_CODEC_CONF(CS35L41_DEV0_NAME),
--		.name_prefix = "WL",
-+		.name_prefix = "TL",
- 	},
- 	{
- 		.dlc = COMP_CODEC_CONF(CS35L41_DEV1_NAME),
--		.name_prefix = "WR",
-+		.name_prefix = "WL",
- 	},
- 	{
- 		.dlc = COMP_CODEC_CONF(CS35L41_DEV2_NAME),
--		.name_prefix = "TL",
-+		.name_prefix = "TR",
- 	},
- 	{
- 		.dlc = COMP_CODEC_CONF(CS35L41_DEV3_NAME),
--		.name_prefix = "TR",
-+		.name_prefix = "WR",
- 	},
- };
+ static DECLARE_TLV_DB_SCALE(pga_tlv, -600, 50, 0);
  
-@@ -101,6 +108,21 @@ static int cs35l41_init(struct snd_soc_pcm_runtime *rtd)
- 	return ret;
- }
+-static DECLARE_TLV_DB_SCALE(mix_tlv, -50, 50, 0);
++static DECLARE_TLV_DB_SCALE(mix_tlv, -5150, 50, 0);
  
-+/*
-+ * Channel map:
-+ *
-+ * TL/WL: ASPRX1 on slot 0, ASPRX2 on slot 1 (default)
-+ * TR/WR: ASPRX1 on slot 1, ASPRX2 on slot 0
-+ */
-+static const struct {
-+	unsigned int rx[2];
-+} cs35l41_channel_map[] = {
-+	{.rx = {0, 1}}, /* TL */
-+	{.rx = {0, 1}}, /* WL */
-+	{.rx = {1, 0}}, /* TR */
-+	{.rx = {1, 0}}, /* WR */
-+};
-+
- static int cs35l41_hw_params(struct snd_pcm_substream *substream,
- 			     struct snd_pcm_hw_params *params)
- {
-@@ -134,6 +156,16 @@ static int cs35l41_hw_params(struct snd_pcm_substream *substream,
- 				ret);
- 			return ret;
- 		}
-+
-+		/* setup channel map */
-+		ret = snd_soc_dai_set_channel_map(codec_dai, 0, NULL,
-+						  ARRAY_SIZE(cs35l41_channel_map[i].rx),
-+						  (unsigned int *)cs35l41_channel_map[i].rx);
-+		if (ret < 0) {
-+			dev_err(codec_dai->dev, "fail to set channel map, ret %d\n",
-+				ret);
-+			return ret;
-+		}
- 	}
+ static DECLARE_TLV_DB_SCALE(beep_tlv, -56, 200, 0);
  
- 	return 0;
+@@ -364,7 +364,7 @@ static const struct snd_kcontrol_new cs42l52_snd_controls[] = {
+ 			      CS42L52_ADCB_VOL, 0, 0xA0, 0x78, ipd_tlv),
+ 	SOC_DOUBLE_R_SX_TLV("ADC Mixer Volume",
+ 			     CS42L52_ADCA_MIXER_VOL, CS42L52_ADCB_MIXER_VOL,
+-				0, 0x19, 0x7F, ipd_tlv),
++				0, 0x19, 0x7F, mix_tlv),
+ 
+ 	SOC_DOUBLE("ADC Switch", CS42L52_ADC_MISC_CTL, 0, 1, 1, 0),
+ 
 -- 
 2.35.1
 

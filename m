@@ -2,85 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD13554AF4C
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jun 2022 13:28:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA1AB54AF53
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jun 2022 13:31:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E58FD174A;
-	Tue, 14 Jun 2022 13:27:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E58FD174A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 56E87174A;
+	Tue, 14 Jun 2022 13:30:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 56E87174A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655206125;
-	bh=Ph+TeqUgL1lm0WJUl1j6mtDLIHZYOZd+hMJ2hwJPJ1o=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1655206288;
+	bh=leaJ6nAwYGCUQkEJ5zBa1gi1CWbeyJ95WTvA1eeFRSc=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cSr3NEW8cNub7CPHVVt0I9VxJMiG7WQGSIobVVeXB48MfBnKdIHdwBXylZyz9jXPj
-	 p+XWQm2nuFLGN9wwNX42XCyK890qHptWd0CES37Kic2BJJDVz9Zzf6D38KJOChhrd5
-	 9O55USljuxIsWJgy0Ekl6tH0E5GD2Z7ez61sprNo=
+	b=beVUY045PWrG0MmwYGDRYs5MgPE4mTJXLcqsOiXetPtMQzK1T2P5BA9z0MB7Iojm8
+	 bl+JWgUIQpQ36Y/+R9Y+eQmAwxIpQNSLSITPAQMuEOKgh7KjkemoQuZAFOdPu3idUP
+	 kEsltyCwNalUI1tcGn94supw4yvV3u8LsKsngO+8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4105FF800E1;
-	Tue, 14 Jun 2022 13:27:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CDA72F80165;
+	Tue, 14 Jun 2022 13:30:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 76EF4F80139; Tue, 14 Jun 2022 13:27:43 +0200 (CEST)
+ id DFD06F800E1; Tue, 14 Jun 2022 13:30:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [IPv6:2a00:1450:4864:20::52f])
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [IPv6:2a00:1450:4864:20::42c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 361FBF8012B
- for <alsa-devel@alsa-project.org>; Tue, 14 Jun 2022 13:27:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 361FBF8012B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 99F77F800E1
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jun 2022 13:30:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99F77F800E1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="qTuHeZTL"
-Received: by mail-ed1-x52f.google.com with SMTP id b8so11133433edj.11
- for <alsa-devel@alsa-project.org>; Tue, 14 Jun 2022 04:27:36 -0700 (PDT)
+ header.b="MtIL12FT"
+Received: by mail-wr1-x42c.google.com with SMTP id h5so10906618wrb.0
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jun 2022 04:30:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Ph+TeqUgL1lm0WJUl1j6mtDLIHZYOZd+hMJ2hwJPJ1o=;
- b=qTuHeZTLmMq3jvfmytQ706f1oEr964PZB4oN6WBOcjzVCWbyxrGvFEYq50kvJBQBRc
- ZD7dIw0K13qSia6MxbWKhSFOSb3dEaFNZNYOIHkWNKHWptwV0zBn/VsMsPCvbW6EHQd6
- V7hjA2tl7aM3ChqCOoQrmzYTuj5obPKI6g6OLoNx9NI/C79pLEgrXH6axeAHUsCayG+f
- 5levcJFvgj8/s1RHneBl+hrkSHLnjImXF3tQkjSCtdSt2XCOt9wCRAk+BzC0jGjCV3f7
- 5h4kPnJQaLBRDfEVr6FH2QEeZKUxaL7SlZW4sVyfcuf4wiEbq8ysWb0WJ9S7o77gBtbY
- Aeag==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=6fDkQC8ZKVocu1dwyc/psG+b89yWGBNWOILFDwfgnUw=;
+ b=MtIL12FTuJLbgfojZkdiHK2wuuXZukt1C8rtMBGRtkseg9nG3Dl2xlSUSmBKiGHiHW
+ KrDSL0uDk0ugVeO/B/S3mFMfpN3TQqMrq+ZxAmF8h9OpeoVU06DBJ8C0IAdo3mm1uhP2
+ HMJgbIsqRADUfnNYNC6p1e+v2kR/Jd/E3b9Kbt2ked5zeQaYXcquj5bEZdCDBYXmlFwz
+ IQvPcqIXnDQwYyvoShiDS5RQbXpmfAvMIX5HZiqo3MfYq3n42B2aw4Oqy4ED03baNz+J
+ geycRa52J5H6Rf4W5rmzI+NEOP7TEqP1rwYXTfPwZpu9FJ+QjbJ+17H6/HhAHLuM7K3m
+ wZCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Ph+TeqUgL1lm0WJUl1j6mtDLIHZYOZd+hMJ2hwJPJ1o=;
- b=eU/DWNsyBEaYzl/xU5WaNXVuYjrBxm+A5Kv3PDv6GRA6Tr7+okm2dpRSgBFpiyKp68
- us3XkYtlvkEp/+utkCRge1o2pxpyzwjn7/DV27r/amyUAY/LCwMUh92XEF+XvlcNBR8s
- sB8FGmkb3iRQsWT3ld2c7aNyG4xm7vyyJ+7T85zturATOXXNHxu0a9/BMrX1re2WMPiT
- s3bF8pL4mIC8iuUWI13O1/UKsYcxy2By7q1PtvP22yYPuTDisk4mMZCxImoW2Tu2Dmob
- YLeOFB1O+7tvyU1mf3m67ewk+B/XXmGkmdWw776b9gxPKcXTex1EjZyj81MXxsVQEtwj
- RR+g==
-X-Gm-Message-State: AJIora9ZYNAJQUDWvsqzwIHEZkZgaiiYll/QQgNFKEqHErdfbJTlp/Jn
- LY9gbHmEwO2YlCLvah8rX2c0gYQRk5ZuV8Kx1Hw=
-X-Google-Smtp-Source: AGRyM1vfZ0JYnIzqOV2YYs2V9VppoNybSpBd2EyUGbTSfHHdR2dHfu9G1jn5mU+scJi1UyrRSiGAFJPM4H2V+RMuBuA=
-X-Received: by 2002:a05:6402:1cc2:b0:434:f631:d7f3 with SMTP id
- ds2-20020a0564021cc200b00434f631d7f3mr5368000edb.171.1655206055241; Tue, 14
- Jun 2022 04:27:35 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=6fDkQC8ZKVocu1dwyc/psG+b89yWGBNWOILFDwfgnUw=;
+ b=HBY82ETzqn2Iad5bR1jf3jwepaCxGkNoqMynLJqC6nzPSbmJEKGmt/qfyc5ChJgTkR
+ KvrITHiYn/L9pLfHb6HgOssaDGQxBDV89J6aWDOUb1gmOCEv7+9mnCadMp7Qrv2Y+bXZ
+ 7KdXiDrEtAmJjyP9zMtsvZAmoMQEiFWcHS87UuzdMcQCvh/dIOMRH4SCXaBdZ5z+B7ad
+ gLrlZ9Yqq51REYBQWbqmcTnXJS+X5eagpaq2QR6FXuclps9enO4LFObvS77e2ZylHg4A
+ J53+lfRXFtkcIM5uqBaJGL2WGQMYTWVCyE97jUvYz5rETbqvT0mKSMeHfWXp8kyyix71
+ Q/1w==
+X-Gm-Message-State: AJIora/Wy0va0BfcGmaqINQ6qXyFp2ql1bAb5d8BnEz8nlN5VvNKMZX6
+ 7NxfW+nJkJLfDd2Ufqs95Lw=
+X-Google-Smtp-Source: AGRyM1tIevNzKqQswlssBhpM+Qg3bjIy5LYWxiEf8JjfuqQgiwc3BcJ8GkK4jB1BXhhGtLPilyTKBA==
+X-Received: by 2002:a05:6000:a10:b0:21a:14e2:794 with SMTP id
+ co16-20020a0560000a1000b0021a14e20794mr4573888wrb.428.1655206216031; 
+ Tue, 14 Jun 2022 04:30:16 -0700 (PDT)
+Received: from opensuse.localnet (host-87-16-96-199.retail.telecomitalia.it.
+ [87.16.96.199]) by smtp.gmail.com with ESMTPSA id
+ i8-20020adffc08000000b0020c5253d8d0sm11365134wrr.28.2022.06.14.04.30.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Jun 2022 04:30:14 -0700 (PDT)
+From: "Fabio M. De Francesco" <fmdefrancesco@gmail.com>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH] ALSA: pcm: Test for "silence" field in struct
+ "pcm_format_data"
+Date: Tue, 14 Jun 2022 13:30:13 +0200
+Message-ID: <8079585.T7Z3S40VBb@opensuse>
+In-Reply-To: <87y1xzplj1.wl-tiwai@suse.de>
+References: <20220409012655.9399-1-fmdefrancesco@gmail.com>
+ <2245197.ElGaqSPkdT@opensuse> <87y1xzplj1.wl-tiwai@suse.de>
 MIME-Version: 1.0
-References: <20220614101546.1559434-1-s.hauer@pengutronix.de>
-In-Reply-To: <20220614101546.1559434-1-s.hauer@pengutronix.de>
-From: Fabio Estevam <festevam@gmail.com>
-Date: Tue, 14 Jun 2022 08:27:26 -0300
-Message-ID: <CAOMZO5D0JmudCLKh72pcwXhtfciGTDJev8yys8P4H1BWEO_BnA@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: fsl_asrc_dma: fully initialize structs
-To: Sascha Hauer <s.hauer@pengutronix.de>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
- Shengjiu Wang <shengjiu.wang@gmail.com>, Sascha Hauer <kernel@pengutronix.de>,
- Xiubo Li <Xiubo.Lee@gmail.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Cc: alsa-devel@alsa-project.org, Eugeniu Rosca <roscaeugeniu@gmail.com>,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ syzbot+205eb15961852c2c5974@syzkaller.appspotmail.com,
+ Mark Brown <broonie@kernel.org>, naveenkumar.sunkari@in.bosch.com,
+ Eugeniu Rosca <erosca@de.adit-jv.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,16 +107,108 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Sascha,
+On marted=C3=AC 14 giugno 2022 12:49:38 CEST Takashi Iwai wrote:
+> On Tue, 14 Jun 2022 12:43:16 +0200,
+> Fabio M. De Francesco wrote:
+> >=20
+> > On marted=C3=AC 14 giugno 2022 11:58:51 CEST Eugeniu Rosca wrote:
+> > > Hello Fabio, hello All,
+> > >=20
+> > > On Sa, Apr 09, 2022 at 03:26:55 +0200, Fabio M. De Francesco wrote:
+> > > > Syzbot reports "KASAN: null-ptr-deref Write in
+> > > > snd_pcm_format_set_silence".[1]
+> > > >=20
+> > > > It is due to missing validation of the "silence" field of struct
+> > > > "pcm_format_data" in "pcm_formats" array.
+> > > >=20
+> > > > Add a test for valid "pat" and, if it is not so, return -EINVAL.
+> > > >=20
+> > > > [1] https://lore.kernel.org/lkml/
+> > 000000000000d188ef05dc2c7279@google.com/
+> > > >=20
+> > > > Reported-and-tested-by:=20
+> > syzbot+205eb15961852c2c5974@syzkaller.appspotmail.com
+> > > > Signed-off-by: Fabio M. De Francesco <fmdefrancesco@gmail.com>
+> > > > ---
+> > > >=20
+> > > > I wasn't able to figure out the commit for the "Fixes:" tag. If=20
+this=20
+> > patch
+> > > > is good, can someone please help with providing this missing=20
+> > information?
+> > > >=20
+> > > >  sound/core/pcm_misc.c | 2 +-
+> > > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > > >=20
+> > > > diff --git a/sound/core/pcm_misc.c b/sound/core/pcm_misc.c
+> > > > index 4866aed97aac..5588b6a1ee8b 100644
+> > > > --- a/sound/core/pcm_misc.c
+> > > > +++ b/sound/core/pcm_misc.c
+> > > > @@ -433,7 +433,7 @@ int snd_pcm_format_set_silence(snd_pcm_format_t=
+=20
+> > format, void *data, unsigned int
+> > > >  		return 0;
+> > > >  	width =3D pcm_formats[(INT)format].phys; /* physical width */
+> > > >  	pat =3D pcm_formats[(INT)format].silence;
+> > > > -	if (! width)
+> > > > +	if (!width || !pat)
+> > > >  		return -EINVAL;
+> > > >  	/* signed or 1 byte data */
+> > > >  	if (pcm_formats[(INT)format].signd =3D=3D 1 || width <=3D 8) {
+> > >=20
+> > > JFYI, PVS-Studio 7.19 reports:
+> > >=20
+> > > sound/core/pcm_misc.c	409	warn	V560 A part of=20
+> > conditional expression is always false: !pat.
+> >=20
+> > Sorry, I assumed (wrongly!) that when we have
+> >=20
+> > static const struct pcm_format_data=20
+> > pcm_formats[(INT)SNDRV_PCM_FORMAT_LAST+1] =3D {
+> > 	[SNDRV_PCM_FORMAT_S8] =3D {
+> > 		.width =3D 8, .phys =3D 8, .le =3D -1, .signd =3D 1,
+> > 		.silence =3D {},
+> > 	},
+> > 	[snip]
+> > 	/* FIXME: the following two formats are not defined properly yet=20
+> > */
+> > 	[SNDRV_PCM_FORMAT_MPEG] =3D {
+> > 		.le =3D -1, .signd =3D -1,
+> > 	},
+> > 	[SNDRV_PCM_FORMAT_GSM] =3D {
+> > 		.le =3D -1, .signd =3D -1,
+> > 	},
+> >=20
+> > pointer "silence", and then "pat", must be NULL.
+>=20
+> Oh right, those are missing ones.  I haven't realized that those
+> formats are allowed by PCM OSS layer.
+>=20
+> Practically seen, those formats have never been used in reality, and
+> we may consider dropping them completely to plug such holes...
+>=20
+Does it imply that my argument is correct or my "fix" can't yet catch those=
+=20
+missing ones?
 
-On Tue, Jun 14, 2022 at 7:15 AM Sascha Hauer <s.hauer@pengutronix.de> wrote:
->
-> The driver uses two statically ininitialized struct dma_slave_config,
-> but only one of them is initialized to zero. Initialize config_be to
-> zero as well to make sure that no fields are filled with random values.
-> Let the compiler do this instead of explicitly calling memset() which
-> makes it easier to read.
->
-> Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+Besides the question above, I want to notice that we have one more /* FIXME=
+=20
+*/ entry...
 
-Reviewed-by: Fabio Estevam <festevam@gmail.com>
+/* FIXME: the following format is not defined properly yet */
+	[SNDRV_PCM_FORMAT_SPECIAL] =3D {
+		.le =3D -1, .signd =3D -1,
+	},
+
+If you want I can get rid of those three entries if you confirm they can=20
+safely be deleted. In a second patch I can also remove that unnecessary=20
+check for valid "pat".
+
+Please let me know.
+
+Thanks,
+
+=46abio
+
+
+

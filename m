@@ -2,69 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC89554A522
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jun 2022 04:14:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9297054A525
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jun 2022 04:15:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 500FB18CA;
-	Tue, 14 Jun 2022 04:13:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 500FB18CA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2667E18E4;
+	Tue, 14 Jun 2022 04:14:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2667E18E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655172883;
-	bh=XOI0c77YmpwmB73ozt+1WFSrwCF5nxhWw69Zwe/maM0=;
+	s=default; t=1655172927;
+	bh=Wb9zf+MdbLEL6269vRZQ5BnfGJNFA8u3ASZMRlx1A2o=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=p10Ubqq2ML0CteI4zS5TEX2g61zYHvAF7Zl1pUNshUYShdxvEDx2sRmhTch1QyNBE
-	 kxrfLUwVZ5bC3Ursfyh3l2PH364F92dSRI2fAypy3c0+a3R9whw/p/zjTHLGnTj8Gi
-	 ic6PnnijYKJBOYpIAoFgZIWBC2bZLUUC+5KA7aBg=
+	b=rvh9K9CSso8khcltAldcQGXf+WYF4+5W2TNHYUk0TgKXiyFVLkzfPp03kvaDwND8c
+	 Qp101dpO5xQ4UJ0v7/x0KgjvroNnqdsuyjqPZBBiv233gvzeKr2Z+qMZFvT0OArtle
+	 lN1DMi43l78+qP5ZxcP05D1/UqOB/6J5smoeDglY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A71BBF805FD;
-	Tue, 14 Jun 2022 04:07:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AFD6AF80604;
+	Tue, 14 Jun 2022 04:07:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 61DEEF805FC; Tue, 14 Jun 2022 04:07:41 +0200 (CEST)
+ id 3F0F5F805FE; Tue, 14 Jun 2022 04:07:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2DE44F805FA
- for <alsa-devel@alsa-project.org>; Tue, 14 Jun 2022 04:07:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DE44F805FA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 39C8DF80548
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jun 2022 04:07:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39C8DF80548
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="DQ93gpki"
+ header.b="aRZ9vPQY"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id BB2BCB80AC1;
- Tue, 14 Jun 2022 02:07:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7533DC3411B;
- Tue, 14 Jun 2022 02:07:36 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id B286260EF0;
+ Tue, 14 Jun 2022 02:07:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13AECC385A2;
+ Tue, 14 Jun 2022 02:07:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1655172457;
- bh=XOI0c77YmpwmB73ozt+1WFSrwCF5nxhWw69Zwe/maM0=;
+ s=k20201202; t=1655172459;
+ bh=Wb9zf+MdbLEL6269vRZQ5BnfGJNFA8u3ASZMRlx1A2o=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=DQ93gpkiVrcHtXUSni+9xQIzG5cXHe8sL19I6/yJqlJEJaEDbyCl5pzKsbhgIjhR6
- hFIxgDo414kUfH9FubO8JjYQ/tc4u8OeyWEPSkSse8MIcG7AUL6fYyI0wM7LnpTdIR
- Hip5WoTDle4BLGHgfg9M0Go9YPXowEOv+5EdjmLiBF5IUmX0EbAgqKSnKuaprb0vqF
- LAwI8FqwH+O2+MRzFyl5ELy85DXc5Kqn5Qu+KakO5yUOicQ7vN/3VANmuUi+5FEVTV
- 1/e2LTOwNQZnX5DiDeWz5TCLBkM381t6S07QMsHntI5eVozezfskTLOoVgM5kqfdN/
- iPWUP55+/KikA==
+ b=aRZ9vPQYGGojsa6O3Z0EPaWAGrqpkkF4xZ49bwMYgew9BEqv5BU7MpSBQP7TG8pBl
+ 0ihtS4tnNLU35bhfVdWoLwW7hfkEj9lzsnrTg4VIpC+n1rVDKNd3pvg/IFM+i6+dMd
+ 1pGkqBSABEHLFv/Q9ee8D1k5V2l6kgvdLIyNsHRspcrQy37TT59T5wxcDuxEWUo6dm
+ SUJW4SOHNYAEy0zJ9UJYjbeUNEQZBZ7+IwHkax3JHqvhVVaQPMifCts8c7WVgAQpoO
+ SpozCCuYX5FXmryXSbUknkg1J9A0z3vPMtOVXcawDzBNJ/6Xs3xQMhhp6sWCauemlu
+ rEneP9rrJGi5g==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 17/41] ASoC: es8328: Fix event generation for
- deemphasis control
-Date: Mon, 13 Jun 2022 22:06:42 -0400
-Message-Id: <20220614020707.1099487-17-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 18/41] ASoC: wm_adsp: Fix event generation for
+ wm_adsp_fw_put()
+Date: Mon, 13 Jun 2022 22:06:43 -0400
+Message-Id: <20220614020707.1099487-18-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220614020707.1099487-1-sashal@kernel.org>
 References: <20220614020707.1099487-1-sashal@kernel.org>
@@ -73,7 +73,8 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- tiwai@suse.com, lgirdwood@gmail.com, Mark Brown <broonie@kernel.org>
+ patches@opensource.wolfsonmicro.com, tiwai@suse.com, lgirdwood@gmail.com,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,43 +92,35 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Mark Brown <broonie@kernel.org>
 
-[ Upstream commit 8259610c2ec01c5cbfb61882ae176aabacac9c19 ]
+[ Upstream commit 2abdf9f80019e8244d3806ed0e1c9f725e50b452 ]
 
-Currently the put() method for the deemphasis control returns 0 when a new
-value is written to the control even if the value changed, meaning events
-are not generated. Fix this, skip the work of updating the value when it is
-unchanged and then return 1 after having done so.
+Currently wm_adsp_fw_put() returns 0 rather than 1 when updating the value
+of the control, meaning that no event is generated to userspace. Fix this
+by setting the default return value to 1, the code already exits early with
+a return value of 0 if the value is unchanged.
 
 Signed-off-by: Mark Brown <broonie@kernel.org>
-Link: https://lore.kernel.org/r/20220603123937.4013603-1-broonie@kernel.org
+Reviewed-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+Link: https://lore.kernel.org/r/20220603115003.3865834-1-broonie@kernel.org
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/es8328.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ sound/soc/codecs/wm_adsp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/es8328.c b/sound/soc/codecs/es8328.c
-index 9632afc2d4d6..ca3b1c00fa78 100644
---- a/sound/soc/codecs/es8328.c
-+++ b/sound/soc/codecs/es8328.c
-@@ -161,13 +161,16 @@ static int es8328_put_deemph(struct snd_kcontrol *kcontrol,
- 	if (deemph > 1)
- 		return -EINVAL;
+diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
+index f7c800927cb2..08fc1a025b1a 100644
+--- a/sound/soc/codecs/wm_adsp.c
++++ b/sound/soc/codecs/wm_adsp.c
+@@ -794,7 +794,7 @@ int wm_adsp_fw_put(struct snd_kcontrol *kcontrol,
+ 	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
+ 	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
+ 	struct wm_adsp *dsp = snd_soc_component_get_drvdata(component);
+-	int ret = 0;
++	int ret = 1;
  
-+	if (es8328->deemph == deemph)
-+		return 0;
-+
- 	ret = es8328_set_deemph(component);
- 	if (ret < 0)
- 		return ret;
- 
- 	es8328->deemph = deemph;
- 
--	return 0;
-+	return 1;
- }
- 
- 
+ 	if (ucontrol->value.enumerated.item[0] == dsp[e->shift_l].fw)
+ 		return 0;
 -- 
 2.35.1
 

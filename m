@@ -2,68 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F06354AE46
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jun 2022 12:26:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8160354AE47
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jun 2022 12:26:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 118DF17C9;
-	Tue, 14 Jun 2022 12:25:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 118DF17C9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6420A1838;
+	Tue, 14 Jun 2022 12:26:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6420A1838
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655202406;
-	bh=cN29pCVu1fdFS3tkH1//D2VHMIqIZryyXy+3UpwRphg=;
+	s=default; t=1655202415;
+	bh=99g8Fw9OTxxKNgdn/j7VfhLA6hv+UvRMsBMD01/lQGU=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=thTl/g3BtiuLtOZvbt4XhjyxlE67VQNoX+Vs3li46l4lV3QcC6BEyqSNWeaMT9qTq
-	 27QNPbt06QciGkJ9h9wLZCesAAoVFCFbrNYk2dHc/yapC4ysTaSbPAcjKZ5htsrTrm
-	 kEsHO+6AAp33rdY7lrFtAl4uE63c7HzjnV0k4e5g=
+	b=Ycn/9pS7NVzPPSSzXRlP1+GMajCO90n5lR3Hs4woGNbLXQjjrjKiIX4sMx0i+VWab
+	 DxzdagqJhCG6IjyMjnPLyiCmbiI1hIx6/1k+Rmf/znaAASPl4IEzft9TFIkoX+iKt6
+	 bBx1V2kskeVlH+V8INwu8SV6D1F9fw2H61Fxx7ZY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 13231F8051F;
-	Tue, 14 Jun 2022 12:25:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9C5CF80529;
+	Tue, 14 Jun 2022 12:25:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0334AF80246; Tue, 14 Jun 2022 12:25:15 +0200 (CEST)
+ id 027F5F80528; Tue, 14 Jun 2022 12:25:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 85CD8F80137
- for <alsa-devel@alsa-project.org>; Tue, 14 Jun 2022 12:25:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85CD8F80137
+ by alsa1.perex.cz (Postfix) with ESMTPS id 090D3F80217
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jun 2022 12:25:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 090D3F80217
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="tg3uPwlP"
+ header.b="fXfyjYnY"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 20AC2B8184A;
- Tue, 14 Jun 2022 10:25:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD418C3411B;
- Tue, 14 Jun 2022 10:25:09 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 9368CB8184C;
+ Tue, 14 Jun 2022 10:25:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CE77C3411E;
+ Tue, 14 Jun 2022 10:25:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1655202310;
- bh=cN29pCVu1fdFS3tkH1//D2VHMIqIZryyXy+3UpwRphg=;
+ s=k20201202; t=1655202312;
+ bh=99g8Fw9OTxxKNgdn/j7VfhLA6hv+UvRMsBMD01/lQGU=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=tg3uPwlPEcST66oS7WoXuS6WbTiOJ9LpvOECob7L3DZ2rIkqKP+9iPFzK+EN0xUjr
- RX7e15KNGTSf7D3UwX6puyQHzo/TfNLBsXaYcC0qma3VVakwzX8A3h+Ah36foVPz4S
- muh2uf9zappxGG9QHbQ/tfFQbN7YAxwIeIF12cFx6Imvh87EwEkzutSv+iCbttkm5h
- c4MYWo/eTa2KKa4fvatAMz1l2RNQw1tibcwuKxrfhVlV+pQRVCQFio6vljvD6RXndv
- zky/mpA8/nvbMOcz+JH69nSYSZQRyja6Ye0ReCbqIrIbTDR10HIzuqXCo3Rz6Gt8m9
- ev0rVDQWave9Q==
+ b=fXfyjYnYl7AHJ2j63ZRJgv7gR0oF5G7JG8GbFTOexGQ3lMFYWcHCorXLTE8Hsxk3e
+ /R2+Z/qN6UHRtA/QYXiFk6Q2OcTkSTC1Zy5jTiesURrbt+Sd2QhpXPpozsUjkdCUuO
+ FQ8PSsa4dN1Rmcv9ZETB11jAYejH5MMln4rFlpwKuc1F0ntN1Zboj7PyGdLKZ6skwo
+ 4dkk1aoDJQZMbw5vJIWoEjmOHsQiPxpfDyEWKzJFnG+3LsGoYwp8/fmP9gy+xcqE3I
+ KL5VT7s71Umx7d4WzgKZiTchsuLnmCG+8TXgFC0tTSuY27RvSSTndtc/bSIIyfmeMI
+ 3V22E8SuviEyg==
 From: Mark Brown <broonie@kernel.org>
 To: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org
-In-Reply-To: <20220610214504.42974-1-pierre-louis.bossart@linux.intel.com>
-References: <20220610214504.42974-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: Intel: hda-dai: enhance debug messages
-Message-Id: <165520230949.3607327.2834763347940935898.b4-ty@kernel.org>
-Date: Tue, 14 Jun 2022 11:25:09 +0100
+In-Reply-To: <20220610214601.43005-1-pierre-louis.bossart@linux.intel.com>
+References: <20220610214601.43005-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: reduce default verbosity of IPC logs
+Message-Id: <165520231097.3607327.14936258784984745064.b4-ty@kernel.org>
+Date: Tue, 14 Jun 2022 11:25:10 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -84,12 +84,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 10 Jun 2022 16:45:04 -0500, Pierre-Louis Bossart wrote:
-> The same message was added twice for dai and link_dma, remove the
-> latter one and add dai name and direction to better understand
-> problematic sequences.
+On Fri, 10 Jun 2022 16:46:01 -0500, Pierre-Louis Bossart wrote:
+> We currently log the initiation of an IPC as well at its success.
 > 
+> [ 3906.106987] kernel: sof-audio-pci-intel-tgl 0000:00:1f.3: ipc tx: 0x80010000: GLB_DAI_MSG: CONFIG
+> [ 3906.107189] kernel: sof-audio-pci-intel-tgl 0000:00:1f.3: ipc tx succeeded: 0x80010000: GLB_DAI_MSG: CONFIG
 > 
+> This is overkill in most cases, we already have a message thrown in
+> case of errors and have tracepoints enabled to check for IPC
+> duration. The only case where this might be useful is to check if
+> there is an interleaved IPC RX. Add a flag and only print those logs
+> if enabled.
+> 
+> [...]
 
 Applied to
 
@@ -97,8 +104,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: SOF: Intel: hda-dai: enhance debug messages
-      commit: 519d1130b66e000ce363ad82c0d61ae36a5392dc
+[1/1] ASoC: SOF: reduce default verbosity of IPC logs
+      commit: f7309dbe628d5c8653d5f3649ef05a65c9b88daf
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

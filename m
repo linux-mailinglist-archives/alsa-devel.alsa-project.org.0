@@ -2,68 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3943354A4B1
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jun 2022 04:10:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6669454A4AF
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jun 2022 04:10:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D2ACE185F;
-	Tue, 14 Jun 2022 04:09:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D2ACE185F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 10AB418AA;
+	Tue, 14 Jun 2022 04:09:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 10AB418AA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655172632;
-	bh=sQibBj59stp4hCGLyB0NmNThh+E78SK0QzT/7J/IQME=;
+	s=default; t=1655172614;
+	bh=4seMafuumCFqNw+bDTbGN5XERJrkspwfxmcEylUX7QY=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=E6sW+iE7uN2B9KuqVGZgMF94lgoGh+wr3l9L+ardH8PIAdrkXh4YOSHIuHz5Z3K6A
-	 rwQDdFDg96oBNYfgqNTxFKJCdNlsjL6AJWmECU6glWaCr0UWAA78Mza1OeSTwru3Ox
-	 bRnzKO0yZjUxx8nAF4ws6caon9iGjavhblD/1uFc=
+	b=fAylx9b9VZ30sRlWKJ+S0M0VlewII9+uu/5/T/fz/HADGRp/5iLMjuBKy7W3tJ7mD
+	 Xc+7uP+oWP5xpNgiSnlSIiMidh6eBShbCSwcxcZIy2/ynuRhuh409nDb9BDuU5xL7g
+	 jeoVmWrIVVtV+s01PRRHrwkuYWQVfn5bewf031mY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4F523F80246;
-	Tue, 14 Jun 2022 04:06:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BCF54F805AB;
+	Tue, 14 Jun 2022 04:06:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 42ED8F80538; Tue, 14 Jun 2022 04:06:22 +0200 (CEST)
+ id 0E204F80537; Tue, 14 Jun 2022 04:06:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1C039F80538
- for <alsa-devel@alsa-project.org>; Tue, 14 Jun 2022 04:06:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C039F80538
+ by alsa1.perex.cz (Postfix) with ESMTPS id CCC10F80537
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jun 2022 04:06:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CCC10F80537
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="fkuSh7GN"
+ header.b="TZUbvV0V"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id AAEB7B8169B;
- Tue, 14 Jun 2022 02:06:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58FE7C3411B;
- Tue, 14 Jun 2022 02:06:13 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 22765B8169E;
+ Tue, 14 Jun 2022 02:06:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCCBFC385A9;
+ Tue, 14 Jun 2022 02:06:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1655172374;
- bh=sQibBj59stp4hCGLyB0NmNThh+E78SK0QzT/7J/IQME=;
+ s=k20201202; t=1655172375;
+ bh=4seMafuumCFqNw+bDTbGN5XERJrkspwfxmcEylUX7QY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=fkuSh7GNlDljjemr0TfXxf++rOfuvmZd4EusRfkcAWOIYg4jHOg5R0hMc36uGXyX9
- aI+bP7hy50VeVlo2uaLgOPkZE5Bxk1WEUcluMHoEKLuF/WWRfto/3XWxNm0gKg4i3R
- PqtB1LRVEYwVUR3zA6RRHaFw0pTsFI3qURN9G/QGCPjtXgmvFDqTB0FgTLfLYejEJv
- /GPSkclrqUX0iAYWVxY1VPXAhXA+MQhQRv03sEmvWwP966j8iUIe1+nftUYgOaC77p
- 7dsC58eVRWvpvkIDiYZu0xGZLwnap5J3KrPU8pGrGpRztEShTPzchl7H+ZdojpEGEU
- np2FZF43uzM3w==
+ b=TZUbvV0VNqt7+5ubMlW8fsmjXjSLOJoWmBuh+NwgcdiAqqjT+a2l/FmvcsCbODfqu
+ a+EO203dN2KmHPyGstOdvg+Fo9Cxo2Qs25cJS/21yQDmDQ2uP0QmXbmgOwy5rRInrM
+ YdSxsSbuhszyHgLgiJe4UKwPhSsHiEusbzdYhYfebukRcKjcv20XioOB3/4LK3fpVt
+ /nRqawMaEPqN/SwN8e4zqiU/TnIWKXJY9amFE2OPS2TEj+40fjw6tVzbunzJAecj+x
+ yY39qg5HOKobnVoQpJq/BC0fugFOCceIVtuqDXri8LOR2qq3EbTe16LtWyfEGCgByl
+ iSxBjnvNBWtfQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.17 07/43] ASoC: cs42l52: Fix TLV scales for mixer
- controls
-Date: Mon, 13 Jun 2022 22:05:26 -0400
-Message-Id: <20220614020602.1098943-7-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.17 08/43] ASoC: cs35l36: Update digital volume TLV
+Date: Mon, 13 Jun 2022 22:05:27 -0400
+Message-Id: <20220614020602.1098943-8-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220614020602.1098943-1-sashal@kernel.org>
 References: <20220614020602.1098943-1-sashal@kernel.org>
@@ -92,41 +92,33 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-[ Upstream commit 8bf5aabf524eec61013e506f764a0b2652dc5665 ]
+[ Upstream commit 5005a2345825eb8346546d99bfe669f73111b5c5 ]
 
-The datasheet specifies the range of the mixer volumes as between
--51.5dB and 12dB with a 0.5dB step. Update the TLVs for this.
+The digital volume TLV specifies the step as 0.25dB but the actual step
+of the control is 0.125dB. Update the TLV to correct this.
 
 Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-Link: https://lore.kernel.org/r/20220602162119.3393857-2-ckeepax@opensource.cirrus.com
+Link: https://lore.kernel.org/r/20220602162119.3393857-3-ckeepax@opensource.cirrus.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/cs42l52.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/codecs/cs35l36.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/cs42l52.c b/sound/soc/codecs/cs42l52.c
-index 80161151b3f2..785caba3f653 100644
---- a/sound/soc/codecs/cs42l52.c
-+++ b/sound/soc/codecs/cs42l52.c
-@@ -137,7 +137,7 @@ static DECLARE_TLV_DB_SCALE(mic_tlv, 1600, 100, 0);
+diff --git a/sound/soc/codecs/cs35l36.c b/sound/soc/codecs/cs35l36.c
+index d83c1b318c1c..0accdb45ed72 100644
+--- a/sound/soc/codecs/cs35l36.c
++++ b/sound/soc/codecs/cs35l36.c
+@@ -444,7 +444,8 @@ static bool cs35l36_volatile_reg(struct device *dev, unsigned int reg)
+ 	}
+ }
  
- static DECLARE_TLV_DB_SCALE(pga_tlv, -600, 50, 0);
+-static DECLARE_TLV_DB_SCALE(dig_vol_tlv, -10200, 25, 0);
++static const DECLARE_TLV_DB_RANGE(dig_vol_tlv, 0, 912,
++				  TLV_DB_MINMAX_ITEM(-10200, 1200));
+ static DECLARE_TLV_DB_SCALE(amp_gain_tlv, 0, 1, 1);
  
--static DECLARE_TLV_DB_SCALE(mix_tlv, -50, 50, 0);
-+static DECLARE_TLV_DB_SCALE(mix_tlv, -5150, 50, 0);
- 
- static DECLARE_TLV_DB_SCALE(beep_tlv, -56, 200, 0);
- 
-@@ -364,7 +364,7 @@ static const struct snd_kcontrol_new cs42l52_snd_controls[] = {
- 			      CS42L52_ADCB_VOL, 0, 0xA0, 0x78, ipd_tlv),
- 	SOC_DOUBLE_R_SX_TLV("ADC Mixer Volume",
- 			     CS42L52_ADCA_MIXER_VOL, CS42L52_ADCB_MIXER_VOL,
--				0, 0x19, 0x7F, ipd_tlv),
-+				0, 0x19, 0x7F, mix_tlv),
- 
- 	SOC_DOUBLE("ADC Switch", CS42L52_ADC_MISC_CTL, 0, 1, 1, 0),
- 
+ static const char * const cs35l36_pcm_sftramp_text[] =  {
 -- 
 2.35.1
 

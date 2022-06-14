@@ -2,69 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4164C54A51E
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jun 2022 04:13:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 727E154A521
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jun 2022 04:14:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D70AA18BE;
-	Tue, 14 Jun 2022 04:12:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D70AA18BE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1311D18B7;
+	Tue, 14 Jun 2022 04:13:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1311D18B7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655172828;
-	bh=+PYrvTFnip/gg9TheCSfPkipohp84RZ+kbpGq3MpCVQ=;
+	s=default; t=1655172863;
+	bh=Hk15Ko+XriFcMJvHOag9fZWU72/YW9YpHBaQUG75oCY=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kVnYfjQ/zulv6QLvrPwECMHAhYUKCH4R1oUcIdg3KhGGwc4wBA6M3kukV/XzgupOk
-	 SRtV9W1GrGQIagutOF3deXoW8laWNGCPVMERYUrMyF0If2UqufSOuDiTLI/zwXSjWc
-	 cnsmqwlUWJ3fRby23TaIyhyz3XjHczFJnw1wt1hA=
+	b=V+k/8ARY3RO5mN3qjhf6OR6EbHMPcLufWQ0L6PN2wHd0kyp5leggkctkUpPvUqfLu
+	 UQOekhK02HrJbltQd/sOKKoXyJoiMPRuJwt3CXzc+8V44mKk8IgppEuCCMc59rNg4N
+	 9iIdoyFEOSSiMeK0LnPjxx9/aoRQXsA/v0vjU+e0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 962FAF805EE;
-	Tue, 14 Jun 2022 04:07:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B69C2F805EF;
+	Tue, 14 Jun 2022 04:07:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B3970F805E6; Tue, 14 Jun 2022 04:07:31 +0200 (CEST)
+ id 94BF2F805ED; Tue, 14 Jun 2022 04:07:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1C8E5F8053A
- for <alsa-devel@alsa-project.org>; Tue, 14 Jun 2022 04:07:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C8E5F8053A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6D8CDF80542
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jun 2022 04:07:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D8CDF80542
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="a86eNXtV"
+ dkim=fail reason="key not found in DNS" (0-bit key) header.d=kernel.org
+ header.i=@kernel.org header.b="GUxJDTlJ"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 7381260D58;
+ by ams.source.kernel.org (Postfix) with ESMTPS id D240CB80D19;
+ Tue, 14 Jun 2022 02:07:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3966C34114;
  Tue, 14 Jun 2022 02:07:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 196EEC3411B;
- Tue, 14 Jun 2022 02:07:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1655172446;
- bh=+PYrvTFnip/gg9TheCSfPkipohp84RZ+kbpGq3MpCVQ=;
+ s=k20201202; t=1655172447;
+ bh=Hk15Ko+XriFcMJvHOag9fZWU72/YW9YpHBaQUG75oCY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=a86eNXtVPKHKeXnY8L1Ib220lFPllZhYeh1nFgjmZv/6ysVmBSJdL5uSG3jrlO+qq
- wdcBz7Od+q04NS5LVdwgroTBZHovCWBWXiYzOo6Tu4p330yDA9UWu8+VQNYI3LbJlM
- cvyP4QWndmIhQwXjUpxsp6k6afYYOaFS44EgHeqyMCnaKMSHIjWsQvi3G3zkEtP1pR
- VpQLhSHfIaQaWp5fDlb1HdrfYGgYIcJpRMbFg3Q4QRW3TsJyPh3sc5tOEFlQGK+BZo
- cA9F9zQf44qSJkS0O04XTfSJYDWyXDD3q85hmxENNCpbEgo/vUuwn1CZMnHVkVc2gc
- WBkyVf1fm92xA==
+ b=GUxJDTlJ+bIl0L5wiEaYLoIQwLxF5r+90uKv5OMTeW5h3qyoWY0cAeipBXfGzFTIM
+ rwsxSt365v2PIqEZhHy/oJhxaVPVzvGM03LiJ/BcnYj1HqdToFCPH0sh+i2IG72V4Z
+ R3lsnJH6hXmZvnmdeNmGs/9rgZ7URQIOY93PmC8MX3+1CgeyZxeAVjyp7cCr9WOYGG
+ WADalKnMesTwlzeMHE0GaDkpr8H7yP7BiN2Dt0zlZfxrRF2HO0nzSQEaSEkupJ+aPi
+ sgoESGYnLUkAouRjgz9VHj0v9TKIcKAppau+HjvLU26PWHFFMQMeeE4hi2ZOoZCXB3
+ +Al1GMyNI15lQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 10/41] ASoC: cs42l52: Correct TLV for Bypass
- Volume
-Date: Mon, 13 Jun 2022 22:06:35 -0400
-Message-Id: <20220614020707.1099487-10-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 11/41] ASoC: cs42l56: Correct typo in minimum
+ level for SX volume controls
+Date: Mon, 13 Jun 2022 22:06:36 -0400
+Message-Id: <20220614020707.1099487-11-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220614020707.1099487-1-sashal@kernel.org>
 References: <20220614020707.1099487-1-sashal@kernel.org>
@@ -93,41 +92,37 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-[ Upstream commit 91e90c712fade0b69cdff7cc6512f6099bd18ae5 ]
+[ Upstream commit a8928ada9b96944cadd8b65d191e33199fd38782 ]
 
-The Bypass Volume is accidentally using a -6dB minimum TLV rather than
-the correct -60dB minimum. Add a new TLV to correct this.
+A couple of the SX volume controls specify 0x84 as the lowest volume
+value, however the correct value from the datasheet is 0x44. The
+datasheet don't include spaces in the value it displays as binary so
+this was almost certainly just a typo reading 1000100.
 
 Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-Link: https://lore.kernel.org/r/20220602162119.3393857-5-ckeepax@opensource.cirrus.com
+Link: https://lore.kernel.org/r/20220602162119.3393857-6-ckeepax@opensource.cirrus.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/cs42l52.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ sound/soc/codecs/cs42l56.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/codecs/cs42l52.c b/sound/soc/codecs/cs42l52.c
-index 785caba3f653..c19ad3c24702 100644
---- a/sound/soc/codecs/cs42l52.c
-+++ b/sound/soc/codecs/cs42l52.c
-@@ -137,6 +137,8 @@ static DECLARE_TLV_DB_SCALE(mic_tlv, 1600, 100, 0);
+diff --git a/sound/soc/codecs/cs42l56.c b/sound/soc/codecs/cs42l56.c
+index 3cf8a0b4478c..b39c25409c23 100644
+--- a/sound/soc/codecs/cs42l56.c
++++ b/sound/soc/codecs/cs42l56.c
+@@ -391,9 +391,9 @@ static const struct snd_kcontrol_new cs42l56_snd_controls[] = {
+ 	SOC_DOUBLE("ADC Boost Switch", CS42L56_GAIN_BIAS_CTL, 3, 2, 1, 1),
  
- static DECLARE_TLV_DB_SCALE(pga_tlv, -600, 50, 0);
+ 	SOC_DOUBLE_R_SX_TLV("Headphone Volume", CS42L56_HPA_VOLUME,
+-			      CS42L56_HPB_VOLUME, 0, 0x84, 0x48, hl_tlv),
++			      CS42L56_HPB_VOLUME, 0, 0x44, 0x48, hl_tlv),
+ 	SOC_DOUBLE_R_SX_TLV("LineOut Volume", CS42L56_LOA_VOLUME,
+-			      CS42L56_LOB_VOLUME, 0, 0x84, 0x48, hl_tlv),
++			      CS42L56_LOB_VOLUME, 0, 0x44, 0x48, hl_tlv),
  
-+static DECLARE_TLV_DB_SCALE(pass_tlv, -6000, 50, 0);
-+
- static DECLARE_TLV_DB_SCALE(mix_tlv, -5150, 50, 0);
- 
- static DECLARE_TLV_DB_SCALE(beep_tlv, -56, 200, 0);
-@@ -351,7 +353,7 @@ static const struct snd_kcontrol_new cs42l52_snd_controls[] = {
- 			      CS42L52_SPKB_VOL, 0, 0x40, 0xC0, hl_tlv),
- 
- 	SOC_DOUBLE_R_SX_TLV("Bypass Volume", CS42L52_PASSTHRUA_VOL,
--			      CS42L52_PASSTHRUB_VOL, 0, 0x88, 0x90, pga_tlv),
-+			      CS42L52_PASSTHRUB_VOL, 0, 0x88, 0x90, pass_tlv),
- 
- 	SOC_DOUBLE("Bypass Mute", CS42L52_MISC_CTL, 4, 5, 1, 0),
- 
+ 	SOC_SINGLE_TLV("Bass Shelving Volume", CS42L56_TONE_CTL,
+ 			0, 0x00, 1, tone_tlv),
 -- 
 2.35.1
 

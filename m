@@ -2,65 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DBBF54AEC2
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jun 2022 12:49:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4DCB54AECD
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jun 2022 12:50:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E1B1316FC;
-	Tue, 14 Jun 2022 12:48:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1B1316FC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7643416FC;
+	Tue, 14 Jun 2022 12:49:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7643416FC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655203770;
-	bh=YO1Op3mIvLGwlmRWEXF988xJ5uMSPfotPbWr7uvCz4E=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1655203849;
+	bh=6tlquX1a49B+CUlXKRfOB67CS0ET2f/peDg0gjMoTW8=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=K4vCEh/yBJKs8vSeBGn0GMYxz254vZlGdACn6KVXnswxtIIYI09bH3pYflwTTmz9N
-	 R879DPTb8y6d4yHgS6kPNYoTCOTBKZyXoDgWtCn5MD+1hQK8EXDIz62ocD7HSph945
-	 XxCs/BBl5BHaeQMHKI9IQje0PLiBLcQnOmnlU/Q0=
+	b=QWtaLyVZcCh5FnPuukiL37lDo25YH1TzsoBEhlU4omQ193vcapqnCErBlyr0EcPWt
+	 2MRYZFQ5apLQr7TCW8FzIEUMZ60GmIeYpIV4qFGmvQuXOgrscNMeqkKWl3xz4j+lSQ
+	 hDULnXnFBHvA4Lz/MWfVtftdo0RClAEA8mE/kUKE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 564E2F80165;
-	Tue, 14 Jun 2022 12:48:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1002CF80165;
+	Tue, 14 Jun 2022 12:49:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1F2AAF80139; Tue, 14 Jun 2022 12:48:30 +0200 (CEST)
+ id D4CBDF800D8; Tue, 14 Jun 2022 12:49:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from hi1smtp01.de.adit-jv.com (smtp1.de.adit-jv.com [93.241.18.167])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4D4FCF800D8
- for <alsa-devel@alsa-project.org>; Tue, 14 Jun 2022 12:48:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D4FCF800D8
-Received: from hi2exch02.adit-jv.com (hi2exch02.adit-jv.com [10.72.92.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by alsa1.perex.cz (Postfix) with ESMTPS id C8F30F800D8
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jun 2022 12:49:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8F30F800D8
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="wikKS2Wh"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="9ohBsH8u"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by hi1smtp01.de.adit-jv.com (Postfix) with ESMTPS id C8C5B520712;
- Tue, 14 Jun 2022 12:48:14 +0200 (CEST)
-Received: from lxhi-065 (10.72.94.27) by hi2exch02.adit-jv.com (10.72.92.28)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2308.27; Tue, 14 Jun
- 2022 12:48:14 +0200
-Date: Tue, 14 Jun 2022 12:48:09 +0200
-From: Eugeniu Rosca <erosca@de.adit-jv.com>
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 321F821A4A;
+ Tue, 14 Jun 2022 10:49:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1655203779; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=BRrQFXdCbyVpl82DrmdE8Gz3NAbhN9s8qRhd/Zc1x14=;
+ b=wikKS2WhWNH+VhmBbMHeWIzW+yoxaLMy0arjW2uaxUr7m6mQ5oIJwSxO1oNnktJQKweC0p
+ X5ylPzAwvO3l81eNIAoJ9TtjqIJBDSYObiFapp6k+DUBMW0kuvu0GJOPF0Q5zkRF2qFw+N
+ xjxeEVGKG6g+k+zZO6sybp5/yslZPTs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1655203779;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=BRrQFXdCbyVpl82DrmdE8Gz3NAbhN9s8qRhd/Zc1x14=;
+ b=9ohBsH8uzbnz/w94dMmwRbPZKJfCUXyTdAVHntYO+Ega88dqMIEIAW+sNqGz9l+/wIPN7M
+ jmjtml0FK2oOMiDw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1782B1361C;
+ Tue, 14 Jun 2022 10:49:39 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 18lkBcNnqGLuXwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 14 Jun 2022 10:49:39 +0000
+Date: Tue, 14 Jun 2022 12:49:38 +0200
+Message-ID: <87y1xzplj1.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
 To: "Fabio M. De Francesco" <fmdefrancesco@gmail.com>
 Subject: Re: [PATCH] ALSA: pcm: Test for "silence" field in struct
  "pcm_format_data"
-Message-ID: <20220614104809.GA4471@lxhi-065>
+In-Reply-To: <2245197.ElGaqSPkdT@opensuse>
 References: <20220409012655.9399-1-fmdefrancesco@gmail.com>
  <20220614095851.GA4199@lxhi-065> <2245197.ElGaqSPkdT@opensuse>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <2245197.ElGaqSPkdT@opensuse>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Originating-IP: [10.72.94.27]
-X-ClientProxiedBy: hi2exch02.adit-jv.com (10.72.92.28) To
- hi2exch02.adit-jv.com (10.72.92.28)
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
 Cc: alsa-devel@alsa-project.org, Eugeniu Rosca <roscaeugeniu@gmail.com>,
  linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
  syzbot+205eb15961852c2c5974@syzkaller.appspotmail.com,
@@ -81,9 +108,82 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dear Takashi, dear Fabio,
+On Tue, 14 Jun 2022 12:43:16 +0200,
+Fabio M. De Francesco wrote:
+> 
+> On martedì 14 giugno 2022 11:58:51 CEST Eugeniu Rosca wrote:
+> > Hello Fabio, hello All,
+> > 
+> > On Sa, Apr 09, 2022 at 03:26:55 +0200, Fabio M. De Francesco wrote:
+> > > Syzbot reports "KASAN: null-ptr-deref Write in
+> > > snd_pcm_format_set_silence".[1]
+> > > 
+> > > It is due to missing validation of the "silence" field of struct
+> > > "pcm_format_data" in "pcm_formats" array.
+> > > 
+> > > Add a test for valid "pat" and, if it is not so, return -EINVAL.
+> > > 
+> > > [1] https://lore.kernel.org/lkml/
+> 000000000000d188ef05dc2c7279@google.com/
+> > > 
+> > > Reported-and-tested-by: 
+> syzbot+205eb15961852c2c5974@syzkaller.appspotmail.com
+> > > Signed-off-by: Fabio M. De Francesco <fmdefrancesco@gmail.com>
+> > > ---
+> > > 
+> > > I wasn't able to figure out the commit for the "Fixes:" tag. If this 
+> patch
+> > > is good, can someone please help with providing this missing 
+> information?
+> > > 
+> > >  sound/core/pcm_misc.c | 2 +-
+> > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > > 
+> > > diff --git a/sound/core/pcm_misc.c b/sound/core/pcm_misc.c
+> > > index 4866aed97aac..5588b6a1ee8b 100644
+> > > --- a/sound/core/pcm_misc.c
+> > > +++ b/sound/core/pcm_misc.c
+> > > @@ -433,7 +433,7 @@ int snd_pcm_format_set_silence(snd_pcm_format_t 
+> format, void *data, unsigned int
+> > >  		return 0;
+> > >  	width = pcm_formats[(INT)format].phys; /* physical width */
+> > >  	pat = pcm_formats[(INT)format].silence;
+> > > -	if (! width)
+> > > +	if (!width || !pat)
+> > >  		return -EINVAL;
+> > >  	/* signed or 1 byte data */
+> > >  	if (pcm_formats[(INT)format].signd == 1 || width <= 8) {
+> > 
+> > JFYI, PVS-Studio 7.19 reports:
+> > 
+> > sound/core/pcm_misc.c	409	warn	V560 A part of 
+> conditional expression is always false: !pat.
+> 
+> Sorry, I assumed (wrongly!) that when we have
+> 
+> static const struct pcm_format_data 
+> pcm_formats[(INT)SNDRV_PCM_FORMAT_LAST+1] = {
+> 	[SNDRV_PCM_FORMAT_S8] = {
+> 		.width = 8, .phys = 8, .le = -1, .signd = 1,
+> 		.silence = {},
+> 	},
+> 	[snip]
+> 	/* FIXME: the following two formats are not defined properly yet 
+> */
+> 	[SNDRV_PCM_FORMAT_MPEG] = {
+> 		.le = -1, .signd = -1,
+> 	},
+> 	[SNDRV_PCM_FORMAT_GSM] = {
+> 		.le = -1, .signd = -1,
+> 	},
+> 
+> pointer "silence", and then "pat", must be NULL.
 
-Thank you for your prompt feedback.
-Please, keep me in the loop in case a revert/fix is submitted to LKML.
+Oh right, those are missing ones.  I haven't realized that those
+formats are allowed by PCM OSS layer.
 
-BR, Eugeniu.
+Practically seen, those formats have never been used in reality, and
+we may consider dropping them completely to plug such holes...
+
+
+Takashi

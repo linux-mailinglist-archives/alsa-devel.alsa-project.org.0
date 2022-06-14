@@ -2,73 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8160354AE47
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jun 2022 12:26:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20AA454AE4C
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jun 2022 12:27:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6420A1838;
-	Tue, 14 Jun 2022 12:26:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6420A1838
+	by alsa0.perex.cz (Postfix) with ESMTPS id ADDD61863;
+	Tue, 14 Jun 2022 12:26:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ADDD61863
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655202415;
-	bh=99g8Fw9OTxxKNgdn/j7VfhLA6hv+UvRMsBMD01/lQGU=;
+	s=default; t=1655202447;
+	bh=/4wjBN/XD9r9d8fn277nelFLTt+axEseUdjXrsmW1cU=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ycn/9pS7NVzPPSSzXRlP1+GMajCO90n5lR3Hs4woGNbLXQjjrjKiIX4sMx0i+VWab
-	 DxzdagqJhCG6IjyMjnPLyiCmbiI1hIx6/1k+Rmf/znaAASPl4IEzft9TFIkoX+iKt6
-	 bBx1V2kskeVlH+V8INwu8SV6D1F9fw2H61Fxx7ZY=
+	b=AJxMveWEYvrbDOQTQOaae+HzrMM9G/d0ZwEz/QznB0AtGWgIYIN0sLRnnLUcQSy4J
+	 09R1zICGUWUNLLqOcMyheSrsE7QHj7T7vdcnf5VJue0eqYPkgcnA1DDSSGa+BIfeh5
+	 yYKHXQRYUJddhne9/07+NVD1IVWgvOLfbL3dQ/7g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A9C5CF80529;
-	Tue, 14 Jun 2022 12:25:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D65CEF80536;
+	Tue, 14 Jun 2022 12:25:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 027F5F80528; Tue, 14 Jun 2022 12:25:16 +0200 (CEST)
+ id 92C22F8052F; Tue, 14 Jun 2022 12:25:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 090D3F80217
- for <alsa-devel@alsa-project.org>; Tue, 14 Jun 2022 12:25:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 090D3F80217
+ by alsa1.perex.cz (Postfix) with ESMTPS id 23CADF8052D
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jun 2022 12:25:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23CADF8052D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="fXfyjYnY"
+ header.b="JdeSQWXL"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 9368CB8184C;
- Tue, 14 Jun 2022 10:25:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CE77C3411E;
- Tue, 14 Jun 2022 10:25:11 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 054F460C97;
+ Tue, 14 Jun 2022 10:25:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1194C341C0;
+ Tue, 14 Jun 2022 10:25:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1655202312;
- bh=99g8Fw9OTxxKNgdn/j7VfhLA6hv+UvRMsBMD01/lQGU=;
+ s=k20201202; t=1655202314;
+ bh=/4wjBN/XD9r9d8fn277nelFLTt+axEseUdjXrsmW1cU=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=fXfyjYnYl7AHJ2j63ZRJgv7gR0oF5G7JG8GbFTOexGQ3lMFYWcHCorXLTE8Hsxk3e
- /R2+Z/qN6UHRtA/QYXiFk6Q2OcTkSTC1Zy5jTiesURrbt+Sd2QhpXPpozsUjkdCUuO
- FQ8PSsa4dN1Rmcv9ZETB11jAYejH5MMln4rFlpwKuc1F0ntN1Zboj7PyGdLKZ6skwo
- 4dkk1aoDJQZMbw5vJIWoEjmOHsQiPxpfDyEWKzJFnG+3LsGoYwp8/fmP9gy+xcqE3I
- KL5VT7s71Umx7d4WzgKZiTchsuLnmCG+8TXgFC0tTSuY27RvSSTndtc/bSIIyfmeMI
- 3V22E8SuviEyg==
+ b=JdeSQWXLchu9QxQUVDqhSTbVyAhOjuRuArsn0syriXa+9Qq9BrxzCpSbML5WI6MvX
+ rieOOwWnvg/qq0YjsQmfXXIgeK6bx8mQHr+Cp7jItHCN2TGh12ndouxY2FFFPOMzoV
+ OIj9Mb9xNVeeg7e7EYjwZAe452Iwx8BRu9WNpRbfAaEvucIA6+u0M2XLRpTQgF4owu
+ hkJKkhk4nlzqH98aZNLkIRN8piFSAYzExErE7j+l41MzNbTwRZ3EqFPXUSTgcaT58B
+ RjsjdaMcL3qclOjPvMSkjIE7/PkiKj4D6GIXIZdSp95ObCXd5jSt0nEnh7dDi9Gs33
+ rlAatUrbYIFqw==
 From: Mark Brown <broonie@kernel.org>
-To: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org
-In-Reply-To: <20220610214601.43005-1-pierre-louis.bossart@linux.intel.com>
-References: <20220610214601.43005-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: reduce default verbosity of IPC logs
-Message-Id: <165520231097.3607327.14936258784984745064.b4-ty@kernel.org>
-Date: Tue, 14 Jun 2022 11:25:10 +0100
+To: ckeepax@opensource.cirrus.com, samuel@sholland.org
+In-Reply-To: <20220613161552.481337-1-ckeepax@opensource.cirrus.com>
+References: <20220613161552.481337-1-ckeepax@opensource.cirrus.com>
+Subject: Re: [PATCH 1/2] ASoC: sun8i-codec: Partial revert to fix clock
+ specifiers
+Message-Id: <165520231251.3607327.1586830877046934824.b4-ty@kernel.org>
+Date: Tue, 14 Jun 2022 11:25:12 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, peter.ujfalusi@linux.intel.com,
- ranjani.sridharan@linux.intel.com
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org, jernej.skrabec@gmail.com, lgirdwood@gmail.com,
+ wens@csie.org, linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com,
+ linux-sunxi@lists.linux.dev
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,17 +88,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 10 Jun 2022 16:46:01 -0500, Pierre-Louis Bossart wrote:
-> We currently log the initiation of an IPC as well at its success.
+On Mon, 13 Jun 2022 17:15:51 +0100, Charles Keepax wrote:
+> Recent updates accidentally updated the clock producer/consumer
+> specifiers on this device as part of refactoring the CPU side of the DAI
+> links. However, this device sits on the CODEC side and shouldn't have
+> been updated. Partially revert the changes keeping the switch to the new
+> clock terminology but going back to the CODEC defines.
 > 
-> [ 3906.106987] kernel: sof-audio-pci-intel-tgl 0000:00:1f.3: ipc tx: 0x80010000: GLB_DAI_MSG: CONFIG
-> [ 3906.107189] kernel: sof-audio-pci-intel-tgl 0000:00:1f.3: ipc tx succeeded: 0x80010000: GLB_DAI_MSG: CONFIG
-> 
-> This is overkill in most cases, we already have a message thrown in
-> case of errors and have tracepoints enabled to check for IPC
-> duration. The only case where this might be useful is to check if
-> there is an interleaved IPC RX. Add a flag and only print those logs
-> if enabled.
 > 
 > [...]
 
@@ -104,8 +104,10 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: SOF: reduce default verbosity of IPC logs
-      commit: f7309dbe628d5c8653d5f3649ef05a65c9b88daf
+[1/2] ASoC: sun8i-codec: Partial revert to fix clock specifiers
+      commit: beb89d1d49e9ae1188356d6e37581e5f0b5f62b4
+[2/2] ASoC: mediatek: mt8186: Use new direct clock defines
+      commit: 845a215558647acd4290dd773b9c0de62c123335
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

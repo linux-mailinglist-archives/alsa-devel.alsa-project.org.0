@@ -2,88 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBE7654B522
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jun 2022 17:56:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 749DC54B56B
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jun 2022 18:09:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3F77A18B2;
-	Tue, 14 Jun 2022 17:55:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F77A18B2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1EAA0189C;
+	Tue, 14 Jun 2022 18:08:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1EAA0189C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655222160;
-	bh=PEw/I0GFA2u1JaLEch7NAXgwJOcld7cZ59IarRnGipA=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1655222984;
+	bh=f6KuiueIv/s3cr+8vOYyA2WSMzAJ801h4xLsZ5d4vCQ=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ghFxVNRA+LX2GnGVj8h4hjjEIRwqcg9vQk0T7CdXd2wpw0yRyOb8NEL37kMOU5BJd
-	 +Fw2UDln8c2C3u69v16eZAfK+16giaUA+njJo4SLOLLqVM+q30kQ40wrPgeihQuOgq
-	 Z32hvVwDfeqdtSxl3V07IWo30s7iuGlHz0QFr9y0=
+	b=Pq+8wg5fbyX6xlJI37qrDnSRk7A5jQghLXHy/zGFN2Zphb2swC4Bvb79UwZj1ph4V
+	 KgkjG7dq66WhXUuBq8U5dQeWgHEbcqADOsAc5TCe98DQkVR6wXAh8O5wHkO0fDLKVz
+	 RnMUWams+oJ4TV7ik9LKflbwADcFDuajAv5zTCI4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8CB28F80165;
-	Tue, 14 Jun 2022 17:55:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6DB0EF800E1;
+	Tue, 14 Jun 2022 18:08:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 439EAF80139; Tue, 14 Jun 2022 17:54:58 +0200 (CEST)
+ id 8C428F80139; Tue, 14 Jun 2022 18:08:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A45C8F800E1
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jun 2022 18:08:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A45C8F800E1
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="SFsM3wa7"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 98B53F800E1
- for <alsa-devel@alsa-project.org>; Tue, 14 Jun 2022 17:54:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98B53F800E1
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="emfKwq0Q"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655222092; x=1686758092;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=PEw/I0GFA2u1JaLEch7NAXgwJOcld7cZ59IarRnGipA=;
- b=emfKwq0QulWiUKGaGyu62+IHT+Q8HVJyeQiOFRw4s0nfpEOLzYbAucdG
- xjIe40xtlzRKXONQGeL5mRXIP43LuQ85X2XXUEuc6VrVlQmR0x3Tw6uaL
- LZYPOrx3ZgZVRPSD0SFBq6h68xYhtd1NZUkO5Hne1Oug3XKHEacgOYNki
- 2JrL5TWNHs1uu/ceihZjoFMdKWnh8m2oelGMtdv7wuqoJtjQL6osyTV4h
- 4NjQwSGYfH1l+ZSyGQUynd19M8LfJyXBJ7eHex4LkpVBdnwV56zo0psOd
- fBuMhgt3gb7ozDCo3huoAmi5FSOQkHSOkH8+J0q0jiOMAfoQFeM4R1UVx g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10378"; a="276203099"
-X-IronPort-AV: E=Sophos;i="5.91,300,1647327600"; d="scan'208";a="276203099"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jun 2022 08:54:46 -0700
-X-IronPort-AV: E=Sophos;i="5.91,300,1647327600"; d="scan'208";a="652115675"
-Received: from mburny-mobl1.amr.corp.intel.com (HELO [10.213.163.91])
- ([10.213.163.91])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jun 2022 08:54:45 -0700
-Message-ID: <5928a225-f355-47d7-c502-d95319ce447f@linux.intel.com>
-Date: Tue, 14 Jun 2022 10:54:44 -0500
+ by sin.source.kernel.org (Postfix) with ESMTPS id B0722CE1B26;
+ Tue, 14 Jun 2022 16:08:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA653C3411B;
+ Tue, 14 Jun 2022 16:08:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1655222909;
+ bh=f6KuiueIv/s3cr+8vOYyA2WSMzAJ801h4xLsZ5d4vCQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=SFsM3wa7t0y5/icGPA1hoiUopkaKXnX+CpJLFWVGwSkPa0Qa+k+fznmt3Y/IRdgAv
+ q8oKIyt45anZyqQnBVyf7ijXJq6aD/afzSsX8o5+rU9gr6xZ5V+HuklQOJGmJ02O0Y
+ cSjmb2RSEqIt4H8hR8+gpp846vKuDcYtjRxkzYo2vSYgygE61zxqjfvae9miPVaIcw
+ R1d5VXeNEg5F5q8bdxp5OCJheNQCGau0jUaC4Rz1bEpFy7OouEAR2F5n96+H9iEttu
+ DA/EbzPQhgJJzRGE5DdsGuQ6ZIq9VB64XOlNMizMza2KLLQQnU/d9z78AFcie0XVMp
+ J5oIbSkIiJoPQ==
+Date: Tue, 14 Jun 2022 17:08:24 +0100
+From: Mark Brown <broonie@kernel.org>
+To: David Owens <dowens@precisionplanting.com>
+Subject: Re: [PATCH] ASoC: ti: omap-mcbsp: duplicate sysfs failure after
+ PROBE_DEFER
+Message-ID: <YqiyeM2JkDxLIKDe@sirena.org.uk>
+References: <20220614155931.2706437-1-dowens@precisionplanting.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.9.1
-Subject: Re: [PATCH 2/2] ASoC: SOF: Intel: add trigger callback into
- sdw_callback
-Content-Language: en-US
-To: Greg KH <gregkh@linuxfoundation.org>
-References: <20220614070817.2508-1-yung-chuan.liao@linux.intel.com>
- <20220614070817.2508-3-yung-chuan.liao@linux.intel.com>
- <Yqg01aSixhBq9d4+@kroah.com>
- <3fd14acb-1de9-3fd8-81ab-27fee4a42b84@linux.intel.com>
- <Yqil3UDSmoXN3E9M@kroah.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <Yqil3UDSmoXN3E9M@kroah.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, vinod.koul@linaro.org, tiwai@suse.de,
- linux-kernel@vger.kernel.org, vkoul@kernel.org, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, sanyog.r.kale@intel.com,
- Bard Liao <yung-chuan.liao@linux.intel.com>, bard.liao@intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="GYvOB+ScB/4Az0wW"
+Content-Disposition: inline
+In-Reply-To: <20220614155931.2706437-1-dowens@precisionplanting.com>
+X-Cookie: DYSLEXICS OF THE WORLD, UNTIE!
+Cc: alsa-devel@alsa-project.org, linux-omap@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Peter Ujfalusi <peter.ujfalusi@gmail.com>,
+ Jarkko Nikula <jarkko.nikula@bitmer.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,86 +90,83 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+--GYvOB+ScB/4Az0wW
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+On Tue, Jun 14, 2022 at 10:59:31AM -0500, David Owens wrote:
 
->>>> @@ -809,6 +814,10 @@ void hda_set_dai_drv_ops(struct snd_sof_dev *sdev, struct snd_sof_dsp_ops *ops)
->>>>  		if (!hda_use_tplg_nhlt)
->>>>  			ipc4_data->nhlt = intel_nhlt_init(sdev->dev);
->>>>  
->>>> +#if IS_ENABLED(CONFIG_SND_SOC_SOF_INTEL_SOUNDWIRE)
->>>> +		sdw_callback.trigger = ipc4_be_dai_common_trigger;
->>>> +#endif
->>>
->>> #if should not be in .c files if at all possible.  Surely there's a
->>> better way here...
->>
->> we could use
->>
->> if (IS_ENABLED(CONFIG_SND_SOC_SOF_INTEL_SOUNDWIRE))
->>     sdw_callback.trigger = ipc4_be_dai_common_trigger;
->>
->> would that work?
-> 
-> It's more readable, right?  Also easier to maintain over time.
+> The call to sdma_pcm_platform_register() can return PROBE_DEFER, leading
+> to omap_mcbsp_init() being called multiple times.  sysfs node creation
+> fails in subsequent calls to omap_mcbsp_init(), which prevents
+> the driver from ever successfully probing.  The resulting errors can be
+> seen during boot:
+>=20
+> [    1.749328] sysfs: cannot create duplicate filename '/devices/platform=
+/68000000.ocp/49022000.mcbsp/max_tx_thres'
+> [    1.759643] CPU: 0 PID: 6 Comm: kworker/u2:0 Not tainted 5.18.0-yocto-=
+standard #1
+> [    1.767181] Hardware name: Generic OMAP36xx (Flattened Device Tree)
+> [    1.773498] Workqueue: events_unbound deferred_probe_work_func
+> [    1.779449]  unwind_backtrace from show_stack+0x10/0x14
+> [    1.784729]  show_stack from sysfs_warn_dup+0x4c/0x60
 
-yes, it's more readable, and that's no problem to update.
+Please think hard before including complete backtraces in upstream
+reports, they are very large and contain almost no useful information
+relative to their size so often obscure the relevant content in your
+message. If part of the backtrace is usefully illustrative (it often is
+for search engines if nothing else) then it's usually better to pull out
+the relevant sections.
 
-There's another #if IS_ENABLED( that we can replace by a if (IS_ENABLED
-in the same routine, that would make this routine less of an eyesore. I
-am not sure why we added all these #if, we can cleanup.
+> +++ b/sound/soc/ti/omap-mcbsp.c
+> @@ -1403,6 +1403,10 @@ static int asoc_mcbsp_probe(struct platform_device=
+ *pdev)
+>         mcbsp->dev =3D &pdev->dev;
+>         platform_set_drvdata(pdev, mcbsp);
+>=20
+> +       ret =3D sdma_pcm_platform_register(&pdev->dev, "tx", "rx");
+> +       if (ret)
+> +               return ret;
+> +
+>         ret =3D omap_mcbsp_init(pdev);
+>         if (ret)
+>                 return ret;
+> @@ -1412,13 +1416,9 @@ static int asoc_mcbsp_probe(struct platform_device=
+ *pdev)
+>                 omap_mcbsp_dai.capture.formats =3D SNDRV_PCM_FMTBIT_S16_L=
+E;
+>         }
+>=20
+> -       ret =3D devm_snd_soc_register_component(&pdev->dev,
+> +       return devm_snd_soc_register_component(&pdev->dev,
+>                                               &omap_mcbsp_component,
+>                                               &omap_mcbsp_dai, 1);
+> -       if (ret)
+> -               return ret;
+> -
+> -       return sdma_pcm_platform_register(&pdev->dev, "tx", "rx");
+>  }
 
- 	case SOF_INTEL_IPC4:
-	{
-		struct sof_ipc4_fw_data *ipc4_data = sdev->private;
+It's not clear to me how this fixes the problem, your commit message
+doesn't mention how?  I was expecting to see more error handling paths
+being added to unwind the sysfs allocation, or a conversion to devm.  As
+things stand it's not clear to me that the error won't persist in the
+case where we defer registering the component.
 
-		for (i = 0; i < ops->num_drv; i++) {
-			if (strstr(ops->drv[i].name, "DMIC")) {
-				ops->drv[i].ops = &ipc4_dmic_dai_ops;
-				continue;
-			}
-			if (strstr(ops->drv[i].name, "SSP")) {
-				ops->drv[i].ops = &ipc4_ssp_dai_ops;
-				continue;
-			}
-#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
-			if (strstr(ops->drv[i].name, "iDisp") ||
-			    strstr(ops->drv[i].name, "Analog") ||
-			    strstr(ops->drv[i].name, "Digital"))
-				ops->drv[i].ops = &ipc4_hda_dai_ops;
-#endif
-		}
+--GYvOB+ScB/4Az0wW
+Content-Type: application/pgp-signature; name="signature.asc"
 
-		if (!hda_use_tplg_nhlt)
-			ipc4_data->nhlt = intel_nhlt_init(sdev->dev);
+-----BEGIN PGP SIGNATURE-----
 
-#if IS_ENABLED(CONFIG_SND_SOC_SOF_INTEL_SOUNDWIRE)
-		sdw_callback.trigger = ipc4_be_dai_common_trigger;
-#endif
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmKosngACgkQJNaLcl1U
+h9DjFwf/WQifCpq8XeOlBLOAvgI3uxiABxHsqoRqe0WDdqyfOiIgCszt2Z77mioC
+FkYGfeIhUiG4PeQENR+LDpKgxL501Is0fRu6G9aRbrYvwRTgkrcA4zNp9nCGRvV/
+9KPONBkkWijwTbh63YuEWZphXpj6D0TcLbZumcIDe9eKwTV2+z95rGUckojuiWUD
+o47x/z9S/n93HwTPzCqFdeVwA8gAmzXYijiMfTRVwAE58ou1CHTd8oNiNQ6Rf/9X
+/dRziXIw6B51hzJH+Q1+18lgkaIrXqpldQ4n45xq5vjI5JEes12ZKK3f+Pyol/u9
+wXQfaVFQBQ9WO9pGNO4AEf3gUsAsSA==
+=DruB
+-----END PGP SIGNATURE-----
 
-		break;
-	}
-	default:
-		break;
-	}
-}
->> We try to keep this driver configurable, not all platforms require
->> SoundWire or HDaudio, and that 'sdw_callback' ops structure is
->> conditionally declared.
-> 
-> Perhaps don't conditionally declare that?  How much does it really save
-> to do that?
-
-It would force us to expose additional things that are only relevant for
-SoundWire, see the large block of code in hda.c
-
-https://elixir.bootlin.com/linux/latest/source/sound/soc/sof/intel/hda.c#L108
-
-We've been burned in the past by having too many things in a single
-configuration, so we try to allow for minimal builds that don't depend
-on other modules in sound/soc/codecs/, sound/pci/hda and
-drivers/soundwire - it also forces us to get the Kconfig dependencies right.
-
-if (IS_ENABLED()) is less invasive in that case.
-
-Thanks for your feedback
--Pierre
+--GYvOB+ScB/4Az0wW--

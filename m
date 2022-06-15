@@ -2,113 +2,126 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C20B54BF3E
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Jun 2022 03:29:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A22FC54C0D4
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Jun 2022 06:40:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E6E40195A;
-	Wed, 15 Jun 2022 03:28:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6E40195A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 01F89193F;
+	Wed, 15 Jun 2022 06:39:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 01F89193F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655256547;
-	bh=yQQ+qjE5bMoVuw36wzhZ5f3rO+hjLUmFCIKwBjhXpW0=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=VYXGHlG/VWC9MXUvQgDYbNv3KkTzBcJ/2l882hx4whh9ge9AimwCDw+0GgLeH8/z7
-	 rQwOeuxUCgKU5IOWGLkV6DVhWYwTPg8drWRqCvGB6Mrhhmvirua0IwpU6EeT3A3FIq
-	 fCEyXr3epLJQJB+QSX8EH49kBJ+Vt043yYmtoroA=
+	s=default; t=1655268007;
+	bh=EgeqyYS1anCluNLmC0dUglyY5eanDP829fhz5FWXMjs=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Cs6hQoMA3pKQT/5uTIo1cWQwpYmaw7En+bbDwNTOOVHINqfof7+whg2jxvxsLfiL5
+	 5iAJ58NVHpdIqUO6PzfrBloumyQsnbwBx7DMfih49UuF7Bo65xrhNqbz3Pflid3hZZ
+	 xJdhlWbn0EIDDEiVEZI2aYm4d1YKJVi6zFYmiXU4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 42916F80528;
-	Wed, 15 Jun 2022 03:27:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 700CAF8012B;
+	Wed, 15 Jun 2022 06:39:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 50DE5F80528; Wed, 15 Jun 2022 03:27:47 +0200 (CEST)
+ id 49517F80162; Wed, 15 Jun 2022 06:39:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
- [64.147.123.21])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2061b.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5b::61b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6D7CDF804B0
- for <alsa-devel@alsa-project.org>; Wed, 15 Jun 2022 03:27:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D7CDF804B0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 347E2F8012B
+ for <alsa-devel@alsa-project.org>; Wed, 15 Jun 2022 06:38:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 347E2F8012B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="UfN+ywYT"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="CjvdDfOv"
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.west.internal (Postfix) with ESMTP id 7355632009A3;
- Tue, 14 Jun 2022 21:27:38 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Tue, 14 Jun 2022 21:27:38 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=cc:cc:content-type:date:date:from:from:in-reply-to
- :in-reply-to:message-id:mime-version:references:reply-to:sender
- :subject:subject:to:to; s=fm2; t=1655256457; x=1655342857; bh=qX
- AlvhaK46hv0TIdkAPi1AoeYyTIvpjOQn5HCdOpeoo=; b=UfN+ywYTJHUQZGGwAW
- DLMzXNL68rWDh+SlI8LldIA51C+Ab80XlVqVHNwa3Qx2CbDESHCVlTo+sy0ZRS5g
- IxE7qJP2SYcvgNTJIPnXZ/FhjapbhHZNO+wED9Fa2TtSfDyAWxQWbCz8kPGn9srM
- 1s+0OCSjPeomTx8x9kZxzzpP0d5tgL+doUKTYiShtK5j25C9Jn3F5FHykrwCMDKx
- ClYpiW5xtME15gY1rjk1seNkINxhAKsvYnTx6QQo/aQ0ChjjH/jFac2m69dIc7xb
- /dVjwZddKHD8pJs/yCNbD8y7NkE6Kniifv99z8107jzNkesfCLM9MzS88Q7XItBV
- tSCg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
- :feedback-id:from:from:in-reply-to:in-reply-to:message-id
- :mime-version:references:reply-to:sender:subject:subject:to:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; t=1655256457; x=1655342857; bh=qXAlvhaK46hv0TIdkAPi1AoeYyTI
- vpjOQn5HCdOpeoo=; b=CjvdDfOvUja1MxXMsyx1W6nAREnctZ9pfN4W+aKF5aRM
- OoXc+1CLyeSqGaTX5ptRShC46uM+mm/qfW94q1IknXhb/hSTS/ti6DViTqesnBW/
- Ydku9YsXY+OOjYXMHt+s7mzzLA0iL0uhldPgTuE0Zy0bfCjBuKZZ7ZgcDuJsiK1J
- mScza8GtrxCN56TpaePsY9IqQyoIal+1KmXK0yCFduC8jAe4paPnhzm2FI3nfj44
- EFQf3f0cbOsW6Q3RmvRTxqHluC+XneLyLg3l4zr6R3QWTyDxlqzyuo5IWvrM1/hl
- Jbn82SIkcR08r/1fjSc3T6k/Oz9uk0P68IeC14wlZQ==
-X-ME-Sender: <xms:iTWpYrarb0q0k9jeWHmZeQwNnIYXPffptKTq8eq-N4kFZWznzPgbGQ>
- <xme:iTWpYqa8j23A71y955rCm5VGUw83nkOfOC12Blb4TZQTBOHakp8N8V6_Hht8kMRTE
- hxWQHcsJeEl0vg_BeI>
-X-ME-Received: <xmr:iTWpYt_OGJ7oabjn13J82LtCw2endWvztBBotL2dwwKl7MvgqbLMk7ZcnVMX5Bue3-8rGcqPq6zSyVknpmtH7LcKBBb-Mtq_>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedruddvtddggeduucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvfevuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepvfgrkhgr
- shhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhird
- hjpheqnecuggftrfgrthhtvghrnhepveeilefhudekffehkeffudduvedvfeduleelfeeg
- ieeljeehjeeuvdeghfetvedvnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghenucevlh
- hushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghs
- hhhisehsrghkrghmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:iTWpYhrb4_YOt2qmPdCxgTVZVAutmeRnf_5FOxDW1HKlG6DqQ-EFng>
- <xmx:iTWpYmpqGZqYg_iivdUvhu2Ivf4ME1YNXtRD1HzcMiyzgXiceE9OGw>
- <xmx:iTWpYnQnDPlYyk7Ea7XiVDMxY1P9UpovUDGOmfeYMMMgIV0InX9UTA>
- <xmx:iTWpYpWHfkxIf93PcAAlHI6VLnEXK4JMY2VVqb7Tle74yAg60I3BkA>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 14 Jun 2022 21:27:35 -0400 (EDT)
-Date: Wed, 15 Jun 2022 10:27:33 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH] firewire: cdev: fix potential leak of kernel stack due
- to uninitialized value
-Message-ID: <Yqk1hXsJ3DMtfEJS@workstation>
-Mail-Followup-To: Takashi Iwai <tiwai@suse.de>, stefanr@s5r6.in-berlin.de,
- alsa-devel@alsa-project.org, linux1394-devel@lists.sourceforge.net,
- Dan Carpenter <dan.carpenter@oracle.com>
-References: <20220512112037.103142-1-o-takashi@sakamocchi.jp>
- <Yqh/bDB+Bvwcjjrh@workstation> <87o7yvpf4t.wl-tiwai@suse.de>
+ dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com
+ header.b="h7YrMj48"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Jr9ZshT+CPcEcWKrWoH5w7BUyk0bjwH3Xy355cyUoHCjgFuD4WPsmt0nmmg0cffdxPrrFCt1uMIaNGxzf/BJhy8yT9L9USovrU+cXaMUwijrPi5zc9S2dntnX4nub10hhKukOJq0ZMBTAy9oVtvkYRfWDspFe8T1pimRq5MJVdaLB5G9Itv731GUESiQXWPXlV/OpJr1c+RXvjTAJ3EdYBghf8+HgJTz7lwJyGzDHU8AiZ6MFHBJaQad9QZZsLyzOfC3QJ8uPvVPfhTPVolhvNPHPcqeJVuL1SDRwak2hOspjCvwfrZP1/lz8/CLNdhmDnW7geTnVeXnH60z+U23ug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JJ+pFBnj61WNRid+wnwOsWKCQKRt5DOUCWJ7ht+9shM=;
+ b=iCQ4zs85L6yUE+aoK6eO3C0fYaEQa3W5hvXYCdJjHQXP4zjQIyxHCiFi2MwrhLEeZMglh200nuL3QDyxbDWfCPlvl8wBh173wDiDDaJApwv8hUsXfM1Wsotmasid1WgTPFAUwph6HHp/agwcLPd3/Z+DgxKLOKfGlqWAUMsPOS/smD0tXKx/s+MzaJJrHjG2DmCZU36InKMZbG9Q2v2k+T+aAi4BzI3RrRUr64Jr4FejkXRyUQNfIXx04FFGhs4ZvHF4MJkOE8OisgYwSnGqhQNe2moH71WtxwRBjxSFyzwKgABAr9M6oWG+FgnlsZRJOruPt02KIRMHYMDwZQAhPA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 12.22.5.238) smtp.rcpttodomain=alsa-project.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JJ+pFBnj61WNRid+wnwOsWKCQKRt5DOUCWJ7ht+9shM=;
+ b=h7YrMj489+TPaSve636za73GBzHc1Ht9T42/8apy0n09wV3cytH3wESWFJD78jMOv9WmTiXR1A5kXz/Tqvj7fGSpYPQNQTPi7QuTGjbSTDj2qO9tirZUVXOnxfMZjPe0eCwvHx91NjdZ7OgfFw42CnzX4cHuGJqthk151ZcG3R4yjs+/7gzYzqhap9VeMeegLDuFBOFXuHkVjY3WJiwn7n4QY0vFJm+Z1p/tI4wA6kW8emduyEXWH+XJDn9xTEGZSfQke0Cz/mLTKzBEsavicpEx9Y8b55iqhGL3ktXkOKAZDpJfNZLmsYNmEcLByVrzc1t+5nq8VWpcuoC2Oh8J6g==
+Received: from BN0PR02CA0028.namprd02.prod.outlook.com (2603:10b6:408:e4::33)
+ by DM4PR12MB6157.namprd12.prod.outlook.com (2603:10b6:8:ac::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5332.22; Wed, 15 Jun
+ 2022 04:38:51 +0000
+Received: from BN8NAM11FT036.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:e4:cafe::6b) by BN0PR02CA0028.outlook.office365.com
+ (2603:10b6:408:e4::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5332.13 via Frontend
+ Transport; Wed, 15 Jun 2022 04:38:51 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 12.22.5.238)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 12.22.5.238 as permitted sender) receiver=protection.outlook.com;
+ client-ip=12.22.5.238; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (12.22.5.238) by
+ BN8NAM11FT036.mail.protection.outlook.com (10.13.177.168) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.20.5332.12 via Frontend Transport; Wed, 15 Jun 2022 04:38:50 +0000
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by DRHQMAIL105.nvidia.com
+ (10.27.9.14) with Microsoft SMTP Server (TLS) id 15.0.1497.32;
+ Wed, 15 Jun 2022 04:38:49 +0000
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail202.nvidia.com
+ (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Tue, 14 Jun
+ 2022 21:38:49 -0700
+Received: from audio.nvidia.com (10.127.8.10) by mail.nvidia.com (10.129.68.7)
+ with Microsoft SMTP Server id 15.2.986.22 via Frontend Transport;
+ Tue, 14 Jun 2022 21:38:46 -0700
+From: Sameer Pujar <spujar@nvidia.com>
+To: <broonie@kernel.org>, <perex@perex.cz>, <tiwai@suse.com>,
+ <dan.carpenter@oracle.com>
+Subject: [PATCH] ASoC: tegra: Fix MBDRC bypass mode check
+Date: Wed, 15 Jun 2022 10:08:34 +0530
+Message-ID: <1655267914-24702-1-git-send-email-spujar@nvidia.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87o7yvpf4t.wl-tiwai@suse.de>
-Cc: alsa-devel@alsa-project.org, stefanr@s5r6.in-berlin.de,
- linux1394-devel@lists.sourceforge.net,
- Dan Carpenter <dan.carpenter@oracle.com>
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 9ef31e85-bf95-4d23-2be9-08da4e88f201
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6157:EE_
+X-Microsoft-Antispam-PRVS: <DM4PR12MB6157D5130FADA6C4FC6AFB91A7AD9@DM4PR12MB6157.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: vNYPuhcSG3TIRYAHzhNNdrWagOhFVf1stQssGH7s/FgIjUvACf7nW0KpggwU/wOfqv3Ihm0MHv2FkZAHnQu0u2KcDV1AkFRq6XiWPr6apluePNzC6gnORKu2IegC8QTWgCN13mUi2lGIq9U0Xis6ho/ZkrJE6ZB08+BTjV4sqWjcmUKnQvyhJcvyEu8Oy3o337AvN8OUsRRb4hKYlAFFncTYsxSTGxZoKUiByaLsyzu5PjLKoi36Qs1Zi0eEJYXIS3JpWjJEE74faHZk6i2yBfWFwLDvdSzXvgJM5f9tLweDrM8CnCYSg3bC9LYhvUkcNKsMVRUKSpccitbJTcGZ4Fwjw5ALksH1NAQzDrw+PWtn1asoeyYDPGk6cWbGq+8AJbuYMqosVMlc2q7Pivf3QItFQgrfEUyvqPv1ElK9RxsFR1fA4SOgea1a9hqHKB2ZHH5slT2jQECYdC8qPmyLmZ4XyHZICxDKpTtRXJGu7Y08GimKEB1j/HlOEUIX2gal3bhLO1iDMUR+AXMNMA19w2RXMflqJhEwcUjWrmXCaLa4650O3XQwNsQrVdYFi5LudcBCjk0wEdNWNItNMvbkTiVa6/KvCyK0SbzchLGW71qyIdu5YQmIZcofQImp0XognjHtmF+UMa1rc5zTYPFFTzWTxJYg9fonV08Xy+GSD7ytAMOMi3OYVtnjZiSUxmQ0eD2mgNXGl7/OxjXnUBLtCg==
+X-Forefront-Antispam-Report: CIP:12.22.5.238; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:InfoNoRecords; CAT:NONE;
+ SFS:(13230016)(4636009)(36840700001)(40470700004)(46966006)(4326008)(508600001)(86362001)(6666004)(356005)(8676002)(110136005)(316002)(83380400001)(54906003)(70586007)(70206006)(36860700001)(426003)(47076005)(336012)(186003)(2616005)(107886003)(8936002)(36756003)(82310400005)(5660300002)(2906002)(26005)(7696005)(81166007)(40460700003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2022 04:38:50.7153 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ef31e85-bf95-4d23-2be9-08da4e88f201
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[12.22.5.238];
+ Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT036.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6157
+Cc: alsa-devel@alsa-project.org, Sameer Pujar <spujar@nvidia.com>,
+ linux-kernel@vger.kernel.org, jonathanh@nvidia.com, thierry.reding@gmail.com,
+ linux-tegra@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -124,38 +137,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Jun 14, 2022 at 03:07:46PM +0200, Takashi Iwai wrote:
-> On Tue, 14 Jun 2022 14:30:36 +0200,
-> Takashi Sakamoto wrote:
-> > 
-> > Hi Iwai-san,
-> > 
-> > I have a moderate request to you for the patch which fixes an issue
-> > included in v5.19-rc1. If it's applicable and I can borrow your help
-> > again, I'd like you to send the patch to mainline via your tree.
-> 
-> Do you have the lore URL I can get a patch from?
+MBDRC supports different modes of operation. There is no configuration
+required for bypass mode. The hw_params() call does not filter bypass
+mode correctly and it leads to following Smatch static checker warning:
+
+  sound/soc/tegra/tegra210_mbdrc.c:778 tegra210_mbdrc_hw_params()
+  warn: bitwise AND condition is false here
+
+Fix this condition by using proper mode mask and just return for bypass
+mode.
+
+Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
+Fixes: 7358a803c778 ("ASoC: tegra: Add Tegra210 based OPE driver")
+Signed-off-by: Sameer Pujar <spujar@nvidia.com>
+---
+ sound/soc/tegra/tegra210_mbdrc.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/sound/soc/tegra/tegra210_mbdrc.c b/sound/soc/tegra/tegra210_mbdrc.c
+index 7d9da33..d786daa 100644
+--- a/sound/soc/tegra/tegra210_mbdrc.c
++++ b/sound/soc/tegra/tegra210_mbdrc.c
+@@ -775,7 +775,9 @@ int tegra210_mbdrc_hw_params(struct snd_soc_component *cmpnt)
  
-Here it is:
+ 	regmap_read(ope->mbdrc_regmap, TEGRA210_MBDRC_CFG, &val);
+ 
+-	if (val & TEGRA210_MBDRC_CFG_MBDRC_MODE_BYPASS)
++	val &= TEGRA210_MBDRC_CFG_MBDRC_MODE_MASK;
++
++	if (val == TEGRA210_MBDRC_CFG_MBDRC_MODE_BYPASS)
+ 		return 0;
+ 
+ 	for (i = 0; i < MBDRC_NUM_BAND; i++) {
+-- 
+2.7.4
 
-https://lore.kernel.org/alsa-devel/20220512112037.103142-1-o-takashi@sakamocchi.jp/
-
-> > If possible, it's preferable to apply additional three patches I
-> > respined[1], but it could be optional since not so critical.
-> > 
-> > [1] https://lore.kernel.org/alsa-devel/20220512111756.103008-1-o-takashi@sakamocchi.jp/
-> 
-> I can merge those, but now looking at the patches, I'm afraid that the
-> patch 2 ("firewire: use struct_size over open coded arithmetic") is
-> wrong; struct_size() takes the number of elements, and the element
-> type is u32, hence you're allocating 4 times large data with that
-> patch.
-
-Indeed, I overlooked it. The length should be quadlet count instead of
-byte count in the case. I'll post revised patches later. Thanks for your
-review.
-
-
-Regards
-
-Takashi Sakamoto

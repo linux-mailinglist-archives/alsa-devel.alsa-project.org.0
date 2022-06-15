@@ -2,93 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FE3D54CA02
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Jun 2022 15:40:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56F9654CA65
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Jun 2022 15:55:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6BE3B18E2;
-	Wed, 15 Jun 2022 15:40:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6BE3B18E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id C38A318F7;
+	Wed, 15 Jun 2022 15:54:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C38A318F7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655300454;
-	bh=dqcpH2keVqI32T4J17c4mDX2Yxxgxb/YhN9qLYWe0s4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1655301345;
+	bh=68WDubxLhalXX3kweNLoMTxlg/l57c7HnJZeSRidsVA=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UXPUTVWWgYaos8NiLqICr/BaF5QYQ6Fm/j6sbosga1VvNBPHmS1qMK57XQb9fw9cd
-	 kPQCBgEDSDzczd9FPTPTOIyM/NIIg2f5WyGiNBaeeMYet8TdRWG/ouxdaWQX0169xc
-	 rl+0bqJ7A+xOFsPXF3XLA96pvT34BMhukbIDZGNo=
+	b=OakZBNVZ7LaxwJ2hwRdMHvz8uydAUp+FD1m6R1M4/OEY6S4snl+A1YIxoR/yqauZL
+	 ZB4J+hfVmN2KG94IgshfYbTh9EHqf7XMSBXCUCWjYKweMCkVwq8PUf9UekF8TkZ9qL
+	 l2Rsf6L3WR5PE8nkIt5LRoA7j/JcdmJ8e4xXAQ8Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B64A3F8016C;
-	Wed, 15 Jun 2022 15:39:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ECC6CF801F7;
+	Wed, 15 Jun 2022 15:54:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DA85EF80162; Wed, 15 Jun 2022 15:39:52 +0200 (CEST)
+ id 8C13FF8012B; Wed, 15 Jun 2022 15:54:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-yb1-xb2d.google.com (mail-yb1-xb2d.google.com
- [IPv6:2607:f8b0:4864:20::b2d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0D530F800D8
- for <alsa-devel@alsa-project.org>; Wed, 15 Jun 2022 15:39:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D530F800D8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 382E5F8012B
+ for <alsa-devel@alsa-project.org>; Wed, 15 Jun 2022 15:54:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 382E5F8012B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="rPkstlrZ"
-Received: by mail-yb1-xb2d.google.com with SMTP id p13so20606204ybm.1
- for <alsa-devel@alsa-project.org>; Wed, 15 Jun 2022 06:39:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Hd2Q7z9uWW7dB0gy7lxuAP2GK3dj82/CD4CwzUHIa4U=;
- b=rPkstlrZwE646fy1fdO0Vu8lKssadxnY/cq1nHk/4Drjaed9Hyl/FzAV97Qw6CvIOZ
- ukuClPhw1cqKIxSdjV+m1grXdgBQgi+gLNnMZ7HqXd0JJeUPu6JXC1gVuTwBjilsC25M
- 046vbKX3N0sgQ1TA9dwRUme8KeoU1PUtU8IECplVwcTFYaJIgO/VSyyVD4xWFk4Afnl8
- 7o7tzI6DEzz4TuN43YTXQPTuXTvo1omNKgiz4HSoz26G4MBgCF0gubbzX3NnlnAvpfqL
- cKHyVg2yoBW8qKIxE+KQiKn3UdKz47hR2QBV3lkKhJTUCVPlbM/fFn9AGhFZh6f1wIyx
- o+7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Hd2Q7z9uWW7dB0gy7lxuAP2GK3dj82/CD4CwzUHIa4U=;
- b=HbZXBln24mttYuG15kEu2ZqYLtqY6Tt83CKnd7jQgXn6LbbHHHxnCExn6EaWj6+FPT
- +Yn1qG5fpfiSGb6/6F22Je99p2RXDMRDjCXQGjNXOoEdaEYxELlc+ndhRNG1+HBkC3DZ
- xelaBF5Eson3FKXLhQqasgE9HqP4KyPhvUVqmL2jHUQGQQASuUTbiyaIyNZRKTVNtx5r
- 0mJ8PgGXph6tbMu+sRjkYKMkzfkDHsHmYP7IR7hxcdOKWHpWUUuXDNF57YtctP7GZktN
- WwlVpJZyZ2Mg96flkgGXqssq2Iap4nwJSC2cBDa0EHDDWbPV4UR4GgEmNNhxdACMBk7z
- gMNA==
-X-Gm-Message-State: AJIora8uMyRoU1jCsmDapH3apDN2IihqQX+O6ixbM+bWWPZKZNclA1zp
- ay1DOeyrZJbRsCpOuRE3LrfMEHr89KRmJKGvnTk5rA==
-X-Google-Smtp-Source: AGRyM1tmMuIlqeQp7nqh2Mjy2GzaCsjE7hVrrxP2n3u/EC5oobfK92wjpSUNebv+96g3JYgFgZ/eKGfNefJpR0XngmY=
-X-Received: by 2002:a25:1256:0:b0:65d:6433:7993 with SMTP id
- 83-20020a251256000000b0065d64337993mr10062220ybs.626.1655300383762; Wed, 15
- Jun 2022 06:39:43 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="QAzXoOV4"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id CE0A461B22;
+ Wed, 15 Jun 2022 13:54:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CF4DC34115;
+ Wed, 15 Jun 2022 13:54:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1655301276;
+ bh=68WDubxLhalXX3kweNLoMTxlg/l57c7HnJZeSRidsVA=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=QAzXoOV4qTFwG8YVlXC05IjRNwEjXExoHhXn1AJGsF2HS0KEVA8CHGNSnsVxcld7b
+ Lpy/pDwaajKjuxdzaKnpZopJnoHqlK0qOeA0D30gc/1dpJsalqe+kIoWj77uMnIZKm
+ AYtqFbLhKAnM5RTT9Z3nubRWFeKItEKKS3d/sPFhNo0J9OUdWn2jlHzGIT2fmBPP/A
+ lxr0fBwcbCKNWaBRSDzct1hfBlPPB4ABVbs6w+pltkrAWvGn623voDTOSIFzRJ4qav
+ Y27Xy48O3BNDprSliQP2gHws+avLinAhZWla3FEhuQTND6dA/X5r2WfadKvgBKLt5W
+ 7g+fEjhytoDLg==
+From: Mark Brown <broonie@kernel.org>
+To: spujar@nvidia.com, dan.carpenter@oracle.com, perex@perex.cz, tiwai@suse.com
+In-Reply-To: <1655267914-24702-1-git-send-email-spujar@nvidia.com>
+References: <1655267914-24702-1-git-send-email-spujar@nvidia.com>
+Subject: Re: [PATCH] ASoC: tegra: Fix MBDRC bypass mode check
+Message-Id: <165530127422.947339.13523217289289739247.b4-ty@kernel.org>
+Date: Wed, 15 Jun 2022 14:54:34 +0100
 MIME-Version: 1.0
-References: <1654079415-26217-1-git-send-email-quic_srivasam@quicinc.com>
- <1654079415-26217-3-git-send-email-quic_srivasam@quicinc.com>
- <CACRpkdYQW7WByaGoSFKT91OwRao_jJdCAbL0pUuj3vdS6TdkQg@mail.gmail.com>
- <a2b7de25-55a4-7d31-2787-be6d0ccf9500@quicinc.com>
-In-Reply-To: <a2b7de25-55a4-7d31-2787-be6d0ccf9500@quicinc.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Wed, 15 Jun 2022 15:39:32 +0200
-Message-ID: <CACRpkdayb3Rx=jxdxW4rZxg6efEyf_Nzv1rgL0t8pLLJd-NsiA@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] pinctrl: qcom: sc7280: Add lpi pinctrl variant
- data for adsp based targets
-To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- quic_rohkumar@quicinc.com, Venkata Prasad Potturu <quic_potturu@quicinc.com>,
- linux-arm-msm@vger.kernel.org, swboyd@chromium.org, tiwai@suse.com,
- agross@kernel.org, robh+dt@kernel.org, lgirdwood@gmail.com,
- linux-gpio@vger.kernel.org, broonie@kernel.org, srinivas.kandagatla@linaro.org,
- bgoswami@quicinc.com, quic_plai@quicinc.com, bjorn.andersson@linaro.org,
- judyhsiao@chromium.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
+ thierry.reding@gmail.com, linux-kernel@vger.kernel.org, jonathanh@nvidia.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,36 +85,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Jun 3, 2022 at 1:03 PM Srinivasa Rao Mandadapu
-<quic_srivasam@quicinc.com> wrote:
+On Wed, 15 Jun 2022 10:08:34 +0530, Sameer Pujar wrote:
+> MBDRC supports different modes of operation. There is no configuration
+> required for bypass mode. The hw_params() call does not filter bypass
+> mode correctly and it leads to following Smatch static checker warning:
+> 
+>   sound/soc/tegra/tegra210_mbdrc.c:778 tegra210_mbdrc_hw_params()
+>   warn: bitwise AND condition is false here
+> 
+> [...]
 
-> >> @@ -149,6 +159,10 @@ static const struct of_device_id lpi_pinctrl_of_match[] = {
-> >>                 .compatible = "qcom,sc7280-lpass-lpi-pinctrl",
-> >>                 .data = &sc7280_lpi_data,
-> >>          },
-> >> +       {
-> >> +               .compatible = "qcom,sc7280-lpass-adsp-lpi-pinctrl",
-> >> +               .data = &sc7280_adsp_lpi_data,
-> >> +       },
-> > Drop this and instead add some code in the probe()
-> > in drivers/pinctrl/qcom/pinctrl-lpass-lpi.c
-> > lines:
-> >
-> > if (of_device_is_compatible(np, "qcom,sc7280-lpass-lpi-pinctrl") &&
-> > of_property_read_bool(np, "qcom,adsp-mode))
-> >       data = &sc7280_adsp_lpi_data;
->
-> Here, only diff between ADSP and ADSP bypass variant dats is
-> "is_clk_optional" field.
->
-> So we can keep something like this. Kindly suggest, if it's not making
-> sense.
->
-> if (of_device_is_compatible(np, "qcom,sc7280-lpass-lpi-pinctrl") &&
-> of_property_read_bool(np, "qcom,adsp-mode))
->       data->is_clk_optional = false;
+Applied to
 
-Looks good to me!
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Yours,
-Linus Walleij
+Thanks!
+
+[1/1] ASoC: tegra: Fix MBDRC bypass mode check
+      commit: 4edf738d4c7989c315e37d4d61e34c94557b6ed2
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

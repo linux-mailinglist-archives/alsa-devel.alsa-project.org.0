@@ -2,91 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83D0B54C71A
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Jun 2022 13:03:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5120F54C80F
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Jun 2022 14:02:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1D27E1918;
-	Wed, 15 Jun 2022 13:03:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D27E1918
+	by alsa0.perex.cz (Postfix) with ESMTPS id D28A118E2;
+	Wed, 15 Jun 2022 14:01:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D28A118E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655291037;
-	bh=+eBod1AbuflrGZyETNkqQFJ/qRpCcnjD62eOthJoFJE=;
+	s=default; t=1655294534;
+	bh=yCu340qMfg6oZcr5JvLYeZcBPp9Lyul8ahB/e4qnXUI=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZWE+PlsImziwiDfqFF+Z9KHJMmVx0fLBGAZgTyyUxvH6zjTnb5Xg/jDo3iBRq6nFh
-	 huwjbhWlJ+F+iOV1wBUElrNPSW/q5FO2JJE/ejvgrQdmNKuyhD8aQTlL0GhgPb43Eo
-	 ALsUCE6E3M4fKnkS4YEiBg0DSnkUCA6I8o0xkaJg=
+	b=MelhbRlov/1I446T/XuMut/RrtTTIiPrxFLcQcb+uMC8gNxXBhYNSRKjl0TB1qAAA
+	 OJdLImvQ3k7Mx2q7kWH9jjczkoC4Wv9o2AQf8QBBmSPAKxYzK3HnBP1Sr8MENrR2T1
+	 2gZHv4X8VNdq0XFut3ConMADcPXUYYngLtO80baA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 846F9F801F7;
-	Wed, 15 Jun 2022 13:02:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4DF68F8016C;
+	Wed, 15 Jun 2022 14:01:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 35438F80162; Wed, 15 Jun 2022 13:02:54 +0200 (CEST)
+ id 06CBCF80162; Wed, 15 Jun 2022 14:01:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4EA90F800D8;
- Wed, 15 Jun 2022 13:02:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4EA90F800D8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7B05EF8012B;
+ Wed, 15 Jun 2022 14:00:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B05EF8012B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="bDOdq1Bf"
+ header.b="kXeEA8AA"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655290968; x=1686826968;
+ t=1655294466; x=1686830466;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=+eBod1AbuflrGZyETNkqQFJ/qRpCcnjD62eOthJoFJE=;
- b=bDOdq1Bf87nuPEvXepDrNTmpC5i3LRlP3thD9Bvwars0Qsz3s7Nq2VoD
- Ajri1OHNntsOTKk0tDLurHOurYAry3U0DfKgEwgjiMqwFWzSue2X8YbuU
- sjLQSE30CsPBad2CCDAQgLJz71WBW9U1DxzL0nHPbXdPV/y6WGSUlB/LV
- Ntp67ESHfE0HsjrLxzq3Rqe7ZN8qETUCr0TegoD1wwWU4GdmjkFQpnKfg
- wVQJL6A1ttoP6uhFGRWXRrcMJk/b5QX2kvx4hzFIVwcp6g7KB9HHOyGcR
- NlGr6RpYWfM1AVwdPssYMflL3uzA7nL5+duu1BhWQQOrumW93XZlhPigk w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10378"; a="278965779"
-X-IronPort-AV: E=Sophos;i="5.91,302,1647327600"; d="scan'208";a="278965779"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2022 04:02:38 -0700
-X-IronPort-AV: E=Sophos;i="5.91,302,1647327600"; d="scan'208";a="830979055"
-Received: from ldortadu-mobl1.amr.corp.intel.com (HELO [10.209.160.187])
- ([10.209.160.187])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2022 04:02:37 -0700
-Message-ID: <5e2f44f1-de41-ac02-9fa8-e26a849897ad@linux.intel.com>
-Date: Wed, 15 Jun 2022 05:56:22 -0500
+ bh=yCu340qMfg6oZcr5JvLYeZcBPp9Lyul8ahB/e4qnXUI=;
+ b=kXeEA8AAwnGpzT3tBY2rZT7GcIZrUwXahwlSAw2WJ+Dx/PL41DGQNMdW
+ QK/Zia7YXoffbeVlsZE4SUxlXJG+bPiwe/R4DSTKWLgSTMexpFCU24Ele
+ b8dxKFJmK7E9GRLh4Pib8G0E0AgcpZB1JHyGEfpXYYIKnQ2vjleeMkgr3
+ COzP3LVrMKiDzFEfmQfHtU/ABZPuliJYb0J1QzeC3KUG27kjiNgYBcaWW
+ pPoCuJML+uk+StZ8MctlJQB6cn/lZ+XFkiRi0Ic3xj2VNnlvr5cq3qP7k
+ PzlEOlft2XD6uOnU8Na1m2NEulvLjv1/LwXkbddAH44uq2RyL7N2Of4c7 w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10378"; a="267624381"
+X-IronPort-AV: E=Sophos;i="5.91,302,1647327600"; d="scan'208";a="267624381"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jun 2022 05:00:53 -0700
+X-IronPort-AV: E=Sophos;i="5.91,302,1647327600"; d="scan'208";a="674463081"
+Received: from clanggaa-mobl1.ger.corp.intel.com (HELO [10.249.254.173])
+ ([10.249.254.173])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jun 2022 05:00:49 -0700
+Message-ID: <416df4cf-5421-cbf3-bb47-b39c6129ff71@linux.intel.com>
+Date: Wed, 15 Jun 2022 15:01:27 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.9.1
+ Firefox/91.0 Thunderbird/91.10.0
 Subject: Re: [PATCH] ASoC: SOF: mediatek: Fix error code in probe
 Content-Language: en-US
 To: Dan Carpenter <dan.carpenter@oracle.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Tinghan Shen <tinghan.shen@mediatek.com>
 References: <YqmWIK8sTj578OJP@kili>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
 In-Reply-To: <YqmWIK8sTj578OJP@kili>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Cc: alsa-devel@alsa-project.org, Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, YC Hung <yc.hung@mediatek.com>,
- kernel-janitors@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, YC Hung <yc.hung@mediatek.com>,
+ kernel-janitors@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
  linux-mediatek@lists.infradead.org,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
  Yang Yingliang <yangyingliang@huawei.com>,
  Matthias Brugger <matthias.bgg@gmail.com>,
- =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
- sound-open-firmware@alsa-project.org
+ Daniel Baluta <daniel.baluta@nxp.com>, sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,16 +103,13 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 6/15/22 03:19, Dan Carpenter wrote:
+On 15/06/2022 11:19, Dan Carpenter wrote:
 > This should return PTR_ERR() instead of IS_ERR().
-> 
+
+Acked-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+
 > Fixes: e0100bfd383c ("ASoC: SOF: mediatek: Add mt8186 ipc support")
 > Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
-
-Nice catch, thanks!
-
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-
 > ---
 >  sound/soc/sof/mediatek/mt8186/mt8186.c | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
@@ -131,3 +127,6 @@ Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 >  		dev_err(sdev->dev, "failed to create mtk-adsp-ipc device\n");
 >  		goto err_adsp_off;
 >  	}
+
+-- 
+Péter

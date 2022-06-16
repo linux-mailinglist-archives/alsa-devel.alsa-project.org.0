@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5626454ECE6
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jun 2022 23:56:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63B1854ECF4
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jun 2022 23:58:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6EB431B08;
-	Thu, 16 Jun 2022 23:55:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6EB431B08
+	by alsa0.perex.cz (Postfix) with ESMTPS id E9F111B12;
+	Thu, 16 Jun 2022 23:57:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9F111B12
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655416586;
-	bh=qaYjoDafa+OjC6LFqARHacT5WUU7JTQ5bcPXzBExjSA=;
+	s=default; t=1655416698;
+	bh=jFuPmfcrS1SpwmL6BkU6nFSiJTPtQUjWPAI4azgav0Q=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VIydoiuaKnNii5xhQRZkGgeba7q9pwZIJYrxfyvVdJYRr1zNHNiw+gvVzvg1mP+Xt
-	 wvNrZyibNmNZddA+Io0KrTN2Tz/H+rOXyaXVrRGxsemJt5lhz7w92kw3OWaCeqUmZd
-	 1ojVPg0t3yNecaxYv6cbEk301GvBfiuTxrqAQTFo=
+	b=BFVvgiifdJ3VumB4obVDkBPElmd4Xy/CnERnQ68J6CHYKYdqCbyjIxBmbxo5ida/f
+	 04Iv91FZi7ElfNq4pTHkPIHkoo2pw5S/aJOkFiHIzosevUuPDq+ECB2mAe4dAA/4UR
+	 khfPBvRUAj2gqWPfNXg4ROkuRwv0pTr1YAz7RoZ8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8412DF80535;
-	Thu, 16 Jun 2022 23:54:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6E201F8055B;
+	Thu, 16 Jun 2022 23:54:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DCF9AF801D8; Thu, 16 Jun 2022 23:54:46 +0200 (CEST)
+ id 73C60F8053D; Thu, 16 Jun 2022 23:54:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 61436F801D8
+ by alsa1.perex.cz (Postfix) with ESMTPS id C6E06F804E0
  for <alsa-devel@alsa-project.org>; Thu, 16 Jun 2022 23:54:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61436F801D8
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6E06F804E0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="QDClzuHW"
+ header.b="CqJXYLs2"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655416484; x=1686952484;
+ t=1655416485; x=1686952485;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=qaYjoDafa+OjC6LFqARHacT5WUU7JTQ5bcPXzBExjSA=;
- b=QDClzuHWpKBCe5JNK/wN5AyGniM4iTBKpZD/m5pMs1nMYhaoxAvueLDc
- lWhXkkxGZNOegeO/UivnYAr/TIWo94lzEHrEiaewh2Nssvux5jPLyZm2J
- 3u+7ZAssvOkztt+ivR3Ruu77DbDkowEX4MHWSJ4BdPeMHFnreI4O54Myk
- iN20AKCaDqZYR4KQKx1P5Yrg24/KoZcpLpuqGZ8lwZsgcmIy8Rzc4Z1WT
- Qx1XdApJwEHY6YaNEK9P1WHY5wcSulV9kmKxn7YiImSyAMYbPemVtSjvf
- x/E054llX3N+zsE7sQJ8unUwQIZsHtJe8IgZZKuZzqtZ1pI4rbZn7jZKD Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="268047818"
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="268047818"
+ bh=jFuPmfcrS1SpwmL6BkU6nFSiJTPtQUjWPAI4azgav0Q=;
+ b=CqJXYLs2mJOq80rWlRyoVC8ZJ5wUC7SwkiDtpwMh+V0Fm70jZuVHWz3T
+ Z09X3K+4Rf6Y4NuEOGjcR6jOFKFsagv2j3lCn7iXhWGrkFJUl1UgYnV1B
+ hVdGxWpvQ5iB2KsTKWQJQdsRqL17SqdQT3s1iHi9F2HTx9hvUaW9npO2L
+ uM7Ye57OdMxpb+mpxb56XjhUEaVhsXOXJSpOkVM117lyPMr2YVEUM/+3B
+ Ie3vf9tdT6QSTW7kqRNXk9G2K7MzLYx+hkvHThuTuzSYDqMSlZTvYfbxN
+ NcFcJc1YTYQfvGBsyp963QVznBJhNGUrXA9gwQbk88mjRoAJBTvLovr4Q A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="268047823"
+X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="268047823"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  16 Jun 2022 14:54:19 -0700
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="675212671"
+X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="675212675"
 Received: from buckkenx-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.212.52.70])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2022 14:54:18 -0700
+ 16 Jun 2022 14:54:19 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 06/13] ASoC: SOF: ipc3-dtrace: remove use of __func__ in
+Subject: [PATCH 07/13] ASoC: SOF: ipc3-loader: remove use of __func__ in
  dev_dbg
-Date: Thu, 16 Jun 2022 16:53:44 -0500
-Message-Id: <20220616215351.135643-7-pierre-louis.bossart@linux.intel.com>
+Date: Thu, 16 Jun 2022 16:53:45 -0500
+Message-Id: <20220616215351.135643-8-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220616215351.135643-1-pierre-louis.bossart@linux.intel.com>
 References: <20220616215351.135643-1-pierre-louis.bossart@linux.intel.com>
@@ -106,32 +106,43 @@ Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- sound/soc/sof/ipc3-dtrace.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ sound/soc/sof/ipc3-loader.c | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
 
-diff --git a/sound/soc/sof/ipc3-dtrace.c b/sound/soc/sof/ipc3-dtrace.c
-index ecca6dceaad29..b815b0244d9e4 100644
---- a/sound/soc/sof/ipc3-dtrace.c
-+++ b/sound/soc/sof/ipc3-dtrace.c
-@@ -470,7 +470,7 @@ static int ipc3_dtrace_enable(struct snd_sof_dev *sdev)
- 		dev_err(sdev->dev, "Host dtrace init failed: %d\n", ret);
- 		return ret;
+diff --git a/sound/soc/sof/ipc3-loader.c b/sound/soc/sof/ipc3-loader.c
+index f3c741b495198..c573e7593808a 100644
+--- a/sound/soc/sof/ipc3-loader.c
++++ b/sound/soc/sof/ipc3-loader.c
+@@ -75,13 +75,12 @@ static int ipc3_fw_ext_man_get_config_data(struct snd_sof_dev *sdev,
+ 	elems_size = config->hdr.size - sizeof(struct sof_ext_man_elem_header);
+ 	elems_counter = elems_size / sizeof(struct sof_config_elem);
+ 
+-	dev_dbg(sdev->dev, "%s can hold up to %d config elements\n",
+-		__func__, elems_counter);
++	dev_dbg(sdev->dev, "manifest can hold up to %d config elements\n", elems_counter);
+ 
+ 	for (i = 0; i < elems_counter; ++i) {
+ 		elem = &config->elems[i];
+-		dev_dbg(sdev->dev, "%s get index %d token %d val %d\n",
+-			__func__, i, elem->token, elem->value);
++		dev_dbg(sdev->dev, "get index %d token %d val %d\n",
++			i, elem->token, elem->value);
+ 		switch (elem->token) {
+ 		case SOF_EXT_MAN_CONFIG_EMPTY:
+ 			/* unused memory space is zero filled - mapped to EMPTY elements */
+@@ -323,10 +322,10 @@ static int sof_ipc3_load_fw_to_dsp(struct snd_sof_dev *sdev)
+ 	header = (struct snd_sof_fw_header *)(fw->data + plat_data->fw_offset);
+ 	load_module = sof_ops(sdev)->load_module;
+ 	if (!load_module) {
+-		dev_dbg(sdev->dev, "%s: Using generic module loading\n", __func__);
++		dev_dbg(sdev->dev, "Using generic module loading\n");
+ 		load_module = sof_ipc3_parse_module_memcpy;
+ 	} else {
+-		dev_dbg(sdev->dev, "%s: Using custom module loading\n", __func__);
++		dev_dbg(sdev->dev, "Using custom module loading\n");
  	}
--	dev_dbg(sdev->dev, "%s: stream_tag: %d\n", __func__, params.stream_tag);
-+	dev_dbg(sdev->dev, "stream_tag: %d\n", params.stream_tag);
  
- 	/* send IPC to the DSP */
- 	priv->dtrace_state = SOF_DTRACE_INITIALIZING;
-@@ -544,8 +544,7 @@ static int ipc3_dtrace_init(struct snd_sof_dev *sdev)
- 		goto table_err;
- 
- 	priv->dma_trace_pages = ret;
--	dev_dbg(sdev->dev, "%s: dma_trace_pages: %d\n", __func__,
--		priv->dma_trace_pages);
-+	dev_dbg(sdev->dev, "dma_trace_pages: %d\n", priv->dma_trace_pages);
- 
- 	if (sdev->first_boot) {
- 		ret = debugfs_create_dtrace(sdev);
+ 	/* parse each module */
 -- 
 2.34.1
 

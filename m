@@ -2,86 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D20255207D
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jun 2022 17:22:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BF4555208C
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jun 2022 17:23:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9FB9D2009;
-	Mon, 20 Jun 2022 17:21:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9FB9D2009
+	by alsa0.perex.cz (Postfix) with ESMTPS id BBB74203C;
+	Mon, 20 Jun 2022 17:22:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BBB74203C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655738557;
-	bh=ew02CUNSFy2iK+5g5fmmOjcJdupwYmqd2bUH0iUKHK0=;
+	s=default; t=1655738618;
+	bh=H9Hgfp69ZvAfcm92kEy9Jld63VdK31skhoJHwdnY/j4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=H9EUXmSnTK1Z/1RDQyoy+lw3oCXCzo+GjBlKy8LGYyJTqoCcSw81wcwEJaqshnHqN
-	 SglcwEOMC8UEkiJ2lsUtcwGS/rrhw26WZbaSvYCyHivbn8M2YcgzVA4rf4msaJIe5X
-	 cMSxohNFzn4BV4MnnhivbEP8WK21+YgbBXnXZ9zg=
+	b=JIN20pUWWIAnrKMdJlLmNWOgxe2JBInTu/sGTiu0PvIXDPxNR8MPseJFxvRJd32lX
+	 Ylf99VEQBdEoRtz4ur1CQaQ1X/JsFCiFQ3iW39yNJ4yZHDpzrVFswJEuNvpKDvHIHM
+	 ++Wxox6xlnbMWhfAaP+cPDCDWIrbpfusyckJQK9E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 81188F80722;
-	Mon, 20 Jun 2022 17:07:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AE50BF8074D;
+	Mon, 20 Jun 2022 17:07:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E6B63F8052E; Thu, 16 Jun 2022 16:35:33 +0200 (CEST)
+ id DDEE0F804E0; Thu, 16 Jun 2022 16:35:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9B2E7F80310
- for <alsa-devel@alsa-project.org>; Thu, 16 Jun 2022 16:34:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B2E7F80310
+ by alsa1.perex.cz (Postfix) with ESMTPS id 50C86F804D0
+ for <alsa-devel@alsa-project.org>; Thu, 16 Jun 2022 16:34:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50C86F804D0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="i4UojuP3"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25G4igBf030693;
- Thu, 16 Jun 2022 09:34:44 -0500
+ header.b="Nl8Sm2Fq"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25GBnCaO029573;
+ Thu, 16 Jun 2022 09:34:46 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=PODMain02222019;
- bh=2oOH0ajpjX51SxIUnf5QoeLn4u7Pp4JTnUSfyoYuy5c=;
- b=i4UojuP3+fYWIylNZy5aAraWVB3cBLs21E+SNjyYBFMxDcpGSJPsnZ7DMwWuA6E/zC6P
- vNXWdhFRWZ+EW2DKHAScxNf5h1eM2fupu5OypzIKPNEqNrbrzjDiXvhtAMV7slqQxZtF
- G3Xsymw3uSBrVXVd7cMjUpArEkPK+z1RlViGoV8jkPGKvgoVjsbN6mrCIsRb1ujkDmlM
- l53FV9rFgfktH/+1OBgsnJRzNDiQmNoOt22yqADKYmp1h9oEtGrmWqDmCVdcQkl6bC/K
- iCQoH/2NjieI/OtpdqcnrhSnQwgMYUzsomz3jXBBEU/Hk1eQXXJhSjovQPpNcYD5znCu ew== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3gmrf35vuw-10
+ bh=4uqNUGf6HvGyrALyQ2b9y5JkJHvBo6YEo+XEvqJ14h8=;
+ b=Nl8Sm2FqtQD6JNG+sS9TJicNso+ElW86C0ev+JPA8sRcJcWK/dgS0W/kaI5ZmZKbD6Ot
+ 6jQn4ptx2QZY/MvoKulAa3ueKYtJOT2/UkCMdcZmb245cNP+ku/ZfBhLPpHvC+Z9MCPj
+ CdhW9gkGMM4ef5abmhtvTQlH32RwyLSL7zFsQj60PFc2BBoqXwwNUOeg63O9szC4inKe
+ fVn2pZhO/q0jOVLmX7mOTgpShC9/P/peLzAi9DzNzvZQXozozGkmDQ9g7cUQzgTj8ZDu
+ XiThpX8+DsyrMwoi+XMzhynRbwvL9sOBTjZbhOPchDtJrJpHTpB6uGagO6MOdjlkqt1v NA== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3gmqfq5w3m-8
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 16 Jun 2022 09:34:44 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ Thu, 16 Jun 2022 09:34:45 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 16 Jun
- 2022 15:34:33 +0100
+ 2022 15:34:34 +0100
 Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.28 via
- Frontend Transport; Thu, 16 Jun 2022 15:34:33 +0100
+ Frontend Transport; Thu, 16 Jun 2022 15:34:34 +0100
 Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id E09AF11D4;
- Thu, 16 Jun 2022 14:34:33 +0000 (UTC)
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 01C9711D3;
+ Thu, 16 Jun 2022 14:34:34 +0000 (UTC)
 From: Charles Keepax <ckeepax@opensource.cirrus.com>
 To: <broonie@kernel.org>
-Subject: [PATCH 50/96] ASoC: da*: Remove now redundant non_legacy_dai_naming
+Subject: [PATCH 51/96] ASoC: es*: Remove now redundant non_legacy_dai_naming
  flag
-Date: Thu, 16 Jun 2022 15:33:43 +0100
-Message-ID: <20220616143429.1324494-51-ckeepax@opensource.cirrus.com>
+Date: Thu, 16 Jun 2022 15:33:44 +0100
+Message-ID: <20220616143429.1324494-52-ckeepax@opensource.cirrus.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220616143429.1324494-1-ckeepax@opensource.cirrus.com>
 References: <20220616143429.1324494-1-ckeepax@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-GUID: t-omMM0I0UdP1B9pdRzYB2L5YI1LsVJs
-X-Proofpoint-ORIG-GUID: t-omMM0I0UdP1B9pdRzYB2L5YI1LsVJs
+X-Proofpoint-ORIG-GUID: I9KB3elWZPkIUzwXFnmB6Nu8V3J30hQk
+X-Proofpoint-GUID: I9KB3elWZPkIUzwXFnmB6Nu8V3J30hQk
 X-Proofpoint-Spam-Reason: safe
 X-Mailman-Approved-At: Mon, 20 Jun 2022 17:06:45 +0200
 Cc: cezary.rojewski@intel.com, heiko@sntech.de,
@@ -119,86 +119,60 @@ the non_legacy_dai_naming flag.
 
 Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 ---
- sound/soc/codecs/da7210.c | 1 -
- sound/soc/codecs/da7213.c | 1 -
- sound/soc/codecs/da7218.c | 1 -
- sound/soc/codecs/da7219.c | 1 -
- sound/soc/codecs/da732x.c | 1 -
- sound/soc/codecs/da9055.c | 1 -
- 6 files changed, 6 deletions(-)
+ sound/soc/codecs/es7134.c | 1 -
+ sound/soc/codecs/es7241.c | 1 -
+ sound/soc/codecs/es8316.c | 1 -
+ sound/soc/codecs/es8328.c | 1 -
+ 4 files changed, 4 deletions(-)
 
-diff --git a/sound/soc/codecs/da7210.c b/sound/soc/codecs/da7210.c
-index 76a21976ccddb..f838466bfebf8 100644
---- a/sound/soc/codecs/da7210.c
-+++ b/sound/soc/codecs/da7210.c
-@@ -1173,7 +1173,6 @@ static const struct snd_soc_component_driver soc_component_dev_da7210 = {
+diff --git a/sound/soc/codecs/es7134.c b/sound/soc/codecs/es7134.c
+index f443351677dfe..f5150d2f95da6 100644
+--- a/sound/soc/codecs/es7134.c
++++ b/sound/soc/codecs/es7134.c
+@@ -213,7 +213,6 @@ static const struct snd_soc_component_driver es7134_component_driver = {
  	.idle_bias_on		= 1,
  	.use_pmdown_time	= 1,
  	.endianness		= 1,
 -	.non_legacy_dai_naming	= 1,
  };
  
- #if IS_ENABLED(CONFIG_I2C)
-diff --git a/sound/soc/codecs/da7213.c b/sound/soc/codecs/da7213.c
-index 2e645dc60eda4..544ccbcfc8844 100644
---- a/sound/soc/codecs/da7213.c
-+++ b/sound/soc/codecs/da7213.c
-@@ -1922,7 +1922,6 @@ static const struct snd_soc_component_driver soc_component_dev_da7213 = {
+ static struct snd_soc_dai_driver es7154_dai = {
+diff --git a/sound/soc/codecs/es7241.c b/sound/soc/codecs/es7241.c
+index 0baa86241cf93..339553cfbb48e 100644
+--- a/sound/soc/codecs/es7241.c
++++ b/sound/soc/codecs/es7241.c
+@@ -232,7 +232,6 @@ static const struct snd_soc_component_driver es7241_component_driver = {
+ 	.num_dapm_routes	= ARRAY_SIZE(es7241_dapm_routes),
+ 	.idle_bias_on		= 1,
+ 	.endianness		= 1,
+-	.non_legacy_dai_naming	= 1,
+ };
+ 
+ static void es7241_parse_fmt(struct device *dev, struct es7241_data *priv)
+diff --git a/sound/soc/codecs/es8316.c b/sound/soc/codecs/es8316.c
+index 4407166bb3388..eb15be9095e77 100644
+--- a/sound/soc/codecs/es8316.c
++++ b/sound/soc/codecs/es8316.c
+@@ -769,7 +769,6 @@ static const struct snd_soc_component_driver soc_component_dev_es8316 = {
+ 	.num_dapm_routes	= ARRAY_SIZE(es8316_dapm_routes),
+ 	.use_pmdown_time	= 1,
+ 	.endianness		= 1,
+-	.non_legacy_dai_naming	= 1,
+ };
+ 
+ static const struct regmap_range es8316_volatile_ranges[] = {
+diff --git a/sound/soc/codecs/es8328.c b/sound/soc/codecs/es8328.c
+index dd53dfd87b04e..160adc706cc69 100644
+--- a/sound/soc/codecs/es8328.c
++++ b/sound/soc/codecs/es8328.c
+@@ -844,7 +844,6 @@ static const struct snd_soc_component_driver es8328_component_driver = {
  	.idle_bias_on		= 1,
  	.use_pmdown_time	= 1,
  	.endianness		= 1,
 -	.non_legacy_dai_naming	= 1,
  };
  
- static const struct regmap_config da7213_regmap_config = {
-diff --git a/sound/soc/codecs/da7218.c b/sound/soc/codecs/da7218.c
-index a5d7c350a3ded..91372909d184b 100644
---- a/sound/soc/codecs/da7218.c
-+++ b/sound/soc/codecs/da7218.c
-@@ -3040,7 +3040,6 @@ static const struct snd_soc_component_driver soc_component_dev_da7218 = {
- 	.idle_bias_on		= 1,
- 	.use_pmdown_time	= 1,
- 	.endianness		= 1,
--	.non_legacy_dai_naming	= 1,
- };
- 
- 
-diff --git a/sound/soc/codecs/da7219.c b/sound/soc/codecs/da7219.c
-index c18f76f370fc4..50ecf30e6136a 100644
---- a/sound/soc/codecs/da7219.c
-+++ b/sound/soc/codecs/da7219.c
-@@ -2647,7 +2647,6 @@ static const struct snd_soc_component_driver soc_component_dev_da7219 = {
- 	.idle_bias_on		= 1,
- 	.use_pmdown_time	= 1,
- 	.endianness		= 1,
--	.non_legacy_dai_naming	= 1,
- };
- 
- 
-diff --git a/sound/soc/codecs/da732x.c b/sound/soc/codecs/da732x.c
-index 3f1cfee10df3f..2c5b0b74201c7 100644
---- a/sound/soc/codecs/da732x.c
-+++ b/sound/soc/codecs/da732x.c
-@@ -1503,7 +1503,6 @@ static const struct snd_soc_component_driver soc_component_dev_da732x = {
- 	.idle_bias_on		= 1,
- 	.use_pmdown_time	= 1,
- 	.endianness		= 1,
--	.non_legacy_dai_naming	= 1,
- };
- 
- static int da732x_i2c_probe(struct i2c_client *i2c)
-diff --git a/sound/soc/codecs/da9055.c b/sound/soc/codecs/da9055.c
-index 9d8c8adc5d768..28043b4530df8 100644
---- a/sound/soc/codecs/da9055.c
-+++ b/sound/soc/codecs/da9055.c
-@@ -1460,7 +1460,6 @@ static const struct snd_soc_component_driver soc_component_dev_da9055 = {
- 	.idle_bias_on		= 1,
- 	.use_pmdown_time	= 1,
- 	.endianness		= 1,
--	.non_legacy_dai_naming	= 1,
- };
- 
- static const struct regmap_config da9055_regmap_config = {
+ int es8328_probe(struct device *dev, struct regmap *regmap)
 -- 
 2.30.2
 

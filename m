@@ -2,60 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA844552026
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jun 2022 17:17:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E81155201F
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jun 2022 17:15:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7B87E1F4A;
-	Mon, 20 Jun 2022 17:16:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B87E1F4A
+	by alsa0.perex.cz (Postfix) with ESMTPS id F25AD1F2C;
+	Mon, 20 Jun 2022 17:14:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F25AD1F2C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655738243;
-	bh=/uuW6CCynC/66waE/Fv9Bc2EyASuIpB5Jzzk0tJGtWk=;
+	s=default; t=1655738150;
+	bh=TxNP7G4A7FjUeJlHBlihrQesXbvyTOpe4KmJsVvw2f8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CB5xUfwXfI7ys+YmSVngiaiT9xuVcPIupystDBFa6aN5VLBCck2Phj5ONIr4hHfr7
-	 sFRzuldsgb+Junpigqhd8TbmK2QRowrMuWc2XWwhXLXobJIrzH+Cw5IH7kQv1hbj9E
-	 qBNhHwHpofuw+rr8ZZm0HCfcrFeZnig6crfQAYnM=
+	b=STiQlGzj07DJoiNbvvmt8ndxOTjChf7/+44BvzBRnUR5ncpG9fn8ZuaMm1THdWhqB
+	 233eDZygZCUQq9L7m9u10li1r7rfet5CNTeAdvFJ8oP9g31domuV98p5XnNpeIw9Yt
+	 O8fPR71XSVJKK0AsejxUrp14Hhh+datbRrY5wo9Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1EC91F8061B;
-	Mon, 20 Jun 2022 17:07:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A5F23F80606;
+	Mon, 20 Jun 2022 17:07:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 164A5F8052F; Thu, 16 Jun 2022 16:35:17 +0200 (CEST)
+ id 4521EF805BA; Thu, 16 Jun 2022 16:35:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 56ABDF80536
+ by alsa1.perex.cz (Postfix) with ESMTPS id F2817F8053E
  for <alsa-devel@alsa-project.org>; Thu, 16 Jun 2022 16:34:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56ABDF80536
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2817F8053E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="jf7PxyL/"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25GC07CE027888;
+ header.b="WF++K2li"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25GBnCaI029573;
  Thu, 16 Jun 2022 09:34:41 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=PODMain02222019;
- bh=w2elvprt/NPXLmHM0bB06m5qSNTTQZOMLvUvMKNQ3w8=;
- b=jf7PxyL/w4OFh9bwY+xWqqoWuKxDpHijUR8oE9w7rNuOZcm4ZlPXmWaUzd2x/Wv9pxvk
- w525luItMMkGrjWtqxJ8fTan7w8bhV1xD1eSkRPV4XAZ/zYSwHLby+kcEgRWFzRgCxCS
- Emy9j08QeSp+LPR4xIuyY5na+O5omGL1pyDssKG27BnAKQ+p1gJtHGlNuyb738XxchE9
- 8EZIyccWbMawBOk9qEQ4KpaD4F37pHvHQOAFwvZynVc0Ie1/ZelNrx7fmXaSzqFghXRQ
- 1jutLYO8awc5xO3HifDRwEaTwFz99COh3m1LR8VTzsozGmZ5cQdMlkLS6JX7A+MfC/PH tA== 
+ bh=mIa1mkeEkrDJt0gyT2HtnOxCb8TL4rQN20e++H56G2c=;
+ b=WF++K2livlbXpnkZLU36xjroMdLavKv47c7KhXYxHJ4WSkyR4VqtHiV2Eul68RXkLdI9
+ /8iLqZPBRVmFElqqX8dkPma0XjdzDfFVTSWhwxfvghoaanoULYURQ221tIhmMTA04P+c
+ 6ODQfViNSnC67OdV7BaUPZEJNbAyCLgiREWik52KQG/SuBpWuUCiabIGCnu/Jixy9gTM
+ Nh4q9k60goUMaVqzHn+HzIvjcChdzkM6Ha9EKD9QwIa8YPYIOpIwaLBn6kpF0wWRVVHA
+ jm0eWBzaawskt5ekD9OPUlnlqrKLffkRs4m63XFWJeAtSe9tBvOTu4G6fu56rO67l6C1 Qw== 
 Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3gmrf35vuu-11
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3gmqfq5w3m-2
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
  Thu, 16 Jun 2022 09:34:40 -0500
 Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
@@ -66,22 +66,22 @@ Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.28 via
  Frontend Transport; Thu, 16 Jun 2022 15:34:32 +0100
 Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id E47B611DA;
- Thu, 16 Jun 2022 14:34:31 +0000 (UTC)
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 053C511D3;
+ Thu, 16 Jun 2022 14:34:32 +0000 (UTC)
 From: Charles Keepax <ckeepax@opensource.cirrus.com>
 To: <broonie@kernel.org>
-Subject: [PATCH 25/96] ASoC: test-component: Migrate to new style legacy DAI
- naming flag
-Date: Thu, 16 Jun 2022 15:33:18 +0100
-Message-ID: <20220616143429.1324494-26-ckeepax@opensource.cirrus.com>
+Subject: [PATCH 26/96] ASoC: rockchip: Migrate to new style legacy DAI naming
+ flag
+Date: Thu, 16 Jun 2022 15:33:19 +0100
+Message-ID: <20220616143429.1324494-27-ckeepax@opensource.cirrus.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220616143429.1324494-1-ckeepax@opensource.cirrus.com>
 References: <20220616143429.1324494-1-ckeepax@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-GUID: Imefr2FbWEKdHfYaMvZ_557fVEkOHJiT
-X-Proofpoint-ORIG-GUID: Imefr2FbWEKdHfYaMvZ_557fVEkOHJiT
+X-Proofpoint-ORIG-GUID: IpsGq9FoaXt-9eT2DdnEMXdnzL34HmIT
+X-Proofpoint-GUID: IpsGq9FoaXt-9eT2DdnEMXdnzL34HmIT
 X-Proofpoint-Spam-Reason: safe
 X-Mailman-Approved-At: Mon, 20 Jun 2022 17:06:45 +0200
 Cc: cezary.rojewski@intel.com, heiko@sntech.de,
@@ -115,26 +115,65 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 Change the legacy DAI naming flag from opting in to the new scheme
 (non_legacy_dai_naming), to opting out of it (legacy_dai_naming).
-This driver appears to be on the CPU side of the DAI link and
+These drivers appear to be on the CPU side of the DAI link and
 currently uses the legacy naming, so add the new flag.
 
 Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 ---
- sound/soc/generic/test-component.c | 1 +
- 1 file changed, 1 insertion(+)
+ sound/soc/rockchip/rockchip_i2s.c     | 1 +
+ sound/soc/rockchip/rockchip_i2s_tdm.c | 1 +
+ sound/soc/rockchip/rockchip_pdm.c     | 1 +
+ sound/soc/rockchip/rockchip_spdif.c   | 1 +
+ 4 files changed, 4 insertions(+)
 
-diff --git a/sound/soc/generic/test-component.c b/sound/soc/generic/test-component.c
-index d28712fabe3f6..e2a009bc69af2 100644
---- a/sound/soc/generic/test-component.c
-+++ b/sound/soc/generic/test-component.c
-@@ -564,6 +564,7 @@ static int test_driver_probe(struct platform_device *pdev)
- 		cdriv->pcm_construct		= test_component_pcm_construct;
- 		cdriv->pointer			= test_component_pointer;
- 		cdriv->trigger			= test_component_trigger;
-+		cdriv->legacy_dai_naming	= 1;
- 	} else {
- 		cdriv->name			= "test_codec";
- 		cdriv->idle_bias_on		= 1;
+diff --git a/sound/soc/rockchip/rockchip_i2s.c b/sound/soc/rockchip/rockchip_i2s.c
+index 47a3971a9ce14..2eb1a9bf4c00b 100644
+--- a/sound/soc/rockchip/rockchip_i2s.c
++++ b/sound/soc/rockchip/rockchip_i2s.c
+@@ -498,6 +498,7 @@ static struct snd_soc_dai_driver rockchip_i2s_dai = {
+ 
+ static const struct snd_soc_component_driver rockchip_i2s_component = {
+ 	.name = DRV_NAME,
++	.legacy_dai_naming = 1,
+ };
+ 
+ static bool rockchip_i2s_wr_reg(struct device *dev, unsigned int reg)
+diff --git a/sound/soc/rockchip/rockchip_i2s_tdm.c b/sound/soc/rockchip/rockchip_i2s_tdm.c
+index 48b3ecfa58b46..2aad0f309cb63 100644
+--- a/sound/soc/rockchip/rockchip_i2s_tdm.c
++++ b/sound/soc/rockchip/rockchip_i2s_tdm.c
+@@ -1120,6 +1120,7 @@ static const struct snd_soc_dai_ops rockchip_i2s_tdm_dai_ops = {
+ 
+ static const struct snd_soc_component_driver rockchip_i2s_tdm_component = {
+ 	.name = DRV_NAME,
++	.legacy_dai_naming = 1,
+ };
+ 
+ static bool rockchip_i2s_tdm_wr_reg(struct device *dev, unsigned int reg)
+diff --git a/sound/soc/rockchip/rockchip_pdm.c b/sound/soc/rockchip/rockchip_pdm.c
+index 64d9891b6434f..6d93155411b03 100644
+--- a/sound/soc/rockchip/rockchip_pdm.c
++++ b/sound/soc/rockchip/rockchip_pdm.c
+@@ -405,6 +405,7 @@ static struct snd_soc_dai_driver rockchip_pdm_dai = {
+ 
+ static const struct snd_soc_component_driver rockchip_pdm_component = {
+ 	.name = "rockchip-pdm",
++	.legacy_dai_naming = 1,
+ };
+ 
+ static int rockchip_pdm_runtime_suspend(struct device *dev)
+diff --git a/sound/soc/rockchip/rockchip_spdif.c b/sound/soc/rockchip/rockchip_spdif.c
+index d027ca4b17964..8bef572d3cbc1 100644
+--- a/sound/soc/rockchip/rockchip_spdif.c
++++ b/sound/soc/rockchip/rockchip_spdif.c
+@@ -225,6 +225,7 @@ static struct snd_soc_dai_driver rk_spdif_dai = {
+ 
+ static const struct snd_soc_component_driver rk_spdif_component = {
+ 	.name = "rockchip-spdif",
++	.legacy_dai_naming = 1,
+ };
+ 
+ static bool rk_spdif_wr_reg(struct device *dev, unsigned int reg)
 -- 
 2.30.2
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CBA354ED14
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jun 2022 00:06:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16B9E54ED20
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jun 2022 00:09:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 29C631B0C;
-	Fri, 17 Jun 2022 00:05:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 29C631B0C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9EB891B2D;
+	Fri, 17 Jun 2022 00:08:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9EB891B2D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655417179;
-	bh=8yDu8pljCT7lbter28rnZGmrSNHwi6FSg6lKKzg7Hfs=;
+	s=default; t=1655417341;
+	bh=EB2/ghYX0CjgXaTRz9Ew0BwzZE1/EU2YhFYqdXMaUyA=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qiqOPDaEJ6reD0JD8Vign4u6CnYXmx7jyosx1qnsj1wLM4oxAmyFrWDqRlqkcZ2wl
-	 hXg7iVAm3G3pYFazSkT9K5w+y2HLUq2Bd/+xFPFM1suxsOPRgQWS4tt0gD7ovDS7lh
-	 qjc/O4Y8NgO30oVOMOvWW8VlFhaPXannIUXxM9eI=
+	b=XzhXtxnn43iLIpo6PIT4W3EqfQ5nKRjcAJUtapGLEyBg6ulPBZUTgOS0pQl57NLRZ
+	 oueZ6coJmmau6I997NIWvBiuBptCP5J69YBmI4A2cZWldu9DwCUQU2xRD1iP/9TAEC
+	 vezFEzY93yPjW1liz1XkmqwgE4hEjQbP0N4juAws=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7E259F8047C;
-	Fri, 17 Jun 2022 00:04:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A27CBF80587;
+	Fri, 17 Jun 2022 00:05:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C8411F800D3; Fri, 17 Jun 2022 00:04:44 +0200 (CEST)
+ id 22D7FF80548; Fri, 17 Jun 2022 00:04:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,56 +34,53 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CCB38F800D3
- for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 00:04:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CCB38F800D3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3EE3AF800F0
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 00:04:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3EE3AF800F0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="TMSNs6Rc"
+ header.b="CWco0UfK"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655417083; x=1686953083;
+ t=1655417084; x=1686953084;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=8yDu8pljCT7lbter28rnZGmrSNHwi6FSg6lKKzg7Hfs=;
- b=TMSNs6Rcn5dK+INJU4G8xNmC0IR7pT+D9R+B5gg98xER3DMCifD1tQST
- GrNuaLprWrAx/acancJgG4pPLwdOHwYuDhpdLxGHHbE+8QORpC1mBmHVs
- D67plAh2yn6NxGWzd21Qa/FCxD9UJv6K/QO3p5rAsOjhiFACE5nR91gql
- q1EQcRe4sPHPR3smKNk+gdRpjt1hnqihl4Yqm+72sAOpIRsQ7wUWeCikK
- sl0BbtTItkARZ7jbxrUllomp/uvtz2b3w84+UH/2n6xkzmXCiG7+qRqdX
- ygU2SVt1auJE70DjgMnFqO+y9pUFOlkKkXJjDO2Eaj/ar/0Ul4W7ZpY8H g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="304810909"
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="304810909"
+ bh=EB2/ghYX0CjgXaTRz9Ew0BwzZE1/EU2YhFYqdXMaUyA=;
+ b=CWco0UfKS1h6ZAjZk26Wp5QsbC4es9EfZzWh8izwhhgnEWurx06jZJhM
+ hvaJ/GjLTvLolPqBdTnhNoajyows+ahXZzixoawcfpIO2scsXsorPRRR1
+ 6pndfn2IEwlZTCPqSQda2wMAu141/NPVwfSBdFFl8xeZFUwJ9oMs1zF4F
+ 0qT8INkILyufUt1YdeIoZnjaiJHvqQRv/JHEbqEiqOWKaixoA15smeOb6
+ 0uB3l85DUulZRQ+gEOxUYIFRPQn4zax8BbPO9jehgZdpiDuRSTrwSJaT1
+ IjW8OhkaulBRJdXxd23nMOeM5cedLohozWt0/J8B2g8+1DuIqQx3cDPAO Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="304810920"
+X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="304810920"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2022 15:04:40 -0700
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="728084970"
+ 16 Jun 2022 15:04:41 -0700
+X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="728084980"
 Received: from buckkenx-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.212.52.70])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2022 15:04:39 -0700
+ 16 Jun 2022 15:04:40 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 02/11] ASoC: Intel: skylake: skl-pcm: use
- pm_runtime_resume_and_get()
-Date: Thu, 16 Jun 2022 17:04:18 -0500
-Message-Id: <20220616220427.136036-3-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 03/11] ASoC: soc-component: use pm_runtime_resume_and_get()
+Date: Thu, 16 Jun 2022 17:04:19 -0500
+Message-Id: <20220616220427.136036-4-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220616220427.136036-1-pierre-louis.bossart@linux.intel.com>
 References: <20220616220427.136036-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: Gustaw Lewandowski <gustaw.lewandowski@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, tiwai@suse.de,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, tiwai@suse.de,
+ open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>, broonie@kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, broonie@kernel.org,
  =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>, Thomas Gleixner <tglx@linutronix.de>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- open list <linux-kernel@vger.kernel.org>
+ <amadeuszx.slawinski@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,33 +96,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The current code does not check for errors and does not release the
-reference on errors.
+simplify the flow. No functionality change, except that on -EACCESS
+the reference count will be decreased.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 ---
- sound/soc/intel/skylake/skl-pcm.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ sound/soc/soc-component.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/intel/skylake/skl-pcm.c b/sound/soc/intel/skylake/skl-pcm.c
-index 55f310e91b55c..9d72ebd812af9 100644
---- a/sound/soc/intel/skylake/skl-pcm.c
-+++ b/sound/soc/intel/skylake/skl-pcm.c
-@@ -1380,7 +1380,10 @@ static int skl_platform_soc_probe(struct snd_soc_component *component)
- 	const struct skl_dsp_ops *ops;
- 	int ret;
+diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
+index e12f8244242b9..cb92e002c38bc 100644
+--- a/sound/soc/soc-component.c
++++ b/sound/soc/soc-component.c
+@@ -1213,11 +1213,11 @@ int snd_soc_pcm_component_pm_runtime_get(struct snd_soc_pcm_runtime *rtd,
+ 	int i;
  
--	pm_runtime_get_sync(component->dev);
-+	ret = pm_runtime_resume_and_get(component->dev);
-+	if (ret < 0 && ret != -EACCES)
-+		return ret;
+ 	for_each_rtd_components(rtd, i, component) {
+-		int ret = pm_runtime_get_sync(component->dev);
+-		if (ret < 0 && ret != -EACCES) {
+-			pm_runtime_put_noidle(component->dev);
++		int ret = pm_runtime_resume_and_get(component->dev);
 +
- 	if (bus->ppcap) {
- 		skl->component = component;
- 
++		if (ret < 0 && ret != -EACCES)
+ 			return soc_component_ret(component, ret);
+-		}
++
+ 		/* mark stream if succeeded */
+ 		soc_component_mark_push(component, stream, pm);
+ 	}
 -- 
 2.34.1
 

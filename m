@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA13D54ECEB
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jun 2022 23:56:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAFEE54ECF3
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jun 2022 23:58:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 49A981B18;
-	Thu, 16 Jun 2022 23:56:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49A981B18
+	by alsa0.perex.cz (Postfix) with ESMTPS id 539571B1B;
+	Thu, 16 Jun 2022 23:57:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 539571B1B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655416618;
-	bh=n2U0AeRSHQQSTBYckbxzcDuezlEcPXhJrUuMBQM3oUc=;
+	s=default; t=1655416686;
+	bh=sWEKbU6dqvHwRpnGPLTEIY49Qt7panA9csgyYzeYU3Y=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=km9/Dgq6pRrFKgKgWYX+be9xICiOknS4ypvf3RsrZQ/6eS92JMYNGTQ1tncGwSs0Q
-	 RKn8b+b7mAy14AjwnuPRKlX+SRyiGmcQglsKWQn0lVIUKgcX6BwW0N2MR4A7dU21tN
-	 a0Vp5bzHIrEoQgaHoQQjhoTBNrBh0Rki4XTKffeI=
+	b=ipwIo6Mu2gC5hojWt2dSsCa6KWlnBqMDuYf2JD5gmjsJX3PWysZgepXD7lG9NcUpI
+	 +4e8XH54NrXLtOFY8tGfFbbT1ubZKc88MNrKZFYkRbiMHtlYELagHBR4RfrkwituIP
+	 Z7/qnIzLhggNEQ+YdXTRcS3H9E5m5RgvbOMbptPg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 75EE7F8053E;
-	Thu, 16 Jun 2022 23:54:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DCFB8F80557;
+	Thu, 16 Jun 2022 23:54:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 039EDF8052D; Thu, 16 Jun 2022 23:54:47 +0200 (CEST)
+ id 0AC91F8053C; Thu, 16 Jun 2022 23:54:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 52DE2F8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 78FCCF80527
  for <alsa-devel@alsa-project.org>; Thu, 16 Jun 2022 23:54:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52DE2F8012A
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78FCCF80527
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="diwxM2Rf"
+ header.b="LSKwai30"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655416482; x=1686952482;
+ t=1655416484; x=1686952484;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=n2U0AeRSHQQSTBYckbxzcDuezlEcPXhJrUuMBQM3oUc=;
- b=diwxM2RfQLxjG+2WdWC5ap2ma7JmkHBZ0qtNkVvg3DTFqOJYkyBJ3Wnu
- Caao5R6DyF35I1n6goHJO8aO2Rxma/8gJBCvnNAaEHuSZ+EpGPxK6YwMj
- 0QNJlLKzFOQ468bbnBsTZDM73uKxPNycU/J2s4WAjtn/ZhCEy9ikvYEnh
- MtWu8fY9REU3MkDOIRRQJa1foYuLu8/DMb1Ao4WuZ0HHUzxgfCneVJSvS
- Gi8CMmnhFggt0EmQIWjxdMeRMTMhckRBAp3fgkwu2G67xsAVZMGN5vCA6
- JpWyTieUMDUyXR+o9kNvSRCXmgs5Bu+NV0RrrVNDpXhlfLBoOkXVdPU5B A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="268047805"
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="268047805"
+ bh=sWEKbU6dqvHwRpnGPLTEIY49Qt7panA9csgyYzeYU3Y=;
+ b=LSKwai30C6B1iXnaviLHLJSqn/sLoCsqVYY1rHCy6rx71K9PVY4jg5Wk
+ x0po7P8BfzsWJV25W3wRK2fJbyJAjIeON0BUYaIaGhxfGCk6Uc7G+n3nG
+ UP+kRvmsFmcN4hDRLpOAPp70uPGfqUp32/8yp8A8mL+M4Z360sF7Tqd0F
+ E8lvEzztqWpFeVFqO3xLpKtP+IWrRXxZ1OtkcL7b7z1e/6Cp1l+4tl4M9
+ l9qO9bEhb2S7nd5LPWoXK7NYSGOWyxKrNAfIwMTND0UqybJOluTYRxy4A
+ jCDHnuzE6KhdOdrwcM5hHGg6UTK5sjt+qtzhD+V91DDXWS8WWC89FfBWd w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="268047812"
+X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="268047812"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  16 Jun 2022 14:54:17 -0700
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="675212652"
+X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="675212662"
 Received: from buckkenx-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.212.52.70])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2022 14:54:16 -0700
+ 16 Jun 2022 14:54:17 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 03/13] ASoC: SOF: Intel: hda-dai: remove use of __func__ in
+Subject: [PATCH 04/13] ASoC: SOF: Intel: hda-stream: remove use of __func__ in
  dev_dbg
-Date: Thu, 16 Jun 2022 16:53:41 -0500
-Message-Id: <20220616215351.135643-4-pierre-louis.bossart@linux.intel.com>
+Date: Thu, 16 Jun 2022 16:53:42 -0500
+Message-Id: <20220616215351.135643-5-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220616215351.135643-1-pierre-louis.bossart@linux.intel.com>
 References: <20220616215351.135643-1-pierre-louis.bossart@linux.intel.com>
@@ -106,40 +106,29 @@ Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- sound/soc/sof/intel/hda-dai.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ sound/soc/sof/intel/hda-stream.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/sof/intel/hda-dai.c b/sound/soc/sof/intel/hda-dai.c
-index 70721defca467..ed74a1f264e86 100644
---- a/sound/soc/sof/intel/hda-dai.c
-+++ b/sound/soc/sof/intel/hda-dai.c
-@@ -393,7 +393,7 @@ static int hda_dai_prepare(struct snd_pcm_substream *substream, struct snd_soc_d
- 	if (hext_stream && hext_stream->link_prepared)
- 		return 0;
+diff --git a/sound/soc/sof/intel/hda-stream.c b/sound/soc/sof/intel/hda-stream.c
+index fad871966de83..4531e1ee5ed00 100644
+--- a/sound/soc/sof/intel/hda-stream.c
++++ b/sound/soc/sof/intel/hda-stream.c
+@@ -116,13 +116,13 @@ int hda_dsp_stream_setup_bdl(struct snd_sof_dev *sdev,
+ 	int remain, ioc;
  
--	dev_dbg(sdev->dev, "%s: prepare stream dir %d\n", __func__, substream->stream);
-+	dev_dbg(sdev->dev, "prepare stream dir %d\n", substream->stream);
+ 	period_bytes = hstream->period_bytes;
+-	dev_dbg(sdev->dev, "%s: period_bytes:0x%x\n", __func__, period_bytes);
++	dev_dbg(sdev->dev, "period_bytes:0x%x\n", period_bytes);
+ 	if (!period_bytes)
+ 		period_bytes = hstream->bufsize;
  
- 	ret = hda_link_dma_prepare(substream);
- 	if (ret < 0)
-@@ -419,7 +419,7 @@ static int ipc3_hda_dai_trigger(struct snd_pcm_substream *substream,
- 	struct snd_soc_dapm_widget *w;
- 	int ret;
+ 	periods = hstream->bufsize / period_bytes;
  
--	dev_dbg(dai->dev, "%s: cmd=%d dai %s direction %d\n", __func__, cmd,
-+	dev_dbg(dai->dev, "cmd=%d dai %s direction %d\n", cmd,
- 		dai->name, substream->stream);
+-	dev_dbg(sdev->dev, "%s: periods:%d\n", __func__, periods);
++	dev_dbg(sdev->dev, "periods:%d\n", periods);
  
- 	ret = hda_link_dma_trigger(substream, cmd);
-@@ -468,7 +468,7 @@ static int ipc4_hda_dai_trigger(struct snd_pcm_substream *substream,
- 	struct snd_soc_dai *cpu_dai;
- 	int ret;
- 
--	dev_dbg(dai->dev, "%s: cmd=%d dai %s direction %d\n", __func__, cmd,
-+	dev_dbg(dai->dev, "cmd=%d dai %s direction %d\n", cmd,
- 		dai->name, substream->stream);
- 
- 	hstream = substream->runtime->private_data;
+ 	remain = hstream->bufsize % period_bytes;
+ 	if (remain)
 -- 
 2.34.1
 

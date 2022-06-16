@@ -2,93 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 805C354DC3B
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jun 2022 09:55:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E976454DCA2
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jun 2022 10:15:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 170C31A5F;
-	Thu, 16 Jun 2022 09:54:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 170C31A5F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7D1EE1A90;
+	Thu, 16 Jun 2022 10:14:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D1EE1A90
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655366105;
-	bh=rcwH0ulAlavs7HSDs9lt1orRYI8gVC64sC765T0cyLs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1655367300;
+	bh=dy+gdn0Xi92bMgexTrlBXZEETPRxHoxDU7522ojrfjk=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hzff0zF9q0vaWcPKIUIsdEB/vS7Ej1En50CQdL51u4We9ayi8fEin/PNqLhbY2LCM
-	 lvpvoVcTlcFEBcYDQHUGDMkD46jVgyMZvXXLqGaXxL+Hgs6Q6/URwP59USz3vy9XDo
-	 e0hGas33MczzSTgKVHI++CVsIbyDDUc/Ed23U00c=
+	b=a5laX84iWXCXTWkNeDwLn42Hl5efL6DtfJY6E1jnS1sz1OJ8xsHDJM/RqizbiGvAG
+	 rz+xn6oedwN9k2BPhMUg+mubBjtyiJx4tr2msdiT5b/MAy2MhSK35AhHcjHKo1TtG3
+	 TXSiOxcL8C08VanBjq896KdaPRCh/8UCPDEsk+sg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78298F80310;
-	Thu, 16 Jun 2022 09:54:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EBDC8F80310;
+	Thu, 16 Jun 2022 10:14:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7DE42F800D3; Thu, 16 Jun 2022 09:53:58 +0200 (CEST)
+ id 5C30DF801D8; Thu, 16 Jun 2022 10:13:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [IPv6:2a00:1450:4864:20::231])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
+ [66.111.4.27])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1C10DF800D3
- for <alsa-devel@alsa-project.org>; Thu, 16 Jun 2022 09:53:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C10DF800D3
+ by alsa1.perex.cz (Postfix) with ESMTPS id AF392F800B9
+ for <alsa-devel@alsa-project.org>; Thu, 16 Jun 2022 10:13:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF392F800B9
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="AJ0HPsBU"
-Received: by mail-lj1-x231.google.com with SMTP id e4so639430ljl.1
- for <alsa-devel@alsa-project.org>; Thu, 16 Jun 2022 00:53:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=mUkmS4Z0DyeMmdjuxEPlq2pjLfUlOJ3MsLFFXv5JaTo=;
- b=AJ0HPsBU8qRppWXekaLXqODE0k+TJQdXqyZ4pGuUPYeiOddOYh2XZhCAwrMbz8NFOL
- ICj1KXYBgBcBaO1skv/60dOkIEczwKqJaDVowVrwoFsIN3wttnQL8th/swp7YhbARB9l
- 4F5GWAhr+TvBmBc/yyn2FaOWkGZVVrkwqZBO8GQMS0WPpurg+34ROUb0k4COJA6mskEW
- vC+QwlUAe0LTp5usxgXo3OqtdixoiGIo+XAhakmyhvIk+IdXE+0melSObnpVd5WUdvS9
- HT/oAZPmTcKD4NymwXssgGzOmLphfHiBd5QaxD2pQspGSFkyvAPAc3WQl3iCOPHgaQO9
- qOoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=mUkmS4Z0DyeMmdjuxEPlq2pjLfUlOJ3MsLFFXv5JaTo=;
- b=f1wn0Xlqtd4ZNxIyFdghxnc2XvKJsyGrGuQoV2puZlqTgk4CExO3BZk3JQyalXuahg
- lzvnWL4nrVc7yZX4Sil7IC5aMPhc226jEhd6gmZhqNqkTytbKIJ2CT3g5qJfKEFQ8DfZ
- SEMdbm/M4M0dZI8TiXNow/XyO5P9NdJwCTPiCljsi0pxj7PVWbqw49o4PftDR5zxpgCX
- x+D/F9DqTRp8PS3dDBj0CrSCYOFQ3KeCBAokzM8lK+RcfLloctd0a+YLWhBDJneoLgIW
- KWZ6Jh/J6oYT3rVGeYb0zzXmJRQQGBt/tYjD3+PtsJOcpjwsCS82ebOGh0SpBKKZoed1
- yD+g==
-X-Gm-Message-State: AJIora8OUW+2HprupA4RMYHvfOuuTyyx7UzLhSCGRiqiEfORFhY8MnzL
- vtaxiD7KV6W5fosDEH3cqftNQo7sjNOZ6gnGYBs=
-X-Google-Smtp-Source: AGRyM1sXa5MxZmMaYrthL9kddZQqDV6TP6OLiTEaCHASD/FfC4TEVlRpHCks6gjOsu6xXcc1trg0BfrUAfD/aoatOUc=
-X-Received: by 2002:a2e:9113:0:b0:255:a3e6:93cb with SMTP id
- m19-20020a2e9113000000b00255a3e693cbmr1948076ljg.312.1655366030089; Thu, 16
- Jun 2022 00:53:50 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="wqb40OpR"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="C327SzpF"
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.nyi.internal (Postfix) with ESMTP id C58695C082B;
+ Thu, 16 Jun 2022 04:13:45 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute2.internal (MEProxy); Thu, 16 Jun 2022 04:13:45 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=cc:cc:content-type:date:date:from:from:in-reply-to
+ :in-reply-to:message-id:mime-version:references:reply-to:sender
+ :subject:subject:to:to; s=fm2; t=1655367225; x=1655453625; bh=mV
+ JEolc0OFYoYuhw+AP5Anf6kn9xhkygOSKD5uAd+7w=; b=wqb40OpRLyuFSVXwtu
+ RLK0qLhHihhBHDRjN34U7wpfOp+tY/Dy6pD0saaXbb9SQVkockqAx+LeiPTrz2PU
+ Bzoi52kG7X2gpKoRNUWJ9z1imm2jzhucw3bvccMNTocV25OMxqhWRkQUCnJ78Is7
+ YrASi4g64lC588vREKYFM+u+JMHp2pXAynOf1t2OU2k6CQ3NLg40DYtvLUzE5H3W
+ qJzvX+EzRG+bwdRtVm5kifk7G8bPn9PRrpYAUV+WWj1xR9KZxltH4WVTID8MMAIy
+ H00kU4z5bJ8YRFmkbFjfcDXHoGN2xJybWOeG/eNxLr/xBErHyFRONnFlXpgGMi0N
+ udug==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+ :feedback-id:from:from:in-reply-to:in-reply-to:message-id
+ :mime-version:references:reply-to:sender:subject:subject:to:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm2; t=1655367225; x=1655453625; bh=mVJEolc0OFYoYuhw+AP5Anf6kn9x
+ hkygOSKD5uAd+7w=; b=C327SzpFXzfbupJ0KH4hcOAw1N53JpZibxWQfQSAOVB4
+ sgPkydFqu0qbSV1pAglQCLil+6CY7qFEwv1e0Dpj31egVO1FG8jv9MWIRglRl6BR
+ qw8F4ED+PjlUcIkJOdPtUoli5qwhFRERFIPqPICFyvxeVm3bngfxVMiSYZNaI+4I
+ 3vJizhu/mFSlX0zv1UmixHF9YIzxQqdWt7zL19oMdxFrFthksFbuSCdClO+MDEuw
+ QAI1aycbacuDhUJiwPJwsaRL/WQ3aB+LOABYm9hQM7v6eyH9QrtyhsAPpAkvr1ni
+ jGryR3xD1gBAsvYorNrDa8DkMubtqRx/bxXofta8yQ==
+X-ME-Sender: <xms:OOaqYpYACykB0Z0vlbLq_H_KOvEMCQkbgdsUh6qQ_ONLXoybIgzfOg>
+ <xme:OOaqYgYgdELo5P6x7SgTY5fchsa18PMmrSvkGgtFv0YVKJ_Tkz5-OeKulQ4hKTEkn
+ 15dLhKPEfQr81BSrik>
+X-ME-Received: <xmr:OOaqYr9eH1HTDr4vqg4c_Sb01-jpuStK7X4yPjSuwhYXOkFGxs3ZKp0KL5zGk-y-AQ2iU-49bo-Iuyj_0WWolghzVMBN_v3u>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedruddvvddguddvkecutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+ enucfjughrpeffhffvvefukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefvrghk
+ rghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhisehsrghkrghmohgttghhih
+ drjhhpqeenucggtffrrghtthgvrhhnpeehhffhteetgfekvdeiueffveevueeftdelhfej
+ ieeitedvleeftdfgfeeuudekueenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmh
+ epmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjhhp
+X-ME-Proxy: <xmx:OOaqYnpdcvhZY_sgs5OFc_lb-b03Ej-XzQKehByQphF85ANc6khlBQ>
+ <xmx:OOaqYkotab01xauNwNgetoH2sY_EDCXSNlS2nbGi7KD93jPNG_GfXQ>
+ <xmx:OOaqYtRgl5FqxjU6C1G1TSa5F-CXv2O8MRb5t949XyFIo-a6xx7Mag>
+ <xmx:OeaqYrT0y2vPtyWmbK_WC0xjSnM5Qf-omaTNwwkRu3x3g54EvNGvDQ>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 16 Jun 2022 04:13:43 -0400 (EDT)
+Date: Thu, 16 Jun 2022 17:13:41 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Pavel Hofman <pavel.hofman@ivitera.com>
+Subject: Re: [PATCH] aplay: Support setting timestamp
+Message-ID: <YqrmNfnn2qCZV9Kf@workstation>
+Mail-Followup-To: Pavel Hofman <pavel.hofman@ivitera.com>,
+ alsa-devel@alsa-project.org
+References: <20220616065426.27915-1-pavel.hofman@ivitera.com>
 MIME-Version: 1.0
-References: <1655179884-12278-1-git-send-email-shengjiu.wang@nxp.com>
- <1655179884-12278-6-git-send-email-shengjiu.wang@nxp.com>
- <CAOMZO5BRVBawK2PRvTazkQf-wExOuni9qD76Ha3FYmZZQyPRsg@mail.gmail.com>
-In-Reply-To: <CAOMZO5BRVBawK2PRvTazkQf-wExOuni9qD76Ha3FYmZZQyPRsg@mail.gmail.com>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Thu, 16 Jun 2022 15:53:38 +0800
-Message-ID: <CAA+D8APKt+_JbbuQ=WaK7v8FM7SFCACif-Qx=gwuaLL=fGwLQw@mail.gmail.com>
-Subject: Re: [PATCH 5/7] ASoC: fsl_sai: Move res variable to be global
-To: Fabio Estevam <festevam@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Linux-ALSA <alsa-devel@alsa-project.org>,
- Xiubo Li <Xiubo.Lee@gmail.com>, linux-kernel <linux-kernel@vger.kernel.org>,
- Shengjiu Wang <shengjiu.wang@nxp.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Nicolin Chen <nicoleotsuka@gmail.com>, Mark Brown <broonie@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220616065426.27915-1-pavel.hofman@ivitera.com>
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,30 +118,139 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jun 15, 2022 at 10:22 PM Fabio Estevam <festevam@gmail.com> wrote:
+Hi,
 
-> Hi Shengjiu,
->
-> On Tue, Jun 14, 2022 at 1:25 AM Shengjiu Wang <shengjiu.wang@nxp.com>
-> wrote:
-> >
-> > The resource info need to be accessed by hw_params()
-> > function for multi fifo case, the start address may
-> > be not the FIFO0. So move it to be global first.
->
-> Actually, it is not global. It is being added as a member of struct
-> fsl_sai.
->
-> Please rephrase the Subject to:
->
-> ASoC: fsl_sai: Make res a member of struct fsl_sai
->
-> and then in the commit log:
->
-> "So move it to be a member of struct fsl_sai."
->
+On Thu, Jun 16, 2022 at 08:54:26AM +0200, Pavel Hofman wrote:
+> To allow enabling timestamp and specify its type, a new option
+> --tstamp-type=TYPE is added. Recognized values are none (default),
+> gettimeofday, monotonic, monotonic-raw.
+> 
+> Signed-off-by: Pavel Hofman <pavel.hofman@ivitera.com>
+> ---
+>  aplay/aplay.1 |  4 ++++
+>  aplay/aplay.c | 32 ++++++++++++++++++++++++++++++++
+>  2 files changed, 36 insertions(+)
+ 
+I prefer the idea to work for timestamp feature defined in ALSA PCM
+interface, while I have a mixed feeling to integrate `aplay` tool, since
+I have an intension to obsolete the tool with `axfer` tool with more
+robust design with command argument compatibility (as much as possible).
 
-Thanks, I will update them.
+This is not so strong request but would I ask you to work for `axfer` tool
+instead of `aplay`? Then, it's preferable that the name of command
+argument is decided with enough care of all of timestamp feature in ALSA
+PCM interface, since we have two categories of timestamps at least; e.g.
+system timestamp and audio timestamp. As long as I know, they possibly use
+different clock sources, thus these two timestamps have different levels
+of clock id, I think.
 
-best regards
-wang shengjiu
+Of course, it's a loose accord in the community to obsolete `aplay`, and
+it's easy to decide to continue aplay integration. (I'm not in leading
+place of the project.) I'll be a bit happy if people take care of axfer
+tool as well.
+
+
+Regards
+
+Takashi Sakamoto
+
+> diff --git a/aplay/aplay.1 b/aplay/aplay.1
+> index 3bba59d..d3b7dce 100644
+> --- a/aplay/aplay.1
+> +++ b/aplay/aplay.1
+> @@ -207,6 +207,10 @@ sampling rates, numbers of channels, period and buffer bytes/sizes/times.
+>  For raw device hw:X this option basically lists hardware capabilities of
+>  the soundcard.
+>  .TP
+> +\fI\-\-tstamp\-type=TYPE\fP
+> +Specifies timestamp type inside the software configuration container.
+> +Types are: none (default), gettimeofday, monotonic, monotonic\-raw.
+> +.TP
+>  \fI\-\-fatal\-errors\fP
+>  Disables recovery attempts when errors (e.g. xrun) are encountered; the
+>  aplay process instead aborts immediately.
+> diff --git a/aplay/aplay.c b/aplay/aplay.c
+> index 63a4e34..5d15a32 100644
+> --- a/aplay/aplay.c
+> +++ b/aplay/aplay.c
+> @@ -139,6 +139,8 @@ static int use_strftime = 0;
+>  volatile static int recycle_capture_file = 0;
+>  static long term_c_lflag = -1;
+>  static int dump_hw_params = 0;
+> +static int enable_tstamp = 0;
+> +static snd_pcm_tstamp_type_t tstamp_type = SND_PCM_TSTAMP_TYPE_GETTIMEOFDAY;
+>  
+>  static int fd = -1;
+>  static off64_t pbrec_count = LLONG_MAX, fdcount;
+> @@ -244,6 +246,8 @@ _("Usage: %s [OPTION]... [FILE]...\n"
+>  "    --process-id-file   write the process ID here\n"
+>  "    --use-strftime      apply the strftime facility to the output file name\n"
+>  "    --dump-hw-params    dump hw_params of the device\n"
+> +"    --tstamp-type=TYPE  set timestamp (TYPE: none (default), gettimeofday,\n"
+> +"                        monotonic, monotonic-raw)\n"
+>  "    --fatal-errors      treat all errors as fatal\n"
+>    )
+>  		, command);
+> @@ -430,6 +434,7 @@ enum {
+>  	OPT_PROCESS_ID_FILE,
+>  	OPT_USE_STRFTIME,
+>  	OPT_DUMP_HWPARAMS,
+> +	OPT_TSTAMP_TYPE,
+>  	OPT_FATAL_ERRORS,
+>  };
+>  
+> @@ -517,6 +522,7 @@ int main(int argc, char *argv[])
+>  		{"use-strftime", 0, 0, OPT_USE_STRFTIME},
+>  		{"interactive", 0, 0, 'i'},
+>  		{"dump-hw-params", 0, 0, OPT_DUMP_HWPARAMS},
+> +		{"tstamp-type", 1, 0, OPT_TSTAMP_TYPE},
+>  		{"fatal-errors", 0, 0, OPT_FATAL_ERRORS},
+>  #ifdef CONFIG_SUPPORT_CHMAP
+>  		{"chmap", 1, 0, 'm'},
+> @@ -799,6 +805,23 @@ int main(int argc, char *argv[])
+>  		case OPT_DUMP_HWPARAMS:
+>  			dump_hw_params = 1;
+>  			break;
+> +		case OPT_TSTAMP_TYPE:
+> +			if (strcasecmp(optarg, "gettimeofday") == 0) {
+> +				enable_tstamp = 1;
+> +				tstamp_type = SND_PCM_TSTAMP_TYPE_GETTIMEOFDAY;
+> +			} else if (strcasecmp(optarg, "monotonic") == 0) {
+> +				enable_tstamp = 1;
+> +				tstamp_type = SND_PCM_TSTAMP_TYPE_MONOTONIC;
+> +			} else if (strcasecmp(optarg, "monotonic-raw") == 0) {
+> +				enable_tstamp = 1;
+> +				tstamp_type = SND_PCM_TSTAMP_TYPE_MONOTONIC_RAW;
+> +			} else if (strcasecmp(optarg, "none") == 0)
+> +				enable_tstamp = 0;
+> +			else {
+> +				error(_("unrecognized timestamp type %s"), optarg);
+> +				return 1;
+> +			}
+> +			break;
+>  		case OPT_FATAL_ERRORS:
+>  			fatal_errors = 1;
+>  			break;
+> @@ -1453,6 +1476,15 @@ static void set_params(void)
+>  		stop_threshold = (double) rate * stop_delay / 1000000;
+>  	err = snd_pcm_sw_params_set_stop_threshold(handle, swparams, stop_threshold);
+>  	assert(err >= 0);
+> +	if (enable_tstamp) {
+> +		err = snd_pcm_sw_params_set_tstamp_mode(handle, swparams, SND_PCM_TSTAMP_ENABLE);
+> +		assert(err >= 0);
+> +		err = snd_pcm_sw_params_set_tstamp_type(handle, swparams, tstamp_type);
+> +		if (err < 0) {
+> +			error(_("Unable to set the requested timestamp type."));
+> +			prg_exit(EXIT_FAILURE);
+> +		}
+> +	}
+>  
+>  	if (snd_pcm_sw_params(handle, swparams) < 0) {
+>  		error(_("unable to install sw params:"));
+> -- 
+> 2.25.1
+ 
+
+Regards
+
+Takashi Sakamoto

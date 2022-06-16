@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63B1854ECF4
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jun 2022 23:58:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFB8754ECF6
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jun 2022 23:58:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E9F111B12;
-	Thu, 16 Jun 2022 23:57:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9F111B12
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7184B1AC9;
+	Thu, 16 Jun 2022 23:58:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7184B1AC9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655416698;
-	bh=jFuPmfcrS1SpwmL6BkU6nFSiJTPtQUjWPAI4azgav0Q=;
+	s=default; t=1655416731;
+	bh=bQBvuhpbm4i7AJrw0J900uNdeOELlHKd206lPQJRYFQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BFVvgiifdJ3VumB4obVDkBPElmd4Xy/CnERnQ68J6CHYKYdqCbyjIxBmbxo5ida/f
-	 04Iv91FZi7ElfNq4pTHkPIHkoo2pw5S/aJOkFiHIzosevUuPDq+ECB2mAe4dAA/4UR
-	 khfPBvRUAj2gqWPfNXg4ROkuRwv0pTr1YAz7RoZ8=
+	b=LuRGkWHGVsDQ9BKPLZrNrwIs/fqc8pHpR54hqxjCycwYHZ7PA0xoWw5nUKkypKX6w
+	 BcNA1z4hYFq418rq4vCgzrsiSV3ahr8oRtjDFs2Gp2FWYukDfnnhnvWJHQA+IvlsM6
+	 e2mHwh7Qiin0FNxxIdkeqRpy82CYSx5l7ZbVSopk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E201F8055B;
-	Thu, 16 Jun 2022 23:54:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B6686F80570;
+	Thu, 16 Jun 2022 23:55:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 73C60F8053D; Thu, 16 Jun 2022 23:54:53 +0200 (CEST)
+ id E884AF8053D; Thu, 16 Jun 2022 23:54:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C6E06F804E0
- for <alsa-devel@alsa-project.org>; Thu, 16 Jun 2022 23:54:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6E06F804E0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7274CF8052F
+ for <alsa-devel@alsa-project.org>; Thu, 16 Jun 2022 23:54:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7274CF8052F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="CqJXYLs2"
+ header.b="JJqa7Hz2"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655416485; x=1686952485;
+ t=1655416486; x=1686952486;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=jFuPmfcrS1SpwmL6BkU6nFSiJTPtQUjWPAI4azgav0Q=;
- b=CqJXYLs2mJOq80rWlRyoVC8ZJ5wUC7SwkiDtpwMh+V0Fm70jZuVHWz3T
- Z09X3K+4Rf6Y4NuEOGjcR6jOFKFsagv2j3lCn7iXhWGrkFJUl1UgYnV1B
- hVdGxWpvQ5iB2KsTKWQJQdsRqL17SqdQT3s1iHi9F2HTx9hvUaW9npO2L
- uM7Ye57OdMxpb+mpxb56XjhUEaVhsXOXJSpOkVM117lyPMr2YVEUM/+3B
- Ie3vf9tdT6QSTW7kqRNXk9G2K7MzLYx+hkvHThuTuzSYDqMSlZTvYfbxN
- NcFcJc1YTYQfvGBsyp963QVznBJhNGUrXA9gwQbk88mjRoAJBTvLovr4Q A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="268047823"
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="268047823"
+ bh=bQBvuhpbm4i7AJrw0J900uNdeOELlHKd206lPQJRYFQ=;
+ b=JJqa7Hz2jKEzYaqeA85yIusDXU3dTYnmkvVEcFl1SyRe/9tgEsVkXlla
+ a4evGg+yW572oVECaQKeEETVe5lQYQfWgp4SNSNqN2JFvZHjwHouPVwwX
+ cLg802LGhJZ9gQnAIRk3Hhr5OV2NScEki9+1MuabVS8QfuA8p6zwK5L9B
+ 6jBmUGvcdyVWH9XHSS1nyqyT4u6xaVTUY3xngs1PnwcGalguA8Y/iCI2k
+ mn7MahwyOPVe1ZrOz1zh5aNODJrIZ95qOPdMgXDtjGUJvwerpRvKGmb1y
+ z4jXys2ZDIsBTchJPY/wKBwSL9nWEIOHXVIjrsM5razmCEsBVNFR9I3q+ Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="268047828"
+X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="268047828"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2022 14:54:19 -0700
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="675212675"
+ 16 Jun 2022 14:54:20 -0700
+X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="675212680"
 Received: from buckkenx-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.212.52.70])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  16 Jun 2022 14:54:19 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 07/13] ASoC: SOF: ipc3-loader: remove use of __func__ in
+Subject: [PATCH 08/13] ASoC: SOF: ipc3-topology: remove use of __func__ in
  dev_dbg
-Date: Thu, 16 Jun 2022 16:53:45 -0500
-Message-Id: <20220616215351.135643-8-pierre-louis.bossart@linux.intel.com>
+Date: Thu, 16 Jun 2022 16:53:46 -0500
+Message-Id: <20220616215351.135643-9-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220616215351.135643-1-pierre-louis.bossart@linux.intel.com>
 References: <20220616215351.135643-1-pierre-louis.bossart@linux.intel.com>
@@ -106,43 +106,24 @@ Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- sound/soc/sof/ipc3-loader.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ sound/soc/sof/ipc3-topology.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/sof/ipc3-loader.c b/sound/soc/sof/ipc3-loader.c
-index f3c741b495198..c573e7593808a 100644
---- a/sound/soc/sof/ipc3-loader.c
-+++ b/sound/soc/sof/ipc3-loader.c
-@@ -75,13 +75,12 @@ static int ipc3_fw_ext_man_get_config_data(struct snd_sof_dev *sdev,
- 	elems_size = config->hdr.size - sizeof(struct sof_ext_man_elem_header);
- 	elems_counter = elems_size / sizeof(struct sof_config_elem);
+diff --git a/sound/soc/sof/ipc3-topology.c b/sound/soc/sof/ipc3-topology.c
+index 28d3c14145728..99b62fe7a95cd 100644
+--- a/sound/soc/sof/ipc3-topology.c
++++ b/sound/soc/sof/ipc3-topology.c
+@@ -1452,8 +1452,8 @@ static int sof_ipc3_widget_setup_comp_dai(struct snd_sof_widget *swidget)
+ 	if (ret < 0)
+ 		goto free;
  
--	dev_dbg(sdev->dev, "%s can hold up to %d config elements\n",
--		__func__, elems_counter);
-+	dev_dbg(sdev->dev, "manifest can hold up to %d config elements\n", elems_counter);
+-	dev_dbg(scomp->dev, "%s dai %s: type %d index %d\n",
+-		__func__, swidget->widget->name, comp_dai->type, comp_dai->dai_index);
++	dev_dbg(scomp->dev, "dai %s: type %d index %d\n",
++		swidget->widget->name, comp_dai->type, comp_dai->dai_index);
+ 	sof_dbg_comp_config(scomp, &comp_dai->config);
  
- 	for (i = 0; i < elems_counter; ++i) {
- 		elem = &config->elems[i];
--		dev_dbg(sdev->dev, "%s get index %d token %d val %d\n",
--			__func__, i, elem->token, elem->value);
-+		dev_dbg(sdev->dev, "get index %d token %d val %d\n",
-+			i, elem->token, elem->value);
- 		switch (elem->token) {
- 		case SOF_EXT_MAN_CONFIG_EMPTY:
- 			/* unused memory space is zero filled - mapped to EMPTY elements */
-@@ -323,10 +322,10 @@ static int sof_ipc3_load_fw_to_dsp(struct snd_sof_dev *sdev)
- 	header = (struct snd_sof_fw_header *)(fw->data + plat_data->fw_offset);
- 	load_module = sof_ops(sdev)->load_module;
- 	if (!load_module) {
--		dev_dbg(sdev->dev, "%s: Using generic module loading\n", __func__);
-+		dev_dbg(sdev->dev, "Using generic module loading\n");
- 		load_module = sof_ipc3_parse_module_memcpy;
- 	} else {
--		dev_dbg(sdev->dev, "%s: Using custom module loading\n", __func__);
-+		dev_dbg(sdev->dev, "Using custom module loading\n");
- 	}
- 
- 	/* parse each module */
+ 	/* now update DAI config */
 -- 
 2.34.1
 

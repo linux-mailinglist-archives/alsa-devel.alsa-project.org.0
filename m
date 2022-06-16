@@ -2,78 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F24DE54DFD8
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jun 2022 13:16:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61A3854DFDB
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jun 2022 13:17:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 668621AE0;
-	Thu, 16 Jun 2022 13:15:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 668621AE0
+	by alsa0.perex.cz (Postfix) with ESMTPS id B728E1AEB;
+	Thu, 16 Jun 2022 13:16:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B728E1AEB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655378184;
-	bh=tKlEDA1EasKYeVLhTpK38Q4V6iDP/hsRbWMhaW6i57c=;
+	s=default; t=1655378226;
+	bh=0H94X44bwP0GrLlj0Q2AlhCSU6r1nc2a+8rYr2pqroU=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MNuqyUuTACbjrT2sPBj27DOmN3kotaYfsRJx2UYmiMcGn4liq3gLl8ZtRGhxCNz4O
-	 3ZVQq1q9zKvgiv+zbFUTU2o54tQwYC0vdp/jj/wKtxQvrdM9HE0NEqJ36qJU8iqlXT
-	 adAom/MVQmtvI8R55fOllMQk07RNDioK7loFo4to=
+	b=lDVv0J+9d1LxhplL/1n7NFQDk7MF6VYfq9Jb2kh30yy++FcppBcnjKeIjKohthC56
+	 evD8gmsi1cwfxv9/RCTU4m7kNBSQAqFOthNYwnd1v23M2sG6DjL7U/aZHNpnPlN6QO
+	 QUWgWzRq/ZoGvwkpXs6JjnKKfT1rLW6us9scxUkk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CDCA8F804D0;
-	Thu, 16 Jun 2022 13:15:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DAA16F80528;
+	Thu, 16 Jun 2022 13:15:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AE174F80423; Thu, 16 Jun 2022 13:15:22 +0200 (CEST)
+ id CCDBEF8047C; Thu, 16 Jun 2022 13:15:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 252FBF800D3
- for <alsa-devel@alsa-project.org>; Thu, 16 Jun 2022 13:15:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 252FBF800D3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4BAA7F8012A;
+ Thu, 16 Jun 2022 13:15:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4BAA7F8012A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="GiVwek66"
+ header.b="dA2YYDgM"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 81F03CE2481;
- Thu, 16 Jun 2022 11:15:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C61BCC34114;
- Thu, 16 Jun 2022 11:15:10 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 768A4618CE;
+ Thu, 16 Jun 2022 11:15:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B520C3411B;
+ Thu, 16 Jun 2022 11:15:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1655378113;
- bh=tKlEDA1EasKYeVLhTpK38Q4V6iDP/hsRbWMhaW6i57c=;
+ s=k20201202; t=1655378116;
+ bh=0H94X44bwP0GrLlj0Q2AlhCSU6r1nc2a+8rYr2pqroU=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=GiVwek66noUKCP/MpxO6ww/WST+HByktPkLVJ3P54zuvLopaypPwCcIRx6ezoLG6q
- DaTjS/OJP3HgmoY3ECFRd3v5mqu2c8izuJGFmHBOq5sZee2Cmnswv4AO6UtmhB5/MB
- lpBLKrBNQ6bBuUrJVioxOsPFAp6mkL5snuBCHfDDOS9LDTDc6LnEdEZp9aHLUeUhsl
- zlKmjr+I+FbwBpd2/JB8khbW2xiM1KPpz3pE4W3+gUEs70G4yT/7r0RpHzMu5R50kJ
- f4JVA8CLTwFTHArpp4C6Ms1vtz1nyC1LPxVwKD4YS1Ieuw/zKnzP1DA4mDw8wXfxd0
- fnv/8qawZzlKg==
+ b=dA2YYDgMwiohEUvN9W1EnQvdw9/riQtk/gw3lwXDOATbrFKR7Xq/7OnFbDW1h2rL/
+ Cu+7P5RT9Lk4EH2DjQU6xV2jJs6ThUmsfz7ckA2RQsJJru+EFY/hhiUt1UGhoEhII2
+ uo63+u2u6Pz3Nhye7wdtvANq0etn0Z/uyQ0I2mksKe3xP34hAIjqsr/vo4/pYTH/di
+ sQ6X5J/htXbdbAbbJHtjJHkjq5lEojcXTKkDwqtmW3KZpfqCjl/q8CwsPCAeQzBYUk
+ V9Chfad4RkQKfUKhzD6QIjZ1Z+V/UeCoHzkHuQbjmLPbvuUWwhw1khczjQZj79w8rv
+ /Xvfy8uX6chjA==
 From: Mark Brown <broonie@kernel.org>
-To: yung-chuan.liao@linux.intel.com, Colin Ian King <colin.king@intel.com>,
- ranjani.sridharan@linux.intel.com, perex@perex.cz, alsa-devel@alsa-project.org,
- tiwai@suse.com, pierre-louis.bossart@linux.intel.com,
- peter.ujfalusi@linux.intel.com, liam.r.girdwood@linux.intel.com,
- kai.vehmanen@linux.intel.com
-In-Reply-To: <20220614183809.163531-1-colin.i.king@gmail.com>
-References: <20220614183809.163531-1-colin.i.king@gmail.com>
-Subject: Re: [PATCH] ASoC: Intel: Skylake: remove redundant re-assignments to
- pointer array
-Message-Id: <165537811030.677284.4884559545577351783.b4-ty@kernel.org>
-Date: Thu, 16 Jun 2022 12:15:10 +0100
+To: pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
+ dan.carpenter@oracle.com
+In-Reply-To: <YqqyDU5BhOzpRjco@kili>
+References: <YqqyDU5BhOzpRjco@kili>
+Subject: Re: [PATCH] ASoC: SOF: ipc4-topology: Fix error code in
+ sof_ipc4_volume_put()
+Message-Id: <165537811396.677284.13292348933501496374.b4-ty@kernel.org>
+Date: Thu, 16 Jun 2022 12:15:13 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: daniel.baluta@nxp.com, alsa-devel@alsa-project.org,
+ kai.vehmanen@linux.intel.com, peter.ujfalusi@linux.intel.com,
+ kernel-janitors@vger.kernel.org, lgirdwood@gmail.com, tiwai@suse.com,
+ yung-chuan.liao@linux.intel.com, rander.wang@linux.intel.com,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,18 +90,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 14 Jun 2022 19:38:09 +0100, Colin Ian King wrote:
-> There are two occurrences where the pointer array is being assigned a value
-> that is never read, the pointer gets updated in the next iteration of a
-> loop. These assignments are redundant and can be removed.
+On Thu, 16 Jun 2022 07:31:09 +0300, Dan Carpenter wrote:
+> The sof_ipc4_volume_put() function returns type bool so returning
+> -ENOENT means returning true.  Return false instead.
 > 
-> Cleans up clang scan-build warnings:
-> sound/soc/intel/skylake/skl-topology.c:2953:3: warning: Value stored to
-> 'array' is never read [deadcode.DeadStores]
-> sound/soc/intel/skylake/skl-topology.c:3602:3: warning: Value stored to
-> 'array' is never read [deadcode.DeadStores]
 > 
-> [...]
 
 Applied to
 
@@ -108,8 +102,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: Intel: Skylake: remove redundant re-assignments to pointer array
-      commit: 1ec0c91f6d6b21703c17d5e89f32d52feac5887e
+[1/1] ASoC: SOF: ipc4-topology: Fix error code in sof_ipc4_volume_put()
+      commit: 7acf970a6fbb3c10bb5979d0dc3ed42b161daf15
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

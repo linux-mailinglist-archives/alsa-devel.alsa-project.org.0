@@ -2,79 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B2E054D6F0
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jun 2022 03:20:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CEBE54D916
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jun 2022 06:04:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BD8E01AB4;
-	Thu, 16 Jun 2022 03:19:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD8E01AB4
+	by alsa0.perex.cz (Postfix) with ESMTPS id DC0771AB0;
+	Thu, 16 Jun 2022 06:03:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC0771AB0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655342409;
-	bh=WlF6IGDNKcYwGntMGB2JVx7A5/2QpCifsZSxNNBMeqc=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=k+EWAW4fBJc+E1DuSzp1PvZd40ribeifvwajgiI1JV6WccqQ5yTlgn+PSmE3xCxlj
-	 286IHkUM6D4ap4I6HTlV+du5iuyrhdZuFS6xLoNUxR3W7PZB5p7tA/6P61AXkfAQcW
-	 Hg/XuelUoS489ksko2H1p1+LTKy/lKMVlW/EM0w8=
+	s=default; t=1655352271;
+	bh=f5GrQfWqlYdoOaWwETn2JxLxYiGD4lCXrZDjT8hs/PA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=nCQOpzG4R6b22mMTqoK3EUv4Ey2bS+tgJzPdzdWNAsQcgr3GJzTgrIWDY/tAAHIKh
+	 l5XyXSLmfLq287pKyrwBnubwlt66npUQFo47zCs7Y5terXvKaaC5eimjM9yHtkxwue
+	 lomxCXdsAcUziKuCgvD1OpUQOkYMQrSdXPeyXJkk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0D3E2F80529;
-	Thu, 16 Jun 2022 03:18:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6381AF80310;
+	Thu, 16 Jun 2022 06:03:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C09C9F8028D; Thu, 16 Jun 2022 03:18:29 +0200 (CEST)
+ id 0DC1BF800F0; Thu, 16 Jun 2022 06:03:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-relay-canonical-0.canonical.com
+ (smtp-relay-canonical-0.canonical.com [185.125.188.120])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4351BF80162
- for <alsa-devel@alsa-project.org>; Thu, 16 Jun 2022 03:18:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4351BF80162
+ by alsa1.perex.cz (Postfix) with ESMTPS id C7116F800F0
+ for <alsa-devel@alsa-project.org>; Thu, 16 Jun 2022 06:03:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7116F800F0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="UeJ6OUZb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655342303; x=1686878303;
- h=from:to:cc:subject:date:message-id:in-reply-to: references;
- bh=WlF6IGDNKcYwGntMGB2JVx7A5/2QpCifsZSxNNBMeqc=;
- b=UeJ6OUZbZgA51OPxUInkEkt6PLZli3+uFa8NhhSPPhPSwWCSnWJlQ1FL
- xehMWk14ycvWVEonAkqlZUQ4lK9c+lXLQYdMHQ1QSMXJwCwM4ZqiU1GXl
- PzB4yR45V/z7qYTiEiOaCCO7GM/T4ad2saWybuzJYokIxQjIhJatrqDRv
- wDkeQBwbTsl1pUIXmKgZV1AKY/uf0An8obUpJHPXpbzYwWJvNBjVMIo7o
- duVEZ31ju/wSCoqeVGqpQz/8fDQwr80WAk8I0U08ZOco+PuTq6vohWBHO
- g1kMK5AouRiG3l3VW1S/nlmBA/+A7R/IX1I6aSubJ9kybZOJUpb0zPSqY A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10379"; a="279195966"
-X-IronPort-AV: E=Sophos;i="5.91,302,1647327600"; d="scan'208";a="279195966"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2022 18:18:15 -0700
-X-IronPort-AV: E=Sophos;i="5.91,302,1647327600"; d="scan'208";a="911939339"
-Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2022 18:18:12 -0700
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
+ dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
+ header.b="Lsq5lPKO"
+Received: from localhost.localdomain (unknown [123.112.64.211])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id A7D3A3F92F; 
+ Thu, 16 Jun 2022 04:03:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1655352199;
+ bh=bLvO9SNIs0y7Kq8yc4QJ3FM+sq77rYlYHm5FQJrvbzs=;
+ h=From:To:Cc:Subject:Date:Message-Id:MIME-Version;
+ b=Lsq5lPKOF4F67JQrVRFbckCdgGF1HlWGMvQjy6W6Yn65JS3tDtehuNHRPTxdbBiZh
+ GnFCsD6ja3gAg6YOcn6J6DT59fb5g2II2KoCR5yH4JpbYOD3A8UOt5AhvLfByzq74J
+ MZv0dsUvA+kD+TbFjiJzbcaWIwvwRWQ2y65OfhmcK4zP1Rt25vH7eqnjeGRINLI0pH
+ UFpUzGJXykwkQSNQZE+gW/UkPbCdyx3NI6EOSjlVIFTrY3TXybFNRmB/gp7DBrQx3e
+ 7jEID81im6FV7PDtRwRajd4jvfBeNebSrL5IzDBUjeFowsbPGwAcS2eE3niVO1VB2Y
+ 0Tr65KtVM3Eyw==
+From: Hui Wang <hui.wang@canonical.com>
 To: alsa-devel@alsa-project.org,
-	vkoul@kernel.org
-Subject: [PATCH v2 2/2] ASoC: SOF: Intel: add trigger callback into
- sdw_callback
-Date: Thu, 16 Jun 2022 09:17:58 +0800
-Message-Id: <20220616011758.21155-3-yung-chuan.liao@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20220616011758.21155-1-yung-chuan.liao@linux.intel.com>
-References: <20220616011758.21155-1-yung-chuan.liao@linux.intel.com>
-Cc: vinod.koul@linaro.org, tiwai@suse.de, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
- broonie@kernel.org, srinivas.kandagatla@linaro.org,
- ranjani.sridharan@linux.intel.com, sanyog.r.kale@intel.com,
- peter.ujfalusi@linux.intel.com, bard.liao@intel.com
+	broonie@kernel.org
+Subject: [PATCH 1/2] ASoC: fsl-asoc-card: add nau8822 support
+Date: Thu, 16 Jun 2022 12:00:45 +0800
+Message-Id: <20220616040046.103524-1-hui.wang@canonical.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: shengjiu.wang@nxp.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,88 +81,72 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-For IPC4, we need to set pipeline state in BE DAI trigger.
+This is for an imx6sx EVB which has a nau8822 codec connects to the
+SSI2 interface, so add the nau8822 support in this machine driver.
 
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Because the codec driver nau8822.c doesn't handle mclk enabling, here
+adding a codec_priv->mclk for nau8822 and similar codecs which need to
+enable the mclk in the machine driver, and enable the mclk in the
+card_late_probe() conditionally.
+
+Signed-off-by: Hui Wang <hui.wang@canonical.com>
 ---
- sound/soc/sof/intel/hda-dai.c | 14 +++++++++++---
- sound/soc/sof/intel/hda.c     |  2 +-
- sound/soc/sof/intel/hda.h     |  1 +
- 3 files changed, 13 insertions(+), 4 deletions(-)
+ sound/soc/fsl/fsl-asoc-card.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/sound/soc/sof/intel/hda-dai.c b/sound/soc/sof/intel/hda-dai.c
-index 70721defca46..97632ca4b7a7 100644
---- a/sound/soc/sof/intel/hda-dai.c
-+++ b/sound/soc/sof/intel/hda-dai.c
-@@ -714,8 +714,7 @@ static const struct snd_soc_dai_ops ipc3_ssp_dai_ops = {
- 	.shutdown = ssp_dai_shutdown,
- };
+diff --git a/sound/soc/fsl/fsl-asoc-card.c b/sound/soc/fsl/fsl-asoc-card.c
+index d9a0d4768c4d..89504865cb1d 100644
+--- a/sound/soc/fsl/fsl-asoc-card.c
++++ b/sound/soc/fsl/fsl-asoc-card.c
+@@ -27,6 +27,7 @@
+ #include "../codecs/wm8960.h"
+ #include "../codecs/wm8994.h"
+ #include "../codecs/tlv320aic31xx.h"
++#include "../codecs/nau8822.h"
  
--static int ipc4_be_dai_trigger(struct snd_pcm_substream *substream,
--			       int cmd, struct snd_soc_dai *dai)
-+static int ipc4_be_dai_common_trigger(struct snd_soc_dai *dai, int cmd, int stream)
- {
- 	struct snd_sof_widget *pipe_widget;
- 	struct sof_ipc4_pipeline *pipeline;
-@@ -724,7 +723,7 @@ static int ipc4_be_dai_trigger(struct snd_pcm_substream *substream,
- 	struct snd_sof_dev *sdev;
- 	int ret;
+ #define CS427x_SYSCLK_MCLK 0
  
--	w = snd_soc_dai_get_widget(dai, substream->stream);
-+	w = snd_soc_dai_get_widget(dai, stream);
- 	swidget = w->dobj.private;
- 	pipe_widget = swidget->pipe_widget;
- 	pipeline = pipe_widget->private;
-@@ -759,6 +758,12 @@ static int ipc4_be_dai_trigger(struct snd_pcm_substream *substream,
+@@ -45,6 +46,7 @@
+  * @pll_id: PLL id for set_pll()
+  */
+ struct codec_priv {
++	struct clk *mclk;
+ 	unsigned long mclk_freq;
+ 	unsigned long free_freq;
+ 	u32 mclk_id;
+@@ -522,6 +524,9 @@ static int fsl_asoc_card_late_probe(struct snd_soc_card *card)
+ 		return ret;
+ 	}
+ 
++	if (!IS_ERR_OR_NULL(codec_priv->mclk))
++		clk_prepare_enable(codec_priv->mclk);
++
  	return 0;
  }
  
-+static int ipc4_be_dai_trigger(struct snd_pcm_substream *substream,
-+			       int cmd, struct snd_soc_dai *dai)
-+{
-+	return ipc4_be_dai_common_trigger(dai, cmd, substream->stream);
-+}
-+
- static const struct snd_soc_dai_ops ipc4_dmic_dai_ops = {
- 	.trigger = ipc4_be_dai_trigger,
+@@ -682,6 +687,14 @@ static int fsl_asoc_card_probe(struct platform_device *pdev)
+ 		priv->codec_priv.free_freq = priv->codec_priv.mclk_freq;
+ 		priv->card.dapm_routes = NULL;
+ 		priv->card.num_dapm_routes = 0;
++	} else if (of_device_is_compatible(np, "fsl,imx-audio-nau8822")) {
++		codec_dai_name = "nau8822-hifi";
++		priv->codec_priv.mclk_id = NAU8822_CLK_MCLK;
++		priv->codec_priv.fll_id = NAU8822_CLK_PLL;
++		priv->codec_priv.pll_id = NAU8822_CLK_PLL;
++		priv->dai_fmt |= SND_SOC_DAIFMT_CBM_CFM;
++		if (codec_dev)
++			priv->codec_priv.mclk = devm_clk_get(codec_dev, NULL);
+ 	} else {
+ 		dev_err(&pdev->dev, "unknown Device Tree compatible\n");
+ 		ret = -EINVAL;
+@@ -907,6 +920,7 @@ static const struct of_device_id fsl_asoc_card_dt_ids[] = {
+ 	{ .compatible = "fsl,imx-audio-wm8524", },
+ 	{ .compatible = "fsl,imx-audio-si476x", },
+ 	{ .compatible = "fsl,imx-audio-wm8958", },
++	{ .compatible = "fsl,imx-audio-nau8822", },
+ 	{}
  };
-@@ -810,6 +815,9 @@ void hda_set_dai_drv_ops(struct snd_sof_dev *sdev, struct snd_sof_dsp_ops *ops)
- 		if (!hda_use_tplg_nhlt)
- 			ipc4_data->nhlt = intel_nhlt_init(sdev->dev);
- 
-+		if (IS_ENABLED(CONFIG_SND_SOC_SOF_INTEL_SOUNDWIRE))
-+			sdw_callback.trigger = ipc4_be_dai_common_trigger;
-+
- 		break;
- 	}
- 	default:
-diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-index bc07df1fc39f..cdd3601e84f5 100644
---- a/sound/soc/sof/intel/hda.c
-+++ b/sound/soc/sof/intel/hda.c
-@@ -147,7 +147,7 @@ static int sdw_free_stream(struct device *dev,
- 	return hda_ctrl_dai_widget_free(w, SOF_DAI_CONFIG_FLAGS_NONE, &data);
- }
- 
--static const struct sdw_intel_ops sdw_callback = {
-+struct sdw_intel_ops sdw_callback = {
- 	.params_stream = sdw_params_stream,
- 	.free_stream = sdw_free_stream,
- };
-diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
-index a3118499e34f..99545ab492d7 100644
---- a/sound/soc/sof/intel/hda.h
-+++ b/sound/soc/sof/intel/hda.h
-@@ -775,5 +775,6 @@ irqreturn_t cnl_ipc4_irq_thread(int irq, void *context);
- int cnl_ipc4_send_msg(struct snd_sof_dev *sdev, struct snd_sof_ipc_msg *msg);
- irqreturn_t hda_dsp_ipc4_irq_thread(int irq, void *context);
- int hda_dsp_ipc4_send_msg(struct snd_sof_dev *sdev, struct snd_sof_ipc_msg *msg);
-+extern struct sdw_intel_ops sdw_callback;
- 
- #endif
+ MODULE_DEVICE_TABLE(of, fsl_asoc_card_dt_ids);
 -- 
-2.17.1
+2.25.1
 

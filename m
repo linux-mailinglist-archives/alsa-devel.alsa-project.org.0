@@ -2,85 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 422DD551FEB
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jun 2022 17:11:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDA77551FE5
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jun 2022 17:10:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D3FEB1902;
-	Mon, 20 Jun 2022 17:10:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3FEB1902
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6205E18CD;
+	Mon, 20 Jun 2022 17:09:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6205E18CD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655737886;
-	bh=bu/+fSdw9vjaQfNSiukHiVntqm8WxBgrdvMyad4Fv2o=;
+	s=default; t=1655737842;
+	bh=dOyevv8ochPjCIbxqShzbn9x2bJJRVOjqmI+yl8eYFI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=edHeqvDXu48EEfLTVp4fJ5Qa4Rhe3HlthG/mutIVp9aXHDsOOWmS492h3XP7VR4Tw
-	 xMH9VY1cH5zhPmHwB/wibR/Gg3k8dATQNocG6cjeCu36a3G/aXrASVm6jSgUcPrgSH
-	 3ksKv2uyRQi2boGh4acsQlL/9MrSELaVtsDz3+yY=
+	b=HAQES3hrBrJ6R1pTx08fpZdV7G1VasGEZ1/SUp5IqvSHH9BGuNqbUu4Z+fCoEREjf
+	 WT3cipgSUei49xsGWi2mkhjknqq9M9qtEz41/zGylT3XfxZJE3+66bXCHsHVQqmfUL
+	 cG2XlyhucLC6MPBOKVMVJRByV9InTqkalS/o1lGY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 97947F805A0;
-	Mon, 20 Jun 2022 17:06:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C09A0F80571;
+	Mon, 20 Jun 2022 17:06:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EFFEAF8055B; Thu, 16 Jun 2022 16:34:48 +0200 (CEST)
+ id B8826F8053D; Thu, 16 Jun 2022 16:34:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8AA44F804E0
- for <alsa-devel@alsa-project.org>; Thu, 16 Jun 2022 16:34:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8AA44F804E0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4CE5EF800F0
+ for <alsa-devel@alsa-project.org>; Thu, 16 Jun 2022 16:34:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4CE5EF800F0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="nej2Axtf"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25GC07C5027888;
+ header.b="PAz/g0rj"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25GC0DJW015765;
  Thu, 16 Jun 2022 09:34:33 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=PODMain02222019;
- bh=+ZJvFPqRLHsK8VJgqeCq9KcDpAuthuuELv8JAfqtDxU=;
- b=nej2Axtf3Ci8j7ARIaEkPtOyX3vHnMlxdIR7EowuXUDmwLLCRbwyITudvd2N+3nyYidV
- wWfhF62jHLB4vyOrVOqj5afDE3XT+8sjGTkl23WZwFFI5sMNH3hXMdmtpARcb6ljKktV
- 6TVNLBGOtAFjlfXtMV/KxKtCSNHigrUCHwiA6Y9HWNW3KTOIm+PTPuhunABhBPu8sWiP
- yzV8LE1mphYrBVqok4aLeYyd1vllWn3abct/40oDOOFplUn0WWMq27eRffnO7xH6mBbh
- h0lrs4F/hFFmTHRk33zfORXdEQRJV5XF2X3ulmj/ibqLJAfpXR8BeAW4FJRMoBG/elyH 0w== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3gmrf35vuu-2
+ bh=Cu9tESwNAJCqNud4CH2wl7Pn1vWEacIdyZK6FUTRt2s=;
+ b=PAz/g0rjubbGkRjrBHF0c4dZv/OlvpTI8TfaO0pUyaADbon0FQ8DyIkNCUmMbs4AUlfS
+ bJK8po3cHaRtvQ8YZttKOf6ObNwEmI1kD+abQUibawuPnqr3sl/tuMKFS8Umu1I5Ybw5
+ Ks3oFBiPdlGykKR7dKWgBR+gLWSMb4PzYqmmujJZjmdHmKyec8d8kRhoEuMJQaYTf/4v
+ CkR2m9TWVrp76dRt6qdGNhR1CGqKh72GJ8WN12UYR54BptBPrBhkxkxsfdnow9QabD0w
+ /LRw1ZqdsPoFccwMCP8plX5gHiYVYMuTktYy2EciCzEb5/7g3NoN47svNZONsJFU72d4 hQ== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3gmqfq5w3h-4
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
  Thu, 16 Jun 2022 09:34:33 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 16 Jun
  2022 15:34:30 +0100
 Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.28 via
  Frontend Transport; Thu, 16 Jun 2022 15:34:30 +0100
 Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 282A9478;
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 3EFD011D3;
  Thu, 16 Jun 2022 14:34:30 +0000 (UTC)
 From: Charles Keepax <ckeepax@opensource.cirrus.com>
 To: <broonie@kernel.org>
-Subject: [PATCH 03/96] drm/vc4: Migrate to new style legacy DAI naming flag
-Date: Thu, 16 Jun 2022 15:32:56 +0100
-Message-ID: <20220616143429.1324494-4-ckeepax@opensource.cirrus.com>
+Subject: [PATCH 04/96] ASoC: img: Migrate to new style legacy DAI naming flag
+Date: Thu, 16 Jun 2022 15:32:57 +0100
+Message-ID: <20220616143429.1324494-5-ckeepax@opensource.cirrus.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220616143429.1324494-1-ckeepax@opensource.cirrus.com>
 References: <20220616143429.1324494-1-ckeepax@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-GUID: 5u1n12_iA3o4iDdyKTapjKv8prc9bFEK
-X-Proofpoint-ORIG-GUID: 5u1n12_iA3o4iDdyKTapjKv8prc9bFEK
+X-Proofpoint-ORIG-GUID: OBaTEOosaVBg-9k3CHW6e7_Ho2rcqpWo
+X-Proofpoint-GUID: OBaTEOosaVBg-9k3CHW6e7_Ho2rcqpWo
 X-Proofpoint-Spam-Reason: safe
 X-Mailman-Approved-At: Mon, 20 Jun 2022 17:06:45 +0200
 Cc: cezary.rojewski@intel.com, heiko@sntech.de,
@@ -114,26 +114,88 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 Change the legacy DAI naming flag from opting in to the new scheme
 (non_legacy_dai_naming), to opting out of it (legacy_dai_naming).
-This driver appears to be on the CPU side of the DAI link and
+These drivers appear to be on the CPU side of the DAI link and
 currently uses the legacy naming, so add the new flag.
 
 Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 ---
- drivers/gpu/drm/vc4/vc4_hdmi.c | 1 +
- 1 file changed, 1 insertion(+)
+ sound/soc/img/img-i2s-in.c       | 3 ++-
+ sound/soc/img/img-i2s-out.c      | 3 ++-
+ sound/soc/img/img-parallel-out.c | 3 ++-
+ sound/soc/img/img-spdif-in.c     | 3 ++-
+ sound/soc/img/img-spdif-out.c    | 3 ++-
+ 5 files changed, 10 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-index 823d812f49829..3e3bd88745b7c 100644
---- a/drivers/gpu/drm/vc4/vc4_hdmi.c
-+++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-@@ -1969,6 +1969,7 @@ static int vc4_hdmi_audio_prepare(struct device *dev, void *data,
+diff --git a/sound/soc/img/img-i2s-in.c b/sound/soc/img/img-i2s-in.c
+index 97cab6d95b169..56bb7bbd3976c 100644
+--- a/sound/soc/img/img-i2s-in.c
++++ b/sound/soc/img/img-i2s-in.c
+@@ -386,7 +386,8 @@ static int img_i2s_in_dai_probe(struct snd_soc_dai *dai)
+ }
  
- static const struct snd_soc_component_driver vc4_hdmi_audio_cpu_dai_comp = {
- 	.name = "vc4-hdmi-cpu-dai-component",
+ static const struct snd_soc_component_driver img_i2s_in_component = {
+-	.name = "img-i2s-in"
++	.name = "img-i2s-in",
 +	.legacy_dai_naming = 1,
  };
  
- static int vc4_hdmi_audio_cpu_dai_probe(struct snd_soc_dai *dai)
+ static int img_i2s_in_dma_prepare_slave_config(struct snd_pcm_substream *st,
+diff --git a/sound/soc/img/img-i2s-out.c b/sound/soc/img/img-i2s-out.c
+index 9ec6fc528e2b4..e3c6e662aa867 100644
+--- a/sound/soc/img/img-i2s-out.c
++++ b/sound/soc/img/img-i2s-out.c
+@@ -394,7 +394,8 @@ static int img_i2s_out_dai_probe(struct snd_soc_dai *dai)
+ }
+ 
+ static const struct snd_soc_component_driver img_i2s_out_component = {
+-	.name = "img-i2s-out"
++	.name = "img-i2s-out",
++	.legacy_dai_naming = 1,
+ };
+ 
+ static int img_i2s_out_dma_prepare_slave_config(struct snd_pcm_substream *st,
+diff --git a/sound/soc/img/img-parallel-out.c b/sound/soc/img/img-parallel-out.c
+index cd6a6a8257419..08506b05e2265 100644
+--- a/sound/soc/img/img-parallel-out.c
++++ b/sound/soc/img/img-parallel-out.c
+@@ -201,7 +201,8 @@ static struct snd_soc_dai_driver img_prl_out_dai = {
+ };
+ 
+ static const struct snd_soc_component_driver img_prl_out_component = {
+-	.name = "img-prl-out"
++	.name = "img-prl-out",
++	.legacy_dai_naming = 1,
+ };
+ 
+ static int img_prl_out_probe(struct platform_device *pdev)
+diff --git a/sound/soc/img/img-spdif-in.c b/sound/soc/img/img-spdif-in.c
+index a79d1ccaeec01..3f1d1a7e8735b 100644
+--- a/sound/soc/img/img-spdif-in.c
++++ b/sound/soc/img/img-spdif-in.c
+@@ -711,7 +711,8 @@ static struct snd_soc_dai_driver img_spdif_in_dai = {
+ };
+ 
+ static const struct snd_soc_component_driver img_spdif_in_component = {
+-	.name = "img-spdif-in"
++	.name = "img-spdif-in",
++	.legacy_dai_naming = 1,
+ };
+ 
+ static int img_spdif_in_probe(struct platform_device *pdev)
+diff --git a/sound/soc/img/img-spdif-out.c b/sound/soc/img/img-spdif-out.c
+index f7062eba2611a..983761d3fa7e6 100644
+--- a/sound/soc/img/img-spdif-out.c
++++ b/sound/soc/img/img-spdif-out.c
+@@ -316,7 +316,8 @@ static struct snd_soc_dai_driver img_spdif_out_dai = {
+ };
+ 
+ static const struct snd_soc_component_driver img_spdif_out_component = {
+-	.name = "img-spdif-out"
++	.name = "img-spdif-out",
++	.legacy_dai_naming = 1,
+ };
+ 
+ static int img_spdif_out_probe(struct platform_device *pdev)
 -- 
 2.30.2
 

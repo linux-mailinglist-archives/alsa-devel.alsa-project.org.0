@@ -2,82 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2F4054DCEA
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jun 2022 10:30:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20D5154DE8C
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jun 2022 12:01:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4D2561AA8;
-	Thu, 16 Jun 2022 10:29:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D2561AA8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0A4B51ADE;
+	Thu, 16 Jun 2022 12:00:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A4B51ADE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655368212;
-	bh=cuRduGGXj2Y/+lglkT8q2s4iGVAPd9QSM6DFTbaLwsg=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1655373689;
+	bh=1mmFzbq5IaeLzR2rtmKWbZkl8I6V9CVhfo5aIuS0q9c=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UAGTZtDIK4ntZH5sY4FQcIT94Okqv4ufCZUvmmkO+k0VD+0T9aOSr3sL2QX8sf6Af
-	 DYWvAVnFgu/8/AQXQKqAyl/zppjYU/ScP/hc6MUrbiFtBoJH4SvsvdOt40GljdVvtm
-	 EpfXeYIJQTGi2UAPfgqDaQwplUFgUPZXOm7+F9dQ=
+	b=NVlykAWZfs6HjzTRy4uVX8qnDJkfgIbelQEkY2ZPxs7wcP8DRVwbhftIIgxSc0uMh
+	 1BpxrLDRHQcPTlMM0KRE5hHm8OJpjk3J+kkp9i5fWlBtLFVOdSfFznPnf6jXnr/znl
+	 yWZSFVsHJgLwJMVG0RcjYFv4bLB//3N0PtFcd3Iw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9F4AEF800B9;
-	Thu, 16 Jun 2022 10:29:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9F1AAF80310;
+	Thu, 16 Jun 2022 12:00:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5FA30F801D8; Thu, 16 Jun 2022 10:29:07 +0200 (CEST)
+ id 08BF2F801D8; Thu, 16 Jun 2022 12:00:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from cable.insite.cz (cable.insite.cz [84.242.75.189])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8213DF800B9
- for <alsa-devel@alsa-project.org>; Thu, 16 Jun 2022 10:29:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8213DF800B9
+ by alsa1.perex.cz (Postfix) with ESMTPS id AC442F800B9
+ for <alsa-devel@alsa-project.org>; Thu, 16 Jun 2022 12:00:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC442F800B9
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="C6Zm+uGD"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 254E261D4A;
- Thu, 16 Jun 2022 08:29:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FD5BC3411B;
- Thu, 16 Jun 2022 08:28:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1655368140;
- bh=cuRduGGXj2Y/+lglkT8q2s4iGVAPd9QSM6DFTbaLwsg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=C6Zm+uGDAZlCfuXL+7jVy9JTNhPGU8P7JdIWUWqYW7m7hpdwHYqzvNZmjgVbik80u
- fZD0DC6UEe3vLasuc8e1Qp4/m1LR3kgfbJ78L2lF2AUq7WH3gkHuDKt8DNpyNSBy9I
- JMQavnUGum3CwCIYYn/VNEfeQK71LgHL+ZVwRaHrOR/BzPxNwd2CHAVbdRDAmF3POq
- Thc8N8tWeCvKlTsZJySVybPKMvrcfbC57lrf7VDlNF+Sk1QqpKcAfWgF1Dy4U0EuHZ
- /mqMXMK0+WNwr0T5hKeRiAgEPiZDdPlOWHLI5NADG62SULN0hw9WQRJ/XzWYlaxDh9
- +j7bCSG8X23hg==
-Date: Thu, 16 Jun 2022 09:28:53 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Samuel Holland <samuel@sholland.org>
-Subject: Re: [PATCH 2/3] ASoC: sun50i-codec-analog: Add support for internal
- bias
-Message-ID: <YqrpxWrnaqqYWaGC@sirena.org.uk>
-References: <20220616062554.57266-1-samuel@sholland.org>
- <20220616062554.57266-3-samuel@sholland.org>
+ dkim=pass (1024-bit key) header.d=ivitera.com header.i=@ivitera.com
+ header.b="hr+6st1n"; 
+ dkim=pass (1024-bit key) header.d=ivitera.com header.i=@ivitera.com
+ header.b="M+7Jk7nH"
+Received: from localhost (localhost [127.0.0.1])
+ by cable.insite.cz (Postfix) with ESMTP id 0E52BA1A3D402;
+ Thu, 16 Jun 2022 12:00:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
+ t=1655373629; bh=1mmFzbq5IaeLzR2rtmKWbZkl8I6V9CVhfo5aIuS0q9c=;
+ h=Date:Subject:To:References:Cc:From:In-Reply-To:From;
+ b=hr+6st1n+TJGv23eK5AWJwmbdYDvE5J91cE4OZCc1qY+f2m6oHIjaQmekmZ7jBJz0
+ PsOfcsTzCs3Wgn9JbmfcZhHOjIzAzm/HGSWXij5CGpy6gwRKjTxAfTsAH4rWO3On5/
+ FLb3kHKuEeZOUjl1uOJjaGpWXHSYRWfIMalXfarI=
+Received: from cable.insite.cz ([84.242.75.189])
+ by localhost (server.insite.cz [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id qaXyJAK5YcQk; Thu, 16 Jun 2022 12:00:23 +0200 (CEST)
+Received: from [192.168.105.22] (dustin.pilsfree.net [81.201.58.138])
+ (Authenticated sender: pavel)
+ by cable.insite.cz (Postfix) with ESMTPSA id 6F093A1A3D400;
+ Thu, 16 Jun 2022 12:00:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
+ t=1655373623; bh=1mmFzbq5IaeLzR2rtmKWbZkl8I6V9CVhfo5aIuS0q9c=;
+ h=Date:Subject:To:References:Cc:From:In-Reply-To:From;
+ b=M+7Jk7nH9m2YfTn7Ql4xNolqwf5FUyv4O/SZivhUicn5XlYl5zfzjXs9stgR1+gfL
+ isMOW4TQuK+nVVrlhZUc2EIjUYAjsCliaYYWfV4dwWzLMJxvgViTdiqYmRw185iPes
+ /58xh/T63RQNs2mku3nA+wZkSvoCPCIfXA7A7Gjw=
+Message-ID: <900e96c0-6251-fa3d-42b4-847ece6e1a44@ivitera.com>
+Date: Thu, 16 Jun 2022 12:00:22 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="sAeK2/sljyNuWwJM"
-Content-Disposition: inline
-In-Reply-To: <20220616062554.57266-3-samuel@sholland.org>
-X-Cookie: Pass with care.
-Cc: devicetree@vger.kernel.org, Arnaud Ferraris <arnaud.ferraris@collabora.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Rob Herring <robh+dt@kernel.org>, Maxime Ripard <mripard@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH] aplay: Support setting timestamp
+Content-Language: en-US
+To: alsa-devel@alsa-project.org
+References: <20220616065426.27915-1-pavel.hofman@ivitera.com>
+ <YqrmNfnn2qCZV9Kf@workstation>
+From: Pavel Hofman <pavel.hofman@ivitera.com>
+In-Reply-To: <YqrmNfnn2qCZV9Kf@workstation>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,41 +93,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Dne 16. 06. 22 v 10:13 Takashi Sakamoto napsal(a):
+> 
+> On Thu, Jun 16, 2022 at 08:54:26AM +0200, Pavel Hofman wrote:
+>> To allow enabling timestamp and specify its type, a new option
+>> --tstamp-type=TYPE is added. Recognized values are none (default),
+>> gettimeofday, monotonic, monotonic-raw.
+>>
+>> Signed-off-by: Pavel Hofman <pavel.hofman@ivitera.com>
+>> ---
+>>   aplay/aplay.1 |  4 ++++
+>>   aplay/aplay.c | 32 ++++++++++++++++++++++++++++++++
+>>   2 files changed, 36 insertions(+)
+>   
+> I prefer the idea to work for timestamp feature defined in ALSA PCM
+> interface, while I have a mixed feeling to integrate `aplay` tool, since
+> I have an intension to obsolete the tool with `axfer` tool with more
+> robust design with command argument compatibility (as much as possible).
+> 
+> This is not so strong request but would I ask you to work for `axfer` tool
+> instead of `aplay`? Then, it's preferable that the name of command
+> argument is decided with enough care of all of timestamp feature in ALSA
+> PCM interface, since we have two categories of timestamps at least; e.g.
+> system timestamp and audio timestamp. As long as I know, they possibly use
+> different clock sources, thus these two timestamps have different levels
+> of clock id, I think.
+> 
+> Of course, it's a loose accord in the community to obsolete `aplay`, and
+> it's easy to decide to continue aplay integration. (I'm not in leading
+> place of the project.) I'll be a bit happy if people take care of axfer
+> tool as well.
 
---sAeK2/sljyNuWwJM
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Thanks for your input. I use aplay in my project and needed to have 
+tstamps enabled in proc status files for my simple code which calculates 
+relative samplerate between capture and playback soundcards (one of them 
+having rate adjustable - audio gadget, snd-aloop) 
+https://mailman.alsa-project.org/pipermail/alsa-devel/2022-June/201647.html 
+. The existing aplay did not have this feature, so I added it and 
+submitted the patch. I did not know aplay was planned to be obsoleted, 
+it seems to receive a healthy stream of patches.
 
-On Thu, Jun 16, 2022 at 01:25:53AM -0500, Samuel Holland wrote:
+As of the tstamp terminology - what command option would be more 
+appropriate instead? Thanks a lot,
 
-> +static int sun50i_a64_codec_probe(struct snd_soc_component *component)
-> +{
-> +	struct sun50i_codec_analog *codec = snd_soc_component_get_drvdata(component);
-> +
-> +	regmap_update_bits(component->regmap, SUN50I_ADDA_JACK_MIC_CTRL,
-> +			   BIT(SUN50I_ADDA_JACK_MIC_CTRL_INNERRESEN),
-> +			   codec->internal_bias_resistor <<
-> +				SUN50I_ADDA_JACK_MIC_CTRL_INNERRESEN);
-> +
-> +	return 0;
-> +}
+Pavel.
 
-It doesn't make much practical difference but is there any reason this
-can't be done in the main device probe?
-
---sAeK2/sljyNuWwJM
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmKq6cUACgkQJNaLcl1U
-h9BR4gf/WzTzXWC2DYw4VnEvPsv/DcmGEFWM2OxZieteTb8WSNpVt6LjTYrajpjH
-IMvOdqI3VRl3Ews5PI/DJX4NMZxBTwHF78kM8sFN8hTr9ANJUiGfTptv2HQ173tX
-lgmmQD6XNlxuoR52CQaln3HRGdqgZT/KPHU3ikI7RDMB97Uvy7hBEP9W4nBc0AC8
-8RLfeiru1vpq93VjCEyimUUY0CDij2eGKwgcbej5m45+33GUde2QVbF0SdExthP5
-w/7+7C7HpqBg8kNuUKS1Qyh+QGxCKiuhdsMBYGLfsIVuGcvVjiKPwkrTj9s5wPU7
-1vdqvkzXaqSBecgRohtLNU+tOOqMtQ==
-=1ZsU
------END PGP SIGNATURE-----
-
---sAeK2/sljyNuWwJM--

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C5EF54ECEE
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jun 2022 23:57:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C93AF54ECF5
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jun 2022 23:58:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EA20D1AFF;
-	Thu, 16 Jun 2022 23:56:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA20D1AFF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 401231B0C;
+	Thu, 16 Jun 2022 23:57:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 401231B0C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655416649;
-	bh=C4sNX1ZH9/zdPXJBUCxcBJSiHT05yZaWXfbBJR5Wl+o=;
+	s=default; t=1655416718;
+	bh=qZt4b5gljydc4Ir5+JB96immHEwvqtPwBpsTZgV15h0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tGDuhyuUlAdN+DocRD+1K+Kp7Xe+iV3jje/AlGp3VdvtvEd4UDG4sj9JU0vBLqJWF
-	 wjnMT7GTZihEln1D1K76mTjseuVYp3m7Q6NHjY1niYf1LEcQgUhe8bGbKHqb1jFxlu
-	 WtXK8+QyuFg7FloJUbKzcmy+fPVt0dGTNl68OoCg=
+	b=aWGQ33tng3eYE41vDeM3fkvRbAuyIAM+KM20FrI2WDCpexd+qSjM/t2hqOBmiXKom
+	 jp1l8gcNz2sxKJHHajAa740HGSSHgBKq4EhTWIbsdQQmysszYIWseX3VFr0dUccyzr
+	 7DCquYOQZjSh+xnBWNe3Z7GB05my3exW8QNm+KnM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8AEC2F80542;
-	Thu, 16 Jun 2022 23:54:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0E367F8055C;
+	Thu, 16 Jun 2022 23:55:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4827DF8053A; Thu, 16 Jun 2022 23:54:51 +0200 (CEST)
+ id 73EB3F80542; Thu, 16 Jun 2022 23:54:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,39 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5F950F8052E
+ by alsa1.perex.cz (Postfix) with ESMTPS id BF3F7F80533
  for <alsa-devel@alsa-project.org>; Thu, 16 Jun 2022 23:54:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F950F8052E
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF3F7F80533
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="d4cki+YA"
+ header.b="FFz67Sgv"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655416486; x=1686952486;
+ t=1655416487; x=1686952487;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=C4sNX1ZH9/zdPXJBUCxcBJSiHT05yZaWXfbBJR5Wl+o=;
- b=d4cki+YA286BzTTEnQvvF+Hb+0sucukZQV7pnIHWR7P8DkxbW/6DpU+o
- iQMqwK1yndwPyXNGTBgcUFoNAeTHZ/uvmvxq2JqCLtfAGQLpxVDZFQMG4
- T/zy/vj5BJ/DyKv5YGHGmZqDPJ/5CskXdbHn5KY7yIhgCj0Ybd9SqZfSS
- e57cUl73hDy3pfi+fGW3eL1HQ9muQV+BycdgGhMNqAi1lCpaJH1WSsNnF
- reKVbAs8JDrU+AgnQ+5V+NjMab5wCU57zzuvToaWzqlbU51N71GOEBrog
- cav/MsGPazrPjxAVc1qhuICLzUDpfkOxae//e8nJ14ywi34wY9LpQLaNp A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="268047830"
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="268047830"
+ bh=qZt4b5gljydc4Ir5+JB96immHEwvqtPwBpsTZgV15h0=;
+ b=FFz67SgvQi5kKP9Ll8988/5qBbGrRZbGEMCZIa7wybqEZFp1BwnpFMNg
+ YytsgrSKOhnF5lLnjRsOEQapj2MmTpKdjMYgkXVaA2EIeyo/Ep3jBQa1F
+ qYTF0RymtlI5Uls5vx/ULsVsD6nF2yBcGhWE4+WFFSqXl0l3cyIVp+YEl
+ o0dFEH89yGp85WlYQepOdRNJjs7NwQAQ+AlTJo0j3lQ47ZRIS4tpv5I1u
+ kViF8C5a/CtVu+T6R1LePu9NaP8v0MpKx6zoXTBR88xhaWag0R0RKHSB8
+ uJ2LEFFp4X7tHRV4cFYEZPOK5IKzYaXN8cV+6jsFu4UOhIPj4d8DpvHyT A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="268047832"
+X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="268047832"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2022 14:54:21 -0700
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="675212685"
+ 16 Jun 2022 14:54:22 -0700
+X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="675212691"
 Received: from buckkenx-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.212.52.70])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2022 14:54:20 -0700
+ 16 Jun 2022 14:54:21 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 09/13] ASoC: SOF: ipc4-topology remove use of __func__ in
- dev_dbg
-Date: Thu, 16 Jun 2022 16:53:47 -0500
-Message-Id: <20220616215351.135643-10-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 10/13] ASoC: SOF: sof-client: remove use of __func__ in dev_dbg
+Date: Thu, 16 Jun 2022 16:53:48 -0500
+Message-Id: <20220616215351.135643-11-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220616215351.135643-1-pierre-louis.bossart@linux.intel.com>
 References: <20220616215351.135643-1-pierre-louis.bossart@linux.intel.com>
@@ -106,73 +105,24 @@ Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- sound/soc/sof/ipc4-topology.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+ sound/soc/sof/sof-client.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
-index 3c949298e007f..34f805431f2eb 100644
---- a/sound/soc/sof/ipc4-topology.c
-+++ b/sound/soc/sof/ipc4-topology.c
-@@ -804,8 +804,8 @@ static int sof_ipc4_init_audio_fmt(struct snd_sof_dev *sdev,
- 		valid_bits = SOF_IPC4_AUDIO_FORMAT_CFG_V_BIT_DEPTH(fmt->fmt_cfg);
- 		if (params_rate(params) == rate && params_channels(params) == channels &&
- 		    sample_valid_bits == valid_bits) {
--			dev_dbg(sdev->dev, "%s: matching audio format index for %uHz, %ubit, %u channels: %d\n",
--				__func__, rate, valid_bits, channels, i);
-+			dev_dbg(sdev->dev, "matching audio format index for %uHz, %ubit, %u channels: %d\n",
-+				rate, valid_bits, channels, i);
+diff --git a/sound/soc/sof/sof-client.c b/sound/soc/sof/sof-client.c
+index 16cca666bb852..125aa21371954 100644
+--- a/sound/soc/sof/sof-client.c
++++ b/sound/soc/sof/sof-client.c
+@@ -383,8 +383,8 @@ void sof_client_ipc_rx_dispatcher(struct snd_sof_dev *sdev, void *msg_buf)
  
- 			/* copy ibs/obs and input format */
- 			memcpy(base_config, &available_fmt->base_config[i],
-@@ -919,8 +919,8 @@ static int snd_sof_get_hw_config_params(struct snd_sof_dev *sdev, struct snd_sof
- 	*channel_count = le32_to_cpu(hw_config->tdm_slots);
- 	*sample_rate = le32_to_cpu(hw_config->fsync_rate);
- 
--	dev_dbg(sdev->dev, "%s: sample rate: %d sample width: %d channels: %d\n",
--		__func__, *sample_rate, *bit_depth, *channel_count);
-+	dev_dbg(sdev->dev, "sample rate: %d sample width: %d channels: %d\n",
-+		*sample_rate, *bit_depth, *channel_count);
- 
- 	return 0;
- }
-@@ -954,8 +954,8 @@ static int snd_sof_get_nhlt_endpoint_data(struct snd_sof_dev *sdev, struct snd_s
- 		return 0;
+ 		msg_type = SOF_IPC4_NOTIFICATION_TYPE_GET(msg->primary);
+ 	} else {
+-		dev_dbg_once(sdev->dev, "%s: Not supported IPC version: %d\n",
+-			     __func__, sdev->pdata->ipc_type);
++		dev_dbg_once(sdev->dev, "Not supported IPC version: %d\n",
++			     sdev->pdata->ipc_type);
+ 		return;
  	}
  
--	dev_dbg(sdev->dev, "%s: dai index %d nhlt type %d direction %d\n",
--		__func__, dai_index, nhlt_type, dir);
-+	dev_dbg(sdev->dev, "dai index %d nhlt type %d direction %d\n",
-+		dai_index, nhlt_type, dir);
- 
- 	/* find NHLT blob with matching params */
- 	cfg = intel_nhlt_get_endpoint_blob(sdev->dev, ipc4_data->nhlt, dai_index, nhlt_type,
-@@ -1005,7 +1005,7 @@ sof_ipc4_prepare_copier_module(struct snd_sof_widget *swidget,
- 	u32 **data;
- 	int ipc_size, ret;
- 
--	dev_dbg(sdev->dev, "%s: copier %s, type %d", __func__, swidget->widget->name, swidget->id);
-+	dev_dbg(sdev->dev, "copier %s, type %d", swidget->widget->name, swidget->id);
- 
- 	switch (swidget->id) {
- 	case snd_soc_dapm_aif_in:
-@@ -1446,7 +1446,7 @@ static int sof_ipc4_route_setup(struct snd_sof_dev *sdev, struct snd_sof_route *
- 	int dst_queue = 0;
- 	int ret;
- 
--	dev_dbg(sdev->dev, "%s: bind %s -> %s\n", __func__,
-+	dev_dbg(sdev->dev, "bind %s -> %s\n",
- 		src_widget->widget->name, sink_widget->widget->name);
- 
- 	header = src_fw_module->man4_module_entry.id;
-@@ -1483,7 +1483,7 @@ static int sof_ipc4_route_free(struct snd_sof_dev *sdev, struct snd_sof_route *s
- 	int dst_queue = 0;
- 	int ret;
- 
--	dev_dbg(sdev->dev, "%s: unbind modules %s -> %s\n", __func__,
-+	dev_dbg(sdev->dev, "unbind modules %s -> %s\n",
- 		src_widget->widget->name, sink_widget->widget->name);
- 
- 	header = src_fw_module->man4_module_entry.id;
 -- 
 2.34.1
 

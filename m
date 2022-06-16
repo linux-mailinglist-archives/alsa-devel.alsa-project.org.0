@@ -2,85 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B10E54ECCB
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jun 2022 23:45:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87F7354ECE4
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jun 2022 23:55:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C99E41AFF;
-	Thu, 16 Jun 2022 23:44:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C99E41AFF
+	by alsa0.perex.cz (Postfix) with ESMTPS id F219A1B05;
+	Thu, 16 Jun 2022 23:54:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F219A1B05
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655415911;
-	bh=8lay7MCQxSMnosNJUAEJ1GC9DQer96JAtAYrJCcBC1U=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Kx5im1V/QjGUSlR9xk+LJWUCIFMPEB764ZQjI+Pu8bAuNx7KGaEsrDH+D9FXFFsr0
-	 TI1zyYWC66aAYlRpxRHSvM/orJeGw1RlQnHZS1ZxYL9bnhRPN2qZ0uzKig74wxrYYK
-	 CJjQK270Yxxpk/STu/1Vk5+od1Yh3IkcJXcDfUqQ=
+	s=default; t=1655416544;
+	bh=u73d0+BoP1tEdhTHzz6o1sKqQmEEJFFGrl9buc7hnZ4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=aXsEb2jNotmYDyYx9YxcIzJHoiFMjHfqy5fYNLYTx/ma5VZdxAStSR4TKDR3q80oM
+	 eqkL5dOyfh7PZlbcReGD1QLxm3o7XYQd9xzNPvJEsXKfGYmwsUIvuvEXDoX/xdC0XB
+	 0+XhLszndS0Z7RIs5CIRQEXhOWlBFZ7vjawEwQT0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A5F51F80570;
-	Thu, 16 Jun 2022 23:41:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 53A12F800F0;
+	Thu, 16 Jun 2022 23:54:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D3DE2F80552; Thu, 16 Jun 2022 23:41:26 +0200 (CEST)
+ id 2C38DF80423; Thu, 16 Jun 2022 23:54:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 90A55F8053A
- for <alsa-devel@alsa-project.org>; Thu, 16 Jun 2022 23:41:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90A55F8053A
+ by alsa1.perex.cz (Postfix) with ESMTPS id B3977F8012A
+ for <alsa-devel@alsa-project.org>; Thu, 16 Jun 2022 23:54:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3977F8012A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="bNTg7uSG"
+ header.b="VCWTDeqA"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655415678; x=1686951678;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=8lay7MCQxSMnosNJUAEJ1GC9DQer96JAtAYrJCcBC1U=;
- b=bNTg7uSG662ae5qlafYwwY0/o/kEvs9XO8e/GS4h12T0I6D1hYslsEeg
- 6rzp0uld40g0YUbn6S+oOswJ1SrEZkEJOI59JZuUKHs5rAKFzHGWKQdoH
- gzriuzoS0DQ6EYM4DGQXTMFi1RaPzU7xotOOAKmks0yC45eP+o5TMQB2a
- T385907I3IaBu/a+d5JF3reF2TSapxNkEKDX7wtf3Poj6HxDDS8mSx9vh
- ynwSDogJ+gm/os5u5If0iiIhNJLc4DJ2ATrS3JvUaAtsyc5Et8jjVf5rr
- g++gqU5XTfTP7xafCfsaNLQAm2sUyq70l83WdIPE4Sql0ZkW4e5Ui54Db Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="276932484"
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="276932484"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2022 14:41:14 -0700
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="831746802"
+ t=1655416478; x=1686952478;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=u73d0+BoP1tEdhTHzz6o1sKqQmEEJFFGrl9buc7hnZ4=;
+ b=VCWTDeqAmeW3lAMks012ql2XahZNEsRUEcg5wWGwGvX4o7TzSJMdtq2/
+ xDijIwSnNOw7nPVr4OUbTyZSjc+rwfCDMnqWNobC4388QlZyxTaLzOdCW
+ yqJGZdsjz7f36JsvfVntx5idZsnuTL/xUkr/VlB3qTDAA+IqaUrWabANQ
+ MEsVmQu3Ba2YEQrDbkIcA38/0pXE1RIzlHo2KOv4mwuULd7Clo2/ww8Cy
+ 7TFP+jknUnEAVhHk676gvM+sZym2WqgR6o1oLk6jbjiL2vy64o/a64tfw
+ bb24UuOgAN9IoB0SGZXdW+JbOwNbOOERR1NNKkrRBTRzoWlSZewldxQ0f w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="268047790"
+X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="268047790"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jun 2022 14:54:15 -0700
+X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="675212635"
 Received: from buckkenx-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.212.52.70])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2022 14:41:13 -0700
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jun 2022 14:54:14 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 13/13] ASoC: Intel: sof_rt5682: remap jack pins
-Date: Thu, 16 Jun 2022 16:40:55 -0500
-Message-Id: <20220616214055.134943-14-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 00/13] ASoC: SOF/Intel: remove __func__ from dev_dbg()
+Date: Thu, 16 Jun 2022 16:53:38 -0500
+Message-Id: <20220616215351.135643-1-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220616214055.134943-1-pierre-louis.bossart@linux.intel.com>
-References: <20220616214055.134943-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Cc: Cezary Rojewski <cezary.rojewski@intel.com>, tiwai@suse.de,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Curtis Malainey <cujomalainey@google.com>, broonie@kernel.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>,
- =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+ broonie@kernel.org, =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,61 +89,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The card did not map jack pins to controls, which prevents
-PulseAudio/PipeWire from dealing with jack detection. It's likely that
-jack detection was only tested with the CRAS server and extensions of
-UCM.
+Cleanups suggested by Greg KH during SoundWire reviews, since the
+__func__ information can be added with the dyndbg kernel parameter
+[1].
 
-Suggested-by: Jaroslav Kysela <perex@perex.cz>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
----
- sound/soc/intel/boards/sof_rt5682.c | 23 ++++++++++++++++++-----
- 1 file changed, 18 insertions(+), 5 deletions(-)
+The first two patches change the error level in cases where the use of
+dev_dbg() was inconsistent with an aborted programming sequence.
 
-diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-index f28dae64587e1..a24fb71d5ff3a 100644
---- a/sound/soc/intel/boards/sof_rt5682.c
-+++ b/sound/soc/intel/boards/sof_rt5682.c
-@@ -248,6 +248,17 @@ static int sof_hdmi_init(struct snd_soc_pcm_runtime *rtd)
- 	return 0;
- }
- 
-+static struct snd_soc_jack_pin jack_pins[] = {
-+	{
-+		.pin    = "Headphone Jack",
-+		.mask   = SND_JACK_HEADPHONE,
-+	},
-+	{
-+		.pin    = "Headset Mic",
-+		.mask   = SND_JACK_MICROPHONE,
-+	},
-+};
-+
- static int sof_rt5682_codec_init(struct snd_soc_pcm_runtime *rtd)
- {
- 	struct sof_card_private *ctx = snd_soc_card_get_drvdata(rtd->card);
-@@ -295,11 +306,13 @@ static int sof_rt5682_codec_init(struct snd_soc_pcm_runtime *rtd)
- 	 * Headset buttons map to the google Reference headset.
- 	 * These can be configured by userspace.
- 	 */
--	ret = snd_soc_card_jack_new(rtd->card, "Headset Jack",
--				    SND_JACK_HEADSET | SND_JACK_BTN_0 |
--				    SND_JACK_BTN_1 | SND_JACK_BTN_2 |
--				    SND_JACK_BTN_3,
--				    &ctx->sof_headset);
-+	ret = snd_soc_card_jack_new_pins(rtd->card, "Headset Jack",
-+					 SND_JACK_HEADSET | SND_JACK_BTN_0 |
-+					 SND_JACK_BTN_1 | SND_JACK_BTN_2 |
-+					 SND_JACK_BTN_3,
-+					 &ctx->sof_headset,
-+					 jack_pins,
-+					 ARRAY_SIZE(jack_pins));
- 	if (ret) {
- 		dev_err(rtd->dev, "Headset Jack creation failed: %d\n", ret);
- 		return ret;
+[1] https://lore.kernel.org/alsa-devel/20220610023537.27223-2-yung-chuan.liao@linux.intel.com/
+
+Pierre-Louis Bossart (13):
+  ASoC: SOF: Intel: hda-dsp: report error on power-up/down
+  ASoC: SOF: Intel: hda-stream: report error on stream not opened
+  ASoC: SOF: Intel: hda-dai: remove use of __func__ in dev_dbg
+  ASoC: SOF: Intel: hda-stream: remove use of __func__ in dev_dbg
+  ASoC: SOF: Intel: mtl: remove use of __func__ in dev_dbg
+  ASoC: SOF: ipc3-dtrace: remove use of __func__ in dev_dbg
+  ASoC: SOF: ipc3-loader: remove use of __func__ in dev_dbg
+  ASoC: SOF: ipc3-topology: remove use of __func__ in dev_dbg
+  ASoC: SOF: ipc4-topology remove use of __func__ in dev_dbg
+  ASoC: SOF: sof-client: remove use of __func__ in dev_dbg
+  ASoC: SOF: ipc4: remove use of __func__ in dev_dbg
+  ASoC: Intel: boards: hda: remove use of __func__ in dev_dbg
+  ASoC: Intel: boards: sof_sdw: remove use of __func__ in dev_dbg
+
+ sound/soc/intel/boards/hda_dsp_common.c      |  4 ++--
+ sound/soc/intel/boards/skl_hda_dsp_generic.c |  4 ++--
+ sound/soc/intel/boards/sof_sdw.c             |  2 +-
+ sound/soc/sof/intel/hda-dai.c                |  6 +++---
+ sound/soc/sof/intel/hda-dsp.c                |  4 ++--
+ sound/soc/sof/intel/hda-stream.c             |  6 +++---
+ sound/soc/sof/intel/mtl.c                    |  3 +--
+ sound/soc/sof/ipc3-dtrace.c                  |  5 ++---
+ sound/soc/sof/ipc3-loader.c                  | 11 +++++------
+ sound/soc/sof/ipc3-topology.c                |  4 ++--
+ sound/soc/sof/ipc4-topology.c                | 18 +++++++++---------
+ sound/soc/sof/ipc4.c                         |  2 +-
+ sound/soc/sof/sof-client.c                   |  4 ++--
+ 13 files changed, 35 insertions(+), 38 deletions(-)
+
 -- 
 2.34.1
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 785D154F358
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jun 2022 10:46:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A757354F35B
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jun 2022 10:47:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 176FB1B34;
-	Fri, 17 Jun 2022 10:45:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 176FB1B34
+	by alsa0.perex.cz (Postfix) with ESMTPS id 43C431B3E;
+	Fri, 17 Jun 2022 10:46:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43C431B3E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655455589;
-	bh=l4Oy++oNbhdZkbFrGPAijfPn04cBbv+I89WWctteSl0=;
+	s=default; t=1655455636;
+	bh=7FiGF66O9qhSnUzROd02PKlWSHoF7nIFtVfbQthR0bQ=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qxf+wnRN5mTRsjM2qwWsY5hgAaiPsjbnJXbIyorBWXhEMb2COHfbkgGe4awwkyIp8
-	 ZGVY4ryuSc97DvW1By1rw+Kq/hr6GD+FS2sXD+GUHGrr2bKlUKWVmhrcdYO/3a2f6f
-	 4ecBvoDh3RH93u4wjTxslV0HWPczNpZKTm7nwIYM=
+	b=N5CiSLhy94yfLTnm6h4Ca7x6h9GAcIWcnJ5k1QsHQKA+CwxGiMuXZLRmYmCeIClKT
+	 runuqtwA03eeOK1ir00RceSE72tBqhEsJgvuGCoE2T66MJCa/5+nq4WIVn8+0eDg1b
+	 aLs3Yj6SVt6i6bmPu4CQHA8y2Wzov09tMWdy2EKI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A9777F80302;
-	Fri, 17 Jun 2022 10:45:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E1661F800B9;
+	Fri, 17 Jun 2022 10:46:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7322AF800B9; Fri, 17 Jun 2022 10:45:27 +0200 (CEST)
+ id DD3B5F80248; Fri, 17 Jun 2022 10:46:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,62 +34,64 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4661DF800B9
- for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 10:45:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4661DF800B9
+ by alsa1.perex.cz (Postfix) with ESMTPS id EA77AF800D3
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 10:46:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA77AF800D3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="k+2IqKpd"; 
+ header.b="MCOh0FzE"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="wepxJrTY"
+ header.b="72MKVD06"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 58ABF1F8F0;
- Fri, 17 Jun 2022 08:45:19 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 7A79D1FDB3;
+ Fri, 17 Jun 2022 08:46:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1655455519; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1655455561; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=cZ9+ve8XC0OCoOAsAYJQp1jZeNyLxdr9D/JzmhtU/GA=;
- b=k+2IqKpdXdmz/ZVAsz6SGW/Ht1pK213EF9W+1NyavEcwp/qjlEnzx6NowCtjBSXCSHqRui
- CptWkJ5RgfXQrHj3niyX5obZfmxQzDP1dgeIKuNcYbET5rvV4gIVZy4gm9g8dS2Y9ecK1r
- ueUI3x6f/ATI0lspaClTjVn3BL6ceh4=
+ bh=u+WqOTby9MKyDRmm+DsTXAsXR1RSnlR5Pe8lf7qyXRk=;
+ b=MCOh0FzEg3OOp1ZBT+KRQWoOs2i8i3tZLTN3bsQJqo9mlb+utMcRugpCgYDSdFUGdjtXjy
+ aaMB3ui9/NaRiwp4YBZgFFSmI14+F47F6tr0GkNPbb/KJSLy6qqNdxtGuc5WhNU1Eo1GCY
+ 1n8njEndZEffZWuq14u3p/yxj7OJG14=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1655455519;
+ s=susede2_ed25519; t=1655455561;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=cZ9+ve8XC0OCoOAsAYJQp1jZeNyLxdr9D/JzmhtU/GA=;
- b=wepxJrTY7QClAfM/aCneypGa5AcE1T4gDM9YLTJ59fH3v3r+Ayrr5oqU+9YHVNv2FAMWdj
- 2sdtWUtkiJZ5WGAw==
+ bh=u+WqOTby9MKyDRmm+DsTXAsXR1RSnlR5Pe8lf7qyXRk=;
+ b=72MKVD06ySOQ6JhuZy/7fCwVNvjnvo3hsGWB6MH1iI0OpFfr0jnR6KKn0lFEELIP4Gz87D
+ SrDQ+Y6bC02LTlCA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3967513458;
- Fri, 17 Jun 2022 08:45:19 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 41EFC13458;
+ Fri, 17 Jun 2022 08:46:01 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id nJU1DR8/rGJnHQAAMHmgww
- (envelope-from <tiwai@suse.de>); Fri, 17 Jun 2022 08:45:19 +0000
-Date: Fri, 17 Jun 2022 10:45:18 +0200
-Message-ID: <87v8sz1xwh.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id H6QqD0k/rGKyHQAAMHmgww
+ (envelope-from <tiwai@suse.de>); Fri, 17 Jun 2022 08:46:01 +0000
+Date: Fri, 17 Jun 2022 10:46:00 +0200
+Message-ID: <87tu8j1xvb.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH] ALSA: hda: intel-dspcfg: use SOF for UpExtreme and
- UpExtreme11 boards
-In-Reply-To: <20220616201029.130477-1-pierre-louis.bossart@linux.intel.com>
-References: <20220616201029.130477-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ALSA: hda: intel-nhlt: remove use of __func__ in dev_dbg
+In-Reply-To: <20220616220559.136160-1-pierre-louis.bossart@linux.intel.com>
+References: <20220616220559.136160-1-pierre-louis.bossart@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 8bit
-Cc: =?ISO-8859-1?Q?P=E9ter?= Ujfalusi <peter.ujfalusi@linux.intel.com>,
- alsa-devel@alsa-project.org, broonie@kernel.org,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Greg KH <gregkh@linuxfoundation.org>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, broonie@kernel.org,
+ Amadeusz =?ISO-8859-2?Q?S=B3awi=F1ski?= <amadeuszx.slawinski@linux.intel.com>,
+ =?ISO-8859-1?Q?P=E9ter?= Ujfalusi <peter.ujfalusi@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,23 +107,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 16 Jun 2022 22:10:29 +0200,
+On Fri, 17 Jun 2022 00:05:59 +0200,
 Pierre-Louis Bossart wrote:
 > 
-> The UpExtreme BIOS reports microphones that are not physically
-> present, so this module ends-up selecting SOF, while the UpExtreme11
-> BIOS does not report microphones so the snd-hda-intel driver is
-> selected.
+> The module and function information can be added with
+> 'modprobe foo dyndbg=+pmf'
 > 
-> For consistency use SOF unconditionally in autodetection mode. The use
-> of the snd-hda-intel driver can still be enabled with
-> 'options snd-intel-dspcfg dsp_driver=1'
-> 
+> Suggested-by: Greg KH <gregkh@linuxfoundation.org>
 > Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+> Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 > Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+> Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 
-Thanks, applied now.
+Thanks, applied.
 
 
 Takashi

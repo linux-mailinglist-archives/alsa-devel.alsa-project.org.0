@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CCB454F947
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jun 2022 16:38:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFF1554F94B
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jun 2022 16:39:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 43B381EF9;
-	Fri, 17 Jun 2022 16:37:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43B381EF9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 62B061F11;
+	Fri, 17 Jun 2022 16:38:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62B061F11
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655476697;
-	bh=C8lLmoHiWU1WsE6Ejc0yYiERmWQdIclnm3WfOJmj7es=;
+	s=default; t=1655476756;
+	bh=oPqhTD4CaqFuwdG6WVndoGdX58KkrSQZ/hb3SvUt6DI=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jco4TQnWBeB861PSJEBg6ue8Ti6ByeTaJvW+9c9zWljccrAVE6cjI0mN3HuRLMwGM
-	 Cc0Jiu8iTlOKxF4GBAPeg7VVwenxE4dMKQw+dTuKW+BUBI3K5R1AxGnkhMZ8GIyvFD
-	 rtWaI0lNAUCUQfP7yOvUXnoIMlGktSHls+LmgLEQ=
+	b=SLNHww2H4np12CT1Wwu80MyTbsR/Vzc3aKGjwonk7HlHigGEwyWeJk8c640ZJSjfZ
+	 jrkNx4mg1c1mmiEY8REMiXHTMhzuBHTMDJfCKeUcowbBWneuMYsF6D0zs8ssF75C6N
+	 pwhzzy3ynmS3adFHjLqmvRKeoVX5FTyvM7W79GNE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AE5C6F804BC;
-	Fri, 17 Jun 2022 16:37:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F2D38F8052D;
+	Fri, 17 Jun 2022 16:38:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3641FF80527; Fri, 17 Jun 2022 16:37:16 +0200 (CEST)
+ id ED5DFF8052D; Fri, 17 Jun 2022 16:38:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,60 +34,56 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 11615F804BC
- for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 16:37:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11615F804BC
+ by alsa1.perex.cz (Postfix) with ESMTPS id C027BF80527
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 16:38:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C027BF80527
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="WFqGf5IA"; 
+ header.b="cmXxwC1N"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="LgmVWSP8"
+ header.b="7mN2jsgj"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9956C1F897;
- Fri, 17 Jun 2022 14:37:07 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 9709F1F86A;
+ Fri, 17 Jun 2022 14:38:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1655476627; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1655476698; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=8tSEU3GQJk6/3e5aYU2iEVDmk5mVOGSCnyil3Bob8Os=;
- b=WFqGf5IAMGs8zjb6YPJqFN/LOGyh0VaspMOXmqbt5yQFU5dBKbU/fOoJK2nHjpfOYXz1R/
- EWT4HIXhFMi6BwPQJlPrwlnqBrC0BEjGbLl2Y14JGVuyUeqWF8yFkox3q+h9dZ5gGgAo0d
- MdYN/mxpoT8sx03k84tWT0SG01ARyJM=
+ bh=fN4x/HdGTne5zv9yVS/2a456Oc1NZGkFk4W2pqrPNHo=;
+ b=cmXxwC1Njmu+VBlqRGPlVnN2Yk+pp+UpOl9U1wgw9xxKjW7sKeItlI1eYnCt/c7u9djF27
+ reNy31wpdXb/9A0mnxZO0MCZYo9luuoMIrojL4vOHet4btXaiWvxkktjNOCz5uxvmWDk0u
+ DFs3ZL3YUo6BKeLorvHrCVdq5r1B0rs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1655476627;
+ s=susede2_ed25519; t=1655476698;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=8tSEU3GQJk6/3e5aYU2iEVDmk5mVOGSCnyil3Bob8Os=;
- b=LgmVWSP82DIMs2+6e/inzf8TGNrxYeBpbDGfPgOsyMLlS2/RZ+7ZP0fFOjdd0yqmCQrK9M
- 92qy2TgAtCsif9Cw==
+ bh=fN4x/HdGTne5zv9yVS/2a456Oc1NZGkFk4W2pqrPNHo=;
+ b=7mN2jsgjJzBIJHxEDcEeUEqIsFxn9fJ+AhWLVr1GMbD80kgb/TaFsLUJBrDdCvCxcCWkHb
+ GFssqEgbYdSka1BA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 73EF51348E;
- Fri, 17 Jun 2022 14:37:07 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6DCFB1348E;
+ Fri, 17 Jun 2022 14:38:18 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id nd6IG5ORrGJ9MwAAMHmgww
- (envelope-from <tiwai@suse.de>); Fri, 17 Jun 2022 14:37:07 +0000
-Date: Fri, 17 Jun 2022 16:37:07 +0200
-Message-ID: <877d5f1hm4.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id COcBGtqRrGL1MwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Fri, 17 Jun 2022 14:38:18 +0000
+Date: Fri, 17 Jun 2022 16:38:18 +0200
+Message-ID: <875ykz1hk5.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: =?ISO-8859-1?Q?P=E9ter?= Ujfalusi <peter.ujfalusi@linux.intel.com>
-Subject: Re: Can anyone test with AMD onboard or HDMI/DP?
-In-Reply-To: <0920a0b2-31be-8629-07d0-564bb49dc60d@linux.intel.com>
-References: <87bkur1nil.wl-tiwai@suse.de>
- <0920a0b2-31be-8629-07d0-564bb49dc60d@linux.intel.com>
+To: Tim Crawford <tcrawford@system76.com>
+Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for Clevo PD70PNT
+In-Reply-To: <20220617133028.50568-1-tcrawford@system76.com>
+References: <20220617133028.50568-1-tcrawford@system76.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org
+Content-Type: text/plain; charset=US-ASCII
+Cc: productdev@system76.com, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,121 +99,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 17 Jun 2022 15:56:31 +0200,
-Péter Ujfalusi wrote:
+On Fri, 17 Jun 2022 15:30:28 +0200,
+Tim Crawford wrote:
 > 
-> Hi Takashi,
+> Fixes speaker output and headset detection on Clevo PD70PNT.
 > 
-> On 17/06/2022 15:29, Takashi Iwai wrote:
-> > Hi,
-> 
-> Try #2, first mail did not made it through, I think.
-> 
-> > can anyone have an AMD onboard audio device and/or AMD HDMI/DP output
-> > for testing a patch below with 5.18.x or 5.19-rc kernels?  It's a
-> > pending fix (for 5.18+), but currently it can't be verified whether it
-> > causes a regression on the actual audio I/O (while it fixes the kernel
-> > crash).
-> > 
-> > If the generic allocator still doesn't work as expected here, it
-> > should show some audio stuttering or such effect.
-> 
-> But the fallback was needed for some machines using SOF to be able to
-> load the firmware...
-> like this:
-> https://github.com/thesofproject/linux/issues/3609
+> Signed-off-by: Tim Crawford <tcrawford@system76.com>
 
-The bug isn't about the fallback of SG buffer we've already resolved,
-but rather about the continuous WC page allocations that happen for
-the CORB/RIRB or the position buffer on some devices like AMD.
-The Intel HD-audio doesn't hit the problem.
+Thanks, applied now.
 
 
 Takashi
-
-> 
-> > 
-> > 
-> > Thanks!
-> > 
-> > Takashi
-> > 
-> > -- 8< --
-> > From: Takashi Iwai <tiwai@suse.de>
-> > Subject: [PATCH] ALSA: memalloc: Drop x86-specific hack for WC allocations
-> > 
-> > The recent report for a crash on Haswell machines implied that the
-> > x86-specific (rather hackish) implementation for write-cache memory
-> > buffer allocation in ALSA core is buggy with the recent kernel in some
-> > corner cases.  This patch drops the x86-specific implementation and
-> > uses the standard dma_alloc_wc() & co generically for avoiding the bug
-> > and also for simplification.
-> > 
-> > BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=216112
-> > Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> > ---
-> >  sound/core/memalloc.c | 23 +----------------------
-> >  1 file changed, 1 insertion(+), 22 deletions(-)
-> > 
-> > diff --git a/sound/core/memalloc.c b/sound/core/memalloc.c
-> > index 15dc7160ba34..8cfdaee77905 100644
-> > --- a/sound/core/memalloc.c
-> > +++ b/sound/core/memalloc.c
-> > @@ -431,33 +431,17 @@ static const struct snd_malloc_ops snd_dma_iram_ops = {
-> >   */
-> >  static void *snd_dma_dev_alloc(struct snd_dma_buffer *dmab, size_t size)
-> >  {
-> > -	void *p;
-> > -
-> > -	p = dma_alloc_coherent(dmab->dev.dev, size, &dmab->addr, DEFAULT_GFP);
-> > -#ifdef CONFIG_X86
-> > -	if (p && dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC)
-> > -		set_memory_wc((unsigned long)p, PAGE_ALIGN(size) >> PAGE_SHIFT);
-> > -#endif
-> > -	return p;
-> > +	return dma_alloc_coherent(dmab->dev.dev, size, &dmab->addr, DEFAULT_GFP);
-> >  }
-> >  
-> >  static void snd_dma_dev_free(struct snd_dma_buffer *dmab)
-> >  {
-> > -#ifdef CONFIG_X86
-> > -	if (dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC)
-> > -		set_memory_wb((unsigned long)dmab->area,
-> > -			      PAGE_ALIGN(dmab->bytes) >> PAGE_SHIFT);
-> > -#endif
-> >  	dma_free_coherent(dmab->dev.dev, dmab->bytes, dmab->area, dmab->addr);
-> >  }
-> >  
-> >  static int snd_dma_dev_mmap(struct snd_dma_buffer *dmab,
-> >  			    struct vm_area_struct *area)
-> >  {
-> > -#ifdef CONFIG_X86
-> > -	if (dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC)
-> > -		area->vm_page_prot = pgprot_writecombine(area->vm_page_prot);
-> > -#endif
-> >  	return dma_mmap_coherent(dmab->dev.dev, area,
-> >  				 dmab->area, dmab->addr, dmab->bytes);
-> >  }
-> > @@ -471,10 +455,6 @@ static const struct snd_malloc_ops snd_dma_dev_ops = {
-> >  /*
-> >   * Write-combined pages
-> >   */
-> > -#ifdef CONFIG_X86
-> > -/* On x86, share the same ops as the standard dev ops */
-> > -#define snd_dma_wc_ops	snd_dma_dev_ops
-> > -#else /* CONFIG_X86 */
-> >  static void *snd_dma_wc_alloc(struct snd_dma_buffer *dmab, size_t size)
-> >  {
-> >  	return dma_alloc_wc(dmab->dev.dev, size, &dmab->addr, DEFAULT_GFP);
-> > @@ -497,7 +477,6 @@ static const struct snd_malloc_ops snd_dma_wc_ops = {
-> >  	.free = snd_dma_wc_free,
-> >  	.mmap = snd_dma_wc_mmap,
-> >  };
-> > -#endif /* CONFIG_X86 */
-> >  
-> >  #ifdef CONFIG_SND_DMA_SGBUF
-> >  static void *snd_dma_sg_fallback_alloc(struct snd_dma_buffer *dmab, size_t size);
-> 
-> -- 
-> Péter
-> 

@@ -2,92 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD25854F352
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jun 2022 10:45:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89F5E54F353
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jun 2022 10:45:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9D6501B38;
-	Fri, 17 Jun 2022 10:44:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D6501B38
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1E64F1B4E;
+	Fri, 17 Jun 2022 10:44:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E64F1B4E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655455510;
-	bh=US/h2ZAk0tsxB9CJEqmx8uum2+t7GTAeCqPn94SDFMU=;
+	s=default; t=1655455527;
+	bh=ylj4ReGORT9cmTFQ92IdQM9+4sF2ngr5x4tsi6CO7rk=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SEMrZM1iPYrTDkIIaXVsWO3Ot5cnjQssHHJNBjjMogU7m6UjNMraSpVWgV6UnWsXN
-	 tKQlfQ6aKVgeNw1orlJeY1BpUS4WgMJ+0sMhS4+BzRVzqh3kmcE/xy0cCJytxc1dXa
-	 W1mSJ4mVYtge0dQLDJ0q7xOxZpSdpUnNac61Si50=
+	b=Rb8QLqYsu/2T/P5MABKn/wgvlEDVA9X6c8bokIjQvRlkYIyqVtdCoCFPm+L4g0lMG
+	 LNnqUmacAto6MLUJrpr59AHz8XyZ2vmyc5FTDGndIBq6p4cCYYhxqZkanMd5aWTtyc
+	 FE1+AI4vYsV3L4qeD98tTAUu/5j5Rm51mz6lKI68=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3C727F8019D;
-	Fri, 17 Jun 2022 10:44:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C632FF800B0;
+	Fri, 17 Jun 2022 10:44:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5430FF800D3; Fri, 17 Jun 2022 10:44:18 +0200 (CEST)
+ id 884F0F800B0; Fri, 17 Jun 2022 10:44:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
- SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 023D1F800B9
- for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 10:44:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 023D1F800B9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7E85EF800B0
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 10:44:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E85EF800B0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="xgqWM5jR"; 
+ header.b="D8vHnUIc"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="Ikk6oPBv"
+ header.b="zgiEJELQ"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id CE64A1F8F0;
- Fri, 17 Jun 2022 08:44:04 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 2A79721E82;
+ Fri, 17 Jun 2022 08:44:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1655455444; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1655455465; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=vaC/R88RCaFnoZ3sniaB57ZhAF2CI4L9bTxdm/RpON0=;
- b=xgqWM5jRcXo2XM2njhOpaQpKpw7eKT8myIRV5jxQgdXAF36kszB448ArXXHQ3TwiXf0eQQ
- zQhbxvHCJMiT24/KaHKaXzVntyKBJpMCvXPuvaX/eHBX7xXjXAnD7tlIWp1dxZVAW7ZHE5
- lrdANbp9whrGAzYOnIwxn/4MC+H27QM=
+ bh=p4BqFADQhBXykYtq6UxSN4rgPXAv5STR0u5g4yNGgGA=;
+ b=D8vHnUIckQwj4k5ewvXCYPdGJ52oA+6QimA42fG5/S9KBf5BYDL7kNyJptcoDtLQZNFxRt
+ 0pelWJG2A3In7HA0k2gpey65ozAy2HoVVY6TuuXqCgzE3XDOvO/WgFlBEKbUJaQbyFbs9Q
+ gRrZ4ONn4Yrz4hs2qI4KpYXGxn8rJG0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1655455444;
+ s=susede2_ed25519; t=1655455465;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=vaC/R88RCaFnoZ3sniaB57ZhAF2CI4L9bTxdm/RpON0=;
- b=Ikk6oPBvKhzJVmTF86uKa7CuO12/lBzo3l69a7dHsFw/Fsq9r257atNWkuxFaeZxQQ8tWN
- 8rxOJeUlvAKgXDAA==
+ bh=p4BqFADQhBXykYtq6UxSN4rgPXAv5STR0u5g4yNGgGA=;
+ b=zgiEJELQ24ikqeLfPIRXEqFDERJ5qa0431XEV28g9HdqLz6d+OQZEuuFlg5qlNsp+ygpS6
+ jHsibdzw5/MUH0DQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9381B13458;
- Fri, 17 Jun 2022 08:44:04 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D9A5213458;
+ Fri, 17 Jun 2022 08:44:24 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id KZrwItQ+rGKYHAAAMHmgww
- (envelope-from <tiwai@suse.de>); Fri, 17 Jun 2022 08:44:04 +0000
-Date: Fri, 17 Jun 2022 10:44:03 +0200
-Message-ID: <87y1xv1xyk.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id YaA+NOg+rGLWHAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Fri, 17 Jun 2022 08:44:24 +0000
+Date: Fri, 17 Jun 2022 10:44:24 +0200
+Message-ID: <87wndf1xxz.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [PATCH] firewire: cdev: fix potential leak of kernel stack due to
- uninitialized value
-In-Reply-To: <Yqk1hXsJ3DMtfEJS@workstation>
-References: <20220512112037.103142-1-o-takashi@sakamocchi.jp>
- <Yqh/bDB+Bvwcjjrh@workstation> <87o7yvpf4t.wl-tiwai@suse.de>
- <Yqk1hXsJ3DMtfEJS@workstation>
+Subject: Re: [PATCH v2 1/3] firewire: convert sysfs sprintf/snprintf family to
+ sysfs_emit
+In-Reply-To: <20220615121505.61412-2-o-takashi@sakamocchi.jp>
+References: <20220615121505.61412-1-o-takashi@sakamocchi.jp>
+ <20220615121505.61412-2-o-takashi@sakamocchi.jp>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, stefanr@s5r6.in-berlin.de,
- linux1394-devel@lists.sourceforge.net,
- Dan Carpenter <dan.carpenter@oracle.com>
+Cc: Abaci Robot <abaci@linux.alibaba.com>,
+ Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, alsa-devel@alsa-project.org,
+ stefanr@s5r6.in-berlin.de, linux1394-devel@lists.sourceforge.net
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,27 +103,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 15 Jun 2022 03:27:33 +0200,
+On Wed, 15 Jun 2022 14:15:03 +0200,
 Takashi Sakamoto wrote:
 > 
-> On Tue, Jun 14, 2022 at 03:07:46PM +0200, Takashi Iwai wrote:
-> > On Tue, 14 Jun 2022 14:30:36 +0200,
-> > Takashi Sakamoto wrote:
-> > > 
-> > > Hi Iwai-san,
-> > > 
-> > > I have a moderate request to you for the patch which fixes an issue
-> > > included in v5.19-rc1. If it's applicable and I can borrow your help
-> > > again, I'd like you to send the patch to mainline via your tree.
-> > 
-> > Do you have the lore URL I can get a patch from?
->  
-> Here it is:
+> From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 > 
-> https://lore.kernel.org/alsa-devel/20220512112037.103142-1-o-takashi@sakamocchi.jp/
+> Fix the following coccicheck warning:
+> 
+> ./drivers/firewire/core-device.c:375:8-16: WARNING: use scnprintf or
+> sprintf.
+> 
+> Reported-by: Abaci Robot<abaci@linux.alibaba.com>
+> Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 
-Thanks, now applied.  The Fixes tag had a too short hash (only 11
-letters), so I corrected locally.
+I applied (only) this one now.
 
 
 thanks,

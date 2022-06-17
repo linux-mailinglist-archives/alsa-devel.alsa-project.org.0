@@ -2,96 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A757354F35B
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jun 2022 10:47:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16A2254F36E
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jun 2022 10:47:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 43C431B3E;
-	Fri, 17 Jun 2022 10:46:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43C431B3E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F3131B5C;
+	Fri, 17 Jun 2022 10:47:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F3131B5C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655455636;
-	bh=7FiGF66O9qhSnUzROd02PKlWSHoF7nIFtVfbQthR0bQ=;
+	s=default; t=1655455670;
+	bh=DzllmykMdRtqbW4kwLgu2CCt/UnHsUq4T/Lk/K/p8uw=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=N5CiSLhy94yfLTnm6h4Ca7x6h9GAcIWcnJ5k1QsHQKA+CwxGiMuXZLRmYmCeIClKT
-	 runuqtwA03eeOK1ir00RceSE72tBqhEsJgvuGCoE2T66MJCa/5+nq4WIVn8+0eDg1b
-	 aLs3Yj6SVt6i6bmPu4CQHA8y2Wzov09tMWdy2EKI=
+	b=Y9Bv/UaJ09Xagmx/OJ8lqB+6HIogcMonrj91dgRDM1IX7Gzy4/YFh2RkliYTLiiWs
+	 sygLWVkCHppAjlzhhbs4bc4HIKGQYjtPixvYufTp/CToqH26xW0YhK6y6wJlU3q5v4
+	 OPs5Jg+3wkotByfsmhGVl0mhEZcbqjcxearpNkVM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E1661F800B9;
-	Fri, 17 Jun 2022 10:46:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9059EF8051F;
+	Fri, 17 Jun 2022 10:46:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DD3B5F80248; Fri, 17 Jun 2022 10:46:08 +0200 (CEST)
+ id 3713CF80311; Fri, 17 Jun 2022 10:46:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EA77AF800D3
- for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 10:46:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA77AF800D3
+ by alsa1.perex.cz (Postfix) with ESMTPS id E006EF800D3
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 10:46:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E006EF800D3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="MCOh0FzE"; 
+ header.b="0AqWbyYJ"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="72MKVD06"
+ header.b="XO8WWeac"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 7A79D1FDB3;
- Fri, 17 Jun 2022 08:46:01 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id D996121E82;
+ Fri, 17 Jun 2022 08:46:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1655455561; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1655455613; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=u+WqOTby9MKyDRmm+DsTXAsXR1RSnlR5Pe8lf7qyXRk=;
- b=MCOh0FzEg3OOp1ZBT+KRQWoOs2i8i3tZLTN3bsQJqo9mlb+utMcRugpCgYDSdFUGdjtXjy
- aaMB3ui9/NaRiwp4YBZgFFSmI14+F47F6tr0GkNPbb/KJSLy6qqNdxtGuc5WhNU1Eo1GCY
- 1n8njEndZEffZWuq14u3p/yxj7OJG14=
+ bh=UVmlNAgDK7iLU5aby+2aK0Rxh7H/LeeuqFQf5sKOCzI=;
+ b=0AqWbyYJfiNfNiObKBKsPjvWen5MD0l0U+qh9pC3IngIq5//DI4aaZtOAO45Cp9FI8zUgF
+ adt+Zp1fisrC21dv5Yl2n4OBisg8x7knHW6gprTNSOavNu05U9wegXo9g3qc9RtZdf7/oh
+ 10g50zFp+sViv4rHDeBJyn4uiDsda/k=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1655455561;
+ s=susede2_ed25519; t=1655455613;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=u+WqOTby9MKyDRmm+DsTXAsXR1RSnlR5Pe8lf7qyXRk=;
- b=72MKVD06ySOQ6JhuZy/7fCwVNvjnvo3hsGWB6MH1iI0OpFfr0jnR6KKn0lFEELIP4Gz87D
- SrDQ+Y6bC02LTlCA==
+ bh=UVmlNAgDK7iLU5aby+2aK0Rxh7H/LeeuqFQf5sKOCzI=;
+ b=XO8WWeacWnKEVsCAPB5PssqoWy2oixjqI5w4FPnB18+q9J6m2/fC4ryIYsJyUmniyCJN4k
+ Y9X8rhHVyH/toJDQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 41EFC13458;
- Fri, 17 Jun 2022 08:46:01 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B9FA213458;
+ Fri, 17 Jun 2022 08:46:53 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id H6QqD0k/rGKyHQAAMHmgww
- (envelope-from <tiwai@suse.de>); Fri, 17 Jun 2022 08:46:01 +0000
-Date: Fri, 17 Jun 2022 10:46:00 +0200
-Message-ID: <87tu8j1xvb.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id AlulLH0/rGIWHgAAMHmgww
+ (envelope-from <tiwai@suse.de>); Fri, 17 Jun 2022 08:46:53 +0000
+Date: Fri, 17 Jun 2022 10:46:53 +0200
+Message-ID: <87sfo31xtu.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH] ALSA: hda: intel-nhlt: remove use of __func__ in dev_dbg
-In-Reply-To: <20220616220559.136160-1-pierre-louis.bossart@linux.intel.com>
-References: <20220616220559.136160-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 0/2] ALSA: x86: intel_hdmi_audio: pm_runtime updates
+In-Reply-To: <20220616222910.136854-1-pierre-louis.bossart@linux.intel.com>
+References: <20220616222910.136854-1-pierre-louis.bossart@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Greg KH <gregkh@linuxfoundation.org>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, broonie@kernel.org,
- Amadeusz =?ISO-8859-2?Q?S=B3awi=F1ski?= <amadeuszx.slawinski@linux.intel.com>,
- =?ISO-8859-1?Q?P=E9ter?= Ujfalusi <peter.ujfalusi@linux.intel.com>
+Content-Type: text/plain; charset=US-ASCII
+Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org,
+ broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,19 +100,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 17 Jun 2022 00:05:59 +0200,
+On Fri, 17 Jun 2022 00:29:08 +0200,
 Pierre-Louis Bossart wrote:
 > 
-> The module and function information can be added with
-> 'modprobe foo dyndbg=+pmf'
+> While cleaning up the code to use pm_runtime_resume_and_get(), I
+> realized we never called pm_runtime_enable() for this driver. This is
+> potentially very invasive and error-prone, so feedback and test
+> results are welcome - all my BYT/CHT devices are not longer functional
+> unfortunately, and our CI MinnowBoard uses the 'other' HDMI solution
+> based on HDaudio.
 > 
-> Suggested-by: Greg KH <gregkh@linuxfoundation.org>
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-> Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-> Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+> In addition, the resume was assumed to be always successful, which
+> isn't a very good idea.
+> 
+> Pierre-Louis Bossart (2):
+>   ALSA: x86: intel_hdmi_audio: enable pm_runtime and set autosuspend
+>     delay
+>   ALSA: x86: intel_hdmi_audio: use pm_runtime_resume_and_get()
 
-Thanks, applied.
+Applied both patches now.  Thanks.
 
 
 Takashi

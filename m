@@ -2,90 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B4DB54F343
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jun 2022 10:43:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD25854F352
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jun 2022 10:45:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B794D1B1B;
-	Fri, 17 Jun 2022 10:43:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B794D1B1B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9D6501B38;
+	Fri, 17 Jun 2022 10:44:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D6501B38
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655455438;
-	bh=pOc1ibUnA0j86MZVvjZQ8mTOiBDNpmlwfnok/2Yh2ug=;
+	s=default; t=1655455510;
+	bh=US/h2ZAk0tsxB9CJEqmx8uum2+t7GTAeCqPn94SDFMU=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lyDzGY4Wfzgmavjp8wEgIMhvZALe1ZcqIEpGSNiRlOnT248g0VyVgd5ZrqQr04n2G
-	 UwPlnRqJovh4AvIyl47yMja1Dp4uRzfYavg3KIt25DhaNC8Mz+L6sNuqNejcWzA8P2
-	 PEtfF0Lh0ZYooLHX7mlvRmr+ljgk8IOdINZ4BpEg=
+	b=SEMrZM1iPYrTDkIIaXVsWO3Ot5cnjQssHHJNBjjMogU7m6UjNMraSpVWgV6UnWsXN
+	 tKQlfQ6aKVgeNw1orlJeY1BpUS4WgMJ+0sMhS4+BzRVzqh3kmcE/xy0cCJytxc1dXa
+	 W1mSJ4mVYtge0dQLDJ0q7xOxZpSdpUnNac61Si50=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0E662F8019D;
-	Fri, 17 Jun 2022 10:42:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3C727F8019D;
+	Fri, 17 Jun 2022 10:44:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BDD01F80159; Fri, 17 Jun 2022 10:42:56 +0200 (CEST)
+ id 5430FF800D3; Fri, 17 Jun 2022 10:44:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
+ SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 362FBF800B9
- for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 10:42:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 362FBF800B9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 023D1F800B9
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 10:44:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 023D1F800B9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="nnk52/hL"; 
+ header.b="xgqWM5jR"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="t5D7PuSk"
+ header.b="Ikk6oPBv"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E64A521E53;
- Fri, 17 Jun 2022 08:42:51 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id CE64A1F8F0;
+ Fri, 17 Jun 2022 08:44:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1655455371; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1655455444; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=k04bjqg5q9YK0UT1SaQdcTTbluVyt4dFb8icJOEwxDo=;
- b=nnk52/hLN0Eh+pVMj/BEETAABulBIPjftCZWe2krxXuaRGk8vzjX8+PWfNk9l5psedmHxI
- tby/3UNkuDt04KP6MbMyMhge+mApMbXXJuNXJwZ8xUY8zdc/S5FC+tTti1XBFYHpPixag1
- r5ys4Ivu1wA6mueTV8+Y13Zd0ibR2qo=
+ bh=vaC/R88RCaFnoZ3sniaB57ZhAF2CI4L9bTxdm/RpON0=;
+ b=xgqWM5jRcXo2XM2njhOpaQpKpw7eKT8myIRV5jxQgdXAF36kszB448ArXXHQ3TwiXf0eQQ
+ zQhbxvHCJMiT24/KaHKaXzVntyKBJpMCvXPuvaX/eHBX7xXjXAnD7tlIWp1dxZVAW7ZHE5
+ lrdANbp9whrGAzYOnIwxn/4MC+H27QM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1655455371;
+ s=susede2_ed25519; t=1655455444;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=k04bjqg5q9YK0UT1SaQdcTTbluVyt4dFb8icJOEwxDo=;
- b=t5D7PuSkkmwh1OEHpwIzAHYSFY5LKvTn90Y7Y+UK0wScma72ieOqEzw+DfisaXlnalq59p
- ULIBUiU4fqwiBgDg==
+ bh=vaC/R88RCaFnoZ3sniaB57ZhAF2CI4L9bTxdm/RpON0=;
+ b=Ikk6oPBvKhzJVmTF86uKa7CuO12/lBzo3l69a7dHsFw/Fsq9r257atNWkuxFaeZxQQ8tWN
+ 8rxOJeUlvAKgXDAA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C2E3313458;
- Fri, 17 Jun 2022 08:42:51 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9381B13458;
+ Fri, 17 Jun 2022 08:44:04 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id OI3NLYs+rGIiHAAAMHmgww
- (envelope-from <tiwai@suse.de>); Fri, 17 Jun 2022 08:42:51 +0000
-Date: Fri, 17 Jun 2022 10:42:51 +0200
-Message-ID: <87zgib1y0k.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id KZrwItQ+rGKYHAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Fri, 17 Jun 2022 08:44:04 +0000
+Date: Fri, 17 Jun 2022 10:44:03 +0200
+Message-ID: <87y1xv1xyk.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [PATCH v2 0/3] firewire: fix minor issues
-In-Reply-To: <Yqp3lvOYHwZyC0I5@workstation>
-References: <20220615121505.61412-1-o-takashi@sakamocchi.jp>
- <Yqp3lvOYHwZyC0I5@workstation>
+Subject: Re: [PATCH] firewire: cdev: fix potential leak of kernel stack due to
+ uninitialized value
+In-Reply-To: <Yqk1hXsJ3DMtfEJS@workstation>
+References: <20220512112037.103142-1-o-takashi@sakamocchi.jp>
+ <Yqh/bDB+Bvwcjjrh@workstation> <87o7yvpf4t.wl-tiwai@suse.de>
+ <Yqk1hXsJ3DMtfEJS@workstation>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
 Cc: alsa-devel@alsa-project.org, stefanr@s5r6.in-berlin.de,
- linux1394-devel@lists.sourceforge.net
+ linux1394-devel@lists.sourceforge.net,
+ Dan Carpenter <dan.carpenter@oracle.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,25 +103,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 16 Jun 2022 02:21:42 +0200,
+On Wed, 15 Jun 2022 03:27:33 +0200,
 Takashi Sakamoto wrote:
 > 
-> Hi,
+> On Tue, Jun 14, 2022 at 03:07:46PM +0200, Takashi Iwai wrote:
+> > On Tue, 14 Jun 2022 14:30:36 +0200,
+> > Takashi Sakamoto wrote:
+> > > 
+> > > Hi Iwai-san,
+> > > 
+> > > I have a moderate request to you for the patch which fixes an issue
+> > > included in v5.19-rc1. If it's applicable and I can borrow your help
+> > > again, I'd like you to send the patch to mainline via your tree.
+> > 
+> > Do you have the lore URL I can get a patch from?
+>  
+> Here it is:
 > 
-> I realized that the second patch still includes a bug that shorter
-> buffer is allocated for block request than received length since the
-> computation is aligned to 4 without care of remainder.
-> 
-> Actually in the case of block request, the length is not necessarily
-> multiples of 4 and the packet payload has enough size of field with
-> padding to be aligned to 4, according to 1394 OHCI specification. In the
-> implementation of firewire-core driver, the field is copied without
-> the padding.
-> 
-> Please abandon them. I'm sorry to trouble you.
+> https://lore.kernel.org/alsa-devel/20220512112037.103142-1-o-takashi@sakamocchi.jp/
 
-So this implies that the type declaration of data[] rather looks
-wrong?
+Thanks, now applied.  The Fixes tag had a too short hash (only 11
+letters), so I corrected locally.
 
+
+thanks,
 
 Takashi

@@ -2,88 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFF1554F94B
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jun 2022 16:39:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 135E054F960
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jun 2022 16:42:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 62B061F11;
-	Fri, 17 Jun 2022 16:38:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62B061F11
+	by alsa0.perex.cz (Postfix) with ESMTPS id A77181F1C;
+	Fri, 17 Jun 2022 16:41:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A77181F1C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655476756;
-	bh=oPqhTD4CaqFuwdG6WVndoGdX58KkrSQZ/hb3SvUt6DI=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=SLNHww2H4np12CT1Wwu80MyTbsR/Vzc3aKGjwonk7HlHigGEwyWeJk8c640ZJSjfZ
-	 jrkNx4mg1c1mmiEY8REMiXHTMhzuBHTMDJfCKeUcowbBWneuMYsF6D0zs8ssF75C6N
-	 pwhzzy3ynmS3adFHjLqmvRKeoVX5FTyvM7W79GNE=
+	s=default; t=1655476921;
+	bh=lFM+2XtqsneTZUw86cqqYScAS5RRp/8RcVfijttbRJA=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=c1roL158wfNDck9Nvx1zoxtBO2I5LZ7pO0WEjTFY2KSc4i975LgZqKrkcIAoXeZRQ
+	 YClBpkIii4lfoLiqDWHYFTDZukGrGviJn3pTaVepkY3odQhaWRNo4GmXtV9LujBHzk
+	 jcFrTX8EKhtkXessc0D3ux6qY8ZQtfFxTuNDo9LU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F2D38F8052D;
-	Fri, 17 Jun 2022 16:38:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2565CF8052E;
+	Fri, 17 Jun 2022 16:41:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ED5DFF8052D; Fri, 17 Jun 2022 16:38:24 +0200 (CEST)
+ id 1EA7EF80529; Fri, 17 Jun 2022 16:40:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C027BF80527
- for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 16:38:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C027BF80527
+ by alsa1.perex.cz (Postfix) with ESMTPS id C7157F804BC
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 16:40:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7157F804BC
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="cmXxwC1N"; 
+ header.b="2R1mtCzW"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="7mN2jsgj"
+ header.b="qFTENe8H"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9709F1F86A;
- Fri, 17 Jun 2022 14:38:18 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 7D6AB21D3B;
+ Fri, 17 Jun 2022 14:40:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1655476698; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=fN4x/HdGTne5zv9yVS/2a456Oc1NZGkFk4W2pqrPNHo=;
- b=cmXxwC1Njmu+VBlqRGPlVnN2Yk+pp+UpOl9U1wgw9xxKjW7sKeItlI1eYnCt/c7u9djF27
- reNy31wpdXb/9A0mnxZO0MCZYo9luuoMIrojL4vOHet4btXaiWvxkktjNOCz5uxvmWDk0u
- DFs3ZL3YUo6BKeLorvHrCVdq5r1B0rs=
+ t=1655476855; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=vtZdOP7JpuBTxiFwOTKIu97MTlORDOzM3Lik64dB0KQ=;
+ b=2R1mtCzWRjREaegiCzCJJDQvCPbt+JNF1n3VfzJ3K9RP/IuXbZ5AsDAYcU6WG4B9f5cSLw
+ 6BoSp/ik+cbk4ik5sa6RtBJy9APrMgMdpxgfRBX7mL30vAoI9IFgFltU6ZZOuUQ9LKnHuf
+ pxOiriPniqP2d0scgy59kKKlLxbco+A=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1655476698;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=fN4x/HdGTne5zv9yVS/2a456Oc1NZGkFk4W2pqrPNHo=;
- b=7mN2jsgjJzBIJHxEDcEeUEqIsFxn9fJ+AhWLVr1GMbD80kgb/TaFsLUJBrDdCvCxcCWkHb
- GFssqEgbYdSka1BA==
+ s=susede2_ed25519; t=1655476855;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=vtZdOP7JpuBTxiFwOTKIu97MTlORDOzM3Lik64dB0KQ=;
+ b=qFTENe8H4+8Z/0HkBFiwS3zLu55PlNAYiapbsJqDfGm07Vq4iQ4BNDqQ+/+GKK33cLIuAB
+ 4YGwWxDJUeCMioBw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6DCFB1348E;
- Fri, 17 Jun 2022 14:38:18 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6202B1348E;
+ Fri, 17 Jun 2022 14:40:55 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id COcBGtqRrGL1MwAAMHmgww
- (envelope-from <tiwai@suse.de>); Fri, 17 Jun 2022 14:38:18 +0000
-Date: Fri, 17 Jun 2022 16:38:18 +0200
-Message-ID: <875ykz1hk5.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id vV8vF3eSrGIYNQAAMHmgww
+ (envelope-from <tiwai@suse.de>); Fri, 17 Jun 2022 14:40:55 +0000
 From: Takashi Iwai <tiwai@suse.de>
-To: Tim Crawford <tcrawford@system76.com>
-Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for Clevo PD70PNT
-In-Reply-To: <20220617133028.50568-1-tcrawford@system76.com>
-References: <20220617133028.50568-1-tcrawford@system76.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: productdev@system76.com, alsa-devel@alsa-project.org
+To: alsa-devel@alsa-project.org
+Subject: [PATCH 0/5] ALSA: rawmidi: Make code robust for external calls
+Date: Fri, 17 Jun 2022 16:40:46 +0200
+Message-Id: <20220617144051.18985-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.35.3
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,14 +93,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 17 Jun 2022 15:30:28 +0200,
-Tim Crawford wrote:
-> 
-> Fixes speaker output and headset detection on Clevo PD70PNT.
-> 
-> Signed-off-by: Tim Crawford <tcrawford@system76.com>
+Hi,
 
-Thanks, applied now.
+here is a small patch set for ALSA core rawmidi code to make the code
+a bit more robust, especially for the case where the exported
+functions get called from the external drivers.  Currently most of
+those functions assume naively that they aren't called at a wrong
+timing.  With the patch set, it tries to harden a bit not to hit
+serious breakage.
 
 
 Takashi
+
+===
+
+Takashi Iwai (5):
+  ALSA: rawmidi: Make internal functions local static
+  ALSA: rawmidi: Move lock to snd_rawmidi_substream
+  ALSA: rawmidi: Take open_mutex around parameter changes
+  ALSA: rawmidi: Check stream state at exported functions
+  ALSA: rawmidi: Take buffer refcount while draining output
+
+ include/sound/rawmidi.h |   6 +-
+ sound/core/rawmidi.c    | 274 +++++++++++++++++++++++++---------------
+ 2 files changed, 170 insertions(+), 110 deletions(-)
+
+-- 
+2.35.3
+

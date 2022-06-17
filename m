@@ -2,87 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4917B54FBA9
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jun 2022 18:55:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D1E254FB19
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jun 2022 18:31:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D77A71B45;
-	Fri, 17 Jun 2022 18:54:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D77A71B45
+	by alsa0.perex.cz (Postfix) with ESMTPS id C1C9B1E80;
+	Fri, 17 Jun 2022 18:30:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1C9B1E80
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655484930;
-	bh=BOMz4eRHsI/doHclQMZA9JX+LMGw9XdFocJWup16nh4=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1655483492;
+	bh=8lIyfl6cLa0jSZ4rrQjgGG9QXNu4BOP9MO1nbLqDdLo=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=U62HZp3+e0acsWhPICh++aJ726KKqQqianLv6icMopg97uxjlfuIe/k//4M29f63m
-	 6tFojHkf7gZRyQhzniFScwhSY2GTvMOx8qBjgouIe/K50Zf4v8sHiUFC8nfD3lFOBX
-	 hdxvRVY0WP8uc4MxyQOmqUO5oFEXGNWsKAmSNP0I=
+	b=sEeISw5EgGRIP82R8BsU4hI5Le9AE8CV5NH/a1Q4eHyWyxI3d9T/fJ6IuQtal/nQ+
+	 QENdF4YqYP5DXdFKVPETkU4CUQ7fpPew5EXMj1RYaTUUHXdv23Yogqv4V0xDhnDS7q
+	 5TUlDTwasJTlPz7GV1Mgrnrj1jS6xDLsqbj4ojAA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 04B08F8051F;
-	Fri, 17 Jun 2022 18:54:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 61658F8052F;
+	Fri, 17 Jun 2022 18:30:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CD7C9F80527; Fri, 17 Jun 2022 18:54:29 +0200 (CEST)
+ id A6FE8F80529; Fri, 17 Jun 2022 18:29:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id B0D51F804BC
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 18:29:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0D51F804BC
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="hYtqErNI"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9445BF800B0
- for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 18:54:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9445BF800B0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="CoCIdrhp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655484867; x=1687020867;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=BOMz4eRHsI/doHclQMZA9JX+LMGw9XdFocJWup16nh4=;
- b=CoCIdrhp/L+OJITDGw+Syu2bhtdXG6NHJfUgIAQM4MrVpCSEtlO/S+OT
- znp+vYdM4x4MzFUi8yTWLDd+LeD9iCvHMyor3VCqwTUa7pMr4sZOagZqp
- miqd5tFO0bogWw/1lp4hbsFAdgYKyEjUdJfsj0A41kcfEkn0ugI+3GN76
- pskXxHqbZoO6x0tba1t4IoYV8wcD+Pp4AEpcdZCHTgWLpWqOzAhOktYOz
- wVw6n6YJcY1x7nC7r8AmiFuU3C9iEeR4pmxvmDu83WTR7CyL7d4ZXI+H+
- ssGy3ZYue95Mn+SeIrOiK9LGd8tS1M+nm94UwDBmGrNYPmmz43m5d44a8 w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="304936849"
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="304936849"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2022 08:01:23 -0700
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="536843176"
-Received: from hamiline-mobl.amr.corp.intel.com (HELO [10.212.17.33])
- ([10.212.17.33])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2022 08:01:23 -0700
-Message-ID: <1ddc85ea-4e40-eb07-ee5b-8bc58514223d@linux.intel.com>
-Date: Fri, 17 Jun 2022 09:35:26 -0500
+ by dfw.source.kernel.org (Postfix) with ESMTPS id C415761DB0;
+ Fri, 17 Jun 2022 16:29:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D154DC3411B;
+ Fri, 17 Jun 2022 16:29:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1655483391;
+ bh=8lIyfl6cLa0jSZ4rrQjgGG9QXNu4BOP9MO1nbLqDdLo=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=hYtqErNIDh/G1tDlX/Gzd3hNB+flGgum09vIYQJuYIFxJjvLZRa/tscQu9LOaPW/6
+ alWYxfOJ0rIouFHSzLzI+DmX7MblakbKEAiWwh8PDIIdnom1XEl0n4yJa8xtbPh4Se
+ s3YbkjaxHtitZk9Qv17eolMl/qhubOExjXGYrHHYJjgTp1S2ljLtYDytN9cBbA2dkJ
+ N9JphuDvQGzriMAS6F2s1VuijRkycdwwWsyicPIFZMjaISr4HNVfhOPvkAWf6iKymA
+ ojjjTeb+fwH5KHOZYWJD2R4uPkUiyMYuxx0dWt7gv9MMHI+vOjMYRsnc02wcCJqCEp
+ rzDhqaD8ewH1Q==
+From: Mark Brown <broonie@kernel.org>
+To: peter.ujfalusi@gmail.com, lgirdwood@gmail.com
+In-Reply-To: <20220616153521.29701-1-peter.ujfalusi@gmail.com>
+References: <20220616153521.29701-1-peter.ujfalusi@gmail.com>
+Subject: Re: [PATCH] ASoC: twl4030: Drop legacy, non DT boot support
+Message-Id: <165548338955.901499.17638246583616685807.b4-ty@kernel.org>
+Date: Fri, 17 Jun 2022 17:29:49 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.9.1
-Subject: Re: [PATCH 2/2] ASoC: codecs: soundwire: call pm_runtime_resume() in
- component probe
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>
-References: <20220616210825.132093-1-pierre-louis.bossart@linux.intel.com>
- <20220616210825.132093-3-pierre-louis.bossart@linux.intel.com>
- <YqxNEjG19K/RbbFM@sirena.org.uk>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <YqxNEjG19K/RbbFM@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de,
- =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Rander Wang <rander.wang@intel.com>, vkoul@kernel.org,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: tony@atomide.com, alsa-devel@alsa-project.org, linux-omap@vger.kernel.org,
+ jarkko.nikula@bitmer.com, aaro.koskinen@iki.fi
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,49 +84,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 6/17/22 04:44, Mark Brown wrote:
-> On Thu, Jun 16, 2022 at 04:08:25PM -0500, Pierre-Louis Bossart wrote:
+On Thu, 16 Jun 2022 18:35:21 +0300, Peter Ujfalusi wrote:
+> Legacy or non DT boot is no longer possible on systems where the
+> tw4030/5030 is used.
 > 
->> Make sure that the bus and codecs are pm_runtime active when the card
->> is registered/created. This avoid timeouts when accessing registers.
+> Drop the support for handling legacy pdata and replace it with a local
+> board_params struct to allow further cleanups on the mfd side.
 > 
->> +static int max98373_sdw_probe(struct snd_soc_component *component)
->> +{
->> +	int ret;
->> +
->> +	ret = pm_runtime_resume(component->dev);
->> +	if (ret < 0 && ret != -EACCES)
->> +		return ret;
 > 
-> I'm not clear what the issue is here.  Is something that's accessing the
-> registers forgetting to do a pm_runtime_get(), or doing that rather than
-> using pm_runtime_get_sync()?  This doesn't feel safe or robust.
+> [...]
 
-The context is that I have been trying to remove all timing dependencies
-between components, and make sure that you can bind/unbind drivers in
-any order, with the deferred probe making sure that all required
-components are already probed. I started this after seeing reports of
-kernel oopses when the machine driver was removed, and realizing that
-the SoundWire bus itself didn't support bind/unbind tests by design.
+Applied to
 
-In the case where you bind the machine driver after a delay, then the
-bus might be suspended already, and there are cases where we see
-timeouts for registers that are not regmap-managed (usually
-vendor-specific stuff with an indirection mechanism), and even for
-regmap the register read-write are cache-based when the bus is suspended.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-What this patch does it make sure that the bus is operation when the
-card is created. In usual cases, this is a no-op, this just helps with
-corner test cases. It's not plugging a major hole in the pm_runtime
-support, just fixing a programming sequence that was not tested before.
+Thanks!
 
-One possible objection is that we don't keep the reference and the bus
-active until all components are probed. I tried doing this at the ASoC
-core level, but that breaks all kinds of devices that have their own
-quirky way of dealing with pm_runtime - specifically HDaudio and HDMI.
-That's why I added this resume here.
+[1/1] ASoC: twl4030: Drop legacy, non DT boot support
+      commit: 7adadfb06b9839fa7d9de0cde7ad57a3be3665f0
 
-Makes sense?
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

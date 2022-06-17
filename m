@@ -2,59 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 915B754F271
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jun 2022 10:01:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C779D54F26A
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jun 2022 10:01:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 390A41B5E;
-	Fri, 17 Jun 2022 10:01:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 390A41B5E
+	by alsa0.perex.cz (Postfix) with ESMTPS id BF6B01B46;
+	Fri, 17 Jun 2022 10:00:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF6B01B46
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655452914;
-	bh=DDn22UWRqYTXo0jYKdufM3+M7C8dggpl7NWkO4iEaZQ=;
+	s=default; t=1655452863;
+	bh=QB9n9mNnhQQWszwYca0ptb6IIp0I7IZuGi4WyLz0bsE=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mah9MaN+GgNlHLVYjdZ3sKw3zTBIqzjTA/dueLF0vOL9FnrtxflIG6DofhpDP6hOJ
-	 Csr6InoHCNzSXId2scZ71508Fgn4WiSq2Hgbf/WSMwjx1uvNfpYP62V1BPrKDRFR8k
-	 8HnbWBrkS+uUOKQDupxifuMfHrOwHT7aIZs2P8Qc=
+	b=fDECHOX0WmdOhmfG82AHiZl7WdUZI4BHk3MA3fl+0cYcwGi7WfBkM9yIozHQ+eW6/
+	 bb2BDYy98drnwBT1pr6C0GCIdHnn7VGvhSlqPxF8sf7vJFEOxvC6A1Mf2gfNVr/BHu
+	 TtxMfe1MH1e97OaOT4D4ri2Lw1SxC/ZpE/ZRFdDE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A3D90F8053D;
-	Fri, 17 Jun 2022 09:59:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 44959F80528;
+	Fri, 17 Jun 2022 09:59:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 45D84F8052E; Fri, 17 Jun 2022 09:59:29 +0200 (CEST)
+ id A3ADBF8052D; Fri, 17 Jun 2022 09:59:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A1C38F80159
- for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 09:59:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1C38F80159
-Received: from inva020.nxp.com (localhost [127.0.0.1])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 2A9331A2A06;
+ by alsa1.perex.cz (Postfix) with ESMTPS id 69257F800B0
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 09:59:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69257F800B0
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id D230E201FAC;
  Fri, 17 Jun 2022 09:59:18 +0200 (CEST)
 Received: from aprdc01srsp001v.ap-rdc01.nxp.com
  (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id D44501A1704;
- Fri, 17 Jun 2022 09:59:17 +0200 (CEST)
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 87E63201FA1;
+ Fri, 17 Jun 2022 09:59:18 +0200 (CEST)
 Received: from localhost.localdomain (shlinux2.ap.freescale.net
  [10.192.224.44])
- by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id E67E6180222B;
- Fri, 17 Jun 2022 15:59:15 +0800 (+08)
+ by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 293381820F45;
+ Fri, 17 Jun 2022 15:59:17 +0800 (+08)
 From: Shengjiu Wang <shengjiu.wang@nxp.com>
 To: nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
  shengjiu.wang@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
  perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
  robh+dt@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org
-Subject: [PATCH v2 2/7] ASoC: fsl_sai: Add DSD bit format support
-Date: Fri, 17 Jun 2022 15:44:32 +0800
-Message-Id: <1655451877-16382-3-git-send-email-shengjiu.wang@nxp.com>
+Subject: [PATCH v2 3/7] ASoC: fsl_sai: Add support for more sample rates
+Date: Fri, 17 Jun 2022 15:44:33 +0800
+Message-Id: <1655451877-16382-4-git-send-email-shengjiu.wang@nxp.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1655451877-16382-1-git-send-email-shengjiu.wang@nxp.com>
 References: <1655451877-16382-1-git-send-email-shengjiu.wang@nxp.com>
@@ -75,29 +75,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Support DSD_U8, DSD_U16_LE, DSD_U32_LE.
+Add support for more sample rates, because PDM format
+bitstream has higher sample rates. for example DSD512
+format, the bit clock is 22.5792MHz, if the word width
+is U8_LE, then the max sample rate is 2822400.
 
 Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 ---
- sound/soc/fsl/fsl_sai.h | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ sound/soc/fsl/fsl_sai.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/fsl/fsl_sai.h b/sound/soc/fsl/fsl_sai.h
-index bc2a86a413e1..e28a49ce12ef 100644
---- a/sound/soc/fsl/fsl_sai.h
-+++ b/sound/soc/fsl/fsl_sai.h
-@@ -11,7 +11,10 @@
- #define FSL_SAI_FORMATS (SNDRV_PCM_FMTBIT_S16_LE |\
- 			 SNDRV_PCM_FMTBIT_S20_3LE |\
- 			 SNDRV_PCM_FMTBIT_S24_LE |\
--			 SNDRV_PCM_FMTBIT_S32_LE)
-+			 SNDRV_PCM_FMTBIT_S32_LE |\
-+			 SNDRV_PCM_FMTBIT_DSD_U8 |\
-+			 SNDRV_PCM_FMTBIT_DSD_U16_LE |\
-+			 SNDRV_PCM_FMTBIT_DSD_U32_LE)
+diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
+index d11ee3b6f163..9d2828b55c07 100644
+--- a/sound/soc/fsl/fsl_sai.c
++++ b/sound/soc/fsl/fsl_sai.c
+@@ -30,7 +30,8 @@
+ static const unsigned int fsl_sai_rates[] = {
+ 	8000, 11025, 12000, 16000, 22050,
+ 	24000, 32000, 44100, 48000, 64000,
+-	88200, 96000, 176400, 192000
++	88200, 96000, 176400, 192000, 352800,
++	384000, 705600, 768000, 1411200, 2822400,
+ };
  
- /* SAI Register Map Register */
- #define FSL_SAI_VERID	0x00 /* SAI Version ID Register */
+ static const struct snd_pcm_hw_constraint_list fsl_sai_rate_constraints = {
+@@ -763,7 +764,7 @@ static struct snd_soc_dai_driver fsl_sai_dai_template = {
+ 		.channels_min = 1,
+ 		.channels_max = 32,
+ 		.rate_min = 8000,
+-		.rate_max = 192000,
++		.rate_max = 2822400,
+ 		.rates = SNDRV_PCM_RATE_KNOT,
+ 		.formats = FSL_SAI_FORMATS,
+ 	},
+@@ -772,7 +773,7 @@ static struct snd_soc_dai_driver fsl_sai_dai_template = {
+ 		.channels_min = 1,
+ 		.channels_max = 32,
+ 		.rate_min = 8000,
+-		.rate_max = 192000,
++		.rate_max = 2822400,
+ 		.rates = SNDRV_PCM_RATE_KNOT,
+ 		.formats = FSL_SAI_FORMATS,
+ 	},
 -- 
 2.17.1
 

@@ -2,81 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 651F454F48F
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jun 2022 11:46:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B78AC54F5BE
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jun 2022 12:44:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AC8A11A96;
-	Fri, 17 Jun 2022 11:45:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC8A11A96
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F2C81B42;
+	Fri, 17 Jun 2022 12:43:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F2C81B42
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655459163;
-	bh=lr8VjaulRZk5BwhRfwyN3PMh4UpXZJ5h1CS+LG92sv8=;
+	s=default; t=1655462655;
+	bh=yT33ldFU3rebbAEBjPVl2UkmZ9uxE9nDsQERpI2t9lU=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Giqyixe6YmMmtA/1WGYqe0wTyfhN7T2yzgynAxAVUloWx5AU5gliiyN4LhGa1Y0B4
-	 +aIqx/T/jC0y/PY/bcGnw3ZPZWqbuD/Nhhfz7jmLQnrwstxCz39yn71Zf/bR1w3Y5i
-	 4VWisQcdz72kJJ8bFuzmlJtNJZ18TyflL7XHwUK8=
+	b=u1muPwpzHM8ZepdrV5Md03XcMpih+VuFWg3csjJ+B4S626Y8SSZ2DBvSHI1LfEzFB
+	 KVxxbrM6RIy8BB9S6t0DI2MsHoHZ9Y4pX4dEYH/qg/W4lRnFLfbtFuRSscOc7Yqeu4
+	 nHY9uDJdY10qdKSux6x6F600+eQuF1ASTwy3bjNU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0926BF8019D;
-	Fri, 17 Jun 2022 11:45:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3E19EF80528;
+	Fri, 17 Jun 2022 12:43:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2657DF800B9; Fri, 17 Jun 2022 11:45:01 +0200 (CEST)
+ id D8509F80527; Fri, 17 Jun 2022 12:43:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A5225F800B9
- for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 11:44:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5225F800B9
+ by alsa1.perex.cz (Postfix) with ESMTPS id A927EF800B0
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 12:43:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A927EF800B0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="sR/DkFFm"
+ header.b="bdx1va0V"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 40D1461ACF;
- Fri, 17 Jun 2022 09:44:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D147FC3411B;
- Fri, 17 Jun 2022 09:44:53 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 1E0B2B82968;
+ Fri, 17 Jun 2022 10:43:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DAC4C3411D;
+ Fri, 17 Jun 2022 10:43:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1655459095;
- bh=lr8VjaulRZk5BwhRfwyN3PMh4UpXZJ5h1CS+LG92sv8=;
+ s=k20201202; t=1655462588;
+ bh=yT33ldFU3rebbAEBjPVl2UkmZ9uxE9nDsQERpI2t9lU=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=sR/DkFFmpCT5t/x/auAM3c1CK2AGQl84VxJ4svGSr/yV/eEqQ99waN6Yo6z58CFAc
- J1JKCcHbMzh2HG0/qFVeSRYos+52GPQHKnFlC09dmd7bG6DTioTVjjKNExxaxplVNI
- dxOjlsYTNaoLGHeCA0qN5JMb13YXgFU5NDtolEL/wKBAoDOLVJgen63KHOyx7UcQNp
- VP8awHjzkqqtFOJ6uqRlvk+A+VAYrV+ydwxPIg4oTWGofw4rrEbT36Dwopdf9nyOaE
- 2HVoSc9DInDGjlmGZ4biqIA9K0ZsGEUwR9XOfNY0Ozzz8OguaFsVJAj9lWz9YpESzC
- ohJCiMWKctAqw==
-Date: Fri, 17 Jun 2022 10:44:50 +0100
+ b=bdx1va0VaQIh0gxvFkKdeiiFbfXa3T0b+JeBy0oJzTaivbrMmS+D0PfDsHJdoSTQg
+ 2ysTTvtnPkcGrCtB8dVLefaKCHPFytXWFhB+76e63k9gDlJWx1Gr5TJckULV5lnrld
+ 2t2HnZ7aCSrwi8beAPSBdu17SYaecrUjjbzWHIfwktOap3CPn3xhnEPJ/GVCrMnZMP
+ aV/NKzU4I/2yEbQ9k2H2Mbo+FwYOMj3j4yaqyqBlFeTxBU2prtl0yLfpCboSTMN0Xd
+ +xtfgY/csMyT31WruFvag1vLsQHp/4vKy4y7uXDLzIBkDjdWiEa1RuDvuQ+kvSN/w1
+ aNJyEpuLjiE5A==
+Date: Fri, 17 Jun 2022 11:43:04 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 2/2] ASoC: codecs: soundwire: call pm_runtime_resume() in
- component probe
-Message-ID: <YqxNEjG19K/RbbFM@sirena.org.uk>
-References: <20220616210825.132093-1-pierre-louis.bossart@linux.intel.com>
- <20220616210825.132093-3-pierre-louis.bossart@linux.intel.com>
+To: Fei Shao <fshao@chromium.org>
+Subject: Re: [PATCH] ASoC: mediatek: mt8186: Fix mutex double unlock in GPIO
+ request
+Message-ID: <YqxauLOp2sWOU/uc@sirena.org.uk>
+References: <20220617100632.1447811-1-fshao@chromium.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="twPLZlzb/Sm2TRQf"
+ protocol="application/pgp-signature"; boundary="jXPaouEK3FOmFDrR"
 Content-Disposition: inline
-In-Reply-To: <20220616210825.132093-3-pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20220617100632.1447811-1-fshao@chromium.org>
 X-Cookie: 98% lean.
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de,
- =?iso-8859-1?Q?P=E9ter?= Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Rander Wang <rander.wang@intel.com>, vkoul@kernel.org,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, Jiaxin Yu <jiaxin.yu@mediatek.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,40 +89,44 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---twPLZlzb/Sm2TRQf
+--jXPaouEK3FOmFDrR
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jun 16, 2022 at 04:08:25PM -0500, Pierre-Louis Bossart wrote:
+On Fri, Jun 17, 2022 at 06:06:33PM +0800, Fei Shao wrote:
+> The lockdep mechanism reveals an unbalanced unlocking on MT8186:
+>=20
+>   [    2.993966] WARNING: bad unlock balance detected!
+>   [    2.993971] 5.15.46-421fef3b44d7-lockdep #16 Not tainted
+>   [    2.993978] -------------------------------------
+>   [    2.993983] kworker/u16:1/10 is trying to release lock (gpio_request=
+_mutex) at:
+>   [    2.993994] [<ffffffdcd9adebf8>] mt8186_afe_gpio_request+0xf8/0x210
+>   [    2.994012] but there are no more locks to release!
+>   [    2.994017]
+>   [    2.994017] other info that might help us debug this:
 
-> Make sure that the bus and codecs are pm_runtime active when the card
-> is registered/created. This avoid timeouts when accessing registers.
+Please think hard before including complete backtraces in upstream
+reports, they are very large and contain almost no useful information
+relative to their size so often obscure the relevant content in your
+message. If part of the backtrace is usefully illustrative (it often is
+for search engines if nothing else) then it's usually better to pull out
+the relevant sections.
 
-> +static int max98373_sdw_probe(struct snd_soc_component *component)
-> +{
-> +	int ret;
-> +
-> +	ret = pm_runtime_resume(component->dev);
-> +	if (ret < 0 && ret != -EACCES)
-> +		return ret;
-
-I'm not clear what the issue is here.  Is something that's accessing the
-registers forgetting to do a pm_runtime_get(), or doing that rather than
-using pm_runtime_get_sync()?  This doesn't feel safe or robust.
-
---twPLZlzb/Sm2TRQf
+--jXPaouEK3FOmFDrR
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmKsTREACgkQJNaLcl1U
-h9AOFwf+JSSozwuh2OhFDjmn81Vt4Tdwfp7RF4wSQswqOC7O70MXp57RUsTBCEh6
-H4VgglN+Y/k5oySrxeP51B+WLzmo51rs3WrqOFhPfHbZjr5w+UB574lJCN6+kzyt
-cvoDNMfrAguYEq+1VydSXdxEv4Fbmf0jxRoQD+6MqSq+U0trPgz0K3ewB2a3ElhR
-ak9LyuigqgjagMyXSudevRNPpYl8KVMxldq64trFBonPib59Y6O9wLKRE2+7H+DW
-KmrZbd5lWInmft5pYEK7GoD1bgFm13ps/3qUcS51Zpt71ruvMaoEUsOz5D8AKcRy
-bWmXfMtKxBCrMk1zT3yIPfwEokMzvA==
-=W01a
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmKsWrcACgkQJNaLcl1U
+h9BEggf+NYEXEA4i95MJoX3RIZCLZsS6j2/wpgysgdDQZK0wcT2Jdy79DDrPIx8K
+EQfqgLqIlxrdpjIJn0B3kIN1x6iczamii3Gd+h7odYHf7UWYgvSorSts5Jg0YLwx
+Ze17TDN/kFiVmxsE0BKNbTEoSB9teKhpbM0z74xVsg2PMZ2sC/m/5IWPVgHcn/qq
+mhjzVUfER075+eOTEaxV+4E9G2TypWG2GAjNrklf6J2Czg842Y0BnO/3Tk/AS9q4
+RDigvbROs4g2+pUJAjsIcHhq1LqNf7yo8tSPIT4Evd+uN/AqddkXr166gcn+BOmX
+BoRJF1AR869q0iJ4JoVS9xuzSXbswQ==
+=v6CV
 -----END PGP SIGNATURE-----
 
---twPLZlzb/Sm2TRQf--
+--jXPaouEK3FOmFDrR--

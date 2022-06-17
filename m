@@ -2,93 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC28054FE7C
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jun 2022 22:47:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9C6954FE8B
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jun 2022 22:54:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2FF511EF6;
-	Fri, 17 Jun 2022 22:47:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FF511EF6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 485401E77;
+	Fri, 17 Jun 2022 22:53:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 485401E77
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655498878;
-	bh=TQiIgCKLuC256bxvH2syv5jjB9OeKvNN9su4b4GkcAk=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1655499250;
+	bh=3n5Klw2CMTyq2sdzn4bKj0tODPt3MrXgPTCq79ehF3A=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CCSP7sfqfvjPBdT1oz45+MwDu46AE/5YLiCDzxH8oIpgSJSfBH9kUCC1TbT8g8hh+
-	 KkE0j91XRjqQBxdp4Q4spFHJCXsGn2f6Xwa48LbgfQOrroc+qFhIYjnII7kzjtMFe2
-	 594qythuo4k7RYL51ltE4SB5yn/I1To14J+DTo3s=
+	b=flV6ts3ziIJxpGb726ZhyIXcDEXDo3CAtGPtA9flhSwFH6YJRTMNeruBa88V4niLY
+	 TMJl5+hY1WA0ibJWUgysyp3fo4PEMR42O68TZWUu7VkEaqt0BvldRFwRrGksrRWqJN
+	 0Oxs6rv7Q4ZWswPSmtPAWQPHJ1TwPJMhuQc6fM8A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 93BF6F80528;
-	Fri, 17 Jun 2022 22:46:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C08FAF80528;
+	Fri, 17 Jun 2022 22:53:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3DC45F80527; Fri, 17 Jun 2022 22:46:58 +0200 (CEST)
+ id 7D6A3F800B0; Fri, 17 Jun 2022 22:53:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-pg1-x52c.google.com (mail-pg1-x52c.google.com
- [IPv6:2607:f8b0:4864:20::52c])
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com
+ [IPv6:2607:f8b0:4864:20::432])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CE6C4F800B0
- for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 22:46:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE6C4F800B0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 459D9F800B0
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 22:53:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 459D9F800B0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="lSFDDXp8"
-Received: by mail-pg1-x52c.google.com with SMTP id 193so2139072pgc.2
- for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 13:46:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=GXaclX1FL0h8CGb7nidVOvl5KYslHnP1qP5vHuFEg/o=;
- b=lSFDDXp8fJxd3k1/NPPifUGgBLPdaE22CTJKPLAyp43SGjKFomXAGiePTZ42BlIrJh
- odqD9O7PRMXQHJrgctB/Y5S4MWjuJgaJD8WmZ8sebu3eFFWTXjdDxTbzEMVwKQUMkU4q
- U6exfnONG79nydNKJedyEQ72Xcs+9MEgrbF4s=
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="YtY+zp8B"
+Received: by mail-pf1-x432.google.com with SMTP id u37so5114429pfg.3
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 13:53:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=JzCoePPltyIJ1REZe29g/ry+WmVSWZaFBIw/sVJ2Jb4=;
+ b=YtY+zp8B3TVD1muP4s9LC83VkIeHz9a9vrx+Tgme9Bs8vDuSQ/fFnXEksI5mWZqojT
+ SPCNXX7Zf6MMTTcUvOLNrCVSZLM5lI/lU6lqccrmNHyNu3s0oc1EPXTWn+qs0BseZdBW
+ RMh9sHSM2rBE/T7x5eWzwASfy/PL9dI0ZIx/LE5hGNuAHgip0FR5o6l66L/CljWWZgbZ
+ PrQogLDlhV/LtvSu7ww0jmtN0jV8y7YBCeu2Il6oEaV9ey+qY5IcMMMDhOhtIkl3/MM+
+ YWeCdf4dl3TW0HMdQ9R31W/6r75/mw5LJObPq2PUBcmq2jhQwKlEK04urt5OEcU/A69t
+ jLiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=GXaclX1FL0h8CGb7nidVOvl5KYslHnP1qP5vHuFEg/o=;
- b=Veymkfyh2ivRzPoQgni53FLvfZzTRDYK/j82o8bYbOBulDg2v4ZXCAI/MkVfPRbf9e
- hfwl9StMpgNEoXChnVW7oAaBM0sJnj4NwCiP+m8HBUXMNGDCWsWEUSOfZSXh/fWci5+F
- PaX2/GZywww2BthEFIwzJxxcvE5qS/sAKHJNY/Cmm4HvBK6fJj6NSiNuIpQCs3mXkABJ
- AeTnEqrLelqDXhGtxonXGUmq6P31XuSJxylqo3qKHEUhBXDPMNKddO470nxV5LGLPUab
- UIo6d7F7fqkHLEmCDtSQ8a6oyHYThg8yrghIXPeoA4vis9+SuN/+8al4iqnRcikjOSM7
- +k0w==
-X-Gm-Message-State: AJIora+kQbYrGTatiQAWxRig7z6ik/1Jrqvm/twSS5fToZ3RG12CPl/N
- lCPTZMrJJqlPX8zXMfZeKSwncw==
-X-Google-Smtp-Source: AGRyM1tK3U/ZG9n4Mvxa/4Mm4J4wxTavnLkXJYks8NkYt9StAA0o/gzzGm6jYf7ZHj2JUirJCeCBHg==
-X-Received: by 2002:a05:6a00:b8c:b0:51c:2d3d:4595 with SMTP id
- g12-20020a056a000b8c00b0051c2d3d4595mr11829256pfj.80.1655498809321; 
- Fri, 17 Jun 2022 13:46:49 -0700 (PDT)
-Received: from google.com ([2620:15c:202:201:6844:cedc:a28c:44b2])
- by smtp.gmail.com with ESMTPSA id
- p7-20020a17090a428700b001e2f383110bsm5904549pjg.11.2022.06.17.13.46.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Jun 2022 13:46:48 -0700 (PDT)
-Date: Fri, 17 Jun 2022 13:46:46 -0700
-From: Brian Norris <briannorris@chromium.org>
-To: Judy Hsiao <judyhsiao@chromium.org>
-Subject: Re: [PATCH v3 1/3] ASoC: rockchip: i2s: switch BCLK to GPIO
-Message-ID: <YqzoNqd3Mpv3r2tS@google.com>
-References: <20220616155836.3401420-1-judyhsiao@chromium.org>
- <20220617044251.4029697-1-judyhsiao@chromium.org>
- <20220617044251.4029697-2-judyhsiao@chromium.org>
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=JzCoePPltyIJ1REZe29g/ry+WmVSWZaFBIw/sVJ2Jb4=;
+ b=eOXwfs7BTWh00sjZGMWK8IgMip7LwXmKRT/2RlnSX/4arxCqHRbX1p2/JdhZYkVSnD
+ 9ff6sTW9+SCHrwz9kugqz7ioWhBYUQIysk1RmH4OaJzQXXowiBkvAggFYKWjT/B21hMb
+ CVHct5INfmYsyq3rH25MSxAimGCwFdOvVHqB0fK9NDlEv0NkBaSdP5f1wJLhLrC+xZug
+ xpfbMkhynvrTrGoNW1U/9TmDZ7OXuFs5v+rAmiNkBI40QGFXJmA5vwyTXTutAF0TG0cM
+ UwLMBu0P/CvN2/KGwFrHnUOJtaGNVGtKc1qjyOstyEmoLHAU+td8Ae4pvnS/x6f2uFSa
+ svmQ==
+X-Gm-Message-State: AJIora8DVUOkR4vmkmHbF9n3NMjcJdoAFzgCgPEWoEaXR472GRVElljS
+ HO0d/eGowGZR8LRXXHk9rMalM1pSSdewfQ==
+X-Google-Smtp-Source: AGRyM1s0RJHZl208xR17sJB49POLXSqf28nRDtL1lkg0keJvUcbwhL57O4Qt52t3wvqeWdFfo4GJHA==
+X-Received: by 2002:a62:1603:0:b0:522:c66b:70ac with SMTP id
+ 3-20020a621603000000b00522c66b70acmr11586382pfw.83.1655499182008; 
+ Fri, 17 Jun 2022 13:53:02 -0700 (PDT)
+Received: from [172.31.214.180] ([216.9.110.13])
+ by smtp.googlemail.com with ESMTPSA id
+ d12-20020a170902e14c00b001624dab05edsm1903782pla.8.2022.06.17.13.53.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 17 Jun 2022 13:53:01 -0700 (PDT)
+Message-ID: <7f9cafb8-a223-c16d-38af-fcb0df05b659@linaro.org>
+Date: Fri, 17 Jun 2022 13:52:57 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220617044251.4029697-2-judyhsiao@chromium.org>
-Cc: alsa-devel@alsa-project.org, Heiko Stuebner <heiko@sntech.de>,
- linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, linux-rockchip@lists.infradead.org,
- Mark Brown <broonie@kernel.org>, Chen-Yu Tsai <wenst@chromium.org>,
- linux-arm-kernel@lists.infradead.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH 05/11] ASoC: wsa881x: use pm_runtime_resume_and_get()
+Content-Language: en-US
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
+References: <20220616220427.136036-1-pierre-louis.bossart@linux.intel.com>
+ <20220616220427.136036-6-pierre-louis.bossart@linux.intel.com>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: <20220616220427.136036-6-pierre-louis.bossart@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Banajit Goswami <bgoswami@codeaurora.org>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, tiwai@suse.de,
+ open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, broonie@kernel.org,
+ =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?= <amadeuszx.slawinski@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,104 +114,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
 
-On Fri, Jun 17, 2022 at 04:42:49AM +0000, Judy Hsiao wrote:
-> We discovered that the state of BCLK on, LRCLK off and SD_MODE on
-> may cause the speaker melting issue. Removing LRCLK while BCLK
-> is present can cause unexpected output behavior including a large
-> DC output voltage as described in the Max98357a datasheet.
+
+On 16/06/2022 15:04, Pierre-Louis Bossart wrote:
+> simplify the flow. No functionality change, except that on -EACCESS
+> the reference count will be decreased.
 > 
-> In order to:
->   1. prevent BCLK from turning on by other component.
->   2. keep BCLK and LRCLK being present at the same time
-> 
-> This patch switches BCLK to GPIO func before LRCLK output, and
-> configures BCLK func back during LRCLK is output.
-> 
-> Without this fix, BCLK is turned on 11 ms earlier than LRCK by the
-> da7219.
-> With this fix, BCLK is turned on only 0.4 ms earlier than LRCK by
-> the rockchip codec.
-> 
-> Signed-off-by: Judy Hsiao <judyhsiao@chromium.org>
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+> Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 > ---
->  sound/soc/rockchip/rockchip_i2s.c | 167 ++++++++++++++++++++++--------
->  1 file changed, 121 insertions(+), 46 deletions(-)
+Thanks Pierre,
+
+LGTM,
+
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+
+--srini
+>   sound/soc/codecs/wsa881x.c | 6 ++----
+>   1 file changed, 2 insertions(+), 4 deletions(-)
 > 
-> diff --git a/sound/soc/rockchip/rockchip_i2s.c b/sound/soc/rockchip/rockchip_i2s.c
-> index 47a3971a9ce1..5e3cb06377a1 100644
-> --- a/sound/soc/rockchip/rockchip_i2s.c
-> +++ b/sound/soc/rockchip/rockchip_i2s.c
-
-> @@ -92,39 +122,46 @@ static inline struct rk_i2s_dev *to_info(struct snd_soc_dai *dai)
->  	return snd_soc_dai_get_drvdata(dai);
->  }
->  
-> -static void rockchip_snd_txctrl(struct rk_i2s_dev *i2s, int on)
-> +static int rockchip_snd_txctrl(struct rk_i2s_dev *i2s, int on)
->  {
->  	unsigned int val = 0;
->  	int retry = 10;
-> -
-> +	int ret = 0;
-> +
->  	spin_lock(&i2s->lock);
->  	if (on) {
-> -		regmap_update_bits(i2s->regmap, I2S_DMACR,
-> -				   I2S_DMACR_TDE_ENABLE, I2S_DMACR_TDE_ENABLE);
-> -
-> -		regmap_update_bits(i2s->regmap, I2S_XFER,
-> -				   I2S_XFER_TXS_START | I2S_XFER_RXS_START,
-> -				   I2S_XFER_TXS_START | I2S_XFER_RXS_START);
-> -
-> +		ret = regmap_update_bits(i2s->regmap, I2S_DMACR,
-> +			I2S_DMACR_TDE_ENABLE, I2S_DMACR_TDE_ENABLE);
-> +		if (ret < 0)
-> +			goto end;
-> +		ret = regmap_update_bits(i2s->regmap, I2S_XFER,
-> +			I2S_XFER_TXS_START | I2S_XFER_RXS_START,
-> +			I2S_XFER_TXS_START | I2S_XFER_RXS_START);
-
-This still isn't how I'd expect the indentation to look, but I think I
-will stop complaining about whitespace. Maybe you can either use
-'clang-format' (sparingly), or else see what Mark thinks.
-
-> +		if (ret < 0)
-> +			goto end;
->  		i2s->tx_start = true;
->  	} else {
->  		i2s->tx_start = false;
->  
-...
-
->  static void rockchip_snd_rxctrl(struct rk_i2s_dev *i2s, int on)
-
-I didn't think I needed to call this out, because you already got build
-bots complaining about this, but...
-...did you even compile-test this? You should be making this function
-return 'int', not 'void', because you're adding return values below.
-
->  {
->  	unsigned int val = 0;
->  	int retry = 10;
-> +	int ret = 0;
->  
-...
-> +end:
->  	spin_unlock(&i2s->lock);
-> +	if (ret < 0)
-> +		dev_err(i2s->dev, "lrclk update failed\n");
-> +
-> +	return ret;
-
-^^ here.
-
->  }
->  
->  static int rockchip_i2s_set_fmt(struct snd_soc_dai *cpu_dai,
-
-Aside from those, I think this looks OK to the best of my
-(not-very-familiar with sounds/soc/) ability:
-
-Reviewed-by: Brian Norris <briannorris@chromium.org>
+> diff --git a/sound/soc/codecs/wsa881x.c b/sound/soc/codecs/wsa881x.c
+> index f3a56f3ce4871..dc954b85a9881 100644
+> --- a/sound/soc/codecs/wsa881x.c
+> +++ b/sound/soc/codecs/wsa881x.c
+> @@ -749,11 +749,9 @@ static int wsa881x_put_pa_gain(struct snd_kcontrol *kc,
+>   	unsigned int mask = (1 << fls(max)) - 1;
+>   	int val, ret, min_gain, max_gain;
+>   
+> -	ret = pm_runtime_get_sync(comp->dev);
+> -	if (ret < 0 && ret != -EACCES) {
+> -		pm_runtime_put_noidle(comp->dev);
+> +	ret = pm_runtime_resume_and_get(comp->dev);
+> +	if (ret < 0 && ret != -EACCES)
+>   		return ret;
+> -	}
+>   
+>   	max_gain = (max - ucontrol->value.integer.value[0]) & mask;
+>   	/*

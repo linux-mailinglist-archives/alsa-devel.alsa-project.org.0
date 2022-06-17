@@ -2,100 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B447551FC3
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jun 2022 17:08:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D5D2551FC4
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jun 2022 17:08:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0AFDD1883;
-	Mon, 20 Jun 2022 17:07:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0AFDD1883
+	by alsa0.perex.cz (Postfix) with ESMTPS id 79D4618A7;
+	Mon, 20 Jun 2022 17:07:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79D4618A7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655737705;
-	bh=xMcVlqEKoln59Tw0K+SgAUR7q5EyW+F8tkX/RILBiKU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=lm/o1pe5dDHvpVbk5Ot0R7i3uJvty8+Nkwh5CLmkZw4xHGJfdtd7NdO7EwekwqifS
-	 AreSRjTEgdxMwMWljYMry6Qk9TWBCWhGDHxyVtq7RVONBL9+JHctiPzU1CyvIWxYhH
-	 Ay7AwBN47J96VusCNM7iOPdxbtUq3Qu/GYFjmKF8=
+	s=default; t=1655737711;
+	bh=pI4UBinB39INTVyE7x8PXU0bGWSK9OTM7FkVvtmcuzw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=cp6n9gXSIUwNsVl/N4a8NhC8XrbEJTL8pNsrj94ni5s/Dw5AymIHSLuojjBCCvetC
+	 vLxgQNx097WJyeazbeErHARS8WFDyyiUzLYjaFEwyLPdM0TCOQk5K3edaA/cg4bN7P
+	 pTdMWtxBwv5pfK17F+c+UdjhUUij6loEpaCgE63E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 24FBBF804EB;
+	by alsa1.perex.cz (Postfix) with ESMTP id A9C19F800FB;
 	Mon, 20 Jun 2022 17:06:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B38BBF80527; Fri, 17 Jun 2022 13:07:52 +0200 (CEST)
+ id 90B49F80527; Fri, 17 Jun 2022 13:12:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [IPv6:2a00:1450:4864:20::634])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com
+ [IPv6:2607:f8b0:4864:20::1030])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 250CAF8028B
- for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 13:07:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 250CAF8028B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4258EF800B0
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 13:11:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4258EF800B0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="IRA3BGiT"
-Received: by mail-ej1-x634.google.com with SMTP id h23so8072782ejj.12
- for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 04:07:49 -0700 (PDT)
+ header.b="WEXQJ2c0"
+Received: by mail-pj1-x1030.google.com with SMTP id
+ h34-20020a17090a29a500b001eb01527d9eso3008267pjd.3
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 04:11:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=oEwaem/xAtfULgaR3mIiQRybksdoP4gsjfxUSl3M7Wg=;
- b=IRA3BGiTIVjH8IMjsPrY2AaWkXWzLbXVe3yTtmFYtKgF42jKNMXXn1TkJwxJOmK6mi
- ql0r/Q/gFkBMxAeRmRDqF0sSl17OK6fLQ44mpQ5acpuXVp2zVQgs5aWUAxlrRiF76yf4
- 0U9yJ0sJKYFs+O97pzF0ofgOSq9xCM6RwyRCE=
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=oQLjYSyO5bnT1k2cMo+qtFEL9roIKTpXUxzFJ5E7YeU=;
+ b=WEXQJ2c0zXPPo70AqX4ePE2lo2jfTA7rpG+C5RBXENB1K0P1BBjGTUBKWrVNIRgYMx
+ HldHvQtAl/hTE2t7F2GKPeB/yiddMus1F8uOtTiwN9+rR9c0CSzHVt8S5NTgrhhhnsSe
+ xRiJJZNKdeC7o73Bc1I3uTPEccX3CTIDbP26E=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=oEwaem/xAtfULgaR3mIiQRybksdoP4gsjfxUSl3M7Wg=;
- b=xUVJIQ0DRvFaZmvZ2fu3JmpMYKOzGxwWV0tb8SpSCK9DA0nbBvAGbSiMk3oRoWmOaC
- 4JnTYAyAp77KUnAMJZGDm7KrVHjZF2s8dA8FY0PIbMWPYdqos/Oapm44ZyeuP492m4jD
- 39xELqqxvuQb7dIK+Y0OGvlhjO7jDRma5y4t3srNgT3maYbcBPNVXY0GOVZwgaqPrMiG
- Jobc32gAzklZvkrXdde3tETGsMypTc5IDYweItGD6q6umEZTfv2TFSE8XyqHXEzimYVS
- +ZILh+1ax8rpy2A/Ci+cuq1Cnm+md+v1jHENjnHkzVue1c2koKCw8ldnfGnZAJHyvj9e
- Hrug==
-X-Gm-Message-State: AJIora8/dFfhvDLA9XZZ2QYFTPNp5u+Gtcf2b1z9ghln1XI52MevYBVG
- e9BEr2fEllapMaIHoAgrhdQiVhRFziUI1g==
-X-Google-Smtp-Source: AGRyM1vn2jjbhlIm11xAguteDZUN2LbxP4Qiy6drReL1BgJAyqVQYPMtVp88E8N9r6iKVdY55LYVxg==
-X-Received: by 2002:a17:907:a422:b0:705:e944:fd3e with SMTP id
- sg34-20020a170907a42200b00705e944fd3emr8497678ejc.309.1655464068010; 
- Fri, 17 Jun 2022 04:07:48 -0700 (PDT)
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com.
- [209.85.128.41]) by smtp.gmail.com with ESMTPSA id
- 10-20020a170906218a00b006fee98045cdsm2072041eju.10.2022.06.17.04.07.46
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 17 Jun 2022 04:07:47 -0700 (PDT)
-Received: by mail-wm1-f41.google.com with SMTP id
- x6-20020a1c7c06000000b003972dfca96cso2216747wmc.4
- for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 04:07:46 -0700 (PDT)
-X-Received: by 2002:a05:600c:2215:b0:39c:55a0:9531 with SMTP id
- z21-20020a05600c221500b0039c55a09531mr9687808wml.29.1655464066586; Fri, 17
- Jun 2022 04:07:46 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220617100632.1447811-1-fshao@chromium.org>
- <YqxauLOp2sWOU/uc@sirena.org.uk>
-In-Reply-To: <YqxauLOp2sWOU/uc@sirena.org.uk>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=oQLjYSyO5bnT1k2cMo+qtFEL9roIKTpXUxzFJ5E7YeU=;
+ b=hIJZeS2lE2moACNefTNQkQ0OtZi4eOMRkxaPs4XXh7CrUO8MqBgmLBCCSmgdhTeX+g
+ mfBWOgdsfZtHSJi+sKqprYTAh1AoL+aXgMeiJ5NCgLqkBOlHcXliWP8WEtmeOHQjYwJ3
+ KlSnl/9lLMMSrldjLKRylPv7jj1LGAdfeYDAykYSwpDvEgxxKsvK6XpaxXj9ffb8Fjc1
+ fH7hEtFw3nUUgXGVGc/XaiX8RhZR8fsOvMAYGjcruMNXBn0V4DVlkRmPmII8OKlYGuaX
+ uTGdg4utUxKuAw4DoM315tCjPJWRh94qYwpriREhlvspCVmU2hQiknhcTKV9vDFsWa3Q
+ EUzg==
+X-Gm-Message-State: AJIora9zNAwmPWvuFgznBJAKX+iMjuY/lW0XRz9k1DBUXs+PN1kTSrqF
+ Ae1PoWPKa6G5HrJTfhHmsHnsFw==
+X-Google-Smtp-Source: AGRyM1tf2bQGeUv5328p9BV+crG8b7G31H6qrJWwNOzsEDjIHBFrwQCM7E2x9VN5sMfX6/KCSapUnw==
+X-Received: by 2002:a17:903:32c4:b0:167:6e6f:204b with SMTP id
+ i4-20020a17090332c400b001676e6f204bmr9221820plr.117.1655464315709; 
+ Fri, 17 Jun 2022 04:11:55 -0700 (PDT)
+Received: from fshao-glinux.tpe.corp.google.com
+ ([2401:fa00:1:10:e616:b34a:9b5b:24ef])
+ by smtp.gmail.com with ESMTPSA id
+ 9-20020a170902c20900b00163f7935772sm3296754pll.46.2022.06.17.04.11.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 17 Jun 2022 04:11:55 -0700 (PDT)
 From: Fei Shao <fshao@chromium.org>
-Date: Fri, 17 Jun 2022 19:07:09 +0800
-X-Gmail-Original-Message-ID: <CAC=S1nhVSMfebqv9Kr-bkHdF9HcDMQVU-sTUzRch1d6bZO54Ug@mail.gmail.com>
-Message-ID: <CAC=S1nhVSMfebqv9Kr-bkHdF9HcDMQVU-sTUzRch1d6bZO54Ug@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: mediatek: mt8186: Fix mutex double unlock in GPIO
+To: Mark Brown <broonie@kernel.org>,
+	Jiaxin Yu <jiaxin.yu@mediatek.com>
+Subject: [PATCH v2] ASoC: mediatek: mt8186: Fix mutex double unlock in GPIO
  request
-To: Mark Brown <broonie@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Date: Fri, 17 Jun 2022 19:10:04 +0800
+Message-Id: <20220617111003.2014395-1-fshao@chromium.org>
+X-Mailer: git-send-email 2.36.1.476.g0c4daa206d-goog
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 20 Jun 2022 17:06:44 +0200
-Cc: alsa-devel@alsa-project.org, "moderated list:ARM/Mediatek SoC support"
- <linux-mediatek@lists.infradead.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Jiaxin Yu <jiaxin.yu@mediatek.com>,
- linux-kernel <linux-kernel@vger.kernel.org>
+Cc: alsa-devel@alsa-project.org, linux-mediatek@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Fei Shao <fshao@chromium.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,28 +102,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Jun 17, 2022 at 6:43 PM Mark Brown <broonie@kernel.org> wrote:
->
-> On Fri, Jun 17, 2022 at 06:06:33PM +0800, Fei Shao wrote:
-> > The lockdep mechanism reveals an unbalanced unlocking on MT8186:
-> >
-> >   [    2.993966] WARNING: bad unlock balance detected!
-> >   [    2.993971] 5.15.46-421fef3b44d7-lockdep #16 Not tainted
-> >   [    2.993978] -------------------------------------
-> >   [    2.993983] kworker/u16:1/10 is trying to release lock (gpio_request_mutex) at:
-> >   [    2.993994] [<ffffffdcd9adebf8>] mt8186_afe_gpio_request+0xf8/0x210
-> >   [    2.994012] but there are no more locks to release!
-> >   [    2.994017]
-> >   [    2.994017] other info that might help us debug this:
->
-> Please think hard before including complete backtraces in upstream
-> reports, they are very large and contain almost no useful information
-> relative to their size so often obscure the relevant content in your
-> message. If part of the backtrace is usefully illustrative (it often is
-> for search engines if nothing else) then it's usually better to pull out
-> the relevant sections.
+The lockdep mechanism revealed an unbalanced unlocking on MT8186:
 
-Agreed, I'll resend the patch. Thank you for the feedback.
+  [    2.993966] WARNING: bad unlock balance detected!
+  [    2.993978] -------------------------------------
+  [    2.993983] kworker/u16:1/10 is trying to release lock (gpio_request_mutex) at:
+  [    2.993994] [<ffffffdcd9adebf8>] mt8186_afe_gpio_request+0xf8/0x210
+  [    2.994012] but there are no more locks to release!
 
-Regards,
-Fei
+The cause is that the mutex will be double unlocked if dai is unknown
+during GPIO selection, and this patch fixes it.
+
+Fixes: cfa9a966f12a ("ASoC: mediatek: mt8186: support gpio control in platform driver")
+
+Signed-off-by: Fei Shao <fshao@chromium.org>
+---
+
+Changes in v2:
+- Trimmed the commit message
+
+ sound/soc/mediatek/mt8186/mt8186-afe-gpio.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/sound/soc/mediatek/mt8186/mt8186-afe-gpio.c b/sound/soc/mediatek/mt8186/mt8186-afe-gpio.c
+index 255ffba637d3..274c0c8ec2f2 100644
+--- a/sound/soc/mediatek/mt8186/mt8186-afe-gpio.c
++++ b/sound/soc/mediatek/mt8186/mt8186-afe-gpio.c
+@@ -230,7 +230,6 @@ int mt8186_afe_gpio_request(struct device *dev, bool enable,
+ 		sel = enable ? MT8186_AFE_GPIO_PCM_ON : MT8186_AFE_GPIO_PCM_OFF;
+ 		break;
+ 	default:
+-		mutex_unlock(&gpio_request_mutex);
+ 		dev_err(dev, "%s(), invalid dai %d\n", __func__, dai);
+ 		goto unlock;
+ 	}
+-- 
+2.36.1.476.g0c4daa206d-goog
+

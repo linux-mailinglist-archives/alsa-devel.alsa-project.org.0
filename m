@@ -2,89 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5433A54F012
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jun 2022 06:23:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC93054F050
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jun 2022 06:44:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B58B41B58;
-	Fri, 17 Jun 2022 06:22:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B58B41B58
+	by alsa0.perex.cz (Postfix) with ESMTPS id 86D491B54;
+	Fri, 17 Jun 2022 06:43:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86D491B54
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655439792;
-	bh=AoVZzawrrLohmhLumhK6uL79YwlY5IU8FzKSYHvCjoU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1655441046;
+	bh=yUyeyf9eQ1NDFJY5OlT+CXMFDEouvC5pi5iBqx26Mww=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VpkrwnNTXY2yj4YtR3h5xy6NnxTrBUEjsn2dLxhpe7LtLx7qp+jg5DM55S8CI1cCc
-	 by6lyj9OFbuxfm1DfDGSNsakGUR17/aEK7Gtng4+4gKYGk4TW/MsJOcq2oYhdDzcgc
-	 Y9Wk0ndi7tvrXCisY4ngcEw3tgVY9bZB7c71ptc0=
+	b=avq883q4fZw/QgThLg6nijysnqt0xMm04PcQPHg3duEhYwTelrulm9hDaIKRYUCyU
+	 2ozslHG0a60F2cJpqBHSP9LbXj/tiJ0rX00/EAGRVpCxUCzRsnBnzq8PB5HhIGee0e
+	 dwJ3GSlR4mMuBSK43UpqrR/BchiQ4sJDIs2DegWM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 15A0EF8019D;
-	Fri, 17 Jun 2022 06:22:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 26120F80159;
+	Fri, 17 Jun 2022 06:43:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 01D7CF800D3; Fri, 17 Jun 2022 06:22:08 +0200 (CEST)
+ id D1DB9F80159; Fri, 17 Jun 2022 06:43:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
+Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
+ [IPv6:2607:f8b0:4864:20::62c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E1DB4F800D3
- for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 06:22:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1DB4F800D3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 38509F800B0
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 06:43:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38509F800B0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="K+++cDQd"
-Received: by mail-wm1-x329.google.com with SMTP id
- l126-20020a1c2584000000b0039c1a10507fso1786435wml.1
- for <alsa-devel@alsa-project.org>; Thu, 16 Jun 2022 21:22:05 -0700 (PDT)
+ header.b="dQmHVotL"
+Received: by mail-pl1-x62c.google.com with SMTP id y6so2952241plg.0
+ for <alsa-devel@alsa-project.org>; Thu, 16 Jun 2022 21:42:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=QzjBrAgNA1AZjNa+pTInhm7i5DXtxxCJmOaoCVhc67o=;
- b=K+++cDQdr9cYej3ks+qHgpRRO9cxfb7XdyeS8sjTpNBayehaxo6EJtoyuIU2xwI69L
- gx6rZ8BvrkJsYfiM6qT+H6b7ZC6Y4iB70vsimWPatpV5/yNeD7umpUHHG1Eq4x8S5xlk
- V1qHnN3rFJGfWJodZ5SfBe7q5+5+j4aBJrdKE=
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=4V37PzSSXKazOVmuV/1IU57ztToNtg94rlJAvJFD1sQ=;
+ b=dQmHVotLw4IesOZ7luY0HR/iX+MrLDKT0ZKGWEPGigCk429QtveK90O7Q50azInkN2
+ LdghawqCiFx8bDhHgYBUkHrRGvSpcMnMtmkWqO6MJh6vKH5PO9fTMMZEn4XjZGmOi7Gk
+ UddI65vmRAWvgoqiD296wWV9lO1yfEKCTUmbY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=QzjBrAgNA1AZjNa+pTInhm7i5DXtxxCJmOaoCVhc67o=;
- b=h+T1gUFyCYcFUUozVu/GZbRS3MP6sh01t/0JfbI2iT2RPv2IQ4nJVV1R8iCyn1ogu6
- mmegcZoBkUk0LcPyh3T8XzkwI4kw3IQGIfL1i0YcddxG9KXuDwSmWaluzyHcbqVUsxeh
- zhBbLmZ4dV7bd6mzLQdM5IiIsDcm+5+O6GGW71GkawYIX/OQdo23MuhXFukLLtv1sh7o
- qLYuLEJympI0k++VtxmYD8zHHkhGt5sXx9UuHJo1nxuL4tdBVaBKsPTP/JjGr1elCdzH
- OUVQR+pKsZO6TXXqlS+zenS6Ac71Ay1O2Feh1KuhWCLAAqKvNBYGVEx9siVZxmKBZjpw
- xdSw==
-X-Gm-Message-State: AJIora+yjUqOn19SreYASMX6jhbHmBlIcbXk6JVp9kEqtSWmpp3gPZUd
- SOVog3WbC8befUescMl95umF8sjZELatOScVNHhqhQ==
-X-Google-Smtp-Source: AGRyM1v3sERgOBqTQVjBxagXczYgYpertg9OLvxMVM+dhQu2SW0N8tDt41W3pagb/zDh/CM+9EhiOjkIxW0HRWr5Uq0=
-X-Received: by 2002:a7b:c5da:0:b0:39c:542a:a07b with SMTP id
- n26-20020a7bc5da000000b0039c542aa07bmr8159751wmk.83.1655439723483; Thu, 16
- Jun 2022 21:22:03 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220616155836.3401420-1-judyhsiao@chromium.org>
- <20220616155836.3401420-2-judyhsiao@chromium.org>
- <YquXEgHkw08TkNuG@google.com>
-In-Reply-To: <YquXEgHkw08TkNuG@google.com>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=4V37PzSSXKazOVmuV/1IU57ztToNtg94rlJAvJFD1sQ=;
+ b=gLDdL3hECP0O+ruR4G5NqhHRO5T3s4ouSsL4/1mvpBppX25kYLfjqTJF0kfvyR+wtH
+ N3E90CiNySj+zyf/DWCnBcP/9i17b6NSWQKqhfRedu1pbGgnrfxTNTH7YCBPCpea/+EM
+ //v4HH+yU5cafoy4uS1P0EjQSyQcG6RFnbh79oKO586HdXWTrrbTc92M0pFMyLCYe+v7
+ 9WZ0/ZVNvqvibibu270Vq5ERmrCEtCgCRjAcFJQxXgEB65Csqvmu7+DF47EFAcPJ7v3w
+ lVshEPnoGwvSxa5gcgqvhx7v+YaTKOurpI54KWvuVJF0qMHGrZq0xd1oeYxuAecqm0i2
+ sJlg==
+X-Gm-Message-State: AJIora+iBISCLtcQ70F5Et25ixgZCEj7sWLl9cyUyZqBJ6SHtJquE2i4
+ M1mOe+lXsfptbRq8M/xXzLZ7Hw==
+X-Google-Smtp-Source: AGRyM1vSY638NYPK/58DYP7fId8cCruqCOjRTvP813l6kM7Fv/q2/SYgdJpIpHsRjUmSGDZua0Ht+A==
+X-Received: by 2002:a17:90a:7841:b0:1ea:3f61:7673 with SMTP id
+ y1-20020a17090a784100b001ea3f617673mr8761152pjl.110.1655440977740; 
+ Thu, 16 Jun 2022 21:42:57 -0700 (PDT)
+Received: from judyhsiao0523.c.googlers.com.com
+ (0.223.81.34.bc.googleusercontent.com. [34.81.223.0])
+ by smtp.gmail.com with ESMTPSA id
+ v8-20020a17090a778800b001eab0a27d92sm4491030pjk.51.2022.06.16.21.42.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 16 Jun 2022 21:42:56 -0700 (PDT)
 From: Judy Hsiao <judyhsiao@chromium.org>
-Date: Fri, 17 Jun 2022 12:21:52 +0800
-Message-ID: <CAJXt+b_n=B9VBvgP8hy7g48Bo2VTPXqi+qKHTX1BiwpEgUrOUQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/3] ASoC: rockchip: i2s: switch BCLK to GPIO
-To: Brian Norris <briannorris@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Cc: alsa-devel@alsa-project.org, Heiko Stuebner <heiko@sntech.de>,
- linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+To: Heiko Stuebner <heiko@sntech.de>
+Subject: [PATCH v3 0/3] ASoC: rockchip: i2s: switch BCLK to GPIO
+Date: Fri, 17 Jun 2022 04:42:48 +0000
+Message-Id: <20220617044251.4029697-1-judyhsiao@chromium.org>
+X-Mailer: git-send-email 2.36.1.476.g0c4daa206d-goog
+In-Reply-To: <20220616155836.3401420-1-judyhsiao@chromium.org>
+References: <20220616155836.3401420-1-judyhsiao@chromium.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Brian Norris <briannorris@chromium.org>, Liam Girdwood <lgirdwood@gmail.com>,
  Rob Herring <robh+dt@kernel.org>, linux-rockchip@lists.infradead.org,
  Mark Brown <broonie@kernel.org>, Chen-Yu Tsai <wenst@chromium.org>,
- linux-arm-kernel@lists.infradead.org
+ Judy Hsiao <judyhsiao@chromium.org>, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,25 +103,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-> It feels like a lot of the noise in this patch is due to adding
-> additional error handling, unrelated to the real change you're making.
-> Maybe that deserves a separate patch?
-The error handling is to detect the failure of switching LRCLK.
-If LRCLK is OFF, we don=E2=80=99t want the BCLK to be ON. So the error
-handling in the patch is relevant.
+The patches series is to fix the unexpected large
+DC output voltage of Max98357a to burn the speakers 
+on rockchip platform when BCLK and SD_MODE are ON but LRCLK is OFF.
 
-> I mentioned this off-list, but the 2nd-line indentation alignment *used*
-> to be in a very particular style, and you've moved that around a lot. To
-> match the previous style, it should be:
->
->                 ret =3D regmap_update_bits(i2s->regmap, I2S_DMACR,
->                                          I2S_DMACR_TDE_ENABLE,
->                                          I2S_DMACR_TDE_ENABLE);
->
-> (BTW, if you're using Gmail to view this, you're going to have no idea
-> what I'm talking about, since it doesn't do whitespace or monospace font
-> correctly...)
->
-> The same applies throughout; most of the 2nd-line, 3rd-line, ...
-> indentation is a little weird.
-Yes, let me fix the indentation in V3, thanks!
+Changes Since V3:
+    -- Fix indentation in the documentation.
+    -- Put pinctrl-1 right after pinctrl-0 in dtsi.
+    -- Fix indentation in the driver.
+    -- Remove unnecessary dev_dbg() in the driver.
+Changes Since V2:
+    -- Add documents of i2s pinctrl-names.
+    -- Fix dtsi syntax error.
+    -- Include the dtsi change and the driver change in the same series.
+    -- Ensure that driver gets both bclk_on and bclk_off states before using them.
+
+Judy Hsiao (3):
+  ASoC: rockchip: i2s: switch BCLK to GPIO
+  arm64: dts: rk3399: i2s: switch BCLK to GPIO
+  ASoC: dt-bindings: rockchip: Document pinctrl-names for i2s
+
+ .../bindings/sound/rockchip-i2s.yaml          |   7 +
+ .../boot/dts/rockchip/rk3399-gru-scarlet.dtsi |  10 ++
+ arch/arm64/boot/dts/rockchip/rk3399.dtsi      |  25 ++-
+ sound/soc/rockchip/rockchip_i2s.c             | 167 +++++++++++++-----
+ 4 files changed, 162 insertions(+), 47 deletions(-)
+
+-- 
+2.36.1.476.g0c4daa206d-goog
+

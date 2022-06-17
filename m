@@ -2,74 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BF9F54FB1A
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jun 2022 18:31:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4786454FC0B
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jun 2022 19:18:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5024C1F21;
-	Fri, 17 Jun 2022 18:30:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5024C1F21
+	by alsa0.perex.cz (Postfix) with ESMTPS id D6AFB1DF4;
+	Fri, 17 Jun 2022 19:17:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6AFB1DF4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655483504;
-	bh=37RF6vXxD+QrHf1TXFejX0md9vYNoUUU5wVJL32Ybtc=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1655486306;
+	bh=Qa69ge+fjPXl2I3oCYjVntMX1rZE24V6WRdFR6piTto=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=szeuxTLfseHQkm1/NRPqJEqzijWCYwTKVRy+dEL2cH2Maadd3tDVNyoWLSAMrO8w3
-	 tmHM1p1C1cE6yGY0CxBL29YQAXQNhpDZxVNDmrcSnli0YOftpccWAGHaOAYnRhTN5a
-	 z3ApwXeDOaMhlRRV77GWl1XPWc+nYDYY7oGFXWug=
+	b=ruKs3IHQtFNeaFzbTRcxDc0E2DgLx9e5BX2LdbKai0q233w/UM9QmhadxoYtJ2R5d
+	 eLDilpgw4z3vcsknJEI09vYmGQjRfUZCs1v77tOFwf2HmPJwsX+TYoBhSbXL+3sk6/
+	 W/zWnqYTuKZ6eF0Z7vHWB3taKk3pW46gkO/cAc98=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 38507F8051F;
-	Fri, 17 Jun 2022 18:30:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E2165F80528;
+	Fri, 17 Jun 2022 19:17:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 95912F804BC; Fri, 17 Jun 2022 18:30:02 +0200 (CEST)
+ id 0F757F80527; Fri, 17 Jun 2022 19:17:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9B921F804BC
- for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 18:29:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B921F804BC
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="fHZWCnro"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 152E9B82B10;
- Fri, 17 Jun 2022 16:29:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DE7DC3411E;
- Fri, 17 Jun 2022 16:29:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1655483395;
- bh=37RF6vXxD+QrHf1TXFejX0md9vYNoUUU5wVJL32Ybtc=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=fHZWCnrostRioI8qJQqZM89Yo4HTK4ZybWo84szEyHnw4asIJwp7Qcpc/DmxAy0zn
- BALYsQdy7TJjLxZZfrr0eCuF/VO95wCkmwbJGYNwZZJkHF0mVmiiBxMEF8BHNh6MYy
- wIgZKItJnJ5SD7yqqJ3hhGz5DqjdrYj1x4wavMC/sptB03sCBU9F/Hny7RZyCcM4/Z
- 6f27UwQK68UcB4p+1HsED7Z7T1QZ96nabkrthm2aff7KNNFSJ7RXQ+82KeGz306UIy
- SvzXkameWHuV2RbDHkMCfZe4RCoMjdIm+KMIqnPm1FL+2xb1zD58aN6RGRVpXD8nxv
- YVIvSdxRrh4xw==
-From: Mark Brown <broonie@kernel.org>
-To: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org
-In-Reply-To: <20220616215351.135643-1-pierre-louis.bossart@linux.intel.com>
-References: <20220616215351.135643-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 00/13] ASoC: SOF/Intel: remove __func__ from dev_dbg()
-Message-Id: <165548339423.901499.18321717025583594390.b4-ty@kernel.org>
-Date: Fri, 17 Jun 2022 17:29:54 +0100
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 38F84F8028B
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 19:17:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38F84F8028B
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, gregkh@linuxfoundation.org, cezary.rojewski@intel.com,
- amadeuszx.slawinski@linux.intel.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1655486242531116009-webhooks-bot@alsa-project.org>
+References: <1655486242531116009-webhooks-bot@alsa-project.org>
+Subject: alsa-lib parser error: "sequence command 'devdisall' is ignored" when
+ attempting alsactl restore, nrestore, init, etc.
+Message-Id: <20220617171726.0F757F80527@alsa1.perex.cz>
+Date: Fri, 17 Jun 2022 19:17:26 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,64 +60,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 16 Jun 2022 16:53:38 -0500, Pierre-Louis Bossart wrote:
-> Cleanups suggested by Greg KH during SoundWire reviews, since the
-> __func__ information can be added with the dyndbg kernel parameter
-> [1].
-> 
-> The first two patches change the error level in cases where the use of
-> dev_dbg() was inconsistent with an aborted programming sequence.
-> 
-> [...]
+alsa-project/alsa-lib issue #240 was opened from salperinlea:
 
-Applied to
+This may play into a much larger issue I have been having with an Intel tiger lake soundcard, which cannot be activated after my machine has been suspended, but which always loads on boot.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+In an attempt to solve this error, I have tried to use alsactl restore, at which point I get the error:
+<code><pre>
+sudo alsactl restore
+alsa-lib parser.c:1194:(parse_sequence) error: sequence command 'devdisall' is ignored
+alsa-lib parser.c:1194:(parse_sequence) error: sequence command 'devdisall' is ignored
+</code></pre>
+I believe the reason that this repeats is that I have two soundcards; one is an Nvidia card, hard-wired to a dGPU and the HDMI port.
 
-Thanks!
+Info:
+Arch Linux 251.2, Kernel 5.18.3, KDE 5.25 DE.
 
-[01/13] ASoC: SOF: Intel: hda-dsp: report error on power-up/down
-        commit: 6d5e37b0f343af70a7e824641f264fb140bbead5
-[02/13] ASoC: SOF: Intel: hda-stream: report error on stream not opened
-        commit: 3abc88730a0e45247296a561a12e811b5d2d2236
-[03/13] ASoC: SOF: Intel: hda-dai: remove use of __func__ in dev_dbg
-        commit: 18701bb1370cb6b34a8f3ad820045930138083dc
-[04/13] ASoC: SOF: Intel: hda-stream: remove use of __func__ in dev_dbg
-        commit: 8bf064f8e439d9b92a023a54adc657f920f4e1a8
-[05/13] ASoC: SOF: Intel: mtl: remove use of __func__ in dev_dbg
-        commit: b837870fe17f21cf80b15d143c9ea0bc6b342741
-[06/13] ASoC: SOF: ipc3-dtrace: remove use of __func__ in dev_dbg
-        commit: 9fd8fcd03451ea3f04af9a419748248d3fa8fb59
-[07/13] ASoC: SOF: ipc3-loader: remove use of __func__ in dev_dbg
-        commit: e16809a74f09b2c2e066b3d7cf1d87be2a75911e
-[08/13] ASoC: SOF: ipc3-topology: remove use of __func__ in dev_dbg
-        commit: f132dc020270976fe83c86f8c826890873023980
-[09/13] ASoC: SOF: ipc4-topology remove use of __func__ in dev_dbg
-        commit: 3809264b53906b8b666b93831ecc23a00e119b68
-[10/13] ASoC: SOF: sof-client: remove use of __func__ in dev_dbg
-        commit: 298e3aba1b56d19dcb70e10ffe93057d1ddd18f6
-[11/13] ASoC: SOF: ipc4: remove use of __func__ in dev_dbg
-        commit: b3ec3eb2baaad057631ab7e09c38ab3ad5c7a42b
-[12/13] ASoC: Intel: boards: hda: remove use of __func__ in dev_dbg
-        commit: 46bc6bc3a6a3af5306e8e3320a083cf3c32350d4
-[13/13] ASoC: Intel: boards: sof_sdw: remove use of __func__ in dev_dbg
-        commit: d2d19cb6ed13eb54dd6c958f3808a23820c3ebba
+<code><pre>
+lspci | grep 'Audio'
+0000:00:1f.3 Multimedia audio controller: Intel Corporation Tiger Lake-H HD Audio Controller (rev 11)
+0000:01:00.1 Audio device: NVIDIA Corporation Device 228e (rev a1)
+</code></pre>
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+I am not sure what other info may be of use, but I will provide it upon request.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Issue URL     : https://github.com/alsa-project/alsa-lib/issues/240
+Repository URL: https://github.com/alsa-project/alsa-lib

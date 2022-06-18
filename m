@@ -2,91 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D5D2551FC4
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jun 2022 17:08:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 018D8552128
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jun 2022 17:36:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 79D4618A7;
-	Mon, 20 Jun 2022 17:07:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79D4618A7
+	by alsa0.perex.cz (Postfix) with ESMTPS id A3B6728DC;
+	Mon, 20 Jun 2022 17:35:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3B6728DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655737711;
-	bh=pI4UBinB39INTVyE7x8PXU0bGWSK9OTM7FkVvtmcuzw=;
+	s=default; t=1655739397;
+	bh=SS0L4/SmUigtqlDgQOGwHotGC/L4Q/Fk8rn2k46jjfg=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=cp6n9gXSIUwNsVl/N4a8NhC8XrbEJTL8pNsrj94ni5s/Dw5AymIHSLuojjBCCvetC
-	 vLxgQNx097WJyeazbeErHARS8WFDyyiUzLYjaFEwyLPdM0TCOQk5K3edaA/cg4bN7P
-	 pTdMWtxBwv5pfK17F+c+UdjhUUij6loEpaCgE63E=
+	b=bhzBUl+Kg8ZG07DN5ip4+0zJ4Lesa1COhh85BvM/iBon1oh5w9/JmTeIUrhsOmtdk
+	 gLrmZua4EDZF4u9AasARry8aFfTvVEnHzQn1zcwfZCPP99YzliL4zDXqYBxHBe3vP1
+	 iScXURE+Ox5WxQCU/eRSq6+2DxoQUGLFMl/Vo95w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A9C19F800FB;
-	Mon, 20 Jun 2022 17:06:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9CDADF80CC3;
+	Mon, 20 Jun 2022 17:08:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 90B49F80527; Fri, 17 Jun 2022 13:12:08 +0200 (CEST)
+ id 619A6F804BC; Sat, 18 Jun 2022 14:32:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com
- [IPv6:2607:f8b0:4864:20::1030])
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [IPv6:2a00:1450:4864:20::436])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4258EF800B0
- for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 13:11:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4258EF800B0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3EC80F8024C
+ for <alsa-devel@alsa-project.org>; Sat, 18 Jun 2022 14:32:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3EC80F8024C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="WEXQJ2c0"
-Received: by mail-pj1-x1030.google.com with SMTP id
- h34-20020a17090a29a500b001eb01527d9eso3008267pjd.3
- for <alsa-devel@alsa-project.org>; Fri, 17 Jun 2022 04:11:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ dkim=pass (2048-bit key) header.d=conchuod.ie header.i=@conchuod.ie
+ header.b="S2mJhG/E"
+Received: by mail-wr1-x436.google.com with SMTP id c21so8820464wrb.1
+ for <alsa-devel@alsa-project.org>; Sat, 18 Jun 2022 05:32:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=conchuod.ie; s=google;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=oQLjYSyO5bnT1k2cMo+qtFEL9roIKTpXUxzFJ5E7YeU=;
- b=WEXQJ2c0zXPPo70AqX4ePE2lo2jfTA7rpG+C5RBXENB1K0P1BBjGTUBKWrVNIRgYMx
- HldHvQtAl/hTE2t7F2GKPeB/yiddMus1F8uOtTiwN9+rR9c0CSzHVt8S5NTgrhhhnsSe
- xRiJJZNKdeC7o73Bc1I3uTPEccX3CTIDbP26E=
+ bh=cxrfrrOtT2Oa/bD+7FBstHMfLsi5+SmAhxAWzjAkyZ0=;
+ b=S2mJhG/EP2bvAoovp3+1EX915fqgCN7s5TTHRtk6gjrtEqOI/5G9b2iqkP8Hp2fPJT
+ Xv7w9JM5mIzSBmUBnG5veKqEPc/MaxIruLrav0YlVhnIQlMG/M+wTnbgpcN0tcmr+tr2
+ or89IY4gglZ6yWfGfoA+jfJEq4JsK9dvMaD2rRItnHWPYoJkG7IkTqJN1pM8cYB5TpdM
+ 9bGqfIt5FOQFRPbbNCxOn37acP1sIBQPp6tl26reXViVZmDuywOt0O5V9tWi+koaQg4c
+ DJEmvefmmDhAvEMjrhz9P1n7uaAObdu8xiUcENoorbn9u8vIjZNy1IW7RHROc+mSnsUJ
+ yKqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=oQLjYSyO5bnT1k2cMo+qtFEL9roIKTpXUxzFJ5E7YeU=;
- b=hIJZeS2lE2moACNefTNQkQ0OtZi4eOMRkxaPs4XXh7CrUO8MqBgmLBCCSmgdhTeX+g
- mfBWOgdsfZtHSJi+sKqprYTAh1AoL+aXgMeiJ5NCgLqkBOlHcXliWP8WEtmeOHQjYwJ3
- KlSnl/9lLMMSrldjLKRylPv7jj1LGAdfeYDAykYSwpDvEgxxKsvK6XpaxXj9ffb8Fjc1
- fH7hEtFw3nUUgXGVGc/XaiX8RhZR8fsOvMAYGjcruMNXBn0V4DVlkRmPmII8OKlYGuaX
- uTGdg4utUxKuAw4DoM315tCjPJWRh94qYwpriREhlvspCVmU2hQiknhcTKV9vDFsWa3Q
- EUzg==
-X-Gm-Message-State: AJIora9zNAwmPWvuFgznBJAKX+iMjuY/lW0XRz9k1DBUXs+PN1kTSrqF
- Ae1PoWPKa6G5HrJTfhHmsHnsFw==
-X-Google-Smtp-Source: AGRyM1tf2bQGeUv5328p9BV+crG8b7G31H6qrJWwNOzsEDjIHBFrwQCM7E2x9VN5sMfX6/KCSapUnw==
-X-Received: by 2002:a17:903:32c4:b0:167:6e6f:204b with SMTP id
- i4-20020a17090332c400b001676e6f204bmr9221820plr.117.1655464315709; 
- Fri, 17 Jun 2022 04:11:55 -0700 (PDT)
-Received: from fshao-glinux.tpe.corp.google.com
- ([2401:fa00:1:10:e616:b34a:9b5b:24ef])
- by smtp.gmail.com with ESMTPSA id
- 9-20020a170902c20900b00163f7935772sm3296754pll.46.2022.06.17.04.11.53
+ bh=cxrfrrOtT2Oa/bD+7FBstHMfLsi5+SmAhxAWzjAkyZ0=;
+ b=QuoYIARFl/BXTKKXy3uAkD9iW+Gn3YB7U/xYjdF1lJddaqzkYZh+xuqEzx19yBMNPW
+ h5faXdtCoTaIt5QINrjfE4qMROhrU8fovxD9tNFmmR2sbBkMYKPG/HR6a0q/nkr8WfWu
+ cNpmcIsTrBBsWpDdH57ZVspwg1Koz2EF1JZ+pzeYhwsLXcu6DMMuWhi51pZmYNCU6S9H
+ iiOmr9psUjrQ+EOJtbmBfxleZ9k3+VBZ56VdqIjCs1R4V7teX28f8+9y/kzmnGWE1+1h
+ HtMBaDCuTutAa4xGV0UKbJmpkfgWBXUb3ze98MuiDtADwGI3/s97ctt3w9fwis7rg9sW
+ mM2w==
+X-Gm-Message-State: AJIora/orNV3N7ctjVSUK4taBLp0TsFkEztjbMofC/RK4YUwATLg0WeD
+ oELsPy3fxiwa4RmWSrRdg7z8ig==
+X-Google-Smtp-Source: AGRyM1vo09vBquhwF3XuUkIoGOLL2MXJBKKEyvgcE2QTAi/5UKplOA45WdH+tRLIApC05LNQOZn4qQ==
+X-Received: by 2002:adf:fd0f:0:b0:210:32d7:4cb5 with SMTP id
+ e15-20020adffd0f000000b0021032d74cb5mr13971427wrr.565.1655555519244; 
+ Sat, 18 Jun 2022 05:31:59 -0700 (PDT)
+Received: from henark71.. ([51.37.234.167]) by smtp.gmail.com with ESMTPSA id
+ az10-20020adfe18a000000b00210396b2eaesm9292305wrb.45.2022.06.18.05.31.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Jun 2022 04:11:55 -0700 (PDT)
-From: Fei Shao <fshao@chromium.org>
-To: Mark Brown <broonie@kernel.org>,
-	Jiaxin Yu <jiaxin.yu@mediatek.com>
-Subject: [PATCH v2] ASoC: mediatek: mt8186: Fix mutex double unlock in GPIO
- request
-Date: Fri, 17 Jun 2022 19:10:04 +0800
-Message-Id: <20220617111003.2014395-1-fshao@chromium.org>
-X-Mailer: git-send-email 2.36.1.476.g0c4daa206d-goog
+ Sat, 18 Jun 2022 05:31:58 -0700 (PDT)
+From: Conor Dooley <mail@conchuod.ie>
+To: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
+ Vinod Koul <vkoul@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Serge Semin <fancer.lancer@gmail.com>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Palmer Dabbelt <palmer@rivosinc.com>
+Subject: [PATCH 00/14] Canaan devicetree fixes
+Date: Sat, 18 Jun 2022 13:30:22 +0100
+Message-Id: <20220618123035.563070-1-mail@conchuod.ie>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 20 Jun 2022 17:06:44 +0200
-Cc: alsa-devel@alsa-project.org, linux-mediatek@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Fei Shao <fshao@chromium.org>
+X-Mailman-Approved-At: Mon, 20 Jun 2022 17:06:46 +0200
+Cc: linux-riscv@lists.infradead.org, Niklas Cassel <niklas.cassel@wdc.com>,
+ alsa-devel@alsa-project.org, Albert Ou <aou@eecs.berkeley.edu>,
+ devicetree@vger.kernel.org, Damien Le Moal <damien.lemoal@opensource.wdc.com>,
+ linux-kernel@vger.kernel.org, Heng Sia <jee.heng.sia@intel.com>,
+ linux-spi@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>,
+ Jose Abreu <joabreu@synopsys.com>, Geert Uytterhoeven <geert@linux-m68k.org>,
+ dri-devel@lists.freedesktop.org, Paul Walmsley <paul.walmsley@sifive.com>,
+ dmaengine@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
+ Dillon Min <dillon.minfei@gmail.com>, Masahiro Yamada <masahiroy@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,40 +114,74 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The lockdep mechanism revealed an unbalanced unlocking on MT8186:
+From: Conor Dooley <conor.dooley@microchip.com>
 
-  [    2.993966] WARNING: bad unlock balance detected!
-  [    2.993978] -------------------------------------
-  [    2.993983] kworker/u16:1/10 is trying to release lock (gpio_request_mutex) at:
-  [    2.993994] [<ffffffdcd9adebf8>] mt8186_afe_gpio_request+0xf8/0x210
-  [    2.994012] but there are no more locks to release!
+Hey all,
+This series should rid us of dtbs_check errors for the RISC-V Canaan k210
+based boards (well, unless you enable W=1 but that's another days work).
+I *DO NOT* have any Canaan hardware so I have not tested any of this in
+anger. I based the series on next-20220617.
 
-The cause is that the mutex will be double unlocked if dai is unknown
-during GPIO selection, and this patch fixes it.
+For the bindings, I am never sure about which of {unevaluated,additional}
+Properties is correct to use, but the if statements in the binding didn't
+work with additional so I used unevaluated...
 
-Fixes: cfa9a966f12a ("ASoC: mediatek: mt8186: support gpio control in platform driver")
+@Mark, for your two bindings I was not sure about the properties that I
+made depend on the compatible, but I looked in tree and was not able to
+find other users to contradict what's in the Canaan devicetrees nor did
+I get that much help from their docs.
 
-Signed-off-by: Fei Shao <fshao@chromium.org>
----
+@Rob, yesterday's removal of ilitek,ili9341.txt is moved to ths series
+since I was editing the dt-schema binding here anyway.
 
-Changes in v2:
-- Trimmed the commit message
+Finally, @Palmer:
+This + Atul's stuff + the sifive dts watchdog patch will get us sorted
+in terms of dtbs_check errors. To make keeping it that way a little
+easier, I changed the Canaan devicetree Makefile so that it would build
+all of the devicetrees in the directory if SOC_CANAAN. Hopefully someone
+with a device can test it - but my build log *looked* fine but that's
+not exactly sufficient.
 
- sound/soc/mediatek/mt8186/mt8186-afe-gpio.c | 1 -
- 1 file changed, 1 deletion(-)
+Thanks,
+Conor.
 
-diff --git a/sound/soc/mediatek/mt8186/mt8186-afe-gpio.c b/sound/soc/mediatek/mt8186/mt8186-afe-gpio.c
-index 255ffba637d3..274c0c8ec2f2 100644
---- a/sound/soc/mediatek/mt8186/mt8186-afe-gpio.c
-+++ b/sound/soc/mediatek/mt8186/mt8186-afe-gpio.c
-@@ -230,7 +230,6 @@ int mt8186_afe_gpio_request(struct device *dev, bool enable,
- 		sel = enable ? MT8186_AFE_GPIO_PCM_ON : MT8186_AFE_GPIO_PCM_OFF;
- 		break;
- 	default:
--		mutex_unlock(&gpio_request_mutex);
- 		dev_err(dev, "%s(), invalid dai %d\n", __func__, dai);
- 		goto unlock;
- 	}
+Conor Dooley (14):
+  dt-bindings: display: convert ilitek,ili9341.txt to dt-schema
+  dt-bindings: display: panel: allow ilitek,ili9341 in isolation
+  ASoC: dt-bindings: convert designware-i2s to dt-schema
+  dt-bindings: dma: add Canaan k210 to Synopsys DesignWare DMA
+  dt-bindings: timer: add Canaan k210 to Synopsys DesignWare timer
+  spi: dt-bindings: dw-apb-ssi: update spi-{r,t}x-bus-width for dwc-ssi
+  riscv: dts: canaan: fix the k210's memory node
+  riscv: dts: canaan: add a specific compatible for k210's dma
+  riscv: dts: canaan: add a specific compatible for k210's timers
+  riscv: dts: canaan: fix mmc node names
+  riscv: dts: canaan: fix kd233 display spi frequency
+  riscv: dts: canaan: use custom compatible for k210 i2s
+  riscv: dts: canaan: remove spi-max-frequency from controllers
+  riscv: dts: canaan: build all devicetress if SOC_CANAAN
+
+ .../bindings/display/ilitek,ili9341.txt       | 27 ------
+ .../display/panel/ilitek,ili9341.yaml         | 60 ++++++++----
+ .../bindings/dma/snps,dw-axi-dmac.yaml        | 35 +++++--
+ .../bindings/sound/designware-i2s.txt         | 35 -------
+ .../bindings/sound/snps,designware-i2s.yaml   | 93 +++++++++++++++++++
+ .../bindings/spi/snps,dw-apb-ssi.yaml         | 48 +++++++---
+ .../bindings/timer/snps,dw-apb-timer.yaml     | 28 ++++--
+ arch/riscv/boot/dts/canaan/Makefile           | 10 +-
+ arch/riscv/boot/dts/canaan/canaan_kd233.dts   |  4 +-
+ arch/riscv/boot/dts/canaan/k210.dtsi          | 25 ++---
+ .../riscv/boot/dts/canaan/sipeed_maix_bit.dts |  2 +-
+ .../boot/dts/canaan/sipeed_maix_dock.dts      |  2 +-
+ arch/riscv/boot/dts/canaan/sipeed_maix_go.dts |  2 +-
+ .../boot/dts/canaan/sipeed_maixduino.dts      |  2 +-
+ 14 files changed, 239 insertions(+), 134 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/display/ilitek,ili9341.txt
+ delete mode 100644 Documentation/devicetree/bindings/sound/designware-i2s.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/snps,designware-i2s.yaml
+
+
+base-commit: 07dc787be2316e243a16a33d0a9b734cd9365bd3
 -- 
-2.36.1.476.g0c4daa206d-goog
+2.36.1
 

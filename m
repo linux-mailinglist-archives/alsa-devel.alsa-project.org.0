@@ -2,110 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D551551362
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jun 2022 10:53:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81ACA5513FD
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jun 2022 11:18:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2E9F4192A;
-	Mon, 20 Jun 2022 10:52:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E9F4192A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1EAB51940;
+	Mon, 20 Jun 2022 11:17:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1EAB51940
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655715187;
-	bh=ydGuVuAAZ+kigXis6thd6FFwmw3s0WhqsTE07hL1B8U=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1655716684;
+	bh=ao9OdRfwZ9pjSMMclgdNiPGY/0QZWsyh/Hgmot84dno=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uOo11bcs2fUTJJxGoknbuEJ/0V58c5gSFIohBnVU325KIEed/V0XKC/FA2VSuAlCe
-	 lSsZlxPRqJVCh+eIoc7a27y4dlgUcD6MrGTL88H0/EbcjkobSi4XKbvCBVABltf+9S
-	 ZideLVw9IFt1f7yC3xB93S0vzvd+dd6jTxXaQEtI=
+	b=gdH7d3ju8P1qDJwR4Eak+r6/q3ecOwpgYy96wdFY5Ho9U4J64IUTqIekp1g2MMLOS
+	 ahRZT53uMUQHkOqow9nUvzMhvgDjUNfH+7WIwB2f0hLm9Hy/qjb4xKU5LrD5SjNmlo
+	 pVKCbY0WBdlkRZVwGMLuudXk6OsaIgK3oiNpyVDo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 80965F804D8;
-	Mon, 20 Jun 2022 10:52:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 74A79F800CB;
+	Mon, 20 Jun 2022 11:17:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9E607F800CB; Mon, 20 Jun 2022 10:52:06 +0200 (CEST)
+ id 12FF6F804D2; Mon, 20 Jun 2022 11:17:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [IPv6:2a00:1450:4864:20::634])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2DF64F800CB
- for <alsa-devel@alsa-project.org>; Mon, 20 Jun 2022 10:51:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DF64F800CB
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="C3NCc0tF"
-Received: by mail-ej1-x634.google.com with SMTP id hj18so19091136ejb.0
- for <alsa-devel@alsa-project.org>; Mon, 20 Jun 2022 01:51:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=rvDozfpUth1u46mvzNNqlITVPQfdrkhSHQIaeMfchFw=;
- b=C3NCc0tF7vEHhwoLV0fuSwQQIdJuEh+/1DuVypXeKHJnwkCcSHrmhXUgIbDi/L9BLi
- 8Orf+wD6b2kDhmDd9Nx4V2N6lIibh6/j96lUI/QRAYTmmnA+ouosoTOPn3KBFbMgXlfE
- XLC8aHRK8eGaWHD3rzsEYVpnB0K0vQ5WEQZkaL3Xk/0/2QwFJnsZFAHCvg4uWUMWK1WY
- dMrBZ0Q8zegFPHU+iguKm6Zl2sREi1gowFLvAHmsBBpeMJJwPizzSETXOKDjHsvSozKV
- 5l5gDPUqzvCLt66o1728YU9XUBBUN0SX5eZk9pkk/NbjN68tygMCwaPF0mTY4OhK37Uw
- PVug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=rvDozfpUth1u46mvzNNqlITVPQfdrkhSHQIaeMfchFw=;
- b=ZNCLbSgFKBU/+48+9yODwmehYGt4cKW8Ll65hJmlUyt/bjOewJ8nhJ6W0IqBD7lIAc
- cPfCdultmUHGJIAre8zpwYZU7aVbG11+FlCgtrHQWxAUZkzjFlSW3mV4miHGDCGemUK+
- V9L3hlWky9DEasZ6/6VfPQUFs/lKA4S4K+MDrVRRvx7EOhI8J6HPJaTltcaVHUSHmPNo
- X/Rni/NnvaIPf6Q99aX3qexJ0H4rm0WYYX1nyYufhkXMTP7KFotjnyrSOLdKlU51YoYt
- JBuFSj0s7MXu4hE09+svZh49RFws89eJWMJ05b0SA2KnnEptr93HwuOL1MgkVhqA9LeB
- 51Ew==
-X-Gm-Message-State: AJIora9oH58RzQVjEn9qRtl5R91MLlIBvLT+IgHJ/yKb2s2qFxFaTBrb
- qnNlmeqwZ1VyIpwtaLBaBoBS3w==
-X-Google-Smtp-Source: AGRyM1vosA5HJnj8GWCVoK53xdzGqpfYGN+DOWudxrPO+Dwn2p+1IKeZuKxi1oeqArmKrujW/Cs3og==
-X-Received: by 2002:a17:906:d550:b0:704:ae79:7db1 with SMTP id
- cr16-20020a170906d55000b00704ae797db1mr19958640ejc.478.1655715117980; 
- Mon, 20 Jun 2022 01:51:57 -0700 (PDT)
-Received: from [192.168.0.207] (xdsl-188-155-176-92.adslplus.ch.
- [188.155.176.92]) by smtp.gmail.com with ESMTPSA id
- a24-20020aa7cf18000000b004356c18b2b9sm5577856edy.44.2022.06.20.01.51.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Jun 2022 01:51:57 -0700 (PDT)
-Message-ID: <3830efc5-298d-7887-5718-2cb2a7ad4895@linaro.org>
-Date: Mon, 20 Jun 2022 10:51:55 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 99721F800FB;
+ Mon, 20 Jun 2022 11:16:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99721F800FB
+X-UUID: 36eef338cfb74a14ab06673e7c6a772d-20220620
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.6, REQID:14f07526-6b8b-4088-ae29-c2bd702ee75f, OB:10,
+ L
+ OB:0,IP:0,URL:0,TC:0,Content:0,EDM:0,RT:0,SF:45,FILE:0,RULE:Release_Ham,AC
+ TION:release,TS:45
+X-CID-INFO: VERSION:1.1.6, REQID:14f07526-6b8b-4088-ae29-c2bd702ee75f, OB:10,
+ LOB
+ :0,IP:0,URL:0,TC:0,Content:0,EDM:0,RT:0,SF:45,FILE:0,RULE:Release_Ham,ACTI
+ ON:release,TS:45
+X-CID-META: VersionHash:b14ad71, CLOUDID:2f7effe9-f7af-4e69-92ee-0fd74a0c286c,
+ C
+ OID:a7e4c246682a,Recheck:0,SF:28|17|19|48,TC:nil,Content:0,EDM:-3,IP:nil,U
+ RL:0,File:nil,QS:nil,BEC:nil,COL:0
+X-UUID: 36eef338cfb74a14ab06673e7c6a772d-20220620
+Received: from mtkcas11.mediatek.inc [(172.21.101.40)] by mailgw02.mediatek.com
+ (envelope-from <tinghan.shen@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 401679810; Mon, 20 Jun 2022 17:16:43 +0800
+Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
+ mtkmbs11n1.mediatek.inc (172.21.101.185) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.792.3; 
+ Mon, 20 Jun 2022 17:16:42 +0800
+Received: from mtksdccf07 (172.21.84.99) by mtkmbs11n2.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.2.792.3 via Frontend
+ Transport; Mon, 20 Jun 2022 17:16:41 +0800
+Message-ID: <485c9b07fb2a60635e7cd52e710af872733fcff9.camel@mediatek.com>
 Subject: Re: [PATCH v3 1/4] dt-bindings: dsp: mediatek: Use meaningful names
  for mbox
-Content-Language: en-US
-To: Tinghan Shen <tinghan.shen@mediatek.com>, Rob Herring
+From: Tinghan Shen <tinghan.shen@mediatek.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Rob Herring
  <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- YC Hung <yc.hung@mediatek.com>, Curtis Malainey <cujomalainey@chromium.org>,
- Allen-KH Cheng <allen-kh.cheng@mediatek.com>
+ <krzysztof.kozlowski+dt@linaro.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>, Pierre-Louis Bossart
+ <pierre-louis.bossart@linux.intel.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Bard Liao
+ <yung-chuan.liao@linux.intel.com>, Ranjani Sridharan
+ <ranjani.sridharan@linux.intel.com>, Kai Vehmanen
+ <kai.vehmanen@linux.intel.com>, Daniel Baluta <daniel.baluta@nxp.com>, Mark
+ Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, "Takashi Iwai"
+ <tiwai@suse.com>, YC Hung <yc.hung@mediatek.com>, Curtis Malainey
+ <cujomalainey@chromium.org>, Allen-KH Cheng <allen-kh.cheng@mediatek.com>
+Date: Mon, 20 Jun 2022 17:16:41 +0800
+In-Reply-To: <3830efc5-298d-7887-5718-2cb2a7ad4895@linaro.org>
 References: <20220616073042.13229-1-tinghan.shen@mediatek.com>
  <20220616073042.13229-2-tinghan.shen@mediatek.com>
  <629e761b-e3ad-0861-1937-ad660a8a900b@linaro.org>
  <af32751dd7013a96dac5d165c35e132fda87f2ac.camel@mediatek.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <af32751dd7013a96dac5d165c35e132fda87f2ac.camel@mediatek.com>
-Content-Type: text/plain; charset=UTF-8
+ <3830efc5-298d-7887-5718-2cb2a7ad4895@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
+X-MTK: N
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org,
  Project_Global_Chrome_Upstream_Group@mediatek.com,
@@ -126,55 +111,67 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 20/06/2022 08:40, Tinghan Shen wrote:
-> Hi Krzysztof,
+Hi Krzysztof,
+
+On Mon, 2022-06-20 at 10:51 +0200, Krzysztof Kozlowski wrote:
+> On 20/06/2022 08:40, Tinghan Shen wrote:
+> > Hi Krzysztof,
+> > 
+> > On Thu, 2022-06-16 at 06:55 -0700, Krzysztof Kozlowski wrote:
+> > > On 16/06/2022 00:30, Tinghan Shen wrote:
+> > > > Rename mbox according to actions instead of 'mbox0' and 'mbox1'.
+> > > > 
+> > > > Signed-off-by: Tinghan Shen <tinghan.shen@mediatek.com>
+> > > > ---
+> > > >  .../devicetree/bindings/dsp/mediatek,mt8195-dsp.yaml   | 10 +++++-----
+> > > >  1 file changed, 5 insertions(+), 5 deletions(-)
+> > > > 
+> > > > diff --git a/Documentation/devicetree/bindings/dsp/mediatek,mt8195-dsp.yaml
+> > > > b/Documentation/devicetree/bindings/dsp/mediatek,mt8195-dsp.yaml
+> > > > index b7e68b0dfa13..ca8d8661f872 100644
+> > > > --- a/Documentation/devicetree/bindings/dsp/mediatek,mt8195-dsp.yaml
+> > > > +++ b/Documentation/devicetree/bindings/dsp/mediatek,mt8195-dsp.yaml
+> > > > @@ -50,13 +50,13 @@ properties:
+> > > >  
+> > > >    mboxes:
+> > > >      items:
+> > > > -      - description: ipc reply between host and audio DSP.
+> > > > -      - description: ipc request between host and audio DSP.
+> > > > +      - description: mailbox for receiving audio DSP requests.
+> > > > +      - description: mailbox for transmitting requests to audio DSP.
+> > > >  
+> > > >    mbox-names:
+> > > >      items:
+> > > > -      - const: mbox0
+> > > > -      - const: mbox1
+> > > > +      - const: rx
+> > > > +      - const: tx
+> > > >  
+> > > 
+> > > Commit msg lacks important piece - do you break any users with this? Do
+> > > you have any users of this binding?
+> > > 
+> > > 
+> > > Best regards,
+> > > Krzysztof
+> > 
+> > The 8195 dsp node, which uses this binding, has not yet been added to the 8195 devicetree.
 > 
-> On Thu, 2022-06-16 at 06:55 -0700, Krzysztof Kozlowski wrote:
->> On 16/06/2022 00:30, Tinghan Shen wrote:
->>> Rename mbox according to actions instead of 'mbox0' and 'mbox1'.
->>>
->>> Signed-off-by: Tinghan Shen <tinghan.shen@mediatek.com>
->>> ---
->>>  .../devicetree/bindings/dsp/mediatek,mt8195-dsp.yaml   | 10 +++++-----
->>>  1 file changed, 5 insertions(+), 5 deletions(-)
->>>
->>> diff --git a/Documentation/devicetree/bindings/dsp/mediatek,mt8195-dsp.yaml
->>> b/Documentation/devicetree/bindings/dsp/mediatek,mt8195-dsp.yaml
->>> index b7e68b0dfa13..ca8d8661f872 100644
->>> --- a/Documentation/devicetree/bindings/dsp/mediatek,mt8195-dsp.yaml
->>> +++ b/Documentation/devicetree/bindings/dsp/mediatek,mt8195-dsp.yaml
->>> @@ -50,13 +50,13 @@ properties:
->>>  
->>>    mboxes:
->>>      items:
->>> -      - description: ipc reply between host and audio DSP.
->>> -      - description: ipc request between host and audio DSP.
->>> +      - description: mailbox for receiving audio DSP requests.
->>> +      - description: mailbox for transmitting requests to audio DSP.
->>>  
->>>    mbox-names:
->>>      items:
->>> -      - const: mbox0
->>> -      - const: mbox1
->>> +      - const: rx
->>> +      - const: tx
->>>  
->>
->> Commit msg lacks important piece - do you break any users with this? Do
->> you have any users of this binding?
->>
->>
->> Best regards,
->> Krzysztof
+> Could you mention it in the commit msg? Such one sentence is enough.
 > 
-> The 8195 dsp node, which uses this binding, has not yet been added to the 8195 devicetree.
+> With commit msg extended:
+> 
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> 
+> 
+> Best regards,
+> Krzysztof
 
-Could you mention it in the commit msg? Such one sentence is enough.
-
-With commit msg extended:
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+No problem. I'll udpate commit message at next version.
 
 
-Best regards,
-Krzysztof
+Thanks,
+TingHan
+
+
+

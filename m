@@ -2,85 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1397E554F57
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jun 2022 17:31:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51D43554F5A
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jun 2022 17:32:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A44141F8E;
-	Wed, 22 Jun 2022 17:30:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A44141F8E
+	by alsa0.perex.cz (Postfix) with ESMTPS id E6BCA1F72;
+	Wed, 22 Jun 2022 17:31:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6BCA1F72
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655911904;
-	bh=+1KR/HarNT0msazKchOGjVXG+H/CEmGlWnzE8JjRC74=;
+	s=default; t=1655911951;
+	bh=pduRRadCqjm+H5Q0Ot3vxqGM1hN74ck5MfZ2xBpkQAQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uh27AKAMY0qyYOOvNKP/PIrxNPBmYd+6fG+IV/Iz8uKYtxt96E1tVbokKtYaT3hBA
-	 owmxHnPKdMgk0wbCY+TtmEN0mcXixHLrCn/lBtHxqmray3F6k7UzogjVV82pC7vRln
-	 DAujuL3LgvTUE3ZXJuWGLL+Ya5EH/3bb2XAHFyAg=
+	b=Zxbd69tTt+lWe9QBd/QjZvWx1pxMNKzMlSzYoqsSmBk/gvWmW/4lFv2LOj7hBKPrI
+	 JqjecCmR04O/JX/ruk3gpTp4zXhg4rWwVXZVFPdq5VUNgQwBXxNzgUvdPL6oeGqv7U
+	 mNj3tssAdxqmsPG6+2znkuKjdAis/O3FY/0fuoXE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D224DF805F9;
-	Wed, 22 Jun 2022 17:23:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A0ED4F80608;
+	Wed, 22 Jun 2022 17:23:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 65FF2F804DA; Mon, 20 Jun 2022 22:07:07 +0200 (CEST)
+ id 7714EF800CB; Mon, 20 Jun 2022 22:07:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
  SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [IPv6:2a00:1450:4864:20::42e])
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [IPv6:2a00:1450:4864:20::331])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6A5FCF800CB
- for <alsa-devel@alsa-project.org>; Mon, 20 Jun 2022 22:07:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A5FCF800CB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 55959F800CB
+ for <alsa-devel@alsa-project.org>; Mon, 20 Jun 2022 22:07:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55959F800CB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Mlv4ZVoH"
-Received: by mail-wr1-x42e.google.com with SMTP id v14so16098443wra.5
- for <alsa-devel@alsa-project.org>; Mon, 20 Jun 2022 13:07:02 -0700 (PDT)
+ header.b="I9SWwmkb"
+Received: by mail-wm1-x331.google.com with SMTP id z9so6374441wmf.3
+ for <alsa-devel@alsa-project.org>; Mon, 20 Jun 2022 13:07:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=RL0fwUpj3N31VObGflnvTdc3SYbFvbOFJTIucbQixBw=;
- b=Mlv4ZVoHQKH/diZ7wxwIL4K/NMJzc8U94Vgk4Cv6mLqtv2zUYMSW25mN9q0aL0QiaD
- ypWyVxkxCSP8wGvJCokCsjQ6tDA09v/ytF7zvcl648K7FlONHBR2wfNK3QShVbur16Ms
- Etfs+ATYrdsjBlliM9yYPEfiDP24lw5E53L/DQ+aFBEaoSuyH0FKKVlxJgKMAVEDu74C
- qNbf8xDFV/CcJqFhatQhPeGSPTWRTO55xPy2YKxC6vO/a5lLkP3E2xpOBkHescTgDCGf
- 6sV5K6mdGgz67dpXL7CLkkp/9x203Hye1oIstypDYQK4gwAVULEnVqIxaa7ZmZAes0sL
- 9TIA==
+ bh=oqx3v8Sb2M8GmsYA5Ky+XV9uouybbnIvgB5+4WCQaEA=;
+ b=I9SWwmkbAS0twwPt8IX4E7bPDCP7aUbF2QrdWQqioO/YT8vPWDbo5jafFWHLiMIjc6
+ 1mw/0Uimpyz3cUcNIuL1gNMxnkzOwuSG3edxomlaxXv/3L99G0JTdAg4POHGrEyB2REH
+ 3lIDZKKJ3rfCVWbTQEoaG7JmB0gDKFGBeqb20JXEMuxvSMR5CHUbycRO4F8LKhZqPuhZ
+ YEBHTx15YFCjU5hxF8mncOccOzTdEdvUtBMGeSXsVkIqDI9MxnDbvI8sGUw4c4kcM2YR
+ yU4ZYgDnXaav8BMzDiccmgOUBiOIkEhH4tyXriDpDiHGnyleHXKRGyMCZfOTYeUkSsCw
+ fC3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=RL0fwUpj3N31VObGflnvTdc3SYbFvbOFJTIucbQixBw=;
- b=v9RBT0xs93AdL2qcD68ymLwRFPQXSKomzPiaNYksDSZ33PlLEVO4fYEAByuGz6WQ85
- i9PADjTTNILWh+eeztgp3Wq7VoSq3rRHqV/nBKvCHpQO7X/PzqACJGvBefc5URO3wAS0
- mP1rRV16HP4G3o1NEjxtL34IWMGPSxqA7XfoyVRZZTFuJasm5bVw/91ZAYvGZ/oMWCDi
- MdMrypttmjUkdJkkjWE94nBcVBdyYRfC1MrMXIJt6m/ZTllNlTwnkU8NA+3w2KdAvYy+
- wgEfXCEsvAzNiapgkv1f4Sqzmyyps767LoZvpqIaLZuuU8/I6d/BvvxQJjDWBz+/u9hZ
- mCog==
-X-Gm-Message-State: AJIora9Iq88/CCoiRAIT/8SnfN/4aEmaWVnWohkPIugimFKaz7l4OKdt
- Q00xA45dWSLpPFxH3/jZorg=
-X-Google-Smtp-Source: AGRyM1sc2kxmFsNd28wLHl+sBWx8EhrjSubA+8EnJdnvaG1LPBATT/Oqb8jppvaI5mcfhWVI8YU61A==
-X-Received: by 2002:a5d:47a8:0:b0:217:b5ea:bdfb with SMTP id
- 8-20020a5d47a8000000b00217b5eabdfbmr25488579wrb.492.1655755620510; 
- Mon, 20 Jun 2022 13:07:00 -0700 (PDT)
+ bh=oqx3v8Sb2M8GmsYA5Ky+XV9uouybbnIvgB5+4WCQaEA=;
+ b=fKJ3EcEV6o0sE60tNXGPOscxL7qM4O3oQjcXW8dk3fPZr0G1e4SojEF9N0ylWmuFtO
+ KQtGG5iGHrvs1gtPXPWWVIvJl7sEA0+lflvmJ6GP29BY+B23ZeVU7OaOpOUQNDqmFvA6
+ Hu2eFpr8r1JKz/ASmNSstWhSPudme7Cwjh5Oj3y/JoUfI73J/wnI9Ya/z7sKWOPIsbjQ
+ sYsBwbvpVTWDrxml6uf4Ywc6dPv0aM/Q7zMfDnau4ujYedYf81YrBrO/NtS+9omPhPTq
+ tA+9QXSwi4DqKNJLa59ZWeCcdW9sfY83gsvcZUnDPuAW2SvG+PqYPGziH/dUMLkTcDIH
+ d1cw==
+X-Gm-Message-State: AJIora+9QoChmkfk2QiRpOakxRcywpL7UrcqRFDLkl8gLHO10wmdzOPA
+ kETyGThClqy+/s1/OgSciWw=
+X-Google-Smtp-Source: AGRyM1swymX/u49DBHMJPPyC7OgnYJ7zcAJGoTucjUXlwJwy4Cy1b+UW+TJYIq67rmm7OR5jau1T3g==
+X-Received: by 2002:a05:600c:5112:b0:397:53f5:e15b with SMTP id
+ o18-20020a05600c511200b0039753f5e15bmr26726456wms.93.1655755622524; 
+ Mon, 20 Jun 2022 13:07:02 -0700 (PDT)
 Received: from localhost (92.40.169.63.threembb.co.uk. [92.40.169.63])
  by smtp.gmail.com with ESMTPSA id
- n23-20020a05600c3b9700b0039c5224bfcbsm20985958wms.46.2022.06.20.13.06.59
+ a17-20020adffad1000000b0021b8749728dsm8178971wrs.73.2022.06.20.13.07.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Jun 2022 13:07:00 -0700 (PDT)
+ Mon, 20 Jun 2022 13:07:01 -0700 (PDT)
 From: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
 To: broonie@kernel.org
-Subject: [PATCH 29/49] mfd: atc260x: replace irqchip mask_invert with
+Subject: [PATCH 30/49] mfd: 88pm800: replace irqchip mask_invert with
  unmask_base
-Date: Mon, 20 Jun 2022 21:06:24 +0100
-Message-Id: <20220620200644.1961936-30-aidanmacdonald.0x0@gmail.com>
+Date: Mon, 20 Jun 2022 21:06:25 +0100
+Message-Id: <20220620200644.1961936-31-aidanmacdonald.0x0@gmail.com>
 In-Reply-To: <20220620200644.1961936-1-aidanmacdonald.0x0@gmail.com>
 References: <20220620200644.1961936-1-aidanmacdonald.0x0@gmail.com>
 MIME-Version: 1.0
@@ -120,33 +120,24 @@ as an unmask register.
 
 Signed-off-by: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
 ---
- drivers/mfd/atc260x-core.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/mfd/88pm800.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/mfd/atc260x-core.c b/drivers/mfd/atc260x-core.c
-index 7148ff5b05b1..7c5de3ae776e 100644
---- a/drivers/mfd/atc260x-core.c
-+++ b/drivers/mfd/atc260x-core.c
-@@ -100,8 +100,7 @@ static const struct regmap_irq_chip atc2603c_regmap_irq_chip = {
- 	.num_irqs = ARRAY_SIZE(atc2603c_regmap_irqs),
- 	.num_regs = 1,
- 	.status_base = ATC2603C_INTS_PD,
--	.mask_base = ATC2603C_INTS_MSK,
--	.mask_invert = true,
-+	.unmask_base = ATC2603C_INTS_MSK,
+diff --git a/drivers/mfd/88pm800.c b/drivers/mfd/88pm800.c
+index eaf9845633b4..6d1192db13c1 100644
+--- a/drivers/mfd/88pm800.c
++++ b/drivers/mfd/88pm800.c
+@@ -398,9 +398,8 @@ static struct regmap_irq_chip pm800_irq_chip = {
+ 
+ 	.num_regs = 4,
+ 	.status_base = PM800_INT_STATUS1,
+-	.mask_base = PM800_INT_ENA_1,
++	.unmask_base = PM800_INT_ENA_1,
+ 	.ack_base = PM800_INT_STATUS1,
+-	.mask_invert = 1,
  };
  
- static const struct regmap_irq_chip atc2609a_regmap_irq_chip = {
-@@ -110,8 +109,7 @@ static const struct regmap_irq_chip atc2609a_regmap_irq_chip = {
- 	.num_irqs = ARRAY_SIZE(atc2609a_regmap_irqs),
- 	.num_regs = 1,
- 	.status_base = ATC2609A_INTS_PD,
--	.mask_base = ATC2609A_INTS_MSK,
--	.mask_invert = true,
-+	.unmask_base = ATC2609A_INTS_MSK,
- };
- 
- static const struct resource atc2603c_onkey_resources[] = {
+ static int pm800_pages_init(struct pm80x_chip *chip)
 -- 
 2.35.1
 

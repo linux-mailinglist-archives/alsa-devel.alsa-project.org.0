@@ -2,71 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FF29551246
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jun 2022 10:14:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0720555124A
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jun 2022 10:15:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2293D18AC;
-	Mon, 20 Jun 2022 10:13:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2293D18AC
+	by alsa0.perex.cz (Postfix) with ESMTPS id A89B418C3;
+	Mon, 20 Jun 2022 10:14:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A89B418C3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655712869;
-	bh=IwFzZR/dDdOnz/WoMNQ45E381MBJMF1Mmf6b0pF1HWg=;
+	s=default; t=1655712917;
+	bh=S2zgngizPET+7aZCkrrk7QSbk4YZ3FUTi7y2NyUjsLk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Rjp5NOUbXt2Z7vTpMbliOP2CavIqKlBO7GmXgX0hSQtB6IvoZEY2jC7EuFu6WTx6i
-	 8bV9h71YO3s66FUOfdTQA9MLIp9BuMJbO1BxFQ0fGsQmB3Gw+yyGW5u4aVCS7NC3Jf
-	 kEmYey/2D+iQESjmUiLNu8rkJ1slY3eH7OSM273E=
+	b=hw7Xem65PMyIbGsZrxPpMFUjm//hu+Q1OrXaQnzk+OnvoqQqepLg1+XmT+rf2R55P
+	 082ghU8B/3yAp0JDkriwMxavJ1UfiPGe3jfSEikX/ax8ghg+2gsTBlOfjl/ELb7TgO
+	 5ZlwvHDz1HcRUHRbh5kthkRgIkL+KMFYqH4MX9ss=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 14BD0F80544;
-	Mon, 20 Jun 2022 10:12:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 845D2F8055C;
+	Mon, 20 Jun 2022 10:12:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 57AC5F80543; Mon, 20 Jun 2022 10:12:37 +0200 (CEST)
+ id 4D84FF80558; Mon, 20 Jun 2022 10:12:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E3036F804E7
- for <alsa-devel@alsa-project.org>; Mon, 20 Jun 2022 10:12:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3036F804E7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 585E4F804E5
+ for <alsa-devel@alsa-project.org>; Mon, 20 Jun 2022 10:12:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 585E4F804E5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="PT0TZB71"
+ header.b="fFFT70Kv"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655712748; x=1687248748;
+ t=1655712749; x=1687248749;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=IwFzZR/dDdOnz/WoMNQ45E381MBJMF1Mmf6b0pF1HWg=;
- b=PT0TZB71eY59h3aiMz/DxwHoHLKHRYsiGfMYPkGnTCTFv5ToJL5rLQJU
- Cpl60U7Rk6QBx7Uda4Rrce2kui5RPlcYU38571Z0+n5aUzWKb8GGptymV
- Sf8kgzX6s01bxcaQ7OPoi21fmqML2GpzK5aLDm2hxEAeavlgT/lz244cI
- rlvhGEUhl4xvajsRK6BwoMlYjj3pzJwU+yK4tpGuwZzHHsQT5zd1qcIw5
- CxSEhFgimLUgwhfsmLMzi9RAHQkAl+auhy+20Q3dJpBkPjOpgznmnrcPZ
- uSVxCH9CBjpdhHdwaPI2WVgWEa3Dola+7G2yNIei2shSHSKnnXXxkH27b Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="305270875"
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="305270875"
+ bh=S2zgngizPET+7aZCkrrk7QSbk4YZ3FUTi7y2NyUjsLk=;
+ b=fFFT70KvzEN7cYCeN7pVV6LVF4CDgEqvPLz22uQa08zEaNv7WN109oFq
+ eSMn6Hg6dFFAseaj34XLOPXmsZqeODmfRtiz00wrsecFOeOA1JDH+kQcf
+ SfGzJ+/vZiSkswyIKqpc1gX/Drow5rbDEBOMiyar/fm2SYt+Scqodl6WY
+ 3wUJQ04VsACzwQMxmszBA+lA8hvqd8GGLQjfmpdjRDPCLYYsIAkw2kUw9
+ fUo+6qRp48KDhbGdN6qZoqDvfnKYFaNoCW2y5YG+c0amp2YEakjolEwPc
+ KcNJh4jfMTekNP22JXY341reYEt/tIHRr+xKWxz0BXM/8SZX6E5I14laX A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="305270883"
+X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="305270883"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jun 2022 01:12:25 -0700
+ 20 Jun 2022 01:12:28 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="591067373"
+X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="591067380"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by fmsmga007.fm.intel.com with ESMTP; 20 Jun 2022 01:12:23 -0700
+ by fmsmga007.fm.intel.com with ESMTP; 20 Jun 2022 01:12:25 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Subject: [PATCH v3 04/17] ASoC: Intel: hsw_rt5640: Update code indentation
-Date: Mon, 20 Jun 2022 10:22:13 +0200
-Message-Id: <20220620082226.2489357-5-cezary.rojewski@intel.com>
+Subject: [PATCH v3 05/17] ASoC: Intel: hsw_rt5640: Update file comments
+Date: Mon, 20 Jun 2022 10:22:14 +0200
+Message-Id: <20220620082226.2489357-6-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220620082226.2489357-1-cezary.rojewski@intel.com>
 References: <20220620082226.2489357-1-cezary.rojewski@intel.com>
@@ -91,147 +91,99 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Make use of 100 character limit and modify indentation so code is easier
-to read. While at it, sort includes in alphabetical order.
+Drop redundant and update valuable comments within the file to increase
+readability. This patch also revisits module information and kconfig
+help strings.
 
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 Reviewed-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 ---
- sound/soc/intel/boards/hsw_rt5640.c | 59 +++++++++--------------------
- 1 file changed, 18 insertions(+), 41 deletions(-)
+ sound/soc/intel/boards/Kconfig      |  2 +-
+ sound/soc/intel/boards/hsw_rt5640.c | 16 ++++++----------
+ 2 files changed, 7 insertions(+), 11 deletions(-)
 
+diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
+index f3873b5bea87..c3dc0809ed67 100644
+--- a/sound/soc/intel/boards/Kconfig
++++ b/sound/soc/intel/boards/Kconfig
+@@ -41,7 +41,7 @@ config SND_SOC_INTEL_SOF_CIRRUS_COMMON
+ if SND_SOC_INTEL_CATPT
+ 
+ config SND_SOC_INTEL_HASWELL_MACH
+-	tristate "Haswell Lynxpoint"
++	tristate "Haswell with RT5640 I2S codec"
+ 	depends on I2C
+ 	depends on I2C_DESIGNWARE_PLATFORM || COMPILE_TEST
+ 	depends on X86_INTEL_LPSS || COMPILE_TEST
 diff --git a/sound/soc/intel/boards/hsw_rt5640.c b/sound/soc/intel/boards/hsw_rt5640.c
-index a096453bf1df..da31b011b495 100644
+index da31b011b495..f843ba5f4718 100644
 --- a/sound/soc/intel/boards/hsw_rt5640.c
 +++ b/sound/soc/intel/boards/hsw_rt5640.c
-@@ -9,10 +9,9 @@
- #include <linux/platform_device.h>
- #include <sound/core.h>
- #include <sound/pcm.h>
-+#include <sound/pcm_params.h>
- #include <sound/soc.h>
+@@ -1,6 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0-only
+ /*
+- * Intel Haswell Lynxpoint SST Audio
++ * Sound card driver for Intel Haswell Lynx Point with Realtek 5640
+  *
+  * Copyright (C) 2013, Intel Corporation. All rights reserved.
+  */
+@@ -14,7 +14,6 @@
  #include <sound/soc-acpi.h>
--#include <sound/pcm_params.h>
--
  #include "../../codecs/rt5640.h"
  
- /* Haswell ULT platforms have a Headphone and Mic jack */
-@@ -22,7 +21,6 @@ static const struct snd_soc_dapm_widget card_widgets[] = {
- };
+-/* Haswell ULT platforms have a Headphone and Mic jack */
+ static const struct snd_soc_dapm_widget card_widgets[] = {
+ 	SND_SOC_DAPM_HP("Headphones", NULL),
+ 	SND_SOC_DAPM_MIC("Mic", NULL),
+@@ -36,10 +35,10 @@ static int codec_link_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
+ 	struct snd_interval *channels = hw_param_interval(params, SNDRV_PCM_HW_PARAM_CHANNELS);
+ 	struct snd_interval *rate = hw_param_interval(params, SNDRV_PCM_HW_PARAM_RATE);
  
- static const struct snd_soc_dapm_route card_routes[] = {
--
- 	{"Headphones", NULL, "HPOR"},
- 	{"Headphones", NULL, "HPOL"},
- 	{"IN2P", NULL, "Mic"},
-@@ -33,32 +31,28 @@ static const struct snd_soc_dapm_route card_routes[] = {
- };
- 
- static int codec_link_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
--			struct snd_pcm_hw_params *params)
-+				      struct snd_pcm_hw_params *params)
- {
--	struct snd_interval *rate = hw_param_interval(params,
--			SNDRV_PCM_HW_PARAM_RATE);
--	struct snd_interval *channels = hw_param_interval(params,
--						SNDRV_PCM_HW_PARAM_CHANNELS);
-+	struct snd_interval *channels = hw_param_interval(params, SNDRV_PCM_HW_PARAM_CHANNELS);
-+	struct snd_interval *rate = hw_param_interval(params, SNDRV_PCM_HW_PARAM_RATE);
- 
- 	/* The ADSP will covert the FE rate to 48k, stereo */
+-	/* The ADSP will covert the FE rate to 48k, stereo */
++	/* The ADSP will convert the FE rate to 48k, stereo. */
  	rate->min = rate->max = 48000;
  	channels->min = channels->max = 2;
--
- 	/* set SSP0 to 16 bit */
+-	/* set SSP0 to 16 bit */
++	/* Set SSP0 to 16 bit. */
  	params_set_format(params, SNDRV_PCM_FORMAT_S16_LE);
-+
+ 
  	return 0;
- }
- 
- static int codec_link_hw_params(struct snd_pcm_substream *substream,
--	struct snd_pcm_hw_params *params)
-+				struct snd_pcm_hw_params *params)
- {
- 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 	int ret;
- 
--	ret = snd_soc_dai_set_sysclk(codec_dai, RT5640_SCLK_S_MCLK, 12288000,
--		SND_SOC_CLOCK_IN);
--
-+	ret = snd_soc_dai_set_sysclk(codec_dai, RT5640_SCLK_S_MCLK, 12288000, SND_SOC_CLOCK_IN);
- 	if (ret < 0) {
- 		dev_err(rtd->dev, "can't set codec sysclk configuration\n");
+@@ -58,7 +57,7 @@ static int codec_link_hw_params(struct snd_pcm_substream *substream,
  		return ret;
-@@ -74,29 +68,15 @@ static const struct snd_soc_ops codec_link_ops = {
- 	.hw_params = codec_link_hw_params,
+ 	}
+ 
+-	/* set correct codec filter for DAI format and clock config */
++	/* Set correct codec filter for DAI format and clock config. */
+ 	snd_soc_component_update_bits(codec_dai->component, 0x83, 0xffff, 0x8000);
+ 
+ 	return ret;
+@@ -133,7 +132,6 @@ static struct snd_soc_dai_link card_dai_links[] = {
+ 	},
  };
  
--SND_SOC_DAILINK_DEF(dummy,
--	DAILINK_COMP_ARRAY(COMP_DUMMY()));
--
--SND_SOC_DAILINK_DEF(system,
--	DAILINK_COMP_ARRAY(COMP_CPU("System Pin")));
-+SND_SOC_DAILINK_DEF(system, DAILINK_COMP_ARRAY(COMP_CPU("System Pin")));
-+SND_SOC_DAILINK_DEF(offload0, DAILINK_COMP_ARRAY(COMP_CPU("Offload0 Pin")));
-+SND_SOC_DAILINK_DEF(offload1, DAILINK_COMP_ARRAY(COMP_CPU("Offload1 Pin")));
-+SND_SOC_DAILINK_DEF(loopback, DAILINK_COMP_ARRAY(COMP_CPU("Loopback Pin")));
- 
--SND_SOC_DAILINK_DEF(offload0,
--	DAILINK_COMP_ARRAY(COMP_CPU("Offload0 Pin")));
--
--SND_SOC_DAILINK_DEF(offload1,
--	DAILINK_COMP_ARRAY(COMP_CPU("Offload1 Pin")));
--
--SND_SOC_DAILINK_DEF(loopback,
--	DAILINK_COMP_ARRAY(COMP_CPU("Loopback Pin")));
--
--SND_SOC_DAILINK_DEF(codec,
--	DAILINK_COMP_ARRAY(COMP_CODEC("i2c-INT33CA:00", "rt5640-aif1")));
--
--SND_SOC_DAILINK_DEF(platform,
--	DAILINK_COMP_ARRAY(COMP_PLATFORM("haswell-pcm-audio")));
--
--SND_SOC_DAILINK_DEF(ssp0_port,
--	    DAILINK_COMP_ARRAY(COMP_CPU("ssp0-port")));
-+SND_SOC_DAILINK_DEF(dummy, DAILINK_COMP_ARRAY(COMP_DUMMY()));
-+SND_SOC_DAILINK_DEF(codec, DAILINK_COMP_ARRAY(COMP_CODEC("i2c-INT33CA:00", "rt5640-aif1")));
-+SND_SOC_DAILINK_DEF(platform, DAILINK_COMP_ARRAY(COMP_PLATFORM("haswell-pcm-audio")));
-+SND_SOC_DAILINK_DEF(ssp0_port, DAILINK_COMP_ARRAY(COMP_CPU("ssp0-port")));
- 
- static struct snd_soc_dai_link card_dai_links[] = {
- 	/* Front End DAI links */
-@@ -137,15 +117,13 @@ static struct snd_soc_dai_link card_dai_links[] = {
- 		.dpcm_capture = 1,
- 		SND_SOC_DAILINK_REG(loopback, dummy, platform),
- 	},
--
- 	/* Back End DAI links */
- 	{
- 		/* SSP0 - Codec */
- 		.name = "Codec",
- 		.id = 0,
- 		.no_pcm = 1,
--		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
--			SND_SOC_DAIFMT_CBC_CFC,
-+		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBC_CFC,
- 		.ignore_pmdown_time = 1,
- 		.be_hw_params_fixup = codec_link_hw_params_fixup,
- 		.ops = &codec_link_ops,
-@@ -174,11 +152,10 @@ static int hsw_rt5640_probe(struct platform_device *pdev)
+-/* audio machine driver for Haswell Lynxpoint DSP + RT5640 */
+ static struct snd_soc_card hsw_rt5640_card = {
+ 	.name = "haswell-rt5640",
+ 	.owner = THIS_MODULE,
+@@ -152,7 +150,6 @@ static int hsw_rt5640_probe(struct platform_device *pdev)
  	int ret;
  
  	hsw_rt5640_card.dev = &pdev->dev;
--
- 	/* override platform name, if required */
+-	/* override platform name, if required */
  	mach = pdev->dev.platform_data;
--	ret = snd_soc_fixup_dai_links_platform_name(&hsw_rt5640_card,
--						    mach->mach_params.platform);
-+
-+	ret = snd_soc_fixup_dai_links_platform_name(&hsw_rt5640_card, mach->mach_params.platform);
- 	if (ret)
- 		return ret;
  
+ 	ret = snd_soc_fixup_dai_links_platform_name(&hsw_rt5640_card, mach->mach_params.platform);
+@@ -172,8 +169,7 @@ static struct platform_driver hsw_rt5640_driver = {
+ 
+ module_platform_driver(hsw_rt5640_driver)
+ 
+-/* Module information */
+ MODULE_AUTHOR("Liam Girdwood, Xingchao Wang");
+-MODULE_DESCRIPTION("Intel SST Audio for Haswell Lynxpoint");
+-MODULE_LICENSE("GPL v2");
++MODULE_DESCRIPTION("Sound card driver for Intel Haswell Lynx Point with Realtek 5640");
++MODULE_LICENSE("GPL");
+ MODULE_ALIAS("platform:hsw_rt5640");
 -- 
 2.25.1
 

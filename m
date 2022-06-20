@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD2ED551536
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jun 2022 12:05:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 046DE551542
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jun 2022 12:05:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D6E7218D0;
-	Mon, 20 Jun 2022 12:04:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6E7218D0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9537618D8;
+	Mon, 20 Jun 2022 12:05:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9537618D8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655719538;
-	bh=lD2G5JwHec2OmnF8T8Qd5ZXlprPapmWgIqCk2wrTBzE=;
+	s=default; t=1655719554;
+	bh=6JtxhdVF68FxjUQnyy4IHfIL6UuGS31kUjgIV/EBCks=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BS3bEJ6ncOXqgEo6WgeAUxdgVYgSKvJe/H8jqSOeGb56hJF0c/QHBzq3uo8JUTe/L
-	 nLeTcHV/ygMRDaP0kxMzc6fGzmwU0RGnGVXILY+uQ0RxZb7wuT0hMBqYvfvtWoyBuI
-	 mss9NCa/qYy3bsUL421Dg2HLbZmR0fAucIlkNoGw=
+	b=jN/6PIQejpouj9OQcvvXyVbL0hrpnUbf7ce3fbj6xH+ifqT7O4+J8aaxFNHgaxyQQ
+	 W0t7LJHS8lW6iI/amBChEWZWimbhTKFMN4sFCVVzrKGTOguCffeZ/CvyoWCdbB4WhQ
+	 fUX5CSElHzeyhkd5m2rpn8O4q+hDQW8699DQ1ehc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5941CF80536;
-	Mon, 20 Jun 2022 12:04:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 37218F80539;
+	Mon, 20 Jun 2022 12:04:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 166D0F800E3; Mon, 20 Jun 2022 12:03:57 +0200 (CEST)
+ id 05742F80538; Mon, 20 Jun 2022 12:03:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A7D79F800E3
+ by alsa1.perex.cz (Postfix) with ESMTPS id A1FB2F8052E
  for <alsa-devel@alsa-project.org>; Mon, 20 Jun 2022 12:03:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7D79F800E3
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1FB2F8052E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="EbPG74p5"
+ header.b="iUHlCfc1"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655719434; x=1687255434;
+ t=1655719437; x=1687255437;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=lD2G5JwHec2OmnF8T8Qd5ZXlprPapmWgIqCk2wrTBzE=;
- b=EbPG74p5LirdXS4+TmGoYWbcveX6m1sw7YHMBkNQ+42RHrj/Q6hok70+
- bwcbfbuQsKQiyHBe7hLb3ygMpGiZGxDlwHZP92ILbmTpHC4ovcuWuDHFB
- J9mxrzhyIJGWyq54K04YjHGIrf+8j4kyI2PBctiq2b67F+yP0ijhjakwK
- kbcFsjz4bORnFs83LSaR7ZwDAQ4VvLrYgUFRVef+qA/uAMv/7rw8KQSYy
- SZ7FhEPvRH8jz/mDF5pm86jCy6LJWyDF6f3Ky6CG+aF3c/wWw2ArAGcS9
- YG30eQy719QnqBN7BkvJhJOSctOL0p9W3dQtRyHIvr6kAftWlaPc7v4mI Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="366180657"
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="366180657"
+ bh=6JtxhdVF68FxjUQnyy4IHfIL6UuGS31kUjgIV/EBCks=;
+ b=iUHlCfc1AA7Gbw1VzJWEgRnE8hSz/lvgCvpAqsbL2/pSSgUCDPWCelBo
+ Cs8zccHqaeO8/jvZxzyJdHzfLm3Cmzk+rMicboArxkw41oaDoMXDAjwVb
+ wlTT2MMTGxXOXySLQtwq8FDpWxIneX4owUrAOdRdU/VdV7Ogl4aI/GUmN
+ dc3ZSJtLRAxHgLr/56KwIhjhGG9ucfIouQ78qlo+s5AY0nCi0L2gOjOjm
+ 7l7CREQ4IGe9+eUR9t/CLwafV8eZZ6KaFsshSVucdY2OeoenI60h184uR
+ bqztnJDSN2aTyvLn02iwD0/ZVbjl49OCIJiQ37bFubA0Ep/Hl1eg5toK6 Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="366180662"
+X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="366180662"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jun 2022 03:03:51 -0700
+ 20 Jun 2022 03:03:53 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="643046257"
+X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="643046267"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by fmsmga008.fm.intel.com with ESMTP; 20 Jun 2022 03:03:49 -0700
+ by fmsmga008.fm.intel.com with ESMTP; 20 Jun 2022 03:03:51 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Subject: [PATCH v4 02/17] ASoC: Intel: hsw_rt5640: Reword prefixes of all
- driver members
-Date: Mon, 20 Jun 2022 12:13:47 +0200
-Message-Id: <20220620101402.2684366-3-cezary.rojewski@intel.com>
+Subject: [PATCH v4 03/17] ASoC: Intel: hsw_rt5640: Reword driver name
+Date: Mon, 20 Jun 2022 12:13:48 +0200
+Message-Id: <20220620101402.2684366-4-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220620101402.2684366-1-cezary.rojewski@intel.com>
 References: <20220620101402.2684366-1-cezary.rojewski@intel.com>
@@ -92,143 +91,57 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Replace ambiguous 'haswell_rt5640_' prefixes in favour of 'card_',
-'link_' and other similar strings to clearly state which object given
-member implements behavior for.
+Align with other Intel boards naming convention and let the name
+explicitly state which components are being connected.
 
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 Reviewed-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 ---
- sound/soc/intel/boards/hsw_rt5640.c | 46 ++++++++++++++---------------
- 1 file changed, 23 insertions(+), 23 deletions(-)
+ sound/soc/intel/boards/hsw_rt5640.c                   | 4 ++--
+ sound/soc/intel/common/soc-acpi-intel-hsw-bdw-match.c | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/sound/soc/intel/boards/hsw_rt5640.c b/sound/soc/intel/boards/hsw_rt5640.c
-index aa61e101f793..b51ce8d0ca22 100644
+index b51ce8d0ca22..a096453bf1df 100644
 --- a/sound/soc/intel/boards/hsw_rt5640.c
 +++ b/sound/soc/intel/boards/hsw_rt5640.c
-@@ -16,12 +16,12 @@
- #include "../../codecs/rt5640.h"
- 
- /* Haswell ULT platforms have a Headphone and Mic jack */
--static const struct snd_soc_dapm_widget haswell_widgets[] = {
-+static const struct snd_soc_dapm_widget card_widgets[] = {
- 	SND_SOC_DAPM_HP("Headphones", NULL),
- 	SND_SOC_DAPM_MIC("Mic", NULL),
- };
- 
--static const struct snd_soc_dapm_route haswell_rt5640_map[] = {
-+static const struct snd_soc_dapm_route card_routes[] = {
- 
- 	{"Headphones", NULL, "HPOR"},
- 	{"Headphones", NULL, "HPOL"},
-@@ -32,7 +32,7 @@ static const struct snd_soc_dapm_route haswell_rt5640_map[] = {
- 	{"AIF1 Playback", NULL, "SSP0 CODEC OUT"},
- };
- 
--static int haswell_ssp0_fixup(struct snd_soc_pcm_runtime *rtd,
-+static int codec_link_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
- 			struct snd_pcm_hw_params *params)
- {
- 	struct snd_interval *rate = hw_param_interval(params,
-@@ -49,7 +49,7 @@ static int haswell_ssp0_fixup(struct snd_soc_pcm_runtime *rtd,
- 	return 0;
- }
- 
--static int haswell_rt5640_hw_params(struct snd_pcm_substream *substream,
-+static int codec_link_hw_params(struct snd_pcm_substream *substream,
- 	struct snd_pcm_hw_params *params)
- {
- 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-@@ -70,8 +70,8 @@ static int haswell_rt5640_hw_params(struct snd_pcm_substream *substream,
- 	return ret;
- }
- 
--static const struct snd_soc_ops haswell_rt5640_ops = {
--	.hw_params = haswell_rt5640_hw_params,
-+static const struct snd_soc_ops codec_link_ops = {
-+	.hw_params = codec_link_hw_params,
- };
- 
- SND_SOC_DAILINK_DEF(dummy,
-@@ -98,7 +98,7 @@ SND_SOC_DAILINK_DEF(platform,
- SND_SOC_DAILINK_DEF(ssp0_port,
- 	    DAILINK_COMP_ARRAY(COMP_CPU("ssp0-port")));
- 
--static struct snd_soc_dai_link haswell_rt5640_dais[] = {
-+static struct snd_soc_dai_link card_dai_links[] = {
- 	/* Front End DAI links */
- 	{
- 		.name = "System",
-@@ -147,8 +147,8 @@ static struct snd_soc_dai_link haswell_rt5640_dais[] = {
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
- 			SND_SOC_DAIFMT_CBC_CFC,
- 		.ignore_pmdown_time = 1,
--		.be_hw_params_fixup = haswell_ssp0_fixup,
--		.ops = &haswell_rt5640_ops,
-+		.be_hw_params_fixup = codec_link_hw_params_fixup,
-+		.ops = &codec_link_ops,
- 		.dpcm_playback = 1,
- 		.dpcm_capture = 1,
- 		SND_SOC_DAILINK_REG(ssp0_port, codec, platform),
-@@ -156,44 +156,44 @@ static struct snd_soc_dai_link haswell_rt5640_dais[] = {
- };
- 
- /* audio machine driver for Haswell Lynxpoint DSP + RT5640 */
--static struct snd_soc_card haswell_rt5640 = {
-+static struct snd_soc_card hsw_rt5640_card = {
- 	.name = "haswell-rt5640",
- 	.owner = THIS_MODULE,
--	.dai_link = haswell_rt5640_dais,
--	.num_links = ARRAY_SIZE(haswell_rt5640_dais),
--	.dapm_widgets = haswell_widgets,
--	.num_dapm_widgets = ARRAY_SIZE(haswell_widgets),
--	.dapm_routes = haswell_rt5640_map,
--	.num_dapm_routes = ARRAY_SIZE(haswell_rt5640_map),
-+	.dai_link = card_dai_links,
-+	.num_links = ARRAY_SIZE(card_dai_links),
-+	.dapm_widgets = card_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(card_widgets),
-+	.dapm_routes = card_routes,
-+	.num_dapm_routes = ARRAY_SIZE(card_routes),
- 	.fully_routed = true,
- };
- 
--static int haswell_audio_probe(struct platform_device *pdev)
-+static int hsw_rt5640_probe(struct platform_device *pdev)
- {
- 	struct snd_soc_acpi_mach *mach;
- 	int ret;
- 
--	haswell_rt5640.dev = &pdev->dev;
-+	hsw_rt5640_card.dev = &pdev->dev;
- 
- 	/* override platform name, if required */
- 	mach = pdev->dev.platform_data;
--	ret = snd_soc_fixup_dai_links_platform_name(&haswell_rt5640,
-+	ret = snd_soc_fixup_dai_links_platform_name(&hsw_rt5640_card,
- 						    mach->mach_params.platform);
- 	if (ret)
- 		return ret;
- 
--	return devm_snd_soc_register_card(&pdev->dev, &haswell_rt5640);
-+	return devm_snd_soc_register_card(&pdev->dev, &hsw_rt5640_card);
- }
- 
--static struct platform_driver haswell_audio = {
--	.probe = haswell_audio_probe,
-+static struct platform_driver hsw_rt5640_driver = {
-+	.probe = hsw_rt5640_probe,
+@@ -188,7 +188,7 @@ static int hsw_rt5640_probe(struct platform_device *pdev)
+ static struct platform_driver hsw_rt5640_driver = {
+ 	.probe = hsw_rt5640_probe,
  	.driver = {
- 		.name = "haswell-audio",
+-		.name = "haswell-audio",
++		.name = "hsw_rt5640",
  		.pm = &snd_soc_pm_ops,
  	},
  };
- 
--module_platform_driver(haswell_audio)
-+module_platform_driver(hsw_rt5640_driver)
- 
- /* Module information */
+@@ -199,4 +199,4 @@ module_platform_driver(hsw_rt5640_driver)
  MODULE_AUTHOR("Liam Girdwood, Xingchao Wang");
+ MODULE_DESCRIPTION("Intel SST Audio for Haswell Lynxpoint");
+ MODULE_LICENSE("GPL v2");
+-MODULE_ALIAS("platform:haswell-audio");
++MODULE_ALIAS("platform:hsw_rt5640");
+diff --git a/sound/soc/intel/common/soc-acpi-intel-hsw-bdw-match.c b/sound/soc/intel/common/soc-acpi-intel-hsw-bdw-match.c
+index 0441df97b260..4e00f8f6c521 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-hsw-bdw-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-hsw-bdw-match.c
+@@ -12,7 +12,7 @@
+ struct snd_soc_acpi_mach snd_soc_acpi_intel_haswell_machines[] = {
+ 	{
+ 		.id = "INT33CA",
+-		.drv_name = "haswell-audio",
++		.drv_name = "hsw_rt5640",
+ 		.fw_filename = "intel/IntcSST1.bin",
+ 		.sof_tplg_filename = "sof-hsw.tplg",
+ 	},
+@@ -41,7 +41,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_broadwell_machines[] = {
+ 	},
+ 	{
+ 		.id = "INT33CA",
+-		.drv_name = "haswell-audio",
++		.drv_name = "hsw_rt5640",
+ 		.fw_filename = "intel/IntcSST2.bin",
+ 		.sof_tplg_filename = "sof-bdw-rt5640.tplg",
+ 	},
 -- 
 2.25.1
 

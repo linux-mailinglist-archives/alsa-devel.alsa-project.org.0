@@ -2,85 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D8C2554F16
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jun 2022 17:25:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96C85554F15
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jun 2022 17:25:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C9A9D1F13;
-	Wed, 22 Jun 2022 17:24:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9A9D1F13
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4585C1EE8;
+	Wed, 22 Jun 2022 17:24:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4585C1EE8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655911522;
-	bh=nbbow5pWfxMzH3NUmmFs9ly6QQIUWASIOTghj4IlefU=;
+	s=default; t=1655911510;
+	bh=NcXpNtH+Jlgb6PTV7lsYU3FWa8/XgfjPnJFkV560tBk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=h/ZZTH1JAWeXNMGYMqqh2GXWfC/GrDFZ7UKlO9UPF6AglidoDskRI1OueBc0Okywd
-	 PMpWsSgK1U45J9wb0M4QiFPQufVg8StmVrKXkeutFu18qu5VBCDUvFFC7KfJ0SHSdh
-	 wq3I98ZDtrjX4kscck7Dl7KSKa0YdHNoZIK0u3KA=
+	b=ls4n8SrXuTvhbhQU6r23ACFNPBvx95I8LycQguv/+QFL8pGStwjMQtSsIsVDxukOs
+	 TLP7ks9D4Afqwdb/4qCshLdMjxJ0IGtn00xv3QFtIDO4B7ZM5Ja7SII2qm92MdWeYC
+	 779RjSXwDyW669P9on06jRWEpxDDt8zadRh4FrWs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3E1F7F8054A;
-	Wed, 22 Jun 2022 17:23:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C138CF80543;
+	Wed, 22 Jun 2022 17:23:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 68DDEF804E5; Mon, 20 Jun 2022 22:06:30 +0200 (CEST)
+ id 416E8F80536; Mon, 20 Jun 2022 22:06:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.6 required=5.0 tests=DKIM_ADSP_CUSTOM_MED,
- DKIM_INVALID,DKIM_SIGNED,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
- NML_ADSP_CUSTOM_MED,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [IPv6:2a00:1450:4864:20::432])
+X-Spam-Level: 
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [IPv6:2a00:1450:4864:20::32a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 219C0F804E7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 75D46F800CB
  for <alsa-devel@alsa-project.org>; Mon, 20 Jun 2022 22:06:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 219C0F804E7
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75D46F800CB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="MFe3Q+6q"
-Received: by mail-wr1-x432.google.com with SMTP id i10so12332208wrc.0
+ header.b="M57wXO9i"
+Received: by mail-wm1-x32a.google.com with SMTP id
+ p6-20020a05600c1d8600b0039c630b8d96so6919401wms.1
  for <alsa-devel@alsa-project.org>; Mon, 20 Jun 2022 13:06:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=+RKr+XEaRdRjV4wQDDo6dA3o5NhQRFg9bdRqt89GYJ0=;
- b=MFe3Q+6q+h4xcL+TmQJO+X66B7qIj60KwU1bFNqVSVGdb6rLV0HBSOV2kqB2IjbUOu
- EeUFb2zxP73mwWK5HebDmiVlcTN8/lZAhuLs1PYprMOgS3IJsFXo991qtdEe757TgDt9
- PNPQFGJRS+9ee64SFv8BTOpI+yUy8iMY6XDOthlwL791AZzHrgjOrzL2Z+WNMe4Q5oWF
- qoB1e1HBzkv5OpvL4CfZkeKUFNVwqSHVXe+sPPHD6FW/G5Yf9GVjSClhAKk8/5129GdY
- Md+190DcO8iXrY/zsP1mYBAaO/sM8k8KeCFB2bYWTrEW6jR8+hXYDV/1ognbiuUqqzMD
- dr9A==
+ bh=wkuS+j3EIennvsLgZYGM7vfpABGRVV/MeAPfOizAshw=;
+ b=M57wXO9iRmAgu6U0WPasocwyW6YC4HvS/IJuioNN538vnmyv29ll0KmRtJRGqY4itN
+ I5gbLCbLPlKHq7ZNuKC0QkXblcjbrochyZFlSuHnjjhoHPPr1Vg/TNn/mngewPIWO169
+ E27kNJdVJV3Q769UkEnpR1Oh4c69WClUwfdfkWm6pR4le2OgBRbLQJrUBMFotv/eASj1
+ YU0JLn4khTyo1PQcOGGFf4AknS/GI3pTm1R4xxZ86sjh87yWudtYtwnb4CMZDPW1zXwd
+ CLfvknNTNJG/K6TH6GcO0gCA7f0ytehD0u7KI3rLDYx1D5YiPv3fyPkopDKkyw4YaySB
+ j/Kg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=+RKr+XEaRdRjV4wQDDo6dA3o5NhQRFg9bdRqt89GYJ0=;
- b=OzLqnvQ3Cv1j591hD9jgHmfhm4OcuTqQuuxibRKbizla4WPNuqN8wtxJYx4rRUPacS
- AL8hANPY11bAKeH5lVo++s1U07JN+AWWAHCmNhhmqTgocNeubQJsKz1SygJNR5IWCzvs
- QOYb3pRng8D+3xjxXFXeCrgX2WA4hweD0WaasURuQYglWkj86xCZQ00WL3QWuRdEmMfK
- QsnfmBOKvKiUH0XlIUtdrPtu7TmDl7qZlO+Oqs+vsjh4pCLkdNDMeqpOmeckBDUQHH9s
- jkpd32tHk9sJP5BFHvM/UdP4Y/E+FzXb+yvoidmTdmqbb6fzgCG4jTKD5BpBWViXrZcm
- Cjzw==
-X-Gm-Message-State: AJIora9KvbDPXv7Fp4pXAJRo4sADyLCfu6x5Xyorr2QVpl6hiLX4OIFC
- L6P3hy6Lxcr6tlKwEQtGUMs=
-X-Google-Smtp-Source: AGRyM1s4brtjxXAe+5dbgtT8AX6IW9qXMEOUfwY6ndJ5c4LaV2MOHLy/q9oiZpUl7AFgXk1xm6zPXA==
-X-Received: by 2002:a5d:6d8f:0:b0:218:45ef:30c2 with SMTP id
- l15-20020a5d6d8f000000b0021845ef30c2mr23978566wrs.411.1655755582833; 
- Mon, 20 Jun 2022 13:06:22 -0700 (PDT)
+ bh=wkuS+j3EIennvsLgZYGM7vfpABGRVV/MeAPfOizAshw=;
+ b=gQFeGwvbQP5GfyGk5BIgBv/i1cMmiey1QcORwWKZTZqw4cVPraVxV4kXSTCBRmjJd2
+ +pfAW1F93SHoWNY2Uzk0jjpkZD8FmWiF9ne2TTwZPgvmJ/sBa62Uy49S9scuXZePup1b
+ tULeF0y4jhDI802Vo/TC2/NGAmEzduBH2js0EMJnU5B5FNTQGHFfv8GAo0Rk4XBzdO+3
+ TYC+4C9CNokc7WeZSspSTfV5jFaLdH83EujYiNqGe3WiImA2UmtMyTu/TkUhk9RH1pL7
+ xVLQpcLwT70x4z6QTpr4GfJFc0uNDasdMVX05EHxWL5wn73AJEvdsqFA5XRmExbBisMz
+ AmpA==
+X-Gm-Message-State: AJIora9V6e0/nMVI8Bx9PkNXTMJwWTg0QTLyx+flD2zsi/s91r3j0kTl
+ 1lHRNLxv2lqvLcKYfO/xcDY=
+X-Google-Smtp-Source: AGRyM1uEEMAc+8FJxLc/mlb8t301IgpWCnjiYLUqgY6m1IDXCYaAeszmfVIolkVxg0Mtj7p66FG3gQ==
+X-Received: by 2002:a05:600c:5112:b0:397:53f5:e15b with SMTP id
+ o18-20020a05600c511200b0039753f5e15bmr26724095wms.93.1655755584181; 
+ Mon, 20 Jun 2022 13:06:24 -0700 (PDT)
 Received: from localhost (92.40.169.68.threembb.co.uk. [92.40.169.68])
  by smtp.gmail.com with ESMTPSA id
- x13-20020adfdd8d000000b0021b81855c1csm12567311wrl.27.2022.06.20.13.06.22
+ t22-20020a05600c41d600b0039db7f1a3f5sm15482666wmh.45.2022.06.20.13.06.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Jun 2022 13:06:22 -0700 (PDT)
+ Mon, 20 Jun 2022 13:06:23 -0700 (PDT)
 From: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
 To: broonie@kernel.org
-Subject: [PATCH 05/49] mfd: qcom-pm8008: Convert irq chip to config regs
-Date: Mon, 20 Jun 2022 21:06:00 +0100
-Message-Id: <20220620200644.1961936-6-aidanmacdonald.0x0@gmail.com>
+Subject: [PATCH 06/49] mfd: wcd934x: Convert irq chip to config regs
+Date: Mon, 20 Jun 2022 21:06:01 +0100
+Message-Id: <20220620200644.1961936-7-aidanmacdonald.0x0@gmail.com>
 In-Reply-To: <20220620200644.1961936-1-aidanmacdonald.0x0@gmail.com>
 References: <20220620200644.1961936-1-aidanmacdonald.0x0@gmail.com>
 MIME-Version: 1.0
@@ -115,170 +115,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Use config registers to simplify the driver, putting all of the
-code for irq type configuration in one place instead of splitting
-it up arbitrarily between type and virtual registers.
-
-Remove the initial register setting in pm8008_init(). The comment
-indicates this is a hack to work around quirks in regmap-irq, but
-this is not necessary if using config registers.
+Switch the driver to config registers. This will allow the old
+type register code in regmap-irq to be removed.
 
 Signed-off-by: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
 ---
- drivers/mfd/qcom-pm8008.c | 76 +++++++++++----------------------------
- 1 file changed, 21 insertions(+), 55 deletions(-)
+ drivers/mfd/wcd934x.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/mfd/qcom-pm8008.c b/drivers/mfd/qcom-pm8008.c
-index c472d7f8103c..da16566f7883 100644
---- a/drivers/mfd/qcom-pm8008.c
-+++ b/drivers/mfd/qcom-pm8008.c
-@@ -73,15 +73,16 @@ static struct regmap_irq_sub_irq_map pm8008_sub_reg_offsets[] = {
- 	REGMAP_IRQ_MAIN_REG_OFFSET(p3_offs),
+diff --git a/drivers/mfd/wcd934x.c b/drivers/mfd/wcd934x.c
+index 68e2fa2fda99..07e884087f2c 100644
+--- a/drivers/mfd/wcd934x.c
++++ b/drivers/mfd/wcd934x.c
+@@ -55,17 +55,22 @@ static const struct regmap_irq wcd934x_irqs[] = {
+ 	WCD934X_REGMAP_IRQ_REG(WCD934X_IRQ_SOUNDWIRE, 2, BIT(4)),
  };
  
--static unsigned int pm8008_virt_regs[] = {
-+static unsigned int pm8008_config_regs[] = {
-+	PM8008_TYPE_BASE,
- 	PM8008_POLARITY_HI_BASE,
- 	PM8008_POLARITY_LO_BASE,
- };
- 
- enum {
-+	SET_TYPE_INDEX,
- 	POLARITY_HI_INDEX,
- 	POLARITY_LO_INDEX,
--	PM8008_NUM_VIRT_REGS,
- };
- 
- static struct regmap_irq pm8008_irqs[] = {
-@@ -95,32 +96,36 @@ static struct regmap_irq pm8008_irqs[] = {
- 	REGMAP_IRQ_REG(PM8008_IRQ_GPIO2,	PM8008_GPIO2,	BIT(0)),
- };
- 
--static int pm8008_set_type_virt(unsigned int **virt_buf,
--				      unsigned int type, unsigned long hwirq,
--				      int reg)
-+static int pm8008_set_type_config(unsigned int **buf, unsigned int type,
-+				  const struct regmap_irq *irq_data, int idx)
- {
- 	switch (type) {
- 	case IRQ_TYPE_EDGE_FALLING:
- 	case IRQ_TYPE_LEVEL_LOW:
--		virt_buf[POLARITY_HI_INDEX][reg] &= ~pm8008_irqs[hwirq].mask;
--		virt_buf[POLARITY_LO_INDEX][reg] |= pm8008_irqs[hwirq].mask;
-+		buf[POLARITY_HI_INDEX][idx] &= ~irq_data->mask;
-+		buf[POLARITY_LO_INDEX][idx] |= irq_data->mask;
- 		break;
- 
- 	case IRQ_TYPE_EDGE_RISING:
- 	case IRQ_TYPE_LEVEL_HIGH:
--		virt_buf[POLARITY_HI_INDEX][reg] |= pm8008_irqs[hwirq].mask;
--		virt_buf[POLARITY_LO_INDEX][reg] &= ~pm8008_irqs[hwirq].mask;
-+		buf[POLARITY_HI_INDEX][idx] |= irq_data->mask;
-+		buf[POLARITY_LO_INDEX][idx] &= ~irq_data->mask;
- 		break;
- 
- 	case IRQ_TYPE_EDGE_BOTH:
--		virt_buf[POLARITY_HI_INDEX][reg] |= pm8008_irqs[hwirq].mask;
--		virt_buf[POLARITY_LO_INDEX][reg] |= pm8008_irqs[hwirq].mask;
-+		buf[POLARITY_HI_INDEX][idx] |= irq_data->mask;
-+		buf[POLARITY_LO_INDEX][idx] |= irq_data->mask;
- 		break;
- 
- 	default:
- 		return -EINVAL;
- 	}
- 
-+	if (type & IRQ_TYPE_EDGE_BOTH)
-+		buf[SET_TYPE_INDEX][idx] |= irq_data->mask;
-+	else
-+		buf[SET_TYPE_INDEX][idx] &= ~irq_data->mask;
++static const unsigned int wcd934x_config_regs[] = {
++	WCD934X_INTR_LEVEL0,
++};
 +
- 	return 0;
- }
- 
-@@ -128,20 +133,19 @@ static struct regmap_irq_chip pm8008_irq_chip = {
- 	.name			= "pm8008_irq",
- 	.main_status		= I2C_INTR_STATUS_BASE,
- 	.num_main_regs		= 1,
--	.num_virt_regs		= PM8008_NUM_VIRT_REGS,
- 	.irqs			= pm8008_irqs,
- 	.num_irqs		= ARRAY_SIZE(pm8008_irqs),
- 	.num_regs		= PM8008_NUM_PERIPHS,
- 	.not_fixed_stride	= true,
- 	.sub_reg_offsets	= pm8008_sub_reg_offsets,
--	.set_type_virt		= pm8008_set_type_virt,
- 	.status_base		= PM8008_STATUS_BASE,
- 	.mask_base		= PM8008_MASK_BASE,
- 	.unmask_base		= PM8008_UNMASK_BASE,
--	.type_base		= PM8008_TYPE_BASE,
- 	.ack_base		= PM8008_ACK_BASE,
--	.virt_reg_base		= pm8008_virt_regs,
--	.num_type_reg		= PM8008_NUM_PERIPHS,
-+	.config_base		= pm8008_config_regs,
-+	.num_config_bases	= ARRAY_SIZE(pm8008_config_regs),
-+	.num_config_regs	= PM8008_NUM_PERIPHS,
-+	.set_type_config	= pm8008_set_type_config,
+ static const struct regmap_irq_chip wcd934x_regmap_irq_chip = {
+ 	.name = "wcd934x_irq",
+ 	.status_base = WCD934X_INTR_PIN1_STATUS0,
+ 	.mask_base = WCD934X_INTR_PIN1_MASK0,
+ 	.ack_base = WCD934X_INTR_PIN1_CLEAR0,
+-	.type_base = WCD934X_INTR_LEVEL0,
+-	.num_type_reg = 4,
+-	.type_in_mask = false,
+ 	.num_regs = 4,
+ 	.irqs = wcd934x_irqs,
+ 	.num_irqs = ARRAY_SIZE(wcd934x_irqs),
++	.config_base = wcd934x_config_regs,
++	.num_config_bases = ARRAY_SIZE(wcd934x_config_regs),
++	.num_config_regs = 4,
++	.set_type_config = regmap_irq_set_type_config_simple,
  };
  
- static struct regmap_config qcom_mfd_regmap_cfg = {
-@@ -150,34 +154,6 @@ static struct regmap_config qcom_mfd_regmap_cfg = {
- 	.max_register	= 0xFFFF,
- };
- 
--static int pm8008_init(struct pm8008_data *chip)
--{
--	int rc;
--
--	/*
--	 * Set TEMP_ALARM peripheral's TYPE so that the regmap-irq framework
--	 * reads this as the default value instead of zero, the HW default.
--	 * This is required to enable the writing of TYPE registers in
--	 * regmap_irq_sync_unlock().
--	 */
--	rc = regmap_write(chip->regmap,
--			 (PM8008_TEMP_ALARM_ADDR | INT_SET_TYPE_OFFSET),
--			 BIT(0));
--	if (rc)
--		return rc;
--
--	/* Do the same for GPIO1 and GPIO2 peripherals */
--	rc = regmap_write(chip->regmap,
--			 (PM8008_GPIO1_ADDR | INT_SET_TYPE_OFFSET), BIT(0));
--	if (rc)
--		return rc;
--
--	rc = regmap_write(chip->regmap,
--			 (PM8008_GPIO2_ADDR | INT_SET_TYPE_OFFSET), BIT(0));
--
--	return rc;
--}
--
- static int pm8008_probe_irq_peripherals(struct pm8008_data *chip,
- 					int client_irq)
- {
-@@ -185,20 +161,10 @@ static int pm8008_probe_irq_peripherals(struct pm8008_data *chip,
- 	struct regmap_irq_type *type;
- 	struct regmap_irq_chip_data *irq_data;
- 
--	rc = pm8008_init(chip);
--	if (rc) {
--		dev_err(chip->dev, "Init failed: %d\n", rc);
--		return rc;
--	}
--
- 	for (i = 0; i < ARRAY_SIZE(pm8008_irqs); i++) {
- 		type = &pm8008_irqs[i].type;
- 
--		type->type_reg_offset	  = pm8008_irqs[i].reg_offset;
--		type->type_rising_val	  = pm8008_irqs[i].mask;
--		type->type_falling_val	  = pm8008_irqs[i].mask;
--		type->type_level_high_val = 0;
--		type->type_level_low_val  = 0;
-+		type->type_reg_offset = pm8008_irqs[i].reg_offset;
- 
- 		if (type->type_reg_offset == PM8008_MISC)
- 			type->types_supported = IRQ_TYPE_EDGE_RISING;
+ static bool wcd934x_is_volatile_register(struct device *dev, unsigned int reg)
 -- 
 2.35.1
 

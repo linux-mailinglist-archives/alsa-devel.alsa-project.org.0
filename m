@@ -2,87 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A569C551F77
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jun 2022 16:57:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DB6A551FA0
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jun 2022 17:04:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F0B561831;
-	Mon, 20 Jun 2022 16:56:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0B561831
+	by alsa0.perex.cz (Postfix) with ESMTPS id 245981840;
+	Mon, 20 Jun 2022 17:03:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 245981840
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655737065;
-	bh=iuHCJsCWRrFc8xRE1pPf353DnYJkGMJluzCFMW+Nr6Q=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1655737457;
+	bh=Y1fi247ft0oWSmzxxU/3YXXEXdB3FkAZemiwOXtWzys=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=K+80YSM1rcKjWWFEGJ3oH7USnujBFDzBBpc6YMbqNSI7CdFPKKi3BrpLZzOo79LzP
-	 a02WSjH6pFAUKO/VWOZx/3bcVXKhWH/i1xQmS9qmnD0eIvFWvBhc0qk2D8JsRyjX0S
-	 6VZMM4Og5xWsi+PBNSsLo5QgNvZR2+JknTFM0oHk=
+	b=uoBsKidf04Kd9gSlJ03+BOiSSdw92svJHVoAWQRXfbbx0G6ZsJYHG3lf9nB5aRWgl
+	 K7Q3j0n6vk0F0Sk4Cpn0XAbWoLtfyqqvKpe/VSam9cMiM8PAdRNS272rn9VVhVrPo0
+	 SACPdI/9OC2O7KAYyXXhWPOOizYh9y3m9GwERHfY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 54E3FF804D8;
-	Mon, 20 Jun 2022 16:56:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7A646F804D8;
+	Mon, 20 Jun 2022 17:03:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C101EF804D2; Mon, 20 Jun 2022 16:56:44 +0200 (CEST)
+ id F395BF804D2; Mon, 20 Jun 2022 17:03:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 90392F800CB
- for <alsa-devel@alsa-project.org>; Mon, 20 Jun 2022 16:56:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90392F800CB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 01FBFF800CB
+ for <alsa-devel@alsa-project.org>; Mon, 20 Jun 2022 17:03:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01FBFF800CB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Maa4UXxT"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="Lrtm5VxC"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="ZD/Q2ewz"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id C13A0B811D7;
- Mon, 20 Jun 2022 14:56:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01640C3411B;
- Mon, 20 Jun 2022 14:56:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1655736998;
- bh=iuHCJsCWRrFc8xRE1pPf353DnYJkGMJluzCFMW+Nr6Q=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Maa4UXxTdt3KZpgrG3Bdx+W/MPuQawr5e4TNJJ861YViGUrJ0N5wel/7n6wsgIZ+g
- tyve74E9CTe/JKawsgozk5sAZfqVl+m9dsj9540Z2Pk9PYPSs5N96jM6yw/0Pe+5up
- OuZUE3yFNLH9+2PHOOjek94zMLsKyEejQEJyNFhwBOArVeI2YsY3FtieoN0W3VlY/Q
- t21P/3MIqx2FNfrkU7U/0+x90M3A4gAXtFQBemeNpRHXWUzOhzCfDvmM+OqmEYu7m5
- XuoHD19cmutNfSdAPAdklL31pj7efFk1CWj0YORIyMzkVpwMpBAgpkThMdut9k67m7
- 30DSA9rk+tzYQ==
-Date: Mon, 20 Jun 2022 15:56:31 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Pierluigi Passaro <pierluigi.p@variscite.com>
-Subject: Re: [PATCH 4/4] ASoC: wm8904: add DMIC support
-Message-ID: <YrCKn6UgvdwOQqAu@sirena.org.uk>
-References: <AM6PR08MB437614D88A0F44746C2B88BAFFB09@AM6PR08MB4376.eurprd08.prod.outlook.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="AbQUs8uU3Zo5uRnw"
-Content-Disposition: inline
-In-Reply-To: <AM6PR08MB437614D88A0F44746C2B88BAFFB09@AM6PR08MB4376.eurprd08.prod.outlook.com>
-X-Cookie: Good day to avoid cops.  Crawl to work.
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "nicoleotsuka@gmail.com" <nicoleotsuka@gmail.com>,
- "Xiubo.Lee@gmail.com" <Xiubo.Lee@gmail.com>,
- "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
- "shengjiu.wang@gmail.com" <shengjiu.wang@gmail.com>,
- "tiwai@suse.com" <tiwai@suse.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- Eran Matityahu <eran.m@variscite.com>,
- "robh+dt@kernel.org" <robh+dt@kernel.org>,
- Alifer Willians de Moraes <alifer.m@variscite.com>,
- "patches@opensource.cirrus.com" <patches@opensource.cirrus.com>,
- "festevam@gmail.com" <festevam@gmail.com>
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 61F3F21B8B;
+ Mon, 20 Jun 2022 15:03:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1655737387; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Px+U3Ac/+enqRkMwsj3oS3ibt/sflNGYtJovDmVGWfQ=;
+ b=Lrtm5VxCCWDMSW4f/l52WN/Uyw/7yVPqfelIM215p87+hn+4EhIJhbTLSj29E+ku+8kINy
+ TrA375fkQioUOGVJk+UOScZjq9z91j+jFfG1rzyldAB+fPxlDqAXbCzl85lYvqhE7aZqal
+ yj+cfFEtko/ZWtcPpvuIrDs2ckqctAU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1655737387;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Px+U3Ac/+enqRkMwsj3oS3ibt/sflNGYtJovDmVGWfQ=;
+ b=ZD/Q2ewz0kDDlKEaEsy9Y6o6wi2oJVtvuJZLNa41uBCotF1FCu61Qd0VDJcS74tgZYqcdo
+ A4X7G/jdZTTQgwDg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 45EB913638;
+ Mon, 20 Jun 2022 15:03:07 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id zK4nECuMsGI7cAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Mon, 20 Jun 2022 15:03:07 +0000
+Date: Mon, 20 Jun 2022 17:03:06 +0200
+Message-ID: <87r13jpec5.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Subject: Re: Intel HDMI probe regression on IVB (and older?)
+In-Reply-To: <alpine.DEB.2.22.394.2206201141320.1532214@eliteleevi.tm.intel.com>
+References: <87bkunztec.wl-tiwai@suse.de>
+ <alpine.DEB.2.22.394.2206201141320.1532214@eliteleevi.tm.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, Lucas De Marchi <lucas.demarchi@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,45 +100,88 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Mon, 20 Jun 2022 11:26:52 +0200,
+Kai Vehmanen wrote:
+> 
+> Hi,
+> 
+> On Mon, 20 Jun 2022, Takashi Iwai wrote:
+> 
+> > we've got a regression report about Intel HDMI.  It seems that the
+> > recent change to skip the component binding (commit c9db8a30d9f0)
+> > throws away the devices incorrectly on IvyBridge.  I guess the similar
+> > issue could happen on older chips.  The bug report is found at
+> >   https://bugzilla.opensuse.org/show_bug.cgi?id=1200611
+> 
+> we'll check. We actually have IVB (and older), in the i915 CI and I can 
+> see the binding check working correctly there (with 5.19-rc2). But 
+> obviously something goes wrong in the reporter's case, so needs more 
+> debug.
 
---AbQUs8uU3Zo5uRnw
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+So this looks like a bug due to the use of pci_get_class().
+Since there is no pci_get_base_class(), we likely need to open-code
+the search, e.g. something like below.
 
-On Mon, Jun 20, 2022 at 02:49:51PM +0000, Pierluigi Passaro wrote:
 
-> > > +static const char *cin_text[] =3D {
-> > > +=A0=A0=A0=A0 "ADC", "DMIC"
-> > > +};
+Takashi
 
-> > > +static SOC_ENUM_SINGLE_DECL(cin_enum,
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0 WM8904_DIGITAL_MICROPHONE_0, 12, cin_text);
+-- 8< --
+From: Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH] ALSA: hda: Fix discovery of i915 graphics PCI device
 
-> > Why would this be runtime selectable?=A0 I'd expect the decision to use
-> > an analogue or digital microphone to be made in the hardware design.
+It's been reported that the recent fix for skipping the
+component-binding with D-GPU caused a regression on some systems; it
+resulted in the completely missing component binding with i915 GPU.
 
-> I agree that dedicated HW is required, but currently SW side there's no s=
-upport at all.
-> This patch is aiming to provide a way to enable DMIC on boards using it.
-> Is this supposed to be managed in a different way ?
+The problem was the use of pci_get_class() function.  It matches with
+the full PCI class bits, while we want to match only partially the PCI
+base class bits.  So, when a system has an i915 graphics device with
+the PCI class 0380, it won't hit because we're looking for only the
+PCI class 0300.
 
-Via firmware description.
+This patch fixes i915_gfx_present() to look up each PCI device and
+match with PCI base class explicitly instead of pci_get_class().
 
---AbQUs8uU3Zo5uRnw
-Content-Type: application/pgp-signature; name="signature.asc"
+Fixes: c9db8a30d9f0 ("ALSA: hda/i915 - skip acomp init if no matching display")
+Link: https://bugzilla.opensuse.org/show_bug.cgi?id=1200611
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/hda/hdac_i915.c | 15 ++++++---------
+ 1 file changed, 6 insertions(+), 9 deletions(-)
 
------BEGIN PGP SIGNATURE-----
+diff --git a/sound/hda/hdac_i915.c b/sound/hda/hdac_i915.c
+index 3f35972e1cf7..161a9711cd63 100644
+--- a/sound/hda/hdac_i915.c
++++ b/sound/hda/hdac_i915.c
+@@ -119,21 +119,18 @@ static int i915_component_master_match(struct device *dev, int subcomponent,
+ /* check whether Intel graphics is present and reachable */
+ static int i915_gfx_present(struct pci_dev *hdac_pci)
+ {
+-	unsigned int class = PCI_BASE_CLASS_DISPLAY << 16;
+ 	struct pci_dev *display_dev = NULL;
+-	bool match = false;
+ 
+-	do {
+-		display_dev = pci_get_class(class, display_dev);
+-
+-		if (display_dev && display_dev->vendor == PCI_VENDOR_ID_INTEL &&
++	for_each_pci_dev(display_dev) {
++		if (display_dev->vendor == PCI_VENDOR_ID_INTEL &&
++		    (display_dev->class >> 16) == PCI_BASE_CLASS_DISPLAY &&
+ 		    connectivity_check(display_dev, hdac_pci)) {
+ 			pci_dev_put(display_dev);
+-			match = true;
++			return true;
+ 		}
+-	} while (!match && display_dev);
++	}
+ 
+-	return match;
++	return false;
+ }
+ 
+ /**
+-- 
+2.35.3
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmKwip4ACgkQJNaLcl1U
-h9COyQf/e1DSNnLS5C1cVLwYjiESEN2bZYjPBZvXZ/Nil+AvbRsE6mebr8M1RLAW
-2Hhd0EnevkPtZygo8C0zz92XHbocSuNy15oYDIhYb7M3cG7VEOhqK8i2izZcs7CY
-pR4TpxfAncFHht0NaOPWauJOlapDytWDmSNKtmi0Y1EXbJi86winalwy//S7Q3nO
-Q/87q+YM253/joHhJK/cHMbz6ONqF1VodXrPX3SIJC40T3hW3mSqeNV/UFWkejdG
-ROH4DIdG6ydfG+Kiwsy6aAVVr9Fg2XqkoEQPZzHUv3Laujd6U2Z3HgRI4eDgsOJC
-hBOpo+Aw3wIT6Hjw5v4VY2YpcsD0YQ==
-=elfJ
------END PGP SIGNATURE-----
-
---AbQUs8uU3Zo5uRnw--

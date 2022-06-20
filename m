@@ -2,162 +2,155 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7226155215D
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jun 2022 17:41:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A10EA55215E
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jun 2022 17:41:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 201182970;
-	Mon, 20 Jun 2022 17:40:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 201182970
+	by alsa0.perex.cz (Postfix) with ESMTPS id 48C1D2974;
+	Mon, 20 Jun 2022 17:40:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 48C1D2974
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655739684;
-	bh=lef7KHgrFleWxLLINut0pR8+R0P5NoGqmea2ydSWYkc=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=beIbRgiGkT/pT5AJvqDzyb9h/qPh6YrAAhnw66zzC+hMM1WIN8B3fxsh3r1vw0OXZ
-	 vC3VensZl7vOp7kOQkfaL3DC50eFXmoQO5ToRTENbE+8JYjleSb9HDwX9YujuwxXqM
-	 jnk/x76eb+vGtDnL5oscH+dCrIu41efplzRG7G7I=
+	s=default; t=1655739700;
+	bh=PAQoZbqElIi2YIlWI3bFZUt6fZUul9KHohfD2LPFM6k=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=hl6Ar0Q+lFinO9BxhCnLxvJ+FoMcsy96H3Aam1IoxYoMQHt54dFJW7wIqAi2dJ+N5
+	 VMG7PtmjZlW1I/CEzf+vortMYyAXUe7AfhaZknsSi4DxOetb41SVxmhmYwWrOZouGv
+	 +DxoFvE0pXs3LXAnDV1kTkRhbM0TzWzMjNBhZgzI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 03E84F896ED;
+	by alsa1.perex.cz (Postfix) with ESMTP id 990BFF896F1;
 	Mon, 20 Jun 2022 17:08:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3F4E5F804D2; Mon, 20 Jun 2022 16:42:49 +0200 (CEST)
+ id 2B7B6F804CF; Mon, 20 Jun 2022 16:49:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2061d.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8b::61d])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04on0617.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe0e::617])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D2578F800CB
- for <alsa-devel@alsa-project.org>; Mon, 20 Jun 2022 16:42:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2578F800CB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 99DF6F800CB
+ for <alsa-devel@alsa-project.org>; Mon, 20 Jun 2022 16:49:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99DF6F800CB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=precisionplanting365.onmicrosoft.com
- header.i=@precisionplanting365.onmicrosoft.com header.b="U7iPT0nB"
+ dkim=pass (2048-bit key) header.d=variscite.com header.i=@variscite.com
+ header.b="JyM0kMfG"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cqSJna0ZQi5N3UF/4QmSemlEiIUTH+2Be6WuIIyHjqTmeZqBWLoi1EggCvGIafJ/QOujLzXuQQq5818diwCkqlYF+log0Q7v5Kg89CP6nLhXonsig3j7IgYRTjUq0SS7cqcbcFipOmZgxKC/xzKQBXu1Sn9Fx4A6XWNXVa7dKPuVWCQrxoPFErStV4WIpeTF+o7gr86oPeZFEqSdxfE29AeDLgpHFdIO3keJl1uWdVghUhPvPetexBZSxByK4yCShhzK5CuMCJTFANPUfl3YVuy2R2D2XwDtoHPcq3sa8FvAVrzhj4tdTdcidfwLMRlusXprO5bGfpa71C8rD+Vb2Q==
+ b=mZyG+/J3oqDssww8X3qr7ICgoNcV76lOTK4AK5QdsqeA+YFTz2CrXdA5qLZS/CQ0cCGRgNODkxUOrwOteTHtpwQSF347xGyG2THtaiM5ESyDWusKwFTiwmIuvrDu0FdQw3QpG1PQufTc8NCs9lkmEK47OYUe5bSkYWpQHFa7G26rctz1yzARoqJ78ymNmVxcySqldLDBLgRZtrL0iXJIRwkv8nMuXVZV8PdQhJ3fa1Q+yCZlWhmHsilxGuixTIE9olbPVnRu0QN+zBZmV6uHSvhXrF+7Aoi3Kmuix/RP86FtOb3AlPnK5Vzi38k4EubJxKiPrrYsEbRrtHdVd49H9A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sgpiwkovJymeC+YfQqa3JWZ4H38AES2mVNmFIrKrrOU=;
- b=joKYL0/5/+x+YZ6cjc5S1wkRpMlX1bBjmAd5PP1ByEPY16sReOVziS608OQyVvsgtWQ9SUVeyEvrhiRAu+xAqerKqTS8T7sNPFYZvWXmQOlYkzoWOnT6gHstySuLQoi6YDwgumvVDBSYkr3tUMrLei+NaiOMyfpjsyra5V1em9B99VOpZHUDx3UF7Dm1ZgTZ9y/wnqN5vOrBQTUn0QKOy6L7wcjIipCd+l6rlBIZmK6ZoKUaU8cxp63bFxEQtJR6x3gzxLJ4hkCmq1YJrTECKGTGFMfUlpyc3rhTOy2AXd8SU4KOeKY5afShpUzIv7MVt9o1xpYDyE9vUEtssgQbdw==
+ bh=PAQoZbqElIi2YIlWI3bFZUt6fZUul9KHohfD2LPFM6k=;
+ b=D3/UatALSpsVlmXoCwY7pBFh/SwVMjk3O0K9tAk5YxbNqq8Q6oAvGDkS2lPRKawA1jZ+l2gkFB1SfA6x48vQkKIh7Nb+OQDFPv4chrMuU8lTFzYZh23FbvmN/kqzt29yqiC3ZAHZ1lZJl2sM+zak9rQkHKf6vkC7V2/DPLnjY2g//XbuU49fbcvnzQMN6DZHOcw8duRySljwwn7WPuxoBCaV9XxqMHsb7ScTGndu2kW3q+axQg/nEOQ515yJCLSeF0fogUCwEw2GGevvBTMw83deOPRihuhSBKAYUpnbqxpk6cv7AH1adogbRnvHZt5IJ1QFx1zl0A+T45GdL7MOsg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=precisionplanting.com; dmarc=pass action=none
- header.from=precisionplanting.com; dkim=pass header.d=precisionplanting.com;
- arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=precisionplanting365.onmicrosoft.com;
- s=selector1-precisionplanting365-onmicrosoft-com;
+ smtp.mailfrom=variscite.com; dmarc=pass action=none
+ header.from=variscite.com; dkim=pass header.d=variscite.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=variscite.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sgpiwkovJymeC+YfQqa3JWZ4H38AES2mVNmFIrKrrOU=;
- b=U7iPT0nBk3NiJBxM8/g/4Rp6OBYx3zIf1LopzScbLneC22bjkswFg2SxZPZfSHb+RSkfbckGDBBUJ25UP1PYQ2SkfYrmU1uzUZ1/H8HpbwcQrqb0H4OOkMAlhsW9UqEZhh6w/20rd8RKJsCulx0YS2+553t8cVhK5IfE/BoCVz8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=precisionplanting.com;
-Received: from SA1PR22MB3196.namprd22.prod.outlook.com (2603:10b6:806:22b::8)
- by CO6PR22MB2865.namprd22.prod.outlook.com (2603:10b6:303:148::14)
+ bh=PAQoZbqElIi2YIlWI3bFZUt6fZUul9KHohfD2LPFM6k=;
+ b=JyM0kMfGvo/WU2kVy0Ktyvj6/IWu93H4Z6YI8mOfQwhX9uKR1FsmNFSkUyQMi3LdCOXk/rI6/++/Fz1/ZbRud9AsPEFSBac+O8TWAvC+JA/KIwcPcDVwbGBeg1nNysw7mVFxTY1Us1jQfdh+JxUHmAf7jyt5W7H+SZLN31uMYk81xGZA7vn0NGVydo2c9L6JNPWn/v0qCee/XXTso4bdMXZyK7vH2MxuTasY8hrpmlXDHpsgqqZIGf6ojsdaStFrGAYZwSoTWaS8z8vxRlmREnfaxKBSftgioUmWLqvlc6LZSS9q/WZrQgATFmayevaHQwdicIJ1yvXFS1GGdOrGLw==
+Received: from AM6PR08MB4376.eurprd08.prod.outlook.com (2603:10a6:20b:bb::21)
+ by DB9PR08MB7675.eurprd08.prod.outlook.com (2603:10a6:10:37e::12)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.18; Mon, 20 Jun
- 2022 14:42:36 +0000
-Received: from SA1PR22MB3196.namprd22.prod.outlook.com
- ([fe80::24b0:19e9:a42d:60b0]) by SA1PR22MB3196.namprd22.prod.outlook.com
- ([fe80::24b0:19e9:a42d:60b0%5]) with mapi id 15.20.5353.016; Mon, 20 Jun 2022
- 14:42:36 +0000
-Message-ID: <59135ae7-47a5-986b-99e2-6f10e4954fa6@precisionplanting.com>
-Date: Mon, 20 Jun 2022 09:42:33 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH v3] ASoC: ti: omap-mcbsp: duplicate sysfs error
+ 2022 14:49:51 +0000
+Received: from AM6PR08MB4376.eurprd08.prod.outlook.com
+ ([fe80::3d45:c206:59e3:6539]) by AM6PR08MB4376.eurprd08.prod.outlook.com
+ ([fe80::3d45:c206:59e3:6539%5]) with mapi id 15.20.5353.022; Mon, 20 Jun 2022
+ 14:49:51 +0000
+From: Pierluigi Passaro <pierluigi.p@variscite.com>
+To: Mark Brown <broonie@kernel.org>, Alifer Willians de Moraes
+ <alifer.m@variscite.com>
+Subject: Re: [PATCH 4/4] ASoC: wm8904: add DMIC support
+Thread-Topic: [PATCH 4/4] ASoC: wm8904: add DMIC support
+Thread-Index: AQHYhLRfHAn3pSWu3UKlkdl4F6FB6A==
+Date: Mon, 20 Jun 2022 14:49:51 +0000
+Message-ID: <AM6PR08MB437614D88A0F44746C2B88BAFFB09@AM6PR08MB4376.eurprd08.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@gmail.com>,
- David Owens <daowens01@gmail.com>, Jarkko Nikula <jarkko.nikula@bitmer.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-References: <20220616202645.1645972-1-dowens@precisionplanting.com>
- <46297969-8d1e-15d5-69da-db9019718c24@gmail.com>
- <6506993b-40ac-883c-71e1-707f2e1f647e@gmail.com>
-From: David Owens <dowens@precisionplanting.com>
-In-Reply-To: <6506993b-40ac-883c-71e1-707f2e1f647e@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: CH0PR13CA0006.namprd13.prod.outlook.com
- (2603:10b6:610:b1::11) To SA1PR22MB3196.namprd22.prod.outlook.com
- (2603:10b6:806:22b::8)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 6b7dc60c-4813-4a9d-304c-08da52cb1e1d
-X-MS-TrafficTypeDiagnostic: CO6PR22MB2865:EE_
-X-Microsoft-Antispam-PRVS: <CO6PR22MB2865F0D084350FF67D6032E2C0B09@CO6PR22MB2865.namprd22.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Cuq9WcnewxIqFNmLFr+6uqo83SgyvIRwtAg8/tYKT8vwvxhwmhhEXXpt4tgoOuMXQBlA21JFu2ZvqTvcop3qY75etEm+gQIVZ74hvZXD20bTGrYy+7Fcr2k9b8xDpOBhIyySP8uDIPqNOTOk3bWy3PTbDprSCsAAeFiKRXPd//CztcqY+dRPg4ELMkcdXS6xrf40ZE6JeNNviQH/UwfR2OuZjr1F9HC9LcvMjtM9/8EwgOj0zGn7UHcmKOK6dRHER6nEroVI38qpgi1IDqzwHaJq7IInk8UzcrJ1p5xPx0JiAXtGO/fdzm6yqHO78fgZ4IH6VSgv0tDtiA6SB4KnpgKXd6dlWc804cXfZ8zUhslVOVhL19dTCM1MQdJcI6HVjOu+91OLyDiZSVEHkOYq1CN5vY0V1MRgAZcds+690OdOZub/7Zug/YFb48g7JTKnzuV068jcLfxcDEzo5cTkeDp/0mx65OCyla+R/DUp9Oj6UNwHR+ixOnPI+I/AtRdaBTl9NCgA3SA+YoXbQ3HUfSfKi5KJGqSB3V+l5FgvdRuFuJfiqP5hwUQYcukSuzh+A0+832LekwBB1zVMLmttczMu2yozZkwLLtQuArTmmUdcFbP7Grmf0ALfiD+r3QV+mZu18k8n4vJMsKw+FUcSnmXvtqMj9EE/OrCvMdPLHcCTt3nzqQf52Qsj87AtK+iFZjx9R6/ODZ5WdUIzMmOJg/Ti8F2WB1RsMntXkJ1lMQU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA1PR22MB3196.namprd22.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(366004)(53546011)(2906002)(38100700002)(6512007)(5660300002)(7416002)(8936002)(186003)(52116002)(110136005)(2616005)(6506007)(86362001)(31696002)(36756003)(498600001)(66556008)(31686004)(83380400001)(6666004)(6486002)(4326008)(8676002)(66476007)(66946007)(66574015)(316002)(45980500001)(43740500002);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+suggested_attachment_session_id: 05ececfe-e684-2840-58e2-2098ad3eddff
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=variscite.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 2ac63fcf-4229-42b6-acd3-08da52cc2168
+x-ms-traffictypediagnostic: DB9PR08MB7675:EE_
+x-microsoft-antispam-prvs: <DB9PR08MB7675CB6DE780BC9B7B9D8336FFB09@DB9PR08MB7675.eurprd08.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 2q+PPto1aSgNSrieo4sdsRBniWzHg/HqK0nj5Hz98ue0A1YZuxksF9ExyFay76j06ckbKg0vMUFIIR19EXSNA30n1GK9tmS31NrTjprea6qGe3bgDFTGzkVCixlYivsASaSJYdUlvSm6djdpEWsXqpGC6nXm7h84sSkILu9gaIG1nve9LkEsBv5uPaqPKQjT89Wwoq34Ua+pVIjhdWv5LJTk1LCBim31ZsYcVT+WpuWBh9PRvlS7B2juAcACsUesryyd6ECzSbt7PB8xUjJ3hlXdnfiZ5+BekVlatlEbH3J+VmJk6kXKbkiSUz9VXCqTFPaMxxZ9xKT4sc9cYLk3/DnyFI7A6ikXt+tX6Xvb+JfWX8jTCagP6+OvUQEhWIYtq68vqvsCzX9NbUl15N6RQjYvZELUMC37uQSSSHcNnaS4a8YbkH9zYvqz1GFm/mKjKBIlbrv/Ezd3FIDXsM76jJUYMhogfXY1IXbB6OF9Xt+v0xZiJ7mbPrf4ixnLLs/c8TD+AQAbluePvT+GmruQlawBFIJxbljtZ0yGZc3W6q2CPjZ7tANDNdggfYviiERnhcsVJaKoFDWkqD/wTVwX0K3RU/UhGseGFncA/+sdxmTiPg0H+EUgbODg9i8WLK4ZB1HVEPjGX32p+aUjj1CcH7i7JclsUWj2VMd9yML1zJQQad29afbBsixWSVlvbnUm4qtLCpzrmiu2NxSoVwakgA==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:AM6PR08MB4376.eurprd08.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(396003)(346002)(366004)(136003)(39850400004)(66446008)(64756008)(71200400001)(38070700005)(66476007)(4326008)(186003)(41300700001)(76116006)(66946007)(6506007)(7416002)(66556008)(122000001)(2906002)(110136005)(8676002)(91956017)(55016003)(508600001)(7696005)(33656002)(54906003)(316002)(8936002)(6636002)(5660300002)(4744005)(9686003)(26005)(86362001)(52536014)(38100700002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TnhSY0phK2k0Q1M0NzRvclVkQ3FmYTdLNzBaRnh5THBQVXhsMlk0MEhkRkIv?=
- =?utf-8?B?M09pcDhpTWpjZzdRZXdQZm55YmxGSy8zb1BIc1RkUy9sSHFBRnIzT3J3MmtQ?=
- =?utf-8?B?WW9mWURvaHJZamFRK3F1cktIbHljNUg3SVM1c0pLejFWWlhzSithNWpjb2Ex?=
- =?utf-8?B?bW5JZHBTQ1FqdDV4d3pSck1nbmZwLzBUeWJCTHZYbk5HaXFIWWpqMTR3U0xX?=
- =?utf-8?B?TXR0cnJJNnBCN05RMElZZytsNDR6eDlkR09GOXBjYmx6SHYrY2JPMGNYMDIv?=
- =?utf-8?B?akgvTU1MV3NGUDFWd25wMXVzTkNFMHBEZUtZeVVrMjVBNndKK21aWlltamJt?=
- =?utf-8?B?VjdzazF2U2VMQWN2VSs1ZzhXOER0NStraFZMMUt4aUJCV21LTXhwR3h4RTBr?=
- =?utf-8?B?Mlh0L3NaSWFrWHIyalN4OGMvQ2hGOU1kUXJQQnJMYmM0cFZDRzBYL1VnT05X?=
- =?utf-8?B?Nlh0RFB3ZytqTVVGZzJLb0hGSjg3cDJYaEFDSFY5RWlJZno3L2VMQU4zanpi?=
- =?utf-8?B?T3Z0QTExZjlwbmdGQVRmOEpBMmJ3Uit2emJ1dkhWTWd2L0p3N215M2VzY3dS?=
- =?utf-8?B?Y2I4RUVRQ3o0NncwWUt5QzY0ZG9MNDE3UkZ2bytwTnFDUVZvZHlMTkZkcmt5?=
- =?utf-8?B?SWRCQkIvYnRjYS9iTDl2VFN1MU1ZeC9wc0Q1Qm05bU1ORCtjMUswejRkQ3VR?=
- =?utf-8?B?b21pNXlEajBGcTRTYWl5WkZlNUttUjR6d3VyUURySGwzaWxnRnJCTWhsbmJk?=
- =?utf-8?B?cTZBdnlxcDUxOUF6V0xSREZURWRXaEs5UEhBN25ZUHltYTlwOGlLZWZOLzg5?=
- =?utf-8?B?VGdtbSswTUdMMGVVUmVIalZNdjRHejVhZlNuYytVRS8wT21mTm0yUWducE1X?=
- =?utf-8?B?UE9hK2NjdzdHSnpsbFVoUTY5UzNjVXFkSnlKZko1eDZYRmZpWTRlUDYzdlpO?=
- =?utf-8?B?SGpvWkFRK1JNWDB2ckhmUURIelI1QTloRmZ4MUY1OG1uVUZmRmdQTjgzWnQ5?=
- =?utf-8?B?eER4T0lBaWxEOGsveFJmVnA5TEl4aERKbWcyUlhuRncxdGZuUkdlejJiYUtI?=
- =?utf-8?B?cURReVZTeEZtK0RsSDAxTEMxTU5xelNJSTZ2KzhRYUxja2NqbFR1UksvZ256?=
- =?utf-8?B?UlVFMGtBSWxTb0s1ajRMQWRhUjJPdVJTTklnZ2xlZVZYQVVPZzZxRjFIRnh2?=
- =?utf-8?B?d20yZnhNYWxYZDVjQlliNEg2MHhKZHJBUXd1QVpLQngra0ZQTFIvK2ZTV3Nv?=
- =?utf-8?B?eGh2eElMRzN5M3RJeWFIU3VDRWcwZmdjSi92OS90VkhQdHd0bFJ4Q1hDWUE3?=
- =?utf-8?B?RkV5NFNLUzRhNmFxcU51NTlScU1Sak5KLzBWOXFhWW5aWnRVNVYva3JGYU5i?=
- =?utf-8?B?TU9zQ2NFcEFnK3JHdmFybVVoTDdhN2VncUxYOTlHbXZXMS80T1luWndjcnps?=
- =?utf-8?B?THVDcXd5NGlTeVZ3YXVkUTNXei9oczY2SFVjUnlhRGd4THZKNHFySG5icmt6?=
- =?utf-8?B?c1JnL1RtK2pvVm9QbGdKSkc0WWJCRUtseFRzc3FWK1lWQWFsSnMvSi9EbW5w?=
- =?utf-8?B?S2NlT29pNmlBUzZSOUV4ekp1ZTVsZ2ROR0tkcW1pVk1qZXBDdnc4L2J5dGta?=
- =?utf-8?B?c0Q5bDhFb2FKbWUxQUVXMUl3ZmpMWkZjS2hiRy9hSnl1SVJNZGNkV01WNW05?=
- =?utf-8?B?VGhjR1lNNEhzbEJ3ekg0ZEg0bU11Nmg4SVBnWFIyUURXZEZLeVRPTHRkOFdp?=
- =?utf-8?B?OW9Wb3kwcjdjN3BITGpmblhJNTRvRUN6MHJPY2sxUVJuV21CNnF6Sk40WmRv?=
- =?utf-8?B?VzJHczExd3pVMG9QZ3JvNEVlS3o4NmduUmhnZndQWkZZeWx2d2l0OU5qUEw4?=
- =?utf-8?B?VjV1YStRL2V0VUl2YTUzRnJkeDBJLysxcU9QK0dWVmdzOHloaGJ0cWdZY243?=
- =?utf-8?B?QzZTblg4aWpYSC9FY1dRTFhqSDY0Z1NaQTVUTDd4UTZvQlYya2RUT3JwcmxR?=
- =?utf-8?B?SHBydHh4YWdQWHBjWk1vYzdVUmRVNWRHN1JSSURlaFZya2tEUFowc0Q2aE1m?=
- =?utf-8?B?dUdWd0ZpRFljOXNvM2daV2o4b3Q1UW0rVittbzh3OExiZmZ4Q3RNbTBFdXVE?=
- =?utf-8?B?amhlOXgvUEk5MDBHWjgyM1R1cjhrKzQ2TzBGOTV3S0x4akk2cEkvV0QvRDN2?=
- =?utf-8?B?S2QwWFVwVVdabEtveUxweW1BM2ZQMzR0TjVPNHFlNGdzb3dBVW5TMEFCUmsz?=
- =?utf-8?B?ZXZHK0hUbFZ2UG1PcDJ2QnB3b0tmUWJPblhHcS9WMlpTK25pdEhFZng2SFky?=
- =?utf-8?B?NDBpMThFV3NhdXBTREZ3MlRySFRFa1lHdFhQeDN5TE45ckJES3BuVElka1kz?=
- =?utf-8?Q?hE0Zm+ko8WXs49tpkM2AAorW7Yo7q39vlSNNKvHK4dKnd?=
-X-MS-Exchange-AntiSpam-MessageData-1: ccdZwyARyIDJF++18hn3Gx+kxwIN5+yFKrM=
-X-OriginatorOrg: precisionplanting.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6b7dc60c-4813-4a9d-304c-08da52cb1e1d
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR22MB3196.namprd22.prod.outlook.com
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?lrsSf2u7pRweDMpcirfaBIXYaKYXiIqZRjWMkmBeDK+2bQzuqM6wAJCniy?=
+ =?iso-8859-1?Q?Q/7n8F4OrIka/Lqe+IPDY/IHFLTSNpfQmfam2KKPgT9q4oEfqIReb6WNOS?=
+ =?iso-8859-1?Q?yPJcUGQyMdWtrjzs9cnf6a5A3xj/nbbW4Od+bX+WCcdh19/TrxQrjEIH3Y?=
+ =?iso-8859-1?Q?gfN7D/aBf5ngJ2J0pxpSjlFD62prEEMp18QCrkxbbpVqb7v7anhRMWiDVn?=
+ =?iso-8859-1?Q?aNk6ybcgCLmcqXXhpDvcvAk+0iiCxVoOhlgfaMqUKQ+cPn6ZPt7ePPtdx/?=
+ =?iso-8859-1?Q?HUOmwCcmk3NbAdOKuwTRkj5MY2D6gnPuSBK7WXutkfiEoByA5Xyo0jpF60?=
+ =?iso-8859-1?Q?9Pdg2TIC9CvdYtS6cWmz2ds9DvKU0X4iO/Cp+ecbCz4tencBJupEfZgYsq?=
+ =?iso-8859-1?Q?bOkJMhj4Csw/UMQw34qvq2Pel2b7RJFheNiqFj26FtaAR2VrmSgiq5bYkv?=
+ =?iso-8859-1?Q?5HWLmx9P5UgsrPMqjIV9aE94Zn5xRPHxjvGtyqaGsoPJE1Bguu8ZpRpnqx?=
+ =?iso-8859-1?Q?brvsmA1Glt+6+qBFVWKb3BSljOKtq3BxKIZVVSHRwtOJJ7oWATanZCIIcE?=
+ =?iso-8859-1?Q?FBKy5Cx1hmIoLbTufoO/TaDK/aBrihRjLPrVthCyxOnVsn7vV7b6nrLozK?=
+ =?iso-8859-1?Q?TTrjmZnSZ2Tz2HLs2v7m8WU/PtZjMy+/Xze54PKwyDtPEXGwl5W7x4hiy+?=
+ =?iso-8859-1?Q?f4IXT33pQ9IgYiBkESCg4wcLW5wTC5iprupUDWK6TimBzdZgXmoeyiWlK8?=
+ =?iso-8859-1?Q?IDsJV7oTn3Z7PMPwL2XNc1+qHBvPnObjXFRpZxenkz6isLD8MRCsZzt5+q?=
+ =?iso-8859-1?Q?fcBLf1zAgm1ASykDW9RmlhqkRXcVqQdifRlkDXm3GQ2aP1yFsHl2jiEBUr?=
+ =?iso-8859-1?Q?wgcv5lKqodwUEBAAsCiOv6wobjCiSUXX8O0FevjwaXkW1agZalGzREm3KK?=
+ =?iso-8859-1?Q?dlPwsnQoE1YDAzz1nttlJk4F73kKCPPkDxjiDKjY2Kd4qwCmYSaCb5Kypx?=
+ =?iso-8859-1?Q?4A0+Lln1gjxg/+OPYvXICselaDF8l41Ya+8Rkq14LisQ+OYqDcIWloyBwS?=
+ =?iso-8859-1?Q?hvXwOJjAnWUqq52jw8fPbl9LQDvbpQE9185c4p8PjsBwkDNEWrhMyNzUJk?=
+ =?iso-8859-1?Q?z5Sz8jQq08FBFuEUJfw/N8i3MYl8ngNvJknfESLJQr8+fhM6YAUEYsjP5+?=
+ =?iso-8859-1?Q?cuD1QGwjld870WKwEHSnvSfuUisXoYduANiEl/wHcDkHbvKVA0oz6P4pzA?=
+ =?iso-8859-1?Q?fTh2Qg0d9h1tx88Uukui5GnYRM3y7j1uretMnsPTxPGG0pHIlwt85e5PAR?=
+ =?iso-8859-1?Q?CL6FRv79n72BNAuPw+BBA7BzMlGj9eITmCKIuP/4vER77l4Z4egQSOQKIc?=
+ =?iso-8859-1?Q?kLT7lYRyeYGi6dscbgaABfF99iGlQ1NqnpnI3YMxE4AwzeBo98RSGzK5v4?=
+ =?iso-8859-1?Q?gdV35hbgiNgXi8Fo/MKclnDv2wkaG4jotq1NhIvvrvSOpHGLAdItaHkvFm?=
+ =?iso-8859-1?Q?XxmzlhmgQhvFzfBALBPfn8EKezLlR/XU1joxLlP3RvdIANf/M5WPZWv4N8?=
+ =?iso-8859-1?Q?f8/BSXIIQNxBPSX46Qy1W9UFsPl5jjeY+Hw6qb55l9LRmKEQiakSin3p2a?=
+ =?iso-8859-1?Q?iKmev9sdWYKzPLLpjDdc3WPgP9wR45kWgWz3LSbObZ/rLzV+9bwQLQOdU5?=
+ =?iso-8859-1?Q?PCKnpmURjy6OUhJwaJF8BEu3Izx2RB4jmmjTQ2Ch8hSUoaqNM1SLTnVWqk?=
+ =?iso-8859-1?Q?vknnU+orc94zocKWw1xTfmoDfTeonjWSWgIeZqN70LGsjRzXOmF0jWv2xu?=
+ =?iso-8859-1?Q?9JjtzJ5XYQ=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: variscite.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jun 2022 14:42:36.4976 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: aa593af2-61f8-4d4f-988a-e9c4c02b7f57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0BMaUG6EkoSaenxYyf6ZhLh2sGSpdIRMzPHIx/HQcIF6vg9/J/inCD3QHnCzslynFcTvy30OnGthDqXATpBaCt4syerNsio+bcbskZAeKuI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR22MB2865
-X-Mailman-Approved-At: Mon, 20 Jun 2022 17:06:46 +0200
-Cc: alsa-devel@alsa-project.org, linux-omap@vger.kernel.org,
- linux-kernel@vger.kernel.org
+X-MS-Exchange-CrossTenant-AuthSource: AM6PR08MB4376.eurprd08.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2ac63fcf-4229-42b6-acd3-08da52cc2168
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Jun 2022 14:49:51.3504 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 399ae6ac-38f4-4ef0-94a8-440b0ad581de
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: eqhdQIgNYBiDvZSH2ZBBCZXRxaQ+JfpLuMFaSdTfXrPxoezkaC3BivjKFa1j+ViBBqgPou6G0OuvhhCp0UeKHUuX/yMPCLCSZdoeX40nusw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB7675
+X-Mailman-Approved-At: Mon, 20 Jun 2022 17:06:44 +0200
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "nicoleotsuka@gmail.com" <nicoleotsuka@gmail.com>,
+ "Xiubo.Lee@gmail.com" <Xiubo.Lee@gmail.com>,
+ "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
+ "shengjiu.wang@gmail.com" <shengjiu.wang@gmail.com>,
+ "tiwai@suse.com" <tiwai@suse.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+ Eran Matityahu <eran.m@variscite.com>,
+ "robh+dt@kernel.org" <robh+dt@kernel.org>,
+ "patches@opensource.cirrus.com" <patches@opensource.cirrus.com>,
+ "festevam@gmail.com" <festevam@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -173,279 +166,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 6/18/22 01:36, P=C3=A9ter Ujfalusi wrote:
-
->
-> On 6/18/22 09:26, P=C3=A9ter Ujfalusi wrote:
->>
->> On 6/16/22 23:26, David Owens wrote:
->>> Convert to managed versions of sysfs and clk allocation to simplify
->>> unbinding and error handling in probe.  Managed sysfs node
->>> creation specifically addresses the following error seen the second tim=
-e
->>> probe is attempted after sdma_pcm_platform_register() previously reques=
-ted
->>> probe deferral>
->>> sysfs: cannot create duplicate filename '/devices/platform/68000000.ocp=
-/49022000.mcbsp/max_tx_thres'
->> This does not compile (on linux-next)?
-> The foillowing diff is needed:
->
-> diff --git a/sound/soc/ti/omap-mcbsp-st.c b/sound/soc/ti/omap-mcbsp-st.c
-> index 402a57a502e6..bae4f67165c1 100644
-> --- a/sound/soc/ti/omap-mcbsp-st.c
-> +++ b/sound/soc/ti/omap-mcbsp-st.c
-> @@ -296,7 +296,10 @@ static struct attribute *sidetone_attrs[] =3D {
->       &dev_attr_st_taps.attr,
->       NULL,
->  };
-> -ATTRIBUTE_GROUPS(sidetone);
-> +
-> +static const struct attribute_group sidetone_group =3D {
-> +     .attrs =3D sidetone_attrs,
-> +};
->
->  int omap_mcbsp_st_start(struct omap_mcbsp *mcbsp)
->  {
-> diff --git a/sound/soc/ti/omap-mcbsp.c b/sound/soc/ti/omap-mcbsp.c
-> index 176abe4271e9..6fcd860778e9 100644
-> --- a/sound/soc/ti/omap-mcbsp.c
-> +++ b/sound/soc/ti/omap-mcbsp.c
-> @@ -601,7 +601,10 @@ static struct attribute *additional_attrs[] =3D {
->       &dev_attr_dma_op_mode.attr,
->       NULL,
->  };
-> -ATTRIBUTE_GROUPS(additional);
-> +
-> +static const struct attribute_group additional_group =3D {
-> +     .attrs =3D additional_attrs,
-> +};
->
->  /*
->   * McBSP1 and McBSP3 are directly mapped on 1610 and 1510.
-
-Thanks for the recommendation, P=C3=A9ter.  I was under the impression ATTR=
-IBUTE_GROUPS() resolved to the same attribute_group struct as the change ab=
-ove but perhaps that's not the case.  I'll update the patch and resubmit.
-
--Dave
-
->
->
->
->> In file included from /home/stens/work/kernel/linux/include/linux/kobjec=
-t.h:20,
->>                  from /home/stens/work/kernel/linux/include/linux/module=
-.h:21,
->>                  from /home/stens/work/kernel/linux/sound/soc/ti/omap-mc=
-bsp-st.c:12:
->> /home/stens/work/kernel/linux/sound/soc/ti/omap-mcbsp-st.c:299:18: error=
-: 'sidetone_groups' defined but not used [-Werror=3Dunused-variable]
->>   299 | ATTRIBUTE_GROUPS(sidetone);
->>       |                  ^~~~~~~~
->> /home/stens/work/kernel/linux/include/linux/sysfs.h:154:38: note: in def=
-inition of macro '__ATTRIBUTE_GROUPS'
->>   154 | static const struct attribute_group *_name##_groups[] =3D {     =
-  \
->>       |                                      ^~~~~
->> /home/stens/work/kernel/linux/sound/soc/ti/omap-mcbsp-st.c:299:1: note: =
-in expansion of macro 'ATTRIBUTE_GROUPS'
->>   299 | ATTRIBUTE_GROUPS(sidetone);
->>       | ^~~~~~~~~~~~~~~~
->> cc1: all warnings being treated as errors
->> make[4]: *** [/home/stens/work/kernel/linux/scripts/Makefile.build:250: =
-sound/soc/ti/omap-mcbsp-st.o] Error 1
->> make[4]: *** Waiting for unfinished jobs....
->> In file included from /home/stens/work/kernel/linux/include/linux/kobjec=
-t.h:20,
->>                  from /home/stens/work/kernel/linux/include/linux/module=
-.h:21,
->>                  from /home/stens/work/kernel/linux/sound/soc/ti/omap-mc=
-bsp.c:12:
->> /home/stens/work/kernel/linux/sound/soc/ti/omap-mcbsp.c:604:18: error: '=
-additional_groups' defined but not used [-Werror=3Dunused-variable]
->>   604 | ATTRIBUTE_GROUPS(additional);
->>       |                  ^~~~~~~~~~
->> /home/stens/work/kernel/linux/include/linux/sysfs.h:154:38: note: in def=
-inition of macro '__ATTRIBUTE_GROUPS'
->>   154 | static const struct attribute_group *_name##_groups[] =3D {     =
-  \
->>       |                                      ^~~~~
->> /home/stens/work/kernel/linux/sound/soc/ti/omap-mcbsp.c:604:1: note: in =
-expansion of macro 'ATTRIBUTE_GROUPS'
->>   604 | ATTRIBUTE_GROUPS(additional);
->>       | ^~~~~~~~~~~~~~~~
->> cc1: all warnings being treated as errors
->>
->>
->>> Signed-off-by: David Owens <dowens@precisionplanting.com>
->>> ---
->>>
->>> Changes in v3:
->>>  * Whitespace changes only to allow clean applly
->>>
->>> Changes in v2:
->>>  * Improved error handling
->>>
->>> ---
->>>  sound/soc/ti/omap-mcbsp-priv.h |  2 --
->>>  sound/soc/ti/omap-mcbsp-st.c   | 21 ++++-----------------
->>>  sound/soc/ti/omap-mcbsp.c      | 26 ++++----------------------
->>>  3 files changed, 8 insertions(+), 41 deletions(-)
->>>
->>> diff --git a/sound/soc/ti/omap-mcbsp-priv.h b/sound/soc/ti/omap-mcbsp-p=
-riv.h
->>> index 7865cda4bf0a..da519ea1f303 100644
->>> --- a/sound/soc/ti/omap-mcbsp-priv.h
->>> +++ b/sound/soc/ti/omap-mcbsp-priv.h
->>> @@ -316,8 +316,6 @@ static inline int omap_mcbsp_read(struct omap_mcbsp=
- *mcbsp, u16 reg,
->>>
->>>  /* Sidetone specific API */
->>>  int omap_mcbsp_st_init(struct platform_device *pdev);
->>> -void omap_mcbsp_st_cleanup(struct platform_device *pdev);
->>> -
->>>  int omap_mcbsp_st_start(struct omap_mcbsp *mcbsp);
->>>  int omap_mcbsp_st_stop(struct omap_mcbsp *mcbsp);
->>>
->>> diff --git a/sound/soc/ti/omap-mcbsp-st.c b/sound/soc/ti/omap-mcbsp-st.=
-c
->>> index 0bc7d26c660a..402a57a502e6 100644
->>> --- a/sound/soc/ti/omap-mcbsp-st.c
->>> +++ b/sound/soc/ti/omap-mcbsp-st.c
->>> @@ -292,14 +292,11 @@ static ssize_t st_taps_store(struct device *dev,
->>>
->>>  static DEVICE_ATTR_RW(st_taps);
->>>
->>> -static const struct attribute *sidetone_attrs[] =3D {
->>> +static struct attribute *sidetone_attrs[] =3D {
->>>     &dev_attr_st_taps.attr,
->>>     NULL,
->>>  };
->>> -
->>> -static const struct attribute_group sidetone_attr_group =3D {
->>> -   .attrs =3D (struct attribute **)sidetone_attrs,
->>> -};
->>> +ATTRIBUTE_GROUPS(sidetone);
->>>
->>>  int omap_mcbsp_st_start(struct omap_mcbsp *mcbsp)
->>>  {
->>> @@ -347,7 +344,7 @@ int omap_mcbsp_st_init(struct platform_device *pdev=
-)
->>>     if (!st_data)
->>>             return -ENOMEM;
->>>
->>> -   st_data->mcbsp_iclk =3D clk_get(mcbsp->dev, "ick");
->>> +   st_data->mcbsp_iclk =3D devm_clk_get(mcbsp->dev, "ick");
->>>     if (IS_ERR(st_data->mcbsp_iclk)) {
->>>             dev_warn(mcbsp->dev,
->>>                      "Failed to get ick, sidetone might be broken\n");
->>> @@ -359,7 +356,7 @@ int omap_mcbsp_st_init(struct platform_device *pdev=
-)
->>>     if (!st_data->io_base_st)
->>>             return -ENOMEM;
->>>
->>> -   ret =3D sysfs_create_group(&mcbsp->dev->kobj, &sidetone_attr_group)=
-;
->>> +   ret =3D devm_device_add_group(mcbsp->dev, &sidetone_group);
->>>     if (ret)
->>>             return ret;
->>>
->>> @@ -368,16 +365,6 @@ int omap_mcbsp_st_init(struct platform_device *pde=
-v)
->>>     return 0;
->>>  }
->>>
->>> -void omap_mcbsp_st_cleanup(struct platform_device *pdev)
->>> -{
->>> -   struct omap_mcbsp *mcbsp =3D platform_get_drvdata(pdev);
->>> -
->>> -   if (mcbsp->st_data) {
->>> -           sysfs_remove_group(&mcbsp->dev->kobj, &sidetone_attr_group)=
-;
->>> -           clk_put(mcbsp->st_data->mcbsp_iclk);
->>> -   }
->>> -}
->>> -
->>>  static int omap_mcbsp_st_info_volsw(struct snd_kcontrol *kcontrol,
->>>                                 struct snd_ctl_elem_info *uinfo)
->>>  {
->>> diff --git a/sound/soc/ti/omap-mcbsp.c b/sound/soc/ti/omap-mcbsp.c
->>> index 4479d74f0a45..395493a2d965 100644
->>> --- a/sound/soc/ti/omap-mcbsp.c
->>> +++ b/sound/soc/ti/omap-mcbsp.c
->>> @@ -595,16 +595,13 @@ static ssize_t dma_op_mode_store(struct device *d=
-ev,
->>>
->>>  static DEVICE_ATTR_RW(dma_op_mode);
->>>
->>> -static const struct attribute *additional_attrs[] =3D {
->>> +static struct attribute *additional_attrs[] =3D {
->>>     &dev_attr_max_tx_thres.attr,
->>>     &dev_attr_max_rx_thres.attr,
->>>     &dev_attr_dma_op_mode.attr,
->>>     NULL,
->>>  };
->>> -
->>> -static const struct attribute_group additional_attr_group =3D {
->>> -   .attrs =3D (struct attribute **)additional_attrs,
->>> -};
->>> +ATTRIBUTE_GROUPS(additional);
->>>
->>>  /*
->>>   * McBSP1 and McBSP3 are directly mapped on 1610 and 1510.
->>> @@ -702,8 +699,7 @@ static int omap_mcbsp_init(struct platform_device *=
-pdev)
->>>             mcbsp->max_tx_thres =3D max_thres(mcbsp) - 0x10;
->>>             mcbsp->max_rx_thres =3D max_thres(mcbsp) - 0x10;
->>>
->>> -           ret =3D sysfs_create_group(&mcbsp->dev->kobj,
->>> -                                    &additional_attr_group);
->>> +           ret =3D devm_device_add_group(mcbsp->dev, &additional_group=
-);
->>>             if (ret) {
->>>                     dev_err(mcbsp->dev,
->>>                             "Unable to create additional controls\n");
->>> @@ -711,16 +707,7 @@ static int omap_mcbsp_init(struct platform_device =
-*pdev)
->>>             }
->>>     }
->>>
->>> -   ret =3D omap_mcbsp_st_init(pdev);
->>> -   if (ret)
->>> -           goto err_st;
->>> -
->>> -   return 0;
->>> -
->>> -err_st:
->>> -   if (mcbsp->pdata->buffer_size)
->>> -           sysfs_remove_group(&mcbsp->dev->kobj, &additional_attr_grou=
-p);
->>> -   return ret;
->>> +   return omap_mcbsp_st_init(pdev);
->>>  }
->>>
->>>  /*
->>> @@ -1431,11 +1418,6 @@ static int asoc_mcbsp_remove(struct platform_dev=
-ice *pdev)
->>>     if (cpu_latency_qos_request_active(&mcbsp->pm_qos_req))
->>>             cpu_latency_qos_remove_request(&mcbsp->pm_qos_req);
->>>
->>> -   if (mcbsp->pdata->buffer_size)
->>> -           sysfs_remove_group(&mcbsp->dev->kobj, &additional_attr_grou=
-p);
->>> -
->>> -   omap_mcbsp_st_cleanup(pdev);
->>> -
->>>     return 0;
->>>  }
->>>
-This email is intended solely for the use of the individual to whom it is a=
-ddressed and may contain confidential and/or privileged material. Any views=
- or opinions presented are solely those of the author and do not necessaril=
-y represent those of Precision Planting. If you are not the intended recipi=
-ent, be advised that you have received this email in error and that any use=
-, dissemination, forwarding, printing, or copying of this email is strictly=
- prohibited. Neither AGCO nor the sender accepts any responsibility for vir=
-uses, and it is your responsibility to scan, and virus check the e-mail and=
- its attachment(s) (if any).
+Hi All,=0A=
+=0A=
+> > +static const char *cin_text[] =3D {=0A=
+> > +=A0=A0=A0=A0 "ADC", "DMIC"=0A=
+> > +};=0A=
+> > +=0A=
+> > +static SOC_ENUM_SINGLE_DECL(cin_enum,=0A=
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0 WM8904_DIGITAL_MICROPHONE_0, 12, cin_text);=0A=
+> =0A=
+> Why would this be runtime selectable?=A0 I'd expect the decision to use=
+=0A=
+> an analogue or digital microphone to be made in the hardware design.=0A=
+=0A=
+I agree that dedicated HW is required, but currently SW side there's no sup=
+port at all.=0A=
+This patch is aiming to provide a way to enable DMIC on boards using it.=0A=
+Is this supposed to be managed in a different way ?=0A=
+=0A=
+Thanks=0A=
+Best Regards=0A=
+Pier=

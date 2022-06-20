@@ -2,89 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FB18551614
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jun 2022 12:41:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F4495517CD
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jun 2022 13:52:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 21B6E18E2;
-	Mon, 20 Jun 2022 12:41:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21B6E18E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 50CAE1910;
+	Mon, 20 Jun 2022 13:51:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50CAE1910
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655721712;
-	bh=jgajvZSVbngwPdv8HnL0huL7PBUl2O1JJE8YZ5rwuQs=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1655725947;
+	bh=SuVDCNHEbOlC2PLzJ5QaCIgC0aer/NGwULiY+KDStas=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=t59Yj7ATuVpSgDM9WC/PRKzJT3jdGxHk+ruBcP8gtjKiSrsFIDzVgYrT7wZintHZj
-	 zhEP09UJZqLCQleteoK52zLvg+4WIP8oCJENFK1fhTHBbk6MTogmZ7QMZhC3kaEyvl
-	 oGmn8WHVXSqYV3zqOQM5mBEuFdfKeWy1I6xK2jWA=
+	b=Jp+PZKxnLzlgjkSVaqmvXCNIffre0wp8oTx3LqfbLtbxmdCIzkTUBm+5e4D+dVAtv
+	 GdcIJMALBO2qbD5P9R+Ibphlht4RsgU8vmxBlcPeFoM/jdZI+T6w+wRsyTeRo2Ia9P
+	 FbB23J4xtcmP7B/IPr9T6aAWBj9bOjw4qMWfn0Sw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1361CF804E7;
-	Mon, 20 Jun 2022 12:40:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AF366F804D8;
+	Mon, 20 Jun 2022 13:51:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C1FCEF804DA; Mon, 20 Jun 2022 12:40:23 +0200 (CEST)
+ id 715F6F804D2; Mon, 20 Jun 2022 13:51:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B5B0CF804CF
- for <alsa-devel@alsa-project.org>; Mon, 20 Jun 2022 12:40:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5B0CF804CF
+ by alsa1.perex.cz (Postfix) with ESMTPS id E637AF800CB
+ for <alsa-devel@alsa-project.org>; Mon, 20 Jun 2022 13:51:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E637AF800CB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="F0YaDMv5"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="PYo72Xv3"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="oqZnxDXd"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 62DCE21BF0;
- Mon, 20 Jun 2022 10:40:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1655721611; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=r4We8pPMCTJdlem82aPMrZco7LO4PI+1zH3wBmd56jI=;
- b=F0YaDMv58oaihiNOC1hMu45bMjGYlNEs2yzqbMNdeqgNqLjoZaXzM2+KPjEMqIbvxgMGWO
- oZ9tUQjTEqNsHasQgamb42BeuHZupnw+ZCKG7hx6oouq31TL3n0k68lbI+UnqLNbB3cMSj
- +8BDswmIk6PWdpPXFyWm0KwKIzNTx4U=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1655721611;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=r4We8pPMCTJdlem82aPMrZco7LO4PI+1zH3wBmd56jI=;
- b=PYo72Xv3YDo+bgxdWGTasQtnVynZHGFCZ8uoihh0x7EYe55JY0snjNzWl44Y4pkjBewNga
- 8aY+7GwV2ORtZWBw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4A4A713A79;
- Mon, 20 Jun 2022 10:40:11 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 2PV6EYtOsGJkaAAAMHmgww
- (envelope-from <tiwai@suse.de>); Mon, 20 Jun 2022 10:40:11 +0000
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 2/2] ALSA: hda/via: Fix missing beep setup
-Date: Mon, 20 Jun 2022 12:40:08 +0200
-Message-Id: <20220620104008.1994-2-tiwai@suse.de>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20220620104008.1994-1-tiwai@suse.de>
-References: <20220620104008.1994-1-tiwai@suse.de>
+ by ams.source.kernel.org (Postfix) with ESMTPS id CBD52B810DE;
+ Mon, 20 Jun 2022 11:51:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95909C3411B;
+ Mon, 20 Jun 2022 11:51:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1655725881;
+ bh=SuVDCNHEbOlC2PLzJ5QaCIgC0aer/NGwULiY+KDStas=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=oqZnxDXdymuW3DXJZY+tYQW2OfXQ+EB7rKbjv75TayzceXTqgFFgJV09XbmtwT/bK
+ L83oAwW9bMFf0O/D9bQBd0W5Z2RVzey0jjgF7P6+sX2Dg0plBXEtaaxXgIOFFZWtUU
+ O8GrCaHTM+8kdRbbu9/svjfZ/TXoaLY3AI0ZLzEImlGF+CJOvf2+/j8VPxl9uVIwvL
+ PN5NW9+RrD91IBWo3ry5FTksOEcnJEgKTY3f4ngaRsrHkojJubFppxvgFzvMVgE+/S
+ vovEVgvYSJdPgVXvRRXJ5Sbj67ukQiXsmXfYMAvVlYNnJ0zphRuVnsVxQyA3NzlKVB
+ wxFFU1ChtYN7Q==
+From: Mark Brown <broonie@kernel.org>
+To: Sascha Hauer <s.hauer@pengutronix.de>, alsa-devel@alsa-project.org
+In-Reply-To: <20220617120133.4011846-1-s.hauer@pengutronix.de>
+References: <20220617120133.4011846-1-s.hauer@pengutronix.de>
+Subject: Re: [PATCH] ASoC: fsl_asrc_dma: Use dmaengine_terminate_async()
+Message-Id: <165572588033.132065.9906162568287485506.b4-ty@kernel.org>
+Date: Mon, 20 Jun 2022 12:51:20 +0100
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Cc: shengjiu.wang@gmail.com, kernel@pengutronix.de, Xiubo.Lee@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,38 +83,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Like the previous fix for Conexant codec, the beep_nid has to be set
-up before calling snd_hda_gen_parse_auto_config(); otherwise it'd miss
-the path setup.
+On Fri, 17 Jun 2022 14:01:33 +0200, Sascha Hauer wrote:
+> dmaengine_terminate_all() is deprecated and should no longer be used.
+> Use dmaengine_terminate_async() instead. This involves no functional change
+> since both functions do the same.
+> After dmaengine_terminate_async() dmaengine_synchronize() must be called
+> to make sure the channel has really stopped before the underlying memory
+> is freed. This is done implicitly by dma_release_channel() called from
+> the .hw_free hook.
+> 
+> [...]
 
-Fix the call order for addressing the missing beep setup.
+Applied to
 
-Fixes: 0e8f9862493a ("ALSA: hda/via - Simplify control management")
-Cc: <stable@vger.kernel.org>
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=216152
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/pci/hda/patch_via.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-diff --git a/sound/pci/hda/patch_via.c b/sound/pci/hda/patch_via.c
-index a05304f340df..aea7fae2ca4b 100644
---- a/sound/pci/hda/patch_via.c
-+++ b/sound/pci/hda/patch_via.c
-@@ -518,11 +518,11 @@ static int via_parse_auto_config(struct hda_codec *codec)
- 	if (err < 0)
- 		return err;
- 
--	err = snd_hda_gen_parse_auto_config(codec, &spec->gen.autocfg);
-+	err = auto_parse_beep(codec);
- 	if (err < 0)
- 		return err;
- 
--	err = auto_parse_beep(codec);
-+	err = snd_hda_gen_parse_auto_config(codec, &spec->gen.autocfg);
- 	if (err < 0)
- 		return err;
- 
--- 
-2.35.3
+Thanks!
 
+[1/1] ASoC: fsl_asrc_dma: Use dmaengine_terminate_async()
+      commit: 289a3ec0b5b9a2de6fc75633aa81f017792ecc99
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

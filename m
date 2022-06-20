@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EAC7D552169
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jun 2022 17:43:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F2B555216A
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jun 2022 17:43:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 805B829BC;
-	Mon, 20 Jun 2022 17:42:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 805B829BC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 384BA2989;
+	Mon, 20 Jun 2022 17:42:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 384BA2989
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655739809;
-	bh=UowpPsN4dwRx6/3c+/Ap4rkZrDx0R5Ze0ezebq/G9JI=;
+	s=default; t=1655739825;
+	bh=SHOEIrF38xPmyZAQNJywwdY8NAEVju9HZycyF5Sbvrk=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mJz2vMXCEMlJm5RDjE1TpPzOyD2dv90lXr8l0V5ySuHSxYnpuJCbWGTN9Cg5Qzw2e
-	 Ksj7OeHd6f/wwh9NBWaPzwImnsW1wkH9zC3UskNMiIQj8BMUG4CeMqqC/93QdSUa2W
-	 sp8vENH86C/V/yhK1gCncXP0Re+AsPY74rFdOI08=
+	b=EJsHLSgi9Xe9mayo82zZscbiWE+mYT4bBU5QDv6uCBIQbzSQOI43VpvHl8BnplyC1
+	 rl7txghkTfaq+DRT3M6IzaHGY9hMigY5gEHj8rQ2EOBgbLpnM7mM3F2ILrgrRzEbi/
+	 mDf3sKhLnx9rCK3GqY5A8JZWi9XyKczOtsB+Q5t8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 28B2EF80549;
-	Mon, 20 Jun 2022 17:09:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1497BF80553;
+	Mon, 20 Jun 2022 17:12:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C85FBF80543; Mon, 20 Jun 2022 17:09:21 +0200 (CEST)
+ id BE9D7F80551; Mon, 20 Jun 2022 17:12:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6E57FF8053D
- for <alsa-devel@alsa-project.org>; Mon, 20 Jun 2022 17:09:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E57FF8053D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6DEEFF80544
+ for <alsa-devel@alsa-project.org>; Mon, 20 Jun 2022 17:12:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DEEFF80544
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="oavu5I/Y"
+ header.b="b15okAyb"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 3CA4E612BC;
- Mon, 20 Jun 2022 15:09:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05906C3411B;
- Mon, 20 Jun 2022 15:09:10 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 61C2F6116C;
+ Mon, 20 Jun 2022 15:12:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75B6FC3411B;
+ Mon, 20 Jun 2022 15:12:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1655737754;
- bh=UowpPsN4dwRx6/3c+/Ap4rkZrDx0R5Ze0ezebq/G9JI=;
+ s=k20201202; t=1655737967;
+ bh=SHOEIrF38xPmyZAQNJywwdY8NAEVju9HZycyF5Sbvrk=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=oavu5I/YbxUqRbE8zqch6EIX41XpXQI0joby5hziQYwFeeIWNJveoetauTksx6kJw
- s5pkjUDxIHrbUvMJl+s7e42XXKBDikIs68DDJZf4HSQg0y6J3DC8Ik5UGJrO65M4Wz
- LNYUzn8xexo0ZssOhcPIC/vuo2Tx+puBCStNSyNXN2YReeF0h670DBH0+DTtfKOL+8
- RjOkUGkfPTj79Ts5qJrRVEDHJnTnB1BJYboaD/euBwpua/gu6LAbwnt16aVRCsX2Is
- DRsq3GXPwwjqNQl3dt7SG/Jp5M9k+SQBJ5sQbYyZUUL0beI3tc194vHcuTxyexU69G
- gOhT0VZsNTZmA==
-Date: Mon, 20 Jun 2022 16:09:07 +0100
+ b=b15okAyblhXu4iVfaa7hz2TNmmGhHGJbkDcf9sEW+gPd0t7paF88tUZ2vUcyqhknM
+ PRp1o3RxhakQ+KhIl0zgeTaCncv7uuBal+/v8fTKdhLEQPJqMudlqIcwdvtfbBinYE
+ qFU95Fj31xTnFK3WZhdExhXLpWMRLGO5cXjVBzSzuXSI44aqZ0ltYBeC6kZ/NDv4tm
+ Sxy7k9rWSMpEzJ8kYt08MtIEq/3dnMFM/Zpc7eNVVfSiELM32qKK79Cf3fN0ffNHAF
+ w64p5HnEtO2D8gJBYOYdQnxv1X3CCjbcbwTmjDaRSGt+4igbmDmnIjg2Kvi6DPViO7
+ 7m3RY7OWzODTw==
+Date: Mon, 20 Jun 2022 16:12:41 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Pierluigi Passaro <pierluigi.p@variscite.com>
-Subject: Re: [PATCH 4/4] ASoC: wm8904: add DMIC support
-Message-ID: <YrCNk+g6Xh7uC9fg@sirena.org.uk>
-References: <AM6PR08MB4376C690036C5558058C4F16FFB09@AM6PR08MB4376.eurprd08.prod.outlook.com>
+Subject: Re: [PATCH 3/4] ASoC: wm8904: extend device tree support
+Message-ID: <YrCOaW/K6muNnyRf@sirena.org.uk>
+References: <AM6PR08MB437675AD04D20721769B08A3FFB09@AM6PR08MB4376.eurprd08.prod.outlook.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="4wRJYg8FNZuITX9R"
+ protocol="application/pgp-signature"; boundary="/IGE4rk+pMEElHo5"
 Content-Disposition: inline
-In-Reply-To: <AM6PR08MB4376C690036C5558058C4F16FFB09@AM6PR08MB4376.eurprd08.prod.outlook.com>
+In-Reply-To: <AM6PR08MB437675AD04D20721769B08A3FFB09@AM6PR08MB4376.eurprd08.prod.outlook.com>
 X-Cookie: Good day to avoid cops.  Crawl to work.
 Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
  "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
@@ -99,34 +99,39 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---4wRJYg8FNZuITX9R
-Content-Type: text/plain; charset=us-ascii
+--/IGE4rk+pMEElHo5
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Jun 20, 2022 at 03:03:50PM +0000, Pierluigi Passaro wrote:
+On Mon, Jun 20, 2022 at 02:32:17PM +0000, Pierluigi Passaro wrote:
 
-> > Via firmware description.
+> > > +=A0 - drc-cfg-regs: Default registers value for R40/41/42/43 (DRC)
+> > > +=A0=A0=A0 The list must be (4 x num-drc-cfgs) entries long.
+> > > +=A0=A0=A0 If absent or incomplete, DRC is disabled.
 
-> Can you please provide any reference approach in the kernel code ?
+> > What is the purpose of having num-drc-cfgs?=A0 We can tell how large
+> > drc-cfg-regs is so it just seems redundant.
 
-git grep of_
-git grep fwnode_
+> Can you please point me to any reference implementation doing this ?
 
-and I don't immediately remember what the prefix is for ACPI functions.
+of_property_read_variable_uX_array() should do what you want, you can
+also use of_property_count_elems_of_size().  The main DT API header is
+linux/of.h.
 
---4wRJYg8FNZuITX9R
+--/IGE4rk+pMEElHo5
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmKwjZIACgkQJNaLcl1U
-h9DhxAf/QjS/aWkP17En2BvW+Gr3yNc/jrpVJq7UvOIWIXQbGH3NWey/fDtsW1Q8
-SfV0/JZKiG69wIff6Plva4R6TMcU9FuJTlbb5wnU3Vl/IbY7sdG3tXh6epyt5UBf
-xBKao3u3lpErY6OUF+xU6m9qf0MPlxGMVYgvQOOuJfE+0T6IBbS9fVSzr0assttw
-199iCsBk1c+0dF/ZufZubBpZUk6Y+b+mmEDQ/4GoM2bsutX1Nw+EIqUw+HWK4YO8
-CCltIK18dFjMm3bGhsEBCBcJCox0neYaCKmGhO9zb7YUTFlppaupdblWKBF58ylX
-BJCFh2F9Ue/m0syfrLOvA169USrKNA==
-=buGM
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmKwjmgACgkQJNaLcl1U
+h9AyNwf/SOmx1DddaNrhkB/9+jvoQAmDXpEJJAEanUhwzkSxLo4UmEeOQflNn9qA
+2PY0VObRD2/nzISwUccumqGAJzzx+nwIcAgRAd//JeIG/8Z69a4VEtZMxzjuiwMo
+QDPEWcIoP3Zal1K59ZbXoNdf5ZZuAGsrPg3o9EQRuawrwVBQdanQrGVn2ECfCwi8
+1l4G/8Xz3K8/F4/qtWHUHCiSH0aG/t+dzUCUmMgjejm8qslMjQnTzzYQC9/cml/D
+QoZBU2l6Gn+/e07dqQsXd95nogtd78aJNnIN9a0NxMNmYMz6hluR4Al0u+hXL3Ne
+DRMA8B/6nCzGQb7JkQA3heJjObYa9w==
+=NZIk
 -----END PGP SIGNATURE-----
 
---4wRJYg8FNZuITX9R--
+--/IGE4rk+pMEElHo5--

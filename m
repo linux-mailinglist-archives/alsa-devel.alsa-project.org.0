@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4875F55126B
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jun 2022 10:18:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CAB855126C
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jun 2022 10:18:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF9021887;
-	Mon, 20 Jun 2022 10:17:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF9021887
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0679C189F;
+	Mon, 20 Jun 2022 10:17:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0679C189F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655713084;
-	bh=jzk9gEODS+UbiDPxPhl7c2AALvLlouQ9VZFEzK9HTRo=;
+	s=default; t=1655713097;
+	bh=O4SwyI2G/dNCqyMJTE1m8IbY8RbyRbpnChN1eMMr6xc=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aTXH92T/hMK96Gz4EXsP51k4dRMnJxF4ETV5Q9DlRdk0z18j2/TZfHPl3gQjFpLik
-	 +UAT8agteiE6s90Nwj3invPLlk+s59uP0dxOHjTfb7Z3WF3ZfBl13qwH+Q2oceJk89
-	 fWRm2vsjP5vpl6XQ5OLygVYBzvu9/EDHNg51wLBY=
+	b=iMuDxUhdTQjFzQtO8ZEP3lRwGBendwtBZLZrg/SGCabvv43Q+ZLbqqekXuKVO6J/g
+	 1O0xxtAwHPY/1JAxa9AteGuNG4IqHyM9v8+8IN5Qc4y1QYxEzdhhylWPHWh/K5gjbe
+	 ypNX5wxmVAiYJkuL6S1O0yvGc6QnyUJ1bTIj95Ns=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0D208F805C7;
+	by alsa1.perex.cz (Postfix) with ESMTP id E1D7EF805CB;
 	Mon, 20 Jun 2022 10:13:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AD17DF805B0; Mon, 20 Jun 2022 10:12:55 +0200 (CEST)
+ id 2435BF805B2; Mon, 20 Jun 2022 10:12:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7FC66F80571
- for <alsa-devel@alsa-project.org>; Mon, 20 Jun 2022 10:12:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7FC66F80571
+ by alsa1.perex.cz (Postfix) with ESMTPS id 47A14F8057D
+ for <alsa-devel@alsa-project.org>; Mon, 20 Jun 2022 10:12:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47A14F8057D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="eMMO2gOB"
+ header.b="TKFPm2CP"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655712772; x=1687248772;
+ t=1655712773; x=1687248773;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=jzk9gEODS+UbiDPxPhl7c2AALvLlouQ9VZFEzK9HTRo=;
- b=eMMO2gOBgrf6yGHsQO3szNm65UB2UAtV+Orh8rkZnHYl7X7r4f/TX+q0
- 3h1t2QbbbL7Je9g6zfOmuVZ1t73aSbnbShdILOqoJ8ziGP7j4DIdhewJX
- fixaIoO7FSbSubpnRGpslyz3KHbFZneKLTvp1Y096A5lcaySEVsu3coUL
- taFJt/arIwzDPFz1D8d/X1A8Q0GiQ200ft7ExyaJuH75E0xlxFJ48EvA6
- mv6ZbFDdF5ZsOU3CLx373lK865JzMoKm8QodEI7bFhM3uxug8PE1h6Voe
- H1K9UpgxfAJ9xHDmC7UzYYbXdp7/3hQB67JSt0EucV7XlNsrzcxq7g1it w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="305270957"
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="305270957"
+ bh=O4SwyI2G/dNCqyMJTE1m8IbY8RbyRbpnChN1eMMr6xc=;
+ b=TKFPm2CPi5SmvqX8xrlSBUQtCDoR6mrYfYUXxY8x9+e4gk7yQICjKaxA
+ W1M7bzEE8XNQ7qauDuUdHo7gOxgtoLZYCOo06mi/pyLIq54H/x/J5UYjX
+ 0rQXWmp7cr11bB+oGnhWWBCMLU0TQ55hbZ4h5XW6tBn3wSEGB28oEZXWx
+ VthpNGWQMkkbAid2wz3kA1ZMEZGukUr5nZcEOdTVcRB7jICThHcOgZI68
+ NQU/NjnWFpT2YbIG+D8C+0UE0yWj5fCl07sdoUkPYR731oFJE9PQdZOJz
+ yn1FAkwPo3OCQoTeHizj0twgHx3Yi5eflcQOTv/cMk0gDuGmxbRk37q7J A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="305270963"
+X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="305270963"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jun 2022 01:12:49 -0700
+ 20 Jun 2022 01:12:51 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="591067475"
+X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="591067491"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by fmsmga007.fm.intel.com with ESMTP; 20 Jun 2022 01:12:47 -0700
+ by fmsmga007.fm.intel.com with ESMTP; 20 Jun 2022 01:12:50 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Subject: [PATCH v3 16/17] ASoC: Intel: bdw_rt286: Refactor jack handling
-Date: Mon, 20 Jun 2022 10:22:25 +0200
-Message-Id: <20220620082226.2489357-17-cezary.rojewski@intel.com>
+Subject: [PATCH v3 17/17] ASoC: Intel: bdw_rt286: Remove FE DAI ops
+Date: Mon, 20 Jun 2022 10:22:26 +0200
+Message-Id: <20220620082226.2489357-18-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220620082226.2489357-1-cezary.rojewski@intel.com>
 References: <20220620082226.2489357-1-cezary.rojewski@intel.com>
@@ -91,123 +91,58 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Use link->exit() rather than pdev->remove() to unassign jack during card
-unbind procedure so codec link initialization and exit procedures are
-synergistic.
-
-Also, there is no need to perform search for codec dai in suspend_pre()
-and resume_post() ourselves. Use snd_soc_card_get_codec_dai() instead.
+bdw_rt286_fe_ops is redundant as platform components already limit the
+number of channels available for the endpoint.
 
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 Reviewed-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 ---
- sound/soc/intel/boards/bdw_rt286.c | 53 +++++++++---------------------
- 1 file changed, 16 insertions(+), 37 deletions(-)
+ sound/soc/intel/boards/bdw_rt286.c | 25 -------------------------
+ 1 file changed, 25 deletions(-)
 
 diff --git a/sound/soc/intel/boards/bdw_rt286.c b/sound/soc/intel/boards/bdw_rt286.c
-index 091b8194fdcb..622f2424ca59 100644
+index 622f2424ca59..2317a0bb136a 100644
 --- a/sound/soc/intel/boards/bdw_rt286.c
 +++ b/sound/soc/intel/boards/bdw_rt286.c
-@@ -73,6 +73,13 @@ static int codec_link_init(struct snd_soc_pcm_runtime *rtd)
- 	return snd_soc_component_set_jack(codec, &card_headset, NULL);
- }
- 
-+static void codec_link_exit(struct snd_soc_pcm_runtime *rtd)
-+{
-+	struct snd_soc_component *codec = asoc_rtd_to_codec(rtd, 0)->component;
-+
-+	snd_soc_component_set_jack(codec, NULL, NULL);
-+}
-+
- static int codec_link_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
- 				      struct snd_pcm_hw_params *params)
- {
-@@ -189,6 +196,7 @@ static struct snd_soc_dai_link card_dai_links[] = {
- 		.id = 0,
- 		.no_pcm = 1,
- 		.init = codec_link_init,
-+		.exit = codec_link_exit,
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBC_CFC,
- 		.ignore_pmdown_time = 1,
- 		.be_hw_params_fixup = codec_link_hw_params_fixup,
-@@ -199,43 +207,24 @@ static struct snd_soc_dai_link card_dai_links[] = {
- 	},
+@@ -115,30 +115,6 @@ static const struct snd_soc_ops codec_link_ops = {
+ 	.hw_params = codec_link_hw_params,
  };
  
--static int bdw_rt286_disable_jack(struct snd_soc_card *card)
-+static int card_suspend_pre(struct snd_soc_card *card)
- {
--	struct snd_soc_component *component;
+-static const unsigned int channels[] = {
+-	2,
+-};
 -
--	for_each_card_components(card, component) {
--		if (!strcmp(component->name, "i2c-INT343A:00")) {
--			dev_dbg(component->dev, "disabling jack detect before going to suspend.\n");
--			snd_soc_component_set_jack(component, NULL, NULL);
--			break;
--		}
--	}
+-static const struct snd_pcm_hw_constraint_list constraints_channels = {
+-	.count = ARRAY_SIZE(channels),
+-	.list = channels,
+-	.mask = 0,
+-};
 -
--	return 0;
--}
-+	struct snd_soc_dai *codec_dai = snd_soc_card_get_codec_dai(card, "rt286-aif1");
- 
--static int bdw_rt286_suspend(struct snd_soc_card *card)
+-static int bdw_rt286_fe_startup(struct snd_pcm_substream *substream)
 -{
--	return bdw_rt286_disable_jack(card);
-+	return snd_soc_component_set_jack(codec_dai->component, NULL, NULL);
- }
- 
--static int bdw_rt286_resume(struct snd_soc_card *card)
-+static int card_resume_post(struct snd_soc_card *card)
- {
--	struct snd_soc_component *component;
+-	struct snd_pcm_runtime *runtime = substream->runtime;
 -
--	for_each_card_components(card, component) {
--		if (!strcmp(component->name, "i2c-INT343A:00")) {
--			dev_dbg(component->dev, "enabling jack detect for resume.\n");
--			snd_soc_component_set_jack(component, &bdw_rt286_headset, NULL);
--			break;
--		}
--	}
-+	struct snd_soc_dai *codec_dai = snd_soc_card_get_codec_dai(card, "rt286-aif1");
- 
--	return 0;
-+	return snd_soc_component_set_jack(codec_dai->component, &card_headset, NULL);
- }
- 
- static struct snd_soc_card bdw_rt286_card = {
- 	.owner = THIS_MODULE,
-+	.suspend_pre = card_suspend_pre,
-+	.resume_post = card_resume_post,
- 	.dai_link = card_dai_links,
- 	.num_links = ARRAY_SIZE(card_dai_links),
- 	.controls = card_controls,
-@@ -245,8 +234,6 @@ static struct snd_soc_card bdw_rt286_card = {
- 	.dapm_routes = card_routes,
- 	.num_dapm_routes = ARRAY_SIZE(card_routes),
- 	.fully_routed = true,
--	.suspend_pre = bdw_rt286_suspend,
--	.resume_post = bdw_rt286_resume,
- };
- 
- /* Use space before codec name to simplify card ID, and simplify driver name. */
-@@ -278,16 +265,8 @@ static int bdw_rt286_probe(struct platform_device *pdev)
- 	return devm_snd_soc_register_card(dev, &bdw_rt286_card);
- }
- 
--static int bdw_rt286_remove(struct platform_device *pdev)
--{
--	struct snd_soc_card *card = platform_get_drvdata(pdev);
--
--	return bdw_rt286_disable_jack(card);
+-	/* Board supports stereo configuration only */
+-	runtime->hw.channels_max = 2;
+-	return snd_pcm_hw_constraint_list(runtime, 0, SNDRV_PCM_HW_PARAM_CHANNELS,
+-					  &constraints_channels);
 -}
 -
- static struct platform_driver bdw_rt286_driver = {
- 	.probe = bdw_rt286_probe,
--	.remove = bdw_rt286_remove,
- 	.driver = {
- 		.name = "bdw_rt286",
- 		.pm = &snd_soc_pm_ops
+-static const struct snd_soc_ops bdw_rt286_fe_ops = {
+-	.startup = bdw_rt286_fe_startup,
+-};
+-
+ SND_SOC_DAILINK_DEF(system, DAILINK_COMP_ARRAY(COMP_CPU("System Pin")));
+ SND_SOC_DAILINK_DEF(offload0, DAILINK_COMP_ARRAY(COMP_CPU("Offload0 Pin")));
+ SND_SOC_DAILINK_DEF(offload1, DAILINK_COMP_ARRAY(COMP_CPU("Offload1 Pin")));
+@@ -157,7 +133,6 @@ static struct snd_soc_dai_link card_dai_links[] = {
+ 		.nonatomic = 1,
+ 		.dynamic = 1,
+ 		.trigger = {SND_SOC_DPCM_TRIGGER_POST, SND_SOC_DPCM_TRIGGER_POST},
+-		.ops = &bdw_rt286_fe_ops,
+ 		.dpcm_playback = 1,
+ 		.dpcm_capture = 1,
+ 		SND_SOC_DAILINK_REG(system, dummy, platform),
 -- 
 2.25.1
 

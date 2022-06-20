@@ -2,85 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08CC1554F0D
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jun 2022 17:24:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6144554F10
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jun 2022 17:24:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A75CC1EFE;
-	Wed, 22 Jun 2022 17:23:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A75CC1EFE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 63EEB1EDE;
+	Wed, 22 Jun 2022 17:23:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63EEB1EDE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655911451;
-	bh=BGjVD/pvTwOsdPF3ZKgAKvEKqE0G2mBJjFqkBY5e7jw=;
+	s=default; t=1655911472;
+	bh=1J1MpUnvCofQgUNyuCT8fFkN/6jqLlMd2DNkkj0VlIs=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WrEuJZJHgBygrdViN830DEBiKSnqKSKyg0CyNJ2UBjceYbD+XQAGsiVlZMB8AQh4j
-	 RW0Td1Yej7oRt9c6tJOtAyyly0UW0AJYIaMFJL6EC31ve0Kw0w4egwoJAhbm497ZOv
-	 8i5XmMw5JjYQgq+QBsJ3cf7xwFdDmcmfMoHaptDw=
+	b=kyaN4dj7u5WRR3zYiYoyT95awnul88+bQCAUHqGV2OV9CiH5RNi4EkpEf/4a1O8TS
+	 wuBzT98O0inkPzW8bdsFLH6MxETe3YwoQSSM4S6wC1seij1MHEIj7uZIH1aSN/YTu0
+	 K0n6grkJugXYn4zRES+CqWnuBziK9kQxhTtflSk8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 44523F800CB;
-	Wed, 22 Jun 2022 17:23:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 83F71F80538;
+	Wed, 22 Jun 2022 17:23:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 47090F804E5; Mon, 20 Jun 2022 22:06:24 +0200 (CEST)
+ id 95C61F804EB; Mon, 20 Jun 2022 22:06:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
  SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [IPv6:2a00:1450:4864:20::434])
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [IPv6:2a00:1450:4864:20::42f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9DA5DF800E3
- for <alsa-devel@alsa-project.org>; Mon, 20 Jun 2022 22:06:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9DA5DF800E3
+ by alsa1.perex.cz (Postfix) with ESMTPS id AB348F804D8
+ for <alsa-devel@alsa-project.org>; Mon, 20 Jun 2022 22:06:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB348F804D8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="paYIdrfs"
-Received: by mail-wr1-x434.google.com with SMTP id n1so15841819wrg.12
- for <alsa-devel@alsa-project.org>; Mon, 20 Jun 2022 13:06:17 -0700 (PDT)
+ header.b="G6wwdsUb"
+Received: by mail-wr1-x42f.google.com with SMTP id s1so16072728wra.9
+ for <alsa-devel@alsa-project.org>; Mon, 20 Jun 2022 13:06:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=8yaggp5fpGj18LvMF3HyT2CJ/UUMH+aDaQflQSqacJg=;
- b=paYIdrfsy1HcKjFG3USjGArwLlnXJ403FKBZEPKprh1PE/RRI93VAPiwepWUj+Ro7c
- ENC61PGASfcrY+pgOAuseMs4lQ6AScSKlCWwru9Ljvgf7pC4KMSA0bK4eGu3OCxV7qm5
- wgVWfAf3vE7WG0I2f3RsPT0dXYiyX6GqnUHQvuabUHTfmg5nJMNWCtH5ZMzBwNs25wX4
- t9E8oLF5DpWG+D3DpftCIf9mTSQJxDqoYaVCZhTgCuJRmMfUgjPLjlE/ERIuOv1UJLCy
- WClaj8RTIGJTGfmnGr90xpS3FB0zska6QllBOTUIBV7q3LzA4TCoQEqAIklVfUSlFkfB
- OuMA==
+ bh=UMBZF982Sgxs/kqKw98NXLNKJY18JDApVwptU4z2w/4=;
+ b=G6wwdsUb0o0KkrQXWK3doZef7L8BgtwmGkyRy70p/dnnUdSeIm80U4/sQB+DU/UyBu
+ lq+G3r2iFyKxiw8S2yrwvMIXSzdaqaSlzGS4cckrZH7OKT1FjnzDeBIuWam1Ix15Gcur
+ CfuLb/IeNTNq7XCpjpezZA1RortUasUbT6SbqO7vsRpKBd8y8QVrNVDKk8S2BlgA83Qo
+ sumJyldJr7QMcNLyzlmXUF+xt5g+wsclm5yeaMm9sxF+W/l0sViSgbIphnns4qWzmkfQ
+ TOnbQAZGAYQPI0jnJ4I4pX8zAZqQjOgq7SNmFg/7Q/XM7k1OPTgUVNx0dMxnLUJdn+hU
+ Ziwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=8yaggp5fpGj18LvMF3HyT2CJ/UUMH+aDaQflQSqacJg=;
- b=5qDPnHjL3Fz4PpBF1NYSxnzL/VqcqPYZiGJW9t04yCCkl5npoG6lKzg7hjoY7+yZn8
- 0zgLDqwRowTl4A5VefQpKcSrdYm+WYSmoHdlei7f3jQ0Rjub61pZ/1n6N6mw6OaR1gcz
- Xz8VXPTQ80dmjtjT3FhQh6xU0DhPCEOeBYJZDV8FXhJlz0TPtgUhQBaWXlz+Nf5LTXjV
- BTzaOSXGDTbeA5tS8rAVCTFWVhJLIHjVSwrtZrphLysGrAaph+77/rTJY0Iy+My2vyKV
- dTvwuZJWSFvbi9FisW31o4tBoJvzu24AZeZN5JYZZLKgy1VcYxYJeaJhdi2eDFQvTdcC
- 8lDg==
-X-Gm-Message-State: AJIora+gbUli6hjuv6bLAK9+GDYvmI5x3l3/fQPheuCQPFH0VdilBiHI
- 08CfPNOGJJ0VDpEjeiYU7CA=
-X-Google-Smtp-Source: AGRyM1tqaOvSQ7Sb2fsCdfhlkOWzq8CIvRvGO9y9U1DjiSWuL/0J+/imI8fVxdWC8klmC3T0EKcKBg==
-X-Received: by 2002:adf:fec2:0:b0:21a:6cff:a4f1 with SMTP id
- q2-20020adffec2000000b0021a6cffa4f1mr18314590wrs.139.1655755576525; 
- Mon, 20 Jun 2022 13:06:16 -0700 (PDT)
+ bh=UMBZF982Sgxs/kqKw98NXLNKJY18JDApVwptU4z2w/4=;
+ b=yhNfjv1vw9VUzGCuEdz/33JVbEonXClmLN+1ZfEy08ps4CUhD8NiT6WBZabx3FM9VE
+ mPCf5KwiBE1ecGLruzYRwWznRvBAFHn99lm89r1vKVq4b+uFKEP+BxUSjnAG984kz9Td
+ iM8W13g/nD0/Z1rIdBgliMuHnsTR/q10vVbjbQ4GROJbSQQJUYR7+o19lYRKuF3V73CO
+ dsz94mKf+HIhECMQMUhxHHPMHrg5Y87kJSbZbphndq93o7lL+IJP+7QwIIPJ8eETOkFX
+ EcI4vO5KIfJkI/L5NZK/v/E0N0c+pOLeq3K2gjoyhh5iZ92AHUS/F5neWNy/eGqYyJWO
+ iuIA==
+X-Gm-Message-State: AJIora9CdWNkYB1BMTXRYsUQeTOdQIfs8mx29pZqN5DCiLH0VKnJdQil
+ c6RWaEciP9SFjmLQq+3KtN0=
+X-Google-Smtp-Source: AGRyM1t4d4cjIVC7sSPWoVSQarvyp90HMRRx6FeW4tX3bvpi8rs+MlYEB74yzJdHRG+/yBrQgYJfeg==
+X-Received: by 2002:a05:6000:1e1c:b0:21b:8a12:acba with SMTP id
+ bj28-20020a0560001e1c00b0021b8a12acbamr10398783wrb.710.1655755578056; 
+ Mon, 20 Jun 2022 13:06:18 -0700 (PDT)
 Received: from localhost (92.40.169.68.threembb.co.uk. [92.40.169.68])
  by smtp.gmail.com with ESMTPSA id
- p14-20020a5d48ce000000b0021020517639sm14093823wrs.102.2022.06.20.13.06.15
+ n4-20020a05600c4f8400b003971fc23185sm20679416wmq.20.2022.06.20.13.06.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Jun 2022 13:06:16 -0700 (PDT)
+ Mon, 20 Jun 2022 13:06:17 -0700 (PDT)
 From: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
 To: broonie@kernel.org
-Subject: [PATCH 01/49] regmap-irq: Fix a bug in regmap_irq_enable() for
- type_in_mask chips
-Date: Mon, 20 Jun 2022 21:05:56 +0100
-Message-Id: <20220620200644.1961936-2-aidanmacdonald.0x0@gmail.com>
+Subject: [PATCH 02/49] regmap-irq: Fix offset/index mismatch in
+ read_sub_irq_data()
+Date: Mon, 20 Jun 2022 21:05:57 +0100
+Message-Id: <20220620200644.1961936-3-aidanmacdonald.0x0@gmail.com>
 In-Reply-To: <20220620200644.1961936-1-aidanmacdonald.0x0@gmail.com>
 References: <20220620200644.1961936-1-aidanmacdonald.0x0@gmail.com>
 MIME-Version: 1.0
@@ -115,46 +115,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When enabling a type_in_mask irq, the type_buf contents must be
-AND'd with the mask of the IRQ we're enabling to avoid enabling
-other IRQs by accident, which can happen if several type_in_mask
-irqs share a mask register.
+We need to divide the sub-irq status register offset by register
+stride to get an index for the status buffer to avoid an out of
+bounds write when the register stride is greater than 1.
 
-Fixes: bc998a730367 ("regmap: irq: handle HW using separate rising/falling edge interrupts")
+Fixes: a2d21848d921 ("regmap: regmap-irq: Add main status register support")
 Signed-off-by: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
 ---
- drivers/base/regmap/regmap-irq.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/base/regmap/regmap-irq.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/base/regmap/regmap-irq.c b/drivers/base/regmap/regmap-irq.c
-index 400c7412a7dc..4f785bc7981c 100644
+index 4f785bc7981c..a6db605707b0 100644
 --- a/drivers/base/regmap/regmap-irq.c
 +++ b/drivers/base/regmap/regmap-irq.c
-@@ -252,6 +252,7 @@ static void regmap_irq_enable(struct irq_data *data)
- 	struct regmap_irq_chip_data *d = irq_data_get_irq_chip_data(data);
- 	struct regmap *map = d->map;
- 	const struct regmap_irq *irq_data = irq_to_regmap_irq(d, data->hwirq);
-+	unsigned int reg = irq_data->reg_offset / map->reg_stride;
- 	unsigned int mask, type;
+@@ -387,6 +387,7 @@ static inline int read_sub_irq_data(struct regmap_irq_chip_data *data,
+ 		subreg = &chip->sub_reg_offsets[b];
+ 		for (i = 0; i < subreg->num_regs; i++) {
+ 			unsigned int offset = subreg->offset[i];
++			unsigned int index = offset / map->reg_stride;
  
- 	type = irq_data->type.type_falling_val | irq_data->type.type_rising_val;
-@@ -268,14 +269,14 @@ static void regmap_irq_enable(struct irq_data *data)
- 	 * at the corresponding offset in regmap_irq_set_type().
- 	 */
- 	if (d->chip->type_in_mask && type)
--		mask = d->type_buf[irq_data->reg_offset / map->reg_stride];
-+		mask = d->type_buf[reg] & irq_data->mask;
- 	else
- 		mask = irq_data->mask;
+ 			if (chip->not_fixed_stride)
+ 				ret = regmap_read(map,
+@@ -395,7 +396,7 @@ static inline int read_sub_irq_data(struct regmap_irq_chip_data *data,
+ 			else
+ 				ret = regmap_read(map,
+ 						chip->status_base + offset,
+-						&data->status_buf[offset]);
++						&data->status_buf[index]);
  
- 	if (d->chip->clear_on_unmask)
- 		d->clear_status = true;
- 
--	d->mask_buf[irq_data->reg_offset / map->reg_stride] &= ~mask;
-+	d->mask_buf[reg] &= ~mask;
- }
- 
- static void regmap_irq_disable(struct irq_data *data)
+ 			if (ret)
+ 				break;
 -- 
 2.35.1
 

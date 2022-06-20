@@ -2,85 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96C85554F15
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jun 2022 17:25:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 776C8554F1B
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jun 2022 17:25:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4585C1EE8;
-	Wed, 22 Jun 2022 17:24:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4585C1EE8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 187131E72;
+	Wed, 22 Jun 2022 17:25:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 187131E72
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655911510;
-	bh=NcXpNtH+Jlgb6PTV7lsYU3FWa8/XgfjPnJFkV560tBk=;
+	s=default; t=1655911554;
+	bh=npvPMjSZECv5ADKGwrqJNAtSjHJRKaSPFuM0+qR0qPU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ls4n8SrXuTvhbhQU6r23ACFNPBvx95I8LycQguv/+QFL8pGStwjMQtSsIsVDxukOs
-	 TLP7ks9D4Afqwdb/4qCshLdMjxJ0IGtn00xv3QFtIDO4B7ZM5Ja7SII2qm92MdWeYC
-	 779RjSXwDyW669P9on06jRWEpxDDt8zadRh4FrWs=
+	b=qiTtAJ/QPZsF+ZdmulcLcTVIJ0PacmTS9QbYMp+0r3Ms433cC3FJmIggUwgViqJBQ
+	 kQf9z4WDwkY4cyYzpB6gnD/S1Hgc1UD1svZimiiQBg9gZGuq09BZPuwPSlRhdxkEJ7
+	 MNYxbD9le3h2snavL42+vVfmX92RF4Cdk/UgCTHQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C138CF80543;
-	Wed, 22 Jun 2022 17:23:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4CF51F8055B;
+	Wed, 22 Jun 2022 17:23:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 416E8F80536; Mon, 20 Jun 2022 22:06:29 +0200 (CEST)
+ id B193BF804EB; Mon, 20 Jun 2022 22:06:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
  SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [IPv6:2a00:1450:4864:20::32a])
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [IPv6:2a00:1450:4864:20::42a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 75D46F800CB
- for <alsa-devel@alsa-project.org>; Mon, 20 Jun 2022 22:06:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75D46F800CB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8F5DBF804D8
+ for <alsa-devel@alsa-project.org>; Mon, 20 Jun 2022 22:06:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F5DBF804D8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="M57wXO9i"
-Received: by mail-wm1-x32a.google.com with SMTP id
- p6-20020a05600c1d8600b0039c630b8d96so6919401wms.1
- for <alsa-devel@alsa-project.org>; Mon, 20 Jun 2022 13:06:24 -0700 (PDT)
+ header.b="QNECaX95"
+Received: by mail-wr1-x42a.google.com with SMTP id g27so9431561wrb.10
+ for <alsa-devel@alsa-project.org>; Mon, 20 Jun 2022 13:06:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=wkuS+j3EIennvsLgZYGM7vfpABGRVV/MeAPfOizAshw=;
- b=M57wXO9iRmAgu6U0WPasocwyW6YC4HvS/IJuioNN538vnmyv29ll0KmRtJRGqY4itN
- I5gbLCbLPlKHq7ZNuKC0QkXblcjbrochyZFlSuHnjjhoHPPr1Vg/TNn/mngewPIWO169
- E27kNJdVJV3Q769UkEnpR1Oh4c69WClUwfdfkWm6pR4le2OgBRbLQJrUBMFotv/eASj1
- YU0JLn4khTyo1PQcOGGFf4AknS/GI3pTm1R4xxZ86sjh87yWudtYtwnb4CMZDPW1zXwd
- CLfvknNTNJG/K6TH6GcO0gCA7f0ytehD0u7KI3rLDYx1D5YiPv3fyPkopDKkyw4YaySB
- j/Kg==
+ bh=rwq1xrraD4RZAx2kCX1gT4beeMnmuxO1mM9UwNM/j94=;
+ b=QNECaX952+TTlSLlpOVs/6XitpxYvWRdZb+grPlyuTrwlpraID/DEO7pF7pRWsRnhg
+ hjsEeZ5QkVN79568dtxIQ2IXGLbC5nR7sF+MgWAVMh5hkBWMw0P53fMMGZkmjvLcFNNa
+ dhUutUl0wGwONV7Kom3uv28INHcBCYzOkQGuNSDENRNw1sxJZQ0/eMfiA/Qgxb87L4I8
+ /Ptke0D3H96sRWpppziAeYZU/tnFck/UsfeMN/LXYqm2I78lehUvPTyO3hQ8x4y7ScUk
+ uchno9kgBiWN8XY4/R7yf92muZ6rRsjh0pZSVJsyikq3CxlSVWLF/qU3eR8EP1K+XGbx
+ gjvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=wkuS+j3EIennvsLgZYGM7vfpABGRVV/MeAPfOizAshw=;
- b=gQFeGwvbQP5GfyGk5BIgBv/i1cMmiey1QcORwWKZTZqw4cVPraVxV4kXSTCBRmjJd2
- +pfAW1F93SHoWNY2Uzk0jjpkZD8FmWiF9ne2TTwZPgvmJ/sBa62Uy49S9scuXZePup1b
- tULeF0y4jhDI802Vo/TC2/NGAmEzduBH2js0EMJnU5B5FNTQGHFfv8GAo0Rk4XBzdO+3
- TYC+4C9CNokc7WeZSspSTfV5jFaLdH83EujYiNqGe3WiImA2UmtMyTu/TkUhk9RH1pL7
- xVLQpcLwT70x4z6QTpr4GfJFc0uNDasdMVX05EHxWL5wn73AJEvdsqFA5XRmExbBisMz
- AmpA==
-X-Gm-Message-State: AJIora9V6e0/nMVI8Bx9PkNXTMJwWTg0QTLyx+flD2zsi/s91r3j0kTl
- 1lHRNLxv2lqvLcKYfO/xcDY=
-X-Google-Smtp-Source: AGRyM1uEEMAc+8FJxLc/mlb8t301IgpWCnjiYLUqgY6m1IDXCYaAeszmfVIolkVxg0Mtj7p66FG3gQ==
-X-Received: by 2002:a05:600c:5112:b0:397:53f5:e15b with SMTP id
- o18-20020a05600c511200b0039753f5e15bmr26724095wms.93.1655755584181; 
- Mon, 20 Jun 2022 13:06:24 -0700 (PDT)
+ bh=rwq1xrraD4RZAx2kCX1gT4beeMnmuxO1mM9UwNM/j94=;
+ b=C7FGvNIRNot2x+5v9zDcBpaT/DVbJdBjBu/aYFvFHKfkxodmSJSsrKVYDTkfoXNPiP
+ pof4EKVg8ja9tHrAIQNmOol6W6HRKO5JNmsnvO3gq6H1HPlnYdxruFgrTwo1OHLbe/Qo
+ YnSFCYDdRTtyQPXYWwFUW1zRhdmam9Xu3s9C0VOgeoY0cycYqwl+/TxSlvy4H3SC3Hh0
+ QfEdWwI6GIePK/liYITvx4XMg3QmQhgb+XrR9Bri6OjpVlgE6useWbUQ333zgLEVI77E
+ VDNgrfbemfLaFWk4vmQwehkYCvKN1VoAJEuwuRaLqE/QAXtJxabzpjq2UK6rhMdYD17H
+ Ygmg==
+X-Gm-Message-State: AJIora/qdkLbieHuLtoT7McgO0u2qFnPTKOicq9B2uUx83t1H/6L0Yn7
+ LBJilNjjt6jcMh0yvfN2vbA=
+X-Google-Smtp-Source: AGRyM1tP2UDTugiqATrashu5vRyEcZXwb3725FZvBb5Omwk2LFohTTxHAY3xss+vpJU1LZ+f8ik2aw==
+X-Received: by 2002:adf:ef42:0:b0:21b:8e58:f24b with SMTP id
+ c2-20020adfef42000000b0021b8e58f24bmr7537796wrp.257.1655755585865; 
+ Mon, 20 Jun 2022 13:06:25 -0700 (PDT)
 Received: from localhost (92.40.169.68.threembb.co.uk. [92.40.169.68])
  by smtp.gmail.com with ESMTPSA id
- t22-20020a05600c41d600b0039db7f1a3f5sm15482666wmh.45.2022.06.20.13.06.23
+ u3-20020adfeb43000000b0021a34023ca3sm13936104wrn.62.2022.06.20.13.06.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Jun 2022 13:06:23 -0700 (PDT)
+ Mon, 20 Jun 2022 13:06:25 -0700 (PDT)
 From: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
 To: broonie@kernel.org
-Subject: [PATCH 06/49] mfd: wcd934x: Convert irq chip to config regs
-Date: Mon, 20 Jun 2022 21:06:01 +0100
-Message-Id: <20220620200644.1961936-7-aidanmacdonald.0x0@gmail.com>
+Subject: [PATCH 07/49] sound: soc: codecs: wcd9335: Convert irq chip to config
+ regs
+Date: Mon, 20 Jun 2022 21:06:02 +0100
+Message-Id: <20220620200644.1961936-8-aidanmacdonald.0x0@gmail.com>
 In-Reply-To: <20220620200644.1961936-1-aidanmacdonald.0x0@gmail.com>
 References: <20220620200644.1961936-1-aidanmacdonald.0x0@gmail.com>
 MIME-Version: 1.0
@@ -120,39 +120,38 @@ type register code in regmap-irq to be removed.
 
 Signed-off-by: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
 ---
- drivers/mfd/wcd934x.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ sound/soc/codecs/wcd9335.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/mfd/wcd934x.c b/drivers/mfd/wcd934x.c
-index 68e2fa2fda99..07e884087f2c 100644
---- a/drivers/mfd/wcd934x.c
-+++ b/drivers/mfd/wcd934x.c
-@@ -55,17 +55,22 @@ static const struct regmap_irq wcd934x_irqs[] = {
- 	WCD934X_REGMAP_IRQ_REG(WCD934X_IRQ_SOUNDWIRE, 2, BIT(4)),
+diff --git a/sound/soc/codecs/wcd9335.c b/sound/soc/codecs/wcd9335.c
+index 617a36a89dfe..727d4436142a 100644
+--- a/sound/soc/codecs/wcd9335.c
++++ b/sound/soc/codecs/wcd9335.c
+@@ -5020,16 +5020,22 @@ static const struct regmap_irq wcd9335_codec_irqs[] = {
+ 	},
  };
  
-+static const unsigned int wcd934x_config_regs[] = {
-+	WCD934X_INTR_LEVEL0,
++static const unsigned int wcd9335_config_regs[] = {
++	WCD9335_INTR_LEVEL0,
 +};
 +
- static const struct regmap_irq_chip wcd934x_regmap_irq_chip = {
- 	.name = "wcd934x_irq",
- 	.status_base = WCD934X_INTR_PIN1_STATUS0,
- 	.mask_base = WCD934X_INTR_PIN1_MASK0,
- 	.ack_base = WCD934X_INTR_PIN1_CLEAR0,
--	.type_base = WCD934X_INTR_LEVEL0,
+ static const struct regmap_irq_chip wcd9335_regmap_irq1_chip = {
+ 	.name = "wcd9335_pin1_irq",
+ 	.status_base = WCD9335_INTR_PIN1_STATUS0,
+ 	.mask_base = WCD9335_INTR_PIN1_MASK0,
+ 	.ack_base = WCD9335_INTR_PIN1_CLEAR0,
+-	.type_base = WCD9335_INTR_LEVEL0,
 -	.num_type_reg = 4,
--	.type_in_mask = false,
  	.num_regs = 4,
- 	.irqs = wcd934x_irqs,
- 	.num_irqs = ARRAY_SIZE(wcd934x_irqs),
-+	.config_base = wcd934x_config_regs,
-+	.num_config_bases = ARRAY_SIZE(wcd934x_config_regs),
+ 	.irqs = wcd9335_codec_irqs,
+ 	.num_irqs = ARRAY_SIZE(wcd9335_codec_irqs),
++	.config_base = wcd9335_config_regs,
++	.num_config_bases = ARRAY_SIZE(wcd9335_config_regs),
 +	.num_config_regs = 4,
 +	.set_type_config = regmap_irq_set_type_config_simple,
  };
  
- static bool wcd934x_is_volatile_register(struct device *dev, unsigned int reg)
+ static int wcd9335_parse_dt(struct wcd9335_codec *wcd)
 -- 
 2.35.1
 

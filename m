@@ -2,90 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6A2E553E05
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jun 2022 23:43:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AD61553EC9
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jun 2022 00:58:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 760552895;
-	Tue, 21 Jun 2022 23:42:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 760552895
+	by alsa0.perex.cz (Postfix) with ESMTPS id 00841287B;
+	Wed, 22 Jun 2022 00:57:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 00841287B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655847794;
-	bh=wQIO1H8fMSKSqu5ssYMtb8aeRSXOvIUZNUDRuZgZcgw=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=RE3iLBAmkxd6TFQJ737kOfaq2UEeF5lhkpMl3fprhUBfwAky5oWManVcK2PDLMTzQ
-	 BQTUdSRwUjYTGXUOIUtOT6C1DsuQLBbp1EbGbymKAoVJP5vfpmJ4LcT1LFwGVI8NT2
-	 qfb4nAuw0qN90VcZyIShvlfRWE3FZ8l/LR8+1px4=
+	s=default; t=1655852298;
+	bh=CxXPtEW5e1uUGi2JZOJqB6xQiXiupMBZIw/yEArO8jo=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ibHg6zz3zR7VxR9MdaUn3XGYBfuXcZm7vfzcJGaQidSXqPOW2DfmzPmYPO/3w3zsp
+	 c2HQ/B4SFb3ZmIdO358ol0me4kSVMM7WaFcFQ68+ZVaAlsFmovM8iFPxQtW0Z5e9xt
+	 VJ9ZKPyW4avIxsI1BhXO1iusrmxMGYy7P6jx4bmQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8EBEAF805B5;
-	Tue, 21 Jun 2022 23:38:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8001CF80104;
+	Wed, 22 Jun 2022 00:57:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 446D9F80587; Tue, 21 Jun 2022 23:38:31 +0200 (CEST)
+ id 43C06F80104; Wed, 22 Jun 2022 00:57:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3749AF80536
- for <alsa-devel@alsa-project.org>; Tue, 21 Jun 2022 23:38:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3749AF80536
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8B2A6F80104
+ for <alsa-devel@alsa-project.org>; Wed, 22 Jun 2022 00:57:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B2A6F80104
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="hUZ1R+sC"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25LBQrlP010673;
- Tue, 21 Jun 2022 16:38:09 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=PODMain02222019;
- bh=i2GlN7h4TCNJX78uJ9xbCqKDkFCcSex86cITEC2VbPI=;
- b=hUZ1R+sC/2cYCwjbO1lCyNtUC6VVA1YN9sODoVkvnk1JGPTnD9+ggNpXSylAjPOKzWpD
- F77SqBlLeQyrImPK19rSuKnFy3dZZ7lfeXsTvFUY6vO+Y9f4A1ml2ADEPGC75t/mtiwW
- /mNcRSOh4vnpZCzT+unRWbVoQ9uI+bpY5JdtqKyJBTYK3VKhA6jgk6+ka+PU82Aub7Dx
- UHJubXPMigJdUI3haPAh4kwB2Q/e8yVPTjRUSIt5Tj70Iv1UbJAL5ZeJ5w7O67OlNRqT
- tB4ZEKeNVXYVQHooyDU3MxinRrmtTUyx2czEr0LchNtFj5Kb5XpR9T5GD2zdo3Ef6Xd2 Qg== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3gsc41c7yj-8
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Tue, 21 Jun 2022 16:38:09 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 21 Jun
- 2022 22:38:07 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.28 via
- Frontend Transport; Tue, 21 Jun 2022 22:38:07 +0100
-Received: from vitaly-Legion-7-16ACHg6.ad.cirrus.com (unknown [198.90.238.175])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id A9092475;
- Tue, 21 Jun 2022 21:38:06 +0000 (UTC)
-From: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Mark
- Brown <broonie@kernel.org>
-Subject: [PATCH v6 14/14] ALSA: hda: cs35l41: Add module parameter to control
- firmware load
-Date: Tue, 21 Jun 2022 22:38:01 +0100
-Message-ID: <20220621213801.2021097-15-vitalyr@opensource.cirrus.com>
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="QvAoWOmE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1655852233; x=1687388233;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=CxXPtEW5e1uUGi2JZOJqB6xQiXiupMBZIw/yEArO8jo=;
+ b=QvAoWOmES6T0/OcDLfInFO+2ktMaG22blCckDvEGQ9qO5E83xVMUZeL8
+ /ABRXmGArjW3NyrZXy4hlUusjdmHpZiqTZqc5tDkeCAQe6lRSdmEXFJOo
+ GeArZeuuB5gVBwnfnmVtXkiMH7Jd+Nd7nNaJrgcrDCJvT/dBa/UrgKd8X
+ aWozJTM1nHwxyUhW1N2Or4InnzbX3kcsyxB4u7GtM4jh6gK//G9P2rVit
+ jbAKw7Loy9mqxRaAll7sXIExkvYPXKvKp0DvWrRDrLZQzOkjSDsPiEjA6
+ xAxA/pNv4V6HVIJRF/IrdTUxtGUCpa6C5RS7MjxYbIpP0T4lDK5wnpI0q w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10385"; a="263292318"
+X-IronPort-AV: E=Sophos;i="5.92,210,1650956400"; d="scan'208";a="263292318"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jun 2022 15:57:01 -0700
+X-IronPort-AV: E=Sophos;i="5.92,210,1650956400"; d="scan'208";a="914354215"
+Received: from dpasupul-mobl.amr.corp.intel.com (HELO
+ pbossart-mobl3.intel.com) ([10.209.178.35])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jun 2022 15:57:00 -0700
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH 0/3] soundwire: revisit peripheral driver bind/unbind
+Date: Tue, 21 Jun 2022 17:56:37 -0500
+Message-Id: <20220621225641.221170-1-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220621213801.2021097-1-vitalyr@opensource.cirrus.com>
-References: <20220621213801.2021097-1-vitalyr@opensource.cirrus.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: 71_tObdRbUitnVhHOALkg3bGpQeN_NzX
-X-Proofpoint-ORIG-GUID: 71_tObdRbUitnVhHOALkg3bGpQeN_NzX
-X-Proofpoint-Spam-Reason: safe
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Stefan Binding <sbinding@opensource.cirrus.com>
+Cc: tiwai@suse.de, gregkh@linuxfoundation.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, vkoul@kernel.org,
+ broonie@kernel.org, srinivas.kandagatla@linaro.org,
+ Bard liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,64 +88,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Stefan Binding <sbinding@opensource.cirrus.com>
+This patchset fixes the driver bind/unbind cases which are not
+well-supported today. I initially reported a race condition in March
+2022 [1] and the more tests I ran the more timing assumptions crept to
+the surface.
 
-By default, the driver will automatically load DSP firmware
-for the amps, if available. Adding this option allows the
-autoload to be optional, which allows for different configurations.
+With this patchset, I've been able to bind the drivers in any order,
+and when all dependencies were available the card is
+created/registered. Likewise I was able to remove codec drivers while
+the bus was still running. The initial suggestion to use
+device_lock()/unlock() led to system hangs in suspend-resume that I
+was unable to root-cause after weeks of tests, hence this patchset
+relies on a SoundWire-specific lock doesn't interfere with other core
+device locking.
 
-Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
-Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
----
- sound/pci/hda/cs35l41_hda.c | 21 ++++++++++++++++-----
- 1 file changed, 16 insertions(+), 5 deletions(-)
+I think it's a pretty important set of changes that would ideally be
+merged in this kernel cycle, so that we can finally add the inclusive
+'manager/peripheral' language change in the next kernel cycle.
 
-diff --git a/sound/pci/hda/cs35l41_hda.c b/sound/pci/hda/cs35l41_hda.c
-index 3aa36c5ff972..4151ac5ab399 100644
---- a/sound/pci/hda/cs35l41_hda.c
-+++ b/sound/pci/hda/cs35l41_hda.c
-@@ -8,6 +8,7 @@
- 
- #include <linux/acpi.h>
- #include <linux/module.h>
-+#include <linux/moduleparam.h>
- #include <sound/hda_codec.h>
- #include <sound/soc.h>
- #include <linux/pm_runtime.h>
-@@ -32,6 +33,11 @@
- #define CAL_DSP_CTL_TYPE		5
- #define CAL_DSP_CTL_ALG			205
- 
-+static bool firmware_autostart = 1;
-+module_param(firmware_autostart, bool, 0444);
-+MODULE_PARM_DESC(firmware_autostart, "Allow automatic firmware download on boot"
-+			     "(0=Disable, 1=Enable) (default=1); ");
-+
- static const struct reg_sequence cs35l41_hda_config[] = {
- 	{ CS35L41_PLL_CLK_CTRL,		0x00000430 }, // 3072000Hz, BCLK Input, PLL_REFCLK_EN = 1
- 	{ CS35L41_DSP_CLK_CTRL,		0x00000003 }, // DSP CLK EN
-@@ -862,11 +868,16 @@ static int cs35l41_hda_bind(struct device *dev, struct device *master, void *mas
- 
- 	cs35l41->firmware_type = HDA_CS_DSP_FW_SPK_PROT;
- 
--	cs35l41->request_fw_load = true;
--	mutex_lock(&cs35l41->fw_mutex);
--	if (cs35l41_smart_amp(cs35l41) < 0)
--		dev_warn(cs35l41->dev, "Cannot Run Firmware, reverting to dsp bypass...\n");
--	mutex_unlock(&cs35l41->fw_mutex);
-+	if (firmware_autostart) {
-+		dev_dbg(cs35l41->dev, "Firmware Autostart.\n");
-+		cs35l41->request_fw_load = true;
-+		mutex_lock(&cs35l41->fw_mutex);
-+		if (cs35l41_smart_amp(cs35l41) < 0)
-+			dev_warn(cs35l41->dev, "Cannot Run Firmware, reverting to dsp bypass...\n");
-+		mutex_unlock(&cs35l41->fw_mutex);
-+	} else {
-+		dev_dbg(cs35l41->dev, "Firmware Autostart is disabled.\n");
-+	}
- 
- 	ret = cs35l41_create_controls(cs35l41);
- 
+Feedback and comments welcome.
+
+[1] https://lore.kernel.org/alsa-devel/d0559e97-c4a0-b817-428c-d3e305390270@linux.intel.com/
+
+Pierre-Louis Bossart (3):
+  soundwire: revisit driver bind/unbind and callbacks
+  soundwire: peripheral: remove useless ops pointer
+  soundwire: intel: use pm_runtime_resume() on component probe
+
+ drivers/soundwire/bus.c       | 75 ++++++++++++++++++++---------------
+ drivers/soundwire/bus_type.c  | 30 +++++++++++---
+ drivers/soundwire/intel.c     | 18 +++++++++
+ drivers/soundwire/slave.c     |  3 +-
+ drivers/soundwire/stream.c    | 53 ++++++++++++++++---------
+ include/linux/soundwire/sdw.h |  8 +---
+ 6 files changed, 124 insertions(+), 63 deletions(-)
+
 -- 
 2.34.1
 

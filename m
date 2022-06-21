@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C015552F9C
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jun 2022 12:22:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39D57552F9A
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jun 2022 12:21:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DB84A2015;
-	Tue, 21 Jun 2022 12:21:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB84A2015
+	by alsa0.perex.cz (Postfix) with ESMTPS id 586D020D1;
+	Tue, 21 Jun 2022 12:21:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 586D020D1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655806957;
-	bh=GBCxH+bK9wmVyOKCOK+iwHCktIPrGpVkdEP/zPhhvUc=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=kY0o3BwvrJmISv4JqQC+iyG5EKvlOUwfU4Y20bDkgiU+UqnhORQsD2hLMjckDzyEE
-	 eOkOpSw4UpjHjFQO08tnNAm+DVcKGlv5jC3QekxqYDCkyQcWt2e7MArjp0/LZ/Q8Co
-	 NDhxff7il0sHmkqcfiyj2NmClFVweop5OtB7RNHk=
+	s=default; t=1655806915;
+	bh=ObEhpV/ZB7DTUswK8cfxahb54I6YHdD/qG8Rh1ugovA=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=RcSuzpHqLyExpBhTDt6X3+6oz1jlDXxTCN5uRSFsFmiPSzMyh8/lFX//9r9qzyUm7
+	 ZZR4AbLoxohVDufKyIsUFB/Q22OQtyVSgJH7CsMhEoM84rF4DD1dbnHxuVNTXzaAYy
+	 yXzoBX51pMhUMWq4rWy1B7S2Mz6ENrJABg1z6hYo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CCA87F80536;
-	Tue, 21 Jun 2022 12:21:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A6023F8030F;
+	Tue, 21 Jun 2022 12:20:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C29DEF804E2; Tue, 21 Jun 2022 12:20:58 +0200 (CEST)
+ id E386FF800E3; Tue, 21 Jun 2022 12:20:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,29 +35,29 @@ Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
  [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 67AF7F80104
+ by alsa1.perex.cz (Postfix) with ESMTPS id 80254F800E3
  for <alsa-devel@alsa-project.org>; Tue, 21 Jun 2022 12:20:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67AF7F80104
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80254F800E3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="bN+0DqAi"
+ header.b="iFlq/AER"
 Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25L7wQ91011194;
- Tue, 21 Jun 2022 05:20:44 -0500
+ by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25L7wQ92011194;
+ Tue, 21 Jun 2022 05:20:45 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=PODMain02222019;
- bh=2mwJv9rwDuzZlDeF4gMWLOnhM+pmeWicS1501ixazNo=;
- b=bN+0DqAiRkRtSrCCmKIBrG4hUMuipP+Os6qXUIdc99aK0iP0Nqm/BLOMpAscP+V2e0cD
- hoWMC7VCiQL8sce2s14P3LYEPhvzWPhaaz+427PZZ0Vi6EbCd2kWsJye3wZNJq8IYAth
- 5/gh7xVeU9L1a0c9h81gIyR7J1xkxMtPkv2V5Ucblq9GfNZcN7ur/VWvIfdRwZ4813BT
- DL4VvVF+NJtwefE5jo9+Q1GLcdBwC1CdRtWBwbI4SBiA7eg45rfvS/eQC6iv2fucTaa4
- jHg0hMhbh4mlwYXZbGcJKTuZH4MjbqxlxyW6DP1nYNGQ8gvE3kq6YLxPAqRCPKlapq3g 3w== 
+ subject : date : message-id : in-reply-to : references : mime-version :
+ content-transfer-encoding : content-type; s=PODMain02222019;
+ bh=krV/LBDSpEQgXSWb5U5qWoeNdA7OvdAhzrLM454UqaI=;
+ b=iFlq/AERe7qTIJt9Ni8y7948JqcQfUHa/mvEMTZtumDv16UIwSYUVsAYyMpqiymRxrLr
+ i8oYZpekqVQSKrCUqDNVicRzLFbu4RrnXeZNXZS/dj08u2KuskvHCwisPL5k2IBvuUtB
+ FcFdjzAt3pNSwAxk7wgPIwD9IkoBpulujIrSbKaxJyr/47cmDvV/jf9EmzyEiaOZUcER
+ dBW3lXtk1gB8Ml9tuRXkmtw8ekjn9p/vDfnATTXzKB8JNk7oxsyFje1K4bQmTbPuuax1
+ CkY2rFFCwNk8O82gv698fcOcVSR2fr+rU/X8IXrRc2yT+9oDVDgyDLR4SATkw5ZmdYR7 BA== 
 Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3gsc41bcxp-1
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3gsc41bcxp-2
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Tue, 21 Jun 2022 05:20:44 -0500
+ Tue, 21 Jun 2022 05:20:45 -0500
 Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
  (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 21 Jun
@@ -65,19 +66,21 @@ Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.28 via
  Frontend Transport; Tue, 21 Jun 2022 11:20:42 +0100
 Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id F30CB468;
- Tue, 21 Jun 2022 10:20:41 +0000 (UTC)
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 0C36611D1;
+ Tue, 21 Jun 2022 10:20:42 +0000 (UTC)
 From: Charles Keepax <ckeepax@opensource.cirrus.com>
 To: <broonie@kernel.org>
-Subject: [PATCH 1/4] ASoC: wm_adsp: Fix event for preloader
-Date: Tue, 21 Jun 2022 11:20:38 +0100
-Message-ID: <20220621102041.1713504-1-ckeepax@opensource.cirrus.com>
+Subject: [PATCH 2/4] ASoC: wm5110: Fix DRE control
+Date: Tue, 21 Jun 2022 11:20:39 +0100
+Message-ID: <20220621102041.1713504-2-ckeepax@opensource.cirrus.com>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20220621102041.1713504-1-ckeepax@opensource.cirrus.com>
+References: <20220621102041.1713504-1-ckeepax@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-GUID: yVUhF6T4VUVGuObReVv-rz9jW_aiEL8P
-X-Proofpoint-ORIG-GUID: yVUhF6T4VUVGuObReVv-rz9jW_aiEL8P
+X-Proofpoint-GUID: es6T71c9ntu5vukUdpQkfGwE4H7Yh0TN
+X-Proofpoint-ORIG-GUID: es6T71c9ntu5vukUdpQkfGwE4H7Yh0TN
 X-Proofpoint-Spam-Reason: safe
 Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
  lgirdwood@gmail.com, david.rhodes@cirrus.com, james.schulman@cirrus.com,
@@ -97,26 +100,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The preloader controls on ADSP should return a value of 1 if the
-preloader value was changed, update to correct this.
+The DRE controls on wm5110 should return a value of 1 if the DRE state
+is actually changed, update to fix this.
 
 Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 ---
- sound/soc/codecs/wm_adsp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/codecs/wm5110.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
-index 6d7fd88243aa8..a7784ac15dde6 100644
---- a/sound/soc/codecs/wm_adsp.c
-+++ b/sound/soc/codecs/wm_adsp.c
-@@ -997,7 +997,7 @@ int wm_adsp2_preloader_put(struct snd_kcontrol *kcontrol,
- 		snd_soc_dapm_sync(dapm);
+diff --git a/sound/soc/codecs/wm5110.c b/sound/soc/codecs/wm5110.c
+index 4973ba1ed7791..4ab7a672f8de8 100644
+--- a/sound/soc/codecs/wm5110.c
++++ b/sound/soc/codecs/wm5110.c
+@@ -413,6 +413,7 @@ static int wm5110_put_dre(struct snd_kcontrol *kcontrol,
+ 	unsigned int rnew = (!!ucontrol->value.integer.value[1]) << mc->rshift;
+ 	unsigned int lold, rold;
+ 	unsigned int lena, rena;
++	bool change = false;
+ 	int ret;
+ 
+ 	snd_soc_dapm_mutex_lock(dapm);
+@@ -440,8 +441,8 @@ static int wm5110_put_dre(struct snd_kcontrol *kcontrol,
+ 		goto err;
  	}
  
--	return 0;
-+	return 1;
- }
- EXPORT_SYMBOL_GPL(wm_adsp2_preloader_put);
+-	ret = regmap_update_bits(arizona->regmap, ARIZONA_DRE_ENABLE,
+-				 mask, lnew | rnew);
++	ret = regmap_update_bits_check(arizona->regmap, ARIZONA_DRE_ENABLE,
++				       mask, lnew | rnew, &change);
+ 	if (ret) {
+ 		dev_err(arizona->dev, "Failed to set DRE: %d\n", ret);
+ 		goto err;
+@@ -454,6 +455,9 @@ static int wm5110_put_dre(struct snd_kcontrol *kcontrol,
+ 	if (!rnew && rold)
+ 		wm5110_clear_pga_volume(arizona, mc->rshift);
+ 
++	if (change)
++		ret = 1;
++
+ err:
+ 	snd_soc_dapm_mutex_unlock(dapm);
  
 -- 
 2.30.2

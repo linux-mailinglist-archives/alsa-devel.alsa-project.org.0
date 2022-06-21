@@ -2,84 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73B38553518
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jun 2022 17:00:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73FC45537EC
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jun 2022 18:37:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F051F1FA6;
-	Tue, 21 Jun 2022 16:59:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F051F1FA6
+	by alsa0.perex.cz (Postfix) with ESMTPS id D13641FFF;
+	Tue, 21 Jun 2022 18:36:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D13641FFF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655823616;
-	bh=0Zyec8pIO1tWER8R011cwP1E3e2hIt1DcQPh/dECWyM=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=VnqyPUg25w3unSW0mBO3YWkscMhnmLfFkpROqJ8hM4/6emO5M75UEw7bod52uogzl
-	 Kf+0NCqN63gDL41B36jsq7dWhnVwpAL8MHJYbXBPbpClECEpt6//6lOm2N6U7ShgR2
-	 24r5tsv4Ws6hIFoeP/Z807CURIWvTNETE1zA4T24=
+	s=default; t=1655829452;
+	bh=ze5aXOYQD5VRVjinV7+sHtzJnMcVQ80HvN3NDtgraag=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=o+bexU9U7bRpbj0fUQnhtxGeoOQV0HfpTIamW4xlQOWL6CJeQgi/VdBUlh8TOKvG3
+	 YUxQ+SaAX7i+l7oWSyhgrExJU1wDnv6xN13Zx0a2GeQlQCcV4Ul+fCnpf8IoFczfu5
+	 sTkSwXRXXCcLutXjK7Pt+QVTDP2FY0r8ytoZqFyw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5CF6AF80253;
-	Tue, 21 Jun 2022 16:59:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2E988F800E3;
+	Tue, 21 Jun 2022 18:36:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0F89AF800E3; Tue, 21 Jun 2022 16:59:15 +0200 (CEST)
+ id 4A04AF80155; Tue, 21 Jun 2022 18:36:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 00130F800E3
- for <alsa-devel@alsa-project.org>; Tue, 21 Jun 2022 16:59:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00130F800E3
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1o3fL3-0003Jp-NT; Tue, 21 Jun 2022 16:58:45 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1o3fL1-001qyy-0h; Tue, 21 Jun 2022 16:58:44 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1o3fL1-000DmH-MK; Tue, 21 Jun 2022 16:58:43 +0200
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>
-Subject: [PATCH] ASoC: core: Make snd_soc_unregister_card() return void
-Date: Tue, 21 Jun 2022 16:58:34 +0200
-Message-Id: <20220621145834.198519-1-u.kleine-koenig@pengutronix.de>
-X-Mailer: git-send-email 2.36.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id F2992F800CB
+ for <alsa-devel@alsa-project.org>; Tue, 21 Jun 2022 18:36:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2992F800CB
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="M+cDykGW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1655829388; x=1687365388;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=ze5aXOYQD5VRVjinV7+sHtzJnMcVQ80HvN3NDtgraag=;
+ b=M+cDykGWE+prDctT9egm01mKgYjzJCVzJDVwmAsDa0kVuyUJU5lLoR+y
+ 53d4AIslB3GCFOqAK6zcko1SCkLrSRsCT7RXZVLGv2VtNgzIXxzRaFBGX
+ TAIN21wLAUCYaZTZBYsH5KzXubnb3eWEQBrg0jwqsOFF9FmQF7WoG/An/
+ zo5KLasU9apZymeu/Wglc6bhPQf6ODDv9Sfnjlr+ZMQaFF3m3ATc2dg03
+ UMWmELeKZB6p04E1WUCaB50DeeWEEfFxqdh8wbneyuMi9KuVTUzU/kiii
+ xHPTkLIvMW3ah5tOavNyiUfTjmXRUFit3OATZMO17yzdEJMZbR28NmHIx g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10385"; a="344157295"
+X-IronPort-AV: E=Sophos;i="5.92,209,1650956400"; d="scan'208";a="344157295"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jun 2022 09:36:22 -0700
+X-IronPort-AV: E=Sophos;i="5.92,209,1650956400"; d="scan'208";a="591724527"
+Received: from dpasupul-mobl.amr.corp.intel.com (HELO [10.209.178.35])
+ ([10.209.178.35])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jun 2022 09:36:21 -0700
+Message-ID: <95a7a219-8330-628f-aa10-28a078217de7@linux.intel.com>
+Date: Tue, 21 Jun 2022 11:36:20 -0500
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.9.1
+Subject: Re: [PATCH v4 00/17] ASoC: Intel: haswell and broadwell boards update
+Content-Language: en-US
+To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org, 
+ broonie@kernel.org
+References: <20220620101402.2684366-1-cezary.rojewski@intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20220620101402.2684366-1-cezary.rojewski@intel.com>
 Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3578; h=from:subject;
- bh=0Zyec8pIO1tWER8R011cwP1E3e2hIt1DcQPh/dECWyM=;
- b=owGbwMvMwMV48I9IxdpTbzgZT6slMSRtvDNdOXyyYU2O7Na6l4+P7NuzV9RgI1eOfEuyxbO6HQ3t
- l5tsOhmNWRgYuRhkxRRZ6oq0xCZIrPlvV7KEG2YQKxPIFAYuTgGYiHQx+z8dhl2x21UXbGLunu/F47
- iQ+8dBNaWPb+KlhMuCupUiTB+xv9H4b33ZgeXWod7YTQs8dX9Nq+ey93wdpHDKdI9Tf2yR2+WuvMiz
- Ad7+zRknDopLvLgWaSnPE76SpTUneIJr1lab+zdnL113my2K5fxsNwvpuqob0Re6HlzzeROjvL11+6
- U4m/CN2vP1a1qSlC9+e2mZnpdWv13bsNG4rDhILWlb7QmuiRYbVBmfBSlNWtEZvOujxbPMgyFC85fa
- n9eKDb3Lu6KRbyOrHd+OZ9anY6dfZNW4FnKWd+rKawkJfx93O7vvVP9uMkfedQZXLscK1tcWTcEs+h
- FntBMEakP0lvQ/Yr6s9TH+hpQFAA==
-X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
- fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, kernel@pengutronix.de,
- alsa-devel@alsa-project.org, Nicolas Ferre <nicolas.ferre@microchip.com>,
- Takashi Iwai <tiwai@suse.com>, Miaoqian Lin <linmq006@gmail.com>,
- Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- linux-arm-kernel@lists.infradead.org
+Content-Transfer-Encoding: 7bit
+Cc: hdegoede@redhat.com, amadeuszx.slawinski@linux.intel.com, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,105 +92,77 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The function snd_soc_unregister_card() returned 0 unconditionally and most
-callers don't care to check the return value. Make it return void and
-adapt the callers that didn't ignore the return value before.
 
-This is a preparation for making platform remove callbacks return void.
 
-Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
----
- include/sound/soc.h                 | 2 +-
- sound/soc/atmel/mikroe-proto.c      | 4 +++-
- sound/soc/fsl/pcm030-audio-fabric.c | 5 ++---
- sound/soc/soc-core.c                | 4 +---
- sound/soc/soc-topology-test.c       | 4 +---
- 5 files changed, 8 insertions(+), 11 deletions(-)
+On 6/20/22 05:13, Cezary Rojewski wrote:
+> A number of patches improving overall quality and readability of
+> haswell.c and broadwell.c source files found in sound/soc/intel/boards.
+> Both files are first renamed and only then actual changes are being
+> incrementally added. The respective names are: hsw_rt5640 and bdw_rt286
+> to match the pattern found in more recent boards.
+> 
+> Most patches bring no functional change - the more impactful patches at
+> are placed the end:
+> 
+> Refactor of suspend/resume flow for the bdw_rt286 board by dropping
+> dev->remove() in favour of card->remove() and adjust jack handling to
+> reduce code size slightly by implementing card_set_jack().
+> 
+> The last patch is removing of FE DAI ops. Given the existence of
+> platform FE DAI capabilities (either static declaration or through
+> topology file), this code is redundant.
 
-diff --git a/include/sound/soc.h b/include/sound/soc.h
-index f20f5f890794..adcc756fe0c2 100644
---- a/include/sound/soc.h
-+++ b/include/sound/soc.h
-@@ -416,7 +416,7 @@ enum snd_soc_pcm_subclass {
- };
- 
- int snd_soc_register_card(struct snd_soc_card *card);
--int snd_soc_unregister_card(struct snd_soc_card *card);
-+void snd_soc_unregister_card(struct snd_soc_card *card);
- int devm_snd_soc_register_card(struct device *dev, struct snd_soc_card *card);
- #ifdef CONFIG_PM_SLEEP
- int snd_soc_suspend(struct device *dev);
-diff --git a/sound/soc/atmel/mikroe-proto.c b/sound/soc/atmel/mikroe-proto.c
-index ce46d8a0b7e4..954460719aa3 100644
---- a/sound/soc/atmel/mikroe-proto.c
-+++ b/sound/soc/atmel/mikroe-proto.c
-@@ -157,7 +157,9 @@ static int snd_proto_probe(struct platform_device *pdev)
- 
- static int snd_proto_remove(struct platform_device *pdev)
- {
--	return snd_soc_unregister_card(&snd_proto);
-+	snd_soc_unregister_card(&snd_proto);
-+
-+	return 0;
- }
- 
- static const struct of_device_id snd_proto_of_match[] = {
-diff --git a/sound/soc/fsl/pcm030-audio-fabric.c b/sound/soc/fsl/pcm030-audio-fabric.c
-index 83b4a22bf15a..e4c805acc349 100644
---- a/sound/soc/fsl/pcm030-audio-fabric.c
-+++ b/sound/soc/fsl/pcm030-audio-fabric.c
-@@ -113,12 +113,11 @@ static int pcm030_fabric_probe(struct platform_device *op)
- static int pcm030_fabric_remove(struct platform_device *op)
- {
- 	struct pcm030_audio_data *pdata = platform_get_drvdata(op);
--	int ret;
- 
--	ret = snd_soc_unregister_card(pdata->card);
-+	snd_soc_unregister_card(pdata->card);
- 	platform_device_unregister(pdata->codec_device);
- 
--	return ret;
-+	return 0;
- }
- 
- static const struct of_device_id pcm030_audio_match[] = {
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 9574f86dd4de..c5836066ead3 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -2326,14 +2326,12 @@ EXPORT_SYMBOL_GPL(snd_soc_register_card);
-  * @card: Card to unregister
-  *
-  */
--int snd_soc_unregister_card(struct snd_soc_card *card)
-+void snd_soc_unregister_card(struct snd_soc_card *card)
- {
- 	mutex_lock(&client_mutex);
- 	snd_soc_unbind_card(card, true);
- 	mutex_unlock(&client_mutex);
- 	dev_dbg(card->dev, "ASoC: Unregistered card '%s'\n", card->name);
--
--	return 0;
- }
- EXPORT_SYMBOL_GPL(snd_soc_unregister_card);
- 
-diff --git a/sound/soc/soc-topology-test.c b/sound/soc/soc-topology-test.c
-index ae3968161509..225d74355974 100644
---- a/sound/soc/soc-topology-test.c
-+++ b/sound/soc/soc-topology-test.c
-@@ -271,9 +271,7 @@ static void snd_soc_tplg_test_load_with_null_comp(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, 0, ret);
- 
- 	/* cleanup */
--	ret = snd_soc_unregister_card(&kunit_comp->card);
--	KUNIT_EXPECT_EQ(test, 0, ret);
--
-+	snd_soc_unregister_card(&kunit_comp->card);
- 	snd_soc_unregister_component(test_dev);
- }
- 
+Possibly a mistake in our tests, but this error seems to be introduced:
 
-base-commit: f2906aa863381afb0015a9eb7fefad885d4e5a56
--- 
-2.36.1
+[  107.397637] kernel: rt286 i2c-INT343A:00: ASoC: DAPM unknown pin LDO1
 
+I'll have to re-run the tests, sharing this information as is.
+
+
+> Changes in v4:
+> - just a rebase to fix missed conflicts with for-next
+> 
+> Changes in v3:
+> - Patch 16/17 refactoring suspend/resume has been renamed to "Refactor
+>   jack handling". Dropped the usage of card->remove() in favor of
+>   link->exit() in that very patch
+> 
+> Changes in v2:
+> - fixed wording error in patch 02/17 so it correctly mentions
+>   'haswell_rt5640', not 'broadwell_rt286'
+> - decided not to add kernel module names changes to this patchset so the
+>   review is not complicated unnecessarily. Will send them separately
+>   instead
+> 
+> Cezary Rojewski (17):
+>   ASoC: Intel: Rename haswell source file to hsw_rt5640
+>   ASoC: Intel: hsw_rt5640: Reword prefixes of all driver members
+>   ASoC: Intel: hsw_rt5640: Reword driver name
+>   ASoC: Intel: hsw_rt5640: Update code indentation
+>   ASoC: Intel: hsw_rt5640: Update file comments
+>   ASoC: Intel: hsw_rt5640: Improve probe() function quality
+>   ASoC: Intel: hsw_rt5640: Improve hw_params() debug-ability
+>   ASoC: Intel: Rename broadwell source file to bdw_rt286
+>   ASoC: Intel: bdw_rt286: Reword prefixes of all driver members
+>   ASoC: Intel: bdw_rt286: Reword driver name
+>   ASoC: Intel: bdw_rt286: Update code indentation
+>   ASoC: Intel: bdw_rt286: Update file comments
+>   ASoC: Intel: bdw_rt286: Improve probe() function quality
+>   ASoC: Intel: bdw_rt286: Improve hw_params() debug-ability
+>   ASoC: Intel: bdw_rt286: Improve codec_init() quality
+>   ASoC: Intel: bdw_rt286: Refactor jack handling
+>   ASoC: Intel: bdw_rt286: Remove FE DAI ops
+> 
+>  sound/soc/intel/boards/Kconfig                |   4 +-
+>  sound/soc/intel/boards/Makefile               |   4 +-
+>  sound/soc/intel/boards/bdw_rt286.c            | 256 +++++++++++++
+>  sound/soc/intel/boards/broadwell.c            | 338 ------------------
+>  sound/soc/intel/boards/haswell.c              | 202 -----------
+>  sound/soc/intel/boards/hsw_rt5640.c           | 176 +++++++++
+>  .../common/soc-acpi-intel-hsw-bdw-match.c     |   6 +-
+>  7 files changed, 439 insertions(+), 547 deletions(-)
+>  create mode 100644 sound/soc/intel/boards/bdw_rt286.c
+>  delete mode 100644 sound/soc/intel/boards/broadwell.c
+>  delete mode 100644 sound/soc/intel/boards/haswell.c
+>  create mode 100644 sound/soc/intel/boards/hsw_rt5640.c
+> 

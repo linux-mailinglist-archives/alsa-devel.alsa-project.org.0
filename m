@@ -2,111 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEC62554F84
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jun 2022 17:39:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 421C0554F88
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jun 2022 17:39:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6DBAE1F43;
-	Wed, 22 Jun 2022 17:38:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6DBAE1F43
+	by alsa0.perex.cz (Postfix) with ESMTPS id D5AC3205A;
+	Wed, 22 Jun 2022 17:38:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5AC3205A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655912361;
-	bh=SNkcqVkhr/cdJukpDYH/RlAsbYhpk3LhzUDkbSQZ1G0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1655912376;
+	bh=F/vMo4R/b96NxA1EnfF5s3+RU0Eh/4X4Nhs79FHFr9A=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AMGg7tS0qz0o/1mxWAL1u0xePnwL2DrCOiuc5IXVrEmcDgBMRjIXvTcibnWUQWB1L
-	 KsZ72LwLjPHpXhTmT0LETv46+/z4fZhHaea7n1241/RgLjoTeBxlm0okpAOrM5X4vZ
-	 bh/X7jpxmUpJlfr3gy4U/IGmFN/81jGRBri44szw=
+	b=hdQptskesimPnzKIDrEEN+kCWt25IGL0GnuyBw5UhVk7A4DRKGdDpq4f0wu8iM5Qz
+	 EX6A8h6x7tO/+B2+WW+Dzhx88q/duLpK9AyOK/in1uEc8Bt+ZQxY5QDL0J/fZECwHn
+	 f2XpaqXnkRo8pJ/g8114noM2PCMMUcEOizMmy6LI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AEDBFF806F9;
-	Wed, 22 Jun 2022 17:24:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 497E4F8070D;
+	Wed, 22 Jun 2022 17:24:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F241AF80155; Tue, 21 Jun 2022 11:30:08 +0200 (CEST)
+ id B3854F800E3; Tue, 21 Jun 2022 11:32:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [IPv6:2a00:1450:4864:20::52c])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_135,PRX_BODY_30,SPF_HELO_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [IPv6:2a00:1450:4864:20::136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 96279F800CB
- for <alsa-devel@alsa-project.org>; Tue, 21 Jun 2022 11:30:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96279F800CB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6D6BAF800E3
+ for <alsa-devel@alsa-project.org>; Tue, 21 Jun 2022 11:32:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D6BAF800E3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="SkWmIxEV"
-Received: by mail-ed1-x52c.google.com with SMTP id ej4so14571000edb.7
- for <alsa-devel@alsa-project.org>; Tue, 21 Jun 2022 02:30:01 -0700 (PDT)
+ header.b="baOjPn3H"
+Received: by mail-lf1-x136.google.com with SMTP id w20so21323066lfa.11
+ for <alsa-devel@alsa-project.org>; Tue, 21 Jun 2022 02:32:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=eVfQd3XPechRFli107C/XOXRbeHsShcnB7OFUBR1wN4=;
- b=SkWmIxEV+ESyHsCbsR1Xt7I9SQuAWrV1KNmPiHSefbw6tjpPMuthp3LqtVQ2N+GIyh
- BF0EUqeIjZ/fTFqxBB6wXJ7xGaqQxl7IRe8eZi1sO2oZD7dNwzX7VC5QBndK7WTzX8pW
- ar9X/Z0jZRtZLQ6fUs2aQmiDZ2d91v914nUh+KGkyPNtXOmVVYNnVMMqb+EzlDt8o66V
- a0FVH1Zp8dBl16N3CmVzQ4p+Wj0SgKmTk9HwQkqHXo0LNrXTGtskvMPd3alLj3K0vLA/
- //ny6WHJ/gvkwxF84HzdQy++kjBUu8yXxysyZC5+Z+VkMghwv8Mv/zySzZVeO0ePODU+
- GlXg==
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=KVxqgQkmpuz9sfivRrmvLlkvyXCsZ/UVRlJX8Kn06s0=;
+ b=baOjPn3HMnQGhZj1nBS+hjUUnJUJ+Qaef24QVnmcEHRl7vEXdUjo5QRsBfEgNpCnf1
+ Jm2mGhGNtiWo638Mh2HKumHhvcYmxsqdqaKFiIY93JNSLRKOtYQlJpKBnZGURLayjob+
+ /MB/FkKHC8pVilIrHz6/2s03W4EKJQLZphbVT9pgnKGGgCYWlbAKxlSPmKCXeDMSOGEz
+ k4bqKGBybgmOLqK4EsPHVpmL5fxyLVBFK/CNU2l5aGa83kOmEMKiC50ivmJ883ZTIT77
+ lTZMo0A50VvPHdVjC+D1Xe9WkvlxRXsvrK+2mvS5A9BpF2X8NlUaokkHL1Dw0Q1ZNI3b
+ GQTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=eVfQd3XPechRFli107C/XOXRbeHsShcnB7OFUBR1wN4=;
- b=4PHRvvIrDOTXpQb1XlDGy5nUXzjN3J36pmVuFvi1hJgbxbDAuY5kHvWaTSdUbPSbo+
- 7VLoac1DAqomoN67AIUZpywjiIxP7bOw49N9DYZoPeYqLoXhNPl4Evb4Xct8fJr4004i
- HaPNiFn65w2MB88s5rSYk2R2TKvavc463SsSQWEUfT47C4qAim/rJBXqLv7P8b6a8XGZ
- lOPDHlkAjIZHONG9TPQhqyCVkvcsZD27sEabMX/NS2K718Tf9DiL6WlHuXFiG+Uhki2f
- gw3JjTEWE45jnRlMpvUVydpE6MysaXTwHIuBcFRNbrsWY6n6F1LouNqviTPy8UO/43bQ
- Evzw==
-X-Gm-Message-State: AJIora9pKD0K/PmCwY/9fIoBW5ZNzpHIH0EpQr1vhWdLx3XdJ9A3exSf
- T2mFVtJ6p9ri66wNcCLuXRkWIbHVau5bB2eTmrs=
-X-Google-Smtp-Source: AGRyM1tM0xU4gMjk8srBUxoaihaU7C2henLT+DWnWAydDDa7goTMcwvw8+NLuBGCqmwgWP4p2sY0HbLwAwb7ohmPFDY=
-X-Received: by 2002:a05:6402:4390:b0:42e:b7e:e9ac with SMTP id
- o16-20020a056402439000b0042e0b7ee9acmr34685476edc.97.1655803800295; Tue, 21
- Jun 2022 02:30:00 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=KVxqgQkmpuz9sfivRrmvLlkvyXCsZ/UVRlJX8Kn06s0=;
+ b=741fJ/WDTnpwPG0R/5vtZNORQPTxZVXaX35fQ7kLw+dh2ENvIU5YOS/PpAiOPqIwmY
+ ynsxZVkegxUvoK0I/yNzJalGpZpclqRkZ8UIMKqiQVG3ZTnrfUxJV0MBpAiL0vqOKh0m
+ U5ogt44IGBdoeSvLbRXC7/TB8507wz60vqwdOSy6REaBkV5QgXjwHFnxIZbbO6nNeY2G
+ AD93mcOBSXC9yE/9osfQU+l7A6EL+C0bFdIVaWlY0U20p+zbYRNWvjTivUCuMpeCE5Ci
+ 5HDEUSNF7nHH0S+ID3zTewoCh05EmZMjqQ5d+2+qvo2EMnfM4oUNMQbLwZmb9CZGRxW2
+ AgRw==
+X-Gm-Message-State: AJIora/GMORabPLdC8ciLJya5F3HIvkAfKdXHf3OjHDtqrr56kaYtKdL
+ DJ+YZkrHuYnj/Mw+E5/ycb4=
+X-Google-Smtp-Source: AGRyM1tUHbN/43UfLBdEExbn+1p4lZ6hBmumkDYlyBIRa9Zw3iDqI9SetAAfAkHiF5XrbJVvOtVraA==
+X-Received: by 2002:a05:6512:2808:b0:47f:51c4:1dea with SMTP id
+ cf8-20020a056512280800b0047f51c41deamr12102421lfb.390.1655803954972; 
+ Tue, 21 Jun 2022 02:32:34 -0700 (PDT)
+Received: from mobilestation ([95.79.189.214])
+ by smtp.gmail.com with ESMTPSA id
+ h21-20020a19ca55000000b00477a287438csm916926lfj.2.2022.06.21.02.32.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 Jun 2022 02:32:34 -0700 (PDT)
+Date: Tue, 21 Jun 2022 12:32:31 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Subject: Re: [PATCH 06/14] spi: dt-bindings: dw-apb-ssi: update
+ spi-{r,t}x-bus-width for dwc-ssi
+Message-ID: <20220621093231.tytrh6fimzfxgzm2@mobilestation>
+References: <20220618123035.563070-1-mail@conchuod.ie>
+ <20220618123035.563070-7-mail@conchuod.ie>
+ <20220620205654.g7fyipwytbww5757@mobilestation>
+ <CAMuHMdWDcnAxjxdwpnbfUiDUoo=RGvQm537-EboAmaQTmxpY-g@mail.gmail.com>
 MIME-Version: 1.0
-References: <20220620200644.1961936-1-aidanmacdonald.0x0@gmail.com>
- <20220620200644.1961936-16-aidanmacdonald.0x0@gmail.com>
-In-Reply-To: <20220620200644.1961936-16-aidanmacdonald.0x0@gmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Tue, 21 Jun 2022 11:29:23 +0200
-Message-ID: <CAHp75Vd7Sq9RMqin_y-8qUEAJLaGfuqxAbe+qcMB22=bqkyZqg@mail.gmail.com>
-Subject: Re: [PATCH 15/49] regmap-irq: Change the behavior of mask_writeonly
-To: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAMuHMdWDcnAxjxdwpnbfUiDUoo=RGvQm537-EboAmaQTmxpY-g@mail.gmail.com>
 X-Mailman-Approved-At: Wed, 22 Jun 2022 17:23:18 +0200
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Banajit Goswami <bgoswami@codeaurora.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- MyungJoo Ham <myungjoo.ham@samsung.com>, Lee Jones <lee.jones@linaro.org>,
- Samuel Holland <samuel@sholland.org>, Marc Zyngier <maz@kernel.org>,
- Bartosz Golaszewski <brgl@bgdev.pl>, Manivannan Sadhasivam <mani@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Chanwoo Choi <cw00.choi@samsung.com>, Chen-Yu Tsai <wens@csie.org>,
- Andy Gross <agross@kernel.org>, orsonzhai@gmail.com,
- linux-sunxi@lists.linux.dev,
- Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>, tharvey@gateworks.com,
- linux-actions@lists.infradead.org,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Thomas Gleixner <tglx@linutronix.de>,
- Cristian Ciocaltea <cristian.ciocaltea@gmail.com>,
- linux-arm Mailing List <linux-arm-kernel@lists.infradead.org>,
- rjones@gateworks.com, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Liam Girdwood <lgirdwood@gmail.com>,
+Cc: Niklas Cassel <niklas.cassel@wdc.com>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ David Airlie <airlied@linux.ie>, Palmer Dabbelt <palmer@rivosinc.com>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Michael Walle <michael@walle.cc>, zhang.lyra@gmail.com, baolin.wang7@gmail.com,
- Matti Vaittinen <mazziesaccount@gmail.com>
+ Conor Dooley <conor.dooley@microchip.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-riscv <linux-riscv@lists.infradead.org>, Sam Ravnborg <sam@ravnborg.org>,
+ Damien Le Moal <damien.lemoal@opensource.wdc.com>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>, Jose Abreu <joabreu@synopsys.com>,
+ Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
+ Mark Brown <broonie@kernel.org>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ Paul Walmsley <paul.walmsley@sifive.com>, Conor Dooley <mail@conchuod.ie>,
+ Thomas Gleixner <tglx@linutronix.de>, Dillon Min <dillon.minfei@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Heng Sia <jee.heng.sia@intel.com>,
+ linux-spi <linux-spi@vger.kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Daniel Vetter <daniel@ffwll.ch>, dmaengine <dmaengine@vger.kernel.org>,
+ Masahiro Yamada <masahiroy@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -122,34 +127,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Jun 20, 2022 at 10:08 PM Aidan MacDonald
-<aidanmacdonald.0x0@gmail.com> wrote:
->
-> No drivers currently use mask_writeonly, and in its current form
-> it seems a bit misleading. When set, mask registers will be
-> updated with regmap_write_bits() instead of regmap_update_bits(),
-> but regmap_write_bits() still does a read-modify-write under the
-> hood. It's not a write-only operation.
->
-> Performing a simple regmap_write() is probably more useful, since
-> it can be used for chips that have separate set & clear registers
-> for controlling mask bits. Such registers are normally volatile
-> and read as 0, so avoiding a register read minimizes bus traffic.
+Hi Geert
 
-Reading your explanations and the code, I would rather think about
-fixing the regmap_write_bits() to be writeonly op.
+On Tue, Jun 21, 2022 at 09:03:25AM +0200, Geert Uytterhoeven wrote:
+> Hi Serge,
+> 
+> On Mon, Jun 20, 2022 at 10:56 PM Serge Semin <fancer.lancer@gmail.com> wrote:
+> > On Sat, Jun 18, 2022 at 01:30:28PM +0100, Conor Dooley wrote:
+> > > From: Conor Dooley <conor.dooley@microchip.com>
+> > >
 
-Otherwise it's unclear what's the difference between
-regmap_write_bits() vs. regmap_update_bits().
+[...]
 
-...
+> > > +
+> > > +        spi-rx-bus-width:
+> > > +          const: 1
+> > > +
+> > > +        spi-tx-bus-width:
+> > > +          const: 1
+> >
+> > You can just use a more relaxed constraint "enum: [1 2 4 8]" here
+> > irrespective from the compatible string. The modern DW APB SSI
+> > controllers of v.4.* and newer also support the enhanced SPI Modes too
+> > (Dual, Quad and Octal). Since the IP-core version is auto-detected at
+> > run-time there is no way to create a DT-schema correctly constraining
+> > the Rx/Tx SPI bus widths. So let's keep the
+> > compatible-string-independent "patternProperties" here but just extend
+> > the set of acceptable "spi-rx-bus-width" and "spi-tx-bus-width"
+> > properties values.
+> >
 
->         if (d->chip->mask_writeonly)
-> -               return regmap_write_bits(d->map, reg, mask, val);
-> +               return regmap_write(d->map, reg, val & mask);
->         else
->                 return regmap_update_bits(d->map, reg, mask, val);
+> > Note the DW APB SSI/AHB SSI driver currently doesn't support the
+> > enhanced SPI modes. So I am not sure whether the multi-lines Rx/Tx SPI
+> > bus indeed works for Canaan K210 AHB SSI controller. AFAICS from the
+> > DW APB SSI v4.01a manual the Enhanced SPI mode needs to be properly
+> > activated by means of the corresponding CSR. So most likely the DW AHB
+> > SSI controllers need some specific setups too.
+> 
+> That doesn't matter here, as DT describes hardware, not software
+> limitations.
 
--- 
-With Best Regards,
-Andy Shevchenko
+Can't argue with that.) My note regarding the current DW APB SSI
+driver was mainly addressed for the Canaan K210 users, since
+should the SoC-based board really have the Quad Tx/Rx SPI bus
+most likely the interface won't work with the full bandwidth.
+So it is a good reason to perform the platform research and if
+possible alter the driver accordingly.
+
+-Sergey
+
+> 
+> Gr{oetje,eeting}s,
+> 
+>                         Geert
+> 
+> --
+> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+> 
+> In personal conversations with technical people, I call myself a hacker. But
+> when I'm talking to journalists I just say "programmer" or something like that.
+>                                 -- Linus Torvalds

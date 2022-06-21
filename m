@@ -2,71 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 442F5553ECB
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jun 2022 00:58:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32C5E553ECC
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jun 2022 00:59:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DBE531FF4;
-	Wed, 22 Jun 2022 00:57:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DBE531FF4
+	by alsa0.perex.cz (Postfix) with ESMTPS id A497128A2;
+	Wed, 22 Jun 2022 00:58:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A497128A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655852329;
-	bh=govaHQk7YyG0eUsVlD5BABnVJzMY8uw730DimVkT0HA=;
+	s=default; t=1655852341;
+	bh=TY0x4skZSRtNnUTitczz8XAzbhfZ1+UkCJ8XwgnmySQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BgQ6ziZdEaK8qhFAV6BzvOevIFabGdlDsLRw4/MArzCHHZiRfxDbuwa+0+GdWOHO8
-	 u3UA7dG7ZUqP3O3Yjlb6J2c0XJmYCNe1P4YPN3dzIs66jVIVbIcF2eWDhdqJoc0l41
-	 cJ7+zjJPGYH40WapSRkxGpMXg1M6JyIq0BV9k6pc=
+	b=Mi3Wrt3Ba5TP+5UzVskH5lQ7EIQ8NW2veO1r7T86X/FElIgs3h0wgc8UGP45IzBsQ
+	 ZU9cwUtJmGUQ27Pyu44tI+j5afM1BUbtIspRsAX8brlC1mgeSDRafkppM0m1gM4Ka7
+	 PZMVq7uTBnW+nqSUSOwOM6T2rjjvmqv9qqVQ9vfo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 36253F80534;
-	Wed, 22 Jun 2022 00:57:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D2F86F80152;
+	Wed, 22 Jun 2022 00:57:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0CB63F800CB; Wed, 22 Jun 2022 00:57:17 +0200 (CEST)
+ id AD9EFF80152; Wed, 22 Jun 2022 00:57:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2752EF800CB
- for <alsa-devel@alsa-project.org>; Wed, 22 Jun 2022 00:57:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2752EF800CB
+ by alsa1.perex.cz (Postfix) with ESMTPS id D0DC1F80152
+ for <alsa-devel@alsa-project.org>; Wed, 22 Jun 2022 00:57:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0DC1F80152
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="BrChb3Rv"
+ header.b="FhtWnBzr"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655852231; x=1687388231;
+ t=1655852236; x=1687388236;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=govaHQk7YyG0eUsVlD5BABnVJzMY8uw730DimVkT0HA=;
- b=BrChb3Rv94ydwL8R1gk8XmmiSOGD6+y3ItEUOiAa04LWedb6XD77dlH2
- MrLZZQ8nLZDGvugscMvNmUOEuxU/p7shF81qJaGARCw5bzzvpInfB2orc
- pScQgUJq+kJ1ifu7WraNXwXeH5m2DNDi81p8njTDzyjCMtXmQX7o6b3fF
- +lSw3nTwwXrnSrC9uLnsLvp/xWXyXahv06z+qIRTvv3aYIEUa7m30aBA8
- nrCblPhLymfvIIBTElZiv8Li6gXuyhYXaXU2iRvC9QQVOkKB0Z1Uo8IG5
- UT0GwmxTNi+yLvgJoRIZICN2tBU0NCHHhyi8+icAk8Qw/BoB9molrKCas g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10385"; a="263292327"
-X-IronPort-AV: E=Sophos;i="5.92,210,1650956400"; d="scan'208";a="263292327"
+ bh=TY0x4skZSRtNnUTitczz8XAzbhfZ1+UkCJ8XwgnmySQ=;
+ b=FhtWnBzrYEOrNDEffdAKc4Tr1MRKAMaP7muCpbSZ4M+0PNZvbD1KUq/A
+ L+4aBJbPJnHxM4/tum4jGKsfH48PEDSCI1eR7/o5/kypThBGeoCHcDgkf
+ YnJv0roVNiMStfLpVYAcQbqWJtZtCWvSCCiUZduR/WQ31+MrzyKhG7r5P
+ DMAC9PQRI9Maq+LUk59h9j8rGznNsVFX60Jhkza5lFX94FyWi/MdC53Ve
+ 6eXNX3/sWnK0fIh48fa/O7Odz+VlHbiHdPlvhN4s4g1WUW2aTjbNxu/8P
+ gt0wBCFnT7IvCiNn5uXF+laxxdr23puYQlpJxMD3iPtdWPsG7yxpyPicB A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10385"; a="263292335"
+X-IronPort-AV: E=Sophos;i="5.92,210,1650956400"; d="scan'208";a="263292335"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jun 2022 15:57:03 -0700
-X-IronPort-AV: E=Sophos;i="5.92,210,1650956400"; d="scan'208";a="914354241"
+ 21 Jun 2022 15:57:04 -0700
+X-IronPort-AV: E=Sophos;i="5.92,210,1650956400"; d="scan'208";a="914354252"
 Received: from dpasupul-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.209.178.35])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jun 2022 15:57:02 -0700
+ 21 Jun 2022 15:57:03 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 2/3] soundwire: peripheral: remove useless ops pointer
-Date: Tue, 21 Jun 2022 17:56:39 -0500
-Message-Id: <20220621225641.221170-3-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 3/3] soundwire: intel: use pm_runtime_resume() on component
+ probe
+Date: Tue, 21 Jun 2022 17:56:40 -0500
+Message-Id: <20220621225641.221170-4-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220621225641.221170-1-pierre-louis.bossart@linux.intel.com>
 References: <20220621225641.221170-1-pierre-louis.bossart@linux.intel.com>
@@ -97,38 +98,74 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Now that we are using the ops structure directly from the driver,
-there are no users left of this ops pointer.
+During the card registration, transactions on the SoundWire bus can be
+initiated. If the ALSA card is registered after the bus suspends,
+timeouts can be seen while reading/writing codec registers. This is
+extremely easy to reproduce in driver bind/unbind tests.
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In an initial experiment, the ASoC soc-component.c code was modified
+to initiate a pm_runtime resume on a component probe. The results
+showed this was too invasive. Instead this patch suggests resuming the
+SoundWire component only.
+
+Because of the parent-child hierarchy enforced by the pm_runtime
+framework, it can be argued that the codec component probe should be
+enough to resume all necessary devices, and indeed the same resume
+will be applied to SoundWire codecs used on Intel platforms.
+
+Calling pm_runtime_resume() on both the Intel and codec sides has the
+benefit of resuming the bus without assuming any order during the card
+registration. The first component on a dailink to be probed will
+resume the bus. In addition, if a codec driver did not implement this
+transition, the Intel component would still resume the bus and avoid
+timeouts on card registration.
+
+BugLink: https://github.com/thesofproject/linux/issues/3651
 Reviewed-by: Rander Wang <rander.wang@intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- include/linux/soundwire/sdw.h | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/soundwire/intel.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
-index bf6f0decb3f6d..39058c841469f 100644
---- a/include/linux/soundwire/sdw.h
-+++ b/include/linux/soundwire/sdw.h
-@@ -637,7 +637,6 @@ struct sdw_slave_ops {
-  * @dev: Linux device
-  * @status: Status reported by the Slave
-  * @bus: Bus handle
-- * @ops: Slave callback ops
-  * @prop: Slave properties
-  * @debugfs: Slave debugfs
-  * @node: node for bus list
-@@ -667,7 +666,6 @@ struct sdw_slave {
- 	struct device dev;
- 	enum sdw_slave_status status;
- 	struct sdw_bus *bus;
--	const struct sdw_slave_ops *ops;
- 	struct sdw_slave_prop prop;
- #ifdef CONFIG_DEBUG_FS
- 	struct dentry *debugfs;
+diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
+index 2e7c27d303b42..c907bab12ee33 100644
+--- a/drivers/soundwire/intel.c
++++ b/drivers/soundwire/intel.c
+@@ -1051,6 +1051,23 @@ static int intel_trigger(struct snd_pcm_substream *substream, int cmd, struct sn
+ 	return ret;
+ }
+ 
++static int intel_component_probe(struct snd_soc_component *component)
++{
++	int ret;
++
++	/*
++	 * make sure the device is pm_runtime_active before initiating
++	 * bus transactions during the card registration.
++	 * We use pm_runtime_resume() here, without taking a reference
++	 * and releasing it immediately.
++	 */
++	ret = pm_runtime_resume(component->dev);
++	if (ret < 0 && ret != -EACCES)
++		return ret;
++
++	return 0;
++}
++
+ static int intel_component_dais_suspend(struct snd_soc_component *component)
+ {
+ 	struct snd_soc_dai *dai;
+@@ -1106,6 +1123,7 @@ static const struct snd_soc_dai_ops intel_pcm_dai_ops = {
+ 
+ static const struct snd_soc_component_driver dai_component = {
+ 	.name           = "soundwire",
++	.probe		= intel_component_probe,
+ 	.suspend	= intel_component_dais_suspend
+ };
+ 
 -- 
 2.34.1
 

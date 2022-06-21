@@ -2,83 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75A74553D4A
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jun 2022 23:13:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31D42553DE1
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jun 2022 23:39:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 100A21FCA;
-	Tue, 21 Jun 2022 23:12:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 100A21FCA
+	by alsa0.perex.cz (Postfix) with ESMTPS id C318C1FBF;
+	Tue, 21 Jun 2022 23:38:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C318C1FBF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655845990;
-	bh=3VYHZtc2ikkG3vblkfL1teN+9Lm6Baqu+NS6YC6loys=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=msNc1Gjrw3Y8v+cn3mqAWOLSJe3VVjMRVEc5sjfRqWeLa/CJqGEikmiXyU5IasXSa
-	 W1E8WLRA6390kroH7u0Jd4HAPqXduJpdcmgD4RwPKVQFDBubk9oav4+so50JyG6uJP
-	 nPrSl2DjBialCWMZRAZnt6EWYJvGMeuFWUEggkzE=
+	s=default; t=1655847552;
+	bh=MazW5szS6NUp3IIQ6rm1N9gr6hLiUCHZBsTn1aOSBiI=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=rZaPL1Q6cnwlN1GpHChhxZUwxWhSHIDI+NZhl7Z0KYuawEleCtqSoqdxD2FAZh02X
+	 R8LpQlSg9vW22FoBRvEtqRCyYYtF4TM8tv46EfCofzCTKvqyUsUUq9vGyLdAa/tQMs
+	 gwU0v94CgDo8UopI+a/tnwTrRvP8gAnar4r3yZho=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7DE5EF80253;
-	Tue, 21 Jun 2022 23:12:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4B67CF8053B;
+	Tue, 21 Jun 2022 23:38:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B7022F80152; Tue, 21 Jun 2022 23:12:09 +0200 (CEST)
+ id 2B162F800CB; Tue, 21 Jun 2022 23:38:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5924FF80155
- for <alsa-devel@alsa-project.org>; Tue, 21 Jun 2022 23:12:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5924FF80155
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0FBFCF800CB
+ for <alsa-devel@alsa-project.org>; Tue, 21 Jun 2022 23:38:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0FBFCF800CB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="ZHkolWSf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655845927; x=1687381927;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=3VYHZtc2ikkG3vblkfL1teN+9Lm6Baqu+NS6YC6loys=;
- b=ZHkolWSfw8oI9iH1cBsbuqY1G6GCtN9BUtZoV1BGbA4GhXX4E6IKaMW/
- 2nvvGvp4LzOFDcx7G1JbKGuxe0K+WzF1GEM2dOE6m6oCTtraSIquSI6gu
- wxJT9rtYtsiGVQbfUwyNOnFJZHq/xhZMv+XW8ALNEKBM0P6OanyjhIy3B
- DZf8DNkCEyw70Y3qZ6PyJlxHybYs8EDIVX4TyaaKCDqfwAbOUC3x1803o
- xjQkeu/lEgSSt/yrvENsxw8Bbt5t4yshmamqrtumKVevs9ZYk2Y6Q1mUu
- Fk5FdwY8/bhY+YGRDQWkgDCM9wd03rYDjs8Kx0WEaUtHptZJmQqEcB+Zg Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10385"; a="263270959"
-X-IronPort-AV: E=Sophos;i="5.92,210,1650956400"; d="scan'208";a="263270959"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jun 2022 14:11:47 -0700
-X-IronPort-AV: E=Sophos;i="5.92,210,1650956400"; d="scan'208";a="591834528"
-Received: from dpasupul-mobl.amr.corp.intel.com (HELO [10.209.178.35])
- ([10.209.178.35])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jun 2022 14:11:47 -0700
-Message-ID: <11ef5841-6c33-4647-7309-ba94da6308aa@linux.intel.com>
-Date: Tue, 21 Jun 2022 16:11:46 -0500
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="Bu4ooekZ"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25LBDkxR018841;
+ Tue, 21 Jun 2022 16:38:03 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=hG2O0Ae/l3SL3nlV1NIEggjHFsZlf5b9gTGrlsyn3l4=;
+ b=Bu4ooekZl5jJQknOn9U7PDN8QoGfuFsQt3hRGQv6Uh4YtxW+5sAn7KGuBVYL23/XgENA
+ qEBtaIAA6FPrH7tBJSvx+tnKK50UU64nqnkI3s6uPn9DrzhDtRb6evMdKiFfmLW51Rpz
+ s/tj40mf6hr53+ZboK0GfCm1bzC4wcOVl0F0IdJvVeF+LOgFzQGDiVqu6IaMYKPLiy0J
+ +JGre7pfZ8sOqy9iHMrwB3oKmQxblaoIEqUlyfkRgZhAScgZXgOZ3dj+oIuWISUFdF45
+ sJOj7VHKaaySIcGlGyV+S1xUC/IJk7OsFpkx+jxVYW2rcO0fNs0F4gzrl/I8VfJIt0C2 VQ== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3gsb4p45ae-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Tue, 21 Jun 2022 16:38:03 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 21 Jun
+ 2022 22:38:01 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.28 via
+ Frontend Transport; Tue, 21 Jun 2022 22:38:01 +0100
+Received: from vitaly-Legion-7-16ACHg6.ad.cirrus.com (unknown [198.90.238.175])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id A4CDE7C;
+ Tue, 21 Jun 2022 21:38:01 +0000 (UTC)
+From: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Mark
+ Brown <broonie@kernel.org>
+Subject: [PATCH v6 00/14] ALSA: hda: cirrus: Add initial DSP support and
+ firmware loading
+Date: Tue, 21 Jun 2022 22:37:47 +0100
+Message-ID: <20220621213801.2021097-1-vitalyr@opensource.cirrus.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.9.1
-Subject: Re: [PATCH v4 00/17] ASoC: Intel: haswell and broadwell boards update
-Content-Language: en-US
-To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org, 
- broonie@kernel.org
-References: <20220620101402.2684366-1-cezary.rojewski@intel.com>
- <95a7a219-8330-628f-aa10-28a078217de7@linux.intel.com>
- <2ed532a4-a232-eb14-7122-e5b08cb79bb3@intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <2ed532a4-a232-eb14-7122-e5b08cb79bb3@intel.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: hdegoede@redhat.com, tiwai@suse.com, amadeuszx.slawinski@linux.intel.com
+Content-Type: text/plain
+X-Proofpoint-GUID: gG0iVWVAeW7MjEtaGc-yHvIAM3QJCkHe
+X-Proofpoint-ORIG-GUID: gG0iVWVAeW7MjEtaGc-yHvIAM3QJCkHe
+X-Proofpoint-Spam-Reason: safe
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,68 +98,92 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The CS35L41 Amplifier contains a DSP, capable of running firmware.
+The firmware can run algorithms such as Speaker Protection, to ensure
+that playback at high gains do not harm the speakers.
+Adding support for CS35L41 firmware into the CS35L41 HDA driver also
+allows us to support several extra features, such as hiberation 
+and interrupts.
+
+The chain adds support in stages:
+- General fixes to improve generalization and code re-use inside
+  the CS35L41 HDA driver.
+- Add support for interrupts into the driver, which is required
+  for complete support of the firmware.
+- Refactor ASoC CS35L41 code which deals with firmware to allow
+  for code re-use inside the CS35L41 HDA driver.
+- Add support for loading firmware and tuning files from file system,
+  and creating alsa controls to control it.
+- Support firmware load paths for different hardware systems.
+- Support suspend/resume in the driver when using firmware. The firmware
+  supports hibernation, which allows the CS35L41 to drop into a low
+  power mode during suspend.
+- Support the ability to unload firmware, swap and reload the firmware.
+  This is to allow different firmware to run during calibration.
+
+The intended use-case is to load the firmware once on boot, and the driver
+autmatically tries to load the firmware after it binds to the HDA driver.
+This behaviour can be switched off using a kconfig, if desired.
+
+changes since v5:
+ - Fix warning by kernel test robot <lkp@intel.com>
+ 
+changes since v4:
+- Fully remove tlv remnants from control add apis
+- Remove unnecessary debug
+- Rename variable to be more generic
+- Remove redundent length check from read/write control apis
 
 
-On 6/21/22 12:47, Cezary Rojewski wrote:
-> On 2022-06-21 6:36 PM, Pierre-Louis Bossart wrote:
->> On 6/20/22 05:13, Cezary Rojewski wrote:
->>> A number of patches improving overall quality and readability of
->>> haswell.c and broadwell.c source files found in sound/soc/intel/boards.
->>> Both files are first renamed and only then actual changes are being
->>> incrementally added. The respective names are: hsw_rt5640 and bdw_rt286
->>> to match the pattern found in more recent boards.
->>>
->>> Most patches bring no functional change - the more impactful patches at
->>> are placed the end:
->>>
->>> Refactor of suspend/resume flow for the bdw_rt286 board by dropping
->>> dev->remove() in favour of card->remove() and adjust jack handling to
->>> reduce code size slightly by implementing card_set_jack().
->>>
->>> The last patch is removing of FE DAI ops. Given the existence of
->>> platform FE DAI capabilities (either static declaration or through
->>> topology file), this code is redundant.
->>
->> Possibly a mistake in our tests, but this error seems to be introduced:
->>
->> [  107.397637] kernel: rt286 i2c-INT343A:00: ASoC: DAPM unknown pin LDO1
->>
->> I'll have to re-run the tests, sharing this information as is.
-> 
-> 
-> Hello,
-> 
-> Thanks for the report! However, this has been reported earlier during
-> the v2 review [1]. This is also why a fix have been provided [2] earlier
-> today. Notice that shape of link->exit() found here is shared by other
-> Intel boards e.g.: SOF ones. In general, the initial discussion
-> regarding card->remove() revealed some 'probe vs remove' problems within
-> the framework.
-> 
-> 
-> [1]:
-> https://lore.kernel.org/alsa-devel/69e4263a-e036-cb21-2360-55b06600911e@intel.com/
-> 
-> [2]:
-> https://lore.kernel.org/alsa-devel/1cff4ac0-6d45-95e1-ed9f-6abaded3f8b7@intel.com/T/#t
+- Use SNDRV_CTL_ELEM_IFACE_CARD for firmware load controls
+- Make kcontrol add/remove synchronous
+- Load firmware asynchronous when loading via control
+- Used cached controls when reloading firmware; only delete
+controls when removing the driver itself
 
-It's rather difficult to follow these changes and error reports buried
-in email report sent on a Sunday of a three-day week-end for me.
-I also had additional errors not reported,
 
-[   36.125113] kernel: rt286 i2c-INT343A:00: ASoC: unknown pin HV
-[   36.125128] kernel: rt286 i2c-INT343A:00: ASoC: unknown pin VREF
-[   36.125130] kernel: rt286 i2c-INT343A:00: ASoC: unknown pin LDO1
-[   36.125921] kernel: rt286 i2c-INT343A:00: ASoC: DAPM unknown pin LDO1
+- Improve kcontrol remove
+- Fix control write + notify
+- Cleanup of unnecessary code
+- Fix race condition when loading firmware before playback
+- Ensure errors are properly propogated
+- Fix include for Module parameters
 
-it's unclear to me why a dailink change in a machine driver would cause
-such codec-side issues.
+Stefan Binding (13):
+  ALSA: hda: hda_cs_dsp_ctl: Add Library to support CS_DSP ALSA controls
+  ALSA: hda: hda_cs_dsp_ctl: Add apis to write the controls directly
+  ALSA: hda: cs35l41: Save codec object inside component struct
+  ALSA: hda: cs35l41: Save Subsystem ID inside CS35L41 Driver
+  ALSA: hda: cs35l41: Support reading subsystem id from ACPI
+  ALSA: hda: cs35l41: Support multiple load paths for firmware
+  ALSA: hda: cs35l41: Support Speaker ID for laptops
+  ALSA: hda: cs35l41: Support Hibernation during Suspend
+  ALSA: hda: cs35l41: Read Speaker Calibration data from UEFI variables
+  ALSA: hda: hda_cs_dsp_ctl: Add fw id strings
+  ALSA: hda: cs35l41: Add defaulted values into dsp bypass config
+    sequence
+  ALSA: hda: cs35l41: Support Firmware switching and reloading
+  ALSA: hda: cs35l41: Add module parameter to control firmware load
 
-If the changes in this 17-patch series need to be tied to a framework
-fix, you have to make the dependencies explicit and better yet provide a
-self-contained patch series that does not introduce a temporary
-regression, or introduce the framework change first and clearly describe
-the dependency in a longer Broadwell-specific patchset. This is an 8-yr
-old device, it shouldn't be that hard.
+Vitaly Rodionov (1):
+  ALSA: hda: cs35l41: Add initial DSP support and firmware loading
 
+ MAINTAINERS                     |   1 +
+ include/sound/cs35l41.h         |   4 +
+ sound/pci/hda/Kconfig           |   8 +
+ sound/pci/hda/Makefile          |   2 +
+ sound/pci/hda/cs35l41_hda.c     | 902 +++++++++++++++++++++++++++++++-
+ sound/pci/hda/cs35l41_hda.h     |  39 ++
+ sound/pci/hda/cs35l41_hda_i2c.c |   1 +
+ sound/pci/hda/cs35l41_hda_spi.c |   1 +
+ sound/pci/hda/hda_component.h   |   4 +
+ sound/pci/hda/hda_cs_dsp_ctl.c  | 254 +++++++++
+ sound/pci/hda/hda_cs_dsp_ctl.h  |  39 ++
+ sound/pci/hda/patch_realtek.c   |  27 +-
+ 12 files changed, 1277 insertions(+), 5 deletions(-)
+ create mode 100644 sound/pci/hda/hda_cs_dsp_ctl.c
+ create mode 100644 sound/pci/hda/hda_cs_dsp_ctl.h
+
+-- 
+2.34.1
 

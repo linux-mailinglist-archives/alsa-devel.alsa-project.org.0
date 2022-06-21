@@ -2,108 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9140B554F81
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jun 2022 17:38:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E4E5554F82
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jun 2022 17:38:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 322E41FF8;
-	Wed, 22 Jun 2022 17:37:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 322E41FF8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 476712459;
+	Wed, 22 Jun 2022 17:37:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 476712459
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655912314;
-	bh=McrNGXsV5fP0fs1TqHyRxes4J9rn7QK0SaHou7Xu+p8=;
+	s=default; t=1655912329;
+	bh=YM+1kw6x3MRXUuxTTcEQgrUwqsMnH+VBM6rR/PB1X2k=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cBV+bS92Xvqm/mN2T8JkvuEYmoC8Y5I1C1KymH1JgT5ey0BvUyfZmXoqzpJ0IB7MI
-	 Esvw7OGeWPG0tkU5tFo9mHMgm2JIuLQZ0ivOGrDZbI4D4jLiqYZx74xhPO+2QUL0/2
-	 0/LfUneCBqPTnAd53Oz1HcjGk+sfgSLn/0kRnGxg=
+	b=vW5TbTRWbg/pikk78B0qQkbom1e7swHmBlEGO0BAcHl6gAY4oFK2tUXbudHMuAD9E
+	 kFjgUKfmNPWr+GQYklfkrGCJ36MVrPZ7ZvCOBR+RkQQPbnF7BVZJb4tmA/kKZTnnmT
+	 mFgei3P+m7zp8IxRBDh7xrNNTURck7J4G/AQnLDY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F2809F806E7;
-	Wed, 22 Jun 2022 17:24:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 80994F806F1;
+	Wed, 22 Jun 2022 17:24:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 286DEF80155; Tue, 21 Jun 2022 09:04:29 +0200 (CEST)
+ id B3FD3F80155; Tue, 21 Jun 2022 11:22:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM, HEADER_FROM_DIFFERENT_DOMAINS, PRX_BODY_135,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com
- [209.85.222.182])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [IPv6:2a00:1450:4864:20::631])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7EAC2F80104
- for <alsa-devel@alsa-project.org>; Tue, 21 Jun 2022 09:03:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7EAC2F80104
-Received: by mail-qk1-f182.google.com with SMTP id 15so9392606qki.6
- for <alsa-devel@alsa-project.org>; Tue, 21 Jun 2022 00:03:49 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id F008CF800CB
+ for <alsa-devel@alsa-project.org>; Tue, 21 Jun 2022 11:22:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F008CF800CB
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="SZC4AJow"
+Received: by mail-ej1-x631.google.com with SMTP id o7so26167818eja.1
+ for <alsa-devel@alsa-project.org>; Tue, 21 Jun 2022 02:22:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=nwSBD3PTloVRfceK56G2aCfoof4Hwc6nnq2tpaiVX1E=;
+ b=SZC4AJowoOWLiXUnJNCXlRo+Fy21+43HuGqupG34NYAHev8FNX9LB4nFwui2g2ERc/
+ 2nAJjFE7gSxwK3AKqYoV1+xDYo3j7xKpCHwaEkBrfpjwItcvjJqbKZBmsBC6S6wk0LeP
+ jECzrOFPrp+pM5SPwC+6kLb36nf+Eql2JHp+xmKVEp9KBopfkHCProz5vj1URUzLxuOc
+ 2gtMsViSY39FbLby9xOKwyFIHQnssNg0xndDzN3H/27fb1evpypF3YvV3oswAKpp+Rdc
+ 8SQN3kqU5KrBqva1r+R8tUi0Xkhp826IwLzXg6j6O1xwnr3vjRymNISR9wMWgtdGEpu5
+ ffSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=4ezwPnqEAb9XxkVE6EHdU5akaM6B3QfniuvIAXM1ujs=;
- b=AqYss1YGxkuk8fEaAv6IF7Lt+h0R4U+6yzHA5NFBzc9NxU7SYcxFagGxZFYwETNvGP
- mYkR+MeMRJe1ZDS1oj7Abs4e9I8t9Z3tltZElMFBDEclX0XqXTyp+P8rPF0PDJyMWV1u
- VopEDQCgMaZzJJSdBHqHSNWP2yEWLS9l01+8Mpd4xB6vvENYB0PC9mGN3wOpUR+0yk40
- oIROYiDT7wMPiVeF3EKIV37dZdWqSrVxii48Vg1LnNQ9dVx+FiIFG3gFHFV/AwI/Y7h8
- CDz+i6F+kqWTDopagCc/KonsZsVN4VcxopfkmtwaM7N5McsV+jRKXVXLa1zR5JxyIXdk
- r2Ug==
-X-Gm-Message-State: AJIora9EGaSxgcqWeMcEgLnMENQbkJnD0lIoksixUTlWuprJ5n545tig
- pqdZeOdo1DQIzc3XABdVohklv4M8ek+vyA==
-X-Google-Smtp-Source: AGRyM1t/iORZhSVUchw4EBHHI4pS7ItTqb3pcZzCzVBt4N70XGNWufiSzSj56d0b/65xCS25xvZWJA==
-X-Received: by 2002:ae9:e316:0:b0:6a7:7d6:1300 with SMTP id
- v22-20020ae9e316000000b006a707d61300mr18727567qkf.505.1655795018789; 
- Tue, 21 Jun 2022 00:03:38 -0700 (PDT)
-Received: from mail-yb1-f182.google.com (mail-yb1-f182.google.com.
- [209.85.219.182]) by smtp.gmail.com with ESMTPSA id
- d8-20020ac85d88000000b00304edcfa109sm12804469qtx.33.2022.06.21.00.03.37
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Jun 2022 00:03:37 -0700 (PDT)
-Received: by mail-yb1-f182.google.com with SMTP id i7so5239631ybe.11
- for <alsa-devel@alsa-project.org>; Tue, 21 Jun 2022 00:03:37 -0700 (PDT)
-X-Received: by 2002:a05:6902:a:b0:65c:b38e:6d9f with SMTP id
- l10-20020a056902000a00b0065cb38e6d9fmr30754158ybh.36.1655795017074; Tue, 21
- Jun 2022 00:03:37 -0700 (PDT)
+ bh=nwSBD3PTloVRfceK56G2aCfoof4Hwc6nnq2tpaiVX1E=;
+ b=hAurqmRBhJwpijkoY6uz626d3/o6iqTbZ2fQQaBs9vk9X5oVC7yATCY8tQdCRaK36Z
+ yxJma6xlluPFzSHH1f4FYYCY7de30fITn+AkC6Cd4JuDSwrP8EKMJAwHiBE+FLKGN1Jc
+ RS09pTIahB2DZbaWvxLRm8HV96ks/dkBq73DVVxmqMohUM+vgN/FPodqrUVoO+cfCyBE
+ ydfX9nOPIAzBbPJoB94uUeB/cC+VMPrCPIZdpJZU7dF2LU2EAkFohlc4eqScC9LTFB/r
+ NP/7OHCsejYGx9twzo81jacaEFXSLgXRpW0Tt7wJb0n4vO75M7Tf9lcu0VbfPlGqLARb
+ C+3A==
+X-Gm-Message-State: AJIora/7mB+cgbIhu0G3NaUEATVCYwGykAdqvbMktcwb5n1oR+02bM7y
+ WRH8Hg4+BrcMGpfrC4qIl9gNPB4jP3nVnUbSElk=
+X-Google-Smtp-Source: AGRyM1st5l8YH2ggqJetd23NizO1SBXRfCSKIN2Ag6+snWa4U1k/4MnJ2Of8mZI6rssF1UlaIrePIaWD6CbQW7kd1/8=
+X-Received: by 2002:a17:906:149:b0:711:fca6:bc2f with SMTP id
+ 9-20020a170906014900b00711fca6bc2fmr25088970ejh.497.1655803360410; Tue, 21
+ Jun 2022 02:22:40 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220618123035.563070-1-mail@conchuod.ie>
- <20220618123035.563070-7-mail@conchuod.ie>
- <20220620205654.g7fyipwytbww5757@mobilestation>
-In-Reply-To: <20220620205654.g7fyipwytbww5757@mobilestation>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 21 Jun 2022 09:03:25 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWDcnAxjxdwpnbfUiDUoo=RGvQm537-EboAmaQTmxpY-g@mail.gmail.com>
-Message-ID: <CAMuHMdWDcnAxjxdwpnbfUiDUoo=RGvQm537-EboAmaQTmxpY-g@mail.gmail.com>
-Subject: Re: [PATCH 06/14] spi: dt-bindings: dw-apb-ssi: update
- spi-{r,t}x-bus-width for dwc-ssi
-To: Serge Semin <fancer.lancer@gmail.com>
+References: <20220620200644.1961936-1-aidanmacdonald.0x0@gmail.com>
+ <20220620200644.1961936-5-aidanmacdonald.0x0@gmail.com>
+In-Reply-To: <20220620200644.1961936-5-aidanmacdonald.0x0@gmail.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Tue, 21 Jun 2022 11:22:03 +0200
+Message-ID: <CAHp75VePD-ROfnFtwU33Jt_h9a-qBC0QwRQcQfgmEbyOV22CKA@mail.gmail.com>
+Subject: Re: [PATCH 04/49] regmap-irq: Introduce config registers for irq types
+To: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Wed, 22 Jun 2022 17:23:19 +0200
-Cc: Niklas Cassel <niklas.cassel@wdc.com>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- David Airlie <airlied@linux.ie>, Palmer Dabbelt <palmer@rivosinc.com>,
+X-Mailman-Approved-At: Wed, 22 Jun 2022 17:23:18 +0200
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Banajit Goswami <bgoswami@codeaurora.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ MyungJoo Ham <myungjoo.ham@samsung.com>, Lee Jones <lee.jones@linaro.org>,
+ Samuel Holland <samuel@sholland.org>, Marc Zyngier <maz@kernel.org>,
+ Bartosz Golaszewski <brgl@bgdev.pl>, Manivannan Sadhasivam <mani@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>, Chen-Yu Tsai <wens@csie.org>,
+ Andy Gross <agross@kernel.org>, orsonzhai@gmail.com,
+ linux-sunxi@lists.linux.dev,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>, tharvey@gateworks.com,
+ linux-actions@lists.infradead.org,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Cristian Ciocaltea <cristian.ciocaltea@gmail.com>,
+ linux-arm Mailing List <linux-arm-kernel@lists.infradead.org>,
+ rjones@gateworks.com, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Conor Dooley <conor.dooley@microchip.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-riscv <linux-riscv@lists.infradead.org>, Sam Ravnborg <sam@ravnborg.org>,
- Damien Le Moal <damien.lemoal@opensource.wdc.com>,
- Daniel Lezcano <daniel.lezcano@linaro.org>, Jose Abreu <joabreu@synopsys.com>,
- Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
- Mark Brown <broonie@kernel.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Paul Walmsley <paul.walmsley@sifive.com>, Conor Dooley <mail@conchuod.ie>,
- Thomas Gleixner <tglx@linutronix.de>, Dillon Min <dillon.minfei@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Heng Sia <jee.heng.sia@intel.com>,
- linux-spi <linux-spi@vger.kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Rob Herring <robh+dt@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Daniel Vetter <daniel@ffwll.ch>, dmaengine <dmaengine@vger.kernel.org>,
- Masahiro Yamada <masahiroy@kernel.org>
+ Michael Walle <michael@walle.cc>, zhang.lyra@gmail.com, baolin.wang7@gmail.com,
+ Matti Vaittinen <mazziesaccount@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -119,105 +122,72 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Serge,
-
-On Mon, Jun 20, 2022 at 10:56 PM Serge Semin <fancer.lancer@gmail.com> wrote:
-> On Sat, Jun 18, 2022 at 01:30:28PM +0100, Conor Dooley wrote:
-> > From: Conor Dooley <conor.dooley@microchip.com>
-> >
-> > snps,dwc-ssi-1.01a has a single user - the Canaan k210, which uses a
-> > width of 4 for spi-{r,t}x-bus-width. Update the binding to reflect
-> > this.
-> >
-> > Signed-off-by: Conor Dooley <conor.dooley@microchip.com>
-> > ---
-> >  .../bindings/spi/snps,dw-apb-ssi.yaml         | 48 ++++++++++++++-----
-> >  1 file changed, 35 insertions(+), 13 deletions(-)
-> >
-> > diff --git a/Documentation/devicetree/bindings/spi/snps,dw-apb-ssi.yaml b/Documentation/devicetree/bindings/spi/snps,dw-apb-ssi.yaml
-> > index e25d44c218f2..f2b9e3f062cd 100644
-> > --- a/Documentation/devicetree/bindings/spi/snps,dw-apb-ssi.yaml
-> > +++ b/Documentation/devicetree/bindings/spi/snps,dw-apb-ssi.yaml
-> > @@ -135,19 +135,41 @@ properties:
-> >        of the designware controller, and the upper limit is also subject to
-> >        controller configuration.
-> >
-> > -patternProperties:
-> > -  "^.*@[0-9a-f]+$":
-> > -    type: object
-> > -    properties:
-> > -      reg:
-> > -        minimum: 0
-> > -        maximum: 3
-> > -
-> > -      spi-rx-bus-width:
-> > -        const: 1
-> > -
-> > -      spi-tx-bus-width:
-> > -        const: 1
-> > +if:
-> > +  properties:
-> > +    compatible:
-> > +      contains:
-> > +        const: snps,dwc-ssi-1.01a
-> > +
-> > +then:
-> > +  patternProperties:
-> > +    "^.*@[0-9a-f]+$":
-> > +      type: object
-> > +      properties:
-> > +        reg:
-> > +          minimum: 0
-> > +          maximum: 3
-> > +
-> > +        spi-rx-bus-width:
-> > +          const: 4
-> > +
-> > +        spi-tx-bus-width:
-> > +          const: 4
-> > +
-> > +else:
-> > +  patternProperties:
-> > +    "^.*@[0-9a-f]+$":
-> > +      type: object
-> > +      properties:
-> > +        reg:
-> > +          minimum: 0
-> > +          maximum: 3
-> > +
-> > +        spi-rx-bus-width:
-> > +          const: 1
-> > +
-> > +        spi-tx-bus-width:
-> > +          const: 1
+On Mon, Jun 20, 2022 at 10:08 PM Aidan MacDonald
+<aidanmacdonald.0x0@gmail.com> wrote:
 >
-> You can just use a more relaxed constraint "enum: [1 2 4 8]" here
-> irrespective from the compatible string. The modern DW APB SSI
-> controllers of v.4.* and newer also support the enhanced SPI Modes too
-> (Dual, Quad and Octal). Since the IP-core version is auto-detected at
-> run-time there is no way to create a DT-schema correctly constraining
-> the Rx/Tx SPI bus widths. So let's keep the
-> compatible-string-independent "patternProperties" here but just extend
-> the set of acceptable "spi-rx-bus-width" and "spi-tx-bus-width"
-> properties values.
+> Config registers provide a more uniform approach to handling irq type
+> registers. They are essentially an extension of the virtual registers
+> used by the qcom-pm8008 driver.
 >
-> Note the DW APB SSI/AHB SSI driver currently doesn't support the
-> enhanced SPI modes. So I am not sure whether the multi-lines Rx/Tx SPI
-> bus indeed works for Canaan K210 AHB SSI controller. AFAICS from the
-> DW APB SSI v4.01a manual the Enhanced SPI mode needs to be properly
-> activated by means of the corresponding CSR. So most likely the DW AHB
-> SSI controllers need some specific setups too.
+> Config registers can be represented as a 2D array:
+>
+>     config_base[0]      reg0,0      reg0,1      reg0,2      reg0,3
+>     config_base[1]      reg1,0      reg1,1      reg1,2      reg1,3
+>     config_base[2]      reg2,0      reg2,1      reg2,2      reg2,3
+>
+> There are 'num_config_bases' base registers, each of which is used to
+> address 'num_config_regs' registers. The addresses are calculated in
+> the same way as for other bases. It is assumed that an irq's type is
+> controlled by one column of registers; that column is identified by
+> the irq's 'type_reg_offset'.
+>
+> The set_type_config() callback is responsible for updating the config
+> register contents. It receives an array of buffers (each represents a
+> row of registers) and the index of the column to update, along with
+> the 'struct regmap_irq' description and requested irq type.
+>
+> Buffered values are written to registers in regmap_irq_sync_unlock().
+> Note that the entire register contents are overwritten, which is a
+> minor change in behavior from type registers via 'type_base'.
 
-That doesn't matter here, as DT describes hardware, not software
-limitations.
+...
 
-Gr{oetje,eeting}s,
+> +                       ret = regmap_write(map, reg, d->config_buf[i][j]);
+> +                       if (ret != 0)
 
-                        Geert
+if (ret)
 
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+> +                               dev_err(d->map->dev,
+> +                                       "Failed to write config %x: %d\n",
+> +                                       reg, ret);
+> +               }
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+...
+
+> + * regmap_irq_set_type_config_simple() - Simple IRQ type configuration callback.
+
+> + *
+
+Redundant line.
+
+...
+
+> +               d->config_buf = kcalloc(chip->num_config_bases,
+> +                                       sizeof(*d->config_buf), GFP_KERNEL);
+> +               if (!d->config_buf)
+> +                       goto err_alloc;
+> +
+> +               for (i = 0; i < chip->num_config_regs; i++) {
+> +                       d->config_buf[i] = kcalloc(chip->num_config_regs,
+> +                                                  sizeof(unsigned int),
+
+Can it be sizeof(**d->config_buf) ?
+
+> +                                                  GFP_KERNEL);
+> +                       if (!d->config_buf[i])
+> +                               goto err_alloc;
+> +               }
+
+-- 
+With Best Regards,
+Andy Shevchenko

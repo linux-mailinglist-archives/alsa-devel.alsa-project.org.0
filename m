@@ -2,116 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04FAA554FA7
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jun 2022 17:43:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 621B1554FA8
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jun 2022 17:43:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9A58C2816;
-	Wed, 22 Jun 2022 17:42:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A58C2816
+	by alsa0.perex.cz (Postfix) with ESMTPS id 068F31FB6;
+	Wed, 22 Jun 2022 17:42:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 068F31FB6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655912581;
-	bh=hwBB707LRkj/ZJu1yKhMIRiibMFA4O+bcuxfa5UzINw=;
-	h=References:From:To:Subject:In-reply-to:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Y30qyWKuWXNNyHV78cSW5S8dkd9e+CeLtQfYPSO9Dv93LqogrmanD4scDis9KcqzW
-	 bwJuNCnV7PSvQLC4oD54x5IfrCvntO65+iIv2l/uEQIfESwshY2xkWzmrv7O7MEXsy
-	 +bwJU3co5V2a/niU9/TWhZGtU2pM/qWWSfKRvqiU=
+	s=default; t=1655912598;
+	bh=c0/1Nx2+SJOqTxjeNE/IgDqCaF5b6QxFOepQbDtHEBI=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=aB57+jA3yePkXiYVXovK72APBR+rzUjYZcf1TQZnCUst26L++ROX4j3plyO5nJ/CK
+	 WhhhxL52myyex4ZUdP1HyoY0AMbKUhWRwbrjW3TBQFo2Ltw25I9wjxZQlVLOszygiC
+	 2yNDmBPO6RG5xMRgtlQPnNlaLQHV6cA5mszcyvfE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E5399F8076D;
-	Wed, 22 Jun 2022 17:24:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 73492F8076F;
+	Wed, 22 Jun 2022 17:24:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 239E9F80155; Tue, 21 Jun 2022 23:12:03 +0200 (CEST)
+ id 522A4F80589; Tue, 21 Jun 2022 23:38:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,SPF_HELO_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [IPv6:2a00:1450:4864:20::42c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 58785F80104
- for <alsa-devel@alsa-project.org>; Tue, 21 Jun 2022 23:11:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58785F80104
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5BFDFF80538
+ for <alsa-devel@alsa-project.org>; Tue, 21 Jun 2022 23:38:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BFDFF80538
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="dBkR+OXn"
-Received: by mail-wr1-x42c.google.com with SMTP id r20so219827wra.1
- for <alsa-devel@alsa-project.org>; Tue, 21 Jun 2022 14:11:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=references:from:to:cc:subject:in-reply-to:date:message-id
- :mime-version; bh=5jGRxWa+Hik2xXu28OZInbUMDSK1LmZ28o9a5C6ustA=;
- b=dBkR+OXnEaZPr9uoaZB+DI5wT1AXufYbc+9qN44d74R1jy7oOaP5glLLgc/hzh3E8m
- VEYB0O8O8TiK3K0KU8aR4nbUvWWFGE7uePKS5PELYCU4SnEeJA8EVcTkrM2DoduTme8M
- T2w+A4Oj1CabUPV/iQcD8tJhe3/0P4UoInCNfQd2pdDiq/qrgQ6JtX7yLUUFdykN73bM
- NtCtwLELefp/0JcgOX6hIfK1mCyMbjfNrGysmUUfiSDKIuEdhMG6diRPWKvISTwtHa9N
- kgrC4FpslcP3XTRRhPHg48OrMHfSCIL2fPrOOeRY9LvrBNjg8LF3SLUYHP6wXsVMRurd
- LPAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:references:from:to:cc:subject:in-reply-to:date
- :message-id:mime-version;
- bh=5jGRxWa+Hik2xXu28OZInbUMDSK1LmZ28o9a5C6ustA=;
- b=AryOGo285tm2CMOI0N9XdwZCGytuW8IaNcI0lPJKMFqJv+KdsqNckXaFRklEMw+Pe9
- Ca8ufpq46nDhzeC5D72ckcTAQp+SgZK9YJNJLpyAEYh6zZRqd66YM9zmXdpkk53wXHIa
- XyCH9nhQEd9C1RE9xE0pPAp15+H0lnIAdfMBb5XRkVCSMM8GgOiseajqX+QK9+TSvK/X
- lNDC+XG/Y01HKm/BPky6LA+LX3jW1L/lpL98S5KUP6R+PIa6q8lUrd8h3HpDEdHtIEPZ
- X/hCzgXMbWqS/L+pZxMWjkInwy7ooYkndlBb5l2ZVKLxZ3inperPKkuFB0Sv+uQXb9fw
- moYw==
-X-Gm-Message-State: AJIora9vK50c79KpLCT87YRURgrNxuprLhZ2I1oblPxDi9li+C/pBxYJ
- +LZRHGvnGUctz3Sr55+oSq8=
-X-Google-Smtp-Source: AGRyM1uWGscZnGaavVg/uIQYsRslzM5t54de/BLxZBl+KXB10CZYw57ndf/q8EV3SUZ+AQYy58rh1w==
-X-Received: by 2002:adf:fb10:0:b0:207:af88:1eb9 with SMTP id
- c16-20020adffb10000000b00207af881eb9mr30853557wrr.238.1655845918233; 
- Tue, 21 Jun 2022 14:11:58 -0700 (PDT)
-Received: from localhost (92.40.168.122.threembb.co.uk. [92.40.168.122])
- by smtp.gmail.com with ESMTPSA id
- bv27-20020a0560001f1b00b0021b84ac7a05sm7979960wrb.0.2022.06.21.14.11.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Jun 2022 14:11:57 -0700 (PDT)
-References: <20220620200644.1961936-1-aidanmacdonald.0x0@gmail.com>
- <20220620200644.1961936-16-aidanmacdonald.0x0@gmail.com>
- <CAHp75Vd7Sq9RMqin_y-8qUEAJLaGfuqxAbe+qcMB22=bqkyZqg@mail.gmail.com>
-From: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-Subject: Re: [PATCH 15/49] regmap-irq: Change the behavior of mask_writeonly
-In-reply-to: <CAHp75Vd7Sq9RMqin_y-8qUEAJLaGfuqxAbe+qcMB22=bqkyZqg@mail.gmail.com>
-Date: Tue, 21 Jun 2022 22:13:03 +0100
-Message-ID: <FQHPnJKuXUHf8vLiZoXidpoim5RtEYUC@localhost>
+ dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
+ header.b="Ve1YiwYi"
+Received: from localhost (unknown [188.24.177.228])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: cristicc)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 277BB66016B6;
+ Tue, 21 Jun 2022 22:38:26 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1655847506;
+ bh=c0/1Nx2+SJOqTxjeNE/IgDqCaF5b6QxFOepQbDtHEBI=;
+ h=From:To:Cc:Subject:Date:From;
+ b=Ve1YiwYiqWVd5Wun/9g53AmO4CIFM6hUAHcuaNSCEJjGmXn8o2uYT8K3gZuFXCoE5
+ reNmP4IiKGX9LSZGB/WOM+pTL1Y4586GGczllQ2T8yMoxyGNa4dkE34N8ac/sEPHi5
+ RXcAFd3q3ShQGBrzhXXmM0VXrCWv5t+pxt2fzUsD9Lezofw/OawLN5VVdHkSy7yEvt
+ ZPcurHBcRnmKgZSI/Ue9pFgZ/hGLBnmTQFUcMBWpfzyWYycnmtAhtBTQws2CPwDLD0
+ E1kqMQWmyV6+F8c0qm4ResWDS/u6yquaXaLf0hwhi66qnfSA9inWEpYHUY5LovRjHA
+ GxuB+Pvph1tmg==
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+To: James Schulman <james.schulman@cirrus.com>,
+ David Rhodes <david.rhodes@cirrus.com>,
+ Lucas Tanure <tanureal@opensource.cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH] ASoC: cs35l41: Add support for CLSA3541 ACPI device ID
+Date: Wed, 22 Jun 2022 00:38:19 +0300
+Message-Id: <20220621213819.262537-1-cristian.ciocaltea@collabora.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Mailman-Approved-At: Wed, 22 Jun 2022 17:23:18 +0200
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Banajit Goswami <bgoswami@codeaurora.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- MyungJoo Ham <myungjoo.ham@samsung.com>, Lee Jones <lee.jones@linaro.org>,
- Samuel Holland <samuel@sholland.org>, Marc Zyngier <maz@kernel.org>,
- Bartosz Golaszewski <brgl@bgdev.pl>, Manivannan Sadhasivam <mani@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Chanwoo Choi <cw00.choi@samsung.com>, Chen-Yu Tsai <wens@csie.org>,
- Andy Gross <agross@kernel.org>, orsonzhai@gmail.com,
- linux-sunxi@lists.linux.dev,
- Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>, tharvey@gateworks.com,
- linux-actions@lists.infradead.org, "open list:GPIO
- SUBSYSTEM" <linux-gpio@vger.kernel.org>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Thomas Gleixner <tglx@linutronix.de>,
- Cristian Ciocaltea <cristian.ciocaltea@gmail.com>,
- linux-arm Mailing List <linux-arm-kernel@lists.infradead.org>,
- rjones@gateworks.com, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Michael Walle <michael@walle.cc>, zhang.lyra@gmail.com, baolin.wang7@gmail.com,
- Matti Vaittinen <mazziesaccount@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 22 Jun 2022 17:23:19 +0200
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ kernel@collabora.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -127,41 +87,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Add support for the CLSA3541 ACPI device ID used on Valve's Steam Deck.
+The driver is fully compatible with the indicated hardware, hence no
+additional changes are required.
 
-Andy Shevchenko <andy.shevchenko@gmail.com> writes:
+Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+---
+ sound/soc/codecs/cs35l41-spi.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-> On Mon, Jun 20, 2022 at 10:08 PM Aidan MacDonald
-> <aidanmacdonald.0x0@gmail.com> wrote:
->>
->> No drivers currently use mask_writeonly, and in its current form
->> it seems a bit misleading. When set, mask registers will be
->> updated with regmap_write_bits() instead of regmap_update_bits(),
->> but regmap_write_bits() still does a read-modify-write under the
->> hood. It's not a write-only operation.
->>
->> Performing a simple regmap_write() is probably more useful, since
->> it can be used for chips that have separate set & clear registers
->> for controlling mask bits. Such registers are normally volatile
->> and read as 0, so avoiding a register read minimizes bus traffic.
->
-> Reading your explanations and the code, I would rather think about
-> fixing the regmap_write_bits() to be writeonly op.
-
-That's impossible without special hardware support.
-
-> Otherwise it's unclear what's the difference between
-> regmap_write_bits() vs. regmap_update_bits().
-
-This was not obvious to me either. They're the same except in how they
-issue the low-level write op -- regmap_update_bits() will only do the
-write if the new value differs from the current one. regmap_write_bits()
-will always do a write, even if the new value is the same.
-
-I think the problem is lack of documentation. I only figured this out
-by reading the implementation.
-
->>         if (d->chip->mask_writeonly)
->> -               return regmap_write_bits(d->map, reg, mask, val);
->> +               return regmap_write(d->map, reg, val & mask);
->>         else
->>                 return regmap_update_bits(d->map, reg, mask, val);
+diff --git a/sound/soc/codecs/cs35l41-spi.c b/sound/soc/codecs/cs35l41-spi.c
+index 9e19c946a66b..5c8bb24909eb 100644
+--- a/sound/soc/codecs/cs35l41-spi.c
++++ b/sound/soc/codecs/cs35l41-spi.c
+@@ -74,6 +74,7 @@ MODULE_DEVICE_TABLE(of, cs35l41_of_match);
+ #ifdef CONFIG_ACPI
+ static const struct acpi_device_id cs35l41_acpi_match[] = {
+ 	{ "CSC3541", 0 }, /* Cirrus Logic PnP ID + part ID */
++	{ "CLSA3541", 0 }, /* Cirrus Logic PnP ID + part ID */
+ 	{},
+ };
+ MODULE_DEVICE_TABLE(acpi, cs35l41_acpi_match);
+--
+2.36.1

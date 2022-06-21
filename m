@@ -2,87 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38893553DE3
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jun 2022 23:39:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7031B553DE8
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jun 2022 23:40:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CD5B31FD8;
-	Tue, 21 Jun 2022 23:38:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD5B31FD8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0E9F92070;
+	Tue, 21 Jun 2022 23:39:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E9F92070
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655847584;
-	bh=9JciEPK6uWn/59WK5lSBpQ7C30B3/2JPu4ukaeQEqes=;
+	s=default; t=1655847646;
+	bh=ZHe3WzHKLG1yz7u1v8gHNJSxOQImrKgIYukZojDBmok=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VLk91KPm77vtv9/hds5I2to0Hj3rMIxmo2ngoZglch3/M00TPTKX7s/DbpFXFzMds
-	 qtjEXCN8nIxuB7I2OCHbPmEkYX+X9JEx9Ev+kd08CSwXBhHlofdpQdhISFno6iyioK
-	 HGlnRvUE+CiS2ps6i2XWB4fPNdMRUGu/NqDX8Z+8=
+	b=bDyaJn7J59B3XsimpujfKpJCKfo+y9PJlRLK8n76uuIQ9HwucJMVeuMGQud9pg382
+	 BS+CZQbwL0R5i93XWtsOuXBy2BJ6FA+zWPJFPSJPk4s5W5OG/+aH9iKrl7ylzW5Ikm
+	 Q3za3h80hhuEdvIT2msG2jSCHXJgiUSZjZI9iV0o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 26D2AF800CB;
-	Tue, 21 Jun 2022 23:38:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CF173F80557;
+	Tue, 21 Jun 2022 23:38:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 65C79F8053B; Tue, 21 Jun 2022 23:38:13 +0200 (CEST)
+ id CB2A6F80548; Tue, 21 Jun 2022 23:38:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 95E47F80152
- for <alsa-devel@alsa-project.org>; Tue, 21 Jun 2022 23:38:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95E47F80152
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0B0D6F8030F
+ for <alsa-devel@alsa-project.org>; Tue, 21 Jun 2022 23:38:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B0D6F8030F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="g/DFUibQ"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25LBDkxT018841;
- Tue, 21 Jun 2022 16:38:04 -0500
+ header.b="Ascl+/HS"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25LBQrlL010673;
+ Tue, 21 Jun 2022 16:38:06 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=PODMain02222019;
- bh=R/t6fc1SxxcbNSxZ8Yw6JojVc/MfujfdPc5svZLK/5I=;
- b=g/DFUibQKofR9TIzS+H1BaYTEv1zrXcJRp9RWEaR1/Qg59sI7MmIrtP9CyoILpujO5/V
- 5BdYyq83CzhueuFAlK2I802emCDOl7JB0lV3GYchufp32OtE/PKmh47+Y2/AEc5ePya8
- R0lqijNLdCWwWqgbnNkAPpq6NC8wo7Kvf5zXNEYZqoK3vk0o0DmLAbFRn4efd7J4THJB
- ZRd9a2paGVucjPpjtRu4FEDeOkd/tp1nT5v0O9lE6PWb7LFw0PF8L2mkj+WbVxGVKVoB
- DQl/gaw2ELH4LE9MJRl6uuOTzTGj9ulBKlzSQwvkDi1UwPZcx0j6kD86d4+6/8ZTIahj sA== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3gsb4p45ae-3
+ bh=22fxRs36mOwLx01C6ew27/L9/hScJO9HrYMwPcvStzY=;
+ b=Ascl+/HS4hQSBUcfjilvnyBrvzlaszZT8iFTOlHlsMsY4wdxsr0oIAheappp90DxwiEq
+ kmPSngJDf26W8G6CZa320YqPMt1OvGoK44LwUnoXfNEM2ApGIEhGT1wN0Ob1v+6pdJUn
+ weEMEAijkclEVXZlCEPoYJybX1b17OHzHVax0t/x/+16jIQQtyuoDOKQV09PoD58hOuI
+ /IOEjmgRDeP0c9VblGLBo0/5EIF+9wl922VwJUU+la365S164UUL1e7GfXNrUmmsWKzU
+ y1CGyFQ0NGmA7aHTHXcRu7/5SEJ2BFlwgxCodtP4Rj/CR6suY6cxtcNRC5TLYNjOlNPf QQ== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3gsc41c7yj-4
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Tue, 21 Jun 2022 16:38:04 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ Tue, 21 Jun 2022 16:38:06 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 21 Jun
- 2022 22:38:03 +0100
+ 2022 22:38:04 +0100
 Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.28 via
- Frontend Transport; Tue, 21 Jun 2022 22:38:03 +0100
+ Frontend Transport; Tue, 21 Jun 2022 22:38:04 +0100
 Received: from vitaly-Legion-7-16ACHg6.ad.cirrus.com (unknown [198.90.238.175])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 7081611D3;
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id CBF9A475;
  Tue, 21 Jun 2022 21:38:03 +0000 (UTC)
 From: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
 To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Mark
  Brown <broonie@kernel.org>
-Subject: [PATCH v6 05/14] ALSA: hda: cs35l41: Save Subsystem ID inside CS35L41
- Driver
-Date: Tue, 21 Jun 2022 22:37:52 +0100
-Message-ID: <20220621213801.2021097-6-vitalyr@opensource.cirrus.com>
+Subject: [PATCH v6 06/14] ALSA: hda: cs35l41: Support reading subsystem id
+ from ACPI
+Date: Tue, 21 Jun 2022 22:37:53 +0100
+Message-ID: <20220621213801.2021097-7-vitalyr@opensource.cirrus.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220621213801.2021097-1-vitalyr@opensource.cirrus.com>
 References: <20220621213801.2021097-1-vitalyr@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-GUID: -D2a_yCXoMP18Qi12m6-gFX5ePQx81AN
-X-Proofpoint-ORIG-GUID: -D2a_yCXoMP18Qi12m6-gFX5ePQx81AN
+X-Proofpoint-GUID: EhAP18Rg7ulkxEBppA6JlKL7YYEMns6y
+X-Proofpoint-ORIG-GUID: EhAP18Rg7ulkxEBppA6JlKL7YYEMns6y
 X-Proofpoint-Spam-Reason: safe
 Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org, Stefan Binding <sbinding@opensource.cirrus.com>
@@ -103,70 +103,70 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Stefan Binding <sbinding@opensource.cirrus.com>
 
-The Subsystem ID is read from the HDA driver, and will
-be used by the CS35L41 driver to be able to uniquely
-identify the laptop, which is required to be able to
-define firmware to be used by specific models.
+On some laptop models, the ACPI contains the unique
+Subsystem ID, and this value should be preferred
+over the value from the HDA driver.
 
 Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
 Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
 ---
- sound/pci/hda/cs35l41_hda.c   | 3 +++
- sound/pci/hda/cs35l41_hda.h   | 1 +
- sound/pci/hda/hda_component.h | 1 +
- sound/pci/hda/patch_realtek.c | 1 +
- 4 files changed, 6 insertions(+)
+ sound/pci/hda/cs35l41_hda.c | 36 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 36 insertions(+)
 
 diff --git a/sound/pci/hda/cs35l41_hda.c b/sound/pci/hda/cs35l41_hda.c
-index 92c6d8b7052e..7f0132694774 100644
+index 7f0132694774..5f89a0462eb6 100644
 --- a/sound/pci/hda/cs35l41_hda.c
 +++ b/sound/pci/hda/cs35l41_hda.c
-@@ -356,6 +356,9 @@ static int cs35l41_hda_bind(struct device *dev, struct device *master, void *mas
- 		return -EBUSY;
+@@ -545,6 +545,36 @@ static int cs35l41_hda_apply_properties(struct cs35l41_hda *cs35l41)
+ 	return cs35l41_hda_channel_map(cs35l41->dev, 0, NULL, 1, &hw_cfg->spk_pos);
+ }
  
- 	comps->dev = dev;
-+	if (!cs35l41->acpi_subsystem_id)
-+		cs35l41->acpi_subsystem_id = devm_kasprintf(dev, GFP_KERNEL,
-+							    "%.8x", comps->subsystem_id);
- 	cs35l41->codec = comps->codec;
- 	strscpy(comps->name, dev_name(dev), sizeof(comps->name));
- 	comps->playback_hook = cs35l41_hda_playback_hook;
-diff --git a/sound/pci/hda/cs35l41_hda.h b/sound/pci/hda/cs35l41_hda.h
-index 5814af050944..b57f59a1ba49 100644
---- a/sound/pci/hda/cs35l41_hda.h
-+++ b/sound/pci/hda/cs35l41_hda.h
-@@ -42,6 +42,7 @@ struct cs35l41_hda {
- 	int channel_index;
- 	unsigned volatile long irq_errors;
- 	const char *amp_name;
-+	const char *acpi_subsystem_id;
- 	struct mutex fw_mutex;
- 	struct regmap_irq_chip_data *irq_data;
- 	bool firmware_running;
-diff --git a/sound/pci/hda/hda_component.h b/sound/pci/hda/hda_component.h
-index 534e845b9cd1..fa6df52e7855 100644
---- a/sound/pci/hda/hda_component.h
-+++ b/sound/pci/hda/hda_component.h
-@@ -14,6 +14,7 @@
- struct hda_component {
- 	struct device *dev;
- 	char name[HDA_MAX_NAME_SIZE];
-+	int subsystem_id;
- 	struct hda_codec *codec;
- 	void (*playback_hook)(struct device *dev, int action);
- };
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 923c0d498d54..6a944396582b 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -6655,6 +6655,7 @@ static void cs35l41_generic_fixup(struct hda_codec *cdc, int action, const char
- 			if (!name)
- 				return;
- 			spec->comps[i].codec = cdc;
-+			spec->comps[i].subsystem_id = cdc->core.subsystem_id;
- 			component_match_add(dev, &spec->match, component_compare_dev_name, name);
- 		}
- 		ret = component_master_add_with_match(dev, &comp_master_ops, spec->match);
++static int cs35l41_get_acpi_sub_string(struct device *dev, struct acpi_device *adev,
++				       const char **subsysid)
++{
++	struct acpi_buffer buffer = { ACPI_ALLOCATE_BUFFER, NULL };
++	union acpi_object *obj;
++	acpi_status status;
++	int ret = 0;
++
++	status = acpi_evaluate_object(adev->handle, "_SUB", NULL, &buffer);
++	if (ACPI_SUCCESS(status)) {
++		obj = buffer.pointer;
++		if (obj->type == ACPI_TYPE_STRING) {
++			*subsysid = devm_kstrdup(dev, obj->string.pointer, GFP_KERNEL);
++			if (*subsysid == NULL) {
++				dev_err(dev, "Cannot allocate Subsystem ID");
++				ret = -ENOMEM;
++			}
++		} else {
++			dev_warn(dev, "Warning ACPI _SUB did not return a string\n");
++			ret = -ENODEV;
++		}
++		acpi_os_free(buffer.pointer);
++	} else {
++		dev_dbg(dev, "Warning ACPI _SUB failed: %#x\n", status);
++		ret = -ENODEV;
++	}
++
++	return ret;
++}
++
+ static int cs35l41_hda_read_acpi(struct cs35l41_hda *cs35l41, const char *hid, int id)
+ {
+ 	struct cs35l41_hw_cfg *hw_cfg = &cs35l41->hw_cfg;
+@@ -564,6 +594,12 @@ static int cs35l41_hda_read_acpi(struct cs35l41_hda *cs35l41, const char *hid, i
+ 	physdev = get_device(acpi_get_first_physical_node(adev));
+ 	acpi_dev_put(adev);
+ 
++	ret = cs35l41_get_acpi_sub_string(cs35l41->dev, adev, &cs35l41->acpi_subsystem_id);
++	if (ret)
++		dev_info(cs35l41->dev, "No Subsystem ID found in ACPI: %d", ret);
++	else
++		dev_dbg(cs35l41->dev, "Subsystem ID %s found", cs35l41->acpi_subsystem_id);
++
+ 	property = "cirrus,dev-index";
+ 	ret = device_property_count_u32(physdev, property);
+ 	if (ret <= 0)
 -- 
 2.34.1
 

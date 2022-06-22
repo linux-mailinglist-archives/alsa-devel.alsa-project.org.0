@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2D88554A84
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jun 2022 15:09:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E83D3554A80
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jun 2022 15:09:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 62C6D1F25;
-	Wed, 22 Jun 2022 15:08:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62C6D1F25
+	by alsa0.perex.cz (Postfix) with ESMTPS id 77AB11F1B;
+	Wed, 22 Jun 2022 15:08:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 77AB11F1B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655903379;
-	bh=tgLVT54RPo6tM2ma/VFS72AQD27XLaNTdQHT4KOIHOA=;
+	s=default; t=1655903347;
+	bh=SsYKZ7uvv9yaQ/JCZsQGKadLQnqUgXyz0MIqg9apmNQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MdYq5jmeFw1wPGU6mfj6ajPtx2hA7FdoCUdxwOk20aPpssRD4pUfrjSsXVrZ36HRq
-	 o1CNDTx4ME8RgmPwz4ummDmwZ+iytSNxeuk8NemnalbZJThV+Ol2SjZs2nTIcflcyE
-	 GXoKAayVSBrk2KLeTevQfEq29SuNQsWP4Yz/BJDA=
+	b=IBEyhnCnydYDeXcGqjl2E1uSO7ACOi0d91g7jPFQ8lKKWm5OKOzpHCI9JByiHVO/9
+	 vjvkeVW2lSZy4Xf3OsAr21Lndz4V6f8MGhGksCnt7WzjWTKaGv+5cc1zh1qN0qbcIO
+	 7AxFfEyR49kuqxPUCTxFi+paRu+SVypg7MayZ59M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BD388F804AC;
+	by alsa1.perex.cz (Postfix) with ESMTP id 29BC4F80118;
 	Wed, 22 Jun 2022 15:08:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BD14DF8019B; Wed, 22 Jun 2022 15:08:06 +0200 (CEST)
+ id 82333F80424; Wed, 22 Jun 2022 15:08:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,53 +35,54 @@ Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
  [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 85C44F8019B
- for <alsa-devel@alsa-project.org>; Wed, 22 Jun 2022 15:08:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85C44F8019B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 497ECF80118
+ for <alsa-devel@alsa-project.org>; Wed, 22 Jun 2022 15:07:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 497ECF80118
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="V1vqjGNa"
+ header.b="MlsgOdH4"
 Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25M8oRuP016502;
+ by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25MAmnr9022149;
  Wed, 22 Jun 2022 08:07:57 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=PODMain02222019;
- bh=ntxFv34fd+vFLPQPi1Xmyq/mW6Q27ifhC5yz+XojRyE=;
- b=V1vqjGNaFSkM+gdJj+xs+Z8tnK5DsQR46sXTEh/ke1Fa11WYcY6/tGv94NscN2IGw+I7
- zBMSV9c/+p/zQ+PMSrLuUxtl6mvIW5q6Hwqv6aPmWn0qtW3upwKvt117Q1n8o8zXHzK/
- Kcl75B+j3cTC80guD2jZPjvezp+VdsaHQeye25CcNSOh92VTIgfMNJxhq/kidYjwnfbs
- CyUogcZq8Xz7DZhtn/AD5MhRsNiP20b/UN4h6bGX/4IcC5lv5mK0zumWNTa0BNtEq7n2
- A4jyQLOYtkthki8dl3aon3K4CGhF52CBmcRwaGG+t5RZy3CjfDGLsPUSDHgonTRw5SCH 6Q== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3gsc41d2wb-1
+ bh=OX/zp2cZpxgV2NdCHL6oybnWUUgNbKlj6YCC3UjHsj8=;
+ b=MlsgOdH4YkjEB0DDKt8BGnqDA5rxtsjnGdphz1xwuB2UY3Me98DJwra2qPc7ODDOekYd
+ Tiod9IbwtUVkru6dDgeJsqwbzBDIctt03JPcy1A+C29y/OTbJ1VAfvW2ogoDIKXm5UGq
+ aTvXLSRn+mY9Tatq+fqJLrzWXZ98Z87Rhr89+wCDFVpObX1f2v9R0Pv04AjOE39Nlo6l
+ 6c4PDEsLzy3WiP3FRKP12vYsNFG1m8qry8YLToDG3ftOMxQj+17VAdPYLx3tzD2TNqJK
+ hGXEqkYfTMfLup4BHuTa0JBT8Op4NB2zyNU/Du7U6Vrc+NUp9cjNBWLSs0uxfX+RPhAW 5g== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3gsc41d2wc-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
  Wed, 22 Jun 2022 08:07:57 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 22 Jun
  2022 14:07:55 +0100
 Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.28 via
  Frontend Transport; Wed, 22 Jun 2022 14:07:55 +0100
 Received: from sbinding-cirrus-dsktp.ad.cirrus.com (unknown [198.90.238.151])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 35A7A478;
- Wed, 22 Jun 2022 13:07:53 +0000 (UTC)
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 440627C;
+ Wed, 22 Jun 2022 13:07:55 +0000 (UTC)
 From: Stefan Binding <sbinding@opensource.cirrus.com>
 To: "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
  Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>
-Subject: [PATCH v1 1/2] ACPI: utils: Add api to read _SUB from ACPI
-Date: Wed, 22 Jun 2022 14:07:29 +0100
-Message-ID: <20220622130730.1573747-2-sbinding@opensource.cirrus.com>
+Subject: [PATCH v1 2/2] ASoC: cs35l41: Read System Name from ACPI _SUB to
+ identify firmware
+Date: Wed, 22 Jun 2022 14:07:30 +0100
+Message-ID: <20220622130730.1573747-3-sbinding@opensource.cirrus.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220622130730.1573747-1-sbinding@opensource.cirrus.com>
 References: <20220622130730.1573747-1-sbinding@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-GUID: OtYPNvyMW17wUUEj7zk8fODjthptNpou
-X-Proofpoint-ORIG-GUID: OtYPNvyMW17wUUEj7zk8fODjthptNpou
+X-Proofpoint-GUID: d4Xer4K1ffLl8TVON-jfV70-VNLBo7W_
+X-Proofpoint-ORIG-GUID: d4Xer4K1ffLl8TVON-jfV70-VNLBo7W_
 X-Proofpoint-Spam-Reason: safe
 Cc: linux-acpi@vger.kernel.org, alsa-devel@alsa-project.org,
  Stefan Binding <sbinding@opensource.cirrus.com>, linux-kernel@vger.kernel.org,
@@ -101,84 +102,70 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add a wrapper function to read the _SUB string from ACPI.
+When loading firmware, wm_adsp uses a number of parameters to
+determine the path of the firmware and tuning files to load.
+One of these parameters is system_name.
+Add support in cs35l41 to read this system name from the ACPI
+_SUB ID in order to uniquely identify the firmware and tuning
+mapped to a particular system.
 
 Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
 ---
- drivers/acpi/utils.c | 26 ++++++++++++++++++++++++++
- include/linux/acpi.h |  8 ++++++++
- 2 files changed, 34 insertions(+)
+ sound/soc/codecs/cs35l41.c | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
-diff --git a/drivers/acpi/utils.c b/drivers/acpi/utils.c
-index 3a9773a09e19..5d1bdb79e372 100644
---- a/drivers/acpi/utils.c
-+++ b/drivers/acpi/utils.c
-@@ -291,6 +291,32 @@ int acpi_get_local_address(acpi_handle handle, u32 *addr)
- }
- EXPORT_SYMBOL(acpi_get_local_address);
+diff --git a/sound/soc/codecs/cs35l41.c b/sound/soc/codecs/cs35l41.c
+index 8766e19d85f1..5df04a2ab5a3 100644
+--- a/sound/soc/codecs/cs35l41.c
++++ b/sound/soc/codecs/cs35l41.c
+@@ -6,6 +6,7 @@
+ //
+ // Author: David Rhodes <david.rhodes@cirrus.com>
  
-+int acpi_get_sub(acpi_handle handle, char *sub, size_t size)
++#include <linux/acpi.h>
+ #include <linux/delay.h>
+ #include <linux/err.h>
+ #include <linux/init.h>
+@@ -1142,6 +1143,28 @@ static int cs35l41_dsp_init(struct cs35l41_private *cs35l41)
+ 	return ret;
+ }
+ 
++static int cs35l41_probe_acpi(struct cs35l41_private *cs35l41)
 +{
-+	struct acpi_buffer buffer = { ACPI_ALLOCATE_BUFFER, NULL };
-+	union acpi_object *obj;
-+	acpi_status status;
++	struct acpi_device *adev;
 +	int ret;
++	char sub[ACPI_MAX_SUB_BUF_SIZE];
 +
-+	status = acpi_evaluate_object(handle, METHOD_NAME__SUB, NULL, &buffer);
-+	if (!ACPI_SUCCESS(status)) {
-+		acpi_handle_debug(handle, "Reading ACPI _SUB failed: %#x\n", status);
-+		return -ENOENT;
-+	}
++	adev = ACPI_COMPANION(cs35l41->dev);
++	/* If there is no ACPI_COMPANION, there is no ACPI for this system, return 0 */
++	if (!adev)
++		return 0;
 +
-+	obj = buffer.pointer;
-+	if (obj->type == ACPI_TYPE_STRING) {
-+		ret = strscpy(sub, obj->string.pointer, size);
-+	} else {
-+		acpi_handle_warn(handle, "Warning ACPI _SUB did not return a string\n");
-+		ret = -EINVAL;
-+	}
-+	acpi_os_free(buffer.pointer);
++	ret = acpi_get_sub(adev->handle, sub, sizeof(sub));
++	if (ret < 0)
++		return ret;
 +
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(acpi_get_sub);
++	cs35l41->dsp.system_name = devm_kstrdup(cs35l41->dev, sub, GFP_KERNEL);
++	if (!cs35l41->dsp.system_name)
++		return -ENOMEM;
 +
- acpi_status
- acpi_evaluate_reference(acpi_handle handle,
- 			acpi_string pathname,
-diff --git a/include/linux/acpi.h b/include/linux/acpi.h
-index 4f82a5bc6d98..9bf18adf5920 100644
---- a/include/linux/acpi.h
-+++ b/include/linux/acpi.h
-@@ -21,6 +21,8 @@
- #endif
- #include <acpi/acpi.h>
- 
-+#define ACPI_MAX_SUB_BUF_SIZE	9
-+
- #ifdef	CONFIG_ACPI
- 
- #include <linux/list.h>
-@@ -762,6 +764,7 @@ static inline u64 acpi_arch_get_root_pointer(void)
- #endif
- 
- int acpi_get_local_address(acpi_handle handle, u32 *addr);
-+int acpi_get_sub(acpi_handle handle, char *sub, size_t size);
- 
- #else	/* !CONFIG_ACPI */
- 
-@@ -1023,6 +1026,11 @@ static inline int acpi_get_local_address(acpi_handle handle, u32 *addr)
- 	return -ENODEV;
- }
- 
-+static int acpi_get_sub(acpi_handle handle, char *sub, size_t size)
-+{
-+	return -ENODEV;
++	return 0;
 +}
 +
- static inline int acpi_register_wakeup_handler(int wake_irq,
- 	bool (*wakeup)(void *context), void *context)
+ int cs35l41_probe(struct cs35l41_private *cs35l41, const struct cs35l41_hw_cfg *hw_cfg)
  {
+ 	u32 regid, reg_revid, i, mtl_revid, int_status, chipid_match;
+@@ -1270,6 +1293,10 @@ int cs35l41_probe(struct cs35l41_private *cs35l41, const struct cs35l41_hw_cfg *
+ 		goto err;
+ 	}
+ 
++	ret = cs35l41_probe_acpi(cs35l41);
++	if (ret < 0)
++		goto err;
++
+ 	ret = cs35l41_dsp_init(cs35l41);
+ 	if (ret < 0)
+ 		goto err;
 -- 
 2.25.1
 

@@ -2,84 +2,136 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC3B955407F
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jun 2022 04:23:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AE8455427D
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jun 2022 07:54:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0D6EF1FCF;
-	Wed, 22 Jun 2022 04:22:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D6EF1FCF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 295051AAF;
+	Wed, 22 Jun 2022 07:54:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 295051AAF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655864620;
-	bh=hgLT3oRHawdLqKpmYv8HkTRv5KUBCJZSRS2FwpeWMPE=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=EABZ0R1ojKEFnVwlk+s6Gh2QcqaVwC77b+w5Cpsmt97AvwT8l9adfeBCyPq8BPmT4
-	 1koA2e/Nwrk3GWP/xI6okxG9ZmtgiLDEF2snKyOleQ3F93a0V1ehxpXWfYoM60lDuR
-	 AMG3fi9jVoQpDNPDS5+7ZTbYr7y2B3Xp0TIEAtp0=
+	s=default; t=1655877293;
+	bh=4P/IvA3SXqUl1OrZU81GTw4As4XbhNu5mJldnu+kcj8=;
+	h=From:Subject:To:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=QTA3kpr9jDzyoDSE/8tSwbjqW+Znc+O9kgG9jtik6B55289wHbKhmEow2YF6rGZp6
+	 4nU8XARL+wfo+gMec49vPSVPPD9msxcRhuJTXHi9DUyQtCD7ABinUISUd6Ij7CpxFo
+	 v/o9vxF3dynQU0RiurDzsun3/ar5TRdiqGYFRow0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 693D7F80100;
-	Wed, 22 Jun 2022 04:22:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AF33AF8019B;
+	Wed, 22 Jun 2022 07:53:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A3198F8019B; Wed, 22 Jun 2022 04:22:39 +0200 (CEST)
+ id 5B4FDF80118; Wed, 22 Jun 2022 07:53:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Level: **
+X-Spam-Status: No, score=2.9 required=5.0 tests=AC_FROM_MANY_DOTS, DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+Received: from JPN01-OS0-obe.outbound.protection.outlook.com
+ (mail-os0jpn01on2095.outbound.protection.outlook.com [40.107.113.95])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CF6E8F800CB
- for <alsa-devel@alsa-project.org>; Wed, 22 Jun 2022 04:22:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF6E8F800CB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 51A0DF80118
+ for <alsa-devel@alsa-project.org>; Wed, 22 Jun 2022 07:53:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51A0DF80118
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="QeRDkA0C"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655864554; x=1687400554;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=hgLT3oRHawdLqKpmYv8HkTRv5KUBCJZSRS2FwpeWMPE=;
- b=QeRDkA0CXlUgyUq3eE1z9sP/iHcsAzjq9S+zOUC3paApZ9c1CQwZU+iD
- CqI/QcZ7V7RFCNcRHP2BLmZbHD36dkEq9ZVWjohDR8aOgOdEw8STh9pCo
- ytXW39hgxCxquaErcOHD2fdClKNNg8D5Zohn2s1JWzjJQsd9QgddOc6GC
- QG6VNAefJ3XIS7I8AZb3+nzMaHbhfuyV3RPYvFEQnaFoPrihtHA4HaJlU
- rEpRyOkuKL0Zx8KNGhcQvasAWDxZBjnTatnhTTnkz4pu9L/22VZQyWq79
- NnqIC7RxsUbacoIAT+gPL4mmjTayUdnIOSEkISW8lMCRBXMxld4YPv29Z g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10385"; a="260112606"
-X-IronPort-AV: E=Sophos;i="5.92,211,1650956400"; d="scan'208";a="260112606"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jun 2022 19:22:28 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,211,1650956400"; d="scan'208";a="620716476"
-Received: from lkp-server02.sh.intel.com (HELO a67cc04a5eeb) ([10.239.97.151])
- by orsmga001.jf.intel.com with ESMTP; 21 Jun 2022 19:22:25 -0700
-Received: from kbuild by a67cc04a5eeb with local (Exim 4.95)
- (envelope-from <lkp@intel.com>) id 1o3q0e-0000iY-If;
- Wed, 22 Jun 2022 02:22:24 +0000
-Date: Wed, 22 Jun 2022 10:22:12 +0800
-From: kernel test robot <lkp@intel.com>
-To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH v6 04/14] ALSA: hda: cs35l41: Add initial DSP support and
- firmware loading
-Message-ID: <202206221009.dFR3qUz0-lkp@intel.com>
-References: <20220621213801.2021097-5-vitalyr@opensource.cirrus.com>
+ dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com
+ header.b="D4g7beqV"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bg5PTrHip+0gu6Ur2HkP8+sGb4ATzscvxoc6DAuOvdrG1aOnsqDALarNNMfeIEnuN2zblxVLaEwf7YrJVQBfAfUAmgFJzRyCamJkNdQ2ET2CO9qQTB23ibT0LHc9tPzRpUHwtEoFwhuyFDiQGOzr3kcMutG+pJRdWLMq2pCKRE4/Ug1YX8H87P3BinuM7tKfz6lC6pB/vKjzACUnSQDZwk1Jq9yt+3ZS7H617Rk3ancQ9KokRCvDZhJg0ENbV0h3LSbhaRhFgI/GpCrtVZAeAjIARo7rTdGiPesRsT7fFLJlKtzD7bN4OBn+dydfg0ik0XgsHp8PX0KeaMJrp4gCyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2VSPsbEBrJgKMVRGO3+WPNALvOO7rBAsLWjk3JNoPEQ=;
+ b=fnT6vbhTNeYXLu4RDN+Joa6cebPGbCA4CfHFRzz59/VEMkTOs4+iuD7aeoR/yTulqtCb/ee+o1GfrD/ekxcUGdpxaxQ2fmI7SDboSP0Hfmdjp8DwzFtppPxHhx+zfg6Z1L1hpK+UJucB4WUKjjEQp4/FAIfT/Nf19W/uHO7YiqfjoiKb9vgp8TSrzTica8ug9+JZaEvUcaR3BdwF4/P3f2yXhFSWL+w+zMHPmK8eCy2ziB1adAqd1q7FPZtuNZtVdcEYBU81m7QlIl88TTul+Us2Z1AvFwpYaNFicxBnkHzdC1zAxk1s9rYi4GGu8yZbdhCZv1UWs/SDrnDHQ5AQhg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2VSPsbEBrJgKMVRGO3+WPNALvOO7rBAsLWjk3JNoPEQ=;
+ b=D4g7beqV5RbCaHTmpUdW3uGMTuuoOkZ4w0c3Er7yMvRDqeHuiAeltuf0ul6v4SY6t16i2lO0QAq1oMziVDCR8024uDsVDdgKfe4vlSg7sL2Io3+pbZ6OIyTu3oW/hp9pylrTY93EtcS5Og0xNuSF67/FQBPts8bw5GqVQmGMCtE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
+ by TYCPR01MB6929.jpnprd01.prod.outlook.com (2603:1096:400:b8::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.15; Wed, 22 Jun
+ 2022 05:53:41 +0000
+Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
+ ([fe80::d5d9:3646:37df:867c]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
+ ([fe80::d5d9:3646:37df:867c%8]) with mapi id 15.20.5373.015; Wed, 22 Jun 2022
+ 05:53:41 +0000
+Message-ID: <871qvhqm56.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: [PATCH 0/2] ASoC: soc-core.c: fixup snd_soc_of_get_dai_link_cpus()
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset=US-ASCII
+Date: Wed, 22 Jun 2022 05:53:41 +0000
+X-ClientProxiedBy: TYAPR01CA0073.jpnprd01.prod.outlook.com
+ (2603:1096:404:2c::13) To OS3PR01MB8426.jpnprd01.prod.outlook.com
+ (2603:1096:604:194::10)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220621213801.2021097-5-vitalyr@opensource.cirrus.com>
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- kbuild-all@lists.01.org, linux-kernel@vger.kernel.org,
- Vitaly Rodionov <vitaly.rodionov@cirrus.com>
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: b4aeae8a-80ed-413a-39f7-08da54138f89
+X-MS-TrafficTypeDiagnostic: TYCPR01MB6929:EE_
+X-Microsoft-Antispam-PRVS: <TYCPR01MB69298E982B00DB9062D2AE8BD4B29@TYCPR01MB6929.jpnprd01.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: +CsoqxXdtJpnd8Z4i43LEsxc//qNEQfrQEaKR54ocLr6tuwDsQp1klKTvMvOygTjpwKgs8e2zePemF2AlqBGScA6CuMsUOmRQM5Fyih/wi/+EuEHYFqe7q2EyZzd7Zvh2wYjGWmLHEmfaberkPD1TnGDZuA02q4s2B8iIZT8Z2V5xb6NjG+i+CpoB9GYrcOUEAnxFP7bJmURpd68CE2MLMRfAccgPPBMsPoNCz2/bbZw1MpyK6iav5dy+Ri2bCi3V+IFnqNx2hIMmLRFcW9NIt06C6seXrYgoYMSVQ+9i5LYUIg28sSom2LOKULHzhN/uWMjDheHZIQm7a7J0uoz1X+KGqhJmHz5VVb1Aptt7dFkvjlYmFjsA3kHhHn9WwNXiWagEgPchrojbGvAA0526+BodkDd0o278FBmjQsg8v5ur5mgp2FUQRk0GLh6BRrJMRykeq9IOhltiHkipXjIEoy3b1iTf1ZWDAYzcjZQOv4vol+IIW3q23vEOkUsVJnANV6IrxDPedb/aktiGIiWgRVCZfVEdef4ugHQsXBf7DcQhBtcLWzfUAMbTaBauTO6ZCx0Ho9yZy/tHLxOxlIJBWUZVufm/gSOWUhBebTDnPcogEPGXoleEkrs9V3vWdWEtQSMJtxmU4LcbiV5goa6Orb4TM43lOOFv8vXlJ1wu0zJW7zW27xFCtRM/UbPTtFs5g54JvUXL6kv+m6H1PuuduymDSvln1et3tJjBXgcfF7nXsQ/92o3DR0CknGSdsWr
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:OS3PR01MB8426.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(136003)(346002)(39860400002)(396003)(366004)(376002)(316002)(186003)(2616005)(38350700002)(86362001)(38100700002)(6916009)(66476007)(66556008)(4326008)(66946007)(8676002)(36756003)(54906003)(6486002)(478600001)(6506007)(5660300002)(8936002)(26005)(6512007)(4744005)(83380400001)(41300700001)(2906002)(52116002);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?MSL8vCd0aTqRgL9RwGBFA4E9+nPWfXRgAcK08/XJQlW+nqQ6bs3ukk4eCUI7?=
+ =?us-ascii?Q?n65OTQnUCFcJfWq0uFwFk62v3/fKNrtXX/IZO3Ez8Skc5eXhOkf4r7Y+0xlW?=
+ =?us-ascii?Q?4rbKGujjmc7yCFAVK4g8/xzK4Hmzv3a49YV0MxNXdesPKv+jmj03fMtij4sc?=
+ =?us-ascii?Q?n+32DD3jDkApKv2L7eyto1baYWcJJhUBSzNSrCswe45lZgcv5MJ2GzMJemnv?=
+ =?us-ascii?Q?1wYjAhETQibX19aWeecm4pBQlLMl7sxdcrWFJ9stn1guWxxRn+un6xk91Rxr?=
+ =?us-ascii?Q?HfOCiFeawtoDb3tWW0l4tk+t8oKXPRS7ywXOucFmYZCBnRWyL1Yz8XA/5AMx?=
+ =?us-ascii?Q?/qBerob4urzN7e8fa+DRYLSLiutmWgwq7mr1xukkF5dJfbE/dT6oh1LWqYD/?=
+ =?us-ascii?Q?zoPvN/qufBl7lciKC6hBxWNLKfKfwgRlIbn+xN9nWrGqM7GbgUomNlzvsUI2?=
+ =?us-ascii?Q?LS7SwJKXm85VF10EvcrJtFX24CmRDeF2XfypFP9PksGWFFaTIMipnFXyvzsu?=
+ =?us-ascii?Q?vtmGmobgMGl9cnWXJrbYoJS5AiYX4/D0fA2+CDOKufefWybM1Xl4ktgtn8a+?=
+ =?us-ascii?Q?UzVf1FS1/JiwopTYuV9i7WvomAKkCRdOn7Db8ffWoUw5Zi0uLrFD0yxW1bcU?=
+ =?us-ascii?Q?d5lNnP5ZAwhbdPFEc94t++nOiwpRd6sZRlQssHvW98/Gd6tKQb5fa/uczx4v?=
+ =?us-ascii?Q?9PTAAL0BTTEre2pYcuXRMoJZcVZ0ZiCwwN4KYyCdHQw6SeCGhuAPTuuzRu5n?=
+ =?us-ascii?Q?7pKMG8Hhs6NBweJSguqjT8iBKj99vy3cNpfAY8Qik2aqzCGX72GHWTrsMdgU?=
+ =?us-ascii?Q?TeTAaXPFTgNTgyWYR7RY6zV6iP/z0bQ85EXXEt94VZhyutvloU1/gfJkiGsN?=
+ =?us-ascii?Q?gba79Am/6SgeVnQk7bET+Rj79IXCf70IAjaHriHMJmoGjI87TCMBNpMLF2oe?=
+ =?us-ascii?Q?1RzRLyt6QvjNParQPWnrHj5ccUH8KdKCMeLTknFDOm2VaGApdwlhx0yEr5Xv?=
+ =?us-ascii?Q?kqVZCisgFyz9f9KrWHMVYJMqxagFp3TkNHhgeYFxVihy1nweqQiUc8V0X+dT?=
+ =?us-ascii?Q?uvfQ7tkKpO42p0EgfXt7rzzoMtMY1YcqfS6ZKB3I8lbAZt4FW7v9sR1lBMGp?=
+ =?us-ascii?Q?oUvrKVi79323E4Mr/CCQIYHo+/EAoz1xaB8nLdr15P0WSyJy+I/7AHi08kNK?=
+ =?us-ascii?Q?zeoTk4D+KrK1r+pwyZCm755lLI9X20jT6PigyUKuqZFjBO+jRaUyH0i0A4SY?=
+ =?us-ascii?Q?y71gcdzYymfQdUSeNNDUKOtZSQTGk/z6x6aNF65ibeTtokYvbYkVvL7OkZPF?=
+ =?us-ascii?Q?PKxiVbtKMsH8KUfo6CdJLxK1VAHjYbJLa7NCTSCiQfL9JXUnLmdOc3LNtHHg?=
+ =?us-ascii?Q?l0Z5UWYDPhVnYPAm9ToglcUr/G/Os1uNAF5OA6CLIV88tZelSNDm16MxvGjX?=
+ =?us-ascii?Q?BcLSsFRK/Rl8QMM9zywIR40QEhqvReo04uflrifwwNYM5bR6B/sUDsX8o2LG?=
+ =?us-ascii?Q?HQ6/fgog/w0ohil8gXbkvimXex3W5oQC/MqWGUpWUzCKm1fJ05ANgPm+PY9w?=
+ =?us-ascii?Q?kJPGHKSTSFtk4hIAN4IotmU050y+Z5Ioe5uaICatvO3OMUG9zXNepXMT8Ds8?=
+ =?us-ascii?Q?/tFzKBGEffoxexDvuELbUSoCm6gOifyU+1mFYzk+nqwcBBBcaQGlfLf0/AgX?=
+ =?us-ascii?Q?7CvX3emTKfTLqvA+OKdJUEyOHXHfFfWPOfaoXthSWVAGw17s8kUDSBwePkLY?=
+ =?us-ascii?Q?+ynSY/uoG7N+XVm80M9ys9gPotk5ruqcgiZjY9MLUlrKOr8hGBCW?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b4aeae8a-80ed-413a-39f7-08da54138f89
+X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2022 05:53:41.6530 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vdl2tkjeNXHc9x+/kmFk1l3B/xuhhc8g7H9+7KjSewMJ9V3YPAK7oS2b0xzL+OHq+tCanh6L5AtgTthSDiVmYBBL5c3wM77xzOXqYmVdEZKQYcWxF0m3NYHl/dJnWJlT
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB6929
+Cc: Martin =?ISO-8859-2?Q?Povi?= =?ISO-8859-2?Q?=B9er?=
+ <povik+lin@cutebit.org>, Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,109 +147,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Vitaly,
 
-Thank you for the patch! Perhaps something to improve:
+Hi Mark
 
-[auto build test WARNING on tiwai-sound/for-next]
-[also build test WARNING on linus/master v5.19-rc3 next-20220621]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch]
+Current ASoC has fixup both snd_soc_of_get_dai_link_cpus/codecs().
+I guess cpu was copied from codec, but it is using "codec" naming everwhere
+in "cpu" function. It is strange, and thus, error case will be issue
+(It should call cpu function instead of codec).
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Vitaly-Rodionov/ALSA-hda-cirrus-Add-initial-DSP-support-and-firmware-loading/20220622-054218
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
-config: i386-allyesconfig (https://download.01.org/0day-ci/archive/20220622/202206221009.dFR3qUz0-lkp@intel.com/config)
-compiler: gcc-11 (Debian 11.3.0-3) 11.3.0
-reproduce (this is a W=1 build):
-        # https://github.com/intel-lab-lkp/linux/commit/9a9e48e89004a7f0c7f21aae4dc45d34469cc789
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Vitaly-Rodionov/ALSA-hda-cirrus-Add-initial-DSP-support-and-firmware-loading/20220622-054218
-        git checkout 9a9e48e89004a7f0c7f21aae4dc45d34469cc789
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        make W=1 O=build_dir ARCH=i386 SHELL=/bin/bash sound/pci/hda/
+This patch tidyup it, and try to cleanup.
+[1/2] is for bug-fix,
+[2/2] is for new feature.
 
-If you fix the issue, kindly add following tag where applicable
-Reported-by: kernel test robot <lkp@intel.com>
+It needs Tested-by/Reviewed-by/Acked-by from someone.
 
-All warnings (new ones prefixed by >>):
+Kuninori Morimoto (2):
+  ASoC: soc-core.c: fixup snd_soc_of_get_dai_link_cpus()
+  ASoC: soc-core.c: share code for snd_soc_of_get_dai_link_cpus/codecs()
 
-   In file included from include/linux/device.h:15,
-                    from include/linux/platform_device.h:13,
-                    from include/sound/soc.h:14,
-                    from sound/pci/hda/hda_cs_dsp_ctl.c:10:
-   sound/pci/hda/hda_cs_dsp_ctl.c: In function 'hda_cs_dsp_add_kcontrol':
->> sound/pci/hda/hda_cs_dsp_ctl.c:101:43: warning: format '%lu' expects argument of type 'long unsigned int', but argument 4 has type 'size_t' {aka 'unsigned int'} [-Wformat=]
-     101 |                 dev_err(cs_ctl->dsp->dev, "Control %s: length %lu exceeds maximum %d\n", ctl->name,
-         |                                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/dev_printk.h:110:30: note: in definition of macro 'dev_printk_index_wrap'
-     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
-         |                              ^~~
-   include/linux/dev_printk.h:144:56: note: in expansion of macro 'dev_fmt'
-     144 |         dev_printk_index_wrap(_dev_err, KERN_ERR, dev, dev_fmt(fmt), ##__VA_ARGS__)
-         |                                                        ^~~~~~~
-   sound/pci/hda/hda_cs_dsp_ctl.c:101:17: note: in expansion of macro 'dev_err'
-     101 |                 dev_err(cs_ctl->dsp->dev, "Control %s: length %lu exceeds maximum %d\n", ctl->name,
-         |                 ^~~~~~~
-   sound/pci/hda/hda_cs_dsp_ctl.c:101:65: note: format string is defined here
-     101 |                 dev_err(cs_ctl->dsp->dev, "Control %s: length %lu exceeds maximum %d\n", ctl->name,
-         |                                                               ~~^
-         |                                                                 |
-         |                                                                 long unsigned int
-         |                                                               %u
-
-
-vim +101 sound/pci/hda/hda_cs_dsp_ctl.c
-
-5c0e0c1e30c723 Stefan Binding 2022-06-21   92  
-5c0e0c1e30c723 Stefan Binding 2022-06-21   93  static int hda_cs_dsp_add_kcontrol(struct hda_cs_dsp_coeff_ctl *ctl)
-5c0e0c1e30c723 Stefan Binding 2022-06-21   94  {
-5c0e0c1e30c723 Stefan Binding 2022-06-21   95  	struct cs_dsp_coeff_ctl *cs_ctl = ctl->cs_ctl;
-5c0e0c1e30c723 Stefan Binding 2022-06-21   96  	struct snd_kcontrol_new *kcontrol;
-5c0e0c1e30c723 Stefan Binding 2022-06-21   97  	struct snd_kcontrol *kctl;
-5c0e0c1e30c723 Stefan Binding 2022-06-21   98  	int ret = 0;
-5c0e0c1e30c723 Stefan Binding 2022-06-21   99  
-5c0e0c1e30c723 Stefan Binding 2022-06-21  100  	if (cs_ctl->len > ADSP_MAX_STD_CTRL_SIZE) {
-5c0e0c1e30c723 Stefan Binding 2022-06-21 @101  		dev_err(cs_ctl->dsp->dev, "Control %s: length %lu exceeds maximum %d\n", ctl->name,
-5c0e0c1e30c723 Stefan Binding 2022-06-21  102  			cs_ctl->len, ADSP_MAX_STD_CTRL_SIZE);
-5c0e0c1e30c723 Stefan Binding 2022-06-21  103  		return -EINVAL;
-5c0e0c1e30c723 Stefan Binding 2022-06-21  104  	}
-5c0e0c1e30c723 Stefan Binding 2022-06-21  105  
-5c0e0c1e30c723 Stefan Binding 2022-06-21  106  	kcontrol = kzalloc(sizeof(*kcontrol), GFP_KERNEL);
-5c0e0c1e30c723 Stefan Binding 2022-06-21  107  	if (!kcontrol)
-5c0e0c1e30c723 Stefan Binding 2022-06-21  108  		return -ENOMEM;
-5c0e0c1e30c723 Stefan Binding 2022-06-21  109  
-5c0e0c1e30c723 Stefan Binding 2022-06-21  110  	kcontrol->name = ctl->name;
-5c0e0c1e30c723 Stefan Binding 2022-06-21  111  	kcontrol->info = hda_cs_dsp_coeff_info;
-5c0e0c1e30c723 Stefan Binding 2022-06-21  112  	kcontrol->iface = SNDRV_CTL_ELEM_IFACE_MIXER;
-5c0e0c1e30c723 Stefan Binding 2022-06-21  113  	kcontrol->private_value = (unsigned long)ctl;
-5c0e0c1e30c723 Stefan Binding 2022-06-21  114  	kcontrol->access = wmfw_convert_flags(cs_ctl->flags);
-5c0e0c1e30c723 Stefan Binding 2022-06-21  115  
-5c0e0c1e30c723 Stefan Binding 2022-06-21  116  	kcontrol->get = hda_cs_dsp_coeff_get;
-5c0e0c1e30c723 Stefan Binding 2022-06-21  117  	kcontrol->put = hda_cs_dsp_coeff_put;
-5c0e0c1e30c723 Stefan Binding 2022-06-21  118  
-5c0e0c1e30c723 Stefan Binding 2022-06-21  119  	kctl = snd_ctl_new1(kcontrol, NULL);
-5c0e0c1e30c723 Stefan Binding 2022-06-21  120  	if (!kctl) {
-5c0e0c1e30c723 Stefan Binding 2022-06-21  121  		ret = -ENOMEM;
-5c0e0c1e30c723 Stefan Binding 2022-06-21  122  		goto err;
-5c0e0c1e30c723 Stefan Binding 2022-06-21  123  	}
-5c0e0c1e30c723 Stefan Binding 2022-06-21  124  	ctl->kctl = kctl;
-5c0e0c1e30c723 Stefan Binding 2022-06-21  125  
-5c0e0c1e30c723 Stefan Binding 2022-06-21  126  	ret = snd_ctl_add(ctl->card, kctl);
-5c0e0c1e30c723 Stefan Binding 2022-06-21  127  	if (ret)
-5c0e0c1e30c723 Stefan Binding 2022-06-21  128  		dev_err(cs_ctl->dsp->dev, "Failed to add KControl: %s - Ret: %d\n", kcontrol->name,
-5c0e0c1e30c723 Stefan Binding 2022-06-21  129  			ret);
-5c0e0c1e30c723 Stefan Binding 2022-06-21  130  	else
-5c0e0c1e30c723 Stefan Binding 2022-06-21  131  		dev_dbg(cs_ctl->dsp->dev, "Added KControl: %s\n", kcontrol->name);
-5c0e0c1e30c723 Stefan Binding 2022-06-21  132  
-5c0e0c1e30c723 Stefan Binding 2022-06-21  133  err:
-5c0e0c1e30c723 Stefan Binding 2022-06-21  134  	kfree(kcontrol);
-5c0e0c1e30c723 Stefan Binding 2022-06-21  135  
-5c0e0c1e30c723 Stefan Binding 2022-06-21  136  	return ret;
-5c0e0c1e30c723 Stefan Binding 2022-06-21  137  }
-5c0e0c1e30c723 Stefan Binding 2022-06-21  138  
+ sound/soc/soc-core.c | 146 ++++++++++++++++++++++---------------------
+ 1 file changed, 75 insertions(+), 71 deletions(-)
 
 -- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+2.25.1
+

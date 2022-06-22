@@ -2,72 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8182E555268
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jun 2022 19:31:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90677555270
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jun 2022 19:32:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 281FD19FD;
-	Wed, 22 Jun 2022 19:30:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 281FD19FD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3DB451EF8;
+	Wed, 22 Jun 2022 19:31:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3DB451EF8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655919098;
-	bh=wjmwx45d12C26bDvWpgp91d6lJmG4wfDYbcp9V8Bvyw=;
+	s=default; t=1655919126;
+	bh=B9aUHJD3yJ+AfE8Llrw6Si0We0sEP5bH4s0Gorml2mU=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=F6XANTHkK35QEi4LXEZx8N/ygVeaF//dH7l5zC5onbpO4jtI3IPzygdEUVUOmgv3n
-	 cKNjbggGYT95h+X5MBlPsV5oy9PUZhukwo/99q+O5RI6KgGL/ojyxe54MJRkLb1Pt8
-	 4RD2n+Xkwi3lNJXozF7no57bvmfGk+DmbFalRChA=
+	b=NqsxOXqR95makLO1pHpC43kB1jNPRCh9J80o8k9xQbrkO9KeLm9FX2eaMicVBvU4Z
+	 LjWscEiXHyGndwW/owsT09apEqGQMsrmCUtTiHOqhCiSt3ckjFEUnBL6CT+v8ltMty
+	 GBr83/bQzJ0Z1gWDX1cwb7S8hoHSmw3OMDN2ig38=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E7D75F80535;
-	Wed, 22 Jun 2022 19:30:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5241AF80542;
+	Wed, 22 Jun 2022 19:30:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1F754F804AB; Wed, 22 Jun 2022 19:30:14 +0200 (CEST)
+ id 1F07FF8053E; Wed, 22 Jun 2022 19:30:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,MIME_8BIT_HEADER,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BFF4BF80482
- for <alsa-devel@alsa-project.org>; Wed, 22 Jun 2022 19:30:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BFF4BF80482
+ by alsa1.perex.cz (Postfix) with ESMTPS id C08ADF8053C;
+ Wed, 22 Jun 2022 19:30:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C08ADF8053C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="FCQO60wY"
+ header.b="PbhL7BDb"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 25D17B81F2D;
- Wed, 22 Jun 2022 17:30:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59BF5C341C5;
- Wed, 22 Jun 2022 17:30:08 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 885D261C3D;
+ Wed, 22 Jun 2022 17:30:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11686C34114;
+ Wed, 22 Jun 2022 17:30:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1655919009;
- bh=wjmwx45d12C26bDvWpgp91d6lJmG4wfDYbcp9V8Bvyw=;
+ s=k20201202; t=1655919016;
+ bh=B9aUHJD3yJ+AfE8Llrw6Si0We0sEP5bH4s0Gorml2mU=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=FCQO60wYINb0qtwRiHsHJ+BMl30CzFr5kTb3wv13Ye3m9bwU7X/BLFvywJyLcdg9C
- U484FEWifRyCsQPFEUlEnm2YUMNzTC26bXMBEPYaU8g/rrmR78m4mL4EwaREliSPXU
- 22OBLOG1RWu0975o1CbR47VblL0nEkLO2cLG0hHHlh6tS/2rVuiXUmaeG3p7tnLcnw
- IOAVwNYNZ3p2WNmTFfVfVWtPtE9/gY3jvfZ1z9z+HwPK8pKN1k2Eb/e3/RwnaH10dx
- U6mlW3M9avW/xkBHbz3/Oby48PAL8xFgyOgHCrvtPi8vs5+XpNb0J3hbNfwS6jQI+4
- uxDM/1zWTI2HQ==
+ b=PbhL7BDbL8ugnS61MPkvlHVei8H0YXV25HEjOO4yIEagzWBsXsOQ43PjjMKF0CX6J
+ ztJjPP2SmofIZ+HgK8jFO5IDlrxo4pYcGT/0CEKmmgiT55cI04oI5mocctHOa89ZlF
+ BOArjVrYOPZAwqwTyUt3vvSKqCxPZKlifuRsNd2EBMV06VeUDxtPNpAmtZeg0/11XO
+ sIWLN5Zf6egJM3q5ctgUFJ7SXIDZMepAXFX433At2osHWiVd632iOy5gMd+2foB0HV
+ ccFbiozoNwwY1oQSAHsHbAkp8VMo2bAXyJeX7tC3F5nhea+qZgBfizUkhP1H1dbK3o
+ PbAVgLkTVaCXQ==
 From: Mark Brown <broonie@kernel.org>
-To: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>, lgirdwood@gmail.com
-In-Reply-To: <20220622061739.225966-1-u.kleine-koenig@pengutronix.de>
-References: <20220622061739.225966-1-u.kleine-koenig@pengutronix.de>
-Subject: Re: [PATCH] ASoC: amd: acp: Fix error handling in .remove()
-Message-Id: <165591900806.1405752.8746115269962335688.b4-ty@kernel.org>
-Date: Wed, 22 Jun 2022 18:30:08 +0100
+To: kai.vehmanen@linux.intel.com, peter.ujfalusi@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, lgirdwood@gmail.com, perex@perex.cz,
+ tiwai@suse.com, matthias.bgg@gmail.com, robh+dt@kernel.org,
+ yc.hung@mediatek.com, cujomalainey@chromium.org,
+ yung-chuan.liao@linux.intel.com, tinghan.shen@mediatek.com,
+ daniel.baluta@nxp.com, allen-kh.cheng@mediatek.com,
+ krzysztof.kozlowski+dt@linaro.org, pierre-louis.bossart@linux.intel.com
+In-Reply-To: <20220622062245.21021-1-tinghan.shen@mediatek.com>
+References: <20220622062245.21021-1-tinghan.shen@mediatek.com>
+Subject: Re: [PATCH v4 0/4] Add MT8186 ADSP dt-binding
+Message-Id: <165591901017.1405752.13178281441778356298.b4-ty@kernel.org>
+Date: Wed, 22 Jun 2022 18:30:10 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, tiwai@suse.com, kernel@pengutronix.de
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org,
+ Project_Global_Chrome_Upstream_Group@mediatek.com,
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,13 +94,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 22 Jun 2022 08:17:39 +0200, Uwe Kleine-König wrote:
-> Even in the presence of problems (here: rn_acp_deinit() might fail), it's
-> important to unregister all resources acquired during .probe() because
-> even if .remove() returns an error code, the device is removed.
+On Wed, 22 Jun 2022 14:22:41 +0800, Tinghan Shen wrote:
+> v3 -> v4:
+> 1. Update commit message of patch 1/4
+> 2. Add review tag to path 3/4
 > 
-> As .remove() is only called after .probe() returned success, platdata
-> must be valid, so the first check in .remove() can just be dropped.
+> v2 -> v3:
+> 1. Change mbox-names to rx/tx for both mt8186 and mt8195.
+> 2. Update description of mbox-names
+> 3. Use static string array instead of kasprintf
+> 4. Align clock names in dsp driver with dt-bindings
 > 
 > [...]
 
@@ -99,8 +113,14 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: amd: acp: Fix error handling in .remove()
-      commit: 0deb003933052ac1a44b5f94b927484be6e34f86
+[1/4] dt-bindings: dsp: mediatek: Use meaningful names for mbox
+      commit: 009b21f392759ca7be91bc4be9d9534f6cee2878
+[2/4] firmware: mediatek: Use meaningful names for mbox
+      commit: 74bbdd632637628fef8f651bddc5d17aeb7eb46a
+[3/4] dt-bindings: dsp: mediatek: Add mt8186 dsp document
+      commit: 99370c4ea3d0cee8445f6a1104f25667e3fd47ba
+[4/4] ASoC: SOF: mediatek: Align mt8186 clock names with dt-bindings
+      commit: acaeb8c62fd1b2b57be1523b8d5b1d64a1a9dc38
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

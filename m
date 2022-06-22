@@ -2,62 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 218AA554299
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jun 2022 08:24:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34AE955429A
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jun 2022 08:24:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B32051F3A;
-	Wed, 22 Jun 2022 08:23:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B32051F3A
+	by alsa0.perex.cz (Postfix) with ESMTPS id AE1A51F75;
+	Wed, 22 Jun 2022 08:23:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE1A51F75
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655879046;
-	bh=pD+nTBuTLDM0gcWvrksn9nBKpm9H3rDVtYM51ykvJy4=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=gl7bYMOCxylDZgsj4/f71xT2uZv5MDZNw/dEYILufvY6IZaaro0yKgZb20/8qVV0D
-	 O89iJw+ZNy6pPle46XPcmcBIygn87DGlzykRqti0Oxt4Dv44lcRjrH4f1HPaZwAjny
-	 sb2iW6ulXXDYSO+QriEKpeU0J60NPf2oSHSEtGVA=
+	s=default; t=1655879081;
+	bh=k9kUqVhhr0g9na54Mb9TXpDM8cyKKxX1ypJ6l+MYDTA=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=QIsVemQjnLlBeOgqqZYZpHYNstMxVFy/qgI0q1WkEziFZW/jD3SQjxkoeHH0dE15W
+	 tpfjEgwBXNSIXxZq3NfDYKV1xog6F8gtiRXWmB9+XWt0h7mG9kCPwCifNFx8sFdcaw
+	 ndQogZNZwIB1XHdKuNvSpC+lmirvtaepJnEw/ISA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1D33CF804AC;
-	Wed, 22 Jun 2022 08:23:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EAA3CF8053B;
+	Wed, 22 Jun 2022 08:23:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 51A0EF804AB; Wed, 22 Jun 2022 08:23:06 +0200 (CEST)
+ id 9A113F80536; Wed, 22 Jun 2022 08:23:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY autolearn=disabled
- version=3.4.0
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B272EF8019B;
- Wed, 22 Jun 2022 08:22:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B272EF8019B
-X-UUID: eefc4b32c481428faedab42ad1740020-20220622
+ by alsa1.perex.cz (Postfix) with ESMTPS id 22E5DF80118;
+ Wed, 22 Jun 2022 08:22:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22E5DF80118
+X-UUID: 1610e3f317e04606b87b87b3a7c996ac-20220622
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.6, REQID:b0d6894d-98fa-4e5c-87c2-de5516db2549, OB:0,
+X-CID-O-INFO: VERSION:1.1.6, REQID:b0dc9484-9dc8-44b4-a849-068fa8efbc34, OB:0,
  LO
- B:0,IP:0,URL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,RULE:Release_Ham,ACT
- ION:release,TS:-5
-X-CID-META: VersionHash:b14ad71, CLOUDID:ad4bb82d-1756-4fa3-be7f-474a6e4be921,
+ B:0,IP:0,URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,RULE:Release_Ham,ACTI
+ ON:release,TS:0
+X-CID-META: VersionHash:b14ad71, CLOUDID:adc82fea-f7af-4e69-92ee-0fd74a0c286c,
  C
  OID:IGNORED,Recheck:0,SF:nil,TC:nil,Content:0,EDM:-3,IP:nil,URL:0,File:nil
  ,QS:nil,BEC:nil,COL:0
-X-UUID: eefc4b32c481428faedab42ad1740020-20220622
+X-UUID: 1610e3f317e04606b87b87b3a7c996ac-20220622
 Received: from mtkmbs11n2.mediatek.inc [(172.21.101.187)] by
- mailgw01.mediatek.com (envelope-from <tinghan.shen@mediatek.com>)
+ mailgw02.mediatek.com (envelope-from <tinghan.shen@mediatek.com>)
  (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 1372695179; Wed, 22 Jun 2022 14:22:48 +0800
-Received: from mtkmbs07n1.mediatek.inc (172.21.101.16) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.2.792.15; Wed, 22 Jun 2022 14:22:47 +0800
+ with ESMTP id 937938815; Wed, 22 Jun 2022 14:22:47 +0800
 Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
- mtkmbs07n1.mediatek.inc (172.21.101.16) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Wed, 22 Jun 2022 14:22:46 +0800
+ mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.792.3; 
+ Wed, 22 Jun 2022 14:22:46 +0800
 Received: from mtksdccf07.mediatek.inc (172.21.84.99) by
  mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
  15.2.792.3 via Frontend Transport; Wed, 22 Jun 2022 14:22:46 +0800
@@ -69,15 +67,18 @@ To: Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
  Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Bard Liao
  <yung-chuan.liao@linux.intel.com>, Ranjani Sridharan
  <ranjani.sridharan@linux.intel.com>, Kai Vehmanen
- <kai.vehmanen@linux.intel.com>, Daniel Baluta <daniel.baluta@nxp.com>, "Mark
- Brown" <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
+ <kai.vehmanen@linux.intel.com>, Daniel Baluta <daniel.baluta@nxp.com>, Mark
+ Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
  <tiwai@suse.com>, Tinghan Shen <tinghan.shen@mediatek.com>, YC Hung
- <yc.hung@mediatek.com>, Curtis Malainey <cujomalainey@chromium.org>,
- "Allen-KH Cheng" <allen-kh.cheng@mediatek.com>
-Subject: [PATCH v4 0/4] Add MT8186 ADSP dt-binding
-Date: Wed, 22 Jun 2022 14:22:41 +0800
-Message-ID: <20220622062245.21021-1-tinghan.shen@mediatek.com>
+ <yc.hung@mediatek.com>, Curtis Malainey <cujomalainey@chromium.org>, Allen-KH
+ Cheng <allen-kh.cheng@mediatek.com>
+Subject: [PATCH v4 1/4] dt-bindings: dsp: mediatek: Use meaningful names for
+ mbox
+Date: Wed, 22 Jun 2022 14:22:42 +0800
+Message-ID: <20220622062245.21021-2-tinghan.shen@mediatek.com>
 X-Mailer: git-send-email 2.18.0
+In-Reply-To: <20220622062245.21021-1-tinghan.shen@mediatek.com>
+References: <20220622062245.21021-1-tinghan.shen@mediatek.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-MTK: N
@@ -101,33 +102,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-v3 -> v4:
-1. Update commit message of patch 1/4
-2. Add review tag to path 3/4
+Rename mbox according to actions instead of 'mbox0' and 'mbox1'.
+The 8195 dsp node, which uses this binding, has not yet been added to
+the 8195 devicetree.
 
-v2 -> v3:
-1. Change mbox-names to rx/tx for both mt8186 and mt8195.
-2. Update description of mbox-names
-3. Use static string array instead of kasprintf
-4. Align clock names in dsp driver with dt-bindings
+Signed-off-by: Tinghan Shen <tinghan.shen@mediatek.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+---
+ .../devicetree/bindings/dsp/mediatek,mt8195-dsp.yaml   | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-v1 -> v2:
-1. Change mbox-names from mbox0/mbox1 to rep/req for both mt8186 and mt8195.
-2. rename clock-names and remove unused headers
-
-Tinghan Shen (4):
-  dt-bindings: dsp: mediatek: Use meaningful names for mbox
-  firmware: mediatek: Use meaningful names for mbox
-  dt-bindings: dsp: mediatek: Add mt8186 dsp document
-  ASoC: SOF: mediatek: Align mt8186 clock names with dt-bindings
-
- .../bindings/dsp/mediatek,mt8186-dsp.yaml     | 91 +++++++++++++++++++
- .../bindings/dsp/mediatek,mt8195-dsp.yaml     | 10 +-
- drivers/firmware/mtk-adsp-ipc.c               | 36 +++-----
- sound/soc/sof/mediatek/mt8186/mt8186-clk.c    |  4 +-
- 4 files changed, 110 insertions(+), 31 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/dsp/mediatek,mt8186-dsp.yaml
-
+diff --git a/Documentation/devicetree/bindings/dsp/mediatek,mt8195-dsp.yaml b/Documentation/devicetree/bindings/dsp/mediatek,mt8195-dsp.yaml
+index b7e68b0dfa13..ca8d8661f872 100644
+--- a/Documentation/devicetree/bindings/dsp/mediatek,mt8195-dsp.yaml
++++ b/Documentation/devicetree/bindings/dsp/mediatek,mt8195-dsp.yaml
+@@ -50,13 +50,13 @@ properties:
+ 
+   mboxes:
+     items:
+-      - description: ipc reply between host and audio DSP.
+-      - description: ipc request between host and audio DSP.
++      - description: mailbox for receiving audio DSP requests.
++      - description: mailbox for transmitting requests to audio DSP.
+ 
+   mbox-names:
+     items:
+-      - const: mbox0
+-      - const: mbox1
++      - const: rx
++      - const: tx
+ 
+   memory-region:
+     items:
+@@ -100,6 +100,6 @@ examples:
+        memory-region = <&adsp_dma_mem_reserved>,
+                        <&adsp_mem_reserved>;
+        power-domains = <&spm 6>; //MT8195_POWER_DOMAIN_ADSP
+-       mbox-names = "mbox0", "mbox1";
++       mbox-names = "rx", "tx";
+        mboxes = <&adsp_mailbox0>, <&adsp_mailbox1>;
+     };
 -- 
 2.18.0
 

@@ -2,101 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA9115542FF
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jun 2022 08:50:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3363D55439F
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jun 2022 09:48:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 770CE1F4A;
-	Wed, 22 Jun 2022 08:49:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 770CE1F4A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 544491F0C;
+	Wed, 22 Jun 2022 09:47:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 544491F0C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655880635;
-	bh=ew9/y6Zbzk8IV+ephSnSvN3ztkmlhonfvEZg1Pybg/M=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=qAONJ3fXG7khRA2CSTYCZsmKVP+02/XYMSXmkQPXVyGe67Tv6vHyHyqauA7/ZXEia
-	 NNtWVrLysj2Vw7Wk7ltxurG0wnR5DaIoFwwlSCzwY3UHPeA0y8YMDeeNBfhfl+BJpF
-	 K4vkgfMswKi5CFmavn7qDgPJvm19nwhAfo/6Ux8g=
+	s=default; t=1655884091;
+	bh=gMbOJPyM7H+nlWvwrPeeVFQG/Dw2iPuH/oggGHPhNII=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=MyxgtD/SjWdtvprpOuv8DgOWfKi553PyQbeHTUCtVkZuVNGjjHZTfXynQHXcU5wiS
+	 KPIT2tvMH3pZ3uHcz28bu+0fCmuo0AXst/lGDBh1nEAlsnclU4K+xR2VlKb+kC6a9U
+	 6DwpryFnkXAitNEe/D+9ybwyvRY+wnj8S5r66vFQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 39CDBF80542;
-	Wed, 22 Jun 2022 08:49:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3EA11F8053C;
+	Wed, 22 Jun 2022 09:47:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5AD9EF8053E; Wed, 22 Jun 2022 08:48:57 +0200 (CEST)
+ id 816E5F80537; Wed, 22 Jun 2022 09:47:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [IPv6:2a00:1450:4864:20::62a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BABE2F80538
- for <alsa-devel@alsa-project.org>; Wed, 22 Jun 2022 08:48:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BABE2F80538
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6F7F5F800CB
+ for <alsa-devel@alsa-project.org>; Wed, 22 Jun 2022 09:46:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F7F5F800CB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="EUth92aS"
-Received: by mail-ej1-x62a.google.com with SMTP id u15so4429419ejc.10
- for <alsa-devel@alsa-project.org>; Tue, 21 Jun 2022 23:48:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=GBoEfewX7uE5qiTFF5ceaeSxviE76/D0VbXLBnCtMOk=;
- b=EUth92aS+ARXNsUtB82Fn+0F0yahSJwW0aRp3pWoXXG95IKw1RArK9Ig7q3Rce1Ehw
- IB9YD315FvrufeFHauaTVDmyU561dpJJXVoxeP+YEOqYEB0GnwGjYYtO1LZlK0o6QfsS
- BWFYFQiQlRYg0TliVlsC5C5feb19tNjrrKtR8kj8DM6+fCRVWi11MZKCMVbP+keN1pSk
- Y1EH0SW0kUa5wZx/+ZvoXeYEPP577kv00tMCUDJ/q/mSmcBZtgAtalgDCO97V29+FF0L
- wIqsPe04Qtlfs5uOqGtzgmol7qNeUSdazWS2kf76TziOEgPdeiTWHQ3efBkkbD6pe2Jo
- fq3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=GBoEfewX7uE5qiTFF5ceaeSxviE76/D0VbXLBnCtMOk=;
- b=wQFEu4IC3qiRIzUCoKeDX3MvUOCIgrBZjfv/T0XbsygyhRHHPWW8B2L/0I53Z9NDWA
- JTSWRSp+Q5uQl634P+hC1LzJgyTOQZ4dEQ/l/9meWDT+kHchZp5PY4HkzOX7IOsG2AiS
- rB3LHHHj1Qb0aAtbnS4wYgJ3pPI5dg0DnslBgahIZh5bJMGV45rB6LCPT9qFN/4QNleJ
- 2djRHB3mT7j7Ojo1wHQ8MpfZ2u6ab2z8XzNVDpNfa1RFEBDS2u/UpScbsIj2wkZVAXnf
- ujrIfJOar5JxIJZuU/GHLxA5V8Lkioa2l0Evar2PN7UoBA+kE7VuY5U/LxLhtnmEedUS
- wvGQ==
-X-Gm-Message-State: AJIora8ksEWXt1PqWJ6hJpLtwjvaNlyumW9I2LPGcQX4YbJeiQqpXObv
- qBOSvr/zYb3C+2eKCBKN1/c=
-X-Google-Smtp-Source: AGRyM1vWBsfxuaNlo0tjKP0/6jEDWmmlRypkx4HG/8dsYU+wsKOh1CtyzxerPhaniyY/3W5GIrXT8A==
-X-Received: by 2002:a17:906:6a27:b0:708:1282:cbe9 with SMTP id
- qw39-20020a1709066a2700b007081282cbe9mr1767404ejc.186.1655880528800; 
- Tue, 21 Jun 2022 23:48:48 -0700 (PDT)
-Received: from localhost.localdomain ([185.107.95.225])
- by smtp.gmail.com with ESMTPSA id
- sd12-20020a1709076e0c00b00722e8c47cc9sm1197148ejc.181.2022.06.21.23.48.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Jun 2022 23:48:47 -0700 (PDT)
-From: Yassine Oudjana <yassine.oudjana@gmail.com>
-X-Google-Original-From: Yassine Oudjana <y.oudjana@protonmail.com>
-To: Andy Gross <agross@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH 3/3] arm64: dts: qcom: Use WCD9335 DT bindings
-Date: Wed, 22 Jun 2022 10:47:58 +0400
-Message-Id: <20220622064758.40543-4-y.oudjana@protonmail.com>
-X-Mailer: git-send-email 2.36.1
-In-Reply-To: <20220622064758.40543-1-y.oudjana@protonmail.com>
-References: <20220622064758.40543-1-y.oudjana@protonmail.com>
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="lJkocT8H"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25M6wRdh014511;
+ Wed, 22 Jun 2022 02:46:55 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=CE7gxifsr4Seb0CXxAGhIfMAwUpSDzxQRst/+XOZ65E=;
+ b=lJkocT8H33FK/5nYnRPekMb3K+EShj6o74DMsIIpOfUrxzH3JdNVty3q7Ms5R2lKx9xd
+ r5zlxMdDMVLlSdYdmQU8VxF38MKGRaOjGI6aBEbMtqd+vHpr60/ekgOJPtGs4pkak+qU
+ L7iTcPvgiXhLbWE9f6PvvPlnQBbrACPRPxFBX1rNicfFoKnpfgW9dghqKeWubIoFHKnQ
+ QqvPZbuVUF2ynyicGOcmy1CXma8sDRPZ8wz+MeY8PJEL9gu4W7jSXJk1KJoUghNDWU7g
+ 5cqjutZUdmW3mVGPUhpnsLa16KTBlgx3svPXarQ7JkppRiV8ZTDGWgmi1oc+oorm7+f5 yA== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3gsb4p4mwn-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Wed, 22 Jun 2022 02:46:55 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 22 Jun
+ 2022 08:46:53 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.28 via
+ Frontend Transport; Wed, 22 Jun 2022 08:46:53 +0100
+Received: from vitaly-Legion-7-16ACHg6.ad.cirrus.com (unknown [198.90.238.175])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 8996C478;
+ Wed, 22 Jun 2022 07:46:53 +0000 (UTC)
+From: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Mark
+ Brown <broonie@kernel.org>
+Subject: [PATCH v7 00/14] ALSA: hda: cirrus: Add initial DSP support and
+ firmware loading
+Date: Wed, 22 Jun 2022 08:46:39 +0100
+Message-ID: <20220622074653.179078-1-vitalyr@opensource.cirrus.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Yassine Oudjana <y.oudjana@protonmail.com>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, Yassine Oudjana <yassine.oudjana@gmail.com>,
- phone-devel@vger.kernel.org
+Content-Type: text/plain
+X-Proofpoint-GUID: yRwtg84S-g9MoYpCrfrOB9TNsuZgFbBA
+X-Proofpoint-ORIG-GUID: yRwtg84S-g9MoYpCrfrOB9TNsuZgFbBA
+X-Proofpoint-Spam-Reason: safe
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,108 +98,95 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Yassine Oudjana <y.oudjana@protonmail.com>
+The CS35L41 Amplifier contains a DSP, capable of running firmware.
+The firmware can run algorithms such as Speaker Protection, to ensure
+that playback at high gains do not harm the speakers.
+Adding support for CS35L41 firmware into the CS35L41 HDA driver also
+allows us to support several extra features, such as hiberation 
+and interrupts.
 
-Replace DAI indices in codec nodes with definitions from the WCD9335
-DT bindings for devices that use WCD9335.
+The chain adds support in stages:
+- General fixes to improve generalization and code re-use inside
+  the CS35L41 HDA driver.
+- Add support for interrupts into the driver, which is required
+  for complete support of the firmware.
+- Refactor ASoC CS35L41 code which deals with firmware to allow
+  for code re-use inside the CS35L41 HDA driver.
+- Add support for loading firmware and tuning files from file system,
+  and creating alsa controls to control it.
+- Support firmware load paths for different hardware systems.
+- Support suspend/resume in the driver when using firmware. The firmware
+  supports hibernation, which allows the CS35L41 to drop into a low
+  power mode during suspend.
+- Support the ability to unload firmware, swap and reload the firmware.
+  This is to allow different firmware to run during calibration.
 
-Signed-off-by: Yassine Oudjana <y.oudjana@protonmail.com>
----
- arch/arm64/boot/dts/qcom/apq8096-db820c.dts         | 5 +++--
- arch/arm64/boot/dts/qcom/msm8996-xiaomi-gemini.dts  | 5 +++--
- arch/arm64/boot/dts/qcom/msm8996-xiaomi-scorpio.dts | 5 +++--
- 3 files changed, 9 insertions(+), 6 deletions(-)
+The intended use-case is to load the firmware once on boot, and the driver
+autmatically tries to load the firmware after it binds to the HDA driver.
+This behaviour can be switched off using a kconfig, if desired.
 
-diff --git a/arch/arm64/boot/dts/qcom/apq8096-db820c.dts b/arch/arm64/boot/dts/qcom/apq8096-db820c.dts
-index 49afbb1a066a..ff915cd8e5a6 100644
---- a/arch/arm64/boot/dts/qcom/apq8096-db820c.dts
-+++ b/arch/arm64/boot/dts/qcom/apq8096-db820c.dts
-@@ -13,6 +13,7 @@
- #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
- #include <dt-bindings/sound/qcom,q6afe.h>
- #include <dt-bindings/sound/qcom,q6asm.h>
-+#include <dt-bindings/sound/qcom,wcd9335.h>
+changes since v6:
+ - Fix warning by kernel test robot <lkp@intel.com>
  
- /*
-  * GPIO name legend: proper name = the GPIO line is used as GPIO
-@@ -1009,7 +1010,7 @@ platform {
- 	};
+changes since v5:
+ - Fix warning by kernel test robot <lkp@intel.com>
  
- 		codec {
--			sound-dai = <&wcd9335 6>;
-+			sound-dai = <&wcd9335 AIF4_PB>;
- 		};
- 	};
- 
-@@ -1024,7 +1025,7 @@ platform {
- 		};
- 
- 		codec {
--			sound-dai = <&wcd9335 1>;
-+			sound-dai = <&wcd9335 AIF1_CAP>;
- 		};
- 	};
- };
-diff --git a/arch/arm64/boot/dts/qcom/msm8996-xiaomi-gemini.dts b/arch/arm64/boot/dts/qcom/msm8996-xiaomi-gemini.dts
-index 22978d06f85b..261f2ea7def0 100644
---- a/arch/arm64/boot/dts/qcom/msm8996-xiaomi-gemini.dts
-+++ b/arch/arm64/boot/dts/qcom/msm8996-xiaomi-gemini.dts
-@@ -9,6 +9,7 @@
- #include <dt-bindings/sound/qcom,q6afe.h>
- #include <dt-bindings/sound/qcom,q6asm.h>
- #include <dt-bindings/input/ti-drv260x.h>
-+#include <dt-bindings/sound/qcom,wcd9335.h>
- 
- / {
- 	model = "Xiaomi Mi 5";
-@@ -193,7 +194,7 @@ platform {
- 		};
- 
- 		codec {
--			sound-dai = <&wcd9335 6>;
-+			sound-dai = <&wcd9335 AIF4_PB>;
- 		};
- 	};
- 
-@@ -208,7 +209,7 @@ platform {
- 		};
- 
- 		codec {
--			sound-dai = <&wcd9335 1>;
-+			sound-dai = <&wcd9335 AIF1_CAP>;
- 		};
- 	};
- };
-diff --git a/arch/arm64/boot/dts/qcom/msm8996-xiaomi-scorpio.dts b/arch/arm64/boot/dts/qcom/msm8996-xiaomi-scorpio.dts
-index 1e2dd6763ad1..c9f935cfb587 100644
---- a/arch/arm64/boot/dts/qcom/msm8996-xiaomi-scorpio.dts
-+++ b/arch/arm64/boot/dts/qcom/msm8996-xiaomi-scorpio.dts
-@@ -9,6 +9,7 @@
- #include "pmi8996.dtsi"
- #include <dt-bindings/sound/qcom,q6afe.h>
- #include <dt-bindings/sound/qcom,q6asm.h>
-+#include <dt-bindings/sound/qcom,wcd9335.h>
- 
- / {
- 	model = "Xiaomi Mi Note 2";
-@@ -171,7 +172,7 @@ platform {
- 		};
- 
- 		codec {
--			sound-dai = <&wcd9335 6>;
-+			sound-dai = <&wcd9335 AIF4_PB>;
- 		};
- 	};
- 
-@@ -186,7 +187,7 @@ platform {
- 		};
- 
- 		codec {
--			sound-dai = <&wcd9335 1>;
-+			sound-dai = <&wcd9335 AIF1_CAP>;
- 		};
- 	};
- };
+changes since v4:
+- Fully remove tlv remnants from control add apis
+- Remove unnecessary debug
+- Rename variable to be more generic
+- Remove redundent length check from read/write control apis
+
+
+- Use SNDRV_CTL_ELEM_IFACE_CARD for firmware load controls
+- Make kcontrol add/remove synchronous
+- Load firmware asynchronous when loading via control
+- Used cached controls when reloading firmware; only delete
+controls when removing the driver itself
+
+
+- Improve kcontrol remove
+- Fix control write + notify
+- Cleanup of unnecessary code
+- Fix race condition when loading firmware before playback
+- Ensure errors are properly propogated
+- Fix include for Module parameters
+
+Stefan Binding (13):
+  ALSA: hda: hda_cs_dsp_ctl: Add Library to support CS_DSP ALSA controls
+  ALSA: hda: hda_cs_dsp_ctl: Add apis to write the controls directly
+  ALSA: hda: cs35l41: Save codec object inside component struct
+  ALSA: hda: cs35l41: Save Subsystem ID inside CS35L41 Driver
+  ALSA: hda: cs35l41: Support reading subsystem id from ACPI
+  ALSA: hda: cs35l41: Support multiple load paths for firmware
+  ALSA: hda: cs35l41: Support Speaker ID for laptops
+  ALSA: hda: cs35l41: Support Hibernation during Suspend
+  ALSA: hda: cs35l41: Read Speaker Calibration data from UEFI variables
+  ALSA: hda: hda_cs_dsp_ctl: Add fw id strings
+  ALSA: hda: cs35l41: Add defaulted values into dsp bypass config
+    sequence
+  ALSA: hda: cs35l41: Support Firmware switching and reloading
+  ALSA: hda: cs35l41: Add module parameter to control firmware load
+
+Vitaly Rodionov (1):
+  ALSA: hda: cs35l41: Add initial DSP support and firmware loading
+
+ MAINTAINERS                     |   1 +
+ include/sound/cs35l41.h         |   4 +
+ sound/pci/hda/Kconfig           |   8 +
+ sound/pci/hda/Makefile          |   2 +
+ sound/pci/hda/cs35l41_hda.c     | 902 +++++++++++++++++++++++++++++++-
+ sound/pci/hda/cs35l41_hda.h     |  39 ++
+ sound/pci/hda/cs35l41_hda_i2c.c |   1 +
+ sound/pci/hda/cs35l41_hda_spi.c |   1 +
+ sound/pci/hda/hda_component.h   |   4 +
+ sound/pci/hda/hda_cs_dsp_ctl.c  | 254 +++++++++
+ sound/pci/hda/hda_cs_dsp_ctl.h  |  39 ++
+ sound/pci/hda/patch_realtek.c   |  27 +-
+ 12 files changed, 1277 insertions(+), 5 deletions(-)
+ create mode 100644 sound/pci/hda/hda_cs_dsp_ctl.c
+ create mode 100644 sound/pci/hda/hda_cs_dsp_ctl.h
+
 -- 
-2.36.1
+2.34.1
 

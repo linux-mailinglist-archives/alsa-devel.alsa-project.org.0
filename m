@@ -2,93 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3068E55767D
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jun 2022 11:20:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A1FD55785D
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jun 2022 13:05:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C6C981B46;
-	Thu, 23 Jun 2022 11:19:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C6C981B46
+	by alsa0.perex.cz (Postfix) with ESMTPS id F14A51EEC;
+	Thu, 23 Jun 2022 13:04:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F14A51EEC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655976039;
-	bh=jvTSpUApFuNR+zry7deDGr045Bs+SsvwvHOVl8kQWBE=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=bjrm6op2ZZf7gaaap+EwaQO9siuwKjZ1w+ROFJoBcQj11uuC0yQZdRtOL1mr8OGBi
-	 VHt9YuWKsax0/2jslLesuXFVffzrYaESK5HG1/OXmD7eAOe/+wgFwx05vu64mQ7dNO
-	 F/EDpAMyuV+f3CX3BWElZtx2PcbD/Kj0vd+BuJrY=
+	s=default; t=1655982346;
+	bh=/kgWZkF3RtAUGxpCpzQmzUibXTvsQfDb1D5QiefBwJs=;
+	h=Date:From:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=HkWLTlyZSjmfzijD4+VDCgAUwKdhzNCSaRenUJoYFp8rnvkQo7hwKYtnuU9fVwkgn
+	 3OwCB6nH5qBeBkeAAa2J+pr/wNAouCYz/iGukoaRVrjfgdGcZqgTttM9KsLXI2tTBi
+	 5Q7puIv+HflEVRN1S1RTHk3q9TJaR4i6UADg1xMs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5430AF800CB;
-	Thu, 23 Jun 2022 11:19:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C3B3AF804EC;
+	Thu, 23 Jun 2022 13:04:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AFBF4F804C1; Thu, 23 Jun 2022 11:19:38 +0200 (CEST)
+ id 10A57F80118; Wed, 22 Jun 2022 22:24:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mx1.mythic-beasts.com (mx1.mythic-beasts.com
+ [IPv6:2a00:1098:0:86:1000:0:2:1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 224D0F800CB;
- Thu, 23 Jun 2022 11:19:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 224D0F800CB
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
- header.b="HtlXJ6Fp"
-Received: from [192.168.1.100] (2-237-20-237.ip236.fastwebnet.it
- [2.237.20.237])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: kholk11)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 2FF226601752;
- Thu, 23 Jun 2022 10:19:28 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1655975969;
- bh=jvTSpUApFuNR+zry7deDGr045Bs+SsvwvHOVl8kQWBE=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=HtlXJ6FpjazjmbTMa4K2OgCwmcUvIgnEBsNkestc/XFp/KcB1WYvMxf57uDyTjU79
- +UmT84cZ5l7aebBlizcY3SvC9cSANEU7MooekayQBaJAEImjOp+g7A8BYnJgcNLPtM
- HKogcZk+1CnKeTDKJYkek4EsPkyAtW+kBdvfFMnolf26yDoAHWwi+DbDHc2S9OGX3B
- 9JpOCV8Q9ApJstpZHhUJRjKjRG9H3rJdInA/HmgqlkLwwUpCd+L6QlezzR6rLy7otL
- aKC3KUaagtPTXQDtZkzncR+c/SlrbTVmiLf5z396DxfIBcDp7IExBd4oSehUKKvTDC
- hcOy74FkPmOpg==
-Message-ID: <0b065a56-5ab1-9be4-d92c-f7bfec629a3e@collabora.com>
-Date: Thu, 23 Jun 2022 11:19:26 +0200
+ by alsa1.perex.cz (Postfix) with ESMTPS id EE0C6F80118
+ for <alsa-devel@alsa-project.org>; Wed, 22 Jun 2022 22:24:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE0C6F80118
+Received: from [217.155.36.16] (port=59752 helo=[192.168.1.22])
+ by mailhub-cam-d.mythic-beasts.com with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
+ (envelope-from <john-linux@pelago.org.uk>)
+ id 1o46tW-00EZqt-1x; Wed, 22 Jun 2022 21:24:10 +0100
+Message-ID: <795d8e1a-8fc7-2302-613e-ff1743de5c16@pelago.org.uk>
+Date: Wed, 22 Jun 2022 21:23:50 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.10.0
-Subject: Re: [PATCH v4 0/4] Add MT8186 ADSP dt-binding
+From: John Veness <john-linux@pelago.org.uk>
+Subject: Quirks for MacroSilicon MS2100/MS2106
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
 Content-Language: en-US
-To: Tinghan Shen <tinghan.shen@mediatek.com>, Rob Herring
- <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- YC Hung <yc.hung@mediatek.com>, Curtis Malainey <cujomalainey@chromium.org>,
- Allen-KH Cheng <allen-kh.cheng@mediatek.com>
-References: <20220622062245.21021-1-tinghan.shen@mediatek.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20220622062245.21021-1-tinghan.shen@mediatek.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org,
- Project_Global_Chrome_Upstream_Group@mediatek.com,
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- sound-open-firmware@alsa-project.org
+X-BlackCat-Spam-Score: 0
+X-Mailman-Approved-At: Thu, 23 Jun 2022 13:04:19 +0200
+Cc: alsa-devel@alsa-project.org, Hector Martin <marcan@marcan.st>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,38 +71,124 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-For the entire series:
+Hello,
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+This is my first ever kernel work, so I hope I am doing everything
+correctly.
 
-Cheers,
-Angelo
+I have a USB analogue AV capture dongle with a MacroSilicon MS2100E chip
+inside. PID 0x534d, VID 0x0021 (534d:0021). Apparently the MS2106 uses
+the same PID/VID, so hopefully acts the same, but I don't have one to check.
 
-> v3 -> v4:
-> 1. Update commit message of patch 1/4
-> 2. Add review tag to path 3/4
-> 
-> v2 -> v3:
-> 1. Change mbox-names to rx/tx for both mt8186 and mt8195.
-> 2. Update description of mbox-names
-> 3. Use static string array instead of kasprintf
-> 4. Align clock names in dsp driver with dt-bindings
-> 
-> v1 -> v2:
-> 1. Change mbox-names from mbox0/mbox1 to rep/req for both mt8186 and mt8195.
-> 2. rename clock-names and remove unused headers
-> 
-> Tinghan Shen (4):
->    dt-bindings: dsp: mediatek: Use meaningful names for mbox
->    firmware: mediatek: Use meaningful names for mbox
->    dt-bindings: dsp: mediatek: Add mt8186 dsp document
->    ASoC: SOF: mediatek: Align mt8186 clock names with dt-bindings
-> 
->   .../bindings/dsp/mediatek,mt8186-dsp.yaml     | 91 +++++++++++++++++++
->   .../bindings/dsp/mediatek,mt8195-dsp.yaml     | 10 +-
->   drivers/firmware/mtk-adsp-ipc.c               | 36 +++-----
->   sound/soc/sof/mediatek/mt8186/mt8186-clk.c    |  4 +-
->   4 files changed, 110 insertions(+), 31 deletions(-)
->   create mode 100644 Documentation/devicetree/bindings/dsp/mediatek,mt8186-dsp.yaml
-> 
+For audio, the MS2100E has the same problems as the MS2109 USB HDMI
+capture dongle, namely claiming 96kHz mono sound when it's actually
+48kHz stereo, and with left/right channel problems.
 
+Luckily, the fix is the exact same as that for the MS2109, as first
+implemented by Marcan (Hector Martin) in July 2020. Below is a patch
+which is basically a copy and paste of his, with a different VID.
+
+I have tested this patch in 5.19.0 RC2. I haven't recruited any other
+testers.
+
+Even with this patch, there is a remaining problem, which is not present
+in the MS2109. The sound sample values range from 0x0000 to 0x7fff, with
+silence around 0x4000, i.e. 15-bit-ish audio. This actually sounds OK to
+the ear (although half as loud as it should be), but looks odd when
+looking at the waveform, and makes volume meters always think the sound
+is very loud.
+
+To convert to s16le, I can bitshift one bit left, and subtract 32768.
+I'm told that this isn't something that can or should be done in the
+kernel, but should be in userspace. Any more advice on how to fix this
+remaining quirk would be very welcome.
+
+Nonetheless, as I say, with the following kernel patch the captured
+audio certainly sounds right, so is a big improvement and makes these
+dongles usable:
+
+diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
+index 4f56e1784932..853da162fd18 100644
+--- a/sound/usb/quirks-table.h
++++ b/sound/usb/quirks-table.h
+@@ -3802,6 +3802,54 @@ YAMAHA_DEVICE(0x7010, "UB99"),
+         }
+  },
+
++/*
++ * MacroSilicon MS2100/MS2106 based AV capture cards
++ *
++ * These claim 96kHz 1ch in the descriptors, but are actually 48kHz 2ch.
++ * They also need QUIRK_FLAG_ALIGN_TRANSFER, which makes one wonder if
++ * they pretend to be 96kHz mono as a workaround for stereo being broken
++ * by that...
++ *
++ * They also have an issue with initial stream alignment that causes the
++ * channels to be swapped and out of phase, which is dealt with in quirks.c.
++ */
++{
++       USB_AUDIO_DEVICE(0x534d, 0x0021),
++       .driver_info = (unsigned long) &(const struct snd_usb_audio_quirk) {
++               .vendor_name = "MacroSilicon",
++               .product_name = "MS210x",
++               .ifnum = QUIRK_ANY_INTERFACE,
++               .type = QUIRK_COMPOSITE,
++               .data = &(const struct snd_usb_audio_quirk[]) {
++                       {
++                               .ifnum = 2,
++                               .type = QUIRK_AUDIO_STANDARD_MIXER,
++                       },
++                       {
++                               .ifnum = 3,
++                               .type = QUIRK_AUDIO_FIXED_ENDPOINT,
++                               .data = &(const struct audioformat) {
++                                       .formats = SNDRV_PCM_FMTBIT_S16_LE,
++                                       .channels = 2,
++                                       .iface = 3,
++                                       .altsetting = 1,
++                                       .altset_idx = 1,
++                                       .attributes = 0,
++                                       .endpoint = 0x82,
++                                       .ep_attr = USB_ENDPOINT_XFER_ISOC |
++                                               USB_ENDPOINT_SYNC_ASYNC,
++                                       .rates = SNDRV_PCM_RATE_CONTINUOUS,
++                                       .rate_min = 48000,
++                                       .rate_max = 48000,
++                               }
++                       },
++                       {
++                               .ifnum = -1
++                       }
++               }
++       }
++},
++
+  /*
+   * MacroSilicon MS2109 based HDMI capture cards
+   *
+diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+index e8468f9b007d..a72874bc0936 100644
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -1478,6 +1478,7 @@ void snd_usb_set_format_quirk(struct snd_usb_substream *subs,
+         case USB_ID(0x041e, 0x3f19): /* E-Mu 0204 USB */
+                 set_format_emu_quirk(subs, fmt);
+                 break;
++       case USB_ID(0x534d, 0x0021): /* MacroSilicon MS2100/MS2106 */
+         case USB_ID(0x534d, 0x2109): /* MacroSilicon MS2109 */
+                 subs->stream_offset_adj = 2;
+                 break;
+@@ -1904,6 +1905,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
+                    QUIRK_FLAG_IGNORE_CTL_ERROR),
+         DEVICE_FLG(0x413c, 0xa506, /* Dell AE515 sound bar */
+                    QUIRK_FLAG_GET_SAMPLE_RATE),
++       DEVICE_FLG(0x534d, 0x0021, /* MacroSilicon MS2100/MS2106 */
++                  QUIRK_FLAG_ALIGN_TRANSFER),
+         DEVICE_FLG(0x534d, 0x2109, /* MacroSilicon MS2109 */
+                    QUIRK_FLAG_ALIGN_TRANSFER),
+         DEVICE_FLG(0x1224, 0x2a25, /* Jieli Technology USB PHY 2.0 */
+
+
+Thanks for reading and considering this patch.
+
+John Veness

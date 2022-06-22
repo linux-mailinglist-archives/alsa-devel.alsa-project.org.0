@@ -2,75 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 427CA555267
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jun 2022 19:31:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADC2B55526E
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jun 2022 19:31:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 500F31DE3;
-	Wed, 22 Jun 2022 19:30:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 500F31DE3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5423E1E72;
+	Wed, 22 Jun 2022 19:31:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5423E1E72
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655919070;
-	bh=nbdRl8yrmOHkHu8DVnNH3Pr4b8c6Ku62sPIrhkAdeYo=;
+	s=default; t=1655919112;
+	bh=WpJxGSkPnoTmSLwPwAWBaxy5WCwKFsEXIi5/wZIjC5Q=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mrVU7pOfL2mnCHpXlq5HfI/2O/6kaP6hzBwKA/50b5d4YIJl8DTh5Cuux6cTWQXav
-	 26kts54U0dA2J/EjbgN5kVc1QFq8dLxoi50/owP1QoT1M1in4CwtOdlzDvlMt2yaux
-	 EeEb08HfdIBO855z0FJnzeUVqhXLkxAarl6NhC3U=
+	b=aocRlyYt/4rTBzMxgZoizuiz5ynSHKEVFxhtYm7qgViuwxPlJf8FBZ6Qhv87HCd13
+	 77b52XJVadFtrgj/6SSjAJ4CKThDcqok5TwpGHqzh+L+QXwPnl4/nVvRr0dsfa03aU
+	 dwSQompwUjfbkPOBrj5AGTy6Zt3CRnZF7aVUC0Dw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C23E5F8032D;
-	Wed, 22 Jun 2022 19:30:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BDEEAF8053B;
+	Wed, 22 Jun 2022 19:30:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4A54EF802D2; Wed, 22 Jun 2022 19:30:10 +0200 (CEST)
+ id 70597F80100; Wed, 22 Jun 2022 19:30:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,MIME_8BIT_HEADER,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 499C5F80118
- for <alsa-devel@alsa-project.org>; Wed, 22 Jun 2022 19:30:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 499C5F80118
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4745EF80100
+ for <alsa-devel@alsa-project.org>; Wed, 22 Jun 2022 19:30:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4745EF80100
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="WKyBLd2y"
+ header.b="O8jxIq/L"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 07442B81DC6;
- Wed, 22 Jun 2022 17:30:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D37AC34114;
- Wed, 22 Jun 2022 17:30:02 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 3876CB8205B;
+ Wed, 22 Jun 2022 17:30:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EC7AC3411B;
+ Wed, 22 Jun 2022 17:30:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1655919004;
- bh=nbdRl8yrmOHkHu8DVnNH3Pr4b8c6Ku62sPIrhkAdeYo=;
+ s=k20201202; t=1655919007;
+ bh=WpJxGSkPnoTmSLwPwAWBaxy5WCwKFsEXIi5/wZIjC5Q=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=WKyBLd2y06uc2X/T0ZbOPh+D7H5TTEYcUlrayt2FwH3Zw9+QHhsK2CeQGFL7Gjocu
- +soosTrU06AbL6cWgvgLz98HoLVagGXuhLSTLP5pM6EnaGntEC8AzePt54xqmXzP1p
- 52uZ4r+t1fFVhXR1j22E0HADo80olvbyvUhohjBzKLvVHpNQ0NNYhYAuRLKKerNyO/
- xG67FUJBAOEZV9w0rPUCwUeOImG4lmUmdWWOJVuGRykfF+L8B5MvfZNhuVkshZ0ZTQ
- pEABjEVs17SFwyWNthfYGb5r65sFQyo2937r9ys2epsEZK9mXzhZiXnxw/f1UM5hzp
- KF25qFJCTC/xg==
+ b=O8jxIq/LPamDMoq3ZB2j4wKsgadFaOqNRR2sr+IiON6+3oKt+nbysJU5zpEoBOByl
+ fHmubXbbNGi5HsAVhjywJjEsxEmjTw71SSTsJr5e/wmXA3GWk4Ki9vdn6oQlVG3jqT
+ QQtlHrEY+c3CoRRr0TmpuAJ0g9VGIpx7EfPEqG+U6cuTP5Sz4PgZiwIMmkffuNxd0U
+ 64ztA/4TMUpRS4RSCgoXh85rrTNo9jaNjhEzenVzLKNeYpjLIXHfH90Osum6p7LKOb
+ v/wPfk30TGijakLXclDCK7BscWP31fN8u3E4QnoSIoaDYuWRk7S9IcE1e5M6Zg+yy+
+ KMyCln03Hi57A==
 From: Mark Brown <broonie@kernel.org>
-To: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>, lgirdwood@gmail.com
-In-Reply-To: <20220621145834.198519-1-u.kleine-koenig@pengutronix.de>
-References: <20220621145834.198519-1-u.kleine-koenig@pengutronix.de>
-Subject: Re: [PATCH] ASoC: core: Make snd_soc_unregister_card() return void
-Message-Id: <165591900215.1405752.6651339800557082462.b4-ty@kernel.org>
-Date: Wed, 22 Jun 2022 18:30:02 +0100
+To: lgirdwood@gmail.com, heiko@sntech.de, wens@kernel.org, tiwai@suse.com,
+ perex@perex.cz
+In-Reply-To: <20220621185747.2782-1-wens@kernel.org>
+References: <20220621185747.2782-1-wens@kernel.org>
+Subject: Re: [PATCH] ASoC: rockchip: i2s: Fix crash on missing pinctrl
+Message-Id: <165591900483.1405752.13168398437677956332.b4-ty@kernel.org>
+Date: Wed, 22 Jun 2022 18:30:04 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, alexandre.belloni@bootlin.com,
- nicolas.ferre@microchip.com, linmq006@gmail.com, tiwai@suse.com,
- kernel@pengutronix.de, codrin.ciubotariu@microchip.com,
- claudiu.beznea@microchip.com, linux-arm-kernel@lists.infradead.org
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, wens@csie.org, judyhsiao@chromium.org,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,13 +87,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 21 Jun 2022 16:58:34 +0200, Uwe Kleine-König wrote:
-> The function snd_soc_unregister_card() returned 0 unconditionally and most
-> callers don't care to check the return value. Make it return void and
-> adapt the callers that didn't ignore the return value before.
+On Wed, 22 Jun 2022 02:57:47 +0800, Chen-Yu Tsai wrote:
+> From: Chen-Yu Tsai <wens@csie.org>
 > 
-> This is a preparation for making platform remove callbacks return void.
-> 
+> Commit 44f362c2cc6d ("ASoC: rockchip: i2s: switch BCLK to GPIO") added
+> pinctrl lookups, but did not skip the lookup if there was no pinctrl
+> device tied to the I2S controller. As a result, the lookup was done
+> on an invalid pointer in such cases, causing a kernel panic.
 > 
 > [...]
 
@@ -102,8 +103,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: core: Make snd_soc_unregister_card() return void
-      commit: 1892a991886ace2c3450bec801df2cf4028a803a
+[1/1] ASoC: rockchip: i2s: Fix crash on missing pinctrl
+      commit: c3b5fd7fbb698496461f280728b456d9927f22af
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

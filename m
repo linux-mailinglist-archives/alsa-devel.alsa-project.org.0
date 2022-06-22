@@ -2,79 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFEBF555111
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jun 2022 18:15:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8E89555113
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jun 2022 18:15:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4F4F91EE8;
-	Wed, 22 Jun 2022 18:14:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F4F91EE8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6BA9B280E;
+	Wed, 22 Jun 2022 18:14:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6BA9B280E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655914525;
-	bh=7NGV8KZOuuNin7zoqHo7aB4afFYdz39R7FfAtvlNYg8=;
+	s=default; t=1655914537;
+	bh=dn/2hzo3TNHYBvUgvE4jlxg/mCtXtJya6fQvu+v0bk8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aV+EwSmF3Gf0Uj/g2jLPvlpDKjEBJ5VOkp7X+O0Eju+ScVMUPNDVycB56pUWn/wMK
-	 UdyaKLjDeWHOsLCrr6XhUKCR/Fyaug9cBfELetgepDwe1zwZI69UR16nBuYC63BAm2
-	 RuTypGX23p5s2IXBf1cmpBdaLdbPoHBsDc9eAMlg=
+	b=lOeJRK9elgJMtaHRHlOyVygMTT1O4DTE+EFveqhWWmLB6fmhDgNSJbgY6I8GYK20/
+	 w07lUa2q/CAsow1r4tiGESOCFSL14v11jbESjazKr1y+AfSOeLXKpghonqK0d76kDx
+	 qAHn6d68mUiX9N6bIVrnVN/ds/9VduHW3ysmdrds=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D5960F804AC;
-	Wed, 22 Jun 2022 18:14:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5EAF2F80537;
+	Wed, 22 Jun 2022 18:14:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 93562F80424; Wed, 22 Jun 2022 18:14:04 +0200 (CEST)
+ id 69636F80536; Wed, 22 Jun 2022 18:14:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [IPv6:2a00:1450:4864:20::52b])
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [IPv6:2a00:1450:4864:20::529])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C3941F80100
- for <alsa-devel@alsa-project.org>; Wed, 22 Jun 2022 18:13:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3941F80100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 55CD5F8032D
+ for <alsa-devel@alsa-project.org>; Wed, 22 Jun 2022 18:14:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55CD5F8032D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="AdqVL1fn"
-Received: by mail-ed1-x52b.google.com with SMTP id o9so15371426edt.12
- for <alsa-devel@alsa-project.org>; Wed, 22 Jun 2022 09:13:57 -0700 (PDT)
+ header.b="hf8j8FP8"
+Received: by mail-ed1-x529.google.com with SMTP id eo8so24654289edb.0
+ for <alsa-devel@alsa-project.org>; Wed, 22 Jun 2022 09:14:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=zAlPejfAQCxvtnqb2e7esLuuwfx9+dbQueVecsqGTnM=;
- b=AdqVL1fn2Nch6BaslzUJtV1cx1jD3oDKzhYBdgH8XXPW7Xs/yUzclctxexMRz0ye4m
- T4+zMvA3dqhGFEjOGUt9HGdpRfluYH924o4KUB1E2cWq+dT54Ne3JHFOTX6SO6w+CZON
- AFuUf90TWAAUW8S5ikQSQGJOLKHpqK33JV3nGHGYQ6L99vxL1sm1tvNwI5C4SZH8hDoK
- Db+DsfftmTHV892LT4/7ELlpP81nPbF8nswVSGRlA+CYsHX2gLoNierd43ChQUymGQjU
- 8TTSXbYUMUmsfdb9oPormsYfVOavoi+HSqm6J2YvwZhjY/dCf44ObHmrTFNQXSpNTp4u
- /Gjw==
+ bh=BPDXlvqV0AxMWt136en9f/MZtZ2FaK26EatF9Qx87KM=;
+ b=hf8j8FP8sSZV8bbnqKdDoJXLx/IEZmAA8Jaa7wqvMhUaHYLq7K36mR7xDrLaIUE+BJ
+ adS6FpovfS8Ut0BA2qx0T0HI3g1rm6mib96GmJhyBkC2DgWLEOzzM3GDt2xI7Xo68lcp
+ hMDIQ2wFarYLSsxe6KPVqoYxSUfP3HiTrfUAissQ1JRwIgKnWtIJfGklxJcmY9mYujWI
+ ruGjt7mQKz7apoj5WXYGzb37tWtqr6bwdQW0GYFk3OL2RAoIYXxbJvXZZwxTL1Q3G/Qu
+ bvfVvlQrmh2Aj0mwLQTyP07oDZtWDyZuZpyxVM77ODlI6xx8IIeCDbgMGh/7FsxeZOKn
+ wB1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=zAlPejfAQCxvtnqb2e7esLuuwfx9+dbQueVecsqGTnM=;
- b=uIFDhh5SAtUR2NQ/OiAyKnHR9WtF13ViXfbHwE5vHxNS1jBYbyk8FAWBwID/ni5+DJ
- +wiL/+gZGlYN7owJAE+njAfcBKCQfJj/RZlvADGpYVi3hiExSYpsz112vopdk+Ee/C1r
- MJigO7amkcozfzroecJkhMkvPNPSOjzgGqu5rjMoYY1zOidzhVFc+HMmAC2h65s/140k
- RnBb3c+nHFqHk7MH4UuiF56VGBRcBGXCmm7zfe7J/bKSl0q+NGhF4QQtTGF97gCwsMkD
- DB1g532jMFgl1MILHvmFdCceH/Z3jWByI1f05QfdgKfVgo3NI7FJbWBSQr5mL8THEO8m
- RdFQ==
-X-Gm-Message-State: AJIora/W4IiOp9Eu5e7UJbnln43md5fCBHLfJJn8zpoK9vdNsFxMd9XT
- PpqgSzoioGEyoPC8WKnCngM=
-X-Google-Smtp-Source: AGRyM1tUeZKhkR6l8vLpmW0F9+thSOWMhMCzrTst6cJhHntejTBuoEAhk0TNhif3zETWLXT4QGdt1A==
-X-Received: by 2002:a05:6402:2750:b0:435:ab9f:1235 with SMTP id
- z16-20020a056402275000b00435ab9f1235mr4972683edd.188.1655914435429; 
- Wed, 22 Jun 2022 09:13:55 -0700 (PDT)
+ bh=BPDXlvqV0AxMWt136en9f/MZtZ2FaK26EatF9Qx87KM=;
+ b=4n1KJNQGTcmYGqJLNePl8uc5Kb699R4kehODnvEK+38dbtkb5qA4uc7TLishJjCRif
+ AQqlMTVcJUxBF1ewP3rbV+AtM2FZKHHJA3xZfPubT/7qntD/TSyXJw81UA981fSZ8CZn
+ eFyLacNBy45xHZVAzqZIsB2vxtjp87qz6cMK0ejkEhpA8t+AJ3EZx0UJYJ//vN8jF3ce
+ vaSsKzuMUBj0WdXgRpkbfBgyBBjQygpPEp9BZzQfehWQ9gG9U5YCmFTUl9jTytZkEumr
+ FuvUE95/2Ktg+SFr+NYRUggzNImS3K+zFCBHxMxyw52fk6aFLDl5EPQcchMAFuqATmLy
+ 9zdA==
+X-Gm-Message-State: AJIora+mJGziQDLW48D4ynBPGfB29w6pnB+hHM1Vdf6OKMxv2+yc/nGr
+ 0XgFU7AsAsUAQQm3+D3ZKsY=
+X-Google-Smtp-Source: AGRyM1s0xvuP9BhHEnaO03VpmTSeJV1TWPz57NVjo6q1R+NUICF3HXpZKVue8kGa+VHd1zFMVrmrhw==
+X-Received: by 2002:a05:6402:28a2:b0:435:798e:2988 with SMTP id
+ eg34-20020a05640228a200b00435798e2988mr4965039edb.217.1655914439781; 
+ Wed, 22 Jun 2022 09:13:59 -0700 (PDT)
 Received: from localhost.localdomain ([185.107.95.225])
  by smtp.gmail.com with ESMTPSA id
- sd14-20020a1709076e0e00b007072dc80e06sm9576036ejc.190.2022.06.22.09.13.49
+ sd14-20020a1709076e0e00b007072dc80e06sm9576036ejc.190.2022.06.22.09.13.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Jun 2022 09:13:55 -0700 (PDT)
+ Wed, 22 Jun 2022 09:13:59 -0700 (PDT)
 From: Yassine Oudjana <yassine.oudjana@gmail.com>
 X-Google-Original-From: Yassine Oudjana <y.oudjana@protonmail.com>
 To: Andy Gross <agross@kernel.org>,
@@ -85,9 +85,10 @@ To: Andy Gross <agross@kernel.org>,
  Banajit Goswami <bgoswami@quicinc.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v2 1/3] ASoC: dt-bindings: Add bindings for WCD9335 DAIs
-Date: Wed, 22 Jun 2022 20:13:20 +0400
-Message-Id: <20220622161322.168017-2-y.oudjana@protonmail.com>
+Subject: [PATCH v2 2/3] ASoC: wcd9335: Use DT bindings instead of local DAI
+ definitions
+Date: Wed, 22 Jun 2022 20:13:21 +0400
+Message-Id: <20220622161322.168017-3-y.oudjana@protonmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220622161322.168017-1-y.oudjana@protonmail.com>
 References: <20220622161322.168017-1-y.oudjana@protonmail.com>
@@ -115,53 +116,46 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Yassine Oudjana <y.oudjana@protonmail.com>
 
-Add bindings for the DAIs available in WCD9335 to avoid
-having to use unclear number indices in device trees.
+Get DAI indices from DT bindings and remove the currently used
+local definitions.
 
 Signed-off-by: Yassine Oudjana <y.oudjana@protonmail.com>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
-Changes since v1:
- - Make header guard match path
+ sound/soc/codecs/wcd9335.c | 13 ++-----------
+ 1 file changed, 2 insertions(+), 11 deletions(-)
 
- MAINTAINERS                              |  1 +
- include/dt-bindings/sound/qcom,wcd9335.h | 15 +++++++++++++++
- 2 files changed, 16 insertions(+)
- create mode 100644 include/dt-bindings/sound/qcom,wcd9335.h
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index b774f21828f7..2bcc3cc129c5 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -16366,6 +16366,7 @@ M:	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
- M:	Banajit Goswami <bgoswami@quicinc.com>
- L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
- S:	Supported
-+F:	include/dt-bindings/sound/qcom,wcd9335.h
- F:	sound/soc/codecs/lpass-va-macro.c
- F:	sound/soc/codecs/lpass-wsa-macro.*
- F:	sound/soc/codecs/msm8916-wcd-analog.c
-diff --git a/include/dt-bindings/sound/qcom,wcd9335.h b/include/dt-bindings/sound/qcom,wcd9335.h
-new file mode 100644
-index 000000000000..f5e9f1db091e
---- /dev/null
-+++ b/include/dt-bindings/sound/qcom,wcd9335.h
-@@ -0,0 +1,15 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+diff --git a/sound/soc/codecs/wcd9335.c b/sound/soc/codecs/wcd9335.c
+index 7d40a61b03b0..3554b95462e8 100644
+--- a/sound/soc/codecs/wcd9335.c
++++ b/sound/soc/codecs/wcd9335.c
+@@ -24,6 +24,8 @@
+ #include "wcd9335.h"
+ #include "wcd-clsh-v2.h"
+ 
++#include <dt-bindings/sound/qcom,wcd9335.h>
 +
-+#ifndef __DT_SOUND_QCOM_WCD9335_H
-+#define __DT_SOUND_QCOM_WCD9335_H
-+
-+#define AIF1_PB                 0
-+#define AIF1_CAP                1
-+#define AIF2_PB                 2
-+#define AIF2_CAP                3
-+#define AIF3_PB                 4
-+#define AIF3_CAP                5
-+#define AIF4_PB                 6
-+#define NUM_CODEC_DAIS          7
-+
-+#endif
+ #define WCD9335_RATES_MASK (SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000 |\
+ 			    SNDRV_PCM_RATE_32000 | SNDRV_PCM_RATE_48000 |\
+ 			    SNDRV_PCM_RATE_96000 | SNDRV_PCM_RATE_192000)
+@@ -203,17 +205,6 @@ enum wcd9335_sido_voltage {
+ 	SIDO_VOLTAGE_NOMINAL_MV = 1100,
+ };
+ 
+-enum {
+-	AIF1_PB = 0,
+-	AIF1_CAP,
+-	AIF2_PB,
+-	AIF2_CAP,
+-	AIF3_PB,
+-	AIF3_CAP,
+-	AIF4_PB,
+-	NUM_CODEC_DAIS,
+-};
+-
+ enum {
+ 	COMPANDER_1, /* HPH_L */
+ 	COMPANDER_2, /* HPH_R */
 -- 
 2.36.1
 

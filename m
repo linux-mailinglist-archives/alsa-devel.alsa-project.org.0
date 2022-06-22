@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37DBE5544B0
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jun 2022 10:41:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22BB55544B2
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jun 2022 10:42:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B96D6244B;
-	Wed, 22 Jun 2022 10:40:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B96D6244B
+	by alsa0.perex.cz (Postfix) with ESMTPS id B324B27A0;
+	Wed, 22 Jun 2022 10:41:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B324B27A0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655887299;
-	bh=VfNo7yVTgFB/Svew6Oy6XyZl047DErTPyzcdQPMqbxE=;
+	s=default; t=1655887331;
+	bh=lfCre8ivv7Zd1IkJm7XBr2ruY993pMUvBr7MGHnoa5E=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=E3EKvA/+CdAi4HnnC6Q7mxrfYyT38xmabMqOvbwLEe2nETd61GrtvqoMU2PXotQza
-	 xVTf6fO0MiipPGtBaHCUWRMHcq41PABkoQ69t7k44MFO483O8g6MYFKNPFChSOVEH4
-	 tFeMJQY5UXWOfs/RbB6tXEKfL0oMd6GkKpDsz0Ro=
+	b=kaB8lPirXt5VLA0O0MZPaXQxR5mET8CncRyRWayeDIPAcC11MBFkakDfdnhM9DA/f
+	 JVXY5WEklUTnIxsPBOVDk+UbTi2yXUvExxzO5KlgVAWU/IYFA++nTV1sLzq+zPq5Fn
+	 cq9COaN9ZObuqLSULu/7baDmdjwBIry2q2yBTar8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 21B49F80424;
-	Wed, 22 Jun 2022 10:40:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 14ACEF804AC;
+	Wed, 22 Jun 2022 10:40:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7129CF800CB; Wed, 22 Jun 2022 10:40:39 +0200 (CEST)
+ id 83260F80482; Wed, 22 Jun 2022 10:40:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,50 +34,50 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0E36DF800CB
- for <alsa-devel@alsa-project.org>; Wed, 22 Jun 2022 10:40:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E36DF800CB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 112E6F8019B
+ for <alsa-devel@alsa-project.org>; Wed, 22 Jun 2022 10:40:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 112E6F8019B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="F3qTFkBC"
+ header.b="LZD/AJo+"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655887233; x=1687423233;
+ t=1655887239; x=1687423239;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=VfNo7yVTgFB/Svew6Oy6XyZl047DErTPyzcdQPMqbxE=;
- b=F3qTFkBCR8pGI1PX1xDAX2aXpEgiLGV7pNnXj/2PPKDG5lbfb5gbuvH6
- Vti5EQ4809Y1DaqQqlsV7I1KH6AwGEpzgVENAU1wSHWGxdnNN1pHP2GWw
- 1hKU7MXMn2AE1ntQQ47NXlkZjvoptbUYJBNxXQMB+8zOVIUYt4x75mhiq
- j2oqJkUlSKstgNAMzgOGVhzoQMVK+4kwfFmurSShUwGUYg/JJIaIOZE7g
- DNTpmRswLOS/1u233OAv4Fi2VxTo5cpq7PhpBinEDz9GnpJLHnMYaFm/W
- xxOEBciXUFSZx5A9q89FOvvOaSkfEh4AgjY7i89A5Iln6A4OXbrExew9R w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10385"; a="260787554"
-X-IronPort-AV: E=Sophos;i="5.92,212,1650956400"; d="scan'208";a="260787554"
+ bh=lfCre8ivv7Zd1IkJm7XBr2ruY993pMUvBr7MGHnoa5E=;
+ b=LZD/AJo+JVQIuy8qBXr4+9K1V0VeIlJjqFbGwijgPRBIj+X6zhvmyR/N
+ G7ybKa+i9+FZP9H1eRSQcitdGWzm/sc80SQyLquR8M8dnZeVg6PpWqqdA
+ OaIyHGgMWTSaDy5ZfoVy5ecC39zkr1zXZ6h0y2GtOSNxXdmYMKZWlL5hJ
+ BEBtQDx5hlTnLPFp/5ekhEAxj5af7/sInAy1twU6TM5Zssg3J/+a5o9AO
+ 04phXhxpk61XSkcifBE9L5eoZEvmrIDW7vwtqp7KkYqSS0NxiPXuYvzn2
+ 1S52sWcMeBnp5L2KjmuNkqcjAJe3bAZDjGQTgDk4rLZfOwkm2FtVNBRO9 Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10385"; a="260787577"
+X-IronPort-AV: E=Sophos;i="5.92,212,1650956400"; d="scan'208";a="260787577"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jun 2022 01:40:24 -0700
-X-IronPort-AV: E=Sophos;i="5.92,212,1650956400"; d="scan'208";a="644080007"
+ 22 Jun 2022 01:40:37 -0700
+X-IronPort-AV: E=Sophos;i="5.92,212,1650956400"; d="scan'208";a="644080043"
 Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.249.103])
  ([10.99.249.103])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jun 2022 01:40:22 -0700
-Message-ID: <d05c292e-f955-48df-50e3-55e36a956775@linux.intel.com>
-Date: Wed, 22 Jun 2022 10:40:20 +0200
+ 22 Jun 2022 01:40:31 -0700
+Message-ID: <c0bd4b10-f846-6a6e-06a4-57284f536a98@linux.intel.com>
+Date: Wed, 22 Jun 2022 10:40:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.9.1
-Subject: Re: [PATCH v7 01/14] ALSA: hda: hda_cs_dsp_ctl: Add Library to
- support CS_DSP ALSA controls
+Subject: Re: [PATCH v7 05/14] ALSA: hda: cs35l41: Save Subsystem ID inside
+ CS35L41 Driver
 Content-Language: en-US
 To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
  Mark Brown <broonie@kernel.org>
 References: <20220622074653.179078-1-vitalyr@opensource.cirrus.com>
- <20220622074653.179078-2-vitalyr@opensource.cirrus.com>
+ <20220622074653.179078-6-vitalyr@opensource.cirrus.com>
 From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
  <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <20220622074653.179078-2-vitalyr@opensource.cirrus.com>
+In-Reply-To: <20220622074653.179078-6-vitalyr@opensource.cirrus.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
@@ -100,112 +100,32 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 On 6/22/2022 9:46 AM, Vitaly Rodionov wrote:
 > From: Stefan Binding <sbinding@opensource.cirrus.com>
 > 
-> The cs35l41 part contains a DSP which is able to run firmware.
-> The cs_dsp library can be used to control the DSP.
-> These controls can be exposed to userspace using ALSA controls.
-> This library adds apis to be able to interface between
-> cs_dsp and hda drivers and expose the relevant controls as
-> ALSA controls.
+> The Subsystem ID is read from the HDA driver, and will
+> be used by the CS35L41 driver to be able to uniquely
+> identify the laptop, which is required to be able to
+> define firmware to be used by specific models.
 > 
 > Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
 > Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
 > ---
->   MAINTAINERS                    |   1 +
->   sound/pci/hda/Kconfig          |   4 +
->   sound/pci/hda/Makefile         |   2 +
->   sound/pci/hda/hda_cs_dsp_ctl.c | 207 +++++++++++++++++++++++++++++++++
->   sound/pci/hda/hda_cs_dsp_ctl.h |  33 ++++++
->   5 files changed, 247 insertions(+)
->   create mode 100644 sound/pci/hda/hda_cs_dsp_ctl.c
->   create mode 100644 sound/pci/hda/hda_cs_dsp_ctl.h
+>   sound/pci/hda/cs35l41_hda.c   | 3 +++
+>   sound/pci/hda/cs35l41_hda.h   | 1 +
+>   sound/pci/hda/hda_component.h | 1 +
+>   sound/pci/hda/patch_realtek.c | 1 +
+>   4 files changed, 6 insertions(+)
 > 
+> diff --git a/sound/pci/hda/cs35l41_hda.c b/sound/pci/hda/cs35l41_hda.c
+> index 92c6d8b7052e..7f0132694774 100644
+> --- a/sound/pci/hda/cs35l41_hda.c
+> +++ b/sound/pci/hda/cs35l41_hda.c
+> @@ -356,6 +356,9 @@ static int cs35l41_hda_bind(struct device *dev, struct device *master, void *mas
+>   		return -EBUSY;
+>   
+>   	comps->dev = dev;
+> +	if (!cs35l41->acpi_subsystem_id)
+> +		cs35l41->acpi_subsystem_id = devm_kasprintf(dev, GFP_KERNEL,
+> +							    "%.8x", comps->subsystem_id);
 
-...
-
-> +
-> +static unsigned int wmfw_convert_flags(unsigned int in)
-> +{
-> +	unsigned int out, rd, wr, vol;
-> +
-> +	rd = SNDRV_CTL_ELEM_ACCESS_READ;
-> +	wr = SNDRV_CTL_ELEM_ACCESS_WRITE;
-> +	vol = SNDRV_CTL_ELEM_ACCESS_VOLATILE;
-> +
-> +	out = 0;
-> +
-> +	if (in) {
-> +		out |= rd;
-> +		if (in & WMFW_CTL_FLAG_WRITEABLE)
-> +			out |= wr;
-> +		if (in & WMFW_CTL_FLAG_VOLATILE)
-> +			out |= vol;
-> +	} else {
-> +		out |= rd | wr | vol;
-> +	}
-> +
-> +	return out;
-> +}
-
-This is more question of preference, so you can leave above function as 
-is, but you could also do something like the following, which is bit 
-shorter:
-static unsigned int wmfw_convert_flags(unsigned int in)
-{
-	unsigned int out = SNDRV_CTL_ELEM_ACCESS_READ;
-
-	if (!in)
-		return SNDRV_CTL_ELEM_ACCESS_READWRITE | SNDRV_CTL_ELEM_ACCESS_VOLATILE;
-
-	if (in & WMFW_CTL_FLAG_WRITEABLE)
-		out |= SNDRV_CTL_ELEM_ACCESS_WRITE;
-	if (in & WMFW_CTL_FLAG_VOLATILE)
-		out |= SNDRV_CTL_ELEM_ACCESS_VOLATILE;
-
-	return out;
-}
-
-> +
-> +static int hda_cs_dsp_add_kcontrol(struct hda_cs_dsp_coeff_ctl *ctl)
-> +{
-> +	struct cs_dsp_coeff_ctl *cs_ctl = ctl->cs_ctl;
-> +	struct snd_kcontrol_new *kcontrol;
-> +	struct snd_kcontrol *kctl;
-> +	int ret = 0;
-> +
-> +	if (cs_ctl->len > ADSP_MAX_STD_CTRL_SIZE) {
-> +		dev_err(cs_ctl->dsp->dev, "Control %s: length %zu exceeds maximum %d\n", ctl->name,
-> +			cs_ctl->len, ADSP_MAX_STD_CTRL_SIZE);
-> +		return -EINVAL;
-> +	}
-> +
-> +	kcontrol = kzalloc(sizeof(*kcontrol), GFP_KERNEL);
-> +	if (!kcontrol)
-> +		return -ENOMEM;
-> +
-> +	kcontrol->name = ctl->name;
-> +	kcontrol->info = hda_cs_dsp_coeff_info;
-> +	kcontrol->iface = SNDRV_CTL_ELEM_IFACE_MIXER;
-> +	kcontrol->private_value = (unsigned long)ctl;
-> +	kcontrol->access = wmfw_convert_flags(cs_ctl->flags);
-> +
-> +	kcontrol->get = hda_cs_dsp_coeff_get;
-> +	kcontrol->put = hda_cs_dsp_coeff_put;
-> +
-> +	kctl = snd_ctl_new1(kcontrol, NULL);
-
-Wouldn't
-kctl = snd_ctl_new1(kcontrol, ctl);
-work instead of
-kcontrol->private_value = (unsigned long)ctl;
-...
-kctl = snd_ctl_new1(kcontrol, NULL);
-?
-
-You can then get the value using  snd_kcontrol_chip()  macro, so instead 
-of doing quite long lines with casts like:
-struct hda_cs_dsp_coeff_ctl *ctl = (struct hda_cs_dsp_coeff_ctl 
-*)kctl->private_value;
-you could do
-struct hda_cs_dsp_coeff_ctl *ctl = snd_kcontrol_chip(kctl);
-
-
+Wouldn't comps->codec->core.subsystem_id instead of comps->subsystem_id 
+work here? You already added saving of codec in patch 3, and then you 
+don't need rest of this patch?

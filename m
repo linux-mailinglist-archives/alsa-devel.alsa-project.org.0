@@ -2,80 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B60D557DB4
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jun 2022 16:25:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F98E557E56
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jun 2022 16:57:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 28BCB1AAE;
-	Thu, 23 Jun 2022 16:24:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 28BCB1AAE
+	by alsa0.perex.cz (Postfix) with ESMTPS id C34D31B21;
+	Thu, 23 Jun 2022 16:56:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C34D31B21
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655994310;
-	bh=+bD2V2iWKvm21ox+KToP6AK4MTa29ku3ra29vsGsxVk=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1655996225;
+	bh=AT8JAPkS8YJRYuTDNqpAngPAp17BB/bvcfqew+27oho=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=t45Uy4eA+LnlzN32uFIjOi6EnAbSdldeMK9lvKruqtQ+V+Wbm4maHaX2wmvqYrLJ6
-	 2p9c75ox98FHWerG05/kxFQGwUvfXyWVnxu2zK/0CPKYFvUwatVTTfqJvYuuOIlMPk
-	 8WmSgvycSQH1l/yNZxklWMPDIPU2aHZ+yy4CJ7yU=
+	b=aZhGYLjR18RmpREXdyrfmnud1vmqT5hY1sQTQjNKzZT6nZjg4orQuUSfRqMuQ23oA
+	 P6saMM/Jp8xN+rcNUvI3OhdsqFQVjYMxpOZgaNqFjXTe4V0QJnseLUsljBquvRcUNI
+	 c2of81jLwsfnnIfTnX5AYAJiu3sKntY7MqiLMrNA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A42CEF804CC;
-	Thu, 23 Jun 2022 16:24:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3CBBFF804CC;
+	Thu, 23 Jun 2022 16:56:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 51378F804C1; Thu, 23 Jun 2022 16:24:11 +0200 (CEST)
+ id 9C6ADF804C1; Thu, 23 Jun 2022 16:56:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 24C51F800BD
- for <alsa-devel@alsa-project.org>; Thu, 23 Jun 2022 16:24:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24C51F800BD
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="rS+jPNdg"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 7321F61DD9;
- Thu, 23 Jun 2022 14:23:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4785AC3411B;
- Thu, 23 Jun 2022 14:23:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1655994237;
- bh=+bD2V2iWKvm21ox+KToP6AK4MTa29ku3ra29vsGsxVk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=rS+jPNdgTw3Gkrqs8Zourjr6QGvxLaoT1ZHgvUrnDejhzaQDGrpD+VjE15Gf9Pxrn
- hciwZI7rtVUi4xf2kQRE7tWxer32fIE1Wmd9phObmEk96YyakbIp11zOSPdMVXlrOw
- Njfj0C7E7wub4PP+6S1ZOHK4iZdjd+kN/lUYyYcn5psyxENtm7Dyk3+cmq8iaN0tSg
- D7aVEXAZcAVQ3kio51i1gg6Dz3COO2CaVfIxXSzJrTYnKKl8oOa86rU5be03WHJvWP
- bxo5Da8wd9feJSbTW91Psd0ebcXt2ZgMkF+fWt+r5TTuSgavrafLT+KmcscRoyF3mI
- M8Lh/JAzed8Ew==
-Date: Thu, 23 Jun 2022 15:23:53 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Amadeusz =?utf-8?B?U8WCYXdpxYRza2k=?= <amadeuszx.slawinski@linux.intel.com>
-Subject: Re: [PATCH 07/11] ASoC: codecs: rt274: Enable irq only when needed
-Message-ID: <YrR3eUVD2q/0hajv@sirena.org.uk>
-References: <20220609133541.3984886-1-amadeuszx.slawinski@linux.intel.com>
- <20220609133541.3984886-8-amadeuszx.slawinski@linux.intel.com>
- <YqIBRGNAOfxPJjc+@sirena.org.uk>
- <5d453e11-4a46-bfdc-973e-8d65d891421f@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id D4ED6F800BD
+ for <alsa-devel@alsa-project.org>; Thu, 23 Jun 2022 16:55:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4ED6F800BD
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="S5rdYhpc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1655996161; x=1687532161;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=AT8JAPkS8YJRYuTDNqpAngPAp17BB/bvcfqew+27oho=;
+ b=S5rdYhpcfDVXATojm134aaVTItF9u7231P43vTaVDG/l8qKYC7luUoKu
+ BTBVlyKTaddAkqpqTFS5aRZlmf2S74YdMbawV8RXPf9Mg4tjtqHi1vOji
+ HhTaa/QE3YbUr1cyW/KTrHqjUcQd9aK9yOokSR6Cs17DzDzjBLQuGzZjo
+ tMSgDfehnbncfXUP11/CYxA/peT0iQQujAqJBW0w4UyiX9A/d+UzBQuOz
+ 2IQwFfjZGQndw2jpID16YiCxrmwK636evq3aiVomEnL6vDDC2O227y1pA
+ /9T/ZyWTUOZ4hADE3o+zHlzhCtRJ9yM86xUuE3nuVVwB+iy8BIAAI9lyZ g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10386"; a="260556654"
+X-IronPort-AV: E=Sophos;i="5.92,216,1650956400"; d="scan'208";a="260556654"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jun 2022 07:55:54 -0700
+X-IronPort-AV: E=Sophos;i="5.92,216,1650956400"; d="scan'208";a="691055713"
+Received: from rames2-mobl.amr.corp.intel.com (HELO [10.213.181.118])
+ ([10.213.181.118])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jun 2022 07:55:53 -0700
+Message-ID: <a861f3b2-dec4-982d-0939-1dfc18dd2f53@linux.intel.com>
+Date: Thu, 23 Jun 2022 09:54:36 -0500
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="odEVId8Em7F/rAtu"
-Content-Disposition: inline
-In-Reply-To: <5d453e11-4a46-bfdc-973e-8d65d891421f@linux.intel.com>
-X-Cookie: Honi soit la vache qui rit.
-Cc: Oder Chiou <oder_chiou@realtek.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.9.1
+Subject: Re: [PATCH] soundwire: bus_type: fix remove and shutdown support
+Content-Language: en-US
+To: Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>
+References: <20220610015105.25987-1-yung-chuan.liao@linux.intel.com>
+ <YrQca7YH8v6XCl02@matsya>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <YrQca7YH8v6XCl02@matsya>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org, srinivas.kandagatla@linaro.org,
+ sanyog.r.kale@intel.com, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,54 +95,65 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---odEVId8Em7F/rAtu
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jun 23, 2022 at 03:53:09PM +0200, Amadeusz S=C5=82awi=C5=84ski wrot=
-e:
-> On 6/9/2022 4:18 PM, Mark Brown wrote:
-> > On Thu, Jun 09, 2022 at 03:35:37PM +0200, Amadeusz S=C5=82awi=C5=84ski =
-wrote:
+On 6/23/22 02:55, Vinod Koul wrote:
+> On 10-06-22, 09:51, Bard Liao wrote:
+>> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+>>
+>> The bus sdw_drv_remove() and sdw_drv_shutdown() helpers are used
+>> conditionally, if the driver provides these routines.
+>>
+>> These helpers already test if the driver provides a .remove or
+>> .shutdown callback, so there's no harm in invoking the
+>> sdw_drv_remove() and sdw_drv_shutdown() unconditionally.
+> 
+> Okay sounds good
+> 
+>> In addition, the current code is imbalanced with
+>> dev_pm_domain_attach() called from sdw_drv_probe(), but
+>> dev_pm_domain_detach() called from sdw_drv_remove() only if the driver
+>> provides a .remove callback.
+> 
+> Am not sure I follow what is imbalance, pm_domain_attach/detach?
 
-> > The driver could use some cleanup of the interrupt handler, it currently
-> > unconditionally clears anything that fires and reports IRQ_HANDLED but
-> > should only report IRQ_HANDLED if there was anything from the device.
-> > Practically speaking it shouldn't make much difference unless there's
-> > spurious interrupts or the interrupt gets shared.
+Yes, the dev_pm_domain_detach() is done conditionally, depending on the
+presence of a driver .remove callback, that's not so good.
 
-> While this sounds fine, in tests I see that irq handler gets called around
-> ~800 times per second even when we unload platform driver and there is no
-> one caring about jack detection... in this case I would consider this to =
-be
-> a waste of CPU time and would prefer to just outright to disable it. Is
-> there some better way to avoid unnecessary calls to irq handler?
+>> Fixes: 9251345dca24b ("soundwire: Add SoundWire bus type")
+> 
+> How is this a fix is still unclear to me. At best I think this is code
+> optimization and removing checks which maybe redundant.
 
-> Main reason why I even looked at this is pr_debug() present in
-> rt298_jack_detect() which kept spamming our debug logs (~800 lines per
-> second fills up logs rather fast...). It should probably be removed, as
-> rt286 and rt274 do fine without having this logged, but they also call irq
-> handler quite a lot if you add message log for debug.
+I think the Fixes tag is appropriate for the dev_pm_domain_detach()
+problem, but if you want to drop it that's fine with me.
 
-If the jack detection is firing hundreds of times a second without there
-being an event that seems like a serious problem with the way the
-hardware is set up which should be fixed, I'm surprised that this isn't
-disrupting things normally.
 
---odEVId8Em7F/rAtu
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmK0d3gACgkQJNaLcl1U
-h9BfHAgAhXLuUBZDEvCBzPed8OusCOp8E/tchFrVHPvZ5+1u5rnXuiwLyQYq7yPK
-p/R+JQCHTalYTJBtvteEyr5ziyQIFFKrhzeOaoMHnZawbyVXe5O4+ho5i/tKbHvQ
-T3lMyB+CD5pjDX7qkHVQoOYc3y1qkiTQ4Wv5xsrOCEiDxOQDys93DUv69ZdPLy+n
-ZRfGJKHrDF+XaH4n9Q1qJujTVBguH9XWIrHFw7/PdOYBdAFK7NQ3Gd7INdJDoRDn
-87J8jl0hO+n5gvpHdM1pzM99gWzeldwhLRDiOzrsij2IZMG3kDIlgBfRObVGoqNf
-eZ+WbPVAgW0EUvU56+tTUhTWQ8X6IQ==
-=zW4I
------END PGP SIGNATURE-----
-
---odEVId8Em7F/rAtu--
+>> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+>> Reviewed-by: Rander Wang <rander.wang@intel.com>
+>> Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+>> ---
+>>  drivers/soundwire/bus_type.c | 8 ++------
+>>  1 file changed, 2 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/drivers/soundwire/bus_type.c b/drivers/soundwire/bus_type.c
+>> index 893296f3fe39..b81e04dd3a9f 100644
+>> --- a/drivers/soundwire/bus_type.c
+>> +++ b/drivers/soundwire/bus_type.c
+>> @@ -193,12 +193,8 @@ int __sdw_register_driver(struct sdw_driver *drv, struct module *owner)
+>>  
+>>  	drv->driver.owner = owner;
+>>  	drv->driver.probe = sdw_drv_probe;
+>> -
+>> -	if (drv->remove)
+>> -		drv->driver.remove = sdw_drv_remove;
+>> -
+>> -	if (drv->shutdown)
+>> -		drv->driver.shutdown = sdw_drv_shutdown;
+>> +	drv->driver.remove = sdw_drv_remove;
+>> +	drv->driver.shutdown = sdw_drv_shutdown;
+>>  
+>>  	return driver_register(&drv->driver);
+>>  }
+>> -- 
+>> 2.17.1
+> 

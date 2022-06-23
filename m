@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62935557504
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jun 2022 10:10:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4333A55750D
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jun 2022 10:11:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C48E1B00;
-	Thu, 23 Jun 2022 10:09:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C48E1B00
+	by alsa0.perex.cz (Postfix) with ESMTPS id EFAF91B48;
+	Thu, 23 Jun 2022 10:10:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFAF91B48
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655971835;
-	bh=9CPwAY0wWTPEXhM/d0JwDJxAObKhi7qi8HFQ+OM2Lhc=;
+	s=default; t=1655971902;
+	bh=R3uCGcBzcPhEjKLhoHYVr0mcT7inFO/vUdrx4pb+wmY=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iQshGHRZgJC3QJDqnaoOoulyazoC7dN91VuOYvoGkGVcmh+X0xk+vu1SP8/GB5qr9
-	 MB0ix5FkjVP5JGs8lqpO99fJoouQt0SWKY5/oQnzVWp7pnAf0xjavlwlaeY/Wf3606
-	 1XwuCYLjK7AGTBPFUuqj/b3ocJaHdlAPyqo2erbM=
+	b=ASr+xDklSiH5Cd/uQ0Gf5ZBS6pv8I1udjy9higeZHPEWk7Q3scaxxin00xQjffkzW
+	 m6FeIc2QPSPwra2efymWzKuSqnrFW9GrN/3SQPBXE6H6FMWgRlfaiyujjwBBQLf25o
+	 GHnTIvLH98XtJQaup+Y8jFYuuIZG4DDxjOqQTJ48=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6F015F804CC;
-	Thu, 23 Jun 2022 10:09:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 81AE2F804C1;
+	Thu, 23 Jun 2022 10:10:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0239DF800CB; Thu, 23 Jun 2022 10:09:33 +0200 (CEST)
+ id 5278CF800CB; Thu, 23 Jun 2022 10:10:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,45 +35,49 @@ Received: from ams.source.kernel.org (ams.source.kernel.org
  [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 90B59F800CB
- for <alsa-devel@alsa-project.org>; Thu, 23 Jun 2022 10:09:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90B59F800CB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 59477F800CB
+ for <alsa-devel@alsa-project.org>; Thu, 23 Jun 2022 10:10:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59477F800CB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="TAEGh09A"
+ header.b="bpb8gFH2"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 9A4F4B8220A;
- Thu, 23 Jun 2022 08:09:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E4CBC3411B;
- Thu, 23 Jun 2022 08:09:27 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 3DCD3B82205;
+ Thu, 23 Jun 2022 08:10:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ECCEC3411B;
+ Thu, 23 Jun 2022 08:10:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1655971768;
- bh=9CPwAY0wWTPEXhM/d0JwDJxAObKhi7qi8HFQ+OM2Lhc=;
+ s=k20201202; t=1655971841;
+ bh=R3uCGcBzcPhEjKLhoHYVr0mcT7inFO/vUdrx4pb+wmY=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=TAEGh09A7pGRhh6u2YW7tgA1dGGMglaktDv7oZgjNbSjzs62Xk5Rl9W4fzz3dfAUI
- qI8HyVkOlkEyZVlYiXzr7NkP4FcrxCGMncjXqUsjXmSRYAYe2k/f3NmRqOtWU7V0Qy
- tY9p8gkNEKeRI8PUmj1e2m9HkV8ZtF0NuT+RRV22TYHhCzecvhPWySaZ3J/SfR88oG
- YqHEV5Jv/7wPKTFZ1otfCdgNIOy958K49uxHh+z2Tdhdn8rIexkXfY/3Sq9FG3WRDu
- R0ErXdifLSnURsVcJYE9WafPjLNWzoYlahAndCeUQJ755kT0D4968kfW3YferCdTs0
- GSFvuA74CbOjQ==
-Date: Thu, 23 Jun 2022 13:39:23 +0530
+ b=bpb8gFH2ZoatfRw2fHmWNw0l08XRetd1naHwiFW0SnH5+PLXNAt3WbYdpzFN7PyLR
+ pzD04MEf/DFEbSUQ1MGQzaIK5f4MrFoqE9zicARpfwAD9aZ4rxKfmKsi3x89f8HGxq
+ JwJEQK6tF7+7Rdml1BXBR2pQd/sIjPDso0xC/6kiD22LCbL/Yv5lrcj1iY7vAmZCXi
+ aH0h4rk1zSQtdHP1ker7Mr+lTM2iRnrRi2N6aFCsSvQgHRVDQ5a3rd3EsdVD+zVxtL
+ bYZv6hI4Vyh1F4EXWR/DBVc9ntWgGJWLS9WUrgJdUJ6D0F8Q1pBQEpwuvHg3GLbfkN
+ tJ2T/s4H7XF4A==
+Date: Thu, 23 Jun 2022 13:40:37 +0530
 From: Vinod Koul <vkoul@kernel.org>
-To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Subject: Re: [PATCH v5 0/2] Add software clock gating requirement check
-Message-ID: <YrQfs7HUIOV5x8Ub@matsya>
-References: <1654863815-3970-1-git-send-email-quic_srivasam@quicinc.com>
+To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+Subject: Re: [PATCH v2 14/16] soundwire: Use acpi_dev_for_each_child()
+Message-ID: <YrQf/W/Kmo954hAm@matsya>
+References: <1843211.tdWV9SEqCh@kreacher> <2653857.mvXUDI8C0e@kreacher>
+ <9017824.rMLUfLXkoz@kreacher>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1654863815-3970-1-git-send-email-quic_srivasam@quicinc.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- quic_rohkumar@quicinc.com, linux-arm-msm@vger.kernel.org, swboyd@chromium.org,
- tiwai@suse.com, agross@kernel.org, robh+dt@kernel.org, lgirdwood@gmail.com,
- broonie@kernel.org, srinivas.kandagatla@linaro.org, bgoswami@quicinc.com,
- quic_plai@quicinc.com, bjorn.andersson@linaro.org, judyhsiao@chromium.org,
- linux-kernel@vger.kernel.org
+In-Reply-To: <9017824.rMLUfLXkoz@kreacher>
+Cc: alsa-devel@alsa-project.org, Hans de Goede <hdegoede@redhat.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Linux PM <linux-pm@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Linux ACPI <linux-acpi@vger.kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,11 +93,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 10-06-22, 17:53, Srinivasa Rao Mandadapu wrote:
-> This patch set is to add software clock gating requirement check
+On 13-06-22, 20:35, Rafael J. Wysocki wrote:
+> From: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+> 
+> Instead of walking the list of children of an ACPI device directly,
+> use acpi_dev_for_each_child() to carry out an action for all of
+> the given ACPI device's children.
+> 
+> This will help to eliminate the children list head from struct
+> acpi_device as it is redundant and it is used in questionable ways
+> in some places (in particular, locking is needed for walking the
+> list pointed to it safely, but it is often missing).
 
-This fails to apply for me, please rebase on sdw-next and resend
+Applied, thanks
 
-Thanks
 -- 
 ~Vinod

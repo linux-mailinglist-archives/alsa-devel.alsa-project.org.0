@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2122557869
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jun 2022 13:07:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B66755785B
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jun 2022 13:05:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3A82B1F13;
-	Thu, 23 Jun 2022 13:06:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A82B1F13
+	by alsa0.perex.cz (Postfix) with ESMTPS id C5A0B1EE7;
+	Thu, 23 Jun 2022 13:04:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C5A0B1EE7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655982458;
-	bh=QWxmpYJIQevrOn+jIA9BiDlZ1Jm6cS7KRCVZB/rj9MU=;
+	s=default; t=1655982314;
+	bh=aIdW+I8dNqFwqnLgbomd19CUJMezjB4BlkNogKF1XZo=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VKdhDHjwacKeyHnHLOTJyUGjAs4rzKQvIDdcrpZ0q1AjoQ2sOEUjMpdsex5lfZD5o
-	 R7NfhRSK7ujyfrjSx05IxWxWqPSPhTTvZma//8UvmtNByxx0UyHuqMPZwoxPvghjHO
-	 mTVU9XMon+noZl5sQ+LV4IgtwhjD+S/1QOHX9EdQ=
+	b=sjYKJDrqcf7jLEr7j4wEHicPeCoYA1tGGBgtVk1bV6ffti7/jC6X2DOL5YtaPUtM3
+	 +7fIDTyWs9LJ85TMUUoo1Jejs9vZ4TCTpg3Lysm9Zw9E0Yp/gR06puPQMdNupcpRfx
+	 jI0JlGqp5NqNt8oTsNTYucmVm0xR6vsdAWmdhg8M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4AE0FF80567;
-	Thu, 23 Jun 2022 13:04:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 34803F800D0;
+	Thu, 23 Jun 2022 13:04:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3D790F800CB; Thu, 23 Jun 2022 13:03:02 +0200 (CEST)
+ id 1E044F804C1; Thu, 23 Jun 2022 13:04:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,59 +35,46 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BCE41F800CB
- for <alsa-devel@alsa-project.org>; Thu, 23 Jun 2022 13:02:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BCE41F800CB
+ by alsa1.perex.cz (Postfix) with ESMTPS id A8991F800D0
+ for <alsa-devel@alsa-project.org>; Thu, 23 Jun 2022 13:04:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8991F800D0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="uQk8I+Jc"
+ header.b="f94JHIY2"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D195061ED8;
- Thu, 23 Jun 2022 11:02:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C860C3411B;
- Thu, 23 Jun 2022 11:02:44 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 42D8661EC5;
+ Thu, 23 Jun 2022 11:04:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D82FC3411B;
+ Thu, 23 Jun 2022 11:04:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1655982171;
- bh=QWxmpYJIQevrOn+jIA9BiDlZ1Jm6cS7KRCVZB/rj9MU=;
+ s=k20201202; t=1655982249;
+ bh=aIdW+I8dNqFwqnLgbomd19CUJMezjB4BlkNogKF1XZo=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=uQk8I+JcFVSOI+L8cXE8qm9iQ8k8bUT7pZ8ijL0cSccXLN/EnEJluw10gdhEyLr88
- s6xeP9hTwyT3i50PQskxDM7s5sJ2nLymilcYIEePm8cIm44TRyGaEB2yaLeixVYMrg
- 0mAYkNT2SfaDKlQsjc/t8JthcQT6mrQJK6lEVobXtbCMLERvjkwCLxxYNMtYejSyuS
- HSovhcM4827L2LVHZT2VNMWzjxl7vsjEsFQKWsfL1FBmkr3e3R9PDrzQmE8758RzF+
- yE7Esv/81d3SjOJ4ZNdwrzouWuT87mR+AC21FSj5henoKNvlHs7tJDzCKhtuX9qPOn
- ITMDCSQZB//dg==
-Date: Thu, 23 Jun 2022 12:02:41 +0100
+ b=f94JHIY2LJbI2Z629AcUkVoFj6tJtMk6c6chxLzm/Y40OJmm/H3oD/tx9PhFDkM+R
+ akJg1h/M78V9YOs135hgonnv43OiVa/CDM/PR3a1YGeQ/5n+hYZLJQhmIaeIR/OOCe
+ w/liblWEHu65ul29/nr2gN8BWFXIuCAw/++yEk3UfAGWrbxzwEldfC99bk84QTNfHJ
+ Sm72tCN2sIz+b+wNKtmui59HDfV2Vx4S6YA1Q2RgN4ke86e/9aHDiF7lqDVRpOsFmS
+ ApZ7rzgErYj75gj/K3Lkw262ujnaGbyq0Q2caYXBeuhL3hc+ZnRSXTUufhqvmBzQ8/
+ FBE+onHEaBEhA==
+Date: Thu, 23 Jun 2022 12:04:03 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Subject: Re: [PATCH 27/96] ASoC: au1x: Migrate to new style legacy DAI naming
- flag
-Message-ID: <YrRIUef2WAs15/Mg@sirena.org.uk>
-References: <20220616143429.1324494-28-ckeepax@opensource.cirrus.com>
- <202206230910.wUXKFP3z-lkp@intel.com>
- <20220623093951.GG38351@ediswmail.ad.cirrus.com>
+To: Judy Hsiao <judyhsiao@chromium.org>
+Subject: Re: [PATCH v5 0/3] ASoC: rockchip: i2s: switch BCLK to GPIO
+Message-ID: <YrRIo62na5FCCa06@sirena.org.uk>
+References: <20220623021153.587423-1-judyhsiao@chromium.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="aRjk/oNkrDuhHxkv"
+ protocol="application/pgp-signature"; boundary="bAAQzJfUr8Tz2hZ6"
 Content-Disposition: inline
-In-Reply-To: <20220623093951.GG38351@ediswmail.ad.cirrus.com>
+In-Reply-To: <20220623021153.587423-1-judyhsiao@chromium.org>
 X-Cookie: I had pancake makeup for brunch!
-X-Mailman-Approved-At: Thu, 23 Jun 2022 13:04:32 +0200
-Cc: cezary.rojewski@intel.com, heiko@sntech.de,
- kuninori.morimoto.gx@renesas.com, airlied@linux.ie,
- alsa-devel@alsa-project.org, nicolas.ferre@microchip.com,
- srinivas.kandagatla@linaro.org, peter.ujfalusi@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, jbrunet@baylibre.com,
- kernel test robot <lkp@intel.com>, pierre-louis.bossart@linux.intel.com,
- krzk@kernel.org, linux-rockchip@lists.infradead.org, linux-imx@nxp.com,
- linux-mips@vger.kernel.org, linux-sunxi@lists.linux.dev,
- linux-xtensa@linux-xtensa.org, nsaenz@kernel.org, kernel@pengutronix.de,
- mripard@kernel.org, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-omap@vger.kernel.org,
- kbuild-all@lists.01.org, lgirdwood@gmail.com, vkoul@kernel.org,
- jarkko.nikula@bitmer.com, daniel@ffwll.ch, shawnguo@kernel.org,
- daniel@zonque.org
+Cc: alsa-devel@alsa-project.org, Heiko Stuebner <heiko@sntech.de>,
+ linux-kernel@vger.kernel.org, Brian Norris <briannorris@chromium.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-rockchip@lists.infradead.org,
+ Rob Herring <robh+dt@kernel.org>, Chen-Yu Tsai <wenst@chromium.org>,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,30 +91,31 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---aRjk/oNkrDuhHxkv
+--bAAQzJfUr8Tz2hZ6
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Thu, Jun 23, 2022 at 09:39:51AM +0000, Charles Keepax wrote:
+On Thu, Jun 23, 2022 at 02:11:50AM +0000, Judy Hsiao wrote:
+> The patches series is to fix the unexpected large DC output
+> voltage of Max98357a that burns the speakers on the rockchip
+> platform when BCLK and SD_MODE are ON but LRCLK is OFF.
 
-> Mark do you want me to send a v2 for the whole series? Or given
-> the size would it be better to just resend this patch?
+An earlier version was already applied, please send any changes as
+incremental patches.
 
-Series please.
-
---aRjk/oNkrDuhHxkv
+--bAAQzJfUr8Tz2hZ6
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmK0SFEACgkQJNaLcl1U
-h9At5wf6Ax7J+7EqACjWVB1NBLm4Fqt/fn2hmYjsWEp5xg2nu64uAExOpqhd88Ub
-8EiQ8JJ5Yh+LqGAd+ebgMayuxNfGx/YW+EBYI86mKPNt5JUiC9pf7v5IDM8Tdowt
-ItjroWnrAvyu755n93nXekhH53LbekNQZ3r38IqmgYxXfRwuBwo+6LDpWwG+yuZM
-qsKAlnQyapzbY/t5/1ziDvbV9Tu1jRGLpytGhBD3ishspCgdES0U6CAXTAiQbGpc
-MjSi61J4JAE+Xhu37HN97vid7MjwfolyUldVhZBQk80qRTtR78Iu5cv5Mg1kJ1v7
-BEu+WlV4O3xD0frAhInPwl3skpKkHQ==
-=ECPa
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmK0SKMACgkQJNaLcl1U
+h9CrCAf+LQBNxKh07eXpoNhG69/PzuPmq/iy71grFtQtZnGyzGn2Z1HDltI4l5pW
+ac3Pqo+XRj3DYnI6TbysWctR7ZrsootwIfuugKZ4zSLxvC4RX94EnKxKsOSDq+6Q
+2+eFccgAih/GvhGR+RXmtx72jixO0eq2Ywpfinfn3+TsbWQSNL6MbyHX1WsErIqR
++OUii5syBaM8/AlOwbJBz53Ad0beGnKYGk4TvN4mNugXh7QIHNX3tRRomZ95A+Kn
+f33IjTorYaXsJXsi/3OUT9/Jhb5ZBH7gy+2yVUsRbUH5jQzyIgVAYcHvTRSb0B1A
+zP0bwOPq6qUNV60QFV8VXDwMqGzYTQ==
+=K5QJ
 -----END PGP SIGNATURE-----
 
---aRjk/oNkrDuhHxkv--
+--bAAQzJfUr8Tz2hZ6--

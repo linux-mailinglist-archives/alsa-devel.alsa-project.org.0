@@ -2,85 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B45C557158
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jun 2022 06:03:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3D505572BF
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jun 2022 07:59:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A2EA31B24;
-	Thu, 23 Jun 2022 06:02:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2EA31B24
+	by alsa0.perex.cz (Postfix) with ESMTPS id 13DCE1B31;
+	Thu, 23 Jun 2022 07:58:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13DCE1B31
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655957013;
-	bh=iAIaqF7rha3sZC6nzOYKWGpBVTJjKr5yx5Wg7Q0/sfA=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1655963969;
+	bh=0CsR53ftSfvIeORVQRWaFItWBQxsOeZBsDNAgflgt14=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=i5oTI7TthRwviVdl/jzXxLJ/3x1Nls+X5Zoe5TBhWIX0DnbhTWGi5v8+QLWJCNph9
-	 io0c2we2iyEa9NqEZFZnBqEjXapoCYoHSU0t8moARZDzS7/zBzxxeJIg3EYPQA7MLA
-	 FZ+d/jq5qCgxwNZU1xPC+uW6c4FMes3RtpYUUheE=
+	b=FP8hM20vOgJ6GxQ4gn9Unn82JCc0BeQ1IN8/o+pKbDPsIV2UCu0Ln3/Er73qeKM8S
+	 EqP/TdVO0DcTs4oF6KRrYThGU/erU85pOuSF1wNDMNK5WS5NhQM9Ic4wzi6ik74kyr
+	 VtEgRae4FuaHYmo+uZByrnyQ+iq1wIu4CC6Ax8pY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2E3FCF804CC;
-	Thu, 23 Jun 2022 06:02:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7B764F800BD;
+	Thu, 23 Jun 2022 07:58:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C3393F804C1; Thu, 23 Jun 2022 06:02:27 +0200 (CEST)
+ id D6426F804C1; Thu, 23 Jun 2022 07:58:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 41A8FF800D0
- for <alsa-devel@alsa-project.org>; Thu, 23 Jun 2022 06:02:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41A8FF800D0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 27D04F800CB
+ for <alsa-devel@alsa-project.org>; Thu, 23 Jun 2022 07:58:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27D04F800CB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="DZxTUXid"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655956942; x=1687492942;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=iAIaqF7rha3sZC6nzOYKWGpBVTJjKr5yx5Wg7Q0/sfA=;
- b=DZxTUXidqnc5fcthy2v/w8GXSrVUmskRXlusG6Wwu7QI6IHT1qP7ClLq
- HQBBOnJ4z2X3WXqEkpegd3lhgWUd7RuYXCDgC/yM+z501sZKap8rJ14ZM
- Bvh93CqvAmDbXMepZ70fQQHLXY5jH87tLjosxxNgFcrz3nuVmsFN1MKMH
- ogN3LDEFrG6CM0fPaLNPRVxGtjNAOuS4S5CTyX+NJvhJCrY95HTL3LkWk
- uORHzk9rWBlUD5QRls8FypLWYnbn5eUgIZhQYloLjm/UJuDucBp+8B4oc
- d4vlpRqDp2qKxlIxlxnLFA/+UXMNhb5PLl0ogS1oUFshO4Fd1EqeGpND/ g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10386"; a="366937445"
-X-IronPort-AV: E=Sophos;i="5.92,215,1650956400"; d="scan'208";a="366937445"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jun 2022 21:02:15 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,215,1650956400"; d="scan'208";a="655991306"
-Received: from lkp-server01.sh.intel.com (HELO 68b931ab7ac1) ([10.239.97.150])
- by fmsmga004.fm.intel.com with ESMTP; 22 Jun 2022 21:02:13 -0700
-Received: from kbuild by 68b931ab7ac1 with local (Exim 4.95)
- (envelope-from <lkp@intel.com>) id 1o4E2m-0000fn-QR;
- Thu, 23 Jun 2022 04:02:12 +0000
-Date: Thu, 23 Jun 2022 12:01:39 +0800
-From: kernel test robot <lkp@intel.com>
-To: Stefan Binding <sbinding@opensource.cirrus.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Len Brown <lenb@kernel.org>, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>
-Subject: Re: [PATCH v1 2/2] ASoC: cs35l41: Read System Name from ACPI _SUB to
- identify firmware
-Message-ID: <202206231108.xPflWTbR-lkp@intel.com>
-References: <20220622130730.1573747-3-sbinding@opensource.cirrus.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220622130730.1573747-3-sbinding@opensource.cirrus.com>
-Cc: alsa-devel@alsa-project.org, kbuild-all@lists.01.org,
- patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
- Stefan Binding <sbinding@opensource.cirrus.com>, linux-acpi@vger.kernel.org
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="AgrXbRfw"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="RWH1Ax/p"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 3F6A421C1D;
+ Thu, 23 Jun 2022 05:58:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1655963905; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=G+Yu5kY8enR3faU7OlOIY8iEJ3fpeAfoI0S2SvwV81c=;
+ b=AgrXbRfwIVqaSD5unpONQWLfjXRNFwxpebpXVapB4cEtiMGzizcC1QSLYhWTj/TZ+vMPMy
+ R3qWrdaEEMVbUhs969nhTt/l/MO0DGM4IFZ6HlU1cqMAKJZSPrXIwhtYnoCiYNbk1lJBbX
+ 4lkwt9bl3UcJu5XWn1m4IBQKAGDFNZw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1655963905;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=G+Yu5kY8enR3faU7OlOIY8iEJ3fpeAfoI0S2SvwV81c=;
+ b=RWH1Ax/pa6WR3DgawXFd/5LbFEfZBg98CQQnyDANLOu7tHyDiJ47XQQCRsFGAtIFBiJIxT
+ +irVsovzawnLAtCw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1E3A1133A6;
+ Thu, 23 Jun 2022 05:58:25 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id L2qnBgEBtGJVMwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Thu, 23 Jun 2022 05:58:25 +0000
+Date: Thu, 23 Jun 2022 07:58:24 +0200
+Message-ID: <878rpnncov.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: John Veness <john-linux@pelago.org.uk>
+Subject: Re: Quirks for MacroSilicon MS2100/MS2106
+In-Reply-To: <795d8e1a-8fc7-2302-613e-ff1743de5c16@pelago.org.uk>
+References: <795d8e1a-8fc7-2302-613e-ff1743de5c16@pelago.org.uk>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, Hector Martin <marcan@marcan.st>,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,68 +100,67 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Stefan,
+On Wed, 22 Jun 2022 22:23:50 +0200,
+John Veness wrote:
+> 
+> 
+> Hello,
+> 
+> This is my first ever kernel work, so I hope I am doing everything
+> correctly.
+> 
+> I have a USB analogue AV capture dongle with a MacroSilicon MS2100E chip
+> inside. PID 0x534d, VID 0x0021 (534d:0021). Apparently the MS2106 uses
+> the same PID/VID, so hopefully acts the same, but I don't have one to check.
+> 
+> For audio, the MS2100E has the same problems as the MS2109 USB HDMI
+> capture dongle, namely claiming 96kHz mono sound when it's actually
+> 48kHz stereo, and with left/right channel problems.
+> 
+> Luckily, the fix is the exact same as that for the MS2109, as first
+> implemented by Marcan (Hector Martin) in July 2020. Below is a patch
+> which is basically a copy and paste of his, with a different VID.
+> 
+> I have tested this patch in 5.19.0 RC2. I haven't recruited any other
+> testers.
 
-Thank you for the patch! Yet something to improve:
+The suggested code change looks OK.  So far, so good...
 
-[auto build test ERROR on rafael-pm/linux-next]
-[also build test ERROR on broonie-sound/for-next linus/master v5.19-rc3 next-20220622]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch]
+> Even with this patch, there is a remaining problem, which is not present
+> in the MS2109. The sound sample values range from 0x0000 to 0x7fff, with
+> silence around 0x4000, i.e. 15-bit-ish audio. This actually sounds OK to
+> the ear (although half as loud as it should be), but looks odd when
+> looking at the waveform, and makes volume meters always think the sound
+> is very loud.
+> 
+> To convert to s16le, I can bitshift one bit left, and subtract 32768.
+> I'm told that this isn't something that can or should be done in the
+> kernel, but should be in userspace. Any more advice on how to fix this
+> remaining quirk would be very welcome.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Stefan-Binding/Read-_SUB-from-ACPI-to-be-able-to-identify-firmware/20220622-211004
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm.git linux-next
-config: sparc64-randconfig-r002-20220622 (https://download.01.org/0day-ci/archive/20220623/202206231108.xPflWTbR-lkp@intel.com/config)
-compiler: sparc64-linux-gcc (GCC) 11.3.0
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/338eadc59e88d60759ea445011a6537222b233e3
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Stefan-Binding/Read-_SUB-from-ACPI-to-be-able-to-identify-firmware/20220622-211004
-        git checkout 338eadc59e88d60759ea445011a6537222b233e3
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-11.3.0 make.cross W=1 O=build_dir ARCH=sparc64 SHELL=/bin/bash sound/soc/codecs/
+Ouch, this is painful.  We haven't had any devices that require a
+15 bit unsigned format, and maybe we don't want to add it to the
+common standard format just for one funky device, either.  Such data
+processing could be done in alsa-lib, but for the proper interaction
+with the user-space, the kernel should provide some information so
+that user-space can process the data accordingly.  However, we have no
+proper way defined for it generically, so far.
 
-If you fix the issue, kindly add following tag where applicable
-Reported-by: kernel test robot <lkp@intel.com>
+Maybe an easy way would be to create an alsa-lib external plugin, and
+apply it per device.  Jaroslav, could it be done via UCM?
 
-All errors (new ones prefixed by >>):
+> Nonetheless, as I say, with the following kernel patch the captured
+> audio certainly sounds right, so is a big improvement and makes these
+> dongles usable:
 
-   sound/soc/codecs/cs35l41.c: In function 'cs35l41_probe_acpi':
->> sound/soc/codecs/cs35l41.c:1157:32: error: invalid use of undefined type 'struct acpi_device'
-    1157 |         ret = acpi_get_sub(adev->handle, sub, sizeof(sub));
-         |                                ^~
+So as a first step, we can merge the patch as is.  The rest needs more
+consideration.
+
+In anyway, for merging the patch, it has to be submitted properly in a
+right format, especially including your Signed-off-by tag.  Please
+refer to Documentation/process/submitting-patches.rst for details.
 
 
-vim +1157 sound/soc/codecs/cs35l41.c
+thanks,
 
-  1145	
-  1146	static int cs35l41_probe_acpi(struct cs35l41_private *cs35l41)
-  1147	{
-  1148		struct acpi_device *adev;
-  1149		int ret;
-  1150		char sub[ACPI_MAX_SUB_BUF_SIZE];
-  1151	
-  1152		adev = ACPI_COMPANION(cs35l41->dev);
-  1153		/* If there is no ACPI_COMPANION, there is no ACPI for this system, return 0 */
-  1154		if (!adev)
-  1155			return 0;
-  1156	
-> 1157		ret = acpi_get_sub(adev->handle, sub, sizeof(sub));
-  1158		if (ret < 0)
-  1159			return ret;
-  1160	
-  1161		cs35l41->dsp.system_name = devm_kstrdup(cs35l41->dev, sub, GFP_KERNEL);
-  1162		if (!cs35l41->dsp.system_name)
-  1163			return -ENOMEM;
-  1164	
-  1165		return 0;
-  1166	}
-  1167	
-
--- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+Takashi

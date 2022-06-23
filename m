@@ -2,85 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92E4B557CEF
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jun 2022 15:28:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6292A557D53
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jun 2022 15:54:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 23ABC1DE8;
-	Thu, 23 Jun 2022 15:27:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 23ABC1DE8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 90F911B3C;
+	Thu, 23 Jun 2022 15:53:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90F911B3C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655990896;
-	bh=nxTVkuTRwT7zaUdBEZjmRQEHWHA9MbFr7dx9PzbNS8w=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1655992461;
+	bh=3hZJqQgd858AdvZKankIYTrsnm6oS+7J5kIS2PHpFLw=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MF46jHhE/NWeNGsGyWyX0ybEjkYi0C3pfFd9UUzptogVQQB4iFs8B3nEUJOJb+oe8
-	 JuTw47riCu3Pc5BHGpDx7umm/VKBghPQ5nGUaeEcfN6FGNt8H5M++bgFoUlILlTMGK
-	 kPLa0mucd0ErGOxVYkuRvfCb0cOMGLz3uBhCTtio=
+	b=e0rhGYYAt5hi1btGEayw7oocxlGCNNht22huVhiKu6+kaY07qabKEBUYo6Z17aDF3
+	 eizRifkh9PykbqNPEb0TRZU3YplS8ZtJTfdJpo6fUHz76Z3/eUjtxZZwwMWvORGonc
+	 r0j6IHHP/5Wmct/U1snuVKfqqw6ZcPzsAPVoDQkI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 430A8F800CB;
-	Thu, 23 Jun 2022 15:27:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F0B65F800CB;
+	Thu, 23 Jun 2022 15:53:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9C2A6F800CB; Thu, 23 Jun 2022 15:27:16 +0200 (CEST)
+ id 7AADDF804C1; Thu, 23 Jun 2022 15:53:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-yb1-f170.google.com (mail-yb1-f170.google.com
- [209.85.219.170])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 73F8CF800CB
- for <alsa-devel@alsa-project.org>; Thu, 23 Jun 2022 15:27:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73F8CF800CB
-Received: by mail-yb1-f170.google.com with SMTP id v81so35868670ybe.0
- for <alsa-devel@alsa-project.org>; Thu, 23 Jun 2022 06:27:08 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=nxTVkuTRwT7zaUdBEZjmRQEHWHA9MbFr7dx9PzbNS8w=;
- b=RfJGHZm3lRpig/+5VvV8PIBjtbc98KrH8NgfgDmtgm4/YwwNn1jPEYLk08C7VI6/FT
- kKI3RuDklcdrHFdIfUvG1ImGzIO92q8nk4StJkQbeONs3Ab1wTbfWDOWbOUa+kbFzCIN
- nXlhYR+Fqj+yY1/9qhnFWDaMJu3TqUHOTuqo79Q4Rdj3QkIFrgKmZiOwRHTCbfH2lzlC
- L0buDSRY0IJBqeQ/i1wOS2uLnUi/BP5WqCs4GAyWlX4N69gjScNMba4Pt0b8gIHZTXF0
- rtO9/L42uARzmtM9XQBCAcp7hKA5upyMuOwD85L/axFfsn9JPUZbouoHYJCx4RozX1s4
- kKaw==
-X-Gm-Message-State: AJIora8WB16pcsKIUoyimqKuDgarEAOU8mWwkJCh9gyygAYE2kcdi6Fo
- iIAYoWDchkFbrYI/7NxFCCf43EvdtY6vz3mXnEs=
-X-Google-Smtp-Source: AGRyM1tHqoIBXvJ/qKXGJAn7vF6/FjaDbr0XBkhwJ/ueBXNgIfPFWwxORM0OiHCx5aXQGGQ+VCKyt/V80YugRpmswUI=
-X-Received: by 2002:a25:6b50:0:b0:64f:4b33:664 with SMTP id
- o16-20020a256b50000000b0064f4b330664mr9743130ybm.153.1655990826869; Thu, 23
- Jun 2022 06:27:06 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7560FF800CB
+ for <alsa-devel@alsa-project.org>; Thu, 23 Jun 2022 15:53:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7560FF800CB
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="JXM2Mmp+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1655992399; x=1687528399;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=3hZJqQgd858AdvZKankIYTrsnm6oS+7J5kIS2PHpFLw=;
+ b=JXM2Mmp+7gLkjCjOO3SDEKV8sXEUI/sK7EZxamdzGINNR4qmdDg2GkUe
+ uxlUEU11d/8V+QNqryjOnFJjLFVa0uvx8JxFxfKTd6lmRYbDCFFSqE3/t
+ 5C+Ois6Md+Etb2MGYnIgUYxA0NdIsS8T2TfzGQhX041b96Zk5ew6TmD5W
+ A/Wflad/ND7lRPoIADLKjkjExw8SMVz1WWtskmoVPwfX0cyd5awyfrb22
+ nX9w/8NiV5I3WvqcMRZhVJ2+smX+X1oXUnwiwFo9B+c27fQuxR5JA9o3g
+ BV6Tflb6Gf3j4xsc+HMNXpkAHHWKo7EYBaWwh7ARWI0YFMsC7g8vwaatd g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10386"; a="261155146"
+X-IronPort-AV: E=Sophos;i="5.92,216,1650956400"; d="scan'208";a="261155146"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jun 2022 06:53:13 -0700
+X-IronPort-AV: E=Sophos;i="5.92,216,1650956400"; d="scan'208";a="644751190"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.249.161])
+ ([10.99.249.161])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jun 2022 06:53:11 -0700
+Message-ID: <5d453e11-4a46-bfdc-973e-8d65d891421f@linux.intel.com>
+Date: Thu, 23 Jun 2022 15:53:09 +0200
 MIME-Version: 1.0
-References: <1843211.tdWV9SEqCh@kreacher> <2653857.mvXUDI8C0e@kreacher>
- <9017824.rMLUfLXkoz@kreacher> <YrQf/W/Kmo954hAm@matsya>
- <CAJZ5v0jY5M-L-XdgY+LT=iSbABzL6cLuSdLiuUEQ+mEjYYk=xA@mail.gmail.com>
- <YrRfd0AvYVn19wck@matsya>
-In-Reply-To: <YrRfd0AvYVn19wck@matsya>
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Thu, 23 Jun 2022 15:26:56 +0200
-Message-ID: <CAJZ5v0iRcpVZEGA0w6JaoHOFTM4hVAoUEoJ54n-AVE2StFgrgg@mail.gmail.com>
-Subject: Re: [PATCH v2 14/16] soundwire: Use acpi_dev_for_each_child()
-To: Vinod Koul <vkoul@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Hans de Goede <hdegoede@redhat.com>,
- "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>, Linux PM <linux-pm@vger.kernel.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- "Rafael J. Wysocki" <rjw@rjwysocki.net>, LKML <linux-kernel@vger.kernel.org>,
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH 07/11] ASoC: codecs: rt274: Enable irq only when needed
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>
+References: <20220609133541.3984886-1-amadeuszx.slawinski@linux.intel.com>
+ <20220609133541.3984886-8-amadeuszx.slawinski@linux.intel.com>
+ <YqIBRGNAOfxPJjc+@sirena.org.uk>
+From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <YqIBRGNAOfxPJjc+@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Cc: Oder Chiou <oder_chiou@realtek.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Linux ACPI <linux-acpi@vger.kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Mika Westerberg <mika.westerberg@linux.intel.com>
+ Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,38 +97,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Jun 23, 2022 at 2:41 PM Vinod Koul <vkoul@kernel.org> wrote:
->
-> On 23-06-22, 14:29, Rafael J. Wysocki wrote:
-> > On Thu, Jun 23, 2022 at 10:10 AM Vinod Koul <vkoul@kernel.org> wrote:
-> > >
-> > > On 13-06-22, 20:35, Rafael J. Wysocki wrote:
-> > > > From: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-> > > >
-> > > > Instead of walking the list of children of an ACPI device directly,
-> > > > use acpi_dev_for_each_child() to carry out an action for all of
-> > > > the given ACPI device's children.
-> > > >
-> > > > This will help to eliminate the children list head from struct
-> > > > acpi_device as it is redundant and it is used in questionable ways
-> > > > in some places (in particular, locking is needed for walking the
-> > > > list pointed to it safely, but it is often missing).
-> > >
-> > > Applied, thanks
-> >
-> > Thanks, but the export of acpi_dev_for_each_child() is being added by
-> > one of the previous patches in the series, so this one will not
-> > compile without the rest of the series in the modular case.
->
-> Aha, I checked the symbol exists and my test build passed!
-> >
-> > Is this not a problem?
->
-> Yes indeed, so can you give a tag for that and or would you like to taje
-> this thru ACPI tree, in that case
+On 6/9/2022 4:18 PM, Mark Brown wrote:
+> On Thu, Jun 09, 2022 at 03:35:37PM +0200, Amadeusz Sławiński wrote:
+>> Interrupt is only needed when jack detection is enabled, so enable it
+>> then, similarly disable it when jack detection is being disabled.
+> 
+>>   	if (jack == NULL) {
+>>   		/* Disable jack detection */
+>> +		disable_irq(rt274->i2c->irq);
+> 
+> There is absolutely no need to do this, it'll interfere with any sharing
+> of the interrupt and if the interrupt isn't firing then there is no cost
+> to having the interrupt registered.
+> 
+> The driver could use some cleanup of the interrupt handler, it currently
+> unconditionally clears anything that fires and reports IRQ_HANDLED but
+> should only report IRQ_HANDLED if there was anything from the device.
+> Practically speaking it shouldn't make much difference unless there's
+> spurious interrupts or the interrupt gets shared.
 
-I'll take it.
+While this sounds fine, in tests I see that irq handler gets called 
+around ~800 times per second even when we unload platform driver and 
+there is no one caring about jack detection... in this case I would 
+consider this to be a waste of CPU time and would prefer to just 
+outright to disable it. Is there some better way to avoid unnecessary 
+calls to irq handler?
 
-> Acked-By: Vinod Koul <vkoul@kernel.org>
-
-Thank you!
+Main reason why I even looked at this is pr_debug() present in 
+rt298_jack_detect() which kept spamming our debug logs (~800 lines per 
+second fills up logs rather fast...). It should probably be removed, as 
+rt286 and rt274 do fine without having this logged, but they also call 
+irq handler quite a lot if you add message log for debug.

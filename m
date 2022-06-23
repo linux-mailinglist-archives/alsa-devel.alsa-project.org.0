@@ -2,103 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D7B4557866
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jun 2022 13:06:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 868FD557868
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jun 2022 13:07:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CF70E1EEC;
-	Thu, 23 Jun 2022 13:05:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CF70E1EEC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 35EE41EFF;
+	Thu, 23 Jun 2022 13:06:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 35EE41EFF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655982407;
-	bh=8pa+MX3RGN13N9s/gNCcAo3UfoGBllPRPz9zjQvwXvM=;
+	s=default; t=1655982439;
+	bh=dLoi3KKzuSD+LuC4bRF/Z1ooCSce2SSv1xOKmR3YBwU=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=F6kGctqCWWHgAobXzhHNgo6Z/V8K2iSKLHAv40zzjsVItc+lnIMPllbdDrmG/15of
-	 XiNOHEbv1bYNzv4H+wfKDksItTmwuHeMWpHzPtKzSOhLlhClwnk/OEdSWV16Ie02Zm
-	 jpS29z4gcIIWrYQz9TVEBhY/XyYgJBLofLBVUk4w=
+	b=vdxgyHcc4boFLSx4/A9rb/5tTBKO5xGUMs4BmOH/XE9bI+ilWERdfKC4yNzPo7aiS
+	 aVcxumndmrPaStTT4CgPEApR4VkdqJLKpXUrHodySvF1aN4dzC6yo4GRvDaJWAFVgh
+	 Y/ZC4KOrJ7XbjAM76ePt+VL7iVaqOavydfEfpXyY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5F487F80542;
-	Thu, 23 Jun 2022 13:04:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B97D4F80566;
+	Thu, 23 Jun 2022 13:04:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C8167F804C1; Thu, 23 Jun 2022 11:39:59 +0200 (CEST)
+ id 06902F804C1; Thu, 23 Jun 2022 12:25:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- PRX_BODY_14,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [IPv6:2a00:1450:4864:20::233])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 37A04F800CB
- for <alsa-devel@alsa-project.org>; Thu, 23 Jun 2022 11:39:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37A04F800CB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 910F8F800D0
+ for <alsa-devel@alsa-project.org>; Thu, 23 Jun 2022 12:25:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 910F8F800D0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="nIE3n9kD"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25N7fLsF004327;
- Thu, 23 Jun 2022 04:39:52 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=i32Dkqu6yqHdJkz3oPGSblt6FxDAn2yx5mHso4uT6jY=;
- b=nIE3n9kDrMoH4e/LAawz+RzUC2VoQWASFOauN4tM5A1H8JMc8tTXY2cVBGOwMqIrQM6K
- STuS8s6JFijovnai1W2MNLfVUjobxH6CViDtDBBPJUDXBmHrZJCFNVYS9HIj6iGziz+r
- VnKUwYrgOKvFYjTYgJ7g8SHsa+TlwYy2/uQ+7BQ2M5FiknT1aLaBacYmzVf4gZibj1KF
- +x6MXDk3uwUf66jBJA5uO/c3MJHdGz1TvkpWGO+3eq+mJ5MeXOg5XvUPhCzW0RdI3EaW
- UeEhW8dhlBiL29hjgLxwPY+qxBlb9eORf5BQNruocf4tI6GNJ6GP/Mzs9siqoEV7xXtG sA== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3gsb4p6jm6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 23 Jun 2022 04:39:52 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 23 Jun
- 2022 10:39:51 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.28 via
- Frontend Transport; Thu, 23 Jun 2022 10:39:51 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 1797D11D1;
- Thu, 23 Jun 2022 09:39:51 +0000 (UTC)
-Date: Thu, 23 Jun 2022 09:39:51 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: kernel test robot <lkp@intel.com>
-Subject: Re: [PATCH 27/96] ASoC: au1x: Migrate to new style legacy DAI naming
- flag
-Message-ID: <20220623093951.GG38351@ediswmail.ad.cirrus.com>
-References: <20220616143429.1324494-28-ckeepax@opensource.cirrus.com>
- <202206230910.wUXKFP3z-lkp@intel.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="PIkKFT6M"
+Received: by mail-lj1-x233.google.com with SMTP id bn8so5396486ljb.2
+ for <alsa-devel@alsa-project.org>; Thu, 23 Jun 2022 03:25:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=WqCHtUCnOvJqjoM2/65DgkYvOyKmc4p+aq7/u8FCyxA=;
+ b=PIkKFT6MmcaUETNYYp/00cGxbMns4B3hZ5K5nmtGI6rNA0GIEW+mljG/Fne1m1MoDJ
+ hEob9rUTJYEcXgm+2VfxUeSgEiCC4beWQTqOtIjvrmPzJY59yY0aQjFSYFq6uZ+yCsBY
+ TkSAwqVecLhSbMBWc2qGK5asYINBDeVKWuZfIJIRPVXH2ooAOk+CilaQasEiFEnBPvo1
+ 9yU7sRGCq0pbvG7DXQEPHm1Bepg/+EXQeJ5lKtflHEWo024/pU+tCE0tyKXp96P7eK6/
+ MtHCviPz6ujkgIRgMZdT9HQ/BMuTmBvX0T0E+5sbw8JvnmtJwX+DR8LPIVdwao4FUT9T
+ fbMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=WqCHtUCnOvJqjoM2/65DgkYvOyKmc4p+aq7/u8FCyxA=;
+ b=kSM8XIKf45P/UIH3XJ4aAt6PRl3RaZD/mUHlwyQENw+B3i5hG3kTcOp8lE6k0TZlZY
+ 6YJqN0/nKMF6qJXtEmIJwevZm2rouoBPSyMYXupFGcVINMjdzyXdmlMpyjq1DCczE7JG
+ dVpJmXjfLYxcxFwULH/uMkbFsaPMWUSd8E+OTUMxkkGdPgiRiSlKrmcLflACdb36oXrl
+ x7UXfLYfhvjcK+vrS3fkAAIfGO23iG1VluKmjTlg4mJxuNj+oGBtioevJ2qbJ0ZApW8p
+ /DW1XQVQthSX3kVM5rtiWLu39Ow3tLDXDXpxBRtYynm/XO2JlWITEpT0PcknA/NNKTwT
+ wcSA==
+X-Gm-Message-State: AJIora+jN8/1PW8BVl0ediOOuqa93OdSFG8nYZtnuxWMfeB5OBiWxui+
+ fVxmxwVeb7BSukObz4b/llA=
+X-Google-Smtp-Source: AGRyM1uzm9hmF9QK316rJoAfTTvEoAQhcLS5DK1sh8QXwvTquRMs7E5mQ7FvnFV0WtaDWVYa8qbSYg==
+X-Received: by 2002:a2e:a883:0:b0:25a:8d91:27b4 with SMTP id
+ m3-20020a2ea883000000b0025a8d9127b4mr2875724ljq.509.1655979906447; 
+ Thu, 23 Jun 2022 03:25:06 -0700 (PDT)
+Received: from mobilestation ([95.79.189.214])
+ by smtp.gmail.com with ESMTPSA id
+ z1-20020a2e9641000000b00253deeaeb3dsm2727519ljh.131.2022.06.23.03.25.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 23 Jun 2022 03:25:05 -0700 (PDT)
+Date: Thu, 23 Jun 2022 13:25:02 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: Conor.Dooley@microchip.com
+Subject: Re: [PATCH 06/14] spi: dt-bindings: dw-apb-ssi: update
+ spi-{r,t}x-bus-width for dwc-ssi
+Message-ID: <20220623102502.jiksqr3m6y733haq@mobilestation>
+References: <20220618123035.563070-1-mail@conchuod.ie>
+ <20220618123035.563070-7-mail@conchuod.ie>
+ <20220620205654.g7fyipwytbww5757@mobilestation>
+ <61b0fb86-078d-0262-b142-df2984ce0f97@microchip.com>
+ <9a1fcb40-9267-d8e6-b3b6-3b03fd789822@opensource.wdc.com>
+ <a2d85598-76d1-c9dc-d50d-e5aa815997cf@conchuod.ie>
+ <c272728f-f610-77df-bd9b-c9fee6b727f8@opensource.wdc.com>
+ <bd2547f8-e069-60a2-a223-9f694457636d@microchip.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <202206230910.wUXKFP3z-lkp@intel.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: ngGGSOCW3HD7Nqksfbnzki1Fx-Dv9wmS
-X-Proofpoint-ORIG-GUID: ngGGSOCW3HD7Nqksfbnzki1Fx-Dv9wmS
-X-Proofpoint-Spam-Reason: safe
-X-Mailman-Approved-At: Thu, 23 Jun 2022 13:04:20 +0200
-Cc: cezary.rojewski@intel.com, heiko@sntech.de,
- kuninori.morimoto.gx@renesas.com, airlied@linux.ie,
- alsa-devel@alsa-project.org, nicolas.ferre@microchip.com,
- srinivas.kandagatla@linaro.org, peter.ujfalusi@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, jbrunet@baylibre.com,
- pierre-louis.bossart@linux.intel.com, krzk@kernel.org,
- linux-rockchip@lists.infradead.org, linux-imx@nxp.com,
- linux-mips@vger.kernel.org, linux-sunxi@lists.linux.dev,
- linux-xtensa@linux-xtensa.org, nsaenz@kernel.org, kernel@pengutronix.de,
- mripard@kernel.org, broonie@kernel.org, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-omap@vger.kernel.org,
- kbuild-all@lists.01.org, lgirdwood@gmail.com, vkoul@kernel.org,
- jarkko.nikula@bitmer.com, daniel@ffwll.ch, shawnguo@kernel.org,
- daniel@zonque.org
+In-Reply-To: <bd2547f8-e069-60a2-a223-9f694457636d@microchip.com>
+X-Mailman-Approved-At: Thu, 23 Jun 2022 13:04:32 +0200
+Cc: niklas.cassel@wdc.com, alsa-devel@alsa-project.org, airlied@linux.ie,
+ palmer@rivosinc.com, linux-kernel@vger.kernel.org, thierry.reding@gmail.com,
+ krzysztof.kozlowski+dt@linaro.org, linux-riscv@lists.infradead.org,
+ sam@ravnborg.org, damien.lemoal@opensource.wdc.com, daniel.lezcano@linaro.org,
+ joabreu@synopsys.com, geert@linux-m68k.org, Eugeniy.Paltsev@synopsys.com,
+ devicetree@vger.kernel.org, aou@eecs.berkeley.edu, robh+dt@kernel.org,
+ dri-devel@lists.freedesktop.org, paul.walmsley@sifive.com, mail@conchuod.ie,
+ tglx@linutronix.de, dillon.minfei@gmail.com, lgirdwood@gmail.com,
+ jee.heng.sia@intel.com, linux-spi@vger.kernel.org, vkoul@kernel.org,
+ broonie@kernel.org, palmer@dabbelt.com, daniel@ffwll.ch,
+ dmaengine@vger.kernel.org, masahiroy@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,22 +120,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Jun 23, 2022 at 09:59:06AM +0800, kernel test robot wrote:
-> Hi Charles,
+On Tue, Jun 21, 2022 at 04:06:21PM +0000, Conor.Dooley@microchip.com wrote:
+> On 21/06/2022 00:17, Damien Le Moal wrote:
+> > EXTERNAL EMAIL: Do not click links or open attachments unless you know the content is safe
+> > 
+> > On 6/21/22 07:49, Conor Dooley wrote:
+> >>
+> ---8<---
+> >>>>
+> >>>> hmm, well I'll leave that up to people that have Canaan hardware!
+> >>>
+> >>> I will test this series.
+> >>>
+> >>
+> >> Cool, thanks.
+> >> I'll try to get a respin out tomorrow w/ the memory node "unfixed".
+> > 
+> > OK. I will test that then :)
 > 
-> I love your patch! Yet something to improve:
+> Since the memory node hit that dt-schema snag, I have not sent a v2.
+> Going to be AFK for a few days, so I dropped the memory node change,
+> changed the spi binding & put the series on:
+> git.kernel.org/pub/scm/linux/kernel/git/conor/linux.git/ canaan
 > 
-> [auto build test ERROR on broonie-sound/for-next]
-> >> sound/soc/au1x/ac97c.c:227:10: error: 'const struct snd_soc_component_driver' has no member named 'legacy_dai_name'; did you mean 'legacy_dai_naming'?
->      227 |         .legacy_dai_name        = 1,
->          |          ^~~~~~~~~~~~~~~
->          |          legacy_dai_naming
 
-Hmm... apologies for this not sure how that snuck through my
-build testing, must have somehow missed this one.
+> If you get a chance to look at it great, if not I'll send a v2 once
+> the memory node is figured out.
 
-Mark do you want me to send a v2 for the whole series? Or given
-the size would it be better to just resend this patch?
+commit 84df6ca0f277 ("spi: dt-bindings: dw-apb-ssi: update
+spi-{r,t}x-bus-width") looks good to me. Feel free to add my ack tag
+to v2 of that patch.
 
-Thanks,
-Charles
+-Sergey
+
+> 
+> Thanks,
+> Conor.
+> 

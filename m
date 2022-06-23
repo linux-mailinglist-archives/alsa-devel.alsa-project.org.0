@@ -2,63 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E75F855766E
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jun 2022 11:17:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3068E55767D
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jun 2022 11:20:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 75AEF1B40;
-	Thu, 23 Jun 2022 11:16:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 75AEF1B40
+	by alsa0.perex.cz (Postfix) with ESMTPS id C6C981B46;
+	Thu, 23 Jun 2022 11:19:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C6C981B46
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655975821;
-	bh=wkGRbpHjTf+Pr90iG6yuJKxdhkFoBrAbBCLU7+hUTyI=;
+	s=default; t=1655976039;
+	bh=jvTSpUApFuNR+zry7deDGr045Bs+SsvwvHOVl8kQWBE=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XnleAvHGAUKVooR2WFoXbQtSkhmeT5srv3NojmNoXXPQItgE2R9HGDnbGynq7Dxup
-	 VLysp3UOaP/R4HlcCEWamMLQtsn2p9JpUM/VSgdBALk4L6+v4WH7fyqgXvANZK0yK+
-	 TyyOkheOii19c7x4NyqP7dCymGEdSY9Ziwtm9jjc=
+	b=bjrm6op2ZZf7gaaap+EwaQO9siuwKjZ1w+ROFJoBcQj11uuC0yQZdRtOL1mr8OGBi
+	 VHt9YuWKsax0/2jslLesuXFVffzrYaESK5HG1/OXmD7eAOe/+wgFwx05vu64mQ7dNO
+	 F/EDpAMyuV+f3CX3BWElZtx2PcbD/Kj0vd+BuJrY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C98A6F800CB;
-	Thu, 23 Jun 2022 11:16:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5430AF800CB;
+	Thu, 23 Jun 2022 11:19:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A49EBF800CB; Thu, 23 Jun 2022 11:16:00 +0200 (CEST)
+ id AFBF4F804C1; Thu, 23 Jun 2022 11:19:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id B4EE6F800D0
- for <alsa-devel@alsa-project.org>; Thu, 23 Jun 2022 11:15:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4EE6F800D0
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 434D012FC;
- Thu, 23 Jun 2022 02:15:54 -0700 (PDT)
-Received: from [10.57.85.4] (unknown [10.57.85.4])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 63DC93F792;
- Thu, 23 Jun 2022 02:15:52 -0700 (PDT)
-Message-ID: <4bec03b5-c496-ec0d-b968-d4d0e5d2e782@arm.com>
-Date: Thu, 23 Jun 2022 10:15:48 +0100
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 224D0F800CB;
+ Thu, 23 Jun 2022 11:19:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 224D0F800CB
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
+ header.b="HtlXJ6Fp"
+Received: from [192.168.1.100] (2-237-20-237.ip236.fastwebnet.it
+ [2.237.20.237])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: kholk11)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 2FF226601752;
+ Thu, 23 Jun 2022 10:19:28 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1655975969;
+ bh=jvTSpUApFuNR+zry7deDGr045Bs+SsvwvHOVl8kQWBE=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=HtlXJ6FpjazjmbTMa4K2OgCwmcUvIgnEBsNkestc/XFp/KcB1WYvMxf57uDyTjU79
+ +UmT84cZ5l7aebBlizcY3SvC9cSANEU7MooekayQBaJAEImjOp+g7A8BYnJgcNLPtM
+ HKogcZk+1CnKeTDKJYkek4EsPkyAtW+kBdvfFMnolf26yDoAHWwi+DbDHc2S9OGX3B
+ 9JpOCV8Q9ApJstpZHhUJRjKjRG9H3rJdInA/HmgqlkLwwUpCd+L6QlezzR6rLy7otL
+ aKC3KUaagtPTXQDtZkzncR+c/SlrbTVmiLf5z396DxfIBcDp7IExBd4oSehUKKvTDC
+ hcOy74FkPmOpg==
+Message-ID: <0b065a56-5ab1-9be4-d92c-f7bfec629a3e@collabora.com>
+Date: Thu, 23 Jun 2022 11:19:26 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.10.0
-Subject: Re: [PATCH v5 1/3] ASoC: rockchip: i2s: switch BCLK to GPIO
-Content-Language: en-GB
-To: Judy Hsiao <judyhsiao@chromium.org>, Heiko Stuebner <heiko@sntech.de>
-References: <20220623021153.587423-1-judyhsiao@chromium.org>
- <20220623021153.587423-2-judyhsiao@chromium.org>
-From: Robin Murphy <robin.murphy@arm.com>
-In-Reply-To: <20220623021153.587423-2-judyhsiao@chromium.org>
+Subject: Re: [PATCH v4 0/4] Add MT8186 ADSP dt-binding
+Content-Language: en-US
+To: Tinghan Shen <tinghan.shen@mediatek.com>, Rob Herring
+ <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ YC Hung <yc.hung@mediatek.com>, Curtis Malainey <cujomalainey@chromium.org>,
+ Allen-KH Cheng <allen-kh.cheng@mediatek.com>
+References: <20220622062245.21021-1-tinghan.shen@mediatek.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20220622062245.21021-1-tinghan.shen@mediatek.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Brian Norris <briannorris@chromium.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, linux-rockchip@lists.infradead.org,
- Mark Brown <broonie@kernel.org>, Chen-Yu Tsai <wenst@chromium.org>,
- linux-arm-kernel@lists.infradead.org
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org,
+ Project_Global_Chrome_Upstream_Group@mediatek.com,
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,38 +104,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2022-06-23 03:11, Judy Hsiao wrote:
-[...]
-> @@ -736,6 +799,20 @@ static int rockchip_i2s_probe(struct platform_device *pdev)
->   	}
->   
->   	i2s->bclk_ratio = 64;
-> +	i2s->pinctrl = devm_pinctrl_get(&pdev->dev);
-> +	if (IS_ERR(i2s->pinctrl)) {
-> +		dev_err(&pdev->dev, "failed to find i2s pinctrl\n");
 
-If we're still reworking this, it might be good to set i2s->pinctrl to 
-NULL here, and similarly free and clear if we fail to get the states in 
-the other path, so that everywhere else could consistently have just a 
-simple "if (i2s->pinctrl)" check rather than the "IS_ERR() || 
-IS_ERR_OR_NULL()" mess.
+For the entire series:
 
-> +	} else { > +		i2s->bclk_on = pinctrl_lookup_state(i2s->pinctrl, "bclk_on");
-> +		if (!IS_ERR_OR_NULL(i2s->bclk_on)) {
-> +			i2s->bclk_off = pinctrl_lookup_state(i2s->pinctrl, "bclk_off");
-> +			if (IS_ERR_OR_NULL(i2s->bclk_off)) {
-> +				dev_err(&pdev->dev, "failed to find i2s bclk_off\n");
-> +				goto err_clk;
-> +			}
-> +		}
-> +		i2s_pinctrl_select_bclk_off(i2s);
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-FWIW it seems a bit odd to call this in the case where we didn't even 
-get "bclk_on".
+Cheers,
+Angelo
 
-Robin.
+> v3 -> v4:
+> 1. Update commit message of patch 1/4
+> 2. Add review tag to path 3/4
+> 
+> v2 -> v3:
+> 1. Change mbox-names to rx/tx for both mt8186 and mt8195.
+> 2. Update description of mbox-names
+> 3. Use static string array instead of kasprintf
+> 4. Align clock names in dsp driver with dt-bindings
+> 
+> v1 -> v2:
+> 1. Change mbox-names from mbox0/mbox1 to rep/req for both mt8186 and mt8195.
+> 2. rename clock-names and remove unused headers
+> 
+> Tinghan Shen (4):
+>    dt-bindings: dsp: mediatek: Use meaningful names for mbox
+>    firmware: mediatek: Use meaningful names for mbox
+>    dt-bindings: dsp: mediatek: Add mt8186 dsp document
+>    ASoC: SOF: mediatek: Align mt8186 clock names with dt-bindings
+> 
+>   .../bindings/dsp/mediatek,mt8186-dsp.yaml     | 91 +++++++++++++++++++
+>   .../bindings/dsp/mediatek,mt8195-dsp.yaml     | 10 +-
+>   drivers/firmware/mtk-adsp-ipc.c               | 36 +++-----
+>   sound/soc/sof/mediatek/mt8186/mt8186-clk.c    |  4 +-
+>   4 files changed, 110 insertions(+), 31 deletions(-)
+>   create mode 100644 Documentation/devicetree/bindings/dsp/mediatek,mt8186-dsp.yaml
+> 
 
-> +	}
->   
->   	dev_set_drvdata(&pdev->dev, i2s);
->   

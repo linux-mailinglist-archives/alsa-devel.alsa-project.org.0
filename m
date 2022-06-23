@@ -2,59 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A1FD55785D
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jun 2022 13:05:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3AF95557860
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jun 2022 13:05:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F14A51EEC;
-	Thu, 23 Jun 2022 13:04:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F14A51EEC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 235961EF8;
+	Thu, 23 Jun 2022 13:05:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 235961EF8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1655982346;
-	bh=/kgWZkF3RtAUGxpCpzQmzUibXTvsQfDb1D5QiefBwJs=;
-	h=Date:From:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=HkWLTlyZSjmfzijD4+VDCgAUwKdhzNCSaRenUJoYFp8rnvkQo7hwKYtnuU9fVwkgn
-	 3OwCB6nH5qBeBkeAAa2J+pr/wNAouCYz/iGukoaRVrjfgdGcZqgTttM9KsLXI2tTBi
-	 5Q7puIv+HflEVRN1S1RTHk3q9TJaR4i6UADg1xMs=
+	s=default; t=1655982358;
+	bh=KbeXCVtz+edFvopo5p5QoDn9huAgw0qHkMWWoFBLhXA=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=XEWrrO0i5NcjRx2EoGulopIbHzOEPO6l/l/s5aSpVKTrOBHipgrvegULvW8bw82TZ
+	 QRbBs1IYUUWW1hnihCjYl0JRuv1ExxZxtiWuwbAhUV0ANuAnlV+VXvzzLQPSIYMr3n
+	 az2pqmg+EpjNdjlG3Bfsik6xtDdakmF4aqJqVDVs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C3B3AF804EC;
-	Thu, 23 Jun 2022 13:04:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 50535F80536;
+	Thu, 23 Jun 2022 13:04:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 10A57F80118; Wed, 22 Jun 2022 22:24:21 +0200 (CEST)
+ id E8E3DF804C1; Thu, 23 Jun 2022 04:00:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mx1.mythic-beasts.com (mx1.mythic-beasts.com
- [IPv6:2a00:1098:0:86:1000:0:2:1])
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_14,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EE0C6F80118
- for <alsa-devel@alsa-project.org>; Wed, 22 Jun 2022 22:24:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE0C6F80118
-Received: from [217.155.36.16] (port=59752 helo=[192.168.1.22])
- by mailhub-cam-d.mythic-beasts.com with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <john-linux@pelago.org.uk>)
- id 1o46tW-00EZqt-1x; Wed, 22 Jun 2022 21:24:10 +0100
-Message-ID: <795d8e1a-8fc7-2302-613e-ff1743de5c16@pelago.org.uk>
-Date: Wed, 22 Jun 2022 21:23:50 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 03C7FF800CB
+ for <alsa-devel@alsa-project.org>; Thu, 23 Jun 2022 04:00:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03C7FF800CB
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="IGxks2xr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1655949616; x=1687485616;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=KbeXCVtz+edFvopo5p5QoDn9huAgw0qHkMWWoFBLhXA=;
+ b=IGxks2xrfJycy99WSUPhNI1oUfA4afrAg/YQ+/L0aFBcTi8cHyESU9Hn
+ xfEZztjnQvl+IBuB8vlHBaZHfVFc/PY2ZnAx4M1SOlTrnOT8bI2yksQvo
+ XppE2mZKw9c9HU8eTNhzoMQC7L7TztEm5Z6qcBAocZAqyZTi+lT44WVqT
+ NMS/289RNe5uAuqoL86M1TkMcJyHbE623ocjoS3a1FtV0uqV2e4xYIIgd
+ /xvqYmL78uTp2tITIXKzQ34OTz+j/iu6ECc7gCN+pt1I01KSgtsU4GZKW
+ XjoNGwEalzP5FMRyR3/Md3A3D//y187WjI3/qoquLxeb/oto7wHY8i6Yo A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10386"; a="261030461"
+X-IronPort-AV: E=Sophos;i="5.92,215,1650956400"; d="scan'208";a="261030461"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jun 2022 19:00:09 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.92,215,1650956400"; d="scan'208";a="615398908"
+Received: from lkp-server01.sh.intel.com (HELO 68b931ab7ac1) ([10.239.97.150])
+ by orsmga008.jf.intel.com with ESMTP; 22 Jun 2022 19:00:02 -0700
+Received: from kbuild by 68b931ab7ac1 with local (Exim 4.95)
+ (envelope-from <lkp@intel.com>) id 1o4C8X-0000LT-BJ;
+ Thu, 23 Jun 2022 02:00:01 +0000
+Date: Thu, 23 Jun 2022 09:59:06 +0800
+From: kernel test robot <lkp@intel.com>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>, broonie@kernel.org
+Subject: Re: [PATCH 27/96] ASoC: au1x: Migrate to new style legacy DAI naming
+ flag
+Message-ID: <202206230910.wUXKFP3z-lkp@intel.com>
+References: <20220616143429.1324494-28-ckeepax@opensource.cirrus.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-From: John Veness <john-linux@pelago.org.uk>
-Subject: Quirks for MacroSilicon MS2100/MS2106
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-BlackCat-Spam-Score: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220616143429.1324494-28-ckeepax@opensource.cirrus.com>
 X-Mailman-Approved-At: Thu, 23 Jun 2022 13:04:19 +0200
-Cc: alsa-devel@alsa-project.org, Hector Martin <marcan@marcan.st>
+Cc: cezary.rojewski@intel.com, heiko@sntech.de,
+ kuninori.morimoto.gx@renesas.com, airlied@linux.ie,
+ alsa-devel@alsa-project.org, nicolas.ferre@microchip.com,
+ srinivas.kandagatla@linaro.org, peter.ujfalusi@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, jbrunet@baylibre.com,
+ pierre-louis.bossart@linux.intel.com, krzk@kernel.org,
+ linux-rockchip@lists.infradead.org, linux-imx@nxp.com,
+ linux-mips@vger.kernel.org, linux-sunxi@lists.linux.dev,
+ linux-xtensa@linux-xtensa.org, nsaenz@kernel.org, kernel@pengutronix.de,
+ mripard@kernel.org, linux-tegra@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, linux-omap@vger.kernel.org,
+ kbuild-all@lists.01.org, lgirdwood@gmail.com, vkoul@kernel.org,
+ jarkko.nikula@bitmer.com, daniel@ffwll.ch, shawnguo@kernel.org,
+ daniel@zonque.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,125 +105,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Charles,
 
-Hello,
+I love your patch! Yet something to improve:
 
-This is my first ever kernel work, so I hope I am doing everything
-correctly.
+[auto build test ERROR on broonie-sound/for-next]
+[also build test ERROR on tegra/for-next sunxi/sunxi/for-next linus/master v5.19-rc3 next-20220622]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch]
 
-I have a USB analogue AV capture dongle with a MacroSilicon MS2100E chip
-inside. PID 0x534d, VID 0x0021 (534d:0021). Apparently the MS2106 uses
-the same PID/VID, so hopefully acts the same, but I don't have one to check.
+url:    https://github.com/intel-lab-lkp/linux/commits/Charles-Keepax/Refactor-non_legacy_dai_naming-flag/20220616-224300
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+config: mips-db1xxx_defconfig (https://download.01.org/0day-ci/archive/20220623/202206230910.wUXKFP3z-lkp@intel.com/config)
+compiler: mipsel-linux-gcc (GCC) 11.3.0
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/794205d61285d0921e564e722daf9b20df82ed57
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Charles-Keepax/Refactor-non_legacy_dai_naming-flag/20220616-224300
+        git checkout 794205d61285d0921e564e722daf9b20df82ed57
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-11.3.0 make.cross W=1 O=build_dir ARCH=mips SHELL=/bin/bash sound/soc/au1x/
 
-For audio, the MS2100E has the same problems as the MS2109 USB HDMI
-capture dongle, namely claiming 96kHz mono sound when it's actually
-48kHz stereo, and with left/right channel problems.
+If you fix the issue, kindly add following tag where applicable
+Reported-by: kernel test robot <lkp@intel.com>
 
-Luckily, the fix is the exact same as that for the MS2109, as first
-implemented by Marcan (Hector Martin) in July 2020. Below is a patch
-which is basically a copy and paste of his, with a different VID.
+All error/warnings (new ones prefixed by >>):
 
-I have tested this patch in 5.19.0 RC2. I haven't recruited any other
-testers.
-
-Even with this patch, there is a remaining problem, which is not present
-in the MS2109. The sound sample values range from 0x0000 to 0x7fff, with
-silence around 0x4000, i.e. 15-bit-ish audio. This actually sounds OK to
-the ear (although half as loud as it should be), but looks odd when
-looking at the waveform, and makes volume meters always think the sound
-is very loud.
-
-To convert to s16le, I can bitshift one bit left, and subtract 32768.
-I'm told that this isn't something that can or should be done in the
-kernel, but should be in userspace. Any more advice on how to fix this
-remaining quirk would be very welcome.
-
-Nonetheless, as I say, with the following kernel patch the captured
-audio certainly sounds right, so is a big improvement and makes these
-dongles usable:
-
-diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
-index 4f56e1784932..853da162fd18 100644
---- a/sound/usb/quirks-table.h
-+++ b/sound/usb/quirks-table.h
-@@ -3802,6 +3802,54 @@ YAMAHA_DEVICE(0x7010, "UB99"),
-         }
-  },
-
-+/*
-+ * MacroSilicon MS2100/MS2106 based AV capture cards
-+ *
-+ * These claim 96kHz 1ch in the descriptors, but are actually 48kHz 2ch.
-+ * They also need QUIRK_FLAG_ALIGN_TRANSFER, which makes one wonder if
-+ * they pretend to be 96kHz mono as a workaround for stereo being broken
-+ * by that...
-+ *
-+ * They also have an issue with initial stream alignment that causes the
-+ * channels to be swapped and out of phase, which is dealt with in quirks.c.
-+ */
-+{
-+       USB_AUDIO_DEVICE(0x534d, 0x0021),
-+       .driver_info = (unsigned long) &(const struct snd_usb_audio_quirk) {
-+               .vendor_name = "MacroSilicon",
-+               .product_name = "MS210x",
-+               .ifnum = QUIRK_ANY_INTERFACE,
-+               .type = QUIRK_COMPOSITE,
-+               .data = &(const struct snd_usb_audio_quirk[]) {
-+                       {
-+                               .ifnum = 2,
-+                               .type = QUIRK_AUDIO_STANDARD_MIXER,
-+                       },
-+                       {
-+                               .ifnum = 3,
-+                               .type = QUIRK_AUDIO_FIXED_ENDPOINT,
-+                               .data = &(const struct audioformat) {
-+                                       .formats = SNDRV_PCM_FMTBIT_S16_LE,
-+                                       .channels = 2,
-+                                       .iface = 3,
-+                                       .altsetting = 1,
-+                                       .altset_idx = 1,
-+                                       .attributes = 0,
-+                                       .endpoint = 0x82,
-+                                       .ep_attr = USB_ENDPOINT_XFER_ISOC |
-+                                               USB_ENDPOINT_SYNC_ASYNC,
-+                                       .rates = SNDRV_PCM_RATE_CONTINUOUS,
-+                                       .rate_min = 48000,
-+                                       .rate_max = 48000,
-+                               }
-+                       },
-+                       {
-+                               .ifnum = -1
-+                       }
-+               }
-+       }
-+},
-+
-  /*
-   * MacroSilicon MS2109 based HDMI capture cards
-   *
-diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index e8468f9b007d..a72874bc0936 100644
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -1478,6 +1478,7 @@ void snd_usb_set_format_quirk(struct snd_usb_substream *subs,
-         case USB_ID(0x041e, 0x3f19): /* E-Mu 0204 USB */
-                 set_format_emu_quirk(subs, fmt);
-                 break;
-+       case USB_ID(0x534d, 0x0021): /* MacroSilicon MS2100/MS2106 */
-         case USB_ID(0x534d, 0x2109): /* MacroSilicon MS2109 */
-                 subs->stream_offset_adj = 2;
-                 break;
-@@ -1904,6 +1905,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
-                    QUIRK_FLAG_IGNORE_CTL_ERROR),
-         DEVICE_FLG(0x413c, 0xa506, /* Dell AE515 sound bar */
-                    QUIRK_FLAG_GET_SAMPLE_RATE),
-+       DEVICE_FLG(0x534d, 0x0021, /* MacroSilicon MS2100/MS2106 */
-+                  QUIRK_FLAG_ALIGN_TRANSFER),
-         DEVICE_FLG(0x534d, 0x2109, /* MacroSilicon MS2109 */
-                    QUIRK_FLAG_ALIGN_TRANSFER),
-         DEVICE_FLG(0x1224, 0x2a25, /* Jieli Technology USB PHY 2.0 */
+>> sound/soc/au1x/ac97c.c:227:10: error: 'const struct snd_soc_component_driver' has no member named 'legacy_dai_name'; did you mean 'legacy_dai_naming'?
+     227 |         .legacy_dai_name        = 1,
+         |          ^~~~~~~~~~~~~~~
+         |          legacy_dai_naming
+>> sound/soc/au1x/ac97c.c:227:35: warning: initialization of 'const struct snd_kcontrol_new *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+     227 |         .legacy_dai_name        = 1,
+         |                                   ^
+   sound/soc/au1x/ac97c.c:227:35: note: (near initialization for 'au1xac97c_component.controls')
 
 
-Thanks for reading and considering this patch.
+vim +227 sound/soc/au1x/ac97c.c
 
-John Veness
+   224	
+   225	static const struct snd_soc_component_driver au1xac97c_component = {
+   226		.name			= "au1xac97c",
+ > 227		.legacy_dai_name	= 1,
+   228	};
+   229	
+
+-- 
+0-DAY CI Kernel Test Service
+https://01.org/lkp

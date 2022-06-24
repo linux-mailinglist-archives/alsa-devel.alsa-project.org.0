@@ -2,74 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1803559847
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Jun 2022 13:00:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C2A3559896
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Jun 2022 13:36:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6ABB2188B;
-	Fri, 24 Jun 2022 13:00:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6ABB2188B
+	by alsa0.perex.cz (Postfix) with ESMTPS id E3A38187D;
+	Fri, 24 Jun 2022 13:35:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3A38187D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656068457;
-	bh=OAQ3P9yU+RG/aMH6dNSHmU8lPjvxt3CpUYFjlXRfF8Q=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1656070567;
+	bh=wRfMyxBxg2AAFnUbi9v42gtagBPupC2WNTCp++rfr6M=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=URjzB99onYXvLESalyFjKwtDjjUYHC6k6YnXv01WRObJEw/5gUdzrLboFkt7micOE
-	 wC+Su4Bnsl4Qsa/a3tDq4rlBEhOTL/zzQLkU4R+H1y81ZiqlMCrooHi3CI11BRhGWA
-	 ZvZk4zw/vIG3q92dhtoYf/5hZ0DGLjMq5rqCxdrA=
+	b=HmxLOsqlQDZuz0LqYCzzUxbLBA/f07RMIUI7kC5EgcP0EUXUGjT7RsoUJVRaOxQbK
+	 arC0yW8o7fzm1bliS30O4ERGLN1nobJ/dHL47nHx15JSPI5iJp3n38RvWDOB0OjzEc
+	 08PWNII5LfTr6GMDNA4RW6B27isImoyHYkO6a6vc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 15962F802BE;
-	Fri, 24 Jun 2022 12:59:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5CCCBF80107;
+	Fri, 24 Jun 2022 13:35:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 08982F802BE; Fri, 24 Jun 2022 12:59:28 +0200 (CEST)
+ id 06F29F80139; Fri, 24 Jun 2022 13:35:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4D9C5F800CB
- for <alsa-devel@alsa-project.org>; Fri, 24 Jun 2022 12:59:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D9C5F800CB
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="m3AjiTZp"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 8AD7EB827FF;
- Fri, 24 Jun 2022 10:59:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08C7FC341C8;
- Fri, 24 Jun 2022 10:59:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1656068364;
- bh=OAQ3P9yU+RG/aMH6dNSHmU8lPjvxt3CpUYFjlXRfF8Q=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=m3AjiTZpADDsusJBrOa3ZqZYwpoC49uZE/IS/tw1iJ5v7Ww+T6E6QUu4GBbr5WPm3
- BaacPaukpNnNPySAog9EnjH29lf8x8SpB1SPsKKp9ZYBVCtI4QV/ZsRDpVI7zfKCZF
- Tty0KZ5ISdw5CuphlT5QV54VZJV+TmujPoRI/31Larzx0caA4lFA7XDEwCgsnwq60Y
- 0/GYrSlY+LdlVjsc8/D21nYV7cshCATak54ktjMu7kevZ9nZSyoqmAStO/Nh8JropC
- gsHsxD0kyheTpAL7qS4DBr7yG1xrzEA/0TdcFAfahrv1+PKsO0xTds9YsqdrSHD1ja
- FlDATYisUaSvA==
-From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, cezary.rojewski@intel.com
-In-Reply-To: <20220620101402.2684366-1-cezary.rojewski@intel.com>
-References: <20220620101402.2684366-1-cezary.rojewski@intel.com>
-Subject: Re: (subset) [PATCH v4 00/17] ASoC: Intel: haswell and broadwell
- boards update
-Message-Id: <165606836275.26928.7739090646897262373.b4-ty@kernel.org>
-Date: Fri, 24 Jun 2022 11:59:22 +0100
+X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail.bugwerft.de (mail.bugwerft.de [46.23.86.59])
+ by alsa1.perex.cz (Postfix) with ESMTP id B819FF80107
+ for <alsa-devel@alsa-project.org>; Fri, 24 Jun 2022 13:34:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B819FF80107
+Received: from [10.100.135.12] (unknown [176.126.217.202])
+ by mail.bugwerft.de (Postfix) with ESMTPSA id C10ED282E26;
+ Fri, 24 Jun 2022 11:34:57 +0000 (UTC)
+Message-ID: <fb1813a4-9d1f-7e91-e7e0-c8e822a3eca6@zonque.org>
+Date: Fri, 24 Jun 2022 13:34:56 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: hdegoede@redhat.com, tiwai@suse.com, pierre-louis.bossart@linux.intel.com,
- amadeuszx.slawinski@linux.intel.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Subject: Re: [PATCH 8/8] ASoC: max98396: Fix TDM mode BSEL settings
+Content-Language: en-US
+To: broonie@kernel.org, ryan.lee.analog@gmail.com
+References: <20220624104712.1934484-1-daniel@zonque.org>
+ <20220624104712.1934484-9-daniel@zonque.org>
+From: Daniel Mack <daniel@zonque.org>
+In-Reply-To: <20220624104712.1934484-9-daniel@zonque.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, robh+dt@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,72 +67,230 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 20 Jun 2022 12:13:45 +0200, Cezary Rojewski wrote:
-> A number of patches improving overall quality and readability of
-> haswell.c and broadwell.c source files found in sound/soc/intel/boards.
-> Both files are first renamed and only then actual changes are being
-> incrementally added. The respective names are: hsw_rt5640 and bdw_rt286
-> to match the pattern found in more recent boards.
+On 6/24/22 12:47, Daniel Mack wrote:
+> In TDM mode, the BSEL register value must be set according to table 5 in the
+> datasheet. This patch adds a lookup function and uses it in
+> max98396_dai_tdm_slot().
 > 
-> Most patches bring no functional change - the more impactful patches at
-> are placed the end:
+> As the first 3 entries can also be used for non-TDM setups, the code now
+> re-uses the same code for such scenarios.
 > 
-> [...]
+> max98396_set_clock() is folded into its only user for clarity.
 
-Applied to
+Sorry, the following hunk is missing from this patch:
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+diff --git a/sound/soc/codecs/max98396.h b/sound/soc/codecs/max98396.h
+index ff330ef61568..7278c779989a 100644
+--- a/sound/soc/codecs/max98396.h
++++ b/sound/soc/codecs/max98396.h
+@@ -306,8 +306,8 @@ struct max98396_priv {
+        unsigned int spkfb_slot;
+        unsigned int bypass_slot;
+        bool interleave_mode;
+-       unsigned int ch_size;
+        bool tdm_mode;
++       int tdm_max_samplerate;
+        int device_id;
+ };
+ #endif
 
-Thanks!
 
-[01/17] ASoC: Intel: Rename haswell source file to hsw_rt5640
-        commit: 8b99e24de3fae72ff5ef38832b94b1e41059eeed
-[02/17] ASoC: Intel: hsw_rt5640: Reword prefixes of all driver members
-        commit: 675002b6ca9132445e340bd106297d584e44fc9a
-[03/17] ASoC: Intel: hsw_rt5640: Reword driver name
-        commit: a69615e81709da0ff1f035886e8b3faf6125cd22
-[04/17] ASoC: Intel: hsw_rt5640: Update code indentation
-        commit: 5b66dde4ada531c1a2417d8daf68004067932a19
-[05/17] ASoC: Intel: hsw_rt5640: Update file comments
-        commit: 2c53debbbf04eb40854fa33813514828fa455783
-[06/17] ASoC: Intel: hsw_rt5640: Improve probe() function quality
-        commit: 0439f262a9b39734c1440733850969f0342c50c3
-[07/17] ASoC: Intel: hsw_rt5640: Improve hw_params() debug-ability
-        commit: 6c65908251edc637b53bdeb9e79d918a8d081183
-[08/17] ASoC: Intel: Rename broadwell source file to bdw_rt286
-        commit: 6d8758f6afd91cced9c6c5571337a5fbc6955bb2
-[09/17] ASoC: Intel: bdw_rt286: Reword prefixes of all driver members
-        commit: 40b5c9030a87e97c00c84403902481deadd2a57b
-[10/17] ASoC: Intel: bdw_rt286: Reword driver name
-        commit: 86156bcbca08ee32d04ca56c57ff3fce6fc5fc4b
-[11/17] ASoC: Intel: bdw_rt286: Update code indentation
-        commit: 9de833d2dcd43c953f7869f27bffd41896adb425
-[12/17] ASoC: Intel: bdw_rt286: Update file comments
-        commit: 128bb6fb530841348ee4d9b4234b30006c44c803
-[13/17] ASoC: Intel: bdw_rt286: Improve probe() function quality
-        commit: 9177203c209d9137dce52c7f0bc28e54960e5a41
-[14/17] ASoC: Intel: bdw_rt286: Improve hw_params() debug-ability
-        commit: 423cc2d0e8506a0ce6e3ef1806a561de1076e033
-[15/17] ASoC: Intel: bdw_rt286: Improve codec_init() quality
-        commit: 8fe4709962d74a19c0c1dfc877ba600101340c62
-[17/17] ASoC: Intel: bdw_rt286: Remove FE DAI ops
-        commit: e7f68863545163ec75b6bc3cc48fe888c28e0ec6
+Will include it in the next round.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
 
 Thanks,
-Mark
+Daniel
+
+
+> 
+> Signed-off-by: Daniel Mack <daniel@zonque.org>
+> ---
+>  sound/soc/codecs/max98396.c | 124 +++++++++++++++++++++++-------------
+>  1 file changed, 81 insertions(+), 43 deletions(-)
+> 
+> diff --git a/sound/soc/codecs/max98396.c b/sound/soc/codecs/max98396.c
+> index f28831f4e74b..f1657a5f2140 100644
+> --- a/sound/soc/codecs/max98396.c
+> +++ b/sound/soc/codecs/max98396.c
+> @@ -438,47 +438,55 @@ static int max98396_dai_set_fmt(struct snd_soc_dai *codec_dai, unsigned int fmt)
+>  	return 0;
+>  }
+>  
+> -/* BCLKs per LRCLK */
+> -static const int bclk_sel_table[] = {
+> -	32, 48, 64, 96, 128, 192, 256, 384, 512, 320,
+> +/* Refer to table 5 in the datasheet */
+> +static const struct max98396_pcm_config {
+> +	int in, out, width, bsel, max_sr;
+> +} max98396_pcm_configs[] = {
+> +	{ .in = 2,  .out = 4,  .width = 16, .bsel = 0x2, /*  32 */ .max_sr = 192000  },
+> +	{ .in = 2,  .out = 6,  .width = 24, .bsel = 0x3, /*  48 */ .max_sr = 192000  },
+> +	{ .in = 2,  .out = 8,  .width = 32, .bsel = 0x4, /*  64 */ .max_sr = 192000  },
+> +	{ .in = 3,  .out = 15, .width = 32, .bsel = 0xd, /* 125 */ .max_sr = 192000  },
+> +	{ .in = 4,  .out = 8,  .width = 16, .bsel = 0x4, /*  64 */ .max_sr = 192000  },
+> +	{ .in = 4,  .out = 12, .width = 24, .bsel = 0x5, /*  96 */ .max_sr = 192000  },
+> +	{ .in = 4,  .out = 16, .width = 32, .bsel = 0x6, /* 128 */ .max_sr = 192000  },
+> +	{ .in = 5,  .out = 15, .width = 24, .bsel = 0xd, /* 125 */ .max_sr = 192000  },
+> +	{ .in = 7,  .out = 15, .width = 16, .bsel = 0xd, /* 125 */ .max_sr = 192000  },
+> +	{ .in = 2,  .out = 4,  .width = 16, .bsel = 0x2, /*  32 */ .max_sr = 96000   },
+> +	{ .in = 2,  .out = 6,  .width = 24, .bsel = 0x3, /*  48 */ .max_sr = 96000   },
+> +	{ .in = 2,  .out = 8,  .width = 32, .bsel = 0x4, /*  64 */ .max_sr = 96000   },
+> +	{ .in = 3,  .out = 15, .width = 32, .bsel = 0xd, /* 125 */ .max_sr = 96000   },
+> +	{ .in = 4,  .out = 8,  .width = 16, .bsel = 0x4, /*  64 */ .max_sr = 96000   },
+> +	{ .in = 4,  .out = 12, .width = 24, .bsel = 0x5, /*  96 */ .max_sr = 96000   },
+> +	{ .in = 4,  .out = 16, .width = 32, .bsel = 0x6, /* 128 */ .max_sr = 96000   },
+> +	{ .in = 5,  .out = 15, .width = 24, .bsel = 0xd, /* 125 */ .max_sr = 96000   },
+> +	{ .in = 7,  .out = 15, .width = 16, .bsel = 0xd, /* 125 */ .max_sr = 96000   },
+> +	{ .in = 7,  .out = 31, .width = 32, .bsel = 0xc, /* 250 */ .max_sr = 96000   },
+> +	{ .in = 8,  .out = 16, .width = 16, .bsel = 0x6, /* 128 */ .max_sr = 96000   },
+> +	{ .in = 8,  .out = 24, .width = 24, .bsel = 0x7, /* 192 */ .max_sr = 96000   },
+> +	{ .in = 8,  .out = 32, .width = 32, .bsel = 0x8, /* 256 */ .max_sr = 96000   },
+> +	{ .in = 10, .out = 31, .width = 24, .bsel = 0xc, /* 250 */ .max_sr = 96000   },
+> +	{ .in = 15, .out = 31, .width = 16, .bsel = 0xc, /* 250 */ .max_sr = 96000   },
+> +	{ .in = 16, .out = 32, .width = 16, .bsel = 0x8, /* 256 */ .max_sr = 96000   },
+> +	{ .in = 7,  .out = 31, .width = 32, .bsel = 0xc, /* 250 */ .max_sr = 48000   },
+> +	{ .in = 10, .out = 31, .width = 24, .bsel = 0xc, /* 250 */ .max_sr = 48000   },
+> +	{ .in = 10, .out = 40, .width = 32, .bsel = 0xb, /* 320 */ .max_sr = 48000   },
+> +	{ .in = 15, .out = 31, .width = 16, .bsel = 0xc, /* 250 */ .max_sr = 48000   },
+> +	{ .in = 16, .out = 48, .width = 24, .bsel = 0x9, /* 384 */ .max_sr = 48000   },
+> +	{ .in = 16, .out = 64, .width = 32, .bsel = 0xa, /* 512 */ .max_sr = 48000   },
+>  };
+>  
+> -static int max98396_get_bclk_sel(int bclk)
+> +static int max98396_pcm_config_index(int in_slots, int out_slots, int width)
+>  {
+>  	int i;
+> -	/* match BCLKs per LRCLK */
+> -	for (i = 0; i < ARRAY_SIZE(bclk_sel_table); i++) {
+> -		if (bclk_sel_table[i] == bclk)
+> -			return i + 2;
+> -	}
+> -	return 0;
+> -}
+>  
+> -static int max98396_set_clock(struct snd_soc_component *component,
+> -			      struct snd_pcm_hw_params *params)
+> -{
+> -	struct max98396_priv *max98396 = snd_soc_component_get_drvdata(component);
+> -	/* BCLK/LRCLK ratio calculation */
+> -	int blr_clk_ratio = params_channels(params) * max98396->ch_size;
+> -	int value;
+> -
+> -	if (!max98396->tdm_mode) {
+> -		/* BCLK configuration */
+> -		value = max98396_get_bclk_sel(blr_clk_ratio);
+> -		if (!value) {
+> -			dev_err(component->dev,
+> -				"blr_clk_ratio %d unsupported, format %d\n",
+> -				blr_clk_ratio, params_format(params));
+> -			return -EINVAL;
+> -		}
+> +	for (i = 0; i < ARRAY_SIZE(max98396_pcm_configs); i++) {
+> +		const struct max98396_pcm_config *c = &max98396_pcm_configs[i];
+>  
+> -		regmap_update_bits(max98396->regmap,
+> -				   MAX98396_R2042_PCM_CLK_SETUP,
+> -				   MAX98396_PCM_CLK_SETUP_BSEL_MASK,
+> -				   value);
+> +		if (in_slots == c->in && out_slots <= c->out && width == c->width)
+> +			return i;
+>  	}
+>  
+> -	return 0;
+> +	return -1;
+>  }
+>  
+>  static int max98396_dai_hw_params(struct snd_pcm_substream *substream,
+> @@ -489,8 +497,7 @@ static int max98396_dai_hw_params(struct snd_pcm_substream *substream,
+>  	struct max98396_priv *max98396 = snd_soc_component_get_drvdata(component);
+>  	unsigned int sampling_rate = 0;
+>  	unsigned int chan_sz = 0;
+> -	int ret, reg;
+> -	int status;
+> +	int ret, reg, status, bsel;
+>  	bool update = false;
+>  
+>  	/* pcm mode configuration */
+> @@ -510,8 +517,6 @@ static int max98396_dai_hw_params(struct snd_pcm_substream *substream,
+>  		goto err;
+>  	}
+>  
+> -	max98396->ch_size = snd_pcm_format_width(params_format(params));
+> -
+>  	dev_dbg(component->dev, "format supported %d",
+>  		params_format(params));
+>  
+> @@ -559,6 +564,33 @@ static int max98396_dai_hw_params(struct snd_pcm_substream *substream,
+>  		goto err;
+>  	}
+>  
+> +	if (max98396->tdm_mode) {
+> +		if (params_rate(params) > max98396->tdm_max_samplerate) {
+> +			dev_err(component->dev, "TDM sample rate %d too high",
+> +				params_rate(params));
+> +			goto err;
+> +		}
+> +	} else {
+> +		/* BCLK configuration */
+> +		ret = max98396_pcm_config_index(params_channels(params),
+> +						params_channels(params),
+> +						snd_pcm_format_width(params_format(params)));
+> +		if (ret < 0) {
+> +			dev_err(component->dev,
+> +				"no PCM config for %d channels, format %d\n",
+> +				params_channels(params), params_format(params));
+> +			goto err;
+> +		}
+> +
+> +		bsel = max98396_pcm_configs[ret].bsel;
+> +
+> +		if (params_rate(params) > max98396_pcm_configs[ret].max_sr) {
+> +			dev_err(component->dev, "sample rate %d too high",
+> +				params_rate(params));
+> +			goto err;
+> +		}
+> +	}
+> +
+>  	ret = regmap_read(max98396->regmap, MAX98396_R210F_GLOBAL_EN, &status);
+>  	if (ret < 0)
+>  		goto err;
+> @@ -604,12 +636,15 @@ static int max98396_dai_hw_params(struct snd_pcm_substream *substream,
+>  				   MAX98396_IVADC_SR_MASK,
+>  				   sampling_rate << MAX98396_IVADC_SR_SHIFT);
+>  
+> -	ret = max98396_set_clock(component, params);
+> +	regmap_update_bits(max98396->regmap,
+> +			   MAX98396_R2042_PCM_CLK_SETUP,
+> +			   MAX98396_PCM_CLK_SETUP_BSEL_MASK,
+> +			   bsel);
+>  
+>  	if (status && update)
+>  		max98396_global_enable_onoff(max98396->regmap, true);
+>  
+> -	return ret;
+> +	return 0;
+>  
+>  err:
+>  	return -EINVAL;
+> @@ -634,13 +669,16 @@ static int max98396_dai_tdm_slot(struct snd_soc_dai *dai,
+>  		max98396->tdm_mode = true;
+>  
+>  	/* BCLK configuration */
+> -	bsel = max98396_get_bclk_sel(slots * slot_width);
+> -	if (bsel == 0) {
+> -		dev_err(component->dev, "BCLK %d not supported\n",
+> -			slots * slot_width);
+> +	ret = max98396_pcm_config_index(slots, slots, slot_width);
+> +	if (ret < 0) {
+> +		dev_err(component->dev, "no TDM config for %d slots %d bits\n",
+> +			slots, slot_width);
+>  		return -EINVAL;
+>  	}
+>  
+> +	bsel = max98396_pcm_configs[ret].bsel;
+> +	max98396->tdm_max_samplerate = max98396_pcm_configs[ret].max_sr;
+> +
+>  	/* Channel size configuration */
+>  	switch (slot_width) {
+>  	case 16:
+

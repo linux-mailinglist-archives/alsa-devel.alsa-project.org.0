@@ -2,69 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43606559845
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Jun 2022 13:00:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1803559847
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Jun 2022 13:00:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF8DC1899;
-	Fri, 24 Jun 2022 12:59:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF8DC1899
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6ABB2188B;
+	Fri, 24 Jun 2022 13:00:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6ABB2188B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656068427;
-	bh=S9eJFD8K0CrZozTzpp993YQCNHQgFu+bBTEPfMjk1e0=;
+	s=default; t=1656068457;
+	bh=OAQ3P9yU+RG/aMH6dNSHmU8lPjvxt3CpUYFjlXRfF8Q=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VMpN+26bnQc158d6EbfDlu87EWoKTw3kLQRznzcaMcVBpeHydGOnvmuSbly5z97hJ
-	 XvhLOTSNAWUeBLUXkoVorDap4ZBVH4WMo6w77HQE5eAwkzBsJPrUR8IqSK8X5Qt376
-	 NIDHfb2bMD6saXWdOMyklHDfq6RePCB76JOK2Izs=
+	b=URjzB99onYXvLESalyFjKwtDjjUYHC6k6YnXv01WRObJEw/5gUdzrLboFkt7micOE
+	 wC+Su4Bnsl4Qsa/a3tDq4rlBEhOTL/zzQLkU4R+H1y81ZiqlMCrooHi3CI11BRhGWA
+	 ZvZk4zw/vIG3q92dhtoYf/5hZ0DGLjMq5rqCxdrA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 91938F80139;
-	Fri, 24 Jun 2022 12:59:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 15962F802BE;
+	Fri, 24 Jun 2022 12:59:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 34E5BF80139; Fri, 24 Jun 2022 12:59:27 +0200 (CEST)
+ id 08982F802BE; Fri, 24 Jun 2022 12:59:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ABEC0F800CB
- for <alsa-devel@alsa-project.org>; Fri, 24 Jun 2022 12:59:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABEC0F800CB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4D9C5F800CB
+ for <alsa-devel@alsa-project.org>; Fri, 24 Jun 2022 12:59:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D9C5F800CB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="mp9UUnzq"
+ header.b="m3AjiTZp"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id C484DB827D2;
- Fri, 24 Jun 2022 10:59:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51A43C34114;
- Fri, 24 Jun 2022 10:59:21 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 8AD7EB827FF;
+ Fri, 24 Jun 2022 10:59:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08C7FC341C8;
+ Fri, 24 Jun 2022 10:59:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1656068362;
- bh=S9eJFD8K0CrZozTzpp993YQCNHQgFu+bBTEPfMjk1e0=;
+ s=k20201202; t=1656068364;
+ bh=OAQ3P9yU+RG/aMH6dNSHmU8lPjvxt3CpUYFjlXRfF8Q=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=mp9UUnzq6aHfwH6uvl2BNERgVjHaKQIfHyaIPxPjCq12xZ40j/dEeR67sEzNPrW/E
- IDN1AbaClNFcul33BYjuvlZWTnUlrnEnHN84bUY31LGr2qlal/Wr/HswZLD3Bf9zni
- orFFavUTtsq3UFpg2Y8rIRyVDraMwxcb9bzLl433pmuDE2jfLFWxmL/h95amWNpUvd
- 7RLr4Lgjy8LqRiBPL40qBkuQ3XtIA0SBiBwYihi4uzQ/r/Xj8puHehNPsmMXIVbLAA
- XfHZ8rfNI9Dxprpat5W+l8JNGKObltottlIBChUtgymj/hbi9VeyrmERVyTt1Xpso4
- im4Bq8RxNFweQ==
+ b=m3AjiTZpADDsusJBrOa3ZqZYwpoC49uZE/IS/tw1iJ5v7Ww+T6E6QUu4GBbr5WPm3
+ BaacPaukpNnNPySAog9EnjH29lf8x8SpB1SPsKKp9ZYBVCtI4QV/ZsRDpVI7zfKCZF
+ Tty0KZ5ISdw5CuphlT5QV54VZJV+TmujPoRI/31Larzx0caA4lFA7XDEwCgsnwq60Y
+ 0/GYrSlY+LdlVjsc8/D21nYV7cshCATak54ktjMu7kevZ9nZSyoqmAStO/Nh8JropC
+ gsHsxD0kyheTpAL7qS4DBr7yG1xrzEA/0TdcFAfahrv1+PKsO0xTds9YsqdrSHD1ja
+ FlDATYisUaSvA==
 From: Mark Brown <broonie@kernel.org>
 To: alsa-devel@alsa-project.org, cezary.rojewski@intel.com
-In-Reply-To: <20220613091546.1565167-1-cezary.rojewski@intel.com>
-References: <20220613091546.1565167-1-cezary.rojewski@intel.com>
-Subject: Re: [PATCH v2 00/17] ASoC: Intel: haswell and broadwell boards update
-Message-Id: <165606836102.26928.2383906342315078106.b4-ty@kernel.org>
-Date: Fri, 24 Jun 2022 11:59:21 +0100
+In-Reply-To: <20220620101402.2684366-1-cezary.rojewski@intel.com>
+References: <20220620101402.2684366-1-cezary.rojewski@intel.com>
+Subject: Re: (subset) [PATCH v4 00/17] ASoC: Intel: haswell and broadwell
+ boards update
+Message-Id: <165606836275.26928.7739090646897262373.b4-ty@kernel.org>
+Date: Fri, 24 Jun 2022 11:59:22 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -85,7 +85,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 13 Jun 2022 11:15:29 +0200, Cezary Rojewski wrote:
+On Mon, 20 Jun 2022 12:13:45 +0200, Cezary Rojewski wrote:
 > A number of patches improving overall quality and readability of
 > haswell.c and broadwell.c source files found in sound/soc/intel/boards.
 > Both files are first renamed and only then actual changes are being
@@ -131,10 +131,8 @@ Thanks!
         commit: 9177203c209d9137dce52c7f0bc28e54960e5a41
 [14/17] ASoC: Intel: bdw_rt286: Improve hw_params() debug-ability
         commit: 423cc2d0e8506a0ce6e3ef1806a561de1076e033
-[15/17] ASoC: Intel: bdw_rt286: Improve codec_link_init() quality
-        (no commit info)
-[16/17] ASoC: Intel: bdw_rt286: Refactor suspend/resume
-        (no commit info)
+[15/17] ASoC: Intel: bdw_rt286: Improve codec_init() quality
+        commit: 8fe4709962d74a19c0c1dfc877ba600101340c62
 [17/17] ASoC: Intel: bdw_rt286: Remove FE DAI ops
         commit: e7f68863545163ec75b6bc3cc48fe888c28e0ec6
 

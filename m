@@ -2,75 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50D6D559BC1
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Jun 2022 16:37:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73CF9559BC5
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Jun 2022 16:42:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF99F1898;
-	Fri, 24 Jun 2022 16:36:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF99F1898
+	by alsa0.perex.cz (Postfix) with ESMTPS id 107111866;
+	Fri, 24 Jun 2022 16:41:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 107111866
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656081468;
-	bh=fES71k0ZtQMfRPu9DCT9ZOVYdQvNBjl3fNHC6w3pSEc=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=KBw1Qw8AiNaMOzbHC7LGC5hhm8gE3PiGNqz+La2MOn0dq4g+ZbMvz85RtIKwMjLFs
-	 2BnHA0fejjKClI+OfZQFtJyt1eS6OfNIdcMafs2ec6fVRK82kxe6ZR2yEK/Udg9TPY
-	 emZeXDaSAcSjznuGrYheRbID+MMsWgqm04Vdezmc=
+	s=default; t=1656081748;
+	bh=CzSZ3XJ1ZpmdR75HPdxnvdntg5nhuKEYGXkCTT1uZb8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=NsvLMDJsLinNXrXgxVuIODXw7EKXYVIkAM5nAzbMvk1vmR+B1nj9hx4VaR06rmS5Z
+	 2GXcaoWyFvhSqvDWmsmBi+DWeSKnkPhD21IvP09H4YsMGe5U7KmzWJgG2r3c4EdmfH
+	 HeXxIfKCrE2DkqRLYn+ZVtwtApbySUgW2Q3Wg/vE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AF126F80537;
-	Fri, 24 Jun 2022 16:35:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5E1E0F800CB;
+	Fri, 24 Jun 2022 16:41:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3CB2FF80535; Fri, 24 Jun 2022 16:35:53 +0200 (CEST)
+ id 20601F80107; Fri, 24 Jun 2022 16:41:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
+ [64.147.123.21])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 99A93F8016E
- for <alsa-devel@alsa-project.org>; Fri, 24 Jun 2022 16:35:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99A93F8016E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 37908F80107
+ for <alsa-devel@alsa-project.org>; Fri, 24 Jun 2022 16:41:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37908F80107
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Hsmdt5LT"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 58A0D62078;
- Fri, 24 Jun 2022 14:35:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 646D3C341C0;
- Fri, 24 Jun 2022 14:35:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1656081347;
- bh=fES71k0ZtQMfRPu9DCT9ZOVYdQvNBjl3fNHC6w3pSEc=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Hsmdt5LTyq7cqedpM7gD3mcbjTqTZVbXcWKBNDxL/nyNXh7QuMwjQ7X3ZkyQfEMS5
- Kdh+uekKRjxFdw0vb9b8c6lwbHpQqddsFR4oHiVYwa5BNCUy3eHchli72h2SDIuN41
- eWKSgqEpPHVxgOfnphX4wAtuA0nksQX4p+f8jQbXuc8w9G32PNwcLP4/fB62l3+jqw
- H0LDGLFIFqEz8Kb63K/UqL4SxCQ3FOJjUFbQiuYnFn8KnA0LwJ/rtjmUCDKd0108Hy
- cAyth5zSs6zw/PuBediVxP+YxqQUm/7CT5eQ6Td9KeKJ1juFc97abm97Yy0gvZjprA
- ZtYgphvV7oKDg==
-From: Mark Brown <broonie@kernel.org>
-To: jiapeng.chong@linux.alibaba.com, lgirdwood@gmail.com
-In-Reply-To: <20220624082745.68367-1-jiapeng.chong@linux.alibaba.com>
-References: <20220624082745.68367-1-jiapeng.chong@linux.alibaba.com>
-Subject: Re: [PATCH] ASoC: rockchip: i2s: Fix missing error code in
- rockchip_i2s_probe()
-Message-Id: <165608134513.445804.8165290048747586515.b4-ty@kernel.org>
-Date: Fri, 24 Jun 2022 15:35:45 +0100
+ dkim=pass (2048-bit key) header.d=system76.com header.i=@system76.com
+ header.b="e9ZSVyru"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="ZLrphymI"
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.west.internal (Postfix) with ESMTP id 669BE3200708;
+ Fri, 24 Jun 2022 10:41:11 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute4.internal (MEProxy); Fri, 24 Jun 2022 10:41:11 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=system76.com; h=
+ cc:cc:content-transfer-encoding:date:date:from:from:in-reply-to
+ :message-id:mime-version:reply-to:sender:subject:subject:to:to;
+ s=fm2; t=1656081670; x=1656168070; bh=T6ykBOkohziMhzJX4ZCTZHCSM
+ xDUNfuFs5HEhjzhzhs=; b=e9ZSVyruATpxqmuvQhYBbbIC/m8NOYBE5Yd0JicFB
+ Kz5guCqeMOKfKorma75PjF44maoVyoXQcIi5AyRmophBqpP6YbsTWDqbXjRn7USO
+ HJLqCgfeR5TzfbLhciSTbCvQxASbb9gGe6JVZTBg8jF/CbNV1+i8qDg/j5EX8Jsn
+ tiV8Of4k29V3k5yB9VNvj+gXtigxpw+UEV7CXYl/UdPrXP48yGHuQZzbBWITtz5W
+ 3iXQRXskjr7KYY4t404VA2vbLQVyDTrRo6oRxKHC/6+XuJ+A5fE26RAX8KOjBMnj
+ T5fc9dWho66uNpe/z5ceuLXODLTKpZB0Brxs6EvRUbmNQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
+ :feedback-id:feedback-id:from:from:in-reply-to:message-id
+ :mime-version:reply-to:sender:subject:subject:to:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+ 1656081670; x=1656168070; bh=T6ykBOkohziMhzJX4ZCTZHCSMxDUNfuFs5H
+ Ehjzhzhs=; b=ZLrphymIOZcBVOtkibd6v4hZQOg8SsNVkvYDJIhXeThagX/uiy0
+ 1yOlR+/PMtDxJZ0swbrE1YoXRa4pyjmnPQrImFwv7/Dqh+rz/hywVldhx8laLWOV
+ STTDIaOhe+UX9BbQDL4Pp6O/uAjO7sU2L9y7DfdlWElFW2BSLNng1Xjf49pp0lS+
+ aA5o9zEc5SUKzICmsiu/w+gL8koEIXsy0qI5JgzaBZTqfN3h8ZStvvyYVU7TZ48F
+ Vzpc+AWG4ptRsUqYEShPXxVzsj4KHKX30O9gAgpTHY5b+Rk20RrxNYLIvzJmAKq6
+ A+WDhbdWjrxNUeCEPqfuqWPVBi++BZcr9Lw==
+X-ME-Sender: <xms:Bs21YvIGen5Y6uualvuas-XC60RU8svffIyfTUFfJoQzRKuSSzLHBw>
+ <xme:Bs21YjJ9QAdCNpK1S5AVXXvGBiFkRpXiXG-7MfAqY3tF0A6-qGrH__wSLHBswjbfD
+ vhmqmOEUDACw3Rntg>
+X-ME-Received: <xmr:Bs21YnuSaMShA1lEQqeH7W15JSJxktuk32rFZks5ss84eqnKynargkE->
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrudefledgjeeiucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucenucfjughrpefhvfevufffkffoggfgsedtkeertd
+ ertddtnecuhfhrohhmpefvihhmucevrhgrfihfohhrugcuoehttghrrgiffhhorhgusehs
+ hihsthgvmhejiedrtghomheqnecuggftrfgrthhtvghrnhepkefgteefvdeivdfhffdtff
+ fgieffhfetgeduudekieefueeutdelfedtveeuheefnecuvehluhhsthgvrhfuihiivgep
+ tdenucfrrghrrghmpehmrghilhhfrhhomhepthgtrhgrfihfohhrugesshihshhtvghmje
+ eirdgtohhm
+X-ME-Proxy: <xmx:Bs21YoZMaIyucqus_9TWHe0QuwvQtZSs126zfhSjDdQYSH6C2VzRIg>
+ <xmx:Bs21Yma99HgGEmm7_a1yV3Fv_BfMlmOYuCYjlg5KdoNsKRolBfQDIQ>
+ <xmx:Bs21YsDkTPHAyfRX0G3EEWzrq5OKNbFKIJwFNilSZWC3ZrQN0XqwPA>
+ <xmx:Bs21YpwirkWwbVB1htafcMn_Bth7L-qhythCzZUVvPvpH3RS5xzX6Q>
+Feedback-ID: i1761444e:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 24 Jun 2022 10:41:10 -0400 (EDT)
+From: Tim Crawford <tcrawford@system76.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v2] ALSA: hda/realtek: Add quirk for Clevo L140PU
+Date: Fri, 24 Jun 2022 08:41:09 -0600
+Message-Id: <20220624144109.3957-1-tcrawford@system76.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, heiko@sntech.de, tiwai@suse.com,
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org
+Cc: tiwai@suse.de, productdev@system76.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,40 +112,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 24 Jun 2022 16:27:45 +0800, Jiapeng Chong wrote:
-> The error code is missing in this code scenario, add the error code
-> '-EINVAL' to the return value 'ret'.
-> 
-> This was found by coccicheck:
-> 
-> sound/soc/rockchip/rockchip_i2s.c:810 rockchip_i2s_probe() warn: missing error code 'ret'.
-> 
-> [...]
+Fixes headset detection on Clevo L140PU.
 
-Applied to
+Signed-off-by: Tim Crawford <tcrawford@system76.com>
+---
+ sound/pci/hda/patch_realtek.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index cee69fa7e246..007dd8b5e1f2 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -9212,6 +9212,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1558, 0x70f4, "Clevo NH77EPY", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1558, 0x70f6, "Clevo NH77DPQ-Y", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1558, 0x7716, "Clevo NS50PU", ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
++	SND_PCI_QUIRK(0x1558, 0x7718, "Clevo L140PU", ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1558, 0x8228, "Clevo NR40BU", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1558, 0x8520, "Clevo NH50D[CD]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1558, 0x8521, "Clevo NH77D[CD]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+-- 
+2.35.3
 
-Thanks!
-
-[1/1] ASoC: rockchip: i2s: Fix missing error code in rockchip_i2s_probe()
-      commit: 7f6409fd9b54b6f56444edc996cd28059f215415
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

@@ -2,98 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 044DE559DFB
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Jun 2022 18:02:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E655559FAD
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Jun 2022 19:27:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7628D1779;
-	Fri, 24 Jun 2022 18:01:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7628D1779
+	by alsa0.perex.cz (Postfix) with ESMTPS id D5524181D;
+	Fri, 24 Jun 2022 19:27:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5524181D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656086569;
-	bh=4nqGNpOB/Eed+ncDSVvb5MgkmB4zJKNofRNoXxJ860A=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1656091678;
+	bh=MRajG9OlcBiPR0fVGrTl/o/aahagiomfsMJw1fySdTk=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IfCsrm+HfJO1ADebgoaTIJGsPjUx+JurEVF2V9zNBPXWYbJWYKMubRsKiBI/E0XyR
-	 cAzedYd0cCnnQhUacJeaPg9SMOdeCUi0k5I456R6URlHzn41CFwMt3CE4+8YZkGo7N
-	 ZUZjbGqSsaf6/FV+vXP/f2gPzigtI1SUoeaUvhrc=
+	b=QhUvs3r+H14Z/y9hbbT7M+0ieZj/RstN3W+SpZqGV4iRFPISc+RK2SdINL9ZAzU30
+	 VPe5nFjpPErFGZlA00+Hu0PwcESFn29sHY8K/rTUf+uteJOFdxqxMJwqqH0r+3DYiW
+	 EB025+B+Tvpl8Ma5jPfJEzPjzSXpah58lvNCuH54=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C4BDAF80137;
-	Fri, 24 Jun 2022 18:01:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 42F0CF80165;
+	Fri, 24 Jun 2022 19:27:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ED9E6F80139; Fri, 24 Jun 2022 18:01:47 +0200 (CEST)
+ id 287ABF800CB; Fri, 24 Jun 2022 19:26:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-io1-f46.google.com (mail-io1-f46.google.com
+ [209.85.166.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 99B0AF80109
- for <alsa-devel@alsa-project.org>; Fri, 24 Jun 2022 18:01:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99B0AF80109
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="kgIGHkC9"
-Received: by mail-wr1-x433.google.com with SMTP id s1so3698678wra.9
- for <alsa-devel@alsa-project.org>; Fri, 24 Jun 2022 09:01:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=ffiO6A2PsfBMr7NqXQDGe4LlsBtZjortKK8FGiE8TGs=;
- b=kgIGHkC9AmqJrRisa88gEb2JSgScN9bTHPrFYutqUu3j4EstnyWyH4Vt4PYgnr9wM7
- g1Jv7MXUI3WAB6EsQuB5VZz7SP0td1kZM8aHXB3334K4ewpr7f3MXm8FbbdOznRGguvS
- 9npxt9kXyuL8dePxN4eNBJih2eAKLJYfnropKFhsxtJFb5vn9xZLZDaeLxxdOT+uhgu7
- 3g9Tgk1Q4KU08dTsHPkDehTnAWTp6s9QGlC+C82CA4Ykt8mHcGCE9bINdYKZj0AXVxyb
- K3pJ1DpOKkUR6dPZXOp4lH/wfDAGpvVFshjIujmrGNIAff8cayGDyBrUKkUCR6/UtDUa
- 54lw==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 209C2F800CB
+ for <alsa-devel@alsa-project.org>; Fri, 24 Jun 2022 19:26:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 209C2F800CB
+Received: by mail-io1-f46.google.com with SMTP id a10so3365475ioe.9
+ for <alsa-devel@alsa-project.org>; Fri, 24 Jun 2022 10:26:51 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=ffiO6A2PsfBMr7NqXQDGe4LlsBtZjortKK8FGiE8TGs=;
- b=IHu3yTwWsZcFJ6DrNFNfk7gh/YoAHT5xdj0pso/eHVBA2l2+XBVDrxAuoqugPdV0kZ
- QNI8KjyODAgiHyE7fpCKRZvvzK1sYeVOjrdfF9I0SWlfQfP4hb9WiEa6nUwynYjmUAKz
- KyqiI9MGC/Sn97+yej7fdsR5lgRpG13ppHlu7jE08bzOL0I6xzmPpwLdooUqmElxM2cA
- aP0ikscYfZgAwFhLI4UKWx46oDQo6rW0LbYiumsjVbyhkT0lxzHP3FOUxDrC6rZqpt++
- khfw1DGzDFK+basXgwq6kjGGwCdmluboBnD6KjLl6ElJODiAEi26S5f4rzyMhYyaHmcS
- 1I1w==
-X-Gm-Message-State: AJIora8Z0uO1pTvoN7DIH7680VsIjtWj6PPaecFNaCA5csEHu4sqn9zS
- Yxy5Vi2Fiq8NoQeu3Yz5LvldBw==
-X-Google-Smtp-Source: AGRyM1vKGC5ccFr+1PSGrjWJ2Vn9gJPfJi5n/uVuZ8+6JKiJ9SiV5LkmBEgKYLw1Q+Ux8lewMHEdMg==
-X-Received: by 2002:a05:6000:381:b0:21b:9a20:7edb with SMTP id
- u1-20020a056000038100b0021b9a207edbmr13997766wrf.71.1656086499812; 
- Fri, 24 Jun 2022 09:01:39 -0700 (PDT)
-Received: from [192.168.0.237] (xdsl-188-155-176-92.adslplus.ch.
- [188.155.176.92]) by smtp.gmail.com with ESMTPSA id
- z17-20020a5d6551000000b0021b932de5d6sm2720639wrv.39.2022.06.24.09.01.38
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 24 Jun 2022 09:01:39 -0700 (PDT)
-Message-ID: <ac726845-01ec-4f35-7197-4c52fc483644@linaro.org>
-Date: Fri, 24 Jun 2022 18:01:38 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Subject: Re: [PATCH] ASoC: dt-bindings: fsl,micfil: Convert format to
- json-schema
-Content-Language: en-US
-To: Shengjiu Wang <shengjiu.wang@nxp.com>, lgirdwood@gmail.com,
- broonie@kernel.org, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <1655980125-24141-1-git-send-email-shengjiu.wang@nxp.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <1655980125-24141-1-git-send-email-shengjiu.wang@nxp.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: shengjiu.wang@gmail.com
+ h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
+ :message-id;
+ bh=nz2qQEgaL087Hhf4qoKzeVlUqnLzg/kAouulSnIEDmM=;
+ b=kr13eIH5mLbdOl4Ny1P88X/MZgJDSeZDQvFjRkkauaYfrcb6RvhguQf5sMAlM5vvYi
+ NPR0I6xekbnhFqrzKsu7LRr+F8vjPU8fox4M7tYRzfserikRERIfUkf5gLkxbRph/uJh
+ /HH4+KZCmqyT7cPrjlvtxa/m/RXmOdz7GBm69SOwstpyUCmP4HWwbJA3Wtb3JFlJ435t
+ HnRMWAYFeyaefX9A9ZSgWEcvkXXASogUNKWgjwIJdmBehl9oIQcbhE9LrVeFPLt+bRn1
+ snPM5XfjvW3tD9eSC0Kkn/P1MWF7jxvRKOD6p/byIHyN0aTNt/4WWS+DXCrIbZTfBHot
+ 43xQ==
+X-Gm-Message-State: AJIora/dJE4UFOIg4l+Vn9hxNdNwghEaTQj25C4x+HhzYnxTjTAOJh6n
+ Xk+Jo9GZzm57x6j0Sl/V8g==
+X-Google-Smtp-Source: AGRyM1s8DeK7lzgekbYZjos/351Am8lOtX0eBpG6oBqhJM7yv+oxiGXrJ2AZn+FOBZZgPNGP9OZceA==
+X-Received: by 2002:a05:6638:164b:b0:335:de33:26fa with SMTP id
+ a11-20020a056638164b00b00335de3326famr150425jat.31.1656091609513; 
+ Fri, 24 Jun 2022 10:26:49 -0700 (PDT)
+Received: from robh.at.kernel.org ([64.188.179.253])
+ by smtp.gmail.com with ESMTPSA id
+ d126-20020a026284000000b003318c717b59sm1292545jac.39.2022.06.24.10.26.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 24 Jun 2022 10:26:49 -0700 (PDT)
+Received: (nullmailer pid 146344 invoked by uid 1000);
+ Fri, 24 Jun 2022 17:26:34 -0000
+From: Rob Herring <robh@kernel.org>
+To: Daniel Mack <daniel@zonque.org>
+In-Reply-To: <20220624104712.1934484-3-daniel@zonque.org>
+References: <20220624104712.1934484-1-daniel@zonque.org>
+ <20220624104712.1934484-3-daniel@zonque.org>
+Subject: Re: [PATCH 2/8] ASoC: dt-bindings: max98396: Add #sound-dai-cells
+Date: Fri, 24 Jun 2022 11:26:34 -0600
+Message-Id: <1656091594.398007.146343.nullmailer@robh.at.kernel.org>
+Cc: devicetree@vger.kernel.org, ryan.lee.analog@gmail.com, robh+dt@kernel.org,
+ broonie@kernel.org, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,90 +90,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 23/06/2022 12:28, Shengjiu Wang wrote:
-> Convert the NXP MICFIL binding to DT schema format using json-schema.
+On Fri, 24 Jun 2022 12:47:06 +0200, Daniel Mack wrote:
+> Add this mandatory DT property to the yaml documentation.
 > 
-> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> Signed-off-by: Daniel Mack <daniel@zonque.org>
 > ---
->  .../devicetree/bindings/sound/fsl,micfil.txt  | 33 ---------
->  .../devicetree/bindings/sound/fsl,micfil.yaml | 73 +++++++++++++++++++
->  2 files changed, 73 insertions(+), 33 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/sound/fsl,micfil.txt
->  create mode 100644 Documentation/devicetree/bindings/sound/fsl,micfil.yaml
+>  Documentation/devicetree/bindings/sound/adi,max98396.yaml | 4 ++++
+>  1 file changed, 4 insertions(+)
 > 
-> diff --git a/Documentation/devicetree/bindings/sound/fsl,micfil.txt b/Documentation/devicetree/bindings/sound/fsl,micfil.txt
-> deleted file mode 100644
-> index 1ea05d4996c7..000000000000
-> --- a/Documentation/devicetree/bindings/sound/fsl,micfil.txt
-> +++ /dev/null
-> @@ -1,33 +0,0 @@
-> -NXP MICFIL Digital Audio Interface (MICFIL).
-> -
-> -The MICFIL digital interface provides a 16-bit audio signal from a PDM
-> -microphone bitstream in a configurable output sampling rate.
-> -
-> -Required properties:
-> -
-> -  - compatible		: Compatible list, contains "fsl,imx8mm-micfil"
-> -			  or "fsl,imx8mp-micfil"
-> -
-> -  - reg			: Offset and length of the register set for the device.
-> -
-> -  - interrupts		: Contains the micfil interrupts.
-> -
-> -  - clocks		: Must contain an entry for each entry in clock-names.
-> -
-> -  - clock-names		: Must include the "ipg_clk" for register access and
-> -			  "ipg_clk_app" for internal micfil clock.
-> -
-> -  - dmas		: Generic dma devicetree binding as described in
-> -			  Documentation/devicetree/bindings/dma/dma.txt.
-> -
-> -Example:
-> -micfil: micfil@30080000 {
-> -	compatible = "fsl,imx8mm-micfil";
-> -	reg = <0x0 0x30080000 0x0 0x10000>;
-> -	interrupts = <GIC_SPI 109 IRQ_TYPE_LEVEL_HIGH>,
-> -		     <GIC_SPI 110 IRQ_TYPE_LEVEL_HIGH>;
-> -	clocks = <&clk IMX8MM_CLK_PDM_IPG>,
-> -		 <&clk IMX8MM_CLK_PDM_ROOT>;
-> -	clock-names = "ipg_clk", "ipg_clk_app";
-> -	dmas = <&sdma2 24 26 0x80000000>;
-> -};
-> diff --git a/Documentation/devicetree/bindings/sound/fsl,micfil.yaml b/Documentation/devicetree/bindings/sound/fsl,micfil.yaml
-> new file mode 100644
-> index 000000000000..74c77f4cf7a4
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/fsl,micfil.yaml
-> @@ -0,0 +1,73 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/fsl,micfil.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: NXP MICFIL Digital Audio Interface (MICFIL)
-> +
-> +maintainers:
-> +  - Shengjiu Wang <shengjiu.wang@nxp.com>
-> +
-> +description: |
-> +  The MICFIL digital interface provides a 16-bit or 24-bit audio signal
-> +  from a PDM microphone bitstream in a configurable output sampling rate.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - fsl,imx8mm-micfil
-> +      - fsl,imx8mp-micfil
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 4
 
-You should describe the interrupts/items. Similarly to clocks.
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
-Best regards,
-Krzysztof
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+Error: Documentation/devicetree/bindings/sound/adi,max98396.example.dts:32.33-34 syntax error
+FATAL ERROR: Unable to parse input tree
+make[1]: *** [scripts/Makefile.lib:383: Documentation/devicetree/bindings/sound/adi,max98396.example.dtb] Error 1
+make[1]: *** Waiting for unfinished jobs....
+make: *** [Makefile:1404: dt_binding_check] Error 2
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/patch/
+
+This check can fail if there are any dependencies. The base for a patch
+series is generally the most recent rc1.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit.
+

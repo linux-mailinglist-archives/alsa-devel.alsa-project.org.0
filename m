@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D1F1559BC0
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Jun 2022 16:37:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50D6D559BC1
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Jun 2022 16:37:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 387001887;
-	Fri, 24 Jun 2022 16:36:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 387001887
+	by alsa0.perex.cz (Postfix) with ESMTPS id DF99F1898;
+	Fri, 24 Jun 2022 16:36:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF99F1898
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656081453;
-	bh=74PP1QpAQfNRugfHRpmvVEB7YydKaVZbcvTYOTS+sLI=;
+	s=default; t=1656081468;
+	bh=fES71k0ZtQMfRPu9DCT9ZOVYdQvNBjl3fNHC6w3pSEc=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gi1zmeAhbZ9ioHv8jWBzbI9iTzPexMYo5yU/vQ4aJZPdzEyeDzikHp4frmZvuw3GO
-	 XrNws1gvDWIzKQ2j1lX6zwDGe2BzY8faobGAlKBa9ebU9hKmYiysF8I1XFoTtmJs8r
-	 SWza1ubwSBapWy4UTN2wQ++AtiVUeBrjKqOg5hGE=
+	b=KBw1Qw8AiNaMOzbHC7LGC5hhm8gE3PiGNqz+La2MOn0dq4g+ZbMvz85RtIKwMjLFs
+	 2BnHA0fejjKClI+OfZQFtJyt1eS6OfNIdcMafs2ec6fVRK82kxe6ZR2yEK/Udg9TPY
+	 emZeXDaSAcSjznuGrYheRbID+MMsWgqm04Vdezmc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E6548F80536;
-	Fri, 24 Jun 2022 16:35:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AF126F80537;
+	Fri, 24 Jun 2022 16:35:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AE086F80536; Fri, 24 Jun 2022 16:35:52 +0200 (CEST)
+ id 3CB2FF80535; Fri, 24 Jun 2022 16:35:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,43 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 61AF6F80109
- for <alsa-devel@alsa-project.org>; Fri, 24 Jun 2022 16:35:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61AF6F80109
+ by alsa1.perex.cz (Postfix) with ESMTPS id 99A93F8016E
+ for <alsa-devel@alsa-project.org>; Fri, 24 Jun 2022 16:35:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99A93F8016E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="eIgpTmR7"
+ header.b="Hsmdt5LT"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 1BE3262096;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 58A0D62078;
+ Fri, 24 Jun 2022 14:35:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 646D3C341C0;
  Fri, 24 Jun 2022 14:35:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C0E6C341CB;
- Fri, 24 Jun 2022 14:35:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1656081344;
- bh=74PP1QpAQfNRugfHRpmvVEB7YydKaVZbcvTYOTS+sLI=;
+ s=k20201202; t=1656081347;
+ bh=fES71k0ZtQMfRPu9DCT9ZOVYdQvNBjl3fNHC6w3pSEc=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=eIgpTmR7MXt8uH7hZAjCIRvNh0K6tDX3sXNird51Joy+22ugbf6lAl8Ru1AZhe02j
- naLaqSSBeGJXsW3m9DuMurJBTVeZDX31juSBsYVRtDuqmCuPsL//mNadI2KClsdfZt
- xk+0nK25E+QP0MBbIJXGZ7VNyzt7r+jzHcSfun2db+e15y9Q9naa5pdVl4s0c+5llt
- 6BjOyTzVTHBl7rL2OXTH/wQW6MH1cl8ApnV3agpTXVVK4kKQDraG8Tv8Z9DKg6Prxm
- ZPs5Pg4CAA8hGv2nGZi7Hs16UgskWVFJ/8xPsrXIh0TabQ1lsaSPz/CzZFTgaPjeC8
- ctdIzXZ2tR4cQ==
+ b=Hsmdt5LTyq7cqedpM7gD3mcbjTqTZVbXcWKBNDxL/nyNXh7QuMwjQ7X3ZkyQfEMS5
+ Kdh+uekKRjxFdw0vb9b8c6lwbHpQqddsFR4oHiVYwa5BNCUy3eHchli72h2SDIuN41
+ eWKSgqEpPHVxgOfnphX4wAtuA0nksQX4p+f8jQbXuc8w9G32PNwcLP4/fB62l3+jqw
+ H0LDGLFIFqEz8Kb63K/UqL4SxCQ3FOJjUFbQiuYnFn8KnA0LwJ/rtjmUCDKd0108Hy
+ cAyth5zSs6zw/PuBediVxP+YxqQUm/7CT5eQ6Td9KeKJ1juFc97abm97Yy0gvZjprA
+ ZtYgphvV7oKDg==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Sascha Hauer <s.hauer@pengutronix.de>
-In-Reply-To: <20220624092601.2445224-1-s.hauer@pengutronix.de>
-References: <20220624092601.2445224-1-s.hauer@pengutronix.de>
-Subject: Re: [PATCH] ASoC: audio_graph_card2: Fix port numbers in example
-Message-Id: <165608134396.445804.4133237526270110124.b4-ty@kernel.org>
-Date: Fri, 24 Jun 2022 15:35:43 +0100
+To: jiapeng.chong@linux.alibaba.com, lgirdwood@gmail.com
+In-Reply-To: <20220624082745.68367-1-jiapeng.chong@linux.alibaba.com>
+References: <20220624082745.68367-1-jiapeng.chong@linux.alibaba.com>
+Subject: Re: [PATCH] ASoC: rockchip: i2s: Fix missing error code in
+ rockchip_i2s_probe()
+Message-Id: <165608134513.445804.8165290048747586515.b4-ty@kernel.org>
+Date: Fri, 24 Jun 2022 15:35:45 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: alsa-devel@alsa-project.org, heiko@sntech.de, tiwai@suse.com,
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,11 +86,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 24 Jun 2022 11:26:01 +0200, Sascha Hauer wrote:
-> The example in audio-graph-card2.c has multiple nodes with the same name
-> in it. Change the port numbers to get different names.
+On Fri, 24 Jun 2022 16:27:45 +0800, Jiapeng Chong wrote:
+> The error code is missing in this code scenario, add the error code
+> '-EINVAL' to the return value 'ret'.
 > 
+> This was found by coccicheck:
 > 
+> sound/soc/rockchip/rockchip_i2s.c:810 rockchip_i2s_probe() warn: missing error code 'ret'.
+> 
+> [...]
 
 Applied to
 
@@ -95,8 +102,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: audio_graph_card2: Fix port numbers in example
-      commit: 2544e936ab2fc030f6d8bfcc5a7ae3ebb9c6dc39
+[1/1] ASoC: rockchip: i2s: Fix missing error code in rockchip_i2s_probe()
+      commit: 7f6409fd9b54b6f56444edc996cd28059f215415
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

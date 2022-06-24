@@ -2,67 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 920B1559680
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Jun 2022 11:27:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEE84559756
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Jun 2022 12:07:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E1BB5187A;
-	Fri, 24 Jun 2022 11:26:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1BB5187A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7EBFB1872;
+	Fri, 24 Jun 2022 12:06:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7EBFB1872
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656062831;
-	bh=/O0LQZyqZjmSBg9puEGZip40I7jXhFp3KCK53kp2VhY=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Aav03jI7E9VR4m8O9W17DlHIyEEuxUWqWLQMVTaRMrqFIVCPEItTm8S3oaWOeR7IY
-	 Wr0+HpEZ5gaSujGMjx+V8czRN+j+XJACY1fBmKoBUHqNJylw5BYAS3LDmPOK6Ai3sN
-	 yr0DbHtiidU+RsLPIK2ja4aqBCrdUkK+wrKGgkT0=
+	s=default; t=1656065240;
+	bh=/CwvJJS70L/eU9bUdoPFOwpzfJ5o1Yv9Z0fCXuIgY8c=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=PPGTI7kQQnmEJz23f9jCaHTGCIfGBJuxHixkFpNX/imwPqsdlQBzkDnRBfPu6XXpG
+	 QS8GR0+1ADpYsUstMAYikiiEEmwfpDHpuddJZMpUus/fuepH/SZY6jJtFcYOPxvoeR
+	 GklG+8+78slkEtJW0sTvKVzPmxK2NEB6HLsDdSYQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 48D87F80165;
-	Fri, 24 Jun 2022 11:26:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C9D55F80165;
+	Fri, 24 Jun 2022 12:06:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5AAE6F800CB; Fri, 24 Jun 2022 11:26:10 +0200 (CEST)
+ id 830DCF80139; Fri, 24 Jun 2022 12:06:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EF03EF800CB
- for <alsa-devel@alsa-project.org>; Fri, 24 Jun 2022 11:26:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF03EF800CB
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <sha@pengutronix.de>)
- id 1o4fZj-0001yf-Ry; Fri, 24 Jun 2022 11:26:03 +0200
-Received: from [2a0a:edc0:0:1101:1d::28] (helo=dude02.red.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <sha@pengutronix.de>)
- id 1o4fZg-002Otj-V4; Fri, 24 Jun 2022 11:26:02 +0200
-Received: from sha by dude02.red.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <sha@pengutronix.de>)
- id 1o4fZh-00AG7u-P6; Fri, 24 Jun 2022 11:26:01 +0200
-From: Sascha Hauer <s.hauer@pengutronix.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ASoC: audio_graph_card2: Fix port numbers in example
-Date: Fri, 24 Jun 2022 11:26:01 +0200
-Message-Id: <20220624092601.2445224-1-s.hauer@pengutronix.de>
-X-Mailer: git-send-email 2.30.2
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: sha@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Cc: Sascha Hauer <s.hauer@pengutronix.de>, Mark Brown <broonie@kernel.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 78167F80107
+ for <alsa-devel@alsa-project.org>; Fri, 24 Jun 2022 12:06:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78167F80107
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="LneV0Srm"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="Iv21fOu4"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id CE2161F8BA;
+ Fri, 24 Jun 2022 10:06:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1656065165; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=CV9iv1MS97pTULV3fTiSPn+bRBB8IWnhWWd3H07UMKE=;
+ b=LneV0SrmGVWkZDvSI9oGlK+WKbMAzjnaRT7pC9m0ru72PTZVC3cTsnett9enKFcNTmc5QV
+ Lj95qdcWYLaWV/U60FuswCb7+ygJsPQWyTPz1c7rgiOmMhmAubX/o+JzEkesglh4Xe7c5/
+ RG9BreEHSgOFjs6eSiol6wCWgztZH8Y=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1656065165;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=CV9iv1MS97pTULV3fTiSPn+bRBB8IWnhWWd3H07UMKE=;
+ b=Iv21fOu4ESB0w1SY+vnlMy6t6qHuF+RJ4Fgtkf+uedBkB41dzSIOITsu3DP2iwH1H9Do+I
+ RwAwazNPI5SDZeBw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AB71313ACA;
+ Fri, 24 Jun 2022 10:06:05 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 6hLMKI2MtWLTHAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Fri, 24 Jun 2022 10:06:05 +0000
+Date: Fri, 24 Jun 2022 12:06:04 +0200
+Message-ID: <877d56s7eb.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Tim Crawford <tcrawford@system76.com>
+Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for Clevo L140PU
+In-Reply-To: <20220623152454.7991-1-tcrawford@system76.com>
+References: <20220623152454.7991-1-tcrawford@system76.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: productdev@system76.com, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,34 +99,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The example in audio-graph-card2.c has multiple nodes with the same name
-in it. Change the port numbers to get different names.
+On Thu, 23 Jun 2022 17:24:54 +0200,
+Tim Crawford wrote:
+> 
+> Fixes headset detection on Clevo L140PU.
+> 
+> Signed-off-by: Tim Crawford <tcrawford@system76.com>
 
-Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
----
- sound/soc/generic/audio-graph-card2.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+This doesn't apply cleanly due to your previous patch.
+Could you rebase on top of for-linus branch of sound git tree or the
+latest Linus tree?
 
-diff --git a/sound/soc/generic/audio-graph-card2.c b/sound/soc/generic/audio-graph-card2.c
-index 77ac4051b8276..d34b29a49268e 100644
---- a/sound/soc/generic/audio-graph-card2.c
-+++ b/sound/soc/generic/audio-graph-card2.c
-@@ -90,12 +90,12 @@ links indicates connection part of CPU side (= A).
- 			ports@0 {
- (X) (A)			mcpu:	port@0 { mcpu0_ep: endpoint { remote-endpoint = <&mcodec0_ep>; }; };
- (y)				port@1 { mcpu1_ep: endpoint { remote-endpoint = <&cpu1_ep>; }; };
--(y)				port@1 { mcpu2_ep: endpoint { remote-endpoint = <&cpu2_ep>; }; };
-+(y)				port@2 { mcpu2_ep: endpoint { remote-endpoint = <&cpu2_ep>; }; };
- 			};
- 			ports@1 {
- (X)				port@0 { mcodec0_ep: endpoint { remote-endpoint = <&mcpu0_ep>; }; };
--(y)				port@0 { mcodec1_ep: endpoint { remote-endpoint = <&codec1_ep>; }; };
--(y)				port@1 { mcodec2_ep: endpoint { remote-endpoint = <&codec2_ep>; }; };
-+(y)				port@1 { mcodec1_ep: endpoint { remote-endpoint = <&codec1_ep>; }; };
-+(y)				port@2 { mcodec2_ep: endpoint { remote-endpoint = <&codec2_ep>; }; };
- 			};
- 		};
- 	};
--- 
-2.30.2
 
+thanks,
+
+Takashi

@@ -2,84 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BF1A55ABF9
-	for <lists+alsa-devel@lfdr.de>; Sat, 25 Jun 2022 21:12:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E773055AC79
+	for <lists+alsa-devel@lfdr.de>; Sat, 25 Jun 2022 22:20:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1859616FF;
-	Sat, 25 Jun 2022 21:11:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1859616FF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 372F516B9;
+	Sat, 25 Jun 2022 22:19:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 372F516B9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656184353;
-	bh=fKqe5h1CLelo6jMQICPfT9BTmRWx1ivnypQRywyEqYI=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=kTzlahwzGPPKJ24PcSqUosJwpKaDG1pvShISuN79g+nDtryYb7GkwySlVZ0PwxAsI
-	 C0HwT3KyFaTwWzx84kYw6VFB51+Uwu30c6EoHjQoD+PuwHcZ4W+R1lenIgRTcN1qCC
-	 jt0YplE5fSZNKzfKpOtxCjOm5coP5P4Zv6/lp/mk=
+	s=default; t=1656188401;
+	bh=r0zgKcm97EJzbVjdXR1baLaqYq5lH9/D/ydb4jVw8Ns=;
+	h=From:To:Subject:In-Reply-To:Date:Cc:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=t+8RhBFm+46T3j0vfqLfBQGY7PDVkiTLbDxvIZgtyyOIC1krmK1OfsCp2aZeEFlF0
+	 3fyhZidG8sjMGnLMQOP8XEF2Kn1JiMBvJbjXcjJK8ArV4nwNbRo1pr5G3NqlTUUiqN
+	 iLHZVuRHZT25hmCN6M9bGuWwGbRz1f4F9GfoAq1Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BCD2DF8056F;
-	Sat, 25 Jun 2022 21:09:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 90CE9F80109;
+	Sat, 25 Jun 2022 22:19:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 25B91F80564; Sat, 25 Jun 2022 21:09:30 +0200 (CEST)
+ id E1EF6F80162; Sat, 25 Jun 2022 22:19:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE, 
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [IPv6:2a00:1450:4864:20::336])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CB527F80549
- for <alsa-devel@alsa-project.org>; Sat, 25 Jun 2022 21:09:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB527F80549
-X-UUID: 589df35ef8ee4b1d935fb53c7cb5b4ae-20220626
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.6, REQID:90b71e64-69ae-449c-a9ac-5b1e21c00dd8, OB:0,
- LO
- B:0,IP:0,URL:25,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,RULE:Release_Ham,ACT
- ION:release,TS:25
-X-CID-META: VersionHash:b14ad71, CLOUDID:9a857fea-f7af-4e69-92ee-0fd74a0c286c,
- C
- OID:IGNORED,Recheck:0,SF:nil,TC:nil,Content:0,EDM:-3,IP:nil,URL:1,File:nil
- ,QS:nil,BEC:nil,COL:0
-X-UUID: 589df35ef8ee4b1d935fb53c7cb5b4ae-20220626
-Received: from mtkmbs11n1.mediatek.inc [(172.21.101.185)] by
- mailgw01.mediatek.com (envelope-from <jiaxin.yu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 1845685598; Sun, 26 Jun 2022 03:09:09 +0800
-Received: from mtkcas10.mediatek.inc (172.21.101.39) by
- mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.792.3; 
- Sun, 26 Jun 2022 03:09:08 +0800
-Received: from localhost.localdomain (10.17.3.154) by mtkcas10.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Sun, 26 Jun 2022 03:09:07 +0800
-From: Jiaxin Yu <jiaxin.yu@mediatek.com>
-To: <broonie@kernel.org>, <robh+dt@kernel.org>,
- <angelogioacchino.delregno@collabora.com>
-Subject: [PATCH v8 8/8] dt-bindings: mediatek: mt8186: add
- mt8186-mt6366-rt1019-rt5682s document
-Date: Sun, 26 Jun 2022 03:08:52 +0800
-Message-ID: <20220625190852.29130-9-jiaxin.yu@mediatek.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220625190852.29130-1-jiaxin.yu@mediatek.com>
-References: <20220625190852.29130-1-jiaxin.yu@mediatek.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id A2156F8010B
+ for <alsa-devel@alsa-project.org>; Sat, 25 Jun 2022 22:18:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2156F8010B
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="oJArxy16"
+Received: by mail-wm1-x336.google.com with SMTP id
+ u12-20020a05600c210c00b003a02b16d2b8so3336022wml.2
+ for <alsa-devel@alsa-project.org>; Sat, 25 Jun 2022 13:18:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:in-reply-to:date:message-id:mime-version;
+ bh=Zr5TYuLs322d8i3hPwwTEw4UeO0cvecZhrQFoFZsZDI=;
+ b=oJArxy16dC4WrwEb0nUbrFC9qHMiaqqRKXV8IR1+mOBOCumDBukfiVBiBr19n3oQrJ
+ WW+oEKjEv/E64wHvuoeG3GZo+YEaB6h/xBhlRiVBaZ5++cGvdGYRV+Bw3X3NAO0q9bM3
+ izsAiXz5fuBD3vZdsYCNnKIJkdkSFgjo/lGus5d5e7FPu0mQymj2GOvdAEzcH8p879QS
+ ZMq7XkbvWfmeiuCeq4daAJHNMq1GnWWIyJpwIGHOv6wCh7MBD3JLXe/d+urfl5HMX8T8
+ gqfIISros1EpTb2z55wcE6BhUogzgrlFJCvMH2KhQaE0hZ8G7HTYh4k8wf6rzQShnM3d
+ Oydg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:in-reply-to:date:message-id
+ :mime-version;
+ bh=Zr5TYuLs322d8i3hPwwTEw4UeO0cvecZhrQFoFZsZDI=;
+ b=v+roTyy9dz7/hYjdjiSQgmWomZGGjl4cPF8ILqZUp3epMKvY7zAo0DxRlFAlX6MQUd
+ knVr/CHJAmXMiLtNc/Ry3TT+zLSVmUO/yRLyKpa1tyTywpr61yy92mg842KgKzwAVCoM
+ DOrrRqfZY1qbbvhqoF+6WL6A+Fhsog/TBEbb7HyZflS0V53XDFBwCptBWvTGKaE11G7d
+ KnnlQsn5F7Vqrh4Ca+ZURRkCLVcbgVxmasknrJ5fgrfwAeYqvOu0WcpWRo75cbPfR3YT
+ Df5Pt7gqj+fTcUMzSrp/b0BKXBWkI/6Hyf7aJUvi8G4InjjmiIIMjRXnthTzM5N2OwT2
+ /BRw==
+X-Gm-Message-State: AJIora8f6C+nQigVyz+wQhvLA2ESede/6vO7Y6+RoMPnfLY+Y1LiqLbN
+ Ij3IghN0H0BgRzO53CJnG/s=
+X-Google-Smtp-Source: AGRyM1vV0vTlgy/6xlxHFUw3cvhlqrMnLw5DOqcNrBpnRYCiFNuCLLkfMPo051C2VPWQ+3Rm/K4IVg==
+X-Received: by 2002:a05:600c:19c7:b0:39c:30b0:2b05 with SMTP id
+ u7-20020a05600c19c700b0039c30b02b05mr6164392wmq.170.1656188333023; 
+ Sat, 25 Jun 2022 13:18:53 -0700 (PDT)
+Received: from localhost (92.40.170.242.threembb.co.uk. [92.40.170.242])
+ by smtp.gmail.com with ESMTPSA id
+ k8-20020a05600c1c8800b003a04722d745sm23025wms.23.2022.06.25.13.18.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 25 Jun 2022 13:18:52 -0700 (PDT)
+From: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
+To: paul@crapouillou.net
+Subject: Re: Questions about driver implementation (1 I2S controller to 2
+ codecs)
+In-Reply-To: <1310ER.AOPVK6422Q8P1@crapouillou.net>
+Date: Sat, 25 Jun 2022 21:19:58 +0100
+Message-ID: <YDzzGSWPBbtkGDRbdAaCsnxpIqqDpyJe@localhost>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-MTK: N
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Rob Herring <robh@kernel.org>, linux-kernel@vger.kernel.org,
- Jiaxin Yu <jiaxin.yu@mediatek.com>,
- Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
- linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
- matthias.bgg@gmail.com, aaronyu@google.com, julianbraha@gmail.com,
- linux-arm-kernel@lists.infradead.org
+Cc: alsa-devel@alsa-project.org, cbranchereau@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,96 +100,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add document for mt8186 board with mt6366, rt1019 and rt5682s.
 
-Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
-Acked-by: Rob Herring <robh@kernel.org>
----
- .../sound/mt8186-mt6366-rt1019-rt5682s.yaml   | 75 +++++++++++++++++++
- 1 file changed, 75 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml
+Paul Cercueil <paul@crapouillou.net> writes:
 
-diff --git a/Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml b/Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml
-new file mode 100644
-index 000000000000..059a7629b2d3
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml
-@@ -0,0 +1,75 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/mt8186-mt6366-rt1019-rt5682s.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Mediatek MT8186 with MT6366, RT1019 and RT5682S ASoC sound card driver
-+
-+maintainers:
-+  - Jiaxin Yu <jiaxin.yu@mediatek.com>
-+
-+description:
-+  This binding describes the MT8186 sound card.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - mediatek,mt8186-mt6366-rt1019-rt5682s-sound
-+
-+  mediatek,platform:
-+    $ref: "/schemas/types.yaml#/definitions/phandle"
-+    description: The phandle of MT8186 ASoC platform.
-+
-+  headset-codec:
-+    type: object
-+    additionalProperties: false
-+    properties:
-+      sound-dai:
-+        maxItems: 1
-+    required:
-+      - sound-dai
-+
-+  playback-codecs:
-+    type: object
-+    additionalProperties: false
-+    properties:
-+      sound-dai:
-+        items:
-+          - description: phandle of dp codec
-+          - description: phandle of l channel speaker codec
-+          - description: phandle of r channel speaker codec
-+        minItems: 2
-+    required:
-+      - sound-dai
-+
-+additionalProperties: false
-+
-+required:
-+  - compatible
-+  - mediatek,platform
-+  - headset-codec
-+  - playback-codecs
-+
-+examples:
-+  - |
-+
-+    sound: mt8186-sound {
-+        compatible = "mediatek,mt8186-mt6366-rt1019-rt5682s-sound";
-+        mediatek,platform = <&afe>;
-+        pinctrl-names = "aud_clk_mosi_off",
-+                        "aud_clk_mosi_on";
-+        pinctrl-0 = <&aud_clk_mosi_off>;
-+        pinctrl-1 = <&aud_clk_mosi_on>;
-+
-+        headset-codec {
-+            sound-dai = <&rt5682s>;
-+        };
-+
-+        playback-codecs {
-+             sound-dai = <&it6505dptx>,
-+                         <&rt1019p>;
-+        };
-+    };
-+
-+...
--- 
-2.18.0
+> Hi,
+>
+> I'm trying to add support for a new board that uses the Ingenic JZ4770 
+> SoC.
+>
+> This SoC has a I2S/AC97 controller, and has an internal codec. The 
+> controller has a register switch to select either the internal codec, 
+> or an external codec; both cannot be enabled at the same time.
+>
+> On this board, the external speakers / audio line are wired to the 
+> internal codec, while a HDMI chip (ITE66121) is wired as the external 
+> codec.
+>
+> I'm having a hard time trying to figure out how the codec selection 
+> switch should be exported. Should it be a regular widget, and the user 
+> is responsible for selecting the right codec? Should it be a DAPM, and 
+> plugging the HDMI cable auto-enables the switch? Is this configuration 
+> (one controller to two codecs) already somehow supported by ALSA?
+>
+> Right now we're using a "simple-audio-card" in the device tree, and 
+> trying to add HDMI sound support. I am not even sure if we should be 
+> using one sound card with the two codecs, or one sound card per codec, 
+> sharing the same I2S controller?
+>
+> Any thoughts?
+>
+> Thanks,
+> -Paul
 
+I'm also interested in this, although I'm using a different Ingenic SoC
+(also using jz4740-i2s). In my case I have a microphone connected to
+the internal codec and an external codec for playback.
+
+Some thoughts: maybe DPCM is what we want? There's three DAIs: the CPU,
+the internal codec, and the external codec. The I2S controller selects
+which codec DAI the CPU DAI is connected to. DPCM seems to be the only
+thing in ALSA that deals with dynamic DAI <-> DAI connections. I can't
+figure it out though; the documentation is too sparse and DPCM-enabled
+drivers are complicated beasts.
+
+Codec selection should probably be left up to userspace though. ALSA
+isn't really in a position to make routing decisions like that, there
+is no one-size-fits-all approach that'd be suitable for every board.
+
+What ALSA _can_ do is respond to the user's audio routing choice and
+look at the machine state (jacks/connectors, muxes, mixers, etc), and
+power things up or down as appropriate.
+
+Regards,
+Aidan

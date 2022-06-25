@@ -2,103 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 058DD55A96B
-	for <lists+alsa-devel@lfdr.de>; Sat, 25 Jun 2022 13:30:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 463EB55ABEF
+	for <lists+alsa-devel@lfdr.de>; Sat, 25 Jun 2022 21:10:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6722C1734;
-	Sat, 25 Jun 2022 13:29:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6722C1734
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2590016C2;
+	Sat, 25 Jun 2022 21:09:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2590016C2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656156600;
-	bh=fv9EZX3Z6khwiWivN3npbr3hcYvxeihWnNw41+qtMc4=;
-	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1656184210;
+	bh=iaX/OrC5EEBjA73ce1ek0SxWxRlqAHyG65IlDnM2Tc0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=JN1xezDPcPRMUDCCpP/jgXVtpiymlAdQPaevvW/RKBEO4z7fXbqvdPn8VAHxMda8V
-	 pdn6P5sjm4pdCUnSnZjjnxxx30YALp/ABiV2u+OrK1k7IFVuN94p6YsiKJ91xZIKnV
-	 Y9/2x4rIjANbHYYY/Rp3q4Sjs7s2NmNYbR+Co4sY=
+	b=i23wDW52jwuzfu/qAvpOTIGbXL5J4sTMJVjG4X0qchiOkPhHx22YpRpHyG4nH+lB7
+	 UUFjs5pBacgvos4KaIzvJFsjZmAycXQaZ+FZiTISKQ+hi32xAiCsE8V79V624JH+TK
+	 YPV+pD1mM0yb50zyRZadPGuWopMOjmmCwAkqp2mo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BFBDFF80107;
-	Sat, 25 Jun 2022 13:29:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5A0E5F801F7;
+	Sat, 25 Jun 2022 21:09:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 393B7F80162; Sat, 25 Jun 2022 13:28:59 +0200 (CEST)
+ id 6982BF80162; Sat, 25 Jun 2022 21:09:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
- [64.147.123.19])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY autolearn=disabled
+ version=3.4.0
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C76A6F80107
- for <alsa-devel@alsa-project.org>; Sat, 25 Jun 2022 13:28:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C76A6F80107
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="2xtw5IUc"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="DNwCaNTO"
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 3C80C3200645;
- Sat, 25 Jun 2022 07:28:44 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Sat, 25 Jun 2022 07:28:44 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=cc:cc:content-type:date:date:from:from:in-reply-to:message-id
- :mime-version:reply-to:sender:subject:subject:to:to; s=fm2; t=
- 1656156523; x=1656242923; bh=fv9EZX3Z6khwiWivN3npbr3hcYvxeihWnNw
- 41+qtMc4=; b=2xtw5IUcbQlGWIrWotJoWX9DseMVsaUWCwAokZRT1XxnxO3Vrff
- d4zyaR+X2VyZDWcPhD62jw75YybQvSy9pWH/0aRYM96SXRLmCaRfBF8NKFrVZ5lP
- jE28QJ0GzGEqghPO6yNDiMvHBdiIKxvR1mdVbLvFi58SVXb0lP3p9sx7jqdxN/H1
- sR3sqzN6AdAOyBWZAvSYyQ5mxhi1AAdYovTECRdEHrjJkbICUDgquEbax5/rFc+P
- PVNVijQBuVih6h4YO9W4n7b8rUdKrDiSB84RBmMuv3ef4nFAH8G4TBj1GfvhE+uc
- q0EZiREfR8KO4c9gJYw6AzW9T2z8qX9QS+w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
- :feedback-id:from:from:in-reply-to:message-id:mime-version
- :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1656156523; x=
- 1656242923; bh=fv9EZX3Z6khwiWivN3npbr3hcYvxeihWnNw41+qtMc4=; b=D
- NwCaNTOMiosxIn7PVIS/Lb1yypbiyD6ra7yjVwf8MDPx/L4cyHcsk02EQeHhlaxG
- 8ZxKmlMp24oYzKfcQLKNyHyqa8H82ALBwm3XPIGBN9IinPnT/odqOX0iEDd5kpve
- 6z6MZTB9u31FdkBgE+9wXjA9/pImwdPhxVLTegM/Y9EprnQhOEjhIK3tynWHYxWR
- OxDQAOaO4acnFSuG671PIl6+UF5XXXRENfws5mwdet/I1TmfsFTj4iu/VdndZQNM
- 02w2H2q0pAdthVBJze1d+oZmKhavD6ei1ovpyPw5DOp9GuWRSUYceYq+RIYgUUb/
- exPYA+9O+mvPXyNgfLCqg==
-X-ME-Sender: <xms:a_G2YuvEEz-zUY2rgHby-zsrmTh89sC1NPlGdh3ZZ_nCnMwHA0728g>
- <xme:a_G2YjcW8DjlbTaH9FKQwhIyY92cuv-QYzzI1Ogcxll5XZTiFzO4zAeANmyLStjeD
- KSNBMPYtG253aVC1Bk>
-X-ME-Received: <xmr:a_G2Ypw3QxYBaRijH0Gg28ogDaLOP8c6v9qUnQFnAhzotmks98I8F1tYwx_HT2hBsz0t9pvb7PaEI_WTtLAxZEu9Tk8B2w9d>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrudeguddggedvucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvvefukfggtggusehttdertd
- dttddvnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghs
- hhhisehsrghkrghmohgttghhihdrjhhpqeenucggtffrrghtthgvrhhnpeelgeeuhfdtte
- dugeeludffgeelhefgiefhheefleellefhffffjedufeeftddvudenucffohhmrghinhep
- ghhithhhuhgsrdgtohhmpdhfrhgvvgguvghskhhtohhprdhorhhgnecuvehluhhsthgvrh
- fuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgr
- khgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:a_G2YpNBSK8IHErmyEllkbL_xcal3aWTx-E2QPEmUUTYUQCAVIjD7g>
- <xmx:a_G2Yu_BdbYW2DxAorL-iYtPg7_Uw1Eooev9XIN2RZvtdpfYYxN3MA>
- <xmx:a_G2YhXpmgdTO8Z9D4WDJ7QEnNcDKF8_s0FVPNMf7EganERGx3moqg>
- <xmx:a_G2YjEsDbSGPnqTPbMReH3jUojhUs6LbyxYXdvYuvj5TGrnryOwkw>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 25 Jun 2022 07:28:42 -0400 (EDT)
-Date: Sat, 25 Jun 2022 20:28:39 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: perex@perex.cz
-Subject: attach/detach by mixer class implementation of alsa-lib mixer API
-Message-ID: <YrbxZ2b+3rIdi7Ut@workstation>
-Mail-Followup-To: perex@perex.cz, alsa-devel@alsa-project.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5BE2EF80109
+ for <alsa-devel@alsa-project.org>; Sat, 25 Jun 2022 21:09:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BE2EF80109
+X-UUID: c8af3a28d0c04853ad93ef12d2396a0c-20220626
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.6, REQID:0765942b-39f8-411c-a325-9c8f38a5758f, OB:0,
+ LO
+ B:0,IP:0,URL:0,TC:0,Content:-5,EDM:0,RT:0,SF:95,FILE:0,RULE:Release_Ham,AC
+ TION:release,TS:90
+X-CID-INFO: VERSION:1.1.6, REQID:0765942b-39f8-411c-a325-9c8f38a5758f, OB:0,
+ LOB:
+ 0,IP:0,URL:0,TC:0,Content:-5,EDM:0,RT:0,SF:95,FILE:0,RULE:Spam_GS981B3D,AC
+ TION:quarantine,TS:90
+X-CID-META: VersionHash:b14ad71, CLOUDID:33857fea-f7af-4e69-92ee-0fd74a0c286c,
+ C
+ OID:347a325ac703,Recheck:0,SF:28|17|19|48,TC:nil,Content:0,EDM:-3,IP:nil,U
+ RL:1,File:nil,QS:nil,BEC:nil,COL:0
+X-UUID: c8af3a28d0c04853ad93ef12d2396a0c-20220626
+Received: from mtkcas11.mediatek.inc [(172.21.101.40)] by mailgw01.mediatek.com
+ (envelope-from <jiaxin.yu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 658106511; Sun, 26 Jun 2022 03:08:56 +0800
+Received: from mtkmbs07n1.mediatek.inc (172.21.101.16) by
+ mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.792.3; 
+ Sun, 26 Jun 2022 03:08:55 +0800
+Received: from mtkcas10.mediatek.inc (172.21.101.39) by
+ mtkmbs07n1.mediatek.inc (172.21.101.16) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.2; Sun, 26 Jun 2022 03:08:54 +0800
+Received: from localhost.localdomain (10.17.3.154) by mtkcas10.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Sun, 26 Jun 2022 03:08:53 +0800
+From: Jiaxin Yu <jiaxin.yu@mediatek.com>
+To: <broonie@kernel.org>, <robh+dt@kernel.org>,
+ <angelogioacchino.delregno@collabora.com>
+Subject: [PATCH v8 0/8] ASoC: mediatek: Add support for MT8186 SoC
+Date: Sun, 26 Jun 2022 03:08:44 +0800
+Message-ID: <20220625190852.29130-1-jiaxin.yu@mediatek.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Cc: alsa-devel@alsa-project.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Jiaxin Yu <jiaxin.yu@mediatek.com>,
+ Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
+ linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
+ matthias.bgg@gmail.com, aaronyu@google.com, julianbraha@gmail.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,46 +97,130 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Jaroslav,
+This series of patches adds support for Mediatek AFE of MT8186 Soc.
+Patches are based on broonie tree "for-next" branch.
 
-Recent years I'm bothered about unexpected abort of pulseaudio and
-pipewire processes when testing user-defined control element set.
-They aborts at element removal event.
+Changes since v7:
+  - Optimize the code logic, such as the return value and position of a
+    function.
+  - Use devm_pm_runtime_enable() instead of pm_runtime_enable().
+  - Use pm_runtime_resume_and_get() instead of pm_runtime_get_sync().
 
-```
-pulseaudio: mixer.c:149: hctl_elem_event_handler: Assertion `bag_empty(bag)' failed.
-wireplumber: mixer.c:149: hctl_elem_event_handler: Assertion `bag_empty(bag)' failed.
-```
+Changes since v6:
+  - The Makefile and Kconfig updates are moved into the driver patches so that can
+    keep independence of each patch.
 
-Would I ask your opinion about the design of alsa-lib mixer API?
+Changes since v5:
+  - fix build error about function snd_soc_card_jack_new that modified by:
+    Link: https://lore.kernel.org/r/20220408041114.6024-1-akihiko.odaki@gmail.com
+  - some have been accepted, details are in the link below:
+    Link: https://lore.kernel.org/all/165459931885.399031.2621579592368573898.b4-ty@kernel.org/
 
-As long as I investigate, these programs seem to have careless coding as
-alsa-lib mixer API application. Both of them attaches an instance of
-snd_mixer_elem_t to an instance of snd_hctl_elem_t by calling
-snd_mixer_elem_attach() when detecting element addition, but never detach
-it even if detecting element removal.
+Changes since v4:
+  - [v5 07/20]
+    - remove unsusd controls
+  - [v5 09/20]
+    - correct indent error
+  - [v5 10/20]
+  - [v5 13/20]
+  - [v5 14/20]
+    - fix the return value if the value is different from the previous
+      value in mixer controls
+  - [v5 17/20]
+  - [v5 19/20]
+    - correct the compatible name with '_' instead of '-'
+  - [v5 18/20]
+  - [v5 20/20]
+    - correct the yaml after 'pip3 install dtschema --upgrade'
 
-In the case, the link list (=bag) of mixer API internal never becomes empty.
-It has link entries as much as the number of registered mixer classes which
-attaches snd_mixer_elem_t. Then it hits the assertion.
+Changes since v3:
+  - [v4 09/18]
+    - remove DEBUG_COEFF debugging code
+  - [v4 10/18]
+    - simplify the logic of the code
+  - [v4 13/18]
+    - split out the MT6366 bits into mt8186-mt6366-commom.c
+    - fix build error of "error: 'struct dev_pm_info' has no member named 'runtime_error'"
+    - fix bug of adda dai driver
+    - add route for pcm interface channel 2.
+  - [v4 15/18]
+  - [v4 17/18]
+    - commonize the configuration of the codec
+    - move MT6366 common bits into mt8186-mt6366-common.c
 
-I think the design of alsa-lib mixer API demands mixer class implementation
-to detach at element removal which attached at element addition. But I have
-less conviction about it since enough unfamiliar.
+Changes since v2:
+  - add a new compatible string "mediatek,mt6366-sound"
+  - modify the log level for simplicity
+  - use dev_err_probe(...) instead of dev_err(...) in dev probe()
+  - optimized the logic of some code
+  - use BIT() and GENMASK() macros to descript the registers
 
-I'm glad if receiving your opinion about it.
+  Thanks for AngeloGioacchino's careful reviews.
 
-I wrote test program for the issued behaviour:
- - https://gist.github.com/takaswie/8378fe3bc04652d83428694cd7573bc0
+Changes since v1:
+  [v2 01/17]
+    - add a new ID to the existing mt6358 codec driver
+  [v2 03/17]
+    - modify log level in DAPM events
+    - use standard numeric control with name ending in Switch
+    - return 1 when the value changed in mixer control's .get callback
+  [v2 05/17]
+    - ending in Switch to the standard on/off controls
+    - change to "HW Gain 1 Volume" and "HW Gain 2 Volume"
+  [v2 09/17]
+    - return an error in the default case rather than just picking one of
+      the behaviours when do .set_fmt
+    - use the new defines that are _PROVIDER_MASK, _DAIFMT_CBP_CFP and
+      _DAIFMT_CBC_CFC
+  [v2 10/17]
+  [v2 11/17]
+    - the clock and gpio are aplit out into separate  patches
 
-For test, please use sample script in alsa-gobject project:
- - https://github.com/alsa-project/alsa-gobject/blob/master/samples/ctl
+  The source file's GPL comment use c++ style, and the header fils's GPL
+  comment use c style. We have added "Switch" after the names of all the
+  controls that just are simple on/off.
 
-The patches for pulseaudio/pipewire are prepared:
- - https://gitlab.freedesktop.org/takaswie/pulseaudio/-/commit/topic/fix-wrong-handling-alsa-ctl-event
- - https://gitlab.freedesktop.org/takaswie/pipewire/-/commits/topic/fix-wrong-handling-alsa-ctl-event
+Jiaxin Yu (8):
+  dt-bindings: mediatek: mt6358: add new compatible for using mt6366
+  ASoC: mediatek: mt8186: add platform driver
+  ASoC: mediatek: mt8186: add mt8186-mt6366 common driver
+  dt-bindings: mediatek: mt8186: add audio afe document
+  ASoC: mediatek: mt8186: add machine driver with mt6366, da7219 and
+    max98357
+  dt-bindings: mediatek: mt8186: add mt8186-mt6366-da7219-max98357
+    document
+  ASoC: mediatek: mt8186: add machine driver with mt6366, rt1019 and
+    rt5682s
+  dt-bindings: mediatek: mt8186: add mt8186-mt6366-rt1019-rt5682s
+    document
 
+ .../devicetree/bindings/sound/mt6358.txt      |    4 +-
+ .../bindings/sound/mt8186-afe-pcm.yaml        |  175 +
+ .../sound/mt8186-mt6366-da7219-max98357.yaml  |   75 +
+ .../sound/mt8186-mt6366-rt1019-rt5682s.yaml   |   75 +
+ sound/soc/mediatek/Kconfig                    |   44 +
+ sound/soc/mediatek/Makefile                   |    1 +
+ sound/soc/mediatek/mt8186/Makefile            |   22 +
+ sound/soc/mediatek/mt8186/mt8186-afe-common.h |  235 ++
+ .../soc/mediatek/mt8186/mt8186-afe-control.c  |  255 ++
+ sound/soc/mediatek/mt8186/mt8186-afe-pcm.c    | 3011 +++++++++++++++++
+ .../mediatek/mt8186/mt8186-mt6366-common.c    |   57 +
+ .../mediatek/mt8186/mt8186-mt6366-common.h    |   17 +
+ .../mt8186/mt8186-mt6366-da7219-max98357.c    | 1002 ++++++
+ .../mt8186/mt8186-mt6366-rt1019-rt5682s.c     |  978 ++++++
+ 14 files changed, 5950 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/mt8186-afe-pcm.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/mt8186-mt6366-da7219-max98357.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml
+ create mode 100644 sound/soc/mediatek/mt8186/Makefile
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-afe-common.h
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-afe-control.c
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-afe-pcm.c
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-mt6366-common.c
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-mt6366-common.h
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c
 
-Regards
+-- 
+2.18.0
 
-Takashi Sakamoto

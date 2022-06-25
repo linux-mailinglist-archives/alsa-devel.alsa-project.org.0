@@ -2,89 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E773055AC79
-	for <lists+alsa-devel@lfdr.de>; Sat, 25 Jun 2022 22:20:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0D3F55ACAA
+	for <lists+alsa-devel@lfdr.de>; Sat, 25 Jun 2022 22:46:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 372F516B9;
-	Sat, 25 Jun 2022 22:19:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 372F516B9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8704816CB;
+	Sat, 25 Jun 2022 22:45:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8704816CB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656188401;
-	bh=r0zgKcm97EJzbVjdXR1baLaqYq5lH9/D/ydb4jVw8Ns=;
-	h=From:To:Subject:In-Reply-To:Date:Cc:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=t+8RhBFm+46T3j0vfqLfBQGY7PDVkiTLbDxvIZgtyyOIC1krmK1OfsCp2aZeEFlF0
-	 3fyhZidG8sjMGnLMQOP8XEF2Kn1JiMBvJbjXcjJK8ArV4nwNbRo1pr5G3NqlTUUiqN
-	 iLHZVuRHZT25hmCN6M9bGuWwGbRz1f4F9GfoAq1Q=
+	s=default; t=1656189965;
+	bh=JytkNkH0QsFxN2hdglwySx5ZdWwPa4LqA8jJBFhD3xI=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=gg05sEUxCJ0jvxTluZq3bBaQIauZ+UHNeV4IAX0yDxlxTegO/PnCeYkWg3UCoq6d7
+	 okSQSVBd4bzMEwJB1SNcDYPU3y89Yw/2DsOxDUGCPoJ0zGMH6OTHu2+YDrEdDvVnfY
+	 ZsKu8vdNzS8JmSDj2UB3HUhA7NatBzVVlDrc/ro8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 90CE9F80109;
-	Sat, 25 Jun 2022 22:19:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EFF7CF8016C;
+	Sat, 25 Jun 2022 22:45:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E1EF6F80162; Sat, 25 Jun 2022 22:19:00 +0200 (CEST)
+ id 15B79F80162; Sat, 25 Jun 2022 22:45:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_NONE, 
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [IPv6:2a00:1450:4864:20::336])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [IPv6:2a00:1450:4864:20::62d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A2156F8010B
- for <alsa-devel@alsa-project.org>; Sat, 25 Jun 2022 22:18:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2156F8010B
+ by alsa1.perex.cz (Postfix) with ESMTPS id D48B4F80109
+ for <alsa-devel@alsa-project.org>; Sat, 25 Jun 2022 22:44:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D48B4F80109
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="oJArxy16"
-Received: by mail-wm1-x336.google.com with SMTP id
- u12-20020a05600c210c00b003a02b16d2b8so3336022wml.2
- for <alsa-devel@alsa-project.org>; Sat, 25 Jun 2022 13:18:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:in-reply-to:date:message-id:mime-version;
- bh=Zr5TYuLs322d8i3hPwwTEw4UeO0cvecZhrQFoFZsZDI=;
- b=oJArxy16dC4WrwEb0nUbrFC9qHMiaqqRKXV8IR1+mOBOCumDBukfiVBiBr19n3oQrJ
- WW+oEKjEv/E64wHvuoeG3GZo+YEaB6h/xBhlRiVBaZ5++cGvdGYRV+Bw3X3NAO0q9bM3
- izsAiXz5fuBD3vZdsYCNnKIJkdkSFgjo/lGus5d5e7FPu0mQymj2GOvdAEzcH8p879QS
- ZMq7XkbvWfmeiuCeq4daAJHNMq1GnWWIyJpwIGHOv6wCh7MBD3JLXe/d+urfl5HMX8T8
- gqfIISros1EpTb2z55wcE6BhUogzgrlFJCvMH2KhQaE0hZ8G7HTYh4k8wf6rzQShnM3d
- Oydg==
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="y6cxvDR/"
+Received: by mail-ej1-x62d.google.com with SMTP id g26so11338329ejb.5
+ for <alsa-devel@alsa-project.org>; Sat, 25 Jun 2022 13:44:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=H+F5Z0mfBJYQ1TfQcrng6IvkUvurloIcIvH/FYvqkLM=;
+ b=y6cxvDR/U1IEONYBz/iay5T3a4fJrrXTP/TaSHwaYef9QHD8Y+cj16a+TOP7lUK0eg
+ LuvAZN1z5OUmo0KrNfyYL6pr9fY+4/BN8pTFnvAx3UZOZBSkGWG9YmyUDfotF9YaP+FB
+ 7VrdPy8RNCtM43r9nIEUYAChz51XVTe/yY18ml+Zn77Xj+7p2oIoBuYfVOiAvOruwWvu
+ WuJwX6ZN1Q9/3xZicIGOnzRbUqT5WIcDXHC8ftMixV6IaGMzT5nPzV/jPpxHRBYhswo6
+ CGRc45xqPauD9dfYgY8KXK7m5S3QntAixxtjRky8fNcIUSMFE8g24tAHH3bMw8q+oJOF
+ aJ/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:in-reply-to:date:message-id
- :mime-version;
- bh=Zr5TYuLs322d8i3hPwwTEw4UeO0cvecZhrQFoFZsZDI=;
- b=v+roTyy9dz7/hYjdjiSQgmWomZGGjl4cPF8ILqZUp3epMKvY7zAo0DxRlFAlX6MQUd
- knVr/CHJAmXMiLtNc/Ry3TT+zLSVmUO/yRLyKpa1tyTywpr61yy92mg842KgKzwAVCoM
- DOrrRqfZY1qbbvhqoF+6WL6A+Fhsog/TBEbb7HyZflS0V53XDFBwCptBWvTGKaE11G7d
- KnnlQsn5F7Vqrh4Ca+ZURRkCLVcbgVxmasknrJ5fgrfwAeYqvOu0WcpWRo75cbPfR3YT
- Df5Pt7gqj+fTcUMzSrp/b0BKXBWkI/6Hyf7aJUvi8G4InjjmiIIMjRXnthTzM5N2OwT2
- /BRw==
-X-Gm-Message-State: AJIora8f6C+nQigVyz+wQhvLA2ESede/6vO7Y6+RoMPnfLY+Y1LiqLbN
- Ij3IghN0H0BgRzO53CJnG/s=
-X-Google-Smtp-Source: AGRyM1vV0vTlgy/6xlxHFUw3cvhlqrMnLw5DOqcNrBpnRYCiFNuCLLkfMPo051C2VPWQ+3Rm/K4IVg==
-X-Received: by 2002:a05:600c:19c7:b0:39c:30b0:2b05 with SMTP id
- u7-20020a05600c19c700b0039c30b02b05mr6164392wmq.170.1656188333023; 
- Sat, 25 Jun 2022 13:18:53 -0700 (PDT)
-Received: from localhost (92.40.170.242.threembb.co.uk. [92.40.170.242])
- by smtp.gmail.com with ESMTPSA id
- k8-20020a05600c1c8800b003a04722d745sm23025wms.23.2022.06.25.13.18.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 25 Jun 2022 13:18:52 -0700 (PDT)
-From: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
-To: paul@crapouillou.net
-Subject: Re: Questions about driver implementation (1 I2S controller to 2
- codecs)
-In-Reply-To: <1310ER.AOPVK6422Q8P1@crapouillou.net>
-Date: Sat, 25 Jun 2022 21:19:58 +0100
-Message-ID: <YDzzGSWPBbtkGDRbdAaCsnxpIqqDpyJe@localhost>
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=H+F5Z0mfBJYQ1TfQcrng6IvkUvurloIcIvH/FYvqkLM=;
+ b=o5iwJ+yPBaqlKcevIPYvbNZhlVwJCrJDPkJrQSplh60yNA3ZbuOnYPTlKOCmvjif1T
+ ZrVRkBg7J/2D8q0CxNeV9Dray1I5SEb6TVQKNDA1cHVVSu292Ckw0NvZJ8auwgwclbeu
+ QnKXDEXMM9k0yHYETfnv8hck+BVVD106RLizRAkduChqItGbnJH7ZFtjwtYO8VUQ8VJ/
+ yB6vxc1R3PzbEQegSGX5GxhgTZBCwMRW+ki7kdAb2VMq13Mzf28XZugRsKG8DPnxCm4+
+ kSFtVjw7JfB5AKttvrSpMCof76P0Um/iKHUYPUKCDYmull+ld1z5iLYC8O5IyNgoMjWz
+ ie5Q==
+X-Gm-Message-State: AJIora8TyTroimpYMlfL147NUHzwLD+6Ruq/WvVuLrssp/y9hhq+Jh3j
+ SBudhnaJJIfGBFYWFGuctsY82g==
+X-Google-Smtp-Source: AGRyM1stq1qihX1SSO618jlh5gyWIEwJPPZfqyE6Adl0Y9IsEGshwKvra48Heq8U+1Z+XsacUUCfUg==
+X-Received: by 2002:a17:907:72cf:b0:726:77fa:ec58 with SMTP id
+ du15-20020a17090772cf00b0072677faec58mr3242767ejc.551.1656189896729; 
+ Sat, 25 Jun 2022 13:44:56 -0700 (PDT)
+Received: from [192.168.0.239] (xdsl-188-155-176-92.adslplus.ch.
+ [188.155.176.92]) by smtp.gmail.com with ESMTPSA id
+ d10-20020a17090648ca00b0070b8a467c82sm3010694ejt.22.2022.06.25.13.44.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 25 Jun 2022 13:44:56 -0700 (PDT)
+Message-ID: <3008fa44-e3b2-f394-5880-e348ace20829@linaro.org>
+Date: Sat, 25 Jun 2022 22:44:54 +0200
 MIME-Version: 1.0
-Content-Type: text/plain
-Cc: alsa-devel@alsa-project.org, cbranchereau@gmail.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: Use WCD9335 DT bindings
+Content-Language: en-US
+To: Yassine Oudjana <yassine.oudjana@gmail.com>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson
+ <bjorn.andersson@linaro.org>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+References: <20220622161322.168017-1-y.oudjana@protonmail.com>
+ <20220622161322.168017-4-y.oudjana@protonmail.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20220622161322.168017-4-y.oudjana@protonmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Yassine Oudjana <y.oudjana@protonmail.com>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,56 +115,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On 22/06/2022 18:13, Yassine Oudjana wrote:
+> From: Yassine Oudjana <y.oudjana@protonmail.com>
+> 
+> Replace DAI indices in codec nodes with definitions from the WCD9335
+> DT bindings for devices that use WCD9335.
+> 
+> Signed-off-by: Yassine Oudjana <y.oudjana@protonmail.com>
+> ---
+> Changes since v1:
+>  - Maintain the alphabetical order in msm8996-xiaomi-gemini includes
+> 
+>  arch/arm64/boot/dts/qcom/apq8096-db820c.dts         | 5 +++--
+>  arch/arm64/boot/dts/qcom/msm8996-xiaomi-gemini.dts  | 5 +++--
+>  arch/arm64/boot/dts/qcom/msm8996-xiaomi-scorpio.dts | 5 +++--
+>  3 files changed, 9 insertions(+), 6 deletions(-)
+> 
 
-Paul Cercueil <paul@crapouillou.net> writes:
 
-> Hi,
->
-> I'm trying to add support for a new board that uses the Ingenic JZ4770 
-> SoC.
->
-> This SoC has a I2S/AC97 controller, and has an internal codec. The 
-> controller has a register switch to select either the internal codec, 
-> or an external codec; both cannot be enabled at the same time.
->
-> On this board, the external speakers / audio line are wired to the 
-> internal codec, while a HDMI chip (ITE66121) is wired as the external 
-> codec.
->
-> I'm having a hard time trying to figure out how the codec selection 
-> switch should be exported. Should it be a regular widget, and the user 
-> is responsible for selecting the right codec? Should it be a DAPM, and 
-> plugging the HDMI cable auto-enables the switch? Is this configuration 
-> (one controller to two codecs) already somehow supported by ALSA?
->
-> Right now we're using a "simple-audio-card" in the device tree, and 
-> trying to add HDMI sound support. I am not even sure if we should be 
-> using one sound card with the two codecs, or one sound card per codec, 
-> sharing the same I2S controller?
->
-> Any thoughts?
->
-> Thanks,
-> -Paul
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-I'm also interested in this, although I'm using a different Ingenic SoC
-(also using jz4740-i2s). In my case I have a microphone connected to
-the internal codec and an external codec for playback.
 
-Some thoughts: maybe DPCM is what we want? There's three DAIs: the CPU,
-the internal codec, and the external codec. The I2S controller selects
-which codec DAI the CPU DAI is connected to. DPCM seems to be the only
-thing in ALSA that deals with dynamic DAI <-> DAI connections. I can't
-figure it out though; the documentation is too sparse and DPCM-enabled
-drivers are complicated beasts.
-
-Codec selection should probably be left up to userspace though. ALSA
-isn't really in a position to make routing decisions like that, there
-is no one-size-fits-all approach that'd be suitable for every board.
-
-What ALSA _can_ do is respond to the user's audio routing choice and
-look at the machine state (jacks/connectors, muxes, mixers, etc), and
-power things up or down as appropriate.
-
-Regards,
-Aidan
+Best regards,
+Krzysztof

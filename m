@@ -2,80 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F73055BA12
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jun 2022 15:32:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8AB555BA2A
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jun 2022 15:55:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 12F181693;
-	Mon, 27 Jun 2022 15:31:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12F181693
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4C7941671;
+	Mon, 27 Jun 2022 15:54:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C7941671
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656336746;
-	bh=UDeiGExOL5itjqWmaoQuhP+5PogtCkGim3fL2xebeyc=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1656338115;
+	bh=hOra6tWIonMVr2SGNZGAGnM9x38Jczr9VTOWZhcix7o=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DxjHMoXMV2idmBYkeNhUEtYYKOVaeMYbMvGtwocq4nfynJUz9poeHJ87nj2cbShB/
-	 qpv8OPjd147TydvkktVGjneBTGWqX2fWA3c6VxvUh5qaKcq4WYey26UOa4yqC8F5E6
-	 jDbBhT4nV7TuqDIkF39ueQdvdQxNQM8dkvLXIrvU=
+	b=ERoAvNAVOswKY7IxmI2KEBNNb//ZLXwae72DqCzk0+pdA1UJCFVjsITnIbYV0W7Dv
+	 6TtsHreyQ2v7x3OysnH9tkjHcDkEQSA5Tr5nN4uwcR6M9gla8+cjPOMbjUzo0RMA77
+	 F8A5xBGTd9YwKKO5SbOP6MuDX1YCA2D8Ais+SN/8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78FF4F8028D;
-	Mon, 27 Jun 2022 15:31:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B8B1AF80128;
+	Mon, 27 Jun 2022 15:54:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AF3F6F8012F; Mon, 27 Jun 2022 15:31:25 +0200 (CEST)
+ id 47A5CF8028B; Mon, 27 Jun 2022 15:54:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-io1-f47.google.com (mail-io1-f47.google.com
- [209.85.166.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 53407F80128
- for <alsa-devel@alsa-project.org>; Mon, 27 Jun 2022 15:31:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53407F80128
-Received: by mail-io1-f47.google.com with SMTP id p69so9519559iod.10
- for <alsa-devel@alsa-project.org>; Mon, 27 Jun 2022 06:31:15 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
- :message-id;
- bh=QYhUBm2fDCk91Yu6XF3jkA7KmooMdeJ8YT8X3liUnpQ=;
- b=bj6TcKuum4oekjITjDYbWHMxl93IidGEnlN9akiaVdXuindIR/PpYo69fuOeU7/NST
- oVmfSGbYZmDumTQxtSd/oiqJtEIJlKA6GfgN3DuiwoTWnrqacg0uw2pzPazLiWFNkNzx
- RK75Qjb9tcBD1xXPMIZQwSPpqj/MMED0qfG15SAbCdNCk+c5goXnPNGKxZDNeMU3MaUE
- SXLFf3xn4hUqX1DWrCy07MfXNTamyclEJiNXAMvj6YkejLdaf7Cj2T+mn3qDoSrwgbz2
- S7dtO40XD+YmC4qvSrNo5gkUWNly0/dAUrHEX6XeoXzBhGawDwlpEGiocvdz2904bJUa
- ZdpQ==
-X-Gm-Message-State: AJIora/TMuinJxNsBZoDm+nDl1Fb1fD2lzZB0sTGBTroKdPCW6DV2afy
- znAZx4sq6JbvXJB2QXo4sQ==
-X-Google-Smtp-Source: AGRyM1t5LTyR7mVbDtnvxUaO7kFkqXlKaKnkl6jX5y381d5nO3LPJEow6rHeBCy77jwPiTpVZyN44Q==
-X-Received: by 2002:a6b:d309:0:b0:664:716c:d758 with SMTP id
- s9-20020a6bd309000000b00664716cd758mr6604131iob.157.1656336673455; 
- Mon, 27 Jun 2022 06:31:13 -0700 (PDT)
-Received: from robh.at.kernel.org ([64.188.179.253])
- by smtp.gmail.com with ESMTPSA id
- b1-20020a5d8041000000b00674f9fb1531sm5159907ior.30.2022.06.27.06.31.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Jun 2022 06:31:13 -0700 (PDT)
-Received: (nullmailer pid 2285174 invoked by uid 1000);
- Mon, 27 Jun 2022 13:31:09 -0000
-From: Rob Herring <robh@kernel.org>
-To: Shengjiu Wang <shengjiu.wang@nxp.com>
-In-Reply-To: <1656294613-27867-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1656294613-27867-1-git-send-email-shengjiu.wang@nxp.com>
-Subject: Re: [PATCH v2] ASoC: dt-bindings: fsl,
- micfil: Convert format to json-schema
-Date: Mon, 27 Jun 2022 07:31:09 -0600
-Message-Id: <1656336669.670812.2285173.nullmailer@robh.at.kernel.org>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, robh+dt@kernel.org, lgirdwood@gmail.com,
- broonie@kernel.org, krzysztof.kozlowski+dt@linaro.org, shengjiu.wang@gmail.com
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from muru.com (muru.com [72.249.23.125])
+ by alsa1.perex.cz (Postfix) with ESMTP id 6DF70F80128
+ for <alsa-devel@alsa-project.org>; Mon, 27 Jun 2022 15:54:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DF70F80128
+Received: from localhost (localhost [127.0.0.1])
+ by muru.com (Postfix) with ESMTPS id 634648106;
+ Mon, 27 Jun 2022 13:48:49 +0000 (UTC)
+Date: Mon, 27 Jun 2022 16:53:58 +0300
+From: Tony Lindgren <tony@atomide.com>
+To: "H. Nikolaus Schaller" <hns@goldelico.com>
+Subject: Re: Pandora audio using machine_is_omap3_pandora() check
+Message-ID: <Yrm2dl9EtIb5IYhi@atomide.com>
+References: <Yrl92RILZwhQOP+e@atomide.com>
+ <B6EFBA88-2311-4455-82CB-3E5382C92B4E@goldelico.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <B6EFBA88-2311-4455-82CB-3E5382C92B4E@goldelico.com>
+Cc: alsa-devel@alsa-project.org,
+ Discussions about the Letux Kernel <letux-kernel@openphoenux.org>,
+ Arnd Bergmann <arnd@arndb.de>, Grond <grond66@riseup.net>,
+ Stefan Leichter <sle85276@gmx.de>, Mark Brown <broonie@kernel.org>,
+ Grazvydas Ignotas <notasas@gmail.com>, linux-omap <linux-omap@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,96 +68,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 27 Jun 2022 09:50:13 +0800, Shengjiu Wang wrote:
-> Convert the NXP MICFIL binding to DT schema format using json-schema.
+* H. Nikolaus Schaller <hns@goldelico.com> [220627 11:36]:
+> Hi Tony,
 > 
-> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-> ---
-> changes in v2
-> - add decription of interrupts.
+> > Am 27.06.2022 um 11:52 schrieb Tony Lindgren <tony@atomide.com>:
+> > 
+> > Hi Grazvydas,
+> > 
+> > Arnd noticed that pandora audio is using machine_is_omap3_pandora() check
+> > that never succeeds for devicetree booting machines. Looks like this has
+> > been broken at some point many years ago with the devicetree conversion.
+> > 
+> > Does anybody have an interest in fixing this driver?
 > 
->  .../devicetree/bindings/sound/fsl,micfil.txt  | 33 --------
->  .../devicetree/bindings/sound/fsl,micfil.yaml | 77 +++++++++++++++++++
->  2 files changed, 77 insertions(+), 33 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/sound/fsl,micfil.txt
->  create mode 100644 Documentation/devicetree/bindings/sound/fsl,micfil.yaml
+> we already have fixes by Stefan Leichter and Grond here (incl. removing any call to machine_is_omap3_pandora):
 > 
+> 	https://git.goldelico.com/?p=letux-kernel.git;a=shortlog;h=refs/heads/letux/sound-soc
 
-Running 'make dtbs_check' with the schema in this patch gives the
-following warnings. Consider if they are expected or the schema is
-incorrect. These may not be new warnings.
+OK :)
 
-Note that it is not yet a requirement to have 0 warnings for dtbs_check.
-This will change in the future.
+> But I don't know who can volunteer to run this series through the upstreaming discussions
+> and do regression tests (AFAIR the Pandora of Grond is broken and he has no replacement).
 
-Full log is available here: https://patchwork.ozlabs.org/patch/
+Probably best that Stefan and Grond do it :) Not sure what the minimal fix
+for the mainline kernel might be to get things at least try to probe.
 
+Regards,
 
-audio-controller@30080000: clock-names: ['ipg_clk', 'ipg_clk_app', 'pll8k', 'pll11k', 'clkext3'] is too long
-	arch/arm64/boot/dts/freescale/imx8mm-beacon-kit.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-ddr4-evk.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-emcon-avari.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-evk.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-icore-mx8mm-ctouch2.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-icore-mx8mm-edimm2.2.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-kontron-n801x-s.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-mx8menlo.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-nitrogen-r2.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-tqma8mqml-mba8mx.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-var-som-symphony.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-venice-gw71xx-0x.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-venice-gw72xx-0x.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-venice-gw73xx-0x.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-venice-gw7901.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-venice-gw7902.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-venice-gw7903.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-verdin-nonwifi-dahlia.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-verdin-nonwifi-dev.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-verdin-wifi-dahlia.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-verdin-wifi-dev.dtb
-	arch/arm64/boot/dts/freescale/imx8mn-beacon-kit.dtb
-	arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2.dtb
-	arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2pro.dtb
-	arch/arm64/boot/dts/freescale/imx8mn-ddr3l-evk.dtb
-	arch/arm64/boot/dts/freescale/imx8mn-ddr4-evk.dtb
-	arch/arm64/boot/dts/freescale/imx8mn-evk.dtb
-	arch/arm64/boot/dts/freescale/imx8mn-tqma8mqnl-mba8mx.dtb
-	arch/arm64/boot/dts/freescale/imx8mn-var-som-symphony.dtb
-	arch/arm64/boot/dts/freescale/imx8mn-venice-gw7902.dtb
-
-audio-controller@30080000: clocks: [[2, 183], [2, 182], [2, 38], [2, 39], [2, 6]] is too long
-	arch/arm64/boot/dts/freescale/imx8mn-beacon-kit.dtb
-	arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2.dtb
-	arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2pro.dtb
-	arch/arm64/boot/dts/freescale/imx8mn-ddr3l-evk.dtb
-	arch/arm64/boot/dts/freescale/imx8mn-ddr4-evk.dtb
-	arch/arm64/boot/dts/freescale/imx8mn-evk.dtb
-	arch/arm64/boot/dts/freescale/imx8mn-tqma8mqnl-mba8mx.dtb
-	arch/arm64/boot/dts/freescale/imx8mn-var-som-symphony.dtb
-	arch/arm64/boot/dts/freescale/imx8mn-venice-gw7902.dtb
-
-audio-controller@30080000: clocks: [[2, 216], [2, 203], [2, 38], [2, 39], [2, 6]] is too long
-	arch/arm64/boot/dts/freescale/imx8mm-beacon-kit.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-ddr4-evk.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-emcon-avari.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-evk.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-icore-mx8mm-ctouch2.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-icore-mx8mm-edimm2.2.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-kontron-n801x-s.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-mx8menlo.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-nitrogen-r2.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-tqma8mqml-mba8mx.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-var-som-symphony.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-venice-gw71xx-0x.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-venice-gw72xx-0x.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-venice-gw73xx-0x.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-venice-gw7901.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-venice-gw7902.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-venice-gw7903.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-verdin-nonwifi-dahlia.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-verdin-nonwifi-dev.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-verdin-wifi-dahlia.dtb
-	arch/arm64/boot/dts/freescale/imx8mm-verdin-wifi-dev.dtb
-
+Tony

@@ -2,58 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B214C55BBFE
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jun 2022 22:27:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6C7055BC05
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jun 2022 22:41:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4274016B6;
-	Mon, 27 Jun 2022 22:27:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4274016B6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4F6211688;
+	Mon, 27 Jun 2022 22:40:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F6211688
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656361672;
-	bh=0gkPYZkAytUKwYehss9sX2aUqJc+ekk8q6CPMwD/KRE=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1656362496;
+	bh=q2zvoDoHLI8vzyBKC6tznqwjhjMUqV3ZFXMuuLWUIXg=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ca4S6Op2mBcDVQP4XjS6RcXxZU4OOwHRFrSr8/m3BPon2JAol+5cWc0JWi6pKNoi5
-	 2Te5xuEWHA/kYx7EiQq8XO6XP7YR8Z4CparVJyPasdCoXcaLyV4lUU1chWZlnCkuDL
-	 Cx/f71PZ3GYCANKdREGRVI/oIAtFqJUmgtVE8Ub0=
+	b=IuW4gs0SLdO0jii+2ToThoXSONA1bLlkGIMgylTuASA836i84GLuBz+6IoSlIW/WK
+	 f81MzSDFNNDX1howho13hppg8TnMb979Gfg0Kvmv3NHCH8cLVAMhS6lLocGVCT1Eo9
+	 +u4twwNFpFNxvR2z4cJ1JxAmE/KinciE1QMBaM4E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B79B9F80128;
-	Mon, 27 Jun 2022 22:26:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 74B97F8028D;
+	Mon, 27 Jun 2022 22:40:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 63854F8028B; Mon, 27 Jun 2022 22:26:46 +0200 (CEST)
+ id E62D4F8028B; Mon, 27 Jun 2022 22:40:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail.bugwerft.de (mail.bugwerft.de [46.23.86.59])
- by alsa1.perex.cz (Postfix) with ESMTP id A2BFCF800E9
- for <alsa-devel@alsa-project.org>; Mon, 27 Jun 2022 22:26:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2BFCF800E9
-Received: from [192.168.178.106] (p57bc972b.dip0.t-ipconnect.de
- [87.188.151.43])
- by mail.bugwerft.de (Postfix) with ESMTPSA id 38719282FDC;
- Mon, 27 Jun 2022 20:26:42 +0000 (UTC)
-Message-ID: <b59afe57-7608-f049-c075-1a95d65984c4@zonque.org>
-Date: Mon, 27 Jun 2022 22:26:41 +0200
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-oa1-x36.google.com (mail-oa1-x36.google.com
+ [IPv6:2001:4860:4864:20::36])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id AAFA6F800E9
+ for <alsa-devel@alsa-project.org>; Mon, 27 Jun 2022 22:40:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AAFA6F800E9
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="F0+f2j6f"
+Received: by mail-oa1-x36.google.com with SMTP id
+ 586e51a60fabf-fe023ab520so14413165fac.10
+ for <alsa-devel@alsa-project.org>; Mon, 27 Jun 2022 13:40:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=jmzqCLZEusFvK30GUvwarTPAI/2hAGgafpqukT2uCeY=;
+ b=F0+f2j6fH/kSwW8e/OqSf1WkPdi/HOLnWsY5Wc11wwGJIJHoHKiCOiRdy0CBi4xpC/
+ UjF8PzFLbSdglDlCkSvxR23w6DYPoR4VC8KvlNg6/+q8nXASFfihtjl1ntPTBtdvm0hp
+ GYW7SbFIoQ+kMeMbgcn3KJ6yRldtsLD7RvVe72K27HWOXBi/cgvEqJnn82d7Ikcsntuz
+ 028Xoy0Q2Xzlfvvt+U8FwqmrZrIrhlL1GME62bwBqNf1FA8+Rz1/h5EJ2CowyRJs9ZPp
+ w5xofn+9XZmS2+3Y1W8XMNNk1lyHpBoy5T17Xt6Ut2iQT1WpCXXMG27pNoRSBx4Ic4CC
+ jslA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=jmzqCLZEusFvK30GUvwarTPAI/2hAGgafpqukT2uCeY=;
+ b=qKlsEQsfJueNSpf/r0BNmNOviCkuqPIiXIyLvNLSzK8lnjeBOakcIaNJoKABdLBqt4
+ ayNRvX4HD1iyoRsiVO/AHoh3AW3F5CKKKD9Qea/ter0vqEtT6j1Tx/xHrL/YgxYxzEE1
+ zpaklLaMZeL35T7qkWVshS+jcFbQEjssLDK60bd7PvCwRGwK0SJDd3pH7dj0pUKIcCeM
+ dQFVEcABd4KrIcYyitzZ+w2hfSwYt12LV90fL50aBMOl1bYgA788GV7DcCWweBYBe4Id
+ Quvw5mfsw6wVWSrBLq5Zf1Q7CDOE5Ztw5+y7vrQ4km7Pv6trVDk1wQt6Z8JZqwDU1kzX
+ N7LA==
+X-Gm-Message-State: AJIora/omboET8UDwVRgmYVWlJXQMxvadiwTWotqxklYcSP+wbH9Mw7I
+ bBDt0iNO3HQhPusrRxUliuFscg==
+X-Google-Smtp-Source: AGRyM1t6hiie7pEhqg3xvsIsHHhFpIuSUQyQD0JXZnqL06hesjet/y04wFsLleqR34mUqH2RbK0jUQ==
+X-Received: by 2002:a05:6870:f616:b0:f2:dac0:e339 with SMTP id
+ ek22-20020a056870f61600b000f2dac0e339mr11702877oab.116.1656362425179; 
+ Mon, 27 Jun 2022 13:40:25 -0700 (PDT)
+Received: from builder.lan (104-57-184-186.lightspeed.austtx.sbcglobal.net.
+ [104.57.184.186]) by smtp.gmail.com with ESMTPSA id
+ c13-20020aca1c0d000000b003351dbf5e36sm5835177oic.43.2022.06.27.13.40.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 27 Jun 2022 13:40:24 -0700 (PDT)
+Date: Mon, 27 Jun 2022 15:40:22 -0500
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH v3 1/2] ASoC: qcom: lpass: Fix apq8016 compat string to
+ match yaml
+Message-ID: <YroVtj4zXXcHygxD@builder.lan>
+References: <20220429220349.1142759-1-bryan.odonoghue@linaro.org>
+ <20220429220349.1142759-2-bryan.odonoghue@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Subject: Re: (subset) [PATCH 0/8] ASoC: max98396: Some assorted fixes and
- additions
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>, ryan.lee.analog@gmail.com
-References: <20220624104712.1934484-1-daniel@zonque.org>
- <165636115333.3997797.6298161546515778991.b4-ty@kernel.org>
-From: Daniel Mack <daniel@zonque.org>
-In-Reply-To: <165636115333.3997797.6298161546515778991.b4-ty@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, robh+dt@kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220429220349.1142759-2-bryan.odonoghue@linaro.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-arm-msm@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ robh+dt@kernel.org, srinivas.kandagatla@linaro.org, krzk+dt@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,67 +107,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 6/27/22 22:19, Mark Brown wrote:
-> On Fri, 24 Jun 2022 12:47:04 +0200, Daniel Mack wrote:
->> This is a series of some patches that I collected while using the
->> max98396 driver is a TDM mode setup.
->>
->> They correct BSEL and PCM mode configs, add support for power supplies
->> and add some bits to the documentation.
->>
->> The code is tested in TDM-16 and TDM-8 mode with 32 channel width.
->>
->> [...]
-> 
-> Applied to
-> 
->    https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Fri 29 Apr 17:03 CDT 2022, Bryan O'Donoghue wrote:
 
-Umm, I was about to send out a new version of this series tomorrow to
-address the things you pointed out, and some more detected by the test bots.
+Adding the sound maintainers to To/Cc, please advice if you would prefer
+Bryan to resubmit the patch with proper recipients.
 
-Which patches got applied now? I only see "Fix register access for PCM
-format settings" in for-next and for-5.19 currently?
-
-
-Thanks,
-Daniel
-
-
-
-> Thanks!
+> The documented yaml compat string for the apq8016 is
+> "qcom,apq8016-lpass-cpu" not "qcom,lpass-cpu-apq8016". Looking at the other
+> lpass compat strings the general form is "qcom,socnum-lpass-cpu".
 > 
-> [1/8] ASoC: dt-bindings: max98396: add voltage supplies
->       (no commit info)
-> [2/8] ASoC: dt-bindings: max98396: Add #sound-dai-cells
->       (no commit info)
-> [3/8] ASoC: dt-bindings: max98396: Document adi,bypass-slot-no
->       (no commit info)
-> [4/8] ASoC: max98396: add voltage regulators
->       (no commit info)
-> [5/8] ASoC: max98396: Improve some error prints
->       (no commit info)
-> [6/8] ASoC: max98396: Fix register access for PCM format settings
->       commit: cf5c888539f353cb10e127d3a8754554cacd293a
-> [7/8] ASoC: max98396: Implement DSP speaker monitor
->       (no commit info)
+> We need to fix both the driver and dts to match.
 > 
-> All being well this means that it will be integrated into the linux-next
-> tree (usually sometime in the next 24 hours) and sent to Linus during
-> the next merge window (or sooner if it is a bug fix), however if
-> problems are discovered then the patch may be dropped or reverted.
-> 
-> You may get further e-mails resulting from automated or manual testing
-> and review of the tree, please engage with people reporting problems and
-> send followup patches addressing any issues that are reported if needed.
-> 
-> If any updates are required or you are submitting further changes they
-> should be sent as incremental updates against current git, existing
-> patches will not be replaced.
-> 
-> Please add any relevant lists and maintainers to the CCs when replying
-> to this mail.
-> 
-> Thanks,
-> Mark
+> Fixes: dc1ebd1811e9 ("ASoC: qcom: Add apq8016 lpass driver support")
+> Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
+Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+
+Once this patch is picked up I can merge the dts change.
+
+Regards,
+Bjorn
+
+> ---
+>  sound/soc/qcom/lpass-apq8016.c | 1 +
+>  sound/soc/qcom/lpass-cpu.c     | 5 +++++
+>  2 files changed, 6 insertions(+)
+> 
+> diff --git a/sound/soc/qcom/lpass-apq8016.c b/sound/soc/qcom/lpass-apq8016.c
+> index 3efa133d1c64..abaf694ee9a3 100644
+> --- a/sound/soc/qcom/lpass-apq8016.c
+> +++ b/sound/soc/qcom/lpass-apq8016.c
+> @@ -293,6 +293,7 @@ static struct lpass_variant apq8016_data = {
+>  
+>  static const struct of_device_id apq8016_lpass_cpu_device_id[] __maybe_unused = {
+>  	{ .compatible = "qcom,lpass-cpu-apq8016", .data = &apq8016_data },
+> +	{ .compatible = "qcom,apq8016-lpass-cpu", .data = &apq8016_data },
+>  	{}
+>  };
+>  MODULE_DEVICE_TABLE(of, apq8016_lpass_cpu_device_id);
+> diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
+> index e6846ad2b5fa..53f9bf6581d3 100644
+> --- a/sound/soc/qcom/lpass-cpu.c
+> +++ b/sound/soc/qcom/lpass-cpu.c
+> @@ -1102,6 +1102,11 @@ int asoc_qcom_lpass_cpu_platform_probe(struct platform_device *pdev)
+>  	if (!match || !match->data)
+>  		return -EINVAL;
+>  
+> +	if (of_device_is_compatible(dev->of_node, "qcom,lpass-cpu-apq8016")) {
+> +		dev_warn(dev, "%s compatible is deprecated\n",
+> +			 match->compatible);
+> +	}
+> +
+>  	drvdata->variant = (struct lpass_variant *)match->data;
+>  	variant = drvdata->variant;
+>  
+> -- 
+> 2.35.1
+> 

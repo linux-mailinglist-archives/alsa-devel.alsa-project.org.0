@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB24255BBF5
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jun 2022 22:21:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2081055BBF7
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jun 2022 22:21:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8970916C7;
-	Mon, 27 Jun 2022 22:20:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8970916C7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 86ED716CE;
+	Mon, 27 Jun 2022 22:20:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86ED716CE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656361270;
-	bh=+oMVcAo3/DJCNjq6cv5dBPqjaPJsplwyRFcbzoAqNag=;
+	s=default; t=1656361286;
+	bh=09oLrSH55xaVexD16fggKO/amddysveaHFjHoAtcLmQ=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Kj8nAuMCjfG3em1UbsJnEYY5oCBbPzEVp4Q2zx25ieKyMjkqwKBYkYitzEO1gIoyT
-	 mXU2ORQW6fB6B9iyduPQDm6YJPeuIMYshXZfMs5TiF8pAnvoloP9p1UShEuXhGwusJ
-	 O2AKJu9ehjEXV0Jcrg5scFh3knVjkr9+tKZpEYNE=
+	b=sXQERskL6ph3gYfZSTcjzIV/q7c1VZ/1uVGW9uOuGNoDFR7qXLYrWQERormAd6NC4
+	 ItWi4GkvCloZ9+lDDkuejmU8UbLyAZ0wiW5RorwozYxRPItinO2CPCaMQeFkDvWfiF
+	 p1AiQbSTjxyFkdx5BucvdIArosD1I2q2eip3vwtc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 18B7BF8053C;
+	by alsa1.perex.cz (Postfix) with ESMTP id A43ACF8053D;
 	Mon, 27 Jun 2022 22:19:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7AE2FF80537; Mon, 27 Jun 2022 22:19:19 +0200 (CEST)
+ id 6C5AAF8053B; Mon, 27 Jun 2022 22:19:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,41 +35,40 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 154CCF8028B
- for <alsa-devel@alsa-project.org>; Mon, 27 Jun 2022 22:19:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 154CCF8028B
+ by alsa1.perex.cz (Postfix) with ESMTPS id A6FADF8028B
+ for <alsa-devel@alsa-project.org>; Mon, 27 Jun 2022 22:19:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6FADF8028B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="KNTTObgN"
+ header.b="OUDrBEmX"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id DC93261750;
- Mon, 27 Jun 2022 20:19:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A30EBC385A5;
- Mon, 27 Jun 2022 20:19:13 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 3E95E61751;
+ Mon, 27 Jun 2022 20:19:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C99CC36AF3;
+ Mon, 27 Jun 2022 20:19:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1656361154;
- bh=+oMVcAo3/DJCNjq6cv5dBPqjaPJsplwyRFcbzoAqNag=;
+ s=k20201202; t=1656361156;
+ bh=09oLrSH55xaVexD16fggKO/amddysveaHFjHoAtcLmQ=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=KNTTObgNBFkHnY1iAE6uBi3tcPzO7S+rsafCt2DVAntrkXz41fv8y8RAEYnB7C0ic
- VadK6HP5QAvr4UDfmAbiuJAX2Xg7foPTazwhmx+xfK8Wp7K4SOveW/QrTHVPRaaTTM
- gATyKYTETbnKBQsvhaEuft0RqWEeDh4FWTGMJWBdGcscP9z3iM/REKpzvrsnhlepjT
- oyqX1S178G1cBVd70pUB8NTmyWLJkxxBGCpamve7N5MZuriDeUf9G+GeJOdeA/CW2K
- /XDiVK15hpmmvAKZwH1mPkoyctGQYFuj5hJpCtey1Z5Yo/KBQ+d7Mj8KdLVes3beMZ
- KfntMVNbUZ4sA==
+ b=OUDrBEmXnfvNhiueI+y0rqtmIIFuy+XUFAdc2hQr+VUtAUcu2ep/2UXkHKdQJgbrR
+ jvWLzui0Cn48mAWal05dMfRBZVxFESik/pkc2EUrG6qYKVspKn7gLm5reSHpZAudt0
+ ZkyDy11P6ELjxKyc5Bmf608CRwdKmcYDJUcoCASUMOUC+dHu9uzd1xyHADoEeU7ezP
+ btScmdYDrTKR30A7sk4RlCy6QJAIUIJXkZmSQRBiPcy/8a1dsncnaCPCN6m8w4lSEF
+ 4etobKwPWgxAUfGyXaDgJ9V+9XFeDf4lw1w9EhDEoo1jzAGUfkuTrtlCTTftLRBR8H
+ oaFPP0btkStIg==
 From: Mark Brown <broonie@kernel.org>
-To: ryan.lee.analog@gmail.com, daniel@zonque.org
-In-Reply-To: <20220624104712.1934484-1-daniel@zonque.org>
-References: <20220624104712.1934484-1-daniel@zonque.org>
-Subject: Re: (subset) [PATCH 0/8] ASoC: max98396: Some assorted fixes and
- additions
-Message-Id: <165636115333.3997797.6298161546515778991.b4-ty@kernel.org>
-Date: Mon, 27 Jun 2022 21:19:13 +0100
+To: Sascha Hauer <s.hauer@pengutronix.de>, alsa-devel@alsa-project.org
+In-Reply-To: <20220624105716.2579539-1-s.hauer@pengutronix.de>
+References: <20220624105716.2579539-1-s.hauer@pengutronix.de>
+Subject: Re: [PATCH] ASoC: tlv320adcx140: Fix tx_mask check
+Message-Id: <165636115490.3997797.17375091345314852574.b4-ty@kernel.org>
+Date: Mon, 27 Jun 2022 21:19:14 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, robh+dt@kernel.org
+Cc: dmurphy@ti.com, kernel@pengutronix.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,14 +84,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 24 Jun 2022 12:47:04 +0200, Daniel Mack wrote:
-> This is a series of some patches that I collected while using the
-> max98396 driver is a TDM mode setup.
+On Fri, 24 Jun 2022 12:57:16 +0200, Sascha Hauer wrote:
+> The tx_mask check doesn't reflect what the driver and the chip support.
 > 
-> They correct BSEL and PCM mode configs, add support for power supplies
-> and add some bits to the documentation.
+> The check currently checks for exactly two slots being enabled. The
+> tlv320adcx140 supports anything between one and eight channels, so relax
+> the check accordingly.
 > 
-> The code is tested in TDM-16 and TDM-8 mode with 32 channel width.
+> The tlv320adcx140 supports arbitrary tx_mask settings, but the driver
+> currently only supports adjacent slots beginning with the first slot,
+> so extend the check to check that the first slot is being used and that
+> there are no holes in the tx_mask.
 > 
 > [...]
 
@@ -102,20 +104,8 @@ Applied to
 
 Thanks!
 
-[1/8] ASoC: dt-bindings: max98396: add voltage supplies
-      (no commit info)
-[2/8] ASoC: dt-bindings: max98396: Add #sound-dai-cells
-      (no commit info)
-[3/8] ASoC: dt-bindings: max98396: Document adi,bypass-slot-no
-      (no commit info)
-[4/8] ASoC: max98396: add voltage regulators
-      (no commit info)
-[5/8] ASoC: max98396: Improve some error prints
-      (no commit info)
-[6/8] ASoC: max98396: Fix register access for PCM format settings
-      commit: cf5c888539f353cb10e127d3a8754554cacd293a
-[7/8] ASoC: max98396: Implement DSP speaker monitor
-      (no commit info)
+[1/1] ASoC: tlv320adcx140: Fix tx_mask check
+      commit: 91ff12ec2390a918883145e6c7d96cb10c4fcbd6
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

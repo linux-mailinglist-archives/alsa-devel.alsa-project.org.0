@@ -2,100 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8E1F55B9D9
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jun 2022 15:20:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD0FC55B9DE
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jun 2022 15:25:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 784CB1697;
-	Mon, 27 Jun 2022 15:19:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 784CB1697
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1A972168D;
+	Mon, 27 Jun 2022 15:24:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A972168D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656336049;
-	bh=jIn5dRCAmp8qiNDwCZ3qf0COga0iOXUq0sPP0bNBPtA=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1656336301;
+	bh=JZtRNbKRSnXdu8246O2Zh/waviRpngCjFGfB/SCDurY=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eaqGeKQp8E/0VbZk1GwU9MclcqPtUQbAR2Vgbu1ShdOpWhNIwaui+peF7PDIi6b2I
-	 KjH2ZkvaTQOj70QTsg6UXlzUR8o+dbpLs9A6W+IyBcj4PKxzyGAa7wWa7dI/0MXpZW
-	 qPQ8drbi3gf0AMq4Las5gb1/BU6vA5qu6mYd8QJ8=
+	b=GVrsoJUW3E3JBZ9ogPU3V/n6pHmjsEelYq1ydrc0Mn2lpF7r4U8rnpwTxnCLbhwJL
+	 FakVi1RjKF3TGAIpw81FA0bt5Wg8ZK8GsPw0PYGRak3/gEOgcQlGf1b2XFCRO0WmUg
+	 JH3Py4YdGXGPU2B5RmgQWc0sLnvDQrfLdlXjyolg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ECD67F804FB;
-	Mon, 27 Jun 2022 15:19:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8844DF8012F;
+	Mon, 27 Jun 2022 15:24:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6FC9CF8028D; Mon, 27 Jun 2022 15:19:48 +0200 (CEST)
+ id 164CDF800E9; Mon, 27 Jun 2022 15:24:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [IPv6:2a00:1450:4864:20::534])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CA4BCF8012F
- for <alsa-devel@alsa-project.org>; Mon, 27 Jun 2022 15:19:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA4BCF8012F
+ by alsa1.perex.cz (Postfix) with ESMTPS id B7618F800E9
+ for <alsa-devel@alsa-project.org>; Mon, 27 Jun 2022 15:23:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7618F800E9
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="JiKRcCWw"
-Received: by mail-ed1-x534.google.com with SMTP id cf14so12982252edb.8
- for <alsa-devel@alsa-project.org>; Mon, 27 Jun 2022 06:19:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=X5ILPbtoG+kYe94QjcMQMKpsN9aa028wJTwAOUmgPAw=;
- b=JiKRcCWwMcvUtGrRKMwovuARV8vpyLDUNaPumhk3zuMHFwVu4JL2KtKzaL4W8XHPfb
- 6DrJwa5q3oK3kz6ZZe0QCm/zROD0EXCBAXiXuHMRP+G8+UKsJ+fMY8r4qkc9G6yLTNEv
- 4sfBgZSmT3PlTLnlq3tuFdBqwCIswq+fbH33dpOXhur9G9yY+bNhFknMtV1x215Utlqf
- 59hFMkQ+8qD84hnCWZ/w8qlfkGzlz0HxSfbdaTdIyBpIpgjR+3ZbSxUaDjmwP9Eb5KQ8
- mtjDIlGxqoUEFD5/xpoMoLOuBKzsKGan440yLoRjOxFgNIg79NLGqOQhcg6YioSO/eb3
- 3Fyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=X5ILPbtoG+kYe94QjcMQMKpsN9aa028wJTwAOUmgPAw=;
- b=cVN7tLlz5NKhyovT9eZCcdC1RsTvB5ziPRAXx0KLZRoBjLIcAyYbiGt7xoMOk2+Yvh
- KBde0dil68aqAaiv7grFB7bfiVp6GlTOGcw8n9xox2P0+gVYu0rMe/hKLzpddGs1FSHx
- 0fE2a5LYgmcblwaGnjfxzybTgazL5aBlSlzcQvpjdcjE8JedVs+ZQljm3TIkL315cnZf
- ewFx1T/vfdE49tWyA8SyyTmYENBmoR5/1y0bpJpmAQdMtHyiTnKc+ppM4/04gt9j2Hov
- dOMMiAv5XK+s7S+ANbuQvPbNhb7LGXDPQlOM4kWS+cPBLBftm9dBTtyz8ubxbjdnDsgE
- tsAg==
-X-Gm-Message-State: AJIora+/jWiNCEfpKTEEl79WZwK0c16ZoJx+0b/VtqCBddH76OuO5H91
- rcXzi6QOmRiIWIMnRoOTytVUE2tcnvsR+A==
-X-Google-Smtp-Source: AGRyM1uMPQCrYWpdYVnmgF8r5u7CnjVZ1RetLnJQkM7YTkXqMa8mjfcCmJtPs3hbXcwjtqe+CFEeqw==
-X-Received: by 2002:a05:6402:1386:b0:431:6911:a151 with SMTP id
- b6-20020a056402138600b004316911a151mr16635361edv.105.1656335983369; 
- Mon, 27 Jun 2022 06:19:43 -0700 (PDT)
-Received: from [192.168.0.250] (xdsl-188-155-176-92.adslplus.ch.
- [188.155.176.92]) by smtp.gmail.com with ESMTPSA id
- s17-20020a1709060c1100b00722e52d043dsm5078286ejf.114.2022.06.27.06.19.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Jun 2022 06:19:42 -0700 (PDT)
-Message-ID: <0912d41f-fadb-993d-c109-c13be35c1b01@linaro.org>
-Date: Mon, 27 Jun 2022 15:19:41 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="bbqUrPAE"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A189061305;
+ Mon, 27 Jun 2022 13:23:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54CD8C3411D;
+ Mon, 27 Jun 2022 13:23:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1656336236;
+ bh=JZtRNbKRSnXdu8246O2Zh/waviRpngCjFGfB/SCDurY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=bbqUrPAEaRX4jCY/G58o+pwL3e/9rYcVhyI1P3ILSMZ3/CkdKwmnzm3h+WEPALZUx
+ Eu3bC72hxJQriy5R+dhxh8IWfypvQD0Q1ZKOEBAPrxHn73DOjizUlpWTPla1zCVBGA
+ JHW3YQeb5OBdlGUmdnwIchPuT/J99TYqVtSPopAJhtM3N5ukAV84RTfsFN7bqlP4qD
+ LQLCqYMxTyD+NhXcAuFtgN9N4tdjECsm0hp1zfJUMLiPzDW8hJYBtqY84Yf1YVUJ+d
+ 9atYA3I5GeC3bHg33kVUz55fIPm6CSbeW7CZdwfUQNF63sS0bsepSmF9qdA/vRIcgg
+ PVJr3eZSMxpsA==
+Date: Mon, 27 Jun 2022 14:23:50 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Subject: Re: [PATCH] ASoC: samsung: s3c24xx-i2s: Fix typo in DAIFMT handling
-Content-Language: en-US
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Message-ID: <YrmvZonpB5GhLGbG@sirena.org.uk>
 References: <20220627094335.3051210-1-ckeepax@opensource.cirrus.com>
  <803785ef-42b7-647c-9653-702067439ae9@linaro.org>
  <YrmYbZV4mj9d9++t@sirena.org.uk>
  <a25126ed-ef39-8316-6ae5-9551aa8120b0@linaro.org>
- <20220627131627.GI38351@ediswmail.ad.cirrus.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220627131627.GI38351@ediswmail.ad.cirrus.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, jrdr.linux@gmail.com
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="apPYr//3R46wZGJT"
+Content-Disposition: inline
+In-Reply-To: <a25126ed-ef39-8316-6ae5-9551aa8120b0@linaro.org>
+X-Cookie: Your supervisor is thinking about you.
+Cc: alsa-devel@alsa-project.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
+ patches@opensource.cirrus.com, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, jrdr.linux@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,25 +90,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 27/06/2022 15:16, Charles Keepax wrote:
-> On Mon, Jun 27, 2022 at 02:11:13PM +0200, Krzysztof Kozlowski wrote:
->> On 27/06/2022 13:45, Mark Brown wrote:
->>> On Mon, Jun 27, 2022 at 11:49:46AM +0200, Krzysztof Kozlowski wrote:
->>>> On 27/06/2022 11:43, Charles Keepax wrote:
->> My comment was not a requirement (procedural blocker) but a suggestion,
->> because maybe Charles was not aware that developer trees can be tested
->> for free.
->>
-> 
-> Would be awesome if I could run things through the build bot
-> before sending them up. Are there any docs anywhere on how to get
-> a tree added to that?
 
-For LKP:
-https://github.com/intel/lkp-tests/pull/139
+--apPYr//3R46wZGJT
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Sometimes intermediate work is also included in linux-next:
-https://lore.kernel.org/linux-next/?q=s%3Ainclude+s%3Atree
+On Mon, Jun 27, 2022 at 02:11:13PM +0200, Krzysztof Kozlowski wrote:
+> On 27/06/2022 13:45, Mark Brown wrote:
+> > On Mon, Jun 27, 2022 at 11:49:46AM +0200, Krzysztof Kozlowski wrote:
 
-Best regards,
-Krzysztof
+> > 0b491c7c1b2555ef08285fd49a8567f2f9f34ff8 - if you can't find something
+> > search for the subject, people often get things wrong.
+
+> Finding it by subject does not solve problem with Fixes tag, that it
+> might be pointing to incorrect commit (e.g. rebased).
+
+Sure, but that's an incorrect SHA rather than not being able to find the
+commit which is what you said.
+
+> >> This way you would get build coverage... because it seems the build was
+> >> missing in your case.
+
+> > That coverage has apparently also been missing in -next for several
+> > weeks.
+
+> Eh, it seems defconfigs for this old platform do not select sound, so we
+> rely on randconfig. :(
+
+It's not even turning up in an allmodconfig?
+
+--apPYr//3R46wZGJT
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmK5r2YACgkQJNaLcl1U
+h9AIiQf+J4cKSrpie5fzCfZatw/Ms70JQ8wIwrUTA2mYCajSa1hWQYOaJjUniiwU
+syfJFKnG1f4/rEmA7jppNanOYh2kfp8XlkZMsoIENwVV6gYeGbA8kLMKgMOxJJ5o
+FUEnOYWyFMkkinvcLtcCY99r9R/DKcp+ixgSLsgMFKrgUNPARfTD5pXL/DFnr4mw
+1YTLGIGvTCuxspMXzqkNDWBMH3XmdBan+akJ0tZoqvOIKB9XDvXmmKoPeV1r7I8D
+TwGsPvsCSpmVuNeFuPYKiBK638ylmFMzojREXfKM96ha4K9QBa+Eo+euEGJX+n/4
+GxD/EvRCuId+N5NjJCf6TVfLHoUNQA==
+=W0Bl
+-----END PGP SIGNATURE-----
+
+--apPYr//3R46wZGJT--

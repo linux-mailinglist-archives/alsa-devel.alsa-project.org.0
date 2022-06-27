@@ -2,69 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3BAD55B319
-	for <lists+alsa-devel@lfdr.de>; Sun, 26 Jun 2022 19:24:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD9B655B4D3
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jun 2022 03:03:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DD2591631;
-	Sun, 26 Jun 2022 19:23:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD2591631
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1F3C2161D;
+	Mon, 27 Jun 2022 03:02:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F3C2161D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656264273;
-	bh=dB3qYCCyEJn1O3Vou1SC4wmZCAwoMipbN+CaUTr6atI=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1656291801;
+	bh=O9uaIhifoTMv9DIsPHNw5Hq/vaADZtp4HvYzIIuBYfg=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=irmFTR84RQzoGBIYs37N6cp69W5Qs2EFQQ1Qb1e2nHdDoWEtaET/8rAvNjnRC1H45
-	 bYjV4SqgRxHfQo0TwCVGi+VzqqmWKK6nr03D8h7FjFC/Mr95NHZcIo6Ghwo0u72EMx
-	 /6nKqrQNW7MkEPhMrnOxw0ynyw4X2UKbymIb6d/w=
+	b=FSDLQANOTqJdUJaDKhPgG6RdPA6hm7UfmXF8WGxRfMdf+/EeakHCT/ZuytCbINDhS
+	 u5j2Ls0tplPnzJvAXaoWkL11Ws2UYxlVXdv8e5mcYQ6at//xv1/RSg8kBkcSaFyBUi
+	 bp9hQXoaWtB2Fz1QBvQ/qJC3tD/kD+bfvjzeeWVs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3C780F8023A;
-	Sun, 26 Jun 2022 19:23:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8D306F8012F;
+	Mon, 27 Jun 2022 03:02:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 07797F8016B; Sun, 26 Jun 2022 19:23:33 +0200 (CEST)
+ id 3FBBBF8016A; Mon, 27 Jun 2022 03:02:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1E4EBF80107
- for <alsa-devel@alsa-project.org>; Sun, 26 Jun 2022 19:23:26 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 90044A003F;
- Sun, 26 Jun 2022 19:23:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 90044A003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1656264205; bh=b8/qv8sNSuu8DUScnxPvvAdSsRkPWO7LX+f2uStybl4=;
- h=Date:Subject:To:References:Cc:From:In-Reply-To:From;
- b=nATaGoaa6mVaQhvJcrGajsGMdtXUW5iWHf+cjork+HwBjSEW+PeonnmBLlAfkqZ7M
- GqagKeAnS5yl0xHaPDjJVBCN8+aa2HVrWlym9EgNc+MscBMYK1eUAAN4EiLXzTV0H1
- bzFXS774SQpgU4A/Vkq453lIRhMhftXYYTxr/fmA=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Sun, 26 Jun 2022 19:23:23 +0200 (CEST)
-Message-ID: <119caa05-b6ca-ecd0-919f-b6ec8257824b@perex.cz>
-Date: Sun, 26 Jun 2022 19:23:23 +0200
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 1E3ECF800E9
+ for <alsa-devel@alsa-project.org>; Mon, 27 Jun 2022 03:02:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E3ECF800E9
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Subject: Re: attach/detach by mixer class implementation of alsa-lib mixer API
-Content-Language: en-US
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-References: <YrbxZ2b+3rIdi7Ut@workstation>
-From: Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <YrbxZ2b+3rIdi7Ut@workstation>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Cc: ALSA development <alsa-devel@alsa-project.org>
+From: GitHub pull_request - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1656291732060338020-webhooks-bot@alsa-project.org>
+References: <1656291732060338020-webhooks-bot@alsa-project.org>
+Subject: mixer: add documentation about postcondition of removal event
+ processing
+Message-Id: <20220627010220.3FBBBF8016A@alsa1.perex.cz>
+Date: Mon, 27 Jun 2022 03:02:20 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,58 +61,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 25. 06. 22 13:28, Takashi Sakamoto wrote:
-> Hi Jaroslav,
-> 
-> Recent years I'm bothered about unexpected abort of pulseaudio and
-> pipewire processes when testing user-defined control element set.
-> They aborts at element removal event.
-> 
-> ```
-> pulseaudio: mixer.c:149: hctl_elem_event_handler: Assertion `bag_empty(bag)' failed.
-> wireplumber: mixer.c:149: hctl_elem_event_handler: Assertion `bag_empty(bag)' failed.
-> ```
-> 
-> Would I ask your opinion about the design of alsa-lib mixer API?
-> 
-> As long as I investigate, these programs seem to have careless coding as
-> alsa-lib mixer API application. Both of them attaches an instance of
-> snd_mixer_elem_t to an instance of snd_hctl_elem_t by calling
-> snd_mixer_elem_attach() when detecting element addition, but never detach
-> it even if detecting element removal.
-> 
-> In the case, the link list (=bag) of mixer API internal never becomes empty.
-> It has link entries as much as the number of registered mixer classes which
-> attaches snd_mixer_elem_t. Then it hits the assertion.
-> 
-> I think the design of alsa-lib mixer API demands mixer class implementation
-> to detach at element removal which attached at element addition. But I have
-> less conviction about it since enough unfamiliar.
+alsa-project/alsa-lib pull request #244 was opened from takaswie:
 
-Yes, if the REMOVE event is delivered to the mixer class, the reference to the 
-associated hctl element should be removed. The assert does the check for this 
-consistency.
+PulseAudio and PipeWire seems to appear including careless code to
+process events of mixer element in implementation of mixer class.
 
-> I'm glad if receiving your opinion about it.
-> 
-> I wrote test program for the issued behaviour:
->   - https://gist.github.com/takaswie/8378fe3bc04652d83428694cd7573bc0
-> 
-> For test, please use sample script in alsa-gobject project:
->   - https://github.com/alsa-project/alsa-gobject/blob/master/samples/ctl
-> 
-> The patches for pulseaudio/pipewire are prepared:
->   - https://gitlab.freedesktop.org/takaswie/pulseaudio/-/commit/topic/fix-wrong-handling-alsa-ctl-event
->   - https://gitlab.freedesktop.org/takaswie/pipewire/-/commits/topic/fix-wrong-handling-alsa-ctl-event
+ * https://lore.kernel.org/alsa-devel/YrbxZ2b+3rIdi7Ut@workstation/
 
-Your fixes seem correct. Please, create the PA/PW merge request with this 
-code. Please add me (@perexg) to your merge message.
+They register own implementation of mixer class. At addition event,
+they attach own mixer element into hcontrol element. However at removal
+event, they never detach the mixer element from hcontrol element. They
+hit assertion in mixer API internal due to unsatisfied postcondition.
 
-Thank you for your work on this.
+This commit adds documentation about postcondition of removal event
+processing so that developer for implementation of mixer class easily
+realize the way to satisfy the postcondition.
 
-						Jaroslav
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 
-
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+Request URL   : https://github.com/alsa-project/alsa-lib/pull/244
+Patch URL     : https://github.com/alsa-project/alsa-lib/pull/244.patch
+Repository URL: https://github.com/alsa-project/alsa-lib

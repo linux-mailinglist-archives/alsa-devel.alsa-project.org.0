@@ -2,132 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 220AB55B57F
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jun 2022 05:05:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E407F55B5BE
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jun 2022 05:31:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A8B85886;
-	Mon, 27 Jun 2022 05:05:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8B85886
+	by alsa0.perex.cz (Postfix) with ESMTPS id 710B583D;
+	Mon, 27 Jun 2022 05:30:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 710B583D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656299152;
-	bh=OSadyDeklAj3l6a7oJEisYY//jfTuXyQg5isenQwxzg=;
+	s=default; t=1656300687;
+	bh=E4+zXSeKIKgiJKO/Tpb8DqKYkZQaKIm0y0dGr7K0bfc=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=XSSewcUYrgziw4EbyUwCz12nqjpL6WKSt2kxucrSRY5Ih6uB01oXpveRucVgq894n
-	 AzTxUekQlHax9QC2sAP2cvbjwx8WpIN7Za6s0sqgjaCH6xVIlreQYPV282tgfqOV8G
-	 b99KdJnymmoPlc75evkBWRi9GC0EgvkSGT9cKEKM=
+	b=HdrWcSbWBPiwT+vU5YkR3kiFbJ54hOF9SV4tZpVAeV5qAP/lsqei24ieKrDSaACH2
+	 gmQ+KmtRYncg79iP0z8Aa8s8Wv5vhTk4Nat1wySHhqPomPewbD5Kfgb3xqFny1ACxl
+	 QEnXUAO+Soaj3F8ACVprMm5Ptkj1JuiBgN3y0KmM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 255F9F800E9;
-	Mon, 27 Jun 2022 05:04:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AC694F80128;
+	Mon, 27 Jun 2022 05:30:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B516AF8028B; Mon, 27 Jun 2022 05:04:51 +0200 (CEST)
+ id 2664CF8028B; Mon, 27 Jun 2022 05:30:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.9 required=5.0 tests=AC_FROM_MANY_DOTS, DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from JPN01-TYC-obe.outbound.protection.outlook.com
- (mail-tycjpn01on2111.outbound.protection.outlook.com [40.107.114.111])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1EAA1F800E9
- for <alsa-devel@alsa-project.org>; Mon, 27 Jun 2022 05:04:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1EAA1F800E9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com
- header.b="eILFnj+3"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NnByzaNcMedkjTkXuCsfhh0E+wc0+LY178kHB2hc+BQo7L7wI/kKyMBu2Z0WEXuPlVhfQ2vsoUHe7C7S3e6IbLuNkUSZp19ySxrOh6h/6fSrZa9zC3VElTC9lIomcxi4/LAGbAs/r1zhUNHcYuEHJewnjq126AFFdtnFtrnjpDGy3HGXpvzIPv4dVUBkgRnJNkl+pdiWYlEG+6hnBYptHs7gR2k5Db7DJWBnBGrY051nLj78XSJLlS6Ftp8NjicfubkIzMEF4n2DhzmYqa98BMeXMlq0XydWvfCMny4qhGe5sNYf1gucExnhZnC7skFyaltfG0mky6dTlPjHUJF4zw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tGDB5KMnT2VGvKPkU1frwki70qAQDZCszIiWrxStBaY=;
- b=Wx+WDNEu7z3we5OD/12mmouC2PFtylhS/RiNjgoGFEzmFEfMm/huhNDJnExfTOc4v0RavsLAdCne2RgYX87Q0XW4ocizmK3XHgw/YSIlAH/ePnU9P/LLPm6WEjm4k28ZPwGEr2SpEmMXVuFNUlPipUsyEW11qFuBF+CxMNos9vOaeSPIHqsfHEVPFyUQ6IR6qnw44kkx1p+JBNlxuyiR5vyuc+756vQgBPMmPw7FyRSUegd40J214Ew1GSEagZrNTpLr3Hx65NTzb5lhYfQAJ9CnH/O6uqkdVzBh2TgrGHG2w4TH62fkKcD+o15EFgPvz/xjTjXXr3o2N6JBhrC+CA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tGDB5KMnT2VGvKPkU1frwki70qAQDZCszIiWrxStBaY=;
- b=eILFnj+3+vEkoPZfsB7BsNupfLZmz/qoscM3d1760enQvCUro/UQpY51HCwRUnME2mbmqG/rcYgjuXu+523IRi4YNGaWHYxzQolfyBE18mZMOH1G7ODnsW6rTny0ACJg80hWFS7SWt6vF6y40Xa8f+LIJ2/t9vL4i0FwNANg/tE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
- by TYCPR01MB6093.jpnprd01.prod.outlook.com (2603:1096:400:61::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.15; Mon, 27 Jun
- 2022 03:04:39 +0000
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::d5d9:3646:37df:867c]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::d5d9:3646:37df:867c%8]) with mapi id 15.20.5373.018; Mon, 27 Jun 2022
- 03:04:39 +0000
-Message-ID: <875ykmx0vt.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Question about DPCM locking
-User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
-Content-Type: text/plain; charset=US-ASCII
-Date: Mon, 27 Jun 2022 03:04:38 +0000
-X-ClientProxiedBy: TYWPR01CA0017.jpnprd01.prod.outlook.com
- (2603:1096:400:a9::22) To OS3PR01MB8426.jpnprd01.prod.outlook.com
- (2603:1096:604:194::10)
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from maillog.nuvoton.com (maillog.nuvoton.com [202.39.227.15])
+ by alsa1.perex.cz (Postfix) with ESMTP id 6AD58F800E9
+ for <alsa-devel@alsa-project.org>; Mon, 27 Jun 2022 05:30:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6AD58F800E9
+Received: from NTHCCAS01.nuvoton.com (NTHCCAS01.nuvoton.com [10.1.8.28])
+ by maillog.nuvoton.com (Postfix) with ESMTP id AD3261C8118F;
+ Mon, 27 Jun 2022 11:30:13 +0800 (CST)
+Received: from NTHCCAS02.nuvoton.com (10.1.9.121) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.7; Mon, 27 Jun
+ 2022 11:30:13 +0800
+Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTHCCAS02.nuvoton.com
+ (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2176.2; Mon, 27 Jun
+ 2022 11:30:01 +0800
+Received: from localhost.localdomain (10.11.36.27) by NTHCCAS04.nuvoton.com
+ (10.1.12.25) with Microsoft SMTP Server id 15.1.2176.2 via Frontend
+ Transport; Mon, 27 Jun 2022 11:30:01 +0800
+From: Seven Lee <wtli@nuvoton.com>
+To: <broonie@kernel.org>
+Subject: [PATCH] ASoC: nau8821: Add headset button detection
+Date: Mon, 27 Jun 2022 11:29:59 +0800
+Message-ID: <20220627032959.3442064-1-wtli@nuvoton.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 8bdb906a-9cde-4493-ac28-08da57e9c62f
-X-MS-TrafficTypeDiagnostic: TYCPR01MB6093:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: bfMUJC6Ao8ABAbCuqrNetFR5kGfufMhOB0tKSXAQPm7AW/QOMJ5ZeXJhR238IOe0PGX/uFac7c74nnB0sbROTh6QwTCWsZWOQIEC8cHGqJZLOUvt8i//3gcCNVPSahSJFbewbz+HYsgrjWykgWcZopIhA+9Td24fMfVBV9KrRvpAwin8r0CnaLB+rzCSUdNWAwVgS/pjwyBknNIyuIJmO2eMkXXAOLYOtOTQ2pn7lRgjxKhJEcp24YfsZ2DpXqTMWbRMD58gmJgjUBxC22Lm9qEAH65g/ORhplxRilF0byE3LymAMTmdhhL8gykDfqn3kzfV3jf49GVecDktLZvZgHborPFl9jl/ovvwGR+JEx8JGJiwk7leOPjwxhcz4w6Cve5r6F2+NHj0JJqVT7n+zvabQfojCAcvZ8Mon9cbEgL97rg+qUVHDwKuSmuSPtIwMjpfRrmortX4dsznghfV6BuBSrciQ831ue75UWoICzsNd0EgWNnHY9Ti23ALYUvf+8/gCJ815K9Y7f51+D6piekhEHIz1VE4r6UQJgvJRx2K8V91Zq5rvCCkl8W/xaUwuwyihrcnaCNug0SqHgMWpCVVC6ScoPdqVcpkk7EG+aXfnC/Cy4aBm7O2EeiqLOSNdM+veSDsr/fhHoHWs8fcuu8KFTJwrtcdRl7tWu/wrYup8jqEFVWQUgpBNgM8lSlzscseJhIhvNJWuB8Am2Bv7KB6asFfT7WV2T1S1eXBGz9OEd8Wfaypv+rnZtAgsaj5yZCKzcenv3F0ZCL6JN+8jTI7gCnwFCwqWqIESwWTpzom5AIl5PhtFX6yclYJMnU+
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:OS3PR01MB8426.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(366004)(136003)(39860400002)(396003)(346002)(376002)(36756003)(86362001)(52116002)(38350700002)(316002)(2906002)(6916009)(3480700007)(6512007)(6506007)(26005)(4744005)(83380400001)(66476007)(6486002)(66556008)(66946007)(8676002)(4326008)(38100700002)(5660300002)(2616005)(41300700001)(186003)(478600001)(8936002)(21314003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?9Xf/XdGIUzAmsKOLALtFZw0sMCogKf6TAMmvHTLPY7jLY91W9Lh5ixStlaQu?=
- =?us-ascii?Q?66gItRC6OkY5bZ592XK4XpFhQp61sRkIQjqxyiEsWYglXZICbM9ymdd0JX2B?=
- =?us-ascii?Q?ZgFKk9NrvOTvReeDSZxfWvDTQqaph06rHmzepdtc1xlS+WDgBOEudyG0P15k?=
- =?us-ascii?Q?ns4sHyaE8Fg5R1NFCOJ+V0Cua0FVetFKcA8sjqRZIpHKhFQASgIHI/yFKtUk?=
- =?us-ascii?Q?503uummByQ4tHUvDF4eDVwxfQeCbD56ZLI2GjIayJdt1A6/9prG8pgoX1ihl?=
- =?us-ascii?Q?x8Vk9iI6SQcxxZ806I48g7wJNS41DdluNpA5qtHaTYQ9/IYw55W25qBFDR+h?=
- =?us-ascii?Q?Bz4+tPiI8gBhpJ6T/jCfCWp/JHunRmZFAnsZf/6H8vBjCrp4JsyvaLE4Bd/s?=
- =?us-ascii?Q?hW+PaP4gpXCdFux1NvxgL/3pViqwrYSDaOw311mM+B17Ir/jEMv+IKafGo2j?=
- =?us-ascii?Q?hffnZSM469ZoxIPrmGjSNYl8yBsdQS1MX3hHsgKCrBb0oZc8SnzxJmAw+wiu?=
- =?us-ascii?Q?LaVA72U3LIjx+ASW/vIbRv+kdheN9hQw749T4xUQrWYsYBNNjmyIaW2X68Iq?=
- =?us-ascii?Q?9h9FFrSkbWtg+IuYORyss2q7Rt4mbGV55URy6ZokmwgpObPJjnaW/GM7yJMN?=
- =?us-ascii?Q?W8TGkghjuUJ2N2mK2I9OcZcurevJzErFqflPDNQgIZwYCrk6rUfemM28Y87T?=
- =?us-ascii?Q?gfceR3MneCNAaOMTAzKcl9oYyek3ty1NTPBMMXU6VaPYnsHPROGqTC9oDZWO?=
- =?us-ascii?Q?UebWd1Uzu1tV0PTKwgRtQh7Cs2f6Cwv5BjPkm5PLNDJCoU9o97fehHIcTu5u?=
- =?us-ascii?Q?DiHOvYztPNZllCN49ZILWWOwkwkui8VMDqWB66kWUiSuLbritOg/b80IhvVP?=
- =?us-ascii?Q?1lSn+RLHq0yOvkNUBSgCAWgK/TYjDoKKrivndLQmspYn6muliu4genbWgQ0U?=
- =?us-ascii?Q?lSSaLpDs00eRsSfatJBAGsjbw0UClFJq49LFUF4GM/AqADA5QCZkrwDXJK3w?=
- =?us-ascii?Q?Zq1MAbwKl0FSVQvNR6q3rxFjJ0u7gvRxt1Rcy1d7DLAQyK2/0QYxjfa1/TUg?=
- =?us-ascii?Q?5AoQikoNa/gzIH5rzGcWkR0930R0821Rx2s9E/OtP1J/mfy/NlkWd5WLBMPZ?=
- =?us-ascii?Q?kHriUQLPP/NKoId/EDlu927tkrpC+e3CAtbviN3bppvWFB+rkAKVxGYcaXFk?=
- =?us-ascii?Q?UbJf3tPlf4jROX1f9bghocxaIOmWnOT58akaQTmKSZ/dkkUZDzOi+kk6Fe2z?=
- =?us-ascii?Q?Bp7rDHiByCwDHatCOVBfC6RGzJHNeZMmkwLGLYplYev2Pss1hujDM8N2jc06?=
- =?us-ascii?Q?AijCwoiYZG39XZHnJDptmSUQzqfQYek2nStpjRIQjXFrWIuY7RIWY1P2o6td?=
- =?us-ascii?Q?Np97S17vzw/ebmvg56xfcFs49tSsNDpBZVq+t/5VWckVp+qBvoXix3iVy0Ap?=
- =?us-ascii?Q?cb+qRjMUmv8GO3Hd2MiAB8TIX1nzhqQQTJiX9iqSYu6SLw//U80U1ztK8gld?=
- =?us-ascii?Q?Kv7XMefZp9eXjhkTmiTwPdLfRY4JCobsrEPlBj0PcyZ/GdBvbbyGkf7qwv0i?=
- =?us-ascii?Q?isJnFIrK/YmPFz0EpzT/abXHKKRA0U4Odu+wi7V51K7W3UVRjIZRA8Kp16eF?=
- =?us-ascii?Q?PnXMjqTs+Pt7Th9A4z0pa6s=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8bdb906a-9cde-4493-ac28-08da57e9c62f
-X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jun 2022 03:04:39.2230 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Oq1Pmt9YHOIWpBhAbl9mUEp4teEqaAfzuC55aLerzQC9qVohzt8Cb0sARpNtPiKnSTMtyqiDbuOSH+p6KLMFVtOSYHIPjApFUk8rFX3N6rJ0od1VB4Pj4jeI+sE8mrCW
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB6093
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Cc: alsa-devel@alsa-project.org, scott6986@gmail.com,
+ Seven Lee <wtli@nuvoton.com>, SJLIN0@nuvoton.com, KCHSU0@nuvoton.com,
+ lgirdwood@gmail.com, YHCHuang@nuvoton.com, CTLIN0@nuvoton.com,
+ dardar923@gmail.com, supercraig0719@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -143,54 +75,123 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+This patch adds the function of headphone button detection,
+Button detection will be enabled if the device tree
+has a key_enable property.
 
-Hi Takashi
-
-May I ask about this patch ?
-
-	ASoC: soc-pcm: Fix and cleanup DPCM locking
-	b7898396f4bbe160f546d0c5e9fa17cca9a7d153
-
-Q1.
-
-It exchanges many function parameters
-
-	- func(substream, xxx)
-	+ func(rtd, substream, xxx)
-	       ^^^^
-
-I guess the purpose is it want to call snd_soc_dpcm_mutex_assert_held()
-inside the func ? But it looks very verbose.
-we can do like this, but am I misunderstanding ?
-
-	func(substream, xxx) {
-		struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-
-		snd_soc_dpcm_mutex_assert_held(rtd);
-
-		...
-	}
-
-Q2.
-
-It added new __soc_pcm_close().
-But soc_pcm_close() is using soc_pcm_clean() instead of __soc_pcm_close().
-Is this just a mistake ?
-
-	static int soc_pcm_close(struct snd_pcm_substream *substream)
-	{
-		struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-
-		snd_soc_dpcm_mutex_lock(rtd);
--		soc_pcm_clean(substream, 0);
-+		__soc_pcm_close(substream);
-		snd_soc_dpcm_mutex_unlock(rtd);
-		return 0;
-	}
-
-
-Thank you for your help !!
-
-Best regards
+Signed-off-by: Seven Lee <wtli@nuvoton.com>
 ---
-Kuninori Morimoto
+ .../devicetree/bindings/sound/nau8821.txt     |  2 +-
+ sound/soc/codecs/nau8821.c                    | 35 +++++++++++++++++++
+ sound/soc/codecs/nau8821.h                    |  1 +
+ 3 files changed, 37 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/devicetree/bindings/sound/nau8821.txt b/Documentation/devicetree/bindings/sound/nau8821.txt
+index 6c3baf7a5f21..7c84e7c7327a 100644
+--- a/Documentation/devicetree/bindings/sound/nau8821.txt
++++ b/Documentation/devicetree/bindings/sound/nau8821.txt
+@@ -34,7 +34,7 @@ Optional properties:
+   - nuvoton,jack-eject-debounce: number from 0 to 7 that sets debounce time to 2^(n+2) ms
+ 
+   - nuvoton,dmic-clk-threshold: the ADC threshold of DMIC clock.
+-
++  - nuvoton,key_enable: Headset button detection switch.
+ 
+ Example:
+ 
+diff --git a/sound/soc/codecs/nau8821.c b/sound/soc/codecs/nau8821.c
+index ce4e7f46bb06..7b0a9c8db40a 100644
+--- a/sound/soc/codecs/nau8821.c
++++ b/sound/soc/codecs/nau8821.c
+@@ -29,6 +29,8 @@
+ #define NAU_FVCO_MAX 100000000
+ #define NAU_FVCO_MIN 90000000
+ 
++#define NAU8821_BUTTON SND_JACK_BTN_0
++
+ /* the maximum frequency of CLK_ADC and CLK_DAC */
+ #define CLK_DA_AD_MAX 6144000
+ 
+@@ -911,6 +913,20 @@ static void nau8821_eject_jack(struct nau8821 *nau8821)
+ 	/* Recover to normal channel input */
+ 	regmap_update_bits(regmap, NAU8821_R2B_ADC_RATE,
+ 			NAU8821_ADC_R_SRC_EN, 0);
++	if (nau8821->key_enable) {
++		regmap_update_bits(regmap, NAU8821_R0F_INTERRUPT_MASK,
++			NAU8821_IRQ_KEY_RELEASE_EN |
++			NAU8821_IRQ_KEY_PRESS_EN,
++			NAU8821_IRQ_KEY_RELEASE_EN |
++			NAU8821_IRQ_KEY_PRESS_EN);
++		regmap_update_bits(regmap,
++			NAU8821_R12_INTERRUPT_DIS_CTRL,
++			NAU8821_IRQ_KEY_RELEASE_DIS |
++			NAU8821_IRQ_KEY_PRESS_DIS,
++			NAU8821_IRQ_KEY_RELEASE_DIS |
++			NAU8821_IRQ_KEY_PRESS_DIS);
++	}
++
+ }
+ 
+ static void nau8821_jdet_work(struct work_struct *work)
+@@ -940,6 +956,15 @@ static void nau8821_jdet_work(struct work_struct *work)
+ 		 */
+ 		regmap_update_bits(regmap, NAU8821_R2B_ADC_RATE,
+ 			NAU8821_ADC_R_SRC_EN, NAU8821_ADC_R_SRC_EN);
++		if (nau8821->key_enable) {
++			regmap_update_bits(regmap, NAU8821_R0F_INTERRUPT_MASK,
++				NAU8821_IRQ_KEY_RELEASE_EN |
++				NAU8821_IRQ_KEY_PRESS_EN, 0);
++			regmap_update_bits(regmap,
++				NAU8821_R12_INTERRUPT_DIS_CTRL,
++				NAU8821_IRQ_KEY_RELEASE_DIS |
++				NAU8821_IRQ_KEY_PRESS_DIS, 0);
++		}
+ 	} else {
+ 		dev_dbg(nau8821->dev, "Headphone connected\n");
+ 		event |= SND_JACK_HEADPHONE;
+@@ -999,6 +1024,13 @@ static irqreturn_t nau8821_interrupt(int irq, void *data)
+ 		nau8821_eject_jack(nau8821);
+ 		event_mask |= SND_JACK_HEADSET;
+ 		clear_irq = NAU8821_JACK_EJECT_IRQ_MASK;
++	} else if (active_irq & NAU8821_KEY_SHORT_PRESS_IRQ) {
++		event |= NAU8821_BUTTON;
++		event_mask |= NAU8821_BUTTON;
++		clear_irq = NAU8821_KEY_SHORT_PRESS_IRQ;
++	} else if (active_irq & NAU8821_KEY_RELEASE_IRQ) {
++		event_mask = NAU8821_BUTTON;
++		clear_irq = NAU8821_KEY_RELEASE_IRQ;
+ 	} else if ((active_irq & NAU8821_JACK_INSERT_IRQ_MASK) ==
+ 		NAU8821_JACK_INSERT_DETECTED) {
+ 		regmap_update_bits(regmap, NAU8821_R71_ANALOG_ADC_1,
+@@ -1490,6 +1522,7 @@ static void nau8821_print_device_properties(struct nau8821 *nau8821)
+ 		nau8821->jack_eject_debounce);
+ 	dev_dbg(dev, "dmic-clk-threshold:       %d\n",
+ 		nau8821->dmic_clk_threshold);
++	dev_dbg(dev, "key_enable:       %d\n", nau8821->key_enable);
+ }
+ 
+ static int nau8821_read_device_properties(struct device *dev,
+@@ -1503,6 +1536,8 @@ static int nau8821_read_device_properties(struct device *dev,
+ 		"nuvoton,jkdet-pull-enable");
+ 	nau8821->jkdet_pull_up = device_property_read_bool(dev,
+ 		"nuvoton,jkdet-pull-up");
++	nau8821->key_enable = device_property_read_bool(dev,
++		"nuvoton,key-enable");
+ 	ret = device_property_read_u32(dev, "nuvoton,jkdet-polarity",
+ 		&nau8821->jkdet_polarity);
+ 	if (ret)
+diff --git a/sound/soc/codecs/nau8821.h b/sound/soc/codecs/nau8821.h
+index a92edfeb9d3a..c44251f54d48 100644
+--- a/sound/soc/codecs/nau8821.h
++++ b/sound/soc/codecs/nau8821.h
+@@ -525,6 +525,7 @@ struct nau8821 {
+ 	int jack_eject_debounce;
+ 	int fs;
+ 	int dmic_clk_threshold;
++	int key_enable;
+ };
+ 
+ int nau8821_enable_jack_detect(struct snd_soc_component *component,
+-- 
+2.25.1
+

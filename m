@@ -2,100 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AFAA55B9F1
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jun 2022 15:29:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F73055BA12
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jun 2022 15:32:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BFDC7168C;
-	Mon, 27 Jun 2022 15:28:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BFDC7168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 12F181693;
+	Mon, 27 Jun 2022 15:31:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12F181693
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656336560;
-	bh=z9PVCuLwYojxAkS7HtYVZSwdcH1Sn2Xb8zOWtG/TKa4=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1656336746;
+	bh=UDeiGExOL5itjqWmaoQuhP+5PogtCkGim3fL2xebeyc=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dVptZmiGbYjcGjr8QtRvvNqrT1p3Khuh3q+HFN5vFNs9CSP+Xhn0rR2AE2ROSXHiX
-	 mLXvJjkCLXijPzIiJZ/qi/KG7d5mzIDjuLPZfYbEG+ZqNNt+gJhDoAh0jkIUMzL6ZQ
-	 fMskjsvuI0XJxtKQbnU7/VN8dTTOEJjwiqSnRK+w=
+	b=DxjHMoXMV2idmBYkeNhUEtYYKOVaeMYbMvGtwocq4nfynJUz9poeHJ87nj2cbShB/
+	 qpv8OPjd147TydvkktVGjneBTGWqX2fWA3c6VxvUh5qaKcq4WYey26UOa4yqC8F5E6
+	 jDbBhT4nV7TuqDIkF39ueQdvdQxNQM8dkvLXIrvU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1A91FF8028D;
-	Mon, 27 Jun 2022 15:28:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 78FF4F8028D;
+	Mon, 27 Jun 2022 15:31:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C6C22F8028B; Mon, 27 Jun 2022 15:28:17 +0200 (CEST)
+ id AF3F6F8012F; Mon, 27 Jun 2022 15:31:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-io1-f47.google.com (mail-io1-f47.google.com
+ [209.85.166.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 99968F80128
- for <alsa-devel@alsa-project.org>; Mon, 27 Jun 2022 15:28:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99968F80128
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="Jd0mnpny"
-Received: by mail-wr1-x433.google.com with SMTP id e28so7909417wra.0
- for <alsa-devel@alsa-project.org>; Mon, 27 Jun 2022 06:28:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=ls6yB7m2qi6FUlQi0e95Lc81JKfij9i9l6rtcmcTak8=;
- b=Jd0mnpnyP4rJZ9Y4IhxngJKeUIOf0Z/VNFHnAFqnaaAy2z7OkGrRewlJPEiUcsZD87
- PIlMG2oSpUu7u+GTFQMuajnL9dKQcpt5pyZKd1deRSVB9nOYV+B1myKwmSZAuHx6AibA
- iolrI0LSUo0gNVgzQaibDJi4t0Yo4v0AjbRpiA8hL/vk3PGO2oHFrruanBcjtZVAVDRA
- 3wjH05iBG8qcXs00ugZgTErw9NBaOSTFBGgP1h7srx00mHlBAfY+BCGjC9CKeauFNGdF
- I0YCsAlWvVvbLiFJlGyzEVR6+25+InTsPs2H6eAxdiIMfYGka2kjiXU1sCuOKycmgnOt
- toTA==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 53407F80128
+ for <alsa-devel@alsa-project.org>; Mon, 27 Jun 2022 15:31:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53407F80128
+Received: by mail-io1-f47.google.com with SMTP id p69so9519559iod.10
+ for <alsa-devel@alsa-project.org>; Mon, 27 Jun 2022 06:31:15 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=ls6yB7m2qi6FUlQi0e95Lc81JKfij9i9l6rtcmcTak8=;
- b=vzTodA5XtvoQLGmz2Zm/GsQkVftVJg9WfeMPYaQ1kw8VyVX2r4/EjrtQWNLPisdo2O
- uydWppP49bKjmUP7FeXYjlkpjHsScJXEOJHdK4s2CTKCIAXqIclzb3/d3ay5VLrWOtc3
- xHwZL+xJ6Qdx76/eOOm7kGHUD+eqwSkq6qXrfURolBLXW4OHJkyn5VufZsgKEUM7CpQ/
- Azue241D/gcjuM+M3AQ/k7QkIt0QVpL6J8BDL2tVLtPQBWjiF4CEKAV9XQ8bONx/+93k
- cDtXwamN4zgq4m9tKxC+tyoUvih+ht+Y0NEE6Ut0p9YyOubI3EPcIpIgldTasi6k8RVQ
- qKeA==
-X-Gm-Message-State: AJIora9iWvvC4+zFXs9Gq9w3lddxz8B/mh6rJVjTYhnpgxBZqJP9PrTQ
- URO4xsQ/GmgA9qthiMCY7FM2Jg==
-X-Google-Smtp-Source: AGRyM1tsqKmfD0LspHT7HlY65vqjpsSthGGW/eUJ1V0K0Z5bfsNimFwCoKv+V2gUeWRwD9QslV7Qgg==
-X-Received: by 2002:a5d:5984:0:b0:21b:a858:3678 with SMTP id
- n4-20020a5d5984000000b0021ba8583678mr12519365wri.293.1656336490689; 
- Mon, 27 Jun 2022 06:28:10 -0700 (PDT)
-Received: from [192.168.0.251] (xdsl-188-155-176-92.adslplus.ch.
- [188.155.176.92]) by smtp.gmail.com with ESMTPSA id
- j22-20020a05600c485600b0039aef592ca0sm13404144wmo.35.2022.06.27.06.28.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Jun 2022 06:28:10 -0700 (PDT)
-Message-ID: <4ec8e2d2-f199-976d-52ae-bbba2d6ac40c@linaro.org>
-Date: Mon, 27 Jun 2022 15:28:09 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Subject: Re: [PATCH] ASoC: samsung: s3c24xx-i2s: Fix typo in DAIFMT handling
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>
-References: <20220627094335.3051210-1-ckeepax@opensource.cirrus.com>
- <803785ef-42b7-647c-9653-702067439ae9@linaro.org>
- <YrmYbZV4mj9d9++t@sirena.org.uk>
- <a25126ed-ef39-8316-6ae5-9551aa8120b0@linaro.org>
- <YrmvZonpB5GhLGbG@sirena.org.uk>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <YrmvZonpB5GhLGbG@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
- patches@opensource.cirrus.com, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, jrdr.linux@gmail.com
+ h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
+ :message-id;
+ bh=QYhUBm2fDCk91Yu6XF3jkA7KmooMdeJ8YT8X3liUnpQ=;
+ b=bj6TcKuum4oekjITjDYbWHMxl93IidGEnlN9akiaVdXuindIR/PpYo69fuOeU7/NST
+ oVmfSGbYZmDumTQxtSd/oiqJtEIJlKA6GfgN3DuiwoTWnrqacg0uw2pzPazLiWFNkNzx
+ RK75Qjb9tcBD1xXPMIZQwSPpqj/MMED0qfG15SAbCdNCk+c5goXnPNGKxZDNeMU3MaUE
+ SXLFf3xn4hUqX1DWrCy07MfXNTamyclEJiNXAMvj6YkejLdaf7Cj2T+mn3qDoSrwgbz2
+ S7dtO40XD+YmC4qvSrNo5gkUWNly0/dAUrHEX6XeoXzBhGawDwlpEGiocvdz2904bJUa
+ ZdpQ==
+X-Gm-Message-State: AJIora/TMuinJxNsBZoDm+nDl1Fb1fD2lzZB0sTGBTroKdPCW6DV2afy
+ znAZx4sq6JbvXJB2QXo4sQ==
+X-Google-Smtp-Source: AGRyM1t5LTyR7mVbDtnvxUaO7kFkqXlKaKnkl6jX5y381d5nO3LPJEow6rHeBCy77jwPiTpVZyN44Q==
+X-Received: by 2002:a6b:d309:0:b0:664:716c:d758 with SMTP id
+ s9-20020a6bd309000000b00664716cd758mr6604131iob.157.1656336673455; 
+ Mon, 27 Jun 2022 06:31:13 -0700 (PDT)
+Received: from robh.at.kernel.org ([64.188.179.253])
+ by smtp.gmail.com with ESMTPSA id
+ b1-20020a5d8041000000b00674f9fb1531sm5159907ior.30.2022.06.27.06.31.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 27 Jun 2022 06:31:13 -0700 (PDT)
+Received: (nullmailer pid 2285174 invoked by uid 1000);
+ Mon, 27 Jun 2022 13:31:09 -0000
+From: Rob Herring <robh@kernel.org>
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+In-Reply-To: <1656294613-27867-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1656294613-27867-1-git-send-email-shengjiu.wang@nxp.com>
+Subject: Re: [PATCH v2] ASoC: dt-bindings: fsl,
+ micfil: Convert format to json-schema
+Date: Mon, 27 Jun 2022 07:31:09 -0600
+Message-Id: <1656336669.670812.2285173.nullmailer@robh.at.kernel.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org, lgirdwood@gmail.com,
+ broonie@kernel.org, krzysztof.kozlowski+dt@linaro.org, shengjiu.wang@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,19 +91,96 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 27/06/2022 15:23, Mark Brown wrote:
->>> That coverage has apparently also been missing in -next for several
->>> weeks.
+On Mon, 27 Jun 2022 09:50:13 +0800, Shengjiu Wang wrote:
+> Convert the NXP MICFIL binding to DT schema format using json-schema.
 > 
->> Eh, it seems defconfigs for this old platform do not select sound, so we
->> rely on randconfig. :(
+> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> ---
+> changes in v2
+> - add decription of interrupts.
 > 
-> It's not even turning up in an allmodconfig?
+>  .../devicetree/bindings/sound/fsl,micfil.txt  | 33 --------
+>  .../devicetree/bindings/sound/fsl,micfil.yaml | 77 +++++++++++++++++++
+>  2 files changed, 77 insertions(+), 33 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/sound/fsl,micfil.txt
+>  create mode 100644 Documentation/devicetree/bindings/sound/fsl,micfil.yaml
+> 
 
-No, because it is old driver for S3C24xx platform which:
-1. Does not have compile test (I can try to fix that),
-2. Depends on/Is selected by S3C24xx code which is not multiplatform
-thus is not enabled on ARM allyes/allmod.
+Running 'make dtbs_check' with the schema in this patch gives the
+following warnings. Consider if they are expected or the schema is
+incorrect. These may not be new warnings.
 
-Best regards,
-Krzysztof
+Note that it is not yet a requirement to have 0 warnings for dtbs_check.
+This will change in the future.
+
+Full log is available here: https://patchwork.ozlabs.org/patch/
+
+
+audio-controller@30080000: clock-names: ['ipg_clk', 'ipg_clk_app', 'pll8k', 'pll11k', 'clkext3'] is too long
+	arch/arm64/boot/dts/freescale/imx8mm-beacon-kit.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-ddr4-evk.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-emcon-avari.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-evk.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-icore-mx8mm-ctouch2.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-icore-mx8mm-edimm2.2.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-kontron-n801x-s.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-mx8menlo.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-nitrogen-r2.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-tqma8mqml-mba8mx.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-var-som-symphony.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-venice-gw71xx-0x.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-venice-gw72xx-0x.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-venice-gw73xx-0x.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-venice-gw7901.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-venice-gw7902.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-venice-gw7903.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-verdin-nonwifi-dahlia.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-verdin-nonwifi-dev.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-verdin-wifi-dahlia.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-verdin-wifi-dev.dtb
+	arch/arm64/boot/dts/freescale/imx8mn-beacon-kit.dtb
+	arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2.dtb
+	arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2pro.dtb
+	arch/arm64/boot/dts/freescale/imx8mn-ddr3l-evk.dtb
+	arch/arm64/boot/dts/freescale/imx8mn-ddr4-evk.dtb
+	arch/arm64/boot/dts/freescale/imx8mn-evk.dtb
+	arch/arm64/boot/dts/freescale/imx8mn-tqma8mqnl-mba8mx.dtb
+	arch/arm64/boot/dts/freescale/imx8mn-var-som-symphony.dtb
+	arch/arm64/boot/dts/freescale/imx8mn-venice-gw7902.dtb
+
+audio-controller@30080000: clocks: [[2, 183], [2, 182], [2, 38], [2, 39], [2, 6]] is too long
+	arch/arm64/boot/dts/freescale/imx8mn-beacon-kit.dtb
+	arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2.dtb
+	arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2pro.dtb
+	arch/arm64/boot/dts/freescale/imx8mn-ddr3l-evk.dtb
+	arch/arm64/boot/dts/freescale/imx8mn-ddr4-evk.dtb
+	arch/arm64/boot/dts/freescale/imx8mn-evk.dtb
+	arch/arm64/boot/dts/freescale/imx8mn-tqma8mqnl-mba8mx.dtb
+	arch/arm64/boot/dts/freescale/imx8mn-var-som-symphony.dtb
+	arch/arm64/boot/dts/freescale/imx8mn-venice-gw7902.dtb
+
+audio-controller@30080000: clocks: [[2, 216], [2, 203], [2, 38], [2, 39], [2, 6]] is too long
+	arch/arm64/boot/dts/freescale/imx8mm-beacon-kit.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-ddr4-evk.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-emcon-avari.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-evk.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-icore-mx8mm-ctouch2.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-icore-mx8mm-edimm2.2.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-kontron-n801x-s.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-mx8menlo.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-nitrogen-r2.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-tqma8mqml-mba8mx.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-var-som-symphony.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-venice-gw71xx-0x.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-venice-gw72xx-0x.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-venice-gw73xx-0x.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-venice-gw7901.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-venice-gw7902.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-venice-gw7903.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-verdin-nonwifi-dahlia.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-verdin-nonwifi-dev.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-verdin-wifi-dahlia.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-verdin-wifi-dev.dtb
+

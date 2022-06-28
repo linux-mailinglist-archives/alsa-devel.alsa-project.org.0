@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5FEA55DCBB
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jun 2022 15:26:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDAC955E546
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jun 2022 16:18:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 858D6851;
-	Tue, 28 Jun 2022 15:25:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 858D6851
+	by alsa0.perex.cz (Postfix) with ESMTPS id 51CFC829;
+	Tue, 28 Jun 2022 16:17:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51CFC829
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656422792;
-	bh=YkY3YRpWZjvY3kzFvaZglL+Asozb4pp9bZcELGWrGP8=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1656425919;
+	bh=/2o6Cn+wlOC6M4+LDwBixIIRgNm0JkPO5/D8l7zwm1w=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HUTOn6zXb4iKl1E0DROSwDK1TsGI8hlsiYmc92vVCwJ38H5w8L6YIdRThzD09bI/S
-	 I/n+qRfq0AbSwPkWOaazJKp3c4RCaoxVROrhpOxUwtYkzO3Sl1Fg6MJ0YiqeSzCVnD
-	 i/pqdv68UivRgH5qhmIMJg1ItIBOJxR8Oevfo5ko=
+	b=qlJMV7DzPd6kdjTMEgPIOuRLzjXK3W4F+zb3Dad4pUKRo9TWtfphHH0IBlqYw7Cbg
+	 1aI/oR/AtGws7Ue26k0z5Fr23gDNIRWMBbkmJ5GHIxN353f2v+MTDb9W8hgyZr2WPU
+	 dx94rDr7l99a24oFxXQbdYAUwNuL4NKAEVCY91AU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 12FB1F80163;
-	Tue, 28 Jun 2022 15:25:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B170EF8025B;
+	Tue, 28 Jun 2022 16:17:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F1C4CF80107; Tue, 28 Jun 2022 15:25:31 +0200 (CEST)
+ id 10027F80167; Tue, 28 Jun 2022 16:17:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,42 +34,44 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A7EACF80107
- for <alsa-devel@alsa-project.org>; Tue, 28 Jun 2022 15:25:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7EACF80107
+ by alsa1.perex.cz (Postfix) with ESMTPS id BCFE5F80107
+ for <alsa-devel@alsa-project.org>; Tue, 28 Jun 2022 16:17:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BCFE5F80107
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="fSjGTW16"
+ header.b="jV18BWsK"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id A8ED9B81E2D;
- Tue, 28 Jun 2022 13:25:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34723C341CD;
- Tue, 28 Jun 2022 13:25:26 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id D38D3B81E3B;
+ Tue, 28 Jun 2022 14:17:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 521CEC3411D;
+ Tue, 28 Jun 2022 14:17:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1656422728;
- bh=YkY3YRpWZjvY3kzFvaZglL+Asozb4pp9bZcELGWrGP8=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=fSjGTW16tfddElttpgXGHZGOCkexNrDlFnx52h3IqdSzQcDln9QZJ76un6mbTjaEi
- 3OpLPiRCAcgBBq8nggxSh4YZAJy/AlmjQF84WXQLTHO+iG3EG6pal8A3g56XJaIkPc
- 75abf7TZSzKL2MNgWxUfBjLpl59aK9G5tMxfbVyTj4GxIv1Pe4gD/6sw5gBhM3STX/
- N6x8OrmFjOahz2y9YJFuOrh6MU3xkxkxiLZldmJu17w7+8Q77R1o5SEDRtvveXRWul
- 4Z/dSTQxmJeAgfSwdB5Y8GeVo0RRWJ166v9l7M1F6YYjbGj6/lftIgdSMuSjJ6+Nbj
- VnQEi7jp74ayg==
+ s=k20201202; t=1656425854;
+ bh=/2o6Cn+wlOC6M4+LDwBixIIRgNm0JkPO5/D8l7zwm1w=;
+ h=From:To:In-Reply-To:References:Subject:Date:From;
+ b=jV18BWsK2+4axT3lbN28G1XGohb2mLJv2qK16Odx0NrsY7knbqE+10Ye6BiCSxcFi
+ FA9Q42hpZO+IVoErbHYkkdimpm9Wbp9K5taJY9iM/KuPcKBRvM/rLwLF1KsSYreG7U
+ 43AxwETYWO/iTsGS2KHOagMI+mATxE6lHvcJhqeoswffLiLqsxEo4mtVNdimpTNsDa
+ 9AAdNVn9vj4kz3Kcxw3VthIOGSWbx1OFbOhLgLcvch8vQOZlgt3Nsa6UNDG7JD6SE2
+ tu7ofZGzVg1pa/CF0SN2YlGNmHYAwPYFf+XLJUEN8TUI3RKIK6BcNBupNJuO8r9nwa
+ DHreUPgMYyG3Q==
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, bryan.odonoghue@linaro.org, bjorn.andersson@linaro.org
-In-Reply-To: <20220628002858.2638442-1-bryan.odonoghue@linaro.org>
-References: <20220628002858.2638442-1-bryan.odonoghue@linaro.org>
-Subject: Re: (subset) [PATCH v4 0/2] Fix apq8016 compat string
-Message-Id: <165642272593.1448965.607600751272662680.b4-ty@kernel.org>
-Date: Tue, 28 Jun 2022 14:25:25 +0100
+To: quic_plai@quicinc.com, lgirdwood@gmail.com, judyhsiao@chromium.org,
+ agross@kernel.org, quic_rohkumar@quicinc.com, bgoswami@quicinc.com,
+ quic_srivasam@quicinc.com, bjorn.andersson@linaro.org, robh+dt@kernel.org,
+ devicetree@vger.kernel.org, srinivas.kandagatla@linaro.org,
+ linux-kernel@vger.kernel.org, swboyd@chromium.org, alsa-devel@alsa-project.org,
+ linux-arm-msm@vger.kernel.org, perex@perex.cz, tiwai@suse.com
+In-Reply-To: <1656326662-14524-1-git-send-email-quic_srivasam@quicinc.com>
+References: <1656326662-14524-1-git-send-email-quic_srivasam@quicinc.com>
+Subject: Re: [PATCH v2] ASoC: qcom: Add driver support for audioreach solution
+Message-Id: <165642585106.1712503.17346348780044575252.b4-ty@kernel.org>
+Date: Tue, 28 Jun 2022 15:17:31 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-arm-msm@vger.kernel.org, tiwai@suse.com, robh+dt@kernel.org,
- srinivas.kandagatla@linaro.org, krzk+dt@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,15 +87,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 28 Jun 2022 01:28:56 +0100, Bryan O'Donoghue wrote:
-> V4:
-> - Adds Bjorn's RB to first patch
-> - Adds missing people to To/Cc list
+On Mon, 27 Jun 2022 16:14:22 +0530, Srinivasa Rao Mandadapu wrote:
+> Add Machine driver support for audioreach solution, which uses
+> ADSP in SC7280 based paltforms.
 > 
-> V3:
-> - Marks qcom,lpass-cpu-apq8016 as deprecated instead of removing - Bjorn
 > 
-> [...]
 
 Applied to
 
@@ -101,8 +99,8 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: qcom: lpass: Fix apq8016 compat string to match yaml
-      commit: 2a2ef688b1b03eea3a5b020d9bef50d015f619be
+[1/1] ASoC: qcom: Add driver support for audioreach solution
+      commit: 5f78e1fb7a3ed1acc355145536ddd54f183b635d
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

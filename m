@@ -2,71 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3711655EA68
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jun 2022 18:59:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48A9355F18F
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jun 2022 00:48:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D00A11672;
-	Tue, 28 Jun 2022 18:58:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D00A11672
+	by alsa0.perex.cz (Postfix) with ESMTPS id A46EE852;
+	Wed, 29 Jun 2022 00:47:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A46EE852
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656435589;
-	bh=cnQtJT2YNF2vEjxFaiHlJHnilsiROtk24ImZlnovbQs=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=RhKn1xFjX1LWJ43NIamJXxc8bSB9z6+1ON7mzK3x2fQEj6+IWCdcXsV41Lp2tAQjP
-	 q4SiWAEBfw0/0DFbvfYfdDqVCZicfI3i0SownnURwCgVWyS380qmJzQTXOgytLlk7v
-	 AImS0pAUBJMJGV5bx8330nmH8pkD26U5bH8duL6g=
+	s=default; t=1656456524;
+	bh=797b2/M51c0NOtG1ETodHSzNi0Sz/mOOoSI+3jRyEXg=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=jl9oEeOQbFqdRlC8YIAi5iJDWphMfejQH+3c7RvxjbgejvZOJIfDDP7vkeOiMAeZO
+	 +z7km28YksWZwOYHoDCQvtPhpRIxo13dENITu1bXQOIPujki6IqGR4Yxv6UxNQKRM6
+	 EdzqhLtJB+K9iUHi4Xm7c9EdiaPEc7+5DUTyPtTs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 61E25F804CF;
-	Tue, 28 Jun 2022 18:58:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E0644F8025B;
+	Wed, 29 Jun 2022 00:47:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7DA37F80536; Tue, 28 Jun 2022 18:58:50 +0200 (CEST)
+ id C0C3BF80167; Wed, 29 Jun 2022 00:47:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7A650F804CF
- for <alsa-devel@alsa-project.org>; Tue, 28 Jun 2022 18:58:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A650F804CF
+ by alsa1.perex.cz (Postfix) with ESMTPS id AE3E5F80107
+ for <alsa-devel@alsa-project.org>; Wed, 29 Jun 2022 00:47:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE3E5F80107
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=denx.de header.i=@denx.de
- header.b="BQG+K9V8"
-Received: from tr.lan (ip-86-49-12-201.bb.vodafone.cz [86.49.12.201])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id F307F8407A;
- Tue, 28 Jun 2022 18:58:43 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1656435524;
- bh=Hwup3A+MAo/IIHDWPJcJuA/ZrTCj+SJh32Gz9ZwYe6g=;
- h=From:To:Cc:Subject:Date:From;
- b=BQG+K9V8ApzpqQAaJ4fC8V+TIy6dMCZu2y4/wGUR5RtMBFWX7fNyCxjiv/5bjWH0j
- wlCJ6PHKEc8qmTj2T65tYXhsEAdEaNxoepgcoHcS1j+V0HPyD1vSbazexEeJ3/5/pI
- XJgmTpns8xOmtnqmV7ob4yKG8M4suuCOsho1GO/4oWWAgiMEHDLWZzR9To/OZIyG7X
- O25i3VEGR6D9DUp82DI1aSq1zPU7lP2+CAbnrvyw29hP3G2MqIp7G8Hfa0IL9XYFco
- y8pPrSz12+ilXcN8EGr0bL7+oU7DgxMg0ll9WaCBtiIJPTxe6Nkr/FR1W8VcLmnaRJ
- v+1+6z1ipPKLw==
-From: Marek Vasut <marex@denx.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ASoC: doc: Capitalize RESET line name
-Date: Tue, 28 Jun 2022 18:58:40 +0200
-Message-Id: <20220628165840.152235-1-marex@denx.de>
-X-Mailer: git-send-email 2.35.1
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="aB5Akobm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1656456460; x=1687992460;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=797b2/M51c0NOtG1ETodHSzNi0Sz/mOOoSI+3jRyEXg=;
+ b=aB5AkobmnMi6TqSWfYKK+IV7gM39Vw6KHcsHooyKGzaCgENV3k8se7gg
+ IcFpQ4BwKmmzooNBbef0SOEOvVGLygL6RS0APGhRMrk1j/Ju8PUstpdaV
+ StKVeFsyOWQro7mnzxTla/dJMIC8bo1MOtJ/EIXnZ/8LBlOb/i9CyxhXW
+ qLf5jl13/OszVvz1JTOu3BzoQNeqbnnISTG3YJjdTcE2vBVCn5Lf3NzJ/
+ YcN34e0RuTQbBH7bmlw3UQgem7VmasQfntP7UiFB0veWPn18NRZ/gZGTV
+ wX4FoAO/5fc0ueHOMCBlLsx+QzLGtG5MYHphqq0UtcW/Hm7y312z1HUEH g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10392"; a="261669469"
+X-IronPort-AV: E=Sophos;i="5.92,230,1650956400"; d="scan'208";a="261669469"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jun 2022 15:47:35 -0700
+X-IronPort-AV: E=Sophos;i="5.92,230,1650956400"; d="scan'208";a="680239996"
+Received: from spekin-mobl3.amr.corp.intel.com (HELO [10.212.118.51])
+ ([10.212.118.51])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jun 2022 15:47:34 -0700
+Message-ID: <18d3e724-e43f-c166-e322-26cc5e3890b7@linux.intel.com>
+Date: Tue, 28 Jun 2022 17:47:34 -0500
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: clamav-milter 0.103.6 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: Marek Vasut <marex@denx.de>, Takashi Iwai <tiwai@suse.de>,
- Mark Brown <broonie@kernel.org>, linux-doc@vger.kernel.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.10.0
+Subject: Re: Sound not working after commit
+ bbf7d3b1c4f40eb02dd1dffb500ba00b0bff0303 on Amlogic A311D device
+Content-Language: en-US
+To: Alex Natalsson <harmoniesworlds@gmail.com>
+References: <CADs9LoPZH_D+eJ9qjTxSLE5jGyhKsjMN7g2NighZ16biVxsyKw@mail.gmail.com>
+ <15259e38-eccf-d294-a330-a48b5bbbdedf@linux.intel.com>
+ <CADs9LoN-L0X1Dr1sP2K7xrcWm7dpHW6MhF47c2eBB0moLNnPRQ@mail.gmail.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <CADs9LoN-L0X1Dr1sP2K7xrcWm7dpHW6MhF47c2eBB0moLNnPRQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, Takashi Iwai <tiwai@suse.de>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ linux-sound@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,29 +98,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Make sure all AC97 interface lines are spelled in capitals,
-to avoid confusing readers about where the 5th line is.
 
-Signed-off-by: Marek Vasut <marex@denx.de>
-Cc: Mark Brown <broonie@kernel.org>
-Cc: Takashi Iwai <tiwai@suse.de>
----
- Documentation/sound/soc/dai.rst | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/sound/soc/dai.rst b/Documentation/sound/soc/dai.rst
-index 009b07e5a0f38..bf8431386d269 100644
---- a/Documentation/sound/soc/dai.rst
-+++ b/Documentation/sound/soc/dai.rst
-@@ -10,7 +10,7 @@ AC97
- ====
- 
- AC97 is a five wire interface commonly found on many PC sound cards. It is
--now also popular in many portable devices. This DAI has a reset line and time
-+now also popular in many portable devices. This DAI has a RESET line and time
- multiplexes its data on its SDATA_OUT (playback) and SDATA_IN (capture) lines.
- The bit clock (BCLK) is always driven by the CODEC (usually 12.288MHz) and the
- frame (FRAME) (usually 48kHz) is always driven by the controller. Each AC97
--- 
-2.35.1
+On 6/28/22 17:10, Alex Natalsson wrote:
+>> Any chance you could try with an updated kernel? It's not clear to me if
+>> this is a real issue or just a warning that's been fixed since by commit.
+> 
+> I luanching 5.19-rc2 and finding this problem. Then I used git bisect
+> and found this commit, which broke my audio system. I don't know maybe
+> I have wrong settings, but for me this real problem because sound not
+> working....
+> 
+>> You may also want to open a bugzilla issue
+> Yes, I can. If problem not in my config settings.
 
+It's great that you've been able to bisect.
+
+What's surprising is that you have a long list of errors reported before
+the kernel oops, e.g.
+
+[  243.188688]  fe.dai-link-1: ASoC: no backend DAIs enabled for
+fe.dai-link-1
+
+[  243.188702]  fe.dai-link-1: ASoC: dpcm_fe_dai_prepare() failed (-22)
+
+[  243.188919]  fe.dai-link-1: ASoC: no backend DAIs enabled for
+fe.dai-link-1
+
+[  243.188922]  fe.dai-link-1: ASoC: dpcm_fe_dai_prepare() failed (-22)
+
+Did those appear with this commit? That's usually a sign of missing
+mixer settings to connect FE and BE, not sure how this would appear
+because of change in the locking.
+
+It would also help if you could add dev_err logs in dpcm_be_connect() to
+see in which code section the oops occurs. In theory we have all kinds
+of checks before calling dpcm_be_connect() but we've obviously missing
+something.

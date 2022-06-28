@@ -2,91 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02B3A55C05E
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jun 2022 12:46:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0C0855C06F
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jun 2022 12:55:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4FEC01638;
-	Tue, 28 Jun 2022 12:45:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4FEC01638
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4ACF384B;
+	Tue, 28 Jun 2022 12:55:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4ACF384B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656413166;
-	bh=mrTY+LhhQN0SUSD9+W/ZTD+DapxlZFWCRwfvGj9VXGs=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1656413759;
+	bh=Fs76fzPiX5CmqDm7rtqXmeYxffdzK/gh1PH56GM7A/A=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EKR+Q0elajHwg9i+jwMMpJ2JJWasOz3ow83uP3ymZfF573McB8sjCmohV4yK5A1/T
-	 1JoS0dRUlj3lxdK6DnXbhA+P2AfN8QbVBMTTYpt1nz5COvqr270NFd2nk0ndKBW01L
-	 /e4qZxSyi+f9GAwtK2809TzDmyunbPxYWmP0CZKM=
+	b=t96Zr+su0shJJyvauU+CYJJn3gafDtGW5NGVUp9SFHYNDj0Lbooeu7Tf/FbMFFtF4
+	 UgrOrSWOJ32FMLjL+o1aA4Fq4GAv8hPDFOgMIZIVZyCavnptZu56eyvys4zR+jBeLc
+	 qYTvuVtHz6pG/AnuGZYY1bk/5+KTsXJuTI3qsxh8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ECE1AF80536;
-	Tue, 28 Jun 2022 12:44:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A04B0F80115;
+	Tue, 28 Jun 2022 12:55:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7D38FF80166; Tue, 28 Jun 2022 12:44:28 +0200 (CEST)
+ id 92DB1F80167; Tue, 28 Jun 2022 12:54:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 42F31F80163
+ for <alsa-devel@alsa-project.org>; Tue, 28 Jun 2022 12:54:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42F31F80163
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="CWxnowEI"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 33F9DF80166
- for <alsa-devel@alsa-project.org>; Tue, 28 Jun 2022 12:44:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33F9DF80166
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="iEIo4KlO"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25S8Aom8002616;
- Tue, 28 Jun 2022 05:44:16 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=PODMain02222019;
- bh=LBdjpKTcBhVvtkLLUBtkb/1VdJ7fQ8gDmZFGNTWayfE=;
- b=iEIo4KlO1TxLHhH1TJ5A7+OiPwNHZJTVUWKC6KC+fvIKu4KwNg7nZcibs3x/I/2rhHxy
- QrxOhHLScrGTWD3MIz5QAT680oOAXhewHFsXyubkXXJoGsfLZTg6p30RkA7P9Annw0ep
- L+6pTJr4ZXYAxlFKMcjZav4G7vDAXHY8CKZvDuh5eGF+YV9Igt+55cHqjrRMcBRM+R0k
- NZDBqXUGYH0ssc+Ort15HSTar7MCD0yll3M5F2PdKaACZxaovvmEIJQaWxE18iIfKEHk
- 9uHjBjTTniqwwkkRNeBNojR0lc/ebuujwh6865sbbuPjbec9dAoOw4qrFd60Cf8G03Kc iA== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3gwxsq3rut-2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Tue, 28 Jun 2022 05:44:16 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 28 Jun
- 2022 11:44:14 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.28 via
- Frontend Transport; Tue, 28 Jun 2022 11:44:14 +0100
-Received: from sbinding-cirrus-dsktp.ad.cirrus.com (unknown [198.90.238.163])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 8AD852A1;
- Tue, 28 Jun 2022 10:44:14 +0000 (UTC)
-From: Stefan Binding <sbinding@opensource.cirrus.com>
-To: "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
- Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>
-Subject: [PATCH v4 2/2] ASoC: cs35l41: Read System Name from ACPI _SUB to
- identify firmware
-Date: Tue, 28 Jun 2022 11:44:11 +0100
-Message-ID: <20220628104411.984551-3-sbinding@opensource.cirrus.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220628104411.984551-1-sbinding@opensource.cirrus.com>
-References: <20220628104411.984551-1-sbinding@opensource.cirrus.com>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 9CF6C61953;
+ Tue, 28 Jun 2022 10:54:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC517C3411D;
+ Tue, 28 Jun 2022 10:54:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1656413693;
+ bh=Fs76fzPiX5CmqDm7rtqXmeYxffdzK/gh1PH56GM7A/A=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=CWxnowEIkHAserwFzSMJCMqahu7NvtMa9ZpyTfJPzy0/5EOwwdrKlYBA4KDNjd46V
+ 6S1Tq2iGDWKNvPZ6gZGFpir1kicU+VCDnJL384wniHm/3rGpl+mv0rJFBYI1HtFFSk
+ NMvpc7/d15Xsltl4uy9/ig5oYPM80xVjhK9/ZUa3d2Tf581X27Dgub0Ms/s5bsNIZG
+ 75kvBcnUVSTN3at2IaFuOxmitya78R4qdZ1M2La+gE5sIct0s5IN794dPxMvtdoAcq
+ nd6d7d5juLJ9CXedoW9Wop3mvU/RtulX2iWf8WkhpUQ/b0D1w6enipuCnbNyM5RVTe
+ wrYwU6Y+3I9Nw==
+Date: Tue, 28 Jun 2022 11:54:47 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Subject: Re: [PATCH v4 1/2] ASoC: qcom: lpass: Fix apq8016 compat string to
+ match yaml
+Message-ID: <Yrrd96ecPni13xq2@sirena.org.uk>
+References: <20220628002858.2638442-1-bryan.odonoghue@linaro.org>
+ <20220628002858.2638442-2-bryan.odonoghue@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: NtYvUKnreYSGMU-cQj4apqMn9NVo3X7I
-X-Proofpoint-ORIG-GUID: NtYvUKnreYSGMU-cQj4apqMn9NVo3X7I
-X-Proofpoint-Spam-Reason: safe
-Cc: linux-acpi@vger.kernel.org, alsa-devel@alsa-project.org,
- Stefan Binding <sbinding@opensource.cirrus.com>, linux-kernel@vger.kernel.org,
- patches@opensource.cirrus.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="iQPZ8z0FvK3SbyzZ"
+Content-Disposition: inline
+In-Reply-To: <20220628002858.2638442-2-bryan.odonoghue@linaro.org>
+X-Cookie: I like your SNOOPY POSTER!!
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, linux-arm-msm@vger.kernel.org, tiwai@suse.com,
+ robh+dt@kernel.org, srinivas.kandagatla@linaro.org, krzk+dt@kernel.org,
+ bjorn.andersson@linaro.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,74 +91,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When loading firmware, wm_adsp uses a number of parameters to
-determine the path of the firmware and tuning files to load.
-One of these parameters is system_name.
-Add support in cs35l41 to read this system name from the ACPI
-_SUB ID in order to uniquely identify the firmware and tuning
-mapped to a particular system.
 
-Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
----
- sound/soc/codecs/cs35l41.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+--iQPZ8z0FvK3SbyzZ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/sound/soc/codecs/cs35l41.c b/sound/soc/codecs/cs35l41.c
-index 8766e19d85f1..9ab016094b32 100644
---- a/sound/soc/codecs/cs35l41.c
-+++ b/sound/soc/codecs/cs35l41.c
-@@ -6,6 +6,7 @@
- //
- // Author: David Rhodes <david.rhodes@cirrus.com>
- 
-+#include <linux/acpi.h>
- #include <linux/delay.h>
- #include <linux/err.h>
- #include <linux/init.h>
-@@ -1142,6 +1143,24 @@ static int cs35l41_dsp_init(struct cs35l41_private *cs35l41)
- 	return ret;
- }
- 
-+static int cs35l41_probe_acpi(struct cs35l41_private *cs35l41)
-+{
-+	acpi_handle handle = ACPI_HANDLE(cs35l41->dev);
-+	const char *sub;
-+
-+	/* If there is no ACPI_HANDLE, there is no ACPI for this system, return 0 */
-+	if (!handle)
-+		return 0;
-+
-+	sub = acpi_get_subsystem_id(handle);
-+	if (IS_ERR(sub))
-+		return PTR_ERR(sub);
-+
-+	cs35l41->dsp.system_name = sub;
-+	dev_dbg(cs35l41->dev, "Susystem ID: %s\n", cs35l41->dsp.system_name);
-+	return 0;
-+}
-+
- int cs35l41_probe(struct cs35l41_private *cs35l41, const struct cs35l41_hw_cfg *hw_cfg)
- {
- 	u32 regid, reg_revid, i, mtl_revid, int_status, chipid_match;
-@@ -1270,6 +1289,10 @@ int cs35l41_probe(struct cs35l41_private *cs35l41, const struct cs35l41_hw_cfg *
- 		goto err;
- 	}
- 
-+	ret = cs35l41_probe_acpi(cs35l41);
-+	if (ret < 0)
-+		goto err;
-+
- 	ret = cs35l41_dsp_init(cs35l41);
- 	if (ret < 0)
- 		goto err;
-@@ -1316,6 +1339,7 @@ void cs35l41_remove(struct cs35l41_private *cs35l41)
- 	pm_runtime_disable(cs35l41->dev);
- 
- 	regmap_write(cs35l41->regmap, CS35L41_IRQ1_MASK1, 0xFFFFFFFF);
-+	kfree(cs35l41->dsp.system_name);
- 	wm_adsp2_remove(&cs35l41->dsp);
- 	cs35l41_safe_reset(cs35l41->regmap, cs35l41->hw_cfg.bst_type);
- 
--- 
-2.25.1
+On Tue, Jun 28, 2022 at 01:28:57AM +0100, Bryan O'Donoghue wrote:
+> The documented yaml compat string for the apq8016 is
+> "qcom,apq8016-lpass-cpu" not "qcom,lpass-cpu-apq8016". Looking at the oth=
+er
+> lpass compat strings the general form is "qcom,socnum-lpass-cpu".
+>=20
+> We need to fix both the driver and dts to match.
+>=20
+> Fixes: dc1ebd1811e9 ("ASoC: qcom: Add apq8016 lpass driver support")
 
+This isn't really a fix and it's breaking an ABI which has been there
+since 2015.  By tagging this as a fix you're doubtless going to get the
+stable people trying to backport it which will most likely break some
+users.
+
+--iQPZ8z0FvK3SbyzZ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmK63fYACgkQJNaLcl1U
+h9Antwf/Z4Ctein0L7OvsA9zHtMBH5LNxHlRKyTZ7Qgkg2kL3u1J7fDIF0Rjp66f
+AS5fRMXIOUSbzij1j1jO4EbNXVQnFOVyGgFKzv4L8Dh3ZGtEAzVglWEIwrwvdaif
+yEJYlGnoa8ERRMAeujuWAaXvRbGT2YLs5Naf4NG1x8oUqy+U1Ze+CuwE4Pi72HNC
+oe+D059bZrbD8YCdNOCoPkIYYliDDftskW0bqmBAuW31d0G8UtnR8exoLdiVEeGO
+5/KGlLvgpbx5CArLZ8jKTUm8NwYr/1OskTYM5PV3LzPyeKGIucy5HbeWAYQz0K0N
+8fW13yKwgi0yVHSI/ScHiWP8sK8EVQ==
+=gOCL
+-----END PGP SIGNATURE-----
+
+--iQPZ8z0FvK3SbyzZ--

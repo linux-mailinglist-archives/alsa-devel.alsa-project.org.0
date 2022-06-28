@@ -2,89 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADB3855E5B5
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jun 2022 17:35:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E09D55EA67
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jun 2022 18:59:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3B625AE8;
-	Tue, 28 Jun 2022 17:35:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B625AE8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 901DE950;
+	Tue, 28 Jun 2022 18:58:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 901DE950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656430552;
-	bh=HMiiR+bbTNsCQKvUj0uF5h3tcDrIpx/Hl1hsZYf3+PQ=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=X9fEWjINcnNmO4J2QXko7yn33Gr4AADv1blS0wPoDjgBBd3t54MqSn/EZ/ntYOxF6
-	 HyESbkvXHnVTZOClWYuHLLSurWq6mxCKBEhc214BYJJxFm4ojZkiEEZD2N0MkW/exa
-	 OEpvOFUoxVhHigr2/8AdDiJFEYRxrYSQNTgO6wXg=
+	s=default; t=1656435560;
+	bh=e2cA02gK7PqwOzv3YHx6N7DJAibcjk6vOLFm572qvf4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=AYE5u/23+YY9u2ZH45GwyeF1GCHjh8jv5s3KHPuoPhkLkZnYX616KmG+NP/Tx/oOp
+	 zgj1eAZOBQ0pSb5anTY8bJTSWkF0kxfDUfj7LJwg8+p3yV4lIiu+BxcGdNl9Et8BTA
+	 f9ITKlSaxHyCNK9JPIgvAQJJVcddcC1DLIQ3gRUQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C7398F804CF;
-	Tue, 28 Jun 2022 17:34:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E4624F8025B;
+	Tue, 28 Jun 2022 18:58:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 421E3F80115; Tue, 28 Jun 2022 17:34:20 +0200 (CEST)
+ id A2D09F80167; Tue, 28 Jun 2022 18:58:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1D21EF80166
- for <alsa-devel@alsa-project.org>; Tue, 28 Jun 2022 17:34:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D21EF80166
+ by alsa1.perex.cz (Postfix) with ESMTPS id BEB40F80163
+ for <alsa-devel@alsa-project.org>; Tue, 28 Jun 2022 18:58:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BEB40F80163
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="AZHNrj+B"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25SAsNkW030341;
- Tue, 28 Jun 2022 10:34:11 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=PODMain02222019;
- bh=fx+brN5T0/y3MeHTGAc+TGmH8wXatk2qoGD+69ypeB4=;
- b=AZHNrj+BilsuHdrkfOalqJizww2CFm7M31ggBSGO2rEWVTw8f7As6NRPNg8Ok9TOEf+3
- zNDBdqZU0assZGssg/6lTJ6N6eQ8LB/l25q2RTBI20j+4Yu6cr1zMSSJXjpD6ulYnwaw
- XvhG/Mc3fY0lrCkXg8UH/Lg8QZzCeovSLeCWHFHQgpg7i9OSkUGeoy9jyWnzPunQZBDy
- EK+Iph5VmK15HMnqkVOdYlM6Fxyamn3LewjlTQI0Bjf/ZEDr1tQDt6ZnjQDLErMbDCGZ
- 7jtk0hyMUq2CSzKRn3AL/Z4oa4pxpN6QjkXTni0GoV8c9RPuhb0lLEtJRNfCb3R6UFGd 3w== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3gwxsq437w-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Tue, 28 Jun 2022 10:34:10 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 28 Jun
- 2022 16:34:09 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.28 via
- Frontend Transport; Tue, 28 Jun 2022 16:34:09 +0100
-Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 5B61411D3;
- Tue, 28 Jun 2022 15:34:09 +0000 (UTC)
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: <broonie@kernel.org>
-Subject: [PATCH 4/4] ASoC: arizona: Update arizona_aif_cfg_changed to use
- RX_BCLK_RATE
-Date: Tue, 28 Jun 2022 16:34:09 +0100
-Message-ID: <20220628153409.3266932-4-ckeepax@opensource.cirrus.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20220628153409.3266932-1-ckeepax@opensource.cirrus.com>
-References: <20220628153409.3266932-1-ckeepax@opensource.cirrus.com>
+ dkim=pass (2048-bit key) header.d=denx.de header.i=@denx.de
+ header.b="IvzCxh1a"
+Received: from tr.lan (ip-86-49-12-201.bb.vodafone.cz [86.49.12.201])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id B546F83A31;
+ Tue, 28 Jun 2022 18:58:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1656435492;
+ bh=pemWDkXYJYJHkIG427oBju+wORRrZ34sfzIWKrIjjq8=;
+ h=From:To:Cc:Subject:Date:From;
+ b=IvzCxh1aReSffScbyU7MPcoT71j/kqAsBwNudSXLIxDXxgV8fXjkKrQQK2GsZIqRV
+ 9jNEtx2DBahdLghW0yWnQbxgBdr+shycnXKVjDbMpZ0HOt3T0qGYxWMkGSzHwvmT60
+ G3Xg0zt/SlOFP700Ow9+tUX8Ql4soSSs2ZTpDRQ0CwGssI+1mWPcOOv9JTyootYoVm
+ fQGuQi/DmVTHzaMNieXdkBMoLBGUZ4LB9xDUG26v0/BE1thRcFTCFI2GLtUVXOHuj+
+ E3A8nqpnSQsysF/M6U+sP2dlEjr2jQZqGhHJmH+UaQu0lM0LpCEkRXGsRlBik1EM2N
+ RZTn9Ww3LSubA==
+From: Marek Vasut <marex@denx.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: doc: Update dead links
+Date: Tue, 28 Jun 2022 18:58:07 +0200
+Message-Id: <20220628165807.152191-1-marex@denx.de>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: MyYhvriIpCSaOzLNIL3qCf1g0HfwjtPH
-X-Proofpoint-ORIG-GUID: MyYhvriIpCSaOzLNIL3qCf1g0HfwjtPH
-X-Proofpoint-Spam-Reason: safe
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org
+X-Virus-Scanned: clamav-milter 0.103.6 at phobos.denx.de
+X-Virus-Status: Clean
+Cc: Marek Vasut <marex@denx.de>, Takashi Iwai <tiwai@suse.de>,
+ Mark Brown <broonie@kernel.org>, linux-doc@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,36 +82,71 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Currently the function arizona_aif_cfg_changed uses the TX_BCLK_RATE,
-however this register is not used on wm8998. This was not noticed as
-previously snd_soc_component_read did not print an error message.
-However, now the log gets filled with error messages, further more the
-test for if the LRCLK changed will return spurious results.
+The alsa-project documentation is now part of the kernel docs,
+the original links are long dead, update links.
 
-Update the code to use the RX_BCLK_RATE register, the LRCLK parameters
-are written to both registers and the RX_BCLK_RATE register is used
-across all Arizona devices.
-
-Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Signed-off-by: Marek Vasut <marex@denx.de>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Takashi Iwai <tiwai@suse.de>
 ---
- sound/soc/codecs/arizona.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ Documentation/process/kernel-docs.rst | 2 +-
+ Documentation/sound/soc/codec.rst     | 2 +-
+ Documentation/sound/soc/platform.rst  | 2 +-
+ sound/pci/ens1370.c                   | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/codecs/arizona.c b/sound/soc/codecs/arizona.c
-index e32871b3f68ac..7434aeeda292e 100644
---- a/sound/soc/codecs/arizona.c
-+++ b/sound/soc/codecs/arizona.c
-@@ -1760,8 +1760,8 @@ static bool arizona_aif_cfg_changed(struct snd_soc_component *component,
- 	if (bclk != (val & ARIZONA_AIF1_BCLK_FREQ_MASK))
- 		return true;
+diff --git a/Documentation/process/kernel-docs.rst b/Documentation/process/kernel-docs.rst
+index da9527502ef0e..644f9200fd919 100644
+--- a/Documentation/process/kernel-docs.rst
++++ b/Documentation/process/kernel-docs.rst
+@@ -108,7 +108,7 @@ On-line docs
+     * Title: **Writing an ALSA Driver**
  
--	val = snd_soc_component_read(component, base + ARIZONA_AIF_TX_BCLK_RATE);
--	if (lrclk != (val & ARIZONA_AIF1TX_BCPF_MASK))
-+	val = snd_soc_component_read(component, base + ARIZONA_AIF_RX_BCLK_RATE);
-+	if (lrclk != (val & ARIZONA_AIF1RX_BCPF_MASK))
- 		return true;
+       :Author: Takashi Iwai <tiwai@suse.de>
+-      :URL: http://www.alsa-project.org/~iwai/writing-an-alsa-driver/index.html
++      :URL: https://www.kernel.org/doc/html/latest/sound/kernel-api/writing-an-alsa-driver.html
+       :Date: 2005
+       :Keywords: ALSA, sound, soundcard, driver, lowlevel, hardware.
+       :Description: Advanced Linux Sound Architecture for developers,
+diff --git a/Documentation/sound/soc/codec.rst b/Documentation/sound/soc/codec.rst
+index 57df149acafc5..af973c4cac930 100644
+--- a/Documentation/sound/soc/codec.rst
++++ b/Documentation/sound/soc/codec.rst
+@@ -132,7 +132,7 @@ The codec driver also supports the following ALSA PCM operations:-
+   };
  
- 	val = snd_soc_component_read(component, base + ARIZONA_AIF_FRAME_CTRL_1);
+ Please refer to the ALSA driver PCM documentation for details.
+-http://www.alsa-project.org/~iwai/writing-an-alsa-driver/
++https://www.kernel.org/doc/html/latest/sound/kernel-api/writing-an-alsa-driver.html
+ 
+ 
+ DAPM description
+diff --git a/Documentation/sound/soc/platform.rst b/Documentation/sound/soc/platform.rst
+index c1badea53d3d3..7036630eaf016 100644
+--- a/Documentation/sound/soc/platform.rst
++++ b/Documentation/sound/soc/platform.rst
+@@ -46,7 +46,7 @@ snd_soc_component_driver:-
+   };
+ 
+ Please refer to the ALSA driver documentation for details of audio DMA.
+-http://www.alsa-project.org/~iwai/writing-an-alsa-driver/
++https://www.kernel.org/doc/html/latest/sound/kernel-api/writing-an-alsa-driver.html
+ 
+ An example DMA driver is soc/pxa/pxa2xx-pcm.c
+ 
+diff --git a/sound/pci/ens1370.c b/sound/pci/ens1370.c
+index 94efe347a97a9..89210b2c73424 100644
+--- a/sound/pci/ens1370.c
++++ b/sound/pci/ens1370.c
+@@ -8,7 +8,7 @@
+ /* Power-Management-Code ( CONFIG_PM )
+  * for ens1371 only ( FIXME )
+  * derived from cs4281.c, atiixp.c and via82xx.c
+- * using http://www.alsa-project.org/~tiwai/writing-an-alsa-driver/ 
++ * using https://www.kernel.org/doc/html/latest/sound/kernel-api/writing-an-alsa-driver.html
+  * by Kurt J. Bosch
+  */
+ 
 -- 
-2.30.2
+2.35.1
 

@@ -2,49 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C627F55C0C1
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jun 2022 13:38:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFC3F55C0CA
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jun 2022 13:49:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 04455AE8;
-	Tue, 28 Jun 2022 13:37:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04455AE8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 87EBB852;
+	Tue, 28 Jun 2022 13:48:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 87EBB852
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656416288;
-	bh=vR8EqFFybjXfsCOKb18r+QUgupaWONhX/BZDNGEMAZM=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1656416970;
+	bh=OQ7gSOVYoyciQJQuwoFpqkOmXrv1ZhhQm0Dgs3oTPmg=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qZI69wX9Q6w7mrsuOqko1jM8Rz5o2FE33vv2Z07g150Y7D+aBDbjnFaiPzCvHCN2H
-	 XGHACzdcSsuBbbqCQyo0/3OmA234J6s0k0A8/wK20niK7BQTuvRBzi/dlUkTFLigNj
-	 XD2lLsXRWIDvD/CR/xXSNHvb5VxEZbxowrW8gDNU=
+	b=ZRYclnyxRaPmL+AK/toqqiRPcAgVhZHnUGQb6TJ5RXb3eO9yIPtf2dfDnwdT+R7IN
+	 BunDWtPriJA86eCjLmcOUx8yr7GmKjblCkSU2kOr/xaJqzrDaEVayYUfmVIFr9dzPX
+	 9Wo/3ALCfe9uoj443NFaOgFb4//eKWGsgs0TqfxU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6AF95F8025B;
-	Tue, 28 Jun 2022 13:37:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0B46DF8025B;
+	Tue, 28 Jun 2022 13:48:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EB8CDF80115; Tue, 28 Jun 2022 13:37:06 +0200 (CEST)
+ id 24737F80167; Tue, 28 Jun 2022 13:48:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 8D1C0F80115
- for <alsa-devel@alsa-project.org>; Tue, 28 Jun 2022 13:37:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D1C0F80115
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [IPv6:2a00:1450:4864:20::333])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id E102CF80107
+ for <alsa-devel@alsa-project.org>; Tue, 28 Jun 2022 13:48:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E102CF80107
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="QC3iqfjn"
+Received: by mail-wm1-x333.google.com with SMTP id l68so2140230wml.3
+ for <alsa-devel@alsa-project.org>; Tue, 28 Jun 2022 04:48:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=ARDmPpFNeFd3U7QLTpOGaojt5BbAFGKGYsuOK9qTd/Y=;
+ b=QC3iqfjnPtGeUUoqjsBCAjO4k82ZGz5gPrW6KmnT8jqVZZFHuLfsTIWX7Ck3NZ7ovW
+ D5RN/7dMWONHz9D7GSa97LK0fHN+HrL12HNmKCp+rXZjSS24TKUVGTBHIJlIUhaZzl5I
+ z9If9u744CQNOaFLAOj3jhqegHVI9bRc6kiFwpNUy0kislXxzquNBEjd9XYzpjyRqAXx
+ QTPZV7Vx0amDskRQR0t6tn4jOa0x2g9SRNQzhHnltOsTEZIFBQbtFHSNfmWvYUOo4Dqw
+ J9aPeMlYfSU8QWVV5KnZawc7Mi+4nZJk5IiRJv8BDt2hyju+Sjx5F4bzBYy3J3wz9Kab
+ wZPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=ARDmPpFNeFd3U7QLTpOGaojt5BbAFGKGYsuOK9qTd/Y=;
+ b=2VeCr9Nk+FtQG2lrY4UXbpGV7pcM919/xfBvriQH6UyeUNnfIH1kjzJOX0wtn9Tnb8
+ h5p1bbm23pXXRKXyt9ca8nSwcbAe87igY7yOaeCTFHZ3BzyPJdHOVIquxGWn/UmDq3MJ
+ iSojJMjMIxLNfHfSpThMKhFGe/pItTQDYWRzHvxm4NOJu9dzqCBxrOpI8j2VZKeKEH2z
+ prNI/2awgZpRt6gx8RV9JlSsRNqOOUwe74Utixe+Hih9NDk09TVSkAJO38bWNa9wiJJo
+ EBiUGTLXijyETzN/nUBZLskOXum0lIIuqSgzQpcA9WRoNUSyPg1gHwwfpOJUg3lU651e
+ gcfg==
+X-Gm-Message-State: AJIora8/Z1LIZsCJLdq+zNoAOsBlH5svcQ/luRyLFkLWIRlJ6iiR3ZKo
+ 5bDuq9gjL8Vj++cBTKB9/aWlFw==
+X-Google-Smtp-Source: AGRyM1vjuaRUvUxcebxJCjSQw/GD3dvJigLw9hhUiaZGLGlGKkF787hpFCshgyALl40zm7XgkZYmfw==
+X-Received: by 2002:a05:600c:583:b0:39c:3637:b9f with SMTP id
+ o3-20020a05600c058300b0039c36370b9fmr26740830wmd.79.1656416902293; 
+ Tue, 28 Jun 2022 04:48:22 -0700 (PDT)
+Received: from [192.168.0.162] (188-141-3-169.dynamic.upc.ie. [188.141.3.169])
+ by smtp.gmail.com with ESMTPSA id
+ bn24-20020a056000061800b0020fe35aec4bsm13115711wrb.70.2022.06.28.04.48.21
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 28 Jun 2022 04:48:21 -0700 (PDT)
+Message-ID: <14f6b7eb-cacb-91a5-ce06-9702618513b9@linaro.org>
+Date: Tue, 28 Jun 2022 12:48:20 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
+Subject: Re: [PATCH v4 1/2] ASoC: qcom: lpass: Fix apq8016 compat string to
+ match yaml
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>
+References: <20220628002858.2638442-1-bryan.odonoghue@linaro.org>
+ <20220628002858.2638442-2-bryan.odonoghue@linaro.org>
+ <Yrrf5X8wstW+DXHF@sirena.org.uk>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+In-Reply-To: <Yrrf5X8wstW+DXHF@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1656416220883438110-webhooks-bot@alsa-project.org>
-References: <1656416220883438110-webhooks-bot@alsa-project.org>
-Subject: HDA Nvidia no profile
-Message-Id: <20220628113706.EB8CDF80115@alsa1.perex.cz>
-Date: Tue, 28 Jun 2022 13:37:06 +0200 (CEST)
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, linux-arm-msm@vger.kernel.org, tiwai@suse.com,
+ robh+dt@kernel.org, srinivas.kandagatla@linaro.org, krzk+dt@kernel.org,
+ bjorn.andersson@linaro.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,375 +111,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-lib issue #245 was opened from decepticlown:
+On 28/06/2022 12:03, Mark Brown wrote:
+> On Tue, Jun 28, 2022 at 01:28:57AM +0100, Bryan O'Donoghue wrote:
+>> The documented yaml compat string for the apq8016 is
+>> "qcom,apq8016-lpass-cpu" not "qcom,lpass-cpu-apq8016". Looking at the other
+>> lpass compat strings the general form is "qcom,socnum-lpass-cpu".
+> 
+> This doesn't apply against current code, please check and resend.
 
-I have a TV connected through `HDMI` to laptop which has `NVidia 1650ti` card. In `pavucontrol` I can not see any `HDA NVidia` profiles. It only shows `off`. I can solve it by `downgrading to alsa-lib 1.2.4`. After that HDMI profiles are shown properly and sound works. Issue persists with both proprietary and open source NVidia drivers. 
+What's the tree you are applying to here ?
 
-pipewire version: 0.3.52-2
-pipewire-alsa version: 0.3.52-2
-pipewire-pulse version: 0.3.52-2
-wireplumber version: 0.4.10-3
-alsa-lib version: 1.2.7-1
-Archlinux kernel version: 5.18.7
+I applied it to linux-next just last night..
 
-I haven't done any configuration for above packages. Its basically fresh install.
-<details>
-<summary> $ pactl list cards</summary>
+https://git.linaro.org/people/bryan.odonoghue/kernel.git/log/?h=linux-next-27-06-22-msm8939-no-cpr-v4
 
-    Card #44
-	Name: alsa_card.pci-0000_01_00.1
-	Driver: alsa
-	Owner Module: n/a
-	Properties:
-		api.acp.auto-port = "false"
-		api.acp.auto-profile = "false"
-		api.alsa.card = "0"
-		api.alsa.card.longname = "HDA NVidia at 0xfc080000 irq 99"
-		api.alsa.card.name = "HDA NVidia"
-		api.alsa.path = "hw:0"
-		api.alsa.use-acp = "true"
-		api.dbus.ReserveDevice1 = "Audio0"
-		device.api = "alsa"
-		device.bus = "pci"
-		device.bus_path = "pci-0000:01:00.1"
-		device.description = "HDA NVidia"
-		device.enum.api = "udev"
-		device.icon_name = "audio-card-analog-pci"
-		device.name = "alsa_card.pci-0000_01_00.1"
-		device.nick = "HDA NVidia"
-		device.plugged.usec = "3396199"
-		device.product.id = "4346"
-		device.subsystem = "sound"
-		device.sysfs.path = "/sys/devices/pci0000:00/0000:00:01.1/0000:01:00.1/sound/card0"
-		device.vendor.id = "4318"
-		device.vendor.name = "NVIDIA Corporation"
-		media.class = "Audio/Device"
-		factory.id = "14"
-		client.id = "34"
-		object.id = "42"
-		object.serial = "44"
-		object.path = "alsa:pcm:0"
-		alsa.card = "0"
-		alsa.card_name = "HDA NVidia"
-		alsa.long_card_name = "HDA NVidia at 0xfc080000 irq 99"
-		alsa.driver_name = "snd_hda_intel"
-		device.string = "0"
-	Profiles:
-		off: Off (sinks: 0, sources: 0, priority: 0, available: yes)
-	Active Profile: off
+https://git.linaro.org/people/bryan.odonoghue/kernel.git/commit/?h=linux-next-27-06-22-msm8939-no-cpr-v4&id=5822d52637eff65b826097634d9a99a9bf1bf2b7
 
-    Card #45
-	Name: alsa_card.pci-0000_06_00.6
-	Driver: alsa
-	Owner Module: n/a
-	Properties:
-		api.acp.auto-port = "false"
-		api.acp.auto-profile = "false"
-		api.alsa.card = "1"
-		api.alsa.card.longname = "HD-Audio Generic at 0xfc5c0000 irq 100"
-		api.alsa.card.name = "HD-Audio Generic"
-		api.alsa.path = "hw:1"
-		api.alsa.use-acp = "true"
-		api.dbus.ReserveDevice1 = "Audio1"
-		device.api = "alsa"
-		device.bus = "pci"
-		device.bus_path = "pci-0000:06:00.6"
-		device.description = "Family 17h/19h HD Audio Controller"
-		device.enum.api = "udev"
-		device.icon_name = "audio-card-analog-pci"
-		device.name = "alsa_card.pci-0000_06_00.6"
-		device.nick = "HD-Audio Generic"
-		device.plugged.usec = "3762193"
-		device.product.id = "5603"
-		device.product.name = "Family 17h/19h HD Audio Controller"
-		device.subsystem = "sound"
-		device.sysfs.path = "/sys/devices/pci0000:00/0000:00:08.1/0000:06:00.6/sound/card1"
-		device.vendor.id = "4130"
-		device.vendor.name = "Advanced Micro Devices, Inc. [AMD]"
-		media.class = "Audio/Device"
-		factory.id = "14"
-		client.id = "34"
-		object.id = "43"
-		object.serial = "45"
-		object.path = "alsa:pcm:1"
-		alsa.card = "1"
-		alsa.card_name = "HD-Audio Generic"
-		alsa.long_card_name = "HD-Audio Generic at 0xfc5c0000 irq 100"
-		alsa.driver_name = "snd_hda_intel"
-		device.string = "1"
-	Profiles:
-		off: Off (sinks: 0, sources: 0, priority: 0, available: yes)
-		HiFi: Play HiFi quality Music (sinks: 1, sources: 2, priority: 8000, available: yes)
-	Active Profile: HiFi
-	Ports:
-		[Out] Speaker: Speaker (type: Speaker, priority: 100, latency offset: 0 usec, availability unknown)
-			Properties:
-				port.type = "speaker"
-				card.profile.port = "0"
-			Part of profile(s): HiFi
-		[Out] Headphones: Headphones (type: Headphones, priority: 200, latency offset: 0 usec, availability group: Headphone, not available)
-			Properties:
-				port.type = "headphones"
-				port.availability-group = "Headphone"
-				card.profile.port = "1"
-			Part of profile(s): HiFi
-		[In] Mic2: Headphones Stereo Microphone (type: Mic, priority: 200, latency offset: 0 usec, availability group: Mic, not available)
-			Properties:
-				port.type = "mic"
-				port.availability-group = "Mic"
-				card.profile.port = "2"
-			Part of profile(s): HiFi
-		[In] Mic1: Digital Microphone (type: Mic, priority: 100, latency offset: 0 usec, availability unknown)
-			Properties:
-				port.type = "mic"
-				card.profile.port = "3"
-			Part of profile(s): HiFi
-</details>
-
-<details>
-<summary> $ pactl list sinks </summary>
-
-    Sink #52
-	State: SUSPENDED
-	Name: alsa_output.pci-0000_06_00.6.HiFi__hw_Generic__sink
-	Description: Family 17h/19h HD Audio Controller Speaker + Headphones
-	Driver: PipeWire
-	Sample Specification: s32le 2ch 48000Hz
-	Channel Map: front-left,front-right
-	Owner Module: 4294967295
-	Mute: no
-	Volume: front-left: 32966 /  50% / -17.90 dB,   front-right: 32966 /  50% / -17.90 dB
-	        balance 0.00
-	Base Volume: 65536 / 100% / 0.00 dB
-	Monitor Source: alsa_output.pci-0000_06_00.6.HiFi__hw_Generic__sink.monitor
-	Latency: 0 usec, configured 0 usec
-	Flags: HARDWARE HW_MUTE_CTRL HW_VOLUME_CTRL DECIBEL_VOLUME LATENCY
-	Properties:
-		alsa.card = "1"
-		alsa.card_name = "HD-Audio Generic"
-		alsa.class = "generic"
-		alsa.device = "0"
-		alsa.driver_name = "snd_hda_intel"
-		alsa.id = "ALC245 Analog"
-		alsa.long_card_name = "HD-Audio Generic at 0xfc5c0000 irq 100"
-		alsa.mixer_device = "_ucm0003.hw:Generic"
-		alsa.name = "ALC245 Analog"
-		alsa.resolution_bits = "16"
-		alsa.subclass = "generic-mix"
-		alsa.subdevice = "0"
-		alsa.subdevice_name = "subdevice #0"
-		api.alsa.card.longname = "HD-Audio Generic at 0xfc5c0000 irq 100"
-		api.alsa.card.name = "HD-Audio Generic"
-		api.alsa.open.ucm = "true"
-		api.alsa.path = "hw:Generic"
-		api.alsa.pcm.card = "1"
-		api.alsa.pcm.stream = "playback"
-		audio.channels = "2"
-		audio.position = "FL,FR"
-		card.profile.device = "0"
-		device.api = "alsa"
-		device.class = "sound"
-		device.id = "43"
-		device.profile.description = "Speaker + Headphones"
-		device.profile.name = "HiFi: hw:Generic: sink"
-		device.routes = "2"
-		factory.name = "api.alsa.pcm.sink"
-		media.class = "Audio/Sink"
-		device.description = "Family 17h/19h HD Audio Controller Speaker + Headphones"
-		node.name = "alsa_output.pci-0000_06_00.6.HiFi__hw_Generic__sink"
-		node.nick = "ALC245 Analog"
-		node.pause-on-idle = "false"
-		object.path = "alsa:pcm:1:hw:Generic:playback"
-		priority.driver = "1000"
-		priority.session = "1000"
-		factory.id = "18"
-		clock.quantum-limit = "8192"
-		client.id = "34"
-		node.driver = "true"
-		factory.mode = "merge"
-		audio.adapt.follower = ""
-		library.name = "audioconvert/libspa-audioconvert"
-		object.id = "50"
-		object.serial = "52"
-	Ports:
-		[Out] Speaker: Speaker (type: Speaker, priority: 100, availability unknown)
-		[Out] Headphones: Headphones (type: Headphones, priority: 200, availability group: Headphone, not available)
-	Active Port: [Out] Speaker
-	Formats:
-		pcm
-</details>
-
-<details>
-<summary> $ journalctl --user -u pipewire </summary>
-
-	Jun 22 19:32:54 acpomen systemd[624]: Started PipeWire Multimedia Service.
-	Jun 22 19:32:54 acpomen pipewire[7606]: mod.rt: RTKit error: org.freedesktop.DBus.Error.ServiceUnknown
-	Jun 22 19:32:54 acpomen pipewire[7606]: mod.rt: could not set nice-level to -11: No such file or directory
-	Jun 22 19:32:54 acpomen pipewire[7606]: mod.rt: RTKit error: org.freedesktop.DBus.Error.ServiceUnknown
-	Jun 22 19:32:54 acpomen pipewire[7606]: mod.rt: RTKit error: org.freedesktop.DBus.Error.ServiceUnknown
-	Jun 22 19:32:54 acpomen pipewire[7606]: mod.rt: RTKit error: org.freedesktop.DBus.Error.ServiceUnknown
-	Jun 22 19:32:54 acpomen pipewire[7606]: mod.rt: could not make thread 7611 realtime using RTKit: No such file or directory
-	Jun 22 19:33:14 acpomen systemd[624]: Stopping PipeWire Multimedia Service...
-	Jun 22 19:33:14 acpomen systemd[624]: Stopped PipeWire Multimedia Service.
-	-- Boot cffbe11774b045209ebac44a28f3b208 --
-	Jun 22 19:40:30 acpomen systemd[710]: Started PipeWire Multimedia Service.
-	Jun 22 19:40:30 acpomen pipewire[828]: mod.rt: RTKit error: org.freedesktop.DBus.Error.ServiceUnknown
-	Jun 22 19:40:30 acpomen pipewire[828]: mod.rt: could not set nice-level to -11: No such file or directory
-	Jun 22 19:40:30 acpomen pipewire[828]: mod.rt: RTKit error: org.freedesktop.DBus.Error.ServiceUnknown
-	Jun 22 19:40:30 acpomen pipewire[828]: mod.rt: RTKit error: org.freedesktop.DBus.Error.ServiceUnknown
-	Jun 22 19:40:30 acpomen pipewire[828]: mod.rt: RTKit error: org.freedesktop.DBus.Error.ServiceUnknown
-	Jun 22 19:40:30 acpomen pipewire[828]: mod.rt: could not make thread 841 realtime using RTKit: No such file or directory
-	Jun 22 21:24:34 acpomen systemd[710]: Stopping PipeWire Multimedia Service...
-	Jun 22 21:24:34 acpomen systemd[710]: Stopped PipeWire Multimedia Service.
-	-- Boot ce4eadd6c5724803a855cdd812d7c3b1 --
-	Jun 22 21:24:55 acpomen systemd[671]: Started PipeWire Multimedia Service.
-	Jun 22 21:24:55 acpomen pipewire[795]: mod.rt: RTKit error: org.freedesktop.DBus.Error.ServiceUnknown
-	Jun 22 21:24:55 acpomen pipewire[795]: mod.rt: could not set nice-level to -11: No such file or directory
-	Jun 22 21:24:55 acpomen pipewire[795]: mod.rt: RTKit error: org.freedesktop.DBus.Error.ServiceUnknown
-	Jun 22 21:24:55 acpomen pipewire[795]: mod.rt: RTKit error: org.freedesktop.DBus.Error.ServiceUnknown
-	Jun 22 21:24:55 acpomen pipewire[795]: mod.rt: RTKit error: org.freedesktop.DBus.Error.ServiceUnknown
-	Jun 22 21:24:55 acpomen pipewire[795]: mod.rt: could not make thread 817 realtime using RTKit: No such file or directory
-	Jun 22 21:29:13 acpomen systemd[671]: Stopping PipeWire Multimedia Service...
-	Jun 22 21:29:13 acpomen systemd[671]: Stopped PipeWire Multimedia Service.
-	-- Boot 84159dbd36c44d528956ced91fa003bc --
-	Jun 22 21:29:31 acpomen systemd[692]: Started PipeWire Multimedia Service.
-	Jun 22 21:29:31 acpomen pipewire[815]: mod.rt: RTKit error: org.freedesktop.DBus.Error.ServiceUnknown
-	Jun 22 21:29:31 acpomen pipewire[815]: mod.rt: could not set nice-level to -11: No such file or directory
-	Jun 22 21:29:31 acpomen pipewire[815]: mod.rt: RTKit error: org.freedesktop.DBus.Error.ServiceUnknown
-	Jun 22 21:29:31 acpomen pipewire[815]: mod.rt: RTKit error: org.freedesktop.DBus.Error.ServiceUnknown
-	Jun 22 21:29:31 acpomen pipewire[815]: mod.rt: RTKit error: org.freedesktop.DBus.Error.ServiceUnknown
-	Jun 22 21:29:31 acpomen pipewire[815]: mod.rt: could not make thread 825 realtime using RTKit: No such file or directory
-	Jun 22 21:31:26 acpomen systemd[692]: Stopping PipeWire Multimedia Service...
-	Jun 22 21:31:26 acpomen systemd[692]: Stopped PipeWire Multimedia Service.
-	-- Boot 23fb63f7cfda4de1953f2c4a0b307323 --
-	Jun 22 21:32:08 acpomen systemd[678]: Started PipeWire Multimedia Service.
-	Jun 23 02:53:10 acpomen systemd[678]: Stopping PipeWire Multimedia Service...
-	Jun 23 02:53:10 acpomen systemd[678]: Stopped PipeWire Multimedia Service.
-	Jun 23 02:53:10 acpomen systemd[678]: pipewire.service: Consumed 48.006s CPU time.
-	-- Boot fe356232671a4f5a80b0907d9fb80e14 --
-	Jun 23 12:41:30 acpomen systemd[705]: Started PipeWire Multimedia Service.
-	Jun 23 22:27:07 acpomen pipewire[1179]: spa.alsa: hdmi:0,5: Channels doesn't match (requested 8, got 6)
-	Jun 23 22:27:07 acpomen pipewire[1179]: spa.alsa: hdmi:0,5: Channels doesn't match (requested 8, got 6)
-	Jun 23 22:27:07 acpomen pipewire[1179]: spa.alsa: hdmi:0,5: Channels doesn't match (requested 8, got 6)
-	Jun 23 22:27:08 acpomen pipewire[1179]: spa.alsa: hw:0,11: Channels doesn't match (requested 8, got 6)
-	Jun 23 22:27:08 acpomen pipewire[1179]: spa.alsa: hw:0,11: Channels doesn't match (requested 8, got 6)
-	Jun 23 22:27:08 acpomen pipewire[1179]: spa.alsa: hw:0,11: Channels doesn't match (requested 8, got 6)
-	Jun 24 02:05:47 acpomen systemd[705]: Stopping PipeWire Multimedia Service...
-	Jun 24 02:05:47 acpomen systemd[705]: Stopped PipeWire Multimedia Service.
-	Jun 24 02:05:47 acpomen systemd[705]: pipewire.service: Consumed 1min 9.342s CPU time.
-	-- Boot 2c6154fab18a4a5594b6357264a845ff --
-	Jun 24 12:06:07 acpomen systemd[708]: Started PipeWire Multimedia Service.
-	Jun 24 15:42:27 acpomen pipewire[1140]: spa.alsa: 'hw:0,10': playback open failed: Device or resource busy
-	Jun 24 15:42:27 acpomen pipewire[1140]: spa.alsa: 'hw:0,10': playback open failed: Device or resource busy
-	Jun 24 15:42:27 acpomen pipewire[1140]: spa.audioadapter: params Spa:Enum:ParamId:EnumFormat: 0:0 (follower format) Device or resource busy
-	Jun 24 15:42:27 acpomen pipewire[1140]: pw.node: (alsa_output.pci-0000_01_00.1.pro-output-10-78) suspended -> error (Start error: Device or resource busy)
-	Jun 24 15:42:27 acpomen pipewire[1140]: spa.alsa: 'hw:0,10': playback open failed: Device or resource busy
-	Jun 24 15:42:27 acpomen pipewire[1140]: spa.alsa: 'hw:0,10': playback open failed: Device or resource busy
-	Jun 24 15:42:27 acpomen pipewire[1140]: spa.audioadapter: params Spa:Enum:ParamId:EnumFormat: 0:0 (follower format) Device or resource busy
-	Jun 24 15:42:27 acpomen pipewire[1140]: spa.alsa: 'hw:0,10': playback open failed: Device or resource busy
-	Jun 24 15:42:27 acpomen pipewire[1140]: spa.alsa: 'hw:0,10': playback open failed: Device or resource busy
-	Jun 24 15:42:27 acpomen pipewire[1140]: spa.audioadapter: params Spa:Enum:ParamId:EnumFormat: 0:0 (follower format) Device or resource busy
-	Jun 24 15:42:27 acpomen pipewire[1140]: spa.alsa: 'hw:0,10': playback open failed: Device or resource busy
-	Jun 24 15:42:27 acpomen pipewire[1140]: spa.alsa: 'hw:0,10': playback open failed: Device or resource busy
-	Jun 24 15:42:27 acpomen pipewire[1140]: spa.audioadapter: params Spa:Enum:ParamId:EnumFormat: 0:0 (follower format) Device or resource busy
-	Jun 24 15:42:27 acpomen pipewire[1140]: spa.alsa: 'hw:0,10': playback open failed: Device or resource busy
-	Jun 24 15:42:27 acpomen pipewire[1140]: spa.alsa: 'hw:0,10': playback open failed: Device or resource busy
-	Jun 24 15:42:27 acpomen pipewire[1140]: spa.audioadapter: params Spa:Enum:ParamId:EnumFormat: 0:0 (follower format) Device or resource busy
-	Jun 24 15:42:27 acpomen pipewire[1140]: spa.alsa: 'hw:0,10': playback open failed: Device or resource busy
-	Jun 24 15:42:27 acpomen pipewire[1140]: spa.alsa: 'hw:0,10': playback open failed: Device or resource busy
-	Jun 24 15:42:27 acpomen pipewire[1140]: spa.audioadapter: params Spa:Enum:ParamId:EnumFormat: 0:0 (follower format) Device or resource busy
-	Jun 24 15:42:27 acpomen pipewire[1140]: spa.alsa: 'hw:0,11': playback open failed: Device or resource busy
-	Jun 24 15:42:27 acpomen pipewire[1140]: spa.alsa: 'hw:0,11': playback open failed: Device or resource busy
-	Jun 24 15:42:27 acpomen pipewire[1140]: spa.audioadapter: params Spa:Enum:ParamId:EnumFormat: 0:0 (follower format) Device or resource busy
-	Jun 24 15:42:27 acpomen pipewire[1140]: pw.node: (alsa_output.pci-0000_01_00.1.pro-output-11-79) suspended -> error (Start error: Device or resource busy)
-	Jun 24 15:42:27 acpomen pipewire[1140]: spa.alsa: 'hw:0,10': playback open failed: Device or resource busy
-	Jun 24 15:42:27 acpomen pipewire[1140]: spa.alsa: 'hw:0,10': playback open failed: Device or resource busy
-	Jun 24 15:42:27 acpomen pipewire[1140]: spa.audioadapter: params Spa:Enum:ParamId:EnumFormat: 0:0 (follower format) Device or resource busy
-	Jun 24 15:42:27 acpomen pipewire[1140]: spa.alsa: 'hw:0,11': playback open failed: Device or resource busy
-	Jun 24 15:42:27 acpomen pipewire[1140]: spa.alsa: 'hw:0,11': playback open failed: Device or resource busy
-	Jun 24 15:42:27 acpomen pipewire[1140]: spa.audioadapter: params Spa:Enum:ParamId:EnumFormat: 0:0 (follower format) Device or resource busy
-	Jun 24 15:42:27 acpomen pipewire[1140]: spa.alsa: 'hw:0,10': playback open failed: Device or resource busy
-	Jun 24 15:42:27 acpomen pipewire[1140]: spa.alsa: 'hw:0,10': playback open failed: Device or resource busy
-	Jun 24 15:42:27 acpomen pipewire[1140]: spa.audioadapter: params Spa:Enum:ParamId:EnumFormat: 0:0 (follower format) Device or resource busy
-	Jun 24 15:42:27 acpomen pipewire[1140]: spa.alsa: 'hw:0,11': playback open failed: Device or resource busy
-	Jun 24 15:42:27 acpomen pipewire[1140]: spa.alsa: 'hw:0,11': playback open failed: Device or resource busy
-	Jun 24 15:42:27 acpomen pipewire[1140]: spa.audioadapter: params Spa:Enum:ParamId:EnumFormat: 0:0 (follower format) Device or resource busy
-	Jun 24 15:42:27 acpomen pipewire[1140]: pw.link: 0x55a4586a0f10: port 0x55a457909450 can't set io:1 (Spa:Enum:IO:Buffers): Invalid argument
-	Jun 24 15:42:27 acpomen pipewire[1140]: pw.link: 0x55a4586a0f10: port 0x55a457909450 can't set io:1 (Spa:Enum:IO:Buffers): Invalid argument
-	Jun 24 17:01:55 acpomen systemd[708]: Stopping PipeWire Multimedia Service...
-	Jun 24 17:01:55 acpomen systemd[708]: Stopped PipeWire Multimedia Service.
-	Jun 24 17:01:55 acpomen systemd[708]: pipewire.service: Consumed 23.174s CPU time.
-	-- Boot 2cae9b322eeb4d01b875c6ad08ceaa01 --
-	Jun 24 17:02:40 acpomen systemd[672]: Started PipeWire Multimedia Service.
-	Jun 24 22:29:37 acpomen systemd[672]: Stopping PipeWire Multimedia Service...
-	Jun 24 22:29:37 acpomen systemd[672]: Stopped PipeWire Multimedia Service.
-	Jun 24 22:29:37 acpomen systemd[672]: pipewire.service: Consumed 32.107s CPU time.
-	-- Boot d0598bf6fa6f4cabb8564254d1618467 --
-	Jun 26 19:14:11 acpomen systemd[667]: Started PipeWire Multimedia Service.
-	Jun 26 19:15:01 acpomen pipewire[1087]: spa.alsa: 'hw:0,10': playback open failed: Device or resource busy
-	Jun 26 19:15:01 acpomen pipewire[1087]: spa.alsa: 'hw:0,10': playback open failed: Device or resource busy
-	Jun 26 19:15:01 acpomen pipewire[1087]: spa.audioadapter: params Spa:Enum:ParamId:EnumFormat: 0:0 (follower format) Device or resource busy
-	Jun 26 19:15:01 acpomen pipewire[1087]: pw.node: (alsa_output.pci-0000_01_00.1.pro-output-10-58) suspended -> error (Start error: Device or resource busy)
-	Jun 26 19:15:01 acpomen pipewire[1087]: spa.alsa: 'hw:0,10': playback open failed: Device or resource busy
-	Jun 26 19:15:01 acpomen pipewire[1087]: spa.alsa: 'hw:0,10': playback open failed: Device or resource busy
-	Jun 26 19:15:01 acpomen pipewire[1087]: spa.audioadapter: params Spa:Enum:ParamId:EnumFormat: 0:0 (follower format) Device or resource busy
-	Jun 26 19:15:01 acpomen pipewire[1087]: spa.alsa: 'hw:0,10': playback open failed: Device or resource busy
-	Jun 26 19:15:01 acpomen pipewire[1087]: spa.alsa: 'hw:0,10': playback open failed: Device or resource busy
-	Jun 26 19:15:01 acpomen pipewire[1087]: spa.audioadapter: params Spa:Enum:ParamId:EnumFormat: 0:0 (follower format) Device or resource busy
-	Jun 26 19:15:01 acpomen pipewire[1087]: spa.alsa: 'hw:0,11': playback open failed: Device or resource busy
-	Jun 26 19:15:01 acpomen pipewire[1087]: spa.alsa: 'hw:0,11': playback open failed: Device or resource busy
-	Jun 26 19:15:01 acpomen pipewire[1087]: spa.audioadapter: params Spa:Enum:ParamId:EnumFormat: 0:0 (follower format) Device or resource busy
-	Jun 26 19:15:01 acpomen pipewire[1087]: pw.node: (alsa_output.pci-0000_01_00.1.pro-output-11-49) suspended -> error (Start error: Device or resource busy)
-	Jun 26 23:26:35 acpomen systemd[667]: Stopping PipeWire Multimedia Service...
-	Jun 26 23:26:35 acpomen systemd[667]: Stopped PipeWire Multimedia Service.
-	Jun 26 23:26:35 acpomen systemd[667]: pipewire.service: Consumed 29.662s CPU time.
-	-- Boot e754f78daab143569c36d8be663986ae --
-	Jun 28 17:10:19 acpomen systemd[752]: Started PipeWire Multimedia Service.
-	Jun 28 18:49:19 acpomen pipewire[1277]: spa.alsa: 'hw:0,10': playback open failed: Device or resource busy
-	Jun 28 18:49:19 acpomen pipewire[1277]: spa.alsa: 'hw:0,10': playback open failed: Device or resource busy
-	Jun 28 18:49:19 acpomen pipewire[1277]: spa.audioadapter: params Spa:Enum:ParamId:EnumFormat: 0:0 (follower format) Device or resource busy
-	Jun 28 18:49:19 acpomen pipewire[1277]: pw.node: (alsa_output.pci-0000_01_00.1.pro-output-10-78) suspended -> error (Start error: Device or resource busy)
-	Jun 28 18:49:19 acpomen pipewire[1277]: spa.alsa: 'hw:0,10': playback open failed: Device or resource busy
-	Jun 28 18:49:19 acpomen pipewire[1277]: spa.alsa: 'hw:0,10': playback open failed: Device or resource busy
-	Jun 28 18:49:19 acpomen pipewire[1277]: spa.audioadapter: params Spa:Enum:ParamId:EnumFormat: 0:0 (follower format) Device or resource busy
-	Jun 28 18:49:19 acpomen pipewire[1277]: spa.alsa: 'hw:0,10': playback open failed: Device or resource busy
-	Jun 28 18:49:19 acpomen pipewire[1277]: spa.alsa: 'hw:0,10': playback open failed: Device or resource busy
-	Jun 28 18:49:19 acpomen pipewire[1277]: spa.audioadapter: params Spa:Enum:ParamId:EnumFormat: 0:0 (follower format) Device or resource busy
-	Jun 28 18:49:19 acpomen pipewire[1277]: spa.alsa: 'hw:0,10': playback open failed: Device or resource busy
-	Jun 28 18:49:19 acpomen pipewire[1277]: spa.alsa: 'hw:0,10': playback open failed: Device or resource busy
-	Jun 28 18:49:19 acpomen pipewire[1277]: spa.audioadapter: params Spa:Enum:ParamId:EnumFormat: 0:0 (follower format) Device or resource busy
-	Jun 28 18:49:19 acpomen pipewire[1277]: spa.alsa: 'hw:0,11': playback open failed: Device or resource busy
-	Jun 28 18:49:19 acpomen pipewire[1277]: spa.alsa: 'hw:0,11': playback open failed: Device or resource busy
-	Jun 28 18:49:19 acpomen pipewire[1277]: spa.audioadapter: params Spa:Enum:ParamId:EnumFormat: 0:0 (follower format) Device or resource busy
-	Jun 28 18:49:19 acpomen pipewire[1277]: pw.node: (alsa_output.pci-0000_01_00.1.pro-output-11-79) suspended -> error (Start error: Device or resource busy)
-	Jun 28 18:49:19 acpomen pipewire[1277]: pw.link: 0x556e964bf250: port 0x556e9576fc80 can't set io:1 (Spa:Enum:IO:Buffers): Invalid argument
-	Jun 28 18:49:19 acpomen pipewire[1277]: pw.link: 0x556e964bf250: port 0x556e9576fc80 can't set io:1 (Spa:Enum:IO:Buffers): Invalid argument
-	Jun 28 15:44:26 acpomen systemd[752]: Stopping PipeWire Multimedia Service...
-	Jun 28 15:44:26 acpomen systemd[752]: Stopped PipeWire Multimedia Service.
-	Jun 28 15:44:26 acpomen systemd[752]: pipewire.service: Consumed 49.188s CPU time.
-	-- Boot 9c1e5f7301a64e9180bd6a9bf6cb3ec6 --
-	Jun 28 15:45:13 acpomen systemd[696]: Started PipeWire Multimedia Service.
-	Jun 28 16:05:17 acpomen systemd[696]: Stopping PipeWire Multimedia Service...
-	Jun 28 16:05:17 acpomen systemd[696]: Stopped PipeWire Multimedia Service.
-	-- Boot 619883556f584c45b36b0072399b3621 --
-	Jun 28 16:05:38 acpomen systemd[678]: Started PipeWire Multimedia Service.
-	Jun 28 16:07:51 acpomen systemd[678]: Stopping PipeWire Multimedia Service...
-	Jun 28 16:07:51 acpomen systemd[678]: Stopped PipeWire Multimedia Service.
-	Jun 28 16:07:51 acpomen systemd[678]: Started PipeWire Multimedia Service.
-	Jun 28 16:13:04 acpomen systemd[678]: Stopping PipeWire Multimedia Service...
-	Jun 28 16:13:04 acpomen systemd[678]: Stopped PipeWire Multimedia Service.
-	-- Boot 017f208f301c4e3787ee98c5827a39eb --
-	Jun 28 16:13:22 acpomen systemd[682]: Started PipeWire Multimedia Service.
-	Jun 28 16:16:30 acpomen systemd[682]: Stopping PipeWire Multimedia Service...
-	Jun 28 16:16:30 acpomen systemd[682]: Stopped PipeWire Multimedia Service.
-	-- Boot b9c9a99d501148028e7db65ec457fd0a --
-	Jun 28 16:16:50 acpomen systemd[665]: Started PipeWire Multimedia Service.
-	Jun 28 16:34:10 acpomen systemd[665]: Stopping PipeWire Multimedia Service...
-	Jun 28 16:34:10 acpomen systemd[665]: Stopped PipeWire Multimedia Service.
-	Jun 28 16:43:22 acpomen systemd[665]: Started PipeWire Multimedia Service.
-</details>
-
-Please, let me know if you need any relevent logs. I'm not sure which ones to post.
-
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/245
-Repository URL: https://github.com/alsa-project/alsa-lib
+---
+bod

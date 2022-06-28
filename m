@@ -2,100 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFC3F55C0CA
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jun 2022 13:49:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3497755C0D5
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jun 2022 14:05:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 87EBB852;
-	Tue, 28 Jun 2022 13:48:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 87EBB852
+	by alsa0.perex.cz (Postfix) with ESMTPS id 885111640;
+	Tue, 28 Jun 2022 14:04:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 885111640
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656416970;
-	bh=OQ7gSOVYoyciQJQuwoFpqkOmXrv1ZhhQm0Dgs3oTPmg=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ZRYclnyxRaPmL+AK/toqqiRPcAgVhZHnUGQb6TJ5RXb3eO9yIPtf2dfDnwdT+R7IN
-	 BunDWtPriJA86eCjLmcOUx8yr7GmKjblCkSU2kOr/xaJqzrDaEVayYUfmVIFr9dzPX
-	 9Wo/3ALCfe9uoj443NFaOgFb4//eKWGsgs0TqfxU=
+	s=default; t=1656417947;
+	bh=WEIkAPtqXNz+8lPAxtrOqMQJ6wNktkjqSA0Sm/E1LMU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=W2l3APuKeYvz46t+2x3MGJAuUejR3hZcjtytohkzF+KhKxSSCU8whVg9S4JkE2/aE
+	 cGLS0zW5DQwL3d08srkg9mUYFTdOQRPO1PA9C7GuOb3vBLsMH0SGsWa0GHVk0mLv1C
+	 TXIn/Dg/rRt6Fc7GoEL5oOSSvaErDxmLYKok7STo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0B46DF8025B;
-	Tue, 28 Jun 2022 13:48:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EB53AF8049E;
+	Tue, 28 Jun 2022 14:04:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 24737F80167; Tue, 28 Jun 2022 13:48:30 +0200 (CEST)
+ id 05484F8028B; Tue, 28 Jun 2022 14:04:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [IPv6:2a00:1450:4864:20::42c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E102CF80107
- for <alsa-devel@alsa-project.org>; Tue, 28 Jun 2022 13:48:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E102CF80107
+ by alsa1.perex.cz (Postfix) with ESMTPS id D47BEF80115
+ for <alsa-devel@alsa-project.org>; Tue, 28 Jun 2022 14:04:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D47BEF80115
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="QC3iqfjn"
-Received: by mail-wm1-x333.google.com with SMTP id l68so2140230wml.3
- for <alsa-devel@alsa-project.org>; Tue, 28 Jun 2022 04:48:23 -0700 (PDT)
+ header.b="s9ZUAzTU"
+Received: by mail-wr1-x42c.google.com with SMTP id q9so17362818wrd.8
+ for <alsa-devel@alsa-project.org>; Tue, 28 Jun 2022 05:04:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=ARDmPpFNeFd3U7QLTpOGaojt5BbAFGKGYsuOK9qTd/Y=;
- b=QC3iqfjnPtGeUUoqjsBCAjO4k82ZGz5gPrW6KmnT8jqVZZFHuLfsTIWX7Ck3NZ7ovW
- D5RN/7dMWONHz9D7GSa97LK0fHN+HrL12HNmKCp+rXZjSS24TKUVGTBHIJlIUhaZzl5I
- z9If9u744CQNOaFLAOj3jhqegHVI9bRc6kiFwpNUy0kislXxzquNBEjd9XYzpjyRqAXx
- QTPZV7Vx0amDskRQR0t6tn4jOa0x2g9SRNQzhHnltOsTEZIFBQbtFHSNfmWvYUOo4Dqw
- J9aPeMlYfSU8QWVV5KnZawc7Mi+4nZJk5IiRJv8BDt2hyju+Sjx5F4bzBYy3J3wz9Kab
- wZPg==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=LasQIcGj2EkLsI4F0d1EwxnNc/TKgEuzRf3skqrfIZI=;
+ b=s9ZUAzTUyYk5hf+SfgKWwKzcXBR/n7WUsOu56nmGVfPOme6ObB4rAx5EDI0teyQsim
+ bTRPXlG+MonKFrIT/qCb2cG/S3jl8xzYxDrFTfWWjNs6Oq5jVjzRCj0g4YXPE/M7rvFg
+ 5UF1NuVvcj0EBHiW3Q9W//a90cM43ElnlhSiKtYYjjtFdEj+7WvRJlkyZwvAn95G22sU
+ IdnTvWAjWuW/Nr8gYdMJnHIqpxV//RkupCSS0mltfMYtSyHApM4lPS39NsVfZakD+rEw
+ rcApGSPFXdYeViFJc5U3dxCo6R5GsqwQf8NRaYM74cs765+g0XNOmcxyiuIwm+LqLC7b
+ QHYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=ARDmPpFNeFd3U7QLTpOGaojt5BbAFGKGYsuOK9qTd/Y=;
- b=2VeCr9Nk+FtQG2lrY4UXbpGV7pcM919/xfBvriQH6UyeUNnfIH1kjzJOX0wtn9Tnb8
- h5p1bbm23pXXRKXyt9ca8nSwcbAe87igY7yOaeCTFHZ3BzyPJdHOVIquxGWn/UmDq3MJ
- iSojJMjMIxLNfHfSpThMKhFGe/pItTQDYWRzHvxm4NOJu9dzqCBxrOpI8j2VZKeKEH2z
- prNI/2awgZpRt6gx8RV9JlSsRNqOOUwe74Utixe+Hih9NDk09TVSkAJO38bWNa9wiJJo
- EBiUGTLXijyETzN/nUBZLskOXum0lIIuqSgzQpcA9WRoNUSyPg1gHwwfpOJUg3lU651e
- gcfg==
-X-Gm-Message-State: AJIora8/Z1LIZsCJLdq+zNoAOsBlH5svcQ/luRyLFkLWIRlJ6iiR3ZKo
- 5bDuq9gjL8Vj++cBTKB9/aWlFw==
-X-Google-Smtp-Source: AGRyM1vjuaRUvUxcebxJCjSQw/GD3dvJigLw9hhUiaZGLGlGKkF787hpFCshgyALl40zm7XgkZYmfw==
-X-Received: by 2002:a05:600c:583:b0:39c:3637:b9f with SMTP id
- o3-20020a05600c058300b0039c36370b9fmr26740830wmd.79.1656416902293; 
- Tue, 28 Jun 2022 04:48:22 -0700 (PDT)
-Received: from [192.168.0.162] (188-141-3-169.dynamic.upc.ie. [188.141.3.169])
- by smtp.gmail.com with ESMTPSA id
- bn24-20020a056000061800b0020fe35aec4bsm13115711wrb.70.2022.06.28.04.48.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Jun 2022 04:48:21 -0700 (PDT)
-Message-ID: <14f6b7eb-cacb-91a5-ce06-9702618513b9@linaro.org>
-Date: Tue, 28 Jun 2022 12:48:20 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Subject: Re: [PATCH v4 1/2] ASoC: qcom: lpass: Fix apq8016 compat string to
- match yaml
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>
-References: <20220628002858.2638442-1-bryan.odonoghue@linaro.org>
- <20220628002858.2638442-2-bryan.odonoghue@linaro.org>
- <Yrrf5X8wstW+DXHF@sirena.org.uk>
+ bh=LasQIcGj2EkLsI4F0d1EwxnNc/TKgEuzRf3skqrfIZI=;
+ b=GjBchiWizSpRgPbZSp7brEf3W+3p8u/Hsfv37ehg/1leOGDW1ND8L7mYE5xZNFTazf
+ QrMfAojFW8cTjdIu73VeNTxQJQ/H8AtSNPqaFjbh1AcWLgm8LOOFWzzgPI7VUfHQqtr4
+ QVGeTiLIqJQVtTlwA3DrfmkEnJYheTxZiB8HTxf2IEamXqQqogJQdE9OJO3lDjfdthFs
+ qpyPUhAAzNpMh51Q8lQw/t25Ja01/SIc7J0CtMPeZNVmW1LdqOBCVC+Csvb9HXA4RbQS
+ Sa92y000T25po+DnihL8HXo+8M27cxKXM5OJIg88ir7hkBrS1nWmrJFiy3G4ggMd9cQ3
+ CU3w==
+X-Gm-Message-State: AJIora+wsnCJ8a9jIS0KD0SdSN4Sle3saPROrJgXAP8XEETOVfIR0Z/Z
+ pyVdUQOChcHsU/sHRxPRPsqtjw==
+X-Google-Smtp-Source: AGRyM1u0I+sAFnOLTEk6/euxVF6ALxxNfuRv+szBog+hZqVNgGNhJ5pEtFG6+4Vk5Wz6dm3cWezU8w==
+X-Received: by 2002:a05:6000:ca:b0:21b:8082:7518 with SMTP id
+ q10-20020a05600000ca00b0021b80827518mr16540229wrx.124.1656417878812; 
+ Tue, 28 Jun 2022 05:04:38 -0700 (PDT)
+Received: from sagittarius-a.chello.ie (188-141-3-169.dynamic.upc.ie.
+ [188.141.3.169]) by smtp.gmail.com with ESMTPSA id
+ p20-20020a1c7414000000b003a05621dc53sm1457737wmc.29.2022.06.28.05.04.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 28 Jun 2022 05:04:38 -0700 (PDT)
 From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-In-Reply-To: <Yrrf5X8wstW+DXHF@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+To: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	bjorn.andersson@linaro.org
+Subject: [PATCH v5 0/2] Fix apq8016 compat string
+Date: Tue, 28 Jun 2022 13:04:33 +0100
+Message-Id: <20220628120435.3044939-1-bryan.odonoghue@linaro.org>
+X-Mailer: git-send-email 2.36.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, linux-arm-msm@vger.kernel.org, tiwai@suse.com,
- robh+dt@kernel.org, srinivas.kandagatla@linaro.org, krzk+dt@kernel.org,
- bjorn.andersson@linaro.org
+ linux-arm-msm@vger.kernel.org, tiwai@suse.com, robh+dt@kernel.org,
+ srinivas.kandagatla@linaro.org, bryan.odonoghue@linaro.org, krzk+dt@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,21 +102,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 28/06/2022 12:03, Mark Brown wrote:
-> On Tue, Jun 28, 2022 at 01:28:57AM +0100, Bryan O'Donoghue wrote:
->> The documented yaml compat string for the apq8016 is
->> "qcom,apq8016-lpass-cpu" not "qcom,lpass-cpu-apq8016". Looking at the other
->> lpass compat strings the general form is "qcom,socnum-lpass-cpu".
-> 
-> This doesn't apply against current code, please check and resend.
+V5:
+- Drops Fixes - Mark Brown
+- Rebased on *   650516f1c1e0a - (asoc/for-next) Merge remote-tracking branch 'asoc/for-5.20' into asoc-next (2 hours ago)
+  https://git.linaro.org/people/bryan.odonoghue/kernel.git/log/?h=8916-for-next
+  
+V4:
+- Adds Bjorn's RB to first patch
+- Adds missing people to To/Cc list
 
-What's the tree you are applying to here ?
+V3:
+- Marks qcom,lpass-cpu-apq8016 as deprecated instead of removing - Bjorn
 
-I applied it to linux-next just last night..
+V2:
+- Adds Reviewed-by: - Srini
+- Adds Fixes - Srini
 
-https://git.linaro.org/people/bryan.odonoghue/kernel.git/log/?h=linux-next-27-06-22-msm8939-no-cpr-v4
+V1:
+Reusing the apq8016 on msm8939 I found running checkpatch that the compat
+string for the LPASS was throwing a warning.
 
-https://git.linaro.org/people/bryan.odonoghue/kernel.git/commit/?h=linux-next-27-06-22-msm8939-no-cpr-v4&id=5822d52637eff65b826097634d9a99a9bf1bf2b7
+This is easily fixed by alinging the YAML, DTS and driver to the documented
+compat string
 
----
-bod
+-			compatible = "qcom,lpass-cpu-apq8016";
++			compatible = "qcom,apq8016-lpass-cpu";
+
+Bryan O'Donoghue (2):
+  ASoC: qcom: lpass: Fix apq8016 compat string to match yaml
+  arm64: dts: qcom: Fix apq8016 compat string to match yaml
+
+ arch/arm64/boot/dts/qcom/msm8916.dtsi | 2 +-
+ sound/soc/qcom/lpass-apq8016.c        | 1 +
+ sound/soc/qcom/lpass-cpu.c            | 5 +++++
+ 3 files changed, 7 insertions(+), 1 deletion(-)
+
+-- 
+2.36.1
+

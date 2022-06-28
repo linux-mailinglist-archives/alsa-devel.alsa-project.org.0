@@ -2,81 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD2C355BD8A
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jun 2022 04:25:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1872D55BD92
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jun 2022 04:26:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2CD4A1688;
-	Tue, 28 Jun 2022 04:24:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2CD4A1688
+	by alsa0.perex.cz (Postfix) with ESMTPS id 02FF61664;
+	Tue, 28 Jun 2022 04:25:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 02FF61664
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656383147;
-	bh=YSTDIn/5O6g5zdHv0HGS4i2zvubu/9DcS+C044Q9JGI=;
+	s=default; t=1656383183;
+	bh=ilvURhaxj9mgUg4uRt4O2KV1o5dU0YnE3UMEOl0buAE=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rxOdD+eMU0ji5+I1dnLLIefCa6bRPnRQe+b4clYYMbOnpHfZj/cxp5r4/bQYxqBtq
-	 mG55wvXFFkyrtnX9fLwVKRcB7nPAGqBIzQLrxIrcQXXw24E+XKWh7Vk3ejZVtzHpgW
-	 n40NQHvuyHngLPAXjsO6ZB/Scf8W9nKGePLCj3t8=
+	b=Gr/mJXobsPb1aqHBzRb4uyZqWzC6/Y+q3rjc/Edjy9FiexnB9RvfJ9x1aH7oNLN+e
+	 jiDDOfJehyGJysQ0sPX+SXhUF2+tKxaIoBkdvt8P5Cf/0GgC8/5SWKuR5iHsYyrggQ
+	 JGa+oMLwhRRqw+kDZg3fJ8JITXR27VzYewSStkMY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DE082F80539;
-	Tue, 28 Jun 2022 04:24:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9DE1EF80166;
+	Tue, 28 Jun 2022 04:25:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 30193F80538; Tue, 28 Jun 2022 04:24:35 +0200 (CEST)
+ id 8F3A2F8025B; Tue, 28 Jun 2022 04:25:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D7D66F80107
- for <alsa-devel@alsa-project.org>; Tue, 28 Jun 2022 04:24:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7D66F80107
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2E4DFF80107
+ for <alsa-devel@alsa-project.org>; Tue, 28 Jun 2022 04:25:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E4DFF80107
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Buie6uFb"
+ header.b="WUag1CzM"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8D21D618F4;
- Tue, 28 Jun 2022 02:24:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0AEEC385A5;
- Tue, 28 Jun 2022 02:24:28 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id BC9C0B81C10;
+ Tue, 28 Jun 2022 02:25:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C2E6C385A2;
+ Tue, 28 Jun 2022 02:25:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1656383070;
- bh=YSTDIn/5O6g5zdHv0HGS4i2zvubu/9DcS+C044Q9JGI=;
+ s=k20201202; t=1656383125;
+ bh=ilvURhaxj9mgUg4uRt4O2KV1o5dU0YnE3UMEOl0buAE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Buie6uFb2VplUamp8xnEYGxNpNitiBaLZu7VCPn9w4DsdghrjyjQQlL3o4oSAAd6Z
- 3rssWq2X1GA3vxNydYGPR+rVR0xhqnnu0cdYhwINVlwiX50Df5v1ucCxvlyPpj6Giq
- YFs9Je6OxghaxPfrjrZ4DxhrgLgPsEfFL6UbeRTTVQFbzIlKbfxYS9CFcRgTXkOmua
- I9mszlru5zPQAtWWaolySASyzxPdL/tVhHjEbcdLoLzXrDXmEkOt2Jgqcbwk/N4ut+
- 9TZCDHM0ZQrHVRhDQcGilpl3x2YljkcfQHNBLHkKUYszrkKrrlAEYfz4+8+SfcoTBH
- 5QRL2ayOn4dGg==
+ b=WUag1CzMuRChkEdsYqUOYEm8Y3dthHpc9BSTQZqy7Iem9KmkjKZiuJB6wqScecbPN
+ K1BX83qPCqtPYLQLN9aDGmio6fzMiw6iI0UPl0T4PhaQveBDbfjswjaMxSQAEcZh0Z
+ YJPhQVmP4DWXS/9RO/FcSl+/Cb8Zb9mbRnaIGmsQ72UAPLVkreCdTJlIHj5x4RYlsE
+ lPc3vXwelykEnup6cxgDmfhrHS8omTuiIpLGELhqjrXX+U8FjivIwofiTlYmpHDlDI
+ 943hVhPe58TV3d2VU7Cy0O1HHN9QkPqpbDSkWBrPjLH7/htFPdg5gyJ4ubfEF28LHp
+ QDHltNa0gQeqQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 07/27] ALSA: x86: intel_hdmi_audio: use
- pm_runtime_resume_and_get()
-Date: Mon, 27 Jun 2022 22:23:53 -0400
-Message-Id: <20220628022413.596341-7-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 03/22] ALSA: usb-audio: US16x08: Move overflow
+ check before array access
+Date: Mon, 27 Jun 2022 22:24:58 -0400
+Message-Id: <20220628022518.596687-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220628022413.596341-1-sashal@kernel.org>
-References: <20220628022413.596341-1-sashal@kernel.org>
+In-Reply-To: <20220628022518.596687-1-sashal@kernel.org>
+References: <20220628022518.596687-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- jiasheng@iscas.ac.cn, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Takashi Iwai <tiwai@suse.de>, tiwai@suse.com,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, nizhen@uniontech.com,
- Bard Liao <yung-chuan.liao@linux.intel.com>, gushengxian@yulong.com
+Cc: Sasha Levin <sashal@kernel.org>, Daniil Dementev <d.dementev@ispras.ru>,
+ alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>, tiwai@suse.com,
+ Alexey Khoroshilov <khoroshilov@ispras.ru>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,53 +89,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+From: Daniil Dementev <d.dementev@ispras.ru>
 
-[ Upstream commit bb30b453fedac277d66220431fd7063d9ddc10d8 ]
+[ Upstream commit 3ddbe35d9a2ebd4924d458e0246b4ba6c13bb456 ]
 
-The current code does not check for errors and does not release the
-reference on errors.
+Buffer overflow could occur in the loop "while", due to accessing an
+array element before checking the index.
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Link: https://lore.kernel.org/r/20220616222910.136854-3-pierre-louis.bossart@linux.intel.com
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
+
+Signed-off-by: Daniil Dementev <d.dementev@ispras.ru>
+Reviewed-by: Alexey Khoroshilov <khoroshilov@ispras.ru>
+Link: https://lore.kernel.org/r/20220610165732.2904-1-d.dementev@ispras.ru
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/x86/intel_hdmi_audio.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ sound/usb/mixer_us16x08.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/sound/x86/intel_hdmi_audio.c b/sound/x86/intel_hdmi_audio.c
-index f16e936559c3..e6f6a1b59047 100644
---- a/sound/x86/intel_hdmi_audio.c
-+++ b/sound/x86/intel_hdmi_audio.c
-@@ -1067,7 +1067,9 @@ static int had_pcm_open(struct snd_pcm_substream *substream)
- 	intelhaddata = snd_pcm_substream_chip(substream);
- 	runtime = substream->runtime;
- 
--	pm_runtime_get_sync(intelhaddata->dev);
-+	retval = pm_runtime_resume_and_get(intelhaddata->dev);
-+	if (retval < 0)
-+		return retval;
- 
- 	/* set the runtime hw parameter with local snd_pcm_hardware struct */
- 	runtime->hw = had_pcm_hardware;
-@@ -1568,8 +1570,12 @@ static void had_audio_wq(struct work_struct *work)
- 		container_of(work, struct snd_intelhad, hdmi_audio_wq);
- 	struct intel_hdmi_lpe_audio_pdata *pdata = ctx->dev->platform_data;
- 	struct intel_hdmi_lpe_audio_port_pdata *ppdata = &pdata->port[ctx->port];
-+	int ret;
-+
-+	ret = pm_runtime_resume_and_get(ctx->dev);
-+	if (ret < 0)
-+		return;
- 
--	pm_runtime_get_sync(ctx->dev);
- 	mutex_lock(&ctx->mutex);
- 	if (ppdata->pipe < 0) {
- 		dev_dbg(ctx->dev, "%s: Event: HAD_NOTIFY_HOT_UNPLUG : port = %d\n",
+diff --git a/sound/usb/mixer_us16x08.c b/sound/usb/mixer_us16x08.c
+index 7db3032e723a..5e3b7fd43fc2 100644
+--- a/sound/usb/mixer_us16x08.c
++++ b/sound/usb/mixer_us16x08.c
+@@ -647,10 +647,10 @@ static int snd_get_meter_comp_index(struct snd_us16x08_meter_store *store)
+ 		}
+ 	} else {
+ 		/* skip channels with no compressor active */
+-		while (!store->comp_store->val[
++		while (store->comp_index <= SND_US16X08_MAX_CHANNELS
++			&& !store->comp_store->val[
+ 			COMP_STORE_IDX(SND_US16X08_ID_COMP_SWITCH)]
+-			[store->comp_index - 1]
+-			&& store->comp_index <= SND_US16X08_MAX_CHANNELS) {
++			[store->comp_index - 1]) {
+ 			store->comp_index++;
+ 		}
+ 		ret = store->comp_index++;
 -- 
 2.35.1
 

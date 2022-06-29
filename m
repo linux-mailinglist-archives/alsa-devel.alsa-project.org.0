@@ -2,74 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDCE05600A3
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jun 2022 15:07:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E809A5600A2
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jun 2022 15:07:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7933A164E;
-	Wed, 29 Jun 2022 15:06:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7933A164E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1FF271640;
+	Wed, 29 Jun 2022 15:06:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1FF271640
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656508062;
-	bh=G1RHu+MQpFit+ddCR7nyFYmDlIv0wOv1rNdxkGGY0uE=;
+	s=default; t=1656508031;
+	bh=N32uSPu3EtNEptJhBogV/ogjkAX7TnX7yvm7ck5YAWQ=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eqz0Ini4WrU1+uYP3Yan4BYvdF2+t1Nf8sUyBrk6NwMbczCmFIRW9Mdh2alavZCLV
-	 SC+pDQe98JHMQVXwmconYoUanJrdIkIPyqraQzEU7D468R4cB4twUn+Fz3a6zvXgyz
-	 AHbCge+oUrcNwwh8pVJ+as9lknHxbNj61fUo2UcQ=
+	b=n5uZErjoz9xJevCUHrD6RScA/+ChlBDikt0pj5y0G1hqEDQkTUCiOGS9g7Ci3aoSI
+	 KyLQPRKg8AW70H/rV4bdrALdbV9q4Q1hNXhRRXOEQVCUqxI6V1SQfxrfxUUs1HeGE0
+	 xrlMpMzefoe9C1Ohv1eUTrbTLzHL05eCd8Ogt1EQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2C455F804E6;
-	Wed, 29 Jun 2022 15:06:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 87A87F80158;
+	Wed, 29 Jun 2022 15:06:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 70B65F8027B; Wed, 29 Jun 2022 15:06:14 +0200 (CEST)
+ id 265B6F80245; Wed, 29 Jun 2022 15:06:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BE3B3F800F8
- for <alsa-devel@alsa-project.org>; Wed, 29 Jun 2022 15:06:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE3B3F800F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9E667F80115
+ for <alsa-devel@alsa-project.org>; Wed, 29 Jun 2022 15:06:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E667F80115
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="kUeRI/gV"
+ header.b="gzHWbRkY"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id D3A17CE26FB;
- Wed, 29 Jun 2022 13:06:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FDCCC34114;
- Wed, 29 Jun 2022 13:05:59 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 3C1DE61CB6;
+ Wed, 29 Jun 2022 13:06:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B9DEC341CB;
+ Wed, 29 Jun 2022 13:06:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1656507961;
- bh=G1RHu+MQpFit+ddCR7nyFYmDlIv0wOv1rNdxkGGY0uE=;
+ s=k20201202; t=1656507962;
+ bh=N32uSPu3EtNEptJhBogV/ogjkAX7TnX7yvm7ck5YAWQ=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=kUeRI/gV6BNLHSRypWDCSHu4puVrewJKBHcepAS55RmuxVBIe4AgMt8VnnJKY3gs2
- MhxOc51Cb4YRW9iA10aqzPt6DY3QHiP7MfDxXtYlqv+HOyebdCIPfVM8k5d0gjYYqY
- ZiDTwYk8wQg4ulw6gQeqKqvZZRNOLtGn914rTl5w182Hk+e32uwGl/zgItQKjioxGa
- 23ZEC4PUEiFGe3gNeKzH2XBhab4s1RhiXt8qc4LGyEkdY0qM9/TOPRVSGMFqiEEkaT
- ezLUvyr0xpj7zYbXs4/9qHkmTYo4xzdl9TvjwpG/vzD8vVdPGKWcvu5pAWFZJm+h1A
- +n8AzKbjiw8wA==
+ b=gzHWbRkYwbx24y9LJruP9AkpJ1CUe6iBcRGu3s7pPuQzUxrTQsd2wpumX9sB+DVYR
+ vh07XufcvGu0qGX1scyh3Lf2B0+PNwjdk2UeYEDy2oraxeWLjF+YTM5yVHx1q7GwuA
+ 4PSmfO/okQFYKTA/THthxGG2yOuIKX812dETW1bHurrK48T373vKmy+tN0IPd/gfaj
+ BVCFdceIpD8Yg79tX4qm41i2DBomJ2NXGDQj8cPh3jnPrJA+WO1yxmaXtN/ui/eW1z
+ e6d2McGrRAKfA9ILnpENOb/kNkWD9tNCwIcXhE5mSvbseP9JNN3V0ZUwwqrXFJQS+v
+ 983G4sCF/2Hrg==
 From: Mark Brown <broonie@kernel.org>
-To: ckeepax@opensource.cirrus.com
-In-Reply-To: <20220628153409.3266932-1-ckeepax@opensource.cirrus.com>
-References: <20220628153409.3266932-1-ckeepax@opensource.cirrus.com>
-Subject: Re: [PATCH 1/4] ASoC: wm5102: Fix event generation for output
- compensation
-Message-Id: <165650795982.1089020.5711367681769613096.b4-ty@kernel.org>
-Date: Wed, 29 Jun 2022 14:05:59 +0100
+To: alsa-devel@alsa-project.org, marex@denx.de
+In-Reply-To: <20220628165840.152235-1-marex@denx.de>
+References: <20220628165840.152235-1-marex@denx.de>
+Subject: Re: [PATCH] ASoC: doc: Capitalize RESET line name
+Message-Id: <165650796136.1089020.10280239824537087786.b4-ty@kernel.org>
+Date: Wed, 29 Jun 2022 14:06:01 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org
+Cc: tiwai@suse.de, linux-doc@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,11 +84,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 28 Jun 2022 16:34:06 +0100, Charles Keepax wrote:
-> The output compensation controls always returns zero regardless of if
-> the control value was updated. This results in missing notifications
-> to user-space of the control change. Update the handling to return 1
-> when the value is changed.
+On Tue, 28 Jun 2022 18:58:40 +0200, Marek Vasut wrote:
+> Make sure all AC97 interface lines are spelled in capitals,
+> to avoid confusing readers about where the 5th line is.
 > 
 > 
 
@@ -99,14 +96,8 @@ Applied to
 
 Thanks!
 
-[1/4] ASoC: wm5102: Fix event generation for output compensation
-      commit: cb41d454b2478a98c831f14e656a34c21418e241
-[2/4] ASoC: wm8998: Fix event generation for input mux
-      commit: a83f511909217a1c2b971a509c992b6327bb18e7
-[3/4] ASoC: cs47l92: Fix event generation for OUT1 demux
-      commit: 2d81cca17329dece1c4f37d1de271bc967439327
-[4/4] ASoC: arizona: Update arizona_aif_cfg_changed to use RX_BCLK_RATE
-      commit: 6f04f1bfe9a4adf750c816f6094878222e496d0e
+[1/1] ASoC: doc: Capitalize RESET line name
+      commit: db7bc2741a2aca91b9a4df1bb03e4997a0e90807
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

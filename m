@@ -2,76 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D579655FEAC
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jun 2022 13:32:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F5D755FED0
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jun 2022 13:41:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0CD07164E;
-	Wed, 29 Jun 2022 13:31:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0CD07164E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 343DD1652;
+	Wed, 29 Jun 2022 13:40:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 343DD1652
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656502338;
-	bh=wdL0PGXVkgilQIJ0YMP3Ex7wwkvoEs1dNccET/NyjOo=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=EGpNqVsQuX0cT09FC6pdyQBjoXknjIjRZHVLZaVtWL8OtJkpHAKTi3YFEFHmasGTL
-	 fodMSS1wI58w3vs6TaWehOL7gWLcB+sQIJ5H4iTFKPPJAS2VNR/SKgtwuV5E+ZfNqg
-	 LxYF+NRYcTaUIbT7cQcux4PIKA8gNW8Sqw/MBHAU=
+	s=default; t=1656502883;
+	bh=r0/Y7+HyTnnAZ1S4OgqGwy2L2tSceQXhOF12TDETIXo=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=osN0jkvVL5b27B6/HAQZ7dX7PVsQ2+HYRGR1vd53vE3Wfs9tmvCdMyMJXSjPuafn0
+	 GaMFcH7wswbf+nLPnEWj1e9iLleI5By0nX9zcEuYVD75zylEKlmYgxsYchAO7eWObs
+	 mm3TYDRD8SPGnZtHaPFkRNRZ1l6fN9iniq+OCVMo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5D3A6F80245;
-	Wed, 29 Jun 2022 13:31:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9850AF80245;
+	Wed, 29 Jun 2022 13:40:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B03DFF8020D; Wed, 29 Jun 2022 13:31:16 +0200 (CEST)
+ id 16B40F8020D; Wed, 29 Jun 2022 13:40:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [IPv6:2a00:1450:4864:20::42c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A4630F800F8
- for <alsa-devel@alsa-project.org>; Wed, 29 Jun 2022 13:31:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4630F800F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id BD0BAF800F8
+ for <alsa-devel@alsa-project.org>; Wed, 29 Jun 2022 13:40:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD0BAF800F8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="T2+H71Hv"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9FCF66192F;
- Wed, 29 Jun 2022 11:31:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41C56C34114;
- Wed, 29 Jun 2022 11:31:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1656502268;
- bh=wdL0PGXVkgilQIJ0YMP3Ex7wwkvoEs1dNccET/NyjOo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=T2+H71HvbuMnldgnYUirKOIGzou2Ld/86lZAuag3NY9niEmzCu1qVyLebLtVyH4hD
- lpNKI5/xjGjAKM2spWDD5Us08groao9J8n0eANDQ3N5K/5Ax1XmG2myxUBBIdJegRS
- rHHE+kRgloDSZmo3gmmG3Yd8Qv5F5EHMHs/0aDq23o+IQ2LT3sYleMU47SKsywGMQX
- AQCswqroFGa49QYo+sNnZmh6E4pRbRFz6ck5Bz3D+9g9uONiV06cuQeTcO3Mlzx3+e
- MIt2PukAKnMCiWAIEUWK3yof6VpUnoZa3a8OG8mlDtP0W5SLj7VdmnjNSCqdUwYF9u
- oMPUO3VY4HNlA==
-Date: Wed, 29 Jun 2022 13:31:03 +0200
-From: Wolfram Sang <wsa@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH] ASoC: ak4613: cares Simple-Audio-Card case for TDM
-Message-ID: <Yrw39+EsPYcAH2Fs@shikoro>
-References: <87h74v29f7.wl-kuninori.morimoto.gx@renesas.com>
- <165469532489.615471.10019728812817999193.b4-ty@kernel.org>
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="NnBWNG44"
+Received: by mail-wr1-x42c.google.com with SMTP id e28so16867634wra.0
+ for <alsa-devel@alsa-project.org>; Wed, 29 Jun 2022 04:40:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=e12zOkbSl/TTgIy5byX+f+5dgcezW3bwpD9ZmWTyAuQ=;
+ b=NnBWNG44+SIlVbLxBipqsu96uM69+jGagVwRuG1a5sKywjFPz4bc6Sz9Yp2FwsCKTG
+ SS+3V6f47hyyDX1jUlIfUXWShQFnp0mz7BT7CHsM9c8lZ2fqaAx98iET7de6v/jviRfk
+ TakgO4GO1TBHaBMxEhvaBZ+YAoaZqXMP1AxwUoQzRKUsY/YAEHwnQomyqAA15JAB+pRh
+ aI87L2R3eU3Csu+vgIiEPs+QSiUJZsEoYdO29yNQVOywP4dkv8cJERWMy0v1YztOFz6C
+ s5S/Ufjt9mGeAMfwuDoxehqIq//vtzx2MqDpQpMi2YKPCaEF4U+TnXf8Pw4cF2ipS2do
+ SKXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=e12zOkbSl/TTgIy5byX+f+5dgcezW3bwpD9ZmWTyAuQ=;
+ b=6Vbojjb4PEny9cFszc3nF6vKOp78Wr/En/jzVreNPo7/RCOOK3Q2cgutMFOArjDRde
+ XFSZfJxSkMe75vBBlStosoPeLjjUOYdt3J/jbPdhge1gbf98rPeke85zaaOWMZjI8Jyt
+ jNrJEDTskoOQKFYGQBqKuFH308dfHOVwORc/lPyTkpJs5ylrStsftEXtiDw6j+ONTebG
+ +1tig12nUIx5zZVQR8WPvSx8UyJq7nGb4Sulb5XDGsviWJGeAnwxaKmExOIm0bELFxh4
+ ljAYb1F/YH07sgv5EsUyFDXuVCLsZdZ0IB9E9NuwwGKpTeqPApfiGhzIMsFoiT9CTsiw
+ go+g==
+X-Gm-Message-State: AJIora8Uc9U008+pnmYEtJCgIwY8pHrqXbJCXcz2pPU0rKMYxSh47sDO
+ xRXfW4Grr90YyIW8yywBmZVrvw==
+X-Google-Smtp-Source: AGRyM1tJRec+suh/Fq+QJOybEcmANFgSQzjUGT4MbvFTQVpTbNTlOPIkzLoxXGoQPjcf121UTlpgFQ==
+X-Received: by 2002:a05:6000:a12:b0:21b:93b9:134f with SMTP id
+ co18-20020a0560000a1200b0021b93b9134fmr2644810wrb.310.1656502814986; 
+ Wed, 29 Jun 2022 04:40:14 -0700 (PDT)
+Received: from sagittarius-a.chello.ie (188-141-3-169.dynamic.upc.ie.
+ [188.141.3.169]) by smtp.gmail.com with ESMTPSA id
+ q11-20020adfea0b000000b0020fff0ea0a3sm16136500wrm.116.2022.06.29.04.40.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 29 Jun 2022 04:40:14 -0700 (PDT)
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
+ broonie@kernel.org, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ srinivas.kandagatla@linaro.org
+Subject: [PATCH] ASoC: dt-bindings: Fix description for msm8916
+Date: Wed, 29 Jun 2022 12:40:12 +0100
+Message-Id: <20220629114012.3282945-1-bryan.odonoghue@linaro.org>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="xuc/xVUT+cLFf/Ir"
-Content-Disposition: inline
-In-Reply-To: <165469532489.615471.10019728812817999193.b4-ty@kernel.org>
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, geert+renesas@glider.be,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Content-Transfer-Encoding: 8bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-arm-msm@vger.kernel.org, quic_potturu@quicinc.com,
+ rohitkr@codeaurora.org, bryan.odonoghue@linaro.org, quic_srivasam@quicinc.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,35 +102,49 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+For the existing msm8916 bindings the minimum reg/reg-names is 1 not 2.
+Similarly the minimum interrupt/interrupt-names is 1 not 2.
 
---xuc/xVUT+cLFf/Ir
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Fixes: f3fc4fbfa2d2 ("ASoC: dt-bindings: Add SC7280 lpass cpu bindings")
+Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+---
+ .../devicetree/bindings/sound/qcom,lpass-cpu.yaml         | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
+diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+index e9a533080b32d..ef18a572a1ff3 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+@@ -25,12 +25,12 @@ properties:
+       - qcom,sc7280-lpass-cpu
+ 
+   reg:
+-    minItems: 2
++    minItems: 1
+     maxItems: 6
+     description: LPAIF core registers
+ 
+   reg-names:
+-    minItems: 2
++    minItems: 1
+     maxItems: 6
+ 
+   clocks:
+@@ -42,12 +42,12 @@ properties:
+     maxItems: 10
+ 
+   interrupts:
+-    minItems: 2
++    minItems: 1
+     maxItems: 4
+     description: LPAIF DMA buffer interrupt
+ 
+   interrupt-names:
+-    minItems: 2
++    minItems: 1
+     maxItems: 4
+ 
+   qcom,adsp:
+-- 
+2.36.1
 
-Maybe a Fixes-tag helps to convince? :)
-
-Fixes: f28dbaa958fb ("ASoC: ak4613: add TDM256 support")
-
-
---xuc/xVUT+cLFf/Ir
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmK8N/MACgkQFA3kzBSg
-KbassA//fBxUVdnUMYOsQeYF+/EsqVKjcmvaxg2bvNowZxcwkb5jNsfzW3aW448r
-DRpzm5LZzQ+T7QxTmkowJ+NuHOcRTim3Dcz9cfb0WnjRboNOzq4KmWyr5x7dhbs3
-9tswtqnsDT7cB5uESpGGpHZgJTRasOXr1b/k8lvBlJyz33pToURyL8MHrZUQ5TDK
-7O5k2/R3FTg8tU7XSAz+5MFYdno5dcGB9b4pFLsoCvU5HUcc2oHboTzX6GvHIQG/
-QKSXyV1x8RZ+3uaGp4uuwDso/cwpAv3goPLe4LObckTgDrdG461HqV+/qyEwgjFz
-1SyRJE7HZCRqlKJpSI2dByur20wrWnk/aAHaF7de0ua8k1i2HOxZ/4k5/CLnSqKG
-A/gyTGSPjzrccWzX50eK5iBkxelXmAYBTUMeQDD+PRhRaowygrwWc07JrtAXdJfb
-B+dtc/WGsCFyYVbxFsuDl0aocfWWF/wRGs9iNOwvQP2dyPVZCeHlOmCPlEnYBbQL
-xJ2WeQT3MLbgO2jaQ0W3LB7M/vVcV6jgi1od5Pk2efJK3W11BdEVy42WSZkI97XH
-1Df5GBxo2NMsYHAWRI1sW1azfUxSYhZK26N1np42S9uILwbHOX3GN67ATyTmU9m5
-IIPSlXLXmHYkleLTFAQjXiahfGR1DQilIC8baF8mU4GMGuHxCos=
-=BiH9
------END PGP SIGNATURE-----
-
---xuc/xVUT+cLFf/Ir--

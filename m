@@ -2,73 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E809A5600A2
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jun 2022 15:07:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8454F560206
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jun 2022 16:07:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1FF271640;
-	Wed, 29 Jun 2022 15:06:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1FF271640
+	by alsa0.perex.cz (Postfix) with ESMTPS id 32E641661;
+	Wed, 29 Jun 2022 16:06:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32E641661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656508031;
-	bh=N32uSPu3EtNEptJhBogV/ogjkAX7TnX7yvm7ck5YAWQ=;
+	s=default; t=1656511652;
+	bh=UTir4jvtX/Wc9f3wx5siduKUlp1IwFcyfl2zQub0Q54=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=n5uZErjoz9xJevCUHrD6RScA/+ChlBDikt0pj5y0G1hqEDQkTUCiOGS9g7Ci3aoSI
-	 KyLQPRKg8AW70H/rV4bdrALdbV9q4Q1hNXhRRXOEQVCUqxI6V1SQfxrfxUUs1HeGE0
-	 xrlMpMzefoe9C1Ohv1eUTrbTLzHL05eCd8Ogt1EQ=
+	b=Vmc1xwOnQxN9MuLylAL2y+YTBKCvfgfvowhmamt123CGLram1v1FUrOI0IwxUwzWD
+	 lXr9WKCe9su0D0agSYgLT+cK+6vRefkqph8Flkfo2rs9OTztdwViM2glnBwAYeXYU1
+	 5DKc/ogpMr833TwRqAOdwqcfz3VnfIHFOd4AQd20=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 87A87F80158;
-	Wed, 29 Jun 2022 15:06:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 15079F804E6;
+	Wed, 29 Jun 2022 16:06:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 265B6F80245; Wed, 29 Jun 2022 15:06:11 +0200 (CEST)
+ id 6177AF8027B; Wed, 29 Jun 2022 16:06:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9E667F80115
- for <alsa-devel@alsa-project.org>; Wed, 29 Jun 2022 15:06:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E667F80115
+ by alsa1.perex.cz (Postfix) with ESMTPS id 31CFEF80107
+ for <alsa-devel@alsa-project.org>; Wed, 29 Jun 2022 16:05:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31CFEF80107
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="gzHWbRkY"
+ header.b="Dw1yUl6j"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 3C1DE61CB6;
- Wed, 29 Jun 2022 13:06:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B9DEC341CB;
- Wed, 29 Jun 2022 13:06:01 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id DC265B824A9;
+ Wed, 29 Jun 2022 14:05:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1F6FC34114;
+ Wed, 29 Jun 2022 14:05:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1656507962;
- bh=N32uSPu3EtNEptJhBogV/ogjkAX7TnX7yvm7ck5YAWQ=;
+ s=k20201202; t=1656511551;
+ bh=UTir4jvtX/Wc9f3wx5siduKUlp1IwFcyfl2zQub0Q54=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=gzHWbRkYwbx24y9LJruP9AkpJ1CUe6iBcRGu3s7pPuQzUxrTQsd2wpumX9sB+DVYR
- vh07XufcvGu0qGX1scyh3Lf2B0+PNwjdk2UeYEDy2oraxeWLjF+YTM5yVHx1q7GwuA
- 4PSmfO/okQFYKTA/THthxGG2yOuIKX812dETW1bHurrK48T373vKmy+tN0IPd/gfaj
- BVCFdceIpD8Yg79tX4qm41i2DBomJ2NXGDQj8cPh3jnPrJA+WO1yxmaXtN/ui/eW1z
- e6d2McGrRAKfA9ILnpENOb/kNkWD9tNCwIcXhE5mSvbseP9JNN3V0ZUwwqrXFJQS+v
- 983G4sCF/2Hrg==
+ b=Dw1yUl6jJ7er1GoSbOqDxte5EKisctjZQcPmXUyqaQH1bY7xwW7YnFOeaq4U0mXSp
+ G4I02MyNDCl5svJ8CsA9h+q4xVSspolwODPkBvv6QiqTjmAcIkoxPgkE3gfqHs/kt6
+ WSHUJe0BTgDxI5Zvhlo/3ht1+i59FPyJmi1vYLZgznseboWsYn47Dt0RuZU6sSTK8j
+ zFsA9Kxmiil2q3OQTReiEEclNgQADZkTo5hHJjE/ge6bJJ1Mecto2cBwmFsbxetqvk
+ onok6aZT3wRCZHuOHZYOgAmeNkMharNuGXM1s9R/Q03NaQx7C1ca9wU8wj5PM8wgKn
+ px5Etqg2jrL7w==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, marex@denx.de
-In-Reply-To: <20220628165840.152235-1-marex@denx.de>
-References: <20220628165840.152235-1-marex@denx.de>
-Subject: Re: [PATCH] ASoC: doc: Capitalize RESET line name
-Message-Id: <165650796136.1089020.10280239824537087786.b4-ty@kernel.org>
-Date: Wed, 29 Jun 2022 14:06:01 +0100
+To: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ krzysztof.kozlowski+dt@linaro.org, shengjiu.wang@nxp.com,
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <1655980125-24141-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1655980125-24141-1-git-send-email-shengjiu.wang@nxp.com>
+Subject: Re: [PATCH] ASoC: dt-bindings: fsl,
+ micfil: Convert format to json-schema
+Message-Id: <165651154969.1437597.15028170773257315286.b4-ty@kernel.org>
+Date: Wed, 29 Jun 2022 15:05:49 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, linux-doc@vger.kernel.org
+Cc: shengjiu.wang@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,9 +86,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 28 Jun 2022 18:58:40 +0200, Marek Vasut wrote:
-> Make sure all AC97 interface lines are spelled in capitals,
-> to avoid confusing readers about where the 5th line is.
+On Thu, 23 Jun 2022 18:28:45 +0800, Shengjiu Wang wrote:
+> Convert the NXP MICFIL binding to DT schema format using json-schema.
 > 
 > 
 
@@ -96,8 +97,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: doc: Capitalize RESET line name
-      commit: db7bc2741a2aca91b9a4df1bb03e4997a0e90807
+[1/1] ASoC: dt-bindings: fsl,micfil: Convert format to json-schema
+      commit: 02d91fe47100a29a79fcb8798e45c22591ca852d
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

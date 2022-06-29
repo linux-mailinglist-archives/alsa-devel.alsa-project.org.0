@@ -2,93 +2,158 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B87F555FB5A
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jun 2022 11:09:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6780155FB7D
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jun 2022 11:13:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 62B881660;
-	Wed, 29 Jun 2022 11:08:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62B881660
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8673CE12;
+	Wed, 29 Jun 2022 11:12:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8673CE12
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656493771;
-	bh=UoCqL+RdCwVF/yh9RLapwMYgeTIrYwG67tj6HspYVWk=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1656494027;
+	bh=5H8r0ibvJczi8rELeGryV3EqmVVnhzK+ADsoYV9aQwI=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=urUNqr8z74pBg8iocDBiQAaUoF+jiV3UnhjASO2CSkTfSbr9iNkdb3ZW4LeJi/6oA
-	 J8hobiy1KQYzSGhDt5pz52cS46GtUar61rGL8bJouJScXtipIGcT8ze8pmHXV1jT7M
-	 s7/Do9NmMO3IgL8yaNNSn0TN8bQAaWMU7/n1iWf8=
+	b=c9Bljvkpxpf8vkS9yqCZoANlsVY4PkZvLX0VasJi8REg7y28JXUS9XooYgaTikE03
+	 QmqGyjzW28tKHe4JNiEm1kjekZAAAHwJ1AM8+wF046jewc19HcnwURwj+QoBja7bJz
+	 uzy5NMVcZ5uyoXxihSSzTUJWAEJouT5jNo22jNd8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5D239F80543;
-	Wed, 29 Jun 2022 11:07:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DA747F800F8;
+	Wed, 29 Jun 2022 11:12:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 01965F80542; Wed, 29 Jun 2022 11:07:20 +0200 (CEST)
+ id 019E5F8020D; Wed, 29 Jun 2022 11:12:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [IPv6:2a00:1450:4864:20::434])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2068.outbound.protection.outlook.com [40.107.244.68])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 98A1DF804E6
- for <alsa-devel@alsa-project.org>; Wed, 29 Jun 2022 11:07:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98A1DF804E6
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5B6B7F80107
+ for <alsa-devel@alsa-project.org>; Wed, 29 Jun 2022 11:12:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B6B7F80107
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="cN3diKYf"
-Received: by mail-wr1-x434.google.com with SMTP id v9so5805909wrp.7
- for <alsa-devel@alsa-project.org>; Wed, 29 Jun 2022 02:07:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=XhVaynt23RZRT72OSOPmlLkNv8BfKDn8DPYKDlNl7mo=;
- b=cN3diKYfDOCVK1xYzkybVDRxCRDWEl8dMbv3Yj2mH1/7LycshrX5t7yvg9Nqv4CvNw
- Per/DCaLPXJGkIc2u4jt50Cx5s7SUGjt+PkMzsfhBidJHdxUPZDOKNI7GNvJgjq4RNFP
- M8rrhHumc6+LjSFsEwlrtCMDyP2roUBPdF43EQK3nzS/7w7gomqtHFZd/4wbCG7hpSc/
- BfpjJMUqCblNJYjMlrguPhEEALp1nt6BYwyBCCKAfqn+Gb2KLc8Sb9tuUEPtEvn7WWPY
- GUsoBNUMqfZeknWhFNfZjCIFTQF+0wOQ8DYzez67V5chh/iJgZRmAazf1M9HfvdF1Lnl
- fH6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=XhVaynt23RZRT72OSOPmlLkNv8BfKDn8DPYKDlNl7mo=;
- b=bARTcpEDYHuv55WCFfSDrfGwQWOzgVcZiLoI4UWLtrfCNGum5x2csZQAS8FF0Uoegd
- O3SrUiEORgtykGhcx0xH5jtBBeeXARf77+5g6HGLPtSs1FjtN0Z8kgoFcFpoSvuDZ0yP
- EzF5OZfzIrChWRKqj8DQH09Z4pCH+zikvJsD4yM49c+SUQDH5RpZPWloRyeXSmbnKv6o
- ns8SA+M8Wtn3UemB5n9FzU4iYH3FKAdHt7tfstuuomYnGiSgeWCy5L5sPvz8hUaUeYfY
- pU+1MizuLIbd4wGuFzcvHlqkaEfV8U/DNS25FO26hYAWz+95VxzB6KL/IBDaGC2fDtuf
- Nbpg==
-X-Gm-Message-State: AJIora8OUmBRyWZV7+9WnR0sIEEuvc+5zxJnd5BISrC9l2WV1gxPsjc0
- 8wDqtP+sY+2MJdZ5iW55aHi3gw==
-X-Google-Smtp-Source: AGRyM1t/1AaRCniJIXjV+UbMmrXdTt54J5swO771KzJyBE+o4ZTbf1SC9VwQ929xbiGztSbq+J2AWg==
-X-Received: by 2002:adf:fb46:0:b0:210:2316:dd02 with SMTP id
- c6-20020adffb46000000b002102316dd02mr2024995wrs.557.1656493629137; 
- Wed, 29 Jun 2022 02:07:09 -0700 (PDT)
-Received: from srini-hackbase.lan
- (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.gmail.com with ESMTPSA id
- e12-20020a5d530c000000b002185d79dc7fsm15993341wrv.75.2022.06.29.02.07.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Jun 2022 02:07:08 -0700 (PDT)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: broonie@kernel.org
-Subject: [PATCH 4/4] MAINTAINERS: add ASoC Qualcomm codecs
-Date: Wed, 29 Jun 2022 10:06:44 +0100
-Message-Id: <20220629090644.67982-5-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220629090644.67982-1-srinivas.kandagatla@linaro.org>
-References: <20220629090644.67982-1-srinivas.kandagatla@linaro.org>
-MIME-Version: 1.0
+ dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
+ header.b="N7Gw13+K"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=aD41KtCc2xID56lqgk6oZnsyA4IuHsVVVinhqSwSxvfXa4uI/TURNtBZmkkrww5Gzr4OLvCZUgsu8iDmefdVcCMNtb0gv04IHVx/zc4O2iDDPelydsXTNfqlNwtPk8DqULxBcLt9dnFW7SgcONKnWSsnxp+bn4bEbN6xueBrT/vQsKzVzxkoZ82Ip9IQ/cmWiTnYGuMke0sTNKCJgej+2L6ty+OIDODAec3jDMpQIBFt5aZGxUHBJLCVE2mZfT9hA8nrKDfWfNxFrjOXWUsLP2PAqY3CjXVgtrCVS0oxKUJWc6pS7p2nSJh/1dg6HnL2IjqxOTtxDPRCqhPdPif+Yw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HKnjmI/D06DvqqJSU5BT8xKxvwJWeZgmuUEikkeXZrY=;
+ b=isRtb3mFtsTw0kSIIUpRUPlKFOyLBrflKFvPrG+Gai3EIuhFzDBnMzmgsyGqA3lgD0cCBGJASZfmI7TSBK3T2tEx8vzDtmRMmRz5z5U4pryRtHVFggzCgVfytrj8vly/1P+CvE9JKL5Fk/wHXBM/81ezXH/LiiBPjFjpo6ILoVzPdDSNha9cum1XmrMkhQbycA5D21QS99zxBmQ3UwCTa85YlcvfDjkkjVOE59umfOqMMBrBnGY+Pg+ETUw0h7Hlkhvp7I8gtVa8xZouuyF46IKuSXpg/V0+EyRIvbQ0PfvSmX3XeeGf001Me7hJ7i5gCljhJkFgHP/O+DsoPD8pZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HKnjmI/D06DvqqJSU5BT8xKxvwJWeZgmuUEikkeXZrY=;
+ b=N7Gw13+KMXJkIxI5CEmmQSTLYYiEe9RhjNzXcP6EBv8SPbDqKT7/UBoXrgBirnX5ae7EK9lV1SAW5Lvai6jLQszc9vt3BieBnLVY7LRcAHFHm01d8z7fCuhpvlznJ22Z1pQbwYw0mH0U2jQ2ymjvKYsNGIpNOFHNdrx8n8dI23Y=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by MWHPR1201MB0141.namprd12.prod.outlook.com (2603:10b6:301:56::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.14; Wed, 29 Jun
+ 2022 09:12:35 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::905:1701:3b51:7e39]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::905:1701:3b51:7e39%2]) with mapi id 15.20.5395.014; Wed, 29 Jun 2022
+ 09:12:34 +0000
+Message-ID: <8499b1f1-cd39-5cb4-9fac-735e68393556@amd.com>
+Date: Wed, 29 Jun 2022 11:12:27 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH v1] Fix: SYNCOBJ TIMELINE Test failed.
+Content-Language: en-US
+To: jie1zhan <jesse.zhang@amd.com>, broonie@kernel.org,
+ alsa-devel@alsa-project.org
+References: <20220629060236.3283445-1-jesse.zhang@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20220629060236.3283445-1-jesse.zhang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+X-ClientProxiedBy: AS9PR04CA0137.eurprd04.prod.outlook.com
+ (2603:10a6:20b:48a::12) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 6e61abe0-4415-4f62-cda0-08da59af80ec
+X-MS-TrafficTypeDiagnostic: MWHPR1201MB0141:EE_
+X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: z/UcpfzSfzv6i6bKL116Qx7BeTevDwuDtAqnIfq9K5F5TObuaSCnpshEYLEVN+y0S2hxNRRWWpW21fGqTltcOHAmVXtljVC4kzOfoiXKUEiarA6+nhM70iS+ac77VLIaUMfczJLkLp6jbPTqB1MYQxzz7KSBYsGrmxkYUFiQmpI5BUUgfas6yrOQST/YrpOqFDuwlLII5qRq+Zo7UOyYiId1bwb8QKcnPDfXy+zHxscXexR+evgnNfCLt+9jPdYQvO6C/UVOB5wHTVIPSU7x22tqg1B7cSvioVIjW8sUJEvJtTvCzqAIqE3yrFA3H35PzzuQ8QrLFqBDGBlrG0d9jj2g2o8nYshm+T9nk0WVz+/h+Py7CTHKLztI8Cs3uk4T0TlThzUuyyVANzwM0Jnb1LWRBmkYuWskpNO5KT7ud/opRZ9CCkPzAIcPk2dxDHs1hikPTJNZBWPHtRiRuAML5iSGPM0UbEW2qZoht4zZ204BBTeLqH4JxguHjwvqyHyuYIUdWJCenH0P/vD+w7PGDsKpUMlbCORl4/+IeHUr/Fdv6G1S62b0tI9jdqZ8xaMOdokLpb8EH9INVdJ93EyrRZqUVU9QVY8kHyVTF0cLcjpX2RJK2QDurTVepJM7Ic4lPTJN+gdGsDsuemLTyWCDZd+9l6hXOlsk2xXTYqEKZtq2TjssvRANPNd3t7E9UAzZQ644cPG93yTryS8+SI7BfyqnIwfVYAhlpP7MikRQ6HnMSCDWu+xNBjtY7uYh+PiqmrcbnaurdE5gOlOnner2udmKJPbF4dOaXOKzWDpwLPwet0b5AZDnPBSekQTZ6rs9BjaP9AtFI3eilkNq44OgtDDsafe8+G4XhpNIxd/ENgb8S2IwQeUaVFWw5dZVZOuc
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(136003)(366004)(376002)(396003)(346002)(39860400002)(31696002)(86362001)(38100700002)(8936002)(5660300002)(6486002)(478600001)(2906002)(41300700001)(7416002)(316002)(54906003)(6666004)(8676002)(4326008)(66476007)(66556008)(66946007)(66574015)(186003)(83380400001)(6506007)(2616005)(6512007)(36756003)(31686004)(45980500001)(43740500002)(414714003)(473944003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Uy9DRUR4S1h6Lzdhd3N2L2gyU2VMdHFXbFBwSE9lbFRMYkYwTlg4eDhWUDll?=
+ =?utf-8?B?cWxGd09TWU1hK2pkeXhUUjFrTzk4YW00bUtMMWRwdzl3cEFmRVFYU2RtZkow?=
+ =?utf-8?B?YmNnR0V4TzZzNjBuYWZkM1d2TjR3aU1ObGVPdjk3SWZxd1RyM3VDbzk1NjBn?=
+ =?utf-8?B?KzVDSUdvT0xpVTg1bnEwMEhnM1pob1grdlhvUWtITDdoeVl0LzczSWpKT0o4?=
+ =?utf-8?B?UFdxdy85cGxJNjNFVXhoc1JGRUJTcC9meHJoN0lYWjh6SGJ2RlBvcGFYc0g3?=
+ =?utf-8?B?RzlJbG91Z0lHMExxeXQ4RVJUQmVWOEJoRDZkYWJndXUwaVNTa3JzeHlFOTFl?=
+ =?utf-8?B?VHJ2OUhoL2hHZEFqOEdJZStrc2dRb0NBWTJPeGVodmF0VlBmZVNZM3ZXT2JX?=
+ =?utf-8?B?Z1lvemY3eElzRG95LzVBSkk2bWlzTFFweldKbVpHaVlSVjl5Q2tKY2RsQ3Ev?=
+ =?utf-8?B?VFlKSHduTFh3MmdpTTg3bFFyMXdnOHlBbE1PdFYxY3hpZDdoLzZnbFNqdXha?=
+ =?utf-8?B?djlPZVNYczhNRExBbWU5MW5nRTZUZ2RCeW9KVnNiVFBUaWJJUUltZThDWVYv?=
+ =?utf-8?B?OUhFbDZUNGRzWXFrUUluM0xKcXRPc0hvNktYVmkyTXUyZUtWWGFxUjhkd0ln?=
+ =?utf-8?B?YXB0ZmV3YSt3V0dpUEVIb2VyV1dLWVl2c0lFdFRMdDU0NUNtVXVlOHBnS3hl?=
+ =?utf-8?B?SjJkUHpRTGU1aXRCMXcyb213Z1NqT05uajZFbkxHZW5yd3V4R0htWVRQMzYy?=
+ =?utf-8?B?cWdJZ3laL21Nd1VLbnI2ZlI0N1NQZjl3bHBwSndyREo2NUVSRm5JRE5mTW5R?=
+ =?utf-8?B?QjUzc1pPWXpNV1haMEp3R2Z0VVQvZDMveG52cDRwZnAyU2NaRDhLZzV6MzNM?=
+ =?utf-8?B?ZzFRbXp0b0JObjJ3NnR5Z0E0VCtrWTExTTVGRG1Dem1GTzl5R01sbkdkY2wx?=
+ =?utf-8?B?dG1aNHE1OHNHVG01MjZYVzJDWVc3QzFreGRjMTl1NXZHV3I1a3JSNVFyQXd0?=
+ =?utf-8?B?TW1YalNaWDVybkY5MjZwbnNHWnRhSVlIL3lIMHM3eUljL2gxeDJmS1o3S1da?=
+ =?utf-8?B?dVE2am8wYzZNMTZDS0VUV0FFTGx4RFZzc3RnNVNpTnJTWTdRMUtrL3NZbTla?=
+ =?utf-8?B?Zk04UUFVOGNTdGtwTzVCQVdhWmVBWndwSU5ZcC8xSSs3dFlvdTFxMjFkQ1Nu?=
+ =?utf-8?B?M3JvRGsySXBNVUQzMmN0RHNoWmVsNDEwZWF0RHVsK2M5WWZLYzFWRjRmQ2ZJ?=
+ =?utf-8?B?QU44ejkrbHNXYmwvejZnWE1vZEtSanU1REVjQ2ZKN0I3YkljRmVvRjlVaUJX?=
+ =?utf-8?B?U05nZGlQeWNFNFhGYS9FRm02bjhZQzZmMHdmWktMNFNXYS8zb09mcE9xcmNn?=
+ =?utf-8?B?aGhTWGNNVnBYd3ZqMVd2QUtIN3pVU3EyN0ViMWt3NVl5azhJWC9sTm13WWhn?=
+ =?utf-8?B?blNvUHAyWkZjeFlwNUFuL3BlMCtSRkNMM0JuWG5RcTRkUUZTYmltR24xeWtJ?=
+ =?utf-8?B?N0pIcUxod2dSZ2ZmSkk0dmh1L05aS1hrdC9kM1dBZkpPYXkxajVTMXZ3TW9h?=
+ =?utf-8?B?eEZNSWxnVHVmdDkxbzdXSEZvcmdRMklLYWVudG5kdnJGcVlQbElDM0ZISi9J?=
+ =?utf-8?B?cUR3bHE5ZlVyaThRTEI2Y0U3cERZYnVvcWY0YkF6NWJMKzl6NnVHcUF1UVVN?=
+ =?utf-8?B?WjUrSU5WTTM3MjlMYlVmSkl2Z1hKbEIxVm9YREFzazJqU3czRzRjdVd6azh5?=
+ =?utf-8?B?Zmw1UHNSd21sTi9abU5yYUQ0amJxRUMyODNyUjJNSHcyblNwSG1tZ0Z0QVlw?=
+ =?utf-8?B?ckVNc3QyS1JzVW5DakVUWFBXbW4wOEFDTWtacEFWa0plY3FhbzNsbzAxY3dC?=
+ =?utf-8?B?R3V0QXhtallTQXpkTkJtUU5wVVplc1JYNzVFbnVWVFo2aFdwSWNHN1BVK2xj?=
+ =?utf-8?B?RGZ0NHI1SVlJMjdkNjRHOTlXeVY2RFM4ZTFoRFBWVHRveHluMWt6WFNXQXR4?=
+ =?utf-8?B?aCsxdEZkK2YrUW1DcWdPM2FESTlhM0YwVUI3bFI1UDBKZDFxL1RJcFZBQnN5?=
+ =?utf-8?B?T3hSeklJUGFEaVJsWnBFSDdaOXNOM2twRXhXcFcyR2tkUm9TUzI4dkF4aDZB?=
+ =?utf-8?B?MlBLZHRIdUxkRGdNaUZFRUl0SDhBTUVqbjUwaVpCcVBvYXBxa3lnUWJCaDNB?=
+ =?utf-8?Q?UW5Eb/xy7RVQVOTs2/UlsiCAt/CucRbRYgJqhFSnyghj?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6e61abe0-4415-4f62-cda0-08da59af80ec
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2022 09:12:34.5841 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Iybp/BPA0GSNVfZr7eLMfXvVxSm3LV2y1EXVgXHC14QFpnx8JpocjTHu/3jM5TCs
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB0141
+Cc: Sunil-kumar.Dommati@amd.com, Daniel Vetter <daniel@ffwll.ch>,
+ ajitkumar.pandey@amd.com, David Airlie <airlied@linux.ie>,
+ Basavaraj.Hiregoudar@amd.com,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ open list <linux-kernel@vger.kernel.org>, Maxime Ripard <mripard@kernel.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Nirmoy Das <nirmoy.das@linux.intel.com>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Vijendar.Mukunda@amd.com,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,36 +169,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add missing Qualcomm codes to the list.
+Am 29.06.22 um 08:02 schrieb jie1zhan:
+>   The issue cause by the commit :
+>
+> 721255b527(drm/syncobj: flatten dma_fence_chains on transfer).
+>
+> Because it use the point of dma_fence incorrectly
+>
+> Correct the point of dma_fence by fence array
 
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
----
- MAINTAINERS | 4 ++++
- 1 file changed, 4 insertions(+)
+Well that patch is just utterly nonsense as far as I can see.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 171fa3160696..c4648e86dc14 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -16250,6 +16250,8 @@ M:	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
- M:	Banajit Goswami <bgoswami@quicinc.com>
- L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
- S:	Supported
-+F:	sound/soc/codecs/lpass-rx-macro.*
-+F:	sound/soc/codecs/lpass-tx-macro.*
- F:	sound/soc/codecs/lpass-va-macro.c
- F:	sound/soc/codecs/lpass-wsa-macro.*
- F:	sound/soc/codecs/msm8916-wcd-analog.c
-@@ -16257,7 +16259,9 @@ F:	sound/soc/codecs/msm8916-wcd-digital.c
- F:	sound/soc/codecs/wcd9335.*
- F:	sound/soc/codecs/wcd934x.c
- F:	sound/soc/codecs/wcd-clsh-v2.*
-+F:	sound/soc/codecs/wcd-mbhc-v2.*
- F:	sound/soc/codecs/wsa881x.c
-+F:	sound/soc/codecs/wsa883x.c
- F:	sound/soc/qcom/
- 
- QCOM EMBEDDED USB DEBUGGER (EUD)
--- 
-2.25.1
+>
+> Signed-off-by: jie1zhan <jesse.zhang@amd.com>
+>
+> Reviewed-by: Christian König <christian.koenig@amd.com>
+>
+> Reviewed-by: Nirmoy Das <nirmoy.das@linux.intel.com>
+
+I have strong doubts that Nirmoy has reviewed this and I certainly 
+haven't reviewed it.
+
+Christian.
+
+> ---
+>   drivers/gpu/drm/drm_syncobj.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
+> index 7e48dcd1bee4..d5db818f1c76 100644
+> --- a/drivers/gpu/drm/drm_syncobj.c
+> +++ b/drivers/gpu/drm/drm_syncobj.c
+> @@ -887,7 +887,7 @@ static int drm_syncobj_flatten_chain(struct dma_fence **f)
+>   		goto free_fences;
+>   
+>   	dma_fence_put(*f);
+> -	*f = &array->base;
+> +	*f = array->fences[0];
+>   	return 0;
+>   
+>   free_fences:
 

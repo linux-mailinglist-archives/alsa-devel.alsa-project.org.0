@@ -2,90 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E894255F8C7
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jun 2022 09:23:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EC1255F9A0
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jun 2022 09:56:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7BE36163C;
-	Wed, 29 Jun 2022 09:23:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BE36163C
+	by alsa0.perex.cz (Postfix) with ESMTPS id ED183163C;
+	Wed, 29 Jun 2022 09:55:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED183163C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656487430;
-	bh=TvfrSXu4f0TU8sJk8nHVngOGB75STSEGTvK6rVGCRBo=;
-	h=In-Reply-To:References:From:Date:Subject:To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=NH+0tzGzyYQs2eyVqOZ+YGmOISwckYESTXO2ymlXb/9dAWjmESX+hci7JTEJSk7Bh
-	 MIQ7KSIjLnedroudHPf2OUipxvvMCd/13sNxcoeQ5N17HtH2NfojP//lNl2Wu9dcYn
-	 +JkoFNSOrQ0nMvut61P7c6alsga94BQcDFglFZF0=
+	s=default; t=1656489389;
+	bh=rfcK1uKoaPMS0CuOJTXVwcSN+OK+AtV4TU/iYWBhWak=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=s2zJIfzQoD6a2fM6P4UP11Bm2lO7NL9nEJ8lXY/1+BEn0zgsXEwGgciw5qIy1OZeL
+	 hZAYsSmB/fLv9/Vfbi/UNvS4MxyXSKYxsj629n7HuGbu0pQEHFbS7dSGnyFMS9dTSI
+	 sxoDeh+aBRIuimG8is7UY4s6tIEiO+bzTbGp9ymY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D4AAFF80245;
-	Wed, 29 Jun 2022 09:22:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5C530F80107;
+	Wed, 29 Jun 2022 09:55:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B0362F8020D; Wed, 29 Jun 2022 09:22:49 +0200 (CEST)
+ id 3DDF4F8020D; Wed, 29 Jun 2022 09:55:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
- [IPv6:2607:f8b0:4864:20::22a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A4BC5F80107
- for <alsa-devel@alsa-project.org>; Wed, 29 Jun 2022 09:22:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4BC5F80107
+ by alsa1.perex.cz (Postfix) with ESMTPS id B7E7FF80107
+ for <alsa-devel@alsa-project.org>; Wed, 29 Jun 2022 09:55:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7E7FF80107
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="KSYNVPp/"
-Received: by mail-oi1-x22a.google.com with SMTP id p8so20455800oip.8
- for <alsa-devel@alsa-project.org>; Wed, 29 Jun 2022 00:22:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to; bh=TvfrSXu4f0TU8sJk8nHVngOGB75STSEGTvK6rVGCRBo=;
- b=KSYNVPp/M+aBIfHacFqj11Sm5k23Er/fz5hD79lvLg2qAdMiNwn7Ieu7YNV90mA70F
- daalhEZkwB6Apo4Ai71cvL4evznxFuW7QZ/jnNWgrXANheLoBxRLyN5sSUQiVHgCv9HR
- 97v9IV3l+QYGVehGdIPIXHssVTk8Z6wn9878g=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to;
- bh=TvfrSXu4f0TU8sJk8nHVngOGB75STSEGTvK6rVGCRBo=;
- b=PdjNwzHj/nhwGMUjhP9I6yU2P+lxJmtUvnKikvz8IKSRl6u3UhKZCnnPCiEsI+ytPG
- Lt0Q8EOYF9COXqAUMXMGSB/DByZL2gn7Evl/GVhmTZiseqIQsXfYcPSAZ7H4tZ0UjlCS
- t75peklhs0ZFl+VsmcYs5cHcwB4skAi1O0OY/6P6QJgEzcNuEX7Ae2vScnQdnR47mFBx
- jEif4LKCOVAw0c08a7v8XDEhDrJKsYUoHfniV4rL4S876za92l5inICB6j7ht6YUkk/d
- IL4RV9N4F7hM9Oum3SBi1/5/3g5GDoidYKDhWUNeTKKxiLlJcvvyhG6oyvA+FE8rbUxX
- cNRw==
-X-Gm-Message-State: AJIora9QpUhBFkatCNfjv1YIWC54jmw4NmVHCIkmfHwL/w8myvFR+e2m
- 2+dzejiA8IWdSq7rRE8QTnSm8Ybba37gnper5aSMag==
-X-Google-Smtp-Source: AGRyM1v4WSDbVO+K2+4kAKFrYZQtpAn74YXqFxA1mnEY/IT8bcyyhmbIZcF9WfGx+sYO6Yz4yLIx2Fc2KzL9daEEeyw=
-X-Received: by 2002:a05:6808:171c:b0:334:9342:63ef with SMTP id
- bc28-20020a056808171c00b00334934263efmr1192888oib.63.1656487360982; Wed, 29
- Jun 2022 00:22:40 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 29 Jun 2022 02:22:40 -0500
+ dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
+ header.b="DJUBMuHO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1656489323; x=1688025323;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=QH2e8YbYNE2n6mUVI4ZdSzcrVKNaUgrSOCe7/29sjP4=;
+ b=DJUBMuHOnkA0ZxMV9OOd/NymEQ6g7ZOQ/0GetWHSzZ1qs6wYNIyj6lmY
+ XN4xqr6CFN8GOHWR1NI1/ZSyY01gTLXmVuQw4E3gNAMq1cFNS8rCeQINV
+ RVJLCzazuYvyfg0nbQWeIZa/QeOMSWc+lFFFy4JnRRVHo8X4G4Zbe8u3f I=;
+Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 29 Jun 2022 00:55:13 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jun 2022 00:55:12 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Wed, 29 Jun 2022 00:55:12 -0700
+Received: from hu-srivasam-hyd.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Wed, 29 Jun 2022 00:55:05 -0700
+From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+To: <agross@kernel.org>, <bjorn.andersson@linaro.org>, <lgirdwood@gmail.com>, 
+ <broonie@kernel.org>, <robh+dt@kernel.org>, <quic_plai@quicinc.com>,
+ <bgoswami@quicinc.com>, <perex@perex.cz>, <tiwai@suse.com>,
+ <srinivas.kandagatla@linaro.org>, <quic_rohkumar@quicinc.com>,
+ <linux-arm-msm@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <swboyd@chromium.org>, <judyhsiao@chromium.org>, Linus Walleij
+ <linus.walleij@linaro.org>, <linux-gpio@vger.kernel.org>
+Subject: [PATCH v2] pinctrl: qcom: sc7280: Fix compile bug
+Date: Wed, 29 Jun 2022 13:24:50 +0530
+Message-ID: <1656489290-20881-1-git-send-email-quic_srivasam@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-In-Reply-To: <1656484485-23350-1-git-send-email-quic_srivasam@quicinc.com>
-References: <1656484485-23350-1-git-send-email-quic_srivasam@quicinc.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Wed, 29 Jun 2022 02:22:40 -0500
-Message-ID: <CAE-0n50XpUfe9LQ0UByRXeWVcHjzXTmSb+Lf5m87pJmhjA0wVg@mail.gmail.com>
-Subject: Re: [PATCH] pinctrl: qcom: sc7280: Fix compile bug
-To: Linus Walleij <linus.walleij@linaro.org>, 
- Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>, agross@kernel.org,
- alsa-devel@alsa-project.org, 
- bgoswami@quicinc.com, bjorn.andersson@linaro.org, broonie@kernel.org, 
- devicetree@vger.kernel.org, judyhsiao@chromium.org, lgirdwood@gmail.com, 
- linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
- linux-kernel@vger.kernel.org, perex@perex.cz, quic_plai@quicinc.com, 
- quic_rohkumar@quicinc.com, robh+dt@kernel.org, srinivas.kandagatla@linaro.org, 
- tiwai@suse.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Cc: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,19 +96,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Quoting Srinivasa Rao Mandadapu (2022-06-28 23:34:45)
-> Fix the compilation error, caused by updtating constant variable.
+Fix the compilation error, caused by updating constant variable.
+Hence remove redundant constant variable, which is no more useful
+as per new design.
 
-s/updtating/updating/
+The issue is due to some unstaged changes. Fix it up.
 
-> Hence remove redundant constant variable, which is no more useful
-> as per new design.
->
-> The issue is due to some unstaged changes. Fix it up.
->
-> Fixes: 36fe26843d6d ("pinctrl: qcom: sc7280: Add clock optional check for ADSP bypass targets")
->
-> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-> ---
+Fixes: 36fe26843d6d ("pinctrl: qcom: sc7280: Add clock optional check for ADSP bypass targets")
 
+Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+---
+Changes Since V1:
+    -- Fix typo errors in commit message.
+
+ drivers/pinctrl/qcom/pinctrl-lpass-lpi.c | 5 +----
+ drivers/pinctrl/qcom/pinctrl-lpass-lpi.h | 1 -
+ 2 files changed, 1 insertion(+), 5 deletions(-)
+
+diff --git a/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c b/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c
+index b5d1b99..e97ce45 100644
+--- a/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c
++++ b/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c
+@@ -388,9 +388,6 @@ int lpi_pinctrl_probe(struct platform_device *pdev)
+ 	pctrl->data = data;
+ 	pctrl->dev = &pdev->dev;
+ 
+-	data->is_clk_optional = of_property_read_bool(dev->of_node,
+-						      "qcom,adsp-bypass-mode");
+-
+ 	pctrl->clks[0].id = "core";
+ 	pctrl->clks[1].id = "audio";
+ 
+@@ -404,7 +401,7 @@ int lpi_pinctrl_probe(struct platform_device *pdev)
+ 		return dev_err_probe(dev, PTR_ERR(pctrl->slew_base),
+ 				     "Slew resource not provided\n");
+ 
+-	if (data->is_clk_optional)
++	if (of_property_read_bool(dev->of_node, "qcom,adsp-bypass-mode"))
+ 		ret = devm_clk_bulk_get_optional(dev, MAX_LPI_NUM_CLKS, pctrl->clks);
+ 	else
+ 		ret = devm_clk_bulk_get(dev, MAX_LPI_NUM_CLKS, pctrl->clks);
+diff --git a/drivers/pinctrl/qcom/pinctrl-lpass-lpi.h b/drivers/pinctrl/qcom/pinctrl-lpass-lpi.h
+index 759d5d8..afbac2a 100644
+--- a/drivers/pinctrl/qcom/pinctrl-lpass-lpi.h
++++ b/drivers/pinctrl/qcom/pinctrl-lpass-lpi.h
+@@ -77,7 +77,6 @@ struct lpi_pinctrl_variant_data {
+ 	int ngroups;
+ 	const struct lpi_function *functions;
+ 	int nfunctions;
+-	bool is_clk_optional;
+ };
+ 
+ int lpi_pinctrl_probe(struct platform_device *pdev);
+-- 
+2.7.4
+

@@ -2,80 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8517A5612D1
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jun 2022 08:57:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A36AE5612DB
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jun 2022 09:01:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0A50016D9;
-	Thu, 30 Jun 2022 08:56:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A50016D9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 51D1682E;
+	Thu, 30 Jun 2022 09:00:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51D1682E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656572268;
-	bh=Jqj7F9aGDoXRMtaFHzJ9VPyJBrs1etIBHghlAvpMa1M=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1656572486;
+	bh=Ou8UxKXrC7AJz525F6FN0gQLMIiOy7URL8F2d12AQWo=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Q6UGJ+I2DlfbyAcSz5LH+v0uF1BpZyZnkpGub1aQ34pH486QacHN9fMxvOeJvGsoB
-	 riaoCoo9zNS+dFcdbc0hkMACvnU5s3UOaQXUKehTvgdbfyJGDPpFkqw3FbM4XjlUZc
-	 l5XGtxp0VstZ1C/5jEMX9n+or8ae01Uo0cp1wO3g=
+	b=Lmlnb2rCiBgm/6alrazRGuoIUtma6FV8Gs/aiVdiBzJHAW4spZtAs/0eALVIQoPt4
+	 tMBbxETNt7Z6JH97+nvokbWVj7s29DRcnakvs3jTHj75KosRSXTCvY8lt4rTlQua9u
+	 gU0JPE4AMFD8NByV96fvVsZkUsTR95Ww9KCWdev8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BECC8F80535;
-	Thu, 30 Jun 2022 08:56:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B07A8F804DA;
+	Thu, 30 Jun 2022 09:00:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AF1FDF80535; Thu, 30 Jun 2022 08:56:12 +0200 (CEST)
+ id B7990F804D8; Thu, 30 Jun 2022 09:00:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [IPv6:2a00:1450:4864:20::62d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DEDC2F804EB
- for <alsa-devel@alsa-project.org>; Thu, 30 Jun 2022 08:56:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DEDC2F804EB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 68B54F800F5
+ for <alsa-devel@alsa-project.org>; Thu, 30 Jun 2022 09:00:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68B54F800F5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="S/z7qs2I"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1656572167; x=1688108167;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=Jqj7F9aGDoXRMtaFHzJ9VPyJBrs1etIBHghlAvpMa1M=;
- b=S/z7qs2IbQLgwel7aViU3pwe2aYWhEhsTXQbS+qrlR+oQXw8dGHeSbKD
- TgmM11jJGMO9LoKLueDWmPE0qSyBoKYDeZGDE/OS4smB/5XLiM7YFwNll
- QQeCL0tN3T/tPixJgmWPbdd5Z60kUWxMw2s8mFMBOe+SsfNdwfkZmXCZ7
- fk7lugiwW/C1dVSw9DokByPEsFbUSfhu7v9yHHE/oKdT7N++kc1UwrX1W
- N8HTDvg/wO6M6t2s+567OTcImW7fvHaTUQt4luG+pucsXULF5LQ7nmwWX
- /eDSHjCLvGOHNLrZ5u2GI8thp86fXgDwfrLBu/hQaOM78uh17QqecOTAe g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10393"; a="343951701"
-X-IronPort-AV: E=Sophos;i="5.92,233,1650956400"; d="scan'208";a="343951701"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jun 2022 23:56:02 -0700
-X-IronPort-AV: E=Sophos;i="5.92,233,1650956400"; d="scan'208";a="595575033"
-Received: from askrzypc-mobl.ger.corp.intel.com (HELO
- pujfalus-desk.ger.corp.intel.com) ([10.249.254.39])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jun 2022 23:56:00 -0700
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com, broonie@kernel.org,
- pierre-louis.bossart@linux.intel.com, cezary.rojewski@intel.com
-Subject: [PATCH v2 2/2] ASoC: Intel: Skylake: Correct the handling of
- fmt_config flexible array
-Date: Thu, 30 Jun 2022 09:56:38 +0300
-Message-Id: <20220630065638.11183-3-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.37.0
-In-Reply-To: <20220630065638.11183-1-peter.ujfalusi@linux.intel.com>
-References: <20220630065638.11183-1-peter.ujfalusi@linux.intel.com>
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="v0EeWU8E"
+Received: by mail-ej1-x62d.google.com with SMTP id ay16so37110144ejb.6
+ for <alsa-devel@alsa-project.org>; Thu, 30 Jun 2022 00:00:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=r6uCmFRitcAcRJI/H5P66MBQjDkhl2NiZLnGLT9y1H8=;
+ b=v0EeWU8EO4ppWz/+OhslLQimyA4SEA+VJEVL1kvXnbFjSvW8mo31GHtcxqoF4OEYSC
+ Qf3kZOohwoCkTOSjzNiBJCXCZPCGuDJOlW4GdDLGFgPbBlUcGDGpbOYkITuSQ01PuoF4
+ k3CR5TP3TVBZI3Pz0jABdIBbRuKH0JZnVIWPN3/Adh1m+VGPvohIUDh/epdfTjrXDtC6
+ mKJz4kpAetfqgmU4FmU3HaVZjbitYNsWFVfhmBGtL9ZmcHjzumR/BAHOVq4R8/iYF82d
+ c5s2piBZ0PJ62vIlDi7F/gh8IZJ452kthNPFVlgSgJqsZ4H1ICe1iYyULPslGEfprzDe
+ gJ0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=r6uCmFRitcAcRJI/H5P66MBQjDkhl2NiZLnGLT9y1H8=;
+ b=AmudTscbk2witrBim8EUMM8fezCL/r5iHKmfNsijiOu4MnFkkyMEqxPBfxmgQQoNIs
+ 0d9ntq2DRacB9Asw0+v64itPeGMIeOfgcfXeq7erThitgLtTp8PM9kkdarstJd3AZR3W
+ OgzDm1EHn8zdN4rhEP6FGOgc149zzOaQGvCrqSgehd+WnAwqel5kKyyjEYJ8uCKObsUc
+ 27vH++6lWFL9ir/DG0SjEb0Pd5ID6HoabBRkffbaYYONacjpH4lYLMsLaQw1fiKkhLWg
+ YhrakzYbiOXnM70REjq1TR+2QfAx1XyLYwmiTMVdx938mq926w4JomaTfkBnUoYgAiqD
+ t26A==
+X-Gm-Message-State: AJIora+twEQGgAQx8Mw7UE6GTYmSWCsQPGMlAT7+emibzTH4tYCeQ8E5
+ dWf+oYmm6n+GVYIer441cOJYcQ==
+X-Google-Smtp-Source: AGRyM1tDY2nkZypAnZWoTW20KgzJCRPt2W3F9vTeZn7uUeKvjjX9GMEPJDY9RlYCs4qwnDq5NL4NzQ==
+X-Received: by 2002:a17:907:1c09:b0:726:b834:1a21 with SMTP id
+ nc9-20020a1709071c0900b00726b8341a21mr7356139ejc.518.1656572416273; 
+ Thu, 30 Jun 2022 00:00:16 -0700 (PDT)
+Received: from [192.168.0.187] (xdsl-188-155-176-92.adslplus.ch.
+ [188.155.176.92]) by smtp.gmail.com with ESMTPSA id
+ v26-20020a170906489a00b00705f6dab05bsm8676238ejq.183.2022.06.30.00.00.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 30 Jun 2022 00:00:15 -0700 (PDT)
+Message-ID: <63d495de-588b-0568-a4d6-31e24ef50377@linaro.org>
+Date: Thu, 30 Jun 2022 09:00:14 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, yung-chuan.liao@linux.intel.com,
- tiwai@suse.com, kai.vehmanen@linux.intel.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Subject: Re: [PATCH] ASoC: samsung: change neo1973_audio from a global to
+ static
+Content-Language: en-US
+To: Tom Rix <trix@redhat.com>, s.nawrocki@samsung.com, lgirdwood@gmail.com,
+ broonie@kernel.org, perex@perex.cz, tiwai@suse.com, arnd@arndb.de
+References: <20220629201811.2537853-1-trix@redhat.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20220629201811.2537853-1-trix@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,122 +107,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The struct nhlt_format's fmt_config is a flexible array, it must not be
-used as normal array.
-When moving to the next nhlt_fmt_cfg we need to take into account the data
-behind the ->config.caps (indicated by ->config.size).
+On 29/06/2022 22:18, Tom Rix wrote:
+> sparse reports
+> sound/soc/samsung/neo1973_wm8753.c:347:24: warning: symbol 'neo1973_audio' was not declared. Should it be static?
+> 
+> neo1973_audio is only used in neo1973_wm8753.c, so it's
+> storage class specifier should be static.
+> 
+> Fixes: e26a2abcc246 ("ASoC: samsung: neo1973: turn into platform driver")
+> Signed-off-by: Tom Rix <trix@redhat.com>
+> ---
 
-The logic of the code also changed: it is no longer saves the _last_
-fmt_cfg for all found rates.
+Compile testing works!
 
-Fixes: bc2bd45b1f7f3 ("ASoC: Intel: Skylake: Parse nhlt and register clock device")
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
----
- sound/soc/intel/skylake/skl-nhlt.c | 37 ++++++++++++++++++++----------
- 1 file changed, 25 insertions(+), 12 deletions(-)
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-diff --git a/sound/soc/intel/skylake/skl-nhlt.c b/sound/soc/intel/skylake/skl-nhlt.c
-index 366f7bd9bc02..deb7b820325e 100644
---- a/sound/soc/intel/skylake/skl-nhlt.c
-+++ b/sound/soc/intel/skylake/skl-nhlt.c
-@@ -111,11 +111,12 @@ static void skl_get_ssp_clks(struct skl_dev *skl, struct skl_ssp_clk *ssp_clks,
- 	if (fmt->fmt_count == 0)
- 		return;
- 
-+	fmt_cfg = (struct nhlt_fmt_cfg *)fmt->fmt_config;
- 	for (i = 0; i < fmt->fmt_count; i++) {
-+		struct nhlt_fmt_cfg *saved_fmt_cfg = fmt_cfg;
- 		bool present = false;
- 
--		fmt_cfg = &fmt->fmt_config[i];
--		wav_fmt = &fmt_cfg->fmt_ext;
-+		wav_fmt = &saved_fmt_cfg->fmt_ext;
- 
- 		channels = wav_fmt->fmt.channels;
- 		bps = wav_fmt->fmt.bits_per_sample;
-@@ -133,12 +134,18 @@ static void skl_get_ssp_clks(struct skl_dev *skl, struct skl_ssp_clk *ssp_clks,
- 		 * derive the rate.
- 		 */
- 		for (j = i; j < fmt->fmt_count; j++) {
--			fmt_cfg = &fmt->fmt_config[j];
--			wav_fmt = &fmt_cfg->fmt_ext;
-+			struct nhlt_fmt_cfg *tmp_fmt_cfg = fmt_cfg;
-+
-+			wav_fmt = &tmp_fmt_cfg->fmt_ext;
- 			if ((fs == wav_fmt->fmt.samples_per_sec) &&
--			   (bps == wav_fmt->fmt.bits_per_sample))
-+			   (bps == wav_fmt->fmt.bits_per_sample)) {
- 				channels = max_t(u16, channels,
- 						wav_fmt->fmt.channels);
-+				saved_fmt_cfg = tmp_fmt_cfg;
-+			}
-+			/* Move to the next nhlt_fmt_cfg */
-+			tmp_fmt_cfg = (struct nhlt_fmt_cfg *)(tmp_fmt_cfg->config.caps +
-+							      tmp_fmt_cfg->config.size);
- 		}
- 
- 		rate = channels * bps * fs;
-@@ -154,8 +161,11 @@ static void skl_get_ssp_clks(struct skl_dev *skl, struct skl_ssp_clk *ssp_clks,
- 
- 		/* Fill rate and parent for sclk/sclkfs */
- 		if (!present) {
-+			struct nhlt_fmt_cfg *first_fmt_cfg;
-+
-+			first_fmt_cfg = (struct nhlt_fmt_cfg *)fmt->fmt_config;
- 			i2s_config_ext = (struct skl_i2s_config_blob_ext *)
--						fmt->fmt_config[0].config.caps;
-+						first_fmt_cfg->config.caps;
- 
- 			/* MCLK Divider Source Select */
- 			if (is_legacy_blob(i2s_config_ext->hdr.sig)) {
-@@ -169,6 +179,9 @@ static void skl_get_ssp_clks(struct skl_dev *skl, struct skl_ssp_clk *ssp_clks,
- 
- 			parent = skl_get_parent_clk(clk_src);
- 
-+			/* Move to the next nhlt_fmt_cfg */
-+			fmt_cfg = (struct nhlt_fmt_cfg *)(fmt_cfg->config.caps +
-+							  fmt_cfg->config.size);
- 			/*
- 			 * Do not copy the config data if there is no parent
- 			 * clock available for this clock source select
-@@ -177,9 +190,9 @@ static void skl_get_ssp_clks(struct skl_dev *skl, struct skl_ssp_clk *ssp_clks,
- 				continue;
- 
- 			sclk[id].rate_cfg[rate_index].rate = rate;
--			sclk[id].rate_cfg[rate_index].config = fmt_cfg;
-+			sclk[id].rate_cfg[rate_index].config = saved_fmt_cfg;
- 			sclkfs[id].rate_cfg[rate_index].rate = rate;
--			sclkfs[id].rate_cfg[rate_index].config = fmt_cfg;
-+			sclkfs[id].rate_cfg[rate_index].config = saved_fmt_cfg;
- 			sclk[id].parent_name = parent->name;
- 			sclkfs[id].parent_name = parent->name;
- 
-@@ -193,13 +206,13 @@ static void skl_get_mclk(struct skl_dev *skl, struct skl_ssp_clk *mclk,
- {
- 	struct skl_i2s_config_blob_ext *i2s_config_ext;
- 	struct skl_i2s_config_blob_legacy *i2s_config;
--	struct nhlt_specific_cfg *fmt_cfg;
-+	struct nhlt_fmt_cfg *fmt_cfg;
- 	struct skl_clk_parent_src *parent;
- 	u32 clkdiv, div_ratio;
- 	u8 clk_src;
- 
--	fmt_cfg = &fmt->fmt_config[0].config;
--	i2s_config_ext = (struct skl_i2s_config_blob_ext *)fmt_cfg->caps;
-+	fmt_cfg = (struct nhlt_fmt_cfg *)fmt->fmt_config;
-+	i2s_config_ext = (struct skl_i2s_config_blob_ext *)fmt_cfg->config.caps;
- 
- 	/* MCLK Divider Source Select and divider */
- 	if (is_legacy_blob(i2s_config_ext->hdr.sig)) {
-@@ -228,7 +241,7 @@ static void skl_get_mclk(struct skl_dev *skl, struct skl_ssp_clk *mclk,
- 		return;
- 
- 	mclk[id].rate_cfg[0].rate = parent->rate/div_ratio;
--	mclk[id].rate_cfg[0].config = &fmt->fmt_config[0];
-+	mclk[id].rate_cfg[0].config = fmt_cfg;
- 	mclk[id].parent_name = parent->name;
- }
- 
--- 
-2.37.0
 
+Best regards,
+Krzysztof

@@ -2,89 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D91E35619C5
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jun 2022 14:02:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BF20561A2A
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jun 2022 14:17:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7292F16AD;
-	Thu, 30 Jun 2022 14:01:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7292F16AD
+	by alsa0.perex.cz (Postfix) with ESMTPS id CFA1316B5;
+	Thu, 30 Jun 2022 14:16:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CFA1316B5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656590565;
-	bh=IvKEIjzjU4LPTr3SH+n5s231w0NrZo/WhcQOyoRJxbo=;
+	s=default; t=1656591421;
+	bh=fSZKUwClzWwpjx8fSeecSCQMtCH8J1iBX2re+UWX7kU=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Z1BpH6YnBmHKndR1pc2oOZlPsfP4ydBGOTdH2Gujm/JY8itnP26BJPcm4wstHeGZB
-	 ti7VArKL7qCgyw2K5DeuDVOgQoIhdZ2wmbYsru2LNbmEZIyOF02JnD172JmalLCtRs
-	 BmV2a6xrdRIcPDkmw94RMKVu7WwLvqaH8Mlxe/Qk=
+	b=ZXzmx+fry2kZUeP1GMdaU62YjsZ1+NOvBL8DbPtQk9c6EEevLYjEFoAPVGNRoP/YV
+	 11+zcsw4bKz0HDlKnra6E+bB/BFgLskrmbdGB0LXlqpgGgMEOyH9gkXobedrte610I
+	 hQxFmeIEXQGWRtNUl54B09Pitkmhx/Hn8bukYY7M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D2CD9F804DA;
-	Thu, 30 Jun 2022 14:01:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 276C1F804DA;
+	Thu, 30 Jun 2022 14:16:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7061DF804D8; Thu, 30 Jun 2022 14:01:44 +0200 (CEST)
+ id 3A905F804D8; Thu, 30 Jun 2022 14:16:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-yw1-x112d.google.com (mail-yw1-x112d.google.com
- [IPv6:2607:f8b0:4864:20::112d])
+ DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [IPv6:2a00:1450:4864:20::130])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4F5DEF8014E
- for <alsa-devel@alsa-project.org>; Thu, 30 Jun 2022 14:01:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F5DEF8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7DE94F800F5
+ for <alsa-devel@alsa-project.org>; Thu, 30 Jun 2022 14:15:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7DE94F800F5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="a577l4Vw"
-Received: by mail-yw1-x112d.google.com with SMTP id
- 00721157ae682-3137316bb69so176310557b3.10
- for <alsa-devel@alsa-project.org>; Thu, 30 Jun 2022 05:01:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="kVsu10QZ"
+Received: by mail-lf1-x130.google.com with SMTP id a13so33378509lfr.10
+ for <alsa-devel@alsa-project.org>; Thu, 30 Jun 2022 05:15:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=IvKEIjzjU4LPTr3SH+n5s231w0NrZo/WhcQOyoRJxbo=;
- b=a577l4Vwc0EvrQPcjQ592IpDDOqs2LH+70gy+iEjdBsvx/M+bx4LDU/okbZz+EzTqi
- xSieK68x+/jTJbzDuRhio2KXcNXf0mkhWxYirTxSaHR6mIMshUGdnfcgCiZ9AwdRQSgO
- 25NyP8dFEV3pN3d1oHjNF6ZqiAFATjrBn6Egx98w5UfA20iSIrbR6ezgv9/C7D7PlpcL
- 30bbGK+9O72XSPAJ4koLw6SCMjBK4qMLY3vvYmD2EBRMEibfqNTR/vBb7jSifBVshGc8
- Eeex8qLNzbVVxBPymsKqZ94yfUM2QzbBq+r67bcDv/t8Ql9tJPkhkYXnrbi5mGtDoEFP
- XgIA==
+ :cc; bh=8FTw4MCFfuFSADhvkdsMGjKiW6HgFhQqoFSBrJRkTFE=;
+ b=kVsu10QZCU5mvSFcGpiSud2USeqH+Dqt6dhIHOHhGvbJy2YfSZmU9KDI+xQ1rS/RsB
+ eEi7cDf7UU+Ba1AwC07gIreMH6OygAOcZsBERjt2MRl/usw39NgOQrQX4rBF4FI1qeWW
+ UaXOyQEbeIIQUV5CMuusKGl6Qh7kf1ZRvvP8gnj0Xtf5Jj2H8io8IprG6u3gitySF0fH
+ iU9xLAhrCRDrUt3x9lHE94+AGq49dZSNiS+CuRYtLuLXgXCGErmTFvzx4t7T5XhRa1mR
+ qW808mAVs3XtRYUza9GIFi7rJsqBpM/XTJEbwxhF42StMx5QVRT1M5sYQ2BCOykGUhxm
+ QhsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=IvKEIjzjU4LPTr3SH+n5s231w0NrZo/WhcQOyoRJxbo=;
- b=HolwgMrP6aMMuD1l4hlJhVvgD4n3dIODvxmhaCfdVbEMQNRLlIknLCKrig2iTXt4aT
- S21nO9JJ2q2Lyb+khbS5mHFEoUrYWpX50EF+99EB5JT3wDBEB/vXCh4Mv9bnAshoNPu9
- XJfZgsBdhSs1kqws3/bMdKn0M8RPQrZX+rdTd2r7Jq3QeSvqmqWAexLGhgbsbW1EvYOG
- kVg8ORZC8DILsTIBokQ23xncEAqo1JLnPjl5pD6+wcRbJgQaG9xbacUrcDSlMGZpVvZh
- i45G0sYxlrFwTDpVj4ddObJQedcddUgwDw8s9DJakKInCfGkGxwgW39DAUdB0tpqQtcH
- gw0Q==
-X-Gm-Message-State: AJIora+ul6fq4wtijADDYp+NZ/oIynxCXBdmhxSPF99saMik6Uo07IIP
- +yjdzEl5xwZUboYtNN5MPjPOLxFOWyZL3FXE9pz8nw==
-X-Google-Smtp-Source: AGRyM1sAv3huAMlZJPo1fFK7z2myKSXoujboeKvI27J2j4nuaqNB9V7fuVMOuLmlv2hgqaEtUA8aZivsjOqi4VQlE0I=
-X-Received: by 2002:a0d:e20a:0:b0:317:ce36:a3a0 with SMTP id
- l10-20020a0de20a000000b00317ce36a3a0mr10375298ywe.448.1656590494542; Thu, 30
- Jun 2022 05:01:34 -0700 (PDT)
+ bh=8FTw4MCFfuFSADhvkdsMGjKiW6HgFhQqoFSBrJRkTFE=;
+ b=xSPr8xq9HH4lq5wRb/OeZng7Ql8SFNt4HG6g6NNZEx7Avb0dQQLnU2CpVDcyLQ+Zae
+ 2jfaXbauLAumqM7JBgEqrcNgF2GNaLbDUfjccHezzMTqdiDA8trrkKEzG9PZ5JgDn20Y
+ pFnQ4zwGcOcWG21Pm1IpKgDbbayoWvkyxunx01fk+R51KSbpwKa27WnUPqq1bnT7irnA
+ z98CanaVijB5pNfxbUdxIqLldqRqDkfFjyAVwhHjXIb0JyOEH/XNJq2cd/4Po2O3CgwM
+ JOEMEYITp7xlHx0FRhWWotgrsQfM9Nj5Fr3Uidd45i7Qkg/ykk0Hcw70+jOuSUOKv3KG
+ qFDQ==
+X-Gm-Message-State: AJIora/lFL1aB3rzh226zkYM6ErT+Dnmo9FS5jrHRN4d2Zz2yMwMhPp4
+ sUTMPO0NFFUzF2wzI2FYzEWngVuOVA0nxnqpsxQ=
+X-Google-Smtp-Source: AGRyM1vLC0PK4De5akrcRg8Y89ZcrUEGDelsIiW0sTj+BvMXfejNuwEHaX+9OjHUW5D9Z2I1M5RDPGENDDMXDYmeSxw=
+X-Received: by 2002:a05:6512:3e05:b0:481:2bf2:db06 with SMTP id
+ i5-20020a0565123e0500b004812bf2db06mr5236304lfv.408.1656591356116; Thu, 30
+ Jun 2022 05:15:56 -0700 (PDT)
 MIME-Version: 1.0
-References: <1656489290-20881-1-git-send-email-quic_srivasam@quicinc.com>
-In-Reply-To: <1656489290-20881-1-git-send-email-quic_srivasam@quicinc.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Thu, 30 Jun 2022 14:01:22 +0200
-Message-ID: <CACRpkdYPQoDQ6oUBfB__pBvqMUD7yBaeuDcLfOqRKHm6sFkc7Q@mail.gmail.com>
-Subject: Re: [PATCH v2] pinctrl: qcom: sc7280: Fix compile bug
-To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+References: <1656567554-32122-1-git-send-email-shengjiu.wang@nxp.com>
+ <1656567554-32122-4-git-send-email-shengjiu.wang@nxp.com>
+ <Yr1842e42P4piYnE@sirena.org.uk>
+In-Reply-To: <Yr1842e42P4piYnE@sirena.org.uk>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Thu, 30 Jun 2022 20:15:44 +0800
+Message-ID: <CAA+D8AMuOWgPooXGMUqtQOdzVZ60b0ud=wXkO+XYa-BD98o_+A@mail.gmail.com>
+Subject: Re: [PATCH 3/6] ASoC: fsl_micfil: Add support for PLL switch at
+ runtime
+To: Mark Brown <broonie@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- quic_rohkumar@quicinc.com, linux-arm-msm@vger.kernel.org, swboyd@chromium.org,
- tiwai@suse.com, agross@kernel.org, robh+dt@kernel.org, lgirdwood@gmail.com,
- linux-gpio@vger.kernel.org, broonie@kernel.org, srinivas.kandagatla@linaro.org,
- bgoswami@quicinc.com, quic_plai@quicinc.com, bjorn.andersson@linaro.org,
- judyhsiao@chromium.org, linux-kernel@vger.kernel.org
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, alsa-devel@alsa-project.org,
+ Xiubo Li <Xiubo.Lee@gmail.com>, linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Fabio Estevam <festevam@gmail.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,21 +105,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jun 29, 2022 at 9:55 AM Srinivasa Rao Mandadapu
-<quic_srivasam@quicinc.com> wrote:
+On Thu, Jun 30, 2022 at 6:37 PM Mark Brown <broonie@kernel.org> wrote:
 
-> Fix the compilation error, caused by updating constant variable.
-> Hence remove redundant constant variable, which is no more useful
-> as per new design.
+> On Thu, Jun 30, 2022 at 01:39:11PM +0800, Shengjiu Wang wrote:
 >
-> The issue is due to some unstaged changes. Fix it up.
+> > +static int fsl_micfil_reparent_rootclk(struct fsl_micfil *micfil,
+> unsigned int sample_rate)
+> > +{
+> > +     struct device *dev = &micfil->pdev->dev;
+> > +     u64 ratio = sample_rate;
+> > +     struct clk *clk;
+> > +     int ret;
+> > +
+> > +     /* Reparent clock if required condition is true */
+> > +     if (!micfil->pll8k_clk || !micfil->pll11k_clk)
+> > +             return 0;
+> > +
+> > +     ratio = do_div(ratio, 8000) ? CLK_11K_FREQ : CLK_8K_FREQ;
+> > +
+> > +     /* Get root clock */
+> > +     clk = micfil->mclk;
+> > +     if (IS_ERR_OR_NULL(clk)) {
+> > +             dev_err(dev, "no mclk clock in devicetree\n");
+> > +             return PTR_ERR(clk);
+> > +     }
+> > +
+> > +     /* Disable clock first, for it was enabled by pm_runtime */
+> > +     clk_disable_unprepare(clk);
+> > +     fsl_asoc_reparent_pll_clocks(dev, clk, micfil->pll8k_clk,
+> > +                                  micfil->pll11k_clk, ratio);
+> > +     ret = clk_prepare_enable(clk);
+> > +     if (ret)
+> > +             return ret;
+> > +
+> > +     return 0;
+> > +}
 >
-> Fixes: 36fe26843d6d ("pinctrl: qcom: sc7280: Add clock optional check for ADSP bypass targets")
+> Seems like more of this logic could be factored out into the reparent
+> function if the target sample rate is passed in?
 >
-> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
 
-Patch applied, thanks for fixing this!
+Yes, let me update.
 
-Yours,
-Linus Walleij
+Best regards
+Wang Shengjiu

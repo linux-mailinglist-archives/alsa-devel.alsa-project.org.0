@@ -2,94 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BF20561A2A
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jun 2022 14:17:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46300561A67
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jun 2022 14:35:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CFA1316B5;
-	Thu, 30 Jun 2022 14:16:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CFA1316B5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9FB4D950;
+	Thu, 30 Jun 2022 14:34:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9FB4D950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656591421;
-	bh=fSZKUwClzWwpjx8fSeecSCQMtCH8J1iBX2re+UWX7kU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1656592548;
+	bh=RBmj/Kl7Uz8J5Gl38SW+6TT6PnWkhV4QH3Vx5kZhP0U=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZXzmx+fry2kZUeP1GMdaU62YjsZ1+NOvBL8DbPtQk9c6EEevLYjEFoAPVGNRoP/YV
-	 11+zcsw4bKz0HDlKnra6E+bB/BFgLskrmbdGB0LXlqpgGgMEOyH9gkXobedrte610I
-	 hQxFmeIEXQGWRtNUl54B09Pitkmhx/Hn8bukYY7M=
+	b=DTz6+3PFMtUgGAzcDYZba2i+vl/Fn60u4HJ7FbjayGblOxg7vcEnSsXJnKBScsQyk
+	 lOcUSMjcBKPQpGqcXhZAau7xkR+v7nf346TwZwJUIqH0lRT70gkP/OdAElnfMEpsr4
+	 kEUq2Ca0VRWr/N7MgapNA5KrW0pGA8qjGRfscLyU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 276C1F804DA;
-	Thu, 30 Jun 2022 14:16:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0E3B5F804DA;
+	Thu, 30 Jun 2022 14:34:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3A905F804D8; Thu, 30 Jun 2022 14:16:02 +0200 (CEST)
+ id BCA5EF804D8; Thu, 30 Jun 2022 14:34:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [IPv6:2a00:1450:4864:20::334])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7DE94F800F5
- for <alsa-devel@alsa-project.org>; Thu, 30 Jun 2022 14:15:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7DE94F800F5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 062E9F80107
+ for <alsa-devel@alsa-project.org>; Thu, 30 Jun 2022 14:34:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 062E9F80107
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="kVsu10QZ"
-Received: by mail-lf1-x130.google.com with SMTP id a13so33378509lfr.10
- for <alsa-devel@alsa-project.org>; Thu, 30 Jun 2022 05:15:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=8FTw4MCFfuFSADhvkdsMGjKiW6HgFhQqoFSBrJRkTFE=;
- b=kVsu10QZCU5mvSFcGpiSud2USeqH+Dqt6dhIHOHhGvbJy2YfSZmU9KDI+xQ1rS/RsB
- eEi7cDf7UU+Ba1AwC07gIreMH6OygAOcZsBERjt2MRl/usw39NgOQrQX4rBF4FI1qeWW
- UaXOyQEbeIIQUV5CMuusKGl6Qh7kf1ZRvvP8gnj0Xtf5Jj2H8io8IprG6u3gitySF0fH
- iU9xLAhrCRDrUt3x9lHE94+AGq49dZSNiS+CuRYtLuLXgXCGErmTFvzx4t7T5XhRa1mR
- qW808mAVs3XtRYUza9GIFi7rJsqBpM/XTJEbwxhF42StMx5QVRT1M5sYQ2BCOykGUhxm
- QhsQ==
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="HgOokaX4"
+Received: by mail-wm1-x334.google.com with SMTP id
+ t17-20020a1c7711000000b003a0434b0af7so1593962wmi.0
+ for <alsa-devel@alsa-project.org>; Thu, 30 Jun 2022 05:34:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=Ss2eXTgce1Z+FVZRaJDO9kFJJteGb8clhtcbdKqjPjs=;
+ b=HgOokaX4wfrQzc+oA97X8AeIvHAkrPLrBoHNebb+3k3hR8K9p/sswIam9tY0Bc955D
+ g08xkt9Di1n7cmfuFfEZ2rsXRG/ZxaoEaONrmw56waF0TJs86WqIF/ZybI+MaM7n1VMZ
+ Cs/G945RITWjoXpSutHuC2mHo3WcT4bmAKqV3w2P8V0XPuEyA37Mu8KDrulb0TDDOyt5
+ i2JxDP5AaMUunnB8k5ocRga5fMRE0HwGW8Lz+efVXFm5g3PFJKDLvT/G80oHKFyfP0zF
+ HlS/0mwBdrfsMV8ZJpEeOOD15/NF9pKUh7KUtPspnZlg3C0/9bdOa/avE0GNJL8IO32U
+ wclw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=8FTw4MCFfuFSADhvkdsMGjKiW6HgFhQqoFSBrJRkTFE=;
- b=xSPr8xq9HH4lq5wRb/OeZng7Ql8SFNt4HG6g6NNZEx7Avb0dQQLnU2CpVDcyLQ+Zae
- 2jfaXbauLAumqM7JBgEqrcNgF2GNaLbDUfjccHezzMTqdiDA8trrkKEzG9PZ5JgDn20Y
- pFnQ4zwGcOcWG21Pm1IpKgDbbayoWvkyxunx01fk+R51KSbpwKa27WnUPqq1bnT7irnA
- z98CanaVijB5pNfxbUdxIqLldqRqDkfFjyAVwhHjXIb0JyOEH/XNJq2cd/4Po2O3CgwM
- JOEMEYITp7xlHx0FRhWWotgrsQfM9Nj5Fr3Uidd45i7Qkg/ykk0Hcw70+jOuSUOKv3KG
- qFDQ==
-X-Gm-Message-State: AJIora/lFL1aB3rzh226zkYM6ErT+Dnmo9FS5jrHRN4d2Zz2yMwMhPp4
- sUTMPO0NFFUzF2wzI2FYzEWngVuOVA0nxnqpsxQ=
-X-Google-Smtp-Source: AGRyM1vLC0PK4De5akrcRg8Y89ZcrUEGDelsIiW0sTj+BvMXfejNuwEHaX+9OjHUW5D9Z2I1M5RDPGENDDMXDYmeSxw=
-X-Received: by 2002:a05:6512:3e05:b0:481:2bf2:db06 with SMTP id
- i5-20020a0565123e0500b004812bf2db06mr5236304lfv.408.1656591356116; Thu, 30
- Jun 2022 05:15:56 -0700 (PDT)
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=Ss2eXTgce1Z+FVZRaJDO9kFJJteGb8clhtcbdKqjPjs=;
+ b=RnKudyvgvYKE4yuXwuoShe0jHJt/2KgSOgyVkQwAPJr/Rl4DJMJMP6xiUKoC06t7eQ
+ Oba9US+xqEtpH0XlSEGV6MzYqgmI/WA2jb3OZ1KllGb4vqDMo0zVUdp2g65EwmxEAlV4
+ 7ts9mxg/ExIxP0GDY/4YWKRpET/DtvOjQgh85OVKemzNqxyeguHlH84uFYwBNvMmJqS2
+ 9rIk9L6vmOf4DQ5CGs91pb+xJU7j5WwsdTdaXfx0J1WGdH1aCWWP9CoGyqCYCZwpyiUX
+ IRx/ZbVXGyReF7lLwCLcITdYL7FSAZxiiWEatXYaf3heSv8QB0p+YwzTdGGmgvLFcKVe
+ mQGw==
+X-Gm-Message-State: AJIora8iCgy0hfX0oOTN4ROu/5ikHRymNUpx6qgFacxGJwhTU6DlMOgn
+ RZDytblVldZP1ix/31hF8XoJXw==
+X-Google-Smtp-Source: AGRyM1sJU7urd+5aK3MgCw3Uv7rECBKArUwktKQmOYEC6kLFke4BEdi3TOYid4eWgGI2yM4KAC43rw==
+X-Received: by 2002:a7b:c20d:0:b0:3a0:39e4:19e8 with SMTP id
+ x13-20020a7bc20d000000b003a039e419e8mr11900050wmi.166.1656592478287; 
+ Thu, 30 Jun 2022 05:34:38 -0700 (PDT)
+Received: from [192.168.86.238]
+ (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
+ by smtp.googlemail.com with ESMTPSA id
+ bi18-20020a05600c3d9200b0039c4506bd25sm3053738wmb.14.2022.06.30.05.34.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 30 Jun 2022 05:34:37 -0700 (PDT)
+Message-ID: <a1569f25-97c4-c1ea-c09e-c01b53f1b5e0@linaro.org>
+Date: Thu, 30 Jun 2022 13:34:36 +0100
 MIME-Version: 1.0
-References: <1656567554-32122-1-git-send-email-shengjiu.wang@nxp.com>
- <1656567554-32122-4-git-send-email-shengjiu.wang@nxp.com>
- <Yr1842e42P4piYnE@sirena.org.uk>
-In-Reply-To: <Yr1842e42P4piYnE@sirena.org.uk>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Thu, 30 Jun 2022 20:15:44 +0800
-Message-ID: <CAA+D8AMuOWgPooXGMUqtQOdzVZ60b0ud=wXkO+XYa-BD98o_+A@mail.gmail.com>
-Subject: Re: [PATCH 3/6] ASoC: fsl_micfil: Add support for PLL switch at
- runtime
-To: Mark Brown <broonie@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, alsa-devel@alsa-project.org,
- Xiubo Li <Xiubo.Lee@gmail.com>, linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
- Shengjiu Wang <shengjiu.wang@nxp.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Fabio Estevam <festevam@gmail.com>,
- linux-kernel <linux-kernel@vger.kernel.org>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH] ASoC: qdsp6: fix potential memory leak in
+ q6apm_get_audioreach_graph()
+Content-Language: en-US
+To: Jianglei Nie <niejianglei2021@163.com>, bgoswami@codeaurora.org,
+ lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ pierre-louis.bossart@linux.intel.com, dan.carpenter@oracle.com,
+ linmq006@gmail.com
+References: <20220629182520.2164409-1-niejianglei2021@163.com>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: <20220629182520.2164409-1-niejianglei2021@163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,47 +111,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Jun 30, 2022 at 6:37 PM Mark Brown <broonie@kernel.org> wrote:
 
-> On Thu, Jun 30, 2022 at 01:39:11PM +0800, Shengjiu Wang wrote:
->
-> > +static int fsl_micfil_reparent_rootclk(struct fsl_micfil *micfil,
-> unsigned int sample_rate)
-> > +{
-> > +     struct device *dev = &micfil->pdev->dev;
-> > +     u64 ratio = sample_rate;
-> > +     struct clk *clk;
-> > +     int ret;
-> > +
-> > +     /* Reparent clock if required condition is true */
-> > +     if (!micfil->pll8k_clk || !micfil->pll11k_clk)
-> > +             return 0;
-> > +
-> > +     ratio = do_div(ratio, 8000) ? CLK_11K_FREQ : CLK_8K_FREQ;
-> > +
-> > +     /* Get root clock */
-> > +     clk = micfil->mclk;
-> > +     if (IS_ERR_OR_NULL(clk)) {
-> > +             dev_err(dev, "no mclk clock in devicetree\n");
-> > +             return PTR_ERR(clk);
-> > +     }
-> > +
-> > +     /* Disable clock first, for it was enabled by pm_runtime */
-> > +     clk_disable_unprepare(clk);
-> > +     fsl_asoc_reparent_pll_clocks(dev, clk, micfil->pll8k_clk,
-> > +                                  micfil->pll11k_clk, ratio);
-> > +     ret = clk_prepare_enable(clk);
-> > +     if (ret)
-> > +             return ret;
-> > +
-> > +     return 0;
-> > +}
->
-> Seems like more of this logic could be factored out into the reparent
-> function if the target sample rate is passed in?
->
 
-Yes, let me update.
+On 29/06/2022 19:25, Jianglei Nie wrote:
+> q6apm_get_audioreach_graph() allocates a memory chunk for graph->graph
+> with audioreach_alloc_graph_pkt(). When idr_alloc() fails, graph->graph
+> is not released, which will lead to a memory leak.
+> 
+> We can release the graph->graph with kfree() when idr_alloc() fails to
+> fix the memory leak.
+thanks for catching this, wondering did you hit this bug while testing 
+or was it a some tooling that discovered this bug?
 
-Best regards
-Wang Shengjiu
+> 
+> Signed-off-by: Jianglei Nie <niejianglei2021@163.com>
+> ---
+
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+
+
+>   sound/soc/qcom/qdsp6/q6apm.c | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+> diff --git a/sound/soc/qcom/qdsp6/q6apm.c b/sound/soc/qcom/qdsp6/q6apm.c
+> index f424d7aa389a..794019286c70 100644
+> --- a/sound/soc/qcom/qdsp6/q6apm.c
+> +++ b/sound/soc/qcom/qdsp6/q6apm.c
+> @@ -75,6 +75,7 @@ static struct audioreach_graph *q6apm_get_audioreach_graph(struct q6apm *apm, ui
+>   	id = idr_alloc(&apm->graph_idr, graph, graph_id, graph_id + 1, GFP_KERNEL);
+>   	if (id < 0) {
+>   		dev_err(apm->dev, "Unable to allocate graph id (%d)\n", graph_id);
+> +		kfree(graph->graph);
+>   		kfree(graph);
+>   		mutex_unlock(&apm->lock);
+>   		return ERR_PTR(id);

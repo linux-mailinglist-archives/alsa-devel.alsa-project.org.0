@@ -2,86 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 930E2561ADD
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jun 2022 15:01:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0185E561ADF
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jun 2022 15:02:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3F6511695;
-	Thu, 30 Jun 2022 15:00:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F6511695
+	by alsa0.perex.cz (Postfix) with ESMTPS id 86AD116C1;
+	Thu, 30 Jun 2022 15:01:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86AD116C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656594096;
-	bh=M7FK/98M1MjZHDrciJgIdj/7vtKx2z9WNYWbwzUrqMw=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Gj6nbUwOWmjeNq/rEQG2dD9/e+5LlM/RgWVIsWXtxP8ByX3ay6E2CjqqKfYK1+YQ8
-	 DFSzyxcSdNLgsFKoYYUXRkK6MeMS3tuUOzhKTS8Tly6dhlzqYZmHowsboPrmhK3nTn
-	 2W5wcCbXTf2FL07TeC9SokTetVtfOtPEaTUPdxmI=
+	s=default; t=1656594127;
+	bh=ZG1ZNk494R1CUFcBKFQPHfnynDjXT13GbebSbFdb2WE=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=FK28rJ79mgvSA2Gl5SFAOPDZQW/6m5r+bg47+20aInULT0NsDVfhj3d82yELdQJOO
+	 JRS68iPzQi/GXI++dUw85Gm1vhBIg+Ehai8XtoogqrMKftCL5N5tTAzErXCxQanqSB
+	 YrefeF3mi0x8neueo1Qst4FIedRZgJvdbZe1WOdY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A5B78F804DA;
-	Thu, 30 Jun 2022 15:00:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 58265F8052D;
+	Thu, 30 Jun 2022 15:00:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EF8B7F804DA; Thu, 30 Jun 2022 15:00:35 +0200 (CEST)
+ id 2453FF804D8; Thu, 30 Jun 2022 15:00:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [IPv6:2a00:1450:4864:20::32b])
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [IPv6:2a00:1450:4864:20::430])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CDB79F80107
- for <alsa-devel@alsa-project.org>; Thu, 30 Jun 2022 15:00:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CDB79F80107
+ by alsa1.perex.cz (Postfix) with ESMTPS id C4D52F800F5
+ for <alsa-devel@alsa-project.org>; Thu, 30 Jun 2022 15:00:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4D52F800F5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="it46n3LR"
-Received: by mail-wm1-x32b.google.com with SMTP id
- l2-20020a05600c4f0200b0039c55c50482so1674538wmq.0
- for <alsa-devel@alsa-project.org>; Thu, 30 Jun 2022 06:00:28 -0700 (PDT)
+ header.b="pd5SdccG"
+Received: by mail-wr1-x430.google.com with SMTP id cl1so3474864wrb.4
+ for <alsa-devel@alsa-project.org>; Thu, 30 Jun 2022 06:00:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Nh7MOeHqpu+KJjz+AQfMOAMAr6taCyP+a8n4nKC3Ilk=;
- b=it46n3LRqtbFUNmtsO5pMTfu8XVzRaw4AkZn64FfFqiNM1TD6/fI7WCexAZ0kter1B
- 8V8OaDXmnLHFEVjmxaS1FdoZ/0Pf84G9bzIqI4QqQjedMkhnBmQBdU+PwdgSJrtv6ILa
- YojZAZPCS0q0Vzyef/v9d8v/StEujzRRvmdoxuC2JuWaNkyDRB8bjFaK+5U8690VKtQr
- A+dV+PdyNl/h0Za7ayvfNFEkp5xg/LIVabnTWn9hG40wAoh2NyJdEByXSjWVz2jTA68x
- 5s7wTsAYHACQpXHMeszYGlsMUuVIWWWm/MTFVxmXg0L7vTMs+K/LI3Fcoc+RyBlDDobT
- xHLQ==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=bzABi/fIb1/5+rkmhKsgJLpztE30/Fc5MNL46LXzMCc=;
+ b=pd5SdccGVl8fDIHgsEq50W5KKB+B/zDoKkQ2eQ3o7PderfSIAUhs85dKlWE6ZnFsQq
+ brEjiFes/oABy40kFwb6MHkYsUEtZnadZKYDg/XBOKOLgrDyERsV0YKD9yHJ+9DHj0D9
+ azzEfOiXYljcqCLAv9Pux2dt+9T9aVvPUff4z4WxNmy4nWFORochi7eWOZAn5fY1Yl9H
+ XyPaP1hOK++tUU5RvL7zxlUeyzglAihehbJvmjku2RQIT/rEE3ZNzQVCogABOoQFsJt2
+ BGMbMwdDfGB3D4GLT8OMhr1zrKVp9cHVsn1qMV7SINf0uRZFfd1HVFEsm3H3GOUqiZVW
+ mlzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Nh7MOeHqpu+KJjz+AQfMOAMAr6taCyP+a8n4nKC3Ilk=;
- b=Hf0l90YX4GHOhukE8wjkXaU4Kyedjs/ien15+TRhDb/kYJ+beNiqftJ5I9wFXG27uh
- YpSKINSFp9z1c+bOqPYP5E5dvov03IatN17NsmPY+x+WivXbLFPqWY7QgJnOLBXRy7WB
- fRBE6kOJiLtojz0LqeZTCqxzRA62+FGAUBSzF3EQ69BfgxCvtfDqmCAYI3lDSpB3v2MC
- dCQzHly3miPfpTy0SAeDFK0gsSuA+2ClJ2xYbLlAPonz2WtLarIalxHPE7q68LR069cl
- SiftdQXGzN5FlIp0z+6DfsMPTpol/2IQAeN52XkSKFH8X2F/3qvuzYOpxGknU47/pKqL
- eEVg==
-X-Gm-Message-State: AJIora+u5UL+aI3nxjCMm29Y9FU1WOhSqM3H+hiJSDtQB/asnYfyZ4Ct
- 4R1+SIOI94pl9n1t8oIKpTcvHQ==
-X-Google-Smtp-Source: AGRyM1vJ3ZxH45D8hUgK2tFT90WipVg22meqPE/QRLhl20LRmrNPtv60AoVVnzHUObi1UxrNlko/Gg==
-X-Received: by 2002:a05:600c:27d1:b0:3a1:7e0c:56bf with SMTP id
- l17-20020a05600c27d100b003a17e0c56bfmr3784642wmb.186.1656594026688; 
- Thu, 30 Jun 2022 06:00:26 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=bzABi/fIb1/5+rkmhKsgJLpztE30/Fc5MNL46LXzMCc=;
+ b=jzivNSvXfkBguGvd7mq4IWEGCVDREEZCpPZt3CFu6tHsqHWocBkiAntOgFapGOFRDm
+ h7bnB0O1j/D9Suz3Eenw/h8rFWoLcMm1u8q6G7agC3cic87KiLcmnduO2vMBQlNrqH80
+ sNMd+Vwp1zvS3N6wSYKA8T5AlHu6lvV0dzivz5DfHwh3vRQur6F1rTYJDNInOrUy953E
+ XJ5q3Mn+1zAOh17j5bnUnd1hxq4sxZCgCGF30qyqy3R+fdbzqL9TXFK/n5BLxlRivFbg
+ IlelO6jGsEBEGh9duMLXGazXgvjC1+YYBaE4PQLPsRnFP9+cBJ6KnOxF8ITeRGKb4oAO
+ G8qg==
+X-Gm-Message-State: AJIora8tvRqb0cPYj14x0hCfOt5gna4ABReh1eBLXeJKn1IQL3RmPqbM
+ AqkLo8+EzSjs1InwXrjqyv0Z/aO30D5mca4y
+X-Google-Smtp-Source: AGRyM1vENCHbsQi0PnAYac3E99zxWkQjJFZN5frPbYEF/+WF6yo+5/ej3mMLC1VDx4o9B+4Wt+NCuw==
+X-Received: by 2002:a5d:5967:0:b0:21b:903f:e095 with SMTP id
+ e39-20020a5d5967000000b0021b903fe095mr8133140wri.162.1656594028050; 
+ Thu, 30 Jun 2022 06:00:28 -0700 (PDT)
 Received: from srini-hackbase.lan
  (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
  by smtp.gmail.com with ESMTPSA id
- o4-20020a5d6484000000b0020d02262664sm19273608wri.25.2022.06.30.06.00.25
+ o4-20020a5d6484000000b0020d02262664sm19273608wri.25.2022.06.30.06.00.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Jun 2022 06:00:25 -0700 (PDT)
+ Thu, 30 Jun 2022 06:00:27 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: broonie@kernel.org
-Subject: [PATCH 1/2] ASoC: codecs: wsa881x: handle timeouts in resume path
-Date: Thu, 30 Jun 2022 14:00:22 +0100
-Message-Id: <20220630130023.9308-1-srinivas.kandagatla@linaro.org>
+Subject: [PATCH 2/2] ASoC: codecs: wsa883x: handle timeouts in resume path
+Date: Thu, 30 Jun 2022 14:00:23 +0100
+Message-Id: <20220630130023.9308-2-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220630130023.9308-1-srinivas.kandagatla@linaro.org>
+References: <20220630130023.9308-1-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
@@ -109,36 +111,41 @@ Its possible that the registers are not accessible if timeout is
 expired. Handle this by returning timeout in resume path.
 
 Reported-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Fixes: 8dd552458361 ("ASoC: codecs: wsa881x: add runtime pm support")
+Fixes: 43b8c7dc85a1 ("ASoC: codecs: add wsa883x amplifier support")
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
- sound/soc/codecs/wsa881x.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ sound/soc/codecs/wsa883x.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/codecs/wsa881x.c b/sound/soc/codecs/wsa881x.c
-index dc954b85a988..6c8b1db649b8 100644
---- a/sound/soc/codecs/wsa881x.c
-+++ b/sound/soc/codecs/wsa881x.c
-@@ -1173,11 +1173,17 @@ static int __maybe_unused wsa881x_runtime_resume(struct device *dev)
+diff --git a/sound/soc/codecs/wsa883x.c b/sound/soc/codecs/wsa883x.c
+index e8f519e89213..40c7d64a9c41 100644
+--- a/sound/soc/codecs/wsa883x.c
++++ b/sound/soc/codecs/wsa883x.c
+@@ -1455,6 +1455,7 @@ static int __maybe_unused wsa883x_runtime_resume(struct device *dev)
  	struct sdw_slave *slave = dev_to_sdw_dev(dev);
  	struct regmap *regmap = dev_get_regmap(dev, NULL);
- 	struct wsa881x_priv *wsa881x = dev_get_drvdata(dev);
+ 	struct wsa883x_priv *wsa883x = dev_get_drvdata(dev);
 +	unsigned long time;
+ 	int ret;
  
- 	gpiod_direction_output(wsa881x->sd_n, 1);
+ 	ret = regulator_enable(wsa883x->vdd);
+@@ -1465,8 +1466,14 @@ static int __maybe_unused wsa883x_runtime_resume(struct device *dev)
+ 
+ 	gpiod_direction_output(wsa883x->sd_n, 1);
  
 -	wait_for_completion_timeout(&slave->initialization_complete,
--				    msecs_to_jiffies(WSA881X_PROBE_TIMEOUT));
+-				    msecs_to_jiffies(WSA883X_PROBE_TIMEOUT));
 +	time = wait_for_completion_timeout(&slave->initialization_complete,
-+					   msecs_to_jiffies(WSA881X_PROBE_TIMEOUT));
++					   msecs_to_jiffies(WSA883X_PROBE_TIMEOUT));
 +	if (!time) {
 +		dev_err(dev, "Initialization not complete, timed out\n");
-+		gpiod_direction_output(wsa881x->sd_n, 0);
++		gpiod_direction_output(wsa883x->sd_n, 0);
++		regulator_disable(wsa883x->vdd);
 +		return -ETIMEDOUT;
 +	}
  
+ 	usleep_range(20000, 20010);
  	regcache_cache_only(regmap, false);
- 	regcache_sync(regmap);
 -- 
 2.25.1
 

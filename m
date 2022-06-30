@@ -2,75 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 143C4561BA7
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jun 2022 15:45:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A263561EAB
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jun 2022 17:02:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 27AD316A0;
-	Thu, 30 Jun 2022 15:44:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27AD316A0
+	by alsa0.perex.cz (Postfix) with ESMTPS id C539C16B5;
+	Thu, 30 Jun 2022 17:02:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C539C16B5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656596742;
-	bh=wnmXGjTygS47QXWEc8FN6W73CmVcZAxDxUD7fj5Ykr0=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=epVoM4Pxi8ISBISBY11HH38IVpi2Qx8b34ltr6KvW6SOTHsKtfyRwLmhnzMa56xuV
-	 df2uSAi+taGM0Y4sXQ8YVGoNaCtF0ZldNxG6HGlJvHSP8NIR4Ev0yOCzEVwV5RoHir
-	 wQFM3n0ozWYmzgI77OYqHjZRqiPnYviV587PSjB4=
+	s=default; t=1656601373;
+	bh=XqgGJ6MmzmPKOtqvJyrzF0FBmx0mtrj9NZQAPSLZfko=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=pvQhwni8fMkAQJzqKCZiqfbzssA5sy68i1eoDVAl2HccPNcGP0+3gSAcS/JpRAe1+
+	 pf3NjWEkW4Rz8vK/ADsAXRXbPN44PQ/vAq1qTdB3UIPL708VpmJCSTCDSSiqq0Ar+w
+	 T+rkr1hXtRYiqnMHMgLW8+dGRxVlVNBWXtipAIAo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9CCA3F804DA;
-	Thu, 30 Jun 2022 15:44:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 49CDFF804EB;
+	Thu, 30 Jun 2022 17:01:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 094CEF804D8; Thu, 30 Jun 2022 15:44:42 +0200 (CEST)
+ id 155E9F804DA; Thu, 30 Jun 2022 17:01:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AA00DF800F5
- for <alsa-devel@alsa-project.org>; Thu, 30 Jun 2022 15:44:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA00DF800F5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="FzL5xVZI"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 90E1961FC5;
- Thu, 30 Jun 2022 13:44:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C8F1C341CE;
- Thu, 30 Jun 2022 13:44:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1656596676;
- bh=wnmXGjTygS47QXWEc8FN6W73CmVcZAxDxUD7fj5Ykr0=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=FzL5xVZIEwkttkQhaG96wxMj0g3WeQtsGXuu9vJ/07CufdloF6mm7RggXtAQbwlpS
- ed9M8xckErWWobjsI+Rh8c0jbfRplebA/bes/uk6LKn9zWjAIFQ4f4V6As4NBMu0W3
- PZbRnRcSHcVjQGG8/12TflaA0SrdLc45QMtmfyoaO58mEg3Sa1uFEhgs2YEWH4ZKI/
- QkkHGVpiP+/jN6Enj/WUwGE46lGUnVUKY5aQ9bdd9vmuDoDlgLZa1KOep2PPxXYmQv
- 6bHUQa/E2PAN2gmWPAR2x/sz6uK5hvjxahnURaAS7LRZxilghXkmsWeiObmYzkqaou
- AjIJg2SsYwoNA==
-From: Mark Brown <broonie@kernel.org>
-To: perex@perex.cz, lgirdwood@gmail.com, linmq006@gmail.com,
- dan.carpenter@oracle.com, tiwai@suse.com, pierre-louis.bossart@linux.intel.com,
- srinivas.kandagatla@linaro.org, niejianglei2021@163.com
-In-Reply-To: <20220629182520.2164409-1-niejianglei2021@163.com>
-References: <20220629182520.2164409-1-niejianglei2021@163.com>
-Subject: Re: [PATCH] ASoC: qdsp6: fix potential memory leak in
- q6apm_get_audioreach_graph()
-Message-Id: <165659667394.558624.13159284559869782249.b4-ty@kernel.org>
-Date: Thu, 30 Jun 2022 14:44:33 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id E033EF800F5
+ for <alsa-devel@alsa-project.org>; Thu, 30 Jun 2022 17:01:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E033EF800F5
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="Kpsx+2b3"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25UDiqaR003941;
+ Thu, 30 Jun 2022 10:01:42 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=tE00initlptw2sRprEoJ6Mg4Fr4Jr2LI3wz+6oohsnw=;
+ b=Kpsx+2b3g0eZiSfOenerOaJbdmisDNhmsyInogeXFMIQES1CyhEQd2Rozz4AcXSFVYa5
+ QvpJIO4LTKH8puJx0sDZu7/hwEj1vr1HW2eNlKClZh8pg/HiXzdzdlDVk+yh2ln7R2Ah
+ ViNwfJXZ/vfvxfopn1Jmknd+eIFvd5YsfHXCJmi9g+9Q8aeUgZzSl7OKV/J5Z+acVJfk
+ KYse+5GTHvCCk9v+ETioSsh/JUM21gpWmOwxlDjRJpnaqv8DNTIHnewkd6LaUqEceH63
+ CqtBnQNCJr2l5Gd3RwTLadPYN/IDrsVkNFrGcWiL4IWRqmjIaRvVoAY4CS10gzp/q77m 4w== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3gwxsq6r1g-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Thu, 30 Jun 2022 10:01:41 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 30 Jun
+ 2022 16:01:40 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.28 via
+ Frontend Transport; Thu, 30 Jun 2022 16:01:40 +0100
+Received: from sbinding-cirrus-dsktp.ad.cirrus.com (unknown [198.90.238.163])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 573062A9;
+ Thu, 30 Jun 2022 15:01:39 +0000 (UTC)
+From: Stefan Binding <sbinding@opensource.cirrus.com>
+To: "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+ Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>
+Subject: [PATCH v5 0/2] Read _SUB from ACPI to be able to identify firmware
+Date: Thu, 30 Jun 2022 16:01:33 +0100
+Message-ID: <20220630150135.1799535-1-sbinding@opensource.cirrus.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org
+Content-Type: text/plain
+X-Proofpoint-GUID: qsewX1yu3afAJzCcZISt3uqbIWxdt7hg
+X-Proofpoint-ORIG-GUID: qsewX1yu3afAJzCcZISt3uqbIWxdt7hg
+X-Proofpoint-Spam-Reason: safe
+Cc: linux-acpi@vger.kernel.org, alsa-devel@alsa-project.org,
+ Stefan Binding <sbinding@opensource.cirrus.com>, linux-kernel@vger.kernel.org,
+ patches@opensource.cirrus.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,40 +97,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 30 Jun 2022 02:25:20 +0800, Jianglei Nie wrote:
-> q6apm_get_audioreach_graph() allocates a memory chunk for graph->graph
-> with audioreach_alloc_graph_pkt(). When idr_alloc() fails, graph->graph
-> is not released, which will lead to a memory leak.
-> 
-> We can release the graph->graph with kfree() when idr_alloc() fails to
-> fix the memory leak.
-> 
-> [...]
+CS35L41 has a DSP which is able to run firmware, as well as a tuning file.
+Different systems may want to use different firmwares and tuning files, and
+some firmwares/tunings may not be compatible with other systems.
+To allow a system to select the correct fimware/tuning, we can read an _SUB
+from the ACPI. This _SUB can then be used to uniquely identify the system
+in the firmware/tuning file name.
 
-Applied to
+Add a helper function which reads the _SUB, so this can be used by other
+parts in the future.
+Add support inside the CS35L41 ASoC driver to read this _SUB, and save it
+appropriately.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Changes since v4:
+- Rename function
 
-Thanks!
+Changes since v3:
+- Fix 32 bit format string warning
 
-[1/1] ASoC: qdsp6: fix potential memory leak in q6apm_get_audioreach_graph()
-      commit: 0063ae55ccd2ade509be828762addcfccee52c4c
+Changes since v2:
+- Fix error in function prototype
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Changes since v1:
+- Add length validation for SSID String
+- Rename API
+- Allocate memory inside API
+- Use ACPI_HANDLE macro instead of ACPI_COMPANION
+- Improve error handling
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Stefan Binding (2):
+  ACPI: utils: Add api to read _SUB from ACPI
+  ASoC: cs35l41: Read System Name from ACPI _SUB to identify firmware
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+ drivers/acpi/utils.c       | 38 ++++++++++++++++++++++++++++++++++++++
+ include/linux/acpi.h       |  6 ++++++
+ sound/soc/codecs/cs35l41.c | 24 ++++++++++++++++++++++++
+ 3 files changed, 68 insertions(+)
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+-- 
+2.25.1
 
-Thanks,
-Mark

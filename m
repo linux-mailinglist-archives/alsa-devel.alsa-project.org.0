@@ -2,74 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AE415620A1
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jun 2022 18:56:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 143215620A2
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jun 2022 18:57:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 146C116C5;
-	Thu, 30 Jun 2022 18:56:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 146C116C5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7776316D9;
+	Thu, 30 Jun 2022 18:56:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7776316D9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656608210;
-	bh=FxOr7jGqldlmPZhNQ+CVV3r/8IUAgqCNNc1MtsgY0EM=;
+	s=default; t=1656608220;
+	bh=OX+KE9gn+blAoAm6LZ6lJfKiyy8z7eGc9S/R+DW2HpQ=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sQgGJn5qlmnvdawanem8QE7NIlS63846sSKrGxlzQbf/KkkyM9BMbHE4AEQoFTFVK
-	 QPe5FV3l70jHjdzAtCUlfvWxQipekEqC2+X7K99bezyeIlxJgUp26w15xIvPxuQgdb
-	 GBM1JZ4OawLGamAChnOaYQVVrFJ5X3wcNluazwGY=
+	b=MlIUgntYW2f0RGjO9f3aKVUE3c4Pv1K3R1IFGKpz84KikXJG+ZYoTGky7G5Ks8S3d
+	 SEFmrJ4mKwAmGwgAndLi0bPvKPaomT1OCWj57uXcoZ0OMMFZqjzgarZc5IhBTDhS6H
+	 7FBX0P5bNnlrhcPr+7rSymCMHeF+aBc3WaWNolBw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1DFC9F8052D;
-	Thu, 30 Jun 2022 18:55:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 93A7EF80535;
+	Thu, 30 Jun 2022 18:55:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E2A7CF804EB; Thu, 30 Jun 2022 18:55:48 +0200 (CEST)
+ id 04BB3F8052E; Thu, 30 Jun 2022 18:55:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8144BF80107
- for <alsa-devel@alsa-project.org>; Thu, 30 Jun 2022 18:55:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8144BF80107
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0C177F80107
+ for <alsa-devel@alsa-project.org>; Thu, 30 Jun 2022 18:55:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C177F80107
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="r4mfjced"
+ header.b="tKEeEd8u"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 888E0B82CA7;
- Thu, 30 Jun 2022 16:55:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE685C3411E;
- Thu, 30 Jun 2022 16:55:42 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id B1765B82CAD;
+ Thu, 30 Jun 2022 16:55:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABEBAC34115;
+ Thu, 30 Jun 2022 16:55:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1656608144;
- bh=FxOr7jGqldlmPZhNQ+CVV3r/8IUAgqCNNc1MtsgY0EM=;
+ s=k20201202; t=1656608145;
+ bh=OX+KE9gn+blAoAm6LZ6lJfKiyy8z7eGc9S/R+DW2HpQ=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=r4mfjcedqPKPtKQH2gcMD8xlZOUwGtEjp9vyUNphOWyFXGioqqvRE5LSM/tgm1uw6
- /QfdM30uCJtkoxwfHF4795GUpiDd43MS5/2IZKM6fFjvucFW8Z2wjvKQHjc9N58p/F
- r/Gs1JvPfrWCQUjNZDINiMw9mqTetoiI5tHJntxu46c7YWmCqJgQeKGrBZ7xJca/Mn
- WRHBOaV0mgRDCC71nRGf0XUa+wPuRJbixdpXKyAWVcavpMnje/oTCzcJx7+kt6yqLI
- 7DU6xBPQqMlttY+Me4W0eIcr8FoQx382b7cygz5T3a7Ixfn6vJ/qD4hiabTJrR3Tc9
- sq1QRPZMcVYVQ==
+ b=tKEeEd8uzhS7vXf4PLxERqRSg79l+1NaDTVc5dtBVWpYo8usPtRSgNzssKmJkWLDr
+ 978gJgDjQ3TWZUErwZS3X/FBzehyqxukMaAzx992IHYKgiaQ+yw5e8UE+7uITu6bWQ
+ bDMV2vcu7pqxii8Kh8zjookS3B0qwBENCz9bZGRtU6Ty5psNfc3EN7tZyh1G6uoq1l
+ VYJoIHq52GeJh+GltRY5hXICj9UOG77yNG+a7D90t+468PcJqHL2LVCfIG4vKpd8/1
+ vua+ZcraNRZ7/8cTAyiEVXkgou1ZLY2QkxmpNRQahdOe04Qh6lc20Z/yo+lJw7c4Fn
+ /UaBtpXG8z/iA==
 From: Mark Brown <broonie@kernel.org>
-To: srinivas.kandagatla@linaro.org
-In-Reply-To: <20220630130023.9308-1-srinivas.kandagatla@linaro.org>
-References: <20220630130023.9308-1-srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH 1/2] ASoC: codecs: wsa881x: handle timeouts in resume path
-Message-Id: <165660814249.771023.7178878929435843579.b4-ty@kernel.org>
-Date: Thu, 30 Jun 2022 17:55:42 +0100
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87h74v29f7.wl-kuninori.morimoto.gx@renesas.com>
+References: <87h74v29f7.wl-kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH] ASoC: ak4613: cares Simple-Audio-Card case for TDM
+Message-Id: <165660814442.771023.12313397324180249293.b4-ty@kernel.org>
+Date: Thu, 30 Jun 2022 17:55:44 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, lgirdwood@gmail.com, tiwai@suse.com
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, geert+renesas@glider.be
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,13 +83,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 30 Jun 2022 14:00:22 +0100, Srinivas Kandagatla wrote:
-> Currently we do not check if SoundWire slave initialization timeout
-> expired before continuing to access its registers.
+On Wed, 8 Jun 2022 02:09:16 +0000, Kuninori Morimoto wrote:
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 > 
-> Its possible that the registers are not accessible if timeout is
-> expired. Handle this by returning timeout in resume path.
-> 
+> Renesas is the only user of ak4613 on upstream for now, and
+> commit f28dbaa958fbd8 ("ASoC: ak4613: add TDM256 support")
+> added TDM256 support. Renesas tested part of it, because of
+> board connection.
 > 
 > [...]
 
@@ -101,10 +99,8 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: codecs: wsa881x: handle timeouts in resume path
-      commit: cf6af24b54903f9f70c29b3e5b19cb72cc862d60
-[2/2] ASoC: codecs: wsa883x: handle timeouts in resume path
-      commit: 0df73e1a9f7b1152ace21b6406138f7487239128
+[1/1] ASoC: ak4613: cares Simple-Audio-Card case for TDM
+      commit: ed0073bd0fccec459b526918be70bf9dc551581a
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,135 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD64E560F87
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jun 2022 05:20:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCE3E5611FA
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jun 2022 07:55:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 686BF16E4;
-	Thu, 30 Jun 2022 05:19:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 686BF16E4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8E18E16B5;
+	Thu, 30 Jun 2022 07:54:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E18E16B5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656559230;
-	bh=rwh6cTrAC+jza2zeHo2NLys9xyu0hlhVOLogQIbwV78=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=orPHTEFJGORjIqy91hBcWGHFMD5J+sT65FLIKLVEdJWj7iFFce8V4+8UFCRSHDllG
-	 gfV2ETORJzt4NqO0qDjMA6f7B7kWHRsx21SPunTl8TZ+sH2io2d7qhttveYr4PsSti
-	 fszpEDMLBm3H+sow2z2nRpbANSVtDOdT0tpuAkK0=
+	s=default; t=1656568520;
+	bh=btuff1inIAcxTvAkvp3AeUQ3zqV732wrwpFF4cdifhY=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=RTBdKgRlDlN5GsjeYK3CkqZs8rU8c27CoCiood4OpVQdYDxo+hT7WuzSNEGuqDu4i
+	 s1LkI2j07+gysUc4vr7Vmu/nToFU/uHRtWjR4ZqdZ4v2dOghYmFojcOx8qAFBMOWgH
+	 PAHcfwGFm4YY22uwSPxakq3JuXjs3LSIgXd9V5Bs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5870CF80539;
-	Thu, 30 Jun 2022 05:19:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ED8DEF80535;
+	Thu, 30 Jun 2022 07:54:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CE569F8053E; Thu, 30 Jun 2022 05:19:00 +0200 (CEST)
+ id 4B05BF804EB; Thu, 30 Jun 2022 07:54:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2052.outbound.protection.outlook.com [40.107.96.52])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 02533F8053C
- for <alsa-devel@alsa-project.org>; Thu, 30 Jun 2022 05:18:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02533F8053C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
- header.b="fYy4ZzrT"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ic8eTOQlr3NhNoZVwWU/YUd2z6EbuQmEe7BPbhxGRGFcOUSB9OiwCpjYjWIYTuewoEucUs1XkgVmKXxtu+o1R2ycO24qRUxoajvOkYbXOsLm6w2+OiGj2ajrqMi6EpiOBiGl5KpYP8cIcygqCNdHozuAoca4HMPfj7ZDrRQrbvxN48hC6pOdr1o22yIA59LwwKDheFI+jVusV4lOEawYegCHDao0tuFy4TjEDf+MVWNQolbrLn1QH7JWhl6gqR0vNMMkDgCm4snf2xw9SFT8nWyxgUruO54LyZeOqUO7nDFquiEC7royiZtxKHrDwhTkApAPEPi8Sh9RwOCHo8zRVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PbcrE8o3BqQ0wkcaWspm54rvor8qZt/971uAd7IHLf0=;
- b=HR5QKYIQYMnk6Oa+YNtRNwxJ15KcjJQi2FFfyL+LKv/juf1HDEfgHicGu9YLn4tjlOlFdHDE5uJv+3MGwBAIKftrtYKtbHu9IytIepYU4eZAUP02MkIv+gkaXvqsZLyVkWOS8ayqmNVjXHnf3KUsJKEebuxhAKx1vk1zeOBln+7b0MJAW1zYSiOgIsfbtsui/gF3Cws8EuaP7C+a/S4SB4Ai90gzmP+EvTuytzmNQg5FaA9e85WAitP/Hx23Dh1hUkHNx6QmUFBL1zYoyehmZlQCGO3coj2PYt8PPBxgXxdeihcVRrL7E4VAUQQEW/hlrJ4xvrndvglc88QFz7tgMQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PbcrE8o3BqQ0wkcaWspm54rvor8qZt/971uAd7IHLf0=;
- b=fYy4ZzrTI9cJrI7Z2uIaXqko5GR/FKGjb9uLqGVhsvtrKQ/G0mUEKKpgqBCu3b3b7w/cvfj0d2wlClrgXpzRjenzeYX75uthW5IKHpl8dqKiVuB/xsQ+gJrnqil2P44YuZ4NZ4JZ0RwMZTsX1/FCM3FTOYlul71cK/ZVBBUDJvM=
-Received: from BN0PR07CA0009.namprd07.prod.outlook.com (2603:10b6:408:141::8)
- by MW5PR12MB5652.namprd12.prod.outlook.com (2603:10b6:303:1a0::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.18; Thu, 30 Jun
- 2022 03:18:50 +0000
-Received: from BN8NAM11FT030.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:141::4) by BN0PR07CA0009.outlook.office365.com
- (2603:10b6:408:141::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.15 via Frontend
- Transport; Thu, 30 Jun 2022 03:18:49 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT030.mail.protection.outlook.com (10.13.177.146) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5373.15 via Frontend Transport; Thu, 30 Jun 2022 03:18:49 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 29 Jun
- 2022 22:18:45 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 29 Jun
- 2022 20:18:44 -0700
-Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
- SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.28
- via Frontend Transport; Wed, 29 Jun 2022 22:18:39 -0500
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>,
- <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 5/5] ASoC: amd: enable machine driver build for Jadeite
- platform
-Date: Thu, 30 Jun 2022 08:47:55 +0530
-Message-ID: <20220630031755.1055413-6-Vijendar.Mukunda@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220630031755.1055413-1-Vijendar.Mukunda@amd.com>
-References: <20220630031755.1055413-1-Vijendar.Mukunda@amd.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: cd0e86ff-b98a-4605-d005-08da5a47409c
-X-MS-TrafficTypeDiagnostic: MW5PR12MB5652:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: VoWMJDhMfeIUbNwQk0ZYCmNysvCeNG1griFSp9cGliUGMcWBGnQYfvwfc+WYdSWC3euUD4HwGxLIS3JSkP4IDQmNJzZaNJmpLu7hOA8R+KDJqJsGSxcM1mGP42/qDM2xDnJc5ma5fFGXtwotzWd11LnTkWD1SPVUwOLcOAfB4V8apCqdoPDzXydde56s9GGtXRiZGQ18pWq27dyCRlpixGTc777zAXoJgtkba/WSyB6KmNLirevrq9/XJHoURntt8csvOnmJmPklt6PubBSFg+i7NUh2AdtVcb4O3ahph807024Rvy48FeccBQ5j+J38Di6oEKpkzZNQHNgDxfHQoYq8e2SOEd2GH39rQUTfMW7yXBJVcIYhlXXni1HNagcC6I8DT/bF+WKqzbZXhfvLvm0VY41sG7l8Jzx+1FZXmOpOqOId8a6AYqC4O1cwyJKgN/yny3ARDiGTnXNHflSrsiDdYxNgxCV0wUfmw0ICUR5VQUHvHCHQ9AqD1Uc2UI876XV4Spi0R3zi+mvEBI29CYnaneFgXeJOhCjVfFNzm2jAvYxbKn0mPuzRNkZxDHJnPoiJsCXMdBhdWeeeFvp7AXgNQ7f6u25T6bU44OgPDOMuF2DXJPucgS5I81EstmN0kFqdn7ixbHdUbXrMTOAB3Ir73lvDwrQB4J7FwlIfBtWDQrUV5mEQZ5FfTxGig6dsebdLfQC9sT7y9AzZbc3BZ14yORz6sf3TQ+4+y0440qyj/ROIs6FZL1Ks1wtDAsy08ywR2J0zsRMss/Q4uPsv0hp97JFGQyJyjXAU/3yd7gzgxOj0SQVQ5ePHA2MclQln+6TxPLe4QjZm+GHVUdI9BCyDXDynJ/gm6lGS1BBIYhA=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(396003)(136003)(39860400002)(376002)(346002)(40470700004)(36840700001)(46966006)(6666004)(110136005)(478600001)(4326008)(36756003)(5660300002)(8936002)(1076003)(2906002)(8676002)(47076005)(26005)(70586007)(186003)(70206006)(2616005)(7416002)(316002)(336012)(426003)(54906003)(41300700001)(40480700001)(82740400003)(86362001)(81166007)(356005)(40460700003)(7696005)(83380400001)(82310400005)(36860700001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2022 03:18:49.8761 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cd0e86ff-b98a-4605-d005-08da5a47409c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT030.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR12MB5652
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Sunil-kumar.Dommati@amd.com, Lucas Tanure <tanureal@opensource.cirrus.com>,
- Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
- open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Alexander.Deucher@amd.com,
- zhuning@everest-semi.com, Julian Braha <julianbraha@gmail.com>,
- Daniel Baluta <daniel.baluta@nxp.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id AAE57F80107
+ for <alsa-devel@alsa-project.org>; Thu, 30 Jun 2022 07:54:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AAE57F80107
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 013051A09D4;
+ Thu, 30 Jun 2022 07:54:13 +0200 (CEST)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com
+ (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id B84B71A06F8;
+ Thu, 30 Jun 2022 07:54:12 +0200 (CEST)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+ by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id E7FC2180222C;
+ Thu, 30 Jun 2022 13:54:10 +0800 (+08)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
+ shengjiu.wang@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
+ perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
+ robh+dt@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org
+Subject: [PATCH 0/6] Add support of two Audio PLL source
+Date: Thu, 30 Jun 2022 13:39:08 +0800
+Message-Id: <1656567554-32122-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -146,55 +72,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Enable machine driver build for Jadeite platform using ES8336 Codec.
+i.MX8MQ/MN/MM/MP platforms typically have 2 AUDIO PLLs being
+configured to handle 8kHz and 11kHz series audio rates.
 
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
----
- sound/soc/amd/Kconfig  | 11 +++++++++++
- sound/soc/amd/Makefile |  2 ++
- 2 files changed, 13 insertions(+)
+The patches implement the functionality to select at runtime
+the appropriate AUDIO PLL for root clock, if there is no
+two PLL registered, then no action taken.
 
-diff --git a/sound/soc/amd/Kconfig b/sound/soc/amd/Kconfig
-index 1381aec23048..da0c3dc357cf 100644
---- a/sound/soc/amd/Kconfig
-+++ b/sound/soc/amd/Kconfig
-@@ -23,6 +23,17 @@ config SND_SOC_AMD_CZ_RT5645_MACH
- 	help
- 	 This option enables machine driver for rt5645.
- 
-+config SND_SOC_AMD_ST_ES8336_MACH
-+	tristate "AMD ST support for ES8336"
-+	select SND_SOC_ACPI
-+	select SND_SOC_ES8316
-+	depends on SND_SOC_AMD_ACP && I2C && ACPI
-+	help
-+	 This option enables machine driver for Jadeite platform
-+	 using es8336 codec.
-+	 Say m if you have such a device.
-+	 If unsure select "N".
-+
- config SND_SOC_AMD_ACP3x
- 	tristate "AMD Audio Coprocessor-v3.x support"
- 	depends on X86 && PCI
-diff --git a/sound/soc/amd/Makefile b/sound/soc/amd/Makefile
-index 4b1f77930a4a..8823f6f28611 100644
---- a/sound/soc/amd/Makefile
-+++ b/sound/soc/amd/Makefile
-@@ -2,12 +2,14 @@
- acp_audio_dma-objs := acp-pcm-dma.o
- snd-soc-acp-da7219mx98357-mach-objs := acp-da7219-max98357a.o
- snd-soc-acp-rt5645-mach-objs := acp-rt5645.o
-+snd-soc-acp-es8336-mach-objs := acp-es8336.o
- snd-soc-acp-rt5682-mach-objs := acp3x-rt5682-max9836.o
- snd-acp-config-objs := acp-config.o
- 
- obj-$(CONFIG_SND_SOC_AMD_ACP) += acp_audio_dma.o
- obj-$(CONFIG_SND_SOC_AMD_CZ_DA7219MX98357_MACH) += snd-soc-acp-da7219mx98357-mach.o
- obj-$(CONFIG_SND_SOC_AMD_CZ_RT5645_MACH) += snd-soc-acp-rt5645-mach.o
-+obj-$(CONFIG_SND_SOC_AMD_ST_ES8336_MACH) += snd-soc-acp-es8336-mach.o
- obj-$(CONFIG_SND_SOC_AMD_ACP3x) += raven/
- obj-$(CONFIG_SND_SOC_AMD_RV_RT5682_MACH) += snd-soc-acp-rt5682-mach.o
- obj-$(CONFIG_SND_SOC_AMD_RENOIR) += renoir/
+Shengjiu Wang (6):
+  ASoC: fsl_utils: Add function to handle PLL clock source
+  ASoC: fsl_spdif: Add support for PLL switch at runtime.
+  ASoC: fsl_micfil: Add support for PLL switch at runtime
+  ASoC: fsl_sai: Add support for PLL switch at runtime
+  ASoC: dt-bindings: fsl_spdif: Add two PLL clock source
+  ASoC: dt-bindings: fsl-sai: Add two PLL clock source
+
+ .../devicetree/bindings/sound/fsl,spdif.yaml  |  4 ++
+ .../devicetree/bindings/sound/fsl-sai.txt     |  3 +
+ sound/soc/fsl/Kconfig                         |  3 +
+ sound/soc/fsl/fsl_micfil.c                    | 41 +++++++++++
+ sound/soc/fsl/fsl_sai.c                       | 54 +++++++++++++++
+ sound/soc/fsl/fsl_sai.h                       |  2 +
+ sound/soc/fsl/fsl_spdif.c                     | 57 +++++++++++++--
+ sound/soc/fsl/fsl_utils.c                     | 69 +++++++++++++++++++
+ sound/soc/fsl/fsl_utils.h                     |  9 +++
+ 9 files changed, 237 insertions(+), 5 deletions(-)
+
 -- 
-2.25.1
+2.17.1
 

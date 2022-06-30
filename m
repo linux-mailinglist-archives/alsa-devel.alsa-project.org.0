@@ -2,66 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADF1A5613B8
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jun 2022 09:53:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17A2956176E
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jun 2022 12:16:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF65816E3;
-	Thu, 30 Jun 2022 09:52:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF65816E3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1BCA016B2;
+	Thu, 30 Jun 2022 12:15:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BCA016B2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656575619;
-	bh=Acf3pP6gW10YlggtvMFBRzYNaBaupVS6FCVuuj85+94=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=CEc0hhMKsHNmNXa60OEnQaf+JRRz0xB3QT7Qca5yuCb3t+SM9fJNtxm56h38PESce
-	 tVFXREWehYtYgpfEMHAvGuQx9O4SaJYlZPdyo6qb+YAHOulPYuE1mXDPvr0dUVFxQN
-	 My6LK3rJRi8XIxW5lfNW36yNqG5afzgAAWV8XEoE=
+	s=default; t=1656584174;
+	bh=exjnFHfvLFV+iw6VzO1u74F/vhbC7MakEJ3C6P8I6VM=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=LKWBOQWSIMlp+4em6rhMuu9q9E0GedW2KQUBiR9Nv6CLyL60JY04JbINQ6lmSHLic
+	 Ty2z1ruca22nmugJWWtUqoUGek/z/XjiMP3phdIz/gTZHbykq+wOM5mulj/5Q27dcp
+	 rYUUjGwNGCfifWBdNCxApCF4LAsjQeTGLeORCNFU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 04484F8053E;
-	Thu, 30 Jun 2022 09:52:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8078FF800F5;
+	Thu, 30 Jun 2022 12:15:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 70B08F8053D; Thu, 30 Jun 2022 09:52:00 +0200 (CEST)
+ id CC01FF804D8; Thu, 30 Jun 2022 12:15:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from hutie.ust.cz (hutie.ust.cz [185.8.165.127])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 71F0DF80107
- for <alsa-devel@alsa-project.org>; Thu, 30 Jun 2022 09:51:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71F0DF80107
+ by alsa1.perex.cz (Postfix) with ESMTPS id C7180F800F5
+ for <alsa-devel@alsa-project.org>; Thu, 30 Jun 2022 12:15:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7180F800F5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=cutebit.org header.i=@cutebit.org
- header.b="ql8u+nWq"
-From: =?UTF-8?q?Martin=20Povi=C5=A1er?= <povik+lin@cutebit.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cutebit.org; s=mail;
- t=1656575508; bh=rRoN50bSZ9LjLmVhKTMCvwft+rCdKdFeTqH/6EpOtBY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=ql8u+nWqq5kjW7gVW/uuylUM6MGYX2NxpAB79e3Pb4yzVmiYelMJ7A0plzO6q7foR
- aa3ifLUMDXLgE5uDzPZkehT/48vQigGGHZ0gc9ZA3zmtBv/HtwrNgFRPt1gMr/CNqH
- yhlxUCT2WK8v0vLL/r/zSTmCQyHXn9xXINECwJp0=
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>
-Subject: [PATCH 4/4] ASoC: tas2764: Fix amp gain register offset & default
-Date: Thu, 30 Jun 2022 09:51:35 +0200
-Message-Id: <20220630075135.2221-4-povik+lin@cutebit.org>
-In-Reply-To: <20220630075135.2221-1-povik+lin@cutebit.org>
-References: <20220630075135.2221-1-povik+lin@cutebit.org>
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="TKuCNcQL"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25U40775015363;
+ Thu, 30 Jun 2022 05:15:01 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=0mmmeX8EpEPHD8XrcSw4Sp8UGBDafDLcok2SpdJ8el8=;
+ b=TKuCNcQLOPT5xP8Or4anqrBJ4TvBnDDVu1A5rfkYgdOqs+3mtWsiaHWkmWkIeDjPgtCI
+ jD5Lk3J5d1eDtxXqLnEzNwADohaWABZL4iabKF2eR3LPh6z9Dzh4t1AuuWE1bfnqn+5O
+ bSuf8+U7OD6mkUfq8F9/gqh/2vOH64VFHhnyJ8dhAA7pzgtWsVjhiq1upudrBXb47vku
+ 4NNMQ/Qepn/+FYEz7ZXHEIAqbJrGzvFj0WlgIUcNLVET8N28u4yGtWfgO3NdppApPsUH
+ yi4cqIry9ZthrHa3yiPUpad++9e0h2yDQQi5wmCs3eESLjqlGsY8u02zzEMPj6eDQmEO 6A== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3gwys2pv7g-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Thu, 30 Jun 2022 05:15:01 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 30 Jun
+ 2022 11:14:59 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.28 via
+ Frontend Transport; Thu, 30 Jun 2022 11:14:59 +0100
+Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 24A6C2D4;
+ Thu, 30 Jun 2022 10:14:59 +0000 (UTC)
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: <broonie@kernel.org>
+Subject: [PATCH] ASoC: wm_adsp: Minor clean and redundant code removal
+Date: Thu, 30 Jun 2022 11:14:59 +0100
+Message-ID: <20220630101459.3442327-1-ckeepax@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
- Hector Martin <marcan@marcan.st>, linux-kernel@vger.kernel.org,
- Dan Murphy <dmurphy@ti.com>,
- =?UTF-8?q?Martin=20Povi=C5=A1er?= <povik+lin@cutebit.org>,
- Stephen Kitt <steve@sk2.org>, asahi@lists.linux.dev
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: QVdYrsh-ca0o5avYJJNBQYefF7y699T5
+X-Proofpoint-GUID: QVdYrsh-ca0o5avYJJNBQYefF7y699T5
+X-Proofpoint-Spam-Reason: safe
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,42 +96,72 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Hector Martin <marcan@marcan.st>
+The cs_dsp core will return an error if passed a NULL cs_dsp struct so
+there is no need for the wm_adsp_write|read_ctl functions to manually
+check that. The cs_dsp core will also check the data is within bounds of
+the control so the additional bounds check is redundant too. Simplify
+things a bit by removing said code.
 
-The register default is 0x28 per the datasheet, and the amp gain field
-is supposed to be shifted left by one. With the wrong default, the ALSA
-controls lie about the power-up state. With the wrong shift, we get only
-half the gain we expect.
-
-Signed-off-by: Hector Martin <marcan@marcan.st>
-Fixes: 827ed8a0fa50 ("ASoC: tas2764: Add the driver for the TAS2764")
-Signed-off-by: Martin Povišer <povik+lin@cutebit.org>
+Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 ---
- sound/soc/codecs/tas2764.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/codecs/wm_adsp.c | 25 +++++--------------------
+ 1 file changed, 5 insertions(+), 20 deletions(-)
 
-diff --git a/sound/soc/codecs/tas2764.c b/sound/soc/codecs/tas2764.c
-index 55da1b3440e1..846d9d3ecc9d 100644
---- a/sound/soc/codecs/tas2764.c
-+++ b/sound/soc/codecs/tas2764.c
-@@ -541,7 +541,7 @@ static DECLARE_TLV_DB_SCALE(tas2764_playback_volume, -10050, 50, 1);
- static const struct snd_kcontrol_new tas2764_snd_controls[] = {
- 	SOC_SINGLE_TLV("Speaker Volume", TAS2764_DVC, 0,
- 		       TAS2764_DVC_MAX, 1, tas2764_playback_volume),
--	SOC_SINGLE_TLV("Amp Gain Volume", TAS2764_CHNL_0, 0, 0x14, 0,
-+	SOC_SINGLE_TLV("Amp Gain Volume", TAS2764_CHNL_0, 1, 0x14, 0,
- 		       tas2764_digital_tlv),
- };
+diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
+index a7784ac15dde6..cfaa45ede916a 100644
+--- a/sound/soc/codecs/wm_adsp.c
++++ b/sound/soc/codecs/wm_adsp.c
+@@ -675,21 +675,12 @@ static void wm_adsp_control_remove(struct cs_dsp_coeff_ctl *cs_ctl)
+ int wm_adsp_write_ctl(struct wm_adsp *dsp, const char *name, int type,
+ 		      unsigned int alg, void *buf, size_t len)
+ {
+-	struct cs_dsp_coeff_ctl *cs_ctl;
++	struct cs_dsp_coeff_ctl *cs_ctl = cs_dsp_get_ctl(&dsp->cs_dsp, name, type, alg);
+ 	struct wm_coeff_ctl *ctl;
+ 	struct snd_kcontrol *kcontrol;
+ 	char ctl_name[SNDRV_CTL_ELEM_ID_NAME_MAXLEN];
+ 	int ret;
  
-@@ -565,7 +565,7 @@ static const struct reg_default tas2764_reg_defaults[] = {
- 	{ TAS2764_SW_RST, 0x00 },
- 	{ TAS2764_PWR_CTRL, 0x1a },
- 	{ TAS2764_DVC, 0x00 },
--	{ TAS2764_CHNL_0, 0x00 },
-+	{ TAS2764_CHNL_0, 0x28 },
- 	{ TAS2764_TDM_CFG0, 0x09 },
- 	{ TAS2764_TDM_CFG1, 0x02 },
- 	{ TAS2764_TDM_CFG2, 0x0a },
+-	cs_ctl = cs_dsp_get_ctl(&dsp->cs_dsp, name, type, alg);
+-	if (!cs_ctl)
+-		return -EINVAL;
+-
+-	ctl = cs_ctl->priv;
+-
+-	if (len > cs_ctl->len)
+-		return -EINVAL;
+-
+ 	ret = cs_dsp_coeff_write_ctrl(cs_ctl, 0, buf, len);
+ 	if (ret)
+ 		return ret;
+@@ -697,6 +688,8 @@ int wm_adsp_write_ctl(struct wm_adsp *dsp, const char *name, int type,
+ 	if (cs_ctl->flags & WMFW_CTL_FLAG_SYS)
+ 		return 0;
+ 
++	ctl = cs_ctl->priv;
++
+ 	if (dsp->component->name_prefix)
+ 		snprintf(ctl_name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN, "%s %s",
+ 			 dsp->component->name_prefix, ctl->name);
+@@ -720,16 +713,8 @@ EXPORT_SYMBOL_GPL(wm_adsp_write_ctl);
+ int wm_adsp_read_ctl(struct wm_adsp *dsp, const char *name, int type,
+ 		     unsigned int alg, void *buf, size_t len)
+ {
+-	struct cs_dsp_coeff_ctl *cs_ctl;
+-
+-	cs_ctl = cs_dsp_get_ctl(&dsp->cs_dsp, name, type, alg);
+-	if (!cs_ctl)
+-		return -EINVAL;
+-
+-	if (len > cs_ctl->len)
+-		return -EINVAL;
+-
+-	return cs_dsp_coeff_read_ctrl(cs_ctl, 0, buf, len);
++	return cs_dsp_coeff_read_ctrl(cs_dsp_get_ctl(&dsp->cs_dsp, name, type, alg),
++				      0, buf, len);
+ }
+ EXPORT_SYMBOL_GPL(wm_adsp_read_ctl);
+ 
 -- 
-2.33.0
+2.30.2
 

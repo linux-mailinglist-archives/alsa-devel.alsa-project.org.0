@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74EE0561ABF
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jun 2022 14:50:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 588B0561ABE
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jun 2022 14:49:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1441D16C3;
-	Thu, 30 Jun 2022 14:49:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1441D16C3
+	by alsa0.perex.cz (Postfix) with ESMTPS id B6E3B16A3;
+	Thu, 30 Jun 2022 14:49:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6E3B16A3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656593424;
-	bh=k/q/fhQMiNHwRSXcnMIjj16X53/sqxQxXQ33UBBRBQg=;
+	s=default; t=1656593392;
+	bh=joKbTELu6hfvzcnfhQbg80CH7lGuvl4e0eRNBxTN5D4=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=P1ap3fF3Oy68tW/i7X/u0si4XJWV8Zggr+678Bq0okJT3ybb8zwv7w/1paEStKAuf
-	 OKtfJuuweQ7f5wn5xYSYqPXav3iN2/bFLA0l/GMdUDrNHedcmwQ94+2/zDHJvfh03h
-	 9zhyxdvl2bfC6CKJpkVGhYbK6joc5lWv7Ee6xU/c=
+	b=snrr8MaBzsL7KURCEZW2ciCU3jDt5nAS5yg4OfC2ET9oth2QLR/zHkB/hcaFw0YFU
+	 i5g29klyDBYcSdh9h9t6zuCix/diFhUbHtUVKojcAVGtFrP13gLgLyV3cTj7NqfHuD
+	 I4V44WLX0LvQbj4+bbOU+O5BFlF1zjWCIzHgUBXk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CF325F804FE;
-	Thu, 30 Jun 2022 14:48:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 23880F804D2;
+	Thu, 30 Jun 2022 14:48:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C53C3F804D2; Thu, 30 Jun 2022 14:48:53 +0200 (CEST)
+ id 440ECF804DA; Thu, 30 Jun 2022 14:48:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,44 +34,42 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 432D0F80107
- for <alsa-devel@alsa-project.org>; Thu, 30 Jun 2022 14:48:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 432D0F80107
+ by alsa1.perex.cz (Postfix) with ESMTPS id A8C5AF800F5
+ for <alsa-devel@alsa-project.org>; Thu, 30 Jun 2022 14:48:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8C5AF800F5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="OWFzgAPi"
+ header.b="Z2BeB0mv"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id DC98061E84;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 27FB361EA2;
+ Thu, 30 Jun 2022 12:48:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4C6BC341CC;
  Thu, 30 Jun 2022 12:48:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAB46C34115;
- Thu, 30 Jun 2022 12:48:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1656593326;
- bh=k/q/fhQMiNHwRSXcnMIjj16X53/sqxQxXQ33UBBRBQg=;
+ s=k20201202; t=1656593328;
+ bh=joKbTELu6hfvzcnfhQbg80CH7lGuvl4e0eRNBxTN5D4=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=OWFzgAPisJ3hZoUITVF00FrWji4mXjlyy7SdsD71uKqqobN9B4pAfM11CjhFgChKa
- 73deDyqQDY+CST+2qjun2EBLp9xqPtTacuwGMmWfsHQRmpC7rtW4gqENCP1hpHTf4K
- JCDA5A7eAKdXNklG71V93HR2st/ZYAeZ2m/6GeQ1ivqiYskk4Dj3nlWvV0nbyFPbMN
- 1XaMitcGXlzG9Z8J0plWmCKyrXveMkg73ASnkmOPGxK5TZcNrT6PTqBR9xSu5wZznx
- RaQKJ3HkuCk50EjZ+fYRg9t3kqoYu2hUT/Hn22sIyrUjzNmUZPo+W70ukb2oJ+n8Tp
- Rc+rqHeA+Iv2Q==
+ b=Z2BeB0mv23BtGIANeiFMGog6uCqxPx/6Tldn1Tb6BIRFblDI7i9qTfx5CfhQNtRGQ
+ lH6m5okdm6VwhrGa/8W3/Gb6+UpGlrcnTLogtRL6ogRMoXfOMERo7ZN13UU5Vwdn9u
+ TS7YKBq95KNRvnmTFzvfABmLMe/AhqYSOdfHqguw1hmdmXlhaMtC+iPilFGtxOPby9
+ JUsHJUuhcmpRCrFZXtdHLk92j0oUmiPCvF+Bn2Zbs67hZlniVoaKgDecplprN1QyDN
+ n55/qMbov26pOpx1a7jDWSQwDinFgCqQGKgZg/8yv1bwnT5AUkoSeN2nvsVz656Z3+
+ 2BacziQhH7rng==
 From: Mark Brown <broonie@kernel.org>
-To: agross@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- bjorn.andersson@linaro.org, robh+dt@kernel.org, srinivas.kandagatla@linaro.org,
- bryan.odonoghue@linaro.org, lgirdwood@gmail.com
-In-Reply-To: <20220629114012.3282945-1-bryan.odonoghue@linaro.org>
-References: <20220629114012.3282945-1-bryan.odonoghue@linaro.org>
-Subject: Re: [PATCH] ASoC: dt-bindings: Fix description for msm8916
-Message-Id: <165659332361.455663.5255774878482906847.b4-ty@kernel.org>
-Date: Thu, 30 Jun 2022 13:48:43 +0100
+To: Liam Girdwood <lgirdwood@gmail.com>, povik+lin@cutebit.org
+In-Reply-To: <20220630075135.2221-1-povik+lin@cutebit.org>
+References: <20220630075135.2221-1-povik+lin@cutebit.org>
+Subject: Re: [PATCH 1/4] ASoC: tas2764: Add post reset delays
+Message-Id: <165659332651.455663.13893837473957568987.b4-ty@kernel.org>
+Date: Thu, 30 Jun 2022 13:48:46 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- quic_potturu@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_srivasam@quicinc.com
+Cc: alsa-devel@alsa-project.org, ckeepax@opensource.cirrus.com,
+ marcan@marcan.st, linux-kernel@vger.kernel.org, asahi@lists.linux.dev,
+ steve@sk2.org, dmurphy@ti.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,9 +85,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 29 Jun 2022 12:40:12 +0100, Bryan O'Donoghue wrote:
-> For the existing msm8916 bindings the minimum reg/reg-names is 1 not 2.
-> Similarly the minimum interrupt/interrupt-names is 1 not 2.
+On Thu, 30 Jun 2022 09:51:32 +0200, Martin Povišer wrote:
+> Make sure there is at least 1 ms delay from reset to first command as
+> is specified in the datasheet. This is a fix similar to commit
+> 307f31452078 ("ASoC: tas2770: Insert post reset delay").
 > 
 > 
 
@@ -99,8 +98,14 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: dt-bindings: Fix description for msm8916
-      commit: 59d0319cadff71a74c55fafc6f3cc1f2aeb6538f
+[1/4] ASoC: tas2764: Add post reset delays
+      commit: 4aeb04227eb4d5de83343cfbad00433019ccfdf5
+[2/4] ASoC: tas2764: Fix and extend FSYNC polarity handling
+      commit: a1b2cfda5616ddccd54fa10b9e72932b3f3bce8b
+[3/4] ASoC: tas2764: Correct playback volume range
+      commit: aea21dbec799d63393b615b73e4708a5d036df99
+[4/4] ASoC: tas2764: Fix amp gain register offset & default
+      commit: cabcd219cee142a0f55516d2e257c8833cbd14f6
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

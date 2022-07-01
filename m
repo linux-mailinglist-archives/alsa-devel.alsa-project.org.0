@@ -2,83 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 814A6565366
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Jul 2022 13:29:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EB1C56320C
+	for <lists+alsa-devel@lfdr.de>; Fri,  1 Jul 2022 12:59:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1D0E11755;
-	Mon,  4 Jul 2022 13:28:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D0E11755
+	by alsa0.perex.cz (Postfix) with ESMTPS id A41F01697;
+	Fri,  1 Jul 2022 12:58:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A41F01697
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656934143;
-	bh=PzSQe20vyGgKjj7bh4FY+eUYxZ15YBI0Skb7DjyLz/8=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1656673166;
+	bh=DIRi+6ZaJOFr1zg33DBZQTKB2FcrepdEc5EYUaGlRTI=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=d21YNlkPCyMgIG0noChLZiVZdrCviaIrtk4lBLWBpgCoDczUCY+QWNhhNU2cdwIH2
-	 73s/diAd3hZHwDTa/swJy/wArx4cLqpEu/l7kGvXJ+HIWdSIseGhhAnBzg7HoBFpOC
-	 7bzv6vqo6e9bXtsBevAa/6y7TIn8AomU8STpPA8s=
+	b=NgL4hhNlbnjzcvDxhjaXaJ39tDNGrjIxu9OZRP3zDvIdlUZnMgoX9BwzEtGsjRTaV
+	 xRNI37rxWlfFh6FFtOtVuFvldzZNHFfCUHL/3/z1QOdSgsAImzv+5Qu0hBOuTWotL3
+	 5kXVP+IaiKvb7aak/QSXJ77JyGM4MgJLCl7Rv5mc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 90370F805C5;
-	Mon,  4 Jul 2022 13:23:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 306F4F800E8;
+	Fri,  1 Jul 2022 12:58:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3240DF80155; Fri,  1 Jul 2022 12:31:31 +0200 (CEST)
+ id BEF8DF80155; Fri,  1 Jul 2022 12:58:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 39164F80107
- for <alsa-devel@alsa-project.org>; Fri,  1 Jul 2022 12:31:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39164F80107
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="kwBlRyc/"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id C8EBD623F0;
- Fri,  1 Jul 2022 10:31:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58122C3411E;
- Fri,  1 Jul 2022 10:31:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1656671480;
- bh=PzSQe20vyGgKjj7bh4FY+eUYxZ15YBI0Skb7DjyLz/8=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=kwBlRyc/+7zHK/+D1Orop4T33zg2uPrmUjsGkNZAU52FjlKmpsb++xU1wPmV1Sdrw
- k4lB1lGBPqolSXmaVZcNAGFjgST13USJwcNorRHO0OGx/hzi0VABG7ZTo8N7/TuHE2
- HxaECpn986NnZFTn1yzoeBsf+ZI4OSJnoey0UsvUno7oDZ+pMXkeNnXKR1PwQQv7H/
- N9kuWrxo5c2iCitQqKmW068YiY9uPx4FEOea91RPuRZGwW8oY4qU7G4DXYqbe8FC8m
- c/Z3X/cBEeVfPh/ZqshT/s0Jav6xLxcoMGxNTeEs/B5Wuklqf7C6n5RtWyUg6RAJla
- 6Gx1v1dJgB63g==
-From: Mark Brown <broonie@kernel.org>
-To: mail@conchuod.ie, palmer@dabbelt.com, palmer@rivosinc.com,
- lgirdwood@gmail.com, thierry.reding@gmail.com, fancer.lancer@gmail.com,
- daniel.lezcano@linaro.org, krzysztof.kozlowski+dt@linaro.org,
- robh+dt@kernel.org, daniel@ffwll.ch, sam@ravnborg.org, vkoul@kernel.org,
- airlied@linux.ie, Eugeniy.Paltsev@synopsys.com
-In-Reply-To: <20220629184343.3438856-1-mail@conchuod.ie>
-References: <20220629184343.3438856-1-mail@conchuod.ie>
-Subject: Re: (subset) [PATCH v3 00/15] Canaan devicetree fixes
-Message-Id: <165667147407.1756128.12037224598634241859.b4-ty@kernel.org>
-Date: Fri, 01 Jul 2022 11:31:14 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id CF8A1F8014E
+ for <alsa-devel@alsa-project.org>; Fri,  1 Jul 2022 12:58:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF8A1F8014E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="TmL7btSc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1656673101; x=1688209101;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=DIRi+6ZaJOFr1zg33DBZQTKB2FcrepdEc5EYUaGlRTI=;
+ b=TmL7btScduIdgYllfgKKopnGuVarX6oHludpqEm3lzFYvA2JlVwbLWyT
+ Ad5Impu5adMhDWUBlZ9hieRYDQa9I3yFt2B9jTBQ2wBSdCs3Fuo+VFITG
+ qwspjcvYHioPdwJqc5IrIU7aWClIHdLT9Jkmo5OmCFqDmkVO0ZkBVmKNT
+ 5PHJXWEKfQVUsE6oCBrwSwDQPgxjxlzC2TSm543JbriHf/GH3R85LjWAJ
+ Pp39XTxgUXl4HxWmez6/dRCWtXno2Y+b9fTkdLc+/3vdXRREyRG8btxdZ
+ B9NP2JbI82zwfmpcYD6ZersJu1EB71mkBsYmikDMNzozngvMrW1gO0w9K g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10394"; a="283725111"
+X-IronPort-AV: E=Sophos;i="5.92,236,1650956400"; d="scan'208";a="283725111"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2022 03:58:13 -0700
+X-IronPort-AV: E=Sophos;i="5.92,236,1650956400"; d="scan'208";a="596219335"
+Received: from kerva-mobl2.ger.corp.intel.com (HELO [10.249.254.11])
+ ([10.249.254.11])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2022 03:58:09 -0700
+Message-ID: <b38b3159-2d77-f4fd-f269-d708eb1a90a5@linux.intel.com>
+Date: Fri, 1 Jul 2022 13:58:53 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.10.0
+Subject: Re: [PATCH] ASoC: Intel: sof_rt5682: fix out-of-bounds array access
+Content-Language: en-US
+To: Brent Lu <brent.lu@intel.com>, alsa-devel@alsa-project.org
+References: <20220701081908.248239-1-brent.lu@intel.com>
+From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <20220701081908.248239-1-brent.lu@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 04 Jul 2022 13:23:03 +0200
-Cc: niklas.cassel@wdc.com, alsa-devel@alsa-project.org, aou@eecs.berkeley.edu,
- devicetree@vger.kernel.org, damien.lemoal@opensource.wdc.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-spi@vger.kernel.org, conor.dooley@microchip.com, joabreu@synopsys.com,
- geert@linux-m68k.org, paul.walmsley@sifive.com, dmaengine@vger.kernel.org,
- linux-riscv@lists.infradead.org, masahiroy@kernel.org, dillon.minfei@gmail.com,
- tglx@linutronix.de
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, Ajye Huang <ajye.huang@gmail.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Mac Chiang <mac.chiang@intel.com>, Mark Brown <broonie@kernel.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, linux-kernel@vger.kernel.org,
+ Yong Zhi <yong.zhi@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,41 +98,71 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 29 Jun 2022 19:43:29 +0100, Conor Dooley wrote:
-> From: Conor Dooley <conor.dooley@microchip.com>
+
+
+On 01/07/2022 11:19, Brent Lu wrote:
+> Starting from ADL platform we have four HDMI PCM devices which exceeds
+> the size of sof_hdmi array. Since each sof_hdmi_pcm structure
+> represents one HDMI PCM device, we remove the sof_hdmi array and add a
+> new member hdmi_jack to the snd_soc_jack structure to fix the
+
+"new member hdmi_jack to the sof_hdmi_pcm structure to fix the"
+
+> out-of-bounds problem.
+
+Other than that:
+Reviewed-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+
+> Signed-off-by: Brent Lu <brent.lu@intel.com>
+> ---
+>  sound/soc/intel/boards/sof_rt5682.c | 10 +++-------
+>  1 file changed, 3 insertions(+), 7 deletions(-)
 > 
-> Hey all,
-> This series should rid us of dtbs_check errors for the RISC-V Canaan k210
-> based boards. To make keeping it that way a little easier, I changed the
-> Canaan devicetree Makefile so that it would build all of the devicetrees
-> in the directory if SOC_CANAAN.
-> 
-> [...]
+> diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
+> index a24fb71d5ff3..1384716c6360 100644
+> --- a/sound/soc/intel/boards/sof_rt5682.c
+> +++ b/sound/soc/intel/boards/sof_rt5682.c
+> @@ -69,11 +69,10 @@ static unsigned long sof_rt5682_quirk = SOF_RT5682_MCLK_EN |
+>  
+>  static int is_legacy_cpu;
+>  
+> -static struct snd_soc_jack sof_hdmi[3];
+> -
+>  struct sof_hdmi_pcm {
+>  	struct list_head head;
+>  	struct snd_soc_dai *codec_dai;
+> +	struct snd_soc_jack hdmi_jack;
+>  	int device;
+>  };
+>  
+> @@ -447,7 +446,6 @@ static int sof_card_late_probe(struct snd_soc_card *card)
+>  	char jack_name[NAME_SIZE];
+>  	struct sof_hdmi_pcm *pcm;
+>  	int err;
+> -	int i = 0;
+>  
+>  	/* HDMI is not supported by SOF on Baytrail/CherryTrail */
+>  	if (is_legacy_cpu || !ctx->idisp_codec)
+> @@ -468,17 +466,15 @@ static int sof_card_late_probe(struct snd_soc_card *card)
+>  		snprintf(jack_name, sizeof(jack_name),
+>  			 "HDMI/DP, pcm=%d Jack", pcm->device);
+>  		err = snd_soc_card_jack_new(card, jack_name,
+> -					    SND_JACK_AVOUT, &sof_hdmi[i]);
+> +					    SND_JACK_AVOUT, &pcm->hdmi_jack);
+>  
+>  		if (err)
+>  			return err;
+>  
+>  		err = hdac_hdmi_jack_init(pcm->codec_dai, pcm->device,
+> -					  &sof_hdmi[i]);
+> +					  &pcm->hdmi_jack);
+>  		if (err < 0)
+>  			return err;
+> -
+> -		i++;
+>  	}
+>  
+>  	if (sof_rt5682_quirk & SOF_MAX98373_SPEAKER_AMP_PRESENT) {
 
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
-
-Thanks!
-
-[04/15] spi: dt-bindings: dw-apb-ssi: update spi-{r,t}x-bus-width
-        commit: 8b037cabc4966b010c44a76e05a43d276318bc49
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+-- 
+Péter

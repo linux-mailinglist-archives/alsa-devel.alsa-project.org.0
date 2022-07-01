@@ -2,58 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2401562CAB
-	for <lists+alsa-devel@lfdr.de>; Fri,  1 Jul 2022 09:31:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 828F8562DDE
+	for <lists+alsa-devel@lfdr.de>; Fri,  1 Jul 2022 10:24:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 80E3716AF;
-	Fri,  1 Jul 2022 09:31:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 80E3716AF
+	by alsa0.perex.cz (Postfix) with ESMTPS id E40C416A1;
+	Fri,  1 Jul 2022 10:23:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E40C416A1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656660717;
-	bh=frLKryxS4Q5AyEu/VqBFjYdiXHY6/suX9B4Ci/2WNgg=;
+	s=default; t=1656663848;
+	bh=KQT2Js8BSZVnKoLQyDVtKNHzugCIZ6dztQGR4wapsqs=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=SRk5VpzoKyv1IONDi2Rh9N2wXESWVmfaf/qQhHXvzq6iSl4rfcMp4i7vmQwTx3wbO
-	 9kZI/eKJSHxPXShMLbDn49F9RWdUzJOyeUOVBU7WXenng+ifjkVrNdKUBEvsR4WeFw
-	 3o9T2wDXOsI6v4sow8GxAC8kLZSKRJQ+DnTD1O0A=
+	b=BzxvEpsqrhd42L636aMP94lummf/cBVBr+ml4dppy5RIYx50s5mjheVkTwEve6c30
+	 mT6bsxsEF1CrE3PfvdwQ0xPu+lSBYVbChups8NWpFit7VZPYBYFcxurT1IzrpBEc4x
+	 Wqm+Zny9mzeRvhDfdf5ibOa6iXbZPi4S2VWNezHQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0A004F80256;
-	Fri,  1 Jul 2022 09:30:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4BE88F800E8;
+	Fri,  1 Jul 2022 10:23:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8ABBEF80155; Fri,  1 Jul 2022 09:30:57 +0200 (CEST)
+ id 9C3E3F80155; Fri,  1 Jul 2022 10:23:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
-Received: from out30-42.freemail.mail.aliyun.com
- (out30-42.freemail.mail.aliyun.com [115.124.30.42])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4B590F800E8
- for <alsa-devel@alsa-project.org>; Fri,  1 Jul 2022 09:30:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B590F800E8
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R191e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018045170;
- MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=7; SR=0;
- TI=SMTPD_---0VI-7jtq_1656660640; 
-Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
- fp:SMTPD_---0VI-7jtq_1656660640) by smtp.aliyun-inc.com;
- Fri, 01 Jul 2022 15:30:47 +0800
-From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-To: lgirdwood@gmail.com
-Subject: [PATCH] ASoC: codecs: max98088: Clean up some inconsistent indenting
-Date: Fri,  1 Jul 2022 15:30:39 +0800
-Message-Id: <20220701073039.64556-1-jiapeng.chong@linux.alibaba.com>
-X-Mailer: git-send-email 2.20.1.7.g153144c
+ by alsa1.perex.cz (Postfix) with ESMTPS id 218EFF80107
+ for <alsa-devel@alsa-project.org>; Fri,  1 Jul 2022 10:23:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 218EFF80107
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="AzsTRo03"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1656663782; x=1688199782;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=KQT2Js8BSZVnKoLQyDVtKNHzugCIZ6dztQGR4wapsqs=;
+ b=AzsTRo03Q5VhRY3ds/UtgjEQcOv2ndxc/BdVLZO+KtXpJdFK66GU+Ux8
+ 0uyV7KQzc19wpGGufsVTuDf34lebPDNLidDdOP5Ae/IJ7U85GcYdDwWqW
+ RLbqnHe62SR4LvDKnzxjoO+fmXQE66sb1t17U6WspwZPU+d4n53Uaopkb
+ dVyVCcv/XFGo3tDjx5XXCpbXS6K2rA15M7HNgcw9p4E2gATnj+vxbzKeJ
+ hVQSkOOiF0vTh17rfLjkB9CHiPFHi993GGAi5Vm93kxDWv6ZdQg8J3qCS
+ p+peiVI4FttpBBb65pK7xEac+sJJey7E6T7YifgOAxxK3yuUn8nCIeJHr g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10394"; a="262388436"
+X-IronPort-AV: E=Sophos;i="5.92,236,1650956400"; d="scan'208";a="262388436"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2022 01:22:56 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.92,236,1650956400"; d="scan'208";a="694423047"
+Received: from brentlu-brix.itwn.intel.com ([10.5.253.25])
+ by fmsmga002.fm.intel.com with ESMTP; 01 Jul 2022 01:22:54 -0700
+From: Brent Lu <brent.lu@intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: Intel: sof_rt5682: fix out-of-bounds array access
+Date: Fri,  1 Jul 2022 16:19:08 +0800
+Message-Id: <20220701081908.248239-1-brent.lu@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
- broonie@kernel.org
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Mac Chiang <mac.chiang@intel.com>, Mark Brown <broonie@kernel.org>,
+ Ajye Huang <ajye.huang@gmail.com>, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Brent Lu <brent.lu@intel.com>, linux-kernel@vger.kernel.org,
+ Yong Zhi <yong.zhi@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,69 +93,62 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This was found by coccicheck:
+Starting from ADL platform we have four HDMI PCM devices which exceeds
+the size of sof_hdmi array. Since each sof_hdmi_pcm structure
+represents one HDMI PCM device, we remove the sof_hdmi array and add a
+new member hdmi_jack to the snd_soc_jack structure to fix the
+out-of-bounds problem.
 
-sound/soc/codecs/max98088.c:1761 max98088_i2c_probe() warn: inconsistent indenting.
-
-Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+Signed-off-by: Brent Lu <brent.lu@intel.com>
 ---
- sound/soc/codecs/max98088.c | 32 ++++++++++++++++----------------
- 1 file changed, 16 insertions(+), 16 deletions(-)
+ sound/soc/intel/boards/sof_rt5682.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
 
-diff --git a/sound/soc/codecs/max98088.c b/sound/soc/codecs/max98088.c
-index 08e5c606ff27..5435a49604cf 100644
---- a/sound/soc/codecs/max98088.c
-+++ b/sound/soc/codecs/max98088.c
-@@ -1745,18 +1745,18 @@ MODULE_DEVICE_TABLE(i2c, max98088_i2c_id);
+diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
+index a24fb71d5ff3..1384716c6360 100644
+--- a/sound/soc/intel/boards/sof_rt5682.c
++++ b/sound/soc/intel/boards/sof_rt5682.c
+@@ -69,11 +69,10 @@ static unsigned long sof_rt5682_quirk = SOF_RT5682_MCLK_EN |
  
- static int max98088_i2c_probe(struct i2c_client *i2c)
- {
--       struct max98088_priv *max98088;
--       int ret;
--       const struct i2c_device_id *id;
-+	struct max98088_priv *max98088;
-+	int ret;
-+	const struct i2c_device_id *id;
+ static int is_legacy_cpu;
  
--       max98088 = devm_kzalloc(&i2c->dev, sizeof(struct max98088_priv),
--			       GFP_KERNEL);
--       if (max98088 == NULL)
--               return -ENOMEM;
-+	max98088 = devm_kzalloc(&i2c->dev, sizeof(struct max98088_priv),
-+				GFP_KERNEL);
-+	if (max98088 == NULL)
-+		return -ENOMEM;
+-static struct snd_soc_jack sof_hdmi[3];
+-
+ struct sof_hdmi_pcm {
+ 	struct list_head head;
+ 	struct snd_soc_dai *codec_dai;
++	struct snd_soc_jack hdmi_jack;
+ 	int device;
+ };
  
--       max98088->regmap = devm_regmap_init_i2c(i2c, &max98088_regmap);
--       if (IS_ERR(max98088->regmap))
--	       return PTR_ERR(max98088->regmap);
-+	max98088->regmap = devm_regmap_init_i2c(i2c, &max98088_regmap);
-+	if (IS_ERR(max98088->regmap))
-+		return PTR_ERR(max98088->regmap);
+@@ -447,7 +446,6 @@ static int sof_card_late_probe(struct snd_soc_card *card)
+ 	char jack_name[NAME_SIZE];
+ 	struct sof_hdmi_pcm *pcm;
+ 	int err;
+-	int i = 0;
  
- 	max98088->mclk = devm_clk_get(&i2c->dev, "mclk");
- 	if (IS_ERR(max98088->mclk))
-@@ -1764,14 +1764,14 @@ static int max98088_i2c_probe(struct i2c_client *i2c)
- 			return PTR_ERR(max98088->mclk);
+ 	/* HDMI is not supported by SOF on Baytrail/CherryTrail */
+ 	if (is_legacy_cpu || !ctx->idisp_codec)
+@@ -468,17 +466,15 @@ static int sof_card_late_probe(struct snd_soc_card *card)
+ 		snprintf(jack_name, sizeof(jack_name),
+ 			 "HDMI/DP, pcm=%d Jack", pcm->device);
+ 		err = snd_soc_card_jack_new(card, jack_name,
+-					    SND_JACK_AVOUT, &sof_hdmi[i]);
++					    SND_JACK_AVOUT, &pcm->hdmi_jack);
  
- 	id = i2c_match_id(max98088_i2c_id, i2c);
--       max98088->devtype = id->driver_data;
-+	max98088->devtype = id->driver_data;
+ 		if (err)
+ 			return err;
  
--       i2c_set_clientdata(i2c, max98088);
--       max98088->pdata = i2c->dev.platform_data;
-+	i2c_set_clientdata(i2c, max98088);
-+	max98088->pdata = i2c->dev.platform_data;
+ 		err = hdac_hdmi_jack_init(pcm->codec_dai, pcm->device,
+-					  &sof_hdmi[i]);
++					  &pcm->hdmi_jack);
+ 		if (err < 0)
+ 			return err;
+-
+-		i++;
+ 	}
  
--       ret = devm_snd_soc_register_component(&i2c->dev,
--                       &soc_component_dev_max98088, &max98088_dai[0], 2);
--       return ret;
-+	ret = devm_snd_soc_register_component(&i2c->dev, &soc_component_dev_max98088,
-+					      &max98088_dai[0], 2);
-+	return ret;
- }
- 
- #if defined(CONFIG_OF)
+ 	if (sof_rt5682_quirk & SOF_MAX98373_SPEAKER_AMP_PRESENT) {
 -- 
-2.20.1.7.g153144c
+2.25.1
 

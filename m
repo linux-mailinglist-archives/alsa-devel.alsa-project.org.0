@@ -2,135 +2,135 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4170562AD0
-	for <lists+alsa-devel@lfdr.de>; Fri,  1 Jul 2022 07:19:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45BF9562AD1
+	for <lists+alsa-devel@lfdr.de>; Fri,  1 Jul 2022 07:20:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6F3F816E3;
-	Fri,  1 Jul 2022 07:18:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F3F816E3
+	by alsa0.perex.cz (Postfix) with ESMTPS id DD61816EB;
+	Fri,  1 Jul 2022 07:19:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD61816EB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656652789;
-	bh=01NQJXt2kxWxl9F0muVUHkoWvUuziMPLuOHR8UNUbV4=;
+	s=default; t=1656652803;
+	bh=LOgmRlb304ZIkJR6KmlNe7yuzo2V+myM5yEegAndcmQ=;
 	h=From:Subject:To:In-Reply-To:References:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=G/L735yGHNodgiOSS4tXlVRpSPzgIStntJXvDZlk73+puInlUY5JRNrCfYLWmn1In
-	 T3+Q1Z+DnmngKoLzDGlf3Kmy4jd8Luc5B9CBZ2VLVKaw/H2xUeYfQH75AaZUTZItCb
-	 R6gLXlMM3IrMsmtyoEE7/NcQ2HBBvk4bQEYATAQM=
+	b=d5UavTHS5az+DA/oXyS7WkJk+fnVUr67fP8gf2IhxTVLR0L+YX9eTFGtk7AA6dxh1
+	 G8is0N1zrrjjI67K5PWs6Q25ErKzI86yzfxy2mC8wVuZjKA+K2M93++GD+23j3Np+t
+	 MUcT9rF2kl3E2U5VxWIlWikI9h9XRKIWnPwNXm14=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 14ACDF80538;
-	Fri,  1 Jul 2022 07:18:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B8B7BF8053C;
+	Fri,  1 Jul 2022 07:18:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E5C4BF8053B; Fri,  1 Jul 2022 07:18:33 +0200 (CEST)
+ id 534ABF8053C; Fri,  1 Jul 2022 07:18:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
 Received: from JPN01-OS0-obe.outbound.protection.outlook.com
- (mail-os0jpn01on2134.outbound.protection.outlook.com [40.107.113.134])
+ (mail-os0jpn01on2130.outbound.protection.outlook.com [40.107.113.130])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 259FAF80539
- for <alsa-devel@alsa-project.org>; Fri,  1 Jul 2022 07:18:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 259FAF80539
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2B0C4F80152
+ for <alsa-devel@alsa-project.org>; Fri,  1 Jul 2022 07:18:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B0C4F80152
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com
- header.b="Ma5uYPkV"
+ header.b="QjAR1iAE"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oVLL9HsKhAdH1eelMbJM2LD7LUVYsgpegGWaLJFbQxT/zfYEC/HyloEG9A77eaeVCrceLr8H/Bvq42oyxIZ+JZ0mrju8M3FRH3rPP9BbRq45YQc9ISFD4yGfcQWsojZYDUifMlA0KfXH5Z0QKjN3J+njFQCc6Bb6S53qLK6kZq4oHBNhJkZza30M58HmGTmHrnc6PFkC/4208f1fPyLZqFMTU8GHYGmpVXyxJPiuD1Ob7nloeYig4nE/mFVnBajlNcWz3wN6rjOkyl4+OirluV9ggt9PQ01GfMTKeaa6Qf/kyC92Fv8xpmjVE92z0vEIMB/RNHtRvjNf6VGmqWSJaw==
+ b=KzT/IvcdwG9hmfje1ekTSQE1moWV3+U44fAp4jQLs4/9gvQavQ372lfpmbHAmo4JxTv2luJIapoLk9T/+xlaO2C4XCZJrgJZ7qCwFvPfFQpbarjvGLi2OWtWdtrh3bYDr8+9oXjzwXgWhZRTUxxtZ+3nGj1cBfVYjuyK8WW5PCoi023IwxZVFOjbxyRgf24gNh2M1DGuRa9Y4EW1uXM52PY3ZvXv2Tv6ltgeZ0EmA2wMNFObhpexe0IHTkG8rH+jryFCYe+BZ49suHSGQ1Vx4yWT4qUtzWMH8UiE9UxpwFJoi4ozDQcEFTffV2vZKvdLPbZGdjKHkynoiPpMEi+QYQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lY0if8P8IQ1dmlWZn8V9ThM3d67ZoxWmer/7dku+fyw=;
- b=exioaI9eLe/CcxrIeDjfwUJ2Mo6kHU1oki/IroY0xMlOb4XeCSWnNjQQRdAfLV+JXNviOseHKtoRf7B6I/wOdk+AShN5KP4+iSse5kfmls0q4gFMjAbkxdoh6j3CN8Q68y6+/p/yPqvWCD5GqxKEezGoIBek57iKnX/p2PHzvUR2/b1cpHKkaE13yMPRRR3zAAbDilsB0tMIX6LmDIUP8UMLgKffz4PVJssdodLFay5KXLmFOHxnh6SFE6YBxR6v239wIuEWq3UJbt3RmyQs8jsBiLvqRXT4ktH4lP5j4KkknSocfIId0p1ysde0r0VpYNS/di2g191cgBkchQ+DHQ==
+ bh=v7fVDHlIsED8+zz0zg59BUef8pqBwerhK7kcix4DqIM=;
+ b=SQwW/Sv6ooJnkx3Lji7BHteKTY5zjyPO3xh3GpkKc3enCOF5GyVyZsTNnqHdxfYoXg4X2Tm3HtnlSXqbX8fyOWVfa74q7pEbozgNQKDalP+ETjyovgefLQEk3i2j112Pn4/6QQTvIV3nhGl5MDccTZ7GteFF8GMmMx0kfE4CzPGDTnlolOM2IHEb+V/kOPQVy7jk3AN9HWEfZyXWbnWS6NvsdRYBqvMebSmntZFch9sMya1Pna1iaIbsv/9VeUwWdZiyRNhEVJbizcaJSK3jfDiKQVD3O7fI/yVy+My3dDZrFsKf6tNNZocnTPkgpqGezYMfpQWPMlW6CDwbK+TJDw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
  dkim=pass header.d=renesas.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lY0if8P8IQ1dmlWZn8V9ThM3d67ZoxWmer/7dku+fyw=;
- b=Ma5uYPkV9SpdGX121kOT0PK1LEK+fEoBpbr2oawbsOYI63mouT9jFsChxRXoCEkTlLh4fxTKDjauQ48t1BaM6bjlXPxyGH9Ni3xH5GCrRWTmOQCItFYccqIqTsbbjcbppQrH35gOUKpgk6MaKqGv+PkdkSXx6L9XF5pDzNAXoLg=
+ bh=v7fVDHlIsED8+zz0zg59BUef8pqBwerhK7kcix4DqIM=;
+ b=QjAR1iAEiq1sLnMMv7f50z8V/iSAApb/B/e5y+ZegESnBu8Ei6oZvDP+XmPAVQiSKd/07vINOMhzpCnrXC7+3Bz1ziJImxZq6OgNc1fwT7MGyd+vdsMglI8erMgjamqHDmgsCWT7ZB2PnlywVAft3RI93qAPMnZp2WaZeK7kywg=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=renesas.com;
 Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
- by TYWPR01MB8838.jpnprd01.prod.outlook.com (2603:1096:400:17c::6)
+ by OSBPR01MB2776.jpnprd01.prod.outlook.com (2603:1096:604:12::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.14; Fri, 1 Jul
- 2022 05:18:21 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.16; Fri, 1 Jul
+ 2022 05:18:29 +0000
 Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
  ([fe80::3838:1a73:ae46:bab2]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
  ([fe80::3838:1a73:ae46:bab2%5]) with mapi id 15.20.5395.014; Fri, 1 Jul 2022
- 05:18:21 +0000
-Message-ID: <87fsjls95u.wl-kuninori.morimoto.gx@renesas.com>
+ 05:18:29 +0000
+Message-ID: <87edz5s95o.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 2/6] ASoC: audio-graph-card2.c: make Codec2Codec settings
- optional
+Subject: [PATCH 3/6] ASoC: audio-graph-card2.c: remove pre-alloced Codec2Codec
+ space
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87ilohs96p.wl-kuninori.morimoto.gx@renesas.com>
 References: <87ilohs96p.wl-kuninori.morimoto.gx@renesas.com>
 Content-Type: text/plain; charset=US-ASCII
-Date: Fri, 1 Jul 2022 05:18:21 +0000
-X-ClientProxiedBy: TYCPR01CA0153.jpnprd01.prod.outlook.com
- (2603:1096:400:2b1::12) To OS3PR01MB8426.jpnprd01.prod.outlook.com
+Date: Fri, 1 Jul 2022 05:18:27 +0000
+X-ClientProxiedBy: TYBP286CA0048.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:404:10a::36) To OS3PR01MB8426.jpnprd01.prod.outlook.com
  (2603:1096:604:194::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d1e207e3-3ed1-408f-c520-08da5b211da0
-X-MS-TrafficTypeDiagnostic: TYWPR01MB8838:EE_
+X-MS-Office365-Filtering-Correlation-Id: 691b535f-6fe2-4eae-23df-08da5b21211f
+X-MS-TrafficTypeDiagnostic: OSBPR01MB2776:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 2gReraXeyBnpWyyWR/48hARYXX1nCUREaTNuplMdhgudB6WF46zA0QUk8helCY1mWIW0u7JfVCdyKPxpefiURUHO6FY8ABV3mRyU+JZsLeq8IW1ABz6w0IE0L9QZa8p7mxanPsoo4PL58I8lvJQM3DXKge1NTTRTKWGiyaZUfNBOy4+xaIG0r6LxUTSMx8LPtuW/sst0ZlADrKIa1jaxPHdT7rGDekW1bxzCX83kpiue+0q/20/JikeObHVDze9ZB63mxV0Ah3pzY1C28CIfusaSf6nA2ywlh51AEQinT9I5wfgLYuFKzO/eYgypdrduVMDLdbnB0KZYhIWOHiOj8EOM5LkDkoEHo4Vk3CgG5aNzYgx08m3sE1fKBGx3hYsgXIirEOnJYhVQWX/kUpVuoeXRQuW0i9Zw9cbrKrHOpglDQT9i7YnkuOQiTkM0csAAsmuyM3lj9cTABppGsypzU+QHbzRIL4Wr7utYdcXybmDXGAdceqJzpfppB1UxfU3dvpXF0T5A0UzGBLcREL4UVNZNLZN/0KIkq/skjeClDgz+PJL5eno6oe4qsgCIx4hsMejeM79Srv/Whl0fK+e0wouU/OUaUlwmBb5LwYNZAAXKOjnwBaoGTvtyrPU1CLoZhQPrAgksYYmK5tf/wRZUjEZ4PjUKvxB2/ruGjFZY+WffiUaMGcTn0kxhqqbO5XQBp9OrECBDu0HPBRfsUupXicUurLhHuq9FHcMo9dmp5gS5sCFXOuhCQyI5Qd+i9pzOVRoUB2bb0sqHSi2hZti1FTuxWMpJQAWSjwmEwLeKZ8GKLy73yNIxV4Qm1MIHTfaF
+X-Microsoft-Antispam-Message-Info: GYAAsMJipy1ISRssqTW8UN6AYggRo77LoXpQ7vfKDzSgWE3RVVk98wbyhX4msF3buzFcnuc91H/sqwc7uu6jlS/Z/dnYRcbXZIOJJcb4QqwJRPHXSJP/LNkXnD0RqbtLJEmbeAf4C/5YXkuDvEYfk5/98nOY4B/AkzB5LR9fwAJhx7vQC2J+hDYmyFFAdJzRbEM76MyFu86amTKaP60x/TR8vhWiJ19vu0F4EcwNfzrPafdg/hnY0hYY8hNJR8m1zKBRrZ5MebgJWXZA4zwXFacW/5nSDIyTkVI6dlFw/kFv9pChXXDiNuY+M21RE0l0gplHl8AC5PoU+auz+eIty/CgmDszhdENF1x/FVn9Qt7ttSx7zpFH8WpWafVYWMzRy4mObKmSV7fpVO7B0n/wMl5H6VUXP0wDOAgd6Q00q7nHQ0wySKgAuMxHkG0rQRBYlanhMpP0el74VgqgeqNCXcOMaCngqPbnmKV3Jkw4pyH6d2lcs5wVKtMxZShFuDN0gZKt/6YOGT5IgQESck4JWIDRu+1Fpv3LIkPImpeGqm332/uMNicZ/TsOJZ8XwtR6ZoFwLoi+zG4sfXE3FT0qUsmOkwmHz/ke/t22+K5Uv1Lqvj+G0wAEoR2WRITaFbUTNqBdEiWAfMhgJvV7OSTsTFMigXOSQ5j0p7u+y9geolmyNXcGVG2Xv+TbCZwGrqLJdu5+7s2mmjQRRQ6vuP9GPBObwRj3wY3pbWxFfm3HbR728AcHltSAu7fGqBEbwS0mFsgFKJ5U/9D0Fp1YV2AoKPwgriZxhqixSHvZJA4ML+wDCZuoHLtwfXSzVNjyJ0uo
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:OS3PR01MB8426.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(136003)(376002)(346002)(396003)(39860400002)(366004)(186003)(2616005)(2906002)(6486002)(478600001)(83380400001)(36756003)(8936002)(26005)(5660300002)(6916009)(316002)(66476007)(6512007)(38350700002)(8676002)(66946007)(38100700002)(86362001)(4326008)(66556008)(41300700001)(6506007)(52116002);
+ SFS:(13230016)(4636009)(39860400002)(346002)(376002)(366004)(136003)(396003)(316002)(26005)(38100700002)(8676002)(41300700001)(38350700002)(6512007)(86362001)(6506007)(66476007)(66556008)(4326008)(478600001)(6486002)(8936002)(83380400001)(52116002)(6916009)(66946007)(2906002)(36756003)(2616005)(186003)(5660300002);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?SCILH1opdExtOtdNFzk1bC/Y+eeuYbKmBlzpVPxtf1rAJHE+Kz8/QFraaMMC?=
- =?us-ascii?Q?8t67dQD7oRZjGXVJfj/B34lld5eKgnynsA5O9JqBmadkW+MpbeSNpdm2Kaig?=
- =?us-ascii?Q?LUl1gFQYVdRR6XT3symX5oKtEelMY7jN7emKIl77Zsgzhy5qD3rmRmM+tWLd?=
- =?us-ascii?Q?dMuVyfp7ePh/hlkd1Ra/7D/dvXByfDvmbqgnYNJk2Da2OieutxwweCfPnGq4?=
- =?us-ascii?Q?HZ1mW12jg8V0gqbm+PHCxVOZO6UxZCIQuMFHaVnqfccrC0j5ogfEYHeUUx/r?=
- =?us-ascii?Q?bgC/m6G2wVQ1VcnB5V+F60EWM0ElZmR8UR+IPQ5dR59uXUFTW3f5NtpT+tMn?=
- =?us-ascii?Q?n7Pq7V/DFnT4IbX+K0CtcDEYm1swFJKMi8JwfhhlKIFrMXN3vB8NxFLTYLSN?=
- =?us-ascii?Q?vIDJ6Jd3vN19jdlDnMGdr7IeMCCRK/tiD8Oqd5OllooXZIIaJ11aDdpCqCvM?=
- =?us-ascii?Q?qGDFjs9YinLEgzoWcw361ehzEOo+g+Q6UayVBtjzVKWBk76LCoXn+3AcROq0?=
- =?us-ascii?Q?6nGTORj6lM8rHWqqkyFclmL/kIad4bZ5TGT30hl+t7gNlvsFv4YANssjjB3e?=
- =?us-ascii?Q?GCVzV9CA5jqBXu31LF0VAQeG/TwJDNKynymKDaTsI8wQmT3eGlTlaBg199Ys?=
- =?us-ascii?Q?SqrsozRPC1ptzw/9vz/CF6SbhJ2UhoTEmb3WvizWZqwW9aiGpqxCH7tceJ63?=
- =?us-ascii?Q?zFX6DxXIU3rzt+Xzse2/59uzbMYl+FWykcXAqOpquKHd0/Yw9zfBvGQQibou?=
- =?us-ascii?Q?wKBrL8ZTXLdpnUv6yyfgjcAyoKeuEE29Uiw1ULizMsXffPlCaxRmoT5Q9ehh?=
- =?us-ascii?Q?1jtFGGLC6osvNawzO6OobHCJBcSrLVfzGO+u/U9RFWYExWWKgX8GkFfUjnVh?=
- =?us-ascii?Q?in/RAKpQlFRSfakeSiHF88q4EqRRcUjcnNM5w/iYmZkvOzMupEo0QCcVzoTU?=
- =?us-ascii?Q?EYoFdOrz+oTs4juZDtZr7XFgRpVqhhV7uL4M72MJAsipxjPDNSFVSc01BoOG?=
- =?us-ascii?Q?WZny6PayWVLV8BCe8M8YgyWCygFGWriHwb7ZQGRPQKtEAQoNwIwl15gXreK1?=
- =?us-ascii?Q?8xBvVTSqJRN7EfITmJK0QBlR5f+QJiKCk19v3Ou9LmgA/yyOQdS2vVwL2sd6?=
- =?us-ascii?Q?SzXMYrZbSS8rKD+IIJQaQknaeNlRC1KRkDzzyPjvUrzYOIJ6fIF1MIUKeb30?=
- =?us-ascii?Q?g6hl/t+p7cwLI4MZklE/nMTEG6+a53AcQ3rtkSbTWsb7hulcCnSDCjexlPIe?=
- =?us-ascii?Q?gWraAkQzgEirZvY7iBJqqfRv79b/14a+Lnkc5f0oKKqKQzXnEVlNnYsHpOih?=
- =?us-ascii?Q?VqSVFQyKSTxMbENaiVw2Ff6DHT7AOdoyGRrG0T3gSAVJZnPb3XHZvKi4nGa2?=
- =?us-ascii?Q?alfE7pU4nXF31BhAJu5xeQ/On3gUbSU5LSgcJ6d255fHIwNqIHIebl/zacQM?=
- =?us-ascii?Q?xEI0DtYilP74PaNZGyOKrh7KkkOgXRGmIbMueZM603LjYRboZTa8TUiugDn9?=
- =?us-ascii?Q?QshysWM0iEnkqcwFENLKhjxVr0BOimG+HtmLtC+jpSQsgSlli2ErmZAYdTom?=
- =?us-ascii?Q?4hKUkEz5bxK1L7mKUAMwzwfgmzInE3nVbuJ2Xra56zC27nllxSEW3I2orRuM?=
- =?us-ascii?Q?J6/6MXHFaszJ4iUQHp+mqVU=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?SoIENJpkrc851K7U2Lj7Od3PmkKIXkH7pITS4HvWUOFBwBJ+E/k6FTIN0GlU?=
+ =?us-ascii?Q?Qip4UNXMRi/vbfCCcvVSXlP4fqm3fpEVpoUJx9o1dRNZqAE+7eTwtFBAfJoI?=
+ =?us-ascii?Q?s+6jUhJmpbTqkUCvVf7k2jQzq/IZ3ljwSDGMyYAeBSj7o3lPVb2CqOfnwVC+?=
+ =?us-ascii?Q?1Piu0eGYXh3NFbmZjVd+PGkgOQXMqyhJJJ4IAZLPDGkrmy5K9u6FjC/lpfp0?=
+ =?us-ascii?Q?Vq6oxkwWrjgxnkF9o2VhyMzcbGtjzXr3kul2EKQWHDImHCsnBQWNMvZlyvMH?=
+ =?us-ascii?Q?GNr3TJnIepCBJvdxR3sIK8asfPYZgxL/IllxWDYya54c0M4OqVwHLSeIRLW0?=
+ =?us-ascii?Q?cnwvf8pAj3Md0a1S2UWOGDsb1Rrg/HQO/lmWudocBWnOWo2no8sWJSm50pwD?=
+ =?us-ascii?Q?uVxUaYjbGjZkMPIPtQYIekKPb0x+sPs4JjYja4Yp4GxWVNH3bCEznZtm5EVJ?=
+ =?us-ascii?Q?O3lWsEzjmuvDoRxqubniF2XXmfmv9FquQjsuk2PoJrlBp/yDTLR5ORltgyuB?=
+ =?us-ascii?Q?tDvWaXarXxW1hBPrquO0avpM0D0DTm3QYIdmhY98Ck9aLViOkFNRGLwjcm4J?=
+ =?us-ascii?Q?BI7PmBWDeL8V20x5Duk9ny2Jf1no1QkF8Nshh3QdlFyJEGIGQH5+PpIkNQeO?=
+ =?us-ascii?Q?zi9Ddlz4wrIHKda5W5IVH9KMJRCBz1eapFcTImUGPkDVgx38PWPX9Gtajvc7?=
+ =?us-ascii?Q?1XPgqZxmdqAY7R6ISh6b2hgcInywYia1b8yZrKVgdsxknYwKh/zWjJaXQ9rp?=
+ =?us-ascii?Q?rsxuTJ52veMvFy8gsq10MADOcgUBFjD7fnL10Qj3GN5pmiynx4M9POk0gGen?=
+ =?us-ascii?Q?eVc3YmYQtA0LBAtAdA9Mf0Iazh2Uy76H+aBzdaETDecKJZI0Uk7XpLKtlUK2?=
+ =?us-ascii?Q?PSyQOeNl62Q53YHsxzDlaQ9UxwD/bF6xH4adO+7UrjgoLgwnW9AB5+b3H6dz?=
+ =?us-ascii?Q?ZQT1gXyqfk2Cmrp0PzhxYayoG/Gq9HzfpV6pgI18E7Km9W/McaJuR5CuGBQW?=
+ =?us-ascii?Q?gQFJKCeYwEogNvsIXtlq8dlX60txK9Iyp4IOk5IVIV0qpZtKZScqS2InJKMq?=
+ =?us-ascii?Q?p6CtEIVhAKdxUrodMFUAKyIdIqyqVjiWHP+bIwUVWL1bl/7Qht/LXdTClqmD?=
+ =?us-ascii?Q?L2nS8p0QPXyKw9h5tc6eIiAAiXJTpv72Z5PUR9i/Erjo1UJAVKHgp/GBuOmr?=
+ =?us-ascii?Q?U2VCkvNnSvcoZ2P8ilEQKJvKnMvkUsCCLG7t3NLl/HQvZZiBVqgLGp99AAqU?=
+ =?us-ascii?Q?5pgfVT3eMly0/PX2mPnSjdu2TU+jeXoOirLrSVmbgxEwl5oelZitYzhJ+joR?=
+ =?us-ascii?Q?H8ZXmrhIJDVaBjPEjAj+LsaMZMSZ5ISnEClCUnRvcOOb7NVmJax/w+pS7tqE?=
+ =?us-ascii?Q?VdhAqU3w9hENqhHNWTTZ/N/OO7w0SLdiYQjhUIWvlocnT7SoJRf0Vd6BzrI3?=
+ =?us-ascii?Q?C9djvsFGKuegfK7ghTvhn6jeiCRN4JK29hy0kQ3ZhWvV4qiBJbR+UwKaFR0m?=
+ =?us-ascii?Q?ZGehgStmldwpos7d8lV8k0gHMQNgddWhmQ7LpS5jk3KSEvzytzQbHRPxrqs/?=
+ =?us-ascii?Q?LB/BMH/0pDgwlVr7YRCjJqw4Dl5/7u67GCJ14TS3TBkcDEsu7LHK/EIMSahZ?=
+ =?us-ascii?Q?ZHZu4/EI7xPRUB2hBn1Yz6s=3D?=
 X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d1e207e3-3ed1-408f-c520-08da5b211da0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 691b535f-6fe2-4eae-23df-08da5b21211f
 X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2022 05:18:21.7813 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2022 05:18:29.5500 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OguVtuYE37t0BJmabk20xjAUsWQSO6ilD3EAtUqq78k5Vb3Z8RzY+ozZ5NXXgtw7jUP4z+FYkWI+boTkba1yh9ieaNz0syr8i58DLVeRLdpb4MhChXlALjkgfFAOC/Nn
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB8838
+X-MS-Exchange-CrossTenant-UserPrincipalName: El82PPLEKDIi0rkJSbL/phuSFXkdueU/w9CODjdcAQSteoD30ZUWGCGw1PRn6bR3a9wOP5D4KS1QR0sGV8omyJsX1eDYmu+FOwyZnLamWt2K9ChZsLj3+SCviJLl2EAv
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSBPR01MB2776
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -149,103 +149,138 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-Current audio-graph-card2 can use Codec2Codec, and having its
-original parameter (= rate) on DT is mandatory for now.
-
-But simple-card-utils.c has asoc_simple_init_for_codec2codec() to
-setup *default* Codec2Codec settings.
-
-This patch makes Audio Graph Card2 Codec2Codec rate settings
-optional.
+Because Codec2Codec settings becomes optional, we don't need to keep
+its parameter space when init time. This patch removes its default
+memory allocation from simple-card-utils.c, and allocate it at
+audio-graph-card2 ondemand.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- .../audio-graph-card2-custom-sample.dtsi      |  3 +-
- sound/soc/generic/audio-graph-card2.c         | 36 +++++++++++--------
- 2 files changed, 23 insertions(+), 16 deletions(-)
+ include/sound/simple_card_utils.h     |  3 ---
+ sound/soc/generic/audio-graph-card2.c | 10 +++++++---
+ sound/soc/generic/simple-card-utils.c | 18 +-----------------
+ 3 files changed, 8 insertions(+), 23 deletions(-)
 
-diff --git a/sound/soc/generic/audio-graph-card2-custom-sample.dtsi b/sound/soc/generic/audio-graph-card2-custom-sample.dtsi
-index 8eee7b821ff7..053d987a1fec 100644
---- a/sound/soc/generic/audio-graph-card2-custom-sample.dtsi
-+++ b/sound/soc/generic/audio-graph-card2-custom-sample.dtsi
-@@ -154,11 +154,12 @@ ports@1 {
+diff --git a/include/sound/simple_card_utils.h b/include/sound/simple_card_utils.h
+index fe2337fde1f4..ab55f40896e0 100644
+--- a/include/sound/simple_card_utils.h
++++ b/include/sound/simple_card_utils.h
+@@ -51,7 +51,6 @@ struct prop_nums {
+ 	int cpus;
+ 	int codecs;
+ 	int platforms;
+-	int c2c;
+ };
  
- 		codec2codec {
- 			ports@0 {
--				rate = <48000>;
-+				/* use default settings */
- 			c2c:	port@0 { c2cf_ep: endpoint { remote-endpoint = <&codec6_ep>; }; };
- 				port@1 { c2cb_ep: endpoint { remote-endpoint = <&codec7_ep>; }; };
- 			};
- 			ports@1 {
-+				/* use original settings */
- 				rate = <48000>;
- 			c2c_m:	port@0 { c2cmf_ep: endpoint { remote-endpoint = <&mc2c0_ep>; }; };
- 				port@1 { c2cmb_ep: endpoint { remote-endpoint = <&mc2c1_ep>; }; };
+ struct asoc_simple_priv {
+@@ -64,7 +63,6 @@ struct asoc_simple_priv {
+ 		struct snd_soc_dai_link_component *platforms;
+ 		struct asoc_simple_data adata;
+ 		struct snd_soc_codec_conf *codec_conf;
+-		struct snd_soc_pcm_stream *c2c_conf;
+ 		struct prop_nums num;
+ 		unsigned int mclk_fs;
+ 	} *dai_props;
+@@ -75,7 +73,6 @@ struct asoc_simple_priv {
+ 	struct snd_soc_dai_link_component *dlcs;
+ 	struct snd_soc_dai_link_component dummy;
+ 	struct snd_soc_codec_conf *codec_conf;
+-	struct snd_soc_pcm_stream *c2c_conf;
+ 	struct gpio_desc *pa_gpio;
+ 	const struct snd_soc_ops *ops;
+ 	unsigned int dpcm_selectable:1;
 diff --git a/sound/soc/generic/audio-graph-card2.c b/sound/soc/generic/audio-graph-card2.c
-index 8e0628e6f2a0..510058c47a92 100644
+index 510058c47a92..19e31d53422a 100644
 --- a/sound/soc/generic/audio-graph-card2.c
 +++ b/sound/soc/generic/audio-graph-card2.c
-@@ -851,8 +851,6 @@ int audio_graph2_link_c2c(struct asoc_simple_priv *priv,
- 			  struct link_info *li)
- {
- 	struct snd_soc_dai_link *dai_link = simple_priv_to_link(priv, li->link);
--	struct simple_dai_props *dai_props = simple_priv_to_props(priv, li->link);
--	struct snd_soc_pcm_stream *c2c_conf = dai_props->c2c_conf;
- 	struct device_node *port0, *port1, *ports;
- 	struct device_node *codec0_port, *codec1_port;
- 	struct device_node *ep0, *ep1;
-@@ -880,21 +878,30 @@ int audio_graph2_link_c2c(struct asoc_simple_priv *priv,
- 	ports = of_get_parent(port0);
- 	port1 = of_get_next_child(ports, lnk);
- 
-+	/*
-+	 * Card2 can use original Codec2Codec settings if DT has.
-+	 * It will use default settings if no settings on DT.
-+	 * see
-+	 *	asoc_simple_init_for_codec2codec()
-+	 *
-+	 * Add more settings here if needed
-+	 */
+@@ -888,8 +888,12 @@ int audio_graph2_link_c2c(struct asoc_simple_priv *priv,
+ 	 */
  	of_property_read_u32(ports, "rate", &val);
--	if (!val) {
--		struct device *dev = simple_priv_to_dev(priv);
--
--		dev_err(dev, "Codec2Codec needs rate settings\n");
--		goto err1;
-+	if (val) {
-+		struct simple_dai_props *dai_props = simple_priv_to_props(priv, li->link);
-+		struct snd_soc_pcm_stream *c2c_conf = dai_props->c2c_conf;
+ 	if (val) {
+-		struct simple_dai_props *dai_props = simple_priv_to_props(priv, li->link);
+-		struct snd_soc_pcm_stream *c2c_conf = dai_props->c2c_conf;
++		struct device *dev = simple_priv_to_dev(priv);
++		struct snd_soc_pcm_stream *c2c_conf;
 +
-+		c2c_conf->formats	= SNDRV_PCM_FMTBIT_S32_LE; /* update ME */
-+		c2c_conf->rates		= SNDRV_PCM_RATE_8000_384000;
-+		c2c_conf->rate_min	=
-+		c2c_conf->rate_max	= val;
-+		c2c_conf->channels_min	=
-+		c2c_conf->channels_max	= 2; /* update ME */
-+
-+		dai_link->params	= c2c_conf;
-+		dai_link->num_params	= 1;
- 	}
++		c2c_conf = devm_kzalloc(dev, sizeof(*c2c_conf), GFP_KERNEL);
++		if (!c2c_conf)
++			goto err1;
  
--	c2c_conf->formats	= SNDRV_PCM_FMTBIT_S32_LE; /* update ME */
--	c2c_conf->rate_min	=
--	c2c_conf->rate_max	= val;
--	c2c_conf->channels_min	=
--	c2c_conf->channels_max	= 2; /* update ME */
--	dai_link->params	= c2c_conf;
--
- 	ep0 = port_to_endpoint(port0);
- 	ep1 = port_to_endpoint(port1);
- 
-@@ -923,7 +930,6 @@ int audio_graph2_link_c2c(struct asoc_simple_priv *priv,
+ 		c2c_conf->formats	= SNDRV_PCM_FMTBIT_S32_LE; /* update ME */
+ 		c2c_conf->rates		= SNDRV_PCM_RATE_8000_384000;
+@@ -930,6 +934,7 @@ int audio_graph2_link_c2c(struct asoc_simple_priv *priv,
  	of_node_put(ep1);
  	of_node_put(codec0_port);
  	of_node_put(codec1_port);
--err1:
++err1:
  	of_node_put(ports);
  	of_node_put(port0);
  	of_node_put(port1);
+@@ -1093,7 +1098,6 @@ static int graph_count_c2c(struct asoc_simple_priv *priv,
+ 	li->num[li->link].cpus		=
+ 	li->num[li->link].platforms	= graph_counter(codec0);
+ 	li->num[li->link].codecs	= graph_counter(codec1);
+-	li->num[li->link].c2c		= 1;
+ 
+ 	of_node_put(ports);
+ 	of_node_put(port1);
+diff --git a/sound/soc/generic/simple-card-utils.c b/sound/soc/generic/simple-card-utils.c
+index 7be84c7840cb..a761af6b13b6 100644
+--- a/sound/soc/generic/simple-card-utils.c
++++ b/sound/soc/generic/simple-card-utils.c
+@@ -746,8 +746,7 @@ int asoc_simple_init_priv(struct asoc_simple_priv *priv,
+ 	struct asoc_simple_dai *dais;
+ 	struct snd_soc_dai_link_component *dlcs;
+ 	struct snd_soc_codec_conf *cconf = NULL;
+-	struct snd_soc_pcm_stream *c2c_conf = NULL;
+-	int i, dai_num = 0, dlc_num = 0, cnf_num = 0, c2c_num = 0;
++	int i, dai_num = 0, dlc_num = 0, cnf_num = 0;
+ 
+ 	dai_props = devm_kcalloc(dev, li->link, sizeof(*dai_props), GFP_KERNEL);
+ 	dai_link  = devm_kcalloc(dev, li->link, sizeof(*dai_link),  GFP_KERNEL);
+@@ -766,8 +765,6 @@ int asoc_simple_init_priv(struct asoc_simple_priv *priv,
+ 
+ 		if (!li->num[i].cpus)
+ 			cnf_num += li->num[i].codecs;
+-
+-		c2c_num += li->num[i].c2c;
+ 	}
+ 
+ 	dais = devm_kcalloc(dev, dai_num, sizeof(*dais), GFP_KERNEL);
+@@ -781,12 +778,6 @@ int asoc_simple_init_priv(struct asoc_simple_priv *priv,
+ 			return -ENOMEM;
+ 	}
+ 
+-	if (c2c_num) {
+-		c2c_conf = devm_kcalloc(dev, c2c_num, sizeof(*c2c_conf), GFP_KERNEL);
+-		if (!c2c_conf)
+-			return -ENOMEM;
+-	}
+-
+ 	dev_dbg(dev, "link %d, dais %d, ccnf %d\n",
+ 		li->link, dai_num, cnf_num);
+ 
+@@ -800,7 +791,6 @@ int asoc_simple_init_priv(struct asoc_simple_priv *priv,
+ 	priv->dais		= dais;
+ 	priv->dlcs		= dlcs;
+ 	priv->codec_conf	= cconf;
+-	priv->c2c_conf		= c2c_conf;
+ 
+ 	card->dai_link		= priv->dai_link;
+ 	card->num_links		= li->link;
+@@ -818,12 +808,6 @@ int asoc_simple_init_priv(struct asoc_simple_priv *priv,
+ 
+ 			dlcs += li->num[i].cpus;
+ 			dais += li->num[i].cpus;
+-
+-			if (li->num[i].c2c) {
+-				/* Codec2Codec */
+-				dai_props[i].c2c_conf = c2c_conf;
+-				c2c_conf += li->num[i].c2c;
+-			}
+ 		} else {
+ 			/* DPCM Be's CPU = dummy */
+ 			dai_props[i].cpus	=
 -- 
 2.25.1
 

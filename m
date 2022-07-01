@@ -2,105 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C5C4563749
-	for <lists+alsa-devel@lfdr.de>; Fri,  1 Jul 2022 18:00:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFB5A563839
+	for <lists+alsa-devel@lfdr.de>; Fri,  1 Jul 2022 18:43:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CD45E16AD;
-	Fri,  1 Jul 2022 17:59:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD45E16AD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3ABDD16A1;
+	Fri,  1 Jul 2022 18:42:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3ABDD16A1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656691241;
-	bh=z3nZNoIeh3UvzBKNYJI2lW6Tj4nNvaLWSShsdZASZ2k=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=BdNNUVb7pLOqDhQ4Ls0NuSLVKe4kYL/SGUEfuxJdxXdAxWsB26os8E21hixHU2kZ5
-	 PY8GKoX7g1WqViA7hQXfmtSPR37BH0y+pHa062A8oNBAGs/YyaUDUvLI0ICexsToDF
-	 bCHwxMR5XDUFzYTLT3l6WKc+fIGY4EFePxd+utmg=
+	s=default; t=1656693818;
+	bh=0TTrT9s9ITdYlJGMBjNUbP7S3GztVzZAj04vdzyeDGk=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=smjA5ABMEERJgWI0yhHr7gVU1Gdb9135Vb91WOd8e0m2VG1COwSmZp36J3RtjVGYs
+	 iWjJWSZnyCcRSO57/KgwmS7rB4qR7cvzpJ4vBmQZZi35w+QDrfLAF74KkieSXq5/zq
+	 na3GAoKQ79NnJTDc1n405P0mD5TyguXI+Eg8Qm+w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 55F34F80256;
-	Fri,  1 Jul 2022 17:59:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9B7FCF80256;
+	Fri,  1 Jul 2022 18:42:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1AF19F80155; Fri,  1 Jul 2022 17:59:41 +0200 (CEST)
+ id DA72FF80155; Fri,  1 Jul 2022 18:42:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ACA38F8014E
- for <alsa-devel@alsa-project.org>; Fri,  1 Jul 2022 17:59:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ACA38F8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 93C0BF80107
+ for <alsa-devel@alsa-project.org>; Fri,  1 Jul 2022 18:42:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93C0BF80107
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="ecDLZ10i"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1656691177;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=3ViBZTo7+P6CuULplF5aZdglMlpqIG92IWrr6hqoZuI=;
- b=ecDLZ10iY+w2P1ZRWsQvhpv5B7c+41mtZOpeJDtbBTgbBsDhWpb2RP1t2IL3XeNlkhRHRB
- ZWJIQRM8kRXxmHImCpbe9fx+qT3lduvToqT/hHlIrhGAuCF2xXfhExy/fyoDyFCPzFsUfA
- iOUQF1xbNa52NcGrc3UfhSGcgs/jdS8=
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-270-PZQx4uB3MwC_X398eyK2AQ-1; Fri, 01 Jul 2022 11:59:36 -0400
-X-MC-Unique: PZQx4uB3MwC_X398eyK2AQ-1
-Received: by mail-qk1-f199.google.com with SMTP id
- f10-20020a05620a408a00b006b267fdf71fso445668qko.6
- for <alsa-devel@alsa-project.org>; Fri, 01 Jul 2022 08:59:36 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=3ViBZTo7+P6CuULplF5aZdglMlpqIG92IWrr6hqoZuI=;
- b=fC3+iX1iU/0i1l1Y6sUXVSuXTXxYkiS4IV6obI64c4HXYMezEvEGL6Bkq8TO5YiFIp
- lwmPtjTF1QtT5N4j0keqB0wqw3FYRhVxnEbuYystYegnM+ADAG7Xubk6U3frtLiYeD2z
- g7tEM/paK7ObKXr1ZDWi+i/WFDE4WVZ5feaqXzhHhhi3e7+nAKQhdu+HvsHvwxfBRajI
- qPnq87vraFunsCz93N09RB7fbQF1mek5NQ+PbwCcSNVRyswQj7TUFPBpsGp3xKJCtiww
- Q/dp/RGNu5f88PjHfmnlV9ujbxyrG0UguPmREIhlzrMiSvDlCwpOVvPqlNizzcJc+sfp
- 4KzA==
-X-Gm-Message-State: AJIora8P47gq2TOUYbEkw3Z1vzMfqXrDslMxPhaOOWwusqmDWZm+GNwG
- 0wFDCuxhYZoX7YyxFg4A+W5T4U4Yz+mPi1aYy38D+XZSEWTYC5/kh+z/LY/qkMtCtrXytnJN2E5
- ZxwlobAd1hf4IuPk8x/50q30=
-X-Received: by 2002:a37:887:0:b0:6af:147c:fed8 with SMTP id
- 129-20020a370887000000b006af147cfed8mr11398421qki.70.1656691175579; 
- Fri, 01 Jul 2022 08:59:35 -0700 (PDT)
-X-Google-Smtp-Source: AGRyM1uDN5DQ7LAZQpRQ7ZnFyAXmPCSLgKuUxkxMsCn5VlYgkvegKTTuDpjUoPZ9Z4CpwnlALkDIAA==
-X-Received: by 2002:a37:887:0:b0:6af:147c:fed8 with SMTP id
- 129-20020a370887000000b006af147cfed8mr11398381qki.70.1656691175122; 
- Fri, 01 Jul 2022 08:59:35 -0700 (PDT)
-Received: from dell-per740-01.7a2m.lab.eng.bos.redhat.com
- (nat-pool-bos-t.redhat.com. [66.187.233.206])
- by smtp.gmail.com with ESMTPSA id
- y18-20020a05622a121200b002f90a33c78csm16127153qtx.67.2022.07.01.08.59.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 Jul 2022 08:59:34 -0700 (PDT)
-From: Tom Rix <trix@redhat.com>
-To: srinivas.kandagatla@linaro.org, bgoswami@quicinc.com, lgirdwood@gmail.com,
- broonie@kernel.org, perex@perex.cz, tiwai@suse.com, nathan@kernel.org,
- ndesaulniers@google.com
-Subject: [PATCH] ASoC: codecs: wsa883x: fix fallthrough error
-Date: Fri,  1 Jul 2022 11:59:30 -0400
-Message-Id: <20220701155930.262278-1-trix@redhat.com>
-X-Mailer: git-send-email 2.27.0
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="MJ7W7760"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1656693754; x=1688229754;
+ h=message-id:date:mime-version:subject:to:references:from:
+ in-reply-to:content-transfer-encoding;
+ bh=0TTrT9s9ITdYlJGMBjNUbP7S3GztVzZAj04vdzyeDGk=;
+ b=MJ7W7760XH2DPE7HWOSfkF1nMK7RRLFyWbbBmvQkActLfdOPL9yOjLYt
+ 6MDCBYEQ88Ox4pCIkkENMm3Ir5f1isFa4CEru7hzLcXCIIF2EJGuSp8zD
+ A6YzjHGwy31CLIpWxYxkbWkumutHaQ2l8sDdIghARj281SvPsuiZehEbb
+ au8I5KCWDbTKrpYMZ6pQFgqH5NsyryJ3SmKcnXL37b4N/KjX+GayuyJNa
+ 46gWOQtaC3KSZD2YTSTb5qAzYs/OfvJGUu+l01ScrbyhbdVy831yZEPn+
+ R0gjK+UpEwlanb95fyXEt12+lw/ELXgW9aZB8hxZi7jhL9qxoVgrt7jO+ A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10395"; a="262490245"
+X-IronPort-AV: E=Sophos;i="5.92,237,1650956400"; d="scan'208";a="262490245"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2022 09:42:28 -0700
+X-IronPort-AV: E=Sophos;i="5.92,237,1650956400"; d="scan'208";a="541792302"
+Received: from swathigo-mobl3.amr.corp.intel.com (HELO [10.209.128.76])
+ ([10.209.128.76])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2022 09:42:27 -0700
+Message-ID: <c4d32547-5f99-595e-21d3-fdb22a1af237@linux.intel.com>
+Date: Fri, 1 Jul 2022 11:42:27 -0500
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"; x-default=true
-Cc: Tom Rix <trix@redhat.com>, alsa-devel@alsa-project.org,
- llvm@lists.linux.dev, linux-kernel@vger.kernel.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.10.0
+Subject: Re: Sound not working after commit
+ bbf7d3b1c4f40eb02dd1dffb500ba00b0bff0303 on Amlogic A311D device
+Content-Language: en-US
+To: Alex Natalsson <harmoniesworlds@gmail.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.de>, Mark Brown <broonie@kernel.org>,
+ linux-sound@vger.kernel.org,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>
+References: <CADs9LoPZH_D+eJ9qjTxSLE5jGyhKsjMN7g2NighZ16biVxsyKw@mail.gmail.com>
+ <15259e38-eccf-d294-a330-a48b5bbbdedf@linux.intel.com>
+ <CADs9LoN-L0X1Dr1sP2K7xrcWm7dpHW6MhF47c2eBB0moLNnPRQ@mail.gmail.com>
+ <18d3e724-e43f-c166-e322-26cc5e3890b7@linux.intel.com>
+ <CADs9LoOZjK=cUuNSEELtgxYoA+yHVFKM_Y9YLcY74smqx8XsjQ@mail.gmail.com>
+ <c554b69c-0c73-158d-85d8-95a0375babeb@linux.intel.com>
+ <CADs9LoOOOXVC0p8R=b1y+Kfb1+ESEyMaVe9eoW=F5gdp0_GitQ@mail.gmail.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <CADs9LoOOOXVC0p8R=b1y+Kfb1+ESEyMaVe9eoW=F5gdp0_GitQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,30 +103,89 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-clang build fails with
-sound/soc/codecs/wsa883x.c:1207:3: error: unannotated fall-through between switch labels [-Werror,-Wimplicit-fallthrough]
-                default:
 
-Add the missing break.
 
-Fixes: cdb09e623143 ("ASoC: codecs: wsa883x: add control, dapm widgets and map")
-Signed-off-by: Tom Rix <trix@redhat.com>
----
- sound/soc/codecs/wsa883x.c | 1 +
- 1 file changed, 1 insertion(+)
+On 7/1/22 10:47, Alex Natalsson wrote:
+>> Wow. So there's already a problem with a config and we made it worse...
+>>
+>> Can you try with this hack attached, just to see what causes the kernel
+>> oops?  Thanks!
+> 
+> Hello friends)
+> I modified your hack a little. And I don't understanding what is fe
+> and be, but I see what problem apearing due to be_substream points to
+> 0.
+> The
+> "if (!fe_substream->pcm->nonatomic && be_substream->pcm->nonatomic) {"
+> at result gives the error...
+> 
+> * I am sorry what delete recipients in the previous send((
 
-diff --git a/sound/soc/codecs/wsa883x.c b/sound/soc/codecs/wsa883x.c
-index 40c7d64a9c41..dcd88175b9cd 100644
---- a/sound/soc/codecs/wsa883x.c
-+++ b/sound/soc/codecs/wsa883x.c
-@@ -1204,6 +1204,7 @@ static int wsa883x_spkr_event(struct snd_soc_dapm_widget *w,
- 						      WSA883X_SPKR_PWM_FREQ_F300KHZ);
- 			snd_soc_component_write_field(component, WSA883X_DRE_CTL_0,
- 						       WSA883X_DRE_PROG_DELAY_MASK, 0x9);
-+			break;
- 		default:
- 			break;
- 		}
--- 
-2.27.0
+Interesting, thanks for the test results!
+
+[  108.090732] dpcm_be_connect: start
+
+[  108.090734] dpcm_be_connect: 1
+
+[  108.090735] dpcm_be_connect: 3
+
+[  108.090737] dpcm_be_connect: 3.1
+
+[  108.090738] dpcm_be_connect: 3.1 fe_substream_addr=128378368
+
+[  108.090740] dpcm_be_connect: 3.1 be_substream_addr=0
+
+[  108.090750] Unable to handle kernel NULL pointer dereference at
+virtual address 0000000000000000
+
+Indeed it looks like we are de-referencing a NULL pointer, be_substream
+isn't initialized.
+
+we could add a simple error check as in the diff below but I don't know
+what the root cause might be
+
+	
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+
+index a827cc3c158a..093b98b0e394 100644
+
+--- a/sound/soc/soc-pcm.c
+
++++ b/sound/soc/soc-pcm.c
+
+@@ -1203,6 +1203,15 @@ static int dpcm_be_connect(struct
+snd_soc_pcm_runtime *fe,
+
+        fe_substream = snd_soc_dpcm_get_substream(fe, stream);
+
+        be_substream = snd_soc_dpcm_get_substream(be, stream);
+
+
+
++       if (!fe_substream) {
+
++               dev_err(fe->dev, "%s: fe_substream not initialized\n",
+__func__);
+
++               return -EINVAL;
+
++       }
+
++       if (!be_substream) {
+
++               dev_err(be->dev, "%s: be_substream not initialized\n",
+__func__);
+
++               return -EINVAL;
+
++       }
+
++
+
+        if (!fe_substream->pcm->nonatomic && be_substream->pcm->nonatomic) {
+
+                dev_err(be->dev, "%s: FE is atomic but BE is nonatomic,
+invalid configuration\n",
+
+                        __func__);
 

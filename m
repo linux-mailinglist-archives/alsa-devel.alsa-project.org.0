@@ -2,109 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14BAA56538C
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Jul 2022 13:32:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA4D05653B2
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Jul 2022 13:36:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9A2E7176B;
-	Mon,  4 Jul 2022 13:31:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A2E7176B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 446561747;
+	Mon,  4 Jul 2022 13:35:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 446561747
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656934365;
-	bh=0g1yMbWSv5El5C5U8eKMjmTTQ/CIiD+fZQkvaxYlrMo=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=i3HQssWXSwyl3E7f8JmGI08fvUOMSWT6x3vBxjIeoRfP5KPnPauW5KftOLNINV5jI
-	 oXsihHBnwCB+NhMWRl+f2EFYjCifvSy4B8oWaAQS1EjzQR+YAd8T4NvqcWLzpTPllh
-	 v7P6YCnub25c1X7wCF5vNb02oQHdtskOtN6epB6g=
+	s=default; t=1656934587;
+	bh=7JUnMoy4giwcuP6ZA8CZPPGu7TGkMLEhpS/sJq2CBmg=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=T8bDY2gYmMcQjTeIq8mdt28555Xthkb5BK72uIZlS8/tR12NbhraP3QA6xndRNCQo
+	 +Wu/1RG2AO1JyjGtG3vPIUaEv7P1LI34h6pXeF0cDE0OfoSlqkLfw6B341RmDKdQsr
+	 oolvZCg33fwEqKvqmvzYxUmEyjqioPI98OBirPN0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 775DEF8060A;
-	Mon,  4 Jul 2022 13:23:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AE22BF80671;
+	Mon,  4 Jul 2022 13:23:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A32E7F80249; Sun,  3 Jul 2022 05:26:29 +0200 (CEST)
+ id D80B8F80249; Sun,  3 Jul 2022 07:33:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com
- [IPv6:2607:f8b0:4864:20::1033])
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
+ [IPv6:2607:f8b0:4864:20::102d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A7388F8014E
- for <alsa-devel@alsa-project.org>; Sun,  3 Jul 2022 05:26:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7388F8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 55F48F8014E
+ for <alsa-devel@alsa-project.org>; Sun,  3 Jul 2022 07:33:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55F48F8014E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Augt3VIV"
-Received: by mail-pj1-x1033.google.com with SMTP id ju17so1123580pjb.3
- for <alsa-devel@alsa-project.org>; Sat, 02 Jul 2022 20:26:25 -0700 (PDT)
+ header.b="pHB2278y"
+Received: by mail-pj1-x102d.google.com with SMTP id
+ x18-20020a17090a8a9200b001ef83b332f5so52867pjn.0
+ for <alsa-devel@alsa-project.org>; Sat, 02 Jul 2022 22:33:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=/LE3/OvnxwC10hHaqp2JoOJSN7rfZOpUu2WCyCiyCz4=;
- b=Augt3VIV/iWcoU+DHx6Yl7vroOm9Hwz+XtZe2jvyXkhsx95p/JLAo0xcEd6ix1ZIVf
- qIfg68MUyw+xLjl2gBsPYsbv6l3jY94RzOJD92gb6rxdLTyy5Av/dXPYvA/EXIhLOtLz
- svOqPB75mbgpDTnbuNTXc8rdS2DrehpRBgIiYcfLEACt56jQqPD4OYEXOr+iSon97xBH
- KYxD4XfgTiHC/xmDNEPOFfPpT2EHhts4G6H0Pm0fJr3aoQ7VOuwkBeKtFwd1B4K1k9D/
- GdNdQLrWNIKMTC9YgyvhuIjL+GirhGz9Rbn2DEPjhAWabLVNFd+wt0MxRzds1x2rF4/L
- 8aeg==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=BsiPX2KtJdPnGqWVYZ5PsoFOkPFG/BSZesutbERBSQ0=;
+ b=pHB2278yWNvovHSqE8wCj33lriFx16XfuVkuvvOfGzCj6h0ok8qbczqPmJbcUz3Ha5
+ FVOtYLqd9+B4fwmk+UhUI7jF34NHb2o7xfYYVUBOPm+eZ6A9uCZtWM/XEDax9q/j+6vY
+ so6bwmMEKZq1K2lNI0r8cdfumxLVn4hCnrI+2hR/xuj2FtIW4+112sAEiSQC1PqTaiYh
+ D3HUYIdk5wNJjmpzSBCohTYapB714bZtQBE+EhMRWdl65LFcoOVxixJquIYVxXfN+nhO
+ Nx/tKMZG4bFSxhfqLqqAHClnalmqHT0kpC+UDLRSqUc9rAwvnvFWqkco08sNutXEhfeP
+ IpiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=/LE3/OvnxwC10hHaqp2JoOJSN7rfZOpUu2WCyCiyCz4=;
- b=dJ4sdfEKjZZ3vF5KlR3kKRXl4C2LwzsxwhJ5NySlz8Lu3FATRp4I1KS7S1NKLHfNq4
- SFJiLn179WTK64JTr8gjNKWr6q2X9WJBQAg2yMucO4d5jDUpFEZSYCWqiVmVXtBqfUT4
- aSErpYUC8vKKlawvj9/OUHLlSnW+tFI59yrh+q6QWBOKjEH4A5xhT8S+mSVL5Pw/fNPl
- smIDUr2/AOHTgD+bfw5GTKgY8q/+j65WSNW6H0KPW7QD4KmjqgfG4ZZ5wr0PIc0NUzQr
- ESVbclnMBiNsHmTKx2h7T1+ce4MIhOpERlc/0lD4BAiL14JzoAclrJmUczy/XbOy5qqp
- tyag==
-X-Gm-Message-State: AJIora/80SWgazuZnoQMtaVXquU0IL8/bo7keU3wEgETTy0cgOeJEe2t
- RRzKGhXx4EBRH6La/n453xyPWgWJGJ6Hig==
-X-Google-Smtp-Source: AGRyM1v/qGK0NX2/G7uiSvuhmywhBxQ+rRzGPCB7tQOWN8p4Gfx3qW4Qvkfllc0ImMReMYjkXPk5jA==
-X-Received: by 2002:a17:903:2c6:b0:16a:276a:ad81 with SMTP id
- s6-20020a17090302c600b0016a276aad81mr29074812plk.65.1656818782428; 
- Sat, 02 Jul 2022 20:26:22 -0700 (PDT)
-Received: from debian.me (subs32-116-206-28-33.three.co.id. [116.206.28.33])
- by smtp.gmail.com with ESMTPSA id
- u17-20020a170902e81100b0016a0db8c5b4sm1866809plg.156.2022.07.02.20.26.20
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=BsiPX2KtJdPnGqWVYZ5PsoFOkPFG/BSZesutbERBSQ0=;
+ b=oS2dv5XxyJ2gQkFaURDtgojDtkxGP91zYr8LBNluAewwC7hlZsPuv/HcKAI/9ISlHG
+ AKNBHj8sxeD9RKEY3Wd31hvvEv6n8DhcKCjHbeBLXhHtC7ikP0xSWnMpaPhgXA26FOHI
+ u3vPX5aahVwayq3mAvdNVzPvVTZFZ0kwDscA8Fs53wWJ749a597YGBSkUyubb8lnNPuL
+ AdHmWeKjp8yEOL1UHYIyI+jlKaS3ACKLeUwpLVK8z0M0sjnt/WXLK7GEdi/2S5uvExiL
+ mS5Rbn5Du5dOy+OZ7cgfp5/t/wLHLnWlfw9q6NTtPxRp1blNuYyyd1vyOe5tc53Eb86u
+ /YbA==
+X-Gm-Message-State: AJIora8YoLPdZCmbZji8tE1m1AUi+OV2aqH9BpcbpFJbamV0DwmPkIU7
+ MprfyXkEjc+BStoz2jEaWso=
+X-Google-Smtp-Source: AGRyM1vC3FjdkteKWfObrEzsO7RZCoKas+zX8IhpUVBdVRBxojZ5RAS3o5pKL7UZ293S7TDTvpRFfw==
+X-Received: by 2002:a17:903:2443:b0:16a:29ac:27c2 with SMTP id
+ l3-20020a170903244300b0016a29ac27c2mr28024083pls.46.1656826380197; 
+ Sat, 02 Jul 2022 22:33:00 -0700 (PDT)
+Received: from ZEN.. ([23.225.169.79]) by smtp.googlemail.com with ESMTPSA id
+ e9-20020a170902784900b001636d95fe59sm18384354pln.172.2022.07.02.22.32.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 02 Jul 2022 20:26:21 -0700 (PDT)
-Received: by debian.me (Postfix, from userid 1000)
- id EA78810390C; Sun,  3 Jul 2022 10:26:16 +0700 (WIB)
-Date: Sun, 3 Jul 2022 10:26:16 +0700
-From: Bagas Sanjaya <bagasdotme@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Subject: Re: [PATCH 00/12] Fix several documentation build warnings with
- Sphinx 2.4.4
-Message-ID: <YsEMWDYCdjxiUZ1P@debian.me>
-References: <cover.1656759988.git.mchehab@kernel.org>
+ Sat, 02 Jul 2022 22:32:59 -0700 (PDT)
+From: xhe <xw897002528@gmail.com>
+To: 
+Subject: [PATCH] ALSA: hda: add CSC3551 support for UM5302TA
+Date: Sun,  3 Jul 2022 13:32:23 +0800
+Message-Id: <20220703053225.2203-1-xw897002528@gmail.com>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <cover.1656759988.git.mchehab@kernel.org>
-X-Mailman-Approved-At: Mon, 04 Jul 2022 13:23:02 +0200
-Cc: Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
- Gwendal Grignou <gwendal@chromium.org>, kvm@vger.kernel.org,
- Linux Doc Mailing List <linux-doc@vger.kernel.org>, linux-pci@vger.kernel.org,
- Brendan Higgins <brendanhiggins@google.com>, alsa-devel@alsa-project.org,
- dm-devel@redhat.com, Andreas Dilger <adilger.kernel@dilger.ca>,
- linux-kselftest@vger.kernel.org, Alasdair Kergon <agk@redhat.com>,
- Jonathan Corbet <corbet@lwn.net>,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
- linux-tegra@vger.kernel.org, kunit-dev@googlegroups.com,
- linux-ext4@vger.kernel.org, Theodore Ts'o <tytso@mit.edu>,
- Eric Dumazet <edumazet@google.com>, Dipen Patel <dipenp@nvidia.com>,
- netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, Johannes Berg <johannes@sipsolutions.net>,
- "David S. Miller" <davem@davemloft.net>
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 04 Jul 2022 13:23:03 +0200
+Cc: Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ Stefan Binding <sbinding@opensource.cirrus.com>,
+ Kailang Yang <kailang@realtek.com>, linux-kernel@vger.kernel.org,
+ Lucas Tanure <tanureal@opensource.cirrus.com>, patches@opensource.cirrus.com,
+ Takashi Iwai <tiwai@suse.com>, Xiaoyan Li <lxy.lixiaoyan@gmail.com>,
+ xw897002528@gmail.com, James Schulman <james.schulman@cirrus.com>,
+ alsa-devel@alsa-project.org, Cameron Berkenpas <cam@neo-zeon.de>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Tim Crawford <tcrawford@system76.com>,
+ Werner Sembach <wse@tuxedocomputers.com>,
+ David Rhodes <david.rhodes@cirrus.com>, Yong Wu <yong.wu@mediatek.com>,
+ Andy Chi <andy.chi@canonical.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -120,47 +110,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, Jul 02, 2022 at 12:07:32PM +0100, Mauro Carvalho Chehab wrote:
-> This series is against next-20220701. It fixes several warnings
-> that are currently produced while building html docs.
-> 
-> Each patch in this series is independent from the others, as
-> each one touches a different file.
-> 
-> Mauro Carvalho Chehab (12):
->   docs: ext4: blockmap.rst: fix a broken table
->   docs: tegra194-hte.rst: don't include gpiolib.c twice
->   docs: device-mapper: add a blank line at writecache.rst
->   docs: PCI: pci-vntb-function.rst: Properly include ascii artwork
->   docs: PCI: pci-vntb-howto.rst: fix a title markup
->   docs: virt: kvm: fix a title markup at api.rst
->   docs: ABI: sysfs-bus-nvdimm
->   kunit: test.h: fix a kernel-doc markup
->   net: mac80211: fix a kernel-doc markup
->   docs: alsa: alsa-driver-api.rst: remove a kernel-doc file
->   docs: arm: index.rst: add google/chromebook-boot-flow
->   docs: leds: index.rst: add leds-qcom-lpg to it
-> 
+From: He Wang <xw897002528@gmail.com>
 
-Hi Mauro,
+ASUS UM5302TA are using csc3551, or cs35l41, which is connected to the
+laptop by I2C bus. This patch adds quirk for the sound card, and avoid
+ACPI DSD things for i2c-multi-instantiate cases like CLSA0100.
 
-Thanks for cleaning up these warning above. However, I have already
-submitted some of these cleanups (pending reviews or integration):
+Patch is made by XiaoYan Li. It is tested by us on ASUS UM5302TA.
 
-[1]: https://lore.kernel.org/linux-doc/20220702042350.23187-1-bagasdotme@gmail.com/
-[2]: https://lore.kernel.org/linux-doc/20220612000125.9777-1-bagasdotme@gmail.com/
-[3]: https://lore.kernel.org/linux-doc/20220627095151.19339-1-bagasdotme@gmail.com/
-[4]: https://lore.kernel.org/linux-doc/20220627082928.11239-1-bagasdotme@gmail.com/
+Signed-off-by: He Wang <xw897002528@gmail.com>
+Signed-off-by: Xiaoyan Li <lxy.lixiaoyan@gmail.com>
+---
+ sound/pci/hda/cs35l41_hda.c   | 2 +-
+ sound/pci/hda/patch_realtek.c | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
-There's still a warning left:
-
-Documentation/ABI/testing/sysfs-bus-iio-sx9324:2: WARNING: Unexpected indentation.
-
-But I think the Date: field that triggered the warning above looks OK.
-
-Regardless of that, the build successed.
-
-Reviewed-by: Bagas Sanjaya <bagasdotme@gmail.com>
-
+diff --git a/sound/pci/hda/cs35l41_hda.c b/sound/pci/hda/cs35l41_hda.c
+index cce27a86267f..7374565ecf15 100644
+--- a/sound/pci/hda/cs35l41_hda.c
++++ b/sound/pci/hda/cs35l41_hda.c
+@@ -420,7 +420,7 @@ static int cs35l41_hda_read_acpi(struct cs35l41_hda *cs35l41, const char *hid, i
+ 	 * And devm functions expect that the device requesting the resource has the correct
+ 	 * fwnode.
+ 	 */
+-	if (strncmp(hid, "CLSA0100", 8) != 0)
++	if (strncmp(hid, "CLSA0100", 8) != 0 && strncmp(hid, "CSC3551", 7) != 0)
+ 		return -EINVAL;
+ 
+ 	/* check I2C address to assign the index */
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index cee69fa7e246..49c27d948582 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -9138,6 +9138,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1043, 0x1e8e, "ASUS Zephyrus G15", ALC289_FIXUP_ASUS_GA401),
+ 	SND_PCI_QUIRK(0x1043, 0x1f11, "ASUS Zephyrus G14", ALC289_FIXUP_ASUS_GA401),
+ 	SND_PCI_QUIRK(0x1043, 0x1d42, "ASUS Zephyrus G14 2022", ALC289_FIXUP_ASUS_GA401),
++	SND_PCI_QUIRK(0x1043, 0x1f12, "ASUS UM5302TA", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x1043, 0x16b2, "ASUS GU603", ALC289_FIXUP_ASUS_GA401),
+ 	SND_PCI_QUIRK(0x1043, 0x3030, "ASUS ZN270IE", ALC256_FIXUP_ASUS_AIO_GPIO2),
+ 	SND_PCI_QUIRK(0x1043, 0x831a, "ASUS P901", ALC269_FIXUP_STEREO_DMIC),
 -- 
-An old man doll... just what I always wanted! - Clara
+2.33.0
+

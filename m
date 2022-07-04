@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7B57565468
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Jul 2022 14:09:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC90D565483
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Jul 2022 14:10:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 39CB716FA;
-	Mon,  4 Jul 2022 14:08:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39CB716FA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9D6AC1727;
+	Mon,  4 Jul 2022 14:09:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D6AC1727
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656936561;
-	bh=MsHASlQk4fAwi41ppl3fAdZL4YLTq7R9QWrXkVhoEE4=;
+	s=default; t=1656936607;
+	bh=kAA3D0eVWdsTIU0ncpPNo+Yt3IwyKTenOw54izs6kn8=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=V/+5nUbPG3zN3P+nkoO2pcL9sNrpNpjXQF2tIxOZ8MHNmvOTj9fmUg67aw2IXx9/s
-	 lIlf/DUzTIV3qy/ItszuN3nXGe+xMi+PjF1qWzM+A2H6xxrIGnBDAY9QAj+plHnQr8
-	 yW6ibFG8mVx+oYAfGwfz4dH36sql7Jygiep+OTzk=
+	b=FoWKqJ1+mp+CFgAbQdDLnKoHwPpMSOjsvb9ZN6e9Fz3ujEuPw/u2+Z/4AYGBhEHh8
+	 K4y3r1pjqd+bnl/SaUjUmPopec+ABUM+3XXE6LwkVZptWDbU91rP81uF4O4lbSMN32
+	 wh7fnZmdQU8/w0BC9lV08nxvJNotbyHXPZNHDyLw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A0EE2F8012A;
-	Mon,  4 Jul 2022 14:08:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 401A7F80139;
+	Mon,  4 Jul 2022 14:09:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6A3ABF8012A; Mon,  4 Jul 2022 14:08:19 +0200 (CEST)
+ id 8A8AFF80139; Mon,  4 Jul 2022 14:09:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,57 +34,56 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 307DFF8012A
- for <alsa-devel@alsa-project.org>; Mon,  4 Jul 2022 14:08:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 307DFF8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7712AF80165
+ for <alsa-devel@alsa-project.org>; Mon,  4 Jul 2022 14:09:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7712AF80165
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="O6VV3Wuk"; 
+ header.b="kuZFPg8F"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="eh4fFH+o"
+ header.b="HtOj1k7k"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 92CB82275A;
- Mon,  4 Jul 2022 12:08:12 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 40FB222744;
+ Mon,  4 Jul 2022 12:09:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1656936492; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1656936549; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=0r2BN1Rhj9qyAPvx35IX8egnhNB7WRwZKzo0spHIW2I=;
- b=O6VV3Wukrj8TU6sD5REmbiMoPnjG0UZcWei0QEcyruzIyi0tLCbvFz7DcnIULtpvwY2Sjp
- tjZx/iAE8F8TA3eaTHP1LvVQOYb1gBFzvih48SqVpkiDsg2EhU3aK3clvTtw6Hm9VdfVJR
- 3m79djL3AVVHAw21SXbND37zszFMTu8=
+ bh=l8vyXQ6p4Vrt2A6zt7gEzWJpc9A3f4PZhPdj7BM+cQA=;
+ b=kuZFPg8Fs6n6wCfyUG4kF5f0sEp3Fd8FL2+iuDN8WfQezl20C2wpJ4UIoK5uBq/uX3YqSb
+ MEdewXPF3ShHVoHwpI+ovaMHlnvrIvqcgtaV/Z9upU7Gc9jIYzijkMA5uIOXGOiq/trmon
+ qevJNEwT9FVvnN6GIdIbStOr0ScC41c=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1656936492;
+ s=susede2_ed25519; t=1656936549;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=0r2BN1Rhj9qyAPvx35IX8egnhNB7WRwZKzo0spHIW2I=;
- b=eh4fFH+oQ03GUJlwyGaKsnYFTbdBVQK05zNLx8WBx6NWfEIakQaz+7TZLTWZGcR+d1JO4A
- ScFz2uFuewe39RBw==
+ bh=l8vyXQ6p4Vrt2A6zt7gEzWJpc9A3f4PZhPdj7BM+cQA=;
+ b=HtOj1k7k31LaDL/6OuJCt8hchNtzYqxCvtLz1mzpU/rxGJv38BFJky0NSu80uteySzXerz
+ aYzUQV0SwJmvk1CA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6C89213451;
- Mon,  4 Jul 2022 12:08:12 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 091B813451;
+ Mon,  4 Jul 2022 12:09:09 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id AFdoGSzYwmIUIwAAMHmgww
- (envelope-from <tiwai@suse.de>); Mon, 04 Jul 2022 12:08:12 +0000
-Date: Mon, 04 Jul 2022 14:08:11 +0200
-Message-ID: <878rp9ytas.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id kYyyAGXYwmKAIwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Mon, 04 Jul 2022 12:09:09 +0000
+Date: Mon, 04 Jul 2022 14:09:08 +0200
+Message-ID: <877d4tyt97.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: John Veness <john-linux@pelago.org.uk>
-Subject: Re: [PATCH] ALSA: usb-audio: Add quirks for MacroSilicon
- MS2100/MS2106 devices
-In-Reply-To: <20220624140757.28758-1-john-linux@pelago.org.uk>
-References: <20220624140757.28758-1-john-linux@pelago.org.uk>
+To: Tim Crawford <tcrawford@system76.com>
+Subject: Re: [PATCH v2] ALSA: hda/realtek: Add quirk for Clevo L140PU
+In-Reply-To: <20220624144109.3957-1-tcrawford@system76.com>
+References: <20220624144109.3957-1-tcrawford@system76.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Hector Martin <marcan@marcan.st>
+Cc: productdev@system76.com, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,14 +99,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 24 Jun 2022 16:07:57 +0200,
-John Veness wrote:
+On Fri, 24 Jun 2022 16:41:09 +0200,
+Tim Crawford wrote:
 > 
-> Treat the claimed 96kHz 1ch in the descriptors as 48kHz 2ch, so that
-> the audio stream doesn't sound mono. Also fix initial stream
-> alignment, so that left and right channels are in the correct order.
+> Fixes headset detection on Clevo L140PU.
 > 
-> Signed-off-by: John Veness <john-linux@pelago.org.uk>
+> Signed-off-by: Tim Crawford <tcrawford@system76.com>
 
 Thanks, applied now.
 

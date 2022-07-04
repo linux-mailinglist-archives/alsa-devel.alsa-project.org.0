@@ -2,91 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3442556554E
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Jul 2022 14:30:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25015565562
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Jul 2022 14:31:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B0DFF1715;
-	Mon,  4 Jul 2022 14:29:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0DFF1715
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4D66B173C;
+	Mon,  4 Jul 2022 14:30:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D66B173C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656937818;
-	bh=Uzj/tzO1mqwugE25VonXVfE64HN60XkGkvKCkICBP74=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1656937884;
+	bh=rL/dVXu9lFFmv1sy4wiNe9geEPKJ9bDBVQR3zWGDtV4=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HbSN0R3GcYTedLOxvvYylyUyjBY+buzmeY9nvMd+gdGmFbCYRwNaeUJBHZ2bHuNch
-	 Rw9MkjHWoZbQbLeuR4lPAsDjncWJGIuXY+L1ai9qWIWYKxwMnDsCMcVnNr0OeN5j3X
-	 e2MSGRTIplpbBnlNxguHhHk1b+H6+kLRQvWbGOx4=
+	b=CXDm8+52AyD9a4sxn5YPB4kkoHF/o2sdaxWamyM6Kcz7566fPsEizdDnyP5X5h9Hv
+	 0FnpPBibhiFTsCdl+EnOcP9CnMKCug7OgFTI41Z8VHt82u2lrllzfQlP0HgcgtGSuF
+	 YlvtknQU1qvyS6e5ancyASjLxl+kY5BES5rsZLc4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 26441F80165;
-	Mon,  4 Jul 2022 14:29:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ED89FF8052E;
+	Mon,  4 Jul 2022 14:30:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 47970F8014E; Mon,  4 Jul 2022 14:29:15 +0200 (CEST)
+ id 2581CF804AC; Mon,  4 Jul 2022 14:30:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 73FA6F80139
- for <alsa-devel@alsa-project.org>; Mon,  4 Jul 2022 14:29:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73FA6F80139
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2F74AF802BE
+ for <alsa-devel@alsa-project.org>; Mon,  4 Jul 2022 14:30:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F74AF802BE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="1MnlJP/O"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="y8vn3Xys"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A9CF7227E3;
- Mon,  4 Jul 2022 12:29:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1656937746; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=OKC1glIhcMx0XecLi7KWS4MMauWMpH5WiVJgOoHrSqo=;
- b=1MnlJP/OqncCA/vKgXqbRLkRaclxpI92Nq8Ab0ke/XtZnLPconw5UJSJx4f642mmQUI4EY
- juyEWMbNJWgtkzXePZhQ+Lb2dBQi4EtMUI8ILD8ChY7nNkbLzKxZZAbQcC0hzCMa58/tFn
- /dfryxNSn+Vyh+Ey9UTYJqXMaVfQhgE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1656937746;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=OKC1glIhcMx0XecLi7KWS4MMauWMpH5WiVJgOoHrSqo=;
- b=y8vn3XyseDqNwPF2Lr4JO8+nx5f432Dpo1Lo3Fp6hq5UeHyEy6ani2ozfMk+3LrY3e+RmZ
- FaZYNJGu3adFG4Ag==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 48C131342C;
- Mon,  4 Jul 2022 12:29:06 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id UHDXEBLdwmJELAAAMHmgww
- (envelope-from <tiwai@suse.de>); Mon, 04 Jul 2022 12:29:06 +0000
-Date: Mon, 04 Jul 2022 14:29:05 +0200
-Message-ID: <874jzxysby.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Jan =?ISO-8859-1?Q?Sch=E4r?= <jan@jschaer.ch>
-Subject: Re: [PATCH 1/2] ALSA: usb-audio: Support jack detection on Dell dock
-In-Reply-To: <20220627171855.42338-1-jan@jschaer.ch>
-References: <20220627171855.42338-1-jan@jschaer.ch>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="dJFXTDnQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1656937825; x=1688473825;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=rL/dVXu9lFFmv1sy4wiNe9geEPKJ9bDBVQR3zWGDtV4=;
+ b=dJFXTDnQDs606FdHiXGAedNcrn/MmXMbHbbn4iSK2lu/txkvtlqP8rxZ
+ S7RqUfCf2UoI0r8xY8annPqOIzgI0UaCxQVVevLWa9EL+GWqmyoivMPw2
+ YTBJwOqcMTWWEANEUQ0wU/2aLqRZzto8RWCSYufyofk1St/+qpWLhbFp3
+ RjWyQVBhNkwQgYrNRZqwywi/efCqKaNqBvXROwQ8K2rYpc7q3mnSPK2aK
+ e2W5udqmFahNAftHRsC2RcDA2YxrPlS5zg9wd74HOu2Dpm06v89ahiJyA
+ thPoptIhCQ/28wfr2SnNfpRe1foSifO7i54ZjFITCKs/ExP1CgMUEH+tD w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10397"; a="284226793"
+X-IronPort-AV: E=Sophos;i="5.92,243,1650956400"; d="scan'208";a="284226793"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jul 2022 05:30:14 -0700
+X-IronPort-AV: E=Sophos;i="5.92,243,1650956400"; d="scan'208";a="619276267"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.241.83])
+ ([10.99.241.83])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jul 2022 05:30:12 -0700
+Message-ID: <f1ebe9c6-0809-084e-2361-4d13c09b2037@linux.intel.com>
+Date: Mon, 4 Jul 2022 14:30:09 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH v1] add tas2780
+Content-Language: en-US
+To: Raphael-Xu <13691752556@139.com>, broonie@kernel.org
+References: <20220704104759.21083-1-13691752556@139.com>
+From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <20220704104759.21083-1-13691752556@139.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, raphael-xu@ti.com, shenghao-ding@ti.com,
+ navada@ti.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,102 +93,107 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 27 Jun 2022 19:18:54 +0200,
-Jan Schär wrote:
+On 7/4/2022 12:47 PM, Raphael-Xu wrote:
+> 1.update Kconfig and Makefile 2.add tas2780.c and tas2780.h
 > 
-> The Dell WD15 dock has a headset and a line out port. Add support for
-> detecting if a jack is inserted into one of these ports.
-> For the headset jack, additionally determine if a mic is present.
-> 
-> The WD15 contains an ALC4020 USB audio controller and ALC3263 audio codec
-> from Realtek. It is a UAC 1 device, and UAC 1 does not support jack
-> detection. Instead, jack detection works by sending HD Audio commands over
-> vendor-type USB messages.
-> 
-> I found out how it works by looking at USB captures on Windows.
-> The audio codec is very similar to the one supported by
-> sound/soc/codecs/rt298.c / rt298.h, some constant names and the mic
-> detection are adapted from there. The realtek_add_jack function is adapted
-> from build_connector_control in sound/usb/mixer.c.
-> 
-> I tested this on a WD15 dock with the latest firmware.
-> 
-> Signed-off-by: Jan Schär <jan@jschaer.ch>
+> Signed-off-by: Raphael-Xu <13691752556@139.com>
 > ---
-> For testing this patch, you need to change the content of the file
-> /usr/share/alsa/ucm2/USB-Audio/Dell-WD15-Dock-HiFi.conf to the following:
-> ```
-> SectionDevice."Headphones" {
-> 	Comment "Headphones"
-> 
-> 	Value {
-> 		PlaybackPriority 100
-> 		PlaybackPCM "hw:${CardId}"
-> 		JackControl "Headphone Jack"
-> 
-> 		If.Headphone_ctl {
-> 			Condition {
-> 				Type ControlExists
-> 				Control "name='Headphone Playback Switch'"
-> 			}
-> 			True {
-> 				PlaybackMixerElem "Headphone"
-> 				PlaybackVolume "Headphone Playback Volume"
-> 				PlaybackSwitch "Headphone Playback Switch"
-> 			}
-> 		}
-> 	}
-> }
-> 
-> SectionDevice."Line" {
-> 	Comment "Line Out"
-> 
-> 	Value {
-> 		PlaybackPriority 200
-> 		PlaybackPCM "hw:${CardId},1"
-> 		JackControl "Line Out Jack"
-> 
-> 		If.Line_ctl {
-> 			Condition {
-> 				Type ControlExists
-> 				Control "name='Line Playback Switch'"
-> 			}
-> 			True {
-> 				PlaybackMixerElem "Line"
-> 				PlaybackVolume "Line Playback Volume"
-> 				PlaybackSwitch "Line Playback Switch"
-> 			}
-> 		}
-> 	}
-> }
-> 
-> SectionDevice."Headset" {
-> 	Comment "Headset Microphone"
-> 
-> 	Value {
-> 		CapturePriority 100
-> 		CapturePCM "hw:${CardId}"
-> 		JackControl "Headset Mic Jack"
-> 
-> 		If.Mic_ctl {
-> 			Condition {
-> 				Type ControlExists
-> 				Control "name='Mic Capture Switch'"
-> 			}
-> 			True {
-> 				CaptureMixerElem "Mic"
-> 				CaptureVolume "Mic Capture Volume"
-> 				CaptureSwitch "Mic Capture Switch"
-> 			}
-> 		}
-> 	}
-> }
-> ```
 
-This is an interesting finding.
-Applied both patches to for-next branch now.
+...
 
+> diff --git a/sound/soc/codecs/tas2780.c b/sound/soc/codecs/tas2780.c
+> new file mode 100644
+> index 000000000000..0e452c7464fb
+> --- /dev/null
+> +++ b/sound/soc/codecs/tas2780.c
+> @@ -0,0 +1,726 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +// Driver for the Texas Instruments TAS2780 Mono
+> +//		Audio amplifier
+> +// Copyright (C) 2022 Texas Instruments Inc.
+> +
+> +#include <linux/module.h>
+> +#include <linux/moduleparam.h>
+> +#include <linux/err.h>
+> +#include <linux/init.h>
+> +#include <linux/delay.h>
+> +#include <linux/pm.h>
+> +#include <linux/i2c.h>
+> +#include <linux/gpio.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/regmap.h>
+> +#include <linux/of.h>
+> +#include <linux/of_gpio.h>
+> +#include <sound/soc.h>
+> +#include <sound/pcm.h>
+> +#include <sound/pcm_params.h>
+> +#include <sound/initval.h>
+> +#include <sound/tlv.h>
+> +
+> +#include "tas2780.h"
+> +
+> +struct tas2780_priv {
+> +	struct snd_soc_component *component;
+> +	struct gpio_desc *reset_gpio;
+> +	struct gpio_desc *sdz_gpio;
+> +	struct regmap *regmap;
+> +	struct device *dev;
+> +	int v_sense_slot;
+> +	int i_sense_slot;
+> +
 
-Thanks!
+Unnecessary empty line?
 
-Takashi
+> +};
+> +
+> +static void tas2780_reset(struct tas2780_priv *tas2780)
+> +{
+> +	if (tas2780->reset_gpio) {
+> +		gpiod_set_value_cansleep(tas2780->reset_gpio, 0);
+> +		usleep_range(2000, 2050);
+> +		gpiod_set_value_cansleep(tas2780->reset_gpio, 1);
+> +		usleep_range(2000, 2050);
+> +	}
+> +
+> +	snd_soc_component_write(tas2780->component, TAS2780_SW_RST,
+> +				TAS2780_RST);
+> +}
+> +
+
+...
+
+> +
+> +static const struct snd_soc_component_driver soc_component_driver_tas2780 = {
+> +	.probe			= tas2780_codec_probe,
+> +#ifdef CONFIG_PM
+> +	.suspend		= tas2780_codec_suspend,
+> +	.resume			= tas2780_codec_resume,
+> +#endif
+> +	.controls		= tas2780_snd_controls,
+> +	.num_controls		= ARRAY_SIZE(tas2780_snd_controls),
+> +	.dapm_widgets		= tas2780_dapm_widgets,
+> +	.num_dapm_widgets	= ARRAY_SIZE(tas2780_dapm_widgets),
+> +	.dapm_routes		= tas2780_audio_map,
+> +	.num_dapm_routes	= ARRAY_SIZE(tas2780_audio_map),
+> +	.idle_bias_on		= 1,
+> +	.endianness		= 1,
+> +	.non_legacy_dai_naming	= 1,
+
+ From what I see change removing non_legacy_dai_naming field is merged 
+in for-next branch, so you can skip it, as it is default now.
+
+> +};
+> +
+> +static const struct reg_default tas2780_reg_defaults[] = {
+> +	{ TAS2780_PAGE, 0x00 },
+> +	{ TAS2780_SW_RST, 0x00 },
+> +	{ TAS2780_PWR_CTRL, 0x1a },
+> +	{ TAS2780_DVC, 0x00 },
+> +	{ TAS2780_CHNL_0, 0x00 },
+> +	{ TAS2780_TDM_CFG0, 0x09 },
+> +	{ TAS2780_TDM_CFG1, 0x02 },
+> +	{ TAS2780_TDM_CFG2, 0x0a },
+> +	{ TAS2780_TDM_CFG3, 0x10 },
+> +	{ TAS2780_TDM_CFG5, 0x42 },
+> +};
+> +

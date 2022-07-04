@@ -2,86 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B4175659E5
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Jul 2022 17:32:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0E765659FC
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Jul 2022 17:36:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B00EE170C;
-	Mon,  4 Jul 2022 17:31:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B00EE170C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 304231721;
+	Mon,  4 Jul 2022 17:36:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 304231721
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656948748;
-	bh=FvkEbetfT4jdtj6ZuN6qH4lChFTTrylF+4rYmbulcGA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1656949016;
+	bh=xvKuG9NnPSr3QqLCYuINjvdhaWm9es1akuixSQ2TA/E=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uoeaBj80azWtcYAVV7G0tQNGZR4lU0oe5FwEgMq1Ry4kespAfhFhhJTvCoDSYtW8I
-	 hqIzSFopDD1Zkz9XvafWmfY16ET5D+ymupIhnLNLVPiGFIRvV8g3biTlmw1OhXCvjG
-	 asTQHPEDiwsKYhM63ZruA8ccUMdwff5yU1JJX7CU=
+	b=qfiH+OUw1MUSpNs4CkVOsn2yevY3KmfqDgELWt1Pf7M2YL/WKuF8GM0gSZchYA5bZ
+	 6biBfp6Hvjd5Z78WbhE3ayT236EuLmcfr0+kofxd4ZmV1MbvAVCPO3dnnKYSPegvLO
+	 Lj4jrwDXVXZ8Mgx1YS1B6kJm+No0Gwi/c4i6nhfE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 26E14F800ED;
-	Mon,  4 Jul 2022 17:31:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9F733F80165;
+	Mon,  4 Jul 2022 17:35:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5039DF80139; Mon,  4 Jul 2022 17:31:27 +0200 (CEST)
+ id 306B7F8014E; Mon,  4 Jul 2022 17:35:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-yw1-x112f.google.com (mail-yw1-x112f.google.com
- [IPv6:2607:f8b0:4864:20::112f])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E9F8BF800ED
- for <alsa-devel@alsa-project.org>; Mon,  4 Jul 2022 17:31:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9F8BF800ED
+ by alsa1.perex.cz (Postfix) with ESMTPS id F3727F80139
+ for <alsa-devel@alsa-project.org>; Mon,  4 Jul 2022 17:35:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3727F80139
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Fh3le5Kr"
-Received: by mail-yw1-x112f.google.com with SMTP id
- 00721157ae682-31c9b70c382so22871597b3.6
- for <alsa-devel@alsa-project.org>; Mon, 04 Jul 2022 08:31:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=sZp0fTSBviO8sZXMgvxBW5EvrUyZFIdfTYigWhAWP2Q=;
- b=Fh3le5KrkwCDTcCx2UG80LSVLUXzP+c9Ez6uSsLdhx4K2bk5LNahjVqrsH5dwYh2cp
- FIL0vcQ5odqvLmmcoA4d2q79rl1XYsf4vJuCLYlJmi19FCMk75qbnyQMu61V5MGcULGh
- cK/+PHY0erJyo8sLdHTLRDD0jmZkSfL05/bfjmVkjaVf393UqgPy0eLIIdqQPvmwdPkx
- 1Ql6Z+Zjlbpiuv0NIs9br913KhmDs3H0CX0CWmbgLyg4vgNzGzlCT1zTSC17FL3SbVKa
- 1FeSi1hePyMQF7Kgxg/jBrZzUhHT29t1nMJ94G0Fbc+095rxQMLlhrn8KalyqrAX8Ruy
- qrpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=sZp0fTSBviO8sZXMgvxBW5EvrUyZFIdfTYigWhAWP2Q=;
- b=DKYVRMKoT1enTsPr4a4o63aSgg/ntAeRpr1woHp2TAr4Xa73Ln8I5E0dQEMAqBJsvi
- 6WoNhwmgl8HTAyzG2GzvyZ2GlkAIqP/Mhy+ZsY2JLmwNrQz17sw8lLfNTZFg1IJvEkKQ
- 9wdNHtooUntZX0iCf10eYqkm58sqIZ0zasniwc+qK9URGVWLX+m6E2zWdu0xMP2Kurdp
- szRm2+6gIFawSm/ns3uNP1fZJ7hVGRIN8ZvJzrJpYy7GrD/z3z2HRi50KqgsKsdwAxGj
- WUYRIFVx0p8MBE+KTJ+mdYYsfIq4Mh6f776pGT8TLP0LwcTNFl2NwlKruoB+NgrxPoDg
- 7XHg==
-X-Gm-Message-State: AJIora9+XGJOs6BHXXcH8n5oJJ36DlCAbAiHf+cIjDK1dB9paqL/kpr0
- w+tY9HWQVm9NsYPHar5rSnaX4pzcZeH8yBMuMo8=
-X-Google-Smtp-Source: AGRyM1sO+c4a2WrNPrEqCFBa0DXLYQJQgDYky4gEMSV88n3xvnXo3ooAaGqre5Rfrx7klRQI6IRHPHFwT3M/sJIFfrU=
-X-Received: by 2002:a81:5d88:0:b0:318:31c1:56f3 with SMTP id
- r130-20020a815d88000000b0031831c156f3mr34140330ywb.18.1656948678372; Mon, 04
- Jul 2022 08:31:18 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220603170707.48728-1-andriy.shevchenko@linux.intel.com>
- <1b5ba014-44ca-e753-141a-d8ff5fd248bb@opensource.cirrus.com>
- <YsG3kKwmoqF2MxU2@smile.fi.intel.com> <YsLCwQM0gbhFhSke@sirena.org.uk>
-In-Reply-To: <YsLCwQM0gbhFhSke@sirena.org.uk>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Mon, 4 Jul 2022 17:30:41 +0200
-Message-ID: <CAHp75VeCTEE4-O1LLYNunf_ZU164i8rnqeRf9dvp=R=_eEC=ig@mail.gmail.com>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Tc6qToJL"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 89257B80E00;
+ Mon,  4 Jul 2022 15:35:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B10CC341C7;
+ Mon,  4 Jul 2022 15:35:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1656948949;
+ bh=xvKuG9NnPSr3QqLCYuINjvdhaWm9es1akuixSQ2TA/E=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Tc6qToJLUE3OcWTZdyvzzNRaVUwRTsH54pdLaOiR5gCXly4ruxBEpe/fflrtvkbU/
+ AlUhUpyQCebYStNIDjdTXNbyNiOxwwan19EOdHUfxPc9POt2XNR4O2aBsKAIEB0now
+ WQ902D/1Pxi9ja1DQwchP/G4GPbbyrzzxQ17t4P6w++SXO6eS7USCO409U8Tuu5qfF
+ yutihF0/CZTOrg/Ne43lAHfsFFpjAmgRd8ZmhpYFue8eMb3Z+1TBbji6B3C7XF1SVb
+ ngFnxoXIXcxTxHd6FG2DIqV1nK8mIvsWBtDxc2EXbeNwXyBtZrC5mYxbuF2OZBUXvB
+ LTvXON7qZjmdA==
+Date: Mon, 4 Jul 2022 16:35:43 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
 Subject: Re: [PATCH v1 1/1] ASoC: madera: Replace kernel.h with the necessary
  inclusions
-To: Mark Brown <broonie@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Message-ID: <YsMIzz6JkTLw7heY@sirena.org.uk>
+References: <20220603170707.48728-1-andriy.shevchenko@linux.intel.com>
+ <1b5ba014-44ca-e753-141a-d8ff5fd248bb@opensource.cirrus.com>
+ <YsG3kKwmoqF2MxU2@smile.fi.intel.com>
+ <YsLCwQM0gbhFhSke@sirena.org.uk>
+ <CAHp75VeCTEE4-O1LLYNunf_ZU164i8rnqeRf9dvp=R=_eEC=ig@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="45MOapQtPozrAD4p"
+Content-Disposition: inline
+In-Reply-To: <CAHp75VeCTEE4-O1LLYNunf_ZU164i8rnqeRf9dvp=R=_eEC=ig@mail.gmail.com>
+X-Cookie: MERYL STREEP is my obstetrician!
 Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
  Charles Keepax <ckeepax@opensource.cirrus.com>, patches@opensource.cirrus.com,
  Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
@@ -103,35 +95,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Jul 4, 2022 at 12:45 PM Mark Brown <broonie@kernel.org> wrote:
->
-> On Sun, Jul 03, 2022 at 06:36:48PM +0300, Andy Shevchenko wrote:
-> > On Mon, Jun 06, 2022 at 10:29:59AM +0100, Richard Fitzgerald wrote:
-> > > On 03/06/2022 18:07, Andy Shevchenko wrote:
->
-> > > > When kernel.h is used in the headers it adds a lot into dependency hell,
-> > > > especially when there are circular dependencies are involved.
->
-> > > > Replace kernel.h inclusion with the list of what is really being used.
->
-> > > Reviewed-by: Richard Fitzgerald <rf@opensource.cirrus.com>
->
-> > Thanks!
->
-> > It's a month passed without any other news about this patch.
-> > Is this a problem in the MAINTAINERS database?
->
-> > Who should take this?
->
-> > +Cc: Liam, Mark
->
-> If you needed to add me to the CC I've not seen the patch...
-> for review.  People get busy, go on holiday, attend conferences and so
 
-The question here is about MAINTAINERS. That's why you are in Cc list.
-Do we have an issue in MAINTAINERS that causes you being not see the
-patch?
+--45MOapQtPozrAD4p
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
--- 
-With Best Regards,
-Andy Shevchenko
+On Mon, Jul 04, 2022 at 05:30:41PM +0200, Andy Shevchenko wrote:
+> On Mon, Jul 4, 2022 at 12:45 PM Mark Brown <broonie@kernel.org> wrote:
+
+> > > +Cc: Liam, Mark
+
+> > If you needed to add me to the CC I've not seen the patch...
+> > for review.  People get busy, go on holiday, attend conferences and so
+
+> The question here is about MAINTAINERS. That's why you are in Cc list.
+> Do we have an issue in MAINTAINERS that causes you being not see the
+> patch?
+
+I have no idea, all that's showing up in my inbox is these content free
+pings.  You'd have to ask whoever didn't send the patch to me.
+
+--45MOapQtPozrAD4p
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmLDCM8ACgkQJNaLcl1U
+h9CdmAf/bckH9oNhcWHT2zx8i6ZCpIMCbbSkVPDnh7G1w0gmEZWDdmn24VhC/hX2
+ngMwMZaCDTaguM6tyTRucSZ+2D7YHQ6kMXa5JP50SOJO7POPDNp1wik21YsQZigE
+L3sZ0wbl5g3EbYjRIFNjlJlKTR6bsZjnZ83J3Q4CUdtQ0blwDpRuV/Qk+KIF6KeH
+xz75VyVUJVPuNLBUhmPqaEXquXM7PyFLXnPBsrxP37FDaYZROhv2rj2k/iyl/Xq9
+UMyBfJleqsXdxKy+QkdgOB4zDJ9B4FQvL+VU+qONO71ymfXP57QiGtFsHJ1Buune
+HO6rqKOVdyXjjjlG8C0skIdZ0JpprQ==
+=UhJ2
+-----END PGP SIGNATURE-----
+
+--45MOapQtPozrAD4p--

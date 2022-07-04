@@ -2,134 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36382565856
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Jul 2022 16:10:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 360945658A4
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Jul 2022 16:29:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B991E1727;
-	Mon,  4 Jul 2022 16:10:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B991E1727
+	by alsa0.perex.cz (Postfix) with ESMTPS id BA85F171F;
+	Mon,  4 Jul 2022 16:29:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA85F171F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656943855;
-	bh=O2zRcm8ShDliSqlM1rF6XfD/QKnRrbe672v5EbfSoRY=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=g5b7iWxV3QC7NAYczJSBJAS716fyFF8P1iKJ1Ffjc6ypxyExx2Q4PxX/AK2S+6GNf
-	 cn8M/X+FGUO4y7kdJtfSdbi6V5qXrLUY4PMggRxSFwLhzWbFASlsDdOAiTv6JK4X5T
-	 8jqjbrmeXARztvONEN3YlyJOtAajqs7PMagWTBFg=
+	s=default; t=1656944996;
+	bh=4gOBBpMT8mnYbGaetCMvKDwBPbdf6lnnBtVmjLpmCds=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=EVgRwDeAhDlVJGrVmlzodeDDNzg3ias1z64/oZWInWIfpJdUVYz8KhE1gZJkp3Kfl
+	 q3QyiN0sB5Js4ClHbG+ileeabwkFA4AK3olUJx925+5T0h244e/ADxlcmekHMQS04C
+	 uPtzfBq6FQfMyqqs5AWQUZ1JVjUqZuWyrP4Pnju0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C83E6F8053E;
-	Mon,  4 Jul 2022 16:09:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 134C2F80165;
+	Mon,  4 Jul 2022 16:28:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 93E2DF8053D; Mon,  4 Jul 2022 16:09:20 +0200 (CEST)
+ id 9410BF8014E; Mon,  4 Jul 2022 16:28:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2041.outbound.protection.outlook.com [40.107.243.41])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C393FF80538
- for <alsa-devel@alsa-project.org>; Mon,  4 Jul 2022 16:09:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C393FF80538
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9C6D3F8012A
+ for <alsa-devel@alsa-project.org>; Mon,  4 Jul 2022 16:28:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C6D3F8012A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
- header.b="va2inCuw"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YvYgHWJbogqbLZQJCsUt1d5D25caEqRdAG1D4QJ09ESGhOEeWlifyoyLKC+hWtmGs2R+Oj3T3G3jkew1WP9PW5cXUQzkeoRtndrGSdslaZ1ASFYUO/auXRRW62hovBROW/IRGXZXe62oP5YbZhzdmACpJUwtXMUFWAXhqIjTYA+jnF9FzR7mmHi8NdpWN0LUHfn7/UarpLsLVmm/uItymUgwZGkA1hbk2481DoH0JVp4d2/FKhpAU9R+NsC/Tgk/joVZU5FvmXyLsQQRY+pL/LPwO5foOQItdxyumP5NRzSXFhAWyIjdjH3fUvKTaOaw5nUU+kbuYWiyuj9WQUQVDQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fhMzU624SB5hj87G1aAhibZr/Bx7YvAXgVavTMMLvEA=;
- b=UWp5HXD4w48QTygpCLX9eMollifVhuWalFfweDef6pjdvq4iiB5NfRaX0arJRUY5PyPcV83G9SwVWid4ITYqmcyDhKDpfcUL3JsYfsxAWcA66djoAE/8UtzVsJXXr1Gg9lD7VCIjaXb3lt7YUiyaH0TXoYOSZsrLMOgH2S7Ry5FTJBv75j3yoacOtBo2lsLoEaU56SXdke9NnXLcrG40+1iC1JQByuvGdMLFgGqdHmXhCklq0JaN6Qj5qxuCKIHxMIFaQ9/nF+AIhVmAOiJKNRY5FB3Z8CwvKqTxbxBdPMFyV+cOn7IT+045kgmnBp40tOF303KGoy/hOUxH+WEBJg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fhMzU624SB5hj87G1aAhibZr/Bx7YvAXgVavTMMLvEA=;
- b=va2inCuwju96j2J746eTTMHPJHMwMxoZazQig4duyE64do7A6mLnCRx9R7Wevq+6MsnQY6wUOuof6SMyfcVxNeU4+bIAtBeIpKTNHZZu6vawlO4slamXj983ozmeWT5HH6Xx2ZDGQ3H3B4cKaEhnMU+4CB/iGNthLjz+zKzsB/M=
-Received: from MWHPR07CA0023.namprd07.prod.outlook.com (2603:10b6:300:116::33)
- by MWHPR12MB1549.namprd12.prod.outlook.com (2603:10b6:301:10::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.17; Mon, 4 Jul
- 2022 14:09:05 +0000
-Received: from CO1NAM11FT052.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:116:cafe::4) by MWHPR07CA0023.outlook.office365.com
- (2603:10b6:300:116::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.14 via Frontend
- Transport; Mon, 4 Jul 2022 14:09:05 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT052.mail.protection.outlook.com (10.13.174.225) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5395.14 via Frontend Transport; Mon, 4 Jul 2022 14:09:05 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 4 Jul
- 2022 09:09:04 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 4 Jul
- 2022 07:09:04 -0700
-Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
- SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.28
- via Frontend Transport; Mon, 4 Jul 2022 09:08:59 -0500
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH RESEND V2 3/3] ASoC: amd: enable machine driver build for
- Jadeite platform
-Date: Mon, 4 Jul 2022 19:38:35 +0530
-Message-ID: <20220704140837.1215534-3-Vijendar.Mukunda@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220704140837.1215534-1-Vijendar.Mukunda@amd.com>
-References: <20220704140837.1215534-1-Vijendar.Mukunda@amd.com>
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="SVB8icQU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1656944928;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=RfGDyGyf0h7jOOxTntBYYgzFfxJM0cp4xXoHrS6OslQ=;
+ b=SVB8icQUiBJ+OJC7bU2XvpUDYXTDQRJvd0UWN0DMGRUAVpZHTwCJSIVTo/XZI9FONlAWed
+ T0AB4KQJ93zOBAvzlrmUPTjNwq9VFdJ3gHDvLh2FbyYwnC1gkdFoFHDsoZhA4xiMMb4IiB
+ gOhA93mHYw5vtMAOX1ohSj27sNtS8RQ=
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-451-mChhlN0FNr6ed0MhrdJ6rA-1; Mon, 04 Jul 2022 10:28:47 -0400
+X-MC-Unique: mChhlN0FNr6ed0MhrdJ6rA-1
+Received: by mail-qk1-f198.google.com with SMTP id
+ 186-20020a3708c3000000b006af306eb272so8843293qki.18
+ for <alsa-devel@alsa-project.org>; Mon, 04 Jul 2022 07:28:47 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=RfGDyGyf0h7jOOxTntBYYgzFfxJM0cp4xXoHrS6OslQ=;
+ b=pFPIYuvsZDwm8PsvHLvsB3TVx/PGhgWmFsVHGBxkcat6rpbLBpkiBIqrtU/PSzQ2Oi
+ A9LdKuZGEAIwxoUmqoirck1NUV5Ha1jrF5j/od5dsFiBTItUV4YVkaWkp0nVlqGTqtUk
+ nUlZw2ioNqvkhPy6zmp/YfpW9Flwky9iIKEv/tMLx8f/U6YUqOputWRey19V+y6Oy2vx
+ 2D/gFkYfqXUOb1Qn4aRlo3RIe6LfnGOEuQl8PHpH6ZUr1uquMpr2AcZXvRE6ETAJXUIy
+ vsqi2JHRyponl4iHnF75++S2GagIsEV4JwL9mHtJEthL1/BNFEM2KuvlKKfmLD0GxykC
+ GIQQ==
+X-Gm-Message-State: AJIora/i8R4gnRsAA0kclmQ8PRN9pebLGgFimN3cOuDWyHn/xhcMYdWs
+ 1wEuDMxfFv2ivBq4lIYf0F7pCT6e5B//58u0iorSJXgnIXka9wStaln3MdGuu6URKOCSF9ADHf2
+ iBckJttrrwkJj89+Gt3drXxg=
+X-Received: by 2002:a05:6214:1cc7:b0:470:5371:26ff with SMTP id
+ g7-20020a0562141cc700b00470537126ffmr27195895qvd.9.1656944926579; 
+ Mon, 04 Jul 2022 07:28:46 -0700 (PDT)
+X-Google-Smtp-Source: AGRyM1s+cEeW2gwRYkbbRPlZwD0FkOkBtidH1s2JRvmcGTy0BEjr0apvXTfAN7/HCYrLoY47LtCk4Q==
+X-Received: by 2002:a05:6214:1cc7:b0:470:5371:26ff with SMTP id
+ g7-20020a0562141cc700b00470537126ffmr27195865qvd.9.1656944926191; 
+ Mon, 04 Jul 2022 07:28:46 -0700 (PDT)
+Received: from dell-per740-01.7a2m.lab.eng.bos.redhat.com
+ (nat-pool-bos-t.redhat.com. [66.187.233.206])
+ by smtp.gmail.com with ESMTPSA id
+ x2-20020ae9e902000000b006a6a6f148e6sm24374082qkf.17.2022.07.04.07.28.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 04 Jul 2022 07:28:45 -0700 (PDT)
+From: Tom Rix <trix@redhat.com>
+To: perex@perex.cz, tiwai@suse.com, vitalyr@opensource.cirrus.com,
+ sbinding@opensource.cirrus.com, tanureal@opensource.cirrus.com
+Subject: [PATCH] ALSA: hda/cs8409: change cs8409_fixups v.pins initializers to
+ static
+Date: Mon,  4 Jul 2022 10:28:36 -0400
+Message-Id: <20220704142836.636204-1-trix@redhat.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2e5d17fd-e897-4e00-8ae0-08da5dc6c171
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1549:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Wty4eHFsafAu+0pm1u5dm21kJa7pWsXapr0uhNBM8zZS9bEAo8xwgKqWnO0JLzH1GjOscGFlHasZ39g+yeDMam1uh0fy5zTF4ln7tXnGmNXHkFwnYL4stVMvOgt3LdKcZBvRUsb4hWAWzvu+gL5Sm5ChVYMb4NUzkKxOL7pG6yHa0XW0do5jwBtR1BOT0WeHIPRMnZb2sE7p8b5z8PXj0BCB+M1/0sS9lqycTTirkecAhRK0XtBuaVF04jrrbk7BOQP0UXsLHqgkVtbW0p4yyPT+QLrKLRsRL04eTqq/frCDGyEggQAmNjqurTCA8uktVichiIxBa48K4A7J4SB8lXT+zQ9xpQfqf/M5zYToq8FIHGjd9FrGmGarg/SbGuh7Ia5fPucRtAbxeeqY8W+c+Zzr9r9aj4IMfQxLXdg3KtYKQDAcAwrzdyy/4AKBrbyZBV4zPTsC5zlAoZRL7P3ILoHq8VL7OWZwrhntU79f6q3afO3QtD2xZgeXmNMTNaUI4t0e9AkfR4zbjWYPu8brMImOdYSHvshwGlfkptnfKM2yLYWkVKyzSISfcJ29HUUU0IDdbiE9IBmuc0ccN7NFTXV6uSoYRbVO93+M5vLJfPoAJK6nkwvCPPpWR4Jj8sPV4YLRqe/twlzn55jOdKhNOtzpjCr3idkuufc+IUG8bRb5dOSxM3ugP2BqhSEIJWRCn2z8LPW/IPoB5po/7IhW4s/Kq/OKBeb8u49WNG0TBfcdEhWTZeoIUenHF1Zz0VonrqS4TBVtFzRXKhINpaEYJ+ajZForyuaJ1WPK2NnV3ilWa6DvGnl3HURfG41GThQ2eMhUcBD0ZEglKRSrqaQNIo5WlAZjU5kNrqBn52hsQ/3sudpfmh5aRmi0oe5/1qYV
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(346002)(136003)(376002)(39860400002)(396003)(36840700001)(46966006)(40470700004)(110136005)(54906003)(86362001)(41300700001)(36756003)(82740400003)(356005)(81166007)(34020700004)(36860700001)(316002)(83380400001)(2616005)(82310400005)(6666004)(2906002)(5660300002)(8676002)(1076003)(70586007)(26005)(426003)(336012)(186003)(70206006)(7696005)(7416002)(478600001)(8936002)(40480700001)(40460700003)(47076005)(4326008)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jul 2022 14:09:05.4823 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2e5d17fd-e897-4e00-8ae0-08da5dc6c171
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT052.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1549
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Sunil-kumar.Dommati@amd.com, Lucas Tanure <tanureal@opensource.cirrus.com>,
- Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
- open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Alexander.Deucher@amd.com,
- zhuning@everest-semi.com, Julian Braha <julianbraha@gmail.com>,
- Daniel Baluta <daniel.baluta@nxp.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
+Cc: Tom Rix <trix@redhat.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -145,60 +116,75 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Enable machine driver build for Jadeite platform using ES8336 Codec.
+sparse reports
+sound/pci/hda/patch_cs8409-tables.c:79:25: warning: symbol 'cs8409_cs42l42_pincfgs_no_dmic' was not declared. Should it be static?
 
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+cs8409_cs42l42_pincfgs_no_dmic is only used by cs8409_fixups table as an
+initializer for the hda_fixup element v.pins.  Both are defined in the
+patch_cs8408-table.c file but only cs8409_fixups is used externally in
+patch_cs8409.c.  So cs8409_cs42l42_pincfgs_no_dmic should have a static
+storage class specifier.
 
-changes since v1:
-        - Add COMPILE_TEST flag
+The other v.pins initializers in cs8409_fixups table, though declared
+extern in patch_cs8409.h are also only used in patch_cs8409-tables.c.
+So change all the v.pins initializers to static.
+
+Fixes: 9e7647b5070f ("ALSA: hda/cs8409: Move arrays of configuration to a new file")
+Signed-off-by: Tom Rix <trix@redhat.com>
 ---
- sound/soc/amd/Kconfig  | 13 +++++++++++++
- sound/soc/amd/Makefile |  2 ++
- 2 files changed, 15 insertions(+)
+ sound/pci/hda/patch_cs8409-tables.c | 6 +++---
+ sound/pci/hda/patch_cs8409.h        | 2 --
+ 2 files changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/sound/soc/amd/Kconfig b/sound/soc/amd/Kconfig
-index 1381aec23048..c373f0823462 100644
---- a/sound/soc/amd/Kconfig
-+++ b/sound/soc/amd/Kconfig
-@@ -23,6 +23,19 @@ config SND_SOC_AMD_CZ_RT5645_MACH
- 	help
- 	 This option enables machine driver for rt5645.
+diff --git a/sound/pci/hda/patch_cs8409-tables.c b/sound/pci/hda/patch_cs8409-tables.c
+index 4f4cc8215917..e0d3a8be2e38 100644
+--- a/sound/pci/hda/patch_cs8409-tables.c
++++ b/sound/pci/hda/patch_cs8409-tables.c
+@@ -68,7 +68,7 @@ const struct hda_verb cs8409_cs42l42_init_verbs[] = {
+ 	{} /* terminator */
+ };
  
-+config SND_SOC_AMD_ST_ES8336_MACH
-+	tristate "AMD ST support for ES8336"
-+	select SND_SOC_ACPI
-+	select SND_SOC_ES8316
-+	depends on SND_SOC_AMD_ACP
-+	depends on ACPI || COMPILE_TEST
-+	depends on I2C || COMPILE_TEST
-+	help
-+	 This option enables machine driver for Jadeite platform
-+	 using es8336 codec.
-+	 Say m if you have such a device.
-+	 If unsure select "N".
-+
- config SND_SOC_AMD_ACP3x
- 	tristate "AMD Audio Coprocessor-v3.x support"
- 	depends on X86 && PCI
-diff --git a/sound/soc/amd/Makefile b/sound/soc/amd/Makefile
-index 4b1f77930a4a..8823f6f28611 100644
---- a/sound/soc/amd/Makefile
-+++ b/sound/soc/amd/Makefile
-@@ -2,12 +2,14 @@
- acp_audio_dma-objs := acp-pcm-dma.o
- snd-soc-acp-da7219mx98357-mach-objs := acp-da7219-max98357a.o
- snd-soc-acp-rt5645-mach-objs := acp-rt5645.o
-+snd-soc-acp-es8336-mach-objs := acp-es8336.o
- snd-soc-acp-rt5682-mach-objs := acp3x-rt5682-max9836.o
- snd-acp-config-objs := acp-config.o
+-const struct hda_pintbl cs8409_cs42l42_pincfgs[] = {
++static const struct hda_pintbl cs8409_cs42l42_pincfgs[] = {
+ 	{ CS8409_PIN_ASP1_TRANSMITTER_A, 0x042120f0 },	/* ASP-1-TX */
+ 	{ CS8409_PIN_ASP1_RECEIVER_A, 0x04a12050 },	/* ASP-1-RX */
+ 	{ CS8409_PIN_ASP2_TRANSMITTER_A, 0x901000f0 },	/* ASP-2-TX */
+@@ -76,7 +76,7 @@ const struct hda_pintbl cs8409_cs42l42_pincfgs[] = {
+ 	{} /* terminator */
+ };
  
- obj-$(CONFIG_SND_SOC_AMD_ACP) += acp_audio_dma.o
- obj-$(CONFIG_SND_SOC_AMD_CZ_DA7219MX98357_MACH) += snd-soc-acp-da7219mx98357-mach.o
- obj-$(CONFIG_SND_SOC_AMD_CZ_RT5645_MACH) += snd-soc-acp-rt5645-mach.o
-+obj-$(CONFIG_SND_SOC_AMD_ST_ES8336_MACH) += snd-soc-acp-es8336-mach.o
- obj-$(CONFIG_SND_SOC_AMD_ACP3x) += raven/
- obj-$(CONFIG_SND_SOC_AMD_RV_RT5682_MACH) += snd-soc-acp-rt5682-mach.o
- obj-$(CONFIG_SND_SOC_AMD_RENOIR) += renoir/
+-const struct hda_pintbl cs8409_cs42l42_pincfgs_no_dmic[] = {
++static const struct hda_pintbl cs8409_cs42l42_pincfgs_no_dmic[] = {
+ 	{ CS8409_PIN_ASP1_TRANSMITTER_A, 0x042120f0 },	/* ASP-1-TX */
+ 	{ CS8409_PIN_ASP1_RECEIVER_A, 0x04a12050 },	/* ASP-1-RX */
+ 	{ CS8409_PIN_ASP2_TRANSMITTER_A, 0x901000f0 },	/* ASP-2-TX */
+@@ -279,7 +279,7 @@ const struct hda_verb dolphin_init_verbs[] = {
+ 	{} /* terminator */
+ };
+ 
+-const struct hda_pintbl dolphin_pincfgs[] = {
++static const struct hda_pintbl dolphin_pincfgs[] = {
+ 	{ 0x24, 0x022210f0 }, /* ASP-1-TX-A */
+ 	{ 0x25, 0x010240f0 }, /* ASP-1-TX-B */
+ 	{ 0x34, 0x02a21050 }, /* ASP-1-RX */
+diff --git a/sound/pci/hda/patch_cs8409.h b/sound/pci/hda/patch_cs8409.h
+index 260388a6256c..2a8dfb4ff046 100644
+--- a/sound/pci/hda/patch_cs8409.h
++++ b/sound/pci/hda/patch_cs8409.h
+@@ -358,13 +358,11 @@ extern const struct snd_pci_quirk cs8409_fixup_tbl[];
+ extern const struct hda_model_fixup cs8409_models[];
+ extern const struct hda_fixup cs8409_fixups[];
+ extern const struct hda_verb cs8409_cs42l42_init_verbs[];
+-extern const struct hda_pintbl cs8409_cs42l42_pincfgs[];
+ extern const struct cs8409_cir_param cs8409_cs42l42_hw_cfg[];
+ extern const struct cs8409_cir_param cs8409_cs42l42_bullseye_atn[];
+ extern struct sub_codec cs8409_cs42l42_codec;
+ 
+ extern const struct hda_verb dolphin_init_verbs[];
+-extern const struct hda_pintbl dolphin_pincfgs[];
+ extern const struct cs8409_cir_param dolphin_hw_cfg[];
+ extern struct sub_codec dolphin_cs42l42_0;
+ extern struct sub_codec dolphin_cs42l42_1;
 -- 
-2.25.1
+2.27.0
 

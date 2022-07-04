@@ -2,63 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF0D4564B7A
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Jul 2022 04:06:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 490FD564CF5
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Jul 2022 07:37:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3C89D16EC;
-	Mon,  4 Jul 2022 04:05:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C89D16EC
+	by alsa0.perex.cz (Postfix) with ESMTPS id C7A7E16D5;
+	Mon,  4 Jul 2022 07:36:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7A7E16D5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656900377;
-	bh=i3qtRa0iND3I6oGe86IoiTkxNlagMAZlF36qA266hQQ=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1656913060;
+	bh=AWMVX+RQSTQTEGX1c33ORYkNFmnocumuLpJzoc6tgsU=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Csp2/LNQw1+C6eU4EQvB5oKiMXkwgmqWbuILvfsvxzAzPeDa+VbLSRlgtPIepgpsH
-	 Ge+jpZKGnaUj+Yv3w7D4KB5NyB3sO/4xmx8DiAGQ+nX1Dz/8qg+CIBoiOURyB6OSlW
-	 JVu1Eraar8bRqEuXGgi7/olkr794sIopUko3J27A=
+	b=d50+mPR9VWn0FCFACXOvHF/IwlH0dXP/ln1VXNOfgefMgj7HM2qAtHAMmk37XDFjz
+	 rNxJda2Kj6LSMnpZ4Ro+XBal83WstAOs1gZC0/YEjp6R5nSM2SZCSgeseeK4aeW+11
+	 ULw7nj39nkT8WTtCGNDJFpCdd0jofoGmxag/SsL8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AE3E4F80165;
-	Mon,  4 Jul 2022 04:05:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 36A90F80165;
+	Mon,  4 Jul 2022 07:36:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 107FAF800ED; Mon,  4 Jul 2022 04:05:13 +0200 (CEST)
+ id 06370F8014E; Mon,  4 Jul 2022 07:36:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 50632F80139
+ for <alsa-devel@alsa-project.org>; Mon,  4 Jul 2022 07:36:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50632F80139
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="cmpRAt3Y"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EB20DF800ED
- for <alsa-devel@alsa-project.org>; Mon,  4 Jul 2022 04:05:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB20DF800ED
-Received: from inva021.nxp.com (localhost [127.0.0.1])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 74DFB202CC0;
- Mon,  4 Jul 2022 04:05:07 +0200 (CEST)
-Received: from aprdc01srsp001v.ap-rdc01.nxp.com
- (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 2C1AF202CBA;
- Mon,  4 Jul 2022 04:05:07 +0200 (CEST)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id E98A9180222D;
- Mon,  4 Jul 2022 10:05:05 +0800 (+08)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
- shengjiu.wang@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
- perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org
-Subject: [PATCH 2/2] ASoC: fsl_asrc_dma: Add legacy_dai_naming flag
-Date: Mon,  4 Jul 2022 09:50:17 +0800
-Message-Id: <1656899417-4775-2-git-send-email-shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1656899417-4775-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1656899417-4775-1-git-send-email-shengjiu.wang@nxp.com>
-X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+ by ams.source.kernel.org (Postfix) with ESMTPS id 9BAA0B80D1F;
+ Mon,  4 Jul 2022 05:36:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E9BEC341CB;
+ Mon,  4 Jul 2022 05:36:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1656912989;
+ bh=AWMVX+RQSTQTEGX1c33ORYkNFmnocumuLpJzoc6tgsU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=cmpRAt3YRyvIARLOi1wDwNvirn01XSmWvSZNv+nQg/PAdDCXVa5hVDUF55+7n/7bG
+ JTnSOKFNJekGZgekZ1785kN/y8iLkjWf28Xg//Sfap8EfL4UFF4Gssurp07zZyw9tC
+ rKO/aXE6XOZpMqTj3jWgdBCuAa6I5pkdEIDbLk3fDNslDqzx4NjkwkuBrMVepkOsK+
+ ePDBb7u47LKIwqSJqD9EZv37BEqIul+aggurzAv7OIkPlO/qUq+eH6/UPPxOyni5nL
+ 7+BvwudXZoISgJTizVhCLhXfC1dDkPM1gJsv24kAI5IfNdsuS656Au+XXfCKhWtg1z
+ 1MFheJbsWkZqA==
+Date: Mon, 4 Jul 2022 11:06:24 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+Subject: Re: [RESEND v5 2/2] ASoC: qcom: soundwire: Enable software clock
+ gating requirement flag
+Message-ID: <YsJ8WHgiybU0cQP/@matsya>
+References: <1656659827-27450-1-git-send-email-quic_srivasam@quicinc.com>
+ <1656659827-27450-3-git-send-email-quic_srivasam@quicinc.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1656659827-27450-3-git-send-email-quic_srivasam@quicinc.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ quic_rohkumar@quicinc.com, linux-arm-msm@vger.kernel.org, swboyd@chromium.org,
+ tiwai@suse.com, agross@kernel.org, robh+dt@kernel.org, lgirdwood@gmail.com,
+ broonie@kernel.org, srinivas.kandagatla@linaro.org, bgoswami@quicinc.com,
+ quic_plai@quicinc.com, bjorn.andersson@linaro.org, judyhsiao@chromium.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,27 +91,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Need to add legacy_dai_naming flag otherwise there
-will be issue when registerring component, that cause
-the probe failure.
+On 01-07-22, 12:47, Srinivasa Rao Mandadapu wrote:
+> Enable software clock gating flag in private data for SC7280
+> based platforms, which are soundwire 1.6.0 version based.
 
-Fixes: 1e63fcc74ace ("ASoC: fsl: Migrate to new style legacy DAI naming flag")
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
----
- sound/soc/fsl/fsl_asrc_dma.c | 1 +
- 1 file changed, 1 insertion(+)
+why is this tagged ASoC... ???
 
-diff --git a/sound/soc/fsl/fsl_asrc_dma.c b/sound/soc/fsl/fsl_asrc_dma.c
-index 33eabb96340e..12ddf2320f2d 100644
---- a/sound/soc/fsl/fsl_asrc_dma.c
-+++ b/sound/soc/fsl/fsl_asrc_dma.c
-@@ -455,5 +455,6 @@ struct snd_soc_component_driver fsl_asrc_component = {
- 	.close		= fsl_asrc_dma_shutdown,
- 	.pointer	= fsl_asrc_dma_pcm_pointer,
- 	.pcm_construct	= fsl_asrc_dma_pcm_new,
-+	.legacy_dai_naming = 1,
- };
- EXPORT_SYMBOL_GPL(fsl_asrc_component);
+I have fixed it up while applying
+
 -- 
-2.17.1
-
+~Vinod

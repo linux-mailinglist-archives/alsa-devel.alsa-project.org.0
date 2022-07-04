@@ -2,74 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6799565A85
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Jul 2022 17:59:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EBB0565A86
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Jul 2022 17:59:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3F6DD83E;
-	Mon,  4 Jul 2022 17:58:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F6DD83E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1A35E172C;
+	Mon,  4 Jul 2022 17:59:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A35E172C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656950379;
-	bh=MO8VLmEsa10TXb0niZfJ37gMR3mLm6mkIOg+GspfIJA=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1656950398;
+	bh=sJPtODs8e7CE/TqDOZ/dlaycf1N0uI8bA5H6NOBLPgI=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ev462Z9csLBiGaWttCmVKO/jdYlLmSqJxHgeWKSN2hAa5UyA/0OThdVb/ITXIFm+9
-	 e6yfOxJX5Y13SPdu+c3Gpjz19biMDE05TdwXEY7HjWukYnRvBKRhND++Lm/NddTEMG
-	 8T0528VdG+2d70+ygUIqpV3S5FjBC5m0VeaKumhU=
+	b=OPbqaRjTIAJvEyoP/rc8K2P2/2TnGsmvjXd3/vTMj5c1D9mgvA5Ok97Vss2UxIQaO
+	 OzQ9eA77y9kI1yzz9qLYw+y/OYxFnPQnyO32lsYuPQaDnk9GZ5BGaVnTgU9BKcVsMW
+	 wVpEDsvuvppWL+3f/I0Tzez4XzlRmKgsf5nlIiLY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 390DFF80542;
+	by alsa1.perex.cz (Postfix) with ESMTP id B833EF8054A;
 	Mon,  4 Jul 2022 17:57:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A99FFF800ED; Mon,  4 Jul 2022 17:57:56 +0200 (CEST)
+ id 0BFB3F8053E; Mon,  4 Jul 2022 17:57:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 800D7F800ED
- for <alsa-devel@alsa-project.org>; Mon,  4 Jul 2022 17:57:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 800D7F800ED
+ by alsa1.perex.cz (Postfix) with ESMTPS id A3F87F80538
+ for <alsa-devel@alsa-project.org>; Mon,  4 Jul 2022 17:57:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3F87F80538
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="iwY0sEmK"
+ header.b="H6wQDXAm"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 7D698B8114B;
- Mon,  4 Jul 2022 15:57:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8477C341C7;
- Mon,  4 Jul 2022 15:57:47 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 3836460EB9;
+ Mon,  4 Jul 2022 15:57:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5CDFC3411E;
+ Mon,  4 Jul 2022 15:57:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1656950269;
- bh=MO8VLmEsa10TXb0niZfJ37gMR3mLm6mkIOg+GspfIJA=;
- h=From:To:In-Reply-To:References:Subject:Date:From;
- b=iwY0sEmKe6l8I24UGOESMbwBXEomOqlj9/ht+9Fq5tKtOy13c8eEe3HtLgan6AsVU
- 2aCUoUL+gDEQYgf04dSO+TeGuOrdMQAIO/pKq7cYqaS/SYWqvc+lNRegjcWB4aljdD
- vwyeTNHIf17NSlo0TQ54pGjfYSP9PV4HYHIhOtiTC+l6AzSiCcrQc3v3Jjof4CRTCS
- 5TJFg8Vp8CdECL/55XezlpOh/ig12E7LXfmcZBoGnn5eXG21XNkp3t9oHkbRWYrV6b
- wp2lQ12sexh0MBQ7moKBAK+dUP+wF6XJn8toYCWrQD3v1KAdjlhP3ilRycAoTtWtXb
- pSkB5LdpYTWTQ==
+ s=k20201202; t=1656950270;
+ bh=sJPtODs8e7CE/TqDOZ/dlaycf1N0uI8bA5H6NOBLPgI=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=H6wQDXAmT/dhA4lSI0BSUuKRFfhRch+HRrK/Dx1890QxbpNkEUHnsy9KBRDoqzuFW
+ 6yhk5QYcDcvx7f3I+2o66CFZmwLUROy6+X3t/Go6lEOt6uXortfNjm/mphQiFLI2M6
+ sFlM7osS2yPqynx8lyvdcyXkwHxaGvgihcAZC1HAapUjEPvl3MBRQYEjomHI0eMQu0
+ UhmpQvQN2El2iu451knYLxICLUHWApF9NixKEdchj/RDfDa6leDl0Kv4o53jsUs30R
+ BgpVHgMyUqSEIv7smYO5hr0IUkxwLp7c5vHmds/CvXg4Phm8Vhbm1b4CgdlAMGlA+y
+ HwBDJCIDAZYmA==
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, srinivas.kandagatla@linaro.org, windhl@126.com,
- linmq006@gmail.com, alsa-devel@alsa-project.org, perex@perex.cz,
- tiwai@suse.com
-In-Reply-To: <20220702020109.263980-1-windhl@126.com>
-References: <20220702020109.263980-1-windhl@126.com>
-Subject: Re: [PATCH] sound: qcom: Fix missing of_node_put() in
- asoc_qcom_lpass_cpu_platform_probe()
-Message-Id: <165695026753.481068.539030675339287717.b4-ty@kernel.org>
-Date: Mon, 04 Jul 2022 16:57:47 +0100
+To: linux-kernel@vger.kernel.org, yangyingliang@huawei.com,
+ alsa-devel@alsa-project.org
+In-Reply-To: <20220704075134.26230-1-yangyingliang@huawei.com>
+References: <20220704075134.26230-1-yangyingliang@huawei.com>
+Subject: Re: [PATCH -next] ASoC: fsl: pcm030-audio-fabric: use
+ platform_device_unregsiter()
+Message-Id: <165695026945.481068.10391765558423256612.b4-ty@kernel.org>
+Date: Mon, 04 Jul 2022 16:57:49 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Cc: lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,9 +86,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 2 Jul 2022 10:01:09 +0800, Liang He wrote:
-> We should call of_node_put() for the reference 'dsp_of_node' returned by
-> of_parse_phandle() which will increase the refcount.
+On Mon, 4 Jul 2022 15:51:34 +0800, Yang Yingliang wrote:
+> Replace platform_device_del/put() with platform_device_unregsiter()
+> to simplify code.
 > 
 > 
 
@@ -97,8 +98,8 @@ Applied to
 
 Thanks!
 
-[1/1] sound: qcom: Fix missing of_node_put() in asoc_qcom_lpass_cpu_platform_probe()
-      commit: f507c0c67dac57d2bcd5dcae4b6139b0305d8957
+[1/1] ASoC: fsl: pcm030-audio-fabric: use platform_device_unregsiter()
+      commit: 679139ea62e3e78542cd409c2437ac1da9f31026
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,92 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CF2256549D
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Jul 2022 14:13:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7069A5665B7
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jul 2022 11:00:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 967241715;
-	Mon,  4 Jul 2022 14:12:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 967241715
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9848A16C3;
+	Tue,  5 Jul 2022 10:59:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9848A16C3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656936819;
-	bh=CKYC8LgYp3PSj8sXCmdoBwFGhAFYIXBmoPYjCPBlScg=;
+	s=default; t=1657011619;
+	bh=SRW0tQcSoOXK/hAJ3I3SM333+ERcODiRofpC7JgNC3o=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ogm0wpA9fWMz6nKgxNLltw8ICV603cwacJAfw0K8MN19KF4wOj4sOJGcno6+jeTdN
-	 c+dqmT4JzmRS2Zf6mXzyY/8af8d5FmqxstA1PXG9+H2ml0Mlmh32MhgUvxjogzFSPB
-	 7ruWu5vE4NnOa6T9v0nwa6trcDrge0hVn6GsPhk0=
+	b=QZt5AQcmz1DGPS8AmkdoEgBJE7hPc7QroR4LWkjeU+xgCdQnfHakubgHiN6pyXjDX
+	 fZaLyo2iHi7QNvDgVta6Y9Jr19XG8NwPKGO3jwDtvSbiNh4GaHfrtBOpzj2k1VHdSA
+	 GrlsT3V+qLBSswPav1nnoWmTimRs9FoDWC8qjKEM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 050F2F80165;
-	Mon,  4 Jul 2022 14:12:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 31766F80212;
+	Tue,  5 Jul 2022 10:59:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4A33FF8012A; Mon,  4 Jul 2022 14:12:38 +0200 (CEST)
+ id 1EA73F8014E; Mon,  4 Jul 2022 14:22:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4F37EF8012A
- for <alsa-devel@alsa-project.org>; Mon,  4 Jul 2022 14:12:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F37EF8012A
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
+ FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from m1564.mail.126.com (m1564.mail.126.com [220.181.15.64])
+ by alsa1.perex.cz (Postfix) with ESMTP id C4F79F8012A
+ for <alsa-devel@alsa-project.org>; Mon,  4 Jul 2022 14:22:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4F79F8012A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="WEiQUkey"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="HTB+NYqf"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 13586225ED;
- Mon,  4 Jul 2022 12:12:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1656936752; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ax8Is2DyCle/g94ag0zEkK1UqvD95AjNVHCt0WIOo34=;
- b=WEiQUkeyZbfpf3/0QfLDGV+mDx/uuNPtYJYi3oemCMPMdxEK+CNoz5Kk2hofJ/j/0nkalt
- k6C9C8LA5pSMiXkIgScIonmAhGkLyI6HLLmE+kAz8RDQBxKLDbXW8EV0JaF40n2+a005Du
- rxPrOcM3MG9//aob2cCq6GDlbXVunjc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1656936752;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ax8Is2DyCle/g94ag0zEkK1UqvD95AjNVHCt0WIOo34=;
- b=HTB+NYqfZ1jvEBlgB6ui+7dOl6e9CyeAF9OHifs3t9MJYBCbySa+X/xfNxwDjOCqcnM59t
- VsJ+9qKao7aLuFBQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D095E13451;
- Mon,  4 Jul 2022 12:12:31 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id TBEuMi/ZwmIHJQAAMHmgww
- (envelope-from <tiwai@suse.de>); Mon, 04 Jul 2022 12:12:31 +0000
-Date: Mon, 04 Jul 2022 14:12:31 +0200
-Message-ID: <875ykdyt3k.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Egor Vorontsov <sdoregor@sdore.me>
-Subject: Re: [PATCH 1/2] ALSA: usb-audio: Add quirk for Fiero SC-01
-In-Reply-To: <20220627100041.2861494-1-sdoregor@sdore.me>
-References: <20220627100041.2861494-1-sdoregor@sdore.me>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- open list <linux-kernel@vger.kernel.org>,
- Brendan Grieve <brendan@grieve.com.au>, Takashi Iwai <tiwai@suse.com>,
- William Overton <willovertonuk@gmail.com>, Alexander Tsoy <alexander@tsoy.me>,
- Jonas Hahnfeld <hahnjo@hahnjo.de>
+ dkim=fail reason="signature verification failed" (1024-bit key)
+ header.d=126.com header.i=@126.com header.b="pvxJTUsa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+ s=s110527; h=Date:From:Subject:MIME-Version:Message-ID; bh=2S/0Q
+ Ne/5GZDlUqH1ejYnly5iwK6FxvYYDJxMc9C7SY=; b=pvxJTUsaCnBpsLIKhSB/n
+ pc95Gmss5qXw3TsYvEKVNDY33T3uSRwpELFTaJXZalqiRQuKN0rLRawgPsR6t/Uy
+ CRwPSln2hJ5OGTdmsW3lyATiJSrOBi9R8IDTSKtdlllkkQL3I8VlP51JUNb7uQxt
+ wgpPwqinqwow6D7i7gj6m8=
+Received: from windhl$126.com ( [124.16.139.61] ) by ajax-webmail-wmsvr64
+ (Coremail) ; Mon, 4 Jul 2022 20:22:46 +0800 (CST)
+X-Originating-IP: [124.16.139.61]
+Date: Mon, 4 Jul 2022 20:22:46 +0800 (CST)
+From: "Liang He" <windhl@126.com>
+To: "Mark Brown" <broonie@kernel.org>
+Subject: Re:Re: [PATCH] sound: qcom: Fix missing of_node_put() in
+ asoc_qcom_lpass_cpu_platform_probe()
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version XT5.0.13 build 20220113(9671e152)
+ Copyright (c) 2002-2022 www.mailtech.cn 126com
+In-Reply-To: <YsLNPbY1snYon8xL@sirena.org.uk>
+References: <20220702020109.263980-1-windhl@126.com>
+ <YsLNPbY1snYon8xL@sirena.org.uk>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
+MIME-Version: 1.0
+Message-ID: <107379b3.7d54.181c929c397.Coremail.windhl@126.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: QMqowACntnKX28JiTTNFAA--.48372W
+X-CM-SenderInfo: hzlqvxbo6rjloofrz/1tbi2hA0F1uwMVtShQABs+
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+X-Mailman-Approved-At: Tue, 05 Jul 2022 10:59:17 +0200
+Cc: alsa-devel@alsa-project.org, bgoswami@codeaurora.org, tiwai@suse.com,
+ lgirdwood@gmail.com, srinivas.kandagatla@linaro.org, linmq006@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,41 +84,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 27 Jun 2022 12:00:34 +0200,
-Egor Vorontsov wrote:
-> 
-> Fiero SC-01 is a USB sound card with two mono inputs and a single
-> stereo output. The inputs are composed into a single stereo stream.
-> 
-> The device uses a vendor-provided driver on Windows and does not work
-> at all without it. The driver mostly provides ASIO functionality, but
-> also alters the way the sound card is queried for sample rates and
-> clocks.
-> 
-> ALSA queries those failing with an EPIPE (same as Windows 10 does).
-> Presumably, the vendor-provided driver does not query it at all, simply
-> matching by VID:PID. Thus, I consider this a buggy firmware and adhere
-> to a set of fixed endpoint quirks instead.
-> 
-> The soundcard has an internal clock. Implicit feedback mode is required
-> for the playback.
-> 
-> I have updated my device to v1.1.0 from a Windows 10 VM using a vendor-
-> provided binary prior to the development, hoping for it to just begin
-> working. The device provides no obvious way to downgrade the firmware,
-> and regardless, there's no binary available for v1.0.0 anyway.
-> 
-> Thus, I will be getting another unit to extend the patch with support
-> for that. Expected to be a simple copy-paste of the existing one,
-> though.
-> 
-> There were no previous reports of that device in context of Linux
-> anywhere. Other issues have been reported though, but that's out of the
-> scope.
-> 
-> Signed-off-by: Egor Vorontsov <sdoregor@sdore.me>
-
-Thanks, now applied both patches.
-
-
-Takashi
+CgoKQXQgMjAyMi0wNy0wNCAxOToyMTozMywgIk1hcmsgQnJvd24iIDxicm9vbmllQGtlcm5lbC5v
+cmc+IHdyb3RlOgo+T24gU2F0LCBKdWwgMDIsIDIwMjIgYXQgMTA6MDE6MDlBTSArMDgwMCwgTGlh
+bmcgSGUgd3JvdGU6Cj4+IFdlIHNob3VsZCBjYWxsIG9mX25vZGVfcHV0KCkgZm9yIHRoZSByZWZl
+cmVuY2UgJ2RzcF9vZl9ub2RlJyByZXR1cm5lZCBieQo+PiBvZl9wYXJzZV9waGFuZGxlKCkgd2hp
+Y2ggd2lsbCBpbmNyZWFzZSB0aGUgcmVmY291bnQuCj4KPlBsZWFzZSBzdWJtaXQgcGF0Y2hlcyB1
+c2luZyBzdWJqZWN0IGxpbmVzIHJlZmxlY3RpbmcgdGhlIHN0eWxlIGZvciB0aGUKPnN1YnN5c3Rl
+bSwgdGhpcyBtYWtlcyBpdCBlYXNpZXIgZm9yIHBlb3BsZSB0byBpZGVudGlmeSByZWxldmFudCBw
+YXRjaGVzLgo+TG9vayBhdCB3aGF0IGV4aXN0aW5nIGNvbW1pdHMgaW4gdGhlIGFyZWEgeW91J3Jl
+IGNoYW5naW5nIGFyZSBkb2luZyBhbmQKPm1ha2Ugc3VyZSB5b3VyIHN1YmplY3QgbGluZXMgdmlz
+dWFsbHkgcmVzZW1ibGUgd2hhdCB0aGV5J3JlIGRvaW5nLgo+VGhlcmUncyBubyBuZWVkIHRvIHJl
+c3VibWl0IHRvIGZpeCB0aGlzIGFsb25lLgoKVGhhbmtzIGZvciB5b3VyIGFkdmljZSwgSSB3aWxs
+IGZvbGxvdyB0aGlzIHJ1bGUgaW4gZnV0dXJlIHBhdGNoIHdvcmsuCgpMaWFuZyAK

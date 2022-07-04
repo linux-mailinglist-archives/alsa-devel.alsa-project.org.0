@@ -2,93 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42A69564D1B
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Jul 2022 07:40:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17CA1564D66
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Jul 2022 07:44:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B3CB016D5;
-	Mon,  4 Jul 2022 07:39:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B3CB016D5
+	by alsa0.perex.cz (Postfix) with ESMTPS id A03CE16DC;
+	Mon,  4 Jul 2022 07:43:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A03CE16DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656913241;
-	bh=BdspoA9xzqnd3jumIH7JemFKr9rrNcNW03ZTjqfY11o=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1656913466;
+	bh=7DfuY5XxRaCJ/JJc77L8f/sUPg9aXEsMmG4x+Akyq3w=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=avfjEQ2VOeDn82Ta5ZBv9xLZUfV5rh0mp9TGg9xDhNA9yV6iRTyqssdsIwT2Y+pUp
-	 A4PEwkzmx2ABUbGM1IiA2eWk6rVtD017nMpCedPsL8YxW5XgoGf30E0x+vk0HW7Vc8
-	 Tid9aXFOLqDM80aReoTxN6ADRpVWse5ezbrm4n4A=
+	b=WvezzujXuNkKVQgfcviSDeoaWE+3VEByw70LL7DQme3NWq/Ic/4YSQykZkWEYc0dR
+	 Gaz4c3jcFGqWJivqko+cVyhEzKRV4YZ8O9C5gYlTJB2dNyOjcesqDHdUIjBeVToglH
+	 IbcHtbzVL2trqiE7jMXjk2Qi7/fBHOv0rE+pr2lE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 17731F80139;
-	Mon,  4 Jul 2022 07:39:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EBD1DF80165;
+	Mon,  4 Jul 2022 07:43:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 76639F8014E; Mon,  4 Jul 2022 07:39:39 +0200 (CEST)
+ id F3483F8014E; Mon,  4 Jul 2022 07:43:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A8ABEF800ED
- for <alsa-devel@alsa-project.org>; Mon,  4 Jul 2022 07:39:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8ABEF800ED
+ by alsa1.perex.cz (Postfix) with ESMTPS id B3A44F80139
+ for <alsa-devel@alsa-project.org>; Mon,  4 Jul 2022 07:43:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3A44F80139
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="xqkKNW7u"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1656913178; x=1688449178;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=KgHIbFiQUUgKqBjKxsqEcUkfQUGl1q/bi8wR0tnF4to=;
- b=xqkKNW7uMh0IrZr7/9yor4wNV6tpnYDv0mLzVYs8f0ZEpQ+nUqiB/H3Q
- ZTUt9iqINoFwqq0VBTl9QSn3dk3KmCuhzOsXPy/MpQ+kGht36z51In8mh
- 0E1ivqnhfCtg+eh8ZmOk4AlojHJJhwZOJNeoQRUV96IDA0Gnd7Xgl+tBZ c=;
-Received: from ironmsg09-lv.qualcomm.com ([10.47.202.153])
- by alexa-out.qualcomm.com with ESMTP; 03 Jul 2022 22:39:34 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg09-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jul 2022 22:39:33 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Sun, 3 Jul 2022 22:39:32 -0700
-Received: from [10.216.21.19] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Sun, 3 Jul 2022
- 22:39:27 -0700
-Message-ID: <68c65ea9-cb54-bb5f-2296-7628e62c9cc2@quicinc.com>
-Date: Mon, 4 Jul 2022 11:09:24 +0530
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="ekLrtKc7"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0556B61460;
+ Mon,  4 Jul 2022 05:43:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87E64C3411E;
+ Mon,  4 Jul 2022 05:43:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1656913395;
+ bh=7DfuY5XxRaCJ/JJc77L8f/sUPg9aXEsMmG4x+Akyq3w=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ekLrtKc7kfUwIrnVZDU5MnNeb9hcL0VpyOERthDddi580aA0XvmNZPYDOhTRYKuV2
+ nV/UECsUw5EViHBeFl+4a6TMZTjyvNlB5l4yW1vsmuxRdLsB3PqFMgt4Jiu7hBJRV8
+ iqgs/9DCOUXeJbNUSqudYTeJDRQ4d3ow2w09cxv2O39urniJiOlUCZE41+hG/C2dkJ
+ 1NmD6IOg9+85fXgpbAUifSM6DA2ZHBuLM/4x6Vk3D5tVi1lqU6MsEETy6l3rWr41kp
+ U3IYn6hbhko40PIR6PNkc7TAbunhoQ0Zabs4Jlo7I33puv1TSSopCW7xSrfikLPyz1
+ MwSPmOmPrvNdg==
+Date: Mon, 4 Jul 2022 11:13:10 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] soundwire: bus_type: fix remove and shutdown support
+Message-ID: <YsJ97kNAmz7U+42m@matsya>
+References: <20220610015105.25987-1-yung-chuan.liao@linux.intel.com>
+ <YrQca7YH8v6XCl02@matsya>
+ <a861f3b2-dec4-982d-0939-1dfc18dd2f53@linux.intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.1
-Subject: Re: [RESEND v5 2/2] ASoC: qcom: soundwire: Enable software clock
- gating requirement flag
-Content-Language: en-US
-To: Vinod Koul <vkoul@kernel.org>
-References: <1656659827-27450-1-git-send-email-quic_srivasam@quicinc.com>
- <1656659827-27450-3-git-send-email-quic_srivasam@quicinc.com>
- <YsJ8WHgiybU0cQP/@matsya>
-From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Organization: Qualcomm
-In-Reply-To: <YsJ8WHgiybU0cQP/@matsya>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- quic_rohkumar@quicinc.com, linux-arm-msm@vger.kernel.org, swboyd@chromium.org,
- tiwai@suse.com, agross@kernel.org, robh+dt@kernel.org, lgirdwood@gmail.com,
- broonie@kernel.org, srinivas.kandagatla@linaro.org, bgoswami@quicinc.com,
- quic_plai@quicinc.com, bjorn.andersson@linaro.org, judyhsiao@chromium.org,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a861f3b2-dec4-982d-0939-1dfc18dd2f53@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org, srinivas.kandagatla@linaro.org,
+ sanyog.r.kale@intel.com, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,15 +89,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On 23-06-22, 09:54, Pierre-Louis Bossart wrote:
+> 
+> 
+> On 6/23/22 02:55, Vinod Koul wrote:
+> > On 10-06-22, 09:51, Bard Liao wrote:
+> >> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> >>
+> >> The bus sdw_drv_remove() and sdw_drv_shutdown() helpers are used
+> >> conditionally, if the driver provides these routines.
+> >>
+> >> These helpers already test if the driver provides a .remove or
+> >> .shutdown callback, so there's no harm in invoking the
+> >> sdw_drv_remove() and sdw_drv_shutdown() unconditionally.
+> > 
+> > Okay sounds good
+> > 
+> >> In addition, the current code is imbalanced with
+> >> dev_pm_domain_attach() called from sdw_drv_probe(), but
+> >> dev_pm_domain_detach() called from sdw_drv_remove() only if the driver
+> >> provides a .remove callback.
+> > 
+> > Am not sure I follow what is imbalance, pm_domain_attach/detach?
+> 
+> Yes, the dev_pm_domain_detach() is done conditionally, depending on the
+> presence of a driver .remove callback, that's not so good.
 
-On 7/4/2022 11:06 AM, Vinod Koul wrote:
-> On 01-07-22, 12:47, Srinivasa Rao Mandadapu wrote:
->> Enable software clock gating flag in private data for SC7280
->> based platforms, which are soundwire 1.6.0 version based.
-> why is this tagged ASoC... ???
-As regular habit, did this mistake. No particular intention. Will take 
-care from next time.
->
-> I have fixed it up while applying
-Thanks Vinod. Sorry for inconvenience caused.
->
+Sorry am bit confused now, this is what I have in sdw-next
+
+static int sdw_drv_remove(struct device *dev)
+{
+        struct sdw_slave *slave = dev_to_sdw_dev(dev);
+        struct sdw_driver *drv = drv_to_sdw_driver(dev->driver);
+        int ret = 0;
+
+        if (drv->remove)
+                ret = drv->remove(slave);
+
+        dev_pm_domain_detach(dev, false);
+
+        return ret;
+}
+
+I see that dev_pm_domain_detach() is called unconditionally and not
+dependent on remove method which seems right to me.
+
+The code seems same since 9251345dca24b
+
+-- 
+~Vinod

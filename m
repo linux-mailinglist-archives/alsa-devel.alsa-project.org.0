@@ -2,88 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1A3456566E
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Jul 2022 15:05:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E028A56568E
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Jul 2022 15:08:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 53F7B173B;
-	Mon,  4 Jul 2022 15:04:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53F7B173B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6C1C9173B;
+	Mon,  4 Jul 2022 15:07:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C1C9173B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656939917;
-	bh=kbkxlSfhElXX3MulM9RHni5JvV/EwbCaRSsAkhkTFvA=;
+	s=default; t=1656940082;
+	bh=olca8XCRpbHl7x5oJdS3y3l21fR4Mt7qLq2mr3FdPVM=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SMwEA9X0bat/ab01h5CNaUbvTeZ+tu/GO6Hxu+s5NKvPU9YgFw6rG4A3GDJtiBRQO
-	 ONo0Ik8hJtpe78T19536UPOz4tSNdtIUhduLBgcYAbBRWVMvRVe3UehJNT7YS1fgSf
-	 XOABPWqkVquTe4qnpQIe+sc94HoN9wMmOmKEeC0g=
+	b=N5TNXqDdWX282eZYDlnPIbCIYfJ3eY2uibGxRh4Z/bKlOMyhysdX8aTJKiaPtEqo/
+	 rCe9YFsFfq4AjWTiZ5iSup8hry9zymsbaocAE6y+6LQRTTNJ3JaVYnBnqL4orkCD6J
+	 A52FBN/A08BO+3x1zDirPtbauVqm6MYewmPAKFIo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B2C4DF80165;
-	Mon,  4 Jul 2022 15:04:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E4C9BF80165;
+	Mon,  4 Jul 2022 15:07:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ACA18F8014E; Mon,  4 Jul 2022 15:04:16 +0200 (CEST)
+ id 52405F8014E; Mon,  4 Jul 2022 15:07:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A42D4F80139
- for <alsa-devel@alsa-project.org>; Mon,  4 Jul 2022 15:04:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A42D4F80139
+ by alsa1.perex.cz (Postfix) with ESMTPS id E2804F80139
+ for <alsa-devel@alsa-project.org>; Mon,  4 Jul 2022 15:06:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2804F80139
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="fzfjWcS/"; 
+ header.b="KS/5hxmU"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="tHGgvEiC"
+ header.b="5U3SCCPi"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1A2FC22485;
- Mon,  4 Jul 2022 13:04:10 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 58E532259A;
+ Mon,  4 Jul 2022 13:06:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1656939850; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1656940018; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=hwisfMDxmbYLZKXTUgYRmnaFLzaHDoYdzCb/OJB895E=;
- b=fzfjWcS/f5XP5d+mBP9ggehsUE+NBzoYhIKq3ZTgnzJreOniT/SCCa9BgeQAuAs8K22xcj
- bSZzv0TvDd6+1h/15wwYtPWrAMhr/DLiV4JjMdTURCqOxfcfPl2tLeojSIbZNtvVU+ZnRH
- FeTsjeS0PS9IqQG60yaCoQ6MD5q9AYg=
+ bh=ataIm0Zq6B9CEOw1ev3PbEJ8Va4ZeS3Y0VY4ohIXk7w=;
+ b=KS/5hxmU+jqRS5LAravODoKdF5oluhRh6kozaHiJalEqDU1Oagi3MlGjRePEbC0Za3HN60
+ TWkGFADGD27b59VlXnz5l2JYBT4od0ILj4c0huV9LVLpuNvKi+t59aesaVkw7uCOm3joCm
+ 9SOIayOHK6t2jPL+KYsgsZIhioBqYts=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1656939850;
+ s=susede2_ed25519; t=1656940018;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=hwisfMDxmbYLZKXTUgYRmnaFLzaHDoYdzCb/OJB895E=;
- b=tHGgvEiCdKCQ61ptAjcaSyHpCJ+GFDhtFMxMObcYpI/r1s9JlxlpUxo8a8vtlHgxTmPpUb
- 5kNp3nE2CYFB19BA==
+ bh=ataIm0Zq6B9CEOw1ev3PbEJ8Va4ZeS3Y0VY4ohIXk7w=;
+ b=5U3SCCPiptND36e1ZHx4OjuF55WIDtzu3a18L2469sPj8z3jHIw/ygk2e1uwL7zwffW2lG
+ jF6vRqufdYQ/ymAA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EB98F1342C;
- Mon,  4 Jul 2022 13:04:09 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 37B7A1342C;
+ Mon,  4 Jul 2022 13:06:58 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id YA3AOEnlwmJ3OwAAMHmgww
- (envelope-from <tiwai@suse.de>); Mon, 04 Jul 2022 13:04:09 +0000
-Date: Mon, 04 Jul 2022 15:04:09 +0200
-Message-ID: <87wnctxc52.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id DsuDDPLlwmJ9PAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Mon, 04 Jul 2022 13:06:58 +0000
+Date: Mon, 04 Jul 2022 15:06:57 +0200
+Message-ID: <87v8sdxc0e.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Li kunyu <kunyu@nfschina.com>
-Subject: Re: [PATCH] sound: It seems that the code format could be cleaner
-In-Reply-To: <20220627032521.259750-1-kunyu@nfschina.com>
-References: <20220627032521.259750-1-kunyu@nfschina.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [GIT PULL] ASoC fixes for v5.19-rc3
+In-Reply-To: <20220624165321.138DDC34114@smtp.kernel.org>
+References: <20220624165321.138DDC34114@smtp.kernel.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,21 +99,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 27 Jun 2022 05:25:21 +0200,
-Li kunyu wrote:
+On Fri, 24 Jun 2022 18:53:01 +0200,
+Mark Brown wrote:
 > 
-> It seems that the condition statement and return statement could be
-> tidied up by adding blank lines.
+> The following changes since commit 2abdf9f80019e8244d3806ed0e1c9f725e50b452:
 > 
-> Signed-off-by: Li kunyu <kunyu@nfschina.com>
+>   ASoC: wm_adsp: Fix event generation for wm_adsp_fw_put() (2022-06-06 12:31:28 +0100)
+> 
+> are available in the Git repository at:
+> 
+>   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v5.19-rc3
+> 
+> for you to fetch changes up to 980555e95f7cabdc9c80a07107622b097ba23703:
+> 
+>   ASoC: madera: Fix event generation for rate controls (2022-06-24 16:22:01 +0100)
+> 
+> ----------------------------------------------------------------
+> ASoC: Fixes for v5.19
+> 
+> A collection of fixes for v5.19, quite large but nothing major - a good
+> chunk of it is more stuff that was identified by mixer-test regarding
+> event generation.
 
-Thanks for the patch.
-
-But in general we don't take such white-space only changes alone,
-unless it's a cleanup work for the other real changes.
-
-i.e. if you really work on the code to fix or enhance something, we
-are glad to take such a white-space patch as prerequisite.
+Pulled now.  Thanks.
 
 
 Takashi

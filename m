@@ -2,94 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C498565636
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Jul 2022 14:55:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1A3456566E
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Jul 2022 15:05:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BFE991731;
-	Mon,  4 Jul 2022 14:54:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BFE991731
+	by alsa0.perex.cz (Postfix) with ESMTPS id 53F7B173B;
+	Mon,  4 Jul 2022 15:04:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53F7B173B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656939324;
-	bh=+vuPD8Dh6qLNvP1GNo/5UXQZXeRZIaELiv9z14ixyA4=;
+	s=default; t=1656939917;
+	bh=kbkxlSfhElXX3MulM9RHni5JvV/EwbCaRSsAkhkTFvA=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iI0Kyl/MzvcYtsm+X884uiiqhMwiVYz+F5+GyB6tk5VJ7P7HydDFmLqfNrqTCLZbj
-	 rflEz6jS1uJPeHj6O3awO+ZJoQ1o4BCfnjQAb7PZNeYgYJzAyT8pJIVa05+M06oHse
-	 UGVJ9LekXjvsgGtiMVKVuyD+GcBZBjvsEADmj+eA=
+	b=SMwEA9X0bat/ab01h5CNaUbvTeZ+tu/GO6Hxu+s5NKvPU9YgFw6rG4A3GDJtiBRQO
+	 ONo0Ik8hJtpe78T19536UPOz4tSNdtIUhduLBgcYAbBRWVMvRVe3UehJNT7YS1fgSf
+	 XOABPWqkVquTe4qnpQIe+sc94HoN9wMmOmKEeC0g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3D36BF800ED;
-	Mon,  4 Jul 2022 14:54:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B2C4DF80165;
+	Mon,  4 Jul 2022 15:04:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 62E37F800ED; Mon,  4 Jul 2022 14:54:23 +0200 (CEST)
+ id ACA18F8014E; Mon,  4 Jul 2022 15:04:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1B21FF800ED
- for <alsa-devel@alsa-project.org>; Mon,  4 Jul 2022 14:54:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B21FF800ED
+ by alsa1.perex.cz (Postfix) with ESMTPS id A42D4F80139
+ for <alsa-devel@alsa-project.org>; Mon,  4 Jul 2022 15:04:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A42D4F80139
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="NxLozBgz"; 
+ header.b="fzfjWcS/"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="yjwDXoX0"
+ header.b="tHGgvEiC"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9D6CF1F9A7;
- Mon,  4 Jul 2022 12:54:20 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 1A2FC22485;
+ Mon,  4 Jul 2022 13:04:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1656939260; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1656939850; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=4XGtWrKEsDeW+JGhKxyDrIugLqfJ8GgE7jN3CghaDj8=;
- b=NxLozBgzOs34VQ54vidimIOWDGNz+4X1kK9nsKHdsaUEYUmvKVAKtdTk2DC6cl6Qt8GZO3
- fx7Uc4OD34OseTj1NILhvPXSlQdAuwLbcoHmw8r1IkZ6gcua43Cr3/P3HCNQYw+yxC0XWf
- i+zSurufkRSTxw7DI6RZESD04r0qUhc=
+ bh=hwisfMDxmbYLZKXTUgYRmnaFLzaHDoYdzCb/OJB895E=;
+ b=fzfjWcS/f5XP5d+mBP9ggehsUE+NBzoYhIKq3ZTgnzJreOniT/SCCa9BgeQAuAs8K22xcj
+ bSZzv0TvDd6+1h/15wwYtPWrAMhr/DLiV4JjMdTURCqOxfcfPl2tLeojSIbZNtvVU+ZnRH
+ FeTsjeS0PS9IqQG60yaCoQ6MD5q9AYg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1656939260;
+ s=susede2_ed25519; t=1656939850;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=4XGtWrKEsDeW+JGhKxyDrIugLqfJ8GgE7jN3CghaDj8=;
- b=yjwDXoX0B4ZmCPpPrg3JA3/gkzpqLAb06nFZxKousaUjn2mVySHWbgzWzJPX9Dh+6oQKEw
- E+7SSMu4RWUC+EBg==
+ bh=hwisfMDxmbYLZKXTUgYRmnaFLzaHDoYdzCb/OJB895E=;
+ b=tHGgvEiCdKCQ61ptAjcaSyHpCJ+GFDhtFMxMObcYpI/r1s9JlxlpUxo8a8vtlHgxTmPpUb
+ 5kNp3nE2CYFB19BA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6DE941342C;
- Mon,  4 Jul 2022 12:54:20 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EB98F1342C;
+ Mon,  4 Jul 2022 13:04:09 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id CcgXGvziwmLuNgAAMHmgww
- (envelope-from <tiwai@suse.de>); Mon, 04 Jul 2022 12:54:20 +0000
-Date: Mon, 04 Jul 2022 14:54:19 +0200
-Message-ID: <87y1x9xclg.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id YA3AOEnlwmJ3OwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Mon, 04 Jul 2022 13:04:09 +0000
+Date: Mon, 04 Jul 2022 15:04:09 +0200
+Message-ID: <87wnctxc52.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Subject: Re: [PATCH 10/12] docs: alsa: alsa-driver-api.rst: remove a
- kernel-doc file
-In-Reply-To: <3cd6b93b36b32ad6ae160931aaa00b20688e241a.1656759989.git.mchehab@kernel.org>
-References: <cover.1656759988.git.mchehab@kernel.org>
- <3cd6b93b36b32ad6ae160931aaa00b20688e241a.1656759989.git.mchehab@kernel.org>
+To: Li kunyu <kunyu@nfschina.com>
+Subject: Re: [PATCH] sound: It seems that the code format could be cleaner
+In-Reply-To: <20220627032521.259750-1-kunyu@nfschina.com>
+References: <20220627032521.259750-1-kunyu@nfschina.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Jonathan Corbet <corbet@lwn.net>,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
- linux-kernel@vger.kernel.org,
- Linux Doc Mailing List <linux-doc@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,47 +99,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 02 Jul 2022 13:07:42 +0200,
-Mauro Carvalho Chehab wrote:
+On Mon, 27 Jun 2022 05:25:21 +0200,
+Li kunyu wrote:
 > 
-> This file:
-> 	sound/core/compress_offload.c
+> It seems that the condition statement and return statement could be
+> tidied up by adding blank lines.
 > 
-> Doesn't define any docs, as everything is inside the header
-> file. So, drop it, in order to remove a Sphinx warning.
-> 
-> Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
+> Signed-off-by: Li kunyu <kunyu@nfschina.com>
 
-Hmm, it looks rather like that some comments (at least for exported
-functions) should be marked with kerneldoc markers instead.
+Thanks for the patch.
 
-I'm going to fix those comments.
+But in general we don't take such white-space only changes alone,
+unless it's a cleanup work for the other real changes.
 
+i.e. if you really work on the code to fix or enhance something, we
+are glad to take such a white-space patch as prerequisite.
 
-thanks,
 
 Takashi
-
-> ---
-> 
-> To avoid mailbombing on a large number of people, only mailing lists were C/C on the cover.
-> See [PATCH 00/12] at: https://lore.kernel.org/all/cover.1656759988.git.mchehab@kernel.org/
-> 
->  Documentation/sound/kernel-api/alsa-driver-api.rst | 1 -
->  1 file changed, 1 deletion(-)
-> 
-> diff --git a/Documentation/sound/kernel-api/alsa-driver-api.rst b/Documentation/sound/kernel-api/alsa-driver-api.rst
-> index d24c64df7069..3cf8eb4ecaf4 100644
-> --- a/Documentation/sound/kernel-api/alsa-driver-api.rst
-> +++ b/Documentation/sound/kernel-api/alsa-driver-api.rst
-> @@ -86,7 +86,6 @@ Compress Offload
->  
->  Compress Offload API
->  --------------------
-> -.. kernel-doc:: sound/core/compress_offload.c
->  .. kernel-doc:: include/uapi/sound/compress_offload.h
->  .. kernel-doc:: include/uapi/sound/compress_params.h
->  .. kernel-doc:: include/sound/compress_driver.h
-> -- 
-> 2.36.1
-> 

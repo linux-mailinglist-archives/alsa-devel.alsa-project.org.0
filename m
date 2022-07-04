@@ -2,77 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 999C1565333
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Jul 2022 13:22:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EC3A5653F7
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Jul 2022 13:44:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 079251716;
-	Mon,  4 Jul 2022 13:21:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 079251716
+	by alsa0.perex.cz (Postfix) with ESMTPS id 95FD0175F;
+	Mon,  4 Jul 2022 13:43:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95FD0175F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1656933764;
-	bh=54G0TnkyP3R/V8HJ55+lpVcBMr9dRxIZvwXjUc/RfmY=;
+	s=default; t=1656935063;
+	bh=gzb1hQ5vKWSQOO8RXazjatCcAPCmdkfD+C8CUvHQh+k=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=k3mEdMrtMUx7FPcPVkAaDNz2huILhLq48jev6NnQVZy5+bw290Z2/e8koRUO/+37y
-	 0yFKG6XxAf2hGcp5vmjZuYbRHsxcE926EPyGoRW/jhScLD3XhPBEjORHMj1c+uSJVR
-	 XqkseYCCrXSzSxa6Vf8M7jZL40Uws5TAzS8Ki5vk=
+	b=ow0Diw1QgC6XHwPTwINw686RtU2ADtOvW7tashmOb57eyObhwBM7IeLbNkfs1cR/E
+	 EjE/FIifgsH+y7xI16AXqW0164hJKHFeimKz+0t+DrO7xIBiofHAy0MzrNxKvAnC8G
+	 WFMGEL6tQy46oytp+3LHviAOpVazKx43IR6Sn8Sw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E232F8016E;
-	Mon,  4 Jul 2022 13:21:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 18259F80165;
+	Mon,  4 Jul 2022 13:43:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4C48BF8014E; Mon,  4 Jul 2022 13:21:43 +0200 (CEST)
+ id 582D9F8012A; Mon,  4 Jul 2022 13:43:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 151E0F800ED
- for <alsa-devel@alsa-project.org>; Mon,  4 Jul 2022 13:21:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 151E0F800ED
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9D40AF8012A
+ for <alsa-devel@alsa-project.org>; Mon,  4 Jul 2022 13:43:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D40AF8012A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="bsMg+1nN"
+ header.b="igIXP3QQ"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id B4AF4B80ECF;
- Mon,  4 Jul 2022 11:21:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A9ABC3411E;
- Mon,  4 Jul 2022 11:21:36 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id BD07B60AE0;
+ Mon,  4 Jul 2022 11:43:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEB0BC3411E;
+ Mon,  4 Jul 2022 11:43:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1656933698;
- bh=54G0TnkyP3R/V8HJ55+lpVcBMr9dRxIZvwXjUc/RfmY=;
+ s=k20201202; t=1656934996;
+ bh=gzb1hQ5vKWSQOO8RXazjatCcAPCmdkfD+C8CUvHQh+k=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=bsMg+1nNSbZ0ds8EUOpB2EK0KIXuT+zkJRlJFa+WBg3sPTe1CH4Zy0zuET/dNVv/J
- 2mS/qUZd+Sa9e95bjch0pRqLpvEKBxilUnA2nPvPdnShVMPMiM0xSkvkvfrgmRSh34
- SFBgo+UgUzHIMieyPeSwqORy0clK+xrrLd3mwej2/hIpnxzA2bWjtOMMBixuUuCJyk
- ummwvgoV0hXTN2rB3+Bv3mFPZywPWKrngXb6gAnKZsQOpsuO6B1d2zXEcXeCsprB+N
- MEi/aRZoFhtaL4n4S7DYDKG+YIiv4SIU4rzbIx10ykR0Cb0HDwTvEmnzoxoMoxp8RL
- i1X4ndXI5S5Ew==
-Date: Mon, 4 Jul 2022 12:21:33 +0100
+ b=igIXP3QQYKP/cgYrUPGUsirKX/WK+/Nkq1DMWjjTJ5uVPIyVreeC7dkFuoSgcGcFl
+ diuGxHsDqPKJ87hYRq3PHz5bNPkYchqxFufjy8rYYH3lgc9eM/Vm6nBkdK/wMJOYXp
+ bIP+063gWA3qahwV5rwFrJ1ka593C01oCAmRNQd+qU+Vvw3cZ4h/scxNTe/HfS8rwQ
+ eLsrbNtOq1QhdrD1sGynmf2bNNSAOdR2hEsedd9XH3OEuuFRjvVfQGLHsCQ4XsRKEC
+ dPqfXtCGkEXIrGmmuv/6Wnqm3/cYILbQ/re8bt/sfMaoEgLc/qgZ4maWheRUncTjh9
+ XzA8f2GnOsObQ==
+Date: Mon, 4 Jul 2022 12:43:11 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Liang He <windhl@126.com>
-Subject: Re: [PATCH] sound: qcom: Fix missing of_node_put() in
- asoc_qcom_lpass_cpu_platform_probe()
-Message-ID: <YsLNPbY1snYon8xL@sirena.org.uk>
-References: <20220702020109.263980-1-windhl@126.com>
+To: Raphael-Xu <13691752556@139.com>
+Subject: Re: [PATCH v1] add tas2780
+Message-ID: <YsLST3BACPFak2PK@sirena.org.uk>
+References: <20220704104759.21083-1-13691752556@139.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="vv7KQyG7fjVMMpCV"
+ protocol="application/pgp-signature"; boundary="osNu5PyZsE+uALZN"
 Content-Disposition: inline
-In-Reply-To: <20220702020109.263980-1-windhl@126.com>
+In-Reply-To: <20220704104759.21083-1-13691752556@139.com>
 X-Cookie: MERYL STREEP is my obstetrician!
-Cc: alsa-devel@alsa-project.org, bgoswami@codeaurora.org, tiwai@suse.com,
- lgirdwood@gmail.com, srinivas.kandagatla@linaro.org, linmq006@gmail.com
+Cc: navada@ti.com, alsa-devel@alsa-project.org, shenghao-ding@ti.com,
+ raphael-xu@ti.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,33 +87,144 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---vv7KQyG7fjVMMpCV
+--osNu5PyZsE+uALZN
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Sat, Jul 02, 2022 at 10:01:09AM +0800, Liang He wrote:
-> We should call of_node_put() for the reference 'dsp_of_node' returned by
-> of_parse_phandle() which will increase the refcount.
+On Mon, Jul 04, 2022 at 06:47:59PM +0800, Raphael-Xu wrote:
 
-Please submit patches using subject lines reflecting the style for the
-subsystem, this makes it easier for people to identify relevant patches.
-Look at what existing commits in the area you're changing are doing and
-make sure your subject lines visually resemble what they're doing.
-There's no need to resubmit to fix this alone.
+> 1.update Kconfig and Makefile 2.add tas2780.c and tas2780.h
 
---vv7KQyG7fjVMMpCV
+This looks pretty good, there's some mostly stylistic things below but
+they're all fairly minor and you also need to provide documentation for
+the DT binding.
+
+>  snd-soc-tas2562-objs := tas2562.o
+>  snd-soc-tas2764-objs := tas2764.o
+> +snd-soc-tas2780-objs := tas2780.o
+>  # Mux
+
+Please preserve these blank lines here.
+
+> +	ret = snd_soc_component_update_bits(component, TAS2780_PWR_CTRL,
+> +					    TAS2780_PWR_CTRL_MASK,
+> +					    TAS2780_PWR_CTRL_SHUTDOWN);
+> +	if (ret < 0) {
+> +		pr_err("%s:errCode:0x%0x:power down error\n",
+> +			__func__, ret);
+
+dev_err(), and the style used in the log message doesn't really match
+the typical kernel style at all.
+
+> +		goto EXIT;
+
+Labels should generally be lower case.
+
+> +static int tas2780_dac_event(struct snd_soc_dapm_widget *w,
+> +			     struct snd_kcontrol *kcontrol, int event)
+> +{
+> +	struct snd_soc_component *component =
+> +		snd_soc_dapm_to_component(w->dapm);
+> +	struct tas2780_priv *tas2780 =
+> +		snd_soc_component_get_drvdata(component);
+> +	int ret = 0;
+> +
+> +	switch (event) {
+> +	case SND_SOC_DAPM_POST_PMU:
+> +		ret = snd_soc_component_update_bits(component,
+> +						TAS2780_PWR_CTRL,
+> +						TAS2780_PWR_CTRL_MASK,
+> +						TAS2780_PWR_CTRL_MUTE);
+> +		break;
+> +	case SND_SOC_DAPM_PRE_PMD:
+> +		ret = snd_soc_component_update_bits(component,
+> +						TAS2780_PWR_CTRL,
+> +						TAS2780_PWR_CTRL_MASK,
+> +						TAS2780_PWR_CTRL_SHUTDOWN);
+> +		break;
+
+This looks like it should perhaps be a mute_stream operation while...
+
+> +static int tas2780_mute(struct snd_soc_dai *dai, int mute, int direction)
+> +{
+> +	struct snd_soc_component *component = dai->component;
+> +	struct tas2780_priv *tas2780 =
+> +		snd_soc_component_get_drvdata(component);
+> +	int ret = 0;
+> +
+> +	if (!mute) {
+> +		ret = snd_soc_component_update_bits(component,
+> +			TAS2780_CLK_CFG, TAS2780_CLK_CFG_MASK,
+> +			TAS2780_CLK_CFG_ENABLE);
+> +
+> +		if (ret < 0) {
+> +			dev_err(tas2780->dev,
+> +				"%s: Failed to CLK_CFG_ENABLE\n",
+> +				__func__);
+> +			goto EXIT;
+> +		}
+> +	}
+> +	ret = snd_soc_component_update_bits(component, TAS2780_PWR_CTRL,
+> +		TAS2780_PWR_CTRL_MASK,
+> +		mute ? TAS2780_PWR_CTRL_MUTE : 0);
+
+...this is managing clocks which doesn't look like what I'd expect for a
+mute operation, that should probably be part of the power management
+(either a DAPM supply or in the bias level handling)?
+
+> +
+> +	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
+> +	case SND_SOC_DAIFMT_I2S:
+> +	case SND_SOC_DAIFMT_DSP_A:
+> +		iface = TAS2780_TDM_CFG2_SCFG_I2S;
+> +		tdm_rx_start_slot = 1;
+> +		break;
+> +	case SND_SOC_DAIFMT_DSP_B:
+> +	case SND_SOC_DAIFMT_LEFT_J:
+> +		iface = TAS2780_TDM_CFG2_SCFG_LEFT_J;
+> +		tdm_rx_start_slot = 0;
+> +		break;
+
+This doesn't seem right - it's using exactly the same configuration for
+multiple DAI formats.
+
+> +static bool tas2780_volatile(struct device *dev,
+> +	unsigned int reg)
+> +{
+> +			return true;
+> +}
+
+Just don't specify a cache.
+
+> +static int tas2780_parse_dt(struct device *dev, struct tas2780_priv *tas2780)
+> +{
+> +	int ret = 0;
+> +
+> +	tas2780->reset_gpio = devm_gpiod_get_optional(tas2780->dev, "reset",
+> +		GPIOD_OUT_HIGH);
+> +	if (IS_ERR(tas2780->reset_gpio)) {
+> +		if (PTR_ERR(tas2780->reset_gpio) == -EPROBE_DEFER) {
+> +			tas2780->reset_gpio = NULL;
+> +			return -EPROBE_DEFER;
+> +		}
+> +	}
+
+This has a DT binding but there's no DT binding document, any new DT
+bindings need to be documented.
+
+--osNu5PyZsE+uALZN
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmLCzTwACgkQJNaLcl1U
-h9CVjQf/Yo5Yr/xqNFXCTcfhWs32jaM5WoATcxPluLUk1qLv7dstAUnF+xjLoLht
-OIk1tnOnB5xUrIHP1TzB1EG6xBzdGZyoX/WVpvWUgObmuZZMgOPZV7VgrafEZ9oD
-cxnPLU0tlctu4rfN1cVaAub/04BDarDNrkAa/BXLBsut0FQ+kM1F9cobf/zr6nEd
-r1Qu0R5qC3NvS7c21vhebjDv/Y7PUzH4U3cVb2NbyUEATErAhb1D6+J4h6f6x9wi
-ThHwseLpRSiTKVUJajD0fkJsg4oS7+UJEKQOUkDjmZnNR0gcNFrn8SMh19qSzZDu
-jsImdimn1FCzAe6Gg1APzps0sKLqkA==
-=wHQj
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmLC0k4ACgkQJNaLcl1U
+h9DPwAf9ED5g1AOo1S+5Pa/9rkePTil/Yb+za/yRRJREwdA8QVnHcLGD5oWe0Z0d
+mYsvR/qZHvnwunO3WDYMDYH6BDmjrfyrQnsZnjLee93caD+F7GGj7z8MYpETbHPl
+P3WuqpXVH/4ihkthvJQear3bSYTrlitIDL2oodkb798HRxkNAVD0RNh7T5rly1E9
+kW8Nq9GV3F7yDYOab6l++PA3J4FA84BDy6JgTq4ma9QdD6AwqIrkJnDoIN8zZgSL
+YIBuQmzafkBh69QwDgSB+Tc2q/Qu3jAfdfRO1z6t0VheCrOebAhBWqNRG3iVCUD+
+eO/yqNIRkZFYH+Rh/bDtBJwqWVjgaA==
+=W76u
 -----END PGP SIGNATURE-----
 
---vv7KQyG7fjVMMpCV--
+--osNu5PyZsE+uALZN--

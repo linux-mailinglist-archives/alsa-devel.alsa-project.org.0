@@ -2,80 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77A8156738C
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jul 2022 17:53:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49AFF5673A5
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jul 2022 17:59:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E200016B8;
-	Tue,  5 Jul 2022 17:52:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E200016B8
+	by alsa0.perex.cz (Postfix) with ESMTPS id DCE2516BF;
+	Tue,  5 Jul 2022 17:58:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DCE2516BF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657036426;
-	bh=cBtwS58z1fGTuH27Pya4llI0JyNcEMHOWHNVeu9CBWE=;
+	s=default; t=1657036775;
+	bh=4UcFBdwVPNGp4VMF2eOGRnKawTrULmg2jhiKGa5OAmM=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=OpA466HcWBbmJmZEp97LfcWUaOYLEWzTjO5y2ixzRERd6gLZ/+TLop4buwmqu5Bsk
-	 N5ciUhMv/udcg9PzOQa6TmDWw9Rj5zY01WgVBimKf37udMnGgoOcd2c1kgGxmawvnK
-	 K7QAihQuoteapdRB4pfZI8PYC+1MgF2bzF6fz+1A=
+	b=mCyeBmdUwFunudu/0Ct/YgGUO/rM8eq5ndE8R6c2aClUYqpP9mz4jhCaNjFV5HRHR
+	 RXkXGkZRTOtLbZr5LVlrm84j8nG9BkK8o0z2ZCut6gN9xR6ujHTNvprFW3h2xjWigr
+	 mAAA9iCRPKwMI826hhfSj9zVch1VW3rlfU7rjNwg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4F1B7F80212;
-	Tue,  5 Jul 2022 17:52:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5425CF80212;
+	Tue,  5 Jul 2022 17:58:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3FF84F8015B; Tue,  5 Jul 2022 17:52:44 +0200 (CEST)
+ id DE48CF800CB; Tue,  5 Jul 2022 17:58:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6F8D6F80104
- for <alsa-devel@alsa-project.org>; Tue,  5 Jul 2022 17:52:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F8D6F80104
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6EC76F800CB
+ for <alsa-devel@alsa-project.org>; Tue,  5 Jul 2022 17:58:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6EC76F800CB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="cK0pM/Zw"
+ header.b="VpRSODC1"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1657036362; x=1688572362;
+ t=1657036708; x=1688572708;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=cBtwS58z1fGTuH27Pya4llI0JyNcEMHOWHNVeu9CBWE=;
- b=cK0pM/ZwCcwJ9Q7sofxji5GQdrLNLgGFAx9KnotK+2C+mhpeUaL6eDV/
- 0drKLo3n3kYdAHeDh76vHy6PTIz3xA2T++conFbsMLoz3Gh9Upcjl3tQ3
- OZ4P+4uUV87H/2eq7r9mowexr0b4UCRT8IP9T3SH8MpqavR8LSEthEgQY
- ixo3gPMNoLqlBaLwxYv5EcjmZ9jRYcCIFSfTSMbooVJNnc3ALIHEoJeVL
- RNp1fzkxQFIC0MXuqGfGmTzJfkkZeH8kEtnV8zi/np6bdK9K/u82HUZEb
- s5RrCDVhgDRszKyMaFaUEUZ6kUo8jaltr1jLdBYdRdxmPRyRwfccXTkjM A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10398"; a="369710992"
-X-IronPort-AV: E=Sophos;i="5.92,247,1650956400"; d="scan'208";a="369710992"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jul 2022 08:52:37 -0700
+ bh=4UcFBdwVPNGp4VMF2eOGRnKawTrULmg2jhiKGa5OAmM=;
+ b=VpRSODC1OqZdy/WZKun/8ByUPRYG9kVXdLytM6G1IS25SJCAWq+PapH7
+ m6qAn2WJc7f35ctyIaCZWo1dXumVEGQecEtYTgy+1tQrsSyLPIkqjGM8F
+ 9sXPZ2eMrsVGBUEw7lYHRh7AjlvPcItZ2RXdgiH1ZIjr8NElafOVKbv5S
+ VUPbreHDQTOOvexKnKabfrAf8E/QnKf+pdYPzJsVcq5syhSgSPpowSys+
+ YRHDOPAP7ZgUEMOAivgclbEcoEWRDsAb9ZwEWbfHk8cKfXQoPgxtk5JII
+ mabPXTqcRq5gu9WYi9FuvhFgqAnyBLrkUov3eK0tctcPJBH++SyuFHpVE A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10399"; a="263178290"
+X-IronPort-AV: E=Sophos;i="5.92,247,1650956400"; d="scan'208";a="263178290"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jul 2022 08:58:12 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,247,1650956400"; d="scan'208";a="769699683"
+X-IronPort-AV: E=Sophos;i="5.92,247,1650956400"; d="scan'208";a="919769341"
 Received: from black.fi.intel.com ([10.237.72.28])
- by orsmga005.jf.intel.com with ESMTP; 05 Jul 2022 08:52:34 -0700
+ by fmsmga005.fm.intel.com with ESMTP; 05 Jul 2022 08:58:09 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 178BF1A0; Tue,  5 Jul 2022 18:52:41 +0300 (EEST)
+ id F069E1A0; Tue,  5 Jul 2022 18:58:15 +0300 (EEST)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/1] ASoC: madera: Replace kernel.h with the necessary
- inclusions
-Date: Tue,  5 Jul 2022 18:52:39 +0300
-Message-Id: <20220705155239.75736-1-andriy.shevchenko@linux.intel.com>
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v3 1/1] ASoC: Intel: catpt: remove duplicating driver data
+ retrieval
+Date: Tue,  5 Jul 2022 18:58:13 +0300
+Message-Id: <20220705155813.75917-1-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: Charles Keepax <ckeepax@opensource.cirrus.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,31 +95,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When kernel.h is used in the headers it adds a lot into dependency hell,
-especially when there are circular dependencies are involved.
-
-Replace kernel.h inclusion with the list of what is really being used.
+device_get_match_data() in ACPI case calls similar to acpi_match_device().
+Hence there is no need to duplicate the call. Just assign what is in
+the id->driver_data.
 
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Reviewed-by: Richard Fitzgerald <rf@opensource.cirrus.com>
 ---
-v2: added tag (Richard), Cc'ed ASoC maintainers
- include/sound/madera-pdata.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+v3: moved spec assignment closer to its user (Péter, Czarek)
+ sound/soc/intel/catpt/device.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/include/sound/madera-pdata.h b/include/sound/madera-pdata.h
-index e3060f48f108..58398d80c3de 100644
---- a/include/sound/madera-pdata.h
-+++ b/include/sound/madera-pdata.h
-@@ -9,7 +9,7 @@
- #ifndef MADERA_CODEC_PDATA_H
- #define MADERA_CODEC_PDATA_H
+diff --git a/sound/soc/intel/catpt/device.c b/sound/soc/intel/catpt/device.c
+index 85a34e37316d..d48a71d2cf1e 100644
+--- a/sound/soc/intel/catpt/device.c
++++ b/sound/soc/intel/catpt/device.c
+@@ -254,14 +254,11 @@ static int catpt_acpi_probe(struct platform_device *pdev)
+ 		return -ENODEV;
+ 	}
  
--#include <linux/kernel.h>
-+#include <linux/types.h>
+-	spec = device_get_match_data(dev);
+-	if (!spec)
+-		return -ENODEV;
+-
+ 	cdev = devm_kzalloc(dev, sizeof(*cdev), GFP_KERNEL);
+ 	if (!cdev)
+ 		return -ENOMEM;
  
- #define MADERA_MAX_INPUT		6
- #define MADERA_MAX_MUXED_CHANNELS	4
++	spec = (const struct catpt_spec *)id->driver_data;
+ 	catpt_dev_init(cdev, dev, spec);
+ 
+ 	/* map DSP bar address */
 -- 
 2.35.1
 

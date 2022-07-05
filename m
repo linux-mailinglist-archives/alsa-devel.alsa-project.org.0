@@ -2,48 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 189B45671B5
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jul 2022 17:00:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B819A56726C
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jul 2022 17:22:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A26911709;
-	Tue,  5 Jul 2022 16:59:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A26911709
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5B78E16DC;
+	Tue,  5 Jul 2022 17:22:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B78E16DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657033237;
-	bh=SRu4uRJz/J94OVf9uAUuV26vz/PsQrg6JyRbeTV6alQ=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1657034570;
+	bh=znZl6/ik79d0XgEU0bMz26oWVjPoIrCh4x/NmIs3v0o=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IrMfBrJnFQ+7ezjGsrAoLWfo46glqrt4VjyOJ5eosBNAoV4hnbOMWHqWF+cO4IkWZ
-	 GjJsIv4ijfrSUt1RtJxPgwgxzlGR4y8GLGDtZ4hy9iMtMPc1h05G6bulOcpMPs0q72
-	 VDvgoFRdZyvGeyjhnayAekXPYg6ysOoGKRL7J7pc=
+	b=MeltB4cjG6pbL92M+WkAgsEKlbEN4kjjdML2F1OpAg8tkEL0DcxkEBGPib3Qz9ba5
+	 j2jsRo9Grvqq3G9W+/FOHR52Jed0U6Phi3kElNsellBkrJ93iVQItby2nmeNIRc9DR
+	 HEuzoSRe9tiZDss3zuyKN6iA6VgXDY0Q1jaox6FY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 958C1F80519;
-	Tue,  5 Jul 2022 16:59:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CD777F80212;
+	Tue,  5 Jul 2022 17:21:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3187EF80515; Tue,  5 Jul 2022 16:59:38 +0200 (CEST)
+ id 548ACF8015B; Tue,  5 Jul 2022 17:21:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id BDBB1F80212
- for <alsa-devel@alsa-project.org>; Tue,  5 Jul 2022 16:59:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BDBB1F80212
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from a3.inai.de (a3.inai.de [IPv6:2a01:4f8:10b:45d8::f5])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 15052F800CB
+ for <alsa-devel@alsa-project.org>; Tue,  5 Jul 2022 17:21:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15052F800CB
+Received: by a3.inai.de (Postfix, from userid 25121)
+ id CED62592E56A3; Tue,  5 Jul 2022 17:21:44 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by a3.inai.de (Postfix) with ESMTP id CE5E360BD5222;
+ Tue,  5 Jul 2022 17:21:44 +0200 (CEST)
+Date: Tue, 5 Jul 2022 17:21:44 +0200 (CEST)
+From: Jan Engelhardt <jengelh@inai.de>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: snd_cs46xx regression, producing Oops
+In-Reply-To: <875ykbvklj.wl-tiwai@suse.de>
+Message-ID: <pprs942s-n3s9-9so5-191s-o6qqq9s31poo@vanv.qr>
+References: <p2p1s96o-746-74p4-s95-61qo1p7782pn@vanv.qr>
+ <875ykbvklj.wl-tiwai@suse.de>
+User-Agent: Alpine 2.25 (LSU 592 2021-09-18)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1657033175572649956-webhooks-bot@alsa-project.org>
-References: <1657033175572649956-webhooks-bot@alsa-project.org>
-Subject: Scarlett 18i20 USB, USB Audio
-Message-Id: <20220705145938.3187EF80515@alsa1.perex.cz>
-Date: Tue,  5 Jul 2022 16:59:38 +0200 (CEST)
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,83 +68,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-topology-conf issue #2 was edited from juanpc2018:
+On Tuesday 2022-07-05 13:56, Takashi Iwai wrote:
+>> 
+>> Commit v5.14-rc1-39-g5bff69b3645d introduced a breakage into
+>> snd_cs46xx.
+>
+>Could you try the patch below?
+>Subject: [PATCH] ALSA: cs46xx: Fix missing snd_card_free() call at probe error
 
-Problems:
-$ alsamixer
-does Not allow to change SampleRate,
-only clock source.
+I confirm your patch cures the oops.
 
-Focusrite Scarlett 18i20mk2 USB, USB Audio
-has a Control Software only for OSX and Windows.
-works in Wine/PlayOnMac,
-but does Not detect the USB device.
-sometimes even the Control Software also does Not detect the USB in OSX or Windows.
-anyway...
-
-i go to OSX, change the Sample Rate.
-96khz,
-
-reboot and go back to Kubuntu 21.10,
-Kubuntu changes the SR to 44.1Khz at boot,
-
-problem #2.
-SampleRateConverter does Not work well Down,
-
-if i play a 48khz file in VLC,
-does Not play in 44.1Khz SR.
-
-jackd2 can change SampleRate No problems.
-VLC has jack output,
-but Firefox does Not, unless compied from source with the option in config
-
-anyway..
-need to create:
-/etc/asound.conf
-
-
-
-$ aplay -L
-
-hw:CARD=USB,DEV=0
-    Scarlett 18i20 USB, USB Audio
-    Direct hardware device without any conversions
-plughw:CARD=USB,DEV=0
-    Scarlett 18i20 USB, USB Audio
-    Hardware device with all software conversions
-sysdefault:CARD=USB
-    Scarlett 18i20 USB, USB Audio
-    Default Audio Device
-front:CARD=USB,DEV=0
-    Scarlett 18i20 USB, USB Audio
-    Front output / input
-surround21:CARD=USB,DEV=0
-    Scarlett 18i20 USB, USB Audio
-    2.1 Surround output to Front and Subwoofer speakers
-surround40:CARD=USB,DEV=0
-    Scarlett 18i20 USB, USB Audio
-    4.0 Surround output to Front and Rear speakers
-surround41:CARD=USB,DEV=0
-    Scarlett 18i20 USB, USB Audio
-    4.1 Surround output to Front, Rear and Subwoofer speakers
-surround50:CARD=USB,DEV=0
-    Scarlett 18i20 USB, USB Audio
-    5.0 Surround output to Front, Center and Rear speakers
-surround51:CARD=USB,DEV=0
-    Scarlett 18i20 USB, USB Audio
-    5.1 Surround output to Front, Center, Rear and Subwoofer speakers
-surround71:CARD=USB,DEV=0
-    Scarlett 18i20 USB, USB Audio
-    7.1 Surround output to Front, Center, Side, Rear and Woofer speakers
-iec958:CARD=USB,DEV=0
-    Scarlett 18i20 USB, USB Audio
-    IEC958 (S/PDIF) Digital Audio Output
-dmix:CARD=USB,DEV=0
-    Scarlett 18i20 USB, USB Audio
-    Direct sample mixing device
-usbstream:CARD=USB
-    Scarlett 18i20 USB
-    USB Stream Output
-
-Issue URL     : https://github.com/alsa-project/alsa-topology-conf/issues/2
-Repository URL: https://github.com/alsa-project/alsa-topology-conf
+>Fixes: 5bff69b3645d ("ALSA: cs46xx: Allocate resources with device-managed APIs")

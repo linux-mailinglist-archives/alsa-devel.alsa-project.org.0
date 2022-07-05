@@ -2,89 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA82756774C
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jul 2022 21:06:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C17B75677B9
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jul 2022 21:24:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7C1B216FB;
-	Tue,  5 Jul 2022 21:05:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C1B216FB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5814F1696;
+	Tue,  5 Jul 2022 21:23:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5814F1696
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657048009;
-	bh=uN8KXVOk4s9eT77BVQYQIGgvMLWSsjxoHpaZkGcRssE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1657049061;
+	bh=aKh11eT849o9eiym54eIKb7E6EpfGMkrjWJIf8RaClc=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mxq903uDLLngb7urs/upinyR8HXPKHYDuG6FWBvbHaMXRvbiNObusT7HRwVqfRryb
-	 e2bgTVp1sdqqy8p5TJdbiqJtukCps/4SmF85HEdnuHNGJh/Sxac/+uQIiOpzZAP2mT
-	 qACWPSLu2RteQpKPfepJARlwIsT6bSjkkKrQX+XQ=
+	b=bv3i9WU3LWRpPpikGAipALxuMFOpMM22/8wrbiPftotbHzAiU3txkSpY62FtcJrg5
+	 bBdbJgutl9DihbBSyySN51eIvZsqx9EtSEElA6+S93F+bZ2frWbWisBrg318CDK4Ig
+	 KkDKqFSv+7i2OQa2wFStJh7WItNz2IHrQqH7LzI0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DFD2AF800CB;
-	Tue,  5 Jul 2022 21:05:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A99ADF80104;
+	Tue,  5 Jul 2022 21:23:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 37D65F8015B; Tue,  5 Jul 2022 21:05:46 +0200 (CEST)
+ id D7188F8015B; Tue,  5 Jul 2022 21:23:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-yb1-xb2f.google.com (mail-yb1-xb2f.google.com
- [IPv6:2607:f8b0:4864:20::b2f])
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-io1-f43.google.com (mail-io1-f43.google.com
+ [209.85.166.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EEAFEF80104
- for <alsa-devel@alsa-project.org>; Tue,  5 Jul 2022 21:05:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EEAFEF80104
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="AJW8PNgt"
-Received: by mail-yb1-xb2f.google.com with SMTP id 76so7910230ybd.0
- for <alsa-devel@alsa-project.org>; Tue, 05 Jul 2022 12:05:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Wk3DM317Ts86B0YftrStlYUZ4gz4TN2yIrO1HE5SXl4=;
- b=AJW8PNgt3MYe/AxNWntixYEyUSSq5JjLx/5UzSNlKMvoDQ08DKKJSIJMcV7hoU+zbW
- NYqzNsJK1J/CVBQZ7lhFDmv2CmJLT9IKOCdUSfQ8ccK1TdwiuKmq0muvLKoOvnjVVsXt
- 4QnyHGecqlgD8g0RLbvnFQv9AiivRVRLanBKV2wgf5Fd0Kda4pX4OxN043PvSQ7FH3AU
- v5NIyDN8HP3D8wjR4LF72vIlw6rZ1s7ZXk64bahLHRC6IWQwguOY4E/xO0EpF1Qov6SO
- 78likgj10byap+eWOWBDWQpjvl2oZJm2EqdXzRMb7VwpUnNh/eljY9IDsEbxj8gmByjJ
- DdBA==
+ by alsa1.perex.cz (Postfix) with ESMTPS id C2E98F80104
+ for <alsa-devel@alsa-project.org>; Tue,  5 Jul 2022 21:23:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2E98F80104
+Received: by mail-io1-f43.google.com with SMTP id p69so12056219iod.10
+ for <alsa-devel@alsa-project.org>; Tue, 05 Jul 2022 12:23:12 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Wk3DM317Ts86B0YftrStlYUZ4gz4TN2yIrO1HE5SXl4=;
- b=SntOoe/AGuaP8VJPK6p67fMREmRuDDqoI3bbhcdyaXeiq0hrn28lB+dapJm77YJ6jK
- arNf5RamFI0xk+MsBGN+JlAwvXFDBXPjBx35t35ZBeoddxppuXA2gyLC4Ps0TbsoJgvL
- SZrQSZG4q6bPLWSnBZEcKbISraoMBgYJ4aSsTlBMxPvwh0KayfogsEUuyzonKyyCthxM
- 4YmhlHxJBb787bvTCTr8wuPA4kcich8ahrr8WhnGT7vXjUEghEnOS8KTfyN44eNko4wK
- 3ykPJqG/ZbLUE6vyNYm41TVSA2sgjlRYXnBN3c+cVT6pu4gbcgfPlYVIeS+0Jq4wF7vX
- Klwg==
-X-Gm-Message-State: AJIora9K1/mn4ZlSeDusmXnPnNmaWnK8nhLTWHtp7jIaYsO/YcMXHhn+
- 0cAKQcRUFTIMdvhfeab29QgGfh4Imtu3ftk5MSg=
-X-Google-Smtp-Source: AGRyM1s2Sd4IFAjGDPznLJLfpZnMRgUbI3cKO3MrAuHWwKFMdU/ubcvbnJzWQUHHrKNFbCGEuuydrijbIkdEQkXxKm4=
-X-Received: by 2002:a05:6902:c4:b0:64b:4677:331b with SMTP id
- i4-20020a05690200c400b0064b4677331bmr39416609ybs.93.1657047935999; Tue, 05
- Jul 2022 12:05:35 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=H5eyFsH62ZCOMR5j44c7qDXl+L0Xiqo5oRXL7/M/n9U=;
+ b=Ls6AnGbn47YanEhAeJr7Ehd3G+XYjYN76GB9j6KiBUgOEK40N/QUWTI0FakAL5fZ8T
+ n3enAmlpcYEObvan//p1RUJ+o93+jvakwD7Wiw8mzI4C7nBH8rf032VIeqHOZwkOvblT
+ VB1UuePCLSlDZqDPCdfFMAr914lBhgNlu+zFv5fdxx9vnhV3sVuqlPb1J2vHH2yrVgAR
+ mAkRv8igVhXsCidIFmY4n842KEKKK97sWcLeVGgijzGsVpXSpjmbU8eH8X4VjV6vOzMk
+ JbLIiN47LtI+FqwaYhd7VhQPnUT+RYJKGkT4MVqhzZ09evpJtfKwBEQHfG3oiLsAZpLr
+ OcCg==
+X-Gm-Message-State: AJIora+FJS1dwrReBoxTWx6SUWlA3QbWA+HHi/Jx09C72nCaAFU8p1Le
+ GpuNcaMQK1VB10mP2q317w==
+X-Google-Smtp-Source: AGRyM1u0fHCnFee1kEPRUg0SqoCFPI8COBha8zPrSVGZ62b76/VvOoRH5cPG5r4Gv3xkb5zkrF1YIg==
+X-Received: by 2002:a05:6638:3014:b0:317:9daf:c42c with SMTP id
+ r20-20020a056638301400b003179dafc42cmr22147925jak.10.1657048990513; 
+ Tue, 05 Jul 2022 12:23:10 -0700 (PDT)
+Received: from robh.at.kernel.org ([64.188.179.248])
+ by smtp.gmail.com with ESMTPSA id
+ c1-20020a6bfd01000000b00675139dbff9sm14725537ioi.48.2022.07.05.12.23.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 05 Jul 2022 12:23:10 -0700 (PDT)
+Received: (nullmailer pid 2477219 invoked by uid 1000);
+ Tue, 05 Jul 2022 19:23:07 -0000
+Date: Tue, 5 Jul 2022 13:23:07 -0600
+From: Rob Herring <robh@kernel.org>
+To: Conor Dooley <conor@kernel.org>
+Subject: Re: [PATCH v4 05/14] dt-bindings: memory-controllers: add canaan
+ k210 sram controller
+Message-ID: <20220705192307.GA2471961-robh@kernel.org>
+References: <20220701192300.2293643-1-conor@kernel.org>
+ <20220701192300.2293643-6-conor@kernel.org>
 MIME-Version: 1.0
-References: <20220630150135.1799535-1-sbinding@opensource.cirrus.com>
- <20220630150135.1799535-2-sbinding@opensource.cirrus.com>
-In-Reply-To: <20220630150135.1799535-2-sbinding@opensource.cirrus.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Tue, 5 Jul 2022 21:04:59 +0200
-Message-ID: <CAHp75VfXwDAwwmzbcx4g1uEuzhzMJ31K1bsTrwYFZGbz3tLMBw@mail.gmail.com>
-Subject: Re: [PATCH v5 1/2] ACPI: utils: Add api to read _SUB from ACPI
-To: Stefan Binding <sbinding@opensource.cirrus.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- "Rafael J . Wysocki" <rafael@kernel.org>, patches@opensource.cirrus.com,
- Liam Girdwood <lgirdwood@gmail.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
- Mark Brown <broonie@kernel.org>, Len Brown <lenb@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220701192300.2293643-6-conor@kernel.org>
+Cc: Niklas Cassel <niklas.cassel@wdc.com>, alsa-devel@alsa-project.org,
+ David Airlie <airlied@linux.ie>, Palmer Dabbelt <palmer@rivosinc.com>,
+ linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-riscv@lists.infradead.org, Sam Ravnborg <sam@ravnborg.org>,
+ Damien Le Moal <damien.lemoal@opensource.wdc.com>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>, Jose Abreu <joabreu@synopsys.com>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, devicetree@vger.kernel.org,
+ Albert Ou <aou@eecs.berkeley.edu>, Mark Brown <broonie@kernel.org>,
+ dri-devel@lists.freedesktop.org, Paul Walmsley <paul.walmsley@sifive.com>,
+ Dillon Min <dillon.minfei@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Serge Semin <fancer.lancer@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Daniel Vetter <daniel@ffwll.ch>,
+ dmaengine@vger.kernel.org, Masahiro Yamada <masahiroy@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,32 +108,88 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Jun 30, 2022 at 5:17 PM Stefan Binding
-<sbinding@opensource.cirrus.com> wrote:
->
-> Add a wrapper function to read the _SUB string from ACPI.
+On Fri, Jul 01, 2022 at 08:22:51PM +0100, Conor Dooley wrote:
+> From: Conor Dooley <conor.dooley@microchip.com>
+> 
+> The k210 U-Boot port has been using the clocks defined in the
+> devicetree to bring up the board's SRAM, but this violates the
+> dt-schema. As such, move the clocks to a dedicated node with
+> the same compatible string & document it.
+> 
+> Signed-off-by: Conor Dooley <conor.dooley@microchip.com>
+> ---
+>  .../memory-controllers/canaan,k210-sram.yaml  | 52 +++++++++++++++++++
+>  1 file changed, 52 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/memory-controllers/canaan,k210-sram.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/memory-controllers/canaan,k210-sram.yaml b/Documentation/devicetree/bindings/memory-controllers/canaan,k210-sram.yaml
+> new file mode 100644
+> index 000000000000..82be32757713
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/memory-controllers/canaan,k210-sram.yaml
+> @@ -0,0 +1,52 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/memory-controllers/canaan,k210-sram.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Canaan K210 SRAM memory controller
+> +
+> +description: |
 
-...
+Don't need '|'.
 
-> +       if (obj->type == ACPI_TYPE_STRING) {
-> +               if (strlen(obj->string.pointer) < ACPI_MAX_SUB_BUF_SIZE &&
-> +                   strlen(obj->string.pointer) > 0) {
-> +                       sub = kstrdup(obj->string.pointer, GFP_KERNEL);
-> +                       if (!sub)
-> +                               sub = ERR_PTR(-ENOMEM);
-> +               } else {
-> +                       acpi_handle_err(handle, "ACPI _SUB Length %zu is Invalid\n",
-> +                                       strlen(obj->string.pointer));
+> +  The Canaan K210 SRAM memory controller is initialised and programmed by
+> +  firmware, but an OS might want to read its registers for error reporting
+> +  purposes and to learn about the DRAM topology.
 
-Three times to evaluate strlen()... Can we do better, please?
+How the OS going to do that? You don't have any way defined to access 
+the registers.
 
-> +                       sub = ERR_PTR(-EINVAL);
-> +               }
-> +       } else {
-> +               acpi_handle_warn(handle, "Warning ACPI _SUB did not return a string\n");
-> +               sub = ERR_PTR(-EINVAL);
-> +       }
+Also, where is the SRAM address itself defined?
 
--- 
-With Best Regards,
-Andy Shevchenko
+> +
+> +maintainers:
+> +  - Conor Dooley <conor@kernel.org>
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - canaan,k210-sram
+> +
+> +  clocks:
+> +    minItems: 1
+> +    items:
+> +      - description: sram0 clock
+> +      - description: sram1 clock
+> +      - description: aisram clock
+> +
+> +  clock-names:
+> +    minItems: 1
+> +    items:
+> +      - const: sram0
+> +      - const: sram1
+> +      - const: aisram
+> +
+> +required:
+> +  - compatible
+> +  - clocks
+> +  - clock-names
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/k210-clk.h>
+> +    memory-controller {
+> +        compatible = "canaan,k210-sram";
+> +        clocks = <&sysclk K210_CLK_SRAM0>,
+> +                 <&sysclk K210_CLK_SRAM1>,
+> +                 <&sysclk K210_CLK_AI>;
+> +        clock-names = "sram0", "sram1", "aisram";
+> +    };
+> -- 
+> 2.37.0
+> 
+> 

@@ -2,76 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E912566904
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jul 2022 13:19:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7202F566A5F
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jul 2022 13:57:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9901D850;
-	Tue,  5 Jul 2022 13:18:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9901D850
+	by alsa0.perex.cz (Postfix) with ESMTPS id 53C85E0E;
+	Tue,  5 Jul 2022 13:57:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53C85E0E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657019964;
-	bh=eIpaiQzN1dQzf3QUOgYci66EBnivRL2tBpynLfqIPaA=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1657022272;
+	bh=s2TRPnouG/R8YQugG5nOT0ZNmX1whp2QW+4rIXCYJu8=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ba0I7ZR2Q20c/aJbFY9wQgjS1f1bGK8y2ed39VeSfaAo8Ry/ASyUkKJBNtk3nh1tA
-	 /PWmBbQmOGevMSaY3yIhu61JYbKab+5zsrOvBgm3Tj1kSUzGW7hVicv+E4r8MZqHaa
-	 Rf9G6dvHpPBctEBdMIsOzOoUoyGAvcbmKwQvqTDo=
+	b=NMxl4xlrWvsCNMCzxG3kKli9cc/c3wOAvI3dNQGuKEl+uMXSfdNWk7wou+3ThUerv
+	 W6N9j5KfsqbE/b2SwYRK91jTzWRGWOFAljb6GeTkEpPxt8r0Gw43uM9y/zGodI2IPh
+	 8E4SGdMkcea/factPDU2s7MydTqCokqloOCepHzw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7429DF800CB;
-	Tue,  5 Jul 2022 13:18:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EB5C8F80104;
+	Tue,  5 Jul 2022 13:56:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7486FF800CB; Tue,  5 Jul 2022 13:18:19 +0200 (CEST)
+ id D10A8F8015B; Tue,  5 Jul 2022 13:56:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3304BF80104
- for <alsa-devel@alsa-project.org>; Tue,  5 Jul 2022 13:18:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3304BF80104
+ by alsa1.perex.cz (Postfix) with ESMTPS id D3F2EF80104
+ for <alsa-devel@alsa-project.org>; Tue,  5 Jul 2022 13:56:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3F2EF80104
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="oRr8nRu8"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="ue0BvSHj"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="TCo5RIKr"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id AEA0660AF1;
- Tue,  5 Jul 2022 11:18:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92E4AC341CD;
- Tue,  5 Jul 2022 11:18:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657019893;
- bh=eIpaiQzN1dQzf3QUOgYci66EBnivRL2tBpynLfqIPaA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=oRr8nRu8ZiG9BE6VYc3ZhwPPPSY6zejoCJWcyrxSF+3X/o6qAOgga0gRcHF7zoBdz
- ZjO9qhYH2gpjcs8mIvU1qOtqEOBVsLXGd7ouy+UbxYN/kHPHG/O74Yh/kVfnLWMhhn
- a/foZp7MylCLC0bZBdwQw1TZZUIvCeIlpDsUxCa2guhASCrvI+4Y7d35ynbB7K4ANd
- VSYuyIV8rzLSMI3/ZFK0y6eJhS+w05ArwZBLMJ80fgoNa2sf0iSEqf6hiAm4mfB5GX
- whCW6icbB29f36C6RBtZUgzFo5yX3fq8yuMqLHswMvCIeRdWrvff9i4XjNhLkFEC8r
- 3+QDnIOwLaOZg==
-Date: Tue, 5 Jul 2022 12:18:06 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Tommaso Merciai <tommaso.merciai@amarulasolutions.com>
-Subject: Re: equalizer cfg in max98088 driver
-Message-ID: <YsQd7mub0KJdYUDw@sirena.org.uk>
-References: <20220705075500.GA1987744@tom-ThinkPad-T14s-Gen-2i>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="jiEe/WpmUIOBm7IC"
-Content-Disposition: inline
-In-Reply-To: <20220705075500.GA1987744@tom-ThinkPad-T14s-Gen-2i>
-X-Cookie: Only God can make random selections.
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>
+ by smtp-out1.suse.de (Postfix) with ESMTPS id CC73E21892;
+ Tue,  5 Jul 2022 11:56:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1657022200; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=cLuoK5JGT2eXHO0cJ7kh2a9mXgAReW4i3StHieVHhGs=;
+ b=ue0BvSHjzwoHqrvid+ks0qbJQmdvExbaHJqu5NM9N9h+P15qaX3l28bWldbc28EZe4WtPR
+ clB1EwQWU6YWwgK/IDu9GECjuXpQaJGxQPjUncZWooS8iI4ziqaUwcFXe/tCLwyQQ0C0hJ
+ FAJVshNCdcjHUi4JKF+KxZW1b43srLk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1657022200;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=cLuoK5JGT2eXHO0cJ7kh2a9mXgAReW4i3StHieVHhGs=;
+ b=TCo5RIKr8fpRMBzdOB8xCQn+NPDIPX7KvJWKhSu+irwiBl0AlaWZg48a8oSY9WnDvBjpNq
+ 5lfhiI678nFw6DCQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id ADEC51339A;
+ Tue,  5 Jul 2022 11:56:40 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id vcmrKfgmxGKrOAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 05 Jul 2022 11:56:40 +0000
+Date: Tue, 05 Jul 2022 13:56:40 +0200
+Message-ID: <875ykbvklj.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jan Engelhardt <jengelh@inai.de>
+Subject: Re: snd_cs46xx regression, producing Oops
+In-Reply-To: <p2p1s96o-746-74p4-s95-61qo1p7782pn@vanv.qr>
+References: <p2p1s96o-746-74p4-s95-61qo1p7782pn@vanv.qr>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,36 +99,122 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue, 05 Jul 2022 12:56:14 +0200,
+Jan Engelhardt wrote:
+> 
+> 
+> Commit v5.14-rc1-39-g5bff69b3645d introduced a breakage into
+> snd_cs46xx. When loading the module, an Oops is thrown. The system
+> works fine afterwards, but the final reboot/poweroff message to ACPI
+> has no effect after such Oops occurred. (Blacklisting snd_cs46xx
+> works around the reboot problem.)
+> 
+> bisected to:
+> commit 5bff69b3645db7b3018ecbc26218d8866aeaf214
+> Author: Takashi Iwai <tiwai@suse.de>
+> Date:   Thu Jul 15 09:58:52 2021 +0200
+> 
+>     ALSA: cs46xx: Allocate resources with device-managed APIs
+>     
+>     This patch converts the resource management in PCI cs46xx driver with
+>     devres as a clean up.  Each manual resource management is converted
+>     with the corresponding devres helper, and the card object release is
+>     managed now via card->private_free instead of a lowlevel snd_device.
 
---jiEe/WpmUIOBm7IC
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Could you try the patch below?
 
-On Tue, Jul 05, 2022 at 09:55:00AM +0200, Tommaso Merciai wrote:
 
-> Just a question. Can you explain me the proper way to configure eq1 and
-> eq2 of max98089 using sound/soc/codecs/max98088.c driver?
-> Could be a valid solution fetching eq1, eq2 bands params from dts?
+thanks,
 
-There's plenty of examples of equalisers in the code already.  I don't
-know how this specific device works but generally these are either
-exposed as a series of volume like sliders or as binary controls.  This
-doesn't restrict people to settings from the firmware, making
-development of new configuraitons much easier.
+Takashi
 
---jiEe/WpmUIOBm7IC
-Content-Type: application/pgp-signature; name="signature.asc"
+-- 8< --
+From: Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH] ALSA: cs46xx: Fix missing snd_card_free() call at probe error
 
------BEGIN PGP SIGNATURE-----
+The previous cleanup with devres may lead to the incorrect release
+orders at the probe error handling due to the devres's nature.  Until
+we register the card, snd_card_free() has to be called at first for
+releasing the stuff properly when the driver tries to manage and
+release the stuff via card->private_free().
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmLEHe4ACgkQJNaLcl1U
-h9Cb/gf/RzD6mvd0NCfT6nAaNnVW3DladJyYo6d361/zwj1+xMIKwWgoOUgHaZxa
-XFJ1EcBz3jR8xU+cYrMPKJUHp//ZOtZCVzBi0eYN9XIKROgv+vwi7PSypHi6TmI/
-MrCp4Sv1F9QGU2Fkrmt7rPR7Q/Xjmq38mGF1WHe7C8pXCoja2g0Qm0QdqLXgjUM5
-KFApmU7rNrMidL5JZo99BXUXBkJXtFSlNVKQIxFQetLdzq5LCHuq7L7sFJVsZO/V
-L203bLlhYpJ619w2bV43gicKxqP/tFUa3eskAj6tcMpVoj/I0Je6pS1RNlTQxqFC
-1Etq67paBflGIpt9Rhf8onu23RAfdA==
-=uxw9
------END PGP SIGNATURE-----
+This patch fixes it by calling snd_card_free() manually on the error
+from the probe callback.
 
---jiEe/WpmUIOBm7IC--
+Fixes: 5bff69b3645d ("ALSA: cs46xx: Allocate resources with device-managed APIs")
+Cc: <stable@vger.kernel.org>
+Reported-by: Jan Engelhardt <jengelh@inai.de>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/pci/cs46xx/cs46xx.c | 22 +++++++++++++---------
+ 1 file changed, 13 insertions(+), 9 deletions(-)
+
+diff --git a/sound/pci/cs46xx/cs46xx.c b/sound/pci/cs46xx/cs46xx.c
+index bd60308769ff..8634004a606b 100644
+--- a/sound/pci/cs46xx/cs46xx.c
++++ b/sound/pci/cs46xx/cs46xx.c
+@@ -74,36 +74,36 @@ static int snd_card_cs46xx_probe(struct pci_dev *pci,
+ 	err = snd_cs46xx_create(card, pci,
+ 				external_amp[dev], thinkpad[dev]);
+ 	if (err < 0)
+-		return err;
++		goto error;
+ 	card->private_data = chip;
+ 	chip->accept_valid = mmap_valid[dev];
+ 	err = snd_cs46xx_pcm(chip, 0);
+ 	if (err < 0)
+-		return err;
++		goto error;
+ #ifdef CONFIG_SND_CS46XX_NEW_DSP
+ 	err = snd_cs46xx_pcm_rear(chip, 1);
+ 	if (err < 0)
+-		return err;
++		goto error;
+ 	err = snd_cs46xx_pcm_iec958(chip, 2);
+ 	if (err < 0)
+-		return err;
++		goto error;
+ #endif
+ 	err = snd_cs46xx_mixer(chip, 2);
+ 	if (err < 0)
+-		return err;
++		goto error;
+ #ifdef CONFIG_SND_CS46XX_NEW_DSP
+ 	if (chip->nr_ac97_codecs ==2) {
+ 		err = snd_cs46xx_pcm_center_lfe(chip, 3);
+ 		if (err < 0)
+-			return err;
++			goto error;
+ 	}
+ #endif
+ 	err = snd_cs46xx_midi(chip, 0);
+ 	if (err < 0)
+-		return err;
++		goto error;
+ 	err = snd_cs46xx_start_dsp(chip);
+ 	if (err < 0)
+-		return err;
++		goto error;
+ 
+ 	snd_cs46xx_gameport(chip);
+ 
+@@ -117,11 +117,15 @@ static int snd_card_cs46xx_probe(struct pci_dev *pci,
+ 
+ 	err = snd_card_register(card);
+ 	if (err < 0)
+-		return err;
++		goto error;
+ 
+ 	pci_set_drvdata(pci, card);
+ 	dev++;
+ 	return 0;
++
++ error:
++	snd_card_free(card);
++	return err;
+ }
+ 
+ static struct pci_driver cs46xx_driver = {
+-- 
+2.35.3
+

@@ -2,101 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE11F56640F
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jul 2022 09:33:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C220E56645D
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jul 2022 09:47:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EAA2A16F0;
-	Tue,  5 Jul 2022 09:32:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EAA2A16F0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 94711839;
+	Tue,  5 Jul 2022 09:46:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94711839
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657006403;
-	bh=3VTXDx0Rwm+mVMlJrDvSGBtNi1ZPn3zb1S/wfoYnRe0=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1657007220;
+	bh=e9jdrgWcFByN9d0lAxUh7xEepgGqwyRulI8nB5yIkTQ=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VZ53Yrk7DhSrjSAtZfUVLzVzfYhA9OF4hxiVTE3wKo/29hxWz2nsLqW0z8Q6eRCoz
-	 l+Jt2ZqOZ06zy/13ohnjiV757BfxxyeszQo/8sMuwP5DQp+5OM7YI7jDMOCHByft8n
-	 Kn9hxJ84qbrsQJQZ18+yQB6dAd1RWxvOLDg4kCzY=
+	b=XKhLppU4Beqr+Yn6scbPUi3jHYJjDGpPw2xvkL9eecyo8fqH5xYthX0Z41u2/PXpJ
+	 tyYtDzH973geu9bKSWzwJLcJUwuwFhUgKvDyTrJ4kJNOBPdl2U1BZ0TOFVUBVuvSsx
+	 l49DOkkgSleysz95xGjl0pNtun7ZUQnBeabKuVbE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3A1B9F80212;
-	Tue,  5 Jul 2022 09:32:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 14974F80212;
+	Tue,  5 Jul 2022 09:46:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2074BF8015B; Tue,  5 Jul 2022 09:32:19 +0200 (CEST)
+ id 6D249F8015B; Tue,  5 Jul 2022 09:45:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [IPv6:2a00:1450:4864:20::22b])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D8B4BF80104
- for <alsa-devel@alsa-project.org>; Tue,  5 Jul 2022 09:32:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8B4BF80104
+ by alsa1.perex.cz (Postfix) with ESMTPS id 090EBF80104
+ for <alsa-devel@alsa-project.org>; Tue,  5 Jul 2022 09:45:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 090EBF80104
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="Bd0hIYTR"
-Received: by mail-lj1-x22b.google.com with SMTP id u14so13470078ljh.2
- for <alsa-devel@alsa-project.org>; Tue, 05 Jul 2022 00:32:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=PWneuAJ9+BwtDVWX9EGVrMHRNI896xMJ1kd4ynHr8vA=;
- b=Bd0hIYTRjsE866WnBumwJ4N178mSBPnEgdW+5z5AbhQXGu6dq4k5hZbq+y/Y4hY2Yi
- 2DoQI6N+fRk3DLZzvywAmL2wMBjPwr4Hl92kX/ASdIlGPKu5TlUtOEyfIbQqbMcI5aIP
- hHjzvabj7XyymG0+hTc50l0jz9N/GSSE3K8ZAWP72zcrvf0OeYlMVYhkzPZ7jv6luo/8
- FkIKPGux8uETIZBzf2QAf77IMDYIFxKvi+VUy2IHT3aOTje4PupYS7eLeKGpLD3RCbKe
- OTA6/oAw/s8tUxn6aMyJLLHGYiKBcAzNaGeihLi/kl7fCSS+9rh2eI3LCocMVu2MwY8E
- YMNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=PWneuAJ9+BwtDVWX9EGVrMHRNI896xMJ1kd4ynHr8vA=;
- b=rzHQn59zySNEa/x//k+TGzhtUQMNKx8WFY2u88WW9SuedJsxM6qnKxFunlDjyyomgb
- pN+kZFG4dyUaJjCRlHSbEZ/zvH//4DS/DUqoweJLsoB4OH8v4tczLXVyWMbU4ZnUtlLt
- 7eyj60OGNHcdxIHE9/Ly8Zh9IVeNKqdfCkbC72vKTBjKo7SCkbBRrxQt9fqbEHBTh4pE
- TJ1XHzkayM7l64+uShNntPUPDcwHA9vG9QTL7zsSt7p6Mbb7Ripwq8l2h7Xldw+frXm6
- rPUnSWSxselIonaB/lGwpy1Eh/hAVGvlxQnXN/QE9jY+27nU8/mNV93pkPbS9Ep0r/PR
- 4FTw==
-X-Gm-Message-State: AJIora8bISZw3ModhqHhgQlRFP77vmyZhlAqBFUDkbLJaHp2X9rupS9x
- lJZtylUJphSSILYAgU6b1yk6FQ==
-X-Google-Smtp-Source: AGRyM1tu57jxC+VL6f4xpGAMXs2L40hmkgOX5GUMFpKXSFLtpuT2ISONGdNcPCCxbtLI+XvdQNsG7A==
-X-Received: by 2002:a2e:84c8:0:b0:24b:50bb:de7d with SMTP id
- q8-20020a2e84c8000000b0024b50bbde7dmr19039347ljh.40.1657006329594; 
- Tue, 05 Jul 2022 00:32:09 -0700 (PDT)
-Received: from [192.168.1.52] ([84.20.121.239])
- by smtp.gmail.com with ESMTPSA id
- z18-20020a05651c11d200b0025a9bbe511fsm5406628ljo.70.2022.07.05.00.32.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 Jul 2022 00:32:09 -0700 (PDT)
-Message-ID: <61708384-6c29-6bb6-aef0-8bad061c1f7c@linaro.org>
-Date: Tue, 5 Jul 2022 09:32:07 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH] ASoC: dt-bindings: qcom,sdm845: convert to dtschema
-Content-Language: en-US
-To: Stephan Gerhold <stephan@gerhold.net>
-References: <20220704153824.23226-1-krzysztof.kozlowski@linaro.org>
- <YsMaW6cO2fEfTGPz@gerhold.net>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <YsMaW6cO2fEfTGPz@gerhold.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-arm-msm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@somainline.org>,
- Andy Gross <agross@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, linux-kernel@vger.kernel.org
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="LmXShlcc"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="Y4egdOKO"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 4AE2E1FF94;
+ Tue,  5 Jul 2022 07:45:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1657007152; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=FEag9uALBA30HMk0xF+XkRZffndMZupU843m2tnEhng=;
+ b=LmXShlcc/1CNRNcnfrtr+MIjql/bLnkiUaNAmN1oKeTITPwMNGPj6geID0YKWBNwsWyF3b
+ yLFDS+FdBM4JkaK6+joqwLPdOQ3akPxyzrEB8nUau75WHMeT7yAHvRrKiNSuEAIAmyAW9Y
+ eztziPjeOqA4oo1i1+gL+ojbn9RvvT0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1657007152;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=FEag9uALBA30HMk0xF+XkRZffndMZupU843m2tnEhng=;
+ b=Y4egdOKOETqNAtBllMjJwGae7YiOETLVylij3CFgfehTxeofgFzqCTEIEog836GQjnBuHX
+ 0rVv1Ar7EjfGf9DQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1D3361339A;
+ Tue,  5 Jul 2022 07:45:52 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id i4RVBjDsw2IJPwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 05 Jul 2022 07:45:52 +0000
+Date: Tue, 05 Jul 2022 09:45:51 +0200
+Message-ID: <87r130vw7k.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Tom Rix <trix@redhat.com>
+Subject: Re: [PATCH] ALSA: hda/cs8409: change cs8409_fixups v.pins
+ initializers to static
+In-Reply-To: <20220704142836.636204-1-trix@redhat.com>
+References: <20220704142836.636204-1-trix@redhat.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: sbinding@opensource.cirrus.com, tanureal@opensource.cirrus.com,
+ vitalyr@opensource.cirrus.com, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,40 +102,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 04/07/2022 18:50, Stephan Gerhold wrote:
-> On Mon, Jul 04, 2022 at 05:38:24PM +0200, Krzysztof Kozlowski wrote:
->> Convert the Samsung SDM845 sound card bindings to DT schema.
->>
+On Mon, 04 Jul 2022 16:28:36 +0200,
+Tom Rix wrote:
 > 
-> Nitpick: s/Samsung/Qualcomm
-
-Yes, thanks.
-
+> sparse reports
+> sound/pci/hda/patch_cs8409-tables.c:79:25: warning: symbol 'cs8409_cs42l42_pincfgs_no_dmic' was not declared. Should it be static?
 > 
->> Changes during conversion: do not require 'codec' under dai-links - not
->> present in all nodes of examples and DTS; not required by the driver.
->>
->> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
->> ---
->>  .../devicetree/bindings/sound/qcom,sdm845.txt |  91 ----------
->>  .../bindings/sound/qcom,sdm845.yaml           | 166 ++++++++++++++++++
->>  2 files changed, 166 insertions(+), 91 deletions(-)
->>  delete mode 100644 Documentation/devicetree/bindings/sound/qcom,sdm845.txt
->>  create mode 100644 Documentation/devicetree/bindings/sound/qcom,sdm845.yaml
->>
+> cs8409_cs42l42_pincfgs_no_dmic is only used by cs8409_fixups table as an
+> initializer for the hda_fixup element v.pins.  Both are defined in the
+> patch_cs8408-table.c file but only cs8409_fixups is used externally in
+> patch_cs8409.c.  So cs8409_cs42l42_pincfgs_no_dmic should have a static
+> storage class specifier.
 > 
-> Can you check if you can just add the compatibles to the existing
-> qcom,sm8250.yaml? It should be more or less identical given that the DT
-> parsing code in the driver is shared between all these SoCs.
-> I already added the MSM8916 compatibles there a while ago.
+> The other v.pins initializers in cs8409_fixups table, though declared
+> extern in patch_cs8409.h are also only used in patch_cs8409-tables.c.
+> So change all the v.pins initializers to static.
 > 
-> It also documents some additional properties ("pin-switches", "widgets")
-> that are supported for SDM845 through the common code but are missing
-> in its binding documentation.
+> Fixes: 9e7647b5070f ("ALSA: hda/cs8409: Move arrays of configuration to a new file")
+> Signed-off-by: Tom Rix <trix@redhat.com>
 
-I thought about merging these but then I would have to disallow these
-properties, as I assumed these are not valid for SDM845. Are you saying
-that pin-switches and widgets are actually valid for SDM845?
+Thanks, applied now.
 
-Best regards,
-Krzysztof
+
+Takashi

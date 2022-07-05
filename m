@@ -2,104 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CC4D5686DF
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Jul 2022 13:42:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF056567118
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jul 2022 16:32:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BF3BB16CA;
-	Wed,  6 Jul 2022 13:41:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF3BB16CA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7729316E6;
+	Tue,  5 Jul 2022 16:31:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7729316E6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657107743;
-	bh=MVNoAajfEQWoVf6jfzbsfM2MwV1dKQ/pr1ERO0P3FWw=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=o4JT7o3jSQFu9Wcl32siEXUi9xLr/UV1600sRwt0FhF1MLl0zhKZ7YstUqSzzxjFX
-	 b6u6tQK44Xz81uzNthJlVrRpCf/JmGOWt22XF05IAb+YuKbC/T77K065q/SW0c63Yt
-	 YhlSOR2W+2sV9s/zyG0OJT7g45WNeMtOEFSxoZGU=
+	s=default; t=1657031548;
+	bh=moxeozGqxzjgJYhs6taKE8w7rDE6WbDoG4nA04zRYrU=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=GSixwbDNNUcorRUKiXW5Qw/UENbLbr1hWNV+vmnCy2YhXj0WmXYMewLVnn1FWay3G
+	 fU4TrIb3AXMZ6t0ouwpDzvihfzZGl5/bX3ZjoEa8QMnlls+rkp729TZtL70fwqGtdp
+	 104NCU2c+m3CpTdaeti3AAEo7BL7FZaqcBICYLUg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 644B1F804E0;
-	Wed,  6 Jul 2022 13:40:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 00200F8012A;
+	Tue,  5 Jul 2022 16:31:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E1045F8015B; Tue,  5 Jul 2022 15:58:26 +0200 (CEST)
+ id 71C0DF8015B; Tue,  5 Jul 2022 16:31:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3594DF800CB
- for <alsa-devel@alsa-project.org>; Tue,  5 Jul 2022 15:58:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3594DF800CB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2D7D1F800CB
+ for <alsa-devel@alsa-project.org>; Tue,  5 Jul 2022 16:31:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D7D1F800CB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=jschaer.ch header.i=@jschaer.ch
- header.b="E1oDX32+"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="hoLQje2m"
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.nyi.internal (Postfix) with ESMTP id CDC3B5C0078;
- Tue,  5 Jul 2022 09:58:13 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute5.internal (MEProxy); Tue, 05 Jul 2022 09:58:13 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jschaer.ch; h=cc
- :cc:content-transfer-encoding:content-type:date:date:from:from
- :in-reply-to:message-id:mime-version:reply-to:sender:subject
- :subject:to:to; s=fm2; t=1657029493; x=1657115893; bh=3pBWnobVtm
- Yk1o03Q9pUyRbRyBRkuWaatCBSNZWziGc=; b=E1oDX32+Om+A4pnHDWMGnSlTTC
- 3EoKQsAU7+cHq00t23I/VSdvMgP4vngJ1mueWTIeLMxkMoWAOasif6/ECwHDZdL+
- zCYKtPPd/fL2zu72pv/DlDCEM8QFUn7Qq0V83sVxMpEhRZAQl3vp7jjdhQHA2obp
- ak60nyn7ysS14ODVsAZWzG0tPUGtSavR3z3mOJF/2ufa4iZreptMECY/60fMv87x
- WfB9GP2VjuGkxNo2tZwayOqon936grGAa88E0sAyMAI29x6Lro7MNisv57nBjucg
- nsiSwoDOff1iQNjHh9FqiU9aD/1E8/nFpY06Ag0Yh5hTKV3Yl7u199Dp7snQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:message-id:mime-version:reply-to:sender:subject
- :subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm2; t=1657029493; x=1657115893; bh=3pBWnobVtmYk1
- o03Q9pUyRbRyBRkuWaatCBSNZWziGc=; b=hoLQje2mKQvlcFuaVeqd+qtAcLQve
- FV7KHmO9j6CVHVvYriKBVAsubZU033xpKcwY8r6i8CPFYH/XWjGPoOOFQWLAmiZ+
- qt9HQfCR6V8EmhcPILFgrAjgw1WV15g1TfkmJDvEDEf6xpw4ho9DJx4nonKUswdz
- VpHuSO1OXbvLUuLC0yV+UcnnrDGUliKCtmsH93Zqi4IQIjJU4z9vH1Vg2/MMSJ4U
- L7iWvkkOKRitz+0ksFNBRpaUUA7WBKGACD0eNqRyDfIb1+4lYONcEsmEzl7oqdjB
- g2qWNlpjvCOborsbxTFMGKVr13JfFBiyEqUutEBjIld18jOcvisJEJqzA==
-X-ME-Sender: <xms:dUPEYpR-T9WaiaPBKwOX2EPKDvXsHF0rX0Foye0MNuOzXi81aiY-TA>
- <xme:dUPEYiz5946stziXOcl1-qItBLuXbGwgc3C80IYQ48Zzy671J6FSp_TS_J2pVYZz1
- 6By5RFyrr3rNXaNhn4>
-X-ME-Received: <xmr:dUPEYu33Yn342-ogfRyQQMfSPZgZMBB-fIVk7uMTGEo9OLlM-ihI2Dl6VdFazz7kuguwCNZ5PrWIaYV2tJ_jbKEsusv0WVMhvrcH5XOaRqLi2tcFbFQq>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrudeiuddgjeegucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhephffvvefufffkofggtgfgsehtkeertdertdejnecuhfhrohhmpeflrghnucfu
- tghhmohruceojhgrnhesjhhstghhrggvrhdrtghhqeenucggtffrrghtthgvrhhnpeffie
- egtdfgjefguefgiefgleeigfelfeetieefhfeifeethfekgfdvjeeljeetleenucffohhm
- rghinhepkhgvrhhnvghlrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrg
- hmpehmrghilhhfrhhomhepjhgrnhesjhhstghhrggvrhdrtghh
-X-ME-Proxy: <xmx:dUPEYhDqQaca7pZtJVX8XUgX_2XBAlbZbxC3V1HEBuvS7jJfYrg_Sw>
- <xmx:dUPEYijNXlKmYzeoLi5_CZAu9fdvWDHstGM5IxpZOKJDQiRjZRGfBQ>
- <xmx:dUPEYlrmdZCGJTIHlTPF3vEnlEDacwjQFO20KjlEiPDC5OJ_vhMDNQ>
- <xmx:dUPEYltXN7to9nT3sTQezripRUTPG6ciTjCl_rZq6g8nknUSEFKSQA>
-Feedback-ID: ie67446dc:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 5 Jul 2022 09:58:12 -0400 (EDT)
-From: =?UTF-8?q?Jan=20Sch=C3=A4r?= <jan@jschaer.ch>
-To: Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH] ALSA: usb-audio: Add endianness annotations
-Date: Tue,  5 Jul 2022 15:57:46 +0200
-Message-Id: <20220705135746.13713-1-jan@jschaer.ch>
-X-Mailer: git-send-email 2.32.0
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="hJfLD/PO"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id A0D21B817E9;
+ Tue,  5 Jul 2022 14:31:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B18A8C341CA;
+ Tue,  5 Jul 2022 14:31:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1657031479;
+ bh=moxeozGqxzjgJYhs6taKE8w7rDE6WbDoG4nA04zRYrU=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=hJfLD/POTX6T35eLFnyuMFrPQgMxQ9Ai+/cS8V8gktHVgZS+65iYhuoDKZE9CHT/o
+ 7QBMZP6I1RltixMP9RcqXYvcMf1XPKaQ2fnRjGLSoeaq2UfPw3Q/N/4ewkQWyBuI5A
+ jblAoDbYPBjgT7aCgjWKGoXSn1BRXnkHx3Zn+GlqY/IFA6403GLIPDOeHbvi/wYaUZ
+ JhCQbxfyAt6h8TcH9O4Fa/XDbswQ5BgxrHq5Naq35vPcAaGJesiVlx51Ab5QHxkBUI
+ jhLzPDgq4G0U3UlFo7qyQSCfJqbGZbTwp0EKo4CSdUgWku6XhBdYPMBpcSw+pOpIqr
+ 4ZAhmG+ew8jcw==
+From: Mark Brown <broonie@kernel.org>
+To: lgirdwood@gmail.com, oder_chiou@realtek.com
+In-Reply-To: <20220705101134.16792-1-oder_chiou@realtek.com>
+References: <20220705101134.16792-1-oder_chiou@realtek.com>
+Subject: Re: [PATCH 1/2] ASoC: rt5640: Fix the wrong state of JD1 and JD2
+Message-Id: <165703147742.3751734.1499861342987961247.b4-ty@kernel.org>
+Date: Tue, 05 Jul 2022 15:31:17 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 06 Jul 2022 13:40:50 +0200
-Cc: alsa-devel@alsa-project.org, =?UTF-8?q?Jan=20Sch=C3=A4r?= <jan@jschaer.ch>,
- kernel test robot <lkp@intel.com>
+Cc: jack.yu@realtek.com, alsa-devel@alsa-project.org, spujar@nvidia.com,
+ derek.fang@realtek.com, shumingf@realtek.com, flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,38 +84,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fixes: 4b8ea38fabab ("ALSA: usb-audio: Support jack detection on Dell dock")
-Reported-by: kernel test robot <lkp@intel.com>
-Link: https://lore.kernel.org/r/202207051932.qUilU0am-lkp@intel.com
-Signed-off-by: Jan Schär <jan@jschaer.ch>
----
- sound/usb/mixer_quirks.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+On Tue, 5 Jul 2022 18:11:33 +0800, Oder Chiou wrote:
+> The patch fixes the wrong state of JD1 and JD2 while the bst1 or bst2 is
+> power on in the HDA JD using.
+> 
+> 
 
-diff --git a/sound/usb/mixer_quirks.c b/sound/usb/mixer_quirks.c
-index 5a45822e60e7..c06d6dfa8139 100644
---- a/sound/usb/mixer_quirks.c
-+++ b/sound/usb/mixer_quirks.c
-@@ -1967,7 +1967,7 @@ static int snd_soundblaster_e1_switch_create(struct usb_mixer_interface *mixer)
- static int realtek_hda_set(struct snd_usb_audio *chip, u32 cmd)
- {
- 	struct usb_device *dev = chip->dev;
--	u32 buf = cpu_to_be32(cmd);
-+	__be32 buf = cpu_to_be32(cmd);
- 
- 	return snd_usb_ctl_msg(dev, usb_sndctrlpipe(dev, 0), REALTEK_HDA_SET,
- 			       USB_RECIP_DEVICE | USB_TYPE_VENDOR | USB_DIR_OUT,
-@@ -1978,7 +1978,7 @@ static int realtek_hda_get(struct snd_usb_audio *chip, u32 cmd, u32 *value)
- {
- 	struct usb_device *dev = chip->dev;
- 	int err;
--	u32 buf = cpu_to_be32(cmd);
-+	__be32 buf = cpu_to_be32(cmd);
- 
- 	err = snd_usb_ctl_msg(dev, usb_sndctrlpipe(dev, 0), REALTEK_HDA_GET_OUT,
- 			      USB_RECIP_DEVICE | USB_TYPE_VENDOR | USB_DIR_OUT,
+Applied to
 
-base-commit: 2ef9868fff184a6246d2f71190be108a71aa2faa
--- 
-2.32.0
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
+Thanks!
+
+[1/2] ASoC: rt5640: Fix the wrong state of JD1 and JD2
+      commit: ca687e8c7e1f5b6b07e84db592bfbef3670d8ead
+[2/2] ASoC: rt5640: Add the MICBIAS1 to the dapm routing
+      (no commit info)
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

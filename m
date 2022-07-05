@@ -2,75 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 531F35676E8
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jul 2022 20:54:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 252E05686E0
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Jul 2022 13:42:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E9F701700;
-	Tue,  5 Jul 2022 20:53:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9F701700
+	by alsa0.perex.cz (Postfix) with ESMTPS id AD43E16D4;
+	Wed,  6 Jul 2022 13:41:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD43E16D4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657047265;
-	bh=z07d3tWCKO2PfBMX5iSdt+wsSGLf1g86UPV/UNCk/p8=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1657107753;
+	bh=fju+Y0C9WYZjWSEESGHZWCLXE2xKGF2o2lZbazFp5H8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=si3/Rz5jCuiqcCDFp0/wblt74RsEJsEUkCzrtJhXD9UEv3O+AJizdOwIA9p+RK/wv
-	 5BV2FxMxdg2+DMGD7ooW+EhsxgStAJFA/9yad+H0vdQBqubKDCYKyNZO4EXXM0+c/2
-	 LdVtTIjUb2289xHPlYERBhsac0ZVL31MkoYNoVYU=
+	b=ibDxB1duCfnYBF6AvD97qXBaewMh3Pp5JdEWzORdiRZWnOZzpU1/BN1b6R44iK42R
+	 JrfjGjGkaWzCqIxS1r0We49BivTZZzN+H9btuQoLrvZvA5YfW7UlKwAjT5SZSpszJc
+	 QxRCJA9uzNfSJmFAOtaseMbOkS4i6du6Vf/B5ycs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DF9B0F8053D;
-	Tue,  5 Jul 2022 20:52:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 17541F800C5;
+	Wed,  6 Jul 2022 13:40:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 28317F80515; Tue,  5 Jul 2022 20:52:28 +0200 (CEST)
+ id 62CE6F8015B; Tue,  5 Jul 2022 21:05:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,MIME_8BIT_HEADER,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-io1-f52.google.com (mail-io1-f52.google.com
+ [209.85.166.52])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1C92AF8015B
- for <alsa-devel@alsa-project.org>; Tue,  5 Jul 2022 20:52:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C92AF8015B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="seMwPtb/"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id BBE7A61A33;
- Tue,  5 Jul 2022 18:52:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 545ABC341CB;
- Tue,  5 Jul 2022 18:52:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657047143;
- bh=z07d3tWCKO2PfBMX5iSdt+wsSGLf1g86UPV/UNCk/p8=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=seMwPtb/+zKHmTc5VW84T6lNXiB3jKym3rlwZHR8mWiFd+ADQgJM1BWsyTxXQAJvX
- XFNPSMA9mQjmjHXOtvFelTJl7iR2VxyuKHHv5xyXg6OnsWWn66+Mb7Ij5ZA/yXkdt/
- SbEYsaN/5xc1uYTFtrNguXV8tlme/rKt0ea4drExUuVPan1YKbwSQ4e+wLeqifefhA
- hSVIJopLc437HG1Nu19P2sFmupe6Nlojs/jMzyQYSbQCUQ8PtUk5SRpJcu9zODSbzP
- ovDeVjyI0o1pRVMdj9gzFJ9+p2oJcok3/N6Crs9/qUfYrbmOxWXf2Eal8DN6YGGhI5
- 6uN8tbawM5Big==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
-In-Reply-To: <20220705092645.101343-1-u.kleine-koenig@pengutronix.de>
-References: <20220705092645.101343-1-u.kleine-koenig@pengutronix.de>
-Subject: Re: [PATCH] ASoC: xilinx: Suppress second error message about reset
- failure in .remove()
-Message-Id: <165704714203.1050281.1377470823499304869.b4-ty@kernel.org>
-Date: Tue, 05 Jul 2022 19:52:22 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2B4DEF800CB
+ for <alsa-devel@alsa-project.org>; Tue,  5 Jul 2022 21:05:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B4DEF800CB
+Received: by mail-io1-f52.google.com with SMTP id h85so12043064iof.4
+ for <alsa-devel@alsa-project.org>; Tue, 05 Jul 2022 12:05:01 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=NYhNf6ucb9Y2EJr3g3GFcYGSI7hDN6hlWNBPyCne12o=;
+ b=cpNEBYGk+QC0Pqd9jQ2vUvJIds/l7yzp6UUZoFUPgfsQZMglnoKyRYrixt8cg5bMqk
+ zOxQdvqqms0akonAyOf/ngwkrWIw+CY1/bVTBYmHzoT+73oYiwcctdwZ47aq0sAe8TKh
+ 39nEGaGQuF36W8ucUncEQQsGA17WQ7jCyP6FbO2/jVtAS024c1OkPRh7M8RMcSycxqVF
+ dPXMV9maATcno8dGfC34cyOeNGRr1HfYCOylfyqNLiK/G9JelUdw1ZRQrsDGOjdjtOhH
+ XE9fXGxjnpQ2f9gNCMbYXiXPx/QImi8ZqKGCzMCNgivTx7nEPMgvvCUGl8Mb0AMrUeK3
+ 7g+w==
+X-Gm-Message-State: AJIora9NVB1NFm/ifeKCMu5TtLIKJYUm3W/kU0t53YNBH93tIfGxh7F8
+ sIHp2w+FDaA/6kXd/mUZeg==
+X-Google-Smtp-Source: AGRyM1vbgvYpzb6OcGyK9lCHO48fmdYxy4SEAi8PzKsPwRclsAgNdeYXBff/q4XTwjXyQVl9lebl7A==
+X-Received: by 2002:a05:6638:2494:b0:33c:cfb8:1e3c with SMTP id
+ x20-20020a056638249400b0033ccfb81e3cmr21373745jat.139.1657047900325; 
+ Tue, 05 Jul 2022 12:05:00 -0700 (PDT)
+Received: from robh.at.kernel.org ([64.188.179.248])
+ by smtp.gmail.com with ESMTPSA id
+ x8-20020a056638026800b00339c46a5e95sm14948822jaq.89.2022.07.05.12.04.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 05 Jul 2022 12:04:59 -0700 (PDT)
+Received: (nullmailer pid 2450909 invoked by uid 1000);
+ Tue, 05 Jul 2022 19:04:57 -0000
+Date: Tue, 5 Jul 2022 13:04:57 -0600
+From: Rob Herring <robh@kernel.org>
+To: Conor Dooley <conor@kernel.org>
+Subject: Re: [PATCH v4 02/14] dt-bindings: display: ili9341: document canaan
+ kd233's lcd
+Message-ID: <20220705190457.GA2450821-robh@kernel.org>
+References: <20220701192300.2293643-1-conor@kernel.org>
+ <20220701192300.2293643-3-conor@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux-arm-kernel@lists.infradead.org,
- kernel@pengutronix.de, michal.simek@xilinx.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220701192300.2293643-3-conor@kernel.org>
+X-Mailman-Approved-At: Wed, 06 Jul 2022 13:40:49 +0200
+Cc: Niklas Cassel <niklas.cassel@wdc.com>, alsa-devel@alsa-project.org,
+ David Airlie <airlied@linux.ie>, Palmer Dabbelt <palmer@rivosinc.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Conor Dooley <conor.dooley@microchip.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-riscv@lists.infradead.org, Sam Ravnborg <sam@ravnborg.org>,
+ Damien Le Moal <damien.lemoal@opensource.wdc.com>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>, Jose Abreu <joabreu@synopsys.com>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, devicetree@vger.kernel.org,
+ Albert Ou <aou@eecs.berkeley.edu>, Rob Herring <robh+dt@kernel.org>,
+ dri-devel@lists.freedesktop.org, Paul Walmsley <paul.walmsley@sifive.com>,
+ Dillon Min <dillon.minfei@gmail.com>, linux-kernel@vger.kernel.org,
+ Serge Semin <fancer.lancer@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+ Mark Brown <broonie@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Daniel Vetter <daniel@ffwll.ch>, dmaengine@vger.kernel.org,
+ Masahiro Yamada <masahiroy@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,40 +110,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 5 Jul 2022 11:26:45 +0200, Uwe Kleine-König wrote:
-> Returning an error value in a platform remove callback results in an error
-> message being emitted by the platform core, but otherwise it doesn't make
-> a difference. If ret is != 0, there is already an error message and another
-> very generic doesn't add any value, so return 0 unconditionally.
+On Fri, 01 Jul 2022 20:22:48 +0100, Conor Dooley wrote:
+> From: Conor Dooley <conor.dooley@microchip.com>
 > 
-> This is a preparation for making platform remove callbacks return void.
+> The Canaan KD233 development board has a built in LCD.
+> Add a specific compatible for it.
 > 
-> [...]
+> Signed-off-by: Conor Dooley <conor.dooley@microchip.com>
+> ---
+>  .../devicetree/bindings/display/panel/ilitek,ili9341.yaml        | 1 +
+>  1 file changed, 1 insertion(+)
+> 
 
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/1] ASoC: xilinx: Suppress second error message about reset failure in .remove()
-      commit: 275cc7f5bd6f60565672ce339505b77fd47a8157
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Reviewed-by: Rob Herring <robh@kernel.org>

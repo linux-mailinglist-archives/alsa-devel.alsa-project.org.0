@@ -2,112 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21233566A75
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jul 2022 13:59:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 230B6566784
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jul 2022 12:13:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9F4A616E7;
-	Tue,  5 Jul 2022 13:58:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F4A616E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id C3F9C16E6;
+	Tue,  5 Jul 2022 12:12:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C3F9C16E6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657022389;
-	bh=Hbhbc9CQbUIrE2cq66V1F0y8qKD+61gVMn98exOc8vU=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=IJZGdTJ/P22+disut9lMLj0mzSNHIqf6A9xYgJo2ZmVdQTs1GZdsUYGNhizMDN0sw
-	 i18/+abmV5FS8JQLfwGbkbmmqWMMeD0oKSLJ4Ka+17xSUCltfDqNoqsyTC//kgujNT
-	 NDNZeTMm7I4yAgWvKnIfAJkwKkH30rz+zmzMTGM8=
+	s=default; t=1657016014;
+	bh=2IpA+mS2hO6QoqYe8JugUQfsqD0rlYH08DgozQ+nm7E=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=HYXpg+tA/PWKGJSv3GMFsPlUHHRULsT0CBdfxIIS9oYN6LGSqDXe740w5FRgmh8at
+	 ylOzImQmhgLon+aupF4Iw7b/XfjUbbw14qGVbTMPgcOVSwadfll5JPN8MHH/ZJNaQ/
+	 jhnPfIQXW/DcmA/QM/8usDJq5nIvZpXNM9mN5HQs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C33F0F80212;
-	Tue,  5 Jul 2022 13:58:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 91161F80104;
+	Tue,  5 Jul 2022 12:12:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1542CF80104; Tue,  5 Jul 2022 12:09:03 +0200 (CEST)
+ id 44DC4F80515; Tue,  5 Jul 2022 12:12:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 21DCBF80104
- for <alsa-devel@alsa-project.org>; Tue,  5 Jul 2022 12:08:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21DCBF80104
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="eByb4sSP"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="jKWTp5GM"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 4BB4A1F91F;
- Tue,  5 Jul 2022 10:08:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1657015735; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=qvMJ4J1/LuqJ2bm7BlZIoOLJOYmWh+4Rpvkk33SZGOA=;
- b=eByb4sSPqg6rRuVWR7Uyol2qkXUh2FlAJZJl6kQB2+c8EEhcdaxtq/jkX0dVzdvL/5s6D3
- /efNTsY/bdasP3pVQxu6qP4nvHO+zcS4O9fblGgs1NR89rSYgTvYETM292rGHy3CrhOSj+
- qGcOFU+GGl+mKHAF54mbZA9ZrTUJOaY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1657015735;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=qvMJ4J1/LuqJ2bm7BlZIoOLJOYmWh+4Rpvkk33SZGOA=;
- b=jKWTp5GMggeoLloojImrUvPvKkYL+8GQzQSR8Qi8VzqCYEK46zUKh7GMjl/cO3qvfPDiP7
- DHXFfHIde+vxx5CQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2E2AF1339A;
- Tue,  5 Jul 2022 10:08:54 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id VBGsCbYNxGK1BQAAMHmgww
- (envelope-from <jdelvare@suse.de>); Tue, 05 Jul 2022 10:08:54 +0000
-Date: Tue, 5 Jul 2022 12:08:52 +0200
-From: Jean Delvare <jdelvare@suse.de>
-To: Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <u.kleine-koenig@pengutronix.de>
-Subject: Re: [PATCH 6/6] i2c: Make remove callback return void
-Message-ID: <20220705120852.049dc235@endymion.delvare>
-In-Reply-To: <20220628140313.74984-7-u.kleine-koenig@pengutronix.de>
-References: <20220628140313.74984-1-u.kleine-koenig@pengutronix.de>
- <20220628140313.74984-7-u.kleine-koenig@pengutronix.de>
-Organization: SUSE Linux
-X-Mailer: Claws Mail 3.18.0 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+ by alsa1.perex.cz (Postfix) with ESMTP id 05684F80104
+ for <alsa-devel@alsa-project.org>; Tue,  5 Jul 2022 12:11:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 05684F80104
+Authenticated-By: 
+X-SpamFilter-By: ArmorX SpamTrap 5.77 with qID 265ABfS82024365,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
+ by rtits2.realtek.com.tw (8.15.2/2.81/5.90) with ESMTPS id 265ABfS82024365
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=FAIL);
+ Tue, 5 Jul 2022 18:11:41 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.28; Tue, 5 Jul 2022 18:11:41 +0800
+Received: from localhost.localdomain (172.22.102.1) by
+ RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.27; Tue, 5 Jul 2022 18:11:41 +0800
+From: Oder Chiou <oder_chiou@realtek.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>
+Subject: [PATCH 1/2] ASoC: rt5640: Fix the wrong state of JD1 and JD2
+Date: Tue, 5 Jul 2022 18:11:33 +0800
+Message-ID: <20220705101134.16792-1-oder_chiou@realtek.com>
+X-Mailer: git-send-email 2.37.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Tue, 05 Jul 2022 13:58:46 +0200
-Cc: alsa-devel@alsa-project.org, linux-pwm@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- linux-mtd@lists.infradead.org, linux-i2c@vger.kernel.org,
- Guenter Roeck <groeck@chromium.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-leds@vger.kernel.org, linux-rtc@vger.kernel.org,
- chrome-platform@lists.linux.dev, linux-staging@lists.linux.dev,
- kasan-dev@googlegroups.com, linux-clk@vger.kernel.org,
- linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-watchdog@vger.kernel.org, linux-pm@vger.kernel.org,
- acpi4asus-user@lists.sourceforge.net, linux-gpio@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
- openipmi-developer@lists.sourceforge.net, linux-omap@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
- patches@opensource.cirrus.com, linux-usb@vger.kernel.org,
- Wolfram Sang <wsa@kernel.org>, linux-crypto@vger.kernel.org,
- netdev@vger.kernel.org, linux-integrity@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [172.22.102.1]
+X-ClientProxiedBy: RTEXH36504.realtek.com.tw (172.21.6.27) To
+ RTEXMBS01.realtek.com.tw (172.21.6.94)
+X-KSE-ServerInfo: RTEXMBS01.realtek.com.tw, 9
+X-KSE-AntiSpam-Interceptor-Info: trusted connection
+X-KSE-Antiphishing-Info: Clean
+X-KSE-Antiphishing-ScanningType: Deterministic
+X-KSE-Antiphishing-Method: None
+X-KSE-Antiphishing-Bases: 07/05/2022 09:56:00
+X-KSE-AttachmentFiltering-Interceptor-Info: no applicable attachment filtering
+ rules found
+X-KSE-Antivirus-Interceptor-Info: scan successful
+X-KSE-Antivirus-Info: =?big5?B?Q2xlYW4sIGJhc2VzOiAyMDIyLzcvNSCkV6TIIDA3OjA5OjAw?=
+X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
+X-KSE-ServerInfo: RTEXH36505.realtek.com.tw, 9
+X-KSE-Attachment-Filter-Triggered-Rules: Clean
+X-KSE-Attachment-Filter-Triggered-Filters: Clean
+X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
+Cc: Oder Chiou <oder_chiou@realtek.com>, jack.yu@realtek.com,
+ alsa-devel@alsa-project.org, Sameer Pujar <spujar@nvidia.com>,
+ derek.fang@realtek.com, shumingf@realtek.com, flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -123,57 +93,83 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 28 Jun 2022 16:03:12 +0200, Uwe Kleine-K=C3=B6nig wrote:
-> From: Uwe Kleine-K=C3=B6nig <uwe@kleine-koenig.org>
->=20
-> The value returned by an i2c driver's remove function is mostly ignored.
-> (Only an error message is printed if the value is non-zero that the
-> error is ignored.)
->=20
-> So change the prototype of the remove function to return no value. This
-> way driver authors are not tempted to assume that passing an error to
-> the upper layer is a good idea. All drivers are adapted accordingly.
-> There is no intended change of behaviour, all callbacks were prepared to
-> return 0 before.
->=20
-> Signed-off-by: Uwe Kleine-K=C3=B6nig <u.kleine-koenig@pengutronix.de>
-> ---
+The patch fixes the wrong state of JD1 and JD2 while the bst1 or bst2 is
+power on in the HDA JD using.
 
-That's a huge change for a relatively small benefit, but if this is
-approved by the I2C core maintainer then fine with me. For:
+Signed-off-by: Oder Chiou <oder_chiou@realtek.com>
+Reported-by: Sameer Pujar <spujar@nvidia.com>
+---
+ sound/soc/codecs/rt5640.c | 30 ++++++++++++++++++++++--------
+ 1 file changed, 22 insertions(+), 8 deletions(-)
 
->  drivers/hwmon/adc128d818.c                                | 4 +---
->  drivers/hwmon/adt7470.c                                   | 3 +--
->  drivers/hwmon/asb100.c                                    | 6 ++----
->  drivers/hwmon/asc7621.c                                   | 4 +---
->  drivers/hwmon/dme1737.c                                   | 4 +---
->  drivers/hwmon/f75375s.c                                   | 5 ++---
->  drivers/hwmon/fschmd.c                                    | 6 ++----
->  drivers/hwmon/ftsteutates.c                               | 3 +--
->  drivers/hwmon/ina209.c                                    | 4 +---
->  drivers/hwmon/ina3221.c                                   | 4 +---
->  drivers/hwmon/jc42.c                                      | 3 +--
->  drivers/hwmon/mcp3021.c                                   | 4 +---
->  drivers/hwmon/occ/p8_i2c.c                                | 4 +---
->  drivers/hwmon/pcf8591.c                                   | 3 +--
->  drivers/hwmon/smm665.c                                    | 3 +--
->  drivers/hwmon/tps23861.c                                  | 4 +---
->  drivers/hwmon/w83781d.c                                   | 4 +---
->  drivers/hwmon/w83791d.c                                   | 6 ++----
->  drivers/hwmon/w83792d.c                                   | 6 ++----
->  drivers/hwmon/w83793.c                                    | 6 ++----
->  drivers/hwmon/w83795.c                                    | 4 +---
->  drivers/hwmon/w83l785ts.c                                 | 6 ++----
->  drivers/i2c/i2c-core-base.c                               | 6 +-----
->  drivers/i2c/i2c-slave-eeprom.c                            | 4 +---
->  drivers/i2c/i2c-slave-testunit.c                          | 3 +--
->  drivers/i2c/i2c-smbus.c                                   | 3 +--
->  drivers/i2c/muxes/i2c-mux-ltc4306.c                       | 4 +---
->  drivers/i2c/muxes/i2c-mux-pca9541.c                       | 3 +--
->  drivers/i2c/muxes/i2c-mux-pca954x.c                       | 3 +--
+diff --git a/sound/soc/codecs/rt5640.c b/sound/soc/codecs/rt5640.c
+index 56008e4518f3..19bdb6d0f5a9 100644
+--- a/sound/soc/codecs/rt5640.c
++++ b/sound/soc/codecs/rt5640.c
+@@ -1984,7 +1984,12 @@ static int rt5640_set_bias_level(struct snd_soc_component *component,
+ 		snd_soc_component_write(component, RT5640_PWR_DIG2, 0x0000);
+ 		snd_soc_component_write(component, RT5640_PWR_VOL, 0x0000);
+ 		snd_soc_component_write(component, RT5640_PWR_MIXER, 0x0000);
+-		snd_soc_component_write(component, RT5640_PWR_ANLG1, 0x0000);
++		if (rt5640->jd_src == RT5640_JD_SRC_HDA_HEADER)
++			snd_soc_component_write(component, RT5640_PWR_ANLG1,
++				0x0018);
++		else
++			snd_soc_component_write(component, RT5640_PWR_ANLG1,
++				0x0000);
+ 		snd_soc_component_write(component, RT5640_PWR_ANLG2, 0x0000);
+ 		break;
+ 
+@@ -2393,9 +2398,15 @@ static void rt5640_jack_work(struct work_struct *work)
+ static irqreturn_t rt5640_irq(int irq, void *data)
+ {
+ 	struct rt5640_priv *rt5640 = data;
++	int delay = 0;
++
++	if (rt5640->jd_src == RT5640_JD_SRC_HDA_HEADER) {
++		cancel_delayed_work_sync(&rt5640->jack_work);
++		delay = 100;
++	}
+ 
+ 	if (rt5640->jack)
+-		queue_delayed_work(system_long_wq, &rt5640->jack_work, 0);
++		queue_delayed_work(system_long_wq, &rt5640->jack_work, delay);
+ 
+ 	return IRQ_HANDLED;
+ }
+@@ -2580,6 +2591,12 @@ static void rt5640_enable_hda_jack_detect(
+ 
+ 	snd_soc_component_update_bits(component, RT5640_DUMMY1, 0x400, 0x0);
+ 
++	snd_soc_component_update_bits(component, RT5640_PWR_ANLG1,
++		RT5640_PWR_VREF2, RT5640_PWR_VREF2);
++	usleep_range(10000, 15000);
++	snd_soc_component_update_bits(component, RT5640_PWR_ANLG1,
++		RT5640_PWR_FV2, RT5640_PWR_FV2);
++
+ 	rt5640->jack = jack;
+ 
+ 	ret = request_irq(rt5640->irq, rt5640_irq,
+@@ -2696,16 +2713,13 @@ static int rt5640_probe(struct snd_soc_component *component)
+ 
+ 	if (device_property_read_u32(component->dev,
+ 				     "realtek,jack-detect-source", &val) == 0) {
+-		if (val <= RT5640_JD_SRC_GPIO4) {
++		if (val <= RT5640_JD_SRC_GPIO4)
+ 			rt5640->jd_src = val << RT5640_JD_SFT;
+-		} else if (val == RT5640_JD_SRC_HDA_HEADER) {
++		else if (val == RT5640_JD_SRC_HDA_HEADER)
+ 			rt5640->jd_src = RT5640_JD_SRC_HDA_HEADER;
+-			snd_soc_component_update_bits(component, RT5640_DUMMY1,
+-				0x0300, 0x0);
+-		} else {
++		else
+ 			dev_warn(component->dev, "Warning: Invalid jack-detect-source value: %d, leaving jack-detect disabled\n",
+ 				 val);
+-		}
+ 	}
+ 
+ 	if (!device_property_read_bool(component->dev, "realtek,jack-detect-not-inverted"))
+-- 
+2.37.0
 
-Reviewed-by: Jean Delvare <jdelvare@suse.de>
-
---=20
-Jean Delvare
-SUSE L3 Support

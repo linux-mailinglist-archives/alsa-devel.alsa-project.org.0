@@ -2,66 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33A995667C7
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jul 2022 12:21:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DBD456680E
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jul 2022 12:34:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B71BF16EC;
-	Tue,  5 Jul 2022 12:21:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B71BF16EC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8E0DE1631;
+	Tue,  5 Jul 2022 12:33:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E0DE1631
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657016516;
-	bh=RYl9IYSG9cksS7fgtP/Z5qYiEyPG+m5whyd+N1MwcCI=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=eqFRPOL7r3JOyFxku69umXKaCadFw3i+aH+ws323UHu7V8UXMh7pIFJp03/TyNGmV
-	 4rUbhqbga1H8XnDINLkgBFgRmZPp/QcX0mf/FoE8c+JaxKyiVvKWOfz7OSPxKcHy+7
-	 Obv9iNavxTh2klu0uh6CXmwHp+cZwYM8lemLGEro=
+	s=default; t=1657017245;
+	bh=pwbEfdUHN9Oqlu9FwgCmB/JRJRN/RpnyE6rSVgpFhmw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=V3XcyjGiYpuLZTXhcdGlSsiphgVOeMi3ObJBu3WBrmmaE7ToFY9yq+RJ/dhc8jGCJ
+	 i4vM6p2lbrYPXdscLAHP/g9smTFf8WjhbxH344DJyvIk+7qs6QRfGRJXeNkGY6U/e5
+	 65GqNeBKB5MCgGoL5dfyV7QhSJqT5w46+jQAENN0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DC555F80212;
-	Tue,  5 Jul 2022 12:20:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CB4E6F80212;
+	Tue,  5 Jul 2022 12:33:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 902FFF8012A; Tue,  5 Jul 2022 12:20:52 +0200 (CEST)
+ id 1CE1FF8015B; Tue,  5 Jul 2022 12:33:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=PRX_BODY_135,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from albert.telenet-ops.be (albert.telenet-ops.be
- [IPv6:2a02:1800:110:4::f00:1a])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [IPv6:2a00:1450:4864:20::635])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A541FF8012A
- for <alsa-devel@alsa-project.org>; Tue,  5 Jul 2022 12:20:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A541FF8012A
-Received: from ramsan.of.borg ([84.195.186.194])
- by albert.telenet-ops.be with bizsmtp
- id rNLf270094C55Sk06NLfeX; Tue, 05 Jul 2022 12:20:44 +0200
-Received: from geert (helo=localhost)
- by ramsan.of.borg with local-esmtp (Exim 4.93)
- (envelope-from <geert@linux-m68k.org>)
- id 1o8ffa-0029jA-Kj; Tue, 05 Jul 2022 12:20:38 +0200
-Date: Tue, 5 Jul 2022 12:20:38 +0200 (CEST)
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-X-X-Sender: geert@ramsan.of.borg
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: Re: [PATCH v2 02/14] ASoC: codecs: Add HD-Audio codec driver
-In-Reply-To: <20220511162403.3987658-3-cezary.rojewski@intel.com>
-Message-ID: <alpine.DEB.2.22.394.2207051218200.513966@ramsan.of.borg>
-References: <20220511162403.3987658-1-cezary.rojewski@intel.com>
- <20220511162403.3987658-3-cezary.rojewski@intel.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII; format=flowed
-Cc: alsa-devel@alsa-project.org, upstream@semihalf.com,
- kai.vehmanen@linux.intel.com, harshapriya.n@intel.com,
- linux-kernel@vger.kernel.org, rad@semihalf.com,
- pierre-louis.bossart@linux.intel.com, tiwai@suse.com, hdegoede@redhat.com,
- broonie@kernel.org, amadeuszx.slawinski@linux.intel.com,
- cujomalainey@chromium.org, lma@semihalf.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 986E1F8012A
+ for <alsa-devel@alsa-project.org>; Tue,  5 Jul 2022 12:32:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 986E1F8012A
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="CLXsjGhp"
+Received: by mail-ej1-x635.google.com with SMTP id pk21so20900147ejb.2
+ for <alsa-devel@alsa-project.org>; Tue, 05 Jul 2022 03:32:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id;
+ bh=jY5FjsixWEcU8zWWnoT9i17TwQs6gwoN4AcRetl459A=;
+ b=CLXsjGhps7gMkknzEejhsqeXGH97V6MUc8+1rvRng+RCUolyNyxRSjRnpe0IclsK5e
+ YYRN5JHrfj7XOXa9vWKxCbw7mEDKJSaR/ywYKw0jIEGtRY8S/LayzRbvfvKX3csZR36f
+ Br6uh63jmTgncimGaDumlZAhkZBWplIsKCz7Toi32BLIGHz8hIvBJEDHnxkCFp5+Zp6f
+ ZKzVQfSoAW0rPlVYOSeRthMhkh3iLJBPHoWVRtBYp/0KBi5BQQR3fjWNnieqXOjFWGZt
+ e7UwHoDELvPxzOhhiWbA4dHPGA4rguCmnAkZEJnjk3iHcvg0yfW6jYTuy1u1HyuOMVrW
+ FeeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=jY5FjsixWEcU8zWWnoT9i17TwQs6gwoN4AcRetl459A=;
+ b=KdEXbmMMfYHxeW4F28RU0gDzrkm4yKonC60AIjO3MSHVjOFXMZCh5OJVcKC8aqWaVH
+ cHxcWe1odbImk1pNS9LMEgw2tvO+Zc9W7iEgu7WSwDp6QycodxRKtyt5cdeFEmM37KmX
+ izPzJS1zEia8mNjBq6Ve3az4ittyhX7uBrqp5NxYVLryCHnYkL2EyFlWNPZsH3zUSMTr
+ vJAKj3ogYnkgMtTQmRZ71HkRyLn2ZbhJ9Z9zJcSB+RIhIfTHIo+NYpONmTzkvgvST94+
+ znW/pvqMjgbyG37ZGkUYq4uCJgBxDOp5wHeifrKIZ2Qr23cdui5xhBifIHGCdXUMQJGx
+ eISg==
+X-Gm-Message-State: AJIora8447JXTkyFcc2I5vHXsCN1lawrHVaFE2PkfK92Z5oRHuvNMBSa
+ ZZwYzzM3O8rGdn8Tde5mGas=
+X-Google-Smtp-Source: AGRyM1vbRqvZJ1bJMfKQceJ+JeD7Wl2liAwNwopQ2x8qJrxF1kBDubDhMTHNKcVUtXWF2qb02ic21A==
+X-Received: by 2002:a17:907:271b:b0:72a:72bb:6f47 with SMTP id
+ w27-20020a170907271b00b0072a72bb6f47mr26019412ejk.634.1657017177777; 
+ Tue, 05 Jul 2022 03:32:57 -0700 (PDT)
+Received: from felia.fritz.box
+ (200116b82698ad00a9019cf0f015ae6b.dip.versatel-1u1.de.
+ [2001:16b8:2698:ad00:a901:9cf0:f015:ae6b])
+ by smtp.gmail.com with ESMTPSA id
+ p19-20020aa7cc93000000b0042bdb6a3602sm22540880edt.69.2022.07.05.03.32.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 05 Jul 2022 03:32:57 -0700 (PDT)
+From: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+To: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>, 
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Mark Brown <broonie@kernel.org>, alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: Intel: avs: correct config reference for I2S test board
+Date: Tue,  5 Jul 2022 12:32:38 +0200
+Message-Id: <20220705103238.7484-1-lukas.bulwahn@gmail.com>
+X-Mailer: git-send-email 2.17.1
+Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ kernel-janitors@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Lukas Bulwahn <lukas.bulwahn@gmail.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,84 +106,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
- 	Hi Cezary,
+Commit e39acc4cfd92 ("ASoC: Intel: avs: Add I2S-test machine board") adds
+the config "SND_SOC_INTEL_AVS_MACH_I2S_TEST", but in the Makefile refers
+to  config "SND_SOC_INTEL_AVS_MACH_i2s_TEST" (notice the uppercase and
+lowercase difference).
 
-On Wed, 11 May 2022, Cezary Rojewski wrote:
-> Add generic ASoC equivalent of ALSA HD-Audio codec. This codec is
-> designed to follow HDA_DEV_LEGACY convention. Driver wrapps existing
-> hda_codec.c handlers to prevent code duplication within the newly added
-> code. Number of DAIs created is dependent on capabilities exposed by the
-> codec itself. Because of this, single solution can be applied to support
-> every single HD-Audio codec type.
->
-> At the same time, through the ASoC topology, platform drivers may limit
-> the number of endpoints available to the userspace as codec driver
-> exposes BE DAIs only.
->
-> Both hda_codec_probe() and hda_codec_remove() declare their expectations
-> on device's usage_count and suspended-status. This is to catch any
-> unexpected behavior as PM-related code for HD-Audio has been changing
-> quite a bit throughout the years.
->
-> In order for codec DAI list to reflect its actual PCM capabilities, PCMs
-> need to be built and that can only happen once codec device is
-> constructed. To do that, a valid component->card->snd_card pointer is
-> needed. Said pointer will be provided by the framework once all card
-> components are accounted for and their probing can begin. Usage of
-> "binder" BE DAI solves the problem - codec can be listed as one of
-> HD-Audio card components without declaring any actual BE DAIs
-> statically.
->
-> Relation with hdac_hda:
->
-> Addition of parallel solution is motivated by behavioral differences
-> between hdac_hda.c and its legacy equivalent found in sound/pci/hda
-> e.g.: lack of dynamic, based on codec capabilities, resource allocation
-> and high cost of removing such differences on actively used targets.
-> Major goal of codec driver presented here is to follow HD-Audio legacy
-> behavior in 1:1 fashion by becoming a wrapper. Doing so increases code
-> coverage of the legacy code and reduces the maintenance cost for both
-> solutions.
->
-> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+Adjust the Makefile to refer to the actual existing config.
 
-Thanks for your patch, which is now commit b5df2a7dca1cc6c6 ("ASoC:
-codecs: Add HD-Audio codec driver") in sound-asoc/for-next.
+Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+---
+Amadeusz, Cezary, please ack.
 
-> --- a/sound/soc/codecs/Kconfig
-> +++ b/sound/soc/codecs/Kconfig
-> @@ -937,6 +937,16 @@ config SND_SOC_HDAC_HDA
-> 	tristate
-> 	select SND_HDA
->
-> +config SND_SOC_HDA
-> +	tristate "HD-Audio codec driver"
-> +	select SND_HDA_EXT_CORE
-> +	select SND_HDA
+Mark, please pick this minor build config fix.
 
-I am wondering if this needs a platform dependency?
-Or perhaps this symbol should be made invisible, as it is selected by
-SND_SOC_INTEL_AVS_MACH_HDAUDIO?  Are there any other users?
+ sound/soc/intel/avs/boards/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks!
+diff --git a/sound/soc/intel/avs/boards/Makefile b/sound/soc/intel/avs/boards/Makefile
+index 25e8c4bb07db..bc75376d58c2 100644
+--- a/sound/soc/intel/avs/boards/Makefile
++++ b/sound/soc/intel/avs/boards/Makefile
+@@ -16,7 +16,7 @@ snd-soc-avs-ssm4567-objs := ssm4567.o
+ obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_DA7219) += snd-soc-avs-da7219.o
+ obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_DMIC) += snd-soc-avs-dmic.o
+ obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_HDAUDIO) += snd-soc-avs-hdaudio.o
+-obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_i2s_TEST) += snd-soc-avs-i2s-test.o
++obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_I2S_TEST) += snd-soc-avs-i2s-test.o
+ obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_MAX98357A) += snd-soc-avs-max98357a.o
+ obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_MAX98373) += snd-soc-avs-max98373.o
+ obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_NAU8825) += snd-soc-avs-nau8825.o
+-- 
+2.17.1
 
-> +	help
-> +	  This enables HD-Audio codec support in ASoC subsystem. Compared
-> +	  to SND_SOC_HDAC_HDA, driver's behavior is identical to HD-Audio
-> +	  legacy solution - including the dynamic resource allocation
-> +	  based on actual codec capabilities.
-> +
-> config SND_SOC_ICS43432
-> 	tristate "ICS43423 and compatible i2s microphones"
->
-
-Gr{oetje,eeting}s,
-
- 						Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
- 							    -- Linus Torvalds

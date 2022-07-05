@@ -2,75 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6779D5676E3
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jul 2022 20:53:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB33C5676E6
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jul 2022 20:53:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0B1B116D5;
-	Tue,  5 Jul 2022 20:52:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B1B116D5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 76E3816E6;
+	Tue,  5 Jul 2022 20:53:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 76E3816E6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657047205;
-	bh=W7RTkFS6YzkGkD3g5OYSBQmH5HUSU27tkgRa/tx7oxQ=;
+	s=default; t=1657047236;
+	bh=EWfRq+tWKV+8Qks2XSArxpnIXRNsB+UBf4g4MzjPFHI=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WqwfAdW7rSkJwBxzcVrBJRF6nZwBdJezXXPISwKNvpRT5+XBDz71m8+O8uuD39Q+N
-	 PkM4/6JcEHSdWf/186thuwrXtWkb0JvDRLV7aViIgxHMogf/y4Ud9bB4hClABDQCaV
-	 /4SkiGZdmOwtCu8JO9Tht2IF3axBhM7DVwerznf4=
+	b=boRkf0cEwo01btFwLfXvrJG7V0AO/fWkuSNyfiOBKlF9T0qOpn1ZmkXYhbryqAC7n
+	 twZGcSawP0wA0p2zVW9PiBsD4nhiSk8Qz/pr+wkMRtiSY/tI/B/cCi5LajVAVt5qUZ
+	 wi6N5QfSVGTHwbAh3pcJphKkWRy9Hvo40/lMmeeY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 79B75F80212;
-	Tue,  5 Jul 2022 20:52:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0961FF80519;
+	Tue,  5 Jul 2022 20:52:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D3595F8015B; Tue,  5 Jul 2022 20:52:22 +0200 (CEST)
+ id 01A8EF8052E; Tue,  5 Jul 2022 20:52:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5C315F800CB
- for <alsa-devel@alsa-project.org>; Tue,  5 Jul 2022 20:52:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C315F800CB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8DCCCF804B2
+ for <alsa-devel@alsa-project.org>; Tue,  5 Jul 2022 20:52:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8DCCCF804B2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="RYKVH3FE"
+ header.b="JF9LQ2Hr"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 352CE61A71;
- Tue,  5 Jul 2022 18:52:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09986C341C7;
- Tue,  5 Jul 2022 18:52:14 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 3E76961A74;
+ Tue,  5 Jul 2022 18:52:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15F09C341CB;
+ Tue,  5 Jul 2022 18:52:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657047136;
- bh=W7RTkFS6YzkGkD3g5OYSBQmH5HUSU27tkgRa/tx7oxQ=;
+ s=k20201202; t=1657047138;
+ bh=EWfRq+tWKV+8Qks2XSArxpnIXRNsB+UBf4g4MzjPFHI=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=RYKVH3FENZs6v0A6Q3yi9Jv7n4j8GGqcq9dXknpgBFC+khxvV8JW7puPVPrBCSjbG
- xSTDbY357Y7IudSfSuO5TjUFyNEB1O1hrEy+nCiKYdwMciwJMtjNM2edBHI1QYOUZT
- OgARrgLzacgA5d1MRfIfUqvFLwBLG2Wdp1Pq3WJ+7m4x7S7NxZrGpHJDyk4mE74HcZ
- Aw7ShyGA5vfzshaaZtex7PYjYs5mzRZrBZy5tWIvtBca1kkRZ5jdBQP1oQLWflqvrg
- r2XhLFoVO4ZAcaWlAU3bzU5tKcuxQfcIlYqovF5S2gloUR/F7zWfjStqp3wjIrsBXh
- mPM1LcKkCvxlA==
+ b=JF9LQ2HrBz6obOxva65E3jEGayO18adkIej71mpp+DqqY3953oXUlnj1tUJF7xM2T
+ OXFbbVcLYnbt6CbG+b2cBQdzDhZ/gB7/XXuZkBx/pzsorYEs5LrCy8/jNcMfODVTO5
+ EmHokIpljGhzPbjG17hel3BXndN5eUncXPSRNykes5sFixf6skQ9CZZqvC6/tzjvHT
+ +JBPzYhGhwEJ/G8/n0CSiWgGo5ZZ/7/tR8bHwqfYQioFWw5CvZgc+sSkQc7ZPqPIK+
+ vSEYHG1H8zvAtQJ704WIjyGdskePtrVvh4FOZ9dsSuf3TL9djymbBnLY8wi95Z7UaS
+ qEK6wlimJVmiQ==
 From: Mark Brown <broonie@kernel.org>
-To: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, andriy.shevchenko@linux.intel.com
-In-Reply-To: <20220603170707.48728-1-andriy.shevchenko@linux.intel.com>
-References: <20220603170707.48728-1-andriy.shevchenko@linux.intel.com>
-Subject: Re: [PATCH v1 1/1] ASoC: madera: Replace kernel.h with the necessary
- inclusions
-Message-Id: <165704713474.1050281.11786579808671554712.b4-ty@kernel.org>
-Date: Tue, 05 Jul 2022 19:52:14 +0100
+To: srinivas.kandagatla@linaro.org, bgoswami@quicinc.com, lgirdwood@gmail.com,
+ tiwai@suse.com, perex@perex.cz, cuigaosheng1@huawei.com
+In-Reply-To: <20220705005315.663920-1-cuigaosheng1@huawei.com>
+References: <20220705005315.663920-1-cuigaosheng1@huawei.com>
+Subject: Re: [PATCH] ASoC: codecs: wsa883x: fix warning
+ using-module-alias-sdw.cocci
+Message-Id: <165704713682.1050281.11385702156184888420.b4-ty@kernel.org>
+Date: Tue, 05 Jul 2022 19:52:16 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: rf@opensource.cirrus.com, ckeepax@opensource.cirrus.com, tiwai@suse.com
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,11 +86,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 3 Jun 2022 20:07:07 +0300, Andy Shevchenko wrote:
-> When kernel.h is used in the headers it adds a lot into dependency hell,
-> especially when there are circular dependencies are involved.
-> 
-> Replace kernel.h inclusion with the list of what is really being used.
+On Tue, 5 Jul 2022 08:53:15 +0800, Gaosheng Cui wrote:
+> This patch adds missing MODULE_DEVICE_TABLE definition which generates
+> correct modalias for automatic loading of this driver when it is built
+> as an external module.
 > 
 > 
 
@@ -100,8 +99,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: madera: Replace kernel.h with the necessary inclusions
-      commit: dcc165d6179c3934b93b8c3bffde1ed9710fd7ef
+[1/1] ASoC: codecs: wsa883x: fix warning using-module-alias-sdw.cocci
+      commit: eec8a5f44e4f68c64ce21d90e438e31e85b92178
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

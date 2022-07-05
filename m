@@ -2,85 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 779E856677F
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jul 2022 12:13:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33A995667C7
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jul 2022 12:21:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A777616F3;
-	Tue,  5 Jul 2022 12:12:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A777616F3
+	by alsa0.perex.cz (Postfix) with ESMTPS id B71BF16EC;
+	Tue,  5 Jul 2022 12:21:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B71BF16EC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657015980;
-	bh=4MQqUXwQ/gPnCm5Qh436mIFFVbaEebP+Nu2/p5LIQhs=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1657016516;
+	bh=RYl9IYSG9cksS7fgtP/Z5qYiEyPG+m5whyd+N1MwcCI=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PZV7Ux2FFHR3hSrgVk866en5UB6b9nT64YQ/wDvOjpD4ulCoXKuWGUrxayZYI1L2h
-	 6uHjAaOmOQMUuNNx7TQF+TtyWQ8RMOjlq6SHecZNpRdbBlUnfu8WKBwT54HuOsJJWF
-	 3de1j7o1dZNK4wEGtQlTa7YZEarycggDslmvItCY=
+	b=eqFRPOL7r3JOyFxku69umXKaCadFw3i+aH+ws323UHu7V8UXMh7pIFJp03/TyNGmV
+	 4rUbhqbga1H8XnDINLkgBFgRmZPp/QcX0mf/FoE8c+JaxKyiVvKWOfz7OSPxKcHy+7
+	 Obv9iNavxTh2klu0uh6CXmwHp+cZwYM8lemLGEro=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 09E75F804B2;
-	Tue,  5 Jul 2022 12:12:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DC555F80212;
+	Tue,  5 Jul 2022 12:20:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D66F7F8015B; Tue,  5 Jul 2022 12:11:57 +0200 (CEST)
+ id 902FFF8012A; Tue,  5 Jul 2022 12:20:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
- by alsa1.perex.cz (Postfix) with ESMTP id AB53FF8012A
- for <alsa-devel@alsa-project.org>; Tue,  5 Jul 2022 12:11:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB53FF8012A
-Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.77 with qID 265ABiET2024370,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexh36504.realtek.com.tw[172.21.6.27])
- by rtits2.realtek.com.tw (8.15.2/2.81/5.90) with ESMTPS id 265ABiET2024370
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=FAIL);
- Tue, 5 Jul 2022 18:11:44 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXH36504.realtek.com.tw (172.21.6.27) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.7; Tue, 5 Jul 2022 18:11:45 +0800
-Received: from localhost.localdomain (172.22.102.1) by
- RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27; Tue, 5 Jul 2022 18:11:44 +0800
-From: Oder Chiou <oder_chiou@realtek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-Subject: [PATCH 2/2] ASoC: rt5640: Add the MICBIAS1 to the dapm routing
-Date: Tue, 5 Jul 2022 18:11:34 +0800
-Message-ID: <20220705101134.16792-2-oder_chiou@realtek.com>
-X-Mailer: git-send-email 2.37.0
-In-Reply-To: <20220705101134.16792-1-oder_chiou@realtek.com>
-References: <20220705101134.16792-1-oder_chiou@realtek.com>
+X-Spam-Status: No, score=0.3 required=5.0 tests=PRX_BODY_135,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from albert.telenet-ops.be (albert.telenet-ops.be
+ [IPv6:2a02:1800:110:4::f00:1a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A541FF8012A
+ for <alsa-devel@alsa-project.org>; Tue,  5 Jul 2022 12:20:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A541FF8012A
+Received: from ramsan.of.borg ([84.195.186.194])
+ by albert.telenet-ops.be with bizsmtp
+ id rNLf270094C55Sk06NLfeX; Tue, 05 Jul 2022 12:20:44 +0200
+Received: from geert (helo=localhost)
+ by ramsan.of.borg with local-esmtp (Exim 4.93)
+ (envelope-from <geert@linux-m68k.org>)
+ id 1o8ffa-0029jA-Kj; Tue, 05 Jul 2022 12:20:38 +0200
+Date: Tue, 5 Jul 2022 12:20:38 +0200 (CEST)
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+X-X-Sender: geert@ramsan.of.borg
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: Re: [PATCH v2 02/14] ASoC: codecs: Add HD-Audio codec driver
+In-Reply-To: <20220511162403.3987658-3-cezary.rojewski@intel.com>
+Message-ID: <alpine.DEB.2.22.394.2207051218200.513966@ramsan.of.borg>
+References: <20220511162403.3987658-1-cezary.rojewski@intel.com>
+ <20220511162403.3987658-3-cezary.rojewski@intel.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [172.22.102.1]
-X-ClientProxiedBy: RTEXH36504.realtek.com.tw (172.21.6.27) To
- RTEXMBS01.realtek.com.tw (172.21.6.94)
-X-KSE-ServerInfo: RTEXMBS01.realtek.com.tw, 9
-X-KSE-AntiSpam-Interceptor-Info: trusted connection
-X-KSE-Antiphishing-Info: Clean
-X-KSE-Antiphishing-ScanningType: Deterministic
-X-KSE-Antiphishing-Method: None
-X-KSE-Antiphishing-Bases: 07/05/2022 09:56:00
-X-KSE-AttachmentFiltering-Interceptor-Info: no applicable attachment filtering
- rules found
-X-KSE-Antivirus-Interceptor-Info: scan successful
-X-KSE-Antivirus-Info: =?big5?B?Q2xlYW4sIGJhc2VzOiAyMDIyLzcvNSCkV6TIIDA3OjA5OjAw?=
-X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
-X-KSE-ServerInfo: RTEXH36504.realtek.com.tw, 9
-X-KSE-AntiSpam-Interceptor-Info: fallback
-X-KSE-Antivirus-Interceptor-Info: fallback
-X-KSE-AntiSpam-Interceptor-Info: fallback
-Cc: Oder Chiou <oder_chiou@realtek.com>, jack.yu@realtek.com,
- alsa-devel@alsa-project.org, Sameer Pujar <spujar@nvidia.com>,
- derek.fang@realtek.com, shumingf@realtek.com, flove@realtek.com
+Content-Type: text/plain; charset=US-ASCII; format=flowed
+Cc: alsa-devel@alsa-project.org, upstream@semihalf.com,
+ kai.vehmanen@linux.intel.com, harshapriya.n@intel.com,
+ linux-kernel@vger.kernel.org, rad@semihalf.com,
+ pierre-louis.bossart@linux.intel.com, tiwai@suse.com, hdegoede@redhat.com,
+ broonie@kernel.org, amadeuszx.slawinski@linux.intel.com,
+ cujomalainey@chromium.org, lma@semihalf.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,47 +77,84 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch adds the MICBIAS1 to the dapm routing while the HDA header used.
+ 	Hi Cezary,
 
-Signed-off-by: Oder Chiou <oder_chiou@realtek.com>
-Reported-by: Sameer Pujar <spujar@nvidia.com>
----
- sound/soc/codecs/rt5640.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+On Wed, 11 May 2022, Cezary Rojewski wrote:
+> Add generic ASoC equivalent of ALSA HD-Audio codec. This codec is
+> designed to follow HDA_DEV_LEGACY convention. Driver wrapps existing
+> hda_codec.c handlers to prevent code duplication within the newly added
+> code. Number of DAIs created is dependent on capabilities exposed by the
+> codec itself. Because of this, single solution can be applied to support
+> every single HD-Audio codec type.
+>
+> At the same time, through the ASoC topology, platform drivers may limit
+> the number of endpoints available to the userspace as codec driver
+> exposes BE DAIs only.
+>
+> Both hda_codec_probe() and hda_codec_remove() declare their expectations
+> on device's usage_count and suspended-status. This is to catch any
+> unexpected behavior as PM-related code for HD-Audio has been changing
+> quite a bit throughout the years.
+>
+> In order for codec DAI list to reflect its actual PCM capabilities, PCMs
+> need to be built and that can only happen once codec device is
+> constructed. To do that, a valid component->card->snd_card pointer is
+> needed. Said pointer will be provided by the framework once all card
+> components are accounted for and their probing can begin. Usage of
+> "binder" BE DAI solves the problem - codec can be listed as one of
+> HD-Audio card components without declaring any actual BE DAIs
+> statically.
+>
+> Relation with hdac_hda:
+>
+> Addition of parallel solution is motivated by behavioral differences
+> between hdac_hda.c and its legacy equivalent found in sound/pci/hda
+> e.g.: lack of dynamic, based on codec capabilities, resource allocation
+> and high cost of removing such differences on actively used targets.
+> Major goal of codec driver presented here is to follow HD-Audio legacy
+> behavior in 1:1 fashion by becoming a wrapper. Doing so increases code
+> coverage of the legacy code and reduces the maintenance cost for both
+> solutions.
+>
+> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 
-diff --git a/sound/soc/codecs/rt5640.c b/sound/soc/codecs/rt5640.c
-index 19bdb6d0f5a9..38ab8d4291c2 100644
---- a/sound/soc/codecs/rt5640.c
-+++ b/sound/soc/codecs/rt5640.c
-@@ -2567,10 +2567,18 @@ static void rt5640_enable_jack_detect(struct snd_soc_component *component,
- 	queue_delayed_work(system_long_wq, &rt5640->jack_work, 0);
- }
- 
-+static const struct snd_soc_dapm_route rt5640_hda_jack_dapm_routes[] = {
-+	{"IN1P", NULL, "MICBIAS1"},
-+	{"IN2P", NULL, "MICBIAS1"},
-+	{"IN3P", NULL, "MICBIAS1"},
-+};
-+
- static void rt5640_enable_hda_jack_detect(
- 	struct snd_soc_component *component, struct snd_soc_jack *jack)
- {
- 	struct rt5640_priv *rt5640 = snd_soc_component_get_drvdata(component);
-+	struct snd_soc_dapm_context *dapm =
-+		snd_soc_component_get_dapm(component);
- 	int ret;
- 
- 	/* Select JD1 for Mic */
-@@ -2609,6 +2617,9 @@ static void rt5640_enable_hda_jack_detect(
- 
- 	/* sync initial jack state */
- 	queue_delayed_work(system_long_wq, &rt5640->jack_work, 0);
-+
-+	snd_soc_dapm_add_routes(dapm, rt5640_hda_jack_dapm_routes,
-+		ARRAY_SIZE(rt5640_hda_jack_dapm_routes));
- }
- 
- static int rt5640_set_jack(struct snd_soc_component *component,
--- 
-2.37.0
+Thanks for your patch, which is now commit b5df2a7dca1cc6c6 ("ASoC:
+codecs: Add HD-Audio codec driver") in sound-asoc/for-next.
 
+> --- a/sound/soc/codecs/Kconfig
+> +++ b/sound/soc/codecs/Kconfig
+> @@ -937,6 +937,16 @@ config SND_SOC_HDAC_HDA
+> 	tristate
+> 	select SND_HDA
+>
+> +config SND_SOC_HDA
+> +	tristate "HD-Audio codec driver"
+> +	select SND_HDA_EXT_CORE
+> +	select SND_HDA
+
+I am wondering if this needs a platform dependency?
+Or perhaps this symbol should be made invisible, as it is selected by
+SND_SOC_INTEL_AVS_MACH_HDAUDIO?  Are there any other users?
+
+Thanks!
+
+> +	help
+> +	  This enables HD-Audio codec support in ASoC subsystem. Compared
+> +	  to SND_SOC_HDAC_HDA, driver's behavior is identical to HD-Audio
+> +	  legacy solution - including the dynamic resource allocation
+> +	  based on actual codec capabilities.
+> +
+> config SND_SOC_ICS43432
+> 	tristate "ICS43423 and compatible i2s microphones"
+>
+
+Gr{oetje,eeting}s,
+
+ 						Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+ 							    -- Linus Torvalds

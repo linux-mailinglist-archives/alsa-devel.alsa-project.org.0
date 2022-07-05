@@ -2,81 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64DF1566337
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jul 2022 08:37:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE11F56640F
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jul 2022 09:33:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 58B18826;
-	Tue,  5 Jul 2022 08:36:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 58B18826
+	by alsa0.perex.cz (Postfix) with ESMTPS id EAA2A16F0;
+	Tue,  5 Jul 2022 09:32:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EAA2A16F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657003059;
-	bh=sbhe3NvuJsArAoK8rWveLaWzifBbNoYpMnw4ORL2u+I=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=g9zFSCKFriUWqu5DeMJMbrC8O+OsKt6Jjof20K6f+EVElUPaAhT1wYrFdoG7ww2KZ
-	 YbFe4qX/vL1iFhMHvq7uXPtgaAdL0vAkTTM67vky7SR1U4VRj+wIr+/Yu9zyMuDpmH
-	 U9Ha9GvPw92YK56br9zZCXoRT5r1hK8b0A6ZHelg=
+	s=default; t=1657006403;
+	bh=3VTXDx0Rwm+mVMlJrDvSGBtNi1ZPn3zb1S/wfoYnRe0=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=VZ53Yrk7DhSrjSAtZfUVLzVzfYhA9OF4hxiVTE3wKo/29hxWz2nsLqW0z8Q6eRCoz
+	 l+Jt2ZqOZ06zy/13ohnjiV757BfxxyeszQo/8sMuwP5DQp+5OM7YI7jDMOCHByft8n
+	 Kn9hxJ84qbrsQJQZ18+yQB6dAd1RWxvOLDg4kCzY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8AB7EF80212;
-	Tue,  5 Jul 2022 08:36:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3A1B9F80212;
+	Tue,  5 Jul 2022 09:32:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D5F39F8015B; Tue,  5 Jul 2022 08:36:34 +0200 (CEST)
+ id 2074BF8015B; Tue,  5 Jul 2022 09:32:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [IPv6:2a00:1450:4864:20::22b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EFF9BF80104
- for <alsa-devel@alsa-project.org>; Tue,  5 Jul 2022 08:36:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EFF9BF80104
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1o8cAW-000793-Dv; Tue, 05 Jul 2022 08:36:20 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1o8cAQ-004Vzk-TZ; Tue, 05 Jul 2022 08:36:18 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1o8cAT-00366O-B1; Tue, 05 Jul 2022 08:36:17 +0200
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>
-Subject: [PATCH] ASoC: rsnd: Emit useful error messages in .remove()
-Date: Tue,  5 Jul 2022 08:36:13 +0200
-Message-Id: <20220705063613.93770-1-u.kleine-koenig@pengutronix.de>
-X-Mailer: git-send-email 2.36.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id D8B4BF80104
+ for <alsa-devel@alsa-project.org>; Tue,  5 Jul 2022 09:32:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8B4BF80104
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="Bd0hIYTR"
+Received: by mail-lj1-x22b.google.com with SMTP id u14so13470078ljh.2
+ for <alsa-devel@alsa-project.org>; Tue, 05 Jul 2022 00:32:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=PWneuAJ9+BwtDVWX9EGVrMHRNI896xMJ1kd4ynHr8vA=;
+ b=Bd0hIYTRjsE866WnBumwJ4N178mSBPnEgdW+5z5AbhQXGu6dq4k5hZbq+y/Y4hY2Yi
+ 2DoQI6N+fRk3DLZzvywAmL2wMBjPwr4Hl92kX/ASdIlGPKu5TlUtOEyfIbQqbMcI5aIP
+ hHjzvabj7XyymG0+hTc50l0jz9N/GSSE3K8ZAWP72zcrvf0OeYlMVYhkzPZ7jv6luo/8
+ FkIKPGux8uETIZBzf2QAf77IMDYIFxKvi+VUy2IHT3aOTje4PupYS7eLeKGpLD3RCbKe
+ OTA6/oAw/s8tUxn6aMyJLLHGYiKBcAzNaGeihLi/kl7fCSS+9rh2eI3LCocMVu2MwY8E
+ YMNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=PWneuAJ9+BwtDVWX9EGVrMHRNI896xMJ1kd4ynHr8vA=;
+ b=rzHQn59zySNEa/x//k+TGzhtUQMNKx8WFY2u88WW9SuedJsxM6qnKxFunlDjyyomgb
+ pN+kZFG4dyUaJjCRlHSbEZ/zvH//4DS/DUqoweJLsoB4OH8v4tczLXVyWMbU4ZnUtlLt
+ 7eyj60OGNHcdxIHE9/Ly8Zh9IVeNKqdfCkbC72vKTBjKo7SCkbBRrxQt9fqbEHBTh4pE
+ TJ1XHzkayM7l64+uShNntPUPDcwHA9vG9QTL7zsSt7p6Mbb7Ripwq8l2h7Xldw+frXm6
+ rPUnSWSxselIonaB/lGwpy1Eh/hAVGvlxQnXN/QE9jY+27nU8/mNV93pkPbS9Ep0r/PR
+ 4FTw==
+X-Gm-Message-State: AJIora8bISZw3ModhqHhgQlRFP77vmyZhlAqBFUDkbLJaHp2X9rupS9x
+ lJZtylUJphSSILYAgU6b1yk6FQ==
+X-Google-Smtp-Source: AGRyM1tu57jxC+VL6f4xpGAMXs2L40hmkgOX5GUMFpKXSFLtpuT2ISONGdNcPCCxbtLI+XvdQNsG7A==
+X-Received: by 2002:a2e:84c8:0:b0:24b:50bb:de7d with SMTP id
+ q8-20020a2e84c8000000b0024b50bbde7dmr19039347ljh.40.1657006329594; 
+ Tue, 05 Jul 2022 00:32:09 -0700 (PDT)
+Received: from [192.168.1.52] ([84.20.121.239])
+ by smtp.gmail.com with ESMTPSA id
+ z18-20020a05651c11d200b0025a9bbe511fsm5406628ljo.70.2022.07.05.00.32.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 05 Jul 2022 00:32:09 -0700 (PDT)
+Message-ID: <61708384-6c29-6bb6-aef0-8bad061c1f7c@linaro.org>
+Date: Tue, 5 Jul 2022 09:32:07 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] ASoC: dt-bindings: qcom,sdm845: convert to dtschema
+Content-Language: en-US
+To: Stephan Gerhold <stephan@gerhold.net>
+References: <20220704153824.23226-1-krzysztof.kozlowski@linaro.org>
+ <YsMaW6cO2fEfTGPz@gerhold.net>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <YsMaW6cO2fEfTGPz@gerhold.net>
 Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1710; h=from:subject;
- bh=sbhe3NvuJsArAoK8rWveLaWzifBbNoYpMnw4ORL2u+I=;
- b=owEBbQGS/pANAwAKAcH8FHityuwJAcsmYgBiw9vXbyJ1PvEXQ5BSSD5pYAu6vI3eE6s/mxlCq87x
- JzXRjGiJATMEAAEKAB0WIQR+cioWkBis/z50pAvB/BR4rcrsCQUCYsPb1wAKCRDB/BR4rcrsCbKbCA
- CfbNdCiLyEMtq3UgYcr7LfvPaO20Os4lJXxe38xB7XgBg1uM+WBK8PpjeMg0OuWV6LhT+iRvjfdmGK
- 6QalQXCiXp1FB7IuU1z8A7QCrfwGqmgnqtSxByDzLXIq9wS0w9J/JRCq0adlgE3TrAsBJ1/29UI/xr
- 5gA28Bcwq7sgWjeugtn/jPeMQkGyWpqeefwK14CgVwvedvutezg0VilPZzdDpxZ32vQ1jbsdAMMH/b
- TZn7X5T+QxgKWyi2dqtkEeHp0IZjS3C1n00FYWhxC7V3i+ighW7RGFlpYimDMoefOmX7VbiNHzIGBE
- xhhG4SGkZKWRliS6lFLMKJBKVP0JmO
-X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
- fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Cc: alsa-devel@alsa-project.org,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>, kernel@pengutronix.de,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Content-Transfer-Encoding: 7bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-arm-msm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Andy Gross <agross@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,58 +112,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If more than one call of rsnd_dai_call(remove, ...) fails the platform
-remove callback returns all values orred together which then makes the
-driver core emit a generic error message which is little helpful.
+On 04/07/2022 18:50, Stephan Gerhold wrote:
+> On Mon, Jul 04, 2022 at 05:38:24PM +0200, Krzysztof Kozlowski wrote:
+>> Convert the Samsung SDM845 sound card bindings to DT schema.
+>>
+> 
+> Nitpick: s/Samsung/Qualcomm
 
-Instead emit details of which call failed exactly and return 0. Note
-returning 0 instead of an error code doesn't make a difference in the
-driver core apart from the error message.
+Yes, thanks.
 
-This is a preparation for making platform remove callbacks return void.
+> 
+>> Changes during conversion: do not require 'codec' under dai-links - not
+>> present in all nodes of examples and DTS; not required by the driver.
+>>
+>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+>> ---
+>>  .../devicetree/bindings/sound/qcom,sdm845.txt |  91 ----------
+>>  .../bindings/sound/qcom,sdm845.yaml           | 166 ++++++++++++++++++
+>>  2 files changed, 166 insertions(+), 91 deletions(-)
+>>  delete mode 100644 Documentation/devicetree/bindings/sound/qcom,sdm845.txt
+>>  create mode 100644 Documentation/devicetree/bindings/sound/qcom,sdm845.yaml
+>>
+> 
+> Can you check if you can just add the compatibles to the existing
+> qcom,sm8250.yaml? It should be more or less identical given that the DT
+> parsing code in the driver is shared between all these SoCs.
+> I already added the MSM8916 compatibles there a while ago.
+> 
+> It also documents some additional properties ("pin-switches", "widgets")
+> that are supported for SDM845 through the common code but are missing
+> in its binding documentation.
 
-Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
----
- sound/soc/sh/rcar/core.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+I thought about merging these but then I would have to disallow these
+properties, as I assumed these are not valid for SDM845. Are you saying
+that pin-switches and widgets are actually valid for SDM845?
 
-diff --git a/sound/soc/sh/rcar/core.c b/sound/soc/sh/rcar/core.c
-index eb762ab94d3e..01225344001a 100644
---- a/sound/soc/sh/rcar/core.c
-+++ b/sound/soc/sh/rcar/core.c
-@@ -1968,19 +1968,26 @@ static int rsnd_remove(struct platform_device *pdev)
- 		rsnd_cmd_remove,
- 		rsnd_adg_remove,
- 	};
--	int ret = 0, i;
-+	int i;
- 
- 	pm_runtime_disable(&pdev->dev);
- 
- 	for_each_rsnd_dai(rdai, priv, i) {
--		ret |= rsnd_dai_call(remove, &rdai->playback, priv);
--		ret |= rsnd_dai_call(remove, &rdai->capture, priv);
-+		int ret;
-+
-+		ret = rsnd_dai_call(remove, &rdai->playback, priv);
-+		if (ret)
-+			dev_warn(&pdev->dev, "Failed to remove playback dai #%d\n", i);
-+
-+		ret = rsnd_dai_call(remove, &rdai->capture, priv);
-+		if (ret)
-+			dev_warn(&pdev->dev, "Failed to remove capture dai #%d\n", i);
- 	}
- 
- 	for (i = 0; i < ARRAY_SIZE(remove_func); i++)
- 		remove_func[i](priv);
- 
--	return ret;
-+	return 0;
- }
- 
- static int __maybe_unused rsnd_suspend(struct device *dev)
-
-base-commit: f2906aa863381afb0015a9eb7fefad885d4e5a56
--- 
-2.36.1
-
+Best regards,
+Krzysztof

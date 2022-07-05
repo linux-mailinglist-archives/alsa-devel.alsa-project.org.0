@@ -2,89 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D61E56716F
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jul 2022 16:47:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A6AC567199
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jul 2022 16:53:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 240EB16F7;
-	Tue,  5 Jul 2022 16:46:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 240EB16F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id C9997850;
+	Tue,  5 Jul 2022 16:52:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9997850
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657032446;
-	bh=M/L99HgahfyNcfrwfI4x4soJM3zmpnAzKt5aLIhYXUc=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1657032824;
+	bh=LpZT96DzXjnngoC/H8dIUG0sycWH09uYuefH2ho6AGQ=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CJs/vngPT4Up/lHpeARpMOchGQO9GdoRISn5RNFbhGFjjHLWnZaf4uRjAxy+fHGsx
-	 SlgBwxdmCimDI8wqqZQ12Zlg61sCGeVCG6hv/vst3GizWaqYVfRrSbnXPLEf+Y3ma2
-	 5ZPHAOMOK3Ta6wWAScAR02CkqEQpvJM7kMzU7vs4=
+	b=oHA7NL5g/u2VCX+PX+v3k2AXo5WLYac4tlNRp/CAKXutdyXviMfUqoYPzttyFInrS
+	 p/FqCm0bwy6fAGsrpRePPWmFsNmGzbPP9zDxX7fe7l0GTWGvO9UUzC3GLMthp8737i
+	 9BBroHNKOzSbabU81duU3MEzwGxpA+1oVW4VGig0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6FB4EF80212;
-	Tue,  5 Jul 2022 16:46:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 34254F80212;
+	Tue,  5 Jul 2022 16:52:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 49C00F8015B; Tue,  5 Jul 2022 16:46:23 +0200 (CEST)
+ id 906BAF800CB; Tue,  5 Jul 2022 16:52:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 50184F8012A;
- Tue,  5 Jul 2022 16:46:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50184F8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5CE99F800CB
+ for <alsa-devel@alsa-project.org>; Tue,  5 Jul 2022 16:52:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5CE99F800CB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="JEfGJm5r"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1657032377; x=1688568377;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=M/L99HgahfyNcfrwfI4x4soJM3zmpnAzKt5aLIhYXUc=;
- b=JEfGJm5rMtXRT+CpZUKQrPTYkRaey9aq9SIlbQjkKlf7ZXYlNwpONcPE
- HNnmqdpkJ96iMBTiTtheJJgkvklePOKd3zM8jsQP8VfySIcVdXFFeeAWB
- SfduvA7Hqm+3tNdz1sgXF2x2RctEfEaabBz8LThPu4fqV4FSePoIuUbw4
- nId0Ad/nRqilLA+xGZoS1ki7smOVUYyXCbbLQUmUAIDgFfaX6uStxfM1I
- YwPPkH/4b7c0k7I5njkIautSq2zfsPkH2kirqEXNz1BSV5bU6BuZABjBH
- eAV3ZSNl79UnVV9TRbTcjhfLM2A6HAXoZou6kfCjFOZ7vUpKpzDgAWsqe g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10398"; a="266398442"
-X-IronPort-AV: E=Sophos;i="5.92,247,1650956400"; d="scan'208";a="266398442"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jul 2022 07:46:12 -0700
-X-IronPort-AV: E=Sophos;i="5.92,247,1650956400"; d="scan'208";a="619857497"
-Received: from achaudh2-mobl.amr.corp.intel.com (HELO [10.213.177.126])
- ([10.213.177.126])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jul 2022 07:46:10 -0700
-Message-ID: <38cf149a-6238-241c-8ddd-4e4d10ca1f73@linux.intel.com>
-Date: Tue, 5 Jul 2022 09:42:46 -0500
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.10.0
-Subject: Re: [PATCH v1 1/1] ASoC: SOF: Intel: bdw: remove duplicating driver
- data retrieval
-Content-Language: en-US
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Mark Brown <broonie@kernel.org>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- sound-open-firmware@alsa-project.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-References: <20220703143533.62173-1-andriy.shevchenko@linux.intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20220703143533.62173-1-andriy.shevchenko@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Daniel Baluta <daniel.baluta@nxp.com>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="sDuwZTGq"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="aoqVbtWY"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 628D0204AC;
+ Tue,  5 Jul 2022 14:52:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1657032757; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=tn9sPlFtaX1z+Iy3fOW1/UwqkfzyuXvSkhAB8BrQ1ig=;
+ b=sDuwZTGqpA0X4kBPfjQRpeI8TiQKx7DW1Ik8hKUVb7m/+qdgPoxi5SuEm1Y/pmbOm57mLB
+ 892A5BPrOJbuEgkxA+FZTHdalfEZQN69j4+QCfr1h6T7EaZf9KxvHHtKkhwrwO8ka/ff6z
+ nuPi1j1a+f5N1j/yYDsYLLujGlHtU2A=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1657032757;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=tn9sPlFtaX1z+Iy3fOW1/UwqkfzyuXvSkhAB8BrQ1ig=;
+ b=aoqVbtWY/ZcZRoOAcxzra5Nnscj4sT6YBBnTxmgiZyIMNbqWtCmX0cik2+DRW/y8xS6JD1
+ AmkBBu0F8e12YvAQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 457691339A;
+ Tue,  5 Jul 2022 14:52:37 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 7Q1GEDVQxGJwCwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 05 Jul 2022 14:52:37 +0000
+Date: Tue, 05 Jul 2022 16:52:36 +0200
+Message-ID: <877d4rtxvv.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jan =?ISO-8859-1?Q?Sch=E4r?= <jan@jschaer.ch>
+Subject: Re: [PATCH] ALSA: usb-audio: Add endianness annotations
+In-Reply-To: <20220705135746.13713-1-jan@jschaer.ch>
+References: <20220705135746.13713-1-jan@jschaer.ch>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
+ kernel test robot <lkp@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,44 +103,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 7/3/22 09:35, Andy Shevchenko wrote:
-> device_get_match_data() in ACPI case calls similar to acpi_match_device().
-> Hence there is no need to duplicate the call. Just assign what is in
-> the id->driver_data.
+On Tue, 05 Jul 2022 15:57:46 +0200,
+Jan Schär wrote:
 > 
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> ---
->  sound/soc/sof/intel/bdw.c | 7 ++-----
->  1 file changed, 2 insertions(+), 5 deletions(-)
-> 
-> diff --git a/sound/soc/sof/intel/bdw.c b/sound/soc/sof/intel/bdw.c
-> index 26df780c702e..346813aa3768 100644
-> --- a/sound/soc/sof/intel/bdw.c
-> +++ b/sound/soc/sof/intel/bdw.c
-> @@ -674,6 +674,7 @@ static int sof_broadwell_probe(struct platform_device *pdev)
->  	id = acpi_match_device(dev->driver->acpi_match_table, dev);
->  	if (!id)
->  		return -ENODEV;
-> +	desc = (const struct sof_dev_desc *)id->driver_data;
->  
->  	ret = snd_intel_acpi_dsp_driver_probe(dev, id->id);
->  	if (ret != SND_INTEL_DSP_DRIVER_ANY && ret != SND_INTEL_DSP_DRIVER_SOF) {
-> @@ -681,11 +682,7 @@ static int sof_broadwell_probe(struct platform_device *pdev)
->  		return -ENODEV;
->  	}
->  
-> -	desc = device_get_match_data(dev);
-> -	if (!desc)
-> -		return -ENODEV;
-> -
-> -	return sof_acpi_probe(pdev, device_get_match_data(dev));
-> +	return sof_acpi_probe(pdev, desc);
+> Fixes: 4b8ea38fabab ("ALSA: usb-audio: Support jack detection on Dell dock")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Link: https://lore.kernel.org/r/202207051932.qUilU0am-lkp@intel.com
+> Signed-off-by: Jan Schär <jan@jschaer.ch>
 
-Thanks Andy, we have the same code pattern in sound/soc/sof/intel/byt.c,
-can we change it as part of the series to keep the two files aligned?
+Thanks, applied.
 
->  }
->  
->  /* acpi_driver definition */
+
+Takashi

@@ -2,184 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 989875668A4
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jul 2022 12:52:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 531865668B9
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jul 2022 12:57:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5194816DC;
-	Tue,  5 Jul 2022 12:51:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5194816DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id E3C6716BE;
+	Tue,  5 Jul 2022 12:56:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3C6716BE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657018357;
-	bh=t9V0+mmaHa9xHdgCDafTN9beKaV2Vmt/Up9j6eLIAwI=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=QgGzy0hX7xbt3Kh+ODOhu4OqkJBRmiwA0SYJeH4x8I2hG79hNsl1NN+Q54W8n2m6s
-	 LX77bzwkwXUuzgFv7AlNK21iQoMCfKo32yvvqIfuUFTuXrYmsm3/wYej5kScgfk5pY
-	 uoodWusqvPNIa23HAsCy5q9ahaYirrecd0U/D/dw=
+	s=default; t=1657018646;
+	bh=LQcILg8v+tHVIg/N/ZBYYdqYOTuHh77WElYcsZkiDCQ=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=DYblw88IJ/jgVzaLORCwtVkoAw1fEI3hHvf3YOknFciCS/ptAmCqCNnIa83EYkROD
+	 VgqOC4xDzsUB8jk40KCsPvxOm9YwY5XlPMvyB9RCiE3Zl+mwiWOg4oJj23Ne8FUnnk
+	 IFFXJWqM6WWIcc5LalRWful1KfwhNi9I2fApEEZ8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C747EF80212;
-	Tue,  5 Jul 2022 12:51:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 26393F80212;
+	Tue,  5 Jul 2022 12:56:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 389F7F8015B; Tue,  5 Jul 2022 12:51:32 +0200 (CEST)
+ id CAA4CF8015B; Tue,  5 Jul 2022 12:56:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.5 required=5.0 tests=PRX_BODY_13,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from a3.inai.de (a3.inai.de [IPv6:2a01:4f8:10b:45d8::f5])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D5C6BF80104
- for <alsa-devel@alsa-project.org>; Tue,  5 Jul 2022 12:51:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5C6BF80104
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="Tt9dp8mD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1657018286; x=1688554286;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=t9V0+mmaHa9xHdgCDafTN9beKaV2Vmt/Up9j6eLIAwI=;
- b=Tt9dp8mDrtFKf8fAEh1n9ygLhDE9fTbW+4B5z2G7rEnOKapotTiD5Vm7
- 8DhI13PiATLJjYeRL6oKcMULsk77K46FGxNGfbEflcjoSK6nviPVu1Ah4
- HaPAdRqQFFYiKp+X46XWmn+fYU3nxj/uPUsxqzxmMFXwwufVyl7cE/Zvp
- bq1FqJJNqhThYCMhUbu7M4cHGvK9zDol4wBOlcBXhuJ2D3UDJE1yiDJm2
- 5vZFpVhoIXAo9RNE3lp00aKzcVsbYO9ATjue33BqdP44FJKU7m0S7Na76
- JdCxFJGNRKAwY8j+CdCFUC/ADbL8bJeNI+toJhvgaZoEaBm6AHnNbXNNV A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10398"; a="347301643"
-X-IronPort-AV: E=Sophos;i="5.92,245,1650956400"; d="scan'208";a="347301643"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jul 2022 03:51:18 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,245,1650956400"; d="scan'208";a="919669883"
-Received: from orsmsx605.amr.corp.intel.com ([10.22.229.18])
- by fmsmga005.fm.intel.com with ESMTP; 05 Jul 2022 03:51:18 -0700
-Received: from orsmsx607.amr.corp.intel.com (10.22.229.20) by
- ORSMSX605.amr.corp.intel.com (10.22.229.18) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27; Tue, 5 Jul 2022 03:51:18 -0700
-Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
- orsmsx607.amr.corp.intel.com (10.22.229.20) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27 via Frontend Transport; Tue, 5 Jul 2022 03:51:18 -0700
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com (104.47.66.49) by
- edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2308.27; Tue, 5 Jul 2022 03:51:18 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CsBv44ibh9gfOl2QcthZPz/sobDTwKuqyqNogGU8acK19Ln+PIDcEKJICQqqYJvbescSa0SV22lmoYa05CXholTWvGrhi8LGCnySkeKm+nPi3cja4OvMijSkqZs8X3LXnd4okNXRD65lUi6P6nudp1q+tKjPMww30exy8DBrrk0T17EcN88wvoEBAd57qI8wiYJYWdv1r7xyWadRyNfZEtiqL5hs6qxPIY158jUyONgE/3PVB0D+tyRiq1u90Ol2pf099J2KZ1jCJGNfgHrFZBueLubxh93D3cFtUoKedgFlAVJ2WeqC9cTFmU5uWtEyL3PXn8+dNuZq+QUXk6KmEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=n6uM5dbEJ1MUf0JOTVK9zXqOGpCLFfonjaKM0RQawF4=;
- b=CCu4GzP8Woo0NQ6BOnnBzyCbiqYqnbgv6J5weljup0cW1mp589nT/5fd42DlGnwJ9DF9Xc/1CvrF01JMEOSEKs+9ruzodVqgE31JOqpHmmq1Ld2BTUWrTyhHnbnNCW7P8BNpaplXJ9+npMculI7hg51Nfotpf1E3MXfs9eUxGbMmsw3rxCSPUfF0KFtL0F2RX5W1DlasCjW8TYGXBtTj0pGKoTnGQ06TAK67T+M6nsNs6fyp3plzqsUjpZYAuIZA/x6gNQMCEvvh01l4wrOHux2VhQbjchVDbyPD3zwiI0yu0+gIDRRA14P5jMOw4RLsRE8j7doESFJrHu7LNjFRJA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB6375.namprd11.prod.outlook.com (2603:10b6:8:c9::21) by
- DM6PR11MB3433.namprd11.prod.outlook.com (2603:10b6:5:63::14) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5395.14; Tue, 5 Jul 2022 10:51:11 +0000
-Received: from DS0PR11MB6375.namprd11.prod.outlook.com
- ([fe80::8b5:ae20:1c12:421b]) by DS0PR11MB6375.namprd11.prod.outlook.com
- ([fe80::8b5:ae20:1c12:421b%6]) with mapi id 15.20.5395.021; Tue, 5 Jul 2022
- 10:51:11 +0000
-Message-ID: <12fd2cfd-190b-7d7a-85f4-55e8ce2e3a56@intel.com>
-Date: Tue, 5 Jul 2022 12:51:04 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.10.0
-Subject: Re: [PATCH] ASoC: Intel: avs: correct config reference for I2S test
- board
-Content-Language: en-US
-To: Lukas Bulwahn <lukas.bulwahn@gmail.com>,
- =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>, Mark Brown <broonie@kernel.org>,
- <alsa-devel@alsa-project.org>
-References: <20220705103238.7484-1-lukas.bulwahn@gmail.com>
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-In-Reply-To: <20220705103238.7484-1-lukas.bulwahn@gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM6PR04CA0061.eurprd04.prod.outlook.com
- (2603:10a6:20b:f0::38) To DS0PR11MB6375.namprd11.prod.outlook.com
- (2603:10b6:8:c9::21)
+ by alsa1.perex.cz (Postfix) with ESMTPS id C9EDEF8012A
+ for <alsa-devel@alsa-project.org>; Tue,  5 Jul 2022 12:56:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9EDEF8012A
+Received: by a3.inai.de (Postfix, from userid 25121)
+ id 119A058742592; Tue,  5 Jul 2022 12:56:14 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by a3.inai.de (Postfix) with ESMTP id 1110260F56A42;
+ Tue,  5 Jul 2022 12:56:14 +0200 (CEST)
+Date: Tue, 5 Jul 2022 12:56:14 +0200 (CEST)
+From: Jan Engelhardt <jengelh@inai.de>
+To: tiwai@suse.de
+Subject: snd_cs46xx regression, producing Oops
+Message-ID: <p2p1s96o-746-74p4-s95-61qo1p7782pn@vanv.qr>
+User-Agent: Alpine 2.25 (LSU 592 2021-09-18)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a4d7a634-90bb-449e-6729-08da5e74463c
-X-MS-TrafficTypeDiagnostic: DM6PR11MB3433:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1wFghs50ZDMqR5jSjua/Nzn5O2wfNUN+qeaKdq8bfnKHlSiy3RNE6SYSZJ+wewjPOFQZoMStX3xiyAfdsIHVsTV2cldfClD7UwbzOA/xlnTKEgwmxmmM6X1wtpjpc20BrDmio+WrkkxdHR81+fb3ijsbEJavstU3liOWNgmcHpJEQ92OgG2QDhVXqx7+SZqbwgKjPCtIIhxw3Loog1dVK3azwvtH5z7jm6XWJGhXx2xfz3o66QAUUL0Y/ixeJ+j7R2/ji4XhT5SwMBzIfWGyzKk6q4vpazfqmW56N0f04D6NkduSXYNILMll5VakQH4BkRC02SN54T5952DWjz2+p1eXxkiEokkJFY+FEck4faK4365CBWZOTi/LdrOs4IVRlpyFEk10orRd3ipZTvHX816T6eUl5u6S+uYFF4LIGgxnk/UxGy3WsgAepU3D+2iMMh+gli6Pdg1/CH7ED2sLKo/AMv1VCMb5GE+yRn+G2TVvkGP4fcOVypJk6ucXf9KcxK4+1cgSLK866h7B18cgMqswZMsgZDo5P9yQgOP3Ji164ke75wXoacYxAbJHpfkFEZstyxwU8ui1JCABkj4nPD0y/REdEiURi+N+pPcXdysLuraqjsls/2IEEkncV2+9Y8DhXtZiZ/pYrNXW8M+3sR/0N2sHmcNkYNOG3NuqOhFliDCX4fLAhmVN9e4HUdWssQ2aQPwFUBeRbDcnEkbOed/2Neqlg30kqkc2e6jjFZRl+b7880gpZYG5IrACJZgNwUTte2xuVIzHXTJ4f0eVx8/HOYVJE3cs9XXczz6bws+B4zpB5ah/51MASNrKyhOPMiqe8nBCwv3J7FGmeDvFlQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR11MB6375.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(366004)(396003)(136003)(376002)(346002)(39860400002)(26005)(6512007)(66946007)(83380400001)(41300700001)(2906002)(8676002)(4326008)(44832011)(66476007)(66556008)(5660300002)(6486002)(7416002)(8936002)(2616005)(478600001)(186003)(53546011)(31696002)(110136005)(54906003)(36756003)(6506007)(82960400001)(31686004)(316002)(6666004)(38100700002)(86362001)(45980500001)(43740500002);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UE8vb055K01FenJJVzVkb3RuZm1JQzZnalpJZEEveURGb0VRYS8ranJ4K2d6?=
- =?utf-8?B?bmM0NG85czVrT1djaStjSGpaMjJtdiszVUJHblJQSnZ0QnpSZGZQdElac001?=
- =?utf-8?B?aU9jcUxzN3ZoU29Jc1ArZVpGNTZzeFFGZGR3bk1oWG40K0NNWEM0ZjQ0SU9t?=
- =?utf-8?B?MTIzQnMrWkpuUlJ3eDNQZTBlVWhBa2pHODd1Ty9QVWxabnFscVNydTBGemxF?=
- =?utf-8?B?d1l3RHFPYmNDWHZMcHlwZXgzaVRpRk1tOVl5Skh3Q1dKdzhPUkwvQ0N4cERq?=
- =?utf-8?B?M29Vd1JtVjJPRXlzTnpwZzVucjRDazVSdGpGeTlQbGhMQmZWSEZPTERSVGFr?=
- =?utf-8?B?SlhUT2dVRFY5dE43V2ozaGJhdjU4THlMSmpkbjFYSVdubDFjYjk1SEhBZ210?=
- =?utf-8?B?M3l1WlI0QU85bXo4Q2ZXT1BYakdBNlpPWlM5ZHlDZFh2SmRlUEN6ZTBpd2tF?=
- =?utf-8?B?ZGdUZTQ0OXNSNXlhVWYxcUVIQzA1UnZQRXd3VkJ5UFQrdVowV2hld1JVeS9I?=
- =?utf-8?B?SDJrWDFpaHk5ZnZwYTJHRGRmN2ZEeGhYU3ZhK25BWHlzWTZjbFAybXc4RE1S?=
- =?utf-8?B?TitCWWh5c3ZKWDM1bC9VYWhmb2lSNExPMWRQclhWb1Z2cHJJZjBlM01oalV5?=
- =?utf-8?B?VmdDUEZtbTMxb3VBb2dZSmUxTnpFZURLRTRvWmJ4R0x1ZGwyTjZ5NlhXZUpI?=
- =?utf-8?B?MDRFYmVjb29kd0hoeHV4d1NHRE1DbzZ1NDV4OGE4UDhsdHI3QThJSmR3OG9o?=
- =?utf-8?B?ZDI5OFZqam5KZEEwcVl1R3F3NEdaZmd6Smo1Y0kxL2ZlekZRb25zaDFrMDJ1?=
- =?utf-8?B?bmJ6eDNLQjlwcFU5b3J6dWNVNjVXbXYrOTV2d2toNGhmd0NBVlMzekVxL2xP?=
- =?utf-8?B?NE1BT1lOYWJiMjk4dEgwcXo1NU1GYWRzazJwRzFISitvUjFzV1kxQjZLNTMw?=
- =?utf-8?B?aGhTTXhUN0RRaExFTTVXMHFNSTFMd2hrQkZRVE5iTEJNbnZyWmphYmZHS3hN?=
- =?utf-8?B?UkJEL0o2T3o4UHd3OXVSQTRpTkYvYUdEMmJjaW1lL29HbVFVaThSUGF0b2c1?=
- =?utf-8?B?OFBEMEFBaXQxMVo1YVYwT09iSGVOcGgyb2VXZTIzQkNBbmFKRzg5NGovWnpQ?=
- =?utf-8?B?emlEb2ZtcElHOFRDOTNUV016QWsrcDIrNyt3WUZSeHRxUU42VG1JU0FsaVFV?=
- =?utf-8?B?ekYvSjlwTXZIc1NBNFVwY0JOV0VKVXZta1VYMG9BVVkyTGJWcXFtUnZLWjBz?=
- =?utf-8?B?Q3poUUJrbTlUM05EcDRQUTBveDFDeTQ0NzhMMitLYytwT2FjR3Q0V1lEaUU3?=
- =?utf-8?B?SFhyN0Zpak9hV0Z3R2IrL0d5ZzV6VStRKzNUMEM3ZitNTWtTVkp3dWlVcjlZ?=
- =?utf-8?B?WnF1alpIVFpaM1cvNzVoOTVqQ3o0dDgzOVpDVzlzRGozaUh0cFF2Vld5c2ph?=
- =?utf-8?B?Z1ppZUZxT0t1Z2FCVDg0UFd3MnJnQU5PUC9tdndyd1BRdEVMMW9iTXZyRnJL?=
- =?utf-8?B?THV4aW1rVGNVbFpHUHpsQjB1QkhTRG5HRUUyUzZjcTZiSEU0UUM2NHBQT05i?=
- =?utf-8?B?QlhyNjBxNGxDdlBWS1ZJREV3bm9LVUNkZjd5akttTk9oMHRZWWF1UURZeDNG?=
- =?utf-8?B?WEszbXhuZ3NoWkVyQ1p5VlJtaW9yekZ1aWdCa1hYSENJNGtFenV3TVN0bGlZ?=
- =?utf-8?B?Tm9qNjJ6NC9wT3A5cnJRbGNySks3YUJ1cnBNY3JFTWprSjNHMTVwaGg3Tkpn?=
- =?utf-8?B?TGxrU0F2Y3pyTXlhNEh2emQ3UUpITXVROW5nc3VHT0pvLysvRFkvald6WG1N?=
- =?utf-8?B?bW9xVThrbkNtRE0xZXp4OUg4SnoxSy85cEZJRUx1VG5PUzV5d3Y2cGxaWWZn?=
- =?utf-8?B?aGs2WGZrcDIwOVdNeCtEZXdjZGtZTGNBQ0xBNjQyYXVzT0R0L3lSdDVaY0Ex?=
- =?utf-8?B?b3FMaFY0NWtvN05ObTBXRWgraGVJRTR2bGliWDR2WXR2YTgvdXdMWEJ1ZEZl?=
- =?utf-8?B?M3BNQTk1UjlBM3VnRzdlQ1I1WnlpSERTcjkxRUNuakZaQWhDcS9kc3dmbXRW?=
- =?utf-8?B?T3hMdXc1dlUyZUpzRlhYclBnRkExVDM5N1JpSW5iakx5RFFmSlpxa2kxK2xO?=
- =?utf-8?B?QXgvWStZNHRYc0h0ZFlQdmxzNzVzOWx3QWFhWm4vUGN5Y1Z3ZUszcVlPaEhD?=
- =?utf-8?B?Y1E9PQ==?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: a4d7a634-90bb-449e-6729-08da5e74463c
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB6375.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jul 2022 10:51:11.5802 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XOcYI3kOB/HBoN0pSOWwca7JoiSxtYwe1pBwVgAYPB7Dxez2mPhpUSDwP8awhT0HvzY42h5fkN1UDWHIAWrGpUU0l75Hk2nva+u3tWGhMYA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR11MB3433
-X-OriginatorOrg: intel.com
-Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Takashi
- Iwai <tiwai@suse.com>, kernel-janitors@vger.kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -195,40 +64,112 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2022-07-05 12:32 PM, Lukas Bulwahn wrote:
-> Commit e39acc4cfd92 ("ASoC: Intel: avs: Add I2S-test machine board") adds
-> the config "SND_SOC_INTEL_AVS_MACH_I2S_TEST", but in the Makefile refers
-> to  config "SND_SOC_INTEL_AVS_MACH_i2s_TEST" (notice the uppercase and
-> lowercase difference).
-> 
-> Adjust the Makefile to refer to the actual existing config.
-> 
-> Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+
+Commit v5.14-rc1-39-g5bff69b3645d introduced a breakage into
+snd_cs46xx. When loading the module, an Oops is thrown. The system
+works fine afterwards, but the final reboot/poweroff message to ACPI
+has no effect after such Oops occurred. (Blacklisting snd_cs46xx
+works around the reboot problem.)
+
+bisected to:
+commit 5bff69b3645db7b3018ecbc26218d8866aeaf214
+Author: Takashi Iwai <tiwai@suse.de>
+Date:   Thu Jul 15 09:58:52 2021 +0200
+
+    ALSA: cs46xx: Allocate resources with device-managed APIs
+    
+    This patch converts the resource management in PCI cs46xx driver with
+    devres as a clean up.  Each manual resource management is converted
+    with the corresponding devres helper, and the card object release is
+    managed now via card->private_free instead of a lowlevel snd_device.
 
 
-Thanks for the fix.
+trace log from modern kernel:
+[    0.000000] Linux version 5.18.9 (jengelh@f3) (gcc (SUSE Linux) 12.1.0, GNU ld (GNU Binutils; openSUSE Tumbleweed) 2.38.20220525-6) #3 PREEMPT_DYNAMIC Tue Jul 5 10:43:37 CEST 2022
+...
+[   32.475313] snd_intel8x0 0000:00:02.7: intel8x0_measure_ac97_clock: measured 59821 usecs (2877 samples)
+[   32.475410] snd_intel8x0 0000:00:02.7: clocking to 48000
+[   33.683930] snd_cs46xx 0000:00:0d.0: Direct firmware load for cs46xx/cwc4630 failed with error -2
+[   33.684035] snd_cs46xx 0000:00:0d.0: firmware load error [cwc4630]
+[   33.684092] snd_cs46xx: probe of 0000:00:0d.0 failed with error -2
+[   33.684772] BUG: unable to handle page fault for address: f7cd846c
+[   33.684833] #PF: supervisor write access in kernel mode
+[   33.684886] #PF: error_code(0x0002) - not-present page
+[   33.684936] *pde = 010e9067 *pte = 00000000 
+[   33.684992] Oops: 0002 [#1] PREEMPT
+[   33.685045] CPU: 0 PID: 413 Comm: systemd-udevd Tainted: G            E     5.18.9 #3 aa51fdb6e59156e58028f32c0abfef9c9b603d9b
+[   33.685119] Hardware name: ECS L7S7A2/L7S7A2, BIOS 07.00T 04/02/01
+[   33.685172] EIP: snd_cs46xx_codec_write+0x3b/0xe0 [snd_cs46xx]
+[   33.685265] Code: ec 18 83 7d 08 01 89 45 f0 0f 8f b0 00 00 00 89 f0 0f b7 f9 8b 8e 58 01 00 00 ba 01 00 00 00 e8 cb 83 af da 8b 46 28 8b 4d f0 <89> 88 6c 04 00 00 8b 46 28 89 b8 70 04 00 00 8b 46 28 05 60 04 00
+[   33.685356] EAX: f7cd8000 EBX: c232c548 ECX: 00000002 EDX: 00000001
+[   33.685410] ESI: c232c548 EDI: 00009f9f EBP: c1fd5b08 ESP: c1fd5ae4
+[   33.685463] DS: 007b ES: 007b FS: 0000 GS: 0033 SS: 0068 EFLAGS: 00210297
+[   33.685528] CR0: 80050033 CR2: f7cd846c CR3: 0335d000 CR4: 00000690
+[   33.685581] Call Trace:
+[   33.685637]  ? snd_cs46xx_codec_write+0xe0/0xe0 [snd_cs46xx 58d1cdc18910e2717003e6be0e13f1fe4cf1ef4e]
+[   33.685721]  snd_cs46xx_ac97_write+0x2a/0x50 [snd_cs46xx 58d1cdc18910e2717003e6be0e13f1fe4cf1ef4e]
+[   33.685804]  snd_ac97_write+0x51/0x80 [snd_ac97_codec 9efa9e43a5e3a59d5b4ae0b33ee748e5f4f27a3a]
+[   33.685908]  snd_ac97_powerdown+0xc9/0x120 [snd_ac97_codec 9efa9e43a5e3a59d5b4ae0b33ee748e5f4f27a3a]
+[   33.685990]  snd_ac97_dev_free+0x13/0x30 [snd_ac97_codec 9efa9e43a5e3a59d5b4ae0b33ee748e5f4f27a3a]
+[   33.686072]  __snd_device_free+0x3d/0x80 [snd 6a4ed59569dfc8ba5a4beabb0b5a692067dfc833]
+[   33.686178]  snd_device_free_all+0x43/0x80 [snd 6a4ed59569dfc8ba5a4beabb0b5a692067dfc833]
+[   33.686260]  release_card_device+0x23/0x90 [snd 6a4ed59569dfc8ba5a4beabb0b5a692067dfc833]
+[   33.686340]  device_release+0x37/0xa0
+[   33.686399]  kobject_put+0xb1/0x230
+[   33.686454]  ? snd_card_disconnect+0x134/0x230 [snd 6a4ed59569dfc8ba5a4beabb0b5a692067dfc833]
+[   33.686536]  put_device+0x11/0x20
+[   33.686587]  __snd_card_release+0x69/0x80 [snd 6a4ed59569dfc8ba5a4beabb0b5a692067dfc833]
+[   33.686668]  release_nodes+0x3d/0xb0
+[   33.686726]  devres_release_all+0x77/0xd0
+[   33.686780]  device_unbind_cleanup+0x10/0x60
+[   33.686833]  really_probe+0x1ee/0x370
+[   33.686885]  ? pm_runtime_barrier+0x44/0x90
+[   33.686945]  __driver_probe_device+0x111/0x200
+[   33.686998]  ? kernfs_create_dir_ns+0x79/0xc0
+[   33.687053]  driver_probe_device+0x27/0xa0
+[   33.687106]  __driver_attach+0xb7/0x1b0
+[   33.687158]  ? __device_attach_driver+0x100/0x100
+[   33.687211]  bus_for_each_dev+0x5a/0x90
+[   33.687263]  driver_attach+0x1e/0x30
+[   33.687314]  ? __device_attach_driver+0x100/0x100
+[   33.687366]  bus_add_driver+0x14f/0x200
+[   33.687419]  driver_register+0x7c/0xd0
+[   33.687469]  ? sysfs_add_bin_file_mode_ns+0x67/0xd0
+[   33.687524]  ? 0xf7f10000
+[   33.687574]  __pci_register_driver+0x3c/0x40
+[   33.687628]  cs46xx_driver_init+0x1c/0x1000 [snd_cs46xx 58d1cdc18910e2717003e6be0e13f1fe4cf1ef4e]
+[   33.687710]  do_one_initcall+0x3f/0x1a0
+[   33.687764]  ? kmem_cache_alloc_trace+0x13f/0x2f0
+[   33.687822]  ? do_init_module+0x24/0x240
+[   33.687882]  do_init_module+0x46/0x240
+[   33.687935]  ? __vfree+0x20/0x50
+[   33.687992]  load_module+0x2393/0x2540
+[   33.691234]  ? try_module_get+0xb0/0xb0
+[   33.691293]  __ia32_sys_finit_module+0xb4/0x130
+[   33.691351]  __do_fast_syscall_32+0x67/0xb0
+[   33.691411]  ? syscall_exit_to_user_mode+0x1a/0x40
+[   33.691466]  ? __do_fast_syscall_32+0x71/0xb0
+[   33.691519]  ? irqentry_exit_to_user_mode+0x8/0x20
+[   33.691571]  do_fast_syscall_32+0x31/0x70
+[   33.691624]  do_SYSENTER_32+0x15/0x20
+[   33.691676]  entry_SYSENTER_32+0x98/0xf0
+[   33.691732] EIP: 0xb7f27549
+[   33.691782] Code: 03 74 c0 01 10 05 03 74 b8 01 10 06 03 74 b4 01 10 07 03 74 b0 01 10 08 03 74 d8 01 00 00 00 00 00 51 52 55 89 e5 0f 34 cd 80 <5d> 5a 59 c3 90 90 90 90 8d 76 00 58 b8 77 00 00 00 cd 80 90 8d 76
+[   33.691873] EAX: ffffffda EBX: 00000012 ECX: b7bbe036 EDX: 00000000
+[   33.691926] ESI: b7bc5dd8 EDI: 01add640 EBP: ffffff08 ESP: bfee05ac
+[   33.691979] DS: 007b ES: 007b FS: 0000 GS: 0033 SS: 007b EFLAGS: 00200246
+[   33.692046] Modules linked in: drm_ttm_helper(E) snd_cs46xx(E+) ttm(E) snd_rawmidi(E) mxm_wmi(E) snd_intel8x0(E) wmi(E) pcspkr(E) snd_ac97_codec(E) video(E) ac97_bus(E) 8139too(E) snd_pcm(E) drm_dp_helper(E) 8139cp(E) sis900(E) snd_timer(E) parport_pc(E) mii(E) tiny_power_button(E) snd(E) soundcore(E) i2c_sis96x(E) button(E) parport(E) ext4(E) mbcache(E) jbd2(E) fuse(E) configfs(E) ip_tables(E) x_tables(E) xfs(E) libcrc32c(E) hid_generic(E) usbhid(E) sr_mod(E) cdrom(E) ata_generic(E) ohci_pci(E) serio_raw(E) sata_sil(E) ohci_hcd(E) ehci_pci(E) ehci_hcd(E) pata_sis(E) usbcore(E) libata(E) floppy(E) sg(E)
+[   33.692314] CR2: 00000000f7cd846c
+[   33.692365] ---[ end trace 0000000000000000 ]---
+[   33.692414] EIP: snd_cs46xx_codec_write+0x3b/0xe0 [snd_cs46xx]
+[   33.692483] Code: ec 18 83 7d 08 01 89 45 f0 0f 8f b0 00 00 00 89 f0 0f b7 f9 8b 8e 58 01 00 00 ba 01 00 00 00 e8 cb 83 af da 8b 46 28 8b 4d f0 <89> 88 6c 04 00 00 8b 46 28 89 b8 70 04 00 00 8b 46 28 05 60 04 00
+[   33.692572] EAX: f7cd8000 EBX: c232c548 ECX: 00000002 EDX: 00000001
+[   33.692626] ESI: c232c548 EDI: 00009f9f EBP: c1fd5b08 ESP: c1fd5ae4
+[   33.692679] DS: 007b ES: 007b FS: 0000 GS: 0033 SS: 0068 EFLAGS: 00210297
+[   33.692742] CR0: 80050033 CR2: f7cd846c CR3: 0335d000 CR4: 00000690
 
-
-Acked-by: Cezary Rojewski <cezary.rojewski@intel.com>
-
-> ---
-> Amadeusz, Cezary, please ack.
-> 
-> Mark, please pick this minor build config fix.
-> 
->   sound/soc/intel/avs/boards/Makefile | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/sound/soc/intel/avs/boards/Makefile b/sound/soc/intel/avs/boards/Makefile
-> index 25e8c4bb07db..bc75376d58c2 100644
-> --- a/sound/soc/intel/avs/boards/Makefile
-> +++ b/sound/soc/intel/avs/boards/Makefile
-> @@ -16,7 +16,7 @@ snd-soc-avs-ssm4567-objs := ssm4567.o
->   obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_DA7219) += snd-soc-avs-da7219.o
->   obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_DMIC) += snd-soc-avs-dmic.o
->   obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_HDAUDIO) += snd-soc-avs-hdaudio.o
-> -obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_i2s_TEST) += snd-soc-avs-i2s-test.o
-> +obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_I2S_TEST) += snd-soc-avs-i2s-test.o
->   obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_MAX98357A) += snd-soc-avs-max98357a.o
->   obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_MAX98373) += snd-soc-avs-max98373.o
->   obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_NAU8825) += snd-soc-avs-nau8825.o
+On a 5.14, it's just the three lines
+  snd_cs46xx 0000:00:0d.0: Direct firmware load for cs46xx/cwc4630 failed with error -2
+  snd_cs46xx 0000:00:0d.0: firmware load error [cwc4630]
+  snd_cs46xx: probe of 0000:00:0d.0 failed with error -2
+and life goes on.

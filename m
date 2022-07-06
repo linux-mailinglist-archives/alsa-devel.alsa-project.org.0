@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DE3D56875E
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Jul 2022 13:54:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E30F456875C
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Jul 2022 13:54:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E482C16D4;
-	Wed,  6 Jul 2022 13:53:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E482C16D4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E6EA169D;
+	Wed,  6 Jul 2022 13:53:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E6EA169D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657108488;
-	bh=6u3vE2vJ+16gqEUktTB6PgwwCoCDZi/bgX96rMHSZ6g=;
+	s=default; t=1657108465;
+	bh=amzOSwAOX4foyC+9TNzVuqyMV+SNxwJmMBmYPdPI7oI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=phz9T9MhI/y5xqy9yxi0JZ7TWnxdJMIlzp3tQZNq+YSXeAc48dza0GOxWDhPhYkQC
-	 1o/xX62EGCWbNkHwH7lRlvzE8lF9fkJ9lcCBQOGWgEINV3CoZ1xV9UV7H9VingPjaq
-	 l0JuY+wFBgDK7eWPygqG86wezZXjqdvpnxMBWSlc=
+	b=Ky+nkebYlts+Loh0+bOX5ll1YDiiZOgWqRORP3EVB/yUT+1sRj9b7sVOABEwyy9lR
+	 z9nTbQLZfV1ylibGzTWdpDvzf7vBXqJaOCFDdlheFw6bSX1mxzL1+1XDSeyju3MGi6
+	 swzLXz5dGphO/hKDV/MIbdBJcvmALZiOvVwtFtpI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 91A4CF8054A;
-	Wed,  6 Jul 2022 13:52:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A0AA8F8053B;
+	Wed,  6 Jul 2022 13:52:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 36C53F80539; Wed,  6 Jul 2022 13:52:46 +0200 (CEST)
+ id 1A4C2F804ED; Wed,  6 Jul 2022 13:52:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 87C72F8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3D68DF8023A
  for <alsa-devel@alsa-project.org>; Wed,  6 Jul 2022 13:52:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87C72F8012A
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D68DF8023A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="Yq05ITQ0"
+ header.b="LKGEL3LR"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1657108363; x=1688644363;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=6u3vE2vJ+16gqEUktTB6PgwwCoCDZi/bgX96rMHSZ6g=;
- b=Yq05ITQ0rrNBgveTX5svsyXfWthGd4H3zw8qG/YHy5NNcPrAImjuxs/1
- b025DcMBbZzamMCcXV1mbJTPdWxjUy/UJUjd1cAuQqsxu0VOmqHu1DOOo
- aK+4NptpxLLc8lvKdJmzjZkPrmzv9IyiZa5fCK05+IaY/5t3+5feRUxkE
- ydPy7pLRYIqS1weg1pEvHYFY0vakRXI8jWf74LA26HJh+1c4gVa3iri6G
- 6XNlca9AxZze2gUEwCpO6Fesc7carttYZ1PvvM3Q8J0RZ+XXluH8VotZt
- mXfBNa0R9XvDTdGrF6OulTaBM6ZPpHnVXKGbT2LwdTq4d2/invWwqbdBa A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10399"; a="370042611"
-X-IronPort-AV: E=Sophos;i="5.92,249,1650956400"; d="scan'208";a="370042611"
+ bh=amzOSwAOX4foyC+9TNzVuqyMV+SNxwJmMBmYPdPI7oI=;
+ b=LKGEL3LRtzJJSB0e8dwTlpmnx19slUI1Euuq3dHP3EGbzehXy2nzHpSq
+ VBth3OHlnhSrUa1I3VVJrmsUciM4zTsww8TsW5a2CRi2mo0DjPeNQc7Wk
+ TLErshxYSJAG62KAf6zVaxk+eXBrJ21YP5kraEIfnP2CVWuIZiq5KYs/i
+ ti7wYKUIbhaofz8oNdj3B0R9uR65ABM1gC6rh6CFAKYQ2rSCOp6cd2My+
+ 8jVsfn5klvAZPprXvWbXlYnC4pnCvMXNNwgdUrc3pHvJMvl4Dt95RfyJq
+ AKrqIDm9Q7F95FIzSIdiFyjCJ7IWi5APGz2+LvTrusoBWJyfP54RFl1vj w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10399"; a="370042620"
+X-IronPort-AV: E=Sophos;i="5.92,249,1650956400"; d="scan'208";a="370042620"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jul 2022 04:52:37 -0700
+ 06 Jul 2022 04:52:39 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,249,1650956400"; d="scan'208";a="920136263"
+X-IronPort-AV: E=Sophos;i="5.92,249,1650956400"; d="scan'208";a="920136268"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by fmsmga005.fm.intel.com with ESMTP; 06 Jul 2022 04:52:35 -0700
+ by fmsmga005.fm.intel.com with ESMTP; 06 Jul 2022 04:52:37 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org,
 	tiwai@suse.com
-Subject: [PATCH 2/9] ALSA: hda: Fix null-ptr-deref when i915 fails and hdmi is
- denylisted
-Date: Wed,  6 Jul 2022 14:02:23 +0200
-Message-Id: <20220706120230.427296-3-cezary.rojewski@intel.com>
+Subject: [PATCH 3/9] ALSA: hda: Make device usage_count consistent across
+ subsequent probing
+Date: Wed,  6 Jul 2022 14:02:24 +0200
+Message-Id: <20220706120230.427296-4-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220706120230.427296-1-cezary.rojewski@intel.com>
 References: <20220706120230.427296-1-cezary.rojewski@intel.com>
@@ -91,44 +91,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If snd_hda_hdmi_codec module is denylisted and any event causes i915
-enumeration to fail, is_likely_hdmi_codec() ends in null-ptr-deref.
-
-As snd_soc_hda is an ASoC-based driver, its initialization is delayed
-until all the necessary components appear in the system - allowing
-actual sound card to enumerate. snd_hda_codec_configure() gets called by
-the avs-driver core during probe_codecs() but the
-snd_hda_codec_device_new(), necessary to complete codecs initialization,
-happens only when codec-component of hda sound card is being probed.
-
-Denylisting snd_hda_codec_hdmi module causes snd_hda_codec_configure()
-to reach: codec_bind_generic() -> is_likely_hdmi_codec() which makes use
-of ->wcaps and at this point the it isn't initialized yet - again,
-requires completion of snd_hda_codec_device_new().
+AVS HDAudio bus driver does not tie with codec drivers tighly and
+snd_hda_codec_device_new() can be called after codec's module reload. In
+such case, rpm is forbidden and invoking pm_runtime_forbid()
+unconditionally causes device's usage_count to become unbalanced. This
+is later caught by WARN_ON() found in sound/soc/hda.c. Detect such
+circumstance and bump the usage_count instead.
 
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/pci/hda/hda_bind.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ sound/pci/hda/hda_codec.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/sound/pci/hda/hda_bind.c b/sound/pci/hda/hda_bind.c
-index c572fb5886d5..cae9a975cbcc 100644
---- a/sound/pci/hda/hda_bind.c
-+++ b/sound/pci/hda/hda_bind.c
-@@ -248,6 +248,13 @@ static bool is_likely_hdmi_codec(struct hda_codec *codec)
- {
- 	hda_nid_t nid;
+diff --git a/sound/pci/hda/hda_codec.c b/sound/pci/hda/hda_codec.c
+index 9ceb642ac819..83d954ab056f 100644
+--- a/sound/pci/hda/hda_codec.c
++++ b/sound/pci/hda/hda_codec.c
+@@ -1044,8 +1044,14 @@ int snd_hda_codec_device_new(struct hda_bus *bus, struct snd_card *card,
+ 			goto error;
+ 	}
  
-+	/*
-+	 * For ASoC users, if snd_hda_hdmi_codec module is denylisted and any
-+	 * event causes i915 enumeration to fail, ->wcaps remains uninitialized.
-+	 */
-+	if (!codec->wcaps)
-+		return true;
-+
- 	for_each_hda_codec_node(nid, codec) {
- 		unsigned int wcaps = get_wcaps(codec, nid);
- 		switch (get_wcaps_type(wcaps)) {
++#ifdef CONFIG_PM
+ 	/* PM runtime needs to be enabled later after binding codec */
+-	pm_runtime_forbid(&codec->core.dev);
++	if (codec->core.dev.power.runtime_auto)
++		pm_runtime_forbid(&codec->core.dev);
++	else
++		/* Keep the usage_count consistent across subsequent probing */
++		pm_runtime_get_noresume(&codec->core.dev);
++#endif
+ 
+ 	return 0;
+ 
 -- 
 2.25.1
 

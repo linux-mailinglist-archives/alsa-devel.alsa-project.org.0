@@ -2,94 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CDBF5685DB
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Jul 2022 12:41:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 052C25685E4
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Jul 2022 12:43:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DFED01658;
-	Wed,  6 Jul 2022 12:40:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DFED01658
+	by alsa0.perex.cz (Postfix) with ESMTPS id A2D561689;
+	Wed,  6 Jul 2022 12:42:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2D561689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657104109;
-	bh=nPo3bgKdp4qA3tcZHRG3HyzYBYfsjBbkWOfgxsKl0Y4=;
+	s=default; t=1657104189;
+	bh=zrd7SJrYJgiBHyxXw1JHDeHv6/0QQpqh6HUxViDgkbY=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eHax7l3dpygueozQ2V1bx9DwrvHiGwr6qjClQ1YrkkuZG5+GRIHRqGWRtzkelQwAO
-	 bTxqzymvXzopdBsV5XA+Rq1luqEN8IIf/iuh40IndjQ9BZ8K52IQY7wd/aIdQKG8Cd
-	 7/ZtXKyvd4zqNp1ZNno8ityU0AkwFvffRM8bjIJ8=
+	b=tAf7WKGNcL0mAEJv0k3Edk3jur05YqrGlmRrtElimKtQ9C7tDeDNQiGVwVwo5o6MJ
+	 wezrJ1jt/z6NYbcjUS0nCLIJjWQLREbl6cST9DSSJHPd+ao6puj/BtXQXJ1Za5YIrr
+	 sUfZ4SlSy1P3O3wsTbEH4VePCBY/UX5PoGeXPqfQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A525F8032B;
-	Wed,  6 Jul 2022 12:40:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F1789F800C5;
+	Wed,  6 Jul 2022 12:42:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9C288F800C5; Wed,  6 Jul 2022 12:40:46 +0200 (CEST)
+ id E20EEF8023A; Wed,  6 Jul 2022 12:42:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HTML_MESSAGE,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8887BF800C5
- for <alsa-devel@alsa-project.org>; Wed,  6 Jul 2022 12:40:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8887BF800C5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7A134F800C5;
+ Wed,  6 Jul 2022 12:41:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A134F800C5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="SFVbLlBy"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 2665MFca021442;
- Wed, 6 Jul 2022 05:40:38 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=content-type :
- message-id : date : mime-version : subject : to : cc : references : from :
- in-reply-to; s=PODMain02222019;
- bh=QbscwrnkYIWubyEamf8qkkPhq/XZSJcwLASMNdqhmLc=;
- b=SFVbLlByoaGCUpkOnL3TmDtJIPd0A4luW34IUt9gXQvS1pwdftGCWcLUsT504Yeoe3jC
- ikmv+OB6AX98Xq2yg2QeJK1Y70Iz096/mng4ckHT5noluVYsy/VcwY0ehZkZ5iApuw74
- 8OLTFAq3zp0gMfSX0yjgoathajo++XhulfyjGLUVU52lNv4DZyee4Wfbg3MTkz456dND
- pwH6KSC3xQpP3WFDzyHEiwnc5zzlWZG+8mJDZ7OZOd4d3Y65ZxjWqzlCyst5Qnz1Inl6
- n5Qzw/xaAO/l/MqGWQ6Sk6u5HbGIr1N86ySuvoOwmyla+IoUDlxD/CdG6TWVsNUTFXP+ Lg== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3h4ucmgqxp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Wed, 06 Jul 2022 05:40:38 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 6 Jul
- 2022 11:40:36 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.28 via
- Frontend Transport; Wed, 6 Jul 2022 11:40:36 +0100
-Received: from [198.90.238.122] (unknown [198.90.238.122])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 5663A2A9;
- Wed,  6 Jul 2022 10:40:36 +0000 (UTC)
-Message-ID: <e4c1eb0c-329a-a8c4-0d72-76475f82c01f@opensource.cirrus.com>
-Date: Wed, 6 Jul 2022 11:40:36 +0100
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="h4lY4tEQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1657104125; x=1688640125;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=zrd7SJrYJgiBHyxXw1JHDeHv6/0QQpqh6HUxViDgkbY=;
+ b=h4lY4tEQ2VGuMzdm7veZEvXRvKoM7nPvxwWf10ky/0p1ayYW40mcyldE
+ ee9ThPTImACU7JAiGjQ/LIjAJTFDHMkWpumt0ExK5qb2/XSubS3OK1hBc
+ ViROlennFLqHK6ICf+1ycAv0ey75jaX6TQC2BHU+KAv4LA7YB4oGI3109
+ mQoyLKd0jjW7l2HBFztTwZ0tDQtpGubmwZMi/O3p3PbT6F4Aj8dmbBg3h
+ 64OWn+ccoMPlfWeJhVtuMqhTBIpcm0LAQuCxkrWbMn3sVJerGKtiTPnty
+ xi3QNGT/3yHcfEoMFIEbWrgzDhIYadwkdoz1jvb2ZVEuBWQ8VZDrbwMSg Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10399"; a="347693971"
+X-IronPort-AV: E=Sophos;i="5.92,249,1650956400"; d="scan'208";a="347693971"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jul 2022 03:41:02 -0700
+X-IronPort-AV: E=Sophos;i="5.92,249,1650956400"; d="scan'208";a="920113573"
+Received: from gguerra-mobl1.ger.corp.intel.com (HELO [10.249.254.46])
+ ([10.249.254.46])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jul 2022 03:40:59 -0700
+Message-ID: <b67ec7f9-7f1a-1014-b6e8-c953cd795202@linux.intel.com>
+Date: Wed, 6 Jul 2022 13:41:45 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH v8 00/14] ALSA: hda: cirrus: Add initial DSP support and
- firmware loading
+ Firefox/91.0 Thunderbird/91.10.0
+Subject: Re: [PATCH 1/2] ASoC: SOF: sof-client-probes: fix error codes in
+ sof_probes_compr_copy()
 Content-Language: en-US
-To: Takashi Iwai <tiwai@suse.de>
-References: <20220630002335.366545-1-vitalyr@opensource.cirrus.com>
- <87zghpxcsh.wl-tiwai@suse.de>
-From: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-In-Reply-To: <87zghpxcsh.wl-tiwai@suse.de>
-X-Proofpoint-GUID: fi-iP5sMn-xFm-JBJaId4Qr6LU9nNj0A
-X-Proofpoint-ORIG-GUID: fi-iP5sMn-xFm-JBJaId4Qr6LU9nNj0A
-X-Proofpoint-Spam-Reason: safe
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- Mark Brown <broonie@kernel.org>
+To: Dan Carpenter <dan.carpenter@oracle.com>
+References: <YsU4dYXYYVsfs92J@kili>
+ <26db7e60-51d1-444a-7620-8225239ad7bf@linux.intel.com>
+ <20220706102159.GC2338@kadam> <20220706103139.GB2316@kadam>
+From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <20220706103139.GB2316@kadam>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ kernel-janitors@vger.kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,111 +101,57 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Takashi,
-
-On 04/07/2022 13:50, Takashi Iwai wrote:
-> On Thu, 30 Jun 2022 02:23:21 +0200,
-> Vitaly Rodionov wrote:
->> The CS35L41 Amplifier contains a DSP, capable of running firmware.
->> The firmware can run algorithms such as Speaker Protection, to ensure
->> that playback at high gains do not harm the speakers.
->> Adding support for CS35L41 firmware into the CS35L41 HDA driver also
->> allows us to support several extra features, such as hiberation
->> and interrupts.
->>
->> The chain adds support in stages:
->> - General fixes to improve generalization and code re-use inside
->>    the CS35L41 HDA driver.
->> - Add support for interrupts into the driver, which is required
->>    for complete support of the firmware.
->> - Refactor ASoC CS35L41 code which deals with firmware to allow
->>    for code re-use inside the CS35L41 HDA driver.
->> - Add support for loading firmware and tuning files from file system,
->>    and creating alsa controls to control it.
->> - Support firmware load paths for different hardware systems.
->> - Support suspend/resume in the driver when using firmware. The firmware
->>    supports hibernation, which allows the CS35L41 to drop into a low
->>    power mode during suspend.
->> - Support the ability to unload firmware, swap and reload the firmware.
->>    This is to allow different firmware to run during calibration.
->>
->> The intended use-case is to load the firmware once on boot, and the driver
->> autmatically tries to load the firmware after it binds to the HDA driver.
->> This behaviour can be switched off using a kconfig, if desired.
->>
->> changes since v7:
->>   - Use private_data rather than private_value to save control info
->>   - Clean up alsa control memory allocation/deallocation
->>   - Remove unnecessary whitespace
->>   - Get subsystem id from codec, rather than saving it separately
->>
->> changes since v6:
->>   - Fix warning by kernel test robot<lkp@intel.com>
->>   
->> changes since v5:
->>   - Fix warning by kernel test robot<lkp@intel.com>
->>   
->> changes since v4:
->> - Fully remove tlv remnants from control add apis
->> - Remove unnecessary debug
->> - Rename variable to be more generic
->> - Remove redundent length check from read/write control apis
->>
->>
->> - Use SNDRV_CTL_ELEM_IFACE_CARD for firmware load controls
->> - Make kcontrol add/remove synchronous
->> - Load firmware asynchronous when loading via control
->> - Used cached controls when reloading firmware; only delete
->> controls when removing the driver itself
->>
->>
->> - Improve kcontrol remove
->> - Fix control write + notify
->> - Cleanup of unnecessary code
->> - Fix race condition when loading firmware before playback
->> - Ensure errors are properly propogated
->> - Fix include for Module parameters
->>
->> Stefan Binding (13):
->>    ALSA: hda: hda_cs_dsp_ctl: Add Library to support CS_DSP ALSA controls
->>    ALSA: hda: hda_cs_dsp_ctl: Add apis to write the controls directly
->>    ALSA: hda: cs35l41: Save codec object inside component struct
->>    ALSA: hda: cs35l41: Save Subsystem ID inside CS35L41 Driver
->>    ALSA: hda: cs35l41: Support reading subsystem id from ACPI
->>    ALSA: hda: cs35l41: Support multiple load paths for firmware
->>    ALSA: hda: cs35l41: Support Speaker ID for laptops
->>    ALSA: hda: cs35l41: Support Hibernation during Suspend
->>    ALSA: hda: cs35l41: Read Speaker Calibration data from UEFI variables
->>    ALSA: hda: hda_cs_dsp_ctl: Add fw id strings
->>    ALSA: hda: cs35l41: Add defaulted values into dsp bypass config
->>      sequence
->>    ALSA: hda: cs35l41: Support Firmware switching and reloading
->>    ALSA: hda: cs35l41: Add module parameter to control firmware load
->>
->> Vitaly Rodionov (1):
->>    ALSA: hda: cs35l41: Add initial DSP support and firmware loading
-> Thanks, this version looks better than previous ones, and I'm fine to
-> apply as is, to make things going forward.  But this seems requiring
-> the prerequisite in ASoC codec side.
->
-> Mark, could you send a PR to merge into my tree so that I can apply
-> those series?
->
->
-> And, one still uncertain thing is about the handling of system
-> suspend/resume, especially about the firmware loading work.  e.g. what
-> happens if a f/w work is in run and the system goes to suspend at the
-> very same time?  Or does the S3/S4 work in general at all?
->
-Sorry for the delay, but your comments raised our attention and we 
-wanted to run extensive testing again to make sure there is no hidden 
-issue. No issues were found during tests. When we start FW download work 
-we call "resume", so the resume counter should be incremented and 
-suspend will not happen till we finish the download process.
-
-Thanks,
-
-Vitaly
 
 
-> Takashi
+On 06/07/2022 13:31, Dan Carpenter wrote:
+> On Wed, Jul 06, 2022 at 01:21:59PM +0300, Dan Carpenter wrote:
+>> On Wed, Jul 06, 2022 at 12:05:37PM +0300, Péter Ujfalusi wrote:
+>>>
+>>>
+>>> On 06/07/2022 10:23, Dan Carpenter wrote:
+>>>> This function tries to return the number of bytes that it was able to
+>>>> copy to the user.  However, because there are multiple calls to
+>>>> copy_to_user() in a row that means the bytes are not necessarily
+>>>> consecutive so it's not useful.  Just return -EFAULT instead.
+>>>
+>>> The function is copying data from a circular buffer to a use buffer.
+>>> The single copy_to_user() is used when we don't have wrapping, the
+>>> 'double' copy_to_user() is when we wrap, so first copy is from the end
+>>> of the buffer then we copy the data from the start of the buffer to get
+>>> all data.
+>>
+>> Ok.  But the bugs in the original code are real.  I will resend.
+> 
+> Actually that's not true.  The bugs in the original code are something
+> that only affect users who deserve it?  I might not resend.  A fix would
+> look something like below?
+> 
+> regards,
+> dan carpenter
+> 
+> diff --git a/sound/soc/sof/sof-client-probes.c b/sound/soc/sof/sof-client-probes.c
+> index 1f1ea93a7fbf..32fa3186c295 100644
+> --- a/sound/soc/sof/sof-client-probes.c
+> +++ b/sound/soc/sof/sof-client-probes.c
+> @@ -398,9 +398,14 @@ static int sof_probes_compr_copy(struct snd_soc_component *component,
+>  		ret = copy_to_user(buf, ptr, count);
+>  	} else {
+>  		ret = copy_to_user(buf, ptr, n);
+> -		ret += copy_to_user(buf + n, rtd->dma_area, count - n);
+> +		if (ret) {
+> +			ret += count - n;
+> +			goto done;
+> +		}
+> +		ret = copy_to_user(buf + n, rtd->dma_area, count - n);
+
+I think this should work, can you please resend it?
+
+>  	}
+>  
+> +done:
+>  	if (ret)
+>  		return count - ret;
+>  	return count;
+
+-- 
+Péter

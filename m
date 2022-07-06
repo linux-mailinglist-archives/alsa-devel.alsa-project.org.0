@@ -2,77 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 144C4568674
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Jul 2022 13:10:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0F3B568673
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Jul 2022 13:10:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9C4D716F4;
-	Wed,  6 Jul 2022 13:09:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C4D716F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1820E16E5;
+	Wed,  6 Jul 2022 13:09:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1820E16E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657105848;
-	bh=BZCKP5tZSxu06QM9jLVz19aqimTq9g4sT3WFL7FeJ4E=;
+	s=default; t=1657105836;
+	bh=tJJ+5MPN/oG82eYpJBXpRDJ/8GpcbhDDoR+MV9YNgrs=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CPTgPOmuAp4C1BgB/dThiH72tBCjCVJbNOXX7sZSx0pAwNJpN53YXrRDC8Lid+/I1
-	 vRemM+gS/Tu9KHPRMuBK7kgQ8suJkWeHc9yJoFNwos4sr6k8fniUIaWGizQs8stJF5
-	 Vl99vNdldmfxr4Lg6B5U07d9np8EE+DS5s4w5feI=
+	b=fVPCQxeknA4TN8nMoSYGz3+TJli0SBtLAUMq8osVmRzG2cssTl39OyEmQUYAnRCj4
+	 ajneodbq+hCn19zsOTvHaMTjx5VmeE3Aj8nkPqSblhTeyqAUCS+RzV2Jub5M/1Qm52
+	 wuPAFbGQ3cr0n80PHM88u6iuj3VGpuRvEuJ/LF7g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E7CFFF80563;
+	by alsa1.perex.cz (Postfix) with ESMTP id 65608F80559;
 	Wed,  6 Jul 2022 13:08:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AB78BF80557; Wed,  6 Jul 2022 13:08:10 +0200 (CEST)
+ id 3726BF80557; Wed,  6 Jul 2022 13:08:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 818DBF80549;
- Wed,  6 Jul 2022 13:08:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 818DBF80549
+ by alsa1.perex.cz (Postfix) with ESMTPS id 05948F80557
+ for <alsa-devel@alsa-project.org>; Wed,  6 Jul 2022 13:08:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 05948F80557
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="O/7alNDv"
+ header.b="klhrRaPF"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 4651C61E82;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 6AE47B81BE2;
+ Wed,  6 Jul 2022 11:08:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9469CC341CA;
  Wed,  6 Jul 2022 11:08:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96D17C341CE;
- Wed,  6 Jul 2022 11:08:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657105684;
- bh=BZCKP5tZSxu06QM9jLVz19aqimTq9g4sT3WFL7FeJ4E=;
+ s=k20201202; t=1657105687;
+ bh=tJJ+5MPN/oG82eYpJBXpRDJ/8GpcbhDDoR+MV9YNgrs=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=O/7alNDvspGn+ZqprEjuMKPkSKP26SZSop292NkkrTG8BsJx5GMSdUjndI/d1X7ZQ
- Ycz/B4nBUt9dBclWPJmC7QlzEsPRcWrSyDnwfdyTYBUxd0SkODNAX2Ig1EPUu3FNOi
- 2Xq/0pBw5ft+FMxg/YujRFrE9TpOvWlyKfO/4AILfzhOHdaWnuR1Nqos7QTTnBAAk6
- T6pO++OEfDcVUorOvziBsXRn9ks3qxLyz5yCiRqCdwCCD265bGGB4tKhb4n6EUciNw
- Tx2L9yE4z7ZYKo73ICdTCKMrJFEd5Me+HvUf+bgO9m3o5EBR1os8F0bDO9s9/qog8N
- AJ2C6Qu+NeqHA==
+ b=klhrRaPFnI9RN+S7/luot2a7VHGRsjzSF3kxGEdUWAFasuw50Ah2kERLVj+AW1XNj
+ oh8RLLzGt2UDszMS9IAq0z97fI1bhswPaEGYw5VTgOwr/fzfGv4YIvgB90aQ3XJmTT
+ vveMtPMvIuju9pE30CPq+xal8/WupA6ztfUfK7MASA+bHyYpzSxEpUfRqs8YhR1JG7
+ tc6l6Eu0dARYWq+8uQw+TVUPhCoPN0ncMWoI7WifIPW5uH5urjzv++LEen5fuNcBo7
+ wWMhMRVMiuLrxkeeAFQluKxkRssDC1aef8q+I1v6YReiU4MN5Y9N8TbtieTebHhdoI
+ KZK6ZUs3MNx4Q==
 From: Mark Brown <broonie@kernel.org>
-To: linux-kernel@vger.kernel.org, peter.ujfalusi@linux.intel.com,
- pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- andriy.shevchenko@linux.intel.com, sound-open-firmware@alsa-project.org
-In-Reply-To: <20220705161102.76250-1-andriy.shevchenko@linux.intel.com>
-References: <20220705161102.76250-1-andriy.shevchenko@linux.intel.com>
-Subject: Re: [PATCH v2 1/2] ASoC: SOF: Intel: bdw: remove duplicating driver
- data retrieval
-Message-Id: <165710568133.237380.11160938064727349127.b4-ty@kernel.org>
-Date: Wed, 06 Jul 2022 12:08:01 +0100
+To: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ agross@kernel.org, linux-arm-msm@vger.kernel.org,
+ srinivas.kandagatla@linaro.org, krzysztof.kozlowski+dt@linaro.org,
+ konrad.dybcio@somainline.org, Rob Herring <robh+dt@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, devicetree@vger.kernel.org,
+ krzysztof.kozlowski@linaro.org, bjorn.andersson@linaro.org
+In-Reply-To: <20220705182802.775803-1-krzysztof.kozlowski@linaro.org>
+References: <20220705182802.775803-1-krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH v3] ASoC: dt-bindings: qcom,sm8250: add SDM845 sound
+Message-Id: <165710568432.237380.17718065730024815126.b4-ty@kernel.org>
+Date: Wed, 06 Jul 2022 12:08:04 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: kai.vehmanen@linux.intel.com, yung-chuan.liao@linux.intel.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- ranjani.sridharan@linux.intel.com, daniel.baluta@nxp.com
+Cc: stephan@gerhold.net
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,10 +88,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 5 Jul 2022 19:11:01 +0300, Andy Shevchenko wrote:
-> device_get_match_data() in ACPI case calls similar to acpi_match_device().
-> Hence there is no need to duplicate the call. Just assign what is in
-> the id->driver_data.
+On Tue, 5 Jul 2022 20:28:02 +0200, Krzysztof Kozlowski wrote:
+> The Qualcomm SDM845 sound card bindings are almost the same as SM8250,
+> except "pin-switches" and "widgets" properties.  These were not
+> documented in SDM845 text bindings but are actually valid for SDM845.
 > 
 > 
 
@@ -101,10 +101,8 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: SOF: Intel: bdw: remove duplicating driver data retrieval
-      commit: 0d356c186ffd6d4c3e10abb283379d09a93d2515
-[2/2] ASoC: SOF: Intel: byt: remove duplicating driver data retrieval
-      commit: 65b6851d243ff54cbd4adfb887a8af9d04b7f286
+[1/1] ASoC: dt-bindings: qcom,sm8250: add SDM845 sound
+      commit: 50791dcb7de32f9f78061f7f460966ac5616b38e
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,77 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0F3B568673
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Jul 2022 13:10:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B68F456875B
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Jul 2022 13:54:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1820E16E5;
-	Wed,  6 Jul 2022 13:09:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1820E16E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5C93F16C5;
+	Wed,  6 Jul 2022 13:53:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C93F16C5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657105836;
-	bh=tJJ+5MPN/oG82eYpJBXpRDJ/8GpcbhDDoR+MV9YNgrs=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=fVPCQxeknA4TN8nMoSYGz3+TJli0SBtLAUMq8osVmRzG2cssTl39OyEmQUYAnRCj4
-	 ajneodbq+hCn19zsOTvHaMTjx5VmeE3Aj8nkPqSblhTeyqAUCS+RzV2Jub5M/1Qm52
-	 wuPAFbGQ3cr0n80PHM88u6iuj3VGpuRvEuJ/LF7g=
+	s=default; t=1657108455;
+	bh=dieqkM5s8040Xr/uwJHnUztLAPbicPv2r2/NubJgwf0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=QEA7+h10lQUPBqUuYdpbgWLFR3t7Vwo6I2y8qZJAEI0KDVtpYqBNYubkg4n1QPomi
+	 CWapRmUP+zQmZoDPhtsJW1xGYEBQG/ueaj7bw42n6Aa2ksL9z05e8WV3HlRsepQO5y
+	 0k/PWTjli1DF2SyE2fkGTs45awNxRXqbKNmAt9BQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 65608F80559;
-	Wed,  6 Jul 2022 13:08:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0982EF8052E;
+	Wed,  6 Jul 2022 13:52:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3726BF80557; Wed,  6 Jul 2022 13:08:10 +0200 (CEST)
+ id AF067F8052E; Wed,  6 Jul 2022 13:52:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 05948F80557
- for <alsa-devel@alsa-project.org>; Wed,  6 Jul 2022 13:08:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 05948F80557
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="klhrRaPF"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 6AE47B81BE2;
- Wed,  6 Jul 2022 11:08:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9469CC341CA;
- Wed,  6 Jul 2022 11:08:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657105687;
- bh=tJJ+5MPN/oG82eYpJBXpRDJ/8GpcbhDDoR+MV9YNgrs=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=klhrRaPFnI9RN+S7/luot2a7VHGRsjzSF3kxGEdUWAFasuw50Ah2kERLVj+AW1XNj
- oh8RLLzGt2UDszMS9IAq0z97fI1bhswPaEGYw5VTgOwr/fzfGv4YIvgB90aQ3XJmTT
- vveMtPMvIuju9pE30CPq+xal8/WupA6ztfUfK7MASA+bHyYpzSxEpUfRqs8YhR1JG7
- tc6l6Eu0dARYWq+8uQw+TVUPhCoPN0ncMWoI7WifIPW5uH5urjzv++LEen5fuNcBo7
- wWMhMRVMiuLrxkeeAFQluKxkRssDC1aef8q+I1v6YReiU4MN5Y9N8TbtieTebHhdoI
- KZK6ZUs3MNx4Q==
-From: Mark Brown <broonie@kernel.org>
-To: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- agross@kernel.org, linux-arm-msm@vger.kernel.org,
- srinivas.kandagatla@linaro.org, krzysztof.kozlowski+dt@linaro.org,
- konrad.dybcio@somainline.org, Rob Herring <robh+dt@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, devicetree@vger.kernel.org,
- krzysztof.kozlowski@linaro.org, bjorn.andersson@linaro.org
-In-Reply-To: <20220705182802.775803-1-krzysztof.kozlowski@linaro.org>
-References: <20220705182802.775803-1-krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH v3] ASoC: dt-bindings: qcom,sm8250: add SDM845 sound
-Message-Id: <165710568432.237380.17718065730024815126.b4-ty@kernel.org>
-Date: Wed, 06 Jul 2022 12:08:04 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 21A92F80104
+ for <alsa-devel@alsa-project.org>; Wed,  6 Jul 2022 13:52:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21A92F80104
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="ZfAyEvot"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1657108359; x=1688644359;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=dieqkM5s8040Xr/uwJHnUztLAPbicPv2r2/NubJgwf0=;
+ b=ZfAyEvots6red1CCXoC/2qEnU+DuVb0FzvlEzoaIhkE8ujx3apStqe+T
+ F075uH6KrH6SnwOorZrxvMyFa8C3KUzyLTF6WXyzq4x43WoPrDMFDYBXo
+ xbMbT05GiYoO5+j9PrX8tUSPgwarLX+YvzG35ANuoX9UA8LC6f2pjPLUY
+ q++o+tMUXe7cmyPBuFLXYR0TtAnYbcmPcviBVhN92FPxMZ8ok4gfWTJTX
+ 6imoP3OcDppOfSclRsQz0/Bj989Ygo6+73UY2ZXMhJs0pqCUhUgNDSl7/
+ EROpHI5kF1VygaHxp0KNh0l7tWdxzO8QECWh7AN4tsqx20zTEIvUrzfhO A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10399"; a="370042591"
+X-IronPort-AV: E=Sophos;i="5.92,249,1650956400"; d="scan'208";a="370042591"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jul 2022 04:52:33 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.92,249,1650956400"; d="scan'208";a="920136246"
+Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
+ by fmsmga005.fm.intel.com with ESMTP; 06 Jul 2022 04:52:32 -0700
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+To: alsa-devel@alsa-project.org,
+	tiwai@suse.com
+Subject: [PATCH 0/9] ALSA: hda: Codec-reload bug fixes and cleanups
+Date: Wed,  6 Jul 2022 14:02:21 +0200
+Message-Id: <20220706120230.427296-1-cezary.rojewski@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: stephan@gerhold.net
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ pierre-louis.bossart@linux.intel.com, hdegoede@redhat.com, broonie@kernel.org,
+ amadeuszx.slawinski@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,37 +88,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 5 Jul 2022 20:28:02 +0200, Krzysztof Kozlowski wrote:
-> The Qualcomm SDM845 sound card bindings are almost the same as SM8250,
-> except "pin-switches" and "widgets" properties.  These were not
-> documented in SDM845 text bindings but are actually valid for SDM845.
-> 
-> 
+Total of 6 fixes and 3 cleanups - cleanups are last.
 
-Applied to
+All of the fixes address problems that present themselves in situation
+when user engages in codec driver reload. Second condition to reproduce
+is two-step initialization of HDAudio codec - this is the case only for
+ASoC HDAudio bus driver as snd_hda_intel calls only compound function
+snd_hda_codec_new(). Once these conditions are met, several
+reload/unload scenarios end with null-ptr-deref and page faults. Goal of
+the series is to allow codec/bus driver reloading without any errors.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Amadeusz Sławiński (2):
+  ALSA: hda: Reset all SIE bits in INTCTL
+  ALSA: hda: Remove unused macro definition
 
-Thanks!
+Cezary Rojewski (7):
+  ALSA: hda: Do not unset preset when cleaning up codec
+  ALSA: hda: Fix null-ptr-deref when i915 fails and hdmi is denylisted
+  ALSA: hda: Make device usage_count consistent across subsequent
+    probing
+  ALSA: hda: Fix put_device() inconsistency in error path
+  ALSA: hda: Skip event processing for unregistered codecs
+  ALSA: hda: Fix page fault in snd_hda_codec_shutdown()
+  ALSA: hda/realtek: Remove redundant init_hook() in alc_default_init()
 
-[1/1] ASoC: dt-bindings: qcom,sm8250: add SDM845 sound
-      commit: 50791dcb7de32f9f78061f7f460966ac5616b38e
+ include/sound/hda_codec.h           |  1 -
+ include/sound/hdaudio.h             |  1 +
+ sound/hda/ext/hdac_ext_controller.c |  7 ---
+ sound/hda/hdac_bus.c                |  2 +-
+ sound/hda/hdac_controller.c         |  7 +--
+ sound/pci/hda/hda_bind.c            |  7 +++
+ sound/pci/hda/hda_codec.c           | 83 +++++++++++++++--------------
+ sound/pci/hda/patch_realtek.c       |  3 --
+ sound/soc/codecs/hda.c              |  4 +-
+ 9 files changed, 56 insertions(+), 59 deletions(-)
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+-- 
+2.25.1
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

@@ -2,74 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 579CC568507
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Jul 2022 12:18:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79A9A568515
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Jul 2022 12:19:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E15791636;
-	Wed,  6 Jul 2022 12:17:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E15791636
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2F1D916BF;
+	Wed,  6 Jul 2022 12:18:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F1D916BF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657102689;
-	bh=7bPjA96rRPT+DGytlEDSgU0khPF5mhmCE+N6Sj/+pX0=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=okLPjkKwG0+H/uUfLa99oXBufI97Shq1vE4ibNBl3pcg2H9FTdfNp3Lg3JTG+kNG4
-	 6m8NCdRlcycva0l6XJWOIPxtEJLl+IqZtvQAqvRz73CnSgjIp4608rVWnZd62saK+Z
-	 1mG3ZK0i49in95BYDoV2x8tkpKSW9vF0q4+KrUxc=
+	s=default; t=1657102776;
+	bh=YGK/T2LoyRY6N+v/ayv7e9EiQ/pWyRZObOgpahfmH+c=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ETeaXFgTPFhI7/tfrm8SpCsimvzVm2SA5dSGXDh3Vpj1beGl0IPdCbskL75onBeUe
+	 tivf6K6Y+GiuYZADfwUtcL1iPXYrie+V0VNegSYVh9Aggks0JK53yiSUuEq9Ki3FLP
+	 cW7fhE9Tca+SMolRbSq3XcOjcQzjNprpjfsKnLjU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A1D5F8012A;
-	Wed,  6 Jul 2022 12:17:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C81BEF8032B;
+	Wed,  6 Jul 2022 12:18:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A597BF8023A; Wed,  6 Jul 2022 12:17:06 +0200 (CEST)
+ id 0E8F6F8032B; Wed,  6 Jul 2022 12:18:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+X-Spam-Level: **
+X-Spam-Status: No, score=2.1 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FROM,FROM_LOCAL_DIGITS,FROM_LOCAL_HEX,SPF_HELO_NONE,SPF_NONE,
+ SPOOFED_FREEMAIL,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 09F1EF8012A
- for <alsa-devel@alsa-project.org>; Wed,  6 Jul 2022 12:17:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09F1EF8012A
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="MUgKma1P"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 65EB661DCD;
- Wed,  6 Jul 2022 10:17:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CCBAC3411C;
- Wed,  6 Jul 2022 10:16:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657102620;
- bh=7bPjA96rRPT+DGytlEDSgU0khPF5mhmCE+N6Sj/+pX0=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=MUgKma1PWpnpMDghIZQh8EtTZFc0uHhnnLOGcO4WLW01/ALctT9T0mGXb/UZ4ycFh
- FMnFOYEkGiLfFj53DHKhkmZqjEKcBr9BxqV2o7jxVnT2uY+bXlwxzw9Z35ZE07Ic6W
- btPm953snmkTQJQRCqWwJrTp4aLbTApep3TD3Kg7XVYV5lMTi/vbUZIOJwtVgc732L
- TdFTQqLAv3XrPECQEJ2JEX4Kg608uTSesLozNmO574Le+Wedby0DBstl4sXSIocraG
- H5s4M2KwmpYNRXJsTwV7FKPCRfI3tbOoLeMUrirVvdK8KMnez0rZ9SXorZxYH5GhBk
- VDayWLkrOc9yg==
-From: Mark Brown <broonie@kernel.org>
-To: pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com,
- peter.ujfalusi@linux.intel.com, cezary.rojewski@intel.com
-In-Reply-To: <20220630065638.11183-1-peter.ujfalusi@linux.intel.com>
-References: <20220630065638.11183-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH v2 0/2] ASoC: Intel: Skylake: Fixes for skl_get_ssp_clks()
-Message-Id: <165710261895.218646.13648148801407891657.b4-ty@kernel.org>
-Date: Wed, 06 Jul 2022 11:16:58 +0100
+Received: from n169-113.mail.139.com (n169-113.mail.139.com [120.232.169.113])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id C16E1F8012A
+ for <alsa-devel@alsa-project.org>; Wed,  6 Jul 2022 12:18:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C16E1F8012A
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM: 
+X-RM-SPAM-FLAG: 00000000
+Received: from LAPTOP-39QA2GAC.localdomain (unknown[192.163.20.102])
+ by rmsmtp-lg-appmail-36-12050 (RichMail) with SMTP id 2f1262c5615f9fb-0ca0a;
+ Wed, 06 Jul 2022 18:18:20 +0800 (CST)
+X-RM-TRANSID: 2f1262c5615f9fb-0ca0a
+From: Raphael-Xu <13691752556@139.com>
+To: broonie@kernel.org
+Subject: [PATCH v1] add tas2780
+Date: Wed,  6 Jul 2022 18:18:04 +0800
+Message-Id: <20220706101804.19214-1-13691752556@139.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, yung-chuan.liao@linux.intel.com,
- tiwai@suse.com, kai.vehmanen@linux.intel.com
+Cc: navada@ti.com, alsa-devel@alsa-project.org, shenghao-ding@ti.com,
+ raphael-xu@ti.com, Raphael-Xu <13691752556@139.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,43 +69,93 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 30 Jun 2022 09:56:36 +0300, Peter Ujfalusi wrote:
-> Changes since v1:
-> - drop reference to a might never happening patch from the commit message of
->   patch 2.
-> 
-> Cover letter:
-> while looking at long standing sparse reports regarding to arrays of flexible
-> structures (arrays of flexible arrays of flexible structures, really).
-> 
-> [...]
+add tas2780.yaml
 
-Applied to
+Signed-off-by: Raphael-Xu <13691752556@139.com>
+---
+ .../devicetree/bindings/sound/tas2780.yaml    | 72 +++++++++++++++++++
+ 1 file changed, 72 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/tas2780.yaml
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+diff --git a/Documentation/devicetree/bindings/sound/tas2780.yaml b/Documentation/devicetree/bindings/sound/tas2780.yaml
+new file mode 100644
+index 000000000000..5a0de0995066
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/tas2780.yaml
+@@ -0,0 +1,72 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++# Copyright (C) 2020-2022 Texas Instruments Incorporated
++%YAML 1.2
++---
++$id: "http://devicetree.org/schemas/sound/tas2780.yaml#"
++$schema: "http://devicetree.org/meta-schemas/core.yaml#"
++
++title: Texas Instruments TAS2780 Smart PA
++
++maintainers:
++  - Raphael Xu <raphael-xu@ti.com>
++
++description: |
++  The TAS2780 is a mono, digital input Class-D audio amplifier optimized for
++  efficiently driving high peak power into small loudspeakers.
++  Integrated speaker voltage and current sense provides for
++  real time monitoring of loudspeaker behavior.
++
++properties:
++  compatible:
++    enum:
++      - ti,tas2780
++
++  reg:
++    maxItems: 1
++    description: |
++       I2C address of the device can be between 0x38 to 0x45.
++
++  reset-gpios:
++    maxItems: 1
++    description: GPIO used to reset the device.
++
++  interrupts:
++    maxItems: 1
++
++  ti,imon-slot-no:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: TDM TX current sense time slot.
++
++  ti,vmon-slot-no:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: TDM TX voltage sense time slot.
++
++  '#sound-dai-cells':
++    const: 1
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++   #include <dt-bindings/gpio/gpio.h>
++   i2c0 {
++     #address-cells = <1>;
++     #size-cells = <0>;
++     codec: codec@38 {
++       compatible = "ti,tas2780";
++       reg = <0x38>;
++       #sound-dai-cells = <1>;
++       interrupt-parent = <&gpio1>;
++       interrupts = <14>;
++       reset-gpios = <&gpio1 15 0>;
++       shutdown-gpios = <&gpio1 15 0>;
++       ti,imon-slot-no = <0>;
++       ti,vmon-slot-no = <2>;
++     };
++   };
++
++...
+-- 
+2.35.1
 
-Thanks!
 
-[1/2] ASoC: Intel: Skylake: Correct the ssp rate discovery in skl_get_ssp_clks()
-      commit: 35981d51fe5a3310a8c895cf0daf1809f143b8ac
-[2/2] ASoC: Intel: Skylake: Correct the handling of fmt_config flexible array
-      commit: 564025b9fe472a7a62895c55a66edd2abeea88a1
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

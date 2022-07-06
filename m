@@ -2,74 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DF49567D9F
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Jul 2022 07:12:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC3D3567E52
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Jul 2022 08:27:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 68F62164D;
-	Wed,  6 Jul 2022 07:11:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68F62164D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4C0801622;
+	Wed,  6 Jul 2022 08:26:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C0801622
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657084342;
-	bh=VTVDAzmvFZeLwmVSF2l4CuD4DI0rMKlYWh26whbQ5dw=;
+	s=default; t=1657088846;
+	bh=6y/rCkWWSn3N2phBGsrlMfQNgmVfs7piPLSNN1/z6Ns=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NC9XVNMKtY4MVW4EvrDk3EkOiG79jJveYA6tK4yd4SEKVT1/Kb7m+/rt3lSKqtZFy
-	 Bu5afbyF3XSqZHgQdsuZY/0TrGqNkR2uMUX5G5Y3F5LVQpXbGtOUKT7kZyby4WJzY/
-	 mgNjz7CwCQoqFLj7NJm5jYkCS5dHiT2v6yNxy3P0=
+	b=V4TzE/7+ef8Hlw4cCrHmngJK+PVKozq/p23PpMbKLFYbGj9gJGjoqYWJm1KbRSFoY
+	 mHaezy9HFzcCYXYIBbi+bNWAw1XIB6fIN94SY7qNuv/ADzSfNKvhezv2cp/aC65KkL
+	 pnzg1G+EyZbfhepJFXFop1GnhJ0On+FvjMUJtZ4I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D7507F8032B;
-	Wed,  6 Jul 2022 07:11:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ACD83F8012A;
+	Wed,  6 Jul 2022 08:26:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CE765F8023A; Wed,  6 Jul 2022 07:11:19 +0200 (CEST)
+ id EBCC3F8023A; Wed,  6 Jul 2022 08:26:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1C41EF800C5
- for <alsa-devel@alsa-project.org>; Wed,  6 Jul 2022 07:11:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C41EF800C5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="RZxdkOx0"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 505C7CE1BE3;
- Wed,  6 Jul 2022 05:11:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D39F3C3411C;
- Wed,  6 Jul 2022 05:11:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657084267;
- bh=VTVDAzmvFZeLwmVSF2l4CuD4DI0rMKlYWh26whbQ5dw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=RZxdkOx0vdbUwkuiphEfMul7Tvcnq0bhvIHfYtZY5tO+aEpVmCTep8DiymI9FVWGB
- cQb/sWYI1pGeOCkvMh2jfQoP+imE9qefA58JaGOlK7K27cEpaHysUj9wIN5jUiLJL3
- AFJu2WqcfLiVSJhLPZUL4L2gd/uSZdxLfKQz2cX/fdeM31712yryWKai3UyLtp+PaX
- 2A+I2nYt9t6tnlAUETWbb9mAHjUAHlTUglPduuGaLTVDlw4i0m89u+F7HL7WZVdDIs
- 1jAOuu8TIUTRdeHB81BBvjGujdfqeQp3HapYm1jDIaIK2q9MJM62b1JBLlhYAdoGB7
- Pm0oIgLVqk1aw==
-Date: Wed, 6 Jul 2022 10:41:02 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 0/3] soundwire: revisit peripheral driver bind/unbind
-Message-ID: <YsUZZmQsz25YNfM/@matsya>
-References: <20220621225641.221170-1-pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id C4551F80104
+ for <alsa-devel@alsa-project.org>; Wed,  6 Jul 2022 08:26:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4551F80104
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1o8yUK-0005LQ-Gk; Wed, 06 Jul 2022 08:26:16 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1o8yUF-004hzb-Mv; Wed, 06 Jul 2022 08:26:15 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1o8yUI-003IyZ-Dr; Wed, 06 Jul 2022 08:26:14 +0200
+Date: Wed, 6 Jul 2022 08:26:11 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH] ASoC: rsnd: Emit useful error messages in .remove()
+Message-ID: <20220706062611.73m4cwsxtl5mm32m@pengutronix.de>
+References: <20220705063613.93770-1-u.kleine-koenig@pengutronix.de>
+ <87k08rf8no.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="3cn7unq6trxdz6ol"
 Content-Disposition: inline
-In-Reply-To: <20220621225641.221170-1-pierre-louis.bossart@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
- broonie@kernel.org, srinivas.kandagatla@linaro.org,
- Bard liao <yung-chuan.liao@linux.intel.com>
+In-Reply-To: <87k08rf8no.wl-kuninori.morimoto.gx@renesas.com>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Liam Girdwood <lgirdwood@gmail.com>, kernel@pengutronix.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,22 +84,73 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 21-06-22, 17:56, Pierre-Louis Bossart wrote:
-> This patchset fixes the driver bind/unbind cases which are not
-> well-supported today. I initially reported a race condition in March
-> 2022 [1] and the more tests I ran the more timing assumptions crept to
-> the surface.
-> 
-> With this patchset, I've been able to bind the drivers in any order,
-> and when all dependencies were available the card is
-> created/registered. Likewise I was able to remove codec drivers while
-> the bus was still running. The initial suggestion to use
-> device_lock()/unlock() led to system hangs in suspend-resume that I
-> was unable to root-cause after weeks of tests, hence this patchset
-> relies on a SoundWire-specific lock doesn't interfere with other core
-> device locking.
 
-Applied, thanks for this cleanup.
+--3cn7unq6trxdz6ol
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
--- 
-~Vinod
+On Tue, Jul 05, 2022 at 11:21:20PM +0000, Kuninori Morimoto wrote:
+>=20
+> Hi Uwe
+>=20
+> Thank you for your patch
+>=20
+> >  	for_each_rsnd_dai(rdai, priv, i) {
+> > -		ret |=3D rsnd_dai_call(remove, &rdai->playback, priv);
+> > -		ret |=3D rsnd_dai_call(remove, &rdai->capture, priv);
+> > +		int ret;
+> > +
+> > +		ret =3D rsnd_dai_call(remove, &rdai->playback, priv);
+> > +		if (ret)
+> > +			dev_warn(&pdev->dev, "Failed to remove playback dai #%d\n", i);
+> > +
+> > +		ret =3D rsnd_dai_call(remove, &rdai->capture, priv);
+> > +		if (ret)
+> > +			dev_warn(&pdev->dev, "Failed to remove capture dai #%d\n", i);
+> >  	}
+> > =20
+> >  	for (i =3D 0; i < ARRAY_SIZE(remove_func); i++)
+> >  		remove_func[i](priv);
+> > =20
+> > -	return ret;
+> > +	return 0;
+> >  }
+>=20
+> I think we want to get return error ?
+
+The motivation of my patch is to make the remove function return 0 and
+the eventual goal is to make the remove callback return void.
+The difference today between returning 0 and returning an error is only
+that the core emits an error message in the error case. In both cases
+the device is removed. See drivers/base/platform.c:platform_remove().
+=20
+> The reason why it was using |=3D is that it should call all function
+> without break even though it was error
+
+It's right to call all cleanup functions also if some of them fail. But
+returning an error is useless.
+
+Best regards
+Uwe
+
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--3cn7unq6trxdz6ol
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmLFKwAACgkQwfwUeK3K
+7AlRcwf/Y2lRzKmAVDV60aqWsVYGynHByWv0WNdlYTEbjlGVocgCpz6loBbzXiB1
+vpABHrsYi0+ysFhZyTxN46eLPwIz49yzmJM166CFMsWrmHOiYfPteNf1UlSC3Plh
+IAyGGovyA7cC0q+2g6AVGmqxWz7kneGHySRmz7OEAuzfLeriFOdUb8PRRUl8mPwt
+TCKZfbDY9kqK1ifeoK9eU4p5z3Mvc51yXzej/U4MmCMU97vh91EbiJKjRS5SDSoS
+zrHB5PWFnOUj900tGD1EBNImz4mSMbnsoZsTme3MSSS8HLGbk/5rQGV3wuQomMeR
+DwBzt5ndw6vXYao0XKuJOZIjRliO5A==
+=x0Tk
+-----END PGP SIGNATURE-----
+
+--3cn7unq6trxdz6ol--

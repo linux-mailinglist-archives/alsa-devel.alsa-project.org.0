@@ -2,76 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C94E9568901
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Jul 2022 15:09:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B87D568AEE
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Jul 2022 16:10:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0FA161640;
-	Wed,  6 Jul 2022 15:08:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FA161640
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7D0D21657;
+	Wed,  6 Jul 2022 16:09:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D0D21657
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657112942;
-	bh=IJtDiQq5oZrzCsJMVdMruee3ZZMCVIpbgVe9plawQog=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1657116643;
+	bh=ulTlpfjbk/4uoDVcSwnQVB7MKrB8P0kwZfVfx8hedBI=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Z5JSQVdkyTHF9lGvTeln7KHcNcy2E+vzLMg0C0vVr0fTn0OQx6HjajtBCHSv3dhBz
-	 Xn5gzgUHvy5kM3Jm2kXYhfegaLRTsfLJ6bEuBrPy7n3vXsH8zhcNePYP3ECw/9jHxa
-	 Ipp+1y8SoOOOx0OS+PlTv5EXwEaksmE4FvxXmhd8=
+	b=NEtaE+RD7H3cka7jciGoJQl/93pDEa4Jn/CDjyu1l/AjFxoU32eVwtlGztwEmiWOA
+	 eN2k71olsh70x6gHZ93l86GhgdS+v/xyRKH0WcgU6yqIK31UTUfR3AodbdMj5fWeH3
+	 bmVFwuOxdLQbZSNzKk0/cQxbgAppkOdYiYfVUwks=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7A15EF8012A;
-	Wed,  6 Jul 2022 15:08:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E4D24F804B4;
+	Wed,  6 Jul 2022 16:09:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C466BF8012A; Wed,  6 Jul 2022 15:07:58 +0200 (CEST)
+ id F2808F8032B; Wed,  6 Jul 2022 16:09:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B75A7F8012A
- for <alsa-devel@alsa-project.org>; Wed,  6 Jul 2022 15:07:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B75A7F8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8496FF80104
+ for <alsa-devel@alsa-project.org>; Wed,  6 Jul 2022 16:09:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8496FF80104
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="XLjjhGXE"
+ header.b="nNVyXRtR"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 9148AB81CA6;
- Wed,  6 Jul 2022 13:07:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17D95C341C0;
- Wed,  6 Jul 2022 13:07:51 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1408B61E55;
+ Wed,  6 Jul 2022 14:09:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84DE0C3411C;
+ Wed,  6 Jul 2022 14:09:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657112873;
- bh=IJtDiQq5oZrzCsJMVdMruee3ZZMCVIpbgVe9plawQog=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=XLjjhGXEEsJJfQAu7dmLkd9Iz7Ru49i5on9KLJ139PVF31B/yFQVD0YlFn+jsdM9i
- akipGEeqX7VdeQVeyKzUtOcWW0mbEA+nbYdRAuDZ6PUfaylIQ2h9eMigC04SN1vK5E
- eMA2brj63a9E1n95hRvCtlErGSch1o2QppmlbH6RU4COAoLN44HiraHB7wAF5gCiQd
- gh2u+YFDNplVOFvWHZvrGDoTmvDy1kwCtoYqxinNMmU8GW3S0vittYdWGYik/LUHQU
- aL3A2WaFnHyvPORrG0I9jYUaz35IqPYLQ/hQaTaIRUpP1idaL5rxxSHTi2vemCHLHK
- ioR3+vV55u/zA==
-Date: Wed, 6 Jul 2022 14:07:48 +0100
+ s=k20201202; t=1657116574;
+ bh=ulTlpfjbk/4uoDVcSwnQVB7MKrB8P0kwZfVfx8hedBI=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=nNVyXRtRCGd4bW5DiB+WK22OcXr3lSBJ6ESdap38p60CBgbpvG3HH709pU7sPreow
+ LIaRC1PdYQpLkjsLbui1lx8PQohdLDT6mfjeALZoaWeLNp04aLy8G2BK+wZUSDHCsZ
+ 87lJQiN7s5D4raN2X8spFcKMkkV1CYeBe3YNC0k0/Onw5uzjYBju8JfYPeYWfbP34F
+ J7rHEU2BbsVQfn3rjokMbi32K4MHS+2R6I8Zu2Xf0wZjlB5fK+2TSTIr1pgsipQQO5
+ 4YS+eVGNWrjJ5Y++6sbFyiInsvnNCpmrexNacMi2wVQPN8vYspW2ZQKEHR8Xvg+WvE
+ FlmYol7PBZTUw==
 From: Mark Brown <broonie@kernel.org>
-To: Raphael-Xu <13691752556@139.com>
-Subject: Re: [PATCH v2] add tas2780
-Message-ID: <YsWJJHFb5IeipN9x@sirena.org.uk>
-References: <20220706095721.18974-1-13691752556@139.com>
+To: lgirdwood@gmail.com, alsa-devel@alsa-project.org, shengjiu.wang@nxp.com,
+ Xiubo.Lee@gmail.com, shengjiu.wang@gmail.com, nicoleotsuka@gmail.com,
+ perex@perex.cz, festevam@gmail.com, tiwai@suse.com
+In-Reply-To: <1657100575-8261-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1657100575-8261-1-git-send-email-shengjiu.wang@nxp.com>
+Subject: Re: [PATCH] ASoC: imx-card: Fix DSD/PDM mclk frequency
+Message-Id: <165711657225.3718491.10041938555621440041.b4-ty@kernel.org>
+Date: Wed, 06 Jul 2022 15:09:32 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="uVTjtFXKtYrFyOKV"
-Content-Disposition: inline
-In-Reply-To: <20220706095721.18974-1-13691752556@139.com>
-X-Cookie: Only God can make random selections.
-Cc: navada@ti.com, alsa-devel@alsa-project.org, shenghao-ding@ti.com,
- raphael-xu@ti.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,57 +86,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, 6 Jul 2022 17:42:55 +0800, Shengjiu Wang wrote:
+> The DSD/PDM rate not only DSD64/128/256/512, which are the
+> multiple rate of 44.1kHz,  but also support the multiple
+> rate of 8kHz, so can't force all mclk frequency to be
+> 22579200Hz, need to assign the frequency according to
+> rate.
+> 
+> 
+> [...]
 
---uVTjtFXKtYrFyOKV
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Wed, Jul 06, 2022 at 05:57:21PM +0800, Raphael-Xu wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> +	snd_soc_component_write(tas2780->component, TAS2780_SW_RST,
-> +				TAS2780_RST);
-> +	if (ret) {
-> +		dev_err(tas2780->dev,
-> +			"%s:errCode:0x%x Reset error!\n",
-> +			__func__, ret);
+Thanks!
 
-That's still a very strange style of logging for the kernel.
+[1/1] ASoC: imx-card: Fix DSD/PDM mclk frequency
+      commit: c0fabd12a8570cb932f13d9388f3d887ad44369b
 
-> +		snd_soc_dapm_to_component(w->dapm);
-> +	struct tas2780_priv *tas2780 =
-> +		snd_soc_component_get_drvdata(component);
-> +	int ret = 0;
-> +
-> +	switch (event) {
-> +	case SND_SOC_DAPM_PRE_PMU:
-> +		ret = snd_soc_component_update_bits(component,
-> +			TAS2780_CLK_CFG, TAS2780_CLK_CFG_MASK,
-> +			TAS2780_CLK_CFG_ENABLE);
-> +		break;
-> +	default:
-> +		dev_err(tas2780->dev, "Unsupported event\n");
-> +		ret = -EINVAL;
-> +	}
-> +	if (ret < 0) {
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-This will turn the clocks on the first time the DAC is turned on and I
-can't see anything that ever turns them off again?  If it's sensible to
-leave them on then it'd be simpler to just turn them on during probe and
-then leave them on.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
---uVTjtFXKtYrFyOKV
-Content-Type: application/pgp-signature; name="signature.asc"
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
------BEGIN PGP SIGNATURE-----
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmLFiSQACgkQJNaLcl1U
-h9Bg3Qf+P/PQIWeGblR567fjE6CcgQJFJqs7XXFGEQb02manA2xgRay/A9NYUlJO
-quOkIKHdsHyIGSubVbrL7EdYjXQG5FRyRctN0BrEz5AOM3f6LdAhFG0X3Br16odm
-1gu0U59mmGzaQgWkqN+oxlWulG9Niq3l6jaXlOhkkYy0nTXPDPAqJJcz5wLToBBO
-voivJynNtNbqBuGsC3mLuMeiWt93n/ef4YVzmKThQa20UY1puBB80mEOL8uQckGv
-fQ8y5xZvnaAKZCnuovwoAuX6CbMekH0klt+sBhUjXTi4bJ1jhCJ+vBu8jrufvRUp
-NrJJnJ525ljL8VhTmcjLleBXicljuQ==
-=17ca
------END PGP SIGNATURE-----
-
---uVTjtFXKtYrFyOKV--
+Thanks,
+Mark

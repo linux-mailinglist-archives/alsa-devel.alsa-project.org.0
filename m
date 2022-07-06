@@ -2,77 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C56556866F
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Jul 2022 13:09:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77001568671
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Jul 2022 13:10:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 09AC716D7;
-	Wed,  6 Jul 2022 13:08:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09AC716D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1095216CA;
+	Wed,  6 Jul 2022 13:09:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1095216CA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657105787;
-	bh=4zHuh7F5byl2nEPHnYTUbXvbtKodYNHadkpLFgUS4D8=;
+	s=default; t=1657105802;
+	bh=+5ndkn9ElVjaJPL+iqLwYzl7r5tW7a9qgYYbETn7bPg=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DlkXLR/CAOGDqb/uDPB4DNK4QskxjIFR0EbC9Q6bkflYWpR6XnsZvRytaI0zOo7uJ
-	 a/zYxE9RuCkULHVVMgCKBfaPqqIrXb+8XTDL9CfLKq3SkRpMWwMR/CS4kv71p1XDPO
-	 ypkBN09+oJ/UoZ1HUG37NQOQ4UH7NxwHs5sQYCYY=
+	b=F0LpSalh5zqitVR35ZAD/Gb+4yUvbz28ZJvBFj9RXDlJqbCS7WeSWX9V8NzxuQh1M
+	 egJWnLkVoPkKMh/iP8HtMDwErm4l8IWJUF62/relO86aiSK+FC1T9coe79XgMZueEr
+	 QaQ96p4txL7AODPLwmu2wW4MOuAA9ai1L4Dpu8jY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D07C0F8053E;
-	Wed,  6 Jul 2022 13:08:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 55AADF80538;
+	Wed,  6 Jul 2022 13:08:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 17279F8023A; Wed,  6 Jul 2022 13:08:01 +0200 (CEST)
+ id 10954F80548; Wed,  6 Jul 2022 13:08:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,MIME_8BIT_HEADER,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 77A4CF80104
- for <alsa-devel@alsa-project.org>; Wed,  6 Jul 2022 13:07:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77A4CF80104
+ by alsa1.perex.cz (Postfix) with ESMTPS id 37FDBF800C5
+ for <alsa-devel@alsa-project.org>; Wed,  6 Jul 2022 13:08:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37FDBF800C5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="hYxx8Teh"
+ header.b="tR/bA+KB"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id A1E48B81BE6;
- Wed,  6 Jul 2022 11:07:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 461D8C341CA;
- Wed,  6 Jul 2022 11:07:54 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id DA46961E82;
+ Wed,  6 Jul 2022 11:07:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E355FC341CD;
+ Wed,  6 Jul 2022 11:07:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657105676;
- bh=4zHuh7F5byl2nEPHnYTUbXvbtKodYNHadkpLFgUS4D8=;
+ s=k20201202; t=1657105678;
+ bh=+5ndkn9ElVjaJPL+iqLwYzl7r5tW7a9qgYYbETn7bPg=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=hYxx8Tehs7AmPsTysQ6czl9Kxyix/jOttDeKm8zJyZGMw/nRLfXlG4CexEZYiMTpl
- spfMy1sybYG6UUHOETIJBE2RiqHuSk5p5YTSqpKwUIH7+dni69ipqZCVpE3bUf60aG
- GNIyTtdTFW7tSwSsfeBnApKSCGc7I6iJh0rKk5rApl6PujvQ89TLY8a4ERnvccQPzp
- hIHZhdeTniLkDq3NW9uTUPwWtsMm0QAMqvMOCiYkqDsK8rBRwl6kO3GQkRrlyvGge9
- qMsW101toZmR9EfuR/l/IoNMTGTBYdArbWSXcmgQDqNaS6piqBBhzToh4DG3m/tFll
- zKXIeNGLD5z8Q==
+ b=tR/bA+KBRTaxAUH4pQtg/VermhBiqVnwV10f9+5wmUu3jLoc2uldC/VM4ZW1X8iRU
+ ZnkMv1m64IW55LI0QiDuJNkGM3H4x1BWCPl1wFJZkCxIhxCZvT9E2r7MAtEtiYjNFi
+ AbjgZAjSuTNJz5b7oPrRQnAvPpHftEButfoasvxQtQuKdRDMACgSn6Fvu9G96FA1vx
+ Pel4yNRk1x7RMMtWqoiUmKhKwoacNVBq+0nori4n/cn70CB+ypcxLGhqH5c5r1uU6v
+ i0w8dJod1N6sPgp7nkn60KpBmsQ6YvDzon2mPdVxmw6/BYTURX9QiCekd3kXDyDXBl
+ RcwgNx1/AZadw==
 From: Mark Brown <broonie@kernel.org>
-To: heiko@sntech.de, judyhsiao@chromium.org
-In-Reply-To: <20220701021427.3120549-1-judyhsiao@chromium.org>
-References: <20220701021427.3120549-1-judyhsiao@chromium.org>
-Subject: Re: [PATCH v1] FROMGIT: ASoC: rockchip: i2s: Fix error code when fail
- to read I2S_CLR
-Message-Id: <165710567400.237380.4691352154008052318.b4-ty@kernel.org>
-Date: Wed, 06 Jul 2022 12:07:54 +0100
+To: Liam Girdwood <lgirdwood@gmail.com>, Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+In-Reply-To: <20220629194224.175607-1-u.kleine-koenig@pengutronix.de>
+References: <20220629194224.175607-1-u.kleine-koenig@pengutronix.de>
+Subject: Re: [PATCH 1/5] ASoC: tegra: tegra20_das: Fold header file into only
+ user
+Message-Id: <165710567663.237380.16342780967175120353.b4-ty@kernel.org>
+Date: Wed, 06 Jul 2022 12:07:56 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- briannorris@chromium.org, linux-kernel@vger.kernel.org,
- linux-rockchip@lists.infradead.org, Rob Herring <robh+dt@kernel.org>,
- wenst@chromium.org, linux-arm-kernel@lists.infradead.org
+Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
+ thierry.reding@gmail.com, kernel@pengutronix.de, jonathanh@nvidia.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,9 +85,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 1 Jul 2022 02:14:27 +0000, Judy Hsiao wrote:
-> Add the error code '-EBUSY' when fail to read I2S_CLR
-> in rockchip_snd_rxctrl() and rockchip_snd_txctrl()
+On Wed, 29 Jun 2022 21:42:20 +0200, Uwe Kleine-König wrote:
+> Since commit fcff5f99742e ("ASoC: tegra: remove unnecessary includes")
+> the header file (which at the time was named tegra_das.h) there is only
+> the actual driver that includes it. Just move the definitions into the
+> driver, drop the exports and remove the completely unused function.
 > 
 > 
 
@@ -100,8 +99,16 @@ Applied to
 
 Thanks!
 
-[1/1] FROMGIT: ASoC: rockchip: i2s: Fix error code when fail to read I2S_CLR
-      commit: 0ff9f8b9f59208332c6707e37d5739c57c7f7bce
+[1/5] ASoC: tegra: tegra20_das: Fold header file into only user
+      commit: 6dbc34d9c31e71aeb8175ce443c11b9e19e9f8ee
+[2/5] ASoC: tegra: tegra20_das: Remove unused function tegra20_das_read
+      commit: 9a99b9b26451ca2a81867ce0cd8fe18dce856a8c
+[3/5] ASoC: tegra: tegra20_das: Get rid of global pointer for driver data
+      commit: eefaea93235523d248cc8cadcd6be9f47b03b9d5
+[4/5] ASoC: tegra: tegra20_das: Make helper functions return void
+      commit: a10a8b6661c478dac3a8c55ad41f5cb00779c6b9
+[5/5] ASoC: tegra: tegra20_das: Drop write-only driver data member
+      commit: fb617612fd8e017720d7fe907b22b4bb44027948
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

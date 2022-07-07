@@ -2,63 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C65D8569EB4
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Jul 2022 11:41:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0C23569EC6
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Jul 2022 11:43:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C333C1651;
-	Thu,  7 Jul 2022 11:40:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C333C1651
+	by alsa0.perex.cz (Postfix) with ESMTPS id 891F1164E;
+	Thu,  7 Jul 2022 11:42:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 891F1164E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657186897;
-	bh=GF9kTtFsAFbPywGhYFm9MvVZ7wBOL/kwDoz6v5cYNdQ=;
+	s=default; t=1657187022;
+	bh=BP8filecon2Akg5o4yz4E3h2lHpuKgjXdafi3CvfGQ0=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Sd8OjBkSXLCZwVI3l2cr+cIAP7c/UFVXD0eJQn0p/DCkic38+rSHecsdG66SzvgQl
-	 Nj5FPoC8T6VDMs4HSV3vFLInRagssy0Gc905gsZ3yvIwQPKb7SVR63ZAf7q8cdC5zq
-	 sOiBXTd8rMdOVCqb8jnMwURCA/5QiKXlwq/apfMQ=
+	b=eJKgGJkNZVF0Nvr29zG1TNbFkf08a9t4+o7d5SvNia5pTYbhRjpZkr6ba3aPQN67w
+	 Ctuyqhwj9Mg1pCEr07XjPp/k6ZsA55iNRi3/GqVWIOOYz9uWG7W3J9m8N8b3iMxZ5A
+	 KwmY81HPgTP544RcZVoh8gljr1Wma3NEUjw72fsU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5D22AF80104;
-	Thu,  7 Jul 2022 11:40:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1826FF8028D;
+	Thu,  7 Jul 2022 11:42:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1A0BEF80104; Thu,  7 Jul 2022 11:40:46 +0200 (CEST)
+ id 08209F8016A; Thu,  7 Jul 2022 11:42:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
 Received: from aposti.net (aposti.net [89.234.176.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 246B1F80104
- for <alsa-devel@alsa-project.org>; Thu,  7 Jul 2022 11:40:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 246B1F80104
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9CBEEF80104
+ for <alsa-devel@alsa-project.org>; Thu,  7 Jul 2022 11:42:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9CBEEF80104
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net
- header.b="MaSHGdQB"
+ header.b="YOCutFuP"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crapouillou.net;
- s=mail; t=1657186839; h=from:from:sender:reply-to:subject:subject:date:date:
+ s=mail; t=1657186957; h=from:from:sender:reply-to:subject:subject:date:date:
  message-id:message-id:to:to:cc:cc:mime-version:mime-version:
  content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Tyen7txTUb5pq9zQQGZmuWYUpttgvf+WfkbcsWB8ZG4=;
- b=MaSHGdQBI+VAXUZX/C8tnXzbfL4brntQ/nxoaJhWbkMP80u3mi4YyKlBfABfFtTD1DgVaq
- RRtbfxPfeOdL3JfrQM+gxQ2nJORDBvRcPovkKaZH5TDuUsRzxDGKwbfsFSXkurOOk4Z/m7
- 6PWG8VIiSZuXOYD/L4CSukqEkAo+8BA=
-Date: Thu, 07 Jul 2022 10:40:29 +0100
+ bh=R5sBH/LTD5FNjNAFBgLqENfDmdXsl+8JDW39Z5mPsho=;
+ b=YOCutFuPxElO81fsay3ThIPZqQO6RzEnWrcrzhD6w1a53aYvQA+Qq9NBqdCJLzyUh4VSLB
+ pjpSmiKv5LEtKKZlYHP/uV5uX63u1EIaSII9d91QNdZvbBCnaHMyKBPmckFO+6UW95aoNt
+ OYD/g/1EIDMsejdrQWG8s2gf8C0lccA=
+Date: Thu, 07 Jul 2022 10:42:27 +0100
 From: Paul Cercueil <paul@crapouillou.net>
-Subject: Re: [PATCH 06/11] ASoC: jz4740-i2s: Use FIELD_PREP() macros in
- hw_params callback
+Subject: Re: [PATCH 07/11] ASoC: jz4740-i2s: Remove some unused macros
 To: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
-Message-Id: <HJ9NER.R0SNUFB7SCZ52@crapouillou.net>
-In-Reply-To: <20220706211330.120198-7-aidanmacdonald.0x0@gmail.com>
+Message-Id: <RM9NER.45MCKQG64UDT1@crapouillou.net>
+In-Reply-To: <20220706211330.120198-8-aidanmacdonald.0x0@gmail.com>
 References: <20220706211330.120198-1-aidanmacdonald.0x0@gmail.com>
- <20220706211330.120198-7-aidanmacdonald.0x0@gmail.com>
+ <20220706211330.120198-8-aidanmacdonald.0x0@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1; format=flowed
 Content-Transfer-Encoding: quoted-printable
@@ -82,81 +81,62 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-Le mer., juil. 6 2022 at 22:13:25 +0100, Aidan MacDonald=20
+Le mer., juil. 6 2022 at 22:13:26 +0100, Aidan MacDonald=20
 <aidanmacdonald.0x0@gmail.com> a =E9crit :
-> Get rid of a couple of macros and improve readability by using
-> FIELD_PREP() and GENMASK() for the sample size setting.
+> These macros are unused and can be dropped; the information is now
+> encoded in regmap fields.
 >=20
 > Signed-off-by: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
 
-Acked-by: Paul Cercueil <paul@crapouillou.net>
+I think you can remove the macros in the patches where they are being=20
+made obsolete.
 
 Cheers,
 -Paul
 
 > ---
->  sound/soc/jz4740/jz4740-i2s.c | 17 ++++++++---------
->  1 file changed, 8 insertions(+), 9 deletions(-)
+>  sound/soc/jz4740/jz4740-i2s.c | 13 -------------
+>  1 file changed, 13 deletions(-)
 >=20
 > diff --git a/sound/soc/jz4740/jz4740-i2s.c=20
 > b/sound/soc/jz4740/jz4740-i2s.c
-> index 8bb9449d13d3..3c3cf78bf848 100644
+> index 3c3cf78bf848..b8d2723c5f90 100644
 > --- a/sound/soc/jz4740/jz4740-i2s.c
 > +++ b/sound/soc/jz4740/jz4740-i2s.c
-> @@ -3,6 +3,7 @@
->   *  Copyright (C) 2010, Lars-Peter Clausen <lars@metafoo.de>
->   */
+> @@ -35,8 +35,6 @@
+>  #define JZ_REG_AIC_CLK_DIV	0x30
+>  #define JZ_REG_AIC_FIFO		0x34
 >=20
-> +#include <linux/bitfield.h>
->  #include <linux/init.h>
->  #include <linux/io.h>
->  #include <linux/kernel.h>
-> @@ -49,8 +50,8 @@
->  #define JZ4760_AIC_CONF_FIFO_RX_THRESHOLD_OFFSET 24
->  #define JZ4760_AIC_CONF_FIFO_TX_THRESHOLD_OFFSET 16
+> -#define JZ_AIC_CONF_FIFO_RX_THRESHOLD_MASK (0xf << 12)
+> -#define JZ_AIC_CONF_FIFO_TX_THRESHOLD_MASK (0xf <<  8)
+>  #define JZ_AIC_CONF_OVERFLOW_PLAY_LAST BIT(6)
+>  #define JZ_AIC_CONF_INTERNAL_CODEC BIT(5)
+>  #define JZ_AIC_CONF_I2S BIT(4)
+> @@ -45,11 +43,6 @@
+>  #define JZ_AIC_CONF_SYNC_CLK_MASTER BIT(1)
+>  #define JZ_AIC_CONF_ENABLE BIT(0)
 >=20
-> -#define JZ_AIC_CTRL_OUTPUT_SAMPLE_SIZE_MASK (0x7 << 19)
-> -#define JZ_AIC_CTRL_INPUT_SAMPLE_SIZE_MASK (0x7 << 16)
-> +#define JZ_AIC_CTRL_OUTPUT_SAMPLE_SIZE GENMASK(21, 19)
-> +#define JZ_AIC_CTRL_INPUT_SAMPLE_SIZE GENMASK(18, 16)
->  #define JZ_AIC_CTRL_ENABLE_RX_DMA BIT(15)
->  #define JZ_AIC_CTRL_ENABLE_TX_DMA BIT(14)
->  #define JZ_AIC_CTRL_MONO_TO_STEREO BIT(11)
-> @@ -65,9 +66,6 @@
->  #define JZ_AIC_CTRL_ENABLE_PLAYBACK BIT(1)
->  #define JZ_AIC_CTRL_ENABLE_CAPTURE BIT(0)
->=20
-> -#define JZ_AIC_CTRL_OUTPUT_SAMPLE_SIZE_OFFSET 19
-> -#define JZ_AIC_CTRL_INPUT_SAMPLE_SIZE_OFFSET  16
+> -#define JZ_AIC_CONF_FIFO_RX_THRESHOLD_OFFSET 12
+> -#define JZ_AIC_CONF_FIFO_TX_THRESHOLD_OFFSET 8
+> -#define JZ4760_AIC_CONF_FIFO_RX_THRESHOLD_OFFSET 24
+> -#define JZ4760_AIC_CONF_FIFO_TX_THRESHOLD_OFFSET 16
 > -
->  #define JZ_AIC_I2S_FMT_DISABLE_BIT_CLK BIT(12)
->  #define JZ_AIC_I2S_FMT_DISABLE_BIT_ICLK BIT(13)
->  #define JZ_AIC_I2S_FMT_ENABLE_SYS_CLK BIT(4)
-> @@ -245,8 +243,9 @@ static int jz4740_i2s_hw_params(struct=20
-> snd_pcm_substream *substream,
->  	}
+>  #define JZ_AIC_CTRL_OUTPUT_SAMPLE_SIZE GENMASK(21, 19)
+>  #define JZ_AIC_CTRL_INPUT_SAMPLE_SIZE GENMASK(18, 16)
+>  #define JZ_AIC_CTRL_ENABLE_RX_DMA BIT(15)
+> @@ -73,12 +66,6 @@
 >=20
->  	if (substream->stream =3D=3D SNDRV_PCM_STREAM_PLAYBACK) {
-> -		ctrl &=3D ~JZ_AIC_CTRL_OUTPUT_SAMPLE_SIZE_MASK;
-> -		ctrl |=3D sample_size << JZ_AIC_CTRL_OUTPUT_SAMPLE_SIZE_OFFSET;
-> +		ctrl &=3D ~JZ_AIC_CTRL_OUTPUT_SAMPLE_SIZE;
-> +		ctrl |=3D FIELD_PREP(JZ_AIC_CTRL_OUTPUT_SAMPLE_SIZE, sample_size);
-> +
->  		if (params_channels(params) =3D=3D 1)
->  			ctrl |=3D JZ_AIC_CTRL_MONO_TO_STEREO;
->  		else
-> @@ -254,8 +253,8 @@ static int jz4740_i2s_hw_params(struct=20
-> snd_pcm_substream *substream,
+>  #define JZ_AIC_I2S_STATUS_BUSY BIT(2)
 >=20
->  		div_field =3D i2s->field_i2sdiv_playback;
->  	} else {
-> -		ctrl &=3D ~JZ_AIC_CTRL_INPUT_SAMPLE_SIZE_MASK;
-> -		ctrl |=3D sample_size << JZ_AIC_CTRL_INPUT_SAMPLE_SIZE_OFFSET;
-> +		ctrl &=3D ~JZ_AIC_CTRL_INPUT_SAMPLE_SIZE;
-> +		ctrl |=3D FIELD_PREP(JZ_AIC_CTRL_INPUT_SAMPLE_SIZE, sample_size);
+> -#define JZ_AIC_CLK_DIV_MASK 0xf
+> -#define I2SDIV_DV_SHIFT 0
+> -#define I2SDIV_DV_MASK (0xf << I2SDIV_DV_SHIFT)
+> -#define I2SDIV_IDV_SHIFT 8
+> -#define I2SDIV_IDV_MASK (0xf << I2SDIV_IDV_SHIFT)
+> -
+>  struct i2s_soc_info {
+>  	struct snd_soc_dai_driver *dai;
 >=20
->  		div_field =3D i2s->field_i2sdiv_capture;
->  	}
 > --
 > 2.35.1
 >=20

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17DA1569E6D
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Jul 2022 11:18:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5270D569E97
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Jul 2022 11:32:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A8AF2E0E;
-	Thu,  7 Jul 2022 11:17:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8AF2E0E
+	by alsa0.perex.cz (Postfix) with ESMTPS id DA264827;
+	Thu,  7 Jul 2022 11:31:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA264827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657185484;
-	bh=bzKwx+3ShntRFS/GXCVR2I42NNcZDHH6hYgFEHVJgdE=;
+	s=default; t=1657186335;
+	bh=rEUuXJhPoWfN6Zu/rCdL0FagRYefiP154qCbecgwwMQ=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aQiXMJLnTUdMVk/0z5JaAa6fvLLQSNt96tNvskpg7nC/QqSMhN33GDGeLd2iB5YBz
-	 Y/XCnWA1qV3QGOmsttedro6oxA3JfuAmtaApd5EBs8hRfivapJCDYXMDBFwVXtUvL3
-	 NzPwd5pZYNMaDbmPPIv3xLmg+oaoUOLjzX1ncRn4=
+	b=KYYUJUymSYMz7Ixb5BMCvw8iXW6Sdm/MaTUudHRwSgNfnEBMMbr9Tf7VaWeWMvYL7
+	 1KY8y8aLi9XTKcHJAG7ZkKclYBiBeU4tH7t5v5yvyOdAsKNh1TNejXunWY4Izqgm1Q
+	 VOlfevpW2TBweR600qTSzREjfirdFW2QggUf7yR4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1F24CF800C5;
-	Thu,  7 Jul 2022 11:17:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6D4EAF8028D;
+	Thu,  7 Jul 2022 11:31:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6B9D5F8016A; Thu,  7 Jul 2022 11:17:02 +0200 (CEST)
+ id D0F59F8016A; Thu,  7 Jul 2022 11:31:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,30 +34,30 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from aposti.net (aposti.net [89.234.176.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 12B41F800C5
- for <alsa-devel@alsa-project.org>; Thu,  7 Jul 2022 11:16:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12B41F800C5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 988ECF800C5
+ for <alsa-devel@alsa-project.org>; Thu,  7 Jul 2022 11:31:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 988ECF800C5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net
- header.b="VyD4jBxn"
+ header.b="JtBdqbQG"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crapouillou.net;
- s=mail; t=1657185414; h=from:from:sender:reply-to:subject:subject:date:date:
+ s=mail; t=1657186262; h=from:from:sender:reply-to:subject:subject:date:date:
  message-id:message-id:to:to:cc:cc:mime-version:mime-version:
  content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=0G9+ZdgiY1pf7540Iu8Mnhcomtxme7gXDOd3aBrjvco=;
- b=VyD4jBxnLv08QoWXpC0q4O64XKy65EcXZ9cz2Bd64ITcPsfwEZHpaaMYN0/lJpIyXR2MRh
- hbEdTldsBf/5cCq38mYAn3Q+lzpnsNSizOhJSXk3Nk0TSOzfYjYMo811SiofIV7BFjx9L4
- 9qQlmXByEkj81aMxv/rZ6wzmc8o098M=
-Date: Thu, 07 Jul 2022 10:16:44 +0100
+ bh=3432oYUbB0NCbGzcaiDe7Zz5ohhG6Uoy9WG/btVsu7A=;
+ b=JtBdqbQGB661DJdFRqmt6kAQ1SROsa6wGDALoANOgBdiRAomxlU2IucnqCUihPqEtfIJmC
+ JMFLR0QwG9OjtAxsdBjEzmmZfgI1AdPXq3yS6K2bYCDsqeDtHGKebsQvudbQwBuYlL4GHT
+ kdoqEDR72JweoTDsQMMhimpdx1obwaU=
+Date: Thu, 07 Jul 2022 10:30:51 +0100
 From: Paul Cercueil <paul@crapouillou.net>
-Subject: Re: [PATCH 01/11] ASoC: jz4740-i2s: Remove Open Firmware dependency
+Subject: Re: [PATCH 02/11] ASoC: jz4740-i2s: Refactor DMA channel setup
 To: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
-Message-Id: <WF8NER.2XOF3ZGKDQYB3@crapouillou.net>
-In-Reply-To: <20220706211330.120198-2-aidanmacdonald.0x0@gmail.com>
+Message-Id: <F39NER.PND5B77O5GFP@crapouillou.net>
+In-Reply-To: <20220706211330.120198-3-aidanmacdonald.0x0@gmail.com>
 References: <20220706211330.120198-1-aidanmacdonald.0x0@gmail.com>
- <20220706211330.120198-2-aidanmacdonald.0x0@gmail.com>
+ <20220706211330.120198-3-aidanmacdonald.0x0@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1; format=flowed
 Content-Transfer-Encoding: quoted-printable
@@ -79,56 +79,85 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Aidan,
 
-Le mer., juil. 6 2022 at 22:13:20 +0100, Aidan MacDonald=20
+
+Le mer., juil. 6 2022 at 22:13:21 +0100, Aidan MacDonald=20
 <aidanmacdonald.0x0@gmail.com> a =E9crit :
-> This driver doesn't require Open Firmware support. Remove the
-> OF-specific includes and drop the Kconfig dependency.
+> It's simpler to set up the playback and capture DMA settings
+> at driver probe time instead of during DAI probing.
 >=20
 > Signed-off-by: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
+> ---
+>  sound/soc/jz4740/jz4740-i2s.c | 23 +++++------------------
+>  1 file changed, 5 insertions(+), 18 deletions(-)
+>=20
+> diff --git a/sound/soc/jz4740/jz4740-i2s.c=20
+> b/sound/soc/jz4740/jz4740-i2s.c
+> index 298ff0a83931..ecd8df70d39c 100644
+> --- a/sound/soc/jz4740/jz4740-i2s.c
+> +++ b/sound/soc/jz4740/jz4740-i2s.c
+> @@ -95,7 +95,6 @@ struct i2s_soc_info {
+>  struct jz4740_i2s {
+>  	struct resource *mem;
+>  	void __iomem *base;
+> -	dma_addr_t phys_base;
 
 Acked-by: Paul Cercueil <paul@crapouillou.net>
+
+Note that you can remove "mem" too, it's not used anywhere.
 
 Cheers,
 -Paul
 
-> ---
->  sound/soc/jz4740/Kconfig      | 2 +-
->  sound/soc/jz4740/jz4740-i2s.c | 3 +--
->  2 files changed, 2 insertions(+), 3 deletions(-)
 >=20
-> diff --git a/sound/soc/jz4740/Kconfig b/sound/soc/jz4740/Kconfig
-> index 29144720cb62..e72f826062e9 100644
-> --- a/sound/soc/jz4740/Kconfig
-> +++ b/sound/soc/jz4740/Kconfig
-> @@ -2,7 +2,7 @@
->  config SND_JZ4740_SOC_I2S
->  	tristate "SoC Audio (I2S protocol) for Ingenic JZ4740 SoC"
->  	depends on MIPS || COMPILE_TEST
-> -	depends on OF && HAS_IOMEM
-> +	depends on HAS_IOMEM
->  	select SND_SOC_GENERIC_DMAENGINE_PCM
->  	help
->  	  Say Y if you want to use I2S protocol and I2S codec on Ingenic=20
-> JZ4740
-> diff --git a/sound/soc/jz4740/jz4740-i2s.c=20
-> b/sound/soc/jz4740/jz4740-i2s.c
-> index 79afac0c5003..298ff0a83931 100644
-> --- a/sound/soc/jz4740/jz4740-i2s.c
-> +++ b/sound/soc/jz4740/jz4740-i2s.c
-> @@ -5,10 +5,9 @@
+>  	struct clk *clk_aic;
+>  	struct clk *clk_i2s;
+> @@ -370,21 +369,6 @@ static int jz4740_i2s_resume(struct=20
+> snd_soc_component *component)
+>  	return 0;
+>  }
 >=20
->  #include <linux/init.h>
->  #include <linux/io.h>
-> -#include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/kernel.h>
->  #include <linux/module.h>
-> +#include <linux/mod_devicetable.h>
->  #include <linux/platform_device.h>
->  #include <linux/slab.h>
+> -static void jz4740_i2s_init_pcm_config(struct jz4740_i2s *i2s)
+> -{
+> -	struct snd_dmaengine_dai_dma_data *dma_data;
+> -
+> -	/* Playback */
+> -	dma_data =3D &i2s->playback_dma_data;
+> -	dma_data->maxburst =3D 16;
+> -	dma_data->addr =3D i2s->phys_base + JZ_REG_AIC_FIFO;
+> -
+> -	/* Capture */
+> -	dma_data =3D &i2s->capture_dma_data;
+> -	dma_data->maxburst =3D 16;
+> -	dma_data->addr =3D i2s->phys_base + JZ_REG_AIC_FIFO;
+> -}
+> -
+>  static int jz4740_i2s_dai_probe(struct snd_soc_dai *dai)
+>  {
+>  	struct jz4740_i2s *i2s =3D snd_soc_dai_get_drvdata(dai);
+> @@ -395,7 +379,6 @@ static int jz4740_i2s_dai_probe(struct=20
+> snd_soc_dai *dai)
+>  	if (ret)
+>  		return ret;
 >=20
+> -	jz4740_i2s_init_pcm_config(i2s);
+>  	snd_soc_dai_init_dma_data(dai, &i2s->playback_dma_data,
+>  		&i2s->capture_dma_data);
+>=20
+> @@ -529,7 +512,11 @@ static int jz4740_i2s_dev_probe(struct=20
+> platform_device *pdev)
+>  	if (IS_ERR(i2s->base))
+>  		return PTR_ERR(i2s->base);
+>=20
+> -	i2s->phys_base =3D mem->start;
+> +	i2s->playback_dma_data.maxburst =3D 16;
+> +	i2s->playback_dma_data.addr =3D mem->start + JZ_REG_AIC_FIFO;
+> +
+> +	i2s->capture_dma_data.maxburst =3D 16;
+> +	i2s->capture_dma_data.addr =3D mem->start + JZ_REG_AIC_FIFO;
+>=20
+>  	i2s->clk_aic =3D devm_clk_get(dev, "aic");
+>  	if (IS_ERR(i2s->clk_aic))
 > --
 > 2.35.1
 >=20

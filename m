@@ -2,68 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14F4356ACA1
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Jul 2022 22:20:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2856256ADDA
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Jul 2022 23:41:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A885E1631;
-	Thu,  7 Jul 2022 22:19:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A885E1631
+	by alsa0.perex.cz (Postfix) with ESMTPS id A8271AE9;
+	Thu,  7 Jul 2022 23:40:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8271AE9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657225248;
-	bh=rZaWyO+gpqHD3NkhTN+vyIH9HHwCVAuShvIMp29Upn8=;
-	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1657230081;
+	bh=ocBncahtaSg7S42lZSGoqH6BP+AOxjjrjkVB4JpO39s=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Wo6EJU73pjTFmPG2h/1GC0qqlTYEBiSvsW7YeKaWNsdjedDnnxc9i1ExvyTHUyWGw
-	 G5px0WjXa4fippfm0PGZcMl5LjkLVRkOY5GU95GLXnr9wtDMkD8kl/LBus4DLoILqx
-	 rOMyhN/v4MfJGABb6crknDlIgaZdeSLhyOivDl6Q=
+	b=iIBRzO0bOPeaxVuKnfrx2YDmMddYGa4S17n12nDkeWzP5OHLnqWIRq1pP4jPo82dl
+	 rIUCCHK2JIb9QESja3Gha95N9xepBu5jn38XAvRcvCEqe4xRejqhfV/dr8NR/NTGvF
+	 NzQjzG2OPQveQkDh2an14vN2SzPe5YDIQHNf8Z4w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 07B5CF8028D;
-	Thu,  7 Jul 2022 22:19:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 135D9F8028D;
+	Thu,  7 Jul 2022 23:40:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 22A82F8016A; Thu,  7 Jul 2022 22:19:47 +0200 (CEST)
+ id D6BEDF8016A; Thu,  7 Jul 2022 23:40:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from aposti.net (aposti.net [89.234.176.197])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0A9DDF800DF
- for <alsa-devel@alsa-project.org>; Thu,  7 Jul 2022 22:19:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A9DDF800DF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 29090F80104
+ for <alsa-devel@alsa-project.org>; Thu,  7 Jul 2022 23:40:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29090F80104
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net
- header.b="KaHF4/9j"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crapouillou.net;
- s=mail; t=1657225179; h=from:from:sender:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=XjIa6VCGeD+ksTrcQqfh2dLYucU0urZhX3yUpGkF3xc=;
- b=KaHF4/9ji/Pl7Q4Ldp9NVY0eJMtvhriRAjKe+0mLozVZ8pA64lkWk+Vl/gNmda2gSJAWan
- zLrPhWQWW3wj+lSm3DxLXUHSIJERZ4Re6/5fyuGMWQP/qdD/SApuiAVPtS1StzuvITTCCT
- zLclWuo5r7i4xqyKf1rK0+mJiNfiwig=
-Date: Thu, 07 Jul 2022 21:19:24 +0100
-From: Paul Cercueil <paul@crapouillou.net>
-Subject: Re: [PATCH v2 01/11] ASoC: jz4740-i2s: Remove unused 'mem' resource
-To: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
-Message-Id: <C43OER.T16CTN9Q6E0U1@crapouillou.net>
-In-Reply-To: <20220707194655.312892-2-aidanmacdonald.0x0@gmail.com>
-References: <20220707194655.312892-1-aidanmacdonald.0x0@gmail.com>
- <20220707194655.312892-2-aidanmacdonald.0x0@gmail.com>
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="bC4Wv25n"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1657230014; x=1688766014;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=ocBncahtaSg7S42lZSGoqH6BP+AOxjjrjkVB4JpO39s=;
+ b=bC4Wv25nxKpDP6nwErNj55/FivqKD2XR5ekn/AxZdUjPiKp2hipaoSw3
+ z0YzV1CkUCG6Vmn8kdESmDz2l8jjMUGy93FyD4/1D7WioAAEq/DNkAQbo
+ TqpUq56JX+lZRSweN7fe3lgu33H6Cot9vyESZxfucS5IQFUuYiUq2fX2u
+ IHBWXCCmv0oIKEDWjHsirvGwfkHCoLtqvhJP5mGhug9fzfKEuq8kUaWDI
+ ldI0/vlygs6JCPLfW33cfUPLdavsQPDNw81HslAbp3Hzj3Iogq4P2Cld7
+ TZsDsyrnARZhk1f4INDZWOLwZ1XjqmMeOdak9ePapowDWuOs6LfgJBNDF A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10401"; a="309688909"
+X-IronPort-AV: E=Sophos;i="5.92,253,1650956400"; d="scan'208";a="309688909"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jul 2022 14:40:08 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.92,253,1650956400"; d="scan'208";a="661541874"
+Received: from lkp-server01.sh.intel.com (HELO 68b931ab7ac1) ([10.239.97.150])
+ by fmsmga004.fm.intel.com with ESMTP; 07 Jul 2022 14:40:06 -0700
+Received: from kbuild by 68b931ab7ac1 with local (Exim 4.95)
+ (envelope-from <lkp@intel.com>) id 1o9ZED-000MVW-CY;
+ Thu, 07 Jul 2022 21:40:05 +0000
+Date: Fri, 8 Jul 2022 05:39:51 +0800
+From: kernel test robot <lkp@intel.com>
+To: Zhu Ning <zhuning0077@gmail.com>, alsa-devel@alsa-project.org
+Subject: Re: [PATCH] ASoC: codecs: add support for ES8326
+Message-ID: <202207080557.twGXw3yY-lkp@intel.com>
+References: <20220707011856.10841-1-zhuning0077@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1; format=flowed
-Content-Transfer-Encoding: quoted-printable
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, tiwai@suse.com,
- broonie@kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220707011856.10841-1-zhuning0077@gmail.com>
+Cc: kbuild-all@lists.01.org, Zhu Ning <zhuning0077@gmail.com>,
+ llvm@lists.linux.dev, tiwai@suse.com, pierre-louis.bossart@linux.intel.com,
+ broonie@kernel.org, David Yang <yangxiaohua@everest-semi.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,38 +92,60 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Aidan,
+Hi Zhu,
 
-Le jeu., juil. 7 2022 at 20:46:45 +0100, Aidan MacDonald=20
-<aidanmacdonald.0x0@gmail.com> a =E9crit :
-> This isn't used and doesn't need to be in the private data struct.
->=20
-> Signed-off-by: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
+Thank you for the patch! Perhaps something to improve:
 
-Acked-by: Paul Cercueil <paul@crapouillou.net>
+[auto build test WARNING on broonie-sound/for-next]
+[also build test WARNING on tiwai-sound/for-next linus/master v5.19-rc5 next-20220707]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Cheers,
--Paul
+url:    https://github.com/intel-lab-lkp/linux/commits/Zhu-Ning/ASoC-codecs-add-support-for-ES8326/20220707-115006
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+config: arm64-buildonly-randconfig-r006-20220707 (https://download.01.org/0day-ci/archive/20220708/202207080557.twGXw3yY-lkp@intel.com/config)
+compiler: clang version 15.0.0 (https://github.com/llvm/llvm-project 66ae1d60bb278793fd651cece264699d522bab84)
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # install arm64 cross compiling tool for clang build
+        # apt-get install binutils-aarch64-linux-gnu
+        # https://github.com/intel-lab-lkp/linux/commit/fda793f4ec55b33955344b93a8c290fe207d54d4
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Zhu-Ning/ASoC-codecs-add-support-for-ES8326/20220707-115006
+        git checkout fda793f4ec55b33955344b93a8c290fe207d54d4
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=arm64 SHELL=/bin/bash sound/soc/codecs/
 
-> ---
->  sound/soc/jz4740/jz4740-i2s.c | 1 -
->  1 file changed, 1 deletion(-)
->=20
-> diff --git a/sound/soc/jz4740/jz4740-i2s.c=20
-> b/sound/soc/jz4740/jz4740-i2s.c
-> index ecd8df70d39c..c4c1e89b47c1 100644
-> --- a/sound/soc/jz4740/jz4740-i2s.c
-> +++ b/sound/soc/jz4740/jz4740-i2s.c
-> @@ -93,7 +93,6 @@ struct i2s_soc_info {
->  };
->=20
->  struct jz4740_i2s {
-> -	struct resource *mem;
->  	void __iomem *base;
->=20
->  	struct clk *clk_aic;
-> --
-> 2.35.1
->=20
+If you fix the issue, kindly add following tag where applicable
+Reported-by: kernel test robot <lkp@intel.com>
+
+All warnings (new ones prefixed by >>):
+
+   sound/soc/codecs/es8326.c:612:13: warning: converting the result of '<<' to a boolean always evaluates to true [-Wtautological-constant-compare]
+           if((reg && ES8326_VERSION_B) == 1)
+                      ^
+   sound/soc/codecs/es8326.h:185:29: note: expanded from macro 'ES8326_VERSION_B'
+   #define ES8326_VERSION_B (1 << 0)
+                               ^
+>> sound/soc/codecs/es8326.c:742:35: warning: unused variable 'es8326_i2c_id' [-Wunused-const-variable]
+   static const struct i2c_device_id es8326_i2c_id[] = {
+                                     ^
+   2 warnings generated.
 
 
+vim +/es8326_i2c_id +742 sound/soc/codecs/es8326.c
+
+   741	
+ > 742	static const struct i2c_device_id es8326_i2c_id[] = {
+   743		{"es8326", 0 },
+   744		{}
+   745	};
+   746	MODULE_DEVICE_TABLE(i2c, es8326_i2c_id);
+   747	
+
+-- 
+0-DAY CI Kernel Test Service
+https://01.org/lkp

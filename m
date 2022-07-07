@@ -2,158 +2,124 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DA7F56A76A
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Jul 2022 18:07:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAE4156A78D
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Jul 2022 18:11:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CE91D166F;
-	Thu,  7 Jul 2022 18:06:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE91D166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 81C0183A;
+	Thu,  7 Jul 2022 18:10:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 81C0183A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657210041;
-	bh=WPq6/m0tUl/0fHAZcGDyXff59bKqSGOZHIrH2vGv9iU=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=iRL4dVIKuMyQ6M7Ei/4N9oiN5pI6qjaBSs5r65pS6I+846L8ZrUe/DwP1KM3Dngj3
-	 NHOpRMDt8u7eoWCqIDtMEj6xXbdS/Q9Y3UOzkmM3igTV0iuq84UXSX9fwBd0vTS5bj
-	 A+tcmfa2JqD+wKaRJ0DgX5ly5bKuF+xfUjg9mA84=
+	s=default; t=1657210297;
+	bh=Vr++4Yp+MVN2f5AwwMKdSjI04EbSb4gdBlIaQME0kpw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=XqRbixOytv0gOw6rp+87arIcII0uksfFYalsAxroIJcXhTckUXf+AA318OtcvNFec
+	 DIRI5QBk67hUfFJMfFuTROp8YK9Ht9IhcITuC3dXQtz84nS7Dxv38oSGPo/eBHBjn3
+	 UjOgRqIKU7kzNcZeNd7ovBkLRB34WV2GPmVoemH4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E6A99F8028D;
-	Thu,  7 Jul 2022 18:06:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 063C9F8028D;
+	Thu,  7 Jul 2022 18:10:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B7573F804FB; Thu,  7 Jul 2022 18:06:19 +0200 (CEST)
+ id 60114F8016A; Thu,  7 Jul 2022 18:10:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2065.outbound.protection.outlook.com [40.107.94.65])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2082.outbound.protection.outlook.com [40.107.243.82])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4A6A4F8028D
- for <alsa-devel@alsa-project.org>; Thu,  7 Jul 2022 18:06:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A6A4F8028D
+ by alsa1.perex.cz (Postfix) with ESMTPS id AF168F800DF
+ for <alsa-devel@alsa-project.org>; Thu,  7 Jul 2022 18:10:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF168F800DF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
- header.b="lQ7gGd1O"
+ header.b="Zjnj0Ovr"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=khKqJhuPtOcbVxO1POVmwWx/G7AYIaBd98jXEP17iqLc7eXeBIp7cA5jYA0UDQ+cYUFsex2CpGF4z6jGGaf/xRlrwrFzgReyb9/OtD9Do4oUeMgFREFY7dNCzj91JlOmIspVTvjmM/YIW9PQ99QE01WsL1X4qkBOnrhSLtorOmtNCbQMK4SfbUHQqzNqXPW+wuWABKp2JflccLhk97SpUH2mUL8uRffrP9cFl7H1b9/t/BVO3FboR29PGcOPoB7BMxJhjSy+U9CshhK3KkjDTX72eYZ+axtkk716WNQLpOk773sn9GDk//o6vw+Il4lJ7q0pGulRIEenmv6aiHPaqw==
+ b=SFkE50PM5R50kpRYKNUXrd21UGJweD1puTnK+yYIrhrGXtMJr7NLO40sN62boqPQUsfGae4TIoKBbDD8OQ0dCgaiyvfyq5/UHB0uqCla5Mqvv3U6D9TX5az5hACg/jPznZY8kFo51MAHmQqeXwCLUJ1sT3n7M0HNpgYt0WP0ARYqzfbcFnGU1/HnowglCu6WcZ8UXQ+cn7gYmHFgFlYPXucUGYRW78YsXgXLaCAc72M0ZXqw29Br9cADh3y0tZZJ/eazC0zFAE/WdgHQfUHDmN03+RK2nhw9i76jzWIHzE+z4SswTTe4C5Y9oVFNZGScWqr7KbRikvKNdKPdiLdEMA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=M1IvBZXnST9yHLtz9qDUoDTXq8ohjIeLfscKg/Sh0is=;
- b=Bx/sm7fUbx1oQ9gzszGuFC6Yaw34gjFK767a/4Yqjr+oDVlmGJCm9rXXLz2+xivIuNuZwQQQvDAdV5JBvx6ENyPdMogQvGwQ9flHxtGlWQ4x+JXJ3iKO/n2Eib/BlqVyFuvBN/UY9dLkF7TpphTsyISF6rDsaNtGl4k4paqzgI+YTl6fjvmIzixOlNuBprX/BkUQw9TTBzeGKTRt/q2i95PgNZ2rLrjeceOsdGUuBSsBCfmcsQdmZz1Q6vuJJq6BsCf/lWiJnxVHorfS5Jq23Lflos4egIbr9QOVKbZ9zdlRnaXpqp+9P5C4Hrge3uzfhGR2ddMa28ssRrry22a2vQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=r4M97UsQT12ORzBdY9ZSLqbWX1JCEYWMiuInX42ZWZ4=;
+ b=lAKGXcKD6GyZh4FP42YCfYkvLa+BE0ZvvFAkYP79k6oo1QP+1Kc6OYMZQLsKdevnE0/wwwUyHx6Wj1NhUu8SPJMqaEVhXnfb2Ckzmwx3edddwh4SKA1jPcc/nf4rO/ZJbB6T00UWittxohhcSwFIh1Oc2g1UEUfvZBaFYGcBoV9a752ZgJBlk7ujFMUuEQizWcSJroV5F0k174PrUSdnUoX33F2/YqT+yNfxCFH7S2VKn1/b4acSk/QwyzqKGWJc/Px7BMfeoXb2yMHaFy4aUauLT6se9H98QPAJAtRQEXEUuZyxVzzCx66e4XwT932EJtiAqtHWMosjvUU1osTt+A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=M1IvBZXnST9yHLtz9qDUoDTXq8ohjIeLfscKg/Sh0is=;
- b=lQ7gGd1OXSE8RfquGrWWphXNPfVtpUHBpd6HqkWkK9K1VZZ+QmVHk77vQytVyFxBTCOaSk7Vq6f5qJ1gDnh6efdSRt58JgXYuhb1C5dU3di7en0njDCB9c8xJa3v+RBXcfpCjSvO03fO1r4WKLishzM3gAcZiXMZFHe1kb+Q1GQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4171.namprd12.prod.outlook.com (2603:10b6:5:21f::18)
- by BN8PR12MB3267.namprd12.prod.outlook.com (2603:10b6:408:9e::20) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=r4M97UsQT12ORzBdY9ZSLqbWX1JCEYWMiuInX42ZWZ4=;
+ b=Zjnj0Ovr0TdTg774L3KKdl4H/1BDiPHRUeCeHmfjKJg+REUMvCAikFlDMRv8t6aXP2CEqOOy8NxE8FNQQedctK4vx91rmvXHrMk6H3/Q9sl61n1SzPq1/cghgPwpLlDHFzRdnpgGX74Pqr+l2exjlUpFZmAS3TSK4l/hLK1GTfU=
+Received: from BN8PR04CA0022.namprd04.prod.outlook.com (2603:10b6:408:70::35)
+ by MN2PR12MB3357.namprd12.prod.outlook.com (2603:10b6:208:d1::30)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.16; Thu, 7 Jul
- 2022 16:06:06 +0000
-Received: from DM6PR12MB4171.namprd12.prod.outlook.com
- ([fe80::e127:3aff:e853:414d]) by DM6PR12MB4171.namprd12.prod.outlook.com
- ([fe80::e127:3aff:e853:414d%3]) with mapi id 15.20.5395.021; Thu, 7 Jul 2022
- 16:06:06 +0000
-Subject: Re: [PATCH 3/3] ASoC: amd: acp: Add legacy audio driver support for
- Rembrandt platform
-To: Randy Dunlap <rdunlap@infradead.org>, broonie@kernel.org,
- alsa-devel@alsa-project.org
-References: <20220624194821.287462-1-Vsujithkumar.Reddy@amd.com>
- <20220624194821.287462-4-Vsujithkumar.Reddy@amd.com>
- <6a210c39-2a04-2d39-9d5f-51b4e777b81d@infradead.org>
-From: "Reddy, V sujith kumar" <vsujithkumar.reddy@amd.com>
-Message-ID: <472517b9-523e-36a2-9f00-e718ba0708f3@amd.com>
-Date: Thu, 7 Jul 2022 21:35:52 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
-In-Reply-To: <6a210c39-2a04-2d39-9d5f-51b4e777b81d@infradead.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-ClientProxiedBy: PN3PR01CA0106.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:9b::14) To DM6PR12MB4171.namprd12.prod.outlook.com
- (2603:10b6:5:21f::18)
+ 2022 16:10:24 +0000
+Received: from BN8NAM11FT009.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:70:cafe::91) by BN8PR04CA0022.outlook.office365.com
+ (2603:10b6:408:70::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.18 via Frontend
+ Transport; Thu, 7 Jul 2022 16:10:24 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN8NAM11FT009.mail.protection.outlook.com (10.13.176.65) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5417.15 via Frontend Transport; Thu, 7 Jul 2022 16:10:23 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 7 Jul
+ 2022 11:10:22 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 7 Jul
+ 2022 09:10:22 -0700
+Received: from sof-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.28
+ via Frontend Transport; Thu, 7 Jul 2022 11:10:19 -0500
+From: V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
+To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
+Subject: [PATCH v1 0/3]  ADD  legacy audio driver support for rembrandt
+Date: Thu, 7 Jul 2022 21:41:39 +0530
+Message-ID: <20220707161142.491034-1-Vsujithkumar.Reddy@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: fa8d97c9-6273-4aa5-eac4-08da6032997f
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3267:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9bd8ad2d-1047-4318-4e73-08da603332df
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3357:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: H/2hEFDifdk1mMnh8vegohV15l2oMD6/wb9Swf0RDqz5a6jbdMVaOBP4fv0hrWH1MaVCedAMZI8h1hYoTc/U2nrEvt3Lh0TWA5nGD4eEixByOOY07p0A8V3hR2OnmcG284Of5W+DqWSRH7frjS9LLkMyEHV9IuxvH4smmB8FhXZdpYNfmbDZ6w4rJsURDJJtq4SAE22+DIvn83cpz+gJgVUixZCgwZQl1md98/95Ya1nRBBrJmPcZDi0L0f38lBqExFWO2MvhUge+BHl6E3KHpOPzbZKhV8CgVLraSCj41NIiCI1lVnKr49+9C4NlVH5POH14TWAUEZxn1G3evrO3a9JcZLwRCeZMlRswGJ9tQ+CrF5V0MJsVL4WPXlHB7mP41IRsse0HHGEDRMVw/FTSPERZFauMKfyHbMEKj4m3fUQ0qho2gZ57LEs1sBULnGzkGaY9wNNg9GSa8KuWftf9ERY1OOEuba+JHDnCGmIl35/V/ILFMhB1bo2ww6mpfM3p+crS8PckQsp9+XxIOIVf9wrGiPrnS58VUlVq/iBXKX20Fg3ebQJbbl1/bRa8AYZzc6oxMWyimvmPrGj5hNuEWhfnRzLPBUAsctcpTl3F1OLXcOXLxuAshzNQqsCuUhSDToJg2hZqDnxToQXaq+RcjYQosUZ8nWjvH03n56GiyaG5xw9JQcVFXv+ER/yts+cqLTiKpUyFRyIGyUuxHZzF7xadtemxyEhiq1Iyhd6taZf7ys78NITrjQOZzkv6RtdmWL6Bgvq1P9qJ1qPgZEfs+lU19A/Nclk1k+3F6mUVvHsPQn6uGaWxE6Nlg2Q/mSRisQeemP+s0ppiaLatk6/wrzlI2n6qMQos/vBNEOfxxg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4171.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(376002)(39860400002)(346002)(396003)(366004)(136003)(54906003)(31696002)(66946007)(6486002)(26005)(86362001)(478600001)(36756003)(316002)(6506007)(31686004)(53546011)(6512007)(41300700001)(6666004)(66556008)(4326008)(8676002)(66476007)(186003)(38100700002)(2616005)(2906002)(8936002)(5660300002)(7416002)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: mTMJJJhsE8eZgDhPOzA3tyzneby5X0eO9DjqVDDydEYFUyvfPALEJG+OKs4TzWgdx8DGOMiEnk71Qi0HrdKB0PegYtTo214/m6PNcpQEb5Gv+0AMbIOHxJJ93/QTVJzxOcIibQDvZC9OtIeEeOYZNBCtV3SJ7cBbYV2E/yJp8FS4JJ5wq1BG2oYzT4Bxj/xJT1ln60fGEDLIhw6xyFHVmfF25nk60IULNL/XpfjiqxD82/BJgTTPceKfCxCQcg5BrEZ04x9MrGVh4viHXRgR//jyzmVkvOkDz9BC/HnsHxw8n8v1eF5n2ZmGGWiPWO3dyB0aRCnBcZ+EQ/mnofbTtOf+QnAiX6E+arzFZM3F1AaABo5GS7xVppaRch77Q+uNgJCwMkmGVEridjf0l2RMhJOBDzRcFpVE38sMG5eIFSenT/tjrQ4sNMX63e8fKv9xaAb7qIP8AKM1Qp8zknjZI6gNmdu29grhdJ05/pyTuF30y3EK5nTLrGzdLGoqVQlcNzX033ltZEKUBzTXf/H+SDAt3LvurV4sq/NOkb+QH7su5nFJv3XF4UsyMHTs0mD48pQ+ILKqKzEo1CRcIfTqGHvdQKGCr77ip0a4X1zGyWEzqqTIbQuCAviV6qA2B/w4GucQ8qggLLUWdiLj6wjRzeISBCZtK17rhirNYCRYf+3tYoe8KGzfDDzVX5SLudaWJ1cZ6aXQWuyEij0A1ylSBGGxV8bReK5FsvJfmOegyUDlZAQOfkGqASvdVLPHB6bAEDzwZlG+5SxnJ2zoyMqj91SfyKPTMJpO/qnmFhjuk86nHwjjJsVOtugL/VZwZ0meBGm1lZQaE5i1MXk1+a1cCnxQTqyQk0s2Rhz6sE1jQGetMuOTQua/XIV/ytfYS573
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(376002)(39860400002)(346002)(136003)(396003)(46966006)(36840700001)(40470700004)(82310400005)(6666004)(2906002)(186003)(1076003)(7696005)(47076005)(2616005)(110136005)(54906003)(86362001)(316002)(5660300002)(36756003)(36860700001)(81166007)(82740400003)(478600001)(34020700004)(83380400001)(26005)(4326008)(336012)(41300700001)(426003)(8936002)(40480700001)(70206006)(356005)(40460700003)(70586007)(8676002)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z3UvZkYxY3hMdUxnQ29vcUVkR1NyeGNDNHAzejN0TkxlVTF2QkdoRjJySTh6?=
- =?utf-8?B?VW85bTdTanMwSjcreDZDRXNKYjlpdDI5UHNEZUoxRmFtaDBHS3l0dFpvRHZl?=
- =?utf-8?B?WHhqWlVRbE95ZVJuaTUxRU1XR1drckl5eFh6Wm9kNVM1WndzUzRKT28wNkF0?=
- =?utf-8?B?M2h2NmorUlN4aTdqTnprSzlyb05oWkNseXNsYWJacUhXc1F4YTNzcVBQejZR?=
- =?utf-8?B?dWk3bWZDSDk1R2VScXFJS1lYMVE4UEY4bmQwQXdRWGlwNWpJcmFNOWRETWZ3?=
- =?utf-8?B?bEVNNWY5eVpCOGhuenpINGRUMk40UU5YbGZHc2hCRGNpS0RqWktVdmN5a1lr?=
- =?utf-8?B?K1owMVcxQnVuQTNyaTFWeXFkbTBlRExZTE0rVzlocWh3VzYyTzBqSkJycVln?=
- =?utf-8?B?eVRwWjRPZmNzdHFnLzFKeTVDVlZIWlFSOXk0cUxnZFhHcmtMZ250ZmJzNFBI?=
- =?utf-8?B?SSsramRtd1hhK0dwb2lPbXFDUDFHQWw0NzhxWnN1UFVZVUIxVFYyN1Qvbk44?=
- =?utf-8?B?aFd3STlSdXg5a0JRZlJkL296SE5jYzVRNm9QOHgzMDBpNU9ZSHNhd25wNlBv?=
- =?utf-8?B?anV0cW51K2svVzNlMUJWQkVQemV2OTBTblhiQjN3ajYvdVZ1WXdQd2lPSFVU?=
- =?utf-8?B?RU1KZHRzR0dSeFJRMnFzZUJhU1o2b016SElCakFYTVpHUVlhdFR6UUpXK0lw?=
- =?utf-8?B?MHZmR2N5Nmt2dzlaUlhKaWNZNGRVVUhLVXJUczZ3dHFrYWFERTdjeDkrQmtt?=
- =?utf-8?B?TkZkQXJVY3RBL2oyb0NhRGZOU25pRUxpUWZsU3VHRjBpSmNPb1JqV21xbW9j?=
- =?utf-8?B?ak82NmxVRUxCVWg4amRlT0s1b01LSTlxbHBibVVDN0pQOTJ3akNNa2ljZnF2?=
- =?utf-8?B?dk1pd3BPcnpyeXhVb053bkxSblpkZFhMWnVZbUxCQzhWTmtZTFhya0hzWWJj?=
- =?utf-8?B?SDByNG1pVXUxT1JsZnJqWXZjemdKL1VMSGxFekVRajBvRXFMZmJQZlBkV01s?=
- =?utf-8?B?bXhXU293MWUyLzdEckVIZ1JNazAvaUs4bnBEL0ZSUUNLK1ZTTkhUbjdRZldT?=
- =?utf-8?B?bzBBc3J1cmowbGxGM1JFejhMc090ZmhWd3RBZm9VRnN4RVE4dUZHaWllYzN3?=
- =?utf-8?B?b0RRRGRzbHVvWVQrQzBLWnYvWnZLeXpXRjEreHp1alo2b0xQTjFDdmVtRi9K?=
- =?utf-8?B?ZUQyQXVRTmlEcjNUZTNTQlUvUVFycFUzc1htMnZhQ3hUYU9sMzdpekxqYVI5?=
- =?utf-8?B?SWdZNEMyem1kZHNYd2hSWFFRejRpcCtGdkxGYitOTFFQcktMQ3M0MFNUM3J0?=
- =?utf-8?B?Y0VpZ3R4RWFxazVicFBSTmZySXFJQ2JHYUtiN00rZSsvdnJvNFRKUjNkR2hl?=
- =?utf-8?B?VG9NOGhUVGN2K1JlN1NSdXA1bzZKMW5mUnBSY0hLSXRRWlZ1M0N1bjFrV1V0?=
- =?utf-8?B?ckZUSXVVTkRLTG5hbXgyQ3lYSlR1UTR1Rm9VazBMZVRDdUdFZlJvSVI1YllW?=
- =?utf-8?B?RHVQNmc1WFlqSk42NlVNQ3FRRTBZUVFVcnptWVR3bTlUZ28rUExDc2R4cVRJ?=
- =?utf-8?B?dmNpRFl6R3k1cDRqRjIrZ2FZTVlkN1prZlR6Y3JSZ1EvVkhqc3hWYkpTcFRj?=
- =?utf-8?B?VTZRTFpSTStldHIyN252QzJ2cjNQb3hmYjlCT3FMcExvZW53QXNiUVZ3SVYw?=
- =?utf-8?B?MUJQZjJ3THhpTzAvTnFPM2NBRktRaHhmVllZRVNVY1RvUmRjMXdyRzQrcVpC?=
- =?utf-8?B?ZndhTzBvUHladld6TDBQcTZhRmE5andSVHUrSXNMT3ROMys0aVpQa0JCYk1u?=
- =?utf-8?B?MllQZFFLYUJ3RThwSjQ5UjFod1JNRi85MW1sR3F6VmE2OEI5K2VjWVlyMzlh?=
- =?utf-8?B?TjYrYnRXWjBQekp0eUdsdUdVdk50TmptVENNZXE1RmhIY01paURsRGJ2cGlh?=
- =?utf-8?B?MUdzL2crcFp5bDJRUWd5YmxyajRVYXYvb0RtRzlCL3FPMjZFU1dkdFRuRGZP?=
- =?utf-8?B?QTRRK3FLYUhSelpjZloxejFPVlREVktveG4vdE16ckdyR3VtcFFnY3d4eWZU?=
- =?utf-8?B?ejZCTkdDVG9ybTJ5OW5GdEJqZ01pQjcrWXloaDVpT3FRV2tQbnRuZCtSRjVN?=
- =?utf-8?Q?vWf83GbNmrLkMEM5iO0D9Juv+?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fa8d97c9-6273-4aa5-eac4-08da6032997f
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4171.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2022 16:06:06.8005 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2022 16:10:23.8815 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9bd8ad2d-1047-4318-4e73-08da603332df
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pfuHtivNQmKOYWionh0sLZBaAUaH4/43B726NIbzKPpWv/UjJpSkJme8KD7XL3ng
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3267
-Cc: Sunil-kumar.Dommati@amd.com, open list <linux-kernel@vger.kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>, venkataprasad.potturu@amd.com,
- Meng Tang <tangmeng@uniontech.com>, Basavaraj.Hiregoudar@amd.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Yang Yingliang <yangyingliang@huawei.com>, Jia-Ju Bai <baijiaju1990@gmail.com>,
- Arnd Bergmann <arnd@arndb.de>, Akihiko Odaki <akihiko.odaki@gmail.com>,
- Vijendar.Mukunda@amd.com,
- =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
- Dan Carpenter <dan.carpenter@oracle.com>, Syed Saba kareem <ssabakar@amd.com>
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT009.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3357
+Cc: Sunil-kumar.Dommati@amd.com, ssabakar@amd.com,
+ venkataprasad.potturu@amd.com, Basavaraj.Hiregoudar@amd.com,
+ Vijendar.Mukunda@amd.com, V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -169,45 +135,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Add Generic driver to support multiple platform,
+ADD HS control instance for Rembrandt platform.
+Add nau8825,max98560 and rt5682s,rt1019 combination support for legacy
+platform.
 
-On 6/25/2022 4:34 AM, Randy Dunlap wrote:
-> [CAUTION: External Email]
->
-> Hi--
->
-> On 6/24/22 12:48, V sujith kumar Reddy wrote:
->> diff --git a/sound/soc/amd/acp/Kconfig b/sound/soc/amd/acp/Kconfig
->> index 7e56d2644105..abc089f38b6c 100644
->> --- a/sound/soc/amd/acp/Kconfig
->> +++ b/sound/soc/amd/acp/Kconfig
->> @@ -40,6 +40,17 @@ config SND_AMD_ASOC_RENOIR
->>        help
->>          This option enables Renoir I2S support on AMD platform.
->>
->> +config SND_AMD_ASOC_REMBRANDT
->> +        tristate "AMD ACP ASOC Rembrandt Support"
->> +        select SND_SOC_AMD_ACP_PCM
->> +        select SND_SOC_AMD_ACP_I2S
->> +        select SND_SOC_AMD_ACP_PDM
->> +        depends on X86 && PCI
->> +        help
->> +          This option enables Rembrandt I2S support on AMD platform.
->> +       Say Y if you want to enable AUDIO on Rembrandt
->> +       If unsure select "N".
->
-Done
-> Documentation/process/coding-style.rst says:
->
-> 10) Kconfig configuration files
-> -------------------------------
->
-> For all of the Kconfig* configuration files throughout the source tree,
-> the indentation is somewhat different.  Lines under a ``config`` definition
-> are indented with one tab, while help text is indented an additional two
-> spaces.
->
->
-> so please indent as expected, and consistently.
->
-> --
-> ~Randy
+v0--->v1
+-- Kconfig syntax changes done
+-- robot errors done 
+sound/soc/amd/acp/acp-rembrandt.c:264:5: warning: no previous prototype for 'rmb_acp_init' [-Wmissing-prototypes]
+sound/soc/amd/acp/acp-rembrandt.c:264:5: warning: no previous prototype for 'rmb_acp_init' [-Wmissing-prototypes]
+
+
+
+V sujith kumar Reddy (3):
+  ASoC: amd: acp: Remove rt1019_1 codec conf from machine driver
+  ASoC: amd: acp: ACP code generic to support newer platforms
+  ASoC: amd: acp: Add legacy audio driver support for Rembrandt platform
+
+ sound/soc/amd/acp/Kconfig            |  11 +
+ sound/soc/amd/acp/Makefile           |   2 +
+ sound/soc/amd/acp/acp-i2s.c          | 169 +++++++++++-
+ sound/soc/amd/acp/acp-legacy-mach.c  |  32 +++
+ sound/soc/amd/acp/acp-mach-common.c  | 104 +++++--
+ sound/soc/amd/acp/acp-mach.h         |   6 +
+ sound/soc/amd/acp/acp-pci.c          |   6 +
+ sound/soc/amd/acp/acp-pdm.c          |   8 +-
+ sound/soc/amd/acp/acp-platform.c     |  32 ++-
+ sound/soc/amd/acp/acp-rembrandt.c    | 397 +++++++++++++++++++++++++++
+ sound/soc/amd/acp/acp-renoir.c       |  38 ++-
+ sound/soc/amd/acp/amd.h              |  86 +++++-
+ sound/soc/amd/acp/chip_offset_byte.h |  40 ++-
+ 13 files changed, 862 insertions(+), 69 deletions(-)
+ create mode 100644 sound/soc/amd/acp/acp-rembrandt.c
+
+-- 
+2.25.1
+

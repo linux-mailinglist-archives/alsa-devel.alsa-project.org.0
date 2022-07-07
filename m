@@ -2,94 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0167156D696
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Jul 2022 09:20:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80E2C56D697
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Jul 2022 09:20:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 97FDE82A;
-	Mon, 11 Jul 2022 09:19:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 97FDE82A
+	by alsa0.perex.cz (Postfix) with ESMTPS id BE7FF83B;
+	Mon, 11 Jul 2022 09:20:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE7FF83B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657524043;
-	bh=rSfH7YNd/4WHLwJgnc6gYAd4SwILS4C3ejiI88JhD28=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Jv3vL5uJccvNQpnZp0GBJo7wCrVwWZ7XhmtdzWElbTYX90VaHbObqRHUG5pYot1Lp
-	 8r/JrczBmmLhWSsa1wxW1VaPTcjs9Dh8ZQAWppBr2sLxjYf+0Uc2ivhhxJvRKB0f1t
-	 V9ebahFvQRhnuRWhUtq7+blV/TGVrj/t7E4ZITx8=
+	s=default; t=1657524053;
+	bh=Mzw+guaGxcvS7S4YlQr9bq/AYy4U/puT8v9DMSRjm+c=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=HW7Q18NVOVN08ucpbhh46ABtee3OpXpEMIpV8N5a9LKtQyqC2IkcNhls61m4ykmma
+	 NAQ2e9nVX28R1RVaRONZqwGIwL8YHxfuMv2KH4tP5pnkJ4P2ddf2rH8XNXDf4c1+rB
+	 HIoOKFDVfBnNNbHTOmxgcALvJp3XTvZt4jCwck7c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 32F99F804D6;
+	by alsa1.perex.cz (Postfix) with ESMTP id AABD2F80544;
 	Mon, 11 Jul 2022 09:19:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 169FAF8016A; Thu,  7 Jul 2022 10:08:21 +0200 (CEST)
+ id 1AE5CF8016A; Thu,  7 Jul 2022 10:08:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pf1-x429.google.com (mail-pf1-x429.google.com
- [IPv6:2607:f8b0:4864:20::429])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_125,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C3C9BF800DF
- for <alsa-devel@alsa-project.org>; Thu,  7 Jul 2022 10:08:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3C9BF800DF
+ by alsa1.perex.cz (Postfix) with ESMTPS id E3DDDF80104;
+ Thu,  7 Jul 2022 10:08:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3DDDF80104
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="WJGXQsQP"
-Received: by mail-pf1-x429.google.com with SMTP id y9so3630920pff.12
- for <alsa-devel@alsa-project.org>; Thu, 07 Jul 2022 01:08:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=9OQsn3k7n+Fp/tYnNYewakJ/MpfwqjttJ4lbj4UUSe4=;
- b=WJGXQsQPGUJctU8cd/RnpN8TP6kutcpXuqVtV1Gyzy9fAxFOMoS0c5aG5BBl/r0g2V
- DX0smN9na0ycikKK9J1lLlolmPNdPh1hMPk2Yo1JE89CCZ+sS4vI2yu5+08GXTSmioBS
- wmOTQSH+xbS1OeXbY45P540rwHb9UZncvioPLvB0JRjTLIWu0X/TOX8t2/LDG+OTneYw
- C4n2aYrcGG5/ykQRVa0VrBsJT7wY5pNhen1nfFaL3tVikjnDZtWZzeVzJDm7vAFPq7QY
- cFBPEM5sLyOSCyp/13mdDJfmalBmIkLVydVvQqx+plS+D9Q0qsu4V96miuGOzM6BgC6k
- Sjsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=9OQsn3k7n+Fp/tYnNYewakJ/MpfwqjttJ4lbj4UUSe4=;
- b=mDiBVFWjEs11N8MeT7MOtbREs6gIziU4Ox+jZe4xfJ2K+23fYOO8uMPm+78QaJI2El
- ZqgNQIp3BFtkgTRToGOPuRCe2Tl+c9SdYTp0KEOc/lI5gXvWQTT3Ohk0S/PUnNDt9jII
- /ojc0CTHRwACmiG78iLD4izYbljflbGDWuLU2o4AC/Il/j+v92J+Y0HHPm03s3ei1p/Q
- +wt22SreHnnIqsuZzzIt5VhYJcKKC3phak2PeGqRDsO6eMQyOd/eey5PNyMBF669Mlae
- LEHjjfXZgeSAa5JfI0EJ09qu6OD6I4za0SSWfg6wmJnllmFuybkJzmYjn4mrqgAgYlw9
- /f/Q==
-X-Gm-Message-State: AJIora8MTkZhC491FbEnHTHr1XfDYaKdeyUwc6HGUmrgxa8lr2luRVGu
- bfKmN+gME7Wzd/7Zb9pJI8k=
-X-Google-Smtp-Source: AGRyM1vZrUQmD+5Mo6+rpCk2lsIsYar6ugQqKJvtlrfgHziLSU/Dlyc96lm7YDa1F5HgB+vs8/FMAg==
-X-Received: by 2002:a63:904b:0:b0:412:aea7:9e7a with SMTP id
- a72-20020a63904b000000b00412aea79e7amr4292460pge.421.1657181291984; 
- Thu, 07 Jul 2022 01:08:11 -0700 (PDT)
-Received: from localhost.localdomain
- (2001-b400-e35a-838c-69b6-1f1f-b3c0-f714.emome-ip6.hinet.net.
- [2001:b400:e35a:838c:69b6:1f1f:b3c0:f714])
- by smtp.gmail.com with ESMTPSA id
- cp2-20020a170902e78200b001664d88aab3sm27059430plb.240.2022.07.07.01.08.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Jul 2022 01:08:11 -0700 (PDT)
-From: Wallace Lin <savagecin@gmail.com>
-X-Google-Original-From: Wallace Lin <savagecin0@gmail.com>
-To: broonie@kernel.org
-Subject: [PATCH] ASOC: add new widget to control system clock
-Date: Thu,  7 Jul 2022 16:07:51 +0800
-Message-Id: <20220707080751.76892-1-savagecin0@gmail.com>
-X-Mailer: git-send-email 2.25.1
+ dkim=pass (1024-bit key) header.d=linuxfoundation.org
+ header.i=@linuxfoundation.org header.b="o8T0RPLH"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id B2D21B81ADA;
+ Thu,  7 Jul 2022 08:08:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C8D2C3411E;
+ Thu,  7 Jul 2022 08:08:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1657181316;
+ bh=Mzw+guaGxcvS7S4YlQr9bq/AYy4U/puT8v9DMSRjm+c=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=o8T0RPLH1+QXuxRGiOx0iOcZa4PNW1RYnmq0rwqP4JlY+PYLChMX98BzUOmDLYQt5
+ WHtgniPDP3fJS/IKoiVXIaVBC8g4rRYZFs4Es7HO3CMez5153+NrgRKDzbP84fxvsI
+ PrLKzhYgkU2Ze+gIXne4sqvbIkFu3tT1lxy0BeOk=
+Date: Thu, 7 Jul 2022 10:08:33 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: kernel test robot <lkp@intel.com>
+Subject: Re: [linux-next:master] BUILD REGRESSION
+ 088b9c375534d905a4d337c78db3b3bfbb52c4a0
+Message-ID: <YsaUgfPbOg7WuBuB@kroah.com>
+References: <62c683a2.g1VSVt6BrQC6ZzOz%lkp@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <62c683a2.g1VSVt6BrQC6ZzOz%lkp@intel.com>
 X-Mailman-Approved-At: Mon, 11 Jul 2022 09:19:08 +0200
-Cc: alsa-devel@alsa-project.org, scott6986@gmail.com, WTLI@nuvoton.com,
- Wallace Lin <sjlin0@nuvoton.com>, KCHSU0@nuvoton.com, lgirdwood@gmail.com,
- YHCHuang@nuvoton.com, CTLIN0@nuvoton.com, dardar923@gmail.com,
- savagecin@gmail.com, supercraig0719@gmail.com
+Cc: nvdimm@lists.linux.dev, legousb-devel@lists.sourceforge.net,
+ dri-devel@lists.freedesktop.org, linux-sctp@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-samsung-soc@vger.kernel.org,
+ ceph-devel@vger.kernel.org, linux-pm@vger.kernel.org,
+ usbb2k-api-dev@nongnu.org, linux-omap@vger.kernel.org,
+ megaraidlinux.pdl@broadcom.com, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ netfilter-devel@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ linux-wpan@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ linux-parport@lists.infradead.org, linux-doc@vger.kernel.org,
+ samba-technical@lists.samba.org, linux-cxl@vger.kernel.org,
+ virtualization@lists.linux-foundation.org, dm-devel@redhat.com,
+ target-devel@vger.kernel.org, dev@openvswitch.org, linux-cifs@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ iommu@lists.linux.dev, coreteam@netfilter.org, linux-media@vger.kernel.org,
+ linux-watchdog@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, greybus-dev@lists.linaro.org,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-block@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ linux-integrity@vger.kernel.org, linux-efi@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-fpga@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-mtd@lists.infradead.org, cgroups@vger.kernel.org,
+ linux-phy@lists.infradead.org, sound-open-firmware@alsa-project.org,
+ linux-rdma@vger.kernel.org, linux-staging@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org, isdn4linux@listserv.isdn4linux.de,
+ linux-input@vger.kernel.org, linux-ext4@vger.kernel.org,
+ ath11k@lists.infradead.org, mjpeg-users@lists.sourceforge.net,
+ openipmi-developer@lists.sourceforge.net, linux-hwmon@vger.kernel.org,
+ linux-parisc@vger.kernel.org, linux-ide@vger.kernel.org,
+ linux-mmc@vger.kernel.org, iommu@lists.linux-foundation.org,
+ keyrings@vger.kernel.org, netdev@vger.kernel.org, kvm@vger.kernel.org,
+ damon@lists.linux.dev, linux-mm@kvack.org,
+ accessrunner-general@lists.sourceforge.net,
+ linux1394-devel@lists.sourceforge.net, linux-leds@vger.kernel.org,
+ rds-devel@oss.oracle.com, linux-x25@vger.kernel.org, dccp@vger.kernel.org,
+ intel-wired-lan@lists.osuosl.org, linux-serial@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-nfc@lists.01.org,
+ osmocom-net-gprs@lists.osmocom.org, apparmor@lists.ubuntu.com,
+ linux-raid@vger.kernel.org, linux-bcache@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
+ linux-scsi@vger.kernel.org, patches@opensource.cirrus.com,
+ linux-unionfs@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+ ntb@lists.linux.dev, tipc-discussion@lists.sourceforge.net,
+ linuxppc-dev@lists.ozlabs.org, linux-btrfs@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,78 +127,70 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Wallace Lin <sjlin0@nuvoton.com>
+On Thu, Jul 07, 2022 at 02:56:34PM +0800, kernel test robot wrote:
+> tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+> branch HEAD: 088b9c375534d905a4d337c78db3b3bfbb52c4a0  Add linux-next specific files for 20220706
+> 
+> Error/Warning reports:
+> 
+> https://lore.kernel.org/linux-doc/202207070644.x48XOOvs-lkp@intel.com
+> 
+> Error/Warning: (recently discovered and may have been fixed)
+> 
+> Documentation/arm/google/chromebook-boot-flow.rst: WARNING: document isn't included in any toctree
+> arm-linux-gnueabi-ld: dc_dmub_srv.c:(.text+0x1108): undefined reference to `__aeabi_ddiv'
+> arm-linux-gnueabi-ld: dc_dmub_srv.c:(.text+0x1124): undefined reference to `__aeabi_ui2d'
+> arm-linux-gnueabi-ld: dc_dmub_srv.c:(.text+0x1164): undefined reference to `__aeabi_dmul'
+> arm-linux-gnueabi-ld: dc_dmub_srv.c:(.text+0x1170): undefined reference to `__aeabi_dadd'
+> arm-linux-gnueabi-ld: dc_dmub_srv.c:(.text+0x1180): undefined reference to `__aeabi_dsub'
+> arm-linux-gnueabi-ld: dc_dmub_srv.c:(.text+0x1190): undefined reference to `__aeabi_d2uiz'
+> arm-linux-gnueabi-ld: dc_dmub_srv.c:(.text+0x162c): undefined reference to `__aeabi_d2iz'
+> arm-linux-gnueabi-ld: dc_dmub_srv.c:(.text+0x16b0): undefined reference to `__aeabi_i2d'
+> dc_dmub_srv.c:(.text+0x10f8): undefined reference to `__aeabi_ui2d'
+> dc_dmub_srv.c:(.text+0x464): undefined reference to `__floatunsidf'
+> dc_dmub_srv.c:(.text.dc_dmub_setup_subvp_dmub_command+0x33c): undefined reference to `__floatunsidf'
+> drivers/pci/endpoint/functions/pci-epf-vntb.c:975:5: warning: no previous prototype for 'pci_read' [-Wmissing-prototypes]
+> drivers/pci/endpoint/functions/pci-epf-vntb.c:984:5: warning: no previous prototype for 'pci_write' [-Wmissing-prototypes]
+> drivers/vfio/vfio_iommu_type1.c:2141:35: warning: cast to smaller integer type 'enum iommu_cap' from 'void *' [-Wvoid-pointer-to-enum-cast]
+> mips-linux-ld: dc_dmub_srv.c:(.text.dc_dmub_setup_subvp_dmub_command+0x34c): undefined reference to `__floatunsidf'
+> mips-linux-ld: dc_dmub_srv.c:(.text.dc_dmub_setup_subvp_dmub_command+0x378): undefined reference to `__divdf3'
+> mips-linux-ld: dc_dmub_srv.c:(.text.dc_dmub_setup_subvp_dmub_command+0x38c): undefined reference to `__muldf3'
+> mips-linux-ld: dc_dmub_srv.c:(.text.dc_dmub_setup_subvp_dmub_command+0x3a0): undefined reference to `__adddf3'
+> mips-linux-ld: dc_dmub_srv.c:(.text.dc_dmub_setup_subvp_dmub_command+0x3b4): undefined reference to `__subdf3'
+> mips-linux-ld: dc_dmub_srv.c:(.text.dc_dmub_setup_subvp_dmub_command+0x3d4): undefined reference to `__fixunsdfsi'
+> mips-linux-ld: dc_dmub_srv.c:(.text.dc_dmub_setup_subvp_dmub_command+0x750): undefined reference to `__fixdfsi'
+> mips-linux-ld: dc_dmub_srv.c:(.text.dc_dmub_setup_subvp_dmub_command+0x7c0): undefined reference to `__floatsidf'
+> powerpc-linux-ld: drivers/pci/endpoint/functions/pci-epf-vntb.c:174: undefined reference to `ntb_link_event'
+> xtensa-linux-ld: dc_dmub_srv.c:(.text+0x468): undefined reference to `__divdf3'
+> xtensa-linux-ld: dc_dmub_srv.c:(.text+0x46c): undefined reference to `__muldf3'
+> xtensa-linux-ld: dc_dmub_srv.c:(.text+0x470): undefined reference to `__adddf3'
+> xtensa-linux-ld: dc_dmub_srv.c:(.text+0x474): undefined reference to `__subdf3'
+> xtensa-linux-ld: dc_dmub_srv.c:(.text+0x478): undefined reference to `__fixunsdfsi'
+> xtensa-linux-ld: dc_dmub_srv.c:(.text+0x47c): undefined reference to `__fixdfsi'
+> xtensa-linux-ld: dc_dmub_srv.c:(.text+0x480): undefined reference to `__floatsidf'
+> xtensa-linux-ld: dc_dmub_srv.c:(.text+0x60c): undefined reference to `__floatunsidf'
+> 
+> Unverified Error/Warning (likely false positive, please contact us if interested):
+> 
+> arch/x86/events/core.c:2114 init_hw_perf_events() warn: missing error code 'err'
+> drivers/android/binder.c:1481:19-23: ERROR: from is NULL but dereferenced.
+> drivers/android/binder.c:2920:29-33: ERROR: target_thread is NULL but dereferenced.
+> drivers/android/binder.c:353:25-35: ERROR: node -> proc is NULL but dereferenced.
+> drivers/android/binder.c:4888:16-20: ERROR: t is NULL but dereferenced.
+> drivers/base/regmap/regmap.c:1996:1: internal compiler error: in arc_ifcvt, at config/arc/arc.c:9637
+> drivers/char/random.c:869:1: internal compiler error: in arc_ifcvt, at config/arc/arc.c:9637
+> drivers/firmware/arm_scmi/clock.c:394:1: internal compiler error: in arc_ifcvt, at config/arc/arc.c:9637
+> drivers/firmware/arm_scmi/powercap.c:376:1: internal compiler error: in arc_ifcvt, at config/arc/arc.c:9637
+> drivers/gpu/drm/amd/amdgpu/../pm/powerplay/hwmgr/vega10_powertune.c:1214:1: internal compiler error: in arc_ifcvt, at config/arc/arc.c:9637
+> drivers/gpu/drm/amd/display/dc/os_types.h: drm/drm_print.h is included more than once.
+> drivers/gpu/drm/bridge/ite-it66121.c:1398:1: internal compiler error: in arc_ifcvt, at config/arc/arc.c:9637
+> drivers/greybus/operation.c:617:1: internal compiler error: in arc_ifcvt, at config/arc/arc.c:9637
 
-Signed-off-by: Wallace Lin <sjlin0@nuvoton.com>
-Signed-off-by: Wallace Lin <savagecin@gmail.com>
----
- sound/soc/codecs/nau8821.c | 31 +++++++++++++++++++++++++++++++
- 1 file changed, 31 insertions(+)
+<snip>
 
-diff --git a/sound/soc/codecs/nau8821.c b/sound/soc/codecs/nau8821.c
-index 6453e93678d2..761a3dc08edc 100644
---- a/sound/soc/codecs/nau8821.c
-+++ b/sound/soc/codecs/nau8821.c
-@@ -34,6 +34,7 @@
- 
- static int nau8821_configure_sysclk(struct nau8821 *nau8821,
- 	int clk_id, unsigned int freq);
-+static bool nau8821_is_jack_inserted(struct regmap *regmap);
- 
- struct nau8821_fll {
- 	int mclk_src;
-@@ -493,7 +494,33 @@ static int nau8821_output_dac_event(struct snd_soc_dapm_widget *w,
- 	return 0;
- }
- 
-+static int system_clock_control(struct snd_soc_dapm_widget *w,
-+				struct snd_kcontrol *k, int  event)
-+{
-+	struct snd_soc_component *component =
-+		snd_soc_dapm_to_component(w->dapm);
-+	struct nau8821 *nau8821 = snd_soc_component_get_drvdata(component);
-+
-+	if (SND_SOC_DAPM_EVENT_OFF(event)) {
-+		dev_dbg(nau8821->dev, "system clock control : POWER OFF\n");
-+		/* Set clock source to disable or internal clock before the
-+		 * playback or capture end. Codec needs clock for Jack
-+		 * detection and button press if jack inserted; otherwise,
-+		 * the clock should be closed.
-+		 */
-+		if (nau8821_is_jack_inserted(nau8821->regmap)) {
-+			nau8821_configure_sysclk(nau8821,
-+				NAU8821_CLK_INTERNAL, 0);
-+		} else {
-+			nau8821_configure_sysclk(nau8821, NAU8821_CLK_DIS, 0);
-+		}
-+	}
-+	return 0;
-+}
-+
- static const struct snd_soc_dapm_widget nau8821_dapm_widgets[] = {
-+	SND_SOC_DAPM_SUPPLY("System Clock", SND_SOC_NOPM, 0, 0,
-+		system_clock_control, SND_SOC_DAPM_POST_PMD),
- 	SND_SOC_DAPM_SUPPLY("MICBIAS", NAU8821_R74_MIC_BIAS,
- 		NAU8821_MICBIAS_POWERUP_SFT, 0, NULL, 0),
- 	SND_SOC_DAPM_SUPPLY("DMIC Clock", SND_SOC_NOPM, 0, 0,
-@@ -605,6 +632,9 @@ static const struct snd_soc_dapm_route nau8821_dapm_routes[] = {
- 	{"AIFTX", NULL, "ADCL Digital path"},
- 	{"AIFTX", NULL, "ADCR Digital path"},
- 
-+	{"AIFTX", NULL, "System Clock"},
-+	{"AIFRX", NULL, "System Clock"},
-+
- 	{"DDACL", NULL, "AIFRX"},
- 	{"DDACR", NULL, "AIFRX"},
- 
-@@ -1430,6 +1460,7 @@ static const struct snd_soc_component_driver nau8821_component_driver = {
- 	.dapm_routes		= nau8821_dapm_routes,
- 	.num_dapm_routes	= ARRAY_SIZE(nau8821_dapm_routes),
- 	.suspend_bias_off	= 1,
-+	.non_legacy_dai_naming	= 1,
- 	.idle_bias_on		= 1,
- 	.use_pmdown_time	= 1,
- 	.endianness		= 1,
--- 
-2.25.1
+When the compiler crashes, why are you blaming all of these different
+mailing lists?  Perhaps you need to fix your compiler :)
 
+thanks,
+
+greg k-h

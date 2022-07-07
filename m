@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3A8E56A902
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Jul 2022 19:04:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB98F56A983
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Jul 2022 19:25:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 412231652;
-	Thu,  7 Jul 2022 19:03:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 412231652
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7A955822;
+	Thu,  7 Jul 2022 19:24:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A955822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657213464;
-	bh=unWT6rfv50r5RCW2IbjYv5p6GoRlJhCvBsvJT/NarOg=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=dza6RvdxJhgl5CQJ0s84itwqFHC6NKO1rDWz+ELQDCG2n1Rw4hnTrPmhTAW6kpXTr
-	 wNWwXsTNXJJOYuMBRqt2SasdUcg4r76Hc3vKR/lqB330zdo4kNbkOf+mWIyNqxiw5f
-	 Hc+QFaAvPPemlB30xD/0Ao/0puu4cUhYFMdrPEW8=
+	s=default; t=1657214729;
+	bh=PJWosiBSr/Jo2n5fQ5/FKsus3qGeZ8zXjOaJiRvPKhY=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=E+Q+9BCk20EMBVLmBikvdzxIpD3SdDS5lbv8vbKlKv7sEhtKp7/FXGXufFKpd4l+f
+	 kjHJpj/GHbDtaPBLGS/9K1gHxH+oPMSs1GKAg7dM613TI8mOHGN81LW/WxYhMOw3m+
+	 9ic+OiL8XzFqSl3+4sQVucYDGDOqcXryRx0L3xhA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 987D1F8028D;
-	Thu,  7 Jul 2022 19:03:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DD5C0F8028D;
+	Thu,  7 Jul 2022 19:24:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6CDDAF8016A; Thu,  7 Jul 2022 19:03:21 +0200 (CEST)
+ id 1369DF800C5; Thu,  7 Jul 2022 19:24:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,36 +35,42 @@ Received: from ams.source.kernel.org (ams.source.kernel.org
  [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 025EEF80104
- for <alsa-devel@alsa-project.org>; Thu,  7 Jul 2022 19:03:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 025EEF80104
+ by alsa1.perex.cz (Postfix) with ESMTPS id BC7E7F800C5
+ for <alsa-devel@alsa-project.org>; Thu,  7 Jul 2022 19:24:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC7E7F800C5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="lkx5c99t"
+ header.b="EICthTyf"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id EB24DB822A3;
- Thu,  7 Jul 2022 17:03:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B7EAC341C0;
- Thu,  7 Jul 2022 17:03:13 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id DA9EEB822AC;
+ Thu,  7 Jul 2022 17:24:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72576C3411E;
+ Thu,  7 Jul 2022 17:24:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657213394;
- bh=unWT6rfv50r5RCW2IbjYv5p6GoRlJhCvBsvJT/NarOg=;
- h=From:To:Cc:Subject:Date:From;
- b=lkx5c99tWnaHBkUKIfSIMrIdUhxGZYu25pNZAxGzuyCm+2586Bb4RA8Ye09kwnopp
- QUkCJNSBMPEViJ8KMYcZaOB9KXCEt7AuXp6W7vYw1gQvE3vRNTlJed33r6rRe8Q5uP
- unzbAKoPV05qHtRErxqbSK4204MDsx4RCkoOOLpcFvryjXKP40/yC4lHs6ZHUTF4MI
- dg/o79gYs8ShxIbBMXiD7gS23XvCkHCpxWG8/tMr0TVfCn2Oz1MFyG/DcLs8gPPDIC
- lGZDpSktTu2xHXtyyHE4GWKDsIR469cWASmsps/CwimabybVv/fQYzBlXn2tCLaPE+
- beZj9sdTOCw1Q==
+ s=k20201202; t=1657214660;
+ bh=PJWosiBSr/Jo2n5fQ5/FKsus3qGeZ8zXjOaJiRvPKhY=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=EICthTyfj4eOlgLgxPHvd8oUs+GkQRoBCa7JqXrRG+Y52cMsA8M1I0RlZY4n13f4K
+ TOlIirKsI34gIbYOHZw36vEcOyQbLCIj8QuV4iu+rX3qlQ8dQN+TnNGi6zfKM+n/WD
+ 4rYPjXHVQGZfUAIZJlgqwGdqbtYcvPVM5t5ztF8JNVhIOTjAjBpOrWXUrMbdaiYnqo
+ fiQVEWxEzcmHOSXlVp9361dZRoKM2jM8C6RPg0xLpGrDKDfzP7udtFKORnpepx7BnF
+ ONawH5UnjQhARG/1l0UB6iwpQlYM7rvwEDmRRSFMkjzQZpVHdRgaHss6rYgLuTTrOk
+ r6tQcIve+hnRg==
 From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: [GIT PULL] ASoC fixes for v5.19-rc4
-Date: Thu, 07 Jul 2022 18:03:09 +0100
-Message-Id: <20220707170314.1B7EAC341C0@smtp.kernel.org>
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>
+To: Xiubo.Lee@gmail.com, alsa-devel@alsa-project.org, perex@perex.cz,
+ festevam@gmail.com, tiwai@suse.com, shengjiu.wang@nxp.com,
+ shengjiu.wang@gmail.com, nicoleotsuka@gmail.com, lgirdwood@gmail.com
+In-Reply-To: <1657192806-10569-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1657192806-10569-1-git-send-email-shengjiu.wang@nxp.com>
+Subject: Re: [PATCH] ASoC: fsl_utils: Don't use plain integer as NULL pointer
+Message-Id: <165721465817.2940958.17759682147989552170.b4-ty@kernel.org>
+Date: Thu, 07 Jul 2022 18:24:18 +0100
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,93 +86,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The following changes since commit 980555e95f7cabdc9c80a07107622b097ba23703:
+On Thu, 7 Jul 2022 19:20:06 +0800, Shengjiu Wang wrote:
+> Fix sparse warning:
+> sound/soc/fsl/fsl_utils.c:125:31: sparse: warning: Using plain integer as NULL pointer
+> sound/soc/fsl/fsl_utils.c:125:42: sparse: warning: Using plain integer as NULL pointer
+> 
+> 
 
-  ASoC: madera: Fix event generation for rate controls (2022-06-24 16:22:01 +0100)
+Applied to
 
-are available in the Git repository at:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v5.19-rc4
+Thanks!
 
-for you to fetch changes up to fc976f5629afb4160ee77798b14a693eac903ffd:
+[1/1] ASoC: fsl_utils: Don't use plain integer as NULL pointer
+      commit: 050237e6b0bea0fafbf7d3d57e717c6fa1e4e819
 
-  ASoC: Intel: Skylake: Correct the handling of fmt_config flexible array (2022-07-07 17:16:40 +0100)
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-----------------------------------------------------------------
-ASoC: Fixes for v5.19
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-Quite a large batch due to things building up for a couple of weeks but
-all driver specific apart from Marek's documentation fix.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-----------------------------------------------------------------
-Brent Lu (1):
-      ASoC: Intel: sof_rt5682: fix out-of-bounds array access
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-Bryan O'Donoghue (1):
-      ASoC: dt-bindings: Fix description for msm8916
-
-Charles Keepax (4):
-      ASoC: wm5102: Fix event generation for output compensation
-      ASoC: wm8998: Fix event generation for input mux
-      ASoC: cs47l92: Fix event generation for OUT1 demux
-      ASoC: arizona: Update arizona_aif_cfg_changed to use RX_BCLK_RATE
-
-Daniel Mack (1):
-      ASoC: max98396: Fix register access for PCM format settings
-
-David Owens (1):
-      ASoC: ti: omap-mcbsp: duplicate sysfs error
-
-Francesco Dolcini (1):
-      ASoC: sgtl5000: Fix noise on shutdown/remove
-
-Hector Martin (2):
-      ASoC: tas2764: Correct playback volume range
-      ASoC: tas2764: Fix amp gain register offset & default
-
-Jianglei Nie (1):
-      ASoC: qdsp6: fix potential memory leak in q6apm_get_audioreach_graph()
-
-Marek Vasut (1):
-      ASoC: doc: Capitalize RESET line name
-
-Martin Povišer (2):
-      ASoC: tas2764: Add post reset delays
-      ASoC: tas2764: Fix and extend FSYNC polarity handling
-
-Oder Chiou (1):
-      ASoC: rt5640: Fix the wrong state of JD1 and JD2
-
-Peter Ujfalusi (2):
-      ASoC: Intel: Skylake: Correct the ssp rate discovery in skl_get_ssp_clks()
-      ASoC: Intel: Skylake: Correct the handling of fmt_config flexible array
-
-Sascha Hauer (2):
-      ASoC: audio_graph_card2: Fix port numbers in example
-      ASoC: tlv320adcx140: Fix tx_mask check
-
-Yassine Oudjana (1):
-      ASoC: wcd9335: Use int array instead of bitmask for TX mixers
-
- .../devicetree/bindings/sound/qcom,lpass-cpu.yaml  |  8 ++--
- Documentation/sound/soc/dai.rst                    |  2 +-
- sound/soc/codecs/arizona.c                         |  4 +-
- sound/soc/codecs/cs47l92.c                         |  8 +++-
- sound/soc/codecs/max98396.c                        | 10 +++--
- sound/soc/codecs/rt5640.c                          | 30 ++++++++++----
- sound/soc/codecs/sgtl5000.c                        |  9 +++++
- sound/soc/codecs/sgtl5000.h                        |  1 +
- sound/soc/codecs/tas2764.c                         | 46 +++++++++++++---------
- sound/soc/codecs/tas2764.h                         |  6 +--
- sound/soc/codecs/tlv320adcx140.c                   | 13 +++---
- sound/soc/codecs/wcd9335.c                         | 17 +++++---
- sound/soc/codecs/wm5102.c                          | 21 ++++++++--
- sound/soc/codecs/wm8998.c                          | 21 ++++++----
- sound/soc/generic/audio-graph-card2.c              |  6 +--
- sound/soc/intel/boards/sof_rt5682.c                | 10 ++---
- sound/soc/intel/skylake/skl-nhlt.c                 | 40 +++++++++++++------
- sound/soc/qcom/qdsp6/q6apm.c                       |  1 +
- sound/soc/ti/omap-mcbsp-priv.h                     |  2 -
- sound/soc/ti/omap-mcbsp-st.c                       | 14 +------
- sound/soc/ti/omap-mcbsp.c                          | 19 +--------
- 21 files changed, 168 insertions(+), 120 deletions(-)
+Thanks,
+Mark

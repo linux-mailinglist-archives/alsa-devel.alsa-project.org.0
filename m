@@ -2,68 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 024AF569EA6
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Jul 2022 11:39:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9820B569EB3
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Jul 2022 11:40:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 95460886;
-	Thu,  7 Jul 2022 11:38:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95460886
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3B91F886;
+	Thu,  7 Jul 2022 11:39:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B91F886
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657186754;
-	bh=s/0bK7wa6JhRB/x9LBiqi/UBShVUoweGR5ECGuZprQI=;
-	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1657186849;
+	bh=capKQX+I9Q4Op8Cl5NL4ibsmJcwI1Wj0Ll5A8DClSM0=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kQfJUUA6IyTHnNbbXEG3IzOKwCJFweqc4r0nuvdSUqoapjPBdbHAWRvmcFwSsPhPM
-	 RpnpEehDSCzQQ1/K86iZqFKGezglTrdJNCfPvl5DL0igoQMwqI/9X+7wJFms2e2yHF
-	 R/8kB92T/R/XiPAgi8ITNUD2VSr2TkJloxkyvHLc=
+	b=gE7qSW00OTXwYhTKDbywNWx2oPI80h3RA6CrGn/rlKWA6d9K1+UwlIL3985n4EgEH
+	 9EjOpbd0b84WftYW9aqgBH1TbSFLBHf1qC+F88YCV51P/EtywmMIvb+9g7xpFjznqY
+	 S1ieYRFyvbvHxo9FIcY6YWA2qba4yEiC3OV8U1y8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2510EF80104;
-	Thu,  7 Jul 2022 11:38:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B20BAF8028D;
+	Thu,  7 Jul 2022 11:39:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 906F7F8016A; Thu,  7 Jul 2022 11:38:12 +0200 (CEST)
+ id ACF13F8016A; Thu,  7 Jul 2022 11:39:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from aposti.net (aposti.net [89.234.176.197])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 83D3AF80104
- for <alsa-devel@alsa-project.org>; Thu,  7 Jul 2022 11:38:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83D3AF80104
+ by alsa1.perex.cz (Postfix) with ESMTPS id 20592F800C5
+ for <alsa-devel@alsa-project.org>; Thu,  7 Jul 2022 11:39:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20592F800C5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net
- header.b="NKmYCqFt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crapouillou.net;
- s=mail; t=1657186680; h=from:from:sender:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=kXIlb6hdJqwtDzPJXzLaKXuJUAGqwuysqFCgGoS6L9w=;
- b=NKmYCqFt+Bn8O5D8zNt1stEVUcLMJ7FFoyccHrpplWfWGAESaQJEK3TE3fjxpPWPw8ONIu
- nf1ZpMQezjE6AGoRvyNUsoBGTqXM+YDCpHOsJaYgPQdcEBsrW4/JIoiG1eHRwFFCA0acF0
- BtHJn3OyliNtw4dXcHcKuDRuodF9K6U=
-Date: Thu, 07 Jul 2022 10:37:49 +0100
-From: Paul Cercueil <paul@crapouillou.net>
-Subject: Re: [PATCH 05/11] ASoC: jz4740-i2s: Remove unused SoC version IDs
-To: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
-Message-Id: <1F9NER.E4VHP6MF1K5A2@crapouillou.net>
-In-Reply-To: <20220706211330.120198-6-aidanmacdonald.0x0@gmail.com>
-References: <20220706211330.120198-1-aidanmacdonald.0x0@gmail.com>
- <20220706211330.120198-6-aidanmacdonald.0x0@gmail.com>
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="XAfIHimR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1657186782; x=1688722782;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=capKQX+I9Q4Op8Cl5NL4ibsmJcwI1Wj0Ll5A8DClSM0=;
+ b=XAfIHimRJLmNdMl22sDyYT/bnQwj/Uc8/np5zK0YpNRlcwSB89bjD6lm
+ CfoIcNEX7RXiofzcV03SQSezftFufg8O4X0wr7GB/aGUpIjVves97Xh7O
+ n+fBDpS+rRDJITtV0kETr8xUbftNEroJneDCNcAg8BN0wQnRaCx8o7g3r
+ wqldLsZGQqn0yhnoLnRS0riQOHizTemD3YfJwgoKvrtXjwgNqi1Vqmhp6
+ P3jcgOS4cubRtLneC4SkBwxIsGQfn8GJDktCLN1tzm6EbtvcEAY+G/mN1
+ ox7Y+Ph8XglBx9rPc37LeTV7qlK+OV/ueuCF2Bzdtnhd6aEVka5hlh89+ w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10400"; a="309537125"
+X-IronPort-AV: E=Sophos;i="5.92,252,1650956400"; d="scan'208";a="309537125"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jul 2022 02:39:38 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.92,252,1650956400"; d="scan'208";a="735905775"
+Received: from lkp-server01.sh.intel.com (HELO 68b931ab7ac1) ([10.239.97.150])
+ by fmsmga001.fm.intel.com with ESMTP; 07 Jul 2022 02:39:36 -0700
+Received: from kbuild by 68b931ab7ac1 with local (Exim 4.95)
+ (envelope-from <lkp@intel.com>) id 1o9Nyy-000LpE-6P;
+ Thu, 07 Jul 2022 09:39:36 +0000
+Date: Thu, 7 Jul 2022 17:38:48 +0800
+From: kernel test robot <lkp@intel.com>
+To: Zhu Ning <zhuning0077@gmail.com>, alsa-devel@alsa-project.org
+Subject: Re: [PATCH] ASoC: codecs: add support for ES8326
+Message-ID: <202207071739.NIPiY4NM-lkp@intel.com>
+References: <20220707011856.10841-1-zhuning0077@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1; format=flowed
-Content-Transfer-Encoding: quoted-printable
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, tiwai@suse.com,
- broonie@kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220707011856.10841-1-zhuning0077@gmail.com>
+Cc: kbuild-all@lists.01.org, Zhu Ning <zhuning0077@gmail.com>, tiwai@suse.com,
+ pierre-louis.bossart@linux.intel.com, broonie@kernel.org,
+ David Yang <yangxiaohua@everest-semi.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,84 +92,49 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Zhu,
+
+Thank you for the patch! Perhaps something to improve:
+
+[auto build test WARNING on broonie-sound/for-next]
+[also build test WARNING on tiwai-sound/for-next linus/master v5.19-rc5 next-20220706]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Zhu-Ning/ASoC-codecs-add-support-for-ES8326/20220707-115006
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+config: i386-allyesconfig (https://download.01.org/0day-ci/archive/20220707/202207071739.NIPiY4NM-lkp@intel.com/config)
+compiler: gcc-11 (Debian 11.3.0-3) 11.3.0
+reproduce (this is a W=1 build):
+        # https://github.com/intel-lab-lkp/linux/commit/fda793f4ec55b33955344b93a8c290fe207d54d4
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Zhu-Ning/ASoC-codecs-add-support-for-ES8326/20220707-115006
+        git checkout fda793f4ec55b33955344b93a8c290fe207d54d4
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        make W=1 O=build_dir ARCH=i386 SHELL=/bin/bash sound/soc/codecs/
+
+If you fix the issue, kindly add following tag where applicable
+Reported-by: kernel test robot <lkp@intel.com>
+
+All warnings (new ones prefixed by >>):
+
+>> sound/soc/codecs/es8326.c:742:35: warning: 'es8326_i2c_id' defined but not used [-Wunused-const-variable=]
+     742 | static const struct i2c_device_id es8326_i2c_id[] = {
+         |                                   ^~~~~~~~~~~~~
 
 
-Le mer., juil. 6 2022 at 22:13:24 +0100, Aidan MacDonald=20
-<aidanmacdonald.0x0@gmail.com> a =E9crit :
-> Using version IDs makes the code hard to follow -- it's better to
-> describe the functional differences between SoCs instead. Remove
-> the IDs since they're no longer used.
->=20
-> Signed-off-by: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
+vim +/es8326_i2c_id +742 sound/soc/codecs/es8326.c
 
-Acked-by: Paul Cercueil <paul@crapouillou.net>
+   741	
+ > 742	static const struct i2c_device_id es8326_i2c_id[] = {
+   743		{"es8326", 0 },
+   744		{}
+   745	};
+   746	MODULE_DEVICE_TABLE(i2c, es8326_i2c_id);
+   747	
 
-Cheers,
--Paul
-
-> ---
->  sound/soc/jz4740/jz4740-i2s.c | 12 ------------
->  1 file changed, 12 deletions(-)
->=20
-> diff --git a/sound/soc/jz4740/jz4740-i2s.c=20
-> b/sound/soc/jz4740/jz4740-i2s.c
-> index cbb89f724f64..8bb9449d13d3 100644
-> --- a/sound/soc/jz4740/jz4740-i2s.c
-> +++ b/sound/soc/jz4740/jz4740-i2s.c
-> @@ -81,15 +81,7 @@
->  #define I2SDIV_IDV_SHIFT 8
->  #define I2SDIV_IDV_MASK (0xf << I2SDIV_IDV_SHIFT)
->=20
-> -enum jz47xx_i2s_version {
-> -	JZ_I2S_JZ4740,
-> -	JZ_I2S_JZ4760,
-> -	JZ_I2S_JZ4770,
-> -	JZ_I2S_JZ4780,
-> -};
-> -
->  struct i2s_soc_info {
-> -	enum jz47xx_i2s_version version;
->  	struct snd_soc_dai_driver *dai;
->=20
->  	struct reg_field field_rx_fifo_thresh;
-> @@ -406,7 +398,6 @@ static struct snd_soc_dai_driver jz4740_i2s_dai =3D=20
-> {
->  };
->=20
->  static const struct i2s_soc_info jz4740_i2s_soc_info =3D {
-> -	.version =3D JZ_I2S_JZ4740,
->  	.dai =3D &jz4740_i2s_dai,
->  	.field_rx_fifo_thresh	=3D REG_FIELD(JZ_REG_AIC_CONF, 12, 15),
->  	.field_tx_fifo_thresh	=3D REG_FIELD(JZ_REG_AIC_CONF, 8, 11),
-> @@ -415,7 +406,6 @@ static const struct i2s_soc_info=20
-> jz4740_i2s_soc_info =3D {
->  };
->=20
->  static const struct i2s_soc_info jz4760_i2s_soc_info =3D {
-> -	.version =3D JZ_I2S_JZ4760,
->  	.dai =3D &jz4740_i2s_dai,
->  	.field_rx_fifo_thresh	=3D REG_FIELD(JZ_REG_AIC_CONF, 24, 27),
->  	.field_tx_fifo_thresh	=3D REG_FIELD(JZ_REG_AIC_CONF, 16, 20),
-> @@ -442,7 +432,6 @@ static struct snd_soc_dai_driver jz4770_i2s_dai =3D=20
-> {
->  };
->=20
->  static const struct i2s_soc_info jz4770_i2s_soc_info =3D {
-> -	.version =3D JZ_I2S_JZ4770,
->  	.dai =3D &jz4770_i2s_dai,
->  	.field_rx_fifo_thresh	=3D REG_FIELD(JZ_REG_AIC_CONF, 24, 27),
->  	.field_tx_fifo_thresh	=3D REG_FIELD(JZ_REG_AIC_CONF, 16, 20),
-> @@ -451,7 +440,6 @@ static const struct i2s_soc_info=20
-> jz4770_i2s_soc_info =3D {
->  };
->=20
->  static const struct i2s_soc_info jz4780_i2s_soc_info =3D {
-> -	.version =3D JZ_I2S_JZ4780,
->  	.dai =3D &jz4770_i2s_dai,
->  	.field_rx_fifo_thresh	=3D REG_FIELD(JZ_REG_AIC_CONF, 24, 27),
->  	.field_tx_fifo_thresh	=3D REG_FIELD(JZ_REG_AIC_CONF, 16, 20),
-> --
-> 2.35.1
->=20
-
-
+-- 
+0-DAY CI Kernel Test Service
+https://01.org/lkp

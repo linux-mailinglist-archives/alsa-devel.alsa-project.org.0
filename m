@@ -2,125 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A129056A39C
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Jul 2022 15:28:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC6D956A485
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Jul 2022 15:52:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 49265165D;
-	Thu,  7 Jul 2022 15:27:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49265165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 48B1AAE9;
+	Thu,  7 Jul 2022 15:51:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 48B1AAE9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657200501;
-	bh=w7/uJ0QIgbm+hZ11a8fiew655ROUUXh0D4U2WIit0/s=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1657201935;
+	bh=VzIpoNIJ0Q+foKbMkgY/kd7JOLOX/5usap9F57+2qzo=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=V+1ewtLSdPUfrFNRaN7xr8g3pXG10JA9C4ya89sJLwqnHM0ERPrOAVZPi+5g2lJxl
-	 E81h/2oToc1H/JUDhE+S1A3lUmdd1kWCHUE1NLoBDmi+6OVyd2N6XOaE6nU2gT17AS
-	 lrZSgPZyvGT8NF90mPhu0gAw0pm+/C0rUEmPutoc=
+	b=YOueCTFhQd4NbQQXHKDd56ob9fjNUWqRzoXbHv1jZQYj/iFXOmPtIOTXaMuIBUmAV
+	 MeRgYEDNoz0xfx2hkUzq8MDfrNMTjsZOORDpxS3ySLbm9wgsZoXxRZv08/XTuaFX9m
+	 Jc6Y3xEIQTg0/QELoRwLmyRlmyTCJbVjSRLm+hgI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F15AEF8053E;
-	Thu,  7 Jul 2022 15:26:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B9291F800DF;
+	Thu,  7 Jul 2022 15:51:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 90CFBF8052E; Thu,  7 Jul 2022 15:26:54 +0200 (CEST)
+ id 130CCF8016A; Thu,  7 Jul 2022 15:51:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2055.outbound.protection.outlook.com [40.107.94.55])
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8A478F80538
- for <alsa-devel@alsa-project.org>; Thu,  7 Jul 2022 15:26:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A478F80538
+ by alsa1.perex.cz (Postfix) with ESMTPS id D8636F800DF
+ for <alsa-devel@alsa-project.org>; Thu,  7 Jul 2022 15:51:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8636F800DF
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
- header.b="p3jK097w"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oCE5VVB+AG6QI9ZC8GeBB0lvRv8uk2GmHSxIx7/apYadEtWXdX5Hsjan8l+kchaNogbLdC1hsye9Isr0XkjljRPVqW20M5gUZluKiq+N6qP/wmS7KTRd3vxT7pYbpANVRYDbg3h2151u797ERUCu1VW3iJqA7Tood+2a05hnF/64h3aHyUT/WuF6Y6Gq3qTrEq39LvXjesWm6fvLDXQ/K41h1Ut3jcILtzLmiFWg/zjYRLg3dGT4nPOVA8e0xoHwW3NsXLgcluF2c8EkM/C84OmVyUKNn3UdCVCTJR2p0IXqibkRvrfRm9SRRHZGlgZmHf8QzPpmqXMGLrSFPwLxRA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Fp5wlHeLmJA7UOeVUfZLyKrduF0hIe8TW3CsDq9fVZQ=;
- b=bgPV08eJvcTtBC9dWEbY7vnq5Tsd/NPT6nP1J/T4bf9gAu0rfa7S2K77kgatht/CvZbtO472A/NrogkH/1dKtFwZjgt6GwHzgmNKInCT3JTA2F6d8BntgdjnYuE1G4vTLqtEJOaNOe1pNYhyBvqlUu+eg+6u5ZweyHYMJ+AsHNc6VhHfjmdCiGV9w5rfwCZs746q0BgVSbzTxMeFSShSdpogRQeHQLDvmQZi8QCG0+fyS3QcOAfKS9UQcGqpS9CDxsTpBVaaLmIHiZP6OtRe4UjGI0bZLsHy1nVfNHTmp6HuZSh74piT9tw8hJ7W9D5wH2o+9j4Z0Gg/x9EGi/z++A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Fp5wlHeLmJA7UOeVUfZLyKrduF0hIe8TW3CsDq9fVZQ=;
- b=p3jK097wMUFRhOy7XZrPv4oXU7K0fc4dO1lRdy0yUm4pkJW9zY/UUO0Zppjb8ie9FknAZ2eG5cmHMo+16vlUzZjRMFm7ayu+h56bLIPxC8HUMRzl9vOzjBG4Tfkt/ePdgcJnwBRGb+IpJ2m86urD0ECSg7fzwwhoYoq94qOkAFc=
-Received: from MW4PR03CA0100.namprd03.prod.outlook.com (2603:10b6:303:b7::15)
- by DM4PR12MB6662.namprd12.prod.outlook.com (2603:10b6:8:bb::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.16; Thu, 7 Jul
- 2022 13:26:41 +0000
-Received: from CO1NAM11FT006.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:b7:cafe::1a) by MW4PR03CA0100.outlook.office365.com
- (2603:10b6:303:b7::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.20 via Frontend
- Transport; Thu, 7 Jul 2022 13:26:41 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT006.mail.protection.outlook.com (10.13.174.246) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5417.15 via Frontend Transport; Thu, 7 Jul 2022 13:26:40 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 7 Jul
- 2022 08:26:39 -0500
-Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
- SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.28
- via Frontend Transport; Thu, 7 Jul 2022 08:26:35 -0500
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH 3/3] ASoC: amd: fix for variable set but not used warning
-Date: Thu, 7 Jul 2022 18:56:10 +0530
-Message-ID: <20220707132613.3150931-3-Vijendar.Mukunda@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220707132613.3150931-1-Vijendar.Mukunda@amd.com>
-References: <20220707132613.3150931-1-Vijendar.Mukunda@amd.com>
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="Nm1V38VD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1657201870; x=1688737870;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=VzIpoNIJ0Q+foKbMkgY/kd7JOLOX/5usap9F57+2qzo=;
+ b=Nm1V38VD36tEUcS1ouV+MIzBGdWULr4NdYP/TgzahaRuzchdWC8ncTMG
+ djzPg6wzD3IbDBZQ3y+N9d6c26+1ZHHzq5Wg4oyENoxvCUjI+vDAmjLuV
+ jqZrd8NVIIrK3Fwh0vXK2OVMe7Cm3tqteLA0sT3sXEggxHmnn5YDkiBhd
+ UK59dcj8s6qGq8qWT23eUPwUKJ9WNHcBFQlZL6ZoN8A0UvC8ak+vBN/4R
+ ftc5ZCQ0Tea+334Q+qKJQNy0jqCL5Y4FlVI03HCROhY4/najx3tDWiwtr
+ v5v3JPBXXPNCL5VYPzQrBCY7L2RN8BoIL47iRHXg2mlmTGBC9W+yGMNX0 g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10400"; a="348011927"
+X-IronPort-AV: E=Sophos;i="5.92,253,1650956400"; d="scan'208";a="348011927"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jul 2022 06:51:04 -0700
+X-IronPort-AV: E=Sophos;i="5.92,253,1650956400"; d="scan'208";a="651141456"
+Received: from wwdowiak-mobl.ger.corp.intel.com (HELO [10.249.254.58])
+ ([10.249.254.58])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jul 2022 06:50:58 -0700
+Message-ID: <aecaf6aa-12b0-05bb-8ad4-8d09ca4eff10@linux.intel.com>
+Date: Thu, 7 Jul 2022 16:51:44 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.10.0
+Subject: Re: [PATCH 1/2] lib/string_helpers: Introduce strsplit_u32()
+Content-Language: en-US
+To: Cezary Rojewski <cezary.rojewski@intel.com>, andy@kernel.org,
+ broonie@kernel.org
+References: <20220707091301.1282291-1-cezary.rojewski@intel.com>
+From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <20220707091301.1282291-1-cezary.rojewski@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 98748ead-7e16-4f9f-fc45-08da601c5403
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6662:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: nwTXFLZGyhXy3Po6Pha93q9xAoW1+dI0IyqMITnTmtrseT1LTVTAcgZZTUMJlslbV8OmGiDwoe7laNhxGnd1HJxZ1kwLHf3/SZSJrIc+L1sxEpCZsAZ1DBd5KRRIibPpyP/okl/uRWHjNlqPAlMwP9BdKqbA3wfrftywf9iJMrRcP/Pw921SyzkonVyN1PXRpsYO7O+0Rzv+GfSLwICIQ/rGFSyc7hRlx8ev/14cR11YmVhA/NvcpcY34lOlkvCMut5uMlsFVlKnvkPR36OQjttsdZHdciytfOVk1ZsYONy5X2Nf7dbEFj41FBAiXrmVnJz1cWod11wu/NHxKtkv3kFlw63BAB4UPkV4aQOgztkQeGuMSTjWZqJG2/ZsUpsXSHp7/jkfZXkf5mR0hXOhgoomcxOh0h2fk5ByUlHfjZRZrfVpYJS0NVOXTRyQ9XfTrLy16+SgDwHZqg2DQuMdMZUMQmX+JPl5BuWniZ5ck+qkj4owG67QonoyovLZjO8LfSpMkQhTepeRxhXznpDUb6+0gon0nn3ZOzWEVX+4Po3ZvErP7W61K4qn1c4Y3KcEVw6TG5WOhlI2HETW1dIG5RyM6jrqHYcJewPbmfFEjL5L9L1ZxzVqk7lY6H7FQPM/dpYOAsAvYdu6rDNB+uGSySwBOZyMN6NUnAgxb2AqfKSj4tBbjGnzzUoYujDQn3TY3PML1ByPXFOo0OeQJ/mr26lC1YQeLkSYdgj+Gwmla2cs+OACpaVni3H13EpA4U1z/tpvbZinxzq6NcpIgcysF5QTBrirpcBmTmmxL3QAEaP/+xBtYuyhPcHeTlM0dPZ/1SEx4djcx10YGPbegK/XiBb3zO97yi461tBaWvgDx84hxRCzEJw8KkmkzYBXgDMO
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(396003)(39860400002)(346002)(376002)(136003)(46966006)(36840700001)(40470700004)(5660300002)(47076005)(82740400003)(356005)(110136005)(54906003)(40460700003)(4326008)(70586007)(1076003)(70206006)(8676002)(2616005)(81166007)(8936002)(83380400001)(186003)(336012)(426003)(478600001)(36860700001)(316002)(7696005)(86362001)(40480700001)(6666004)(34020700004)(82310400005)(41300700001)(26005)(36756003)(2906002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2022 13:26:40.9369 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 98748ead-7e16-4f9f-fc45-08da601c5403
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT006.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6662
-Cc: Sunil-kumar.Dommati@amd.com, kernel test robot <lkp@intel.com>,
- open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
- amadeuszx.slawinski@linux.intel.com, Liam Girdwood <lgirdwood@gmail.com>,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>, zhuning@everest-semi.com,
- Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
+ pierre-louis.bossart@linux.intel.com, tiwai@suse.com, hdegoede@redhat.com,
+ ranjani.sridharan@linux.intel.com, amadeuszx.slawinski@linux.intel.com,
+ yung-chuan.liao@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -136,37 +96,214 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fix below kernel warning.
->>> sound/soc/amd/acp-es8336.c:200:13: warning: variable 'ret' set but
->>> not used [-Wunused-but-set-variable]
 
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Reported-by: kernel test robot <lkp@intel.com>
----
- sound/soc/amd/acp-es8336.c | 3 +++
- 1 file changed, 3 insertions(+)
 
-diff --git a/sound/soc/amd/acp-es8336.c b/sound/soc/amd/acp-es8336.c
-index 90f4e5809c72..e1479ae684e9 100644
---- a/sound/soc/amd/acp-es8336.c
-+++ b/sound/soc/amd/acp-es8336.c
-@@ -206,6 +206,8 @@ static int st_es8336_late_probe(struct snd_soc_card *card)
- 		dev_err(card->dev, "can not find codec dev\n");
- 
- 	ret = devm_acpi_dev_add_driver_gpios(codec_dev, acpi_es8336_gpios);
-+	if (ret)
-+		dev_warn(card->dev, "Failed to add driver gpios\n");
- 
- 	gpio_pa = gpiod_get_optional(codec_dev, "pa-enable", GPIOD_OUT_LOW);
- 	if (IS_ERR(gpio_pa)) {
-@@ -213,6 +215,7 @@ static int st_es8336_late_probe(struct snd_soc_card *card)
- 				    "could not get pa-enable GPIO\n");
- 		gpiod_put(gpio_pa);
- 		put_device(codec_dev);
-+		return ret;
- 	}
- 	return 0;
- }
+On 07/07/2022 12:13, Cezary Rojewski wrote:
+> Add strsplit_u32() and its __user variant to allow for splitting
+> specified string into array of u32 tokens.
+> 
+> Originally this functionality was added for the SOF sound driver. As
+> more users are on the horizon, relocate it so it becomes a common good.
+> 
+> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+> ---
+>  include/linux/string_helpers.h    |  3 +
+>  lib/string_helpers.c              | 96 +++++++++++++++++++++++++++++++
+>  sound/soc/sof/sof-client-probes.c | 51 +---------------
+>  3 files changed, 100 insertions(+), 50 deletions(-)
+> 
+> diff --git a/include/linux/string_helpers.h b/include/linux/string_helpers.h
+> index 4d72258d42fd..a4630ddfca27 100644
+> --- a/include/linux/string_helpers.h
+> +++ b/include/linux/string_helpers.h
+> @@ -126,4 +126,7 @@ static inline const char *str_enabled_disabled(bool v)
+>  	return v ? "enabled" : "disabled";
+>  }
+>  
+> +int strsplit_u32(const char *str, const char *delim, u32 **tkns, size_t *num_tkns);
+> +int strsplit_u32_user(const char __user *from, size_t count, loff_t *ppos, const char *delim,
+> +		      u32 **tkns, size_t *num_tkns);
+>  #endif
+> diff --git a/lib/string_helpers.c b/lib/string_helpers.c
+> index 5ed3beb066e6..bb24f0c62539 100644
+> --- a/lib/string_helpers.c
+> +++ b/lib/string_helpers.c
+> @@ -984,3 +984,99 @@ void fortify_panic(const char *name)
+>  }
+>  EXPORT_SYMBOL(fortify_panic);
+>  #endif /* CONFIG_FORTIFY_SOURCE */
+> +
+> +/**
+> + * strsplit_u32 - Split string into sequence of u32 tokens
+> + * @str:	The string to split into tokens.
+> + * @delim:	The string containing delimiter characters.
+> + * @tkns:	Returned u32 sequence pointer.
+> + * @num_tkns:	Returned number of tokens obtained.
+> + *
+> + * On success @num_tkns and @tkns are assigned the number of tokens extracted
+> + * and the array itself respectively.
+> + * Caller takes responsibility for freeing @tkns when no longer needed.
+> + */
+> +int strsplit_u32(const char *str, const char *delim, u32 **tkns, size_t *num_tkns)
+> +{
+> +	size_t max_count = 32;
+> +	size_t count = 0;
+> +	char *s, **p;
+> +	u32 *buf, *tmp;
+> +	int ret = 0;
+> +
+> +	p = (char **)&str;
+> +	*tkns = NULL;
+> +	*num_tkns = 0;
+> +
+> +	buf = kcalloc(max_count, sizeof(*buf), GFP_KERNEL);
+> +	if (!buf)
+> +		return -ENOMEM;
+> +
+> +	while ((s = strsep(p, delim)) != NULL) {
+> +		ret = kstrtouint(s, 0, buf + count);
+> +		if (ret)
+> +			goto free_buf;
+> +
+> +		if (++count > max_count) {
+
+I think this should be as it was originally:
+if (++count >= max_count) {
+
+Otherwise when we reach the max_count we would not realloc to get more
+space and the data + max_count is pointing outside of the allocated area.
+
+> +			max_count *= 2;
+> +			tmp = krealloc(buf, max_count * sizeof(*buf), GFP_KERNEL);
+> +			if (!tmp) {
+> +				ret = -ENOMEM;
+> +				goto free_buf;
+> +			}
+> +			buf = tmp;
+> +		}
+> +	}
+> +
+> +	if (!count)
+> +		goto free_buf;
+> +	*tkns = kmemdup(buf, count * sizeof(*buf), GFP_KERNEL);
+> +	if (*tkns == NULL) {
+> +		ret = -ENOMEM;
+> +		goto free_buf;
+> +	}
+> +	*num_tkns = count;
+> +
+> +free_buf:
+> +	kfree(buf);
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL(strsplit_u32);
+> +
+> +/**
+> + * strsplit_u32_user - Split string into sequence of u32 tokens
+> + * @from:	The user space buffer to read from
+> + * @ppos:	The current position in the buffer
+> + * @count:	The maximum number of bytes to read
+> + * @delim:	The string containing delimiter characters.
+> + * @tkns:	Returned u32 sequence pointer.
+> + * @num_tkns:	Returned number of tokens obtained.
+> + *
+> + * On success @num_tkns and @tkns are assigned the number of tokens extracted
+> + * and the array itself respectively.
+> + * Caller takes responsibility for freeing @tkns when no longer needed.
+> + */
+> +int strsplit_u32_user(const char __user *from, size_t count, loff_t *ppos, const char *delim,
+> +		      u32 **tkns, size_t *num_tkns)
+> +{
+> +	char *buf;
+> +	int ret;
+> +
+> +	buf = kmalloc(count + 1, GFP_KERNEL);
+> +	if (!buf)
+> +		return -ENOMEM;
+> +
+> +	ret = simple_write_to_buffer(buf, count, ppos, from, count);
+> +	if (ret != count) {
+> +		ret = (ret < 0) ? ret : -EIO;
+> +		goto free_buf;
+> +	}
+> +
+> +	buf[count] = '\0';
+> +	ret = strsplit_u32(buf, delim, tkns, num_tkns);
+> +
+> +free_buf:
+> +	kfree(buf);
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL(strsplit_u32_user);
+> diff --git a/sound/soc/sof/sof-client-probes.c b/sound/soc/sof/sof-client-probes.c
+> index 1f1ea93a7fbf..48ebbe58e2b9 100644
+> --- a/sound/soc/sof/sof-client-probes.c
+> +++ b/sound/soc/sof/sof-client-probes.c
+> @@ -12,6 +12,7 @@
+>  #include <linux/debugfs.h>
+>  #include <linux/module.h>
+>  #include <linux/pm_runtime.h>
+> +#include <linux/string_helpers.h>
+>  #include <sound/soc.h>
+>  #include <sound/sof/header.h>
+>  #include "sof-client.h"
+> @@ -410,56 +411,6 @@ static const struct snd_compress_ops sof_probes_compressed_ops = {
+>  	.copy = sof_probes_compr_copy,
+>  };
+>  
+> -/**
+> - * strsplit_u32 - Split string into sequence of u32 tokens
+> - * @buf:	String to split into tokens.
+> - * @delim:	String containing delimiter characters.
+> - * @tkns:	Returned u32 sequence pointer.
+> - * @num_tkns:	Returned number of tokens obtained.
+> - */
+> -static int strsplit_u32(char *buf, const char *delim, u32 **tkns, size_t *num_tkns)
+> -{
+> -	char *s;
+> -	u32 *data, *tmp;
+> -	size_t count = 0;
+> -	size_t cap = 32;
+> -	int ret = 0;
+> -
+> -	*tkns = NULL;
+> -	*num_tkns = 0;
+> -	data = kcalloc(cap, sizeof(*data), GFP_KERNEL);
+> -	if (!data)
+> -		return -ENOMEM;
+> -
+> -	while ((s = strsep(&buf, delim)) != NULL) {
+> -		ret = kstrtouint(s, 0, data + count);
+> -		if (ret)
+> -			goto exit;
+> -		if (++count >= cap) {
+> -			cap *= 2;
+> -			tmp = krealloc(data, cap * sizeof(*data), GFP_KERNEL);
+> -			if (!tmp) {
+> -				ret = -ENOMEM;
+> -				goto exit;
+> -			}
+> -			data = tmp;
+> -		}
+> -	}
+> -
+> -	if (!count)
+> -		goto exit;
+> -	*tkns = kmemdup(data, count * sizeof(*data), GFP_KERNEL);
+> -	if (!(*tkns)) {
+> -		ret = -ENOMEM;
+> -		goto exit;
+> -	}
+> -	*num_tkns = count;
+> -
+> -exit:
+> -	kfree(data);
+> -	return ret;
+> -}
+> -
+>  static int tokenize_input(const char __user *from, size_t count,
+>  			  loff_t *ppos, u32 **tkns, size_t *num_tkns)
+>  {
+
 -- 
-2.25.1
-
+Péter

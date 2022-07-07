@@ -2,62 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5270D569E97
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Jul 2022 11:32:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED68F569EA0
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Jul 2022 11:37:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DA264827;
-	Thu,  7 Jul 2022 11:31:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA264827
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8997B1F0;
+	Thu,  7 Jul 2022 11:36:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8997B1F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657186335;
-	bh=rEUuXJhPoWfN6Zu/rCdL0FagRYefiP154qCbecgwwMQ=;
+	s=default; t=1657186639;
+	bh=Of0BAwGIWLJScp9DeL49BKaps71e4ay/VMSuj6eqgxM=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KYYUJUymSYMz7Ixb5BMCvw8iXW6Sdm/MaTUudHRwSgNfnEBMMbr9Tf7VaWeWMvYL7
-	 1KY8y8aLi9XTKcHJAG7ZkKclYBiBeU4tH7t5v5yvyOdAsKNh1TNejXunWY4Izqgm1Q
-	 VOlfevpW2TBweR600qTSzREjfirdFW2QggUf7yR4=
+	b=vJEtDy1g+RsGYcF3UkuVO/PYlSZhmDikXRDupEc+p21vO0zhAouczM82GgreB5We4
+	 3/Zz+mr5PWOvZvUydKozp73sq3MeLKoaKM6CqyAn7axqty0Kft0ZqxKFE6A3jOggQv
+	 BvNFFCl37hzyTO1HRBOXvDj2c1D+mtTY3Ii4285k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6D4EAF8028D;
-	Thu,  7 Jul 2022 11:31:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0B39FF800C5;
+	Thu,  7 Jul 2022 11:36:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D0F59F8016A; Thu,  7 Jul 2022 11:31:12 +0200 (CEST)
+ id 553F9F8016A; Thu,  7 Jul 2022 11:36:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
 Received: from aposti.net (aposti.net [89.234.176.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 988ECF800C5
- for <alsa-devel@alsa-project.org>; Thu,  7 Jul 2022 11:31:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 988ECF800C5
+ by alsa1.perex.cz (Postfix) with ESMTPS id A310AF800C5
+ for <alsa-devel@alsa-project.org>; Thu,  7 Jul 2022 11:36:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A310AF800C5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net
- header.b="JtBdqbQG"
+ header.b="AqSa77YO"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crapouillou.net;
- s=mail; t=1657186262; h=from:from:sender:reply-to:subject:subject:date:date:
+ s=mail; t=1657186572; h=from:from:sender:reply-to:subject:subject:date:date:
  message-id:message-id:to:to:cc:cc:mime-version:mime-version:
  content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=3432oYUbB0NCbGzcaiDe7Zz5ohhG6Uoy9WG/btVsu7A=;
- b=JtBdqbQGB661DJdFRqmt6kAQ1SROsa6wGDALoANOgBdiRAomxlU2IucnqCUihPqEtfIJmC
- JMFLR0QwG9OjtAxsdBjEzmmZfgI1AdPXq3yS6K2bYCDsqeDtHGKebsQvudbQwBuYlL4GHT
- kdoqEDR72JweoTDsQMMhimpdx1obwaU=
-Date: Thu, 07 Jul 2022 10:30:51 +0100
+ bh=mqrfEj7cxAuXaCMhT9TxqrOJJX+8uDkMAnKnSFGyUXM=;
+ b=AqSa77YOSz9MeagWtB3RGK5nKLWX4IiwadXr4n5vnUudJv9N9s5Wo2zc0TU5xD2rc7h3ok
+ ii0LgKLhr0Tj5XoicFnWr/Q8v+C7JCYnI9O9jCy6wfBmEgLt0CeuXhbZDBFzV7uku6UV1q
+ 2xlUhLVnALumzxGTW/ssD04YvGvGQEg=
+Date: Thu, 07 Jul 2022 10:36:02 +0100
 From: Paul Cercueil <paul@crapouillou.net>
-Subject: Re: [PATCH 02/11] ASoC: jz4740-i2s: Refactor DMA channel setup
+Subject: Re: [PATCH 04/11] ASoC: jz4740-i2s: Simplify using regmap fields
 To: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
-Message-Id: <F39NER.PND5B77O5GFP@crapouillou.net>
-In-Reply-To: <20220706211330.120198-3-aidanmacdonald.0x0@gmail.com>
+Message-Id: <2C9NER.G722ABTZOI2P1@crapouillou.net>
+In-Reply-To: <20220706211330.120198-5-aidanmacdonald.0x0@gmail.com>
 References: <20220706211330.120198-1-aidanmacdonald.0x0@gmail.com>
- <20220706211330.120198-3-aidanmacdonald.0x0@gmail.com>
+ <20220706211330.120198-5-aidanmacdonald.0x0@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1; format=flowed
 Content-Transfer-Encoding: quoted-printable
@@ -81,83 +81,229 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-Le mer., juil. 6 2022 at 22:13:21 +0100, Aidan MacDonald=20
+Le mer., juil. 6 2022 at 22:13:23 +0100, Aidan MacDonald=20
 <aidanmacdonald.0x0@gmail.com> a =E9crit :
-> It's simpler to set up the playback and capture DMA settings
-> at driver probe time instead of during DAI probing.
+> The differences between register fields on different SoC versions
+> can be abstracted away using the regmap field API. This is easier
+> to understand and extend than comparisons based on the version ID.
 >=20
 > Signed-off-by: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
 > ---
->  sound/soc/jz4740/jz4740-i2s.c | 23 +++++------------------
->  1 file changed, 5 insertions(+), 18 deletions(-)
+>  sound/soc/jz4740/jz4740-i2s.c | 100=20
+> ++++++++++++++++++++++++----------
+>  1 file changed, 72 insertions(+), 28 deletions(-)
 >=20
 > diff --git a/sound/soc/jz4740/jz4740-i2s.c=20
 > b/sound/soc/jz4740/jz4740-i2s.c
-> index 298ff0a83931..ecd8df70d39c 100644
+> index 66a901f56392..cbb89f724f64 100644
 > --- a/sound/soc/jz4740/jz4740-i2s.c
 > +++ b/sound/soc/jz4740/jz4740-i2s.c
-> @@ -95,7 +95,6 @@ struct i2s_soc_info {
+> @@ -91,12 +91,22 @@ enum jz47xx_i2s_version {
+>  struct i2s_soc_info {
+>  	enum jz47xx_i2s_version version;
+>  	struct snd_soc_dai_driver *dai;
+> +
+> +	struct reg_field field_rx_fifo_thresh;
+> +	struct reg_field field_tx_fifo_thresh;
+> +	struct reg_field field_i2sdiv_capture;
+> +	struct reg_field field_i2sdiv_playback;
+>  };
+>=20
 >  struct jz4740_i2s {
 >  	struct resource *mem;
->  	void __iomem *base;
-> -	dma_addr_t phys_base;
+>  	struct regmap *regmap;
+>=20
+> +	struct regmap_field *field_rx_fifo_thresh;
+> +	struct regmap_field *field_tx_fifo_thresh;
+> +	struct regmap_field *field_i2sdiv_capture;
+> +	struct regmap_field *field_i2sdiv_playback;
+> +
+>  	struct clk *clk_aic;
+>  	struct clk *clk_i2s;
+>=20
+> @@ -222,12 +232,12 @@ static int jz4740_i2s_hw_params(struct=20
+> snd_pcm_substream *substream,
+>  	struct snd_pcm_hw_params *params, struct snd_soc_dai *dai)
+>  {
+>  	struct jz4740_i2s *i2s =3D snd_soc_dai_get_drvdata(dai);
+> +	struct regmap_field *div_field;
+>  	unsigned int sample_size;
+> -	uint32_t ctrl, div_reg;
+> +	uint32_t ctrl;
+>  	int div;
+>=20
+>  	regmap_read(i2s->regmap, JZ_REG_AIC_CTRL, &ctrl);
+> -	regmap_read(i2s->regmap, JZ_REG_AIC_CLK_DIV, &div_reg);
+>=20
+>  	div =3D clk_get_rate(i2s->clk_i2s) / (64 * params_rate(params));
+>=20
+> @@ -250,23 +260,16 @@ static int jz4740_i2s_hw_params(struct=20
+> snd_pcm_substream *substream,
+>  		else
+>  			ctrl &=3D ~JZ_AIC_CTRL_MONO_TO_STEREO;
+>=20
+> -		div_reg &=3D ~I2SDIV_DV_MASK;
+> -		div_reg |=3D (div - 1) << I2SDIV_DV_SHIFT;
+> +		div_field =3D i2s->field_i2sdiv_playback;
+>  	} else {
+>  		ctrl &=3D ~JZ_AIC_CTRL_INPUT_SAMPLE_SIZE_MASK;
+>  		ctrl |=3D sample_size << JZ_AIC_CTRL_INPUT_SAMPLE_SIZE_OFFSET;
+>=20
+> -		if (i2s->soc_info->version >=3D JZ_I2S_JZ4770) {
+> -			div_reg &=3D ~I2SDIV_IDV_MASK;
+> -			div_reg |=3D (div - 1) << I2SDIV_IDV_SHIFT;
+> -		} else {
+> -			div_reg &=3D ~I2SDIV_DV_MASK;
+> -			div_reg |=3D (div - 1) << I2SDIV_DV_SHIFT;
+> -		}
+> +		div_field =3D i2s->field_i2sdiv_capture;
+>  	}
+>=20
+>  	regmap_write(i2s->regmap, JZ_REG_AIC_CTRL, ctrl);
+> -	regmap_write(i2s->regmap, JZ_REG_AIC_CLK_DIV, div_reg);
+> +	regmap_field_write(div_field, div - 1);
+>=20
+>  	return 0;
+>  }
+> @@ -342,7 +345,6 @@ static int jz4740_i2s_resume(struct=20
+> snd_soc_component *component)
+>  static int jz4740_i2s_dai_probe(struct snd_soc_dai *dai)
+>  {
+>  	struct jz4740_i2s *i2s =3D snd_soc_dai_get_drvdata(dai);
+> -	uint32_t conf;
+>  	int ret;
+>=20
+>  	ret =3D clk_prepare_enable(i2s->clk_aic);
+> @@ -352,22 +354,14 @@ static int jz4740_i2s_dai_probe(struct=20
+> snd_soc_dai *dai)
+>  	snd_soc_dai_init_dma_data(dai, &i2s->playback_dma_data,
+>  		&i2s->capture_dma_data);
+>=20
+> -	if (i2s->soc_info->version >=3D JZ_I2S_JZ4760) {
+> -		conf =3D (7 << JZ4760_AIC_CONF_FIFO_RX_THRESHOLD_OFFSET) |
+> -			(8 << JZ4760_AIC_CONF_FIFO_TX_THRESHOLD_OFFSET) |
+> -			JZ_AIC_CONF_OVERFLOW_PLAY_LAST |
+> -			JZ_AIC_CONF_I2S |
+> -			JZ_AIC_CONF_INTERNAL_CODEC;
+> -	} else {
+> -		conf =3D (7 << JZ_AIC_CONF_FIFO_RX_THRESHOLD_OFFSET) |
+> -			(8 << JZ_AIC_CONF_FIFO_TX_THRESHOLD_OFFSET) |
 
-Acked-by: Paul Cercueil <paul@crapouillou.net>
-
-Note that you can remove "mem" too, it's not used anywhere.
+I believe you can remove these macros completely now that they are=20
+unused. Same goes for I2S_IDV_MASK, etc.
 
 Cheers,
 -Paul
 
+> -			JZ_AIC_CONF_OVERFLOW_PLAY_LAST |
+> -			JZ_AIC_CONF_I2S |
+> -			JZ_AIC_CONF_INTERNAL_CODEC;
+> -	}
+> -
+>  	regmap_write(i2s->regmap, JZ_REG_AIC_CONF, JZ_AIC_CONF_RESET);
+> -	regmap_write(i2s->regmap, JZ_REG_AIC_CONF, conf);
+> +
+> +	regmap_write(i2s->regmap, JZ_REG_AIC_CONF,
+> +		     JZ_AIC_CONF_OVERFLOW_PLAY_LAST |
+> +		     JZ_AIC_CONF_I2S | JZ_AIC_CONF_INTERNAL_CODEC);
+> +
+> +	regmap_field_write(i2s->field_rx_fifo_thresh, 7);
+> +	regmap_field_write(i2s->field_tx_fifo_thresh, 8);
 >=20
->  	struct clk *clk_aic;
->  	struct clk *clk_i2s;
-> @@ -370,21 +369,6 @@ static int jz4740_i2s_resume(struct=20
-> snd_soc_component *component)
 >  	return 0;
 >  }
+> @@ -414,11 +408,19 @@ static struct snd_soc_dai_driver jz4740_i2s_dai=20
+> =3D {
+>  static const struct i2s_soc_info jz4740_i2s_soc_info =3D {
+>  	.version =3D JZ_I2S_JZ4740,
+>  	.dai =3D &jz4740_i2s_dai,
+> +	.field_rx_fifo_thresh	=3D REG_FIELD(JZ_REG_AIC_CONF, 12, 15),
+> +	.field_tx_fifo_thresh	=3D REG_FIELD(JZ_REG_AIC_CONF, 8, 11),
+> +	.field_i2sdiv_capture	=3D REG_FIELD(JZ_REG_AIC_CLK_DIV, 0, 3),
+> +	.field_i2sdiv_playback	=3D REG_FIELD(JZ_REG_AIC_CLK_DIV, 0, 3),
+>  };
 >=20
-> -static void jz4740_i2s_init_pcm_config(struct jz4740_i2s *i2s)
-> -{
-> -	struct snd_dmaengine_dai_dma_data *dma_data;
-> -
-> -	/* Playback */
-> -	dma_data =3D &i2s->playback_dma_data;
-> -	dma_data->maxburst =3D 16;
-> -	dma_data->addr =3D i2s->phys_base + JZ_REG_AIC_FIFO;
-> -
-> -	/* Capture */
-> -	dma_data =3D &i2s->capture_dma_data;
-> -	dma_data->maxburst =3D 16;
-> -	dma_data->addr =3D i2s->phys_base + JZ_REG_AIC_FIFO;
-> -}
-> -
->  static int jz4740_i2s_dai_probe(struct snd_soc_dai *dai)
->  {
->  	struct jz4740_i2s *i2s =3D snd_soc_dai_get_drvdata(dai);
-> @@ -395,7 +379,6 @@ static int jz4740_i2s_dai_probe(struct=20
-> snd_soc_dai *dai)
->  	if (ret)
->  		return ret;
+>  static const struct i2s_soc_info jz4760_i2s_soc_info =3D {
+>  	.version =3D JZ_I2S_JZ4760,
+>  	.dai =3D &jz4740_i2s_dai,
+> +	.field_rx_fifo_thresh	=3D REG_FIELD(JZ_REG_AIC_CONF, 24, 27),
+> +	.field_tx_fifo_thresh	=3D REG_FIELD(JZ_REG_AIC_CONF, 16, 20),
+> +	.field_i2sdiv_capture	=3D REG_FIELD(JZ_REG_AIC_CLK_DIV, 0, 3),
+> +	.field_i2sdiv_playback	=3D REG_FIELD(JZ_REG_AIC_CLK_DIV, 0, 3),
+>  };
 >=20
-> -	jz4740_i2s_init_pcm_config(i2s);
->  	snd_soc_dai_init_dma_data(dai, &i2s->playback_dma_data,
->  		&i2s->capture_dma_data);
+>  static struct snd_soc_dai_driver jz4770_i2s_dai =3D {
+> @@ -442,11 +444,19 @@ static struct snd_soc_dai_driver jz4770_i2s_dai=20
+> =3D {
+>  static const struct i2s_soc_info jz4770_i2s_soc_info =3D {
+>  	.version =3D JZ_I2S_JZ4770,
+>  	.dai =3D &jz4770_i2s_dai,
+> +	.field_rx_fifo_thresh	=3D REG_FIELD(JZ_REG_AIC_CONF, 24, 27),
+> +	.field_tx_fifo_thresh	=3D REG_FIELD(JZ_REG_AIC_CONF, 16, 20),
+> +	.field_i2sdiv_capture	=3D REG_FIELD(JZ_REG_AIC_CLK_DIV, 8, 11),
+> +	.field_i2sdiv_playback	=3D REG_FIELD(JZ_REG_AIC_CLK_DIV, 0, 3),
+>  };
 >=20
-> @@ -529,7 +512,11 @@ static int jz4740_i2s_dev_probe(struct=20
-> platform_device *pdev)
->  	if (IS_ERR(i2s->base))
->  		return PTR_ERR(i2s->base);
+>  static const struct i2s_soc_info jz4780_i2s_soc_info =3D {
+>  	.version =3D JZ_I2S_JZ4780,
+>  	.dai =3D &jz4770_i2s_dai,
+> +	.field_rx_fifo_thresh	=3D REG_FIELD(JZ_REG_AIC_CONF, 24, 27),
+> +	.field_tx_fifo_thresh	=3D REG_FIELD(JZ_REG_AIC_CONF, 16, 20),
+> +	.field_i2sdiv_capture	=3D REG_FIELD(JZ_REG_AIC_CLK_DIV, 8, 11),
+> +	.field_i2sdiv_playback	=3D REG_FIELD(JZ_REG_AIC_CLK_DIV, 0, 3),
+>  };
 >=20
-> -	i2s->phys_base =3D mem->start;
-> +	i2s->playback_dma_data.maxburst =3D 16;
-> +	i2s->playback_dma_data.addr =3D mem->start + JZ_REG_AIC_FIFO;
+>  static const struct snd_soc_component_driver jz4740_i2s_component =3D {
+> @@ -465,6 +475,36 @@ static const struct of_device_id=20
+> jz4740_of_matches[] =3D {
+>  };
+>  MODULE_DEVICE_TABLE(of, jz4740_of_matches);
+>=20
+> +static int jz4740_i2s_init_regmap_fields(struct device *dev,
+> +					 struct jz4740_i2s *i2s)
+> +{
+> +	i2s->field_rx_fifo_thresh =3D
+> +		devm_regmap_field_alloc(dev, i2s->regmap,
+> +					i2s->soc_info->field_rx_fifo_thresh);
+> +	if (IS_ERR(i2s->field_rx_fifo_thresh))
+> +		return PTR_ERR(i2s->field_rx_fifo_thresh);
 > +
-> +	i2s->capture_dma_data.maxburst =3D 16;
-> +	i2s->capture_dma_data.addr =3D mem->start + JZ_REG_AIC_FIFO;
+> +	i2s->field_tx_fifo_thresh =3D
+> +		devm_regmap_field_alloc(dev, i2s->regmap,
+> +					i2s->soc_info->field_tx_fifo_thresh);
+> +	if (IS_ERR(i2s->field_tx_fifo_thresh))
+> +		return PTR_ERR(i2s->field_tx_fifo_thresh);
+> +
+> +	i2s->field_i2sdiv_capture =3D
+> +		devm_regmap_field_alloc(dev, i2s->regmap,
+> +					i2s->soc_info->field_i2sdiv_capture);
+> +	if (IS_ERR(i2s->field_i2sdiv_capture))
+> +		return PTR_ERR(i2s->field_i2sdiv_capture);
+> +
+> +	i2s->field_i2sdiv_playback =3D
+> +		devm_regmap_field_alloc(dev, i2s->regmap,
+> +					i2s->soc_info->field_i2sdiv_playback);
+> +	if (IS_ERR(i2s->field_i2sdiv_playback))
+> +		return PTR_ERR(i2s->field_i2sdiv_playback);
+> +
+> +	return 0;
+> +}
+> +
+>  static const struct regmap_config jz4740_i2s_regmap_config =3D {
+>  	.reg_bits	=3D 32,
+>  	.reg_stride	=3D 4,
+> @@ -509,6 +549,10 @@ static int jz4740_i2s_dev_probe(struct=20
+> platform_device *pdev)
+>  	if (IS_ERR(i2s->regmap))
+>  		return PTR_ERR(i2s->regmap);
 >=20
->  	i2s->clk_aic =3D devm_clk_get(dev, "aic");
->  	if (IS_ERR(i2s->clk_aic))
+> +	ret =3D jz4740_i2s_init_regmap_fields(dev, i2s);
+> +	if (ret)
+> +		return ret;
+> +
+>  	platform_set_drvdata(pdev, i2s);
+>=20
+>  	ret =3D devm_snd_soc_register_component(dev, &jz4740_i2s_component,
 > --
 > 2.35.1
 >=20

@@ -2,73 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B98156C161
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Jul 2022 22:49:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EDA456C162
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Jul 2022 22:50:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 17B4A1621;
-	Fri,  8 Jul 2022 22:48:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17B4A1621
+	by alsa0.perex.cz (Postfix) with ESMTPS id EF3173E7;
+	Fri,  8 Jul 2022 22:49:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF3173E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657313388;
-	bh=Bamh/X/oCw/wmbXnI+hOkWH86iXLJYCl0JfXsxQ4oP0=;
+	s=default; t=1657313413;
+	bh=Ui9K++zFSu+pNi8A+6BxPwxgLsxDHpLwQwAfXOzb0qQ=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GHEwZ2tiHBZ/NVh/ahZaWumJ9q/1jGtRn3G8SFyzjDqYTraeEm0dUNbLbf6VyDrzi
-	 sMrQ1x6kMmvMa/VZa3O0Zi/A2eJY5PMFHBmNMipqsc3AiKvkqVpjTb53rC0bfFLYTU
-	 tBBeDuiy4HbLaG8qOR72Ov4+UOD5yDtUgThXbtdk=
+	b=nTZOEYd/1ASHtJTYZRGHg/+SC3lhtPnJHHBS9BL02zckKTA2KTfh/E0/f80ofmvqu
+	 87osiSkGzDfRZTJK765Ka3BvrgM/criiBsaRwwB3OO0ES94K1NX5YquGMWib5+3UoN
+	 PrU4m3fgg63h9fgNDs2qF4QjraXIEDzzJP7/WOos=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5FDB7F80166;
-	Fri,  8 Jul 2022 22:47:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 467C8F80567;
+	Fri,  8 Jul 2022 22:47:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6AA72F80542; Fri,  8 Jul 2022 22:47:36 +0200 (CEST)
+ id D6D3CF80553; Fri,  8 Jul 2022 22:47:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DFFD0F8053E
- for <alsa-devel@alsa-project.org>; Fri,  8 Jul 2022 22:47:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFFD0F8053E
+ by alsa1.perex.cz (Postfix) with ESMTPS id CF083F80166
+ for <alsa-devel@alsa-project.org>; Fri,  8 Jul 2022 22:47:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF083F80166
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ogPyOete"
+ header.b="bsCzvzZg"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 37562B8297A;
- Fri,  8 Jul 2022 20:47:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B444BC341C7;
- Fri,  8 Jul 2022 20:47:30 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 03FF3628CF;
+ Fri,  8 Jul 2022 20:47:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F39DC341C0;
+ Fri,  8 Jul 2022 20:47:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657313252;
- bh=Bamh/X/oCw/wmbXnI+hOkWH86iXLJYCl0JfXsxQ4oP0=;
+ s=k20201202; t=1657313254;
+ bh=Ui9K++zFSu+pNi8A+6BxPwxgLsxDHpLwQwAfXOzb0qQ=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=ogPyOete0HFn+dWK7TL5r7rIstCyDkz/6TMaJattCB7aLb8f/pw11h23O3QclGuaQ
- apMnYdDyx4OiPu71kS9Z6Ym/4eLhi4FqLvGUCWlPO9WUQsU/aVKakJW1xLI80E12pp
- r0k8vcD6VKWreZYZ2oJvqfZicuCN+2gspSCMcjr3JRAi5TjJDtjcTWsTm615HFfuiC
- JBGLyrDlSMEzRBa8ci1mDasoDSB+yPwc4MkBF46ylyOKl4NEDll4VpPcKATECfD/JL
- VYY/mfttpypCFb4gJKnWOiKPZ+DoWJzUYSN+h7+TcrjZS82E6vw7MbS1PyUP7AZjJu
- 5V1eVzDk5H8aQ==
+ b=bsCzvzZgJuKPKmEjuDEn15j9rrIpml4j5LU2bZ9eldKV5p6SvsEMXKqmMELh7MsvO
+ Rz4lAJJ6u4Sd/p+S5OJbH03JvKtTAtxsMIu2HqrCw5aVhBilZ/udrmCVNtUb6n+Dca
+ bQqX7RwyyNTiTQ2+0IlyOZILzFJ5AZPDj+OV4w0HZhLKsBdDcX4uaeOLNxL1LaCvIi
+ KbAfhhbPcnfKuLUrY5Ti3YMVhH2bc17gJ66KKGkwPk3QFkgg3TkRki2bQCIK3CeKev
+ gDK9iEVT1o1wPAl9VeQRY5YrcYtKDHQa1ITq55W7/LwPHJ86HNDYevZYTwnK18k97w
+ 2EcENihQdiPuQ==
 From: Mark Brown <broonie@kernel.org>
-To: yang.lee@linux.alibaba.com, tiwai@suse.com
-In-Reply-To: <20220707232540.22589-1-yang.lee@linux.alibaba.com>
-References: <20220707232540.22589-1-yang.lee@linux.alibaba.com>
-Subject: Re: [PATCH -next] ASoC: amd: Remove duplicated include in acp-es8336.c
-Message-Id: <165731325045.2467307.11786300034305445651.b4-ty@kernel.org>
-Date: Fri, 08 Jul 2022 21:47:30 +0100
+To: CTLIN0@nuvoton.com
+In-Reply-To: <20220708054647.540621-1-CTLIN0@nuvoton.com>
+References: <20220708054647.540621-1-CTLIN0@nuvoton.com>
+Subject: Re: [PATCH] ASoC: nau8825: Declare 2 channels for DAI of capture
+ stream
+Message-Id: <165731325221.2467307.8859346577253060297.b4-ty@kernel.org>
+Date: Fri, 08 Jul 2022 21:47:32 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com
+Cc: alsa-devel@alsa-project.org, ctlin0.linux@gmail.com, WTLI@nuvoton.com,
+ SJLIN0@nuvoton.com, KCHSU0@nuvoton.com, lgirdwood@gmail.com,
+ YHCHuang@nuvoton.com, Vijendar.Mukunda@amd.com, Vsujithkumar.Reddy@amd.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,9 +87,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 8 Jul 2022 07:25:40 +0800, Yang Li wrote:
-> Fix following includecheck warning:
-> ./sound/soc/amd/acp-es8336.c: linux/module.h is included more than once.
+On Fri, 8 Jul 2022 13:46:48 +0800, David Lin wrote:
+> The patch is to make driver with flexibility for more platforms support even if
+> the internal design is just one ADC. Besides, many I2S controllers only support
+> 2 channels.
 > 
 > 
 
@@ -96,8 +100,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: amd: Remove duplicated include in acp-es8336.c
-      commit: 657efd9c985255960cdd90bafc382a39dc303277
+[1/1] ASoC: nau8825: Declare 2 channels for DAI of capture stream
+      commit: 0ca3d2ba1dfd110bf5e0b25ebeb8f1e1587598fb
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

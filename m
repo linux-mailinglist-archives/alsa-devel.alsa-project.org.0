@@ -2,79 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 382B256B9EE
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Jul 2022 14:45:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A5F756BA5D
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Jul 2022 15:11:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B273E83A;
-	Fri,  8 Jul 2022 14:44:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B273E83A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 29B3A14E;
+	Fri,  8 Jul 2022 15:10:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 29B3A14E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657284316;
-	bh=BxRFS74/wPXVWhnRUFG6v6MJTHoa+rf4xlBesuE0Hd8=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1657285885;
+	bh=nD4F69VsFiRgy666pBneaAm29lfQ9/VNw8jVJ1L4lUU=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=i57EpLJdmyB4vqgjceJ+G6sry7bCsOHGCpKfZyAUsD6u9AH7Jk1AdGDVthgWXTLks
-	 3CQhQ62lEDQkScen7klS4ySac1R2P51Lsur+RR+3SzZXSHIIOM1/cXcK0be0jrxbZG
-	 FDHPiyfUpZ7FNP6vEkepYGoaG0xyw/d2PNg7zn5Y=
+	b=LW6tME67sy6+Jx5EWm10Dj32jE1FPUPCvyZx0d5Jy4jTjWHVlXH0O7U/9Iq7MTVbf
+	 gomY9DuK6ylYIOa0/nHE9j2PNlT0lhR4gcCW/fBERE0TVgTv2fvvL1Byp07OrUViUQ
+	 f8XkHfH7oJg9req1E9upLmf21oIOxB4DymWn07KM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 37C68F8025B;
-	Fri,  8 Jul 2022 14:44:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 925ABF8025B;
+	Fri,  8 Jul 2022 15:10:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DE171F80084; Fri,  8 Jul 2022 14:44:14 +0200 (CEST)
+ id 278C7F80167; Fri,  8 Jul 2022 15:10:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6799DF80084
- for <alsa-devel@alsa-project.org>; Fri,  8 Jul 2022 14:44:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6799DF80084
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="M9fd+19F"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 80FB06271C;
- Fri,  8 Jul 2022 12:44:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9E64C341C6;
- Fri,  8 Jul 2022 12:44:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657284249;
- bh=BxRFS74/wPXVWhnRUFG6v6MJTHoa+rf4xlBesuE0Hd8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=M9fd+19FkzNtAqLhIan/U6Be0K9sXFROEBzEgAQTXsaN6Lbn1onla82CqFYdNyH5T
- 8RLJy844UNDQmodz/TfLMrq70GztnZ2dq2VZOIiUe6Vy9mIHHG2uGibLGYYcvFxplw
- VuccJADL5kwO9Uu1O1mnOl+CQAHYBjGEDczHF8ucFoKQ72vKNtGplq7yRC9/tEoVtA
- UXcb933U6Xa55bR1sG9YxzP3NEGM5utMyv+d76gxq+AimHs/P17hEVUzISYQdWZ6pp
- BRjQ60Jb/TrQ+FqD1RIA6V4XFyHzYZf8deFPSDIe2unCLn4xNb2tXiS7vPveWuMEui
- vsovH2uBwfU2g==
-Date: Fri, 8 Jul 2022 13:44:00 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
-Subject: Re: [PATCH v3 04/11] ASoC: jz4740-i2s: Handle independent FIFO flush
- bits
-Message-ID: <YsgmkBpk4JBTkjPz@sirena.org.uk>
-References: <20220708104304.51415-1-aidanmacdonald.0x0@gmail.com>
- <20220708104304.51415-5-aidanmacdonald.0x0@gmail.com>
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 15B13F800E9
+ for <alsa-devel@alsa-project.org>; Fri,  8 Jul 2022 15:10:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15B13F800E9
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="iMtDllGA45iC7Bq8"
-Content-Disposition: inline
-In-Reply-To: <20220708104304.51415-5-aidanmacdonald.0x0@gmail.com>
-X-Cookie: Baby On Board.
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, tiwai@suse.com,
- paul@crapouillou.net
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub pull_request - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1657285816049292088-webhooks-bot@alsa-project.org>
+References: <1657285816049292088-webhooks-bot@alsa-project.org>
+Subject: ucm: fix st_mode check for symbolic links
+Message-Id: <20220708131023.278C7F80167@alsa1.perex.cz>
+Date: Fri,  8 Jul 2022 15:10:23 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,40 +60,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+alsa-project/alsa-lib pull request #249 was opened from stephan-gh:
 
---iMtDllGA45iC7Bq8
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+The file type in the st_mode field is not encoded as unique bits but as
+an enumerator. Checking if some bits of S_IFLNK are set does not work
+correctly because it happens to evaluate to true for regular files as
+well.
 
-On Fri, Jul 08, 2022 at 11:42:57AM +0100, Aidan MacDonald wrote:
-> On the JZ4740, there is a single bit that flushes (empties) both
-> the transmit and receive FIFO. Later SoCs have independent flush
-> bits for each FIFO, which allows us to flush the right FIFO when
-> starting up a stream.
->=20
-> This also fixes a bug: since we were only setting the JZ4740's
-> flush bit, which corresponds to the TX FIFO flush bit on other
-> SoCs, other SoCs were not having their RX FIFO flushed at all.
->=20
-> Fixes: 967beb2e8777 ("ASoC: jz4740: Add jz4780 support")
+The POSIX man page suggests using the following approach to check
+the file type:
 
-Fixes should generally be at the start of a patch series so they don't
-end up depending on other patches needlessly.
+    if ((sb.st_mode & S_IFMT) == S_IFLNK)
 
---iMtDllGA45iC7Bq8
-Content-Type: application/pgp-signature; name="signature.asc"
+Alternatively, there is a S_ISLNK() macro to check this more easily.
 
------BEGIN PGP SIGNATURE-----
+Make use of the latter so that readlink() is only called on actual
+symbolic links and not regular files. This makes audio work again
+with slightly older alsa-ucm-conf versions or alternative top-level
+configurations that do not make use of symlinks.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmLIJo8ACgkQJNaLcl1U
-h9B9kgf8CT0MfwU8RkShIGj7UdUEyFOhRfUqIEDavq/R9O1q1FvEygiH0xnSn2G7
-YZ0Vez4b0jAt0eRtXGfW87yw5YoX0J489Gb4Cwd1OOHXd1AfN5v6mOuYxccuPzVb
-q+tuMq7GCNZCVbqcCgHR+FaBLgbP/3YYLontc0Dl0tx0M6nqGs1/6u2IEY5kv2Gl
-f3sP5jb1Q1b8LIyUnF2uLz0GV++dCt0vsQ70Ji6bPyE6dVVTEH8Cf0GVvIsOo4SU
-2BjTqZoppM2ZVOhyyZ90au6bjKjrL8frjl7AmRdKTuguAzhi6Q6OHGLrj+Z1ztIb
-CCwyurB2OTlUhERrjDewaqU468jK9Q==
-=lFdd
------END PGP SIGNATURE-----
+Fixes: d6adde0e ("ucm: top-level path - set directory from symlink")
+Signed-off-by: Stephan Gerhold <stephan@gerhold.net>
 
---iMtDllGA45iC7Bq8--
+Request URL   : https://github.com/alsa-project/alsa-lib/pull/249
+Patch URL     : https://github.com/alsa-project/alsa-lib/pull/249.patch
+Repository URL: https://github.com/alsa-project/alsa-lib

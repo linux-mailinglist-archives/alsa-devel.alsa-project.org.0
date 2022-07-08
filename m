@@ -2,64 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 333F456B266
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Jul 2022 07:48:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A95A56B28F
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Jul 2022 08:14:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C6CC7161F;
-	Fri,  8 Jul 2022 07:48:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C6CC7161F
+	by alsa0.perex.cz (Postfix) with ESMTPS id B1B301632;
+	Fri,  8 Jul 2022 08:13:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1B301632
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657259332;
-	bh=vXFqR7wlMOAOp+MwB+2w4WIDLOrZDYw7sGAPJboi1Sg=;
+	s=default; t=1657260872;
+	bh=QDlKDUOAMJO2R3ZV+IEYWZ6C3HL1d2Ix8qtgXh3ipk8=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=cxukWVPCtVJbbw7X+RtFYEPoYKJm8y8cGUTQPhexbXZDY4cs1bMwC5bbVkk8S5g4t
-	 T/7mYep74VH85mK5tlDs0kKwlOHNcEciNXhha/sU8cJBXRhoIT7N8t8V29st7prJHy
-	 5qsU08zoLSzaCxy/xXewcXQGxeqWyxTKJz1iEUkQ=
+	b=r5tquqBR/FL4ZuxyVKu5i7SchW25iK+VwP8U5qAnBdMc+cAd4+l7DxOBgwlYMWs00
+	 wlpKRF77TFH6MWLLHdatg/SfAvlAWiYjva5ZHOyrzEr+jnkJU4Oa4wgBLxb7ZO/UGO
+	 s3SCmsrv5it9RVMLkMJDWoMyf9+If1EuJjTUx5Rk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 17835F8025B;
-	Fri,  8 Jul 2022 07:47:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1DD22F8025B;
+	Fri,  8 Jul 2022 08:13:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D9C74F80167; Fri,  8 Jul 2022 07:47:49 +0200 (CEST)
+ id 25998F80084; Fri,  8 Jul 2022 08:13:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from maillog.nuvoton.com (maillog.nuvoton.com [202.39.227.15])
- by alsa1.perex.cz (Postfix) with ESMTP id C12AAF800C5
- for <alsa-devel@alsa-project.org>; Fri,  8 Jul 2022 07:47:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C12AAF800C5
-Received: from NTHCCAS04.nuvoton.com (NTHCCAS04.nuvoton.com [10.1.8.29])
- by maillog.nuvoton.com (Postfix) with ESMTP id 0C4FF1C80E56;
- Fri,  8 Jul 2022 13:47:36 +0800 (CST)
-Received: from NTHCML01A.nuvoton.com (10.1.8.177) by NTHCCAS04.nuvoton.com
- (10.1.8.29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2176.2; Fri, 8 Jul
- 2022 13:47:35 +0800
-Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTHCML01A.nuvoton.com
- (10.1.8.177) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2176.2; Fri, 8 Jul 2022
- 13:47:35 +0800
-Received: from localhost.localdomain (10.11.36.27) by NTHCCAS04.nuvoton.com
- (10.1.12.25) with Microsoft SMTP Server id 15.1.2176.2 via Frontend
- Transport; Fri, 8 Jul 2022 13:47:35 +0800
-From: David Lin <CTLIN0@nuvoton.com>
-To: <broonie@kernel.org>
-Subject: [PATCH] ASoC: nau8825: Declare 2 channels for DAI of capture stream
-Date: Fri, 8 Jul 2022 13:46:48 +0800
-Message-ID: <20220708054647.540621-1-CTLIN0@nuvoton.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Cc: alsa-devel@alsa-project.org, ctlin0.linux@gmail.com, WTLI@nuvoton.com,
- SJLIN0@nuvoton.com, KCHSU0@nuvoton.com, lgirdwood@gmail.com,
- YHCHuang@nuvoton.com, David Lin <CTLIN0@nuvoton.com>, Vijendar.Mukunda@amd.com,
- Vsujithkumar.Reddy@amd.com
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id D2DDBF80084
+ for <alsa-devel@alsa-project.org>; Fri,  8 Jul 2022 08:13:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2DDBF80084
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="kcSKMPJI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1657260808; x=1688796808;
+ h=from:to:cc:subject:date:message-id;
+ bh=QDlKDUOAMJO2R3ZV+IEYWZ6C3HL1d2Ix8qtgXh3ipk8=;
+ b=kcSKMPJI1EnooRMKJYNGuHe0Ns54n69w3ncshp+ZU3vAS2/y4Jmo2spK
+ KntELQjVPAWrXr/TjQHuk5TdP8MbVp7KfyJHDCfTpJ/b/5V8XUDpuJ+k2
+ 2nKzNOzchGsWJpCFLx1oF12I8TqqbJ9wS8AALYQ03JGlK5G1ftJ65qD4N
+ mROeDXvkJrMumx7kLfo9oo8SqDGP+5stJql5u6AV/eZPFnf/PqkfoMuvL
+ H+BXhLmv1dLKHlTmbYGzgyfRrkMA24ksN0R+kxrvasFWzg7Yu2ZMqY1mv
+ 2sCw0KboEi2X002JlCvCEojoQhHlKskhOQhUN+ezgncGdIf+JQWzG6mkI A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10401"; a="281750575"
+X-IronPort-AV: E=Sophos;i="5.92,254,1650956400"; d="scan'208";a="281750575"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jul 2022 23:13:22 -0700
+X-IronPort-AV: E=Sophos;i="5.92,254,1650956400"; d="scan'208";a="651440339"
+Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jul 2022 23:13:20 -0700
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
+To: alsa-devel@alsa-project.org,
+	broonie@kernel.org,
+	vkoul@kernel.org
+Subject: [RESEND PATCH v3 0/2] ASoC/SoundWire: Intel: add sdw BE dai trigger
+Date: Fri,  8 Jul 2022 14:13:10 +0800
+Message-Id: <20220708061312.25878-1-yung-chuan.liao@linux.intel.com>
+X-Mailer: git-send-email 2.17.1
+Cc: vinod.koul@linaro.org, tiwai@suse.de, gregkh@linuxfoundation.org,
+ pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
+ srinivas.kandagatla@linaro.org, sanyog.r.kale@intel.com, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,28 +84,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch is to make driver with flexibility for more platforms support even if
-the internal design is just one ADC. Besides, many I2S controllers only support
-2 channels.
+For SOF IPC4, we need to set pipeline state in BE DAI trigger.
+@Mark, resending this series in case it is lost in your mailbox.
 
-Signed-off-by: David Lin <CTLIN0@nuvoton.com>
----
- sound/soc/codecs/nau8825.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+v2:
+ - Change "#if IS_ENABLED(CONFIG_SND_SOC_SOF_INTEL_SOUNDWIRE)" to
+   "if (IS_ENABLED(CONFIG_SND_SOC_SOF_INTEL_SOUNDWIRE))"
 
-diff --git a/sound/soc/codecs/nau8825.c b/sound/soc/codecs/nau8825.c
-index 907ec88c759a..54ef7b0fa878 100644
---- a/sound/soc/codecs/nau8825.c
-+++ b/sound/soc/codecs/nau8825.c
-@@ -1440,7 +1440,7 @@ static struct snd_soc_dai_driver nau8825_dai = {
- 	.capture = {
- 		.stream_name	 = "Capture",
- 		.channels_min	 = 1,
--		.channels_max	 = 1,
-+		.channels_max	 = 2,   /* Only 1 channel of data */
- 		.rates		 = NAU8825_RATES,
- 		.formats	 = NAU8825_FORMATS,
- 	},
+v3:
+ - Change the multi-line comment style in "soundwire: Intel: add trigger
+   callback" patch and take Vinod's Ack.
+
+Bard Liao (2):
+  soundwire: Intel: add trigger callback
+  ASoC: SOF: Intel: add trigger callback into sdw_callback
+
+ drivers/soundwire/intel.c           |  9 +++++++++
+ include/linux/soundwire/sdw_intel.h |  1 +
+ sound/soc/sof/intel/hda-dai.c       | 14 +++++++++++---
+ sound/soc/sof/intel/hda.c           |  2 +-
+ sound/soc/sof/intel/hda.h           |  1 +
+ 5 files changed, 23 insertions(+), 4 deletions(-)
+
 -- 
-2.25.1
+2.17.1
 

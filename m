@@ -2,92 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3E4156B772
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Jul 2022 12:46:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCC3556B7A1
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Jul 2022 12:49:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 53E991673;
-	Fri,  8 Jul 2022 12:45:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53E991673
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7A968844;
+	Fri,  8 Jul 2022 12:48:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A968844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657277183;
-	bh=QfjpHc3E4A3ApwJy+loEtcp2+mfVz8bFvv+VSxRNjGA=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=N6j0GAVPpfJ0fIqguLDG3H7OwTu6nhBlozXmIL0sM1+pu+7ttm6kpklvqOSQ51Q7y
-	 S0x0RPnX160tu7JowN9y1iyJJ+OkayIEH/Nfo7Sk3LpHhOFrC7NAMoUFoMRTPj4ab5
-	 iBzSA3tbybFqusEBtXQkXG8yXjEOY3pYcDuQL2jg=
+	s=default; t=1657277346;
+	bh=QSfQMxJsNACBIsEJ4z8tYVL/f1v5Nh5d8QzOTfERDKc=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ah4cj7L2Ir7zq4v67Kir3IrPyCKMmGzzQ+FZvhtDZPNEijBmmzZ1z+vKvQbVWelBT
+	 H1/bdg6/qc/NOuDNKagn/zjzDmj57Ej8Ck1RGTFFnr8DjhkLQMQJo40ma6pBU5Juvg
+	 37FP/5R5ESgsoAXcOcHieWgx6//GsLKRu6UKFupg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 52A96F805A9;
-	Fri,  8 Jul 2022 12:42:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0D36AF8025B;
+	Fri,  8 Jul 2022 12:48:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 30457F805B0; Fri,  8 Jul 2022 12:42:42 +0200 (CEST)
+ id ABB29F80167; Fri,  8 Jul 2022 12:48:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [IPv6:2a00:1450:4864:20::42e])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [IPv6:2a00:1450:4864:20::430])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8F116F80551
- for <alsa-devel@alsa-project.org>; Fri,  8 Jul 2022 12:42:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F116F80551
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7597DF800C5
+ for <alsa-devel@alsa-project.org>; Fri,  8 Jul 2022 12:47:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7597DF800C5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="cVVnufSy"
-Received: by mail-wr1-x42e.google.com with SMTP id o4so29981310wrh.3
- for <alsa-devel@alsa-project.org>; Fri, 08 Jul 2022 03:42:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=BZiUZmT0tfqSNYrVDB3ZIcuUNgROO7bIhmSFmAv1IU0=;
- b=cVVnufSyP+POVZOskm1pJBfmF/GFxm3A8OWRvrqclBB1BXUi4HsFJIUJKw+Zdgc+Kp
- 6rM6jbl2r1WlEJJFIj8iZc5tZKqK9hdx4mHOO5T4COGk9ghpmZNt4eODqNAaXzTmWWrI
- uBflOhaELq6gD5gtsFWTt3GiUSvw9MSHG14qyxrQkzNbUbMpdAugwDMdZzTwJssE2p+e
- YUnIqx6nPcDxoQTCn4eEenMCHS+ogCltt+/PruW+Zn6C8x7zrRKlXpDr4ad58QrAppkz
- e+zbJUxwUmZo2UXwLroM5Cj1ZAHtbjs2KLlOnV5ApRedEiLNrYCuxV4wL8uxGIW43jN6
- nUfg==
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="JPtEmO4t"
+Received: by mail-wr1-x430.google.com with SMTP id q9so29989803wrd.8
+ for <alsa-devel@alsa-project.org>; Fri, 08 Jul 2022 03:47:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=xluwZ9y3zdmAPfcT1yYXDD9KZroOpceJIZ4q+RRr1oU=;
+ b=JPtEmO4trG7s6aC0J9ygjQlOCrt7aZxW4zQWOL3LYOBjAeYpBRPDb6+tO3McP54lf9
+ iKP27VpYJP9FFXqEVGefhLGNOEVZcXePzkp5qaytOID3uUF3nTsPzw/NjZ6p06b8PovV
+ joEjnoJ0qcQ5BMlZk006adTqPyp7TYLSNO6LX6jllBGN7bg5rccHpoF/Pk198DrTtkN3
+ /WeVTPniOizjNDT04kTwZIwCv7//GRyefmpP6im3meVPzUaR1XC4U4msgdm1YPJ8z1bc
+ Cm6YMjj0N4pPIeOUhP3VsiOnyKYEivqNkGkclUlN3cBTtPNkztWhwRH7Mfn2Xvyw7uUh
+ 8ZHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=BZiUZmT0tfqSNYrVDB3ZIcuUNgROO7bIhmSFmAv1IU0=;
- b=DU6KoTpQfJW5ZYK0yMrmxqvv/p9sgznicwC/qo+g40uoRULLQ4yBh0KL9S+NPsXb6M
- 5mj7AGsMX6045RboUw3m1H0gv7nSdm6WjqMMjJ39KKwawVfBdF/r72BBNa0ilD3iUBNW
- fqh8PMIXcnaFqxH01um0u+uRNuTb8MYRYSaCJbWojdFO2bOAd46hwI0OnBTl5lAwfPjW
- 2omU4ErnVhZe0Y6JTniRgI8ATPeE8jRJftPJuG1I0509kxEDlWj+2LbWCHzuBZGUkGek
- eMZP0IcyFDUwucFFUZbqrLndqyTj7/RkEdX/vcNS3RJw9ue33F3hxwssLApzLb9hxnUg
- oj0g==
-X-Gm-Message-State: AJIora9rAJ4VksamndZdVNqwpvisnZ8nX2RHU7pFNV/NU+DFa2muWsCO
- VFplWPcSZc8UbpqqOhmiQuE=
-X-Google-Smtp-Source: AGRyM1vjB3JD2fsUC8TyPqfpdDivt12cwIFNLOuE597rwr2UlJMtWtEKp67JoVIEsWnoXg+ZW7lDQQ==
-X-Received: by 2002:adf:f90c:0:b0:21a:3dcb:d106 with SMTP id
- b12-20020adff90c000000b0021a3dcbd106mr2651809wrr.448.1657276957303; 
- Fri, 08 Jul 2022 03:42:37 -0700 (PDT)
-Received: from localhost (92.40.203.220.threembb.co.uk. [92.40.203.220])
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=xluwZ9y3zdmAPfcT1yYXDD9KZroOpceJIZ4q+RRr1oU=;
+ b=i7OPQe3VPiQKzYwz149yEY18uiid/Pp3qQJM8voOKMn2Ib9juDW/wx0q03Id1um6zF
+ 3E4zawcMWiKbZKLfLd3FFE94/AmKLZtbeIp6DveyycXOOmCKwGU6AuDWHNY47Cgzgxne
+ dCx9YQMY/VhglbPEK4tq1LjHkJEFWv7952OV9O3c0qwVEnbVcbQHXZzrR7/UoVTLsqRG
+ SFT8QLQTNbuicK8QhABWKYQXdRSjlq41dJYtGMV9y+RwYuV7jnU1mV8oi+C/iivHKUsM
+ uBkm9yeMr8Rq4mrm3Jwcll0cwcBlnXlYzbv16ClhYyZo6CzYzWC4zLZRiHgTdiIXy1L8
+ /PTg==
+X-Gm-Message-State: AJIora/qoyRW1mL3B3amCrJzEhlI3aAqTcuPa/7KC2JRoDqZWs9iYDuS
+ Qfuf00AlxIVMZDm4OZ2ZvHnwjg==
+X-Google-Smtp-Source: AGRyM1tT9rQIlM4HXj5Tbwcts2dErI6OHFaa52hqrQ9CstIDKYjsLpQenpYPtpMOAPh6+QIHiep/6g==
+X-Received: by 2002:a05:6000:15c1:b0:21b:ad5e:2798 with SMTP id
+ y1-20020a05600015c100b0021bad5e2798mr2636491wry.237.1657277275444; 
+ Fri, 08 Jul 2022 03:47:55 -0700 (PDT)
+Received: from srini-hackbase.lan
+ (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
  by smtp.gmail.com with ESMTPSA id
- r129-20020a1c4487000000b003a0499df21asm1800403wma.25.2022.07.08.03.42.36
+ z19-20020a1c4c13000000b003a2da6b2cbesm1251621wmf.33.2022.07.08.03.47.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 08 Jul 2022 03:42:36 -0700 (PDT)
-From: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
-To: paul@crapouillou.net, lgirdwood@gmail.com, broonie@kernel.org,
- perex@perex.cz, tiwai@suse.com
-Subject: [PATCH v3 11/11] ASoC: jz4740-i2s: Refactor DAI probe/remove ops as
- component ops
-Date: Fri,  8 Jul 2022 11:43:04 +0100
-Message-Id: <20220708104304.51415-12-aidanmacdonald.0x0@gmail.com>
-In-Reply-To: <20220708104304.51415-1-aidanmacdonald.0x0@gmail.com>
-References: <20220708104304.51415-1-aidanmacdonald.0x0@gmail.com>
+ Fri, 08 Jul 2022 03:47:54 -0700 (PDT)
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+To: vkoul@kernel.org
+Subject: [PATCH v2] soundwire: qcom: fix device status array range
+Date: Fri,  8 Jul 2022 11:47:47 +0100
+Message-Id: <20220708104747.8722-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux-mips@vger.kernel.org,
- linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
+ pierre-louis.bossart@linux.intel.com,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ yung-chuan.liao@linux.intel.com, dan.carpenter@oracle.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,108 +102,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Move most of the DAI probe/remove logic into component ops.
-This makes things more consistent because the AIC clock is
-now managed solely from the component side. And it makes it
-easier to add codec switching support later on.
+This patch updates device status array range from 11 to 12 as we will
+be reading status from device number 0 to device number 11 inclusive.
 
-Signed-off-by: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
+Without this patch we can potentially access status array out of range
+during auto-enumeration.
+
+Fixes: aa1262ca6695 ("soundwire: qcom: Check device status before reading devid")
+Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
- sound/soc/jz4740/jz4740-i2s.c | 54 +++++++++++++++++++----------------
- 1 file changed, 30 insertions(+), 24 deletions(-)
+ drivers/soundwire/qcom.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/jz4740/jz4740-i2s.c b/sound/soc/jz4740/jz4740-i2s.c
-index 5db73f12efcf..d99a19bc5166 100644
---- a/sound/soc/jz4740/jz4740-i2s.c
-+++ b/sound/soc/jz4740/jz4740-i2s.c
-@@ -306,32 +306,10 @@ static int jz4740_i2s_set_sysclk(struct snd_soc_dai *dai, int clk_id,
- static int jz4740_i2s_dai_probe(struct snd_soc_dai *dai)
- {
- 	struct jz4740_i2s *i2s = snd_soc_dai_get_drvdata(dai);
--	int ret;
--
--	ret = clk_prepare_enable(i2s->clk_aic);
--	if (ret)
--		return ret;
+diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+index 9df970eeca45..16a4a51978ca 100644
+--- a/drivers/soundwire/qcom.c
++++ b/drivers/soundwire/qcom.c
+@@ -169,7 +169,7 @@ struct qcom_swrm_ctrl {
+ 	u8 wcmd_id;
+ 	struct qcom_swrm_port_config pconfig[QCOM_SDW_MAX_PORTS];
+ 	struct sdw_stream_runtime *sruntime[SWRM_MAX_DAIS];
+-	enum sdw_slave_status status[SDW_MAX_DEVICES];
++	enum sdw_slave_status status[SDW_MAX_DEVICES + 1];
+ 	int (*reg_read)(struct qcom_swrm_ctrl *ctrl, int reg, u32 *val);
+ 	int (*reg_write)(struct qcom_swrm_ctrl *ctrl, int reg, int val);
+ 	u32 slave_status;
+@@ -420,7 +420,7 @@ static int qcom_swrm_get_alert_slave_dev_num(struct qcom_swrm_ctrl *ctrl)
  
- 	snd_soc_dai_init_dma_data(dai, &i2s->playback_dma_data,
- 		&i2s->capture_dma_data);
+ 	ctrl->reg_read(ctrl, SWRM_MCP_SLV_STATUS, &val);
  
--	regmap_write(i2s->regmap, JZ_REG_AIC_CONF, JZ_AIC_CONF_RESET);
--
--	regmap_write(i2s->regmap, JZ_REG_AIC_CONF,
--		     JZ_AIC_CONF_OVERFLOW_PLAY_LAST |
--		     JZ_AIC_CONF_I2S | JZ_AIC_CONF_INTERNAL_CODEC);
--
--	regmap_field_write(i2s->field_rx_fifo_thresh, 7);
--	regmap_field_write(i2s->field_tx_fifo_thresh, 8);
--
--	return 0;
--}
--
--static int jz4740_i2s_dai_remove(struct snd_soc_dai *dai)
--{
--	struct jz4740_i2s *i2s = snd_soc_dai_get_drvdata(dai);
--
--	clk_disable_unprepare(i2s->clk_aic);
- 	return 0;
- }
+-	for (dev_num = 0; dev_num < SDW_MAX_DEVICES; dev_num++) {
++	for (dev_num = 0; dev_num <= SDW_MAX_DEVICES; dev_num++) {
+ 		status = (val >> (dev_num * SWRM_MCP_SLV_STATUS_SZ));
  
-@@ -351,7 +329,6 @@ static const struct snd_soc_dai_ops jz4740_i2s_dai_ops = {
+ 		if ((status & SWRM_MCP_SLV_STATUS_MASK) == SDW_SLAVE_ALERT) {
+@@ -440,7 +440,7 @@ static void qcom_swrm_get_device_status(struct qcom_swrm_ctrl *ctrl)
+ 	ctrl->reg_read(ctrl, SWRM_MCP_SLV_STATUS, &val);
+ 	ctrl->slave_status = val;
  
- static struct snd_soc_dai_driver jz4740_i2s_dai = {
- 	.probe = jz4740_i2s_dai_probe,
--	.remove = jz4740_i2s_dai_remove,
- 	.playback = {
- 		.channels_min = 1,
- 		.channels_max = 2,
-@@ -389,7 +366,6 @@ static const struct i2s_soc_info jz4760_i2s_soc_info = {
+-	for (i = 0; i < SDW_MAX_DEVICES; i++) {
++	for (i = 0; i <= SDW_MAX_DEVICES; i++) {
+ 		u32 s;
  
- static struct snd_soc_dai_driver jz4770_i2s_dai = {
- 	.probe = jz4740_i2s_dai_probe,
--	.remove = jz4740_i2s_dai_remove,
- 	.playback = {
- 		.channels_min = 1,
- 		.channels_max = 2,
-@@ -459,8 +435,38 @@ static int jz4740_i2s_resume(struct snd_soc_component *component)
- 	return 0;
- }
- 
-+static int jz4740_i2s_probe(struct snd_soc_component *component)
-+{
-+	struct jz4740_i2s *i2s = snd_soc_component_get_drvdata(component);
-+	int ret;
-+
-+	ret = clk_prepare_enable(i2s->clk_aic);
-+	if (ret)
-+		return ret;
-+
-+	regmap_write(i2s->regmap, JZ_REG_AIC_CONF, JZ_AIC_CONF_RESET);
-+
-+	regmap_write(i2s->regmap, JZ_REG_AIC_CONF,
-+		     JZ_AIC_CONF_OVERFLOW_PLAY_LAST |
-+		     JZ_AIC_CONF_I2S | JZ_AIC_CONF_INTERNAL_CODEC);
-+
-+	regmap_field_write(i2s->field_rx_fifo_thresh, 7);
-+	regmap_field_write(i2s->field_tx_fifo_thresh, 8);
-+
-+	return 0;
-+}
-+
-+static void jz4740_i2s_remove(struct snd_soc_component *component)
-+{
-+	struct jz4740_i2s *i2s = snd_soc_component_get_drvdata(component);
-+
-+	clk_disable_unprepare(i2s->clk_aic);
-+}
-+
- static const struct snd_soc_component_driver jz4740_i2s_component = {
- 	.name			= "jz4740-i2s",
-+	.probe			= jz4740_i2s_probe,
-+	.remove			= jz4740_i2s_remove,
- 	.suspend		= jz4740_i2s_suspend,
- 	.resume			= jz4740_i2s_resume,
- 	.legacy_dai_naming	= 1,
+ 		s = (val >> (i * 2));
 -- 
-2.35.1
+2.25.1
 

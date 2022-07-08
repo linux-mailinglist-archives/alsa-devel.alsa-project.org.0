@@ -2,103 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E16EF56BCEB
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Jul 2022 17:30:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2851356BCF0
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Jul 2022 17:33:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8E52B847;
-	Fri,  8 Jul 2022 17:29:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E52B847
+	by alsa0.perex.cz (Postfix) with ESMTPS id C76623E8;
+	Fri,  8 Jul 2022 17:33:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C76623E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657294229;
-	bh=YMEGxIrE4woAf5cnzkZ+3hQp7ZS3VGf+M1Bxpp05xRA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1657294435;
+	bh=k3bXkm64Ggzvinfi/pv+UmDjE7yW7Zxd/ZHKgbVky3o=;
+	h=References:From:To:Subject:Date:In-reply-to:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=c31aoZs2IFIJyk7878mTFRY5pnfXYM1kGgOO4PnwTOxQwWiUBpb2F8OOZARqbzZqQ
-	 g3w5JSRz/HIMmc5aa/wGseEMQgZUuIvF0sXmr+nvvgUZ0XsmZyL5x0rtjdT1j3IKbZ
-	 IfKx1Irugh+upZyjFZETcx/qjx/Qd0lqm5ElzOVI=
+	b=P0zDqqO8+5CNa2JZErKc8d3J9pHNiimC3gtPUT+v/qXZ8qkioYU4VZALfozzhK+A1
+	 nfpGZQEPOZWy5deKwsQaqoJFwKhhtiEmxBwGtb/FU52cw+ocOt6C+iAqmnStsV7kC9
+	 +ktJwgGihFUoRLIc98BY5tAgT1f/Z6jz7GU7IXU8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0C811F80084;
-	Fri,  8 Jul 2022 17:29:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 22BEAF8025B;
+	Fri,  8 Jul 2022 17:32:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 02325F80167; Fri,  8 Jul 2022 17:29:26 +0200 (CEST)
+ id B2C12F80167; Fri,  8 Jul 2022 17:32:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-yb1-xb36.google.com (mail-yb1-xb36.google.com
- [IPv6:2607:f8b0:4864:20::b36])
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [IPv6:2a00:1450:4864:20::42b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 40CC7F800E9
- for <alsa-devel@alsa-project.org>; Fri,  8 Jul 2022 17:29:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40CC7F800E9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4A723F800C5
+ for <alsa-devel@alsa-project.org>; Fri,  8 Jul 2022 17:32:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A723F800C5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="ecaQUHS0"
-Received: by mail-yb1-xb36.google.com with SMTP id e69so31796802ybh.2
- for <alsa-devel@alsa-project.org>; Fri, 08 Jul 2022 08:29:22 -0700 (PDT)
+ header.b="JqyzyFx4"
+Received: by mail-wr1-x42b.google.com with SMTP id v16so19592874wrd.13
+ for <alsa-devel@alsa-project.org>; Fri, 08 Jul 2022 08:32:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=YMEGxIrE4woAf5cnzkZ+3hQp7ZS3VGf+M1Bxpp05xRA=;
- b=ecaQUHS0lHe+xS7QeRj1P7pinsI/NrxvyEsdPWpDaG8YB0F0Gz5iEiFh9Ln9piexBw
- zQwkOUXEIc0AVVNGhpCiTO4NKOH6r0qPLtCr0wX5GBIgI6AjppwEqmpJ6EA45WJ7GniL
- H0cMz3WrgzTFVKC1UyQdBTLpO3kJ17s0sw0uPGMmQSrdlmq80M+yFSD1NuE9jEaBnymI
- Ff+/kJsyLWJ3zVjyZgsEau9JwoRRBMKgEwL7wpIWCP2wI9w0zmjWCToJ4h+VEKDTKIDl
- quGIcI3DxzcnjRkhNk83S6Gb79aPn+5X6FJWpwiFoxfQM4WzORdTLgDcc02w7Ir8g2Ww
- Te2Q==
+ h=references:from:to:cc:subject:date:in-reply-to:message-id
+ :mime-version; bh=7Gr1DIwlquSsFy5gvJ8I7cokiRlnBL/lo0iBO4OC3QI=;
+ b=JqyzyFx4yc1hWWomwr6OIKKgym/3owtxy/4LE652WY3EFU0PxFbAKqUAxssvHIlC6Q
+ uARvrf07eKwX2RWdUgtuvt2hlpDowP6/5fx7QAkDNQPGFpemSTmdLm/SIGXJmR2IYkk3
+ fy6VSjKnTQnN6ciYNvz2Hi3Psb+omTM3iwlMN/Mvt8G+mZg58i2soituPkE6RapuZFGg
+ riuSDkbX93/+BdhLzyckUHs/2aLAuwgbBT54vHv7vTMJuTxXqLaBReYfZeUMmyT0bRkr
+ 1qcHaQstOW0r/dwXZrjrndA3snyGlYzeQ/9dMZV/df7i8RUTTTYEyNodJq45qRTzICxk
+ woDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=YMEGxIrE4woAf5cnzkZ+3hQp7ZS3VGf+M1Bxpp05xRA=;
- b=jz5Ad2puJ1vLgSO3P0p3uszLvpiSEHg5LLfulkSFRj8TCnYf1ykc6hkkvmLbAiISA6
- AZaGgEBhi3FnQoeEG8MSXJf+n3ccyDAnLpEjzkBKCP8LpN2h4TAtFoIKkpBAMNYk7ySz
- BsEwrF50G+SjCpiXbnrsm6/fYg0Ffu1Xj3h+Zyy8iGcKvD2wvmHljhoJ7NIy45oj2ggR
- PYHF/y/s0EYG55I3mrD5VrPHm9nM3xBCB6+RdB8BR7rMNIUdSeSnZFtpGn7GeIf/gfxj
- iCTvaKFwbY5evTNFu+pJ7pOmEFmzZTavQ5EirqYXOJlx1UBCUfqyOrvEIpsF6wcASfaC
- j0Uw==
-X-Gm-Message-State: AJIora9HCKzH0bTOINt26jJUqpDBTkNLepiB3X2xnI8ej/UjNG/bh99N
- IrqY6x4QxO1EPLYlUpZVzD5c0nXsQcu6a4Mx7us=
-X-Google-Smtp-Source: AGRyM1swmlKZ4XV6RN24eaRkZwJll3K67xeqgJ9qYHEzq8RVNfkeSaXb0i1fFJ5yeI+4TVhowP1eXn8EehYYfXKEa3Q=
-X-Received: by 2002:a25:cbcf:0:b0:66e:8893:a02c with SMTP id
- b198-20020a25cbcf000000b0066e8893a02cmr4250392ybg.460.1657294159638; Fri, 08
- Jul 2022 08:29:19 -0700 (PDT)
+ h=x-gm-message-state:references:from:to:cc:subject:date:in-reply-to
+ :message-id:mime-version;
+ bh=7Gr1DIwlquSsFy5gvJ8I7cokiRlnBL/lo0iBO4OC3QI=;
+ b=3zExMyDKX/UmctjDPH8o0fdG6Oe+b4hTj1Wds/J+hy1Nlvz7BoVb4E9as+ga8EInz9
+ Hk74mct0jZFCTYcsFhjWsfJkWfSJJ5cZS08TDKggeD2ZSCfI8QKYNsszTAMGP+xjrsZ3
+ 9G/ICWG0HVLWXKRaOKIK9WDRoL/fSuv8BDlFEtTiIhQtvP9V+JKOFCtuOKLXhhkj6/ta
+ UyxOzU+yrx548gLnVTnRS74f/uSeyzYJHiRjoeXl90Dwj6ipvtvSwQQEWsz9DsYAR7AS
+ 8G/qWnuBCWFbD5KnJ3Eoepf+9ftUodAs4cb2VoIvjVESldevWXjtpK4w+vRv8WtB027H
+ nK6w==
+X-Gm-Message-State: AJIora/qvWcertSIGBLnxsKY3gCV5VMsZG9RKrMn3yS54mcYx9Fiicr2
+ IaJfw2u3ypjJKNSwNxcSmt7Ez0fx1FM=
+X-Google-Smtp-Source: AGRyM1vgDADaiocyDgtoIhQ8s0fcwP2kLrbv46+a78WOeMjJtNaJzz1ctV9dgn3acFPZmpQgtK1qQA==
+X-Received: by 2002:a05:6000:18d:b0:21b:901e:9b27 with SMTP id
+ p13-20020a056000018d00b0021b901e9b27mr3972766wrx.389.1657294368605; 
+ Fri, 08 Jul 2022 08:32:48 -0700 (PDT)
+Received: from localhost (92.40.203.214.threembb.co.uk. [92.40.203.214])
+ by smtp.gmail.com with ESMTPSA id
+ h17-20020a05600c351100b003973ea7e725sm3452720wmq.0.2022.07.08.08.32.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 08 Jul 2022 08:32:47 -0700 (PDT)
+References: <20220708104304.51415-1-aidanmacdonald.0x0@gmail.com>
+ <20220708104304.51415-5-aidanmacdonald.0x0@gmail.com>
+ <YsgmkBpk4JBTkjPz@sirena.org.uk>
+From: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH v3 04/11] ASoC: jz4740-i2s: Handle independent FIFO
+ flush bits
+Date: Fri, 08 Jul 2022 16:30:55 +0100
+In-reply-to: <YsgmkBpk4JBTkjPz@sirena.org.uk>
+Message-ID: <NuOKvbkZUvbLCcCv2cXfJsp97ioQdiVG@localhost>
 MIME-Version: 1.0
-References: <20220707091301.1282291-1-cezary.rojewski@intel.com>
- <CAHp75VceKBoxXVPP4dRYb8LQqHMMDHFp6-E2iuZ-h2RTK8PWQQ@mail.gmail.com>
- <e0c7d254-ace3-625c-cc83-52ca0b45e9fc@intel.com>
- <CAHp75VckU2ZraLJ-frjWXjUu9pFW+-XmWgTbYqUXOUNAD-1HGA@mail.gmail.com>
- <6c8e4104-2239-a188-649d-585f059cabdd@intel.com>
- <YsgjdKEtE7pMDTnZ@smile.fi.intel.com>
- <a73b3ec0-5abb-ddfd-414b-b9807f05413e@linux.intel.com>
- <CAHp75Vd4D0KF7ik+aMOwv-+bofWja_tDe4YUmihQBF+RiHZTmA@mail.gmail.com>
-In-Reply-To: <CAHp75Vd4D0KF7ik+aMOwv-+bofWja_tDe4YUmihQBF+RiHZTmA@mail.gmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Fri, 8 Jul 2022 17:28:43 +0200
-Message-ID: <CAHp75VcUmy3xa3kKQSsiG84f3VWd83xt9ZTGnAdA3Ub1PJ7raw@mail.gmail.com>
-Subject: Re: [PATCH 1/2] lib/string_helpers: Introduce strsplit_u32()
-To: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Cc: Andy Shevchenko <andy@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Hans de Goede <hdegoede@redhat.com>, Mark Brown <broonie@kernel.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- amadeuszx.slawinski@linux.intel.com,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+Content-Type: text/plain
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, tiwai@suse.com,
+ paul@crapouillou.net
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,18 +104,22 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Jul 8, 2022 at 5:25 PM Andy Shevchenko
-<andy.shevchenko@gmail.com> wrote:
-> On Fri, Jul 8, 2022 at 2:34 PM P=C3=A9ter Ujfalusi
-> <peter.ujfalusi@linux.intel.com> wrote:
 
-...
+Mark Brown <broonie@kernel.org> writes:
 
-> (it may be casted to struct tokens { int n; u32 v[]; })
+> On Fri, Jul 08, 2022 at 11:42:57AM +0100, Aidan MacDonald wrote:
+>> On the JZ4740, there is a single bit that flushes (empties) both
+>> the transmit and receive FIFO. Later SoCs have independent flush
+>> bits for each FIFO, which allows us to flush the right FIFO when
+>> starting up a stream.
+>> 
+>> This also fixes a bug: since we were only setting the JZ4740's
+>> flush bit, which corresponds to the TX FIFO flush bit on other
+>> SoCs, other SoCs were not having their RX FIFO flushed at all.
+>> 
+>> Fixes: 967beb2e8777 ("ASoC: jz4740: Add jz4780 support")
+>
+> Fixes should generally be at the start of a patch series so they don't
+> end up depending on other patches needlessly.
 
-On second thought it is better not to do this (it will work on x86,
-but in general it may be surprising on BE-64).
-
---=20
-With Best Regards,
-Andy Shevchenko
+Okay then, I'll refactor it to allow for easier backporting.

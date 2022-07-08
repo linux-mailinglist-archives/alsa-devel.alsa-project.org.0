@@ -2,79 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96A6E56BD03
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Jul 2022 17:45:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C46DA56BD21
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Jul 2022 18:03:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3080983E;
-	Fri,  8 Jul 2022 17:45:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3080983E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5C68A844;
+	Fri,  8 Jul 2022 18:02:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C68A844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657295158;
-	bh=C2o8pnQg49NHc81qJegDak3fh/DbNuvU6TDy4IEp1nA=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=oZV2wYAjeOn7FYJqz0I/7kjL9xA/Op15WW4i0GmlIjj09JxmXLCJn4SvRj6nugyBz
-	 RfQU6dAgpjUE2S3LDtyq6bDkEuPeORlm/Lx1EBpWz6uKaVWBS4EMnJx0EdTiylLxjH
-	 kxrf/MpXMYt06Nf817OYwkHlHt9Y5hoCxW4Cmtyo=
+	s=default; t=1657296192;
+	bh=A2dAKVrDbhdxdISEo+1eGgVE1CVDaMSpOg5I4oNZ3so=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=XpW2y2Yixut2cCGHMFdsSa9cZLGms7hySSSy+yx0IVf+XRgqprWDYKHJe+FwGAyfn
+	 A2TjAnbmp1JwfqbTUjG3EFO13LFwHfvjdxb49Tm3OigdbmJz5KceM0vRjxnsBhE+Sl
+	 9ZcY3Sj/F0n+5w39xkJiSLkWfQPH4X1e7y2MxTJQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3DDC2F80166;
-	Fri,  8 Jul 2022 17:45:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C7FF7F8049E;
+	Fri,  8 Jul 2022 18:02:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 88221F80166; Fri,  8 Jul 2022 17:45:02 +0200 (CEST)
+ id E328DF804CF; Fri,  8 Jul 2022 18:02:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [IPv6:2a00:1450:4864:20::434])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ADE40F80166
- for <alsa-devel@alsa-project.org>; Fri,  8 Jul 2022 17:44:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ADE40F80166
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3F8AFF8028B
+ for <alsa-devel@alsa-project.org>; Fri,  8 Jul 2022 18:02:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F8AFF8028B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="p7HdZb2I"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id CBABB60EAD;
- Fri,  8 Jul 2022 15:44:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35E99C341C0;
- Fri,  8 Jul 2022 15:44:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657295096;
- bh=C2o8pnQg49NHc81qJegDak3fh/DbNuvU6TDy4IEp1nA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=p7HdZb2IKyKj9aV2OP461sfgSCAkq3EKwTxkbBaYF/Szefi7nIFHxlyaMEsx7+F6D
- UZU9X7z0fq+M+W5iJMpZilXRCizHYQuf3ibCdW0cIpmO+9q8BQpv9iygbLvDCYO51u
- aaAG/0YXh13eQmaNE28AKgL/zz3pUS4g6iHrAV81stosCBlrtlrqalGWgOsBENvONF
- swb1jyVXKyUypm7jLgoTdHeXzfRjuoBFlvFdAjZPRXFJYK4XUmf4QJVpzYZguWw5Lg
- 4cdbRX1s8GUSjh0sJOqO1KoB3sKtEQZrKGNqRT2hi8RxJNfA8FfaC0yacpq7Pp777N
- h+xBq5OuLDAwA==
-Date: Fri, 8 Jul 2022 16:44:48 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 0/4] ASoC: Intel: Mark BE DAIs as nonatomic for hsw and
-Message-ID: <YshQ8N8Rx7Hizk8B@sirena.org.uk>
-References: <20220624134317.3656128-1-cezary.rojewski@intel.com>
- <ac2b7d8b-a5be-4fac-169c-eaca185c9746@linux.intel.com>
- <3d9b45c0-b415-21d9-6af5-68fa1001ed17@intel.com>
- <34b54e4e-8997-c2b7-fdf0-24a1b95121ab@linux.intel.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="DdALFxmX"
+Received: by mail-wr1-x434.google.com with SMTP id s1so31151921wra.9
+ for <alsa-devel@alsa-project.org>; Fri, 08 Jul 2022 09:02:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Pro0cyE0Jn+rZnK315lxKLlhsCvoJbHZNzW9Cc6PhUM=;
+ b=DdALFxmXrrrET3rMR34tN44U4tdHIi66lU8JJgJj1T+SoKhoWIuZ47YnYx+bWP5dtT
+ cs/CICnTVgvS1+SkZUajmRDjZrJ5R/RW6WTpBSpbMk6iPxvPhcZfBonyBcskW+wwVZbe
+ mu1lyy0jcDbzhNGPVrMfL5d5yi8nb+7apnV2Z1M9R6TxH1OjkQBVLvlW7eAfHMxNvyOf
+ +BygGQmUPY2z7O6TUeO4f+5YMnMUqLq1zvNRXH5MPDfOl90Gg5BoDc0C1r3BeyxpRlTY
+ ghYCg5nwEBFB/1n0iy2HoPyxR2IIWY363ohyY1ZA2JB9+N7V41sp66Da85ibY1DIVUEE
+ cu1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Pro0cyE0Jn+rZnK315lxKLlhsCvoJbHZNzW9Cc6PhUM=;
+ b=mGxXWM0xOvJ5XuJBv2qGaqE5SxKwlPGYR1755X1OCRcI68NFao7YLCOEDQhIK/0Fr9
+ PxExzHf5WmEOnk9AkPFCkyQFpz+9Bzf1Ow/ADhMOWYxJ0Li+wsq1xDLGwDiyqajwpodc
+ FRS5Dzs0tiOVnbZ8rOsrrF9TYSNAp3fA9b1QCfOAFFIHqD/j95wKsRQvagBc98qDA+F6
+ JtI+jvRd51MSGy2R9D15RYX0w8Zp/FbFLO/2NNEWzkb0e4OeMfVe1oSYskOxuLOXnvro
+ 9nQEp/Kad2j9h4LSJjgImYZaYwtFD4Kr5iTAgd8ieIFsBSxwy82mYu6ZmalLuowFb3VS
+ Gelw==
+X-Gm-Message-State: AJIora/LLFXyKIDZcsFvv/x8fumsulPLMQT1Q2lA5SETpmM2TPU/F8xj
+ PYohPo1rLGPY/e30sfJnLVg=
+X-Google-Smtp-Source: AGRyM1sa1uwt7GX0FBbOcHiYKkmpTtcghJDD6LEDkMeWFUrD+Gsb5I/JS8R0WTKA5jwMbEcyVxHehw==
+X-Received: by 2002:a5d:59a6:0:b0:21b:a234:8314 with SMTP id
+ p6-20020a5d59a6000000b0021ba2348314mr4026407wrr.316.1657296125630; 
+ Fri, 08 Jul 2022 09:02:05 -0700 (PDT)
+Received: from localhost (92.40.203.144.threembb.co.uk. [92.40.203.144])
+ by smtp.gmail.com with ESMTPSA id
+ u18-20020adfdd52000000b002185d79dc7fsm18237827wrm.75.2022.07.08.09.02.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 08 Jul 2022 09:02:04 -0700 (PDT)
+From: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
+To: paul@crapouillou.net, lgirdwood@gmail.com, broonie@kernel.org,
+ perex@perex.cz, tiwai@suse.com
+Subject: [PATCH v4 00/11] ASoC: cleanups and improvements for jz4740-i2s
+Date: Fri,  8 Jul 2022 17:02:33 +0100
+Message-Id: <20220708160244.21933-1-aidanmacdonald.0x0@gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="bcVYb0lY7rinzLlw"
-Content-Disposition: inline
-In-Reply-To: <34b54e4e-8997-c2b7-fdf0-24a1b95121ab@linux.intel.com>
-X-Cookie: Baby On Board.
-Cc: hdegoede@redhat.com, Cezary Rojewski <cezary.rojewski@intel.com>,
- amadeuszx.slawinski@linux.intel.com, alsa-devel@alsa-project.org,
- tiwai@suse.com
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, linux-mips@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,40 +99,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+This series is a preparatory cleanup of the jz4740-i2s driver before
+adding support for a new SoC. The two improvements are lifting
+unnecessary restrictions on sample rates and formats -- the existing
+ones appear to be derived from the limitations of the JZ4740's internal
+codec and don't reflect the actual capabilities of the I2S controller.
 
---bcVYb0lY7rinzLlw
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+I'm unable to test the series on any JZ47xx SoCs, but I have tested
+on an X1000 (which is the SoC I'll be adding in a followup series).
 
-On Mon, Jun 27, 2022 at 09:45:30AM -0500, Pierre-Louis Bossart wrote:
-> On 6/25/22 03:29, Cezary Rojewski wrote:
+Changes in v2:
 
-> > Warning is one thing, but will you be also getting rid of the
-> > if-statement in soc-pcm.c that actually forces nonatomic=1 on BE when FE
-> > is already declared as such? If the if-statement stays, I believe the
-> > declaring BE DAIs 'correctly' in the way to go.
+* Drop two patches already in sound for-next.
+* Squash two removal patches into the regmap fields patch.
+* Remove the unused 'mem' resource in the driver private struct.
+* Use regmap_set_bits() and regmap_clear_bits() to improve readability.
+* Add fix for SoCs with independent FIFO flush bits (ie. most of them).
+* Update sample formats patch with a more informative commit message.
+* Add two new patches to refactor DAI/component probing.
 
-> I meant just removing the dev_warn() only.
+Changes in v3:
 
-> See https://github.com/thesofproject/linux/pull/3723
+* Fix missing 'ret' in patch 11 (yes, that was pretty silly of me)
 
-Is something going to be upstreamed here?  I don't really mind which
-solution is adopted here but right now Cezary's patches are the ones
-that were posted upstream.
+Changes in v4:
 
---bcVYb0lY7rinzLlw
-Content-Type: application/pgp-signature; name="signature.asc"
+* Refactor FIFO flush bits fix so it doesn't depend on regmap conversion.
 
------BEGIN PGP SIGNATURE-----
+Aidan MacDonald (11):
+  ASoC: jz4740-i2s: Handle independent FIFO flush bits
+  ASoC: jz4740-i2s: Remove unused 'mem' resource
+  ASoC: jz4740-i2s: Convert to regmap API
+  ASoC: jz4740-i2s: Simplify using regmap fields
+  ASoC: jz4740-i2s: Use FIELD_PREP() macros in hw_params callback
+  ASoC: jz4740-i2s: Align macro values and sort includes
+  ASoC: jz4740-i2s: Make the PLL clock name SoC-specific
+  ASoC: jz4740-i2s: Support S20_LE and S24_LE sample formats
+  ASoC: jz4740-i2s: Support continuous sample rate
+  ASoC: jz4740-i2s: Move component functions near the component driver
+  ASoC: jz4740-i2s: Refactor DAI probe/remove ops as component ops
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmLIUO8ACgkQJNaLcl1U
-h9Ckgwf+Irg6zg2BsL8c1Oiv+50hqBPXRBjaBs3OV1bfLZC+BdndYzLyY1gyO2qC
-ty7mmAskWzLVTp9+ofRukWK/6hPt6SQkGp2JMxaxHXgU+tnV+GeGttRDfzgqnh9d
-TeZFZAsMWrJIPE3GYdx1KJyke9g4nNCPh+N5e184XMss/Tn1r2ozomvEubnBOBaE
-wyfP60qhNjKqihTFzr1lXEBMUShqrifhIIzGwPp8A+PeDzRSXEwsKGoSyoxU1n36
-1TaqdnG+S7EIvH+9liMZ0HYlt3iYX12f0N9VWVhcIWW6SpDG90XeY7wtvH/apZz0
-kahZqQ1zmuTPBBFSksFdn1GXXnC5WA==
-=teEq
------END PGP SIGNATURE-----
+ sound/soc/jz4740/Kconfig      |   1 +
+ sound/soc/jz4740/jz4740-i2s.c | 461 ++++++++++++++++++----------------
+ 2 files changed, 248 insertions(+), 214 deletions(-)
 
---bcVYb0lY7rinzLlw--
+-- 
+2.35.1
+

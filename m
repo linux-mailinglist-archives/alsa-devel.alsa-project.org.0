@@ -2,99 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64D8456B6BC
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Jul 2022 12:12:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C37F56B71F
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Jul 2022 12:20:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 04E5A3E7;
-	Fri,  8 Jul 2022 12:12:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04E5A3E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1D49B83A;
+	Fri,  8 Jul 2022 12:20:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D49B83A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657275178;
-	bh=gENMgg5qKm1yqbQv/hJlVhM+i2hOHUj7PaTw4IRpEuw=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1657275653;
+	bh=/S6lee9+c3VqJLQgOj/yfCLmaqBFbL50U8pKZd/Mye0=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=n/NedWR5p8APP3AqQLUotKbsoWSoNWSh8IqSfF0rXLh0tJlSFr87Oi2em9pTP6PR5
-	 N6oywWX7ngDlNtusD6+liJKWGnfMxj3CxxVh361kkcgHYnbsF05KBNer2vuR7x2oSQ
-	 x7MhhixrCDOpodYy1iYziru2pn0WQDiCviSLiMCw=
+	b=UZweW5+P1uY1M8jEpChLHfkswFE33te0cWJKGglRrvECzS6e5e7FubRxxR2ik33Nq
+	 aPph13o32O0sbryoy1zJk3Sypo9HAEhGPAeBPTLcExuQ/smYoM6h/098Cqh9S935zm
+	 pcx/WRpL2iz7Lk1EiUSdMFri5mFq8DsIGPQ8t1ic=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 684C1F8025B;
-	Fri,  8 Jul 2022 12:11:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8672DF8025B;
+	Fri,  8 Jul 2022 12:19:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 40EB1F800E9; Fri,  8 Jul 2022 12:11:55 +0200 (CEST)
+ id 4BA41F80167; Fri,  8 Jul 2022 12:19:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [IPv6:2a00:1450:4864:20::32e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DA80BF800E9
- for <alsa-devel@alsa-project.org>; Fri,  8 Jul 2022 12:11:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA80BF800E9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="GG2oup2r"
-Received: by mail-wm1-x32e.google.com with SMTP id
- r129-20020a1c4487000000b003a2d053adcbso857738wma.4
- for <alsa-devel@alsa-project.org>; Fri, 08 Jul 2022 03:11:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=81okasB3g0ekpD8niaqxxgdkdfiBn6Pr7NqUFt5DBEo=;
- b=GG2oup2rv/ga/OnSyutUz+S+rBqREaqHTkx+gB+ADu7sa0SBu42CvT0CSElqsSFWhZ
- Lr+Q+l6DrU4UfBc4bH621yyvfTEU4ylv+RH1Qh6aYwDQLAT7A12x2AvYvn1Y/mZi8lCc
- ZgMh604fWqZ1iW9+KCdZhf7fgB0+R2ZUU8QivYy9x1NeN7j2K7nYu+dAmgiMXpxsorOk
- 2xwOdjbOJb7p9A6g6OG88iO66uVe81StH6gcxVck63+H2Hec41b86vbLy5uy6DQk06ji
- x6PwtSvJU7OHxBxCehyjzcRmW0ftH/T6m9vqDIIyfLsqRUzMCMGBtGulWCzeKTegq8mB
- mTFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=81okasB3g0ekpD8niaqxxgdkdfiBn6Pr7NqUFt5DBEo=;
- b=ObaPalX56guwqPrafsaKWQKQ9P8gSinRqq8BGuD87xQ2ATihMSV2yBkLbPiQ9kTUri
- gGoXZ+LMsY0k3HMrk5LpJb9ZEPRyQ+17Xw4IYh53dXOjyrcBq5U9x7Ar9vjayb7/wTd9
- rjfdLpzX9dSQZfpBUEZLBH0ZHykVNZrvNUdSJrp2xHUhgHUpUVVgQhqq0QKh10l10Yje
- 7PfEi7rbVCE7UlscBvMTnhRvi8S+kCTNQvLEYdCrpBAY0+QKpm80x2a27PtnLuyvPI/a
- UZ5qCvsljuwT9pOB1wKdAGHujkxSMQgKUnPhJV/D+EnnWgfblSOWWY7uoSANAmsPpwck
- cXUw==
-X-Gm-Message-State: AJIora9RQmb/1L3L4pg9aq9suqU5LuMaO2XjYUYbYd0mEYA+4Z8Jt+2K
- zVZ7ZbRjwbgzdGbCcgOQKxBn7w==
-X-Google-Smtp-Source: AGRyM1vDkPE98jrS2Me8n5r7/R9H34mgmtL+Fc/cv224985Zm6C1y8NPkd/Aw90Ph3on7smNzjvWCA==
-X-Received: by 2002:a05:600c:4243:b0:3a2:db2d:ebdc with SMTP id
- r3-20020a05600c424300b003a2db2debdcmr1786084wmm.41.1657275106530; 
- Fri, 08 Jul 2022 03:11:46 -0700 (PDT)
-Received: from [192.168.86.238]
- (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.googlemail.com with ESMTPSA id
- bk12-20020a0560001d8c00b0021d7050ace4sm327428wrb.77.2022.07.08.03.11.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 08 Jul 2022 03:11:45 -0700 (PDT)
-Message-ID: <42056cab-237c-3f3a-da43-5138be64243b@linaro.org>
-Date: Fri, 8 Jul 2022 11:11:44 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id A827BF800C5
+ for <alsa-devel@alsa-project.org>; Fri,  8 Jul 2022 12:19:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A827BF800C5
+X-UUID: 5ea76bf79d4347eb8ae3e5837ccc9c23-20220708
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.8, REQID:72b01edd-371d-4e54-bccb-3147bd92f8f8, OB:0,
+ LO
+ B:0,IP:0,URL:0,TC:0,Content:0,EDM:0,RT:0,SF:45,FILE:0,RULE:Release_Ham,ACT
+ ION:release,TS:45
+X-CID-INFO: VERSION:1.1.8, REQID:72b01edd-371d-4e54-bccb-3147bd92f8f8, OB:0,
+ LOB:
+ 0,IP:0,URL:0,TC:0,Content:0,EDM:0,RT:0,SF:45,FILE:0,RULE:Release_Ham,ACTIO
+ N:release,TS:45
+X-CID-META: VersionHash:0f94e32, CLOUDID:4fd9e886-57f0-47ca-ba27-fe8c57fbf305,
+ C
+ OID:bbab08a824a8,Recheck:0,SF:28|17|19|48,TC:nil,Content:0,EDM:-3,IP:nil,U
+ RL:0,File:nil,QS:nil,BEC:nil,COL:0
+X-UUID: 5ea76bf79d4347eb8ae3e5837ccc9c23-20220708
+Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by
+ mailgw02.mediatek.com (envelope-from <jiaxin.yu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 1902605378; Fri, 08 Jul 2022 18:19:31 +0800
+Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
+ mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.792.3; 
+ Fri, 8 Jul 2022 18:19:30 +0800
+Received: from mhfsdcap04 (10.17.3.154) by mtkmbs11n2.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.2.792.3 via Frontend
+ Transport; Fri, 8 Jul 2022 18:19:29 +0800
+Message-ID: <503a71aa95b8e4b75eb7e9e5de03a013f5155036.camel@mediatek.com>
+Subject: Re: [PATCH] ASoC: mediatek: mt8186: Remove condition with no effect
+From: Jiaxin Yu <jiaxin.yu@mediatek.com>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Zhongjun Tan <hbut_tan@163.com>, <lgirdwood@gmail.com>, <broonie@kernel.org>, 
+ <perex@perex.c>, <tiwai@suse.com>, <matthias.bgg@gmail.com>,
+ <tanzhongjun@coolpad.com>, <colin.king@intel.com>
+Date: Fri, 8 Jul 2022 18:19:29 +0800
+In-Reply-To: <ee0d9788-b742-21bb-9cc5-7b729897408b@collabora.com>
+References: <20220708024651.42999-1-hbut_tan@163.com>
+ <ee0d9788-b742-21bb-9cc5-7b729897408b@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH] soundwire: qcom: fix max auto-enumeration devices
-Content-Language: en-US
-To: Dan Carpenter <dan.carpenter@oracle.com>
-References: <20220708091947.5610-1-srinivas.kandagatla@linaro.org>
- <20220708100453.GM2316@kadam>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20220708100453.GM2316@kadam>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
- pierre-louis.bossart@linux.intel.com, stable@vger.kernel.org, vkoul@kernel.org,
- yung-chuan.liao@linux.intel.com
+X-MTK: N
+Cc: alsa-devel@alsa-project.org, linux-mediatek@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,67 +96,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 08/07/2022 11:04, Dan Carpenter wrote:
-> On Fri, Jul 08, 2022 at 10:19:47AM +0100, Srinivas Kandagatla wrote:
->> Controller only supports up to max of 1-11 device ids via auto-enumeration,
->> and it has only those many registers.
->>
->> In the existing code, we can protentially cross this boundary and read incorrect
->> registers.
->>
->> Cc: stable@vger.kernel.org
->> Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
->> Fixes: a6e6581942ca ("soundwire: qcom: add auto enumeration support")
->> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
->> ---
->> Thanks to Dan for reporting an overflow issue, which turned out to be
->> another issue, where we could read registers that do not belong to
->> auto-enumeration devid.
->> Either way this fixes both issues, one reported by Dan and other
->> incorrect register access.
->>
->> Thanks,
->> Srini
->>
->>   drivers/soundwire/qcom.c | 4 +++-
->>   1 file changed, 3 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
->> index 9df970eeca45..dd1365a44458 100644
->> --- a/drivers/soundwire/qcom.c
->> +++ b/drivers/soundwire/qcom.c
->> @@ -119,6 +119,8 @@
->>   #define MAX_FIFO_RD_RETRY 3
->>   #define SWR_OVERFLOW_RETRY_COUNT 30
->>   #define SWRM_LINK_STATUS_RETRY_CNT 100
->> +/* devid 1 - 11 */
->> +#define SWRM_MAX_AUTO_ENUM_DEVICES	11
->>   
->>   enum {
->>   	MASTER_ID_WSA = 1,
->> @@ -479,7 +481,7 @@ static int qcom_swrm_enumerate(struct sdw_bus *bus)
->>   	int i;
->>   	char *buf1 = (char *)&val1, *buf2 = (char *)&val2;
->>   
->> -	for (i = 1; i <= SDW_MAX_DEVICES; i++) {
->> +	for (i = 1; i <= SWRM_MAX_AUTO_ENUM_DEVICES; i++) {
+On Fri, 2022-07-08 at 10:01 +0200, AngeloGioacchino Del Regno wrote:
+> Il 08/07/22 04:46, Zhongjun Tan ha scritto:
+> > From: Zhongjun Tan <tanzhongjun@coolpad.com>
+> > 
+> > Remove condition with no effect
+> > 
+> > Signed-off-by: Zhongjun Tan <tanzhongjun@coolpad.com>
+> > ---
+> >   sound/soc/mediatek/mt8186/mt8186-dai-adda.c | 2 --
+> >   1 file changed, 2 deletions(-)
+> > 
+> > diff --git a/sound/soc/mediatek/mt8186/mt8186-dai-adda.c
+> > b/sound/soc/mediatek/mt8186/mt8186-dai-adda.c
+> > index db71b032770d..6be6d4f3b585 100644
+> > --- a/sound/soc/mediatek/mt8186/mt8186-dai-adda.c
+> > +++ b/sound/soc/mediatek/mt8186/mt8186-dai-adda.c
+> > @@ -295,8 +295,6 @@ static int mtk_adda_pad_top_event(struct
+> > snd_soc_dapm_widget *w,
+> >   	case SND_SOC_DAPM_PRE_PMU:
+> >   		if (afe_priv->mtkaif_protocol ==
+> > MTKAIF_PROTOCOL_2_CLK_P2)
+> >   			regmap_write(afe->regmap, AFE_AUD_PAD_TOP,
+> > 0x39);
+> > -		else if (afe_priv->mtkaif_protocol ==
+> > MTKAIF_PROTOCOL_2)
+> > -			regmap_write(afe->regmap, AFE_AUD_PAD_TOP,
+> > 0x31);
 > 
-> I'm sorry, I don't understand.  Both of these defines are 11 so this
-> doesn't change anything?
+> I think that this needs some clarification from MediaTek: was 0x31 a
+> typo here?
 > 
-My bad, I thought this was 15...
-
-
---srini
-
-
-> regards,
-> dan carpenter
+> Regards,
+> Angelo
 > 
->>   		/* do not continue if the status is Not Present  */
->>   		if (!ctrl->status[i])
->>   			continue;
->> -- 
->> 2.25.1
+Hi Angelo,
+
+This patch can be accepted. The 0x31 is not typo, the logic of this
+code is not concise enough.
+
+Thanks,
+Jiaxin.Yu
+
+> >   		else
+> >   			regmap_write(afe->regmap, AFE_AUD_PAD_TOP,
+> > 0x31);
+> >   		break;
+> 
+> 
+

@@ -2,77 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3888B56BE84
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Jul 2022 19:42:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E00856BE8B
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Jul 2022 20:14:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D3F72825;
-	Fri,  8 Jul 2022 19:41:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3F72825
+	by alsa0.perex.cz (Postfix) with ESMTPS id A322C1EC;
+	Fri,  8 Jul 2022 20:13:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A322C1EC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657302132;
-	bh=pbHKGCNqCeDka3isb5wdysuY3yEDRSxRyuMDnwx4WDY=;
+	s=default; t=1657304047;
+	bh=zC75cbLf82yZzCkLHeLDUCeFHIy9eG356Bnj+ZXabVo=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=O3Ms0RvSVj5+MxyIthb47D9y1EyO9zhubJlwbJkup3LMgWslIPHQ0r2UkfrF2MTmw
-	 1YPoZ2a9vrHLx55a4HWZw227KBHudGVZzRZZw6YUbu9VPF8uM+d7WUjzwIAfH+Q+pY
-	 ll3B0dx33lmQxELxkeOkPHHpFCokgFQvh+MGJPzU=
+	b=hZ0zZh+RUy0rb1i4+eenf5g4B+VLFWHBWdy4E1A0O1/omKjtSDucjAwfmatBIYKak
+	 eLAVcbJW4AtWgRhRzT4/3dSlOdQ8YEKl4Kh96FgTL4CQJUL7ZAYPQgEp7stIP71VD/
+	 xNXm19dFY+IuGT8Rm38eJ4EKB9R+q5lNGNpBfLxA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 50A02F804E7;
-	Fri,  8 Jul 2022 19:41:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 223DCF804E7;
+	Fri,  8 Jul 2022 20:13:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1C6C1F804CF; Fri,  8 Jul 2022 19:41:11 +0200 (CEST)
+ id 9876AF800E9; Fri,  8 Jul 2022 20:13:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 84475F80166
- for <alsa-devel@alsa-project.org>; Fri,  8 Jul 2022 19:41:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84475F80166
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3D377F800E9
+ for <alsa-devel@alsa-project.org>; Fri,  8 Jul 2022 20:13:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D377F800E9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="DBGeLX5S"
+ header.b="jAMs1xlc"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 812116242A;
- Fri,  8 Jul 2022 17:41:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 858C2C341C0;
- Fri,  8 Jul 2022 17:41:01 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 541AF61455;
+ Fri,  8 Jul 2022 18:13:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F9C7C341C0;
+ Fri,  8 Jul 2022 18:12:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657302062;
- bh=pbHKGCNqCeDka3isb5wdysuY3yEDRSxRyuMDnwx4WDY=;
+ s=k20201202; t=1657303979;
+ bh=zC75cbLf82yZzCkLHeLDUCeFHIy9eG356Bnj+ZXabVo=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=DBGeLX5SN5PYPKuOMrkcvoJlwFPwDTDTmb2Ad4odQ2uKedon2GDO/Eq7Hx459Chgq
- x8KVGVBj/zTZ1TCClFxb+xIn+xpPlXvIc0HkyWALBfQvRNkaGZoFXBErsQvCHFfrKB
- Q4PaIXWOuds2q+KRaI+du+s0To8/+Mbat4Xttt95T2wQSmb6so7nPzs2ZAkYiusp+U
- 5jttoIt0BpPv5LAtpRqDyBM/okQDFOdHNGuuntXakiiB14kYeXbrMUFnOxQ6pfx0DN
- gntur06ZU3SEL3PQ7B/tdzoKrLXqnckwKHBNk3A3R+N4oAF2ZLuhA7wOGV6kwrQw38
- WRDKwuAgzvj+w==
-Date: Fri, 8 Jul 2022 18:40:58 +0100
+ b=jAMs1xlc+rCdP9TYd/xTKv6w+LdD+XtsIQFyhoQ0symHPJ7S6ef/Ri18aPHriUcN0
+ 7QeNAh40fL7FYEK2dHI9PnPtd5VqRlm5NrcAaz3e3w/LqL9lqSEoEByA2p/wnuIcW4
+ R3kclMFxLwLqLNz6BLXc9OD9Ttjd76YqNwOR+xXm5HMaOXAvQAX5lWKLM1fpL65x5G
+ YHX8vPz+juua7emWb3D1eqX1rxu/HGPGKHOz4V6FGop6QFMPHFHS6E7xZKUn9/dVlz
+ 8krRZbsMfhp+eK3nQq9BmHvLqAJHMRhdWE0nhirbtOe8zD8Uk2N9v3Mu9aXT0Au3di
+ KaYYtMeyQbsEQ==
+Date: Fri, 8 Jul 2022 19:12:53 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Zhu Ning <zhuning0077@gmail.com>
-Subject: Re: [PATCH] ASoC: codecs: add support for ES8326
-Message-ID: <YshsKg14M8kPakfy@sirena.org.uk>
-References: <20220707011856.10841-1-zhuning0077@gmail.com>
+To: Wallace Lin <savagecin@gmail.com>
+Subject: Re: [PATCH] ASoC: nau8821: add new widget to control system clock
+Message-ID: <YshzpRewYS0f/3qy@sirena.org.uk>
+References: <20220707080751.76892-1-savagecin0@gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="tIN0X4XrUyEUVF6K"
+ protocol="application/pgp-signature"; boundary="MuRdaVEaQ70yYP5Q"
 Content-Disposition: inline
-In-Reply-To: <20220707011856.10841-1-zhuning0077@gmail.com>
-X-Cookie: Baby On Board.
-Cc: Zhu Ning <zhuning@everest-semi.com>, alsa-devel@alsa-project.org,
- pierre-louis.bossart@linux.intel.com,
- David Yang <yangxiaohua@everest-semi.com>, tiwai@suse.com
+In-Reply-To: <20220707080751.76892-1-savagecin0@gmail.com>
+X-Cookie: Familiarity breeds attempt.
+Cc: alsa-devel@alsa-project.org, scott6986@gmail.com, WTLI@nuvoton.com,
+ SJLIN0@nuvoton.com, KCHSU0@nuvoton.com, lgirdwood@gmail.com,
+ YHCHuang@nuvoton.com, CTLIN0@nuvoton.com, dardar923@gmail.com,
+ supercraig0719@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,97 +89,44 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---tIN0X4XrUyEUVF6K
+--MuRdaVEaQ70yYP5Q
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Thu, Jul 07, 2022 at 09:18:56AM +0800, Zhu Ning wrote:
+On Thu, Jul 07, 2022 at 04:07:51PM +0800, Wallace Lin wrote:
 
-> The ES8326 codec is not compatible with ES8316 and requires a dedicated driver.
+> @@ -1430,6 +1460,7 @@ static const struct snd_soc_component_driver nau8821_component_driver = {
+>  	.dapm_routes		= nau8821_dapm_routes,
+>  	.num_dapm_routes	= ARRAY_SIZE(nau8821_dapm_routes),
+>  	.suspend_bias_off	= 1,
+> +	.non_legacy_dai_naming	= 1,
+>  	.idle_bias_on		= 1,
+>  	.use_pmdown_time	= 1,
+>  	.endianness		= 1,
 
-There's a bunch of bot reported issues as well as those below.  Other
-than the interrupt management this should all be fairly small, the bulk
-of the driver looks good:
+This isn't obviously connected with the rest of your change and breaks
+the build since this flag has been removed in current code.  It should
+probably just be dropped here.
 
-> +	SOC_ENUM_SINGLE(ES8326_DAC_DSM_4D, 4, 4, dacpol_txt);
-> +static const struct soc_enum alc_winsize =
-> +	SOC_ENUM_SINGLE(ES8326_ADC_RAMPRATE_2E, 4, 16, winsize);
-> +static const struct soc_enum drc_winsize =
-> +	SOC_ENUM_SINGLE(ES8326_DRC_WINSIZE_54, 4, 16, winsize);
-> +static const struct snd_kcontrol_new es8326_snd_controls[] = {
+Please submit patches using subject lines reflecting the style for the
+subsystem, this makes it easier for people to identify relevant patches.
+Look at what existing commits in the area you're changing are doing and
+make sure your subject lines visually resemble what they're doing.
+There's no need to resubmit to fix this alone.
 
-We needs osme blank lines between declarations here to improve
-legibility.
-
-> +/*
-> + * Note that this should be called from init rather than from hw_params.
-> + */
-> +static int es8326_set_dai_sysclk(struct snd_soc_dai *codec_dai,
-> +				 int clk_id, unsigned int freq, int dir)
-
-I don't see any reason why it *couldn't* be called from hw_params -
-it'll mean the constraints don't take effect but that might be desirable
-if it's called from hw_params due to being able to reprogram the input
-clock.
-
-> +}
-> +static int es8326_probe(struct snd_soc_component *component)
-
-More missing blank lines.
-
-> +	ret = device_property_read_u8(component->dev, "everest,mic1-src", &es8326->mic1_src);
-> +	if (ret != 0) {
-> +		dev_dbg(component->dev, "mic1-src return %d", ret);
-> +		es8326->mic1_src = ES8326_ADC_AMIC;
-> +	}
-> +	dev_dbg(component->dev, "mic1-src %x", es8326->mic1_src);
-> +
-> +	ret = device_property_read_u8(component->dev, "everest,mic2-src", &es8326->mic2_src);
-
-This is adding a DT binding, the binding needs to be documented.
-
-> +	if((reg && ES8326_VERSION_B) == 1)
-
-Coding style and I'm not sure the logic there is what's intended?
-
-> +	{
-> +		regmap_write(es8326->regmap, ES8326_ANA_VSEL_1C, 0x7F);
-> +		regmap_write(es8326->regmap, ES8326_VMIDLOW_22, 0x0F);
-> +		regmap_write(es8326->regmap, ES8326_DAC2HPMIX_25, 0xAA);
-> +		regmap_write(es8326->regmap, ES8326_HP_DRVIER_24, 0x20);
-> +	}
-
-Should there be something similar in the resume path?  I'm also not
-seeing anything that manages the register cache over suspend.
-
-> +	/* Enable irq and sync initial jack state */
-> +	enable_irq(es8326->irq);
-> +	es8326_irq(es8326->irq, es8326);
-
-The driver souldn't need to enable or disable the IRQ by hand, it should
-just configure the device to not generate interrupts when not in use.
-Enabling and disabling doesn't play nicely with shared interrupts and is
-in general typically a warning sign.
-
-> +#ifdef CONFIG_OF
-> +static const struct of_device_id es8326_of_match[] = {
-> +	{ .compatible = "everest, es8326", },
-
-There shouldn't be a space in the compatible string.
-
---tIN0X4XrUyEUVF6K
+--MuRdaVEaQ70yYP5Q
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmLIbCkACgkQJNaLcl1U
-h9D/6Qf+KMyRZQM/8bbJJHI3FB9AfpQL1PUf0sVevITcWLyYdtDNDJxBKs1wcqeU
-QrAdz9QqR48MeEJBz0q6JCOq824oscgo4MoRZNFyHRnVS2bdI+J11ZIMEA5GDSce
-n69ou58c/H21FJq2IrJhexYg7acMOdHx3afNi4WH0lAUZD87uJLfWH/Q0QWY/SNv
-/ROqLltHS8yoqL429DrK5A78vEi11QOIr9x1fOeq83GZXQEJzLskgwefDriU5dF4
-eonuvq8odEZ1w42Xa0tene8qo8r7GV77A4pTFbUJ0CovNFdG38K059Soe3YgzzVi
-4NmI+vsJD1GKHMW390niDzXggrnV8Q==
-=+Iad
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmLIc6QACgkQJNaLcl1U
+h9AeXAf/R4teP1fxf/XP3SSoHLewWFKIUe4lPQ/K0ujoKThDcqMS0ZWJfb+3dj9b
+MZNOC2q9JB3IZ3dF6x1T1KBfb16fXjG8b00Y75/jdLlOUFltVHICMAfp2/c0FvNl
+wM69GEfNb4FZjnpiLNnbLB6Da08Ff38PKmsRJmCCpN4b+0WioabqGE1uwr5vKdu0
+KmNLmS+gI9cQNpYqmBwYwUztByg/b3qGbIuyIH571ojPTwe/0c1JeHeVH6DyJKJj
+HHgiuKV/+WZEbGo6ZcfsQ3bcjV87kpKxb+Dvb6LY+NrnynJh7KKRds2WLidqG6gf
+hMx81axOxI7/9G75W6G8TdsNgDps5Q==
+=sqyb
 -----END PGP SIGNATURE-----
 
---tIN0X4XrUyEUVF6K--
+--MuRdaVEaQ70yYP5Q--

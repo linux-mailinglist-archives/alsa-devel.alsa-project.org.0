@@ -2,177 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D5ED56BB29
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Jul 2022 15:50:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 557E156BB7A
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Jul 2022 16:06:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BE0BD847;
-	Fri,  8 Jul 2022 15:49:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE0BD847
+	by alsa0.perex.cz (Postfix) with ESMTPS id DF66E846;
+	Fri,  8 Jul 2022 16:05:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF66E846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657288211;
-	bh=hK28LofwzIc0den1GoZsIa/QR9wUCK1kltos+gA5gNo=;
-	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=vPXZbzN88D5FHt4ScXAVnXgFeXYtbvtAjSTg1ErlXSfl6B8IA3PA4lP5uycwmGZL6
-	 2M/eZX+SNIEs3a/IgF3+YZ4uHZ6wWaO9QjpqCi6lJ3IiIUUj/Ngsl4SDr1isGGKt+w
-	 WobEGAKEOIPBb/mnTzI2PsU78fLmfck8uceFv6vQ=
+	s=default; t=1657289203;
+	bh=xVnOUnazD02h1JsuZ/gxAGHlzh/LJNLBh58zQ/EmNBA=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=PH89nl1E6bm/eNRrdrm4hUokR0gebqmcl8XwrVBcGUjaMkf3x/o+ZVfNhW2VIPRbR
+	 gRAQZTcjB7hIwprTCReeX+4CsrGprx9jVp7e4bcvzZ2MZALBXp1GDDbBOM6ks6aA1n
+	 jnhvqDk5WbqCpGijTnDHoysd0YJzxhZf+u0X0tWQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 97EC0F80084;
-	Fri,  8 Jul 2022 15:49:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 51B96F800C5;
+	Fri,  8 Jul 2022 16:05:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5DED3F80166; Fri,  8 Jul 2022 15:49:08 +0200 (CEST)
+ id 44DB4F8025B; Fri,  8 Jul 2022 16:05:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
- [205.220.165.32])
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 12EC5F800C5;
- Fri,  8 Jul 2022 15:49:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12EC5F800C5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5C517F80084
+ for <alsa-devel@alsa-project.org>; Fri,  8 Jul 2022 16:05:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C517F80084
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
- header.b="Mxkk16+K"; 
- dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com
- header.i=@oracle.onmicrosoft.com header.b="aD3O+QmG"
-Received: from pps.filterd (m0246617.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 268B8Bko032572;
- Fri, 8 Jul 2022 13:48:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : content-type : mime-version; s=corp-2021-07-09;
- bh=QuIPYOGh3xrGs1jWHhe65y/C73jEWk4Y/ZiLUv4kXD4=;
- b=Mxkk16+KRMj90heYbcqa7qvenuSHLW7KCY8r7sgIYsKdk6CIa4uRBJ0YoTtzcovu3Xsc
- T/wcaVAvXT5fmm4fzs3uW0WLSmRI6uzWx9CyO2XIyLZps2vqw8gNB89rtqcnd2E5pjIu
- jcqIinzsh9R9Et4ISq/2DkAHShKPJEqey7YsqlUs2zwh4kj758XmekyHOpcMvvz4lXzm
- 8vPfaOQ2A/ubO4HVgzsnnvLA3Jj08a9QdKwHQ5u6/slVn5TM6CaiTLGQiaikVz2x2a3l
- 0xBB3fiA5dob7belP+hyPbG+CgJWdnvUDkgp5yHqUV7LQE/5AS3zzd5/CuUCjD+A0T7H Ug== 
-Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3h4ubyr6ft-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 08 Jul 2022 13:48:59 +0000
-Received: from pps.filterd
- (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.16.1.2/8.16.1.2)
- with SMTP id 268Df8BB015259; Fri, 8 Jul 2022 13:48:51 GMT
-Received: from nam04-mw2-obe.outbound.protection.outlook.com
- (mail-mw2nam04lp2174.outbound.protection.outlook.com [104.47.73.174])
- by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com with ESMTP id
- 3h4ud2pjvd-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 08 Jul 2022 13:48:51 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EX+sUJnQrnCp6suPZ82sGq0mglooXsgM8NY6PMHHJqw+qfww+RIJ1ulSRVIdtlxWCegS/we+I5LwvW9f/8xssaRKpTgIg4emeLbMii7kWIIE2GZVN0ftu9FUPQPrEreBznzFx1UcXtpKCn9FuwgZoothqUCtqVsTPaf2sXFBDRdTZenXDUOGvNiCg4lPDwoBgbr5sZ7yQ845mw5LsokSTTAoaxe0tXHItGUiGZwEqpoJFw4JIpWdekFY8YfGqJ5SSY3kw77lGuy7qcJccRehq5SLN/Q4pfZgPwhi4X+941JW7YYVyldzs9ALvoQUTcWPg85MDBC0uQhoHkmdv3fjHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QuIPYOGh3xrGs1jWHhe65y/C73jEWk4Y/ZiLUv4kXD4=;
- b=gjRUBcOA/78/4S3nblITabw0yuz0SUdlaQuntgcWn+9Gu5D2+1AWl5M6QwV9kSloCCJunnMNi1Ck8vhHkieSdZ6jPPcxUHw2Wxu9bb1jc0X00r64TAIeG205QR9WU5p3bL/i4384grAGEwCscSh8phRXzXMtsH3w2Kkkl4C8006wutyEhWW4KS3K0Ur3E4X+8s5HGJdUuzBScdP4gmLRJR79c7Xz9l6fWWFhSY6OVYpcqD7gT4BCgXxwRi9v8Ma+0L9sQ8uki3N0nvIuqog61xqUKdZrQDinZfTnDGja1P6nmKpFuU5g9wwTgBaMnSXYkAwfATsh9kfLmZ4VoQd+LA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QuIPYOGh3xrGs1jWHhe65y/C73jEWk4Y/ZiLUv4kXD4=;
- b=aD3O+QmGJtsKWtrQ1hNZBal8JDwrb6F49R2TXoO0zE0FYPLZH9QkYwbxOOimp/9cIKk/qDUe8W5d4wXtsjfeuHErZRBzgutWFwvcYn65oG8clJZBHpa75v2lxJvZHN/h4htR/MLkhwdkY1SUdIgkyWU/Q5dnpb8CCR3lrCzaE2k=
-Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
- (2603:10b6:301:2d::28) by DM5PR1001MB2220.namprd10.prod.outlook.com
- (2603:10b6:4:30::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.17; Fri, 8 Jul
- 2022 13:48:49 +0000
-Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
- ([fe80::5020:9b82:5917:40b]) by MWHPR1001MB2365.namprd10.prod.outlook.com
- ([fe80::5020:9b82:5917:40b%6]) with mapi id 15.20.5417.016; Fri, 8 Jul 2022
- 13:48:49 +0000
-Date: Fri, 8 Jul 2022 16:48:36 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [PATCH v2] ASoC: SOF: ipc-msg-injector: fix copy in
- sof_msg_inject_ipc4_dfs_write()
-Message-ID: <Ysg1tB2FKLnRMsel@kili>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
-X-ClientProxiedBy: ZR0P278CA0198.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:44::12) To MWHPR1001MB2365.namprd10.prod.outlook.com
- (2603:10b6:301:2d::28)
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="dYnpaGUq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1657289137; x=1688825137;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=xVnOUnazD02h1JsuZ/gxAGHlzh/LJNLBh58zQ/EmNBA=;
+ b=dYnpaGUq8SDGeeqGRFsMH2mrWOVYPOAAaGuK9YCS24PrvxlK/TIxRIBn
+ 3/qY3DqX9VR3AFa6jkSvgiUMFmMftqbgz5CI2vf7IGee3dmm+H8a3FA42
+ XeTDfXUiRb0d/MbTmNuaeClCzaiCwHdlR62WCVSkFONOaCA44LuQ3f4Zc
+ hlb1q9tFDCV6I5yd7UITyRvvUQ3FPkBtR4s++xhEim5vJ90YSv5F1UEZL
+ WqrJlV8XxLVR5nPER7NxELZC5Q2wUK6uh/ql30ME9JyoVUK7DS2bqkl2j
+ lM8VKI/o3ta6E2gLI2jyB8FsuDrHlepJrZmKzQJ6rCK5Bf5iGVnPKRbX+ w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10401"; a="309857507"
+X-IronPort-AV: E=Sophos;i="5.92,255,1650956400"; d="scan'208";a="309857507"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jul 2022 07:04:59 -0700
+X-IronPort-AV: E=Sophos;i="5.92,255,1650956400"; d="scan'208";a="626712320"
+Received: from gcisnero-mobl.amr.corp.intel.com (HELO [10.212.87.49])
+ ([10.212.87.49])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jul 2022 07:04:59 -0700
+Message-ID: <e4e1593c-5b25-e663-22f5-cfa37a0275fa@linux.intel.com>
+Date: Fri, 8 Jul 2022 09:04:58 -0500
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 8be1fe44-c510-4a24-71f2-08da60e895c3
-X-MS-TrafficTypeDiagnostic: DM5PR1001MB2220:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: DPnXB0k1wwWeXZpol/vwAXiW8p1Mc118OXl523LQZU4B0irKZ6dq2Jd1RtkKHkLbwdjuu0q04WYUaoipMry3/IC4IDYCXmZVw9OIotrlxn5pRRvN7tv69G8qguDk8r5euuXw2BfHYJsUzM26RvJjz4Fx1nduBQerDko3xdIeQRvbDxgeCXV8H8q8m/IChvcOU5GTFkSKEPPgs31UhhsWoyuNY97yECjUZTh91JbuDR45L+c/eQqidC3de2cDu+ANbV25Tmr6gxiuB0pVwphOqDP+Ca8Xa0aOd2fwGFTBl2Mtk4ixiffmAcGhHca6c+HfxaWrumlVGLnGpF1ifsZmuq9hZ31NPBBRv5EMwvUzvdIHJx+THaj6duJXGt63w5M2+WWIrFbtZFJrQykIFk4fLiQ9t9RhDanAQa21YIv9J+bLmaFEUk6uGhgo0SvPddBLltIsyozYBeO3tUq1PWfzAfZEHiV51ryFqzAB95tkU5+x5D6Ixp3EUdHBtDuJAkWQfwbgJtVFOrCWXKEmnI4kuWNjtdX48oYddLYDA6GeQf/ItxLmepfNM6LNaZ/30tHvXZWtSD4RyVRj5RXLPBKYorWL5mQk5DPyVTy81QocN9Ux3uhL1XUULTyTdUqGCf5oUu1k6S81gMpQqdbs7T/uiiRXr8+9h75tHpVwo/FoEth4Ap+VzecX1DAqR/HqHLwNS6laWiOX3oW7OoKmzriiWMmJ9RlqmmWR/MUtlTTW9q/cahqlL0u/pxJBg04OS7uAYWTUhtHqoBUZYbw0+VIoUsuvf6vOSjG5SXQ3IoYjFWWHGl4Gx8GQIdkdO0mF7pPY
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR1001MB2365.namprd10.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(7916004)(366004)(396003)(136003)(39860400002)(346002)(376002)(5660300002)(52116002)(38350700002)(33716001)(4326008)(38100700002)(44832011)(6486002)(8936002)(478600001)(86362001)(83380400001)(6666004)(66476007)(9686003)(7416002)(54906003)(41300700001)(6512007)(8676002)(2906002)(6506007)(66556008)(6916009)(66946007)(316002)(186003)(26005);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Lhox5IMT3MXykleg62CllkjWC0JjfyoTMnRBjBHv5jfC1ANcDXVPBRQ+o4op?=
- =?us-ascii?Q?fRyUM+9FYrj/c2IcPEN/6MUn8VlfUnsRVNJBeG/Uh/ryn3ULA5USkljrJ94K?=
- =?us-ascii?Q?kfVlavm1UZfPvweNcqkjjdBcI0+JkQ9bG30vzbkFKPWeuASRdZHL+Xlo+SOr?=
- =?us-ascii?Q?EMXkYlk1+kcoQs8g6yeDXuWKDIDqKuXml1lFAAUae9AlDOCf1lB+5jhg3bTT?=
- =?us-ascii?Q?rbaktT3k+aurhxPToEJIhCRcSZcJ1nTldw9CWpmrCvhX5FL9Q7qFOOXLg/Xz?=
- =?us-ascii?Q?i3nf0kpFEnn8nRB+6/KEPp28PJ3EVdxSgfW0M78Za+BFF0tBDHLJPfsnTodv?=
- =?us-ascii?Q?CJ+JZ1Rq/43PeIg0qh1q7XdxVFFkE452i0uyHFvV9oCC7TCyj6heQsYsX5E7?=
- =?us-ascii?Q?mlgXlxdzX8mBmI9l6EvY9Hg2VKUIy39IpHCQJs4xO7z09FQ93n9oNn46gWf5?=
- =?us-ascii?Q?PzfZxCRDGvjLjiD3H6eewrkcvgsT2RlRQTy+NoLDU2nc7p1zjNTGhGESOIly?=
- =?us-ascii?Q?r0Ev4hkqgt36zRmt4NUCMf/o9jR444l6zu1G2Pl+75gRKdIowPPjV13XgmVv?=
- =?us-ascii?Q?Tj2Q7fqRJSjf0SB08pLLwasPxXuqG1wrSGHInYjTLTw90Wl4jvnPJKtaBNT8?=
- =?us-ascii?Q?2xC2yS9jVqtrxTuPZ15BF7BkaDOQQoHG2c5LlICvGEXF0ra3x8YcceK0uwcz?=
- =?us-ascii?Q?LJXEASj8VfNJX3u6AVESVaSxmwhHYm2TlLJUG6eFFicydR6/NgA01R6mwLob?=
- =?us-ascii?Q?o1LXg7mUGX5EAq3jN6NcgbUyeDk/v7OcUhSqevrg4UMRln43yKMMU3zYqHYh?=
- =?us-ascii?Q?1c6pYUkHUMz8uHiq+gDqzFUzaNq5c2IUTidWaU0jkhjUdp0JjztgxdPqLmBe?=
- =?us-ascii?Q?Sjr2B6BS7aFayO5ZkrMI1STl/beLgkv38/XX81C3pe7V+ghyrgfzJh83W52H?=
- =?us-ascii?Q?aK5A1OJkm8pPg26iObGRYX68bewjLWTbK0lhu45XjR4N/M+OOblE+E/cdpF0?=
- =?us-ascii?Q?CHoeAK3f8Q/Go92pC6EOyQAvXoBchEpNlW5XbWSmgrAaFQ7G9adXvmdFTILy?=
- =?us-ascii?Q?2dxcHpCAKBUS7AaSCj+LrCdnBxNB91pQ1S9hxKZcGxfUYGuVw/JPY5FNae+G?=
- =?us-ascii?Q?4BD/TSDInS8gK2ej6D/cPVGDRO+XtOwgDSonT7m+ZThLtCgiDAUYrjmAKIJR?=
- =?us-ascii?Q?WRCN2PocQc/x08ER5mq3Q8i3RNcrriqPvYexLPoU7VaL7DmlfowZgOsRwqD2?=
- =?us-ascii?Q?zjULjqrDAxxCl68Gf44zhzWsdDI4dzHP861h5SnF00pm4Bl8StdUm4CNnUXe?=
- =?us-ascii?Q?1MpMP2Tn1p1KZXF3X6F7FIW0PbJkKIWiBjaWcm9L4lKRxZjo+jGCBu3lsv8p?=
- =?us-ascii?Q?TmGB72WaKZAs/EgWKAB1yqH4A5u1wjp6nGVjToVop53jM37EIg8pt978jr07?=
- =?us-ascii?Q?ymYWfrlRJgGZoENWDc1rQN0LzlCjTbLnpkTrZPVvgjYN79VjNZEpaAwS3OJi?=
- =?us-ascii?Q?0ERNViMkZaC59uLxKmK4dIkPT2F6L0iE8gc42VkBP7bTJOp1P9L7hVXFS044?=
- =?us-ascii?Q?LvwcnAZcsno3SWUP99bSJJB0fbB+An4VmohWnb6hhdOBHsmH+Z6DETpY0gJ+?=
- =?us-ascii?Q?Pw=3D=3D?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8be1fe44-c510-4a24-71f2-08da60e895c3
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2365.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2022 13:48:49.4201 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YwZ2ayA1vv6r0tkHHqcDXB/dVYSfgD+RJmWWbHvVV1ZhnYZSiBHMgtq5cg2KNVx5r8CJnR5mIdrlZlGcXR5zBQJ8uJGOBlmtJ4NznaaUizw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1001MB2220
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.517, 18.0.883
- definitions=2022-07-08_11:2022-07-08,
- 2022-07-08 signatures=0
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- adultscore=0 spamscore=0
- phishscore=0 malwarescore=0 mlxscore=0 mlxlogscore=999 bulkscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2206140000
- definitions=main-2207080052
-X-Proofpoint-GUID: iJ4scz9CcSZsh_QQHEyv284XJf20hVZN
-X-Proofpoint-ORIG-GUID: iJ4scz9CcSZsh_QQHEyv284XJf20hVZN
-Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- kernel-janitors@vger.kernel.org, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>,
- sound-open-firmware@alsa-project.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.10.0
+Subject: Re: [bug report] soundwire: qcom: Check device status before reading
+ devid
+Content-Language: en-US
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Dan Carpenter <dan.carpenter@oracle.com>
+References: <Ysfl7lzEyRVuQ+Dg@kili>
+ <747099de-504a-daed-6d45-34bf0e379562@linaro.org>
+ <20220708084555.GJ2316@kadam>
+ <ff3c59c4-9af4-f5c8-0804-61a4583e5fab@linaro.org>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <ff3c59c4-9af4-f5c8-0804-61a4583e5fab@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Vinod Koul <vkoul@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -188,91 +96,119 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There are two bugs that have to do with when we copy the payload:
 
-	size = simple_write_to_buffer(ipc4_msg->data_ptr,
-			      priv->max_msg_size, ppos, buffer,
-			      count);
 
-The value of "*ppos" was supposed to be zero but it is
-sizeof(ipc4_msg->header_u64) so it will copy the data into the middle of
-the "ipc4_msg->data_ptr" buffer instead of to the start.  The second
-problem is "buffer" should be "buffer + sizeof(ipc4_msg->header_u64)".
+On 7/8/22 04:02, Srinivas Kandagatla wrote:
+> 
+> 
+> On 08/07/2022 09:45, Dan Carpenter wrote:
+>> On Fri, Jul 08, 2022 at 09:31:31AM +0100, Srinivas Kandagatla wrote:
+>>> Hi Dan,
+>>>
+>>> On 08/07/2022 09:08, Dan Carpenter wrote:
+>>>> Hello Srinivas Kandagatla,
+>>>>
+>>>> The patch aa1262ca6695: "soundwire: qcom: Check device status before
+>>>> reading devid" from Jul 6, 2022, leads to the following Smatch static
+>>>> checker warning:
+>>>>
+>>>>     drivers/soundwire/qcom.c:484 qcom_swrm_enumerate()
+>>>>     error: buffer overflow 'ctrl->status' 11 <= 11
+>>>>
+>>>> drivers/soundwire/qcom.c
+>>>>       471 static int qcom_swrm_enumerate(struct sdw_bus *bus)
+>>>>       472 {
+>>>>       473         struct qcom_swrm_ctrl *ctrl = to_qcom_sdw(bus);
+>>>>       474         struct sdw_slave *slave, *_s;
+>>>>       475         struct sdw_slave_id id;
+>>>>       476         u32 val1, val2;
+>>>>       477         bool found;
+>>>>       478         u64 addr;
+>>>>       479         int i;
+>>>>       480         char *buf1 = (char *)&val1, *buf2 = (char *)&val2;
+>>>>       481
+>>>>       482         for (i = 1; i <= SDW_MAX_DEVICES; i++) {
+>>>>                        ^^^^^
+>>>> This a loop that starts from 1 instead of 0.  I looked at the
+>>>> surrounding context and it seems like it should be a normal loop that
+>>>> starts at 0 and goes to < SDW_MAX_DEVICES.
+>>>>
+>>>
+>>> In SoundWire world device id 0 is special one and used for
+>>> enumerating the
+>>> SoundWire devices.
+>>>
+>>> Only addresses from 1-11 are valid devids that can be assigned to
+>>> devices by
+>>> the host/controller.
+>>>
+>>> This part of the code is reading the devids assigned by the hw
+>>> auto-enumeration, So the loop start from 1 is correct here.
+>>>
+>>>
+>>>> (Or possibly the other loops are buggy as well).
+>>>
+>>> Atleast this code is fine, but I see other places where are starting
+>>> from 0
+>>> which could be fixed but the SoundWire core will ignore the status
+>>> for devid
+>>> 0.
+>>
+>> This code is *not* fine either because it should be < instead of <=.
+>>
+>> It might be that we always hit a zero first and break so the bug might
+>> not affect users but it's still wrong.
+> 
+> I agree, Let me send a fix or send a v2.
 
-This function is used for fuzz testing so the data is normally random
-and this bug likely does not affect anyone very much.
 
-In this context, it's simpler and more appropriate to use copy_from_user()
-instead of simple_write_to_buffer() so I have re-written the function.
+the <= SDW_MAX_DEVICES is perfectly fine, provided that the allocation
+is done correctly.
 
-Fixes: 066c67624d8c ("ASoC: SOF: ipc-msg-injector: Add support for IPC4 messages")
-Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
----
-v2: In v1 I missed the "buffer + sizeof(ipc4_msg->header_u64)" bug.
+include/linux/soundwire/sdw.h:#define SDW_MAX_DEVICES                   11
 
- sound/soc/sof/sof-client-ipc-msg-injector.c | 29 +++++++++------------
- 1 file changed, 12 insertions(+), 17 deletions(-)
 
-diff --git a/sound/soc/sof/sof-client-ipc-msg-injector.c b/sound/soc/sof/sof-client-ipc-msg-injector.c
-index 6bdfa527b7f7..752d5320680f 100644
---- a/sound/soc/sof/sof-client-ipc-msg-injector.c
-+++ b/sound/soc/sof/sof-client-ipc-msg-injector.c
-@@ -181,7 +181,7 @@ static ssize_t sof_msg_inject_ipc4_dfs_write(struct file *file,
- 	struct sof_client_dev *cdev = file->private_data;
- 	struct sof_msg_inject_priv *priv = cdev->data;
- 	struct sof_ipc4_msg *ipc4_msg = priv->tx_buffer;
--	ssize_t size;
-+	size_t data_size;
- 	int ret;
- 
- 	if (*ppos)
-@@ -191,25 +191,20 @@ static ssize_t sof_msg_inject_ipc4_dfs_write(struct file *file,
- 		return -EINVAL;
- 
- 	/* copy the header first */
--	size = simple_write_to_buffer(&ipc4_msg->header_u64,
--				      sizeof(ipc4_msg->header_u64),
--				      ppos, buffer, count);
--	if (size < 0)
--		return size;
--	if (size != sizeof(ipc4_msg->header_u64))
-+	if (copy_from_user(&ipc4_msg->header_u64, buffer,
-+			   sizeof(ipc4_msg->header_u64)))
- 		return -EFAULT;
- 
--	count -= size;
-+	data_size = count - sizeof(ipc4_msg->header_u64);
-+	if (data_size > priv->max_msg_size)
-+		return -EINVAL;
-+
- 	/* Copy the payload */
--	size = simple_write_to_buffer(ipc4_msg->data_ptr,
--				      priv->max_msg_size, ppos, buffer,
--				      count);
--	if (size < 0)
--		return size;
--	if (size != count)
-+	if (copy_from_user(ipc4_msg->data_ptr,
-+			   buffer + sizeof(ipc4_msg->header_u64), data_size))
- 		return -EFAULT;
- 
--	ipc4_msg->data_size = count;
-+	ipc4_msg->data_size = data_size;
- 
- 	/* Initialize the reply storage */
- 	ipc4_msg = priv->rx_buffer;
-@@ -221,9 +216,9 @@ static ssize_t sof_msg_inject_ipc4_dfs_write(struct file *file,
- 
- 	/* return the error code if test failed */
- 	if (ret < 0)
--		size = ret;
-+		return ret;
- 
--	return size;
-+	return count;
- };
- 
- static int sof_msg_inject_dfs_release(struct inode *inode, struct file *file)
--- 
-2.35.1
+drivers/soundwire/bus.c:        for (i = 1; i <= SDW_MAX_DEVICES; i++) {
+
+drivers/soundwire/bus.c:        for (i = 1; i <= SDW_MAX_DEVICES; i++) {
+
+drivers/soundwire/bus.c:        for (i = 1; i <= SDW_MAX_DEVICES; i++) {
+
+
+drivers/soundwire/cadence_master.c:     for (i = 0; i <=
+SDW_MAX_DEVICES; i++) {
+
+the start at zero is intentional here.
+drivers/soundwire/cadence_master.c:     enum sdw_slave_status
+status[SDW_MAX_DEVICES + 1];
+
+
+
+drivers/soundwire/qcom.c:       for (dev_num = 0; dev_num <
+SDW_MAX_DEVICES; dev_num++) {
+
+
+This one is a bug! device 11 is not handled
+
+drivers/soundwire/qcom.c:       for (i = 0; i < SDW_MAX_DEVICES; i++) {
+
+
+This one is a bug! device 11 is not handled
+
+drivers/soundwire/qcom.c:       for (i = 1; i <= SDW_MAX_DEVICES; i++) {
+
+This one has a bug! off-by-one access
+
+drivers/soundwire/qcom.c:       enum sdw_slave_status
+status[SDW_MAX_DEVICES];
+
+Shoud be [SDW_MAX_DEVICES + 1]
+
+The spec defines valid devices in the range 1..11 included.
+Device0 is reserved for enumeration
+Devices 12 and 13 are for groups
+Device 14 is reserved for manager addressing
+Device 15 is an 'all devices' alias.
+
+
 

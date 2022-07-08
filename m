@@ -2,224 +2,176 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79AE156D6A7
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Jul 2022 09:21:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BF1D56B66C
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Jul 2022 12:06:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 214B684D;
-	Mon, 11 Jul 2022 09:20:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 214B684D
+	by alsa0.perex.cz (Postfix) with ESMTPS id BDA80851;
+	Fri,  8 Jul 2022 12:05:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDA80851
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657524104;
-	bh=5pLPxSfVxyKstenSeJF5S36kf0san/dvZM+lTJUj5kk=;
+	s=default; t=1657274789;
+	bh=TA86hgrJHw8Cmn/WvDp10E8o3Qxh+qQ4/Zu55eN8ycY=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QzrVHo6ywIAlM/TFirVWovVuCEGWlTrGG01q8W+L2zJDzNE7gOAlGc0nyj2ouEE2w
-	 pVoMmhTwVPyLW0kADDu4N+BjUgdmEjCC3nRyoGy5lPXOq68hSF+pgMJW7/NjHvTLDg
-	 rcFTHR5h73bBGFLtCektmQL9kyUppdgowYSq60yQ=
+	b=S0kXUZ8meWfdAHiIEx7PSA0e/rGthvDD/pCHJvhRp5mLSgIH1/XGnNN+PC9U+kxKh
+	 balFZWEDwVwBnIEBEj3Wd4K4cqBDyIVLMD49AJgpC9Lm4mBUJ1gQPSaVBUX/LaxQYb
+	 oI700wx465JlKUzmGqkMxlKp09CpdhnAeLnRMn3I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D4586F8055B;
-	Mon, 11 Jul 2022 09:19:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 48B11F8025B;
+	Fri,  8 Jul 2022 12:05:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6B903F80167; Fri,  8 Jul 2022 12:03:53 +0200 (CEST)
+ id ACCE7F80167; Fri,  8 Jul 2022 12:05:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
- [205.220.165.32])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B3C6FF80166
- for <alsa-devel@alsa-project.org>; Fri,  8 Jul 2022 12:03:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3C6FF80166
+ by alsa1.perex.cz (Postfix) with ESMTPS id BC4FAF800C5
+ for <alsa-devel@alsa-project.org>; Fri,  8 Jul 2022 12:05:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC4FAF800C5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
- header.b="PA50aJSW"; 
+ header.b="hAP/xTTk"; 
  dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com
- header.i=@oracle.onmicrosoft.com header.b="d5aihqu/"
-Received: from pps.filterd (m0246629.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 2689TABU000383;
- Fri, 8 Jul 2022 10:03:44 GMT
+ header.i=@oracle.onmicrosoft.com header.b="OKKZa87e"
+Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 2689T56S031590;
+ Fri, 8 Jul 2022 10:05:18 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
  h=date : from : to : cc
  : subject : message-id : references : content-type : in-reply-to :
  mime-version; s=corp-2021-07-09;
- bh=5pLPxSfVxyKstenSeJF5S36kf0san/dvZM+lTJUj5kk=;
- b=PA50aJSWEClK7uNepTEBZoL1lirjNs/B6KGo9hv+IgJJBjI6PrnU57gxCy/+qz2/vyQj
- oL0aTg5oA3vyQMa5i4vjthnyKQ6BWTpbc8hSzC0vhsKNARztRAH/NSsh9dW8f41s1/so
- h5x4py0i5Nyy4To7vgnyw4i4pepyPuSuElcTKvhwEliSRnJF5BIoM6faxeMhcKGZ71tu
- g6CK9oLrA1c0tCFliM/drLZbAOaKa4nWye+NvPyHRWT2dOAH5yfsktPPdZbnkumXqDVe
- vFnJqDCdS5VkE4w/NgvMoS8PEsTTgT8axv27cKNHj4hM8Pf0gEOvc6MehQ4ndh5dhJ+k bw== 
-Received: from iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta03.appoci.oracle.com [130.35.103.27])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3h4ubyfbtq-1
+ bh=KubSSVLES0wjaQQ/LVQsIJAXZK44hhb1RhZHx2p1HE8=;
+ b=hAP/xTTkJqRYMeYS7cYgJ9GS7jQpeTo9rXFfrgaLUYOvzHKZOSLKsjM8gRMAGGygqA/7
+ msPvWDb0PP1E2iVYXTT53hVAe9cq7U/QPP/XY2E8p+aQXb43MIH63MVh+s9I/fXTomNc
+ 0Er2Z6zVsv7/QvlXSyyXcj7kneSj8RTBSR6OIVjlcW4V7zbKgGEV1XTtoioy+amtIxZQ
+ KRy/2sz+zqHBURXA50ymYimrkJazOFGIV7oKx3M/PUhdS3ngZ1c4np6zHAFXdOTIEwBB
+ PbgVk7IHG4ElZps3L8sAcDLteTC2gfDALOjnZRB0jsk59XKmiPFsQC3P4HiUPISSNXWz 7A== 
+Received: from phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com
+ (phxpaimrmta03.appoci.oracle.com [138.1.37.129])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3h4uby7q19-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 08 Jul 2022 10:03:43 +0000
+ Fri, 08 Jul 2022 10:05:18 +0000
 Received: from pps.filterd
- (iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (8.16.1.2/8.16.1.2)
- with SMTP id 268A1thI017973; Fri, 8 Jul 2022 10:03:41 GMT
+ (phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+ by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (8.16.1.2/8.16.1.2)
+ with SMTP id 268A1wjB028432; Fri, 8 Jul 2022 10:05:17 GMT
 Received: from nam11-co1-obe.outbound.protection.outlook.com
- (mail-co1nam11lp2170.outbound.protection.outlook.com [104.47.56.170])
- by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com with ESMTP id
- 3h4ud9qcwg-2
+ (mail-co1nam11lp2177.outbound.protection.outlook.com [104.47.56.177])
+ by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com with ESMTP id
+ 3h4udg8khp-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 08 Jul 2022 10:03:41 +0000
+ Fri, 08 Jul 2022 10:05:17 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TuiT5fxH64XD++PmsUHkgC7ckixWshUllFXzVoKD339c0SUUkEprR7RnhpyFoyYisCA3NgjigZj0XW0EB5megweHyiCr6hSkfjB4vmdtFZJIMeIcOup727hO99v4rU+KHGM2VxwCN0yEPdAuLSBVLjtDTX+2+alSVMxVUN1rOEFRoTOqCwuurnCJXuJ1xPpJDNTQHwg2CNYTSw5W3ZOLPO8s1GctuCHa9QH/Ddp/uuq+iey3U7OeI5ijPny7xK4dwWsD56h4gO5WjB52nrwuK9WvUAqgGj2AkqywRBgcs4ouzPFjlOii0aq44XhdilOpDJ5HsYjXYD41Haw5vgod9g==
+ b=PogRfUabbVGTe1ZOiEh52SOYz7Qt6WyvnG1xOZQWzGVtiAlSegJ7H5fOz1014UbMvNcDfDHK1UMwWamN400qFylAOtBVQ4bLkD92YBwGYbDGGMhyzugxUv7bUtatM+CmKqzPMw1donxv0+SmyREFunjdsfL1GRx5q6RElliBQZ8DCbvxencUc/RdT2bX3kkRngmLJ/SYc9hobUh9PulaKgA7H88WA9XdMfQO3bqSNcrvHjpLfZQta5l3gUbUAr5fNPgs85BCE2ziBaqx3L7JWdrNZYn/QcC6O/DmQo3OOBCsAxFCgVRrWVOlBHCy6/BV9vjzDIoLU4KaiwzW2LisyA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5pLPxSfVxyKstenSeJF5S36kf0san/dvZM+lTJUj5kk=;
- b=kn1SRlyC5i2qMq14iJp3u48Sc+6YLSyptZNqh+j52LiRAD4GE2LcttsO6tAENFsPKuzk0Ce08wCzR+lQG8YmiaOgDnuauDBR2FvBbWexvMMmaZ1Gtgall4dYhQ8nFYVBMV+c4a2xbe0iKblpnv5Lbi5/H/pOGmdYGjmGP1p+wxaosjR71LV5GqWcVa04uuscYArmjbbs+qiZZIVeTb6tTvgvlzG5R23qxAzaJ8iflf+0CtE45WIcD0krL0IkSbT/GPMV9C2DEQxNKh8rwrnxfyMJIVACZCMqqIyLV0YCRqAjFA2nxRbNB1uuBMsc2b+mBbGgrzbk6dvqLMZZkRVkOg==
+ bh=KubSSVLES0wjaQQ/LVQsIJAXZK44hhb1RhZHx2p1HE8=;
+ b=Nw7PtXL4Tp4wh+wzjq16mcbaF58dHM6i+04GGaJGJMcKwmnjaVvmEJjbMCv7hYLawgQl5kopavdxlmn/ejTPwA5pwDIEN2bXiBQv8p8bxBsfdteIJbxjZOsnXwN8anPAG/UpS2MTANOUO+kKRRFEnNtDKamysU7WY5T2zhrdsEOVHUzZP/ftuAZvtknPwj+9dhfp+02wWfqohCOPnxRLnvizmuNSq9wKxHal0Qywpr+NbslgpIbgKbON43i4+oaPPw7icxNEkHk9Vi95uj3QkTzyzUU8nsPhe/5i4GGa+tIa7cL4D7oZWseaHI6ga3c5KYOdS/PzJVl+glXbzSa3+A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
  dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5pLPxSfVxyKstenSeJF5S36kf0san/dvZM+lTJUj5kk=;
- b=d5aihqu/jeH907HQhVDkAIsIAk1o2UUnZLfhRzqbZs24b2LPJu/0i/iO9RegZ/usVjNRK7F6zKl0TV7RkbNtwNk5jSLgf7v7g1ni6mo16f9Ema6DtSWAvvMnjH5lMjvtoIAn4Dcxo3jB26XbdYBYv/P0T7VJlIaKMBVEZ26Hd3s=
+ bh=KubSSVLES0wjaQQ/LVQsIJAXZK44hhb1RhZHx2p1HE8=;
+ b=OKKZa87e2hOqJDkRBJwRbNtkgQUA+y1Hujh5YD3Be8ait3jOJtFEzOHczlclUMrKG6F1Jx2LcJB0LvsIuwx5cDEK5FUfuivdWuXL0JZaj0M9ZVisEAX0ENf3Y1S//jIvAeQQCJMoyAs2oyQIoMojD4PIAHZhTAmBY5yFVOwOt6U=
 Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
  (2603:10b6:301:2d::28) by CH0PR10MB4924.namprd10.prod.outlook.com
  (2603:10b6:610:ca::19) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.20; Fri, 8 Jul
- 2022 10:03:37 +0000
+ 2022 10:05:15 +0000
 Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
  ([fe80::5020:9b82:5917:40b]) by MWHPR1001MB2365.namprd10.prod.outlook.com
  ([fe80::5020:9b82:5917:40b%6]) with mapi id 15.20.5417.016; Fri, 8 Jul 2022
- 10:03:37 +0000
-Date: Fri, 8 Jul 2022 13:02:19 +0300
+ 10:05:15 +0000
+Date: Fri, 8 Jul 2022 13:04:53 +0300
 From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Subject: Re: [linux-next:master] BUILD REGRESSION
- 088b9c375534d905a4d337c78db3b3bfbb52c4a0
-Message-ID: <20220708100219.GJ2338@kadam>
-References: <62c683a2.g1VSVt6BrQC6ZzOz%lkp@intel.com>
- <YsaUgfPbOg7WuBuB@kroah.com>
- <20220707140258.GA3492673@roeck-us.net>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: Re: [PATCH] soundwire: qcom: fix max auto-enumeration devices
+Message-ID: <20220708100453.GM2316@kadam>
+References: <20220708091947.5610-1-srinivas.kandagatla@linaro.org>
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220707140258.GA3492673@roeck-us.net>
+In-Reply-To: <20220708091947.5610-1-srinivas.kandagatla@linaro.org>
 User-Agent: Mutt/1.9.4 (2018-02-28)
-X-ClientProxiedBy: JNAP275CA0050.ZAFP275.PROD.OUTLOOK.COM (2603:1086:0:4e::10)
+X-ClientProxiedBy: JN2P275CA0016.ZAFP275.PROD.OUTLOOK.COM (2603:1086:0:3::28)
  To MWHPR1001MB2365.namprd10.prod.outlook.com
  (2603:10b6:301:2d::28)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 60888dca-74ab-415d-c312-08da60c91fbd
+X-MS-Office365-Filtering-Correlation-Id: a359b730-5965-4a39-7df0-08da60c95a53
 X-MS-TrafficTypeDiagnostic: CH0PR10MB4924:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: QpeUnUA80G+bljAIjcJUjdGQmN5uY1eFjfrdzbA17ZIS3uabFZv6Hj1kGve2Lkd6ukSIrwiau9r0ovgbwx+dZEkKmEv6+vXYk4KZAt/MIhaL91UGE+paD/7pDhxzw4BYYVzzpcTlpWSU2EifziKfjy7zSFc7TnpneOwuqT8aeevBVsak78DiURzZSmtUYh/Qt36gA5/ksmagoLtxfOrwnwiX4glTSsn8t5yf7q4IzdByoZMhq0/OHP2LZ5gMTFtZ6UHjHdMMXGvblMy4nwFFyDxr86OS56TwXu8Un5G4D4DsBq8RB57WhWGKUtSyUbZZbVRFVkXmco1NenhtSk86OVpxyYHEtK55FxQsoFvpcV9t5yQLp1tE1ssb1OlZae0sqORl49xAPisMT7jN1cFGRywkbs4jxpVhNo8QYdWoQ3VACsB1KUJ93fDES9dLhmgaIFwDWA8dmP2LXuL1Pd+DFJJTLkU2NgkpHh5jR/cu2c2jTU6PpCMhJIrwzdDt8sfkR6UcBI76NJL0PW+PVyYni0a7Pe3rbeU1PW70RjKKv2/VmnwT8TE08KBGeDQFp1AHEmMbpH2SgzlQWxMvwgGWtM/6/xUqkCQd/CwrTTQo63A1MOH6B7syzqHOaHclI2HJeLiaHI3iu+zlJxnG2+klM626OprekeiAtpkpRWukWRhFT8PONEEVRTQsT2XM6vCyFIqckzuC+ioRgs4tOx6NIenPb/oTrABzGoY+mHsNaR1Q2HerdVNbOlkOvYEcJhoSs2/qCEmiEqL11HGPPZoOhtWl90u/pVoJWO8OqO1Cy/1JYLe4uJbmE6i1YFG6PeLI
+X-Microsoft-Antispam-Message-Info: fNLfTE4D4gn4TY+kokuZrMVBkOdD2g6xzumd3JTZBdDpfo9iTTIzHBPTdadOXFyA61AjXuc5+K8cN14wJ9E8Wv753AytZR7izvbeGZq8CDLJg2uW4vx4ekBZ+WlnIxgJosaGkaJpzBv+xPIcNVAoDDEAeyeJuxEukC0i7zeiN9xLvuXc+YtMg+HMJ814Jsgzmhv/B9LTGobmZ5fLMn7LBhpGRKwscDx7zkJeHQ5jkZ74UKpLlDpq6IIfJpuLBmLs3SV3eD014P8hyFRmEyxghwEsb1KWyVdZgb92P6YYScvVlaQdVB52slgBVl6JkzG648egX8iTzGJEKNWgoQDQUCgVVy4HLwxkg1tQvS9yriUscKRKPGF+0fYv1YQPpRreZPY7mgmDgaHLaAvJRWxFMC/SYxtdhdfOuQ7XReWDjkhMWgSyyaZrISQ6iRp3VRbTS1jk59agEJWPxt8OYC483Br/VM2I0TsBQEvOkaAvHTw0rRL9fmF2h90+t76VYVMB9vcTx+CPa06HoPx8kwL/TNWPTGpXm7NZwBm7o2mcOIMoqPPdhnKN4Z96nMriF/uDO7xpvvtJUBZ/PFkGN8WJR2btv8Sgxtm66YhugbdV8TsfpUMvUaJWzpMtEWakJjgTW0cTW9G+Gm5wacbjkQtWyR3z66CSOvD5dGmjRpx/xu20LJBt1RUvJOyGzqFz8paCVDXsldFrMkDzm1z5fIrS32/Oxay09B1O2QamW1bJdp0dajL38f6TEOcDSQ6nGEmPBBi+42cOkHv1TMrZ3oHktXpke9y2ptGomiA+sJlFfU3nRvF1tCK8a9dxC4H3uPqM
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MWHPR1001MB2365.namprd10.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(7916004)(376002)(346002)(136003)(39860400002)(396003)(366004)(33716001)(33656002)(478600001)(41300700001)(44832011)(52116002)(6486002)(38100700002)(6506007)(316002)(54906003)(6666004)(4744005)(38350700002)(6916009)(2906002)(86362001)(66556008)(6512007)(66946007)(8676002)(7336002)(7366002)(7416002)(7406005)(26005)(9686003)(5660300002)(66476007)(186003)(4326008)(1076003)(83380400001)(8936002);
+ SFS:(13230016)(7916004)(376002)(346002)(136003)(39860400002)(396003)(366004)(33716001)(33656002)(478600001)(41300700001)(44832011)(52116002)(6486002)(38100700002)(6506007)(316002)(6666004)(38350700002)(6916009)(2906002)(86362001)(66556008)(6512007)(66946007)(8676002)(26005)(9686003)(5660300002)(66476007)(186003)(4326008)(1076003)(83380400001)(8936002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?uG7EisZU53uo3Eyn1rAkH1Zp7prdDVjLvtewrji3nHaInhwwPqKJd8IS9Ml6?=
- =?us-ascii?Q?cCMDRE9xZtRy2ixvN9HtQCxQ6wyVdCMjht4JEfcGvVBGnhiqaHo4dtqdZQNj?=
- =?us-ascii?Q?TGMY5D1FDrgRGu1ZqSXbxw6awVGysMa0+MX66gOjQV085NsMve2O4eyl5F5y?=
- =?us-ascii?Q?1R/1hXNMky/piEnyu/AV2u9cPc8QXEEh5K/YB5xHM0lnOA68c0zycKWASuhL?=
- =?us-ascii?Q?Kla+gf2FV2JSVMUu/Ri/D4jFuSeza/bxZHWLcnm2ZsVWcrf0/LgByhqRjtSp?=
- =?us-ascii?Q?is7aqVU5aytLlmIcj33/i5SfhSOL6wtmqbxmSOEOtAVcsEJtIXON2a0hsur6?=
- =?us-ascii?Q?hsWV1BvYk4AATAbHUOntCKDw5fmW1Zb7JOZVwY9IVuxyRJroXe+t96bJLXrI?=
- =?us-ascii?Q?MssjNzxXj4Jypus/6TmDDUIrYr/PohLpQ7G33Mmk20Wl8iVHL8gXU0umskty?=
- =?us-ascii?Q?O4Hi9SohVBBFpOOh6t4TgJ/w2hGioWQ3sldG+lmRcJwb3j0MzuvquWbIKe1R?=
- =?us-ascii?Q?gnxXwQFlT03ge3rnLtt4I5eXee2ZugYaT8hbKKltmH00UW2rot4ogdsXX2iI?=
- =?us-ascii?Q?DNsESB9w2oxovD/ZQf1hpR0G4CNtCUS0CYB5QKnSBDpXPeXkQpoHeFzSSfjR?=
- =?us-ascii?Q?wLuWIMCwND+t3ovztoAdWN/UQtE5mMC0kkUBUToTTjIvLciDMD0PSNB6BJUe?=
- =?us-ascii?Q?w0PR0q9LRd1D/jkiavRKpLKgXzeczspq+Psu7R01u1srIE/QHzUUjYVl5f9a?=
- =?us-ascii?Q?L02x85oqudSEWTubWsX6ss1WfTqA+8NqL5ENwQjoi9UEoTolcwA7e2XUcwAO?=
- =?us-ascii?Q?ic9ZTDSAl8/AsX+2l6+qsgzLGODxDFe3K1ko9b4kwkQxpr9NU9z8O/MWDlAK?=
- =?us-ascii?Q?Dnlvq31Zf740z3fuyX3wN9p5/ha59mVpxZF+xjtVxT7DoDfkostGyBOBfUce?=
- =?us-ascii?Q?e6fdpEx92+LmFi1lzmVO4Ia+ECDiem6tXYEmQXIyfxx3Lw0RUCChVAujKWLo?=
- =?us-ascii?Q?oUy4+s0iF6iSny0nF8zOLNHqJzxvFEexDubf1ILb/3btBYa9NgUS5BOaIoA9?=
- =?us-ascii?Q?WqJ1H2aDG9Kic8ymHAc4FFqNBtuTucRoBG6Ms8LMqLNF0Vza4OaikcRksmX4?=
- =?us-ascii?Q?rgBMlDqx5pO3KFCTenU+qbHOBovKp6H6HnXn/7m/aF3l+ZqmdwuG77shGwxJ?=
- =?us-ascii?Q?u+KGV063dyQ+dCgsyvudHwbxefjBFDbkHK/Ybw0NmKX2mYGuv7jbzKnp7JDc?=
- =?us-ascii?Q?AF5HmXDQhKXZbO2HxUKsXY8vRrxFZhmbIJJMirc8HFwPS3gAzjzb+szX+vF7?=
- =?us-ascii?Q?xOUKc56091EkjOl6fcqQEf5AMF6UjW4HOZCLHO1S/4o81dPO+oVZQykyHGNa?=
- =?us-ascii?Q?fevSECWId0k6CwanCU7579YdUXJJMBRkComEJNrTAoR4lhftqLiI0U3rDdrj?=
- =?us-ascii?Q?Del01xUlm7N66LbqNEPYOHt8Vj9P+Nd4ahXQKeqyeKRQ+d5V2/xM7j6eGiim?=
- =?us-ascii?Q?CELTFADnEsTdWjQiE8bsPhByqbhH87XWEemEF1ulwsM6DII28FAYU+uBiySC?=
- =?us-ascii?Q?89eQCwECLDAfd9gxbLFLH7xJjKAclbo03RJxaMbLiExaPJ39HgBBQBjVroGH?=
- =?us-ascii?Q?Pw=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?f3CzF1drGeYbIbxEPbRQM9vBX+TpE4M5Vr/YW6upOxG5zZkNAQFwi5JYW+SK?=
+ =?us-ascii?Q?/QOqq4eJBY+PHKXaltuX/IhCnm1EWAs+FKr8Q7nLcTfqsZYMk+XfDvVkSgh4?=
+ =?us-ascii?Q?oJf6IlxkOrwkABpKQoVMCLnUffMf7vr1FVItpyj1h/I5LALrFSfPlsq9Ajsx?=
+ =?us-ascii?Q?4PkfTJr2+5kL0r6YMNTm6BQlyIUW3vmz6bdm2ohUhESxT0no6Ia2KELaGn5H?=
+ =?us-ascii?Q?QN0pdrswbc4h6TKQZpq4jEetIWJV+Mmwtp+IZ/wW9kaAyQr0MsKEEc1GoT4q?=
+ =?us-ascii?Q?vu4aRS2XONNlvux37APnz8KrX1tdTJX1maCWnCS2eO1ZddMZeojhz9ScuJTN?=
+ =?us-ascii?Q?zPCoU/kZWpzgmn+eb28DVV/SMTSaD/wDityQSkYKvnsqAQD/Huajg5o+uS9e?=
+ =?us-ascii?Q?39SLEMK3+RhBWnMUYwelOU0BJoOHZxrMRgAiH2jEaf5grhE+EpYoorxAox6Z?=
+ =?us-ascii?Q?+0HAY727InupMcbIciv22cK+3Ea/d3uaq+g9fXfXgoZwYSyZZ5gMpeJD6JM9?=
+ =?us-ascii?Q?HMQy2LXuJCrj+CLXCdS79H469MuPjleG5KR6NBLahDEYPAWKIFv7IEkWoOle?=
+ =?us-ascii?Q?YIXq3RzFE6+bCCjHAb8YuNpGkHH9KHoEgyG6c8p11NQvZQmTlh1V3WGilCyV?=
+ =?us-ascii?Q?gqWzWD99OLBIvdRKi5zp7Z5TgCDwB0AfBup2Y6VSXf6T2ywGrukUT8mfteSC?=
+ =?us-ascii?Q?r8t1q77Z6HCOZDzTPl7iynMo0oPZQGc7UnMa9Kg4SuJSZ+xdJP8rC1eCV1Wx?=
+ =?us-ascii?Q?9rPB8UXcygnoJsNnShkLlP5B0KO2R+uMBZIqQaxOm6R3BcaEqPRy7WkvpwAV?=
+ =?us-ascii?Q?i8vZP1lOJpqL6rpnliM2IZY7oo8sdMsE0vPHOYHBXGPLH0AjTmQWkoOqHPvI?=
+ =?us-ascii?Q?7qIPQ27MwM3vY5hFIj5IT0PtY+WjTzZkk1AemaRJLhAM+PiwAoDWeRgqjp05?=
+ =?us-ascii?Q?z0vG5tOJAd64Hr8HbC7Itl3YgmvUbOy/WI+cmD7McUnxEwTmoZ5G2yaha9gv?=
+ =?us-ascii?Q?YsRFIYtxyubZIBY/kL/AQhYsuVqKSj0Tj7fxgRMewPiGousmIwLsQbSAVRzS?=
+ =?us-ascii?Q?lO+9Y+NZHUIp8UcXCLgViTLtWkYlGiEabAHq1yrse6WeGFCddOxWRCoX2kGQ?=
+ =?us-ascii?Q?l9BTcdJ6mcSD2Qac+1faJjOlCLM4qSAyJZXZxaRd45D5wE5fgxL1cZJwkHlT?=
+ =?us-ascii?Q?MaSIvlelM5AsrijP6sB41Xc9808hB0BZ2pbaochhdxJwAQgs9evqa009IJwG?=
+ =?us-ascii?Q?S+yGGvbm9qoAVaQVlUyUiijzaUFS6GgRSOAo7hoFzaFfCTgEJeVlz6OTyvR2?=
+ =?us-ascii?Q?LORa6ZAwow+ncZ3EGn4Izs60JVlDoz8oUeoMT7TXg47buIfECVriTfx2usav?=
+ =?us-ascii?Q?WU/4VgbfIbV8fizmpfo6jLpTgF8tkH00stc3ytmrt8wp3v3kD34VJ1OcbaUp?=
+ =?us-ascii?Q?nBlhLAcuOmdi8Z7yRmbVJOSRaFgVczkNKbjQOruyYBBmDaH8oAlasELCCyXc?=
+ =?us-ascii?Q?iCJJFNkzU7/grihrykzuTKx1+FvslGWmSuROHNPFW1uD8u8gK4G8Vsu5ARun?=
+ =?us-ascii?Q?WkjJbP/mZxtwu6hNwQtkoLEQ4DTJVTmX0Hh8SfYSdCM70HUx8tgPM8cVlGsP?=
+ =?us-ascii?Q?vg=3D=3D?=
 X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 60888dca-74ab-415d-c312-08da60c91fbd
+X-MS-Exchange-CrossTenant-Network-Message-Id: a359b730-5965-4a39-7df0-08da60c95a53
 X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2365.namprd10.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2022 10:03:37.5131 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2022 10:05:15.2241 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Xmfxxd2ImvCkN86fhSrHry1xr1wVpvkQCd/kvXC28R2/OhB8G8NrxAgoSiTGxSTnG4h/h/BFA9rqzl+lMJyKXtKr24bFre3OPhNr8wLciI8=
+X-MS-Exchange-CrossTenant-UserPrincipalName: U37JLgBnpYfYMqO4UL+t+JBoXnwJHiq9aQGc9i8GP8v1nT1OSr4ClLGs2h5UdpOaPlSXrJgVet14fO49NiO267JQqsjRD8+2yrnA1RGlh8g=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR10MB4924
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.517, 18.0.883
  definitions=2022-07-08_08:2022-06-28,
  2022-07-08 signatures=0
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
- bulkscore=0 malwarescore=0
- mlxscore=0 spamscore=0 suspectscore=0 adultscore=0 mlxlogscore=999
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
+ suspectscore=0 spamscore=0
+ malwarescore=0 mlxlogscore=999 phishscore=0 adultscore=0 bulkscore=0
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2206140000
  definitions=main-2207080036
-X-Proofpoint-GUID: Ew-Ts5aNqfwze6JmTbUyOisAm9IQ4z0u
-X-Proofpoint-ORIG-GUID: Ew-Ts5aNqfwze6JmTbUyOisAm9IQ4z0u
-X-Mailman-Approved-At: Mon, 11 Jul 2022 09:19:08 +0200
-Cc: nvdimm@lists.linux.dev, legousb-devel@lists.sourceforge.net,
- dri-devel@lists.freedesktop.org, linux-sctp@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-samsung-soc@vger.kernel.org,
- ceph-devel@vger.kernel.org, linux-pm@vger.kernel.org,
- usbb2k-api-dev@nongnu.org, linux-omap@vger.kernel.org,
- megaraidlinux.pdl@broadcom.com, Greg KH <gregkh@linuxfoundation.org>,
- linux-usb@vger.kernel.org, linux-wireless@vger.kernel.org,
- linux-perf-users@vger.kernel.org, netfilter-devel@vger.kernel.org,
- linux-crypto@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>, linux-wpan@vger.kernel.org,
- linux-fbdev@vger.kernel.org, linux-parport@lists.infradead.org,
- linux-doc@vger.kernel.org, samba-technical@lists.samba.org,
- linux-cxl@vger.kernel.org, virtualization@lists.linux-foundation.org,
- dm-devel@redhat.com, target-devel@vger.kernel.org, dev@openvswitch.org,
- linux-cifs@vger.kernel.org, kernel test robot <lkp@intel.com>,
- linux-clk@vger.kernel.org, linux-rockchip@lists.infradead.org,
- iommu@lists.linux.dev, coreteam@netfilter.org, linux-media@vger.kernel.org,
- linux-watchdog@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, greybus-dev@lists.linaro.org,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-block@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-integrity@vger.kernel.org, linux-efi@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-fpga@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-mtd@lists.infradead.org, cgroups@vger.kernel.org,
- linux-phy@lists.infradead.org, sound-open-firmware@alsa-project.org,
- linux-rdma@vger.kernel.org, linux-staging@lists.linux.dev,
- amd-gfx@lists.freedesktop.org, isdn4linux@listserv.isdn4linux.de,
- linux-input@vger.kernel.org, linux-ext4@vger.kernel.org,
- ath11k@lists.infradead.org, mjpeg-users@lists.sourceforge.net,
- openipmi-developer@lists.sourceforge.net, linux-hwmon@vger.kernel.org,
- linux-parisc@vger.kernel.org, linux-ide@vger.kernel.org,
- linux-mmc@vger.kernel.org, iommu@lists.linux-foundation.org,
- keyrings@vger.kernel.org, patches@opensource.cirrus.com, kvm@vger.kernel.org,
- damon@lists.linux.dev, linux-mm@kvack.org,
- accessrunner-general@lists.sourceforge.net,
- linux1394-devel@lists.sourceforge.net, linux-leds@vger.kernel.org,
- rds-devel@oss.oracle.com, linux-x25@vger.kernel.org, dccp@vger.kernel.org,
- intel-wired-lan@lists.osuosl.org, linux-serial@vger.kernel.org,
- devicetree@vger.kernel.org, linux-nfc@lists.01.org,
- osmocom-net-gprs@lists.osmocom.org, apparmor@lists.ubuntu.com,
- linux-raid@vger.kernel.org, linux-bcache@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
- linux-scsi@vger.kernel.org, netdev@vger.kernel.org,
- linux-unionfs@vger.kernel.org, linux-bluetooth@vger.kernel.org,
- ntb@lists.linux.dev, tipc-discussion@lists.sourceforge.net,
- linuxppc-dev@lists.ozlabs.org, linux-btrfs@vger.kernel.org
+X-Proofpoint-ORIG-GUID: hvejPhz8HpmVYNVIbrCSUK9GLFRk0cPc
+X-Proofpoint-GUID: hvejPhz8HpmVYNVIbrCSUK9GLFRk0cPc
+Cc: alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
+ pierre-louis.bossart@linux.intel.com, stable@vger.kernel.org, vkoul@kernel.org,
+ yung-chuan.liao@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -235,18 +187,58 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Jul 07, 2022 at 07:02:58AM -0700, Guenter Roeck wrote:
-> and the NULL
-> dereferences in the binder driver are at the very least suspicious.
+On Fri, Jul 08, 2022 at 10:19:47AM +0100, Srinivas Kandagatla wrote:
+> Controller only supports up to max of 1-11 device ids via auto-enumeration,
+> and it has only those many registers.
+> 
+> In the existing code, we can protentially cross this boundary and read incorrect
+> registers.
+> 
+> Cc: stable@vger.kernel.org
+> Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
+> Fixes: a6e6581942ca ("soundwire: qcom: add auto enumeration support")
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> ---
+> Thanks to Dan for reporting an overflow issue, which turned out to be
+> another issue, where we could read registers that do not belong to
+> auto-enumeration devid.
+> Either way this fixes both issues, one reported by Dan and other
+> incorrect register access.
+> 
+> Thanks,
+> Srini
+> 
+>  drivers/soundwire/qcom.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+> index 9df970eeca45..dd1365a44458 100644
+> --- a/drivers/soundwire/qcom.c
+> +++ b/drivers/soundwire/qcom.c
+> @@ -119,6 +119,8 @@
+>  #define MAX_FIFO_RD_RETRY 3
+>  #define SWR_OVERFLOW_RETRY_COUNT 30
+>  #define SWRM_LINK_STATUS_RETRY_CNT 100
+> +/* devid 1 - 11 */
+> +#define SWRM_MAX_AUTO_ENUM_DEVICES	11
+>  
+>  enum {
+>  	MASTER_ID_WSA = 1,
+> @@ -479,7 +481,7 @@ static int qcom_swrm_enumerate(struct sdw_bus *bus)
+>  	int i;
+>  	char *buf1 = (char *)&val1, *buf2 = (char *)&val2;
+>  
+> -	for (i = 1; i <= SDW_MAX_DEVICES; i++) {
+> +	for (i = 1; i <= SWRM_MAX_AUTO_ENUM_DEVICES; i++) {
 
-The NULL dereferences in binder are just nonsense Sparse annotations.
-They don't affect runtime.
-
-drivers/android/binder.c:1481:19-23: ERROR: from is NULL but dereferenced.
-drivers/android/binder.c:2920:29-33: ERROR: target_thread is NULL but dereferenced.
-drivers/android/binder.c:353:25-35: ERROR: node -> proc is NULL but dereferenced.
-drivers/android/binder.c:4888:16-20: ERROR: t is NULL but dereferenced.
+I'm sorry, I don't understand.  Both of these defines are 11 so this
+doesn't change anything?
 
 regards,
 dan carpenter
 
+>  		/* do not continue if the status is Not Present  */
+>  		if (!ctrl->status[i])
+>  			continue;
+> -- 
+> 2.25.1

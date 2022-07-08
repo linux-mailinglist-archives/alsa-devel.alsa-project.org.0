@@ -2,77 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E00856BE8B
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Jul 2022 20:14:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65EE756C128
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Jul 2022 22:06:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A322C1EC;
-	Fri,  8 Jul 2022 20:13:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A322C1EC
+	by alsa0.perex.cz (Postfix) with ESMTPS id A8D631DB;
+	Fri,  8 Jul 2022 22:05:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8D631DB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657304047;
-	bh=zC75cbLf82yZzCkLHeLDUCeFHIy9eG356Bnj+ZXabVo=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=hZ0zZh+RUy0rb1i4+eenf5g4B+VLFWHBWdy4E1A0O1/omKjtSDucjAwfmatBIYKak
-	 eLAVcbJW4AtWgRhRzT4/3dSlOdQ8YEKl4Kh96FgTL4CQJUL7ZAYPQgEp7stIP71VD/
-	 xNXm19dFY+IuGT8Rm38eJ4EKB9R+q5lNGNpBfLxA=
+	s=default; t=1657310808;
+	bh=0fQy1CH2WBdn+UGEY/eX7fA4biQ/XRfjqS89ee8/eHA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=hjDv8PttifeKGrNf6nqmotoUZXhnUEDiqKBehetcNZDdOEP+7aKkjS3mw+2c4IEmn
+	 ZreKuBOfYvkB8kiDGIJ5TJFfWAcZefdSTSEmtNfX0hzhkDEHdmnxxMnsTXT1ebqIpU
+	 sGybHn6XatAbQlke0VW86xDq6cKsCqFb8wi982AU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 223DCF804E7;
-	Fri,  8 Jul 2022 20:13:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1756FF80166;
+	Fri,  8 Jul 2022 22:05:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9876AF800E9; Fri,  8 Jul 2022 20:13:05 +0200 (CEST)
+ id 44FBEF80539; Fri,  8 Jul 2022 22:05:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3D377F800E9
- for <alsa-devel@alsa-project.org>; Fri,  8 Jul 2022 20:13:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D377F800E9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="jAMs1xlc"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 541AF61455;
- Fri,  8 Jul 2022 18:13:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F9C7C341C0;
- Fri,  8 Jul 2022 18:12:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657303979;
- bh=zC75cbLf82yZzCkLHeLDUCeFHIy9eG356Bnj+ZXabVo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=jAMs1xlc+rCdP9TYd/xTKv6w+LdD+XtsIQFyhoQ0symHPJ7S6ef/Ri18aPHriUcN0
- 7QeNAh40fL7FYEK2dHI9PnPtd5VqRlm5NrcAaz3e3w/LqL9lqSEoEByA2p/wnuIcW4
- R3kclMFxLwLqLNz6BLXc9OD9Ttjd76YqNwOR+xXm5HMaOXAvQAX5lWKLM1fpL65x5G
- YHX8vPz+juua7emWb3D1eqX1rxu/HGPGKHOz4V6FGop6QFMPHFHS6E7xZKUn9/dVlz
- 8krRZbsMfhp+eK3nQq9BmHvLqAJHMRhdWE0nhirbtOe8zD8Uk2N9v3Mu9aXT0Au3di
- KaYYtMeyQbsEQ==
-Date: Fri, 8 Jul 2022 19:12:53 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Wallace Lin <savagecin@gmail.com>
-Subject: Re: [PATCH] ASoC: nau8821: add new widget to control system clock
-Message-ID: <YshzpRewYS0f/3qy@sirena.org.uk>
-References: <20220707080751.76892-1-savagecin0@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 16576F80537
+ for <alsa-devel@alsa-project.org>; Fri,  8 Jul 2022 22:05:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 16576F80537
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="ROzNFlsf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1657310744; x=1688846744;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=0fQy1CH2WBdn+UGEY/eX7fA4biQ/XRfjqS89ee8/eHA=;
+ b=ROzNFlsfqaZo8A48FsIjDf1hvJ/xFiO7gUImzzY0NIts/KHD55FPLc7A
+ A0lqqg64ZYpOhnltmoRrCgR8IKM5puR/vaTCwJsjvspp2l0Ofj8iLSZIW
+ iefuTmOGzru3rlgAbv057OREIS2p69RQMPzSB2+t+8bUHzltYVkURkHX+
+ lBQ7zNrEL595IBgmXJUOQ5/1rsxvXv1dGD7Zao/8Qpjl1W2zzRFgqOc9Y
+ Pv4HeizTWDuTVLkLuxqCjJw+fFCKDwKKpmPVjyPLfuN92EgWDHIqDhZER
+ XonOe8hd+m9Bug7/juQg0MAKbZkdCf9Yl8IrivGDnhB22fsvulQcyCQ5A w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10402"; a="284378841"
+X-IronPort-AV: E=Sophos;i="5.92,256,1650956400"; d="scan'208";a="284378841"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jul 2022 13:05:32 -0700
+X-IronPort-AV: E=Sophos;i="5.92,256,1650956400"; d="scan'208";a="651691914"
+Received: from gcisnero-mobl.amr.corp.intel.com (HELO
+ pbossart-mobl3.intel.com) ([10.212.87.49])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jul 2022 13:05:30 -0700
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH 0/2] ASoC: SOF: ipc4-topology: fix error and memory handling
+Date: Fri,  8 Jul 2022 15:05:14 -0500
+Message-Id: <20220708200516.26853-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="MuRdaVEaQ70yYP5Q"
-Content-Disposition: inline
-In-Reply-To: <20220707080751.76892-1-savagecin0@gmail.com>
-X-Cookie: Familiarity breeds attempt.
-Cc: alsa-devel@alsa-project.org, scott6986@gmail.com, WTLI@nuvoton.com,
- SJLIN0@nuvoton.com, KCHSU0@nuvoton.com, lgirdwood@gmail.com,
- YHCHuang@nuvoton.com, CTLIN0@nuvoton.com, dardar923@gmail.com,
- supercraig0719@gmail.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: tiwai@suse.de, broonie@kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,45 +86,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Two patches to improve error and memory handling. When IPC4 is used,
+some of the flows were incorrect.
 
---MuRdaVEaQ70yYP5Q
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Libin Yang (2):
+  ASoC: SOF: ipc4-topology: check dai->private in ipc_free()
+  ASoC: SOF: ipc4-topology: free memories allocated in
+    sof_ipc4_get_audio_fmt
 
-On Thu, Jul 07, 2022 at 04:07:51PM +0800, Wallace Lin wrote:
+ sound/soc/sof/ipc4-topology.c | 59 ++++++++++++++++++++++++++++++++---
+ 1 file changed, 55 insertions(+), 4 deletions(-)
 
-> @@ -1430,6 +1460,7 @@ static const struct snd_soc_component_driver nau8821_component_driver = {
->  	.dapm_routes		= nau8821_dapm_routes,
->  	.num_dapm_routes	= ARRAY_SIZE(nau8821_dapm_routes),
->  	.suspend_bias_off	= 1,
-> +	.non_legacy_dai_naming	= 1,
->  	.idle_bias_on		= 1,
->  	.use_pmdown_time	= 1,
->  	.endianness		= 1,
+-- 
+2.34.1
 
-This isn't obviously connected with the rest of your change and breaks
-the build since this flag has been removed in current code.  It should
-probably just be dropped here.
-
-Please submit patches using subject lines reflecting the style for the
-subsystem, this makes it easier for people to identify relevant patches.
-Look at what existing commits in the area you're changing are doing and
-make sure your subject lines visually resemble what they're doing.
-There's no need to resubmit to fix this alone.
-
---MuRdaVEaQ70yYP5Q
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmLIc6QACgkQJNaLcl1U
-h9AeXAf/R4teP1fxf/XP3SSoHLewWFKIUe4lPQ/K0ujoKThDcqMS0ZWJfb+3dj9b
-MZNOC2q9JB3IZ3dF6x1T1KBfb16fXjG8b00Y75/jdLlOUFltVHICMAfp2/c0FvNl
-wM69GEfNb4FZjnpiLNnbLB6Da08Ff38PKmsRJmCCpN4b+0WioabqGE1uwr5vKdu0
-KmNLmS+gI9cQNpYqmBwYwUztByg/b3qGbIuyIH571ojPTwe/0c1JeHeVH6DyJKJj
-HHgiuKV/+WZEbGo6ZcfsQ3bcjV87kpKxb+Dvb6LY+NrnynJh7KKRds2WLidqG6gf
-hMx81axOxI7/9G75W6G8TdsNgDps5Q==
-=sqyb
------END PGP SIGNATURE-----
-
---MuRdaVEaQ70yYP5Q--

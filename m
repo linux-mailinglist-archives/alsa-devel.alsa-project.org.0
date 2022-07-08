@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54C0556C12A
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Jul 2022 22:07:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C060156C12B
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Jul 2022 22:07:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EB96D839;
-	Fri,  8 Jul 2022 22:06:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB96D839
+	by alsa0.perex.cz (Postfix) with ESMTPS id 199FD84A;
+	Fri,  8 Jul 2022 22:06:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 199FD84A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657310840;
-	bh=A3TwDo1AaYeN1ryje0/OiP89brBIAd85gVoZmFDGFNk=;
+	s=default; t=1657310850;
+	bh=GSUT6IVbJiVs4lOBi6Jv423aLiPJI66fO0vSzbGbjyw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=V+38ew/oOi+bgMx61PaGn3VrvitUdJgyI+N1GWFjYCGMoI0Y/JDlfjhKshG9nwZ/K
-	 vtJBP3f+OnqUTLPyr3wxOixRXaPx0lPVH0SPSh3Xbjc+VR+gEjg45Wrp0CnkfUZiJg
-	 Iw54ny8Xgz0xuXak0V61BzyL15WL2qbXFGI4fyb8=
+	b=HlmsnLe804jklKo6crixvCUFelsoJRzbPPV6oDGhInMElkwnNy1B5m2GEAC8xA3Sk
+	 cYnUrWl0FFQQmki8GU397+ChqLzfK+vV6ZdlM/mdPseIfZ/xMcEcGZMzxEd+kPukJU
+	 6lhUyzgh+M1mCGygQTDt7zNN85MRNbQKzKChDonw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F3911F8053C;
-	Fri,  8 Jul 2022 22:05:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 78EB2F80539;
+	Fri,  8 Jul 2022 22:05:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9A0C6F80538; Fri,  8 Jul 2022 22:05:47 +0200 (CEST)
+ id 13524F80542; Fri,  8 Jul 2022 22:05:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,40 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B3DE8F80166
- for <alsa-devel@alsa-project.org>; Fri,  8 Jul 2022 22:05:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3DE8F80166
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2E91AF80539
+ for <alsa-devel@alsa-project.org>; Fri,  8 Jul 2022 22:05:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E91AF80539
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="ZeGmcjEe"
+ header.b="IJWxrqvd"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1657310741; x=1688846741;
+ t=1657310750; x=1688846750;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=A3TwDo1AaYeN1ryje0/OiP89brBIAd85gVoZmFDGFNk=;
- b=ZeGmcjEeL2DnciWKXyaye7wR5JCwwKW4KBYDHjHDdoMD0AJ2l3vCmOgI
- sCtynMQg5FaQefNG6tHWK+r/phHPEsMRiOHL1kmel9j545BWn38Xm+1FK
- FfD1FflSbB9L3fucGSSZOgxaFdsGMRuJzJNf7p5Ml+leRe8w7OgY2d37K
- NyDF6t8BaalaKzMdmCykU2gJbwUQtM8xzAtwUw7zZtdDz9pFHHedv1GnH
- CzwfxYbVEUTrW3XAOqRzfeITcKVQ608WCKKZnsPkh7KpyT+QiLFfy1i+b
- KAqBIPIZqDtjdf4XiTE9L2Mp+L7PQKaY6ait3KHbZs3f2xeuizqE5RMtP A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10402"; a="284378843"
-X-IronPort-AV: E=Sophos;i="5.92,256,1650956400"; d="scan'208";a="284378843"
+ bh=GSUT6IVbJiVs4lOBi6Jv423aLiPJI66fO0vSzbGbjyw=;
+ b=IJWxrqvdlh7LiNtUafSDeg+Nfx5YJTkDfW3qYIaSCbNq2wFRLCNou7DN
+ QKQTv9kncTHlOTIWTX5dI3tyNXkMNqTw5jU/jtWhfGT5Cuec0jW5ySxHl
+ LpB4Z8BdRXwyPZD/pN03EbCHCJfiVdoSwgtHm7k6WnAeGu6t+o2Y2YmBi
+ 8sTE+N7QPeyEjDwXU1l26WHcYe6HfCdcizB4t8zCn83jLgrc0C/y6m0gX
+ aYjkpCAD58fvoNYXqC5twCCG9d5r3KRxIaTE2RXFbZDfZAspHVidjnEyv
+ v9sgGdH7k6t97rGxWvhky1iFKuzln7dAwzXMEYkp+SU96cFxxdFrhmaHZ A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10402"; a="284378847"
+X-IronPort-AV: E=Sophos;i="5.92,256,1650956400"; d="scan'208";a="284378847"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jul 2022 13:05:32 -0700
-X-IronPort-AV: E=Sophos;i="5.92,256,1650956400"; d="scan'208";a="651691924"
+ 08 Jul 2022 13:05:33 -0700
+X-IronPort-AV: E=Sophos;i="5.92,256,1650956400"; d="scan'208";a="651691930"
 Received: from gcisnero-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.212.87.49])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jul 2022 13:05:31 -0700
+ 08 Jul 2022 13:05:32 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 1/2] ASoC: SOF: ipc4-topology: check dai->private in ipc_free()
-Date: Fri,  8 Jul 2022 15:05:15 -0500
-Message-Id: <20220708200516.26853-2-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 2/2] ASoC: SOF: ipc4-topology: free memories allocated in
+ sof_ipc4_get_audio_fmt
+Date: Fri,  8 Jul 2022 15:05:16 -0500
+Message-Id: <20220708200516.26853-3-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220708200516.26853-1-pierre-louis.bossart@linux.intel.com>
 References: <20220708200516.26853-1-pierre-louis.bossart@linux.intel.com>
@@ -93,14 +94,8 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Libin Yang <libin.yang@intel.com>
 
-Set the swidget->private or dai->private to NULL after kfree in the error
-handling in ipc_setup(). The private needs to be set NULL because if
-ipc_setup() returns error, ipc_free() will be called later. ipc_free()
-will judge the private is NULL or not to do the clearing.
-
-For dai widget, dai->private is allocated and set in dai widget
-ipc_setup(). So we need to check dai->private is NULL or not
-in the ipc_free().
+Free the memories allocated in sof_ipc4_get_audio_fmt in error handling
+and ipc_free()
 
 Fixes: 2cabd02b6090 ("ASoC: SOF: ipc4-topology: Add support for parsing AIF_IN/AIF_OUT widgets")
 Fixes: abfb536bd116 ("ASoC: SOF: ipc4-topology: Add support for parsing DAI_IN/DAI_OUT widgets")
@@ -110,59 +105,130 @@ Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Signed-off-by: Libin Yang <libin.yang@intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/ipc4-topology.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ sound/soc/sof/ipc4-topology.c | 48 ++++++++++++++++++++++++++++++++---
+ 1 file changed, 44 insertions(+), 4 deletions(-)
 
 diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
-index 34f805431f2e..2d157ea79db5 100644
+index 2d157ea79db5..22ea628d78d0 100644
 --- a/sound/soc/sof/ipc4-topology.c
 +++ b/sound/soc/sof/ipc4-topology.c
-@@ -394,6 +394,7 @@ static int sof_ipc4_widget_setup_pcm(struct snd_sof_widget *swidget)
- 	kfree(available_fmt->dma_buffer_size);
- free_copier:
- 	kfree(ipc4_copier);
-+	swidget->private = NULL;
+@@ -263,6 +263,16 @@ static int sof_ipc4_get_audio_fmt(struct snd_soc_component *scomp,
  	return ret;
  }
  
-@@ -541,6 +542,8 @@ static int sof_ipc4_widget_setup_comp_dai(struct snd_sof_widget *swidget)
- 	kfree(available_fmt->dma_buffer_size);
- free_copier:
- 	kfree(ipc4_copier);
-+	dai->private = NULL;
-+	dai->scomp = NULL;
- 	return ret;
- }
- 
-@@ -553,6 +556,12 @@ static void sof_ipc4_widget_free_comp_dai(struct snd_sof_widget *swidget)
- 	if (!dai)
- 		return;
- 
-+	if (!dai->private) {
-+		kfree(dai);
-+		swidget->private = NULL;
-+		return;
-+	}
++/* release the memory allocated in sof_ipc4_get_audio_fmt */
++static void sof_ipc4_free_audio_fmt(struct sof_ipc4_available_audio_format *available_fmt)
 +
- 	ipc4_copier = dai->private;
- 	available_fmt = &ipc4_copier->available_fmt;
++{
++	kfree(available_fmt->base_config);
++	available_fmt->base_config = NULL;
++	kfree(available_fmt->out_audio_fmt);
++	available_fmt->out_audio_fmt = NULL;
++}
++
+ static void sof_ipc4_widget_free_comp(struct snd_sof_widget *swidget)
+ {
+ 	kfree(swidget->private);
+@@ -341,7 +351,7 @@ static int sof_ipc4_widget_setup_pcm(struct snd_sof_widget *swidget)
+ 						 GFP_KERNEL);
+ 	if (!available_fmt->dma_buffer_size) {
+ 		ret = -ENOMEM;
+-		goto free_copier;
++		goto free_available_fmt;
+ 	}
  
-@@ -669,6 +678,7 @@ static int sof_ipc4_widget_setup_comp_pga(struct snd_sof_widget *swidget)
+ 	ret = sof_update_ipc_object(scomp, available_fmt->dma_buffer_size,
+@@ -392,6 +402,8 @@ static int sof_ipc4_widget_setup_pcm(struct snd_sof_widget *swidget)
+ 	kfree(ipc4_copier->gtw_attr);
+ err:
+ 	kfree(available_fmt->dma_buffer_size);
++free_available_fmt:
++	sof_ipc4_free_audio_fmt(available_fmt);
+ free_copier:
+ 	kfree(ipc4_copier);
+ 	swidget->private = NULL;
+@@ -440,7 +452,7 @@ static int sof_ipc4_widget_setup_comp_dai(struct snd_sof_widget *swidget)
+ 						 GFP_KERNEL);
+ 	if (!available_fmt->dma_buffer_size) {
+ 		ret = -ENOMEM;
+-		goto free_copier;
++		goto free_available_fmt;
+ 	}
+ 
+ 	ret = sof_update_ipc_object(scomp, available_fmt->dma_buffer_size,
+@@ -540,6 +552,8 @@ static int sof_ipc4_widget_setup_comp_dai(struct snd_sof_widget *swidget)
+ 	kfree(ipc4_copier->copier_config);
+ err:
+ 	kfree(available_fmt->dma_buffer_size);
++free_available_fmt:
++	sof_ipc4_free_audio_fmt(available_fmt);
+ free_copier:
+ 	kfree(ipc4_copier);
+ 	dai->private = NULL;
+@@ -677,11 +691,24 @@ static int sof_ipc4_widget_setup_comp_pga(struct snd_sof_widget *swidget)
+ 
  	return 0;
  err:
++	sof_ipc4_free_audio_fmt(&gain->available_fmt);
  	kfree(gain);
-+	swidget->private = NULL;
+ 	swidget->private = NULL;
  	return ret;
  }
  
-@@ -698,6 +708,7 @@ static int sof_ipc4_widget_setup_comp_mixer(struct snd_sof_widget *swidget)
++static void sof_ipc4_widget_free_comp_pga(struct snd_sof_widget *swidget)
++{
++	struct sof_ipc4_gain *gain = swidget->private;
++
++	if (!gain)
++		return;
++
++	sof_ipc4_free_audio_fmt(&gain->available_fmt);
++	kfree(swidget->private);
++	swidget->private = NULL;
++}
++
+ static int sof_ipc4_widget_setup_comp_mixer(struct snd_sof_widget *swidget)
+ {
+ 	struct snd_soc_component *scomp = swidget->scomp;
+@@ -707,11 +734,24 @@ static int sof_ipc4_widget_setup_comp_mixer(struct snd_sof_widget *swidget)
+ 
  	return 0;
  err:
++	sof_ipc4_free_audio_fmt(&mixer->available_fmt);
  	kfree(mixer);
-+	swidget->private = NULL;
+ 	swidget->private = NULL;
  	return ret;
  }
  
++static void sof_ipc4_widget_free_comp_mixer(struct snd_sof_widget *swidget)
++{
++	struct sof_ipc4_mixer *mixer = swidget->private;
++
++	if (!mixer)
++		return;
++
++	sof_ipc4_free_audio_fmt(&mixer->available_fmt);
++	kfree(swidget->private);
++	swidget->private = NULL;
++}
++
+ static void
+ sof_ipc4_update_pipeline_mem_usage(struct snd_sof_dev *sdev, struct snd_sof_widget *swidget,
+ 				   struct sof_ipc4_base_module_cfg *base_config)
+@@ -1746,11 +1786,11 @@ static const struct sof_ipc_tplg_widget_ops tplg_ipc4_widget_ops[SND_SOC_DAPM_TY
+ 	[snd_soc_dapm_scheduler] = {sof_ipc4_widget_setup_comp_pipeline, sof_ipc4_widget_free_comp,
+ 				    pipeline_token_list, ARRAY_SIZE(pipeline_token_list), NULL,
+ 				    NULL, NULL},
+-	[snd_soc_dapm_pga] = {sof_ipc4_widget_setup_comp_pga, sof_ipc4_widget_free_comp,
++	[snd_soc_dapm_pga] = {sof_ipc4_widget_setup_comp_pga, sof_ipc4_widget_free_comp_pga,
+ 			      pga_token_list, ARRAY_SIZE(pga_token_list), NULL,
+ 			      sof_ipc4_prepare_gain_module,
+ 			      sof_ipc4_unprepare_generic_module},
+-	[snd_soc_dapm_mixer] = {sof_ipc4_widget_setup_comp_mixer, sof_ipc4_widget_free_comp,
++	[snd_soc_dapm_mixer] = {sof_ipc4_widget_setup_comp_mixer, sof_ipc4_widget_free_comp_mixer,
+ 				mixer_token_list, ARRAY_SIZE(mixer_token_list),
+ 				NULL, sof_ipc4_prepare_mixer_module,
+ 				sof_ipc4_unprepare_generic_module},
 -- 
 2.34.1
 

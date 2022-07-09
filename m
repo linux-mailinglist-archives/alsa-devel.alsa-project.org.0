@@ -2,85 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18A8456CAA8
-	for <lists+alsa-devel@lfdr.de>; Sat,  9 Jul 2022 18:35:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3312856CAB9
+	for <lists+alsa-devel@lfdr.de>; Sat,  9 Jul 2022 18:47:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 43A111E0;
-	Sat,  9 Jul 2022 18:34:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43A111E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id B26621E0;
+	Sat,  9 Jul 2022 18:46:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B26621E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657384547;
-	bh=PVqwhV5hiiVc8yM307KfqQihYYXdx+FxLHjkAOfjWTo=;
+	s=default; t=1657385259;
+	bh=4TCpD2lGkkDcd0eWTs804lCAh2HBCz7nh3ROrGNrLvE=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sJ+H4vI1uA4ukypfhQXpiyg/dZ8MUhy1JXwoRzosOesO57c7jSevA+7J0bLA/0yB1
-	 cxqzJY3wuo8fiTyjo6uTnL1tk9EHDqYMuHWImU9HM1JlF9p0GOi5Vf3/YeyupLiU2k
-	 8dTFug6iQ1PIxakjYHP/k16pwCThf5bwjvY2Nxm4=
+	b=A9JW4kTHZg3qBzpAajnFvgYuTcBIXe0hL8Q+VVwyiGBOY+Kss7lILKFLVdd2d/mi9
+	 zsdwvdxSjEhhrFS25xGJ3BNikOggGeeO6YCf0j31SLsGHjMRakPRnH8ji4gtKxOmOg
+	 kXSE3lwzkglAFqIqNcuDL7iqgSRQGZzzSTudHH4w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AA8D7F8027B;
-	Sat,  9 Jul 2022 18:34:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A1A44F8027B;
+	Sat,  9 Jul 2022 18:46:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 16D84F80245; Sat,  9 Jul 2022 18:34:44 +0200 (CEST)
+ id 08105F80245; Sat,  9 Jul 2022 18:46:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D035AF80100
- for <alsa-devel@alsa-project.org>; Sat,  9 Jul 2022 18:34:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D035AF80100
+ by alsa1.perex.cz (Postfix) with ESMTPS id DAF37F80158
+ for <alsa-devel@alsa-project.org>; Sat,  9 Jul 2022 18:46:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DAF37F80158
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="X9EwcqaK"; 
+ header.b="SB2cUKs5"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="FilyFBXB"
+ header.b="rqin+Fly"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 6D1181FB3F;
- Sat,  9 Jul 2022 16:34:37 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 77FF521F4D;
+ Sat,  9 Jul 2022 16:46:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1657384477; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1657385188; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=aRjDNrZNDcmj+djZhqPLelHLQyOLul7eUpKWcpMen8M=;
- b=X9EwcqaKsDbq1L5gPv7kNnZ3KleWvwmWsHstXwHzouZ/mg5oeg7GyopzwghL5P51JhNTZT
- z0owj+iQlnF+Hm+2r7PHLuL2eAhzzwbeEztwiOmWC7t84JqYiLyekhd41wG91ITPP0Fhy7
- jpUlQP0ONNVZewTnLwiiOqnM/7tPrJI=
+ bh=vpP6aYQqpkyPWApIz8JvjE5LVmtBP9wlukIXhNCSpQU=;
+ b=SB2cUKs5WUwjxf+bEecTpuIIKNZWQm2Z0XBIorjykbHK7LLz01s5peXkWa90e+hkDJ3sJw
+ OUdBpIj+75aNdR6XQlvPtNjnMS1U1sT3povGeWlGL4kKnN9AICCeECr4JpbrxB9e7E1tRO
+ L/pF+tRoTEnQJ/rfzX+gzwFsNXGin2U=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1657384477;
+ s=susede2_ed25519; t=1657385188;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=aRjDNrZNDcmj+djZhqPLelHLQyOLul7eUpKWcpMen8M=;
- b=FilyFBXB06KlpegDMr21Og6bYWFUjPdp9evQ+CTOISl5/wWLsbCnI4qfZb8jpmy5qHTqsj
- GnF71Ty1nV3darAQ==
+ bh=vpP6aYQqpkyPWApIz8JvjE5LVmtBP9wlukIXhNCSpQU=;
+ b=rqin+FlysYZnEnYYB+NQNvfczkMqBF+9Tawb9WMFwvZ/oFg0nAkrlCKwlg2q4/pSLwniJ0
+ MAanEEx7jobtERDw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 413E613482;
- Sat,  9 Jul 2022 16:34:37 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 466E213482;
+ Sat,  9 Jul 2022 16:46:28 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 9XbMDh2uyWKcZQAAMHmgww
- (envelope-from <tiwai@suse.de>); Sat, 09 Jul 2022 16:34:37 +0000
-Date: Sat, 09 Jul 2022 18:34:36 +0200
-Message-ID: <878rp2i6sj.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id Hu1hEOSwyWIsaQAAMHmgww
+ (envelope-from <tiwai@suse.de>); Sat, 09 Jul 2022 16:46:28 +0000
+Date: Sat, 09 Jul 2022 18:46:27 +0200
+Message-ID: <877d4mi68s.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: Re: [PATCH 1/9] ALSA: hda: Do not unset preset when cleaning up codec
-In-Reply-To: <20220706120230.427296-2-cezary.rojewski@intel.com>
+Subject: Re: [PATCH 9/9] ALSA: hda/realtek: Remove redundant init_hook() in
+ alc_default_init()
+In-Reply-To: <20220706120230.427296-10-cezary.rojewski@intel.com>
 References: <20220706120230.427296-1-cezary.rojewski@intel.com>
- <20220706120230.427296-2-cezary.rojewski@intel.com>
+ <20220706120230.427296-10-cezary.rojewski@intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
@@ -102,21 +103,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 06 Jul 2022 14:02:22 +0200,
+On Wed, 06 Jul 2022 14:02:30 +0200,
 Cezary Rojewski wrote:
 > 
-> snd_hda_codec_cleanup_for_unbind() unsets preset what interferes with
-> module unloading and triggers null-ptr-deref. Preset is assigned only
-> once, during device/driver matching whereas module reload and unload
-> follow completely different path and may occur several times during
-> runtime.
+> snd_hda_gen_init() does that for every codec already.
 
-Hm, the driver reload/unload does unbind.  Keeping this field mean to
-leave the pointer to the possibly freed object, no?
+Definitely not.
 
-And if it's not cleared, where is this field cleared instead?
+snd_hda_gen_init() calls init_hook of snd_hda_gen_spec.
+
+OTOH, what you're trying to kill the init_hook call of alc_spec.
+Both are in different layers and they don't share the same callback.
 
 
 thanks,
 
 Takashi
+
+> 
+> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+> ---
+>  sound/pci/hda/patch_realtek.c | 3 ---
+>  1 file changed, 3 deletions(-)
+> 
+> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+> index f3ad454b3fbf..a8688025352d 100644
+> --- a/sound/pci/hda/patch_realtek.c
+> +++ b/sound/pci/hda/patch_realtek.c
+> @@ -923,9 +923,6 @@ static int alc_init(struct hda_codec *codec)
+>  	if (is_s4_resume(codec))
+>  		alc_pre_init(codec);
+>  
+> -	if (spec->init_hook)
+> -		spec->init_hook(codec);
+> -
+>  	spec->gen.skip_verbs = 1; /* applied in below */
+>  	snd_hda_gen_init(codec);
+>  	alc_fix_pll(codec);
+> -- 
+> 2.25.1
+> 

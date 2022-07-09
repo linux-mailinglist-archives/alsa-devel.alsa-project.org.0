@@ -2,81 +2,151 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7905556C893
-	for <lists+alsa-devel@lfdr.de>; Sat,  9 Jul 2022 11:57:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DACFA56C91E
+	for <lists+alsa-devel@lfdr.de>; Sat,  9 Jul 2022 13:10:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C9AEF1EF;
-	Sat,  9 Jul 2022 11:57:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9AEF1EF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E797201;
+	Sat,  9 Jul 2022 13:10:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E797201
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657360677;
-	bh=PbPaVryS3IfrLqQ1B9Ls9PPUnr4E5iWT9w5+tUrG/SU=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1657365057;
+	bh=g/BXxyvbqmAkbVptWucfrP02SW6MPEbqRxw5Xq7bP2g=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=H7bE/alQU6b/QfdKDqkCP5mYP2mj/ciCDp9o4FYQLcGMI30mHJhRlzTYWPB9gZ64N
-	 PELSFvpaQbxXnK7njtHFEiSrshsToXCqdpwqMFZ1Ivip1up8yJ0FrLIQw1zULRIr6q
-	 M+ofwqqgNRcy+itSUmq0Bn+cu0k9rriJ9XVmuCDY=
+	b=V+0iz2dJbASRx9SIwle66ymjZ/CTDnR4Pj5f0bwEEyBz9GrV8fKP9eee8G2lh3R1L
+	 LtXX4Ah9MWRLI+vA3MW7U6zcYSISllE9+vHvbGB65q0gbs0mabXLg92FdRQaxt1qNA
+	 O92dDMGSkfU89WNSQ4ZBJcZIZeENImW7QbliWl6U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4E672F80158;
-	Sat,  9 Jul 2022 11:56:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C1F07F8027B;
+	Sat,  9 Jul 2022 13:09:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 77F6EF80245; Sat,  9 Jul 2022 11:56:55 +0200 (CEST)
+ id 48AC9F80100; Sat,  9 Jul 2022 13:09:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8C6A5F80158
- for <alsa-devel@alsa-project.org>; Sat,  9 Jul 2022 11:56:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C6A5F80158
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="riY1cZ27"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2061.outbound.protection.outlook.com [40.107.101.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 8B3F4B819C4;
- Sat,  9 Jul 2022 09:56:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D4EBC3411C;
- Sat,  9 Jul 2022 09:56:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657360607;
- bh=PbPaVryS3IfrLqQ1B9Ls9PPUnr4E5iWT9w5+tUrG/SU=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=riY1cZ27C76IkL7GJt4UKOvxVIoiho/oMGtH2RQ17N/urCtX9PsAD3/2OxUen05PS
- uZJf4HUc0MLgcPvohCH5gu13TXIzsnCIbV/kOzVrqcx+/+Ay0mMqRDEPe+uKUT2SzM
- 1Zp4xESSttL5VTpOg3FiBLSwWS6SjIm3xg1qWafdCVsQkPimtkqv8RCpEhk18WQ8Cb
- F/kwALhaLzftWcjWezq7nGbBfR28H7rEJarRZu3sDhiAwSywUL6MW0igrv6jhi/UOl
- Ya+9ljZ7gCKeO3OmvarM4WzmxJ+r9UTaNxllha5Qk5r5UpBa3NkMP+eDijKRkYXPN5
- DUW6U74f/xkpA==
-Date: Sat, 9 Jul 2022 10:56:40 +0100
-From: Mauro Carvalho Chehab <mchehab@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH 10/12] docs: alsa: alsa-driver-api.rst: remove a
- kernel-doc file
-Message-ID: <20220709105640.376ff45c@sal.lan>
-In-Reply-To: <87y1x9xclg.wl-tiwai@suse.de>
-References: <cover.1656759988.git.mchehab@kernel.org>
- <3cd6b93b36b32ad6ae160931aaa00b20688e241a.1656759989.git.mchehab@kernel.org>
- <87y1x9xclg.wl-tiwai@suse.de>
-X-Mailer: Claws Mail 4.1.0 (GTK 3.24.34; x86_64-redhat-linux-gnu)
+ by alsa1.perex.cz (Postfix) with ESMTPS id D5E1FF80100
+ for <alsa-devel@alsa-project.org>; Sat,  9 Jul 2022 13:09:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5E1FF80100
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
+ header.b="CUmrY6Ww"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=n+7NeeSHGbvJlwbd1cRGdH8J9YyLKmtiWVOFGuSneYwkHphPTnqAPqj5fXkehjz4OC9Htkv/Ey6j523UuRz956AmV6zizKvwAKrDuSfYnEdKvct+i8jyqamHf3xGR1qJEdtybufCQfrJ3xQpUXFhHuT/EgSA42PQySPZAn8EXPWhWU2Va60YNpfD6ZxPBaR8GX0TWkK83cJa03fefI7GxXNQsnXAdhelb7mNTLjxlBq8cR9ejhQ/gmcuAl2CEjb25xdoYuYEyz1aTHoD3mF2tCITYgVGgVSzPmg2ExbRnXon2ncXH2CMltpoZRKpoWxJitjIrKtwfp/jTa/vhIhLHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=M51zRpvKPM76vEyzthGN19e8g+GYwJnJe4XoUbaHd0o=;
+ b=W+St6nMiQWnxnzz6qfNERgXReW/XIS4BzOtHP2m7zHY/EvHFKOTEnBhZqUPOQlop9RVLNInIUaid6qwCD5wnMOhi5vE6MN/GkpV47AGdKnlAKLby0UkTQw6dZTiwF4WxYDKQnhsUubWKvzLjdTOKtYyT4l4GZxwP5o7mYOypGsfVQG9XBx0NrWVqceeg9ZgXxAgFmUsU1peaLHlEiOt7RI9IpNkZdkYwbyr+EdtROBB5ycME03ifbX7GhpM4iDV6x7Ge+gX6UoH84RUCFr45AyYKOO92fiKwiheEPYhw3em7IfJb8ZMPMfQ1PDwdAmGTagByQKMeOUWDW4sXnfRghg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=M51zRpvKPM76vEyzthGN19e8g+GYwJnJe4XoUbaHd0o=;
+ b=CUmrY6WwGeeggIAmOjAIEJVhgUVCmW0mFQePVwSn/C3rlZUqVCblL7X/K/Ri+1UdSbnsLmE1IHm+ASP56rDFJyuLS7riSHKRdkbINF8SULv07j3X2ju7wffql6WZBMSYuvdY8NxVazswNJPnwN8MK6ARYGTeMmDbLwHNNL0vhUQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
+ by MW3PR12MB4393.namprd12.prod.outlook.com (2603:10b6:303:2c::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.20; Sat, 9 Jul
+ 2022 11:09:43 +0000
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::6d50:f6c5:cea4:1d95]) by DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::6d50:f6c5:cea4:1d95%7]) with mapi id 15.20.5417.023; Sat, 9 Jul 2022
+ 11:09:43 +0000
+Message-ID: <d2828d36-275e-60d7-782e-2bff265bae0b@amd.com>
+Date: Sat, 9 Jul 2022 16:42:01 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH 3/3] ASoC: amd: fix for variable set but not used warning
+Content-Language: en-US
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>, broonie@kernel.org,
+ alsa-devel@alsa-project.org
+References: <20220707132613.3150931-1-Vijendar.Mukunda@amd.com>
+ <20220707132613.3150931-3-Vijendar.Mukunda@amd.com>
+ <e2eab942-f122-7e37-e3a3-c8a1e153c91b@wanadoo.fr>
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+In-Reply-To: <e2eab942-f122-7e37-e3a3-c8a1e153c91b@wanadoo.fr>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN3PR01CA0128.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:bf::13) To DM6PR12MB4123.namprd12.prod.outlook.com
+ (2603:10b6:5:21f::23)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, Jonathan Corbet <corbet@lwn.net>,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
- linux-kernel@vger.kernel.org,
- Linux Doc Mailing List <linux-doc@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 28c9ce6a-1e1a-4ab6-c847-08da619b868f
+X-MS-TrafficTypeDiagnostic: MW3PR12MB4393:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: WMs1idMxG7okzlllPG5tHaByQhSJgFFupKiYUVChlU0n96GYsRKksmFCFeLoofz5LVrgTe34408W5mi+Npzgn4t+S6ViaxUcvq+vgY7JB1dULuMoXtS6L+LvzQ0jj8JlKukTW6IrKjdm5gqu8caMFHRoFFFFzmHm0oJww1B7diRQFoHfolwx5CBPp6rWGRxxwz9BdZ3W0y57MWo/2+uLppGGq5pQFGRHBBnpIM5gzNanlIsojjRFoPXKfyl+9qpSV+kb6z9VxvbJRHxjih4P9vdjpZPJAXAipqmg45HXRwH7gmIs7L9JBwiO7XPo/kkIMJelyLGf8qIncqOg2hMiC79LSR2gBUwU2x9Sxx29gP8/GXuKF6pyW2PXiLlT6iBCLVS5HOMxdXFxyIyQ9pPOFNWDT9xO8vwTYERKncDdZKlLTYtIlWXNTyxocwMBwZtYhcHJdNUFadNHig4j1vG07DyQmbBBmO4gzsx24gbnVQtNbutlA1qSsScx5ame/2Xe3hnnvs655BpQR6//j3Glz9X5l2W7A4CVpYPNr3XvXJ+B8yvRFMbf5r9DUwg72O2Atr4UMhAfTiHLOYPuDz/MZr1tAKKYgKUGa50vFHS64BzurBGEukdmnv7K4zOYTo0jRXiyq3bToK2M6Yp/oEe3JMpuw3ADhXsrLWGFKBOEZy1wdC+EC+orwvsC7Y7Nc01eoEbSQ1XR3WcMJCKJxj/RmSsoZRRJgIQvui/pmsippTufI5dCAo5t1D2150vNfpUy459la6AdmP1VK7awXbyQN2wiZtupUHqQELk3a8wp5EG+pY8V+98xJ4bSpu39SmK/KgYNWVgJ8cI+EzoiGWGXgQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4123.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(366004)(136003)(396003)(376002)(346002)(39860400002)(5660300002)(4326008)(26005)(2616005)(66574015)(8676002)(6512007)(66476007)(7416002)(66946007)(8936002)(66556008)(6666004)(83380400001)(186003)(6506007)(316002)(36756003)(31696002)(41300700001)(478600001)(31686004)(6486002)(86362001)(38100700002)(2906002)(53546011)(54906003)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZnZpOXlyNHNITjRiOTBIQi9IYmJZb0EzT3laS09OTGkwZTAxTDhuYXN2SFJM?=
+ =?utf-8?B?bktIUUEwTnpvMS8zWkxmWFdjWjg5UmZSbTlvOGhLVVVCM0lTaEJUSDVWMXh5?=
+ =?utf-8?B?MFFsWlFja29KdHEvUVJ6Rmt2eVh5a1VXTFJWRHh6TU1tRjFQdUx2aVFkMU9y?=
+ =?utf-8?B?UXFSSDdSY1h2VlJ6MHhHVWRJT0g5RCtieFg1Nnh5V2k2SXNJOE5FZkk2blZk?=
+ =?utf-8?B?U0tGQTl3MjFnVldFbCtZdFlFcEpwUmRBNyt1RDFCQ3VIejJmOGhQWGJENUc4?=
+ =?utf-8?B?Zm5reThsQTRyeDFnSCs4Yi9zd0JUcDBEc3lPZXpvdms0TUY0UG5DcDc4dnlx?=
+ =?utf-8?B?QmhmZGxtZW4weDdLM0FseGhCaHQydlBiakkwK1lYWnJWZHBRU2hoSkpwcHlQ?=
+ =?utf-8?B?QW9wNkcwLzQ4MUtsWUQvZEpsVHBsaU5Pb295M0szTFBYeWcwcDdIQnN3aFRo?=
+ =?utf-8?B?Y3NsUDl6VHZpemtFRC9iUlIybzhlaXVKS1BWTHJhN3QzTm5MUTFUQmoycEJJ?=
+ =?utf-8?B?ei9ZdGs5Y2lZbmVtUGliZmVMTTRRWlFPaU1tYXNMbC9hVHRHN094NWE1cy9K?=
+ =?utf-8?B?c3RCdmloamlGUUZ3Nmc0amptL1Z2aWRKYU52cE9OQjVxQ0V2R2hlNjVHV3kz?=
+ =?utf-8?B?bHYwTEF1aWl1S1NZWDdGYmowa3QwSjNQNmtNYzJYYmxPZXYrVWpRTzkvU24z?=
+ =?utf-8?B?WDBvMHNtaUZETEQrb1JkK0xYN2Mra3o1QWx5RUNrSlBLVTRzSXJlUEtPd0RE?=
+ =?utf-8?B?UEhqaGxmNy9RQUlJSkNnUXJxM1RZUGhHTTRwSjJhRTN6Q3ptcjYxUFE4RFdr?=
+ =?utf-8?B?RkF6Z0Q2NTlIOEpGRWMvSW9PSmh1WDJoSG9IWS93cGF3RUo5SWhDSjg5THp1?=
+ =?utf-8?B?UXdwRjJTMk9iTTFGUXcrYnJMakhTNndqQzVUWUdnNlUyZ3dra3E2aHFpVzN5?=
+ =?utf-8?B?b1pwSnJlQzhRaDNBektKRlhxdGNpVUx2SllSTE4xRkswQjdqa01MTmQyU0Nw?=
+ =?utf-8?B?azRZMUpXeFU3L2toWXV1eHlRYnc0VFNEdi9aei9VNDZlRXF1RlM1SXhwWnJm?=
+ =?utf-8?B?cmZGNUViQTdwYWt4Y2xBZTM4Yk5Ga0RPMnA3SHI3ZGFoRXhMcHgvS2xSRVkz?=
+ =?utf-8?B?N21ha2RUR1FxM29EMU5hU0JYMVllMHU5MTNSK0VnMG5rRFdJSGVqVTBmVHVV?=
+ =?utf-8?B?b2hiYk5qQmhBR2RaSitrTzhQNzJrdWFEWVdJM1Jvd2NQWDhpRzRnbHpHYlpK?=
+ =?utf-8?B?MnJDRDFCZHJsdGpKK0h5MUtFd0NCMk96M091QUp1cVF4Y1RMdTdnYTQ3ZTRO?=
+ =?utf-8?B?K3gwTGUycWRBRkdtTk9YVzhvTnkvWStpaTZXVFlCbzhodXBOYUZjVVBPRi9J?=
+ =?utf-8?B?OVN1Wkt0Y2R0NHNhamQwaFJlOEhLN3BaL2pVaWl4L25vUUJVOTdubDV6V1NC?=
+ =?utf-8?B?TEYrcVR6Y3p4cThlYkFoUU1GdlJVUjgyWTQwR0dDVkk3VnJJdUs3ZnB3blJ1?=
+ =?utf-8?B?VFlid1Y4YWpXNHl4QWpPSU1IdzdiWGs4UHp0dld0enk3RUR4MEFiZmd1NG53?=
+ =?utf-8?B?dnlCNk9pN1UzdW5wWTg4R043elRWdG5tUVpVQVhwN25NbHlGaEQvcUxHalJk?=
+ =?utf-8?B?d1lFNGlPYVNHNUZUY1lMVk1yZnNJZTRrRGpNS3BveTZFLzdXcTU1MnVReWZs?=
+ =?utf-8?B?UlU2dTBqRllFejRRNHZaMDFtNHRPZDZ1eGhadU9UaXZKSVZIK3R0RTNPNjk1?=
+ =?utf-8?B?UEJ5Z3RMRHFaRjNKQzVlMTNyb3hYdFNTUzdrY1JtUWJvMjlsYXFaR0FPLzl6?=
+ =?utf-8?B?ZVovYWRHM0x6WU8vWm1Nb0FNQW8wbGpmNmxJK3lZK0o3RzJROHY4UnNEV0ds?=
+ =?utf-8?B?Q0hHdFAybnEwdUgvWXRUN29RbEtqMzRHMVkyV1YzbXdKNWl4ODVVQ1B4R0U3?=
+ =?utf-8?B?OHhXUTB6NEx3Y05XMHlnZUI3WjZuQ0xIYlF2MzhkMS9OYzFpM216bVF3VEJa?=
+ =?utf-8?B?RGxYZzlHU2p1aWhsR2lPNGY5L0lPYUpRM0wrL0NUK2VtTmpxdUMxay9ONWJB?=
+ =?utf-8?B?UGVrVGs1Rzl5Ykx2dWtlSWdpazNrbkk1YW1zdUx3dVk5c09aN2lZSE9COTVF?=
+ =?utf-8?Q?2RYjqpOtpSRmueChyZN8vwptr?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 28c9ce6a-1e1a-4ab6-c847-08da619b868f
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2022 11:09:43.4866 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5lH90vxS6UUDJ330n2X2SVgS1DURjVHPSfk0XAmt/QPgUMhwlfa+bXC5eKYPPYRuA4017ohELLfjXaFyUjkDpA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4393
+Cc: Sunil-kumar.Dommati@amd.com, kernel test robot <lkp@intel.com>,
+ open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ amadeuszx.slawinski@linux.intel.com, zhuning@everest-semi.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,56 +162,95 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Em Mon, 04 Jul 2022 14:54:19 +0200
-Takashi Iwai <tiwai@suse.de> escreveu:
+On 7/9/22 1:03 PM, Christophe JAILLET wrote:
+> Le 07/07/2022 à 15:26, Vijendar Mukunda a écrit :
+>> Fix below kernel warning.
+>>>>> sound/soc/amd/acp-es8336.c:200:13: warning: variable 'ret' set but
+>>>>> not used [-Wunused-but-set-variable]
+>>
+> 
+> Hi,
+> this patch, looks odd to me.
+> 
+> 
+>> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+>> Reported-by: kernel test robot <lkp@intel.com>
+>> ---
+>>   sound/soc/amd/acp-es8336.c | 3 +++
+>>   1 file changed, 3 insertions(+)
+>>
+>> diff --git a/sound/soc/amd/acp-es8336.c b/sound/soc/amd/acp-es8336.c
+>> index 90f4e5809c72..e1479ae684e9 100644
+>> --- a/sound/soc/amd/acp-es8336.c
+>> +++ b/sound/soc/amd/acp-es8336.c
+>> @@ -206,6 +206,8 @@ static int st_es8336_late_probe(struct
+>> snd_soc_card *card)
+>>           dev_err(card->dev, "can not find codec dev\n");
+> 
+> The next devm_acpi_dev_add_driver_gpios() will fail, should we return
+> immediately?
+> 
+>>         ret = devm_acpi_dev_add_driver_gpios(codec_dev,
+>> acpi_es8336_gpios);
+>> +    if (ret)
+>> +        dev_warn(card->dev, "Failed to add driver gpios\n");
+> 
+> Should we return immediately?
+As it required to support Machine driver differed probe , we shouldn't
+return immediately.
+We are checking gpiod_get_optional() return status. If still error is
+reported, then return is invoked after checking whether return error
+code is -EPROBE_DEFER.
 
-> On Sat, 02 Jul 2022 13:07:42 +0200,
-> Mauro Carvalho Chehab wrote:
-> > 
-> > This file:
-> > 	sound/core/compress_offload.c
-> > 
-> > Doesn't define any docs, as everything is inside the header
-> > file. So, drop it, in order to remove a Sphinx warning.
-> > 
-> > Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>  
-> 
-> Hmm, it looks rather like that some comments (at least for exported
-> functions) should be marked with kerneldoc markers instead.
-> 
-> I'm going to fix those comments.
+We found similar implementation in other platforms machine driver code
+as well.
 
-Go for it: adding kerneldoc markers is indeed a better solution :-)
+>>         gpio_pa = gpiod_get_optional(codec_dev, "pa-enable",
+>> GPIOD_OUT_LOW);
+>>       if (IS_ERR(gpio_pa)) {
+>> @@ -213,6 +215,7 @@ static int st_es8336_late_probe(struct
+>> snd_soc_card *card)
+>>                       "could not get pa-enable GPIO\n");
+>>           gpiod_put(gpio_pa);
+>>           put_device(codec_dev);
+>> +        return ret;
+> 
+> Here, we return 'ret' which is what is returned by
+> devm_acpi_dev_add_driver_gpios(). So there doesn't seem to be a link
+> with this block which checks for gpiod_get_optional() errors.
+> 
+> Moreover, returning an error for something that is optional
+> (gpiod_get_optional()) looks strange.
+> 
+> Finally, should an error be returned, maybe PTR_ERR(gpio_pa) would be
+> better here.
 
-Regards,
-Mauro
+Machine driver deferred probing should be supported.
+err code PTR_ERR(gpio_pa) is compared with -EPROBE_DIFFER and same err
+returned from dev_err_probe() API.
+
+same code can also be modified as below
+
+if (IS_ERR(gpio_pa)) {
+	gpiod_put(gpio_pa);
+	put_device(codec_dev);
+	return dev_err_probe(card->dev, PTR_ERR(gpio_pa),
+			    "could not get pa-enable GPIO\n");		
+
+}
+
+
+
+
 
 > 
 > 
-> thanks,
+> Just my 2c.
 > 
-> Takashi
+> CJ
 > 
-> > ---
-> > 
-> > To avoid mailbombing on a large number of people, only mailing lists were C/C on the cover.
-> > See [PATCH 00/12] at: https://lore.kernel.org/all/cover.1656759988.git.mchehab@kernel.org/
-> > 
-> >  Documentation/sound/kernel-api/alsa-driver-api.rst | 1 -
-> >  1 file changed, 1 deletion(-)
-> > 
-> > diff --git a/Documentation/sound/kernel-api/alsa-driver-api.rst b/Documentation/sound/kernel-api/alsa-driver-api.rst
-> > index d24c64df7069..3cf8eb4ecaf4 100644
-> > --- a/Documentation/sound/kernel-api/alsa-driver-api.rst
-> > +++ b/Documentation/sound/kernel-api/alsa-driver-api.rst
-> > @@ -86,7 +86,6 @@ Compress Offload
-> >  
-> >  Compress Offload API
-> >  --------------------
-> > -.. kernel-doc:: sound/core/compress_offload.c
-> >  .. kernel-doc:: include/uapi/sound/compress_offload.h
-> >  .. kernel-doc:: include/uapi/sound/compress_params.h
-> >  .. kernel-doc:: include/sound/compress_driver.h
-> > -- 
-> > 2.36.1
-> >   
+>>       }
+>>       return 0;
+>>   }
+> 
+

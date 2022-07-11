@@ -2,77 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 283E35706DC
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Jul 2022 17:20:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF7F95706DD
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Jul 2022 17:21:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1832EE12;
-	Mon, 11 Jul 2022 17:19:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1832EE12
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6426015E5;
+	Mon, 11 Jul 2022 17:20:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6426015E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657552845;
-	bh=/A3PTdW5tYRvqp6LbUd4hnfzACdhbSnZU5uWQJBjF6E=;
+	s=default; t=1657552863;
+	bh=MTXjjMKkthtOSW45I5feGFwx9rTYziret7FwmGPzzl4=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=A/rQRWNSJkAwReXZOHwI6hOhXvJ0cVKzmhk9MxWzJmePTtZsDORnzFUq32LJmgoUo
-	 2qK0bLPkLtVRw3xofH6jqrCrp/ScCNsEoOlgCubBCYcZ9asqjQn8OPLgrqqX1dbLOn
-	 lkNsdQiVi7oRJNnlaD8vQ//tBv3nd6JNiDOY4GSM=
+	b=CQbw3n7p3516mqqu8klyJtipNxPNqCr5+XEijKU9NlCKF0ZtcrRrIRx/q8UIk1YDw
+	 ZgTnVojL3KIChpH1qW+katoiMo8PL2u6iUxpQKSi5ZI3DEGdWzqsn1ldj+hwVDEqHx
+	 ca32Lxw3B5JqqYWxKFimAKmgP9LecLiSPikIgnaE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3B3A1F800E1;
-	Mon, 11 Jul 2022 17:19:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B8D78F8054A;
+	Mon, 11 Jul 2022 17:19:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 22C68F80543; Mon, 11 Jul 2022 17:19:08 +0200 (CEST)
+ id B787DF80542; Mon, 11 Jul 2022 17:19:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B86BAF80256
- for <alsa-devel@alsa-project.org>; Mon, 11 Jul 2022 17:18:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B86BAF80256
+ by alsa1.perex.cz (Postfix) with ESMTPS id A15EEF800E1
+ for <alsa-devel@alsa-project.org>; Mon, 11 Jul 2022 17:18:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A15EEF800E1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Bil69G3Q"
+ header.b="ZrAEUeCC"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 182C7615CC;
- Mon, 11 Jul 2022 15:18:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C18E4C341C8;
- Mon, 11 Jul 2022 15:18:53 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 4C5AAB8105D;
+ Mon, 11 Jul 2022 15:18:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA0F7C341CA;
+ Mon, 11 Jul 2022 15:18:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657552735;
- bh=/A3PTdW5tYRvqp6LbUd4hnfzACdhbSnZU5uWQJBjF6E=;
+ s=k20201202; t=1657552737;
+ bh=MTXjjMKkthtOSW45I5feGFwx9rTYziret7FwmGPzzl4=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Bil69G3QZKz9IFDmv3QykqamC6u2h62z9Pms8eDjeSG2NbOyaKiDfAyQtuvFzGCFD
- 1S8XLqdM6HzqJFTl9NFsbxTQLiCFn5cXm8BONNLgalr137E2iWIYL6uIL82Aw9pvGq
- asAE4ykf9jtGnA7nQzVAkDBdXQsrekBHlRa3bdC1rvoNdBVHosL2dXdxjBHkPUBDUv
- Q1qLXCZ0WVt95khiC6h1+yPjOmoTX0/LvpP3iHrqOodMgUQKmq9YyXumao1n1NMNeI
- aBoRMYlD1fVZPqa2YYqpl3/vaPNfX2y2r9w7s3L2z8zXleBFRn3/vqWcTd0UCUWI8s
- FH9rvqvDXEzFw==
+ b=ZrAEUeCC3JdJJZ8lHcao7Vkeyd3YYFzuG9yHW+4b9xQ0g7uCjS+FF1AHnHKnXz92I
+ T9ezrcXbXs+LXTFc2jvyturuBzMMHB3vgfRQl9uuO/0FJhdDFF44JMkpNNk8VYyXp2
+ t5mC3UA1/ttzsTdcMTpxPgIRXt+KUjAgCTvOk8z113mWazC7VXGRODimeIZMtHWO1s
+ YlXHf3jlLtXtbTZ9ekx0z8bElrU4bngvhCpaKL8uIuW6m4MTEoANqVHSFPvaOyGWIB
+ ut8ruZI0ZarsQlXfKMb5ToYWDCdtbIdKqSIoeTzxuW/bMGlFSOqrGIJ3NvpXMtLBlW
+ AJgzyBSlxw5qg==
 From: Mark Brown <broonie@kernel.org>
-To: claudiu.beznea@microchip.com, perex@perex.cz, tiwai@suse.com,
- lgirdwood@gmail.com
-In-Reply-To: <20220711112212.888895-1-claudiu.beznea@microchip.com>
-References: <20220711112212.888895-1-claudiu.beznea@microchip.com>
-Subject: Re: [PATCH] ASoC: atmel: mchp-pdmc: remove space in front of
- mchp_pdmc_dt_init()
-Message-Id: <165755273352.520536.8724051987921046485.b4-ty@kernel.org>
-Date: Mon, 11 Jul 2022 16:18:53 +0100
+To: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org
+In-Reply-To: <20220708200719.26961-1-pierre-louis.bossart@linux.intel.com>
+References: <20220708200719.26961-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: remove warning on ABI checks
+Message-Id: <165755273569.520536.16779033978288169088.b4-ty@kernel.org>
+Date: Mon, 11 Jul 2022 16:18:55 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: linux-kernel@vger.kernel.org, alexandre.belloni@bootlin.com,
- alsa-devel@alsa-project.org, linux-arm-kernel@lists.infradead.org,
- nicolas.ferre@microchip.com
+Cc: tiwai@suse.de, peter.ujfalusi@linux.intel.com,
+ ranjani.sridharan@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,8 +85,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 11 Jul 2022 14:22:12 +0300, Claudiu Beznea wrote:
-> Remove extra space in front of mchp_pdmc_dt_init().
+On Fri, 8 Jul 2022 15:07:19 -0500, Pierre-Louis Bossart wrote:
+> We should only have an error when enforcing strict mapping between
+> kernel and firmware versions. In all other cases, there is no reason
+> to throw a warning.
 > 
 > 
 
@@ -99,8 +98,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: atmel: mchp-pdmc: remove space in front of mchp_pdmc_dt_init()
-      commit: 375f53566cf04324825b7a0f545aeb4405963bd0
+[1/1] ASoC: SOF: remove warning on ABI checks
+      commit: fd1c769d33872d6c7ec474c199f6a910d3555927
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

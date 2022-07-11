@@ -2,75 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6AA957048C
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Jul 2022 15:43:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E359C570525
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Jul 2022 16:13:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 642DF82C;
-	Mon, 11 Jul 2022 15:42:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 642DF82C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3DA1491;
+	Mon, 11 Jul 2022 16:12:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3DA1491
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657547006;
-	bh=KqT9jXk7gPcHs0OREpA0JbWzkxkbkXw/FOHUWxufhRo=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1657548820;
+	bh=v0DRWRgt1apyvbz4KoibfpQ3qQOAfJk95RVOec+53lo=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bWgTpr/9wYCcEE86G11Ubi66XA+FdodRvF7t1iPqharW1Ddib68ZRNLpVL5wfsLei
-	 3/iKG8gwZH08dCF47ZJ8yBpqj/0jlyG+fjBmR0cuUet85grrkSG2ZppUma50zFdT4X
-	 kPN556cl1n4sw3aVHOZS/kzjAcotFd7EuDu62zR0=
+	b=dSDnDr/HgXEo8vDx4PtKXknuAHZ6ZKAQS/MKmR/5U/kRK1Tr15MR9HgbqAH2gYfe6
+	 Glu/b0CsumMsMzd7ha7V9gpcAQTjFibUYitIhd22/fgOpNHocOM5fUlyW6V9ST4GbN
+	 eczv6Nj1JsLaeL8+HckWyt/BGjcgsq8KjtX5t8o4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D3242F80256;
-	Mon, 11 Jul 2022 15:42:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A3FCFF80256;
+	Mon, 11 Jul 2022 16:12:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 379F5F80256; Mon, 11 Jul 2022 15:42:24 +0200 (CEST)
+ id 6576EF80163; Mon, 11 Jul 2022 16:12:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D3794F800E1
- for <alsa-devel@alsa-project.org>; Mon, 11 Jul 2022 15:42:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3794F800E1
+ by alsa1.perex.cz (Postfix) with ESMTPS id DA428F800E8
+ for <alsa-devel@alsa-project.org>; Mon, 11 Jul 2022 16:12:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA428F800E8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Yh4+12vn"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="Mnx1R887"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="VsZGiRHI"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id EFF68B80F10;
- Mon, 11 Jul 2022 13:42:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1876C3411C;
- Mon, 11 Jul 2022 13:42:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657546938;
- bh=KqT9jXk7gPcHs0OREpA0JbWzkxkbkXw/FOHUWxufhRo=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Yh4+12vnfz/2k7t73GAfVvazukytAqGwPao+x+u63zCaZL4Ed1Et6Pd6qTMkTuVhH
- G62ZGbXc5ca1lpNJmS4AHKmiSO1cGZFv7A5Ez/skc2P/E4ib4x6Nm8F1GGYFGmlKUe
- jdqg9f8RZ0m5m1jQQn4TwF4Dy/68gsc4RcbQg4J4Ic+yxz5Hx5J14pZeGgSnGZjxwe
- YWwtmifKVmuztiw6SJzq4vmtONW1aXJE1mA2qZqstUuVhFqdX//Wv9UNXgKpHB0iNT
- Q4se9Xx61BaiigNoUqPFsE09l9Lsp1fQQg3kM5pkv2xy829N7Qnf7uHPzWwq5j0K5t
- wDC8Sbj6efthQ==
-From: Mark Brown <broonie@kernel.org>
-To: shengjiu.wang@nxp.com, perex@perex.cz, festevam@gmail.com,
- lgirdwood@gmail.com, shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com,
- nicoleotsuka@gmail.com, alsa-devel@alsa-project.org, tiwai@suse.com
-In-Reply-To: <1657507190-14546-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1657507190-14546-1-git-send-email-shengjiu.wang@nxp.com>
-Subject: Re: [PATCH] ASoC: fsl_utils: Drop usage of __clk_get_name()
-Message-Id: <165754693638.334539.15476852072708408930.b4-ty@kernel.org>
-Date: Mon, 11 Jul 2022 14:42:16 +0100
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 30E9F20246;
+ Mon, 11 Jul 2022 14:12:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1657548755; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=eR+QHHjysqBxmln3csSbrytbvfOUNjLVIHNkKEyHsco=;
+ b=Mnx1R887sargHvbHL9nR7NnsP7QhrpAldb5xBhdPO+xPFfzUt4uvmfi+Ht6Wf5mIdg2SUP
+ Gw0uKhaJfIFpTlyM88oGDDYV81MjEFGfbXqqSE61Ovobwl7vm3Q5iSunG4h9FqkFU7e5jh
+ 2X9/0+U4cBVl4QRWaHcKEUi0Fuu9P0k=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1657548755;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=eR+QHHjysqBxmln3csSbrytbvfOUNjLVIHNkKEyHsco=;
+ b=VsZGiRHIrofJquQX3w1w/qmiQJUQ12th/N0bimO3OhZrtWJn2Y0I1ZmJErBID63ptC2EKj
+ 88U9EMt/KlBUbSBg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 03D5413524;
+ Mon, 11 Jul 2022 14:12:34 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id L3MEANMvzGLwQgAAMHmgww
+ (envelope-from <tiwai@suse.de>); Mon, 11 Jul 2022 14:12:34 +0000
+Date: Mon, 11 Jul 2022 16:12:34 +0200
+Message-ID: <877d4jsppp.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: Re: [PATCH 1/9] ALSA: hda: Do not unset preset when cleaning up codec
+In-Reply-To: <2966b410-f00d-9b33-fcfa-30d484455579@intel.com>
+References: <20220706120230.427296-1-cezary.rojewski@intel.com>
+ <20220706120230.427296-2-cezary.rojewski@intel.com>
+ <878rp2i6sj.wl-tiwai@suse.de>
+ <2966b410-f00d-9b33-fcfa-30d484455579@intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ tiwai@suse.com, hdegoede@redhat.com, broonie@kernel.org,
+ amadeuszx.slawinski@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,37 +104,114 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 11 Jul 2022 10:39:50 +0800, Shengjiu Wang wrote:
-> Avoid build errors when CONFIG_COMMON_CLK is not set/enabled.
+On Mon, 11 Jul 2022 10:25:17 +0200,
+Cezary Rojewski wrote:
 > 
-> ERROR: modpost: "__clk_get_name" [sound/soc/fsl/snd-soc-fsl-utils.ko] undefined!
+> On 2022-07-09 6:34 PM, Takashi Iwai wrote:
+> > On Wed, 06 Jul 2022 14:02:22 +0200,
+> > Cezary Rojewski wrote:
+> >> 
+> >> snd_hda_codec_cleanup_for_unbind() unsets preset what interferes with
+> >> module unloading and triggers null-ptr-deref. Preset is assigned only
+> >> once, during device/driver matching whereas module reload and unload
+> >> follow completely different path and may occur several times during
+> >> runtime.
+> > 
+> > Hm, the driver reload/unload does unbind.  Keeping this field mean to
+> > leave the pointer to the possibly freed object, no?
+> > 
+> > And if it's not cleared, where is this field cleared instead?
 > 
 > 
+> avs-driver i.e. the bus driver takes responsibility for the codec
+> device only. There is no real probe(), just the device creation and
+> initialization of its fields. The rest is handled by the component
+> driver (sound/soc/hda.c). If this field is cleared and the test is
+> limited to reloading HDAudio codec module alone, we get a
+> panic. Something similar to the stack found below my message.
+> 
+> In regard to the other question - are presets freed at all? It seems
+> all of them are part of the static device-driver matching list. If so,
+> the pointer is always valid.
 
-Applied to
+When the codec driver is unbound and the module is unloaded, the whole
+objects and symbols are gone.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Thanks!
+> [  136.827856] RIP: 0010:hda_codec_probe+0x16c/0x560 [snd_soc_hda_codec]
+> [  136.827929] Code: ff 85 c0 0f 88 5b 0b 00 00 4d 8d bc 24 d0 03 00
+> 00 4c 89 ff e8 e5 a2 9e ca 49 8b 9c 24 d0 03 00 00 48 8d 7b 10 e8 d4
+> a2 9e ca <48> 8b 73 10 4c 89 e7 e8 e8 7d fb ff 85 c0 0f 88 43 0b 00 00
+> 4c 89
+> [  136.828028] RSP: 0018:ffff888101af74d0 EFLAGS: 00010286
+> [  136.828079] RAX: 0000000000000001 RBX: 0000000000000000 RCX:
+> ffffffff8b4f1b1a
+> [  136.828128] RDX: 0000000000000001 RSI: 0000000000000008 RDI:
+> ffffffff8e323d20
+> [  136.828175] RBP: ffff888101af7540 R08: 1ffffffff1c647a4 R09:
+> fffffbfff1c647a5
+> [  136.828224] R10: ffffffff8e323d27 R11: fffffbfff1c647a4 R12:
+> ffff888102920000
+> [  136.828272] R13: ffff88810812e428 R14: ffff888102925028 R15:
+> ffff8881029203d0
+> [  136.828323] FS:  00007f9049dd8540(0000) GS:ffff888227100000(0000)
+> knlGS:0000000000000000
+> [  136.828380] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [  136.828425] CR2: 0000000000000010 CR3: 000000010f086001 CR4:
+> 00000000003706e0
+> [  136.828474] DR0: 0000000000000000 DR1: 0000000000000000 DR2:
+> 0000000000000000
+> [  136.828520] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7:
+> 0000000000000400
+> [  136.828568] Call Trace:
+> [  136.828593]  <TASK>
+> [  136.828628]  snd_soc_component_probe+0x3a/0x60 [snd_soc_core]
+> [  136.828981]  soc_probe_component+0x276/0x4a0 [snd_soc_core]
+> [  136.829274]  snd_soc_bind_card+0x819/0x13d0 [snd_soc_core]
+> [  136.829560]  ? __kasan_slab_alloc+0x32/0x90
+> [  136.829614]  snd_soc_register_card+0x24e/0x260 [snd_soc_core]
+> [  136.829900]  devm_snd_soc_register_card+0x48/0x90 [snd_soc_core]
+> [  136.830204]  avs_hdaudio_probe+0x298/0x2c0 [snd_soc_avs_hdaudio]
+> [  136.830269]  platform_probe+0x67/0x100
+> [  136.830313]  really_probe+0x1ff/0x500
+> [  136.830354]  __driver_probe_device+0xeb/0x240
+> [  136.830397]  driver_probe_device+0x4e/0xf0
+> [  136.830438]  __driver_attach+0xfd/0x210
+> [  136.830478]  ? __device_attach_driver+0x170/0x170
+> [  136.830520]  bus_for_each_dev+0xf9/0x150
+> [  136.830557]  ? subsys_dev_iter_exit+0x10/0x10
+> [  136.830597]  ? preempt_count_sub+0x18/0xc0
+> [  136.830643]  driver_attach+0x2d/0x40
+> [  136.830679]  bus_add_driver+0x28e/0x320
+> [  136.830722]  driver_register+0xdc/0x170
+> [  136.830763]  ? 0xffffffffc0428000
+> [  136.830796]  __platform_driver_register+0x39/0x40
+> [  136.830842]  avs_hdaudio_driver_init+0x1c/0x1000 [snd_soc_avs_hdaudio]
+> [  136.830902]  do_one_initcall+0xa0/0x2e0
+> [  136.830939]  ? initcall_blacklisted+0x170/0x170
+> [  136.830981]  ? __kasan_kmalloc+0x88/0xa0
+> [  136.831020]  ? kasan_poison+0x3c/0x50
+> [  136.831059]  ? kasan_unpoison+0x28/0x50
+> [  136.831100]  ? kasan_poison+0x3c/0x50
+> [  136.831139]  ? __asan_register_globals+0x5e/0x70
+> [  136.831187]  do_init_module+0xf6/0x350
+> [  136.831228]  load_module+0x2bf5/0x2e30
+> (...)
 
-[1/1] ASoC: fsl_utils: Drop usage of __clk_get_name()
-      commit: eaa27e7fe43f16fe587c3e93fd5c25ce86be3c43
+Hmm, in the Oops above, at which moment,
+snd_hda_codec_cleanup_for_unbind() is called via which function?
+Is it the unload of HD-audio codec driver during the probe of AVS
+HD-audio?
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+The preset is assigned to the given HD-audio device object for the
+attached codec driver.  Once after the codec driver gets unbound, you
+must not access to this codec driver's methods any longer, hence we
+clear the preset field.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+So I wonder how the access to the codec->preset happens after the
+codec unbind.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+thanks,
 
-Thanks,
-Mark
+Takashi

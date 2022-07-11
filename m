@@ -2,62 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 626C45752E6
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Jul 2022 18:36:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5069F5752E9
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Jul 2022 18:36:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 07A521752;
-	Thu, 14 Jul 2022 18:35:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 07A521752
+	by alsa0.perex.cz (Postfix) with ESMTPS id F32EB181C;
+	Thu, 14 Jul 2022 18:36:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F32EB181C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657816598;
-	bh=dolpJa8WpHCCQgqH09XJP6K/KNJJZezJeMVAXYVNIP8=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=mjXjv8JZn2Ilvlcj6mVlTI30Eli6jS9DhE6O/NHICMD+rVvoHaaZK/VgPuEiHCDWR
-	 sza0ijtMps/MDnf95S9A0a0n1jrTeVv/Pl3dUbbdn6L6Wn6kd97bEVa/hkUKZikyvH
-	 oVlT51aDdd6kues9dGR8N+U1HaLZ879aOC/+Ae38=
+	s=default; t=1657816614;
+	bh=OFO7jHLbQ9m7KwxEYyqk1uyQ5ZITDYztcNklMs1vRcY=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Tsb03y54AMN4CZ0BLPSO3r1fUcSkNjrOU1nMY2iqNm0E+g8baDExYmKgi9cSHlHPS
+	 lqvXxJrsDOxDJ0iuG+e3Zfc1IuLqIVs3sMFI9UEVlKnrohub6sn7+KUDWl/ZR8Wirw
+	 /h5lHMh7E9Ut7+YXWTlL6AXLcMKJizu9vj4UfGj0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 730B6F800AA;
-	Thu, 14 Jul 2022 18:34:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1C285F80557;
+	Thu, 14 Jul 2022 18:34:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4D523F800E1; Mon, 11 Jul 2022 17:17:12 +0200 (CEST)
+ id 1CF13F8047C; Mon, 11 Jul 2022 20:30:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 8EA29F800E1
- for <alsa-devel@alsa-project.org>; Mon, 11 Jul 2022 17:17:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8EA29F800E1
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D43B71596;
- Mon, 11 Jul 2022 08:17:06 -0700 (PDT)
-Received: from monolith.localdoman (unknown [172.31.20.19])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BFACE3F70D;
- Mon, 11 Jul 2022 08:17:04 -0700 (PDT)
-Date: Mon, 11 Jul 2022 16:17:37 +0100
-From: Alexandru Elisei <alexandru.elisei@arm.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH] ASoC: rockchip: i2s: Fix NULL pointer dereference when
- pinctrl is not found
-Message-ID: <Ysw+3Hg+GbDjXuTn@monolith.localdoman>
-References: <20220711130522.401551-1-alexandru.elisei@arm.com>
- <Yswkb6mvwUywOTLg@sirena.org.uk>
- <YswoOE/sP088lius@monolith.localdoman>
- <Ysw2mzhw4pyrxirc@sirena.org.uk>
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
+ [68.232.154.123])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5C374F80152
+ for <alsa-devel@alsa-project.org>; Mon, 11 Jul 2022 20:30:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C374F80152
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com
+ header.b="vxEnyCvM"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+ t=1657564208; x=1689100208;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=OFO7jHLbQ9m7KwxEYyqk1uyQ5ZITDYztcNklMs1vRcY=;
+ b=vxEnyCvMSE2U2/5QA7959L8wFXDdVUC+Fz4r2W2MhmftL0QVmI4zqjxf
+ HudvnClOpOigyDcCq7/eebeBgYNKwDeji1hhZI4dAauBjhzfPfAkiNa71
+ u0ztwkuH4kTTXoXmRGd253hMHd9MegPyx9BHzjgTzsiYfZ5vSQ47aVbar
+ aS0qqySM4w9fzK3jAZrAOg5mru/CbRjtY7f/vUg/P0dzKjzKQzINqOo5j
+ /YWFVs4cGKvnjt/1S7c6KNRBYgSvCD6uaX0Xx/X4ci5HG2J62AGNoNFUM
+ F9/6eoHOCDz2ii5GLxVqfo2d3LTACyeWp6cJWCVgsxTflbegUgXvl+elK g==;
+X-IronPort-AV: E=Sophos;i="5.92,263,1650956400"; d="scan'208";a="103970015"
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+ by esa6.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 11 Jul 2022 11:30:00 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.87.72) by
+ chn-vm-ex02.mchp-main.com (10.10.87.72) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.17; Mon, 11 Jul 2022 11:30:00 -0700
+Received: from ryan-Precision-5560.microchip.com (10.10.115.15) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
+ 15.1.2375.17 via Frontend Transport; Mon, 11 Jul 2022 11:30:00 -0700
+From: <Ryan.Wanner@microchip.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <robh+dt@kernel.org>,
+ <krzysztof.kozlowski+dt@linaro.org>, <nicolas.ferre@microchip.com>,
+ <alexandre.belloni@bootlin.com>, <claudiu.beznea@microchip.com>
+Subject: [PATCH v2 0/2] dt-bindings: sound: Convert to json-schema
+Date: Mon, 11 Jul 2022 11:30:08 -0700
+Message-ID: <20220711183010.39123-1-Ryan.Wanner@microchip.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <Ysw2mzhw4pyrxirc@sirena.org.uk>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Mailman-Approved-At: Thu, 14 Jul 2022 18:34:36 +0200
-Cc: alsa-devel@alsa-project.org, heiko@sntech.de, linux-kernel@vger.kernel.org,
- tiwai@suse.com, lgirdwood@gmail.com, linux-rockchip@lists.infradead.org,
- judyhsiao@chromium.org, linux-arm-kernel@lists.infradead.org
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, Ryan
+ Wanner <Ryan.Wanner@microchip.com>, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,61 +93,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+From: Ryan Wanner <Ryan.Wanner@microchip.com>
 
-On Mon, Jul 11, 2022 at 03:41:31PM +0100, Mark Brown wrote:
-> On Mon, Jul 11, 2022 at 02:40:08PM +0100, Alexandru Elisei wrote:
-> > On Mon, Jul 11, 2022 at 02:23:59PM +0100, Mark Brown wrote:
-> 
-> > > Please think hard before including complete backtraces in upstream
-> > > reports, they are very large and contain almost no useful information
-> 
-> > I'm at a loss here. Are you saying that those 4 lines represent a complete
-> > backtrace and they are very large? Or are you talking about the panic log
-> > that I've included in the commit message?
-> 
-> I'm talking about the entire log that that was the start of, I deleted
-> the bulk of it due to the excessive size.
+This patch series converts atmel-classd and atmel-pdmic device tree
+bindings to json-schema.
 
-Oh, that makes sense then.
+v1 -> v2:
+- Fix commit formatting.
+- Fix titles in yaml file
+- Removed trivial descriptions
+- Correct formatting errors 
 
-> 
-> > > relative to their size so often obscure the relevant content in your
-> > > message. If part of the backtrace is usefully illustrative (it often is
-> > > for search engines if nothing else) then it's usually better to pull out
-> > > the relevant sections.
-> 
-> > Would you mind pointing out what you think the relevant sections are? I
-> > would also find it very useful (for future patches) if you can explain why
-> > they are relevant, and why those parts you've left out aren't.  It's not
-> > very easy to figure out what is relevant when you're not familiar with a
-> > subsystem.
-> 
-> It really depends what the information you're trying to convey with the
-> backtrace is, in general a couple of frames of context might be useful
-> if there's something interesting about the context from which things
-> were called since that's the unique bit that people might search for.
-> For example things like the standard set of generic functions you'd see
-> when probing a device is rarely going to convey anything meaningful, and
-> similarly the standard kernel entry backtrace for something triggered
-> from a system call.  The full register state is also commonly not of any
-> great relevance if it's not illustrating something in the rest of the
-> message. 
-> 
-> If you are just including an entire splat on the off chance that it
-> might be relevant consider just not including it rather than including
-> everything.
+Ryan Wanner (2):
+  dt-bindings: sound: atmel,classd: Convert to json-schema
+  dt-binding: sound: atmel,pdmic: Convert to json-schema
 
-Thanks for the explanation!
+ .../bindings/sound/atmel,sama5d2-classd.yaml  | 104 ++++++++++++++++++
+ .../bindings/sound/atmel,sama5d2-pdmic.yaml   |  98 +++++++++++++++++
+ .../bindings/sound/atmel-classd.txt           |  55 ---------
+ .../devicetree/bindings/sound/atmel-pdmic.txt |  55 ---------
+ 4 files changed, 202 insertions(+), 110 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/atmel,sama5d2-classd.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/atmel,sama5d2-pdmic.yaml
+ delete mode 100644 Documentation/devicetree/bindings/sound/atmel-classd.txt
+ delete mode 100644 Documentation/devicetree/bindings/sound/atmel-pdmic.txt
 
-I've included the entire splat, not just the bits that prove my conclusion,
-in case my conclusion is wrong and someone reading the backtrace can notice
-what I missed.
+-- 
+2.34.1
 
-In this case, the splat was definitely useful for me, because the last two
-functions from the call trace point to where the bug was.
-
-Do you want me to respin the patch with an abbreviated splat?
-
-Thanks,
-Alex

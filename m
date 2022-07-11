@@ -2,49 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 300C156D009
-	for <lists+alsa-devel@lfdr.de>; Sun, 10 Jul 2022 18:32:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A26156D31F
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Jul 2022 04:56:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AF87842;
-	Sun, 10 Jul 2022 18:31:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF87842
+	by alsa0.perex.cz (Postfix) with ESMTPS id 47B27F7;
+	Mon, 11 Jul 2022 04:55:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 47B27F7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657470734;
-	bh=jUg0ml0BoPkobQ9rNm7sHIrFIpGXvCA13rgR6rml5n4=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=NVoY3oWk2BpUbSwO9834nyLXi0ukBE9YW53HSiv0jqJEgX94BhhfosaTal91E8kNo
-	 h/G4RNoocKUdNf5NGd3zj3t2t+PnDnqsJ6RlGgQLx4PVH9TJMPHLnU/2vWYoRtZgl/
-	 VLczJMLTZmN8RVibNBuBAsBPHOaSgdV/plZ/lCww=
+	s=default; t=1657508173;
+	bh=rrOii61LCV7qZkfNwF01/nE/2KP9ik0iHwfzIestcr0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=PLVM6Gi36rqX8xhTUgHju2kxGQROPg/eZoTbcUHXY+itD6iIK7ZNtpYVJ4s/3NbgZ
+	 j2noaAxa1h7IoQvmGVLEYzBbtECCZhCcsX9lCJf7PO1Wonp6rNSgua4dTrhyPwmJv2
+	 CIYhysilSX7pzgmc7hIMxsnNw0fn2BD2Gv1T7VdM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 15A65F800BD;
-	Sun, 10 Jul 2022 18:31:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CF694F800E1;
+	Mon, 11 Jul 2022 04:55:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D7855F80269; Sun, 10 Jul 2022 18:31:11 +0200 (CEST)
+ id 6209CF80163; Mon, 11 Jul 2022 04:55:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id B8348F80163
- for <alsa-devel@alsa-project.org>; Sun, 10 Jul 2022 18:31:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8348F80163
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1657470665304089069-webhooks-bot@alsa-project.org>
-References: <1657470665304089069-webhooks-bot@alsa-project.org>
-Subject: Add correct support for Rane SL-1
-Message-Id: <20220710163111.D7855F80269@alsa1.perex.cz>
-Date: Sun, 10 Jul 2022 18:31:11 +0200 (CEST)
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 032C5F80152
+ for <alsa-devel@alsa-project.org>; Mon, 11 Jul 2022 04:55:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 032C5F80152
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 0ECD11A03BC;
+ Mon, 11 Jul 2022 04:55:00 +0200 (CEST)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com
+ (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id CB1D41A03B1;
+ Mon, 11 Jul 2022 04:54:59 +0200 (CEST)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+ by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 4CF26180226C;
+ Mon, 11 Jul 2022 10:54:58 +0800 (+08)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
+ shengjiu.wang@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
+ perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: fsl_utils: Drop usage of __clk_get_name()
+Date: Mon, 11 Jul 2022 10:39:50 +0800
+Message-Id: <1657507190-14546-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,18 +71,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-ucm-conf pull request #187 was edited from christophehenry:
+Avoid build errors when CONFIG_COMMON_CLK is not set/enabled.
 
-Following [this ticket](https://bugzilla.kernel.org/show_bug.cgi?id=216082) on kernel bugzilla, I'm trying to add corect support for [Rane SL-1](https://cdn.korn.eu/pictures/product/400/040506_3.jpg), an old USB soundcard featuring 2 stereo inputs (RCA) and 3 stereo outputs (2 RCA, 1 6.3mm jack).
+ERROR: modpost: "__clk_get_name" [sound/soc/fsl/snd-soc-fsl-utils.ko] undefined!
 
-Currently, `alsa-info.sh` does show the correct number of inputs and outputs But neither `pavucontrol` nor Mixxx do. I was told complex hardware should be described via UCM but the syntax is unfortunately very poorly documented so I can get my head around it and get `pavucontrol` to show all the inputs and outputs.
+Fixes: 7bad8125549c ("ASoC: fsl_utils: Add function to handle PLL clock source")
+Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+---
+ sound/soc/fsl/fsl_utils.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Here's what I have so far which, to my disappointment, does not work. If I put only 1 `SectionDevice` section in the file, I can display 1 ouput under `pavucontrol`. With 2 `SectionDevice`, nothing shows.
+diff --git a/sound/soc/fsl/fsl_utils.c b/sound/soc/fsl/fsl_utils.c
+index 3e969c7bc1c5..d0fc430f7033 100644
+--- a/sound/soc/fsl/fsl_utils.c
++++ b/sound/soc/fsl/fsl_utils.c
+@@ -147,7 +147,7 @@ void fsl_asoc_reparent_pll_clocks(struct device *dev, struct clk *clk,
+ 	if (reparent) {
+ 		ret = clk_set_parent(p, npll);
+ 		if (ret < 0)
+-			dev_warn(dev, "failed to set parent %s: %d\n", __clk_get_name(npll), ret);
++			dev_warn(dev, "failed to set parent:%d\n", ret);
+ 	}
+ }
+ EXPORT_SYMBOL(fsl_asoc_reparent_pll_clocks);
+-- 
+2.34.1
 
-Without any UCM file, `pavucontrol` shows 2 outputs, 1 intputs (instead of 3) and Mixxx shows 2 outputs and not input.
-
-[The result of `alsa-info.sh` is available here](https://bugzilla.kernel.org/attachment.cgi?id=301351).
-
-Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/187
-Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/187.patch
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf

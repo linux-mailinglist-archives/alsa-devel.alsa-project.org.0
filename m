@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF7F95706DD
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Jul 2022 17:21:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9782E5707BF
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Jul 2022 17:57:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6426015E5;
-	Mon, 11 Jul 2022 17:20:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6426015E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3B0D4828;
+	Mon, 11 Jul 2022 17:56:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B0D4828
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657552863;
-	bh=MTXjjMKkthtOSW45I5feGFwx9rTYziret7FwmGPzzl4=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1657555030;
+	bh=8HV9yZZGFBJidulDHDzfWS4Ajwr3bhBQMRksoe8XUHI=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CQbw3n7p3516mqqu8klyJtipNxPNqCr5+XEijKU9NlCKF0ZtcrRrIRx/q8UIk1YDw
-	 ZgTnVojL3KIChpH1qW+katoiMo8PL2u6iUxpQKSi5ZI3DEGdWzqsn1ldj+hwVDEqHx
-	 ca32Lxw3B5JqqYWxKFimAKmgP9LecLiSPikIgnaE=
+	b=JER7fKx/WlKX+k+R1GAM0gXj6j0VFpWrDhOSaO67pNpv6qpXDEwMoBUgbGNl3OY4b
+	 AwtpbD1+AbjNQOx3vq+ZAXJ4VYeAg1BDcnbuLq4ixAeR2F0pLq76M0JBebK7qV76K8
+	 V+nesi+TazYrnu16g2rOzxkBueOtAsdWfQT7c9qs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B8D78F8054A;
-	Mon, 11 Jul 2022 17:19:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 98105F800E8;
+	Mon, 11 Jul 2022 17:56:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B787DF80542; Mon, 11 Jul 2022 17:19:09 +0200 (CEST)
+ id 0FFCEF80163; Mon, 11 Jul 2022 17:56:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,41 +35,49 @@ Received: from ams.source.kernel.org (ams.source.kernel.org
  [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A15EEF800E1
- for <alsa-devel@alsa-project.org>; Mon, 11 Jul 2022 17:18:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A15EEF800E1
+ by alsa1.perex.cz (Postfix) with ESMTPS id BA17EF800E1
+ for <alsa-devel@alsa-project.org>; Mon, 11 Jul 2022 17:56:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA17EF800E1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ZrAEUeCC"
+ header.b="MDIxfWkN"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 4C5AAB8105D;
- Mon, 11 Jul 2022 15:18:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA0F7C341CA;
- Mon, 11 Jul 2022 15:18:55 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id A641AB81032;
+ Mon, 11 Jul 2022 15:56:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D788C34115;
+ Mon, 11 Jul 2022 15:55:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657552737;
- bh=MTXjjMKkthtOSW45I5feGFwx9rTYziret7FwmGPzzl4=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=ZrAEUeCC3JdJJZ8lHcao7Vkeyd3YYFzuG9yHW+4b9xQ0g7uCjS+FF1AHnHKnXz92I
- T9ezrcXbXs+LXTFc2jvyturuBzMMHB3vgfRQl9uuO/0FJhdDFF44JMkpNNk8VYyXp2
- t5mC3UA1/ttzsTdcMTpxPgIRXt+KUjAgCTvOk8z113mWazC7VXGRODimeIZMtHWO1s
- YlXHf3jlLtXtbTZ9ekx0z8bElrU4bngvhCpaKL8uIuW6m4MTEoANqVHSFPvaOyGWIB
- ut8ruZI0ZarsQlXfKMb5ToYWDCdtbIdKqSIoeTzxuW/bMGlFSOqrGIJ3NvpXMtLBlW
- AJgzyBSlxw5qg==
+ s=k20201202; t=1657554961;
+ bh=8HV9yZZGFBJidulDHDzfWS4Ajwr3bhBQMRksoe8XUHI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=MDIxfWkN7FUIOBu2c4cTc5keVGVoKO2v+NQgGOoloxL6OwZ0VNankrbwYB3yBk7pk
+ TSFHe2oY+KK0YR7zfpizEhsXxn0wbAhNnNKmqyBCCaE8mncbW134UskBO4J8gmY/6L
+ 2xHvfMTI7f3VV2PQM3arYmPQrV2zsKU2Y0LZd2umyPXMPPtdw2DsjmkMF6xU63sj8g
+ 7djIbycrg4FC4RKZmUXtLnaeiOSHXpZh6p/Aoowqy+L41xsSyo1DNrwgEiWV/a52vO
+ 5dekxUddpSXcHrEvl6jwjgYqJ4nWHmo8xjwF3GJVAyIenm0zM1heexVSuuykMWNGKk
+ AnxZ5mZxddM8A==
+Date: Mon, 11 Jul 2022 16:55:56 +0100
 From: Mark Brown <broonie@kernel.org>
-To: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org
-In-Reply-To: <20220708200719.26961-1-pierre-louis.bossart@linux.intel.com>
-References: <20220708200719.26961-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: remove warning on ABI checks
-Message-Id: <165755273569.520536.16779033978288169088.b4-ty@kernel.org>
-Date: Mon, 11 Jul 2022 16:18:55 +0100
+To: Alexandru Elisei <alexandru.elisei@arm.com>
+Subject: Re: [PATCH] ASoC: rockchip: i2s: Fix NULL pointer dereference when
+ pinctrl is not found
+Message-ID: <YsxIDCaMf0Z0BnxH@sirena.org.uk>
+References: <20220711130522.401551-1-alexandru.elisei@arm.com>
+ <Yswkb6mvwUywOTLg@sirena.org.uk>
+ <YswoOE/sP088lius@monolith.localdoman>
+ <Ysw2mzhw4pyrxirc@sirena.org.uk>
+ <Ysw+3Hg+GbDjXuTn@monolith.localdoman>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, peter.ujfalusi@linux.intel.com,
- ranjani.sridharan@linux.intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="tg1MdlMwJWKMRNAi"
+Content-Disposition: inline
+In-Reply-To: <Ysw+3Hg+GbDjXuTn@monolith.localdoman>
+X-Cookie: I am NOMAD!
+Cc: alsa-devel@alsa-project.org, heiko@sntech.de, linux-kernel@vger.kernel.org,
+ tiwai@suse.com, lgirdwood@gmail.com, linux-rockchip@lists.infradead.org,
+ judyhsiao@chromium.org, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,37 +93,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 8 Jul 2022 15:07:19 -0500, Pierre-Louis Bossart wrote:
-> We should only have an error when enforcing strict mapping between
-> kernel and firmware versions. In all other cases, there is no reason
-> to throw a warning.
-> 
-> 
 
-Applied to
+--tg1MdlMwJWKMRNAi
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Mon, Jul 11, 2022 at 04:17:37PM +0100, Alexandru Elisei wrote:
 
-Thanks!
+> Do you want me to respin the patch with an abbreviated splat?
 
-[1/1] ASoC: SOF: remove warning on ABI checks
-      commit: fd1c769d33872d6c7ec474c199f6a910d3555927
+It's fine, just leave this one.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+--tg1MdlMwJWKMRNAi
+Content-Type: application/pgp-signature; name="signature.asc"
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+-----BEGIN PGP SIGNATURE-----
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+iQEyBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmLMSAsACgkQJNaLcl1U
+h9DfVAf3fsWaAiN9qpjwm1k+G3+bQFU/BeOTROHaL2wDeSqy50zlg6PJy+C8/DWW
+FLEDtXUo/3Y+fuC9hjkEhpElWej3xK292MXE0d3gkc+pZe3FQzOYn6JTNvOeUS3u
+MQIZKwXplY4jbXBYnDzt9JKl7Hc8ZdVYfngtQkOj/bJiU5IrqRQIrQpivaNi6Jpz
+wRNdd01A/z5Rk09lWCQz6uTg8XxLpI8pxrL3BL6Q0TjA5J8rIp8ki5UMYhkcmi78
+8tMo/IOyLGRLJCJij+wAilMpUZPIoAgexZhuSJlZyWyuHf0qWEFZSSK+z0g7Ybfn
+KE6lm2sRo6syEO4ln0OneVdgv/9a
+=vq9L
+-----END PGP SIGNATURE-----
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+--tg1MdlMwJWKMRNAi--

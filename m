@@ -2,109 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E890571BBD
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Jul 2022 15:52:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C908571BE1
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Jul 2022 16:01:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 986F0167D;
-	Tue, 12 Jul 2022 15:51:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 986F0167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 34A8A1664;
+	Tue, 12 Jul 2022 16:00:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 34A8A1664
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657633959;
-	bh=y4dK/Q973lAhUqDiwHoY2i9Av5GJYNif+2G2T8xTN5Y=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1657634503;
+	bh=PLCS0fgFTi6fkR+zw+1nEmAjrdXYGMkZbPY4PaSOZYQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fpZKbNNuvFiWknf4F63ao03mcErodlNGg69VmPgAMVsW2rXFn/lYg0UJND+h2ybUf
-	 cyH611hm0Twg6M+L6qKAmeDdVcyNjPSKARzHE7hWsNQw4OZFy6ywH8cHZjbIOKJhst
-	 Pfqhk/rFNCFkm6z056WzZPWgt/lP1yvwzZbj7l+s=
+	b=Mt0hzRlWhjZVais6Xa8qxqYIECkuV/e8V2pvm/2LLYI8LbX8F2K/YamgWplQGyvja
+	 Sv5U7PDSSRUh45y9r24FMjtZMy9O2WuYY/JfKIbtHLImkRO8TwHdtDDDD8so+WBwWj
+	 /upl0hUy3bPEMMmloqQ7OGfJAnbYwMH+d9ZyWFTg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F2705F80279;
-	Tue, 12 Jul 2022 15:51:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 865E7F80279;
+	Tue, 12 Jul 2022 16:00:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3C660F8012B; Tue, 12 Jul 2022 15:51:37 +0200 (CEST)
+ id AE1E4F80246; Tue, 12 Jul 2022 16:00:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yb1-xb31.google.com (mail-yb1-xb31.google.com
+ [IPv6:2607:f8b0:4864:20::b31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5E80DF8012B
- for <alsa-devel@alsa-project.org>; Tue, 12 Jul 2022 15:51:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E80DF8012B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 167AEF8012B
+ for <alsa-devel@alsa-project.org>; Tue, 12 Jul 2022 16:00:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 167AEF8012B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="flRRrV/S"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1657633895; x=1689169895;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=y4dK/Q973lAhUqDiwHoY2i9Av5GJYNif+2G2T8xTN5Y=;
- b=flRRrV/SXMpVk8+CgEE3oLWKPIZwpiQdxS+Zl4LGNHb8QnRJtdzFef1G
- m1P82BFVtUEThU48jjfUt8keckBiBO/NK9Y5vwXVpnzctqPnwS5LTVMRm
- /+uFAmICSFYn2Aoy5qB6m2clartRKRfDH1br+5hvsq3HjfaBQO3eLKFlN
- U1NjkJteQfQZRoEtZnU9g4ScuhALppYfijE6BozZagAH8Y7sZ0ZY186PI
- dKLRGHsT6xFKKPCC2/vFoFpGzNyuW6pXwYm91G6s1FbttXNPi0rM3MDyZ
- 3gzPgjSSdvqKnbjZvZwAKVp7SOZQ5r+aUE9iI7vgBf5VCZyBG7Qe0/DBp A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10405"; a="371246978"
-X-IronPort-AV: E=Sophos;i="5.92,265,1650956400"; d="scan'208";a="371246978"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jul 2022 06:51:15 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,265,1650956400"; d="scan'208";a="721974476"
-Received: from fmsmsx604.amr.corp.intel.com ([10.18.126.84])
- by orsmga004.jf.intel.com with ESMTP; 12 Jul 2022 06:51:14 -0700
-Received: from fmsmsx608.amr.corp.intel.com (10.18.126.88) by
- fmsmsx604.amr.corp.intel.com (10.18.126.84) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27; Tue, 12 Jul 2022 06:51:14 -0700
-Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
- fmsmsx608.amr.corp.intel.com (10.18.126.88) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27; Tue, 12 Jul 2022 06:51:13 -0700
-Received: from FMSEDG603.ED.cps.intel.com (10.1.192.133) by
- fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27 via Frontend Transport; Tue, 12 Jul 2022 06:51:13 -0700
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com (104.47.74.41) by
- edgegateway.intel.com (192.55.55.68) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2308.27; Tue, 12 Jul 2022 06:51:13 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ndsd6xwa+3B6nH/05c2EAMZZR/evY8jYNxnwlCX1hnOhiC6DvfHUEdOvud2cvwiT4aIsOBGm1Rathn9eZewbhLmQu8pdOBSYFGvQLkRJy0QwE8u8wosYQGUTi2zNKyqHBD8I0iE4VjSfsH4NYZNd02zXIiu6qdKKmXguAX205GRj3BI/WD3P6FFkDdmneYIix1G5jX3rrtPxpfRZ1JQ1ARebVKNXYR5xlDj3wjMIvU+6B9JXPvoPDTMAJNBd9OAzq5+hyPRY5SGwV95ISGLO1XECkvSeXNGoZWvQ8rZecy4cgbGdFm5R+TenrlUBKsasuwMj+wD8WpRxOXQ7eaFmuw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ov81e4n955dhWvDBR+SS+689G9qWA34d9luvPlyl/Ng=;
- b=LcndpNAaUZB7Wfr+EUgOls6MYV+DgqOUm9Wzr9Rvba3muad64ygA/vPeWviL+m1e37jSIPek+LvaMQY6RVRjMepXLTS6BzT3VvqYYDpTxU4HxScGiK2AS4hINeJKevvhy0sMrHoZsDZnpCKq8ym5fLeWJMQGBOmnDPCneI8uY8YcVhyKZ1+fDfb31f59ctOicag/1MPLYDL8ihpsoeiSOCVoS6VHULZIbbRaVdZkyhN/r6XQZj9JJQPGrzsZQof6Ic+TSTnVa9Xz7BWmTRNDG6SLJhrS8/4/OVx2MGCLgmvIvunmmrCIMCA3Fe6EpgIJmR+jieqZQn1ouMVkW6D2Mg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB6375.namprd11.prod.outlook.com (2603:10b6:8:c9::21) by
- CH2PR11MB4376.namprd11.prod.outlook.com (2603:10b6:610:40::13) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5417.16; Tue, 12 Jul 2022 13:51:11 +0000
-Received: from DS0PR11MB6375.namprd11.prod.outlook.com
- ([fe80::8b5:ae20:1c12:421b]) by DS0PR11MB6375.namprd11.prod.outlook.com
- ([fe80::8b5:ae20:1c12:421b%7]) with mapi id 15.20.5417.026; Tue, 12 Jul 2022
- 13:51:11 +0000
-Message-ID: <2c6a4a61-e6c8-0487-8d29-dc3fbb90bbe2@intel.com>
-Date: Tue, 12 Jul 2022 15:51:04 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.11.0
-Subject: Re: [PATCH 1/2] lib/string_helpers: Introduce strsplit_u32()
-Content-Language: en-US
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="k8HJGhE9"
+Received: by mail-yb1-xb31.google.com with SMTP id 136so14073592ybl.5
+ for <alsa-devel@alsa-project.org>; Tue, 12 Jul 2022 07:00:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=sYY6nXCKD6t30QeXZzY/iyGlqBqf+vc2z0phNL/Eg5g=;
+ b=k8HJGhE9i7B3f6fXvhZ3P0HZBKpKwDS1pIja6IaScsD/R4cHnW/TfG0WC2C/yGAR0H
+ lW83iJwH0EyDvfLzP9E+VKMVCEnWEEoR6GrJPtGn1utXHOoX/4ADJariDHDERwoniiOc
+ DWPMIjXUca8RrVQceMUeI0KBsTI7oMAo1XuXoMuLCD4KixLFKsePYP1wwfQY2xo6EE2w
+ vxBSuUpmkDFV+WgLqc45N1VfEAtHfARRedGII5h4s5EmWfwGUi4X++V4U30TJr1tHb1K
+ sabpmRyvwLsIPOS8Zjpcxwg9t5NckJil5NJcITxrM0cCE/f95Z+wi15uKyCcWybfjaCS
+ Wo+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=sYY6nXCKD6t30QeXZzY/iyGlqBqf+vc2z0phNL/Eg5g=;
+ b=j1VhtjyrUe7Ah9U305iBFwXdA7Wfon38hqkPYnHgtekgad/ysPmp2j5WvqckjNK2RE
+ gpfMitlEvcYLqCRGj1PPr9S0DNSYSoo4rimJgcnlhkUAZcZy65gbjpc/1mS8NQixLO1f
+ K1iIFWWL2WATxfZj5yZKQqgdiRE4XJZ2W8rJ4j77/2PWlqhBDFG9iWkIvo8KiLM2SWTe
+ Rp3tFfrayUql097Sso5w2l4HStzsg8FE/DDl48IwUvq6hdFNb2LQNahKOBtpI3FEYqTy
+ gdqxO3pgbKcaXGoE6WQ5EKafAqi9ftXpuezZKeuSisT50sePOVviGhkhitD7c6qJWEXj
+ fy8w==
+X-Gm-Message-State: AJIora/rYmRZgxbYh3VGQJICTKAvyBfnfoHwXtFqUWGoX47f/ddp25B+
+ hBlJZux8Vh0HjIr9na0xCw/R4IpbuEYQHOnegGQ=
+X-Google-Smtp-Source: AGRyM1vQ/Z4slZe3IQ0KDjUeluH6AIisNX0us5ZbdFvcLrNpwdlkbv9EzKh42yNUn6me2yh2cb0KyBpRhi8gL8FLkMY=
+X-Received: by 2002:a05:6902:686:b0:66e:627f:4d29 with SMTP id
+ i6-20020a056902068600b0066e627f4d29mr21041851ybt.385.1657634432032; Tue, 12
+ Jul 2022 07:00:32 -0700 (PDT)
+MIME-Version: 1.0
 References: <CAHp75VceKBoxXVPP4dRYb8LQqHMMDHFp6-E2iuZ-h2RTK8PWQQ@mail.gmail.com>
  <e0c7d254-ace3-625c-cc83-52ca0b45e9fc@intel.com>
  <CAHp75VckU2ZraLJ-frjWXjUu9pFW+-XmWgTbYqUXOUNAD-1HGA@mail.gmail.com>
@@ -116,84 +82,26 @@ References: <CAHp75VceKBoxXVPP4dRYb8LQqHMMDHFp6-E2iuZ-h2RTK8PWQQ@mail.gmail.com>
  <CAHp75VfvN-iJTpgg6JeKhOqJLhtYSieo7d7SOCBoUu-81FtSqg@mail.gmail.com>
  <c19ed4a6-6a96-b4a4-0f5a-7ca1dba925d1@intel.com>
  <YsnoH64cKCT7gndw@smile.fi.intel.com>
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-In-Reply-To: <YsnoH64cKCT7gndw@smile.fi.intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0020.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1c::21) To DS0PR11MB6375.namprd11.prod.outlook.com
- (2603:10b6:8:c9::21)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 02a86f81-b28d-44de-d912-08da640d9466
-X-MS-TrafficTypeDiagnostic: CH2PR11MB4376:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: UPQ2SLKGjqFIDGqrJ9/CHgkhive5Q+zHXiDn0Iy7qL+ecqsZxZ8aQ9q+Xcv2fLdhBpyFzmJgORAomMdbvffNvcu/rwHr1ukep+NK8APT6xRCOFgvybByPe8u4AEyVS+0fcac6qCtVQziy5VpKY772iQihvbntCKGoYIBPpYoirw1Hnoqw6MDAN+b29kXV5vIvDEvExpo639Xky9HlKODySMCmWRStsjkPCSXBofqF2yf1fCc4TLZazV6qC28aIIHEA50k5ySbxvTMMEbHtd6yDcKT2RDGfR98k8sxGwbUN0K6ynGWuR3CYgMFHlY8f+nXmtsmP2IRG86Wktt4biMM2ooWp3jcT/qQ62UqCYVmlhkrUQBe8MZbbdZNXbZ2G+gT0s6xdbrCI4woQoyrdPYYEkGUOX5fKdsGadKRJ155yK0gj3zuqbUT4o0qR797XwVhHPgeZK/L/KqXJ0zCQmXIdUfQd2o9gF8bAjRw9HhOpeuyjy3ZL00bI6d6/Rk2rsRSyCWLhWKSIpvywbx2bWw3U2dwI9cPhPULUVC1tRUw/EoTWXUdjiAKcGj4yu5BCJr1eQcs+PITinAMADR9Z/UiI/o6ldm5GVv5J/QQdJIgh1Q6fgz9tNZBKgAxSJSrH2Q5ruY3en+GltvEedAmkziVFJWuI6DH4FiCdohZKLhmUPhmjVtPxqwfa6jBMzkzz2tB17anicyvFri5/wn2Q39AVnZiUkiUSqrNXF0Xi1DPlUeScXSaulJJcJHD/V6kvsLjp+appHTdKWddEDm92tsDb/Xyt4rgvHKFNh6a3N/DkZMZmVFnLcRAReKtRvWn3tpDn7Ds3g64HwWwyB1UqBbmQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR11MB6375.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(366004)(346002)(39860400002)(136003)(376002)(396003)(86362001)(186003)(38100700002)(2616005)(82960400001)(31696002)(66476007)(66556008)(6486002)(4326008)(7416002)(44832011)(8936002)(66946007)(8676002)(5660300002)(6666004)(6512007)(6506007)(41300700001)(2906002)(316002)(54906003)(478600001)(36756003)(6916009)(31686004)(53546011)(26005)(43740500002)(45980500001);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S1pTNG5veXNkbzZoVTNKUEYxK0NsaDVpUjc5S1paNVBmYXhMajZSYnJpeEpB?=
- =?utf-8?B?NTRWOTh6N3F2Q2FUeW0xSkxZMnFYQzdYZzBEdTBZVDIxaGNEVUhrMEMwVHMv?=
- =?utf-8?B?b3JpUU81dVhaZDR4cVQ3Z1NNWWYyWDh2VjZGOENzUFp2QjBkVkd0dFRPK1Na?=
- =?utf-8?B?cHRJbzFvUUd0cUFGU1l3eXo3aG1vcUs1MVFuOFEwQWZSRVlYeWtiWTRoSzBz?=
- =?utf-8?B?VEFDT0FVWXdXMDFmMnNSVWNVanI2algvRG1KNmtWdjZWWE1FV3Y4bk1qWTl6?=
- =?utf-8?B?bHg0ZzhXY21VdnRoMUNyb0x2OTZrMkJVZ2FiQTQxV0JTbzdYVG8rbFpnUU5Y?=
- =?utf-8?B?RUQ1Tmt4ZzducE5hMGxhT1kwVFJpcmpQTnFUdWF2MkJzQkd3SzBkdlpkSjJU?=
- =?utf-8?B?VVdoVUFCT1d2eGQvRW9PTmp2dlNBcUttR1o2UGYyc2JodmUwNGxLWVFacWhl?=
- =?utf-8?B?MTVIMmhFenJ5L3J5eTljY0NJd25peVBBWXkwSzVCS25JWXlTQ3BVdmQ2bGxz?=
- =?utf-8?B?WWtTNGtra1RPeUMxOTlvdGRKb0RDY3ZDUERnQzRNM3Y2Q0ZZSWJmZEhUZ2Yz?=
- =?utf-8?B?cjZxUXN0YlhTNDd3MEJVbjZGaHRhRGtBaTZoSnk2ems3YmlVdFNIMnBNcjNt?=
- =?utf-8?B?bGw4WmFPR2gvTGtaejdMcEswWm4vVUEzT0NyOXMyUFB5V1dzeFVOeTkrRlFp?=
- =?utf-8?B?TjNDSU84Zk5uWStjMUFkTjJySTNhYlc0MFhCNlBQMmpXWHpCdkp0NkRWelRv?=
- =?utf-8?B?UWdqNHczYkdDckpmQzJtUm9OQmNwUWxZS094WDcrNUlPSnNocTBJTEJ2Zm56?=
- =?utf-8?B?amc3Umo5cklYTS9ETDR4VG1BelZmS0JBN3haS0Q0R2NOeTIyYTdSTVp6QXRD?=
- =?utf-8?B?ZzhZa2QrTGhaWVZUL3ZPd1FtbzJwdTlGOUZ2enM0c2UzUnB1MDBHVGlKemZn?=
- =?utf-8?B?MXZINEZYNHlCSzhCcUU5YzdZcmxYZ25nN3Y0ZEFhK2tRWnAvNW52NjRJekVy?=
- =?utf-8?B?OTlCMXJhdDZsTmlPb3R4MEJtSUpwVjFYZTVmdEg0OTRsUkQ1U2gxQlRjT1FG?=
- =?utf-8?B?WHRSY0Q0SVp0dGZrelJkNXVKVkdHL2ljQlk0Wm5obm1xazE3REN4ckJBZlRr?=
- =?utf-8?B?UjBRVDBYdEpSa3ZYaWpOaFF1ZElRVjY1eVRXa2dLTklnbVdkc0I0TWFSb29z?=
- =?utf-8?B?TDcwUU96V3VXQll1RVFLYzJHWU9IRzFwaSt2Rk1sK1lseHlaalZhZE9MbDc4?=
- =?utf-8?B?UXI1RU9KQW0wNjM5bEN5YlJRc0hVOWgvc0REbjRkRHFhaHlqMm5vZCtvZ1lZ?=
- =?utf-8?B?elczL29EbVhOMmthcGZGK1N5UlFlU3pDTGpJcnpzQXJlMExCQXIyVHpnMFZs?=
- =?utf-8?B?Ri9QV1NNRmNGd1Q4SHlLU2IwQWJabm1ZYXFGRDUzZWN5SWxmM2JiRmhvTjdE?=
- =?utf-8?B?bXFVaWZKYUl4NzlXZWVQbVR0Vld4eksrSzM3Uko2akdJOXdlNk56MXZLWVdo?=
- =?utf-8?B?N0xkR29CanhMb2c4d1ljRWM3N2pCS0FIRG9JYUQ3bkgvZkFpb2tVWUpqMW5r?=
- =?utf-8?B?QWFwYXRUSHNkZDA2Tkg1UnVhK3p3M1VrbkZGWTZWSFF4MnVNUUVKSGZpT3JD?=
- =?utf-8?B?WkFhdjhMM2llR3JWNlpKUjZZMGxxSE9rVE5RQzRGQStqOEIxdis3YzdkTnFT?=
- =?utf-8?B?cDFiTENYYmk3SHFuYU1kbjVoOFhSL2xuRFd4eWRZZE5BUGRzNzZ0UnZsK2o0?=
- =?utf-8?B?bWk4L0Jic0VmeGtYRWVWa3UwaVhpbG54M3oralhiRm1PS1BqOGsvSUo3MkUx?=
- =?utf-8?B?a01YNks4RE1HRDZoUUJ1MHQ4c3VleURITC9MQmNTSUpQS05tYlhIUGphWGRq?=
- =?utf-8?B?YkhJQ25sd3dTbnFmK2pWUmIxNnVTQWZWcUFVYXYwRFpJSGNVaVhPVnNrb0Jv?=
- =?utf-8?B?Z2hmTzMrR2h1NStCQzdBcDRQS2lDUm9YalVoSldQWThsaTZaam1GektKUzY3?=
- =?utf-8?B?a0tBQUM0QTdMQUtQWmx5M2JjU0FQdXpPK1lST0VJNXYyd1orcFR6a0NTWVdx?=
- =?utf-8?B?c0UydmhDUmZQUW1WOTdFS2ZHaHVYdTBBUlpqTGxCd0xnMWk4ejJmbExpejNs?=
- =?utf-8?B?eWF2N2gydkg0YzY4K0cyZXFQREhsa3pnNzRBcS9FNTJTbDZzSVQ1MlUvZU5h?=
- =?utf-8?B?d3c9PQ==?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 02a86f81-b28d-44de-d912-08da640d9466
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB6375.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jul 2022 13:51:11.5966 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Zo+dYeeXcTa7Wv7LNhiGSllWQNTBbi2Tcnk5pn2iQMWtbd+r9B9bhrDUfW9a19OpEbWUEdzDlFUDi1Q3mm6UamtOp9rDkHLfrZitB2/5NQo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR11MB4376
-X-OriginatorOrg: intel.com
+ <2c6a4a61-e6c8-0487-8d29-dc3fbb90bbe2@intel.com>
+In-Reply-To: <2c6a4a61-e6c8-0487-8d29-dc3fbb90bbe2@intel.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Tue, 12 Jul 2022 15:59:54 +0200
+Message-ID: <CAHp75VejUSXoGsvCP6Mrf9Ypi4f93-fWLr_AwsOu-0=fvZ8eYg@mail.gmail.com>
+Subject: Re: [PATCH 1/2] lib/string_helpers: Introduce strsplit_u32()
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Cc: Andy Shevchenko <andy@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, ALSA
- Development Mailing List <alsa-devel@alsa-project.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
  Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Linux Kernel Mailing
- List <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Hans de Goede <hdegoede@redhat.com>, Mark Brown <broonie@kernel.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Hans de Goede <hdegoede@redhat.com>,
+ Mark Brown <broonie@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
  amadeuszx.slawinski@linux.intel.com,
- =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+ =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -209,75 +117,106 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue, Jul 12, 2022 at 3:51 PM Cezary Rojewski
+<cezary.rojewski@intel.com> wrote:
+> On 2022-07-09 10:42 PM, Andy Shevchenko wrote:
+> > On Sat, Jul 09, 2022 at 10:45:49AM +0200, Cezary Rojewski wrote:
+> >> On 2022-07-08 6:49 PM, Andy Shevchenko wrote:
+> >>> On Fri, Jul 8, 2022 at 6:32 PM Cezary Rojewski
+> >>> <cezary.rojewski@intel.com> wrote:
+> >>>> On 2022-07-08 5:25 PM, Andy Shevchenko wrote:
+> >>>>> On Fri, Jul 8, 2022 at 2:34 PM P=C3=A9ter Ujfalusi
+> >>>>> <peter.ujfalusi@linux.intel.com> wrote:
 
+...
 
-On 2022-07-09 10:42 PM, Andy Shevchenko wrote:
-> On Sat, Jul 09, 2022 at 10:45:49AM +0200, Cezary Rojewski wrote:
->> On 2022-07-08 6:49 PM, Andy Shevchenko wrote:
->>> On Fri, Jul 8, 2022 at 6:32 PM Cezary Rojewski
->>> <cezary.rojewski@intel.com> wrote:
->>>>
->>>> On 2022-07-08 5:25 PM, Andy Shevchenko wrote:
->>>>> On Fri, Jul 8, 2022 at 2:34 PM Péter Ujfalusi
->>>>> <peter.ujfalusi@linux.intel.com> wrote:
->>>
->>>> A long shot, but what if we were to modify get_options() so it takes
->>>> additional element-size parameter instead?
->>>
->>> But why? int / unsigned int, u32 / s32  are all compatible in the current cases.
->>
->> I'd like to avoid any additional operations, so that the retrieved payload
->> can be provided to the IPC handler directly. The IPC handlers for AudioDSP
->> drivers are expecting payload in u32s.
->>
->> // u32 **tkns, size_t *num_tkns as foo() arguments
->> // u32 *ints, int nints as locals
->>
->> 	get_options(buf, 0, &nints);
->> 	if (!nints) {
->> 		ret = -ENOENT;
->> 		goto free_buf;
->> 	}
->>
->> 	ints = kcalloc(nints + 1, sizeof(*ints), GFP_KERNEL);
->> 	if (!ints) {
->> 		ret = -ENOMEM;
->> 		goto free_buf;
->> 	}
->>
->> 	get_num_options(buf, nints + 1, ints, sizeof(*ints));
->>
->> 	*tkns = ints;
->> 	*num_tkns = nints;
->>
->> No additional operations in between. The intermediate IPC handler can later
->> refer to the actual payload via &tkns[1] before passing it to the generic
->> one.
->>
->> Casting int array into u32 array does not feel right, or perhaps I'm missing
->> something like in the doc case.
-> 
-> C standard.
-> 
-> int to unsigned int is not promoted. And standard says that "The rank of any
-> unsigned integer type shall equal the rank of the corresponding signed integer
-> type, if any."
-> 
-> I don't know why one needs to have an additional churn here. int and unsigned
-> int are interoperable with the adjustment to the sign when the other argument
-> is signed or lesser rank of.
+> >>>> A long shot, but what if we were to modify get_options() so it takes
+> >>>> additional element-size parameter instead?
+> >>>
+> >>> But why? int / unsigned int, u32 / s32  are all compatible in the cur=
+rent cases.
+> >>
+> >> I'd like to avoid any additional operations, so that the retrieved pay=
+load
+> >> can be provided to the IPC handler directly. The IPC handlers for Audi=
+oDSP
+> >> drivers are expecting payload in u32s.
+> >>
+> >> // u32 **tkns, size_t *num_tkns as foo() arguments
+> >> // u32 *ints, int nints as locals
+> >>
+> >>      get_options(buf, 0, &nints);
+> >>      if (!nints) {
+> >>              ret =3D -ENOENT;
+> >>              goto free_buf;
+> >>      }
+> >>
+> >>      ints =3D kcalloc(nints + 1, sizeof(*ints), GFP_KERNEL);
+> >>      if (!ints) {
+> >>              ret =3D -ENOMEM;
+> >>              goto free_buf;
+> >>      }
+> >>
+> >>      get_num_options(buf, nints + 1, ints, sizeof(*ints));
+> >>
+> >>      *tkns =3D ints;
+> >>      *num_tkns =3D nints;
+> >>
+> >> No additional operations in between. The intermediate IPC handler can =
+later
+> >> refer to the actual payload via &tkns[1] before passing it to the gene=
+ric
+> >> one.
+> >>
+> >> Casting int array into u32 array does not feel right, or perhaps I'm m=
+issing
+> >> something like in the doc case.
+> >
+> > C standard.
+> >
+> > int to unsigned int is not promoted. And standard says that "The rank o=
+f any
+> > unsigned integer type shall equal the rank of the corresponding signed =
+integer
+> > type, if any."
+> >
+> > I don't know why one needs to have an additional churn here. int and un=
+signed
+> > int are interoperable with the adjustment to the sign when the other ar=
+gument
+> > is signed or lesser rank of.
+>
+> I still believe that casting blindly is not the way to go. I did
+> explicitly ask about int vs u32,
 
+There is no such type in the C standard.
 
-I still believe that casting blindly is not the way to go. I did 
-explicitly ask about int vs u32, not int vs unsigned int. Please note 
-that these values are later passed to the IPC handlers, and this changes 
-the context a bit. If hw expects u32, then u32 it shall be.
+> not int vs unsigned int. Please note
+> that these values are later passed to the IPC handlers, and this changes
+> the context a bit. If hw expects u32, then u32 it shall be.
 
-Please correct me if I'm wrong, but there is no guarantee that int is 
-always 32bits long. What is guaranteed though, is that int holds at 
-least -/+ 32,767. Also, values larger than INT_MAX are allowed in the 
-IPC payload.
+H/W doesn't expect u32, HW expects bytes or group of bytes with:
+1) dedicated address alignment (if required);
+2) dedicated byte order;
+3) dedicated padding (if required).
 
+Correct me if I'm wrong.
 
-Regards,
-Czarek
+> Please correct me if I'm wrong, but there is no guarantee that int is
+> always 32bits long.
+
+There is no guarantee by the C standard, indeed, but there is an upper
+level guarantee, by the Linux kernel.
+
+> What is guaranteed though, is that int holds at
+> least -/+ 32,767. Also, values larger than INT_MAX are allowed in the
+> IPC payload.
+
+Yeah... this is binary protocol, right? So, what limits are you
+talking about here if they are not applicable there anyway. It's
+simply different dimension of limits (i.e. bytes and bits and not C
+language types).
+
+--=20
+With Best Regards,
+Andy Shevchenko

@@ -2,84 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96E505752EE
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Jul 2022 18:37:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CA1F5752EF
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Jul 2022 18:37:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4037C187B;
-	Thu, 14 Jul 2022 18:36:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4037C187B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 13B85185B;
+	Thu, 14 Jul 2022 18:36:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13B85185B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657816642;
-	bh=1lCKq8upImpho0NoW6K8MyE7g9y8ny2vHADrYtxmYgo=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1657816661;
+	bh=/KSyHDQ3cMc471aOgdMiSyQkgRIKaSh2DYWsiJ6P1Lw=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZjqDOY6DvI/aFsKukHzyDYTQnM/ARWufrgAt4e2LYyUrYptGTAPFi0VtT3qm9lKPG
-	 JnPg3r9/593R+qJSnHei1qlLGut755pr5N6LfifYeAuUSFHVyvl7RDXUaUW1IGtYo0
-	 nxAFk1NCthpB6TvEH2V4zy3+zVXZfPk9v1T9eWBQ=
+	b=McqX/gvWl2VpvEEZ4XIazBCcE8hJYewDcsTRAcP3fQ+K56mVtCHlXjxpFxjyewU1h
+	 QolkxMxAY0V5+FhqeeBTUxAUsl5SIZFdsPACrk8YlcUHHC0RgKF5iXZOWTznQG+AzZ
+	 825gySl/AiAi3xGQ53O8gn59peUkRA2wAIRSV9Yc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E2BAF80566;
-	Thu, 14 Jul 2022 18:34:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0C048F80567;
+	Thu, 14 Jul 2022 18:34:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CA9B9F80155; Mon, 11 Jul 2022 20:30:19 +0200 (CEST)
+ id C2C28F800BD; Tue, 12 Jul 2022 10:53:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
- [68.232.154.123])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2032AF80163
- for <alsa-devel@alsa-project.org>; Mon, 11 Jul 2022 20:30:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2032AF80163
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com
- header.b="qlJwghHu"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
- t=1657564214; x=1689100214;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=1lCKq8upImpho0NoW6K8MyE7g9y8ny2vHADrYtxmYgo=;
- b=qlJwghHuF2ii7rXS16plz6HqZvtcnZyvZT6Yt441FAjdgbEnShczADPx
- Oxwh5PSK0Vk04qEdIHwLxeDthNZabPkl+IUIEyU0NJjMF2aMzJdnRXYbf
- RJ1UdUfy0YbJfp9GU2+YT4QlX7vwd0+Tvg9bM2oUtthYM/K8jJwynfIzt
- DrYygSei3k+HYLLZW9Ktu0ehMGzkRd1yqchEd4HvwrwylM+iS4W6tcaj7
- 4TIqTo6+kx7dkjmI5p/W+AHkoKXelOV80gu8fKHUExEK/CHq+LjRUZ08Y
- OGfWK2BPBiT92ucYIZh6oJA0N4orFQyKIOgdzVcsRLhwbspAQoSm8jZry A==;
-X-IronPort-AV: E=Sophos;i="5.92,263,1650956400"; d="scan'208";a="167331482"
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
- by esa2.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 11 Jul 2022 11:30:02 -0700
-Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.17; Mon, 11 Jul 2022 11:30:01 -0700
-Received: from ryan-Precision-5560.microchip.com (10.10.115.15) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
- 15.1.2375.17 via Frontend Transport; Mon, 11 Jul 2022 11:30:01 -0700
-From: <Ryan.Wanner@microchip.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <robh+dt@kernel.org>,
- <krzysztof.kozlowski+dt@linaro.org>, <nicolas.ferre@microchip.com>,
- <alexandre.belloni@bootlin.com>, <claudiu.beznea@microchip.com>
-Subject: [PATCH v2 2/2] dt-binding: sound: atmel, pdmic: Convert to json-schema
-Date: Mon, 11 Jul 2022 11:30:10 -0700
-Message-ID: <20220711183010.39123-3-Ryan.Wanner@microchip.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220711183010.39123-1-Ryan.Wanner@microchip.com>
-References: <20220711183010.39123-1-Ryan.Wanner@microchip.com>
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id C7D34F800BD
+ for <alsa-devel@alsa-project.org>; Tue, 12 Jul 2022 10:53:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7D34F800BD
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E4AE91516;
+ Tue, 12 Jul 2022 01:53:42 -0700 (PDT)
+Received: from monolith.localdoman (unknown [172.31.20.19])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 979463F792;
+ Tue, 12 Jul 2022 01:53:40 -0700 (PDT)
+Date: Tue, 12 Jul 2022 09:54:10 +0100
+From: Alexandru Elisei <alexandru.elisei@arm.com>
+To: Chen-Yu Tsai <wenst@chromium.org>
+Subject: Re: [PATCH] ASoC: rockchip: i2s: Fix NULL pointer dereference when
+ pinctrl is not found
+Message-ID: <Ys00vczqcIGzOadV@monolith.localdoman>
+References: <20220711130522.401551-1-alexandru.elisei@arm.com>
+ <CAGXv+5HyD63MSmnNSoHX6euR2qpnqh-Fn9rdRYRYz4Ci90+w8Q@mail.gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAGXv+5HyD63MSmnNSoHX6euR2qpnqh-Fn9rdRYRYz4Ci90+w8Q@mail.gmail.com>
 X-Mailman-Approved-At: Thu, 14 Jul 2022 18:34:36 +0200
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, Ryan
- Wanner <Ryan.Wanner@microchip.com>, linux-kernel@vger.kernel.org,
+Cc: alsa-devel@alsa-project.org, heiko@sntech.de, linux-kernel@vger.kernel.org,
+ tiwai@suse.com, lgirdwood@gmail.com, linux-rockchip@lists.infradead.org,
+ broonie@kernel.org, judyhsiao@chromium.org,
  linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -96,189 +72,150 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Ryan Wanner <Ryan.Wanner@microchip.com>
+Hi ChenYu,
 
-Convert Atmel PDMIC devicetree binding to json-schema.
-Change file naming to match json-schema naming.
+On Tue, Jul 12, 2022 at 02:17:32PM +0800, Chen-Yu Tsai wrote:
+> On Mon, Jul 11, 2022 at 9:06 PM Alexandru Elisei
+> <alexandru.elisei@arm.com> wrote:
+> >
+> > Commit a5450aba737d ("ASoC: rockchip: i2s: switch BCLK to GPIO") switched
+> > BCLK to GPIO functions when probing the i2s bus interface, but missed
+> > adding a check for when devm_pinctrl_get() returns an error.  This can lead
+> > to the following NULL pointer dereference on a rockpro64-v2 if there are no
+> > "pinctrl" properties in the i2s device tree node:
+> >
+> > [    0.658381] rockchip-i2s ff880000.i2s: failed to find i2s default state
+> > [    0.658993] rockchip-i2s ff880000.i2s: failed to find i2s gpio state
+> > [    0.660072] rockchip-i2s ff890000.i2s: failed to find i2s default state
+> > [    0.660670] rockchip-i2s ff890000.i2s: failed to find i2s gpio state
+> > [    0.661716] rockchip-i2s ff8a0000.i2s: failed to find i2s pinctrl
+> > [    0.662276] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000005
+> > [    0.663061] Mem abort info:
+> > [    0.663317]   ESR = 0x0000000096000004
+> > [    0.663658]   EC = 0x25: DABT (current EL), IL = 32 bits
+> > [    0.664136]   SET = 0, FnV = 0
+> > [    0.664171] mmc2: SDHCI controller on fe330000.mmc [fe330000.mmc] using ADMA
+> > [    0.664409]   EA = 0, S1PTW = 0
+> > [    0.664415]   FSC = 0x04: level 0 translation fault
+> > [    0.664421] Data abort info:
+> > [    0.666050]   ISV = 0, ISS = 0x00000004
+> > [    0.666399]   CM = 0, WnR = 0
+> > [    0.666671] [0000000000000005] user address but active_mm is swapper
+> > [    0.667240] Internal error: Oops: 96000004 [#1] PREEMPT SMP
+> > [    0.667742] Modules linked in:
+> > [    0.668028] CPU: 5 PID: 1 Comm: swapper/0 Not tainted 5.19.0-rc6 #300
+> > [    0.668608] Hardware name: Pine64 RockPro64 v2.0 (DT)
+> > [    0.669062] pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+> > [    0.669689] pc : pinctrl_lookup_state+0x20/0xc0
+> > [    0.670110] lr : rockchip_i2s_probe+0x1a8/0x54c
+> > [    0.670527] sp : ffff80000a17bb30
+> > [    0.670829] x29: ffff80000a17bb30 x28: 0000000000000000 x27: ffff8000097c04c8
+> > [    0.671480] x26: ffff800009871060 x25: ffff800009871078 x24: ffff000001c11368
+> > [    0.672129] x23: ffff8000092dc850 x22: ffffffffffffffed x21: ffff8000096f7e98
+> > [    0.672776] x20: ffffffffffffffed x19: ffff000001d92480 x18: ffffffffffffffff
+> > [    0.673423] x17: 000000040044ffff x16: ffff0000f77db2d0 x15: 0764076e07690766
+> > [    0.674070] x14: 0720076f07740720 x13: ffff800009e129f0 x12: 000000000000038d
+> > [    0.674717] x11: 000000000000012f x10: ffff800009e6a9f0 x9 : ffff800009e129f0
+> > [    0.675364] x8 : 00000000ffffefff x7 : ffff800009e6a9f0 x6 : 80000000fffff000
+> > [    0.676011] x5 : 000000000000bff4 x4 : 0000000000000000 x3 : 0000000000000000
+> > [    0.676657] x2 : 0000000000000000 x1 : ffff8000096f7e98 x0 : ffffffffffffffed
+> > [    0.677304] Call trace:
+> > [    0.677531]  pinctrl_lookup_state+0x20/0xc0
+> > [    0.677914]  rockchip_i2s_probe+0x1a8/0x54c
+> > [    0.678297]  platform_probe+0x68/0xc0
+> > [    0.678638]  really_probe.part.0+0x9c/0x2ac
+> > [    0.679027]  __driver_probe_device+0x98/0x144
+> > [    0.679429]  driver_probe_device+0xac/0x140
+> > [    0.679814]  __driver_attach+0xf8/0x184
+> > [    0.680169]  bus_for_each_dev+0x70/0xd0
+> > [    0.680524]  driver_attach+0x24/0x30
+> > [    0.680856]  bus_add_driver+0x150/0x200
+> > [    0.681210]  driver_register+0x78/0x130
+> > [    0.681560]  __platform_driver_register+0x28/0x34
+> > [    0.681988]  rockchip_i2s_driver_init+0x1c/0x28
+> > [    0.682407]  do_one_initcall+0x50/0x1c0
+> > [    0.682760]  kernel_init_freeable+0x204/0x288
+> > [    0.683160]  kernel_init+0x28/0x13c
+> > [    0.683482]  ret_from_fork+0x10/0x20
+> > [    0.683816] Code: aa0003f4 a9025bf5 aa0003f6 aa0103f5 (f8418e93)
+> > [    0.684365] ---[ end trace 0000000000000000 ]---
+> > [    0.684813] Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b
+> > [    0.685500] SMP: stopping secondary CPUs
+> > [    0.685995] Kernel Offset: disabled
+> > [    0.686310] CPU features: 0x800,00105811,00001086
+> > [    0.686736] Memory Limit: none
+> > [    0.687021] ---[ end Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b ]---
+> >
+> > Check that i2s->pinctrl is valid before attempting to search for the
+> > bclk_on and bclk_off pinctrl states.
+> >
+> > Fixes: a5450aba737d ("ASoC: rockchip: i2s: switch BCLK to GPIO")
+> > Signed-off-by: Alexandru Elisei <alexandru.elisei@arm.com>
+> > ---
+> >
+> > Full log at [1], config at [2] (pastebins expire after 6 months).
+> >
+> > I'm not familiar with this part of the kernel, I did my best to come up
+> > with an explanation and a fix for the panic.
+> >
+> > Read Documentation/devicetree/bindings/sound/rockchip-i2s.yaml, which has the
+> > definition for the i2s nodes with the same compatible string as the i2s@ff8a0000
+> > that is causing the panic (which is, "rockchip,rk3399-i2s"
+> > "rockchip,rk3066-i2s"). There's no mention there of a "pinctrl" property, maybe
+> > I'm reading the docs wrong, or maybe the board devicetree also needs fixing.
+> >
+> > [1] https://pastebin.com/vuRVDsKk
+> > [2] https://pastebin.com/3yDMF7YE
+> >
+> >  sound/soc/rockchip/rockchip_i2s.c | 5 ++++-
+> >  1 file changed, 4 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/sound/soc/rockchip/rockchip_i2s.c b/sound/soc/rockchip/rockchip_i2s.c
+> > index 99a128a666fb..c9fedf6eb2e6 100644
+> > --- a/sound/soc/rockchip/rockchip_i2s.c
+> > +++ b/sound/soc/rockchip/rockchip_i2s.c
+> > @@ -808,8 +808,11 @@ static int rockchip_i2s_probe(struct platform_device *pdev)
+> >
+> >         i2s->bclk_ratio = 64;
+> >         i2s->pinctrl = devm_pinctrl_get(&pdev->dev);
+> > -       if (IS_ERR(i2s->pinctrl))
+> > +       if (IS_ERR(i2s->pinctrl)) {
+> >                 dev_err(&pdev->dev, "failed to find i2s pinctrl\n");
+> > +               ret = PTR_ERR(i2s->pinctrl);
+> > +               goto err_clk;
+> > +       }
+> 
+> This would break audio for HDMI audio, which uses an I2S interface
+> to feed the HDMI controller and does not need or have pinctrl, but
+> here you make pinctrl a requirement.
+> 
+> See https://lore.kernel.org/alsa-devel/20220621185747.2782-1-wens@kernel.org/
+> for my fix, which is merged for 5.20.
 
-Signed-off-by: Ryan Wanner <Ryan.Wanner@microchip.com>
----
-v1 -> v2:
-- Fix title.
-- Removed trivial descriptions.
-- Fix formatting.
+For what it's worth, I've tested the fix and the board boots just fine.
 
- .../bindings/sound/atmel,sama5d2-pdmic.yaml   | 98 +++++++++++++++++++
- .../devicetree/bindings/sound/atmel-pdmic.txt | 55 -----------
- 2 files changed, 98 insertions(+), 55 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/sound/atmel,sama5d2-pdmic.yaml
- delete mode 100644 Documentation/devicetree/bindings/sound/atmel-pdmic.txt
+Thanks,
+Alex
 
-diff --git a/Documentation/devicetree/bindings/sound/atmel,sama5d2-pdmic.yaml b/Documentation/devicetree/bindings/sound/atmel,sama5d2-pdmic.yaml
-new file mode 100644
-index 000000000000..88fa92a30147
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/atmel,sama5d2-pdmic.yaml
-@@ -0,0 +1,98 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+# Copyright (C) 2022 Microchip Technology, Inc. and its subsidiaries
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/atmel,sama5d2-pdmic.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Atmel PDMIC decoder
-+
-+maintainers:
-+  - Claudiu Beznea <claudiu.beznea@microchip.com>
-+
-+description:
-+  Atmel Pulse Density Modulation Interface Controller
-+  (PDMIC) peripheral is a mono PDM decoder module
-+  that decodes an incoming PDM sample stream.
-+
-+properties:
-+  compatible:
-+    const: atmel,sama5d2-pdmic
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: peripheral clock
-+      - description: generated clock
-+
-+  clock-names:
-+    items:
-+      - const: pclk
-+      - const: gclk
-+
-+  dmas:
-+    maxItems: 1
-+
-+  dma-names:
-+    const: rx
-+
-+  atmel,mic-min-freq:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description:
-+      The minimal frequency that the microphone supports.
-+
-+  atmel,mic-max-freq:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description:
-+      The maximal frequency that the microphone supports.
-+
-+  atmel,model:
-+    description: The user-visible name of this sound card.
-+    $ref: /schemas/types.yaml#/definitions/string
-+    default: PDMIC
-+
-+  atmel,mic-offset:
-+    $ref: /schemas/types.yaml#/definitions/int32
-+    description: The offset that should be added.
-+    default: 0
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - dmas
-+  - dma-names
-+  - clock-names
-+  - clocks
-+  - atmel,mic-min-freq
-+  - atmel,mic-max-freq
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/dma/at91.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+    pdmic: sound@f8018000 {
-+    	compatible = "atmel,sama5d2-pdmic";
-+    	reg = <0xf8018000 0x124>;
-+    	interrupts = <48 IRQ_TYPE_LEVEL_HIGH 7>;
-+    	dmas = <&dma0
-+    		(AT91_XDMAC_DT_MEM_IF(0) | AT91_XDMAC_DT_PER_IF(1)
-+    		| AT91_XDMAC_DT_PERID(50))>;
-+    	dma-names = "rx";
-+    	clocks = <&pdmic_clk>, <&pdmic_gclk>;
-+    	clock-names = "pclk", "gclk";
-+    	pinctrl-names = "default";
-+    	pinctrl-0 = <&pinctrl_pdmic_default>;
-+    	atmel,model = "PDMIC@sama5d2_xplained";
-+    	atmel,mic-min-freq = <1000000>;
-+    	atmel,mic-max-freq = <3246000>;
-+    	atmel,mic-offset = <0x0>;
-+    };
-diff --git a/Documentation/devicetree/bindings/sound/atmel-pdmic.txt b/Documentation/devicetree/bindings/sound/atmel-pdmic.txt
-deleted file mode 100644
-index e0875f17c229..000000000000
---- a/Documentation/devicetree/bindings/sound/atmel-pdmic.txt
-+++ /dev/null
-@@ -1,55 +0,0 @@
--* Atmel PDMIC driver under ALSA SoC architecture
--
--Required properties:
--- compatible
--	Should be "atmel,sama5d2-pdmic".
--- reg
--	Should contain PDMIC registers location and length.
--- interrupts
--	Should contain the IRQ line for the PDMIC.
--- dmas
--	One DMA specifiers as described in atmel-dma.txt and dma.txt files.
--- dma-names
--	Must be "rx".
--- clock-names
--	Required elements:
--	- "pclk"	peripheral clock
--	- "gclk"	generated clock
--- clocks
--	Must contain an entry for each required entry in clock-names.
--	Please refer to clock-bindings.txt.
--- atmel,mic-min-freq
--	The minimal frequency that the micphone supports.
--- atmel,mic-max-freq
--	The maximal frequency that the micphone supports.
--
--Optional properties:
--- pinctrl-names, pinctrl-0
--	Please refer to pinctrl-bindings.txt.
--- atmel,model
--	The user-visible name of this sound card.
--	The default value is "PDMIC".
--- atmel,mic-offset
--	The offset that should be added.
--	The range is from -32768 to 32767.
--	The default value is 0.
--
--Example:
--	pdmic@f8018000 {
--				compatible = "atmel,sama5d2-pdmic";
--				reg = <0xf8018000 0x124>;
--				interrupts = <48 IRQ_TYPE_LEVEL_HIGH 7>;
--				dmas = <&dma0
--					(AT91_XDMAC_DT_MEM_IF(0) | AT91_XDMAC_DT_PER_IF(1)
--					| AT91_XDMAC_DT_PERID(50))>;
--				dma-names = "rx";
--				clocks = <&pdmic_clk>, <&pdmic_gclk>;
--				clock-names = "pclk", "gclk";
--
--				pinctrl-names = "default";
--				pinctrl-0 = <&pinctrl_pdmic_default>;
--				atmel,model = "PDMIC @ sama5d2_xplained";
--				atmel,mic-min-freq = <1000000>;
--				atmel,mic-max-freq = <3246000>;
--				atmel,mic-offset = <0x0>;
--	};
--- 
-2.34.1
-
+> 
+> Maybe your patch (which Mark already applied) and commit a5450aba737d
+> ("ASoC: rockchip: i2s: switch BCLK to GPIO") should just be reverted from
+> the for-5.19?
+> 
+> Mark?
+> 
+> 
+> Regards
+> ChenYu
+> 
+> >
+> >         i2s->bclk_on = pinctrl_lookup_state(i2s->pinctrl,
+> >                                    "bclk_on");
+> > --
+> > 2.37.0
+> >
+> >
+> > _______________________________________________
+> > Linux-rockchip mailing list
+> > Linux-rockchip@lists.infradead.org
+> > http://lists.infradead.org/mailman/listinfo/linux-rockchip

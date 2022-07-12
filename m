@@ -2,59 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6763C5711B7
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Jul 2022 07:10:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3154571213
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Jul 2022 08:01:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A79EC86E;
-	Tue, 12 Jul 2022 07:09:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A79EC86E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 896D784B;
+	Tue, 12 Jul 2022 08:00:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 896D784B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657602633;
-	bh=y2UsnYr7A9vKtE9Gjr4NGerQubI+j3Twn32kYZqKUus=;
+	s=default; t=1657605694;
+	bh=WXVKoqkpjD6WomZtLeOtJw1OmfRXUR/s6oqZb3jcxX8=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=hyVw4XpmH2/V1gxr4AhL6GzUCv5sSc2x8wXV0cEvNKEgILJhZ259qG9pCkj/GKymu
-	 cEFvl4iEVjH8ZsMjFhVKywfxM4Irmup6GerppSWBF/9GF9BR2n31m6pLlUJ5tgii+v
-	 aONDJtUsoIBXHe12nqxVAZp1ZiQVqr+VSvklZ7Xc=
+	b=ucUmub4PpXNBt70hcPiYwvL2h3cdCOi4foySuAJtD8u68Uta68Bhs02klCrD7Wz3o
+	 5leQPq1zeVO9uzjbRSw8dkaLT4otD7BuUcfQg02/MJ3tsVhZBmtIcKFjzgr8izTMvj
+	 P6Yy7XVZXiggEYgQKQitr9UN3ElfHG0YosmvL4EI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 99F78F80279;
-	Tue, 12 Jul 2022 07:09:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CD322F80279;
+	Tue, 12 Jul 2022 08:00:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9CC07F80246; Tue, 12 Jul 2022 07:09:29 +0200 (CEST)
+ id 10163F80246; Tue, 12 Jul 2022 08:00:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.1 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FROM,FROM_LOCAL_DIGITS,FROM_LOCAL_HEX,SPF_HELO_NONE,SPF_NONE,
- SPOOFED_FREEMAIL,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from n169-112.mail.139.com (n169-112.mail.139.com [120.232.169.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8A470F800E8
- for <alsa-devel@alsa-project.org>; Tue, 12 Jul 2022 07:09:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A470F800E8
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM: 
-X-RM-SPAM-FLAG: 00000000
-Received: from LAPTOP-39QA2GAC.localdomain (unknown[192.163.20.102])
- by rmsmtp-lg-appmail-19-12022 (RichMail) with SMTP id 2ef662cd01eca3a-4e0e5;
- Tue, 12 Jul 2022 13:09:14 +0800 (CST)
-X-RM-TRANSID: 2ef662cd01eca3a-4e0e5
-From: Raphael-Xu <13691752556@139.com>
-To: robh+dt@kernel.org
-Subject: [PATCH v5] update tas2780.yaml
-Date: Tue, 12 Jul 2022 13:08:57 +0800
-Message-Id: <20220712050857.267-1-13691752556@139.com>
-X-Mailer: git-send-email 2.35.1
+X-Spam-Level: 
+X-Spam-Status: No, score=0.2 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from smtpproxy21.qq.com (smtpbg704.qq.com [203.205.195.105])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 98767F8012B
+ for <alsa-devel@alsa-project.org>; Tue, 12 Jul 2022 08:00:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98767F8012B
+X-QQ-mid: bizesmtp69t1657605612tslowixw
+Received: from localhost.localdomain ( [58.240.82.166])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Tue, 12 Jul 2022 14:00:07 +0800 (CST)
+X-QQ-SSF: 01400000002000G0T000B00A0000000
+X-QQ-FEAT: 8mvwyB2Dxk9RiwgK9+fAaoojQwPmzq6NU9cN3uF3lUWLk7SlBvwoIdeI51YTe
+ ST+HpJ17tKOBtfx/Pc1hCww1UvZKC18SbfTE3CJqsLjLLym50L9RmWmZRMYlWWe8PSkojB/
+ LAMuKxAw1cNYaU2rRUL8j+I8GA3TS3jSn1S2OVTxinKgxXWVDn43iAceZ3GEIk9IF5f4iYP
+ OPRXiVyc9sj8B3zuVVgmuVudxsLk8QjOT+jfg8Y2se3MUX9HOX9dum65g8I43YEpc4hECc7
+ olGDdzIgfLFkQb1j1Z5FPJDd2SHnySKPqyGIGgphrv2sewvwwq4cQqcuuhsib+B9frgfQ3r
+ uqfp7uEfX5kRSTya87t2V17+tjnzfNBLQcr9SC86W+JRA90qKfUV5igUDJxBA==
+X-QQ-GoodBg: 2
+From: Meng Tang <tangmeng@uniontech.com>
+To: perex@perex.cz, tiwai@suse.com, tcrawford@system76.com,
+ kai.heng.feng@canonical.com, tanureal@opensource.cirrus.com,
+ cam@neo-zeon.de, kailang@realtek.com, sbinding@opensource.cirrus.com,
+ andy.chi@canonical.com, yong.wu@mediatek.com
+Subject: [PATCH] ALSA: hda - Add fixup for Dell Latitidue E5430
+Date: Tue, 12 Jul 2022 14:00:05 +0800
+Message-Id: <20220712060005.20176-1-tangmeng@uniontech.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, navada@ti.com,
- broonie@kernel.org, asyrus@ti.com, raphael-xu@ti.com, shenghao-ding@ti.com,
- Raphael-Xu <13691752556@139.com>
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign4
+X-QQ-Bgrelay: 1
+Cc: Meng Tang <tangmeng@uniontech.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,65 +78,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-1.remove unused item in DT 2.revise the format
+Another Dell model, another fixup entry: Latitude E5430 needs the same
+fixup as other Latitude E series as workaround for noise problems.
 
-Signed-off-by: Raphael-Xu <13691752556@139.com>
+Signed-off-by: Meng Tang <tangmeng@uniontech.com>
 ---
- .../devicetree/bindings/sound/tas2780.yaml    | 19 +++++++++++--------
- 1 file changed, 11 insertions(+), 8 deletions(-)
+ sound/pci/hda/patch_realtek.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/sound/tas2780.yaml b/Documentation/devicetree/bindings/sound/tas2780.yaml
-index 5a0de0995066..21389a16fdb9 100644
---- a/Documentation/devicetree/bindings/sound/tas2780.yaml
-+++ b/Documentation/devicetree/bindings/sound/tas2780.yaml
-@@ -22,24 +22,29 @@ properties:
-       - ti,tas2780
- 
-   reg:
--    maxItems: 1
--    description: |
--       I2C address of the device can be between 0x38 to 0x45.
-+    description:
-+       I2C address of the device can be between 0x38 to 0x3f.
-+    minimum: 0x38
-+    maximum: 0x3f
- 
-   reset-gpios:
--    maxItems: 1
-     description: GPIO used to reset the device.
-+    maxItems: 1
- 
-   interrupts:
-     maxItems: 1
- 
-   ti,imon-slot-no:
--    $ref: /schemas/types.yaml#/definitions/uint32
-     description: TDM TX current sense time slot.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    minimum: 0
-+    maximum: 3
- 
-   ti,vmon-slot-no:
--    $ref: /schemas/types.yaml#/definitions/uint32
-     description: TDM TX voltage sense time slot.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    minimum: 0
-+    maximum: 3
- 
-   '#sound-dai-cells':
-     const: 1
-@@ -60,10 +65,8 @@ examples:
-        compatible = "ti,tas2780";
-        reg = <0x38>;
-        #sound-dai-cells = <1>;
--       interrupt-parent = <&gpio1>;
-        interrupts = <14>;
-        reset-gpios = <&gpio1 15 0>;
--       shutdown-gpios = <&gpio1 15 0>;
-        ti,imon-slot-no = <0>;
-        ti,vmon-slot-no = <2>;
-      };
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index fe7c1194d052..ecc737342fcc 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -8896,6 +8896,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1025, 0x1430, "Acer TravelMate B311R-31", ALC256_FIXUP_ACER_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1025, 0x1466, "Acer Aspire A515-56", ALC255_FIXUP_ACER_HEADPHONE_AND_MIC),
+ 	SND_PCI_QUIRK(0x1028, 0x0470, "Dell M101z", ALC269_FIXUP_DELL_M101Z),
++	SND_PCI_QUIRK(0x1028, 0x053c, "Dell Latitude E5430", ALC292_FIXUP_DELL_E7X),
+ 	SND_PCI_QUIRK(0x1028, 0x054b, "Dell XPS one 2710", ALC275_FIXUP_DELL_XPS),
+ 	SND_PCI_QUIRK(0x1028, 0x05bd, "Dell Latitude E6440", ALC292_FIXUP_DELL_E7X),
+ 	SND_PCI_QUIRK(0x1028, 0x05be, "Dell Latitude E6540", ALC292_FIXUP_DELL_E7X),
 -- 
-2.35.1
+2.20.1
+
 
 

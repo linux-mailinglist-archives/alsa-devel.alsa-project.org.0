@@ -2,76 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA359571A2B
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Jul 2022 14:39:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4EED571A9F
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Jul 2022 14:58:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5DE311672;
-	Tue, 12 Jul 2022 14:38:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5DE311672
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5A9841679;
+	Tue, 12 Jul 2022 14:57:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A9841679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657629568;
-	bh=ybrg/LabNwAtguckYL8zo+9pDhIdyMF3KNL6QppL05k=;
+	s=default; t=1657630680;
+	bh=PJ2tkf6AHi8d5/vSw9Ip3Hqa3p+/cFXXUY1SC51npvY=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=OWuTyJle6b8XnvN761WHFDrdBxj+WEaFT5azmEaR31R24JURp9xo4mYWt4jovI9sT
-	 7PoxcOznyVtmXy9kETNJzXsk+oWjUotPQMFrU+7bypdx4TeJz4An8KrRQax51IrIvt
-	 MRo594h/a6ovU3i7P0VZYiH+d77/idgzgcgKU22c=
+	b=GGMU+tg6WLDaS7hkWuBkrRhSir9RcUI1EQindbdSG1oe7WIVgx/EC2Iiy9LUe8OrR
+	 DEoBUWCJHRVSVAegibsfEIFRq5ZYI/fWXAqMNU2G20YZg6PwtmlrXSl/RagHGKrj2R
+	 sQQEaO3DaJLIj3zUzsBoix92s4XVrYVxo3UgYCig=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C7FC4F80279;
-	Tue, 12 Jul 2022 14:38:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C814DF800BD;
+	Tue, 12 Jul 2022 14:56:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 18D0DF800BD; Tue, 12 Jul 2022 14:38:26 +0200 (CEST)
+ id B78F8F800BD; Tue, 12 Jul 2022 14:56:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8C228F800BD
- for <alsa-devel@alsa-project.org>; Tue, 12 Jul 2022 14:38:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C228F800BD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4B8B0F800BD
+ for <alsa-devel@alsa-project.org>; Tue, 12 Jul 2022 14:56:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B8B0F800BD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="CV3+2V4e"
+ header.b="Dcnuk5pR"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1657629500; x=1689165500;
+ t=1657630615; x=1689166615;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=ybrg/LabNwAtguckYL8zo+9pDhIdyMF3KNL6QppL05k=;
- b=CV3+2V4eWB2VJlXeg8j7sLZd2E7M43z6A5M3T0n9ddrOzEboLyFPyIIJ
- IDSLssc9O2W+LpH4dJHLDGQCbZkvr6BNQymytLg2p6AUtwfqcGnpILo0O
- VSSYwvAC2RvVlhgUP+R66tGlyWGzFL5EBxFML0Q+oGe6vK5wpoJ5ewdvb
- ttnvEC4HrnSqlq6wUkmycYo/Zxj6g1cN16Vot+Ui8GhJ1XybLzJCNB2Mg
- 64ZqJ2n54QWT1ZsXSqchmc8bqH8TmRski6UfOluPfztUEGIi5MWa9pALC
- eIsd9lWAedH54APCu8aiDuGIFiiOsZ6YnqdZbu+FsVwV17ABGafGjI3FI Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10405"; a="283675933"
-X-IronPort-AV: E=Sophos;i="5.92,265,1650956400"; d="scan'208";a="283675933"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jul 2022 05:38:16 -0700
-X-IronPort-AV: E=Sophos;i="5.92,265,1650956400"; d="scan'208";a="922182570"
+ bh=PJ2tkf6AHi8d5/vSw9Ip3Hqa3p+/cFXXUY1SC51npvY=;
+ b=Dcnuk5pRAJq3v2KkdYktIAJczI8BdRmr7Jy9+gHeXuW6T4fXBX9+oOdC
+ eVJ+AZ6s69I6bN85vRChxhqrd1eFCTsrVMiwaKEFH2zK/Mq7ZepQJh/VG
+ RljpD7EnZfQN7E1YDowKHzNAh1lR7kuwqbdLGfmnAoOSUUbclWYU9Q91i
+ NZXQTlAOSBnHQbJwp6f8/s9Lq6f9YDRBYe76XcPewdHYpmMAWuNYoj3WP
+ f0kTb+F2c/n/huHxpyLgwaJ+7zqJ3I8uXH3UeoNP2kPR71rn2ZMopPTdc
+ RCNDAHuexQ3SdrYn97R+NuXrTSf5TmQbd3X71othGodf27T4XRPShzcDp w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10405"; a="346607568"
+X-IronPort-AV: E=Sophos;i="5.92,265,1650956400"; d="scan'208";a="346607568"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jul 2022 05:56:49 -0700
+X-IronPort-AV: E=Sophos;i="5.92,265,1650956400"; d="scan'208";a="662942891"
 Received: from ahedstro-mobl.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.249.254.175])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jul 2022 05:38:14 -0700
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jul 2022 05:56:47 -0700
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com, broonie@kernel.org,
  pierre-louis.bossart@linux.intel.com
-Subject: [PATCH] ASoC: SOF: topology: remove unused variable
-Date: Tue, 12 Jul 2022 15:39:02 +0300
-Message-Id: <20220712123902.14696-1-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 0/3] ASoC: SOF: Intel: hda: Correct Firmware State Register use
+Date: Tue, 12 Jul 2022 15:57:31 +0300
+Message-Id: <20220712125734.30512-1-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.37.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, yung-chuan.liao@linux.intel.com,
- ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com
+Cc: alsa-devel@alsa-project.org, ranjani.sridharan@linux.intel.com,
+ kai.vehmanen@linux.intel.com, rander.wang@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,39 +86,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Hi,
 
-'ret' is never used. Remove it and return 0 instead.
+The FSR (Firmware State Register) holds the ROM state information, it does not
+contain error information.
+The FSR itself is a bit more complicated as well as the state depends on the
+module currently in use.
 
-Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+The error code from ROM or the status code from the firmware is located at the
+next register.
+
+Fix the handling of the FSR in order to provide usable and human readable (in
+most cases) report on the status and error.
+
+Regards,
+Peter
 ---
- sound/soc/sof/topology.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+Peter Ujfalusi (3):
+  ASoC: SOF: Intel: hda: Correct the ROM/FW state reporting code
+  ASoC: SOF: Intel: hda-loader: Use the FSR state definitions during
+    bootup
+  ASoC: SOF: Intel: hda: Drop no longer used ROM state definitions
 
-diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index 7e54eb1bf77b..9273a70fec25 100644
---- a/sound/soc/sof/topology.c
-+++ b/sound/soc/sof/topology.c
-@@ -1419,7 +1419,6 @@ static int sof_widget_unload(struct snd_soc_component *scomp,
- 	struct soc_bytes_ext *sbe;
- 	struct snd_sof_dai *dai;
- 	struct soc_enum *se;
--	int ret = 0;
- 	int i;
- 
- 	swidget = dobj->private;
-@@ -1480,7 +1479,7 @@ static int sof_widget_unload(struct snd_soc_component *scomp,
- 	list_del(&swidget->list);
- 	kfree(swidget);
- 
--	return ret;
-+	return 0;
- }
- 
- /*
+ sound/soc/sof/intel/hda-loader.c |  10 +--
+ sound/soc/sof/intel/hda.c        | 147 ++++++++++++++++++++++++++-----
+ sound/soc/sof/intel/hda.h        |  69 +++++++++++++--
+ 3 files changed, 194 insertions(+), 32 deletions(-)
+
 -- 
 2.37.0
 

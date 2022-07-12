@@ -2,75 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13502572283
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Jul 2022 20:24:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C08A572284
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Jul 2022 20:25:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A291816FA;
-	Tue, 12 Jul 2022 20:23:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A291816FA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 944CE16D5;
+	Tue, 12 Jul 2022 20:24:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 944CE16D5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657650288;
-	bh=nGOKuStphhti0Q5Aqqk68PdUBxY4ccy0ayZhVjgTheM=;
+	s=default; t=1657650302;
+	bh=C2rhacqCp1pKnkgrfxEegnBu5iOnykXAIF50U1eA8Hw=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oGpj6qvxsbQ2vm3vKsk9rHpYHImN64Im8qnHCKv+oVzmb3FKUNBA1E1oIEobQWbWF
-	 u7h+EbvWrYbf/mYKyh9XPL1rWJsANp1mAe7jaLIaqaQiKiedFZdzGPKl7uxzhLSMCP
-	 BjX6DjfiY5WjIHvOZ0g/rXV/BhzvNILvlWp2dD08=
+	b=AvPsqnxC/73juLcXXQpi0+PVXcidLbVHHVmEGRebdYsqjl/U2oK1/PDTD7bXmGG1w
+	 2ANxrW8tJqgl+iMRlvOZG/cT1Dqsqfa+2UdHgyPbO6oJIlqNtYUUm7N646seohVTnx
+	 rK6JtQNgaQJ5FwX6bOC8jRpWbMrh60RrBE+pNPwA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8AD46F8055C;
-	Tue, 12 Jul 2022 20:22:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 80164F80567;
+	Tue, 12 Jul 2022 20:22:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 85FBDF8055C; Tue, 12 Jul 2022 20:22:36 +0200 (CEST)
+ id CC0CFF80566; Tue, 12 Jul 2022 20:22:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 99DB4F800E8
- for <alsa-devel@alsa-project.org>; Tue, 12 Jul 2022 20:22:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99DB4F800E8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 707D2F80558
+ for <alsa-devel@alsa-project.org>; Tue, 12 Jul 2022 20:22:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 707D2F80558
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="OB6LSpXa"
+ header.b="HchhSp5u"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 703DC61A6D;
+ by ams.source.kernel.org (Postfix) with ESMTPS id ABB32B81B94;
+ Tue, 12 Jul 2022 18:22:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55023C341C0;
  Tue, 12 Jul 2022 18:22:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CDBFC3411C;
- Tue, 12 Jul 2022 18:22:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657650149;
- bh=nGOKuStphhti0Q5Aqqk68PdUBxY4ccy0ayZhVjgTheM=;
+ s=k20201202; t=1657650152;
+ bh=C2rhacqCp1pKnkgrfxEegnBu5iOnykXAIF50U1eA8Hw=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=OB6LSpXakBJG6ZGrxu1Fzu/5rq6xuI1NZU9/Y8VBK0MeRS+Fg9lmNQeRw1c5416Jo
- M5r8Zk0si1o2aa01Jv+eKzrCtHHC4O4AK7UMCWrziHb+eA2i1r5kNJD69yr/aD0y/a
- NQgxR8TvnE1j8T76CZhuJRdWppb3BtHrsP1raikjVlOtFhbXh/W50dGQnVLNjC2lTO
- +jM4ykc68XKthBTHjXYs4McSp79JicqJfRewimUVUiR4c3fterV/HP79SWwyExYMzF
- qi/nlG+FF9CrsoZaNqLH81+0RcfXPk2E/jjOBxKgsFYudoLWG3vg69PVn/EqXLdmi3
- zQ/kKS3l3pU6w==
+ b=HchhSp5useKHMKkM9XPqSOOip9mwqfM9Ws4NK9H9PSwE9PE3dpST00Efj2fPuRMJn
+ ALtnnRuBIAibwm5+m2CNp2zwAEcB9HAWmxi583ShrC3MD1zEvD/GhWKXSVymf2yeht
+ MA51TfKVPgwHxtP75hEFTtFQ3HMfn5Ac05fafKOwi2fSYLltcxRO/sHILMMefJSbfc
+ x+wnb/4koMZ2S6DNHa8d3e8iWw0+lfUouuHU2MYQrhx9Z+4ZHbhlKSzm4b+sWxIkeG
+ Bp5Ps6rqh3Y6Xo+oS/ferBSDydo+xVpby0srENR6getmBUKi3kvr2RfzH+9JbIoPkD
+ X2aqzHeuMC8xw==
 From: Mark Brown <broonie@kernel.org>
-To: peter.ujfalusi@linux.intel.com, pierre-louis.bossart@linux.intel.com,
- lgirdwood@gmail.com
-In-Reply-To: <20220712131620.13365-1-peter.ujfalusi@linux.intel.com>
-References: <20220712131620.13365-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH 0/2] ASoC: SOF: Intel: hda-dai: No need to decouple
- host/link DMA twice
-Message-Id: <165765014817.502248.6303361350167270148.b4-ty@kernel.org>
-Date: Tue, 12 Jul 2022 19:22:28 +0100
+To: daniel.baluta@oss.nxp.com, alsa-devel@alsa-project.org
+In-Reply-To: <20220712141531.14599-1-daniel.baluta@oss.nxp.com>
+References: <20220712141531.14599-1-daniel.baluta@oss.nxp.com>
+Subject: Re: [PATCH 0/4] Extend ipc stream parameters sent to DSP
+Message-Id: <165765015006.502248.16563043573406286114.b4-ty@kernel.org>
+Date: Tue, 12 Jul 2022 19:22:30 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, ranjani.sridharan@linux.intel.com,
- kai.vehmanen@linux.intel.com, rander.wang@intel.com
+Cc: kai.vehmanen@linux.intel.com, lgirdwood@gmail.com, daniel.baluta@nxp.com,
+ linux-kernel@vger.kernel.org, ranjani.sridharan@linux.intel.com,
+ yung-chuan.liao@linux.intel.com, linux-imx@nxp.com, yc.hung@mediatek.com,
+ peter.ujfalusi@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,13 +87,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 12 Jul 2022 16:16:18 +0300, Peter Ujfalusi wrote:
-> There is no need to decouple a decoupled stream twice.
-> Keep the decoupling in hda_link_stream_assign() only as it is going to be
-> executed in all cases.
+On Tue, 12 Jul 2022 17:15:27 +0300, Daniel Baluta wrote:
+> From: Daniel Baluta <daniel.baluta@nxp.com>
 > 
-> Drop the outdated comment from hda_link_dma_hw_params() as well since the code
-> has changed around it.
+> MIME-Version: 1.0
+> Content-Type: text/plain; charset=UTF-8
+> Content-Transfer-Encoding: 8bit
+> 
+> We need a way to send extra parameters to DSP firmware. In order to do
+> this, we introduce ext_data array at the end of ipc_stream_params.
 > 
 > [...]
 
@@ -102,10 +105,14 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: SOF: Intel: hda-dai: Drop misleading comment regarding dma_data
-      commit: 402355e6cdbebf15f2c40cd9469b924c97b94b32
-[2/2] ASoC: SOF: Intel: hda-dai: Do snd_hdac_ext_stream_decouple() only once
-      commit: fbabebfb26a8130c10fd91cca687bac87944580d
+[1/4] ASoC: SOF: compress: Dynamically allocate pcm params struct
+      commit: d5770daef62d2e4d33015089bab392ef867fd35a
+[2/4] ASoC: SOF: Copy compress parameters into extended data
+      commit: 3f70c360d484466da7420f395d4675ca02436e32
+[3/4] ASoC: SOF: compress: Prevent current kernel running with older FW
+      commit: 246b135fcdba57a4e77a702580391ae1942c1e3b
+[4/4] uapi: sof: abi: Bump SOF ABI for ext_data_length
+      commit: 75b5b7a1ccf606281c4afe365a57ccca486641a2
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

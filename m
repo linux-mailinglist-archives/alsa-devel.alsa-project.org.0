@@ -2,93 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B416F57167F
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Jul 2022 12:03:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01099571789
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Jul 2022 12:47:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4789B163A;
-	Tue, 12 Jul 2022 12:02:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4789B163A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8C6CD164F;
+	Tue, 12 Jul 2022 12:46:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C6CD164F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657620207;
-	bh=CuWBTBgNofV4ELD6QdGF93Zki4mzX6HN05uJV8UeG8A=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1657622848;
+	bh=mHF7YKMYxCU1iZGkkRFeipiL4XhazOTZhP7XWJPT2lU=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QbYRAUZhZVDpOs0XghlVzRMY6MiJY8Oh6T6wB2SvxezFLN976Q4mj/yoWH7/RDAUr
-	 eKnmj6PpHW3wkDOWwFN0G5ZDjV6df8W9/Y4xZjsrMY0VISBgxy45L1NNK2AtnNlMJ6
-	 9xNWSRLtE3NyT5or9xryrjWCmExWlqJi7VAPk+3s=
+	b=FEXH6P+3ZoHzcBoe+dX69Irvn+5oZrsG1Cxt46ASOeHLdh+5DYiOj0v1QAb80m1LR
+	 USgGZSr+/eGs7+OYUuK03+mU4MW0s2UFRuKSkrvra/bE04n9L8yIAuXkEwg2QETE1A
+	 1uxL3OJlWl4Vs4t54qZfQmEVNMSshX3MYoU4Pato=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AEEE3F80279;
-	Tue, 12 Jul 2022 12:02:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E24F8F80279;
+	Tue, 12 Jul 2022 12:46:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4D765F80246; Tue, 12 Jul 2022 12:02:24 +0200 (CEST)
+ id C7B2CF80246; Tue, 12 Jul 2022 12:46:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-yw1-x112f.google.com (mail-yw1-x112f.google.com
- [IPv6:2607:f8b0:4864:20::112f])
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2BC92F8012B
- for <alsa-devel@alsa-project.org>; Tue, 12 Jul 2022 12:02:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2BC92F8012B
+ by alsa1.perex.cz (Postfix) with ESMTPS id B5A9FF8012B
+ for <alsa-devel@alsa-project.org>; Tue, 12 Jul 2022 12:46:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5A9FF8012B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="hlrceudd"
-Received: by mail-yw1-x112f.google.com with SMTP id
- 00721157ae682-31bf3656517so75299407b3.12
- for <alsa-devel@alsa-project.org>; Tue, 12 Jul 2022 03:02:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=4vZMV8oO8pCweKFytCi1iyECBfJ/cRqo4N+xWIgMCDg=;
- b=hlrceuddbxzhswflQp//3s+I0oedn19qUOus6S6+DajiBapdEKXfWCc0/B/7yXYSgY
- H3chfuWXi6d0wp2fBskXlohHwpBjlgwOr8N9bqlyrgNMss8c8BQvaO8lF2EdHvcjEmby
- +Zg9Ue9ufVjye1/Hlk3S/6u8avsCFZWQlEuDmpV4Fc7yAGyQF/6K5Fx/3RR1qixl+gu4
- GtRn7C2uq/lFklL55SMy3FLPQWKlKctPS+OY7FDCernW8MhECQXIOy1iDGdeeqjrInV7
- trPURKzs3TCV3dI3KY4Zidcm8jWMsuO78gpCPd6Kojarja28uYOxU5ozdBzW8RiYJKFC
- muTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=4vZMV8oO8pCweKFytCi1iyECBfJ/cRqo4N+xWIgMCDg=;
- b=KQtCD1AENoVftp7WxXAk8c57RAFY/oVMkG1+eoVUw305paH8P5PLXlsiBgy1VLZ61C
- 8tAaZjvwCH2QUyzLMNpHRD+P4moym4JfF8k270r9zqnqXXDvjT5FjGZ3pyJX+CHlblgM
- fCt2fcLwi1ZNrYkNO+TUc46t2N4GOToo6oBK4fz5USupUkyqHbpDpM3VSDqi7sYeDwpG
- 0FBTuIbquikQLvprVT3y5iPbzr0bYEducCJ9qRs6tf+Ccmnt2Ym2rbOjkvtBiXVyFscp
- TrIsmtAn7JfDq403FGkbhYH7icaxt5jeTr4b8M1waTFJFA/wQxqhUpwNhaP0j80+1kpz
- 7ang==
-X-Gm-Message-State: AJIora+uCxSEhEoUoIoGbgLZ5n3oazgQ31P/NQnYwsnFtcPAa7PsFPWp
- ehEV6Tot5xG2f8WuMJj+ATOXxKyRw0aNDsZ5DGc=
-X-Google-Smtp-Source: AGRyM1tX9LHWdFnOx6PnMAodo72U2Y4oB407lI+eIJm82vFHZ6VJuGwFZ2w4XCkG/HigS+UJenZjYCGxr3cgr7QqwpA=
-X-Received: by 2002:a81:108f:0:b0:31c:d7ae:9ff1 with SMTP id
- 137-20020a81108f000000b0031cd7ae9ff1mr23759980ywq.18.1657620136053; Tue, 12
- Jul 2022 03:02:16 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220711095219.36915-1-andriy.shevchenko@linux.intel.com>
- <87ilo2r8np.wl-tiwai@suse.de>
-In-Reply-To: <87ilo2r8np.wl-tiwai@suse.de>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Tue, 12 Jul 2022 12:01:39 +0200
-Message-ID: <CAHp75VfjsJG0+Tgzb=QowNcS3yTEZNs0vd_LAq7P9rNxtHVAfA@mail.gmail.com>
-Subject: Re: [PATCH v1 1/4] ALSA: hda: cs35l41: Improve dev_err_probe()
- messaging
-To: Takashi Iwai <tiwai@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Lucas Tanure <tanureal@opensource.cirrus.com>, patches@opensource.cirrus.com,
- Takashi Iwai <tiwai@suse.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- James Schulman <james.schulman@cirrus.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- David Rhodes <david.rhodes@cirrus.com>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="wH6B8lfk"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="68fLRILY"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id DD76B22309;
+ Tue, 12 Jul 2022 10:46:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1657622779; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=SKKm9QyiwuEPgCpIIEDh7+AReGpB78GMrsswWSfyhdc=;
+ b=wH6B8lfkoBNNvqiOtb6VCai/maxER6r/fsucxXFk8UxelC64CWIHL5uPRviZd9VtRQ9+A8
+ ET+CDu7cDxQuSBGAGbUtzFQoM4qbcfIWXPo9RrohxICjEl9ox539okC7tyYiDAiFtWEYea
+ oTuksJv1G9Sf54gDlEDrb4Ml1pstMAU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1657622779;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=SKKm9QyiwuEPgCpIIEDh7+AReGpB78GMrsswWSfyhdc=;
+ b=68fLRILYZE6n+m6ThjdS9rj69hBAoLMhySWpWBQfE9jYv8AglxVAbsDVqXM1rxpQiD6RwF
+ 2c7GkHfkIobK2pAA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AD1D513A94;
+ Tue, 12 Jul 2022 10:46:19 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id EWprKftQzWLbcwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 12 Jul 2022 10:46:19 +0000
+Date: Tue, 12 Jul 2022 12:46:19 +0200
+Message-ID: <874jzmr4lg.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: Re: [PATCH 1/9] ALSA: hda: Do not unset preset when cleaning up codec
+In-Reply-To: <8bdd56fc-de6b-381e-24f5-5d2c28e337f7@intel.com>
+References: <20220706120230.427296-1-cezary.rojewski@intel.com>
+ <20220706120230.427296-2-cezary.rojewski@intel.com>
+ <878rp2i6sj.wl-tiwai@suse.de>
+ <2966b410-f00d-9b33-fcfa-30d484455579@intel.com>
+ <877d4jsppp.wl-tiwai@suse.de>
+ <8bdd56fc-de6b-381e-24f5-5d2c28e337f7@intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ tiwai@suse.com, hdegoede@redhat.com, broonie@kernel.org,
+ amadeuszx.slawinski@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,22 +106,97 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Jul 12, 2022 at 11:35 AM Takashi Iwai <tiwai@suse.de> wrote:
->
-> On Mon, 11 Jul 2022 11:52:16 +0200,
-> Andy Shevchenko wrote:
-> >
-> > Drop duplicate print of returned value in the messages and use pattern
-> > return dev_err_probe(...) where it's possible.
-> >
-> > Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
->
-> Applied this one, but postpone the rest three patches, as there seems
-> a build regression according 0day bot.
+On Tue, 12 Jul 2022 11:42:56 +0200,
+Cezary Rojewski wrote:
+> 
+> On 2022-07-11 4:12 PM, Takashi Iwai wrote:
+> > On Mon, 11 Jul 2022 10:25:17 +0200,
+> > Cezary Rojewski wrote:
+> 
+> ...
+> 
+> >> avs-driver i.e. the bus driver takes responsibility for the codec
+> >> device only. There is no real probe(), just the device creation and
+> >> initialization of its fields. The rest is handled by the component
+> >> driver (sound/soc/hda.c). If this field is cleared and the test is
+> >> limited to reloading HDAudio codec module alone, we get a
+> >> panic. Something similar to the stack found below my message.
+> >> 
+> >> In regard to the other question - are presets freed at all? It seems
+> >> all of them are part of the static device-driver matching list. If so,
+> >> the pointer is always valid.
+> > 
+> > When the codec driver is unbound and the module is unloaded, the whole
+> > objects and symbols are gone.
+> 
+> 
+> hda_codec_driver_remove() won't get even called when soc-card is being
+> unbound so everything is still here.
+> 
+> >> [  136.827856] RIP: 0010:hda_codec_probe+0x16c/0x560 [snd_soc_hda_codec]
+> 
+> >> [  136.828568] Call Trace:
+> >> [  136.828593]  <TASK>
+> >> [  136.828628]  snd_soc_component_probe+0x3a/0x60 [snd_soc_core]
+> >> [  136.828981]  soc_probe_component+0x276/0x4a0 [snd_soc_core]
+> >> [  136.829274]  snd_soc_bind_card+0x819/0x13d0 [snd_soc_core]
+> >> [  136.829560]  ? __kasan_slab_alloc+0x32/0x90
+> >> [  136.829614]  snd_soc_register_card+0x24e/0x260 [snd_soc_core]
+> >> [  136.829900]  devm_snd_soc_register_card+0x48/0x90 [snd_soc_core]
+> >> [  136.830204]  avs_hdaudio_probe+0x298/0x2c0 [snd_soc_avs_hdaudio]
+> 
+> >> (...)
+> > 
+> > Hmm, in the Oops above, at which moment,
+> > snd_hda_codec_cleanup_for_unbind() is called via which function?
+> > Is it the unload of HD-audio codec driver during the probe of AVS
+> > HD-audio?
+> > 
+> > The preset is assigned to the given HD-audio device object for the
+> > attached codec driver.  Once after the codec driver gets unbound, you
+> > must not access to this codec driver's methods any longer, hence we
+> > clear the preset field.
+> > 
+> > So I wonder how the access to the codec->preset happens after the
+> > codec unbind.
+> 
+> 
+> Test scenario:
+> - enumerate avs-driver stack on machine with HDAudio codec present
+> - rmmod snd_soc_avs_hdaudio // just the machine board driver
+> i.e. soc-card driver
+> - modprobe snd_soc_avs_hdaudio
+> >>> panic <<<
+> 
+> snd_hda_codec_cleanup_for_unbind() is called in more places than just
+> HDAudio codec driver's probe() and remove(). It's also called whenever
+> HDAudio codec soc-component is being removed. Relevant part of the
+> stack showing when does the cleanup function get called during rmmod:
+> 
+> [  220.549349]  snd_hda_codec_cleanup_for_unbind+0x25/0x451 [snd_hda_codec]
+> [  220.549536]  ? dump_stack_lvl+0x45/0x49
+> [  220.549568]  hda_codec_remove.cold+0x14/0x138 [snd_soc_hda_codec]
+> [  220.549609]  snd_soc_component_remove+0x34/0x40 [snd_soc_core]
+> [  220.549942]  soc_remove_component+0x113/0x120 [snd_soc_core]
+> [  220.550249]  soc_cleanup_card_resources+0x1a7/0x4a0 [snd_soc_core]
+> [  220.550561]  snd_soc_unbind_card+0x9e/0x190 [snd_soc_core]
+> [  220.550885]  snd_soc_unregister_card+0x28/0x80 [snd_soc_core]
+> [  220.551193]  devm_card_release+0x1d/0x20 [snd_soc_core]
+> [  220.551527]  release_nodes+0x73/0x170
+> [  220.551549]  ? preempt_count_sub+0x18/0xc0
+> [  220.551576]  devres_release_all+0x10a/0x150
+> [  220.551600]  ? devres_remove_group+0x260/0x260
+> [  220.551630]  device_unbind_cleanup+0x14/0xd0
+> [  220.551656]  device_release_driver_internal+0x146/0x1d0
+> [  220.551688]  driver_detach+0x81/0xf0
+> [  220.551716]  bus_remove_driver+0xae/0x170
+> [  220.551743]  driver_unregister+0x4d/0x70
+> [  220.551770]  platform_driver_unregister+0x12/0x20
+> [  220.551799]  avs_hdaudio_driver_exit+0x10/0x12 [snd_soc_avs_hdaudio]
 
-Thanks and sorry for that, something (mis)happens, I'll test it
-carefully for v2.
+So, IMO,  you're scratching a wrong surface.  The problem is rather
+that snd_hda_codec_cleanup_for_unbind() is called even if it's not for
+unbinding the codec.
 
--- 
-With Best Regards,
-Andy Shevchenko
+
+Takashi

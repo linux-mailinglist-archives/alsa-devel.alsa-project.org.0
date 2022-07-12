@@ -2,96 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C6D95713CD
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Jul 2022 10:01:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E12B9571404
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Jul 2022 10:10:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C5B7D15F2;
-	Tue, 12 Jul 2022 10:00:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C5B7D15F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7F8B215C2;
+	Tue, 12 Jul 2022 10:09:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F8B215C2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657612886;
-	bh=XXz3aa2aC2vSQAHcR+WNJs9TRR4YGBOBs/Xr1Spf5gg=;
+	s=default; t=1657613414;
+	bh=towodoRuT9zkTst+L3Yiw5ghjDBF29UvP759TaSCuew=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=b9ZeHs5sPd7+P0VW1PSZCcfc5bXt+liul3lqZdeu1tzrOjH/EioUl0wO9JOBaux5K
-	 OyX28m+T8lj8rUPxVKXwsTTI4MOyIp1a5u6nq7MgrL33Mah91oa+EZlWwjdsg7MURD
-	 Us3cbIXwYXLpBqoGPRz13sZV0VmcyhizM6aSm590=
+	b=uRyOB4Xk/fe075+29PQhIqo0he/RTQ9uFSUPWLRyHvAK2EKaMZ2wu28PYkqKRlzyn
+	 Bj8Wv/8cDFyykoq4xWQSmglzPry1hvsiwWGVkurBEaUVdXXApOo7AJPqcdWlOcsC1Z
+	 Tp45rAhDYGrJso6SbIS9e23AYEEQ3NRIK1d9XvGg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 45C0DF80279;
-	Tue, 12 Jul 2022 10:00:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EB081F800E8;
+	Tue, 12 Jul 2022 10:09:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1A768F80246; Tue, 12 Jul 2022 10:00:24 +0200 (CEST)
+ id CA9C9F80246; Tue, 12 Jul 2022 10:09:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E583AF800E8
- for <alsa-devel@alsa-project.org>; Tue, 12 Jul 2022 10:00:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E583AF800E8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 71D8BF8012B
+ for <alsa-devel@alsa-project.org>; Tue, 12 Jul 2022 10:09:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71D8BF8012B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="WN9sSDUB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1657612821; x=1689148821;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=XXz3aa2aC2vSQAHcR+WNJs9TRR4YGBOBs/Xr1Spf5gg=;
- b=WN9sSDUBI3olOp5I2KgI4pyeTpKFXSkDfKfb74kl9uh9aTKwc9/VMujp
- IyQAcDS4Nlsyusi02zJWTPqRIc04F9qSXEIBmuDqdLex3QpP/rkIsjxTS
- gEAL2la+yVipGbSepQ671wLugeOUdpbNPrPSvGC1SQdOStLIBJ61Jz3y+
- zAGGZOAdqZkU1JX1CCpHhzsIdGBcUkwTgFP56KiIQ+C4xA5RVnSjI2HTT
- I2YnWNe7bDIUM85sT7K4NCgN37MTExUuwRMb3hcB0QgjGQD/qhUHkE5Ag
- ZpFQ8mgeMa/YzqLD4gVyR6WHcDYgRdTgfLNOzYLXUd73CAQpjNoHOLogQ w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10405"; a="267905687"
-X-IronPort-AV: E=Sophos;i="5.92,265,1650956400"; d="scan'208";a="267905687"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jul 2022 01:00:05 -0700
-X-IronPort-AV: E=Sophos;i="5.92,265,1650956400"; d="scan'208";a="684684108"
-Received: from ahedstro-mobl.ger.corp.intel.com (HELO [10.249.254.175])
- ([10.249.254.175])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jul 2022 00:59:41 -0700
-Message-ID: <48a9865b-9cf8-f99a-235f-565da9c0529d@linux.intel.com>
-Date: Tue, 12 Jul 2022 11:00:30 +0300
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="OPdG2eSd"
+Received: by mail-lf1-x131.google.com with SMTP id bp17so4789716lfb.3
+ for <alsa-devel@alsa-project.org>; Tue, 12 Jul 2022 01:09:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=7hymDGoXZOvT4wo4b8VCjcpQ+XRX3pT8aXtW5HqYY0g=;
+ b=OPdG2eSd1GwsQvVoZ0jTUrpcOgCQXXF6v27JsagiYHeJ6mvzzR+Vl2f5DWGBjL0oor
+ BzmxvVaVbkSaFHK7xobBT1bo0BsaPnUpw5Qgn0tPbnXqtVtmsvOgknBB1MpPys+RS4Bn
+ rfEtTi4GTZNaV/RnyYY+aaIRpyNRrYFu1veoiDQrMvRBmHvqwHy4ilNMbxKtX4JPW9Xk
+ A9skPZvL0WP/Ki5yau8/+5P9EUCltbpgLBVm3keFVQxCZ59e121jQM2wCideCjMCucWZ
+ spTAHTc6jEIGjfZ1HBwMvzH0MSplaC8m0ZRUeFXmQ7DEecAWRrQRPh7oxT3T1L2dE4mU
+ LF6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=7hymDGoXZOvT4wo4b8VCjcpQ+XRX3pT8aXtW5HqYY0g=;
+ b=fB+T2A6gutEtoUl/ytrA4i/Vgm7Opau5z+W4ytQJeejCzpSc6uPWYaNyqc5YaWr0En
+ 74CG7THcz3DfSjfSmtFU2G98Cm8MrBTZmTEPu569ir0OeZFfocxVqxSD1Vw8poKaOsxY
+ j79QtuhrUtKWRrYT+i8t7925jwVEE3FBwUdBzIQbTU3mxQwC+B5D+6QO6uGe3iISI44e
+ g8486FsqcHA2iTVhv2Qj8yjQLJYyg4PC2yota6x9QlM/1qqMZlAim0Y69Hp9nrxtoKZi
+ ssDWU9biK0ixovmgDtm3z8GxiIKMKqJHiMsTHWTNEMi06qZL49jxLE9Gi6eVsXdGi5iG
+ BwjQ==
+X-Gm-Message-State: AJIora8GNOWvN6ZnhvU8WOv6fzrStEHwToKVos9P/4V481Eou96cpEMU
+ P5pmPf3aspHx05o24s380EUWsA==
+X-Google-Smtp-Source: AGRyM1usYq9Y2eMuGje+OHvls6QftNfcJPk9nwgSJbif9bEWrfHigs4mRwSaVpCHRiznM4HZVPSYkg==
+X-Received: by 2002:a05:6512:34cd:b0:488:aa53:c104 with SMTP id
+ w13-20020a05651234cd00b00488aa53c104mr15231306lfr.517.1657613343057; 
+ Tue, 12 Jul 2022 01:09:03 -0700 (PDT)
+Received: from [10.0.0.8] (fwa5cab-55.bb.online.no. [88.92.171.55])
+ by smtp.gmail.com with ESMTPSA id
+ a12-20020a19ca0c000000b00488e50527e0sm2026877lfg.112.2022.07.12.01.09.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 12 Jul 2022 01:09:02 -0700 (PDT)
+Message-ID: <b2934014-8048-6c17-e655-bd1be09794bc@linaro.org>
+Date: Tue, 12 Jul 2022 10:09:00 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.10.0
-Subject: Re: Sound not working after commit
- bbf7d3b1c4f40eb02dd1dffb500ba00b0bff0303 on Amlogic A311D device
+ Thunderbird/91.11.0
+Subject: Re: [PATCH v2 0/2] dt-bindings: sound: Convert to json-schema
 Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Alex Natalsson <harmoniesworlds@gmail.com>
-References: <CADs9LoPZH_D+eJ9qjTxSLE5jGyhKsjMN7g2NighZ16biVxsyKw@mail.gmail.com>
- <15259e38-eccf-d294-a330-a48b5bbbdedf@linux.intel.com>
- <CADs9LoN-L0X1Dr1sP2K7xrcWm7dpHW6MhF47c2eBB0moLNnPRQ@mail.gmail.com>
- <18d3e724-e43f-c166-e322-26cc5e3890b7@linux.intel.com>
- <CADs9LoOZjK=cUuNSEELtgxYoA+yHVFKM_Y9YLcY74smqx8XsjQ@mail.gmail.com>
- <c554b69c-0c73-158d-85d8-95a0375babeb@linux.intel.com>
- <CADs9LoOOOXVC0p8R=b1y+Kfb1+ESEyMaVe9eoW=F5gdp0_GitQ@mail.gmail.com>
- <c4d32547-5f99-595e-21d3-fdb22a1af237@linux.intel.com>
- <CADs9LoNMuwbiSfgF1buDoY6=ecpR-BuZvTgXbFxe3qyL1=roUQ@mail.gmail.com>
- <CADs9LoOJu-NYxPhDL+N+xBtocPNw2y0nRHbSaO-NmGO284GPfA@mail.gmail.com>
- <b3e3d969-606f-dede-0319-7b8ed2a975f7@linux.intel.com>
-From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
-In-Reply-To: <b3e3d969-606f-dede-0319-7b8ed2a975f7@linux.intel.com>
+To: Ryan.Wanner@microchip.com, lgirdwood@gmail.com, broonie@kernel.org,
+ robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com,
+ claudiu.beznea@microchip.com
+References: <20220711183010.39123-1-Ryan.Wanner@microchip.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20220711183010.39123-1-Ryan.Wanner@microchip.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, Takashi Iwai <tiwai@suse.de>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- linux-sound@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+Content-Transfer-Encoding: 7bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,60 +109,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 11/07/2022 17:33, Pierre-Louis Bossart wrote:
+On 11/07/2022 20:30, Ryan.Wanner@microchip.com wrote:
+> From: Ryan Wanner <Ryan.Wanner@microchip.com>
 > 
+> This patch series converts atmel-classd and atmel-pdmic device tree
+> bindings to json-schema.
 > 
-> On 7/9/22 06:19, Alex Natalsson wrote:
->>>> +       if (!fe_substream) {
->>>> +               dev_err(fe->dev, "%s: fe_substream not initialized\n",
->>>> __func__);
->>>> +               return -EINVAL;
->>>> +       }
->>>> +       if (!be_substream) {
->>>> +               dev_err(be->dev, "%s: be_substream not initialized\n",
->>>> __func__);
->>>> +               return -EINVAL;
->>>> +       }
->>>> +
->>
->> Will be this in upstream or needing bugzilla reporting message?
-> I created a patch based on this, see
-> https://github.com/thesofproject/linux/pull/3735
+> v1 -> v2:
+> - Fix commit formatting.
+> - Fix titles in yaml file
+> - Removed trivial descriptions
+> - Correct formatting errors 
 > 
-> I am not sure however if this is the 'right' fix. There was a comment
-> from Peter Ujfalusi that a BE substream may be initialized later, but if
-> that's the case then the atomicity check that was introduced is done in
-> the wrong location.
+> Ryan Wanner (2):
+>   dt-bindings: sound: atmel,classd: Convert to json-schema
+>   dt-binding: sound: atmel,pdmic: Convert to json-schema
 
-fwiw, the dpcm_apply_symmetry() have this check at line 1822:
+Use consistent and proper prefix. I think you got such comment before,
+right?
 
-/* A backend may not have the requested substream */
-if (!be_substream)
-	continue;
 
-both dpcm_be_connect() and dpcm_apply_symmetry() are called via
-dpcm_fe_dai_open() line 2736-2739:
-
-/* calculate valid and active FE <-> BE dpcms */
-dpcm_process_paths(fe, stream, &list, 1);
-
-ret = dpcm_fe_dai_startup(fe_substream);
-
-dpcm_fe_dai_open -> dpcm_process_paths -> dpcm_add_paths > dpcm_be_connect
-
-dpcm_fe_dai_open -> dpcm_fe_dai_startup -> dpcm_apply_symmetry
-
-If the check was added by
-6246f283d5e02 ("ASoC: dpcm: skip missing substream while applying symmetry")
-
-It looks like that it is not uncommon to not have be_substream at this
-point...
-
-> Takashi, we could use your guidance here.
-> Thanks
-> -Pierre
-
--- 
-Péter
+Best regards,
+Krzysztof

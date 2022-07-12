@@ -2,86 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A36EF5715A6
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Jul 2022 11:27:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62BEB5715BF
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Jul 2022 11:31:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 44DCA1635;
-	Tue, 12 Jul 2022 11:26:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44DCA1635
+	by alsa0.perex.cz (Postfix) with ESMTPS id DF6C1827;
+	Tue, 12 Jul 2022 11:30:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF6C1827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657618025;
-	bh=ldOhSYdVnNiFptakzwGRnK5rAnCWJXnt7OYqVszuYuE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1657618262;
+	bh=QArCS3zy/H+pihaxJ+LbmPLederaiugvsXn4lgLsxko=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BRG6zJv0idaygFVJztxAjqO9syqxBMEf8SF58zqPzPmM1ZhbflWx8uEJ3c5fe3e1T
-	 pZFl5t01ertk2oTS21NiUVQ/xV+As/jMEFhKMeu7pzO+eiiTdt37yYzZnTM8EY7Mqs
-	 DcKiV0NndUVEK7vEpiNOVJsUvUhTwI3+RbgqKdso=
+	b=mqn1Ib9AvOWFRdGShjXohL586S/WGq6NhzIk1kuYb5g3SVTFWx0xWSkQcjGTKePjf
+	 F4i/vG8VtAV76JwYheCjC4jam6ejKnJ8Luhm7BqQDK7TsieiWFEEOhStycONi+EqUI
+	 BIVowFxLUuR0zTqHukWhSyYUPDcO/zUkE+D5J+c4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9A7F0F80279;
-	Tue, 12 Jul 2022 11:26:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 543D0F800BD;
+	Tue, 12 Jul 2022 11:30:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B3203F8012B; Tue, 12 Jul 2022 11:26:02 +0200 (CEST)
+ id 89533F80246; Tue, 12 Jul 2022 11:29:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-yb1-xb2d.google.com (mail-yb1-xb2d.google.com
- [IPv6:2607:f8b0:4864:20::b2d])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A6B7FF8012B
- for <alsa-devel@alsa-project.org>; Tue, 12 Jul 2022 11:25:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6B7FF8012B
+ by alsa1.perex.cz (Postfix) with ESMTPS id E9B7CF8012B
+ for <alsa-devel@alsa-project.org>; Tue, 12 Jul 2022 11:29:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9B7CF8012B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="E7s9MG7R"
-Received: by mail-yb1-xb2d.google.com with SMTP id h62so10312877ybb.11
- for <alsa-devel@alsa-project.org>; Tue, 12 Jul 2022 02:25:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=d1s8GrTnsNja2UVMETHzEYbNsXWuG59DZYYujxZ0uNM=;
- b=E7s9MG7R2vyOdYv+DyJTyP9qvDF861Hg8UVSKuu7fPfKiJcUf0T4+5rqWBOAwiFT5m
- s71YczqnCk9QoXFJsxY2iPajEPVHRKjzLDLNfN78+HPcOlx5GCAg4lTAcA9AQpp1P7ks
- xOvaswgiroGepfMq6tz8Iodj/oB/xEYuKHK/w=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=d1s8GrTnsNja2UVMETHzEYbNsXWuG59DZYYujxZ0uNM=;
- b=8HLHwoVDJicvPk5JndUQADNJ2Xkz4qi9QAWDmm7hzaNaKF0X8rZ3aAfewaQ6d1IIKv
- 14TeWB+1u3o+kPMSyJJnkpv08IwHq44gjS5flRjDeqcaW5Jn6q+Ek8/OtmVasmeoj0uu
- Og/jS8gQo1qzeuEexWMDKv3u+Iy+BHXbhDbbQ29wpp3AQSzBWeAA7glge4BKRDwMwk5m
- ZKiccwB+kMrKhrtZ2XAGqwYBicIEWGGmWOfMb3wQSuaje+WC0o3680vzADXdYpNqsG4c
- COmHfS6ykZczer3ozfmzrVt9pCbD2Ee6QRrqMDaja1vvqsAaE/QoXCaHcB/qKbTk0Bh3
- E+nQ==
-X-Gm-Message-State: AJIora9GGfgXNaK19WQianTodHg+1azXcVXXHfz94sIXSi5TdYjECFDp
- SDCTMU/dRd5g22QA9iwk14R0+K/TjT9yy3CvAgv48Q==
-X-Google-Smtp-Source: AGRyM1s+8nCq65TcIOsDHs7Q7KKeErUSUAooT/HwPjUkoNu7g19Wcn3E28+svjZ6gcqJgvvsQ3k/cHQJeodj0Uih8+Q=
-X-Received: by 2002:a25:81c5:0:b0:66d:55b5:d250 with SMTP id
- n5-20020a2581c5000000b0066d55b5d250mr20396849ybm.501.1657617954174; Tue, 12
- Jul 2022 02:25:54 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220711130522.401551-1-alexandru.elisei@arm.com>
- <CAGXv+5HyD63MSmnNSoHX6euR2qpnqh-Fn9rdRYRYz4Ci90+w8Q@mail.gmail.com>
- <Ys00vczqcIGzOadV@monolith.localdoman>
-In-Reply-To: <Ys00vczqcIGzOadV@monolith.localdoman>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Tue, 12 Jul 2022 17:25:43 +0800
-Message-ID: <CAGXv+5G=YvDkm8a=Wyui4mqSskqPq-kQJfU4HGNXSGzz0hXiqw@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: rockchip: i2s: Fix NULL pointer dereference when
- pinctrl is not found
-To: Alexandru Elisei <alexandru.elisei@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: alsa-devel@alsa-project.org, heiko@sntech.de, linux-kernel@vger.kernel.org,
- tiwai@suse.com, lgirdwood@gmail.com, linux-rockchip@lists.infradead.org,
- broonie@kernel.org, judyhsiao@chromium.org,
- linux-arm-kernel@lists.infradead.org
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="p9MA2OEW"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="mGHzDPeZ"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 15C85201E3;
+ Tue, 12 Jul 2022 09:29:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1657618194; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=+MiFjo69AKZMuiBYGmwUATDG22mkCWi/qQrq4f4DR6o=;
+ b=p9MA2OEWxr/Zlw3fh1z5M7ux3yGGGG/qYZcbdhEOIVdE/4HiUAsfIygF40hb7Mi4gtm7GX
+ sm0BsNvFwiDO5uP9TTuw0z2sc0p4XZhcXHSOoCWYvv85cJle2cKAhbyzGjRk8bB9G27sqq
+ zAEBCaEzA6RhmnTo4wi3iFxfZBHazx4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1657618194;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=+MiFjo69AKZMuiBYGmwUATDG22mkCWi/qQrq4f4DR6o=;
+ b=mGHzDPeZCQ41Tmc4ii8BFIXrdM23fAKhk5IwWuUUP/98L57LNfth06So0mJt64Y3DbwY7T
+ /Aks2ALFpbBjZyCA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CA74413638;
+ Tue, 12 Jul 2022 09:29:53 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id J5upLxE/zWL3UAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 12 Jul 2022 09:29:53 +0000
+Date: Tue, 12 Jul 2022 11:29:53 +0200
+Message-ID: <87fsj6r84u.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: Sound not working after commit
+ bbf7d3b1c4f40eb02dd1dffb500ba00b0bff0303 on Amlogic A311D device
+In-Reply-To: <b3e3d969-606f-dede-0319-7b8ed2a975f7@linux.intel.com>
+References: <CADs9LoPZH_D+eJ9qjTxSLE5jGyhKsjMN7g2NighZ16biVxsyKw@mail.gmail.com>
+ <15259e38-eccf-d294-a330-a48b5bbbdedf@linux.intel.com>
+ <CADs9LoN-L0X1Dr1sP2K7xrcWm7dpHW6MhF47c2eBB0moLNnPRQ@mail.gmail.com>
+ <18d3e724-e43f-c166-e322-26cc5e3890b7@linux.intel.com>
+ <CADs9LoOZjK=cUuNSEELtgxYoA+yHVFKM_Y9YLcY74smqx8XsjQ@mail.gmail.com>
+ <c554b69c-0c73-158d-85d8-95a0375babeb@linux.intel.com>
+ <CADs9LoOOOXVC0p8R=b1y+Kfb1+ESEyMaVe9eoW=F5gdp0_GitQ@mail.gmail.com>
+ <c4d32547-5f99-595e-21d3-fdb22a1af237@linux.intel.com>
+ <CADs9LoNMuwbiSfgF1buDoY6=ecpR-BuZvTgXbFxe3qyL1=roUQ@mail.gmail.com>
+ <CADs9LoOJu-NYxPhDL+N+xBtocPNw2y0nRHbSaO-NmGO284GPfA@mail.gmail.com>
+ <b3e3d969-606f-dede-0319-7b8ed2a975f7@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Alex Natalsson <harmoniesworlds@gmail.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ =?ISO-8859-1?Q?P=E9ter?= Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ linux-sound@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,157 +116,57 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Jul 12, 2022 at 4:53 PM Alexandru Elisei
-<alexandru.elisei@arm.com> wrote:
->
-> Hi ChenYu,
->
-> On Tue, Jul 12, 2022 at 02:17:32PM +0800, Chen-Yu Tsai wrote:
-> > On Mon, Jul 11, 2022 at 9:06 PM Alexandru Elisei
-> > <alexandru.elisei@arm.com> wrote:
-> > >
-> > > Commit a5450aba737d ("ASoC: rockchip: i2s: switch BCLK to GPIO") switched
-> > > BCLK to GPIO functions when probing the i2s bus interface, but missed
-> > > adding a check for when devm_pinctrl_get() returns an error.  This can lead
-> > > to the following NULL pointer dereference on a rockpro64-v2 if there are no
-> > > "pinctrl" properties in the i2s device tree node:
-> > >
-> > > [    0.658381] rockchip-i2s ff880000.i2s: failed to find i2s default state
-> > > [    0.658993] rockchip-i2s ff880000.i2s: failed to find i2s gpio state
-> > > [    0.660072] rockchip-i2s ff890000.i2s: failed to find i2s default state
-> > > [    0.660670] rockchip-i2s ff890000.i2s: failed to find i2s gpio state
-> > > [    0.661716] rockchip-i2s ff8a0000.i2s: failed to find i2s pinctrl
-> > > [    0.662276] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000005
-> > > [    0.663061] Mem abort info:
-> > > [    0.663317]   ESR = 0x0000000096000004
-> > > [    0.663658]   EC = 0x25: DABT (current EL), IL = 32 bits
-> > > [    0.664136]   SET = 0, FnV = 0
-> > > [    0.664171] mmc2: SDHCI controller on fe330000.mmc [fe330000.mmc] using ADMA
-> > > [    0.664409]   EA = 0, S1PTW = 0
-> > > [    0.664415]   FSC = 0x04: level 0 translation fault
-> > > [    0.664421] Data abort info:
-> > > [    0.666050]   ISV = 0, ISS = 0x00000004
-> > > [    0.666399]   CM = 0, WnR = 0
-> > > [    0.666671] [0000000000000005] user address but active_mm is swapper
-> > > [    0.667240] Internal error: Oops: 96000004 [#1] PREEMPT SMP
-> > > [    0.667742] Modules linked in:
-> > > [    0.668028] CPU: 5 PID: 1 Comm: swapper/0 Not tainted 5.19.0-rc6 #300
-> > > [    0.668608] Hardware name: Pine64 RockPro64 v2.0 (DT)
-> > > [    0.669062] pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-> > > [    0.669689] pc : pinctrl_lookup_state+0x20/0xc0
-> > > [    0.670110] lr : rockchip_i2s_probe+0x1a8/0x54c
-> > > [    0.670527] sp : ffff80000a17bb30
-> > > [    0.670829] x29: ffff80000a17bb30 x28: 0000000000000000 x27: ffff8000097c04c8
-> > > [    0.671480] x26: ffff800009871060 x25: ffff800009871078 x24: ffff000001c11368
-> > > [    0.672129] x23: ffff8000092dc850 x22: ffffffffffffffed x21: ffff8000096f7e98
-> > > [    0.672776] x20: ffffffffffffffed x19: ffff000001d92480 x18: ffffffffffffffff
-> > > [    0.673423] x17: 000000040044ffff x16: ffff0000f77db2d0 x15: 0764076e07690766
-> > > [    0.674070] x14: 0720076f07740720 x13: ffff800009e129f0 x12: 000000000000038d
-> > > [    0.674717] x11: 000000000000012f x10: ffff800009e6a9f0 x9 : ffff800009e129f0
-> > > [    0.675364] x8 : 00000000ffffefff x7 : ffff800009e6a9f0 x6 : 80000000fffff000
-> > > [    0.676011] x5 : 000000000000bff4 x4 : 0000000000000000 x3 : 0000000000000000
-> > > [    0.676657] x2 : 0000000000000000 x1 : ffff8000096f7e98 x0 : ffffffffffffffed
-> > > [    0.677304] Call trace:
-> > > [    0.677531]  pinctrl_lookup_state+0x20/0xc0
-> > > [    0.677914]  rockchip_i2s_probe+0x1a8/0x54c
-> > > [    0.678297]  platform_probe+0x68/0xc0
-> > > [    0.678638]  really_probe.part.0+0x9c/0x2ac
-> > > [    0.679027]  __driver_probe_device+0x98/0x144
-> > > [    0.679429]  driver_probe_device+0xac/0x140
-> > > [    0.679814]  __driver_attach+0xf8/0x184
-> > > [    0.680169]  bus_for_each_dev+0x70/0xd0
-> > > [    0.680524]  driver_attach+0x24/0x30
-> > > [    0.680856]  bus_add_driver+0x150/0x200
-> > > [    0.681210]  driver_register+0x78/0x130
-> > > [    0.681560]  __platform_driver_register+0x28/0x34
-> > > [    0.681988]  rockchip_i2s_driver_init+0x1c/0x28
-> > > [    0.682407]  do_one_initcall+0x50/0x1c0
-> > > [    0.682760]  kernel_init_freeable+0x204/0x288
-> > > [    0.683160]  kernel_init+0x28/0x13c
-> > > [    0.683482]  ret_from_fork+0x10/0x20
-> > > [    0.683816] Code: aa0003f4 a9025bf5 aa0003f6 aa0103f5 (f8418e93)
-> > > [    0.684365] ---[ end trace 0000000000000000 ]---
-> > > [    0.684813] Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b
-> > > [    0.685500] SMP: stopping secondary CPUs
-> > > [    0.685995] Kernel Offset: disabled
-> > > [    0.686310] CPU features: 0x800,00105811,00001086
-> > > [    0.686736] Memory Limit: none
-> > > [    0.687021] ---[ end Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b ]---
-> > >
-> > > Check that i2s->pinctrl is valid before attempting to search for the
-> > > bclk_on and bclk_off pinctrl states.
-> > >
-> > > Fixes: a5450aba737d ("ASoC: rockchip: i2s: switch BCLK to GPIO")
-> > > Signed-off-by: Alexandru Elisei <alexandru.elisei@arm.com>
-> > > ---
-> > >
-> > > Full log at [1], config at [2] (pastebins expire after 6 months).
-> > >
-> > > I'm not familiar with this part of the kernel, I did my best to come up
-> > > with an explanation and a fix for the panic.
-> > >
-> > > Read Documentation/devicetree/bindings/sound/rockchip-i2s.yaml, which has the
-> > > definition for the i2s nodes with the same compatible string as the i2s@ff8a0000
-> > > that is causing the panic (which is, "rockchip,rk3399-i2s"
-> > > "rockchip,rk3066-i2s"). There's no mention there of a "pinctrl" property, maybe
-> > > I'm reading the docs wrong, or maybe the board devicetree also needs fixing.
-> > >
-> > > [1] https://pastebin.com/vuRVDsKk
-> > > [2] https://pastebin.com/3yDMF7YE
-> > >
-> > >  sound/soc/rockchip/rockchip_i2s.c | 5 ++++-
-> > >  1 file changed, 4 insertions(+), 1 deletion(-)
-> > >
-> > > diff --git a/sound/soc/rockchip/rockchip_i2s.c b/sound/soc/rockchip/rockchip_i2s.c
-> > > index 99a128a666fb..c9fedf6eb2e6 100644
-> > > --- a/sound/soc/rockchip/rockchip_i2s.c
-> > > +++ b/sound/soc/rockchip/rockchip_i2s.c
-> > > @@ -808,8 +808,11 @@ static int rockchip_i2s_probe(struct platform_device *pdev)
-> > >
-> > >         i2s->bclk_ratio = 64;
-> > >         i2s->pinctrl = devm_pinctrl_get(&pdev->dev);
-> > > -       if (IS_ERR(i2s->pinctrl))
-> > > +       if (IS_ERR(i2s->pinctrl)) {
-> > >                 dev_err(&pdev->dev, "failed to find i2s pinctrl\n");
-> > > +               ret = PTR_ERR(i2s->pinctrl);
-> > > +               goto err_clk;
-> > > +       }
-> >
-> > This would break audio for HDMI audio, which uses an I2S interface
-> > to feed the HDMI controller and does not need or have pinctrl, but
-> > here you make pinctrl a requirement.
-> >
-> > See https://lore.kernel.org/alsa-devel/20220621185747.2782-1-wens@kernel.org/
-> > for my fix, which is merged for 5.20.
->
-> For what it's worth, I've tested the fix and the board boots just fine.
+On Mon, 11 Jul 2022 16:33:14 +0200,
+Pierre-Louis Bossart wrote:
+> 
+> 
+> 
+> On 7/9/22 06:19, Alex Natalsson wrote:
+> >>> +       if (!fe_substream) {
+> >>> +               dev_err(fe->dev, "%s: fe_substream not initialized\n",
+> >>> __func__);
+> >>> +               return -EINVAL;
+> >>> +       }
+> >>> +       if (!be_substream) {
+> >>> +               dev_err(be->dev, "%s: be_substream not initialized\n",
+> >>> __func__);
+> >>> +               return -EINVAL;
+> >>> +       }
+> >>> +
+> > 
+> > Will be this in upstream or needing bugzilla reporting message?
+> I created a patch based on this, see
+> https://github.com/thesofproject/linux/pull/3735
+> 
+> I am not sure however if this is the 'right' fix. There was a comment
+> from Peter Ujfalusi that a BE substream may be initialized later, but if
+> that's the case then the atomicity check that was introduced is done in
+> the wrong location.
+> 
+> Takashi, we could use your guidance here.
 
-Check if your HDMI audio card probed correctly or not?
+I guess that the check of fe_substream there is superfluous.  It must
+be never NULL.  And, in principle, passing the invalid BE to this
+function itself sounds already wrong.  That said, if any check is
+needed, it should be done beforehand at choosing the right BE.
 
-ChenYu
+A fix like below might work instead?  (Totally untested)
 
-> Thanks,
-> Alex
->
-> >
-> > Maybe your patch (which Mark already applied) and commit a5450aba737d
-> > ("ASoC: rockchip: i2s: switch BCLK to GPIO") should just be reverted from
-> > the for-5.19?
-> >
-> > Mark?
-> >
-> >
-> > Regards
-> > ChenYu
-> >
-> > >
-> > >         i2s->bclk_on = pinctrl_lookup_state(i2s->pinctrl,
-> > >                                    "bclk_on");
-> > > --
-> > > 2.37.0
-> > >
-> > >
-> > > _______________________________________________
-> > > Linux-rockchip mailing list
-> > > Linux-rockchip@lists.infradead.org
-> > > http://lists.infradead.org/mailman/listinfo/linux-rockchip
+
+thanks,
+
+Takashi
+
+-- 8< --
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -1318,6 +1318,9 @@ static struct snd_soc_pcm_runtime *dpcm_get_be(struct snd_soc_card *card,
+ 		if (!be->dai_link->no_pcm)
+ 			continue;
+ 
++		if (!snd_soc_dpcm_get_substream(be, stream))
++			continue;
++
+ 		for_each_rtd_dais(be, i, dai) {
+ 			w = snd_soc_dai_get_widget(dai, stream);
+ 

@@ -2,69 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B23E95722BC
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Jul 2022 20:35:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D758572B4F
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jul 2022 04:28:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4372916E4;
-	Tue, 12 Jul 2022 20:34:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4372916E4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8DFEC16DF;
+	Wed, 13 Jul 2022 04:27:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DFEC16DF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657650916;
-	bh=tmqSrm2fPK9hZ8Qm4htcs6IIc2gq/L3JaatZkZbPWgA=;
+	s=default; t=1657679325;
+	bh=Y1himRsvNVmW5zMXGm2J9nY1y6a5CWaIRCaWIR1ScNA=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=d82w2zbEoqm0PZI5gY1j1jYC3WB7wEM5iRGAj+kybIMwV6W6ZDU/Ys9/0v/PEPdTu
-	 qtS7VDHHAW4IrUsDMOT6anitD4Ns/IamEZFmi59mLVfwUoaU1v1NY7nU9SvbvtI5oc
-	 ENnvF2l8WLyzQO0kZ5lZYN3wo5NkEO/Zp8BMm3+E=
+	b=VjYp2M6RoWMc08GRRrNR2VHgRv9pUbcBfd5nCYZTWvquqN12HOtbROFXgrdrTJHJz
+	 +UW8GumDus1Mg+HPgJgdZGYSa7CH/SvdglmcQjgtO6RaiUlBE8icM5A76z+8U2UPb2
+	 taS1r1GdcuCxbWlrkBQ0wK3BodTkTG+oRAVA2dNc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 55A41F800BD;
-	Tue, 12 Jul 2022 20:34:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0C2E7F80254;
+	Wed, 13 Jul 2022 04:27:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2EB98F800BD; Tue, 12 Jul 2022 20:34:13 +0200 (CEST)
+ id A85D3F80249; Wed, 13 Jul 2022 04:27:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-relay-canonical-0.canonical.com
+ (smtp-relay-canonical-0.canonical.com [185.125.188.120])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C771DF800E8
- for <alsa-devel@alsa-project.org>; Tue, 12 Jul 2022 20:34:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C771DF800E8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7AD50F800AA
+ for <alsa-devel@alsa-project.org>; Wed, 13 Jul 2022 04:27:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7AD50F800AA
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="XlC5k9uR"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:Content-Type:
- MIME-Version:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:In-Reply-To:References;
- bh=fHgrQHCc655FJdPY9x1bi0PKduTmHmcw0it6E+N218Y=; b=XlC5k9uRWiremsaPvGS7ESW3hA
- oNqmGAnAr7nNLazIs8RZvLUmArQgsfeI59rHHactAUdcpd3OHq2oNueDQeQ8WXeU4FowwzpgRSZ4E
- dZKDCdlDTyqNcuIXThuSALyFAwTRw8QHxDe9f9WxXXbr3hVUaahOCBOjODw5ntjtJYn2C8iOeZhLG
- XqBdDJURMP+XYKFykdbLqGTTFfkjMDoGyoVHXWI1UZm48sQWr04a7WDdask6S9akqJv3yjsur9z+L
- TlCLmPH036fn5ycNN6M6APUq/jZdAkh/MhwRgQEDCTMymHj/YhIN/dwdrpYZ/C3uul3Q8XqM70mR7
- O4VO/2VQ==;
-Received: from [2601:1c0:6280:3f0::a6b3] (helo=casper.infradead.org)
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1oBKho-007C5w-3h; Tue, 12 Jul 2022 18:33:57 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: linux-kernel@vger.kernel.org
-Subject: [PATCH -next] ASoC: amd: fix Jadeite kconfig warning and build errors
-Date: Tue, 12 Jul 2022 11:33:48 -0700
-Message-Id: <20220712183348.31046-1-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.36.1
+ dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
+ header.b="mL8hyRcy"
+Received: from localhost (36-226-173-138.dynamic-ip.hinet.net [36.226.173.138])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id B2D6B3F1AC; 
+ Wed, 13 Jul 2022 02:27:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1657679255;
+ bh=6wuZ+KJ616kYQkmRxbOA3+CCdrb1zXoGEni8dF7l4O4=;
+ h=From:To:Cc:Subject:Date:Message-Id:MIME-Version;
+ b=mL8hyRcyidq5YODYmV9SELRw2Ols5ehCwaQVqqTX2IAQQxTdlLPd0X/MXU9R9W9CG
+ R+qeenl11EtvGBCmJam59OkCsJtZCambyMUPn1DOOJbJ/6W3u9RhZ9p3ynm2SsQofm
+ K4TYb2JNDhT3zPtXOI+1sLI6UjJY5DOutrn4OcOHLpu+rruKnOaAOvdWZkKELFkCBb
+ 53WOx0V7wxfB3kTNNVhDmgcJ40yP98szoI/O+WE7VvsL2FqmoWrgh14g7mjz61n6Kn
+ WWzaw7wPNI71Fr9Bl0J6JlyMWGa+OiiAUlD8Ve0x1Z2oZGNwggIEWxY3qAKVxyvy+O
+ cSMOpyiBCwAew==
+From: Jeremy Szu <jeremy.szu@canonical.com>
+To: tiwai@suse.com
+Subject: [PATCH] ALSA: hda/realtek: fix mute/micmute LEDs for HP machines
+Date: Wed, 13 Jul 2022 10:27:04 +0800
+Message-Id: <20220713022706.22892-1-jeremy.szu@canonical.com>
+X-Mailer: git-send-email 2.36.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Randy Dunlap <rdunlap@infradead.org>,
- Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Cc: Stefan Binding <sbinding@opensource.cirrus.com>,
+ Kailang Yang <kailang@realtek.com>, open list <linux-kernel@vger.kernel.org>,
+ Lucas Tanure <tanureal@opensource.cirrus.com>,
+ Jeremy Szu <jeremy.szu@canonical.com>, Tim Crawford <tcrawford@system76.com>,
+ "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ Werner Sembach <wse@tuxedocomputers.com>,
+ Kai-Heng Feng <kai.heng.feng@canonical.com>, Andy Chi <andy.chi@canonical.com>,
+ Cameron Berkenpas <cam@neo-zeon.de>, Yong Wu <yong.wu@mediatek.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,43 +87,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Since SND_SOC_ES8316 has a hard dependency on I2C and since 'select'
-does not follow any dependency chains, SND_SOC_AMD_ST_ES8336_MACH
-also needs to have a hard dependency on I2C.
+ * The HP ProBook 440/450 G9 and EliteBook 640/650 G9 have multiple
+ motherboard design and they are using different subsystem ID of audio
+ codec. Add the same quirk for other MBs.
 
-Fixes a kconfig warning and subsequent build errors:
-
-WARNING: unmet direct dependencies detected for SND_SOC_ES8316
-  Depends on [n]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && I2C [=n]
-  Selected by [y]:
-  - SND_SOC_AMD_ST_ES8336_MACH [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && SND_SOC_AMD_ACP [=y] && ACPI [=y] && (I2C [=n] || COMPILE_TEST [=y])
-
-sound/soc/codecs/es8316.c:866:1: warning: data definition has no type or storage class
-  866 | module_i2c_driver(es8316_i2c_driver);
-sound/soc/codecs/es8316.c:866:1: error: type defaults to ‘int’ in declaration of ‘module_i2c_driver’ [-Werror=implicit-int]
-sound/soc/codecs/es8316.c:866:1: warning: parameter names (without types) in function declaration
-sound/soc/codecs/es8316.c:857:26: warning: ‘es8316_i2c_driver’ defined but not used [-Wunused-variable]
-  857 | static struct i2c_driver es8316_i2c_driver = {
-
-Fixes: f94fa8405801 ("ASoC: amd: enable machine driver build for Jadeite platform")
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-Cc: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Cc: Mark Brown <broonie@kernel.org>
-Cc: alsa-devel@alsa-project.org
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>
+Signed-off-by: Jeremy Szu <jeremy.szu@canonical.com>
 ---
- sound/soc/amd/Kconfig |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/pci/hda/patch_realtek.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
---- a/sound/soc/amd/Kconfig
-+++ b/sound/soc/amd/Kconfig
-@@ -28,7 +28,7 @@ config SND_SOC_AMD_ST_ES8336_MACH
- 	select SND_SOC_ACPI if ACPI
- 	select SND_SOC_ES8316
- 	depends on SND_SOC_AMD_ACP && ACPI
--	depends on I2C || COMPILE_TEST
-+	depends on I2C
- 	help
- 	 This option enables machine driver for Jadeite platform
- 	 using es8336 codec.
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 007dd8b5e1f2..483c5f49af5d 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -9096,6 +9096,10 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x103c, 0x89c6, "Zbook Fury 17 G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x89ca, "HP", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+ 	SND_PCI_QUIRK(0x103c, 0x8a78, "HP Dev One", ALC285_FIXUP_HP_LIMIT_INT_MIC_BOOST),
++	SND_PCI_QUIRK(0x103c, 0x8aa0, "HP ProBook 440 G9 (MB 8A9E)", ALC236_FIXUP_HP_GPIO_LED),
++	SND_PCI_QUIRK(0x103c, 0x8aa3, "HP ProBook 450 G9 (MB 8AA1)", ALC236_FIXUP_HP_GPIO_LED),
++	SND_PCI_QUIRK(0x103c, 0x8aa8, "HP EliteBook 640 G9 (MB 8AA6)", ALC236_FIXUP_HP_GPIO_LED),
++	SND_PCI_QUIRK(0x103c, 0x8aab, "HP EliteBook 650 G9 (MB 8AA9)", ALC236_FIXUP_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x1043, 0x103e, "ASUS X540SA", ALC256_FIXUP_ASUS_MIC),
+ 	SND_PCI_QUIRK(0x1043, 0x103f, "ASUS TX300", ALC282_FIXUP_ASUS_TX300),
+ 	SND_PCI_QUIRK(0x1043, 0x106d, "Asus K53BE", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
+-- 
+2.25.1
+

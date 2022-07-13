@@ -2,92 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DD575735B4
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jul 2022 13:42:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CCFE573641
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jul 2022 14:23:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B6CDD1715;
-	Wed, 13 Jul 2022 13:42:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6CDD1715
+	by alsa0.perex.cz (Postfix) with ESMTPS id 21D4A16F8;
+	Wed, 13 Jul 2022 14:22:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21D4A16F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657712572;
-	bh=91Y8W1iYOIcndzbyUOt8YxBPsVyYrWTcnloK8q+0zfY=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=RumKDJ9YItRpEZWXO9FqJKaOY9Qa8Au3bvIVlM/5JVtRs7Y7RcauncxPsoNlO5Hao
-	 5PZOPmsjrs0o7PCwI0UhXejX4AynT5DPzyOhE5dEf/jIuypYIihs5/qgbYxy6uxw6k
-	 9z5CRLOy6nnjxvj6IxezsXOFXhiq5qiI9c/fx7jE=
+	s=default; t=1657715014;
+	bh=iX/fdolmY2DXohnnzRSIwIpmON6mHURWxVhthgC0Z48=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=gnTPsUtAT1rtdwVXLMe62C3Nw3by9VrMjy9gfVMb36a7wFwpu2UXpP+cIXVc0ySqO
+	 7GvS8Ma+VIxx6TW4ikQR3w7EOrXVVfu5FvlKVCdEzkJaAbzkWsBrWpmC6YNOf7WpHX
+	 wTwcWCA0shK+BYjwt5OT0G59Bw00DO91ECr4sW+4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2F705F80254;
-	Wed, 13 Jul 2022 13:41:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 94796F800AA;
+	Wed, 13 Jul 2022 14:22:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 85072F80249; Wed, 13 Jul 2022 13:41:50 +0200 (CEST)
+ id 7B0BEF80134; Wed, 13 Jul 2022 14:22:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7E761F8012B
- for <alsa-devel@alsa-project.org>; Wed, 13 Jul 2022 13:41:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E761F8012B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 077C1F80134
+ for <alsa-devel@alsa-project.org>; Wed, 13 Jul 2022 14:22:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 077C1F80134
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="SiJzt8zq"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="5yiu7uSP"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9CBF520057;
- Wed, 13 Jul 2022 11:41:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1657712501; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ujwOx2hqDzY3hrakwFes5m5ALboygngn5vVghCM6tgM=;
- b=SiJzt8zqxRBO/tB1CY7IB93bVY3hgEg7/ifVEH/j4/8r3lt2l9OBqV84RkV4wFoe4e84ex
- k7yI+XbONhvR426u53u/8EBDg69RBFSVkbaHxwuqbf9U6JqkLxAAsu52s5+I5vo91JvfOp
- 1XUDUh5WLoXS1ygkfI/gUW/wtjq84EI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1657712501;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ujwOx2hqDzY3hrakwFes5m5ALboygngn5vVghCM6tgM=;
- b=5yiu7uSPy0mZrYv2wNJ3UtMfptv7vblJSfnBRjy2le5og3ZssQXP7Gi5P5ePwNp5r+xrvx
- /Xdfs4BbUrVSlpBw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 74A6213754;
- Wed, 13 Jul 2022 11:41:41 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id mOqSG3WvzmIDEwAAMHmgww
- (envelope-from <tiwai@suse.de>); Wed, 13 Jul 2022 11:41:41 +0000
-Date: Wed, 13 Jul 2022 13:41:41 +0200
-Message-ID: <87mtddxmru.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH v8 00/14] ALSA: hda: cirrus: Add initial DSP support and
- firmware loading
-In-Reply-To: <87a69ii749.wl-tiwai@suse.de>
-References: <20220630002335.366545-1-vitalyr@opensource.cirrus.com>
- <87zghpxcsh.wl-tiwai@suse.de> <87a69ii749.wl-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org,
- Vitaly Rodionov <vitalyr@opensource.cirrus.com>, patches@opensource.cirrus.com,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org
+ dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
+ header.b="pxaBXbgL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1657714946; x=1689250946;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=VjPPJFpanEpj7EenUOLrvBNZWNf0gumX0k4X7udiVEg=;
+ b=pxaBXbgLxuiDg+PnziwGZMmd3pnPy/3fxAB7HxZo7LjD5SHnkGwcGsjC
+ W9+A9/72WP0TK64l+nKmM8xXT/2aQvu4eJHDCI5eEJ01mDU1UXEdnK/D4
+ Zc2ZyuZhPTAcq6UOIfwEDsz9gHnkN70dM50PulW60x1oLgbqFvpbHzgkg M=;
+Received: from unknown (HELO ironmsg03-sd.qualcomm.com) ([10.53.140.143])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 13 Jul 2022 05:22:21 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg03-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2022 05:22:20 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Wed, 13 Jul 2022 05:22:20 -0700
+Received: from hu-srivasam-hyd.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Wed, 13 Jul 2022 05:22:14 -0700
+From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+To: <vkoul@kernel.org>, <agross@kernel.org>, <bjorn.andersson@linaro.org>,
+ <lgirdwood@gmail.com>, <broonie@kernel.org>, <robh+dt@kernel.org>,
+ <quic_plai@quicinc.com>, <bgoswami@quicinc.com>, <perex@perex.cz>,
+ <tiwai@suse.com>, <srinivas.kandagatla@linaro.org>,
+ <quic_rohkumar@quicinc.com>, <linux-arm-msm@vger.kernel.org>,
+ <alsa-devel@alsa-project.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <swboyd@chromium.org>,
+ <judyhsiao@chromium.org>
+Subject: [PATCH] soundwire: qcom: Update error prints to debug prints
+Date: Wed, 13 Jul 2022 17:52:01 +0530
+Message-ID: <1657714921-28072-1-git-send-email-quic_srivasam@quicinc.com>
+X-Mailer: git-send-email 2.7.4
+MIME-Version: 1.0
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Cc: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,106 +96,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 09 Jul 2022 18:27:34 +0200,
-Takashi Iwai wrote:
-> 
-> On Mon, 04 Jul 2022 14:50:06 +0200,
-> Takashi Iwai wrote:
-> > 
-> > On Thu, 30 Jun 2022 02:23:21 +0200,
-> > Vitaly Rodionov wrote:
-> > > 
-> > > The CS35L41 Amplifier contains a DSP, capable of running firmware.
-> > > The firmware can run algorithms such as Speaker Protection, to ensure
-> > > that playback at high gains do not harm the speakers.
-> > > Adding support for CS35L41 firmware into the CS35L41 HDA driver also
-> > > allows us to support several extra features, such as hiberation 
-> > > and interrupts.
-> > > 
-> > > The chain adds support in stages:
-> > > - General fixes to improve generalization and code re-use inside
-> > >   the CS35L41 HDA driver.
-> > > - Add support for interrupts into the driver, which is required
-> > >   for complete support of the firmware.
-> > > - Refactor ASoC CS35L41 code which deals with firmware to allow
-> > >   for code re-use inside the CS35L41 HDA driver.
-> > > - Add support for loading firmware and tuning files from file system,
-> > >   and creating alsa controls to control it.
-> > > - Support firmware load paths for different hardware systems.
-> > > - Support suspend/resume in the driver when using firmware. The firmware
-> > >   supports hibernation, which allows the CS35L41 to drop into a low
-> > >   power mode during suspend.
-> > > - Support the ability to unload firmware, swap and reload the firmware.
-> > >   This is to allow different firmware to run during calibration.
-> > > 
-> > > The intended use-case is to load the firmware once on boot, and the driver
-> > > autmatically tries to load the firmware after it binds to the HDA driver.
-> > > This behaviour can be switched off using a kconfig, if desired.
-> > > 
-> > > changes since v7:
-> > >  - Use private_data rather than private_value to save control info
-> > >  - Clean up alsa control memory allocation/deallocation
-> > >  - Remove unnecessary whitespace
-> > >  - Get subsystem id from codec, rather than saving it separately
-> > > 
-> > > changes since v6:
-> > >  - Fix warning by kernel test robot <lkp@intel.com>
-> > >  
-> > > changes since v5:
-> > >  - Fix warning by kernel test robot <lkp@intel.com>
-> > >  
-> > > changes since v4:
-> > > - Fully remove tlv remnants from control add apis
-> > > - Remove unnecessary debug
-> > > - Rename variable to be more generic
-> > > - Remove redundent length check from read/write control apis
-> > > 
-> > > 
-> > > - Use SNDRV_CTL_ELEM_IFACE_CARD for firmware load controls
-> > > - Make kcontrol add/remove synchronous
-> > > - Load firmware asynchronous when loading via control
-> > > - Used cached controls when reloading firmware; only delete
-> > > controls when removing the driver itself
-> > > 
-> > > 
-> > > - Improve kcontrol remove
-> > > - Fix control write + notify
-> > > - Cleanup of unnecessary code
-> > > - Fix race condition when loading firmware before playback
-> > > - Ensure errors are properly propogated
-> > > - Fix include for Module parameters
-> > > 
-> > > Stefan Binding (13):
-> > >   ALSA: hda: hda_cs_dsp_ctl: Add Library to support CS_DSP ALSA controls
-> > >   ALSA: hda: hda_cs_dsp_ctl: Add apis to write the controls directly
-> > >   ALSA: hda: cs35l41: Save codec object inside component struct
-> > >   ALSA: hda: cs35l41: Save Subsystem ID inside CS35L41 Driver
-> > >   ALSA: hda: cs35l41: Support reading subsystem id from ACPI
-> > >   ALSA: hda: cs35l41: Support multiple load paths for firmware
-> > >   ALSA: hda: cs35l41: Support Speaker ID for laptops
-> > >   ALSA: hda: cs35l41: Support Hibernation during Suspend
-> > >   ALSA: hda: cs35l41: Read Speaker Calibration data from UEFI variables
-> > >   ALSA: hda: hda_cs_dsp_ctl: Add fw id strings
-> > >   ALSA: hda: cs35l41: Add defaulted values into dsp bypass config
-> > >     sequence
-> > >   ALSA: hda: cs35l41: Support Firmware switching and reloading
-> > >   ALSA: hda: cs35l41: Add module parameter to control firmware load
-> > > 
-> > > Vitaly Rodionov (1):
-> > >   ALSA: hda: cs35l41: Add initial DSP support and firmware loading
-> > 
-> > Thanks, this version looks better than previous ones, and I'm fine to
-> > apply as is, to make things going forward.  But this seems requiring
-> > the prerequisite in ASoC codec side.
-> > 
-> > Mark, could you send a PR to merge into my tree so that I can apply
-> > those series?
-> 
-> Mark?
-> 
-> This series need the ASoC for-next change as prerequisite.
+Upadte error prints to debug prints to avoid redundant logging in kernel
+boot time, as these prints are informative prints in irq handler.
 
-Mark?  It's been preventing the merge.
+Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+---
+ drivers/soundwire/qcom.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+index 9df970e..a4293d0 100644
+--- a/drivers/soundwire/qcom.c
++++ b/drivers/soundwire/qcom.c
+@@ -573,11 +573,10 @@ static irqreturn_t qcom_swrm_irq_handler(int irq, void *dev_id)
+ 				break;
+ 			case SWRM_INTERRUPT_STATUS_NEW_SLAVE_ATTACHED:
+ 			case SWRM_INTERRUPT_STATUS_CHANGE_ENUM_SLAVE_STATUS:
+-				dev_err_ratelimited(swrm->dev, "%s: SWR new slave attached\n",
+-					__func__);
++				dev_dbg(swrm->dev, "%s: SWR new slave attached\n", __func__);
+ 				swrm->reg_read(swrm, SWRM_MCP_SLV_STATUS, &slave_status);
+ 				if (swrm->slave_status == slave_status) {
+-					dev_err(swrm->dev, "Slave status not changed %x\n",
++					dev_dbg(swrm->dev, "Slave status not changed %x\n",
+ 						slave_status);
+ 				} else {
+ 					qcom_swrm_get_device_status(swrm);
+-- 
+2.7.4
 
-Takashi

@@ -2,76 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5DAE573A5F
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jul 2022 17:44:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD479573AA0
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jul 2022 17:54:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 08762173E;
-	Wed, 13 Jul 2022 17:43:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08762173E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E08816FE;
+	Wed, 13 Jul 2022 17:53:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E08816FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657727043;
-	bh=WXZhgTm7ZUEq08MypU+05kZlDrSJRZYlXbfXWFnmzsc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1657727680;
+	bh=RLAlbg/ljGHtCwtTI1C+Qj2j4SMelIPhBh6jbFb1/wE=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EHLBeI717x1jrkvObLXCaFzk/9ldb/ThF/7eovAfwUGoD6vX6zguyGqRJ+O4u3Z8F
-	 BPNrinalXho2/sGFEhdI5YmYK/eNSxsBiFyFvEDcT9cNB5Hm1BPBMIs7PII6+j2Qfk
-	 oH9pGgzb2/cshGm7yIRBhkjF9hbyoE3s5DsG6aNc=
+	b=Kq3l7A0UuaP8s+gkQsunyVDKKvtolQ9bdq6BIZuPV9NlzzLYKHQ6BpbWJLhvtPzga
+	 cSEP4P+2VszqRekNQwkpM6ohE9OSGkE8IJ/YeRQHTjS75UkQ4jiH+UZ3RnvOztyuK6
+	 gxcYXXQzuqQxVfhTgniYd/KKQ9p1s210jT5efdog=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 700D9F80254;
-	Wed, 13 Jul 2022 17:43:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E525CF80254;
+	Wed, 13 Jul 2022 17:53:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 258EFF80249; Wed, 13 Jul 2022 17:43:01 +0200 (CEST)
+ id 846EDF80249; Wed, 13 Jul 2022 17:53:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B1BD6F80134
- for <alsa-devel@alsa-project.org>; Wed, 13 Jul 2022 17:42:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1BD6F80134
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3CCB2F8012B
+ for <alsa-devel@alsa-project.org>; Wed, 13 Jul 2022 17:53:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3CCB2F8012B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="npvIhX9J"
+ header.b="W0sUWld8"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id ACA7BB8203D;
- Wed, 13 Jul 2022 15:42:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BD52C34114;
- Wed, 13 Jul 2022 15:42:55 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 8A753B81D5A;
+ Wed, 13 Jul 2022 15:53:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31707C34114;
+ Wed, 13 Jul 2022 15:53:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657726976;
- bh=WXZhgTm7ZUEq08MypU+05kZlDrSJRZYlXbfXWFnmzsc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=npvIhX9JY+DKzes/kOc0jcWTBBuISIXum5tEmfDkQMJmbikdCcjrauu01Gz9bCZOZ
- SbszeDufS3CZihmmZem8zeKO4WUaTUWS7YmXBJ5IEIB5zbgU7B5/k+8FGKC/WBacME
- /cG01ZHwuTFI2o9feNIdNQxj/XxSbq1hKL3/8VX3gD4d0s8FL5fZXWM5IcrBSDLx5J
- LKsme8Jd6PLYWjt7nFcvNcAXtyZNjUimCL9vfra4YBplX4NA+9TRN1rcYxWp1iTD7S
- jAAtY+6siau7eGIQPnBoUSafv20TiHrWKXXB4rvmaI+/IYlUanX1wifEgDlU0qF56S
- nGmMyw5wUKD6w==
-Date: Wed, 13 Jul 2022 16:42:51 +0100
+ s=k20201202; t=1657727611;
+ bh=RLAlbg/ljGHtCwtTI1C+Qj2j4SMelIPhBh6jbFb1/wE=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=W0sUWld8/5j9/EUWbwHhDi43z7rkQj6uNlXyqsWKnHPxCrEoQ1lfmSKlY0n090Cys
+ grsjSXFTqkM5v4N0scqFwIDz5oVLqvT+6+70FRnQLKWbe24bFWg63XOEumqC3A+Ys6
+ Wk6FsY0y4w6P2o4y4j4qY7Jtd17c9d3qwAnA9wI1mRUQNi0CEj7D3EKo7lSc26ieBN
+ s1uaWGcyugmcjklZ470VcGiX4/9g9fA4IC5chSiYH5SzuQICIkH8p3a+l6mmxY+df6
+ 4CZsBFp2UzOKRgZ89PfF3WxrxWnmGkkmlunmPRC5uVqOCWTqll5qsEYhyjV/YU1//4
+ 85joRwZfhU0gQ==
 From: Mark Brown <broonie@kernel.org>
-To: Alexandru Elisei <alexandru.elisei@arm.com>
-Subject: Re: [PATCH] ASoC: rockchip-i2s: Undo BCLK pinctrl changes
-Message-ID: <Ys7n+/9v+CygvODo@sirena.org.uk>
-References: <20220713130451.31481-1-broonie@kernel.org>
- <Ys7SS/ueE66CBpZK@monolith.localdoman>
+To: yung-chuan.liao@linux.intel.com, vkoul@kernel.org,
+ alsa-devel@alsa-project.org
+In-Reply-To: <20220708061312.25878-1-yung-chuan.liao@linux.intel.com>
+References: <20220708061312.25878-1-yung-chuan.liao@linux.intel.com>
+Subject: Re: [RESEND PATCH v3 0/2] ASoC/SoundWire: Intel: add sdw BE dai
+ trigger
+Message-Id: <165772760890.142759.10751775895640491241.b4-ty@kernel.org>
+Date: Wed, 13 Jul 2022 16:53:28 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="UdpAuSrsDLyrSnR8"
-Content-Disposition: inline
-In-Reply-To: <Ys7SS/ueE66CBpZK@monolith.localdoman>
-X-Cookie: Positively no smoking.
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- Chen-Yu Tsai <wenst@chromium.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: vinod.koul@linaro.org, tiwai@suse.de, gregkh@linuxfoundation.org,
+ pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
+ srinivas.kandagatla@linaro.org, sanyog.r.kale@intel.com, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,36 +88,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, 8 Jul 2022 14:13:10 +0800, Bard Liao wrote:
+> For SOF IPC4, we need to set pipeline state in BE DAI trigger.
+> @Mark, resending this series in case it is lost in your mailbox.
+> 
+> v2:
+>  - Change "#if IS_ENABLED(CONFIG_SND_SOC_SOF_INTEL_SOUNDWIRE)" to
+>    "if (IS_ENABLED(CONFIG_SND_SOC_SOF_INTEL_SOUNDWIRE))"
+> 
+> [...]
 
---UdpAuSrsDLyrSnR8
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Wed, Jul 13, 2022 at 03:25:27PM +0100, Alexandru Elisei wrote:
-> On Wed, Jul 13, 2022 at 02:04:51PM +0100, Mark Brown wrote:
-> > The version of the BCLK pinctrl management changes that made it into
-> > v5.19 has caused problems on some systems due to overly strict DT
-> > requirements but attempts to fix it have caused further breakage on
-> > other platforms.  Just drop the changes for this release, we already
-> > have a better version queued for -next.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> For what it's worth, I am now able to boot my rockpro64-v2 with this patch.
+Thanks!
 
-So Tested-by: then?
+[1/2] soundwire: Intel: add trigger callback
+      commit: 6d1c1a73e1126572de0a8b063fe62fe43786ed59
+[2/2] ASoC: SOF: Intel: add trigger callback into sdw_callback
+      commit: 2a1be12c4d77d4f7b122568383382e006a60381b
 
---UdpAuSrsDLyrSnR8
-Content-Type: application/pgp-signature; name="signature.asc"
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
------BEGIN PGP SIGNATURE-----
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmLO5/sACgkQJNaLcl1U
-h9C90wf9FvlnbM2orcmSNgy2ButDiTqZ+TRFxucOf2tRQgifCKRk9+Fz2oXus3CN
-lTZaNb4vtF76VSjn8yDfPCaUjAy9AsuE6tLlkznpOQzQ5LGc5yir6VK0HIEZfkGM
-zemxItNVnxhmQqIrhh532NmX+FV4DTBGcIrTXNSvfkEaZ5nJ7woaqMN7amCl5y1P
-nyx3ERrpuSojq7hnSf1d3iBnW/h7jbMRdFNVLIDFexEhGeyhVaoGtSVFk8htW5Ez
-DuL0aRJki35wzJqAR1XiMDxTm2JNrFU9a4bGhebk3UqOl1u+x6HdnVRxdq8ACWlX
-aDvHlEDGLaJC9hQkrp22lA2TIcFbbg==
-=3pQ2
------END PGP SIGNATURE-----
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
---UdpAuSrsDLyrSnR8--
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

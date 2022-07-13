@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 344E35738E3
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jul 2022 16:32:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F2845738EC
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jul 2022 16:32:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BEAE81741;
-	Wed, 13 Jul 2022 16:31:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BEAE81741
+	by alsa0.perex.cz (Postfix) with ESMTPS id 17D49172F;
+	Wed, 13 Jul 2022 16:31:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17D49172F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657722726;
-	bh=m65ju1eBUrKQs14mEqgPvnSbDjpwIWUCfEMPByfIU5g=;
+	s=default; t=1657722767;
+	bh=LfxpWWH095fjZfBkvfImn26SDsToZRyHZ9LxuKCfQLk=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NXu1kqlIGTfz0nn9j+ZTD1D/WgdfmyZlhGngNVJkHino3oZhRYeErJPSyn3NjsJew
-	 0iyjHlCgaKkR5cjWtlnlrKqn2pBCvnC0krqh7c+UtRVryrCKSaB8aBIruK3m0hfUhi
-	 /+4PT8Dff/8bq4iRqdEEhrbg7PWTdQjDpwQq0b6k=
+	b=BSLsWSbzlj8p2TZAp4Mtrvgx+vnDkET10wH71p7lhnul4DdigtxpT5BQLYpa98yci
+	 +2drw7SALXxLo5LLsn7A5PGvwGXJlVpNNCcFJUZAswo/3v2TtED6vNTPLM2eLjxN39
+	 pF3P2uGlwoN26Z7fMizWH+jjW/SwFAeXf/dSz5NU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E89CFF80542;
-	Wed, 13 Jul 2022 16:31:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 42A53F80553;
+	Wed, 13 Jul 2022 16:31:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 75FBBF80249; Wed, 13 Jul 2022 16:31:05 +0200 (CEST)
+ id 00173F80254; Wed, 13 Jul 2022 16:31:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,42 +34,42 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D2DE6F80134
- for <alsa-devel@alsa-project.org>; Wed, 13 Jul 2022 16:30:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2DE6F80134
+ by alsa1.perex.cz (Postfix) with ESMTPS id 24CECF8053D
+ for <alsa-devel@alsa-project.org>; Wed, 13 Jul 2022 16:31:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24CECF8053D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="qZ4xj6xG"
+ header.b="A+PioSTm"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id A2789B82018;
- Wed, 13 Jul 2022 14:30:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A45C2C34114;
- Wed, 13 Jul 2022 14:30:55 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 64B0CB8201B;
+ Wed, 13 Jul 2022 14:31:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7A28C3411E;
+ Wed, 13 Jul 2022 14:30:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657722657;
- bh=m65ju1eBUrKQs14mEqgPvnSbDjpwIWUCfEMPByfIU5g=;
+ s=k20201202; t=1657722659;
+ bh=LfxpWWH095fjZfBkvfImn26SDsToZRyHZ9LxuKCfQLk=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=qZ4xj6xGMqoovXDCeentESv+5VY55WwldlwuwIy312351Ae85knj5+iPjhTU2Z007
- s9atahdoGkG38VyoD80QGqf+L3wd/K00FEaQhp5wLC9RgqlNV4ovyLMbCBapmv2vBV
- NhVg7uBUdrEOnnwmjBKnBIBpAkBI0sX/Qjd1bBq4YTK9NSe5oN5V3w8avrYFreEZ3L
- f7IC6n8l/64WCJhG4iiY8BhZu/EkTszyyri6YSQBPYfY54wPjXRYhObMCO426Bg/oM
- G7GOwwI2fLEi2H0wyofVdIs+N6gOu7Hm9AcZ0fLfuULeDwOsXxJReaws2EDLVFfkF7
- WRpbjQL3QqHnQ==
+ b=A+PioSTmxk1LK79ZJtaRBqYf37FGDZgHEH2JGy++bGzmRPNpw0HaTCP6DWf8YwIQC
+ 41yvpGUmQ4Hd55HMgJLtq+kwOL6b/3LLIxLY5KYkHcTkRiGgvPu5Q2VfbgYQ0sJCPv
+ iLpx8WmohESUK4HbWDghqeTww6RFTCQu09tuIIotUWJPopHn9Sh3zJpAgqbLaNu8Dw
+ 1h5pnPSm6ubNSepaILbncjbsPvE/aQoyZnerA0n+tsXEZcmvOlY0XDoG+V8YVRYH/9
+ 6MHPz23Ci+rvkmSIjsN0Qt9+ZQMDgQPzLC+5gYWWFJ5hrx5nG90hVQieK+h2MhbXrL
+ Ao+fMhahdH+sw==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, dan.carpenter@oracle.com
-In-Reply-To: <Ys2IRPHWGIwuVs21@kili>
-References: <Ys2IRPHWGIwuVs21@kili>
-Subject: Re: [PATCH] ASoC: amd: Fix error pointer dereference
-Message-Id: <165772265539.116109.6232452976191452367.b4-ty@kernel.org>
-Date: Wed, 13 Jul 2022 15:30:55 +0100
+To: rdunlap@infradead.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20220712183348.31046-1-rdunlap@infradead.org>
+References: <20220712183348.31046-1-rdunlap@infradead.org>
+Subject: Re: [PATCH -next] ASoC: amd: fix Jadeite kconfig warning and build
+ errors
+Message-Id: <165772265760.116109.4142483197276949409.b4-ty@kernel.org>
+Date: Wed, 13 Jul 2022 15:30:57 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- kernel-janitors@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- yang.lee@linux.alibaba.com, Vijendar.Mukunda@amd.com
+Cc: alsa-devel@alsa-project.org, Vijendar.Mukunda@amd.com,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,12 +85,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 12 Jul 2022 17:42:12 +0300, Dan Carpenter wrote:
-> The "gpio_pa" pointer is an error pointer, there is no need to try
-> put it.  Calling gpiod_put() on it will lead to an error pointer
-> dereference.
+On Tue, 12 Jul 2022 11:33:48 -0700, Randy Dunlap wrote:
+> Since SND_SOC_ES8316 has a hard dependency on I2C and since 'select'
+> does not follow any dependency chains, SND_SOC_AMD_ST_ES8336_MACH
+> also needs to have a hard dependency on I2C.
 > 
+> Fixes a kconfig warning and subsequent build errors:
 > 
+> WARNING: unmet direct dependencies detected for SND_SOC_ES8316
+>   Depends on [n]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && I2C [=n]
+>   Selected by [y]:
+>   - SND_SOC_AMD_ST_ES8336_MACH [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && SND_SOC_AMD_ACP [=y] && ACPI [=y] && (I2C [=n] || COMPILE_TEST [=y])
+> 
+> [...]
 
 Applied to
 
@@ -98,8 +105,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: amd: Fix error pointer dereference
-      commit: 73acfba792b06156b7c805162fcd89fdb71646f9
+[1/1] ASoC: amd: fix Jadeite kconfig warning and build errors
+      commit: 1795c16a436057f95fef5b622d808885dd772d0e
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

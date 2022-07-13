@@ -2,81 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 854DB573944
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jul 2022 16:53:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97709573950
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jul 2022 16:54:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 273E51735;
-	Wed, 13 Jul 2022 16:52:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 273E51735
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3B59C1742;
+	Wed, 13 Jul 2022 16:53:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B59C1742
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657723981;
-	bh=H44k0stDDfSIB8CrSlnU1LefRVj+Z1tv6lxviGVW00g=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1657724049;
+	bh=364r87TJ2y63v1OsoIW7cT9FRYMbFUtewfG4lUrY+9A=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=l7ucIta6s3K1zTE1h0Qw55p3EE2c5VW6O57tl7HTKOGhDt80pzT7mBExHa5+OJ+V+
-	 LbDMHI442NqknMytPha0scp/h0le9glWHkqDxHjIzLHy/cZI9QoBUhZ003NDE9Kn/c
-	 4vmnToHjeR/sac8qakuAcz7Zr4R5lZS31mazwpxU=
+	b=c+gLuK8uSE0anhYwHNw86znBcTYiSxNguLXEY3SIrptbIgX3QibsSRatXqaEDciVi
+	 g1JpyhJGjtYY5siw4DBCG7mqdExqEnMqoAl9QsA/0/DeV4v+wyn1zI7Uwm6cyL4jet
+	 OZ9VQ9pC+RzYsTPWxLdHp/EFq8UpeIJmxpPyNAqo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0452CF804CA;
-	Wed, 13 Jul 2022 16:51:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C6322F8047B;
+	Wed, 13 Jul 2022 16:53:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D3FDFF8047B; Wed, 13 Jul 2022 16:51:41 +0200 (CEST)
+ id BA334F80310; Wed, 13 Jul 2022 16:53:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-il1-f174.google.com (mail-il1-f174.google.com
- [209.85.166.174])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9687DF80249
- for <alsa-devel@alsa-project.org>; Wed, 13 Jul 2022 16:51:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9687DF80249
-Received: by mail-il1-f174.google.com with SMTP id a20so6820214ilk.9
- for <alsa-devel@alsa-project.org>; Wed, 13 Jul 2022 07:51:33 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=cbWdiZoh5wzyuIDkAn23C3lc8R+dDJHxrU38In/KSpg=;
- b=MFi/CR9dX0XWXMSQV+sRyytgpu8Ybuj7nqMh06+EVOydowZKX5zEDe1DeXB5vXy1pP
- /W1i/f8/DcQNOCRPhNjZz9SUVSu4Z2QEbRUhcFD7h/fSVzWXrWfS5IEhY8bzN6ZyBMkr
- a6BXklKBd8/86qMxBKFMUcBGTJyOaMDUV8A2koGxiD1rnfaAsAjblAfJbGeMd1Vnh1Zl
- 7Mv9fWXiiVEnf+UczlIxf/0egZ9s2MFsoLopvyMdoAN5W0P9ZifX0tFTgyVBYUqcwpef
- Uj0LgQoj5ilZRndrUjFoBDGgb5GSoVE+sHkEAVcK+QIxJNo0rFoN+R0VBcej3sS/jLvg
- MfJA==
-X-Gm-Message-State: AJIora+5lsEk79ZNmDd3dKo8SMrUvSoTv0/6P0uLWhRWqGxUzg03OujK
- lrvi5DO4983FHZstkRB7Ng==
-X-Google-Smtp-Source: AGRyM1vlqSyqn/DNiLH0sEZqhnwl+nomOxIJLs8Dxya4Zqtw2DMih3DWzYvv0ZGf6BRBeofDYeIzjg==
-X-Received: by 2002:a92:b00f:0:b0:2d6:5628:6865 with SMTP id
- x15-20020a92b00f000000b002d656286865mr1976996ilh.230.1657723892195; 
- Wed, 13 Jul 2022 07:51:32 -0700 (PDT)
-Received: from robh.at.kernel.org ([64.188.179.248])
- by smtp.gmail.com with ESMTPSA id
- u3-20020a05663825c300b00339dfb793aesm5395787jat.86.2022.07.13.07.51.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 Jul 2022 07:51:31 -0700 (PDT)
-Received: (nullmailer pid 3941026 invoked by uid 1000);
- Wed, 13 Jul 2022 14:51:30 -0000
-Date: Wed, 13 Jul 2022 08:51:30 -0600
-From: Rob Herring <robh@kernel.org>
-To: Raphael-Xu <13691752556@139.com>
-Subject: Re: [PATCH v5] update tas2780.yaml
-Message-ID: <20220713145130.GA3909157-robh@kernel.org>
-References: <20220712050857.267-1-13691752556@139.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 49F58F800AA
+ for <alsa-devel@alsa-project.org>; Wed, 13 Jul 2022 16:53:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49F58F800AA
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
+ header.b="QJk/6+dh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1657723981; x=1689259981;
+ h=message-id:date:mime-version:subject:to:references:from:
+ in-reply-to:content-transfer-encoding;
+ bh=CNNiJMucRthl7fECf9E6Pn8zMqMHyA+cokmpGr/PmFI=;
+ b=QJk/6+dhAAe/kNul+PtsBhls/dGMtian2mH2Kbs2bbj3vpaZRi6gBwyH
+ bNKuKSm+NsrZmufBS/JGQ7Z5cuZMzpPxcq9uRtKJQbkDG4sRIs+I91i2u
+ t+cMzUNDdq1lUx3Tk3jIVUDylVInAYd2VUsbF5zyqcytZjISEPY+Cnk3+ w=;
+Received: from unknown (HELO ironmsg03-sd.qualcomm.com) ([10.53.140.143])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 13 Jul 2022 07:52:58 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg03-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2022 07:52:58 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Wed, 13 Jul 2022 07:52:57 -0700
+Received: from [10.216.22.132] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Wed, 13 Jul
+ 2022 07:52:52 -0700
+Message-ID: <8cde58d2-3b10-b88b-2d10-88e76fbcac06@quicinc.com>
+Date: Wed, 13 Jul 2022 20:22:48 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220712050857.267-1-13691752556@139.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, navada@ti.com,
- broonie@kernel.org, asyrus@ti.com, raphael-xu@ti.com, shenghao-ding@ti.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] soundwire: qcom: Update error prints to debug prints
+Content-Language: en-US
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ <vkoul@kernel.org>, <agross@kernel.org>, <bjorn.andersson@linaro.org>,
+ <lgirdwood@gmail.com>, <broonie@kernel.org>, <robh+dt@kernel.org>,
+ <quic_plai@quicinc.com>, <bgoswami@quicinc.com>, <perex@perex.cz>,
+ <tiwai@suse.com>, <srinivas.kandagatla@linaro.org>,
+ <quic_rohkumar@quicinc.com>, <linux-arm-msm@vger.kernel.org>,
+ <alsa-devel@alsa-project.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <swboyd@chromium.org>,
+ <judyhsiao@chromium.org>
+References: <1657714921-28072-1-git-send-email-quic_srivasam@quicinc.com>
+ <75e9b775-3bbe-0b34-2bd6-b4ac74620672@linux.intel.com>
+From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+Organization: Qualcomm
+In-Reply-To: <75e9b775-3bbe-0b34-2bd6-b4ac74620672@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,23 +105,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Jul 12, 2022 at 01:08:57PM +0800, Raphael-Xu wrote:
-> 1.remove unused item in DT 2.revise the format
 
-Again, fix your subject. Run 'git log --oneline 
-Documentation/devicetree/bindings/sound/' for inspiration of the format 
-of the subject.
-
-However, there's a bigger issue here. We already have a binding for this 
-device. It's in tas27xx.yaml. And you added 2780 to it, so why did you 
-add another schema? (All the same issues in that patch too. wrong 
-subject, broken schema. So you haven't learned.)
-
-And then there is also tas2770.yaml which appears to be about the same 
-as well.
-
-> 
-> Signed-off-by: Raphael-Xu <13691752556@139.com>
-> ---
->  .../devicetree/bindings/sound/tas2780.yaml    | 19 +++++++++++--------
->  1 file changed, 11 insertions(+), 8 deletions(-)
+On 7/13/2022 7:53 PM, Pierre-Louis Bossart wrote:
+Thanks for your time Pierre-Louis!!!
+>
+> On 7/13/22 07:22, Srinivasa Rao Mandadapu wrote:
+>> Upadte error prints to debug prints to avoid redundant logging in kernel
+> update
+Okay. Will change it.
+>
+>> boot time, as these prints are informative prints in irq handler.
+>>
+>> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+>> ---
+>>   drivers/soundwire/qcom.c | 5 ++---
+>>   1 file changed, 2 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+>> index 9df970e..a4293d0 100644
+>> --- a/drivers/soundwire/qcom.c
+>> +++ b/drivers/soundwire/qcom.c
+>> @@ -573,11 +573,10 @@ static irqreturn_t qcom_swrm_irq_handler(int irq, void *dev_id)
+>>   				break;
+>>   			case SWRM_INTERRUPT_STATUS_NEW_SLAVE_ATTACHED:
+>>   			case SWRM_INTERRUPT_STATUS_CHANGE_ENUM_SLAVE_STATUS:
+>> -				dev_err_ratelimited(swrm->dev, "%s: SWR new slave attached\n",
+>> -					__func__);
+>> +				dev_dbg(swrm->dev, "%s: SWR new slave attached\n", __func__);
+> any reason why the rate limitation was dropped?
+No Specific Reason as such. Will add ratelimited and re-spin it.
+>
+>>   				swrm->reg_read(swrm, SWRM_MCP_SLV_STATUS, &slave_status);
+>>   				if (swrm->slave_status == slave_status) {
+>> -					dev_err(swrm->dev, "Slave status not changed %x\n",
+>> +					dev_dbg(swrm->dev, "Slave status not changed %x\n",
+>>   						slave_status);
+>>   				} else {
+>>   					qcom_swrm_get_device_status(swrm);

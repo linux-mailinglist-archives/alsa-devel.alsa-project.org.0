@@ -2,84 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CCC0573958
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jul 2022 16:55:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B32A573977
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jul 2022 16:59:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E528F1733;
-	Wed, 13 Jul 2022 16:55:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E528F1733
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3C9641740;
+	Wed, 13 Jul 2022 16:58:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C9641740
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657724159;
-	bh=iKHRwEAbA8DgBRysYFAhF/3cnr4RH7S9pW7noHhjqEc=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=n3rZc7XQebBOS/2SKqCP42ljm4xmF66rVfN8MwJqm6yNDu135IKCr+ewsTA1GPC+S
-	 i9L6WcYUeABYRnO2/oYYlHCdwhC6Ei0gcOUnS4MN+62COq2jHVK/6Rgrb9l7I6NO6A
-	 6eV0YxU+wLgcnRj68KvVLDw36OkHwLw5NENDc8vk=
+	s=default; t=1657724367;
+	bh=lTmAVQlD6Vx1Np35GsT5xt5v+z7aHOSMCs6G1835MVM=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=lj+nQRFmx/cUWwb690k4Qy8jGXpvi1A7JEEMu/gAdQv8GRnEk2Q4/UlfJ88f9Gme/
+	 fInEoOtq5tdojku/jg8HnfRAzF+0dmE3lmg5tdAwVvqCmd1jakDL117F0SotV3BUR1
+	 zOkd8QaNkMnnjhCakg4lE9rmGjAA6jEGzG7bmLpw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7BC6BF80254;
-	Wed, 13 Jul 2022 16:54:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 90D8AF80254;
+	Wed, 13 Jul 2022 16:58:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 72A95F80249; Wed, 13 Jul 2022 16:54:57 +0200 (CEST)
+ id 6DD75F80249; Wed, 13 Jul 2022 16:58:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0BF07F800AA
- for <alsa-devel@alsa-project.org>; Wed, 13 Jul 2022 16:54:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0BF07F800AA
+ by alsa1.perex.cz (Postfix) with ESMTPS id AC6B8F80134
+ for <alsa-devel@alsa-project.org>; Wed, 13 Jul 2022 16:58:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC6B8F80134
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="U2rYDPjE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1657724092; x=1689260092;
- h=from:to:cc:subject:date:message-id:mime-version;
- bh=oo2Tg2dP3TBQ1rxacXFBYQoxBxf0O9buVeEXcXigr34=;
- b=U2rYDPjErCwzrYdl+Cj/sLYt2CqURSIaDMz3owWwPAwE+q6CJbbY4i4j
- vn/nX6+FXjamdYCvAtywlUhPzPMEAqER4MDsBhdNd1b82kWcj08aA3uX1
- mEDocLag0hteqYij8qPpTY4WZfrwue/jFuhDufNxDq3TkbELkqFsAcB01 M=;
-Received: from ironmsg07-lv.qualcomm.com ([10.47.202.151])
- by alexa-out.qualcomm.com with ESMTP; 13 Jul 2022 07:54:49 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg07-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2022 07:54:48 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Wed, 13 Jul 2022 07:54:47 -0700
-Received: from hu-srivasam-hyd.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Wed, 13 Jul 2022 07:54:41 -0700
-From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-To: <vkoul@kernel.org>, <agross@kernel.org>, <bjorn.andersson@linaro.org>,
- <lgirdwood@gmail.com>, <broonie@kernel.org>, <robh+dt@kernel.org>,
- <quic_plai@quicinc.com>, <bgoswami@quicinc.com>, <perex@perex.cz>,
- <tiwai@suse.com>, <srinivas.kandagatla@linaro.org>,
- <quic_rohkumar@quicinc.com>, <linux-arm-msm@vger.kernel.org>,
- <alsa-devel@alsa-project.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <swboyd@chromium.org>,
- <judyhsiao@chromium.org>
-Subject: [PATCH v2] soundwire: qcom: Update error prints to debug prints
-Date: Wed, 13 Jul 2022 20:24:27 +0530
-Message-ID: <1657724067-19004-1-git-send-email-quic_srivasam@quicinc.com>
-X-Mailer: git-send-email 2.7.4
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="mLS9bWU7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1657724299; x=1689260299;
+ h=message-id:date:mime-version:subject:to:references:from:
+ in-reply-to:content-transfer-encoding;
+ bh=lTmAVQlD6Vx1Np35GsT5xt5v+z7aHOSMCs6G1835MVM=;
+ b=mLS9bWU7dXsv5UgpPWQOBreci/FcdxBbhPhJy1m1aEm78ATeBYcJFE2F
+ pMkJ3629Mb+7wcuTvJeYqeum7c0uSR+RRUxuGYMUGxvLBVcGFKgEesj5J
+ XWnWZUVFMPlAT0c0gLDlUY0hoGjswn4KumZiT11suoHPfLBbgw/HgfnA7
+ jUNFG2lf1qvXEBV8kmfD8GEeaQVOYRKfWKm+cdqdSWTcf2vrl0BlhkSIr
+ GKfqR5rSf4SpuANt5bP3piWk0r+X4lAwcXTxvAlobiOc3jQgNdsW0tdrb
+ dAoZg2wA3b4hMvh6XawPgJYm+u9VL7q3PcXRO+5e/yJBFKk7ul3L6NyV5 g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10407"; a="265643519"
+X-IronPort-AV: E=Sophos;i="5.92,267,1650956400"; d="scan'208";a="265643519"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2022 07:58:13 -0700
+X-IronPort-AV: E=Sophos;i="5.92,267,1650956400"; d="scan'208";a="593017443"
+Received: from melanief-mobl.amr.corp.intel.com (HELO [10.212.10.37])
+ ([10.212.10.37])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2022 07:58:11 -0700
+Message-ID: <726124ab-53e4-5f3c-b0bb-124d129d3028@linux.intel.com>
+Date: Wed, 13 Jul 2022 09:58:10 -0500
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Cc: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.10.0
+Subject: Re: [PATCH v2] soundwire: qcom: Update error prints to debug prints
+Content-Language: en-US
+To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>, vkoul@kernel.org,
+ agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
+ broonie@kernel.org, robh+dt@kernel.org, quic_plai@quicinc.com,
+ bgoswami@quicinc.com, perex@perex.cz, tiwai@suse.com,
+ srinivas.kandagatla@linaro.org, quic_rohkumar@quicinc.com,
+ linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ swboyd@chromium.org, judyhsiao@chromium.org
+References: <1657724067-19004-1-git-send-email-quic_srivasam@quicinc.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <1657724067-19004-1-git-send-email-quic_srivasam@quicinc.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,37 +97,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Update error prints to debug prints to avoid redundant logging in kernel
-boot time, as these prints are informative prints in irq handler.
 
-Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Reviewed-by: Andrew Halaney <ahalaney@redhat.com>
----
-Changes since v1:
-    -- Remove redundant __func__ argument.
-    -- Replace dev_dbg with dev_dbg_ratelimited.
 
- drivers/soundwire/qcom.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+On 7/13/22 09:54, Srinivasa Rao Mandadapu wrote:
+> Update error prints to debug prints to avoid redundant logging in kernel
+> boot time, as these prints are informative prints in irq handler.
+> 
+> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+> Reviewed-by: Andrew Halaney <ahalaney@redhat.com>
 
-diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-index 9df970e..976ae75 100644
---- a/drivers/soundwire/qcom.c
-+++ b/drivers/soundwire/qcom.c
-@@ -573,11 +573,10 @@ static irqreturn_t qcom_swrm_irq_handler(int irq, void *dev_id)
- 				break;
- 			case SWRM_INTERRUPT_STATUS_NEW_SLAVE_ATTACHED:
- 			case SWRM_INTERRUPT_STATUS_CHANGE_ENUM_SLAVE_STATUS:
--				dev_err_ratelimited(swrm->dev, "%s: SWR new slave attached\n",
--					__func__);
-+				dev_dbg_ratelimited(swrm->dev, "SWR new slave attached\n");
- 				swrm->reg_read(swrm, SWRM_MCP_SLV_STATUS, &slave_status);
- 				if (swrm->slave_status == slave_status) {
--					dev_err(swrm->dev, "Slave status not changed %x\n",
-+					dev_dbg(swrm->dev, "Slave status not changed %x\n",
- 						slave_status);
- 				} else {
- 					qcom_swrm_get_device_status(swrm);
--- 
-2.7.4
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
+> ---
+> Changes since v1:
+>     -- Remove redundant __func__ argument.
+>     -- Replace dev_dbg with dev_dbg_ratelimited.
+> 
+>  drivers/soundwire/qcom.c | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+> index 9df970e..976ae75 100644
+> --- a/drivers/soundwire/qcom.c
+> +++ b/drivers/soundwire/qcom.c
+> @@ -573,11 +573,10 @@ static irqreturn_t qcom_swrm_irq_handler(int irq, void *dev_id)
+>  				break;
+>  			case SWRM_INTERRUPT_STATUS_NEW_SLAVE_ATTACHED:
+>  			case SWRM_INTERRUPT_STATUS_CHANGE_ENUM_SLAVE_STATUS:
+> -				dev_err_ratelimited(swrm->dev, "%s: SWR new slave attached\n",
+> -					__func__);
+> +				dev_dbg_ratelimited(swrm->dev, "SWR new slave attached\n");
+>  				swrm->reg_read(swrm, SWRM_MCP_SLV_STATUS, &slave_status);
+>  				if (swrm->slave_status == slave_status) {
+> -					dev_err(swrm->dev, "Slave status not changed %x\n",
+> +					dev_dbg(swrm->dev, "Slave status not changed %x\n",
+>  						slave_status);
+>  				} else {
+>  					qcom_swrm_get_device_status(swrm);

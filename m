@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC5E4572E26
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jul 2022 08:30:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 759B2572E28
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jul 2022 08:31:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 49C3316E1;
-	Wed, 13 Jul 2022 08:29:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49C3316E1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2353E16E2;
+	Wed, 13 Jul 2022 08:30:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2353E16E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657693806;
-	bh=oR8SDRnpwoZXNiAE1fEAIeGXFT7O/1Bc3WfZq2tbXpY=;
+	s=default; t=1657693888;
+	bh=Xn6uaIhEOocGi/aPG6tRK+CeiKjX/9zEszcGCgSMl6Y=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YADs5FDJ6o07ZqtCQxKpprQcZzwOk4S/HcLHSSXPAa0xFWHwI595X0x1VL5P2rP30
-	 s0d7Uzkd4wlHDZ1cUaztQqm0pwttAI6stcQYt9sPOswLefS9HVj8hwtWn8KwifR2Wn
-	 wn2N2D48lrofjIn87HaQ2Xd9iERAIgvWJXeLSWBY=
+	b=pYA64FO4MpEXIl8RkI2n3yTIomduyrC4ktuoh/MkoEgIzMqMEG4Pp8ei877Jv+hfa
+	 gorx97CZ7uWtVxYsuxoW6SsOGPhqFit9XdgKfs3eXWmvGN1PsAe5/PWShOXxLsZWW5
+	 a39KGA3Ut3gLlTyvQyYNOKEvLDtJPS1q0CbPkaQY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CB35CF80134;
-	Wed, 13 Jul 2022 08:29:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9F515F80134;
+	Wed, 13 Jul 2022 08:30:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E87A4F80249; Wed, 13 Jul 2022 08:28:59 +0200 (CEST)
+ id 2A39FF8019B; Wed, 13 Jul 2022 08:30:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,60 +34,64 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4A2F1F8012B
- for <alsa-devel@alsa-project.org>; Wed, 13 Jul 2022 08:28:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A2F1F8012B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 12F8BF80249
+ for <alsa-devel@alsa-project.org>; Wed, 13 Jul 2022 08:30:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12F8BF80249
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="noiVZOao"; 
+ header.b="l7gDloFi"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="pDGmhbzp"
+ header.b="Rt5u5Bi8"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id E2FEE20072;
- Wed, 13 Jul 2022 06:28:50 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 284261FD05;
+ Wed, 13 Jul 2022 06:30:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1657693730; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1657693817; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=j29Ju1Lwv2Nd8p4tyz3VnMHibBLzf+d0PMelbktW4r4=;
- b=noiVZOaoyESAToeE2GlON+R3vfJKLyXWMWYgh8p/+34l5rnk1XbNXqGuUsnZRrRrGaT5R+
- nlWf5EtlQ2EPerPiRG/JVw5ijCzzGBMD71sXIvCL/HnvCjaHwzBoM2Q2mLRnkAr25c1Wq1
- grkG4bMByfYifHau2xUrfWBu2sKi+Xs=
+ bh=pQ3H8I8VayUQxqAMQOcRZMloSSDhl1PNudxqD/P/wPY=;
+ b=l7gDloFi+7E8aMrBdMD5n7AiS8Rd7kRxPEXYRVjqKKxfKB4uJBGPIMU6IsPBXstiC/gNsz
+ c9cDxbtCOTlybNCxEPel8cWL4jqzuckDDtyPIaaEZKWFFA2avhgxKMfWO4ZVVXLa9qqauC
+ PBOGVlFi8u/M4zQKiGF00Z2lfc3wWVU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1657693730;
+ s=susede2_ed25519; t=1657693817;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=j29Ju1Lwv2Nd8p4tyz3VnMHibBLzf+d0PMelbktW4r4=;
- b=pDGmhbzpHMwnvLtWkK0cq1sjGtBtM3mYf0fpoUNSD1EmpzcK3rqGQnrxgCbb1HzazIFfZZ
- cnhaFAEhrHNW2zDQ==
+ bh=pQ3H8I8VayUQxqAMQOcRZMloSSDhl1PNudxqD/P/wPY=;
+ b=Rt5u5Bi8J+vVqkfTgWwF3g4+XwsxyL2RgXGoM1p14QVtp04iWCq5WusSddq/te2s6Mor07
+ dAvieLr1xteSiKBg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AD8BA13754;
- Wed, 13 Jul 2022 06:28:50 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DEA2813754;
+ Wed, 13 Jul 2022 06:30:16 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 6OdcKSJmzmLlBgAAMHmgww
- (envelope-from <tiwai@suse.de>); Wed, 13 Jul 2022 06:28:50 +0000
-Date: Wed, 13 Jul 2022 08:28:50 +0200
-Message-ID: <87v8s1plul.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id bnGFNXhmzmJ7BwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Wed, 13 Jul 2022 06:30:16 +0000
+Date: Wed, 13 Jul 2022 08:30:16 +0200
+Message-ID: <87tu7lpls7.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: Re: [PATCH v2 1/4] ALSA: hda: cs35l41: Don't dereference fwnode handle
-In-Reply-To: <20220712153519.35692-1-andriy.shevchenko@linux.intel.com>
-References: <20220712153519.35692-1-andriy.shevchenko@linux.intel.com>
+To: Jeremy Szu <jeremy.szu@canonical.com>
+Subject: Re: [PATCH] ALSA: hda/realtek: fix mute/micmute LEDs for HP machines
+In-Reply-To: <20220713022706.22892-1-jeremy.szu@canonical.com>
+References: <20220713022706.22892-1-jeremy.szu@canonical.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Lucas Tanure <tanureal@opensource.cirrus.com>,
- patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org, Richard Fitzgerald <rf@opensource.cirrus.com>,
- James Schulman <james.schulman@cirrus.com>,
- David Rhodes <david.rhodes@cirrus.com>
+Cc: Stefan Binding <sbinding@opensource.cirrus.com>,
+ Kailang Yang <kailang@realtek.com>, open list <linux-kernel@vger.kernel.org>,
+ Lucas Tanure <tanureal@opensource.cirrus.com>,
+ Tim Crawford <tcrawford@system76.com>, tiwai@suse.com,
+ Werner Sembach <wse@tuxedocomputers.com>,
+ Kai-Heng Feng <kai.heng.feng@canonical.com>, Andy Chi <andy.chi@canonical.com>,
+ Cameron Berkenpas <cam@neo-zeon.de>,
+ "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ Yong Wu <yong.wu@mediatek.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,17 +107,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 12 Jul 2022 17:35:16 +0200,
-Andy Shevchenko wrote:
+On Wed, 13 Jul 2022 04:27:04 +0200,
+Jeremy Szu wrote:
 > 
-> Use acpi_fwnode_handle() instead of dereferencing an fwnode handle directly,
-> which is a better coding practice.
+>  * The HP ProBook 440/450 G9 and EliteBook 640/650 G9 have multiple
+>  motherboard design and they are using different subsystem ID of audio
+>  codec. Add the same quirk for other MBs.
 > 
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> ---
-> v2: new change
+> Signed-off-by: Jeremy Szu <jeremy.szu@canonical.com>
 
-Thanks, applied all four patches now.
+Thanks, applied now.
 
 
 Takashi

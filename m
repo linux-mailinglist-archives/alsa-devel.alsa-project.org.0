@@ -2,70 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54B0E5738E7
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jul 2022 16:32:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 635795738E2
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jul 2022 16:31:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E7020172B;
-	Wed, 13 Jul 2022 16:31:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E7020172B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7E633173A;
+	Wed, 13 Jul 2022 16:31:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E633173A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657722740;
-	bh=t8fIVopFw1scYtgSMTsw0uvBlyue03PrQLAZCZlxZ/I=;
+	s=default; t=1657722717;
+	bh=6nZ1TG8+FX7o9uUu9puByYsWCfEB7XzK8cXS4yDrZ7c=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LIUJhR0WdE0vOBMv8F9rRNBmRRqGK+rXibasMzk6+mGnNkPZdpTXxAzoe4G8akW9a
-	 Tcbcq3XFeDXUve4pA/amLFeadxqWo1mD1kMSqvMPSmgE2HuzpkBUUFi0W9yRFK/u+6
-	 bCMGTaDrnGPO05zINn+X8E4KfsFO6OvGTRz38Fp8=
+	b=RjS3Ab2Z8Mn79r6EA0i2gWcCOVIRfloCms0BF6PQlDwtGTw0Ig6ljGbTP/GGZ331M
+	 gxtvlohhfQiFIl9XycTGkX4xp++6npxQCQO/FtoeVTjnt3P1Si6goRZ0Z/dJKbIFyJ
+	 SX2AlVl1nlDzpgY84W8lJ3Q5paaa31Y3iKYe2Iew=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ACC11F8054A;
-	Wed, 13 Jul 2022 16:31:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 59278F80249;
+	Wed, 13 Jul 2022 16:31:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D0657F80249; Wed, 13 Jul 2022 16:31:05 +0200 (CEST)
+ id D9D9DF804CA; Wed, 13 Jul 2022 16:31:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DD84CF80254
- for <alsa-devel@alsa-project.org>; Wed, 13 Jul 2022 16:30:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD84CF80254
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5F174F80249
+ for <alsa-devel@alsa-project.org>; Wed, 13 Jul 2022 16:30:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F174F80249
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="jr1e0JzI"
+ header.b="ZzgVs6+L"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 0B798B82016;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id BFA7A61DE6;
  Wed, 13 Jul 2022 14:30:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77DC9C34114;
- Wed, 13 Jul 2022 14:30:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26EDFC3411E;
+ Wed, 13 Jul 2022 14:30:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657722653;
- bh=t8fIVopFw1scYtgSMTsw0uvBlyue03PrQLAZCZlxZ/I=;
+ s=k20201202; t=1657722655;
+ bh=6nZ1TG8+FX7o9uUu9puByYsWCfEB7XzK8cXS4yDrZ7c=;
  h=From:To:In-Reply-To:References:Subject:Date:From;
- b=jr1e0JzIMhCF311XdRUyeVZ3SdFEjupFRE9kgRAMTuRP7tXuqdESvptSWknpiiKHX
- Bj10yiKzl0UgkIBGxk4al4/b9Z4GHyKB9EojRjsPAWpHKXsHhsO+e9i457pznSFk4Q
- qqxPL9R0QfxDfsUGE6eke+b/FpFOcJHNr9C7EB1nx/Z/zLRKO0pBjF16Hh9QdEdBdo
- YiP7Vam32xNMjl6DxHN9uMQUAKi8RyGPyhpgzoBKK2nxSJfxFaJflCk6UiuaPXksuq
- tIZRalBu+MLj+NF/i3yUaY0ndX084eDr39B5llHubANmoWvKm1dWrJQ1g5uvSsSQGd
- LZFC4w7GJyesg==
+ b=ZzgVs6+LW/RrGqeOsJ0CKqZeje/PndobfJWHYvVuYpbHw5ekedzkBc9vfuAmboqg8
+ 5p8qW45tarcY+UNrdgf27q/oLGdY2k5UUhcxT2imDxR34yv3I56tOjFyBfbBtzu0mh
+ dGuedP9uvoyRkG2hP9Gt/Lc4Ft8aR03Q8MiNRiM0TtFZANM/OkpAMf2Z6vJluZXoGS
+ RFad7owiyL4Mj7D7CeW18P3caM09tMgUIii+SKD2ha1LUSOJhAt0zAokM+zsYNUnGp
+ PKWNhhT8BVEvvKF7w0KvkeJPZhVqbjmj8iD70wRZVbsSs0hCp9FXB5Ptt8zfi4xvwr
+ C5yywJcbvkJ1A==
 From: Mark Brown <broonie@kernel.org>
 To: perex@perex.cz, windhl@126.com, lgirdwood@gmail.com, tiwai@suse.com,
- alsa-devel@alsa-project.org, matthias.bgg@gmail.com
-In-Reply-To: <20220713102013.367336-1-windhl@126.com>
-References: <20220713102013.367336-1-windhl@126.com>
-Subject: Re: [PATCH] ASoC: mt6359: Fix refcount leak bug
-Message-Id: <165772265219.116109.17965989340023594785.b4-ty@kernel.org>
-Date: Wed, 13 Jul 2022 15:30:52 +0100
+ alsa-devel@alsa-project.org
+In-Reply-To: <20220713071200.366729-1-windhl@126.com>
+References: <20220713071200.366729-1-windhl@126.com>
+Subject: Re: [PATCH] ASoc: audio-graph-card2: Fix refcount leak bug in
+ __graph_get_type()
+Message-Id: <165772265387.116109.8832104294002903684.b4-ty@kernel.org>
+Date: Wed, 13 Jul 2022 15:30:53 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -84,10 +84,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 13 Jul 2022 18:20:13 +0800, Liang He wrote:
-> In mt6359_parse_dt() and mt6359_accdet_parse_dt(), we should call
-> of_node_put() for the reference returned by of_get_child_by_name()
-> which has increased the refcount.
+On Wed, 13 Jul 2022 15:12:00 +0800, Liang He wrote:
+> We should call of_node_put() for the reference before its replacement
+> as it returned by of_get_parent() which has increased the refcount.
+> Besides, we should also call of_node_put() before return.
 > 
 > 
 
@@ -97,8 +97,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: mt6359: Fix refcount leak bug
-      commit: a8d5df69e2ec702d979f7d04ed519caf8691a032
+[1/1] ASoc: audio-graph-card2: Fix refcount leak bug in __graph_get_type()
+      commit: eda26893dabfc6da7a1e1ff5f8628ed9faab3ab9
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

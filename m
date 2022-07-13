@@ -2,104 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8311B573307
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jul 2022 11:40:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 863E957331D
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jul 2022 11:43:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0E17D16EC;
-	Wed, 13 Jul 2022 11:39:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E17D16EC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 251CA16EE;
+	Wed, 13 Jul 2022 11:42:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 251CA16EE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657705249;
-	bh=Qof7DzLiaRiho+thbaSITAjgpteeCahmZUoHQ1BMzCY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=nlOyKA2ypNPvZieDoDIW7cgk2wdIBotv2IFUKrco0meUEn/ZFzRxqFBzSVLpQg9tw
-	 ehcb8aqu6/cCfmuYglV2cXyjzQbCuvIkIxS03YyQU2MGBj5peEulu5fN2AGjfM19j1
-	 JirQBi40080cn7YSIHhRso3/ChsSFqMFhQcZHqa0=
+	s=default; t=1657705382;
+	bh=dp7PT8QeWF+U3Ua51Mk1XEOFiQ+4I1YVVNVLDgggZw4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=tbiKSc0u5KecG1yxDavOvHsXDsnJylkxCy+HeAFuj3B6+hiwilLEWTtIwkwCDC354
+	 1IUfLQSf2hPWOGEqCOYnDfbrCUCvFIeAZ+w96S752GAU5pJGN08VzXz4H2Po2vYRFd
+	 NP0urQMlJBzF5Cob5yr/khtoPFlOP9knzETKDqn4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 63040F800AA;
-	Wed, 13 Jul 2022 11:39:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B07D4F8012B;
+	Wed, 13 Jul 2022 11:42:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1AF53F80249; Wed, 13 Jul 2022 11:39:46 +0200 (CEST)
+ id 62D21F80249; Wed, 13 Jul 2022 11:42:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-yw1-x1136.google.com (mail-yw1-x1136.google.com
- [IPv6:2607:f8b0:4864:20::1136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from smtpproxy21.qq.com (smtpbg702.qq.com [203.205.195.102])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BD67DF800AA
- for <alsa-devel@alsa-project.org>; Wed, 13 Jul 2022 11:39:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD67DF800AA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="ZO6UB9xl"
-Received: by mail-yw1-x1136.google.com with SMTP id
- 00721157ae682-2ef5380669cso106425537b3.9
- for <alsa-devel@alsa-project.org>; Wed, 13 Jul 2022 02:39:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=B/bZLQ21BnbCxpHA4zoKoOFFh9G3ZriCKWCB4lTGRTU=;
- b=ZO6UB9xl2PomzSnA9P0ERrfsb+F0CnXxcbeTNjkLpFEo+2za3/xXWGbmqKTihGXER4
- mUgRTu0USH+xA3FoCVjWLUFkdgJyDitP/5IlrEykEULV55mtPO57VI6rmC/VX416o04i
- kwQ2YtAApJmvL4GOZ2EoIzNaIBDWwqYuzIng2KRohWNuuIVHdS8JipjKP99t92jluQsC
- SISG6PGesDj5oYOmbT0cXN8DLCLKvFQyDUy4LXMu77z2q11E2r0MZC87PvFMpE1f/3gy
- HcQxarJCB6amUiC0bsTHYF7BFZRv9dnUrP+YMZZZOKyEzJfLzJ57y79Rrry3IR8It8sz
- VUxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=B/bZLQ21BnbCxpHA4zoKoOFFh9G3ZriCKWCB4lTGRTU=;
- b=Q4MWgnuftM/l4h5NaLcDmcz5B0g3CwaqllEJ5ulmynsy8qH9fnk239+ZGX2dJUZD2d
- oPME0apSeUrEhDu6yNxQsxiwSG0C9FOzFBMKIcKlUHlEs8uLCyb/CkuuNZqPnwJBvNyw
- vZkfxpCrVw2fV5XpnaaPUW5WGRAm0xdWVETuz5b4QLh76m99L2rc5ta/g/zfafMCR3wX
- FKC1ZYYemcrCcRjdOhGsTZUdQbH0YKuiFEp5/0EM9hMmunZo9ntuqLp5gn7+UIq+POgC
- bjaGE61lbePYqHMCVsBfqi7bB5+S4ujpBX5hdP7CBdTYFqerMhU0lJZRD0E6Ag7cb0Ne
- +9sw==
-X-Gm-Message-State: AJIora9aWObARgxJFoIw9bNKBxmfiLNwweli/LTbw1dyxVFFsW1pJB14
- gP3dV08xCDlxjSqYOTgbV+tnOLyd9WQzNO/uCBY=
-X-Google-Smtp-Source: AGRyM1uNbxKaJof5c0AAkDGC552d0gWxId5xZzgbfSrWHBy/aP1poMmgkbYdzJkcBPwCKqdNXqAArZSaWfKIFxdFASo=
-X-Received: by 2002:a81:4986:0:b0:31d:388b:d08d with SMTP id
- w128-20020a814986000000b0031d388bd08dmr3002440ywa.185.1657705175260; Wed, 13
- Jul 2022 02:39:35 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 95325F8012B
+ for <alsa-devel@alsa-project.org>; Wed, 13 Jul 2022 11:41:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95325F8012B
+X-QQ-mid: bizesmtp76t1657705300tjyq9kr6
+Received: from localhost.localdomain ( [58.240.82.166])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Wed, 13 Jul 2022 17:41:34 +0800 (CST)
+X-QQ-SSF: 01400000002000G0T000B00A0000000
+X-QQ-FEAT: RrZlkntZBflHKmwQ9JnxJ+0cUviccNuWWA2UCoNooBspxFz4wUMc0pcX4AdHT
+ 7YBsLwZGo4x5aWl0oRiIAvFVTQ7WM1G4COQdMIun/coCnkREpN+wMCUStoC1E8D00W6qyUB
+ JF/ztQnqKdA/J+q33vAW5dJMFd0yfkm/srBtoJFsUioC4nCikVPb/oA6V/CFA3AmgDUW64k
+ 7Pg69+3h5LPFPF6OjUqUial/RmELNkiR7lBFeQvk6ZlpH5kpSjYWbyv+xbHUAVsf9xGmyLE
+ zd7EzsXL73HLyP2pxzFB/jkypmGOuG2GLJuARb312khRkLG+Dp4cbwejS2Hul3GFUNEpl3+
+ ZWWYSY8l8BrZSD80Zd0fyLHKMi/d/J2xCqAamWXQu9oGWBtTrSv82qBP0Aq4kh3gxryHVAo
+ 3WGh0zz0TEx6U6R6i5v2bg==
+X-QQ-GoodBg: 2
+From: Meng Tang <tangmeng@uniontech.com>
+To: perex@perex.cz, tiwai@suse.com, tcrawford@system76.com,
+ wse@tuxedocomputers.com, kai.heng.feng@canonical.com,
+ tangmeng@uniontech.com, tanureal@opensource.cirrus.com, cam@neo-zeon.de,
+ kailang@realtek.com, sbinding@opensource.cirrus.com, yong.wu@mediatek.com,
+ andy.chi@canonical.com
+Subject: [PATCH] ALSA: hda/realtek - Enable the headset-mic on a Xiaomi's
+ laptop
+Date: Wed, 13 Jul 2022 17:41:33 +0800
+Message-Id: <20220713094133.9894-1-tangmeng@uniontech.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-References: <20220707091301.1282291-1-cezary.rojewski@intel.com>
- <CAHp75VceKBoxXVPP4dRYb8LQqHMMDHFp6-E2iuZ-h2RTK8PWQQ@mail.gmail.com>
- <e0c7d254-ace3-625c-cc83-52ca0b45e9fc@intel.com>
- <CAHp75VckU2ZraLJ-frjWXjUu9pFW+-XmWgTbYqUXOUNAD-1HGA@mail.gmail.com>
- <6c8e4104-2239-a188-649d-585f059cabdd@intel.com>
- <YsgjdKEtE7pMDTnZ@smile.fi.intel.com>
- <a73b3ec0-5abb-ddfd-414b-b9807f05413e@linux.intel.com>
- <CAHp75Vd4D0KF7ik+aMOwv-+bofWja_tDe4YUmihQBF+RiHZTmA@mail.gmail.com>
- <e2fe6351-f9ee-48eb-ad7f-280249f7f3f7@intel.com>
- <17c91bfb3a864ae1be2ac3226f170f55@AcuMS.aculab.com>
-In-Reply-To: <17c91bfb3a864ae1be2ac3226f170f55@AcuMS.aculab.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Wed, 13 Jul 2022 11:38:58 +0200
-Message-ID: <CAHp75VdOq5-2h_ojRaGKs1sJqM-wsYtv4543FeBW4_eH4+gMVg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] lib/string_helpers: Introduce strsplit_u32()
-To: David Laight <David.Laight@aculab.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Andy Shevchenko <andy@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Takashi Iwai <tiwai@suse.com>, Hans de Goede <hdegoede@redhat.com>,
- Mark Brown <broonie@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- "amadeuszx.slawinski@linux.intel.com" <amadeuszx.slawinski@linux.intel.com>,
- =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign3
+X-QQ-Bgrelay: 1
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,17 +80,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jul 13, 2022 at 11:14 AM David Laight <David.Laight@aculab.com> wrote:
->
-> >          if (pint)
-> > -               *pint = value;
-> > +               memcpy(pint, &value, min(nsize, sizeof(value)));
->
-> That is just soooooo broken.
+The headset on this machine is not defined, after applying the quirk
+ALC256_FIXUP_ASUS_HEADSET_MIC, the headset-mic works well
 
-OK.
+Signed-off-by: Meng Tang <tangmeng@uniontech.com>
+---
+ sound/pci/hda/patch_realtek.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 91cd58849ee8..383a814b8539 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -9369,6 +9369,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1d72, 0x1602, "RedmiBook", ALC255_FIXUP_XIAOMI_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x1d72, 0x1701, "XiaomiNotebook Pro", ALC298_FIXUP_DELL1_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1d72, 0x1901, "RedmiBook 14", ALC256_FIXUP_ASUS_HEADSET_MIC),
++	SND_PCI_QUIRK(0x1d72, 0x1945, "Redmi G", ALC256_FIXUP_ASUS_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x1d72, 0x1947, "RedmiBook Air", ALC255_FIXUP_XIAOMI_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x8086, 0x2074, "Intel NUC 8", ALC233_FIXUP_INTEL_NUC8_DMIC),
+ 	SND_PCI_QUIRK(0x8086, 0x2080, "Intel NUC 8 Rugged", ALC256_FIXUP_INTEL_NUC8_RUGGED),
 -- 
-With Best Regards,
-Andy Shevchenko
+2.20.1
+
+
+

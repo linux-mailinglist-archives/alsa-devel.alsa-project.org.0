@@ -2,81 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7493F573CFC
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Jul 2022 21:10:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07A6A5740D5
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Jul 2022 03:12:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9F9E0174C;
-	Wed, 13 Jul 2022 21:09:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F9E0174C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 23B73174E;
+	Thu, 14 Jul 2022 03:11:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 23B73174E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657739402;
-	bh=gvLxnwfcYf9Y3pRiZZFQ5lvdAiPOEjFM76rkyvYZ7C0=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=XfntIjRWlsbiUZPtWfgJMGlt+JP+QYSZhf0YJ/YUNaKt8cLEGGGO0dPAx8VKTwQvi
-	 z79xcxJUbUxjOVqJViaFhDmrOMPZy1ZhrTD9e1KFIbx5VPz3J/IRcIsF8P2j3FxrX9
-	 acsz5lJscbat6juaAEI7dYxOGHlcvy2eQBCiIU7Q=
+	s=default; t=1657761119;
+	bh=L+WCKv2qelzFb6SQcNhBxVlX9xUhE7ThSQkIyIWZPRM=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=PceiKgO2Y/CtJ254D6Y1q8WAaLRgCG9a55yKmkio2LU+Sw/UiVLtKt9LR7aLnLCS+
+	 e/P4yJ1r3/9NeTn/3EEl/f1d45AYJAnmvuIq1W+9yuPLOAUqc98UOXEzt/1dBxPkFA
+	 9/pGwmJdjBB903ClcRhy8Ox9x9RFbFxeccDx4vmI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0596EF80254;
-	Wed, 13 Jul 2022 21:09:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 839ADF80310;
+	Thu, 14 Jul 2022 03:10:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A7F3CF80249; Wed, 13 Jul 2022 21:08:59 +0200 (CEST)
+ id CC808F80249; Thu, 14 Jul 2022 03:10:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=0.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ PRX_BODY_126,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from mail-io1-f48.google.com (mail-io1-f48.google.com
- [209.85.166.48])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 923BEF800AA
- for <alsa-devel@alsa-project.org>; Wed, 13 Jul 2022 21:08:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 923BEF800AA
-Received: by mail-io1-f48.google.com with SMTP id p128so11797323iof.1
- for <alsa-devel@alsa-project.org>; Wed, 13 Jul 2022 12:08:51 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
- :message-id;
- bh=gPp4fL4X3RNG52iSlBWKs2UeWMn8GTEKPSSMMNjkH1U=;
- b=Se0saM8R+DAKaXaF1l/qQieTACIfEGloN2r/Q73pldmJHQZ7iG7R1b/i85c+GX4D2B
- toIr+RPF8OgvRUBulU74aCSi45SFKPYlp4Q5b56hu1cUgxm1JDZEGh/yTA/rJ5aslnrp
- QaKy/vWNiLedNTHopLzusPqW0MEEsr8j4I68Npvkcls3l5Pv11+bFM6y6tez5F52OvC/
- 19jl+6/YrkBOpZ+ufA4+ChIoyV0kz6PNiawupen1UkjO5bFLoiiYiT9Vn2IxSDWcByIB
- dxJdAZZFoKc30qDwl/1qNhc69mC/n34UuNvyAFl9Gn9S1na56WZLRUUSvWuQCivJ+eh3
- tP1g==
-X-Gm-Message-State: AJIora+6KeWJ5MUBNQ4tC8ZcO9b5BpkK9VEZtJHLTPWDKWNhhtW7Eicx
- 7NLGc3kUrrrNBVHpsTC6cQ==
-X-Google-Smtp-Source: AGRyM1tgUY0yKG9P+IdNnaJ3ki7q6couzh1ID98oZ135ss6SXwXJQaykZeC8PS/uAXkXV0PG2IJogg==
-X-Received: by 2002:a05:6638:4185:b0:33d:c7da:b119 with SMTP id
- az5-20020a056638418500b0033dc7dab119mr2732685jab.101.1657739329931; 
- Wed, 13 Jul 2022 12:08:49 -0700 (PDT)
-Received: from robh.at.kernel.org ([64.188.179.248])
- by smtp.gmail.com with ESMTPSA id
- h41-20020a022b29000000b0033f0a3a5fbbsm5566358jaa.175.2022.07.13.12.08.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 Jul 2022 12:08:49 -0700 (PDT)
-Received: (nullmailer pid 246144 invoked by uid 1000);
- Wed, 13 Jul 2022 19:08:47 -0000
-From: Rob Herring <robh@kernel.org>
-To: Ryan.Wanner@microchip.com
-In-Reply-To: <20220713162538.139115-1-Ryan.Wanner@microchip.com>
-References: <20220713162538.139115-1-Ryan.Wanner@microchip.com>
-Subject: Re: [PATCH] ASoC: dt-bindings: atmel-i2s: Convert to json-schema
-Date: Wed, 13 Jul 2022 13:08:47 -0600
-Message-Id: <1657739327.994394.246143.nullmailer@robh.at.kernel.org>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- alexandre.belloni@bootlin.com, linux-kernel@vger.kernel.org,
- nicolas.ferre@microchip.com, robh+dt@kernel.org, lgirdwood@gmail.com,
- broonie@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- claudiu.beznea@microchip.com, linux-arm-kernel@lists.infradead.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 78211F80134
+ for <alsa-devel@alsa-project.org>; Thu, 14 Jul 2022 03:10:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78211F80134
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="YbnlPPTg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1657761055; x=1689297055;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=L+WCKv2qelzFb6SQcNhBxVlX9xUhE7ThSQkIyIWZPRM=;
+ b=YbnlPPTgv3vwvY9z8J9Ln8NdcC4KbaZeRBfwvzW8FrQlM5/+vhnXCMzJ
+ 36HvOkla2GEWTqB68ZxqlMms9SaXNzA1Sqf0vlMLhq2IBd5cg2v6rOG6W
+ 2AAhznS/nk/NUP6txX02eLgpC0R6Sl3BW0Ca5K+CXNG/L+R8QFKg2Cj17
+ O4JmJJgsjcmaF9xMsAyYD4hDO/GnkRCp1l2wSwruC5OqUrXAQj8AwqRn+
+ QMdxtIbu9x7TqL9TH5H65KHqAr8rRKt83OsQRnlwaRZhRqVHrkTFdGC+i
+ 1gjP4T2ZcehrKKxDFDdbAB0aiXZiNliJC6K73h+RIeWsARNzh8VQVhCfu w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10407"; a="347066122"
+X-IronPort-AV: E=Sophos;i="5.92,269,1650956400"; d="scan'208";a="347066122"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2022 18:10:49 -0700
+X-IronPort-AV: E=Sophos;i="5.92,269,1650956400"; d="scan'208";a="593192503"
+Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2022 18:10:47 -0700
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
+To: alsa-devel@alsa-project.org,
+	vkoul@kernel.org
+Subject: [PATCH 0/4] ASoC/soundwire: log actual PING status on resume issues
+Date: Thu, 14 Jul 2022 09:10:39 +0800
+Message-Id: <20220714011043.46059-1-yung-chuan.liao@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: vinod.koul@linaro.org, tiwai@suse.de, pierre-louis.bossart@linux.intel.com,
+ linux-kernel@vger.kernel.org, broonie@kernel.org, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,36 +86,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 13 Jul 2022 09:25:38 -0700, Ryan.Wanner@microchip.com wrote:
-> From: Ryan Wanner <Ryan.Wanner@microchip.com>
-> 
-> Convert atmel i2s devicetree binding to json-schema.
-> Change file name to match json-schema naming.
-> 
-> Signed-off-by: Ryan Wanner <Ryan.Wanner@microchip.com>
-> ---
->  .../bindings/sound/atmel,sama5d2-i2s.yaml     | 83 +++++++++++++++++++
->  .../devicetree/bindings/sound/atmel-i2s.txt   | 46 ----------
->  2 files changed, 83 insertions(+), 46 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/sound/atmel,sama5d2-i2s.yaml
->  delete mode 100644 Documentation/devicetree/bindings/sound/atmel-i2s.txt
-> 
+we've been stuck with problems in the dual-amplifier configurations where
+one of the two devices seems to become UNATTACHED and never regains sync,
+see https://github.com/thesofproject/linux/issues/3638.
 
-Running 'make dtbs_check' with the schema in this patch gives the
-following warnings. Consider if they are expected or the schema is
-incorrect. These may not be new warnings.
+This is a rather infrequent issue that may happen once or twice per month,
+but still it remains a concern.
 
-Note that it is not yet a requirement to have 0 warnings for dtbs_check.
-This will change in the future.
+One possibility is that the device does lose sync but somehow our hardware
+detection fails to see it resync.
 
-Full log is available here: https://patchwork.ozlabs.org/patch/
+This series just adds a basic read directly from the PING frames to help
+confirm if yes/no the device regain sync.
 
+The change is mainly on soundwire. @Mark, Could you ack the ASoC patch
+if it looks good to you?
 
-i2s@fc04c000: 'assigned-parrents' does not match any of the regexes: 'pinctrl-[0-9]+'
-	arch/arm/boot/dts/at91-kizbox3-hs.dtb
-	arch/arm/boot/dts/at91-sama5d27_som1_ek.dtb
-	arch/arm/boot/dts/at91-sama5d27_wlsom1_ek.dtb
-	arch/arm/boot/dts/at91-sama5d2_icp.dtb
-	arch/arm/boot/dts/at91-sama5d2_ptc_ek.dtb
-	arch/arm/boot/dts/at91-sama5d2_xplained.dtb
+Pierre-Louis Bossart (4):
+  soundwire: add read_ping_status helper definition in manager ops
+  soundwire: intel/cadence: expose PING status in manager ops
+  soundwire: add sdw_show_ping_status() helper
+  ASoC: codecs: show PING status on resume failures
+
+ drivers/soundwire/bus.c            | 32 ++++++++++++++++++++++++++++++
+ drivers/soundwire/cadence_master.c |  8 ++++++++
+ drivers/soundwire/cadence_master.h |  2 ++
+ drivers/soundwire/intel.c          |  1 +
+ include/linux/soundwire/sdw.h      |  5 +++++
+ sound/soc/codecs/max98373-sdw.c    |  2 ++
+ sound/soc/codecs/rt1308-sdw.c      |  2 ++
+ sound/soc/codecs/rt1316-sdw.c      |  2 ++
+ sound/soc/codecs/rt5682-sdw.c      |  2 ++
+ sound/soc/codecs/rt700-sdw.c       |  2 ++
+ sound/soc/codecs/rt711-sdca-sdw.c  |  2 ++
+ sound/soc/codecs/rt715-sdca-sdw.c  |  2 ++
+ sound/soc/codecs/rt715-sdw.c       |  2 ++
+ 13 files changed, 64 insertions(+)
+
+-- 
+2.25.1
 

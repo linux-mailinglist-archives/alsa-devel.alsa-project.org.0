@@ -2,86 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8838E5747AB
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Jul 2022 11:04:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1EC55747BB
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Jul 2022 11:07:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5CB37191B;
-	Thu, 14 Jul 2022 11:03:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CB37191B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7020E1914;
+	Thu, 14 Jul 2022 11:06:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7020E1914
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657789455;
-	bh=aXGv9Kttj0uSTRgSdFLv38s0RQcySvNd377mkVLWHwQ=;
+	s=default; t=1657789669;
+	bh=9898JURIiMYCLt3QyeTn8fhjeb3i7bj271nwK8mWax0=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uLL1MpUHVVFPTQ3byQH6uSWq7OHxEiJ5v6y+m4ftKXbuO49gnjO6KkymhNDITZsG0
-	 oq/HZ7n8f/25WiCAsR/fy49y/UEkqibIxwwyjCFmLAf3/cad5ZNLtWwzTASFWnHaqU
-	 j17BkvYA4qKyMyu3OnV+zyD5VKsYpc7fMuwHaj3Q=
+	b=hPRBo31EmFU3EOoXi4KMOMozjAS8JT82WuWCf2W0hP0DIU61lKnJBVzQmdfsic9ou
+	 uaFk7MhDv3ccvIdp3hsDXnt9u07BuafZIzpF3ENp0JlYYvq/ti2N7JFshHSApzxc9X
+	 4yXtxpGFkP9LXb0kYvp9kgyadwhLA2i46kxawU/8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EC820F80152;
-	Thu, 14 Jul 2022 11:03:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 686AAF8016E;
+	Thu, 14 Jul 2022 11:06:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 59FE7F802BE; Thu, 14 Jul 2022 11:03:23 +0200 (CEST)
+ id C7802F80165; Thu, 14 Jul 2022 11:06:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 25679F80165
- for <alsa-devel@alsa-project.org>; Thu, 14 Jul 2022 11:03:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25679F80165
+ by alsa1.perex.cz (Postfix) with ESMTPS id 47A9CF8014E
+ for <alsa-devel@alsa-project.org>; Thu, 14 Jul 2022 11:06:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47A9CF8014E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="AT7/AeaR"; 
+ header.b="bXsocT88"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="VJuORmy8"
+ header.b="JD5lAmDy"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 728B41FA4C;
- Thu, 14 Jul 2022 09:03:17 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B491B34B36;
+ Thu, 14 Jul 2022 09:06:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1657789397; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1657789576; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Z7Ms0VwrdnBZu0MBDaEoQImBZ8BRNjuXexveGAU2nAY=;
- b=AT7/AeaR8/9/wos+JCmbFOAR9SK3sWhuD8Jj/o09c0DYb/ZkcP/GvBL1fbcry/B3/9w5Re
- /BjnF83wsOMcxd9K/cuNwYsTY+7tnWqIM0D6+aDBaMnBjHy2VTwzjjMxI5KFUrfk/6vYq3
- 4mAgj9jif6aiDuzpQy8fvnNxyNMHfN0=
+ bh=fY5PuKc7+fso/B1Mtp/dKY37K4gSKnVfZnobpSyBJ80=;
+ b=bXsocT88pxEdhutkWsCRZpCrq2B90GCKFx/fyCvxgZKwPwEWFM6uDw2sx+9JAcnixmlJt7
+ 70iO9xwaxNnSMfBilqhiSe/ZFGs0F0USURDQkHYbXdK4PFv1NEnz7LnyHV6sJSwYaEAgaG
+ /TpoG/A3N1qplFSeGPgKo/4JFe9bLjE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1657789397;
+ s=susede2_ed25519; t=1657789576;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Z7Ms0VwrdnBZu0MBDaEoQImBZ8BRNjuXexveGAU2nAY=;
- b=VJuORmy8lfDrwY5RvLt19qWeQgrV7U0QaXeUr9wArz46lAX0xoewSXTcKpq/2udoc04BXy
- dGa379dqpK9whiAA==
+ bh=fY5PuKc7+fso/B1Mtp/dKY37K4gSKnVfZnobpSyBJ80=;
+ b=JD5lAmDyQpB7F0iFuhcuMvehrJhxHFBOIQg8prV79eG4N7BlYc9BQ3tMyasMcSLcWBdRGb
+ zy6mlIK8X5fNe5Aw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3870913A61;
- Thu, 14 Jul 2022 09:03:17 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8341B13A61;
+ Thu, 14 Jul 2022 09:06:16 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id XjcHDdXbz2JmHwAAMHmgww
- (envelope-from <tiwai@suse.de>); Thu, 14 Jul 2022 09:03:17 +0000
-Date: Thu, 14 Jul 2022 11:03:16 +0200
-Message-ID: <87v8s0vzfv.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id V2lVH4jcz2LSIAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Thu, 14 Jul 2022 09:06:16 +0000
+Date: Thu, 14 Jul 2022 11:06:16 +0200
+Message-ID: <87tu7kvzav.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
 Subject: Re: [PATCH v8 01/14] ALSA: hda: hda_cs_dsp_ctl: Add Library to
  support CS_DSP ALSA controls
-In-Reply-To: <20220630002335.366545-2-vitalyr@opensource.cirrus.com>
+In-Reply-To: <87v8s0vzfv.wl-tiwai@suse.de>
 References: <20220630002335.366545-1-vitalyr@opensource.cirrus.com>
  <20220630002335.366545-2-vitalyr@opensource.cirrus.com>
+ <87v8s0vzfv.wl-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
@@ -104,39 +105,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 30 Jun 2022 02:23:22 +0200,
-Vitaly Rodionov wrote:
-> --- a/sound/pci/hda/Kconfig
-> +++ b/sound/pci/hda/Kconfig
-> @@ -94,6 +94,10 @@ config SND_HDA_PATCH_LOADER
->  config SND_HDA_SCODEC_CS35L41
->  	tristate
->  
-> +config SND_HDA_CS_DSP_CONTROLS
-> +	tristate
-> +	depends on CS_DSP
-> +
->  config SND_HDA_SCODEC_CS35L41_I2C
->  	tristate "Build CS35L41 HD-audio side codec support for I2C Bus"
->  	depends on I2C
+On Thu, 14 Jul 2022 11:03:16 +0200,
+Takashi Iwai wrote:
+> 
+> On Thu, 30 Jun 2022 02:23:22 +0200,
+> Vitaly Rodionov wrote:
+> > --- a/sound/pci/hda/Kconfig
+> > +++ b/sound/pci/hda/Kconfig
+> > @@ -94,6 +94,10 @@ config SND_HDA_PATCH_LOADER
+> >  config SND_HDA_SCODEC_CS35L41
+> >  	tristate
+> >  
+> > +config SND_HDA_CS_DSP_CONTROLS
+> > +	tristate
+> > +	depends on CS_DSP
+> > +
+> >  config SND_HDA_SCODEC_CS35L41_I2C
+> >  	tristate "Build CS35L41 HD-audio side codec support for I2C Bus"
+> >  	depends on I2C
+> 
+> This change alone doesn't give anything useful, unfortunately.
+> 
+> The above form (without prompt) is basically only to be "selected" by
+> others.  And when selected, the "depends" there is just ignored, so
+> it's useless.
+> 
+> That is, a proper way would be something like:
+> 
+> config SND_HDA_CS_DSP_CONTROLS
+> 	tristate
+> 
+> config SND_HDA_SCODEC_CS35L41
+> 	....
+> 	select SND_HDA_CS_DSP_CONTROLS if CS_DSP
+> 
+> ... if you want / need to enable CONFIG_SND_HDA_CS_DSP_CONTROLS
+> conditionally.
 
-This change alone doesn't give anything useful, unfortunately.
-
-The above form (without prompt) is basically only to be "selected" by
-others.  And when selected, the "depends" there is just ignored, so
-it's useless.
-
-That is, a proper way would be something like:
-
-config SND_HDA_CS_DSP_CONTROLS
-	tristate
-
-config SND_HDA_SCODEC_CS35L41
-	....
-	select SND_HDA_CS_DSP_CONTROLS if CS_DSP
-
-... if you want / need to enable CONFIG_SND_HDA_CS_DSP_CONTROLS
-conditionally.
+And now I see that the patch 4 has those selects (but select both
+SND_HDA_CS_DSP_CONTROLS and CS_DSP).  So what we need here is to drop
+the superfluous "depends on CS_DSP" and mention in the description
+that the Kconfig will be actually enabled in the later patch.
 
 
 thanks,

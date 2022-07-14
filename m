@@ -2,49 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA1F95747AA
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Jul 2022 11:03:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8838E5747AB
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Jul 2022 11:04:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 39C9418FC;
-	Thu, 14 Jul 2022 11:02:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39C9418FC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5CB37191B;
+	Thu, 14 Jul 2022 11:03:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CB37191B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657789413;
-	bh=dUisWHaGZNftqPNt37zbEIvIQlfF9UZ65xrr/NUR1K0=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1657789455;
+	bh=aXGv9Kttj0uSTRgSdFLv38s0RQcySvNd377mkVLWHwQ=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MubxR0oR9fUZLwmImULiLb6AXjV/QsuI9bkCtB+WRbU6FSzJWKDl2Uf9rS22dPiO8
-	 8lOgND347PNNCoh2gSPCZO7gMbPUha8ZgK2Xs/gACRKTXiGhFCnyqAbA6aeUIClsuR
-	 wYqDUJ17eh7tJTJpUeUkgeUAMVi7tnowfBcCNKY0=
+	b=uLL1MpUHVVFPTQ3byQH6uSWq7OHxEiJ5v6y+m4ftKXbuO49gnjO6KkymhNDITZsG0
+	 oq/HZ7n8f/25WiCAsR/fy49y/UEkqibIxwwyjCFmLAf3/cad5ZNLtWwzTASFWnHaqU
+	 j17BkvYA4qKyMyu3OnV+zyD5VKsYpc7fMuwHaj3Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 94608F8016E;
-	Thu, 14 Jul 2022 11:02:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EC820F80152;
+	Thu, 14 Jul 2022 11:03:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EA9CBF80165; Thu, 14 Jul 2022 11:02:30 +0200 (CEST)
+ id 59FE7F802BE; Thu, 14 Jul 2022 11:03:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id BE30CF800AA
- for <alsa-devel@alsa-project.org>; Thu, 14 Jul 2022 11:02:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE30CF800AA
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1657789342732518911-webhooks-bot@alsa-project.org>
-References: <1657789342732518911-webhooks-bot@alsa-project.org>
-Subject: amidi: restore space between bytes
-Message-Id: <20220714090230.EA9CBF80165@alsa1.perex.cz>
-Date: Thu, 14 Jul 2022 11:02:30 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 25679F80165
+ for <alsa-devel@alsa-project.org>; Thu, 14 Jul 2022 11:03:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25679F80165
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="AT7/AeaR"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="VJuORmy8"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 728B41FA4C;
+ Thu, 14 Jul 2022 09:03:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1657789397; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Z7Ms0VwrdnBZu0MBDaEoQImBZ8BRNjuXexveGAU2nAY=;
+ b=AT7/AeaR8/9/wos+JCmbFOAR9SK3sWhuD8Jj/o09c0DYb/ZkcP/GvBL1fbcry/B3/9w5Re
+ /BjnF83wsOMcxd9K/cuNwYsTY+7tnWqIM0D6+aDBaMnBjHy2VTwzjjMxI5KFUrfk/6vYq3
+ 4mAgj9jif6aiDuzpQy8fvnNxyNMHfN0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1657789397;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Z7Ms0VwrdnBZu0MBDaEoQImBZ8BRNjuXexveGAU2nAY=;
+ b=VJuORmy8lfDrwY5RvLt19qWeQgrV7U0QaXeUr9wArz46lAX0xoewSXTcKpq/2udoc04BXy
+ dGa379dqpK9whiAA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3870913A61;
+ Thu, 14 Jul 2022 09:03:17 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id XjcHDdXbz2JmHwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Thu, 14 Jul 2022 09:03:17 +0000
+Date: Thu, 14 Jul 2022 11:03:16 +0200
+Message-ID: <87v8s0vzfv.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+Subject: Re: [PATCH v8 01/14] ALSA: hda: hda_cs_dsp_ctl: Add Library to
+ support CS_DSP ALSA controls
+In-Reply-To: <20220630002335.366545-2-vitalyr@opensource.cirrus.com>
+References: <20220630002335.366545-1-vitalyr@opensource.cirrus.com>
+ <20220630002335.366545-2-vitalyr@opensource.cirrus.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ Stefan Binding <sbinding@opensource.cirrus.com>,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,28 +104,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-utils pull request #158 was opened from johnkeeping:
+On Thu, 30 Jun 2022 02:23:22 +0200,
+Vitaly Rodionov wrote:
+> --- a/sound/pci/hda/Kconfig
+> +++ b/sound/pci/hda/Kconfig
+> @@ -94,6 +94,10 @@ config SND_HDA_PATCH_LOADER
+>  config SND_HDA_SCODEC_CS35L41
+>  	tristate
+>  
+> +config SND_HDA_CS_DSP_CONTROLS
+> +	tristate
+> +	depends on CS_DSP
+> +
+>  config SND_HDA_SCODEC_CS35L41_I2C
+>  	tristate "Build CS35L41 HD-audio side codec support for I2C Bus"
+>  	depends on I2C
 
-Commit 9a8fcec ("amidi: add timestamp option for dump") removed the
-space between bytes when dumping MIDI, changing the output from:
+This change alone doesn't give anything useful, unfortunately.
 
-	90 45 40
-	80 45 00
+The above form (without prompt) is basically only to be "selected" by
+others.  And when selected, the "depends" there is just ignored, so
+it's useless.
 
-to:
+That is, a proper way would be something like:
 
-	904540
-	804500
+config SND_HDA_CS_DSP_CONTROLS
+	tristate
 
-It seems that this was an unintentional side effect of refactoring the
-code to add the new timestamp output but the result is less readable
-than it was before.
+config SND_HDA_SCODEC_CS35L41
+	....
+	select SND_HDA_CS_DSP_CONTROLS if CS_DSP
 
-Restore the space between bytes in the same message.
+... if you want / need to enable CONFIG_SND_HDA_CS_DSP_CONTROLS
+conditionally.
 
-Fixes: 9a8fcec ("amidi: add timestamp option for dump")
-Signed-off-by: John Keeping <john@metanate.com>
 
-Request URL   : https://github.com/alsa-project/alsa-utils/pull/158
-Patch URL     : https://github.com/alsa-project/alsa-utils/pull/158.patch
-Repository URL: https://github.com/alsa-project/alsa-utils
+thanks,
+
+Takashi

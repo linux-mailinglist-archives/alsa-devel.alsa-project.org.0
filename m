@@ -2,68 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9799B574310
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Jul 2022 06:29:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1691C574312
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Jul 2022 06:30:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3EB8A188F;
-	Thu, 14 Jul 2022 06:29:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3EB8A188F
+	by alsa0.perex.cz (Postfix) with ESMTPS id B8072188B;
+	Thu, 14 Jul 2022 06:29:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8072188B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657772993;
-	bh=wOFnb+h38ZHkQ71ZrI57raY9yE4kjjI4LOL96pxBNUs=;
+	s=default; t=1657773029;
+	bh=Yq4+OAykBYjQ9xMianAzkJZwCiKUJxPTc6gaUkZ7J+E=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NIUlqDWfHS/NKxfU5VhbEz8JfdpMUNf9lBJfj3N0bMMpQAdj2i/4NcdhniWShgUpk
-	 yWI58jL1t9vVwrI2cQCaoV5apUMkOwarQ2nVPKN3Er1PfwzQdK+xJpkvQpswJIj7T+
-	 d+8e9OCkixWEyKIGWWsMfiuhB1BffYt4u+fh42Ks=
+	b=nQLpHmd1GLiaLaR2Wga9QJbe+Iz2bnFBbXZqAHBRmUyiXPGMgMeqWVnMeAp1bvpEb
+	 3GI6hOGJ3FUuLMDLcnwLUre5+OSWzW+ZUAoyVe/OIkx/6y6PC6AQGlNCUImOiiqgR0
+	 kBabr5PwTsLxrlo4/hVwEyaQOnzXFb4+XArds1m0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F3D0DF800AA;
-	Thu, 14 Jul 2022 06:23:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5E32FF8053D;
+	Thu, 14 Jul 2022 06:23:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B1835F805F6; Thu, 14 Jul 2022 06:23:30 +0200 (CEST)
+ id 38659F805EF; Thu, 14 Jul 2022 06:23:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 85520F805F2
- for <alsa-devel@alsa-project.org>; Thu, 14 Jul 2022 06:23:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85520F805F2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3ABB3F80552
+ for <alsa-devel@alsa-project.org>; Thu, 14 Jul 2022 06:23:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3ABB3F80552
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="cYIUnM73"
+ header.b="PjHl/UiC"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 015DEB82335;
- Thu, 14 Jul 2022 04:23:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9917C341C6;
- Thu, 14 Jul 2022 04:23:22 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 7E2DBB82376;
+ Thu, 14 Jul 2022 04:23:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B94D2C385A2;
+ Thu, 14 Jul 2022 04:23:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657772603;
- bh=wOFnb+h38ZHkQ71ZrI57raY9yE4kjjI4LOL96pxBNUs=;
+ s=k20201202; t=1657772627;
+ bh=Yq4+OAykBYjQ9xMianAzkJZwCiKUJxPTc6gaUkZ7J+E=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=cYIUnM73PZbYHx1aMg+vbC7gx2LIDl/ODkO0uhfukx9jgSED1EnPi5gIbrJDX46e6
- L8H2oqwe3xaKACFg7FHSwq9homeEV8gIRolyd+n+c6sFayDL2W5GX7W5I14QqlY/I0
- IjY7Jf3eL+7/bMSP0mIts/hKsR6iltyF6JOw8g7s+NxdRHt3SorY089M60bEbFDT2z
- 9liOOXMqisnOnMzaFw0+rXWEwFZRRkJS7yxVb0HlZmueIx+qpOj+myMi5L2CFZqGjy
- Wjo4AnyRPvvnDqfEPEb0HQ2xBHVF/RNeFn90Kp9rvZFkkBofw1oeqUpZXBbwoZZ+4c
- vJE1l68WpGozw==
+ b=PjHl/UiCnxuUMJxx1yJwYH51K+XBHKYF0hmX2Wyb4GdzhZE+ZQlOV8hWN7mmqiHC8
+ LDPsdHuj0QpGkGJcpw3F/oKJWRB5IdIAe+c+FkrVdhhXXIKAXz9MmtdVICNfcVGNV7
+ 5g30NuTolyLDOB9+fjRGfgkRBFeEoKCHbFdrAjTFHc6trN3QEYx1R1n+DEjvE1aImg
+ 0aTm+yU5fGriXLhmW9m4Lei5ukXRHExxBfZnPF+a76LmKgFrrkwnxZcOi3QE3yWP5v
+ 7iudZ8pYbve70lXkWsDw7RMBKkglxX9jKv4oi+UM5koREu+866SIw8+uQETvkYEO3L
+ Em9ClKpFfRoYQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.18 25/41] ASoC: madera: Fix event generation for
- rate controls
-Date: Thu, 14 Jul 2022 00:22:05 -0400
-Message-Id: <20220714042221.281187-25-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.18 33/41] ALSA: usb-audio: Add quirks for
+ MacroSilicon MS2100/MS2106 devices
+Date: Thu, 14 Jul 2022 00:22:13 -0400
+Message-Id: <20220714042221.281187-33-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220714042221.281187-1-sashal@kernel.org>
 References: <20220714042221.281187-1-sashal@kernel.org>
@@ -72,9 +73,9 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Charles Keepax <ckeepax@opensource.cirrus.com>, patches@opensource.cirrus.com,
- tiwai@suse.com, lgirdwood@gmail.com, rf@opensource.cirrus.com,
- Mark Brown <broonie@kernel.org>
+ John Veness <john-linux@pelago.org.uk>, Takashi Iwai <tiwai@suse.de>,
+ brendan@grieve.com.au, sdoregor@sdore.me, tiwai@suse.com,
+ willovertonuk@gmail.com, alexander@tsoy.me, hahnjo@hahnjo.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,49 +91,103 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
+From: John Veness <john-linux@pelago.org.uk>
 
-[ Upstream commit 980555e95f7cabdc9c80a07107622b097ba23703 ]
+[ Upstream commit 6e2c9105e0b743c92a157389d40f00b81bdd09fe ]
 
-madera_adsp_rate_put always returns zero regardless of if the control
-value was updated. This results in missing notifications to user-space
-of the control change. Update the handling to return 1 when the
-value is changed.
+Treat the claimed 96kHz 1ch in the descriptors as 48kHz 2ch, so that
+the audio stream doesn't sound mono. Also fix initial stream
+alignment, so that left and right channels are in the correct order.
 
-Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-Link: https://lore.kernel.org/r/20220623105120.1981154-5-ckeepax@opensource.cirrus.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: John Veness <john-linux@pelago.org.uk>
+Link: https://lore.kernel.org/r/20220624140757.28758-1-john-linux@pelago.org.uk
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/madera.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ sound/usb/quirks-table.h | 48 ++++++++++++++++++++++++++++++++++++++++
+ sound/usb/quirks.c       |  3 +++
+ 2 files changed, 51 insertions(+)
 
-diff --git a/sound/soc/codecs/madera.c b/sound/soc/codecs/madera.c
-index 8095a87117cf..b9f19fbd2911 100644
---- a/sound/soc/codecs/madera.c
-+++ b/sound/soc/codecs/madera.c
-@@ -899,7 +899,7 @@ static int madera_adsp_rate_put(struct snd_kcontrol *kcontrol,
- 	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
- 	const int adsp_num = e->shift_l;
- 	const unsigned int item = ucontrol->value.enumerated.item[0];
--	int ret;
-+	int ret = 0;
- 
- 	if (item >= e->items)
- 		return -EINVAL;
-@@ -916,10 +916,10 @@ static int madera_adsp_rate_put(struct snd_kcontrol *kcontrol,
- 			 "Cannot change '%s' while in use by active audio paths\n",
- 			 kcontrol->id.name);
- 		ret = -EBUSY;
--	} else {
-+	} else if (priv->adsp_rate_cache[adsp_num] != e->values[item]) {
- 		/* Volatile register so defer until the codec is powered up */
- 		priv->adsp_rate_cache[adsp_num] = e->values[item];
--		ret = 0;
-+		ret = 1;
+diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
+index 4f56e1784932..853da162fd18 100644
+--- a/sound/usb/quirks-table.h
++++ b/sound/usb/quirks-table.h
+@@ -3802,6 +3802,54 @@ YAMAHA_DEVICE(0x7010, "UB99"),
  	}
+ },
  
- 	mutex_unlock(&priv->rate_lock);
++/*
++ * MacroSilicon MS2100/MS2106 based AV capture cards
++ *
++ * These claim 96kHz 1ch in the descriptors, but are actually 48kHz 2ch.
++ * They also need QUIRK_FLAG_ALIGN_TRANSFER, which makes one wonder if
++ * they pretend to be 96kHz mono as a workaround for stereo being broken
++ * by that...
++ *
++ * They also have an issue with initial stream alignment that causes the
++ * channels to be swapped and out of phase, which is dealt with in quirks.c.
++ */
++{
++	USB_AUDIO_DEVICE(0x534d, 0x0021),
++	.driver_info = (unsigned long) &(const struct snd_usb_audio_quirk) {
++		.vendor_name = "MacroSilicon",
++		.product_name = "MS210x",
++		.ifnum = QUIRK_ANY_INTERFACE,
++		.type = QUIRK_COMPOSITE,
++		.data = &(const struct snd_usb_audio_quirk[]) {
++			{
++				.ifnum = 2,
++				.type = QUIRK_AUDIO_STANDARD_MIXER,
++			},
++			{
++				.ifnum = 3,
++				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
++				.data = &(const struct audioformat) {
++					.formats = SNDRV_PCM_FMTBIT_S16_LE,
++					.channels = 2,
++					.iface = 3,
++					.altsetting = 1,
++					.altset_idx = 1,
++					.attributes = 0,
++					.endpoint = 0x82,
++					.ep_attr = USB_ENDPOINT_XFER_ISOC |
++						USB_ENDPOINT_SYNC_ASYNC,
++					.rates = SNDRV_PCM_RATE_CONTINUOUS,
++					.rate_min = 48000,
++					.rate_max = 48000,
++				}
++			},
++			{
++				.ifnum = -1
++			}
++		}
++	}
++},
++
+ /*
+  * MacroSilicon MS2109 based HDMI capture cards
+  *
+diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+index e8468f9b007d..a72874bc0936 100644
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -1478,6 +1478,7 @@ void snd_usb_set_format_quirk(struct snd_usb_substream *subs,
+ 	case USB_ID(0x041e, 0x3f19): /* E-Mu 0204 USB */
+ 		set_format_emu_quirk(subs, fmt);
+ 		break;
++	case USB_ID(0x534d, 0x0021): /* MacroSilicon MS2100/MS2106 */
+ 	case USB_ID(0x534d, 0x2109): /* MacroSilicon MS2109 */
+ 		subs->stream_offset_adj = 2;
+ 		break;
+@@ -1904,6 +1905,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
+ 		   QUIRK_FLAG_IGNORE_CTL_ERROR),
+ 	DEVICE_FLG(0x413c, 0xa506, /* Dell AE515 sound bar */
+ 		   QUIRK_FLAG_GET_SAMPLE_RATE),
++	DEVICE_FLG(0x534d, 0x0021, /* MacroSilicon MS2100/MS2106 */
++		   QUIRK_FLAG_ALIGN_TRANSFER),
+ 	DEVICE_FLG(0x534d, 0x2109, /* MacroSilicon MS2109 */
+ 		   QUIRK_FLAG_ALIGN_TRANSFER),
+ 	DEVICE_FLG(0x1224, 0x2a25, /* Jieli Technology USB PHY 2.0 */
 -- 
 2.35.1
 

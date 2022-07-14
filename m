@@ -2,74 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A467F574255
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Jul 2022 06:23:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7AFE574260
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Jul 2022 06:24:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1628F1657;
-	Thu, 14 Jul 2022 06:22:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1628F1657
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5BC6D1786;
+	Thu, 14 Jul 2022 06:23:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5BC6D1786
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657772612;
-	bh=+pwhI5DseAVUweaksDK2NMrC+e9Ib1UwCS+TtiDZy7g=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=JufGHmOUEfdVhHSK1Z+HANrC6N8p1waugIE+QqXdOF0kdVf5zkQmreFoFDXxO2UKG
-	 8z19FMCXQ8LWQsxfJ0Q98CdV9fz5heHCpwrG/3wq2kMTYufF0p8+uXikBUGrApq7Jo
-	 m/T/96syxEOc7OYtzVs3iieOI/9nxwHxmPhh47bo=
+	s=default; t=1657772642;
+	bh=9AtmS7MJo/F/gSRs5FTXzgQ+tcpV+q3+k2tQxaBfwyg=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=f8EnrRe8ZJW/I3gCXcWTWVB8s0fpSdYJxSUODwax/BHQXNb0Ao0UYa+RsEOJVN/6A
+	 oM25Tsgq6RdBo91EThosWC4SZKEoXo4TCJUazGbd41R7z8HIbli+7P/rFTL1A3MZBU
+	 z166t/btjKTjog9JYlNsTQWVuKsi8h2PCZihJFhg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 92248F8016E;
-	Thu, 14 Jul 2022 06:22:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 68BCEF80542;
+	Thu, 14 Jul 2022 06:22:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1F2EFF80165; Thu, 14 Jul 2022 06:22:29 +0200 (CEST)
+ id 66B2FF80152; Thu, 14 Jul 2022 06:22:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B5B7BF8014E
- for <alsa-devel@alsa-project.org>; Thu, 14 Jul 2022 06:22:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5B7BF8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 32EA2F80152
+ for <alsa-devel@alsa-project.org>; Thu, 14 Jul 2022 06:22:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32EA2F80152
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="nRMqTONG"
+ header.b="nMoArjml"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id C57D4B82282;
- Thu, 14 Jul 2022 04:22:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B97DC34114;
- Thu, 14 Jul 2022 04:22:23 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 81C1361E6D;
+ Thu, 14 Jul 2022 04:22:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 843C8C34114;
+ Thu, 14 Jul 2022 04:22:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657772544;
- bh=+pwhI5DseAVUweaksDK2NMrC+e9Ib1UwCS+TtiDZy7g=;
- h=From:To:Cc:Subject:Date:From;
- b=nRMqTONG84Q1/50KE8MkFY+taRqGhEPv6RJVnySbdFK6i6nxPl7X7afRdVvqXEtWR
- GtZwTDWfeDyxWguKD+7hBvPT+ggKpK03wgNkDLu3GYONpu54rNg7n/icLZDUg1Avh0
- 5JugYW4IEQSYxkic//p6v/qm4NSNODXjnvw1Qdhz4ThjtpSXvx6pVdNFFJ3MrgTYPi
- DFMyepvB3N3mnDKtV0NaaNfOHJlKWRdZwIFR1blTMzGLvjTt55PbiaFRysfNOihfsa
- AnCQ4oNqh1enxUvRZxzrKclfwqLBc2WVsCXeZxqY+m4uOA3ls/UsGlSFicuXJVGOr0
- Jq15U2aVG8NqQ==
+ s=k20201202; t=1657772550;
+ bh=9AtmS7MJo/F/gSRs5FTXzgQ+tcpV+q3+k2tQxaBfwyg=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=nMoArjmlM0KVIeP1PEDucf+TvzAoxmG50KH2WyurhdgVJ3Sgg7meCptcQ03C2tVCA
+ IcUiXQHGqbtWxEbICiCC65VATSmvcD6vtt0K45s+jCEZJx4cEGT6JuHH79XpjmtcsV
+ 1x8iV6JMhhp6dDTu9laVKv9LrkOQKEGVgrUMsOK1DSNFJ2dRZQq+JqFBRARXTO9nd0
+ dIFGXFD5e58zPu4dryI23/cKWaGT4VOybBqcvh7Yki6NWlRgu1IoHlAmK4SddCD1nA
+ 3Yk0ifgG3XH4UU8396/oWM27uk5XHljxdh/Xa25RH53Cre94EqVDwVxcVmTtWcjMKO
+ NHh9bkTZsORPw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.18 01/41] ASoC: ops: Fix off by one in range control
- validation
-Date: Thu, 14 Jul 2022 00:21:41 -0400
-Message-Id: <20220714042221.281187-1-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.18 03/41] ASoC: Realtek/Maxim SoundWire codecs:
+ disable pm_runtime on remove
+Date: Thu, 14 Jul 2022 00:21:43 -0400
+Message-Id: <20220714042221.281187-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220714042221.281187-1-sashal@kernel.org>
+References: <20220714042221.281187-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- tiwai@suse.com, lgirdwood@gmail.com, Mark Brown <broonie@kernel.org>
+Cc: Sasha Levin <sashal@kernel.org>, oder_chiou@realtek.com,
+ alsa-devel@alsa-project.org, ranjani.sridharan@intel.com, tiwai@suse.com,
+ lgirdwood@gmail.com,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, Rander Wang <rander.wang@intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,43 +93,302 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Mark Brown <broonie@kernel.org>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-[ Upstream commit 5871321fb4558c55bf9567052b618ff0be6b975e ]
+[ Upstream commit ac63716da3070f8cb6baaba3a058a0c7f22aeb5b ]
 
-We currently report that range controls accept a range of 0..(max-min) but
-accept writes in the range 0..(max-min+1). Remove that extra +1.
+When binding/unbinding codec drivers, the following warnings are
+thrown:
 
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Link: https://lore.kernel.org/r/20220604105246.4055214-1-broonie@kernel.org
+[ 107.266879] rt715-sdca sdw:3:025d:0714:01: Unbalanced pm_runtime_enable!
+[  306.879700] rt711-sdca sdw:0:025d:0711:01: Unbalanced pm_runtime_enable!
+
+Add a remove callback for all Realtek/Maxim SoundWire codecs and remove this
+warning.
+
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Rander Wang <rander.wang@intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Link: https://lore.kernel.org/r/20220606203752.144159-2-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/soc-ops.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/codecs/max98373-sdw.c   | 12 +++++++++++-
+ sound/soc/codecs/rt1308-sdw.c     | 11 +++++++++++
+ sound/soc/codecs/rt1316-sdw.c     | 11 +++++++++++
+ sound/soc/codecs/rt5682-sdw.c     |  5 ++++-
+ sound/soc/codecs/rt700-sdw.c      |  6 +++++-
+ sound/soc/codecs/rt711-sdca-sdw.c |  6 +++++-
+ sound/soc/codecs/rt711-sdw.c      |  6 +++++-
+ sound/soc/codecs/rt715-sdca-sdw.c | 12 ++++++++++++
+ sound/soc/codecs/rt715-sdw.c      | 12 ++++++++++++
+ 9 files changed, 76 insertions(+), 5 deletions(-)
 
-diff --git a/sound/soc/soc-ops.c b/sound/soc/soc-ops.c
-index e693070f51fe..d867f449d82d 100644
---- a/sound/soc/soc-ops.c
-+++ b/sound/soc/soc-ops.c
-@@ -526,7 +526,7 @@ int snd_soc_put_volsw_range(struct snd_kcontrol *kcontrol,
- 		return -EINVAL;
- 	if (mc->platform_max && tmp > mc->platform_max)
- 		return -EINVAL;
--	if (tmp > mc->max - mc->min + 1)
-+	if (tmp > mc->max - mc->min)
- 		return -EINVAL;
+diff --git a/sound/soc/codecs/max98373-sdw.c b/sound/soc/codecs/max98373-sdw.c
+index f47e956d4f55..97b64477dde6 100644
+--- a/sound/soc/codecs/max98373-sdw.c
++++ b/sound/soc/codecs/max98373-sdw.c
+@@ -862,6 +862,16 @@ static int max98373_sdw_probe(struct sdw_slave *slave,
+ 	return max98373_init(slave, regmap);
+ }
  
- 	if (invert)
-@@ -547,7 +547,7 @@ int snd_soc_put_volsw_range(struct snd_kcontrol *kcontrol,
- 			return -EINVAL;
- 		if (mc->platform_max && tmp > mc->platform_max)
- 			return -EINVAL;
--		if (tmp > mc->max - mc->min + 1)
-+		if (tmp > mc->max - mc->min)
- 			return -EINVAL;
++static int max98373_sdw_remove(struct sdw_slave *slave)
++{
++	struct max98373_priv *max98373 = dev_get_drvdata(&slave->dev);
++
++	if (max98373->first_hw_init)
++		pm_runtime_disable(&slave->dev);
++
++	return 0;
++}
++
+ #if defined(CONFIG_OF)
+ static const struct of_device_id max98373_of_match[] = {
+ 	{ .compatible = "maxim,max98373", },
+@@ -893,7 +903,7 @@ static struct sdw_driver max98373_sdw_driver = {
+ 		.pm = &max98373_pm,
+ 	},
+ 	.probe = max98373_sdw_probe,
+-	.remove = NULL,
++	.remove = max98373_sdw_remove,
+ 	.ops = &max98373_slave_ops,
+ 	.id_table = max98373_id,
+ };
+diff --git a/sound/soc/codecs/rt1308-sdw.c b/sound/soc/codecs/rt1308-sdw.c
+index 1ef836a68a56..e42a63ee07f4 100644
+--- a/sound/soc/codecs/rt1308-sdw.c
++++ b/sound/soc/codecs/rt1308-sdw.c
+@@ -690,6 +690,16 @@ static int rt1308_sdw_probe(struct sdw_slave *slave,
+ 	return 0;
+ }
  
- 		if (invert)
++static int rt1308_sdw_remove(struct sdw_slave *slave)
++{
++	struct rt1308_sdw_priv *rt1308 = dev_get_drvdata(&slave->dev);
++
++	if (rt1308->first_hw_init)
++		pm_runtime_disable(&slave->dev);
++
++	return 0;
++}
++
+ static const struct sdw_device_id rt1308_id[] = {
+ 	SDW_SLAVE_ENTRY_EXT(0x025d, 0x1308, 0x2, 0, 0),
+ 	{},
+@@ -749,6 +759,7 @@ static struct sdw_driver rt1308_sdw_driver = {
+ 		.pm = &rt1308_pm,
+ 	},
+ 	.probe = rt1308_sdw_probe,
++	.remove = rt1308_sdw_remove,
+ 	.ops = &rt1308_slave_ops,
+ 	.id_table = rt1308_id,
+ };
+diff --git a/sound/soc/codecs/rt1316-sdw.c b/sound/soc/codecs/rt1316-sdw.c
+index c66d7b20cb4d..1e04aa8ab166 100644
+--- a/sound/soc/codecs/rt1316-sdw.c
++++ b/sound/soc/codecs/rt1316-sdw.c
+@@ -675,6 +675,16 @@ static int rt1316_sdw_probe(struct sdw_slave *slave,
+ 	return rt1316_sdw_init(&slave->dev, regmap, slave);
+ }
+ 
++static int rt1316_sdw_remove(struct sdw_slave *slave)
++{
++	struct rt1316_sdw_priv *rt1316 = dev_get_drvdata(&slave->dev);
++
++	if (rt1316->first_hw_init)
++		pm_runtime_disable(&slave->dev);
++
++	return 0;
++}
++
+ static const struct sdw_device_id rt1316_id[] = {
+ 	SDW_SLAVE_ENTRY_EXT(0x025d, 0x1316, 0x3, 0x1, 0),
+ 	{},
+@@ -734,6 +744,7 @@ static struct sdw_driver rt1316_sdw_driver = {
+ 		.pm = &rt1316_pm,
+ 	},
+ 	.probe = rt1316_sdw_probe,
++	.remove = rt1316_sdw_remove,
+ 	.ops = &rt1316_slave_ops,
+ 	.id_table = rt1316_id,
+ };
+diff --git a/sound/soc/codecs/rt5682-sdw.c b/sound/soc/codecs/rt5682-sdw.c
+index 248257a2e4e0..f04e18c32489 100644
+--- a/sound/soc/codecs/rt5682-sdw.c
++++ b/sound/soc/codecs/rt5682-sdw.c
+@@ -719,9 +719,12 @@ static int rt5682_sdw_remove(struct sdw_slave *slave)
+ {
+ 	struct rt5682_priv *rt5682 = dev_get_drvdata(&slave->dev);
+ 
+-	if (rt5682 && rt5682->hw_init)
++	if (rt5682->hw_init)
+ 		cancel_delayed_work_sync(&rt5682->jack_detect_work);
+ 
++	if (rt5682->first_hw_init)
++		pm_runtime_disable(&slave->dev);
++
+ 	return 0;
+ }
+ 
+diff --git a/sound/soc/codecs/rt700-sdw.c b/sound/soc/codecs/rt700-sdw.c
+index bda594899664..f7439e40ca8b 100644
+--- a/sound/soc/codecs/rt700-sdw.c
++++ b/sound/soc/codecs/rt700-sdw.c
+@@ -13,6 +13,7 @@
+ #include <linux/soundwire/sdw_type.h>
+ #include <linux/soundwire/sdw_registers.h>
+ #include <linux/module.h>
++#include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ #include <sound/soc.h>
+ #include "rt700.h"
+@@ -463,11 +464,14 @@ static int rt700_sdw_remove(struct sdw_slave *slave)
+ {
+ 	struct rt700_priv *rt700 = dev_get_drvdata(&slave->dev);
+ 
+-	if (rt700 && rt700->hw_init) {
++	if (rt700->hw_init) {
+ 		cancel_delayed_work_sync(&rt700->jack_detect_work);
+ 		cancel_delayed_work_sync(&rt700->jack_btn_check_work);
+ 	}
+ 
++	if (rt700->first_hw_init)
++		pm_runtime_disable(&slave->dev);
++
+ 	return 0;
+ }
+ 
+diff --git a/sound/soc/codecs/rt711-sdca-sdw.c b/sound/soc/codecs/rt711-sdca-sdw.c
+index aaf5af153d3f..c722a2b0041f 100644
+--- a/sound/soc/codecs/rt711-sdca-sdw.c
++++ b/sound/soc/codecs/rt711-sdca-sdw.c
+@@ -11,6 +11,7 @@
+ #include <linux/mod_devicetable.h>
+ #include <linux/soundwire/sdw_registers.h>
+ #include <linux/module.h>
++#include <linux/pm_runtime.h>
+ 
+ #include "rt711-sdca.h"
+ #include "rt711-sdca-sdw.h"
+@@ -364,11 +365,14 @@ static int rt711_sdca_sdw_remove(struct sdw_slave *slave)
+ {
+ 	struct rt711_sdca_priv *rt711 = dev_get_drvdata(&slave->dev);
+ 
+-	if (rt711 && rt711->hw_init) {
++	if (rt711->hw_init) {
+ 		cancel_delayed_work_sync(&rt711->jack_detect_work);
+ 		cancel_delayed_work_sync(&rt711->jack_btn_check_work);
+ 	}
+ 
++	if (rt711->first_hw_init)
++		pm_runtime_disable(&slave->dev);
++
+ 	return 0;
+ }
+ 
+diff --git a/sound/soc/codecs/rt711-sdw.c b/sound/soc/codecs/rt711-sdw.c
+index bda2cc9439c9..f49c94baa37c 100644
+--- a/sound/soc/codecs/rt711-sdw.c
++++ b/sound/soc/codecs/rt711-sdw.c
+@@ -13,6 +13,7 @@
+ #include <linux/soundwire/sdw_type.h>
+ #include <linux/soundwire/sdw_registers.h>
+ #include <linux/module.h>
++#include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ #include <sound/soc.h>
+ #include "rt711.h"
+@@ -464,12 +465,15 @@ static int rt711_sdw_remove(struct sdw_slave *slave)
+ {
+ 	struct rt711_priv *rt711 = dev_get_drvdata(&slave->dev);
+ 
+-	if (rt711 && rt711->hw_init) {
++	if (rt711->hw_init) {
+ 		cancel_delayed_work_sync(&rt711->jack_detect_work);
+ 		cancel_delayed_work_sync(&rt711->jack_btn_check_work);
+ 		cancel_work_sync(&rt711->calibration_work);
+ 	}
+ 
++	if (rt711->first_hw_init)
++		pm_runtime_disable(&slave->dev);
++
+ 	return 0;
+ }
+ 
+diff --git a/sound/soc/codecs/rt715-sdca-sdw.c b/sound/soc/codecs/rt715-sdca-sdw.c
+index a5c673f43d82..0f4354eafef2 100644
+--- a/sound/soc/codecs/rt715-sdca-sdw.c
++++ b/sound/soc/codecs/rt715-sdca-sdw.c
+@@ -13,6 +13,7 @@
+ #include <linux/soundwire/sdw_type.h>
+ #include <linux/soundwire/sdw_registers.h>
+ #include <linux/module.h>
++#include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ #include <sound/soc.h>
+ #include "rt715-sdca.h"
+@@ -195,6 +196,16 @@ static int rt715_sdca_sdw_probe(struct sdw_slave *slave,
+ 	return rt715_sdca_init(&slave->dev, mbq_regmap, regmap, slave);
+ }
+ 
++static int rt715_sdca_sdw_remove(struct sdw_slave *slave)
++{
++	struct rt715_sdca_priv *rt715 = dev_get_drvdata(&slave->dev);
++
++	if (rt715->first_hw_init)
++		pm_runtime_disable(&slave->dev);
++
++	return 0;
++}
++
+ static const struct sdw_device_id rt715_sdca_id[] = {
+ 	SDW_SLAVE_ENTRY_EXT(0x025d, 0x715, 0x3, 0x1, 0),
+ 	SDW_SLAVE_ENTRY_EXT(0x025d, 0x714, 0x3, 0x1, 0),
+@@ -269,6 +280,7 @@ static struct sdw_driver rt715_sdw_driver = {
+ 		.pm = &rt715_pm,
+ 	},
+ 	.probe = rt715_sdca_sdw_probe,
++	.remove = rt715_sdca_sdw_remove,
+ 	.ops = &rt715_sdca_slave_ops,
+ 	.id_table = rt715_sdca_id,
+ };
+diff --git a/sound/soc/codecs/rt715-sdw.c b/sound/soc/codecs/rt715-sdw.c
+index a7b21b03c08b..b047bf87a100 100644
+--- a/sound/soc/codecs/rt715-sdw.c
++++ b/sound/soc/codecs/rt715-sdw.c
+@@ -14,6 +14,7 @@
+ #include <linux/soundwire/sdw_type.h>
+ #include <linux/soundwire/sdw_registers.h>
+ #include <linux/module.h>
++#include <linux/pm_runtime.h>
+ #include <linux/of.h>
+ #include <linux/regmap.h>
+ #include <sound/soc.h>
+@@ -514,6 +515,16 @@ static int rt715_sdw_probe(struct sdw_slave *slave,
+ 	return 0;
+ }
+ 
++static int rt715_sdw_remove(struct sdw_slave *slave)
++{
++	struct rt715_priv *rt715 = dev_get_drvdata(&slave->dev);
++
++	if (rt715->first_hw_init)
++		pm_runtime_disable(&slave->dev);
++
++	return 0;
++}
++
+ static const struct sdw_device_id rt715_id[] = {
+ 	SDW_SLAVE_ENTRY_EXT(0x025d, 0x714, 0x2, 0, 0),
+ 	SDW_SLAVE_ENTRY_EXT(0x025d, 0x715, 0x2, 0, 0),
+@@ -575,6 +586,7 @@ static struct sdw_driver rt715_sdw_driver = {
+ 		   .pm = &rt715_pm,
+ 		   },
+ 	.probe = rt715_sdw_probe,
++	.remove = rt715_sdw_remove,
+ 	.ops = &rt715_slave_ops,
+ 	.id_table = rt715_id,
+ };
 -- 
 2.35.1
 

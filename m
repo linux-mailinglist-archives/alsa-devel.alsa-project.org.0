@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91A265740D7
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Jul 2022 03:12:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E0B95740E2
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Jul 2022 03:13:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F2ADF175D;
-	Thu, 14 Jul 2022 03:11:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2ADF175D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 185371726;
+	Thu, 14 Jul 2022 03:12:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 185371726
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657761161;
-	bh=64zHAd0VO/In2o8u2a2F5KFDhUcSaQ7u0ws37chHb6o=;
+	s=default; t=1657761193;
+	bh=Y1J5nWNOz+sncSR+Y9wqNIrStrFxV1lay+BampiPlQo=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fspjUYGvlnZw6VkzNFKUFyTm3GxJyyfR0wbyw1KpaRB7X/lLAgRaUGgknu4xILdq4
-	 kHaoxRYMk2uc27oPsn02nJSpKDaMRQmfNgmMd76RMt3uQB64AeyzLJwN5Zp33v3ce0
-	 KHlNeK6rtVbX22rtYaO0LVe3Vtze+qmoPXx4LTI8=
+	b=aymJvaTb+aq4OtK5sXBTb3yncLfRYn36+/2KNTX/BXSuktn2G1osH+huenZCL4kF4
+	 61ZW9faz6wUXLZa6kr+2DTI1CYf2lmWPiJ/MzYOTRXBBDMI3Ap81h7cd9G4jTEj/X1
+	 Q3QymrjSUQd2hipSbWwBMDRrigaSCZSooqNiMZio=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C0C6EF80254;
-	Thu, 14 Jul 2022 03:11:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B19FFF80557;
+	Thu, 14 Jul 2022 03:11:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6C52BF80544; Thu, 14 Jul 2022 03:11:05 +0200 (CEST)
+ id 811D7F80549; Thu, 14 Jul 2022 03:11:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,39 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 446EFF80254
- for <alsa-devel@alsa-project.org>; Thu, 14 Jul 2022 03:10:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 446EFF80254
+ by alsa1.perex.cz (Postfix) with ESMTPS id B42F5F80134
+ for <alsa-devel@alsa-project.org>; Thu, 14 Jul 2022 03:10:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B42F5F80134
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="d+tHlUmi"
+ header.b="XNcYMl1m"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1657761059; x=1689297059;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=64zHAd0VO/In2o8u2a2F5KFDhUcSaQ7u0ws37chHb6o=;
- b=d+tHlUmi5Gb7ai7+q9B4mFddh9IC+6KpRvW1+RZJngby2nJnVUxVh3V5
- mlPhipO7V8eFKJFvYoQ2cCpYsG0oWN9wm66Sa4CFDu8zcrW7Zu19BJbaB
- +Wg7R0BvdBWGx/Do8l50AytXp1EzrYa3pl1CzWFPN6VjtvK5r7qn2bDHm
- PTlwwzx6nL11tHfK8Ko5MlxyoWFbzcquI4tQaTp1aPkByd1o3SR+ZvGkq
- edwAya8UmCkMKFhZeX1eOZ3S/gx7I+YgHZgg6cBRS/Htzde8wvAd8YBVE
- 96C2fdWsTQF9eVHKTqXrHyMXsZxDAMtF1C9gkFlRN7VSflMAhbtl7uhXp Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10407"; a="347066132"
-X-IronPort-AV: E=Sophos;i="5.92,269,1650956400"; d="scan'208";a="347066132"
+ bh=Y1J5nWNOz+sncSR+Y9wqNIrStrFxV1lay+BampiPlQo=;
+ b=XNcYMl1mlJ01kQyJosMCQFVgg7QHzTiJ2w7ZR8o/JHwtO5iXQi64MKDQ
+ XQbuiygRUrwWPTdVt2tJqVb3YT9/YK79JttBG05hqiywSCtE3A3iZD8lb
+ LMCvipWCfoop8Ib+N4Vzg0K22vBNXC6WkuxylSv9OmRmNPMS3bNgdmaW6
+ NxL5Hm62j1oEyUfVgiVEEsyZI3sponqUBV3HZ6tse0SyXz9LQCe/hh+CQ
+ vQ7ku5TOw2TcPz5Uge3/pyx3J1cvkKHN9SihqLZiqHC7YJpm4edi5b0bX
+ Ftm4HtmiKrDvyEqIi7MuvmJ2wa6fOYjseHei/Se6JKKi2UbfjAFvdhA1b Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10407"; a="347066139"
+X-IronPort-AV: E=Sophos;i="5.92,269,1650956400"; d="scan'208";a="347066139"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2022 18:10:54 -0700
-X-IronPort-AV: E=Sophos;i="5.92,269,1650956400"; d="scan'208";a="593192522"
+ 13 Jul 2022 18:10:57 -0700
+X-IronPort-AV: E=Sophos;i="5.92,269,1650956400"; d="scan'208";a="593192532"
 Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2022 18:10:52 -0700
+ 13 Jul 2022 18:10:55 -0700
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	vkoul@kernel.org
-Subject: [PATCH 2/4] soundwire: intel/cadence: expose PING status in manager
- ops
-Date: Thu, 14 Jul 2022 09:10:41 +0800
-Message-Id: <20220714011043.46059-3-yung-chuan.liao@linux.intel.com>
+Subject: [PATCH 3/4] soundwire: add sdw_show_ping_status() helper
+Date: Thu, 14 Jul 2022 09:10:42 +0800
+Message-Id: <20220714011043.46059-4-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220714011043.46059-1-yung-chuan.liao@linux.intel.com>
 References: <20220714011043.46059-1-yung-chuan.liao@linux.intel.com>
@@ -92,61 +91,74 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-Simple indirection to existing register.
+This helper provides an optional delay parameter to wait for devices
+to resync in case of errors, and checks that devices are indeed
+attached on the bus.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Rander Wang <rander.wang@intel.com>
 Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- drivers/soundwire/cadence_master.c | 8 ++++++++
- drivers/soundwire/cadence_master.h | 2 ++
- drivers/soundwire/intel.c          | 1 +
- 3 files changed, 11 insertions(+)
+ drivers/soundwire/bus.c       | 32 ++++++++++++++++++++++++++++++++
+ include/linux/soundwire/sdw.h |  2 ++
+ 2 files changed, 34 insertions(+)
 
-diff --git a/drivers/soundwire/cadence_master.c b/drivers/soundwire/cadence_master.c
-index 4fbb19557f5e..615b0b63a3e1 100644
---- a/drivers/soundwire/cadence_master.c
-+++ b/drivers/soundwire/cadence_master.c
-@@ -756,6 +756,14 @@ cdns_reset_page_addr(struct sdw_bus *bus, unsigned int dev_num)
+diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
+index 2772973eebb1..0a99ac791c7e 100644
+--- a/drivers/soundwire/bus.c
++++ b/drivers/soundwire/bus.c
+@@ -300,6 +300,38 @@ int sdw_transfer(struct sdw_bus *bus, struct sdw_msg *msg)
+ 	return ret;
  }
- EXPORT_SYMBOL(cdns_reset_page_addr);
  
-+u32 cdns_read_ping_status(struct sdw_bus *bus)
++/**
++ * sdw_show_ping_status() - Direct report of PING status, to be used by Peripheral drivers
++ * @bus: SDW bus
++ * @sync_delay: Delay before reading status
++ */
++void sdw_show_ping_status(struct sdw_bus *bus, bool sync_delay)
 +{
-+	struct sdw_cdns *cdns = bus_to_cdns(bus);
++	u32 status;
 +
-+	return cdns_readl(cdns, CDNS_MCP_SLAVE_STAT);
++	if (!bus->ops->read_ping_status)
++		return;
++
++	/*
++	 * wait for peripheral to sync if desired. 10-15ms should be more than
++	 * enough in most cases.
++	 */
++	if (sync_delay)
++		usleep_range(10000, 15000);
++
++	mutex_lock(&bus->msg_lock);
++
++	status = bus->ops->read_ping_status(bus);
++
++	mutex_unlock(&bus->msg_lock);
++
++	if (!status)
++		dev_warn(bus->dev, "%s: no peripherals attached\n", __func__);
++	else
++		dev_dbg(bus->dev, "PING status: %#x\n", status);
 +}
-+EXPORT_SYMBOL(cdns_read_ping_status);
++EXPORT_SYMBOL(sdw_show_ping_status);
 +
- /*
-  * IRQ handling
-  */
-diff --git a/drivers/soundwire/cadence_master.h b/drivers/soundwire/cadence_master.h
-index 595d72c15d97..ca9e805bab88 100644
---- a/drivers/soundwire/cadence_master.h
-+++ b/drivers/soundwire/cadence_master.h
-@@ -177,6 +177,8 @@ enum sdw_command_response
- cdns_xfer_msg_defer(struct sdw_bus *bus,
- 		    struct sdw_msg *msg, struct sdw_defer *defer);
+ /**
+  * sdw_transfer_defer() - Asynchronously transfer message to a SDW Slave device
+  * @bus: SDW bus
+diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
+index a85cf829bb77..9e4537f409c2 100644
+--- a/include/linux/soundwire/sdw.h
++++ b/include/linux/soundwire/sdw.h
+@@ -926,6 +926,8 @@ int sdw_bus_master_add(struct sdw_bus *bus, struct device *parent,
+ 		       struct fwnode_handle *fwnode);
+ void sdw_bus_master_delete(struct sdw_bus *bus);
  
-+u32 cdns_read_ping_status(struct sdw_bus *bus);
++void sdw_show_ping_status(struct sdw_bus *bus, bool sync_delay);
 +
- int cdns_bus_conf(struct sdw_bus *bus, struct sdw_bus_params *params);
- 
- int cdns_set_sdw_stream(struct snd_soc_dai *dai,
-diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
-index 25b27cd1be1d..e1e943396e36 100644
---- a/drivers/soundwire/intel.c
-+++ b/drivers/soundwire/intel.c
-@@ -1255,6 +1255,7 @@ static struct sdw_master_ops sdw_intel_ops = {
- 	.set_bus_conf = cdns_bus_conf,
- 	.pre_bank_switch = intel_pre_bank_switch,
- 	.post_bank_switch = intel_post_bank_switch,
-+	.read_ping_status = cdns_read_ping_status,
- };
- 
- static int intel_init(struct sdw_intel *sdw)
+ /**
+  * sdw_port_config: Master or Slave Port configuration
+  *
 -- 
 2.25.1
 

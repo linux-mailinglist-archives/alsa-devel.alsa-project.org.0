@@ -2,68 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4B1B5743B3
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Jul 2022 06:38:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FF955743AC
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Jul 2022 06:38:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6EAFD1A3C;
-	Thu, 14 Jul 2022 06:37:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6EAFD1A3C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0DC741A24;
+	Thu, 14 Jul 2022 06:37:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DC741A24
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657773492;
-	bh=LTiHrq0h5LtFHCuEgsogHVuSPBYt7hnhL+zVi3RRRX4=;
+	s=default; t=1657773480;
+	bh=qkcI0ibRvlGXIrDjkDBd+8nMkl5CVlAV+udAK+KaoWo=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=io0nlirchsgtQjILYCo1k+LyeoWVzsKMnSNRdWOlHoxnbUv/PDFRTkiEE96G6KIXO
-	 wo5fqJwDK9u6iQxVkrO2Wiv0bLbkmLA9xfZXgZvcJgM/u2t/yyDrlUx9q/J3E0E+vE
-	 CGg9BaaISV46djTLggdHhS+Adn3VScpPfi+uNpZg=
+	b=UEUlQ/ZHjjWoywOztjLLJb6r7caYxcmnqM6IKdFS0HdtGPls5pgl6lDP7K8uxh0qO
+	 7fWhjMdl/Wv8a6eGiO0NZfbTgRmR/tJnvShb++HZDDrJMoxW5IduUmwX0Fw+rRXsYT
+	 cCx/licirnM9kcKspTs2IjQA0rKMrUB5ssV8YjVA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 918EBF806F5;
-	Thu, 14 Jul 2022 06:26:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A2EB9F8058C;
+	Thu, 14 Jul 2022 06:26:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6E18EF806EF; Thu, 14 Jul 2022 06:26:03 +0200 (CEST)
+ id 12147F806EC; Thu, 14 Jul 2022 06:26:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 460E4F80687
- for <alsa-devel@alsa-project.org>; Thu, 14 Jul 2022 06:25:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 460E4F80687
+ by alsa1.perex.cz (Postfix) with ESMTPS id 768ECF80689
+ for <alsa-devel@alsa-project.org>; Thu, 14 Jul 2022 06:25:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 768ECF80689
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="j92/IbC4"
+ header.b="pAkpsrz1"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id BB4DEB82383;
- Thu, 14 Jul 2022 04:25:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5694C34114;
- Thu, 14 Jul 2022 04:25:53 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0762E61ECE;
+ Thu, 14 Jul 2022 04:25:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF85DC341CD;
+ Thu, 14 Jul 2022 04:25:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657772755;
- bh=LTiHrq0h5LtFHCuEgsogHVuSPBYt7hnhL+zVi3RRRX4=;
+ s=k20201202; t=1657772756;
+ bh=qkcI0ibRvlGXIrDjkDBd+8nMkl5CVlAV+udAK+KaoWo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=j92/IbC4fZLRD8+SPFWHDnGYDlVcrcvGBv2k9o9LlgzFbb9iCMC8P2IhQPVmGc+Sg
- jzgrTnmMRgisAM4xcKocX5JTd87melj9bQZJyAywlgOdKJKodrMYJEQFO9XRmnU0md
- eCC3bL1VF9gPwNahdWGO+GTWqOLQ2pPwxLc9FnQCGCx6zYPoWQqHUF+yAwG3S2yxtz
- pLkyWWJlI2DnxOY7rxjiJ0/P9AEQt1JnA8s15hOQK9qJFnEhcFi5daV3L2ZUYrpiwA
- T81f+1OINrb3AGN0dmupV+dpjigvSA6vHgGGkHM2ChhpRZM+nW8ltizGfg92ELQsBE
- eDbSCg8QfpA+w==
+ b=pAkpsrz1FbT9k3H6dWQLoxBA8ykPnX2f+irL8WGjbsnwgVlmF07qvK+q/8swUAj7v
+ ZHY9DENte2uZ9LU8egyadidX9nxz993qAdd2omsnsWQmHy8lEvXQeU2BaiBiKdp2k0
+ CDyoPqHq/97dVaOo3l3foaNvK1vG8Wn1hK2nGALSU+RpBfH7BPJlOYi9sxaq4rJNUr
+ uCS6ocuZZQp+0c+06iH6fo3AasnsZzh79lS7nyB9HLu/2pWO6FK0EugOJqN7bjIil3
+ T5Grpy+t8oOQR17rOQ+qHGt/4bGDFfz3iPfyGztXVpwgdzffGDnzynA5zBb9EhkQVe
+ Cn7NzHi8SWilw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 06/15] ASoC: cs47l15: Fix event generation for
- low power mux control
-Date: Thu, 14 Jul 2022 00:25:31 -0400
-Message-Id: <20220714042541.282175-6-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 07/15] ASoC: madera: Fix event generation for
+ OUT1 demux
+Date: Thu, 14 Jul 2022 00:25:32 -0400
+Message-Id: <20220714042541.282175-7-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220714042541.282175-1-sashal@kernel.org>
 References: <20220714042541.282175-1-sashal@kernel.org>
@@ -72,10 +72,9 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Charles Keepax <ckeepax@opensource.cirrus.com>, tanureal@opensource.cirrus.com,
- patches@opensource.cirrus.com, tiwai@suse.com, lgirdwood@gmail.com,
- david.rhodes@cirrus.com, rf@opensource.cirrus.com,
- Mark Brown <broonie@kernel.org>, james.schulman@cirrus.com
+ Charles Keepax <ckeepax@opensource.cirrus.com>, patches@opensource.cirrus.com,
+ tiwai@suse.com, lgirdwood@gmail.com, rf@opensource.cirrus.com,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,44 +92,42 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-[ Upstream commit 7f103af4a10f375b9b346b4d0b730f6a66b8c451 ]
+[ Upstream commit e3cabbef3db8269207a6b8808f510137669f8deb ]
 
-cs47l15_in1_adc_put always returns zero regardless of if the control
-value was updated. This results in missing notifications to user-space
-of the control change. Update the handling to return 1 when the value is
+madera_out1_demux_put returns the value of
+snd_soc_dapm_mux_update_power, which returns a 1 if a path was found for
+the kcontrol. This is obviously different to the expected return a 1 if
+the control was updated value. This results in spurious notifications to
+user-space. Update the handling to only return a 1 when the value is
 changed.
 
 Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-Link: https://lore.kernel.org/r/20220623105120.1981154-3-ckeepax@opensource.cirrus.com
+Link: https://lore.kernel.org/r/20220623105120.1981154-4-ckeepax@opensource.cirrus.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/cs47l15.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ sound/soc/codecs/madera.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/cs47l15.c b/sound/soc/codecs/cs47l15.c
-index 254f9d96e766..7c20642f160a 100644
---- a/sound/soc/codecs/cs47l15.c
-+++ b/sound/soc/codecs/cs47l15.c
-@@ -122,6 +122,9 @@ static int cs47l15_in1_adc_put(struct snd_kcontrol *kcontrol,
- 		snd_soc_kcontrol_component(kcontrol);
- 	struct cs47l15 *cs47l15 = snd_soc_component_get_drvdata(component);
+diff --git a/sound/soc/codecs/madera.c b/sound/soc/codecs/madera.c
+index 680f31a6493a..a74c9b28368b 100644
+--- a/sound/soc/codecs/madera.c
++++ b/sound/soc/codecs/madera.c
+@@ -618,7 +618,13 @@ int madera_out1_demux_put(struct snd_kcontrol *kcontrol,
+ end:
+ 	snd_soc_dapm_mutex_unlock(dapm);
  
-+	if (!!ucontrol->value.integer.value[0] == cs47l15->in1_lp_mode)
-+		return 0;
+-	return snd_soc_dapm_mux_update_power(dapm, kcontrol, mux, e, NULL);
++	ret = snd_soc_dapm_mux_update_power(dapm, kcontrol, mux, e, NULL);
++	if (ret < 0) {
++		dev_err(madera->dev, "Failed to update demux power state: %d\n", ret);
++		return ret;
++	}
 +
- 	switch (ucontrol->value.integer.value[0]) {
- 	case 0:
- 		/* Set IN1 to normal mode */
-@@ -150,7 +153,7 @@ static int cs47l15_in1_adc_put(struct snd_kcontrol *kcontrol,
- 		break;
- 	}
- 
--	return 0;
-+	return 1;
++	return change;
  }
+ EXPORT_SYMBOL_GPL(madera_out1_demux_put);
  
- static const struct snd_kcontrol_new cs47l15_snd_controls[] = {
 -- 
 2.35.1
 

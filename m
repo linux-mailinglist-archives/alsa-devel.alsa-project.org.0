@@ -2,79 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8582574392
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Jul 2022 06:36:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73C62574395
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Jul 2022 06:36:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 486CB1933;
-	Thu, 14 Jul 2022 06:35:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 486CB1933
+	by alsa0.perex.cz (Postfix) with ESMTPS id 19C08192C;
+	Thu, 14 Jul 2022 06:36:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19C08192C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657773392;
-	bh=R3lZ3NCRdBNAZR5E9UfEpe/W3lAmCfKjijCWELZQ0aY=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=IJtCHOq2Gw4fEefMWuWvPG44LEGwroadtK9Dlsy7yTVVcNdoINtQEEURZhNtGpLrx
-	 1cg5IK5+pEp3qfMrtHHGhrM3ymgQxkb3pW0NK3ikUYmlcVNDkRzH8LU4G2ZnWUalI8
-	 RRc2HyLCD7X39r1o0vIKyJv19MV/mUuge2++sItA=
+	s=default; t=1657773415;
+	bh=fw9XhsSsHJOAoHA7IJQfgjSpPMbNwTc5hGVW6cBOafc=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=qWZ8W7MiqcXi006ZCTjZOAzOKntC5rM6c6YXvV9zCdoJD7IsbawSgzpgr6P5GVrkt
+	 JJYeuA1s+YWA+WDpwCeHrCe5IpfPd96cMvgNwBN9o0IdAc5dn0Bp2sWXsx20SKzbpz
+	 icjSZeKOxNc49S7g4fmxjDiN8n0NoAFkg08k5Hpw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9EC0FF80659;
-	Thu, 14 Jul 2022 06:25:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 48ECDF80686;
+	Thu, 14 Jul 2022 06:25:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 492F4F805B3; Thu, 14 Jul 2022 06:25:43 +0200 (CEST)
+ id 75C9AF80687; Thu, 14 Jul 2022 06:25:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BE023F80659
- for <alsa-devel@alsa-project.org>; Thu, 14 Jul 2022 06:25:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE023F80659
+ by alsa1.perex.cz (Postfix) with ESMTPS id BE42FF8067D
+ for <alsa-devel@alsa-project.org>; Thu, 14 Jul 2022 06:25:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE42FF8067D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="jR+ObY+1"
+ header.b="RvXzJTT1"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 5F103B8237D;
- Thu, 14 Jul 2022 04:25:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADE25C34114;
- Thu, 14 Jul 2022 04:25:34 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 2BF4CB82371;
+ Thu, 14 Jul 2022 04:25:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5FC0C34115;
+ Thu, 14 Jul 2022 04:25:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657772736;
- bh=R3lZ3NCRdBNAZR5E9UfEpe/W3lAmCfKjijCWELZQ0aY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=jR+ObY+1pGD/3eZKyJiapC6D47ualbpWxluTO6B5sXVsRubqa8Qp7NXO1hsvDN7cP
- iBnmtplRQcv602lMWLAH0kJVPOT+GQbpnQsSjnwuZUEbpgy23KxBufgAVUFVQQRrDq
- ma9KgdW/Ifwi9bp0RnB9E5AoPBh38uczfhiXGXpr0abV4+/LDVJdMyUdBzzuyzxams
- 6eBJL01HlW+KmonzG0XECRp63o6bSuFxoq9qCt9BRFUYVo5oGICG3zRsyW4r5SkgSA
- lRk8EuOeERnElKTvO6cay6mOSJbvnx6qPWrxKgEGQnf+LjdlVZ2DqzKYCujU51RmGk
- 1qgB79cguDgZQ==
+ s=k20201202; t=1657772743;
+ bh=fw9XhsSsHJOAoHA7IJQfgjSpPMbNwTc5hGVW6cBOafc=;
+ h=From:To:Cc:Subject:Date:From;
+ b=RvXzJTT1UL0A1HO95mmerJuvoJ8q78yjUAXQAKalqc1/CycoDhrC1O51oe3GpY0eX
+ i3ermraqExvT2Ic1CiM3rLWvgX/4ZC1lcnT6NaaqdjGan3WklSFBsuKCPegdYxnXSr
+ 6AcQwUAlrgKGXVepf6Q+CcxBlCrEIFaBSEW0Tyd9xVcGk9lqOjVSC/eJG6fN6icOkF
+ Dzw7YByMeo3dn5oUMxqplOB08d9WTka6nrnbMRSXyt/FGBU7BD+lIlYQjfl6kfb6EV
+ +wGoh8Jmea5YG6OY5LzuUZaXQ25y3/TKGVEBNReM9RnX4MVt7iir1t8FdEjItLoFsR
+ DVbYK/30QapHg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 26/28] ALSA: usb-audio: Add quirk for Fiero SC-01
- (fw v1.0.0)
-Date: Thu, 14 Jul 2022 00:24:27 -0400
-Message-Id: <20220714042429.281816-26-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 01/15] ASoC: ops: Fix off by one in range control
+ validation
+Date: Thu, 14 Jul 2022 00:25:26 -0400
+Message-Id: <20220714042541.282175-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220714042429.281816-1-sashal@kernel.org>
-References: <20220714042429.281816-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- john-linux@pelago.org.uk, Takashi Iwai <tiwai@suse.de>, brendan@grieve.com.au,
- Egor Vorontsov <sdoregor@sdore.me>, tiwai@suse.com, willovertonuk@gmail.com,
- alexander@tsoy.me, hahnjo@hahnjo.de
+ tiwai@suse.com, lgirdwood@gmail.com, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,185 +86,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Egor Vorontsov <sdoregor@sdore.me>
+From: Mark Brown <broonie@kernel.org>
 
-[ Upstream commit 2307a0e1ca0b5c1337b37ac6302f96e017ebac3c ]
+[ Upstream commit 5871321fb4558c55bf9567052b618ff0be6b975e ]
 
-The patch applies the same quirks used for SC-01 at firmware v1.1.0 to
-the ones running v1.0.0, with respect to hard-coded sample rates.
+We currently report that range controls accept a range of 0..(max-min) but
+accept writes in the range 0..(max-min+1). Remove that extra +1.
 
-I got two more units and successfully tested the patch series with both
-firmwares.
-
-The support is now complete (not accounting ASIO).
-
-Signed-off-by: Egor Vorontsov <sdoregor@sdore.me>
-Link: https://lore.kernel.org/r/20220627100041.2861494-2-sdoregor@sdore.me
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Link: https://lore.kernel.org/r/20220604105246.4055214-1-broonie@kernel.org
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/quirks-table.h | 132 +++++++++++++++++++++++++++++++++++++++
- sound/usb/quirks.c       |   4 ++
- 2 files changed, 136 insertions(+)
+ sound/soc/soc-ops.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
-index 7067d314fecd..f93201a830b5 100644
---- a/sound/usb/quirks-table.h
-+++ b/sound/usb/quirks-table.h
-@@ -4167,6 +4167,138 @@ YAMAHA_DEVICE(0x7010, "UB99"),
- 		}
- 	}
- },
-+{
-+	/*
-+	 * Fiero SC-01 (firmware v1.0.0 @ 48 kHz)
-+	 */
-+	USB_DEVICE(0x2b53, 0x0023),
-+	.driver_info = (unsigned long) &(const struct snd_usb_audio_quirk) {
-+		.vendor_name = "Fiero",
-+		.product_name = "SC-01",
-+		.ifnum = QUIRK_ANY_INTERFACE,
-+		.type = QUIRK_COMPOSITE,
-+		.data = &(const struct snd_usb_audio_quirk[]) {
-+			{
-+				.ifnum = 0,
-+				.type = QUIRK_AUDIO_STANDARD_INTERFACE
-+			},
-+			/* Playback */
-+			{
-+				.ifnum = 1,
-+				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
-+				.data = &(const struct audioformat) {
-+					.formats = SNDRV_PCM_FMTBIT_S32_LE,
-+					.channels = 2,
-+					.fmt_bits = 24,
-+					.iface = 1,
-+					.altsetting = 1,
-+					.altset_idx = 1,
-+					.endpoint = 0x01,
-+					.ep_attr = USB_ENDPOINT_XFER_ISOC |
-+						   USB_ENDPOINT_SYNC_ASYNC,
-+					.rates = SNDRV_PCM_RATE_48000,
-+					.rate_min = 48000,
-+					.rate_max = 48000,
-+					.nr_rates = 1,
-+					.rate_table = (unsigned int[]) { 48000 },
-+					.clock = 0x29
-+				}
-+			},
-+			/* Capture */
-+			{
-+				.ifnum = 2,
-+				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
-+				.data = &(const struct audioformat) {
-+					.formats = SNDRV_PCM_FMTBIT_S32_LE,
-+					.channels = 2,
-+					.fmt_bits = 24,
-+					.iface = 2,
-+					.altsetting = 1,
-+					.altset_idx = 1,
-+					.endpoint = 0x82,
-+					.ep_attr = USB_ENDPOINT_XFER_ISOC |
-+						   USB_ENDPOINT_SYNC_ASYNC |
-+						   USB_ENDPOINT_USAGE_IMPLICIT_FB,
-+					.rates = SNDRV_PCM_RATE_48000,
-+					.rate_min = 48000,
-+					.rate_max = 48000,
-+					.nr_rates = 1,
-+					.rate_table = (unsigned int[]) { 48000 },
-+					.clock = 0x29
-+				}
-+			},
-+			{
-+				.ifnum = -1
-+			}
-+		}
-+	}
-+},
-+{
-+	/*
-+	 * Fiero SC-01 (firmware v1.0.0 @ 96 kHz)
-+	 */
-+	USB_DEVICE(0x2b53, 0x0024),
-+	.driver_info = (unsigned long) &(const struct snd_usb_audio_quirk) {
-+		.vendor_name = "Fiero",
-+		.product_name = "SC-01",
-+		.ifnum = QUIRK_ANY_INTERFACE,
-+		.type = QUIRK_COMPOSITE,
-+		.data = &(const struct snd_usb_audio_quirk[]) {
-+			{
-+				.ifnum = 0,
-+				.type = QUIRK_AUDIO_STANDARD_INTERFACE
-+			},
-+			/* Playback */
-+			{
-+				.ifnum = 1,
-+				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
-+				.data = &(const struct audioformat) {
-+					.formats = SNDRV_PCM_FMTBIT_S32_LE,
-+					.channels = 2,
-+					.fmt_bits = 24,
-+					.iface = 1,
-+					.altsetting = 1,
-+					.altset_idx = 1,
-+					.endpoint = 0x01,
-+					.ep_attr = USB_ENDPOINT_XFER_ISOC |
-+						   USB_ENDPOINT_SYNC_ASYNC,
-+					.rates = SNDRV_PCM_RATE_96000,
-+					.rate_min = 96000,
-+					.rate_max = 96000,
-+					.nr_rates = 1,
-+					.rate_table = (unsigned int[]) { 96000 },
-+					.clock = 0x29
-+				}
-+			},
-+			/* Capture */
-+			{
-+				.ifnum = 2,
-+				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
-+				.data = &(const struct audioformat) {
-+					.formats = SNDRV_PCM_FMTBIT_S32_LE,
-+					.channels = 2,
-+					.fmt_bits = 24,
-+					.iface = 2,
-+					.altsetting = 1,
-+					.altset_idx = 1,
-+					.endpoint = 0x82,
-+					.ep_attr = USB_ENDPOINT_XFER_ISOC |
-+						   USB_ENDPOINT_SYNC_ASYNC |
-+						   USB_ENDPOINT_USAGE_IMPLICIT_FB,
-+					.rates = SNDRV_PCM_RATE_96000,
-+					.rate_min = 96000,
-+					.rate_max = 96000,
-+					.nr_rates = 1,
-+					.rate_table = (unsigned int[]) { 96000 },
-+					.clock = 0x29
-+				}
-+			},
-+			{
-+				.ifnum = -1
-+			}
-+		}
-+	}
-+},
- {
- 	/*
- 	 * Fiero SC-01 (firmware v1.1.0)
-diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index d42a59609886..c4c0847a68bf 100644
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -1911,6 +1911,10 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
- 		   QUIRK_FLAG_ALIGN_TRANSFER),
- 	DEVICE_FLG(0x1224, 0x2a25, /* Jieli Technology USB PHY 2.0 */
- 		   QUIRK_FLAG_GET_SAMPLE_RATE),
-+	DEVICE_FLG(0x2b53, 0x0023, /* Fiero SC-01 (firmware v1.0.0 @ 48 kHz) */
-+		   QUIRK_FLAG_GENERIC_IMPLICIT_FB),
-+	DEVICE_FLG(0x2b53, 0x0024, /* Fiero SC-01 (firmware v1.0.0 @ 96 kHz) */
-+		   QUIRK_FLAG_GENERIC_IMPLICIT_FB),
- 	DEVICE_FLG(0x2b53, 0x0031, /* Fiero SC-01 (firmware v1.1.0) */
- 		   QUIRK_FLAG_GENERIC_IMPLICIT_FB),
+diff --git a/sound/soc/soc-ops.c b/sound/soc/soc-ops.c
+index 15bfcdbdfaa4..0f26d6c31ce5 100644
+--- a/sound/soc/soc-ops.c
++++ b/sound/soc/soc-ops.c
+@@ -517,7 +517,7 @@ int snd_soc_put_volsw_range(struct snd_kcontrol *kcontrol,
+ 		return -EINVAL;
+ 	if (mc->platform_max && tmp > mc->platform_max)
+ 		return -EINVAL;
+-	if (tmp > mc->max - mc->min + 1)
++	if (tmp > mc->max - mc->min)
+ 		return -EINVAL;
  
+ 	if (invert)
+@@ -538,7 +538,7 @@ int snd_soc_put_volsw_range(struct snd_kcontrol *kcontrol,
+ 			return -EINVAL;
+ 		if (mc->platform_max && tmp > mc->platform_max)
+ 			return -EINVAL;
+-		if (tmp > mc->max - mc->min + 1)
++		if (tmp > mc->max - mc->min)
+ 			return -EINVAL;
+ 
+ 		if (invert)
 -- 
 2.35.1
 

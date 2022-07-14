@@ -2,67 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50C955743BC
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Jul 2022 06:38:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 114A15743C2
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Jul 2022 06:39:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E22E01A60;
-	Thu, 14 Jul 2022 06:38:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E22E01A60
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9CF441A8F;
+	Thu, 14 Jul 2022 06:38:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CF441A8F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657773533;
-	bh=ws8AHWwDPDlJOFTDJ3zKqYO043Rjd52kX/2CbSrbOEE=;
+	s=default; t=1657773562;
+	bh=fh11CQGg78fCZlvxIkEKdZTt+V7QMJNel34lx3CZraQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hQB8A7bm9CSt6MHircLqgXp7cnnrvyGEUjWBd4cmyT6UKZnsU74az6pEdzI8cq+t3
-	 D12YO9DYzT/FX/z/mtMqOfw9MS9SaLaSBVFqZu/mTOkzT3xegEpwqTHeJVlvlP5CzH
-	 jjZ5Pv112yNSIOTfYiLkTKHFr1/0bOjJfggTbstY=
+	b=m9xWfBcLH4+vTxCFxBq6c7zZQ0oui1yf+7XHLNRM3/HBWxa2HRoUwi60paZtxIyAf
+	 bGktqwAB9L0/8hYx29qEBnaVrJ0iynMCVw52hISafrdUwjxEdY1U6RLwRSCh4nZF7d
+	 opK+AQg8uUq9nhRINmDC+63/mY5cXXGwN1W0SrdY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9B3C0F8070E;
-	Thu, 14 Jul 2022 06:26:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3DBA2F80716;
+	Thu, 14 Jul 2022 06:26:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D12C8F805C4; Thu, 14 Jul 2022 06:26:22 +0200 (CEST)
+ id 64263F80713; Thu, 14 Jul 2022 06:26:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6F59AF805B4
- for <alsa-devel@alsa-project.org>; Thu, 14 Jul 2022 06:26:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F59AF805B4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3AD12F806F7
+ for <alsa-devel@alsa-project.org>; Thu, 14 Jul 2022 06:26:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3AD12F806F7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="LGTVoD52"
+ header.b="WQwfl6Rd"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 69CF561ED1;
+ by ams.source.kernel.org (Postfix) with ESMTPS id C8C1CB82371;
+ Thu, 14 Jul 2022 04:26:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADF12C3411C;
  Thu, 14 Jul 2022 04:26:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E33D0C34114;
- Thu, 14 Jul 2022 04:26:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657772779;
- bh=ws8AHWwDPDlJOFTDJ3zKqYO043Rjd52kX/2CbSrbOEE=;
+ s=k20201202; t=1657772781;
+ bh=fh11CQGg78fCZlvxIkEKdZTt+V7QMJNel34lx3CZraQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=LGTVoD52z8xY4LYsCVPN0WUHipzYJSxR2II2/7T/KhQmK5ExjgXnjJtHvZ/tcO9HZ
- yfGFyhInTJRZYIO0uPJ7IRsejUCzs6b4Elq53G4EOmHx5fISEh1xAiIrbrd7rI2mcX
- +HMb/184G1Zx+2eWKpxJSYuJqaKnd3xqR7U7CM6K9uHqXXbe/zu3xkwtHQM1nH4xJ4
- 9sJcRfzh8Vo9RQI7KX0qiakLzTw8MRttLhTmNxQMtf0FLOmcCzHyco6qhyL3hL2Urv
- d8BNagvTXqJKBOWXf789OasndD23zwDQFpwfzcEeZYMw08vp5jLGZ194pVonvd2lHC
- CgVks5jOg4Sqg==
+ b=WQwfl6RdG9FzlI9HWJBhNx2g4exaXniS+7yOFwO1ruTEZEzVy8S89wjPuzSgokRhr
+ iXt6LHKGol6P7e2XgkxdtX9Ybe21gZpqkwVAtm1ky2JqE13hPlt/r9n8MfJdB9aTYi
+ Ac6LhlyfJkZeD6aGHHXwTiQFeTWVOzZrmmRHhCyuRY8CM8X9MZ882B3v57pEHOHFqA
+ W/CdRt3us8K8rwg1lkQOa20ti0w4iofwh7RC7HJHTP+i2DBG/adJpWvBdLEixkUJKG
+ GoP7AQ0IsHF5C3AhbOMAVulZ0D7h6UaW5CqfqKsg3WKOLlEyQy0Xraf4h8qrUx+jpF
+ vfthnu3MmU6qg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 02/10] ASoC: wm5110: Fix DRE control
-Date: Thu, 14 Jul 2022 00:26:04 -0400
-Message-Id: <20220714042612.282378-2-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 03/10] ASoC: cs47l15: Fix event generation for low
+ power mux control
+Date: Thu, 14 Jul 2022 00:26:05 -0400
+Message-Id: <20220714042612.282378-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220714042612.282378-1-sashal@kernel.org>
 References: <20220714042612.282378-1-sashal@kernel.org>
@@ -71,9 +72,10 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Charles Keepax <ckeepax@opensource.cirrus.com>, patches@opensource.cirrus.com,
- simont@opensource.cirrus.com, tiwai@suse.com, lgirdwood@gmail.com,
- Mark Brown <broonie@kernel.org>
+ Charles Keepax <ckeepax@opensource.cirrus.com>, tanureal@opensource.cirrus.com,
+ patches@opensource.cirrus.com, tiwai@suse.com, lgirdwood@gmail.com,
+ david.rhodes@cirrus.com, rf@opensource.cirrus.com,
+ Mark Brown <broonie@kernel.org>, james.schulman@cirrus.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,52 +93,44 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-[ Upstream commit 0bc0ae9a5938d512fd5d44f11c9c04892dcf4961 ]
+[ Upstream commit 7f103af4a10f375b9b346b4d0b730f6a66b8c451 ]
 
-The DRE controls on wm5110 should return a value of 1 if the DRE state
-is actually changed, update to fix this.
+cs47l15_in1_adc_put always returns zero regardless of if the control
+value was updated. This results in missing notifications to user-space
+of the control change. Update the handling to return 1 when the value is
+changed.
 
 Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-Link: https://lore.kernel.org/r/20220621102041.1713504-2-ckeepax@opensource.cirrus.com
+Link: https://lore.kernel.org/r/20220623105120.1981154-3-ckeepax@opensource.cirrus.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/wm5110.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ sound/soc/codecs/cs47l15.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/wm5110.c b/sound/soc/codecs/wm5110.c
-index 9dc215b5c504..06ec3f48c808 100644
---- a/sound/soc/codecs/wm5110.c
-+++ b/sound/soc/codecs/wm5110.c
-@@ -413,6 +413,7 @@ static int wm5110_put_dre(struct snd_kcontrol *kcontrol,
- 	unsigned int rnew = (!!ucontrol->value.integer.value[1]) << mc->rshift;
- 	unsigned int lold, rold;
- 	unsigned int lena, rena;
-+	bool change = false;
- 	int ret;
+diff --git a/sound/soc/codecs/cs47l15.c b/sound/soc/codecs/cs47l15.c
+index ece1276f38eb..1f7148794a5a 100644
+--- a/sound/soc/codecs/cs47l15.c
++++ b/sound/soc/codecs/cs47l15.c
+@@ -122,6 +122,9 @@ static int cs47l15_in1_adc_put(struct snd_kcontrol *kcontrol,
+ 		snd_soc_kcontrol_component(kcontrol);
+ 	struct cs47l15 *cs47l15 = snd_soc_component_get_drvdata(component);
  
- 	snd_soc_dapm_mutex_lock(dapm);
-@@ -440,8 +441,8 @@ static int wm5110_put_dre(struct snd_kcontrol *kcontrol,
- 		goto err;
++	if (!!ucontrol->value.integer.value[0] == cs47l15->in1_lp_mode)
++		return 0;
++
+ 	switch (ucontrol->value.integer.value[0]) {
+ 	case 0:
+ 		/* Set IN1 to normal mode */
+@@ -150,7 +153,7 @@ static int cs47l15_in1_adc_put(struct snd_kcontrol *kcontrol,
+ 		break;
  	}
  
--	ret = regmap_update_bits(arizona->regmap, ARIZONA_DRE_ENABLE,
--				 mask, lnew | rnew);
-+	ret = regmap_update_bits_check(arizona->regmap, ARIZONA_DRE_ENABLE,
-+				       mask, lnew | rnew, &change);
- 	if (ret) {
- 		dev_err(arizona->dev, "Failed to set DRE: %d\n", ret);
- 		goto err;
-@@ -454,6 +455,9 @@ static int wm5110_put_dre(struct snd_kcontrol *kcontrol,
- 	if (!rnew && rold)
- 		wm5110_clear_pga_volume(arizona, mc->rshift);
+-	return 0;
++	return 1;
+ }
  
-+	if (change)
-+		ret = 1;
-+
- err:
- 	snd_soc_dapm_mutex_unlock(dapm);
- 
+ static const struct snd_kcontrol_new cs47l15_snd_controls[] = {
 -- 
 2.35.1
 

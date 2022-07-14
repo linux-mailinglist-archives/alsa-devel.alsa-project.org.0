@@ -2,135 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B2A5574510
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Jul 2022 08:29:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE4E357474B
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Jul 2022 10:39:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 958EC1924;
-	Thu, 14 Jul 2022 08:28:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 958EC1924
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1001A18F0;
+	Thu, 14 Jul 2022 10:38:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1001A18F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657780177;
-	bh=5o/0KCf/BszKzGNEDk5ahwfn/+WsOvFA7c4CtHMEJcM=;
-	h=From:Subject:To:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=rKTuZmK9s0+4HowrRVmcQDgcYWC55JTMz/weJcAczoZNMLrZbRkXqfPayJ0/UWGMX
-	 q2dgy99GgTgQ6PqRAADicWshWXJCQKoto+vv3ra4Pd4WM6bkKPoKsXT/Q34lfzZ+y7
-	 sux1tVuKHPgc3HoWU5mCyEIQaKKEPk75IZaWpU+o=
+	s=default; t=1657787960;
+	bh=CtE8wCMS8phFs8uPIFL1lKGtwmHqHHXPfn8gtS1bN+M=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=vNH5bA/NL3s8tVUJZ9HwLxBxVRo0XeQ0Z5jKwXskW9ekZA+1UxYU2gjyYi4ok6SJS
+	 XblxRIMDq7oh/OM04RY0T1mbijTowIIVyBvp4fP5SSyLF7UBJ718FQQawRF5J4PZsR
+	 6PhCQDTewxuR+r3fMoxw38Tup4AlLh3fm7jYKniE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1F2B0F8016E;
-	Thu, 14 Jul 2022 08:28:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 77DF9F800B0;
+	Thu, 14 Jul 2022 10:38:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1E0E1F80165; Thu, 14 Jul 2022 08:28:32 +0200 (CEST)
+ id 6B309F80165; Thu, 14 Jul 2022 10:38:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.9 required=5.0 tests=AC_FROM_MANY_DOTS, DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from JPN01-TYC-obe.outbound.protection.outlook.com
- (mail-tycjpn01on2135.outbound.protection.outlook.com [40.107.114.135])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9BCC4F800AA
- for <alsa-devel@alsa-project.org>; Thu, 14 Jul 2022 08:28:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BCC4F800AA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4CCDDF800AA
+ for <alsa-devel@alsa-project.org>; Thu, 14 Jul 2022 10:38:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4CCDDF800AA
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com
- header.b="oOorPC69"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XIn/edf69ZXw8qf+BOmQEIgVH5OkNQW2XP5LGd9vkNpIV1GUlZUKHvEy4TOtt6j1RZKiOKwsWCE1q5TEb9s8dJSEC/8qn2xMnsYqzi5L9Ak4/6i9esEsVcbpnzzNx+qWTN4k/6FjoPX8K90XjuElYxVPqtf5+HFtbzOT+yFSzonSYN4sRngX23ZdNmZZderCfPOpOPuKOcI+DX+JTPlO9oZP3I7gNW7m8IigKXPZSfksAOPBuPVEpjanWYWZPzhDn2nxSHrVGc1CXqPL0W8itEdHQ3r/3xIcGP37MAn/NluYxeWTl407riqJrMqz3CL1XcikxLbTAJ4P00R7/N4rJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VtKs3pKA5SUUccKAq4gML+HmBG9E5dHuU0NK8jJw2g4=;
- b=I5HY/c7ivHSQSBRwnrtIT/+zgFm7Ua+FNul07sBvHVb5Mut7g5pnwCXSx5xPZxBafXOFWsVOaku9T8Y9xZp0SQ9toDOaCx39ZklHMLRd7N7sP6x5PuTuTEfwMQKj9FEzBk7vZ1S840d/eR3BXVrKUIbN/yWjjcgaC6914KdNIShxKnEVG2BDQ6jvWcAue0P7nOpz9aajJZMWvRrhlgytQTXmjDes2zRiNdfwTpaTS2t2vx3mgn56CH1KGfwDeuAelsVMPm53V+cE/txiVBC9p8h4+1MctThWv/fBRlqNkIqnII7dV9PBNrdhhpXS2weKfnp9kO7eew64TVQj9siH/Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VtKs3pKA5SUUccKAq4gML+HmBG9E5dHuU0NK8jJw2g4=;
- b=oOorPC6915K+t6bsQqOBcuDbbIkZPMq4855nRuaaIOpX9woDzsohb0rNx5LMxZRbHCubIoC29TTei/7955BH+1H1rpGFdAM935z3QORO6vH5z7VY9BLEBh2go093TY3r0sQt2DpvmOF7mj0EVTE62cmoa0telwo813x1u8RKxb0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
- by TYAPR01MB5865.jpnprd01.prod.outlook.com (2603:1096:404:805b::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.12; Thu, 14 Jul
- 2022 06:28:15 +0000
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::3838:1a73:ae46:bab2]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::3838:1a73:ae46:bab2%6]) with mapi id 15.20.5438.012; Thu, 14 Jul 2022
- 06:28:15 +0000
-Message-ID: <871quocio1.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH] ASoC: rsnd: care default case on
- rsnd_ssiu_busif_err_irq_ctrl()
-User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
-To: Mark Brown <broonie@kernel.org>
-Content-Type: text/plain; charset=US-ASCII
-Date: Thu, 14 Jul 2022 06:28:15 +0000
-X-ClientProxiedBy: TYCPR01CA0177.jpnprd01.prod.outlook.com
- (2603:1096:400:2b2::16) To OS3PR01MB8426.jpnprd01.prod.outlook.com
- (2603:1096:604:194::10)
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="AV6Hhli3"
+Received: by mail-lf1-x129.google.com with SMTP id o7so1627330lfq.9
+ for <alsa-devel@alsa-project.org>; Thu, 14 Jul 2022 01:38:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=7fxd01WSVmh4sZ+rShAEvNwWTJPHinWndJQGVhp8bBI=;
+ b=AV6Hhli373vNQFbi9Ak8xtnfk65n1qJoOFR1iopuhLqNO+9rR7YVnsPRxPwQyDSQIV
+ +QSw/uYsUn0j3lTno1eRLpYu6NCmKMJ9NHXnu4MS/85dt2BIFA1oM9XA7hsrJQYOFIdC
+ hQbQbbF8+DErln2+k/IyanoaqZumXBcql8mwC+7C8GE42BE1um9abQ98AyATK4QRbSW2
+ ljWFFeMgHHg4xta7hDjX252AJNu8ISxRyUblN+e3kCPgKPRQ1EbvbtncAOYC8xFT3/bH
+ xVMAPvZIlkTEWGZd93pTeNDQCQpHIH9ToFdVKCDS72OiK4S9a+FfVKuuh/PHcI4oOCZI
+ 5d5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=7fxd01WSVmh4sZ+rShAEvNwWTJPHinWndJQGVhp8bBI=;
+ b=pXA0REhwbphnFM/7IDmoAsPbCMTO12rhTgJn6UsVE4ERLhEkpJ6qPD7d1XQsODCbzA
+ jahgjq32NnWsdpNFZgYDogxDZKuB2dPztnOTKuqn0brLN9mngmX3/OsGMwmQUSEWbc0Z
+ 1xVOOjSd5HWUj3etMrjzd61eSE2ZacfORzvAgQXtPn4yzIQr0jyvAwyNq9/lPDCdo9l1
+ GKIXNfZdiEgjSaLeJCEWzz+VJGcgq6lvzyP5qEBx9UPIPF/tm0UjriIoRUMGhDRRaaMM
+ ozwy4FoIC83UFFQEkZtYtCwXFY/HpUbNletkKeSfiZSh9/ss6aq3UXwcOivKbZJee8z+
+ noMQ==
+X-Gm-Message-State: AJIora+Ptizx4qaFrnJzqenYd6u06sQfzp9IwavQMfU8aK+wJVm0AzxQ
+ WzDJ7jS+70vG673ziWhwe0pCDw==
+X-Google-Smtp-Source: AGRyM1uNnmvHoyTRHbkEvCEx1QbExHpVGO/O3M8jCnCpVPFay7j9MN3UnazfseCVeu8DlEirOYwVeg==
+X-Received: by 2002:a05:6512:2308:b0:48a:f9d:7389 with SMTP id
+ o8-20020a056512230800b0048a0f9d7389mr3677290lfu.235.1657787888760; 
+ Thu, 14 Jul 2022 01:38:08 -0700 (PDT)
+Received: from [10.0.0.8] (fwa5da9-171.bb.online.no. [88.93.169.171])
+ by smtp.gmail.com with ESMTPSA id
+ k6-20020ac257c6000000b00489cd8ee61asm237159lfo.275.2022.07.14.01.38.06
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 14 Jul 2022 01:38:07 -0700 (PDT)
+Message-ID: <3178fad9-b761-dd28-971a-007159d10695@linaro.org>
+Date: Thu, 14 Jul 2022 10:38:04 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 3372cc0b-1d0a-4f94-b679-08da656208b7
-X-MS-TrafficTypeDiagnostic: TYAPR01MB5865:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 9DuwlUlp53hSx+p0lVsvKv/XawdaBbTlkuoeUNUIiZOI62cAyzXOSNLPm8MlGhALA1k0iYbhlOjxsV0IfOt9wpoq/yBjqezO6ccq8PcHyGxPwqufvCFYSNM6ODx/qSoVsHqXn66H0u31Br4O8gBJy+ZnhPlOAzCzMnnStoqitiLdENQO88FEoDbabW56RKo4whdU8CrZJX54A/8B26eTGhA0o/Ox7dozENjncOO+8c7TaVhWY6A5ZEMfDDlk4sBZpjA72YoJkkB/ezwshCYuq7yIS1N0k3wLFJk7n+g+2ioeJZmvI5GcQXtYD53L+DldM+dLP2eDA0NjC4+z4B8YVIgSG737GEBss9zjzVLwfGU8iURJZlfmNvLsHjqCA5Qy/dvoWkVOIpfHBawikB+gzSjLAKvzh97p3hrnh3LxdG753m1+T2/o6W4kMt7E3UA2bT/ml2tSFJ13qEWxNolIPcBeidI9ZgbgATTQVQKVYEq7V/fzALo+/LmOaLVER9SwPsGiL+rh8C8I2IS+0Q0m9YOXUm5gr7zhz5SOV9n6Ko5lXzQ96tVfpDlB5vJsMwaXlpl8Dg1OWlr+1QpFyje7jASuUkErUFTohysDNn+imdAqK3kG4AD5LsnUj+1xMlpkMFU7Ffs/dXFnEX71vBzmbEJMYLOGH9arxMERgNCJkOQVPAZ7J5FoQqMSTCWVuGyKzpTvLge7KEWggjPaqWb4fVjKcTdUVbtdDQX4LSYHLOEOvC8elbYBMuvl0pfGdPtSMrfi5vzU4+kJwu7Uv2eZUNckdMJXp78QGLQjUKlZRoZzf6ZRQaBv0e7nF6GJTvTq
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:OS3PR01MB8426.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(136003)(39860400002)(346002)(396003)(366004)(376002)(4744005)(54906003)(6916009)(8936002)(316002)(5660300002)(6512007)(8676002)(66946007)(66556008)(107886003)(66476007)(186003)(4326008)(38350700002)(2616005)(86362001)(38100700002)(52116002)(41300700001)(6506007)(36756003)(6486002)(478600001)(2906002)(26005);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?x5pcYp1IyROa6JNaK1XFEat2r3MvvuIoHcOoLAwQZGuQKVI4kuw1xni7sKCd?=
- =?us-ascii?Q?oQQMw0kCgpA0YJYnNfxVQ5Vi8pOEzUSWUoABN2rKEMThPx2/1H0lcwe+9QGW?=
- =?us-ascii?Q?joTAVC4eLdRAnxFiMfi/4e7DYjDN3WRSNbx10FgWufkZyFIZbuN9YlfoaLo7?=
- =?us-ascii?Q?hMcZfq+06KjatFATk1Zt3g8m132gXm/MFmG8IR9fgb/Nh2VfhKsk5R/M6/Wq?=
- =?us-ascii?Q?iRm6j3pWoiUQyOrQ5OaNkAnpRAj869HPMYWjOsK7USGJzOCxS5HeY4w9gj5A?=
- =?us-ascii?Q?QbjdX4ReL+TFOqvv3TMQbcF0g3C9HfwGgA8Vl9jpry8wWuM/xycp0A6WOLyP?=
- =?us-ascii?Q?9qQF4MxdxtfRcRQdRkbp7sQF3os29qiHD7gLN4fhPkg3IxRUOcSXtZI0rWXy?=
- =?us-ascii?Q?y1Wbt7pIHfdDY9cM9pkKgRPJTOg0xATI+B/zBqAyW6fu47xtr8rqQq5HPhCE?=
- =?us-ascii?Q?heqmIXK2WRfzSoOJg26Pi7LOjyU8aO2BMQHYx3C0FTZBG9IMCTqhpJ3m2S2T?=
- =?us-ascii?Q?cjhGeLm9r0XoMGjiEtMiOpi0dBEnPQAWOZqONxMx33oDZt1rXFtX5GotifCx?=
- =?us-ascii?Q?3r5NqY+NbiQKAZKWY9CYFD6v9ll3vLjI0V5VWSuwnlwmDbejsSiSWNWRzheQ?=
- =?us-ascii?Q?4aqdfoS7jsF4pio7lJunmbKCeyBVdvF4cZ+OW1Rg8APtfFQd8KU/5ddcgucf?=
- =?us-ascii?Q?E9f/vEPIEy9rCWy/op4Bvl4zGerrRrvLFNHnhkZtpDjphVqQU6Exdu0crRXt?=
- =?us-ascii?Q?rUxj+lW1dzpTiOe9MTuxLMbHNQ5hUsqEsHQwDh2L8gKMIYE7gP5ujwnaSKOX?=
- =?us-ascii?Q?PnnIeOvmqtr59zZqHtlmr5pl3rK/AgVKb8TAYov2IgLsoYSLdCahZ+xoXAN/?=
- =?us-ascii?Q?NpaZEpa+GinYd2Kwg5bhXAtMywdOcGqtYEXw+ouMPNBJ/7LaOmUHZw48rFRR?=
- =?us-ascii?Q?DV/Dg/2CygyW1N4udQYtz5rT52qKsock2AAWPdWT133jR/u4CHyeBFqXvfZ2?=
- =?us-ascii?Q?GmxNzuY/LvyUcfXZokjUQK4r+8/y/oZrz2VtkhEGMaC16Q6Ux1vRDBL76jJH?=
- =?us-ascii?Q?5nGfpP761GRR7EokmG59TdWIHKJFKPrRCuqe4WVrdLwWsRqIUEH9SuQ8umUr?=
- =?us-ascii?Q?X4njPolZYPcLieL+bi7/DcoKu4zcxe+7w6gQWP02RmyghIQSFR3Y1oGRrIyw?=
- =?us-ascii?Q?6KZ33m2EEPPOvOMrdguNWWYptaVqOE5GqlsgXFtXFEUDya5uorIzQS6fWTww?=
- =?us-ascii?Q?HmdXa6+GPWApszij61F0FtpIN0mgajVcuRoqQ19qPZiqxZ8s/o83yE2SOTqg?=
- =?us-ascii?Q?iYTvMdMNJept98Q13lqdQ3UbP2fqXg6k0Nyyx6FwiKLsrCTMrhqtY8fknW5P?=
- =?us-ascii?Q?ikDN4Um35yKzNHXNk2WE3pTd+77JLQ3kNfeM6wXPhzhOyOKJj3p+dX6/T8Z5?=
- =?us-ascii?Q?BsFdiaJAtST8gT+R0bq/NpO3mRUr8PadxjMnKOxU/Ozfs3sUKrh3Adk+BZos?=
- =?us-ascii?Q?P2RR9V4uyRlxDmaH1GiQGHyOBbwzKBd/f+yuJeq4I3CCVhmKwEtkNIB0hcyc?=
- =?us-ascii?Q?GuZ4xG/FTOL7x5NDwczIpIX9lV6Whfjfjzo69yGe86Ry37JCHUzYs2pDSsGg?=
- =?us-ascii?Q?9gigm5hnHfg+plxe8mkLlaY=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3372cc0b-1d0a-4f94-b679-08da656208b7
-X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2022 06:28:15.5593 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iJ7j7sqYbB+VROyv4DF9dT3OOHHOCcBN9K1X2XYFkGtjywECow0+2CWbPYE7Qzducx58uIgGGHB/OzqHvvTGNjBazJyEZAl6RLwBXSpi0GBlR6e0QmfepckxGaciGAjj
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYAPR01MB5865
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
- Nishiyama Kunihiko <kunihiko.nishiyama.dn@renesas.com>,
- Nguyen Bao Nguyen <nguyen.nguyen.yj@renesas.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] ASoC: dt-bindings: atmel-i2s: Convert to json-schema
+Content-Language: en-US
+To: Ryan.Wanner@microchip.com, lgirdwood@gmail.com, broonie@kernel.org,
+ robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com,
+ claudiu.beznea@microchip.com
+References: <20220713162538.139115-1-Ryan.Wanner@microchip.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20220713162538.139115-1-Ryan.Wanner@microchip.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -146,35 +109,86 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+On 13/07/2022 18:25, Ryan.Wanner@microchip.com wrote:
+> From: Ryan Wanner <Ryan.Wanner@microchip.com>
+> 
 
-Before, ssiu.c didn't care SSI5-8, thus,
-commit b1384d4c95088d0 ("ASoC: rsnd: care default case on
-rsnd_ssiu_busif_err_status_clear()") cares it for status clear.
+Thank you for your patch. There is something to discuss/improve.
 
-But we should care it for error irq handling, too.
-This patch cares it.
+> Convert atmel i2s devicetree binding to json-schema.
+> Change file name to match json-schema naming.
+> 
+> Signed-off-by: Ryan Wanner <Ryan.Wanner@microchip.com>
+> ---
+>  .../bindings/sound/atmel,sama5d2-i2s.yaml     | 83 +++++++++++++++++++
+>  .../devicetree/bindings/sound/atmel-i2s.txt   | 46 ----------
+>  2 files changed, 83 insertions(+), 46 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/sound/atmel,sama5d2-i2s.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/sound/atmel-i2s.txt
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/atmel,sama5d2-i2s.yaml b/Documentation/devicetree/bindings/sound/atmel,sama5d2-i2s.yaml
+> new file mode 100644
+> index 000000000000..1cadc476565c
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/atmel,sama5d2-i2s.yaml
+> @@ -0,0 +1,83 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +# Copyright (C) 2022 Microchip Technology, Inc. and its subsidiaries
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/atmel,sama5d2-i2s.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Atmel I2S controller
+> +
+> +maintainers:
+> +  - Nicolas Ferre <nicolas.ferre@microchip.com>
+> +  - Alexandre Belloni <alexandre.belloni@bootlin.com>
+> +  - Claudiu Beznea <claudiu.beznea@microchip.com>
+> +
+> +description:
+> +  Atmel I2S (Inter-IC Sound Controller) bus is the standard
+> +  interface for connecting audio devices, such as audio codecs.
+> +
+> +properties:
+> +  compatible:
+> +    const: atmel,sama5d2-i2s
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    description:
+> +      Only the peripheral clock (pclk) is required. The generated clock (gclk)
+> +      and the I2S mux clock (muxclk) are optional and should only be set together,
+> +      when Master Mode is required.
 
-Reported-by: Nguyen Bao Nguyen <nguyen.nguyen.yj@renesas.com>
-Reported-by: Nishiyama Kunihiko <kunihiko.nishiyama.dn@renesas.com>
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
----
- sound/soc/sh/rcar/ssiu.c | 2 ++
- 1 file changed, 2 insertions(+)
+Skip property description, but list and describe the items.
 
-diff --git a/sound/soc/sh/rcar/ssiu.c b/sound/soc/sh/rcar/ssiu.c
-index 4b8a63e336c7..d7f4646ee029 100644
---- a/sound/soc/sh/rcar/ssiu.c
-+++ b/sound/soc/sh/rcar/ssiu.c
-@@ -67,6 +67,8 @@ static void rsnd_ssiu_busif_err_irq_ctrl(struct rsnd_mod *mod, int enable)
- 		shift  = 1;
- 		offset = 1;
- 		break;
-+	default:
-+		return;
- 	}
- 
- 	for (i = 0; i < 4; i++) {
--- 
-2.25.1
+> +
+> +  clock-names:
+> +    items:
+> +      - const: pclk
+> +      - const: gclk
+> +      - const: muxclk
+> +    minItems: 1
+> +
+> +  dmas:
+> +    description:
+> +      Should be one per channel name listed in the dma-names property.
+> +    maxItems: 2
 
+Instead items+description. The description you pasted is obvious and not
+helping.
+
+> +
+> +  dma-names:
+> +    items:
+> +      - const: tx
+> +      - const: rx
+> +
+Best regards,
+Krzysztof

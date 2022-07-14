@@ -2,67 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE674575453
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Jul 2022 20:01:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 110D95754EB
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Jul 2022 20:26:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3D0CD188A;
-	Thu, 14 Jul 2022 20:00:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D0CD188A
+	by alsa0.perex.cz (Postfix) with ESMTPS id A20DC1867;
+	Thu, 14 Jul 2022 20:25:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A20DC1867
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657821680;
-	bh=C5dWnHBzyr1D76M7yuVUTgy9PvQ8QI2yjs3wV97RWVc=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=UQz9VB828YBH8yLLyJJ+oPUequAFTDVonif38UdXRmwvXxeGTMl+l7574dOd4rsRo
-	 BHMbC7sETvM9sjjZQttqt1THTC7DBBwMlb3RIrclQNKR5Dtdy3wo20rkKGeQ4+o/EM
-	 Y1HI9qxyRNOevte29vCqLDVT7oFE4qNBaRVq/Ics=
+	s=default; t=1657823167;
+	bh=frw5ojcsvQRn/8u7o9gyuwqp4Bd7f7rNxIzkGD7aWpE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=bGb5+fKl1IdVZn6ngDPsCp/85xWVVcDmRHzRFJG04UQnnXijUXdaFfUXpm8ZA9Qc8
+	 fXjoBRLDVv5jX2zKfxj43vE1dO0y0Go1KLV0h4O6Q/XBUUIBktHlIoXV2H/ICk40EO
+	 PMV4F5VRGtL3N9ewaRSpGZzEACWFFXJFGhta9dxE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7FD5AF8016E;
-	Thu, 14 Jul 2022 20:00:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 16E25F800AA;
+	Thu, 14 Jul 2022 20:25:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2FEC9F80165; Thu, 14 Jul 2022 20:00:17 +0200 (CEST)
+ id 9CF7EF80165; Thu, 14 Jul 2022 20:25:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-yb1-f172.google.com (mail-yb1-f172.google.com
+ [209.85.219.172])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 10EABF800B0
- for <alsa-devel@alsa-project.org>; Thu, 14 Jul 2022 20:00:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10EABF800B0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="t0cxPI2Y"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 2B3F2B82863;
- Thu, 14 Jul 2022 18:00:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9835C34114;
- Thu, 14 Jul 2022 18:00:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657821608;
- bh=C5dWnHBzyr1D76M7yuVUTgy9PvQ8QI2yjs3wV97RWVc=;
- h=From:To:Cc:Subject:Date:From;
- b=t0cxPI2Yk1/Mr/hH3W+a0Jg2mbnCo/lsb9yuHBBTAohHK53jLMXlI3cTKj7rIeTmr
- 0cl3hgeqqSVoQuzBG4EJ45k7VimIiXsJBLxxFArtnuEckWATRkYLfMs5NN4Ev9005j
- tuPYzACeNv5kBH3Yiq/0L/PScVhGRqTN0pg2s9F+Lus8xQd9cY/2xqeeWeoCZvoVwZ
- cnwAJPtkSK9tZisAkGY912jO70LgO/ysGNhmN6HMXkXJH2xdh5sLc1WSFdO+DOeQfx
- vA1/Asnq+/XJmHBf4RRSuVWPmxnjDpX0VHK52VvNjmBOqOJ4ECKLEN+sASaRhYr5G+
- sgZFKRQAM8Inw==
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: [GIT PULL] ASoC fixes for v5.19-rc4-2
-Date: Thu, 14 Jul 2022 18:59:58 +0100
-Message-Id: <20220714180007.C9835C34114@smtp.kernel.org>
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id E51E8F800AA
+ for <alsa-devel@alsa-project.org>; Thu, 14 Jul 2022 20:25:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E51E8F800AA
+Received: by mail-yb1-f172.google.com with SMTP id e69so4673191ybh.2
+ for <alsa-devel@alsa-project.org>; Thu, 14 Jul 2022 11:25:01 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=QgpUMNKvx4KSxdOjg/H5oB64G7sRuqVxnCSFFK5S8sA=;
+ b=TnIuJLg2KvnXxZm6OlTjvyyQYi4XFOmyc7wlktjv8+wTJdPnOj1ae84zp9qDJZWk33
+ RmiENvPdBp2+LAOYLeGHFBMa+pVGe27KrapKuovCkYGoF4QOKlP0BoOarrG6+dZFevZ8
+ 0aVSsSEEwCBgMJ6vNixrMUI1MrYXvQF2AHizA/raCa+NWr46WLkc24x0XPHGNk7CbXWS
+ OLk8CgFqU4bAtEUb7MF4N80hAow1F5eu8V28OiDg30BK0HdNsoPSTjUJtFXz8bKqrcQR
+ 1SXKdb8xX6yqBxPynhQXnsNhA/tpR9kC0D4KKCnXq0PAgGIfktTQN8nlA7hopCTPytRF
+ 7fIg==
+X-Gm-Message-State: AJIora8IdyUDP/uFioRxNA2m1BoUnyLw5LG+ksNaz2BZ5nSwEishFQhn
+ hW4ufWVMeqgGmBKOB+83kKazlQVsKUxVYdDaYSE=
+X-Google-Smtp-Source: AGRyM1sKF8hIlILzeJt9pj1sahLhPItLqLYJjCcPGgCAkSjpiF/Bs5Sy+YH0mASza7jY0e7LismkGuftew052O7DREk=
+X-Received: by 2002:a5b:202:0:b0:66f:aab4:9c95 with SMTP id
+ z2-20020a5b0202000000b0066faab49c95mr8918464ybl.81.1657823100117; Thu, 14 Jul
+ 2022 11:25:00 -0700 (PDT)
+MIME-Version: 1.0
+References: <20220707151037.3901050-1-sbinding@opensource.cirrus.com>
+ <20220707151037.3901050-2-sbinding@opensource.cirrus.com>
+In-Reply-To: <20220707151037.3901050-2-sbinding@opensource.cirrus.com>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Thu, 14 Jul 2022 20:24:49 +0200
+Message-ID: <CAJZ5v0gNwsddY1Ecasxhc_9hze5b77KdyUcQbbieHd3orGUGJQ@mail.gmail.com>
+Subject: Re: [PATCH v6 1/2] ACPI: utils: Add api to read _SUB from ACPI
+To: Stefan Binding <sbinding@opensource.cirrus.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
+ patches@opensource.cirrus.com, Liam Girdwood <lgirdwood@gmail.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
+ Mark Brown <broonie@kernel.org>, Len Brown <lenb@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,101 +88,97 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The following changes since commit 980555e95f7cabdc9c80a07107622b097ba23703:
+On Thu, Jul 7, 2022 at 5:11 PM Stefan Binding
+<sbinding@opensource.cirrus.com> wrote:
+>
+> Add a wrapper function to read the _SUB string from ACPI.
+>
+> Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
 
-  ASoC: madera: Fix event generation for rate controls (2022-06-24 16:22:01 +0100)
+In case you want to push this through ASoC
 
-are available in the Git repository at:
+Acked-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v5.19-rc4-2
+Otherwise, I need a maintainer's ACK to apply the second patch.
 
-for you to fetch changes up to 1e347f861da8ddb17e1d1b3113cb6c188e0de3e5:
-
-  ASoC: rockchip-i2s: Undo BCLK pinctrl changes (2022-07-14 13:25:52 +0100)
-
-----------------------------------------------------------------
-ASoC: Drop Rockchip BCLK management for v5.19
-
-As covered in the second revert commit in this pull request the version
-of the BCLK muxing that's in v5.19 is causing issues, let's just revert
-it and wait for the more complete support in v5.20 instead.
-
-----------------------------------------------------------------
-Alexandru Elisei (1):
-      ASoC: rockchip: i2s: Fix NULL pointer dereference when pinctrl is not found
-
-Brent Lu (1):
-      ASoC: Intel: sof_rt5682: fix out-of-bounds array access
-
-Bryan O'Donoghue (1):
-      ASoC: dt-bindings: Fix description for msm8916
-
-Charles Keepax (4):
-      ASoC: wm5102: Fix event generation for output compensation
-      ASoC: wm8998: Fix event generation for input mux
-      ASoC: cs47l92: Fix event generation for OUT1 demux
-      ASoC: arizona: Update arizona_aif_cfg_changed to use RX_BCLK_RATE
-
-Daniel Mack (1):
-      ASoC: max98396: Fix register access for PCM format settings
-
-David Owens (1):
-      ASoC: ti: omap-mcbsp: duplicate sysfs error
-
-Francesco Dolcini (1):
-      ASoC: sgtl5000: Fix noise on shutdown/remove
-
-Hector Martin (2):
-      ASoC: tas2764: Correct playback volume range
-      ASoC: tas2764: Fix amp gain register offset & default
-
-Jianglei Nie (1):
-      ASoC: qdsp6: fix potential memory leak in q6apm_get_audioreach_graph()
-
-Marek Vasut (1):
-      ASoC: doc: Capitalize RESET line name
-
-Mark Brown (1):
-      ASoC: rockchip-i2s: Undo BCLK pinctrl changes
-
-Martin Povišer (2):
-      ASoC: tas2764: Add post reset delays
-      ASoC: tas2764: Fix and extend FSYNC polarity handling
-
-Oder Chiou (1):
-      ASoC: rt5640: Fix the wrong state of JD1 and JD2
-
-Peter Ujfalusi (2):
-      ASoC: Intel: Skylake: Correct the ssp rate discovery in skl_get_ssp_clks()
-      ASoC: Intel: Skylake: Correct the handling of fmt_config flexible array
-
-Sascha Hauer (2):
-      ASoC: audio_graph_card2: Fix port numbers in example
-      ASoC: tlv320adcx140: Fix tx_mask check
-
-Yassine Oudjana (1):
-      ASoC: wcd9335: Use int array instead of bitmask for TX mixers
-
- .../devicetree/bindings/sound/qcom,lpass-cpu.yaml  |   8 +-
- Documentation/sound/soc/dai.rst                    |   2 +-
- sound/soc/codecs/arizona.c                         |   4 +-
- sound/soc/codecs/cs47l92.c                         |   8 +-
- sound/soc/codecs/max98396.c                        |  10 +-
- sound/soc/codecs/rt5640.c                          |  30 ++--
- sound/soc/codecs/sgtl5000.c                        |   9 ++
- sound/soc/codecs/sgtl5000.h                        |   1 +
- sound/soc/codecs/tas2764.c                         |  46 +++---
- sound/soc/codecs/tas2764.h                         |   6 +-
- sound/soc/codecs/tlv320adcx140.c                   |  13 +-
- sound/soc/codecs/wcd9335.c                         |  17 ++-
- sound/soc/codecs/wm5102.c                          |  21 ++-
- sound/soc/codecs/wm8998.c                          |  21 ++-
- sound/soc/generic/audio-graph-card2.c              |   6 +-
- sound/soc/intel/boards/sof_rt5682.c                |  10 +-
- sound/soc/intel/skylake/skl-nhlt.c                 |  40 ++++--
- sound/soc/qcom/qdsp6/q6apm.c                       |   1 +
- sound/soc/rockchip/rockchip_i2s.c                  | 160 ++++-----------------
- sound/soc/ti/omap-mcbsp-priv.h                     |   2 -
- sound/soc/ti/omap-mcbsp-st.c                       |  14 +-
- sound/soc/ti/omap-mcbsp.c                          |  19 +--
- 22 files changed, 199 insertions(+), 249 deletions(-)
+> ---
+>  drivers/acpi/utils.c | 38 ++++++++++++++++++++++++++++++++++++++
+>  include/linux/acpi.h |  6 ++++++
+>  2 files changed, 44 insertions(+)
+>
+> diff --git a/drivers/acpi/utils.c b/drivers/acpi/utils.c
+> index 3a9773a09e19..5a7b8065e77f 100644
+> --- a/drivers/acpi/utils.c
+> +++ b/drivers/acpi/utils.c
+> @@ -291,6 +291,44 @@ int acpi_get_local_address(acpi_handle handle, u32 *addr)
+>  }
+>  EXPORT_SYMBOL(acpi_get_local_address);
+>
+> +#define ACPI_MAX_SUB_BUF_SIZE  9
+> +
+> +const char *acpi_get_subsystem_id(acpi_handle handle)
+> +{
+> +       struct acpi_buffer buffer = { ACPI_ALLOCATE_BUFFER, NULL };
+> +       union acpi_object *obj;
+> +       acpi_status status;
+> +       const char *sub;
+> +       size_t len;
+> +
+> +       status = acpi_evaluate_object(handle, METHOD_NAME__SUB, NULL, &buffer);
+> +       if (ACPI_FAILURE(status)) {
+> +               acpi_handle_debug(handle, "Reading ACPI _SUB failed: %#x\n", status);
+> +               return ERR_PTR(-ENODATA);
+> +       }
+> +
+> +       obj = buffer.pointer;
+> +       if (obj->type == ACPI_TYPE_STRING) {
+> +               len = strlen(obj->string.pointer);
+> +               if (len < ACPI_MAX_SUB_BUF_SIZE && len > 0) {
+> +                       sub = kstrdup(obj->string.pointer, GFP_KERNEL);
+> +                       if (!sub)
+> +                               sub = ERR_PTR(-ENOMEM);
+> +               } else {
+> +                       acpi_handle_err(handle, "ACPI _SUB Length %zu is Invalid\n", len);
+> +                       sub = ERR_PTR(-ENODATA);
+> +               }
+> +       } else {
+> +               acpi_handle_warn(handle, "Warning ACPI _SUB did not return a string\n");
+> +               sub = ERR_PTR(-ENODATA);
+> +       }
+> +
+> +       acpi_os_free(buffer.pointer);
+> +
+> +       return sub;
+> +}
+> +EXPORT_SYMBOL_GPL(acpi_get_subsystem_id);
+> +
+>  acpi_status
+>  acpi_evaluate_reference(acpi_handle handle,
+>                         acpi_string pathname,
+> diff --git a/include/linux/acpi.h b/include/linux/acpi.h
+> index 2a0e95336094..447898685e09 100644
+> --- a/include/linux/acpi.h
+> +++ b/include/linux/acpi.h
+> @@ -762,6 +762,7 @@ static inline u64 acpi_arch_get_root_pointer(void)
+>  #endif
+>
+>  int acpi_get_local_address(acpi_handle handle, u32 *addr);
+> +const char *acpi_get_subsystem_id(acpi_handle handle);
+>
+>  #else  /* !CONFIG_ACPI */
+>
+> @@ -1023,6 +1024,11 @@ static inline int acpi_get_local_address(acpi_handle handle, u32 *addr)
+>         return -ENODEV;
+>  }
+>
+> +static inline const char *acpi_get_subsystem_id(acpi_handle handle)
+> +{
+> +       return ERR_PTR(-ENODEV);
+> +}
+> +
+>  static inline int acpi_register_wakeup_handler(int wake_irq,
+>         bool (*wakeup)(void *context), void *context)
+>  {
+> --
+> 2.25.1
+>

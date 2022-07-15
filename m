@@ -2,75 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D7EC576722
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jul 2022 21:08:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F315E57689A
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jul 2022 22:58:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F3E7A193A;
-	Fri, 15 Jul 2022 21:07:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F3E7A193A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5F9511944;
+	Fri, 15 Jul 2022 22:58:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F9511944
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657912124;
-	bh=LtC4p3x6swZs2KcMR/gJDT54/MAi5vQrQS1nERWxkkc=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=oDJ/qItc4hQsdU0Mz6KxBrYESvv/B12NL6X0lQu2Ye3IQH44bA3bbaMS/axZC3sKi
-	 VOBr425nNPqEDGv0iat+dta6bqTTtxe6jcpwbSZlVhIJUlVUW5WswZfhjYexEgw3RW
-	 6/2hW2GPDJ0ZloGPTZ8ncy5B6Og+2OdwiwdTw/ZQ=
+	s=default; t=1657918730;
+	bh=TtuzAApJTU9hGEQXjVipEzK3N3TBAUeeSEWLjmWbJF8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=pgL56Wvi9fFIW3O5SNxH7ngwKSecu8JeRSXXg+f18fBX9lyWsQkEJ+AvEUZ4/4urF
+	 DdfMS10WdmIjdK1cTMm55ca7813IWKM43v0v/OykOqfrgiGZDEqZR7FmF+1cimLc8O
+	 +QQ8M2K31R8JVhXzrtMBqAzA1a2XmeUksxUXCrc0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 67CE3F8014E;
-	Fri, 15 Jul 2022 21:07:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CAFFAF80212;
+	Fri, 15 Jul 2022 22:57:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A7D0DF8015B; Fri, 15 Jul 2022 21:07:41 +0200 (CEST)
+ id 2D978F8015B; Fri, 15 Jul 2022 22:57:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 36D58F8014E
- for <alsa-devel@alsa-project.org>; Fri, 15 Jul 2022 21:07:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36D58F8014E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="n2vf+1g9"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 7D75162356;
- Fri, 15 Jul 2022 19:07:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABB1CC34115;
- Fri, 15 Jul 2022 19:07:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657912055;
- bh=LtC4p3x6swZs2KcMR/gJDT54/MAi5vQrQS1nERWxkkc=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=n2vf+1g9AS3e033E1kjrbaymimmBJJRpNCS8LaH7Utn8n2D6rxomVdlUBray/kVBd
- X2AoWkK3msCSY5p7WV8m506D7BvTE9mNWTKpItQhr6ST1mVZqhfeXcDrOeaKl+SpFI
- xFdDDMUx0jgNBUx0Vz3RYkUaTeC6cxNk6w+orIE1rB0trUdF7XeKoUzd4OKBjSSxv2
- z6KjVFId9rS0Div9t2iT+s7h7v0f6AlfGSRwTExfuJeBO32YgQYtFAuaivBHbebams
- gXNpMOOBL/9S1oY4Idfi8ows5jWoh1hZ6J86F4okNMzVbYx/tWcq+UavDS7Q4BpNn4
- Jl0SbShre3s3w==
-From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com
-In-Reply-To: <20220715144144.274770-1-pierre-louis.bossart@linux.intel.com>
-References: <20220715144144.274770-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 0/4] ASoC: SOF: Intel: add support for SoundWire-based HP
- Omen16
-Message-Id: <165791205442.4033737.8531342431514779689.b4-ty@kernel.org>
-Date: Fri, 15 Jul 2022 20:07:34 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id D2451F800AA
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jul 2022 22:57:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2451F800AA
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="T5PPRgKk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1657918662; x=1689454662;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=TtuzAApJTU9hGEQXjVipEzK3N3TBAUeeSEWLjmWbJF8=;
+ b=T5PPRgKk9bIQi/Uhh9+sinflP6ceUGX08++WPqbVEXUDSXBUopKL6B7s
+ +a4YJD7Bs9NFXp/kukFP3MX/YdUHmpbNdZmjOrNJ/XhV32ogYA++lpDVY
+ 0jVPi2r0J/sL/ebHCOoFbU5mSkHHzHnN2pnHpS5AcOt8/oilMkLmAlBH8
+ BWPa+7WOo9ePeNAtqIV13Z9xngxnPVQQF+KLnGrW/N73egZ/c9OMrkvaz
+ hVUIqKqsY4Q6/I5bEKQpNtaWnx4UGaEm9GdP8msLaTGYVg3FFhqFSLW7S
+ tCY7ZhUWuRRdr3CNGl6BHAuUEj23o80BKLI3c8BxkJ6B3fGjBsNNF31eA w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10409"; a="372213109"
+X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="372213109"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jul 2022 13:57:35 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="654496590"
+Received: from black.fi.intel.com ([10.237.72.28])
+ by fmsmga008.fm.intel.com with ESMTP; 15 Jul 2022 13:57:33 -0700
+Received: by black.fi.intel.com (Postfix, from userid 1003)
+ id 06FFF1A0; Fri, 15 Jul 2022 23:57:41 +0300 (EEST)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v1 1/1] ALSA: isa: Use INVALID_HWIRQ definition
+Date: Fri, 15 Jul 2022 23:57:37 +0300
+Message-Id: <20220715205737.83076-1-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, gregkh@linuxfoundation.org, vkoul@kernel.org,
- yung-chuan.liao@linux.intel.com
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,48 +88,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 15 Jul 2022 09:41:40 -0500, Pierre-Louis Bossart wrote:
-> This device exposes a headset codec on link0 and an amplifier on
-> link3. This is a very unusual pin-muxing, usually the microphones are
-> pin-muxed with link2/link3. This resulted in a problematic error
-> handling leading to a kernel oops, and invalidated a hard-coded
-> assumption.
-> 
-> Full support for this device requires a DMI quirk shared separately
-> ("soundwire: dmi-quirks: add remapping for HP Omen 16-k0005TX").
-> 
-> [...]
+Use specific definition for invalid IRQ. It makes the
+code uniform in respect to the constant used for that.
+No functional change intended.
 
-Applied to
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+---
+ sound/isa/sscape.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+diff --git a/sound/isa/sscape.c b/sound/isa/sscape.c
+index 0bc0025f7c19..9adaf91045e9 100644
+--- a/sound/isa/sscape.c
++++ b/sound/isa/sscape.c
+@@ -140,8 +140,7 @@ struct soundscape {
+ 	unsigned char midi_vol;
+ };
+ 
+-#define INVALID_IRQ  ((unsigned)-1)
+-
++#define INVALID_IRQ  ((unsigned)INVALID_HWIRQ)
+ 
+ static inline struct soundscape *get_card_soundscape(struct snd_card *c)
+ {
+-- 
+2.35.1
 
-Thanks!
-
-[1/4] ASoC: Intel: sof_sdw: avoid oops in error handling
-      commit: 8116483407076b81af0efb14f6d69aefaecbf3d8
-[2/4] ASoC: Intel: soc-acpi: add table for HP Omen 16-k0005TX
-      commit: 8d38cc2997c55a877dac2672a92f221fe59e4c9e
-[3/4] ASoC: Intel: sof_sdw: add quirk for HP Omen 16-k0005TX
-      commit: f7bbdf5bcc6ec66efa010aed77eaf5a90faf6ba5
-[4/4] ASoC: SOF: Intel: enable dmic handling with 2 or fewer SoundWire links
-      commit: ba4c6a1a8f1b3a178a67fd3ceffa876971a5789f
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

@@ -2,76 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64994575F58
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jul 2022 12:27:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D4A4575F6A
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jul 2022 12:32:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C845618B6;
-	Fri, 15 Jul 2022 12:26:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C845618B6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8A79E18E1;
+	Fri, 15 Jul 2022 12:31:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A79E18E1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657880828;
-	bh=4qDYU+0yzXqXOE+KJ7vxXemGz2ME/t1/0EmqotRWG60=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=kLK93/xIwk6JqYL7bulirifabmGYjDrcV6B7JLvOYW12pjqWIgtYFcwzpjQs0M7j9
-	 52CvmA7vMIspiJ0Yr/nikc8vaBcJS/ahFCiOLKPFKZqD/TMZL8+PoUl1YTb/fA8/z9
-	 1StK8LSUKuub7pB6aACmUHcuz+BVuxn59w0aGxLQ=
+	s=default; t=1657881141;
+	bh=DGcQmCbuhzsWEiJYVi+RzpkjhouCyhi6DIHJOjUgvXU=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=PFfuF/83mNIIX/dZDcLuhTHmtLYo53j5HW6KrNmFWNKBCp+P3OGNfP0cdWFsspXAE
+	 +VXU6X/vsrxEc2WSX1jFwJSOzIXmYVsK05CfeZTLykAJFCUNcAhCIbLCC6eFtUlooF
+	 e/f6WA9uoFiWKc+O4Hs6z9vCOB0Pud6l2bOJ9XPI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 39B2FF80212;
-	Fri, 15 Jul 2022 12:26:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 252A7F8055A;
+	Fri, 15 Jul 2022 12:30:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2F9C2F8015B; Fri, 15 Jul 2022 12:26:06 +0200 (CEST)
+ id 4E4AEF80566; Fri, 15 Jul 2022 12:29:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C54FFF8014E
- for <alsa-devel@alsa-project.org>; Fri, 15 Jul 2022 12:26:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C54FFF8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id A206DF80212
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jul 2022 12:29:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A206DF80212
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="jOmGAOKz"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="VAuyPn7I"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="pXlbCfXx"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 82B25B82B67;
- Fri, 15 Jul 2022 10:26:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D935DC34115;
- Fri, 15 Jul 2022 10:25:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657880761;
- bh=4qDYU+0yzXqXOE+KJ7vxXemGz2ME/t1/0EmqotRWG60=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=jOmGAOKz18t0vAVrK8dHZfDCOUyXS/E7XShvv3IvLbsWwl3J43q59//IYimTKu+uK
- wM5pg5fpJg5I2Mo6l5LEPkJF2LGA7bFNYCQQOKZku+st/U85NNb0b6+Gj4CZ/8mUdR
- rbLlPy89z3Sq1P+6eiuL9IB12/KUj61DhIK0+hnJZH3zfYFD22rdxENQuhvcX18TZE
- Cqh9WtGmxvphXAD/U8pUquqYsFjUXz/ItfpTkN9f0MU/QZuHOWIcdSxQWnP3iH4DLZ
- z0VvGL5eAyqq4JtcovhloRf63TycAat0IZn4jnDhbMVC8WH9qs5mJEaZTEKaW2WACF
- OGsb8XZPfuGCQ==
-Date: Fri, 15 Jul 2022 11:25:56 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [GIT PULL] ASoC fixes for v5.19-rc4-2
-Message-ID: <YtFAtL9hdT57Hb4n@sirena.org.uk>
-References: <20220714180007.C9835C34114@smtp.kernel.org>
- <87edymx4bn.wl-tiwai@suse.de>
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 3044A3410C;
+ Fri, 15 Jul 2022 10:29:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1657880978; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=8nYTSwW25/b/m69kBE7dy50+tcFxUtZRzrCmdMNBIgQ=;
+ b=VAuyPn7IUPLd1YgNysKaQz6o4cxynQupOD0rlrAztMlWewt/Fy3zrM7UjLyxiosCHoeU3+
+ vGBz0Ed6DWK5tIJf0Fwnjqh/JMUq8I/Z/6S1dL3hQa5+deCsVwTmLeQaoxuAKuH0MuXmHf
+ QjaUXl6OUA6lZGGc9zI9FQiR1d+hw9o=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1657880978;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=8nYTSwW25/b/m69kBE7dy50+tcFxUtZRzrCmdMNBIgQ=;
+ b=pXlbCfXxENGv/b9f3HANerd/lrWwaIXij8yZ3dJ5r+IsbOI1rAndH0K6L+Ns6khnrV4uMv
+ 4QCt1UlCJmEeJgAg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 18C7213AC3;
+ Fri, 15 Jul 2022 10:29:38 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id fbfUBJJB0WI+WwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Fri, 15 Jul 2022 10:29:38 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH 0/5] ALSA: Drop async signal support
+Date: Fri, 15 Jul 2022 12:29:30 +0200
+Message-Id: <20220715102935.4695-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="70YtuBT7hRcMt5WF"
-Content-Disposition: inline
-In-Reply-To: <87edymx4bn.wl-tiwai@suse.de>
-X-Cookie: You dialed 5483.
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,71 +93,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi,
 
---70YtuBT7hRcMt5WF
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+this is a patch series to drop one of unused features, the async
+signal support, from ALSA core.  The async signal itself is very
+difficult to use properly due to various restrictions (e.g. you cannot
+perform any I/O in the context), hence it's a feature that has been
+never used by real applications.
 
-On Fri, Jul 15, 2022 at 08:44:44AM +0200, Takashi Iwai wrote:
-> Mark Brown wrote:
+OTOH, the real problem is that there have been quite a few syzcaller
+reports indicating that fasync code path may lead to some potential
+deadlocks for long time.  Dropping the feature is the easiest
+solution, obviously.
 
-> > As covered in the second revert commit in this pull request the version
-> > of the BCLK muxing that's in v5.19 is causing issues, let's just revert
-> > it and wait for the more complete support in v5.20 instead.
+The corresponding update for alsa-lib will follow once when we agree
+with this approach.
 
-> Hmm, this revert itself is fine, but the PR contains way too many
-> changes than expected as a *very* late stage.  Are all those really
-> mandatory as 5.19 fixes?  e.g. regressions that have been introduced
-> in 5.19-rc or such?  Otherwise I prefer cherry-picking only the really
-> needed one for now for the merge to 5.19-final.
 
-Ah, I suspect what's gone wrong here is that my script generated it
-against Linus' tree but you'd not yet sent your pull request since the
-last time I sent you changes so it has all the changes you already have
-in it.  Regenerating it against asoc-fix-v5.19-rc4 gives:
+thanks,
 
-The following changes since commit fc976f5629afb4160ee77798b14a693eac903ffd:
+Takashi
 
-  ASoC: Intel: Skylake: Correct the handling of fmt_config flexible array (2022-07-07 17:16:40 +0100)
+===
 
-are available in the Git repository at:
+Takashi Iwai (5):
+  ALSA: timer: Drop async signal support
+  ALSA: pcm: Drop async signal support
+  ALSA: control: Drop async signal support
+  ALSA: core: Drop async signal support
+  ALSA: doc: Drop stale fasync entry
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v5.19-rc4-2
+ .../kernel-api/writing-an-alsa-driver.rst      |  1 -
+ include/sound/control.h                        |  1 -
+ include/sound/pcm.h                            |  1 -
+ sound/core/control.c                           | 11 -----------
+ sound/core/init.c                              | 11 +----------
+ sound/core/pcm_lib.c                           |  4 +---
+ sound/core/pcm_native.c                        | 18 ------------------
+ sound/core/timer.c                             | 13 -------------
+ 8 files changed, 2 insertions(+), 58 deletions(-)
 
-for you to fetch changes up to 1e347f861da8ddb17e1d1b3113cb6c188e0de3e5:
+-- 
+2.35.3
 
-  ASoC: rockchip-i2s: Undo BCLK pinctrl changes (2022-07-14 13:25:52 +0100)
-
-----------------------------------------------------------------
-ASoC: Drop Rockchip BCLK management for v5.19
-
-As covered in the second revert commit in this pull request the version
-of the BCLK muxing that's in v5.19 is causing issues, let's just revert
-it and wait for the more complete support in v5.20 instead.
-
-----------------------------------------------------------------
-Alexandru Elisei (1):
-      ASoC: rockchip: i2s: Fix NULL pointer dereference when pinctrl is not found
-
-Mark Brown (1):
-      ASoC: rockchip-i2s: Undo BCLK pinctrl changes
-
- sound/soc/rockchip/rockchip_i2s.c | 160 ++++++++------------------------------
- 1 file changed, 31 insertions(+), 129 deletions(-)
-
---70YtuBT7hRcMt5WF
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmLRQLMACgkQJNaLcl1U
-h9Bdpgf/Xtti12EjVH3KK6o1DJYXKwmndU8dz+slyjiN5dBFH+iNfd41gFdeROc0
-wutYJV8B3SojtwHEZdnGEziBkHFAgh/jaBcJk/kcc2aS/vNfsPvTeaPaBGsnpg8+
-c9J/PwGwOf2dJLCkJlkvUTlh6COKr8tfyPC8rc9E+O3vEunCELI97umBankTeEwf
-J1bwwYQAMeE0hs0vSv+ZeV966a+Mj0MyzvFZ4Hb3zOpK+zhiIQ5aHf4ThOyL66+S
-gdPiT3EHclOLkkfxR88pL38X++ANZMeFQpJOl7KtQRF+AqvtEyCLcdyYsYTCWP2g
-o+1yVo9cIwxFvq9Sx+DhBC+f1Ynwcw==
-=6RZx
------END PGP SIGNATURE-----
-
---70YtuBT7hRcMt5WF--

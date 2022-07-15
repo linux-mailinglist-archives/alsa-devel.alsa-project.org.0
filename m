@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EC44576550
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jul 2022 18:31:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 526D0576551
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jul 2022 18:31:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A53E41925;
-	Fri, 15 Jul 2022 18:30:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A53E41925
+	by alsa0.perex.cz (Postfix) with ESMTPS id 796FD193B;
+	Fri, 15 Jul 2022 18:30:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 796FD193B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657902661;
-	bh=la2+qjvdXX1iOK3hgmO94L2C6/hTsSyNQwRRWBkE6hI=;
+	s=default; t=1657902671;
+	bh=Yd5dATdWcgi5iFQh7VwJ69l17xqkQ/Eaq6hTAVdJgSI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mreDfKClaT4K/9yyDCtzSLSMoW84GlGyu8AubbbeE5pzuIB+AijrWL/4ScL9ERrOY
-	 k/BSI9J51y0xRwaP43nJ477pKYc3olL+a3u4FG67517rBO5Gxe6QgjJQ5EvUzb3dNw
-	 RIUPMbtQOryHWTzMkv5r/Pnm5wklRd+dw4I9Ze2Q=
+	b=Yg4X2l1AQpBIV11y2ZqTWheys7/QQ5wkgzJkupY5/BJ/pk9M1tkpOcywvlE/DYRIa
+	 SqhQLi2IdZ0/DAXcy0+MmFpyhJprcbKxjkkMoFisTnxXFBxyTTUvpbr2Ak0etWCo2F
+	 I9rE1I6nWowCTYCtwGt3p3nME4rDIlLdXC4p6wLY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 369CEF8053C;
-	Fri, 15 Jul 2022 18:29:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CB576F80543;
+	Fri, 15 Jul 2022 18:29:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B8D1EF8012F; Fri, 15 Jul 2022 18:29:36 +0200 (CEST)
+ id 1195BF80542; Fri, 15 Jul 2022 18:29:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,25 +35,25 @@ Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
  [68.232.154.123])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7AE5FF8012F
- for <alsa-devel@alsa-project.org>; Fri, 15 Jul 2022 18:29:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7AE5FF8012F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7E358F804B2
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jul 2022 18:29:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E358F804B2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com
- header.b="FIrVmWcF"
+ header.b="Of43UMys"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
- t=1657902571; x=1689438571;
+ t=1657902573; x=1689438573;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=la2+qjvdXX1iOK3hgmO94L2C6/hTsSyNQwRRWBkE6hI=;
- b=FIrVmWcFegs5iJXqzomzkOd8A8WFEa6OiWIAMKQ//JKdwP3lzUaI2dH8
- MPxHIwCRZH6iBywpn0jaLMu9vzUOfVbfXWi+HiNFJ/uYKt5kWgKYyXZMZ
- sXR4tO2HdAzMh34QnByu/fdPTZN4bPdaFmHstNPTbrEz/yevfd75VKyQx
- gpWb2RKvoyY85Q2yNKsbB+a6GH0rU2byjxjFuXZqxViEUgh59fc/nYp7m
- 0VYXh4sGwYv+nU+1EoBOR2k13e3MWLpxTR5GZQDlBb0nPr3N6bJXTzOnN
- k/DMfC2OZh3T7ZnZvQ5YzMHOVlLTV5PRrFgYmlnyfR0i8hHfxUcM6KYxa Q==;
-X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="168040853"
+ bh=Yd5dATdWcgi5iFQh7VwJ69l17xqkQ/Eaq6hTAVdJgSI=;
+ b=Of43UMyss7q0E43qjuW/rdjPV4HP475dg+MUwEdrVqkLi4YWiaqGiNe3
+ kXWKIOQ3BehVPIHh93OGzlP5b9fkieGKruLUTubnF8U9NBNpbLW/1UFuZ
+ S8WykIZFhSG2BUDvPFtqS5XvLU9tiPQBz8xxfpoE65ImMcMQNu59FSlHD
+ D5/XZz6Hf+i5ojHPRZAqXE6Ms7y6lR8GVai7X+ECmNcuM7yJoIbAdJH4A
+ OPHtKhZ1fOWLfTrHR/QHDgyRmHmNQJRGUc8Oryj+h+nSfeAuTgsq5RsHe
+ poB8gg1CJeg4X1BV6Vs/BwNgwCaBRgXzTFpl0OljUYGXkOM8vdvgMJh9f Q==;
+X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="168040855"
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
  by esa2.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
  15 Jul 2022 09:29:14 -0700
@@ -63,14 +63,15 @@ Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
  15.1.2375.17; Fri, 15 Jul 2022 09:29:14 -0700
 Received: from ryan-Precision-5560.microchip.com (10.10.115.15) by
  chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
- 15.1.2375.17 via Frontend Transport; Fri, 15 Jul 2022 09:29:13 -0700
+ 15.1.2375.17 via Frontend Transport; Fri, 15 Jul 2022 09:29:14 -0700
 From: <Ryan.Wanner@microchip.com>
 To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <robh+dt@kernel.org>,
  <krzysztof.kozlowski+dt@linaro.org>, <nicolas.ferre@microchip.com>,
  <alexandre.belloni@bootlin.com>, <claudiu.beznea@microchip.com>
-Subject: [PATCH v3 1/2] ASoC: dt-bindings: atmel-classd: Convert to json-schema
-Date: Fri, 15 Jul 2022 09:29:21 -0700
-Message-ID: <20220715162922.660859-2-Ryan.Wanner@microchip.com>
+Subject: [PATCH v3 2/2] ASoC: dt-bindings: atmel-classd: PDMIC convert to
+ json-schema
+Date: Fri, 15 Jul 2022 09:29:22 -0700
+Message-ID: <20220715162922.660859-3-Ryan.Wanner@microchip.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220715162922.660859-1-Ryan.Wanner@microchip.com>
 References: <20220715162922.660859-1-Ryan.Wanner@microchip.com>
@@ -97,56 +98,51 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Ryan Wanner <Ryan.Wanner@microchip.com>
 
-Convert atmel CLASSD devicetree binding to json-schema.
-Change file name to match json-scheme naming.
+Convert Atmel PDMIC devicetree binding to json-schema.
+Change file naming to match json-schema naming.
 
 Signed-off-by: Ryan Wanner <Ryan.Wanner@microchip.com>
 ---
 v1 -> v2:
 - Fix title.
-- Fix formatting.
 - Removed trivial descriptions.
-- Fix filename.
+- Fix formatting.
 v2 -> v3:
-- Correct subsystem prefix.
-- Correct wrapping.
-- Removed assigned-clocks.
-- Correct description placement.
-- Correct formatting for dts example.
+- Correct location for description.
+- Correct dts example indentation.
 
- .../bindings/sound/atmel,sama5d2-classd.yaml  | 100 ++++++++++++++++++
- .../bindings/sound/atmel-classd.txt           |  55 ----------
- 2 files changed, 100 insertions(+), 55 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/sound/atmel,sama5d2-classd.yaml
- delete mode 100644 Documentation/devicetree/bindings/sound/atmel-classd.txt
+ .../bindings/sound/atmel,sama5d2-pdmic.yaml   | 98 +++++++++++++++++++
+ .../devicetree/bindings/sound/atmel-pdmic.txt | 55 -----------
+ 2 files changed, 98 insertions(+), 55 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/atmel,sama5d2-pdmic.yaml
+ delete mode 100644 Documentation/devicetree/bindings/sound/atmel-pdmic.txt
 
-diff --git a/Documentation/devicetree/bindings/sound/atmel,sama5d2-classd.yaml b/Documentation/devicetree/bindings/sound/atmel,sama5d2-classd.yaml
+diff --git a/Documentation/devicetree/bindings/sound/atmel,sama5d2-pdmic.yaml b/Documentation/devicetree/bindings/sound/atmel,sama5d2-pdmic.yaml
 new file mode 100644
-index 000000000000..43d04702ac2d
+index 000000000000..f320b561f24c
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/atmel,sama5d2-classd.yaml
-@@ -0,0 +1,100 @@
++++ b/Documentation/devicetree/bindings/sound/atmel,sama5d2-pdmic.yaml
+@@ -0,0 +1,98 @@
 +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
 +# Copyright (C) 2022 Microchip Technology, Inc. and its subsidiaries
 +%YAML 1.2
 +---
-+$id: http://devicetree.org/schemas/sound/atmel,sama5d2-classd.yaml#
++$id: http://devicetree.org/schemas/sound/atmel,sama5d2-pdmic.yaml#
 +$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+title: Atmel ClassD Amplifier
++title: Atmel PDMIC decoder
 +
 +maintainers:
-+  - Nicolas Ferre <nicolas.ferre@microchip.com>
-+  - Alexandre Belloni <alexandre.belloni@bootlin.com>
 +  - Claudiu Beznea <claudiu.beznea@microchip.com>
 +
 +description:
-+  The Audio Class D Amplifier (CLASSD) is a digital input, Pulse Width
-+  Modulated (PWM) output stereo Class D amplifier.
++  Atmel Pulse Density Modulation Interface Controller
++  (PDMIC) peripheral is a mono PDM decoder module
++  that decodes an incoming PDM sample stream.
 +
 +properties:
 +  compatible:
-+    const: atmel,sama5d2-classd
++    const: atmel,sama5d2-pdmic
 +
 +  reg:
 +    maxItems: 1
@@ -154,44 +150,41 @@ index 000000000000..43d04702ac2d
 +  interrupts:
 +    maxItems: 1
 +
-+  dmas:
-+    maxItems: 1
-+
-+  dma-names:
-+    const: tx
-+
 +  clocks:
-+    maxItems: 2
++    items:
++      - description: peripheral clock
++      - description: generated clock
 +
 +  clock-names:
 +    items:
 +      - const: pclk
 +      - const: gclk
 +
++  dmas:
++    maxItems: 1
++
++  dma-names:
++    const: rx
++
++  atmel,mic-min-freq:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      The minimal frequency that the microphone supports.
++
++  atmel,mic-max-freq:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      The maximal frequency that the microphone supports.
++
 +  atmel,model:
 +    $ref: /schemas/types.yaml#/definitions/string
-+    default: CLASSD
-+    description: The user-visible name of this sound complex.
++    default: PDMIC
++    description: The user-visible name of this sound card.
 +
-+  atmel,pwm-type:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    enum:
-+      - single
-+      - diff
-+    default: single
-+    description: PWM modulation type.
-+
-+  atmel,non-overlap-time:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum:
-+      - 5
-+      - 10
-+      - 15
-+      - 20
-+    default: 10
-+    description:
-+      Set non-overlapping time, the unit is nanosecond(ns).
-+      Non-overlapping will be disabled if not specified.
++  atmel,mic-offset:
++    $ref: /schemas/types.yaml#/definitions/int32
++    default: 0
++    description: The offset that should be added.
 +
 +required:
 +  - compatible
@@ -201,6 +194,8 @@ index 000000000000..43d04702ac2d
 +  - dma-names
 +  - clock-names
 +  - clocks
++  - atmel,mic-min-freq
++  - atmel,mic-max-freq
 +
 +additionalProperties: false
 +
@@ -209,84 +204,84 @@ index 000000000000..43d04702ac2d
 +    #include <dt-bindings/dma/at91.h>
 +    #include <dt-bindings/interrupt-controller/arm-gic.h>
 +
-+    classd: sound@fc048000 {
-+        compatible = "atmel,sama5d2-classd";
-+        reg = <0xfc048000 0x100>;
-+        interrupts = <59 IRQ_TYPE_LEVEL_HIGH 7>;
++    pdmic: sound@f8018000 {
++        compatible = "atmel,sama5d2-pdmic";
++        reg = <0xf8018000 0x124>;
++        interrupts = <48 IRQ_TYPE_LEVEL_HIGH 7>;
 +        dmas = <&dma0
-+            (AT91_XDMAC_DT_MEM_IF(0) | AT91_XDMAC_DT_PER_IF(1)
-+            | AT91_XDMAC_DT_PERID(47))>;
-+        dma-names = "tx";
-+        clocks = <&classd_clk>, <&classd_gclk>;
++                (AT91_XDMAC_DT_MEM_IF(0) | AT91_XDMAC_DT_PER_IF(1)
++                | AT91_XDMAC_DT_PERID(50))>;
++        dma-names = "rx";
++        clocks = <&pdmic_clk>, <&pdmic_gclk>;
 +        clock-names = "pclk", "gclk";
-+        assigned-clocks = <&classd_gclk>;
 +        pinctrl-names = "default";
-+        pinctrl-0 = <&pinctrl_classd_default>;
-+        atmel,model = "classd @ SAMA5D2-Xplained";
-+        atmel,pwm-type = "diff";
-+        atmel,non-overlap-time = <10>;
++        pinctrl-0 = <&pinctrl_pdmic_default>;
++        atmel,model = "PDMIC@sama5d2_xplained";
++        atmel,mic-min-freq = <1000000>;
++        atmel,mic-max-freq = <3246000>;
++        atmel,mic-offset = <0x0>;
 +    };
-diff --git a/Documentation/devicetree/bindings/sound/atmel-classd.txt b/Documentation/devicetree/bindings/sound/atmel-classd.txt
+diff --git a/Documentation/devicetree/bindings/sound/atmel-pdmic.txt b/Documentation/devicetree/bindings/sound/atmel-pdmic.txt
 deleted file mode 100644
-index 898551076382..000000000000
---- a/Documentation/devicetree/bindings/sound/atmel-classd.txt
+index e0875f17c229..000000000000
+--- a/Documentation/devicetree/bindings/sound/atmel-pdmic.txt
 +++ /dev/null
 @@ -1,55 +0,0 @@
--* Atmel ClassD driver under ALSA SoC architecture
+-* Atmel PDMIC driver under ALSA SoC architecture
 -
 -Required properties:
 -- compatible
--	Should be "atmel,sama5d2-classd".
+-	Should be "atmel,sama5d2-pdmic".
 -- reg
--	Should contain ClassD registers location and length.
+-	Should contain PDMIC registers location and length.
 -- interrupts
--	Should contain the IRQ line for the ClassD.
+-	Should contain the IRQ line for the PDMIC.
 -- dmas
 -	One DMA specifiers as described in atmel-dma.txt and dma.txt files.
 -- dma-names
--	Must be "tx".
+-	Must be "rx".
 -- clock-names
--	Tuple listing input clock names.
--	Required elements: "pclk" and "gclk".
+-	Required elements:
+-	- "pclk"	peripheral clock
+-	- "gclk"	generated clock
 -- clocks
+-	Must contain an entry for each required entry in clock-names.
 -	Please refer to clock-bindings.txt.
--- assigned-clocks
--	Should be <&classd_gclk>.
+-- atmel,mic-min-freq
+-	The minimal frequency that the micphone supports.
+-- atmel,mic-max-freq
+-	The maximal frequency that the micphone supports.
 -
 -Optional properties:
 -- pinctrl-names, pinctrl-0
 -	Please refer to pinctrl-bindings.txt.
 -- atmel,model
--	The user-visible name of this sound complex.
--	The default value is "CLASSD".
--- atmel,pwm-type
--	PWM modulation type, "single" or "diff".
--	The default value is "single".
--- atmel,non-overlap-time
--	Set non-overlapping time, the unit is nanosecond(ns).
--	There are four values,
--	<5>, <10>, <15>, <20>, the default value is <10>.
--	Non-overlapping will be disabled if not specified.
+-	The user-visible name of this sound card.
+-	The default value is "PDMIC".
+-- atmel,mic-offset
+-	The offset that should be added.
+-	The range is from -32768 to 32767.
+-	The default value is 0.
 -
 -Example:
--classd: classd@fc048000 {
--		compatible = "atmel,sama5d2-classd";
--		reg = <0xfc048000 0x100>;
--		interrupts = <59 IRQ_TYPE_LEVEL_HIGH 7>;
--		dmas = <&dma0
--			(AT91_XDMAC_DT_MEM_IF(0) | AT91_XDMAC_DT_PER_IF(1)
--			| AT91_XDMAC_DT_PERID(47))>;
--		dma-names = "tx";
--		clocks = <&classd_clk>, <&classd_gclk>;
--		clock-names = "pclk", "gclk";
--		assigned-clocks = <&classd_gclk>;
+-	pdmic@f8018000 {
+-				compatible = "atmel,sama5d2-pdmic";
+-				reg = <0xf8018000 0x124>;
+-				interrupts = <48 IRQ_TYPE_LEVEL_HIGH 7>;
+-				dmas = <&dma0
+-					(AT91_XDMAC_DT_MEM_IF(0) | AT91_XDMAC_DT_PER_IF(1)
+-					| AT91_XDMAC_DT_PERID(50))>;
+-				dma-names = "rx";
+-				clocks = <&pdmic_clk>, <&pdmic_gclk>;
+-				clock-names = "pclk", "gclk";
 -
--		pinctrl-names = "default";
--		pinctrl-0 = <&pinctrl_classd_default>;
--		atmel,model = "classd @ SAMA5D2-Xplained";
--		atmel,pwm-type = "diff";
--		atmel,non-overlap-time = <10>;
--};
+-				pinctrl-names = "default";
+-				pinctrl-0 = <&pinctrl_pdmic_default>;
+-				atmel,model = "PDMIC @ sama5d2_xplained";
+-				atmel,mic-min-freq = <1000000>;
+-				atmel,mic-max-freq = <3246000>;
+-				atmel,mic-offset = <0x0>;
+-	};
 -- 
 2.34.1
 

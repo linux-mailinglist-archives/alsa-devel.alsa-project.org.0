@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16F5C5763EB
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jul 2022 16:56:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47AC85763E6
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jul 2022 16:55:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A1BC9194A;
-	Fri, 15 Jul 2022 16:55:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A1BC9194A
+	by alsa0.perex.cz (Postfix) with ESMTPS id DE91B1930;
+	Fri, 15 Jul 2022 16:54:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE91B1930
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657896989;
-	bh=2ETtmZNVkwF2WKuaATfNYri4K/JNy7E0Dqrn0SdpwB4=;
+	s=default; t=1657896938;
+	bh=sZ54xulv0edJ+YOzbrzxq/4OMsGlUM2TXXrHB9xyb9w=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dtJDslYNWlVbTTimhXUCSTTu8GzOB9QWTqfAZ2tNdSAV9dSLCjOz7jX9Lt9in+pjN
-	 41GE64MwJuFrOJYQg9WeEQnagqI7r0HqSOheGX2TfVm8VIPd9T9C+0YNZIyZzEn6rw
-	 QGxv1hIRbV2RVH9JHc2ilHUT5WNjV8tyRyn70+DQ=
+	b=O1jKIX+e1heeMhB2iB9PHtn5YvEQ+DquRuPnISkWwMXepdHJaEbq/yAe1J8T1a7Xr
+	 eMZY1GLdsn/u8ClnMvcUG87NDaefdLu1C54Qja3YsNquu7v30nCz7s9F4iN4JJkLDG
+	 JT65TdOT3gM7IZPOW45dHf7HTqZpixg7YoqfSKgU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3C10EF805A1;
-	Fri, 15 Jul 2022 16:53:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 26308F80568;
+	Fri, 15 Jul 2022 16:53:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 224F4F80566; Fri, 15 Jul 2022 16:53:10 +0200 (CEST)
+ id BA459F8053C; Fri, 15 Jul 2022 16:53:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A655DF80551
- for <alsa-devel@alsa-project.org>; Fri, 15 Jul 2022 16:52:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A655DF80551
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0103DF8053C
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jul 2022 16:52:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0103DF8053C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="gBqjOEOL"
+ header.b="JCZ0zB0K"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1657896781; x=1689432781;
+ t=1657896775; x=1689432775;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=2ETtmZNVkwF2WKuaATfNYri4K/JNy7E0Dqrn0SdpwB4=;
- b=gBqjOEOLydpPOjzIbLXTk1FaZbBvSepJ9sRSpCOLIi2HdzoXGrTTaDLZ
- h/6TNU9hwXoYI9IJBJtOURVRWdwHvU37S+7TAXZTvYycMxMvexPoTsOln
- c9NnxozU5fXwwiiwULPubZwUsxO0nRBv8Pq1E7FmCLUnZ5g6My6qi0R/q
- OYYgw1RZlW+APqLxliQpf+FXxcEClbHflUMC2wDb1sNN+nx+h3LwWdtx8
- RBEmmf5iVkEmZRG1huvu6OtFxtOT3qBG0SJcUnl4B6vZUK19/Yb1ALueG
- 1NZOqHCUg/0G1qzFyhC0svafsNNqWD5qQYsYUq6VVgKgMNiEgOVSuolYx g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10408"; a="311476920"
-X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="311476920"
+ bh=sZ54xulv0edJ+YOzbrzxq/4OMsGlUM2TXXrHB9xyb9w=;
+ b=JCZ0zB0KKrTrGQiNnpDz3XpMcDog1NXhmEs6cPh6Cg+5DNMeID3IceeA
+ /pcQqPHXM4DmsGv28aq8SdwltN4iHzJCwUpdKeCvhvL+4Gao2pneqb8Sv
+ 0KdHGvy+cSStE+QcSJelrXf0kbgMdfcCg633yMYNohSiFBQBrqkAPX8Sx
+ i35zmsV8gJ9S3aTqiNub4+Flw1IzYvI9ODg2J0Xj8vigVibNnpjw6GDIs
+ CfxsYu6qgi66J+qrBwMh+zAEAGRMwzso5mpXs6Zxc44V3Yx9pM7coRvXj
+ g3b3b1FWde/kWz3r28gAohz4UH6B67C9WMs18yQaPPF3AL9d7X/yRCC42 Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10408"; a="311476922"
+X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="311476922"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  15 Jul 2022 07:52:36 -0700
-X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="923533130"
+X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="923533133"
 Received: from jmurope-mobl.amr.corp.intel.com (HELO pbossart-mobl3.intel.com)
  ([10.212.14.184])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jul 2022 07:52:35 -0700
+ 15 Jul 2022 07:52:36 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 10/11] ASoC: SOF: probes: rename assign/free callbacks as
- startup/shutdown
-Date: Fri, 15 Jul 2022 09:52:15 -0500
-Message-Id: <20220715145216.277003-11-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 11/11] ASoC: SOF: Intel: hda-stream: test DMA buffer first in
+ hw_params
+Date: Fri, 15 Jul 2022 09:52:16 -0500
+Message-Id: <20220715145216.277003-12-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220715145216.277003-1-pierre-louis.bossart@linux.intel.com>
 References: <20220715145216.277003-1-pierre-louis.bossart@linux.intel.com>
@@ -94,116 +94,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-assign/free are not well aligned to usual conventions and specifically
-not to the compressed ops that make use of the probe callbacks.
-
-Use the more common startup/shutdown. No functional change beyond
-renaming.
+We should be consistent and always test that the DMA buffer is
+allocated before continuing with the hw_params setup.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- sound/soc/sof/intel/hda-probes.c  | 16 ++++++++--------
- sound/soc/sof/sof-client-probes.c |  8 ++++----
- sound/soc/sof/sof-client-probes.h |  8 ++++----
- 3 files changed, 16 insertions(+), 16 deletions(-)
+ sound/soc/sof/intel/hda-stream.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
 
-diff --git a/sound/soc/sof/intel/hda-probes.c b/sound/soc/sof/intel/hda-probes.c
-index 31e85d4aae8c..56a533c63cb0 100644
---- a/sound/soc/sof/intel/hda-probes.c
-+++ b/sound/soc/sof/intel/hda-probes.c
-@@ -25,9 +25,9 @@ hda_compr_get_stream(struct snd_compr_stream *cstream)
- 	return cstream->runtime->private_data;
- }
- 
--static int hda_probes_compr_assign(struct sof_client_dev *cdev,
--				   struct snd_compr_stream *cstream,
--				   struct snd_soc_dai *dai, u32 *stream_id)
-+static int hda_probes_compr_startup(struct sof_client_dev *cdev,
-+				    struct snd_compr_stream *cstream,
-+				    struct snd_soc_dai *dai, u32 *stream_id)
- {
- 	struct snd_sof_dev *sdev = sof_client_dev_to_sof_dev(cdev);
- 	struct hdac_ext_stream *hext_stream;
-@@ -45,9 +45,9 @@ static int hda_probes_compr_assign(struct sof_client_dev *cdev,
- 	return 0;
- }
- 
--static int hda_probes_compr_free(struct sof_client_dev *cdev,
--				 struct snd_compr_stream *cstream,
--				 struct snd_soc_dai *dai)
-+static int hda_probes_compr_shutdown(struct sof_client_dev *cdev,
-+				     struct snd_compr_stream *cstream,
-+				     struct snd_soc_dai *dai)
- {
- 	struct hdac_ext_stream *hext_stream = hda_compr_get_stream(cstream);
- 	struct snd_sof_dev *sdev = sof_client_dev_to_sof_dev(cdev);
-@@ -127,8 +127,8 @@ static int hda_probes_compr_pointer(struct sof_client_dev *cdev,
- 
- /* SOF client implementation */
- static const struct sof_probes_host_ops hda_probes_ops = {
--	.assign = hda_probes_compr_assign,
--	.free = hda_probes_compr_free,
-+	.startup = hda_probes_compr_startup,
-+	.shutdown = hda_probes_compr_shutdown,
- 	.set_params = hda_probes_compr_set_params,
- 	.trigger = hda_probes_compr_trigger,
- 	.pointer = hda_probes_compr_pointer,
-diff --git a/sound/soc/sof/sof-client-probes.c b/sound/soc/sof/sof-client-probes.c
-index e7e78d1a8ec3..eb246b823461 100644
---- a/sound/soc/sof/sof-client-probes.c
-+++ b/sound/soc/sof/sof-client-probes.c
-@@ -270,9 +270,9 @@ static int sof_probes_compr_startup(struct snd_compr_stream *cstream,
- 	if (ret)
- 		return ret;
- 
--	ret = ops->assign(cdev, cstream, dai, &priv->extractor_stream_tag);
-+	ret = ops->startup(cdev, cstream, dai, &priv->extractor_stream_tag);
- 	if (ret) {
--		dev_err(dai->dev, "Failed to assign probe stream: %d\n", ret);
-+		dev_err(dai->dev, "Failed to startup probe stream: %d\n", ret);
- 		priv->extractor_stream_tag = SOF_PROBES_INVALID_NODE_ID;
- 		sof_client_core_module_put(cdev);
- 	}
-@@ -310,7 +310,7 @@ static int sof_probes_compr_shutdown(struct snd_compr_stream *cstream,
- 	priv->extractor_stream_tag = SOF_PROBES_INVALID_NODE_ID;
- 	snd_compr_free_pages(cstream);
- 
--	ret = ops->free(cdev, cstream, dai);
-+	ret = ops->shutdown(cdev, cstream, dai);
- 
- 	sof_client_core_module_put(cdev);
- 
-@@ -709,7 +709,7 @@ static int sof_probes_client_probe(struct auxiliary_device *auxdev,
- 
- 	ops = dev->platform_data;
- 
--	if (!ops->assign || !ops->free || !ops->set_params || !ops->trigger ||
-+	if (!ops->startup || !ops->shutdown || !ops->set_params || !ops->trigger ||
- 	    !ops->pointer) {
- 		dev_err(dev, "missing platform callback(s)\n");
+diff --git a/sound/soc/sof/intel/hda-stream.c b/sound/soc/sof/intel/hda-stream.c
+index 4531e1ee5ed0..b58662faa4aa 100644
+--- a/sound/soc/sof/intel/hda-stream.c
++++ b/sound/soc/sof/intel/hda-stream.c
+@@ -411,6 +411,11 @@ int hda_dsp_iccmax_stream_hw_params(struct snd_sof_dev *sdev, struct hdac_ext_st
  		return -ENODEV;
-diff --git a/sound/soc/sof/sof-client-probes.h b/sound/soc/sof/sof-client-probes.h
-index 0f9ed4569fd3..9e43f3c444f8 100644
---- a/sound/soc/sof/sof-client-probes.h
-+++ b/sound/soc/sof/sof-client-probes.h
-@@ -14,10 +14,10 @@ struct snd_soc_dai;
-  * DSP and host, like HDA.
-  */
- struct sof_probes_host_ops {
--	int (*assign)(struct sof_client_dev *cdev, struct snd_compr_stream *cstream,
--		      struct snd_soc_dai *dai, u32 *stream_id);
--	int (*free)(struct sof_client_dev *cdev, struct snd_compr_stream *cstream,
--		    struct snd_soc_dai *dai);
-+	int (*startup)(struct sof_client_dev *cdev, struct snd_compr_stream *cstream,
-+		       struct snd_soc_dai *dai, u32 *stream_id);
-+	int (*shutdown)(struct sof_client_dev *cdev, struct snd_compr_stream *cstream,
-+			struct snd_soc_dai *dai);
- 	int (*set_params)(struct sof_client_dev *cdev, struct snd_compr_stream *cstream,
- 			  struct snd_compr_params *params,
- 			  struct snd_soc_dai *dai);
+ 	}
+ 
++	if (!dmab) {
++		dev_err(sdev->dev, "error: no dma buffer allocated!\n");
++		return -ENODEV;
++	}
++
+ 	if (hstream->posbuf)
+ 		*hstream->posbuf = 0;
+ 
+@@ -485,16 +490,16 @@ int hda_dsp_stream_hw_params(struct snd_sof_dev *sdev,
+ 		return -ENODEV;
+ 	}
+ 
+-	/* decouple host and link DMA */
+-	mask = 0x1 << hstream->index;
+-	snd_sof_dsp_update_bits(sdev, HDA_DSP_PP_BAR, SOF_HDA_REG_PP_PPCTL,
+-				mask, mask);
+-
+ 	if (!dmab) {
+ 		dev_err(sdev->dev, "error: no dma buffer allocated!\n");
+ 		return -ENODEV;
+ 	}
+ 
++	/* decouple host and link DMA */
++	mask = 0x1 << hstream->index;
++	snd_sof_dsp_update_bits(sdev, HDA_DSP_PP_BAR, SOF_HDA_REG_PP_PPCTL,
++				mask, mask);
++
+ 	/* clear stream status */
+ 	snd_sof_dsp_update_bits(sdev, HDA_DSP_HDA_BAR, sd_offset,
+ 				SOF_HDA_CL_DMA_SD_INT_MASK |
 -- 
 2.34.1
 

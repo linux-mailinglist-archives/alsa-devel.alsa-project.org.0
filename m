@@ -2,83 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A55015766B2
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jul 2022 20:25:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 485425766BF
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jul 2022 20:30:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3EC041939;
-	Fri, 15 Jul 2022 20:24:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3EC041939
+	by alsa0.perex.cz (Postfix) with ESMTPS id EBEC01930;
+	Fri, 15 Jul 2022 20:29:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EBEC01930
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657909540;
-	bh=NYTTZJSFZVD0DTXIxnLto7eWFJzO5w6TOMrTxPCOZmA=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1657909814;
+	bh=M9TznGim7iC9n6RwBKVTG3PkJXNbCiPLXiCMUjiaBOY=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=PKQTwxoeohfcgsR3z80SQjQiYFazGt6st7I2wfCeG2nRJy6grGPaNrEg7RpvZQ5lc
-	 zufwiN+fSMFXnk1G4AtgXtUu5tO/wVZSBpCfXpIAAvutSouQUcx9/UCDhpQIl0u4JX
-	 wNGTcSvZAQgy+W2HRY0Zqv1BD77x0lQUV9E0+8i0=
+	b=YQUxzjicT7y+2pzPKOTrhWNgPloLb6xDwM3/DIPV0e5QYAs+ZYADYn4mjWnxU6dh8
+	 KVx6UpRhXmjwXaABvSVtzp6bGTo7VpGvoMWp3Y1inNgVHHqUGo8dQX+WGAKk1xSjnv
+	 osnGEFHCAZGORl5gx5fuSNc69MPGChqPBu7NO9SI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4D20AF8012F;
-	Fri, 15 Jul 2022 20:24:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6852AF80212;
+	Fri, 15 Jul 2022 20:29:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 18310F8012F; Fri, 15 Jul 2022 20:24:40 +0200 (CEST)
+ id 7C43CF8015B; Fri, 15 Jul 2022 20:29:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E43DCF8012F
- for <alsa-devel@alsa-project.org>; Fri, 15 Jul 2022 20:24:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E43DCF8012F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3F75DF800AA
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jul 2022 20:29:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F75DF800AA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Z+k3TG3I"; 
+ header.b="G3C97Auc"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="U/A4pdQV"
+ header.b="WTw70L/0"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 0AE1534F39;
- Fri, 15 Jul 2022 18:24:29 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id DA64B1FB3B;
+ Fri, 15 Jul 2022 18:29:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1657909469; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ t=1657909744; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=jTgp2xSspcsahHLEXvx2g88T4l52tTGfy+WLc/LqjGE=;
- b=Z+k3TG3Iu9a8Jh4Fto2p2EMtMIjMhoXFhi1lZOF7fAPYRV/H43y1M7OUh5Vye0TFIsuSIM
- 80ZowhfcbyBSg2KtWif17uyNjE+HUAhUpHSLbnm6VR9+NS4CZMdkD4VC7uz/+b2EQAnmii
- PfkX6uDIL47ht7CyvbANRUr78mg8wCc=
+ bh=jsQ+fkwjrO9HjlX4Z5mXLbqy5VJEjIGssATk5dgR2tM=;
+ b=G3C97Auc6sWl5dU4WkaMtdXeaysri7h64aq1OMylCCSbnAGIgatab4DdPr6L1uDDZYtoQ6
+ sc2wqy0KOyB+mMSFNStaBDOqo5aNe4SLUkKbmTira+Sf1xzeaUow7BEJlf4fxAFGaXPc9s
+ ALzh/OhbkA95pv1K3QgWMrxTWwFm0OU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1657909469;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ s=susede2_ed25519; t=1657909744;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=jTgp2xSspcsahHLEXvx2g88T4l52tTGfy+WLc/LqjGE=;
- b=U/A4pdQVGaRb1EBCy3LWPi2zR5Y909Ogypqwq9vK9SfJJlBG4/nmky4YxqttsJri7OiwcH
- zAnRitMBABRAOwDA==
+ bh=jsQ+fkwjrO9HjlX4Z5mXLbqy5VJEjIGssATk5dgR2tM=;
+ b=WTw70L/0H16TB2OxCXcxGN9U5wtly37nSkL8dRLFjsUB5BK94wmlM2t8j4+KDGjpReiKmp
+ 5gmC31UhjPppKNBg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E405213754;
- Fri, 15 Jul 2022 18:24:28 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B018D13754;
+ Fri, 15 Jul 2022 18:29:04 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id PmbkNtyw0WJhGQAAMHmgww
- (envelope-from <tiwai@suse.de>); Fri, 15 Jul 2022 18:24:28 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id pek9KvCx0WKmGgAAMHmgww
+ (envelope-from <tiwai@suse.de>); Fri, 15 Jul 2022 18:29:04 +0000
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH] Revert "ALSA: hda: cs35l41: Allow compilation test on
- non-ACPI configurations"
-Date: Fri, 15 Jul 2022 20:24:27 +0200
-Message-Id: <20220715182427.18891-1-tiwai@suse.de>
+Subject: [PATCH] Revert "ALSA: hda: Fix page fault in snd_hda_codec_shutdown()"
+Date: Fri, 15 Jul 2022 20:29:03 +0200
+Message-Id: <20220715182903.19594-1-tiwai@suse.de>
 X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,40 +95,85 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Since the recent change in CS35L41 codec requires the reference of
-acpi_dev handle, the current Kconfig may lead to a build breakage.
+This reverts commit 980b3a8790b402e959a6d773b38b771019682be1.
 
-Revert the Kconfig change and re-introduce the hard dependency on
-CONFIG_ACPI again as a temporary workaround.
+The commit didn't consider the fact that ASoC hdac-hda driver
+initializes the HD-audio stuff without calling
+snd_hda_codec_device_init().  Hence this caused a regression leading
+to Oops.
 
-Fixes: eef375960210 ("ALSA: hda: cs35l41: Support reading subsystem id from ACPI")
+Revert the commit to restore the behavior.
+
+Fixes: 980b3a8790b4 ("ALSA: hda: Fix page fault in snd_hda_codec_shutdown()")
+Link: https://lore.kernel.org/r/3c40df55-3aee-1e08-493b-7b30cd84dc00@linux.intel.com
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/hda/Kconfig | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/pci/hda/hda_codec.c | 41 ++++++++++++++++++++-------------------
+ 1 file changed, 21 insertions(+), 20 deletions(-)
 
-diff --git a/sound/pci/hda/Kconfig b/sound/pci/hda/Kconfig
-index 44c33bc0740e..a8e8cf98befa 100644
---- a/sound/pci/hda/Kconfig
-+++ b/sound/pci/hda/Kconfig
-@@ -103,7 +103,7 @@ config SND_HDA_CS_DSP_CONTROLS
- config SND_HDA_SCODEC_CS35L41_I2C
- 	tristate "Build CS35L41 HD-audio side codec support for I2C Bus"
- 	depends on I2C
--	depends on ACPI || COMPILE_TEST
-+	depends on ACPI
- 	depends on SND_SOC
- 	select SND_SOC_CS35L41_LIB
- 	select SND_HDA_SCODEC_CS35L41
-@@ -118,7 +118,7 @@ comment "Set to Y if you want auto-loading the side codec driver"
- config SND_HDA_SCODEC_CS35L41_SPI
- 	tristate "Build CS35L41 HD-audio codec support for SPI Bus"
- 	depends on SPI_MASTER
--	depends on ACPI || COMPILE_TEST
-+	depends on ACPI
- 	depends on SND_SOC
- 	select SND_SOC_CS35L41_LIB
- 	select SND_HDA_SCODEC_CS35L41
+diff --git a/sound/pci/hda/hda_codec.c b/sound/pci/hda/hda_codec.c
+index 7be74227bf19..7b2e62fa82d5 100644
+--- a/sound/pci/hda/hda_codec.c
++++ b/sound/pci/hda/hda_codec.c
+@@ -931,28 +931,8 @@ snd_hda_codec_device_init(struct hda_bus *bus, unsigned int codec_addr,
+ 	}
+ 
+ 	codec->bus = bus;
+-	codec->depop_delay = -1;
+-	codec->fixup_id = HDA_FIXUP_ID_NOT_SET;
+-	codec->core.dev.release = snd_hda_codec_dev_release;
+-	codec->core.exec_verb = codec_exec_verb;
+ 	codec->core.type = HDA_DEV_LEGACY;
+ 
+-	mutex_init(&codec->spdif_mutex);
+-	mutex_init(&codec->control_mutex);
+-	snd_array_init(&codec->mixers, sizeof(struct hda_nid_item), 32);
+-	snd_array_init(&codec->nids, sizeof(struct hda_nid_item), 32);
+-	snd_array_init(&codec->init_pins, sizeof(struct hda_pincfg), 16);
+-	snd_array_init(&codec->driver_pins, sizeof(struct hda_pincfg), 16);
+-	snd_array_init(&codec->cvt_setups, sizeof(struct hda_cvt_setup), 8);
+-	snd_array_init(&codec->spdif_out, sizeof(struct hda_spdif_out), 16);
+-	snd_array_init(&codec->jacktbl, sizeof(struct hda_jack_tbl), 16);
+-	snd_array_init(&codec->verbs, sizeof(struct hda_verb *), 8);
+-	INIT_LIST_HEAD(&codec->conn_list);
+-	INIT_LIST_HEAD(&codec->pcm_list_head);
+-	INIT_DELAYED_WORK(&codec->jackpoll_work, hda_jackpoll_work);
+-	refcount_set(&codec->pcm_ref, 1);
+-	init_waitqueue_head(&codec->remove_sleep);
+-
+ 	return codec;
+ }
+ EXPORT_SYMBOL_GPL(snd_hda_codec_device_init);
+@@ -1005,8 +985,29 @@ int snd_hda_codec_device_new(struct hda_bus *bus, struct snd_card *card,
+ 	if (snd_BUG_ON(codec_addr > HDA_MAX_CODEC_ADDRESS))
+ 		return -EINVAL;
+ 
++	codec->core.dev.release = snd_hda_codec_dev_release;
++	codec->core.exec_verb = codec_exec_verb;
++
+ 	codec->card = card;
+ 	codec->addr = codec_addr;
++	mutex_init(&codec->spdif_mutex);
++	mutex_init(&codec->control_mutex);
++	snd_array_init(&codec->mixers, sizeof(struct hda_nid_item), 32);
++	snd_array_init(&codec->nids, sizeof(struct hda_nid_item), 32);
++	snd_array_init(&codec->init_pins, sizeof(struct hda_pincfg), 16);
++	snd_array_init(&codec->driver_pins, sizeof(struct hda_pincfg), 16);
++	snd_array_init(&codec->cvt_setups, sizeof(struct hda_cvt_setup), 8);
++	snd_array_init(&codec->spdif_out, sizeof(struct hda_spdif_out), 16);
++	snd_array_init(&codec->jacktbl, sizeof(struct hda_jack_tbl), 16);
++	snd_array_init(&codec->verbs, sizeof(struct hda_verb *), 8);
++	INIT_LIST_HEAD(&codec->conn_list);
++	INIT_LIST_HEAD(&codec->pcm_list_head);
++	refcount_set(&codec->pcm_ref, 1);
++	init_waitqueue_head(&codec->remove_sleep);
++
++	INIT_DELAYED_WORK(&codec->jackpoll_work, hda_jackpoll_work);
++	codec->depop_delay = -1;
++	codec->fixup_id = HDA_FIXUP_ID_NOT_SET;
+ 
+ #ifdef CONFIG_PM
+ 	codec->power_jiffies = jiffies;
 -- 
 2.35.3
 

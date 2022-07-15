@@ -2,91 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6B92575BBC
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jul 2022 08:45:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B14F575BEE
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jul 2022 09:00:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5F220177C;
-	Fri, 15 Jul 2022 08:45:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F220177C
+	by alsa0.perex.cz (Postfix) with ESMTPS id B360717E2;
+	Fri, 15 Jul 2022 08:59:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B360717E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657867553;
-	bh=apWjZr718NJGeGaHu07EIXE2TYt0fK6RyMaAaeazJDw=;
+	s=default; t=1657868400;
+	bh=qaSEAhr8w6/pcLafLUCnwvB0wWabBng/+oE0r9mgjgw=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AX9TUnYUyATWPb8uFhbPF308I2PU2sKSd67L7SWpCDjJJUY4Dq7FyQ+Xj9fO542iP
-	 IDljIfX6YsOHE+niyJp6bTIcsnruPK4C/XZ8DLgav/zY4GE/6fl1EOa3ooIXYIicXF
-	 r5cTqlkEO68kOsr3JWWogB6egX4zSpFPAJEr3fNY=
+	b=B4gNzcm5QILJ6xne1p1awR4//RmRe67qfUbCvZsmclzzUEJeMrT4cTC7bbGu2Mnq2
+	 Twq0mo+hfaGUSx3iKus+G2x7MShX0zn95k1B8zJ2WiFn28FT5cEKwi9QN546ZZI2/n
+	 h4t02IBgon+EQQkCNJ/EJU4Zyyt8unHByeWQwayI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE118F80212;
-	Fri, 15 Jul 2022 08:44:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2ECCAF80212;
+	Fri, 15 Jul 2022 08:59:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B4592F8015B; Fri, 15 Jul 2022 08:44:50 +0200 (CEST)
+ id 19DC5F8015B; Fri, 15 Jul 2022 08:58:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EF92CF8014E
- for <alsa-devel@alsa-project.org>; Fri, 15 Jul 2022 08:44:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF92CF8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id C38E9F8014E
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jul 2022 08:58:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C38E9F8014E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="D/6Zseac"; 
+ header.b="sRVVlzfr"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="pSY+9BTA"
+ header.b="yT0V/N3G"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 264CE33AF2;
- Fri, 15 Jul 2022 06:44:45 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id DE2961FACC;
+ Fri, 15 Jul 2022 06:58:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1657867485; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1657868334; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Gka8oDv972TexgK2ndFtnZp2ZZD/Qaa14/jKBZ4X/Vg=;
- b=D/6ZseacgEwZ4emNw/5/mcFt4kRIMYhaXKdiXOGvxqPDchYOXzjgGsDk61u+e7IqSDmhuo
- CmvEQvpZUdAehMHRkekY/S/jP1DGuRyHwlSLSc/pbVqXeVeBDjzDLmbzrkqLaIo71Ntdea
- vIAJ0LdVAlQW4GcBbEZnfIDAOmaHrGw=
+ bh=DZnDO4CcAUdkGtpyppGeZfipCWuBiME0nLI/4G6xB4Q=;
+ b=sRVVlzfrcTTsuYwFIs/oCHmHnx78kZR7urfIAPvhRRDzFy5wxGO0SDOU5oLDuWVy5yN2UB
+ tHUqi0ksbLLfH1gSh17oGGiJg8OqCieLNSsBl4/BFGcsVnN6t349/OlcjW7lMcigE5zj6n
+ Xfrim8DhMHkIN6XQP7DWaKuKt2TlVP8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1657867485;
+ s=susede2_ed25519; t=1657868334;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Gka8oDv972TexgK2ndFtnZp2ZZD/Qaa14/jKBZ4X/Vg=;
- b=pSY+9BTAPFA6MLMx7Oz6P+kp0LeP5sBjQ4MvtvDJLLAhITuFK0hr3d59dJD1r+fWgywCRR
- OkHfWrXGZMHGTtDA==
+ bh=DZnDO4CcAUdkGtpyppGeZfipCWuBiME0nLI/4G6xB4Q=;
+ b=yT0V/N3GdixRvCWUTq68AYF284zXyke41xyygKliPXQ8dvmpB3U9dZMV/qUXxu87vrFDGk
+ 5tT8+zkvz79GM7AQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0809F13AC3;
- Fri, 15 Jul 2022 06:44:45 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B886613754;
+ Fri, 15 Jul 2022 06:58:54 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id UFxEAd0M0WJ+eAAAMHmgww
- (envelope-from <tiwai@suse.de>); Fri, 15 Jul 2022 06:44:45 +0000
-Date: Fri, 15 Jul 2022 08:44:44 +0200
-Message-ID: <87edymx4bn.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id 5ydSLC4Q0WIMfgAAMHmgww
+ (envelope-from <tiwai@suse.de>); Fri, 15 Jul 2022 06:58:54 +0000
+Date: Fri, 15 Jul 2022 08:58:54 +0200
+Message-ID: <87a69ax3o1.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [GIT PULL] ASoC fixes for v5.19-rc4-2
-In-Reply-To: <20220714180007.C9835C34114@smtp.kernel.org>
-References: <20220714180007.C9835C34114@smtp.kernel.org>
+To: Zheyu Ma <zheyuma97@gmail.com>
+Subject: Re: [PATCH] ALSA: bcd2000: Fix a UAF bug on the error path of probing
+In-Reply-To: <20220715010515.2087925-1-zheyuma97@gmail.com>
+References: <20220715010515.2087925-1-zheyuma97@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-2
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,116 +99,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 14 Jul 2022 19:59:58 +0200,
-Mark Brown wrote:
+On Fri, 15 Jul 2022 03:05:15 +0200,
+Zheyu Ma wrote:
 > 
-> The following changes since commit 980555e95f7cabdc9c80a07107622b097ba23703:
+> When the driver fails in snd_card_register() at probe time, it will free
+> the 'bcd2k->midi_out_urb' before killing it, which may cause a UAF bug.
 > 
->   ASoC: madera: Fix event generation for rate controls (2022-06-24 16:22:01 +0100)
+> The following log can reveal it:
 > 
-> are available in the Git repository at:
+> [   50.727020] BUG: KASAN: use-after-free in bcd2000_input_complete+0x1f1/0x2e0 [snd_bcd2000]
+> [   50.727623] Read of size 8 at addr ffff88810fab0e88 by task swapper/4/0
+> [   50.729530] Call Trace:
+> [   50.732899]  bcd2000_input_complete+0x1f1/0x2e0 [snd_bcd2000]
 > 
->   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v5.19-rc4-2
+> Fix this by adding usb_kill_urb() before usb_free_urb().
 > 
-> for you to fetch changes up to 1e347f861da8ddb17e1d1b3113cb6c188e0de3e5:
-> 
->   ASoC: rockchip-i2s: Undo BCLK pinctrl changes (2022-07-14 13:25:52 +0100)
-> 
-> ----------------------------------------------------------------
-> ASoC: Drop Rockchip BCLK management for v5.19
-> 
-> As covered in the second revert commit in this pull request the version
-> of the BCLK muxing that's in v5.19 is causing issues, let's just revert
-> it and wait for the more complete support in v5.20 instead.
+> Fixes: b47a22290d58 ("ALSA: MIDI driver for Behringer BCD2000 USB device")
+> Signed-off-by: Zheyu Ma <zheyuma97@gmail.com>
 
-Hmm, this revert itself is fine, but the PR contains way too many
-changes than expected as a *very* late stage.  Are all those really
-mandatory as 5.19 fixes?  e.g. regressions that have been introduced
-in 5.19-rc or such?  Otherwise I prefer cherry-picking only the really
-needed one for now for the merge to 5.19-final.
+Thanks, applied.
 
-
-thanks,
 
 Takashi
-
-> ----------------------------------------------------------------
-> Alexandru Elisei (1):
->       ASoC: rockchip: i2s: Fix NULL pointer dereference when pinctrl is not found
-> 
-> Brent Lu (1):
->       ASoC: Intel: sof_rt5682: fix out-of-bounds array access
-> 
-> Bryan O'Donoghue (1):
->       ASoC: dt-bindings: Fix description for msm8916
-> 
-> Charles Keepax (4):
->       ASoC: wm5102: Fix event generation for output compensation
->       ASoC: wm8998: Fix event generation for input mux
->       ASoC: cs47l92: Fix event generation for OUT1 demux
->       ASoC: arizona: Update arizona_aif_cfg_changed to use RX_BCLK_RATE
-> 
-> Daniel Mack (1):
->       ASoC: max98396: Fix register access for PCM format settings
-> 
-> David Owens (1):
->       ASoC: ti: omap-mcbsp: duplicate sysfs error
-> 
-> Francesco Dolcini (1):
->       ASoC: sgtl5000: Fix noise on shutdown/remove
-> 
-> Hector Martin (2):
->       ASoC: tas2764: Correct playback volume range
->       ASoC: tas2764: Fix amp gain register offset & default
-> 
-> Jianglei Nie (1):
->       ASoC: qdsp6: fix potential memory leak in q6apm_get_audioreach_graph()
-> 
-> Marek Vasut (1):
->       ASoC: doc: Capitalize RESET line name
-> 
-> Mark Brown (1):
->       ASoC: rockchip-i2s: Undo BCLK pinctrl changes
-> 
-> Martin Povi¹er (2):
->       ASoC: tas2764: Add post reset delays
->       ASoC: tas2764: Fix and extend FSYNC polarity handling
-> 
-> Oder Chiou (1):
->       ASoC: rt5640: Fix the wrong state of JD1 and JD2
-> 
-> Peter Ujfalusi (2):
->       ASoC: Intel: Skylake: Correct the ssp rate discovery in skl_get_ssp_clks()
->       ASoC: Intel: Skylake: Correct the handling of fmt_config flexible array
-> 
-> Sascha Hauer (2):
->       ASoC: audio_graph_card2: Fix port numbers in example
->       ASoC: tlv320adcx140: Fix tx_mask check
-> 
-> Yassine Oudjana (1):
->       ASoC: wcd9335: Use int array instead of bitmask for TX mixers
-> 
->  .../devicetree/bindings/sound/qcom,lpass-cpu.yaml  |   8 +-
->  Documentation/sound/soc/dai.rst                    |   2 +-
->  sound/soc/codecs/arizona.c                         |   4 +-
->  sound/soc/codecs/cs47l92.c                         |   8 +-
->  sound/soc/codecs/max98396.c                        |  10 +-
->  sound/soc/codecs/rt5640.c                          |  30 ++--
->  sound/soc/codecs/sgtl5000.c                        |   9 ++
->  sound/soc/codecs/sgtl5000.h                        |   1 +
->  sound/soc/codecs/tas2764.c                         |  46 +++---
->  sound/soc/codecs/tas2764.h                         |   6 +-
->  sound/soc/codecs/tlv320adcx140.c                   |  13 +-
->  sound/soc/codecs/wcd9335.c                         |  17 ++-
->  sound/soc/codecs/wm5102.c                          |  21 ++-
->  sound/soc/codecs/wm8998.c                          |  21 ++-
->  sound/soc/generic/audio-graph-card2.c              |   6 +-
->  sound/soc/intel/boards/sof_rt5682.c                |  10 +-
->  sound/soc/intel/skylake/skl-nhlt.c                 |  40 ++++--
->  sound/soc/qcom/qdsp6/q6apm.c                       |   1 +
->  sound/soc/rockchip/rockchip_i2s.c                  | 160 ++++-----------------
->  sound/soc/ti/omap-mcbsp-priv.h                     |   2 -
->  sound/soc/ti/omap-mcbsp-st.c                       |  14 +-
->  sound/soc/ti/omap-mcbsp.c                          |  19 +--
->  22 files changed, 199 insertions(+), 249 deletions(-)
-> 

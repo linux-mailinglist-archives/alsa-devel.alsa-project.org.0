@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E46885763CD
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jul 2022 16:43:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D3935763CE
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jul 2022 16:44:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8C955190D;
-	Fri, 15 Jul 2022 16:42:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C955190D
+	by alsa0.perex.cz (Postfix) with ESMTPS id A64D91923;
+	Fri, 15 Jul 2022 16:43:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A64D91923
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657896229;
-	bh=pCQbHLgw1NRcqqkKOmkYCz17BD4nXuKQX11Xx3ntNOo=;
+	s=default; t=1657896250;
+	bh=uR4D154ji/q8k8s+V7N+R8nQGUUkvsmHJvY2q9FVFW8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YsongKwvRnsCacuObeMoweW6IpQ9Tw6jNNR92NEDYxK5R5il1hGB/8cGVPw5ntyqE
-	 Oc3F1H6hZcYJ9guCI1cFFy38yk2075oho/Z4+Yo1azbGU+Rhy3aDvH519VLXxRJcZz
-	 /i++grL1p6ddHThjNlqzYspZxzWC6pcS5Y2QhB8A=
+	b=V/FdnzrWzSZk9Vxa9bN5p5mJFUxfJv+/60YPjWtmy6mLaqEgM6BC0ktTmatLfeUOM
+	 WFG/5YcHNsT4kr6g//LUpX/C1SASZpx7eYIgNBcemNcXlW1f/ReMiiMWL+fYtHq9tE
+	 jxY850yk/zhhGMGozmrqkfQz44fN+2a07JkHNKRk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6A1DAF8012F;
+	by alsa1.perex.cz (Postfix) with ESMTP id DB537F80557;
 	Fri, 15 Jul 2022 16:42:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 75EC0F80551; Fri, 15 Jul 2022 16:42:11 +0200 (CEST)
+ id 94A95F8012F; Fri, 15 Jul 2022 16:42:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,40 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 55250F8053C
- for <alsa-devel@alsa-project.org>; Fri, 15 Jul 2022 16:41:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55250F8053C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 44ABFF80507
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jul 2022 16:42:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44ABFF80507
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="ED9f2/yR"
+ header.b="BA2PjMc7"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1657896121; x=1689432121;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=pCQbHLgw1NRcqqkKOmkYCz17BD4nXuKQX11Xx3ntNOo=;
- b=ED9f2/yRS86R54oCK4LmgKtMJ9keeHQsa36gvkUdKj+4AsXH1cB4eNsV
- +g9fX164R/5ifecuuafWQQ6EF9urN386HEWOWa/LoPu6zX4rZb6b4ImfC
- 9LHp95WKB1krm9yxh+5Ln7O9y9HHxo47ixFXgZ/XlnjbKD0LPLssqAZ3o
- xOGhTjMASpgFH0iZggXuW1E14Cxh1i6WUyhcMyGMBkPs36UwNte4r00db
- KiCi+S5DIcO7Or7LUf1EPdZS5T2v7isaCXCTQfbXeDbwsPGpT3BJyDeq9
- ygQgeYnPtGBWcJ+vkxSHTIZA+ZpAW55lTGOrv9svMQcjuo9Uy7xT7EaZa A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10408"; a="286947099"
-X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="286947099"
+ bh=uR4D154ji/q8k8s+V7N+R8nQGUUkvsmHJvY2q9FVFW8=;
+ b=BA2PjMc7NHgLkpCH68phJC9PvqYDOPkhDps/CHFTXtSzBTcCyjrwQYlh
+ 8IAWLCAVRvbZiTHQpYcDvC8opq1sXbyYZ/e90sPy7D0O1i5Cl1dlBI0wh
+ XOmwGPtcNroSN/yfKv1vbNMOL/z/ICwDgJYjbQdqdYAqMs1mxYrheTl6u
+ Mi8Ga/kIsWxU2tlZf56KKT1BBkNrv9676cbzXa7yiQtjwDwhiblvyokwY
+ WCXScrBWKXLm3Ewt6LlIQmRtEZtCbIzCN4bLpsK60/AouDhdIH0av0G0M
+ o9O+bhAkxIR9ExU6pgVEXmUZpfzvXwC12qS9meUh3KJZgxl+RmUGe3qyT A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10408"; a="286947102"
+X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="286947102"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jul 2022 07:41:54 -0700
-X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="593756523"
+ 15 Jul 2022 07:41:55 -0700
+X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="593756524"
 Received: from lgonzal1-mobl02.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.212.14.184])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jul 2022 07:41:53 -0700
+ 15 Jul 2022 07:41:54 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 3/4] ASoC: Intel: sof_sdw: add quirk for HP Omen 16-k0005TX
-Date: Fri, 15 Jul 2022 09:41:43 -0500
-Message-Id: <20220715144144.274770-4-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 4/4] ASoC: SOF: Intel: enable dmic handling with 2 or fewer
+ SoundWire links
+Date: Fri, 15 Jul 2022 09:41:44 -0500
+Message-Id: <20220715144144.274770-5-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220715144144.274770-1-pierre-louis.bossart@linux.intel.com>
 References: <20220715144144.274770-1-pierre-louis.bossart@linux.intel.com>
@@ -91,37 +92,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The JD2 jack detection was selected based on similar settings from
-other platforms based on RT711-SDCA.
+When PCH-attached DMICs are used on a SoundWire-based platform, all
+known devices pin-mux SoundWire link2 and link3 with DMIC, and only
+use link0 and link1 for SoundWire.
 
-BugLink: https://github.com/thesofproject/sof/issues/5955
+The HP Omen16 is the first exception to the rule, with SoundWire using
+link0 and link3. Rather than using a fixed mask, let's count the
+number of SoundWire links used.
+
+BugLink: https://github.com/thesofproject/sof/issues/5966
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- sound/soc/intel/boards/sof_sdw.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ sound/soc/sof/intel/hda.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
-index 0c47d76a79e2..12f243ef04bf 100644
---- a/sound/soc/intel/boards/sof_sdw.c
-+++ b/sound/soc/intel/boards/sof_sdw.c
-@@ -315,6 +315,15 @@ static const struct dmi_system_id sof_sdw_quirk_table[] = {
- 					RT711_JD2 |
- 					SOF_SDW_FOUR_SPK),
- 	},
-+	{
-+		.callback = sof_sdw_quirk_cb,
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "HP"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "OMEN by HP Gaming Laptop 16-k0xxx"),
-+		},
-+		.driver_data = (void *)(SOF_SDW_TGL_HDMI |
-+					RT711_JD2),
-+	},
- 	/* MeteorLake devices */
- 	{
- 		.callback = sof_sdw_quirk_cb,
+diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+index b7fa95ea1090..be3c4f1d8ff5 100644
+--- a/sound/soc/sof/intel/hda.c
++++ b/sound/soc/sof/intel/hda.c
+@@ -1406,12 +1406,12 @@ static struct snd_soc_acpi_mach *hda_sdw_machine_select(struct snd_sof_dev *sdev
+ 
+ 			/*
+ 			 * DMICs use up to 4 pins and are typically pin-muxed with SoundWire
+-			 * link 2 and 3, thus we only try to enable dmics if all conditions
+-			 * are true:
+-			 * a) link 2 and 3 are not used by SoundWire
++			 * link 2 and 3, or link 1 and 2, thus we only try to enable dmics
++			 * if all conditions are true:
++			 * a) 2 or fewer links are used by SoundWire
+ 			 * b) the NHLT table reports the presence of microphones
+ 			 */
+-			if (!(mach->link_mask & GENMASK(3, 2))) {
++			if (hweight_long(mach->link_mask) <= 2) {
+ 				const char *tplg_filename = mach->sof_tplg_filename;
+ 				int ret;
+ 
 -- 
 2.34.1
 

@@ -2,88 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11B7057638D
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jul 2022 16:21:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C140F5763A4
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jul 2022 16:27:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A05571738;
-	Fri, 15 Jul 2022 16:20:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A05571738
+	by alsa0.perex.cz (Postfix) with ESMTPS id 67D4718D8;
+	Fri, 15 Jul 2022 16:26:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67D4718D8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657894881;
-	bh=2QOUaJGM4KW1WkA/okD1RoKQdqn08yAaztkA4Cmvmqk=;
+	s=default; t=1657895235;
+	bh=vlwwv2+qZzvvv8xoebWJPP9N4Mvj39zCg/zL32x4Cp8=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dZs5fs/jmONF9kNJD6F8xEuHi6dfqDIPEjWyFFsL6ILlFl/Rji1mF1qh2fW6IXpmw
-	 /0M0RpneYcnu6pe+DR6FK1DUbuzJ+2m0kZcbe1ZGksv8EKMb1j1gdB43X+VmL9cszr
-	 Au7V6fHSDCqV23qHOEPi4k5tFXFtDefW4eAEKUDw=
+	b=CsUYE09Rxvg6fIw6QptlSllNTdrwEsf4uBFojRVOhmN0GMxqlIPMzRB4YnrPZDVES
+	 kPV4A3Q6yNmWToqAYP4k6WdF1JKbXRLmVHMZo6S08/iYgAjhu99rtPK08u/wMMyn/V
+	 P4+mqNPpz2fVwfHndN+UqfHyVA4VqwvlrIou8bWE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1DF59F8012F;
-	Fri, 15 Jul 2022 16:20:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CDB50F80212;
+	Fri, 15 Jul 2022 16:26:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3C266F8015B; Fri, 15 Jul 2022 16:20:19 +0200 (CEST)
+ id 842B0F8012F; Fri, 15 Jul 2022 16:26:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 29238F8012F
- for <alsa-devel@alsa-project.org>; Fri, 15 Jul 2022 16:20:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29238F8012F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 820EDF8012F
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jul 2022 16:26:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 820EDF8012F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="UQ0Izaz+"; 
+ header.b="eYuaNQCB"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="rAIm1Weq"
+ header.b="5oVKkbz2"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 3DD0134DC8;
- Fri, 15 Jul 2022 14:20:11 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 024201FF04;
+ Fri, 15 Jul 2022 14:26:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1657894811; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1657895164; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=cmAsRfF7fTXCaXwLs+RcQWvzLQ5Y4sh0meGW2lp201o=;
- b=UQ0Izaz+DqE6rQHHaTm4OKOxvE4ECMm3bsIRflVNELkeZ5akQg4YTWjHvcizZVYxOdUiNe
- 8f77GFhfEhbc+t/PQn+T6vCnhIYcVGHY+D/HwDyMvlfHBaFK3DAeNsgnxy2oES2rIi+Dlc
- zboJ5WsRkqPhDwSqVQp7+mHLe4ce5Xo=
+ bh=S/areYaZmJ60ybxC3Bd6smjcGooy9V3ezeCMiRz5a3Q=;
+ b=eYuaNQCBRIxDlgPZWS1l1MGAoQSv5wEWGZ1fOPhs3kr4i4CYH3zPXCI0KrtOpHBlXKXAVI
+ 6YL7OhcA0fLP3RZklQJTZhBY+1M4eTRnUoqskjL3WVW9LNLx8Y8kwaOPTZSH4yP3i+fKqz
+ VA1F9NbBcOAtvDq/7CBGbtSkFOlm+XQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1657894811;
+ s=susede2_ed25519; t=1657895164;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=cmAsRfF7fTXCaXwLs+RcQWvzLQ5Y4sh0meGW2lp201o=;
- b=rAIm1WeqGnTx67+DfpSXxHyCRM+j092q3aDshBguUADztKV7943QsqDSR3n5X3tPCVthIA
- SGE+/eov6CM/9cCw==
+ bh=S/areYaZmJ60ybxC3Bd6smjcGooy9V3ezeCMiRz5a3Q=;
+ b=5oVKkbz2LCyU5UO8To7h5cIpq9seXQXGZUK00ORUA/2Evbzz3clS0LZmpCW2uk7jV1VurE
+ BsjxMPkhSdHZ5zDg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2270913754;
- Fri, 15 Jul 2022 14:20:11 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C97D313754;
+ Fri, 15 Jul 2022 14:26:03 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id J9HNB5t30WKpPwAAMHmgww
- (envelope-from <tiwai@suse.de>); Fri, 15 Jul 2022 14:20:11 +0000
-Date: Fri, 15 Jul 2022 16:20:10 +0200
-Message-ID: <87lesuv4o5.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id nPVnMPt40WLQQQAAMHmgww
+ (envelope-from <tiwai@suse.de>); Fri, 15 Jul 2022 14:26:03 +0000
+Date: Fri, 15 Jul 2022 16:25:55 +0200
+Message-ID: <87k08ev4ek.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [GIT PULL] ASoC updates for v5.20
-In-Reply-To: <20220715133142.D5205C34115@smtp.kernel.org>
-References: <20220715133142.D5205C34115@smtp.kernel.org>
+To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+Subject: Re: [PATCH v8 00/14] ALSA: hda: cirrus: Add initial DSP support and
+ firmware loading
+In-Reply-To: <e4c1eb0c-329a-a8c4-0d72-76475f82c01f@opensource.cirrus.com>
+References: <20220630002335.366545-1-vitalyr@opensource.cirrus.com>
+ <87zghpxcsh.wl-tiwai@suse.de>
+ <e4c1eb0c-329a-a8c4-0d72-76475f82c01f@opensource.cirrus.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,48 +104,115 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 15 Jul 2022 15:31:32 +0200,
-Mark Brown wrote:
+On Wed, 06 Jul 2022 12:40:36 +0200,
+Vitaly Rodionov wrote:
 > 
-> The following changes since commit fc976f5629afb4160ee77798b14a693eac903ffd:
 > 
->   ASoC: Intel: Skylake: Correct the handling of fmt_config flexible array (2022-07-07 17:16:40 +0100)
+> Hi Takashi,
 > 
-> are available in the Git repository at:
+> On 04/07/2022 13:50, Takashi Iwai wrote:
 > 
->   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-v5.20
+>     On Thu, 30 Jun 2022 02:23:21 +0200,
+>     Vitaly Rodionov wrote:
+>     
+>         The CS35L41 Amplifier contains a DSP, capable of running firmware.
+>         The firmware can run algorithms such as Speaker Protection, to ensure
+>         that playback at high gains do not harm the speakers.
+>         Adding support for CS35L41 firmware into the CS35L41 HDA driver also
+>         allows us to support several extra features, such as hiberation 
+>         and interrupts.
+>         
+>         The chain adds support in stages:
+>         - General fixes to improve generalization and code re-use inside
+>           the CS35L41 HDA driver.
+>         - Add support for interrupts into the driver, which is required
+>           for complete support of the firmware.
+>         - Refactor ASoC CS35L41 code which deals with firmware to allow
+>           for code re-use inside the CS35L41 HDA driver.
+>         - Add support for loading firmware and tuning files from file system,
+>           and creating alsa controls to control it.
+>         - Support firmware load paths for different hardware systems.
+>         - Support suspend/resume in the driver when using firmware. The firmware
+>           supports hibernation, which allows the CS35L41 to drop into a low
+>           power mode during suspend.
+>         - Support the ability to unload firmware, swap and reload the firmware.
+>           This is to allow different firmware to run during calibration.
+>         
+>         The intended use-case is to load the firmware once on boot, and the driver
+>         autmatically tries to load the firmware after it binds to the HDA driver.
+>         This behaviour can be switched off using a kconfig, if desired.
+>         
+>         changes since v7:
+>          - Use private_data rather than private_value to save control info
+>          - Clean up alsa control memory allocation/deallocation
+>          - Remove unnecessary whitespace
+>          - Get subsystem id from codec, rather than saving it separately
+>         
+>         changes since v6:
+>          - Fix warning by kernel test robot <lkp@intel.com>
+>          
+>         changes since v5:
+>          - Fix warning by kernel test robot <lkp@intel.com>
+>          
+>         changes since v4:
+>         - Fully remove tlv remnants from control add apis
+>         - Remove unnecessary debug
+>         - Rename variable to be more generic
+>         - Remove redundent length check from read/write control apis
 > 
-> for you to fetch changes up to 7fb72b7bf167a8047204d30e0e8affe6023363d9:
+>         - Use SNDRV_CTL_ELEM_IFACE_CARD for firmware load controls
+>         - Make kcontrol add/remove synchronous
+>         - Load firmware asynchronous when loading via control
+>         - Used cached controls when reloading firmware; only delete
+>         controls when removing the driver itself
 > 
->   ASoC: Merge up revert of v5.19 version of the rockchip BCLK management (2022-07-14 16:42:29 +0100)
+>         - Improve kcontrol remove
+>         - Fix control write + notify
+>         - Cleanup of unnecessary code
+>         - Fix race condition when loading firmware before playback
+>         - Ensure errors are properly propogated
+>         - Fix include for Module parameters
+>         
+>         Stefan Binding (13):
+>           ALSA: hda: hda_cs_dsp_ctl: Add Library to support CS_DSP ALSA controls
+>           ALSA: hda: hda_cs_dsp_ctl: Add apis to write the controls directly
+>           ALSA: hda: cs35l41: Save codec object inside component struct
+>           ALSA: hda: cs35l41: Save Subsystem ID inside CS35L41 Driver
+>           ALSA: hda: cs35l41: Support reading subsystem id from ACPI
+>           ALSA: hda: cs35l41: Support multiple load paths for firmware
+>           ALSA: hda: cs35l41: Support Speaker ID for laptops
+>           ALSA: hda: cs35l41: Support Hibernation during Suspend
+>           ALSA: hda: cs35l41: Read Speaker Calibration data from UEFI variables
+>           ALSA: hda: hda_cs_dsp_ctl: Add fw id strings
+>           ALSA: hda: cs35l41: Add defaulted values into dsp bypass config
+>             sequence
+>           ALSA: hda: cs35l41: Support Firmware switching and reloading
+>           ALSA: hda: cs35l41: Add module parameter to control firmware load
+>         
+>         Vitaly Rodionov (1):
+>           ALSA: hda: cs35l41: Add initial DSP support and firmware loading
+>         
+>     Thanks, this version looks better than previous ones, and I'm fine to
+>     apply as is, to make things going forward.  But this seems requiring
+>     the prerequisite in ASoC codec side.
+>     
+>     Mark, could you send a PR to merge into my tree so that I can apply
+>     those series?
 > 
-> ----------------------------------------------------------------
-> ASoC: Updates for v5.20
+>     And, one still uncertain thing is about the handling of system
+>     suspend/resume, especially about the firmware loading work.  e.g. what
+>     happens if a f/w work is in run and the system goes to suspend at the
+>     very same time?  Or does the S3/S4 work in general at all?
 > 
-> This is a big release thus far and there will probably be more changes
-> to come, it's a combination of a larger than usual crop of new drivers
-> and some subsysetm wide cleanups from Charles rather than anything
-> structural.  The SOF and Intel DSP code both also continue to be very
-> actively developed.
-> 
->  - Restructing of the set_fmt() callbacks to be specified in terms of
->    the device rather than with semantics depending on if the device is
->    supposed to be a CODEC or SoC, making things clearer in situations
->    like CODEC to CODEC links.
->  - Clean up of the way we flag which DAI naming scheme we use to reflect
->    the progress that's been made modernising things.
->  - Merge of more of the Intel AVS driver stack, including some board
->    integrations.
->  - New version 4 mechanism for communication with SOF DSPs.
->  - Suppoort for dynamically selecting the PLL to use at runtime on i.MX
->    platforms.
->  - Improvements for CODEC to CODEC support in the generic cards.
->  - Support for AMD Jadeite and various machines, Intel MetorLake DSPs,
->    Mediatek MT8186 DSPs and MT6366, nVidia Tegra MDDRC, OPE and PEQ, NXP
->    TFA9890, Qualcomm SDM845, WCD9335 and WAS883x, and Texas Instruments
->    TAS2780.
+> Sorry for the delay, but your comments raised our attention and we wanted to
+> run extensive testing again to make sure there is no hidden issue. No issues
+> were found during tests. When we start FW download work we call "resume", so
+> the resume counter should be incremented and suspend will not happen till we
+> finish the download process.
 
-Thanks, pulled now.
+Now all patches have been merged to for-next branch.
 
+
+thanks,
 
 Takashi

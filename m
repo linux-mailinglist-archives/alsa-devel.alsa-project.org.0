@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00F795763ED
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jul 2022 16:56:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A82605763F1
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jul 2022 16:57:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8EBD91841;
-	Fri, 15 Jul 2022 16:55:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EBD91841
+	by alsa0.perex.cz (Postfix) with ESMTPS id 46F9F210;
+	Fri, 15 Jul 2022 16:56:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46F9F210
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657897007;
-	bh=69CHWb0eaIZwzPCQYTKtYOkSQwLWjpZVntAt9GTI5rQ=;
+	s=default; t=1657897027;
+	bh=/7ig4T9skUCX5/C8/ne9Ot00IKkPW7tDkMbA+IgtA04=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YWebAYGacJs7kx+1x0S9X5rSXwPl5y1d5rDJJ86onUYKdjT4k0T3dK5kACJFVBDZN
-	 0u2S4E9239UenVvBWQhlTM9z82cdMxg7Kq2j4PW5l7Eg6LRszokkcpqlCfGAaT9QoR
-	 LE/1Wzs2UOg5QPyhJDrEzTNLfJCMZlovRwQa2Wys=
+	b=fMLgE2uyRNbGWjEGtZtGyxi17Jup+pwkMOt8/rIlEoERHfrP3uwqhe4f8jaTeYTwe
+	 qNQrI2TYlk1veKMEbhrcwfyyZpJvelw8JGYf7iSzMwK2AD8fyNhYxZKsaeMELaobkJ
+	 LtOQlGAXuobb7EGBTpMRBSfCrGWvgaL/MJhxiyhQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D61FDF805A8;
-	Fri, 15 Jul 2022 16:53:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 78621F805B2;
+	Fri, 15 Jul 2022 16:53:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8B37EF80568; Fri, 15 Jul 2022 16:53:10 +0200 (CEST)
+ id 346ABF8053D; Fri, 15 Jul 2022 16:53:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,40 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E34C9F80544
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9AF15F8053D
  for <alsa-devel@alsa-project.org>; Fri, 15 Jul 2022 16:52:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E34C9F80544
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9AF15F8053D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="U7tnqpbV"
+ header.b="ZArckl4B"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1657896779; x=1689432779;
+ t=1657896778; x=1689432778;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=69CHWb0eaIZwzPCQYTKtYOkSQwLWjpZVntAt9GTI5rQ=;
- b=U7tnqpbVYVi7eYz9c/LY4dyAH8oMHKzT6AHpp0VlgOFH0HUY6OPUpf+G
- a6TDyV4c+Azaxeh11rM5Q0DbSokAIbdTDkX5cDaYMGD86ZAIPAinVBMXx
- VP6Ht8Py9P4fEMuidZXVzYSmZ48ZUwVuwftAPLaN4/kNwLX7Mke3NwCSS
- 5+LeuxE+BgTyuctMor6HJVxkfb3WJ2Hq1ShRar8Znp/a79tO1RnnLZVtv
- QAggrvJC4bJIn2q/juBSjnF2zU4EV2lQxs4uglhmRxdHH9rGAVbV8UR61
- B0h47HW2DQyCGf7V0/bLxe6xJpM21XwcGjxHqHRXxAZQwSu08u70g1baP Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10408"; a="311476908"
-X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="311476908"
+ bh=/7ig4T9skUCX5/C8/ne9Ot00IKkPW7tDkMbA+IgtA04=;
+ b=ZArckl4BHfFrOjg3Uv1DfRZcgmLxpHANGlNRwq3Nb3/4gcK70s0fqoqd
+ wwc61AW6e3fZSKXB/kZw911GmFzFoWhXgOXhc0EB41mCH+nbCbhC9eoRI
+ Lj195ljtTgBRAgmGoZMYoIbAN/usxyloM+gUWH4b769nmPHQVrpgugRIL
+ dK+p/3AUaIV1kCMaMKXLSUBExbrtmCZqsvUXKMU/+Tnuy/0uDH5EHS+kc
+ 5e+DHOY3ZRs6Xm4EcTKVNSqvnQtvx8BAZx/8G9e0UH63hsei7n2o1zU1E
+ uABspnYNCC57jymioo8+/R6R1c8JPAlaGAKz9cfSHrfNfG6z/2CBpg5WZ w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10408"; a="311476910"
+X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="311476910"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  15 Jul 2022 07:52:33 -0700
-X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="923533118"
+X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="923533122"
 Received: from jmurope-mobl.amr.corp.intel.com (HELO pbossart-mobl3.intel.com)
  ([10.212.14.184])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  15 Jul 2022 07:52:32 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 04/11] ASoC: SOF: add ipc4 SRC module support
-Date: Fri, 15 Jul 2022 09:52:09 -0500
-Message-Id: <20220715145216.277003-5-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 05/11] ASoC: SOF: ipc4-topology: set domain bit based on dp
+ domain type
+Date: Fri, 15 Jul 2022 09:52:10 -0500
+Message-Id: <20220715145216.277003-6-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220715145216.277003-1-pierre-louis.bossart@linux.intel.com>
 References: <20220715145216.277003-1-pierre-louis.bossart@linux.intel.com>
@@ -94,216 +95,77 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Rander Wang <rander.wang@intel.com>
 
-SRC module only needs two parameters : base module config
-and sink rate. This patch adds prepare and setup for SRC
-widgets.
+Currently the domain bit in ipc msg for module initialization is
+set to lp (low power) mode for pipeline. This is not correct since
+it is for module domain type:  ll domain or dp domain which are for
+scheduler in fw. If the domain bit is set to 1 fw will process the
+module in dp domain or deal it with ll domain. So set domain bit
+based on dp domain setting.
 
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Signed-off-by: Rander Wang <rander.wang@intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/ipc4-topology.c | 114 +++++++++++++++++++++++++++++++++-
- sound/soc/sof/ipc4-topology.h |  14 +++++
- 2 files changed, 127 insertions(+), 1 deletion(-)
+ sound/soc/sof/ipc4-topology.c |  6 ++++--
+ sound/soc/sof/ipc4-topology.h | 13 ++++++++++++-
+ 2 files changed, 16 insertions(+), 3 deletions(-)
 
 diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
-index f77091918118..47291fa3f166 100644
+index 47291fa3f166..af072b484a60 100644
 --- a/sound/soc/sof/ipc4-topology.c
 +++ b/sound/soc/sof/ipc4-topology.c
-@@ -111,6 +111,12 @@ static const struct sof_topology_token gain_tokens[] = {
- 		get_token_u32, offsetof(struct sof_ipc4_gain_data, init_val)},
- };
- 
-+/* SRC */
-+static const struct sof_topology_token src_tokens[] = {
-+	{SOF_TKN_SRC_RATE_OUT, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
-+		offsetof(struct sof_ipc4_src, sink_rate)},
-+};
-+
- static const struct sof_token_info ipc4_token_list[SOF_TOKEN_COUNT] = {
- 	[SOF_DAI_TOKENS] = {"DAI tokens", dai_tokens, ARRAY_SIZE(dai_tokens)},
- 	[SOF_PIPELINE_TOKENS] = {"Pipeline tokens", pipeline_tokens, ARRAY_SIZE(pipeline_tokens)},
-@@ -134,6 +140,7 @@ static const struct sof_token_info ipc4_token_list[SOF_TOKEN_COUNT] = {
- 	[SOF_AUDIO_FMT_NUM_TOKENS] = {"IPC4 Audio format number tokens",
- 		ipc4_audio_fmt_num_tokens, ARRAY_SIZE(ipc4_audio_fmt_num_tokens)},
- 	[SOF_GAIN_TOKENS] = {"Gain tokens", gain_tokens, ARRAY_SIZE(gain_tokens)},
-+	[SOF_SRC_TOKENS] = {"SRC tokens", src_tokens, ARRAY_SIZE(src_tokens)},
- };
- 
- static void sof_ipc4_dbg_audio_format(struct device *dev,
-@@ -740,6 +747,58 @@ static int sof_ipc4_widget_setup_comp_mixer(struct snd_sof_widget *swidget)
- 	return ret;
- }
- 
-+static int sof_ipc4_widget_setup_comp_src(struct snd_sof_widget *swidget)
-+{
-+	struct snd_soc_component *scomp = swidget->scomp;
-+	struct sof_ipc4_src *src;
-+	int ret;
-+
-+	dev_dbg(scomp->dev, "Updating IPC structure for %s\n", swidget->widget->name);
-+
-+	src = kzalloc(sizeof(*src), GFP_KERNEL);
-+	if (!src)
-+		return -ENOMEM;
-+
-+	swidget->private = src;
-+
-+	/* The out_audio_fmt in topology is ignored as it is not required by SRC */
-+	ret = sof_ipc4_get_audio_fmt(scomp, swidget, &src->available_fmt, false);
-+	if (ret)
-+		goto err;
-+
-+	ret = sof_update_ipc_object(scomp, src, SOF_SRC_TOKENS, swidget->tuples,
-+				    swidget->num_tuples, sizeof(src), 1);
-+	if (ret) {
-+		dev_err(scomp->dev, "Parsing SRC tokens failed\n");
-+		goto err;
-+	}
-+
-+	dev_dbg(scomp->dev, "SRC sink rate %d\n", src->sink_rate);
-+
-+	ret = sof_ipc4_widget_setup_msg(swidget, &src->msg);
-+	if (ret)
-+		goto err;
-+
-+	return 0;
-+err:
-+	sof_ipc4_free_audio_fmt(&src->available_fmt);
-+	kfree(src);
-+	swidget->private = NULL;
-+	return ret;
-+}
-+
-+static void sof_ipc4_widget_free_comp_src(struct snd_sof_widget *swidget)
-+{
-+	struct sof_ipc4_src *src = swidget->private;
-+
-+	if (!src)
-+		return;
-+
-+	sof_ipc4_free_audio_fmt(&src->available_fmt);
-+	kfree(swidget->private);
-+	swidget->private = NULL;
-+}
-+
- static void sof_ipc4_widget_free_comp_mixer(struct snd_sof_widget *swidget)
+@@ -314,6 +314,7 @@ static int sof_ipc4_widget_set_module_info(struct snd_sof_widget *swidget)
+ static int sof_ipc4_widget_setup_msg(struct snd_sof_widget *swidget, struct sof_ipc4_msg *msg)
  {
- 	struct sof_ipc4_mixer *mixer = swidget->private;
-@@ -1305,6 +1364,37 @@ static int sof_ipc4_prepare_mixer_module(struct snd_sof_widget *swidget,
+ 	struct sof_ipc4_fw_module *fw_module;
++	uint32_t type;
+ 	int ret;
+ 
+ 	ret = sof_ipc4_widget_set_module_info(swidget);
+@@ -330,6 +331,9 @@ static int sof_ipc4_widget_setup_msg(struct snd_sof_widget *swidget, struct sof_
+ 	msg->extension = SOF_IPC4_MOD_EXT_PPL_ID(swidget->pipeline_id);
+ 	msg->extension |= SOF_IPC4_MOD_EXT_CORE_ID(swidget->core);
+ 
++	type = fw_module->man4_module_entry.type & SOF_IPC4_MODULE_DP ? 1 : 0;
++	msg->extension |= SOF_IPC4_MOD_EXT_DOMAIN(type);
++
  	return 0;
  }
  
-+static int sof_ipc4_prepare_src_module(struct snd_sof_widget *swidget,
-+				       struct snd_pcm_hw_params *fe_params,
-+				       struct snd_sof_platform_stream_params *platform_params,
-+				       struct snd_pcm_hw_params *pipeline_params, int dir)
-+{
-+	struct snd_soc_component *scomp = swidget->scomp;
-+	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
-+	struct sof_ipc4_src *src = swidget->private;
-+	struct snd_interval *rate;
-+	int ret;
-+
-+	src->available_fmt.ref_audio_fmt = &src->available_fmt.base_config->audio_fmt;
-+
-+	/* output format is not required to be sent to the FW for SRC */
-+	ret = sof_ipc4_init_audio_fmt(sdev, swidget, &src->base_config,
-+				      NULL, pipeline_params, &src->available_fmt,
-+				      sizeof(src->base_config));
-+	if (ret < 0)
-+		return ret;
-+
-+	/* update pipeline memory usage */
-+	sof_ipc4_update_pipeline_mem_usage(sdev, swidget, &src->base_config);
-+
-+	/* update pipeline_params for sink widgets */
-+	rate = hw_param_interval(pipeline_params, SNDRV_PCM_HW_PARAM_RATE);
-+	rate->min = src->sink_rate;
-+	rate->max = rate->min;
-+
-+	return 0;
-+}
-+
- static int sof_ipc4_control_load_volume(struct snd_sof_dev *sdev, struct snd_sof_control *scontrol)
- {
- 	struct sof_ipc4_control_data *control_data;
-@@ -1360,7 +1450,6 @@ static int sof_ipc4_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget
- 	u32 ipc_size = 0;
- 	int ret;
+@@ -1532,8 +1536,6 @@ static int sof_ipc4_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget
  
--
- 	switch (swidget->id) {
- 	case snd_soc_dapm_scheduler:
- 		pipeline = swidget->private;
-@@ -1415,6 +1504,16 @@ static int sof_ipc4_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget
- 		msg = &mixer->msg;
- 		break;
+ 		msg->extension &= ~SOF_IPC4_MOD_EXT_PARAM_SIZE_MASK;
+ 		msg->extension |= ipc_size >> 2;
+-		msg->extension &= ~SOF_IPC4_MOD_EXT_DOMAIN_MASK;
+-		msg->extension |= SOF_IPC4_MOD_EXT_DOMAIN(pipeline->lp_mode);
  	}
-+	case snd_soc_dapm_src:
-+	{
-+		struct sof_ipc4_src *src = swidget->private;
-+
-+		ipc_size = sizeof(struct sof_ipc4_base_module_cfg) + sizeof(src->sink_rate);
-+		ipc_data = src;
-+
-+		msg = &src->msg;
-+		break;
-+	}
- 	default:
- 		dev_err(sdev->dev, "widget type %d not supported", swidget->id);
- 		return -EINVAL;
-@@ -1762,6 +1861,15 @@ static enum sof_tokens mixer_token_list[] = {
- 	SOF_COMP_EXT_TOKENS,
- };
- 
-+static enum sof_tokens src_token_list[] = {
-+	SOF_COMP_TOKENS,
-+	SOF_SRC_TOKENS,
-+	SOF_AUDIO_FMT_NUM_TOKENS,
-+	SOF_IN_AUDIO_FORMAT_TOKENS,
-+	SOF_AUDIO_FORMAT_BUFFER_SIZE_TOKENS,
-+	SOF_COMP_EXT_TOKENS,
-+};
-+
- static const struct sof_ipc_tplg_widget_ops tplg_ipc4_widget_ops[SND_SOC_DAPM_TYPE_COUNT] = {
- 	[snd_soc_dapm_aif_in] =  {sof_ipc4_widget_setup_pcm, sof_ipc4_widget_free_comp_pcm,
- 				  host_token_list, ARRAY_SIZE(host_token_list), NULL,
-@@ -1790,6 +1898,10 @@ static const struct sof_ipc_tplg_widget_ops tplg_ipc4_widget_ops[SND_SOC_DAPM_TY
- 				mixer_token_list, ARRAY_SIZE(mixer_token_list),
- 				NULL, sof_ipc4_prepare_mixer_module,
- 				NULL},
-+	[snd_soc_dapm_src] = {sof_ipc4_widget_setup_comp_src, sof_ipc4_widget_free_comp_src,
-+				src_token_list, ARRAY_SIZE(src_token_list),
-+				NULL, sof_ipc4_prepare_src_module,
-+				NULL},
- };
- 
- const struct sof_ipc_tplg_ops ipc4_tplg_ops = {
+ 	dev_dbg(sdev->dev, "Create widget %s instance %d - pipe %d - core %d\n",
+ 		swidget->widget->name, swidget->instance_id, swidget->pipeline_id, swidget->core);
 diff --git a/sound/soc/sof/ipc4-topology.h b/sound/soc/sof/ipc4-topology.h
-index 3bc2fe38c733..56ab80e722ce 100644
+index 56ab80e722ce..0aa87a8add5d 100644
 --- a/sound/soc/sof/ipc4-topology.h
 +++ b/sound/soc/sof/ipc4-topology.h
-@@ -242,4 +242,18 @@ struct sof_ipc4_mixer {
- 	struct sof_ipc4_msg msg;
- };
+@@ -15,7 +15,18 @@
+ #define SOF_IPC4_FW_PAGE(x) ((((x) + BIT(12) - 1) & ~(BIT(12) - 1)) >> 12)
+ #define SOF_IPC4_FW_ROUNDUP(x) (((x) + BIT(6) - 1) & (~(BIT(6) - 1)))
  
-+/**
-+ * struct sof_ipc4_src SRC config data
-+ * @base_config: IPC base config data
-+ * @sink_rate: Output rate for sink module
-+ * @available_fmt: Available audio format
-+ * @msg: IPC4 message struct containing header and data info
+-#define SOF_IPC4_MODULE_LL      BIT(5)
++#define SOF_IPC4_MODULE_LOAD_TYPE		GENMASK(3, 0)
++#define SOF_IPC4_MODULE_AUTO_START		BIT(4)
++/*
++ * Two module schedule domains in fw :
++ * LL domain - Low latency domain
++ * DP domain - Data processing domain
++ * The LL setting should be equal to !DP setting
 + */
-+struct sof_ipc4_src {
-+	struct sof_ipc4_base_module_cfg base_config;
-+	uint32_t sink_rate;
-+	struct sof_ipc4_available_audio_format available_fmt;
-+	struct sof_ipc4_msg msg;
-+};
++#define SOF_IPC4_MODULE_LL		BIT(5)
++#define SOF_IPC4_MODULE_DP		BIT(6)
++#define SOF_IPC4_MODULE_LIB_CODE		BIT(7)
 +
- #endif
+ #define SOF_IPC4_MODULE_INSTANCE_LIST_ITEM_SIZE 12
+ #define SOF_IPC4_PIPELINE_OBJECT_SIZE 448
+ #define SOF_IPC4_DATA_QUEUE_OBJECT_SIZE 128
 -- 
 2.34.1
 

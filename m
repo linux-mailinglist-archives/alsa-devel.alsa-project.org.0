@@ -2,83 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47AC85763E6
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jul 2022 16:55:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A26105763F2
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jul 2022 16:57:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DE91B1930;
-	Fri, 15 Jul 2022 16:54:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE91B1930
+	by alsa0.perex.cz (Postfix) with ESMTPS id D5012190D;
+	Fri, 15 Jul 2022 16:56:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5012190D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657896938;
-	bh=sZ54xulv0edJ+YOzbrzxq/4OMsGlUM2TXXrHB9xyb9w=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1657897044;
+	bh=sRfC5Ka4S67/cGEbaVj/hbaPRxkscr98EJmV4Rys9K0=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=O1jKIX+e1heeMhB2iB9PHtn5YvEQ+DquRuPnISkWwMXepdHJaEbq/yAe1J8T1a7Xr
-	 eMZY1GLdsn/u8ClnMvcUG87NDaefdLu1C54Qja3YsNquu7v30nCz7s9F4iN4JJkLDG
-	 JT65TdOT3gM7IZPOW45dHf7HTqZpixg7YoqfSKgU=
+	b=qHyHHzKemiim62fZoYyeTVdm3a5cBxWYEaxaa1b1AuxAiH2NeRCBwGHzOW2nXDGqi
+	 a+jlvfJB+majhEjwaN8w5Ka20u+CXDJpqTtg1Z6k14tvsoLL+M6IWBoKqtk46rlbNM
+	 bJ7Jqe4rJFRIJik0pUjs7cyzw4LzSsjdMbyfbQgk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 26308F80568;
-	Fri, 15 Jul 2022 16:53:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E7AA6F8012F;
+	Fri, 15 Jul 2022 16:55:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BA459F8053C; Fri, 15 Jul 2022 16:53:05 +0200 (CEST)
+ id 8C6B9F80212; Fri, 15 Jul 2022 16:55:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0103DF8053C
- for <alsa-devel@alsa-project.org>; Fri, 15 Jul 2022 16:52:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0103DF8053C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 25DCBF8012F
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jul 2022 16:55:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25DCBF8012F
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="JCZ0zB0K"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1657896775; x=1689432775;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=sZ54xulv0edJ+YOzbrzxq/4OMsGlUM2TXXrHB9xyb9w=;
- b=JCZ0zB0KKrTrGQiNnpDz3XpMcDog1NXhmEs6cPh6Cg+5DNMeID3IceeA
- /pcQqPHXM4DmsGv28aq8SdwltN4iHzJCwUpdKeCvhvL+4Gao2pneqb8Sv
- 0KdHGvy+cSStE+QcSJelrXf0kbgMdfcCg633yMYNohSiFBQBrqkAPX8Sx
- i35zmsV8gJ9S3aTqiNub4+Flw1IzYvI9ODg2J0Xj8vigVibNnpjw6GDIs
- CfxsYu6qgi66J+qrBwMh+zAEAGRMwzso5mpXs6Zxc44V3Yx9pM7coRvXj
- g3b3b1FWde/kWz3r28gAohz4UH6B67C9WMs18yQaPPF3AL9d7X/yRCC42 Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10408"; a="311476922"
-X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="311476922"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jul 2022 07:52:36 -0700
-X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="923533133"
-Received: from jmurope-mobl.amr.corp.intel.com (HELO pbossart-mobl3.intel.com)
- ([10.212.14.184])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jul 2022 07:52:36 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 11/11] ASoC: SOF: Intel: hda-stream: test DMA buffer first in
- hw_params
-Date: Fri, 15 Jul 2022 09:52:16 -0500
-Message-Id: <20220715145216.277003-12-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220715145216.277003-1-pierre-louis.bossart@linux.intel.com>
-References: <20220715145216.277003-1-pierre-louis.bossart@linux.intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de,
- =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, broonie@kernel.org,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="S2angEXt"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="ZdeXZA8N"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 9E92334DEF;
+ Fri, 15 Jul 2022 14:55:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1657896953; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=7qceAikyWf3k6OJ5JCKtY+orVSmykCVvy8SsafYoKKQ=;
+ b=S2angEXtdUNRY5IIErT2t2ZPFxk+0oG0i8bA3OJouyEIUVarmc0G8oYxzAONJUdIp580uC
+ xKKbapyU3+48vdPn1VJHzlH+HBcNxzvnt6EMO2VRY31MRyoWz0sBwxktekqePH09Nxa3kW
+ ep22Z5CH0t7qt6egVsWn7PIXPH3AjyQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1657896953;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=7qceAikyWf3k6OJ5JCKtY+orVSmykCVvy8SsafYoKKQ=;
+ b=ZdeXZA8NK1yPMoykt/7NpROMOT2yjbCKzGMh8V6IBieNpNI+YPG77lTBrGUJx3U1/P0X3v
+ Fd1YFVctPEEslMDQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 67D9813754;
+ Fri, 15 Jul 2022 14:55:53 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id glfIF/l/0WK4TQAAMHmgww
+ (envelope-from <tiwai@suse.de>); Fri, 15 Jul 2022 14:55:53 +0000
+Date: Fri, 15 Jul 2022 16:55:52 +0200
+Message-ID: <87bktqv30n.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: Re: [PATCH 1/9] ALSA: hda: Do not unset preset when cleaning up codec
+In-Reply-To: <ea75b058-5716-f07a-c37e-ab9b9c945f60@intel.com>
+References: <20220706120230.427296-1-cezary.rojewski@intel.com>
+ <20220706120230.427296-2-cezary.rojewski@intel.com>
+ <878rp2i6sj.wl-tiwai@suse.de>
+ <2966b410-f00d-9b33-fcfa-30d484455579@intel.com>
+ <877d4jsppp.wl-tiwai@suse.de>
+ <8bdd56fc-de6b-381e-24f5-5d2c28e337f7@intel.com>
+ <874jzmr4lg.wl-tiwai@suse.de>
+ <ea75b058-5716-f07a-c37e-ab9b9c945f60@intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ tiwai@suse.com, hdegoede@redhat.com, broonie@kernel.org,
+ amadeuszx.slawinski@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,55 +108,73 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-We should be consistent and always test that the DMA buffer is
-allocated before continuing with the hw_params setup.
+On Tue, 12 Jul 2022 12:58:09 +0200,
+Cezary Rojewski wrote:
+> 
+> On 2022-07-12 12:46 PM, Takashi Iwai wrote:
+> > On Tue, 12 Jul 2022 11:42:56 +0200,
+> > Cezary Rojewski wrote:
+> 
+> ...
+> 
+> >> snd_hda_codec_cleanup_for_unbind() is called in more places than just
+> >> HDAudio codec driver's probe() and remove(). It's also called whenever
+> >> HDAudio codec soc-component is being removed. Relevant part of the
+> >> stack showing when does the cleanup function get called during rmmod:
+> >> 
+> >> [  220.549349]  snd_hda_codec_cleanup_for_unbind+0x25/0x451 [snd_hda_codec]
+> >> [  220.549536]  ? dump_stack_lvl+0x45/0x49
+> >> [  220.549568]  hda_codec_remove.cold+0x14/0x138 [snd_soc_hda_codec]
+> >> [  220.549609]  snd_soc_component_remove+0x34/0x40 [snd_soc_core]
+> >> [  220.549942]  soc_remove_component+0x113/0x120 [snd_soc_core]
+> >> [  220.550249]  soc_cleanup_card_resources+0x1a7/0x4a0 [snd_soc_core]
+> >> [  220.550561]  snd_soc_unbind_card+0x9e/0x190 [snd_soc_core]
+> >> [  220.550885]  snd_soc_unregister_card+0x28/0x80 [snd_soc_core]
+> >> [  220.551193]  devm_card_release+0x1d/0x20 [snd_soc_core]
+> >> [  220.551527]  release_nodes+0x73/0x170
+> >> [  220.551549]  ? preempt_count_sub+0x18/0xc0
+> >> [  220.551576]  devres_release_all+0x10a/0x150
+> >> [  220.551600]  ? devres_remove_group+0x260/0x260
+> >> [  220.551630]  device_unbind_cleanup+0x14/0xd0
+> >> [  220.551656]  device_release_driver_internal+0x146/0x1d0
+> >> [  220.551688]  driver_detach+0x81/0xf0
+> >> [  220.551716]  bus_remove_driver+0xae/0x170
+> >> [  220.551743]  driver_unregister+0x4d/0x70
+> >> [  220.551770]  platform_driver_unregister+0x12/0x20
+> >> [  220.551799]  avs_hdaudio_driver_exit+0x10/0x12 [snd_soc_avs_hdaudio]
+> > 
+> > So, IMO,  you're scratching a wrong surface.  The problem is rather
+> > that snd_hda_codec_cleanup_for_unbind() is called even if it's not for
+> > unbinding the codec.
+> 
+> 
+> This is how ASoC HDAudio codec component was behaving for years, see
+> sound/soc/codecs/hdac_hda.c. If the intention is _not_ do call
+> snd_hda_codec_cleanup_for_unbind() then the teardown procedure will
+> probably need a little update.
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
----
- sound/soc/sof/intel/hda-stream.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+Do we see a similar crash with the hdac-hda stuff, too?
 
-diff --git a/sound/soc/sof/intel/hda-stream.c b/sound/soc/sof/intel/hda-stream.c
-index 4531e1ee5ed0..b58662faa4aa 100644
---- a/sound/soc/sof/intel/hda-stream.c
-+++ b/sound/soc/sof/intel/hda-stream.c
-@@ -411,6 +411,11 @@ int hda_dsp_iccmax_stream_hw_params(struct snd_sof_dev *sdev, struct hdac_ext_st
- 		return -ENODEV;
- 	}
- 
-+	if (!dmab) {
-+		dev_err(sdev->dev, "error: no dma buffer allocated!\n");
-+		return -ENODEV;
-+	}
-+
- 	if (hstream->posbuf)
- 		*hstream->posbuf = 0;
- 
-@@ -485,16 +490,16 @@ int hda_dsp_stream_hw_params(struct snd_sof_dev *sdev,
- 		return -ENODEV;
- 	}
- 
--	/* decouple host and link DMA */
--	mask = 0x1 << hstream->index;
--	snd_sof_dsp_update_bits(sdev, HDA_DSP_PP_BAR, SOF_HDA_REG_PP_PPCTL,
--				mask, mask);
--
- 	if (!dmab) {
- 		dev_err(sdev->dev, "error: no dma buffer allocated!\n");
- 		return -ENODEV;
- 	}
- 
-+	/* decouple host and link DMA */
-+	mask = 0x1 << hstream->index;
-+	snd_sof_dsp_update_bits(sdev, HDA_DSP_PP_BAR, SOF_HDA_REG_PP_PPCTL,
-+				mask, mask);
-+
- 	/* clear stream status */
- 	snd_sof_dsp_update_bits(sdev, HDA_DSP_HDA_BAR, sd_offset,
- 				SOF_HDA_CL_DMA_SD_INT_MASK |
--- 
-2.34.1
+And, after avs_hdaudio_driver_exit() is called, why the codec object
+still remains bound with the HD-audio (Realtek or whatever) codec
+driver?
 
+> Actually.. I'm afraid the init one
+> would need an update to. Given how the implementation of HDAudio codec
+> component's probe() and remove() looks like, there is no dropping the
+> cleanup function without changing the upward path accordingly.
+> 
+> Well, to be honest the init/free procedures of HDAudio codec are a
+> little hairy, perhaps it's time to address this.
+
+Admittedly, the plumbing work for ASoC HD-audio was somewhat messy,
+and it's fine if we can clean things up.
+
+snd_hda_codec_cleanup_for_unbind() is certainly written for unbinding
+the codec driver, and if a part of that function code is needed for
+different purposes, it should be factored out properly, at least.
+
+
+thanks,
+
+Takashi

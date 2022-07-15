@@ -2,97 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D31585766B1
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jul 2022 20:25:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A55015766B2
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jul 2022 20:25:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 82EB818E2;
-	Fri, 15 Jul 2022 20:24:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82EB818E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3EC041939;
+	Fri, 15 Jul 2022 20:24:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3EC041939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657909500;
-	bh=cNYA09d1DpslphgC/jiIDOuSPJwKGONFlwhQZofzKys=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=aBOn+Dkbjt/xr8hb76vOeER6OwV1TfZLLDknziG5aNcQBn0GT+Mqfx4rLWspU48KU
-	 Qg9g4UkX44HbJMHiRR9Nn3iF7BpbqYb1fRrCple3Wbz2VfcdJIY3xbMzZpQvQTHUME
-	 Uk9r+B/dBgSY/BSHIE7rPYxhBuSZQELfWEDXreMs=
+	s=default; t=1657909540;
+	bh=NYTTZJSFZVD0DTXIxnLto7eWFJzO5w6TOMrTxPCOZmA=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=PKQTwxoeohfcgsR3z80SQjQiYFazGt6st7I2wfCeG2nRJy6grGPaNrEg7RpvZQ5lc
+	 zufwiN+fSMFXnk1G4AtgXtUu5tO/wVZSBpCfXpIAAvutSouQUcx9/UCDhpQIl0u4JX
+	 wNGTcSvZAQgy+W2HRY0Zqv1BD77x0lQUV9E0+8i0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A9FACF800AA;
-	Fri, 15 Jul 2022 20:23:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4D20AF8012F;
+	Fri, 15 Jul 2022 20:24:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 64DF0F8015B; Fri, 15 Jul 2022 20:23:58 +0200 (CEST)
+ id 18310F8012F; Fri, 15 Jul 2022 20:24:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 62822F800AA
- for <alsa-devel@alsa-project.org>; Fri, 15 Jul 2022 20:23:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62822F800AA
+ by alsa1.perex.cz (Postfix) with ESMTPS id E43DCF8012F
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jul 2022 20:24:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E43DCF8012F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="kVKLFI+0"; 
+ header.b="Z+k3TG3I"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="C+4aXTfD"
+ header.b="U/A4pdQV"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E933534F37;
- Fri, 15 Jul 2022 18:23:49 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 0AE1534F39;
+ Fri, 15 Jul 2022 18:24:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1657909429; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=zlX1SBiHyolk4eKthz5zlfIANizLnqdezHd2/yU49P4=;
- b=kVKLFI+0jkwvw4etP7WkqW3Cfq37yFym6cbDLA10nibx3NfItK2Tkk9+LBJxubRTFsI5LA
- MZa8i4od6t4gQ5N4DeRAUdavRkg5OCMZYaDNY+PkrGHgepacEYLtg2fkkT5OTqMV+eg14P
- sQfFzllYuTqdbg6De6VbwOiurWV394g=
+ t=1657909469; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=jTgp2xSspcsahHLEXvx2g88T4l52tTGfy+WLc/LqjGE=;
+ b=Z+k3TG3Iu9a8Jh4Fto2p2EMtMIjMhoXFhi1lZOF7fAPYRV/H43y1M7OUh5Vye0TFIsuSIM
+ 80ZowhfcbyBSg2KtWif17uyNjE+HUAhUpHSLbnm6VR9+NS4CZMdkD4VC7uz/+b2EQAnmii
+ PfkX6uDIL47ht7CyvbANRUr78mg8wCc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1657909429;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=zlX1SBiHyolk4eKthz5zlfIANizLnqdezHd2/yU49P4=;
- b=C+4aXTfDSEH/mlXMjJ1h68+Ej5Ryn38wDNOAG9mQTMiLtdMPmW1nf3qcd6haoCEpHuu9Yc
- AAXEt7o1rsDKxWDA==
+ s=susede2_ed25519; t=1657909469;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=jTgp2xSspcsahHLEXvx2g88T4l52tTGfy+WLc/LqjGE=;
+ b=U/A4pdQVGaRb1EBCy3LWPi2zR5Y909Ogypqwq9vK9SfJJlBG4/nmky4YxqttsJri7OiwcH
+ zAnRitMBABRAOwDA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AC47013754;
- Fri, 15 Jul 2022 18:23:49 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E405213754;
+ Fri, 15 Jul 2022 18:24:28 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id wmbmKLWw0WIhGQAAMHmgww
- (envelope-from <tiwai@suse.de>); Fri, 15 Jul 2022 18:23:49 +0000
-Date: Fri, 15 Jul 2022 20:23:49 +0200
-Message-ID: <874jziute2.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id PmbkNtyw0WJhGQAAMHmgww
+ (envelope-from <tiwai@suse.de>); Fri, 15 Jul 2022 18:24:28 +0000
 From: Takashi Iwai <tiwai@suse.de>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 6/9] ALSA: hda: Fix page fault in snd_hda_codec_shutdown()
-In-Reply-To: <3c40df55-3aee-1e08-493b-7b30cd84dc00@linux.intel.com>
-References: <20220706120230.427296-1-cezary.rojewski@intel.com>
- <20220706120230.427296-7-cezary.rojewski@intel.com>
- <3c40df55-3aee-1e08-493b-7b30cd84dc00@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, alsa-devel@alsa-project.org,
- tiwai@suse.com, hdegoede@redhat.com, broonie@kernel.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- amadeuszx.slawinski@linux.intel.com,
- =?ISO-8859-1?Q?P?= =?ISO-8859-1?Q?=E9ter?= Ujfalusi
- <peter.ujfalusi@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] Revert "ALSA: hda: cs35l41: Allow compilation test on
+ non-ACPI configurations"
+Date: Fri, 15 Jul 2022 20:24:27 +0200
+Message-Id: <20220715182427.18891-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.35.3
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,59 +94,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 15 Jul 2022 20:16:14 +0200,
-Pierre-Louis Bossart wrote:
-> 
-> 
-> 
-> On 7/6/22 07:02, Cezary Rojewski wrote:
-> > If early probe of HDAudio bus driver fails e.g.: due to missing
-> > firmware file, snd_hda_codec_shutdown() ends in manipulating
-> > uninitialized codec->pcm_list_head causing page fault.
-> > 
-> > Iinitialization of HDAudio codec in ASoC is split in two:
-> > - snd_hda_codec_device_init()
-> > - snd_hda_codec_device_new()
-> > 
-> > snd_hda_codec_device_init() is called during probe_codecs() by HDAudio
-> > bus driver while snd_hda_codec_device_new() is called by
-> > codec-component's ->probe(). The second call will not happen until all
-> > components required by related sound card are present within the ASoC
-> > framework. With firmware failing to load during the PCI's deferred
-> > initialization i.e.: probe_work(), no platform components are ever
-> > registered. HDAudio codec enumeration is done at that point though, so
-> > the codec components became registered to ASoC framework, calling
-> > snd_hda_codec_device_init() in the process.
-> > 
-> > Now, during platform reboot snd_hda_codec_shutdown() is called for every
-> > codec found on the HDAudio bus causing oops if any of them has not
-> > completed both of their initialization steps. Relocating field
-> > initialization fixes the issue.
-> > 
-> > Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
-> 
-> This patch causes an across-the-board regression on all SOF platforms
-> using an HDaudio or iDISP codec. Only 'nocodec' platforms are
-> unaffected, see results at
-> https://sof-ci.01.org/linuxpr/PR3763/build394/devicetest/
-> 
-> Reverting this commit seems to fix the issue.
-> 
-> Upstream merge:
-> https://github.com/thesofproject/linux/pull/3763
-> 
-> Issue and bisect results
-> https://github.com/thesofproject/linux/issues/3764
-> 
-> I don't know what this was supposed to fix on the shutdown path but it's
-> clearly having side effects on the probe/init path.
+Since the recent change in CS35L41 codec requires the reference of
+acpi_dev handle, the current Kconfig may lead to a build breakage.
 
-Yeah, obviously the patch ignores the fact that hdac_hda does
-initialize the HD-audio codec without snd_hda_codec_device_init().
+Revert the Kconfig change and re-introduce the hard dependency on
+CONFIG_ACPI again as a temporary workaround.
 
-I'm going to revert the commit.
+Fixes: eef375960210 ("ALSA: hda: cs35l41: Support reading subsystem id from ACPI")
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/pci/hda/Kconfig | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
+diff --git a/sound/pci/hda/Kconfig b/sound/pci/hda/Kconfig
+index 44c33bc0740e..a8e8cf98befa 100644
+--- a/sound/pci/hda/Kconfig
++++ b/sound/pci/hda/Kconfig
+@@ -103,7 +103,7 @@ config SND_HDA_CS_DSP_CONTROLS
+ config SND_HDA_SCODEC_CS35L41_I2C
+ 	tristate "Build CS35L41 HD-audio side codec support for I2C Bus"
+ 	depends on I2C
+-	depends on ACPI || COMPILE_TEST
++	depends on ACPI
+ 	depends on SND_SOC
+ 	select SND_SOC_CS35L41_LIB
+ 	select SND_HDA_SCODEC_CS35L41
+@@ -118,7 +118,7 @@ comment "Set to Y if you want auto-loading the side codec driver"
+ config SND_HDA_SCODEC_CS35L41_SPI
+ 	tristate "Build CS35L41 HD-audio codec support for SPI Bus"
+ 	depends on SPI_MASTER
+-	depends on ACPI || COMPILE_TEST
++	depends on ACPI
+ 	depends on SND_SOC
+ 	select SND_SOC_CS35L41_LIB
+ 	select SND_HDA_SCODEC_CS35L41
+-- 
+2.35.3
 
-thanks,
-
-Takashi

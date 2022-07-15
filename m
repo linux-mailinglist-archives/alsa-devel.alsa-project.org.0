@@ -2,97 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A26105763F2
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jul 2022 16:57:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53E30576479
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Jul 2022 17:34:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D5012190D;
-	Fri, 15 Jul 2022 16:56:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5012190D
+	by alsa0.perex.cz (Postfix) with ESMTPS id E12BD1925;
+	Fri, 15 Jul 2022 17:33:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E12BD1925
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657897044;
-	bh=sRfC5Ka4S67/cGEbaVj/hbaPRxkscr98EJmV4Rys9K0=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1657899259;
+	bh=9aHm1Fu3V4PgkcOae+20k1x/4kckqaUx81hhfHgpEas=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qHyHHzKemiim62fZoYyeTVdm3a5cBxWYEaxaa1b1AuxAiH2NeRCBwGHzOW2nXDGqi
-	 a+jlvfJB+majhEjwaN8w5Ka20u+CXDJpqTtg1Z6k14tvsoLL+M6IWBoKqtk46rlbNM
-	 bJ7Jqe4rJFRIJik0pUjs7cyzw4LzSsjdMbyfbQgk=
+	b=ViBUyWDoysJ5co+x7H4RvetskBfQ63dR7zukKm2RA46FynO38z2UVEDTtuR+lrhwk
+	 Pr3i5jkOlVBJE6x7+3zhNSeSWYaHpxA1juldUA9JRHh28CFNmMZ/riF1b+kDgP1ZY9
+	 pRFGD+KCbwTZOMxaYmePvf7ZWMjJT2pvjKbpA62o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E7AA6F8012F;
-	Fri, 15 Jul 2022 16:55:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 53888F80212;
+	Fri, 15 Jul 2022 17:33:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8C6B9F80212; Fri, 15 Jul 2022 16:55:57 +0200 (CEST)
+ id 073C7F8015B; Fri, 15 Jul 2022 17:33:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 25DCBF8012F
- for <alsa-devel@alsa-project.org>; Fri, 15 Jul 2022 16:55:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25DCBF8012F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 98F82F8012F
+ for <alsa-devel@alsa-project.org>; Fri, 15 Jul 2022 17:33:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98F82F8012F
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="S2angEXt"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="ZdeXZA8N"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="cDw9C/OE"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 9E92334DEF;
- Fri, 15 Jul 2022 14:55:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1657896953; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=7qceAikyWf3k6OJ5JCKtY+orVSmykCVvy8SsafYoKKQ=;
- b=S2angEXtdUNRY5IIErT2t2ZPFxk+0oG0i8bA3OJouyEIUVarmc0G8oYxzAONJUdIp580uC
- xKKbapyU3+48vdPn1VJHzlH+HBcNxzvnt6EMO2VRY31MRyoWz0sBwxktekqePH09Nxa3kW
- ep22Z5CH0t7qt6egVsWn7PIXPH3AjyQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1657896953;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=7qceAikyWf3k6OJ5JCKtY+orVSmykCVvy8SsafYoKKQ=;
- b=ZdeXZA8NK1yPMoykt/7NpROMOT2yjbCKzGMh8V6IBieNpNI+YPG77lTBrGUJx3U1/P0X3v
- Fd1YFVctPEEslMDQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 67D9813754;
- Fri, 15 Jul 2022 14:55:53 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id glfIF/l/0WK4TQAAMHmgww
- (envelope-from <tiwai@suse.de>); Fri, 15 Jul 2022 14:55:53 +0000
-Date: Fri, 15 Jul 2022 16:55:52 +0200
-Message-ID: <87bktqv30n.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: Re: [PATCH 1/9] ALSA: hda: Do not unset preset when cleaning up codec
-In-Reply-To: <ea75b058-5716-f07a-c37e-ab9b9c945f60@intel.com>
-References: <20220706120230.427296-1-cezary.rojewski@intel.com>
- <20220706120230.427296-2-cezary.rojewski@intel.com>
- <878rp2i6sj.wl-tiwai@suse.de>
- <2966b410-f00d-9b33-fcfa-30d484455579@intel.com>
- <877d4jsppp.wl-tiwai@suse.de>
- <8bdd56fc-de6b-381e-24f5-5d2c28e337f7@intel.com>
- <874jzmr4lg.wl-tiwai@suse.de>
- <ea75b058-5716-f07a-c37e-ab9b9c945f60@intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- tiwai@suse.com, hdegoede@redhat.com, broonie@kernel.org,
- amadeuszx.slawinski@linux.intel.com
+ by ams.source.kernel.org (Postfix) with ESMTPS id C7095B82B40;
+ Fri, 15 Jul 2022 15:33:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59F67C34115;
+ Fri, 15 Jul 2022 15:33:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1657899190;
+ bh=9aHm1Fu3V4PgkcOae+20k1x/4kckqaUx81hhfHgpEas=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=cDw9C/OEmqdqfd+aWY52ugJk967wQveESgwRiptkC2sFO866Dbbow6rV998GZwwWm
+ jQbrmdeP9Vg9/E0TH2Hx6oy3fLADYXF2BE9bgJDpaQPbh/RHlgywU8QPaa40Fi+/O1
+ sQekSjokfj96p2EI+jpwIOtH5zTKoT43IlVEk/CD+7TkDO5CU80Q/a7KvGwPu+ueN2
+ XJk8GhYjmGvBEZ6px+ZieaDFOQZYnNy5JlTwucHk/9OdxWYaZqBhGVefLEZ8SDRVNm
+ /zhf0YuBXWsecuecRh7b8apTyXeCFVNhll2TdgVUtLrFRtUJV4RYqth8/LWq62GzgY
+ aXQ1d2SFE2B+w==
+Date: Fri, 15 Jul 2022 16:33:02 +0100
+From: Mark Brown <broonie@kernel.org>
+To: "li_jessen2016@gmail.com li" <lijessen2016@gmail.com>
+Subject: Re: FAIL: alsa/Makefile dependency check
+Message-ID: <YtGIrl/RIuI2TBps@sirena.org.uk>
+References: <CAK0WjkiJb9_mTmTMWUb2dX-B6_52Fr4stxXrgaW=07RjfMzvZw@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="fEtqbAyeOk6CacDc"
+Content-Disposition: inline
+In-Reply-To: <CAK0WjkiJb9_mTmTMWUb2dX-B6_52Fr4stxXrgaW=07RjfMzvZw@mail.gmail.com>
+X-Cookie: You dialed 5483.
+Cc: alsa-devel@alsa-project.org, linux-kselftest@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,73 +85,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 12 Jul 2022 12:58:09 +0200,
-Cezary Rojewski wrote:
-> 
-> On 2022-07-12 12:46 PM, Takashi Iwai wrote:
-> > On Tue, 12 Jul 2022 11:42:56 +0200,
-> > Cezary Rojewski wrote:
-> 
-> ...
-> 
-> >> snd_hda_codec_cleanup_for_unbind() is called in more places than just
-> >> HDAudio codec driver's probe() and remove(). It's also called whenever
-> >> HDAudio codec soc-component is being removed. Relevant part of the
-> >> stack showing when does the cleanup function get called during rmmod:
-> >> 
-> >> [  220.549349]  snd_hda_codec_cleanup_for_unbind+0x25/0x451 [snd_hda_codec]
-> >> [  220.549536]  ? dump_stack_lvl+0x45/0x49
-> >> [  220.549568]  hda_codec_remove.cold+0x14/0x138 [snd_soc_hda_codec]
-> >> [  220.549609]  snd_soc_component_remove+0x34/0x40 [snd_soc_core]
-> >> [  220.549942]  soc_remove_component+0x113/0x120 [snd_soc_core]
-> >> [  220.550249]  soc_cleanup_card_resources+0x1a7/0x4a0 [snd_soc_core]
-> >> [  220.550561]  snd_soc_unbind_card+0x9e/0x190 [snd_soc_core]
-> >> [  220.550885]  snd_soc_unregister_card+0x28/0x80 [snd_soc_core]
-> >> [  220.551193]  devm_card_release+0x1d/0x20 [snd_soc_core]
-> >> [  220.551527]  release_nodes+0x73/0x170
-> >> [  220.551549]  ? preempt_count_sub+0x18/0xc0
-> >> [  220.551576]  devres_release_all+0x10a/0x150
-> >> [  220.551600]  ? devres_remove_group+0x260/0x260
-> >> [  220.551630]  device_unbind_cleanup+0x14/0xd0
-> >> [  220.551656]  device_release_driver_internal+0x146/0x1d0
-> >> [  220.551688]  driver_detach+0x81/0xf0
-> >> [  220.551716]  bus_remove_driver+0xae/0x170
-> >> [  220.551743]  driver_unregister+0x4d/0x70
-> >> [  220.551770]  platform_driver_unregister+0x12/0x20
-> >> [  220.551799]  avs_hdaudio_driver_exit+0x10/0x12 [snd_soc_avs_hdaudio]
-> > 
-> > So, IMO,  you're scratching a wrong surface.  The problem is rather
-> > that snd_hda_codec_cleanup_for_unbind() is called even if it's not for
-> > unbinding the codec.
-> 
-> 
-> This is how ASoC HDAudio codec component was behaving for years, see
-> sound/soc/codecs/hdac_hda.c. If the intention is _not_ do call
-> snd_hda_codec_cleanup_for_unbind() then the teardown procedure will
-> probably need a little update.
 
-Do we see a similar crash with the hdac-hda stuff, too?
+--fEtqbAyeOk6CacDc
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-And, after avs_hdaudio_driver_exit() is called, why the codec object
-still remains bound with the HD-audio (Realtek or whatever) codec
-driver?
+On Fri, Jul 15, 2022 at 10:47:16PM +0800, li_jessen2016@gmail.com li wrote:
 
-> Actually.. I'm afraid the init one
-> would need an update to. Given how the implementation of HDAudio codec
-> component's probe() and remove() looks like, there is no dropping the
-> cleanup function without changing the upward path accordingly.
-> 
-> Well, to be honest the init/free procedures of HDAudio codec are a
-> little hairy, perhaps it's time to address this.
+> FAIL: alsa/Makefile dependency check: $(shell
+> FAIL: alsa/Makefile dependency check: pkg-config
 
-Admittedly, the plumbing work for ASoC HD-audio was somewhat messy,
-and it's fine if we can clean things up.
+..
 
-snd_hda_codec_cleanup_for_unbind() is certainly written for unbinding
-the codec driver, and if a part of that function code is needed for
-different purposes, it should be factored out properly, at least.
+> So I wonder why the FAIL info appears in the presence of *$(shell
+> pkg-config --libs alsa) *in alsa/Makefile. Is it some sort of bug or
+> did I miss something?
 
+I think that's a bug in this tool you're running - it's not
+understanding the $(shell ...) and generating false positives, not 100%
+sure what it's trying to do but it's fairly clearly parsing every
+element in the statement as a dependency of some kind.
 
-thanks,
+--fEtqbAyeOk6CacDc
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Takashi
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmLRiK0ACgkQJNaLcl1U
+h9CkCgf+L4Jui8awFZT9usl0KInbgUG5TQ68toB0FGI/85vtxRbjTRFsOLheddam
+QRSnLA2AaCyZID+nsneRsxV7y7HbIBmuLKMiMrpJxCc0cbqxxHlHUZuhQ8VWhH2Z
+Kwg0WRRTmn2JoicAV388LcKAQw2KOulViwnpjPMFm2lPkYO6OWoCDHfGbtEvu9YV
+aPH361LmJY75jNhYFhQ44Kc3ZAVXAm1qt0VRrYo8ZSXWMISEJgm+3ZYhcu9eFrEz
+eh6uwcDkbsjMDTbH/+smHbz4uCSDHdsjd4XTuDI5g8Ul15cwWsbuL3KizZBnFT0F
+ZufXcvuBNC/dBvSgGpr9P2gEPiSHUQ==
+=sura
+-----END PGP SIGNATURE-----
+
+--fEtqbAyeOk6CacDc--

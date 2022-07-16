@@ -2,89 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DE58576C49
-	for <lists+alsa-devel@lfdr.de>; Sat, 16 Jul 2022 08:55:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A47C9576CBB
+	for <lists+alsa-devel@lfdr.de>; Sat, 16 Jul 2022 11:13:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D2E681957;
-	Sat, 16 Jul 2022 08:54:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D2E681957
+	by alsa0.perex.cz (Postfix) with ESMTPS id 017A61947;
+	Sat, 16 Jul 2022 11:13:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 017A61947
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1657954533;
-	bh=19AWZRl8QMNT/7cxtEHdfNguku8STbk/8De65yQj2H0=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=qQs981efliXqNnyjNEwqEwKh0a8rvfc0neExDayMDh6NDO9r5s9nSTd8WgDOCDhx3
-	 neKTH82B4Cn4reh7kbDxiRfTcaleaLETbggIMv5iN3V26TVbehgcUJmZEjzUMDAWGl
-	 FKjgFzZmoLpnrcvkY1vvw3W4lE/DPzxawkPXbq8E=
+	s=default; t=1657962837;
+	bh=2OBG9rQoAFY9GFgblzZdfRa/AZ5TMV50Sy7cfKSNuHY=;
+	h=From:Date:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=GaQJUIcKShxF4lzy82QuVqoyN+il7mp4JQ1OS8uksotH+oeu6sl/ZilcqM6O4xpyt
+	 inEg5q2TS1z659ylYM9iku9jRent3tdN134VttNlmozqMC10F5fIT4CM/P+2MtGcLa
+	 QWFKP64vyNDuoTQLIJTVG4ERpaLNfp+ldYJn7o5s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 248D8F800AA;
-	Sat, 16 Jul 2022 08:54:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 726EBF800AA;
+	Sat, 16 Jul 2022 11:12:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7CF4FF800AA; Sat, 16 Jul 2022 08:54:29 +0200 (CEST)
+ id 6EC82F8023A; Sat, 16 Jul 2022 11:12:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [IPv6:2a00:1450:4864:20::231])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9BFDDF800AA
- for <alsa-devel@alsa-project.org>; Sat, 16 Jul 2022 08:54:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BFDDF800AA
+ by alsa1.perex.cz (Postfix) with ESMTPS id A9079F800AA
+ for <alsa-devel@alsa-project.org>; Sat, 16 Jul 2022 11:12:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9079F800AA
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="pJxmN5YP"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="7y4am76Z"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A62093475E;
- Sat, 16 Jul 2022 06:54:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1657954457; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=yry99IA1WiFDK0QH3xD+Tpa/8/BprzTVQgjI5YTP8tw=;
- b=pJxmN5YPqfN4FPd+/7fqRHKzpkh4xIhF+kcGSlXvou+klWyBpqhxWQQUu4LaGvOOWq5tt9
- cbf0ZEy3iTo1VgGJ7I74bWAQeXDhFJKU5V1+WGj68X5BYSs2oJLnQeveTFbI4wGZW7+wdr
- M5QtquWEzIrSG7SvJXXtwu0yM+Uux0k=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1657954457;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=yry99IA1WiFDK0QH3xD+Tpa/8/BprzTVQgjI5YTP8tw=;
- b=7y4am76Ze33aLUyQNN440VQUh37IoGXdcrzZeRr2F6D/wixkidNDk9Eq3KvldtsCx//8M2
- MgCbnZFarW2LOQDQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8329C13AAD;
- Sat, 16 Jul 2022 06:54:17 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 8eJDH5lg0mJSaQAAMHmgww
- (envelope-from <tiwai@suse.de>); Sat, 16 Jul 2022 06:54:17 +0000
-Date: Sat, 16 Jul 2022 08:54:17 +0200
-Message-ID: <87zgh9tuna.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: Re: [PATCH v1 1/1] ALSA: isa: Use INVALID_HWIRQ definition
-In-Reply-To: <20220715205737.83076-1-andriy.shevchenko@linux.intel.com>
-References: <20220715205737.83076-1-andriy.shevchenko@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="dbbs3X4f"
+Received: by mail-lj1-x231.google.com with SMTP id v15so4307249ljc.1
+ for <alsa-devel@alsa-project.org>; Sat, 16 Jul 2022 02:12:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=3QZVtFqHuiCcgoTBA6HrO6NXKNNvRGFtA2MSu5wIdn4=;
+ b=dbbs3X4fgMBMXFvWiNCEDftamKZ1RI3KOuv75zfbBp1d8JFb8UxgsU1xs5xJLewqku
+ 4dXIjgzUHwELozlQ2KlIGII7KGxu/+lcUbcCNlaGk1UXPlr5OP/nVV09iWKZ7aC2NalV
+ kzu7gpUkPLOy5sq6SaGf6GMaFN2Sd/9kfLlXGaicexa++GWAYVhvYXOOw0lsllaeC9El
+ wOYXN6oMtMxSPylytkP3IGB+2Kq9de8n/nUtn9aCMkkxJ+CWg+j5rjW0zbH0tYg++9sU
+ ufMK1zHELV//6pLiRjw2wOxoQ4hSBdKZEvIF+SeAI6o0UykrIFGA1SDYr+hkhzIsSvXz
+ dEjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=3QZVtFqHuiCcgoTBA6HrO6NXKNNvRGFtA2MSu5wIdn4=;
+ b=wksr3xRwqTqc0ZwgSOT5ffAKYyNenzoYmup6fWG4+vPSuyT8/KfSeu9cpzSHPo/vDq
+ v+WW2OwmWVon2xLmqk1Ne8ZtclyA5WQAh0JWKwCL3XSrEvWm3rX8rt5LB5vK/1oSIC1X
+ Nh0wC24c6Jq3M5th05yzXMhb/nzf3y962akGZEmrQKmJCtj35zjQI+JI/pkS8BaKrX41
+ veavikpIaP+av3MJ/Az36+k0NSLsVx4lp3yO8j0F3CpNJBLoVYul/dj80i/7C3cJne2C
+ nMAkjoTm4j/2S78h0cOVKbU/zMm8M7xJh4CRUUQkdOXcq3+LfKv9CTY8+lPUoH5ghv97
+ upxA==
+X-Gm-Message-State: AJIora87/DkNQtAT6hmsdKVdJRvYt9gZj/SugQzdVOGaw4ee1g1aDtDI
+ qUDW0gSDDk85lzue+fmcg0HTik/W/rC0MmH5gw==
+X-Google-Smtp-Source: AGRyM1upNDloBaniyi/j3Rv19qKaeBnKgqtHrM/AqseVD7CcIUvnnXp3WdY2eHY/m7wN8RPHsF1KnDpdMNxFXSKG9PE=
+X-Received: by 2002:a2e:bc17:0:b0:25d:50b7:74fa with SMTP id
+ b23-20020a2ebc17000000b0025d50b774famr8666342ljf.444.1657962769637; Sat, 16
+ Jul 2022 02:12:49 -0700 (PDT)
+MIME-Version: 1.0
+From: Zheyu Ma <zheyuma97@gmail.com>
+Date: Sat, 16 Jul 2022 17:12:38 +0800
+Message-ID: <CAMhUBjm2KOZZj=M3=yLvLm4QcNYpOTa+2_dPcHr7nHm4GE73DA@mail.gmail.com>
+Subject: [BUG] ASoC: nau8821: Found a bug when removing the module
+To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com, 
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ wtli@nuvoton.com, steve@sk2.org, Vijendar.Mukunda@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Cc: alsa-devel@alsa-project.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,37 +93,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 15 Jul 2022 22:57:37 +0200,
-Andy Shevchenko wrote:
-> 
-> Use specific definition for invalid IRQ. It makes the
-> code uniform in respect to the constant used for that.
-> No functional change intended.
-> 
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> ---
->  sound/isa/sscape.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/sound/isa/sscape.c b/sound/isa/sscape.c
-> index 0bc0025f7c19..9adaf91045e9 100644
-> --- a/sound/isa/sscape.c
-> +++ b/sound/isa/sscape.c
-> @@ -140,8 +140,7 @@ struct soundscape {
->  	unsigned char midi_vol;
->  };
->  
-> -#define INVALID_IRQ  ((unsigned)-1)
-> -
-> +#define INVALID_IRQ  ((unsigned)INVALID_HWIRQ)
->  
->  static inline struct soundscape *get_card_soundscape(struct snd_card *c)
->  {
+Hello,
 
-This seems failing to build on my local tree as is.
-We need to include <linux/irq.h> explicitly.
+I found a bug in the driver nau8821.
 
+When removing the module, I got a warning:
 
-thanks,
+[   64.226442] nau8821 0-0010: remove
+[   64.227621] ------------[ cut here ]------------
+[   64.227918] WARNING: CPU: 5 PID: 243 at kernel/irq/devres.c:144
+devm_free_irq+0x80/0x8c
+[   64.235307] Call trace:
+[   64.235501]  devm_free_irq+0x80/0x8c
+[   64.235746]  nau8821_i2c_remove+0x28/0x3c [snd_soc_nau8821]
+[   64.236982]  i2c_device_remove+0xcc/0xf8
+[   64.237173]  device_release_driver_internal+0x208/0x368
+[   64.237406]  driver_detach+0xd8/0x12c
+[   64.237583]  bus_remove_driver+0x90/0xd0
+[   64.237768]  driver_unregister+0x3c/0x6c
+[   64.237952]  i2c_del_driver+0x54/0x74
+[   64.238127]  cleanup_module+0x1c/0x1d0 [snd_soc_nau8821]
 
-Takashi
+regards,
+
+Zheyu Ma

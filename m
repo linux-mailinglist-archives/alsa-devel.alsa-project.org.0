@@ -2,69 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A90095775B0
-	for <lists+alsa-devel@lfdr.de>; Sun, 17 Jul 2022 12:17:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D1AF57760E
+	for <lists+alsa-devel@lfdr.de>; Sun, 17 Jul 2022 14:08:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 44E191765;
-	Sun, 17 Jul 2022 12:16:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44E191765
+	by alsa0.perex.cz (Postfix) with ESMTPS id 645BE1681;
+	Sun, 17 Jul 2022 14:07:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 645BE1681
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658053048;
-	bh=Y8fMmeSIYM3BB5CV35ozshyU5VyFro6D6+2qoDBgluA=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1658059709;
+	bh=iRKznLvas17miqH578mdWHA7tPivEtw6WicVWZRMo/U=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=k3d0nkC0IBWKAurLs0bFWqFNPhcy86Gjxa8e61oyTePWEVxpz67ofvI656DS+dol6
-	 hZLHKkvv6fTsH6uKueBXURQdl6feVEVyeqm53jGT6hJqRKO+dO1FIaKdsLnCWlpoQ6
-	 YQKaeJzhfC+MnqbrJbJ99NyJKA0dH4wGbjh+4CLQ=
+	b=H58aklknCaHDltaA0YlaelfsRnKSMyNHFZhVDqYz2UahP1wFfW6rCJcfhUHepaB4q
+	 rfCOtyUFDYm8B86tHEy9ka/n+h/eBnTUXHyLBzpAGzaPorKnBoh3cP2lpDq4jSl9Wv
+	 +MOj1liYF1+Xrg83UvN90xUlDM0VuZOkXsjvDNLg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ABE89F80171;
-	Sun, 17 Jul 2022 12:16:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CA42CF800CB;
+	Sun, 17 Jul 2022 14:07:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AEBB4F8015B; Sun, 17 Jul 2022 12:16:25 +0200 (CEST)
+ id 9329DF8015B; Sun, 17 Jul 2022 14:07:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9A5A8F800CB
- for <alsa-devel@alsa-project.org>; Sun, 17 Jul 2022 12:16:19 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id A7431A0040;
- Sun, 17 Jul 2022 12:16:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz A7431A0040
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1658052978; bh=4qymXpBcc3qSOwbGuZNjR7Wt/7jjVjLBVIkzVz8jRMw=;
- h=Date:Subject:To:References:Cc:From:In-Reply-To:From;
- b=ze8YqTJwaYf2iGErq+3lN2H0CYFIwbmOx5X+jj02fstPugdvoeRpjwdwM+YkymzwX
- Oxy6Ov8oPbMplynVqLNwrqenbuBKGcQe1sqcGRl0H50f6EOv4ns9NG4woFE2iSsIMo
- yYSPgLeUgp0FAIrg9SjJYBz2/iHC2Tz1wPl9kWNc=
-Received: from [192.168.88.20] (unknown [95.168.116.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Sun, 17 Jul 2022 12:16:16 +0200 (CEST)
-Message-ID: <2c1e5344-2f59-5e09-96a0-58e0afe7360e@perex.cz>
-Date: Sun, 17 Jul 2022 12:16:13 +0200
+X-Spam-Level: **
+X-Spam-Status: No, score=2.0 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ PRX_BODY_13,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 10005F800CB
+ for <alsa-devel@alsa-project.org>; Sun, 17 Jul 2022 14:07:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10005F800CB
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH v2 0/5] ALSA: Drop async signal support
-Content-Language: en-US
-To: alsa-devel@alsa-project.org
-References: <20220717070549.5993-1-tiwai@suse.de>
-From: Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <20220717070549.5993-1-tiwai@suse.de>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Cc: Takashi Iwai <tiwai@suse.de>
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1658059639098660946-webhooks-bot@alsa-project.org>
+References: <1658059639098660946-webhooks-bot@alsa-project.org>
+Subject: Inappropriate Envy24 rate locking/XRUNS for playback and/or recording
+Message-Id: <20220717120726.9329DF8015B@alsa1.perex.cz>
+Date: Sun, 17 Jul 2022 14:07:26 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,29 +60,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 17. 07. 22 v 9:05 Takashi Iwai napsal(a):
-> Hi,
-> 
-> this is a revised patch set for dropping fasync support from ALSA
-> core.
-> 
-> The async signal itself is very difficult to use properly due to
-> various restrictions (e.g. you cannot perform any I/O in the context),
-> hence it's a feature that has been never used by real applications.
-> 
-> OTOH, the real problem is that there have been quite a few syzcaller
-> reports indicating that fasync code path may lead to some potential
-> deadlocks for long time.  Dropping the feature is the easiest
-> solution, obviously.
+alsa-project/alsa-tools issue #11 was opened from foobers:
 
-I would probably prefer to fix the problem (deferred async kill or so). The
-SIGIO is just another way to wakeup the applications and there may be some
-corner cases, where this wakeup is usable (threaded apps). Note that we had
-some users (or testers) of SIGIO in past (at least there were questions about
-this support).
+On Debian 'oldstable', there's a rate-locking and 'low pitch' problem with following setup (same on Mint/Unstable):
 
-					Jaroslav
+- dedicated audio card:
+Multimedia audio controller: VIA Technologies Inc. ICE1712 [Envy24] PCI Multi-Channel I/O Controller (rev 02) based
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+- integrated audio in graphics card:
+Audio device: Advanced Micro Devices, Inc. [AMD/ATI] Device xxxx
+
+- onboard audio chip:
+Audio device: Advanced Micro Devices, Inc. [AMD/ATI] xxx (Intel HDA) (xxxx)
+
+Initially, in 'alsamixer', there are two values shown for 'Multi Track Internal Clock': '[44100]' and 'Default [41000]' for the dedicated AC. In alsamixer, it's only possible, to change the first value, but without any noticable effect (only using 'Envy24 Control' or 'Mudita24' seem to have).
+
+Now, using the audio card, sometimes, right from the start, playback of internet audio streams (in Firefox) seems to have a wrong sampling rate set (i. e. probably 48 kHz), resulting in audibly lower 'pitch' and sound distortion. 
+
+Even worse, playback isn't always affected from start, but recordings from 'gnome-sound-recorder' will be in either case. This can result in several hours of recorded audio being borked, since there's no controlling of the outcome, until recording is stopped, which is very undesirable, especially in ad-hoc recording situations.
+
+I was able to track down the problem being linked to 'Master clock', 'Rate state' settings 'Locked' and 'Reset' in 'Envy24 Control Utility': checking and unchecking / switching forth to 48kHz and back to 44100Hz, helped resetting both playback and recording sampling rate to 44100Hz, to perform regular audio recordings with 'gnome-sound-recorder'.
+
+The rate locking problem can also occur, after playing MP4 videos with Mplayer (media info: sampling rate 44100Hz); then, audio files (media info: bit rate 112Kbit/s, sampling rate 44100Hz), previously kown-good audio records will be played at a noticably lower 'pitch', also recording (with gnome-recorder) now will record at a lower pitch, i. e wrong rate.
+
+In alsamixer, there are now two different values shown for 'Multi Track Internal Clock': '[44100]' and 'Default [48000]'.
+
+Also, when trying to play a regular film DVD with VLC now, it very likely shows short dropouts of black screen and audio, at steady intervals of ~2s, requiring performing a logoff and login, to reset rates again.
+
+Interestingly (and unexpectedly), setting 'Master clock' to 'S/PDIF in', seemed to internally freeze the clock / source to 'S/PDIF', in effect preventing any more sound output or recording from the device; trying to switch back to 44110Hz or 48000Hz would fail and the could only be reset, after until doing a complete reboot.
+
+I've seen references, pointing to the rate locking issue, which suggest, that unchecking 'locked' and 'reset' for 'Rate state' in 'Envy24' would be the key here - only, on my system, those values didn't seem to be initially checked (at least not visually):
+
+https://discourse.ardour.org/t/all-sound-is-low-pitched/82149
+
+So the solution here would seem to be, to ensure unset 'Rate state' options at boot time; in contrast to this suggestion, the documentation says, 'locked' might cause 'errors' and 'XRUNS', and 'reset' only would be the recommended setting by default, to allow applications alter the clock sample rate to their needs, resetting them to the selected 'Master clock' default afterwards:
+
+https://wiki.archlinux.org/title/Envy24control#Rate_State
+
+While this seems to make sense, 'reset' not being set appropriatly, might also explain some of the weird behavior described above, namely, when some application sets and locks 48kHz for playback and/or input channels, which then don't match the input and/or output of another application, started after that.
+
+The effect of VLC/MPlayer showing 'dropouts' may also have its cause in the mentioned 'XRUNS', in this case, supposedly buffer underruns, when applying an 48kHz sampling rate to video files with 44,1kHz audio streams, or buffer overflows, when applying 44,1kHz sampling to files with 48kHz audio streams:
+
+https://unix.stackexchange.com/questions/199498/what-are-xruns
+
+What (combination) of 'Rate state' settings (if any) would be a 'bullet-proof' remedy here, I cannot tell, since my settings obviously both empty. So, either this was a false visual feedback, or 'reset' does not work as intended.
+
+So far, I can't confirm, if these settings differ in Mint, where the problem shows, too, as said (or if the defaults have been altered). Currently I can't try perma-setting 'reset' only (the recommended default), but I think it didn't work out before for recording.
+
+Issue URL     : https://github.com/alsa-project/alsa-tools/issues/11
+Repository URL: https://github.com/alsa-project/alsa-tools

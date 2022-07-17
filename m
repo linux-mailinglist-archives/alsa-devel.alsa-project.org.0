@@ -2,30 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCA4A5774DF
-	for <lists+alsa-devel@lfdr.de>; Sun, 17 Jul 2022 09:07:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CB805774F1
+	for <lists+alsa-devel@lfdr.de>; Sun, 17 Jul 2022 09:23:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0488318EB;
-	Sun, 17 Jul 2022 09:06:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0488318EB
+	by alsa0.perex.cz (Postfix) with ESMTPS id D74F8185C;
+	Sun, 17 Jul 2022 09:22:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D74F8185C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658041663;
-	bh=hLFkk5BxM0L4Xp982xW3TBQk+PTrRudE1Ap9VQgMTzE=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=fuO8li5UrxOQxBfqvETW2nV+js0KqlpjCCzDdbC2ePRXajQebWrppUgXywAgPSlFY
-	 6Mhs41JY+2qj1MaWX4XtaCvwhwf0m/Ve2Oqhj+g45v98yCrMCZFQR6hsl1n2CcojcM
-	 LIQcBZajJgI64qrRZyJV4jqIn5X7nDGPqSNusnnA=
+	s=default; t=1658042620;
+	bh=Zay9uSrH/KNgMzkoiqTNi4ZkdePthfHoTkFMqn/PI2Y=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=kCT0/YTMN6+UoMJA6RItbUtrO2wg7olx2Y8GdmV7lKa679UY8d65622dhT+wgNOgv
+	 we01BfVNEKkWDMy3IZ1TDVHsvkR+X4Pgoiy5DtGHJ/sV16NRrSc9PlldjFj5Jcp8By
+	 c+Wr8VFqDiV7fy4xrNilj4J9BCEgW9T3auYxYbIE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4EA43F8012A;
-	Sun, 17 Jul 2022 09:06:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4AEF3F80171;
+	Sun, 17 Jul 2022 09:22:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 028F9F804FB; Sun, 17 Jul 2022 09:06:03 +0200 (CEST)
+ id B008CF8015B; Sun, 17 Jul 2022 09:22:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,57 +33,57 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C4BB8F8012A
- for <alsa-devel@alsa-project.org>; Sun, 17 Jul 2022 09:05:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4BB8F8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id A1FDDF800FB
+ for <alsa-devel@alsa-project.org>; Sun, 17 Jul 2022 09:22:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1FDDF800FB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="M9dXj/ri"; 
+ header.b="zdaJqF28"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="PZJ0nQ0I"
+ header.b="DZMWDza0"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 6B2C31F983;
- Sun, 17 Jul 2022 07:05:56 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 470711F983;
+ Sun, 17 Jul 2022 07:22:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1658041556; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=dt+1QCRZ2XSmqOkJwPq4z4lw5/QFdsDsZDcIDJQkFcE=;
- b=M9dXj/riP4INPSUe1OMZNpqzlN/uyyVE/dPIgodoRNzUPS5RpkzXeNT7qC3ds6hYzddEVS
- Fj+64u9kDO9YG0QMyH0qSYdlmmhjdZLRUk1u0nm6jp2Hj1bpOwh5OycNCrl/ENVr29CEhX
- cM8ZdNNO79zTx2Q/OX3A9MDPfQ+bPpQ=
+ t=1658042550; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=8IMq1CWm7Sl3KTzbDJnletc4VqKqos7Te6QhNY4uB1w=;
+ b=zdaJqF28wMEWWz3qYPoS0cs4Nyq0tANXlwifE+UylUA0KXh0IiZKnsNpjzvpUvKXj659MF
+ HhvK1/xiwXi2LwKY8EmgQqzrDy9CC56KzlJooWn2xV5XYcjugE2yhyPHKuKz6RcDnqJRm5
+ IPGDtixcWJysDE/blr3fHibaTlcHSKI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1658041556;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=dt+1QCRZ2XSmqOkJwPq4z4lw5/QFdsDsZDcIDJQkFcE=;
- b=PZJ0nQ0IB9LrPSC9HQyh+KwKGFQV7TY/MKltwyWc/gOdm9a91HwkmpAcijknN84Vd+mW93
- ZYfhc2wWt3vMmVCA==
+ s=susede2_ed25519; t=1658042550;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=8IMq1CWm7Sl3KTzbDJnletc4VqKqos7Te6QhNY4uB1w=;
+ b=DZMWDza07jsIQysMQfGILGTZjkIm/X10xAQNR+Edih+VwGpvewef2q9lUMIvkeoeMQdeFn
+ SJpslcVRJnoNF4Bw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 458A513A89;
- Sun, 17 Jul 2022 07:05:56 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2035813A89;
+ Sun, 17 Jul 2022 07:22:30 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id mMkaENS002LDawAAMHmgww
- (envelope-from <tiwai@suse.de>); Sun, 17 Jul 2022 07:05:56 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id GlMRB7a402LfbwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Sun, 17 Jul 2022 07:22:30 +0000
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v2 5/5] ALSA: doc: Drop stale fasync entry
-Date: Sun, 17 Jul 2022 09:05:49 +0200
-Message-Id: <20220717070549.5993-6-tiwai@suse.de>
+Subject: [PATCH] ASoC: DPCM: Don't pick up BE without substream
+Date: Sun, 17 Jul 2022 09:22:27 +0200
+Message-Id: <20220717072227.6716-1-tiwai@suse.de>
 X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20220717070549.5993-1-tiwai@suse.de>
-References: <20220717070549.5993-1-tiwai@suse.de>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Cc: Alex Natalsson <harmoniesworlds@gmail.com>,
+ =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,26 +99,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The fasync entry has been dropped recently.  Update the documentation
-as well.
+When DPCM tries to add valid BE connections at dpcm_add_paths(), it
+doesn't check whether the picked BE actually supports for the given
+stream direction.  Due to that, when an asymmetric BE stream is
+present, it picks up wrongly and this may result in a NULL dereference
+at a later point where the code assumes the existence of a
+corresponding BE substream.
 
+This patch adds the check for the presence of the substream for the
+target BE for avoiding the problem above.
+
+Note that we have already some fix for non-existing BE substream at
+commit 6246f283d5e0 ("ASoC: dpcm: skip missing substream while
+applying symmetry").  But the code path we've hit recently is rather
+happening before the previous fix.  So this patch tries to fix at
+picking up a BE instead of parsing BE lists.
+
+Fixes: bbf7d3b1c4f4 ("ASoC: soc-pcm: align BE 'atomicity' with that of the FE")
+Reported-by: Alex Natalsson <harmoniesworlds@gmail.com>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Link: https://lore.kernel.org/r/CADs9LoPZH_D+eJ9qjTxSLE5jGyhKsjMN7g2NighZ16biVxsyKw@mail.gmail.com
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- Documentation/sound/kernel-api/writing-an-alsa-driver.rst | 1 -
- 1 file changed, 1 deletion(-)
+ sound/soc/soc-pcm.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/Documentation/sound/kernel-api/writing-an-alsa-driver.rst b/Documentation/sound/kernel-api/writing-an-alsa-driver.rst
-index 176b73583b7a..84b4ecae1485 100644
---- a/Documentation/sound/kernel-api/writing-an-alsa-driver.rst
-+++ b/Documentation/sound/kernel-api/writing-an-alsa-driver.rst
-@@ -1597,7 +1597,6 @@ are the contents of this file:
-           spinlock_t lock;
-           wait_queue_head_t sleep;
-           struct timer_list tick_timer;
--          struct fasync_struct *fasync;
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index a827cc3c158a..0c1de5624842 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -1318,6 +1318,9 @@ static struct snd_soc_pcm_runtime *dpcm_get_be(struct snd_soc_card *card,
+ 		if (!be->dai_link->no_pcm)
+ 			continue;
  
-           /* -- private section -- */
-           void *private_data;
++		if (!snd_soc_dpcm_get_substream(be, stream))
++			continue;
++
+ 		for_each_rtd_dais(be, i, dai) {
+ 			w = snd_soc_dai_get_widget(dai, stream);
+ 
 -- 
 2.35.3
 

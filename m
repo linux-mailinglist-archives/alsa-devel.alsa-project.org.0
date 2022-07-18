@@ -2,92 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AC7E57CBBB
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Jul 2022 15:20:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B824257D06F
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Jul 2022 17:59:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A108B17BF;
-	Thu, 21 Jul 2022 15:19:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A108B17BF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2164C182F;
+	Thu, 21 Jul 2022 17:58:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2164C182F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658409642;
-	bh=zmv7mTFNmy+hubTJ/Y1q+LU2/S3Sq8Hgv+rvwaZaBaw=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=l/aAQAEJKGfUbCyKXCEY1FHglNO1bXMziir7uYHXylmsF5JrhXy/ZmUNNt26QcTbm
-	 NF9/7oHHJ1C9OMC7qSWLmmPvs1KIaJ/1sj46GrNn2fLdn+AeDXBhjvQfaWna9CGClQ
-	 MqcFaN062QHBa0X4EdwpregDyyxGpYedC1gEfhZY=
+	s=default; t=1658419146;
+	bh=DzP6J5wmo23YPOZvEQWM22e3YADlcJlWB0RLeSNkXLg=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=peSbaQQDUtEj1BGrLPlsNXx6FOfO9WF1qRZ8cMFkVM2+sUKGJKCix1cIv2ulYA9Bv
+	 2TBYwrwZ5FnvsijbsF1YHfqLyNsj0uxNOKkkxGuwTLiPhaMZAzWYlEd3Yat/LNPzvi
+	 oIWUia40H8anBldeKVort6c27mM3k/s+R7woTPZ8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DBDBEF80256;
-	Thu, 21 Jul 2022 15:19:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5EC86F80166;
+	Thu, 21 Jul 2022 17:58:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2B9E8F8016D; Thu, 21 Jul 2022 15:19:40 +0200 (CEST)
+ id 029E0F80517; Mon, 18 Jul 2022 13:04:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 00054F800ED
- for <alsa-devel@alsa-project.org>; Thu, 21 Jul 2022 15:19:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00054F800ED
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="FZT7UNlR"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 26LBc3LT005144;
- Thu, 21 Jul 2022 08:19:30 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=Sk2v+4C0j9sxQiOuU4jhIsVMoQvIwBpR9MTlFn7X9aY=;
- b=FZT7UNlR077kT3PPoj0hi2TM4hTJz6gPWZX+TVR22HA6g1IxvrQJ3H8+9tzbxxcUm0VF
- +BRe2AYSuZxslom7Te+3zdbPFX7Ib/9PD+zdv/1NNTlMg3L67/7i6IYojKtND+5iScA1
- X8jdzkbYRLmWCCZ2MQ0vAjb1jKYaeEiEJoS0HsizJQhyTFJgpiCUYpKLg+7aNGE4Td7O
- pJ8qU9gp9g/UL56IUdn2pgW5bsPL7QJFzZjOvHlT2Po+eSnKZ8HBb6mZGGvEHkL3xM4J
- OgmiL5cceoiRo6Mu+VG1idHgPwjhi9QN6Gg6OIAUtZXCyRElsHJCRhNAEKAGZzpUJnhW qA== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3hdrqfk38e-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 21 Jul 2022 08:19:30 -0500
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.9; Thu, 21 Jul
- 2022 08:19:28 -0500
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server id
- 15.2.1118.9 via Frontend Transport; Thu, 21 Jul 2022 08:19:28 -0500
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 7740AB06;
- Thu, 21 Jul 2022 13:19:28 +0000 (UTC)
-Date: Thu, 21 Jul 2022 13:19:28 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Subject: Re: [PATCH] ASoC: cs35l41: Set the new legacy DAI naming flag
-Message-ID: <20220721131928.GD92394@ediswmail.ad.cirrus.com>
-References: <20220721121454.1378945-1-cristian.ciocaltea@collabora.com>
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from esa3.mentor.iphmx.com (esa3.mentor.iphmx.com [68.232.137.180])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9D69FF80125
+ for <alsa-devel@alsa-project.org>; Mon, 18 Jul 2022 13:04:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D69FF80125
+X-IronPort-AV: E=Sophos;i="5.92,280,1650960000"; d="scan'208";a="79788840"
+Received: from orw-gwy-02-in.mentorg.com ([192.94.38.167])
+ by esa3.mentor.iphmx.com with ESMTP; 18 Jul 2022 03:04:14 -0800
+IronPort-SDR: KOLm0fDLK17UpztQZHEOU5e2xawaiZVzBw4G8CBYJEeLKxtuqJtFywAAQ9j0ljtTxxAP5TOKpW
+ GyBfn0wKp9zk8UIadzBPooNUcb0tWXJoKzledJEWzThCBbnY4ZLGEoc6rs79HR84FToENs4DLo
+ 4lzixczAIatDJ8yy+x7Dr9U4VL/NjPPEVEURIL2W0zucDrOOy+2kI0ve3a7J8T2p3vnWCc95O6
+ Y/8L7KCq73kAi5iGfFOaqXupBtRZjbzSl9PhkvY4mjMmnV1EY850RaTndEoyH7HOpk9ZGmT/ee
+ OXg=
+From: Jiada Wang <jiwang_wang@mentor.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+ <tiwai@suse.com>, <kuninori.morimoto.gx@renesas.com>
+Subject: [PATCH v1 1/1] rsnd: ssiu: add missing .quit callback for gen2
+Date: Mon, 18 Jul 2022 20:04:04 +0900
+Message-ID: <20220718110404.1529085-1-jiwang_wang@mentor.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20220721121454.1378945-1-cristian.ciocaltea@collabora.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-ORIG-GUID: PmvaTdVQy3GeoVh_5BEv1IAUx1skmKXh
-X-Proofpoint-GUID: PmvaTdVQy3GeoVh_5BEv1IAUx1skmKXh
-X-Proofpoint-Spam-Reason: safe
-Cc: alsa-devel@alsa-project.org, kernel@collabora.com,
- Lucas Tanure <tanureal@opensource.cirrus.com>, patches@opensource.cirrus.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>,
- James Schulman <james.schulman@cirrus.com>, linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Mailman-Approved-At: Thu, 21 Jul 2022 17:58:03 +0200
+Cc: jiada_wang@mentor.com, Dean_Jenkins@mentor.com, alsa-devel@alsa-project.org,
+ erosca@de.adit-jv.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,25 +71,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Jul 21, 2022 at 03:14:54PM +0300, Cristian Ciocaltea wrote:
-> Unlike most CODEC drivers, the CS35L41 driver did not have the
-> non_legacy_dai_naming set, meaning it uses the legacy naming.
-> 
-> The recent migration to the new legacy DAI naming style has broken
-> driver functionality because it is now expected to set the new legacy
-> DAI naming flag in order to instruct the core subsystem to use the
-> legacy name format on DAI registration.
-> 
-> Let's fix this by setting the legacy_dai_naming flag accordingly.
-> 
-> Fixes: bc949a3b4af3 ("ASoC: core: Switch core to new DAI naming flag")
-> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-> ---
+From: Wang Jiada <jiada_wang@mentor.com>
 
-It is really not intended for any CODECs to be using the legacy
-DAI naming, it was only intended for platform side components.
-Would be good if you had some details on the affected system and
-if that could be updated to use the non legacy DAI naming?
+commit 83b220cf8eb2a ("ASoC: rsnd: implement BUSIF related
+code in ssiu.c") moved BUSIF related code in ssiu.c
+which added .quit callback in ssiu.c to disable error irq
+when ssiu quits.
 
-Thanks,
-Charles
+But .quit callback was added only for gen1 and is missing
+for gen2, this causes error irq is left enabled after ssiu
+quits on gen2.
+
+This commit adds missing .quit callback for gen2
+
+Signed-off-by: Wang Jiada <jiada_wang@mentor.com>
+Cc: Dean Jenkins <Dean_Jenkins@mentor.com>
+Cc: Eugeniu Rosca <erosca@de.adit-jv.com>
+---
+ sound/soc/sh/rcar/ssiu.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/sound/soc/sh/rcar/ssiu.c b/sound/soc/sh/rcar/ssiu.c
+index 4b8a63e336c7..19a8030a660d 100644
+--- a/sound/soc/sh/rcar/ssiu.c
++++ b/sound/soc/sh/rcar/ssiu.c
+@@ -417,6 +417,7 @@ static struct rsnd_mod_ops rsnd_ssiu_ops_gen2 = {
+ 	.name		= SSIU_NAME,
+ 	.dma_req	= rsnd_ssiu_dma_req,
+ 	.init		= rsnd_ssiu_init_gen2,
++	.quit		= rsnd_ssiu_quit,
+ 	.start		= rsnd_ssiu_start_gen2,
+ 	.stop		= rsnd_ssiu_stop_gen2,
+ 	.get_status	= rsnd_ssiu_get_status,
+-- 
+2.25.1
+

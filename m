@@ -2,76 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94C95578D32
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Jul 2022 00:01:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79AF4578D4E
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Jul 2022 00:05:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2CF66170F;
-	Tue, 19 Jul 2022 00:00:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2CF66170F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2595716C5;
+	Tue, 19 Jul 2022 00:04:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2595716C5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658181686;
-	bh=2Ev2LyM9YnAhm4y0XObcEQZ9ad9QrBTelT09KfpIBcc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1658181931;
+	bh=3JxZkLM8MBszfDbDjwosYrF471wfmGyjogJnExYKUPY=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=glReUPt+IK46ARcL0gGGiPotiCgJtmMCuJFHMIcVbwzmBI3m4Qy8WDbMB4pAAHT1p
-	 rhlLafnDvuXY8bU9wM5yBZSdQVeIEZmgzmL6GFSUUjxaqKFuiEPMIBAuSYAbErh0rq
-	 qT/9RaFppY72k60xtdmJ4/MxPt5GxM/4fn8uCm18=
+	b=CCHsX/JMtUPATl/mruKQt9oH9gSQcjuTU9JRKBlzQQ7fupJ3KXf3jFFpMLwR8OWWg
+	 Ts6SYgWdpwECDLDLmvZmQVqOwH1qlY2qeR4d54ZFnmXTOAnGiISLVaS23mM9oKyMq+
+	 RnhqsWlH5YCkic0gfjiF/tMAFV+tfGH5EJYe6saI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9CB90F8050F;
-	Tue, 19 Jul 2022 00:00:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7D854F8050F;
+	Tue, 19 Jul 2022 00:04:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 105F3F80508; Tue, 19 Jul 2022 00:00:24 +0200 (CEST)
+ id 4B0BCF80508; Tue, 19 Jul 2022 00:04:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ DKIM_VALID_AU,PRX_BODY_65,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:3::133])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3DAB9F800F5
+ for <alsa-devel@alsa-project.org>; Tue, 19 Jul 2022 00:04:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3DAB9F800F5
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="BSlcJtet"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 47345F80125
- for <alsa-devel@alsa-project.org>; Tue, 19 Jul 2022 00:00:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47345F80125
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="leyACy2j"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=Smy+K5SsBoKu7R2Ez6Wknyaqr3gfX9BPVA5fVt2P8T0=; b=leyACy2j4DACa1kT6Gpoba8VOm
- VOcEfZL3PkIZgiPs8NmLAJaBh8ucD+6kAoUEzxAXkRiJhdoKUCC9eS2BxTrWrSU3Gqy8FGHCl0+Yf
- cnoOA2e2G7FTo7OqIQ+Jms+460wxBba1ZdXNg9IsZJuJ86ignpBqHcbMW+ipI2+RdNLMHKQbtEnSK
- yUQZmHoK4wSnrk6TsdqloQ/tkKm0+6MDqgVLg+haVl7nQ2yUnqoiirjvDUaegs24clTHejTLG5Nhf
- GrMHfUZ3Mq47NEGdmLxe/Y3iaYND/IDLOH/w41NkO0UbGqm0/y7Hu229QF2xyeGt/BSMoNktdIPyL
- BQ+qyY7Q==;
-Received: from mcgrof by bombadil.infradead.org with local (Exim 4.94.2 #2
- (Red Hat Linux)) id 1oDYmh-001q88-OL; Mon, 18 Jul 2022 22:00:11 +0000
-Date: Mon, 18 Jul 2022 15:00:11 -0700
-From: Luis Chamberlain <mcgrof@kernel.org>
-To: Dave Airlie <airlied@gmail.com>
+ by ams.source.kernel.org (Postfix) with ESMTPS id 668A0B8167A;
+ Mon, 18 Jul 2022 22:04:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0E7DC341C0;
+ Mon, 18 Jul 2022 22:04:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1658181860;
+ bh=3JxZkLM8MBszfDbDjwosYrF471wfmGyjogJnExYKUPY=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=BSlcJtetWKT66UYJ5KpIsH1zskh3T2ZqU/URAT5Y8TZeNrDkyU4XdYFBS1UCq8HGs
+ OeAcEtyYH5QPq1S0Yf81A5dfERgEQxdiY1nFXXqysSevgo4VJ10WCEzxjCSTsywggx
+ 5o3XEpBmhlD+Mj4w7jqRwz28mrK0Ev4Pvv7VC/qnVVpXS6vgAgZnf3vmjMzM//0TM+
+ m2PNihIHQjQ8iDbkBmz1rc3GpaRWbkpAqP8iOcdqqB4t+W5qDj3Ykk/sudVMnTAfSN
+ MIStUtpzJ2s7xfcOgw526ZqsCKTTUvFKUQGKMYkCj01RTmOKRLDqptGyKlWg1k0DIr
+ kQpGkmvYq8x6g==
+Date: Mon, 18 Jul 2022 15:04:14 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Thorsten Leemhuis <linux@leemhuis.info>
 Subject: Re: [PATCH] docs: driver-api: firmware: add driver firmware
  guidelines.
-Message-ID: <YtXX604B2X8vdH9b@bombadil.infradead.org>
+Message-ID: <20220718150414.1767bbd8@kernel.org>
+In-Reply-To: <97e5afd3-77a3-2227-0fbf-da2f9a41520f@leemhuis.info>
 References: <20220718072144.2699487-1-airlied@gmail.com>
+ <97e5afd3-77a3-2227-0fbf-da2f9a41520f@leemhuis.info>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220718072144.2699487-1-airlied@gmail.com>
-Cc: alsa-devel@alsa-project.org, Paul Moore <paul@paul-moore.com>,
- linux-doc@vger.kernel.org, gregkh@linuxfoundation.org,
- Jonathan Corbet <corbet@lwn.net>, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-block@vger.kernel.org,
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: linux-wireless@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-doc@vger.kernel.org, Dave Airlie <airlied@gmail.com>,
+ Jonathan Corbet <corbet@lwn.net>, dri-devel@lists.sf.net,
+ linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, mcgrof@kernel.org,
  netdev@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- dri-devel@lists.sf.net, Casey Schaufler <casey@schaufler-ca.com>,
- Dave Airlie <airlied@redhat.com>, torvalds@linux-foundation.org,
- linux-media@vger.kernel.org
+ gregkh@linuxfoundation.org, Dave Airlie <airlied@redhat.com>,
+ torvalds@linux-foundation.org, linux-media@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,54 +92,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Jul 18, 2022 at 05:21:44PM +1000, Dave Airlie wrote:
-> From: Dave Airlie <airlied@redhat.com>
+On Mon, 18 Jul 2022 11:33:11 +0200 Thorsten Leemhuis wrote:
+> > If the hardware isn't
+> > +  enabled by default or under development,  
 > 
-> A recent snafu where Intel ignored upstream feedback on a firmware
-> change, led to a late rc6 fix being required. In order to avoid this
-> in the future we should document some expectations around
-> linux-firmware.
-> 
-> I was originally going to write this for drm, but it seems quite generic
-> advice.
-> 
-> I'm cc'ing this quite widely to reach subsystems which use fw a lot.
-> 
-> Signed-off-by: Dave Airlie <airlied@redhat.com>
+> Wondering if it might be better to drop the "or under development", as
+> the "enabled by default" is the main part afaics. Maybe something like
+> "If support for the hardware is normally inactive (e.g. has to be
+> enabled manually by a kernel parameter)" would be better anyway.
 
-Document well deserved to be written, thanks for making this happen.
-Modulo all the silly spelling / bike-shedding issues folks might find,
-in case you care to re-spin for a v2:
-
-Acked-by: Luis Chamberlain <mcgrof@kernel.org>
-
-Now let's think about the impact of two corner cases which *do*
-happen and so this poses security implications on enablement:
-
-1) Devices which end up with a security issue which a vendor considers
-   obsolete, and the only way to fix something is firmware. We're
-   security-out-of-luck. For this I've previously sucessfully have put
-   effort into organizations to open source the firmware. We were
-   successful more than once:
-
-     * https://github.com/qca/open-ath9k-htc-firmware
-     * https://github.com/qca/ath6kl-firmware
-
-   When these efforts fall short we have a slew of reverse engineering
-   efforts which fortunately also have been sucessfull.
-
-2) Vendor goes belly up
-
-Both implicate the need to help persuade early on a strategy for open
-source firmware, and I don't want to hear anyone tell me it is not
-possible.
-
-When that fails we can either reverse engineer and worst case, I am not
-sure if we have a process for annotations or should. Perhaps a kconfig
-symbol which drivers with buggy firmware can depend on, and only if you
-enable that kconfig symbol would these drivers be available to be
-enabled?
-
-Are we aware of such device drivers? They must exist...
-
-  Luis
+It's a tricky one, I'd say something like you can break the FW ABI
+"until HW becomes available for public consumption" or such.
+I'm guessing what we're after is letting people break the compatibility
+in early stages of the product development cycles. Pre-silicon and
+bring up, but not after there are products on the market?

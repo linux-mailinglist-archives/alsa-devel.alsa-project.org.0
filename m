@@ -2,84 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C516E57874E
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Jul 2022 18:25:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D724578764
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Jul 2022 18:29:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6475F16E0;
-	Mon, 18 Jul 2022 18:24:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6475F16E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id C8D3816E4;
+	Mon, 18 Jul 2022 18:29:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8D3816E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658161531;
-	bh=fKqe5h1CLelo6jMQICPfT9BTmRWx1ivnypQRywyEqYI=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1658161796;
+	bh=81h78lRxAbY04YdAi0WI91i/CTRrDQrPa5eeqafwMyo=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=S/IlwBLR33sY6kbJQIJA37n/1YzlsmmgDYecCkbD5Vwlqi64/4AU5CmFEoezw5LdG
-	 NBsSUzaHtU1/y5yU8uvARJQiwqggoU43Ftb2dZD7gYs1v1H8l6VT3bMfqJR7PPay6e
-	 Tiz9rz54NE2cGoeLls/Tsw2ls+bCGz1BKulLbLgs=
+	b=c9wdYgNeGiznaQDSD0ab75mLwywJ6sDauAnOv7BAtsQr5aTo3tiJrww66g3oFYzAf
+	 DWIuRI2E6hWaZzr41H1UVl1u3gew7CdtQDYsVG4cgFjX4jZ7R9wC4T1kKfS2sHSv/X
+	 zq4rE4OvhPYr+iIy9WB5vLepvcJVVmBrPzhBNM90=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8A8DBF80125;
-	Mon, 18 Jul 2022 18:22:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3F114F8050F;
+	Mon, 18 Jul 2022 18:28:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3F561F80559; Mon, 18 Jul 2022 18:22:37 +0200 (CEST)
+ id 9846EF80508; Mon, 18 Jul 2022 18:28:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 24E50F80430
- for <alsa-devel@alsa-project.org>; Mon, 18 Jul 2022 18:22:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24E50F80430
-X-UUID: b2e7f5c4c4b14d19bb5c6b1a8ad5945e-20220719
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.8, REQID:f77f359a-86d3-4f14-a5d5-9fe5a7fa0b69, OB:0,
- LO
- B:0,IP:0,URL:25,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,RULE:Release_Ham,ACT
- ION:release,TS:25
-X-CID-META: VersionHash:0f94e32, CLOUDID:9d9f4b33-b9e4-42b8-b28a-6364427c76bb,
- C
- OID:IGNORED,Recheck:0,SF:nil,TC:nil,Content:0,EDM:-3,IP:nil,URL:1,File:nil
- ,QS:nil,BEC:nil,COL:0
-X-UUID: b2e7f5c4c4b14d19bb5c6b1a8ad5945e-20220719
-Received: from mtkmbs11n1.mediatek.inc [(172.21.101.185)] by
- mailgw02.mediatek.com (envelope-from <jiaxin.yu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 379600264; Tue, 19 Jul 2022 00:22:15 +0800
-Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
- mtkmbs11n1.mediatek.inc (172.21.101.185) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.792.3; 
- Tue, 19 Jul 2022 00:22:14 +0800
-Received: from localhost.localdomain (10.17.3.154) by mtkmbs11n2.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.792.3 via Frontend
- Transport; Tue, 19 Jul 2022 00:22:13 +0800
-From: Jiaxin Yu <jiaxin.yu@mediatek.com>
-To: <broonie@kernel.org>, <robh+dt@kernel.org>,
- <angelogioacchino.delregno@collabora.com>
-Subject: [PATCH v10 8/8] dt-bindings: mediatek: mt8186: add
- mt8186-mt6366-rt1019-rt5682s document
-Date: Tue, 19 Jul 2022 00:22:04 +0800
-Message-ID: <20220718162204.26238-9-jiaxin.yu@mediatek.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220718162204.26238-1-jiaxin.yu@mediatek.com>
-References: <20220718162204.26238-1-jiaxin.yu@mediatek.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id A97AFF80125
+ for <alsa-devel@alsa-project.org>; Mon, 18 Jul 2022 18:28:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A97AFF80125
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="e0wVoGVV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1658161729; x=1689697729;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=81h78lRxAbY04YdAi0WI91i/CTRrDQrPa5eeqafwMyo=;
+ b=e0wVoGVVAZb6lrIQpc2vFrtmvAeWXQoVJmoaztW7JsiCyECdEenwhEBB
+ qpdscoDit7+9j9RNt6RwaF15eWO8fHXkc+7BiaB397fKhy7crwLQPo9v/
+ N+a1D+VU254VQ3+krIadBx7cmQG5aMvwGplyUtx1MXI5WF2gNyKdZgeao
+ zPl7iMDdpxTQQz9yxn4cRGTv6izmbXmtwc8JZjVhXGU+TZmlp8yLVNIGQ
+ fkOuRrR6hcjs8Aanv/nOGVeoSIMFHA+gx6PH3IBAuTO+FjIbSpfFm2bXB
+ DzUL/wxcWdhbjd5PAXw6DTFhpOoFSOYdkX8h2JHCdF0y4WNwHUiJcmk5/ w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10412"; a="285021095"
+X-IronPort-AV: E=Sophos;i="5.92,281,1650956400"; d="scan'208";a="285021095"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Jul 2022 09:28:45 -0700
+X-IronPort-AV: E=Sophos;i="5.92,281,1650956400"; d="scan'208";a="773795191"
+Received: from astephax-mobl.amr.corp.intel.com (HELO [10.209.134.250])
+ ([10.209.134.250])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Jul 2022 09:28:44 -0700
+Message-ID: <eacfa436-fb01-9f0f-8bc0-6d857653bed8@linux.intel.com>
+Date: Mon, 18 Jul 2022 11:28:44 -0500
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MTK: N
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Rob Herring <robh@kernel.org>, linux-kernel@vger.kernel.org,
- Jiaxin Yu <jiaxin.yu@mediatek.com>,
- Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
- linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
- matthias.bgg@gmail.com, aaronyu@google.com, julianbraha@gmail.com,
- linux-arm-kernel@lists.infradead.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.11.0
+Subject: Re: linux-next: Tree for Jul 15 (sof-client-ipc-flood-test.c)
+Content-Language: en-US
+To: Randy Dunlap <rdunlap@infradead.org>,
+ Stephen Rothwell <sfr@canb.auug.org.au>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+References: <20220715225251.2e7f7ada@canb.auug.org.au>
+ <d9e2d97c-12a5-5846-a9dc-4c7c0c10988e@infradead.org>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <d9e2d97c-12a5-5846-a9dc-4c7c0c10988e@infradead.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Mark Brown <broonie@kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,96 +96,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add document for mt8186 board with mt6366, rt1019 and rt5682s.
 
-Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
-Acked-by: Rob Herring <robh@kernel.org>
----
- .../sound/mt8186-mt6366-rt1019-rt5682s.yaml   | 75 +++++++++++++++++++
- 1 file changed, 75 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml
 
-diff --git a/Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml b/Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml
-new file mode 100644
-index 000000000000..059a7629b2d3
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml
-@@ -0,0 +1,75 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/mt8186-mt6366-rt1019-rt5682s.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Mediatek MT8186 with MT6366, RT1019 and RT5682S ASoC sound card driver
-+
-+maintainers:
-+  - Jiaxin Yu <jiaxin.yu@mediatek.com>
-+
-+description:
-+  This binding describes the MT8186 sound card.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - mediatek,mt8186-mt6366-rt1019-rt5682s-sound
-+
-+  mediatek,platform:
-+    $ref: "/schemas/types.yaml#/definitions/phandle"
-+    description: The phandle of MT8186 ASoC platform.
-+
-+  headset-codec:
-+    type: object
-+    additionalProperties: false
-+    properties:
-+      sound-dai:
-+        maxItems: 1
-+    required:
-+      - sound-dai
-+
-+  playback-codecs:
-+    type: object
-+    additionalProperties: false
-+    properties:
-+      sound-dai:
-+        items:
-+          - description: phandle of dp codec
-+          - description: phandle of l channel speaker codec
-+          - description: phandle of r channel speaker codec
-+        minItems: 2
-+    required:
-+      - sound-dai
-+
-+additionalProperties: false
-+
-+required:
-+  - compatible
-+  - mediatek,platform
-+  - headset-codec
-+  - playback-codecs
-+
-+examples:
-+  - |
-+
-+    sound: mt8186-sound {
-+        compatible = "mediatek,mt8186-mt6366-rt1019-rt5682s-sound";
-+        mediatek,platform = <&afe>;
-+        pinctrl-names = "aud_clk_mosi_off",
-+                        "aud_clk_mosi_on";
-+        pinctrl-0 = <&aud_clk_mosi_off>;
-+        pinctrl-1 = <&aud_clk_mosi_on>;
-+
-+        headset-codec {
-+            sound-dai = <&rt5682s>;
-+        };
-+
-+        playback-codecs {
-+             sound-dai = <&it6505dptx>,
-+                         <&rt1019p>;
-+        };
-+    };
-+
-+...
--- 
-2.18.0
+On 7/15/22 17:49, Randy Dunlap wrote:
+> 
+> 
+> On 7/15/22 05:52, Stephen Rothwell wrote:
+>> Hi all,
+>>
+>> Changes since 20220714:
+>>
+> 
+> on x86_64:
+> 
+> ld: vmlinux.o: in function `sof_ipc_flood_probe':
+> sof-client-ipc-flood-test.c:(.text+0xb961d4): undefined reference to `sof_client_get_debugfs_root'
+> ld: vmlinux.o: in function `sof_ipc_flood_dfs_open':
+> sof-client-ipc-flood-test.c:(.text+0xb963ed): undefined reference to `sof_client_get_fw_state'
+> ld: vmlinux.o: in function `sof_ipc_flood_dfs_write':
+> sof-client-ipc-flood-test.c:(.text+0xb9689a): undefined reference to `sof_client_ipc_tx_message'
+> 
+> 
+> Full randconfig file is attached.
 
+Thanks Randy, I reproduced the issue, it was also reported by the Intel
+bot. I added all the configs here:
+
+https://github.com/thesofproject/linux/issues/3768
+
+The issue is that the sof-client helpers are compiled with the same
+setting as the SOF core, but the clients can be compiled as built-in,
+that cannot possibly work.
+
+It's peak vacation season so it'll take a couple of weeks to be
+fixed/reviewed, but we'll fix this.
+-Pierre

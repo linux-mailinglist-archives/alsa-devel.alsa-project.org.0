@@ -2,98 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4615579FC9
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Jul 2022 15:37:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11F6357A137
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Jul 2022 16:21:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EAB4A1635;
-	Tue, 19 Jul 2022 15:36:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EAB4A1635
+	by alsa0.perex.cz (Postfix) with ESMTPS id C60A316E0;
+	Tue, 19 Jul 2022 16:20:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C60A316E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658237820;
-	bh=aCtI/Id5updVlsOBUNhg0yT00gkRb7J9VdhHe3pYbwQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1658240468;
+	bh=YVCLhkh4n7e0j5teqG/5k5LoJ79OBATiCQ/OzpxpXvw=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=X3AaI6E4TwWsIhBipwC+ckGF5XRe4vYwM07tpEh/nbFA+ZLminFVkV5aZTekl6Xzm
-	 HPKAVHChuaH9NcJD+DMnVjrrX1w6pM52OTLa415FArpiieahp5tsRIiXIN0MZu2Jxf
-	 bFyXTNOLv0MurycjbaYNl0dHTrrQ3MThAUmZppjY=
+	b=MP/r/HUzOpicB29x5fQPSklfZokm1IzC1cKg1QMZPShdmoh8n2JzNasQbjN/2FOhz
+	 1OBmZMEcJrJnOHqHVq9fiRkL1sSxOIC4MRI1ehoManz9gOETLT4refCOCc46Q9t/Ya
+	 TgMuEZkLBBfwOn75hc2YDCuub31MTV9MqOu0HrSI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6C81FF80224;
-	Tue, 19 Jul 2022 15:35:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 30DC6F80224;
+	Tue, 19 Jul 2022 16:20:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 134C9F801EC; Tue, 19 Jul 2022 15:35:57 +0200 (CEST)
+ id E32B6F801EC; Tue, 19 Jul 2022 16:20:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [IPv6:2a00:1450:4864:20::22e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0F23AF80118
- for <alsa-devel@alsa-project.org>; Tue, 19 Jul 2022 15:35:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F23AF80118
+ by alsa1.perex.cz (Postfix) with ESMTPS id F27C1F80125;
+ Tue, 19 Jul 2022 16:19:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F27C1F80125
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Fuq436nZ"
-Received: by mail-lj1-x22e.google.com with SMTP id r14so2645401ljp.2
- for <alsa-devel@alsa-project.org>; Tue, 19 Jul 2022 06:35:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=EYhNiV6rjAGveB6cgLaFxeAyijGwg5dPmG8gWNP28+Q=;
- b=Fuq436nZlp7dZAoFB3v943h3EJy4gkCFmW+Rs+eAk+c1ryPOUgP6YHKDmnmv2i/ekW
- UmRlgWZigwd5giVcpV7eMeWMaR1EXwJN9LMm2JxpP7SP6X0qQxwT5sdChZzkwJcf4/U8
- ICppFLw5ZYu7B7+922qgn5i2CwTLyrivcKy7uwUdpXeO6SJ7SJqQlcxr1HLFljhZVHLa
- u/I3CiGNBCEy0pSEsy7gpwTRk1Qg0//ywOtwLW8LpPd+nLotOzkBDvmzVrl0Crw5+ocg
- MF8+sNCqu6o8QbEISnNxk/WMBWKXNLbV23sI/D89zLqyL8OX/H+bzxyWc1V5ctB5wMW+
- c7gg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=EYhNiV6rjAGveB6cgLaFxeAyijGwg5dPmG8gWNP28+Q=;
- b=lJVWz2D3BbpfrIfOpKsWKHvtAMxJ01fH2WzYHhqBo1JRhAB/omTZ/oU1PsruGrV3oC
- RNAKTacf6H58YA7TNt4nCZC7dqmGW8SIprzer3wtL2q8VdYk+JhGJqivyB/7ZPolgQ8N
- +z+HXIoC1grj8okV+KkHf0dssKP0LBuU4pBM47AWQjZnHR6uTCtdbivMqA/kJTTl2P9D
- FR7QbKxcjex0ymkcWONhpZZHuEXTFJPCcq9bT8ZQ1gOY0VeXrRrfldOwMXB9p7UclnDX
- uYqXvIXN9AK5SvNphXSPu/iprOhEIc1cv9uPDpuNp2Li65Nd19LkKUOI94IU0Vedo8Qk
- rpig==
-X-Gm-Message-State: AJIora+hP/fKfaV5++DuaCjYikVYoJBdchFDwUs+wiAvxfnE4CYtHuBj
- y0bPKWCrmBfaNOEL4uWhASdfOjyVrdVLCzmQCW8=
-X-Google-Smtp-Source: AGRyM1vmXYrnAUoLeBfjgLhOeD/rlORVWUN4WB6Qb74COXtswRcn1mUJowJ338W41KearXy+WM031Zyg46JbD2NF9h0=
-X-Received: by 2002:a2e:9941:0:b0:247:dce8:b0ec with SMTP id
- r1-20020a2e9941000000b00247dce8b0ecmr15228738ljj.404.1658237746962; Tue, 19
- Jul 2022 06:35:46 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="V6/ydLZm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1658240403; x=1689776403;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=YVCLhkh4n7e0j5teqG/5k5LoJ79OBATiCQ/OzpxpXvw=;
+ b=V6/ydLZmg0WdaI9BnHjG3hmwDnta/+cp8THtI9R/tm+LQFMmfsxnylre
+ Rb4EwOEYYx+UMRn0qeghkPYestIHi1/eaZMuXNwzp7VVecizbLfzBuJzW
+ WN6WpLzXakbWGS1dW1de2UoyRCViLk0LQ2sxG3B6uwfEfrLLBlqLGipKK
+ b3O9ilBGAZ7OSEsWmjdhz8JGXKDZjQ0JDCirUVPnhI4QpM3VYus7qlGAh
+ YZRksCrTheC+VRgUgb+TrZ0c6dtMnkKZtGadq5d31d3/vE0bEYNNWc92R
+ S5Hby9jX7QbLzgyefAhuLYtc/t+m1DhM2Uz+papWKZJ/X9ez96BxlwTxH g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10412"; a="266280539"
+X-IronPort-AV: E=Sophos;i="5.92,284,1650956400"; d="scan'208";a="266280539"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jul 2022 07:19:54 -0700
+X-IronPort-AV: E=Sophos;i="5.92,284,1650956400"; d="scan'208";a="594844167"
+Received: from kckollur-mobl1.amr.corp.intel.com (HELO [10.212.118.182])
+ ([10.212.118.182])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jul 2022 07:19:52 -0700
+Message-ID: <a2fd9907-d098-7a38-c423-aeb167ab6d37@linux.intel.com>
+Date: Tue, 19 Jul 2022 09:19:03 -0500
 MIME-Version: 1.0
-References: <1658222864-25378-1-git-send-email-shengjiu.wang@nxp.com>
- <1658222864-25378-3-git-send-email-shengjiu.wang@nxp.com>
- <f2609401c8834e8bbe926200bfc87971@AcuMS.aculab.com>
- <YtaEpf6Cd7KH7wH4@sirena.org.uk>
- <20cfcc8e59a74166846cff028cd2c4e8@AcuMS.aculab.com>
- <CAA+D8AO6P2AcOJ+E97Y1=P72Qa1wjtMGMneWnsP+VcdnCzzYuw@mail.gmail.com>
- <c9231becb2cd4e2999ec631f9d2171c3@AcuMS.aculab.com>
-In-Reply-To: <c9231becb2cd4e2999ec631f9d2171c3@AcuMS.aculab.com>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Tue, 19 Jul 2022 21:35:34 +0800
-Message-ID: <CAA+D8AMTrp3KXpDEtyJbqgbA8feYCvEcWc4CMYY8zYSMgrvW6w@mail.gmail.com>
-Subject: Re: [PATCH -next 2/5] ASoC: fsl_asrc: force cast the asrc_format type
-To: David Laight <David.Laight@aculab.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "Xiubo.Lee@gmail.com" <Xiubo.Lee@gmail.com>,
- "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
- Shengjiu Wang <shengjiu.wang@nxp.com>, "tiwai@suse.com" <tiwai@suse.com>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- "nicoleotsuka@gmail.com" <nicoleotsuka@gmail.com>,
- Mark Brown <broonie@kernel.org>, "festevam@gmail.com" <festevam@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.11.0
+Subject: Re: [PATCH 1/2] ASoC: SOF: imx: Add i.MX8ULP HW support
+Content-Language: en-US
+To: Shengjiu Wang <shengjiu.wang@nxp.com>, lgirdwood@gmail.com,
+ peter.ujfalusi@linux.intel.com, yung-chuan.liao@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
+ daniel.baluta@nxp.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ shawnguo@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
+ festevam@gmail.com, linux-imx@nxp.com, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, devicetree@vger.kernel.org
+References: <1658208367-24376-1-git-send-email-shengjiu.wang@nxp.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <1658208367-24376-1-git-send-email-shengjiu.wang@nxp.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, shengjiu.wang@gmail.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,169 +99,300 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Jul 19, 2022 at 8:39 PM David Laight <David.Laight@aculab.com>
-wrote:
 
-> grrr... top-posting because outluck is really stupid :-(
->
->
->
-> The definition seems to be:
->
-> typedef int __bitwise
-> <https://elixir.bootlin.com/linux/v5.19-rc7/C/ident/__bitwise>
-> snd_pcm_format_t
-> <https://elixir.bootlin.com/linux/v5.19-rc7/C/ident/snd_pcm_format_t>;
->
-> #define SNDRV_PCM_FORMAT_S8
-> <https://elixir.bootlin.com/linux/v5.19-rc7/C/ident/SNDRV_PCM_FORMAT_S8>
-> ((__force <https://elixir.bootlin.com/linux/v5.19-rc7/C/ident/__force>
-> snd_pcm_format_t
-> <https://elixir.bootlin.com/linux/v5.19-rc7/C/ident/snd_pcm_format_t>) 0)
->
-> #define SNDRV_PCM_FORMAT_U8
-> <https://elixir.bootlin.com/linux/v5.19-rc7/C/ident/SNDRV_PCM_FORMAT_U8>
-> ((__force <https://elixir.bootlin.com/linux/v5.19-rc7/C/ident/__force>
-> snd_pcm_format_t
-> <https://elixir.bootlin.com/linux/v5.19-rc7/C/ident/snd_pcm_format_t>) 1)
->
-> #define SNDRV_PCM_FORMAT_S16_LE
-> <https://elixir.bootlin.com/linux/v5.19-rc7/C/ident/SNDRV_PCM_FORMAT_S16_=
-LE>
-> ((__force <https://elixir.bootlin.com/linux/v5.19-rc7/C/ident/__force>
-> snd_pcm_format_t
-> <https://elixir.bootlin.com/linux/v5.19-rc7/C/ident/snd_pcm_format_t>) 2)
->
-> ...
->
-> (goes away and looks up __bitwIse)
->
->
->
-> I think I=E2=80=99d add:
->
-> #define snd_pcm_format(val) ((__force snd_pcm_format_t)(val))
->
+> +static void imx8ulp_get_reply(struct snd_sof_dev *sdev)
+> +{
+> +	struct snd_sof_ipc_msg *msg = sdev->msg;
+> +	struct sof_ipc_reply reply;
+> +	int ret = 0;
+> +
+> +	if (!msg) {
+> +		dev_warn(sdev->dev, "unexpected ipc interrupt\n");
+> +		return;
+> +	}
+> +
+> +	/* get reply */
+> +	sof_mailbox_read(sdev, sdev->host_box.offset, &reply, sizeof(reply));
+> +
+> +	if (reply.error < 0) {
+> +		memcpy(msg->reply_data, &reply, sizeof(reply));
+> +		ret = reply.error;
+> +	} else {
+> +		/* reply has correct size? */
+> +		if (reply.hdr.size != msg->reply_size) {
+> +			dev_err(sdev->dev, "error: reply expected %zu got %u bytes\n",
+> +				msg->reply_size, reply.hdr.size);
+> +			ret = -EINVAL;
+> +		}
+> +
+> +		/* read the message */
+> +		if (msg->reply_size > 0)
+> +			sof_mailbox_read(sdev, sdev->host_box.offset,
+> +					 msg->reply_data, msg->reply_size);
+> +	}
+> +
+> +	msg->reply_error = ret;
+> +}
 
-Where is this definition? Which header file?
-Thanks.
+Can you double-check if this helper is needed? It looks completely
+generic and I vaguely remember that this get_reply() was moved to common
+code, and it's no longer in the other existing iMX support files.
 
-Best regards
-Wang Shengjiu
+> +
+> +static int imx8ulp_get_mailbox_offset(struct snd_sof_dev *sdev)
+> +{
+> +	return MBOX_OFFSET;
+> +}
+> +
+> +static int imx8ulp_get_window_offset(struct snd_sof_dev *sdev, u32 id)
+> +{
+> +	return MBOX_OFFSET;
+> +}
+> +
+> +static void imx8ulp_dsp_handle_reply(struct imx_dsp_ipc *ipc)
+> +{
+> +	struct imx8ulp_priv *priv = imx_dsp_get_data(ipc);
+> +	unsigned long flags;
+> +
+> +	spin_lock_irqsave(&priv->sdev->ipc_lock, flags);
+> +
+> +	imx8ulp_get_reply(priv->sdev);
+> +	snd_sof_ipc_reply(priv->sdev, 0);
+> +	spin_unlock_irqrestore(&priv->sdev->ipc_lock, flags);
 
-> and use that to remove most of the casts.
->
-But the ones where you have (u32 *)&xxx are only valid because u32 and int
-> are the same size.
->
-> That does sort of happen to be true, but someone might look at all the
-> values and
->
-> decide that u8 is big enough.
->
-> After which the code will still compile, but the data areas get corrupted=
-.
->
-> So you really need to use a u32 =E2=80=98temp=E2=80=99 variable.
->
->
->
-> It would all be slightly less problematic if the =E2=80=98force=E2=80=99 =
-casts could be
-> sparse only
->
-> (ie not seen by the compiler) =E2=80=93 so the compiler would do the type=
- checking.
->
->
->
->                 David
->
->
->
-> *From:* Shengjiu Wang <shengjiu.wang@gmail.com>
-> *Sent:* 19 July 2022 12:07
-> *To:* David Laight <David.Laight@ACULAB.COM>
-> *Cc:* Mark Brown <broonie@kernel.org>; Shengjiu Wang <
-> shengjiu.wang@nxp.com>; Xiubo.Lee@gmail.com; festevam@gmail.com;
-> nicoleotsuka@gmail.com; lgirdwood@gmail.com; perex@perex.cz;
-> tiwai@suse.com; alsa-devel@alsa-project.org; linuxppc-dev@lists.ozlabs.or=
-g;
-> linux-kernel@vger.kernel.org
-> *Subject:* Re: [PATCH -next 2/5] ASoC: fsl_asrc: force cast the
-> asrc_format type
->
->
->
->
->
->
->
-> On Tue, Jul 19, 2022 at 6:34 PM David Laight <David.Laight@aculab.com>
-> wrote:
->
-> From: Mark Brown
-> > Sent: 19 July 2022 11:17
-> >
-> > On Tue, Jul 19, 2022 at 10:01:54AM +0000, David Laight wrote:
-> > > From: Shengjiu Wang
-> >
-> > > > - ret =3D of_property_read_u32(np, "fsl,asrc-format",
-> &asrc->asrc_format);
-> > > > + ret =3D of_property_read_u32(np, "fsl,asrc-format", (u32
-> *)&asrc->asrc_format);
-> >
-> > > Ugg, you really shouldn't need to do that.
-> > > It means that something is badly wrong somewhere.
-> > > Casting pointers to integer types is just asking for a bug.
-> >
-> > That's casting one pointer type to another pointer type.
->
-> It is casting the address of some type to a 'u32 *'.
-> This will then be dereferenced by the called function.
-> So the original type better be 32 bits.
->
-> I'm also guessing that sparse was complaining about endianness?
-> It isn't at all clear that these casts actually fix it.
->
-> The sparse is complaining about the snd_pcm_format_t cast to u32/int type=
-.
->
->
->
-> The code in include/sound/pcm.h also does such __force cast.
->
-> #define _SNDRV_PCM_FMTBIT(fmt)          (1ULL << (__force
-> int)SNDRV_PCM_FORMAT_##fmt)
->
->
->
-> The change I have made does not cause an issue.
->
->
->
-> Best regards
->
-> Wang shengjiu
->
->
->
-> (Mark: You'll be glad to hear that the office aircon is
-> broken again - two weeks lead time on the spare part.)
->
->         David
->
-> -
-> Registered Address Lakeside, Bramley Road, Mount Farm, Milton Keynes, MK1
-> 1PT, UK
-> Registration No: 1397386 (Wales)
->
->
->
-> Registered Address Lakeside, Bramley Road, Mount Farm, Milton Keynes, MK1
-> 1PT, UK
-> Registration No: 1397386 (Wales)
->
-> P *Please consider the environment and don't print this e-mail unless you
-> really need to*
->
+this is old stuff that wasn't updated, we now have an inline that
+combines this:
+
+static inline void snd_sof_ipc_process_reply(struct snd_sof_dev *sdev,
+u32 msg_id)
+{
+	snd_sof_ipc_get_reply(sdev);
+	snd_sof_ipc_reply(sdev, msg_id);
+}
+
+see the code in im8xm.c....
+
+> +}
+> +
+> +static void imx8ulp_dsp_handle_request(struct imx_dsp_ipc *ipc)
+> +{
+> +	struct imx8ulp_priv *priv = imx_dsp_get_data(ipc);
+> +	u32 p; /* panic code */
+> +
+> +	/* Read the message from the debug box. */
+> +	sof_mailbox_read(priv->sdev, priv->sdev->debug_box.offset + 4, &p, sizeof(p));
+> +
+> +	/* Check to see if the message is a panic code (0x0dead***) */
+> +	if ((p & SOF_IPC_PANIC_MAGIC_MASK) == SOF_IPC_PANIC_MAGIC)
+> +		snd_sof_dsp_panic(priv->sdev, p, true);
+> +	else
+> +		snd_sof_ipc_msgs_rx(priv->sdev);
+> +}
+> +
+> +static struct imx_dsp_ops dsp_ops = {
+> +	.handle_reply		= imx8ulp_dsp_handle_reply,
+> +	.handle_request		= imx8ulp_dsp_handle_request,
+> +};
+> +
+> +static int imx8ulp_send_msg(struct snd_sof_dev *sdev, struct snd_sof_ipc_msg *msg)
+> +{
+> +	struct imx8ulp_priv *priv = sdev->pdata->hw_pdata;
+> +
+> +	sof_mailbox_write(sdev, sdev->host_box.offset, msg->msg_data,
+> +			  msg->msg_size);
+> +	imx_dsp_ring_doorbell(priv->dsp_ipc, 0);
+> +
+> +	return 0;
+> +}
+> +
+> +static int imx8ulp_run(struct snd_sof_dev *sdev)
+> +{
+> +	struct imx8ulp_priv *priv = sdev->pdata->hw_pdata;
+> +
+> +	imx8ulp_sim_lpav_start(priv);
+> +
+> +	return 0;
+> +}
+> +
+> +static int imx8ulp_reset(struct snd_sof_dev *sdev)
+> +{
+> +	struct imx8ulp_priv *priv = sdev->pdata->hw_pdata;
+> +
+> +	/* HiFi4 Platform Clock Enable: 1 enabled, 0 disabled */
+> +	regmap_update_bits(priv->regmap, SYSCTRL0, PLAT_CLK_BIT, PLAT_CLK_BIT);
+> +	/* HiFi4 PBCLK clock enable: 1 enabled, 0 disabled */
+> +	regmap_update_bits(priv->regmap, SYSCTRL0, PB_CLK_BIT, PB_CLK_BIT);
+> +	/* HiFi4 Clock Enable: 1 enabled, 0 disabled */
+> +	regmap_update_bits(priv->regmap, SYSCTRL0, HIFI4_CLK_BIT, HIFI4_CLK_BIT);
+> +
+> +	regmap_update_bits(priv->regmap, SYSCTRL0, RESET_BIT, RESET_BIT);
+> +	usleep_range(1, 2);
+> +	/* Stall HIFI4 DSP Execution: 1 stall, 0 not stall */
+> +	regmap_update_bits(priv->regmap, SYSCTRL0, EXECUTE_BIT, EXECUTE_BIT);
+> +	usleep_range(1, 2);
+
+
+adding newlines would help make the comments more readable, this is a
+bit of an eyesore.
+
+> +	arm_smccc_smc(FSL_SIP_HIFI_XRDC, 0, 0, 0, 0, 0, 0, 0, &smc_resource);
+> +
+> +	return 0;
+> +}
+> +
+> +static int imx8ulp_probe(struct snd_sof_dev *sdev)
+> +{
+> +	struct platform_device *pdev =
+> +		container_of(sdev->dev, struct platform_device, dev);
+> +	struct device_node *np = pdev->dev.of_node;
+> +	struct device_node *res_node;
+> +	struct resource *mmio;
+> +	struct imx8ulp_priv *priv;
+> +	struct resource res;
+> +	u32 base, size;
+> +	int ret = 0;
+> +
+> +	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	priv->clks = devm_kzalloc(&pdev->dev, sizeof(*priv->clks), GFP_KERNEL);
+> +	if (!priv->clks)
+> +		return -ENOMEM;
+> +
+> +	sdev->num_cores = 1;
+> +	sdev->pdata->hw_pdata = priv;
+> +	priv->dev = sdev->dev;
+> +	priv->sdev = sdev;
+> +
+> +	/* System integration module(SIM) control dsp configurtion */
+
+typo: configuration
+
+> +	priv->regmap = syscon_regmap_lookup_by_phandle(np, "fsl,dsp-ctrl");
+> +	if (IS_ERR(priv->regmap))
+> +		return PTR_ERR(priv->regmap);
+> +
+> +	priv->ipc_dev = platform_device_register_data(sdev->dev, "imx-dsp",
+> +						      PLATFORM_DEVID_NONE,
+> +						      pdev, sizeof(*pdev));
+> +	if (IS_ERR(priv->ipc_dev))
+> +		return PTR_ERR(priv->ipc_dev);
+> +
+> +	priv->dsp_ipc = dev_get_drvdata(&priv->ipc_dev->dev);
+> +	if (!priv->dsp_ipc) {
+> +		/* DSP IPC driver not probed yet, try later */
+> +		ret = -EPROBE_DEFER;
+> +		dev_err(sdev->dev, "Failed to get drvdata\n");
+> +		goto exit_pdev_unregister;
+> +	}
+> +
+> +	imx_dsp_set_data(priv->dsp_ipc, priv);
+> +	priv->dsp_ipc->ops = &dsp_ops;
+> +
+> +	/* DSP base */
+> +	mmio = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> +	if (mmio) {
+> +		base = mmio->start;
+> +		size = resource_size(mmio);
+> +	} else {
+> +		dev_err(sdev->dev, "error: failed to get DSP base at idx 0\n");
+> +		ret = -EINVAL;
+> +		goto exit_pdev_unregister;
+> +	}
+> +
+> +	sdev->bar[SOF_FW_BLK_TYPE_IRAM] = devm_ioremap(sdev->dev, base, size);
+> +	if (!sdev->bar[SOF_FW_BLK_TYPE_IRAM]) {
+> +		dev_err(sdev->dev, "failed to ioremap base 0x%x size 0x%x\n",
+> +			base, size);
+> +		ret = -ENODEV;
+> +		goto exit_pdev_unregister;
+> +	}
+> +	sdev->mmio_bar = SOF_FW_BLK_TYPE_IRAM;
+> +
+> +	res_node = of_parse_phandle(np, "memory-reserved", 0);
+> +	if (!res_node) {
+> +		dev_err(&pdev->dev, "failed to get memory region node\n");
+> +		ret = -ENODEV;
+> +		goto exit_pdev_unregister;
+> +	}
+> +
+> +	ret = of_address_to_resource(res_node, 0, &res);
+> +	if (ret) {
+> +		dev_err(&pdev->dev, "failed to get reserved region address\n");
+> +		goto exit_pdev_unregister;
+> +	}
+> +
+> +	sdev->bar[SOF_FW_BLK_TYPE_SRAM] = devm_ioremap_wc(sdev->dev, res.start,
+> +							  resource_size(&res));
+> +	if (!sdev->bar[SOF_FW_BLK_TYPE_SRAM]) {
+> +		dev_err(sdev->dev, "failed to ioremap mem 0x%x size 0x%x\n",
+> +			base, size);
+> +		ret = -ENOMEM;
+> +		goto exit_pdev_unregister;
+> +	}
+> +	sdev->mailbox_bar = SOF_FW_BLK_TYPE_SRAM;
+> +
+> +	/* set default mailbox offset for FW ready message */
+> +	sdev->dsp_box.offset = MBOX_OFFSET;
+> +
+> +	ret = of_reserved_mem_device_init(sdev->dev);
+> +	if (ret) {
+> +		dev_err(&pdev->dev, "failed to init reserved memory region %d\n", ret);
+> +		goto exit_pdev_unregister;
+> +	}
+> +
+> +	priv->clks->dsp_clks = imx8ulp_dsp_clks;
+> +	priv->clks->num_dsp_clks = ARRAY_SIZE(imx8ulp_dsp_clks);
+> +
+> +	ret = imx8_parse_clocks(sdev, priv->clks);
+> +	if (ret < 0)
+> +		goto exit_pdev_unregister;
+> +
+> +	ret = imx8_enable_clocks(sdev, priv->clks);
+> +	if (ret < 0)
+> +		goto exit_pdev_unregister;
+> +
+> +	return 0;
+> +
+> +exit_pdev_unregister:
+> +	platform_device_unregister(priv->ipc_dev);
+> +
+> +	return ret;
+> +}
+> +
+
+> +static int imx8ulp_suspend(struct snd_sof_dev *sdev)
+> +{
+> +	int i;
+> +	struct imx8ulp_priv *priv = (struct imx8ulp_priv *)sdev->pdata->hw_pdata;
+> +
+> +	regmap_update_bits(priv->regmap, SYSCTRL0, EXECUTE_BIT, EXECUTE_BIT);
+> +
+> +	for (i = 0; i < DSP_MU_CHAN_NUM; i++)
+> +		imx_dsp_free_channel(priv->dsp_ipc, i);
+> +
+> +	imx8_disable_clocks(sdev, priv->clks);
+> +
+> +	return 0;
+> +}
+> +
+> +static int imx8ulp_resume(struct snd_sof_dev *sdev)
+> +{
+> +	struct imx8ulp_priv *priv = (struct imx8ulp_priv *)sdev->pdata->hw_pdata;
+> +	int i;
+> +
+> +	imx8_enable_clocks(sdev, priv->clks);
+> +
+> +	for (i = 0; i < DSP_MU_CHAN_NUM; i++)
+> +		imx_dsp_request_channel(priv->dsp_ipc, i);
+> +
+> +	return 0;
+
+is the assymetry between suspend and resume intentional? You are missing
+the update_bit for EXECUTE_BIT?
+
+> +}
+> +
+
+

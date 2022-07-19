@@ -2,48 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54F9D578FE4
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Jul 2022 03:35:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 611BF57929C
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Jul 2022 07:43:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 81111170B;
-	Tue, 19 Jul 2022 03:34:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 81111170B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0563216A4;
+	Tue, 19 Jul 2022 07:42:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0563216A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658194504;
-	bh=YYfloqsq+vEbk7WHrEc4GcsJrM2Ro3rs5IgHfsewWzA=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=JxLKn7jty3YL8RR53JiaZ6BGt6wI0IPNud2cwLHXHyMrecYru/CMPs9EqNi7APZK4
-	 YOKTllFvLDX4C/OsQRVayxxUsMDksrdjlBfjRjeS2Lrd+spjKN0mbEdc1bq9KhAJx3
-	 bEXmRP+fqjhUCz6yHpEXIkXFJcAvokRHQVEF83ZQ=
+	s=default; t=1658209422;
+	bh=ecUTrKcrgdJHrt9Bx7A+QAFC5aNXmuFlwCGniER3uns=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=S9gRy5Ir8y8FWUCu1fmTAFbvIves9Ai5hZuQE3zx+uYw5Xt/ixOGGgN+6KTJr2Qo6
+	 TOGdvCr852fTWWptY+8OimDHOGzxzYOT5MkvLxdTPN1tRpHi2LljRH08ePnpORjSsm
+	 5teegWeHn2wTISkHJR4fi3efHQAcQw3DcDraCzDU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 07722F80224;
-	Tue, 19 Jul 2022 03:34:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D846CF80169;
+	Tue, 19 Jul 2022 07:42:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0BF44F801EC; Tue, 19 Jul 2022 03:34:02 +0200 (CEST)
+ id A47DAF804B1; Tue, 19 Jul 2022 07:42:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 63238F80169
- for <alsa-devel@alsa-project.org>; Tue, 19 Jul 2022 03:33:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63238F80169
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1658194438061773062-webhooks-bot@alsa-project.org>
-References: <1658194438061773062-webhooks-bot@alsa-project.org>
-Subject: speaker-test channel descriptions don't match expectations
-Message-Id: <20220719013402.0BF44F801EC@alsa1.perex.cz>
-Date: Tue, 19 Jul 2022 03:34:02 +0200 (CEST)
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 64E12F8016D;
+ Tue, 19 Jul 2022 07:41:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64E12F8016D
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 68E431A089D;
+ Tue, 19 Jul 2022 07:41:58 +0200 (CEST)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com
+ (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id DBCB31A08C7;
+ Tue, 19 Jul 2022 07:41:57 +0200 (CEST)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+ by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 5CA051802204;
+ Tue, 19 Jul 2022 13:41:55 +0800 (+08)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com,
+ peter.ujfalusi@linux.intel.com, yung-chuan.liao@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
+ daniel.baluta@nxp.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ shawnguo@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
+ festevam@gmail.com, linux-imx@nxp.com, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, devicetree@vger.kernel.org
+Subject: [PATCH 1/2] ASoC: SOF: imx: Add i.MX8ULP HW support
+Date: Tue, 19 Jul 2022 13:26:06 +0800
+Message-Id: <1658208367-24376-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
+Cc: alsa-devel@alsa-project.org, shengjiu.wang@gmail.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,11 +77,605 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-utils issue #159 was opened from pfps:
+From: Zhang Peng <peng.zhang_8@nxp.com>
 
-The text output of speaker-test for -c6 appears to indicate that it is using 5+1 channels, with FL, FR, RL, RR, FC, LFE channels (output in a different order).  But the wav files that it uses say FL, FR, RL, ??, FC, Rear Center.  And this channel order doesn't seem correct, as the channels are not down-mixed to stereo correctly on my system with pipewire and pipewire-media-session.
+This adds skeleton support for the audio DSP hardware found on
+NXP i.MX8ULP platform.
 
-What can be done to get speaker-test and pipewire to agree on the channels?
+On i.MX8ULP resources (clocks, power, etc) are managed by the
+System Integration Module in LPAV domain and XRDC which is handled
+by arm trusted firmware.
 
-Issue URL     : https://github.com/alsa-project/alsa-utils/issues/159
-Repository URL: https://github.com/alsa-project/alsa-utils
+Signed-off-by: Zhang Peng <peng.zhang_8@nxp.com>
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+---
+ sound/soc/sof/imx/Kconfig   |   9 +
+ sound/soc/sof/imx/Makefile  |   2 +
+ sound/soc/sof/imx/imx8ulp.c | 541 ++++++++++++++++++++++++++++++++++++
+ 3 files changed, 552 insertions(+)
+ create mode 100644 sound/soc/sof/imx/imx8ulp.c
+
+diff --git a/sound/soc/sof/imx/Kconfig b/sound/soc/sof/imx/Kconfig
+index cc6e695f913a..4751b04d5e6f 100644
+--- a/sound/soc/sof/imx/Kconfig
++++ b/sound/soc/sof/imx/Kconfig
+@@ -41,4 +41,13 @@ config SND_SOC_SOF_IMX8M
+ 	  Say Y if you have such a device.
+ 	  If unsure select "N".
+ 
++config SND_SOC_SOF_IMX8ULP
++	tristate "SOF support for i.MX8ULP"
++	depends on IMX_DSP
++	select SND_SOC_SOF_IMX_COMMON
++	help
++	  This adds support for Sound Open Firmware for NXP i.MX8ULP platforms.
++	  Say Y if you have such a device.
++	  If unsure select "N".
++
+ endif ## SND_SOC_SOF_IMX_TOPLEVEL
+diff --git a/sound/soc/sof/imx/Makefile b/sound/soc/sof/imx/Makefile
+index dba93c3466ec..798b43a415bf 100644
+--- a/sound/soc/sof/imx/Makefile
++++ b/sound/soc/sof/imx/Makefile
+@@ -1,9 +1,11 @@
+ # SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
+ snd-sof-imx8-objs := imx8.o
+ snd-sof-imx8m-objs := imx8m.o
++snd-sof-imx8ulp-objs := imx8ulp.o
+ 
+ snd-sof-imx-common-objs := imx-common.o
+ 
+ obj-$(CONFIG_SND_SOC_SOF_IMX8) += snd-sof-imx8.o
+ obj-$(CONFIG_SND_SOC_SOF_IMX8M) += snd-sof-imx8m.o
++obj-$(CONFIG_SND_SOC_SOF_IMX8ULP) += snd-sof-imx8ulp.o
+ obj-$(CONFIG_SND_SOC_SOF_IMX_COMMON) += imx-common.o
+diff --git a/sound/soc/sof/imx/imx8ulp.c b/sound/soc/sof/imx/imx8ulp.c
+new file mode 100644
+index 000000000000..ecb8750de7ea
+--- /dev/null
++++ b/sound/soc/sof/imx/imx8ulp.c
+@@ -0,0 +1,541 @@
++// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
++//
++// Copyright 2021-2022 NXP
++//
++// Author: Peng Zhang <peng.zhang_8@nxp.com>
++//
++// Hardware interface for audio DSP on i.MX8ULP
++
++#include <linux/clk.h>
++#include <linux/firmware.h>
++#include <linux/firmware/imx/dsp.h>
++#include <linux/firmware/imx/ipc.h>
++#include <linux/firmware/imx/svc/misc.h>
++#include <linux/mfd/syscon.h>
++#include <linux/module.h>
++#include <linux/of_address.h>
++#include <linux/of_irq.h>
++#include <linux/of_platform.h>
++#include <linux/of_reserved_mem.h>
++
++#include <sound/sof.h>
++#include <sound/sof/xtensa.h>
++
++#include "../ops.h"
++#include "../sof-of-dev.h"
++#include "imx-common.h"
++
++#define FSL_SIP_HIFI_XRDC	0xc200000e
++
++/* SIM Domain register */
++#define SYSCTRL0		0x8
++#define EXECUTE_BIT		BIT(13)
++#define RESET_BIT		BIT(16)
++#define HIFI4_CLK_BIT		BIT(17)
++#define PB_CLK_BIT		BIT(18)
++#define PLAT_CLK_BIT		BIT(19)
++#define DEBUG_LOGIC_BIT		BIT(25)
++
++#define MBOX_OFFSET		0x800000
++#define MBOX_SIZE		0x1000
++
++struct arm_smccc_res		smc_resource;
++
++static struct clk_bulk_data imx8ulp_dsp_clks[] = {
++	{ .id = "core" },
++	{ .id = "ipg" },
++	{ .id = "ocram" },
++	{ .id = "mu" },
++};
++
++struct imx8ulp_priv {
++	struct device *dev;
++	struct snd_sof_dev *sdev;
++
++	/* DSP IPC handler */
++	struct imx_dsp_ipc *dsp_ipc;
++	struct platform_device *ipc_dev;
++
++	struct regmap *regmap;
++	struct imx_clocks *clks;
++};
++
++static void imx8ulp_sim_lpav_start(struct imx8ulp_priv *priv)
++{
++	/* Controls the HiFi4 DSP Reset: 1 in reset, 0 out of reset */
++	regmap_update_bits(priv->regmap, SYSCTRL0, RESET_BIT, 0);
++	/* Reset HiFi4 DSP Debug logic: 1 reset, 0 not set */
++	regmap_update_bits(priv->regmap, SYSCTRL0, DEBUG_LOGIC_BIT, 0);
++	/* Stall HIFI4 DSP Execution: 1 stall, 0 not stall */
++	regmap_update_bits(priv->regmap, SYSCTRL0, EXECUTE_BIT, 0);
++}
++
++static void imx8ulp_get_reply(struct snd_sof_dev *sdev)
++{
++	struct snd_sof_ipc_msg *msg = sdev->msg;
++	struct sof_ipc_reply reply;
++	int ret = 0;
++
++	if (!msg) {
++		dev_warn(sdev->dev, "unexpected ipc interrupt\n");
++		return;
++	}
++
++	/* get reply */
++	sof_mailbox_read(sdev, sdev->host_box.offset, &reply, sizeof(reply));
++
++	if (reply.error < 0) {
++		memcpy(msg->reply_data, &reply, sizeof(reply));
++		ret = reply.error;
++	} else {
++		/* reply has correct size? */
++		if (reply.hdr.size != msg->reply_size) {
++			dev_err(sdev->dev, "error: reply expected %zu got %u bytes\n",
++				msg->reply_size, reply.hdr.size);
++			ret = -EINVAL;
++		}
++
++		/* read the message */
++		if (msg->reply_size > 0)
++			sof_mailbox_read(sdev, sdev->host_box.offset,
++					 msg->reply_data, msg->reply_size);
++	}
++
++	msg->reply_error = ret;
++}
++
++static int imx8ulp_get_mailbox_offset(struct snd_sof_dev *sdev)
++{
++	return MBOX_OFFSET;
++}
++
++static int imx8ulp_get_window_offset(struct snd_sof_dev *sdev, u32 id)
++{
++	return MBOX_OFFSET;
++}
++
++static void imx8ulp_dsp_handle_reply(struct imx_dsp_ipc *ipc)
++{
++	struct imx8ulp_priv *priv = imx_dsp_get_data(ipc);
++	unsigned long flags;
++
++	spin_lock_irqsave(&priv->sdev->ipc_lock, flags);
++
++	imx8ulp_get_reply(priv->sdev);
++	snd_sof_ipc_reply(priv->sdev, 0);
++	spin_unlock_irqrestore(&priv->sdev->ipc_lock, flags);
++}
++
++static void imx8ulp_dsp_handle_request(struct imx_dsp_ipc *ipc)
++{
++	struct imx8ulp_priv *priv = imx_dsp_get_data(ipc);
++	u32 p; /* panic code */
++
++	/* Read the message from the debug box. */
++	sof_mailbox_read(priv->sdev, priv->sdev->debug_box.offset + 4, &p, sizeof(p));
++
++	/* Check to see if the message is a panic code (0x0dead***) */
++	if ((p & SOF_IPC_PANIC_MAGIC_MASK) == SOF_IPC_PANIC_MAGIC)
++		snd_sof_dsp_panic(priv->sdev, p, true);
++	else
++		snd_sof_ipc_msgs_rx(priv->sdev);
++}
++
++static struct imx_dsp_ops dsp_ops = {
++	.handle_reply		= imx8ulp_dsp_handle_reply,
++	.handle_request		= imx8ulp_dsp_handle_request,
++};
++
++static int imx8ulp_send_msg(struct snd_sof_dev *sdev, struct snd_sof_ipc_msg *msg)
++{
++	struct imx8ulp_priv *priv = sdev->pdata->hw_pdata;
++
++	sof_mailbox_write(sdev, sdev->host_box.offset, msg->msg_data,
++			  msg->msg_size);
++	imx_dsp_ring_doorbell(priv->dsp_ipc, 0);
++
++	return 0;
++}
++
++static int imx8ulp_run(struct snd_sof_dev *sdev)
++{
++	struct imx8ulp_priv *priv = sdev->pdata->hw_pdata;
++
++	imx8ulp_sim_lpav_start(priv);
++
++	return 0;
++}
++
++static int imx8ulp_reset(struct snd_sof_dev *sdev)
++{
++	struct imx8ulp_priv *priv = sdev->pdata->hw_pdata;
++
++	/* HiFi4 Platform Clock Enable: 1 enabled, 0 disabled */
++	regmap_update_bits(priv->regmap, SYSCTRL0, PLAT_CLK_BIT, PLAT_CLK_BIT);
++	/* HiFi4 PBCLK clock enable: 1 enabled, 0 disabled */
++	regmap_update_bits(priv->regmap, SYSCTRL0, PB_CLK_BIT, PB_CLK_BIT);
++	/* HiFi4 Clock Enable: 1 enabled, 0 disabled */
++	regmap_update_bits(priv->regmap, SYSCTRL0, HIFI4_CLK_BIT, HIFI4_CLK_BIT);
++
++	regmap_update_bits(priv->regmap, SYSCTRL0, RESET_BIT, RESET_BIT);
++	usleep_range(1, 2);
++	/* Stall HIFI4 DSP Execution: 1 stall, 0 not stall */
++	regmap_update_bits(priv->regmap, SYSCTRL0, EXECUTE_BIT, EXECUTE_BIT);
++	usleep_range(1, 2);
++
++	arm_smccc_smc(FSL_SIP_HIFI_XRDC, 0, 0, 0, 0, 0, 0, 0, &smc_resource);
++
++	return 0;
++}
++
++static int imx8ulp_probe(struct snd_sof_dev *sdev)
++{
++	struct platform_device *pdev =
++		container_of(sdev->dev, struct platform_device, dev);
++	struct device_node *np = pdev->dev.of_node;
++	struct device_node *res_node;
++	struct resource *mmio;
++	struct imx8ulp_priv *priv;
++	struct resource res;
++	u32 base, size;
++	int ret = 0;
++
++	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
++	if (!priv)
++		return -ENOMEM;
++
++	priv->clks = devm_kzalloc(&pdev->dev, sizeof(*priv->clks), GFP_KERNEL);
++	if (!priv->clks)
++		return -ENOMEM;
++
++	sdev->num_cores = 1;
++	sdev->pdata->hw_pdata = priv;
++	priv->dev = sdev->dev;
++	priv->sdev = sdev;
++
++	/* System integration module(SIM) control dsp configurtion */
++	priv->regmap = syscon_regmap_lookup_by_phandle(np, "fsl,dsp-ctrl");
++	if (IS_ERR(priv->regmap))
++		return PTR_ERR(priv->regmap);
++
++	priv->ipc_dev = platform_device_register_data(sdev->dev, "imx-dsp",
++						      PLATFORM_DEVID_NONE,
++						      pdev, sizeof(*pdev));
++	if (IS_ERR(priv->ipc_dev))
++		return PTR_ERR(priv->ipc_dev);
++
++	priv->dsp_ipc = dev_get_drvdata(&priv->ipc_dev->dev);
++	if (!priv->dsp_ipc) {
++		/* DSP IPC driver not probed yet, try later */
++		ret = -EPROBE_DEFER;
++		dev_err(sdev->dev, "Failed to get drvdata\n");
++		goto exit_pdev_unregister;
++	}
++
++	imx_dsp_set_data(priv->dsp_ipc, priv);
++	priv->dsp_ipc->ops = &dsp_ops;
++
++	/* DSP base */
++	mmio = platform_get_resource(pdev, IORESOURCE_MEM, 0);
++	if (mmio) {
++		base = mmio->start;
++		size = resource_size(mmio);
++	} else {
++		dev_err(sdev->dev, "error: failed to get DSP base at idx 0\n");
++		ret = -EINVAL;
++		goto exit_pdev_unregister;
++	}
++
++	sdev->bar[SOF_FW_BLK_TYPE_IRAM] = devm_ioremap(sdev->dev, base, size);
++	if (!sdev->bar[SOF_FW_BLK_TYPE_IRAM]) {
++		dev_err(sdev->dev, "failed to ioremap base 0x%x size 0x%x\n",
++			base, size);
++		ret = -ENODEV;
++		goto exit_pdev_unregister;
++	}
++	sdev->mmio_bar = SOF_FW_BLK_TYPE_IRAM;
++
++	res_node = of_parse_phandle(np, "memory-reserved", 0);
++	if (!res_node) {
++		dev_err(&pdev->dev, "failed to get memory region node\n");
++		ret = -ENODEV;
++		goto exit_pdev_unregister;
++	}
++
++	ret = of_address_to_resource(res_node, 0, &res);
++	if (ret) {
++		dev_err(&pdev->dev, "failed to get reserved region address\n");
++		goto exit_pdev_unregister;
++	}
++
++	sdev->bar[SOF_FW_BLK_TYPE_SRAM] = devm_ioremap_wc(sdev->dev, res.start,
++							  resource_size(&res));
++	if (!sdev->bar[SOF_FW_BLK_TYPE_SRAM]) {
++		dev_err(sdev->dev, "failed to ioremap mem 0x%x size 0x%x\n",
++			base, size);
++		ret = -ENOMEM;
++		goto exit_pdev_unregister;
++	}
++	sdev->mailbox_bar = SOF_FW_BLK_TYPE_SRAM;
++
++	/* set default mailbox offset for FW ready message */
++	sdev->dsp_box.offset = MBOX_OFFSET;
++
++	ret = of_reserved_mem_device_init(sdev->dev);
++	if (ret) {
++		dev_err(&pdev->dev, "failed to init reserved memory region %d\n", ret);
++		goto exit_pdev_unregister;
++	}
++
++	priv->clks->dsp_clks = imx8ulp_dsp_clks;
++	priv->clks->num_dsp_clks = ARRAY_SIZE(imx8ulp_dsp_clks);
++
++	ret = imx8_parse_clocks(sdev, priv->clks);
++	if (ret < 0)
++		goto exit_pdev_unregister;
++
++	ret = imx8_enable_clocks(sdev, priv->clks);
++	if (ret < 0)
++		goto exit_pdev_unregister;
++
++	return 0;
++
++exit_pdev_unregister:
++	platform_device_unregister(priv->ipc_dev);
++
++	return ret;
++}
++
++static int imx8ulp_remove(struct snd_sof_dev *sdev)
++{
++	struct imx8ulp_priv *priv = sdev->pdata->hw_pdata;
++
++	platform_device_unregister(priv->ipc_dev);
++
++	return 0;
++}
++
++/* on i.MX8 there is 1 to 1 match between type and BAR idx */
++static int imx8ulp_get_bar_index(struct snd_sof_dev *sdev, u32 type)
++{
++	return type;
++}
++
++static int imx8ulp_suspend(struct snd_sof_dev *sdev)
++{
++	int i;
++	struct imx8ulp_priv *priv = (struct imx8ulp_priv *)sdev->pdata->hw_pdata;
++
++	regmap_update_bits(priv->regmap, SYSCTRL0, EXECUTE_BIT, EXECUTE_BIT);
++
++	for (i = 0; i < DSP_MU_CHAN_NUM; i++)
++		imx_dsp_free_channel(priv->dsp_ipc, i);
++
++	imx8_disable_clocks(sdev, priv->clks);
++
++	return 0;
++}
++
++static int imx8ulp_resume(struct snd_sof_dev *sdev)
++{
++	struct imx8ulp_priv *priv = (struct imx8ulp_priv *)sdev->pdata->hw_pdata;
++	int i;
++
++	imx8_enable_clocks(sdev, priv->clks);
++
++	for (i = 0; i < DSP_MU_CHAN_NUM; i++)
++		imx_dsp_request_channel(priv->dsp_ipc, i);
++
++	return 0;
++}
++
++static int imx8ulp_dsp_runtime_resume(struct snd_sof_dev *sdev)
++{
++	const struct sof_dsp_power_state target_dsp_state = {
++		.state = SOF_DSP_PM_D0,
++		.substate = 0,
++	};
++
++	imx8ulp_resume(sdev);
++
++	return snd_sof_dsp_set_power_state(sdev, &target_dsp_state);
++}
++
++static int imx8ulp_dsp_runtime_suspend(struct snd_sof_dev *sdev)
++{
++	const struct sof_dsp_power_state target_dsp_state = {
++		.state = SOF_DSP_PM_D3,
++		.substate = 0,
++	};
++
++	imx8ulp_suspend(sdev);
++
++	return snd_sof_dsp_set_power_state(sdev, &target_dsp_state);
++}
++
++static int imx8ulp_dsp_suspend(struct snd_sof_dev *sdev, unsigned int target_state)
++{
++	const struct sof_dsp_power_state target_dsp_state = {
++		.state = target_state,
++		.substate = 0,
++	};
++
++	if (!pm_runtime_suspended(sdev->dev))
++		imx8ulp_suspend(sdev);
++
++	return snd_sof_dsp_set_power_state(sdev, &target_dsp_state);
++}
++
++static int imx8ulp_dsp_resume(struct snd_sof_dev *sdev)
++{
++	const struct sof_dsp_power_state target_dsp_state = {
++		.state = SOF_DSP_PM_D0,
++		.substate = 0,
++	};
++
++	imx8ulp_resume(sdev);
++
++	if (pm_runtime_suspended(sdev->dev)) {
++		pm_runtime_disable(sdev->dev);
++		pm_runtime_set_active(sdev->dev);
++		pm_runtime_mark_last_busy(sdev->dev);
++		pm_runtime_enable(sdev->dev);
++		pm_runtime_idle(sdev->dev);
++	}
++
++	return snd_sof_dsp_set_power_state(sdev, &target_dsp_state);
++}
++
++static struct snd_soc_dai_driver imx8ulp_dai[] = {
++	{
++		.name = "sai5",
++		.playback = {
++			.channels_min = 1,
++			.channels_max = 32,
++		},
++		.capture = {
++			.channels_min = 1,
++			.channels_max = 32,
++		},
++	},
++	{
++		.name = "sai6",
++		.playback = {
++			.channels_min = 1,
++			.channels_max = 32,
++		},
++		.capture = {
++			.channels_min = 1,
++			.channels_max = 32,
++		},
++	},
++};
++
++static int imx8ulp_dsp_set_power_state(struct snd_sof_dev *sdev,
++				       const struct sof_dsp_power_state *target_state)
++{
++	sdev->dsp_power_state = *target_state;
++
++	return 0;
++}
++
++/* i.MX8 ops */
++struct snd_sof_dsp_ops sof_imx8ulp_ops = {
++	/* probe and remove */
++	.probe		= imx8ulp_probe,
++	.remove		= imx8ulp_remove,
++	/* DSP core boot */
++	.run		= imx8ulp_run,
++	.reset		= imx8ulp_reset,
++
++	/* Block IO */
++	.block_read	= sof_block_read,
++	.block_write	= sof_block_write,
++
++	/* Module IO */
++	.read64		= sof_io_read64,
++
++	/* Mailbox IO */
++	.mailbox_read	= sof_mailbox_read,
++	.mailbox_write	= sof_mailbox_write,
++
++	/* ipc */
++	.send_msg	= imx8ulp_send_msg,
++	.get_mailbox_offset	= imx8ulp_get_mailbox_offset,
++	.get_window_offset	= imx8ulp_get_window_offset,
++
++	.ipc_msg_data	= sof_ipc_msg_data,
++	.set_stream_data_offset = sof_set_stream_data_offset,
++
++	/* stream callbacks */
++	.pcm_open	= sof_stream_pcm_open,
++	.pcm_close	= sof_stream_pcm_close,
++
++	/* module loading */
++	.get_bar_index	= imx8ulp_get_bar_index,
++	/* firmware loading */
++	.load_firmware	= snd_sof_load_firmware_memcpy,
++
++	/* Debug information */
++	.dbg_dump	= imx8_dump,
++
++	/* Firmware ops */
++	.dsp_arch_ops	= &sof_xtensa_arch_ops,
++
++	/* DAI drivers */
++	.drv		= imx8ulp_dai,
++	.num_drv	= ARRAY_SIZE(imx8ulp_dai),
++
++	/* ALSA HW info flags */
++	.hw_info	= SNDRV_PCM_INFO_MMAP |
++			SNDRV_PCM_INFO_MMAP_VALID |
++			SNDRV_PCM_INFO_INTERLEAVED |
++			SNDRV_PCM_INFO_PAUSE |
++			SNDRV_PCM_INFO_NO_PERIOD_WAKEUP,
++
++	/* PM */
++	.runtime_suspend	= imx8ulp_dsp_runtime_suspend,
++	.runtime_resume		= imx8ulp_dsp_runtime_resume,
++
++	.suspend	= imx8ulp_dsp_suspend,
++	.resume		= imx8ulp_dsp_resume,
++
++	.set_power_state	= imx8ulp_dsp_set_power_state,
++};
++
++static struct sof_dev_desc sof_of_imx8ulp_desc = {
++	.ipc_supported_mask     = BIT(SOF_IPC),
++	.ipc_default            = SOF_IPC,
++	.default_fw_path = {
++		[SOF_IPC] = "imx/sof",
++	},
++	.default_tplg_path = {
++		[SOF_IPC] = "imx/sof-tplg",
++	},
++	.default_fw_filename = {
++		[SOF_IPC] = "sof-imx8ulp.ri",
++	},
++	.nocodec_tplg_filename = "sof-imx8ulp-nocodec.tplg",
++	.ops = &sof_imx8ulp_ops,
++};
++
++static const struct of_device_id sof_of_imx8ulp_ids[] = {
++	{ .compatible = "fsl,imx8ulp-dsp", .data = &sof_of_imx8ulp_desc},
++	{ }
++};
++MODULE_DEVICE_TABLE(of, sof_of_imx8ulp_ids);
++
++/* DT driver definition */
++static struct platform_driver snd_sof_of_imx8ulp_driver = {
++	.probe = sof_of_probe,
++	.remove = sof_of_remove,
++	.driver = {
++		.name = "sof-audio-of-imx8ulp",
++		.pm = &sof_of_pm,
++		.of_match_table = sof_of_imx8ulp_ids,
++	},
++};
++module_platform_driver(snd_sof_of_imx8ulp_driver);
++
++MODULE_IMPORT_NS(SND_SOC_SOF_XTENSA);
++MODULE_LICENSE("Dual BSD/GPL");
+-- 
+2.34.1
+

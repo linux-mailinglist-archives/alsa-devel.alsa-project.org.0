@@ -2,82 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26D365798AD
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Jul 2022 13:43:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A154579C8E
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Jul 2022 14:40:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B6E9816D2;
-	Tue, 19 Jul 2022 13:42:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6E9816D2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9DEF616D9;
+	Tue, 19 Jul 2022 14:40:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9DEF616D9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658230985;
-	bh=v8PeHN2Ygs1u/dbSFwAhEUja3BF2PY9zOYVkyVdHkxM=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1658234454;
+	bh=ETMpmzJg6IfMA9Rra/gyQD83utdYYdZ2Itqobxk2WwQ=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Edr9ds9wNypa7wWAqa1qJ0tY6gc3WsdF6U0fy6Efi7W9jyH7u33mg9oRteVmDrvAk
-	 FUfO7sHnavQD9eHsHdc7D4+zWaSOAmh+UWltLRbTBf3SbXxmMHVJ70U4ccBvyprArf
-	 DcEn/Z3Ith/VigITASpTuPfzL8ferXb21/eGU6AA=
+	b=mx/bK6AccLtl76rE50ttIbfEAIZT3fL4wDv4Efe2lSXxMNDjL18v+iScRSNTgkQLd
+	 +BHHVv5eW+VTt+sXJ/oUsHjgxD46Es9f0o4N8qWvZAPlVEBSg7UZKZCzb076ISvrTy
+	 OPsQ2JbvRBQ1GyhGgBH4At9k528+xdIUrTYm0Cr4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 456B4F80224;
-	Tue, 19 Jul 2022 13:42:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0AB5CF80224;
+	Tue, 19 Jul 2022 14:39:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B0726F801EC; Tue, 19 Jul 2022 13:42:03 +0200 (CEST)
+ id 48E4AF80125; Tue, 19 Jul 2022 14:39:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_76,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 35641F80118;
- Tue, 19 Jul 2022 13:41:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35641F80118
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="o6MNwPLl"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=0.3 required=5.0 tests=HTML_MESSAGE,PRX_BODY_135,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from eu-smtp-delivery-151.mimecast.com
+ (eu-smtp-delivery-151.mimecast.com [185.58.85.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id CE7F9615D2;
- Tue, 19 Jul 2022 11:41:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87CE0C341C6;
- Tue, 19 Jul 2022 11:41:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1658230915;
- bh=v8PeHN2Ygs1u/dbSFwAhEUja3BF2PY9zOYVkyVdHkxM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=o6MNwPLlI3Ub9l2pHHovhTKP+I7WcOFoGXkzad+taoDaiJCfuEfnzALN3hRxXABao
- wozsBjs/4s2UdYn/+F4uOg84mWsIwPC8xTVVc7twH3IFUy37Qiv1jws9GJlfvBfYkG
- i2WYhyLJgVuRtB0rYLIEfPradMwFDelXJJAas0nWDA6qORk8BuvCGUnk7PORrJTAOl
- 7vQWOKbMwF7YSPp4DLuL8byoxNFiNt6yM67UDQ8w3aU7ujvnQvB2gPGSfcKGxKXPUp
- +Hb6lI/2dCiiUunzHRCzVa9uJzZ0rV0VRMIZdZx2JE0M4/UPfWJk81CfhT+Uxsu70y
- YwH+wXFjBgAoA==
-Date: Tue, 19 Jul 2022 12:41:47 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Shengjiu Wang <shengjiu.wang@nxp.com>
-Subject: Re: [PATCH 1/2] ASoC: SOF: imx: Add i.MX8ULP HW support
-Message-ID: <YtaYe58xS4ynZ+A4@sirena.org.uk>
-References: <1658208367-24376-1-git-send-email-shengjiu.wang@nxp.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id C1DE9F80125
+ for <alsa-devel@alsa-project.org>; Tue, 19 Jul 2022 14:39:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1DE9F80125
+Received: from AcuMS.aculab.com (156.67.243.121 [156.67.243.121]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ uk-mta-314-LGKyWH96MHuXfDktH0oilQ-1; Tue, 19 Jul 2022 13:39:43 +0100
+X-MC-Unique: LGKyWH96MHuXfDktH0oilQ-1
+Received: from AcuMS.Aculab.com (fd9f:af1c:a25b:0:994c:f5c2:35d6:9b65) by
+ AcuMS.aculab.com (fd9f:af1c:a25b:0:994c:f5c2:35d6:9b65) with Microsoft SMTP
+ Server (TLS) id 15.0.1497.36; Tue, 19 Jul 2022 13:39:42 +0100
+Received: from AcuMS.Aculab.com ([fe80::994c:f5c2:35d6:9b65]) by
+ AcuMS.aculab.com ([fe80::994c:f5c2:35d6:9b65%12]) with mapi id
+ 15.00.1497.036; Tue, 19 Jul 2022 13:39:42 +0100
+From: David Laight <David.Laight@ACULAB.COM>
+To: 'Shengjiu Wang' <shengjiu.wang@gmail.com>
+Subject: RE: [PATCH -next 2/5] ASoC: fsl_asrc: force cast the asrc_format type
+Thread-Topic: [PATCH -next 2/5] ASoC: fsl_asrc: force cast the asrc_format type
+Thread-Index: AQHYm1RF9VBLG0gK5ky/ItlmeeUnS62FdfSA///0CICAABRvQP//+YgAgAAnNdA=
+Date: Tue, 19 Jul 2022 12:39:42 +0000
+Message-ID: <c9231becb2cd4e2999ec631f9d2171c3@AcuMS.aculab.com>
+References: <1658222864-25378-1-git-send-email-shengjiu.wang@nxp.com>
+ <1658222864-25378-3-git-send-email-shengjiu.wang@nxp.com>
+ <f2609401c8834e8bbe926200bfc87971@AcuMS.aculab.com>
+ <YtaEpf6Cd7KH7wH4@sirena.org.uk>
+ <20cfcc8e59a74166846cff028cd2c4e8@AcuMS.aculab.com>
+ <CAA+D8AO6P2AcOJ+E97Y1=P72Qa1wjtMGMneWnsP+VcdnCzzYuw@mail.gmail.com>
+In-Reply-To: <CAA+D8AO6P2AcOJ+E97Y1=P72Qa1wjtMGMneWnsP+VcdnCzzYuw@mail.gmail.com>
+Accept-Language: en-GB, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.202.205.107]
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="Gfkuz1LFkvb5qJgu"
-Content-Disposition: inline
-In-Reply-To: <1658208367-24376-1-git-send-email-shengjiu.wang@nxp.com>
-X-Cookie: We have ears, earther...FOUR OF THEM!
-Cc: alsa-devel@alsa-project.org, yung-chuan.liao@linux.intel.com,
- tiwai@suse.com, krzysztof.kozlowski+dt@linaro.org, shengjiu.wang@gmail.com,
- sound-open-firmware@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- festevam@gmail.com, ranjani.sridharan@linux.intel.com, linux-imx@nxp.com,
- devicetree@vger.kernel.org, s.hauer@pengutronix.de,
- peter.ujfalusi@linux.intel.com, robh+dt@kernel.org, daniel.baluta@nxp.com,
- linux-arm-kernel@lists.infradead.org, kai.vehmanen@linux.intel.com,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org, kernel@pengutronix.de,
- shawnguo@kernel.org
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=C51A453 smtp.mailfrom=david.laight@aculab.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: aculab.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: base64
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "Xiubo.Lee@gmail.com" <Xiubo.Lee@gmail.com>,
+ "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, "tiwai@suse.com" <tiwai@suse.com>,
+ "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+ "nicoleotsuka@gmail.com" <nicoleotsuka@gmail.com>,
+ Mark Brown <broonie@kernel.org>, "festevam@gmail.com" <festevam@gmail.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,86 +100,71 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
---Gfkuz1LFkvb5qJgu
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Tue, Jul 19, 2022 at 01:26:06PM +0800, Shengjiu Wang wrote:
-
-Not a thorough review, just a few nitpicks:
-
-> +#define MBOX_SIZE		0x1000
-> +
-> +struct arm_smccc_res		smc_resource;
-
-This should be static shouldn't it?
-
-> +static void imx8ulp_dsp_handle_reply(struct imx_dsp_ipc *ipc)
-> +{
-> +	struct imx8ulp_priv *priv = imx_dsp_get_data(ipc);
-> +	unsigned long flags;
-> +
-> +	spin_lock_irqsave(&priv->sdev->ipc_lock, flags);
-> +
-> +	imx8ulp_get_reply(priv->sdev);
-> +	snd_sof_ipc_reply(priv->sdev, 0);
-> +	spin_unlock_irqrestore(&priv->sdev->ipc_lock, flags);
-
-Minor nitpick but a blank line before the unlock to match the one after
-the lock would be a bit easier to read.
-
-> +	regmap_update_bits(priv->regmap, SYSCTRL0, EXECUTE_BIT, EXECUTE_BIT);
-> +	usleep_range(1, 2);
-> +
-> +	arm_smccc_smc(FSL_SIP_HIFI_XRDC, 0, 0, 0, 0, 0, 0, 0, &smc_resource);
-
-You need linux/arm-smccc.h for this (as 0day said).
-
-> +	if (ret) {
-> +		dev_err(&pdev->dev, "failed to init reserved memory region %d\n", ret);
-> +		goto exit_pdev_unregister;
-> +	}
-> +
-> +	priv->clks->dsp_clks = imx8ulp_dsp_clks;
-> +	priv->clks->num_dsp_clks = ARRAY_SIZE(imx8ulp_dsp_clks);
-> +
-> +	ret = imx8_parse_clocks(sdev, priv->clks);
-> +	if (ret < 0)
-> +		goto exit_pdev_unregister;
-> +
-> +	ret = imx8_enable_clocks(sdev, priv->clks);
-> +	if (ret < 0)
-> +		goto exit_pdev_unregister;
-
-We're registering the platform device before we enable the clocks - is
-that safe?
-
-> +static int imx8ulp_remove(struct snd_sof_dev *sdev)
-> +{
-> +	struct imx8ulp_priv *priv = sdev->pdata->hw_pdata;
-> +
-> +	platform_device_unregister(priv->ipc_dev);
-> +
-> +	return 0;
-> +}
-
-Could we just use devm?  I'm not seeing an ordering issue but I might be
-missing something.
-
---Gfkuz1LFkvb5qJgu
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmLWmHoACgkQJNaLcl1U
-h9C2gQf/cgh8vX+NSAVJKcFpo8TGYQkH6ILglXaaVQyN7G9PGgvBvaMK7gyCH2PS
-eidTok4O5f6KCB3wDcLc9wIzO7M6K6iAlU/HTphK0wCizWtpEMZ+N9Hv20w141kx
-O77/69rr687IfYRekqkka1438ED2L1AMYz/4bt3mDD/9XxuxLmKkZCvcCfyzgn8q
-WyhbDCKNOgswfgyxEwMJecQ8wCS1amf99hx103P0xAejrT4V2uwdqptJ1AOz9dL0
-iEp79naTEpE0uBX/4LM3bOTLaim1AOMOk3yPPaCBOIX8lu0QmapcXgigVt8iaQCM
-PhxtfFs93bcc32VrmeqIXvWsCRF9fw==
-=RXwS
------END PGP SIGNATURE-----
-
---Gfkuz1LFkvb5qJgu--
+Z3Jyci4uLiB0b3AtcG9zdGluZyBiZWNhdXNlIG91dGx1Y2sgaXMgcmVhbGx5IHN0dXBpZCA6LSgN
+Cg0KVGhlIGRlZmluaXRpb24gc2VlbXMgdG8gYmU6DQp0eXBlZGVmIGludCBfX2JpdHdpc2U8aHR0
+cHM6Ly9lbGl4aXIuYm9vdGxpbi5jb20vbGludXgvdjUuMTktcmM3L0MvaWRlbnQvX19iaXR3aXNl
+PiBzbmRfcGNtX2Zvcm1hdF90PGh0dHBzOi8vZWxpeGlyLmJvb3RsaW4uY29tL2xpbnV4L3Y1LjE5
+LXJjNy9DL2lkZW50L3NuZF9wY21fZm9ybWF0X3Q+Ow0KI2RlZmluZSBTTkRSVl9QQ01fRk9STUFU
+X1M4PGh0dHBzOi8vZWxpeGlyLmJvb3RsaW4uY29tL2xpbnV4L3Y1LjE5LXJjNy9DL2lkZW50L1NO
+RFJWX1BDTV9GT1JNQVRfUzg+ICAgICgoX19mb3JjZTxodHRwczovL2VsaXhpci5ib290bGluLmNv
+bS9saW51eC92NS4xOS1yYzcvQy9pZGVudC9fX2ZvcmNlPiBzbmRfcGNtX2Zvcm1hdF90PGh0dHBz
+Oi8vZWxpeGlyLmJvb3RsaW4uY29tL2xpbnV4L3Y1LjE5LXJjNy9DL2lkZW50L3NuZF9wY21fZm9y
+bWF0X3Q+KSAwKQ0KI2RlZmluZSBTTkRSVl9QQ01fRk9STUFUX1U4PGh0dHBzOi8vZWxpeGlyLmJv
+b3RsaW4uY29tL2xpbnV4L3Y1LjE5LXJjNy9DL2lkZW50L1NORFJWX1BDTV9GT1JNQVRfVTg+ICAg
+ICgoX19mb3JjZTxodHRwczovL2VsaXhpci5ib290bGluLmNvbS9saW51eC92NS4xOS1yYzcvQy9p
+ZGVudC9fX2ZvcmNlPiBzbmRfcGNtX2Zvcm1hdF90PGh0dHBzOi8vZWxpeGlyLmJvb3RsaW4uY29t
+L2xpbnV4L3Y1LjE5LXJjNy9DL2lkZW50L3NuZF9wY21fZm9ybWF0X3Q+KSAxKQ0KI2RlZmluZSBT
+TkRSVl9QQ01fRk9STUFUX1MxNl9MRTxodHRwczovL2VsaXhpci5ib290bGluLmNvbS9saW51eC92
+NS4xOS1yYzcvQy9pZGVudC9TTkRSVl9QQ01fRk9STUFUX1MxNl9MRT4gICAgICAgICgoX19mb3Jj
+ZTxodHRwczovL2VsaXhpci5ib290bGluLmNvbS9saW51eC92NS4xOS1yYzcvQy9pZGVudC9fX2Zv
+cmNlPiBzbmRfcGNtX2Zvcm1hdF90PGh0dHBzOi8vZWxpeGlyLmJvb3RsaW4uY29tL2xpbnV4L3Y1
+LjE5LXJjNy9DL2lkZW50L3NuZF9wY21fZm9ybWF0X3Q+KSAyKQ0KLi4uDQooZ29lcyBhd2F5IGFu
+ZCBsb29rcyB1cCBfX2JpdHdJc2UpDQoNCkkgdGhpbmsgSeKAmWQgYWRkOg0KI2RlZmluZSBzbmRf
+cGNtX2Zvcm1hdCh2YWwpICgoX19mb3JjZSBzbmRfcGNtX2Zvcm1hdF90KSh2YWwpKQ0KYW5kIHVz
+ZSB0aGF0IHRvIHJlbW92ZSBtb3N0IG9mIHRoZSBjYXN0cy4NCkJ1dCB0aGUgb25lcyB3aGVyZSB5
+b3UgaGF2ZSAodTMyICopJnh4eCBhcmUgb25seSB2YWxpZCBiZWNhdXNlIHUzMiBhbmQgaW50IGFy
+ZSB0aGUgc2FtZSBzaXplLg0KVGhhdCBkb2VzIHNvcnQgb2YgaGFwcGVuIHRvIGJlIHRydWUsIGJ1
+dCBzb21lb25lIG1pZ2h0IGxvb2sgYXQgYWxsIHRoZSB2YWx1ZXMgYW5kDQpkZWNpZGUgdGhhdCB1
+OCBpcyBiaWcgZW5vdWdoLg0KQWZ0ZXIgd2hpY2ggdGhlIGNvZGUgd2lsbCBzdGlsbCBjb21waWxl
+LCBidXQgdGhlIGRhdGEgYXJlYXMgZ2V0IGNvcnJ1cHRlZC4NClNvIHlvdSByZWFsbHkgbmVlZCB0
+byB1c2UgYSB1MzIg4oCYdGVtcOKAmSB2YXJpYWJsZS4NCg0KSXQgd291bGQgYWxsIGJlIHNsaWdo
+dGx5IGxlc3MgcHJvYmxlbWF0aWMgaWYgdGhlIOKAmGZvcmNl4oCZIGNhc3RzIGNvdWxkIGJlIHNw
+YXJzZSBvbmx5DQooaWUgbm90IHNlZW4gYnkgdGhlIGNvbXBpbGVyKSDigJMgc28gdGhlIGNvbXBp
+bGVyIHdvdWxkIGRvIHRoZSB0eXBlIGNoZWNraW5nLg0KDQogICAgICAgICAgICAgICAgRGF2aWQN
+Cg0KRnJvbTogU2hlbmdqaXUgV2FuZyA8c2hlbmdqaXUud2FuZ0BnbWFpbC5jb20+DQpTZW50OiAx
+OSBKdWx5IDIwMjIgMTI6MDcNClRvOiBEYXZpZCBMYWlnaHQgPERhdmlkLkxhaWdodEBBQ1VMQUIu
+Q09NPg0KQ2M6IE1hcmsgQnJvd24gPGJyb29uaWVAa2VybmVsLm9yZz47IFNoZW5naml1IFdhbmcg
+PHNoZW5naml1LndhbmdAbnhwLmNvbT47IFhpdWJvLkxlZUBnbWFpbC5jb207IGZlc3RldmFtQGdt
+YWlsLmNvbTsgbmljb2xlb3RzdWthQGdtYWlsLmNvbTsgbGdpcmR3b29kQGdtYWlsLmNvbTsgcGVy
+ZXhAcGVyZXguY3o7IHRpd2FpQHN1c2UuY29tOyBhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmc7
+IGxpbnV4cHBjLWRldkBsaXN0cy5vemxhYnMub3JnOyBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwu
+b3JnDQpTdWJqZWN0OiBSZTogW1BBVENIIC1uZXh0IDIvNV0gQVNvQzogZnNsX2FzcmM6IGZvcmNl
+IGNhc3QgdGhlIGFzcmNfZm9ybWF0IHR5cGUNCg0KDQoNCk9uIFR1ZSwgSnVsIDE5LCAyMDIyIGF0
+IDY6MzQgUE0gRGF2aWQgTGFpZ2h0IDxEYXZpZC5MYWlnaHRAYWN1bGFiLmNvbTxtYWlsdG86RGF2
+aWQuTGFpZ2h0QGFjdWxhYi5jb20+PiB3cm90ZToNCkZyb206IE1hcmsgQnJvd24NCj4gU2VudDog
+MTkgSnVseSAyMDIyIDExOjE3DQo+DQo+IE9uIFR1ZSwgSnVsIDE5LCAyMDIyIGF0IDEwOjAxOjU0
+QU0gKzAwMDAsIERhdmlkIExhaWdodCB3cm90ZToNCj4gPiBGcm9tOiBTaGVuZ2ppdSBXYW5nDQo+
+DQo+ID4gPiAtIHJldCA9IG9mX3Byb3BlcnR5X3JlYWRfdTMyKG5wLCAiZnNsLGFzcmMtZm9ybWF0
+IiwgJmFzcmMtPmFzcmNfZm9ybWF0KTsNCj4gPiA+ICsgcmV0ID0gb2ZfcHJvcGVydHlfcmVhZF91
+MzIobnAsICJmc2wsYXNyYy1mb3JtYXQiLCAodTMyICopJmFzcmMtPmFzcmNfZm9ybWF0KTsNCj4N
+Cj4gPiBVZ2csIHlvdSByZWFsbHkgc2hvdWxkbid0IG5lZWQgdG8gZG8gdGhhdC4NCj4gPiBJdCBt
+ZWFucyB0aGF0IHNvbWV0aGluZyBpcyBiYWRseSB3cm9uZyBzb21ld2hlcmUuDQo+ID4gQ2FzdGlu
+ZyBwb2ludGVycyB0byBpbnRlZ2VyIHR5cGVzIGlzIGp1c3QgYXNraW5nIGZvciBhIGJ1Zy4NCj4N
+Cj4gVGhhdCdzIGNhc3Rpbmcgb25lIHBvaW50ZXIgdHlwZSB0byBhbm90aGVyIHBvaW50ZXIgdHlw
+ZS4NCg0KSXQgaXMgY2FzdGluZyB0aGUgYWRkcmVzcyBvZiBzb21lIHR5cGUgdG8gYSAndTMyICon
+Lg0KVGhpcyB3aWxsIHRoZW4gYmUgZGVyZWZlcmVuY2VkIGJ5IHRoZSBjYWxsZWQgZnVuY3Rpb24u
+DQpTbyB0aGUgb3JpZ2luYWwgdHlwZSBiZXR0ZXIgYmUgMzIgYml0cy4NCg0KSSdtIGFsc28gZ3Vl
+c3NpbmcgdGhhdCBzcGFyc2Ugd2FzIGNvbXBsYWluaW5nIGFib3V0IGVuZGlhbm5lc3M/DQpJdCBp
+c24ndCBhdCBhbGwgY2xlYXIgdGhhdCB0aGVzZSBjYXN0cyBhY3R1YWxseSBmaXggaXQuDQpUaGUg
+c3BhcnNlIGlzIGNvbXBsYWluaW5nIGFib3V0IHRoZSBzbmRfcGNtX2Zvcm1hdF90IGNhc3QgdG8g
+dTMyL2ludCB0eXBlLg0KDQpUaGUgY29kZSBpbiBpbmNsdWRlL3NvdW5kL3BjbS5oIGFsc28gZG9l
+cyBzdWNoIF9fZm9yY2UgY2FzdC4NCiNkZWZpbmUgX1NORFJWX1BDTV9GTVRCSVQoZm10KSAgICAg
+ICAgICAoMVVMTCA8PCAoX19mb3JjZSBpbnQpU05EUlZfUENNX0ZPUk1BVF8jI2ZtdCkNCg0KVGhl
+IGNoYW5nZSBJIGhhdmUgbWFkZSBkb2VzIG5vdCBjYXVzZSBhbiBpc3N1ZS4NCg0KQmVzdCByZWdh
+cmRzDQpXYW5nIHNoZW5naml1DQoNCihNYXJrOiBZb3UnbGwgYmUgZ2xhZCB0byBoZWFyIHRoYXQg
+dGhlIG9mZmljZSBhaXJjb24gaXMNCmJyb2tlbiBhZ2FpbiAtIHR3byB3ZWVrcyBsZWFkIHRpbWUg
+b24gdGhlIHNwYXJlIHBhcnQuKQ0KDQogICAgICAgIERhdmlkDQoNCi0NClJlZ2lzdGVyZWQgQWRk
+cmVzcyBMYWtlc2lkZSwgQnJhbWxleSBSb2FkLCBNb3VudCBGYXJtLCBNaWx0b24gS2V5bmVzLCBN
+SzEgMVBULCBVSw0KUmVnaXN0cmF0aW9uIE5vOiAxMzk3Mzg2IChXYWxlcykNCg0KLQ0KUmVnaXN0
+ZXJlZCBBZGRyZXNzIExha2VzaWRlLCBCcmFtbGV5IFJvYWQsIE1vdW50IEZhcm0sIE1pbHRvbiBL
+ZXluZXMsIE1LMSAxUFQsIFVLDQpSZWdpc3RyYXRpb24gTm86IDEzOTczODYgKFdhbGVzKQ0K

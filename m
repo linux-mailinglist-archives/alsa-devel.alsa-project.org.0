@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B16E157968B
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Jul 2022 11:45:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 807F9579699
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Jul 2022 11:46:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4377015E2;
-	Tue, 19 Jul 2022 11:44:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4377015E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2208C16DC;
+	Tue, 19 Jul 2022 11:45:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2208C16DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658223929;
-	bh=ps6G2RMtFKrhS1JM+CHobuM8RxTyF2xqjK0hRo2QSgA=;
+	s=default; t=1658223982;
+	bh=36ICGYrtvF7Ty8e8VB08wM/riCa3xLtIQApietZ3vS0=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Zmw7aYrWuy24G62cC8IKRjjE6Mg8XWiCshZN6Mr/0UwkaRlaTNSptSpAWQXsH6fjz
-	 vNCsBrIPylO9i0f3FXtZNbdZpD6sFI/aDTsj47Sg3dO8770n2ct4XU8N7+vBfDAHRe
-	 qquszB2iu2WjCuUWy70gmxKLI8X1AC94Ku4+oTE0=
+	b=JgOgwiFShuzcDGhjs6CP4qT4EbbGCnNBJmZb7nRC1yU6gByoiWjZVr8eO/fULmGc4
+	 ijz7VacGWVVfQC9n415qLjpIkxPHgHRuAQVW7kcFXwJvIhIVL5SozPdkMLd+c6VZLr
+	 VnusB2i3uJ2W2FP3J0avcT121Md2KC+C8BzuH/8M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CCAC7F80517;
-	Tue, 19 Jul 2022 11:44:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9128CF8055A;
+	Tue, 19 Jul 2022 11:44:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5C942F804FA; Tue, 19 Jul 2022 11:44:27 +0200 (CEST)
+ id 961ECF80559; Tue, 19 Jul 2022 11:44:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,29 +33,28 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 42DF9F80125
- for <alsa-devel@alsa-project.org>; Tue, 19 Jul 2022 11:44:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42DF9F80125
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7A6F5F8016D
+ for <alsa-devel@alsa-project.org>; Tue, 19 Jul 2022 11:44:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A6F5F8016D
 Received: from inva021.nxp.com (localhost [127.0.0.1])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id A37CB200C0E;
- Tue, 19 Jul 2022 11:44:20 +0200 (CEST)
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id A247E200C11;
+ Tue, 19 Jul 2022 11:44:21 +0200 (CEST)
 Received: from aprdc01srsp001v.ap-rdc01.nxp.com
  (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 5CF98200BFE;
- Tue, 19 Jul 2022 11:44:20 +0200 (CEST)
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 5BAA1200C05;
+ Tue, 19 Jul 2022 11:44:21 +0200 (CEST)
 Received: from localhost.localdomain (shlinux2.ap.freescale.net
  [10.192.224.44])
- by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id A8562180222C;
- Tue, 19 Jul 2022 17:44:18 +0800 (+08)
+ by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id AFE23181D0CA;
+ Tue, 19 Jul 2022 17:44:19 +0800 (+08)
 From: Shengjiu Wang <shengjiu.wang@nxp.com>
 To: shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
  nicoleotsuka@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
  perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
  linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Subject: [PATCH -next 1/5] ASoC: fsl_sai: Don't use plain integer as NULL
- pointer
-Date: Tue, 19 Jul 2022 17:27:40 +0800
-Message-Id: <1658222864-25378-2-git-send-email-shengjiu.wang@nxp.com>
+Subject: [PATCH -next 2/5] ASoC: fsl_asrc: force cast the asrc_format type
+Date: Tue, 19 Jul 2022 17:27:41 +0800
+Message-Id: <1658222864-25378-3-git-send-email-shengjiu.wang@nxp.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1658222864-25378-1-git-send-email-shengjiu.wang@nxp.com>
 References: <1658222864-25378-1-git-send-email-shengjiu.wang@nxp.com>
@@ -76,27 +75,39 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 Fix sparse warning:
-sound/soc/fsl/fsl_sai.c:64:39: sparse: warning: Using plain integer as NULL pointer
+sound/soc/fsl/fsl_asrc.c:1177:60: sparse: warning: incorrect type in argument 3 (different base types)
+sound/soc/fsl/fsl_asrc.c:1177:60: sparse:    expected unsigned int [usertype] *out_value
+sound/soc/fsl/fsl_asrc.c:1177:60: sparse:    got restricted snd_pcm_format_t *
+sound/soc/fsl/fsl_asrc.c:1200:47: sparse: warning: restricted snd_pcm_format_t degrades to integer
 
-Fixes: b4ee8a913e61 ("ASoc: fsl_sai: Add pinctrl operation for PDM and DSD")
+Fixes: 4520af41fd21 ("ASoC: fsl_asrc: Support new property fsl,asrc-format")
 Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 ---
- sound/soc/fsl/fsl_sai.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/fsl/fsl_asrc.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
-index 974ba0780b19..7523bb944b21 100644
---- a/sound/soc/fsl/fsl_sai.c
-+++ b/sound/soc/fsl/fsl_sai.c
-@@ -61,7 +61,7 @@ static inline bool fsl_sai_dir_is_synced(struct fsl_sai *sai, int dir)
+diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
+index 20a9f8e924b3..544395efd605 100644
+--- a/sound/soc/fsl/fsl_asrc.c
++++ b/sound/soc/fsl/fsl_asrc.c
+@@ -1174,7 +1174,7 @@ static int fsl_asrc_probe(struct platform_device *pdev)
+ 		return ret;
+ 	}
  
- static struct pinctrl_state *fsl_sai_get_pins_state(struct fsl_sai *sai, u32 bclk)
- {
--	struct pinctrl_state *state = 0;
-+	struct pinctrl_state *state = NULL;
+-	ret = of_property_read_u32(np, "fsl,asrc-format", &asrc->asrc_format);
++	ret = of_property_read_u32(np, "fsl,asrc-format", (u32 *)&asrc->asrc_format);
+ 	if (ret) {
+ 		ret = of_property_read_u32(np, "fsl,asrc-width", &width);
+ 		if (ret) {
+@@ -1197,7 +1197,7 @@ static int fsl_asrc_probe(struct platform_device *pdev)
+ 		}
+ 	}
  
- 	if (sai->is_pdm_mode) {
- 		/* DSD512@44.1kHz, DSD512@48kHz */
+-	if (!(FSL_ASRC_FORMATS & (1ULL << asrc->asrc_format))) {
++	if (!(FSL_ASRC_FORMATS & (1ULL << (__force u32)asrc->asrc_format))) {
+ 		dev_warn(&pdev->dev, "unsupported width, use default S24_LE\n");
+ 		asrc->asrc_format = SNDRV_PCM_FORMAT_S24_LE;
+ 	}
 -- 
 2.34.1
 
